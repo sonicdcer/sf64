@@ -1,0 +1,3 @@
+[submodule "splat"]
+	path = splat
+	url = https://github.com/ethteck/splat
