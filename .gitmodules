@@ -1,6 +1,3 @@
-[submodule "splat"]
-	path = splat
-	url = https://github.com/ethteck/splat
 [submodule "tools/splat"]
 	path = tools/splat
 	url = https://github.com/ethteck/splat/
