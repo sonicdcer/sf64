@@ -1,0 +1,6 @@
+asm
+*.ld
+*.d
+undefined*
+*.n64
+*.z64
