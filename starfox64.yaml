@@ -37,6 +37,7 @@ options:
 
   extensions_path: tools/splat_ext
 
+  #disasm_unknown: True
   # string_encoding: ASCII
   # data_string_encoding: ASCII
   rodata_string_guesser_level: 2
@@ -69,16 +70,12 @@ segments:
     subsegments:
       - [0x1050, asm]
       - [0x1270, asm]
-      - [0xDE480, rodata]
-      - [0x128D30, rodata]
-      - [0x318E10, rodata]
-      - [0x932480, rodata]
-      - [0x932A80, rodata]
-      - [0x9556A0, rodata]
-      - [0x957080, rodata]
-    #  - { start: 0xDE480, type: bss, vram: 0x800DD880 }
+      - [0x3440, asm] #func_80002840
+      - [0x35A8, asm]
+      - [0xC3EE0, data]
+      - { start: 0xDE480, type: bss, vram: 0x800DD880 }
 
-  #- type: bin
-  #  start: 0xDE480
-  #  follows_vram: main
+  - type: bin
+    start: 0xDE480
+    follows_vram: main
   - [0xC00000]

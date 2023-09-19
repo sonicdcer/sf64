@@ -4,3 +4,4 @@ asm
 undefined*
 *.n64
 *.z64
+*.bin
