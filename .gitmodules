@@ -1,3 +1,6 @@
 [submodule "tools/splat"]
 	path = tools/splat
 	url = https://github.com/ethteck/splat/
+[submodule "tools/asm-processor"]
+	path = tools/asm-processor
+	url = https://github.com/simonlindholm/asm-processor
