@@ -1,4 +1,5 @@
 asm
+.splat/
 starfox64.ld
 *.d
 *_auto.ld
