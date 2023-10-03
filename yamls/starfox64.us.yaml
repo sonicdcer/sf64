@@ -2,9 +2,9 @@ name: Starfox64 (North America)
 sha1: 09f0d105f476b00efa5303a3ebc42e60a7753b7a
 options:
   basename: starfox64
-  target_path: sf64.z64
+  target_path: baserom.us.z64
   elf_path: build/starfox64.elf
-  base_path: .
+  base_path: ..
   platform: n64
   compiler: ido
 
@@ -71,7 +71,7 @@ segments:
       - [0x1050, asm]
       - [0x1270, asm]
       - [0x3440, asm] #func_80002840
-      - [0x35A8, asm]
+      - [0x35A8, c]
       - [0xC3EE0, data]
       - { start: 0xDE480, type: bss, vram: 0x800DD880 }
 
