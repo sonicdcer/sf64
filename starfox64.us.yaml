@@ -4,32 +4,12 @@ options:
   basename: starfox64
   target_path: baserom.us.z64
   elf_path: build/starfox64.elf
-  base_path: ..
-  platform: n64
-  compiler: ido
-
-  asm_path: asm/us
-  src_path: src
-  build_path: build
-  # create_asm_dependencies: True
-
   ld_script_path: linker_scripts/us/starfox64.ld
-  ld_dependencies: True
-
+  base_path: .
+  compiler: IDO
   find_file_boundaries: True
   header_encoding: ASCII
-
-  o_as_suffix: True
-  use_legacy_include_asm: False
-  mips_abi_float_regs: o32
-
-  asm_function_macro: glabel
-  asm_jtbl_label_macro: jlabel
-  asm_data_macro: dlabel
-
-  # section_order: [".text", ".data", ".rodata", ".bss"]
-  # auto_all_sections: [".data", ".rodata", ".bss"]
-
+  platform: n64
   undefined_funcs_auto_path: linker_scripts/us/auto/undefined_funcs_auto.ld
   undefined_syms_auto_path: linker_scripts/us/auto/undefined_syms_auto.ld
 
@@ -40,7 +20,42 @@ options:
   reloc_addrs_path:
     - relocs/reloc_addrs.us.txt
 
+  asm_path: asm/us
+  src_path: src
+  asset_path: bin/us
+
+  build_path: build
+
   extensions_path: tools/splat_ext
+  mips_abi_float_regs: o32
+  create_asm_dependencies: True
+  do_c_func_detection: True
+  o_as_suffix: True
+  gfx_ucode: f3dex
+  mnemonic_ljust: 12
+  rom_address_padding: True
+  dump_symbols: True
+  include_macro_inc: False
+  libultra_symbols: True
+  hardware_regs: True
+
+  ld_dependencies: True
+
+
+  use_legacy_include_asm: False
+
+  asm_function_macro: glabel
+  asm_jtbl_label_macro: jlabel
+  asm_data_macro: dlabel
+
+  # section_order: [".text", ".data", ".rodata", ".bss"]
+  # auto_all_sections: [".data", ".rodata", ".bss"]
+
+  
+
+  
+
+  
 
   #disasm_unknown: True
   # string_encoding: ASCII

@@ -200,13 +200,14 @@ endif
 #### Main Targets ###
 
 extract:
-#   $(RM) -r asm/$(VERSION) bin/$(VERSION)
-#	$(CAT) yamls/$(VERSION)/header.yaml yamls/$(VERSION)/makerom.yaml yamls/$(VERSION)/main.yaml > $(SPLAT_YAML)
-	$(SPLAT) yamls/$(SPLAT_YAML)
+	$(RM) -r asm/$(VERSION) bin/$(VERSION)
+	$(CAT) yamls/$(VERSION)/starfox64.us.yaml > $(SPLAT_YAML)
+	$(SPLAT) $(SPLAT_YAML)
 
 clean:
 	@git clean -fdx asm/
 	@git clean -fdx assets/
+	@git clean -fdx bin/
 	@git clean -fdx build/
 
 
