@@ -1,5 +1,5 @@
 asm
-*.ld
+starfox64.ld
 *.d
 undefined*
 *.n64

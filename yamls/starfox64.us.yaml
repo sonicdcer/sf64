@@ -13,7 +13,7 @@ options:
   build_path: build
   # create_asm_dependencies: True
 
-  ld_script_path: starfox64.ld
+  ld_script_path: linker_scripts/us/starfox64.ld
   ld_dependencies: True
 
   find_file_boundaries: True
