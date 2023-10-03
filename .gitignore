@@ -1,7 +1,7 @@
 asm
 starfox64.ld
 *.d
-undefined*
+*_auto.ld
 *.n64
 *.z64
 *.bin
