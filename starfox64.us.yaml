@@ -57,7 +57,7 @@ options:
 
   
 
-  #disasm_unknown: True
+  disasm_unknown: True
   # string_encoding: ASCII
   # data_string_encoding: ASCII
   rodata_string_guesser_level: 2
@@ -88,11 +88,12 @@ segments:
     follows_vram: entry
     bss_size: 0x9B1F0
     subsegments:
-      - [0x1050, asm]
-      - [0x1270, asm]
+      - [0x1050, bin]
+      - [0x1270, bin]
       - [0x3440, asm] #func_80002840
       - [0x35A8, asm]
       - [0xC3EE0, data]
+      - [0xC8E40, rodata]
       - { start: 0xDE480, type: bss, vram: 0x800DD880 }
 
   - type: bin

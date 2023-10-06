@@ -189,6 +189,11 @@ build/src/%.o: CC := $(ASM_PROC) $(ASM_PROC_FLAGS) $(CC) -- $(AS) $(ASFLAGS) --
 
 all: uncompressed
 
+init:
+	$(MAKE) clean
+	$(MAKE) extract -j
+	$(MAKE) all
+
 uncompressed: $(ROM)
 ifneq ($(COMPARE),0)
 	@md5sum $(ROM)
