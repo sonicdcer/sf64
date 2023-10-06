@@ -1,6 +1,7 @@
 asm
 .splat/
 starfox64.ld
+starfox64.us.yaml
 *.d
 *_auto.ld
 *.n64
