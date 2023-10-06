@@ -7,7 +7,7 @@
     subsegments:
       - [0x1050, textbin]
       - [0x1270, textbin]
-      - [0x3440, asm] #func_80002840
+      - [0x3440, c] #func_80002840
       - [0x3A80, asm]
       - [0x41D0, asm]
       - [0x4650, asm]
@@ -15,7 +15,7 @@
       - [0x7B20, asm]
       - [0x7D30, asm]
       - [0x7FC0, asm, 7FC0]
-      - [0x8CC0, asm]
+      - [0x8CC0, asm, 8CC0]
       - [0xC870, asm]
       - [0xF0A0, asm]
       - [0x12490, asm]
@@ -139,7 +139,7 @@
       - [0xC3430, asm]
       - [0xC3EE0, data]
       - [0xC8E40, rodata, 7FC0]
-      - [0xC9220, rodata]
+      - [0xC9220, rodata, 8CC0]
       - [0xC9260, rodata]
       - [0xC92C0, rodata]
       - [0xC92F0, rodata]

@@ -54,7 +54,7 @@ options:
   
 
   
-
+  mips_abi_float_regs: o32
   
 
   disasm_unknown: True
