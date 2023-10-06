@@ -13,7 +13,8 @@
       - [0xC8E40, rodata]
       - { start: 0xDE480, type: bss, vram: 0x800DD880 }
 
-  - type: bin
+  - name: unkbin
+    type: bin
     start: 0xDE480
     follows_vram: main
   - [0xC00000]
