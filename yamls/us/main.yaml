@@ -7,7 +7,9 @@
     subsegments:
       - [0x1050, textbin]
       - [0x1270, textbin]
-      - [0x3440, c] #func_80002840
+
+    # CODE
+      - [0x3440, c]
       - [0x3A80, c]
       - [0x41D0, c]
       - [0x4650, c]
@@ -138,7 +140,11 @@
       - [0xBB360, asm, BB360]
       - [0xBD360, asm]
       - [0xC3430, asm]
+
+      # DATA
       - [0xC3EE0, data]
+
+      # RODATA
       - [0xC8E40, rodata, 7FC0]
       - [0xC9220, rodata, 8CC0]
       - [0xC9260, rodata]
