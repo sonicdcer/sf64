@@ -91,7 +91,7 @@ segments:
       - [0x1050, asm]
       - [0x1270, asm]
       - [0x3440, asm] #func_80002840
-      - [0x35A8, c]
+      - [0x35A8, asm]
       - [0xC3EE0, data]
       - { start: 0xDE480, type: bss, vram: 0x800DD880 }
 
