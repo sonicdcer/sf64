@@ -1,10 +1,14 @@
-  - name: makerom
+  - name: header
+    type: header
+    start: 0x0
+
+  - name: boot
+    type: bin
+    start: 0x40
+
+  - name: entry
     type: code
-    start: 0x000000
+    start: 0x1000
+    vram: 0x80000400
     subsegments:
-      - [0x000000, header, makerom/header]
-      - [0x000040, bin, makerom/ipl3]
-      - start: 0x001000
-        type: hasm
-        name: makerom/entry
-        vram: 0x80000400
+      - [0x1000, asm]

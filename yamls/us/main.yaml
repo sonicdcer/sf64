@@ -1,12 +1,12 @@
-- name: main
+  - name: main
     type: code
     start: 0x1050
     vram: 0x80000450
     follows_vram: entry
     bss_size: 0x9B1F0
     subsegments:
-      - [0x1050, asm]
-#      - [0x1270, bin]
+      - [0x1050, bin]
+      - [0x1270, bin]
       - [0x3440, asm] #func_80002840
       - [0x35A8, asm]
       - [0xC3EE0, data]
