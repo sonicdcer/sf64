@@ -16,8 +16,8 @@
       - [0x5A20, c]
       - [0x7B20, c]
       - [0x7D30, c]
-      - [0x7FC0, asm, 7FC0]
-      - [0x8CC0, asm, 8CC0]
+      - [0x7FC0, c, 7FC0]
+      - [0x8CC0, c, 8CC0]
       - [0xC870, asm]
       - [0xF0A0, asm]
       - [0x12490, asm, 12490]
@@ -145,8 +145,8 @@
       - [0xC3EE0, data]
 
       # RODATA
-      - [0xC8E40, rodata, 7FC0]
-      - [0xC9220, rodata, 8CC0]
+      - [0xC8E40, .rodata, 7FC0]
+      - [0xC9220, .rodata, 8CC0]
       - [0xC9260, rodata]
       - [0xC92C0, rodata]
       - [0xC92F0, rodata]
