@@ -1,6 +1,7 @@
 #include "common.h"
 
 s32 func_800071FC(s32*);
+s32 func_800072E0(s32*);
 s32 func_80020720(s32*, s32, s32);
 
 extern s32 D_800E2318;
