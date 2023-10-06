@@ -1,8 +1,8 @@
   - name: main
     type: code
+    dir: main
     start: 0x1050
     vram: 0x80000450
-    follows_vram: entry
     bss_size: 0x9B1F0
     subsegments:
       - [0x1050, bin]
