@@ -79,7 +79,7 @@ segments:
     start: 0x1000
     vram: 0x80000400
     subsegments:
-      - [0x1000, hasm]
+      - [0x1000, asm]
 
   - name: main
     type: code
