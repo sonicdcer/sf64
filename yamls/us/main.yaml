@@ -150,7 +150,6 @@
       - [0xC9260, .rodata, C870]
       - [0xC9280, rodata, F0A0]
       - [0xC92C0, rodata]
-      - [0xC92F0, rodata]
       - [0xC9320, rodata, 14AA0]
       - [0xC99D0, rodata]
       - [0xC9F10, rodata]
