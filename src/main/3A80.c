@@ -1,6 +1,8 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/3A80/func_80002E80.s")
+void func_80002E80(void) {
+    func_8001FA04();
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/3A80/func_80002EA0.s")
 
