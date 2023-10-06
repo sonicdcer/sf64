@@ -10,7 +10,9 @@
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7B20/func_80007068.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7B20/func_8000707C.s")
+void func_8000707C(s32* arg0, s32 arg1) {
+    *arg0 = arg1;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7B20/func_80007088.s")
 
