@@ -242,6 +242,7 @@
       - [0xD8EE0, rodata]
       - [0xD97F0, rodata, BB360]
       - [0xD9E50, rodata]
+      - [0xD9F60, rodata]
       - [0xDA030, rodata]
       - [0xDC620, rodata]
       - [0xDD330, rodata]
