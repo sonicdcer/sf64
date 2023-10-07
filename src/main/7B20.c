@@ -13,7 +13,7 @@ void func_80006F38(s32 arg0) {
     s32 new_var2;
     s32* new_var3;
 
-    if (((!D_80144BD0) && (!D_80144BD0)) && (!D_80144BD0)) {}
+    if (!D_80144BD0) {}
 
     new_var2 = arg0;
     new_var = *(new_var3 = &new_var2);
