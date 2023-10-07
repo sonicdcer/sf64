@@ -1,7 +1,7 @@
 #include "common.h"
 
 extern s32 D_8013C3D0;
-extern s32* D_80144BD0;
+extern s32 D_80144BD0;
 
 void func_80006F20(void) {
     D_80144BD0 = &D_8013C3D0;
