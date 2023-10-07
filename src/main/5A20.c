@@ -1,12 +1,22 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80004E20.s")
+f32 func_80004E20(f32 arg0, f32 arg1) {
+    return arg0 - ((s32)(arg0 / arg1) * arg1);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80004E4C.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80004EB0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80004FC8.s")
+extern s32 D_8013B3A0;
+extern s32 D_8013B3B0;
+extern s32 D_8013B3B4;
+
+void func_80004FC8(s32 arg0, s32 arg1, s32 arg2) {
+    D_8013B3B0 = arg0;
+    D_8013B3B4 = arg1;
+    D_8013B3A0 = arg2;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80004FE8.s")
 
