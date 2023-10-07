@@ -138,7 +138,7 @@
       - [0xA4B50, asm]
       - [0xB99D0, asm]
       - [0xBB360, asm, BB360]
-      - [0xBD360, asm]
+      - [0xBD360, asm, BD360]
       - [0xC3430, asm, C3430]
 
       # DATA
@@ -241,7 +241,7 @@
       - [0xD8ED0, rodata]
       - [0xD8EE0, rodata]
       - [0xD97F0, rodata, BB360]
-      - [0xD9E50, rodata]
+      - [0xD9E50, rodata, BD360]
       - [0xD9F60, rodata, C3430]
       - [0xDA030, rodata]
       - [0xDC620, rodata]
