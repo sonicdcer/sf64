@@ -1,8 +1,13 @@
 #include "common.h"
 
-s32 func_800234B0(s32*, u8, s32, s32);
-
+extern s64 D_800C7E10;
 extern s32 D_800E2128;
+
+extern s32 func_800234B0(s32*, u8, s32, s32);
+extern s32 func_800237B0(s32*, u8, s32);
+extern s64 func_80023CF8(s64, s64);
+extern s64 func_80023DF8(s64, s64);
+extern void func_800070C8(s64);
 
 s32 func_80007130(s32 arg0, s32 arg1) {
     if (func_800234B0(&D_800E2128, arg0, arg1, arg0) != 0) {
@@ -12,7 +17,21 @@ s32 func_80007130(s32 arg0, s32 arg1) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7D30/func_8000716C.s")
+s32 func_8000716C(s32 arg0, s32 arg1) {
+    s64 temp_ret;
+    s64 temp_ret_2;
+    s64 temp_ret_3;
+
+    if (func_800237B0(&D_800E2128, arg0, arg1) != 0) {
+        return -1;
+    }
+    temp_ret = func_80023CF8(D_800C7E10, 0x3D09);
+    temp_ret_2 = func_80023DF8(0x3A98, temp_ret);
+    temp_ret_3 = func_80023CF8(temp_ret_2, 0x40);
+    func_800070C8(temp_ret_3);
+
+    return 0;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7D30/func_800071FC.s")
 
