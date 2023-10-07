@@ -7,7 +7,7 @@ extern s32 D_8013B3AC;
 extern s32 D_8013B3B0;
 extern s32 D_8013B3B4;
 
-extern void func_80005680(s32, s32, s32*);
+extern void func_80005680(s32, s32);
 extern u64 func_80023000(void);
 
 f32 func_80004E20(f32 arg0, f32 arg1) {
@@ -84,7 +84,7 @@ void func_80005604(s32* arg0, s32* arg1, s32 arg2, s32 arg3, s32 arg4) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80005680.s")
 
 void func_80005708(s32* arg0) {
-    func_80005680(*arg0 + 64, *arg0, arg0);
+    func_80005680(*arg0 + 64, *arg0);
     *arg0 += 0x40;
 }
 
