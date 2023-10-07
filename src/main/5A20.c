@@ -1,5 +1,7 @@
 #include "common.h"
 
+extern f32 D_800C80FC;
+extern f32 D_800C8100;
 extern s32 D_8013B3A0;
 extern s32 D_8013B3A4;
 extern s32 D_8013B3A8;
@@ -8,6 +10,7 @@ extern s32 D_8013B3B0;
 extern s32 D_8013B3B4;
 
 extern void func_80005680(s32, s32);
+extern f32 func_8001FBE8(f32);
 extern u64 func_80023000(void);
 
 f32 func_80004E20(f32 arg0, f32 arg1) {
@@ -34,7 +37,23 @@ void func_80004FC8(s32 arg0, s32 arg1, s32 arg2) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_800051F8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80005320.s")
+f32 func_80005320(f32 arg0, f32 arg1) {
+    if ((arg0 == 0.0f) && (arg1 == 0.0f)) {
+        return 0.0f;
+    }
+    
+    if (arg0 == 0.0f) {
+        if (arg1 < 0.0f) {
+            return D_800C80FC;
+        }
+        return D_800C8100;
+    }
+    
+    if (arg1 == 0.0f) {
+        return 0.0f;
+    }
+    return -func_8001FBE8(arg0 / arg1);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_800053C8.s")
 
@@ -81,6 +100,7 @@ void func_80005604(s32* arg0, s32* arg1, s32 arg2, s32 arg3, s32 arg4) {
     *arg0 = arg4;
 }
 
+// https://decomp.me/scratch/8H8k4 100%
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80005680.s")
 
 void func_80005708(s32* arg0) {
