@@ -30,7 +30,15 @@ void func_80004FC8(s32 arg0, s32 arg1, s32 arg2) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_800054C8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_800055DC.s")
+f32 func_800055DC(f32 arg0, s32 arg1) {
+    f32 var_fv1 = 1.0f;
+    
+    while (arg1 > 0) {
+        arg1--;
+        var_fv1 *= arg0;
+    }
+    return var_fv1;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80005604.s")
 
