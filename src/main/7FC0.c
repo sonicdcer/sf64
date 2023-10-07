@@ -1,5 +1,14 @@
 #include "common.h"
 
+typedef struct {
+    char pad_0[0x9CC];
+    s32 unk9CC;
+    s16 unk9D0;
+    s16 unk9D2;
+} UnkStruct_D_80145360;
+
+extern UnkStruct_D_80145360 D_80145360;
+
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/func_800073C0.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/func_800074AC.s")
@@ -68,6 +77,15 @@
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/func_80007D58.s")
 
+// Matches with IDO 5.3, maybe this is the right compiler for the game?
+#ifdef NON_MATCHING
+void func_80007FE4(s32 arg0, u16 arg1, u16 arg2) {
+    D_80145360.unk9CC = arg0;
+    D_80145360.unk9D0 = arg1;
+    D_80145360.unk9D2 = arg2;
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/func_80007FE4.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/func_80008018.s")
