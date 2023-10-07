@@ -1,5 +1,13 @@
 #include "common.h"
 
+typedef struct {
+    s8 unk0;
+    char pad_0[0x27];
+    void* unk28;
+    s32 unk2C;
+    s32 unk30;
+} UnkStruct_func_80007088;
+
 extern s32 D_8013C3D0;
 extern s32 D_80144BD0;
 
@@ -27,6 +35,14 @@ void func_8000707C(s32* arg0, s32 arg1) {
     *arg0 = arg1;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7B20/func_80007088.s")
+void func_80007088(UnkStruct_func_80007088* arg0) {
+    void (*temp_v0)(s32, s32);
+
+    temp_v0 = arg0->unk28;
+    if (temp_v0 != NULL) {
+        temp_v0(arg0->unk2C, arg0->unk30);
+    }
+    arg0->unk0 = 0;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7B20/func_800070C8.s")
