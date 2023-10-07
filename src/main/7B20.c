@@ -9,6 +9,7 @@ void func_80006F20(void) {
 
 s32 func_80006F38(s32 arg0) {
     s32 tmp = D_80144BD0;
+    
     D_80144BD0 = ((arg0 + 0xF) & ~0xF) + D_80144BD0;
     return tmp;
 }
