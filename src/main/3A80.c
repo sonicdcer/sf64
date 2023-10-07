@@ -1,5 +1,7 @@
 #include "common.h"
 
+extern void func_8001FA04(void);
+
 void func_80002E80(void) {
     func_8001FA04();
 }
