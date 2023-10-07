@@ -1,1 +1,2 @@
 bootproc = 0x80004DA8;
+D_800C90F0 = 0x800C90F0;
