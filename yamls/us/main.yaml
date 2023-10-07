@@ -149,8 +149,7 @@
       - [0xC9220, .rodata, 8CC0]
       - [0xC9260, .rodata, C870]
       - [0xC9280, .rodata, F0A0]
-      - [0xC92C0, rodata]
-      - [0xC92F0, rodata]
+      - [0xC92C0, rodata, 12490]
       - [0xC9320, rodata, 14AA0]
       - [0xC99D0, rodata, 17650]
       - [0xC9F10, rodata]
@@ -251,7 +250,7 @@
       - [0xDDD60, rodata]
       - [0xDDD70, rodata]
       - [0xDDD80, rodata]
-      - [0xDDE80, rodata, 12490]
+      - [0xDDE80, rodata]
       - { start: 0xDE480, type: bss, vram: 0x800DD880 }
 
   - name: unkbin
