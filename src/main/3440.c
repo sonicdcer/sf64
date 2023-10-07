@@ -32,5 +32,4 @@ void func_80002C50(void) {
     func_80020720(&D_800E2318, 14, 0);
 }
 
-
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/3440/func_80002CB8.s")

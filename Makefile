@@ -215,6 +215,12 @@ clean:
 	@git clean -fdx bin/
 	@git clean -fdx build/
 
+format:
+	@./tools/format.py
+
+checkformat:
+	@./tools/check_format.sh
+
 
 #### Various Recipes ####
 
