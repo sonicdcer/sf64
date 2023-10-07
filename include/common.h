@@ -13,3 +13,6 @@ typedef float f32;
 #define bool s32
 
 #define NULL 0
+
+double fabs(double f);
+#pragma intrinsic(fabs)

@@ -1,6 +1,10 @@
 #include "common.h"
 
 extern f32 D_800C80FC;
+extern f32 D_800C80D8;
+extern f32 D_800C80DC;
+extern f32 D_800C80E0;
+extern f32 D_800C80E4;
 extern f32 D_800C8100;
 extern s32 D_8013B3A0;
 extern s32 D_8013B3A4;
@@ -9,9 +13,11 @@ extern s32 D_8013B3AC;
 extern s32 D_8013B3B0;
 extern s32 D_8013B3B4;
 
+
 extern void func_80005680(s32, s32);
 extern f32 func_8001FBE8(f32);
 extern u64 func_80023000(void);
+extern f32 func_8001FBE8(f32); 
 
 f32 func_80004E20(f32 arg0, f32 arg1) {
     return arg0 - ((s32)(arg0 / arg1) * arg1);
@@ -33,7 +39,29 @@ void func_80004FC8(s32 arg0, s32 arg1, s32 arg2) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80004FE8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80005100.s")
+f32 func_80005100(f32 arg0, f32 arg1) {
+    if ((arg0 == 0.0f) && (arg1 == 0.0f)) {
+        return 0.0f;
+    }
+
+    if (arg1 == 0.0f) {
+        if (arg0 < 0.0f) {
+            return D_800C80D8;
+        } else {
+            return D_800C80DC;
+        }
+    }
+
+    if (arg1 < 0.0f) {
+        if (arg0 < 0.0f) {
+            return -(D_800C80E0 - func_8001FBE8(fabs(arg0 / arg1)));
+        } else {
+            return D_800C80E4 - func_8001FBE8(fabs(arg0 / arg1));
+        }
+    } else {
+        return func_8001FBE8(arg0 / arg1);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_800051F8.s")
 
