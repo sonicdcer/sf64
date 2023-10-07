@@ -52,9 +52,9 @@ f32 func_80005100(f32 arg0, f32 arg1) {
 
     if (arg1 < 0.0f) {
         if (arg0 < 0.0f) {
-            return -(D_800C80E0 - func_8001FBE8(fabs(arg0 / arg1)));
+            return -(D_800C80E0 - func_8001FBE8(fabsf(arg0 / arg1)));
         } else {
-            return D_800C80E4 - func_8001FBE8(fabs(arg0 / arg1));
+            return D_800C80E4 - func_8001FBE8(fabsf(arg0 / arg1));
         }
     } else {
         return func_8001FBE8(arg0 / arg1);
