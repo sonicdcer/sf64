@@ -28,7 +28,9 @@
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80005708.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80005740.s")
+void func_80005740(s32* arg0) {
+    *arg0 -= 64;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80005754.s")
 
