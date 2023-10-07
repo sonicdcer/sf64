@@ -142,6 +142,7 @@ void func_80005740(s32* arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80005B00.s")
 
+// https://decomp.me/scratch/v4KEJ 91%
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80005C34.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80005D44.s")
