@@ -1,16 +1,24 @@
 #include "common.h"
 
 extern s32 D_8013B3A0;
+extern s32 D_8013B3A4;
+extern s32 D_8013B3A8;
+extern s32 D_8013B3AC;
 extern s32 D_8013B3B0;
 extern s32 D_8013B3B4;
 
-void func_80005680(s32, s32, s32*);
+extern void func_80005680(s32, s32, s32*);
+extern u64 func_80023000(void);
 
 f32 func_80004E20(f32 arg0, f32 arg1) {
     return arg0 - ((s32)(arg0 / arg1) * arg1);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80004E4C.s")
+void func_80004E4C(void) {
+    D_8013B3A4 = (s32)func_80023000() % 30000;
+    D_8013B3A8 = (s32)func_80023000() % 30000;
+    D_8013B3AC = (s32)func_80023000() % 30000;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80004EB0.s")
 
