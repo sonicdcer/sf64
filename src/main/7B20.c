@@ -1,6 +1,11 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7B20/func_80006F20.s")
+extern s32 D_8013C3D0;
+extern s32* D_80144BD0;
+
+void func_80006F20(void) {
+    D_80144BD0 = &D_8013C3D0;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7B20/func_80006F38.s")
 
