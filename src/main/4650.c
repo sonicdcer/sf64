@@ -31,6 +31,7 @@ s32 func_80022B60(void);
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/4650/func_80003FEC.s")
 
+// https://decomp.me/scratch/vo7No Random Nops missing
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/4650/func_800040D4.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/4650/func_80004144.s")
