@@ -10,7 +10,7 @@
 #ifdef NON_MATCHING
 void func_8002B2C0(s32* arg0, s32* arg1, s32 arg2, u32 arg3) {
     s32 pad;
-    
+
     arg3 = arg2;
     arg2--;
 
