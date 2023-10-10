@@ -76,7 +76,7 @@
       - [0x25920, c, settime]
       - [0x25950, asm]
       - [0x25960, c, aisetfreq]
-#      - [0x25AC0, asm]
+      - [0x25AC0, asm]
       - [0x25BB0, c, epidma]
       - [0x25C90, c, aigetlen]
       - [0x25CA0, asm]
