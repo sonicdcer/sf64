@@ -36,7 +36,7 @@
       - [0x21320, c, sendmesg]
       - [0x21470, c, contquery]
       - [0x21520, asm]
-      - [0x21B40, asm, perspective] # rodata problem when trying to extract as C
+      - [0x21B40, asm, perspective] # Problem when trying to C
       - [0x21DD0, c, lookat]
       - [0x22100, c, ortho]
       - [0x222C0, hasm, invalicache]
@@ -63,13 +63,13 @@
       - [0x23680, c, setthreadpri]
       - [0x23760, asm]
       - [0x23C00, c, gettime]
-      - [0x23C90, asm, sinf]
-      - [0x23E50, asm, cosf]
+      - [0x23C90, asm, sinf] # Problem when trying to C
+      - [0x23E50, asm, cosf] # Problem when trying to C
       - [0x23FC0, hasm, sqrtf]
       - [0x23FD0, c, settimer]
       - [0x240B0, c, conteepread]
       - [0x243B0, c, conteepwrite]
-#      - [0x24890, asm, ll]
+      - [0x24890, asm, ll]
 #      - [0x24B50, asm, conteepprobe]
       - [0x24BC0, c, string]
       - [0x24C60, asm, 24C60]
