@@ -58,7 +58,7 @@
       - [0x22D90, c, dpsetstat]
       - [0x22DA0, c, createthread]
       - [0x22EF0, c, startthread]
-#      - [0x23040, c, vimgr]
+      - [0x23040, c, vimgr]
       - [0x233A0, asm]
       - [0x23680, c, setthreadpri]
 #      - [0x23760, asm]
