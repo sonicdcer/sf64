@@ -31,7 +31,7 @@
       - [0x206B0, asm, 206B0]
       - [0x20A60, asm]
       - [0x20BC0, c, ../libultra/io/controller]
-      - [0x20F80, c, contreaddata]
+      - [0x20F80, c, ../libultra/io/contreaddata]
       - [0x211E0, c, recvmesg]
       - [0x21320, c, sendmesg]
       - [0x21470, c, contquery]
@@ -87,7 +87,7 @@
       - [0x25F10, asm, thread] # Problem when trying to C
       - [0x25F50, asm]
       - [0x26CD0, c, pfsisplug]
-      - [0x27040, c, crc]
+      - [0x27040, c, ../libultra/io/crc]
       - [0x271C0, asm]
       - [0x278D0, c, mtxutil]
       - [0x27B40, c, jammesg]
