@@ -140,7 +140,7 @@
       - [0x2BD40, hasm, getcause]
       - [0x2BD50, asm]
       - [0x2BDF0, c, 2BDF0]
-      - [0x2C700, asm]
+      - [0x2C700, c]
       - [0x2D300, asm]
       - [0x2DF00, asm, 2DF00]
       - [0x2E9E0, asm]
