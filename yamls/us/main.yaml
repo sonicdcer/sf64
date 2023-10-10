@@ -140,10 +140,10 @@
       - [0x2BD40, hasm, ../libultra/getcause]
       - [0x2BD50, asm]
       - [0x2BDF0, c, ../libultra/2BDF0]
-      - [0x2C700, c, ../libultra/2C700] # -01 -g0
+      - [0x2C700, c, ../libultra/2C700] # -O1 -g0
       - [0x2D300, c, ../libultra/2D300] # -O1 -g0
       - [0x2DF00, asm, 2DF00] # Problem when trying to C
-      - [0x2E9E0, asm]
+      - [0x2E9E0, c, ../libultra/2E9E0]
       - [0x2EDE0, asm]
       - [0x2EE30, asm, 2EE30]
       - [0x2EE80, asm, ../libultra/os/stopthread] # Problem when trying to C
