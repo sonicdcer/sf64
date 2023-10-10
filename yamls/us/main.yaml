@@ -145,6 +145,7 @@
       - [0x2E9E0, asm]
       - [0x2EDE0, asm]
       - [0x2EE30, asm, 2EE30]
+      - [0x2EE80, asm, stopthread] # Problem when trying to C
       - [0x36930, asm, 36930]  # don't touch before fixing rodata
       - [0x43AC0, asm]  # don't touch before fixing rodata
       - [0x43E80, asm, 43E80]
