@@ -134,7 +134,7 @@
       - [0x2BA70, c, epirawwrite]
       - [0x2BAC0, c, epirawread]
       - [0x2BB10, c, setglobalintmask]
-      - [0x2BB60, asm]
+      - [0x2BB60, c, yieldthread]
       - [0x2BBB0, asm]
       - [0x2BD40, asm]
       - [0x2BD50, asm]
