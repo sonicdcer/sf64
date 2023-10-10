@@ -98,7 +98,7 @@
       - [0x27E20, hasm, bcopy]
       - [0x28130, c, virtualtophysical]
       - [0x281B0, hasm, writebackdcache]
-      - [0x28230, asm]
+      - [0x28230, c, spsetpc]
       - [0x28270, asm]
       - [0x28300, asm]
       - [0x28330, asm]
