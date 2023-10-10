@@ -100,7 +100,7 @@
       - [0x281B0, hasm, writebackdcache]
       - [0x28230, c, spsetpc]
       - [0x28270, c, sprawdma]
-      - [0x28300, asm]
+      - [0x28300, c, sp]
       - [0x28330, asm]
       - [0x28800, asm]
       - [0x28820, asm]
