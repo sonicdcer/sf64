@@ -69,7 +69,7 @@
       - [0x23FD0, c, settimer]
       - [0x240B0, c, conteepread]
       - [0x243B0, c, conteepwrite]
-      - [0x24890, asm, ll]
+      - [0x24890, c, ll]
       - [0x24B50, asm, conteepprobe]
       - [0x24BC0, c, string]
       - [0x24C60, asm, 24C60]
