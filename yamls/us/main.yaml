@@ -104,7 +104,7 @@
       - [0x28330, asm]
       - [0x28800, c, getthreadpri]
       - [0x28820, asm]
-      - [0x28830, asm]
+      - [0x28830, c, viswapcontext]
       - [0x28B90, asm]
       - [0x28C90, asm]
       - [0x29060, asm, 29060]
