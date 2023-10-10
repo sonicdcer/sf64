@@ -54,7 +54,7 @@
       - [0x22990, c, visetevent]
       - [0x22A00, c, sptaskyielded]
       - [0x22A80, c, sptaskyield]
-#      - [0x22AA0, asm]
+      - [0x22AA0, c, sptask]
       - [0x22D90, c, dpsetstat]
       - [0x22DA0, c, createthread]
       - [0x22EF0, c, startthread]
