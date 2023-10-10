@@ -125,7 +125,7 @@
       - [0x2AAB0, asm]
       - [0x2AD80, asm]
       - [0x2AE10, asm]
-      - [0x2B690, asm]
+      - [0x2B690, hasm, setintmask]
       - [0x2B830, asm]
       - [0x2B940, asm]
       - [0x2BA00, asm]
