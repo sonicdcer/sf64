@@ -136,7 +136,7 @@
       - [0x2BB10, c, setglobalintmask]
       - [0x2BB60, c, yieldthread]
       - [0x2BBB0, c, ldiv]
-      - [0x2BD40, asm]
+      - [0x2BD40, hasm, getcause]
       - [0x2BD50, asm]
       - [0x2BDF0, c, 2BDF0]
       - [0x2C700, asm]
