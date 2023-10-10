@@ -10,17 +10,7 @@
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/C870/func_8000BF14.s")
 
-// Matches with IDO 5.3 -02 -g0
-#ifdef NON_MATCHING
-void func_8000BF6C(s32* arg0, s32 arg1, s32 arg2) {
-    arg0[0] = (arg1 + 0xF) & ~0xF;
-    arg0[1] = (arg1 + 0xF) & ~0xF;
-    arg0[2] = arg2 - (arg1 & 0xF);
-    arg0[3] = 0;
-}
-#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/C870/func_8000BF6C.s")
-#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/C870/func_8000BF94.s")
 

@@ -1,20 +1,10 @@
 #include "common.h"
 
-extern s32 D_800D31B0[];
-extern s64* D_80137E64;
-
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/B99D0/func_800B8DD0.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/B99D0/func_800B8E14.s")
 
-void func_800B8F18(void) {
-    s32* temp_v1 = (s32*)D_80137E64;
-
-    D_80137E64++;
-    // clang-format off
-    temp_v1[0] = 0x06000000; temp_v1[1] = (s32)D_800D31B0;
-    // clang-format on
-}
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/B99D0/func_800B8F18.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/B99D0/func_800B8F48.s")
 
