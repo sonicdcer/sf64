@@ -95,7 +95,7 @@
       - [0x27CC0, asm]
       - [0x27E00, c, spgetstat]
       - [0x27E10, c, spsetstat]
-      - [0x27E20, asm]
+      - [0x27E20, hasm, bcopy]
       - [0x28130, asm]
       - [0x281B0, asm]
       - [0x28230, asm]
