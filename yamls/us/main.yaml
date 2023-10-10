@@ -87,8 +87,9 @@
       - [0x25F10, asm, thread] # Problem when trying to C
       - [0x25F50, asm]
       - [0x26CD0, c, pfsisplug]
-      - [0x27040, asm]
-      - [0x278D0, asm]
+      - [0x27040, c, crc]
+#      - [0x271C0, asm]
+      - [0x278D0, c, mtxutil]
       - [0x27B40, asm]
       - [0x27CC0, asm]
       - [0x27E00, asm]
