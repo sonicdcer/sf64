@@ -34,7 +34,7 @@
       - [0x20F80, c, contreaddata]
       - [0x211E0, c, recvmesg]
       - [0x21320, c, sendmesg]
-      - [0x21470, asm, contquery]
+      - [0x21470, c, contquery]
       - [0x21520, asm]
       - [0x21B40, asm, perspective]
       - [0x21DD0, c, lookat]
