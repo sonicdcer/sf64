@@ -67,7 +67,7 @@
       - [0x23E50, asm, cosf]
       - [0x23FC0, hasm, sqrtf]
       - [0x23FD0, c, settimer]
-      - [0x240B0, asm]
+      - [0x240B0, c, conteepread]
       - [0x243B0, asm]
       - [0x24BC0, asm]
       - [0x24C60, asm, 24C60]
