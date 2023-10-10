@@ -1,6 +1,6 @@
 #include "common.h"
 
-// One -01 -g0, likely part of libultra 
+// One -01 -g0, likely part of libultra
 
 s32 func_8002DE78(s32, s32, s32);
 
