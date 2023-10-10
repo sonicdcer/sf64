@@ -163,7 +163,7 @@
       - [0xA24B0, asm, A24B0]  # don't touch before fixing rodata
       - [0xA48A0, asm, A48A0]
       - [0xA4B50, asm]  # don't touch before fixing rodata
-      - [0xB99D0, asm]
+      - [0xB99D0, c]
       - [0xBB360, asm, BB360]  # don't touch before fixing rodata
       - [0xBD360, asm, BD360]
       - [0xC3430, asm, C3430]
