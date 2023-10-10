@@ -148,12 +148,13 @@
       - [0x2EE30, asm, 2EE30]
       - [0x2EE80, asm, stopthread] # Problem when trying to C
       - [0x36930, asm, 36930]  # don't touch before fixing rodata
+      - [0x3EDE0, asm, 3EDE0] # could be a fake split
       - [0x43AC0, asm]  # don't touch before fixing rodata
       - [0x43E80, asm, 43E80]
       - [0x496C0, asm, 496C0]  # don't touch before fixing rodata
       - [0x52730, asm, 52730] # don't touch before fixing rodata
       - [0x59780, asm, 59780]
-      - [0x5A2C0, asm]
+      - [0x5A2C0, asm]  # -02 -g3
       - [0x6B3B0, asm, 6B3B0]
       - [0x77E40, asm]
       - [0x84F70, asm, 84F70]
@@ -164,7 +165,7 @@
       - [0xA48A0, asm, A48A0]
       - [0xA4B50, asm]  # don't touch before fixing rodata
       
-      - [0xB99D0, c] # -02 -g3 from here on
+      - [0xB99D0, c] # -02 -g3
       - [0xBB360, asm, BB360]  # don't touch before fixing rodata
       - [0xBD360, asm, BD360]
       - [0xC3430, asm, C3430]
@@ -195,7 +196,7 @@
       - [0xCA650, rodata]
       - [0xCA690, rodata]
       - [0xCA7C0, rodata]
-      - [0xCA830, rodata, 36930]
+      - [0xCA830, rodata, 3EDE0]
       - [0xCAB00, rodata]
       - [0xCAB10, rodata]
       - [0xCAB20, rodata, 43E80]
