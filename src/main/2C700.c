@@ -24,7 +24,6 @@ s32 func_8002DE78(s32, s32, s32);
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/2C700/func_8002C698.s")
 
-
 typedef struct {
     char pad_0[0x4];
     u8 unk4;
