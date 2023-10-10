@@ -8,7 +8,7 @@
       - [0x1050, textbin]
       - [0x1270, textbin]
 
-    # CODE
+    # LIBULTRA
       - [0x3440, c]
       - [0x3A80, c]
       - [0x41D0, c]
@@ -95,26 +95,26 @@
       - [0x27CC0, c, ../libultra/io/vi]
       - [0x27E00, c, ../libultra/io/spgetstat]
       - [0x27E10, c, ../libultra/io/spsetstat]
-      - [0x27E20, hasm, bcopy]
+      - [0x27E20, hasm, ../libultra/bcopy]
       - [0x28130, c, ../libultra/os/virtualtophysical]
       - [0x281B0, hasm, writebackdcache]
       - [0x28230, c, ../libultra/io/spsetpc]
       - [0x28270, c, ../libultra/io/sprawdma]
       - [0x28300, c, ../libultra/io/sp]
-      - [0x28330, asm]
+      - [0x28330, asm, ../libultra/28330]
       - [0x28800, c, ../libultra/os/getthreadpri]
-      - [0x28820, asm]
+      - [0x28820, asm, ../libultra/28820]
       - [0x28830, c, ../libultra/io/viswapcontext]
-      - [0x28B90, asm]
-      - [0x28C90, asm]
+      - [0x28B90, asm, ../libultra/28B90]
+      - [0x28C90, asm, ../libultra/28C90]
       - [0x28D50, c, ../libultra/io/pirawdma]
       - [0x28E30, c, ../libultra/io/epirawdma] # Problem when trying to C
       - [0x29060, asm, ../libultra/io/devmgr]
-      - [0x294F0, asm]
+      - [0x294F0, asm, ../libultra/294F0]
       - [0x297B0, hasm, ../libultra/setsr]
       - [0x297C0, hasm, ../libultra/getsr]
       - [0x297D0, hasm, ../libultra/setfpccsr]
-      - [0x297E0, asm]
+      - [0x297E0, asm, ../libultra/297E0]
       - [0x29880, hasm, ../libultra/maptlbrdb]
       - [0x298E0, c, ../libultra/io/pirawread]
       - [0x29940, hasm, ../libultra/bzero]
@@ -122,13 +122,13 @@
       - [0x29C80, asm, ../libultra/rmon/xldtob] # Problem when trying to C
       - [0x2A740, c, ../libultra/io/ai]
       - [0x2A770, c, ../libultra/io/si]
-      - [0x2A7A0, asm]
-      - [0x2AAB0, asm]
-      - [0x2AD80, asm]
+      - [0x2A7A0, asm, ../libultra/2A7A0]
+      - [0x2AAB0, asm, ../libultra/2AAB0]
+      - [0x2AD80, asm, ../libultra/2AD80]
       - [0x2AE10, c, ../libultra/leointerrupt]
       - [0x2B690, hasm, ../libultra/setintmask]
       - [0x2B730, c, ../libultra/os/destroythread]
-      - [0x2B830, asm]
+      - [0x2B830, asm, ../libultra/2B830]
       - [0x2B940, hasm, ../libultra/probetlb]
       - [0x2BA00, hasm, ../libultra/setcompare]
       - [0x2BA10, c, ../libultra/os/resetglobalintmask]
@@ -138,17 +138,18 @@
       - [0x2BB60, c, ../libultra/os/yieldthread]
       - [0x2BBB0, c, ../libultra/libc/ldiv]
       - [0x2BD40, hasm, ../libultra/getcause]
-      - [0x2BD50, asm]
+      - [0x2BD50, asm, ../libultra/2BD50]
       - [0x2BDF0, c, ../libultra/2BDF0]
       - [0x2C700, c, ../libultra/2C700] # -O1 -g0
       - [0x2D300, c, ../libultra/2D300] # -O1 -g0
       - [0x2DF00, asm, 2DF00] # Problem when trying to C
       - [0x2E9E0, c, ../libultra/2E9E0]
-      - [0x2EDE0, asm]
-      - [0x2EE30, asm, 2EE30]
+      - [0x2EDE0, asm, ../libultra/2EDE0]
+      - [0x2EE30, asm, ../libultra/2EE30]
       - [0x2EE80, asm, ../libultra/os/stopthread] # Problem when trying to C
+
+    # Game code starts here?
       - [0x36930, asm, 36930]  # don't touch before fixing rodata
-      - [0x3EDE0, asm] # could be a fake split
       - [0x43AC0, asm]  # don't touch before fixing rodata
       - [0x43E80, asm, 43E80]
       - [0x496C0, asm, 496C0]  # don't touch before fixing rodata
@@ -164,7 +165,6 @@
       - [0xA24B0, asm, A24B0]  # don't touch before fixing rodata
       - [0xA48A0, asm, A48A0]
       - [0xA4B50, asm]  # don't touch before fixing rodata
-      
       - [0xB99D0, c] # -02 -g3
       - [0xBB360, asm, BB360]  # don't touch before fixing rodata
       - [0xBD360, asm, BD360]
@@ -261,7 +261,7 @@
       - [0xD5670, rodata]
       - [0xD5680, rodata]
       - [0xD5690, rodata]
-      - [0xD5910, rodata, 2EE30]
+      - [0xD5910, rodata, ../libultra/2EE30]
       - [0xD5CF0, rodata]
       - [0xD61F0, rodata]
       - [0xD69A0, rodata, 59780]
