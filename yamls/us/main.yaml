@@ -115,7 +115,7 @@
       - [0x297D0, hasm, setfpccsr]
       - [0x297E0, asm]
       - [0x29880, hasm, maptlbrdb]
-      - [0x298E0, asm]
+      - [0x298E0, c, pirawread]
       - [0x29940, asm]
       - [0x299E0, asm]
       - [0x29C80, asm, 29C80]
