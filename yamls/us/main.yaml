@@ -130,7 +130,7 @@
       - [0x2B830, asm]
       - [0x2B940, hasm, probetlb]
       - [0x2BA00, hasm, setcompare]
-      - [0x2BA10, asm]
+      - [0x2BA10, c, resetglobalintmask]
       - [0x2BA70, asm]
       - [0x2BAC0, asm]
       - [0x2BB60, asm]
