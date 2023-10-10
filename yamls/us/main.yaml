@@ -119,7 +119,7 @@
       - [0x29940, hasm, bzero]
       - [0x299E0, c, xlitob]
       - [0x29C80, asm, xldtob] # Problem when trying to C
-      - [0x2A740, asm]
+      - [0x2A740, c, ai]
       - [0x2A7A0, asm]
       - [0x2AAB0, asm]
       - [0x2AD80, asm]
