@@ -61,7 +61,7 @@
       - [0x23040, c, vimgr]
       - [0x233A0, asm]
       - [0x23680, c, setthreadpri]
-#      - [0x23760, asm]
+      - [0x23760, asm]
       - [0x23C00, c, gettime]
       - [0x23C90, asm, sinf]
       - [0x23E50, asm, cosf]
