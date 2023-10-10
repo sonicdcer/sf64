@@ -107,6 +107,7 @@
       - [0x28830, c, viswapcontext]
       - [0x28B90, asm]
       - [0x28C90, asm]
+      - [0x28D50, c, pirawdma]
       - [0x29060, asm, 29060]
       - [0x297B0, asm]
       - [0x297D0, asm]
