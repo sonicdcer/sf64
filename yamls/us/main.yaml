@@ -81,7 +81,7 @@
       - [0x25C90, c, aigetlen]
       - [0x25CA0, asm]
       - [0x25D50, hasm, getcount]
-      - [0x25D60, asm]
+      - [0x25D60, c, sirawdma]
       - [0x25E10, asm]
       - [0x25F10, asm, 25F10]
       - [0x27040, asm]
