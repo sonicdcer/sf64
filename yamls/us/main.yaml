@@ -102,7 +102,7 @@
       - [0x28270, c, sprawdma]
       - [0x28300, c, sp]
       - [0x28330, asm]
-      - [0x28800, asm]
+      - [0x28800, c, getthreadpri]
       - [0x28820, asm]
       - [0x28830, asm]
       - [0x28B90, asm]
