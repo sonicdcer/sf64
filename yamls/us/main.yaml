@@ -126,6 +126,7 @@
       - [0x2AD80, asm]
       - [0x2AE10, asm]
       - [0x2B690, hasm, setintmask]
+      - [0x2B730, c, destroythread]
       - [0x2B830, asm]
       - [0x2B940, asm]
       - [0x2BA00, asm]
