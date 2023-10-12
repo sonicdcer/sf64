@@ -159,7 +159,7 @@
       - [0x6B3B0, asm, 6B3B0]
       - [0x77E40, asm]
       - [0x84F70, asm, 84F70]
-      - [0x85530, asm, 85530]  # don't touch before fixing rodata
+      - [0x85530, c, hud]  # don't touch before fixing rodata
       - [0x97F80, asm, 97F80]
       - [0x9A580, asm, 9A580]
       - [0xA24B0, asm, A24B0]  # don't touch before fixing rodata
@@ -221,7 +221,7 @@
       - [0xD20E0, rodata]
       - [0xD2550, rodata]
       - [0xD2570, rodata]
-      - [0xD25E0, rodata, 85530]
+      - [0xD25E0, rodata]
       - [0xD2900, rodata]
       - [0xD2D30, rodata]
       - [0xD2D90, rodata]
@@ -266,7 +266,7 @@
       - [0xD61F0, rodata]
       - [0xD69A0, rodata, 59780]
       - [0xD6C20, rodata, 84F70]
-      - [0xD8320, rodata]
+      - [0xD8320, .rodata, hud]
       - [0xD8DE0, rodata, 97F80]
       - [0xD8DF0, rodata, 9A580]
       - [0xD8E50, rodata]
