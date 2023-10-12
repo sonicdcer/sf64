@@ -58,7 +58,7 @@ The build process has a few python packages required that are located in `requir
 To install them simply run in a terminal:
 
 ```bash
-python3 -m pip install -r requirements.txt
+python3 -m pip install -r ./tools/requirements-python.txt
 ```
 
 #### 4. Prepare a base ROM
