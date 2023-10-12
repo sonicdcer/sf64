@@ -13,7 +13,7 @@
       - [0x3A80, c]
       - [0x41D0, c]
       - [0x4650, c]
-      - [0x5A20, c]
+      - [0x5A20, c] # -O2 -g3
       - [0x7B20, c]
       - [0x7D30, c]
       - [0x7FC0, c, 7FC0]
@@ -22,8 +22,8 @@
       - [0xF0A0, c, F0A0]
       - [0x12490, c, 12490]  # don't touch before fixing rodata
       - [0x14AA0, c, 14AA0]
-      - [0x17650, c, 17650]
-      - [0x1EB50, c, 1EB50]
+      - [0x17650, c, 17650] # Sound related
+      - [0x1EB50, c, 1EB50] # Sound related
       - [0x1FA60, c]
       - [0x1FA70, c]
       - [0x1FB10, c]
