@@ -159,7 +159,7 @@
       - [0x6B3B0, asm, 6B3B0]
       - [0x77E40, asm]
       - [0x84F70, asm, 84F70]
-      - [0x85530, c, hud]  # don't touch before fixing rodata
+      - [0x85530, c, hud]
       - [0x97F80, asm, 97F80]
       - [0x9A580, asm, 9A580]
       - [0xA24B0, asm, A24B0]  # don't touch before fixing rodata
