@@ -78,8 +78,8 @@ endif
 
 ### Compiler ###
 
-CC              := tools/ido/$(DETECTED_OS)/7.1/cc
-CC_OLD          := tools/ido/$(DETECTED_OS)/5.3/cc
+CC              := tools/ido_recomp/$(DETECTED_OS)/7.1/cc
+CC_OLD          := tools/ido_recomp/$(DETECTED_OS)/5.3/cc
 
 
 AS              := $(MIPS_BINUTILS_PREFIX)as
