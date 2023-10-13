@@ -5,6 +5,8 @@
 
 void func_80085944(void);
 void func_8008A4DC(void);
+void func_8008B044(void);
+void func_8008B1B0(void);
 void func_8008B2F0(void);
 void func_8008B5B0(f32, f32);
 void func_8008B734(void);
