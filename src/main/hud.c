@@ -108,7 +108,7 @@ void func_8008865C(void) {
         if (D_801617E8[i] != 0) {
             D_801617E8[i]--;
         }
-    } 
+    }
     func_80086CC8();
     func_80086DCC();
     func_80087B5C();
