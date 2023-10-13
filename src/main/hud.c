@@ -213,7 +213,19 @@ void func_8008D1F0(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008D984.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008DC34.s")
+void func_8008DC34(void) {
+    if ((D_80177E7C != 0) && (D_80178750 == 0)) {
+        func_8008D250();
+        func_8008D7F4();
+        func_8008D4F0(0, 0);
+        func_8008D31C();
+        func_8008D984();
+    }
+
+    if (D_80178750 == 0) {
+        func_8008CBE4();
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008DCB0.s")
 

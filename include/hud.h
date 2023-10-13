@@ -22,6 +22,12 @@ void func_8008B5B0(f32, f32);
 void func_8008B734(void);
 void func_8008B9E8(void);
 void func_8008BAE4(void);
+void func_8008CBE4(void);                                  
+void func_8008D250(void);                                  
+void func_8008D31C(void);                                  
+void func_8008D4F0(f32, f32);                              
+void func_8008D7F4(void);                                  
+void func_8008D984(void);      
 void func_8008DC34(void);
 void func_8008E5E8(void);
 void func_8008E620(void);
@@ -56,5 +62,7 @@ extern s32 D_80161690;
 extern s32 D_80177854;
 extern s32 D_80177880;
 extern s32 D_801778E8;
+extern s32 D_80177E7C;
+extern s32 D_80178750;
 
 #endif
