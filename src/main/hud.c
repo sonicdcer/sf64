@@ -1,4 +1,4 @@
-#include "common.h"
+#include "hud.h"
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_80084930.s")
 
