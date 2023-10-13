@@ -38,6 +38,8 @@ extern s32 D_1011AC0;
 extern s32 D_1011B90;
 extern s32 D_1011BB0;
 extern s32 D_1011C80;
+extern s32 D_1011CA0;
+extern s32 D_1011D70;
 extern s32 D_1011D90;
 extern s32 D_1011E60;
 extern s32 D_30013E0;
