@@ -89,7 +89,7 @@ void func_800884E4(void) {
         } else {
             D_80177B50[D_80177B48] |= var_v1;
         }
-        var_v1 = var_v1 >> 8;
+        var_v1 >>= 8;
     }
 }
 
