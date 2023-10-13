@@ -221,7 +221,13 @@ void func_8008F94C(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_800910C0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_80091254.s")
+void func_80091254(void) {
+    if (D_80177880 == 1) {
+        func_80090E8C();
+    } else {
+        func_800910C0();
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_80091298.s")
 
