@@ -134,7 +134,9 @@
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008CA44.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008CB8C.s")
+s32 func_8008CB8C(void) {
+    return 0;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008CB98.s")
 
