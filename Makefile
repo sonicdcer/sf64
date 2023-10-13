@@ -192,7 +192,7 @@ all: uncompressed
 init:
 	$(MAKE) clean
 	$(MAKE) extract -j $(nproc)
-	$(MAKE) all
+	$(MAKE) all -j $(nproc)
 
 uncompressed: $(ROM)
 ifneq ($(COMPARE),0)
