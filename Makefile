@@ -191,7 +191,7 @@ all: uncompressed
 
 init:
 	$(MAKE) clean
-	$(MAKE) extract -j
+	$(MAKE) extract -j $(nproc)
 	$(MAKE) all
 
 uncompressed: $(ROM)
