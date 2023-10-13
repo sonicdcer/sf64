@@ -289,4 +289,4 @@
     type: bin
     start: 0xDE480
     follows_vram: main
-  - [0xC00000]
+  - [0xEFFAE0]
