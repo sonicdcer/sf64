@@ -95,8 +95,18 @@ void func_800884E4(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_80088564.s")
 
-// https://decomp.me/scratch/Ly5cU 98.70%
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008865C.s")
+void func_8008865C(void) {
+    s32 i;
+
+    for (i = 0; i < 5; i++) {
+        if (D_801617E8[i] != 0) {
+            D_801617E8[i]--;
+        }
+    } 
+    func_80086CC8();
+    func_80086DCC();
+    func_80087B5C();
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_800886B8.s")
 
