@@ -18,6 +18,7 @@ void func_8008E620(void);
 void func_80090E8C(void);
 void func_800910C0(void);
 
+extern s32 D_80161690;
 extern s32 D_80177854;
 extern s32 D_80177880;
 extern s32 D_801778E8;

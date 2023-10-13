@@ -104,7 +104,14 @@
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008B1B0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008B2A4.s")
+void func_8008B2A4(void) {
+    if (D_80177854 != 100) {
+        func_8008B044();
+    }
+    if (D_80161690 != 0) {
+        func_8008B1B0();
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008B2F0.s")
 
