@@ -129,7 +129,23 @@ void func_8008BC80(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008BCBC.s")
+s32 func_8008BCBC(s32 arg0) {
+    s32 temp = 10;
+    s32 ret;
+    
+    if (arg0 < 0) {
+        arg0 = (s64) -arg0;
+    }
+    
+    ret = 1;
+    
+    while (arg0 >= temp) {
+        ret++;
+        temp *= 10;
+    }
+
+    return ret;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008BD00.s")
 
