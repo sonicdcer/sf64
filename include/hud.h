@@ -30,7 +30,9 @@ void func_800910C0(void);
 void func_8009D994(s32*, s32*, s32, s32, f32, f32, f32, f32);
 void func_8009E1E8(s32*, s32*, s32, s32, f32, f32, f32, f32);
 
+// Weird addresses, assets maybe?
 extern s32 D_1002280;
+extern s32 D_10030D0;
 extern s32 D_30013E0;
 
 extern s32 D_80137E64;
