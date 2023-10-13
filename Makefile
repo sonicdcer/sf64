@@ -216,10 +216,10 @@ clean:
 	@git clean -fdx build/
 
 format:
-	@./tools/format.py
+	@./tools/format.py -j $(nproc)
 
 checkformat:
-	@./tools/check_format.sh
+	@./tools/check_format.sh -j $(nproc)
 
 
 #### Various Recipes ####
