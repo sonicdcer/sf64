@@ -170,7 +170,12 @@ s32 func_8008CB8C(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008E51C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008E5E8.s")
+void func_8008E5E8(void) {
+    if (D_801778E8 != 0) {
+        func_8008DC34();
+    }
+    func_8008A4DC();
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008E620.s")
 
