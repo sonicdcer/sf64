@@ -3,7 +3,10 @@
 
 #include "global.h"
 
+void func_80085944(void);
 void func_8008A4DC(void);
+void func_8008B2F0(void);
+void func_8008B5B0(f32, f32);
 void func_8008B734(void);
 void func_8008B9E8(void);
 void func_8008BAE4(void);

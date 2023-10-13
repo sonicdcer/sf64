@@ -110,7 +110,11 @@
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008B5B0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008B734.s")
+void func_8008B734(void) {
+    func_8008B2F0();
+    func_8008B5B0(20.0f, 18.0f);
+    func_80085944();
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008B774.s")
 
