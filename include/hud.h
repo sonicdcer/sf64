@@ -3,6 +3,16 @@
 
 #include "global.h"
 
+typedef struct UnkStruct_func_80095350 {
+    /* 0x00 */ s8 unk0;
+    /* 0x01 */ char pad_1[0x1];
+    /* 0x02 */ s16 unk2;
+    /* 0x04 */ char pad_4[0xB2];
+    /* 0xB6 */ s16 unkB6;
+} UnkStruct_func_80095350;
+
+void func_800612B8(void*, u16, void*);
+void func_800613C4(void*);
 void func_80085944(void);
 void func_8008A4DC(void);
 void func_8008B044(void);

@@ -298,7 +298,13 @@ void func_80091254(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_80094D20.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_80095350.s")
+void func_80095350(UnkStruct_func_80095350* arg0) {
+    func_800613C4(arg0);
+    arg0->unk0 = 2;
+    arg0->unk2 = 0xC3;
+    arg0->unkB6 = 0x270F;
+    func_800612B8((s32*)arg0 + 7, arg0->unk2, arg0);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_800953A0.s")
 
