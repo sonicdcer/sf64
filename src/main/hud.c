@@ -178,7 +178,9 @@ s32 func_8008CB8C(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008EA14.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008F94C.s")
+void func_8008F94C(void) {
+    func_8008E5E8();
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008F96C.s")
 
