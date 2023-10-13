@@ -66,6 +66,7 @@ void func_8008566C(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_80088564.s")
 
+// https://decomp.me/scratch/Ly5cU 98.70%
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008865C.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_800886B8.s")
