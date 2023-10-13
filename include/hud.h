@@ -62,9 +62,15 @@ extern s32 D_30013E0;
 
 extern s32 D_80137E64;
 extern s32 D_80161690;
+extern s32 D_80161A98;
 extern s32 D_80177854;
 extern s32 D_80177880;
+extern s32 D_801778B0[];
+extern s32 D_801778BC;
 extern s32 D_801778E8;
+extern s32 D_80177B48;
+extern s32 D_80177B50[];
+extern s32 D_80177B70[];
 extern s32 D_80177E7C;
 extern s32 D_80178750;
 

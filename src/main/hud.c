@@ -76,7 +76,22 @@ void func_800856C0(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_80087B5C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_800884E4.s")
+void func_800884E4(void) {
+    s32 var_v1;
+    s32 i;
+
+    D_80177B70[D_80177B48] = D_80161A98;
+    var_v1 = 0xFF0000;
+
+    for (i = 0; i < 3; i++) {
+        if (D_801778B0[3 - i] <= 0) {
+            D_80177B50[D_80177B48] ^= var_v1;
+        } else {
+            D_80177B50[D_80177B48] |= var_v1;
+        }
+        var_v1 = var_v1 >> 8;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_80088564.s")
 
