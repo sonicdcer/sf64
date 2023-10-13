@@ -195,7 +195,9 @@ void func_8008CB98(f32 arg0, f32 arg1, f32 arg2) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008D0DC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008D1F0.s")
+void func_8008D1F0(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
+    func_8009C320(&D_80137E64, &D_10116B0, &D_1011730, 16, 16, arg0, arg1, arg2, arg3);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008D250.s")
 
