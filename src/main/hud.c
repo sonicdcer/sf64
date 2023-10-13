@@ -6,7 +6,9 @@
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_80084E78.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_800853A4.s")
+void func_800853A4(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
+    func_8009D0BC(&D_80137E64, &D_1013170, &D_1013570, 24, 17, arg0, arg1, arg2, arg3);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_80085404.s")
 
