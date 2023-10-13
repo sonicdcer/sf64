@@ -42,7 +42,9 @@ void func_8008566C(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     func_8009D994(&D_80137E64, &D_10030D0, 8, 12, arg0, arg1, arg2, arg3);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_800856C0.s")
+void func_800856C0(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+    func_80084E78(&D_80137E64, &D_1013580, &D_1013700, 0x30, 0xC, arg0, arg1, arg2, arg3, 48.0f * arg4, 8.0f);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_80085740.s")
 

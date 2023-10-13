@@ -13,6 +13,7 @@ typedef struct UnkStruct_func_80095350 {
 
 void func_800612B8(void*, u16, void*);
 void func_800613C4(void*);
+void func_80084E78(s32*, s32*, s32*, s32, s32, f32, f32, f32, f32, f32, f32);
 void func_80085944(void);
 void func_8008A4DC(void);
 void func_8008B044(void);
@@ -55,6 +56,8 @@ extern s32 D_1011D90;
 extern s32 D_1011E60;
 extern s32 D_1013170;
 extern s32 D_1013570;
+extern s32 D_1013580;
+extern s32 D_1013700;
 extern s32 D_30013E0;
 
 extern s32 D_80137E64;
