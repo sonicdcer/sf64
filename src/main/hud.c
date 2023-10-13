@@ -170,7 +170,9 @@ s32 func_8008CB8C(void) {
     return 0;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008CB98.s")
+void func_8008CB98(f32 arg0, f32 arg1, f32 arg2) {
+    func_8009D994(&D_80137E64, &D_30013E0, 8, 8, arg0, arg1, arg2, arg2);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008CBE4.s")
 

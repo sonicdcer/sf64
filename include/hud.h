@@ -17,7 +17,11 @@ void func_8008E5E8(void);
 void func_8008E620(void);
 void func_80090E8C(void);
 void func_800910C0(void);
+void func_8009D994(s32*, s32*, s32, s32, f32, f32, f32, f32);
 
+extern s32 D_30013E0; // Weird address?
+
+extern s32 D_80137E64;
 extern s32 D_80161690;
 extern s32 D_80177854;
 extern s32 D_80177880;
