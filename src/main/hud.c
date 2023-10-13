@@ -18,7 +18,9 @@
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_8008556C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_800855C4.s")
+void func_800855C4(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
+    func_8009E1E8(&D_80137E64, &D_1002280, 8, 12, arg0, arg1, arg2, arg3);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_80085618.s")
 
