@@ -177,7 +177,7 @@ $(shell mkdir -p $(BUILD_DIR)/linker_scripts/$(VERSION) $(BUILD_DIR)/linker_scri
 
 
 # directory flags
-build/src/main/O2/%.o: OPTFLAGS := -O2
+build/src/libultra/2BDF0.o: OPTFLAGS := -O1 -g0
 
 # per-file flags
 
