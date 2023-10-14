@@ -178,6 +178,7 @@ $(shell mkdir -p $(BUILD_DIR)/linker_scripts/$(VERSION) $(BUILD_DIR)/linker_scri
 
 # Directory flags
 build/src/libultra/io/pidma.o: OPTFLAGS := -O1 -g0
+build/src/main/1EB50.o: OPTFLAGS := -O1 -g0
 build/src/libultra/2C700.o: OPTFLAGS := -O1 -g0
 build/src/libultra/2BDF0.o: OPTFLAGS := -O1 -g0
 
