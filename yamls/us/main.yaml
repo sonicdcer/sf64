@@ -7,8 +7,7 @@
     subsegments:
       - [0x1050, textbin]
       - [0x1270, textbin]
-
-    # LIBULTRA
+    
       - [0x3440, c]
       - [0x3A80, c]
       - [0x41D0, c]
@@ -30,6 +29,8 @@
       - [0x205E0, c]
       - [0x206B0, asm, ../libultra/206B0]
       - [0x20A60, asm]
+
+    # LIBULTRA
       - [0x20BC0, c, ../libultra/io/controller]
       - [0x20F80, c, ../libultra/io/contreaddata]
       - [0x211E0, c, ../libultra/os/recvmesg]
