@@ -218,6 +218,12 @@ format:
 checkformat:
 	@./tools/check_format.sh -j $(nproc)
 
+# asm-differ expected object files
+expected:
+	mkdir -p expected/build
+	rm -rf expected/build/
+	cp -r build/ expected/build/
+
 
 #### Various Recipes ####
 
