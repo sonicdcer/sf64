@@ -8,3 +8,4 @@ starfox64.us.yaml
 *.z64
 *.bin
 /build
+gfxdis*
