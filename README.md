@@ -53,19 +53,25 @@ cd sf64
 
 #### 3. Install python dependencies
 
-The build process has a few python packages required that are located in `requirements.txt`.
+The build process has a few python packages required that are located in `/tools/requirements-python.txt`.
 
 To install them simply run in a terminal:
 
 ```bash
-python3 -m pip install -r requirements.txt
+python3 -m pip install -r ./tools/requirements-python.txt
 ```
 
-#### 4. Prepare a base ROM
+#### 4. Update submodules
+
+```bash
+git submodule update --init --recursive
+```
+
+#### 5. Prepare a base ROM
 
 Copy your ROM to inside the root of this new project directory, and rename the file of the baserom to reflect the version of ROM you are using. ex: `baserom.us.z64`
 
-#### 5. Make and Build the ROM
+#### 6. Make and Build the ROM
 
 To start the extraction/build process, run the following command:
 

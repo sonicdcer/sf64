@@ -1,9 +1,9 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/mtxutil/func_80026CD0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/mtxutil/guMtxF2L.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/mtxutil/func_80026DD0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/mtxutil/guMtxIdentF.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/mtxutil/func_80026E58.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/mtxutil/guMtxIdent.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/mtxutil/func_80026E88.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/mtxutil/guMtxL2F.s")

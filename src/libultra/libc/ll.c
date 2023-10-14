@@ -1,21 +1,21 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/func_80023C90.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/__ull_rshift.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/func_80023CBC.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/__ull_rem.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/func_80023CF8.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/__ull_div.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/func_80023D34.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/__ll_lshift.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/func_80023D60.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/__ll_rem.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/func_80023D9C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/__ll_div.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/func_80023DF8.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/__ll_mul.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/func_80023E28.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/__ull_divremi.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/func_80023E88.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/__ll_mod.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/func_80023F24.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/__ll_rshift.s")

@@ -78,10 +78,7 @@ endif
 
 ### Compiler ###
 
-CC              := tools/ido_recomp/$(DETECTED_OS)/7.1/cc
-CC_OLD          := tools/ido_recomp/$(DETECTED_OS)/5.3/cc
-
-
+CC              := tools/ido_recomp/$(DETECTED_OS)/5.3/cc
 AS              := $(MIPS_BINUTILS_PREFIX)as
 LD              := $(MIPS_BINUTILS_PREFIX)ld
 OBJCOPY         := $(MIPS_BINUTILS_PREFIX)objcopy
@@ -180,9 +177,13 @@ $(shell mkdir -p $(BUILD_DIR)/linker_scripts/$(VERSION) $(BUILD_DIR)/linker_scri
 
 
 # directory flags
-build/src/main/O2/%.o: OPTFLAGS := -O2
 
 # per-file flags
+build/src/libultra/io/pidma.o: OPTFLAGS := -O1 -g0
+build/src/main/1EB50.o: OPTFLAGS := -O1 -g0
+build/src/libultra/2BDF0.o: OPTFLAGS := -O1 -g0
+build/src/libultra/2C700.o: OPTFLAGS := -O1 -g0
+build/src/libultra/2D300.o: OPTFLAGS := -O1 -g0
 
 # cc & asm-processor
 build/src/%.o: CC := $(ASM_PROC) $(ASM_PROC_FLAGS) $(CC) -- $(AS) $(ASFLAGS) --
@@ -191,8 +192,8 @@ all: uncompressed
 
 init:
 	$(MAKE) clean
-	$(MAKE) extract -j
-	$(MAKE) all
+	$(MAKE) extract -j $(nproc)
+	$(MAKE) all -j $(nproc)
 
 uncompressed: $(ROM)
 ifneq ($(COMPARE),0)
@@ -216,10 +217,16 @@ clean:
 	@git clean -fdx build/
 
 format:
-	@./tools/format.py
+	@./tools/format.py -j $(nproc)
 
 checkformat:
-	@./tools/check_format.sh
+	@./tools/check_format.sh -j $(nproc)
+
+# asm-differ expected object files
+expected:
+	mkdir -p expected/build
+	rm -rf expected/build/
+	cp -r build/ expected/build/
 
 
 #### Various Recipes ####
@@ -238,13 +245,16 @@ $(ELF): $(LIBULTRA_O) $(O_FILES) $(LD_SCRIPT) $(BUILD_DIR)/linker_scripts/$(VERS
 $(BUILD_DIR)/%.ld: %.ld
 	$(CPP) $(CPPFLAGS) $(BUILD_DEFINES) $(IINC) $< > $@
 
+# Binary
 $(BUILD_DIR)/%.o: %.bin
 	$(OBJCOPY) -I binary -O elf32-big $< $@
 
+# Assembly
 $(BUILD_DIR)/%.o: %.s
 	$(CPP) $(CPPFLAGS) $(BUILD_DEFINES) $(IINC) -I $(dir $*) $(COMMON_DEFINES) $(RELEASE_DEFINES) $(GBI_DEFINES) $(AS_DEFINES) $< | $(ICONV) $(ICONV_FLAGS) | $(AS) $(ASFLAGS) $(ENDIAN) $(IINC) -I $(dir $*) -o $@
 	$(OBJDUMP_CMD)
 
+# C
 $(BUILD_DIR)/%.o: %.c
 	$(CC_CHECK) $(CC_CHECK_FLAGS) $(IINC) -I $(dir $*) $(CHECK_WARNINGS) $(BUILD_DEFINES) $(COMMON_DEFINES) $(RELEASE_DEFINES) $(GBI_DEFINES) $(C_DEFINES) $(MIPS_BUILTIN_DEFS) -o $@ $<
 	$(CC) -c $(CFLAGS) $(BUILD_DEFINES) $(IINC) $(WARNINGS) $(MIPS_VERSION) $(ENDIAN) $(COMMON_DEFINES) $(RELEASE_DEFINES) $(GBI_DEFINES) $(C_DEFINES) $(OPTFLAGS) -o $@ $<

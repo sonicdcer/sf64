@@ -1,6 +1,6 @@
 #include "common.h"
 
-// One -01 -g0, likely part of libultra
+// OPTFLAGS := -O1 -g0
 
 s32 func_8002DE78(s32, s32, s32);
 
@@ -27,21 +27,19 @@ s32 func_8002DE78(s32, s32, s32);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/2C700/func_8002C698.s")
 
 typedef struct {
-    char pad_0[0x4];
-    u8 unk4;
+    /* 0x00 */ char pad_0[0x4];
+    /* 0x04 */ u8 unk4;
 } Unkstruct_func_8002C6B8_1;
 
 typedef struct {
-    char pad_0[0x4];
-    s8 unk4;
-    char pad_5;
-    s16 unk6;
-    char pad_[0x4];
-    s32 unk12;
+    /* 0x00 */ char pad_0[0x4];
+    /* 0x04 */ s8 unk4;
+    /* 0x05 */ char pad_5;
+    /* 0x06 */ s16 unk6;
+    /* 0x08 */ char pad_[0x4];
+    /* 0x12 */ s32 unk12;
 } Unkstruct_func_8002C6B8_2;
 
-// matches with -O1 -g0 IDO 5.3/7.1
-#ifdef NON_MATCHING
 s32 func_8002C6B8(Unkstruct_func_8002C6B8_1* arg0) {
     Unkstruct_func_8002C6B8_2 temp;
 
@@ -51,6 +49,3 @@ s32 func_8002C6B8(Unkstruct_func_8002C6B8_1* arg0) {
     func_8002DE78(&temp, 16, 1);
     return 0;
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/2C700/func_8002C6B8.s")
-#endif

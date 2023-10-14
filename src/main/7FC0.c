@@ -7,9 +7,9 @@ typedef struct {
     s16 unk9D2;
 } UnkStruct_D_80145360;
 
-void func_80021CF0(s32*, s32*, s32);
-void func_800221A0(UnkStruct_D_80145360*, s32, s32*, s32, s32*, s32);
-void func_800222F0(UnkStruct_D_80145360*);
+void osCreateMesgQueue(s32*, s32*, s32);
+void osCreateThread(UnkStruct_D_80145360*, s32, s32*, s32, s32*, s32);
+void osStartThread(UnkStruct_D_80145360*);
 
 extern UnkStruct_D_80145360 D_80145360;
 extern s32 D_80145D10;
@@ -100,7 +100,7 @@ void func_80008018(void) {
     D_80145360.unk9CC = (osMemSize | 0x80000000) + 0xFFFDA800;
     D_80145360.unk9D0 = 0x140;
     D_80145360.unk9D2 = 0xF0;
-    func_80021CF0(&D_80145D10, &D_80145D28, 1);
-    func_800221A0(&D_80145360, 2, &func_80007D58, 0, &D_80145D10, 0x7F);
-    func_800222F0(&D_80145360);
+    osCreateMesgQueue(&D_80145D10, &D_80145D28, 1);
+    osCreateThread(&D_80145360, 2, &func_80007D58, 0, &D_80145D10, 0x7F);
+    osStartThread(&D_80145360);
 }

@@ -1,4 +1,6 @@
 asm
+expected
+__pycache__
 .splat/
 starfox64.ld
 starfox64.us.yaml
@@ -8,3 +10,4 @@ starfox64.us.yaml
 *.z64
 *.bin
 /build
+gfxdis*

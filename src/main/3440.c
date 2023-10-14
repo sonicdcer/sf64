@@ -2,8 +2,8 @@
 
 extern s32 func_800071FC(s32*);
 extern s32 func_800072E0(s32*);
-extern void func_8001FFC0(s32*, u8*, s32*);
-extern s32 func_80020720(s32*, s32, s32);
+extern void osContInit(s32*, u8*, s32*);
+extern s32 osSendMesg(s32*, s32, s32);
 
 extern s8 D_800DD8B0;
 extern s8 D_800DD8B1;
@@ -24,7 +24,7 @@ extern s32 D_80144F60;
 void func_8000291C(void) {
     u8 sp1F;
 
-    func_8001FFC0(&D_800E2128, &sp1F, &D_800DD8F0);
+    osContInit(&D_800E2128, &sp1F, &D_800DD8F0);
     D_800DD8B0 = sp1F & 1;
     D_800DD8B8 = 0;
     D_800DD8B1 = (sp1F >> 1) & 1;
@@ -41,18 +41,18 @@ void func_8000291C(void) {
 
 void func_80002BE8(void) {
     if ((D_80137E80 == 0) && (func_800072E0(&D_80144F60) == 0)) {
-        func_80020720(&D_800E2318, 15, 0);
+        osSendMesg(&D_800E2318, 15, 0);
         return;
     }
-    func_80020720(&D_800E2318, 14, 0);
+    osSendMesg(&D_800E2318, 14, 0);
 }
 
 void func_80002C50(void) {
     if ((D_80137E80 == 0) && (func_800071FC(&D_80144F60) == 0)) {
-        func_80020720(&D_800E2318, 15, 0);
+        osSendMesg(&D_800E2318, 15, 0);
         return;
     }
-    func_80020720(&D_800E2318, 14, 0);
+    osSendMesg(&D_800E2318, 14, 0);
 }
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/3440/func_80002CB8.s")
