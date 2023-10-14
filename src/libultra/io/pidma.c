@@ -1,5 +1,7 @@
 #include "global.h"
 
+// OPTFLAGS := -O1 -g0
+
 typedef struct {
     s16 unk0;
     s8 unk2;
