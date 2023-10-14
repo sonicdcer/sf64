@@ -176,7 +176,8 @@ DEP_FILES := $(O_FILES:.o=.d) \
 $(shell mkdir -p $(BUILD_DIR)/linker_scripts/$(VERSION) $(BUILD_DIR)/linker_scripts/$(VERSION)/auto $(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(BIN_DIRS),$(BUILD_DIR)/$(dir)))
 
 
-# directory flags
+# Directory flags
+build/src/libultra/2C700.o: OPTFLAGS := -O1 -g0
 build/src/libultra/2BDF0.o: OPTFLAGS := -O1 -g0
 
 # per-file flags
