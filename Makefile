@@ -211,6 +211,9 @@ endif
 decompress: baserom.us.z64
 	$(PYTHON) $(COMPTOOL) -d ./baserom.us.z64 ./baserom.us.uncompressed.z64
 
+compress: baserom.us.uncompressed.z64
+	$(PYTHON) $(COMPTOOL) -c ./baserom.us.uncompressed.z64 ./build/starfox64.z64
+
 extract:
 	$(RM) -r asm/$(VERSION) bin/$(VERSION)
 	$(CAT) yamls/$(VERSION)/header.yaml yamls/$(VERSION)/makerom.yaml yamls/$(VERSION)/main.yaml > $(SPLAT_YAML)
