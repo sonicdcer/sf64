@@ -108,9 +108,8 @@ def compress(baserom, comprom, mio0, extract_dest=None):
             
             compfile.seek(0, 2)
 
-            print("File " + str(file_count) + ": Writing " + format(p_file_size, 'X') + " bytes at " + format(compfile.tell(),'X'))
+            # print("File " + str(file_count) + ": Writing " + format(p_file_size, 'X') + " bytes at " + format(compfile.tell(),'X'))
             
-
             compfile.write(file_bytes)
 
             p_file_end = p_file_begin + p_file_size
@@ -155,7 +154,7 @@ def decompress(baserom, decomprom, mio0, extract_dest=None):
 
             p_file_size = p_file_end - p_file_begin
             
-            print(v_file_begin, p_file_begin, p_file_end, comp_flag)
+            # print(v_file_begin, p_file_begin, p_file_end, comp_flag)
 
             if(v_file_begin == 0 and p_file_end == 0):
                 break
@@ -187,7 +186,7 @@ def decompress(baserom, decomprom, mio0, extract_dest=None):
                 if not os.path.exists(extract_dest):
                     os.mkdir(extract_dest)
 
-                file_name = format(v_file_begin, 'X') + '.bin'
+                file_name = 'file_' + str(file_count)+'_'+format(v_file_begin, 'X') + '.bin'
 
                 with open(extract_dest + os.sep + file_name, 'wb') as extract_file:
                     extract_file.write(file_bytes)
