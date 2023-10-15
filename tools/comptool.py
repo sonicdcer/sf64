@@ -154,7 +154,7 @@ def decompress(baserom, decomprom, mio0, extract_dest=None):
 
             p_file_size = p_file_end - p_file_begin
             
-            # print(v_file_begin, p_file_begin, p_file_end, comp_flag)
+            #print(v_file_begin, p_file_begin, p_file_end, comp_flag)
 
             if(v_file_begin == 0 and p_file_end == 0):
                 break

@@ -35,7 +35,8 @@ TARGET               := starfox64
 ### Output ###
 
 BUILD_DIR := build
-ROM       := $(BUILD_DIR)/$(TARGET).$(VERSION).z64
+ROM       := $(BUILD_DIR)/$(TARGET).$(VERSION).uncompressed.z64
+ROMC 	  := $(BUILD_DIR)/$(TARGET).$(VERSION).z64
 ELF       := $(BUILD_DIR)/$(TARGET).$(VERSION).elf
 LD_MAP    := $(BUILD_DIR)/$(TARGET).$(VERSION).map
 LD_SCRIPT := linker_scripts/$(VERSION)/$(TARGET).ld
@@ -93,7 +94,9 @@ ASM_PROC_FLAGS  := --input-enc=utf-8 --output-enc=euc-jp --convert-statics=globa
 SPLAT           ?= tools/splat/split.py
 SPLAT_YAML      ?= $(TARGET).$(VERSION).yaml
 
+COMPTOOL		:= tools/comptool.py
 
+PYTHON			:= python3
 
 IINC := -Iinclude -Ibin/$(VERSION) -I.
 IINC += -Ilib/ultralib/include -Ilib/ultralib/include/PR -Ilib/ultralib/include/ido
@@ -188,22 +191,33 @@ build/src/libultra/2D300.o: OPTFLAGS := -O1 -g0
 # cc & asm-processor
 build/src/%.o: CC := $(ASM_PROC) $(ASM_PROC_FLAGS) $(CC) -- $(AS) $(ASFLAGS) --
 
-all: uncompressed
+all: uncompressed compressed
 
 init:
 	$(MAKE) clean
+	$(MAKE) decompress
 	$(MAKE) extract -j $(nproc)
 	$(MAKE) all -j $(nproc)
+#	$(MAKE) compress
+# TODO: COMPRESS resulting rom.
 
 uncompressed: $(ROM)
 ifneq ($(COMPARE),0)
 	@md5sum $(ROM)
+	@md5sum -c $(TARGET).$(VERSION).uncompressed.md5
+endif
+
+compressed: $(ROMC)
+ifeq ($(COMPARE),1)
+	@md5sum $(ROMC)
 	@md5sum -c $(TARGET).$(VERSION).md5
 endif
 
-
-
 #### Main Targets ###
+
+decompress: baserom.us.z64
+	@echo "Decompressing ROM..."
+	@$(PYTHON) $(COMPTOOL) -d $(BASEROM) ./baserom.us.uncompressed.z64
 
 extract:
 	$(RM) -r asm/$(VERSION) bin/$(VERSION)
@@ -233,6 +247,11 @@ expected:
 
 $(ROM): $(ELF)
 	$(OBJCOPY) -O binary $< $@
+
+$(ROMC): baserom.us.uncompressed.z64
+	@echo "Compressing ROM..."
+	@$(PYTHON) $(COMPTOOL) -c ./baserom.us.uncompressed.z64 ./build/starfox64.us.z64
+
 # TODO: update rom header checksum
 
 # TODO: avoid using auto/undefined
