@@ -197,6 +197,7 @@ init:
 	$(MAKE) decompress
 	$(MAKE) extract -j $(nproc)
 	$(MAKE) all -j $(nproc)
+# TODO: COMPRESS resulting rom.
 
 uncompressed: $(ROM)
 ifneq ($(COMPARE),0)
