@@ -96,4 +96,4 @@ md5sum: WARNING: 1 computed checksum did NOT match
 
 This means that something is wrong with the ROM's contents. Either the base files are incorrect due to a bad ROM, or some of the code is not matching.
 
-From now on you should be able to build the rom by running 'make'.
+From now on you should be able to build the rom by running `make`.
