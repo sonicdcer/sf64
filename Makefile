@@ -199,7 +199,7 @@ init:
 	$(MAKE) decompress
 	$(MAKE) extract -j $(nproc)
 	$(MAKE) all
-#	$(MAKE) compress
+#	$(MAKE) $(ROMC)
 # TODO: COMPRESS resulting rom.
 
 uncompressed: $(ROM)
@@ -286,3 +286,5 @@ $(BUILD_DIR)/%.o: %.c
 
 # Print target for debugging
 print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
+
+.PHONY: all uncompressed compressed clean init extract format checkformat decompress
