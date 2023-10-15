@@ -30,6 +30,7 @@ MIPS_BINUTILS_PREFIX ?= mips-linux-gnu-
 VERSION ?= us
 
 BASEROM              := baserom.$(VERSION).z64
+BASEROM_UNCOMPRESSED := baserom.$(VERSION).uncompressed.z64
 TARGET               := starfox64
 
 ### Output ###
@@ -197,7 +198,7 @@ init:
 	$(MAKE) clean
 	$(MAKE) decompress
 	$(MAKE) extract -j $(nproc)
-	$(MAKE) all -j $(nproc)
+	$(MAKE) all
 #	$(MAKE) compress
 # TODO: COMPRESS resulting rom.
 
@@ -217,7 +218,7 @@ endif
 
 decompress: baserom.us.z64
 	@echo "Decompressing ROM..."
-	@$(PYTHON) $(COMPTOOL) -d $(BASEROM) ./baserom.us.uncompressed.z64
+	@$(PYTHON) $(COMPTOOL) -d $(BASEROM) $(BASEROM_UNCOMPRESSED)
 
 extract:
 	$(RM) -r asm/$(VERSION) bin/$(VERSION)
@@ -249,9 +250,9 @@ expected:
 $(ROM): $(ELF)
 	$(OBJCOPY) -O binary $< $@
 
-$(ROMC): baserom.us.uncompressed.z64
+$(ROMC): $(BASEROM_UNCOMPRESSED)
 	@echo "Compressing ROM..."
-	@$(PYTHON) $(COMPTOOL) -c ./baserom.us.uncompressed.z64 ./build/starfox64.us.z64
+	@$(PYTHON) $(COMPTOOL) -c ./build/starfox64.us.uncompressed.z64 ./build/starfox64.us.z64
 
 # TODO: update rom header checksum
 
