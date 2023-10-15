@@ -3,6 +3,7 @@ expected
 __pycache__
 .splat/
 starfox64.ld
+starfox64.uncompressed.ld
 starfox64.us.yaml
 *.d
 *_auto.ld
