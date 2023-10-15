@@ -216,6 +216,7 @@ endif
 #### Main Targets ###
 
 decompress: baserom.us.z64
+	@echo "Decompressing ROM..."
 	@$(PYTHON) $(COMPTOOL) -d $(BASEROM) ./baserom.us.uncompressed.z64
 
 extract:
@@ -248,7 +249,8 @@ $(ROM): $(ELF)
 	$(OBJCOPY) -O binary $< $@
 
 $(ROMC): baserom.us.uncompressed.z64
-	$(PYTHON) $(COMPTOOL) -c ./baserom.us.uncompressed.z64 ./build/starfox64.us.z64
+	@echo "Compressing ROM..."
+	@$(PYTHON) $(COMPTOOL) -c ./baserom.us.uncompressed.z64 ./build/starfox64.us.z64
 
 # TODO: update rom header checksum
 
