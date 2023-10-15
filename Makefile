@@ -252,7 +252,7 @@ $(ROM): $(ELF)
 
 $(ROMC): $(BASEROM_UNCOMPRESSED)
 	@echo "Compressing ROM..."
-	@$(PYTHON) $(COMPTOOL) -c ./build/starfox64.us.uncompressed.z64 ./build/starfox64.us.z64
+	@$(PYTHON) $(COMPTOOL) -c $(ROM) $(ROMC)
 
 # TODO: update rom header checksum
 
