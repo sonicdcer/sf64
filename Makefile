@@ -3,7 +3,7 @@
 
 -include .make_options
 
-MAKEFLAGS += --no-builtin-rules
+MAKEFLAGS += --no-builtin-rules --no-print-directory
 
 #### Defaults ####
 
