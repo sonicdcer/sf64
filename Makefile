@@ -93,7 +93,9 @@ ASM_PROC_FLAGS  := --input-enc=utf-8 --output-enc=euc-jp --convert-statics=globa
 SPLAT           ?= tools/splat/split.py
 SPLAT_YAML      ?= $(TARGET).$(VERSION).yaml
 
+COMPTOOL		:= tools/comptool.py
 
+PYTHON			:= python3
 
 IINC := -Iinclude -Ibin/$(VERSION) -I.
 IINC += -Ilib/ultralib/include -Ilib/ultralib/include/PR -Ilib/ultralib/include/ido
@@ -192,6 +194,7 @@ all: uncompressed
 
 init:
 	$(MAKE) clean
+	$(MAKE) decompress
 	$(MAKE) extract -j $(nproc)
 	$(MAKE) all -j $(nproc)
 
@@ -204,6 +207,9 @@ endif
 
 
 #### Main Targets ###
+
+decompress: baserom.us.z64
+	$(PYTHON) $(COMPTOOL) -d ./baserom.us.z64 ./baserom.us.uncompressed.z64
 
 extract:
 	$(RM) -r asm/$(VERSION) bin/$(VERSION)
