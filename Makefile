@@ -191,30 +191,32 @@ build/src/libultra/2D300.o: OPTFLAGS := -O1 -g0
 # cc & asm-processor
 build/src/%.o: CC := $(ASM_PROC) $(ASM_PROC_FLAGS) $(CC) -- $(AS) $(ASFLAGS) --
 
-all: uncompressed
+all: uncompressed compressed
 
 init:
 	$(MAKE) clean
 	$(MAKE) decompress
 	$(MAKE) extract -j $(nproc)
 	$(MAKE) all -j $(nproc)
+#	$(MAKE) compress
 # TODO: COMPRESS resulting rom.
 
 uncompressed: $(ROM)
 ifneq ($(COMPARE),0)
 	@md5sum $(ROM)
-	@md5sum -c $(TARGET).$(VERSION).md5
+	@md5sum -c $(TARGET).$(VERSION).uncompressed.md5
 endif
 
-
+compressed: $(ROMC)
+ifeq ($(COMPARE),1)
+	@md5sum $(ROMC)
+	@md5sum -c $(TARGET).$(VERSION).md5
+endif
 
 #### Main Targets ###
 
 decompress: baserom.us.z64
-	$(PYTHON) $(COMPTOOL) -d ./baserom.us.z64 ./baserom.us.uncompressed.z64
-
-compress: baserom.us.uncompressed.z64
-	$(PYTHON) $(COMPTOOL) -c ./baserom.us.uncompressed.z64 ./build/starfox64.us.z64
+	@$(PYTHON) $(COMPTOOL) -d $(BASEROM) ./baserom.us.uncompressed.z64
 
 extract:
 	$(RM) -r asm/$(VERSION) bin/$(VERSION)
@@ -244,6 +246,10 @@ expected:
 
 $(ROM): $(ELF)
 	$(OBJCOPY) -O binary $< $@
+
+$(ROMC): baserom.us.uncompressed.z64
+	$(PYTHON) $(COMPTOOL) -c ./baserom.us.uncompressed.z64 ./build/starfox64.us.z64
+
 # TODO: update rom header checksum
 
 # TODO: avoid using auto/undefined
