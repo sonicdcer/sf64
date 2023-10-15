@@ -1,10 +1,13 @@
 name: Starfox64 (North America)
-sha1: f7475fb11e7e6830f82883412638e8390791ab87 # baserom uncompressed
+# baserom compressed
+# sha1: 09f0d105f476b00efa5303a3ebc42e60a7753b7a
+# baserom uncompressed
+sha1: f7475fb11e7e6830f82883412638e8390791ab87
 options:
   basename: starfox64
   target_path: baserom.us.uncompressed.z64
-  elf_path: build/starfox64.uncompressed.elf
-  ld_script_path: linker_scripts/us/starfox64.uncompressed.ld
+  elf_path: build/starfox64.elf
+  ld_script_path: linker_scripts/us/starfox64.ld
   base_path: .
   compiler: IDO
   find_file_boundaries: True
