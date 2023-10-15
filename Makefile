@@ -35,7 +35,8 @@ TARGET               := starfox64
 ### Output ###
 
 BUILD_DIR := build
-ROM       := $(BUILD_DIR)/$(TARGET).$(VERSION).z64
+ROM       := $(BUILD_DIR)/$(TARGET).$(VERSION).uncompressed.z64
+ROMC 	  := $(BUILD_DIR)/$(TARGET).$(VERSION).z64
 ELF       := $(BUILD_DIR)/$(TARGET).$(VERSION).elf
 LD_MAP    := $(BUILD_DIR)/$(TARGET).$(VERSION).map
 LD_SCRIPT := linker_scripts/$(VERSION)/$(TARGET).ld
@@ -213,7 +214,7 @@ decompress: baserom.us.z64
 	$(PYTHON) $(COMPTOOL) -d ./baserom.us.z64 ./baserom.us.uncompressed.z64
 
 compress: baserom.us.uncompressed.z64
-	$(PYTHON) $(COMPTOOL) -c ./baserom.us.uncompressed.z64 ./build/starfox64.z64
+	$(PYTHON) $(COMPTOOL) -c ./baserom.us.uncompressed.z64 ./build/starfox64.us.z64
 
 extract:
 	$(RM) -r asm/$(VERSION) bin/$(VERSION)
