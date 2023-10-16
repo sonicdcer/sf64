@@ -98,6 +98,8 @@ SPLAT           ?= $(TOOLS)/splat/split.py
 SPLAT_YAML      ?= $(TARGET).$(VERSION).yaml
 
 COMPTOOL		:= $(TOOLS)/comptool.py
+COMPTOOL_DIR	:= baserom
+MIO0			:= $(TOOLS)/mio0
 
 
 IINC := -Iinclude -Ibin/$(VERSION) -I.
@@ -218,7 +220,7 @@ endif
 
 decompress: $(BASEROM)
 	@echo "Decompressing ROM..."
-	@$(PYTHON) $(COMPTOOL) -d $(BASEROM) $(BASEROM_UNCOMPRESSED)
+	@$(PYTHON) $(COMPTOOL) -de $(COMPTOOL_DIR) -m $(MIO0) $(BASEROM) $(BASEROM_UNCOMPRESSED)
 
 extract:
 	$(RM) -r asm/$(VERSION) bin/$(VERSION)

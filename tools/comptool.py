@@ -4,6 +4,7 @@ import os
 from subprocess import run
 import struct
 import argparse
+import sys
 
 def int32(x):
     return x & 0xFFFFFFFF
@@ -173,8 +174,8 @@ def decompress(baserom, decomprom, mio0, extract_dest=None):
                 dec_msg = 'compressed'
                 v_file_size = len(file_bytes)
             else:
-                print('You dun goofed')
-                exit
+                print('Invalid compression flag. This should be impossible, so please tell us if you get this error anyways.')
+                sys.exit(2)
             
             decompfile.seek(0, 2)
 
@@ -186,7 +187,7 @@ def decompress(baserom, decomprom, mio0, extract_dest=None):
                 if not os.path.exists(extract_dest):
                     os.mkdir(extract_dest)
 
-                file_name = 'file_' + str(file_count)+'_'+format(v_file_begin, 'X') + '.bin'
+                file_name = 'segment_' + str(file_count)+'_'+format(v_file_begin, 'X') + '.bin'
 
                 with open(extract_dest + os.sep + file_name, 'wb') as extract_file:
                     extract_file.write(file_bytes)

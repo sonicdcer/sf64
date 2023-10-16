@@ -14,5 +14,6 @@
         "tools/gfxsotn/**": false,
     },
     "files.associations": {
+        "functions.h": "c"
     },
 }
