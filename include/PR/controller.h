@@ -46,5 +46,6 @@ extern OSMesgQueue __osEepromTimerQ;
 extern OSMesg __osEepromTimerMsg;
 
 void __osPackRequestData(u8 poll);
+void __osContGetInitData(u8* pattern, OSContStatus* data);
 
 #endif

@@ -38,7 +38,26 @@ s32 osContInit(OSMesgQueue* mq, u8* bitpattern, OSContStatus* data) {
     return ret;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/io/controller/__osContGetInitData.s")
+void __osContGetInitData(u8* pattern, OSContStatus* data) {
+    u8* ptr;
+    __OSContRequestHeader requestHeader;
+    s32 i;
+    u8 bits;
+
+    bits = 0;
+    ptr = (u8*)__osContPifRam.ramarray;
+    for (i = 0; i < __osMaxControllers; i++, ptr += sizeof(requestHeader), data++) {
+        requestHeader = *(__OSContRequestHeader*)ptr;
+        data->errno = (requestHeader.rxsize & 0xC0) >> 4;
+        if (data->errno == 0) {
+            data->type = requestHeader.typel << 8 | requestHeader.typeh;
+            data->status = requestHeader.status;
+
+            bits |= 1 << i;
+        }
+    }
+    *pattern = bits;
+}
 
 void __osPackRequestData(u8 poll) {
     u8* ptr;
