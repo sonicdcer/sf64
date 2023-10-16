@@ -253,15 +253,15 @@ expected:
 
 #### Various Recipes ####
 
-# Uncompressed ROM
-$(ROM): $(ELF)
-	@echo "ELF->ROM:"
-	$(OBJCOPY) -O binary $< $@
-
 # Final ROM
 $(ROMC): $(BASEROM_UNCOMPRESSED)
 	@echo "Compressing ROM..."
 	@$(PYTHON) $(COMPTOOL) -c $(ROM) $(ROMC)
+
+# Uncompressed ROM
+$(ROM): $(ELF)
+	@echo "ELF->ROM:"
+	$(OBJCOPY) -O binary $< $@
 
 # Link
 $(ELF): $(LIBULTRA_O) $(O_FILES) $(LD_SCRIPT) $(BUILD_DIR)/linker_scripts/$(VERSION)/hardware_regs.ld $(BUILD_DIR)/linker_scripts/$(VERSION)/undefined_syms.ld $(BUILD_DIR)/linker_scripts/$(VERSION)/pif_syms.ld $(BUILD_DIR)/linker_scripts/$(VERSION)/auto/undefined_syms_auto.ld $(BUILD_DIR)/linker_scripts/$(VERSION)/auto/undefined_funcs_auto.ld
