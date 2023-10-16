@@ -26,7 +26,7 @@
 
 f32 func_80187A88_DF47C8(s32 arg0) {
     f32 ret = (f32)arg0 * 0.5f;
-    
+
     if (ret > 8.0f) {
         ret = 8.0f;
     }
