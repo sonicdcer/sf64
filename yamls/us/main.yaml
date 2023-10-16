@@ -286,8 +286,22 @@
       - [0xDDE80, rodata]
       - { start: 0xDE480, type: bss, vram: 0x800DD880 }
 
-  - name: unkbin
+  - name: assets
     type: bin
     start: 0xDE480
-    follows_vram: main
+
+  - name: file_DF4260
+    type: code
+    dir: overlay
+    start: 0xDF4260
+    vram: 0x80187520
+    exclusive_ram_id: overlay
+    subsegments:
+    - [0xDF4260, asm, DF4260]
+    - [0xE06520, data, DF4260]
+    - [0xE07C30, rodata, DF4260]
+
+  - name: unkbin
+    type: bin
+    start: 0xE07C30
   - [0xEFFAE0]
