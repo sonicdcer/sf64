@@ -60,7 +60,7 @@
     subsegments:
     - [0xE6A810, asm]
     - [0xE9A590, data, E6A810]
-    - [0xE9DE50, rodata, E6A810] # Not aligned?
+    - [0xE9DE50, rodata, E6A810] # Might not be start
 
   - name: file_E9F1D0
     type: code
