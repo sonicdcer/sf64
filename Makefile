@@ -295,4 +295,4 @@ $(BUILD_DIR)/%.o: %.c
 # Print target for debugging
 print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
 
-.PHONY: all uncompressed compressed clean init extract format checkformat decompress
+.PHONY: all uncompressed compressed clean init extract expected format checkformat decompress
