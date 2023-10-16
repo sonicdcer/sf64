@@ -215,7 +215,7 @@ endif
 
 #### Main Targets ###
 
-decompress: baserom.us.z64
+decompress: $(BASEROM)
 	@echo "Decompressing ROM..."
 	@$(PYTHON) $(COMPTOOL) -d $(BASEROM) $(BASEROM_UNCOMPRESSED)
 
