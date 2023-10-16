@@ -14,6 +14,15 @@ void* memcpy(void* s1, const void* s2, size_t n) {
     return s1;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/string/strlen.s")
+size_t strlen(const char* s) {
+    const char* sc = s;
+
+    while (*sc != '\0') {
+        sc++;
+    }
+
+    return (size_t)(sc - s);
+}
+
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/string/strchr.s")
