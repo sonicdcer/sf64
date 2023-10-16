@@ -198,8 +198,8 @@ all: uncompressed
 init:
 	$(MAKE) clean
 	$(MAKE) decompress
-	$(MAKE) extract -j
-	$(MAKE) all -j
+	$(MAKE) extract -j $(N_THREADS)
+	$(MAKE) all -j $(N_THREADS)
 	$(MAKE) compressed
 
 uncompressed: $(ROM)
