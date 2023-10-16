@@ -199,11 +199,11 @@ build/src/%.o: CC := $(ASM_PROC) $(ASM_PROC_FLAGS) $(CC) -- $(AS) $(ASFLAGS) --
 all: uncompressed
 
 init:
-	$(MAKE) clean
-	$(MAKE) decompress
-	$(MAKE) extract -j $(N_THREADS)
-	$(MAKE) all -j $(N_THREADS)
-	$(MAKE) compressed
+	@$(MAKE) clean
+	@$(MAKE) decompress
+	@$(MAKE) extract -j $(N_THREADS)
+	@$(MAKE) all -j $(N_THREADS)
+	@$(MAKE) compressed
 
 uncompressed: $(ROM)
 ifneq ($(COMPARE),0)
