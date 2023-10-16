@@ -1,0 +1,44 @@
+name: Build
+
+# Build on every branch push, tag push, and pull request change:
+on: [push, pull_request_target]
+
+jobs:
+  build_repo:
+    name: Build repo
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+
+    - name: Install package requirements
+      run: sudo apt-get install -y git make git build-essential binutils-mips-linux-gnu python3 python3-pip
+
+    - name: Install Python dependencies
+      run: python3 -m pip install -r ./tools/requirements-python.txt
+
+    - name: Update submodules
+      run: git submodule update --init --recursive
+
+    - name: Get extra dependencies
+      uses: actions/checkout@v4
+      with:
+        repository: ${{ secrets.SF64_DEPENDENCIES }}
+        token: ${{ secrets.SF64_TOKEN }}
+        path: sf64-secret
+
+    - name: Get the dependency
+      run: cp -r sf64-secret/baserom.us.z64 ./
+
+    - name: Compile
+      run: make init
+
+#    - name: Upload frogress
+#      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+#      run: python3 tools/upload_frogress.py --apikey ${{ secrets.PROGRESS_API_KEY }}

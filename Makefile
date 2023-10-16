@@ -191,6 +191,9 @@ build/src/main/1EB50.o: OPTFLAGS := -O1 -g0
 build/src/libultra/2BDF0.o: OPTFLAGS := -O1 -g0
 build/src/libultra/2C700.o: OPTFLAGS := -O1 -g0
 build/src/libultra/2D300.o: OPTFLAGS := -O1 -g0
+build/src/libultra/io/controller.o: OPTFLAGS := -O1 -g0
+build/src/libultra/libc/string.o: OPTFLAGS := -O2 -g0
+build/src/libultra/libc/ldiv.o: OPTFLAGS := -O2 -g0
 
 # cc & asm-processor
 build/src/%.o: CC := $(ASM_PROC) $(ASM_PROC_FLAGS) $(CC) -- $(AS) $(ASFLAGS) --
@@ -198,14 +201,15 @@ build/src/%.o: CC := $(ASM_PROC) $(ASM_PROC_FLAGS) $(CC) -- $(AS) $(ASFLAGS) --
 all: uncompressed
 
 init:
-	$(MAKE) clean
-	$(MAKE) decompress
-	$(MAKE) extract -j $(N_THREADS)
-	$(MAKE) all -j $(N_THREADS)
-	$(MAKE) compressed
+	@$(MAKE) clean
+	@$(MAKE) decompress
+	@$(MAKE) extract -j $(N_THREADS)
+	@$(MAKE) all -j $(N_THREADS)
+	@$(MAKE) compressed
 
 uncompressed: $(ROM)
 ifneq ($(COMPARE),0)
+	@echo MD5 CHECK:
 	@md5sum $(ROM)
 	@md5sum -c $(TARGET).$(VERSION).uncompressed.md5
 endif
@@ -223,9 +227,11 @@ decompress: $(BASEROM)
 	@$(PYTHON) $(COMPTOOL) -de $(COMPTOOL_DIR) -m $(MIO0) $(BASEROM) $(BASEROM_UNCOMPRESSED)
 
 extract:
-	$(RM) -r asm/$(VERSION) bin/$(VERSION)
-	$(CAT) yamls/$(VERSION)/header.yaml yamls/$(VERSION)/makerom.yaml yamls/$(VERSION)/main.yaml yamls/$(VERSION)/overlays.yaml > $(SPLAT_YAML)
-	$(SPLAT) $(SPLAT_YAML)
+	@$(RM) -r asm/$(VERSION) bin/$(VERSION)
+	@echo "Unifying yamls..."
+	@$(CAT) yamls/$(VERSION)/header.yaml yamls/$(VERSION)/makerom.yaml yamls/$(VERSION)/main.yaml yamls/$(VERSION)/overlays.yaml > $(SPLAT_YAML)
+	@echo "Extracting..."
+	@$(SPLAT) $(SPLAT_YAML)
 
 clean:
 	@git clean -fdx asm/
@@ -249,22 +255,25 @@ expected:
 
 #### Various Recipes ####
 
-$(ROM): $(ELF)
-	$(OBJCOPY) -O binary $< $@
-
+# Final ROM
 $(ROMC): $(BASEROM_UNCOMPRESSED)
 	@echo "Compressing ROM..."
 	@$(PYTHON) $(COMPTOOL) -c $(ROM) $(ROMC)
 
-# TODO: update rom header checksum
+# Uncompressed ROM
+$(ROM): $(ELF)
+	@echo "ELF->ROM:"
+	$(OBJCOPY) -O binary $< $@
 
-# TODO: avoid using auto/undefined
+# Link
 $(ELF): $(LIBULTRA_O) $(O_FILES) $(LD_SCRIPT) $(BUILD_DIR)/linker_scripts/$(VERSION)/hardware_regs.ld $(BUILD_DIR)/linker_scripts/$(VERSION)/undefined_syms.ld $(BUILD_DIR)/linker_scripts/$(VERSION)/pif_syms.ld $(BUILD_DIR)/linker_scripts/$(VERSION)/auto/undefined_syms_auto.ld $(BUILD_DIR)/linker_scripts/$(VERSION)/auto/undefined_funcs_auto.ld
+	@echo "Linking..."
 	$(LD) $(LDFLAGS) -T $(LD_SCRIPT) \
 		-T $(BUILD_DIR)/linker_scripts/$(VERSION)/hardware_regs.ld -T $(BUILD_DIR)/linker_scripts/$(VERSION)/undefined_syms.ld -T $(BUILD_DIR)/linker_scripts/$(VERSION)/pif_syms.ld \
 		-T $(BUILD_DIR)/linker_scripts/$(VERSION)/auto/undefined_syms_auto.ld -T $(BUILD_DIR)/linker_scripts/$(VERSION)/auto/undefined_funcs_auto.ld \
 		-Map $(LD_MAP) -o $@
 
+# PreProcessor
 $(BUILD_DIR)/%.ld: %.ld
 	$(CPP) $(CPPFLAGS) $(BUILD_DEFINES) $(IINC) $< > $@
 
@@ -289,4 +298,4 @@ $(BUILD_DIR)/%.o: %.c
 # Print target for debugging
 print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
 
-.PHONY: all uncompressed compressed clean init extract format checkformat decompress
+.PHONY: all uncompressed compressed clean init extract expected format checkformat decompress

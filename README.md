@@ -4,7 +4,7 @@ This is a WIP **decompilation** of ***Starfox 64***. The purpose of the project 
 
 It currently builds the following ROM:
 
-* starfox64.us.z64 `md5: 741a94eee093c4c8684e66b89f8685e8`
+* starfox64.us.z64 `MD5: 741a94eee093c4c8684e66b89f8685e8`
 
 **This repo does not include any assets or assembly code necessary for compiling the ROM. A prior copy of the game is required to extract the required assets.**
 
@@ -34,7 +34,7 @@ Under Debian / Ubuntu (which we recommend using), you can install them with the 
 
 ```bash
 sudo apt update
-sudo apt install make git build-essential binutils-mips-linux-gnu python3 python3-pip libpng-dev
+sudo apt install make git build-essential binutils-mips-linux-gnu python3 python3-pip
 ```
 
 #### 2. Clone the repository

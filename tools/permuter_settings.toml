@@ -1,1 +1,4 @@
 compiler_type = "ido"
+
+[decompme.compilers]
+"tools/ido_recomp/linux/5.3/cc" = "ido5.3"
