@@ -8,12 +8,105 @@
     start: 0xDF4260
     vram: 0x80187520
     exclusive_ram_id: overlay
+    symbol_name_format: $VRAM_$ROM
     subsegments:
     - [0xDF4260, asm, DF4260]
     - [0xE06520, data, DF4260]
     - [0xE07C30, rodata, DF4260]
 
-  - name: unkbin
-    type: bin
-    start: 0xE07C30
+  - name: file_E08400
+    type: code
+    dir: overlay
+    start: 0xE08400
+    vram: 0x80187520
+    exclusive_ram_id: overlay
+    symbol_name_format: $VRAM_$ROM
+    subsegments:    
+    - [0xE08400, asm]
+    - [0xE16310, data, E08400]
+    - [0xE16670, rodata, E08400]
+
+  - name: file_E16C50
+    type: code
+    dir: overlay
+    start: 0xE16C50
+    vram: 0x80187520
+    exclusive_ram_id: overlay
+    symbol_name_format: $VRAM_$ROM
+    subsegments:
+    - [0xE16C50, asm]
+    - [0xE4E3E0, data, E16C50]
+    - [0xE50040, rodata, E16C50]
+
+  - name: file_E51970
+    type: code
+    dir: overlay
+    start: 0xE51970
+    vram: 0x80187520
+    exclusive_ram_id: overlay
+    symbol_name_format: $VRAM_$ROM
+    subsegments:
+    - [0xE51970, asm]
+    - [0xE69230, data, E51970]
+    - [0xE69B30, rodata, E51970]
+
+  - name: file_E6A810
+    type: code
+    dir: overlay
+    start: 0xE6A810
+    vram: 0x80187520
+    exclusive_ram_id: overlay
+    symbol_name_format: $VRAM_$ROM
+    subsegments:
+    - [0xE6A810, asm]
+    - [0xE9A590, data, E6A810]
+    - [0xE9DE50, rodata, E6A810] # Not aligned?
+
+  - name: file_E9F1D0
+    type: code
+    dir: overlay
+    start: 0xE9F1D0
+    vram: 0x80187520
+    exclusive_ram_id: overlay
+    symbol_name_format: $VRAM_$ROM
+    subsegments:
+    - [0xE9F1D0, asm]
+    - [0xEBE410, data, E9F1D0]
+    - [0xEBE870, rodata, E9F1D0]
+    
+  - name: file_EBFBE0
+    type: code
+    dir: overlay
+    start: 0xEBFBE0
+    vram: 0x80187520
+    exclusive_ram_id: overlay
+    symbol_name_format: $VRAM_$ROM
+    subsegments:
+    - [0xEBFBE0, asm]
+    - [0xEE60C0, data, EBFBE0]
+    - [0xEEF410, rodata, EBFBE0] # might not be the start
+
+  - name: file_EF0260
+    type: code
+    dir: overlay
+    start: 0xEF0260
+    vram: 0x80187520
+    exclusive_ram_id: overlay
+    symbol_name_format: $VRAM_$ROM
+    subsegments:
+    - [0xEF0260, asm]
+    - [0xEFB560, data, EF0260]
+    - [0xEFEF80, rodata, EF0260]
+    - [0xEFF380, rodata, EF0260_credits]
+
+  - name: file_EFFA40
+    type: code
+    dir: overlay
+    start: 0xEFFA40
+    vram: 0x80187520
+    exclusive_ram_id: overlay
+    symbol_name_format: $VRAM_$ROM
+    subsegments:
+    - [0xEFFA40, asm]
+
   - [0xEFFAE0]
