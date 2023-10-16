@@ -34,7 +34,7 @@ jobs:
         path: sf64-secret
 
     - name: Get the dependency
-      run: cp -r sf64/baserom.us.z64 ./
+      run: cp -r sf64-secret/baserom.us.z64 ./
 
     - name: Compile
       run: make init
