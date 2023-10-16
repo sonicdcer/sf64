@@ -24,7 +24,6 @@ size_t strlen(const char* s) {
     return (size_t)(sc - s);
 }
 
-
 const char* strchr(const char* s, int c) {
     const unsigned char ch = c;
 
