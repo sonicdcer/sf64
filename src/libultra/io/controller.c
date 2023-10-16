@@ -40,4 +40,29 @@ s32 osContInit(OSMesgQueue* mq, u8* bitpattern, OSContStatus* data) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/io/controller/__osContGetInitData.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/io/controller/__osPackRequestData.s")
+void __osPackRequestData(u8 poll) {
+    u8* ptr;
+    __OSContRequestHeader requestHeader;
+    s32 i;
+
+    for (i = 0; i < 16; i++) {
+        __osContPifRam.ramarray[i] = 0;
+    }
+
+    __osContPifRam.pifstatus = CONT_CMD_READ_BUTTON;
+    ptr = (u8*)__osContPifRam.ramarray;
+    requestHeader.align = 255;
+    requestHeader.txsize = 1;
+    requestHeader.rxsize = 3;
+    requestHeader.poll = poll;
+    requestHeader.typeh = 255;
+    requestHeader.typel = 255;
+    requestHeader.status = 255;
+    requestHeader.align1 = 255;
+
+    for (i = 0; i < __osMaxControllers; i++) {
+        *(__OSContRequestHeader*)ptr = requestHeader;
+        ptr += sizeof(requestHeader);
+    }
+    *ptr = 254;
+}
