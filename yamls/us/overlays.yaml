@@ -2,9 +2,9 @@
     type: bin
     start: 0xDE480
 
-  - name: file_DF4260
+  - name: segment_DF4260
     type: code
-    dir: overlay
+    dir: overlay/segment_DF4260
     start: 0xDF4260
     vram: 0x80187520
     exclusive_ram_id: overlay
@@ -22,9 +22,9 @@
     - [0xE08380, .rodata, E05620]
     - [0xE083C0, .rodata, E05990]
 
-  - name: file_E08400
+  - name: segment_E08400
     type: code
-    dir: overlay
+    dir: overlay/segment_E08400
     start: 0xE08400
     vram: 0x80187520
     exclusive_ram_id: overlay
@@ -37,9 +37,9 @@
     - [0xE16670, .rodata, E08400]
     - [0xE16930, .rodata, E0FF10]
 
-  - name: file_E16C50
+  - name: segment_E16C50
     type: code
-    dir: overlay
+    dir: overlay/segment_E16C50
     start: 0xE16C50
     vram: 0x80187520
     exclusive_ram_id: overlay
@@ -58,9 +58,9 @@
     - [0xE50C00, .rodata, E2DF20]
     - [0xE51160, .rodata, E38560]
 
-  - name: file_E51970
+  - name: segment_E51970
     type: code
-    dir: overlay
+    dir: overlay/segment_E51970
     start: 0xE51970
     vram: 0x80187520
     exclusive_ram_id: overlay
@@ -81,9 +81,9 @@
     - [0xE6A170, .rodata, E5CC30]
     - [0xE6A510, .rodata, E63D50]
 
-  - name: file_E6A810
+  - name: segment_E6A810
     type: code
-    dir: overlay
+    dir: overlay/segment_E6A810
     start: 0xE6A810
     vram: 0x80187520
     exclusive_ram_id: overlay
@@ -99,9 +99,9 @@
     - [0xE9DD40, .rodata, E6C220]
     - [0xE9F0E0, .rodata, E97CC0]
 
-  - name: file_E9F1D0
+  - name: segment_E9F1D0
     type: code
-    dir: overlay
+    dir: overlay/segment_E9F1D0
     start: 0xE9F1D0
     vram: 0x80187520
     exclusive_ram_id: overlay
@@ -120,9 +120,9 @@
     - [0xEBF130, .rodata, EAF7E0]
     - [0xEBFB80, .rodata, EBD210]
     
-  - name: file_EBFBE0
+  - name: segment_EBFBE0
     type: code
-    dir: overlay
+    dir: overlay/segment_EBFBE0
     start: 0xEBFBE0
     vram: 0x80187520
     exclusive_ram_id: overlay
@@ -140,9 +140,9 @@
     - [0xEEF7D0, .rodata, ECA1E0]
     - [0xEEFB80, .rodata, ED6EC0]
 
-  - name: file_EF0260
+  - name: segment_EF0260
     type: code
-    dir: overlay
+    dir: overlay/segment_EF0260
     start: 0xEF0260
     vram: 0x80187520
     exclusive_ram_id: overlay
@@ -155,7 +155,7 @@
     - [0xEFEF80, .rodata, EF0260]
     - [0xEFF380, .rodata, EF5B60]
     
-  - name: file_EFFA40
+  - name: segment_EFFA40
     type: code
     dir: overlay
     start: 0xEFFA40
