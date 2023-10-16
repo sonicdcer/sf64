@@ -227,9 +227,11 @@ decompress: $(BASEROM)
 	@$(PYTHON) $(COMPTOOL) -de $(COMPTOOL_DIR) -m $(MIO0) $(BASEROM) $(BASEROM_UNCOMPRESSED)
 
 extract:
-	$(RM) -r asm/$(VERSION) bin/$(VERSION)
-	$(CAT) yamls/$(VERSION)/header.yaml yamls/$(VERSION)/makerom.yaml yamls/$(VERSION)/main.yaml yamls/$(VERSION)/overlays.yaml > $(SPLAT_YAML)
-	$(SPLAT) $(SPLAT_YAML)
+	@$(RM) -r asm/$(VERSION) bin/$(VERSION)
+	@echo "Unifying yamls..."
+	@$(CAT) yamls/$(VERSION)/header.yaml yamls/$(VERSION)/makerom.yaml yamls/$(VERSION)/main.yaml yamls/$(VERSION)/overlays.yaml > $(SPLAT_YAML)
+	@echo "Extracting..."
+	@$(SPLAT) $(SPLAT_YAML)
 
 clean:
 	@git clean -fdx asm/
