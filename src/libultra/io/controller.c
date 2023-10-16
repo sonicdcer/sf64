@@ -71,7 +71,7 @@ void __osPackRequestData(u8 poll) {
     __osContPifRam.pifstatus = CONT_CMD_READ_BUTTON;
     ptr = (u8*)__osContPifRam.ramarray;
     requestHeader.align = 255;
-             requestHeader.txsize = 1;
+    requestHeader.txsize = 1;
     requestHeader.rxsize = 3;
     requestHeader.poll = poll;
     requestHeader.typeh = 255;

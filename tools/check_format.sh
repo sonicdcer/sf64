@@ -12,7 +12,7 @@ STATUSNEW=`git status --porcelain`
 if [ "${STATUSOLD}" != "${STATUSNEW}" ];
 then
     echo ""
-    echo "Misformatted files found. Run ./tools/format.py and verify codegen is not impacted."
+    echo "Misformatted files found. Run 'make format' and verify codegen is not impacted."
     echo ""
     diff --unified=0  --label "Old git status" <(echo "${STATUSOLD}") --label "New git status" <(echo "${STATUSNEW}")
     echo ""
