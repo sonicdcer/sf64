@@ -4,6 +4,17 @@
 #include "global.h"
 #include "PR/os.h"
 
+typedef struct {
+    /* 0x00 */ u8 align;
+    /* 0x01 */ u8 txsize;
+    /* 0x02 */ u8 rxsize;
+    /* 0x03 */ u8 poll;
+    /* 0x04 */ u8 typeh;
+    /* 0x05 */ u8 typel;
+    /* 0x06 */ u8 status;
+    /* 0x07 */ u8 align1;
+} __OSContRequestHeader; // size = 0x8
+
 // Joybus commands
 #define CONT_CMD_REQUEST_STATUS 0
 #define CONT_CMD_READ_BUTTON    1
@@ -33,5 +44,7 @@ extern u8 __osContLastCmd;
 extern OSPifRam __osContPifRam;
 extern OSMesgQueue __osEepromTimerQ;
 extern OSMesg __osEepromTimerMsg;
+
+void __osPackRequestData(u8 poll);
 
 #endif
