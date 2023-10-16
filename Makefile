@@ -192,15 +192,14 @@ build/src/libultra/2D300.o: OPTFLAGS := -O1 -g0
 # cc & asm-processor
 build/src/%.o: CC := $(ASM_PROC) $(ASM_PROC_FLAGS) $(CC) -- $(AS) $(ASFLAGS) --
 
-all: uncompressed compressed
+all: uncompressed
 
 init:
 	$(MAKE) clean
 	$(MAKE) decompress
-	$(MAKE) extract -j $(nproc)
-	$(MAKE) all
-#	$(MAKE) $(ROMC)
-# TODO: COMPRESS resulting rom.
+	$(MAKE) extract -j
+	$(MAKE) all -j
+	$(MAKE) compressed
 
 uncompressed: $(ROM)
 ifneq ($(COMPARE),0)
