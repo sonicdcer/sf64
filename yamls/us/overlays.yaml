@@ -4,10 +4,10 @@
 
   - name: segment_DF4260
     type: code
-    dir: overlay/segment_DF4260
+    dir: overlays/segment_DF4260
     start: 0xDF4260
     vram: 0x80187520
-    exclusive_ram_id: overlay
+    exclusive_ram_id: overlays
     symbol_name_format: $VRAM_$ROM
     subsegments:
     - [0xDF4260, c, DF4260]
@@ -24,10 +24,10 @@
 
   - name: segment_E08400
     type: code
-    dir: overlay/segment_E08400
+    dir: overlays/segment_E08400
     start: 0xE08400
     vram: 0x80187520
-    exclusive_ram_id: overlay
+    exclusive_ram_id: overlays
     symbol_name_format: $VRAM_$ROM
     subsegments:    
     - [0xE08400, c, E08400]
@@ -39,10 +39,10 @@
 
   - name: segment_E16C50
     type: code
-    dir: overlay/segment_E16C50
+    dir: overlays/segment_E16C50
     start: 0xE16C50
     vram: 0x80187520
-    exclusive_ram_id: overlay
+    exclusive_ram_id: overlays
     symbol_name_format: $VRAM_$ROM
     subsegments:
     - [0xE16C50, c, E16C50]
@@ -60,10 +60,10 @@
 
   - name: segment_E51970
     type: code
-    dir: overlay/segment_E51970
+    dir: overlays/segment_E51970
     start: 0xE51970
     vram: 0x80187520
-    exclusive_ram_id: overlay
+    exclusive_ram_id: overlays
     symbol_name_format: $VRAM_$ROM
     subsegments:
     - [0xE51970, c, E51970]
@@ -83,10 +83,10 @@
 
   - name: segment_E6A810
     type: code
-    dir: overlay/segment_E6A810
+    dir: overlays/segment_E6A810
     start: 0xE6A810
     vram: 0x80187520
-    exclusive_ram_id: overlay
+    exclusive_ram_id: overlays
     symbol_name_format: $VRAM_$ROM
     subsegments:
     - [0xE6A810, c, E6A810]
@@ -101,10 +101,10 @@
 
   - name: segment_E9F1D0
     type: code
-    dir: overlay/segment_E9F1D0
+    dir: overlays/segment_E9F1D0
     start: 0xE9F1D0
     vram: 0x80187520
-    exclusive_ram_id: overlay
+    exclusive_ram_id: overlays
     symbol_name_format: $VRAM_$ROM
     subsegments:
     - [0xE9F1D0, c, E9F1D0]
@@ -122,10 +122,10 @@
     
   - name: segment_EBFBE0
     type: code
-    dir: overlay/segment_EBFBE0
+    dir: overlays/segment_EBFBE0
     start: 0xEBFBE0
     vram: 0x80187520
-    exclusive_ram_id: overlay
+    exclusive_ram_id: overlays
     symbol_name_format: $VRAM_$ROM
     subsegments:
     - [0xEBFBE0, c]
@@ -142,10 +142,10 @@
 
   - name: segment_EF0260
     type: code
-    dir: overlay/segment_EF0260
+    dir: overlays/segment_EF0260
     start: 0xEF0260
     vram: 0x80187520
-    exclusive_ram_id: overlay
+    exclusive_ram_id: overlays
     symbol_name_format: $VRAM_$ROM
     subsegments:
     - [0xEF0260, c]
@@ -157,10 +157,10 @@
     
   - name: segment_EFFA40
     type: code
-    dir: overlay
+    dir: overlays
     start: 0xEFFA40
     vram: 0x80187520
-    exclusive_ram_id: overlay
+    exclusive_ram_id: overlays
     symbol_name_format: $VRAM_$ROM
     subsegments:
     - [0xEFFA40, asm]
