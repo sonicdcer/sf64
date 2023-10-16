@@ -222,7 +222,7 @@ decompress: $(BASEROM)
 
 extract:
 	$(RM) -r asm/$(VERSION) bin/$(VERSION)
-	$(CAT) yamls/$(VERSION)/header.yaml yamls/$(VERSION)/makerom.yaml yamls/$(VERSION)/main.yaml > $(SPLAT_YAML)
+	$(CAT) yamls/$(VERSION)/header.yaml yamls/$(VERSION)/makerom.yaml yamls/$(VERSION)/main.yaml yamls/$(VERSION)/overlays.yaml > $(SPLAT_YAML)
 	$(SPLAT) $(SPLAT_YAML)
 
 clean:
@@ -233,10 +233,10 @@ clean:
 	@git clean -fdx linker_scripts/
 
 format:
-	@$(TOOLS)/format.py -j $(nproc)
+	@$(TOOLS)/format.py -j $(N_THREADS)
 
 checkformat:
-	@$(TOOLS)/check_format.sh -j $(nproc)
+	@$(TOOLS)/check_format.sh -j $(N_THREADS)
 
 # asm-differ expected object files
 expected:
