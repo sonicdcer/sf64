@@ -36,6 +36,8 @@ TARGET               := starfox64
 ### Output ###
 
 BUILD_DIR := build
+TOOLS	  := tools
+PYTHON	  := python3
 ROM       := $(BUILD_DIR)/$(TARGET).$(VERSION).uncompressed.z64
 ROMC 	  := $(BUILD_DIR)/$(TARGET).$(VERSION).z64
 ELF       := $(BUILD_DIR)/$(TARGET).$(VERSION).elf
@@ -80,24 +82,23 @@ endif
 
 ### Compiler ###
 
-CC              := tools/ido_recomp/$(DETECTED_OS)/5.3/cc
+CC              := $(TOOLS)/ido_recomp/$(DETECTED_OS)/5.3/cc
 AS              := $(MIPS_BINUTILS_PREFIX)as
 LD              := $(MIPS_BINUTILS_PREFIX)ld
 OBJCOPY         := $(MIPS_BINUTILS_PREFIX)objcopy
 OBJDUMP         := $(MIPS_BINUTILS_PREFIX)objdump
 CPP             := cpp
 ICONV           := iconv
-ASM_PROC        := python3 tools/asm-processor/build.py
+ASM_PROC        := $(PYTHON) $(TOOLS)/asm-processor/build.py
 CAT             := cat
 
 ASM_PROC_FLAGS  := --input-enc=utf-8 --output-enc=euc-jp --convert-statics=global-with-filename
 
-SPLAT           ?= tools/splat/split.py
+SPLAT           ?= $(TOOLS)/splat/split.py
 SPLAT_YAML      ?= $(TARGET).$(VERSION).yaml
 
-COMPTOOL		:= tools/comptool.py
+COMPTOOL		:= $(TOOLS)/comptool.py
 
-PYTHON			:= python3
 
 IINC := -Iinclude -Ibin/$(VERSION) -I.
 IINC += -Ilib/ultralib/include -Ilib/ultralib/include/PR -Ilib/ultralib/include/ido
@@ -232,10 +233,10 @@ clean:
 	@git clean -fdx linker_scripts/
 
 format:
-	@./tools/format.py -j $(nproc)
+	@$(TOOLS)/format.py -j $(nproc)
 
 checkformat:
-	@./tools/check_format.sh -j $(nproc)
+	@$(TOOLS)/check_format.sh -j $(nproc)
 
 # asm-differ expected object files
 expected:
