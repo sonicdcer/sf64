@@ -57,6 +57,8 @@ typedef volatile long long		vs64;	/* signed 64-bit */
 typedef float				f32;	/* single prec floating point */
 typedef double				f64;	/* double prec floating point */
 
+typedef u32 size_t;
+
 #endif  /* _LANGUAGE_C */
 
 

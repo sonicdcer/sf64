@@ -192,6 +192,7 @@ build/src/libultra/2BDF0.o: OPTFLAGS := -O1 -g0
 build/src/libultra/2C700.o: OPTFLAGS := -O1 -g0
 build/src/libultra/2D300.o: OPTFLAGS := -O1 -g0
 build/src/libultra/io/controller.o: OPTFLAGS := -O1 -g0
+build/src/libultra/libc/string.o: OPTFLAGS := -O2 -g0
 
 # cc & asm-processor
 build/src/%.o: CC := $(ASM_PROC) $(ASM_PROC_FLAGS) $(CC) -- $(AS) $(ASFLAGS) --
