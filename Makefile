@@ -30,11 +30,14 @@ MIPS_BINUTILS_PREFIX ?= mips-linux-gnu-
 VERSION ?= us
 
 BASEROM              := baserom.$(VERSION).z64
+BASEROM_UNCOMPRESSED := baserom.$(VERSION).uncompressed.z64
 TARGET               := starfox64
 
 ### Output ###
 
 BUILD_DIR := build
+TOOLS	  := tools
+PYTHON	  := python3
 ROM       := $(BUILD_DIR)/$(TARGET).$(VERSION).uncompressed.z64
 ROMC 	  := $(BUILD_DIR)/$(TARGET).$(VERSION).z64
 ELF       := $(BUILD_DIR)/$(TARGET).$(VERSION).elf
@@ -79,24 +82,23 @@ endif
 
 ### Compiler ###
 
-CC              := tools/ido_recomp/$(DETECTED_OS)/5.3/cc
+CC              := $(TOOLS)/ido_recomp/$(DETECTED_OS)/5.3/cc
 AS              := $(MIPS_BINUTILS_PREFIX)as
 LD              := $(MIPS_BINUTILS_PREFIX)ld
 OBJCOPY         := $(MIPS_BINUTILS_PREFIX)objcopy
 OBJDUMP         := $(MIPS_BINUTILS_PREFIX)objdump
 CPP             := cpp
 ICONV           := iconv
-ASM_PROC        := python3 tools/asm-processor/build.py
+ASM_PROC        := $(PYTHON) $(TOOLS)/asm-processor/build.py
 CAT             := cat
 
 ASM_PROC_FLAGS  := --input-enc=utf-8 --output-enc=euc-jp --convert-statics=global-with-filename
 
-SPLAT           ?= tools/splat/split.py
+SPLAT           ?= $(TOOLS)/splat/split.py
 SPLAT_YAML      ?= $(TARGET).$(VERSION).yaml
 
-COMPTOOL		:= tools/comptool.py
+COMPTOOL		:= $(TOOLS)/comptool.py
 
-PYTHON			:= python3
 
 IINC := -Iinclude -Ibin/$(VERSION) -I.
 IINC += -Ilib/ultralib/include -Ilib/ultralib/include/PR -Ilib/ultralib/include/ido
@@ -191,15 +193,14 @@ build/src/libultra/2D300.o: OPTFLAGS := -O1 -g0
 # cc & asm-processor
 build/src/%.o: CC := $(ASM_PROC) $(ASM_PROC_FLAGS) $(CC) -- $(AS) $(ASFLAGS) --
 
-all: uncompressed compressed
+all: uncompressed
 
 init:
 	$(MAKE) clean
 	$(MAKE) decompress
-	$(MAKE) extract -j $(nproc)
-	$(MAKE) all -j $(nproc)
-#	$(MAKE) compress
-# TODO: COMPRESS resulting rom.
+	$(MAKE) extract -j $(N_THREADS)
+	$(MAKE) all -j $(N_THREADS)
+	$(MAKE) compressed
 
 uncompressed: $(ROM)
 ifneq ($(COMPARE),0)
@@ -215,13 +216,13 @@ endif
 
 #### Main Targets ###
 
-decompress: baserom.us.z64
+decompress: $(BASEROM)
 	@echo "Decompressing ROM..."
-	@$(PYTHON) $(COMPTOOL) -d $(BASEROM) ./baserom.us.uncompressed.z64
+	@$(PYTHON) $(COMPTOOL) -d $(BASEROM) $(BASEROM_UNCOMPRESSED)
 
 extract:
 	$(RM) -r asm/$(VERSION) bin/$(VERSION)
-	$(CAT) yamls/$(VERSION)/header.yaml yamls/$(VERSION)/makerom.yaml yamls/$(VERSION)/main.yaml > $(SPLAT_YAML)
+	$(CAT) yamls/$(VERSION)/header.yaml yamls/$(VERSION)/makerom.yaml yamls/$(VERSION)/main.yaml yamls/$(VERSION)/overlays.yaml > $(SPLAT_YAML)
 	$(SPLAT) $(SPLAT_YAML)
 
 clean:
@@ -229,12 +230,13 @@ clean:
 	@git clean -fdx assets/
 	@git clean -fdx bin/
 	@git clean -fdx build/
+	@git clean -fdx linker_scripts/
 
 format:
-	@./tools/format.py -j $(nproc)
+	@$(TOOLS)/format.py -j $(N_THREADS)
 
 checkformat:
-	@./tools/check_format.sh -j $(nproc)
+	@$(TOOLS)/check_format.sh -j $(N_THREADS)
 
 # asm-differ expected object files
 expected:
@@ -248,9 +250,9 @@ expected:
 $(ROM): $(ELF)
 	$(OBJCOPY) -O binary $< $@
 
-$(ROMC): baserom.us.uncompressed.z64
+$(ROMC): $(BASEROM_UNCOMPRESSED)
 	@echo "Compressing ROM..."
-	@$(PYTHON) $(COMPTOOL) -c ./baserom.us.uncompressed.z64 ./build/starfox64.us.z64
+	@$(PYTHON) $(COMPTOOL) -c $(ROM) $(ROMC)
 
 # TODO: update rom header checksum
 
@@ -284,3 +286,5 @@ $(BUILD_DIR)/%.o: %.c
 
 # Print target for debugging
 print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
+
+.PHONY: all uncompressed compressed clean init extract format checkformat decompress
