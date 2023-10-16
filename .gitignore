@@ -5,6 +5,8 @@ __pycache__
 starfox64.ld
 starfox64.uncompressed.ld
 starfox64.us.yaml
+ctx.c
+ctx.c.m2c
 *.d
 *_auto.ld
 *.n64

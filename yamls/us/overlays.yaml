@@ -10,9 +10,17 @@
     exclusive_ram_id: overlay
     symbol_name_format: $VRAM_$ROM
     subsegments:
-    - [0xDF4260, asm, DF4260]
+    - [0xDF4260, c, DF4260]
+    - [0xDFEE30, c, DFEE30]
+    - [0xE05620, c, E05620]
+    - [0xE05990, c, E05990]
     - [0xE06520, data, DF4260]
-    - [0xE07C30, rodata, DF4260]
+    - [0xE06880, data, DFEE30]
+    - [0xE07B90, data, E05990]
+    - [0xE07C30, .rodata, DF4260]
+    - [0xE07FF0, .rodata, DFEE30]
+    - [0xE08380, .rodata, E05620]
+    - [0xE083C0, .rodata, E05990]
 
   - name: file_E08400
     type: code
@@ -22,9 +30,12 @@
     exclusive_ram_id: overlay
     symbol_name_format: $VRAM_$ROM
     subsegments:    
-    - [0xE08400, asm]
+    - [0xE08400, c, E08400]
+    - [0xE0FF10, c, E0FF10]
     - [0xE16310, data, E08400]
-    - [0xE16670, rodata, E08400]
+    - [0xE16520, data, E0FF10]
+    - [0xE16670, .rodata, E08400]
+    - [0xE16930, .rodata, E0FF10]
 
   - name: file_E16C50
     type: code
@@ -34,9 +45,18 @@
     exclusive_ram_id: overlay
     symbol_name_format: $VRAM_$ROM
     subsegments:
-    - [0xE16C50, asm]
+    - [0xE16C50, c, E16C50]
+    - [0xE1F680, c, E1F680]
+    - [0xE2DF20, c, E2DF20]
+    - [0xE38560, c, E38560]
     - [0xE4E3E0, data, E16C50]
-    - [0xE50040, rodata, E16C50]
+    - [0xE4EC90, data, E1F680]
+    - [0xE4F010, data, E2DF20]
+    - [0xE4F290, data, E38560]
+    - [0xE50040, .rodata, E16C50]
+    - [0xE504E0, .rodata, E1F680]
+    - [0xE50C00, .rodata, E2DF20]
+    - [0xE51160, .rodata, E38560]
 
   - name: file_E51970
     type: code
@@ -46,9 +66,20 @@
     exclusive_ram_id: overlay
     symbol_name_format: $VRAM_$ROM
     subsegments:
-    - [0xE51970, asm]
-    - [0xE69230, data, E51970]
-    - [0xE69B30, rodata, E51970]
+    - [0xE51970, c, E51970]
+    - [0xE51A40, c, E51A40]
+    - [0xE561B0, c, E561B0]
+    - [0xE5CC30, c, E5CC30]
+    - [0xE63D50, c, E63D50]
+    - [0xE69230, data, E51A40]
+    - [0xE69310, data, E561B0]
+    - [0xE69540, data, E5CC30]
+    - [0xE69910, data, E63D50]
+    - [0xE69B30, .rodata, E51970]
+    - [0xE69B70, .rodata, E51A40]
+    - [0xE69D70, .rodata, E561B0]
+    - [0xE6A170, .rodata, E5CC30]
+    - [0xE6A510, .rodata, E63D50]
 
   - name: file_E6A810
     type: code
@@ -58,9 +89,15 @@
     exclusive_ram_id: overlay
     symbol_name_format: $VRAM_$ROM
     subsegments:
-    - [0xE6A810, asm]
+    - [0xE6A810, c, E6A810]
+    - [0xE6C220, c, E6C220]
+    - [0xE97CC0, c, E97CC0]
     - [0xE9A590, data, E6A810]
-    - [0xE9DE50, rodata, E6A810] # Might not be start
+    - [0xE9A650, data, E6C220]
+    - [0xE9DC00, data, E97CC0]
+    - [0xE9DCD0, .rodata, E6A810]
+    - [0xE9DD40, .rodata, E6C220]
+    - [0xE9F0E0, .rodata, E97CC0]
 
   - name: file_E9F1D0
     type: code
@@ -70,9 +107,18 @@
     exclusive_ram_id: overlay
     symbol_name_format: $VRAM_$ROM
     subsegments:
-    - [0xE9F1D0, asm]
+    - [0xE9F1D0, c, E9F1D0]
+    - [0xEADEC0, c, EADECO]
+    - [0xEAF7E0, c, EAF7E0]
+    - [0xEBD210, c, EBD210]
     - [0xEBE410, data, E9F1D0]
-    - [0xEBE870, rodata, E9F1D0]
+    - [0xEBE560, data, EADCE0]
+    - [0xEBE5C0, data, EAF7E0]
+    - [0xEBE830, data, EBD210]
+    - [0xEBE870, .rodata, E9F1D0]
+    - [0xEBF0F0, .rodata, EADECO]
+    - [0xEBF130, .rodata, EAF7E0]
+    - [0xEBFB80, .rodata, EBD210]
     
   - name: file_EBFBE0
     type: code
@@ -82,9 +128,17 @@
     exclusive_ram_id: overlay
     symbol_name_format: $VRAM_$ROM
     subsegments:
-    - [0xEBFBE0, asm]
-    - [0xEE60C0, data, EBFBE0]
-    - [0xEEF410, rodata, EBFBE0] # might not be the start
+    - [0xEBFBE0, c]
+    - [0xEBFCA0, c]
+    - [0xECA1E0, c]
+    - [0xED6EC0, c]
+    - [0xEE60C0, data, EBFCA0]
+    - [0xEE6C30, data, ECA1E0]
+    - [0xEE7AE0, data, ED6EC0]
+    - [0xEEF410, .rodata, EBFBE0]
+    - [0xEEF430, .rodata, EBFCA0]
+    - [0xEEF7D0, .rodata, ECA1E0]
+    - [0xEEFB80, .rodata, ED6EC0]
 
   - name: file_EF0260
     type: code
@@ -94,11 +148,13 @@
     exclusive_ram_id: overlay
     symbol_name_format: $VRAM_$ROM
     subsegments:
-    - [0xEF0260, asm]
+    - [0xEF0260, c]
+    - [0xEF5B60, c]
     - [0xEFB560, data, EF0260]
-    - [0xEFEF80, rodata, EF0260]
-    - [0xEFF380, rodata, EF0260_credits]
-
+    - [0xEFBBB0, data, EF5B60]
+    - [0xEFEF80, .rodata, EF0260]
+    - [0xEFF380, .rodata, EF5B60]
+    
   - name: file_EFFA40
     type: code
     dir: overlay

@@ -1,5 +1,8 @@
 #include "hud.h"
 
+extern s32 D_8013B3C0;
+extern Gfx D_F014180[];
+
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_80084930.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_80084B94.s")
