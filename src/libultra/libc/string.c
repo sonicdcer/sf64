@@ -25,4 +25,15 @@ size_t strlen(const char* s) {
 }
 
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/string/strchr.s")
+const char* strchr(const char* s, int c) {
+    const unsigned char ch = c;
+
+    while (*s != ch) {
+        if (*s == '\0') {
+            return NULL;
+        }
+        s++;
+    }
+
+    return s;
+}
