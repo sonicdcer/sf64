@@ -1,9 +1,5 @@
 #include "global.h"
-
-typedef struct {
-    /* 0x00 */ char pad_0[0xB8];
-    /* 0xB8 */ s16 unkB8;
-} UnkStruct_func_8018BC50_DF8990;
+#include "DF4260.h"
 
 void func_80187520_DF4260(s32 arg0, s32 arg1) {
 }
