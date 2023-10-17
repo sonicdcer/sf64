@@ -17,7 +17,4 @@ typedef struct {
 
 void func_8007C120(s32, s32, s32, f32, f32, f32, f32, s32);
 
-extern s8 D_80177A98;
-extern s8 D_80177AB0;
-
 #endif

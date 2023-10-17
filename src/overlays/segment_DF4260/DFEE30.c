@@ -1,4 +1,5 @@
-#include "common.h"
+#include "global.h"
+#include "DFEE30.h"
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/segment_DF4260/DFEE30/func_801920F0_DFEE30.s")
 
@@ -10,7 +11,19 @@
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/segment_DF4260/DFEE30/func_8019243C_DFF17C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/segment_DF4260/DFEE30/func_801924A8_DFF1E8.s")
+void func_801924A8_DFF1E8(UnkStruct_func_801924A8_DFF1E8* arg0) {
+    switch (arg0->unk48) {
+        case 0:
+            if (D_80178280->unk7C < arg0->unkC) {
+                D_80177AB0 = 0;
+                D_80177A98 = 0;
+                arg0->unk48++;
+            }
+
+        case 1:
+            return;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/segment_DF4260/DFEE30/func_8019250C_DFF24C.s")
 
