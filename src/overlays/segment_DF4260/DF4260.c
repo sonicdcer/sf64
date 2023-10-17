@@ -1,6 +1,7 @@
 #include "global.h"
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/segment_DF4260/DF4260/func_80187520_DF4260.s")
+void func_80187520_DF4260(s32 arg0, s32 arg1) {
+}
 
 void func_80187530_DF4270(s32 arg0) {
 }
