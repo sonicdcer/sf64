@@ -194,6 +194,8 @@ build/src/libultra/2D300.o: OPTFLAGS := -O1 -g0
 build/src/libultra/io/controller.o: OPTFLAGS := -O1 -g0
 build/src/libultra/libc/string.o: OPTFLAGS := -O2 -g0
 build/src/libultra/libc/ldiv.o: OPTFLAGS := -O2 -g0
+build/src/libultra/libc/ll.o: OPTFLAGS := -O1 -g0
+build/src/libultra/libc/ll.o: MIPS_VERSION := -mips3 -32
 build/src/libultra/gu/ortho.o: OPTFLAGS := -O3 -g0
 build/src/libultra/gu/lookat.o: OPTFLAGS := -O3 -g0
 
@@ -201,6 +203,8 @@ build/src/libultra/gu/lookat.o: OPTFLAGS := -O3 -g0
 CC := $(ASM_PROC) $(ASM_PROC_FLAGS) $(IDO) -- $(AS) $(ASFLAGS) --
 build/src/libultra/gu/lookat.o: CC := $(IDO)
 build/src/libultra/gu/ortho.o: CC := $(IDO)
+build/src/libultra/libc/ll.o: CC := $(IDO)
+
 #build/src/%.o: CC := $(ASM_PROC) $(ASM_PROC_FLAGS) $(IDO) -- $(AS) $(ASFLAGS) --
 
 all: uncompressed
@@ -295,6 +299,14 @@ $(BUILD_DIR)/%.o: %.s
 $(BUILD_DIR)/%.o: %.c
 	$(CC_CHECK) $(CC_CHECK_FLAGS) $(IINC) -I $(dir $*) $(CHECK_WARNINGS) $(BUILD_DEFINES) $(COMMON_DEFINES) $(RELEASE_DEFINES) $(GBI_DEFINES) $(C_DEFINES) $(MIPS_BUILTIN_DEFS) -o $@ $<
 	$(CC) -c $(CFLAGS) $(BUILD_DEFINES) $(IINC) $(WARNINGS) $(MIPS_VERSION) $(ENDIAN) $(COMMON_DEFINES) $(RELEASE_DEFINES) $(GBI_DEFINES) $(C_DEFINES) $(OPTFLAGS) -o $@ $<
+	$(OBJDUMP_CMD)
+	$(RM_MDEBUG)
+
+# Patch ll.o
+build/src/libultra/libc/ll.o: src/libultra/libc/ll.c
+	$(CC_CHECK) $(CC_CHECK_FLAGS) $(IINC) -I $(dir $*) $(CHECK_WARNINGS) $(BUILD_DEFINES) $(COMMON_DEFINES) $(RELEASE_DEFINES) $(GBI_DEFINES) $(C_DEFINES) $(MIPS_BUILTIN_DEFS) -o $@ $<
+	$(CC) -c $(CFLAGS) $(BUILD_DEFINES) $(IINC) $(WARNINGS) $(MIPS_VERSION) $(ENDIAN) $(COMMON_DEFINES) $(RELEASE_DEFINES) $(GBI_DEFINES) $(C_DEFINES) $(OPTFLAGS) -o $@ $<
+	$(PYTHON) tools/set_o32abi_bit.py $@
 	$(OBJDUMP_CMD)
 	$(RM_MDEBUG)
 

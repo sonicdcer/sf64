@@ -1,21 +1,46 @@
-#include "common.h"
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/__ull_rshift.s")
+long long __ull_rshift(unsigned long long left, unsigned long long right) {
+    return left >> right;
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/__ull_rem.s")
+unsigned long long __ull_rem(unsigned long long left, unsigned long long right) {
+    return left % right;
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/__ull_div.s")
+unsigned long long __ull_div(unsigned long long left, unsigned long long right) {
+    return left / right;
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/__ll_lshift.s")
+long long __ll_lshift(long long left, long long right) {
+    return left << right;
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/__ll_rem.s")
+long long __ll_rem(long long left, unsigned long long right) {
+    return left % right;
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/__ll_div.s")
+long long __ll_div(long long left, long long right) {
+    return left / right;
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/__ll_mul.s")
+long long __ll_mul(long long left, long long right) {
+    return left * right;
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/__ull_divremi.s")
+void __ull_divremi(unsigned long long* quotient, unsigned long long* remainder, unsigned long long dividend,
+                   unsigned short divisor) {
+    *quotient = dividend / divisor;
+    *remainder = dividend % divisor;
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/__ll_mod.s")
+long long __ll_mod(long long left, long long right) {
+    long long rem = left % right;
+    if (((rem < 0) && (right > 0)) || ((rem > 0) && (right < 0))) {
+        rem += right;
+    }
+    return rem;
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/libc/ll/__ll_rshift.s")
+long long __ll_rshift(long long left, long long right) {
+    return left >> right;
+}
