@@ -1,5 +1,10 @@
 #include "global.h"
 
+typedef struct {
+    /* 0x00 */ char pad_0[0xB8];
+    /* 0xB8 */ s16 unkB8;
+} UnkStruct_func_8018BC50_DF8990;
+
 void func_80187520_DF4260(s32 arg0, s32 arg1) {
 }
 
@@ -79,7 +84,12 @@ f32 func_80187A88_DF47C8(s32 arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/segment_DF4260/DF4260/func_8018BBF8_DF8938.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/segment_DF4260/DF4260/func_8018BC50_DF8990.s")
+s32 func_8018BC50_DF8990(s32 arg0, s32* arg1, s32 arg2, s32 arg3, UnkStruct_func_8018BC50_DF8990* arg4) {
+    if ((arg4->unkB8 == 0x65) && (arg0 != 8)) {
+        *arg1 = 0;
+    }
+    return 0;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/segment_DF4260/DF4260/func_8018BC84_DF89C4.s")
 
