@@ -31,7 +31,10 @@ void func_801924A8_DFF1E8(UnkStruct_func_801924A8_DFF1E8* arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/segment_DF4260/DFEE30/func_80192AA4_DFF7E4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/segment_DF4260/DFEE30/func_80192CB0_DFF9F0.s")
+void func_80192CB0_DFF9F0(UnkStruct_func_80192CB0_DFF9F0* arg0) {
+    arg0->unk50 = arg0->unk10;
+    arg0->unk10 = 0.0f;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/segment_DF4260/DFEE30/func_80192CD4_DFFA14.s")
 
