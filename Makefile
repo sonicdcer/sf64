@@ -82,7 +82,7 @@ endif
 
 ### Compiler ###
 
-CC              := $(TOOLS)/ido_recomp/$(DETECTED_OS)/5.3/cc
+IDO              := $(TOOLS)/ido_recomp/$(DETECTED_OS)/5.3/cc
 AS              := $(MIPS_BINUTILS_PREFIX)as
 LD              := $(MIPS_BINUTILS_PREFIX)ld
 OBJCOPY         := $(MIPS_BINUTILS_PREFIX)objcopy
@@ -194,10 +194,12 @@ build/src/libultra/2D300.o: OPTFLAGS := -O1 -g0
 build/src/libultra/io/controller.o: OPTFLAGS := -O1 -g0
 build/src/libultra/libc/string.o: OPTFLAGS := -O2 -g0
 build/src/libultra/libc/ldiv.o: OPTFLAGS := -O2 -g0
-#build/src/libultra/gu/lookat.o: OPTFLAGS := -O3 -g0
+build/src/libultra/gu/lookat.o: OPTFLAGS := -O3 -g0
 
 # cc & asm-processor
-build/src/%.o: CC := $(ASM_PROC) $(ASM_PROC_FLAGS) $(CC) -- $(AS) $(ASFLAGS) --
+CC := $(ASM_PROC) $(ASM_PROC_FLAGS) $(IDO) -- $(AS) $(ASFLAGS) --
+build/src/libultra/gu/lookat.o: CC := $(IDO)
+#build/src/%.o: CC := $(ASM_PROC) $(ASM_PROC_FLAGS) $(IDO) -- $(AS) $(ASFLAGS) --
 
 all: uncompressed
 
