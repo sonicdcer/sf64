@@ -1,9 +1,6 @@
 #include "global.h"
 #include "PR/gbi.h"
-
-void guMtxIdentF(float (*mf)[4]);
-
-float sqrtf(float value);
+#include "PR/gu.h"
 
 void guLookAtF(float mf[4][4], float xEye, float yEye, float zEye, float xAt, float yAt, float zAt, float xUp,
                float yUp, float zUp) {
