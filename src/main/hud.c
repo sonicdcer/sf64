@@ -254,7 +254,7 @@ s32 func_8008BCBC(s32 arg0) {
     s32 ret;
 
     if (arg0 < 0) {
-        arg0 = (s64)-arg0;
+        arg0 = (s64) -arg0;
     }
 
     ret = 1;
@@ -430,7 +430,7 @@ void func_80095350(UnkStruct_func_80095350* arg0) {
     arg0->unk0 = 2;
     arg0->unk2 = 0xC3;
     arg0->unkB6 = 0x270F;
-    func_800612B8((s32*)arg0 + 7, arg0->unk2, arg0);
+    func_800612B8((s32*) arg0 + 7, arg0->unk2, arg0);
 }
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_800953A0.s")

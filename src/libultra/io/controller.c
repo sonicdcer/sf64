@@ -45,9 +45,9 @@ void __osContGetInitData(u8* pattern, OSContStatus* data) {
     u8 bits;
 
     bits = 0;
-    ptr = (u8*)__osContPifRam.ramarray;
+    ptr = (u8*) __osContPifRam.ramarray;
     for (i = 0; i < __osMaxControllers; i++, ptr += sizeof(requestHeader), data++) {
-        requestHeader = *(__OSContRequestHeader*)ptr;
+        requestHeader = *(__OSContRequestHeader*) ptr;
         data->errno = (requestHeader.rxsize & 0xC0) >> 4;
         if (data->errno == 0) {
             data->type = requestHeader.typel << 8 | requestHeader.typeh;
@@ -69,7 +69,7 @@ void __osPackRequestData(u8 poll) {
     }
 
     __osContPifRam.pifstatus = CONT_CMD_READ_BUTTON;
-    ptr = (u8*)__osContPifRam.ramarray;
+    ptr = (u8*) __osContPifRam.ramarray;
     requestHeader.align = 255;
     requestHeader.txsize = 1;
     requestHeader.rxsize = 3;
@@ -80,7 +80,7 @@ void __osPackRequestData(u8 poll) {
     requestHeader.align1 = 255;
 
     for (i = 0; i < __osMaxControllers; i++) {
-        *(__OSContRequestHeader*)ptr = requestHeader;
+        *(__OSContRequestHeader*) ptr = requestHeader;
         ptr += sizeof(requestHeader);
     }
     *ptr = 254;

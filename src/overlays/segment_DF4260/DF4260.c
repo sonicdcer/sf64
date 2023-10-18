@@ -28,7 +28,7 @@ void func_80187530_DF4270(s32 arg0) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/segment_DF4260/DF4260/func_80187A38_DF4778.s")
 
 f32 func_80187A88_DF47C8(s32 arg0) {
-    f32 ret = (f32)arg0 * 0.5f;
+    f32 ret = (f32) arg0 * 0.5f;
 
     if (ret > 8.0f) {
         ret = 8.0f;

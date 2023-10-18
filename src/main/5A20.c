@@ -18,13 +18,13 @@ extern f32 func_8001FBE8(f32);
 extern u64 osGetTime(void);
 
 f32 func_80004E20(f32 arg0, f32 arg1) {
-    return arg0 - ((s32)(arg0 / arg1) * arg1);
+    return arg0 - ((s32) (arg0 / arg1) * arg1);
 }
 
 void func_80004E4C(void) {
-    D_8013B3A4 = (s32)osGetTime() % 30000;
-    D_8013B3A8 = (s32)osGetTime() % 30000;
-    D_8013B3AC = (s32)osGetTime() % 30000;
+    D_8013B3A4 = (s32) osGetTime() % 30000;
+    D_8013B3A8 = (s32) osGetTime() % 30000;
+    D_8013B3AC = (s32) osGetTime() % 30000;
 }
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80004EB0.s")
