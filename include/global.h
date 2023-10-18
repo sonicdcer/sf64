@@ -6,6 +6,7 @@
 #include "functions.h"
 #include "variables.h"
 #include "macros.h"
+#include "sf64math.h"
 
 extern Gfx* D_80137E64;
 
