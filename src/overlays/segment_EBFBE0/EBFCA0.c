@@ -388,6 +388,8 @@ void func_80187E28_EC04E8(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/segment_EBFBE0/EBFCA0/func_801888E8_EC0FA8.s")
 
+//! TODO: Clean up this mess!
+
 f32 func_80005100(f32, f32);                                
 void func_8009BC2C(f32*, f32, f32, f32, f32);               
 void func_8018D2B8_EC5978(s32);                             
