@@ -1,10 +1,6 @@
 #include "global.h"
 #include "libc/string.h"
-
-typedef struct {
-    /* 0x0 */ long long quot;
-    /* 0x8 */ long long rem;
-} lldiv_t;
+#include "libc/stdlib.h"
 
 typedef struct {
     /* 0x0 */ union {
