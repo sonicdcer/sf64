@@ -1,6 +1,88 @@
-#include "common.h"
+#include "global.h"
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/segment_EBFBE0/EBFCA0/func_801875E0_EBFCA0.s")
+s32 func_80187ABC_EC017C(void);
+
+extern s32 D_800D2870;
+extern s32 D_800DD8B4;
+extern u8 D_80137E78;
+extern s16 D_80161A34;
+extern s16 D_80161A36;
+extern s32 D_80177AE0;
+extern s32 D_80177AF8;
+extern s32 D_80177DB0;
+extern s32 D_80178320;
+extern s32 D_80178328;
+extern s32 D_80178330;
+extern s32 D_80178340;
+extern s32 D_80178348;
+extern s32 D_80178350;
+extern s32 D_80178354;
+extern f32 D_80178420;
+extern f32 D_80178424;
+extern f32 D_801B7BC8;
+extern f32 D_801B7BCC;
+extern s32 D_801B827C;
+extern s32 D_801B8280;
+extern s32 D_801B8284;
+extern s32 D_801B82A8;
+extern s32 D_801B82AC;
+extern s32 D_801B82C0;
+extern s32 D_801B82C4;
+extern f32 D_801B833C;
+
+void func_801875E0_EBFCA0(void) {
+    D_80137E78 = 2;
+
+    D_80177DB0 = 0;
+
+    D_80177AE0 = 2;
+
+    D_80161A34 = 0;
+    D_800D2870 = 0;
+
+    D_80177AF8 = func_80187ABC_EC017C();
+
+    D_80178348 = 0;
+    D_80178350 = 0;
+    D_80178354 = 0;
+    D_80178340 = 0;
+
+    D_80178320 = 0;
+    D_80178328 = 0;
+    D_80178330 = 0;
+
+    D_80161A36 = 0;
+
+    D_801B8284 = 0;
+    D_801B82A8 = 0;
+    D_801B82AC = 0;
+
+    D_801B833C = 0.0f;
+
+    D_801B82C0 = 0;
+    D_801B8280 = 0;
+
+    D_801B7BCC = 255.0f;
+    D_801B7BC8 = 255.0f;
+
+    func_80006F20();
+
+    func_800A5D6C();
+    D_80178420 = 320.0f;
+    D_80178424 = 240.0f;
+
+    func_80188010_EC06D0();
+
+    if ((D_80177AF8 == -1) || (D_801B827C != 0)) {
+        func_8001DC6C(0, 0x17);
+        D_801B82C4 = 0;
+        D_801B827C = 0;
+    } else {
+        func_8001DC6C(0, 0x16);
+        D_801B82C4 = 1;
+    }
+    D_800DD8B4 = 0x1E;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/segment_EBFBE0/EBFCA0/func_80187754_EBFE14.s")
 
