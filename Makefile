@@ -191,13 +191,14 @@ build/src/main/1EB50.o: OPTFLAGS := -O1 -g0
 build/src/libultra/2BDF0.o: OPTFLAGS := -O1 -g0
 build/src/libultra/2C700.o: OPTFLAGS := -O1 -g0
 build/src/libultra/2D300.o: OPTFLAGS := -O1 -g0
+build/src/libultra/gu/ortho.o: OPTFLAGS := -O3 -g0
+build/src/libultra/gu/lookat.o: OPTFLAGS := -O3 -g0
 build/src/libultra/io/controller.o: OPTFLAGS := -O1 -g0
+build/src/libultra/io/ai.o: OPTFLAGS := -O1 -g0
 build/src/libultra/libc/string.o: OPTFLAGS := -O2 -g0
 build/src/libultra/libc/ldiv.o: OPTFLAGS := -O2 -g0
 build/src/libultra/libc/ll.o: OPTFLAGS := -O1 -g0
 build/src/libultra/libc/ll.o: MIPS_VERSION := -mips3 -32
-build/src/libultra/gu/ortho.o: OPTFLAGS := -O3 -g0
-build/src/libultra/gu/lookat.o: OPTFLAGS := -O3 -g0
 build/src/libultra/rmon/xlitob.o: OPTFLAGS := -O2 -g0
 
 # cc & asm-processor
