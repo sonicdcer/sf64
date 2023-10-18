@@ -21,8 +21,6 @@ typedef struct {
     /* 0x34 */ u8 qual;
 } _Pft;
 
-
-
 #define BUFF_LEN 0x18
 #define FLAGS_SPACE 1
 #define FLAGS_PLUS 2
