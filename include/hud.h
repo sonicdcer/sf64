@@ -37,10 +37,10 @@ void func_8008E5E8(void);
 void func_8008E620(void);
 void func_80090E8C(void);
 void func_800910C0(void);
-void func_8009C320(s32*, s32*, s32*, s32, s32, f32, f32, f32, f32);
-void func_8009D0BC(s32*, void*, void*, u32, u32, f32, f32, f32, f32);
-void func_8009D994(s32*, s32*, s32, s32, f32, f32, f32, f32);
-void func_8009E1E8(s32*, s32*, s32, s32, f32, f32, f32, f32);
+void func_8009C320(Gfx*, s32*, s32*, s32, s32, f32, f32, f32, f32);
+void func_8009D0BC(Gfx*, void*, void*, u32, u32, f32, f32, f32, f32);
+void func_8009D994(Gfx*, s32*, s32, s32, f32, f32, f32, f32);
+void func_8009E1E8(Gfx*, s32*, s32, s32, f32, f32, f32, f32);
 
 // Weird addresses, assets maybe?
 extern s32 D_1000E80;
@@ -79,6 +79,7 @@ extern s32 D_80177B48;
 extern s32 D_80177B50[];
 extern s32 D_80177B70[];
 extern s32 D_80177E7C;
+extern s32 D_80178234;
 extern s32 D_80178750;
 
 #endif

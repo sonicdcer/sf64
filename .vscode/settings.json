@@ -17,5 +17,6 @@
         "_LANGUAGE_C" // For gbi.h
     ],
     "files.associations": {
+        "hud.h": "c"
     },
 }

@@ -65,7 +65,65 @@ void func_80085740(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_80086110.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_800863C8.s")
+s32 func_800863C8(void) {
+    s32 var_v1 = 0;
+    
+    switch (D_80178234) {
+    case 10:
+        var_v1++;
+        
+    case 9:
+        var_v1++;
+        
+    case 19:
+        var_v1++;
+        
+    case 6:
+        var_v1++;
+        
+    case 3:
+        var_v1++;
+        
+    case 17:
+        var_v1++;
+        
+    case 18:
+        var_v1++;
+        
+    case 11:
+        var_v1++;
+        
+    case 12:
+        var_v1++;
+        
+    case 8:
+        var_v1++;
+        
+    case 7:
+        var_v1++;
+        
+    case 2:
+        var_v1++;
+        
+    case 13:
+        var_v1++;
+        
+    case 16:
+        var_v1++;
+        
+    case 14:
+        var_v1++;
+        
+    case 5:
+        var_v1++;
+        
+    case 1:
+        var_v1++;
+    case 0:
+	    break;
+    }
+    return var_v1;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/hud/func_80086444.s")
 
