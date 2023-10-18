@@ -1,3 +1,6 @@
-#include "common.h"
+#include "global.h"
+#include "hardware.h"
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/io/aigetlen/osAiGetLength.s")
+u32 osAiGetLength() {
+    return HW_REG(AI_LEN_REG, u32);
+}
