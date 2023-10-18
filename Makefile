@@ -198,6 +198,7 @@ build/src/libultra/libc/ll.o: OPTFLAGS := -O1 -g0
 build/src/libultra/libc/ll.o: MIPS_VERSION := -mips3 -32
 build/src/libultra/gu/ortho.o: OPTFLAGS := -O3 -g0
 build/src/libultra/gu/lookat.o: OPTFLAGS := -O3 -g0
+build/src/libultra/rmon/xlitob.o: OPTFLAGS := -O2 -g0
 
 # cc & asm-processor
 CC := $(ASM_PROC) $(ASM_PROC_FLAGS) $(IDO) -- $(AS) $(ASFLAGS) --
