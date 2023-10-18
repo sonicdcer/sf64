@@ -1,7 +1,6 @@
 #include "global.h"
 
 extern Gfx D_800D31B0[];
-extern Gfx* D_80137E64;
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/B99D0/func_800B8DD0.s")
 

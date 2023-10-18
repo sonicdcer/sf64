@@ -7,4 +7,6 @@
 #include "variables.h"
 #include "macros.h"
 
+extern Gfx* D_80137E64;
+
 #endif // GLOBAL_H

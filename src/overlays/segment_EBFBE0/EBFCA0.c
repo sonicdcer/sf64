@@ -12,6 +12,7 @@ void func_8001DC6C(s32, s32);
 void func_801877F0_EBFEB0(void);
 s32 func_80187ABC_EC017C(void);
 void func_80187B00_EC01C0(void);
+void func_80187E28_EC04E8(void);
 void func_801888E8_EC0FA8(void);
 void func_8018994C_EC200C(void);
 void func_8018A644_EC2D04(void);
@@ -87,6 +88,12 @@ extern s32 D_801B82C4;
 extern f32 D_801B833C;
 extern s32 D_801B8344;
 extern s32 D_801B8348;
+
+extern s32 D_801ADA44_EE6104[];
+
+extern s32 D_5000200[];
+extern s32 D_5000300[];
+extern s32 D_50077B0;
 
 void func_801875E0_EBFCA0(void) {
     D_80137E78 = 2;
@@ -321,7 +328,28 @@ void func_80187B00_EC01C0(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/segment_EBFBE0/EBFCA0/func_80187CA8_EC0368.s")
+void func_80187CA8_EC0368(void) {
+    s32 temp = 20;
+    s32 temp2 = 36;
+
+    func_800B8DD0(&D_80137E64, 0x53);
+
+    gDPSetPrimColor(D_80137E64++, 0, 0, 255, 255, 0, 255);
+
+    func_800A1200(temp2, temp, 1.0f, 1.0f, D_801ADA44_EE6104);
+
+    gDPSetPrimColor(D_80137E64++, 0, 0, 255, 255, 255, 255);
+
+    func_8009D994(&D_80137E64, D_5000300, 16, 8, 148.0f, temp, 1.0f, 1.0f);
+    func_8009D994(&D_80137E64, D_5000200, 16, 8, 164, temp, 1.0f, 1.0f);
+
+    func_800B8DD0(&D_80137E64, 0x53);
+
+    gDPSetPrimColor(D_80137E64++, 0, 0, 255, 255, 255, 255);
+
+    func_8009D994(&D_80137E64, &D_50077B0, 16, 2, 36, 32, 15.2f, 1.0f);
+    func_80187E28_EC04E8();
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/segment_EBFBE0/EBFCA0/func_80187E28_EC04E8.s")
 
