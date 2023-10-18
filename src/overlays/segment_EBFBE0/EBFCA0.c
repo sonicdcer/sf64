@@ -100,7 +100,7 @@ void func_80187754_EBFE14(void) {
             D_80177898 = 0;
             func_801875E0_EBFCA0();
             break;
-            
+
         case 2:
             D_80177898 = 1;
             func_801877F0_EBFEB0();
