@@ -59,6 +59,8 @@ typedef double				f64;	/* double prec floating point */
 
 typedef u32 size_t;
 
+typedef unsigned long int uintptr_t;
+
 typedef float Matrix[4][4];
 
 #endif  /* _LANGUAGE_C */
