@@ -5,10 +5,10 @@ void func_80084688(s32, s32);
 void func_800A5D6C(void);
 void func_800BB5D0(void);
 void func_80006F20(void);
-void func_800B6F50(f32, f32, f32, f32, f32, f32); 
+void func_800B6F50(f32, f32, f32, f32, f32, f32);
 
-void func_800182F4(s32); 
-void func_8001DC6C(s32, s32); 
+void func_800182F4(s32);
+void func_8001DC6C(s32, s32);
 void func_801877F0_EBFEB0(void);
 s32 func_80187ABC_EC017C(void);
 void func_80187B00_EC01C0(void);
@@ -272,14 +272,14 @@ void func_801878D8_EBFF98(void) {
 s32 func_80187ABC_EC017C(void) {
     s32 ret = -1;
     s32 i;
-    
+
     for (i = 0; i < 4; i++) {
         if (D_800DD8B0[i] == 1) {
             ret = i;
             break;
         }
     }
-    
+
     return ret;
 }
 
@@ -297,7 +297,7 @@ void func_80187B00_EC01C0(void) {
             if (D_801B82BC != 0) {
                 func_800B6F50(D_80177978, D_80177980, D_80177988, D_801779A0, D_801779B8, D_801779C0);
                 D_8017842C -= 1.0f;
-                if (D_801B82BC == 0x3C) {
+                if (D_801B82BC == 60) {
                     func_800182F4(0x103C00FF);
                     func_800182F4(0x113C00FF);
                 }
