@@ -21,7 +21,6 @@ typedef struct {
     /* 0x34 */ u8 qual;
 } _Pft;
 
-lldiv_t lldiv(long long numer, long long denom);
 
 
 #define BUFF_LEN 0x18
