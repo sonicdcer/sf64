@@ -129,7 +129,7 @@
     symbol_name_format: $VRAM_$ROM
     subsegments:
     - [0xEBFBE0, c]
-    - [0xEBFCA0, c]
+    - [0xEBFCA0, c, EBFCA0]
     - [0xECA1E0, c]
     - [0xED6EC0, c]
     - [0xEE60C0, data, EBFCA0]

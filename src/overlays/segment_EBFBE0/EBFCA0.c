@@ -76,6 +76,8 @@ extern f32 D_8017842C;
 
 extern f32 D_801B7BC8;
 extern f32 D_801B7BCC;
+extern s32 D_801B8220[];
+extern u8 D_801B8248[][4];
 extern s32 D_801B827C;
 extern s32 D_801B8280;
 extern s32 D_801B8284;
@@ -351,7 +353,34 @@ void func_80187CA8_EC0368(void) {
     func_80187E28_EC04E8();
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/segment_EBFBE0/EBFCA0/func_80187E28_EC04E8.s")
+void func_80187E28_EC04E8(void) {
+    s32 temp;
+    s32 i;
+
+    func_800B8DD0(&D_80137E64, 0x53);
+
+    gDPSetPrimColor(D_80137E64++, 0, 0, 255, 255, 0, 255);
+
+    func_800A1200(94, 38, 1.0f, 1.0f, "RANK");
+    func_800A1200(146, 38, 1.0f, 1.0f, "NAME");
+    func_800A1200(192, 38, 1.0f, 1.0f, "HITS");
+    temp = 55;
+
+    for (i = 0; i < D_801B8288; i++) {
+        gDPSetPrimColor(D_80137E64++, 0, 0, 255, 255, 255, 255);
+
+        func_8009FEA0(105 - ((func_8008BCBC(i + 1) - 1) * 8), temp, i + 1);
+
+        gDPSetPrimColor(D_80137E64++, 0, 0, 255, 255, 0, 255);
+
+        func_800A1200(150, temp, 1.0f, 1.0f, &D_801B8248[i][0]);
+
+        gDPSetPrimColor(D_80137E64++, 0, 0, 255, 255, 255, 255);
+
+        func_8009FEA0(211 - ((func_8008BCBC(D_801B8220[i]) - 1) * 8), temp, D_801B8220[i]);
+        temp += 17;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/segment_EBFBE0/EBFCA0/func_80188010_EC06D0.s")
 
