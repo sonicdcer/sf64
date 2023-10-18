@@ -1,7 +1,16 @@
 #include "global.h"
 
-s32 func_80187ABC_EC017C(void);
 void func_801877F0_EBFEB0(void);
+s32 func_80187ABC_EC017C(void);
+void func_80187B00_EC01C0();
+void func_801888E8_EC0FA8();
+void func_8018994C_EC200C();
+void func_8018A644_EC2D04();
+void func_8018ACEC_EC33AC();
+void func_8018B5C4_EC3C84();
+void func_8018C644_EC4D04();
+void func_80190E64_EC9524();
+void func_8019111C_EC97DC();
 
 extern s32 D_800D2870;
 extern s32 D_800DD8B4;
@@ -109,7 +118,41 @@ void func_80187754_EBFE14(void) {
     D_80177DB0++;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/segment_EBFBE0/EBFCA0/func_801877F0_EBFEB0.s")
+void func_801877F0_EBFEB0(void) {
+    if (D_801B82A8 > 0) {
+        D_801B82A8 -= 1;
+    }
+
+    if (D_801B82AC > 0) {
+        D_801B82AC -= 1;
+    }
+
+    switch (D_801B82C4) {
+        case 7:
+            func_80187B00_EC01C0();
+            break;
+        case 0:
+            func_801888E8_EC0FA8();
+            func_8019111C_EC97DC();
+            break;
+        case 1:
+            func_8018994C_EC200C();
+            break;
+        case 2:
+            func_8018A644_EC2D04();
+            break;
+        case 3:
+            func_8018ACEC_EC33AC();
+            break;
+        case 4:
+            func_8018B5C4_EC3C84();
+            break;
+        case 5:
+            func_8018C644_EC4D04();
+            break;
+    }
+    func_80190E64_EC9524();
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/segment_EBFBE0/EBFCA0/func_801878D8_EBFF98.s")
 
