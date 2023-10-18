@@ -196,6 +196,7 @@ build/src/libultra/gu/lookat.o: OPTFLAGS := -O3 -g0
 build/src/libultra/io/controller.o: OPTFLAGS := -O1 -g0
 build/src/libultra/io/ai.o: OPTFLAGS := -O1 -g0
 build/src/libultra/io/aigetlen.o: OPTFLAGS := -O1 -g0
+build/src/libultra/io/aisetfreq.o: OPTFLAGS := -O1 -g0
 build/src/libultra/libc/string.o: OPTFLAGS := -O2 -g0
 build/src/libultra/libc/ldiv.o: OPTFLAGS := -O2 -g0
 build/src/libultra/libc/ll.o: OPTFLAGS := -O1 -g0
