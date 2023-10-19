@@ -128,10 +128,10 @@
     exclusive_ram_id: overlay
     symbol_name_format: $VRAM_$ROM
     subsegments:
-    - [0xEBFBE0, c]
+    - [0xEBFBE0, c, EBFBE0]
     - [0xEBFCA0, c, EBFCA0]
-    - [0xECA1E0, c]
-    - [0xED6EC0, c]
+    - [0xECA1E0, c, ECA1E0]
+    - [0xED6EC0, c, ED6EC0]
     - [0xEE60C0, data, EBFCA0]
     - [0xEE6C30, data, ECA1E0]
     - [0xEE7AE0, data, ED6EC0]
@@ -148,8 +148,8 @@
     exclusive_ram_id: overlay
     symbol_name_format: $VRAM_$ROM
     subsegments:
-    - [0xEF0260, c]
-    - [0xEF5B60, c]
+    - [0xEF0260, c, EF0260]
+    - [0xEF5B60, c, EF5B60]
     - [0xEFB560, data, EF0260]
     - [0xEFBBB0, data, EF5B60]
     - [0xEFEF80, .rodata, EF0260]

@@ -1,6 +1,15 @@
 bootproc = 0x80004DA8;
 D_800C90F0 = 0x800C90F0;
+
 D_800D934C = 0x800D934C; // force_migration:True
+D_800D503C = 0x800D503C; // force_migration:True
+D_800D5248 = 0x800D5248; // force_migration:True
+D_800D525C = 0x800D525C; // force_migration:True
+D_800D8560 = 0x800D8560; // force_migration:True
+D_800D55E4_fake = 0x800D55E4; // force_migration:True
+D_800D8570 = 0x800D8570; // force_migration:True
+D_800D8594 = 0x800D8594; // force_migration:True
+
 D_8019B1EC_E07F2C = 0x8019B1EC; // force_migration:True segment:segment_DF4260
 D_801C171C_E50E4C = 0x801C171C; // force_migration:True segment:segment_E16C50
 D_801C1728_E50E58 = 0x801C1728; // force_migration:True segment:segment_E16C50
