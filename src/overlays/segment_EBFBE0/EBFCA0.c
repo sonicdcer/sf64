@@ -442,7 +442,6 @@ extern f32 D_801B9064;
 
 #define M_PI 3.1415927f
 
-
 #pragma intrinsic(sqrtf);
 
 void func_80189208_EC18C8(void) {
