@@ -20,7 +20,7 @@
       - [0x8CC0, c, 8CC0]
       - [0xC870, c, C870]
       - [0xF0A0, c, F0A0]
-      - [0x12490, c, 12490]  # don't touch before fixing rodata
+      - [0x12490, c, 12490]
       - [0x14AA0, c, 14AA0]
       - [0x17650, c, 17650] # Sound related
       - [0x1EB50, c, 1EB50] # Sound related
@@ -179,7 +179,7 @@
       - [0xC3EE0, data, libraries]
 
       # RODATA - Libultra
-      - [0xC8CC0, .rodata, 5A20] #52A0, more than one file
+      - [0xC8CC0, .rodata, 5A20]
       - [0xC8D10, .rodata, 6280]
       - [0xC8D20, .rodata, 7D30]
       - [0xC8E40, .rodata, 7FC0]
