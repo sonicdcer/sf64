@@ -828,7 +828,7 @@ extern void *		 osPhysicalToVirtual(u32);
 /* Audio interface (Ai) */
 extern u32 		osAiGetStatus(void);
 extern u32 		osAiGetLength(void);
-extern s32		osAiSetFrequency(u32 /*freq*/);
+extern s32		osAiSetFrequency(u32);
 extern s32		osAiSetNextBuffer(void *, u32);
 
 /* Display processor interface (Dp) */
@@ -845,8 +845,8 @@ extern s32		osPiRawReadIo(u32, u32 *);
 extern s32		osPiRawStartDma(s32, u32, void *, u32);
 extern s32		osPiWriteIo(u32, u32);
 extern s32		osPiReadIo(u32, u32 *);
-extern s32		osPiStartDma(OSIoMesg * /*arg0*/, s32 /*arg1*/, s32 /*arg2*/, u32 /*arg3*/, void * /*arg4*/, u32 /*arg5*/,
-				     OSMesgQueue * /*arg6*/);
+extern s32		osPiStartDma(OSIoMesg *, s32, s32, u32, void *, u32,
+				     OSMesgQueue *);
 extern void		osCreatePiManager(OSPri, OSMesgQueue *, OSMesg *, s32);
 
 /* Video interface (Vi) */
