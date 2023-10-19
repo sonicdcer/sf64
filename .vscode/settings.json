@@ -20,6 +20,8 @@
         "hud.h": "c",
         "global.h": "c",
         "ultratypes.h": "c",
-        "mbi.h": "c"
+        "mbi.h": "c",
+        "common.h": "c",
+        "sf64math.h": "c"
     },
 }
