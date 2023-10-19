@@ -7,7 +7,7 @@ typedef struct {
     s16 unk9D2;
 } UnkStruct_D_80145360;
 
-void osCreateMesgQueue(s32*, s32*, s32);
+// void osCreateMesgQueue(s32*, s32*, s32);
 void osCreateThread(UnkStruct_D_80145360*, s32, s32*, s32, s32*, s32);
 void osStartThread(UnkStruct_D_80145360*);
 

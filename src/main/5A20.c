@@ -21,7 +21,13 @@ void func_80004E4C(void) {
     D_8013B3AC = (s32) osGetTime() % 30000;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80004EB0.s")
+f32 func_80004EB0(void) {
+    D_8013B3A4 = (D_8013B3A4 * 0xAB) % 30269;
+    D_8013B3A8 = (D_8013B3A8 * 0xAC) % 30307;
+    D_8013B3AC = (D_8013B3AC * 0xAA) % 30323;
+
+    return fabsf(func_80004E20((D_8013B3A4 / 30269.0f) + (D_8013B3A8 / 30307.0f) + (D_8013B3AC / 30323.0f), 1.0f));
+}
 
 void func_80004FC8(s32 arg0, s32 arg1, s32 arg2) {
     D_8013B3B0 = arg0;
@@ -29,7 +35,13 @@ void func_80004FC8(s32 arg0, s32 arg1, s32 arg2) {
     D_8013B3A0 = arg2;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80004FE8.s")
+f32 func_80004FE8(void) {
+    D_8013B3B0 = (D_8013B3B0 * 0xAB) % 30269;
+    D_8013B3B4 = (D_8013B3B4 * 0xAC) % 30307;
+    D_8013B3A0 = (D_8013B3A0 * 0xAA) % 30323;
+
+    return fabsf(func_80004E20((D_8013B3B0 / 30269.0f) + (D_8013B3B4 / 30307.0f) + (D_8013B3A0 / 30323.0f), 1.0f));
+}
 
 f32 func_80005100(f32 arg0, f32 arg1) {
     if ((arg0 == 0.0f) && (arg1 == 0.0f)) {
@@ -46,9 +58,9 @@ f32 func_80005100(f32 arg0, f32 arg1) {
 
     if (arg1 < 0.0f) {
         if (arg0 < 0.0f) {
-            return -(M_PI - func_8001FBE8(fabsf(arg0 / arg1)));
+            return -(M_PI - func_8001FBE8(fabs(arg0 / arg1)));
         } else {
-            return M_PI - func_8001FBE8(fabsf(arg0 / arg1));
+            return M_PI - func_8001FBE8(fabs(arg0 / arg1));
         }
     } else {
         return func_8001FBE8(arg0 / arg1);

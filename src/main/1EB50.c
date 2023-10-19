@@ -10,7 +10,7 @@
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/1EB50/func_8001E778.s")
 
-void osCreateMesgQueue(s32, s32*, s32);
+// void osCreateMesgQueue(s32, s32*, s32);
 
 extern s8 D_800C7C50;
 extern s8 D_800C7C54;

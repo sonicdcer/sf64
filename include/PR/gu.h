@@ -32,8 +32,8 @@
 #define MIN(a,b) (((a)<(b))?(a):(b))
 #endif
 
-#define M_PI		3.14159265358979323846
-#define M_DTOR		(3.14159265358979323846/180.0)
+#define D_PI		3.14159265358979323846
+#define D_DTOR		(3.14159265358979323846/180.0)
 
 #define	FTOFIX32(x)	((x) * 0x10000)
 #define	FIX32TOF(x)	((float)(((float)x) / (float)(0x10000)))
