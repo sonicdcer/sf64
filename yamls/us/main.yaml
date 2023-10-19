@@ -143,11 +143,11 @@
       - [0x2BDF0, c, ../libultra/2BDF0]
       - [0x2C700, c, ../libultra/2C700] # -O1 -g0
       - [0x2D300, c, ../libultra/2D300] # -O1 -g0
-      - [0x2DF00, asm, 2DF00] # Problem when trying to C
+      - [0x2DF00, c, 2DF00]
       - [0x2E9E0, c, ../libultra/2E9E0]
       - [0x2EDE0, asm, ../libultra/2EDE0]
       - [0x2EE30, asm, ../libultra/2EE30]
-      - [0x2EE80, asm, ../libultra/os/stopthread] # Problem when trying to C
+      - [0x2EE80, c, ../libultra/os/stopthread]
 
     # Game engine
       - [0x2F300, c, sf_2F300]
@@ -197,8 +197,8 @@
       - [0xCA170, rodata]
       - [0xCA180, rodata, ../libultra/rmon/xldtob]
       - [0xCA1E0, .rodata, ../libultra/2BDF0]
-      - [0xCA5A0, rodata, 2DF00]
-      - [0xCA650, rodata]
+      - [0xCA5A0, .rodata, 2DF00]
+      - [0xCA650, .rodata, ../libultra/os/stopthread]
 
       # DATA - game engine
       - [0xCA690, data, engine]
