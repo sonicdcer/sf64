@@ -1,10 +1,14 @@
-#include "common.h"
+#include "global.h"
+
+extern Gfx D_800D31B0[];
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B8DD0.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B8E14.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B8F18.s")
+void func_800B8F18(void) {
+    gSPDisplayList(D_80137E64++, D_800D31B0);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B8F48.s")
 
