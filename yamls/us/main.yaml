@@ -149,7 +149,7 @@
       - [0x2EE30, asm, ../libultra/2EE30]
       - [0x2EE80, asm, ../libultra/os/stopthread] # Problem when trying to C
 
-    # Game code starts here
+    # Game engine
       - [0x2F300, c, sf_2F300]
       - [0x36930, c, sf_36930]
       - [0x43AC0, c, sf_43AC0]
@@ -174,10 +174,11 @@
       - [0xBD360, c, sf_versus]
       - [0xC3430, c, sf_C3430]
 
-      # DATA
-      - [0xC3EE0, data]
+      # DATA - Libultra
+      - [0xC3EE0, data, libraries]
 
-      # RODATA
+      # RODATA - Libultra
+      - [0xC8CC0, rodata]
       - [0xC8E40, .rodata, 7FC0]
       - [0xC9220, .rodata, 8CC0]
       - [0xC9260, .rodata, C870]
@@ -199,8 +200,10 @@
       - [0xCA5A0, rodata, 2DF00]
       - [0xCA650, rodata]
 
+      # DATA - game engine
       - [0xCA690, data, engine]
 
+      # RODATA - game engine
       - [0xD5920, .rodata, sf_2F300]
       - [0xD5CF0, .rodata, sf_36930]
       - [0xD61D0, .rodata, sf_43AC0]
@@ -223,12 +226,7 @@
       - [0xD97F0, .rodata, sf_BB360]
       - [0xD9E50, .rodata, sf_versus]
       - [0xD9F60, .rodata, sf_C3430]
-      - [0xDA030, rodata]
-      - [0xDC620, rodata]
-      - [0xDD330, rodata]
-      - [0xDDD30, rodata]
-      - [0xDDD60, rodata]
-      - [0xDDD70, rodata]
-      - [0xDDD80, rodata]
-      - [0xDDE80, rodata]
+
+      # Common assets
+      - [0xDA030, bin, assets]
       - { start: 0xDE480, type: bss, vram: 0x800DD880 }
