@@ -13,4 +13,3 @@ ctx.c.m2c
 *.z64
 *.bin
 /build
-gfxdis*
