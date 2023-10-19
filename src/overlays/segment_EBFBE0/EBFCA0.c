@@ -390,11 +390,11 @@ void func_80187E28_EC04E8(void) {
 
 //! TODO: Clean up this mess!
 
-f32 func_80005100(f32, f32);                                
-void func_8009BC2C(f32*, f32, f32, f32, f32);               
-void func_8018D2B8_EC5978(s32);                             
-void func_8018EA78_EC7138(s32);                             
-void func_80191674_EC9D34(f32, f32, f32, f32*, f32*, f32*); 
+f32 func_80005100(f32, f32);
+void func_8009BC2C(f32*, f32, f32, f32, f32);
+void func_8018D2B8_EC5978(s32);
+void func_8018EA78_EC7138(s32);
+void func_80191674_EC9D34(f32, f32, f32, f32*, f32*, f32*);
 
 extern s32 D_80178548;
 extern s32 D_8017854C;
