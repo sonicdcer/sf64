@@ -9,6 +9,7 @@ D_800D8560 = 0x800D8560; // force_migration:True
 D_800D55E4_fake = 0x800D55E4; // force_migration:True
 D_800D8570 = 0x800D8570; // force_migration:True
 D_800D8594 = 0x800D8594; // force_migration:True
+D_800C9524 = 0x800C9524; // force_migration:True
 
 D_8019B1EC_E07F2C = 0x8019B1EC; // force_migration:True segment:segment_DF4260
 D_801C171C_E50E4C = 0x801C171C; // force_migration:True segment:segment_E16C50

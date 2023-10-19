@@ -1,3 +1,5 @@
+
+
 #include "common.h"
 
 extern s64 osClockRate;
@@ -36,3 +38,5 @@ s32 func_8000716C(s32 arg0, s32 arg1) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7D30/func_800071FC.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7D30/func_800072E0.s")
+
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7D30/D_800C8120.s")

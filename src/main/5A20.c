@@ -1,11 +1,5 @@
-#include "common.h"
+#include "global.h"
 
-extern f32 D_800C80FC;
-extern f32 D_800C80D8;
-extern f32 D_800C80DC;
-extern f32 D_800C80E0;
-extern f32 D_800C80E4;
-extern f32 D_800C8100;
 extern s32 D_8013B3A0;
 extern s32 D_8013B3A4;
 extern s32 D_8013B3A8;
@@ -44,17 +38,17 @@ f32 func_80005100(f32 arg0, f32 arg1) {
 
     if (arg1 == 0.0f) {
         if (arg0 < 0.0f) {
-            return D_800C80D8;
+            return -M_PI / 2.0f;
         } else {
-            return D_800C80DC;
+            return M_PI / 2.0f;
         }
     }
 
     if (arg1 < 0.0f) {
         if (arg0 < 0.0f) {
-            return -(D_800C80E0 - func_8001FBE8(fabsf(arg0 / arg1)));
+            return -(M_PI - func_8001FBE8(fabsf(arg0 / arg1)));
         } else {
-            return D_800C80E4 - func_8001FBE8(fabsf(arg0 / arg1));
+            return M_PI - func_8001FBE8(fabsf(arg0 / arg1));
         }
     } else {
         return func_8001FBE8(arg0 / arg1);
@@ -70,9 +64,9 @@ f32 func_80005320(f32 arg0, f32 arg1) {
 
     if (arg0 == 0.0f) {
         if (arg1 < 0.0f) {
-            return D_800C80FC;
+            return -M_PI / 2.0f;
         }
-        return D_800C8100;
+        return M_PI / 2.0f;
     }
 
     if (arg1 == 0.0f) {
@@ -125,46 +119,3 @@ void func_80005604(s32* arg0, s32* arg1, s32 arg2, s32 arg3, s32 arg4) {
     }
     *arg0 = arg4;
 }
-
-// https://decomp.me/scratch/8H8k4 100%
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80005680.s")
-
-void func_80005708(s32* arg0) {
-    func_80005680(*arg0 + 64, *arg0);
-    *arg0 += 0x40;
-}
-
-void func_80005740(s32* arg0) {
-    *arg0 -= 64;
-}
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80005754.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80005B00.s")
-
-// https://decomp.me/scratch/v4KEJ 91%
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80005C34.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80005D44.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80005E90.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80005FE0.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_8000612C.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80006500.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_8000671C.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80006970.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80006A20.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80006AB8.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80006C7C.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80006E3C.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_80006EB8.s")
