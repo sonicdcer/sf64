@@ -12,8 +12,8 @@
 
 /**************************************************************************
  *
- *  $Revision: 1.12 $
- *  $Date: 1997/02/11 08:36:39 $
+ *  $Revision: 1.13 $
+ *  $Date: 1997/11/07 04:55:12 $
  *  $Source: /disk6/Master/cvsmdev2/PR/include/ucode.h,v $
  *
  **************************************************************************/
@@ -151,6 +151,25 @@ extern long long int  gspF3DLP_Rej_fifoTextStart[], gspF3DLP_Rej_fifoTextEnd[];
 extern long long int  gspF3DLP_Rej_fifoDataStart[], gspF3DLP_Rej_fifoDataEnd[];
 extern long long int  gspL3DEX_fifoTextStart[],     gspL3DEX_fifoTextEnd[];
 extern long long int  gspL3DEX_fifoDataStart[],     gspL3DEX_fifoDataEnd[];
+
+/*========== F3DEX2/F3DLX2/F3DLP2/L3DEX2 ==========*/
+/* FIFO version only */
+extern long long int gspF3DEX2_fifoTextStart[],    gspF3DEX2_fifoTextEnd[];
+extern long long int gspF3DEX2_fifoDataStart[],    gspF3DEX2_fifoDataEnd[];
+extern long long int gspF3DEX2_NoN_fifoTextStart[],gspF3DEX2_NoN_fifoTextEnd[];
+extern long long int gspF3DEX2_NoN_fifoDataStart[],gspF3DEX2_NoN_fifoDataEnd[];
+
+extern long long int gspF3DLX2_fifoTextStart[],    gspF3DLX2_fifoTextEnd[];
+extern long long int gspF3DLX2_fifoDataStart[],    gspF3DLX2_fifoDataEnd[];
+extern long long int gspF3DLX2_NoN_fifoTextStart[],gspF3DLX2_NoN_fifoTextEnd[];
+extern long long int gspF3DLX2_NoN_fifoDataStart[],gspF3DLX2_NoN_fifoDataEnd[];
+extern long long int gspF3DLX2_Rej_fifoTextStart[],gspF3DLX2_Rej_fifoTextEnd[];
+extern long long int gspF3DLX2_Rej_fifoDataStart[],gspF3DLX2_Rej_fifoDataEnd[];
+
+extern long long int gspF3DLP2_Rej_fifoTextStart[],gspF3DLP2_Rej_fifoTextEnd[];
+extern long long int gspF3DLP2_Rej_fifoDataStart[],gspF3DLP2_Rej_fifoDataEnd[];
+extern long long int gspL3DEX2_fifoTextStart[],    gspL3DEX2_fifoTextEnd[];
+extern long long int gspL3DEX2_fifoDataStart[],    gspL3DEX2_fifoDataEnd[];
 
 /**************************************************************************
  *

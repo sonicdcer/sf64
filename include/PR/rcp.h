@@ -18,13 +18,13 @@
  *  File: rcp.h
  *
  *  This file contains register and bit definitions for RCP memory map.
- *  $Revision: 1.17 $
- *  $Date: 1997/02/11 08:28:14 $
+ *  $Revision: 1.20 $
+ *  $Date: 1997/07/23 08:35:21 $
  *  $Source: /disk6/Master/cvsmdev2/PR/include/rcp.h,v $
  *
  **************************************************************************/
 
-#include <PR/r4300.h>
+#include <PR/R4300.h>
 #include <PR/ultratypes.h>
 
 /**********************************************************************
@@ -160,7 +160,7 @@ The Indy development board use cartridge domain 1:
 #define DEVICE_TYPE_CART	0	/* ROM cartridge */
 #define DEVICE_TYPE_BULK	1	/* ROM bulk */
 #define DEVICE_TYPE_64DD	2	/* 64 Disk Drive */
-
+#define DEVICE_TYPE_SRAM	3	/* SRAM */
 
 /*************************************************************************
  * SP Memory
@@ -270,7 +270,12 @@ The Indy development board use cartridge domain 1:
 #define SP_CLR_TASKDONE		SP_CLR_SIG2
 #define SP_SET_TASKDONE		SP_SET_SIG2
 #define SP_STATUS_TASKDONE	SP_STATUS_SIG2
-
+#define	SP_CLR_RSPSIGNAL	SP_CLR_SIG3
+#define	SP_SET_RSPSIGNAL	SP_SET_SIG3
+#define	SP_STATUS_RSPSIGNAL	SP_STATUS_SIG3
+#define	SP_CLR_CPUSIGNAL	SP_CLR_SIG4
+#define	SP_SET_CPUSIGNAL	SP_SET_SIG4
+#define	SP_STATUS_CPUSIGNAL	SP_STATUS_SIG4
 
 /* SP IMEM BIST REG (R/W): [6:0] BIST status bits; see below for detail */
 #define SP_IBIST_REG	0x04080004

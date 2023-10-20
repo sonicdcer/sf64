@@ -12,8 +12,8 @@
  **************************************************************************/
 /**************************************************************************
  *
- *  $Revision: 1.121 $
- *  $Date: 1997/02/11 08:21:52 $
+ *  $Revision: 1.128 $
+ *  $Date: 1997/11/26 00:30:51 $
  *  $Source: /disk6/Master/cvsmdev2/PR/include/gbi.h,v $
  *
  **************************************************************************/
@@ -86,6 +86,33 @@
  *
  */
 
+#ifdef   F3DEX_GBI_2
+#define	G_NOOP			0x00
+#define	G_RDPHALF_2		0xf1
+#define	G_SETOTHERMODE_H	0xe3
+#define	G_SETOTHERMODE_L	0xe2
+#define	G_RDPHALF_1		0xe1
+#define	G_SPNOOP		0xe0
+#define	G_ENDDL			0xdf
+#define	G_DL			0xde
+#define	G_LOAD_UCODE		0xdd
+#define	G_MOVEMEM		0xdc
+#define	G_MOVEWORD		0xdb
+#define	G_MTX			0xda
+#define G_GEOMETRYMODE		0xd9
+#define	G_POPMTX		0xd8
+#define	G_TEXTURE		0xd7
+#define	G_SUBMODULE		0xd6
+
+#define	G_VTX			0x01
+#define	G_MODIFYVTX		0x02
+#define	G_CULLDL		0x03
+#define	G_BRANCH_Z		0x04
+#define	G_TRI1			0x05
+#define G_TRI2			0x06
+#define G_LINE3D		0x07
+#else	/* F3DEX_GBI_2 */
+
 /* DMA commands: */
 #define	G_SPNOOP		0	/* handle 0 gracefully */
 #define	G_MTX			1
@@ -130,6 +157,10 @@
 
 /* RDP commands: */
 #define	G_NOOP			0xc0	/*   0 */
+
+#endif	/* F3DEX_GBI_2 */
+
+/* RDP commands: */
 #define	G_SETCIMG		0xff	/*  -1 */
 #define	G_SETZIMG		0xfe	/*  -2 */
 #define	G_SETTIMG		0xfd	/*  -3 */
@@ -157,6 +188,7 @@
 #define	G_RDPLOADSYNC		0xe6	/* -26 */
 #define G_TEXRECTFLIP		0xe5	/* -27 */
 #define G_TEXRECT		0xe4	/* -28 */
+
 
 /* 
  * The following commands are the "generated" RDP commands; the user
@@ -256,12 +288,21 @@
 /*
  * G_MTX: parameter flags
  */
-#define	G_MTX_MODELVIEW		0x00	/* matrix types */
-#define	G_MTX_PROJECTION	0x01
-#define	G_MTX_MUL		0x00	/* concat or load */
-#define	G_MTX_LOAD		0x02
-#define G_MTX_NOPUSH		0x00	/* push or not */
-#define G_MTX_PUSH		0x04
+#ifdef	F3DEX_GBI_2x
+# define G_MTX_MODELVIEW	0x00	/* matrix types */
+# define G_MTX_PROJECTION	0x04
+# define G_MTX_MUL		0x00	/* concat or load */
+# define G_MTX_LOAD		0x02
+# define G_MTX_NOPUSH		0x00	/* push or not */
+# define G_MTX_PUSH		0x01
+#else	/* F3DEX_GBI_2 */
+# define G_MTX_MODELVIEW	0x00	/* matrix types */
+# define G_MTX_PROJECTION	0x01
+# define G_MTX_MUL		0x00	/* concat or load */
+# define G_MTX_LOAD		0x02
+# define G_MTX_NOPUSH		0x00	/* push or not */
+# define G_MTX_PUSH		0x04
+#endif	/* F3DEX_GBI_2 */
 
 /*
  * flags for G_SETGEOMETRYMODE
@@ -431,7 +472,7 @@
 #define	G_CC_MODULATEIDECALA_PRIM	TEXEL0, 0, PRIMITIVE, 0, 0, 0, 0, TEXEL0
 #define	G_CC_MODULATERGB_PRIM	G_CC_MODULATEI_PRIM
 #define	G_CC_MODULATERGBA_PRIM	G_CC_MODULATEIA_PRIM
-#define	G_CC_MODULATERGBDECALA_PRIM	G_CC_MODULATEIA_PRIM
+#define	G_CC_MODULATERGBDECALA_PRIM	G_CC_MODULATEIDECALA_PRIM
 #define	G_CC_DECALRGB		0, 0, 0, TEXEL0, 0, 0, 0, SHADE
 #define	G_CC_DECALRGBA		0, 0, 0, TEXEL0, 0, 0, 0, TEXEL0
 #define	G_CC_BLENDI		ENVIRONMENT, SHADE, TEXEL0, SHADE, 0, 0, 0, SHADE
@@ -1134,22 +1175,40 @@ typedef union {
  * which to store a 1-4 word DMA.
  *
  */
-#define G_MV_VIEWPORT	0x80
-#define G_MV_LOOKATY	0x82
-#define G_MV_LOOKATX	0x84
-#define G_MV_L0		0x86
-#define G_MV_L1		0x88
-#define G_MV_L2		0x8a
-#define G_MV_L3		0x8c
-#define G_MV_L4		0x8e
-#define G_MV_L5		0x90
-#define G_MV_L6		0x92
-#define G_MV_L7		0x94
-#define G_MV_TXTATT	0x96
-#define G_MV_MATRIX_1	0x9e	/* NOTE: this is in moveword table */
-#define G_MV_MATRIX_2	0x98
-#define G_MV_MATRIX_3	0x9a
-#define G_MV_MATRIX_4	0x9c
+#ifdef	F3DEX_GBI_2x
+/* 0,2,4,6 are reserved by G_MTX */
+# define G_MV_VIEWPORT	8
+# define G_MV_LIGHT	10
+# define G_MV_POINT	12
+# define G_MV_MATRIX	14		/* NOTE: this is in moveword table */
+# define G_MVO_LOOKATX	(0*24)
+# define G_MVO_LOOKATY	(1*24)
+# define G_MVO_L0	(2*24)
+# define G_MVO_L1	(3*24)
+# define G_MVO_L2	(4*24)
+# define G_MVO_L3	(5*24)
+# define G_MVO_L4	(6*24)
+# define G_MVO_L5	(7*24)
+# define G_MVO_L6	(8*24)
+# define G_MVO_L7	(9*24)
+#else	/* F3DEX_GBI_2 */
+# define G_MV_VIEWPORT	0x80
+# define G_MV_LOOKATY	0x82
+# define G_MV_LOOKATX	0x84
+# define G_MV_L0	0x86
+# define G_MV_L1	0x88
+# define G_MV_L2	0x8a
+# define G_MV_L3	0x8c
+# define G_MV_L4	0x8e
+# define G_MV_L5	0x90
+# define G_MV_L6	0x92
+# define G_MV_L7	0x94
+# define G_MV_TXTATT	0x96
+# define G_MV_MATRIX_1	0x9e	/* NOTE: this is in moveword table */
+# define G_MV_MATRIX_2	0x98
+# define G_MV_MATRIX_3	0x9a
+# define G_MV_MATRIX_4	0x9c
+#endif	/* F3DEX_GBI_2 */
 
 /*
  * MOVEWORD indices
@@ -1165,7 +1224,11 @@ typedef union {
 #define G_MW_SEGMENT		0x06
 #define G_MW_FOG		0x08
 #define G_MW_LIGHTCOL		0x0a
-#define	G_MW_POINTS		0x0c
+#ifdef	F3DEX_GBI_2x
+# define G_MW_FORCEMTX		0x0c
+#else	/* F3DEX_GBI_2 */
+# define G_MW_POINTS		0x0c
+#endif	/* F3DEX_GBI_2 */
 #define	G_MW_PERSPNORM		0x0e
 
 /*
@@ -1634,11 +1697,32 @@ typedef union {
         (unsigned int)(s)						\
 }
 
+#define	gDma2p(pkt, c, adrs, len, idx, ofs)				\
+{									\
+	Gfx *_g = (Gfx *)(pkt);						\
+	_g->words.w0 = (_SHIFTL((c),24,8)|_SHIFTL((ofs)/8,16,8)|	\
+			_SHIFTL(((len)-1)/8,8,8)|_SHIFTL((idx),0,8));	\
+	_g->words.w1 = (unsigned int)(adrs);				\
+}
+#define	gsDma2p(c, adrs, len, idx, ofs)					\
+{									\
+	(_SHIFTL((c),24,8)|_SHIFTL((ofs)/8,16,8)|			\
+	 _SHIFTL(((len)-1)/8,8,8)|_SHIFTL((idx),0,8)),			\
+        (unsigned int)(adrs)						\
+}
+
 #define	gSPNoOp(pkt)		gDma0p(pkt, G_SPNOOP, 0, 0)
 #define	gsSPNoOp()		gsDma0p(G_SPNOOP, 0, 0)
 
-#define	gSPMatrix(pkt, m, p)	gDma1p(pkt, G_MTX, m, sizeof(Mtx), p)
-#define	gsSPMatrix(m, p)	gsDma1p(G_MTX, m, sizeof(Mtx), p)
+#ifdef	F3DEX_GBI_2x
+# define gSPMatrix(pkt, m, p)	\
+	 gDma2p((pkt),G_MTX,(m),sizeof(Mtx),(p)^G_MTX_PUSH,0)
+# define gsSPMatrix(m, p)	\
+	 gsDma2p(     G_MTX,(m),sizeof(Mtx),(p)^G_MTX_PUSH,0)
+#else	/* F3DEX_GBI_2 */
+# define gSPMatrix(pkt, m, p)	gDma1p(pkt, G_MTX, m, sizeof(Mtx), p)
+# define gsSPMatrix(m, p)	gsDma1p(G_MTX, m, sizeof(Mtx), p)
+#endif	/* F3DEX_GBI_2 */
 
 /*
  * F3DEX_GBI: G_VTX GBI format was changed to support 64 vertice.
@@ -1661,8 +1745,14 @@ typedef union {
                 gsDma1p(G_VTX, v, sizeof(Vtx)*(n), ((n)-1)<<4|(v0))
 #endif
 
-#define	gSPViewport(pkt, v)	gDma1p(pkt, G_MOVEMEM, v, sizeof(Vp), G_MV_VIEWPORT)
-#define	gsSPViewport(v)		gsDma1p(G_MOVEMEM,     v, sizeof(Vp), G_MV_VIEWPORT)
+	
+#ifdef	F3DEX_GBI_2x
+# define gSPViewport(pkt, v) gDma2p(pkt,G_MOVEMEM,v,sizeof(Vp),G_MV_VIEWPORT,0)
+# define gsSPViewport(v)    gsDma2p(    G_MOVEMEM,v,sizeof(Vp),G_MV_VIEWPORT,0)
+#else	/* F3DEX_GBI_2 */
+# define gSPViewport(pkt,v) gDma1p(pkt,G_MOVEMEM,(v),sizeof(Vp),G_MV_VIEWPORT)
+# define gsSPViewport(v)   gsDma1p(    G_MOVEMEM,(v),sizeof(Vp),G_MV_VIEWPORT)
+#endif	/* F3DEX_GBI_2 */
 
 #define	gSPDisplayList(pkt,dl)	gDma1p(pkt,G_DL,dl,0,G_DL_PUSH)
 #define	gsSPDisplayList(   dl)	gsDma1p(   G_DL,dl,0,G_DL_PUSH)
@@ -1744,12 +1834,17 @@ typedef union {
         (unsigned int) (dat)						\
 }
 
+#ifdef	F3DEX_GBI_2x
 #define gMoveWd(pkt, index, offset, data)				\
-	gImmp21(pkt, G_MOVEWORD, offset, index, data)
-
+	gDma1p((pkt), G_MOVEWORD, data, offset, index)
 #define gsMoveWd(    index, offset, data)				\
-	gsImmp21(    G_MOVEWORD, offset, index, data)
-
+	gsDma1p(      G_MOVEWORD, data, offset, index)
+#else	/* F3DEX_GBI_2 */
+#define gMoveWd(pkt, index, offset, data)				\
+	gImmp21((pkt), G_MOVEWORD, offset, index, data)
+#define gsMoveWd(    index, offset, data)				\
+	gsImmp21(      G_MOVEWORD, offset, index, data)
+#endif	/* F3DEX_GBI_2 */
 
 /* Sprite immediate macros, there is also a sprite dma macro above */
 
@@ -1895,10 +1990,33 @@ typedef union {
 /***
  ***  1 Quadrangle
  ***/
-#define gSP1Quadrangle(pkt, v0, v1, v2, v3, flag)			\
-        gSP2Triangles(pkt, v1, v2, v3, 0, v1, v3, v0, 0)
-#define gsSP1Quadrangle(v0, v1, v2, v3, flag)				\
-        gsSP2Triangles(v1, v2, v3, 0, v1, v3, v0, 0)
+#define	__gsSP1Quadrangle_w1f(v0, v1, v2, v3, flag)	\
+  (((flag) == 0) ? __gsSP1Triangle_w1(v0, v1, v2):      \
+   ((flag) == 1) ? __gsSP1Triangle_w1(v1, v2, v3):      \
+   ((flag) == 2) ? __gsSP1Triangle_w1(v2, v3, v0):      \
+                   __gsSP1Triangle_w1(v3, v0, v1))
+
+#define	__gsSP1Quadrangle_w2f(v0, v1, v2, v3, flag)	\
+  (((flag) == 0) ? __gsSP1Triangle_w1(v0, v2, v3):      \
+   ((flag) == 1) ? __gsSP1Triangle_w1(v1, v3, v0):      \
+   ((flag) == 2) ? __gsSP1Triangle_w1(v2, v0, v1):      \
+                   __gsSP1Triangle_w1(v3, v1, v2))
+
+#define gSP1Quadrangle(pkt, v0, v1, v2, v3, flag)                       \
+{                                                                       \
+        Gfx *_g = (Gfx *)(pkt);                                         \
+                                                                        \
+        _g->words.w0 = (_SHIFTL(G_TRI2, 24, 8)|	                        \
+                        __gsSP1Quadrangle_w1f(v0, v1, v2, v3, flag));   \
+        _g->words.w1 =  __gsSP1Quadrangle_w2f(v0, v1, v2, v3, flag);    \
+}
+
+#define gsSP1Quadrangle(v0, v1, v2, v3, flag)                           \
+{                                                                       \
+        (_SHIFTL(G_TRI2, 24, 8)|                                        \
+         __gsSP1Quadrangle_w1f(v0, v1, v2, v3, flag)),                  \
+         __gsSP1Quadrangle_w2f(v0, v1, v2, v3, flag)                    \
+}
 #endif	/* F3DEX_GBI/F3DLP_GBI */
 
 #if	(defined(F3DEX_GBI)||defined(F3DLP_GBI))
@@ -1935,9 +2053,9 @@ typedef union {
 #endif
 
 #define gSPSegment(pkt, segment, base)					\
-	gMoveWd(pkt, G_MW_SEGMENT, (segment*4), base)
+	gMoveWd(pkt, G_MW_SEGMENT, (segment)*4, base)
 #define gsSPSegment(segment, base)					\
-	gsMoveWd(    G_MW_SEGMENT, (segment*4), base)
+	gsMoveWd(    G_MW_SEGMENT, (segment)*4, base)
 
 /*
  * Clipping Macros
@@ -1978,17 +2096,30 @@ typedef union {
  * num   = new element (32 bit value replacing 2 int or 2 frac matrix 
  *                                 componants
  */
+#ifdef	F3DEX_GBI_2x
+ERROR!! gSPInsertMatrix is no longer supported.
+#else
 #define gSPInsertMatrix(pkt, where, num)				\
 	gMoveWd(pkt, G_MW_MATRIX, where, num)
-
 #define gsSPInsertMatrix(where, num)					\
 	gsMoveWd(G_MW_MATRIX, where, num)
+#endif
 
 /*
  * Load new matrix directly
  *
  * mptr = pointer to matrix
  */
+#ifdef	F3DEX_GBI_2x
+#define	gSPForceMatrix(pkt, mptr)					\
+{	gDma2p((pkt),G_MOVEMEM,(mptr),sizeof(Mtx),G_MV_MATRIX,0);	\
+	gMoveWd((pkt), G_MW_FORCEMTX,0,0x00010000);			\
+}
+#define	gsSPForceMatrix(mptr)						\
+	gsDma2p(G_MOVEMEM,(mptr),sizeof(Mtx),G_MV_MATRIX,0),		\
+	gsMoveWd(G_MW_FORCEMTX,0,0x00010000)
+	
+#else	/* F3DEX_GBI_2 */
 #define	gSPForceMatrix(pkt, mptr)					\
 {									\
 	gDma1p(pkt, G_MOVEMEM, mptr,              16, G_MV_MATRIX_1);	\
@@ -2001,6 +2132,7 @@ typedef union {
 	gsDma1p(    G_MOVEMEM, (char *)(mptr)+16, 16, G_MV_MATRIX_2),	\
 	gsDma1p(    G_MOVEMEM, (char *)(mptr)+32, 16, G_MV_MATRIX_3),	\
 	gsDma1p(    G_MOVEMEM, (char *)(mptr)+48, 16, G_MV_MATRIX_4)
+#endif	/* F3DEX_GBI_2 */
 
 /*
  * Insert values into Points
@@ -2142,8 +2274,11 @@ typedef union {
 /*
  * Lighting Macros
  */
-#define NUML(n)		(((n)+1)*32 + 0x80000000)
-
+#ifdef	F3DEX_GBI_2x
+# define NUML(n)	((n)*24)
+#else
+# define NUML(n)	(((n)+1)*32 + 0x80000000)
+#endif
 #define NUMLIGHTS_0	1
 #define NUMLIGHTS_1	1
 #define NUMLIGHTS_2	2
@@ -2178,8 +2313,17 @@ typedef union {
  *       LIGHT_1 through LIGHT_3 will be the directional lights and light
  *       LIGHT_4 will be the ambient light.
  */
-#define	gSPLight(pkt, l, n)	gDma1p(pkt, G_MOVEMEM, l, sizeof(Light),((n)-1)*2+G_MV_L0)
-#define	gsSPLight(l, n)		gsDma1p(    G_MOVEMEM, l, sizeof(Light),((n)-1)*2+G_MV_L0)
+#ifdef	F3DEX_GBI_2x
+# define gSPLight(pkt, l, n)	\
+	  gDma2p((pkt),G_MOVEMEM,(l),sizeof(Light),G_MV_LIGHT,(n)*3+3)
+# define gsSPLight(l, n)	\
+	 gsDma2p(      G_MOVEMEM,(l),sizeof(Light),G_MV_LIGHT,(n)*3+3)
+#else	/* F3DEX_GBI_2 */
+# define gSPLight(pkt, l, n)	\
+	 gDma1p(pkt, G_MOVEMEM, l, sizeof(Light),((n)-1)*2+G_MV_L0)
+# define gsSPLight(l, n)	\
+	 gsDma1p(    G_MOVEMEM, l, sizeof(Light),((n)-1)*2+G_MV_L0)
+#endif	/* F3DEX_GBI_2 */
 
 /*
  * gSPLightColor changes color of light without recalculating light direction
@@ -2333,20 +2477,34 @@ typedef union {
 /*
  * Reflection/Hiliting Macros
  */
-#define	gSPLookAtX(pkt, l)	gDma1p(pkt, G_MOVEMEM, l, sizeof(Light),G_MV_LOOKATX)
-#define	gsSPLookAtX(l)		gsDma1p(    G_MOVEMEM, l, sizeof(Light),G_MV_LOOKATX)
-
-#define	gSPLookAtY(pkt, l)	gDma1p(pkt, G_MOVEMEM, l, sizeof(Light),G_MV_LOOKATY)
-#define	gsSPLookAtY(l)		gsDma1p(    G_MOVEMEM, l, sizeof(Light),G_MV_LOOKATY)
+#ifdef	F3DEX_GBI_2
+# define gSPLookAtX(pkt, l)	\
+	 gDma2p((pkt),G_MOVEMEM,(l),sizeof(Light),G_MV_LOOKATX,0)
+# define gsSPLookAtX(l)		\
+	 gsDma2p(     G_MOVEMEM,(l),sizeof(Light),G_MV_LOOKATX,0)
+# define gSPLookAtY(pkt, l)	\
+	 gDma2p((pkt),G_MOVEMEM,(l),sizeof(Light),G_MV_LOOKATY,0)
+# define gsSPLookAtY(l)		\
+	 gsDma2p(     G_MOVEMEM,(l),sizeof(Light),G_MV_LOOKATY,0)
+#else	/* F3DEX_GBI_2 */
+# define gSPLookAtX(pkt, l)	\
+	 gDma1p(pkt, G_MOVEMEM, l, sizeof(Light),G_MV_LOOKATX)
+# define gsSPLookAtX(l)		\
+	 gsDma1p(    G_MOVEMEM, l, sizeof(Light),G_MV_LOOKATX)
+# define gSPLookAtY(pkt, l)	\
+	 gDma1p(pkt, G_MOVEMEM, l, sizeof(Light),G_MV_LOOKATY)
+# define gsSPLookAtY(l)		\
+	 gsDma1p(    G_MOVEMEM, l, sizeof(Light),G_MV_LOOKATY)
+#endif	/* F3DEX_GBI_2 */
 
 #define gSPLookAt(pkt, la)						\
 {									\
 	gSPLookAtX(pkt,la)						\
-	gSPLookAtY(pkt,((char *)la)+16)					\
+	gSPLookAtY(pkt,(char *)(la)+16)					\
 }
 #define gsSPLookAt(la)							\
 	gsSPLookAtX(la),						\
-	gsSPLookAtY(((char *)la)+16)
+	gsSPLookAtY((char *)(la)+16)
 
 #define gDPSetHilite1Tile(pkt, tile, hilite, width, height)		\
 	gDPSetTileSize(pkt, tile, (hilite)->h.x1 & 0xfff, (hilite)->h.y1 & 0xfff, 	\
@@ -2385,13 +2543,13 @@ typedef union {
 
 #define gSPFogPosition(pkt, min, max)				\
 	gMoveWd(pkt, G_MW_FOG, G_MWO_FOG, 			\
-		(_SHIFTL((128000/(max-min)),16,16) |		\
-		_SHIFTL(((500-min)*256/(max-min)),0,16)))
+		(_SHIFTL((128000/((max)-(min))),16,16) |		\
+		_SHIFTL(((500-(min))*256/((max)-(min))),0,16)))
 
 #define gsSPFogPosition(min, max)				\
 	gsMoveWd(G_MW_FOG, G_MWO_FOG, 				\
-		(_SHIFTL((128000/(max-min)),16,16) |		\
-		_SHIFTL(((500-min)*256/(max-min)),0,16)))
+		(_SHIFTL((128000/((max)-(min))),16,16) |		\
+		_SHIFTL(((500-(min))*256/((max)-(min))),0,16)))
 
 /*
  * Macros to turn texture on/off
@@ -2442,8 +2600,15 @@ typedef union {
 #define gsSPPerspNormalize(s)						\
 	gsMoveWd(    G_MW_PERSPNORM, 0, (s))
 
-#define	gSPPopMatrix(pkt, n)			gImmp1(pkt, G_POPMTX, n)
-#define	gsSPPopMatrix(n)			gsImmp1(G_POPMTX, n)
+#ifdef	F3DEX_GBI_2x
+# define gSPPopMatrixN(pkt, n, num)	gDma2p((pkt),G_POPMTX,(num)*64,64,2,0)
+# define gsSPPopMatrixN(n, num)		gsDma2p(     G_POPMTX,(num)*64,64,2,0)
+# define gSPPopMatrix(pkt, n)		gSPPopMatrixN((pkt), (n), 1)
+# define gsSPPopMatrix(n)		gsSPPopMatrixN(      (n), 1)
+#else	/* F3DEX_GBI_2 */
+# define gSPPopMatrix(pkt, n)		gImmp1(pkt, G_POPMTX, n)
+# define gsSPPopMatrix(n)		gsImmp1(    G_POPMTX, n)
+#endif	/* F3DEX_GBI_2 */
 
 #define gSPEndDisplayList(pkt)						\
 {									\
@@ -2458,6 +2623,34 @@ typedef union {
 	_SHIFTL(G_ENDDL, 24, 8), 0					\
 }
 
+#ifdef	F3DEX_GBI_2x
+/*
+ *	One gSPGeometryMode(pkt,c,s) GBI is equal to these two GBIs.
+ *
+ *		gSPClearGeometryMode(pkt,c)
+ *		gSPSetGeometryMode(pkt,s)
+ *
+ *	gSPLoadGeometryMode(pkt, word) sets GeometryMode directly.
+ */
+#define	gSPGeometryMode(pkt, c, s)					\
+{									\
+	Gfx *_g = (Gfx *)(pkt);						\
+	_g->words.w0 = _SHIFTL(G_GEOMETRYMODE,24,8)|_SHIFTL(~(u32)(c),0,24);\
+	_g->words.w1 = (u32)(s);					\
+}
+
+#define	gsSPGeometryMode(c, s)						\
+{									\
+	(_SHIFTL(G_GEOMETRYMODE,24,8)|_SHIFTL(~(u32)(c),0,24)),(u32)(s)	\
+}
+#define	gSPSetGeometryMode(pkt, word)	gSPGeometryMode((pkt),0,(word))
+#define	gsSPSetGeometryMode(word)	gsSPGeometryMode(0,(word))
+#define	gSPClearGeometryMode(pkt, word)	gSPGeometryMode((pkt),(word),0)
+#define	gsSPClearGeometryMode(word)	gsSPGeometryMode((word),0)
+#define	gSPLoadGeometryMode(pkt, word)	gSPGeometryMode((pkt),-1,(word))
+#define	gsSPLoadGeometryMode(pkt, word)	gsSPGeometryMode(-1,(word))
+
+#else	/* F3DEX_GBI_2 */
 #define	gSPSetGeometryMode(pkt, word)					\
 {									\
 	Gfx *_g = (Gfx *)(pkt);						\
@@ -2483,7 +2676,23 @@ typedef union {
 {									\
 	_SHIFTL(G_CLEARGEOMETRYMODE, 24, 8), (unsigned int)(word)	\
 }
+#endif	/* F3DEX_GBI_2 */
 
+#ifdef	F3DEX_GBI_2x
+#define	gSPSetOtherMode(pkt, cmd, sft, len, data)			\
+{									\
+	Gfx *_g = (Gfx *)(pkt);						\
+	_g->words.w0 = (_SHIFTL(cmd,24,8)|_SHIFTL(32-(sft)-(len),8,8)|	\
+			_SHIFTL((len)-1,0,8));				\
+	_g->words.w1 = (unsigned int)(data);				\
+}
+
+#define	gsSPSetOtherMode(cmd, sft, len, data)				\
+{									\
+	_SHIFTL(cmd,24,8)|_SHIFTL(32-(sft)-(len),8,8)|_SHIFTL((len)-1,0,8), \
+	(unsigned int)(data)						\
+}
+#else
 #define	gSPSetOtherMode(pkt, cmd, sft, len, data)			\
 {									\
 	Gfx *_g = (Gfx *)(pkt);						\
@@ -2498,6 +2707,7 @@ typedef union {
 	_SHIFTL(cmd, 24, 8) | _SHIFTL(sft, 8, 8) | _SHIFTL(len, 0, 8),	\
 	(unsigned int)(data)						\
 }
+#endif
 
 /*
  * RDP setothermode register commands - register shadowed in RSP
@@ -2767,6 +2977,47 @@ typedef union {
 	 _SHIFTL(a, 0, 8))						\
 }
 
+/*
+ * gDPSetOtherMode (This is for expert user.)
+ *
+ * This command makes all othermode parameters set.
+ * Do not use this command in the same DL with another g*SPSetOtherMode DLs.
+ * 
+ * [Usage]
+ *	gDPSetOtherMode(pkt, modeA, modeB)
+ *
+ *      'modeA' is described all parameters of GroupA GBI command.
+ *      'modeB' is also described all parameters of GroupB GBI command.
+ *
+ *	GroupA:
+ *	  gDPPipelineMode, gDPSetCycleType, gSPSetTexturePersp,
+ *	  gDPSetTextureDetail, gDPSetTextureLOD, gDPSetTextureLUT,
+ *	  gDPSetTextureFilter, gDPSetTextureConvert, gDPSetCombineKey,
+ *	  gDPSetColorDither, gDPSetAlphaDither
+ *
+ *	GroupB:
+ *	  gDPSetAlphaCompare, gDPSetDepthSource, gDPSetRenderMode
+ *
+ *	Use 'OR' operation to get modeA and modeB.
+ *
+ *	modeA = G_PM_* | G_CYC_* | G_TP_* | G_TD_* | G_TL_* | G_TT_* | G_TF_*
+ *		G_TC_* | G_CK_*  | G_CD_* | G_AD_*;
+ *
+ *	modeB = G_AC_* | G_ZS_*  | G_RM_* | G_RM_*2;
+ */
+#define	gDPSetOtherMode(pkt, mode0, mode1)				\
+{									\
+	Gfx *_g = (Gfx *)(pkt);						\
+									\
+	_g->words.w0 = _SHIFTL(G_RDPSETOTHERMODE,24,8)|_SHIFTL(mode0,0,24);\
+	_g->words.w1 = (unsigned int)(mode1);				\
+}
+
+#define	gsDPSetOtherMode(mode0, mode1)					\
+{									\
+	_SHIFTL(G_RDPSETOTHERMODE,24,8)|_SHIFTL(mode0,0,24),		\
+	(unsigned int)(mode1)						\
+}
 
 /*
  * Texturing macros
@@ -3994,6 +4245,19 @@ typedef union {
     _SHIFTL(dsdx, 16, 16) | _SHIFTL(dtdy, 0, 16)			\
 }
 
+#define gDPTextureRectangle(pkt, xl, yl, xh, yh, tile, s, t, dsdx, dtdy)\
+{									\
+    Gfx *_g = (Gfx *)(pkt);						\
+    if (pkt);								\
+    _g->words.w0 = (_SHIFTL(G_TEXRECT, 24, 8) | _SHIFTL(xh, 12, 12) |	\
+		    _SHIFTL(yh, 0, 12));    				\
+    _g->words.w1 = (_SHIFTL(tile, 24, 3) | _SHIFTL(xl, 12, 12) |	\
+		    _SHIFTL(yl, 0, 12));				\
+    _g ++;								\
+    _g->words.w0 = (_SHIFTL(s, 16, 16) | _SHIFTL(t, 0, 16));		\
+    _g->words.w1 = (_SHIFTL(dsdx, 16, 16) | _SHIFTL(dtdy, 0, 16));	\
+}
+
 #define gsDPTextureRectangleFlip(xl, yl, xh, yh, tile, s, t, dsdx, dtdy) \
 {									\
     (_SHIFTL(G_TEXRECTFLIP, 24, 8) | _SHIFTL(xh, 12, 12) |		\
@@ -4005,6 +4269,18 @@ typedef union {
     _SHIFTL(dsdx, 16, 16) | _SHIFTL(dtdy, 0, 16)			\
 }
 
+#define gDPTextureRectangleFlip(pkt, xl, yl, xh, yh, tile, s, t, dsdx, dtdy)\
+{									\
+    Gfx *_g = (Gfx *)(pkt);						\
+    if (pkt);								\
+    _g->words.w0 = (_SHIFTL(G_TEXRECTFLIP, 24, 8) | _SHIFTL(xh, 12, 12) | \
+		    _SHIFTL(yh, 0, 12));    				\
+    _g->words.w1 = (_SHIFTL(tile, 24, 3) | _SHIFTL(xl, 12, 12) |	\
+		    _SHIFTL(yl, 0, 12));				\
+    _g ++;								\
+    _g->words.w0 = (_SHIFTL(s, 16, 16) | _SHIFTL(t, 0, 16));		\
+    _g->words.w1 = (_SHIFTL(dsdx, 16, 16) | _SHIFTL(dtdy, 0, 16));	\
+}
 
 #define gsSPTextureRectangle(xl, yl, xh, yh, tile, s, t, dsdx, dtdy)	\
     (_SHIFTL(G_TEXRECT, 24, 8) | _SHIFTL(xh, 12, 12) | _SHIFTL(yh, 0, 12)),\

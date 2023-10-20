@@ -21,8 +21,8 @@
 
 /**************************************************************************
  *
- *  $Revision: 1.137 $
- *  $Date: 1997/02/13 14:54:14 $
+ *  $Revision: 1.149 $
+ *  $Date: 1997/12/15 04:30:52 $
  *  $Source: /disk6/Master/cvsmdev2/PR/include/os.h,v $
  *
  **************************************************************************/
@@ -555,6 +555,10 @@ typedef struct {
 #define CONT_RELATIVE           0x0002
 #define CONT_JOYPORT            0x0004
 #define CONT_EEPROM		0x8000
+#define CONT_EEP16K		0x4000
+#define	CONT_TYPE_MASK		0x1f07
+#define	CONT_TYPE_NORMAL	0x0005
+#define	CONT_TYPE_MOUSE		0x0002
 
 /* Controller status */
 
@@ -562,6 +566,11 @@ typedef struct {
 #define CONT_CARD_PULL          0x02
 #define CONT_ADDR_CRC_ER        0x04
 #define CONT_EEPROM_BUSY	0x80
+
+/* EEPROM TYPE */
+
+#define EEPROM_TYPE_4K		0x01
+#define EEPROM_TYPE_16K		0x02
 
 /* Buttons */
 
@@ -598,6 +607,9 @@ typedef struct {
 #define D_CBUTTONS	CONT_D
 
 /* File System size */
+#define	OS_PFS_VERSION		0x0200
+#define	OS_PFS_VERSION_HI	(OS_PFS_VERSION >> 8)
+#define	OS_PFS_VERSION_LO	(OS_PFS_VERSION & 255)
 
 #define PFS_FILE_NAME_LEN       16
 #define PFS_FILE_EXT_LEN        4
@@ -633,7 +645,14 @@ typedef struct {
 /* definition for EEPROM */
 
 #define EEPROM_MAXBLOCKS	64
+#define EEP16K_MAXBLOCKS	256
 #define EEPROM_BLOCK_SIZE	8
+
+/*
+ * PI/EPI
+ */
+#define PI_DOMAIN1      0
+#define PI_DOMAIN2      1
 
 /*
  * Profiler constants
@@ -683,11 +702,12 @@ typedef struct {
  */
 extern u64 osClockRate;
 
-#define OS_NSEC_TO_CYCLES(n)	(((u64)(n)*(osClockRate))/1000000000LL)
-#define OS_USEC_TO_CYCLES(n)	(((u64)(n)*(osClockRate))/1000000LL)
-#define OS_CYCLES_TO_NSEC(c)	(((u64)(c)*1000000000LL)/(osClockRate))
-#define OS_CYCLES_TO_USEC(c)	(((u64)(c)*1000000LL)/(osClockRate))
-
+#define	OS_CLOCK_RATE		62500000LL
+#define	OS_CPU_COUNTER		(OS_CLOCK_RATE*3/4)
+#define OS_NSEC_TO_CYCLES(n)	(((u64)(n)*(OS_CPU_COUNTER/15625000LL))/(1000000000LL/15625000LL))
+#define OS_USEC_TO_CYCLES(n)	(((u64)(n)*(OS_CPU_COUNTER/15625LL))/(1000000LL/15625LL))
+#define OS_CYCLES_TO_NSEC(c)	(((u64)(c)*(1000000000LL/15625000LL))/(OS_CPU_COUNTER/15625000LL))
+#define OS_CYCLES_TO_USEC(c)	(((u64)(c)*(1000000LL/15625LL))/(OS_CPU_COUNTER/15625LL))
 
 /**************************************************************************
  *
@@ -864,7 +884,7 @@ extern void		osViSetEvent(OSMesgQueue *, OSMesg, u32);
 extern void		osViSwapBuffer(void *);
 extern void		osViBlack(u8);
 extern void		osViFade(u8, u16);
-extern void		osRepeatLine(u8);
+extern void		osViRepeatLine(u8);
 extern void		osCreateViManager(OSPri);
 
 /* Timer interface */
@@ -877,7 +897,7 @@ extern int		osStopTimer(OSTimer *);
 
 /* Controller interface */
 
-extern s32		osContInit(OSMesgQueue * mq, u8 * bitpattern, OSContStatus * data);
+extern s32		osContInit(OSMesgQueue *, u8 *, OSContStatus *);
 extern s32		osContReset(OSMesgQueue *, OSContStatus *);
 extern s32		osContStartQuery(OSMesgQueue *);
 extern s32		osContStartReadData(OSMesgQueue *);
@@ -904,7 +924,6 @@ extern s32 osPfsSetLabel(OSPfs *, u8 *);
 extern s32 osPfsIsPlug(OSMesgQueue *, u8 *);
 extern s32 osPfsFreeBlocks(OSPfs *, s32 *);
 extern s32 osPfsNumFiles(OSPfs *, s32 *, s32 *);
-extern s32 osPfsReSizeFile(OSPfs *, u16 , u32 , u8 *, u8 *, int);
 
 /* EEPROM interface */
 
@@ -933,6 +952,7 @@ extern s32 osEPiRawStartDma(OSPiHandle *, s32 , u32 , void *, u32 );
 extern s32 osEPiWriteIo(OSPiHandle *, u32 , u32 );
 extern s32 osEPiReadIo(OSPiHandle *, u32 , u32 *);
 extern s32 osEPiStartDma(OSPiHandle *, OSIoMesg *, s32);
+extern s32 osEPiLinkHandle(OSPiHandle *);
 
 /* Profiler Interface */
 
@@ -961,6 +981,7 @@ extern void     bzero(void *, int);
 extern void		osInitialize(void);
 extern u32		osGetCount(void);
 extern void		osExit(void);
+extern u32 		osGetMemSize(void);
 
 /* Printf */
 

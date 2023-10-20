@@ -15,8 +15,8 @@
 
 /**************************************************************************
  *
- *  $Revision: 1.45 $
- *  $Date: 1997/02/11 08:23:46 $
+ *  $Revision: 1.46 $
+ *  $Date: 1997/11/26 00:30:53 $
  *  $Source: /disk6/Master/cvsmdev2/PR/include/gu.h,v $
  *
  **************************************************************************/
@@ -32,12 +32,12 @@
 #define MIN(a,b) (((a)<(b))?(a):(b))
 #endif
 
-#define D_PI		3.14159265358979323846
-#define D_DTOR		(3.14159265358979323846/180.0)
+#define M_PI		3.14159265358979323846
+#define M_DTOR		(3.14159265358979323846/180.0)
 
-#define	FTOFIX32(x)	((x) * 0x10000)
-#define	FIX32TOF(x)	((float)(((float)x) / (float)(0x10000)))
-#define	FTOFRAC8(x)	((int) MIN(((x) * (128.0)),127.0) & 0xff)
+#define	FTOFIX32(x)	(long)((x) * (float)0x00010000)
+#define	FIX32TOF(x)	((float)(x) * (1.0f / (float)0x00010000))
+#define	FTOFRAC8(x)	((int) MIN(((x) * (128.0f)), 127.0f) & 0xff)
 
 #define  FILTER_WRAP 0
 #define  FILTER_CLAMP 1
@@ -191,7 +191,7 @@ extern float sinf(float angle);
 extern float cosf(float angle);
 extern signed short sins (unsigned short angle);
 extern signed short coss (unsigned short angle);
-extern float guSqrtf(float value);
+extern float sqrtf(float value);
 
 /*
  *  Dump routines for low-level display lists

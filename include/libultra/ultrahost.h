@@ -12,8 +12,8 @@
 
 /**************************************************************************
  *
- *  $Revision: 1.7 $
- *  $Date: 1997/02/11 08:38:37 $
+ *  $Revision: 1.8 $
+ *  $Date: 1997/07/02 02:35:06 $
  *  $Source: /disk6/Master/cvsmdev2/PR/include/ultrahost.h,v $
  *
  **************************************************************************/
@@ -21,29 +21,22 @@
 #ifndef _ULTRAHOST_H_
 #define _ULTRAHOST_H_
 
-#ifdef WIN32 /* { */
-
-int __stdcall uhOpenGame(char *);
-int __stdcall uhCloseGame(int);
-int __stdcall uhReadGame(int hfd,void *buf,int count);
-int __stdcall uhWriteGame(int hfd,void *buf,int count);
-int __stdcall uhReadRamrom(int hfd,void *ramrom_adr,void *buf,int count);
-int __stdcall uhWriteRamrom(int hfd,void *ramrom_adr,void *buf,int count);
-int __stdcall uhPartnerInit(int hfd);
-int __stdcall uhPartnerCmd(int hfd,char *ptcmd);
-int __stdcall uhGload(int hfd,char *loadfile);
-
-#else /* }{ */
 #ifdef PTN64 /* { */
 
 #define	execl		execl_pt
 
 #define uhOpenGame	uhOpenGame_pt
 #define uhCloseGame	uhCloseGame_pt
+
 #define uhReadGame	uhReadGame_pt
 #define uhWriteGame	uhWriteGame_pt
 #define uhReadRamrom	uhReadRamrom_pt
 #define uhWriteRamrom	uhWriteRamrom_pt
+#define uhPartnerCmd	uhPartnerCmd_pt
+#define uhGload		uhGload_pt
+
+int uhPartnerCmd(int,char *);
+int uhGload(int,char *);
 
 #endif /* } */
 
@@ -61,6 +54,5 @@ int	uhReadRamrom(int, void *, void*, int);
 #ifdef __cplusplus
 }
 #endif
-#endif /* } */
 
 #endif /* ULTRAHOST */

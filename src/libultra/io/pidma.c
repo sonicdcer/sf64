@@ -4,7 +4,7 @@ extern s32 __osPiDevMgr;
 
 extern OSMesgQueue* osPiGetCmdQueue(void);
 
-s32 osPiStartDma(OSIoMesg* arg0, s32 arg1, s32 arg2, u32 arg3, void* arg4, u32 arg5, OSMesgQueue* arg6) {
+s32 osPiStartDma(OSIoMesg* mb, s32 pri, s32 arg2, u32 devAddr, void* dramAddr, u32 size, OSMesgQueue* piHandle) {
     register s32 result;
 
     if (__osPiDevMgr == 0) {
@@ -12,22 +12,22 @@ s32 osPiStartDma(OSIoMesg* arg0, s32 arg1, s32 arg2, u32 arg3, void* arg4, u32 a
     }
 
     if (arg2 == 0) {
-        arg0->hdr.type = 0xB;
+        mb->hdr.type = OS_MESG_TYPE_DMAREAD;
     } else {
-        arg0->hdr.type = 0xC;
+        mb->hdr.type = OS_MESG_TYPE_DMAWRITE;
     }
 
-    arg0->hdr.pri = arg1;
-    arg0->hdr.retQueue = arg6;
-    arg0->dramAddr = arg4;
-    arg0->devAddr = arg3;
-    arg0->size = arg5;
-    arg0->piHandle = NULL;
+    mb->hdr.pri = pri;
+    mb->hdr.retQueue = piHandle;
+    mb->dramAddr = dramAddr;
+    mb->devAddr = devAddr;
+    mb->size = size;
+    mb->piHandle = NULL;
 
-    if (arg1 == 1) {
-        result = osJamMesg(osPiGetCmdQueue(), arg0, 0);
+    if (pri == 1) {
+        result = osJamMesg(osPiGetCmdQueue(), mb, 0);
     } else {
-        result = osSendMesg(osPiGetCmdQueue(), arg0, 0);
+        result = osSendMesg(osPiGetCmdQueue(), mb, 0);
     }
     return result;
 }

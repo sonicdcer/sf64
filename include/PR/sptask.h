@@ -12,8 +12,8 @@
 
 /**************************************************************************
  *
- *  $Revision: 1.7 $
- *  $Date: 1997/02/11 08:33:45 $
+ *  $Revision: 1.8 $
+ *  $Date: 1997/11/10 10:48:35 $
  *  $Source: /disk6/Master/cvsmdev2/PR/include/sptask.h,v $
  *
  **************************************************************************/
@@ -124,6 +124,7 @@ typedef u32 OSYieldResult;
 #define OS_TASK_YIELDED			0x0001
 #define OS_TASK_DP_WAIT			0x0002
 #define	OS_TASK_LOADABLE		0x0004
+#define	OS_TASK_SP_ONLY			0x0008
 #define OS_TASK_USR0			0x0010
 #define OS_TASK_USR1			0x0020
 #define OS_TASK_USR2			0x0040
