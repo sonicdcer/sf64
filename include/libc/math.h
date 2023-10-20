@@ -25,6 +25,9 @@ typedef union {
     f32 f;
 } fu;
 
+typedef float Matrix[4][4];
+typedef u32 uintptr_t;
+
 extern f32 __libm_qnan_f;
 
 float fabsf(float f);
