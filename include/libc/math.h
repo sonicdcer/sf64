@@ -39,6 +39,9 @@ double fabs(double f);
 #define fabs(f) __builtin_fabs((double)(f))
 #endif
 
+float sqrtf(float f);
+#pragma intrinsic(sqrtf)
+
 double sqrt(double d);
 #pragma intrinsic(sqrt)
 

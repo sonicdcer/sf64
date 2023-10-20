@@ -1,7 +1,5 @@
 #include "global.h"
 
-// OPTFLAGS := -O1 -g0
-
 extern s32 __osPiDevMgr;
 
 extern OSMesgQueue* osPiGetCmdQueue(void);

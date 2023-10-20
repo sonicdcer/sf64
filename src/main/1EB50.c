@@ -1,7 +1,5 @@
 #include "global.h"
 
-// OPTFLAGS := -O1 -g0
-
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/1EB50/func_8001DF50.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/1EB50/func_8001E444.s")
@@ -9,8 +7,6 @@
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/1EB50/func_8001E720.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/1EB50/func_8001E778.s")
-
-// void osCreateMesgQueue(s32, s32*, s32);
 
 extern s8 D_800C7C50;
 extern s8 D_800C7C54;
