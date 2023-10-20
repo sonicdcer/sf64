@@ -21,8 +21,8 @@
  *
  *  This file contains various types used in Ultra64 interfaces.
  *
- *  $Revision: 1.5 $
- *  $Date: 1997/02/11 08:39:54 $
+ *  $Revision: 1.6 $
+ *  $Date: 1997/12/17 04:02:06 $
  *  $Source: /disk6/Master/cvsmdev2/PR/include/ultratypes.h,v $
  *
  **************************************************************************/
@@ -57,10 +57,18 @@ typedef volatile long long		vs64;	/* signed 64-bit */
 typedef float				f32;	/* single prec floating point */
 typedef double				f64;	/* double prec floating point */
 
-typedef u32 size_t;
+#if !defined(_SIZE_T) && !defined(_SIZE_T_) && !defined(_SIZE_T_DEF)
+#define _SIZE_T
+#define _SIZE_T_DEF			/* exeGCC size_t define label */
+#if (_MIPS_SZLONG == 32)
+typedef unsigned int    size_t;
+#endif
+#if (_MIPS_SZLONG == 64)
+typedef unsigned long   size_t;
+#endif
+#endif
 
-typedef unsigned long int uintptr_t;
-
+typedef _MIPS_SZLONG size_t;
 typedef float Matrix[4][4];
 
 #endif  /* _LANGUAGE_C */
