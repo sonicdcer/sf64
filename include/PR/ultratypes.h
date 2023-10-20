@@ -68,7 +68,7 @@ typedef unsigned long   size_t;
 #endif
 #endif
 
-typedef _MIPS_SZLONG size_t;
+//typedef u32 size_t;
 typedef float Matrix[4][4];
 
 #endif  /* _LANGUAGE_C */

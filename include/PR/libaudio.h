@@ -20,8 +20,8 @@
 
 /**************************************************************************
  *
- *  $Revision: 1.172 $
- *  $Date: 1997/02/11 08:24:57 $
+ *  $Revision: 1.173 $
+ *  $Date: 1997/12/01 12:42:21 $
  *  $Source: /disk6/Master/cvsmdev2/PR/include/libaudio.h,v $
  *
  **************************************************************************/
@@ -57,7 +57,9 @@ extern "C" {
 #	endif /* AUD_PROFILE */
 #endif /* EMULATOR */
 
+#ifndef NULL
 #define NULL 0
+#endif
 
 #define AL_FX_BUFFER_SIZE       8192
 #define AL_FRAME_INIT           -1

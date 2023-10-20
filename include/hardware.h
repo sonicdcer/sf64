@@ -1,6 +1,8 @@
 #ifndef _HARDWARE_H_
 #define _HARDWARE_H_
 
+typedef unsigned long int uintptr_t;
+
 #define HW_REG(reg, type) *(volatile type *)(uintptr_t)((reg) | 0xa0000000)
 
 #define AI_STATUS_REG 0x0450000C
