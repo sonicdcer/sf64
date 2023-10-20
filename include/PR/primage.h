@@ -1,7 +1,7 @@
 /**************************************************************************
  *
- *  $Revision: 1.3 $
- *  $Date: 1997/02/11 08:13:08 $
+ *  $Revision: 1.4 $
+ *  $Date: 1997/11/26 00:30:50 $
  *  $Source: /disk6/Master/cvsmdev2/PR/include/PRimage.h,v $
  *
  **************************************************************************/
@@ -45,7 +45,7 @@ extern "C" {
 #define BPP(type)		((type) & BPPMASK)
 #define RLE(bpp)		(ITYPE_RLE | (bpp))
 #define VERBATIM(bpp)		(ITYPE_VERBATIM | (bpp))
-#define	IBUFSIZE(pixels)	((pixels+(pixels>>6))<<2)
+#define	IBUFSIZE(pixels)	(((pixels)+((pixels)>>6))<<2)
 #define	RLE_NOP			0x00
 
 #define	ierror(p)		(((p)->flags&_IOERR)!=0)
