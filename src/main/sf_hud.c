@@ -131,7 +131,12 @@ s32 func_800863C8(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800869A0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80086C08.s")
+void func_80086C08(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
+    func_800B8DD0(&D_80137E64, 0x4E);
+    gDPSetPrimColor(D_80137E64++, 0, 0, 60, 60, 128, 96);
+    gDPSetAlphaDither(D_80137E64++, G_AD_DISABLE);
+    func_8009D0BC(&D_80137E64, D_1013170, D_1013570, 24, 17, arg0, arg1, arg2, arg3);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80086CC8.s")
 
