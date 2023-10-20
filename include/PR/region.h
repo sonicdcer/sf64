@@ -15,9 +15,9 @@
  *
  *  Module: region.h
  *
- *  $Revision: 1.7 $
- *  $Date: 1995/06/07 05:11:42 $
- *  $Author: chn $
+ *  $Revision: 1.8 $
+ *  $Date: 1997/11/26 00:30:56 $
+ *  $Author: mitu $
  *  $Source: /disk6/Master/cvsmdev2/PR/include/region.h,v $
  *
  *  Description:
@@ -73,7 +73,7 @@ extern "C" {
  */
 
 /* Perform alignment on input 's' */
-#define	ALIGN(s, align)	(((u32)(s) + (align-1)) & ~(align-1))
+#define	ALIGN(s, align)	(((u32)(s) + ((align)-1)) & ~((align)-1))
 
 
 /***************************************
