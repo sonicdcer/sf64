@@ -62,6 +62,8 @@ extern s32 D_1013170[];
 extern s32 D_1013570[];
 extern s32 D_1013580;
 extern s32 D_1013700;
+extern s32 D_20031B0[];
+extern s32 D_2010A30[];
 extern s32 D_3000B20;
 extern s32 D_30013E0;
 

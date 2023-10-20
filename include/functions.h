@@ -1,6 +1,9 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
+void func_80005680(Matrix*, Matrix*);
+void func_80005708(Matrix **);
+void func_80005B00(Matrix*, f32, f32, f32, u8);
 void func_80005C34(s32, f32, f32, f32, s32);
 void func_80006EB8(Gfx **);
 void func_80086664(f32, f32);
