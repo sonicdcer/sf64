@@ -138,7 +138,33 @@ void func_80086C08(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     func_8009D0BC(&D_80137E64, D_1013170, D_1013570, 24, 17, arg0, arg1, arg2, arg3);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80086CC8.s")
+void func_80086CC8(void) {
+    char pad;
+    f32 sp18;
+    f32 temp;
+
+    if ((D_80177854 != 0x64) && (D_80177838 != 0)) {
+        D_80177838 -= 1;
+    }
+
+    if (D_80177838 == 1) {
+        D_80161718 = 30;
+        D_8016171C = 0;
+    }
+    
+    temp = 108.0f;
+    sp18 = 81.0f;
+    
+    if (D_80177838 != 0) {
+        func_80086C08(temp - 4.5f - 32.0f, sp18 - 24.0f - 4.0f, 7.4f, 3.9f);
+
+        if (D_80178234 != 10) {
+            func_80086C08(122.0f, 122.0f, 2.9f, 1.2f);
+        }
+
+        func_80086664(temp, sp18 - 24.0f);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80086DCC.s")
 
