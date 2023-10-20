@@ -1,6 +1,6 @@
 #include "hud.h"
 
-extern s32 D_8013B3C0;
+
 extern Gfx D_F014180[];
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80084930.s")
@@ -208,7 +208,42 @@ void func_8008865C(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800886B8.s")
 
+#ifdef IMPORT_DATA_PENDING
+void func_80088784(s32 arg0) {
+    s32 D_800D1D4C[] = {
+        0x0200B630, 0x0200A5A0, 0x02009510, 0x02008480, 0x020073F0, 0x02006360, 0x0200C6C0, 0x020052D0, 0x02004240,
+        D_20031B0,  0x02002120, 0x02001090, 0x02000000, D_2010A30,  0x020101A0, 0x0200F910, 0x0200F080, 0x0200E7F0,
+    };
+    s32 D_800D1D94[] = {
+        0x020066C0, 0x02005E30, 0x020055A0, 0x02004D10, 0x02004480, 0x02003BF0, 0x02003360,
+        0x02002AD0, 0x02002240, 0x020019B0, 0x02001120, 0x02000890, 0x02000000,
+    };
+    s32 D_800D1DC8[] = {
+        255, 255, 255, 255, 255, 255, 255, 255, 255,
+        255, 255, 255, 255, 255, 200, 150, 100, 50,
+    };
+    
+    if (arg0 != 0) {
+        arg0--;
+        func_800B8DD0(&D_80137E64, 0x24);
+        gDPSetPrimColor(D_80137E64++, 0, 0, 255, 255, 255, D_800D1DC8[arg0]);
+        func_80005708(&D_8013B3C0);
+        func_80005B00(D_8013B3C0, 3.9f, -3.3f, -100.0f, 0);
+        func_80005C34(D_8013B3C0, 0.37f, 0.37f, 0.37f, 1);
+        func_80006EB8(&D_80137E64);
+        
+        if (D_80177C98 == 0) {
+            gSPDisplayList(D_80137E64++, D_800D1D4C[arg0]);
+        } else {
+            gSPDisplayList(D_80137E64++, D_800D1D94[arg0]);
+        }
+        
+        func_80005740(&D_8013B3C0);
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80088784.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80088970.s")
 
