@@ -455,7 +455,58 @@ void func_80089E98(s32 arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008AC54.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008AD94.s")
+void func_8008AD94(void) {
+    if (D_80177834 == 7) {
+        func_800B8DD0(&D_80137E64, 0x4C);
+        gDPSetPrimColor(D_80137E64++, 0, 0, 255, 255, 0, 255);
+
+        switch ((s32) D_80177D68) {
+            case 0:
+                func_800A1200(73, 173, 1.0f, 1.0f, "FOX");
+                break;
+
+            case 10:
+                func_800A1200(73, 173, 1.0f, 1.0f, "FALCO");
+                break;
+
+            case 20:
+                func_800A1200(73, 173, 1.0f, 1.0f, "SLIPPY");
+                break;
+
+            case 30:
+                func_800A1200(73, 173, 1.0f, 1.0f, "PEPPY");
+                break;
+
+            case 200:
+            case 240:
+                func_800A1200(73, 173, 1.0f, 1.0f, "WOLF");
+                break;
+
+            case 220:
+            case 260:
+                func_800A1200(73, 173, 1.0f, 1.0f, "LEON");
+                break;
+
+            case 210:
+            case 250:
+                func_800A1200(73, 173, 1.0f, 1.0f, "PIGMA");
+                break;
+
+            case 230:
+            case 270:
+                func_800A1200(73, 173, 1.0f, 1.0f, "ANDREW");
+                break;
+
+            case 170:
+                func_800A1200(73, 173, 1.0f, 1.0f, "BILL");
+                break;
+
+            case 40:
+                func_800A1200(73, 173, 1.0f, 1.0f, "KATT");
+                break;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008B044.s")
 

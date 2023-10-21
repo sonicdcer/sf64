@@ -10,11 +10,13 @@ typedef struct UnkStruct_D_80178280 {
 } UnkStruct_D_80178280; // size = 0x4E0
 
 extern UnkStruct_D_80178280* D_80178280;
+extern s32 D_80177834;
 extern s32 D_801778A0;
 extern s32 D_801778A8;
-extern s32 D_80177DB0;
 extern s32 D_801778E8;
 extern u8 D_80177C98;
+extern f32 D_80177D68;
+extern s32 D_80177DB0;
 
 extern Matrix* D_8013B3C0;
 extern f32 D_800C5D28[];
