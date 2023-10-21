@@ -53,7 +53,7 @@ extern s32 D_8017783C;
 extern s32 D_80177898;
 extern s32 D_80177AE0;
 extern s32 D_80177AF8;
-extern s32 D_80177DB0;
+
 extern s32 D_80178320;
 extern s32 D_80178328;
 extern s32 D_80178330;

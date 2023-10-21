@@ -327,7 +327,23 @@ void func_80089B94(void) {
     gSPDisplayList(D_80137E64++, D_D0098B0);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80089C38.s")
+void func_80089C38(void) {
+    s32 alpha;
+
+    func_800B8DD0(&D_80137E64, 0xC);
+
+    alpha = D_80177DB0 % 21;
+
+    if (alpha > 10) {
+        alpha = 20 - alpha;
+    }
+
+    alpha *= 255.0f / 10.0f;
+    gDPSetPrimColor(D_80137E64++, 0, 0, 255, 255, 255, alpha);
+    func_80005C34(D_8013B3C0, 15.0f, 15.0f, 1.0f, 1);
+    func_80006EB8(&D_80137E64);
+    gSPDisplayList(D_80137E64++, D_1024230);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80089D28.s")
 
