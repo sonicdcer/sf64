@@ -1,6 +1,5 @@
 #include "global.h"
 
-void func_80005740(s32*);
 void func_80084688(s32, s32);
 void func_800A5D6C(void);
 void func_800BB5D0(void);

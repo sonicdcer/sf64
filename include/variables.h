@@ -6,6 +6,7 @@
 extern f32 D_800C5D34;
 extern s8 D_800C5D3C;
 extern s32 D_800CFF90;
+extern Gfx D_800D1A40[];
 extern s32 D_800D1EB4;
 extern s32 D_800D1EB8;
 extern s32 D_800D1EBC;

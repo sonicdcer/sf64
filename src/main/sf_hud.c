@@ -687,7 +687,33 @@ void func_8008B9E8(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008BAE4.s")
+void func_8008BAE4(void) {
+    s32 r;
+    s32 g;
+    s32 b;
+    s32 alpha;
+
+    if (D_8016178C != 0) {
+        alpha = 192 / D_8016178C;
+        r = g = b = 255;
+    }
+
+    if (D_80161788 != 0) {
+        r = alpha = D_80161788 * 12;
+        g = b = 0;
+    }
+
+    if ((D_80161788 != 0) || (D_8016178C != 0)) {
+        func_800B8DD0(&D_80137E64, 0xC);
+        gDPSetPrimColor(D_80137E64++, 0, 0, r, g, b, alpha);
+        func_80005708(&D_8013B3C0);
+        func_80005B00(D_8013B3C0, -53.9f, -38.5f, -139.4f, 1);
+        func_80005C34(D_8013B3C0, 1.0f, 1.0f, 1.0f, 1);
+        func_80006EB8(&D_80137E64);
+        gSPDisplayList(D_80137E64++, D_800D1A40);
+        func_80005740(&D_8013B3C0);
+    }
+}
 
 void func_8008BC80(void) {
     if (D_80177854 != 100) {
