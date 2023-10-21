@@ -285,7 +285,33 @@ void func_800898F0(void) {
     gSPDisplayList(D_80137E64++, D_6004570);
 }
 
+#ifdef IMPORT_DATA_PENDING
+void func_80089994(s32 arg0) {
+    s32 D_800D1E14[][4] = {
+        { 177, 242, 12, 255 }, { 89, 121, 6, 128 }, { 90, 90, 255, 255 }, { 45, 45, 128, 128 },
+        { 0, 179, 67, 255 },   { 0, 90, 34, 128 },  { 255, 30, 0, 255 },  { 128, 15, 0, 128 },
+    };
+    f32 var_fv1;
+    f32 var_fv2;
+
+    if (D_801778A8 != 1) {
+        var_fv1 = 38.0f;
+        var_fv2 = 38.0f;
+    } else {
+        var_fv1 = 54.0f;
+        var_fv2 = 54.0f;
+    }
+
+    func_800B8DD0(&D_80137E64, 0x3E);
+    gDPSetPrimColor(D_80137E64++, 0, 0, D_800D1E14[arg0][0], D_800D1E14[arg0][1], D_800D1E14[arg0][2],
+                    D_800D1E14[arg0][3]);
+    func_80005C34(D_8013B3C0, var_fv1, var_fv2, 1.0f, 1);
+    func_80006EB8(&D_80137E64);
+    gSPDisplayList(D_80137E64++, D_1015510);
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80089994.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80089AF4.s")
 
