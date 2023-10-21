@@ -387,57 +387,7 @@ void func_80187E28_EC04E8(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/segment_EBFBE0/EBFCA0/func_801888E8_EC0FA8.s")
 
-//! TODO: Clean up this mess!
-
-f32 func_80005100(f32, f32);
-void func_8009BC2C(f32*, f32, f32, f32, f32);
-void func_8018D2B8_EC5978(s32);
-void func_8018EA78_EC7138(s32);
-void func_80191674_EC9D34(f32, f32, f32, f32*, f32*, f32*);
-
-extern s32 D_80178548;
-extern s32 D_8017854C;
-extern s32 D_80178550;
-extern s32 D_80178554;
-extern s32 D_80178558;
-extern s32 D_8017855C;
-extern s32 D_801ADA84_EE6144[];
-extern s32 D_801ADA94_EE6154;
-extern f32 D_801B82E0;
-extern f32 D_801B82E4;
-extern f32 D_801B82E8;
-extern s32 D_801B82F8;
-extern s32 D_801B82FC;
-extern s32 D_801B8300;
-extern f32 D_801B8304;
-extern f32 D_801B8308;
-extern f32 D_801B830C;
-extern s32 D_801B8310;
-extern s32 D_801B8314;
-extern s32 D_801B8318;
-extern s32 D_801B831C;
-extern s32 D_801B8320;
-extern s32 D_801B8324;
-
-typedef struct UnkStruct_D_801B8350 {
-    /* 0x00 */ Vec3f unk0;
-    /* 0x0C */ char pad_0C[0x4C];
-    /* 0x54 */ s32 unk54;
-    /* 0x58 */ s32 unk58;
-} UnkStruct_D_801B8350;
-
 extern UnkStruct_D_801B8350 D_801B8350[];
-extern s32 D_801B86A4;
-extern f32 D_801B86C8;
-extern f32 D_801B86CC;
-extern f32 D_801B86D0;
-extern f32 D_801B86D4;
-extern f32 D_801B86D8;
-extern f32 D_801B86DC;
-extern s32 D_801B9040;
-extern f32 D_801B905C;
-extern f32 D_801B9060;
-extern f32 D_801B9064;
 
 #define M_PI 3.1415927f
 
