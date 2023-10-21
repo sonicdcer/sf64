@@ -18,6 +18,7 @@ options:
 
   symbol_addrs_path: 
     - linker_scripts/us/symbol_addrs.txt
+    - linker_scripts/us/symbol_addrs_segmented.txt
     - linker_scripts/us/symbol_addrs_libultra.txt
     - linker_scripts/us/ignored_addresses.txt
   reloc_addrs_path:
