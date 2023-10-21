@@ -2,11 +2,11 @@
 #define VARIABLES_H
 
 typedef struct {
-    /* 0x000 */ char pad_0[0x7C];
+    /* 0x000 */ char pad_0[0x07C];
     /* 0x07C */ f32 unk07C;
     /* 0x080 */ char pad_80[0x148];
     /* 0x1C8 */ s32 unk1C8;
-    /* 0x1CC */ char pad_END[0x314];
+    /* 0x1CC */ char pad_1CC[0x314];
 } UnkStruct_D_80178280; // Size = 0x4E0
 
 extern UnkStruct_D_80178280* D_80178280;
