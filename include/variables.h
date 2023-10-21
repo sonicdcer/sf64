@@ -10,6 +10,7 @@ extern Gfx D_1024830[];
 extern Gfx D_102A8A0[];
 extern Gfx D_1024AC0[];
 extern Gfx D_6004570[];
+extern Gfx D_F014180[];
 
 #endif // VARIABLES_H
 
