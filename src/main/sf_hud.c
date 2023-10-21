@@ -205,7 +205,7 @@ void func_8008865C(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800886B8.s")
 
-#ifndef IMPORT_DATA_PENDING
+#ifdef IMPORT_DATA_PENDING
 void func_80088784(s32 arg0) {
     s32 D_800D1D4C[] = {
         D_200B630, D_200A5A0, D_2009510, D_2008480, D_20073F0, D_2006360, D_200C6C0, D_20052D0, D_2004240,
