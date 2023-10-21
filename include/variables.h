@@ -10,8 +10,12 @@ extern s32 D_800D1EB4;
 extern s32 D_800D1EB8;
 extern s32 D_800D1EBC;
 
+extern Gfx* D_80137E64;
+
 extern s32 D_80161690;
 extern s32 D_80161730;
+extern s32 D_80161788;
+extern s32 D_8016178C;
 extern s32 D_80161790;
 extern s32 D_80161794;
 extern s32 D_80161798;
@@ -31,6 +35,8 @@ extern s32 D_801778E8;
 extern u8 D_80177C98;
 extern f32 D_80177D68;
 extern s32 D_80177DB0;
+extern s32 D_8017829C;
+extern s32 D_801782A4;
 extern s32 D_80178548;
 extern s32 D_8017854C;
 extern s32 D_80178550;

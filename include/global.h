@@ -9,6 +9,4 @@
 #include "macros.h"
 #include "sf64math.h"
 
-extern Gfx* D_80137E64;
-
 #endif // GLOBAL_H

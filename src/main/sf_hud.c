@@ -656,7 +656,36 @@ void func_8008B734(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008B774.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008B9E8.s")
+void func_8008B9E8(void) {
+    s32 temp;
+
+    // clang-format off
+    if ((D_8016178C != 0) && (D_8016178C != 1)) { D_8016178C--; }
+    // clang-format on
+
+    if (D_80161788 != 0) {
+        D_80161788--;
+    }
+
+    if ((D_80161788 == 0) && (D_8016178C == 0)) {
+        if ((D_8017829C >= 4) && (D_801782A4 != 2) && (D_801782A4 != 3)) {
+            temp = func_8008B774();
+            if (temp == 1) {
+                D_80161788 = 20;
+            }
+            if (temp == 2) {
+                D_8016178C = 60;
+            }
+        } else {
+            D_80161788 = 0;
+        }
+    }
+
+    if ((D_801782A4 == 2) || (D_801782A4 == 3)) {
+        D_80161788 = 0;
+        D_8016178C = 0;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008BAE4.s")
 

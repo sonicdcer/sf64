@@ -69,7 +69,7 @@ extern f32 D_80177988;
 extern f32 D_801779A0;
 extern f32 D_801779B8;
 extern f32 D_801779C0;
-extern s32 D_8017829C;
+
 extern s32 D_80178410;
 extern f32 D_8017842C;
 
