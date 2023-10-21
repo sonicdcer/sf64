@@ -508,7 +508,40 @@ void func_8008AD94(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008B044.s")
+void func_8008B044(void) {
+    switch (D_80161798) {
+        case 0:
+            if (D_80161690 == 0) {
+                return;
+            }
+
+            func_80019218(0x49002018U, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+
+            if (D_800CFF90 != 0) {
+                func_8001AF40(1);
+            }
+            D_80161794 = 0;
+            D_80161798 = 1;
+        case 1:
+            if (D_80161690 != 0) {
+                D_80161790++;
+                if (D_80161790 >= 7) {
+                    if (D_80161794 & 1) {
+                        func_80019218(0x49002018U, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    }
+                    D_80161790 = 0;
+                    D_80161794++;
+                }
+                D_80161690--;
+            } else {
+                D_800CFF90 = 0;
+                D_80161790 = 0;
+                D_80161798 = 0;
+                func_8001A838(0x49002018);
+            }
+            break;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008B1B0.s")
 

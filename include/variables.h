@@ -9,6 +9,14 @@ typedef struct UnkStruct_D_80178280 {
     /* 0x1CC */ char pad_1CC[0x314];
 } UnkStruct_D_80178280; // size = 0x4E0
 
+extern f32 D_800C5D34;
+extern s8 D_800C5D3C;
+extern s32 D_800CFF90;
+extern s32 D_80161690;
+extern s32 D_80161790;
+extern s32 D_80161794;
+extern s32 D_80161798;
+
 extern UnkStruct_D_80178280* D_80178280;
 extern s32 D_80177834;
 extern s32 D_801778A0;
@@ -20,8 +28,8 @@ extern s32 D_80177DB0;
 
 extern Matrix* D_8013B3C0;
 extern f32 D_800C5D28[];
-extern f32 D_800C5D34;
-extern s8 D_800C5D3C;
+
+
 
 extern Gfx D_1015510[];
 extern Gfx D_1024230[];
