@@ -345,7 +345,31 @@ void func_80089C38(void) {
     gSPDisplayList(D_80137E64++, D_1024230);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80089D28.s")
+void func_80089D28(void) {
+    s32 gb;
+
+    func_800B8DD0(&D_80137E64, 1);
+    gb = D_80177DB0 % 21;
+
+    if (gb > 10) {
+        gb = 20 - gb;
+    }
+
+    gb *= 25.5f;
+
+    if ((gb == 10) || (gb == 0)) {
+        // clang-format off
+        //! FAKE: Probably a MACRO
+        if (1) {func_80019218(0x4900001c, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);}
+        // clang-format on
+    }
+
+    gDPSetPrimColor(D_80137E64++, 0, 0, 255, gb, gb, 255);
+    func_80005B00(D_8013B3C0, 0.0f, -185.92001f, 0, 1);
+    func_80005C34(D_8013B3C0, 3.55f, 0.13f, 1.0f, 1);
+    func_80006EB8(&D_80137E64);
+    gSPDisplayList(D_80137E64++, D_1024230);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80089E98.s")
 
