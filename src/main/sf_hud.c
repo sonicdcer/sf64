@@ -372,7 +372,80 @@ void func_80089D28(void) {
     gSPDisplayList(D_80137E64++, D_1024230);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80089E98.s")
+void func_80089E98(s32 arg0) {
+    s32 var_a1;
+    s32 var_a1_2;
+
+    switch (arg0) {
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+            var_a1_2 = var_a1 = arg0;
+            if (D_801778A8 != 1) {
+                if (arg0 == 1) {
+                    var_a1 = 3;
+                }
+                if (arg0 == 3) {
+                    var_a1 = 1;
+                }
+
+                if (D_80178280[arg0].unk1C8 == 13) {
+                    break;
+                }
+            }
+            if ((var_a1_2 == D_801778A0) && (D_80177DB0 & 2)) {
+                var_a1 = (var_a1 * 2) + 1;
+            } else {
+                var_a1 = var_a1 * 2;
+            }
+            func_80089994(var_a1);
+            break;
+
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+            func_80089AF4();
+            break;
+
+        case 8:
+            func_80089B94();
+            break;
+
+        case 100:
+            func_800898F0();
+            break;
+
+        case 101:
+            func_80089850();
+            break;
+
+        case 102:
+            func_800897B0();
+            break;
+
+        case 103:
+            if (D_801778E8 == 1) {
+                func_80089670();
+                break;
+            }
+            func_80089C38();
+            break;
+
+        case 200:
+        case 201:
+            func_80089670();
+            break;
+
+        case 999:
+            break;
+
+        default:
+            func_80089710();
+            break;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008A07C.s")
 
