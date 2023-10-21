@@ -543,7 +543,27 @@ void func_8008B044(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008B1B0.s")
+void func_8008B1B0(void) {
+    f32 temp = 142.0f;
+    f32 temp2 = 18.0f;
+
+    func_800B8DD0(&D_80137E64, 0x4E);
+    gDPSetPrimColor(D_80137E64++, 0, 0, 255, 255, 255, 255);
+
+    switch (D_80161790 / 2) {
+        case 3:
+            func_8008556C(temp + 31.0f, temp2);
+        case 2:
+            func_80085514(temp + 24.0f, temp2);
+        case 1:
+            func_800854BC(temp + 18.0f, temp2);
+        case 0:
+            func_80085464(temp, temp2);
+            break;
+        default:
+            break;
+    }
+}
 
 void func_8008B2A4(void) {
     if (D_80177854 != 100) {
