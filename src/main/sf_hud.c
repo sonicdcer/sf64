@@ -349,7 +349,7 @@ void func_80089D28(void) {
     s32 gb;
 
     func_800B8DD0(&D_80137E64, 1);
-    
+
     gb = D_80177DB0 % 21;
 
     if (gb > 10) {
