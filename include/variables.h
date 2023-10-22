@@ -114,6 +114,17 @@ extern Gfx D_200F080[];
 extern Gfx D_200F910[];
 extern Gfx D_20101A0[];
 
+extern u8 D_5000000[];
+extern u8 D_5000080[];
+extern u8 D_5000100[];
+extern u8 D_5000180[];
+extern u8 D_5000200[];
+extern u8 D_5000280[];
+extern u8 D_5000300[];
+extern u8 D_5000380[];
+extern u8 D_5000400[];
+extern u8 D_5000480[];
+
 extern Gfx D_6004570[];
 extern Gfx D_D0098B0[];
 extern Gfx D_F014180[];

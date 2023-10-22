@@ -91,8 +91,6 @@ extern s32 D_801B8348;
 
 extern s32 D_801ADA44_EE6104[];
 
-extern s32 D_5000200[];
-extern s32 D_5000300[];
 extern s32 D_50077B0;
 
 void func_801875E0_EBFCA0(void) {

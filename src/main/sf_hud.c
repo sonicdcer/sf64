@@ -744,7 +744,28 @@ s32 func_8008BCBC(s32 arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008C104.s")
 
+#ifdef IMPORT_DATA_PENDING
+void func_8008C390(f32 arg0, f32 arg1, f32 arg2, s32 arg3) {
+    u8* D_800D1EC0[] = {
+        D_5000000, D_5000080, D_5000100, D_5000180, D_5000200, D_5000280, D_5000300, D_5000380, D_5000400, D_5000480,
+    };
+    s32 i;
+
+    for (i = 10; i != 1; i /= 10) {
+        if ((arg0 > 0.0f) && (arg1 > 0.0f)) {
+            func_8009D994(&D_80137E64, D_800D1EC0[arg3 / i], 16, 8, arg0, arg1, arg2, arg2);
+        }
+        arg0 += 9.0f * arg2;
+        arg3 %= i;
+    }
+
+    if ((arg0 > 0.0f) && (arg1 > 0.0f)) {
+        func_8009D994(&D_80137E64, D_800D1EC0[arg3 / i], 16, 8, arg0, arg1, arg2, arg2);
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008C390.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008C5C8.s")
 
