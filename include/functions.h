@@ -11,6 +11,7 @@ void func_80006EB8(Gfx **);
 
 void func_80019218(u32, f32*, u8, f32*, f32*, s8*);
 void func_8001A838(u32 arg0);
+void func_8001AF40(s32 arg0);
 
 void func_80086664(f32, f32);
 s32 func_8008B774(void);
@@ -19,7 +20,7 @@ s32 func_8008BCBC(s32 arg0);
 void func_8009BC2C(f32*, f32, f32, f32, f32);
 void func_8009D994(Gfx**, void*, u32, u32, f32, f32, f32, f32);
 void func_8009FEA0(s32, s32, s32);
-void func_800A1200(s32, s32, f32, f32, s32*);   
+void func_800A1200(s32, s32, f32, f32, char*);   
 void func_800B8DD0(Gfx **, s16);
 
 void func_8018D2B8_EC5978(s32);
