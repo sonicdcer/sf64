@@ -1,44 +1,5 @@
 #include "global.h"
 
-void func_80084688(s32, s32);
-void func_800A5D6C(void);
-void func_800BB5D0(void);
-void func_80006F20(void);
-void func_800B6F50(f32, f32, f32, f32, f32, f32);
-
-void func_800182F4(s32);
-void func_8001DC6C(s32, s32);
-void func_801877F0_EBFEB0(void);
-s32 func_80187ABC_EC017C(void);
-void func_80187B00_EC01C0(void);
-void func_80187E28_EC04E8(void);
-void func_801888E8_EC0FA8(void);
-void func_8018994C_EC200C(void);
-void func_8018A644_EC2D04(void);
-void func_8018ACEC_EC33AC(void);
-void func_8018B5C4_EC3C84(void);
-void func_8018C644_EC4D04(void);
-void func_80190E64_EC9524(void);
-void func_8019111C_EC97DC(void);
-void func_80187CA8_EC0368(void);
-void func_80188010_EC06D0(void);
-void func_80189208_EC18C8(void);
-void func_8018A2F8_EC29B8(void);
-void func_8018A990_EC3050(void);
-void func_8018B038_EC36F8(void);
-void func_8018C114_EC47D4(void);
-void func_8018CB90_EC5250(void);
-void func_8018F680_EC7D40(void);
-void func_8018F77C_EC7E3C(void);
-void func_8018F85C_EC7F1C(void);
-void func_8018F8E4_EC7FA4(void);
-void func_8018FC14_EC82D4(void);
-void func_8018FD08_EC83C8(void);
-void func_8018FF74_EC8634(void);
-void func_801906A0_EC8D60(void);
-void func_80190C9C_EC935C(void);
-void func_801918FC_EC9FBC(void);
-
 extern s32 D_800D2870;
 extern u8 D_800DD8B0[];
 extern s32 D_800DD8B4;
