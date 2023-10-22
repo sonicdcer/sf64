@@ -39,7 +39,6 @@ void func_80090E8C(void);
 void func_800910C0(void);
 void func_8009C320(Gfx*, s32*, s32*, s32, s32, f32, f32, f32, f32);
 void func_8009D0BC(Gfx*, void*, void*, u32, u32, f32, f32, f32, f32);
-void func_8009D994(Gfx*, void*, u32, u32, f32, f32, f32, f32);   
 void func_8009E1E8(Gfx*, s32*, s32, s32, f32, f32, f32, f32);
 
 // Weird addresses, assets maybe?
