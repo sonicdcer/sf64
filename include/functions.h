@@ -3,7 +3,7 @@
 
 f32 func_80005100(f32 arg0, f32 arg1);
 void func_80005680(Matrix*, Matrix*);
-void func_80005708(Matrix ** arg0);
+void func_80005708(Matrix ** mtx);
 void func_80005740(Matrix** mtx);
 void func_80005B00(Matrix*, f32, f32, f32, u8);
 void func_80005C34(Matrix*, f32, f32, f32, s32);
