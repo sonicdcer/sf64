@@ -1,59 +1,5 @@
 #include "global.h"
 
-extern s32 D_800D2870;
-extern u8 D_800DD8B0[];
-extern s32 D_800DD8B4;
-
-extern u8 D_80137E78;
-
-extern s16 D_80161A34;
-extern s16 D_80161A36;
-
-extern s32 D_8017783C;
-extern s32 D_80177898;
-extern s32 D_80177AE0;
-extern s32 D_80177AF8;
-
-extern s32 D_80178320;
-extern s32 D_80178328;
-extern s32 D_80178330;
-extern s32 D_80178340;
-extern s32 D_80178348;
-extern s32 D_80178350;
-extern s32 D_80178354;
-extern f32 D_80178420;
-extern f32 D_80178424;
-extern f32 D_80177978;
-extern f32 D_80177980;
-extern f32 D_80177988;
-extern f32 D_801779A0;
-extern f32 D_801779B8;
-extern f32 D_801779C0;
-
-extern s32 D_80178410;
-extern f32 D_8017842C;
-
-extern f32 D_801B7BC8;
-extern f32 D_801B7BCC;
-extern s32 D_801B8220[];
-extern u8 D_801B8248[][4];
-extern s32 D_801B827C;
-extern s32 D_801B8280;
-extern s32 D_801B8284;
-extern s32 D_801B8288;
-extern s32 D_801B82A8;
-extern s32 D_801B82AC;
-extern s32 D_801B82BC;
-extern s32 D_801B82C0;
-extern s32 D_801B82C4;
-extern f32 D_801B833C;
-extern s32 D_801B8344;
-extern s32 D_801B8348;
-
-extern s32 D_801ADA44_EE6104[];
-
-extern s32 D_50077B0;
-
 void func_801875E0_EBFCA0(void) {
     D_80137E78 = 2;
 
