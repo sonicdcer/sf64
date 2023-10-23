@@ -7,7 +7,6 @@ extern s32 D_8013B3AC;
 extern s32 D_8013B3B0;
 extern s32 D_8013B3B4;
 
-extern void func_80005680(s32, s32);
 extern f32 func_8001FBE8(f32);
 extern u64 osGetTime(void);
 
