@@ -19,7 +19,7 @@ void guLookAtF(float mf[4][4], float xEye, float yEye, float zEye, float xAt, fl
     zLook = zAt - zEye;
 
     /* Negate because positive Z is behind us: */
-    len = -1.0 / sqrtf(xLook * xLook + yLook * yLook + zLook * zLook);
+    len = -1.0 / guSqrtf(xLook * xLook + yLook * yLook + zLook * zLook);
     xLook *= len;
     yLook *= len;
     zLook *= len;
@@ -29,7 +29,7 @@ void guLookAtF(float mf[4][4], float xEye, float yEye, float zEye, float xAt, fl
     xRight = yUp * zLook - zUp * yLook;
     yRight = zUp * xLook - xUp * zLook;
     zRight = xUp * yLook - yUp * xLook;
-    len = 1.0 / sqrtf(xRight * xRight + yRight * yRight + zRight * zRight);
+    len = 1.0 / guSqrtf(xRight * xRight + yRight * yRight + zRight * zRight);
     xRight *= len;
     yRight *= len;
     zRight *= len;
@@ -39,7 +39,7 @@ void guLookAtF(float mf[4][4], float xEye, float yEye, float zEye, float xAt, fl
     xUp = yLook * zRight - zLook * yRight;
     yUp = zLook * xRight - xLook * zRight;
     zUp = xLook * yRight - yLook * xRight;
-    len = 1.0 / sqrtf(xUp * xUp + yUp * yUp + zUp * zUp);
+    len = 1.0 / guSqrtf(xUp * xUp + yUp * yUp + zUp * zUp);
     xUp *= len;
     yUp *= len;
     zUp *= len;

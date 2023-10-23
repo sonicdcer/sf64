@@ -1,6 +1,6 @@
 Checks: 'readability-*,-readability-magic-numbers,-readability-uppercase-literal-suffix,-readability-non-const-parameter,-readability-else-after-return,clang-diagnostic-*,clang-analyzer-*,-clang-analyzer-security.insecureAPI.*,-clang-analyzer-deadcode.DeadStores,-clang-analyzer-core.uninitialized.ArraySubscript,-clang-analyzer-core.UndefinedBinaryOperatorResult,bugprone*,-bugprone-macro-parentheses,-bugprone-reserved-identifier,-bugprone-narrowing-conversions,-bugprone-too-small-loop-variable,-bugprone-integer-division,-bugprone-sizeof-expression,-bugprone-suspicious-include,modernize*,-bugprone-branch-clone,-bugprone-signed-char-misuse,performance*,portability*,diagnostic-*,analyzer-*,misc*'
 WarningsAsErrors: ''
-HeaderFilterRegex: '^(src|include)\/.*\.h$'
+HeaderFilterRegex: '^(?!.*\/libultra\/)(src|include)\/.*\.h$'
 FormatStyle: 'file'
 CheckOptions:
   # Require argument names to match exactly (instead of allowing a name to be a prefix/suffix of another)

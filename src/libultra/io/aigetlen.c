@@ -1,6 +1,5 @@
 #include "global.h"
-#include "hardware.h"
 
 u32 osAiGetLength() {
-    return HW_REG(AI_LEN_REG, u32);
+    return IO_READ(AI_LEN_REG);
 }

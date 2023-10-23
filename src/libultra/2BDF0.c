@@ -8,15 +8,8 @@
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/2BDF0/func_8002B28C.s")
 
-void func_8002B2C0(s32* arg0, s32* arg1, s32 arg2, u32 arg3) {
-    s32 pad;
-
-    arg3 = arg2;
-    arg2--;
-
-    while (arg3 > 0) {
-        arg3 = arg2;
-        arg2--;
+void func_8002B2C0(s32* arg0, s32* arg1, s32 arg2) {
+    while (arg2--) {
         *arg0++ = *arg1++;
     }
 }

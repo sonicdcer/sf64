@@ -191,6 +191,7 @@ build/src/main/1EB50.o: OPTFLAGS := -O1 -g0
 build/src/libultra/2BDF0.o: OPTFLAGS := -O1 -g0
 build/src/libultra/2C700.o: OPTFLAGS := -O1 -g0
 build/src/libultra/2D300.o: OPTFLAGS := -O1 -g0
+build/src/libultra/gu/guSqrtf.o: OPTFLAGS := -O1 -g0
 build/src/libultra/gu/ortho.o: OPTFLAGS := -O3 -g0
 build/src/libultra/gu/lookat.o: OPTFLAGS := -O3 -g0
 build/src/libultra/io/controller.o: OPTFLAGS := -O1 -g0

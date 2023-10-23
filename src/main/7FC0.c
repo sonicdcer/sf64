@@ -1,21 +1,18 @@
-#include "common.h"
+#include "global.h"
 
 typedef struct {
-    char pad_0[0x9CC];
-    s32 unk9CC;
+    OSThread thread;
+    char unk_1B0[0x800];
+    OSMesgQueue msgQueue;
+    OSMesg msg;
+    s32 unk9CC; // probably FaultDrawer
     s16 unk9D0;
     s16 unk9D2;
 } UnkStruct_D_80145360;
 
-void osCreateMesgQueue(s32*, s32*, s32);
-void osCreateThread(UnkStruct_D_80145360*, s32, s32*, s32, s32*, s32);
-void osStartThread(UnkStruct_D_80145360*);
-
 extern UnkStruct_D_80145360 D_80145360;
 extern s32 D_80145D10;
 extern s32 D_80145D28;
-extern s32 func_80007D58;
-extern s32 osMemSize;
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/func_800073C0.s")
 
@@ -97,10 +94,10 @@ void func_80007FE4(s32 arg0, u16 arg1, u16 arg2) {
 #endif
 
 void func_80008018(void) {
-    D_80145360.unk9CC = (osMemSize | 0x80000000) + 0xFFFDA800;
-    D_80145360.unk9D0 = 0x140;
-    D_80145360.unk9D2 = 0xF0;
-    osCreateMesgQueue(&D_80145D10, &D_80145D28, 1);
-    osCreateThread(&D_80145360, 2, &func_80007D58, 0, &D_80145D10, 0x7F);
-    osStartThread(&D_80145360);
+    D_80145360.unk9CC = (PHYS_TO_K0(osMemSize) - sizeof(u16[SCREEN_HEIGHT][SCREEN_WIDTH]));
+    D_80145360.unk9D0 = SCREEN_WIDTH;
+    D_80145360.unk9D2 = SCREEN_HEIGHT;
+    osCreateMesgQueue(&D_80145360.msgQueue, &D_80145360.msg, 1);
+    osCreateThread(&D_80145360.thread, 2, func_80007D58, 0, &D_80145360.msgQueue, 0x7F);
+    osStartThread(&D_80145360.thread);
 }

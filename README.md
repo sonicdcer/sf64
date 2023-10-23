@@ -34,7 +34,7 @@ Under Debian / Ubuntu (which we recommend using), you can install them with the 
 
 ```bash
 sudo apt update
-sudo apt install make git build-essential binutils-mips-linux-gnu python3 python3-pip
+sudo apt install make git build-essential binutils-mips-linux-gnu python3 python3-pip clang-format-14 clang-tidy 
 ```
 
 #### 2. Clone the repository

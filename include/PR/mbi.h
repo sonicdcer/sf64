@@ -15,8 +15,8 @@
 
 /**************************************************************************
  *
- *  $Revision: 1.134 $
- *  $Date: 1997/02/11 08:25:28 $
+ *  $Revision: 1.135 $
+ *  $Date: 1997/11/26 00:30:54 $
  *  $Source: /disk6/Master/cvsmdev2/PR/include/mbi.h,v $
  *
  **************************************************************************/
@@ -88,7 +88,7 @@
 
 #define	NUM_SEGMENTS		(16)
 #define	SEGMENT_OFFSET(a)	((unsigned int)(a) & 0x00ffffff)
-#define	SEGMENT_NUMBER(a)	((unsigned int)(a) >> 24)
+#define	SEGMENT_NUMBER(a)	(((unsigned int)(a) << 4) >> 28)
 #define	SEGMENT_ADDR(num, off)	(((num) << 24) + (off))
 
 #ifndef NULL
