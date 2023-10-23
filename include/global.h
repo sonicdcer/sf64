@@ -1,8 +1,6 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H
 
-// #include "PR/ultratypes.h"
-// #include "PR/mbi.h"
 #include "PR/os_internal.h"
 #include "libultra/ultra64.h"
 #include "libc/math.h"

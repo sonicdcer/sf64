@@ -24,6 +24,7 @@
         "common.h": "c",
         "sf64math.h": "c",
         "ultra64.h": "c",
-        "os_internal.h": "c"
+        "os_internal.h": "c",
+        "structs.h": "c"
     },
 }
