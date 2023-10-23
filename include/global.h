@@ -13,6 +13,7 @@
 #include "libc/string.h"
 #include "functions.h"
 #include "variables.h"
+#include "structs.h"
 #include "macros.h"
 #include "sf64math.h"
 
