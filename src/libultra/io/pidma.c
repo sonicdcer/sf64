@@ -1,44 +1,29 @@
 #include "global.h"
 
-// OPTFLAGS := -O1 -g0
-
-typedef struct {
-    s16 unk0;
-    s8 unk2;
-    s8 pad;
-    s32 unk4;
-    s32 unk8;
-    s32 unkC;
-    s32 unk10;
-    s32 unk14;
-} test;
-
-extern s32 __osPiDevMgr;
-
-s32 osPiStartDma(test* arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6) {
+s32 osPiStartDma(OSIoMesg* mb, s32 pri, s32 rw, u32 devAddr, void* dramAddr, u32 size, OSMesgQueue* piHandle) {
     register s32 result;
 
-    if (__osPiDevMgr == 0) {
+    if (!__osPiDevMgr.active) {
         return -1;
     }
 
-    if (arg2 == 0) {
-        arg0->unk0 = 0xB;
+    if (rw == OS_READ) {
+        mb->hdr.type = OS_MESG_TYPE_DMAREAD;
     } else {
-        arg0->unk0 = 0xC;
+        mb->hdr.type = OS_MESG_TYPE_DMAWRITE;
     }
 
-    arg0->unk2 = (s8) arg1;
-    arg0->unk4 = arg6;
-    arg0->unk8 = arg4;
-    arg0->unkC = arg3;
-    arg0->unk10 = arg5;
-    arg0->unk14 = 0;
+    mb->hdr.pri = pri;
+    mb->hdr.retQueue = piHandle;
+    mb->dramAddr = dramAddr;
+    mb->devAddr = devAddr;
+    mb->size = size;
+    mb->piHandle = NULL;
 
-    if (arg1 == 1) {
-        result = osJamMesg(osPiGetCmdQueue(), arg0, 0);
+    if (pri == OS_MESG_PRI_HIGH) {
+        result = osJamMesg(osPiGetCmdQueue(), mb, OS_MESG_NOBLOCK);
     } else {
-        result = osSendMesg(osPiGetCmdQueue(), arg0, 0);
+        result = osSendMesg(osPiGetCmdQueue(), mb, OS_MESG_NOBLOCK);
     }
     return result;
 }

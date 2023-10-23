@@ -293,11 +293,6 @@ void func_80187E28_EC04E8(void) {
 
 extern UnkStruct_D_801B8350 D_801B8350[];
 
-#define M_PI 3.1415927f
-
-f32 sqrtf(f32 f);
-#pragma intrinsic(sqrtf);
-
 void func_80189208_EC18C8(void) {
     s32 i;
 

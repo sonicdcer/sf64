@@ -2,7 +2,7 @@
 #define PR_XSTDIO_H
 
 #include "ultratypes.h"
-// #include "libc/stdarg.h"
+#include "libc/stdarg.h"
 
 typedef struct {
     /* 0x0 */ union {

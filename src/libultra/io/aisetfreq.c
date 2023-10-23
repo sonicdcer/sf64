@@ -1,5 +1,4 @@
 #include "global.h"
-#include "hardware.h"
 
 extern s32 osViClock;
 
@@ -20,8 +19,8 @@ s32 osAiSetFrequency(u32 freq) {
         a2 = 16;
     }
 
-    HW_REG(AI_DACRATE_REG, u32) = a1 - 1;
-    HW_REG(AI_BITRATE_REG, u32) = a2 - 1;
-    HW_REG(AI_CONTROL_REG, u32) = 1; // enable dma
+    IO_WRITE(AI_DACRATE_REG, a1 - 1);
+    IO_WRITE(AI_BITRATE_REG, a2 - 1);
+    IO_WRITE(AI_CONTROL_REG, AI_CONTROL_DMA_ON); // enable dma
     return osViClock / (s32) a1;
 }

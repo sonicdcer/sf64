@@ -1,8 +1,6 @@
-#include "common.h"
+#include "global.h"
 
 // OPTFLAGS := -O1 -g0
-
-s32 func_8002DE78(s32, s32, s32);
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/2C700/func_8002BB00.s")
 

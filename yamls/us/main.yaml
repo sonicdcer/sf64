@@ -67,7 +67,7 @@
       - [0x23C00, c, ../libultra/os/gettime]
       - [0x23C90, c, ../libultra/gu/sinf]
       - [0x23E50, c, ../libultra/gu/cosf]
-      - [0x23FC0, hasm, ../libultra/gu/sqrtf]
+      - [0x23FC0, c, ../libultra/gu/guSqrtf]
       - [0x23FD0, c, ../libultra/os/settimer]
       - [0x240B0, c, ../libultra/conteepread]
       - [0x243B0, c, ../libultra/conteepwrite]
