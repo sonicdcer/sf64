@@ -7,7 +7,7 @@ void func_8000291C(void) {
     s32 i;
 
     osContInit(&D_800E2128, &sp1F, &D_800DD8F0);
-    for(i = 0; i < 4; i++) {
+    for (i = 0; i < 4; i++) {
         D_800DD8B0[i] = (sp1F >> i) & 1;
         D_800DD8B8[i] = 0;
     }

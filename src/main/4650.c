@@ -9,7 +9,6 @@ void func_800040D4(void*);
 void func_80004144(void*);
 void func_80004ABC(void*);
 
-
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/4650/func_80003A50.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/4650/func_80003B48.s")

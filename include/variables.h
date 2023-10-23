@@ -3,9 +3,6 @@
 
 #include "structs.h"
 
-extern s32 D_800D2870;
-extern s32 D_800DD8B4;
-
 extern OSThread D_800DEAA0;
 extern OSThread D_800DFC50; // no gap
 extern OSThread D_800E0E00; // 0x1000 gap
@@ -187,7 +184,7 @@ extern Gfx D_6004570[];
 extern Gfx D_D0098B0[];
 extern Gfx D_F014180[];
 
-extern u8 D_800DD8B0[];
+
 extern u8 D_800DD8B8[];
 extern OSContStatus D_800DD8F0;
 extern OSMesgQueue D_800E2128;

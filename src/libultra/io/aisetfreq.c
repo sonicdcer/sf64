@@ -21,6 +21,6 @@ s32 osAiSetFrequency(u32 freq) {
 
     IO_WRITE(AI_DACRATE_REG, a1 - 1);
     IO_WRITE(AI_BITRATE_REG, a2 - 1);
-    IO_WRITE(AI_CONTROL_REG, AI_CONTROL_DMA_ON);// enable dma
+    IO_WRITE(AI_CONTROL_REG, AI_CONTROL_DMA_ON); // enable dma
     return osViClock / (s32) a1;
 }
