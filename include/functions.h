@@ -55,6 +55,8 @@ s32 func_8002DE78(void*, s32, s32); // Not real signature
 void func_80084688(s32, s32);
 void func_80086664(f32, f32);
 s32 func_8008B774(void);
+void func_8008BD00(u8*, s32, s32, u8);
+void func_8008C6F4(s32, s32);
 s32 func_8008BCBC(s32 arg0);
 
 void func_8009BC2C(f32*, f32, f32, f32, f32);

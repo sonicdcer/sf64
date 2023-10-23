@@ -140,6 +140,7 @@ extern u16 D_10032A0[];
 extern Gfx D_1015510[];
 extern Gfx D_1024230[];
 extern Gfx D_1024830[];
+extern u8 D_1024A58[];
 extern Gfx D_102A8A0[];
 extern Gfx D_1024AC0[];
 

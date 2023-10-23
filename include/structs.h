@@ -16,7 +16,11 @@ typedef struct UnkStruct_D_80178280 {
     /* 0x07C */ f32 unk07C;
     /* 0x080 */ char pad_80[0x148];
     /* 0x1C8 */ s32 unk1C8;
-    /* 0x1CC */ char pad_1CC[0x98];
+    /* 0x1CC */ char pad_1CC[0x44];
+    /* 0x210 */ s32 unk210;
+    /* 0x214 */ char pad_214[0x14];
+    /* 0x228 */ s32 unk228;
+    /* 0x22C */ char pad_22C[0x38];
     /* 0x264 */ s32 unk264;
     /* 0x268 */ char pad_268[0x4];
     /* 0x26C */ s32 unk26C;

@@ -788,7 +788,37 @@ void func_8008C5C8(f32 arg0, f32 arg1, f32 arg2, s32 arg3) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008C6F4.s")
 
+#ifdef IMPORT_DATA_PENDING
+void func_8008CA44(void) {
+    s32 D_800D2048[] = {
+        0x80, 0x40, 0x20, 0x10, 0x0A, 0x09, 0x06, 0x05, 0x08, 0x04, 0x02, 0x01,
+    };
+    s32 i;
+    s32 j;
+
+    if ((D_80178280[D_801778A0].unk228 != 0) && (D_80178280[D_801778A0].unk210 == 0) && (D_80177854 != 0x64)) {
+        j = D_80178280[D_801778A0].unk228;
+
+        for (i = 0; i < 12; i++) {
+            if ((j & D_800D2048[i]) != D_800D2048[i]) {
+                continue;
+            }
+
+            j = (D_800D2048[i] ^ 0xFF) & j;
+
+            if (D_80177DB0 & 4) {
+                func_8008C6F4(i, 0);
+            }
+            if ((D_80177DB0 - 2) & 4) {
+                func_8008C6F4(i, 1);
+            }
+        }
+        func_8008BD00(D_1024A58, 8, 8, 2);
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008CA44.s")
+#endif
 
 s32 func_8008CB8C(void) {
     return 0;
