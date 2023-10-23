@@ -122,6 +122,11 @@ extern s32 D_801ADA44_EE6104[];
 extern s32 D_801ADA84_EE6144[];
 extern s32 D_801ADA94_EE6154;
 
+extern u16 D_10050E0[];
+extern u16 D_100BAC0[];
+extern u16 D_100D900[];
+extern u16 D_10032A0[];
+
 extern Gfx D_1015510[];
 extern Gfx D_1024230[];
 extern Gfx D_1024830[];

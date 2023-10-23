@@ -22,6 +22,7 @@ s32 func_8008B774(void);
 s32 func_8008BCBC(s32 arg0); 
 
 void func_8009BC2C(f32*, f32, f32, f32, f32);
+void func_8009D418(Gfx**, void*, u32, u32, f32, f32, f32, f32);
 void func_8009D994(Gfx**, void*, u32, u32, f32, f32, f32, f32);
 void func_8009FEA0(s32, s32, s32);
 void func_800A1200(s32, s32, f32, f32, char*);
