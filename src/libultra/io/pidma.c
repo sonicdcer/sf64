@@ -1,17 +1,13 @@
 #include "global.h"
 
-extern s32 __osPiDevMgr;
-
-extern OSMesgQueue* osPiGetCmdQueue(void);
-
-s32 osPiStartDma(OSIoMesg* mb, s32 pri, s32 arg2, u32 devAddr, void* dramAddr, u32 size, OSMesgQueue* piHandle) {
+s32 osPiStartDma(OSIoMesg* mb, s32 pri, s32 rw, u32 devAddr, void* dramAddr, u32 size, OSMesgQueue* piHandle) {
     register s32 result;
 
-    if (__osPiDevMgr == 0) {
+    if (!__osPiDevMgr.active) {
         return -1;
     }
 
-    if (arg2 == 0) {
+    if (rw == OS_READ) {
         mb->hdr.type = OS_MESG_TYPE_DMAREAD;
     } else {
         mb->hdr.type = OS_MESG_TYPE_DMAWRITE;
@@ -24,10 +20,10 @@ s32 osPiStartDma(OSIoMesg* mb, s32 pri, s32 arg2, u32 devAddr, void* dramAddr, u
     mb->size = size;
     mb->piHandle = NULL;
 
-    if (pri == 1) {
-        result = osJamMesg(osPiGetCmdQueue(), mb, 0);
+    if (pri == OS_MESG_PRI_HIGH) {
+        result = osJamMesg(osPiGetCmdQueue(), mb, OS_MESG_NOBLOCK);
     } else {
-        result = osSendMesg(osPiGetCmdQueue(), mb, 0);
+        result = osSendMesg(osPiGetCmdQueue(), mb, OS_MESG_NOBLOCK);
     }
     return result;
 }

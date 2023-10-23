@@ -13,7 +13,6 @@ typedef struct UnkStruct_func_80095350 {
 
 void func_800612B8(void*, u16, void*);
 void func_800613C4(void*);
-void func_80084E78(s32*, s32*, s32*, s32, s32, f32, f32, f32, f32, f32, f32);
 void func_80085944(void);
 void func_80086CC8(void);                               
 void func_80086DCC(void);                                 
@@ -37,10 +36,11 @@ void func_8008E5E8(void);
 void func_8008E620(void);
 void func_80090E8C(void);
 void func_800910C0(void);
-void func_8009C320(Gfx*, s32*, s32*, s32, s32, f32, f32, f32, f32);
-void func_8009D0BC(Gfx*, void*, void*, u32, u32, f32, f32, f32, f32);
-void func_8009D994(Gfx*, void*, u32, u32, f32, f32, f32, f32);   
-void func_8009E1E8(Gfx*, s32*, s32, s32, f32, f32, f32, f32);
+void func_80084E78(Gfx**, s32*, s32*, s32, s32, f32, f32, f32, f32, f32, f32);
+void func_8009C320(Gfx**, s32*, s32*, s32, s32, f32, f32, f32, f32);
+void func_8009D0BC(Gfx**, void*, void*, u32, u32, f32, f32, f32, f32);
+void func_8009D994(Gfx**, void*, u32, u32, f32, f32, f32, f32);   
+void func_8009E1E8(Gfx**, s32*, s32, s32, f32, f32, f32, f32);
 
 // Weird addresses, assets maybe?
 extern s32 D_1000E80;

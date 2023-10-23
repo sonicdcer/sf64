@@ -1,6 +1,5 @@
 #include "global.h"
 
-void func_80005740(s32*);
 void func_80084688(s32, s32);
 void func_800A5D6C(void);
 void func_800BB5D0(void);
@@ -40,10 +39,6 @@ void func_801906A0_EC8D60(void);
 void func_80190C9C_EC935C(void);
 void func_801918FC_EC9FBC(void);
 
-extern s32 D_800D2870;
-extern u8 D_800DD8B0[];
-extern s32 D_800DD8B4;
-
 extern u8 D_80137E78;
 extern s32 D_8013B3C0;
 
@@ -77,7 +72,7 @@ extern f32 D_8017842C;
 extern f32 D_801B7BC8;
 extern f32 D_801B7BCC;
 extern s32 D_801B8220[];
-extern u8 D_801B8248[][4];
+extern char D_801B8248[][4];
 extern s32 D_801B827C;
 extern s32 D_801B8280;
 extern s32 D_801B8284;
@@ -91,7 +86,7 @@ extern f32 D_801B833C;
 extern s32 D_801B8344;
 extern s32 D_801B8348;
 
-extern s32 D_801ADA44_EE6104[];
+extern char D_801ADA44_EE6104[];
 
 extern s32 D_5000200[];
 extern s32 D_5000300[];

@@ -7,9 +7,6 @@ extern s32 D_8013B3AC;
 extern s32 D_8013B3B0;
 extern s32 D_8013B3B4;
 
-extern void func_80005680(s32, s32);
-extern f32 func_8001FBE8(f32);
-
 f32 func_80004E20(f32 arg0, f32 arg1) {
     return arg0 - ((s32) (arg0 / arg1) * arg1);
 }

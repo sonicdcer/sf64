@@ -14,7 +14,7 @@
         "tools/gfxsotn/**": false,
     },
     "defines": [
-        "_LANGUAGE_C" // For gbi.h
+        "_LANGUAGE_C", // For gbi.h
     ],
     "files.associations": {
         "hud.h": "c",
@@ -22,6 +22,8 @@
         "ultratypes.h": "c",
         "mbi.h": "c",
         "common.h": "c",
-        "sf64math.h": "c"
+        "sf64math.h": "c",
+        "ultra64.h": "c",
+        "os_internal.h": "c"
     },
 }

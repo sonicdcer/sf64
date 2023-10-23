@@ -3,13 +3,13 @@
 // https://decomp.me/scratch/8H8k4 100%
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/6280/func_80005680.s")
 
-void func_80005708(s32* arg0) {
-    func_80005680(*arg0 + 64, *arg0);
-    *arg0 += 0x40;
+void func_80005708(Matrix** arg0) {
+    func_80005680(*arg0 + 1, *arg0);
+    (*arg0)++;
 }
 
-void func_80005740(s32* arg0) {
-    *arg0 -= 64;
+void func_80005740(Matrix** arg0) {
+    (*arg0)--;
 }
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/6280/func_80005754.s")

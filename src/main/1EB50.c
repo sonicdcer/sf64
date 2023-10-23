@@ -8,17 +8,6 @@
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/1EB50/func_8001E778.s")
 
-extern s8 D_800C7C50;
-extern s8 D_800C7C54;
-extern s32 D_800C7C58;
-extern s32 D_800C7C5C;
-extern s32 D_800C7C60;
-extern s32 D_800C7C64;
-extern s32 D_80156600;
-extern s32 D_80156608;
-extern s32 D_80156618;
-extern s32 D_8015661C;
-
 void func_8001E7C8(void) {
     D_800C7C50 = 0;
     D_800C7C54 = 0;
