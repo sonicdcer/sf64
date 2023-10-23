@@ -830,7 +830,14 @@ void func_8008CB98(f32 arg0, f32 arg1, f32 arg2) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008CBE4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008CFB8.s")
+void func_8008CFB8(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
+    s32 i;
+
+    for (i = 0; i < 3; i++) {
+        func_8009D994(&D_80137E64, D_3000BC0 + ((640 * i) / 2), 80, 8, arg0, (8 * i * arg3) + arg1, arg2, arg3);
+    }
+    func_8009D994(&D_80137E64, D_3000BC0 + ((640 * i) / 2), 80, 2, arg0, (8 * i * arg3) + arg1, arg2, arg3);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008D0DC.s")
 
