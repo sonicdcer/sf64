@@ -35,8 +35,13 @@ extern Gfx* D_80137E64;
 extern u8 D_80137E78;
 
 extern s32 D_80161690;
+extern f32 D_801616BC;
+extern f32 D_801616C0;
+extern f32 D_801616C4;
+extern f32 D_801616C8;
 extern s32 D_80161708;
 extern s32 D_80161730;
+extern s32 D_80161734;
 extern s32 D_80161788;
 extern s32 D_8016178C;
 extern s32 D_80161790;
@@ -55,9 +60,11 @@ extern u8 D_80161A90[];
 extern UnkStruct_D_80178280* D_80178280;
 extern s32 D_80177834;
 extern s32 D_8017783C;
+extern s32 D_80177848;
 extern s32 D_80177898;
 extern s32 D_801778A0;
 extern s32 D_801778A8;
+extern s32 D_801778B8;
 extern s32 D_801778E8;
 extern f32 D_80177978;
 extern f32 D_80177980;
@@ -141,13 +148,18 @@ extern s32 D_801ADA44_EE6104[];
 extern s32 D_801ADA84_EE6144[];
 extern s32 D_801ADA94_EE6154;
 
+extern u16 D_1002040[];
 extern u16 D_10050E0[];
 extern u16 D_100BAC0[];
 extern u16 D_100D900[];
 extern u16 D_10032A0[];
 
+extern u8 D_1011A40[];
+extern u16 D_1011AB0[];
 extern s32 D_1011ED0[];
 extern s32 D_1011F08[];
+extern u8 D_10129C0[];
+extern u16 D_1013090[];
 extern Gfx D_1015510[];
 extern Gfx D_1024230[];
 extern Gfx D_1024830[];
@@ -203,7 +215,7 @@ extern Gfx D_6004570[];
 extern Gfx D_D0098B0[];
 extern Gfx D_F014180[];
 
-
+extern u16 D_800D99F8[];
 extern u8 D_800DD8B8[];
 extern OSContStatus D_800DD8F0;
 extern OSMesgQueue D_800E2128;
