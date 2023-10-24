@@ -53,6 +53,8 @@ extern f32 D_801617A4;
 extern f32 D_801617A8;
 extern f32 D_801617AC;
 extern s32 D_801617B0;
+extern s32 D_801617B4;
+extern s32 D_801617B8;
 extern s16 D_80161A34;
 extern s16 D_80161A36;
 extern u8 D_80161A90[];

@@ -34,7 +34,6 @@ void func_8008D7F4(void);
 void func_8008D984(void);      
 void func_8008DC34(void);
 void func_8008E5E8(void);
-void func_8008E620(void);
 void func_80090E8C(void);
 void func_800910C0(void);
 void func_8009C320(Gfx**, void*, void*, s32, s32, f32, f32, f32, f32);

@@ -1143,10 +1143,110 @@ void func_8008E5E8(void) {
     func_8008A4DC();
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008E620.s")
+void func_8008E620(f32 arg0, f32 arg1) {
+    f32 r;
+    f32 g;
+    f32 b;
+    s32 ret;
 
-void func_8008E9EC(void) {
-    func_8008E620();
+    switch (D_80178234) {
+        case 0:
+            ret = func_800A3F50(150);
+            break;
+
+        case 1:
+            ret = func_800A3F50(200);
+            break;
+
+        case 14:
+            ret = func_800A3F50(50);
+            break;
+
+        case 2:
+            ret = func_800A3F50(150);
+            break;
+
+        case 12:
+            ret = func_800A3F50(150);
+            break;
+
+        case 17:
+            ret = func_800A3F50(150);
+            break;
+
+        case 5:
+            ret = func_800A3F50(150);
+            break;
+
+        case 16:
+            ret = func_800A3F50(150);
+            break;
+
+        case 7:
+            ret = func_800A3F50(100);
+            break;
+
+        case 11:
+            ret = func_800A3F50(150);
+            break;
+
+        case 13:
+            ret = func_800A3F50(150);
+            break;
+
+        case 8:
+            ret = func_800A3F50(250);
+            break;
+
+        case 18:
+            ret = func_800A3F50(100);
+            break;
+
+        case 3:
+            ret = func_800A3F50(300);
+            break;
+
+        case 9:
+        case 19:
+            ret = func_800A3F50(200);
+            break;
+
+        default:
+            ret = 0;
+            break;
+    }
+
+    if (D_801617B8) {
+        D_801617B8--;
+    }
+
+    if (ret != D_801617B4) {
+        D_801617B8 = 30;
+        D_801617B4 = ret;
+    }
+
+    if (D_801617B8 & 1) {
+        r = 255;
+        g = 255;
+        b = 255;
+    } else {
+        if (ret != 0) {
+            r = 200;
+            g = 100;
+            b = 50;
+        } else {
+            r = 90;
+            g = 160;
+            b = 200;
+        }
+    }
+    func_800B8DD0(&D_80137E64, 0x4C);
+    gDPSetPrimColor(D_80137E64++, 0, 0, r, g, b, 255);
+    func_80094D20(arg0, arg1);
+}
+
+void func_8008E9EC(f32 arg0, f32 arg1) {
+    func_8008E620(arg0, arg1);
     func_8008B734();
 }
 
