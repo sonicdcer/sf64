@@ -858,7 +858,35 @@ void func_8008D250(void) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008D250.s")
 #endif
 
+#ifdef IMPORT_DATA_PENDING
+void func_8008D31C(void) {
+    f32 D_800D20E8[] = {
+        60.0f,
+        220.0f,
+        60.0f,
+        220.0f,
+    };
+    f32 D_800D20F8[] = {
+        78.0f,
+        78.0f,
+        198.0f,
+        198.0f,
+    };
+
+    func_8009BC2C(&D_800D19E0[D_801778A0], D_80178280[D_801778A0].unk264 * (1.0f / 255.0f), 0.3f, 10.0f, 0.01f);
+    func_800B8DD0(&D_80137E64, 0x4E);
+    gDPSetPrimColor(D_80137E64++, 0, 0, 255, 255, 255, 255);
+
+    func_8008D0DC(D_800D20E8[D_801778A0] + 3.0f, D_800D20F8[D_801778A0] + 18.0f, 1.0f, 1.0f, D_800D19E0[D_801778A0]);
+    func_800B8DD0(&D_80137E64, 0x4C);
+
+    gDPSetPrimColor(D_80137E64++, 0, 0, 255, 255, 255, 255);
+
+    func_8008CFB8(D_800D20E8[D_801778A0], D_800D20F8[D_801778A0], 1.0f, 1.0f);
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008D31C.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008D4F0.s")
 
