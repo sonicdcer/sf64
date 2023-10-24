@@ -38,12 +38,12 @@ void func_80085618(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     func_8009D994(&D_80137E64, &D_1002280, 8, 12, arg0, arg1, arg2, arg3);
 }
 
-void func_8008566C(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
-    func_8009D994(&D_80137E64, &D_10030D0, 8, 12, arg0, arg1, arg2, arg3);
+void func_8008566C(f32 x, f32 y, f32 arg2, f32 arg3) {
+    func_8009D994(&D_80137E64, &D_10030D0, 8, 12, x, y, arg2, arg3);
 }
 
 void func_800856C0(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
-    func_80084E78(&D_80137E64, &D_1013580, &D_1013700, 0x30, 0xC, arg0, arg1, arg2, arg3, 48.0f * arg4, 8.0f);
+    func_80084E78(&D_80137E64, &D_1013580, &D_1013700, 48, 12, arg0, arg1, arg2, arg3, 48.0f * arg4, 8.0f);
 }
 
 void func_80085740(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
@@ -637,15 +637,15 @@ void func_8008B2F0(void) {
     }
 }
 
-void func_8008B5B0(f32 arg0, f32 arg1) {
+void func_8008B5B0(f32 x, f32 y) {
     func_800B8DD0(&D_80137E64, 0x4B);
     gDPSetPrimColor(D_80137E64++, 0, 0, 255, 255, 255, 255);
-    func_800856C0(arg0 + 8.0f, arg1 + 2.0f, D_801617A8, 1.0f, D_801617AC);
+    func_800856C0(x + 8.0f, y + 2.0f, D_801617A8, 1.0f, D_801617AC);
     func_800B8DD0(&D_80137E64, 0x4C);
     gDPSetPrimColor(D_80137E64++, 0, 0, D_800D1EB4, D_800D1EB8, D_800D1EBC, 0xFF);
-    func_80085618(arg0, arg1, 1.0f, 1.0f);
-    func_800855C4(arg0 + 7.0f + (D_801617A8 * 6.0f * 8.0f), arg1, 1.0f, 1.0f);
-    func_8008566C(arg0 + 7.0f, arg1, D_801617A8 * 6.0f, 1.0f);
+    func_80085618(x, y, 1.0f, 1.0f);
+    func_800855C4(x + 7.0f + (D_801617A8 * 6.0f * 8.0f), y, 1.0f, 1.0f);
+    func_8008566C(x + 7.0f, y, D_801617A8 * 6.0f, 1.0f);
 }
 
 void func_8008B734(void) {
