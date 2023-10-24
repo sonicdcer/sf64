@@ -1015,7 +1015,15 @@ void func_8008DCB0(f32 arg0, f32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     func_8009C320(&D_80137E64, D_1011ED0, D_1011F08, 16, 7, arg0, arg1, 1.0f, 1.0f);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008DD78.s")
+void func_8008DD78(f32 arg0, f32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
+    func_800BA4F0();
+    gDPSetPrimColor(D_80137E64++, 0, 0, arg3, arg4, arg5, D_80161708);
+    if (arg2 >= 10) {
+        func_8009FC0C((s32) arg0 - (func_8008BCBC(arg2) * 8) + 11, arg1, arg2);
+    } else {
+        func_8009FC0C(arg0, arg1, arg2);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008DE68.s")
 
