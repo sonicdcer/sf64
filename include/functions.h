@@ -66,6 +66,7 @@ void func_8008D0DC(f32, f32, f32, f32, f32);
 void func_8009BC2C(f32*, f32, f32, f32, f32);
 void func_8009D418(Gfx**, void*, u32, u32, f32, f32, f32, f32);
 void func_8009D994(Gfx**, void*, u32, u32, f32, f32, f32, f32);
+void func_8009FC0C(s32, s32, s32);
 void func_8009FEA0(s32, s32, s32);
 void func_800A1200(s32, s32, f32, f32, char*);
 void func_800A5D6C(void);
