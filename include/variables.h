@@ -35,6 +35,7 @@ extern Gfx* D_80137E64;
 extern u8 D_80137E78;
 
 extern s32 D_80161690;
+extern s32 D_80161708;
 extern s32 D_80161730;
 extern s32 D_80161788;
 extern s32 D_8016178C;
@@ -145,6 +146,8 @@ extern u16 D_100BAC0[];
 extern u16 D_100D900[];
 extern u16 D_10032A0[];
 
+extern s32 D_1011ED0[];
+extern s32 D_1011F08[];
 extern Gfx D_1015510[];
 extern Gfx D_1024230[];
 extern Gfx D_1024830[];

@@ -1009,7 +1009,11 @@ void func_8008DC34(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008DCB0.s")
+void func_8008DCB0(f32 arg0, f32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+    func_800BA4F0();
+    gDPSetPrimColor(D_80137E64++, 0, 0, arg2, arg3, arg4, D_80161708);
+    func_8009C320(&D_80137E64, D_1011ED0, D_1011F08, 16, 7, arg0, arg1, 1.0f, 1.0f);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008DD78.s")
 
