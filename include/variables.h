@@ -20,6 +20,7 @@ extern Gfx D_800D1A40[];
 extern s32 D_800D1EB4;
 extern s32 D_800D1EB8;
 extern s32 D_800D1EBC;
+extern s32 D_800D20D8;
 extern s32 D_800D2870;
 extern u8 D_800DD8B0[];
 extern s32 D_800DD8B4;

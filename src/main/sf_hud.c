@@ -845,7 +845,18 @@ void func_8008D1F0(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     func_8009C320(&D_80137E64, &D_10116B0, &D_1011730, 16, 16, arg0, arg1, arg2, arg3);
 }
 
+#ifdef IMPORT_DATA_PENDING
+void func_8008D250(void) {
+    f32 D_800D20C8[] = { 113.0f, 273.0f, 113.0f, 273.0f };
+    f32 D_800D20D8[] = { 79.0f, 79.0f, 199.0f, 199.0f };
+
+    func_800B8DD0(&D_80137E64, 0x4C);
+    gDPSetPrimColor(D_80137E64++, 0, 0, 255, 255, 255, 255);
+    func_8008C5C8(D_800D20C8[D_801778A0], D_800D20D8[D_801778A0], 0.54f, D_801778A0);
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008D250.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008D31C.s")
 
