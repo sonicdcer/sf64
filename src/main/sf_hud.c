@@ -1257,7 +1257,7 @@ void func_8008F94C(void) {
 }
 
 void func_8008F96C(void) {
-    if (D_80177854 != 0x64) {
+    if (D_80177854 != 100) {
         func_8008E5E8();
     }
 
