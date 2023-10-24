@@ -156,6 +156,8 @@ extern u16 D_10032A0[];
 
 extern u8 D_1011A40[];
 extern u16 D_1011AB0[];
+extern u8 D_1011E80[];
+extern u16 D_1011EC0[];
 extern s32 D_1011ED0[];
 extern s32 D_1011F08[];
 extern u8 D_10129C0[];
