@@ -24,7 +24,11 @@ typedef struct UnkStruct_D_80178280 {
     /* 0x264 */ s32 unk264;
     /* 0x268 */ char pad_268[0x4];
     /* 0x26C */ s32 unk26C;
-    /* 0x270 */ char pad_270[0x270];
+    /* 0x270 */ char pad_270[0x44];
+    /* 0x2B4 */ s32 unk2B4;
+    /* 0x2B8 */ char pad_2B8[0x4];
+    /* 0x2BC */ f32 unk2BC;
+    /* 0x2C0 */ char pad_2C0[0x220];
 } UnkStruct_D_80178280; // size = 0x4E0
 
 #endif
