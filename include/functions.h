@@ -77,12 +77,16 @@ void func_8009D994(Gfx**, void*, u32, u32, f32, f32, f32, f32);
 void func_8009FC0C(s32, s32, s32);
 void func_8009FEA0(s32, s32, s32);
 void func_800A1200(s32, s32, f32, f32, char*);
+s32 func_800A3F50(s32);
 void func_800A5D6C(void);
 void func_800B8DD0(Gfx**, s16);
 void func_800BA490(void);
 void func_800BA4F0(void);
 void func_800BB5D0(void);
 void func_800B6F50(f32, f32, f32, f32, f32, f32);
+void func_800B9358(void);
+
+void func_801988E0(void);
 
 void func_801877F0_EBFEB0(void);
 s32 func_80187ABC_EC017C(void);
