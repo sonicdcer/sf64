@@ -238,6 +238,7 @@ extern OSMesg D_80156600;
 extern OSMesg D_80156608;
 extern OSMesg D_80156618;
 extern OSMesg D_8015661C;
+extern s32 D_8015F928;
 
 extern OSThread D_80138E90; 
 extern OSThread D_8013A040; // 0x1000 gap

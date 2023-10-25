@@ -31,4 +31,11 @@ typedef struct UnkStruct_D_80178280 {
     /* 0x2C0 */ char pad_2C0[0x220];
 } UnkStruct_D_80178280; // size = 0x4E0
 
+typedef struct {
+    /* 0x00 */ char pad_0[0x4E];
+    /* 0x4E */ s16 unk4E;
+    /* 0x50 */ char pad_50[0x88];
+    /* 0xD8 */ f32 unkD8[50];
+} UnkStruct_func_800907C4;
+
 #endif
