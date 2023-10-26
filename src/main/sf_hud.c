@@ -1390,7 +1390,49 @@ s32 func_80090A00(UnkStruct_func_80090A00* arg0) {
     return false;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80090CCC.s")
+s32 func_80090CCC(UnkStruct_func_80090A00* arg0) {
+    s32 ret = 0;
+
+    if (func_8009092C() != 0) {
+        arg0->unk_114[6] = D_8016F110[arg0->unk_0E6].unk_000.pos.z;
+        arg0->unk_114[5] = D_8016F110[arg0->unk_0E6].unk_000.pos.y;
+        arg0->unk_114[4] = D_8016F110[arg0->unk_0E6].unk_000.pos.x;
+    } else {
+        arg0->unk_114[6] = D_8016F110[0].unk_000.pos.z;
+        arg0->unk_114[5] = D_8016F110[0].unk_000.pos.y;
+        arg0->unk_114[4] = D_8016F110[0].unk_000.pos.x;
+    }
+
+    if ((fabsf(arg0->unk_000.pos.x - arg0->unk_114[4]) < 2000.0f) &&
+        (fabsf(arg0->unk_000.pos.z - arg0->unk_114[6]) < 2000.0f)) {
+        arg0->unk_050[6]++;
+        if (arg0->unk_050[6] >= 9) {
+            arg0->unk_050[0] = 1;
+            arg0->unk_050[6] = 0;
+        }
+    }
+
+    if ((fabsf(arg0->unk_000.pos.x - arg0->unk_114[4]) < 700.0f) &&
+        (fabsf(arg0->unk_000.pos.x - arg0->unk_114[4]) < 700.0f)) {
+        arg0->unk_0B8 = 1;
+        arg0->unk_050[6] = 0;
+        ret = 1;
+    }
+
+    if (arg0->unk_0BE == 0) {
+        arg0->unk_0BE = (s32) (func_80004EB0() * 200.0f) + 200;
+        arg0->unk_114[10] = 30.0f;
+    }
+
+    if (D_8016F110[arg0->unk_0E6].unk_000.unk_00 == 0) {
+        arg0->unk_0B8 = 1;
+        arg0->unk_0E6 = 0;
+        arg0->unk_050[6] = 0;
+        ret = 1;
+    }
+
+    return ret;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80090E8C.s")
 

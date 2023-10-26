@@ -51,15 +51,21 @@ typedef struct {
     /* 0x4E */ s16 unk4E;
     /* 0x50 */ char pad_50[0x88];
     /* 0xD8 */ f32 unkD8[50];
-} UnkStruct_D_8016F110;
+    /* 0x1A0 */ char pad_1A0[0x268];
+} UnkStruct_D_8016F110; // size = 0x408
 
 typedef struct {
     /* 0x000 */ ElementType1 unk_000;
     /* 0x01C */ char pad_01C[0x34];
     /* 0x050 */ s32 unk_050[25];
-    /* 0x0B4 */ char pad_0B4[0x8];
+    /* 0x0B4 */ char pad_0B4[0x4];
+    /* 0x0B8 */ s16 unk_0B8;
+    /* 0x0BA */ char pad_0BA[0x2];
     /* 0x0BC */ u16 unk_0BC;
-    /* 0x0BE */ char pad_0BE[0x36];
+    /* 0x0BC */ u16 unk_0BE;
+    /* 0x0C0 */ char pad_0C0[0x26];
+    /* 0x0E6 */ s16 unk_0E6;
+    /* 0x0E8 */ char pad_0E8[0xC];
     /* 0x0F4 */ f32 unk_0F4;
     /* 0x0F8 */ f32 unk_0F8;
     /* 0x0FC */ char pad_0FC[0x4];
