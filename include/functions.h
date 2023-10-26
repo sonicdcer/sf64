@@ -1,6 +1,8 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
+#include "structs.h"
+
 f32 func_80004E20(f32 arg0, f32 arg1);
 void func_80004E4C(void);
 f32 func_80004EB0(void);
@@ -12,11 +14,11 @@ f32 func_800055DC(f32 arg0, s32 arg1);
 void func_80005604(s32* arg0, s32* arg1, s32 arg2, s32 arg3, s32 arg4);
 
 void func_80005680(Matrix*, Matrix*);
-void func_80005708(Matrix ** mtx);
+void func_80005708(Matrix** mtx);
 void func_80005740(Matrix** mtx);
 void func_80005B00(Matrix*, f32, f32, f32, u8);
 void func_80005C34(Matrix*, f32, f32, f32, s32);
-void func_80006EB8(Gfx **);
+void func_80006EB8(Gfx**);
 void func_80006F20(void);
 
 void func_800070C8(s64);
@@ -52,20 +54,41 @@ OSMesgQueue* osPiGetCmdQueue(void);
 
 s32 func_8002DE78(void*, s32, s32); // Not real signature
 
-void func_80084688(s32, s32);
-void func_80086664(f32, f32);
-s32 func_8008B774(void);
-s32 func_8008BCBC(s32 arg0);
+void func_80060FBC(u8*, f32*);
 
-void func_8009BC2C(f32*, f32, f32, f32, f32);
+void func_80084688(s32, s32);
+void func_800857DC(f32, f32, f32, f32);
+void func_80085890(f32, f32, f32, f32);
+void func_80086664(f32, f32);
+void func_80087530(f32, f32, s32);
+void func_8008B5B0(f32 x, f32 y);
+s32 func_8008B774(void);
+void func_8008BD00(u8*, s32, s32, u8);
+void func_8008C390(f32, f32, f32, s32);
+void func_8008C5C8(f32, f32, f32, s32);
+void func_8008C6F4(s32, s32);
+s32 func_8008BCBC(s32 arg0);
+void func_8008D0DC(f32, f32, f32, f32, f32);
+void func_8008E9EC(f32 arg0, f32 arg1);
+void func_8008EA14(f32, f32);
+void func_8008FFF0(UnkStruct_D_8016F110* arg0, s32);
+void func_80094D20(f32, f32);
+f32 func_8009BC2C(f32*, f32, f32, f32, f32);
+void func_8009D418(Gfx**, void*, u32, u32, f32, f32, f32, f32);
 void func_8009D994(Gfx**, void*, u32, u32, f32, f32, f32, f32);
+void func_8009FC0C(s32, s32, s32);
 void func_8009FEA0(s32, s32, s32);
-void func_800A1200(s32, s32, f32, f32, char*);   
+void func_800A1200(s32, s32, f32, f32, char*);
+s32 func_800A3F50(s32);
 void func_800A5D6C(void);
-void func_800B8DD0(Gfx **, s16);
+void func_800B8DD0(Gfx**, s16);
+void func_800BA490(void);
+void func_800BA4F0(void);
 void func_800BB5D0(void);
 void func_800B6F50(f32, f32, f32, f32, f32, f32);
+void func_800B9358(void);
 
+void func_801988E0(void);
 
 void func_801877F0_EBFEB0(void);
 s32 func_80187ABC_EC017C(void);

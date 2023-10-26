@@ -16,10 +16,17 @@ extern OSMesgQueue D_800E2278;
 extern f32 D_800C5D34;
 extern s8 D_800C5D3C;
 extern s32 D_800CFF90;
+extern f32 D_800D19AC[];
+extern f32 D_800D19E0[];
 extern Gfx D_800D1A40[];
 extern s32 D_800D1EB4;
 extern s32 D_800D1EB8;
 extern s32 D_800D1EBC;
+extern s32 D_800D20D8;
+extern s32 D_800D2180[];
+extern s32 D_800D2190[];
+extern f32 D_800D21A0;
+extern f32 D_800D21A4;
 extern s32 D_800D2870;
 extern u8 D_800DD8B0[];
 extern s32 D_800DD8B4;
@@ -28,7 +35,13 @@ extern Gfx* D_80137E64;
 extern u8 D_80137E78;
 
 extern s32 D_80161690;
+extern f32 D_801616BC;
+extern f32 D_801616C0;
+extern f32 D_801616C4;
+extern f32 D_801616C8;
+extern s32 D_80161708;
 extern s32 D_80161730;
+extern s32 D_80161734;
 extern s32 D_80161788;
 extern s32 D_8016178C;
 extern s32 D_80161790;
@@ -40,16 +53,22 @@ extern f32 D_801617A4;
 extern f32 D_801617A8;
 extern f32 D_801617AC;
 extern s32 D_801617B0;
+extern s32 D_801617B4;
+extern s32 D_801617B8;
 extern s16 D_80161A34;
 extern s16 D_80161A36;
 extern u8 D_80161A90[];
+extern s16 D_80161AA0[];
+extern UnkStruct_D_8016F110 D_8016F110[];
 
 extern UnkStruct_D_80178280* D_80178280;
 extern s32 D_80177834;
 extern s32 D_8017783C;
+extern s32 D_80177848;
 extern s32 D_80177898;
 extern s32 D_801778A0;
 extern s32 D_801778A8;
+extern s32 D_801778B8;
 extern s32 D_801778E8;
 extern f32 D_80177978;
 extern f32 D_80177980;
@@ -61,6 +80,7 @@ extern s32 D_80177AE0;
 extern s32 D_80177AF8;
 extern u8 D_80177C98;
 extern f32 D_80177D68;
+extern s32 D_80177DA0[];
 extern s32 D_80177DB0;
 extern s32 D_8017829C;
 extern s32 D_801782A4;
@@ -132,9 +152,24 @@ extern s32 D_801ADA44_EE6104[];
 extern s32 D_801ADA84_EE6144[];
 extern s32 D_801ADA94_EE6154;
 
+extern u16 D_1002040[];
+extern u16 D_10050E0[];
+extern u16 D_100BAC0[];
+extern u16 D_100D900[];
+extern u16 D_10032A0[];
+
+extern u8 D_1011A40[];
+extern u16 D_1011AB0[];
+extern u8 D_1011E80[];
+extern u16 D_1011EC0[];
+extern s32 D_1011ED0[];
+extern s32 D_1011F08[];
+extern u8 D_10129C0[];
+extern u16 D_1013090[];
 extern Gfx D_1015510[];
 extern Gfx D_1024230[];
 extern Gfx D_1024830[];
+extern u8 D_1024A58[];
 extern Gfx D_102A8A0[];
 extern Gfx D_1024AC0[];
 
@@ -168,6 +203,8 @@ extern Gfx D_200F080[];
 extern Gfx D_200F910[];
 extern Gfx D_20101A0[];
 
+extern u16 D_3000BC0[];
+
 extern u8 D_5000000[];
 extern u8 D_5000080[];
 extern u8 D_5000100[];
@@ -184,7 +221,7 @@ extern Gfx D_6004570[];
 extern Gfx D_D0098B0[];
 extern Gfx D_F014180[];
 
-
+extern u16 D_800D99F8[];
 extern u8 D_800DD8B8[];
 extern OSContStatus D_800DD8F0;
 extern OSMesgQueue D_800E2128;
@@ -202,6 +239,7 @@ extern OSMesg D_80156600;
 extern OSMesg D_80156608;
 extern OSMesg D_80156618;
 extern OSMesg D_8015661C;
+extern s32 D_8015F928;
 
 extern OSThread D_80138E90; 
 extern OSThread D_8013A040; // 0x1000 gap
