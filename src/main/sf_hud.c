@@ -1318,26 +1318,26 @@ void func_800907C4(UnkStruct_D_8016F110* arg0) {
 
 s32 func_80090A00(UnkStruct_func_80090A00* arg0) {
     switch (arg0->unk_050[5]) {
-    case 0:
-        arg0->unk_114[8] = 0.0f;
-        arg0->unk_114[7] = 360.0f;
-        arg0->unk_0BC = 8;
-        arg0->unk_0F8 = 100.0f;
-        arg0->unk_0F4 = 300.0f;
-        arg0->unk_050[4] = 1;
-        arg0->unk_050[5] = 1;
+        case 0:
+            arg0->unk_114[8] = 0.0f;
+            arg0->unk_114[7] = 360.0f;
+            arg0->unk_0BC = 8;
+            arg0->unk_0F8 = 100.0f;
+            arg0->unk_0F4 = 300.0f;
+            arg0->unk_050[4] = 1;
+            arg0->unk_050[5] = 1;
 
-    case 1:
-        if (arg0->unk_0BC == 0.0f) {
-            arg0->unk_114[1] = 20.0f;
-            arg0->unk_114[3] = 3.6f;
-            arg0->unk_050[2] = 0;
-            arg0->unk_050[3] = 36;
-            arg0->unk_050[5] = 2;
-        } else {
-            arg0->unk_000.pos.y -= 8.0f;
-            break;
-        }
+        case 1:
+            if (arg0->unk_0BC == 0.0f) {
+                arg0->unk_114[1] = 20.0f;
+                arg0->unk_114[3] = 3.6f;
+                arg0->unk_050[2] = 0;
+                arg0->unk_050[3] = 36;
+                arg0->unk_050[5] = 2;
+            } else {
+                arg0->unk_000.pos.y -= 8.0f;
+                break;
+            }
         case 2:
             arg0->unk_114[4] = D_8016F110[0].unk_000.pos.x + 1000.0f;
             arg0->unk_114[5] = 300.0f;
@@ -1350,45 +1350,44 @@ s32 func_80090A00(UnkStruct_func_80090A00* arg0) {
             } else if (arg0->unk_050[2] == 6) {
                 arg0->unk_050[1] = 1;
             }
-        break;
+            break;
 
-    case 3:
-        arg0->unk_114[4] = D_8016F110[0].unk_000.pos.x - 1000.0f;
-        arg0->unk_114[5] = 400.0f;
-        arg0->unk_114[6] = D_8016F110[0].unk_000.pos.z;
-        arg0->unk_050[2]++;
-        if (arg0->unk_050[2] == arg0->unk_050[3]) {
-            arg0->unk_050[5] = 4;
-        } else if (arg0->unk_050[2] == 20) {
-            arg0->unk_114[1] = 30.0f;
-        }
-        break;
+        case 3:
+            arg0->unk_114[4] = D_8016F110[0].unk_000.pos.x - 1000.0f;
+            arg0->unk_114[5] = 400.0f;
+            arg0->unk_114[6] = D_8016F110[0].unk_000.pos.z;
+            arg0->unk_050[2]++;
+            if (arg0->unk_050[2] == arg0->unk_050[3]) {
+                arg0->unk_050[5] = 4;
+            } else if (arg0->unk_050[2] == 20) {
+                arg0->unk_114[1] = 30.0f;
+            }
+            break;
 
-    case 4:
-        arg0->unk_114[6] = D_80178280->unk_138;
-        arg0->unk_114[5] = 100.0f;
-        arg0->unk_114[4] = D_80178280->unk_074;
-        if ((fabsf(arg0->unk_000.pos.x - D_80178280->unk_074) < 300.0f) && 
-        (fabsf(arg0->unk_000.pos.z - D_80178280->unk_138) < 300.0f)) {
-            arg0->unk_050[5] = 5;
-            arg0->unk_050[3] = 20;
-            arg0->unk_050[2] = 0;
-        }
-        break;
+        case 4:
+            arg0->unk_114[6] = D_80178280->unk_138;
+            arg0->unk_114[5] = 100.0f;
+            arg0->unk_114[4] = D_80178280->unk_074;
+            if ((fabsf(arg0->unk_000.pos.x - D_80178280->unk_074) < 300.0f) &&
+                (fabsf(arg0->unk_000.pos.z - D_80178280->unk_138) < 300.0f)) {
+                arg0->unk_050[5] = 5;
+                arg0->unk_050[3] = 20;
+                arg0->unk_050[2] = 0;
+            }
+            break;
 
-    case 5:
-        arg0->unk_114[6] = D_80178280->unk_138 + 1000.0f;
-        arg0->unk_114[5] = 1000.0f;
-        arg0->unk_114[4] = D_80178280->unk_074 - 1000.0f;
-        arg0->unk_050[2]++;
-        if (arg0->unk_050[2] == arg0->unk_050[3]) {
-            func_80060FBC(&arg0->unk_000.unk_00 , arg0->unk_100);
-        }
-        break;
+        case 5:
+            arg0->unk_114[6] = D_80178280->unk_138 + 1000.0f;
+            arg0->unk_114[5] = 1000.0f;
+            arg0->unk_114[4] = D_80178280->unk_074 - 1000.0f;
+            arg0->unk_050[2]++;
+            if (arg0->unk_050[2] == arg0->unk_050[3]) {
+                func_80060FBC(&arg0->unk_000.unk_00, arg0->unk_100);
+            }
+            break;
     }
     return false;
 }
-
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80090CCC.s")
 
