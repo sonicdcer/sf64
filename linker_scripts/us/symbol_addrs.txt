@@ -1,4 +1,5 @@
 bootproc = 0x80004DA8;
+Rand_ZeroOne = 0x80004EB0;
 D_800C90F0 = 0x800C90F0;
 
 D_800D934C = 0x800D934C; // force_migration:True

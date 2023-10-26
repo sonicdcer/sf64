@@ -16,7 +16,7 @@ typedef struct {
     /* 0x01 */ char pad_01;
     /* 0x02 */ u16 unk_02;
     /* 0x04 */ Vec3f pos;
-    /* 0x10 */ Vec3f unk10;
+    /* 0x10 */ Vec3f unk_10;
 } ElementType1; // size = 0x1C
 
 typedef struct UnkStruct_D_80178280 {

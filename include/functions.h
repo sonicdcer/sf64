@@ -5,7 +5,7 @@
 
 f32 func_80004E20(f32 arg0, f32 arg1);
 void func_80004E4C(void);
-f32 func_80004EB0(void);
+f32 Rand_ZeroOne(void);
 void func_80004FC8(s32 arg0, s32 arg1, s32 arg2);
 f32 func_80004FE8(void);
 f32 func_80005100(f32 arg0, f32 arg1);
@@ -72,6 +72,7 @@ void func_8008D0DC(f32, f32, f32, f32, f32);
 void func_8008E9EC(f32 arg0, f32 arg1);
 void func_8008EA14(f32, f32);
 void func_8008FFF0(UnkStruct_D_8016F110* arg0, s32);
+s32 func_8009092C(UnkStruct_func_80090A00*);
 void func_80094D20(f32, f32);
 f32 func_8009BC2C(f32*, f32, f32, f32, f32);
 void func_8009D418(Gfx**, void*, u32, u32, f32, f32, f32, f32);

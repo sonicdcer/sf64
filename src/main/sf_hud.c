@@ -1103,9 +1103,6 @@ void func_8008DE68(void) {
 void func_8008E2C8(f32 arg0, f32 arg1, s32* arg2, f32 arg3) {
     f32 var_fs0 = 0.0f;
     s32 var_s2 = 0;
-    f32 temp_fs2;
-    f32 temp_fs3;
-    f32 temp_fv0;
     s32 i;
 
     arg0 -= (arg3 - 1.0f) * 34.0f;
@@ -1393,7 +1390,7 @@ s32 func_80090A00(UnkStruct_func_80090A00* arg0) {
 s32 func_80090CCC(UnkStruct_func_80090A00* arg0) {
     s32 ret = 0;
 
-    if (func_8009092C() != 0) {
+    if (func_8009092C(arg0) != 0) {
         arg0->unk_114[6] = D_8016F110[arg0->unk_0E6].unk_000.pos.z;
         arg0->unk_114[5] = D_8016F110[arg0->unk_0E6].unk_000.pos.y;
         arg0->unk_114[4] = D_8016F110[arg0->unk_0E6].unk_000.pos.x;
@@ -1420,7 +1417,7 @@ s32 func_80090CCC(UnkStruct_func_80090A00* arg0) {
     }
 
     if (arg0->unk_0BE == 0) {
-        arg0->unk_0BE = (s32) (func_80004EB0() * 200.0f) + 200;
+        arg0->unk_0BE = (s32) (Rand_ZeroOne() * 200.0f) + 200;
         arg0->unk_114[10] = 30.0f;
     }
 
