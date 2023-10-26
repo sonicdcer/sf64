@@ -54,6 +54,8 @@ OSMesgQueue* osPiGetCmdQueue(void);
 
 s32 func_8002DE78(void*, s32, s32); // Not real signature
 
+void func_80060FBC(u8*, f32*);
+
 void func_80084688(s32, s32);
 void func_800857DC(f32, f32, f32, f32);
 void func_80085890(f32, f32, f32, f32);
@@ -69,7 +71,7 @@ s32 func_8008BCBC(s32 arg0);
 void func_8008D0DC(f32, f32, f32, f32, f32);
 void func_8008E9EC(f32 arg0, f32 arg1);
 void func_8008EA14(f32, f32);
-void func_8008FFF0(UnkStruct_func_800907C4* arg0, s32);
+void func_8008FFF0(UnkStruct_D_8016F110* arg0, s32);
 void func_80094D20(f32, f32);
 f32 func_8009BC2C(f32*, f32, f32, f32, f32);
 void func_8009D418(Gfx**, void*, u32, u32, f32, f32, f32, f32);
