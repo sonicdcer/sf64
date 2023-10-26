@@ -1291,23 +1291,23 @@ void func_8008F96C(void) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80090200.s")
 
 void func_800907C4(UnkStruct_D_8016F110* arg0) {
-    switch (arg0->unk4E) {
+    switch (arg0->unk_04E) {
         case 0:
-            if ((arg0->unkD8[1] == 255.0f) && (arg0->unkD8[2] == 212.0f)) {
-                arg0->unk4E = 1;
+            if ((arg0->unk_0D8[1] == 255.0f) && (arg0->unk_0D8[2] == 212.0f)) {
+                arg0->unk_04E = 1;
 
             } else {
-                func_8009BC2C(&arg0->unkD8[1], 255.0f, 0.3f, 6.0f, 6.0f);
-                func_8009BC2C(&arg0->unkD8[2], 212.0f, 0.3f, 4.98f, 4.98f);
+                func_8009BC2C(&arg0->unk_0D8[1], 255.0f, 0.3f, 6.0f, 6.0f);
+                func_8009BC2C(&arg0->unk_0D8[2], 212.0f, 0.3f, 4.98f, 4.98f);
             }
             break;
 
         case 1:
-            if ((arg0->unkD8[1] == 28.0f) && (arg0->unkD8[2] == 23.0f)) {
-                arg0->unk4E = 0;
+            if ((arg0->unk_0D8[1] == 28.0f) && (arg0->unk_0D8[2] == 23.0f)) {
+                arg0->unk_04E = 0;
             } else {
-                func_8009BC2C(&arg0->unkD8[1], 28.0f, 0.3f, 6.0f, 6.0f);
-                func_8009BC2C(&arg0->unkD8[2], 23.0f, 0.3f, 4.98f, 4.98f);
+                func_8009BC2C(&arg0->unk_0D8[1], 28.0f, 0.3f, 6.0f, 6.0f);
+                func_8009BC2C(&arg0->unk_0D8[2], 23.0f, 0.3f, 4.98f, 4.98f);
             }
             break;
     }

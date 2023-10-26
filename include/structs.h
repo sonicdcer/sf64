@@ -47,10 +47,10 @@ typedef struct UnkStruct_D_80178280 {
 
 typedef struct {
     /* 0x000 */ ElementType1 unk_000;
-    /* 0x01C */ char pad_0[0x32];
-    /* 0x4E */ s16 unk4E;
-    /* 0x50 */ char pad_50[0x88];
-    /* 0xD8 */ f32 unkD8[50];
+    /* 0x01C */ char pad_01C[0x32];
+    /* 0x04E */ s16 unk_04E;
+    /* 0x050 */ char pad_050[0x88];
+    /* 0x0D8 */ f32 unk_0D8[50];
     /* 0x1A0 */ char pad_1A0[0x268];
 } UnkStruct_D_8016F110; // size = 0x408
 
