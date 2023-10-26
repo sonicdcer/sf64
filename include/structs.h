@@ -72,6 +72,7 @@ typedef struct {
     /* 0x0FC */ char pad_0FC[0x4];
     /* 0x100 */ f32 unk_100[5];
     /* 0x114 */ f32 unk_114[30];
+    /* 0x18C */ Vec3f unk_18C[30];
 } UnkStruct_func_80090A00;
 
 #endif

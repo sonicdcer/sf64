@@ -1432,26 +1432,27 @@ s32 func_80090CCC(UnkStruct_func_80090A00* arg0) {
 }
 
 s32 func_80090E8C(UnkStruct_func_80090A00* arg0) {
-    f32 sp24;
-    f32 sp20;
-    f32 var_fv1;
+    f32 x;
+    f32 y;
+    f32 z;
     f32 var_fv1_2;
 
     if (arg0->unk_0BC == 0) {
         if (D_80177C98 == 1) {
-            sp24 = (Rand_ZeroOne() - 0.5f) * 20000.0f;
-            sp20 = (Rand_ZeroOne() - 0.5f) * 5000.0f;
-            var_fv1 = (Rand_ZeroOne() - 0.5f) * 20000.0f;
+            x = (Rand_ZeroOne() - 0.5f) * 20000.0f;
+            y = (Rand_ZeroOne() - 0.5f) * 5000.0f;
+            z = (Rand_ZeroOne() - 0.5f) * 20000.0f;
         } else {
-            sp24 = (Rand_ZeroOne() - 0.5f) * 10000.0f;
-            sp20 = Rand_ZeroOne() * 1000.0f;
-            var_fv1 = (Rand_ZeroOne() - 0.5f) * 10000.0f;
+            x = (Rand_ZeroOne() - 0.5f) * 10000.0f;
+            y = Rand_ZeroOne() * 1000.0f;
+            z = (Rand_ZeroOne() - 0.5f) * 10000.0f;
         }
-        if ((fabsf(arg0->unk_000.pos.x - sp24) > 2000.0f) && (fabsf(arg0->unk_000.pos.z - var_fv1) > 2000.0f)) {
-            arg0->unk_114[4] = sp24;
-            arg0->unk_114[5] = sp20;
-            arg0->unk_114[6] = var_fv1;
-            arg0->unk_0BC = (s32) (Rand_ZeroOne() * 20.0f) + 0xA;
+
+        if ((fabsf(arg0->unk_000.pos.x - x) > 2000.0f) && (fabsf(arg0->unk_000.pos.z - z) > 2000.0f)) {
+            arg0->unk_114[4] = x;
+            arg0->unk_114[5] = y;
+            arg0->unk_114[6] = z;
+            arg0->unk_0BC = (s32) (Rand_ZeroOne() * 20.0f) + 10;
         }
     }
 
@@ -1468,18 +1469,48 @@ s32 func_80090E8C(UnkStruct_func_80090A00* arg0) {
 
     if (arg0->unk_0BE == 0) {
         arg0->unk_0BE = (s32) (Rand_ZeroOne() * 200.0f) + 200;
-        arg0->unk_114[0xA] = 30.0f;
+        arg0->unk_114[10] = 30.0f;
     }
     return 0;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800910C0.s")
+s32 func_800910C0(UnkStruct_func_80090A00* arg0) {
+    f32 var_fv1;
+
+    if (arg0->unk_0BC == 0) {
+        arg0->unk_18C[28].x = (Rand_ZeroOne() - 0.5f) * 2000.0f;
+        arg0->unk_18C[28].y = (Rand_ZeroOne() * 1000.0f) + 200.0f;
+        arg0->unk_18C[28].z = (Rand_ZeroOne() - 0.5f) * 2000.0f;
+        arg0->unk_0BC = (s32) (Rand_ZeroOne() * 20.0f) + 10;
+    }
+
+    arg0->unk_114[4] = arg0->unk_18C[28].x + D_8016F110->unk_000.pos.x;
+    arg0->unk_114[5] = arg0->unk_18C[28].y;
+    arg0->unk_114[6] = arg0->unk_18C[28].z + D_8016F110->unk_000.pos.z;
+
+    if (arg0->unk_0E4 == 1) {
+        var_fv1 = 1500.0f;
+    } else {
+        var_fv1 = 3000.0f;
+    }
+
+    if ((var_fv1 < fabsf(arg0->unk_000.pos.x - arg0->unk_114[4])) &&
+        (var_fv1 < fabsf(arg0->unk_000.pos.z - arg0->unk_114[6]))) {
+        arg0->unk_0B8 = 0;
+    }
+
+    if (arg0->unk_0BE == 0) {
+        arg0->unk_0BE = (s32) (Rand_ZeroOne() * 200.0f) + 200;
+        arg0->unk_114[10] = 30.0f;
+    }
+    return 0;
+}
 
 void func_80091254(UnkStruct_func_80090A00* arg0) {
     if (D_80177880 == 1) {
         func_80090E8C(arg0);
     } else {
-        func_800910C0();
+        func_800910C0(arg0);
     }
 }
 
