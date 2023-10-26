@@ -63,7 +63,8 @@ typedef struct {
     /* 0x0BA */ char pad_0BA[0x2];
     /* 0x0BC */ u16 unk_0BC;
     /* 0x0BC */ u16 unk_0BE;
-    /* 0x0C0 */ char pad_0C0[0x26];
+    /* 0x0C0 */ char pad_0C0[0x24];
+    /* 0x0E4 */ s16 unk_0E4;
     /* 0x0E6 */ s16 unk_0E6;
     /* 0x0E8 */ char pad_0E8[0xC];
     /* 0x0F4 */ f32 unk_0F4;
