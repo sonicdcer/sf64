@@ -36,11 +36,47 @@ void func_8001DC6C(s32, s32);
 
 s32 func_8001EF10(void);
 
+s32 vsprintf(char* dst, char* fmt, va_list args);
+
+f32 func_8001FE60(f32);
+f64 func_8001FE6C(f64);
+s32 func_8001FE78(f32);
+s32 func_8001FE88(f64);
+f32 func_8001FE98(f32);
+f64 func_8001FEA4(f64);
+s32 func_8001FEB0(f32);
+s32 func_8001FEC0(f64);
+f32 func_8001FED0(f32);
+f64 func_8001FEDC(f64);
+s32 func_8001FEE8(f32);
+s32 func_8001FEF8(f64);
+f32 func_8001FF08(f32);
+f64 func_8001FF14(f64);
+s32 func_8001FF20(f32);
+s32 func_8001FF30(f64);
+f32 func_8001FF40(f32);
+f64 func_8001FF5C(f64);
+s32 func_8001FF7C(f32);
+s32 func_8001FF9C(f64);
+
+f32 func_8001FAE4(f32);
+f32 func_8001FB04(f32);
+f64 func_8001FB24(f64);
+f32 func_8001FB58(f32);
+f32 func_8001FB88(f32);
+f32 func_8001FBA8(f32);
+f32 func_8001FBC8(f32);
 f32 func_8001FBE8(f32);
+f32 func_8001FD0C(f32, f32);
+f32 func_8001FE00(f32);
+f32 func_8001FE30(f32);
 
 void func_800227A0(s32, OSMesgQueue*, OSMesg*, s32);
 
 s32 func_80022B60(void);
+
+f32 __sinf(f32);
+f32 __cosf(f32);
 
 s64 __ull_div(s64, s64);
 s64 __ll_mul(s64, s64);

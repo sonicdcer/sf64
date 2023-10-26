@@ -1,7 +1,9 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H
 
+#include "PR/xstdio.h"
 #include "PR/os_internal.h"
+#include "PR/controller.h"
 #include "libultra/ultra64.h"
 #include "libc/math.h"
 #include "libc/stdarg.h"

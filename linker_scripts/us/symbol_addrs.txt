@@ -1,5 +1,6 @@
 bootproc = 0x80004DA8;
 D_800C90F0 = 0x800C90F0;
+__libm_qnan_f = 0x800C9570;
 
 D_800D934C = 0x800D934C; // force_migration:True
 D_800D503C = 0x800D503C; // force_migration:True

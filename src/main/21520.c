@@ -1,4 +1,6 @@
-#include "common.h"
+#include "global.h"
+
+#include "siint.h"
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/21520/func_80020920.s")
 

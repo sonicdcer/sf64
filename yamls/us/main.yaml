@@ -23,13 +23,13 @@
       - [0x12490, c, 12490]
       - [0x14AA0, c, 14AA0]
       - [0x17650, c, 17650] # Sound related
-      - [0x1EB50, c, 1EB50] # Sound related
+      - [0x1EB50, c, 1EB50] # Audio Thread
       - [0x1FA60, c]
       - [0x1FA70, hasm]
       - [0x1FB10, hasm]
-      - [0x205E0, c]
-      - [0x206B0, c, ../libultra/206B0] # math64
-      - [0x20A60, hasm] # fp.text.s
+      - [0x205E0, c, ../libultra/rmon/sprintf]
+      - [0x206B0, c, math64] # math64
+      - [0x20A60, hasm, fp.text] # fp.text.s
 
     # LIBULTRA
       - [0x20BC0, c, ../libultra/io/controller]
@@ -37,12 +37,12 @@
       - [0x211E0, c, ../libultra/os/recvmesg]
       - [0x21320, c, ../libultra/os/sendmesg]
       - [0x21470, c, ../libultra/io/contquery]
-      - [0x21520, c]
+      - [0x21520, c, ../libultra/io/motor] # rumble
       - [0x21B40, c, ../libultra/gu/perspective]
       - [0x21DD0, c, ../libultra/gu/lookat]
       - [0x22100, c, ../libultra/gu/ortho]
-      - [0x222C0, hasm, invalicache]
-      - [0x22340, hasm, invaldcache]
+      - [0x222C0, hasm, ../libultra/os/invalicache]
+      - [0x22340, hasm, ../libultra/os/invaldcache]
       - [0x223F0, c, ../libultra/io/pidma]
       - [0x22500, c, ../libultra/io/viblack]
       - [0x22570, hasm, writebackdcacheall]
@@ -149,8 +149,10 @@
       - [0x2EDE0, c, ../libultra/2EDE0]
       - [0x2EE30, c, ../libultra/2EE30]
       - [0x2EE80, c, ../libultra/os/stopthread]
+      - [0x2EF40, hasm, ../libultra/rmon/rmonrcp]
 
     # Game engine
+      - [0x2EFE0, c, sf_2EFE0]
       - [0x2F300, c, sf_2F300]
       - [0x36930, c, sf_36930]
       - [0x43AC0, c, sf_43AC0]

@@ -1,4 +1,6 @@
-#include "common.h"
+#define _MIPS_SZLONG 32
+
+#include "global.h"
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/2DF00/func_8002D300.s")
 

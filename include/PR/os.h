@@ -641,6 +641,28 @@ typedef struct {
 #define PFS_ERR_EXIST		9	/* file exists 			  */
 #define PFS_ERR_ID_FATAL	10	/* dead ram pack */
 #define PFS_ERR_DEVICE		11	/* wrong device type*/
+#define PFS_ERR_NO_GBCART       12  /* no gb cartridge (64GB-PAK) */
+#define PFS_ERR_NEW_GBCART      13  /* gb cartridge may be changed */
+
+/* Definition for bank */
+#define PFS_ID_BANK_256K    0
+#define PFS_ID_BANK_1M      4
+#define PFS_BANKS_256K      1
+
+#define PFS_WRITTEN             2
+#define DEF_DIR_PAGES           2
+
+#define PFS_ID_0AREA            1
+#define PFS_ID_1AREA            3
+#define PFS_ID_2AREA            4
+#define PFS_ID_3AREA            6
+#define PFS_LABEL_AREA          7
+#define PFS_ID_PAGE             PFS_ONE_PAGE * 0
+
+#define PFS_BANK_LAPPED_BY  8   /* => u8 */
+#define PFS_SECTOR_PER_BANK 32
+#define PFS_INODE_DIST_MAP  (PFS_BANK_LAPPED_BY * PFS_SECTOR_PER_BANK)
+#define PFS_SECTOR_SIZE     (PFS_INODE_SIZE_PER_PAGE/PFS_SECTOR_PER_BANK)
 
 /* definition for EEPROM */
 
