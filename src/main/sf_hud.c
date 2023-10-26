@@ -1338,6 +1338,7 @@ s32 func_80090A00(UnkStruct_func_80090A00* arg0) {
                 arg0->unk_000.pos.y -= 8.0f;
                 break;
             }
+
         case 2:
             arg0->unk_114[4] = D_8016F110[0].unk_000.pos.x + 1000.0f;
             arg0->unk_114[5] = 300.0f;
