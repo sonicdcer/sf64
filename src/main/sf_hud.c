@@ -1733,7 +1733,93 @@ s32 func_80091DF4(UnkStruct_func_80090A00* arg0) {
     return false;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80091F00.s")
+s32 func_80091F00(UnkStruct_func_80090A00* arg0) {
+    u8 temp_v0 = arg0->unk_0D0;
+    Vec3f sp40;
+    Vec3f sp34;
+
+    arg0->unk_0D0 = 0;
+
+    if ((arg0->unk_0B8 == 3) || (temp_v0 == 2)) {
+        return false;
+    }
+
+    arg0->unk_0CE -= arg0->unk_0D6;
+    if (arg0->unk_0CE <= 0) {
+        arg0->unk_0CE = -1;
+    }
+    arg0->unk_0C6 = 20;
+
+    func_80019218(0x2903300E, arg0->unk_100, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    func_8007D10C(arg0->unk_000.pos.x, arg0->unk_000.pos.y, arg0->unk_000.pos.z, 1.5f);
+    func_80005E90(D_8013BBC8, arg0->unk_0F8 * (M_PI / 180), 0);
+
+    if (Rand_ZeroOne() < 0.5f) {
+        sp40.x = -20.0f;
+    } else {
+        sp40.x = 20.0f;
+    }
+
+    sp40.y = (Rand_ZeroOne() - 0.5f) * 20.0f;
+    sp40.z = 0.0f;
+
+    func_80006A20(D_8013BBC8, &sp40, &sp34);
+
+    arg0->unk_114[13] = sp34.x;
+    arg0->unk_114[14] = sp34.y;
+    arg0->unk_114[12] = sp34.z;
+
+    D_801778B0[arg0->unk_0E4] = arg0->unk_0CE;
+
+    if (D_8017829C != 0) {
+        return false;
+    }
+
+    if ((arg0->unk_0D0 == 3) && (arg0->unk_0D4 == 1)) {
+        switch (arg0->unk_0E4) {
+            case 1:
+                func_800BA808(D_8018398C, 10);
+                break;
+            case 3:
+                func_800BA808(D_80183950, 30);
+                break;
+            case 2:
+                func_800BA808(D_80183900, 20);
+                break;
+        }
+    }
+
+    if ((arg0->unk_0D0 != 3) && (arg0->unk_0D4 == 1)) {
+        switch (arg0->unk_0E4) {
+            case 1:
+                func_800BA808(D_801836B0, 10);
+                break;
+            case 3:
+                func_800BA808(D_801836F8, 30);
+                break;
+            case 2:
+                func_800BA808(D_80183724, 20);
+                break;
+        }
+    }
+
+    if ((arg0->unk_0D4 == 2) || (arg0->unk_0D4 == 100)) {
+        switch (arg0->unk_0E4) {
+            case 1:
+                func_800BA808(D_80183630, 10);
+                break;
+            case 3:
+                func_800BA808(D_8018366C, 30);
+                break;
+            case 2:
+                func_800BA808(D_80183690, 20);
+                break;
+        }
+    }
+    arg0->unk_050[8] = 20;
+
+    return false;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80092244.s")
 

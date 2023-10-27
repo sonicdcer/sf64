@@ -104,6 +104,15 @@ extern s32 D_80178554;
 extern s32 D_80178558;
 extern s32 D_8017855C;
 
+extern u16 D_80183630[];
+extern u16 D_8018366C[];
+extern u16 D_80183690[];
+extern u16 D_801836B0[];
+extern u16 D_801836F8[];
+extern u16 D_80183724[];
+extern u16 D_80183900[];
+extern u16 D_80183950[];
+extern u16 D_8018398C[];
 extern u16 D_801839B8[];
 extern u16 D_80183A08[];
 extern u16 D_80183A64[];

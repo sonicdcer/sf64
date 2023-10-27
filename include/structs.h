@@ -65,14 +65,22 @@ typedef struct {
     /* 0x0BA */ char pad_0BA[0x2];
     /* 0x0BC */ u16 unk_0BC;
     /* 0x0BC */ u16 unk_0BE;
-    /* 0x0C0 */ char pad_0C0[0x24];
+    /* 0x0C0 */ char pad_0C0[0x6];
+    /* 0x0C6 */ u16 unk_0C6;
+    /* 0x0C8 */ char pad_0C8[0x6];
+    /* 0x0CE */ s16 unk_0CE;
+    /* 0x0D0 */ s8 unk_0D0;
+    /* 0x0D1 */ char pad_0D1[0x3];
+    /* 0x0D4 */ s16 unk_0D4;
+    /* 0x0D6 */ u16 unk_0D6;
+    /* 0x0D8 */ char pad_0D8[0xC];
     /* 0x0E4 */ s16 unk_0E4;
     /* 0x0E6 */ s16 unk_0E6;
     /* 0x0E8 */ f32 unk_0E8;
     /* 0x0EC */ f32 unk_0EC;
     /* 0x0F0 */ f32 unk_0F0;
     /* 0x0F4 */ f32 unk_0F4;
-    /* 0x0F8 */ f32 unk_0F8;
+    /* 0x0F8 */ f32 unk_0F8; // angle
     /* 0x0FC */ char pad_0FC[0x4];
     /* 0x100 */ f32 unk_100[5];
     /* 0x114 */ f32 unk_114[30];
