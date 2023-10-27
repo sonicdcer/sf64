@@ -1529,7 +1529,48 @@ s32 func_80091298(UnkStruct_func_80090A00* arg0) {
     return 0;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80091368.s")
+s32 func_80091368(UnkStruct_func_80090A00* arg0) {
+    switch (arg0->unk_050[5]) {
+        case 0:
+            arg0->unk_114[5] = 20000.0f;
+            arg0->unk_050[1] = 1;
+            arg0->unk_050[5] = 1;
+            D_801778B0[arg0->unk_0E4] = 1;
+
+            switch (arg0->unk_0E4) {
+                case 1:
+                    func_800BA808(D_801839B8, 10);
+                    break;
+
+                case 3:
+                    func_800BA808(D_80183A08, 30);
+                    break;
+
+                case 2:
+                    func_800BA808(D_80183A64, 20);
+                    break;
+            }
+            D_801778B0[arg0->unk_0E4] = -1;
+            break;
+
+        case 1:
+            if (arg0->unk_114[0x1D] < 2.0f) {
+                arg0->unk_114[0x1D] = 2.0f;
+            }
+
+            if (arg0->unk_0BC == 0) {
+                arg0->unk_0BC = (s32) (Rand_ZeroOne() * 20.0f) + 30;
+                arg0->unk_114[7] = 360.0f;
+                arg0->unk_114[8] = 0.0f;
+            }
+
+            if (arg0->unk_000.pos.y > 3000.0f) {
+                func_80060FBC(&arg0->unk_000.unk_00, arg0->unk_100);
+            }
+            break;
+    }
+    return false;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800914FC.s")
 

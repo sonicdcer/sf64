@@ -102,6 +102,10 @@ extern s32 D_80178554;
 extern s32 D_80178558;
 extern s32 D_8017855C;
 
+extern u16 D_801839B8[];
+extern u16 D_80183A08[];
+extern u16 D_80183A64[];
+
 extern f32 D_801B7BC8;
 extern f32 D_801B7BCC;
 extern s32 D_801B8220[];
