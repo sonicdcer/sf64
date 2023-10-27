@@ -1697,7 +1697,24 @@ s32 func_80091B90(UnkStruct_func_80090A00* arg0) {
     return false;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80091CF8.s")
+s32 func_80091CF8(UnkStruct_func_80090A00* arg0) {
+    if (arg0->unk_050[1] != 0) {
+        if (arg0->unk_114[10] < 0.1f) {
+            arg0->unk_114[10] = 20.0f;
+            func_80019218(0x09000002, arg0->unk_100, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            arg0->unk_114[29] = 5.0f;
+        }
+        arg0->unk_050[1] = 0;
+    }
+
+    func_8009BC2C(&arg0->unk_114[0xA], 0.0f, 0.1f, 0.2f, 0.0f);
+    func_8009BC2C(&arg0->unk_114[9], arg0->unk_114[0xA], 0.1f, 2.0f, 0.0f);
+
+    if (arg0->unk_114[10] < 0.1f) {
+        arg0->unk_050[11] = 1;
+    }
+    return false;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80091DF4.s")
 
