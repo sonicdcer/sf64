@@ -1471,7 +1471,7 @@ s32 func_80090E8C(UnkStruct_func_80090A00* arg0) {
         arg0->unk_0BE = (s32) (Rand_ZeroOne() * 200.0f) + 200;
         arg0->unk_114[10] = 30.0f;
     }
-    return 0;
+    return false;
 }
 
 s32 func_800910C0(UnkStruct_func_80090A00* arg0) {
@@ -1503,7 +1503,7 @@ s32 func_800910C0(UnkStruct_func_80090A00* arg0) {
         arg0->unk_0BE = (s32) (Rand_ZeroOne() * 200.0f) + 200;
         arg0->unk_114[10] = 30.0f;
     }
-    return 0;
+    return false;
 }
 
 void func_80091254(UnkStruct_func_80090A00* arg0) {
@@ -1526,7 +1526,7 @@ s32 func_80091298(UnkStruct_func_80090A00* arg0) {
         arg0->unk_114[1] = D_80178280->unk_0D0 - 10.0f;
         arg0->unk_114[3] = 1.2f;
     }
-    return 0;
+    return false;
 }
 
 s32 func_80091368(UnkStruct_func_80090A00* arg0) {
