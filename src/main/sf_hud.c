@@ -1610,7 +1610,64 @@ void func_800914FC(UnkStruct_func_80090A00* arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800915FC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80091864.s")
+s32 func_80091864(UnkStruct_func_80090A00* arg0) {
+    f32 sp44;
+    f32 sp40;
+    f32 sp3C;
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 sp2C;
+    f32 sp28;
+
+    x = arg0->unk_114[4] - arg0->unk_000.pos.x;
+    y = arg0->unk_114[5] - arg0->unk_000.pos.y;
+    z = arg0->unk_114[6] - arg0->unk_000.pos.z;
+
+    sp40 = func_8009F768(func_80005100(x, z));
+    sp44 = func_8009F768(func_80005100(y, sqrtf(SQ(x) + SQ(z))));
+
+    if ((func_800915FC(arg0) != 0) && (arg0->unk_050[4] == 0)) {
+        sp44 += 40.0f;
+        if (sp44 >= 360.0f) {
+            sp44 -= 360.0f;
+        } else if ((arg0->unk_000.pos.y < (D_80177940 + 50.0f)) && (D_80177C98 == 0) && (sp44 > 180.0f)) {
+            sp44 = 0.0f;
+        }
+        arg0->unk_050[0] = 0;
+    }
+
+    sp3C = func_8009BD38(&arg0->unk_0F8, sp40, 0.5f, arg0->unk_114[2], 0.001f) * 30.0f;
+    func_8009BD38(&arg0->unk_0F4, sp44, 0.5f, arg0->unk_114[2], 0.0001f);
+    sp2C = sp28 = 0.0f;
+
+    if (sp3C < 0.0f) {
+        sp2C = -sp3C;
+    } else {
+        sp28 = sp3C;
+    }
+
+    func_8009BC2C(&arg0->unk_114[15], sp2C, 0.2f, 30.0f, 0.00f);
+    func_8009BC2C(&arg0->unk_114[26], -sp2C, 0.2f, 30.0f, 0.00f);
+    func_8009BC2C(&arg0->unk_114[16], sp28, 0.2f, 30.0f, 0.00f);
+    func_8009BC2C(&arg0->unk_114[27], -sp28, 0.2f, 30.0f, 0.00f);
+
+    if (sp3C < 0.0f) {
+        sp3C *= -1.0f;
+    } else {
+        sp3C = 360.0f - sp3C;
+    }
+
+    func_8009BC2C(&arg0->unk_114[7], arg0->unk_114[8], 0.2f, 30.0f, 0.0001f);
+
+    if ((arg0->unk_114[7] > 0.01f) && (arg0->unk_114[7] < 359.9f)) {
+        func_8009BD38(&arg0->unk_000.unk_10.z, arg0->unk_114[7], 0.2f, 100.0f, 0.01f);
+    } else {
+        func_8009BD38(&arg0->unk_000.unk_10.z, sp3C, 0.1f, 3.0f, 0.01f);
+    }
+
+    return false;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80091B90.s")
 
