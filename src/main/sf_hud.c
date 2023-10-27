@@ -1697,9 +1697,41 @@ s32 func_80091B90(UnkStruct_func_80090A00* arg0) {
     return false;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80091CF8.s")
+s32 func_80091CF8(UnkStruct_func_80090A00* arg0) {
+    if (arg0->unk_050[1] != 0) {
+        if (arg0->unk_114[10] < 0.1f) {
+            arg0->unk_114[10] = 20.0f;
+            func_80019218(0x09000002, arg0->unk_100, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            arg0->unk_114[29] = 5.0f;
+        }
+        arg0->unk_050[1] = 0;
+    }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80091DF4.s")
+    func_8009BC2C(&arg0->unk_114[10], 0.0f, 0.1f, 0.2f, 0.0f);
+    func_8009BC2C(&arg0->unk_114[9], arg0->unk_114[10], 0.1f, 2.0f, 0.0f);
+
+    if (arg0->unk_114[10] < 0.1f) {
+        arg0->unk_050[11] = 1;
+    }
+    return false;
+}
+
+s32 func_80091DF4(UnkStruct_func_80090A00* arg0) {
+    Vec3f sp44;
+    Vec3f sp38;
+
+    if ((arg0->unk_050[0] != 0) && (D_80177848 > 70)) {
+        arg0->unk_050[0] = 0;
+        sp44.x = 0.0f;
+        sp44.y = 0.0f;
+        sp44.z = 100.0f;
+        func_80006A20(D_8013BBC8, &sp44, &sp38);
+        func_8006EEFC(arg0->unk_0E4, arg0->unk_000.pos.x + (sp38.x * 1.5), arg0->unk_000.pos.y + (sp38.y * 1.5),
+                      arg0->unk_000.pos.z + (sp38.z * 1.5), sp38.x, sp38.y, sp38.z, arg0->unk_000.unk_10.x,
+                      arg0->unk_000.unk_10.y, arg0->unk_000.unk_10.z);
+    }
+    return false;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80091F00.s")
 
