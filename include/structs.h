@@ -93,7 +93,9 @@ typedef struct {
     /* 0x0F4 */ f32 unk_0F4;
     /* 0x0F8 */ f32 unk_0F8; // angle
     /* 0x0FC */ char pad_0FC[0x4];
-    /* 0x100 */ f32 unk_100[5];
+    /* 0x100 */ f32 unk_100[3];
+    /* 0x10C */ char pad_10C[0x4];
+    /* 0x110 */ f32 unk_110;
     /* 0x114 */ f32 unk_114[30];
     /* 0x18C */ Vec3f unk_18C[30];
 } UnkStruct_func_80090A00;

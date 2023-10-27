@@ -1830,7 +1830,37 @@ void func_80092244(UnkStruct_func_80090A00* arg0) {
     D_80175A10[arg0->unk_040].unk_10 = arg0->unk_0F8 + 180.0f;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800922F4.s")
+void func_800922F4(UnkStruct_func_80090A00* arg0) {
+    s32 temp;
+
+    if ((D_801778B0[arg0->unk_0E4] < 64) && (D_80178280->unk_1C8 != 7)) {
+        temp = 7;
+        if (D_801778B0[arg0->unk_0E4] > 16) {
+            temp = 15;
+        }
+        if (D_801778B0[arg0->unk_0E4] > 32) {
+            temp = 31;
+        }
+        if (D_801778B0[arg0->unk_0E4] > 48) {
+            temp = 63;
+        }
+
+        if (!(D_80177DB0 & temp)) {
+            func_8007D10C(arg0->unk_000.pos.x + ((Rand_ZeroOne() - 0.5f) * 10.0f),
+                          arg0->unk_000.pos.y + (Rand_ZeroOne() * 10.0f),
+                          arg0->unk_000.pos.z + ((Rand_ZeroOne() - 0.5f) * 10.0f), 2.2f);
+        }
+
+        if (!((temp >> 2) & D_80177DB0)) {
+            if (Rand_ZeroOne() < 0.5f) {
+                func_8007C120(arg0->unk_000.pos.x + ((Rand_ZeroOne() - 0.5f) * 30.0f),
+                              arg0->unk_000.pos.y + (Rand_ZeroOne() * 10.0f),
+                              arg0->unk_000.pos.z + ((Rand_ZeroOne() - 0.5f) * 30.0f), arg0->unk_0E8, arg0->unk_0EC,
+                              arg0->unk_0F0, arg0->unk_110 * 0.07f, 3);
+            }
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800924E0.s")
 
