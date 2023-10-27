@@ -1669,7 +1669,33 @@ s32 func_80091864(UnkStruct_func_80090A00* arg0) {
     return false;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80091B90.s")
+s32 func_80091B90(UnkStruct_func_80090A00* arg0) {
+    Vec3f vec;
+
+    arg0->unk_000.unk_10.x = -arg0->unk_0F4;
+    arg0->unk_000.unk_10.y = arg0->unk_0F8;
+
+    func_8009BC2C(arg0->unk_114, arg0->unk_114[1], 0.2f, 1.0f, 0.0f);
+    func_8009BC2C(&arg0->unk_114[2], arg0->unk_114[3], 1.0f, 1.0f, 0.0f);
+
+    func_8009F6CC(&vec, arg0->unk_000.unk_10.x, arg0->unk_000.unk_10.y, arg0->unk_114[0] + arg0->unk_114[9]);
+
+    arg0->unk_0EC = arg0->unk_114[14] + vec.y;
+    arg0->unk_0E8 = arg0->unk_114[13] + vec.x;
+    arg0->unk_0F0 = arg0->unk_114[12] + vec.z;
+
+    arg0->unk_114[13] -= arg0->unk_114[13] * 0.1f;
+    arg0->unk_114[14] -= arg0->unk_114[14] * 0.1f;
+    arg0->unk_114[12] -= arg0->unk_114[12] * 0.1f;
+
+    if ((arg0->unk_000.pos.y < D_80177940 + 40.0f) && (arg0->unk_0EC < 0.0f) && (D_80177C98 == 0)) {
+        arg0->unk_000.pos.y = D_80177940 + 40.0f;
+        arg0->unk_0EC = 0.0f;
+    }
+    arg0->unk_0F0 -= D_80177D08;
+
+    return false;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80091CF8.s")
 

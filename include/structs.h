@@ -68,7 +68,9 @@ typedef struct {
     /* 0x0C0 */ char pad_0C0[0x24];
     /* 0x0E4 */ s16 unk_0E4;
     /* 0x0E6 */ s16 unk_0E6;
-    /* 0x0E8 */ char pad_0E8[0xC];
+    /* 0x0E8 */ f32 unk_0E8;
+    /* 0x0EC */ f32 unk_0EC;
+    /* 0x0F0 */ f32 unk_0F0;
     /* 0x0F4 */ f32 unk_0F4;
     /* 0x0F8 */ f32 unk_0F8;
     /* 0x0FC */ char pad_0FC[0x4];
