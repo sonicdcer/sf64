@@ -24,9 +24,11 @@ typedef struct UnkStruct_D_80178280 {
     /* 0x00C */ f32 unk_00C;
     /* 0x010 */ char pad_010[0x64];
     /* 0x074 */ f32 unk_074;
-    /* 0x078 */ char pad_078[0x4];
+    /* 0x078 */ f32 unk_078;
     /* 0x07C */ f32 unk_07C;
-    /* 0x080 */ char pad_080[0xB8];
+    /* 0x080 */ char pad_080[0x50];
+    /* 0x0D0 */ f32 unk_0D0;
+    /* 0x0D4 */ char pad_0D4[0x64];
     /* 0x138 */ f32 unk_138;
     /* 0x13C */ char pad_13C[0x8C];
     /* 0x1C8 */ s32 unk_1C8;

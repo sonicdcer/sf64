@@ -1514,7 +1514,20 @@ void func_80091254(UnkStruct_func_80090A00* arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80091298.s")
+s32 func_80091298(UnkStruct_func_80090A00* arg0) {
+    arg0->unk_114[1] = D_80178280->unk_0D0 + 10.0f;
+    arg0->unk_114[3] = 3.6f;
+    arg0->unk_114[4] = D_80178280->unk_074 + ((f32) (arg0->unk_0E4 - 2) * 700.0f);
+    arg0->unk_114[5] = D_80178280->unk_078;
+    arg0->unk_114[6] = D_80178280->unk_138;
+
+    if ((fabsf(arg0->unk_000.pos.x - arg0->unk_114[4]) < 700.0f) ||
+        (fabsf(arg0->unk_000.pos.z - arg0->unk_114[6]) < 700.0f)) {
+        arg0->unk_114[1] = D_80178280->unk_0D0 - 10.0f;
+        arg0->unk_114[3] = 1.2f;
+    }
+    return 0;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80091368.s")
 
