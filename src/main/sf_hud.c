@@ -72,7 +72,33 @@ void func_80085890(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80085944.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80086110.s")
+void func_80086110(f32 arg0, f32 arg1, s32 arg2) {
+    f32 temp = 0.82f;
+    s32 pad;
+
+    func_800B8DD0(&D_80137E64, 0x4B);
+    gDPSetPrimColor(D_80137E64++, 0, 0, 255, 255, 255, 255);
+
+    if (arg2 != 0) {
+        func_800856C0((8.0f * temp) + arg0, arg1 + 2.0f, temp, 1.0f, arg2 / 255.0f);
+    }
+
+    if ((arg2 <= 0) && (arg2 != -2) && ((D_80177854 == 100) || (D_80177830 == 1) || (D_80177838 != 0))) {
+        func_800B8DD0(&D_80137E64, 0x4C);
+        gDPSetPrimColor(D_80137E64++, 0, 0, 255, 255, 0, 255);
+        if ((arg2 == 0) && (D_80178280->unk_1C8 == 7)) {
+            func_800A1200(arg0 + (8.0f * temp) + 4.0f, arg1 + 2.0f, 1.0f, 1.0f, " OK ");
+        } else {
+            func_800A1200(arg0 + (8.0f * temp) + 4.0f, arg1 + 2.0f, 1.0f, 1.0f, "DOWN");
+        }
+    }
+
+    func_800B8DD0(&D_80137E64, 0x4C);
+    gDPSetPrimColor(D_80137E64++, 0, 0, 255, 255, 255, 255);
+    func_80085618(arg0, arg1, temp, 1.0f);
+    func_800855C4(arg0 + (7.0f * temp) + (temp * 6.0f) * 8.0f, arg1, 1.0f, 1.0f);
+    func_8008566C(arg0 + (7.0f * temp), arg1, temp * 6.0f, 1.0f);
+}
 
 s32 func_800863C8(void) {
     s32 var_v1 = 0;

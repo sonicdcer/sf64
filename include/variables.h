@@ -63,9 +63,12 @@ extern UnkStruct_D_8016F110 D_8016F110[];
 
 extern UnkStruct_D_80175A10 D_80175A10[];
 extern UnkStruct_D_80178280* D_80178280;
+extern u8 D_80177830;
 extern s32 D_80177834;
+extern s32 D_80177838;
 extern s32 D_8017783C;
 extern s32 D_80177848;
+extern s32 D_80177854;
 extern s32 D_80177898;
 extern s32 D_801778A0;
 extern s32 D_801778A8;
