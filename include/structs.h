@@ -19,6 +19,15 @@ typedef struct {
     /* 0x10 */ Vec3f unk_10;
 } ElementType1; // size = 0x1C
 
+typedef struct {
+    /* 0x00 */ u8 unk_00;
+    /* 0x01 */ char pad_01[0x1];
+    /* 0x02 */ u16 unk_02;
+    /* 0x04 */ Vec3f pos;
+    /* 0x10 */ f32 unk_10;
+    /* 0x14 */ char pad_14[0x14];
+} UnkStruct_D_80175A10; // size = 0x28
+
 typedef struct UnkStruct_D_80178280 {
     /* 0x000 */ char pad_0[0xC];
     /* 0x00C */ f32 unk_00C;
@@ -58,7 +67,9 @@ typedef struct {
 
 typedef struct {
     /* 0x000 */ ElementType1 unk_000;
-    /* 0x01C */ char pad_01C[0x34];
+    /* 0x01C */ char pad_01C[0x24];
+    /* 0x040 */ s32 unk_040;
+    /* 0x044 */ char pad_044[0xC];
     /* 0x050 */ s32 unk_050[25];
     /* 0x0B4 */ char pad_0B4[0x4];
     /* 0x0B8 */ s16 unk_0B8;

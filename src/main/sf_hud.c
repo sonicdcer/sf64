@@ -1821,7 +1821,14 @@ s32 func_80091F00(UnkStruct_func_80090A00* arg0) {
     return false;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80092244.s")
+void func_80092244(UnkStruct_func_80090A00* arg0) {
+    D_80175A10[arg0->unk_040].unk_00 = 1;
+    D_80175A10[arg0->unk_040].unk_02 = arg0->unk_0E4;
+    D_80175A10[arg0->unk_040].pos.x = arg0->unk_000.pos.x;
+    D_80175A10[arg0->unk_040].pos.y = arg0->unk_000.pos.y;
+    D_80175A10[arg0->unk_040].pos.z = arg0->unk_000.pos.z;
+    D_80175A10[arg0->unk_040].unk_10 = arg0->unk_0F8 + 180.0f;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800922F4.s")
 
