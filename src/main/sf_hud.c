@@ -1554,8 +1554,8 @@ s32 func_80091368(UnkStruct_func_80090A00* arg0) {
             break;
 
         case 1:
-            if (arg0->unk_114[0x1D] < 2.0f) {
-                arg0->unk_114[0x1D] = 2.0f;
+            if (arg0->unk_114[29] < 2.0f) {
+                arg0->unk_114[29] = 2.0f;
             }
 
             if (arg0->unk_0BC == 0) {
