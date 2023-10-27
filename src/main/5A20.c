@@ -17,7 +17,7 @@ void func_80004E4C(void) {
     D_8013B3AC = (s32) osGetTime() % 30000;
 }
 
-f32 func_80004EB0(void) {
+f32 Rand_ZeroOne(void) {
     D_8013B3A4 = (D_8013B3A4 * 0xAB) % 30269;
     D_8013B3A8 = (D_8013B3A8 * 0xAC) % 30307;
     D_8013B3AC = (D_8013B3AC * 0xAA) % 30323;

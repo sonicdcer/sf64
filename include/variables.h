@@ -70,6 +70,7 @@ extern s32 D_801778A0;
 extern s32 D_801778A8;
 extern s32 D_801778B8;
 extern s32 D_801778E8;
+extern f32 D_80177940;
 extern f32 D_80177978;
 extern f32 D_80177980;
 extern f32 D_80177988;
@@ -79,6 +80,7 @@ extern f32 D_801779C0;
 extern s32 D_80177AE0;
 extern s32 D_80177AF8;
 extern u8 D_80177C98;
+extern f32 D_80177D08;
 extern f32 D_80177D68;
 extern s32 D_80177DA0[];
 extern s32 D_80177DB0;
@@ -101,6 +103,10 @@ extern s32 D_80178550;
 extern s32 D_80178554;
 extern s32 D_80178558;
 extern s32 D_8017855C;
+
+extern u16 D_801839B8[];
+extern u16 D_80183A08[];
+extern u16 D_80183A64[];
 
 extern f32 D_801B7BC8;
 extern f32 D_801B7BCC;
