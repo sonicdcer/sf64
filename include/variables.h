@@ -181,8 +181,10 @@ extern u8 D_1011E80[];
 extern u16 D_1011EC0[];
 extern s32 D_1011ED0[];
 extern s32 D_1011F08[];
+extern u8 D_10127D0[];
+extern u16 D_1012898[];
 extern u8 D_10128C0[];
-extern u8 D_1012988[];
+extern u16 D_1012988[];
 extern u8 D_10129C0[];
 extern u16 D_1013090[];
 extern Gfx D_1015510[];
@@ -223,8 +225,10 @@ extern Gfx D_200F910[];
 extern Gfx D_20101A0[];
 
 extern u16 D_3000BC0[];
+extern u8 D_300D350[];
+extern u16 D_300D398[];
 extern u8 D_300D3C0[];
-extern u8 D_300D408[];
+extern u16 D_300D408[];
 
 extern u8 D_5000000[];
 extern u8 D_5000080[];

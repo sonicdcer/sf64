@@ -62,7 +62,13 @@ void func_800857DC(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80085890.s")
+void func_80085890(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
+    if (D_801778E8 != 0) {
+        func_8009D0BC(&D_80137E64, &D_300D350, &D_300D398, 24, 3, arg0, arg1, arg2, arg3);
+    } else {
+        func_8009D0BC(&D_80137E64, &D_10127D0, &D_1012898, 40, 5, arg0, arg1, arg2, arg3);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80085944.s")
 
