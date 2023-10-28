@@ -1376,7 +1376,31 @@ void func_800907C4(UnkStruct_D_8016F110* arg0) {
     func_8008FFF0(arg0, D_8015F928);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8009092C.s")
+s32 func_8009092C(UnkStruct_func_80090A00* arg0) {
+    s32 var_s5 = 0;
+    UnkStruct_D_8016F110* var_s1;
+    s32 i;
+
+    if (arg0->unk_0E6 != 0) {
+        return 1;
+    }
+
+    var_s1 = &D_8016F110[1];
+
+    for (i = 1; i < 4; i++, var_s1++) {
+        if (var_s1->unk_000.unk_00 == 2) {
+            var_s5 = 1;
+            if (arg0->unk_0E6 == 0) {
+                arg0->unk_0E6 = i;
+            } else if (Rand_ZeroOne() > 0.4f) {
+                arg0->unk_0E6 = i;
+            }
+            arg0->unk_0B8 = 0;
+        }
+    }
+
+    return var_s5;
+}
 
 s32 func_80090A00(UnkStruct_func_80090A00* arg0) {
     switch (arg0->unk_050[5]) {
