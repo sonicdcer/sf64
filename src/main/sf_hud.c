@@ -1997,7 +1997,24 @@ void func_8009546C(UnkStruct_func_80090A00* arg0, s32 arg1) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8009546C.s")
 #endif
 
+#ifdef DATA_IMPORT_PENDING
+void func_80095538(UnkStruct_func_80090A00* arg0, s32 arg1) {
+    Vec3f D_800D257C[] = {
+        { 0.0f, 0.0f, -200.0f },    { -300.0f, 0.0f, -700.0f },  { 400.0f, 0.0f, -900.0f },
+        { 300.0f, 0.0f, -1700.0f }, { -260.0f, 0.0f, -2000.0f }, { -200.0f, 0.0f, -2600.0f },
+    };
+
+    func_800613C4(arg0);
+    arg0->unk_000.unk_00 = 2;
+    arg0->unk_000.unk_02 = 195;
+    arg0->unk_000.pos = D_800D257C[arg1];
+    arg0->unk_000.pos.z -= D_80177D20;
+    arg0->unk_0B6 = 47;
+    func_800612B8(&arg0->unk_01C, arg0->unk_000.unk_02);
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80095538.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80095604.s")
 
