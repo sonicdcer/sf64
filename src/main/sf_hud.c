@@ -1949,15 +1949,34 @@ void func_800922F4(UnkStruct_func_80090A00* arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80094D20.s")
 
-void func_80095350(UnkStruct_func_80095350* arg0) {
+void func_80095350(UnkStruct_func_80090A00* arg0) {
     func_800613C4(arg0);
-    arg0->unk0 = 2;
-    arg0->unk2 = 0xC3;
-    arg0->unkB6 = 0x270F;
-    func_800612B8((s32*) arg0 + 7, arg0->unk2, arg0);
+    arg0->unk_000.unk_00 = 2;
+    arg0->unk_000.unk_02 = 195;
+    arg0->unk_0B6 = 9999;
+    func_800612B8(&arg0->unk_01C, arg0->unk_000.unk_02);
 }
 
+#ifdef DATA_IMPORT_PENDING
+void func_800953A0(UnkStruct_func_80090A00* arg0, s32 arg1) {
+    Vec3f D_800D2510[] = {
+        { 1800.0f, 0.0f, -4000.0f },
+        { -1000.0f, 0.0f, -4800.0f },
+        { 800.0f, 0.0f, -5600.0f },
+        { -200.0f, 0.0f, -7000.0f },
+    };
+
+    func_800613C4(arg0);
+    arg0->unk_000.unk_00 = 2;
+    arg0->unk_000.unk_02 = 195;
+    arg0->unk_000.pos = D_800D2510[arg1];
+    arg0->unk_000.pos.z -= D_80177D20;
+    arg0->unk_0B6 = 45;
+    func_800612B8(&arg0->unk_01C, arg0->unk_000.unk_02);
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800953A0.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8009546C.s")
 

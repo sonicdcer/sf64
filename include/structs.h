@@ -72,11 +72,13 @@ typedef struct {
 
 typedef struct {
     /* 0x000 */ ElementType1 unk_000;
-    /* 0x01C */ char pad_01C[0x24];
+    /* 0x01C */ s32 unk_01C;
+    /* 0x020 */ char pad_020[0x20];
     /* 0x040 */ s32 unk_040;
     /* 0x044 */ char pad_044[0xC];
     /* 0x050 */ s32 unk_050[25];
-    /* 0x0B4 */ char pad_0B4[0x4];
+    /* 0x0B4 */ char pad_0B4[0x2];
+    /* 0x0B6 */ s16 unk_0B6;
     /* 0x0B8 */ s16 unk_0B8;
     /* 0x0BA */ char pad_0BA[0x2];
     /* 0x0BC */ u16 unk_0BC;
