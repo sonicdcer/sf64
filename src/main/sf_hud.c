@@ -241,7 +241,34 @@ void func_8008865C(void) {
     func_80087B5C();
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800886B8.s")
+s32 func_800886B8(void) {
+    s32 var_v1 = 0;
+    f32 var_fv1 = D_8017797C->unk_3; // related to the vertical height of the arwing
+
+    if ((var_fv1 != 0.0f) && (D_80161810[4] != 0)) {
+        return 0;
+    }
+
+    D_80161810[4] = 0;
+
+    if (fabsf(var_fv1) < 30.0f) {
+        var_fv1 = 0.0f;
+    }
+
+    if (var_fv1 != 0.0f) {
+        if (D_80161810[2] == 0) {
+            if (var_fv1 > 0) {
+                var_v1 = 1;
+            } else {
+                var_v1 = -1;
+            }
+            D_80161810[2] = 1;
+        }
+    } else {
+        D_80161810[2] = 0;
+    }
+    return var_v1;
+}
 
 #ifdef IMPORT_DATA_PENDING
 void func_80088784(s32 arg0) {

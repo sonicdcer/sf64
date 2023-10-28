@@ -20,6 +20,11 @@ typedef struct {
 } ElementType1; // size = 0x1C
 
 typedef struct {
+    /* 0x0 */ char pad_0[0x3];
+    /* 0x3 */ s8 unk_3;
+} UnkStruct_D_8017797C;
+
+typedef struct {
     /* 0x00 */ u8 unk_00;
     /* 0x01 */ char pad_01[0x1];
     /* 0x02 */ u16 unk_02;
