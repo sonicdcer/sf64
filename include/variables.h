@@ -235,6 +235,8 @@ extern u8 D_300D350[];
 extern u16 D_300D398[];
 extern u8 D_300D3C0[];
 extern u16 D_300D408[];
+extern u8 D_300D440[];
+extern u16 D_300D500[];
 
 extern u8 D_5000000[];
 extern u8 D_5000080[];

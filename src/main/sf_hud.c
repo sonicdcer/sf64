@@ -904,7 +904,11 @@ void func_8008CFB8(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     func_8009D994(&D_80137E64, D_3000BC0 + ((640 * i) / 2), 80, 2, arg0, (8 * i * arg3) + arg1, arg2, arg3);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008D0DC.s")
+void func_8008D0DC(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+    u32 var_t8 = 48.0f * arg4;
+
+    func_80084E78(&D_80137E64, D_300D440, D_300D500, 48, 4, arg0, arg1, arg2, arg3, var_t8, 4);
+}
 
 void func_8008D1F0(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     func_8009C320(&D_80137E64, &D_10116B0, &D_1011730, 16, 16, arg0, arg1, arg2, arg3);
