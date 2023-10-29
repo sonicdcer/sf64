@@ -32,7 +32,7 @@ f32 func_8001FBC8(f32 x) {
     return func_8001FF08(x);
 }
 
-f32 func_8001FBE8(f32 x) {
+f32 Math_FAtanF(f32 x) {
     s32 sector;
     s32 i;
     f32 sq;
@@ -65,7 +65,7 @@ f32 func_8001FBE8(f32 x) {
     }
 }
 
-f32 func_8001FD0C(f32 y, f32 x) {
+f32 Math_FAtan2F(f32 y, f32 x) {
     if ((y == 0.0f) && (x == 0.0f)) {
         return 0.0f;
     }
@@ -77,17 +77,17 @@ f32 func_8001FD0C(f32 y, f32 x) {
     }
     if (x < 0.0f) {
         if (y < 0.0f) {
-            return -(M_PI - func_8001FBE8(fabs(y / x)));
+            return -(M_PI - Math_FAtanF(fabs(y / x)));
         }
-        return M_PI - func_8001FBE8(fabs(y / x));
+        return M_PI - Math_FAtanF(fabs(y / x));
     }
-    return func_8001FBE8(y / x);
+    return Math_FAtanF(y / x);
 }
 
-f32 func_8001FE00(f32 x) {
-    return func_8001FD0C(x, sqrtf(1 - SQ(x)));
+f32 Math_FAsinF(f32 x) {
+    return Math_FAtan2F(x, sqrtf(1 - SQ(x)));
 }
 
-f32 func_8001FE30(f32 x) {
-    return M_PI / 2.0f - func_8001FE00(x);
+f32 Math_FAcosF(f32 x) {
+    return M_PI / 2.0f - Math_FAsinF(x);
 }

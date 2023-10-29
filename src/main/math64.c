@@ -16,10 +16,10 @@
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/math64/func_8001FBC8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/math64/func_8001FBE8.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/math64/Math_FAtanF.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/math64/func_8001FD0C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/math64/Math_FAtan2F.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/math64/func_8001FE00.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/math64/Math_FAsinF.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/math64/func_8001FE30.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/math64/Math_FAcosF.s")

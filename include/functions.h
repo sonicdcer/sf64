@@ -1,15 +1,16 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
-f32 func_80004E20(f32 arg0, f32 arg1);
-void func_80004E4C(void);
-f32 func_80004EB0(void);
-void func_80004FC8(s32 arg0, s32 arg1, s32 arg2);
-f32 func_80004FE8(void);
-f32 func_80005100(f32 arg0, f32 arg1);
-f32 func_80005320(f32 arg0, f32 arg1);
-f32 func_800055DC(f32 arg0, s32 arg1);
-void func_80005604(s32* arg0, s32* arg1, s32 arg2, s32 arg3, s32 arg4);
+f32 Math_ModF(f32 value, f32 mod);
+void Rand_Init(void);
+f32 Rand_ZeroOne(void);
+void Rand_SetSeed(s32 seed1, s32 seed2, s32 seed3);
+f32 Rand_ZeroOneSeeded(void);
+f32 Math_Atan2F(f32 y, f32 x);
+f32 Math_Atan2F_XY(f32 x, f32 y);
+f32 Math_Atan2F_XYAlt(f32 x, f32 y);
+f32 Math_PowF(f32 base, s32 exp);
+void Math_MinMax(s32* min, s32* max, s32 val1, s32 val2, s32 val3);
 
 void func_80005680(Matrix*, Matrix*);
 void func_80005708(Matrix ** mtx);
@@ -66,10 +67,10 @@ f32 func_8001FB58(f32);
 f32 func_8001FB88(f32);
 f32 func_8001FBA8(f32);
 f32 func_8001FBC8(f32);
-f32 func_8001FBE8(f32);
-f32 func_8001FD0C(f32, f32);
-f32 func_8001FE00(f32);
-f32 func_8001FE30(f32);
+f32 Math_FAtanF(f32);
+f32 Math_FAtan2F(f32, f32);
+f32 Math_FAsinF(f32);
+f32 Math_FAcosF(f32);
 
 void func_800227A0(s32, OSMesgQueue*, OSMesg*, s32);
 
