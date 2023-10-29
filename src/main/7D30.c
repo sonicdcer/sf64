@@ -18,9 +18,9 @@ s32 func_8000716C(s32 arg0, u8* arg1) {
     if (osEepromWrite(&D_800E2128, arg0, arg1)) {
         return -1;
     }
-    temp_ret = __ull_div(osClockRate, 0x3D09);
-    temp_ret_2 = __ll_mul(0x3A98, temp_ret);
-    temp_ret_3 = __ull_div(temp_ret_2, 0x40);
+    temp_ret = __ull_div(osClockRate, 15625);
+    temp_ret_2 = __ll_mul(15000, temp_ret);
+    temp_ret_3 = __ull_div(temp_ret_2, 64);
     func_800070C8(temp_ret_3);
 
     return 0;

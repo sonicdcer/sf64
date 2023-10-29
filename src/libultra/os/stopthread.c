@@ -1,35 +1,20 @@
-#include "common.h"
+#include "global.h"
+#include "osint.h"
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/os/stopthread/osStopThread.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/os/stopthread/func_8002E340.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/os/stopthread/func_8002E364.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/os/stopthread/func_8002E3A8.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/os/stopthread/func_8002E3BC.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/os/stopthread/func_8002E3E0.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/os/stopthread/func_8002E4F8.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/os/stopthread/func_8002E548.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/os/stopthread/func_8002E5E0.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/os/stopthread/func_8002E604.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/os/stopthread/func_8002E628.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/os/stopthread/func_8002E64C.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/os/stopthread/func_8002E670.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/os/stopthread/func_8002E694.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/os/stopthread/func_8002E6B8.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/os/stopthread/func_8002E6DC.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/os/stopthread/D_800C9A50.s")
+void osStopThread(OSThread *t) {
+    register u32 saveMask = __osDisableInt();
+    register u16 state = (t == NULL) ? OS_STATE_RUNNING : t->state;
+    
+    switch (state) {
+        case OS_STATE_RUNNING:
+            __osRunningThread->state = 1;
+            __osEnqueueAndYield(NULL);
+            break;
+        case OS_STATE_RUNNABLE:
+        case OS_STATE_WAITING:
+            t->state = OS_STATE_STOPPED;
+            __osDequeueThread(t->queue, t);
+            break;
+    }
+    __osRestoreInt(saveMask);
+}

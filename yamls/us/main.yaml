@@ -8,14 +8,14 @@
       - [0x1050, textbin]
       - [0x1270, textbin]
     
-      - [0x3440, c]
-      - [0x3A80, c]
-      - [0x41D0, c]
-      - [0x4650, c]
-      - [0x5A20, c] # -O2 -g3
-      - [0x6280, c] # -O2 -g3
-      - [0x7B20, c]
-      - [0x7D30, c]
+      - [0x3440, c, 3440]
+      - [0x3A80, c, 3A80]
+      - [0x41D0, c, 41D0]
+      - [0x4650, c, 4650]
+      - [0x5A20, c, 5A20] # -O2 -g3
+      - [0x6280, c, 6280] # -O2 -g3
+      - [0x7B20, c, 7B20]
+      - [0x7D30, c, 7D30]
       - [0x7FC0, c, 7FC0]
       - [0x8CC0, c, 8CC0]
       - [0xC870, c, C870]
@@ -37,7 +37,7 @@
       - [0x211E0, c, ../libultra/os/recvmesg]
       - [0x21320, c, ../libultra/os/sendmesg]
       - [0x21470, c, ../libultra/io/contquery]
-      - [0x21520, c, ../libultra/io/motor] # rumble
+      - [0x21520, c, ../libultra/io/motor]
       - [0x21B40, c, ../libultra/gu/perspective]
       - [0x21DD0, c, ../libultra/gu/lookat]
       - [0x22100, c, ../libultra/gu/ortho]
@@ -192,7 +192,7 @@
       - [0xC9320, .rodata, 14AA0]
       - [0xC99D0, .rodata, 17650]
       - [0xC9CF0, .rodata, 1EB50]
-      - [0xC9F10, .rodata, ../libultra/206B0]
+      - [0xC9F10, .rodata, math64]
       - [0xC9F30, .rodata, ../libultra/gu/perspective]
       - [0xC9F40, .rodata, ../libultra/gu/sinf]
       - [0xC9F90, .rodata, ../libultra/gu/cosf]
@@ -203,7 +203,7 @@
       - [0xCA180, .rodata, ../libultra/rmon/xldtob]
       - [0xCA1E0, .rodata, ../libultra/2BDF0]
       - [0xCA5A0, .rodata, 2DF00]
-      - [0xCA650, .rodata, ../libultra/os/stopthread]
+      - [0xCA650, rodata, ../libultra/rmon/rmonrcp]
 
       # DATA - game engine
       - [0xCA690, data, engine]
