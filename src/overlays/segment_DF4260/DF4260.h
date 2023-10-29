@@ -15,6 +15,4 @@ typedef struct {
     /* 0x74 */ f32 unk74;
 } UnkStruct_func_80187A38_DF4778;
 
-void func_8007C120(s32, s32, s32, f32, f32, f32, f32, s32);
-
 #endif

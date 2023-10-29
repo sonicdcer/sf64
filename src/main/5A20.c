@@ -7,19 +7,16 @@ extern s32 D_8013B3AC;
 extern s32 D_8013B3B0;
 extern s32 D_8013B3B4;
 
-//Math_ModF
 f32 Math_ModF(f32 value, f32 mod) {
     return value - ((s32) (value / mod) * mod);
 }
 
-//Rand_Init
 void Rand_Init(void) {
     D_8013B3A4 = (s32) osGetTime() % 30000;
     D_8013B3A8 = (s32) osGetTime() % 30000;
     D_8013B3AC = (s32) osGetTime() % 30000;
 }
 
-//Rand_ZeroOne
 f32 Rand_ZeroOne(void) {
     D_8013B3A4 = (D_8013B3A4 * 171) % 30269;
     D_8013B3A8 = (D_8013B3A8 * 172) % 30307;
@@ -28,14 +25,12 @@ f32 Rand_ZeroOne(void) {
     return fabsf(Math_ModF((D_8013B3A4 / 30269.0f) + (D_8013B3A8 / 30307.0f) + (D_8013B3AC / 30323.0f), 1.0f));
 }
 
-//Rand_SetSeed
 void Rand_SetSeed(s32 seed1, s32 seed2, s32 seed3) {
     D_8013B3B0 = seed1;
     D_8013B3B4 = seed2;
     D_8013B3A0 = seed3;
 }
 
-//Rand_ZeroOneSeeded
 f32 Rand_ZeroOneSeeded(void) {
     D_8013B3B0 = (D_8013B3B0 * 171) % 30269;
     D_8013B3B4 = (D_8013B3B4 * 172) % 30307;
@@ -44,7 +39,6 @@ f32 Rand_ZeroOneSeeded(void) {
     return fabsf(Math_ModF((D_8013B3B0 / 30269.0f) + (D_8013B3B4 / 30307.0f) + (D_8013B3A0 / 30323.0f), 1.0f));
 }
 
-//Math_ArcTan2
 f32 Math_Atan2F(f32 y, f32 x) {
     if ((y == 0.0f) && (x == 0.0f)) {
         return 0.0f;
@@ -69,7 +63,6 @@ f32 Math_Atan2F(f32 y, f32 x) {
     }
 }
 
-//Math_ArcCot2
 f32 Math_Atan2F_XY(f32 x, f32 y) {
     if ((x == 0.0f) && (y == 0.0f)) {
         return 0.0f;
@@ -102,7 +95,6 @@ f32 Math_Atan2F_XY(f32 x, f32 y) {
     }
 }
 
-// Math_ArcCot2_Alt ? 
 f32 Math_Atan2F_XYAlt(f32 x, f32 y) {
     if ((x == 0.0f) && (y == 0.0f)) {
         return 0.0f;
@@ -121,7 +113,6 @@ f32 Math_Atan2F_XYAlt(f32 x, f32 y) {
     return -Math_FAtanF(x / y);
 }
 
-//Math_FactorialF
 f32 Math_FactorialF(f32 n) {
     f32 out = 1.0f;
     s32 i;
@@ -135,7 +126,6 @@ f32 Math_FactorialF(f32 n) {
 
 extern f32 D_800C45E0[];
 
-//Math_Factorial
 f32 Math_Factorial(s32 n) {
     f32 out;
     s32 i;
@@ -152,7 +142,6 @@ f32 Math_Factorial(s32 n) {
     return out;
 }
 
-//Math_PowerF
 f32 Math_PowF(f32 base, s32 exp) {
     f32 out = 1.0f;
 
@@ -163,7 +152,6 @@ f32 Math_PowF(f32 base, s32 exp) {
     return out;
 }
 
-//Math_MinMax
 void Math_MinMax(s32* min, s32* max, s32 val1, s32 val2, s32 val3) {
     if (val1 < val2) {
         if (val2 < val3) {
