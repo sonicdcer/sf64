@@ -1744,8 +1744,8 @@ s32 func_80091864(UnkStruct_func_80090A00* arg0) {
     y = arg0->unk_114[5] - arg0->unk_000.pos.y;
     z = arg0->unk_114[6] - arg0->unk_000.pos.z;
 
-    sp40 = func_8009F768(func_80005100(x, z));
-    sp44 = func_8009F768(func_80005100(y, sqrtf(SQ(x) + SQ(z))));
+    sp40 = func_8009F768(Math_Atan2F(x, z));
+    sp44 = func_8009F768(Math_Atan2F(y, sqrtf(SQ(x) + SQ(z))));
 
     if ((func_800915FC(arg0) != 0) && (arg0->unk_050[4] == 0)) {
         sp44 += 40.0f;

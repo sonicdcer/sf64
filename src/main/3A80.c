@@ -1,9 +1,7 @@
-#include "common.h"
+#include "global.h"
 
-extern void func_8001FA04(void);
-
-void func_80002E80(void) {
-    func_8001FA04();
+s32 func_80002E80(char* dst, char* fmt, va_list args) {
+    return vsprintf(dst, fmt, args);
 }
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/3A80/func_80002EA0.s")

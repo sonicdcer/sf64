@@ -1,6 +1,25 @@
 bootproc = 0x80004DA8;
-Rand_ZeroOne = 0x80004EB0;
 D_800C90F0 = 0x800C90F0;
+__libm_qnan_f = 0x800C9570;
+
+Math_ModF = 0x80004E20;
+Rand_Init = 0x80004E4C;
+Rand_ZeroOne = 0x80004EB0;
+Rand_SetSeed = 0x80004FC8;
+Rand_ZeroOneSeeded = 0x80004FE8;
+Math_Atan2F = 0x80005100;
+Math_Atan2F_XY = 0x800051F8;
+Math_Atan2F_XYAlt = 0x80005320;
+Math_FactorialF = 0x800053C8;
+Math_Factorial = 0x800054C8;
+Math_PowF = 0x800055DC;
+Math_MinMax = 0x80005604;
+D_800C45E0 = 0x800C45E0;
+
+Math_FAtanF = 0x8001FBE8;
+Math_FAtan2F = 0x8001FD0C;
+Math_FAsinF = 0x8001FE00;
+Math_FAcosF = 0x8001FE30;
 
 D_800D934C = 0x800D934C; // force_migration:True
 D_800D503C = 0x800D503C; // force_migration:True

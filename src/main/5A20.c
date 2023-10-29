@@ -7,123 +7,178 @@ extern s32 D_8013B3AC;
 extern s32 D_8013B3B0;
 extern s32 D_8013B3B4;
 
-f32 func_80004E20(f32 arg0, f32 arg1) {
-    return arg0 - ((s32) (arg0 / arg1) * arg1);
+f32 Math_ModF(f32 value, f32 mod) {
+    return value - ((s32) (value / mod) * mod);
 }
 
-void func_80004E4C(void) {
+void Rand_Init(void) {
     D_8013B3A4 = (s32) osGetTime() % 30000;
     D_8013B3A8 = (s32) osGetTime() % 30000;
     D_8013B3AC = (s32) osGetTime() % 30000;
 }
 
 f32 Rand_ZeroOne(void) {
-    D_8013B3A4 = (D_8013B3A4 * 0xAB) % 30269;
-    D_8013B3A8 = (D_8013B3A8 * 0xAC) % 30307;
-    D_8013B3AC = (D_8013B3AC * 0xAA) % 30323;
+    D_8013B3A4 = (D_8013B3A4 * 171) % 30269;
+    D_8013B3A8 = (D_8013B3A8 * 172) % 30307;
+    D_8013B3AC = (D_8013B3AC * 170) % 30323;
 
-    return fabsf(func_80004E20((D_8013B3A4 / 30269.0f) + (D_8013B3A8 / 30307.0f) + (D_8013B3AC / 30323.0f), 1.0f));
+    return fabsf(Math_ModF((D_8013B3A4 / 30269.0f) + (D_8013B3A8 / 30307.0f) + (D_8013B3AC / 30323.0f), 1.0f));
 }
 
-void func_80004FC8(s32 arg0, s32 arg1, s32 arg2) {
-    D_8013B3B0 = arg0;
-    D_8013B3B4 = arg1;
-    D_8013B3A0 = arg2;
+void Rand_SetSeed(s32 seed1, s32 seed2, s32 seed3) {
+    D_8013B3B0 = seed1;
+    D_8013B3B4 = seed2;
+    D_8013B3A0 = seed3;
 }
 
-f32 func_80004FE8(void) {
-    D_8013B3B0 = (D_8013B3B0 * 0xAB) % 30269;
-    D_8013B3B4 = (D_8013B3B4 * 0xAC) % 30307;
-    D_8013B3A0 = (D_8013B3A0 * 0xAA) % 30323;
+f32 Rand_ZeroOneSeeded(void) {
+    D_8013B3B0 = (D_8013B3B0 * 171) % 30269;
+    D_8013B3B4 = (D_8013B3B4 * 172) % 30307;
+    D_8013B3A0 = (D_8013B3A0 * 170) % 30323;
 
-    return fabsf(func_80004E20((D_8013B3B0 / 30269.0f) + (D_8013B3B4 / 30307.0f) + (D_8013B3A0 / 30323.0f), 1.0f));
+    return fabsf(Math_ModF((D_8013B3B0 / 30269.0f) + (D_8013B3B4 / 30307.0f) + (D_8013B3A0 / 30323.0f), 1.0f));
 }
 
-f32 func_80005100(f32 arg0, f32 arg1) {
-    if ((arg0 == 0.0f) && (arg1 == 0.0f)) {
+f32 Math_Atan2F(f32 y, f32 x) {
+    if ((y == 0.0f) && (x == 0.0f)) {
         return 0.0f;
     }
 
-    if (arg1 == 0.0f) {
-        if (arg0 < 0.0f) {
+    if (x == 0.0f) {
+        if (y < 0.0f) {
             return -M_PI / 2.0f;
         } else {
             return M_PI / 2.0f;
         }
     }
 
-    if (arg1 < 0.0f) {
-        if (arg0 < 0.0f) {
-            return -(M_PI - func_8001FBE8(fabs(arg0 / arg1)));
+    if (x < 0.0f) {
+        if (y < 0.0f) {
+            return -(M_PI - Math_FAtanF(fabs(y / x)));
         } else {
-            return M_PI - func_8001FBE8(fabs(arg0 / arg1));
+            return M_PI - Math_FAtanF(fabs(y / x));
         }
     } else {
-        return func_8001FBE8(arg0 / arg1);
+        return Math_FAtanF(y / x);
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_800051F8.s")
-
-f32 func_80005320(f32 arg0, f32 arg1) {
-    if ((arg0 == 0.0f) && (arg1 == 0.0f)) {
+f32 Math_Atan2F_XY(f32 x, f32 y) {
+    if ((x == 0.0f) && (y == 0.0f)) {
         return 0.0f;
     }
 
-    if (arg0 == 0.0f) {
-        if (arg1 < 0.0f) {
+    if (x == 0.0f) {
+        if (y < 0.0f) {
+            return -M_PI / 2.0f;
+        } else {
+            return M_PI / 2.0f;
+        }
+    }
+
+    if (y == 0.0f) {
+        if (x > 0.0f) {
+            return 0.0f;
+        } else {
+            return M_PI;
+        }
+    }
+
+    if (x < 0.0f) {
+        if (y < 0.0f) {
+            return -(M_PI - Math_FAtanF(fabs(x / y)));
+        } else {
+            return M_PI - Math_FAtanF(fabs(x / y));
+        }
+    } else {
+        return Math_FAtanF(x / y);
+    }
+}
+
+f32 Math_Atan2F_XYAlt(f32 x, f32 y) {
+    if ((x == 0.0f) && (y == 0.0f)) {
+        return 0.0f;
+    }
+
+    if (x == 0.0f) {
+        if (y < 0.0f) {
             return -M_PI / 2.0f;
         }
         return M_PI / 2.0f;
     }
 
-    if (arg1 == 0.0f) {
+    if (y == 0.0f) {
         return 0.0f;
     }
-    return -func_8001FBE8(arg0 / arg1);
+    return -Math_FAtanF(x / y);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_800053C8.s")
+f32 Math_FactorialF(f32 n) {
+    f32 out = 1.0f;
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/5A20/func_800054C8.s")
-
-f32 func_800055DC(f32 arg0, s32 arg1) {
-    f32 var_fv1 = 1.0f;
-
-    while (arg1 > 0) {
-        arg1--;
-        var_fv1 *= arg0;
+    for (i = (s32) n; i > 1; i--) {
+        out *= i;
     }
-    return var_fv1;
+
+    return out;
 }
 
-void func_80005604(s32* arg0, s32* arg1, s32 arg2, s32 arg3, s32 arg4) {
-    if (arg2 < arg3) {
-        if (arg3 < arg4) {
-            *arg0 = arg2;
-            *arg1 = arg4;
+extern f32 D_800C45E0[];
+
+f32 Math_Factorial(s32 n) {
+    f32 out;
+    s32 i;
+
+    if (n > 12) {
+        out = 1.0f;
+
+        for (i = n; i > 1; i--) {
+            out *= i;
+        }
+    } else {
+        out = D_800C45E0[n];
+    }
+    return out;
+}
+
+f32 Math_PowF(f32 base, s32 exp) {
+    f32 out = 1.0f;
+
+    while (exp > 0) {
+        exp--;
+        out *= base;
+    }
+    return out;
+}
+
+void Math_MinMax(s32* min, s32* max, s32 val1, s32 val2, s32 val3) {
+    if (val1 < val2) {
+        if (val2 < val3) {
+            *min = val1;
+            *max = val3;
             return;
         }
-        *arg1 = arg3;
+        *max = val2;
 
-        if (arg2 < arg4) {
-            *arg0 = arg2;
+        if (val1 < val3) {
+            *min = val1;
             return;
         }
-        *arg0 = arg4;
+        *min = val3;
         return;
     }
 
-    if (arg2 < arg4) {
-        *arg0 = arg3;
-        *arg1 = arg4;
+    if (val1 < val3) {
+        *min = val2;
+        *max = val3;
         return;
     }
-    *arg1 = arg2;
+    *max = val1;
 
-    if (arg3 < arg4) {
-        *arg0 = arg3;
+    if (val2 < val3) {
+        *min = val2;
         return;
     }
-    *arg0 = arg4;
+    *min = val3;
 }

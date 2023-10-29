@@ -3,22 +3,23 @@
 
 #include "structs.h"
 
-f32 func_80004E20(f32 arg0, f32 arg1);
-void func_80004E4C(void);
+f32 Math_ModF(f32 value, f32 mod);
+void Rand_Init(void);
 f32 Rand_ZeroOne(void);
-void func_80004FC8(s32 arg0, s32 arg1, s32 arg2);
-f32 func_80004FE8(void);
-f32 func_80005100(f32 arg0, f32 arg1);
-f32 func_80005320(f32 arg0, f32 arg1);
-f32 func_800055DC(f32 arg0, s32 arg1);
-void func_80005604(s32* arg0, s32* arg1, s32 arg2, s32 arg3, s32 arg4);
-void func_80005E90(Matrix*, float, char);
+void Rand_SetSeed(s32 seed1, s32 seed2, s32 seed3);
+f32 Rand_ZeroOneSeeded(void);
+f32 Math_Atan2F(f32 y, f32 x);
+f32 Math_Atan2F_XY(f32 x, f32 y);
+f32 Math_Atan2F_XYAlt(f32 x, f32 y);
+f32 Math_PowF(f32 base, s32 exp);
+void Math_MinMax(s32* min, s32* max, s32 val1, s32 val2, s32 val3);
 
 void func_80005680(Matrix*, Matrix*);
 void func_80005708(Matrix** mtx);
 void func_80005740(Matrix** mtx);
 void func_80005B00(Matrix*, f32, f32, f32, u8);
 void func_80005C34(Matrix*, f32, f32, f32, s32);
+void func_80005E90(Matrix*, float, char);
 void func_80006A20(Matrix*, Vec3f*, Vec3f*);
 void func_80006EB8(Gfx**);
 void func_80006F20(void);
@@ -40,11 +41,47 @@ void func_8001DC6C(s32, s32);
 
 s32 func_8001EF10(void);
 
-f32 func_8001FBE8(f32);
+s32 vsprintf(char* dst, char* fmt, va_list args);
+
+f32 func_8001FE60(f32);
+f64 func_8001FE6C(f64);
+s32 func_8001FE78(f32);
+s32 func_8001FE88(f64);
+f32 func_8001FE98(f32);
+f64 func_8001FEA4(f64);
+s32 func_8001FEB0(f32);
+s32 func_8001FEC0(f64);
+f32 func_8001FED0(f32);
+f64 func_8001FEDC(f64);
+s32 func_8001FEE8(f32);
+s32 func_8001FEF8(f64);
+f32 func_8001FF08(f32);
+f64 func_8001FF14(f64);
+s32 func_8001FF20(f32);
+s32 func_8001FF30(f64);
+f32 func_8001FF40(f32);
+f64 func_8001FF5C(f64);
+s32 func_8001FF7C(f32);
+s32 func_8001FF9C(f64);
+
+f32 func_8001FAE4(f32);
+f32 func_8001FB04(f32);
+f64 func_8001FB24(f64);
+f32 func_8001FB58(f32);
+f32 func_8001FB88(f32);
+f32 func_8001FBA8(f32);
+f32 func_8001FBC8(f32);
+f32 Math_FAtanF(f32);
+f32 Math_FAtan2F(f32, f32);
+f32 Math_FAsinF(f32);
+f32 Math_FAcosF(f32);
 
 void func_800227A0(s32, OSMesgQueue*, OSMesg*, s32);
 
 s32 func_80022B60(void);
+
+f32 __sinf(f32);
+f32 __cosf(f32);
 
 s64 __ull_div(s64, s64);
 s64 __ll_mul(s64, s64);

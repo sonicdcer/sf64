@@ -25,6 +25,10 @@
         "sf64math.h": "c",
         "ultra64.h": "c",
         "os_internal.h": "c",
-        "structs.h": "c"
+        "structs.h": "c",
+        "stdint.h": "c",
+        "xstdio.h": "c",
+        "controller.h": "c",
+        "os_version.h": "c"
     },
 }
