@@ -168,7 +168,7 @@ extern f32 D_801B9060;
 extern f32 D_801B9064;
 
 extern Matrix* D_8013B3C0;
-extern s32 D_8013BBC8;
+extern Matrix* D_8013BBC8;
 extern f32 D_800C5D28[];
 
 extern s32 D_801ADA44_EE6104[];
