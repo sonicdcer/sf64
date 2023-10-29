@@ -7,8 +7,8 @@
 typedef struct UnkStruct_D_801B8350 {
     /* 0x00 */ Vec3f unk0;
     /* 0x0C */ char pad_0C[0x4C];
-    /* 0x54 */ s32 unk54;
-    /* 0x58 */ s32 unk58;
+    /* 0x54 */ s32 unk_54;
+    /* 0x58 */ s32 unk_58;
 } UnkStruct_D_801B8350;
 
 typedef struct {
