@@ -1200,7 +1200,34 @@ void func_8008E2C8(f32 arg0, f32 arg1, s32* arg2, f32 arg3) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008E51C.s")
+void func_8008E51C(s32* arg0, f32 arg1) {
+    //! FAKE:
+    if (1) {}
+
+    if (D_80177854 != 100) {
+        arg0[2] -= 3;
+        if (arg0[2] >= 3) {
+        } else {
+            arg0[2] = 99;
+            arg0[1]--;
+            if (arg0[1] >= 0) {
+            } else {
+                arg0[1] = 59;
+                arg0[0]--;
+                if (arg0[0] >= 0) {
+                } else {
+                    arg0[0] = 0;
+                    arg0[1] = 0;
+                    arg0[2] = 0;
+                }
+            }
+        }
+    }
+
+    if (D_80177854 != 100) {
+        func_8008E2C8(176.0f, 22.0f, arg0, arg1);
+    }
+}
 
 void func_8008E5E8(void) {
     if (D_801778E8 != 0) {
