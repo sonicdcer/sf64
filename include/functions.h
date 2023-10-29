@@ -12,12 +12,14 @@ f32 func_80005100(f32 arg0, f32 arg1);
 f32 func_80005320(f32 arg0, f32 arg1);
 f32 func_800055DC(f32 arg0, s32 arg1);
 void func_80005604(s32* arg0, s32* arg1, s32 arg2, s32 arg3, s32 arg4);
+void func_80005E90(Matrix*, float, char);
 
 void func_80005680(Matrix*, Matrix*);
 void func_80005708(Matrix** mtx);
 void func_80005740(Matrix** mtx);
 void func_80005B00(Matrix*, f32, f32, f32, u8);
 void func_80005C34(Matrix*, f32, f32, f32, s32);
+void func_80006A20(Matrix*, Vec3f*, Vec3f*);
 void func_80006EB8(Gfx**);
 void func_80006F20(void);
 
@@ -56,6 +58,9 @@ s32 func_8002DE78(void*, s32, s32); // Not real signature
 
 void func_80060FBC(u8*, f32*);
 void func_8006EEFC(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
+
+void func_8007C120(f32, f32, f32, f32, f32, f32, f32, s32);
+void func_8007D10C(f32, f32, f32, f32);
 
 void func_80084688(s32, s32);
 void func_800857DC(f32, f32, f32, f32);
