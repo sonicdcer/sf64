@@ -117,7 +117,7 @@ f32 Math_FactorialF(f32 n) {
     f32 out = 1.0f;
     s32 i;
 
-    for(i = (s32) n; i > 1  ; i--) {
+    for (i = (s32) n; i > 1; i--) {
         out *= i;
     }
 
@@ -130,10 +130,10 @@ f32 Math_Factorial(s32 n) {
     f32 out;
     s32 i;
 
-    if(n > 12) {
+    if (n > 12) {
         out = 1.0f;
 
-        for(i = n; i > 1  ; i--) {
+        for (i = n; i > 1; i--) {
             out *= i;
         }
     } else {

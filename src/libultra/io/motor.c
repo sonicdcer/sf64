@@ -6,25 +6,25 @@ extern OSPifRam _MotorStartData[MAXCONTROLLERS];
 extern u8 _motorstopbuf[0x20];
 extern u8 _motorstartbuf[0x20];
 
-s32 osMotorStop(OSPfs *pfs) {
+s32 osMotorStop(OSPfs* pfs) {
     s32 i;
     s32 ret;
-    u8 *ptr = (u8*)&__osPfsPifRam;
+    u8* ptr = (u8*) &__osPfsPifRam;
     __OSContRamReadFormat ramreadformat;
-    
+
     __osSiGetAccess();
     __osContLastCmd = CONT_CMD_WRITE_PAK;
     __osSiRawStartDma(OS_WRITE, &_MotorStopData[pfs->channel]);
     osRecvMesg(pfs->queue, NULL, OS_MESG_BLOCK);
     ret = __osSiRawStartDma(OS_READ, &__osPfsPifRam);
     osRecvMesg(pfs->queue, NULL, OS_MESG_BLOCK);
-    ptr = (u8*)&__osPfsPifRam;
-    if(pfs->channel != 0) {
-        for(i = 0; i < pfs->channel; i++) {
+    ptr = (u8*) &__osPfsPifRam;
+    if (pfs->channel != 0) {
+        for (i = 0; i < pfs->channel; i++) {
             ptr++;
         }
     }
-    ramreadformat = *((__OSContRamReadFormat*)ptr);
+    ramreadformat = *((__OSContRamReadFormat*) ptr);
 
     ret = CHNL_ERR(ramreadformat);
     if ((ret == 0) && (ramreadformat.datacrc != 0)) {
@@ -34,10 +34,10 @@ s32 osMotorStop(OSPfs *pfs) {
     return ret;
 }
 
-s32 osMotorStart(OSPfs *pfs) {
+s32 osMotorStart(OSPfs* pfs) {
     s32 i;
     s32 ret;
-    u8 *ptr = (u8*)&__osPfsPifRam;
+    u8* ptr = (u8*) &__osPfsPifRam;
     __OSContRamReadFormat ramreadformat;
 
     __osSiGetAccess();
@@ -46,13 +46,13 @@ s32 osMotorStart(OSPfs *pfs) {
     osRecvMesg(pfs->queue, NULL, OS_MESG_BLOCK);
     ret = __osSiRawStartDma(OS_READ, &__osPfsPifRam);
     osRecvMesg(pfs->queue, NULL, OS_MESG_BLOCK);
-    ptr = (u8*)&__osPfsPifRam;
-    if(pfs->channel != 0) {
-        for(i = 0; i < pfs->channel; i++) {
+    ptr = (u8*) &__osPfsPifRam;
+    if (pfs->channel != 0) {
+        for (i = 0; i < pfs->channel; i++) {
             ptr++;
         }
     }
-    ramreadformat = *((__OSContRamReadFormat*)ptr);
+    ramreadformat = *((__OSContRamReadFormat*) ptr);
 
     ret = CHNL_ERR(ramreadformat);
     if ((ret == 0) && (ramreadformat.datacrc != 0xEB)) {
@@ -62,12 +62,12 @@ s32 osMotorStart(OSPfs *pfs) {
     return ret;
 }
 
-void func_80020BF4(s32 channel, u16 address, u8 *buffer, OSPifRam *mdata) {
-    u8 *ptr= mdata->ramarray;
+void func_80020BF4(s32 channel, u16 address, u8* buffer, OSPifRam* mdata) {
+    u8* ptr = mdata->ramarray;
     __OSContRamReadFormat ramreadformat;
     s32 i;
 
-    for(i = 0; i < ARRAY_COUNT(mdata->ramarray); i++) {
+    for (i = 0; i < ARRAY_COUNT(mdata->ramarray); i++) {
         mdata->ramarray[i] = 0;
     }
 
@@ -79,7 +79,7 @@ void func_80020BF4(s32 channel, u16 address, u8 *buffer, OSPifRam *mdata) {
     ramreadformat.address = __osContAddressCrc(address) | (address << 5);
     ramreadformat.datacrc = CONT_CMD_NOP;
 
-    for(i = 0; i < ARRAY_COUNT(ramreadformat.data); i++) {
+    for (i = 0; i < ARRAY_COUNT(ramreadformat.data); i++) {
         ramreadformat.data[i] = *(buffer++);
     }
 
@@ -87,14 +87,13 @@ void func_80020BF4(s32 channel, u16 address, u8 *buffer, OSPifRam *mdata) {
         for (i = 0; i < channel; i++) {
             *(ptr++) = 0;
         }
-
     }
-    *((__OSContRamReadFormat*)ptr) = ramreadformat;
+    *((__OSContRamReadFormat*) ptr) = ramreadformat;
     ptr += sizeof(__OSContRamReadFormat);
     *ptr = CONT_CMD_END;
 }
 
-s32 osMotorInit(OSMesgQueue *mq, OSPfs *pfs, int channel) {
+s32 osMotorInit(OSMesgQueue* mq, OSPfs* pfs, int channel) {
     s32 i;
     s32 ret;
     u8 buffer[0x20];
@@ -103,7 +102,7 @@ s32 osMotorInit(OSMesgQueue *mq, OSPfs *pfs, int channel) {
     pfs->channel = channel;
     pfs->status = 0;
     pfs->activebank = 0x80;
-    for(i = 0; i < ARRAY_COUNT(buffer); i++) {
+    for (i = 0; i < ARRAY_COUNT(buffer); i++) {
         buffer[i] = 0x80;
     }
 
@@ -124,7 +123,7 @@ s32 osMotorInit(OSMesgQueue *mq, OSPfs *pfs, int channel) {
     if (buffer[0x1F] != 0x80) {
         return 0xB;
     }
-    for(i = 0; i < ARRAY_COUNT(_motorstartbuf); i++) {
+    for (i = 0; i < ARRAY_COUNT(_motorstartbuf); i++) {
         _motorstartbuf[i] = 1;
         _motorstopbuf[i] = 0;
     }

@@ -3,7 +3,7 @@
 
 extern s32 __osContinitialized;
 
-#define USEC_TO_CYCLES(n, clock) ((n) * (u64)(clock) / 1000000)
+#define USEC_TO_CYCLES(n, clock) ((n) * (u64) (clock) / 1000000)
 
 s32 osContInit(OSMesgQueue* mq, u8* bitpattern, OSContStatus* data) {
     OSMesg dummy;
@@ -21,7 +21,7 @@ s32 osContInit(OSMesgQueue* mq, u8* bitpattern, OSContStatus* data) {
 
     if (t < USEC_TO_CYCLES(500000, osClockRate)) {
         osCreateMesgQueue(&timerMesgQueue, &dummy, 1);
-        osSetTimer(&mytimer,  USEC_TO_CYCLES(500000, osClockRate) - t, 0, &timerMesgQueue, &dummy);
+        osSetTimer(&mytimer, USEC_TO_CYCLES(500000, osClockRate) - t, 0, &timerMesgQueue, &dummy);
         osRecvMesg(&timerMesgQueue, &dummy, OS_MESG_BLOCK);
     }
     __osMaxControllers = 4;

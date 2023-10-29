@@ -1,10 +1,10 @@
 #include "global.h"
 #include "osint.h"
 
-void osStopThread(OSThread *t) {
+void osStopThread(OSThread* t) {
     register u32 saveMask = __osDisableInt();
     register u16 state = (t == NULL) ? OS_STATE_RUNNING : t->state;
-    
+
     switch (state) {
         case OS_STATE_RUNNING:
             __osRunningThread->state = 1;

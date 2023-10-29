@@ -50,12 +50,12 @@ f32 Math_FAtanF(f32 x) {
     }
 
     sq = SQ(x);
-    
+
     for (z = i = 24; i != 0; i--) {
-        conv =  SQ(z) * sq / (2.0f * z + 1.0f + conv);
+        conv = SQ(z) * sq / (2.0f * z + 1.0f + conv);
         z -= 1.0f;
     }
-    
+
     if (sector > 0) {
         return M_PI / 2 - (x / (1.0f + conv));
     } else if (sector < 0) {
