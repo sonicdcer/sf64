@@ -1,5 +1,6 @@
 #include "global.h"
 #include "PR/controller.h"
+#include "siint.h"
 
 extern s32 __osContinitialized;
 

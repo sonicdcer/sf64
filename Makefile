@@ -187,33 +187,39 @@ $(shell mkdir -p $(BUILD_DIR)/linker_scripts/$(VERSION) $(BUILD_DIR)/linker_scri
 # directory flags
 
 # per-file flags
-
-build/src/libultra/206B0.o: OPTFLAGS := -O2 -g0
-build/src/libultra/rmon/sprintf.o: OPTFLAGS := -O2 -g0
-build/src/libultra/libc/string.o: OPTFLAGS := -O2 -g0
-build/src/libultra/libc/ldiv.o: OPTFLAGS := -O2 -g0
-build/src/libultra/rmon/xlitob.o: OPTFLAGS := -O2 -g0
-
-build/src/libultra/2BDF0.o: OPTFLAGS := -O1 -g0
-build/src/libultra/2C700.o: OPTFLAGS := -O1 -g0
-build/src/libultra/2D300.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/pidma.o: OPTFLAGS := -O1 -g0
 build/src/main/1EB50.o: OPTFLAGS := -O1 -g0
-build/src/libultra/os/stopthread.o: OPTFLAGS := -O1 -g0
-build/src/libultra/gu/guSqrtf.o: OPTFLAGS := -O1 -g0
+build/src/main/sprintf.o: OPTFLAGS := -O2 -g0
+build/src/main/math64.o: OPTFLAGS := -O2 -g0
+
+build/src/libultra/gu/sqrtf.o: OPTFLAGS := -O3 -g0
 build/src/libultra/gu/ortho.o: OPTFLAGS := -O3 -g0
 build/src/libultra/gu/lookat.o: OPTFLAGS := -O3 -g0
+
+build/src/libultra/io/pidma.o: OPTFLAGS := -O1 -g0
+build/src/libultra/io/aisetnextbuf.o: OPTFLAGS := -O1 -g0
+build/src/libultra/io/pimgr.o: OPTFLAGS := -O1 -g0
 build/src/libultra/io/motor.o: OPTFLAGS := -O1 -g0
 build/src/libultra/io/controller.o: OPTFLAGS := -O1 -g0
 build/src/libultra/io/ai.o: OPTFLAGS := -O1 -g0
 build/src/libultra/io/aigetlen.o: OPTFLAGS := -O1 -g0
 build/src/libultra/io/aisetfreq.o: OPTFLAGS := -O1 -g0
+
+build/src/libultra/libc/ldiv.o: OPTFLAGS := -O2 -g0
+build/src/libultra/libc/string.o: OPTFLAGS := -O2 -g0
+build/src/libultra/libc/xlitob.o: OPTFLAGS := -O2 -g0
 build/src/libultra/libc/ll.o: OPTFLAGS := -O1 -g0
 build/src/libultra/libc/ll.o: MIPS_VERSION := -mips3 -32
 
+build/src/libultra/os/getactivequeue.o: OPTFLAGS := -O1 -g0
+build/src/libultra/os/stopthread.o: OPTFLAGS := -O1 -g0
+
+build/src/libultra/rmon/rmonmem.o: OPTFLAGS := -O1 -g0
+build/src/libultra/rmon/rmontask.o: OPTFLAGS := -O1 -g0
+build/src/libultra/rmon/rmonregs.o: OPTFLAGS := -O1 -g0
 
 # cc & asm-processor
 CC := $(ASM_PROC) $(ASM_PROC_FLAGS) $(IDO) -- $(AS) $(ASFLAGS) --
+build/src/libultra/gu/sqrtf.o: CC := $(IDO)
 build/src/libultra/gu/lookat.o: CC := $(IDO)
 build/src/libultra/gu/ortho.o: CC := $(IDO)
 build/src/libultra/libc/ll.o: CC := $(IDO)

@@ -76,9 +76,7 @@ f32 Math_FAtan2F(f32, f32);
 f32 Math_FAsinF(f32);
 f32 Math_FAcosF(f32);
 
-void func_800227A0(s32, OSMesgQueue*, OSMesg*, s32);
-
-s32 func_80022B60(void);
+void osCreatePiMgr(s32, OSMesgQueue*, OSMesg*, s32);
 
 f32 __sinf(f32);
 f32 __cosf(f32);
@@ -86,10 +84,6 @@ f32 __cosf(f32);
 s64 __ull_div(s64, s64);
 s64 __ll_mul(s64, s64);
 s64 __ll_rshift(s64, s64);
-
-void __osSiCreateAccessQueue(void);
-
-OSMesgQueue* osPiGetCmdQueue(void);
 
 s32 func_8002DE78(void*, s32, s32); // Not real signature
 
