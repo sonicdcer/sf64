@@ -10,6 +10,7 @@
       - [0x01120, textbin, aspmain]
       - [0x02010, textbin, f3dex]
 
+    # Nintendo libraries
       - [0x03440, c, 3440]
       - [0x03A80, c, 3A80]
       - [0x041D0, c, 41D0]
@@ -33,7 +34,7 @@
       - [0x206B0, c, math64]
       - [0x20A60, hasm, fp.text]
 
-    # LIBULTRA
+    # Libultra
       - [0x20BC0, c, ../libultra/io/controller]
       - [0x20F80, c, ../libultra/io/contreaddata]
       - [0x211E0, c, ../libultra/os/recvmesg]
@@ -181,10 +182,16 @@
       - [0xBD360, c, sf_versus]
       - [0xC3430, c, sf_C3430]
 
-      # DATA - Libultra
-      - [0xC3EE0, data, libraries]
+      # DATA - Microcode
+      - [0xC3EE0, data, ucode]
 
-      # RODATA - Libultra
+      # DATA - Nintendo Libraries
+      - [0xC51D0, data, nlib]
+
+      # DATA - Libultra
+      - [0xC88C0, data, libultra]
+
+      # RODATA - Nintendo Libraries
       - [0xC8CC0, .rodata, 5A20]
       - [0xC8D10, .rodata, 6280]
       - [0xC8D20, .rodata, 7D30]
@@ -197,6 +204,8 @@
       - [0xC99D0, .rodata, 17650]
       - [0xC9CF0, .rodata, 1EB50]
       - [0xC9F10, .rodata, math64]
+
+      # RODATA - Libultra
       - [0xC9F30, .rodata, ../libultra/gu/perspective]
       - [0xC9F40, .rodata, ../libultra/gu/sinf]
       - [0xC9F90, .rodata, ../libultra/gu/cosf]
