@@ -29,7 +29,7 @@
       - [0x1FA60, c   , 1FA60]
       - [0x1FA70, hasm, decompress] # May be blanked out osDriveRomInit
       - [0x1FB10, hasm, rdramcheck]
-      - [0x205E0, c   , ../libultra/rmon/sprintf]
+      - [0x205E0, c   , ../libultra/libc/sprintf]
       - [0x206B0, c   , math64] # math64
       - [0x20A60, hasm, fp.text] # fp.text.s
 
@@ -69,7 +69,7 @@
       - [0x23C00, c   , ../libultra/os/gettime]
       - [0x23C90, c   , ../libultra/gu/sinf]
       - [0x23E50, c   , ../libultra/gu/cosf]
-      - [0x23FC0, c   , ../libultra/gu/guSqrtf]
+      - [0x23FC0, c   , ../libultra/gu/sqrtf]
       - [0x23FD0, c   , ../libultra/os/settimer]
       - [0x240B0, c   , ../libultra/io/conteepread]
       - [0x243B0, c   , ../libultra/io/conteepwrite]
@@ -123,8 +123,8 @@
       - [0x29880, hasm, ../libultra/os/maptlbrdb]
       - [0x298E0, c   , ../libultra/io/pirawread]
       - [0x29940, hasm, ../libultra/libc/bzero]
-      - [0x299E0, c   , ../libultra/rmon/xlitob]
-      - [0x29C80, c   , ../libultra/rmon/xldtob]
+      - [0x299E0, c   , ../libultra/libc/xlitob]
+      - [0x29C80, c   , ../libultra/libc/xldtob]
       - [0x2A740, c   , ../libultra/io/ai]
       - [0x2A770, c   , ../libultra/io/si]
       - [0x2A7A0, c   , ../libultra/debug/kdebugserver]
@@ -204,7 +204,7 @@
       - [0xCA0E0,  rodata, ../libultra/os/exceptasm]
       - [0xCA150, .rodata, ../libultra/io/devmgr]
       - [0xCA170,  rodata, ../libultra/gu/libm_vals]
-      - [0xCA180, .rodata, ../libultra/rmon/xldtob]
+      - [0xCA180, .rodata, ../libultra/libc/xldtob]
       - [0xCA1E0, rodata, ../libultra/os/setintmask]
       - [0xCA260, .rodata, ../libultra/rmon/rmonmem]
       - [0xCA5A0, .rodata, ../libultra/rmon/rmonbrk]
