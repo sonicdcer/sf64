@@ -1,4 +1,4 @@
-#include "common.h"
+#include "global.h"
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/func_8002B1F0.s")
 
@@ -6,7 +6,11 @@
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/func_8002B28C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/func_8002B2C0.s")
+void func_8002B2C0(s32* arg0, s32* arg1, s32 arg2) {
+    while (arg2--) {
+        *arg0++ = *arg1++;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/func_8002B2F4.s")
 
