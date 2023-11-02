@@ -42,7 +42,7 @@ void func_80004D00(void* arg0) {
     osCreateViManager(254);
     func_80003EE0();
     func_800034E8(1);
-    func_800227A0(150, &D_800E2010, &D_800E2028, 50);
+    osCreatePiMgr(150, &D_800E2010, &D_800E2028, 50);
     osCreateThread(&D_8013A040, 3, &func_80004ABC, arg0, &D_8013B1F0, 100);
     osStartThread(&D_8013A040);
     func_80008018();
@@ -53,7 +53,7 @@ loop_1:
 
 void bootproc(void) {
     func_8001EF10();
-    func_80022B60();
+    osInitialize();
     func_80003A50();
     osCreateThread(&D_80138E90, 1, &func_80004D00, 0, &D_8013A040, 255);
     osStartThread(&D_80138E90);
