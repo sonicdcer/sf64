@@ -51,7 +51,7 @@
       - [0x22570, hasm, ../libultra/os/writebackdcacheall]
       - [0x225A0, c, ../libultra/io/viswapbuf]
       - [0x225F0, c, ../libultra/io/virepeatline]
-      - [0x22660, hasm] # padding
+      - [0x22660, hasm, ../libultra/os/parameter]
       - [0x226C0, c, ../libultra/io/visetmode]
       - [0x22730, c, ../libultra/io/visetspecial]
       - [0x228F0, c, ../libultra/os/createmesgqueue]
