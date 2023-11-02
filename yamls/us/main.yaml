@@ -14,8 +14,8 @@
       - [0x03A80, c, 3A80]
       - [0x041D0, c, 41D0]
       - [0x04650, c, 4650]
-      - [0x05A20, c, 5A20] # -O2 -g3
-      - [0x06280, c, 6280] # -O2 -g3
+      - [0x05A20, c, 5A20]
+      - [0x06280, c, 6280]
       - [0x07B20, c, 7B20]
       - [0x07D30, c, 7D30]
       - [0x07FC0, c, 7FC0]
@@ -30,8 +30,8 @@
       - [0x1FA70, hasm, decompress] # May be blanked out osDriveRomInit
       - [0x1FB10, hasm, rdramcheck]
       - [0x205E0, c, ../libultra/libc/sprintf]
-      - [0x206B0, c, math64] # math64
-      - [0x20A60, hasm, fp.text] # fp.text.s
+      - [0x206B0, c, math64]
+      - [0x20A60, hasm, fp.text]
 
     # LIBULTRA
       - [0x20BC0, c, ../libultra/io/controller]
@@ -146,8 +146,8 @@
       - [0x2BD40, hasm, ../libultra/os/getcause]
       - [0x2BD50, c, ../libultra/rmon/rmoncmds]
       - [0x2BDF0, c, ../libultra/rmon/rmonmem]
-      - [0x2C700, c, ../libultra/rmon/rmontask] # -O1 -g0
-      - [0x2D300, c, ../libultra/rmon/rmonregs] # -O1 -g0
+      - [0x2C700, c, ../libultra/rmon/rmontask]
+      - [0x2D300, c, ../libultra/rmon/rmonregs]
       - [0x2DF00, c, ../libultra/rmon/rmonbrk]
       - [0x2E9E0, c, ../libultra/rmon/rmonmain]
       - [0x2EDE0, c, ../libultra/io/sprawwrite]
@@ -164,7 +164,7 @@
       - [0x496C0, c, sf_496C0]
       - [0x52730, c, sf_52730]
       - [0x59780, c, sf_59780]
-      - [0x5A2C0, c, sf_5A2C0] # -02 -g3
+      - [0x5A2C0, c, sf_5A2C0]
       - [0x61B30, c, sf_61B30]
       - [0x6B3B0, c, sf_6B3B0]
       - [0x77E40, c, sf_77E40]
@@ -176,7 +176,7 @@
       - [0xA4290, c, sf_A4290]
       - [0xA48A0, c, sf_A48A0]
       - [0xA4B50, c, sf_A4B50]
-      - [0xB99D0, c, sf_B99D0] # -02 -g3, no rodata
+      - [0xB99D0, c, sf_B99D0] # no rodata
       - [0xBB360, c, sf_BB360]
       - [0xBD360, c, sf_versus]
       - [0xC3430, c, sf_C3430]
