@@ -29,7 +29,7 @@
       - [0x1FA60, c, 1FA60]
       - [0x1FA70, hasm, decompress] # May be blanked out osDriveRomInit
       - [0x1FB10, hasm, rdramcheck]
-      - [0x205E0, c, ../libultra/libc/sprintf]
+      - [0x205E0, c, sprintf]
       - [0x206B0, c, math64]
       - [0x20A60, hasm, fp.text]
 
