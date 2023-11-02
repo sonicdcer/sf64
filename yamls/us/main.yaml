@@ -183,13 +183,15 @@
       - [0xC3430, c, sf_C3430]
 
       # DATA - Microcode
-      - [0xC3EE0, data, ucode]
+      - [0xC3EE0, data, aspmain]
+      - [0xC4210, data, audiotables]
+      - [0xC49D0, data, f3dex]
 
       # DATA - Nintendo Libraries
       - [0xC51D0, data, nlib]
 
       # DATA - Libultra
-      - [0xC88C0, data, libultra]
+      - [0xC88C0, data, ../libultra/libultra]
 
       # RODATA - Nintendo Libraries
       - [0xC8CC0, .rodata, 5A20]
