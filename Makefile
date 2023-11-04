@@ -216,6 +216,7 @@ build/src/libultra/os/stopthread.o: OPTFLAGS := -O1 -g0
 build/src/libultra/rmon/rmonmem.o: OPTFLAGS := -O1 -g0
 build/src/libultra/rmon/rmontask.o: OPTFLAGS := -O1 -g0
 build/src/libultra/rmon/rmonregs.o: OPTFLAGS := -O1 -g0
+build/src/libultra/rmon/rmonmisc.o: OPTFLAGS := -O1 -g0
 
 # cc & asm-processor
 CC := $(ASM_PROC) $(ASM_PROC_FLAGS) $(IDO) -- $(AS) $(ASFLAGS) --

@@ -28,8 +28,18 @@ extern s32 D_800D2190[];
 extern f32 D_800D21A0;
 extern f32 D_800D21A4;
 extern s32 D_800D2870;
-extern u8 D_800DD8B0[];
+extern u16 D_800D99F8[];
+
+extern OSContPad D_800DD880[4];
+extern OSContPad D_800DD898[4];
+extern u8 D_800DD8B0[4];
 extern s32 D_800DD8B4;
+extern u8 D_800DD8B8[4];
+extern u8 D_800DD8BC[4]; // Fake symbol. Only exists as loop terminator for D_800DD8B8
+// extern OSContPad D_800DD8C0[4];
+// extern OSContPad D_800DD8D8[4];
+// extern OSContStatus D_800DD8F0[4];
+// extern OSPfs D_800DD900[4];
 
 extern Gfx* D_80137E64;
 extern u8 D_80137E78;
@@ -254,10 +264,10 @@ extern Gfx D_6004570[];
 extern Gfx D_D0098B0[];
 extern Gfx D_F014180[];
 
-extern u16 D_800D99F8[];
-extern u8 D_800DD8B8[];
-extern OSContStatus D_800DD8F0;
+
+extern u8 D_80137E84[];
 extern OSMesgQueue D_800E2128;
+extern OSMesgQueue D_800E22F8;
 extern OSMesgQueue D_800E2318;
 extern u8 D_80137E80;
 extern s32 D_80144F60;

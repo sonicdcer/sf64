@@ -62,7 +62,7 @@ s32 osMotorStart(OSPfs* pfs) {
     return ret;
 }
 
-void func_80020BF4(s32 channel, u16 address, u8* buffer, OSPifRam* mdata) {
+void _MakeMotorData(s32 channel, u16 address, u8* buffer, OSPifRam* mdata) {
     u8* ptr = mdata->ramarray;
     __OSContRamReadFormat ramreadformat;
     s32 i;
@@ -128,7 +128,7 @@ s32 osMotorInit(OSMesgQueue* mq, OSPfs* pfs, int channel) {
         _motorstopbuf[i] = 0;
     }
 
-    func_80020BF4(channel, CONT_BLOCK_RUMBLE, _motorstartbuf, &_MotorStartData[channel]);
-    func_80020BF4(channel, CONT_BLOCK_RUMBLE, _motorstopbuf, &_MotorStopData[channel]);
+    _MakeMotorData(channel, CONT_BLOCK_RUMBLE, _motorstartbuf, &_MotorStartData[channel]);
+    _MakeMotorData(channel, CONT_BLOCK_RUMBLE, _motorstopbuf, &_MotorStopData[channel]);
     return 0;
 }

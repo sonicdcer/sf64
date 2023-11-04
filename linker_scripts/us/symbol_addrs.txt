@@ -21,6 +21,9 @@ Math_FAtan2F = 0x8001FD0C;
 Math_FAsinF = 0x8001FE00;
 Math_FAcosF = 0x8001FE30;
 
+D_800E23B0 = 0x800E23B0; // size:0x55AA0
+D_8013C3D0 = 0x8013C3D0; // size:0x8800
+
 D_800D934C = 0x800D934C; // force_migration:True
 D_800D503C = 0x800D503C; // force_migration:True
 D_800D5248 = 0x800D5248; // force_migration:True
@@ -29,7 +32,6 @@ D_800D8560 = 0x800D8560; // force_migration:True
 D_800D55E4_fake = 0x800D55E4; // force_migration:True
 D_800D8570 = 0x800D8570; // force_migration:True
 D_800D8594 = 0x800D8594; // force_migration:True
-D_800C9524 = 0x800C9524; // force_migration:True
 D_800C93EC = 0x800C93EC; // force_migration:True
 
 D_8019B1EC_E07F2C = 0x8019B1EC; // force_migration:True segment:segment_DF4260
