@@ -3,7 +3,6 @@
 #include "PR/rdb.h"
 
 void ramromMain(void* /*arg*/);
-extern OSMesgQueue* D_800C7DF0;
 extern char piEventBuf[];
 extern OSMesgQueue piEventQueue;
 extern OSThread piThread;

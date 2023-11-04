@@ -94,6 +94,7 @@
       - [0x26CD0, c, ../libultra/io/pfsisplug]
       - [0x27040, c, ../libultra/io/crc]
       - [0x271C0, c, ../libultra/io/contramwrite]
+      - [0x27540, c, ../libultra/io/contramread]
       - [0x278D0, c, ../libultra/gu/mtxutil]
       - [0x27B40, c, ../libultra/os/jammesg]
       - [0x27C90, c, ../libultra/io/pigetcmdq]
@@ -148,6 +149,7 @@
       - [0x2BD50, c, ../libultra/rmon/rmoncmds]
       - [0x2BDF0, c, ../libultra/rmon/rmonmem]
       - [0x2C700, c, ../libultra/rmon/rmontask]
+      - [0x2D170, c, ../libultra/rmon/rmonmisc]
       - [0x2D300, c, ../libultra/rmon/rmonregs]
       - [0x2DF00, c, ../libultra/rmon/rmonbrk]
       - [0x2E9E0, c, ../libultra/rmon/rmonmain]
@@ -191,7 +193,25 @@
       - [0xC51D0, data, nlib]
 
       # DATA - Libultra
-      - [0xC88C0, data, ../libultra/libultra]
+      - [0xC88C0, data, ../libultra/io/controller]
+      - [0xC88D0, data, ../libultra/io/vimgr]
+      - [0xC89E0, data, ../libultra/io/pimgr]
+      - [0xC8A10, data, ../libultra/os/initialize]
+      - [0xC8A30, data, ../libultra/libc/xprintf]
+      - [0xC8A80, data, ../libultra/io/aisetnextbuf]
+      - [0xC8A90, data, ../libultra/io/siacs]
+      - [0xC8AA0, data, ../libultra/os/thread]
+      - [0xC8AC0, data, ../libultra/os/exceptasm]
+      - [0xC8AE0, data, ../libultra/io/vi]
+      - [0xC8B50, data, ../libultra/os/timerintr]
+      - [0xC8B60, data, ../libultra/io/piacs]
+      - [0xC8B70, data, ../libultra/os/rdbsend]
+      - [0xC8B80, data, ../libultra/libc/xlitob]
+      - [0xC8BB0, data, ../libultra/debug/kdebugserver]
+      - [0xC8BC0, data, ../libultra/host/readhost]
+      - [0xC8BD0, data, ../libultra/rmon/rmoncmds]
+      - [0xC8CB0, data, ../libultra/rmon/rmonmain]
+
 
       # RODATA - Nintendo Libraries
       - [0xC8CC0, .rodata, 5A20]
@@ -250,4 +270,35 @@
 
       # Common assets
       - [0xDA030, bin, assets]
-      - { start: 0xDE480, type: bss, vram: 0x800DD880 }
+
+      # Nintendo Library bss
+      - { start: 0xDE480, type: bss, vram: 0x800DD880, name: nlib }
+
+      # Libultra bss
+      - { start: 0xDE480, type: bss, vram: 0x80156620, name: ../libultra/io/controller }
+      - { start: 0xDE480, type: bss, vram: 0x801566B0, name: ../libultra/io/motor }
+      - { start: 0xDE480, type: bss, vram: 0x801568F0, name: ../libultra/os/seteventmesg }
+      - { start: 0xDE480, type: bss, vram: 0x801569B0, name: ../libultra/io/sptask }
+      - { start: 0xDE480, type: bss, vram: 0x801569F0, name: ../libultra/io/vimgr }
+      - { start: 0xDE480, type: bss, vram: 0x80157C10, name: ../libultra/io/pimgr }
+      - { start: 0xDE480, type: bss, vram: 0x801593D0, name: ../libultra/os/initialize }
+      - { start: 0xDE480, type: bss, vram: 0x801593E0, name: ../libultra/io/conteepread }
+      - { start: 0xDE480, type: bss, vram: 0x80159420, name: ../libultra/io/cartrominit }
+      - { start: 0xDE480, type: bss, vram: 0x801594A0, name: ../libultra/io/siacs }
+      - { start: 0xDE480, type: bss, vram: 0x801594C0, name: ../libultra/io/pfsisplug }
+      - { start: 0xDE480, type: bss, vram: 0x80159500, name: ../libultra/os/timerintr }
+      - { start: 0xDE480, type: bss, vram: 0x80159560, name: ../libultra/io/leodiskinit }
+      - { start: 0xDE480, type: bss, vram: 0x801595E0, name: ../libultra/io/piacs }
+      - { start: 0xDE480, type: bss, vram: 0x80159600, name: ../libultra/debug/kdebugserver }
+      - { start: 0xDE480, type: bss, vram: 0x801597C0, name: ../libultra/host/readhost }
+      - { start: 0xDE480, type: bss, vram: 0x801597F0, name: ../libultra/rmon/rmonsio }
+      - { start: 0xDE480, type: bss, vram: 0x8015A010, name: ../libultra/os/initrdb }
+      - { start: 0xDE480, type: bss, vram: 0x8015A030, name: ../libultra/io/leointerrupt }
+      - { start: 0xDE480, type: bss, vram: 0x8015B030, name: ../libultra/rmon/rmonmem }
+      - { start: 0xDE480, type: bss, vram: 0x8015B130, name: ../libultra/rmon/rmonmisc }
+      - { start: 0xDE480, type: bss, vram: 0x8015F350, name: ../libultra/rmon/rmonregs }
+      - { start: 0xDE480, type: bss, vram: 0x8015F370, name: ../libultra/rmon/rmonbrk }
+      - { start: 0xDE480, type: bss, vram: 0x8015F480, name: ../libultra/rmon/rmonmain }
+
+      # Game engine bss
+      - { start: 0xDE480, type: bss, vram: 0x8015F900, name: engine }

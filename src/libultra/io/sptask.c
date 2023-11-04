@@ -1,6 +1,6 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/io/sptask/func_80021EA0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/io/sptask/_VirtualToPhysicalTask.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/io/sptask/osSpTaskLoad.s")
 

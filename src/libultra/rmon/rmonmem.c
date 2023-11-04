@@ -1,31 +1,31 @@
-#include "global.h"
+#include "common.h"
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/func_8002B1F0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/__rmonWriteWordTo.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/func_8002B238.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/__rmonReadWordAt.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/func_8002B28C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/__rmonMemcpy.s")
 
-void func_8002B2C0(s32* arg0, s32* arg1, s32 arg2) {
+void __rmonCopyWords(s32* arg0, s32* arg1, s32 arg2) {
     while (arg2--) {
         *arg0++ = *arg1++;
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/func_8002B2F4.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/__rmonmem_strcopy.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/func_8002B330.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/__rmonReadMem.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/func_8002B52C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/__rmonWriteMem.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/func_8002B778.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/__rmonListProcesses.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/func_8002B7F8.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/__rmonLoadProgram.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/D_800C9660.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/func_8002B804.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/__rmonGetExeName.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/func_8002B8AC.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/__rmonGetRegionCount.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/func_8002B91C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmem/__rmonGetRegions.s")
