@@ -84,7 +84,7 @@ extern s32 D_80145D28;
 
 // Matches with IDO 5.3, maybe this is the right compiler for the game?
 #ifdef NON_MATCHING
-void func_80007FE4(s32 arg0, u16 arg1, u16 arg2) {
+void func_80007FE4(FrameBuffer* arg0, u16 arg1, u16 arg2) {
     D_80145360.unk9CC = arg0;
     D_80145360.unk9D0 = arg1;
     D_80145360.unk9D2 = arg2;

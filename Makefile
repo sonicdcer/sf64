@@ -188,6 +188,7 @@ $(shell mkdir -p $(BUILD_DIR)/linker_scripts/$(VERSION) $(BUILD_DIR)/linker_scri
 
 # per-file flags
 build/src/main/1EB50.o: OPTFLAGS := -O1 -g0
+build/src/main/4650.o: OPTFLAGS := -O2 -g3
 build/src/main/sprintf.o: OPTFLAGS := -O2 -g0
 build/src/main/math64.o: OPTFLAGS := -O2 -g0
 

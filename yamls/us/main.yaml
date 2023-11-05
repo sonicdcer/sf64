@@ -27,8 +27,8 @@
       - [0x14AA0, c, 14AA0]
       - [0x17650, c, 17650] # Sound related
       - [0x1EB50, c, 1EB50] # Audio Thread
-      - [0x1FA60, c, 1FA60]
-      - [0x1FA70, hasm, decompress] # May be blanked out osDriveRomInit
+      - [0x1FA60, c, 1FA60] # May be blanked out osDriveRomInit
+      - [0x1FA70, hasm, mio0]
       - [0x1FB10, hasm, rdramcheck]
       - [0x205E0, c, sprintf]
       - [0x206B0, c, math64]
@@ -212,7 +212,6 @@
       - [0xC8BD0, data, ../libultra/rmon/rmoncmds]
       - [0xC8CB0, data, ../libultra/rmon/rmonmain]
 
-
       # RODATA - Nintendo Libraries
       - [0xC8CC0, .rodata, 5A20]
       - [0xC8D10, .rodata, 6280]
@@ -243,6 +242,30 @@
 
       # DATA - game engine
       - [0xCA690, data, engine]
+      # - [0xCA690, data, sf_2F300]
+      # - [0xCA7C0, data, sf_36930]
+      # - [0xCAA90, data, ???]
+      # - [0xCAB00, data, sf_43E80]
+      # - [0xCAB60, data, sf_496C0]
+      # - [0xCAE20, data, sf_52730]
+      # - [0xCAFB0, data, sf_59780]
+      # - [0xCCA70, data, ???]
+      # - [0xD05B0, data, sf_5A2C0]
+      # - [0xD09A0, data, sf_61B30]
+      # - [0xD0B80, data, sf_6B3B0]
+      # - [0xD20E0, data, sf_77E40]
+      # - [0xD2570, data, sf_hud]
+      # # - [0xD31D0, data, sf_97F80] splits from here on are unclear
+      # - [0xD31D0, data, sf_9A580]
+      # - [0xD3460, data, sf_A24B0]
+      # - [0xD3520, data, sf_A4290]
+      # # - [0x, data, sf_A48A0]
+      # - [0xD3B50, data, sf_A4B50]
+      # - [0xD3D80, data, ???]
+      # - [0xD3DB0, data, sf_B99D0]
+      # - [0xD5670, data, sf_BB360]
+      # - [0xD5690, data, sf_versus]
+      # - [0xD5910, data, ???]
 
       # RODATA - game engine
       - [0xD5920, .rodata, sf_2F300]

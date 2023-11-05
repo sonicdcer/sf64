@@ -3,6 +3,13 @@
 
 #include "structs.h"
 
+void func_8000291C(void);
+void func_800029A8(void);
+void func_80002AF4(void);
+void func_80002BE8(void);
+void func_80002C50(void);
+void func_80002CB8(void);
+
 f32 Math_ModF(f32 value, f32 mod);
 void Rand_Init(void);
 f32 Rand_ZeroOne(void);
@@ -24,13 +31,13 @@ void func_80006A20(Matrix*, Vec3f*, Vec3f*);
 void func_80006EB8(Gfx**);
 void func_80006F20(void);
 
-void func_800070C8(s64);
+void func_800070C8(u64);
 
 s32 func_800071FC(s32*);
 s32 func_800072E0(s32*);
 
 void func_80007D58(void*);
-
+void func_80007FE4(FrameBuffer*, u16, u16);
 void func_80008018(void);
 
 void func_800182F4(s32);
@@ -39,7 +46,14 @@ void func_8001A838(u32 arg0);
 void func_8001AF40(s32 arg0);
 void func_8001DC6C(s32, s32);
 
-s32 func_8001EF10(void);
+void func_8000FFCC(void);
+void func_8001DCE0(void);
+void func_8001DECC(void);
+GfxPoolStruct0* func_8001DF50(void);
+
+void RdRam_CheckIPL3(void);
+
+void Mio0_Decompress(void* header, u8* dst);
 
 s32 vsprintf(char* dst, char* fmt, va_list args);
 
@@ -85,8 +99,6 @@ s64 __ull_div(s64, s64);
 s64 __ll_mul(s64, s64);
 s64 __ll_rshift(s64, s64);
 
-s32 func_8002DE78(void*, s32, s32); // Not real signature
-
 void func_80060FBC(u8*, f32*);
 void func_8006EEFC(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 
@@ -121,6 +133,8 @@ void func_8009FC0C(s32, s32, s32);
 f32 func_8009F768(f32);
 void func_8009FEA0(s32, s32, s32);
 void func_800A1200(s32, s32, f32, f32, char*);
+void func_800A18B0(void);
+void func_800A26C0(void);
 s32 func_800A3F50(s32);
 void func_800A5D6C(void);
 void func_800B8DD0(Gfx**, s16);
@@ -128,6 +142,7 @@ void func_800BA490(void);
 void func_800BA4F0(void);
 void func_800BA808(u16*, s32);
 void func_800BB5D0(void);
+void func_800BC4B0(void);
 void func_800B6F50(f32, f32, f32, f32, f32, f32);
 void func_800B9358(void);
 

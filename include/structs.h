@@ -4,6 +4,27 @@
 #include "global.h"
 #include "sf64math.h"
 
+typedef struct {
+    OSTask task;
+    OSMesgQueue* unk40;
+    u32 unk44;
+    s32 unk48;
+} GfxPoolStruct0;
+
+typedef struct {
+    GfxPoolStruct0 unk0;
+    s16 unk50[0x80];
+    Matrix unk150[0x480];
+    Gfx unk12150[0x180];
+    Gfx unk12D50[0x1380];
+    Gfx unk1C950[0xD80];
+    Lightsn unk23550[0x100];
+} GfxPool;
+
+typedef struct {
+    u16 data[240 * 320];
+} FrameBuffer;
+
 typedef struct UnkStruct_D_801B8350 {
     /* 0x00 */ Vec3f unk0;
     /* 0x0C */ char pad_0C[0x4C];
