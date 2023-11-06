@@ -25,16 +25,18 @@ typedef union {
     f32 f;
 } fu;
 
-typedef union {
-    float m[4][4];
-    struct {
-        float xx, yx, zx, wx,
-              xy, yy, zy, wy,
-              xz, yz, zz, wz,
-              xw, yw, zw, ww;
-    };
-    // u64 force_struct_alignment;
-} Matrix;
+typedef float Matrix[4][4];
+
+// typedef union {
+//     float m[4][4];
+//     struct {
+//         float xx, yx, zx, wx,
+//               xy, yy, zy, wy,
+//               xz, yz, zz, wz,
+//               xw, yw, zw, ww;
+//     };
+//     // u64 force_struct_alignment;
+// } Matrix;
 
 extern f32 __libm_qnan_f;
 
