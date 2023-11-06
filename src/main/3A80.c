@@ -20,67 +20,69 @@ void func_80002EE4(u8* buf1, u8* buf2, s32 len) {
         buf1[i] = temp;
     }
 }
-typedef s32 (*CompareFunc)(void*, void*);
+// typedef s32 (*CompareFunc)(void*, void*);
 
-void func_80002F88(u8 *first, u32 curLen, u32 size, CompareFunc cFunc) {
-    u32 splitIdx;
-    u8 *last;
-    u8 *right;
-    u8 *left;
+// void func_80002F88(u8 *first, u32 curLen, u32 size, CompareFunc cFunc) {
+//     u32 splitIdx;
+//     u8 *last;
+//     u8 *right;
+//     u8 *left;
 
-    while(1) {
-        last = first + (curLen - 1) * size;
+//     while(1) {
+//         last = first + (curLen - 1) * size;
 
-        if (curLen == 2) {
-            if (cFunc(first, last) > 0) {
-                func_80002EE4(first, last, size);
-            }
-            return;
-        }
-        if (size && size && size){} //! FAKE: must be here with at least 3 && operands.
-        left = first;
-        right = last - size;
+//         if (curLen == 2) {
+//             if (cFunc(first, last) > 0) {
+//                 func_80002EE4(first, last, size);
+//             }
+//             return;
+//         }
+//         if (size && size && size){} //! FAKE: must be here with at least 3 && operands.
+//         left = first;
+//         right = last - size;
         
-        while(1) {
-            while (cFunc(left, last) < 0) {
-                left += size;
-            }
-            while ((cFunc(right, last) >= 0) && (left < right)) {
-                right -= size;
-            }
-            if (left >= right) {
-                break;
-            }
-            func_80002EE4(left, right, size);
-            left += size;
-            right -= size;
-        }
-        func_80002EE4(last, left, size);
-        splitIdx = (left - first) / size;
-        if (curLen / 2 < splitIdx) {
-            if ((curLen - splitIdx) > 2) {
-                func_80002F88(left + size, curLen - splitIdx - 1, size, cFunc);
-            }
+//         while(1) {
+//             while (cFunc(left, last) < 0) {
+//                 left += size;
+//             }
+//             while ((cFunc(right, last) >= 0) && (left < right)) {
+//                 right -= size;
+//             }
+//             if (left >= right) {
+//                 break;
+//             }
+//             func_80002EE4(left, right, size);
+//             left += size;
+//             right -= size;
+//         }
+//         func_80002EE4(last, left, size);
+//         splitIdx = (left - first) / size;
+//         if (curLen / 2 < splitIdx) {
+//             if ((curLen - splitIdx) > 2) {
+//                 func_80002F88(left + size, curLen - splitIdx - 1, size, cFunc);
+//             }
             
-            if (splitIdx < 2) {
-                return;
-            }
-            left = first;
-            curLen = splitIdx;
-        } else {
-            if (splitIdx >= 2) {
-                func_80002F88(first, splitIdx, size, cFunc);
-            }
+//             if (splitIdx < 2) {
+//                 return;
+//             }
+//             left = first;
+//             curLen = splitIdx;
+//         } else {
+//             if (splitIdx >= 2) {
+//                 func_80002F88(first, splitIdx, size, cFunc);
+//             }
             
-            if ((curLen - splitIdx) <= 2) {
-                return;
-            }
+//             if ((curLen - splitIdx) <= 2) {
+//                 return;
+//             }
 
-            first = left + size;
-            curLen -= splitIdx + 1;
-        }
-    }
-}
+//             first = left + size;
+//             curLen -= splitIdx + 1;
+//         }
+//     }
+// }
+
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/3A80/func_80002F88.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/3A80/func_8000316C.s")
 
