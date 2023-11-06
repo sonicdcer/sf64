@@ -16,6 +16,8 @@ Math_PowF = 0x800055DC;
 Math_MinMax = 0x80005604;
 D_800C45E0 = 0x800C45E0;
 
+
+
 Math_FAtanF = 0x8001FBE8;
 Math_FAtan2F = 0x8001FD0C;
 Math_FAsinF = 0x8001FE00;

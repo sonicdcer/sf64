@@ -69,13 +69,15 @@ extern void *D_800E23A8[1];
 extern GfxPool* D_80137E50;
 extern GfxPoolStruct0* D_80137E54;
 extern s16* D_80137E58;
-extern Matrix *D_80137E5C;
+extern Mtx *D_80137E5C;
 extern Gfx* D_80137E60;
 extern Gfx* D_80137E64;
 extern Gfx* D_80137E68;
 extern Lightsn *D_80137E6C;
 extern void *D_80137E70;
 extern s32* D_80137E74;
+
+Matrix gIdentityMatrix;
 
 // some sort of struct I think
 extern u8 D_80137E78;
@@ -166,6 +168,9 @@ extern s32 D_801617B8;
 extern s32 D_80161810[];
 extern s16 D_80161A34;
 extern s16 D_80161A36;
+extern f32 D_80161A3C;
+extern f32 D_80161A40;
+extern f32 D_80161A44;
 extern u8 D_80161A90[];
 extern s16 D_80161AA0[];
 extern UnkStruct_D_8016F110 D_8016F110[];

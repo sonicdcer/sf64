@@ -14,7 +14,7 @@ typedef struct {
 typedef struct {
     GfxPoolStruct0 unk0;
     s16 unk50[0x80];
-    Matrix unk150[0x480];
+    Mtx unk150[0x480];
     Gfx unk12150[0x180];
     Gfx unk12D50[0x1380];
     Gfx unk1C950[0xD80];
