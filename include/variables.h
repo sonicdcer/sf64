@@ -13,19 +13,33 @@ extern u8 D_802D7800;
 extern u8 gF3dexData;
 
 extern s32 D_800C45D0;
-extern Matrix gIdentityMatrix; //800C4660
 
-extern char* D_800C4870[];
-extern char* D_800C48B8[];
+extern f32 D_800C45E0[];
+
+extern Mtx gIdentityMtx; // 800C4620
+extern Matrix gIdentityMatrix; //800C4660
+extern Vec3f D_800C46A0;
+extern Vec3f D_800C46AC;
+extern Vec3f D_800C46B8;
+extern Vec3f D_800C46C4;
+extern Vec3f D_800C46D0;
+extern Vec3f D_800C46DC;
+
 extern u8 sFaultCharIndex[];
 extern s32 sFaultCharPixelFlags[];
+extern char* D_800C4870[];
+extern char* D_800C48B8[];
 
+extern f32 D_800C5D34;
+extern s8 D_800C5D3C;
 extern s8 D_800C7C50;
 extern s8 D_800C7C54;
 extern OSMesgQueue* D_800C7C58;
 extern OSMesgQueue* D_800C7C5C;
 extern OSMesgQueue* D_800C7C60;
 extern OSMesgQueue* D_800C7C64;
+
+extern char D_800C7C80[];
 
 extern u16 D_800DD8AA;
 extern u8 gAudioThreadStack[0x1000];  // 800DDAA0
@@ -123,8 +137,7 @@ extern OSMesg D_80156618;
 extern OSMesg D_8015661C;
 extern s32 D_8015F928;
 
-extern f32 D_800C5D34;
-extern s8 D_800C5D3C;
+
 extern s32 D_800CFF90;
 extern f32 D_800D19AC[];
 extern f32 D_800D19E0[];

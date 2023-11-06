@@ -20,6 +20,7 @@
       - [0x07B20, c, 7B20]
       - [0x07D30, c, 7D30]
       - [0x07FC0, c, 7FC0]
+          # Audio block
       - [0x08CC0, c, 8CC0]
       - [0x0C870, c, C870]
       - [0x0F0A0, c, F0A0]
@@ -27,6 +28,7 @@
       - [0x14AA0, c, 14AA0]
       - [0x17650, c, 17650] # Sound related
       - [0x1EB50, c, 1EB50] # Audio Thread
+
       - [0x1FA60, c, 1FA60] # May be blanked out osDriveRomInit
       - [0x1FA70, hasm, mio0]
       - [0x1FB10, hasm, rdramcheck]
@@ -191,6 +193,12 @@
 
       # DATA - Nintendo Libraries
       - [0xC51D0, data, nlib]
+      # - [0xC51D0, data, 4650]
+      # - [0xC51E0, data, 5A20]
+      # - [0xC5220, data, 6280]
+      # - [0xC52F0, data, 7B20]
+      # - [0xC54D0, data, audio]
+      # - [0xC8880, data, sprintf]
 
       # DATA - Libultra
       - [0xC88C0, data, ../libultra/io/controller]
