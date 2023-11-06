@@ -33,8 +33,8 @@ void func_80006F20(void);
 
 void func_800070C8(u64);
 
-s32 func_800071FC(s32*);
-s32 func_800072E0(s32*);
+s32 func_800071FC(UnkStruct_7D30*);
+s32 func_800072E0(UnkStruct_7D30*);
 
 void func_80007D58(void*);
 void func_80007FE4(FrameBuffer*, u16, u16);

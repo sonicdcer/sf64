@@ -5,6 +5,24 @@
 #include "sf64math.h"
 
 typedef struct {
+    u16 data[240 * 320];
+} FrameBuffer;
+
+typedef struct {
+    u8 data[0x40][8];
+} UnkStruct_7D30;
+
+typedef struct {
+    OSThread thread;
+    char stack[0x800];
+    OSMesgQueue msgQueue;
+    OSMesg msg;
+    FrameBuffer* fb;
+    u16 width;
+    u16 height;
+} FaultMgr;
+
+typedef struct {
     OSTask task;
     OSMesgQueue* unk40;
     u32 unk44;
@@ -20,10 +38,6 @@ typedef struct {
     Gfx unk1C950[0xD80];
     Lightsn unk23550[0x100];
 } GfxPool;
-
-typedef struct {
-    u16 data[240 * 320];
-} FrameBuffer;
 
 typedef struct UnkStruct_D_801B8350 {
     /* 0x00 */ Vec3f unk0;

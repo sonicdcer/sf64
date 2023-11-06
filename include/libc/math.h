@@ -25,8 +25,6 @@ typedef union {
     f32 f;
 } fu;
 
-// typedef float Matrix[4][4];
-
 typedef union {
     float m[4][4];
     struct {

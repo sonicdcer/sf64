@@ -20,74 +20,128 @@ void func_80002EE4(u8* buf1, u8* buf2, s32 len) {
         buf1[i] = temp;
     }
 }
-// typedef s32 (*CompareFunc)(void*, void*);
 
-// void func_80002F88(u8 *first, u32 curLen, u32 size, CompareFunc cFunc) {
-//     u32 splitIdx;
-//     u8 *last;
-//     u8 *right;
-//     u8 *left;
+typedef s32 (*CompareFunc)(void*, void*);
 
-//     while(1) {
-//         last = first + (curLen - 1) * size;
+void func_80002F88(u8 *first, u32 curLen, u32 size, CompareFunc cFunc) {
+    u32 splitIdx;
+    u8 *last;
+    u8 *right;
+    u8 *left;
 
-//         if (curLen == 2) {
-//             if (cFunc(first, last) > 0) {
-//                 func_80002EE4(first, last, size);
-//             }
-//             return;
-//         }
-//         if (size && size && size){} //! FAKE: must be here with at least 3 && operands.
-//         left = first;
-//         right = last - size;
+    while(1) {
+        last = first + (curLen - 1) * size;
+
+        if (curLen == 2) {
+            if (cFunc(first, last) > 0) {
+                func_80002EE4(first, last, size);
+            }
+            return;
+        }
+        if (size && size && size){} //! FAKE: must be here with at least 3 && operands.
+        left = first;
+        right = last - size;
         
-//         while(1) {
-//             while (cFunc(left, last) < 0) {
-//                 left += size;
-//             }
-//             while ((cFunc(right, last) >= 0) && (left < right)) {
-//                 right -= size;
-//             }
-//             if (left >= right) {
-//                 break;
-//             }
-//             func_80002EE4(left, right, size);
-//             left += size;
-//             right -= size;
-//         }
-//         func_80002EE4(last, left, size);
-//         splitIdx = (left - first) / size;
-//         if (curLen / 2 < splitIdx) {
-//             if ((curLen - splitIdx) > 2) {
-//                 func_80002F88(left + size, curLen - splitIdx - 1, size, cFunc);
-//             }
+        while(1) {
+            while (cFunc(left, last) < 0) {
+                left += size;
+            }
+            while ((cFunc(right, last) >= 0) && (left < right)) {
+                right -= size;
+            }
+            if (left >= right) {
+                break;
+            }
+            func_80002EE4(left, right, size);
+            left += size;
+            right -= size;
+        }
+        func_80002EE4(last, left, size);
+        splitIdx = (left - first) / size;
+        if (curLen / 2 < splitIdx) {
+            if ((curLen - splitIdx) > 2) {
+                func_80002F88(left + size, curLen - splitIdx - 1, size, cFunc);
+            }
             
-//             if (splitIdx < 2) {
-//                 return;
-//             }
-//             left = first;
-//             curLen = splitIdx;
-//         } else {
-//             if (splitIdx >= 2) {
-//                 func_80002F88(first, splitIdx, size, cFunc);
-//             }
+            if (splitIdx < 2) {
+                return;
+            }
+            left = first;
+            curLen = splitIdx;
+        } else {
+            if (splitIdx >= 2) {
+                func_80002F88(first, splitIdx, size, cFunc);
+            }
             
-//             if ((curLen - splitIdx) <= 2) {
-//                 return;
-//             }
+            if ((curLen - splitIdx) <= 2) {
+                return;
+            }
 
-//             first = left + size;
-//             curLen -= splitIdx + 1;
-//         }
-//     }
-// }
+            first = left + size;
+            curLen -= splitIdx + 1;
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/3A80/func_80002F88.s")
+void func_8000316C(Gfx **dList) {
+    u16 norm;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/3A80/func_8000316C.s")
+    guPerspective(D_80137E5C, &norm, D_80161A3C, 1.3333334f, D_80161A40, D_80161A44, 1.0f);
+    gSPPerspNormalize((*dList)++, norm);
+    gSPMatrix((*dList)++, D_80137E5C++, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+    guLookAt(D_80137E5C, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -12800.0f, 0.0f, 1.0f, 0.0f);
+    gSPMatrix((*dList)++, D_80137E5C++, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
+    func_80005680(D_8013B3C0, &gIdentityMatrix);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/3A80/func_800032B4.s")
+void func_800032B4(Gfx **dList) {
+    void *temp_t0;
+    void *temp_t0_2;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/3A80/func_800033E0.s")
+    guOrtho(D_80137E5C, -160.0f, 160.0f, -120.0f, 120.0f, D_80161A40, D_80161A44, 1.0f);
+    gSPMatrix((*dList)++, D_80137E5C++, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+    guLookAt(D_80137E5C, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -12800.0f, 0.0f, 1.0f, 0.0f);
+    gSPMatrix((*dList)++, D_80137E5C++, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
+    func_80005680(D_8013B3C0, &gIdentityMatrix);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/3A80/func_800034E8.s")
+void func_800033E0(u32 var_s2, u32 var_s1, s32 var_s0) {
+    osInvalICache(var_s1, var_s0);
+    osInvalDCache(var_s1, var_s0);
+    while (var_s0 > 0x100) {
+        osPiStartDma(&D_800E2110, 0, 0, var_s2, var_s1, 0x100, &D_800E20F0);
+        var_s0 -= 0x100;
+        var_s2 += 0x100;
+        var_s1 += 0x100;
+        osRecvMesg(&D_800E20F0, NULL, 1);
+    }
+    if (var_s0 != 0) {
+        osPiStartDma(&D_800E2110, 0, 0, var_s2, var_s1, var_s0, &D_800E20F0);
+        osRecvMesg(&D_800E20F0, NULL, 1);
+    }
+}
+
+void func_800034E8(u8 arg0) {
+    s32 i;
+
+    D_80137E88 |= 1;
+    if (arg0 == 1) {
+        if (D_80137E8A == 0) {
+            if (D_80137E88 == 1) {
+                osViBlack(1);
+            } else {
+                for(i = 0; i < 0x3C0; i++) {
+                    D_8038F080[i] = D_80137E88;
+                }
+                osWritebackDCacheAll();
+                osViSwapBuffer(&D_8038F300);
+                osViRepeatLine(1);
+            }
+            D_80137E8A = 1;
+        }
+    } else if (D_80137E8A == 1) {
+        osViRepeatLine(0);
+        osViBlack(0);
+        D_80137E8A = 0;
+    }
+}

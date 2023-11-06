@@ -16,7 +16,10 @@ Math_PowF = 0x800055DC;
 Math_MinMax = 0x80005604;
 D_800C45E0 = 0x800C45E0;
 
+gIdentityMatrix = 0x800C4660;
 
+sFaultCharPixelFlags = 0x800C4770;
+sFaultCharIndex = 0x800C46F0;
 
 Math_FAtanF = 0x8001FBE8;
 Math_FAtan2F = 0x8001FD0C;

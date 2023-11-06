@@ -13,6 +13,12 @@ extern u8 D_802D7800;
 extern u8 gF3dexData;
 
 extern s32 D_800C45D0;
+extern Matrix gIdentityMatrix; //800C4660
+
+extern char* D_800C4870[];
+extern char* D_800C48B8[];
+extern u8 sFaultCharIndex[];
+extern s32 sFaultCharPixelFlags[];
 
 extern s8 D_800C7C50;
 extern s8 D_800C7C54;
@@ -41,6 +47,7 @@ extern OSMesg sPiMgrCmdBuff[50]; // 800E2028
 
 extern OSMesgQueue D_800E20F0;
 extern void *D_800E2108[1];
+extern OSIoMesg D_800E2110;
 extern OSMesgQueue D_800E2128;
 extern void *D_800E2140[1];
 extern OSMesgQueue D_800E2148;
@@ -77,8 +84,6 @@ extern Lightsn *D_80137E6C;
 extern void *D_80137E70;
 extern s32* D_80137E74;
 
-Matrix gIdentityMatrix;
-
 // some sort of struct I think
 extern u8 D_80137E78;
 extern u32 D_80137E7C;
@@ -91,8 +96,10 @@ extern u16 D_80137E8A;
 extern s32 D_80178580;
 extern s32 *D_80178710;
 extern s32 D_80387800;
+extern u16 D_8038F080[];
+extern u16 D_8038F300[];
 
-extern FrameBuffer gFrameBuffers[3];
+extern FrameBuffer gFrameBuffers[3]; // 8038F800
 extern GfxPool gGfxPools[2]; // 800E23B0
 
 extern Matrix* D_8013B3C0;
@@ -106,7 +113,9 @@ extern OSThread gMainThread; // 8013A040
 extern u8 sMainThreadStack[0x1000]; // 8013A1F0
 extern OSThread gAudioThread; //8013B1F0
 
-extern s32 D_80144F60;
+extern UnkStruct_7D30 D_80144F60;
+extern UnkStruct_7D30 D_80145160;
+extern FaultMgr D_80145360;
 
 extern OSMesg D_80156600;
 extern OSMesg D_80156608;
