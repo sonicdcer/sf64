@@ -1,6 +1,7 @@
 bootproc = 0x80004DA8;
 D_800C90F0 = 0x800C90F0;
 __libm_qnan_f = 0x800C9570;
+D_1 = 0x1; //ignore:true
 
 Math_ModF = 0x80004E20;
 Rand_Init = 0x80004E4C;
@@ -15,6 +16,10 @@ Math_Factorial = 0x800054C8;
 Math_PowF = 0x800055DC;
 Math_MinMax = 0x80005604;
 D_800C45E0 = 0x800C45E0;
+
+D_800C57EC = 0x800C57EC;
+D_800C7380 = 0x800C7380;
+D_800C5FF4 = 0x800C5FF4; //type:u16 size:5000
 
 gIdentityMtx = 0x800C4620;
 gIdentityMatrix = 0x800C4660;

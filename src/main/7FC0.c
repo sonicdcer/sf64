@@ -1,21 +1,19 @@
 #include "global.h"
 
-
-
-OSThread *func_80007CEC(void);
-void func_80007910(OSThread *thread);
-void func_8000762C(s32, s32, const char*, ...);
-void *func_80007604(void *, s8 *, u32);
+OSThread* func_80007CEC(void);
+void func_80007910(OSThread* thread);
+void func_8000762C(s32 /*arg0*/, s32 /*arg1*/, const char* /*fmt*/, ...);
+void* func_80007604(void* /*arg0*/, s8* /*arg1*/, u32 /*arg2*/);
 void func_8000770C(s32 arg0);
 
 void func_800073C0(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
-    u16 *var_v0;
+    u16* var_v0;
     s32 i;
     s32 j;
 
-    var_v0 = D_80145360.width * arg1  + D_80145360.fb->data + arg0;
-    for(i = 0; i < arg3; i++) {
-        for(j = 0; j < arg2; j++, var_v0++) {
+    var_v0 = D_80145360.width * arg1 + D_80145360.fb->data + arg0;
+    for (i = 0; i < arg3; i++) {
+        for (j = 0; j < arg2; j++, var_v0++) {
             *var_v0 = ((*var_v0 & 0xE738) >> 2) | 1;
         }
         var_v0 += D_80145360.width - arg2;
@@ -24,8 +22,8 @@ void func_800073C0(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 
 #ifdef NON_MATCHING
 void func_800074AC(s32 arg0, s32 arg1, s32 arg2) {
-    s32 *var_v0;
-    u16 *var_v1;
+    s32* var_v0;
+    u16* var_v1;
     u32 temp_t1;
     u32 temp_a3;
     s32 i;
@@ -34,11 +32,11 @@ void func_800074AC(s32 arg0, s32 arg1, s32 arg2) {
     var_v0 = &sFaultCharPixelFlags[(arg2 / 5) * 7];
     var_v1 = D_80145360.width * arg1 + D_80145360.fb->data + arg0;
 
-    for(i = 0; i < 7; i++) {
+    for (i = 0; i < 7; i++) {
         temp_t1 = 0x80000000 >> ((arg2 % 5) * 6);
         temp_a3 = *var_v0++;
-        for(j = 0; j < 6; j++) {
-            if(temp_t1 & temp_a3) {
+        for (j = 0; j < 6; j++) {
+            if (temp_t1 & temp_a3) {
                 *var_v1 = -1;
             } else {
                 *var_v1 = 1;
@@ -53,13 +51,13 @@ void func_800074AC(s32 arg0, s32 arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/func_800074AC.s")
 #endif
 
-void *func_80007604(void *arg0, s8 *arg1, u32 arg2) {
-    return (u32)memcpy(arg0, arg1, arg2) + arg2;
+void* func_80007604(void* arg0, s8* arg1, u32 arg2) {
+    return (u32) memcpy(arg0, arg1, arg2) + arg2;
 }
 
 #ifdef NON_MATCHING
 void func_8000762C(s32 arg0, s32 arg1, const char* fmt, ...) {
-    u8 *var_s0;
+    u8* var_s0;
     s32 i;
     u8 sp40[0x100];
     u8 temp_a2;
@@ -67,11 +65,11 @@ void func_8000762C(s32 arg0, s32 arg1, const char* fmt, ...) {
     va_list args;
     va_start(args, fmt);
 
-    for(i = 0; i < 0x100; i++) {
+    for (i = 0; i < 0x100; i++) {
         sp40[i] = 0;
     }
     if (_Printf(func_80007604, sp40, fmt, args) > 0) {
-        for(var_s0 = sp40; *var_s0 != 0; arg0 += 6, var_s0++) {
+        for (var_s0 = sp40; *var_s0 != 0; arg0 += 6, var_s0++) {
             temp_a2 = sFaultCharIndex[*var_s0 & 0x7F];
             if (temp_a2 != 0xFF) {
                 func_800074AC(arg0, arg1, temp_a2);
@@ -80,7 +78,7 @@ void func_8000762C(s32 arg0, s32 arg1, const char* fmt, ...) {
     }
     va_end(args);
 }
-#else 
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/func_8000762C.s")
 #endif
 
@@ -89,7 +87,7 @@ void func_8000770C(s32 arg0) {
 
     osSetTime(0);
     while (osGetTime() < temp_ret_4) {
-       ;
+        ;
     }
 }
 
@@ -141,8 +139,8 @@ void func_8000770C(s32 arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8430.s")
 
-void func_800077F8(s32 arg0, s32 arg1, s32 arg2, f32 *arg3) {
-    u32 temp_v0 = *(u32*)arg3;
+void func_800077F8(s32 arg0, s32 arg1, s32 arg2, f32* arg3) {
+    u32 temp_v0 = *(u32*) arg3;
     s32 temp_v1 = ((temp_v0 & 0x7F800000) >> 0x17) - 0x7F;
 
     if (((-0x7F < temp_v1) && (temp_v1 < 0x80)) || (temp_v0 == 0)) {
@@ -157,16 +155,16 @@ void func_80007880(u32 arg0) {
     u32 var_v1 = 0x20000;
 
     func_8000762C(0x1E, 0xA0, "FPCSR:%08XH", arg0);
-    for(var_v0 = 0; var_v0 < 6; var_v0++, var_v1 >>= 1) {
-        if(arg0 & var_v1) {
+    for (var_v0 = 0; var_v0 < 6; var_v0++, var_v1 >>= 1) {
+        if (arg0 & var_v1) {
             func_8000762C(0x84, 0xA0, "(%s)", D_800C48B8[var_v0]);
             return;
         }
     }
 }
 
-void func_80007910(OSThread *thread) {
-    __OSThreadContext *context = &thread->context;
+void func_80007910(OSThread* thread) {
+    __OSThreadContext* context = &thread->context;
     s16 var_s0 = (thread->context.cause >> 2) & 0x1F;
 
     if (var_s0 == 0x17) {
@@ -189,17 +187,17 @@ void func_80007910(OSThread *thread) {
     func_8000762C(0x1E, 0x78, "S3:%08XH   S4:%08XH\tS5:%08XH", (s32) context->s3, (s32) context->s4, (s32) context->s5);
     func_8000762C(0x1E, 0x82, "S6:%08XH   S7:%08XH\tT8:%08XH", (s32) context->s6, (s32) context->s7, (s32) context->t8);
     func_8000762C(0x1E, 0x8C, "T9:%08XH   GP:%08XH\tSP:%08XH", (s32) context->t9, (s32) context->gp, (s32) context->sp);
-    func_8000762C(0x1E, 0x96, "S8:%08XH   RA:%08XH",           (s32) context->s8, (s32) context->ra);
+    func_8000762C(0x1E, 0x96, "S8:%08XH   RA:%08XH", (s32) context->s8, (s32) context->ra);
     func_80007880(context->fpcsr);
     osWritebackDCacheAll();
-    func_800077F8(0x1E, 0xAA, 0,    &context->fp0.f.f_even);
-    func_800077F8(0x78, 0xAA, 2,    &context->fp2.f.f_even);
-    func_800077F8(0xD2, 0xAA, 4,    &context->fp4.f.f_even);
-    func_800077F8(0x1E, 0xB4, 6,    &context->fp6.f.f_even);
-    func_800077F8(0x78, 0xB4, 8,    &context->fp8.f.f_even);
-    func_800077F8(0xD2, 0xB4, 0xA,  &context->fp10.f.f_even);
-    func_800077F8(0x1E, 0xBE, 0xC,  &context->fp12.f.f_even);
-    func_800077F8(0x78, 0xBE, 0xE,  &context->fp14.f.f_even);
+    func_800077F8(0x1E, 0xAA, 0, &context->fp0.f.f_even);
+    func_800077F8(0x78, 0xAA, 2, &context->fp2.f.f_even);
+    func_800077F8(0xD2, 0xAA, 4, &context->fp4.f.f_even);
+    func_800077F8(0x1E, 0xB4, 6, &context->fp6.f.f_even);
+    func_800077F8(0x78, 0xB4, 8, &context->fp8.f.f_even);
+    func_800077F8(0xD2, 0xB4, 0xA, &context->fp10.f.f_even);
+    func_800077F8(0x1E, 0xBE, 0xC, &context->fp12.f.f_even);
+    func_800077F8(0x78, 0xBE, 0xE, &context->fp14.f.f_even);
     func_800077F8(0xD2, 0xBE, 0x10, &context->fp16.f.f_even);
     func_800077F8(0x1E, 0xC8, 0x12, &context->fp18.f.f_even);
     func_800077F8(0x78, 0xC8, 0x14, &context->fp20.f.f_even);
@@ -214,8 +212,8 @@ void func_80007910(OSThread *thread) {
     osViSwapBuffer(D_80145360.fb);
 }
 
-OSThread *func_80007CEC(void) {
-    OSThread *var_v1;
+OSThread* func_80007CEC(void) {
+    OSThread* var_v1;
 
     var_v1 = __osGetActiveQueue();
 
@@ -224,14 +222,13 @@ OSThread *func_80007CEC(void) {
             return var_v1;
         }
         var_v1 = var_v1->tlnext;
-        
     }
     return NULL;
 }
 
-void func_80007D58(void *arg0) {
-    void *sp44;
-    OSThread *sp40;
+void func_80007D58(void* arg0) {
+    void* sp44;
+    OSThread* sp40;
     s32 var_s2;
     s32 var_s5;
     u32 var_s0;
@@ -240,7 +237,7 @@ void func_80007D58(void *arg0) {
     var_s5 = 0;
     var_s0 = 0;
     var_s2 = 0;
-    
+
     osSetEventMesg(0xA, &D_80145360.msgQueue, 1);
     osSetEventMesg(0xC, &D_80145360.msgQueue, 2);
 
@@ -252,7 +249,7 @@ void func_80007D58(void *arg0) {
 
     func_8000762C(300, 10, "-");
     D_800DD8B0[0] = 1;
-    while(var_s5 == 0) {
+    while (var_s5 == 0) {
         osSendMesg(&D_800E22C0, 0xA, 0);
         osRecvMesg(&D_800E22F8, NULL, 1);
         func_800029A8();
@@ -322,9 +319,9 @@ void func_80007D58(void *arg0) {
         } else {
             var_s0 = 0;
         }
-    } 
+    }
     func_80007910(sp40);
-    while(1) {
+    while (1) {
         ;
     }
 }

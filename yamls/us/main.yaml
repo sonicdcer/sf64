@@ -192,13 +192,12 @@
       - [0xC49D0, data, f3dex]
 
       # DATA - Nintendo Libraries
-      - [0xC51D0, data, nlib]
-      # - [0xC51D0, data, 4650]
-      # - [0xC51E0, data, 5A20]
-      # - [0xC5220, data, 6280]
-      # - [0xC52F0, data, 7B20]
-      # - [0xC54D0, data, audio]
-      # - [0xC8880, data, sprintf]
+      - [0xC51D0, .data, 4650]
+      - [0xC51E0, .data, 5A20]
+      - [0xC5220, .data, 6280]
+      - [0xC52F0, data, 7B20]
+      - [0xC54D0, data, audio]
+      - [0xC8880, data, sprintf]
 
       # DATA - Libultra
       - [0xC88C0, data, ../libultra/io/controller]
@@ -300,7 +299,8 @@
       - [0xD9F60, .rodata, sf_C3430]
 
       # Common assets
-      - [0xDA030, bin, assets]
+      - [0xDA030, data, displists]
+      - [0xDC710, data, audiodata]
 
       # Nintendo Library bss
       - { start: 0xDE480, type: bss, vram: 0x800DD880, name: nlib }

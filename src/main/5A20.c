@@ -124,7 +124,7 @@ f32 Math_FactorialF(f32 n) {
     return out;
 }
 
-extern f32 D_800C45E0[];
+f32 D_800C45E0[] = { 1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800, 39916800, 479001600 };
 
 f32 Math_Factorial(s32 n) {
     f32 out;

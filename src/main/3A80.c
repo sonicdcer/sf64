@@ -14,7 +14,7 @@ void func_80002EE4(u8* buf1, u8* buf2, s32 len) {
     s32 i;
     u8 temp;
 
-    for(i = 0; i < len; i++) {
+    for (i = 0; i < len; i++) {
         temp = buf2[i];
         buf2[i] = buf1[i];
         buf1[i] = temp;
@@ -23,13 +23,13 @@ void func_80002EE4(u8* buf1, u8* buf2, s32 len) {
 
 typedef s32 (*CompareFunc)(void*, void*);
 
-void func_80002F88(u8 *first, u32 curLen, u32 size, CompareFunc cFunc) {
+void func_80002F88(u8* first, u32 curLen, u32 size, CompareFunc cFunc) {
     u32 splitIdx;
-    u8 *last;
-    u8 *right;
-    u8 *left;
+    u8* last;
+    u8* right;
+    u8* left;
 
-    while(1) {
+    while (1) {
         last = first + (curLen - 1) * size;
 
         if (curLen == 2) {
@@ -38,11 +38,11 @@ void func_80002F88(u8 *first, u32 curLen, u32 size, CompareFunc cFunc) {
             }
             return;
         }
-        if (size && size && size){} //! FAKE: must be here with at least 3 && operands.
+        if (size && size && size) {} //! FAKE: must be here with at least 3 && operands.
         left = first;
         right = last - size;
-        
-        while(1) {
+
+        while (1) {
             while (cFunc(left, last) < 0) {
                 left += size;
             }
@@ -62,7 +62,7 @@ void func_80002F88(u8 *first, u32 curLen, u32 size, CompareFunc cFunc) {
             if ((curLen - splitIdx) > 2) {
                 func_80002F88(left + size, curLen - splitIdx - 1, size, cFunc);
             }
-            
+
             if (splitIdx < 2) {
                 return;
             }
@@ -72,7 +72,7 @@ void func_80002F88(u8 *first, u32 curLen, u32 size, CompareFunc cFunc) {
             if (splitIdx >= 2) {
                 func_80002F88(first, splitIdx, size, cFunc);
             }
-            
+
             if ((curLen - splitIdx) <= 2) {
                 return;
             }
@@ -83,7 +83,7 @@ void func_80002F88(u8 *first, u32 curLen, u32 size, CompareFunc cFunc) {
     }
 }
 
-void func_8000316C(Gfx **dList) {
+void func_8000316C(Gfx** dList) {
     u16 norm;
 
     guPerspective(D_80137E5C, &norm, D_80161A3C, 1.3333334f, D_80161A40, D_80161A44, 1.0f);
@@ -94,9 +94,9 @@ void func_8000316C(Gfx **dList) {
     func_80005680(D_8013B3C0, &gIdentityMatrix);
 }
 
-void func_800032B4(Gfx **dList) {
-    void *temp_t0;
-    void *temp_t0_2;
+void func_800032B4(Gfx** dList) {
+    void* temp_t0;
+    void* temp_t0_2;
 
     guOrtho(D_80137E5C, -160.0f, 160.0f, -120.0f, 120.0f, D_80161A40, D_80161A44, 1.0f);
     gSPMatrix((*dList)++, D_80137E5C++, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
@@ -130,7 +130,7 @@ void func_800034E8(u8 arg0) {
             if (D_80137E88 == 1) {
                 osViBlack(1);
             } else {
-                for(i = 0; i < 0x3C0; i++) {
+                for (i = 0; i < 0x3C0; i++) {
                     D_8038F080[i] = D_80137E88;
                 }
                 osWritebackDCacheAll();

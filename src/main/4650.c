@@ -1,11 +1,11 @@
 #include "global.h"
 
 void func_800034E8(s32);
-void Audio_ThreadEntry(void*);
+void Audio_ThreadEntry(void* /*arg0*/);
 void func_80003EE0(void);
-void func_80003FEC(void*);
-void func_800040D4(void*);
-void Graphics_ThreadEntry(void*);
+void func_80003FEC(void* /*arg0*/);
+void func_800040D4(void* /*arg0*/);
+void Graphics_ThreadEntry(void* /*arg0*/);
 
 void func_80004560(void);
 void func_80004714(void);
@@ -13,6 +13,8 @@ void func_80004798(void);
 void func_80004824(void);
 void func_800049D4(void);
 void func_80007088(void*);
+
+s32 D_800C45D0 = 1;
 
 #ifdef NON_MATCHING
 void func_80003A50(void) {
@@ -26,16 +28,16 @@ void func_80003A50(void) {
     D_80137E8A = 0;
     D_800E1FB0 = NULL;
 
-    for(i = 0; i < ARRAY_COUNT(D_800E1FB4); i++) {
+    for (i = 0; i < ARRAY_COUNT(D_800E1FB4); i++) {
         D_800E1FB4[i] = NULL;
     }
-    for(i = 0; i < ARRAY_COUNT(D_800E1FB8); i++) {
+    for (i = 0; i < ARRAY_COUNT(D_800E1FB8); i++) {
         D_800E1FB8[i] = NULL;
     }
-    for(i = 0; i < 1; i++) {
+    for (i = 0; i < 1; i++) {
         D_800E1FC0[i] = NULL;
     }
-    for(i = 0; i < ARRAY_COUNT(D_800E1FC8); i++) {
+    for (i = 0; i < ARRAY_COUNT(D_800E1FC8); i++) {
         D_800E1FC8[i] = NULL;
     }
 }
@@ -44,8 +46,8 @@ void func_80003A50(void);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/4650/func_80003A50.s")
 #endif
 
-void Audio_ThreadEntry(void *arg0) {
-    GfxPoolStruct0 *temp_v0;
+void Audio_ThreadEntry(void* arg0) {
+    GfxPoolStruct0* temp_v0;
 
     func_8000FFCC();
     func_8001DCE0();
@@ -56,7 +58,7 @@ void Audio_ThreadEntry(void *arg0) {
         osWritebackDCacheAll();
         osSendMesg(&D_800E21E0, temp_v0, 0);
     }
-    while(1) {
+    while (1) {
         temp_v0 = func_8001DF50();
         if (temp_v0 != NULL) {
             temp_v0->unk40 = &D_800E2258;
@@ -115,7 +117,8 @@ void func_80003DC0(u32 arg0) {
 }
 
 void func_80003EE0(void) {
-    if ((D_800DD880[0].button & D_JPAD) && (D_800DD880[1].button & D_JPAD) && (D_800DD880[2].button & D_JPAD) && (D_800DD880[3].button & L_TRIG) && (D_800DD880[3].button & R_TRIG) && (D_800DD880[3].button & Z_TRIG)) {
+    if ((D_800DD880[0].button & D_JPAD) && (D_800DD880[1].button & D_JPAD) && (D_800DD880[2].button & D_JPAD) &&
+        (D_800DD880[3].button & L_TRIG) && (D_800DD880[3].button & R_TRIG) && (D_800DD880[3].button & Z_TRIG)) {
         D_800C45D0 = 1 - D_800C45D0;
     }
     switch (osTvType) {
@@ -137,13 +140,13 @@ void func_80003EE0(void) {
     }
 }
 
-void func_80003FEC(void *arg0) {
+void func_80003FEC(void* arg0) {
     s32 sp34;
 
     func_8000291C();
-    while(1) {
+    while (1) {
         osRecvMesg(&D_800E22C0, &sp34, 1);
-        switch(sp34) {
+        switch (sp34) {
             case 0xA:
                 func_80002AF4();
                 break;
@@ -160,17 +163,17 @@ void func_80003FEC(void *arg0) {
     }
 }
 
-void func_800040D4(void *arg0) {
-    void *sp24;
+void func_800040D4(void* arg0) {
+    void* sp24;
 
-    while(1) {
+    while (1) {
         osRecvMesg(&D_800E2338, &sp24, 1);
         func_80007088(sp24);
     }
 }
 
 #ifdef NON_MATCHING
-void Graphics_ThreadEntry(void *arg0) {
+void Graphics_ThreadEntry(void* arg0) {
     u8 var_s0;
     u8 var_v1;
     u8 var_v2;
@@ -189,7 +192,7 @@ void Graphics_ThreadEntry(void *arg0) {
         gSPEndDisplayList(D_80137E64++);
     }
     func_80003C50();
-    while(1) {
+    while (1) {
         D_80137E7C++;
         func_80003DC0(D_80137E7C);
         osRecvMesg(&D_800E22F8, NULL, 1);
@@ -219,12 +222,12 @@ void Graphics_ThreadEntry(void *arg0) {
         }
         func_80007FE4(&gFrameBuffers[(D_80137E7C - 1) % 3], 320, 16);
 
-        var_v1 = MIN(D_80137E78,4);
+        var_v1 = MIN(D_80137E78, 4);
         var_v2 = MAX(var_v1, D_800E2278.validCount + 1);
-        for(var_s0 = 0; var_s0 < var_v2; var_s0++) {
+        for (var_s0 = 0; var_s0 < var_v2; var_s0++) {
             osRecvMesg(&D_800E2278, NULL, 1);
         }
-       
+
         func_8001DECC();
     }
 }
@@ -255,15 +258,15 @@ void func_80004560(void) {
 
 #ifdef NON_MATCHING
 void func_80004714(void) {
-    GfxPoolStruct0 **var_v1  = D_800E1FB8;
+    GfxPoolStruct0** var_v1 = D_800E1FB8;
     u8 i;
 
     if ((*var_v1)->unk40 != NULL) {
         osSendMesg((*var_v1)->unk40, (*var_v1)->unk44, 0);
     }
     (*var_v1)->unk48 = 4;
-    for(i = 0; i < 1; i++, var_v1++) {
-        *var_v1  = *(var_v1 + 1);
+    for (i = 0; i < 1; i++, var_v1++) {
+        *var_v1 = *(var_v1 + 1);
     }
     *var_v1 = NULL;
 }
@@ -272,7 +275,7 @@ void func_80004714(void) {
 #endif
 
 void func_80004798(void) {
-    GfxPoolStruct0 *temp_a3;
+    GfxPoolStruct0* temp_a3;
 
     temp_a3 = D_800E1FB0;
     D_800E1FB0 = NULL;
@@ -294,19 +297,19 @@ void func_80004798(void) {
 #ifdef NON_MATCHING
 void func_80004824(void) {
     u8 i;
-    GfxPoolStruct0 **var_a0;
-    GfxPoolStruct0 **var_a1;
-    GfxPoolStruct0 **var_s0_2;
-    GfxPoolStruct0 **var_s1_2;
-    GfxPoolStruct0 *sp40;
+    GfxPoolStruct0** var_a0;
+    GfxPoolStruct0** var_a1;
+    GfxPoolStruct0** var_s0_2;
+    GfxPoolStruct0** var_s1_2;
+    GfxPoolStruct0* sp40;
     s32 pad;
 
     var_s0_2 = D_800E1FC0;
     var_s1_2 = D_800E1FC8;
-    for(i = 0; i < 1; i++) {
+    for (i = 0; i < 1; i++) {
         *(var_s0_2++) = NULL;
     }
-    for(i = 0; i < ARRAY_COUNT(D_800E1FC8); i++) {
+    for (i = 0; i < ARRAY_COUNT(D_800E1FC8); i++) {
         *(var_s1_2++) = NULL;
     }
 
@@ -324,27 +327,26 @@ void func_80004824(void) {
                 *(var_s1_2++) = sp40;
                 break;
         }
-        
     }
     var_s0_2 = D_800E1FC0;
     var_s1_2 = D_800E1FC8;
     var_a0 = D_800E1FB4;
     var_a1 = D_800E1FB8;
 
-    for(i = 0; i < 1; i++) {
-        if(*var_a0 != NULL) {
+    for (i = 0; i < 1; i++) {
+        if (*var_a0 != NULL) {
             var_a0++;
         }
     }
-    for(i; i < 1; i++) {
+    for (i; i < 1; i++) {
         *(var_a0++) = *(var_s0_2++);
     }
-    for(i = 0; i < 2; i++) {
-        if(*var_a1 != NULL) {
+    for (i = 0; i < 2; i++) {
+        if (*var_a1 != NULL) {
             var_a1++;
         }
     }
-    for(i; i < 2; i++) {
+    for (i; i < 2; i++) {
         *(var_a1++) = *(var_s1_2++);
     }
 }
@@ -374,12 +376,13 @@ void func_800049D4(void) {
     }
 }
 
-void Main_ThreadEntry(void *arg0) {
+void Main_ThreadEntry(void* arg0) {
     s32 sp54;
 
     osCreateThread(&gAudioThread, 5, Audio_ThreadEntry, arg0, gAudioThreadStack + sizeof(gAudioThreadStack), 80);
     osStartThread(&gAudioThread);
-    osCreateThread(&gGraphicsThread, 6, Graphics_ThreadEntry, arg0, gGraphicsThreadStack + sizeof(gGraphicsThreadStack), 40);
+    osCreateThread(&gGraphicsThread, 6, Graphics_ThreadEntry, arg0, gGraphicsThreadStack + sizeof(gGraphicsThreadStack),
+                   40);
     osStartThread(&gGraphicsThread);
     osCreateThread(&gUnkThread3, 7, func_800040D4, arg0, gUnkThread3Stack + sizeof(gUnkThread3Stack), 60);
     osStartThread(&gUnkThread3);
@@ -388,9 +391,9 @@ void Main_ThreadEntry(void *arg0) {
 
     func_80004560();
 
-    while(true) {
+    while (true) {
         osRecvMesg(&D_800E2148, &sp54, 1);
-        switch ((u8)sp54) {
+        switch ((u8) sp54) {
             case 3:
                 osSendMesg(&D_800E2238, 3, 0);
                 osSendMesg(&D_800E2278, 3, 0);

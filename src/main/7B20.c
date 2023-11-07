@@ -28,16 +28,16 @@ s32 func_80006F38(s32 arg0) {
 UnkStruct_func_80007088* func_80006F60(void) {
     s32 i;
 
-    for(i = 0; i < 0x10; i++) {
-        if(D_80144BE0[i].unk0 == 0) {
+    for (i = 0; i < 0x10; i++) {
+        if (D_80144BE0[i].unk0 == 0) {
             return &D_80144BE0[i];
         }
     }
     return NULL;
 }
 
-s32 func_80006FD8(u64 arg0, void *arg2, s32 arg3, s32 arg4) {
-    UnkStruct_func_80007088 *temp_v0;
+s32 func_80006FD8(u64 arg0, void* arg2, s32 arg3, s32 arg4) {
+    UnkStruct_func_80007088* temp_v0;
 
     temp_v0 = func_80006F60();
     if (temp_v0 == NULL) {
@@ -67,7 +67,7 @@ void func_80007088(UnkStruct_func_80007088* arg0) {
 
 void func_800070C8(u64 arg0) {
     OSTimer sp30;
-    void *sp2C;
+    void* sp2C;
 
     osSetTimer(&sp30, arg0, 0, &D_800E2390, NULL);
     osRecvMesg(&D_800E2390, &sp2C, 1);
