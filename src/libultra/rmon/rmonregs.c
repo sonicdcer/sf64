@@ -29,7 +29,7 @@ s32 rmonGetRcpRegister(s32 arg0) {
         SetUpForRCPop(0);
         __rmonregs_LoadStoreSU(0x2B, arg0);
         __rmonStepRCP();
-        ret = __rmonReadWordAt((u32*)SP_DMEM_START);
+        ret = __rmonReadWordAt((u32*) SP_DMEM_START);
         CleanupFromRCPop(0);
         return ret;
     }

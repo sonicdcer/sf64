@@ -14,12 +14,9 @@ void func_800073C0(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
 }
 
-#ifdef NON_MATCHING
 void func_800074AC(s32 arg0, s32 arg1, s32 arg2) {
     s32* var_v0;
     u16* var_v1;
-    u32 temp_t1;
-    u32 temp_a3;
     s32 i;
     s32 j;
 
@@ -27,8 +24,9 @@ void func_800074AC(s32 arg0, s32 arg1, s32 arg2) {
     var_v1 = gFaultMgr.width * arg1 + gFaultMgr.fb->data + arg0;
 
     for (i = 0; i < 7; i++) {
-        temp_t1 = 0x80000000 >> ((arg2 % 5) * 6);
-        temp_a3 = *var_v0++;
+        u32 temp_t1 = 0x80000000 >> ((arg2 % 5) * 6);
+        u32 temp_a3 = *var_v0++;
+
         for (j = 0; j < 6; j++) {
             if (temp_t1 & temp_a3) {
                 *var_v1 = -1;
@@ -41,9 +39,6 @@ void func_800074AC(s32 arg0, s32 arg1, s32 arg2) {
         var_v1 += gFaultMgr.width - 6;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/func_800074AC.s")
-#endif
 
 void* func_80007604(void* arg0, const char* arg1, size_t arg2) {
     return (char*) memcpy(arg0, arg1, arg2) + arg2;
@@ -54,14 +49,14 @@ void func_8000762C(s32 arg0, s32 arg1, const char* fmt, ...) {
     u8* var_s0;
     s32 i;
     u8 sp40[0x100];
-    u8 temp_a2;
-    u8 temp_a3;
+    u32 temp_a2;
     va_list args;
     va_start(args, fmt);
 
     for (i = 0; i < 0x100; i++) {
         sp40[i] = 0;
     }
+
     if (_Printf(func_80007604, sp40, fmt, args) > 0) {
         for (var_s0 = sp40; *var_s0 != 0; arg0 += 6, var_s0++) {
             temp_a2 = sFaultCharIndex[*var_s0 & 0x7F];
@@ -233,8 +228,8 @@ void Fault_ThreadEntry(void* arg0) {
     var_s0 = 0;
     var_s2 = 0;
 
-    osSetEventMesg(OS_EVENT_CPU_BREAK, &gFaultMgr.msgQueue, (OSMesg)1);
-    osSetEventMesg(OS_EVENT_FAULT, &gFaultMgr.msgQueue, (OSMesg)2);
+    osSetEventMesg(OS_EVENT_CPU_BREAK, &gFaultMgr.msgQueue, (OSMesg) 1);
+    osSetEventMesg(OS_EVENT_FAULT, &gFaultMgr.msgQueue, (OSMesg) 2);
 
     sp40 = NULL;
     while (sp40 == NULL) {
@@ -245,7 +240,7 @@ void Fault_ThreadEntry(void* arg0) {
     func_8000762C(300, 10, "-");
     D_800DD8B0[0] = 1;
     while (var_s5 == 0) {
-        osSendMesg(&D_800E22C0, (OSMesg)10, 0);
+        osSendMesg(&D_800E22C0, (OSMesg) 10, 0);
         osRecvMesg(&D_800E22F8, NULL, 1);
         func_800029A8();
         switch (var_s0) {
@@ -332,6 +327,7 @@ void func_80008018(void) {
     gFaultMgr.width = SCREEN_WIDTH;
     gFaultMgr.height = SCREEN_HEIGHT;
     osCreateMesgQueue(&gFaultMgr.msgQueue, &gFaultMgr.msg, 1);
-    osCreateThread(&gFaultMgr.thread, THREAD_ID_FAULT, Fault_ThreadEntry, 0, gFaultMgr.stack + sizeof(gFaultMgr.stack), 0x7F);
+    osCreateThread(&gFaultMgr.thread, THREAD_ID_FAULT, Fault_ThreadEntry, 0, gFaultMgr.stack + sizeof(gFaultMgr.stack),
+                   0x7F);
     osStartThread(&gFaultMgr.thread);
 }

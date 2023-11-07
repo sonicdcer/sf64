@@ -49,7 +49,7 @@ void Audio_ThreadEntry(void* arg0) {
     temp_v0 = func_8001DF50();
     if (temp_v0 != NULL) {
         temp_v0->msgQueue = &D_800E2258;
-        temp_v0->msg = (OSMesg)1;
+        temp_v0->msg = (OSMesg) 1;
         osWritebackDCacheAll();
         osSendMesg(&D_800E21E0, temp_v0, 0);
     }
@@ -57,7 +57,7 @@ void Audio_ThreadEntry(void* arg0) {
         temp_v0 = func_8001DF50();
         if (temp_v0 != NULL) {
             temp_v0->msgQueue = &D_800E2258;
-            temp_v0->msg = (OSMesg)1;
+            temp_v0->msg = (OSMesg) 1;
             osWritebackDCacheAll();
         }
         osRecvMesg(&D_800E2258, NULL, 0);
@@ -70,7 +70,7 @@ void Audio_ThreadEntry(void* arg0) {
 
 void func_80003C50(void) {
     gGfxTask->msgQueue = &D_800E22A0;
-    gGfxTask->msg = (OSMesg)2;
+    gGfxTask->msg = (OSMesg) 2;
     gGfxTask->task.t.type = M_GFXTASK;
     gGfxTask->task.t.flags = 0;
     gGfxTask->task.t.ucode_boot = __rspboot_start;
@@ -140,7 +140,7 @@ void func_80003FEC(void* arg0) {
 
     func_8000291C();
     while (1) {
-        osRecvMesg(&D_800E22C0, (OSMesg)&sp34, 1);
+        osRecvMesg(&D_800E22C0, (OSMesg) &sp34, 1);
         switch (sp34) {
             case 0xA:
                 func_80002AF4();
@@ -173,7 +173,7 @@ void Graphics_ThreadEntry(void* arg0) {
     u8 var_v2;
 
     func_800A18B0();
-    osSendMesg(&D_800E22C0, (OSMesg)10, 0);
+    osSendMesg(&D_800E22C0, (OSMesg) 10, 0);
     func_80003DC0(D_80137E7C);
     {
         gSPSegment(gUnkDisp1++, 0, 0);
@@ -190,9 +190,9 @@ void Graphics_ThreadEntry(void* arg0) {
         D_80137E7C++;
         func_80003DC0(D_80137E7C);
         osRecvMesg(&D_800E22F8, NULL, 1);
-        osSendMesg(&D_800E22C0, (OSMesg)13, 0);
+        osSendMesg(&D_800E22C0, (OSMesg) 13, 0);
         func_800029A8();
-        osSendMesg(&D_800E22C0, (OSMesg)10, 0);
+        osSendMesg(&D_800E22C0, (OSMesg) 10, 0);
         if (D_800DD8AA & 0x800) {
             func_80003EE0();
         }
@@ -215,7 +215,7 @@ void Graphics_ThreadEntry(void* arg0) {
             osViSwapBuffer(&gFrameBuffers[(D_80137E7C - 1) % 3]);
         }
         func_80007FE4(&gFrameBuffers[(D_80137E7C - 1) % 3], 320, 16);
-        
+
         var_v1 = MIN(D_80137E78, 4);
         var_v2 = MAX(var_v1, D_800E2278.validCount + 1);
         for (i = 0; i < var_v2; i += 1) { // Can't be ++
@@ -234,12 +234,12 @@ void func_80004560(void) {
     osCreateMesgQueue(&D_800E2278, D_800E2290, ARRAY_COUNT(D_800E2290));
     osCreateMesgQueue(&D_800E22A0, D_800E22B8, ARRAY_COUNT(D_800E22B8));
     osCreateMesgQueue(&D_800E2128, D_800E2140, ARRAY_COUNT(D_800E2140));
-    osSetEventMesg(OS_EVENT_SI, &D_800E2128, (OSMesg)0);
+    osSetEventMesg(OS_EVENT_SI, &D_800E2128, (OSMesg) 0);
     osCreateMesgQueue(&D_800E2148, D_800E2160, ARRAY_COUNT(D_800E2160));
-    osViSetEvent(&D_800E2148, (OSMesg)3, 1);
-    osSetEventMesg(OS_EVENT_SP, &D_800E2148, (OSMesg)1);
-    osSetEventMesg(OS_EVENT_DP, &D_800E2148, (OSMesg)2);
-    osSetEventMesg(OS_EVENT_PRENMI, &D_800E2148, (OSMesg)4);
+    osViSetEvent(&D_800E2148, (OSMesg) 3, 1);
+    osSetEventMesg(OS_EVENT_SP, &D_800E2148, (OSMesg) 1);
+    osSetEventMesg(OS_EVENT_DP, &D_800E2148, (OSMesg) 2);
+    osSetEventMesg(OS_EVENT_PRENMI, &D_800E2148, (OSMesg) 4);
     osCreateMesgQueue(&D_800E2338, D_800E2350, ARRAY_COUNT(D_800E2350));
     osCreateMesgQueue(&D_800E2390, D_800E23A8, ARRAY_COUNT(D_800E23A8));
     osCreateMesgQueue(&D_800E22C0, D_800E22D8, ARRAY_COUNT(D_800E22D8));
@@ -361,10 +361,11 @@ void func_800049D4(void) {
 void Main_ThreadEntry(void* arg0) {
     s32 sp54;
 
-    osCreateThread(&gAudioThread, THREAD_ID_AUDIO, Audio_ThreadEntry, arg0, gAudioThreadStack + sizeof(gAudioThreadStack), 80);
+    osCreateThread(&gAudioThread, THREAD_ID_AUDIO, Audio_ThreadEntry, arg0,
+                   gAudioThreadStack + sizeof(gAudioThreadStack), 80);
     osStartThread(&gAudioThread);
-    osCreateThread(&gGraphicsThread, THREAD_ID_GRAPHICS, Graphics_ThreadEntry, arg0, gGraphicsThreadStack + sizeof(gGraphicsThreadStack),
-                   40);
+    osCreateThread(&gGraphicsThread, THREAD_ID_GRAPHICS, Graphics_ThreadEntry, arg0,
+                   gGraphicsThreadStack + sizeof(gGraphicsThreadStack), 40);
     osStartThread(&gGraphicsThread);
     osCreateThread(&gUnkThread3, THREAD_ID_7, func_800040D4, arg0, gUnkThread3Stack + sizeof(gUnkThread3Stack), 60);
     osStartThread(&gUnkThread3);
@@ -374,11 +375,11 @@ void Main_ThreadEntry(void* arg0) {
     func_80004560();
 
     while (true) {
-        osRecvMesg(&D_800E2148, (OSMesg)&sp54, 1);
+        osRecvMesg(&D_800E2148, (OSMesg) &sp54, 1);
         switch ((u8) sp54) {
             case 3:
-                osSendMesg(&D_800E2238, (OSMesg)3, 0);
-                osSendMesg(&D_800E2278, (OSMesg)3, 0);
+                osSendMesg(&D_800E2238, (OSMesg) 3, 0);
+                osSendMesg(&D_800E2278, (OSMesg) 3, 0);
                 func_80004824();
                 break;
             case 1:
@@ -402,7 +403,8 @@ void Idle_ThreadEntry(void* arg0) {
     func_80003EE0();
     func_800034E8(1);
     osCreatePiMgr(OS_PRIORITY_PIMGR, &gPiMgrCmdQueue, sPiMgrCmdBuff, ARRAY_COUNT(sPiMgrCmdBuff));
-    osCreateThread(&gMainThread, THREAD_ID_MAIN, &Main_ThreadEntry, arg0, sMainThreadStack + sizeof(sMainThreadStack), 100);
+    osCreateThread(&gMainThread, THREAD_ID_MAIN, &Main_ThreadEntry, arg0, sMainThreadStack + sizeof(sMainThreadStack),
+                   100);
     osStartThread(&gMainThread);
     func_80008018();
     osSetThreadPri(NULL, OS_PRIORITY_IDLE);
@@ -414,6 +416,7 @@ void bootproc(void) {
     RdRam_CheckIPL3();
     osInitialize();
     func_80003A50();
-    osCreateThread(&sIdleThread, THREAD_ID_IDLE, &Idle_ThreadEntry, NULL, sIdleThreadStack + sizeof(sIdleThreadStack), 255);
+    osCreateThread(&sIdleThread, THREAD_ID_IDLE, &Idle_ThreadEntry, NULL, sIdleThreadStack + sizeof(sIdleThreadStack),
+                   255);
     osStartThread(&sIdleThread);
 }
