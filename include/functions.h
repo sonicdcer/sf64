@@ -36,7 +36,7 @@ void func_800070C8(u64);
 s32 func_800071FC(UnkStruct_7D30*);
 s32 func_800072E0(UnkStruct_7D30*);
 
-void func_80007D58(void*);
+void Fault_ThreadEntry(void*);
 void func_80007FE4(FrameBuffer*, u16, u16);
 void func_80008018(void);
 
@@ -49,7 +49,7 @@ void func_8001DC6C(s32, s32);
 void func_8000FFCC(void);
 void func_8001DCE0(void);
 void func_8001DECC(void);
-GfxPoolStruct0* func_8001DF50(void);
+SPTask* func_8001DF50(void);
 
 void RdRam_CheckIPL3(void);
 

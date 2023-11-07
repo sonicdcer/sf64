@@ -86,11 +86,11 @@ void func_80002F88(u8* first, u32 curLen, u32 size, CompareFunc cFunc) {
 void func_8000316C(Gfx** dList) {
     u16 norm;
 
-    guPerspective(D_80137E5C, &norm, D_80161A3C, 1.3333334f, D_80161A40, D_80161A44, 1.0f);
+    guPerspective(gGfxMtx, &norm, D_80161A3C, 1.3333334f, D_80161A40, D_80161A44, 1.0f);
     gSPPerspNormalize((*dList)++, norm);
-    gSPMatrix((*dList)++, D_80137E5C++, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
-    guLookAt(D_80137E5C, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -12800.0f, 0.0f, 1.0f, 0.0f);
-    gSPMatrix((*dList)++, D_80137E5C++, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
+    gSPMatrix((*dList)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+    guLookAt(gGfxMtx, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -12800.0f, 0.0f, 1.0f, 0.0f);
+    gSPMatrix((*dList)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
     func_80005680(D_8013B3C0, &gIdentityMatrix);
 }
 
@@ -98,14 +98,14 @@ void func_800032B4(Gfx** dList) {
     void* temp_t0;
     void* temp_t0_2;
 
-    guOrtho(D_80137E5C, -160.0f, 160.0f, -120.0f, 120.0f, D_80161A40, D_80161A44, 1.0f);
-    gSPMatrix((*dList)++, D_80137E5C++, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
-    guLookAt(D_80137E5C, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -12800.0f, 0.0f, 1.0f, 0.0f);
-    gSPMatrix((*dList)++, D_80137E5C++, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
+    guOrtho(gGfxMtx, -160.0f, 160.0f, -120.0f, 120.0f, D_80161A40, D_80161A44, 1.0f);
+    gSPMatrix((*dList)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+    guLookAt(gGfxMtx, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -12800.0f, 0.0f, 1.0f, 0.0f);
+    gSPMatrix((*dList)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
     func_80005680(D_8013B3C0, &gIdentityMatrix);
 }
 
-void func_800033E0(u32 var_s2, u32 var_s1, s32 var_s0) {
+void func_800033E0(u32 var_s2, u8* var_s1, s32 var_s0) {
     osInvalICache(var_s1, var_s0);
     osInvalDCache(var_s1, var_s0);
     while (var_s0 > 0x100) {

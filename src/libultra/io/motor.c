@@ -63,7 +63,7 @@ s32 osMotorStart(OSPfs* pfs) {
 }
 
 void _MakeMotorData(s32 channel, u16 address, u8* buffer, OSPifRam* mdata) {
-    u8* ptr = mdata->ramarray;
+    u8* ptr = (u8*) mdata->ramarray;
     __OSContRamReadFormat ramreadformat;
     s32 i;
 

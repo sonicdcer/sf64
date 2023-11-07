@@ -3,10 +3,13 @@
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonregs/__rmonregs_LoadStoreSU.s")
 
+void __rmonregs_LoadStoreSU(int opcode, int regno);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonregs/LoadStoreVU.s")
 
+void SetUpForRCPop(int isVector);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonregs/SetUpForRCPop.s")
 
+void CleanupFromRCPop(int isVector);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonregs/CleanupFromRCPop.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonregs/__rmonGetGRegisters.s")
@@ -26,7 +29,7 @@ s32 rmonGetRcpRegister(s32 arg0) {
         SetUpForRCPop(0);
         __rmonregs_LoadStoreSU(0x2B, arg0);
         __rmonStepRCP();
-        ret = __rmonReadWordAt(0x04000000);
+        ret = __rmonReadWordAt((u32*)SP_DMEM_START);
         CleanupFromRCPop(0);
         return ret;
     }

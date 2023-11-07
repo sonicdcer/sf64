@@ -28,6 +28,7 @@ s32 func_800071FC(UnkStruct_7D30* arg0) {
     s32 j;
 
     if (osEepromProbe(&D_800E2128) != 1) {
+        (void) "ＥＥＰＲＯＭ が ありません\n";
         return -1;
     }
     for (i = 0; i < 0x40; i++) {

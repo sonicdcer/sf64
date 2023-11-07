@@ -22,21 +22,29 @@ typedef struct {
     u16 height;
 } FaultMgr;
 
-typedef struct {
-    OSTask task;
-    OSMesgQueue* unk40;
-    u32 unk44;
-    s32 unk48;
-} GfxPoolStruct0;
+typedef enum {
+    SPTASK_STATE_NOT_STARTED,
+    SPTASK_STATE_RUNNING,
+    SPTASK_STATE_INTERRUPTED,
+    SPTASK_STATE_FINISHED,
+    SPTASK_STATE_FINISHED_DP
+} SpTaskState;
 
 typedef struct {
-    GfxPoolStruct0 unk0;
-    s16 unk50[0x80];
-    Mtx unk150[0x480];
-    Gfx unk12150[0x180];
-    Gfx unk12D50[0x1380];
-    Gfx unk1C950[0xD80];
-    Lightsn unk23550[0x100];
+    OSTask task;
+    OSMesgQueue* msgQueue;
+    OSMesg msg;
+    SpTaskState state;
+} SPTask;
+
+typedef struct {
+    SPTask task;
+    Vp viewports[0x10];
+    Mtx mtx[0x480];
+    Gfx unkDL1[0x180];
+    Gfx masterDL[0x1380];
+    Gfx unkDL2[0xD80];
+    Lightsn lights[0x100];
 } GfxPool;
 
 typedef struct UnkStruct_D_801B8350 {

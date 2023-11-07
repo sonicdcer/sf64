@@ -16,7 +16,6 @@ void func_80007088(void*);
 
 s32 D_800C45D0 = 1;
 
-#ifdef NON_MATCHING
 void func_80003A50(void) {
     u8 i;
 
@@ -26,43 +25,39 @@ void func_80003A50(void) {
     D_80137E81 = 0;
     D_80137E88 = 0;
     D_80137E8A = 0;
-    D_800E1FB0 = NULL;
+    gCurrentTask = NULL;
 
-    for (i = 0; i < ARRAY_COUNT(D_800E1FB4); i++) {
+    for (i = 0; i < ARRAY_COUNT(D_800E1FB4); i += 1) {
         D_800E1FB4[i] = NULL;
     }
-    for (i = 0; i < ARRAY_COUNT(D_800E1FB8); i++) {
+    for (i = 0; i < ARRAY_COUNT(D_800E1FB8); i += 1) {
         D_800E1FB8[i] = NULL;
     }
-    for (i = 0; i < 1; i++) {
+    for (i = 0; i < 1; i += 1) {
         D_800E1FC0[i] = NULL;
     }
-    for (i = 0; i < ARRAY_COUNT(D_800E1FC8); i++) {
+    for (i = 0; i < ARRAY_COUNT(D_800E1FC8); i += 1) {
         D_800E1FC8[i] = NULL;
     }
 }
-#else
-void func_80003A50(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/4650/func_80003A50.s")
-#endif
 
 void Audio_ThreadEntry(void* arg0) {
-    GfxPoolStruct0* temp_v0;
+    SPTask* temp_v0;
 
     func_8000FFCC();
     func_8001DCE0();
     temp_v0 = func_8001DF50();
     if (temp_v0 != NULL) {
-        temp_v0->unk40 = &D_800E2258;
-        temp_v0->unk44 = 1;
+        temp_v0->msgQueue = &D_800E2258;
+        temp_v0->msg = (OSMesg)1;
         osWritebackDCacheAll();
         osSendMesg(&D_800E21E0, temp_v0, 0);
     }
     while (1) {
         temp_v0 = func_8001DF50();
         if (temp_v0 != NULL) {
-            temp_v0->unk40 = &D_800E2258;
-            temp_v0->unk44 = 1;
+            temp_v0->msgQueue = &D_800E2258;
+            temp_v0->msg = (OSMesg)1;
             osWritebackDCacheAll();
         }
         osRecvMesg(&D_800E2258, NULL, 0);
@@ -74,40 +69,40 @@ void Audio_ThreadEntry(void* arg0) {
 }
 
 void func_80003C50(void) {
-    D_80137E54->unk40 = &D_800E22A0;
-    D_80137E54->unk44 = 2;
-    D_80137E54->task.t.type = M_GFXTASK;
-    D_80137E54->task.t.flags = 0;
-    D_80137E54->task.t.ucode_boot = __rspboot_start;
-    D_80137E54->task.t.ucode_boot_size = (uintptr_t) __rspboot_end - (uintptr_t) __rspboot_start;
-    D_80137E54->task.t.ucode = __f3dex_start;
-    D_80137E54->task.t.ucode_size = 0x1000;
-    D_80137E54->task.t.ucode_data = &gF3dexData;
-    D_80137E54->task.t.ucode_data_size = 0x800;
-    D_80137E54->task.t.dram_stack = &D_80281000;
-    D_80137E54->task.t.dram_stack_size = 0x400;
-    D_80137E54->task.t.output_buff = &D_802A7800;
-    D_80137E54->task.t.output_buff_size = &D_802D7800;
-    D_80137E54->task.t.data_ptr = D_80137E50->unk12D50;
-    D_80137E54->task.t.data_size = (D_80137E64 - D_80137E50->unk12D50) * sizeof(Gfx);
-    D_80137E54->task.t.yield_data_ptr = &D_80281400;
-    D_80137E54->task.t.yield_data_size = OS_YIELD_DATA_SIZE;
+    gGfxTask->msgQueue = &D_800E22A0;
+    gGfxTask->msg = (OSMesg)2;
+    gGfxTask->task.t.type = M_GFXTASK;
+    gGfxTask->task.t.flags = 0;
+    gGfxTask->task.t.ucode_boot = __rspboot_start;
+    gGfxTask->task.t.ucode_boot_size = (uintptr_t) __rspboot_end - (uintptr_t) __rspboot_start;
+    gGfxTask->task.t.ucode = __f3dex_start;
+    gGfxTask->task.t.ucode_size = 0x1000;
+    gGfxTask->task.t.ucode_data = (u64*) &gF3dexData;
+    gGfxTask->task.t.ucode_data_size = 0x800;
+    gGfxTask->task.t.dram_stack = (u64*) &D_80281000;
+    gGfxTask->task.t.dram_stack_size = 0x400;
+    gGfxTask->task.t.output_buff = (u64*) &D_802A7800;
+    gGfxTask->task.t.output_buff_size = (u64*) &D_802D7800;
+    gGfxTask->task.t.data_ptr = (u64*) gGfxPool->masterDL;
+    gGfxTask->task.t.data_size = (gMasterDisp - gGfxPool->masterDL) * sizeof(Gfx);
+    gGfxTask->task.t.yield_data_ptr = (u64*) &D_80281400;
+    gGfxTask->task.t.yield_data_size = OS_YIELD_DATA_SIZE;
     osWritebackDCacheAll();
-    osSendMesg(&D_800E21E0, D_80137E54, 0);
+    osSendMesg(&D_800E21E0, gGfxTask, 0);
 }
 
 void func_80003DC0(u32 arg0) {
-    D_80137E50 = &gGfxPools[arg0 % 2];
+    gGfxPool = &gGfxPools[arg0 % 2];
 
-    D_80137E54 = &D_80137E50->unk0;
-    D_80137E58 = D_80137E50->unk50;
-    D_80137E5C = D_80137E50->unk150;
-    D_80137E60 = D_80137E50->unk12150;
-    D_80137E64 = D_80137E50->unk12D50;
-    D_80137E68 = D_80137E50->unk1C950;
-    D_80137E6C = D_80137E50->unk23550;
+    gGfxTask = &gGfxPool->task;
+    gViewport = gGfxPool->viewports;
+    gGfxMtx = gGfxPool->mtx;
+    gUnkDisp1 = gGfxPool->unkDL1;
+    gMasterDisp = gGfxPool->masterDL;
+    gUnkDisp2 = gGfxPool->unkDL2;
+    gLight = gGfxPool->lights;
 
-    D_80137E70 = &gFrameBuffers[arg0 % 3];
+    gFrameBuffer = &gFrameBuffers[arg0 % 3];
     D_80137E74 = &D_80387800;
 
     D_8013B3C0 = D_8013B3C8;
@@ -145,7 +140,7 @@ void func_80003FEC(void* arg0) {
 
     func_8000291C();
     while (1) {
-        osRecvMesg(&D_800E22C0, &sp34, 1);
+        osRecvMesg(&D_800E22C0, (OSMesg)&sp34, 1);
         switch (sp34) {
             case 0xA:
                 func_80002AF4();
@@ -172,48 +167,47 @@ void func_800040D4(void* arg0) {
     }
 }
 
-#ifdef NON_MATCHING
 void Graphics_ThreadEntry(void* arg0) {
-    u8 var_s0;
+    u8 i;
     u8 var_v1;
     u8 var_v2;
 
     func_800A18B0();
-    osSendMesg(&D_800E22C0, 0xA, 0);
+    osSendMesg(&D_800E22C0, (OSMesg)10, 0);
     func_80003DC0(D_80137E7C);
     {
-        gSPSegment(D_80137E60++, 0, 0);
-        gSPDisplayList(D_80137E64++, D_80137E50->unk12150);
+        gSPSegment(gUnkDisp1++, 0, 0);
+        gSPDisplayList(gMasterDisp++, gGfxPool->unkDL1);
         func_800A26C0();
-        gSPEndDisplayList(D_80137E60++);
-        gSPEndDisplayList(D_80137E68++);
-        gSPDisplayList(D_80137E64++, D_80137E50->unk1C950);
-        gDPFullSync(D_80137E64++);
-        gSPEndDisplayList(D_80137E64++);
+        gSPEndDisplayList(gUnkDisp1++);
+        gSPEndDisplayList(gUnkDisp2++);
+        gSPDisplayList(gMasterDisp++, gGfxPool->unkDL2);
+        gDPFullSync(gMasterDisp++);
+        gSPEndDisplayList(gMasterDisp++);
     }
     func_80003C50();
     while (1) {
         D_80137E7C++;
         func_80003DC0(D_80137E7C);
         osRecvMesg(&D_800E22F8, NULL, 1);
-        osSendMesg(&D_800E22C0, 0xD, 0);
+        osSendMesg(&D_800E22C0, (OSMesg)13, 0);
         func_800029A8();
-        osSendMesg(&D_800E22C0, 0xA, 0);
+        osSendMesg(&D_800E22C0, (OSMesg)10, 0);
         if (D_800DD8AA & 0x800) {
             func_80003EE0();
         }
         {
-            gSPSegment(D_80137E60++, 0, 0);
-            gSPDisplayList(D_80137E64++, D_80137E50->unk12150);
+            gSPSegment(gUnkDisp1++, 0, 0);
+            gSPDisplayList(gMasterDisp++, gGfxPool->unkDL1);
             func_800A26C0();
             if (D_80137E80 == 1) {
                 func_800BC4B0();
             }
-            gSPEndDisplayList(D_80137E60++);
-            gSPEndDisplayList(D_80137E68++);
-            gSPDisplayList(D_80137E64++, D_80137E50->unk1C950);
-            gDPFullSync(D_80137E64++);
-            gSPEndDisplayList(D_80137E64++);
+            gSPEndDisplayList(gUnkDisp1++);
+            gSPEndDisplayList(gUnkDisp2++);
+            gSPDisplayList(gMasterDisp++, gGfxPool->unkDL2);
+            gDPFullSync(gMasterDisp++);
+            gSPEndDisplayList(gMasterDisp++);
         }
         osRecvMesg(&D_800E22A0, NULL, 1);
         func_80003C50();
@@ -221,19 +215,16 @@ void Graphics_ThreadEntry(void* arg0) {
             osViSwapBuffer(&gFrameBuffers[(D_80137E7C - 1) % 3]);
         }
         func_80007FE4(&gFrameBuffers[(D_80137E7C - 1) % 3], 320, 16);
-
+        
         var_v1 = MIN(D_80137E78, 4);
         var_v2 = MAX(var_v1, D_800E2278.validCount + 1);
-        for (var_s0 = 0; var_s0 < var_v2; var_s0++) {
+        for (i = 0; i < var_v2; i += 1) { // Can't be ++
             osRecvMesg(&D_800E2278, NULL, 1);
         }
 
         func_8001DECC();
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/4650/Graphics_ThreadEntry.s")
-#endif
 
 void func_80004560(void) {
     osCreateMesgQueue(&D_800E20F0, D_800E2108, ARRAY_COUNT(D_800E2108));
@@ -243,12 +234,12 @@ void func_80004560(void) {
     osCreateMesgQueue(&D_800E2278, D_800E2290, ARRAY_COUNT(D_800E2290));
     osCreateMesgQueue(&D_800E22A0, D_800E22B8, ARRAY_COUNT(D_800E22B8));
     osCreateMesgQueue(&D_800E2128, D_800E2140, ARRAY_COUNT(D_800E2140));
-    osSetEventMesg(OS_EVENT_SI, &D_800E2128, 0);
+    osSetEventMesg(OS_EVENT_SI, &D_800E2128, (OSMesg)0);
     osCreateMesgQueue(&D_800E2148, D_800E2160, ARRAY_COUNT(D_800E2160));
-    osViSetEvent(&D_800E2148, 3, 1);
-    osSetEventMesg(OS_EVENT_SP, &D_800E2148, 1);
-    osSetEventMesg(OS_EVENT_DP, &D_800E2148, 2);
-    osSetEventMesg(OS_EVENT_PRENMI, &D_800E2148, 4);
+    osViSetEvent(&D_800E2148, (OSMesg)3, 1);
+    osSetEventMesg(OS_EVENT_SP, &D_800E2148, (OSMesg)1);
+    osSetEventMesg(OS_EVENT_DP, &D_800E2148, (OSMesg)2);
+    osSetEventMesg(OS_EVENT_PRENMI, &D_800E2148, (OSMesg)4);
     osCreateMesgQueue(&D_800E2338, D_800E2350, ARRAY_COUNT(D_800E2350));
     osCreateMesgQueue(&D_800E2390, D_800E23A8, ARRAY_COUNT(D_800E23A8));
     osCreateMesgQueue(&D_800E22C0, D_800E22D8, ARRAY_COUNT(D_800E22D8));
@@ -256,75 +247,69 @@ void func_80004560(void) {
     osCreateMesgQueue(&D_800E2318, D_800E2330, ARRAY_COUNT(D_800E2330));
 }
 
-#ifdef NON_MATCHING
 void func_80004714(void) {
-    GfxPoolStruct0** var_v1 = D_800E1FB8;
+    SPTask** var_v1 = D_800E1FB8;
     u8 i;
 
-    if ((*var_v1)->unk40 != NULL) {
-        osSendMesg((*var_v1)->unk40, (*var_v1)->unk44, 0);
+    if ((*var_v1)->msgQueue != NULL) {
+        osSendMesg((*var_v1)->msgQueue, (*var_v1)->msg, 0);
     }
-    (*var_v1)->unk48 = 4;
-    for (i = 0; i < 1; i++, var_v1++) {
+    (*var_v1)->state = SPTASK_STATE_FINISHED_DP;
+    for (i = 0; i < 1; i += 1, var_v1++) {
         *var_v1 = *(var_v1 + 1);
     }
     *var_v1 = NULL;
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/4650/func_80004714.s")
-#endif
 
 void func_80004798(void) {
-    GfxPoolStruct0* temp_a3;
+    SPTask* task = gCurrentTask;
 
-    temp_a3 = D_800E1FB0;
-    D_800E1FB0 = NULL;
-    if (temp_a3->unk48 == 2) {
-        if (osSpTaskYielded(&temp_a3->task) == 0) {
-            temp_a3->unk48 = 3;
+    gCurrentTask = NULL;
+    if (task->state == SPTASK_STATE_INTERRUPTED) {
+        if (osSpTaskYielded(&task->task) == 0) {
+            task->state = SPTASK_STATE_FINISHED;
         }
     } else {
-        temp_a3->unk48 = 3;
-        if (temp_a3->task.t.type == 2) {
-            if (temp_a3->unk40 != NULL) {
-                osSendMesg(temp_a3->unk40, temp_a3->unk44, 0);
+        task->state = SPTASK_STATE_FINISHED;
+        if (task->task.t.type == M_AUDTASK) {
+            if (task->msgQueue != NULL) {
+                osSendMesg(task->msgQueue, task->msg, 0);
             }
             D_800E1FB4[0] = NULL;
         }
     }
 }
 
-#ifdef NON_MATCHING
 void func_80004824(void) {
     u8 i;
-    GfxPoolStruct0** var_a0;
-    GfxPoolStruct0** var_a1;
-    GfxPoolStruct0** var_s0_2;
-    GfxPoolStruct0** var_s1_2;
-    GfxPoolStruct0* sp40;
-    s32 pad;
+    SPTask** var_a0;
+    SPTask** var_a1;
+    SPTask** var_s0_2;
+    SPTask** var_s1_2;
+    void* sp40;
+    SPTask* sp3C;
 
     var_s0_2 = D_800E1FC0;
     var_s1_2 = D_800E1FC8;
-    for (i = 0; i < 1; i++) {
+    for (i = 0; i < 1; i += 1) {
         *(var_s0_2++) = NULL;
     }
-    for (i = 0; i < ARRAY_COUNT(D_800E1FC8); i++) {
+    for (i = 0; i < ARRAY_COUNT(D_800E1FC8); i += 1) {
         *(var_s1_2++) = NULL;
     }
 
     var_s0_2 = D_800E1FC0;
     var_s1_2 = D_800E1FC8;
     while (osRecvMesg(&D_800E21E0, &sp40, 0) != -1) {
-        pad = sp40->task.t.type;
-        sp40->unk48 = 0;
+        sp3C = (SPTask*) sp40;
+        sp3C->state = SPTASK_STATE_NOT_STARTED;
 
-        switch (pad) {
+        switch (sp3C->task.t.type) {
             case 2:
-                *(var_s0_2++) = sp40;
+                *(var_s0_2++) = sp3C;
                 break;
             case 1:
-                *(var_s1_2++) = sp40;
+                *(var_s1_2++) = sp3C;
                 break;
         }
     }
@@ -333,70 +318,67 @@ void func_80004824(void) {
     var_a0 = D_800E1FB4;
     var_a1 = D_800E1FB8;
 
-    for (i = 0; i < 1; i++) {
-        if (*var_a0 != NULL) {
-            var_a0++;
+    for (i = 0; i < 1; i += 1, var_a0++) {
+        if (*var_a0 == NULL) {
+            break;
         }
     }
-    for (i; i < 1; i++) {
+    for (i; i < 1; i += 1) {
         *(var_a0++) = *(var_s0_2++);
     }
-    for (i = 0; i < 2; i++) {
-        if (*var_a1 != NULL) {
-            var_a1++;
+    for (i = 0; i < 2; i += 1, var_a1++) {
+        if (*var_a1 == NULL) {
+            break;
         }
     }
-    for (i; i < 2; i++) {
+    for (i; i < 2; i += 1) {
         *(var_a1++) = *(var_s1_2++);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/4650/func_80004824.s")
-#endif
 
 void func_800049D4(void) {
     if (D_800E1FB4[0] != NULL) {
-        if (D_800E1FB0 != NULL) {
-            if (D_800E1FB0->task.t.type == M_GFXTASK) {
-                D_800E1FB0->unk48 = 2;
+        if (gCurrentTask != NULL) {
+            if (gCurrentTask->task.t.type == M_GFXTASK) {
+                gCurrentTask->state = SPTASK_STATE_INTERRUPTED;
                 osSpTaskYield();
             }
         } else {
-            D_800E1FB0 = D_800E1FB4[0];
-            osSpTaskLoad(&D_800E1FB0->task);
-            osSpTaskStartGo(&D_800E1FB0->task);
-            D_800E1FB0->unk48 = 1;
+            gCurrentTask = D_800E1FB4[0];
+            osSpTaskLoad(&gCurrentTask->task);
+            osSpTaskStartGo(&gCurrentTask->task);
+            gCurrentTask->state = SPTASK_STATE_RUNNING;
         }
-    } else if ((D_800E1FB0 == NULL) && (D_800E1FB8[0] != NULL) && (D_800E1FB8[0]->unk48 != 3)) {
-        D_800E1FB0 = D_800E1FB8[0];
-        osDpSetStatus(0x3C0);
-        osSpTaskLoad(&D_800E1FB0->task);
-        osSpTaskStartGo(&D_800E1FB0->task);
-        D_800E1FB0->unk48 = 1;
+    } else if ((gCurrentTask == NULL) && (D_800E1FB8[0] != NULL) && (D_800E1FB8[0]->state != SPTASK_STATE_FINISHED)) {
+        gCurrentTask = D_800E1FB8[0];
+        osDpSetStatus(DPC_CLR_TMEM_CTR | DPC_CLR_PIPE_CTR | DPC_CLR_CMD_CTR | DPC_CLR_CLOCK_CTR);
+        osSpTaskLoad(&gCurrentTask->task);
+        osSpTaskStartGo(&gCurrentTask->task);
+        gCurrentTask->state = SPTASK_STATE_RUNNING;
     }
 }
 
 void Main_ThreadEntry(void* arg0) {
     s32 sp54;
 
-    osCreateThread(&gAudioThread, 5, Audio_ThreadEntry, arg0, gAudioThreadStack + sizeof(gAudioThreadStack), 80);
+    osCreateThread(&gAudioThread, THREAD_ID_AUDIO, Audio_ThreadEntry, arg0, gAudioThreadStack + sizeof(gAudioThreadStack), 80);
     osStartThread(&gAudioThread);
-    osCreateThread(&gGraphicsThread, 6, Graphics_ThreadEntry, arg0, gGraphicsThreadStack + sizeof(gGraphicsThreadStack),
+    osCreateThread(&gGraphicsThread, THREAD_ID_GRAPHICS, Graphics_ThreadEntry, arg0, gGraphicsThreadStack + sizeof(gGraphicsThreadStack),
                    40);
     osStartThread(&gGraphicsThread);
-    osCreateThread(&gUnkThread3, 7, func_800040D4, arg0, gUnkThread3Stack + sizeof(gUnkThread3Stack), 60);
+    osCreateThread(&gUnkThread3, THREAD_ID_7, func_800040D4, arg0, gUnkThread3Stack + sizeof(gUnkThread3Stack), 60);
     osStartThread(&gUnkThread3);
-    osCreateThread(&gUnkThread4, 8, func_80003FEC, arg0, gUnkThread4Stack + sizeof(gUnkThread4Stack), 20);
+    osCreateThread(&gUnkThread4, THREAD_ID_8, func_80003FEC, arg0, gUnkThread4Stack + sizeof(gUnkThread4Stack), 20);
     osStartThread(&gUnkThread4);
 
     func_80004560();
 
     while (true) {
-        osRecvMesg(&D_800E2148, &sp54, 1);
+        osRecvMesg(&D_800E2148, (OSMesg)&sp54, 1);
         switch ((u8) sp54) {
             case 3:
-                osSendMesg(&D_800E2238, 3, 0);
-                osSendMesg(&D_800E2278, 3, 0);
+                osSendMesg(&D_800E2238, (OSMesg)3, 0);
+                osSendMesg(&D_800E2278, (OSMesg)3, 0);
                 func_80004824();
                 break;
             case 1:
@@ -420,7 +402,7 @@ void Idle_ThreadEntry(void* arg0) {
     func_80003EE0();
     func_800034E8(1);
     osCreatePiMgr(OS_PRIORITY_PIMGR, &gPiMgrCmdQueue, sPiMgrCmdBuff, ARRAY_COUNT(sPiMgrCmdBuff));
-    osCreateThread(&gMainThread, 3, &Main_ThreadEntry, arg0, sMainThreadStack + sizeof(sMainThreadStack), 100);
+    osCreateThread(&gMainThread, THREAD_ID_MAIN, &Main_ThreadEntry, arg0, sMainThreadStack + sizeof(sMainThreadStack), 100);
     osStartThread(&gMainThread);
     func_80008018();
     osSetThreadPri(NULL, OS_PRIORITY_IDLE);
@@ -432,6 +414,6 @@ void bootproc(void) {
     RdRam_CheckIPL3();
     osInitialize();
     func_80003A50();
-    osCreateThread(&sIdleThread, 1, &Idle_ThreadEntry, NULL, sIdleThreadStack + sizeof(sIdleThreadStack), 255);
+    osCreateThread(&sIdleThread, THREAD_ID_IDLE, &Idle_ThreadEntry, NULL, sIdleThreadStack + sizeof(sIdleThreadStack), 255);
     osStartThread(&sIdleThread);
 }

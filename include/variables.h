@@ -50,11 +50,11 @@ extern u8 gUnkThread3Stack[0x1000]; // 800DFE00
 extern OSThread gUnkThread4;        // 800E0E00
 extern u8 gUnkThread4Stack[0x1000]; // 800E0FB0
 
-extern GfxPoolStruct0* D_800E1FB0;
-extern GfxPoolStruct0* D_800E1FB4[1];
-extern GfxPoolStruct0* D_800E1FB8[2];
-extern GfxPoolStruct0* D_800E1FC0[2];
-extern GfxPoolStruct0* D_800E1FC8[2];
+extern SPTask* gCurrentTask;
+extern SPTask* D_800E1FB4[1];
+extern SPTask* D_800E1FB8[2];
+extern SPTask* D_800E1FC0[2];
+extern SPTask* D_800E1FC8[2];
 extern u32 gSegments[16]; // 800E1FD0
 extern OSMesgQueue gPiMgrCmdQueue; // 800E2010
 extern OSMesg sPiMgrCmdBuff[50]; // 800E2028
@@ -87,15 +87,15 @@ extern void *D_800E2350[16];
 extern OSMesgQueue D_800E2390;
 extern void *D_800E23A8[1];
 
-extern GfxPool* D_80137E50;
-extern GfxPoolStruct0* D_80137E54;
-extern s16* D_80137E58;
-extern Mtx *D_80137E5C;
-extern Gfx* D_80137E60;
-extern Gfx* D_80137E64;
-extern Gfx* D_80137E68;
-extern Lightsn *D_80137E6C;
-extern void *D_80137E70;
+extern GfxPool* gGfxPool;
+extern SPTask* gGfxTask;
+extern Vp* gViewport;
+extern Mtx* gGfxMtx;
+extern Gfx* gUnkDisp1;
+extern Gfx* gMasterDisp;
+extern Gfx* gUnkDisp2;
+extern Lightsn* gLight;
+extern FrameBuffer *gFrameBuffer;
 extern s32* D_80137E74;
 
 // some sort of struct I think
@@ -129,7 +129,7 @@ extern OSThread gAudioThread; //8013B1F0
 
 extern UnkStruct_7D30 D_80144F60;
 extern UnkStruct_7D30 D_80145160;
-extern FaultMgr D_80145360;
+extern FaultMgr gFaultMgr;
 
 extern OSMesg D_80156600;
 extern OSMesg D_80156608;
@@ -304,7 +304,7 @@ extern f32 D_801B9064;
 
 extern f32 D_800C5D28[];
 
-extern s32 D_801ADA44_EE6104[];
+extern char D_801ADA44_EE6104[];
 extern s32 D_801ADA84_EE6144[];
 extern s32 D_801ADA94_EE6154;
 

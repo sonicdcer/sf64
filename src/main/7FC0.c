@@ -1,22 +1,16 @@
 #include "global.h"
 
-OSThread* func_80007CEC(void);
-void func_80007910(OSThread* thread);
-void func_8000762C(s32 /*arg0*/, s32 /*arg1*/, const char* /*fmt*/, ...);
-void* func_80007604(void* /*arg0*/, s8* /*arg1*/, u32 /*arg2*/);
-void func_8000770C(s32 arg0);
-
 void func_800073C0(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     u16* var_v0;
     s32 i;
     s32 j;
 
-    var_v0 = D_80145360.width * arg1 + D_80145360.fb->data + arg0;
+    var_v0 = gFaultMgr.width * arg1 + gFaultMgr.fb->data + arg0;
     for (i = 0; i < arg3; i++) {
         for (j = 0; j < arg2; j++, var_v0++) {
             *var_v0 = ((*var_v0 & 0xE738) >> 2) | 1;
         }
-        var_v0 += D_80145360.width - arg2;
+        var_v0 += gFaultMgr.width - arg2;
     }
 }
 
@@ -30,7 +24,7 @@ void func_800074AC(s32 arg0, s32 arg1, s32 arg2) {
     s32 j;
 
     var_v0 = &sFaultCharPixelFlags[(arg2 / 5) * 7];
-    var_v1 = D_80145360.width * arg1 + D_80145360.fb->data + arg0;
+    var_v1 = gFaultMgr.width * arg1 + gFaultMgr.fb->data + arg0;
 
     for (i = 0; i < 7; i++) {
         temp_t1 = 0x80000000 >> ((arg2 % 5) * 6);
@@ -44,15 +38,15 @@ void func_800074AC(s32 arg0, s32 arg1, s32 arg2) {
             var_v1++;
             temp_t1 >>= 1;
         }
-        var_v1 += D_80145360.width - 6;
+        var_v1 += gFaultMgr.width - 6;
     }
 }
 #else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/func_800074AC.s")
 #endif
 
-void* func_80007604(void* arg0, s8* arg1, u32 arg2) {
-    return (u32) memcpy(arg0, arg1, arg2) + arg2;
+void* func_80007604(void* arg0, const char* arg1, size_t arg2) {
+    return (char*) memcpy(arg0, arg1, arg2) + arg2;
 }
 
 #ifdef NON_MATCHING
@@ -79,6 +73,7 @@ void func_8000762C(s32 arg0, s32 arg1, const char* fmt, ...) {
     va_end(args);
 }
 #else
+void func_8000762C(s32 arg0, s32 arg1, const char* fmt, ...);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/func_8000762C.s")
 #endif
 
@@ -209,7 +204,7 @@ void func_80007910(OSThread* thread) {
     osWritebackDCacheAll();
     osViBlack(0);
     osViRepeatLine(0);
-    osViSwapBuffer(D_80145360.fb);
+    osViSwapBuffer(gFaultMgr.fb);
 }
 
 OSThread* func_80007CEC(void) {
@@ -226,7 +221,7 @@ OSThread* func_80007CEC(void) {
     return NULL;
 }
 
-void func_80007D58(void* arg0) {
+void Fault_ThreadEntry(void* arg0) {
     void* sp44;
     OSThread* sp40;
     s32 var_s2;
@@ -238,19 +233,19 @@ void func_80007D58(void* arg0) {
     var_s0 = 0;
     var_s2 = 0;
 
-    osSetEventMesg(0xA, &D_80145360.msgQueue, 1);
-    osSetEventMesg(0xC, &D_80145360.msgQueue, 2);
+    osSetEventMesg(OS_EVENT_CPU_BREAK, &gFaultMgr.msgQueue, (OSMesg)1);
+    osSetEventMesg(OS_EVENT_FAULT, &gFaultMgr.msgQueue, (OSMesg)2);
 
     sp40 = NULL;
     while (sp40 == NULL) {
-        osRecvMesg(&D_80145360.msgQueue, &sp44, 1);
+        osRecvMesg(&gFaultMgr.msgQueue, &sp44, 1);
         sp40 = func_80007CEC();
     }
 
     func_8000762C(300, 10, "-");
     D_800DD8B0[0] = 1;
     while (var_s5 == 0) {
-        osSendMesg(&D_800E22C0, 0xA, 0);
+        osSendMesg(&D_800E22C0, (OSMesg)10, 0);
         osRecvMesg(&D_800E22F8, NULL, 1);
         func_800029A8();
         switch (var_s0) {
@@ -327,16 +322,16 @@ void func_80007D58(void* arg0) {
 }
 
 void func_80007FE4(FrameBuffer* arg0, u16 arg1, u16 arg2) {
-    D_80145360.fb = arg0;
-    D_80145360.width = arg1;
-    D_80145360.height = arg2;
+    gFaultMgr.fb = arg0;
+    gFaultMgr.width = arg1;
+    gFaultMgr.height = arg2;
 }
 
 void func_80008018(void) {
-    D_80145360.fb = (PHYS_TO_K0(osMemSize) - sizeof(u16[SCREEN_HEIGHT][SCREEN_WIDTH]));
-    D_80145360.width = SCREEN_WIDTH;
-    D_80145360.height = SCREEN_HEIGHT;
-    osCreateMesgQueue(&D_80145360.msgQueue, &D_80145360.msg, 1);
-    osCreateThread(&D_80145360.thread, 2, func_80007D58, 0, D_80145360.stack + sizeof(D_80145360.stack), 0x7F);
-    osStartThread(&D_80145360.thread);
+    gFaultMgr.fb = (FrameBuffer*) (PHYS_TO_K0(osMemSize) - sizeof(FrameBuffer));
+    gFaultMgr.width = SCREEN_WIDTH;
+    gFaultMgr.height = SCREEN_HEIGHT;
+    osCreateMesgQueue(&gFaultMgr.msgQueue, &gFaultMgr.msg, 1);
+    osCreateThread(&gFaultMgr.thread, THREAD_ID_FAULT, Fault_ThreadEntry, 0, gFaultMgr.stack + sizeof(gFaultMgr.stack), 0x7F);
+    osStartThread(&gFaultMgr.thread);
 }
