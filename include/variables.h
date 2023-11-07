@@ -151,7 +151,7 @@ extern s32 D_800D2190[];
 extern f32 D_800D21A0;
 extern f32 D_800D21A4;
 extern s32 D_800D2870;
-extern u16 D_800D99F8[];
+extern u16 D_Tex_800D99F8[];
 
 extern OSContPad D_800DD880[4];
 extern OSContPad D_800DD898[4];
