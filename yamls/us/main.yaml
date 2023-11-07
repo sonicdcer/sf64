@@ -181,10 +181,11 @@
       - [0xA4290, c, sf_A4290]
       - [0xA48A0, c, sf_A48A0]
       - [0xA4B50, c, sf_A4B50]
-      - [0xB99D0, c, sf_B99D0] # no rodata
+      - [0xB99D0, c, sf_B99D0]
       - [0xBB360, c, sf_BB360]
       - [0xBD360, c, sf_versus]
       - [0xC3430, c, sf_C3430]
+      - [0xC3BB0, c, sf_C3BB0]
 
       # DATA - Microcode
       - [0xC3EE0, data, aspmain]
@@ -297,9 +298,10 @@
       - [0xD97F0, .rodata, sf_BB360]
       - [0xD9E50, .rodata, sf_versus]
       - [0xD9F60, .rodata, sf_C3430]
+      - [0xDA030, .rodata, sf_C3BB0]
 
       # Common assets
-      - [0xDA030, data, displists]
+      - [0xDA0A0, data, displists]
       - [0xDC710, data, audiodata]
 
       # Nintendo Library bss

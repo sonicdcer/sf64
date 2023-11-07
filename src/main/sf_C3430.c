@@ -15,9 +15,3 @@
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_C3430/func_800C2D3C.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_C3430/func_800C2F30.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_C3430/func_800C2FB0.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_C3430/func_800C3084.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_C3430/func_800C3194.s")
