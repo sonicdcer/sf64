@@ -1,6 +1,7 @@
 bootproc = 0x80004DA8;
 D_800C90F0 = 0x800C90F0;
 __libm_qnan_f = 0x800C9570;
+D_1 = 0x1; //ignore:true
 
 Math_ModF = 0x80004E20;
 Rand_Init = 0x80004E4C;
@@ -16,13 +17,71 @@ Math_PowF = 0x800055DC;
 Math_MinMax = 0x80005604;
 D_800C45E0 = 0x800C45E0;
 
+D_800C57EC = 0x800C57EC;
+D_800C7380 = 0x800C7380;
+D_800C5FF4 = 0x800C5FF4; //type:u16 size:5000
+
+gIdentityMtx = 0x800C4620;
+gIdentityMatrix = 0x800C4660;
+
+sFaultCharPixelFlags = 0x800C4770;
+sFaultCharIndex = 0x800C46F0;
+
 Math_FAtanF = 0x8001FBE8;
 Math_FAtan2F = 0x8001FD0C;
 Math_FAsinF = 0x8001FE00;
 Math_FAcosF = 0x8001FE30;
 
-D_800E23B0 = 0x800E23B0; // size:0x55AA0
+Idle_ThreadEntry = 0x80004D00;
+Main_ThreadEntry = 0x80004ABC;
+Audio_ThreadEntry = 0x80003B48;
+Graphics_ThreadEntry = 0x80004144;
+
+__rspboot_start = 0x80000450;
+__rspboot_end = 0x80000520;
+__f3dex_start = 0x80001410;
+gF3dexData = 0x800C3DD0;
+
+gAudioThreadStack =  0x800DDAA0;
+gGraphicsThread =      0x800DEAA0;
+gGraphicsThreadStack = 0x800DEC50;
+gUnkThread3 =      0x800DFC50;
+gUnkThread3Stack = 0x800DFE00;
+gUnkThread4 =      0x800E0E00;
+gUnkThread4Stack = 0x800E0FB0;
+
+gCurrentTask = 0x800E1FB0;
+D_800E1FB4 = 0x800E1FB4;
+D_800E1FB8 = 0x800E1FB8;
+D_800E1FC0 = 0x800E1FC0;
+D_800E1FC8 = 0x800E1FC8;
+
+gPiMgrCmdQueue = 0x800E2010;
+sPiMgrCmdBuff = 0x800E2028;
+sIdleThread = 0x80138E90;
+sIdleThreadStack = 0x80139040;
+gMainThread = 0x8013A040;
+sMainThreadStack = 0x8013A1F0;
+gAudioThread = 0x8013B1F0;
+
+gSegments = 0x800E1FD0;
+gGfxPools = 0x800E23B0; // size:0x55AA0
+gGfxPool = 0x80137E50;
+gGfxTask = 0x80137E54;
+gViewport = 0x80137E58;
+gGfxMtx = 0x80137E5C;
+gUnkDisp1 = 0x80137E60;
+gMasterDisp = 0x80137E64;
+gUnkDisp2 = 0x80137E68;
+gLight = 0x80137E6C;
+gFrameBuffer = 0x80137E70;
+D_80137E74 = 0x80137E74;
+gFrameBuffers = 0x8038F800;
 D_8013C3D0 = 0x8013C3D0; // size:0x8800
+gFaultMgr = 0x80145360; // size:0x9D8
+
+Mio0_Decompress = 0x8001EE70;
+RdRam_CheckIPL3 = 0x8001EF10;
 
 D_800D934C = 0x800D934C; // force_migration:True
 D_800D503C = 0x800D503C; // force_migration:True

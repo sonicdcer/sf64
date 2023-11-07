@@ -4,6 +4,49 @@
 #include "global.h"
 #include "sf64math.h"
 
+typedef struct {
+    u16 data[240 * 320];
+} FrameBuffer;
+
+typedef struct {
+    u8 data[0x40][8];
+} UnkStruct_7D30;
+
+typedef struct {
+    OSThread thread;
+    char stack[0x800];
+    OSMesgQueue msgQueue;
+    OSMesg msg;
+    FrameBuffer* fb;
+    u16 width;
+    u16 height;
+} FaultMgr;
+
+typedef enum {
+    SPTASK_STATE_NOT_STARTED,
+    SPTASK_STATE_RUNNING,
+    SPTASK_STATE_INTERRUPTED,
+    SPTASK_STATE_FINISHED,
+    SPTASK_STATE_FINISHED_DP
+} SpTaskState;
+
+typedef struct {
+    OSTask task;
+    OSMesgQueue* msgQueue;
+    OSMesg msg;
+    SpTaskState state;
+} SPTask;
+
+typedef struct {
+    SPTask task;
+    Vp viewports[0x10];
+    Mtx mtx[0x480];
+    Gfx unkDL1[0x180];
+    Gfx masterDL[0x1380];
+    Gfx unkDL2[0xD80];
+    Lightsn lights[0x100];
+} GfxPool;
+
 typedef struct UnkStruct_D_801B8350 {
     /* 0x00 */ Vec3f unk0;
     /* 0x0C */ char pad_0C[0x4C];

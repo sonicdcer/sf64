@@ -1,7 +1,60 @@
 #include "global.h"
 
-// https://decomp.me/scratch/8H8k4 100%
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/6280/func_80005680.s")
+Mtx gIdentityMtx = { {
+    { 0x00010000, 0, 1, 0 },
+    { 0, 0x00010000, 0, 1 },
+    { 0, 0, 0, 0 },
+    { 0, 0, 0, 0 },
+} };
+
+Matrix gIdentityMatrix = { {
+    { 1.0f, 0.0f, 0.0f, 0.0f },
+    { 0.0f, 1.0f, 0.0f, 0.0f },
+    { 0.0f, 0.0f, 1.0f, 0.0f },
+    { 0.0f, 0.0f, 0.0f, 1.0f },
+} };
+
+Vec3f D_800C46A0 = { 0.0f, 0.0f, 0.0f };
+Vec3f D_800C46AC = { 0.0f, 0.0f, 1.0f };
+Vec3f D_800C46B8 = { 1.0f, 0.0f, 0.0f };
+Vec3f D_800C46C4 = { 0.0f, 0.0f, 0.0f };
+Vec3f D_800C46D0 = { 1.0f, 0.0f, 0.0f };
+Vec3f D_800C46DC = { 0.0f, 1.0f, 0.0f };
+
+void func_80005680(Matrix* dst, Matrix* src) {
+    dst->m[0][0] = src->m[0][0];
+    dst->m[0][1] = src->m[0][1];
+    dst->m[0][2] = src->m[0][2];
+    dst->m[0][3] = src->m[0][3];
+    dst->m[1][0] = src->m[1][0];
+    dst->m[1][1] = src->m[1][1];
+    dst->m[1][2] = src->m[1][2];
+    dst->m[1][3] = src->m[1][3];
+    dst->m[2][0] = src->m[2][0];
+    dst->m[2][1] = src->m[2][1];
+    dst->m[2][2] = src->m[2][2];
+    dst->m[2][3] = src->m[2][3];
+    dst->m[3][0] = src->m[3][0];
+    dst->m[3][1] = src->m[3][1];
+    dst->m[3][2] = src->m[3][2];
+    dst->m[3][3] = src->m[3][3];
+    // dst->xx = src->xx;
+    // dst->yx = src->yx;
+    // dst->zx = src->zx;
+    // dst->wx = src->wx;
+    // dst->xy = src->xy;
+    // dst->yy = src->yy;
+    // dst->zy = src->zy;
+    // dst->wy = src->wy;
+    // dst->xz = src->xz;
+    // dst->yz = src->yz;
+    // dst->zz = src->zz;
+    // dst->wz = src->wz;
+    // dst->xw = src->xw;
+    // dst->yw = src->yw;
+    // dst->zw = src->zw;
+    // dst->ww = src->ww;
+}
 
 void func_80005708(Matrix** mtx) {
     func_80005680(*mtx + 1, *mtx);

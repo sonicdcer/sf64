@@ -17,11 +17,19 @@
 #include "macros.h"
 #include "sf64math.h"
 
-extern Gfx* D_80137E64;
-
-extern OSDevMgr __osPiDevMgr;
-
 #define SCREEN_WIDTH  320
 #define SCREEN_HEIGHT 240
+
+typedef enum {
+    THREAD_ID_SYSTEM,
+    THREAD_ID_IDLE,
+    THREAD_ID_FAULT,
+    THREAD_ID_MAIN,
+    THREAD_ID_4,
+    THREAD_ID_AUDIO,
+    THREAD_ID_GRAPHICS,
+    THREAD_ID_7,
+    THREAD_ID_8,
+} ThreadID;
 
 #endif // GLOBAL_H

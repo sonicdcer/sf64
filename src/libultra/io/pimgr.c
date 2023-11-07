@@ -2,8 +2,8 @@
 #include "piint.h"
 #include "PR/rdb.h"
 
-void ramromMain(void* /*arg*/);
-extern char piEventBuf[];
+void ramromMain(void* arg);
+extern OSMesg piEventBuf[];
 extern OSMesgQueue piEventQueue;
 extern OSThread piThread;
 extern char piThreadStack[];
@@ -22,7 +22,7 @@ void osCreatePiMgr(OSPri pri, OSMesgQueue* cmdQ, OSMesg* cmdBuf, s32 cmdMsgCnt) 
         return;
     }
     osCreateMesgQueue(cmdQ, cmdBuf, cmdMsgCnt);
-    osCreateMesgQueue(&piEventQueue, (OSMesg*) piEventBuf, 1);
+    osCreateMesgQueue(&piEventQueue, piEventBuf, 1);
 
     if (!__osPiAccessQueueEnabled) {
         __osPiCreateAccessQueue();
@@ -60,9 +60,9 @@ void osCreatePiMgr(OSPri pri, OSMesgQueue* cmdQ, OSMesg* cmdBuf, s32 cmdMsgCnt) 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/io/pimgr/osCreatePiMgr.s")
 #endif
 
-extern char freeRamromBuf[];
+extern OSMesg freeRamromBuf[];
 extern OSMesgQueue freeRamromQ;
-extern char getRamromBuf[];
+extern OSMesg getRamromBuf[];
 extern OSMesgQueue getRamromQ;
 
 void ramromMain(void* arg) {
@@ -71,8 +71,10 @@ void ramromMain(void* arg) {
 
     osCreateMesgQueue(&getRamromQ, getRamromBuf, 1);
     osCreateMesgQueue(&freeRamromQ, freeRamromBuf, 1);
-    osSetEventMesg(18 /*OS_EVENT_RDB_REQ_RAMROM*/, &getRamromQ, NULL);
-    osSetEventMesg(19 /*OS_EVENT_RDB_FREE_RAMROM*/, &freeRamromQ, NULL);
+
+    // For some reason the compiler thinks these macros are undefined
+    osSetEventMesg(18 /* OS_EVENT_RDB_REQ_RAMROM */, &getRamromQ, NULL);
+    osSetEventMesg(19 /*OS_EVENT_RDB_FREE_RAMROM */, &freeRamromQ, NULL);
 
     while (TRUE) {
         osRecvMesg(&getRamromQ, NULL, OS_MESG_BLOCK);

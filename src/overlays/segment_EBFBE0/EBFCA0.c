@@ -237,22 +237,22 @@ void func_80187CA8_EC0368(void) {
     s32 temp = 20;
     s32 temp2 = 36;
 
-    func_800B8DD0(&D_80137E64, 0x53);
+    func_800B8DD0(&gMasterDisp, 0x53);
 
-    gDPSetPrimColor(D_80137E64++, 0, 0, 255, 255, 0, 255);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
     func_800A1200(temp2, temp, 1.0f, 1.0f, D_801ADA44_EE6104);
 
-    gDPSetPrimColor(D_80137E64++, 0, 0, 255, 255, 255, 255);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    func_8009D994(&D_80137E64, D_5000300, 16, 8, 148.0f, temp, 1.0f, 1.0f);
-    func_8009D994(&D_80137E64, D_5000200, 16, 8, 164, temp, 1.0f, 1.0f);
+    func_8009D994(&gMasterDisp, D_5000300, 16, 8, 148.0f, temp, 1.0f, 1.0f);
+    func_8009D994(&gMasterDisp, D_5000200, 16, 8, 164, temp, 1.0f, 1.0f);
 
-    func_800B8DD0(&D_80137E64, 0x53);
+    func_800B8DD0(&gMasterDisp, 0x53);
 
-    gDPSetPrimColor(D_80137E64++, 0, 0, 255, 255, 255, 255);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    func_8009D994(&D_80137E64, &D_50077B0, 16, 2, 36, 32, 15.2f, 1.0f);
+    func_8009D994(&gMasterDisp, &D_50077B0, 16, 2, 36, 32, 15.2f, 1.0f);
     func_80187E28_EC04E8();
 }
 
@@ -260,9 +260,9 @@ void func_80187E28_EC04E8(void) {
     s32 temp;
     s32 i;
 
-    func_800B8DD0(&D_80137E64, 0x53);
+    func_800B8DD0(&gMasterDisp, 0x53);
 
-    gDPSetPrimColor(D_80137E64++, 0, 0, 255, 255, 0, 255);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
     func_800A1200(94, 38, 1.0f, 1.0f, "RANK");
     func_800A1200(146, 38, 1.0f, 1.0f, "NAME");
@@ -270,15 +270,15 @@ void func_80187E28_EC04E8(void) {
     temp = 55;
 
     for (i = 0; i < D_801B8288; i++) {
-        gDPSetPrimColor(D_80137E64++, 0, 0, 255, 255, 255, 255);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
         func_8009FEA0(105 - ((func_8008BCBC(i + 1) - 1) * 8), temp, i + 1);
 
-        gDPSetPrimColor(D_80137E64++, 0, 0, 255, 255, 0, 255);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
         func_800A1200(150, temp, 1.0f, 1.0f, &D_801B8248[i][0]);
 
-        gDPSetPrimColor(D_80137E64++, 0, 0, 255, 255, 255, 255);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
         func_8009FEA0(211 - ((func_8008BCBC(D_801B8220[i]) - 1) * 8), temp, D_801B8220[i]);
         temp += 17;

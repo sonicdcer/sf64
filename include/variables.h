@@ -3,18 +3,141 @@
 
 #include "structs.h"
 
-extern OSThread D_800DEAA0;
-extern OSThread D_800DFC50; // no gap
-extern OSThread D_800E0E00; // 0x1000 gap
-extern s32 D_800E1FB0; // 0x1000 gap, probably OSScTask
-extern OSMesgQueue D_800E2010;
-extern OSMesg D_800E2028;
-extern OSMesgQueue D_800E2148;
-extern OSMesgQueue D_800E2238;
-extern OSMesgQueue D_800E2278;
+extern u64 __rspboot_start[];
+extern u64 __rspboot_end[];
+extern u64 __f3dex_start[];
+extern u8 D_80281000[0x400];
+extern u8 D_80281400[0xC00];
+extern u8 D_802A7800;
+extern u8 D_802D7800;
+extern u8 gF3dexData;
+
+extern s32 D_800C45D0;
+
+extern f32 D_800C45E0[];
+
+extern Mtx gIdentityMtx; // 800C4620
+extern Matrix gIdentityMatrix; //800C4660
+extern Vec3f D_800C46A0;
+extern Vec3f D_800C46AC;
+extern Vec3f D_800C46B8;
+extern Vec3f D_800C46C4;
+extern Vec3f D_800C46D0;
+extern Vec3f D_800C46DC;
+
+extern u8 sFaultCharIndex[];
+extern s32 sFaultCharPixelFlags[];
+extern char* D_800C4870[];
+extern char* D_800C48B8[];
 
 extern f32 D_800C5D34;
 extern s8 D_800C5D3C;
+extern s8 D_800C7C50;
+extern s8 D_800C7C54;
+extern OSMesgQueue* D_800C7C58;
+extern OSMesgQueue* D_800C7C5C;
+extern OSMesgQueue* D_800C7C60;
+extern OSMesgQueue* D_800C7C64;
+
+extern char D_800C7C80[];
+
+extern u16 D_800DD8AA;
+extern u8 gAudioThreadStack[0x1000];  // 800DDAA0
+extern OSThread gGraphicsThread;        // 800DEAA0
+extern u8 gGraphicsThreadStack[0x1000]; // 800DEC50
+extern OSThread gUnkThread3;        // 800DFC50
+extern u8 gUnkThread3Stack[0x1000]; // 800DFE00
+extern OSThread gUnkThread4;        // 800E0E00
+extern u8 gUnkThread4Stack[0x1000]; // 800E0FB0
+
+extern SPTask* gCurrentTask;
+extern SPTask* D_800E1FB4[1];
+extern SPTask* D_800E1FB8[2];
+extern SPTask* D_800E1FC0[2];
+extern SPTask* D_800E1FC8[2];
+extern u32 gSegments[16]; // 800E1FD0
+extern OSMesgQueue gPiMgrCmdQueue; // 800E2010
+extern OSMesg sPiMgrCmdBuff[50]; // 800E2028
+
+extern OSMesgQueue D_800E20F0;
+extern void *D_800E2108[1];
+extern OSIoMesg D_800E2110;
+extern OSMesgQueue D_800E2128;
+extern void *D_800E2140[1];
+extern OSMesgQueue D_800E2148;
+extern void *D_800E2160[32];
+extern OSMesgQueue D_800E21E0;
+extern void *D_800E21F8[16];
+extern OSMesgQueue D_800E2238;
+extern void *D_800E2250[1];
+extern OSMesgQueue D_800E2258;
+extern void *D_800E2270[1];
+extern OSMesgQueue D_800E2278;
+extern void *D_800E2290[4];
+extern OSMesgQueue D_800E22A0;
+extern void *D_800E22B8[2];
+extern OSMesgQueue D_800E22C0;
+extern void *D_800E22D8[8];
+extern OSMesgQueue D_800E22F8;
+extern void *D_800E2310[1];
+extern OSMesgQueue D_800E2318;
+extern void *D_800E2330[1];
+extern OSMesgQueue D_800E2338;
+extern void *D_800E2350[16];
+extern OSMesgQueue D_800E2390;
+extern void *D_800E23A8[1];
+
+extern GfxPool* gGfxPool;
+extern SPTask* gGfxTask;
+extern Vp* gViewport;
+extern Mtx* gGfxMtx;
+extern Gfx* gUnkDisp1;
+extern Gfx* gMasterDisp;
+extern Gfx* gUnkDisp2;
+extern Lightsn* gLight;
+extern FrameBuffer *gFrameBuffer;
+extern s32* D_80137E74;
+
+// some sort of struct I think
+extern u8 D_80137E78;
+extern u32 D_80137E7C;
+extern u8 D_80137E80;
+extern u8 D_80137E81;
+extern u8 D_80137E84[4];
+extern u16 D_80137E88;
+extern u16 D_80137E8A;
+
+extern s32 D_80178580;
+extern s32 *D_80178710;
+extern s32 D_80387800;
+extern u16 D_8038F080[];
+extern u16 D_8038F300[];
+
+extern FrameBuffer gFrameBuffers[3]; // 8038F800
+extern GfxPool gGfxPools[2]; // 800E23B0
+
+extern Matrix* D_8013B3C0;
+extern Matrix D_8013B3C8[0x20];
+extern Matrix* D_8013BBC8;
+extern Matrix D_8013BBD0[];
+
+extern OSThread sIdleThread; // 80138E90
+extern u8 sIdleThreadStack[0x1000]; // 801390A0
+extern OSThread gMainThread; // 8013A040
+extern u8 sMainThreadStack[0x1000]; // 8013A1F0
+extern OSThread gAudioThread; //8013B1F0
+
+extern UnkStruct_7D30 D_80144F60;
+extern UnkStruct_7D30 D_80145160;
+extern FaultMgr gFaultMgr;
+
+extern OSMesg D_80156600;
+extern OSMesg D_80156608;
+extern OSMesg D_80156618;
+extern OSMesg D_8015661C;
+extern s32 D_8015F928;
+
+
 extern s32 D_800CFF90;
 extern f32 D_800D19AC[];
 extern f32 D_800D19E0[];
@@ -28,7 +151,7 @@ extern s32 D_800D2190[];
 extern f32 D_800D21A0;
 extern f32 D_800D21A4;
 extern s32 D_800D2870;
-extern u16 D_800D99F8[];
+extern u16 D_Tex_800D99F8[];
 
 extern OSContPad D_800DD880[4];
 extern OSContPad D_800DD898[4];
@@ -41,8 +164,7 @@ extern u8 D_800DD8BC[4]; // Fake symbol. Only exists as loop terminator for D_80
 // extern OSContStatus D_800DD8F0[4];
 // extern OSPfs D_800DD900[4];
 
-extern Gfx* D_80137E64;
-extern u8 D_80137E78;
+
 
 extern s32 D_80161690;
 extern f32 D_801616BC;
@@ -68,6 +190,9 @@ extern s32 D_801617B8;
 extern s32 D_80161810[];
 extern s16 D_80161A34;
 extern s16 D_80161A36;
+extern f32 D_80161A3C;
+extern f32 D_80161A40;
+extern f32 D_80161A44;
 extern u8 D_80161A90[];
 extern s16 D_80161AA0[];
 extern UnkStruct_D_8016F110 D_8016F110[];
@@ -177,11 +302,9 @@ extern f32 D_801B905C;
 extern f32 D_801B9060;
 extern f32 D_801B9064;
 
-extern Matrix* D_8013B3C0;
-extern Matrix* D_8013BBC8;
 extern f32 D_800C5D28[];
 
-extern s32 D_801ADA44_EE6104[];
+extern char D_801ADA44_EE6104[];
 extern s32 D_801ADA84_EE6144[];
 extern s32 D_801ADA94_EE6154;
 
@@ -265,27 +388,5 @@ extern Gfx D_D0098B0[];
 extern Gfx D_F014180[];
 
 
-extern u8 D_80137E84[];
-extern OSMesgQueue D_800E2128;
-extern OSMesgQueue D_800E22F8;
-extern OSMesgQueue D_800E2318;
-extern u8 D_80137E80;
-extern s32 D_80144F60;
-
-extern s8 D_800C7C50;
-extern s8 D_800C7C54;
-extern OSMesgQueue* D_800C7C58;
-extern OSMesgQueue* D_800C7C5C;
-extern OSMesgQueue* D_800C7C60;
-extern OSMesgQueue* D_800C7C64;
-extern OSMesg D_80156600;
-extern OSMesg D_80156608;
-extern OSMesg D_80156618;
-extern OSMesg D_8015661C;
-extern s32 D_8015F928;
-
-extern OSThread D_80138E90; 
-extern OSThread D_8013A040; // 0x1000 gap
-extern OSThread D_8013B1F0; // 0x1000 gap
 #endif // VARIABLES_H
 
