@@ -42,6 +42,8 @@ extern OSMesgQueue* D_800C7C64;
 extern char D_800C7C80[];
 
 extern u16 D_800DD8AA;
+extern s32 D_800D4A70;
+
 extern u8 gAudioThreadStack[0x1000];  // 800DDAA0
 extern OSThread gGraphicsThread;        // 800DEAA0
 extern u8 gGraphicsThreadStack[0x1000]; // 800DEC50
