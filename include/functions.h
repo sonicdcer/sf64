@@ -141,7 +141,7 @@ void func_800B8DD0(Gfx**, s16);
 void func_800BA490(void);
 void func_800BA4F0(void);
 s32 func_800BA7BC(s32, s32);
-//void func_800BA808(u16*, s32);
+void func_800BA808(u16*, s32);
 void func_800BB5D0(void);
 void func_800BC4B0(void);
 void func_800B6F50(f32, f32, f32, f32, f32, f32);

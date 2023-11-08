@@ -20,7 +20,6 @@ void func_80086DCC(void);
 void func_80087B5C(void);
 void func_80089994(s32 arg0);
 void func_8008A4DC(void);
-void func_800BA808(u16* arg0, s32 arg1);
 void func_8008B044(void);
 void func_8008B1B0(void);
 void func_8008B2F0(void);
