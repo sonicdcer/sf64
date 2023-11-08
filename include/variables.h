@@ -42,6 +42,7 @@ extern OSMesgQueue* D_800C7C64;
 extern char D_800C7C80[];
 
 extern Gfx D_800D31F8[];
+extern Gfx D_800D3240[];
 extern Gfx D_800D34C8[];
 extern Gfx D_800D3510[];
 extern u16 D_800DD8AA;
