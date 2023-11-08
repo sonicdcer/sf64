@@ -50,9 +50,13 @@ void func_800B92F8(void) {
     gSPDisplayList(gMasterDisp++, D_800D35A0);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B9328.s")
+void func_800B9328(void) {
+    gSPDisplayList(gMasterDisp++, D_800D3678);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B9358.s")
+void func_800B9358(void) {
+    gSPDisplayList(gMasterDisp++, D_800D3BD0);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B9388.s")
 
