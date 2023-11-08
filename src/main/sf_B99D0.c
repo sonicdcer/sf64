@@ -42,9 +42,13 @@ void func_800B9298(void) {
     gSPDisplayList(gMasterDisp++, D_800D33F0);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B92C8.s")
+void func_800B92C8(void) {
+    gSPDisplayList(gMasterDisp++, D_800D3558);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B92F8.s")
+void func_800B92F8(void) {
+    gSPDisplayList(gMasterDisp++, D_800D35A0);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B9328.s")
 
