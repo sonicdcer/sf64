@@ -28,7 +28,9 @@ void func_800B8FD8(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B9008.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B9120.s")
+void func_800B9120(void) {
+    gSPDisplayList(gMasterDisp++, D_800D32D0);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B9150.s")
 
