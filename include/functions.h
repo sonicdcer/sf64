@@ -145,6 +145,7 @@ void func_800BB5D0(void);
 void func_800BC4B0(void);
 void func_800B6F50(f32, f32, f32, f32, f32, f32);
 void func_800B9358(void);
+s32 func_800C2F30(s32, s32);
 
 void func_801988E0(void);
 
