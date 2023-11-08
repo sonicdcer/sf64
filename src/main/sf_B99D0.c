@@ -66,11 +66,15 @@ void func_800B94A0(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B94D0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B95E8.s")
+void func_800B95E8(void) {
+    gSPDisplayList(gMasterDisp++, D_800D36C0);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B9618.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B9730.s")
+void func_800B9730(void) {
+    gSPDisplayList(gMasterDisp++, D_800D3708);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B9760.s")
 
