@@ -5,12 +5,47 @@
 #include "sf64math.h"
 
 typedef struct {
+    void* start;
+    void* end;
+} SegmentOffset;
+
+typedef struct {
+    SegmentOffset unk_0;
+    SegmentOffset unk_8;
+    SegmentOffset unk_10;
+    SegmentOffset unk_18;
+    SegmentOffset unk_20[15];
+} SegmentInfo;
+
+typedef struct {
+    void* vRomAddress;
+    SegmentOffset pRom;
+    s32 compFlag;
+} DmaEntry;
+
+typedef void (*unkFunc_80007088)(s32, s32);
+
+typedef struct {
+    u8 unk0;
+    OSTimer unk8;
+    unkFunc_80007088 unk28;
+    s32 unk2C;
+    s32 unk30;
+} UnkStruct_func_80007088;
+
+typedef struct {
     u16 data[240 * 320];
 } FrameBuffer;
 
 typedef struct {
-    u8 data[0x40][8];
-} UnkStruct_7D30;
+    char unk_0[0xFE];
+    u16 unk_FE;
+} Save;
+
+typedef union {
+    Save save[2];
+    u8 raw[EEPROM_BLOCK_SIZE*EEPROM_MAXBLOCKS];
+} SaveFile;
 
 typedef struct {
     OSThread thread;

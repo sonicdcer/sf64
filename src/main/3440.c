@@ -1,5 +1,12 @@
 #include "global.h"
 
+extern OSContPad D_800DD880[4];
+extern OSContPad D_800DD898[4];
+extern u8 D_800DD8B0[4];
+extern s32 D_800DD8B4;
+extern u8 D_800DD8B8[4];
+extern u8 D_800DD8BC[4];
+
 extern OSContPad D_800DD8C0[4];
 extern OSContPad D_800DD8D8[4];
 extern OSContStatus D_800DD8F0[4];
@@ -47,7 +54,7 @@ void func_8000291C(void) {
     u8 sp1F;
     s32 i;
 
-    osContInit(&D_800E2128, &sp1F, D_800DD8F0);
+    osContInit(&gSerialEventQueue, &sp1F, D_800DD8F0);
     for (i = 0; i < 4; i++) {
         D_800DD8B0[i] = (sp1F >> i) & 1;
         D_800DD8B8[i] = 0;
@@ -80,11 +87,11 @@ void func_80002AF4(void) {
             D_800DD8C0[i].button = D_800DD8C0[i].stick_x = D_800DD8C0[i].stick_y = D_800DD8C0[i].errno = 0;
         }
     } else {
-        osContStartReadData(&D_800E2128);
-        osRecvMesg(&D_800E2128, NULL, 1);
+        osContStartReadData(&gSerialEventQueue);
+        osRecvMesg(&gSerialEventQueue, NULL, OS_MESG_BLOCK);
         osContGetReadData(D_800DD8C0);
     }
-    osSendMesg(&D_800E22F8, (OSMesg) 16, 0);
+    osSendMesg(&D_800E22F8, (OSMesg) SI_MESG_16, OS_MESG_PRI_NORMAL);
 }
 #else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/3440/func_80002AF4.s")
@@ -92,32 +99,32 @@ void func_80002AF4(void) {
 
 void func_80002BE8(void) {
     if ((D_80137E80 == 0) && (func_800072E0(&D_80144F60) == 0)) {
-        osSendMesg(&D_800E2318, (OSMesg) 15, 0);
+        osSendMesg(&D_800E2318, (OSMesg) SI_MESG_15, OS_MESG_PRI_NORMAL);
         return;
     }
-    osSendMesg(&D_800E2318, (OSMesg) 14, 0);
+    osSendMesg(&D_800E2318, (OSMesg) SI_MESG_14, OS_MESG_PRI_NORMAL);
 }
 
 void func_80002C50(void) {
     if ((D_80137E80 == 0) && (func_800071FC(&D_80144F60) == 0)) {
-        osSendMesg(&D_800E2318, (OSMesg) 15, 0);
+        osSendMesg(&D_800E2318, (OSMesg) SI_MESG_15, OS_MESG_PRI_NORMAL);
         return;
     }
-    osSendMesg(&D_800E2318, (OSMesg) 14, 0);
+    osSendMesg(&D_800E2318, (OSMesg) SI_MESG_14, OS_MESG_PRI_NORMAL);
 }
 
 void func_80002CB8(void) {
     s32 i;
 
-    osContStartQuery(&D_800E2128);
-    osRecvMesg(&D_800E2128, NULL, 1);
+    osContStartQuery(&gSerialEventQueue);
+    osRecvMesg(&gSerialEventQueue, NULL, OS_MESG_BLOCK);
     osContGetQuery(D_800DD8F0);
 
     for (i = 0; i < 4; i++) {
         if ((D_800DD8B0[i] != 0) && (D_800DD8F0[i].errno == 0)) {
             if (D_800DD8F0[i].status & 1) {
                 if (D_800DD8B8[i] == 0) {
-                    if (osMotorInit(&D_800E2128, &D_800DD900[i], i)) {
+                    if (osMotorInit(&gSerialEventQueue, &D_800DD900[i], i)) {
                         D_800DD8B8[i] = 0;
                     } else {
                         D_800DD8B8[i] = 1;

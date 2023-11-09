@@ -41,14 +41,44 @@ extern OSMesgQueue* D_800C7C64;
 
 extern char D_800C7C80[];
 
+extern u8 D_800CA3B0;
+
+extern SegmentInfo D_800CA3B4[];
+extern SegmentInfo D_800CA44C[];
+extern SegmentInfo D_800CA7DC[];
+extern SegmentInfo D_800CA874[];
+extern SegmentInfo D_800CA90C[];
+extern SegmentInfo D_800CA9A4[];
+extern SegmentInfo D_800CAA3C[];
+extern SegmentInfo D_800CAAD4[];
+extern SegmentInfo D_800CAC04[];
+extern SegmentInfo D_800CAF94[];
+extern SegmentInfo D_800CB0C4[];
+extern SegmentInfo D_800CB15C[];
+extern SegmentInfo D_800CB1F4[];
+extern SegmentInfo D_800CB28C[];
+extern SegmentInfo D_800CB3BC[];
+extern SegmentInfo D_800CB454[];
+extern SegmentInfo D_800CB4EC[];
+extern SegmentInfo D_800CB584[];
+extern SegmentInfo D_800CB61C[];
+extern SegmentInfo D_800CB6B4[];
+extern SegmentInfo D_800CB74C[];
+extern SegmentInfo D_800CB87C[];
+extern SegmentInfo D_800CB914[];
+extern SegmentInfo D_800CB9AC[];
+extern SegmentInfo D_800CBA44[];
+extern SegmentInfo D_800CBB74[];
+extern SegmentInfo D_800CBC0C[];
+
 extern u16 D_800DD8AA;
 extern u8 gAudioThreadStack[0x1000];  // 800DDAA0
 extern OSThread gGraphicsThread;        // 800DEAA0
 extern u8 gGraphicsThreadStack[0x1000]; // 800DEC50
 extern OSThread gUnkThread3;        // 800DFC50
 extern u8 gUnkThread3Stack[0x1000]; // 800DFE00
-extern OSThread gUnkThread4;        // 800E0E00
-extern u8 gUnkThread4Stack[0x1000]; // 800E0FB0
+extern OSThread gSerialThread;        // 800E0E00
+extern u8 gSerialThreadStack[0x1000]; // 800E0FB0
 
 extern SPTask* gCurrentTask;
 extern SPTask* D_800E1FB4[1];
@@ -62,11 +92,11 @@ extern OSMesg sPiMgrCmdBuff[50]; // 800E2028
 extern OSMesgQueue D_800E20F0;
 extern void *D_800E2108[1];
 extern OSIoMesg D_800E2110;
-extern OSMesgQueue D_800E2128;
+extern OSMesgQueue gSerialEventQueue;
 extern void *D_800E2140[1];
-extern OSMesgQueue D_800E2148;
+extern OSMesgQueue gMainThreadMsgQueue;
 extern void *D_800E2160[32];
-extern OSMesgQueue D_800E21E0;
+extern OSMesgQueue gTaskMsgQueue;
 extern void *D_800E21F8[16];
 extern OSMesgQueue D_800E2238;
 extern void *D_800E2250[1];
@@ -76,13 +106,13 @@ extern OSMesgQueue D_800E2278;
 extern void *D_800E2290[4];
 extern OSMesgQueue D_800E22A0;
 extern void *D_800E22B8[2];
-extern OSMesgQueue D_800E22C0;
+extern OSMesgQueue gSerialThreadMsgQueue;
 extern void *D_800E22D8[8];
 extern OSMesgQueue D_800E22F8;
 extern void *D_800E2310[1];
 extern OSMesgQueue D_800E2318;
 extern void *D_800E2330[1];
-extern OSMesgQueue D_800E2338;
+extern OSMesgQueue gThread7msgQueue;
 extern void *D_800E2350[16];
 extern OSMesgQueue D_800E2390;
 extern void *D_800E23A8[1];
@@ -107,6 +137,8 @@ extern u8 D_80137E84[4];
 extern u16 D_80137E88;
 extern u16 D_80137E8A;
 
+extern DmaEntry gDmaTable[];
+
 extern s32 D_80178580;
 extern s32 *D_80178710;
 extern s32 D_80387800;
@@ -127,8 +159,8 @@ extern OSThread gMainThread; // 8013A040
 extern u8 sMainThreadStack[0x1000]; // 8013A1F0
 extern OSThread gAudioThread; //8013B1F0
 
-extern UnkStruct_7D30 D_80144F60;
-extern UnkStruct_7D30 D_80145160;
+extern SaveFile D_80144F60;
+extern SaveFile D_80145160;
 extern FaultMgr gFaultMgr;
 
 extern OSMesg D_80156600;
@@ -188,8 +220,12 @@ extern s32 D_801617B0;
 extern s32 D_801617B4;
 extern s32 D_801617B8;
 extern s32 D_80161810[];
+extern f32 D_80161A10;
+extern f32 D_80161A14;
 extern s16 D_80161A34;
 extern s16 D_80161A36;
+extern u8 D_80161A38;
+extern s8 D_80161A39;
 extern f32 D_80161A3C;
 extern f32 D_80161A40;
 extern f32 D_80161A44;
@@ -199,6 +235,8 @@ extern UnkStruct_D_8016F110 D_8016F110[];
 
 extern UnkStruct_D_80175A10 D_80175A10[];
 extern UnkStruct_D_80178280* D_80178280;
+extern s32 D_801774F8;
+extern s32 D_80177820;
 extern u8 D_80177830;
 extern s32 D_80177834;
 extern s32 D_80177838;

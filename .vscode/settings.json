@@ -31,6 +31,7 @@
         "controller.h": "c",
         "os_version.h": "c",
         "stdbool.h": "c",
-        "variables.h": "c"
+        "variables.h": "c",
+        "functions.h": "c"
     },
 }

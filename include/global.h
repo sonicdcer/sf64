@@ -17,8 +17,31 @@
 #include "macros.h"
 #include "sf64math.h"
 
+typedef enum {
+    SI_MESG_10 = 10,
+    SI_MESG_11,
+    SI_MESG_12,
+    SI_MESG_13,
+    SI_MESG_14,
+    SI_MESG_15,
+    SI_MESG_16,
+} SerialMesg;
+
 #define SCREEN_WIDTH  320
 #define SCREEN_HEIGHT 240
+
+#define MSG_QUEUE_EMPTY -1
+
+#define FAULT_MESG_BREAK 1
+#define FAULT_MESG_FAULT 2
+
+#define TASK_MESG_1 1
+#define TASK_MESG_2 2
+
+#define EVENT_MESG_SP 1
+#define EVENT_MESG_DP 2
+#define EVENT_MESG_VI 3
+#define EVENT_MESG_PRENMI 4
 
 typedef enum {
     THREAD_ID_SYSTEM,
@@ -29,7 +52,7 @@ typedef enum {
     THREAD_ID_AUDIO,
     THREAD_ID_GRAPHICS,
     THREAD_ID_7,
-    THREAD_ID_8,
+    THREAD_ID_SERIAL,
 } ThreadID;
 
 #endif // GLOBAL_H

@@ -9,6 +9,8 @@ void func_80002AF4(void);
 void func_80002BE8(void);
 void func_80002C50(void);
 void func_80002CB8(void);
+void func_800033E0(void* var_s2, void* var_s1, s32 var_s0);
+void func_800034E8(u8 arg0);
 
 f32 Math_ModF(f32 value, f32 mod);
 void Rand_Init(void);
@@ -31,14 +33,15 @@ void func_80006A20(Matrix*, Vec3f*, Vec3f*);
 void func_80006EB8(Gfx**);
 void func_80006F20(void);
 
+void func_80007088(UnkStruct_func_80007088*);
 void func_800070C8(u64);
 
-s32 func_800071FC(UnkStruct_7D30*);
-s32 func_800072E0(UnkStruct_7D30*);
+s32 func_800071FC(SaveFile*);
+s32 func_800072E0(SaveFile*);
 
 void Fault_ThreadEntry(void*);
 void func_80007FE4(FrameBuffer*, u16, u16);
-void func_80008018(void);
+void Fault_Init(void);
 
 void func_800182F4(s32);
 void func_80019218(u32, f32*, u8, f32*, f32*, s8*);
@@ -98,6 +101,9 @@ f32 __cosf(f32);
 s64 __ull_div(s64, s64);
 s64 __ll_mul(s64, s64);
 s64 __ll_rshift(s64, s64);
+
+u8 func_80058F14(u8 arg0, u8 arg1);
+void func_80059498(void);
 
 void func_80060FBC(u8*, f32*);
 void func_8006EEFC(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
