@@ -2,6 +2,81 @@
 
 s32 D_800C45D0 = 1;
 
+#ifdef IMPORT_DATA_PENDING
+u8 gAudioThreadStack[0x1000];    // 800DDAA0
+OSThread gGraphicsThread;        // 800DEAA0
+u8 gGraphicsThreadStack[0x1000]; // 800DEC50
+OSThread gUnkThread3;            // 800DFC50
+u8 gUnkThread3Stack[0x1000];     // 800DFE00
+OSThread gSerialThread;          // 800E0E00
+u8 gSerialThreadStack[0x1000];   // 800E0FB0
+
+SPTask* gCurrentTask;
+SPTask* D_800E1FB4[1];
+SPTask* D_800E1FB8[2];
+SPTask* D_800E1FC0[2];
+SPTask* D_800E1FC8[2];
+u32 gSegments[16];          // 800E1FD0
+OSMesgQueue gPiMgrCmdQueue; // 800E2010
+OSMesg sPiMgrCmdBuff[50];   // 800E2028
+
+OSMesgQueue D_800E20F0;
+void* D_800E2108[1];
+OSIoMesg D_800E2110;
+OSMesgQueue gSerialEventQueue;
+void* D_800E2140[1];
+OSMesgQueue gMainThreadMsgQueue;
+void* D_800E2160[32];
+OSMesgQueue gTaskMsgQueue;
+void* D_800E21F8[16];
+OSMesgQueue D_800E2238;
+void* D_800E2250[1];
+OSMesgQueue D_800E2258;
+void* D_800E2270[1];
+OSMesgQueue D_800E2278;
+void* D_800E2290[4];
+OSMesgQueue D_800E22A0;
+void* D_800E22B8[2];
+OSMesgQueue gSerialThreadMsgQueue;
+void* D_800E22D8[8];
+OSMesgQueue D_800E22F8;
+void* D_800E2310[1];
+OSMesgQueue D_800E2318;
+void* D_800E2330[1];
+OSMesgQueue gThread7msgQueue;
+void* D_800E2350[16];
+OSMesgQueue D_800E2390;
+void* D_800E23A8[1];
+
+GfxPool gGfxPools[2];
+
+GfxPool* gGfxPool;
+SPTask* gGfxTask;
+Vp* gViewport;
+Mtx* gGfxMtx;
+Gfx* gUnkDisp1;
+Gfx* gMasterDisp;
+Gfx* gUnkDisp2;
+Lightsn* gLight;
+FrameBuffer* gFrameBuffer;
+s32* D_80137E74;
+
+u8 D_80137E78;
+u32 D_80137E7C;
+u8 D_80137E80;
+u8 D_80137E81;
+u8 D_80137E84[4];
+u16 D_80137E88;
+u16 D_80137E8A;
+
+u8 gUnusedStack[0x1000];
+OSThread sIdleThread;        // 80138E90
+u8 sIdleThreadStack[0x1000]; // 801390A0
+OSThread gMainThread;        // 8013A040
+u8 sMainThreadStack[0x1000]; // 8013A1F0
+OSThread gAudioThread;       // 8013B1F0
+#endif
+
 void func_80003A50(void) {
     u8 i;
 
@@ -180,7 +255,7 @@ void Graphics_ThreadEntry(void* arg0) {
         osSendMesg(&gSerialThreadMsgQueue, (OSMesg) SI_MESG_13, OS_MESG_PRI_NORMAL);
         func_800029A8();
         osSendMesg(&gSerialThreadMsgQueue, (OSMesg) SI_MESG_10, OS_MESG_PRI_NORMAL);
-        if (D_800DD8AA & 0x800) {
+        if (D_800DD898[3].button & 0x800) {
             func_80003EE0();
         }
         {
@@ -355,16 +430,18 @@ void Main_ThreadEntry(void* arg0) {
     osCreateThread(&gGraphicsThread, THREAD_ID_GRAPHICS, Graphics_ThreadEntry, arg0,
                    gGraphicsThreadStack + sizeof(gGraphicsThreadStack), 40);
     osStartThread(&gGraphicsThread);
-    osCreateThread(&gUnkThread3, THREAD_ID_7, Thread7_ThreadEntry, arg0, gUnkThread3Stack + sizeof(gUnkThread3Stack), 60);
+    osCreateThread(&gUnkThread3, THREAD_ID_7, Thread7_ThreadEntry, arg0, gUnkThread3Stack + sizeof(gUnkThread3Stack),
+                   60);
     osStartThread(&gUnkThread3);
-    osCreateThread(&gSerialThread, THREAD_ID_SERIAL, SerialInterface_ThreadEntry, arg0, gSerialThreadStack + sizeof(gSerialThreadStack), 20);
+    osCreateThread(&gSerialThread, THREAD_ID_SERIAL, SerialInterface_ThreadEntry, arg0,
+                   gSerialThreadStack + sizeof(gSerialThreadStack), 20);
     osStartThread(&gSerialThread);
 
     Main_InitMesgQueues();
 
     while (true) {
         osRecvMesg(&gMainThreadMsgQueue, &sp54, OS_MESG_BLOCK);
-        mesg = (u32)sp54;
+        mesg = (u32) sp54;
 
         switch (mesg) {
             case EVENT_MESG_VI:

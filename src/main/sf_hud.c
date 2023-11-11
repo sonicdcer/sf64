@@ -288,10 +288,10 @@ void func_80088784(s32 arg0) {
         arg0--;
         func_800B8DD0(&gMasterDisp, 0x24);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, D_800D1DC8[arg0]);
-        func_80005708(&D_8013B3C0);
-        func_80005B00(D_8013B3C0, 3.9f, -3.3f, -100.0f, 0);
-        func_80005C34(D_8013B3C0, 0.37f, 0.37f, 0.37f, 1);
-        func_80006EB8(&gMasterDisp);
+        Matrix_Push(&D_8013B3C0);
+        Matrix_Translate(D_8013B3C0, 3.9f, -3.3f, -100.0f, 0);
+        Matrix_Scale(D_8013B3C0, 0.37f, 0.37f, 0.37f, 1);
+        Matrix_SetGfxMtx(&gMasterDisp);
 
         if (D_80177C98 == 0) {
             gSPDisplayList(gMasterDisp++, D_800D1D4C[arg0]);
@@ -299,7 +299,7 @@ void func_80088784(s32 arg0) {
             gSPDisplayList(gMasterDisp++, D_800D1D94[arg0]);
         }
 
-        func_80005740(&D_8013B3C0);
+        Matrix_Pop(&D_8013B3C0);
     }
 }
 #else
@@ -311,40 +311,40 @@ void func_80088784(s32 arg0) {
 void func_80089670(void) {
     func_800B8DD0(&gMasterDisp, 0x3E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-    func_80005C34(D_8013B3C0, 18.64f, 21.04f, 1.0f, 1);
-    func_80006EB8(&gMasterDisp);
+    Matrix_Scale(D_8013B3C0, 18.64f, 21.04f, 1.0f, 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_1024AC0);
 }
 
 void func_80089710(void) {
     func_800B8DD0(&gMasterDisp, 0x3E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-    func_80005C34(D_8013B3C0, 11.0f, 11.0f, 1.0f, 1);
-    func_80006EB8(&gMasterDisp);
+    Matrix_Scale(D_8013B3C0, 11.0f, 11.0f, 1.0f, 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_1024AC0);
 }
 
 void func_800897B0(void) {
     func_800B8DD0(&gMasterDisp, 0x3E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-    func_80005C34(D_8013B3C0, 130.0f, 130.0f, 1.0f, 1);
-    func_80006EB8(&gMasterDisp);
+    Matrix_Scale(D_8013B3C0, 130.0f, 130.0f, 1.0f, 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_1024830);
 }
 
 void func_80089850(void) {
     func_800B8DD0(&gMasterDisp, 0x3E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, 255);
-    func_80005C34(D_8013B3C0, 125.0f, 125.0f, 1.0f, 1);
-    func_80006EB8(&gMasterDisp);
+    Matrix_Scale(D_8013B3C0, 125.0f, 125.0f, 1.0f, 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_102A8A0);
 }
 
 void func_800898F0(void) {
     func_800B8DD0(&gMasterDisp, 1);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 208, 80, 255);
-    func_80005C34(D_8013B3C0, 30.0f, 30.0f, 1.0f, 1);
-    func_80006EB8(&gMasterDisp);
+    Matrix_Scale(D_8013B3C0, 30.0f, 30.0f, 1.0f, 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_6004570);
 }
 
@@ -368,8 +368,8 @@ void func_80089994(s32 arg0) {
     func_800B8DD0(&gMasterDisp, 0x3E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, D_800D1E14[arg0][0], D_800D1E14[arg0][1], D_800D1E14[arg0][2],
                     D_800D1E14[arg0][3]);
-    func_80005C34(D_8013B3C0, var_fv1, var_fv2, 1.0f, 1);
-    func_80006EB8(&gMasterDisp);
+    Matrix_Scale(D_8013B3C0, var_fv1, var_fv2, 1.0f, 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_1015510);
 }
 #else
@@ -379,16 +379,16 @@ void func_80089994(s32 arg0) {
 void func_80089AF4(void) {
     func_800B8DD0(&gMasterDisp, 0x3E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, 255);
-    func_80005C34(D_8013B3C0, 54.0f, 54.0f, 1.0f, 1);
-    func_80006EB8(&gMasterDisp);
+    Matrix_Scale(D_8013B3C0, 54.0f, 54.0f, 1.0f, 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_F014180);
 }
 
 void func_80089B94(void) {
     func_800B8DD0(&gMasterDisp, 0x3E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 92, 92, 255);
-    func_80005C34(D_8013B3C0, 54.0f, 54.0f, 1.0f, 1);
-    func_80006EB8(&gMasterDisp);
+    Matrix_Scale(D_8013B3C0, 54.0f, 54.0f, 1.0f, 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_D0098B0);
 }
 
@@ -405,8 +405,8 @@ void func_80089C38(void) {
 
     alpha *= 255.0f / 10.0f;
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha);
-    func_80005C34(D_8013B3C0, 15.0f, 15.0f, 1.0f, 1);
-    func_80006EB8(&gMasterDisp);
+    Matrix_Scale(D_8013B3C0, 15.0f, 15.0f, 1.0f, 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_1024230);
 }
 
@@ -431,9 +431,9 @@ void func_80089D28(void) {
     }
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, gb, gb, 255);
-    func_80005B00(D_8013B3C0, 0.0f, -185.92001f, 0, 1);
-    func_80005C34(D_8013B3C0, 3.55f, 0.13f, 1.0f, 1);
-    func_80006EB8(&gMasterDisp);
+    Matrix_Translate(D_8013B3C0, 0.0f, -185.92001f, 0, 1);
+    Matrix_Scale(D_8013B3C0, 3.55f, 0.13f, 1.0f, 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_1024230);
 }
 
@@ -771,12 +771,12 @@ void func_8008BAE4(void) {
     if ((D_80161788 != 0) || (D_8016178C != 0)) {
         func_800B8DD0(&gMasterDisp, 0xC);
         gDPSetPrimColor(gMasterDisp++, 0, 0, r, g, b, alpha);
-        func_80005708(&D_8013B3C0);
-        func_80005B00(D_8013B3C0, -53.9f, -38.5f, -139.4f, 1);
-        func_80005C34(D_8013B3C0, 1.0f, 1.0f, 1.0f, 1);
-        func_80006EB8(&gMasterDisp);
+        Matrix_Push(&D_8013B3C0);
+        Matrix_Translate(D_8013B3C0, -53.9f, -38.5f, -139.4f, 1);
+        Matrix_Scale(D_8013B3C0, 1.0f, 1.0f, 1.0f, 1);
+        Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_800D1A40);
-        func_80005740(&D_8013B3C0);
+        Matrix_Pop(&D_8013B3C0);
     }
 }
 
@@ -1845,7 +1845,7 @@ s32 func_80091DF4(UnkStruct_func_80090A00* arg0) {
         sp44.x = 0.0f;
         sp44.y = 0.0f;
         sp44.z = 100.0f;
-        func_80006A20(D_8013BBC8, &sp44, &sp38);
+        Matrix_MultVec3fNoTranslate(D_8013BBC8, &sp44, &sp38);
         func_8006EEFC(arg0->unk_0E4, arg0->unk_000.pos.x + (sp38.x * 1.5), arg0->unk_000.pos.y + (sp38.y * 1.5),
                       arg0->unk_000.pos.z + (sp38.z * 1.5), sp38.x, sp38.y, sp38.z, arg0->unk_000.unk_10.x,
                       arg0->unk_000.unk_10.y, arg0->unk_000.unk_10.z);
@@ -1872,7 +1872,7 @@ s32 func_80091F00(UnkStruct_func_80090A00* arg0) {
 
     func_80019218(0x2903300E, arg0->unk_100, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     func_8007D10C(arg0->unk_000.pos.x, arg0->unk_000.pos.y, arg0->unk_000.pos.z, 1.5f);
-    func_80005E90(D_8013BBC8, arg0->unk_0F8 * (M_PI / 180), 0);
+    Matrix_RotateY(D_8013BBC8, arg0->unk_0F8 * (M_PI / 180), 0);
 
     if (Rand_ZeroOne() < 0.5f) {
         sp40.x = -20.0f;
@@ -1883,7 +1883,7 @@ s32 func_80091F00(UnkStruct_func_80090A00* arg0) {
     sp40.y = (Rand_ZeroOne() - 0.5f) * 20.0f;
     sp40.z = 0.0f;
 
-    func_80006A20(D_8013BBC8, &sp40, &sp34);
+    Matrix_MultVec3fNoTranslate(D_8013BBC8, &sp40, &sp34);
 
     arg0->unk_114[13] = sp34.x;
     arg0->unk_114[14] = sp34.y;

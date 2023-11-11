@@ -27,8 +27,8 @@ extern Vec3f D_800C46DC;
 
 extern u8 sFaultCharIndex[];
 extern s32 sFaultCharPixelFlags[];
-extern char* D_800C4870[];
-extern char* D_800C48B8[];
+extern const char* D_800C4870[];
+extern const char* D_800C48B8[];
 
 extern f32 D_800C5D34;
 extern s8 D_800C5D3C;
@@ -71,7 +71,6 @@ extern SegmentInfo D_800CBA44[];
 extern SegmentInfo D_800CBB74[];
 extern SegmentInfo D_800CBC0C[];
 
-extern u16 D_800DD8AA;
 extern u8 gAudioThreadStack[0x1000];  // 800DDAA0
 extern OSThread gGraphicsThread;        // 800DEAA0
 extern u8 gGraphicsThreadStack[0x1000]; // 800DEC50
@@ -79,6 +78,7 @@ extern OSThread gUnkThread3;        // 800DFC50
 extern u8 gUnkThread3Stack[0x1000]; // 800DFE00
 extern OSThread gSerialThread;        // 800E0E00
 extern u8 gSerialThreadStack[0x1000]; // 800E0FB0
+extern u8 gUnusedStack[0x1000];
 
 extern SPTask* gCurrentTask;
 extern SPTask* D_800E1FB4[1];
@@ -151,7 +151,7 @@ extern GfxPool gGfxPools[2]; // 800E23B0
 extern Matrix* D_8013B3C0;
 extern Matrix D_8013B3C8[0x20];
 extern Matrix* D_8013BBC8;
-extern Matrix D_8013BBD0[];
+extern Matrix D_8013BBD0[0x20];
 
 extern OSThread sIdleThread; // 80138E90
 extern u8 sIdleThreadStack[0x1000]; // 801390A0
@@ -163,10 +163,10 @@ extern SaveFile D_80144F60;
 extern SaveFile D_80145160;
 extern FaultMgr gFaultMgr;
 
-extern OSMesg D_80156600;
-extern OSMesg D_80156608;
-extern OSMesg D_80156618;
-extern OSMesg D_8015661C;
+extern OSMesg D_80156600[1];
+extern OSMesg D_80156608[4];
+extern OSMesg D_80156618[1];
+extern OSMesg D_8015661C[1];
 extern s32 D_8015F928;
 
 

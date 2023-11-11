@@ -1,5 +1,13 @@
 #include "global.h"
 
+#ifdef DATA_IMPORT_PENDING
+FaultMgr gFaultMgr;
+s32 sFaultCharPixelFlags[0x40];
+u8 sFaultCharIndex[0x80];
+const char* D_800C4870[18];
+const char* D_800C48B8[6];
+#endif
+
 void func_800073C0(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     u16* var_v0;
     s32 i;
@@ -51,7 +59,7 @@ void func_8000762C(s32 arg0, s32 arg1, const char* fmt, ...) {
     s32 temp_a2;
     va_list args;
     va_start(args, fmt);
-        
+
     for (i = 0; i < 0x100; i++) {
         sp40[i] = 0;
     }
@@ -61,12 +69,12 @@ void func_8000762C(s32 arg0, s32 arg1, const char* fmt, ...) {
     }
     for (var_s0 = sp40; *var_s0 != 0; var_s0++) {
         temp_a2 = sFaultCharIndex[*var_s0 & 0x7F];
-        
+
         if (temp_a2 != 0xFF) {
             func_800074AC(arg0, arg1, temp_a2);
         }
         arg0 += 6;
-        label:; // fake, probably
+    label:; // fake, probably
     }
     va_end(args);
 }
@@ -181,19 +189,19 @@ void func_80007910(OSThread* thread) {
     func_8000762C(30, 150, "S8:%08XH   RA:%08XH", (s32) context->s8, (s32) context->ra);
     func_80007880(context->fpcsr);
     osWritebackDCacheAll();
-    func_800077F8(30 , 170, 0, &context->fp0.f.f_even);
+    func_800077F8(30, 170, 0, &context->fp0.f.f_even);
     func_800077F8(120, 170, 2, &context->fp2.f.f_even);
     func_800077F8(210, 170, 4, &context->fp4.f.f_even);
-    func_800077F8(30 , 180, 6, &context->fp6.f.f_even);
+    func_800077F8(30, 180, 6, &context->fp6.f.f_even);
     func_800077F8(120, 180, 8, &context->fp8.f.f_even);
     func_800077F8(210, 180, 10, &context->fp10.f.f_even);
-    func_800077F8(30 , 190, 12, &context->fp12.f.f_even);
+    func_800077F8(30, 190, 12, &context->fp12.f.f_even);
     func_800077F8(120, 190, 14, &context->fp14.f.f_even);
     func_800077F8(210, 190, 16, &context->fp16.f.f_even);
-    func_800077F8(30 , 200, 18, &context->fp18.f.f_even);
+    func_800077F8(30, 200, 18, &context->fp18.f.f_even);
     func_800077F8(120, 200, 20, &context->fp20.f.f_even);
     func_800077F8(210, 200, 22, &context->fp22.f.f_even);
-    func_800077F8(30 , 210, 24, &context->fp24.f.f_even);
+    func_800077F8(30, 210, 24, &context->fp24.f.f_even);
     func_800077F8(120, 210, 26, &context->fp26.f.f_even);
     func_800077F8(210, 210, 28, &context->fp28.f.f_even);
     func_800077F8(30, 220, 30, &context->fp30.f.f_even);

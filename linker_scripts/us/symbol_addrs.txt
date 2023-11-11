@@ -15,6 +15,26 @@ Math_FactorialF = 0x800053C8;
 Math_Factorial = 0x800054C8;
 Math_PowF = 0x800055DC;
 Math_MinMax = 0x80005604;
+
+Matrix_Copy = 0x80005680;
+Matrix_Push = 0x80005708;
+Matrix_Pop = 0x80005740;
+Matrix_Mult = 0x80005754;
+Matrix_Translate = 0x80005B00;
+Matrix_Scale = 0x80005C34;
+Matrix_RotateX = 0x80005D44;
+Matrix_RotateY = 0x80005E90;
+Matrix_RotateZ = 0x80005FE0;
+Matrix_RotateAxis = 0x8000612C;
+Matrix_ToMtx = 0x80006500;
+Matrix_FromMtx = 0x8000671C;
+Matrix_MultVec3f = 0x80006970;
+Matrix_MultVec3fNoTranslate = 0x80006A20;
+Matrix_GetYRPAngles = 0x80006AB8;
+Matrix_GetXYZAngles = 0x80006C7C;
+Matrix_LookAt = 0x80006E3C;
+Matrix_SetGfxMtx = 0x80006EB8;
+
 D_800C45E0 = 0x800C45E0;
 
 D_800C57EC = 0x800C57EC;
@@ -22,6 +42,17 @@ D_800C7380 = 0x800C7380;
 D_800C5FF4 = 0x800C5FF4; //type:u16 size:5000
 
 gDmaTable = 0x80178A70;
+
+D_800DD880 = 0x800DD880; // size:0x18
+D_800DD898 = 0x800DD898; // size:0x18
+D_800DD8B0 = 0x800DD8B0; // size:0x4
+D_800DD8B4 = 0x800DD8B4; // size:0x4
+D_800DD8B8 = 0x800DD8B8; // size:0x4
+D_800DD8BC = 0x800DD8BC; // ignore:true
+D_800DD8C0 = 0x800DD8C0; // size:0x18
+D_800DD8D8 = 0x800DD8D8; // size:0x18
+D_800DD8F0 = 0x800DD8F0; // size:0x10
+D_800DD900 = 0x800DD900; // size:0x1A0
 
 D_800CBDD4 = 0x800CBDD4; //size:0x98
 

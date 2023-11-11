@@ -1,6 +1,6 @@
 #include "global.h"
 
-extern UnkStruct_func_80007088 D_80144BE0[];
+extern UnkStruct_func_80007088 D_80144BE0[0x10];
 
 UnkStruct_func_80007088* func_80006F60(void) {
     s32 i;
@@ -49,4 +49,3 @@ void func_800070C8(u64 arg0) {
     osSetTimer(&sp30, arg0, 0, &D_800E2390, NULL);
     osRecvMesg(&D_800E2390, &sp2C, OS_MESG_BLOCK);
 }
-

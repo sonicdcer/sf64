@@ -2,6 +2,11 @@
 
 #include "global.h"
 
+#ifdef DATA_IMPORT_PENDING
+SaveFile D_80144F60;
+SaveFile D_80145160;
+#endif
+
 s32 func_80007130(s32 arg0, u8* arg1) {
     if (osEepromRead(&gSerialEventQueue, arg0, arg1)) {
         (void) "ＥＥＰＲＯＭ インターフェース回路反応なし (ＲＥＡＤ)\n";
@@ -33,12 +38,12 @@ s32 func_800071FC(SaveFile* arg0) {
     for (i = 0; i < EEPROM_MAXBLOCKS; i++) {
         var_a2 = 0;
         for (j = 0; j < EEPROM_BLOCK_SIZE; j++) {
-            if (D_80145160.raw[EEPROM_BLOCK_SIZE*i+j] != arg0->raw[EEPROM_BLOCK_SIZE*i+j]) {
-                D_80145160.raw[EEPROM_BLOCK_SIZE*i+j] = arg0->raw[EEPROM_BLOCK_SIZE*i+j];
+            if (D_80145160.raw[EEPROM_BLOCK_SIZE * i + j] != arg0->raw[EEPROM_BLOCK_SIZE * i + j]) {
+                D_80145160.raw[EEPROM_BLOCK_SIZE * i + j] = arg0->raw[EEPROM_BLOCK_SIZE * i + j];
                 var_a2 = 1;
             }
         }
-        if ((var_a2 == 1) && func_8000716C(i, &arg0->raw[EEPROM_BLOCK_SIZE*i])) {
+        if ((var_a2 == 1) && func_8000716C(i, &arg0->raw[EEPROM_BLOCK_SIZE * i])) {
             return -1;
         }
     }

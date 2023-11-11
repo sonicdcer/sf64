@@ -1,16 +1,21 @@
 #include "global.h"
 
-extern OSContPad D_800DD880[4];
-extern OSContPad D_800DD898[4];
-extern u8 D_800DD8B0[4];
-extern s32 D_800DD8B4;
-extern u8 D_800DD8B8[4];
-extern u8 D_800DD8BC[4];
-
-extern OSContPad D_800DD8C0[4];
-extern OSContPad D_800DD8D8[4];
-extern OSContStatus D_800DD8F0[4];
-extern OSPfs D_800DD900[4];
+#ifdef DATA_IMPORT_PENDING
+OSContPad D_800DD880[4];
+OSContPad D_800DD898[4];
+u8 D_800DD8B0[4];
+s32 D_800DD8B4;
+u8 D_800DD8B8[4];
+OSContPad D_800DD8C0[4];    //
+OSContPad D_800DD8D8[4];    //
+OSContStatus D_800DD8F0[4]; //
+OSPfs D_800DD900[4];        //
+#else
+extern OSContPad D_800DD8C0[4];    //
+extern OSContPad D_800DD8D8[4];    //
+extern OSContStatus D_800DD8F0[4]; //
+extern OSPfs D_800DD900[4];        //
+#endif
 
 void func_80002840(s32 contrNum) {
     s32 temp_v0 = D_800DD880[contrNum].stick_x;
@@ -77,7 +82,7 @@ void func_800029A8(void) {
     }
 }
 
-#ifdef NON_MATCHING // requires data import on D_800DD8C0
+#ifdef DATA_IMPORT_PENDING // requires data import on D_800DD8C0
 void func_80002AF4(void) {
     s32 i;
 

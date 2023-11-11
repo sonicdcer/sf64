@@ -5,57 +5,57 @@
 #include "sf64math.h"
 
 typedef struct {
-    void* start;
-    void* end;
-} SegmentOffset;
+    /* 0x0 */ void* start;
+    /* 0x4 */ void* end;
+} SegmentOffset; // size = 0x8
 
 typedef struct {
-    SegmentOffset unk_0;
-    SegmentOffset unk_8;
-    SegmentOffset unk_10;
-    SegmentOffset unk_18;
-    SegmentOffset unk_20[15];
-} SegmentInfo;
+    /* 0x00 */ SegmentOffset unk_0;
+    /* 0x08 */ SegmentOffset unk_8;
+    /* 0x10 */ SegmentOffset unk_10;
+    /* 0x18 */ SegmentOffset unk_18;
+    /* 0x20 */ SegmentOffset unk_20[15];
+} SegmentInfo; // size = 0x98
 
 typedef struct {
-    void* vRomAddress;
-    SegmentOffset pRom;
-    s32 compFlag;
-} DmaEntry;
+    /* 0x0 */ void* vRomAddress;
+    /* 0x8 */ SegmentOffset pRom;
+    /* 0xC */ s32 compFlag;
+} DmaEntry; // size = 0x10;
 
 typedef void (*unkFunc_80007088)(s32, s32);
 
 typedef struct {
-    u8 unk0;
-    OSTimer unk8;
-    unkFunc_80007088 unk28;
-    s32 unk2C;
-    s32 unk30;
-} UnkStruct_func_80007088;
+    /* 0x00 */ u8 unk0;
+    /* 0x08 */ OSTimer unk8;
+    /* 0x28 */ unkFunc_80007088 unk28;
+    /* 0x2C */ s32 unk2C;
+    /* 0x30 */ s32 unk30;
+} UnkStruct_func_80007088; // size = 0x38, 0x8 aligned
 
 typedef struct {
     u16 data[240 * 320];
-} FrameBuffer;
+} FrameBuffer; // size = 0x25800
 
 typedef struct {
-    char unk_0[0xFE];
-    u16 unk_FE;
-} Save;
+    /* 0x00 */ char unk_0[0xFE];
+    /* 0xFE */ u16 unk_FE;
+} Save; // size = 0x100
 
 typedef union {
     Save save[2];
     u8 raw[EEPROM_BLOCK_SIZE*EEPROM_MAXBLOCKS];
-} SaveFile;
+} SaveFile; // size = 0x200
 
 typedef struct {
-    OSThread thread;
-    char stack[0x800];
-    OSMesgQueue msgQueue;
-    OSMesg msg;
-    FrameBuffer* fb;
-    u16 width;
-    u16 height;
-} FaultMgr;
+    /* 0x000 */ OSThread thread;
+    /* 0x1B0 */ char stack[0x800];
+    /* 0x9B0 */ OSMesgQueue msgQueue;
+    /* 0x9C8 */ OSMesg msg;
+    /* 0x9CC */ FrameBuffer* fb;
+    /* 0x9D0 */ u16 width;
+    /* 0x9D2 */ u16 height;
+} FaultMgr; // size = 0x9D8, 0x8 aligned
 
 typedef enum {
     SPTASK_STATE_NOT_STARTED,
@@ -66,21 +66,21 @@ typedef enum {
 } SpTaskState;
 
 typedef struct {
-    OSTask task;
-    OSMesgQueue* msgQueue;
-    OSMesg msg;
-    SpTaskState state;
-} SPTask;
+    /* 0x00 */ OSTask task;
+    /* 0x40 */ OSMesgQueue* msgQueue;
+    /* 0x44 */ OSMesg msg;
+    /* 0x48 */ SpTaskState state;
+} SPTask; // size = 0x50, 0x8 aligned
 
 typedef struct {
-    SPTask task;
-    Vp viewports[0x10];
-    Mtx mtx[0x480];
-    Gfx unkDL1[0x180];
-    Gfx masterDL[0x1380];
-    Gfx unkDL2[0xD80];
-    Lightsn lights[0x100];
-} GfxPool;
+    /* 0x00000 */ SPTask task;
+    /* 0x00050 */ Vp viewports[0x10];
+    /* 0x00150 */ Mtx mtx[0x480];
+    /* 0x12150 */ Gfx unkDL1[0x180];
+    /* 0x12D50 */ Gfx masterDL[0x1380];
+    /* 0x1C950 */ Gfx unkDL2[0xD80];
+    /* 0x23550 */ Lightsn lights[0x100];
+} GfxPool; // size = 0x2AD50
 
 typedef struct UnkStruct_D_801B8350 {
     /* 0x00 */ Vec3f unk0;

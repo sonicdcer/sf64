@@ -1,19 +1,17 @@
 #include "global.h"
 
-#define SEGMENT_SIZE(segment) ((ptrdiff_t)((uintptr_t)(segment).end - (uintptr_t)(segment).start))
-#define PHYS_ADDR(ptr) ((uintptr_t)(ptr) & 0x1FFFFFFF)
+#define SEGMENT_SIZE(segment) ((ptrdiff_t) ((uintptr_t) (segment).end - (uintptr_t) (segment).start))
+#define PHYS_ADDR(ptr) ((uintptr_t) (ptr) &0x1FFFFFFF)
 
 extern u8 func_80187520[];
 extern SegmentInfo D_800CBDD4;
 
-void func_800033E0(void* var_s2, void* var_s1, s32 var_s0);
-
 void func_80058B80(void* arg0, void* arg1, ptrdiff_t arg2) {
     s32 i;
 
-    for(i = 0; gDmaTable[i].pRom.end != NULL; i++) {
-        if(gDmaTable[i].vRomAddress == arg0) {
-            if(gDmaTable[i].compFlag == 0) {
+    for (i = 0; gDmaTable[i].pRom.end != NULL; i++) {
+        if (gDmaTable[i].vRomAddress == arg0) {
+            if (gDmaTable[i].compFlag == 0) {
                 func_800033E0(gDmaTable[i].pRom.start, arg1, arg2);
             } else {
                 func_800034E8(1);
@@ -27,12 +25,12 @@ void func_80058B80(void* arg0, void* arg1, ptrdiff_t arg2) {
     }
 }
 
-u8 func_80058C48(SegmentInfo *segment) {
+u8 func_80058C48(SegmentInfo* segment) {
     u8* var_s2 = func_80187520;
     u8 var_s1;
     u8 sp42 = 0;
 
-    if (segment->unk_0.start == (0,D_800CBDD4.unk_0.start)) { // fake because D_800CBDD4 is probably 2D array
+    if (segment->unk_0.start == (0, D_800CBDD4.unk_0.start)) { // fake because D_800CBDD4 is probably 2D array
         var_s2 = var_s2 + SEGMENT_SIZE(segment->unk_0);
         var_s2 = var_s2 + SEGMENT_SIZE(segment->unk_8);
     } else {
@@ -43,27 +41,27 @@ u8 func_80058C48(SegmentInfo *segment) {
             func_80058B80(segment->unk_0.start, var_s2, SEGMENT_SIZE(segment->unk_0));
             var_s2 = var_s2 + SEGMENT_SIZE(segment->unk_0);
             bzero(segment->unk_8.start, SEGMENT_SIZE(segment->unk_8));
-            var_s2 = var_s2 + SEGMENT_SIZE(segment->unk_8);        
+            var_s2 = var_s2 + SEGMENT_SIZE(segment->unk_8);
         }
     }
     var_s1 = 0;
-    while((var_s1 < 15) && (segment->unk_20[var_s1].start == D_800CBDD4.unk_20[var_s1].start) && (sp42 == 0)) {
-        if(segment->unk_20[var_s1].start != 0) {
+    while ((var_s1 < 15) && (segment->unk_20[var_s1].start == D_800CBDD4.unk_20[var_s1].start) && (sp42 == 0)) {
+        if (segment->unk_20[var_s1].start != 0) {
             gSegments[var_s1 + 1] = PHYS_ADDR(var_s2);
             gSPSegment(gUnkDisp1++, var_s1 + 1, PHYS_ADDR(var_s2));
             var_s2 = var_s2 + SEGMENT_SIZE(segment->unk_20[var_s1]);
         }
         var_s1 += 1;
     }
-    for(var_s1; var_s1 < 15; var_s1 += 1) {
+    for (var_s1; var_s1 < 15; var_s1 += 1) {
         D_800CBDD4.unk_20[var_s1].start = segment->unk_20[var_s1].start;
         D_800CBDD4.unk_20[var_s1].end = var_s2;
-        if (segment->unk_20[var_s1].start != 0) { 
+        if (segment->unk_20[var_s1].start != 0) {
             gSegments[var_s1 + 1] = PHYS_ADDR(var_s2);
             gSPSegment(gUnkDisp1++, var_s1 + 1, PHYS_ADDR(var_s2));
             func_80058B80(segment->unk_20[var_s1].start, var_s2, SEGMENT_SIZE(segment->unk_20[var_s1]));
             var_s2 = var_s2 + SEGMENT_SIZE(segment->unk_20[var_s1]);
-        }     
+        }
     }
 
     if (D_800CA3B0 != 0) {
@@ -169,7 +167,7 @@ u8 func_80058F14(u8 arg0, u8 arg1) {
             var_v1 = func_80058C48(&D_800CA44C[arg1]);
             break;
         default:
-            (void)"DMA MODE ERROR %d\n";
+            (void) "DMA MODE ERROR %d\n";
             var_v1 = 0;
             break;
     }

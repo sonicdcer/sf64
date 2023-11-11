@@ -91,7 +91,7 @@ void func_8000316C(Gfx** dList) {
     gSPMatrix((*dList)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
     guLookAt(gGfxMtx, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -12800.0f, 0.0f, 1.0f, 0.0f);
     gSPMatrix((*dList)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
-    func_80005680(D_8013B3C0, &gIdentityMatrix);
+    Matrix_Copy(D_8013B3C0, &gIdentityMatrix);
 }
 
 void func_800032B4(Gfx** dList) {
@@ -99,5 +99,5 @@ void func_800032B4(Gfx** dList) {
     gSPMatrix((*dList)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
     guLookAt(gGfxMtx, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -12800.0f, 0.0f, 1.0f, 0.0f);
     gSPMatrix((*dList)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
-    func_80005680(D_8013B3C0, &gIdentityMatrix);
+    Matrix_Copy(D_8013B3C0, &gIdentityMatrix);
 }

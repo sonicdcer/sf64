@@ -23,15 +23,27 @@ f32 Math_Atan2F_XYAlt(f32 x, f32 y);
 f32 Math_PowF(f32 base, s32 exp);
 void Math_MinMax(s32* min, s32* max, s32 val1, s32 val2, s32 val3);
 
-void func_80005680(Matrix*, Matrix*);
-void func_80005708(Matrix** mtx);
-void func_80005740(Matrix** mtx);
-void func_80005B00(Matrix*, f32, f32, f32, u8);
-void func_80005C34(Matrix*, f32, f32, f32, s32);
-void func_80005E90(Matrix*, float, char);
-void func_80006A20(Matrix*, Vec3f*, Vec3f*);
-void func_80006EB8(Gfx**);
+void Matrix_Copy(Matrix*, Matrix*);
+void Matrix_Push(Matrix** mtxStack);
+void Matrix_Pop(Matrix** mtxStack);
+void Matrix_Mult(Matrix*, Matrix*, u8);
+void Matrix_Translate(Matrix*, f32, f32, f32, u8);
+void Matrix_Scale(Matrix*, f32, f32, f32, u8);
+void Matrix_RotateX(Matrix*, f32, u8);
+void Matrix_RotateY(Matrix*, f32, u8);
+void Matrix_RotateZ(Matrix*, f32, u8);
+void Matrix_RotateAxis(Matrix*, f32, f32, f32, f32, u8);
+void Matrix_ToMtx(Mtx *dest);
+void Matrix_FromMtx(Mtx *src, Matrix *dest);
+void Matrix_MultVec3f(Matrix*, Vec3f*, Vec3f*);
+void Matrix_MultVec3fNoTranslate(Matrix*, Vec3f*, Vec3f*);
+void Matrix_GetYRPAngles(Matrix*, Vec3f*);
+void Matrix_GetXYZAngles(Matrix*, Vec3f*);
+void Matrix_LookAt(Matrix*, f32, f32, f32, f32, f32, f32, f32, f32, f32, u8);
+void Matrix_SetGfxMtx(Gfx**);
+
 void func_80006F20(void);
+s32 func_80006F38(s32);
 
 void func_80007088(UnkStruct_func_80007088*);
 void func_800070C8(u64);
