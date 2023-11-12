@@ -9,4 +9,15 @@ typedef struct {
     /* 0x8 */ f32 z;
 } Vec3f; // size = 0xC
 
+typedef union {
+    float m[4][4];
+    struct {
+        float xx, yx, zx, wx,
+              xy, yy, zy, wy,
+              xz, yz, zz, wz,
+              xw, yw, zw, ww;
+    };
+    // u64 force_struct_alignment;
+} Matrix; // size = 0x40
+
 #endif

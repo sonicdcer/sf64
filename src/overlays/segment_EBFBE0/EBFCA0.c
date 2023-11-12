@@ -121,21 +121,21 @@ void func_801878D8_EBFF98(void) {
         case 0:
             func_801918FC_EC9FBC();
             func_80189208_EC18C8();
-            func_80005740(&D_8013B3C0);
+            Matrix_Pop(&D_8013B3C0);
             func_8018F680_EC7D40();
             func_8018F85C_EC7F1C();
             func_8018FC14_EC82D4();
             func_8018F8E4_EC7FA4();
             func_801918FC_EC9FBC();
             func_8018F77C_EC7E3C();
-            func_80005740(&D_8013B3C0);
+            Matrix_Pop(&D_8013B3C0);
             break;
 
         case 1:
             if (D_801B8348 != 0) {
                 func_801918FC_EC9FBC();
                 func_8018A2F8_EC29B8();
-                func_80005740(&D_8013B3C0);
+                Matrix_Pop(&D_8013B3C0);
                 func_800BB5D0();
                 func_80190C9C_EC935C();
             }
@@ -146,7 +146,7 @@ void func_801878D8_EBFF98(void) {
         case 2:
             func_801918FC_EC9FBC();
             func_8018A990_EC3050();
-            func_80005740(&D_8013B3C0);
+            Matrix_Pop(&D_8013B3C0);
             if (D_801B8344 != 0) {
                 func_8018FD08_EC83C8();
             }
@@ -155,20 +155,20 @@ void func_801878D8_EBFF98(void) {
         case 3:
             func_801918FC_EC9FBC();
             func_8018B038_EC36F8();
-            func_80005740(&D_8013B3C0);
+            Matrix_Pop(&D_8013B3C0);
             break;
 
         case 4:
             func_801918FC_EC9FBC();
             func_8018C114_EC47D4();
-            func_80005740(&D_8013B3C0);
+            Matrix_Pop(&D_8013B3C0);
             func_80190C9C_EC935C();
             break;
 
         case 5:
             func_801918FC_EC9FBC();
             func_8018CB90_EC5250();
-            func_80005740(&D_8013B3C0);
+            Matrix_Pop(&D_8013B3C0);
             break;
     }
 

@@ -7,7 +7,7 @@ void func_800BA760(void) {
     }
 }
 
-s32 func_800BA7BC(s32 arg0, s32 arg1) {
+s32 func_800BA7BC(u16* arg0, s32 arg1) {
     s32 var_v0 = D_800D4A70;
 
     if (arg1 == var_v0) {

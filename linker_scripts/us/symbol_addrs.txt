@@ -15,11 +15,67 @@ Math_FactorialF = 0x800053C8;
 Math_Factorial = 0x800054C8;
 Math_PowF = 0x800055DC;
 Math_MinMax = 0x80005604;
+
+Matrix_Copy = 0x80005680;
+Matrix_Push = 0x80005708;
+Matrix_Pop = 0x80005740;
+Matrix_Mult = 0x80005754;
+Matrix_Translate = 0x80005B00;
+Matrix_Scale = 0x80005C34;
+Matrix_RotateX = 0x80005D44;
+Matrix_RotateY = 0x80005E90;
+Matrix_RotateZ = 0x80005FE0;
+Matrix_RotateAxis = 0x8000612C;
+Matrix_ToMtx = 0x80006500;
+Matrix_FromMtx = 0x8000671C;
+Matrix_MultVec3f = 0x80006970;
+Matrix_MultVec3fNoTranslate = 0x80006A20;
+Matrix_GetYRPAngles = 0x80006AB8;
+Matrix_GetXYZAngles = 0x80006C7C;
+Matrix_LookAt = 0x80006E3C;
+Matrix_SetGfxMtx = 0x80006EB8;
+
 D_800C45E0 = 0x800C45E0;
 
 D_800C57EC = 0x800C57EC;
 D_800C7380 = 0x800C7380;
 D_800C5FF4 = 0x800C5FF4; //type:u16 size:5000
+
+D_80163FE0 = 0x80163FE0; //size:0xB130
+
+gDmaTable = 0x80178A70;
+
+D_800DD880 = 0x800DD880; // size:0x18
+D_800DD898 = 0x800DD898; // size:0x18
+D_800DD8B0 = 0x800DD8B0; // size:0x4
+D_800DD8B4 = 0x800DD8B4; // size:0x4
+D_800DD8B8 = 0x800DD8B8; // size:0x4
+D_800DD8BC = 0x800DD8BC; // ignore:true
+D_800DD8C0 = 0x800DD8C0; // size:0x18
+D_800DD8D8 = 0x800DD8D8; // size:0x18
+D_800DD8F0 = 0x800DD8F0; // size:0x10
+D_800DD900 = 0x800DD900; // size:0x1A0
+
+D_800CBDD4 = 0x800CBDD4; //size:0x98
+
+D_80178870 = 0x80178870; //size:0x200
+
+D_800E20F0 = 0x800E20F0;
+gTaskMsgQueue = 0x800E21E0;
+D_800E2238 = 0x800E2238;
+D_800E2258 = 0x800E2258;
+D_800E2278 = 0x800E2278;
+D_800E22A0 = 0x800E22A0;
+gSerialEventQueue = 0x800E2128;
+gMainThreadMsgQueue = 0x800E2148;
+gThread7msgQueue = 0x800E2338;
+D_800E2390 = 0x800E2390;
+gSerialThreadMsgQueue = 0x800E22C0;
+D_800E22F8 = 0x800E22F8;
+D_800E2318 = 0x800E2318;
+
+Thread7_ThreadEntry = 0x800040D4;
+SerialInterface_ThreadEntry = 0x80003FEC;
 
 gIdentityMtx = 0x800C4620;
 gIdentityMatrix = 0x800C4660;
@@ -31,6 +87,9 @@ Math_FAtanF = 0x8001FBE8;
 Math_FAtan2F = 0x8001FD0C;
 Math_FAsinF = 0x8001FE00;
 Math_FAcosF = 0x8001FE30;
+
+Fault_Init = 0x80008018;
+func_80003C50 = 0x80003C50;
 
 Idle_ThreadEntry = 0x80004D00;
 Main_ThreadEntry = 0x80004ABC;
@@ -47,8 +106,8 @@ gGraphicsThread =      0x800DEAA0;
 gGraphicsThreadStack = 0x800DEC50;
 gUnkThread3 =      0x800DFC50;
 gUnkThread3Stack = 0x800DFE00;
-gUnkThread4 =      0x800E0E00;
-gUnkThread4Stack = 0x800E0FB0;
+gSerialThread =      0x800E0E00;
+gSerialThreadStack = 0x800E0FB0;
 
 gCurrentTask = 0x800E1FB0;
 D_800E1FB4 = 0x800E1FB4;

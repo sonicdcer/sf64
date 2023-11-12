@@ -91,57 +91,13 @@ void func_8000316C(Gfx** dList) {
     gSPMatrix((*dList)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
     guLookAt(gGfxMtx, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -12800.0f, 0.0f, 1.0f, 0.0f);
     gSPMatrix((*dList)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
-    func_80005680(D_8013B3C0, &gIdentityMatrix);
+    Matrix_Copy(D_8013B3C0, &gIdentityMatrix);
 }
 
 void func_800032B4(Gfx** dList) {
-    void* temp_t0;
-    void* temp_t0_2;
-
     guOrtho(gGfxMtx, -160.0f, 160.0f, -120.0f, 120.0f, D_80161A40, D_80161A44, 1.0f);
     gSPMatrix((*dList)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
     guLookAt(gGfxMtx, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -12800.0f, 0.0f, 1.0f, 0.0f);
     gSPMatrix((*dList)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
-    func_80005680(D_8013B3C0, &gIdentityMatrix);
-}
-
-void func_800033E0(u32 var_s2, u8* var_s1, s32 var_s0) {
-    osInvalICache(var_s1, var_s0);
-    osInvalDCache(var_s1, var_s0);
-    while (var_s0 > 0x100) {
-        osPiStartDma(&D_800E2110, 0, 0, var_s2, var_s1, 0x100, &D_800E20F0);
-        var_s0 -= 0x100;
-        var_s2 += 0x100;
-        var_s1 += 0x100;
-        osRecvMesg(&D_800E20F0, NULL, 1);
-    }
-    if (var_s0 != 0) {
-        osPiStartDma(&D_800E2110, 0, 0, var_s2, var_s1, var_s0, &D_800E20F0);
-        osRecvMesg(&D_800E20F0, NULL, 1);
-    }
-}
-
-void func_800034E8(u8 arg0) {
-    s32 i;
-
-    D_80137E88 |= 1;
-    if (arg0 == 1) {
-        if (D_80137E8A == 0) {
-            if (D_80137E88 == 1) {
-                osViBlack(1);
-            } else {
-                for (i = 0; i < 0x3C0; i++) {
-                    D_8038F080[i] = D_80137E88;
-                }
-                osWritebackDCacheAll();
-                osViSwapBuffer(&D_8038F300);
-                osViRepeatLine(1);
-            }
-            D_80137E8A = 1;
-        }
-    } else if (D_80137E8A == 1) {
-        osViRepeatLine(0);
-        osViBlack(0);
-        D_80137E8A = 0;
-    }
+    Matrix_Copy(D_8013B3C0, &gIdentityMatrix);
 }

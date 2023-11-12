@@ -13,11 +13,13 @@
     # Nintendo libraries
       - [0x03440, c, 3440]
       - [0x03A80, c, 3A80]
+      - [0x03FE0, c, 3FE0]
       - [0x041D0, c, 41D0]
       - [0x04650, c, 4650]
-      - [0x05A20, c, 5A20]
-      - [0x06280, c, 6280]
+      - [0x05A20, c, math]
+      - [0x06280, c, matrix]
       - [0x07B20, c, 7B20]
+      - [0x07B60, c, 7B60]
       - [0x07D30, c, 7D30]
       - [0x07FC0, c, 7FC0]
           # Audio block
@@ -169,6 +171,7 @@
       - [0x496C0, c, sf_496C0]
       - [0x52730, c, sf_52730]
       - [0x59780, c, sf_59780]
+      - [0x5A0F0, c, sf_5A0F0]
       - [0x5A2C0, c, sf_5A2C0]
       - [0x61B30, c, sf_61B30]
       - [0x6B3B0, c, sf_6B3B0]
@@ -194,9 +197,9 @@
 
       # DATA - Nintendo Libraries
       - [0xC51D0, .data, 4650]
-      - [0xC51E0, .data, 5A20]
-      - [0xC5220, .data, 6280]
-      - [0xC52F0, data, 7B20]
+      - [0xC51E0, .data, math]
+      - [0xC5220, .data, matrix]
+      - [0xC52F0, data, 7FC0]
       - [0xC54D0, data, audio]
       - [0xC8880, data, sprintf]
 
@@ -221,8 +224,8 @@
       - [0xC8CB0, data, ../libultra/rmon/rmonmain]
 
       # RODATA - Nintendo Libraries
-      - [0xC8CC0, .rodata, 5A20]
-      - [0xC8D10, .rodata, 6280]
+      - [0xC8CC0, .rodata, math]
+      - [0xC8D10, .rodata, matrix]
       - [0xC8D20, .rodata, 7D30]
       - [0xC8E40, .rodata, 7FC0]
       - [0xC9220, .rodata, 8CC0]
@@ -305,7 +308,16 @@
       - [0xDC710, data, audiodata]
 
       # Nintendo Library bss
-      - { start: 0xDE480, type: bss, vram: 0x800DD880, name: nlib }
+      - { start: 0xDE480, type: bss, vram: 0x800DD880, name: 3440 }
+      - { start: 0xDE480, type: bss, vram: 0x800DDAA0, name: 4650 }
+      - { start: 0xDE480, type: bss, vram: 0x8013B3A0, name: math }
+      - { start: 0xDE480, type: bss, vram: 0x8013B3C0, name: matrix }
+      - { start: 0xDE480, type: bss, vram: 0x8013C3D0, name: 7B20 }
+      - { start: 0xDE480, type: bss, vram: 0x80144BE0, name: 7B60 }
+      - { start: 0xDE480, type: bss, vram: 0x80144F60, name: 7D30 }
+      - { start: 0xDE480, type: bss, vram: 0x80145360, name: 7FC0 }
+      - { start: 0xDE480, type: bss, vram: 0x80145D40, name: audio }
+
 
       # Libultra bss
       - { start: 0xDE480, type: bss, vram: 0x80156620, name: ../libultra/io/controller }

@@ -10,7 +10,7 @@ extern char piThreadStack[];
 extern OSThread ramromThread;
 extern char ramromThreadStack[];
 
-#ifdef NON_MATCHING
+#ifdef DATA_IMPORT_PENDING
 OSDevMgr __osPiDevMgr = { 0 };
 
 void osCreatePiMgr(OSPri pri, OSMesgQueue* cmdQ, OSMesg* cmdBuf, s32 cmdMsgCnt) {
