@@ -273,7 +273,6 @@ void func_800A25DC(void) {
     }
 }
 
-
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A24B0/func_800A26C0.s")
 
 UnkStruct_func_80090A00* func_800A3608(s32 arg0) {
