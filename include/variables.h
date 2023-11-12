@@ -41,7 +41,26 @@ extern OSMesgQueue* D_800C7C64;
 
 extern char D_800C7C80[];
 
+extern Gfx D_800D31F8[];
+extern Gfx D_800D3240[];
+extern Gfx D_800D3288[];
+extern Gfx D_800D32D0[];
+extern Gfx D_800D33A8[];
+extern Gfx D_800D33F0[];
+extern Gfx D_800D34C8[];
+extern Gfx D_800D3510[];
+extern Gfx D_800D3558[];
+extern Gfx D_800D35A0[];
+extern Gfx D_800D3678[];
+extern Gfx D_800D3BD0[];
+extern Gfx D_800D36C0[];
+extern Gfx D_800D3708[];
+extern Gfx D_800D4050[];
+extern Gfx D_800D4320[];
+
 extern u16 D_800DD8AA;
+extern s32 D_800D4A70;
+
 extern u8 gAudioThreadStack[0x1000];  // 800DDAA0
 extern OSThread gGraphicsThread;        // 800DEAA0
 extern u8 gGraphicsThreadStack[0x1000]; // 800DEC50
@@ -109,6 +128,13 @@ extern u16 D_80137E8A;
 
 extern s32 D_80178580;
 extern s32 *D_80178710;
+extern s32 D_80178728;
+extern s32 D_8017872C;
+extern f32 D_80178730;
+extern f32 D_80178734;
+extern f32 D_80178738;
+extern f32 D_8017873C;
+extern f32 D_80178740;
 extern s32 D_80387800;
 extern u16 D_8038F080[];
 extern u16 D_8038F300[];
@@ -208,6 +234,7 @@ extern s32 D_80177854;
 extern s32 D_80177898;
 extern s32 D_801778A0;
 extern s32 D_801778A8;
+extern s32 D_801778B0[];
 extern s32 D_801778B8;
 extern s32 D_801778E8;
 extern f32 D_80177940;
@@ -218,16 +245,23 @@ extern f32 D_80177988;
 extern f32 D_801779A0;
 extern f32 D_801779B8;
 extern f32 D_801779C0;
+extern s32 D_801779F8;
 extern s32 D_80177AE0;
 extern s32 D_80177AF8;
 extern u8 D_80177C98;
 extern f32 D_80177D08;
 extern f32 D_80177D20;
+extern f32 D_80177D50;
 extern f32 D_80177D68;
 extern s32 D_80177DA0[];
 extern s32 D_80177DB0;
+extern s32 D_80178234;
 extern s32 D_8017829C;
 extern s32 D_801782A4;
+extern s32 D_801782D8;
+extern s32 D_801782E8;
+extern s32 D_801782F8;
+extern u16* D_80178308;
 extern s32 D_80178320;
 extern s32 D_80178328;
 extern s32 D_80178330;
