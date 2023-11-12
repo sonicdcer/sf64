@@ -71,6 +71,8 @@ extern OverlayInit D_800CBA44[];
 extern OverlayInit D_800CBB74[];
 extern OverlayInit D_800CBC0C[];
 
+extern UnkStruct_90A00_1C D_800CC124[400];
+
 extern Gfx D_800D31F8[];
 extern Gfx D_800D3240[];
 extern Gfx D_800D3288[];
