@@ -47,7 +47,7 @@ void Matrix_SetGfxMtx(Gfx**);
 s32 func_80006FD8(u64 arg0, void* arg2, s32 arg3, s32 arg4);
 
 void func_80006F20(void);
-s32 func_80006F38(s32);
+void* func_80006F38(s32);
 
 void func_80007068(s32* arg0, s32 arg1);
 void func_8000707C(s32* arg0, s32 arg1);
@@ -65,6 +65,7 @@ void func_80016A50(void);
 void func_800182F4(s32);
 void func_80019218(u32, f32*, u8, f32*, f32*, s8*);
 void func_8001A838(u32 arg0);
+void func_8001ACDC(s32);
 void func_8001AE58(void);
 void func_8001AF40(s32 arg0);
 void func_8001D400(s32);
@@ -195,6 +196,7 @@ void func_800B86CC(void);
 void func_800B8DD0(Gfx**, s16);
 void func_800BA490(void);
 void func_800BA4F0(void);
+s32 func_800BA7BC(u16*, s32);
 void func_800BA808(u16*, s32);
 void func_800BB5D0(void);
 void func_800BC4B0(void);
@@ -203,14 +205,17 @@ void func_800B9358(void);
 void func_800C1ED4(void);
 void func_800C20B0(void);
 void func_800C2190(void);
+s32 func_800C2890(u16*);
+s32 func_800C2F30(u16*, s32);
 s32 func_800C3084(void);
 s32 func_800C3194(void);
 
 void func_80187520_EFFA40(s32, void*);
 void func_8018A96C(void);
 void func_8018AAC4(void);
-void func_8019E8D0(void);
 void func_801988E0(void);
+void func_8019E8D0(void);
+
 
 void func_801877F0_EBFEB0(void);
 s32 func_80187ABC_EC017C(void);

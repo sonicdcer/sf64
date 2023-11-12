@@ -33,6 +33,7 @@
         "stdbool.h": "c",
         "variables.h": "c",
         "functions.h": "c",
-        "macros.h": "c"
+        "macros.h": "c",
+        "random": "c"
     },
 }

@@ -25,7 +25,7 @@ void func_800A1980(void) {
     D_80161A14 = D_80161A10;
     temp = D_80161A32;
 
-    switch(temp) {
+    switch (temp) {
         case 7:
             D_80178234 = D_80161A30;
             func_800A5844();
@@ -56,7 +56,7 @@ void func_800A1980(void) {
     D_80177D20 = 0.0f;
     if ((D_80178234 == 0x13) && (D_8017827C == 2)) {
         D_80137E88 = D_80161A36 = 0xFFFF;
-        D_80178348 =  D_80178350 = D_80178354 = 0xFF;
+        D_80178348 = D_80178350 = D_80178354 = 0xFF;
     } else {
         D_80178348 = D_80178350 = D_80178354 = 0;
         func_8001DBD0(1);
@@ -81,7 +81,6 @@ s32 func_800A1B6C(void) {
     if (D_801774F8 != D_800D2910) {
         D_800D2908 = 2;
         D_800D2910 = D_801774F8;
-        
     }
     if (D_800D2908 == 0) {
         D_800D290C = D_800D2910;
@@ -96,11 +95,11 @@ s32 func_800A1B6C(void) {
     return 0;
 }
 #else
-s32 func_800A1B6C(void);
+
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A24B0/func_800A1B6C.s")
 #endif
 
-void func_800A1C14(Gfx **arg0) {
+void func_800A1C14(Gfx** arg0) {
     s32 temp_t9;
 
     gSPDisplayList((*arg0)++, D_Gfx_800DBAA0);
@@ -116,16 +115,17 @@ void func_800A1C14(Gfx **arg0) {
         gDPSetCycleType((*arg0)++, G_CYC_1CYCLE);
         gDPSetCombineMode((*arg0)++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
         gDPSetRenderMode((*arg0)++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
-        gDPSetPrimColor((*arg0)++, 0x00, 0x00, (u8) (D_80161A36 >> 0xB) * 8, (u8) (D_80161A36 >> 6) * 8, (u8) (D_80161A36 >> 1) * 8, D_80161A38);
+        gDPSetPrimColor((*arg0)++, 0x00, 0x00, (u8) (D_80161A36 >> 0xB) * 8, (u8) (D_80161A36 >> 6) * 8,
+                        (u8) (D_80161A36 >> 1) * 8, D_80161A38);
     } else {
-        gDPSetFillColor((*arg0)++,(((D_80161A36 | 1) << 0x10) | (D_80161A36 | 1)));
+        gDPSetFillColor((*arg0)++, (((D_80161A36 | 1) << 0x10) | (D_80161A36 | 1)));
     }
     gDPFillRectangle((*arg0)++, 8, 8, 311, 232);
     gDPPipeSync((*arg0)++);
     gDPSetColorDither((*arg0)++, G_CD_MAGICSQ);
 }
 
-void func_800A1E68(Gfx **arg0) {
+void func_800A1E68(Gfx** arg0) {
     gSPDisplayList((*arg0)++, D_Gfx_800DBAA0);
     gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 0, 0, 320, 720);
     gDPSetFillColor((*arg0)++, 0x00010001);
@@ -142,7 +142,7 @@ void func_800A1F44(void) {
     gViewport->vp.vscale[3] = gViewport->vp.vtrans[3] = 0;
 }
 
-void func_800A1FB0(Gfx **arg0, u8 arg1, u8 arg2) {
+void func_800A1FB0(Gfx** arg0, u8 arg1, u8 arg2) {
     if ((arg1 != 1) && (arg1 == 4)) {
         switch (arg2) {
             case 0:
@@ -173,7 +173,7 @@ void func_800A1FB0(Gfx **arg0, u8 arg1, u8 arg2) {
                 gViewport->vp.vscale[2] = 0x1FF;
                 gViewport->vp.vscale[3] = 0;
                 gViewport->vp.vtrans[0] = 320 * (2.0f - D_80161A14) * 2;
-                gViewport->vp.vtrans[1] = 240 * D_80161A14 *  2;
+                gViewport->vp.vtrans[1] = 240 * D_80161A14 * 2;
                 gViewport->vp.vtrans[2] = 0x1FF;
                 gViewport->vp.vtrans[3] = 0;
                 gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 120, 160, 232);
@@ -195,7 +195,7 @@ void func_800A1FB0(Gfx **arg0, u8 arg1, u8 arg2) {
         }
     } else {
         func_800A1F44();
-        if(1) {}
+        if (1) {}
     }
     gSPViewport((*arg0)++, gViewport++);
 }
@@ -273,14 +273,14 @@ void func_800A25DC(void) {
     }
 }
 
-void func_800A26C0(void);
+
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A24B0/func_800A26C0.s")
 
-UnkStruct_func_80090A00 *func_800A3608(s32 arg0) {
-    UnkStruct_func_80090A00 *var_a2 = D_80163FE0;
+UnkStruct_func_80090A00* func_800A3608(s32 arg0) {
+    UnkStruct_func_80090A00* var_a2 = D_80163FE0;
     s32 i;
 
-    for(i = 0; i < 60; i++, var_a2++) {
+    for (i = 0; i < 60; i++, var_a2++) {
         if (var_a2->unk_000.unk_00 == 0) {
             func_800613C4(var_a2);
             var_a2->unk_000.unk_00 = 1;

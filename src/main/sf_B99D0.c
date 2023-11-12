@@ -10,43 +10,75 @@ void func_800B8F18(void) {
     gSPDisplayList(gMasterDisp++, D_800D31B0);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B8F48.s")
+void func_800B8F48(void) {
+    gSPDisplayList(gMasterDisp++, D_800D31F8);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B8F78.s")
+void func_800B8F78(void) {
+    gSPDisplayList(gMasterDisp++, D_800D34C8);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B8FA8.s")
+void func_800B8FA8(void) {
+    gSPDisplayList(gMasterDisp++, D_800D3510);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B8FD8.s")
+void func_800B8FD8(void) {
+    gSPDisplayList(gMasterDisp++, D_800D3240);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B9008.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B9120.s")
+void func_800B9120(void) {
+    gSPDisplayList(gMasterDisp++, D_800D32D0);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B9150.s")
+void func_800B9150(void) {
+    gSPDisplayList(gMasterDisp++, D_800D33A8);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B9180.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B9298.s")
+void func_800B9298(void) {
+    gSPDisplayList(gMasterDisp++, D_800D33F0);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B92C8.s")
+void func_800B92C8(void) {
+    gSPDisplayList(gMasterDisp++, D_800D3558);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B92F8.s")
+void func_800B92F8(void) {
+    gSPDisplayList(gMasterDisp++, D_800D35A0);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B9328.s")
+void func_800B9328(void) {
+    gSPDisplayList(gMasterDisp++, D_800D3678);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B9358.s")
+void func_800B9358(void) {
+    gSPDisplayList(gMasterDisp++, D_800D3BD0);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B9388.s")
+void func_800B9388(s32 r, s32 g, s32 b, s32 a, s32 nr, s32 fr) {
+    gSPDisplayList(gMasterDisp++, D_800D4050);
+    gDPSetFogColor(gMasterDisp++, r, g, b, a);
+    gSPFogFactor(gMasterDisp++, (0x1F400 / (fr - nr)), (((0x1F4 - nr) * 256) / (fr - nr)));
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B94A0.s")
+void func_800B94A0(void) {
+    gSPDisplayList(gMasterDisp++, D_800D4320);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B94D0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B95E8.s")
+void func_800B95E8(void) {
+    gSPDisplayList(gMasterDisp++, D_800D36C0);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B9618.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B9730.s")
+void func_800B9730(void) {
+    gSPDisplayList(gMasterDisp++, D_800D3708);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B9760.s")
 

@@ -1,8 +1,15 @@
-#include "common.h"
+#include "global.h"
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_2EFE0/func_8002E3E0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_2EFE0/func_8002E4F8.s")
+s32 func_8002E4F8(u16* arg0, s32 arg1) {
+    if ((D_8017829C == 0) && (D_80178280->unk_1C8 != 0)) {
+        func_800BA808(arg0, arg1);
+        return 1;
+    } else {
+        return 0;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_2EFE0/func_8002E548.s")
 

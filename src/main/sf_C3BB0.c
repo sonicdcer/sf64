@@ -66,7 +66,7 @@ s32 func_800C3194(void) {
     return -1;
 }
 #else
-s32 func_800C3194(void);
+
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_C3BB0/func_800C3194.s")
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_C3BB0/D_800D9430.s")
 #endif
