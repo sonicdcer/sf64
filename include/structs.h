@@ -15,7 +15,7 @@ typedef struct {
     /* 0x10 */ SegmentOffset unk_10;
     /* 0x18 */ SegmentOffset unk_18;
     /* 0x20 */ SegmentOffset unk_20[15];
-} SegmentInfo; // size = 0x98
+} OverlayInit; // size = 0x98
 
 typedef struct {
     /* 0x0 */ void* vRomAddress;
@@ -140,6 +140,10 @@ typedef struct UnkStruct_D_80178280 {
 } UnkStruct_D_80178280; // size = 0x4E0
 
 typedef struct {
+    char unk0[0x24];
+} UnkStruct_90A00_1C;
+
+typedef struct {
     /* 0x000 */ ElementType1 unk_000;
     /* 0x01C */ char pad_01C[0x32];
     /* 0x04E */ s16 unk_04E;
@@ -150,8 +154,7 @@ typedef struct {
 
 typedef struct {
     /* 0x000 */ ElementType1 unk_000;
-    /* 0x01C */ s32 unk_01C;
-    /* 0x020 */ char pad_020[0x20];
+    /* 0x01C */ UnkStruct_90A00_1C unk_01C;
     /* 0x040 */ s32 unk_040;
     /* 0x044 */ char pad_044[0xC];
     /* 0x050 */ s32 unk_050[25];

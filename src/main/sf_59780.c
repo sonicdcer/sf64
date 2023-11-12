@@ -4,7 +4,7 @@
 #define PHYS_ADDR(ptr) ((uintptr_t) (ptr) &0x1FFFFFFF)
 
 extern u8 func_80187520[];
-extern SegmentInfo D_800CBDD4;
+extern OverlayInit D_800CBDD4;
 
 void func_80058B80(void* arg0, void* arg1, ptrdiff_t arg2) {
     s32 i;
@@ -25,7 +25,7 @@ void func_80058B80(void* arg0, void* arg1, ptrdiff_t arg2) {
     }
 }
 
-u8 func_80058C48(SegmentInfo* segment) {
+u8 func_80058C48(OverlayInit* segment) {
     u8* var_s2 = func_80187520;
     u8 var_s1;
     u8 sp42 = 0;

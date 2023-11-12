@@ -11,8 +11,6 @@ typedef struct UnkStruct_func_80095350 {
     /* 0xB6 */ s16 unkB6;
 } UnkStruct_func_80095350;
 
-void func_800612B8(void*, s32);
-void func_800613C4(UnkStruct_func_80090A00*);
 void func_80084E78(Gfx**, void*, void*, s32, s32, f32, f32, f32, f32, f32, f32);
 void func_80085944(void);
 void func_80086CC8(void);                               

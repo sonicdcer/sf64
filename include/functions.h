@@ -9,6 +9,8 @@ void func_80002AF4(void);
 void func_80002BE8(void);
 void func_80002C50(void);
 void func_80002CB8(void);
+void func_8000316C(Gfx** dList);
+void func_800032B4(Gfx** dList);
 void func_800033E0(void* var_s2, void* var_s1, s32 var_s0);
 void func_800034E8(u8 arg0);
 
@@ -42,9 +44,13 @@ void Matrix_GetXYZAngles(Matrix*, Vec3f*);
 void Matrix_LookAt(Matrix*, f32, f32, f32, f32, f32, f32, f32, f32, f32, u8);
 void Matrix_SetGfxMtx(Gfx**);
 
+s32 func_80006FD8(u64 arg0, void* arg2, s32 arg3, s32 arg4);
+
 void func_80006F20(void);
 s32 func_80006F38(s32);
 
+void func_80007068(s32* arg0, s32 arg1);
+void func_8000707C(s32* arg0, s32 arg1);
 void func_80007088(UnkStruct_func_80007088*);
 void func_800070C8(u64);
 
@@ -55,13 +61,18 @@ void Fault_ThreadEntry(void*);
 void func_80007FE4(FrameBuffer*, u16, u16);
 void Fault_Init(void);
 
+void func_80016A50(void);
 void func_800182F4(s32);
 void func_80019218(u32, f32*, u8, f32*, f32*, s8*);
 void func_8001A838(u32 arg0);
+void func_8001AE58(void);
 void func_8001AF40(s32 arg0);
+void func_8001D400(s32);
+void func_8001DBD0(s32);
 void func_8001DC6C(s32, s32);
 
 void func_8000FFCC(void);
+void func_8001D8A8(u8, u8);
 void func_8001DCE0(void);
 void func_8001DECC(void);
 SPTask* func_8001DF50(void);
@@ -114,10 +125,17 @@ s64 __ull_div(s64, s64);
 s64 __ll_mul(s64, s64);
 s64 __ll_rshift(s64, s64);
 
+void func_8002E548(void);
+void func_8003DAF0(void);
+void func_80040CDC(void);
+
 u8 func_80058F14(u8 arg0, u8 arg1);
 void func_80059498(void);
+void func_80057D00(void);
 
 void func_80060FBC(u8*, f32*);
+void func_800612B8(UnkStruct_90A00_1C*, u16);
+void func_800613C4(UnkStruct_func_80090A00*);
 void func_8006EEFC(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 
 void func_8007C120(f32, f32, f32, f32, f32, f32, f32, s32);
@@ -128,6 +146,7 @@ void func_800857DC(f32, f32, f32, f32);
 void func_80085890(f32, f32, f32, f32);
 void func_80086664(f32, f32);
 void func_80087530(f32, f32, s32);
+void func_8008865C(void);
 void func_8008B5B0(f32 x, f32 y);
 s32 func_8008B774(void);
 void func_8008BD00(u8*, s32, s32, u8);
@@ -135,13 +154,18 @@ void func_8008C390(f32, f32, f32, s32);
 void func_8008C5C8(f32, f32, f32, s32);
 void func_8008C6F4(s32, s32);
 s32 func_8008BCBC(s32 arg0);
+void func_8008CA44(void);
+s32 func_8008CB8C(void);
 void func_8008D0DC(f32, f32, f32, f32, f32);
+void func_8008DE68(void);
 void func_8008E9EC(f32 arg0, f32 arg1);
 void func_8008EA14(f32, f32);
+void func_8008FA84(void);
 void func_8008FFF0(UnkStruct_D_8016F110* arg0, s32);
 s32 func_8009092C(UnkStruct_func_80090A00*);
 s32 func_800915FC(UnkStruct_func_80090A00*);
 void func_80094D20(f32, f32);
+void func_8009F574(Gfx **, s32, s32, s32, s32, u8, u8, u8, u8);
 f32 func_8009BC2C(f32*, f32, f32, f32, f32);
 f32 func_8009BD38(f32*, f32, f32, f32, f32);
 void func_8009D418(Gfx**, void*, u32, u32, f32, f32, f32, f32);
@@ -152,9 +176,22 @@ f32 func_8009F768(f32);
 void func_8009FEA0(s32, s32, s32);
 void func_800A1200(s32, s32, f32, f32, char*);
 void func_800A18B0(void);
+void func_800A1980(void);
+s32 func_800A1B6C(void);
+void func_800A1C14(Gfx **);
+void func_800A1E68(Gfx **);
+void func_800A1F44(void);
+void func_800A1FB0(Gfx **, u8 , u8);
+void func_800A24DC(s32);
 void func_800A26C0(void);
+void func_800A25DC(void);
+UnkStruct_func_80090A00 *func_800A3608(s32 arg0);
+void func_800A3CA0(void);
 s32 func_800A3F50(s32);
+void func_800A5844(void);
 void func_800A5D6C(void);
+void func_800A6148(void);
+void func_800B86CC(void);
 void func_800B8DD0(Gfx**, s16);
 void func_800BA490(void);
 void func_800BA4F0(void);
@@ -163,7 +200,16 @@ void func_800BB5D0(void);
 void func_800BC4B0(void);
 void func_800B6F50(f32, f32, f32, f32, f32, f32);
 void func_800B9358(void);
+void func_800C1ED4(void);
+void func_800C20B0(void);
+void func_800C2190(void);
+s32 func_800C3084(void);
+s32 func_800C3194(void);
 
+void func_80187520_EFFA40(s32, void*);
+void func_8018A96C(void);
+void func_8018AAC4(void);
+void func_8019E8D0(void);
 void func_801988E0(void);
 
 void func_801877F0_EBFEB0(void);
