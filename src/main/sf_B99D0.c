@@ -1,18 +1,12 @@
 #include "global.h"
 
-// regalloc
-// https://decomp.me/scratch/jkzoC
-#ifdef NON_MATCHING
-void func_800B8DD0(Gfx** gfxP, s16 arg1) {
-    gSPDisplayList((*gfxP)++, D_800D31B0[arg1]);
+void func_800B8DD0(Gfx** gfxP, s16 i) {
+    gSPDisplayList((*gfxP)++, &((Gfx*) gSetupDLs)[i * 9]);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B8DD0.s")
-#endif
 
 void func_800B8E14(Gfx** gfxP, s32 r, s32 g, s32 b, s32 a, s32 nr, s32 fr) {
     gDPSetFogColor((*gfxP)++, r, g, b, a);
-    gSPFogFactor((*gfxP)++, (0x1F400 / (fr - nr)), (((0x1F4 - nr) * 256) / (fr - nr)));
+    gSPFogFactor((*gfxP)++, (500 * 0x100 / (fr - nr)), (((500 - nr) * 256) / (fr - nr)));
 }
 
 void dummy_800B8F08(void) {
@@ -22,69 +16,69 @@ void dummy_800B8F10(void) {
 }
 
 void func_800B8F18(void) {
-    gSPDisplayList(gMasterDisp++, D_800D31B0);
+    gSPDisplayList(gMasterDisp++, gSetupDLs[SETUPDL_0]);
 }
 
 void func_800B8F48(void) {
-    gSPDisplayList(gMasterDisp++, D_800D31F8);
+    gSPDisplayList(gMasterDisp++, gSetupDLs[SETUPDL_1]);
 }
 
 void func_800B8F78(void) {
-    gSPDisplayList(gMasterDisp++, D_800D34C8);
+    gSPDisplayList(gMasterDisp++, gSetupDLs[SETUPDL_11]);
 }
 
 void func_800B8FA8(void) {
-    gSPDisplayList(gMasterDisp++, D_800D3510);
+    gSPDisplayList(gMasterDisp++, gSetupDLs[SETUPDL_12]);
 }
 
 void func_800B8FD8(void) {
-    gSPDisplayList(gMasterDisp++, D_800D3240);
+    gSPDisplayList(gMasterDisp++, gSetupDLs[SETUPDL_2]);
 }
 
 void func_800B9008(s32 r, s32 g, s32 b, s32 a, s32 nr, s32 fr) {
-    gSPDisplayList(gMasterDisp++, D_800D3288);
+    gSPDisplayList(gMasterDisp++, gSetupDLs[SETUPDL_3]);
     gDPSetFogColor(gMasterDisp++, r, g, b, a);
-    gSPFogFactor(gMasterDisp++, (0x1F400 / (fr - nr)), (((0x1F4 - nr) * 256) / (fr - nr)));
+    gSPFogFactor(gMasterDisp++, (500 * 0x100 / (fr - nr)), (((500 - nr) * 256) / (fr - nr)));
 }
 
 void func_800B9120(void) {
-    gSPDisplayList(gMasterDisp++, D_800D32D0);
+    gSPDisplayList(gMasterDisp++, gSetupDLs[SETUPDL_4]);
 }
 
 void func_800B9150(void) {
-    gSPDisplayList(gMasterDisp++, D_800D33A8);
+    gSPDisplayList(gMasterDisp++, gSetupDLs[SETUPDL_7]);
 }
 
 void func_800B9180(s32 r, s32 g, s32 b, s32 a, s32 nr, s32 fr) {
-    gSPDisplayList(gMasterDisp++, D_800D3438);
+    gSPDisplayList(gMasterDisp++, gSetupDLs[SETUPDL_9]);
     gDPSetFogColor(gMasterDisp++, r, g, b, a);
-    gSPFogFactor(gMasterDisp++, (0x1F400 / (fr - nr)), (((0x1F4 - nr) * 256) / (fr - nr)));
+    gSPFogFactor(gMasterDisp++, (500 * 0x100 / (fr - nr)), (((500 - nr) * 256) / (fr - nr)));
 }
 
 void func_800B9298(void) {
-    gSPDisplayList(gMasterDisp++, D_800D33F0);
+    gSPDisplayList(gMasterDisp++, gSetupDLs[SETUPDL_8]);
 }
 
 void func_800B92C8(void) {
-    gSPDisplayList(gMasterDisp++, D_800D3558);
+    gSPDisplayList(gMasterDisp++, gSetupDLs[SETUPDL_13]);
 }
 
 void func_800B92F8(void) {
-    gSPDisplayList(gMasterDisp++, D_800D35A0);
+    gSPDisplayList(gMasterDisp++, gSetupDLs[SETUPDL_14]);
 }
 
 void func_800B9328(void) {
-    gSPDisplayList(gMasterDisp++, D_800D3678);
+    gSPDisplayList(gMasterDisp++, gSetupDLs[SETUPDL_17]);
 }
 
 void func_800B9358(void) {
-    gSPDisplayList(gMasterDisp++, D_800D3BD0);
+    gSPDisplayList(gMasterDisp++, gSetupDLs[SETUPDL_36]);
 }
 
 void func_800B9388(s32 r, s32 g, s32 b, s32 a, s32 nr, s32 fr) {
     gSPDisplayList(gMasterDisp++, D_800D4050);
     gDPSetFogColor(gMasterDisp++, r, g, b, a);
-    gSPFogFactor(gMasterDisp++, (0x1F400 / (fr - nr)), (((0x1F4 - nr) * 256) / (fr - nr)));
+    gSPFogFactor(gMasterDisp++, (500 * 0x100 / (fr - nr)), (((500 - nr) * 256) / (fr - nr)));
 }
 
 void func_800B94A0(void) {
@@ -94,7 +88,7 @@ void func_800B94A0(void) {
 void func_800B94D0(s32 r, s32 g, s32 b, s32 a, s32 nr, s32 fr) {
     gSPDisplayList(gMasterDisp++, D_800D3C18);
     gDPSetFogColor(gMasterDisp++, r, g, b, a);
-    gSPFogFactor(gMasterDisp++, (0x1F400 / (fr - nr)), (((0x1F4 - nr) * 256) / (fr - nr)));
+    gSPFogFactor(gMasterDisp++, (500 * 0x100 / (fr - nr)), (((500 - nr) * 256) / (fr - nr)));
 }
 
 void func_800B95E8(void) {
@@ -104,7 +98,7 @@ void func_800B95E8(void) {
 void func_800B9618(s32 r, s32 g, s32 b, s32 a, s32 nr, s32 fr) {
     gSPDisplayList(gMasterDisp++, D_800D3750);
     gDPSetFogColor(gMasterDisp++, r, g, b, a);
-    gSPFogFactor(gMasterDisp++, (0x1F400 / (fr - nr)), (((0x1F4 - nr) * 256) / (fr - nr)));
+    gSPFogFactor(gMasterDisp++, (500 * 0x100 / (fr - nr)), (((500 - nr) * 256) / (fr - nr)));
 }
 
 void func_800B9730(void) {
@@ -118,13 +112,13 @@ void func_800B9760(void) {
 void func_800B9790(s32 r, s32 g, s32 b, s32 a, s32 nr, s32 fr) {
     gSPDisplayList(gMasterDisp++, D_800D3AF8);
     gDPSetFogColor(gMasterDisp++, r, g, b, a);
-    gSPFogFactor(gMasterDisp++, (0x1F400 / (fr - nr)), (((0x1F4 - nr) * 256) / (fr - nr)));
+    gSPFogFactor(gMasterDisp++, (500 * 0x100 / (fr - nr)), (((500 - nr) * 256) / (fr - nr)));
 }
 
 void func_800B98A8(s32 r, s32 g, s32 b, s32 a, s32 nr, s32 fr) {
     gSPDisplayList(gMasterDisp++, D_800D3B40);
     gDPSetFogColor(gMasterDisp++, r, g, b, a);
-    gSPFogFactor(gMasterDisp++, (0x1F400 / (fr - nr)), (((0x1F4 - nr) * 256) / (fr - nr)));
+    gSPFogFactor(gMasterDisp++, (500 * 0x100 / (fr - nr)), (((500 - nr) * 256) / (fr - nr)));
 }
 
 void func_800B99C0(void) {
@@ -138,25 +132,25 @@ void func_800B99F0(void) {
 void func_800B9A20(s32 r, s32 g, s32 b, s32 a, s32 nr, s32 fr) {
     gSPDisplayList(gMasterDisp++, D_800D3DC8);
     gDPSetFogColor(gMasterDisp++, r, g, b, a);
-    gSPFogFactor(gMasterDisp++, (0x1F400 / (fr - nr)), (((0x1F4 - nr) * 256) / (fr - nr)));
+    gSPFogFactor(gMasterDisp++, (500 * 0x100 / (fr - nr)), (((500 - nr) * 256) / (fr - nr)));
 }
 
 void func_800B9B38(s32 r, s32 g, s32 b, s32 a, s32 nr, s32 fr) {
     gSPDisplayList(gMasterDisp++, D_800D4290);
     gDPSetFogColor(gMasterDisp++, r, g, b, a);
-    gSPFogFactor(gMasterDisp++, (0x1F400 / (fr - nr)), (((0x1F4 - nr) * 256) / (fr - nr)));
+    gSPFogFactor(gMasterDisp++, (500 * 0x100 / (fr - nr)), (((500 - nr) * 256) / (fr - nr)));
 }
 
 void func_800B9C50(s32 r, s32 g, s32 b, s32 a, s32 nr, s32 fr) {
     gSPDisplayList(gMasterDisp++, D_800D3EE8);
     gDPSetFogColor(gMasterDisp++, r, g, b, a);
-    gSPFogFactor(gMasterDisp++, (0x1F400 / (fr - nr)), (((0x1F4 - nr) * 256) / (fr - nr)));
+    gSPFogFactor(gMasterDisp++, (500 * 0x100 / (fr - nr)), (((500 - nr) * 256) / (fr - nr)));
 }
 
 void func_800B9D68(s32 r, s32 g, s32 b, s32 a, s32 nr, s32 fr) {
     gSPDisplayList(gMasterDisp++, D_800D4440);
     gDPSetFogColor(gMasterDisp++, r, g, b, a);
-    gSPFogFactor(gMasterDisp++, (0x1F400 / (fr - nr)), (((0x1F4 - nr) * 256) / (fr - nr)));
+    gSPFogFactor(gMasterDisp++, (500 * 0x100 / (fr - nr)), (((500 - nr) * 256) / (fr - nr)));
 }
 
 void func_800B9E80(void) {
@@ -166,13 +160,13 @@ void func_800B9E80(void) {
 void func_800B9EB0(s32 r, s32 g, s32 b, s32 a, s32 nr, s32 fr) {
     gSPDisplayList(gMasterDisp++, D_800D41B8);
     gDPSetFogColor(gMasterDisp++, r, g, b, a);
-    gSPFogFactor(gMasterDisp++, (0x1F400 / (fr - nr)), (((0x1F4 - nr) * 256) / (fr - nr)));
+    gSPFogFactor(gMasterDisp++, (500 * 0x100 / (fr - nr)), (((500 - nr) * 256) / (fr - nr)));
 }
 
 void func_800B9FC8(s32 r, s32 g, s32 b, s32 a, s32 nr, s32 fr) {
     gSPDisplayList(gMasterDisp++, D_800D3E58);
     gDPSetFogColor(gMasterDisp++, r, g, b, a);
-    gSPFogFactor(gMasterDisp++, (0x1F400 / (fr - nr)), (((0x1F4 - nr) * 256) / (fr - nr)));
+    gSPFogFactor(gMasterDisp++, (500 * 0x100 / (fr - nr)), (((500 - nr) * 256) / (fr - nr)));
 }
 
 void func_800BA0E0(void) {
@@ -198,13 +192,13 @@ void func_800BA1A0(void) {
 void func_800BA1D0(s32 r, s32 g, s32 b, s32 a, s32 nr, s32 fr) {
     gSPDisplayList(gMasterDisp++, D_800D39D8);
     gDPSetFogColor(gMasterDisp++, r, g, b, a);
-    gSPFogFactor(gMasterDisp++, (0x1F400 / (fr - nr)), (((0x1F4 - nr) * 256) / (fr - nr)));
+    gSPFogFactor(gMasterDisp++, (500 * 0x100 / (fr - nr)), (((500 - nr) * 256) / (fr - nr)));
 }
 
 void func_800BA2E8(s32 r, s32 g, s32 b, s32 a, s32 nr, s32 fr) {
     gSPDisplayList(gMasterDisp++, D_800D3A20);
     gDPSetFogColor(gMasterDisp++, r, g, b, a);
-    gSPFogFactor(gMasterDisp++, (0x1F400 / (fr - nr)), (((0x1F4 - nr) * 256) / (fr - nr)));
+    gSPFogFactor(gMasterDisp++, (500 * 0x100 / (fr - nr)), (((500 - nr) * 256) / (fr - nr)));
 }
 
 void func_800BA400(void) {
@@ -258,5 +252,5 @@ void func_800BA610(void) {
 void func_800BA640(s32 r, s32 g, s32 b, s32 a, s32 nr, s32 fr) {
     gSPDisplayList(gMasterDisp++, D_800D42D8);
     gDPSetFogColor(gMasterDisp++, r, g, b, a);
-    gSPFogFactor(gMasterDisp++, (0x1F400 / (fr - nr)), (((0x1F4 - nr) * 256) / (fr - nr)));
+    gSPFogFactor(gMasterDisp++, (500 * 0x100 / (fr - nr)), (((500 - nr) * 256) / (fr - nr)));
 }
