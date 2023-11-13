@@ -208,7 +208,7 @@ void func_800B9358(void);
 void func_800C1ED4(void);
 void func_800C20B0(void);
 void func_800C2190(void);
-s32 func_800C2890(u16*);
+u16 func_800C2890(u16*);
 s32 func_800C2F30(u16*, s32);
 s32 func_800C3084(void);
 s32 func_800C3194(void);

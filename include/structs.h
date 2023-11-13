@@ -5,6 +5,11 @@
 #include "sf64math.h"
 
 typedef struct {
+    s32 unk0;
+    u16* unk4;
+} UnkStruct_D_80185CBC;
+
+typedef struct {
     /* 0x0 */ void* start;
     /* 0x4 */ void* end;
 } SegmentOffset; // size = 0x8

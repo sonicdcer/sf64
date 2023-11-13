@@ -6,30 +6,20 @@
 extern u64 __rspboot_start[];
 extern u64 __rspboot_end[];
 extern u64 __f3dex_start[];
-extern u8 D_80281000[0x400];
-extern u8 D_80281400[0xC00];
-extern u8 D_802A7800;
-extern u8 D_802D7800;
 extern u8 gF3dexData;
 
 extern s32 D_800C45D0;
-
 extern f32 D_800C45E0[];
 
 extern Mtx gIdentityMtx; // 800C4620
 extern Matrix gIdentityMatrix; //800C4660
-extern Vec3f D_800C46A0;
-extern Vec3f D_800C46AC;
-extern Vec3f D_800C46B8;
-extern Vec3f D_800C46C4;
-extern Vec3f D_800C46D0;
-extern Vec3f D_800C46DC;
 
 extern u8 sFaultCharIndex[];
 extern s32 sFaultCharPixelFlags[];
 extern const char* D_800C4870[];
 extern const char* D_800C48B8[];
 
+extern f32 D_800C5D28[];
 extern f32 D_800C5D34;
 extern s8 D_800C5D3C;
 extern s8 D_800C7C50;
@@ -41,40 +31,16 @@ extern OSMesgQueue* D_800C7C64;
 
 extern char D_800C7C80[];
 
-extern u8 D_800CA3B0;
-
-extern OverlayInit D_800CA3B4[1]; // sets segment 15 with no overlay
-extern OverlayInit D_800CA44C[6]; // overlay EF0260
-extern OverlayInit D_800CA7DC[1]; // EBFBE0
-extern OverlayInit D_800CA874[1]; // EBFBE0
-extern OverlayInit D_800CA90C[1]; // EBFBE0
-extern OverlayInit D_800CA9A4[1]; // EBFBE0
-extern OverlayInit D_800CAA3C[1]; // DF4260
-extern OverlayInit D_800CAAD4[2]; // E08400
-extern OverlayInit D_800CAC04[6]; // E6A810
-extern OverlayInit D_800CAF94[2]; // E08400
-extern OverlayInit D_800CB0C4[1]; // E51970
-extern OverlayInit D_800CB15C[1]; // E16C50
-extern OverlayInit D_800CB1F4[1]; // E16C50
-extern OverlayInit D_800CB28C[2]; // E51970
-extern OverlayInit D_800CB3BC[1]; // E16C50
-extern OverlayInit D_800CB454[1]; // E9F1D0
-extern OverlayInit D_800CB4EC[1]; // E16C50
-extern OverlayInit D_800CB584[1]; // E16C50
-extern OverlayInit D_800CB61C[1]; // DF4260
-extern OverlayInit D_800CB6B4[1]; // E9F1D0
-extern OverlayInit D_800CB74C[2]; // E9F1D0
-extern OverlayInit D_800CB87C[1]; // E08400
-extern OverlayInit D_800CB914[1]; // E51970
-extern OverlayInit D_800CB9AC[1]; // E51970
-extern OverlayInit D_800CBA44[2]; // E6A810
-extern OverlayInit D_800CBB74[1]; // DF4260
-extern OverlayInit D_800CBC0C[1]; // E08400
-extern OverlayInit D_800CBD3C[1]; // EFFA40
-extern UnkStruct_90A00_1C D_800CC124[400];
-
-extern u16 D_800DD8AA;
-extern s32 D_800D4A70;
+extern OSContPad D_800DD880[4];
+extern OSContPad D_800DD898[4];
+extern u8 D_800DD8B0[4];
+extern s32 D_800DD8B4;
+extern u8 D_800DD8B8[4];
+extern u8 D_800DD8BC[4]; // Fake symbol. Only exists as loop terminator for D_800DD8B8
+// extern OSContPad D_800DD8C0[4];
+// extern OSContPad D_800DD8D8[4];
+// extern OSContStatus D_800DD8F0[4];
+// extern OSPfs D_800DD900[4];
 
 extern u8 gAudioThreadStack[0x1000];  // 800DDAA0
 extern OSThread gGraphicsThread;        // 800DEAA0
@@ -122,6 +88,8 @@ extern void *D_800E2350[16];
 extern OSMesgQueue D_800E2390;
 extern void *D_800E23A8[1];
 
+extern GfxPool gGfxPools[2]; // 800E23B0
+
 extern GfxPool* gGfxPool;
 extern SPTask* gGfxTask;
 extern Vp* gViewport;
@@ -142,36 +110,16 @@ extern u8 D_80137E84[4];
 extern u16 D_80137E88;
 extern u16 D_80137E8A;
 
-extern DmaEntry gDmaTable[];
-
-extern s32 D_80178580;
-extern s32 *D_80178710;
-extern s32 D_80178728;
-extern s32 D_8017872C;
-extern f32 D_80178730;
-extern f32 D_80178734;
-extern f32 D_80178738;
-extern f32 D_8017873C;
-extern f32 D_80178740;
-extern s32 D_80387800;
-extern u16 D_8038F080[];
-extern u16 D_8038F300[];
-
-extern FrameBuffer D_80282000; // z buffer
-extern FrameBuffer gFrameBuffers[3]; // 8038F800
-extern Gfx D_Gfx_800DBAA0[];
-extern GfxPool gGfxPools[2]; // 800E23B0
-
-extern Matrix* D_8013B3C0;
-extern Matrix D_8013B3C8[0x20];
-extern Matrix* D_8013BBC8;
-extern Matrix D_8013BBD0[0x20];
-
 extern OSThread sIdleThread; // 80138E90
 extern u8 sIdleThreadStack[0x1000]; // 801390A0
 extern OSThread gMainThread; // 8013A040
 extern u8 sMainThreadStack[0x1000]; // 8013A1F0
 extern OSThread gAudioThread; //8013B1F0
+
+extern Matrix* D_8013B3C0;
+extern Matrix D_8013B3C8[0x20];
+extern Matrix* D_8013BBC8;
+extern Matrix D_8013BBD0[0x20];
 
 extern SaveFile D_80144F60;
 extern SaveFile D_80145160;
@@ -181,9 +129,37 @@ extern OSMesg D_80156600[1];
 extern OSMesg D_80156608[4];
 extern OSMesg D_80156618[1];
 extern OSMesg D_8015661C[1];
-extern s32 D_8015F928;
 
-
+extern u8 D_800CA3B0;
+extern OverlayInit D_800CA3B4[1]; // sets segment 15 with no overlay
+extern OverlayInit D_800CA44C[6]; // overlay EF0260
+extern OverlayInit D_800CA7DC[1]; // EBFBE0
+extern OverlayInit D_800CA874[1]; // EBFBE0
+extern OverlayInit D_800CA90C[1]; // EBFBE0
+extern OverlayInit D_800CA9A4[1]; // EBFBE0
+extern OverlayInit D_800CAA3C[1]; // DF4260
+extern OverlayInit D_800CAAD4[2]; // E08400
+extern OverlayInit D_800CAC04[6]; // E6A810
+extern OverlayInit D_800CAF94[2]; // E08400
+extern OverlayInit D_800CB0C4[1]; // E51970
+extern OverlayInit D_800CB15C[1]; // E16C50
+extern OverlayInit D_800CB1F4[1]; // E16C50
+extern OverlayInit D_800CB28C[2]; // E51970
+extern OverlayInit D_800CB3BC[1]; // E16C50
+extern OverlayInit D_800CB454[1]; // E9F1D0
+extern OverlayInit D_800CB4EC[1]; // E16C50
+extern OverlayInit D_800CB584[1]; // E16C50
+extern OverlayInit D_800CB61C[1]; // DF4260
+extern OverlayInit D_800CB6B4[1]; // E9F1D0
+extern OverlayInit D_800CB74C[2]; // E9F1D0
+extern OverlayInit D_800CB87C[1]; // E08400
+extern OverlayInit D_800CB914[1]; // E51970
+extern OverlayInit D_800CB9AC[1]; // E51970
+extern OverlayInit D_800CBA44[2]; // E6A810
+extern OverlayInit D_800CBB74[1]; // DF4260
+extern OverlayInit D_800CBC0C[1]; // E08400
+extern OverlayInit D_800CBD3C[1]; // EFFA40
+extern UnkStruct_90A00_1C D_800CC124[400];
 extern s32 D_800CFF90;
 extern f32 D_800D19AC[];
 extern f32 D_800D19E0[];
@@ -207,24 +183,12 @@ extern u8 D_800D2908;
 extern u8 D_800D290C;
 extern u8 D_800D2910;
 extern u8 D_800D2914;
-
 extern u8 D_800D3180[0x1E];
+extern s32 D_800D4A70;
 extern Save D_800D4D10;
 
-extern u16 D_Tex_800D99F8[];
-
-extern OSContPad D_800DD880[4];
-extern OSContPad D_800DD898[4];
-extern u8 D_800DD8B0[4];
-extern s32 D_800DD8B4;
-extern u8 D_800DD8B8[4];
-extern u8 D_800DD8BC[4]; // Fake symbol. Only exists as loop terminator for D_800DD8B8
-// extern OSContPad D_800DD8C0[4];
-// extern OSContPad D_800DD8D8[4];
-// extern OSContStatus D_800DD8F0[4];
-// extern OSPfs D_800DD900[4];
-
 extern s32 D_8015F924;
+extern s32 D_8015F928;
 extern s32 D_80161690;
 extern f32 D_801616BC;
 extern f32 D_801616C0;
@@ -266,10 +230,7 @@ extern u8 D_80161A90[];
 extern s16 D_80161AA0[];
 extern UnkStruct_func_80090A00 D_80163FE0[60];
 extern UnkStruct_D_8016F110 D_8016F110[];
-
 extern UnkStruct_D_80175A10 D_80175A10[];
-extern UnkStruct_D_80178280* D_80178280;
-
 extern s32 D_801774F8;
 extern s32 D_80177820;
 extern s32 D_80177824;
@@ -329,6 +290,7 @@ extern f32 D_80177D50;
 extern f32 D_80177D68;
 extern s32 D_80177DA0[];
 extern s32 D_80177DB0;
+extern UnkStruct_D_80178280* D_80178280;
 extern s32 D_80178234;
 extern s32 D_8017827C;
 extern s32 D_8017829C;
@@ -359,9 +321,26 @@ extern s32 D_80178550;
 extern s32 D_80178554;
 extern s32 D_80178558;
 extern s32 D_8017855C;
+extern s32 D_80178580;
+extern s32 *D_80178710;
+extern s32 D_80178728;
+extern s32 D_8017872C;
+extern f32 D_80178730;
+extern f32 D_80178734;
+extern f32 D_80178738;
+extern f32 D_8017873C;
+extern f32 D_80178740;
 extern s32 D_80178754;
+extern s32 D_80178758;
 extern SaveFile D_80178870;
 
+extern u16 D_Tex_800D99F8[];
+extern u16 D_Tex_800DBA20[];
+extern Gfx D_Gfx_800DBAA0[];
+
+extern DmaEntry gDmaTable[]; // 178A70
+extern u8 D_80179010[][16 * 13 / 2];
+extern UnkStruct_D_80185CBC D_80185CBC[];
 extern u16 D_80183630[];
 extern u16 D_8018366C[];
 extern u16 D_80183690[];
@@ -418,11 +397,19 @@ extern f32 D_801B905C;
 extern f32 D_801B9060;
 extern f32 D_801B9064;
 
-extern f32 D_800C5D28[];
-
 extern char D_801ADA44_EE6104[];
 extern s32 D_801ADA84_EE6144[];
 extern s32 D_801ADA94_EE6154;
+
+extern u8 D_80281000[0x400];
+extern u8 D_80281400[0xC00];
+extern FrameBuffer D_80282000; // z buffer
+extern u8 D_802A7800;
+extern u8 D_802D7800;
+extern s32 D_80387800;
+extern u16 D_8038F080[];
+extern u16 D_8038F300[];
+extern FrameBuffer gFrameBuffers[3]; // 8038F800
 
 extern u16 D_1002040[];
 extern u16 D_10050E0[];
@@ -448,7 +435,6 @@ extern Gfx D_1024830[];
 extern u8 D_1024A58[];
 extern Gfx D_102A8A0[];
 extern Gfx D_1024AC0[];
-
 
 extern Gfx D_2000000[];
 extern Gfx D_2000890[];
