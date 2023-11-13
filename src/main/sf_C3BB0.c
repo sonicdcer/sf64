@@ -3,7 +3,7 @@
 #ifdef DATA_IMPORT_PENDING
 SaveFile D_80178870;
 #else
-extern SaveFile D_80178870;
+
 #endif
 
 u16 func_800C2FB0(Save* arg0) {

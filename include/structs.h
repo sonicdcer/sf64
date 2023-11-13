@@ -4,6 +4,16 @@
 #include "global.h"
 #include "sf64math.h"
 
+typedef union {
+    struct {
+        u16 r : 5;
+        u16 g : 5;
+        u16 b : 5;
+        u16 a : 1;
+    };
+    u16 rgba
+} Color_RGBA16;
+
 typedef struct {
     /* 0x0 */ void* start;
     /* 0x4 */ void* end;
