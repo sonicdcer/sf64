@@ -101,7 +101,11 @@ void func_800B95E8(void) {
     gSPDisplayList(gMasterDisp++, D_800D36C0);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B9618.s")
+void func_800B9618(s32 r, s32 g, s32 b, s32 a, s32 nr, s32 fr) {
+    gSPDisplayList(gMasterDisp++, D_800D3750);
+    gDPSetFogColor(gMasterDisp++, r, g, b, a);
+    gSPFogFactor(gMasterDisp++, (0x1F400 / (fr - nr)), (((0x1F4 - nr) * 256) / (fr - nr)));
+}
 
 void func_800B9730(void) {
     gSPDisplayList(gMasterDisp++, D_800D3708);
