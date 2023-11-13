@@ -28,9 +28,6 @@ typedef enum {
     SI_MESG_16,
 } SerialMesg;
 
-#define SCREEN_WIDTH  320
-#define SCREEN_HEIGHT 240
-
 #define MSG_QUEUE_EMPTY -1
 
 #define FAULT_MESG_BREAK 1

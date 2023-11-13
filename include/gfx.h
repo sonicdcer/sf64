@@ -1,6 +1,9 @@
 #ifndef GFX_H
 #define GFX_H
 
+#define SCREEN_WIDTH  320
+#define SCREEN_HEIGHT 240
+
 typedef enum SetupDL {
     /* 0x00 */ SETUPDL_0,
     /* 0x01 */ SETUPDL_1,
