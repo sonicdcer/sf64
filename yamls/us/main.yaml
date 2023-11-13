@@ -279,7 +279,7 @@
       # - [0xD5910, data, ???]
 
       # RODATA - game engine
-      - [0xD5920, .rodata, sf_2F300]
+      - [0xD5A10, .rodata, sf_2F300]
       - [0xD5CF0, .rodata, sf_36930]
       - [0xD61D0, .rodata, sf_43AC0]
       - [0xD61F0, .rodata, sf_43E80]

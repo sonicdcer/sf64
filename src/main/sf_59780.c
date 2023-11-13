@@ -128,7 +128,7 @@ u8 func_80058F14(u8 arg0, u8 arg1) {
             var_v1 = func_80058C48(&D_800CB584[arg1]);
             break;
         case 0x10:
-            var_v1 = func_80058C48(&D_800CB6B4[arg1]);
+            var_v1 = (&D_800CB6B4[arg1]);
             break;
         case 0x11:
             var_v1 = func_80058C48(&D_800CBB74[arg1]);

@@ -43,52 +43,35 @@ extern char D_800C7C80[];
 
 extern u8 D_800CA3B0;
 
-extern OverlayInit D_800CA3B4[];
-extern OverlayInit D_800CA44C[];
-extern OverlayInit D_800CA7DC[];
-extern OverlayInit D_800CA874[];
-extern OverlayInit D_800CA90C[];
-extern OverlayInit D_800CA9A4[];
-extern OverlayInit D_800CAA3C[];
-extern OverlayInit D_800CAAD4[];
-extern OverlayInit D_800CAC04[];
-extern OverlayInit D_800CAF94[];
-extern OverlayInit D_800CB0C4[];
-extern OverlayInit D_800CB15C[];
-extern OverlayInit D_800CB1F4[];
-extern OverlayInit D_800CB28C[];
-extern OverlayInit D_800CB3BC[];
-extern OverlayInit D_800CB454[];
-extern OverlayInit D_800CB4EC[];
-extern OverlayInit D_800CB584[];
-extern OverlayInit D_800CB61C[];
-extern OverlayInit D_800CB6B4[];
-extern OverlayInit D_800CB74C[];
-extern OverlayInit D_800CB87C[];
-extern OverlayInit D_800CB914[];
-extern OverlayInit D_800CB9AC[];
-extern OverlayInit D_800CBA44[];
-extern OverlayInit D_800CBB74[];
-extern OverlayInit D_800CBC0C[];
-
+extern OverlayInit D_800CA3B4[1]; // sets segment 15 with no overlay
+extern OverlayInit D_800CA44C[6]; // overlay EF0260
+extern OverlayInit D_800CA7DC[1]; // EBFBE0
+extern OverlayInit D_800CA874[1]; // EBFBE0
+extern OverlayInit D_800CA90C[1]; // EBFBE0
+extern OverlayInit D_800CA9A4[1]; // EBFBE0
+extern OverlayInit D_800CAA3C[1]; // DF4260
+extern OverlayInit D_800CAAD4[2]; // E08400
+extern OverlayInit D_800CAC04[6]; // E6A810
+extern OverlayInit D_800CAF94[2]; // E08400
+extern OverlayInit D_800CB0C4[1]; // E51970
+extern OverlayInit D_800CB15C[1]; // E16C50
+extern OverlayInit D_800CB1F4[1]; // E16C50
+extern OverlayInit D_800CB28C[2]; // E51970
+extern OverlayInit D_800CB3BC[1]; // E16C50
+extern OverlayInit D_800CB454[1]; // E9F1D0
+extern OverlayInit D_800CB4EC[1]; // E16C50
+extern OverlayInit D_800CB584[1]; // E16C50
+extern OverlayInit D_800CB61C[1]; // DF4260
+extern OverlayInit D_800CB6B4[1]; // E9F1D0
+extern OverlayInit D_800CB74C[2]; // E9F1D0
+extern OverlayInit D_800CB87C[1]; // E08400
+extern OverlayInit D_800CB914[1]; // E51970
+extern OverlayInit D_800CB9AC[1]; // E51970
+extern OverlayInit D_800CBA44[2]; // E6A810
+extern OverlayInit D_800CBB74[1]; // DF4260
+extern OverlayInit D_800CBC0C[1]; // E08400
+extern OverlayInit D_800CBD3C[1]; // EFFA40
 extern UnkStruct_90A00_1C D_800CC124[400];
-
-extern Gfx D_800D31F8[];
-extern Gfx D_800D3240[];
-extern Gfx D_800D3288[];
-extern Gfx D_800D32D0[];
-extern Gfx D_800D33A8[];
-extern Gfx D_800D33F0[];
-extern Gfx D_800D34C8[];
-extern Gfx D_800D3510[];
-extern Gfx D_800D3558[];
-extern Gfx D_800D35A0[];
-extern Gfx D_800D3678[];
-extern Gfx D_800D3BD0[];
-extern Gfx D_800D36C0[];
-extern Gfx D_800D3708[];
-extern Gfx D_800D4050[];
-extern Gfx D_800D4320[];
 
 extern u16 D_800DD8AA;
 extern s32 D_800D4A70;
@@ -213,12 +196,37 @@ extern s32 D_800D2180[];
 extern s32 D_800D2190[];
 extern f32 D_800D21A0;
 extern f32 D_800D21A4;
+extern s32 D_800D2860[];
 extern s32 D_800D2870;
+extern s32 D_800D2874[];
+extern s32 D_800D2884[];
+extern s32 D_800D2894[];
+extern s32 D_800D28A4[];
 extern s32 D_800D28B4[];
 extern u8 D_800D2908;
 extern u8 D_800D290C;
 extern u8 D_800D2910;
 extern u8 D_800D2914;
+
+extern u8 D_800D3180[0x1E];
+extern Gfx D_800D31F8[];
+extern Gfx D_800D3240[];
+extern Gfx D_800D3288[];
+extern Gfx D_800D32D0[];
+extern Gfx D_800D33A8[];
+extern Gfx D_800D33F0[];
+extern Gfx D_800D34C8[];
+extern Gfx D_800D3510[];
+extern Gfx D_800D3558[];
+extern Gfx D_800D35A0[];
+extern Gfx D_800D3678[];
+extern Gfx D_800D3BD0[];
+extern Gfx D_800D36C0[];
+extern Gfx D_800D3708[];
+extern Gfx D_800D4050[];
+extern Gfx D_800D4320[];
+extern Save D_800D4D10;
+
 extern u16 D_Tex_800D99F8[];
 
 extern OSContPad D_800DD880[4];
@@ -239,6 +247,7 @@ extern f32 D_801616C0;
 extern f32 D_801616C4;
 extern f32 D_801616C8;
 extern s32 D_80161708;
+extern s32 D_8016170C;
 extern s32 D_80161730;
 extern s32 D_80161734;
 extern s32 D_80161788;
@@ -257,16 +266,18 @@ extern s32 D_801617B8;
 extern s32 D_80161810[];
 extern f32 D_80161A10;
 extern f32 D_80161A14;
+extern u8 D_80161A2C;
 extern u16 D_80161A2E;
 extern u16 D_80161A30;
 extern u16 D_80161A32;
-extern s16 D_80161A34;
+extern u16 D_80161A34;
 extern u16 D_80161A36;
 extern u8 D_80161A38;
-extern s8 D_80161A39;
+extern u8 D_80161A39;
 extern f32 D_80161A3C;
 extern f32 D_80161A40;
 extern f32 D_80161A44;
+extern s32 D_80161A5C;
 extern u8 D_80161A90[];
 extern s16 D_80161AA0[];
 extern UnkStruct_func_80090A00 D_80163FE0[60];
@@ -276,22 +287,35 @@ extern UnkStruct_D_80175A10 D_80175A10[];
 extern UnkStruct_D_80178280* D_80178280;
 
 extern s32 D_801774F8;
+extern s32 D_80177824;
 extern s32 D_80177820;
 extern s32 D_8017782C;
 extern u8 D_80177830;
 extern s32 D_80177834;
 extern s32 D_80177838;
 extern s32 D_8017783C;
+extern s32 D_80177840;
 extern s32 D_80177848;
+extern s32 D_8017784C;
 extern s32 D_80177854;
+extern s32 D_80177858[];
 extern s32 D_80177868;
+extern s32 D_80177870[];
 extern s32 D_80177898;
+extern s32 D_8017789C;
 extern s32 D_801778A0;
+extern s32 D_801778A4;
 extern s32 D_801778A8;
+extern u8 D_801778AB;
 extern s32 D_801778B0[];
 extern s32 D_801778B8;
 extern s32 D_801778E8;
+extern u16 D_80177908[];
+extern u16 D_80177928[];
+extern u16 D_80177938[];
 extern f32 D_80177940;
+extern u16 D_80177948[];
+extern f32 D_80177958[];
 extern f32 D_80177978;
 extern UnkStruct_D_8017797C* D_8017797C;
 extern f32 D_80177980;
@@ -300,10 +324,21 @@ extern f32 D_801779A0;
 extern f32 D_801779B8;
 extern f32 D_801779C0;
 extern s32 D_801779F8;
+extern s32 D_80177A80;
 extern s32 D_80177AE0;
 extern s32 D_80177AF8;
 extern s32 D_80177B40;
+extern s32 D_80177C50;
+extern u8 D_80177C74;
+extern s32 D_80177C80[];
+extern s32 D_80177C94;
 extern u8 D_80177C98;
+extern s32 D_80177C9C;
+extern s32 D_80177CA4;
+extern s32 D_80177CAC;
+extern s32 D_80177CB4;
+extern s32 D_80177CBC;
+extern s32 D_80177CC4;
 extern f32 D_80177D08;
 extern f32 D_80177D20;
 extern f32 D_80177D50;
@@ -325,7 +360,10 @@ extern s32 D_80178340;
 extern s32 D_80178348;
 extern s32 D_80178350;
 extern s32 D_80178354;
-extern s32 D_80178380;
+extern s32 D_80178380[];
+extern s32 D_80178390[];
+extern s32 D_801783A0[];
+extern s32 D_801783B0[];
 extern s32 D_80178410;
 extern f32 D_80178420;
 extern f32 D_80178424;
@@ -337,6 +375,8 @@ extern s32 D_80178550;
 extern s32 D_80178554;
 extern s32 D_80178558;
 extern s32 D_8017855C;
+extern s32 D_80178754;
+extern SaveFile D_80178870;
 
 extern u16 D_80183630[];
 extern u16 D_8018366C[];
@@ -479,6 +519,11 @@ extern Gfx D_6004570[];
 extern Gfx D_D0098B0[];
 extern Gfx D_F014180[];
 
+extern u16 D_F000000[];
+extern u16 D_F000800[];
+extern u16 D_F001000[];
+extern u16 D_F001800[];
+extern u16 D_F002000[];
 
 #endif // VARIABLES_H
 
