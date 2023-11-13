@@ -183,7 +183,9 @@ void func_800BA110(void) {
     gSPDisplayList(gMasterDisp++, D_800D3D38);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800BA140.s")
+void func_800BA140(void) {
+    gSPDisplayList(gMasterDisp++, D_800D43B0);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800BA170.s")
 
