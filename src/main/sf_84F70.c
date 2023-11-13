@@ -17,10 +17,12 @@ void func_80084688(s32 arg0, s32 arg1) {
         switch (arg0) {
             case 0:
                 func_80084488(arg1);
-                return;
+                break;
+
             case 1:
                 func_80084370(arg1);
-                return;
+                break;
+
             case 2:
                 func_800843FC(arg1);
                 break;
