@@ -1,6 +1,9 @@
 #include "global.h"
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_84F70/func_80084370.s")
+void func_80084370(s32 arg0) {
+    func_8009F574(&gMasterDisp, 0, 0, arg0, SCREEN_HEIGHT, 0, 0, 0, 255);
+    func_8009F574(&gMasterDisp, SCREEN_WIDTH - arg0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, 255);
+}
 
 void func_800843FC(s32 arg0) {
     func_8009F574(&gMasterDisp, 0, 0, SCREEN_WIDTH, arg0, 0, 0, 0, 255);
