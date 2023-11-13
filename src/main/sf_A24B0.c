@@ -103,8 +103,6 @@ s32 func_800A1B6C(void) {
 #endif
 
 void func_800A1C14(Gfx** arg0) {
-    s32 temp_t9;
-
     gSPDisplayList((*arg0)++, D_Gfx_800DBAA0);
     gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 8, 312, 232);
     gDPSetDepthImage((*arg0)++, &D_80282000);
