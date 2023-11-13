@@ -1,10 +1,25 @@
 #include "global.h"
 
-extern Gfx D_800D31B0[];
-
+// regalloc
+// https://decomp.me/scratch/jkzoC
+#ifdef NON_MATCHING
+void func_800B8DD0(Gfx** gfxP, s16 arg1) {
+    gSPDisplayList((*gfxP)++, D_800D31B0[arg1]);
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B8DD0.s")
+#endif
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B8E14.s")
+void func_800B8E14(Gfx** gfxP, s32 r, s32 g, s32 b, s32 a, s32 nr, s32 fr) {
+    gDPSetFogColor((*gfxP)++, r, g, b, a);
+    gSPFogFactor((*gfxP)++, (0x1F400 / (fr - nr)), (((0x1F4 - nr) * 256) / (fr - nr)));
+}
+
+void dummy_800B8F08(void) {
+}
+
+void dummy_800B8F10(void) {
+}
 
 void func_800B8F18(void) {
     gSPDisplayList(gMasterDisp++, D_800D31B0);
@@ -26,7 +41,11 @@ void func_800B8FD8(void) {
     gSPDisplayList(gMasterDisp++, D_800D3240);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B9008.s")
+void func_800B9008(s32 r, s32 g, s32 b, s32 a, s32 nr, s32 fr) {
+    gSPDisplayList(gMasterDisp++, D_800D3288);
+    gDPSetFogColor(gMasterDisp++, r, g, b, a);
+    gSPFogFactor(gMasterDisp++, (0x1F400 / (fr - nr)), (((0x1F4 - nr) * 256) / (fr - nr)));
+}
 
 void func_800B9120(void) {
     gSPDisplayList(gMasterDisp++, D_800D32D0);
@@ -36,7 +55,11 @@ void func_800B9150(void) {
     gSPDisplayList(gMasterDisp++, D_800D33A8);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800B9180.s")
+void func_800B9180(s32 r, s32 g, s32 b, s32 a, s32 nr, s32 fr) {
+    gSPDisplayList(gMasterDisp++, D_800D3438);
+    gDPSetFogColor(gMasterDisp++, r, g, b, a);
+    gSPFogFactor(gMasterDisp++, (0x1F400 / (fr - nr)), (((0x1F4 - nr) * 256) / (fr - nr)));
+}
 
 void func_800B9298(void) {
     gSPDisplayList(gMasterDisp++, D_800D33F0);
