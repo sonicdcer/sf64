@@ -239,11 +239,17 @@ void func_800BA550(void) {
     gSPDisplayList(gMasterDisp++, D_800D3F30);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800BA580.s")
+void func_800BA580(void) {
+    gSPDisplayList(gMasterDisp++, D_800D44D0);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800BA5B0.s")
+void func_800BA5B0(void) {
+    gSPDisplayList(gMasterDisp++, D_800D3F78);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800BA5E0.s")
+void func_800BA5E0(void) {
+    gSPDisplayList(gMasterDisp++, D_800D3E10);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800BA610.s")
 
