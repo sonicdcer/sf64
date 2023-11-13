@@ -34,6 +34,8 @@
         "variables.h": "c",
         "functions.h": "c",
         "macros.h": "c",
-        "random": "c"
+        "random": "c",
+        "limits": "c",
+        "algorithm": "c"
     },
 }

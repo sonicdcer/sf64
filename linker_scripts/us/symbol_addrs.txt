@@ -45,7 +45,7 @@ D_80163FE0 = 0x80163FE0; //size:0xB130
 
 gDmaTable = 0x80178A70;
 
-gSetupDLs = 0x800D31B0;
+gSetupDLs = 0x800D31B0; // size:0x318
 
 D_800DD880 = 0x800DD880; // size:0x18
 D_800DD898 = 0x800DD898; // size:0x18
