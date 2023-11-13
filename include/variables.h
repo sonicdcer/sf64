@@ -209,22 +209,6 @@ extern u8 D_800D2910;
 extern u8 D_800D2914;
 
 extern u8 D_800D3180[0x1E];
-extern Gfx D_800D31F8[];
-extern Gfx D_800D3240[];
-extern Gfx D_800D3288[];
-extern Gfx D_800D32D0[];
-extern Gfx D_800D33A8[];
-extern Gfx D_800D33F0[];
-extern Gfx D_800D34C8[];
-extern Gfx D_800D3510[];
-extern Gfx D_800D3558[];
-extern Gfx D_800D35A0[];
-extern Gfx D_800D3678[];
-extern Gfx D_800D3BD0[];
-extern Gfx D_800D36C0[];
-extern Gfx D_800D3708[];
-extern Gfx D_800D4050[];
-extern Gfx D_800D4320[];
 extern Save D_800D4D10;
 
 extern u16 D_Tex_800D99F8[];
@@ -287,8 +271,8 @@ extern UnkStruct_D_80175A10 D_80175A10[];
 extern UnkStruct_D_80178280* D_80178280;
 
 extern s32 D_801774F8;
-extern s32 D_80177824;
 extern s32 D_80177820;
+extern s32 D_80177824;
 extern s32 D_8017782C;
 extern u8 D_80177830;
 extern s32 D_80177834;

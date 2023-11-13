@@ -33,8 +33,8 @@ def calculate_crcs(buffer: bytearray, seed=0xF8CA4DDC, start=0x1000, end=0x10100
 
 def mio0_comp_bytes(decomp_bytes, mio0):
     #possibly replace with a python implementation later
-    decomp_path = os.path.dirname(mio0) + 'TempComp.bin.mio0'
-    comp_path = os.path.dirname(mio0) + 'TempComp.bin'
+    decomp_path = os.path.dirname(mio0) + '/TempComp.bin.mio0'
+    comp_path = os.path.dirname(mio0) + '/TempComp.bin'
 
     with open(decomp_path, 'wb') as decomp_file:
         decomp_file.write(decomp_bytes)
@@ -50,8 +50,8 @@ def mio0_comp_bytes(decomp_bytes, mio0):
 
 def mio0_dec_bytes(comp_bytes, mio0):
     #possibly replace with a python implementation later
-    decomp_path = os.path.dirname(mio0) + 'TempComp.bin.mio0'
-    comp_path = os.path.dirname(mio0) + 'TempComp.bin'
+    decomp_path = os.path.dirname(mio0) + '/TempComp.bin.mio0'
+    comp_path = os.path.dirname(mio0) + '/TempComp.bin'
 
     with open(comp_path, 'wb') as comp_file:
         comp_file.write(comp_bytes)

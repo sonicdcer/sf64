@@ -142,6 +142,9 @@ void func_8006EEFC(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 void func_8007C120(f32, f32, f32, f32, f32, f32, f32, s32);
 void func_8007D10C(f32, f32, f32, f32);
 
+void func_80084370(s32);
+void func_800843FC(s32);
+void func_80084488(s32);
 void func_80084688(s32, s32);
 void func_800857DC(f32, f32, f32, f32);
 void func_80085890(f32, f32, f32, f32);
