@@ -101,6 +101,7 @@ extern Gfx D_800D3EE8[];
 extern Gfx D_800D4050[];
 extern Gfx D_800D4290[];
 extern Gfx D_800D4320[];
+extern Gfx D_800D4440[];
 
 extern u16 D_800DD8AA;
 extern s32 D_800D4A70;
