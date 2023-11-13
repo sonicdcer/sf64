@@ -73,8 +73,6 @@ extern OverlayInit D_800CBC0C[];
 
 extern UnkStruct_90A00_1C D_800CC124[400];
 
-
-
 extern u16 D_800DD8AA;
 extern s32 D_800D4A70;
 
