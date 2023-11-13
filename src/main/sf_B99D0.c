@@ -175,7 +175,9 @@ void func_800B9FC8(s32 r, s32 g, s32 b, s32 a, s32 nr, s32 fr) {
     gSPFogFactor(gMasterDisp++, (0x1F400 / (fr - nr)), (((0x1F4 - nr) * 256) / (fr - nr)));
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800BA0E0.s")
+void func_800BA0E0(void) {
+    gSPDisplayList(gMasterDisp++, D_800D3EA0);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_B99D0/func_800BA110.s")
 
