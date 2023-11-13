@@ -16,6 +16,7 @@
 #include "structs.h"
 #include "macros.h"
 #include "sf64math.h"
+#include "gfx.h"
 
 typedef enum {
     SI_MESG_10 = 10,
@@ -26,9 +27,6 @@ typedef enum {
     SI_MESG_15,
     SI_MESG_16,
 } SerialMesg;
-
-#define SCREEN_WIDTH  320
-#define SCREEN_HEIGHT 240
 
 #define MSG_QUEUE_EMPTY -1
 

@@ -73,23 +73,6 @@ extern OverlayInit D_800CBC0C[];
 
 extern UnkStruct_90A00_1C D_800CC124[400];
 
-extern Gfx D_800D31F8[];
-extern Gfx D_800D3240[];
-extern Gfx D_800D3288[];
-extern Gfx D_800D32D0[];
-extern Gfx D_800D33A8[];
-extern Gfx D_800D33F0[];
-extern Gfx D_800D34C8[];
-extern Gfx D_800D3510[];
-extern Gfx D_800D3558[];
-extern Gfx D_800D35A0[];
-extern Gfx D_800D3678[];
-extern Gfx D_800D3BD0[];
-extern Gfx D_800D36C0[];
-extern Gfx D_800D3708[];
-extern Gfx D_800D4050[];
-extern Gfx D_800D4320[];
-
 extern u16 D_800DD8AA;
 extern s32 D_800D4A70;
 
