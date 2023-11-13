@@ -92,6 +92,7 @@ extern Gfx D_800D3708[];
 extern Gfx D_800D3750[];
 extern Gfx D_800D3798[];
 extern Gfx D_800D3828[];
+extern Gfx D_800D39D8[];
 extern Gfx D_800D3C18[];
 extern Gfx D_800D3AF8[];
 extern Gfx D_800D3B40[];
