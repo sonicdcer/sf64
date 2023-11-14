@@ -142,6 +142,8 @@ gFrameBuffers = 0x8038F800;
 D_8013C3D0 = 0x8013C3D0; // size:0x8800
 gFaultMgr = 0x80145360; // size:0x9D8
 
+D_80177E88 = 0x80177E88; // size:0xC
+
 Mio0_Decompress = 0x8001EE70;
 RdRam_CheckIPL3 = 0x8001EF10;
 

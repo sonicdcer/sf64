@@ -61,6 +61,7 @@ void Fault_ThreadEntry(void*);
 void func_80007FE4(FrameBuffer*, u16, u16);
 void Fault_Init(void);
 
+
 void func_80016A50(void);
 void func_800182F4(s32);
 void func_80019218(u32, f32*, u8, f32*, f32*, s8*);
@@ -126,6 +127,8 @@ s64 __ull_div(s64, s64);
 s64 __ll_mul(s64, s64);
 s64 __ll_rshift(s64, s64);
 
+void func_8002E3E0(UnkStruct_func_80090A00 *arg0);
+
 void func_8002E548(void);
 void func_8003DAF0(void);
 void func_80040CDC(void);
@@ -135,10 +138,12 @@ void func_80059498(void);
 void func_80057D00(void);
 
 void func_80060FBC(u8*, f32*);
-void func_800612B8(UnkStruct_90A00_1C*, u16);
+void func_800612B8(UnkStruct_90A00_1C*, u32);
 void func_800613C4(UnkStruct_func_80090A00*);
+void func_800660F0(UnkStruct_func_80090A00*);
 void func_8006EEFC(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 
+void func_80077240(f32, f32, f32, s32);
 void func_8007C120(f32, f32, f32, f32, f32, f32, f32, s32);
 void func_8007D10C(f32, f32, f32, f32);
 
@@ -162,6 +167,7 @@ void func_8008CA44(void);
 s32 func_8008CB8C(void);
 void func_8008D0DC(f32, f32, f32, f32, f32);
 void func_8008DE68(void);
+void func_8008E51C(s32* arg0, f32 arg1);
 void func_8008E9EC(f32 arg0, f32 arg1);
 void func_8008EA14(f32, f32);
 void func_8008FA84(void);

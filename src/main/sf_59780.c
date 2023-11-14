@@ -1,7 +1,6 @@
 #include "global.h"
 
 #define SEGMENT_SIZE(segment) ((ptrdiff_t) ((uintptr_t) (segment).end - (uintptr_t) (segment).start))
-#define PHYS_ADDR(ptr) ((uintptr_t) (ptr) &0x1FFFFFFF)
 
 extern u8 func_80187520[];
 extern OverlayInit D_800CBDD4;
@@ -47,8 +46,8 @@ u8 func_80058C48(OverlayInit* segment) {
     var_s1 = 0;
     while ((var_s1 < 15) && (segment->unk_20[var_s1].start == D_800CBDD4.unk_20[var_s1].start) && (sp42 == 0)) {
         if (segment->unk_20[var_s1].start != 0) {
-            gSegments[var_s1 + 1] = PHYS_ADDR(var_s2);
-            gSPSegment(gUnkDisp1++, var_s1 + 1, PHYS_ADDR(var_s2));
+            gSegments[var_s1 + 1] = K0_TO_PHYS(var_s2);
+            gSPSegment(gUnkDisp1++, var_s1 + 1, K0_TO_PHYS(var_s2));
             var_s2 = var_s2 + SEGMENT_SIZE(segment->unk_20[var_s1]);
         }
         var_s1 += 1;
@@ -57,8 +56,8 @@ u8 func_80058C48(OverlayInit* segment) {
         D_800CBDD4.unk_20[var_s1].start = segment->unk_20[var_s1].start;
         D_800CBDD4.unk_20[var_s1].end = var_s2;
         if (segment->unk_20[var_s1].start != 0) {
-            gSegments[var_s1 + 1] = PHYS_ADDR(var_s2);
-            gSPSegment(gUnkDisp1++, var_s1 + 1, PHYS_ADDR(var_s2));
+            gSegments[var_s1 + 1] = K0_TO_PHYS(var_s2);
+            gSPSegment(gUnkDisp1++, var_s1 + 1, K0_TO_PHYS(var_s2));
             func_80058B80(segment->unk_20[var_s1].start, var_s2, SEGMENT_SIZE(segment->unk_20[var_s1]));
             var_s2 = var_s2 + SEGMENT_SIZE(segment->unk_20[var_s1]);
         }
