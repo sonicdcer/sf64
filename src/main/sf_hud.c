@@ -518,7 +518,36 @@ void func_80089E98(s32 arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008A4DC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008AC54.s")
+s32 func_8008AC54(s32 arg0) {
+    UnkStruct_func_80090A00* var_a1;
+    s32 i;
+    s32 ret = 0;
+
+    for (i = 0, var_a1 = D_80163FE0; i < 60; i++, var_a1++) {
+        switch (arg0) {
+            case 0:
+                if ((var_a1->unk_000.unk_00 == 2) && (var_a1->unk_000.unk_02 == 0xBE)) {
+                    ret++;
+                }
+                break;
+
+            case 1:
+                if ((var_a1->unk_000.unk_00 == 2) && (var_a1->unk_000.unk_02 == 0xBF)) {
+                    ret++;
+                }
+                break;
+
+            case 2:
+                if (((var_a1->unk_000.unk_02 == 0xBE) || (var_a1->unk_000.unk_02 == 0xBF)) &&
+                    (var_a1->unk_000.unk_00 == 2)) {
+                    ret++;
+                }
+                break;
+        }
+    }
+
+    return ret;
+}
 
 void func_8008AD94(void) {
     if (D_80177834 == 7) {
