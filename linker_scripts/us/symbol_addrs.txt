@@ -171,5 +171,3 @@ D_E51970_8019FE74 = 0x8019FE74; // force_migration:True segment:ovl_E51970
 D_E51970_8019FEFC = 0x8019FEFC; // force_migration:True segment:ovl_E51970
 D_E9F1D0_801A7560 = 0x801A7560; // force_migration:True segment:ovl_E9F1D0
 D_E9F1D0_801A792C = 0x801A792C; // force_migration:True segment:ovl_E9F1D0
-D_EBFBE0_801B6E50 = 0x801B6E50; // force_migration:True segment:ovl_EBFBE0
-D_EBFBE0_801B827C = 0x801B827C;
