@@ -398,8 +398,8 @@ extern u16 D_80183A08[];
 extern u16 D_80183A64[];
 extern UnkStruct_D_80185CBC D_80185CBC[];
 
-extern f32 D_801A7F60;
-extern f32 D_801A7F78;
+extern f32 D_E9F1D0_801A7F60;
+extern f32 D_E9F1D0_801A7F78;
 extern f32 D_EBFBE0_801B7BC8;
 extern f32 D_EBFBE0_801B7BCC;
 extern s32 D_EBFBE0_801B8220[];
@@ -442,7 +442,7 @@ extern s32 D_EBFBE0_801B9040;
 extern f32 D_EBFBE0_801B905C;
 extern f32 D_EBFBE0_801B9060;
 extern f32 D_EBFBE0_801B9064;
-extern s8 D_801BA1E8;
+extern s8 D_E6A810_801BA1E8;
 
 extern char D_EBFBE0_801ADA44[];
 extern s32 D_EBFBE0_801ADA84[];

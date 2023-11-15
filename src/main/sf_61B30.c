@@ -412,17 +412,17 @@ void func_80062180(ObjectInit* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
         if (arg0->unk_10 >= 339 && arg0->unk_10 < 407) {
             switch (arg0->unk_10) {
                 case 403:
-                    D_801BA1E8 = 99;
+                    D_E6A810_801BA1E8 = 99;
                     break;
                 case 404:
-                    D_801BA1E8 = 0;
+                    D_E6A810_801BA1E8 = 0;
                     break;
                 case 405:
-                    D_801BA1E8 = 98;
+                    D_E6A810_801BA1E8 = 98;
                     break;
                 case 402:
-                    D_801A7F78 = arg0->unk_E * 0.1f;
-                    D_801A7F60 = -(f32) arg0->unk_A;
+                    D_E9F1D0_801A7F78 = arg0->unk_E * 0.1f;
+                    D_E9F1D0_801A7F60 = -(f32) arg0->unk_A;
                     break;
                 case 400:
                     D_801782B8 += 1;
