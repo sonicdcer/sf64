@@ -132,6 +132,7 @@ void func_80040CDC(void);
 
 u8 func_80058F14(u8 arg0, u8 arg1);
 void func_80059498(void);
+void func_8005980C(f32 arg0);
 void func_80057D00(void);
 
 void func_80060FBC(u8*, f32*);

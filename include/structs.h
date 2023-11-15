@@ -129,7 +129,9 @@ typedef struct UnkStruct_D_80178280 {
     /* 0x138 */ f32 unk_138;
     /* 0x13C */ char pad_13C[0x8C];
     /* 0x1C8 */ s32 unk_1C8;
-    /* 0x1CC */ char pad_1CC[0x44];
+    /* 0x1CC */ char pad_1CC[0x4];
+    /* 0x1D0 */ s32 unk_1D0;
+    /* 0x1D4 */ char pad_1D4[0x3C];
     /* 0x210 */ s32 unk_210;
     /* 0x214 */ char pad_214[0x10];
     /* 0x224 */ s32 unk_224;
@@ -193,5 +195,12 @@ typedef struct {
     /* 0x114 */ f32 unk_114[30];
     /* 0x18C */ Vec3f unk_18C[30];
 } UnkStruct_func_80090A00;
+
+typedef struct {
+    /* 0x00 */ char pad_00[0x4A];
+    /* 0x4A */ s16 unk_4A;
+    /* 0x4C */ char pad_4C[0x24];
+    /* 0x70 */ f32 unk_70;
+} UnkStruct_func_80094BBC;
 
 #endif

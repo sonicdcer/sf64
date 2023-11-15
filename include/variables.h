@@ -430,6 +430,7 @@ extern u16 D_1012988[];
 extern u8 D_10129C0[];
 extern u16 D_1013090[];
 extern Gfx D_1015510[];
+extern Gfx D_1023750[];
 extern Gfx D_1024230[];
 extern Gfx D_1024830[];
 extern u8 D_1024A58[];
