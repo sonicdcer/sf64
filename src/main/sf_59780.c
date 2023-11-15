@@ -174,7 +174,6 @@ u8 func_80058F14(u8 arg0, u8 arg1) {
     return var_v1;
 }
 
-extern DmaEntry D_80179010[];
 extern u8 D_DE480[];
 extern u8 D_DE5D50[];
 extern u8 D_DEA20[];

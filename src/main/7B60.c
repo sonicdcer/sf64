@@ -13,7 +13,7 @@ UnkStruct_func_80007088* func_80006F60(void) {
     return NULL;
 }
 
-s32 func_80006FD8(u64 arg0, void* arg2, s32 arg3, s32 arg4) {
+s32 func_80006FD8(u64 arg0, void* arg2, s32* arg3, s32 arg4) {
     UnkStruct_func_80007088* temp_v0;
 
     temp_v0 = func_80006F60();

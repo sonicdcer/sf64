@@ -44,7 +44,7 @@ void Matrix_GetXYZAngles(Matrix*, Vec3f*);
 void Matrix_LookAt(Matrix*, f32, f32, f32, f32, f32, f32, f32, f32, f32, u8);
 void Matrix_SetGfxMtx(Gfx**);
 
-s32 func_80006FD8(u64 arg0, void* arg2, s32 arg3, s32 arg4);
+s32 func_80006FD8(u64 arg0, void* arg2, s32* arg3, s32 arg4);
 
 void func_80006F20(void);
 void* func_80006F38(s32);
@@ -172,8 +172,8 @@ void func_80094D20(f32, f32);
 void func_8009F574(Gfx **, s32, s32, s32, s32, u8, u8, u8, u8);
 f32 func_8009BC2C(f32*, f32, f32, f32, f32);
 f32 func_8009BD38(f32*, f32, f32, f32, f32);
-void func_8009D418(Gfx**, void*, u32, u32, f32, f32, f32, f32);
-void func_8009D994(Gfx**, void*, u32, u32, f32, f32, f32, f32);
+void func_8009D418(Gfx**, u16*, u32, u32, f32, f32, f32, f32);
+void func_8009D994(Gfx**, u16*, u32, u32, f32, f32, f32, f32);
 void func_8009F6CC(Vec3f*, f32, f32, f32);
 void func_8009FC0C(s32, s32, s32);
 f32 func_8009F768(f32);
@@ -208,7 +208,7 @@ void func_800B9358(void);
 void func_800C1ED4(void);
 void func_800C20B0(void);
 void func_800C2190(void);
-s32 func_800C2890(u16*);
+u16 func_800C2890(u16*);
 s32 func_800C2F30(u16*, s32);
 s32 func_800C3084(void);
 s32 func_800C3194(void);

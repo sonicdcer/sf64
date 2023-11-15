@@ -276,10 +276,10 @@
       # - [0xD3DB0, data, fox_rcp]
       # - [0xD5670, data, sf_BB360]
       # - [0xD5690, data, sf_versus]
-      # - [0xD5910, data, ???]
+      # - [0xD5910, data, sf_C3BB0]
 
       # RODATA - game engine
-      - [0xD5920, .rodata, sf_2F300]
+      - [0xD5A10, .rodata, sf_2F300]
       - [0xD5CF0, .rodata, sf_36930]
       - [0xD61D0, .rodata, sf_43AC0]
       - [0xD61F0, .rodata, sf_43E80]

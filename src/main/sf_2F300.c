@@ -48,4 +48,4 @@
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_2F300/func_80035448.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_2F300/D_800D4D20.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_2F300/D_800D4E10.s")

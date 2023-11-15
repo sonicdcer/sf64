@@ -5,6 +5,11 @@
 #include "sf64math.h"
 
 typedef struct {
+    s32 unk0;
+    u16* unk4;
+} UnkStruct_D_80185CBC;
+
+typedef struct {
     /* 0x0 */ void* start;
     /* 0x4 */ void* end;
 } SegmentOffset; // size = 0x8
@@ -23,13 +28,13 @@ typedef struct {
     /* 0xC */ s32 compFlag;
 } DmaEntry; // size = 0x10;
 
-typedef void (*unkFunc_80007088)(s32, s32);
+typedef void (*unkFunc_80007088)(s32*, s32);
 
 typedef struct {
     /* 0x00 */ u8 unk0;
     /* 0x08 */ OSTimer unk8;
     /* 0x28 */ unkFunc_80007088 unk28;
-    /* 0x2C */ s32 unk2C;
+    /* 0x2C */ s32* unk2C;
     /* 0x30 */ s32 unk30;
 } UnkStruct_func_80007088; // size = 0x38, 0x8 aligned
 
@@ -126,7 +131,8 @@ typedef struct UnkStruct_D_80178280 {
     /* 0x1C8 */ s32 unk_1C8;
     /* 0x1CC */ char pad_1CC[0x44];
     /* 0x210 */ s32 unk_210;
-    /* 0x214 */ char pad_214[0x14];
+    /* 0x214 */ char pad_214[0x10];
+    /* 0x224 */ s32 unk_224;
     /* 0x228 */ s32 unk_228;
     /* 0x22C */ char pad_22C[0x38];
     /* 0x264 */ s32 unk_264;

@@ -35,8 +35,7 @@ void func_8008E5E8(void);
 s32 func_80090E8C(UnkStruct_func_80090A00* arg0);
 s32 func_800910C0(UnkStruct_func_80090A00* arg0);
 void func_8009C320(Gfx**, void*, void*, s32, s32, f32, f32, f32, f32);
-void func_8009D0BC(Gfx**, void*, void*, u32, u32, f32, f32, f32, f32);
-void func_8009D994(Gfx**, void*, u32, u32, f32, f32, f32, f32);   
+void func_8009D0BC(Gfx**, void*, void*, u32, u32, f32, f32, f32, f32); 
 void func_8009E1E8(Gfx**, s32*, s32, s32, f32, f32, f32, f32);
 
 // Weird addresses, assets maybe?
