@@ -1992,7 +1992,20 @@ void func_800922F4(UnkStruct_func_80090A00* arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80093164.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80093310.s")
+void func_80093310(void) {
+    UnkStruct_func_80090A00* this = D_80163FE0;
+
+    func_800613C4(&D_80163FE0);
+    this->unk_000.unk_00 = 1;
+    this->unk_000.pos.x = 0.0f;
+    this->unk_000.pos.y += 1700.0f;
+    this->unk_000.pos.z -= 5000.0f;
+    D_80163FE0->unk_0B6 = 1;
+    if (1) {}
+    this->unk_000.unk_02 = 195;
+    func_800612B8(&this->unk_01C, this->unk_000.unk_02);
+    func_80019218(0x11030010, this->unk_100, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800933D8.s")
 
