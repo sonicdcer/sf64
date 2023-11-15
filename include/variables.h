@@ -230,7 +230,7 @@ extern u8 D_80161A90[];
 extern s16 D_80161AA0[];
 extern UnkStruct_func_80090A00 D_80163FE0[60];
 extern UnkStruct_D_8016F110 D_8016F110[];
-UnkStruct_func_80094BBC D_80173754[100]; // size intued by func_800933D8 loop
+extern UnkStruct_func_80094BBC D_80173754[100]; // size intued by func_800933D8 loop
 extern UnkStruct_D_80175A10 D_80175A10[];
 extern s32 D_801774F8;
 extern s32 D_80177820;

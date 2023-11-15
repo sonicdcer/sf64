@@ -233,7 +233,7 @@ init:
 	@$(MAKE) clean
 	@$(MAKE) decompress
 	@$(MAKE) extract -j $(N_THREADS)
-	@$(MAKE) all
+	@$(MAKE) all -j $(N_THREADS)
 	@$(MAKE) compressed
 
 uncompressed: $(ROM)
