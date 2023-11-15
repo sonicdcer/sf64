@@ -164,7 +164,39 @@ s32 func_800863C8(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80086664.s")
 
+#ifdef IMPORT_DATA_PENDING
+void func_800869A0(f32 arg0, f32 arg1, s32 k, f32 arg3, s32 arg4, s32 arg5) {
+    s32 var_s2;
+    s32 i;
+    s32 j;
+
+    u8* D_800D1CD4[] = {
+        D_5009F60, D_500A050, D_500A140, D_500A230, D_500A320, D_500A410, D_500A500, D_500A5F0, D_500A6E0, D_500A7D0,
+    };
+
+    if (arg4 != 0) {
+        var_s2 = false;
+    } else {
+        var_s2 = true;
+    }
+
+    i = arg5 + 1;
+    k %= i;
+
+    for (i /= 10; i != 1; i /= 10) {
+        j = k / i;
+        if ((j != 0) || (var_s2 == true)) {
+            func_8009D994(&gMasterDisp, D_800D1CD4[j], 16, 15, arg0, arg1, arg3, arg3);
+            arg0 += 13.0f * arg3;
+            k %= i;
+            var_s2 = true;
+        }
+    }
+    func_8009D994(&gMasterDisp, D_800D1CD4[k], 16, 15, arg0, arg1, arg3, arg3);
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800869A0.s")
+#endif
 
 void func_80086C08(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     func_800B8DD0(&gMasterDisp, 0x4E);
