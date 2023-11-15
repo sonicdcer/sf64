@@ -150,6 +150,7 @@ void func_80084688(s32, s32);
 void func_800857DC(f32, f32, f32, f32);
 void func_80085890(f32, f32, f32, f32);
 void func_80086664(f32, f32);
+void func_800869A0(f32 arg0, f32 arg1, s32 k, f32 arg3, s32 arg4, s32 arg5);
 void func_80087530(f32, f32, s32);
 void func_8008865C(void);
 void func_8008B5B0(f32 x, f32 y);

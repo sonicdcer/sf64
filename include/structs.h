@@ -224,6 +224,6 @@ typedef struct {
     /* 0x74 */ char pad_74[0xC];
     /* 0x80 */ f32 unk_80[1]; // unknown size
     /* 0x84 */ char pad_84[0x8];
-} UnkStruct_func_80094BBC; // size 0x90
+} UnkStruct_func_80094BBC; // size 0x8C
 
 #endif
