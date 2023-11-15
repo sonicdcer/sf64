@@ -2036,8 +2036,6 @@ void func_80093310(void) {
     func_80019218(0x11030010, this->unk_100, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800933D8.s")
-
 void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
     s32 i;
     UnkStruct_func_80094BBC* var_s0 = D_80173754;
