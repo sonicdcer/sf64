@@ -24,42 +24,42 @@ void func_80058B80(void* arg0, void* arg1, ptrdiff_t arg2) {
     }
 }
 
-u8 func_80058C48(OverlayInit* segment) {
-    u8* var_s2 = func_80187520;
-    u8 var_s1;
-    u8 sp42 = 0;
+u8 func_80058C48(OverlayInit* ovlInit) {
+    u8* ramPtr = func_80187520;
+    u8 segment;
+    u8 startLoad = false;
 
-    if (segment->unk_0.start == (0, D_800CBDD4.unk_0.start)) { // fake because D_800CBDD4 is probably 2D array
-        var_s2 = var_s2 + SEGMENT_SIZE(segment->unk_0);
-        var_s2 = var_s2 + SEGMENT_SIZE(segment->unk_8);
+    if (ovlInit->rom.start == (0, D_800CBDD4.rom.start)) { // fake because D_800CBDD4 is probably 2D array
+        ramPtr = ramPtr + SEGMENT_SIZE(ovlInit->rom);
+        ramPtr = ramPtr + SEGMENT_SIZE(ovlInit->bss);
     } else {
-        D_800CBDD4.unk_0.start = segment->unk_0.start;
-        D_800CBDD4.unk_0.end = var_s2;
-        if (segment->unk_0.start != 0) {
-            sp42 = 1;
-            func_80058B80(segment->unk_0.start, var_s2, SEGMENT_SIZE(segment->unk_0));
-            var_s2 = var_s2 + SEGMENT_SIZE(segment->unk_0);
-            bzero(segment->unk_8.start, SEGMENT_SIZE(segment->unk_8));
-            var_s2 = var_s2 + SEGMENT_SIZE(segment->unk_8);
+        D_800CBDD4.rom.start = ovlInit->rom.start;
+        D_800CBDD4.rom.end = ramPtr;
+        if (ovlInit->rom.start != 0) {
+            startLoad = true;
+            func_80058B80(ovlInit->rom.start, ramPtr, SEGMENT_SIZE(ovlInit->rom));
+            ramPtr = ramPtr + SEGMENT_SIZE(ovlInit->rom);
+            bzero(ovlInit->bss.start, SEGMENT_SIZE(ovlInit->bss));
+            ramPtr = ramPtr + SEGMENT_SIZE(ovlInit->bss);
         }
     }
-    var_s1 = 0;
-    while ((var_s1 < 15) && (segment->unk_20[var_s1].start == D_800CBDD4.unk_20[var_s1].start) && (sp42 == 0)) {
-        if (segment->unk_20[var_s1].start != 0) {
-            gSegments[var_s1 + 1] = K0_TO_PHYS(var_s2);
-            gSPSegment(gUnkDisp1++, var_s1 + 1, K0_TO_PHYS(var_s2));
-            var_s2 = var_s2 + SEGMENT_SIZE(segment->unk_20[var_s1]);
+    segment = 0;
+    while ((segment < 15) && (ovlInit->assets[segment].start == D_800CBDD4.assets[segment].start) && (startLoad == 0)) {
+        if (ovlInit->assets[segment].start != 0) {
+            gSegments[segment + 1] = K0_TO_PHYS(ramPtr);
+            gSPSegment(gUnkDisp1++, segment + 1, K0_TO_PHYS(ramPtr));
+            ramPtr = ramPtr + SEGMENT_SIZE(ovlInit->assets[segment]);
         }
-        var_s1 += 1;
+        segment += 1;
     }
-    for (var_s1; var_s1 < 15; var_s1 += 1) {
-        D_800CBDD4.unk_20[var_s1].start = segment->unk_20[var_s1].start;
-        D_800CBDD4.unk_20[var_s1].end = var_s2;
-        if (segment->unk_20[var_s1].start != 0) {
-            gSegments[var_s1 + 1] = K0_TO_PHYS(var_s2);
-            gSPSegment(gUnkDisp1++, var_s1 + 1, K0_TO_PHYS(var_s2));
-            func_80058B80(segment->unk_20[var_s1].start, var_s2, SEGMENT_SIZE(segment->unk_20[var_s1]));
-            var_s2 = var_s2 + SEGMENT_SIZE(segment->unk_20[var_s1]);
+    for (segment; segment < 15; segment += 1) {
+        D_800CBDD4.assets[segment].start = ovlInit->assets[segment].start;
+        D_800CBDD4.assets[segment].end = ramPtr;
+        if (ovlInit->assets[segment].start != 0) {
+            gSegments[segment + 1] = K0_TO_PHYS(ramPtr);
+            gSPSegment(gUnkDisp1++, segment + 1, K0_TO_PHYS(ramPtr));
+            func_80058B80(ovlInit->assets[segment].start, ramPtr, SEGMENT_SIZE(ovlInit->assets[segment]));
+            ramPtr = ramPtr + SEGMENT_SIZE(ovlInit->assets[segment]);
         }
     }
 
@@ -68,7 +68,7 @@ u8 func_80058C48(OverlayInit* segment) {
     } else if (D_80137E80 == 0) {
         func_800034E8(0);
     }
-    return sp42;
+    return startLoad;
 }
 
 u8 func_80058F14(u8 arg0, u8 arg1) {

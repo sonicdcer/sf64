@@ -2,7 +2,7 @@
 
 void func_80187520(s32, void*);
 
-void func_8002E3E0(UnkStruct_func_80090A00* arg0) {
+void func_8002E3E0(Object_2F4* arg0) {
     s32 var_a3 = 0;
 
     if (D_80178234 == 0x13) {
@@ -25,7 +25,7 @@ void func_8002E3E0(UnkStruct_func_80090A00* arg0) {
         var_a3 = 1;
     }
     if (var_a3 != 0) {
-        func_80077240(arg0->unk_000.pos.x, arg0->unk_000.pos.y, arg0->unk_000.pos.z, var_a3);
+        func_80077240(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, var_a3);
     }
     D_80161A98 += var_a3;
     D_80177850 = 0xF;

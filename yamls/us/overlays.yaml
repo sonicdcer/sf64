@@ -1,14 +1,32 @@
+  - name: dmaTable
+    type: data
+    start: 0xDE480
+    vram: 0x80178A70
+
+  - name: audio_seq
+    type: bin
+    start: 0xDEA20
+
+  - name: audio_bank
+    type: bin
+    start: 0x119710
+
+  - name: audio_table
+    type: bin
+    start: 0x137730
+
   - name: assets
     type: bin
-    start: 0xDE480
+    start: 0x873BC0
 
-  - name: segment_DF4260
+  - name: ovl_DF4260
     type: code
-    dir: overlays/segment_DF4260
+    dir: overlays/ovl_DF4260
     start: 0xDF4260
     vram: 0x80187520
+    bss_size: 0xA10
     exclusive_ram_id: overlay
-    symbol_name_format: $VRAM_$ROM
+    symbol_name_format: DF4260_$VRAM
     subsegments:
     - [0xDF4260, c, DF4260]
     - [0xDFEE30, c, DFEE30]
@@ -21,14 +39,16 @@
     - [0xE07FF0, .rodata, DFEE30]
     - [0xE08380, .rodata, E05620]
     - [0xE083C0, .rodata, E05990]
+    - { start: 0xE08400, type: bss, vram: 0x8019B6C0, name: ovl_DF4260 }
 
-  - name: segment_E08400
+  - name: ovl_E08400
     type: code
-    dir: overlays/segment_E08400
+    dir: overlays/ovl_E08400
     start: 0xE08400
     vram: 0x80187520
+    bss_size: 0x40
     exclusive_ram_id: overlay
-    symbol_name_format: $VRAM_$ROM
+    symbol_name_format: E08400_$VRAM
     subsegments:    
     - [0xE08400, c, E08400]
     - [0xE0FF10, c, E0FF10]
@@ -36,14 +56,16 @@
     - [0xE16520, data, E0FF10]
     - [0xE16670, .rodata, E08400]
     - [0xE16930, .rodata, E0FF10]
+    - { start: 0xE16C50, type: bss, vram: 0x80195D70, name: ovl_E08400 }
 
-  - name: segment_E16C50
+  - name: ovl_E16C50
     type: code
-    dir: overlays/segment_E16C50
+    dir: overlays/ovl_E16C50
     start: 0xE16C50
     vram: 0x80187520
+    bss_size: 0x2220
     exclusive_ram_id: overlay
-    symbol_name_format: $VRAM_$ROM
+    symbol_name_format: E16C50_$VRAM
     subsegments:
     - [0xE16C50, c, E16C50]
     - [0xE1F680, c, E1F680]
@@ -57,14 +79,16 @@
     - [0xE504E0, .rodata, E1F680]
     - [0xE50C00, .rodata, E2DF20]
     - [0xE51160, .rodata, E38560]
+    - { start: 0xE51970, type: bss, vram: 0x801C2240, name: ovl_E16C50 }
 
-  - name: segment_E51970
+  - name: ovl_E51970
     type: code
-    dir: overlays/segment_E51970
+    dir: overlays/ovl_E51970
     start: 0xE51970
     vram: 0x80187520
+    bss_size: 0x1B0
     exclusive_ram_id: overlay
-    symbol_name_format: $VRAM_$ROM
+    symbol_name_format: E51970_$VRAM
     subsegments:
     - [0xE51970, c, E51970]
     - [0xE51A40, c, E51A40]
@@ -80,14 +104,16 @@
     - [0xE69D70, .rodata, E561B0]
     - [0xE6A170, .rodata, E5CC30]
     - [0xE6A510, .rodata, E63D50]
+    - { start: 0xE6A810, type: bss, vram: 0x801A03C0, name: ovl_E51970 }
 
-  - name: segment_E6A810
+  - name: ovl_E6A810
     type: code
-    dir: overlays/segment_E6A810
+    dir: overlays/ovl_E6A810
     start: 0xE6A810
     vram: 0x80187520
+    bss_size: 0xAF80
     exclusive_ram_id: overlay
-    symbol_name_format: $VRAM_$ROM
+    symbol_name_format: E6A810_$VRAM
     subsegments:
     - [0xE6A810, c, E6A810]
     - [0xE6C220, c, E6C220]
@@ -98,14 +124,16 @@
     - [0xE9DCD0, .rodata, E6A810]
     - [0xE9DD40, .rodata, E6C220]
     - [0xE9F0E0, .rodata, E97CC0]
+    - { start: 0xE9F1D0, type: bss, vram: 0x801BBEE0, name: ovl_E6A810 }
 
-  - name: segment_E9F1D0
+  - name: ovl_E9F1D0
     type: code
-    dir: overlays/segment_E9F1D0
+    dir: overlays/ovl_E9F1D0
     start: 0xE9F1D0
     vram: 0x80187520
+    bss_size: 0x520
     exclusive_ram_id: overlay
-    symbol_name_format: $VRAM_$ROM
+    symbol_name_format: E9F1D0_$VRAM
     subsegments:
     - [0xE9F1D0, c, E9F1D0]
     - [0xEADEC0, c, EADECO]
@@ -119,14 +147,16 @@
     - [0xEBF0F0, .rodata, EADECO]
     - [0xEBF130, .rodata, EAF7E0]
     - [0xEBFB80, .rodata, EBD210]
+    - { start: 0xEBFBE0, type: bss, vram: 0x801A7F30, name: ovl_E9F1D0 }
     
-  - name: segment_EBFBE0
+  - name: ovl_EBFBE0
     type: code
-    dir: overlays/segment_EBFBE0
+    dir: overlays/ovl_EBFBE0
     start: 0xEBFBE0
     vram: 0x80187520
+    bss_size: 0x17590
     exclusive_ram_id: overlay
-    symbol_name_format: $VRAM_$ROM
+    symbol_name_format: EBFBE0_$VRAM
     subsegments:
     - [0xEBFBE0, c, EBFBE0]
     - [0xEBFCA0, c, EBFCA0]
@@ -139,14 +169,16 @@
     - [0xEEF430, .rodata, EBFCA0]
     - [0xEEF7D0, .rodata, ECA1E0]
     - [0xEEFB80, .rodata, ED6EC0]
+    - { start: 0xEF0260, type: bss, vram: 0x801B7BA0, name: ovl_EBFBE0 }
 
-  - name: segment_EF0260
+  - name: ovl_EF0260
     type: code
-    dir: overlays/segment_EF0260
+    dir: overlays/ovl_EF0260
     start: 0xEF0260
     vram: 0x80187520
+    bss_size: 0x2710
     exclusive_ram_id: overlay
-    symbol_name_format: $VRAM_$ROM
+    symbol_name_format: EF0260_$VRAM
     subsegments:
     - [0xEF0260, c, EF0260]
     - [0xEF5B60, c, EF5B60]
@@ -154,15 +186,19 @@
     - [0xEFBBB0, data, EF5B60]
     - [0xEFEF80, .rodata, EF0260]
     - [0xEFF380, .rodata, EF5B60]
+    - { start: 0xEFFA40, type: bss, vram: 0x80196D00, name: ovl_EF0260 }
     
-  - name: segment_EFFA40
+  - name: ovl_EFFA40
     type: code
-    dir: overlays
+    dir: overlays/ovl_EFFA40
     start: 0xEFFA40
     vram: 0x80187520
+    bss_size: 0x10
     exclusive_ram_id: overlay
-    symbol_name_format: $VRAM_$ROM
+    symbol_name_format: EFFA40_$VRAM
     subsegments:
-    - [0xEFFA40, asm]
+    - [0xEFFA40, c, EFFA40]
+    - [0xEFFA50, data, EFFA40]
+    - { start: 0xEFFAE0, type: bss, vram: 0x801875C0, name: ovl_EFFA40 }
 
   - [0xEFFAE0]
