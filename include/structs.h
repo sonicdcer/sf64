@@ -119,7 +119,10 @@ typedef struct {
 typedef struct UnkStruct_D_80178280 {
     /* 0x000 */ char pad_0[0xC];
     /* 0x00C */ f32 unk_00C;
-    /* 0x010 */ char pad_010[0x64];
+    /* 0x010 */ char pad_010[0x48];
+    /* 0x058 */ f32 unk_058;
+    /* 0x05C */ f32 unk_05C;
+    /* 0x060 */ char pad_060[0x14];
     /* 0x074 */ f32 unk_074;
     /* 0x078 */ f32 unk_078;
     /* 0x07C */ f32 unk_07C;
@@ -129,7 +132,9 @@ typedef struct UnkStruct_D_80178280 {
     /* 0x138 */ f32 unk_138;
     /* 0x13C */ char pad_13C[0x8C];
     /* 0x1C8 */ s32 unk_1C8;
-    /* 0x1CC */ char pad_1CC[0x44];
+    /* 0x1CC */ char pad_1CC[0x4];
+    /* 0x1D0 */ s32 unk_1D0;
+    /* 0x1D4 */ char pad_1D4[0x3C];
     /* 0x210 */ s32 unk_210;
     /* 0x214 */ char pad_214[0x10];
     /* 0x224 */ s32 unk_224;
@@ -145,9 +150,14 @@ typedef struct UnkStruct_D_80178280 {
     /* 0x2C0 */ char pad_2C0[0x220];
 } UnkStruct_D_80178280; // size = 0x4E0
 
-typedef struct {
+/**
+ * func_800612B8 does a mem_cpy of size 0x24
+ * sugesting this to be an individual
+ * struct of that size
+*/
+typedef struct UnkStruct_90A00_1C {
     char unk0[0x24];
-} UnkStruct_90A00_1C;
+} UnkStruct_90A00_1C; // size 0x24
 
 typedef struct {
     /* 0x000 */ ElementType1 unk_000;
@@ -193,5 +203,27 @@ typedef struct {
     /* 0x114 */ f32 unk_114[30];
     /* 0x18C */ Vec3f unk_18C[30];
 } UnkStruct_func_80090A00;
+
+typedef struct {
+    /* 0x00 */ ElementType1 unk_00;
+    /* 0x1C */ UnkStruct_90A00_1C unk_1C;
+    /* 0x40 */ char pad_40[0x4];
+    /* 0x44 */ s16 unk_44;
+    /* 0x46 */ s16 unk_46;
+    /* 0x48 */ s16 unk_48;
+    /* 0x4A */ s16 unk_4A;
+    /* 0x4C */ char pad_4C[0x2];
+    /* 0x4E */ s16 unk_4E;
+    /* 0x50 */ char pad_50[0x4];
+    /* 0x54 */ f32 unk_54;
+    /* 0x58 */ f32 unk_58;
+    /* 0x5C */ f32 unk_5C;
+    /* 0x60 */ char pad_60[0xC];
+    /* 0x6C */ f32 unk_6C;
+    /* 0x70 */ f32 unk_70;
+    /* 0x74 */ char pad_74[0xC];
+    /* 0x80 */ f32 unk_80[1]; // unknown size
+    /* 0x84 */ char pad_84[0x8];
+} UnkStruct_func_80094BBC; // size 0x90
 
 #endif

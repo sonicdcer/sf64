@@ -2036,13 +2036,135 @@ void func_80093310(void) {
     func_80019218(0x11030010, this->unk_100, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800933D8.s")
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800933D8.s")
+
+
+void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
+    s32 i;
+    UnkStruct_func_80094BBC* var_s0 = D_80173754;
+    UnkStruct_D_80178280* sp24 = D_80178280;
+
+    for (i = 0; i < 100; i++) {
+        if (var_s0->unk_00.unk_00 == 0) {
+            func_80061474(var_s0);
+            var_s0->unk_00.unk_00 = 1;
+            var_s0->unk_00.unk_02 = 0x16B;
+            var_s0->unk_00.pos.x = x;
+            var_s0->unk_00.pos.y = y;
+            var_s0->unk_00.pos.z = z;
+
+            if ((sp24->unk_1C8 == 2) && (D_80178234 == 13) && (sp24->unk_1D0 < 2)) {
+                var_s0->unk_6C = 0.4f;
+                var_s0->unk_44 = 0;
+                var_s0->unk_46 = 24;
+                var_s0->unk_48 = Rand_ZeroOne() * 4.0f;
+                if (Rand_ZeroOne() < 0.5f) {
+                    var_s0->unk_48 = -var_s0->unk_48;
+                }
+            } else {
+                var_s0->unk_54 = (Rand_ZeroOne() - 0.5f) * 5.0f;
+                var_s0->unk_58 = (Rand_ZeroOne() - 0.5f) * 3.0f;
+                var_s0->unk_48 = 0;
+
+                if (Rand_ZeroOne() < 0.5f) {
+                    var_s0->unk_48 = -var_s0->unk_48;
+                }
+
+                if (sp24->unk_1D0 >= 5) {
+                    var_s0->unk_4A = 0x60;
+                    var_s0->unk_46 = 4;
+                } else {
+                    var_s0->unk_4A = 0x80;
+                    var_s0->unk_46 = 2;
+                }
+            }
+            
+            var_s0->unk_70 = arg3 * 0.2f;
+            var_s0->unk_00.unk_10.z = Rand_ZeroOne() * 360.0f;
+            func_800612B8(&var_s0->unk_1C, var_s0->unk_00.unk_02);
+            break;
+        }
+        var_s0--;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800935E8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80094954.s")
+void func_80094954(UnkStruct_func_80094BBC* arg0) {
+    UnkStruct_D_80178280* temp = D_80178280;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80094BBC.s")
+    if ((temp->unk_1C8 == 2) && (D_80178234 == 13) && (temp->unk_1D0 < 2)) {
+        switch (arg0->unk_4E) {
+            case 0:
+                arg0->unk_44 += arg0->unk_46;
+                arg0->unk_4A = arg0->unk_44;
+                arg0->unk_70 += 0.01f;
+
+                if (arg0->unk_4A >= 200) {
+                    arg0->unk_4E = 1;
+                    arg0->unk_4A = 200;
+                }
+                break;
+
+            case 1:
+                arg0->unk_4A -= arg0->unk_46;
+                arg0->unk_70 -= 0.1f;
+                break;
+        }
+
+        if ((arg0->unk_4E == 1) && (arg0->unk_4A <= 0)) {
+            func_80060FBC(arg0, arg0->unk_80);
+        }
+
+        arg0->unk_58 += arg0->unk_6C;
+        arg0->unk_6C -= 0.05f;
+
+        if (arg0->unk_6C < -1.0f) {
+            arg0->unk_6C = -1.0f;
+        }
+        arg0->unk_00.unk_10.z += arg0->unk_48;
+        return;
+    }
+
+    if (temp->unk_1C8 == 7) {
+        arg0->unk_00.unk_10.x = temp->unk_05C * 180.0f / M_PI;
+        arg0->unk_00.unk_10.y = -temp->unk_058 * 180.0f / M_PI;
+    }
+
+    if (temp->unk_1C8 == 6) {
+        arg0->unk_46 = 2;
+        if (temp->unk_1D0 >= 4) {
+            arg0->unk_58 -= 0.13f;
+        }
+    }
+
+    arg0->unk_70 += 0.8f;
+    arg0->unk_4A -= arg0->unk_46;
+
+    if ((arg0->unk_4A < 0) || ((temp->unk_1C8 == 2) && (D_80178234 == 13) && (temp->unk_1D0 == 5))) {
+        func_80060FBC(arg0, arg0->unk_80);
+    }
+    arg0->unk_00.unk_10.z += arg0->unk_48;
+}
+
+void func_80094BBC(UnkStruct_func_80094BBC* arg0) {
+    UnkStruct_D_80178280* temp = D_80178280;
+
+    if ((temp->unk_1C8 == 2) && (D_80178234 == 13) && (temp->unk_1D0 < 2)) {
+        func_800B8DD0(&gMasterDisp, 0x44);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 21, 34, arg0->unk_4A);
+        gDPSetEnvColor(gMasterDisp++, 255, 255, 251, 0);
+        func_8005980C(arg0->unk_70);
+        gSPDisplayList(gMasterDisp++, D_1023750);
+    } else {
+        func_8005980C(arg0->unk_70);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, arg0->unk_4A);
+        gSPDisplayList(gMasterDisp++, D_1023750);
+    }
+}
+
+void stub_80094D10(void){};
+void stub_80094D18(void){};
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80094D20.s")
 
