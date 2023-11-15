@@ -2089,8 +2089,6 @@ void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800935E8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80094954.s")
-
 void func_80094954(UnkStruct_func_80094BBC* arg0) {
     UnkStruct_D_80178280* temp = D_80178280;
 
