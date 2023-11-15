@@ -2038,7 +2038,6 @@ void func_80093310(void) {
 
 // #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800933D8.s")
 
-
 void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
     s32 i;
     UnkStruct_func_80094BBC* var_s0 = D_80173754;
@@ -2078,7 +2077,7 @@ void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
                     var_s0->unk_46 = 2;
                 }
             }
-            
+
             var_s0->unk_70 = arg3 * 0.2f;
             var_s0->unk_00.unk_10.z = Rand_ZeroOne() * 360.0f;
             func_800612B8(&var_s0->unk_1C, var_s0->unk_00.unk_02);
@@ -2092,24 +2091,6 @@ void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80094954.s")
 
-void func_80094BBC(UnkStruct_func_80094BBC* arg0) {
-    UnkStruct_D_80178280* temp = D_80178280;
-
-    if ((temp->unk_1C8 == 2) && (D_80178234 == 13) && (temp->unk_1D0 < 2)) {
-        func_800B8DD0(&gMasterDisp, 0x44);
-        gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 21, 34, arg0->unk_4A);
-        gDPSetEnvColor(gMasterDisp++, 255, 255, 251, 0);
-        func_8005980C(arg0->unk_70);
-        gSPDisplayList(gMasterDisp++, D_1023750);
-    } else {
-        func_8005980C(arg0->unk_70);
-        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, arg0->unk_4A);
-        gSPDisplayList(gMasterDisp++, D_1023750);
-    }
-}
-
-void dummy_80094D10(void){};
-void dummy_80094D18(void){};
 void func_80094954(UnkStruct_func_80094BBC* arg0) {
     UnkStruct_D_80178280* temp = D_80178280;
 
