@@ -164,7 +164,39 @@ s32 func_800863C8(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80086664.s")
 
+#ifdef IMPORT_DATA_PENDING
+void func_800869A0(f32 arg0, f32 arg1, s32 k, f32 arg3, s32 arg4, s32 arg5) {
+    s32 var_s2;
+    s32 i;
+    s32 j;
+
+    u8* D_800D1CD4[] = {
+        D_5009F60, D_500A050, D_500A140, D_500A230, D_500A320, D_500A410, D_500A500, D_500A5F0, D_500A6E0, D_500A7D0,
+    };
+
+    if (arg4 != 0) {
+        var_s2 = false;
+    } else {
+        var_s2 = true;
+    }
+
+    i = arg5 + 1;
+    k %= i;
+
+    for (i /= 10; i != 1; i /= 10) {
+        j = k / i;
+        if ((j != 0) || (var_s2 == true)) {
+            func_8009D994(&gMasterDisp, D_800D1CD4[j], 16, 15, arg0, arg1, arg3, arg3);
+            arg0 += 13.0f * arg3;
+            k %= i;
+            var_s2 = true;
+        }
+    }
+    func_8009D994(&gMasterDisp, D_800D1CD4[k], 16, 15, arg0, arg1, arg3, arg3);
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800869A0.s")
+#endif
 
 void func_80086C08(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     func_800B8DD0(&gMasterDisp, 0x4E);
@@ -518,7 +550,36 @@ void func_80089E98(s32 arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008A4DC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008AC54.s")
+s32 func_8008AC54(s32 arg0) {
+    UnkStruct_func_80090A00* var_a1;
+    s32 i;
+    s32 ret = 0;
+
+    for (i = 0, var_a1 = D_80163FE0; i < 60; i++, var_a1++) {
+        switch (arg0) {
+            case 0:
+                if ((var_a1->unk_000.unk_00 == 2) && (var_a1->unk_000.unk_02 == 0xBE)) {
+                    ret++;
+                }
+                break;
+
+            case 1:
+                if ((var_a1->unk_000.unk_00 == 2) && (var_a1->unk_000.unk_02 == 0xBF)) {
+                    ret++;
+                }
+                break;
+
+            case 2:
+                if (((var_a1->unk_000.unk_02 == 0xBE) || (var_a1->unk_000.unk_02 == 0xBF)) &&
+                    (var_a1->unk_000.unk_00 == 2)) {
+                    ret++;
+                }
+                break;
+        }
+    }
+
+    return ret;
+}
 
 void func_8008AD94(void) {
     if (D_80177834 == 7) {
@@ -1992,15 +2053,147 @@ void func_800922F4(UnkStruct_func_80090A00* arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80093164.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80093310.s")
+void func_80093310(void) {
+    UnkStruct_func_80090A00* this = D_80163FE0;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800933D8.s")
+    func_800613C4(&D_80163FE0);
+    this->unk_000.unk_00 = 1;
+    this->unk_000.pos.x = 0.0f;
+    this->unk_000.pos.y += 1700.0f;
+    this->unk_000.pos.z -= 5000.0f;
+    D_80163FE0->unk_0B6 = 1;
+    if (1) {}
+    this->unk_000.unk_02 = 195;
+    func_800612B8(&this->unk_01C, this->unk_000.unk_02);
+    func_80019218(0x11030010, this->unk_100, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+}
+
+void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
+    s32 i;
+    UnkStruct_func_80094BBC* var_s0 = D_80173754;
+    UnkStruct_D_80178280* sp24 = D_80178280;
+
+    for (i = 0; i < 100; i++) {
+        if (var_s0->unk_00.unk_00 == 0) {
+            func_80061474(var_s0);
+            var_s0->unk_00.unk_00 = 1;
+            var_s0->unk_00.unk_02 = 0x16B;
+            var_s0->unk_00.pos.x = x;
+            var_s0->unk_00.pos.y = y;
+            var_s0->unk_00.pos.z = z;
+
+            if ((sp24->unk_1C8 == 2) && (D_80178234 == 13) && (sp24->unk_1D0 < 2)) {
+                var_s0->unk_6C = 0.4f;
+                var_s0->unk_44 = 0;
+                var_s0->unk_46 = 24;
+                var_s0->unk_48 = Rand_ZeroOne() * 4.0f;
+                if (Rand_ZeroOne() < 0.5f) {
+                    var_s0->unk_48 = -var_s0->unk_48;
+                }
+            } else {
+                var_s0->unk_54 = (Rand_ZeroOne() - 0.5f) * 5.0f;
+                var_s0->unk_58 = (Rand_ZeroOne() - 0.5f) * 3.0f;
+                var_s0->unk_48 = 0;
+
+                if (Rand_ZeroOne() < 0.5f) {
+                    var_s0->unk_48 = -var_s0->unk_48;
+                }
+
+                if (sp24->unk_1D0 >= 5) {
+                    var_s0->unk_4A = 0x60;
+                    var_s0->unk_46 = 4;
+                } else {
+                    var_s0->unk_4A = 0x80;
+                    var_s0->unk_46 = 2;
+                }
+            }
+
+            var_s0->unk_70 = arg3 * 0.2f;
+            var_s0->unk_00.unk_10.z = Rand_ZeroOne() * 360.0f;
+            func_800612B8(&var_s0->unk_1C, var_s0->unk_00.unk_02);
+            break;
+        }
+        var_s0--;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800935E8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80094954.s")
+void func_80094954(UnkStruct_func_80094BBC* arg0) {
+    UnkStruct_D_80178280* temp = D_80178280;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80094BBC.s")
+    if ((temp->unk_1C8 == 2) && (D_80178234 == 13) && (temp->unk_1D0 < 2)) {
+        switch (arg0->unk_4E) {
+            case 0:
+                arg0->unk_44 += arg0->unk_46;
+                arg0->unk_4A = arg0->unk_44;
+                arg0->unk_70 += 0.01f;
+
+                if (arg0->unk_4A >= 200) {
+                    arg0->unk_4E = 1;
+                    arg0->unk_4A = 200;
+                }
+                break;
+
+            case 1:
+                arg0->unk_4A -= arg0->unk_46;
+                arg0->unk_70 -= 0.1f;
+                break;
+        }
+
+        if ((arg0->unk_4E == 1) && (arg0->unk_4A <= 0)) {
+            func_80060FBC(arg0, arg0->unk_80);
+        }
+
+        arg0->unk_58 += arg0->unk_6C;
+        arg0->unk_6C -= 0.05f;
+
+        if (arg0->unk_6C < -1.0f) {
+            arg0->unk_6C = -1.0f;
+        }
+        arg0->unk_00.unk_10.z += arg0->unk_48;
+        return;
+    }
+
+    if (temp->unk_1C8 == 7) {
+        arg0->unk_00.unk_10.x = temp->unk_05C * 180.0f / M_PI;
+        arg0->unk_00.unk_10.y = -temp->unk_058 * 180.0f / M_PI;
+    }
+
+    if (temp->unk_1C8 == 6) {
+        arg0->unk_46 = 2;
+        if (temp->unk_1D0 >= 4) {
+            arg0->unk_58 -= 0.13f;
+        }
+    }
+
+    arg0->unk_70 += 0.8f;
+    arg0->unk_4A -= arg0->unk_46;
+
+    if ((arg0->unk_4A < 0) || ((temp->unk_1C8 == 2) && (D_80178234 == 13) && (temp->unk_1D0 == 5))) {
+        func_80060FBC(arg0, arg0->unk_80);
+    }
+    arg0->unk_00.unk_10.z += arg0->unk_48;
+}
+
+void func_80094BBC(UnkStruct_func_80094BBC* arg0) {
+    UnkStruct_D_80178280* temp = D_80178280;
+
+    if ((temp->unk_1C8 == 2) && (D_80178234 == 13) && (temp->unk_1D0 < 2)) {
+        func_800B8DD0(&gMasterDisp, 0x44);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 21, 34, arg0->unk_4A);
+        gDPSetEnvColor(gMasterDisp++, 255, 255, 251, 0);
+        func_8005980C(arg0->unk_70);
+        gSPDisplayList(gMasterDisp++, D_1023750);
+    } else {
+        func_8005980C(arg0->unk_70);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, arg0->unk_4A);
+        gSPDisplayList(gMasterDisp++, D_1023750);
+    }
+}
+
+void stub_80094D10(void){};
+void stub_80094D18(void){};
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80094D20.s")
 
