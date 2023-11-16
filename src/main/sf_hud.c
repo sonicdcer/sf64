@@ -160,7 +160,63 @@ s32 func_800863C8(void) {
     return var_v1;
 }
 
+#ifdef IMPORT_DATA_PENDING
+void func_80086444(void) {
+    s32 i = 9;
+    s32 j;
+
+    u8* D_800D1C9C[] = { D_6001B80, D_60020D0 };
+    s32 D_800D1CA4[] = {
+        128,
+        104,
+    };
+    s32 D_800D1CAC[] = {
+        19,
+        19,
+    };
+    f32 D_800D1CB4[] = {
+        96.0f,
+        112.0f,
+    };
+    f32 D_800D1CBC[] = {
+        89.0f,
+        89.0f,
+    };
+    f32 D_800D1CC4[] = {
+        2.0f,
+        5.0f,
+    };
+    f32 D_800D1CCC[] = {
+        1.6f,
+        1.6f,
+    };
+
+    switch (D_80178234) {
+        case 19:
+            i = 1;
+            break;
+
+        case 6:
+            i = 0;
+            break;
+
+        default:
+            break;
+    }
+
+    if (i != 9) {
+        func_800B8DD0(&gMasterDisp, 0x4C);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+
+        for (j = 0; j < 19; j++) {
+            func_8009D994(&gMasterDisp, D_800D1C9C[i] + (D_800D1CA4[i] * j), D_800D1CA4[i], 1, D_800D1CB4[i],
+                          D_800D1CBC[i] + j - 28.0f, 1.0f, 1.0f);
+        }
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80086444.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80086664.s")
 
