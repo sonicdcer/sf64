@@ -1,6 +1,71 @@
 #include "hud.h"
 
+#ifdef IMPORT_DATA_PENDING
+void func_80084930(f32 arg0, f32 arg1, s32 arg2) {
+    u8* D_800D1A58[] = {
+        D_3000000,
+        D_3000000,
+        D_3000000,
+    };
+    u16* D_800D1A64[] = {
+        D_3000080,
+        D_3000080,
+        D_3000080,
+    };
+    UnkStruct_D_80178280* temp;
+    s32 var_t0;
+    s32 var_v0;
+    s32 i;
+
+    func_800B8DD0(&gMasterDisp, 0x4E);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+
+    temp = D_80178280;
+    var_t0 = 0;
+
+    switch (temp->unk_1CC) {
+        case 0:
+            var_t0 = 0;
+            break;
+        case 1:
+            var_t0 = 1;
+            break;
+        case 2:
+            var_t0 = 2;
+            break;
+    }
+
+    func_8009C320(&gMasterDisp, D_800D1A58[var_t0], D_800D1A64[var_t0], 16, 16, arg0, arg1 - 2.0f, 1.0f, 1.0f);
+    func_8009C320(&gMasterDisp, D_1011ED0, D_1011F08, 16, 7, arg0 + 16.0f, arg1 + 7.0f, 1.0f, 1.0f);
+
+    if (arg2 >= 0) {
+        arg0 += 11.0f;
+        arg1 -= 1.0f;
+
+        func_800B8DD0(&gMasterDisp, 0x4C);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+
+        var_v0 = 10;
+
+        if (arg2 < 0) {
+            arg2 = 0;
+        }
+
+        if (arg2 > 99) {
+            arg2 = 99;
+        }
+
+        for (var_v0 = 10, i = 1; arg2 >= var_v0; i++) {
+            var_v0 *= 10;
+        }
+
+        arg0 += 16.0f + 8 * (2 - i);
+        func_800869A0(arg0, arg1, arg2, 1.0f, 1, 99);
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80084930.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80084B94.s")
 

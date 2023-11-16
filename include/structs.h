@@ -135,7 +135,7 @@ typedef struct UnkStruct_D_80178280 {
     /* 0x138 */ f32 unk_138;
     /* 0x13C */ char pad13C[0x8C];
     /* 0x1C8 */ s32 unk_1C8;
-    /* 0x1CC */ char pad1CC[0x4];
+    /* 0x1CC */ s32 unk_1CC;
     /* 0x1D0 */ s32 unk_1D0;
     /* 0x1D4 */ char pad1D4[0x3C];
     /* 0x210 */ s32 unk_210;
