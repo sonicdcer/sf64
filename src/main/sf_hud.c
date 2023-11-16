@@ -109,7 +109,16 @@ void func_80084B94(s32 arg0) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80084B94.s")
 #endif
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80084E78.s")
+void func_80084E78(Gfx** gfxP, void* arg1, void* arg2, u32 arg3, u32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,
+                   f32 arg9, f32 argA) {
+    gDPPipeSync((*gfxP)++);
+    gDPLoadTLUT((*gfxP)++, 0x100, 0x100, arg2);
+    gDPLoadTextureBlock((*gfxP)++, arg1, G_IM_FMT_CI, G_IM_SIZ_8b, arg3, arg4, 0, G_TX_NOMIRROR, G_TX_NOMIRROR,
+                        G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+    gSPTextureRectangle((*gfxP)++, (arg5 * 4.0f), (arg6 * 4.0f), ((arg5 + (arg9 * arg7)) * 4.0f),
+                        ((arg6 + (argA * arg8)) * 4.0f), G_TX_RENDERTILE, 0 * 0x20, 0 * 0x20, (s32) (1 / arg7 * 0x400),
+                        (s32) (1 / arg8 * 0x400));
+}
 
 void func_800853A4(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     func_8009D0BC(&gMasterDisp, &D_1013170, &D_1013570, 24, 17, arg0, arg1, arg2, arg3);
