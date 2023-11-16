@@ -67,7 +67,47 @@ void func_80084930(f32 arg0, f32 arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80084930.s")
 #endif
 
+#ifdef IMPORT_DATA_PENDING
+void func_80084B94(s32 arg0) {
+    s32 i;
+    Vec3f D_800D1A70[] = {
+        { 191.0f, -129.0f, -600.0f },
+        { 0.0f, -129.0f, -600.0f },
+        { -191.0f, -129.0f, -600.0f },
+    };
+
+    func_800B8DD0(&gMasterDisp, 0x24);
+    if (arg0 == 0) {
+        for (i = 1; i < 4; i++) {
+            if (((D_801778B0[i] != 0) || (D_80178280->unk_1C8 != 7)) && (D_801778B0[i] <= 0) && (D_801778B0[i] != -2)) {
+                Matrix_Push(&D_8013B3C0);
+                Matrix_Translate(D_8013B3C0, D_800D1A70[i - 1].x, D_800D1A70[i - 1].y, D_800D1A70[i - 1].z, 1);
+                Matrix_Scale(D_8013B3C0, 0.68f, 0.68f, 1.0f, 1);
+                Matrix_RotateZ(D_8013B3C0, 0.7853982f, 1);
+                Matrix_SetGfxMtx(&gMasterDisp);
+                gSPDisplayList(gMasterDisp++, D_500B600);
+                Matrix_RotateZ(D_8013B3C0, 4.712389f, 1);
+                Matrix_SetGfxMtx(&gMasterDisp);
+                gSPDisplayList(gMasterDisp++, D_500B600);
+                Matrix_Pop(&D_8013B3C0);
+            }
+        }
+    } else {
+        Matrix_Push(&D_8013B3C0);
+        Matrix_Translate(D_8013B3C0, -234.0f, -167.0f, -600.0f, 1);
+        Matrix_RotateZ(D_8013B3C0, 0.7853982f, 1);
+        Matrix_Scale(D_8013B3C0, 0.68f, 0.68f, 1.0f, 1);
+        Matrix_SetGfxMtx(&gMasterDisp);
+        gSPDisplayList(gMasterDisp++, D_500B600);
+        Matrix_RotateZ(D_8013B3C0, 4.712389f, 1);
+        Matrix_SetGfxMtx(&gMasterDisp);
+        gSPDisplayList(gMasterDisp++, D_500B600);
+        Matrix_Pop(&D_8013B3C0);
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80084B94.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80084E78.s")
 

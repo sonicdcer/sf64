@@ -544,6 +544,7 @@ extern u8 D_500A500[];
 extern u8 D_500A5F0[];
 extern u8 D_500A6E0[];
 extern u8 D_500A7D0[];
+extern Gfx D_500B600[];
 
 extern ObjectInit* D_6010088[];
 extern ObjectInit* D_602B148[];
