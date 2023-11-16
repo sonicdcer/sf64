@@ -235,7 +235,7 @@ void func_800A24DC(s32 arg0) {
         case 8:
             func_8003DAF0();
             D_801778A0 = arg0;
-            func_8018AAC4();
+            func_EF0260_8018AAC4();
             break;
     }
 }
@@ -408,7 +408,7 @@ void func_800A26C0(void) {
                 func_80187520(0x6B, NULL);
                 break;
             case 0x4:
-                func_8019E8D0();
+                func_EBFBE0_8019E8D0();
                 break;
             case 0x6:
                 func_800C20B0();
@@ -421,7 +421,7 @@ void func_800A26C0(void) {
                 break;
             case 0x8:
                 D_80177898 = 8;
-                func_8018A96C();
+                func_EF0260_8018A96C();
                 break;
             default:
                 break;
@@ -498,16 +498,16 @@ void func_800A26C0(void) {
     }
 }
 
-UnkStruct_func_80090A00* func_800A3608(s32 arg0) {
-    UnkStruct_func_80090A00* var_a2 = D_80163FE0;
+Object_2F4* func_800A3608(s32 arg0) {
+    Object_2F4* var_a2 = D_80163FE0;
     s32 i;
 
     for (i = 0; i < 60; i++, var_a2++) {
-        if (var_a2->unk_000.unk_00 == 0) {
+        if (var_a2->obj.status == 0) {
             func_800613C4(var_a2);
-            var_a2->unk_000.unk_00 = 1;
-            var_a2->unk_000.unk_02 = arg0;
-            func_800612B8(&var_a2->unk_01C, var_a2->unk_000.unk_02);
+            var_a2->obj.status = 1;
+            var_a2->obj.id = arg0;
+            func_800612B8(&var_a2->unk_01C, var_a2->obj.id);
             break;
         }
     }

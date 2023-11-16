@@ -36,6 +36,9 @@
         "macros.h": "c",
         "random": "c",
         "limits": "c",
-        "algorithm": "c"
+        "algorithm": "c",
+        "dfee30.h": "c",
+        "df4260.h": "c",
+        "symbol_addrs_overlays": "cpp"
     },
 }

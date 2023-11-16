@@ -32,16 +32,16 @@ void func_8008D7F4(void);
 void func_8008D984(void);      
 void func_8008DC34(void);
 void func_8008E5E8(void);
-s32 func_80090E8C(UnkStruct_func_80090A00* arg0);
-s32 func_800910C0(UnkStruct_func_80090A00* arg0);
+s32 func_80090E8C(Object_2F4* arg0);
+s32 func_800910C0(Object_2F4* arg0);
 void func_8009C320(Gfx**, void*, void*, s32, s32, f32, f32, f32, f32);
 void func_8009D0BC(Gfx**, void*, void*, u32, u32, f32, f32, f32, f32); 
-void func_8009E1E8(Gfx**, s32*, s32, s32, f32, f32, f32, f32);
+void func_8009E1E8(Gfx**, u16*, s32, s32, f32, f32, f32, f32);
 
 // Weird addresses, assets maybe?
-extern s32 D_1000E80;
-extern s32 D_1002280;
-extern s32 D_10030D0;
+extern u16 D_1000E80[];
+extern u16 D_1002280[];
+extern u16 D_10030D0[];
 extern s32 D_1011280;
 extern s32 D_10116A0;
 extern s32 D_10116B0;
@@ -60,8 +60,8 @@ extern s32 D_1013580;
 extern s32 D_1013700;
 extern s32 D_20031B0[];
 extern s32 D_2010A30[];
-extern s32 D_3000B20;
-extern s32 D_30013E0;
+extern u16 D_3000B20[];
+extern u16 D_30013E0[];
 
 extern s32 D_80161690;
 extern s32 D_80161718;
