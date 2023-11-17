@@ -31,9 +31,9 @@ void func_DF4260_801924A8(UnkStruct_func_DF4260_801924A8* arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_DF4260/DFEE30/func_DF4260_80192AA4.s")
 
-void func_DF4260_80192CB0(UnkStruct_func_DF4260_80192CB0* arg0) {
-    arg0->unk50 = arg0->unk10;
-    arg0->unk10 = 0.0f;
+void func_DF4260_80192CB0(Object_2F4* arg0) {
+    arg0->unk_050 = arg0->obj.rot.x;
+    arg0->obj.rot.x = 0.0f;
 }
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_DF4260/DFEE30/func_DF4260_80192CD4.s")
