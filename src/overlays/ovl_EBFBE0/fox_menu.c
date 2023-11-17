@@ -300,7 +300,22 @@ void func_EBFBE0_80192738(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_menu/func_EBFBE0_801928BC.s")
+void func_EBFBE0_801928BC(void) {
+    if (D_80178340 == 0xFF) {
+        D_80178410 = 0;
+        D_EBFBE0_801B9124 = 0x64;
+        D_80177834 = 4;
+        D_8017783C = 2;
+        D_80177B40 = 0;
+        D_80177898 = 0;
+        D_800DD8B4 = 3;
+    } else {
+        D_80178340 += 0x20;
+        if (D_80178340 > 0xFF) {
+            D_80178340 = 0xFF;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_menu/func_EBFBE0_80192938.s")
 
