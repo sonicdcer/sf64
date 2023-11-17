@@ -33,11 +33,16 @@ void func_EBFBE0_8019DD44(void);
 void func_EBFBE0_8019DF64(void);
 void func_EBFBE0_8019E030(void);
 void func_EBFBE0_8019E284(void);
+void func_EBFBE0_801A07E8(u8*, u8*, f32*);
 
 extern s32 D_8017783C;
 extern s32 D_8017784C;
 extern s32 D_80177898;
 extern s32 D_80177DB0;
+extern void* D_EBFBE0_801B68B0[];
+extern void* D_EBFBE0_801B68D4[];
+
+extern s32 D_EBFBE0_801B68F8;
 extern s32 D_EBFBE0_801B9124;
 extern s32 D_EBFBE0_801B912C;
 extern s32 D_EBFBE0_801B9178;
@@ -45,6 +50,21 @@ extern s32 D_EBFBE0_801B917C;
 extern s32 D_EBFBE0_801B91BC;
 extern f32 D_EBFBE0_801B91FC;
 extern f32 D_EBFBE0_801B9200;
+extern s32 D_EBFBE0_801B93E8;
+extern s32 D_EBFBE0_801B93EC;
+
+// Planet textures
+extern s8 D_EBFBE0_801BB810[96 * 96];
+extern s8 D_EBFBE0_801B9410[96 * 96];
+extern s8 D_EBFBE0_801BDC10[96 * 96];
+extern s8 D_EBFBE0_801C0010[96 * 96];
+extern s8 D_EBFBE0_801C2410[96 * 96];
+extern s8 D_EBFBE0_801C4810[96 * 96];
+extern s8 D_EBFBE0_801C6C10[96 * 96];
+extern s8 D_EBFBE0_801C9010[96 * 96];
+extern s8 D_EBFBE0_801CB410[96 * 96];
+
+extern f32 D_EBFBE0_801CD818[];
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_menu/func_EBFBE0_80191B20.s")
 
@@ -233,7 +253,30 @@ void func_EBFBE0_801924C4(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_menu/func_EBFBE0_80192598.s")
+void func_EBFBE0_80192598(void) {
+    s32 i;
+
+    D_EBFBE0_801B93E8 = 0;
+    D_EBFBE0_801B93EC = 0;
+
+    for (i = 0; i < (96 * 96); i++) {
+        // Planet Textures
+        D_EBFBE0_801BB810[i] = 106;
+        D_EBFBE0_801BDC10[i] = 84;
+        D_EBFBE0_801C0010[i] = 75;
+        D_EBFBE0_801C2410[i] = 81;
+        D_EBFBE0_801C4810[i] = 55;
+        D_EBFBE0_801C6C10[i] = 82;
+        D_EBFBE0_801C9010[i] = 68;
+        D_EBFBE0_801CB410[i] = 52;
+        D_EBFBE0_801B9410[i] = 0;
+    }
+
+    for (i = 0; i < 9; i++) {
+        D_EBFBE0_801CD818[i] = 0.0f;
+        func_EBFBE0_801A07E8(D_EBFBE0_801B68B0[i], SEGMENTED_TO_VIRTUAL(D_EBFBE0_801B68D4[i]), &D_EBFBE0_801CD818[i]);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_menu/func_EBFBE0_80192738.s")
 
