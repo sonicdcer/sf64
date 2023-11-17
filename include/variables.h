@@ -544,6 +544,8 @@ extern Gfx D_200F080[];
 extern Gfx D_200F910[];
 extern Gfx D_20101A0[];
 
+extern u8 D_3000000[];
+extern u16 D_3000080[];
 extern u16 D_3000BC0[];
 extern u8 D_300D350[];
 extern u16 D_300D398[];
@@ -573,6 +575,7 @@ extern u8 D_500A500[];
 extern u8 D_500A5F0[];
 extern u8 D_500A6E0[];
 extern u8 D_500A7D0[];
+extern Gfx D_500B600[];
 
 extern f32 D_6006940[];
 extern f32 D_600695C[];
@@ -591,6 +594,8 @@ extern ObjectInit* D_602F18C[];
 extern ObjectInit* D_C0356A4[];
 
 extern Gfx D_6004570[];
+extern u8 D_6001B80[];
+extern u8 D_60020D0[];
 extern Gfx D_D0098B0[];
 extern Gfx D_F014180[];
 
