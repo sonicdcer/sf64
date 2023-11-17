@@ -311,6 +311,7 @@ extern s32 D_80177C9C;
 extern s32 D_80177CA0;
 extern s32 D_80177CA4;
 extern s32 D_80177CAC;
+extern f32 D_80177CB0;
 extern s32 D_80177CB4;
 extern s32 D_80177CBC;
 extern s32 D_80177CC4;
