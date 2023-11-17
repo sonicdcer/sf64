@@ -3,12 +3,30 @@
 void func_EBFBE0_80191B20(void);
 void func_EBFBE0_80192190(void);
 
+void func_EBFBE0_801928BC(void);
+void func_EBFBE0_80192D58(void);
+void func_EBFBE0_80192938(void);
+void func_EBFBE0_80193C4C(void);
+void func_EBFBE0_801948A8(void);
+void func_EBFBE0_80195944(void);
+void func_EBFBE0_801962A4(void);
+void func_EBFBE0_80196EFC(void);
+void func_EBFBE0_80199424(void);
+void func_EBFBE0_8019A0B8(void);
+void func_EBFBE0_8019CAE0(void);
+void func_EBFBE0_8019DD44(void);
+void func_EBFBE0_8019E030(void);
+
 extern s32 D_8017783C;
 extern s32 D_8017784C;
 extern s32 D_80177898;
 extern s32 D_80177DB0;
+extern s32 D_EBFBE0_801B9124;
 extern s32 D_EBFBE0_801B9178;
 extern s32 D_EBFBE0_801B917C;
+extern s32 D_EBFBE0_801B91BC;
+extern f32 D_EBFBE0_801B91FC;
+extern f32 D_EBFBE0_801B9200;
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_menu/func_EBFBE0_80191B20.s")
 
@@ -21,27 +39,88 @@ void func_EBFBE0_801920C4(void) {
     }
 
     switch (D_8017784C) {
-    case 0:
-        if (D_8017783C == 0) {
-            D_8017784C = 1;
-            func_8001DC6C(0, 23);
-        }
-        break;
+        case 0:
+            if (D_8017783C == 0) {
+                D_8017784C = 1;
+                func_8001DC6C(0, 23);
+            }
+            break;
 
-    case 1:
-        D_80177898 = 0;
-        func_EBFBE0_80191B20();
-        break;
-        
-    case 2:
-        D_80177898 = 2;
-        func_EBFBE0_80192190();
-        break;
+        case 1:
+            D_80177898 = 0;
+            func_EBFBE0_80191B20();
+            break;
+
+        case 2:
+            D_80177898 = 2;
+            func_EBFBE0_80192190();
+            break;
     }
     D_80177DB0++;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_menu/func_EBFBE0_80192190.s")
+void func_EBFBE0_80192190(void) {
+    switch (D_EBFBE0_801B9124) {
+        case 0x3E8:
+            func_EBFBE0_80192D58();
+            break;
+
+        case 0x0:
+            func_EBFBE0_801928BC();
+            break;
+
+        case 0x1:
+            func_EBFBE0_80192938();
+            break;
+
+        case 0x2:
+            func_EBFBE0_80193C4C();
+            break;
+
+        case 0x3:
+            func_EBFBE0_80196EFC();
+            break;
+
+        case 0x4:
+            func_EBFBE0_801948A8();
+            break;
+
+        case 0x5:
+            func_EBFBE0_801962A4();
+            break;
+
+        case 0x6:
+            func_EBFBE0_80195944();
+            break;
+
+        case 0x7D0:
+            func_EBFBE0_8019A0B8();
+            break;
+
+        case 0xA:
+        case 0x14:
+        case 0x1E:
+            func_EBFBE0_80199424();
+            break;
+
+        case 0xC8:
+            func_EBFBE0_8019CAE0();
+            break;
+
+        case 0x12C:
+            func_EBFBE0_8019DD44();
+            break;
+
+        case 0x190:
+            func_EBFBE0_8019E030();
+            break;
+    }
+
+    if (D_EBFBE0_801B91BC != 0) {
+        D_EBFBE0_801B91FC += 3.8f;
+        D_EBFBE0_801B9200 += 4.2f;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_menu/func_EBFBE0_80192340.s")
 
