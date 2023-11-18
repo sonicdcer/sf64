@@ -273,6 +273,8 @@ void func_800A6148(void);
 void func_800A6CD0(UnkStruct_D_80178280 *, s32, s32);
 void func_800B86CC(void);
 void func_800B8DD0(Gfx**, s16);
+void func_800B9EB0(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void func_800BA1D0(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
 void func_800BA490(void);
 void func_800BA4F0(void);
 s32 func_800BA7BC(u16*, s32);
