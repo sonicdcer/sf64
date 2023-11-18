@@ -1,10 +1,18 @@
-#include "common.h"
+#include "global.h"
+
+extern s32 D_8015F904;
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_2F300/func_8002E700.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_2F300/func_8002ED60.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_2F300/func_8002EE34.s")
+void func_8002EE34(void) {
+    D_8015F904 =
+    D_8017829C =
+    D_80163FE0[1].unk_054 =
+    D_80163FE0[2].unk_054 =
+    D_80163FE0[3].unk_054 = 0;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_2F300/func_8002EE64.s")
 
