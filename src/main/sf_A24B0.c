@@ -9,7 +9,7 @@ void func_800A18B0(void) {
     func_80006F20();
     Rand_Init();
     Rand_SetSeed(1, 29000, 9876);
-    D_80177834 = 0x64;
+    D_80177834 = 100;
     D_8017783C = 0;
     D_80161A36 = 0;
     D_80161A38 = 0xFF;
@@ -17,7 +17,7 @@ void func_800A18B0(void) {
     D_80161A40 = 10.0f;
     D_80161A44 = 12800.0f;
     D_80161A10 = D_80161A14 = 0.0f;
-    D_801774F8 = 0x63;
+    D_801774F8 = 99;
     D_80177820 = 0;
     func_80059498();
     D_80161A39 = 1;
@@ -289,7 +289,7 @@ void func_800A26C0(void) {
     func_800A25DC();
     if (func_800A1B6C() != 1) {
         func_8000316C(&gUnkDisp1);
-        func_800A1FB0(&gUnkDisp1, D_801778AB, 0);
+        func_800A1FB0(&gUnkDisp1, D_801778A8, 0);
         if (D_8017783C != 0) {
             D_8017783C--;
         }
@@ -435,9 +435,9 @@ void func_800A26C0(void) {
         } else if ((D_801778A8 == 4) && (D_80177898 != 0)) {
             func_800A1FB0(&gMasterDisp, D_801778A8, 3);
             func_800A24DC(3);
-            func_800A1FB0(&gMasterDisp, D_801778AB, 2);
+            func_800A1FB0(&gMasterDisp, D_801778A8, 2);
             func_800A24DC(2);
-            func_800A1FB0(&gMasterDisp, D_801778AB, 1);
+            func_800A1FB0(&gMasterDisp, D_801778A8, 1);
             func_800A24DC(1);
             gDPPipeSync(gMasterDisp++);
             gDPSetScissor(gMasterDisp++, G_SC_NON_INTERLACE, 8, 8, 312, 232);
