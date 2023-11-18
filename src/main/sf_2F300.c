@@ -1,6 +1,8 @@
 #include "global.h"
 
 extern s32 D_8015F904;
+extern s32 D_80177CD0[12];
+extern s32 D_8017829C;
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_2F300/func_8002E700.s")
 
@@ -18,7 +20,12 @@ void func_8002EE34(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_2F300/func_8002F5F4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_2F300/func_8002F64C.s")
+void func_8002F64C(void) {
+    if ((D_80177CD0[0x0] + D_80177CD0[0x1] + D_80177CD0[0x2] + D_80177CD0[0x3]) == 0) {
+        D_8017829C = 0;
+    }
+    func_8002F5F4();
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_2F300/func_8002F69C.s")
 
