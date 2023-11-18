@@ -99,57 +99,57 @@ void func_EBFBE0_801920C4(void) {
 
 void func_EBFBE0_80192190(void) {
     switch (D_EBFBE0_801B9124) {
-        case 0x3E8:
+        case 1000:
             func_EBFBE0_80192D58();
             break;
 
-        case 0x0:
+        case 0:
             func_EBFBE0_801928BC();
             break;
 
-        case 0x1:
+        case 1:
             func_EBFBE0_80192938();
             break;
 
-        case 0x2:
+        case 2:
             func_EBFBE0_80193C4C();
             break;
 
-        case 0x3:
+        case 3:
             func_EBFBE0_80196EFC();
             break;
 
-        case 0x4:
+        case 4:
             func_EBFBE0_801948A8();
             break;
 
-        case 0x5:
+        case 5:
             func_EBFBE0_801962A4();
             break;
 
-        case 0x6:
+        case 6:
             func_EBFBE0_80195944();
             break;
 
-        case 0x7D0:
+        case 2000:
             func_EBFBE0_8019A0B8();
             break;
 
-        case 0xA:
-        case 0x14:
-        case 0x1E:
+        case 10:
+        case 20:
+        case 30:
             func_EBFBE0_80199424();
             break;
 
-        case 0xC8:
+        case 200:
             func_EBFBE0_8019CAE0();
             break;
 
-        case 0x12C:
+        case 300:
             func_EBFBE0_8019DD44();
             break;
 
-        case 0x190:
+        case 400:
             func_EBFBE0_8019E030();
             break;
     }
@@ -162,49 +162,49 @@ void func_EBFBE0_80192190(void) {
 
 void func_EBFBE0_80192340(void) {
     switch (D_EBFBE0_801B9124) {
-        case 0x3E8:
+        case 1000:
             func_EBFBE0_80193864();
             break;
 
-        case 0x2:
+        case 2:
             func_EBFBE0_801944F0();
             break;
 
-        case 0x3:
+        case 3:
             func_EBFBE0_80196F9C();
             break;
 
-        case 0x4:
+        case 4:
             func_EBFBE0_80194CE4();
             break;
 
-        case 0x6:
+        case 6:
             func_EBFBE0_80195B74();
             break;
 
-        case 0x5:
+        case 5:
             func_EBFBE0_80196894();
             break;
 
-        case 0x7D0:
+        case 2000:
             func_EBFBE0_8019AAB4();
             break;
 
-        case 0xA:
-        case 0x14:
-        case 0x1E:
+        case 10:
+        case 20:
+        case 30:
             func_EBFBE0_8019978C();
             break;
 
-        case 0xC8:
+        case 200:
             func_EBFBE0_8019D118();
             break;
 
-        case 0x12C:
+        case 300:
             func_EBFBE0_8019DF64();
             break;
 
-        case 0x190:
+        case 400:
             func_EBFBE0_8019E284();
             break;
     }
