@@ -605,6 +605,9 @@ extern ObjectInit* D_C0356A4[];
 extern Gfx D_6004570[];
 extern u8 D_6001B80[];
 extern u8 D_60020D0[];
+
+extern u8 D_7004010[];
+
 extern Gfx D_D0098B0[];
 extern Gfx D_F014180[];
 

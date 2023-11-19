@@ -1036,7 +1036,23 @@ void func_EBFBE0_8019715C(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7158.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_801973C0.s")
+void func_EBFBE0_801973C0(void) {
+    s32 temp_t0;
+
+    if (D_EBFBE0_801B93E0 != 0) {
+        func_EBFBE0_8019752C();
+    } else {
+        func_EBFBE0_80187E28();
+        func_800B8DD0(&gMasterDisp, 0x53);
+        func_EBFBE0_8019C824(&D_EBFBE0_801B93F0);
+        temp_t0 = D_EBFBE0_801B93F0;
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, temp_t0, temp_t0, 255);
+        func_8009D994(&gMasterDisp, &D_7004010, 8, 8, 70.0f, (D_EBFBE0_801B93E4 * 17.0f) + 55.0f, 1.0f, 1.0f);
+    }
+    func_800B8DD0(&gMasterDisp, 0x53);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
+    func_800A1200(242, 215, 1.0f, 1.0f, "PUSH A");
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019752C.s")
 
