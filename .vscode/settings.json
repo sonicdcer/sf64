@@ -40,6 +40,7 @@
         "dfee30.h": "c",
         "df4260.h": "c",
         "symbol_addrs_overlays": "cpp",
-        "fox_option.h": "c"
+        "fox_option.h": "c",
+        "cstdlib": "c"
     },
 }

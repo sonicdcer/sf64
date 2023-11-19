@@ -4,9 +4,10 @@
 #include "global.h"
 
 typedef struct {
-    /* 0x00 */ char pad0[0x8];
+    /* 0x00 */ s32 unk_00;
+    /* 0x04 */ s32 unk_04;
     /* 0x08 */ void* unk_08;
-    /* 0x0C */ char padC[0x4];
+    /* 0x0C */ u16 unk_0C;
     /* 0x10 */ s32 unk_10;
     /* 0x14 */ s32 unk_14;
     /* 0x18 */ f32 unk_18;
@@ -42,12 +43,11 @@ typedef struct {
     s32 unk_4;
 } UnkStruct_D_EBFBE0_801B9250;
 
-extern f32 D_EBFBE0_801AE570[];
+
 extern f32 D_EBFBE0_801AE588[];
 extern f32 D_EBFBE0_801AE5A0[];
-extern f32 D_EBFBE0_801AE5B8[];
-extern f32 D_EBFBE0_801AE5D0[];
-extern MenuContext D_EBFBE0_801AE638[];
+
+
 extern u8 D_EBFBE0_801AE998[];
 extern u8 D_EBFBE0_801AE99C[];
 extern MenuContext_00 D_EBFBE0_801AEB48[];

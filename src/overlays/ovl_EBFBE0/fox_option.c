@@ -1,6 +1,62 @@
 #include "global.h"
 #include "fox_option.h"
 
+#ifdef IMPORT_DATA_PENDING
+static f32 D_EBFBE0_801AE5B8[] = { 60.0f, 36.0f, 12.0f, -12.0f, -36.0f, -60.0f };
+static f32 D_EBFBE0_801AE5D0[] = { 126.0f, 117.0f, 139.0f, 124.0f, 130.0f, 117.0f };
+static f32 D_EBFBE0_801AE570[] = { 54.0f, 78.0f, 103.0f, 126.0f, 152.0f, 176.0f };
+
+static MenuContext D_EBFBE0_801AE638[6] = {
+    {
+        { 0, 0, (void*) 0x08003B50, 0, 72, 12, 126.0f, 46.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
+        { 0.0f, 30.0f, -130.0f, 0.2f, 0.11f },
+        { -40.0f, 27.0f, 80.0f },
+        1,
+        1,
+    },
+    {
+        { 0, 0, (void*) 0x08003EB0, 0, 80, 12, 126.0f, 184.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
+        { 0.0f, 18.0f, -130.0f, 0.2f, 0.11f },
+        { -40.0f, 16.0f, 80.0f },
+        1,
+        1,
+    },
+    {
+        { 0, 0, (void*) 0x08004270, 0, 32, 10, 126.0f, 184.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
+        { 0.0f, 6.0f, -130.0f, 0.2f, 0.11f },
+        { -40.0f, 6.0f, 80.0f },
+        1,
+        1,
+    },
+    {
+        { 0, 0, (void*) 0x080043B0, 0, 64, 12, 110.0f, 91.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
+        { 0.0f, -6.0f, -130.0f, 0.2f, 0.11f },
+        { -40.0f, -5.0f, 80.0f },
+        1,
+        1,
+    },
+    {
+        { 0, 0, (void*) 0x080046B0, 0, 64, 10, 110.0f, 116.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
+        { 0.0f, -18.0f, -130.0f, 0.2f, 0.11f },
+        { -40.0f, -16.0f, 80.0f },
+        1,
+        1,
+    },
+    {
+        { 0, 0, (void*) 0x08004930, 0, 80, 10, 126.0f, 184.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
+        { 0.0f, -30.0f, -130.0f, 0.2f, 0.11f },
+        { -40.0f, -27.0f, 80.0f },
+        1,
+        1,
+    },
+};
+#else
+extern f32 D_EBFBE0_801AE570[];
+extern f32 D_EBFBE0_801AE5B8[];
+extern f32 D_EBFBE0_801AE5D0[];
+extern MenuContext D_EBFBE0_801AE638[];
+#endif
+
 void func_EBFBE0_80191B20(void) {
     s32 var_a1_2;
     s32 var_v0_2;
@@ -446,7 +502,8 @@ void func_EBFBE0_80192938(void) {
 }
 
 // https://decomp.me/scratch/qI7sN
-#ifdef NON_MATCHING
+// Matches but requires data migration
+#ifdef IMPORT_DATA_PENDING
 void func_EBFBE0_801929F0(void) {
     s32 i;
 
