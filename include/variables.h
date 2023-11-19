@@ -8,6 +8,8 @@ extern u64 __rspboot_end[];
 extern u64 __f3dex_start[];
 extern u8 gF3dexData;
 
+extern u8 D_8003B50[];
+extern u8 D_80046B0[];
 extern s32 D_800C45D0;
 extern f32 D_800C45E0[];
 
@@ -278,6 +280,7 @@ extern s32 D_801778A0;
 extern s32 D_801778A4;
 extern s32 D_801778A8;
 extern u8 D_801778AB;
+extern s32 D_801778AC;
 extern s32 D_801778B0[];
 extern s32 D_801778B8;
 extern s32 D_801778E8;
@@ -301,6 +304,9 @@ extern s8 D_80177AB0;
 extern s32 D_80177AE0;
 extern s32 D_80177AF8;
 extern s32 D_80177B40;
+extern s32 D_80177B48;
+extern s32 D_80177B8C[];
+extern s32 D_80177BB0[];
 extern u16 D_80177C30[];
 extern s32 D_80177C50;
 extern u8 D_80177C74;
