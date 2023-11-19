@@ -73,9 +73,14 @@ extern s32 D_EBFBE0_801B9124;
 extern s32 D_EBFBE0_801B912C;
 extern s32 D_EBFBE0_801B9178;
 extern s32 D_EBFBE0_801B917C;
+extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9180;
+extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9190;
+extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9198;
 extern s32 D_EBFBE0_801B91BC;
 extern f32 D_EBFBE0_801B91FC;
 extern f32 D_EBFBE0_801B9200;
+extern f32 D_EBFBE0_801B9204;
+extern s32 D_EBFBE0_801B9214;
 extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9250;
 extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9258;
 extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9260;
@@ -85,7 +90,6 @@ extern s32 D_EBFBE0_801B9284;
 extern s32 D_EBFBE0_801B9288;
 extern s32 D_EBFBE0_801B93E8;
 extern s32 D_EBFBE0_801B93EC;
-
 
 // Planet textures
 extern s8 D_EBFBE0_801BB810[96 * 96];
@@ -149,6 +153,11 @@ void func_EBFBE0_80199FA8(void);
 void func_EBFBE0_8019A0B8(void);
 void func_EBFBE0_8019AAB4(void);
 void func_EBFBE0_8019BDF0(void);
+void func_EBFBE0_8019BAB8(MenuContext_38 arg0);
+void func_EBFBE0_8019BBA4(MenuContext_4C arg0);
+void func_EBFBE0_8019BF34(void);
+void func_EBFBE0_8019B6D8(f32 arg0, f32 arg1, f32 arg2, s32 arg3, s32 arg4, s32 arg5);
+void func_EBFBE0_8019C120(MenuContext_00 arg0);
 s32 func_EBFBE0_8019C8C4(void);
 void func_EBFBE0_8019CAE0(void);
 void func_EBFBE0_8019D118(void);
