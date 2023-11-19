@@ -193,6 +193,8 @@ void func_EBFBE0_80196E54(void);
 void func_EBFBE0_80196EFC(void);
 void func_EBFBE0_80196F9C(void);
 void func_EBFBE0_80196FC4(void);
+void func_EBFBE0_80197074(void);  
+void func_EBFBE0_8019715C(void);      
 void func_EBFBE0_801973C0(void); 
 void func_EBFBE0_801992C4(void);
 void func_EBFBE0_80199424(void);
