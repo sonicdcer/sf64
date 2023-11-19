@@ -888,9 +888,42 @@ void func_EBFBE0_8019669C(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80196894.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80196E54.s")
+void func_EBFBE0_80196E54(void) {
+    func_EBFBE0_80188010();
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80196EFC.s")
+    D_80178410 = 800;
+
+    D_EBFBE0_801B91D0 = 1;
+    D_EBFBE0_801B93E4 = 0;
+
+    D_EBFBE0_801B91D4 = 114.0f;
+    D_EBFBE0_801B91DC = 114.0f;
+
+    D_EBFBE0_801B91D8 = -6.0f;
+    D_EBFBE0_801B91E0 = -6.0f;
+
+    D_EBFBE0_801B93E0 = 0;
+    D_EBFBE0_801B8288 = 10;
+
+    D_EBFBE0_801B9400.unk_0 = 0;
+    D_EBFBE0_801B9400.unk_4 = 0;
+    D_EBFBE0_801B9408.unk_0 = 0;
+    D_EBFBE0_801B9408.unk_4 = 0;
+
+    func_EBFBE0_80192598();
+}
+
+void func_EBFBE0_80196EFC(void) {
+    func_EBFBE0_80196FC4();
+
+    if (D_800DD898[D_80177AF8].button & B_BUTTON) {
+        func_80019218(0x49000021, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        D_80177898 = 0;
+        D_EBFBE0_801B9124 = 1000;
+        D_EBFBE0_801B912C = 0;
+        D_EBFBE0_801B9244 = 1;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80196F9C.s")
 
