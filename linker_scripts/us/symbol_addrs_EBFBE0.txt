@@ -1,3 +1,5 @@
+D_EBFBE0_801AE99C = 0x801AE99C; // force_migration:True segment:ovl_EBFBE0
+spectrumAnalizerMode = 0x801B9318;
 D_EBFBE0_801B6E50 = 0x801B6E50; // force_migration:True segment:ovl_EBFBE0
 
 D_EBFBE0_801B7BA0 = 0x801B7BA0;

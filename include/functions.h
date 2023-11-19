@@ -2,6 +2,7 @@
 #define FUNCTIONS_H
 
 #include "structs.h"
+#include "fox_option.h"
 
 void func_8000291C(void);
 void func_800029A8(void);
@@ -73,11 +74,13 @@ void func_8001AE58(void);
 void func_8001AF40(s32 arg0);
 void func_8001D400(s32);
 void func_8001D444(u8, u16, u8, u8);
+void func_8001DA90(u8);
 void func_8001DBD0(s32);
 void func_8001DC6C(u8, u16);
 
 void func_8000FFCC(void);
 void func_8001D8A8(u8, u8);
+void func_8001D8F4(u8);
 void func_8001DCE0(void);
 void func_8001DECC(void);
 SPTask* func_8001DF50(void);
@@ -347,40 +350,7 @@ void func_E6A810_801B6E20(f32, f32, f32 *, f32 *, f32 *);
 void func_E9F1D0_80197CC4(Object_408 *);    
 void func_E9F1D0_8018D16C(Object_408 *); 
 
-void func_EBFBE0_801877F0(void);
- s32 func_EBFBE0_80187ABC(void);
-void func_EBFBE0_80187B00(void);
-void func_EBFBE0_80187E28(void);
-void func_EBFBE0_801888E8(void);
-void func_EBFBE0_8018994C(void);
-void func_EBFBE0_8018A644(void);
-void func_EBFBE0_8018ACEC(void);
-void func_EBFBE0_8018B5C4(void);
-void func_EBFBE0_8018C644(void);
-void func_EBFBE0_80190E64(void);
-void func_EBFBE0_8019111C(void);
-void func_EBFBE0_80187CA8(void);
-void func_EBFBE0_80188010(void);
-void func_EBFBE0_80189208(void);
-void func_EBFBE0_8018A2F8(void);
-void func_EBFBE0_8018A990(void);
-void func_EBFBE0_8018B038(void);
-void func_EBFBE0_8018C114(void);
-void func_EBFBE0_8018CB90(void);
-void func_EBFBE0_8018F680(void);
-void func_EBFBE0_8018F77C(void);
-void func_EBFBE0_8018F85C(void);
-void func_EBFBE0_8018F8E4(void);
-void func_EBFBE0_8018FC14(void);
-void func_EBFBE0_8018FD08(void);
-void func_EBFBE0_8018FF74(void);
-void func_EBFBE0_801906A0(void);
-void func_EBFBE0_80190C9C(void);
-void func_EBFBE0_801918FC(void);
-void func_EBFBE0_8018D2B8(s32);
-void func_EBFBE0_8018EA78(s32);
-void func_EBFBE0_80191674(f32, f32, f32, f32*, f32*, f32*);
-void func_EBFBE0_8019E8D0(void);
+
 
 void func_EF0260_8018A96C(void);
 void func_EF0260_8018AAC4(void);

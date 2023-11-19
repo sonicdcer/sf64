@@ -4,20 +4,16 @@
 #include "global.h"
 
 typedef struct {
-    /* 0x00 */ s32 unk_00;
-    /* 0x04 */ s32 unk_04;
+    /* 0x00 */ char pad0[0x8];
     /* 0x08 */ void* unk_08;
-    /* 0x0C */ u16* unk_0C;
+    /* 0x0C */ char padC[0x4];
     /* 0x10 */ s32 unk_10;
     /* 0x14 */ s32 unk_14;
     /* 0x18 */ f32 unk_18;
     /* 0x1C */ f32 unk_1C;
     /* 0x20 */ f32 unk_20;
     /* 0x24 */ f32 unk_24;
-    /* 0x28 */ s32 unk_28;
-    /* 0x2C */ s32 unk_2C;
-    /* 0x30 */ s32 unk_30;
-    /* 0x34 */ s32 unk_34;
+    /* 0x28 */ char pad28[0x10];
 } MenuContext_00; // size = 0x38
 
 typedef struct {
@@ -29,9 +25,8 @@ typedef struct {
 } MenuContext_38; // size = 0x14
 
 typedef struct {
-    /* 0x0 */ f32 unk_0;
-    /* 0x4 */ f32 unk_4;
-    /* 0x8 */ f32 unk_8;
+    /* 0x0 */ s32 unk_0;
+    /* 0x4 */ char unk_4[0x8];
 } MenuContext_4C; // size = 0xC
 
 typedef struct {
@@ -40,7 +35,7 @@ typedef struct {
     /* 0x4C */ MenuContext_4C unk_4C;
     /* 0x58 */ s32 unk_58;
     /* 0x5C */ s32 unk_5C;
-} MenuContext;
+} MenuContext; // size = 0x60
 
 typedef struct {
     s32 unk_0;
@@ -54,6 +49,7 @@ extern f32 D_EBFBE0_801AE5B8[];
 extern f32 D_EBFBE0_801AE5D0[];
 extern MenuContext D_EBFBE0_801AE638[];
 extern u8 D_EBFBE0_801AE998[];
+extern u8 D_EBFBE0_801AE99C[];
 extern MenuContext_00 D_EBFBE0_801AEB48[];
 
 extern void* D_EBFBE0_801B68B0[];
@@ -88,6 +84,12 @@ extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9268;
 extern f32 D_EBFBE0_801B9270[];
 extern s32 D_EBFBE0_801B9284;
 extern s32 D_EBFBE0_801B9288;
+extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9290;
+extern f32 D_EBFBE0_801B9298[];
+extern s32 spectrumAnalizerMode;
+extern s32 D_EBFBE0_801B931C;
+extern u8 D_EBFBE0_801B931F;
+extern bool D_EBFBE0_801B9320; // MusicPlaying status in the expert sound options
 extern s32 D_EBFBE0_801B93E8;
 extern s32 D_EBFBE0_801B93EC;
 
@@ -111,7 +113,9 @@ extern s32 D_EBFBE0_801B91A4;
 extern s32 D_EBFBE0_801B91A8;
 extern s32 D_EBFBE0_801B91AC;
 extern s32 D_EBFBE0_801B91B0;
+extern s32 D_EBFBE0_801B91C0;
 extern s32 D_EBFBE0_801B91C8;
+extern s32 D_EBFBE0_801B91CC;
 extern f32 D_EBFBE0_801B91EC;
 extern f32 D_EBFBE0_801B91F4;
 extern f32 D_EBFBE0_801B91F8;
@@ -125,6 +129,36 @@ extern s32 D_EBFBE0_801B923C;
 extern s32 D_EBFBE0_801B9240;
 extern s32 D_EBFBE0_801B9244;
 extern s32 D_EBFBE0_801B9248;
+extern u8 D_EBFBE0_801B924C;
+extern s32 D_EBFBE0_801B9330[];
+
+void func_EBFBE0_801877F0(void);
+ s32 func_EBFBE0_80187ABC(void);
+void func_EBFBE0_80187B00(void);
+void func_EBFBE0_80187E28(void);
+void func_EBFBE0_801888E8(void);
+void func_EBFBE0_8018994C(void);
+void func_EBFBE0_8018A644(void);
+void func_EBFBE0_8018ACEC(void);
+void func_EBFBE0_8018B5C4(void);
+void func_EBFBE0_8018C644(void);
+void func_EBFBE0_80187CA8(void);
+void func_EBFBE0_80188010(void);
+void func_EBFBE0_80189208(void);
+void func_EBFBE0_8018A2F8(void);
+void func_EBFBE0_8018A990(void);
+void func_EBFBE0_8018B038(void);
+void func_EBFBE0_8018C114(void);
+void func_EBFBE0_8018CB90(void);
+void func_EBFBE0_8018F680(void);
+void func_EBFBE0_8018F77C(void);
+void func_EBFBE0_8018F85C(void);
+void func_EBFBE0_8018F8E4(void);
+void func_EBFBE0_8018FC14(void);
+void func_EBFBE0_8018FD08(void);
+void func_EBFBE0_8018FF74(void);
+void func_EBFBE0_8018D2B8(s32);
+void func_EBFBE0_8018EA78(s32);
 
 void func_EBFBE0_80191B20(void);
 void func_EBFBE0_80192190(void);
@@ -136,12 +170,15 @@ void func_EBFBE0_80193C4C(void);
 void func_EBFBE0_801944F0(void);
 void func_EBFBE0_80194678(void);
 void func_EBFBE0_801948A8(void);
+void func_EBFBE0_80194AEC(void);
+void func_EBFBE0_80194BD0(void);
 void func_EBFBE0_80194CE4(void);
 void func_EBFBE0_80195B74(void);
 void func_EBFBE0_801958DC(void);
 void func_EBFBE0_80195944(void);
 void func_EBFBE0_80196260(void);
 void func_EBFBE0_801962A4(void);
+void func_EBFBE0_8019669C(void);
 void func_EBFBE0_80196894(void);
 void func_EBFBE0_80196E54(void);
 void func_EBFBE0_80196EFC(void);
@@ -158,6 +195,7 @@ void func_EBFBE0_8019BBA4(MenuContext_4C arg0);
 void func_EBFBE0_8019BF34(void);
 void func_EBFBE0_8019B6D8(f32 arg0, f32 arg1, f32 arg2, s32 arg3, s32 arg4, s32 arg5);
 void func_EBFBE0_8019C120(MenuContext_00 arg0);
+s32 func_EBFBE0_8019C418(s32* arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, UnkStruct_D_EBFBE0_801B9250* arg8);
 s32 func_EBFBE0_8019C8C4(void);
 void func_EBFBE0_8019CAE0(void);
 void func_EBFBE0_8019D118(void);
@@ -165,6 +203,15 @@ void func_EBFBE0_8019DD44(void);
 void func_EBFBE0_8019DF64(void);
 void func_EBFBE0_8019E030(void);
 void func_EBFBE0_8019E284(void);
+void func_EBFBE0_801906A0(void);
+void func_EBFBE0_80190C9C(void);
+void func_EBFBE0_80190E64(void);
+void func_EBFBE0_801918FC(void);
+void func_EBFBE0_8019111C(void);
+void func_EBFBE0_80191674(f32, f32, f32, f32*, f32*, f32*);
+s32 func_EBFBE0_8019C5A0(s32*);
+s32 func_EBFBE0_8019C66C(f32* arg0, f32 arg1, f32 arg2, UnkStruct_D_EBFBE0_801B9250* arg3);
+void func_EBFBE0_8019E8D0(void);
 void func_EBFBE0_801A07E8(u8*, u8*, f32*);
 
 #endif
