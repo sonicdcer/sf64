@@ -515,7 +515,7 @@ void func_EBFBE0_80193864(void) {
     for (i = 0; i < 6; i++) {
         if (!(D_EBFBE0_801AE638[i].unk_58) || (D_EBFBE0_801AE638[i].unk_00.unk_20) <= 0.0f) {
             continue;
-}
+        }
         if ((i == 0) && (D_EBFBE0_801B91C8 != 0) && ((D_EBFBE0_801B912C == 0) || (D_EBFBE0_801B912C == 1))) {
             func_EBFBE0_8019B6D8(106.0f, 56.0f, 98.0f, 20, 0, 75);
         }
