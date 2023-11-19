@@ -957,6 +957,7 @@ void func_EBFBE0_80197074(void) {
 }
 
 void func_EBFBE0_8019715C(void) {
+    s32 pad;
     f32 sp30;
     f32 temp_fv0_2;
     s32 temp;
@@ -976,6 +977,7 @@ void func_EBFBE0_8019715C(void) {
             D_EBFBE0_801B91D0 = 1;
         }
     }
+
     temp = D_EBFBE0_801B91D4;
     temp2 = D_EBFBE0_801B91D8;
 
