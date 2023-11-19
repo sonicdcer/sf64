@@ -925,7 +925,10 @@ void func_EBFBE0_80196EFC(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80196F9C.s")
+void func_EBFBE0_80196F9C(void) {
+    func_EBFBE0_801973C0();
+    func_EBFBE0_8019B9C0();
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80196FC4.s")
 
