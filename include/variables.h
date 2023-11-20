@@ -608,6 +608,9 @@ extern u8 D_60020D0[];
 
 extern u8 D_7004010[];
 
+extern u8 D_800D070[];
+extern u8 D_800D170[];
+
 extern Gfx D_D0098B0[];
 extern Gfx D_F014180[];
 

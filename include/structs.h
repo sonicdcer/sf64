@@ -55,9 +55,11 @@ typedef struct Save_00 {
     /* 0x00 */ Save_00_SubStruct unk_00[16];
     /* 0x10 */ char pad10[0x4];
     /* 0x14 */ u8 unk_14;
-    /* 0x14 */ u8 unk_15;
-    /* 0x14 */ u8 unk_16;
-    /* 0x14 */ u8 unk_17;
+    /* 0x15 */ u8 unk_15;
+    /* 0x16 */ u8 unk_16;
+    /* 0x17 */ u8 unk_17;
+    /* 0x18 */ char pad18[0x28];
+    /* 0x40 */ s8 unk_40[10];
 } Save_00;
 
 typedef struct {

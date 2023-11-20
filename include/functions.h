@@ -136,6 +136,7 @@ void func_8002E3E0(Object_2F4 *arg0);
 
 void func_8002E548(void);
 void func_8003DAF0(void);
+void func_8003DE68(s32, s32);
 void func_80040CDC(void);
 void func_80042FAC(Object_408 *);       
 void func_80042FD0(Object_408 *);  
@@ -250,7 +251,8 @@ s16 func_8009ACDC(s16 *);
 f32 func_8009BC2C(f32*, f32, f32, f32, f32);
 f32 func_8009BD38(f32*, f32, f32, f32, f32);
 void func_8009D418(Gfx**, u16*, u32, u32, f32, f32, f32, f32);
-void func_8009D994(Gfx**, u16*, u32, u32, f32, f32, f32, f32);
+void func_8009D994(Gfx**, void*, u32, u32, f32, f32, f32, f32);
+void func_8009E4B0(Gfx**, void*, u32, u32, f32, f32, f32, f32);
 void func_8009F574(Gfx **, s32, s32, s32, s32, u8, u8, u8, u8);
 void func_8009F6CC(Vec3f*, f32, f32, f32);
 f32 func_8009F768(f32);
