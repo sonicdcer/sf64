@@ -250,6 +250,7 @@ s32 func_800998FC(Vec3f*, Vec3f*, s32, s32, Vec3f*, Vec3f*);
 s16 func_8009ACDC(s16 *);
 f32 func_8009BC2C(f32*, f32, f32, f32, f32);
 f32 func_8009BD38(f32*, f32, f32, f32, f32);
+void func_8009C320(Gfx **, void *, void *, u32, u32, f32, f32, f32, f32);
 void func_8009D418(Gfx**, u16*, u32, u32, f32, f32, f32, f32);
 void func_8009D994(Gfx**, void*, u32, u32, f32, f32, f32, f32);
 void func_8009E4B0(Gfx**, void*, u32, u32, f32, f32, f32, f32);

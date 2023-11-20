@@ -608,6 +608,15 @@ extern u8 D_60020D0[];
 
 extern u8 D_7004010[];
 
+extern u8 D_80038E0[];
+extern u8 D_8003930[];
+extern u8 D_8003950[];
+extern u8 D_80039A8[];
+extern u8 D_8003A70[];
+extern u8 D_8003AB8[];
+extern u8 D_8003AE0[];
+extern u8 D_8003B28[];
+
 extern u8 D_800D070[];
 extern u8 D_800D170[];
 

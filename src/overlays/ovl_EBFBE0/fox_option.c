@@ -1192,7 +1192,40 @@ void func_EBFBE0_80197914(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80197A3C.s")
+void func_EBFBE0_80197A3C(s32 arg0, s32 arg1, s32 arg2) {
+    func_800B8DD0(&gMasterDisp, 0x53);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+
+    if (arg0 != 9) {
+        func_8009D994(&gMasterDisp, D_EBFBE0_801AECF8[arg0 + 1], 16, 15, arg1, arg2 - 25.0f, 1.0f, 1.0f);
+    } else {
+        func_8009D994(&gMasterDisp, D_500A050, 16, 15, arg1 - 14.0f, arg2 - 25.0f, 1.0f, 1.0f);
+        func_8009D994(&gMasterDisp, D_5009F60, 16, 15, arg1, arg2 - 25.0f, 1.0f, 1.0f);
+    }
+
+    func_800B8DD0(&gMasterDisp, 0x55);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+
+    switch (arg0) {
+        case 0:
+            func_8009C320(&gMasterDisp, D_8003A70, D_8003AB8, 16, 9, arg1 + 17.0f, arg2 - 19.0f, 1.0f, 1.0f);
+            break;
+
+        case 1:
+            func_8009C320(&gMasterDisp, D_80038E0, D_8003930, 16, 10, arg1 + 17.0f, arg2 - 19.0f, 1.0f, 1.0f);
+            break;
+
+        case 2:
+            func_8009C320(&gMasterDisp, D_8003950, D_80039A8, 16, 11, arg1 + 17.0f, arg2 - 20.0f, 1.0f, 1.0f);
+            break;
+
+        default:
+            func_8009C320(&gMasterDisp, D_8003AE0, D_8003B28, 16, 9, arg1 + 17.0f, arg2 - 19.0f, 1.0f, 1.0f);
+            break;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80197D30.s")
 

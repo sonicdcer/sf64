@@ -54,6 +54,8 @@ extern u8 D_EBFBE0_801AE998[];
 extern u8 D_EBFBE0_801AE99C[];
 extern MenuContext_00 D_EBFBE0_801AEB48[];
 
+extern u8* D_EBFBE0_801AECF8[];
+
 extern Gfx D_EBFBE0_801AEF30[];
 
 extern Vec3f D_EBFBE0_801AF100[];
