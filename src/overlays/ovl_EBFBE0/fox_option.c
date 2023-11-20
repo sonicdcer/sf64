@@ -1315,16 +1315,16 @@ void func_EBFBE0_8019A214(void) {
     switch (D_EBFBE0_801B912C) {
         case 0:
             func_EBFBE0_8019A4DC();
-            return;
+            break;
         case 1:
             func_EBFBE0_8019A6DC();
-            return;
+            break;
         case 2:
             func_EBFBE0_8019A954();
-            return;
+            break;
         case 3:
             func_EBFBE0_8019A298();
-            return;
+            break;
     }
 }
 
