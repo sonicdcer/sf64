@@ -255,7 +255,10 @@ s32 func_EBFBE0_8019C418(s32* arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 
 void func_EBFBE0_8019C824(f32* );
 s32 func_EBFBE0_8019C8C4(void);
 void func_EBFBE0_8019CAE0(void);
+void func_EBFBE0_8019CBC0(void);
+void func_EBFBE0_8019CD54(void);
 void func_EBFBE0_8019D118(void);
+void func_EBFBE0_8019D624(void);
 void func_EBFBE0_8019DD44(void);
 void func_EBFBE0_8019DF64(void);
 void func_EBFBE0_8019E030(void);

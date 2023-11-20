@@ -1459,7 +1459,34 @@ void func_EBFBE0_8019C824(f32* arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019C8C4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019CAE0.s")
+void func_EBFBE0_8019CAE0(void) {
+    switch (D_EBFBE0_801B912C) {
+        case 0:
+            func_EBFBE0_8019CBC0();
+            D_EBFBE0_801B912C++;
+            break;
+
+        case 1:
+            func_EBFBE0_8019CD54();
+            break;
+
+        case 2:
+            func_EBFBE0_8019D624();
+            func_EBFBE0_80188010();
+            D_EBFBE0_801B917C = 15;
+            D_EBFBE0_801B912C++;
+            break;
+
+        case 3:
+            if (D_EBFBE0_801B917C == 0) {
+                D_80161A38 = 255;
+                D_80177898 = 0;
+                D_EBFBE0_801B912C = 0;
+                D_EBFBE0_801B9124 = 300;
+            }
+            break;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019CBC0.s")
 
