@@ -1227,9 +1227,31 @@ void func_EBFBE0_80197A3C(s32 arg0, s32 arg1, s32 arg2) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80197D30.s")
+void func_EBFBE0_80197D30(s32 arg0, s32 arg1, s32 arg2) {
+    u8 temp[4];
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80197DE4.s")
+    func_800B8DD0(&gMasterDisp, 0x53);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
+
+    temp[0] = D_80178870.save[0].save_00.unk_18[arg0][0] & 0xFF;
+    temp[1] = D_80178870.save[0].save_00.unk_18[arg0][1] & 0xFF;
+    temp[2] = D_80178870.save[0].save_00.unk_18[arg0][2] & 0xFF;
+    temp[3] = 0;
+
+    func_800A0094(arg1, arg2, 1.0f, 1.0f, temp);
+}
+
+void func_EBFBE0_80197DE4(s32 arg0, s32 arg1, s32 arg2) {
+    func_800B8DD0(&gMasterDisp, 0x53);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 170);
+    func_8009D994(&gMasterDisp, &D_601B4B0, 24, 17, arg1, arg2, 3.17f, 1.05f);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
+    func_800A1200(arg1, arg2, 1.0f, 1.0f, "TOTAL HITS");
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+    func_8009FEA0((arg1 + 40.0f) - ((func_8008BCBC(D_EBFBE0_801B8220[arg0]) * 8) - 8), (arg2 + 9.0f),
+                  D_EBFBE0_801B8220[arg0]);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80197F74.s")
 

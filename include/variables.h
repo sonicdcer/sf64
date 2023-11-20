@@ -441,7 +441,7 @@ extern f32 D_E9F1D0_801A7F60;
 extern f32 D_E9F1D0_801A7F78;
 extern f32 D_EBFBE0_801B7BC8;
 extern f32 D_EBFBE0_801B7BCC;
-extern s32 D_EBFBE0_801B8220[];
+extern s32 D_EBFBE0_801B8220[]; // total hits ranking? see func_EBFBE0_80197DE4
 extern u8 D_EBFBE0_801B8248[][4];
 extern s32 D_EBFBE0_801B827C;
 extern s32 D_EBFBE0_801B8280;
@@ -598,6 +598,7 @@ extern f32 D_6006A20[];
 extern s16 D_6029528[];
 
 extern ObjectInit* D_6010088[];
+extern u16 D_601B4B0[];
 extern ObjectInit* D_602B148[];
 extern ObjectInit* D_602F18C[];
 extern ObjectInit* D_C0356A4[];

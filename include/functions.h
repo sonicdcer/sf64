@@ -259,6 +259,7 @@ void func_8009F6CC(Vec3f*, f32, f32, f32);
 f32 func_8009F768(f32);
 void func_8009FC0C(s32, s32, s32);
 void func_8009FEA0(s32, s32, s32);
+void func_800A0094(s32, s32, f32, f32, u8 *);
 void func_800A1200(s32, s32, f32, f32, char*);
 void func_800A18B0(void);
 void func_800A1980(void);
