@@ -2,6 +2,7 @@
 #include "fox_option.h"
 
 #ifdef IMPORT_DATA_PENDING
+static UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9380[4];
 static f32 D_EBFBE0_801AE5B8[] = { 60.0f, 36.0f, 12.0f, -12.0f, -36.0f, -60.0f };
 static f32 D_EBFBE0_801AE5D0[] = { 126.0f, 117.0f, 139.0f, 124.0f, 130.0f, 117.0f };
 static f32 D_EBFBE0_801AE570[] = { 54.0f, 78.0f, 103.0f, 126.0f, 152.0f, 176.0f };
@@ -1341,7 +1342,19 @@ void func_EBFBE0_8019978C(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80199FA8.s")
 
+// Needs static data type
+#ifdef IMPORT_DATA_PENDING
+void func_EBFBE0_8019A080(void) {
+    s32 i;
+
+    for (i = 0; i < 4; i++) {
+        D_EBFBE0_801B9380[i].unk_0 = 0;
+        D_EBFBE0_801B9380[i].unk_4 = 0;
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019A080.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019A0B8.s")
 
