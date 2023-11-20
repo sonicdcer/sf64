@@ -59,6 +59,7 @@ typedef struct Save_00 {
     /* 0x16 */ u8 unk_16;
     /* 0x17 */ u8 unk_17;
     /* 0x18 */ u8 unk_18[10][3];
+    /* 0x36 */ u8 unk_36[10];
     /* 0x40 */ s8 unk_40[10];
 } Save_00;
 
