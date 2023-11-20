@@ -1414,7 +1414,12 @@ void func_EBFBE0_8019A298(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019B7D4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019B8A0.s")
+void func_EBFBE0_8019B8A0(s32 arg0) {
+    D_EBFBE0_801B9124 = arg0;
+    D_80177898 = 0;
+    D_EBFBE0_801B912C = 0;
+    D_EBFBE0_801B91B4 = 0;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019B8C8.s")
 
