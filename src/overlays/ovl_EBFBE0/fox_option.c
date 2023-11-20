@@ -1175,7 +1175,22 @@ void func_EBFBE0_8019752C(void) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019752C.s")
 #endif
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80197914.s")
+void func_EBFBE0_80197914(void) {
+    Vec3f* vec1;
+    Vec3f* vec2;
+    s32 i;
+
+    func_800B8DD0(&gMasterDisp, 0);
+
+    for (i = 0, vec1 = &D_EBFBE0_801AF100, vec2 = &D_EBFBE0_801AF118; i < 2; i++, vec1++, vec2++) {
+        Matrix_Push(&D_8013B3C0);
+        Matrix_Translate(D_8013B3C0, vec1->x, vec1->y, -500.0f, 1);
+        Matrix_Scale(D_8013B3C0, vec2->x, vec2->y, 1.0f, 1);
+        Matrix_SetGfxMtx(&gMasterDisp);
+        gSPDisplayList(gMasterDisp++, D_EBFBE0_801AEF30);
+        Matrix_Pop(&D_8013B3C0);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80197A3C.s")
 
