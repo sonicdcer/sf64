@@ -1379,7 +1379,14 @@ void func_EBFBE0_8019A214(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019A298.s")
+void func_EBFBE0_8019A298(void) {
+    if (D_EBFBE0_801B91EC == 0.0f) {
+        D_80177834 = 6;
+        D_8017783C = 2;
+        D_8017784C = 0;
+        D_80177898 = 0;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019A2E0.s")
 
