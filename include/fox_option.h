@@ -66,6 +66,7 @@ extern u8* D_EBFBE0_801AECF8[];
 extern UnkStruct_D_EBFBE0_801AED4C D_EBFBE0_801AED4C[24];
 
 extern Gfx D_EBFBE0_801AEF30[];
+extern u8 D_EBFBE0_801AEF5C[];
 
 extern Vec3f D_EBFBE0_801AF100[];
 extern Vec3f D_EBFBE0_801AF118[];

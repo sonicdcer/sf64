@@ -1498,7 +1498,23 @@ void func_EBFBE0_8019CAE0(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019DB20.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019DCE8.s")
+s32 func_EBFBE0_8019DCE8(s32 arg0) {
+    s32 i = 0;
+
+    // 'for()' causes instruction reorder
+    while (D_EBFBE0_801AEF5C[i] != 0) {
+        if (D_EBFBE0_801AEF5C[i] == arg0) {
+            break;
+        }
+        i++;
+    }
+
+    if (D_EBFBE0_801AEF5C[i] == 0) {
+        i = 0;
+    }
+
+    return i;
+}
 
 void func_EBFBE0_8019DD44(void) {
     switch (D_EBFBE0_801B912C) {
