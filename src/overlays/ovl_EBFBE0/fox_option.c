@@ -1318,7 +1318,22 @@ void func_EBFBE0_80199424(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019949C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019978C.s")
+void func_EBFBE0_8019978C(void) {
+    s32 i;
+
+    func_EBFBE0_8019B8C8();
+    func_EBFBE0_80199EA8();
+
+    for (i = 0; i < 4; i++) {
+        if (D_800DD8B0[i] == 1) {
+            func_EBFBE0_80199820(i);
+        }
+    }
+
+    if (D_EBFBE0_801B93C4 == 15) {
+        func_EBFBE0_8019B5AC();
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80199820.s")
 
