@@ -1502,7 +1502,24 @@ void func_EBFBE0_8019CAE0(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019DD44.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019DE74.s")
+void func_EBFBE0_8019DE74(void) {
+    func_EBFBE0_8019715C();
+    if (D_800DD898[D_80177AF8].button & 0xD00E) { // so many buttons!
+        func_80019218(0x49000003, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        D_80177898 = 0;
+        D_EBFBE0_801B912C = 0;
+        if (D_80161A34 == 5) {
+            D_80178410 = 0;
+            D_80177834 = 1;
+            D_80161AA0[0] = 2;
+            D_80161714 = 0;
+        } else if (D_80161A34 == 8) {
+            func_800182F4(0x100100FF);
+            func_800182F4(0x110100FF);
+            D_EBFBE0_801B9124 = 400;
+        }
+    }
+}
 
 void func_EBFBE0_8019DF64(void) {
     func_EBFBE0_8019752C();
