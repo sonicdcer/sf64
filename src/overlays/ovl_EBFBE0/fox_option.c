@@ -1504,7 +1504,13 @@ void func_EBFBE0_8019CAE0(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019DE74.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019DF64.s")
+void func_EBFBE0_8019DF64(void) {
+    func_EBFBE0_8019752C();
+    func_EBFBE0_8019BDF0();
+    func_EBFBE0_8019BAB8(D_EBFBE0_801AE638[3].unk_38);
+    Matrix_Pop(&D_8013B3C0);
+    func_EBFBE0_8019C120(D_EBFBE0_801AE638[3].unk_00);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019E030.s")
 
