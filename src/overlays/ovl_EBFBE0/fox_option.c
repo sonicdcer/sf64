@@ -1447,7 +1447,15 @@ void func_EBFBE0_8019B8A0(s32 arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019C66C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019C824.s")
+void func_EBFBE0_8019C824(f32* arg0) {
+    if ((s32) func_8009BC2C(arg0, D_EBFBE0_801B91E4, 0.5f, 100.0f, 1.0f) == 0.0f) {
+        if (*arg0 == 32.0f) {
+            D_EBFBE0_801B91E4 = 255.0f;
+        } else {
+            D_EBFBE0_801B91E4 = 32.0f;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019C8C4.s")
 
