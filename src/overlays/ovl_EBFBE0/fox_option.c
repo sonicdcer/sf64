@@ -1500,11 +1500,40 @@ void func_EBFBE0_8019CAE0(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019DCE8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019DD44.s")
+void func_EBFBE0_8019DD44(void) {
+    switch (D_EBFBE0_801B912C) {
+        case 0:
+            func_EBFBE0_80196E54();
+
+            D_EBFBE0_801B93E4 = D_EBFBE0_801B9094;
+
+            if ((D_EBFBE0_801B9094 < 0) || (D_EBFBE0_801B9094 >= 10)) {
+                D_EBFBE0_801B93E4 = 0;
+            }
+
+            D_EBFBE0_801B91D4 = 114.0f - D_EBFBE0_801B93E4 * 130.0f;
+            D_EBFBE0_801B91D8 = -6.0f + D_EBFBE0_801B93E4 * 130.0f;
+            D_EBFBE0_801AE638[3].unk_00.unk_18 = D_EBFBE0_801AE5C4;
+            D_EBFBE0_801AE638[3].unk_00.unk_1C = 23.0f;
+            D_EBFBE0_801AE638[3].unk_00.unk_20 = 1.0f;
+            D_EBFBE0_801AE638[3].unk_00.unk_24 = 1.0f;
+            D_EBFBE0_801AE638[3].unk_58 = 1;
+            D_EBFBE0_801AE638[3].unk_38.unk_04 = 90.0f;
+            D_EBFBE0_801AE638[3].unk_38.unk_0C = 0.4f;
+            D_EBFBE0_801AE638[3].unk_38.unk_10 = 0.21f;
+            D_EBFBE0_801AE638[3].unk_5C = 1;
+            D_EBFBE0_801B912C++;
+            break;
+
+        case 1:
+            func_EBFBE0_8019DE74();
+            break;
+    }
+}
 
 void func_EBFBE0_8019DE74(void) {
     func_EBFBE0_8019715C();
-    if (D_800DD898[D_80177AF8].button & 0xD00E) { // so many buttons!
+    if (D_800DD898[D_80177AF8].button & 0xD00E) { // START, A, B, C-UP, C-LEFT, C-DOWN
         func_80019218(0x49000003, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         D_80177898 = 0;
         D_EBFBE0_801B912C = 0;

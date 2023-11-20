@@ -55,6 +55,7 @@ typedef struct {
 
 extern f32 D_EBFBE0_801AE588[];
 extern f32 D_EBFBE0_801AE5A0[];
+extern f32 D_EBFBE0_801AE5C4;
 
 extern u8 D_EBFBE0_801AE998[];
 extern u8 D_EBFBE0_801AE99C[];
@@ -261,6 +262,7 @@ void func_EBFBE0_8019CD54(void);
 void func_EBFBE0_8019D118(void);
 void func_EBFBE0_8019D624(void);
 void func_EBFBE0_8019DD44(void);
+void func_EBFBE0_8019DE74(void);
 void func_EBFBE0_8019DF64(void);
 void func_EBFBE0_8019E030(void);
 void func_EBFBE0_8019E284(void);
