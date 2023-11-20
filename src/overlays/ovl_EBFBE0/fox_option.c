@@ -1301,7 +1301,20 @@ s32 func_EBFBE0_80199284(s32 arg0, s32 arg1) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_801992C4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80199424.s")
+void func_EBFBE0_80199424(void) {
+    switch (D_EBFBE0_801B912C) {
+        case 0:
+            func_EBFBE0_8019949C();
+            break;
+
+        case 1:
+            if (D_EBFBE0_801B91EC == 0.0f) {
+                D_EBFBE0_801B9124 = 2000;
+                func_EBFBE0_801924C4();
+            }
+            break;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019949C.s")
 
