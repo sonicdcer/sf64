@@ -1287,7 +1287,17 @@ void func_EBFBE0_80198164(s32 arg0, f32 arg1, f32 arg2) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80199198.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80199284.s")
+s32 func_EBFBE0_80199284(s32 arg0, s32 arg1) {
+    s32 i;
+
+    for (i = 0; i < 24; i++) {
+        if ((D_EBFBE0_801AED4C[i].unk_0 == arg0) && (D_EBFBE0_801AED4C[i].unk_4 == arg1)) {
+            break;
+        }
+    }
+
+    return D_EBFBE0_801AED4C[i].unk_8;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_801992C4.s")
 

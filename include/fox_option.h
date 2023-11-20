@@ -46,6 +46,12 @@ typedef struct {
     s32 unk_4;
 } UnkStruct_D_EBFBE0_801B9250;
 
+typedef struct {
+    /* 0x0 */ s32 unk_0;
+    /* 0x4 */ s32 unk_4;
+    /* 0x8 */ s32 unk_8;
+} UnkStruct_D_EBFBE0_801AED4C; // size = 0xC
+
 
 extern f32 D_EBFBE0_801AE588[];
 extern f32 D_EBFBE0_801AE5A0[];
@@ -55,6 +61,8 @@ extern u8 D_EBFBE0_801AE99C[];
 extern MenuContext_00 D_EBFBE0_801AEB48[];
 
 extern u8* D_EBFBE0_801AECF8[];
+
+extern UnkStruct_D_EBFBE0_801AED4C D_EBFBE0_801AED4C[24];
 
 extern Gfx D_EBFBE0_801AEF30[];
 
