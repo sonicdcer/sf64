@@ -1529,6 +1529,52 @@ void func_EBFBE0_8019DF64(void) {
     func_EBFBE0_8019C120(D_EBFBE0_801AE638[3].unk_00);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019E030.s")
+void func_EBFBE0_8019E030(void) {
+    switch (D_EBFBE0_801B912C) {
+        case 0:
+            D_80178410 = 0;
+            D_80161A36 = 0;
+            D_80178348 = 0;
+            D_80178350 = 0;
+            D_80178354 = 0;
+            D_80178340 = 0;
+            D_EBFBE0_801B9090 = 0;
+            D_EBFBE0_801B9178 = 30;
+            D_EBFBE0_801B912C++;
+            break;
+
+        case 1:
+            if (D_EBFBE0_801B9178 == 0) {
+                if (((D_80161714 * 64) >= 50000) && ((D_80161714 * 64) < 70000)) {
+                    func_80019218(0x49000032, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                }
+                if ((D_80161714 * 64) >= 70000) {
+                    func_80019218(0x49000033, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                }
+                D_EBFBE0_801B9178 = 20;
+                D_EBFBE0_801B912C++;
+            }
+            break;
+
+        case 2:
+            if ((D_EBFBE0_801B9178 == 0) && (D_800DD898[D_80177AF8].button & 0xD00E)) {
+                func_80019218(0x19031083, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                D_EBFBE0_801B9090 = 1;
+                D_EBFBE0_801B9178 = 60;
+                D_EBFBE0_801B912C++;
+            }
+            break;
+
+        case 3:
+            if (D_EBFBE0_801B9178 == 0) {
+                D_80178410 = 0;
+                D_80177834 = 1;
+                D_80177898 = 0;
+                *D_80161AA0 = 2;
+                D_80161714 = 0;
+            }
+            break;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019E284.s")
