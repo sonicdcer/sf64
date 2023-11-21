@@ -63,6 +63,7 @@ typedef struct Save_00 {
     /* 0x40 */ s8 unk_40[10];
     /* 0x4A */ char pad4A[0xA0];
     /* 0xEA */ u8 unk_EA;
+    /* 0xEB */ char padEB[0x3];
 } Save_00;
 
 typedef struct {

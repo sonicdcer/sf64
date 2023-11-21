@@ -1520,7 +1520,7 @@ void func_EBFBE0_8019CBC0(void) {
     } else {
         D_EBFBE0_801B9098 = 0;
         D_EBFBE0_801B9138 = 0;
-        
+
         for (i = 0; i < 3; i++) {
             D_EBFBE0_801B90B0[i] = 0;
             D_EBFBE0_801B90A0[i] = 0;
@@ -1590,10 +1590,13 @@ void func_EBFBE0_8019DD44(void) {
 
 void func_EBFBE0_8019DE74(void) {
     func_EBFBE0_8019715C();
+
     if (D_800DD898[D_80177AF8].button & 0xD00E) { // START, A, B, C-UP, C-LEFT, C-DOWN
         func_80019218(0x49000003, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+
         D_80177898 = 0;
         D_EBFBE0_801B912C = 0;
+
         if (D_80161A34 == 5) {
             D_80178410 = 0;
             D_80177834 = 1;
