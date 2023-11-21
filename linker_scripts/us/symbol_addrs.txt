@@ -149,6 +149,8 @@ D_80177E88 = 0x80177E88; // size:0xC
 Mio0_Decompress = 0x8001EE70;
 RdRam_CheckIPL3 = 0x8001EF10;
 
+D_800CFA54 = 0x800CFA54;
+
 D_800D934C = 0x800D934C; // force_migration:True
 D_800D503C = 0x800D503C; // force_migration:True
 D_800D5248 = 0x800D5248; // force_migration:True
