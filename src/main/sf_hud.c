@@ -2080,7 +2080,7 @@ s32 func_80091F00(Object_2F4* arg0) {
 
     func_80019218(0x2903300E, &arg0->unk_100, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     func_8007D10C(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 1.5f);
-    Matrix_RotateY(D_8013BBC8, arg0->unk_0F8 * (M_PI / 180), 0);
+    Matrix_RotateY(D_8013BBC8, arg0->unk_0F8 * M_DTOR, 0);
 
     if (Rand_ZeroOne() < 0.5f) {
         sp40.x = -20.0f;
