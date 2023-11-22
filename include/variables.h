@@ -757,7 +757,7 @@ extern u16 D_F001000[];
 extern u16 D_F001800[];
 extern u16 D_F002000[];
 
-extern ObjectInit* D_C0356A4[];
+
 
 #endif // VARIABLES_H
 

@@ -248,7 +248,9 @@
       - [0xCA180, .rodata, ../libultra/libc/xldtob]
       - [0xCA1E0, rodata, ../libultra/os/setintmask]
       - [0xCA260, .rodata, ../libultra/rmon/rmonmem]
-      - [0xCA5A0, .rodata, ../libultra/rmon/rmonbrk]
+      - [0xCA3D0, .rodata, ../libultra/rmon/rmonmisc]
+      - [0xCA400, .rodata, ../libultra/rmon/rmonregs]
+      - [0xCA480, .rodata, ../libultra/rmon/rmonbrk]
       - [0xCA650,  rodata, ../libultra/rmon/rmonrcp]
 
       # DATA - game engine
