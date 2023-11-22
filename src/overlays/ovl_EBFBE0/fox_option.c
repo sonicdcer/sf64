@@ -385,33 +385,33 @@ void func_EBFBE0_801924C4(void) {
     D_EBFBE0_801B912C = 0;
 
     switch (D_EBFBE0_801B9124) {
-        case 0x0:
+        case 0:
             D_80177898 = 0;
             break;
 
-        case 0xA:
-        case 0x14:
-        case 0x1E:
+        case 10:
+        case 20:
+        case 30:
             func_EBFBE0_801992C4();
             break;
 
-        case 0x7D0:
+        case 2000:
             func_EBFBE0_80199FA8();
             break;
 
-        case 0x3:
+        case 3:
             func_EBFBE0_80196E54();
             break;
 
-        case 0x4:
+        case 4:
             func_EBFBE0_80194678();
             break;
 
-        case 0x6:
+        case 6:
             func_EBFBE0_801958DC();
             break;
 
-        case 0x5:
+        case 5:
             func_EBFBE0_80196260();
             break;
     }
@@ -586,7 +586,45 @@ void func_EBFBE0_80193864(void) {
     func_EBFBE0_8019BF34();
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80193B04.s")
+void func_EBFBE0_80193B04(void) {
+    s32 i;
+
+    D_80161A38 = 0xFF;
+    D_800DD8B4 = 0;
+    D_80178410 = 800;
+
+    if (D_EBFBE0_801B9248 == 0) {
+        D_EBFBE0_801B91BC = 1;
+
+        for (i = 0; i < 3; i++) {
+            D_EBFBE0_801AE878[i].unk_00.unk_18 = D_EBFBE0_801AEF90[i];
+            D_EBFBE0_801AE878[i].unk_00.unk_1C = D_EBFBE0_801AEF9C[i];
+            D_EBFBE0_801AE878[i].unk_00.unk_20 = 1.0f;
+            D_EBFBE0_801AE878[i].unk_00.unk_24 = 1.0f;
+            D_EBFBE0_801AE878[i].unk_58 = 1;
+            D_EBFBE0_801AE878[i].unk_38.unk_0C = 0.4f;
+            D_EBFBE0_801AE878[i].unk_38.unk_10 = 0.21f;
+            D_EBFBE0_801AE878[i].unk_38.unk_04 = D_EBFBE0_801AEF84[i];
+            D_EBFBE0_801AE878[i].unk_38.unk_08 = 0.0f;
+            D_EBFBE0_801AE878[i].unk_5C = 1;
+        }
+    } else {
+        D_EBFBE0_801B91BC = 0;
+
+        for (i = 0; i < 3; i++) {
+            D_EBFBE0_801AE878[i].unk_00.unk_24 = 1.0f;
+            D_EBFBE0_801AE878[i].unk_38.unk_10 = 0.21f;
+            D_EBFBE0_801AE878[i].unk_38.unk_08 = 0.0f;
+            D_EBFBE0_801AE878[i].unk_58 = 1;
+            D_EBFBE0_801AE878[i].unk_5C = 1;
+        }
+    }
+
+    D_EBFBE0_801B9204 = -45.0f;
+    D_EBFBE0_801B9214 = 0;
+    D_EBFBE0_801B9188.unk_0 = 0;
+    D_EBFBE0_801B9188.unk_4 = 0;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80193C4C.s")
 
