@@ -131,13 +131,6 @@ typedef struct {
     /* 0x23550 */ Lightsn lights[0x100];
 } GfxPool; // size = 0x2AD50, 0x8 aligned
 
-typedef struct UnkStruct_D_801B8350 {
-    /* 0x00 */ Vec3f unk0;
-    /* 0x0C */ char pad0C[0x4C];
-    /* 0x54 */ s32 unk_54;
-    /* 0x58 */ s32 unk_58;
-} UnkStruct_D_801B8350; // size = 0x5C
-
 typedef struct {
     /* 0x0 */ u16 unk_0;
     /* 0x2 */ s8 unk_2;
