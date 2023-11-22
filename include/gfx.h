@@ -98,4 +98,59 @@ typedef enum SetupDL {
 
 extern Gfx gSetupDLs[SETUPDL_MAX][9]; // 0x800D31B0
 
+void func_800B8DD0(Gfx** gfxP, s16 i);
+void func_800B8E14(Gfx** gfxP, s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void func_800B8F18(void);
+void func_800B8F48(void);
+void func_800B8F78(void);
+void func_800B8FA8(void);
+void func_800B8FD8(void);
+void func_800B9008(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void func_800B9120(void);
+void func_800B9150(void);
+void func_800B9180(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void func_800B9298(void);
+void func_800B92C8(void);
+void func_800B92F8(void);
+void func_800B9328(void);
+void func_800B9358(void);
+void func_800B9388(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void func_800B94A0(void);
+void func_800B94D0(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void func_800B95E8(void);
+void func_800B9618(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void func_800B9730(void);
+void func_800B9760(void);
+void func_800B9790(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void func_800B98A8(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void func_800B99C0(void);
+void func_800B99F0(void);
+void func_800B9A20(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void func_800B9B38(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void func_800B9C50(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void func_800B9D68(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void func_800B9E80(void);
+void func_800B9EB0(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void func_800B9FC8(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void func_800BA0E0(void);
+void func_800BA110(void);
+void func_800BA140(void);
+void func_800BA170(void);
+void func_800BA1A0(void);
+void func_800BA1D0(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void func_800BA2E8(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void func_800BA400(void);
+void func_800BA430(void);
+void func_800BA460(void);
+void func_800BA490(void);
+void func_800BA4C0(void);
+void func_800BA4F0(void);
+void func_800BA520(void);
+void func_800BA550(void);
+void func_800BA580(void);
+void func_800BA5B0(void);
+void func_800BA5E0(void);
+void func_800BA610(void);
+void func_800BA640(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+
 #endif

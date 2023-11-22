@@ -83,10 +83,10 @@ void func_80084B94(s32 arg0) {
                 Matrix_Push(&D_8013B3C0);
                 Matrix_Translate(D_8013B3C0, D_800D1A70[i - 1].x, D_800D1A70[i - 1].y, D_800D1A70[i - 1].z, 1);
                 Matrix_Scale(D_8013B3C0, 0.68f, 0.68f, 1.0f, 1);
-                Matrix_RotateZ(D_8013B3C0, 0.7853982f, 1);
+                Matrix_RotateZ(D_8013B3C0, M_PI / 4.0f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_500B600);
-                Matrix_RotateZ(D_8013B3C0, 4.712389f, 1);
+                Matrix_RotateZ(D_8013B3C0, 3.0f * M_PI / 2.0f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_500B600);
                 Matrix_Pop(&D_8013B3C0);
@@ -95,11 +95,11 @@ void func_80084B94(s32 arg0) {
     } else {
         Matrix_Push(&D_8013B3C0);
         Matrix_Translate(D_8013B3C0, -234.0f, -167.0f, -600.0f, 1);
-        Matrix_RotateZ(D_8013B3C0, 0.7853982f, 1);
+        Matrix_RotateZ(D_8013B3C0, M_PI / 4.0f, 1);
         Matrix_Scale(D_8013B3C0, 0.68f, 0.68f, 1.0f, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_500B600);
-        Matrix_RotateZ(D_8013B3C0, 4.712389f, 1);
+        Matrix_RotateZ(D_8013B3C0, 3.0f * M_PI / 2.0f, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_500B600);
         Matrix_Pop(&D_8013B3C0);
@@ -610,7 +610,7 @@ void func_80089D28(void) {
     if ((gb == 10) || (gb == 0)) {
         // clang-format off
         //! FAKE: Probably a MACRO
-        if (1) {func_80019218(0x4900001c, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);}
+        if (1) {func_80019218(0x4900001c, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);}
         // clang-format on
     }
 
@@ -792,7 +792,7 @@ void func_8008B044(void) {
                 return;
             }
 
-            func_80019218(0x49002018, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            func_80019218(0x49002018, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 
             if (D_800CFF90 != 0) {
                 func_8001AF40(1);
@@ -805,7 +805,7 @@ void func_8008B044(void) {
                 D_80161790++;
                 if (D_80161790 >= 7) {
                     if (D_80161794 & 1) {
-                        func_80019218(0x49002018, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                        func_80019218(0x49002018, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                     }
                     D_80161790 = 0;
                     D_80161794++;
@@ -1320,7 +1320,7 @@ void func_8008DE68(void) {
 
     if ((D_80161734 == 1) && (D_801778B0[2] > 0)) {
         if ((D_80177848 >= 0) && (D_801616BC == -1.0f)) {
-            func_80019218(0x4900C028, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            func_80019218(0x4900C028, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             D_801616BC = 255.0f;
         }
 
@@ -1712,7 +1712,7 @@ s32 func_80090A00(Object_2F4* arg0) {
             arg0->unk_124.x = D_80178280[0].unk_074 - 1000.0f;
             arg0->unk_058++;
             if (arg0->unk_05C == arg0->unk_058) {
-                func_80060FBC(&arg0->obj, arg0->unk_100);
+                func_80060FBC(&arg0->obj, &arg0->unk_100);
             }
             break;
     }
@@ -1893,7 +1893,7 @@ s32 func_80091368(Object_2F4* arg0) {
             }
 
             if (arg0->obj.pos.y > 3000.0f) {
-                func_80060FBC(&arg0->obj, arg0->unk_100);
+                func_80060FBC(&arg0->obj, &arg0->unk_100);
             }
             break;
     }
@@ -2029,7 +2029,7 @@ s32 func_80091CF8(Object_2F4* arg0) {
     if (arg0->unk_054 != 0) {
         if (arg0->unk_13C < 0.1f) {
             arg0->unk_13C = 20.0f;
-            func_80019218(0x09000002, arg0->unk_100, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            func_80019218(0x09000002, &arg0->unk_100, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             arg0->unk_188 = 5.0f;
         }
         arg0->unk_054 = 0;
@@ -2078,9 +2078,9 @@ s32 func_80091F00(Object_2F4* arg0) {
     }
     arg0->unk_0C6 = 20;
 
-    func_80019218(0x2903300E, arg0->unk_100, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    func_80019218(0x2903300E, &arg0->unk_100, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     func_8007D10C(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 1.5f);
-    Matrix_RotateY(D_8013BBC8, arg0->unk_0F8 * (M_PI / 180), 0);
+    Matrix_RotateY(D_8013BBC8, arg0->unk_0F8 * M_DTOR, 0);
 
     if (Rand_ZeroOne() < 0.5f) {
         sp40.x = -20.0f;
@@ -2212,7 +2212,7 @@ void func_80093310(void) {
     if (1) {}
     this->obj.id = 195;
     func_800612B8(&this->unk_01C, this->obj.id);
-    func_80019218(0x11030010, this->unk_100, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    func_80019218(0x11030010, &this->unk_100, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
 void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
@@ -2289,7 +2289,7 @@ void func_80094954(Object_8C* arg0) {
         }
 
         if ((arg0->unk_4E == 1) && (arg0->unk_4A <= 0)) {
-            func_80060FBC(&arg0->obj, arg0->unk_80);
+            func_80060FBC(&arg0->obj, &arg0->unk_80);
         }
 
         arg0->unk_58 += arg0->unk_6C;
@@ -2318,7 +2318,7 @@ void func_80094954(Object_8C* arg0) {
     arg0->unk_4A -= arg0->unk_46;
 
     if ((arg0->unk_4A < 0) || ((temp->unk_1C8 == 2) && (D_80178234 == 13) && (temp->unk_1D0 == 5))) {
-        func_80060FBC(&arg0->obj, arg0->unk_80);
+        func_80060FBC(&arg0->obj, &arg0->unk_80);
     }
     arg0->obj.rot.z += arg0->unk_48;
 }
