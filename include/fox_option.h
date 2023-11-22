@@ -22,15 +22,16 @@ typedef struct {
 
 typedef struct {
     /* 0x00 */ f32 unk_00;
-    /* 0x00 */ f32 unk_04;
-    /* 0x00 */ f32 unk_08;
-    /* 0x00 */ f32 unk_0C;
-    /* 0x00 */ f32 unk_10;
+    /* 0x04 */ f32 unk_04;
+    /* 0x08 */ f32 unk_08;
+    /* 0x0C */ f32 unk_0C;
+    /* 0x10 */ f32 unk_10;
 } MenuContext_38; // size = 0x14
 
 typedef struct {
     /* 0x0 */ s32 unk_0;
-    /* 0x4 */ char unk_4[0x8];
+    /* 0x4 */ s32 unk_4; /* inferred */
+    /* 0x8 */ s32 unk_8; /* inferred */
 } MenuContext_4C; // size = 0xC
 
 typedef struct {
