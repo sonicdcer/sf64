@@ -40,7 +40,13 @@
         "dfee30.h": "c",
         "df4260.h": "c",
         "symbol_addrs_overlays": "cpp",
+<<<<<<< HEAD
         "string.h": "c",
         "stdarg.h": "c"
+=======
+        "fox_option.h": "c",
+        "cstdlib": "c",
+        "typeinfo": "c"
+>>>>>>> upstream/master
     },
 }

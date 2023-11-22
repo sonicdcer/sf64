@@ -2,6 +2,7 @@
 #define FUNCTIONS_H
 
 #include "structs.h"
+#include "fox_option.h"
 
 void func_8000291C(void);
 void func_800029A8(void);
@@ -74,11 +75,14 @@ void func_8001ACDC(s32);
 void func_8001AE58(void);
 void func_8001AF40(s32 arg0);
 void func_8001D400(s32);
+void func_8001D444(u8, u16, u8, u8);
+void func_8001DA90(u8);
 void func_8001DBD0(s32);
-void func_8001DC6C(s32, s32);
+void func_8001DC6C(u8, u16);
 
 void func_8000FFCC(void);
 void func_8001D8A8(u8, u8);
+void func_8001D8F4(u8);
 void func_8001DCE0(void);
 void func_8001DECC(void);
 SPTask* func_8001DF50(void);
@@ -134,6 +138,7 @@ void func_8002E3E0(Object_2F4 *arg0);
 
 void func_8002E548(void);
 void func_8003DAF0(void);
+void func_8003DE68(s32, s32);
 void func_80040CDC(void);
 void func_80042FAC(Object_408 *);       
 void func_80042FD0(Object_408 *);
@@ -256,14 +261,18 @@ s32 func_800998FC(Vec3f*, Vec3f*, s32, s32, Vec3f*, Vec3f*);
 s16 func_8009ACDC(s16 *);
 f32 func_8009BC2C(f32*, f32, f32, f32, f32);
 f32 func_8009BD38(f32*, f32, f32, f32, f32);
-void func_8009D418(Gfx**, u16*, u32, u32, f32, f32, f32, f32);
-void func_8009D994(Gfx**, u16*, u32, u32, f32, f32, f32, f32);
+void func_8009C320(Gfx **, void *, void *, u32, u32, f32, f32, f32, f32);
+void func_8009D418(Gfx**, void*, u32, u32, f32, f32, f32, f32);
+void func_8009D994(Gfx**, void*, u32, u32, f32, f32, f32, f32);
+void func_8009E4B0(Gfx**, void*, u32, u32, f32, f32, f32, f32);
 void func_8009F574(Gfx **, s32, s32, s32, s32, u8, u8, u8, u8);
 void func_8009F6CC(Vec3f*, f32, f32, f32);
 f32 func_8009F768(f32);
 void func_8009FC0C(s32, s32, s32);
 void func_8009FEA0(s32, s32, s32);
+void func_800A0094(s32, s32, f32, f32, u8 *);
 void func_800A1200(s32, s32, f32, f32, char*);
+s32 func_800A13EC(s8*);
 void func_800A18B0(void);
 void func_800A1980(void);
 s32 func_800A1B6C(void);
@@ -357,40 +366,7 @@ void func_E6A810_801B6E20(f32, f32, f32 *, f32 *, f32 *);
 void func_E9F1D0_80197CC4(Object_408 *);    
 void func_E9F1D0_8018D16C(Object_408 *); 
 
-void func_EBFBE0_801877F0(void);
- s32 func_EBFBE0_80187ABC(void);
-void func_EBFBE0_80187B00(void);
-void func_EBFBE0_80187E28(void);
-void func_EBFBE0_801888E8(void);
-void func_EBFBE0_8018994C(void);
-void func_EBFBE0_8018A644(void);
-void func_EBFBE0_8018ACEC(void);
-void func_EBFBE0_8018B5C4(void);
-void func_EBFBE0_8018C644(void);
-void func_EBFBE0_80190E64(void);
-void func_EBFBE0_8019111C(void);
-void func_EBFBE0_80187CA8(void);
-void func_EBFBE0_80188010(void);
-void func_EBFBE0_80189208(void);
-void func_EBFBE0_8018A2F8(void);
-void func_EBFBE0_8018A990(void);
-void func_EBFBE0_8018B038(void);
-void func_EBFBE0_8018C114(void);
-void func_EBFBE0_8018CB90(void);
-void func_EBFBE0_8018F680(void);
-void func_EBFBE0_8018F77C(void);
-void func_EBFBE0_8018F85C(void);
-void func_EBFBE0_8018F8E4(void);
-void func_EBFBE0_8018FC14(void);
-void func_EBFBE0_8018FD08(void);
-void func_EBFBE0_8018FF74(void);
-void func_EBFBE0_801906A0(void);
-void func_EBFBE0_80190C9C(void);
-void func_EBFBE0_801918FC(void);
-void func_EBFBE0_8018D2B8(s32);
-void func_EBFBE0_8018EA78(s32);
-void func_EBFBE0_80191674(f32, f32, f32, f32*, f32*, f32*);
-void func_EBFBE0_8019E8D0(void);
+
 
 void func_EF0260_8018A96C(void);
 void func_EF0260_8018AAC4(void);
