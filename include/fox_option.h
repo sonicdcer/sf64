@@ -75,6 +75,11 @@ extern f32 D_EBFBE0_801AEF84[];
 extern f32 D_EBFBE0_801AEF90[];
 extern f32 D_EBFBE0_801AEF9C[];
 
+extern s8* D_EBFBE0_801AF0C4[];
+extern s32 D_EBFBE0_801AF0D0[];
+extern s32 D_EBFBE0_801AF0DC[];
+extern s32 D_EBFBE0_801AF0E8[];
+
 extern Vec3f D_EBFBE0_801AF100[];
 extern Vec3f D_EBFBE0_801AF118[];
 
@@ -82,6 +87,9 @@ extern void* D_EBFBE0_801B68B0[];
 extern void* D_EBFBE0_801B68D4[];
 
 extern s32 D_EBFBE0_801B68F8;
+
+extern s32 D_EBFBE0_801B81A8[][3];
+
 extern s32 D_EBFBE0_801B914C;
 extern s32 D_EBFBE0_801B9158;
 extern s32 D_EBFBE0_801B91A0;

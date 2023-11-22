@@ -1314,7 +1314,20 @@ void func_EBFBE0_80197DE4(s32 arg0, s32 arg1, s32 arg2) {
                   D_EBFBE0_801B8220[arg0]);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80197F74.s")
+void func_EBFBE0_80197F74(s32 arg0, s32 arg1, s32 arg2) {
+    f32 temp_fs1;
+    s32 i;
+
+    func_800B8DD0(&gMasterDisp, 0x53);
+
+    for (temp_fs1 = 0.0f, i = 0; i < 3; i++, temp_fs1 += 12.0f) {
+        gDPSetPrimColor(gMasterDisp++, 0, 0, D_EBFBE0_801AF0D0[i], D_EBFBE0_801AF0DC[i], D_EBFBE0_801AF0E8[i], 255);
+        func_800A1200(temp_fs1 + arg1, arg2, 1.0f, 1.0f, D_EBFBE0_801AF0C4[i]);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+        func_8009FEA0(arg1 + temp_fs1 - ((func_8008BCBC(D_EBFBE0_801B81A8[arg0][i]) - 1) * 8), arg2 + 9.0f,
+                      D_EBFBE0_801B81A8[arg0][i]);
+    }
+}
 
 void func_EBFBE0_80198164(s32 arg0, f32 arg1, f32 arg2) {
     f32 temp = 16.0f;
