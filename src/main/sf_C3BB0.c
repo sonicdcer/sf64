@@ -11,7 +11,7 @@ u16 func_800C2FB0(Save* arg0) {
     s32 i;
 
     for (i = 0, var_v1 = 0; i < 0xFE; i++) {
-        var_v1 ^= arg0->unk_0[i];
+        var_v1 ^= arg0->checksum.unk_00[i];
         var_v1 <<= 1;
         var_v1 = (var_v1 & 0xFE) | ((var_v1 >> 8) & 1);
     }
@@ -24,7 +24,7 @@ u16 func_800C2FB0(Save* arg0) {
 s32 func_800C3084(void) {
     void* sp1C;
 
-    D_80178870.save[0].unk_FE = func_800C2FB0(&D_80178870.save[0]);
+    D_80178870.save[0].checksum.unk_FE = func_800C2FB0(&D_80178870.save[0]);
     D_80178870.save[1] = D_80178870.save[0];
     D_80144F60 = D_80178870;
     osSendMesg(&gSerialThreadMsgQueue, (OSMesg) SI_MESG_12, OS_MESG_PRI_NORMAL);

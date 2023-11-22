@@ -8,6 +8,8 @@ extern u64 __rspboot_end[];
 extern u64 __f3dex_start[];
 extern u8 gF3dexData;
 
+extern u8 D_8003B50[];
+extern u8 D_80046B0[];
 extern s32 D_800C45D0;
 extern f32 D_800C45E0[];
 
@@ -248,6 +250,7 @@ extern f32 D_801616C4;
 extern f32 D_801616C8;
 extern s32 D_80161708;
 extern s32 D_8016170C;
+extern s32 D_80161714;
 extern s32 D_80161730;
 extern s32 D_80161734;
 extern s32 D_80161788;
@@ -329,6 +332,8 @@ extern s32 D_8017789C;
 extern s32 D_801778A0;
 extern s32 D_801778A4;
 extern s32 D_801778A8;
+extern u8 D_801778AB;
+extern s32 D_801778AC;
 extern s32 D_801778B0[];
 extern s32 D_801778D0[];
 extern s32 D_801778E8;
@@ -344,7 +349,9 @@ extern f32 D_80177978;
 extern UnkStruct_D_8017797C* D_8017797C;
 extern f32 D_80177980;
 extern f32 D_80177988;
+extern s32 D_80177990[];
 extern f32 D_801779A0;
+extern f32 D_801779A8[];
 extern f32 D_801779B8;
 extern f32 D_801779C0;
 extern s32 D_801779C8[];
@@ -356,6 +363,9 @@ extern u8 D_80177AB0;
 extern s32 D_80177AE0;
 extern s32 D_80177AF8;
 extern s32 D_80177B40;
+extern s32 D_80177B48;
+extern s32 D_80177B8C[];
+extern s32 D_80177BB0[];
 extern u16 D_80177C30[];
 extern s32 D_80177C50;
 extern u8 D_80177C74;
@@ -490,7 +500,7 @@ extern f32 D_E9F1D0_801A7F60;
 extern f32 D_E9F1D0_801A7F78;
 extern f32 D_EBFBE0_801B7BC8;
 extern f32 D_EBFBE0_801B7BCC;
-extern s32 D_EBFBE0_801B8220[];
+extern s32 D_EBFBE0_801B8220[]; // total hits ranking? see func_EBFBE0_80197DE4
 extern u8 D_EBFBE0_801B8248[][4];
 extern s32 D_EBFBE0_801B827C;
 extern s32 D_EBFBE0_801B8280;
@@ -692,14 +702,12 @@ extern Gfx D_6036CD0[];
 extern Gfx D_6022920[];
 extern Gfx D_6020B40[];
 extern UNK_TYPE D_6029674;
-
-
 extern ObjectInit* D_6010088[];
+extern u16 D_601B4B0[];
+extern Gfx D_601D1F0[];
+extern s16 D_6029528[];
 extern ObjectInit* D_602B148[];
 extern ObjectInit* D_602F18C[];
-extern ObjectInit* D_C0356A4[];
-
-
 extern UNK_TYPE D_601E8C4;
 extern UNK_TYPE D_601E9D0;
 extern Gfx D_6018C00[];
@@ -707,18 +715,35 @@ extern Gfx D_6024B60[];
 extern Gfx D_6025B50[];
 extern Gfx D_6007CF0[];
 extern Gfx D_6007D90[];
+extern u16 D_60447A0[];
+extern u16 D_6047550[];
 extern Gfx D_6004570[];
 extern u8 D_6001B80[];
 extern u8 D_60020D0[];
 
 extern Gfx D_7007350[];
 extern Gfx D_700BB10[];
+extern u8 D_7004010[];
+
+extern u8 D_80038E0[];
+extern u8 D_8003930[];
+extern u8 D_8003950[];
+extern u8 D_80039A8[];
+extern u8 D_8003A70[];
+extern u8 D_8003AB8[];
+extern u8 D_8003AE0[];
+extern u8 D_8003B28[];
+
+extern u8 D_800D070[];
+extern u8 D_800D170[];
 
 extern Gfx D_900D180[];
 extern Gfx D_9010FD0[];
 extern Gfx D_9023290[];
 extern Gfx D_90234D0[];
 
+extern ObjectInit* D_C0356A4[];
+extern ObjectInit* D_C0356A4[];
 extern Gfx D_C017440[];
 
 extern Gfx D_D0098B0[];
@@ -730,6 +755,8 @@ extern u16 D_F000800[];
 extern u16 D_F001000[];
 extern u16 D_F001800[];
 extern u16 D_F002000[];
+
+
 
 #endif // VARIABLES_H
 
