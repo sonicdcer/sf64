@@ -6,9 +6,6 @@
 
 #define UNK_TYPE s32
 
-typedef s32 (*OverrideLimbDraw)(s32, Gfx**, Vec3f*, Vec3f*, s32*);
-typedef void (*PostLimbDraw)(s32, Vec3f*, s32*);
-
 typedef struct {
     s32 unk0;
     u16* unk4;
@@ -43,8 +40,9 @@ typedef struct {
     /* 0x30 */ s32 unk30;
 } UnkStruct_func_80007088; // size = 0x38, 0x8 aligned
 
-typedef struct {
+typedef union {
     u16 data[240 * 320];
+    u16 array[240][320];
 } FrameBuffer; // size = 0x25800
 
 typedef struct {

@@ -1,9 +1,7 @@
 #include "global.h"
 
 extern void func_80187520(s32, void*);
-#define RGBA16_RED(color16) ((((color16) >> 0xB) & 0x1F) * 8)
-#define RGBA16_GREEN(color16) ((((color16) >> 6) & 0x1F) * 8)
-#define RGBA16_BLUE(color16) ((((color16) >> 1) & 0x1F) * 8)
+
 
 void func_800A18B0(void) {
     func_80006F20();
@@ -116,8 +114,8 @@ void func_800A1C14(Gfx** arg0) {
         gDPSetCycleType((*arg0)++, G_CYC_1CYCLE);
         gDPSetCombineMode((*arg0)++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
         gDPSetRenderMode((*arg0)++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
-        gDPSetPrimColor((*arg0)++, 0x00, 0x00, RGBA16_RED(D_80161A36), RGBA16_GREEN(D_80161A36),
-                        RGBA16_BLUE(D_80161A36), D_80161A38);
+        gDPSetPrimColor((*arg0)++, 0x00, 0x00, RGBA16_RED(D_80161A36) * 8, RGBA16_GRN(D_80161A36) * 8,
+                        RGBA16_BLU(D_80161A36) * 8, D_80161A38);
     } else {
         gDPSetFillColor((*arg0)++, (((D_80161A36 | 1) << 0x10) | (D_80161A36 | 1)));
     }

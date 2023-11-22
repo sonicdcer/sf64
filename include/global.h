@@ -17,6 +17,7 @@
 #include "macros.h"
 #include "sf64math.h"
 #include "gfx.h"
+#include "sf64animation.h"
 
 typedef enum {
     SI_MESG_10 = 10,

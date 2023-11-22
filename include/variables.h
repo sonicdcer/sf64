@@ -210,6 +210,7 @@ extern s32 D_800D2180[];
 extern s32 D_800D2190[];
 extern f32 D_800D21A0;
 extern f32 D_800D21A4;
+extern Vec3f D_800D25D0; // initializer in sf_9A580
 extern s32 D_800D2860[];
 extern s32 D_800D2870;
 extern s32 D_800D2874[];
@@ -264,6 +265,7 @@ extern s32 D_801617B0;
 extern s32 D_801617B4;
 extern s32 D_801617B8;
 extern s32 D_80161810[];
+extern s8 D_801619A0[100];
 extern f32 D_80161A10;
 extern f32 D_80161A14;
 extern u8 D_80161A2C;
@@ -460,6 +462,7 @@ extern u16 D_Tex_800D99F8[];
 extern u16 D_Tex_800DBA20[];
 extern Gfx D_Gfx_800DBAA0[];
 extern Gfx D_Gfx_800DAC20[];
+extern Gfx D_Gfx_800D9688[];
 
 extern DmaEntry gDmaTable[]; // 178A70
 extern u8 D_80179010[][16 * 13 / 2];

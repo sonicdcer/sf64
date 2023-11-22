@@ -4,6 +4,11 @@
 #define SCREEN_WIDTH  320
 #define SCREEN_HEIGHT 240
 
+#define RGBA16_RED(color16) (((color16) >> 0xB) & 0x1F)
+#define RGBA16_GRN(color16) (((color16) >> 6) & 0x1F)
+#define RGBA16_BLU(color16) (((color16) >> 1) & 0x1F)
+#define RGBA16_PACK(r, g, b, a) (((r) << 0xB) | ((g) << 0x6) | ((b) << 1) | (a))
+
 typedef enum SetupDL {
     /* 0x00 */ SETUPDL_0,
     /* 0x01 */ SETUPDL_1,
