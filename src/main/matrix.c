@@ -21,7 +21,6 @@ Matrix* D_8013BBC8;
 Matrix D_8013BBD0[0x20];
 #endif
 
-// Matrix_Copy
 void Matrix_Copy(Matrix* dst, Matrix* src) {
     dst->m[0][0] = src->m[0][0];
     dst->m[0][1] = src->m[0][1];
@@ -57,18 +56,15 @@ void Matrix_Copy(Matrix* dst, Matrix* src) {
     // dst->ww = src->ww;
 }
 
-// Matrix_Push
 void Matrix_Push(Matrix** mtxStack) {
     Matrix_Copy(*mtxStack + 1, *mtxStack);
     *mtxStack += 1;
 }
 
-// Matrix_Pop
 void Matrix_Pop(Matrix** mtxStack) {
     *mtxStack -= 1;
 }
 
-// Matrix_Mult
 void Matrix_Mult(Matrix* mtx, Matrix* tf, u8 mode) {
     f32 rx;
     f32 ry;
@@ -120,7 +116,6 @@ void Matrix_Mult(Matrix* mtx, Matrix* tf, u8 mode) {
     }
 }
 
-// Matrix_Translate
 void Matrix_Translate(Matrix* mtx, f32 x, f32 y, f32 z, u8 mode) {
     f32 rx;
     f32 ry;
@@ -186,7 +181,6 @@ void Matrix_Scale(Matrix* mtx, f32 xScale, f32 yScale, f32 zScale, u8 mode);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/matrix/Matrix_Scale.s")
 #endif
 
-// Matrix_RotateX
 void Matrix_RotateX(Matrix* mtx, f32 angle, u8 mode) {
     f32 cs;
     f32 sn;
@@ -225,7 +219,6 @@ void Matrix_RotateX(Matrix* mtx, f32 angle, u8 mode) {
     }
 }
 
-// Matrix_RotateY
 void Matrix_RotateY(Matrix* mtx, f32 angle, u8 mode) {
     f32 cs;
     f32 sn;
@@ -264,7 +257,6 @@ void Matrix_RotateY(Matrix* mtx, f32 angle, u8 mode) {
     }
 }
 
-// Matrix_RotateZ
 void Matrix_RotateZ(Matrix* mtx, f32 angle, u8 mode) {
     f32 cs;
     f32 sn;
@@ -303,7 +295,6 @@ void Matrix_RotateZ(Matrix* mtx, f32 angle, u8 mode) {
     }
 }
 
-// Matrix_RotateAxis
 void Matrix_RotateAxis(Matrix* mtx, f32 angle, f32 axisX, f32 axisY, f32 axisZ, u8 mode) {
     f32 rx;
     f32 ry;
@@ -505,7 +496,6 @@ void Matrix_MultVec3fNoTranslate(Matrix* mtx, Vec3f* src, Vec3f* dest) {
     dest->z = (mtx->m[0][2] * src->x) + (mtx->m[1][2] * src->y) + (mtx->m[2][2] * src->z);
 }
 
-// Matrix_GetYPRAngles
 void Matrix_GetYRPAngles(Matrix* mtx, Vec3f* rot) {
     Matrix invYP;
     Vec3f origin = { 0.0f, 0.0f, 0.0f };
@@ -525,16 +515,15 @@ void Matrix_GetYRPAngles(Matrix* mtx, Vec3f* rot) {
     xHatP.y -= originP.y;
     xHatP.z -= originP.z;
     rot->y = Math_Atan2F(zHatP.x, zHatP.z);
-    rot->x = -Math_Atan2F(zHatP.y, sqrtf((zHatP.x * zHatP.x) + (zHatP.z * zHatP.z)));
+    rot->x = -Math_Atan2F(zHatP.y, sqrtf(SQ(zHatP.x) + SQ(zHatP.z)));
     Matrix_RotateX(&invYP, -rot->x, 0);
     Matrix_RotateY(&invYP, -rot->y, 1);
     Matrix_MultVec3fNoTranslate(&invYP, &xHatP, &xHat);
-    rot->x *= 57.295776f;
-    rot->y *= 57.295776f;
-    rot->z = Math_Atan2F(xHat.y, xHat.x) * 57.295776f;
+    rot->x *= M_RTOD;
+    rot->y *= M_RTOD;
+    rot->z = Math_Atan2F(xHat.y, xHat.x) * M_RTOD;
 }
 
-// Matrix_GetXYZAngles
 void Matrix_GetXYZAngles(Matrix* mtx, Vec3f* rot) {
     Matrix invYZ;
     Vec3f origin = { 0.0f, 0.0f, 0.0f };
@@ -554,7 +543,7 @@ void Matrix_GetXYZAngles(Matrix* mtx, Vec3f* rot) {
     yHatP.y -= originP.y;
     yHatP.z -= originP.z;
     rot->z = Math_Atan2F(xHatP.y, xHatP.x);
-    rot->y = -Math_Atan2F(xHatP.z, sqrtf((xHatP.x * xHatP.x) + (xHatP.y * xHatP.y)));
+    rot->y = -Math_Atan2F(xHatP.z, sqrtf(SQ(xHatP.x) + SQ(xHatP.y)));
     Matrix_RotateY(&invYZ, -rot->y, 0);
     Matrix_RotateZ(&invYZ, -rot->z, 1);
     Matrix_MultVec3fNoTranslate(&invYZ, &yHatP, &yHat);
@@ -563,7 +552,6 @@ void Matrix_GetXYZAngles(Matrix* mtx, Vec3f* rot) {
     rot->z *= M_RTOD;
 }
 
-// Matrix_LookAt
 void Matrix_LookAt(Matrix* mtx, f32 xEye, f32 yEye, f32 zEye, f32 xAt, f32 yAt, f32 zAt, f32 xUp, f32 yUp, f32 zUp,
                    u8 mode) {
     Matrix lookAt;
@@ -572,7 +560,6 @@ void Matrix_LookAt(Matrix* mtx, f32 xEye, f32 yEye, f32 zEye, f32 xAt, f32 yAt, 
     Matrix_Mult(mtx, &lookAt, mode);
 }
 
-// Matrix_SetMtx ?
 void Matrix_SetGfxMtx(Gfx** gfx) {
     Matrix_ToMtx(gGfxMtx);
     gSPMatrix((*gfx)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
