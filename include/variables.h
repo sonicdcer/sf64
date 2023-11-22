@@ -454,6 +454,8 @@ extern s32 D_80178558;
 extern s32 D_8017855C;
 extern s32 D_80178580;
 extern s32 *D_80178710;
+extern s32 D_80178720;
+extern s32 D_80178724;
 extern s32 D_80178728;
 extern s32 D_8017872C;
 extern f32 D_80178730;

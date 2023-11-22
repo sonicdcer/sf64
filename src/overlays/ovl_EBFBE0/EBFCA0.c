@@ -441,4 +441,31 @@ void func_EBFBE0_80189208(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/EBFCA0/func_EBFBE0_801918FC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/EBFCA0/func_EBFBE0_801919C4.s")
+void func_EBFBE0_801919C4(u16** arg0, s32 arg1) {
+    D_80178720 = arg0;
+    D_80178724 = 0;
+    D_80178308 = arg0[D_80178724];
+    D_80177D68 = arg1;
+    D_8017829C = 100;
+
+    switch (D_80177834) {
+        case 2:
+            D_8017872C = 176;
+            D_80178728 = 85;
+            D_80178730 = 80.0f;
+            D_80178734 = 174.0f;
+            D_80178738 = 4.63f;
+            D_8017873C = 32.0f;
+            D_80178740 = 174.0f;
+            break;
+        case 7:
+            D_8017872C = 179;
+            D_80178728 = 79;
+            D_80178730 = 74.0f;
+            D_80178734 = 178.0f;
+            D_80178738 = 4.53f;
+            D_8017873C = 26.0f;
+            D_80178740 = 178.0f;
+    }
+    func_8001ACDC(func_800C2890(D_80178308));
+}
