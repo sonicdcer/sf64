@@ -68,6 +68,8 @@ extern u8* D_EBFBE0_801AECF8[];
 
 extern UnkStruct_D_EBFBE0_801AED4C D_EBFBE0_801AED4C[24];
 
+extern s8* D_EBFBE0_801AEEAC[];
+
 extern Gfx D_EBFBE0_801AEF30[];
 
 extern u8 D_EBFBE0_801AEF5C[];
@@ -82,6 +84,9 @@ extern s32 D_EBFBE0_801AF0E8[];
 
 extern Vec3f D_EBFBE0_801AF100[];
 extern Vec3f D_EBFBE0_801AF118[];
+extern f32 D_EBFBE0_801AF13C;
+extern f32 D_EBFBE0_801AF140;
+extern f32 D_EBFBE0_801AF144;
 
 extern void* D_EBFBE0_801B68B0[];
 extern void* D_EBFBE0_801B68D4[];
@@ -257,6 +262,7 @@ void func_EBFBE0_801984D0(s32, s32, f32, f32);
 void func_EBFBE0_80198608(s32, s32, f32, f32);
 void func_EBFBE0_8019882C(s32, s32, f32, f32);
 void func_EBFBE0_8019896C(s32, f32, s32);
+s32 func_EBFBE0_80199284(s32 arg0, s32 arg1);
 void func_EBFBE0_801992C4(void);
 void func_EBFBE0_80199424(void);
 void func_EBFBE0_8019949C(void);

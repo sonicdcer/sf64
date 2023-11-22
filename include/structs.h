@@ -49,10 +49,19 @@ typedef struct {
     /* bit 5 */ u8 unk_5 : 1;    
     /* bit 6 */ u8 unk_6 : 1;    
     /* bit 7 */ u8 unk_7 : 1;    
-} Save_00_SubStruct; // size = 0x1
+} Save_00_SubStruct_00; // size = 0x1
+
+typedef struct {
+    /* bit 0 */ u16 unk_0 : 8;
+    /* bit 8 */ u16 unk_8 : 4;
+    /* bit C */ u16 unk_C : 1;
+    /* bit D */ u16 unk_D : 1;
+    /* bit E */ u16 unk_E : 1;
+    /* bit F */ u16 unk_F : 1;
+} Save_00_SubStruct_5E; // size = 0x10
 
 typedef struct Save_00 {
-    /* 0x00 */ Save_00_SubStruct unk_00[16];
+    /* 0x00 */ Save_00_SubStruct_00 unk_00[16];
     /* 0x10 */ char pad10[0x4];
     /* 0x14 */ u8 unk_14;
     /* 0x15 */ u8 unk_15;
@@ -61,7 +70,8 @@ typedef struct Save_00 {
     /* 0x18 */ u8 unk_18[10][3];
     /* 0x36 */ u8 unk_36[10];
     /* 0x40 */ s8 unk_40[10];
-    /* 0x4A */ char pad4A[0xA0];
+    /* 0x4A */ char pad4A[0x14];
+    /* 0x5E */ Save_00_SubStruct_5E unk_5E[10][7];
     /* 0xEA */ u8 unk_EA;
     /* 0xEB */ char padEB[0x3];
 } Save_00;

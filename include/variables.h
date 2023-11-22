@@ -596,14 +596,14 @@ extern f32 D_60069CC[];
 extern f32 D_60069E8[];
 extern f32 D_6006A04[];
 extern f32 D_6006A20[];
-extern s16 D_6029528[];
-
 extern ObjectInit* D_6010088[];
 extern u16 D_601B4B0[];
+extern Gfx D_601D1F0[];
+extern s16 D_6029528[];
 extern ObjectInit* D_602B148[];
 extern ObjectInit* D_602F18C[];
-extern ObjectInit* D_C0356A4[];
-
+extern u16 D_60447A0[];
+extern u16 D_6047550[];
 extern Gfx D_6004570[];
 extern u8 D_6001B80[];
 extern u8 D_60020D0[];
@@ -630,6 +630,8 @@ extern u16 D_F000800[];
 extern u16 D_F001000[];
 extern u16 D_F001800[];
 extern u16 D_F002000[];
+
+extern ObjectInit* D_C0356A4[];
 
 #endif // VARIABLES_H
 
