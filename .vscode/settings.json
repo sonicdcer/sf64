@@ -42,6 +42,7 @@
         "symbol_addrs_overlays": "cpp",
         "fox_option.h": "c",
         "cstdlib": "c",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "sym_addrs_funcs": "c"
     },
 }

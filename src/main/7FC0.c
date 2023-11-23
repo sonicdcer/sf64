@@ -8,6 +8,8 @@ const char* D_800C4870[18];
 const char* D_800C48B8[6];
 #endif
 
+#include "fault_text.c"
+
 void func_800073C0(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     u16* var_v0;
     s32 i;
@@ -88,53 +90,53 @@ void func_8000770C(s32 arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8240.s")
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8240.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C824C.s")
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C824C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8260.s")
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8260.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8278.s")
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8278.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8290.s")
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8290.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C82A8.s")
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C82A8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C82C0.s")
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C82C0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C82D4.s")
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C82D4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C82E8.s")
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C82E8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8300.s")
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8300.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8318.s")
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8318.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8330.s")
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8330.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8348.s")
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8348.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C835C.s")
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C835C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C836C.s")
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C836C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8388.s")
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8388.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C83A4.s")
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C83A4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C83BC.s")
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C83BC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C83D8.s")
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C83D8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C83F0.s")
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C83F0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8404.s")
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8404.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8418.s")
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8418.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8424.s")
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8424.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8430.s")
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8430.s")
 
 void func_800077F8(s32 arg0, s32 arg1, s32 arg2, f32* arg3) {
     u32 temp_v0 = *(u32*) arg3;

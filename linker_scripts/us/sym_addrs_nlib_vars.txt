@@ -1,0 +1,106 @@
+// joybus
+D_800DD880 = 0x800DD880; // size:0x18
+D_800DD898 = 0x800DD898; // size:0x18
+D_800DD8B0 = 0x800DD8B0; // size:0x4
+D_800DD8B4 = 0x800DD8B4; // size:0x4
+D_800DD8B8 = 0x800DD8B8; // size:0x4
+D_800DD8BC = 0x800DD8BC; // ignore:true
+D_800DD8C0 = 0x800DD8C0; // size:0x18
+D_800DD8D8 = 0x800DD8D8; // size:0x18
+D_800DD8F0 = 0x800DD8F0; // size:0x10
+
+// lib
+
+
+// lights
+
+
+// main
+gAudioThreadStack =  0x800DDAA0;
+gGraphicsThread =      0x800DEAA0;
+gGraphicsThreadStack = 0x800DEC50;
+gUnkThread3 =      0x800DFC50;
+gUnkThread3Stack = 0x800DFE00;
+gSerialThread =      0x800E0E00;
+gSerialThreadStack = 0x800E0FB0;
+
+gCurrentTask = 0x800E1FB0;
+D_800E1FB4 = 0x800E1FB4;
+D_800E1FB8 = 0x800E1FB8;
+D_800E1FC0 = 0x800E1FC0;
+D_800E1FC8 = 0x800E1FC8;
+gSegments = 0x800E1FD0;
+gPiMgrCmdQueue = 0x800E2010;
+sPiMgrCmdBuff = 0x800E2028;
+
+D_800E20F0 = 0x800E20F0;
+gTaskMsgQueue = 0x800E21E0;
+D_800E2238 = 0x800E2238;
+D_800E2258 = 0x800E2258;
+D_800E2278 = 0x800E2278;
+D_800E22A0 = 0x800E22A0;
+gSerialEventQueue = 0x800E2128;
+gMainThreadMsgQueue = 0x800E2148;
+gThread7msgQueue = 0x800E2338;
+D_800E2390 = 0x800E2390;
+gSerialThreadMsgQueue = 0x800E22C0;
+D_800E22F8 = 0x800E22F8;
+D_800E2318 = 0x800E2318;
+
+gGfxPools = 0x800E23B0; // size:0x55AA0
+gGfxPool = 0x80137E50;
+gGfxTask = 0x80137E54;
+gViewport = 0x80137E58;
+gGfxMtx = 0x80137E5C;
+gUnkDisp1 = 0x80137E60;
+gMasterDisp = 0x80137E64;
+gUnkDisp2 = 0x80137E68;
+gLight = 0x80137E6C;
+gFrameBuffer = 0x80137E70;
+D_80137E74 = 0x80137E74;
+D_80137E78 = 0x80137E78;
+D_80137E7C = 0x80137E7C;
+D_80137E80 = 0x80137E80;
+D_80137E81 = 0x80137E81;
+D_80137E84 = 0x80137E84;
+D_80137E88 = 0x80137E88;
+D_80137E8A = 0x80137E8A;
+
+gUnusedStack = 0x80137E90
+sIdleThread = 0x80138E90;
+sIdleThreadStack = 0x80139040;
+gMainThread = 0x8013A040;
+sMainThreadStack = 0x8013A1F0;
+gAudioThread = 0x8013B1F0;
+
+// math
+D_8013B3A0 = 0x8013B3A0;
+D_8013B3A4 = 0x8013B3A4;
+D_8013B3A8 = 0x8013B3A8;
+D_8013B3AC = 0x8013B3AC;
+D_8013B3B0 = 0x8013B3B0;
+D_8013B3B4 = 0x8013B3B4;
+
+// matrix 
+gIdentityMtx = 0x800C4620;
+gIdentityMatrix = 0x800C4660;
+
+// memory 
+D_8013C3D0 = 0x8013C3D0; // size:0x8800
+D_80144BD0 = 0x80144BD0;
+
+// thread 7
+D_80144BE0 = 0x80144BE0;
+
+// save 
+D_80144F60 = 0x80144F60;
+D_80145160 = 0x80145160;
+
+// fault 
+gFaultMgr = 0x80145360; // size:0x9D8
+sFaultCharIndex = 0x800C46F0;
+sFaultCharPixelFlags = 0x800C4770;
+
+// audio
+
+

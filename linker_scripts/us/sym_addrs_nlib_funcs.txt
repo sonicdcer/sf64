@@ -1,0 +1,127 @@
+
+
+
+// joybus
+func_80002840 = 0x80002840;
+func_8000291C = 0x8000291C;
+func_800029A8 = 0x800029A8;
+func_80002AF4 = 0x80002AF4;
+func_80002BE8 = 0x80002BE8;
+func_80002C50 = 0x80002C50;
+func_80002CB8 = 0x80002CB8;
+
+// lib
+func_80002E80 = 0x80002E80;
+func_80002EA0 = 0x80002EA0;
+func_80002EE4 = 0x80002EE4;
+func_80002F88 = 0x80002F88;
+func_8000316C = 0x8000316C;
+func_800032B4 = 0x800032B4;
+func_800033E0 = 0x800033E0;
+func_800034E8 = 0x800034E8;
+
+// lights
+func_800035D0 = 0x800035D0;
+func_8000372C = 0x8000372C;
+
+// main
+func_80003A50 = 0x80003A50;
+Audio_ThreadEntry = 0x80003B48;
+func_80003C50 = 0x80003C50;
+func_80003DC0 = 0x80003DC0;
+func_80003EE0 = 0x80003EE0;
+SerialInterface_ThreadEntry = 0x80003FEC;
+Thread7_ThreadEntry = 0x800040D4;
+Graphics_ThreadEntry = 0x80004144;
+func_80004714 = 0x80004714;
+func_800049D4 = 0x800049D4;
+Main_ThreadEntry = 0x80004ABC;
+Idle_ThreadEntry = 0x80004D00;
+bootproc = 0x80004DA8;
+
+// math
+Math_ModF = 0x80004E20;
+Rand_Init = 0x80004E4C;
+Rand_ZeroOne = 0x80004EB0;
+Rand_SetSeed = 0x80004FC8;
+Rand_ZeroOneSeeded = 0x80004FE8;
+Math_Atan2F = 0x80005100;
+Math_Atan2F_XY = 0x800051F8;
+Math_Atan2F_XYAlt = 0x80005320;
+Math_FactorialF = 0x800053C8;
+Math_Factorial = 0x800054C8;
+Math_PowF = 0x800055DC;
+Math_MinMax = 0x80005604;
+
+// matrix
+Matrix_Copy = 0x80005680;
+Matrix_Push = 0x80005708;
+Matrix_Pop = 0x80005740;
+Matrix_Mult = 0x80005754;
+Matrix_Translate = 0x80005B00;
+Matrix_Scale = 0x80005C34;
+Matrix_RotateX = 0x80005D44;
+Matrix_RotateY = 0x80005E90;
+Matrix_RotateZ = 0x80005FE0;
+Matrix_RotateAxis = 0x8000612C;
+Matrix_ToMtx = 0x80006500;
+Matrix_FromMtx = 0x8000671C;
+Matrix_MultVec3f = 0x80006970;
+Matrix_MultVec3fNoTranslate = 0x80006A20;
+Matrix_GetYRPAngles = 0x80006AB8;
+Matrix_GetXYZAngles = 0x80006C7C;
+Matrix_LookAt = 0x80006E3C;
+Matrix_SetGfxMtx = 0x80006EB8;
+
+// memory
+func_80006F20 = 0x80006F20;
+func_80006F38 = 0x80006F38;
+
+// thread 7
+func_80006F60 = 0x80006F60;
+func_80006F60 = 0x80006F60;
+func_80007068 = 0x80007068;
+func_8000707C = 0x8000707C;
+func_80007088 = 0x80007088;
+func_800070C8 = 0x800070C8;
+
+// save
+func_80007130 = 0x80007130;
+func_8000716C = 0x8000716C;
+func_800071FC = 0x800071FC;
+func_800072E0 = 0x800072E0;
+
+// fault
+func_800073C0 = 0x800073C0;
+func_800074AC = 0x800074AC;
+func_80007604 = 0x80007604;
+func_8000762C = 0x8000762C;
+func_8000770C = 0x8000770C;
+func_800077F8 = 0x800077F8;
+func_80007880 = 0x80007880;
+func_80007910 = 0x80007910;
+func_80007CEC = 0x80007CEC;
+func_80007FE4 = 0x80007FE4;
+Fault_Init = 0x80008018;
+
+// audio
+
+// hasm
+Mio0_Decompress = 0x8001EE70;
+RdRam_CheckIPL3 = 0x8001EF10;
+
+// math64
+Math_FAtanF = 0x8001FBE8;
+Math_FAtan2F = 0x8001FD0C;
+Math_FAsinF = 0x8001FE00;
+Math_FAcosF = 0x8001FE30;
+
+
+
+
+
+
+
+
+
+

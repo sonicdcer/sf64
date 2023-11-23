@@ -99,7 +99,7 @@ void func_80002AF4(void) {
     osSendMesg(&D_800E22F8, (OSMesg) SI_MESG_16, OS_MESG_PRI_NORMAL);
 }
 #else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/3440/func_80002AF4.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/joybus/func_80002AF4.s")
 #endif
 
 void func_80002BE8(void) {
