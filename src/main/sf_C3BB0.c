@@ -28,7 +28,7 @@ s32 func_800C3084(void) {
     D_80178870.save[1] = D_80178870.save[0];
     D_80144F60 = D_80178870;
     osSendMesg(&gSerialThreadMsgQueue, (OSMesg) SI_MESG_12, OS_MESG_PRI_NORMAL);
-    osRecvMesg(&D_800E2318, &sp1C, OS_MESG_BLOCK);
+    osRecvMesg(&g_D_800E2318_Queue, &sp1C, OS_MESG_BLOCK);
     if (sp1C != (OSMesg) SI_MESG_15) {
         return -1;
     }
@@ -41,7 +41,7 @@ s32 func_800C3194(void) {
     s32 i;
 
     osSendMesg(&gSerialThreadMsgQueue, (OSMesg) SI_MESG_11, OS_MESG_PRI_NORMAL);
-    osRecvMesg(&D_800E2318, &sp24, OS_MESG_BLOCK);
+    osRecvMesg(&g_D_800E2318_Queue, &sp24, OS_MESG_BLOCK);
     if ((s32) sp24 != SI_MESG_15) {
         return -1;
     }

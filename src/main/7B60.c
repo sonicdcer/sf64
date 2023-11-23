@@ -46,6 +46,6 @@ void func_800070C8(u64 arg0) {
     OSTimer sp30;
     OSMesg sp2C;
 
-    osSetTimer(&sp30, arg0, 0, &D_800E2390, NULL);
-    osRecvMesg(&D_800E2390, &sp2C, OS_MESG_BLOCK);
+    osSetTimer(&sp30, arg0, 0, &g_D_800E2390_Queue, NULL);
+    osRecvMesg(&g_D_800E2390_Queue, &sp2C, OS_MESG_BLOCK);
 }

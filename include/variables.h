@@ -33,14 +33,14 @@ extern OSMesgQueue* D_800C7C64;
 
 extern char D_800C7C80[];
 
-extern OSContPad D_800DD880[4];
-extern OSContPad D_800DD898[4];
-extern u8 D_800DD8B0[4];
-extern s32 D_800DD8B4;
-extern u8 D_800DD8B8[4];
-extern u8 D_800DD8BC[4]; // Fake symbol. Only exists as loop terminator for D_800DD8B8
-// extern OSContPad D_800DD8C0[4];
-// extern OSContPad D_800DD8D8[4];
+extern OSContPad gCurrentInput[4];
+extern OSContPad gChangedInput[4];
+extern u8 gControllerStatus[4];
+extern s32 gStopInputTimer;
+extern u8 gRumbleStatus[4];
+extern u8 D_800DD8BC[4]; // Fake symbol. Only exists as loop terminator for gRumbleStatus
+// extern OSContPad sNextInput[4];
+// extern OSContPad sPrevInput[4];
 // extern OSContStatus D_800DD8F0[4];
 // extern OSPfs D_800DD900[4];
 
@@ -62,33 +62,33 @@ extern u32 gSegments[16]; // 800E1FD0
 extern OSMesgQueue gPiMgrCmdQueue; // 800E2010
 extern OSMesg sPiMgrCmdBuff[50]; // 800E2028
 
-extern OSMesgQueue D_800E20F0;
-extern void *D_800E2108[1];
-extern OSIoMesg D_800E2110;
+extern OSMesgQueue gDmaMsgQueue;
+extern void *sDmaMsgBuff[1];
+extern OSIoMesg gDmaIOMsg;
 extern OSMesgQueue gSerialEventQueue;
-extern void *D_800E2140[1];
+extern void *sSerialEventBuff[1];
 extern OSMesgQueue gMainThreadMsgQueue;
-extern void *D_800E2160[32];
+extern void *sMainThreadMsgBuff[32];
 extern OSMesgQueue gTaskMsgQueue;
-extern void *D_800E21F8[16];
-extern OSMesgQueue D_800E2238;
-extern void *D_800E2250[1];
-extern OSMesgQueue D_800E2258;
-extern void *D_800E2270[1];
-extern OSMesgQueue D_800E2278;
-extern void *D_800E2290[4];
-extern OSMesgQueue D_800E22A0;
-extern void *D_800E22B8[2];
+extern void *sTaskMsgBuff[16];
+extern OSMesgQueue g_D_800E2238_Queue;
+extern void *s_D_800E2238_Buff[1];
+extern OSMesgQueue g_D_800E2258_Queue;
+extern void *s_D_800E2258_Buff[1];
+extern OSMesgQueue g_D_800E2278_Queue;
+extern void *s_D_800E2278_Buff[4];
+extern OSMesgQueue g_D_800E22A0_Queue;
+extern void *s_D_800E22A0_Buff[2];
 extern OSMesgQueue gSerialThreadMsgQueue;
-extern void *D_800E22D8[8];
-extern OSMesgQueue D_800E22F8;
-extern void *D_800E2310[1];
-extern OSMesgQueue D_800E2318;
-extern void *D_800E2330[1];
+extern void *sSerialThreadMsgBuff[8];
+extern OSMesgQueue g_D_800E22F8_Queue;
+extern void *s_D_800E22F8_Buff[1];
+extern OSMesgQueue g_D_800E2318_Queue;
+extern void *s_D_800E2318_Buff[1];
 extern OSMesgQueue gThread7msgQueue;
-extern void *D_800E2350[16];
-extern OSMesgQueue D_800E2390;
-extern void *D_800E23A8[1];
+extern void *sThread7msgBuff[16];
+extern OSMesgQueue g_D_800E2390_Queue;
+extern void *s_D_800E2390_Buff[1];
 
 extern GfxPool gGfxPools[2]; // 800E23B0
 
@@ -105,7 +105,7 @@ extern s32* D_80137E74;
 
 // some sort of struct?
 extern u8 D_80137E78;
-extern u32 D_80137E7C;
+extern u32 gFrameCounter;
 extern u8 D_80137E80;
 extern u8 D_80137E81;
 extern u8 D_80137E84[4];
@@ -118,10 +118,10 @@ extern OSThread gMainThread; // 8013A040
 extern u8 sMainThreadStack[0x1000]; // 8013A1F0
 extern OSThread gAudioThread; //8013B1F0
 
-extern Matrix* D_8013B3C0;
-extern Matrix D_8013B3C8[0x20];
-extern Matrix* D_8013BBC8;
-extern Matrix D_8013BBD0[0x20];
+extern Matrix* gGfxMatrix;
+extern Matrix sGfxMatrixStack[0x20];
+extern Matrix* gCalcMatrix;
+extern Matrix sCalcMatrixStack[0x20];
 
 extern SaveFile D_80144F60;
 extern SaveFile D_80145160;
@@ -550,7 +550,7 @@ extern s32 D_EBFEB0_801ADA94;
 
 extern u8 D_80281000[0x400];
 extern u8 D_80281400[0xC00];
-extern FrameBuffer D_80282000; // z buffer
+extern FrameBuffer gZBuffer; // z buffer
 extern u8 D_802A7800;
 extern u8 D_802D7800;
 extern s32 D_80387800;

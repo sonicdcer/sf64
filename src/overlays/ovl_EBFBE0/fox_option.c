@@ -376,7 +376,7 @@ void func_EBFBE0_80192340(void) {
     if (D_EBFBE0_801B8280 != 0) {
         func_EBFBE0_8019BDF0();
         func_80084688(2, D_EBFBE0_801B8284);
-        Matrix_Pop(&D_8013B3C0);
+        Matrix_Pop(&gGfxMatrix);
     }
 }
 
@@ -472,7 +472,7 @@ void func_EBFBE0_801928BC(void) {
         D_8017783C = 2;
         D_80177B40 = 0;
         D_80177898 = 0;
-        D_800DD8B4 = 3;
+        gStopInputTimer = 3;
     } else {
         D_80178340 += 0x20;
         if (D_80178340 > 0xFF) {
@@ -492,7 +492,7 @@ void func_EBFBE0_80192938(void) {
         D_80177CA0 = 0;
         D_80177CB0 = 0.0f;
         D_8017782C = 1;
-        D_800DD8B4 = 3;
+        gStopInputTimer = 3;
         func_8001DC6C(0, 28);
     } else {
         D_80178340 += 0x20;
@@ -510,7 +510,7 @@ void func_EBFBE0_801929F0(void) {
 
     D_800D2870 = 0;
     D_80161A38 = 0xFF;
-    D_800DD8B4 = 0;
+    gStopInputTimer = 0;
     D_80178410 = 800;
     D_EBFBE0_801B9248 = 0;
 
@@ -568,7 +568,7 @@ void func_EBFBE0_80193864(void) {
     }
 
     func_EBFBE0_8019BBA4(D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_4C);
-    Matrix_Pop(&D_8013B3C0);
+    Matrix_Pop(&gGfxMatrix);
 
     for (i = 0; i < 6; i++) {
         if (!(D_EBFBE0_801AE638[i].unk_58) || (D_EBFBE0_801AE638[i].unk_00.unk_20) <= 0.0f) {
@@ -590,7 +590,7 @@ void func_EBFBE0_80193B04(void) {
     s32 i;
 
     D_80161A38 = 0xFF;
-    D_800DD8B4 = 0;
+    gStopInputTimer = 0;
     D_80178410 = 800;
 
     if (D_EBFBE0_801B9248 == 0) {
@@ -641,7 +641,7 @@ void func_EBFBE0_801944F0(void) {
     }
 
     func_EBFBE0_8019BBA4(D_EBFBE0_801AE878[D_EBFBE0_801B91A8].unk_4C);
-    Matrix_Pop(&D_8013B3C0);
+    Matrix_Pop(&gGfxMatrix);
 
     for (i = 0; i < 3; i++) {
         if ((D_EBFBE0_801AE878[i].unk_58 != 0) && !(D_EBFBE0_801AE878[i].unk_00.unk_20 <= 0.0f)) {
@@ -734,17 +734,17 @@ void func_EBFBE0_801948A8(void) {
     }
 
     // Test sound
-    if (D_800DD898[D_80177AF8].button & R_TRIG) {
+    if (gChangedInput[D_80177AF8].button & R_TRIG) {
         D_EBFBE0_801B9284 ^= 1;
         func_8001D8F4(D_EBFBE0_801B9284);
     }
 
-    if (D_800DD898[D_80177AF8].button & A_BUTTON) {
+    if (gChangedInput[D_80177AF8].button & A_BUTTON) {
         func_80019218(0x49000003, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         D_EBFBE0_801B9288 = (D_EBFBE0_801B9288 + 1) & 3;
     }
 
-    if (D_800DD898[D_80177AF8].button & B_BUTTON) {
+    if (gChangedInput[D_80177AF8].button & B_BUTTON) {
         func_80019218(0x49000021, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         if (D_EBFBE0_801B9284 == 1) {
             D_EBFBE0_801B9284 = 0;
@@ -835,12 +835,12 @@ void func_EBFBE0_80195944(void) {
         D_EBFBE0_801B931C = sp28;
     }
 
-    if (D_800DD898[D_80177AF8].button & A_BUTTON) {
+    if (gChangedInput[D_80177AF8].button & A_BUTTON) {
         func_8001DA90(D_EBFBE0_801B931F);
         D_EBFBE0_801B9320 = true;
     }
 
-    if (D_800DD898[D_80177AF8].button & B_BUTTON) {
+    if (gChangedInput[D_80177AF8].button & B_BUTTON) {
         if (!D_EBFBE0_801B9320) {
             func_80019218(0x49000021, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             func_8001D444(0, 0x24, 0, 0xFF);
@@ -857,7 +857,7 @@ void func_EBFBE0_80195944(void) {
     }
 
     // Spectrum Analizer mode selector
-    if (D_800DD898[D_80177AF8].button & R_CBUTTONS) {
+    if (gChangedInput[D_80177AF8].button & R_CBUTTONS) {
         spectrumAnalizerMode++;
         if (spectrumAnalizerMode > 2) {
             spectrumAnalizerMode = 0;
@@ -976,7 +976,7 @@ void func_EBFBE0_8019669C(void) {
         if (1) {}
     }
 
-    if (D_800DD898[D_80177AF8].button & 0x8000) {
+    if (gChangedInput[D_80177AF8].button & 0x8000) {
         if (D_EBFBE0_801B91CC == 3) {
             func_80019218(0x49000021, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             D_EBFBE0_801B912C = 3;
@@ -995,7 +995,7 @@ void func_EBFBE0_8019669C(void) {
                 D_EBFBE0_801B912C = 4;
             }
         }
-    } else if (D_800DD898[D_80177AF8].button & 0x4000) {
+    } else if (gChangedInput[D_80177AF8].button & 0x4000) {
         if (D_EBFBE0_801B91CC == 1) {
             func_80019218(0x4900101D, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             D_EBFBE0_801B912C = 2;
@@ -1036,7 +1036,7 @@ void func_EBFBE0_80196E54(void) {
 void func_EBFBE0_80196EFC(void) {
     func_EBFBE0_80196FC4();
 
-    if (D_800DD898[D_80177AF8].button & B_BUTTON) {
+    if (gChangedInput[D_80177AF8].button & B_BUTTON) {
         func_80019218(0x49000021, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         D_80177898 = 0;
         D_EBFBE0_801B9124 = 1000;
@@ -1051,7 +1051,7 @@ void func_EBFBE0_80196F9C(void) {
 }
 
 void func_EBFBE0_80196FC4(void) {
-    if (D_800DD898[D_80177AF8].button & A_BUTTON) {
+    if (gChangedInput[D_80177AF8].button & A_BUTTON) {
         func_80019218(0x49000003, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         D_EBFBE0_801B93E0 ^= 1;
     }
@@ -1200,7 +1200,7 @@ void func_EBFBE0_8019752C(void) {
     func_EBFBE0_8019BDF0();
     func_EBFBE0_80197914();
 
-    Matrix_Pop(&D_8013B3C0);
+    Matrix_Pop(&gGfxMatrix);
     func_800B8DD0(&gMasterDisp, 0x4C);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
@@ -1244,12 +1244,12 @@ void func_EBFBE0_80197914(void) {
     func_800B8DD0(&gMasterDisp, 0);
 
     for (i = 0, vec1 = &D_EBFBE0_801AF100, vec2 = &D_EBFBE0_801AF118; i < 2; i++, vec1++, vec2++) {
-        Matrix_Push(&D_8013B3C0);
-        Matrix_Translate(D_8013B3C0, vec1->x, vec1->y, -500.0f, 1);
-        Matrix_Scale(D_8013B3C0, vec2->x, vec2->y, 1.0f, 1);
+        Matrix_Push(&gGfxMatrix);
+        Matrix_Translate(gGfxMatrix, vec1->x, vec1->y, -500.0f, 1);
+        Matrix_Scale(gGfxMatrix, vec2->x, vec2->y, 1.0f, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_EBFBE0_801AEF30);
-        Matrix_Pop(&D_8013B3C0);
+        Matrix_Pop(&gGfxMatrix);
     }
 }
 
@@ -1453,12 +1453,12 @@ void func_EBFBE0_8019882C(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
 
 void func_EBFBE0_80199198(f32 arg0, f32 arg1, f32 arg2) {
     func_800B8DD0(&gMasterDisp, 0x35);
-    Matrix_Push(&D_8013B3C0);
-    Matrix_Translate(D_8013B3C0, arg0 - D_EBFBE0_801AF140, arg1 + D_EBFBE0_801AF144, arg2, 1);
-    Matrix_Scale(D_8013B3C0, D_EBFBE0_801AF13C, D_EBFBE0_801AF13C, D_EBFBE0_801AF13C, 1);
+    Matrix_Push(&gGfxMatrix);
+    Matrix_Translate(gGfxMatrix, arg0 - D_EBFBE0_801AF140, arg1 + D_EBFBE0_801AF144, arg2, 1);
+    Matrix_Scale(gGfxMatrix, D_EBFBE0_801AF13C, D_EBFBE0_801AF13C, D_EBFBE0_801AF13C, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_601D1F0);
-    Matrix_Pop(&D_8013B3C0);
+    Matrix_Pop(&gGfxMatrix);
 }
 
 s32 func_EBFBE0_80199284(s32 arg0, s32 arg1) {
@@ -1499,7 +1499,7 @@ void func_EBFBE0_8019978C(void) {
     func_EBFBE0_80199EA8();
 
     for (i = 0; i < 4; i++) {
-        if (D_800DD8B0[i] == 1) {
+        if (gControllerStatus[i] == 1) {
             func_EBFBE0_80199820(i);
         }
     }
@@ -1764,7 +1764,7 @@ void func_EBFBE0_8019DD44(void) {
 void func_EBFBE0_8019DE74(void) {
     func_EBFBE0_8019715C();
 
-    if (D_800DD898[D_80177AF8].button & 0xD00E) { // START, A, B, C-UP, C-LEFT, C-DOWN
+    if (gChangedInput[D_80177AF8].button & 0xD00E) { // START, A, B, C-UP, C-LEFT, C-DOWN
         func_80019218(0x49000003, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 
         D_80177898 = 0;
@@ -1787,7 +1787,7 @@ void func_EBFBE0_8019DF64(void) {
     func_EBFBE0_8019752C();
     func_EBFBE0_8019BDF0();
     func_EBFBE0_8019BAB8(D_EBFBE0_801AE638[3].unk_38);
-    Matrix_Pop(&D_8013B3C0);
+    Matrix_Pop(&gGfxMatrix);
     func_EBFBE0_8019C120(D_EBFBE0_801AE638[3].unk_00);
 }
 
@@ -1819,7 +1819,7 @@ void func_EBFBE0_8019E030(void) {
             break;
 
         case 2:
-            if ((D_EBFBE0_801B9178 == 0) && (D_800DD898[D_80177AF8].button & 0xD00E)) {
+            if ((D_EBFBE0_801B9178 == 0) && (gChangedInput[D_80177AF8].button & 0xD00E)) {
                 func_80019218(0x19031083, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 D_EBFBE0_801B9090 = 1;
                 D_EBFBE0_801B9178 = 60;

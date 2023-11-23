@@ -1,16 +1,16 @@
 #include "global.h"
 
-s32 func_80002E80(char* dst, char* fmt, va_list args) {
+s32 Lib_vsPrintf(char* dst, char* fmt, va_list args) {
     return vsprintf(dst, fmt, args);
 }
 
-void func_80002EA0(s32 arg0, void (**arg1)(s32, s32), s32 arg2, s32 arg3) {
+void Lib_vTable(s32 arg0, void (**arg1)(s32, s32), s32 arg2, s32 arg3) {
     void (*temp)(s32, s32) = arg1[arg0];
 
     temp(arg2, arg3);
 }
 
-void func_80002EE4(u8* buf1, u8* buf2, s32 len) {
+void Lib_SwapBuffers(u8* buf1, u8* buf2, s32 len) {
     s32 i;
     u8 temp;
 
@@ -23,7 +23,7 @@ void func_80002EE4(u8* buf1, u8* buf2, s32 len) {
 
 typedef s32 (*CompareFunc)(void*, void*);
 
-void func_80002F88(u8* first, u32 curLen, u32 size, CompareFunc cFunc) {
+void Lib_QuickSort(u8* first, u32 curLen, u32 size, CompareFunc cFunc) {
     u32 splitIdx;
     u8* last;
     u8* right;
@@ -34,7 +34,7 @@ void func_80002F88(u8* first, u32 curLen, u32 size, CompareFunc cFunc) {
 
         if (curLen == 2) {
             if (cFunc(first, last) > 0) {
-                func_80002EE4(first, last, size);
+                Lib_SwapBuffers(first, last, size);
             }
             return;
         }
@@ -52,15 +52,15 @@ void func_80002F88(u8* first, u32 curLen, u32 size, CompareFunc cFunc) {
             if (left >= right) {
                 break;
             }
-            func_80002EE4(left, right, size);
+            Lib_SwapBuffers(left, right, size);
             left += size;
             right -= size;
         }
-        func_80002EE4(last, left, size);
+        Lib_SwapBuffers(last, left, size);
         splitIdx = (left - first) / size;
         if (curLen / 2 < splitIdx) {
             if ((curLen - splitIdx) > 2) {
-                func_80002F88(left + size, curLen - splitIdx - 1, size, cFunc);
+                Lib_QuickSort(left + size, curLen - splitIdx - 1, size, cFunc);
             }
 
             if (splitIdx < 2) {
@@ -70,7 +70,7 @@ void func_80002F88(u8* first, u32 curLen, u32 size, CompareFunc cFunc) {
             curLen = splitIdx;
         } else {
             if (splitIdx >= 2) {
-                func_80002F88(first, splitIdx, size, cFunc);
+                Lib_QuickSort(first, splitIdx, size, cFunc);
             }
 
             if ((curLen - splitIdx) <= 2) {
@@ -83,7 +83,7 @@ void func_80002F88(u8* first, u32 curLen, u32 size, CompareFunc cFunc) {
     }
 }
 
-void func_8000316C(Gfx** dList) {
+void Lib_Perspective(Gfx** dList) {
     u16 norm;
 
     guPerspective(gGfxMtx, &norm, D_80161A3C, 1.3333334f, D_80161A40, D_80161A44, 1.0f);
@@ -91,34 +91,34 @@ void func_8000316C(Gfx** dList) {
     gSPMatrix((*dList)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
     guLookAt(gGfxMtx, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -12800.0f, 0.0f, 1.0f, 0.0f);
     gSPMatrix((*dList)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
-    Matrix_Copy(D_8013B3C0, &gIdentityMatrix);
+    Matrix_Copy(gGfxMatrix, &gIdentityMatrix);
 }
 
-void func_800032B4(Gfx** dList) {
+void Lib_Ortho(Gfx** dList) {
     guOrtho(gGfxMtx, -160.0f, 160.0f, -120.0f, 120.0f, D_80161A40, D_80161A44, 1.0f);
     gSPMatrix((*dList)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
     guLookAt(gGfxMtx, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -12800.0f, 0.0f, 1.0f, 0.0f);
     gSPMatrix((*dList)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
-    Matrix_Copy(D_8013B3C0, &gIdentityMatrix);
+    Matrix_Copy(gGfxMatrix, &gIdentityMatrix);
 }
 
-void func_800033E0(void* var_s2, void* var_s1, ptrdiff_t var_s0) {
+void Lib_DmaRead(void* var_s2, void* var_s1, ptrdiff_t var_s0) {
     osInvalICache(var_s1, var_s0);
     osInvalDCache(var_s1, var_s0);
     while (var_s0 > 0x100) {
-        osPiStartDma(&D_800E2110, 0, 0, (uintptr_t) var_s2, var_s1, 0x100, &D_800E20F0);
+        osPiStartDma(&gDmaIOMsg, 0, 0, (uintptr_t) var_s2, var_s1, 0x100, &gDmaMsgQueue);
         var_s0 -= 0x100;
         var_s2 = (void*) ((uintptr_t) var_s2 + 0x100);
         var_s1 = (void*) ((uintptr_t) var_s1 + 0x100);
-        osRecvMesg(&D_800E20F0, NULL, OS_MESG_BLOCK);
+        osRecvMesg(&gDmaMsgQueue, NULL, OS_MESG_BLOCK);
     }
     if (var_s0 != 0) {
-        osPiStartDma(&D_800E2110, 0, 0, (uintptr_t) var_s2, var_s1, var_s0, &D_800E20F0);
-        osRecvMesg(&D_800E20F0, NULL, OS_MESG_BLOCK);
+        osPiStartDma(&gDmaIOMsg, 0, 0, (uintptr_t) var_s2, var_s1, var_s0, &gDmaMsgQueue);
+        osRecvMesg(&gDmaMsgQueue, NULL, OS_MESG_BLOCK);
     }
 }
 
-void func_800034E8(u8 arg0) {
+void Lib_FillScreen(u8 arg0) {
     s32 i;
 
     D_80137E88 |= 1;

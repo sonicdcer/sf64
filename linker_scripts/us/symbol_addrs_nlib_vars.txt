@@ -1,18 +1,13 @@
-D_800DD880 = 0x800DD880; // size:0x18
-D_800DD898 = 0x800DD898; // size:0x18
-D_800DD8B0 = 0x800DD8B0; // size:0x4
-D_800DD8B4 = 0x800DD8B4; // size:0x4
-D_800DD8B8 = 0x800DD8B8; // size:0x4
+// joybus
+gCurrentInput = 0x800DD880; // size:0x18
+gChangedInput = 0x800DD898; // size:0x18
+gControllerStatus = 0x800DD8B0; // size:0x4
+gStopInputTimer = 0x800DD8B4; // size:0x4
+gRumbleStatus = 0x800DD8B8; // size:0x4
 D_800DD8BC = 0x800DD8BC; // ignore:true
-D_800DD8C0 = 0x800DD8C0; // size:0x18
-D_800DD8D8 = 0x800DD8D8; // size:0x18
+sNextInput = 0x800DD8C0; // size:0x18
+sPrevInput = 0x800DD8D8; // size:0x18
 D_800DD8F0 = 0x800DD8F0; // size:0x10
-
-// lib
-
-
-// lights
-
 
 // main
 gAudioThreadStack =  0x800DDAA0;
@@ -32,19 +27,34 @@ gSegments = 0x800E1FD0;
 gPiMgrCmdQueue = 0x800E2010;
 sPiMgrCmdBuff = 0x800E2028;
 
-D_800E20F0 = 0x800E20F0;
-gTaskMsgQueue = 0x800E21E0;
-D_800E2238 = 0x800E2238;
-D_800E2258 = 0x800E2258;
-D_800E2278 = 0x800E2278;
-D_800E22A0 = 0x800E22A0;
+gDmaMsgQueue = 0x800E20F0;
+
+sDmaMsgBuff = 0x800E2018;
+gDmaIOMsg = 0x800E2110;
 gSerialEventQueue = 0x800E2128;
+sSerialEventBuff = 0x800E2140;
 gMainThreadMsgQueue = 0x800E2148;
-gThread7msgQueue = 0x800E2338;
-D_800E2390 = 0x800E2390;
+sMainThreadMsgBuff = 0x800E2160;
+gTaskMsgQueue = 0x800E21E0;
+sTaskMsgBuff = 0x800E21F8;
+g_D_800E2238_Queue = 0x800E2238;
+g_D_800E2258_Queue = 0x800E2258;
+g_D_800E2278_Queue = 0x800E2278;
+g_D_800E22A0_Queue = 0x800E22A0;
+s_D_800E2238_Buff = 0x800E2250;
+s_D_800E2258_Buff = 0x800E2270;
+s_D_800E2278_Buff = 0x800E2290;
+s_D_800E22A0_Buff = 0x800E22B8;
 gSerialThreadMsgQueue = 0x800E22C0;
-D_800E22F8 = 0x800E22F8;
-D_800E2318 = 0x800E2318;
+sSerialThreadMsgBuff = 0x800E22D8;
+g_D_800E22F8_Queue = 0x800E22F8;
+s_D_800E22F8_Buff = 0x800E2310;
+g_D_800E2318_Queue = 0x800E2318;
+s_D_800E2318_Buff = 0x800E2330;
+gThread7msgQueue = 0x800E2338;
+sThread7msgBuff = 0x800E2350;
+g_D_800E2390_Queue = 0x800E2390;
+s_D_800E2390_Buff = 0x800E23A8;
 
 gGfxPools = 0x800E23B0; // size:0x55AA0
 gGfxPool = 0x80137E50;
@@ -58,7 +68,7 @@ gLight = 0x80137E6C;
 gFrameBuffer = 0x80137E70;
 D_80137E74 = 0x80137E74;
 D_80137E78 = 0x80137E78;
-D_80137E7C = 0x80137E7C;
+gFrameCounter = 0x80137E7C;
 D_80137E80 = 0x80137E80;
 D_80137E81 = 0x80137E81;
 D_80137E84 = 0x80137E84;
@@ -99,6 +109,8 @@ D_80145160 = 0x80145160;
 gFaultMgr = 0x80145360; // size:0x9D8
 sFaultCharIndex = 0x800C46F0;
 sFaultCharPixelFlags = 0x800C4770;
+D_800C4870 = 0x800C4870;
+D_800C48B8 = 0x800C48B8;
 
 // audio
 

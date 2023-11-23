@@ -4,16 +4,16 @@
 #include "structs.h"
 #include "fox_option.h"
 
-void func_8000291C(void);
-void func_800029A8(void);
-void func_80002AF4(void);
-void func_80002BE8(void);
-void func_80002C50(void);
-void func_80002CB8(void);
-void func_8000316C(Gfx** dList);
-void func_800032B4(Gfx** dList);
-void func_800033E0(void* var_s2, void* var_s1, s32 var_s0);
-void func_800034E8(u8 arg0);
+void Controller_Init(void);
+void Controller_UpdateInput(void);
+void Controller_ReadData(void);
+void Save_Read(void);
+void Save_Write(void);
+void Controller_Rumble(void);
+void Lib_Perspective(Gfx** dList);
+void Lib_Ortho(Gfx** dList);
+void Lib_DmaRead(void* var_s2, void* var_s1, s32 var_s0);
+void Lib_FillScreen(u8 arg0);
 
 void func_8000372C(Gfx** dList, s32 dirX, s32 dirY, s32 dirZ, s32 colR, s32 colG, s32 colB, s32 ambR, s32 ambG, s32 ambB);
 void func_800038AC(Gfx** dList, s32 dir1x, s32 dir1y, s32 dir1z, s32 dir2x, s32 dir2y, s32 dir2z, s32 col1r, s32 col1g,

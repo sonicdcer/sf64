@@ -2,10 +2,6 @@
 
 #ifdef DATA_IMPORT_PENDING
 FaultMgr gFaultMgr;
-s32 sFaultCharPixelFlags[0x40];
-u8 sFaultCharIndex[0x80];
-const char* D_800C4870[18];
-const char* D_800C48B8[6];
 #endif
 
 #include "fault_text.c"
@@ -89,54 +85,6 @@ void func_8000770C(s32 arg0) {
         ;
     }
 }
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8240.s")
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C824C.s")
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8260.s")
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8278.s")
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8290.s")
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C82A8.s")
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C82C0.s")
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C82D4.s")
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C82E8.s")
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8300.s")
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8318.s")
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8330.s")
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8348.s")
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C835C.s")
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C836C.s")
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8388.s")
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C83A4.s")
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C83BC.s")
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C83D8.s")
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C83F0.s")
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8404.s")
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8418.s")
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8424.s")
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/7FC0/D_800C8430.s")
 
 void func_800077F8(s32 arg0, s32 arg1, s32 arg2, f32* arg3) {
     u32 temp_v0 = *(u32*) arg3;
@@ -249,14 +197,14 @@ void Fault_ThreadEntry(void* arg0) {
     }
 
     func_8000762C(300, 10, "-");
-    D_800DD8B0[0] = 1;
+    gControllerStatus[0] = 1;
     while (var_s5 == 0) {
         osSendMesg(&gSerialThreadMsgQueue, (OSMesg) SI_MESG_10, OS_MESG_PRI_NORMAL);
-        osRecvMesg(&D_800E22F8, NULL, OS_MESG_BLOCK);
-        func_800029A8();
+        osRecvMesg(&g_D_800E22F8_Queue, NULL, OS_MESG_BLOCK);
+        Controller_UpdateInput();
         switch (var_s0) {
             case 0:
-                if (D_800DD880[0].button == 0x16) {
+                if (gCurrentInput[0].button == 0x16) {
                     var_s0++;
                     var_s2 = 4000;
                 }
@@ -264,11 +212,11 @@ void Fault_ThreadEntry(void* arg0) {
             case 1:
             case 2:
             case 7:
-                if (D_800DD880[0].button & 0x10) {
-                    if (D_800DD898[0].button == 0x8000) {
+                if (gCurrentInput[0].button & 0x10) {
+                    if (gChangedInput[0].button == 0x8000) {
                         var_s0++;
                         var_s2 = 3000;
-                    } else if (D_800DD898[0].button != 0) {
+                    } else if (gChangedInput[0].button != 0) {
                         var_s0 = 0;
                     }
                 }
@@ -276,11 +224,11 @@ void Fault_ThreadEntry(void* arg0) {
             case 3:
             case 4:
             case 8:
-                if (D_800DD880[0].button & 0x10) {
-                    if (D_800DD898[0].button == 0x4000) {
+                if (gCurrentInput[0].button & 0x10) {
+                    if (gChangedInput[0].button == 0x4000) {
                         var_s0++;
                         var_s2 = 3000;
-                    } else if (D_800DD898[0].button != 0) {
+                    } else if (gChangedInput[0].button != 0) {
                         var_s0 = 0;
                     }
                 }
@@ -292,21 +240,21 @@ void Fault_ThreadEntry(void* arg0) {
             case 11:
             case 12:
             case 13:
-                if (D_800DD880[0].button & 0x10) {
-                    if (D_800DD898[0].button == 2) {
+                if (gCurrentInput[0].button & 0x10) {
+                    if (gChangedInput[0].button == 2) {
                         var_s0++;
                         var_s2 = 3000;
-                    } else if (D_800DD898[0].button != 0) {
+                    } else if (gChangedInput[0].button != 0) {
                         var_s0 = 0;
                     }
                 }
                 break;
             case 14:
-                if (D_800DD880[0].button & 0x10) {
-                    if (D_800DD898[0].button == 0x1000) {
+                if (gCurrentInput[0].button & 0x10) {
+                    if (gChangedInput[0].button == 0x1000) {
                         var_s0++;
                         var_s2 = 3000;
-                    } else if (D_800DD898[0].button != 0) {
+                    } else if (gChangedInput[0].button != 0) {
                         var_s0 = 0;
                     }
                 }

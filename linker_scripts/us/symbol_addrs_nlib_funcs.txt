@@ -1,20 +1,21 @@
-func_80002840 = 0x80002840;
-func_8000291C = 0x8000291C;
-func_800029A8 = 0x800029A8;
-func_80002AF4 = 0x80002AF4;
-func_80002BE8 = 0x80002BE8;
-func_80002C50 = 0x80002C50;
-func_80002CB8 = 0x80002CB8;
+// joybus
+Controller_AddDeadZone = 0x80002840;
+Controller_Init = 0x8000291C;
+Controller_UpdateInput = 0x800029A8;
+Controller_ReadData = 0x80002AF4;
+Save_Read = 0x80002BE8;
+Save_Write = 0x80002C50;
+Controller_Rumble = 0x80002CB8;
 
 // lib
-func_80002E80 = 0x80002E80;
-func_80002EA0 = 0x80002EA0;
-func_80002EE4 = 0x80002EE4;
-func_80002F88 = 0x80002F88;
-func_8000316C = 0x8000316C;
-func_800032B4 = 0x800032B4;
-func_800033E0 = 0x800033E0;
-func_800034E8 = 0x800034E8;
+Lib_vsPrintf = 0x80002E80;
+Lib_vTable = 0x80002EA0;
+Lib_SwapBuffers = 0x80002EE4;
+Lib_QuickSort = 0x80002F88;
+Lib_Perspective = 0x8000316C;
+Lib_Ortho = 0x800032B4;
+Lib_DmaRead = 0x800033E0;
+Lib_FillScreen = 0x800034E8;
 
 // lights
 func_800035D0 = 0x800035D0;
@@ -74,7 +75,6 @@ func_80006F20 = 0x80006F20;
 func_80006F38 = 0x80006F38;
 
 // thread 7
-func_80006F60 = 0x80006F60;
 func_80006F60 = 0x80006F60;
 func_80007068 = 0x80007068;
 func_8000707C = 0x8000707C;

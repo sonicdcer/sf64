@@ -10,6 +10,7 @@ D_800C5FF4 = 0x800C5FF4; //type:u16 size:5000
 
 D_80163FE0 = 0x80163FE0; //size:0xB130
 
+gZBuffer = 0x80282000;
 gFrameBuffers = 0x8038F800;
 gDmaTable = 0x80178A70;
 

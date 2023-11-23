@@ -1,25 +1,25 @@
 #include "global.h"
 
 #ifdef DATA_IMPORT_PENDING
-OSContPad D_800DD880[4];
-OSContPad D_800DD898[4];
-u8 D_800DD8B0[4];
-s32 D_800DD8B4;
-u8 D_800DD8B8[4];
-OSContPad D_800DD8C0[4];    //
-OSContPad D_800DD8D8[4];    //
+OSContPad gCurrentInput[4];
+OSContPad gChangedInput[4];
+u8 gControllerStatus[4];
+s32 gStopInputTimer;
+u8 gRumbleStatus[4];
+OSContPad sNextInput[4];    //
+OSContPad sPrevInput[4];    //
 OSContStatus D_800DD8F0[4]; //
 OSPfs D_800DD900[4];        //
 #else
-extern OSContPad D_800DD8C0[4];    //
-extern OSContPad D_800DD8D8[4];    //
+extern OSContPad sNextInput[4];    //
+extern OSContPad sPrevInput[4];    //
 extern OSContStatus D_800DD8F0[4]; //
 extern OSPfs D_800DD900[4];        //
 #endif
 
-void func_80002840(s32 contrNum) {
-    s32 temp_v0 = D_800DD880[contrNum].stick_x;
-    s32 temp_a2 = D_800DD880[contrNum].stick_y;
+void Controller_AddDeadZone(s32 contrNum) {
+    s32 temp_v0 = gCurrentInput[contrNum].stick_x;
+    s32 temp_a2 = gCurrentInput[contrNum].stick_y;
     s32 var_a0;
     s32 var_v0;
 
@@ -51,74 +51,74 @@ void func_80002840(s32 contrNum) {
     if (var_v0 < -60) {
         var_v0 = -60;
     }
-    D_800DD898[contrNum].stick_x = var_a0;
-    D_800DD898[contrNum].stick_y = var_v0;
+    gChangedInput[contrNum].stick_x = var_a0;
+    gChangedInput[contrNum].stick_y = var_v0;
 }
 
-void func_8000291C(void) {
+void Controller_Init(void) {
     u8 sp1F;
     s32 i;
 
     osContInit(&gSerialEventQueue, &sp1F, D_800DD8F0);
     for (i = 0; i < 4; i++) {
-        D_800DD8B0[i] = (sp1F >> i) & 1;
-        D_800DD8B8[i] = 0;
+        gControllerStatus[i] = (sp1F >> i) & 1;
+        gRumbleStatus[i] = 0;
     }
 }
 
-void func_800029A8(void) {
+void Controller_UpdateInput(void) {
     s32 i;
 
     for (i = 0; i < 4; i++) {
-        if (D_800DD8B0[i] == 1 && D_800DD8C0[i].errno == 0) {
-            D_800DD8D8[i] = D_800DD880[i];
-            D_800DD880[i] = D_800DD8C0[i];
-            D_800DD898[i].button = (D_800DD880[i].button ^ D_800DD8D8[i].button) & D_800DD880[i].button;
-            func_80002840(i);
+        if (gControllerStatus[i] == 1 && sNextInput[i].errno == 0) {
+            sPrevInput[i] = gCurrentInput[i];
+            gCurrentInput[i] = sNextInput[i];
+            gChangedInput[i].button = (gCurrentInput[i].button ^ sPrevInput[i].button) & gCurrentInput[i].button;
+            Controller_AddDeadZone(i);
         } else {
-            D_800DD880[i].button = D_800DD880[i].stick_x = D_800DD880[i].stick_y = D_800DD880[i].errno =
-                D_800DD898[i].button = D_800DD898[i].stick_x = D_800DD898[i].stick_y = D_800DD898[i].errno = 0;
+            gCurrentInput[i].button = gCurrentInput[i].stick_x = gCurrentInput[i].stick_y = gCurrentInput[i].errno =
+                gChangedInput[i].button = gChangedInput[i].stick_x = gChangedInput[i].stick_y = gChangedInput[i].errno = 0;
         }
     }
 }
 
-#ifdef DATA_IMPORT_PENDING // requires data import on D_800DD8C0
-void func_80002AF4(void) {
+#ifdef DATA_IMPORT_PENDING // requires data import on sNextInput
+void Controller_ReadData(void) {
     s32 i;
 
-    if (D_800DD8B4 != 0) {
-        D_800DD8B4--;
+    if (gStopInputTimer != 0) {
+        gStopInputTimer--;
         for (i = 0; i < 4; i++) {
-            D_800DD8C0[i].button = D_800DD8C0[i].stick_x = D_800DD8C0[i].stick_y = D_800DD8C0[i].errno = 0;
+            sNextInput[i].button = sNextInput[i].stick_x = sNextInput[i].stick_y = sNextInput[i].errno = 0;
         }
     } else {
         osContStartReadData(&gSerialEventQueue);
         osRecvMesg(&gSerialEventQueue, NULL, OS_MESG_BLOCK);
-        osContGetReadData(D_800DD8C0);
+        osContGetReadData(sNextInput);
     }
-    osSendMesg(&D_800E22F8, (OSMesg) SI_MESG_16, OS_MESG_PRI_NORMAL);
+    osSendMesg(&g_D_800E22F8_Queue, (OSMesg) SI_MESG_16, OS_MESG_PRI_NORMAL);
 }
 #else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/joybus/func_80002AF4.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/joybus/Controller_ReadData.s")
 #endif
 
-void func_80002BE8(void) {
+void Save_Read(void) {
     if ((D_80137E80 == 0) && (func_800072E0(&D_80144F60) == 0)) {
-        osSendMesg(&D_800E2318, (OSMesg) SI_MESG_15, OS_MESG_PRI_NORMAL);
+        osSendMesg(&g_D_800E2318_Queue, (OSMesg) SI_MESG_15, OS_MESG_PRI_NORMAL);
         return;
     }
-    osSendMesg(&D_800E2318, (OSMesg) SI_MESG_14, OS_MESG_PRI_NORMAL);
+    osSendMesg(&g_D_800E2318_Queue, (OSMesg) SI_MESG_14, OS_MESG_PRI_NORMAL);
 }
 
-void func_80002C50(void) {
+void Save_Write(void) {
     if ((D_80137E80 == 0) && (func_800071FC(&D_80144F60) == 0)) {
-        osSendMesg(&D_800E2318, (OSMesg) SI_MESG_15, OS_MESG_PRI_NORMAL);
+        osSendMesg(&g_D_800E2318_Queue, (OSMesg) SI_MESG_15, OS_MESG_PRI_NORMAL);
         return;
     }
-    osSendMesg(&D_800E2318, (OSMesg) SI_MESG_14, OS_MESG_PRI_NORMAL);
+    osSendMesg(&g_D_800E2318_Queue, (OSMesg) SI_MESG_14, OS_MESG_PRI_NORMAL);
 }
 
-void func_80002CB8(void) {
+void Controller_Rumble(void) {
     s32 i;
 
     osContStartQuery(&gSerialEventQueue);
@@ -126,28 +126,28 @@ void func_80002CB8(void) {
     osContGetQuery(D_800DD8F0);
 
     for (i = 0; i < 4; i++) {
-        if ((D_800DD8B0[i] != 0) && (D_800DD8F0[i].errno == 0)) {
+        if ((gControllerStatus[i] != 0) && (D_800DD8F0[i].errno == 0)) {
             if (D_800DD8F0[i].status & 1) {
-                if (D_800DD8B8[i] == 0) {
+                if (gRumbleStatus[i] == 0) {
                     if (osMotorInit(&gSerialEventQueue, &D_800DD900[i], i)) {
-                        D_800DD8B8[i] = 0;
+                        gRumbleStatus[i] = 0;
                     } else {
-                        D_800DD8B8[i] = 1;
+                        gRumbleStatus[i] = 1;
                     }
                 }
-                if (D_800DD8B8[i] == 1) {
+                if (gRumbleStatus[i] == 1) {
                     if (D_80137E84[i] != 0) {
                         if (osMotorStart(&D_800DD900[i])) {
-                            D_800DD8B8[i] = 0;
+                            gRumbleStatus[i] = 0;
                         }
                     } else {
                         if (osMotorStop(&D_800DD900[i])) {
-                            D_800DD8B8[i] = 0;
+                            gRumbleStatus[i] = 0;
                         }
                     }
                 }
             } else {
-                D_800DD8B8[i] = 0;
+                gRumbleStatus[i] = 0;
             }
         }
     }

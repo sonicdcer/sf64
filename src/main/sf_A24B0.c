@@ -105,8 +105,8 @@ s32 func_800A1B6C(void) {
 void func_800A1C14(Gfx** arg0) {
     gSPDisplayList((*arg0)++, D_Gfx_800DBAA0);
     gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 8, 312, 232);
-    gDPSetDepthImage((*arg0)++, &D_80282000);
-    gDPSetColorImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, &D_80282000);
+    gDPSetDepthImage((*arg0)++, &gZBuffer);
+    gDPSetColorImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, &gZBuffer);
     gDPSetFillColor((*arg0)++, 0xFFFCFFFC);
     gDPFillRectangle((*arg0)++, 8, 8, 311, 231);
     gDPSetColorImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, gFrameBuffer);
@@ -288,7 +288,7 @@ void func_800A26C0(void) {
     func_800A1C14(&gUnkDisp1);
     func_800A25DC();
     if (func_800A1B6C() != 1) {
-        func_8000316C(&gUnkDisp1);
+        Lib_Perspective(&gUnkDisp1);
         func_800A1FB0(&gUnkDisp1, D_801778A8, 0);
         if (D_8017783C != 0) {
             D_8017783C--;
