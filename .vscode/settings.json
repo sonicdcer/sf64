@@ -43,6 +43,7 @@
         "fox_option.h": "c",
         "cstdlib": "c",
         "typeinfo": "c",
-        "sym_addrs_funcs": "c"
+        "sym_addrs_funcs": "c",
+        "*.txt": "c"
     },
 }
