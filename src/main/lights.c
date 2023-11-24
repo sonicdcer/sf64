@@ -1,6 +1,6 @@
 #include "global.h"
 
-void func_800035D0(Gfx** dList) {
+void Lights_AddLight(Gfx** dList) {
     gSPNumLights((*dList)++, 7);
     gSPLight((*dList)++, &gLight->l[0], 1);
     gSPLight((*dList)++, &gLight->l[1], 2);
@@ -13,7 +13,7 @@ void func_800035D0(Gfx** dList) {
     gLight++;
 }
 
-void func_8000372C(Gfx** dList, s32 dirX, s32 dirY, s32 dirZ, s32 colR, s32 colG, s32 colB, s32 ambR, s32 ambG,
+void Lights_SetOneLight(Gfx** dList, s32 dirX, s32 dirY, s32 dirZ, s32 colR, s32 colG, s32 colB, s32 ambR, s32 ambG,
                    s32 ambB) {
     s32 i;
 
@@ -45,10 +45,10 @@ void func_8000372C(Gfx** dList, s32 dirX, s32 dirY, s32 dirZ, s32 colR, s32 colG
     gLight->a.l.colc[0] = ambR;
     gLight->a.l.colc[1] = ambG;
     gLight->a.l.colc[2] = ambB;
-    func_800035D0(dList);
+    Lights_AddLight(dList);
 }
 
-void func_800038AC(Gfx** dList, s32 dir1x, s32 dir1y, s32 dir1z, s32 dir2x, s32 dir2y, s32 dir2z, s32 col1r, s32 col1g,
+void Lights_SetTwoLights(Gfx** dList, s32 dir1x, s32 dir1y, s32 dir1z, s32 dir2x, s32 dir2y, s32 dir2z, s32 col1r, s32 col1g,
                    s32 col1b, s32 col2r, s32 col2g, s32 col2b, s32 ambR, s32 ambG, s32 ambB) {
     s32 i;
 
@@ -80,5 +80,5 @@ void func_800038AC(Gfx** dList, s32 dir1x, s32 dir1y, s32 dir1z, s32 dir2x, s32 
     gLight->a.l.colc[0] = ambR;
     gLight->a.l.colc[1] = ambG;
     gLight->a.l.colc[2] = ambB;
-    func_800035D0(dList);
+    Lights_AddLight(dList);
 }

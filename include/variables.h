@@ -10,7 +10,7 @@ extern u8 gF3dexData;
 
 extern u8 D_8003B50[];
 extern u8 D_80046B0[];
-extern s32 D_800C45D0;
+extern s32 sGammaMode;
 extern f32 D_800C45E0[];
 
 extern Mtx gIdentityMtx; // 800C4620
@@ -106,10 +106,10 @@ extern s32* D_80137E74;
 extern u8 D_80137E78;
 extern u32 gFrameCounter;
 extern u8 gStartNMI;
-extern u8 D_80137E81;
+extern u8 gStopTasks;
 extern u8 D_80137E84[4];
-extern u16 D_80137E88;
-extern u16 D_80137E8A;
+extern u16 gFillScreenColor;
+extern u16 gFillScreen;
 
 // extern OSThread sIdleThread; // 80138E90
 // extern u8 sIdleThreadStack[0x1000]; // 801390A0

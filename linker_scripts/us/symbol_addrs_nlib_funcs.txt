@@ -18,21 +18,21 @@ Lib_DmaRead = 0x800033E0;
 Lib_FillScreen = 0x800034E8;
 
 // lights
-func_800035D0 = 0x800035D0;
-func_8000372C = 0x8000372C;
-func_800038AC = 0x800038AC;
+Lights_AddLight = 0x800035D0;
+Lights_SetOneLight = 0x8000372C;
+Lights_SetTwoLights = 0x800038AC;
 
 // main
 Main_Initialize = 0x80003A50;
 Audio_ThreadEntry = 0x80003B48;
-Graphics_CreateTask = 0x80003C50;
+Graphics_SetTask = 0x80003C50;
 Graphics_InitializeTask = 0x80003DC0;
-func_80003EE0 = 0x80003EE0;
+Main_SetVIMode = 0x80003EE0;
 SerialInterface_ThreadEntry = 0x80003FEC;
 Timer_ThreadEntry = 0x800040D4;
 Graphics_ThreadEntry = 0x80004144;
-func_80004714 = 0x80004714;
-func_800049D4 = 0x800049D4;
+Main_HandleRDP = 0x80004714;
+Main_StartNextTask = 0x800049D4;
 Main_ThreadEntry = 0x80004ABC;
 Idle_ThreadEntry = 0x80004D00;
 bootproc = 0x80004DA8;

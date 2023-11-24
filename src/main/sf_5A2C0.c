@@ -1423,7 +1423,7 @@ void func_8005F670(Vec3f* arg0) {
         temp1 = D_80178360 * D_8017836C * var_fs0;
         temp2 = D_80178364 * D_8017836C * var_fs0;
         temp3 = D_80178368 * D_8017836C * var_fs0;
-        func_800038AC(&gMasterDisp, D_801784DC, D_801784E0, D_801784E4, sp84.x, sp84.y, sp84.z, D_80178548, D_8017854C,
+        Lights_SetTwoLights(&gMasterDisp, D_801784DC, D_801784E0, D_801784E4, sp84.x, sp84.y, sp84.z, D_80178548, D_8017854C,
                       D_80178550, temp1, temp2, temp3, D_80178554, D_80178558, D_8017855C);
     }
 }
@@ -1512,7 +1512,7 @@ void func_8005FB70(s32 arg0) {
             }
         }
     }
-    func_8000372C(&gMasterDisp, D_801784DC, D_801784E0, D_801784E4, D_80178548, D_8017854C, D_80178550, D_80178554,
+    Lights_SetOneLight(&gMasterDisp, D_801784DC, D_801784E0, D_801784E4, D_80178548, D_8017854C, D_80178550, D_80178554,
                   D_80178558, D_8017855C);
     for (i = 0, var_s0_4 = D_80163400; i < ARRAY_COUNT(D_80163400); i++, var_s0_4++) {
         if ((var_s0_4->obj.status >= 2) && (func_80060FE4(&var_s0_4->obj.pos, -12000.0f) != 0)) {
@@ -1574,7 +1574,7 @@ void func_8005FB70(s32 arg0) {
     }
     gDPSetFogColor(gMasterDisp++, D_80178320, D_80178328, D_80178330, D_80178338);
     gSPFogPosition(gMasterDisp++, D_801783D8, D_801783DC);
-    func_8000372C(&gMasterDisp, -0x3C, -0x3C, 0x3C, 0x96, 0x96, 0x96, 0x14, 0x14, 0x14);
+    Lights_SetOneLight(&gMasterDisp, -0x3C, -0x3C, 0x3C, 0x96, 0x96, 0x96, 0x14, 0x14, 0x14);
     for (i = 0, var_s0_6 = D_801737E0; i < ARRAY_COUNT(D_801737E0); i++, var_s0_6++) {
         if (var_s0_6->obj.status >= 2) {
             Matrix_Push(&gGfxMatrix);
@@ -1584,7 +1584,7 @@ void func_8005FB70(s32 arg0) {
             Matrix_Pop(&gGfxMatrix);
         }
     }
-    func_8000372C(&gMasterDisp, D_801784DC, D_801784E0, D_801784E4, D_80178548, D_8017854C, D_80178550, D_80178554,
+    Lights_SetOneLight(&gMasterDisp, D_801784DC, D_801784E0, D_801784E4, D_80178548, D_8017854C, D_80178550, D_80178554,
                   D_80178558, D_8017855C);
 }
 
@@ -1637,13 +1637,13 @@ void func_80060714(s32 arg0) {
     func_8005FB70(1);
     if ((D_80161A88 == 2) && (D_80178280[0].unk_1C8 != 2)) {
         D_80161410 = -1;
-        func_8000372C(&gMasterDisp, D_801784DC, -1 * D_801784E0, D_801784E4, D_80178548, D_8017854C, D_80178550,
+        Lights_SetOneLight(&gMasterDisp, D_801784DC, -1 * D_801784E0, D_801784E4, D_80178548, D_8017854C, D_80178550,
                       D_80178554, D_80178558, D_8017855C);
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, 1);
         func_8005FB70(-1);
         Matrix_Pop(&gGfxMatrix);
-        func_8000372C(&gMasterDisp, D_801784DC, D_801784E0, D_801784E4, D_80178548, D_8017854C, D_80178550, D_80178554,
+        Lights_SetOneLight(&gMasterDisp, D_801784DC, D_801784E0, D_801784E4, D_80178548, D_8017854C, D_80178550, D_80178554,
                       D_80178558, D_8017855C);
     }
 }

@@ -118,27 +118,27 @@ void Lib_DmaRead(void* src, void* dst, ptrdiff_t size) {
     }
 }
 
-void Lib_FillScreen(u8 arg0) {
+void Lib_FillScreen(u8 setFill) {
     s32 i;
 
-    D_80137E88 |= 1;
-    if (arg0 == 1) {
-        if (D_80137E8A == 0) {
-            if (D_80137E88 == 1) {
+    gFillScreenColor |= 1;
+    if (setFill == true) {
+        if (gFillScreen == false) {
+            if (gFillScreenColor == 1) {
                 osViBlack(1);
             } else {
                 for (i = 0; i < 3 * SCREEN_WIDTH; i++) {
-                    D_8038F080[i] = D_80137E88;
+                    D_8038F080[i] = gFillScreenColor;
                 }
                 osWritebackDCacheAll();
                 osViSwapBuffer(&D_8038F300);
                 osViRepeatLine(1);
             }
-            D_80137E8A = 1;
+            gFillScreen = true;
         }
-    } else if (D_80137E8A == 1) {
+    } else if (gFillScreen == true) {
         osViRepeatLine(0);
         osViBlack(0);
-        D_80137E8A = 0;
+        gFillScreen = false;
     }
 }

@@ -1,6 +1,6 @@
 #include "global.h"
 
-s32 D_800C45D0 = 1;
+s32 sGammaMode = 1;
 
 u8 gAudioThreadStack[0x1000];    // 800DDAA0
 OSThread gGraphicsThread;        // 800DEAA0
@@ -64,10 +64,10 @@ s32* D_80137E74;
 u8 D_80137E78;
 u32 gFrameCounter;
 u8 gStartNMI;
-u8 D_80137E81;
+u8 gStopTasks;
 u8 D_80137E84[4];
-u16 D_80137E88;
-u16 D_80137E8A;
+u16 gFillScreenColor;
+u16 gFillScreen;
 
 u8 gUnusedStack[0x1000];
 OSThread sIdleThread;        // 80138E90
@@ -81,10 +81,10 @@ void Main_Initialize(void) {
 
     D_80137E78 = 0;
     gFrameCounter = 0;
-    gStartNMI = 0;
-    D_80137E81 = 0;
-    D_80137E88 = 0;
-    D_80137E8A = 0;
+    gStartNMI = false;
+    gStopTasks = false;
+    gFillScreenColor = 0;
+    gFillScreen = false;
     gCurrentTask = NULL;
 
     for (i = 0; i < ARRAY_COUNT(sAudioTasks); i += 1) {
@@ -128,7 +128,7 @@ void Audio_ThreadEntry(void* arg0) {
     }
 }
 
-void Graphics_CreateTask(void) {
+void Graphics_SetTask(void) {
     gGfxTask->msgQueue = &gGfxTaskMsgQueue;
     gGfxTask->msg = (OSMesg) TASK_MESG_2;
     gGfxTask->task.t.type = M_GFXTASK;
@@ -171,25 +171,25 @@ void Graphics_InitializeTask(u32 frameCount) {
     D_80178710 = &D_80178580;
 }
 
-void func_80003EE0(void) {
+void Main_SetVIMode(void) {
     if ((gCurrentInput[0].button & D_JPAD) && (gCurrentInput[1].button & D_JPAD) &&
         (gCurrentInput[2].button & D_JPAD) && (gCurrentInput[3].button & L_TRIG) &&
         (gCurrentInput[3].button & R_TRIG) && (gCurrentInput[3].button & Z_TRIG)) {
-        D_800C45D0 = 1 - D_800C45D0;
+        sGammaMode = 1 - sGammaMode;
     }
     switch (osTvType) {
-        case 0:
+        case OS_TV_PAL:
             osViSetMode(&osViModePalLan1);
             break;
-        case 2:
+        case OS_TV_MPAL:
             osViSetMode(&osViModeMpalLan1);
             break;
         default:
-        case 1:
+        case OS_TV_NTSC:
             osViSetMode(&osViModeNtscLan1);
             break;
     }
-    if (D_800C45D0 != 0) {
+    if (sGammaMode != 0) {
         osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON | OS_VI_DIVOT_OFF | OS_VI_GAMMA_ON | OS_VI_GAMMA_DITHER_ON);
     } else {
         osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON | OS_VI_DIVOT_OFF | OS_VI_GAMMA_OFF | OS_VI_GAMMA_DITHER_OFF);
@@ -247,7 +247,7 @@ void Graphics_ThreadEntry(void* arg0) {
         gDPFullSync(gMasterDisp++);
         gSPEndDisplayList(gMasterDisp++);
     }
-    Graphics_CreateTask();
+    Graphics_SetTask();
     while (1) {
         gFrameCounter++;
         Graphics_InitializeTask(gFrameCounter);
@@ -256,7 +256,7 @@ void Graphics_ThreadEntry(void* arg0) {
         Controller_UpdateInput();
         osSendMesg(&gSerialThreadMsgQueue, (OSMesg) SI_READ_CONTROLLER, OS_MESG_PRI_NORMAL);
         if (gChangedInput[3].button & U_JPAD) {
-            func_80003EE0();
+            Main_SetVIMode();
         }
         {
             gSPSegment(gUnkDisp1++, 0, 0);
@@ -272,8 +272,8 @@ void Graphics_ThreadEntry(void* arg0) {
             gSPEndDisplayList(gMasterDisp++);
         }
         osRecvMesg(&gGfxTaskMsgQueue, NULL, OS_MESG_BLOCK);
-        Graphics_CreateTask();
-        if (D_80137E8A == 0) {
+        Graphics_SetTask();
+        if (gFillScreen == 0) {
             osViSwapBuffer(&gFrameBuffers[(gFrameCounter - 1) % 3]);
         }
         func_80007FE4(&gFrameBuffers[(gFrameCounter - 1) % 3], 320, 16);
@@ -309,7 +309,7 @@ void Main_InitMesgQueues(void) {
     osCreateMesgQueue(&gSaveMsgQueue, sSaveMsgBuff, ARRAY_COUNT(sSaveMsgBuff));
 }
 
-void func_80004714(void) {
+void Main_HandleRDP(void) {
     SPTask** var_v1 = sGfxTasks;
     u8 i;
 
@@ -323,7 +323,7 @@ void func_80004714(void) {
     *var_v1 = NULL;
 }
 
-void func_80004798(void) {
+void Main_HandleRSP(void) {
     SPTask* task = gCurrentTask;
 
     gCurrentTask = NULL;
@@ -342,7 +342,7 @@ void func_80004798(void) {
     }
 }
 
-void func_80004824(void) {
+void Main_GetNewTasks(void) {
     u8 i;
     SPTask** var_a0;
     SPTask** var_a1;
@@ -399,7 +399,7 @@ void func_80004824(void) {
     }
 }
 
-void func_800049D4(void) {
+void Main_StartNextTask(void) {
     if (sAudioTasks[0] != NULL) {
         if (gCurrentTask != NULL) {
             if (gCurrentTask->task.t.type == M_GFXTASK) {
@@ -448,27 +448,27 @@ void Main_ThreadEntry(void* arg0) {
             case EVENT_MESG_VI:
                 osSendMesg(&gAudioVImsgQueue, (OSMesg) EVENT_MESG_VI, OS_MESG_PRI_NORMAL);
                 osSendMesg(&gGfxVImsgQueue, (OSMesg) EVENT_MESG_VI, OS_MESG_PRI_NORMAL);
-                func_80004824();
+                Main_GetNewTasks();
                 break;
             case EVENT_MESG_SP:
-                func_80004798();
+                Main_HandleRSP();
                 break;
             case EVENT_MESG_DP:
-                func_80004714();
+                Main_HandleRDP();
                 break;
             case EVENT_MESG_PRENMI:
                 gStartNMI = 1;
                 break;
         }
-        if (D_80137E81 == 0) {
-            func_800049D4();
+        if (gStopTasks == 0) {
+            Main_StartNextTask();
         }
     }
 }
 
 void Idle_ThreadEntry(void* arg0) {
     osCreateViManager(OS_PRIORITY_VIMGR);
-    func_80003EE0();
+    Main_SetVIMode();
     Lib_FillScreen(1);
     osCreatePiMgr(OS_PRIORITY_PIMGR, &gPiMgrCmdQueue, sPiMgrCmdBuff, ARRAY_COUNT(sPiMgrCmdBuff));
     osCreateThread(&gMainThread, THREAD_ID_MAIN, &Main_ThreadEntry, arg0, sMainThreadStack + sizeof(sMainThreadStack),

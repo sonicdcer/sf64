@@ -1959,7 +1959,7 @@ void func_8006753C(Object_2F4* arg0) {
 void func_80067874(Object_2F4* arg0) {
     s32 i;
 
-    func_8000372C(&gMasterDisp, -60, -60, 60, 150, 150, 150, 20, 20, 20);
+    Lights_SetOneLight(&gMasterDisp, -60, -60, 60, 150, 150, 150, 20, 20, 20);
     for (i = 0; i < 6; i++) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, D_800CFEC4[i].x, D_800CFEC4[i].y, D_800CFEC4[i].z, 1);
@@ -1969,7 +1969,7 @@ void func_80067874(Object_2F4* arg0) {
         gSPDisplayList(gMasterDisp++, D_10177C0);
         Matrix_Pop(&gGfxMatrix);
     }
-    func_8000372C(&gMasterDisp, D_801784DC, D_801784E0, D_801784E4, D_80178548, D_8017854C, D_80178550, D_80178554,
+    Lights_SetOneLight(&gMasterDisp, D_801784DC, D_801784E0, D_801784E4, D_80178548, D_8017854C, D_80178550, D_80178554,
                   D_80178558, D_8017855C);
 }
 
