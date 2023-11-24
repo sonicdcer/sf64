@@ -6,7 +6,7 @@ u16 Save_Checksum(Save* arg0) {
     u16 var_v1;
     s32 i;
 
-    for (i = 0, var_v1 = 0; i < sizeof(Save) - sizeof(u16); i++) {
+    for (i = 0, var_v1 = 0; i < sizeof(SaveData); i++) {
         var_v1 ^= arg0->raw[i];
         var_v1 <<= 1;
         var_v1 = (var_v1 & 0xFE) | ((var_v1 >> 8) & 1);
@@ -20,7 +20,7 @@ u16 Save_Checksum(Save* arg0) {
 s32 Save_Write(void) {
     void* sp1C;
 
-    gSaveFile.save.data.checksum = Save_Checksum(&gSaveFile.save);
+    gSaveFile.save.checksum = Save_Checksum(&gSaveFile.save);
     gSaveFile.backup = gSaveFile.save;
     gSaveIOBuffer = gSaveFile;
     osSendMesg(&gSerialThreadMsgQueue, (OSMesg) SI_WRITE_SAVE, OS_MESG_PRI_NORMAL);
@@ -43,16 +43,16 @@ s32 Save_Read(void) {
 
     gSaveFile = gSaveIOBuffer;
 
-    if (gSaveFile.save.data.checksum == Save_Checksum(&gSaveFile.save)) {
+    if (gSaveFile.save.checksum == Save_Checksum(&gSaveFile.save)) {
         (void) "ＥＥＰＲＯＭ ＲＯＭ［０］ 正常\n";
         return 0;
     }
-    for (i = 0; i < 0xFF; i++) {
+    for (i = 0; i <= sizeof(SaveData); i++) { // should be <, but gets overwritten immediately.
         gSaveFile.save.raw[i] = gSaveFile.backup.raw[i];
     }
-    gSaveFile.save.data.checksum = gSaveFile.backup.data.checksum;
+    gSaveFile.save.checksum = gSaveFile.backup.checksum;
 
-    if (gSaveFile.save.data.checksum == Save_Checksum(&gSaveFile.save)) {
+    if (gSaveFile.save.checksum == Save_Checksum(&gSaveFile.save)) {
         (void) "ＥＥＰＲＯＭ ＲＯＭ［1］ 正常\n";
         return 0;
     }

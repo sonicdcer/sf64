@@ -80,12 +80,14 @@ typedef struct{
     /* 0xEA */ u8 unk_EA;
     /* 0xEB */ char padEB[0x3];
     /* 0xEE */ char padEE[0x10];
-    /* 0xFE */ u16 checksum;
-} SaveData; // size = 0x100
+} SaveData; // size = 0xFE
 
-typedef union Save {
-    SaveData data;
-    u8 raw[sizeof(SaveData)];
+typedef struct {
+    /* 0x00 */ union {
+        SaveData data;
+        u8 raw[sizeof(SaveData)];
+        };
+    /* 0xFE */ u16 checksum;
 } Save;
 
 typedef struct {

@@ -1970,7 +1970,7 @@ void func_80067874(Object_2F4* arg0) {
         Matrix_Pop(&gGfxMatrix);
     }
     Lights_SetOneLight(&gMasterDisp, D_801784DC, D_801784E0, D_801784E4, D_80178548, D_8017854C, D_80178550, D_80178554,
-                  D_80178558, D_8017855C);
+                       D_80178558, D_8017855C);
 }
 
 void func_80067A40(void) {

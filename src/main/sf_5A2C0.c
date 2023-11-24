@@ -1423,8 +1423,8 @@ void func_8005F670(Vec3f* arg0) {
         temp1 = D_80178360 * D_8017836C * var_fs0;
         temp2 = D_80178364 * D_8017836C * var_fs0;
         temp3 = D_80178368 * D_8017836C * var_fs0;
-        Lights_SetTwoLights(&gMasterDisp, D_801784DC, D_801784E0, D_801784E4, sp84.x, sp84.y, sp84.z, D_80178548, D_8017854C,
-                      D_80178550, temp1, temp2, temp3, D_80178554, D_80178558, D_8017855C);
+        Lights_SetTwoLights(&gMasterDisp, D_801784DC, D_801784E0, D_801784E4, sp84.x, sp84.y, sp84.z, D_80178548,
+                            D_8017854C, D_80178550, temp1, temp2, temp3, D_80178554, D_80178558, D_8017855C);
     }
 }
 
@@ -1513,7 +1513,7 @@ void func_8005FB70(s32 arg0) {
         }
     }
     Lights_SetOneLight(&gMasterDisp, D_801784DC, D_801784E0, D_801784E4, D_80178548, D_8017854C, D_80178550, D_80178554,
-                  D_80178558, D_8017855C);
+                       D_80178558, D_8017855C);
     for (i = 0, var_s0_4 = D_80163400; i < ARRAY_COUNT(D_80163400); i++, var_s0_4++) {
         if ((var_s0_4->obj.status >= 2) && (func_80060FE4(&var_s0_4->obj.pos, -12000.0f) != 0)) {
             Matrix_Push(&gGfxMatrix);
@@ -1585,7 +1585,7 @@ void func_8005FB70(s32 arg0) {
         }
     }
     Lights_SetOneLight(&gMasterDisp, D_801784DC, D_801784E0, D_801784E4, D_80178548, D_8017854C, D_80178550, D_80178554,
-                  D_80178558, D_8017855C);
+                       D_80178558, D_8017855C);
 }
 
 void func_8006046C(s32 arg0) {
@@ -1638,13 +1638,13 @@ void func_80060714(s32 arg0) {
     if ((D_80161A88 == 2) && (D_80178280[0].unk_1C8 != 2)) {
         D_80161410 = -1;
         Lights_SetOneLight(&gMasterDisp, D_801784DC, -1 * D_801784E0, D_801784E4, D_80178548, D_8017854C, D_80178550,
-                      D_80178554, D_80178558, D_8017855C);
+                           D_80178554, D_80178558, D_8017855C);
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, 1);
         func_8005FB70(-1);
         Matrix_Pop(&gGfxMatrix);
-        Lights_SetOneLight(&gMasterDisp, D_801784DC, D_801784E0, D_801784E4, D_80178548, D_8017854C, D_80178550, D_80178554,
-                      D_80178558, D_8017855C);
+        Lights_SetOneLight(&gMasterDisp, D_801784DC, D_801784E0, D_801784E4, D_80178548, D_8017854C, D_80178550,
+                           D_80178554, D_80178558, D_8017855C);
     }
 }
 

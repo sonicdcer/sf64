@@ -13,7 +13,7 @@ void Controller_Rumble(void);
 void Lib_Perspective(Gfx** dList);
 void Lib_Ortho(Gfx** dList);
 void Lib_DmaRead(void* src, void* dst, s32 size);
-void Lib_FillScreen(u8 arg0);
+void Lib_FillScreen(u8 setFill);
 
 void Lights_SetOneLight(Gfx** dList, s32 dirX, s32 dirY, s32 dirZ, s32 colR, s32 colG, s32 colB, s32 ambR, s32 ambG, s32 ambB);
 void Lights_SetTwoLights(Gfx** dList, s32 dir1x, s32 dir1y, s32 dir1z, s32 dir2x, s32 dir2y, s32 dir2z, s32 col1r, s32 col1g,
