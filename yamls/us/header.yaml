@@ -19,6 +19,8 @@ options:
   symbol_addrs_path: 
     - linker_scripts/us/symbol_addrs.txt
     - linker_scripts/us/symbol_addrs_libultra.txt
+    - linker_scripts/us/symbol_addrs_nlib_funcs.txt
+    - linker_scripts/us/symbol_addrs_nlib_vars.txt
     - linker_scripts/us/symbol_addrs_assets.txt
     - linker_scripts/us/symbol_addrs_overlays.txt
     - linker_scripts/us/symbol_addrs_EBFBE0.txt

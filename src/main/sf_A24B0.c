@@ -6,7 +6,7 @@ extern void func_80187520(s32, void*);
 #define RGBA16_BLUE(color16) ((((color16) >> 1) & 0x1F) * 8)
 
 void func_800A18B0(void) {
-    func_80006F20();
+    Memory_FreeAll();
     Rand_Init();
     Rand_SetSeed(1, 29000, 9876);
     D_80177834 = 100;
@@ -48,17 +48,17 @@ void func_800A1980(void) {
         case 0:
             return;
     }
-    func_80006F20();
+    Memory_FreeAll();
     func_800A6148();
     D_80177834 = D_80161A32;
     D_8017783C = 3;
     D_8015F924 = 0;
     D_80161A32 = 0;
     D_80177820 = 0;
-    D_80137E88 = D_80161A36 = 0;
+    gFillScreenColor = D_80161A36 = 0;
     D_80177D20 = 0.0f;
     if ((D_80178234 == 0x13) && (D_8017827C == 2)) {
-        D_80137E88 = D_80161A36 = 0xFFFF;
+        gFillScreenColor = D_80161A36 = 0xFFFF;
         D_80178348 = D_80178350 = D_80178354 = 0xFF;
     } else {
         D_80178348 = D_80178350 = D_80178354 = 0;
@@ -105,8 +105,8 @@ s32 func_800A1B6C(void) {
 void func_800A1C14(Gfx** arg0) {
     gSPDisplayList((*arg0)++, D_Gfx_800DBAA0);
     gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 8, 312, 232);
-    gDPSetDepthImage((*arg0)++, &D_80282000);
-    gDPSetColorImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, &D_80282000);
+    gDPSetDepthImage((*arg0)++, &gZBuffer);
+    gDPSetColorImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, &gZBuffer);
     gDPSetFillColor((*arg0)++, 0xFFFCFFFC);
     gDPFillRectangle((*arg0)++, 8, 8, 311, 231);
     gDPSetColorImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, gFrameBuffer);
@@ -288,7 +288,7 @@ void func_800A26C0(void) {
     func_800A1C14(&gUnkDisp1);
     func_800A25DC();
     if (func_800A1B6C() != 1) {
-        func_8000316C(&gUnkDisp1);
+        Lib_Perspective(&gUnkDisp1);
         func_800A1FB0(&gUnkDisp1, D_801778A8, 0);
         if (D_8017783C != 0) {
             D_8017783C--;
@@ -314,12 +314,12 @@ void func_800A26C0(void) {
                 D_80177834++;
                 break;
             case 0x67:
-                if (func_800C3194() != 0) {
-                    D_80178870 = *((SaveFile*) &D_800D4D10);
-                    func_800C3084();
+                if (Save_Read() != 0) {
+                    gSaveFile = *((SaveFile*) &D_800D4D10);
+                    Save_Write();
                 }
                 D_80177834++;
-                func_80006FD8(MSEC_TO_CYCLES(1000), func_80007068, &D_80177834, 1);
+                Timer_CreateTask(MSEC_TO_CYCLES(1000), Timer_Increment, &D_80177834, 1);
             case 0x68:
                 func_800B8DD0(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
@@ -338,7 +338,7 @@ void func_800A26C0(void) {
                 D_80177834 = 2;
                 D_80177AE0 = 1;
                 D_80177824 = 1;
-                func_80006F20();
+                Memory_FreeAll();
                 func_800A6148();
                 D_801778A8 = 1;
                 D_80161AA0[0] = 2;
@@ -368,7 +368,7 @@ void func_800A26C0(void) {
                     D_800D3180[i] = 0;
                 }
                 D_801779F8 = 0;
-                D_80177C74 = D_80178870.raw[0x14];
+                D_80177C74 = gSaveFile.save.data.unk_14;
                 switch (D_80177C74) {
                     case 0:
                         var_v0_3 = 0;
@@ -385,9 +385,9 @@ void func_800A26C0(void) {
                         break;
                 }
                 func_800182F4(var_v0_3 | 0xE0000000);
-                D_80177C80[0] = D_80178870.raw[0x15];
-                D_80177C80[1] = D_80178870.raw[0x16];
-                D_80177C80[2] = D_80178870.raw[0x17];
+                D_80177C80[0] = gSaveFile.save.data.unk_15;
+                D_80177C80[1] = gSaveFile.save.data.unk_16;
+                D_80177C80[2] = gSaveFile.save.data.unk_17;
                 if (D_80177C80[0] > 99) {
                     D_80177C80[0] = 99;
                 }

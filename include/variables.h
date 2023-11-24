@@ -10,7 +10,7 @@ extern u8 gF3dexData;
 
 extern u8 D_8003B50[];
 extern u8 D_80046B0[];
-extern s32 D_800C45D0;
+extern s32 sGammaMode;
 extern f32 D_800C45E0[];
 
 extern Mtx gIdentityMtx; // 800C4620
@@ -18,8 +18,8 @@ extern Matrix gIdentityMatrix; //800C4660
 
 extern u8 sFaultCharIndex[];
 extern s32 sFaultCharPixelFlags[];
-extern const char* D_800C4870[];
-extern const char* D_800C48B8[];
+extern const char* sFaultCauses[];
+extern const char* sFloatExceptions[];
 
 extern Vec3f D_800C5D28;
 extern f32 D_800C5D34;
@@ -33,62 +33,61 @@ extern OSMesgQueue* D_800C7C64;
 
 extern char D_800C7C80[];
 
-extern OSContPad D_800DD880[4];
-extern OSContPad D_800DD898[4];
-extern u8 D_800DD8B0[4];
-extern s32 D_800DD8B4;
-extern u8 D_800DD8B8[4];
-extern u8 D_800DD8BC[4]; // Fake symbol. Only exists as loop terminator for D_800DD8B8
-// extern OSContPad D_800DD8C0[4];
-// extern OSContPad D_800DD8D8[4];
+extern OSContPad gCurrentInput[4];
+extern OSContPad gChangedInput[4];
+extern u8 gControllerStatus[4];
+extern s32 gStopInputTimer;
+extern u8 gRumbleStatus[4];
+extern u8 D_800DD8BC[4]; // Fake symbol. Only exists as loop terminator for gRumbleStatus
+// extern OSContPad sNextInput[4];
+// extern OSContPad sPrevInput[4];
 // extern OSContStatus D_800DD8F0[4];
 // extern OSPfs D_800DD900[4];
 
 extern u8 gAudioThreadStack[0x1000];  // 800DDAA0
 extern OSThread gGraphicsThread;        // 800DEAA0
 extern u8 gGraphicsThreadStack[0x1000]; // 800DEC50
-extern OSThread gUnkThread3;        // 800DFC50
-extern u8 gUnkThread3Stack[0x1000]; // 800DFE00
+extern OSThread gTimerThread;        // 800DFC50
+extern u8 gTimerThreadStack[0x1000]; // 800DFE00
 extern OSThread gSerialThread;        // 800E0E00
 extern u8 gSerialThreadStack[0x1000]; // 800E0FB0
-extern u8 gUnusedStack[0x1000];
 
 extern SPTask* gCurrentTask;
-extern SPTask* D_800E1FB4[1];
-extern SPTask* D_800E1FB8[2];
-extern SPTask* D_800E1FC0[2];
-extern SPTask* D_800E1FC8[2];
+extern SPTask* sAudioTasks[1];
+extern SPTask* sGfxTasks[2];
+extern SPTask* sNewAudioTasks[1];
+extern SPTask* sNewGfxTasks[2];
 extern u32 gSegments[16]; // 800E1FD0
 extern OSMesgQueue gPiMgrCmdQueue; // 800E2010
 extern OSMesg sPiMgrCmdBuff[50]; // 800E2028
 
-extern OSMesgQueue D_800E20F0;
-extern void *D_800E2108[1];
-extern OSIoMesg D_800E2110;
+extern OSMesgQueue gDmaMsgQueue;
+extern void *sDmaMsgBuff[1];
+extern OSIoMesg gDmaIOMsg;
 extern OSMesgQueue gSerialEventQueue;
-extern void *D_800E2140[1];
+extern void *sSerialEventBuff[1];
 extern OSMesgQueue gMainThreadMsgQueue;
-extern void *D_800E2160[32];
+extern void *sMainThreadMsgBuff[32];
 extern OSMesgQueue gTaskMsgQueue;
-extern void *D_800E21F8[16];
-extern OSMesgQueue D_800E2238;
-extern void *D_800E2250[1];
-extern OSMesgQueue D_800E2258;
-extern void *D_800E2270[1];
-extern OSMesgQueue D_800E2278;
-extern void *D_800E2290[4];
-extern OSMesgQueue D_800E22A0;
-extern void *D_800E22B8[2];
+extern void *sTaskMsgBuff[16];
+extern OSMesgQueue gAudioVImsgQueue;
+extern void *sAudioVImsgBuff[1];
+extern OSMesgQueue gAudioTaskMsgQueue;
+extern void *sAudioTaskMsgBuff[1];
+extern OSMesgQueue gGfxVImsgQueue;
+extern void *sGfxVImsgBuff[4];
+extern OSMesgQueue gGfxTaskMsgQueue;
+extern void *sGfxTaskMsgBuff[2];
 extern OSMesgQueue gSerialThreadMsgQueue;
-extern void *D_800E22D8[8];
-extern OSMesgQueue D_800E22F8;
-extern void *D_800E2310[1];
-extern OSMesgQueue D_800E2318;
-extern void *D_800E2330[1];
-extern OSMesgQueue gThread7msgQueue;
-extern void *D_800E2350[16];
-extern OSMesgQueue D_800E2390;
-extern void *D_800E23A8[1];
+extern void *sSerialThreadMsgBuff[8];
+extern OSMesgQueue gControllerMsgQueue;
+extern void *sControllerMsgBuff[1];
+extern OSMesgQueue gSaveMsgQueue;
+extern void *sSaveMsgBuff[1];
+extern OSMesgQueue gTimerTaskMsgQueue;
+extern void *sTimerTaskMsgBuff[16];
+extern OSMesgQueue gTimerWaitMsgQueue;
+extern void *sTimerWaitMsgBuff[1];
 
 extern GfxPool gGfxPools[2]; // 800E23B0
 
@@ -105,26 +104,26 @@ extern s32* D_80137E74;
 
 // some sort of struct?
 extern u8 D_80137E78;
-extern u32 D_80137E7C;
-extern u8 D_80137E80;
-extern u8 D_80137E81;
+extern u32 gFrameCounter;
+extern u8 gStartNMI;
+extern u8 gStopTasks;
 extern u8 D_80137E84[4];
-extern u16 D_80137E88;
-extern u16 D_80137E8A;
+extern u16 gFillScreenColor;
+extern u16 gFillScreen;
 
-extern OSThread sIdleThread; // 80138E90
-extern u8 sIdleThreadStack[0x1000]; // 801390A0
-extern OSThread gMainThread; // 8013A040
-extern u8 sMainThreadStack[0x1000]; // 8013A1F0
-extern OSThread gAudioThread; //8013B1F0
+// extern OSThread sIdleThread; // 80138E90
+// extern u8 sIdleThreadStack[0x1000]; // 801390A0
+// extern OSThread gMainThread; // 8013A040
+// extern u8 sMainThreadStack[0x1000]; // 8013A1F0
+// extern OSThread gAudioThread; //8013B1F0
 
-extern Matrix* D_8013B3C0;
-extern Matrix D_8013B3C8[0x20];
-extern Matrix* D_8013BBC8;
-extern Matrix D_8013BBD0[0x20];
+extern Matrix* gGfxMatrix;
+extern Matrix sGfxMatrixStack[0x20];
+extern Matrix* gCalcMatrix;
+extern Matrix sCalcMatrixStack[0x20];
 
-extern SaveFile D_80144F60;
-extern SaveFile D_80145160;
+extern SaveFile gSaveIOBuffer;
+extern SaveFile sPrevSaveData;
 extern FaultMgr gFaultMgr;
 
 extern OSMesg D_80156600[1];
@@ -464,7 +463,7 @@ extern f32 D_80178740;
 extern s32 D_80178754;
 extern s32 D_80178758;
 extern s32 D_80178768[];
-extern SaveFile D_80178870;
+extern SaveFile gSaveFile;
 
 extern u16 D_Tex_800D99F8[];
 extern u16 D_Tex_800DBA20[];
@@ -550,7 +549,7 @@ extern s32 D_EBFEB0_801ADA94;
 
 extern u8 D_80281000[0x400];
 extern u8 D_80281400[0xC00];
-extern FrameBuffer D_80282000; // z buffer
+extern FrameBuffer gZBuffer; // z buffer
 extern u8 D_802A7800;
 extern u8 D_802D7800;
 extern s32 D_80387800;

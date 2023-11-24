@@ -1,39 +1,6 @@
-bootproc = 0x80004DA8;
 D_800C90F0 = 0x800C90F0;
 __libm_qnan_f = 0x800C9570;
 D_1 = 0x1; //ignore:true
-
-Math_ModF = 0x80004E20;
-Rand_Init = 0x80004E4C;
-Rand_ZeroOne = 0x80004EB0;
-Rand_SetSeed = 0x80004FC8;
-Rand_ZeroOneSeeded = 0x80004FE8;
-Math_Atan2F = 0x80005100;
-Math_Atan2F_XY = 0x800051F8;
-Math_Atan2F_XYAlt = 0x80005320;
-Math_FactorialF = 0x800053C8;
-Math_Factorial = 0x800054C8;
-Math_PowF = 0x800055DC;
-Math_MinMax = 0x80005604;
-
-Matrix_Copy = 0x80005680;
-Matrix_Push = 0x80005708;
-Matrix_Pop = 0x80005740;
-Matrix_Mult = 0x80005754;
-Matrix_Translate = 0x80005B00;
-Matrix_Scale = 0x80005C34;
-Matrix_RotateX = 0x80005D44;
-Matrix_RotateY = 0x80005E90;
-Matrix_RotateZ = 0x80005FE0;
-Matrix_RotateAxis = 0x8000612C;
-Matrix_ToMtx = 0x80006500;
-Matrix_FromMtx = 0x8000671C;
-Matrix_MultVec3f = 0x80006970;
-Matrix_MultVec3fNoTranslate = 0x80006A20;
-Matrix_GetYRPAngles = 0x80006AB8;
-Matrix_GetXYZAngles = 0x80006C7C;
-Matrix_LookAt = 0x80006E3C;
-Matrix_SetGfxMtx = 0x80006EB8;
 
 D_800C45E0 = 0x800C45E0;
 
@@ -43,112 +10,31 @@ D_800C5FF4 = 0x800C5FF4; //type:u16 size:5000
 
 D_80163FE0 = 0x80163FE0; //size:0xB130
 
+gZBuffer = 0x80282000;
+gFrameBuffers = 0x8038F800;
 gDmaTable = 0x80178A70;
 
 D_800D3180 = 0x800D3180; // size:0x1E
 gSetupDLs = 0x800D31B0; // size:0x18C0
 
-D_800DD880 = 0x800DD880; // size:0x18
-D_800DD898 = 0x800DD898; // size:0x18
-D_800DD8B0 = 0x800DD8B0; // size:0x4
-D_800DD8B4 = 0x800DD8B4; // size:0x4
-D_800DD8B8 = 0x800DD8B8; // size:0x4
-D_800DD8BC = 0x800DD8BC; // ignore:true
-D_800DD8C0 = 0x800DD8C0; // size:0x18
-D_800DD8D8 = 0x800DD8D8; // size:0x18
-D_800DD8F0 = 0x800DD8F0; // size:0x10
+
 D_800DD900 = 0x800DD900; // size:0x1A0
 
 D_800CBDD4 = 0x800CBDD4; //size:0x98
 
-D_80178870 = 0x80178870; //size:0x200
-
-D_800E20F0 = 0x800E20F0;
-gTaskMsgQueue = 0x800E21E0;
-D_800E2238 = 0x800E2238;
-D_800E2258 = 0x800E2258;
-D_800E2278 = 0x800E2278;
-D_800E22A0 = 0x800E22A0;
-gSerialEventQueue = 0x800E2128;
-gMainThreadMsgQueue = 0x800E2148;
-gThread7msgQueue = 0x800E2338;
-D_800E2390 = 0x800E2390;
-gSerialThreadMsgQueue = 0x800E22C0;
-D_800E22F8 = 0x800E22F8;
-D_800E2318 = 0x800E2318;
-
-Thread7_ThreadEntry = 0x800040D4;
-SerialInterface_ThreadEntry = 0x80003FEC;
-
-gIdentityMtx = 0x800C4620;
-gIdentityMatrix = 0x800C4660;
-
-sFaultCharPixelFlags = 0x800C4770;
-sFaultCharIndex = 0x800C46F0;
-
-Math_FAtanF = 0x8001FBE8;
-Math_FAtan2F = 0x8001FD0C;
-Math_FAsinF = 0x8001FE00;
-Math_FAcosF = 0x8001FE30;
-
-Fault_Init = 0x80008018;
-func_80003C50 = 0x80003C50;
-
-Idle_ThreadEntry = 0x80004D00;
-Main_ThreadEntry = 0x80004ABC;
-Audio_ThreadEntry = 0x80003B48;
-Graphics_ThreadEntry = 0x80004144;
+Save_Checksum = 0x800C2FB0;
+Save_Write = 0x800C3084;
+Save_Read = 0x800C3194;
+gSaveFile = 0x80178870; //size:0x200
 
 __rspboot_start = 0x80000450;
 __rspboot_end = 0x80000520;
 __f3dex_start = 0x80001410;
 gF3dexData = 0x800C3DD0;
 
-gAudioThreadStack =  0x800DDAA0;
-gGraphicsThread =      0x800DEAA0;
-gGraphicsThreadStack = 0x800DEC50;
-gUnkThread3 =      0x800DFC50;
-gUnkThread3Stack = 0x800DFE00;
-gSerialThread =      0x800E0E00;
-gSerialThreadStack = 0x800E0FB0;
-
-gCurrentTask = 0x800E1FB0;
-D_800E1FB4 = 0x800E1FB4;
-D_800E1FB8 = 0x800E1FB8;
-D_800E1FC0 = 0x800E1FC0;
-D_800E1FC8 = 0x800E1FC8;
-
 D_800CBD3C = 0x800CBD3C;
 
-gPiMgrCmdQueue = 0x800E2010;
-sPiMgrCmdBuff = 0x800E2028;
-sIdleThread = 0x80138E90;
-sIdleThreadStack = 0x80139040;
-gMainThread = 0x8013A040;
-sMainThreadStack = 0x8013A1F0;
-gAudioThread = 0x8013B1F0;
-
-gSegments = 0x800E1FD0;
-gGfxPools = 0x800E23B0; // size:0x55AA0
-gGfxPool = 0x80137E50;
-gGfxTask = 0x80137E54;
-gViewport = 0x80137E58;
-gGfxMtx = 0x80137E5C;
-gUnkDisp1 = 0x80137E60;
-gMasterDisp = 0x80137E64;
-gUnkDisp2 = 0x80137E68;
-gLight = 0x80137E6C;
-gFrameBuffer = 0x80137E70;
-D_80137E74 = 0x80137E74;
-gFrameBuffers = 0x8038F800;
-D_8013C3D0 = 0x8013C3D0; // size:0x8800
-gFaultMgr = 0x80145360; // size:0x9D8
-
 D_80177E88 = 0x80177E88; // size:0xC
-
-Mio0_Decompress = 0x8001EE70;
-RdRam_CheckIPL3 = 0x8001EF10;
-
 D_800CFA54 = 0x800CFA54;
 
 D_800D934C = 0x800D934C; // force_migration:True

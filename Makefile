@@ -267,7 +267,7 @@ clean:
 	@git clean -fdx assets/
 	@git clean -fdx bin/
 	@git clean -fdx build/
-	@git clean -fdx linker_scripts/
+	@git clean -fdx linker_scripts/*.ld
 
 format:
 	@$(TOOLS)/format.py -j $(N_THREADS)

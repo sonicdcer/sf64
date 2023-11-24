@@ -35,7 +35,7 @@ void func_EBFBE0_801875E0(void) {
     D_EBFBE0_801B7BCC = 255.0f;
     D_EBFBE0_801B7BC8 = 255.0f;
 
-    func_80006F20();
+    Memory_FreeAll();
 
     func_800A5D6C();
     D_80178420 = 320.0f;
@@ -51,7 +51,7 @@ void func_EBFBE0_801875E0(void) {
         func_8001DC6C(0, 0x16);
         D_EBFBE0_801B82C4 = 1;
     }
-    D_800DD8B4 = 0x1E;
+    gStopInputTimer = 0x1E;
 }
 
 void func_EBFBE0_80187754(void) {
@@ -121,21 +121,21 @@ void func_EBFBE0_801878D8(void) {
         case 0:
             func_EBFBE0_801918FC();
             func_EBFBE0_80189208();
-            Matrix_Pop(&D_8013B3C0);
+            Matrix_Pop(&gGfxMatrix);
             func_EBFBE0_8018F680();
             func_EBFBE0_8018F85C();
             func_EBFBE0_8018FC14();
             func_EBFBE0_8018F8E4();
             func_EBFBE0_801918FC();
             func_EBFBE0_8018F77C();
-            Matrix_Pop(&D_8013B3C0);
+            Matrix_Pop(&gGfxMatrix);
             break;
 
         case 1:
             if (D_EBFBE0_801B8348 != 0) {
                 func_EBFBE0_801918FC();
                 func_EBFBE0_8018A2F8();
-                Matrix_Pop(&D_8013B3C0);
+                Matrix_Pop(&gGfxMatrix);
                 func_800BB5D0();
                 func_EBFBE0_80190C9C();
             }
@@ -146,7 +146,7 @@ void func_EBFBE0_801878D8(void) {
         case 2:
             func_EBFBE0_801918FC();
             func_EBFBE0_8018A990();
-            Matrix_Pop(&D_8013B3C0);
+            Matrix_Pop(&gGfxMatrix);
             if (D_EBFBE0_801B8344 != 0) {
                 func_EBFBE0_8018FD08();
             }
@@ -155,20 +155,20 @@ void func_EBFBE0_801878D8(void) {
         case 3:
             func_EBFBE0_801918FC();
             func_EBFBE0_8018B038();
-            Matrix_Pop(&D_8013B3C0);
+            Matrix_Pop(&gGfxMatrix);
             break;
 
         case 4:
             func_EBFBE0_801918FC();
             func_EBFBE0_8018C114();
-            Matrix_Pop(&D_8013B3C0);
+            Matrix_Pop(&gGfxMatrix);
             func_EBFBE0_80190C9C();
             break;
 
         case 5:
             func_EBFBE0_801918FC();
             func_EBFBE0_8018CB90();
-            Matrix_Pop(&D_8013B3C0);
+            Matrix_Pop(&gGfxMatrix);
             break;
     }
 
@@ -186,7 +186,7 @@ s32 func_EBFBE0_80187ABC(void) {
     s32 i;
 
     for (i = 0; i < 4; i++) {
-        if (D_800DD8B0[i] == 1) {
+        if (gControllerStatus[i] == 1) {
             ret = i;
             break;
         }

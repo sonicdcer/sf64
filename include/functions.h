@@ -4,19 +4,19 @@
 #include "structs.h"
 #include "fox_option.h"
 
-void func_8000291C(void);
-void func_800029A8(void);
-void func_80002AF4(void);
-void func_80002BE8(void);
-void func_80002C50(void);
-void func_80002CB8(void);
-void func_8000316C(Gfx** dList);
-void func_800032B4(Gfx** dList);
-void func_800033E0(void* var_s2, void* var_s1, s32 var_s0);
-void func_800034E8(u8 arg0);
+void Controller_Init(void);
+void Controller_UpdateInput(void);
+void Controller_ReadData(void);
+void Save_ReadData(void);
+void Save_WriteData(void);
+void Controller_Rumble(void);
+void Lib_Perspective(Gfx** dList);
+void Lib_Ortho(Gfx** dList);
+void Lib_DmaRead(void* src, void* dst, s32 size);
+void Lib_FillScreen(u8 setFill);
 
-void func_8000372C(Gfx** dList, s32 dirX, s32 dirY, s32 dirZ, s32 colR, s32 colG, s32 colB, s32 ambR, s32 ambG, s32 ambB);
-void func_800038AC(Gfx** dList, s32 dir1x, s32 dir1y, s32 dir1z, s32 dir2x, s32 dir2y, s32 dir2z, s32 col1r, s32 col1g,
+void Lights_SetOneLight(Gfx** dList, s32 dirX, s32 dirY, s32 dirZ, s32 colR, s32 colG, s32 colB, s32 ambR, s32 ambG, s32 ambB);
+void Lights_SetTwoLights(Gfx** dList, s32 dir1x, s32 dir1y, s32 dir1z, s32 dir2x, s32 dir2y, s32 dir2z, s32 col1r, s32 col1g,
                    s32 col1b, s32 col2r, s32 col2g, s32 col2b, s32 ambR, s32 ambG, s32 ambB);  
 f32 Math_ModF(f32 value, f32 mod);
 void Rand_Init(void);
@@ -48,18 +48,18 @@ void Matrix_GetXYZAngles(Matrix*, Vec3f*);
 void Matrix_LookAt(Matrix*, f32, f32, f32, f32, f32, f32, f32, f32, f32, u8);
 void Matrix_SetGfxMtx(Gfx**);
 
-s32 func_80006FD8(u64 arg0, void* arg2, s32* arg3, s32 arg4);
+s32 Timer_CreateTask(u64, TimerAction, s32*, s32);
 
-void func_80006F20(void);
-void* func_80006F38(s32);
+void Memory_FreeAll(void);
+void* Memory_Allocate(s32);
 
-void func_80007068(s32* arg0, s32 arg1);
-void func_8000707C(s32* arg0, s32 arg1);
-void func_80007088(UnkStruct_func_80007088*);
-void func_800070C8(u64);
+void Timer_Increment(s32* address, s32 value);
+void Timer_SetValue(s32* address, s32 value);
+void Timer_CompleteTask(TimerTask*);
+void Timer_Wait(u64);
 
-s32 func_800071FC(SaveFile*);
-s32 func_800072E0(SaveFile*);
+s32 Save_WriteEeprom(SaveFile*);
+s32 Save_ReadEeprom(SaveFile*);
 
 void Fault_ThreadEntry(void*);
 void func_80007FE4(FrameBuffer*, u16, u16);
@@ -136,6 +136,7 @@ s64 __ll_rshift(s64, s64);
 void func_8002E3E0(Object_2F4 *arg0);
 
 void func_8002E548(void);
+void func_8002F5F4(void);
 void func_8003DAF0(void);
 void func_8003DE68(s32, s32);
 void func_80040CDC(void);
@@ -305,8 +306,8 @@ void func_800C20B0(void);
 void func_800C2190(void);
 u16 func_800C2890(u16*);
 s32 func_800C2F30(u16*, s32);
-s32 func_800C3084(void);
-s32 func_800C3194(void); 
+s32 Save_Write(void);
+s32 Save_Read(void); 
 
 void func_EFFA40_80187520(s32, void*);
 

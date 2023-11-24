@@ -1,42 +1,43 @@
 #include "global.h"
 
-extern s32 D_8013B3A0;
-extern s32 D_8013B3A4;
-extern s32 D_8013B3A8;
-extern s32 D_8013B3AC;
-extern s32 D_8013B3B0;
-extern s32 D_8013B3B4;
+s32 sSeededRandSeed3;
+s32 sRandSeed1;
+s32 sRandSeed2;
+s32 sRandSeed3;
+s32 sSeededRandSeed1;
+s32 sSeededRandSeed2;
 
 f32 Math_ModF(f32 value, f32 mod) {
     return value - ((s32) (value / mod) * mod);
 }
 
 void Rand_Init(void) {
-    D_8013B3A4 = (s32) osGetTime() % 30000;
-    D_8013B3A8 = (s32) osGetTime() % 30000;
-    D_8013B3AC = (s32) osGetTime() % 30000;
+    sRandSeed1 = (s32) osGetTime() % 30000;
+    sRandSeed2 = (s32) osGetTime() % 30000;
+    sRandSeed3 = (s32) osGetTime() % 30000;
 }
 
 f32 Rand_ZeroOne(void) {
-    D_8013B3A4 = (D_8013B3A4 * 171) % 30269;
-    D_8013B3A8 = (D_8013B3A8 * 172) % 30307;
-    D_8013B3AC = (D_8013B3AC * 170) % 30323;
+    sRandSeed1 = (sRandSeed1 * 171) % 30269;
+    sRandSeed2 = (sRandSeed2 * 172) % 30307;
+    sRandSeed3 = (sRandSeed3 * 170) % 30323;
 
-    return fabsf(Math_ModF((D_8013B3A4 / 30269.0f) + (D_8013B3A8 / 30307.0f) + (D_8013B3AC / 30323.0f), 1.0f));
+    return fabsf(Math_ModF((sRandSeed1 / 30269.0f) + (sRandSeed2 / 30307.0f) + (sRandSeed3 / 30323.0f), 1.0f));
 }
 
 void Rand_SetSeed(s32 seed1, s32 seed2, s32 seed3) {
-    D_8013B3B0 = seed1;
-    D_8013B3B4 = seed2;
-    D_8013B3A0 = seed3;
+    sSeededRandSeed1 = seed1;
+    sSeededRandSeed2 = seed2;
+    sSeededRandSeed3 = seed3;
 }
 
 f32 Rand_ZeroOneSeeded(void) {
-    D_8013B3B0 = (D_8013B3B0 * 171) % 30269;
-    D_8013B3B4 = (D_8013B3B4 * 172) % 30307;
-    D_8013B3A0 = (D_8013B3A0 * 170) % 30323;
+    sSeededRandSeed1 = (sSeededRandSeed1 * 171) % 30269;
+    sSeededRandSeed2 = (sSeededRandSeed2 * 172) % 30307;
+    sSeededRandSeed3 = (sSeededRandSeed3 * 170) % 30323;
 
-    return fabsf(Math_ModF((D_8013B3B0 / 30269.0f) + (D_8013B3B4 / 30307.0f) + (D_8013B3A0 / 30323.0f), 1.0f));
+    return fabsf(
+        Math_ModF((sSeededRandSeed1 / 30269.0f) + (sSeededRandSeed2 / 30307.0f) + (sSeededRandSeed3 / 30323.0f), 1.0f));
 }
 
 f32 Math_Atan2F(f32 y, f32 x) {
