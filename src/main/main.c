@@ -208,10 +208,10 @@ void SerialInterface_ThreadEntry(void* arg0) {
                 Controller_ReadData();
                 break;
             case SI_READ_SAVE:
-                Save_Read();
+                Save_ReadData();
                 break;
             case SI_WRITE_SAVE:
-                Save_Write();
+                Save_WriteData();
                 break;
             case SI_RUMBLE:
                 Controller_Rumble();

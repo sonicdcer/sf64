@@ -7,8 +7,8 @@
 void Controller_Init(void);
 void Controller_UpdateInput(void);
 void Controller_ReadData(void);
-void Save_Read(void);
-void Save_Write(void);
+void Save_ReadData(void);
+void Save_WriteData(void);
 void Controller_Rumble(void);
 void Lib_Perspective(Gfx** dList);
 void Lib_Ortho(Gfx** dList);
@@ -58,8 +58,8 @@ void Timer_SetValue(s32* address, s32 value);
 void Timer_CompleteTask(TimerTask*);
 void Timer_Wait(u64);
 
-s32 Save_WriteData(SaveFile*);
-s32 Save_ReadData(SaveFile*);
+s32 Save_WriteEeprom(SaveFile*);
+s32 Save_ReadEeprom(SaveFile*);
 
 void Fault_ThreadEntry(void*);
 void func_80007FE4(FrameBuffer*, u16, u16);
@@ -306,8 +306,8 @@ void func_800C20B0(void);
 void func_800C2190(void);
 u16 func_800C2890(u16*);
 s32 func_800C2F30(u16*, s32);
-s32 func_800C3084(void);
-s32 func_800C3194(void); 
+s32 Save_Write(void);
+s32 Save_Read(void); 
 
 void func_EFFA40_80187520(s32, void*);
 

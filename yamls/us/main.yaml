@@ -187,7 +187,7 @@
       - [0xBB360, c, sf_BB360]
       - [0xBD360, c, sf_versus]
       - [0xC3430, c, sf_C3430]
-      - [0xC3BB0, c, sf_C3BB0]
+      - [0xC3BB0, c, fox_save]
 
       # DATA - Microcode
       - [0xC3EE0, data, aspmain]
@@ -302,7 +302,7 @@
       - [0xD97F0, .rodata, sf_BB360]
       - [0xD9E50, .rodata, sf_versus]
       - [0xD9F60, .rodata, sf_C3430]
-      - [0xDA030, .rodata, sf_C3BB0]
+      - [0xDA030, .rodata, fox_save]
 
       # Common assets
       - [0xDA0A0, data, displists]
@@ -348,4 +348,4 @@
 
       # Game engine bss
       - { start: 0xDE480, type: bss, vram: 0x8015F900, name: engine }
-      - { start: 0xDE480, type: .bss, vram: 0x80178870, name: sf_C3BB0 }
+      - { start: 0xDE480, type: .bss, vram: 0x80178870, name: fox_save }

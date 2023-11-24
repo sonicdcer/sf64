@@ -314,9 +314,9 @@ void func_800A26C0(void) {
                 D_80177834++;
                 break;
             case 0x67:
-                if (func_800C3194() != 0) {
+                if (Save_Read() != 0) {
                     gSaveFile = *((SaveFile*) &D_800D4D10);
-                    func_800C3084();
+                    Save_Write();
                 }
                 D_80177834++;
                 Timer_CreateTask(MSEC_TO_CYCLES(1000), Timer_Increment, &D_80177834, 1);

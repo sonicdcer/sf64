@@ -2,7 +2,7 @@
 
 SaveFile gSaveFile;
 
-u16 func_800C2FB0(Save* arg0) {
+u16 Save_Checksum(Save* arg0) {
     u16 var_v1;
     s32 i;
 
@@ -17,10 +17,10 @@ u16 func_800C2FB0(Save* arg0) {
     return var_v1;
 }
 
-s32 func_800C3084(void) {
+s32 Save_Write(void) {
     void* sp1C;
 
-    gSaveFile.save.data.checksum = func_800C2FB0(&gSaveFile.save);
+    gSaveFile.save.data.checksum = Save_Checksum(&gSaveFile.save);
     gSaveFile.backup = gSaveFile.save;
     gSaveIOBuffer = gSaveFile;
     osSendMesg(&gSerialThreadMsgQueue, (OSMesg) SI_WRITE_SAVE, OS_MESG_PRI_NORMAL);
@@ -31,7 +31,7 @@ s32 func_800C3084(void) {
     return 0;
 }
 
-s32 func_800C3194(void) {
+s32 Save_Read(void) {
     void* sp24;
     s32 i;
 
@@ -43,7 +43,7 @@ s32 func_800C3194(void) {
 
     gSaveFile = gSaveIOBuffer;
 
-    if (gSaveFile.save.data.checksum == func_800C2FB0(&gSaveFile.save)) {
+    if (gSaveFile.save.data.checksum == Save_Checksum(&gSaveFile.save)) {
         (void) "ＥＥＰＲＯＭ ＲＯＭ［０］ 正常\n";
         return 0;
     }
@@ -52,7 +52,7 @@ s32 func_800C3194(void) {
     }
     gSaveFile.save.data.checksum = gSaveFile.backup.data.checksum;
 
-    if (gSaveFile.save.data.checksum == func_800C2FB0(&gSaveFile.save)) {
+    if (gSaveFile.save.data.checksum == Save_Checksum(&gSaveFile.save)) {
         (void) "ＥＥＰＲＯＭ ＲＯＭ［1］ 正常\n";
         return 0;
     }

@@ -3,8 +3,8 @@ Controller_AddDeadZone = 0x80002840;
 Controller_Init = 0x8000291C;
 Controller_UpdateInput = 0x800029A8;
 Controller_ReadData = 0x80002AF4;
-Save_Read = 0x80002BE8;
-Save_Write = 0x80002C50;
+Save_ReadData = 0x80002BE8;
+Save_WriteData = 0x80002C50;
 Controller_Rumble = 0x80002CB8;
 
 // lib
@@ -83,10 +83,10 @@ Timer_CompleteTask = 0x80007088;
 Timer_Wait = 0x800070C8;
 
 // save
-Save_ReadEeprom = 0x80007130;
-Save_WriteEeprom = 0x8000716C;
-Save_WriteData = 0x800071FC;
-Save_ReadData = 0x800072E0;
+Save_ReadBlock = 0x80007130;
+Save_WriteBlock = 0x8000716C;
+Save_WriteEeprom = 0x800071FC;
+Save_ReadEeprom = 0x800072E0;
 
 // fault
 func_800073C0 = 0x800073C0;

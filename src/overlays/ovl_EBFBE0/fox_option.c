@@ -127,7 +127,7 @@ void func_EBFBE0_80191B20(void) {
                 } else {
                     gSaveFile.save.data.unk_00[14].unk_7 = 1;
                 }
-                func_800C3084();
+                Save_Write();
             } else if (D_800D3180[9] == 2) {
                 D_80177BB0[D_80177B48] = 1;
                 gSaveFile.save.data.unk_00[15].unk_5 = 1;
@@ -138,7 +138,7 @@ void func_EBFBE0_80191B20(void) {
                     gSaveFile.save.data.unk_00[15].unk_7 = 1;
                     gSaveFile.save.data.unk_00[15].unk_6 = 1;
                 }
-                func_800C3084();
+                Save_Write();
             }
         }
 
@@ -750,7 +750,7 @@ void func_EBFBE0_801948A8(void) {
             D_EBFBE0_801B9284 = 0;
             func_8001D8F4(D_EBFBE0_801B9284);
         }
-        func_800C3084();
+        Save_Write();
         D_80177898 = 0;
         D_EBFBE0_801B9124 = 1000;
         D_EBFBE0_801B912C = 0;
@@ -937,7 +937,7 @@ void func_EBFBE0_801962A4(void) {
 
                         gSaveFile = *(SaveFile*) &D_800D4D10;
 
-                        func_800C3084();
+                        Save_Write();
 
                         D_EBFBE0_801B91AC = 0;
                         D_EBFBE0_801B91B0 = 0;

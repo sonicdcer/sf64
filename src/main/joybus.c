@@ -92,16 +92,16 @@ void Controller_ReadData(void) {
     osSendMesg(&gControllerMsgQueue, (OSMesg) SI_CONT_READ_DONE, OS_MESG_PRI_NORMAL);
 }
 
-void Save_Read(void) {
-    if ((gStartNMI == 0) && (Save_ReadData(&gSaveIOBuffer) == 0)) {
+void Save_ReadData(void) {
+    if ((gStartNMI == 0) && (Save_ReadEeprom(&gSaveIOBuffer) == 0)) {
         osSendMesg(&gSaveMsgQueue, (OSMesg) SI_SAVE_SUCCESS, OS_MESG_PRI_NORMAL);
         return;
     }
     osSendMesg(&gSaveMsgQueue, (OSMesg) SI_SAVE_FAILED, OS_MESG_PRI_NORMAL);
 }
 
-void Save_Write(void) {
-    if ((gStartNMI == 0) && (Save_WriteData(&gSaveIOBuffer) == 0)) {
+void Save_WriteData(void) {
+    if ((gStartNMI == 0) && (Save_WriteEeprom(&gSaveIOBuffer) == 0)) {
         osSendMesg(&gSaveMsgQueue, (OSMesg) SI_SAVE_SUCCESS, OS_MESG_PRI_NORMAL);
         return;
     }
