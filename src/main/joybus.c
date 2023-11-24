@@ -96,26 +96,26 @@ void Controller_ReadData(void) {
         osRecvMesg(&gSerialEventQueue, NULL, OS_MESG_BLOCK);
         osContGetReadData(sNextInput);
     }
-    osSendMesg(&g_D_800E22F8_Queue, (OSMesg) SI_MESG_16, OS_MESG_PRI_NORMAL);
+    osSendMesg(&gControllerMsgQueue, (OSMesg) SI_CONT_READ_DONE, OS_MESG_PRI_NORMAL);
 }
 #else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/joybus/Controller_ReadData.s")
 #endif
 
 void Save_Read(void) {
-    if ((D_80137E80 == 0) && (func_800072E0(&D_80144F60) == 0)) {
-        osSendMesg(&g_D_800E2318_Queue, (OSMesg) SI_MESG_15, OS_MESG_PRI_NORMAL);
+    if ((gStartNMI == 0) && (func_800072E0(&D_80144F60) == 0)) {
+        osSendMesg(&gSaveMsgQueue, (OSMesg) SI_SAVE_SUCCESS, OS_MESG_PRI_NORMAL);
         return;
     }
-    osSendMesg(&g_D_800E2318_Queue, (OSMesg) SI_MESG_14, OS_MESG_PRI_NORMAL);
+    osSendMesg(&gSaveMsgQueue, (OSMesg) SI_SAVE_FAILED, OS_MESG_PRI_NORMAL);
 }
 
 void Save_Write(void) {
-    if ((D_80137E80 == 0) && (func_800071FC(&D_80144F60) == 0)) {
-        osSendMesg(&g_D_800E2318_Queue, (OSMesg) SI_MESG_15, OS_MESG_PRI_NORMAL);
+    if ((gStartNMI == 0) && (func_800071FC(&D_80144F60) == 0)) {
+        osSendMesg(&gSaveMsgQueue, (OSMesg) SI_SAVE_SUCCESS, OS_MESG_PRI_NORMAL);
         return;
     }
-    osSendMesg(&g_D_800E2318_Queue, (OSMesg) SI_MESG_14, OS_MESG_PRI_NORMAL);
+    osSendMesg(&gSaveMsgQueue, (OSMesg) SI_SAVE_FAILED, OS_MESG_PRI_NORMAL);
 }
 
 void Controller_Rumble(void) {

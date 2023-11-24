@@ -319,7 +319,7 @@ void func_800A26C0(void) {
                     func_800C3084();
                 }
                 D_80177834++;
-                func_80006FD8(MSEC_TO_CYCLES(1000), func_80007068, &D_80177834, 1);
+                Thread7_CreateTask(MSEC_TO_CYCLES(1000), Thread7_Increment, &D_80177834, 1);
             case 0x68:
                 func_800B8DD0(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);

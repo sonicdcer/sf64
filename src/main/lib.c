@@ -102,18 +102,18 @@ void Lib_Ortho(Gfx** dList) {
     Matrix_Copy(gGfxMatrix, &gIdentityMatrix);
 }
 
-void Lib_DmaRead(void* var_s2, void* var_s1, ptrdiff_t var_s0) {
-    osInvalICache(var_s1, var_s0);
-    osInvalDCache(var_s1, var_s0);
-    while (var_s0 > 0x100) {
-        osPiStartDma(&gDmaIOMsg, 0, 0, (uintptr_t) var_s2, var_s1, 0x100, &gDmaMsgQueue);
-        var_s0 -= 0x100;
-        var_s2 = (void*) ((uintptr_t) var_s2 + 0x100);
-        var_s1 = (void*) ((uintptr_t) var_s1 + 0x100);
+void Lib_DmaRead(void* src, void* dst, ptrdiff_t size) {
+    osInvalICache(dst, size);
+    osInvalDCache(dst, size);
+    while (size > 0x100) {
+        osPiStartDma(&gDmaIOMsg, 0, 0, (uintptr_t) src, dst, 0x100, &gDmaMsgQueue);
+        size -= 0x100;
+        src = (void*) ((uintptr_t) src + 0x100);
+        dst = (void*) ((uintptr_t) dst + 0x100);
         osRecvMesg(&gDmaMsgQueue, NULL, OS_MESG_BLOCK);
     }
-    if (var_s0 != 0) {
-        osPiStartDma(&gDmaIOMsg, 0, 0, (uintptr_t) var_s2, var_s1, var_s0, &gDmaMsgQueue);
+    if (size != 0) {
+        osPiStartDma(&gDmaIOMsg, 0, 0, (uintptr_t) src, dst, size, &gDmaMsgQueue);
         osRecvMesg(&gDmaMsgQueue, NULL, OS_MESG_BLOCK);
     }
 }

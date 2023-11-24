@@ -1,51 +1,50 @@
 #include "global.h"
 
-extern UnkStruct_func_80007088 D_80144BE0[0x10];
+extern Thread7Task sThread7Tasks[0x10];
 
-UnkStruct_func_80007088* func_80006F60(void) {
+Thread7Task* Thread7_AllocateTask(void) {
     s32 i;
 
     for (i = 0; i < 0x10; i++) {
-        if (D_80144BE0[i].unk0 == 0) {
-            return &D_80144BE0[i];
+        if (!sThread7Tasks[i].active) {
+            return &sThread7Tasks[i];
         }
     }
     return NULL;
 }
 
-s32 func_80006FD8(u64 arg0, void* arg2, s32* arg3, s32 arg4) {
-    UnkStruct_func_80007088* temp_v0;
+s32 Thread7_CreateTask(u64 time, Thread7Action* action, s32* address, s32 value) {
+    Thread7Task* task = Thread7_AllocateTask();
 
-    temp_v0 = func_80006F60();
-    if (temp_v0 == NULL) {
+    if (task == NULL) {
         return -1;
     }
-    temp_v0->unk0 = 1;
-    temp_v0->unk28 = arg2;
-    temp_v0->unk2C = arg3;
-    temp_v0->unk30 = arg4;
-    return osSetTimer(&temp_v0->unk8, arg0, 0, &gThread7msgQueue, temp_v0);
+    task->active = true;
+    task->action = action;
+    task->address = address;
+    task->value = value;
+    return osSetTimer(&task->timer, time, 0, &gThread7TaskMsgQueue, task);
 }
 
-void func_80007068(s32* arg0, s32 arg1) {
-    *arg0 += arg1;
+void Thread7_Increment(s32* address, s32 value) {
+    *address += value;
 }
 
-void func_8000707C(s32* arg0, s32 arg1) {
-    *arg0 = arg1;
+void Thread7_SetValue(s32* address, s32 value) {
+    *address = value;
 }
 
-void func_80007088(UnkStruct_func_80007088* arg0) {
-    if (arg0->unk28 != NULL) {
-        arg0->unk28(arg0->unk2C, arg0->unk30);
+void Thread7_CompleteTask(Thread7Task* task) {
+    if (task->action != NULL) {
+        task->action(task->address, task->value);
     }
-    arg0->unk0 = 0;
+    task->active = false;
 }
 
-void func_800070C8(u64 arg0) {
-    OSTimer sp30;
-    OSMesg sp2C;
+void Thread7_Wait(u64 time) {
+    OSTimer timer;
+    OSMesg dummy;
 
-    osSetTimer(&sp30, arg0, 0, &g_D_800E2390_Queue, NULL);
-    osRecvMesg(&g_D_800E2390_Queue, &sp2C, OS_MESG_BLOCK);
+    osSetTimer(&timer, time, 0, &gThread7WaitMsgQueue, NULL);
+    osRecvMesg(&gThread7WaitMsgQueue, &dummy, OS_MESG_BLOCK);
 }

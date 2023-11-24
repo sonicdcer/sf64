@@ -65,7 +65,7 @@ u8 func_80058C48(OverlayInit* ovlInit) {
 
     if (D_800CA3B0 != 0) {
         D_800CA3B0--;
-    } else if (D_80137E80 == 0) {
+    } else if (gStartNMI == 0) {
         Lib_FillScreen(0);
     }
     return startLoad;

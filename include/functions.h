@@ -48,15 +48,15 @@ void Matrix_GetXYZAngles(Matrix*, Vec3f*);
 void Matrix_LookAt(Matrix*, f32, f32, f32, f32, f32, f32, f32, f32, f32, u8);
 void Matrix_SetGfxMtx(Gfx**);
 
-s32 func_80006FD8(u64 arg0, void* arg2, s32* arg3, s32 arg4);
+s32 Thread7_CreateTask(u64, Thread7Action*, s32*, s32);
 
 void func_80006F20(void);
 void* func_80006F38(s32);
 
-void func_80007068(s32* arg0, s32 arg1);
-void func_8000707C(s32* arg0, s32 arg1);
-void func_80007088(UnkStruct_func_80007088*);
-void func_800070C8(u64);
+void Thread7_Increment(s32* arg0, s32 arg1);
+void Thread7_SetValue(s32* arg0, s32 arg1);
+void Thread7_CompleteTask(Thread7Task*);
+void Thread7_Wait(u64);
 
 s32 func_800071FC(SaveFile*);
 s32 func_800072E0(SaveFile*);

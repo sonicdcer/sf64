@@ -21,7 +21,7 @@ s32 func_8000716C(s32 arg0, u8* arg1) {
         (void) "ＥＥＰＲＯＭ インターフェース回路反応なし (ＷＲＩＴＥ)\n";
         return -1;
     }
-    func_800070C8(MSEC_TO_CYCLES(15));
+    Thread7_Wait(MSEC_TO_CYCLES(15));
     (void) "EEPROM WRITE %02X: %02X %02X %02X %02X %02X %02X %02X %02X\n";
     return 0;
 }

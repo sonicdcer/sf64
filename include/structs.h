@@ -33,15 +33,15 @@ typedef struct {
     /* 0xC */ s32 compFlag;
 } DmaEntry; // size = 0x10;
 
-typedef void (*unkFunc_80007088)(s32*, s32);
+typedef void (*Thread7Action)(s32*, s32);
 
 typedef struct {
-    /* 0x00 */ u8 unk0;
-    /* 0x08 */ OSTimer unk8;
-    /* 0x28 */ unkFunc_80007088 unk28;
-    /* 0x2C */ s32* unk2C;
-    /* 0x30 */ s32 unk30;
-} UnkStruct_func_80007088; // size = 0x38, 0x8 aligned
+    /* 0x00 */ u8 active;
+    /* 0x08 */ OSTimer timer;
+    /* 0x28 */ Thread7Action action;
+    /* 0x2C */ s32* address;
+    /* 0x30 */ s32 value;
+} Thread7Task; // size = 0x38, 0x8 aligned
 
 typedef struct {
     u16 data[240 * 320];

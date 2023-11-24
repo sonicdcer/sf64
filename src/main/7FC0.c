@@ -199,12 +199,12 @@ void Fault_ThreadEntry(void* arg0) {
     func_8000762C(300, 10, "-");
     gControllerStatus[0] = 1;
     while (var_s5 == 0) {
-        osSendMesg(&gSerialThreadMsgQueue, (OSMesg) SI_MESG_10, OS_MESG_PRI_NORMAL);
-        osRecvMesg(&g_D_800E22F8_Queue, NULL, OS_MESG_BLOCK);
+        osSendMesg(&gSerialThreadMsgQueue, (OSMesg) SI_READ_CONTROLLER, OS_MESG_PRI_NORMAL);
+        osRecvMesg(&gControllerMsgQueue, NULL, OS_MESG_BLOCK);
         Controller_UpdateInput();
         switch (var_s0) {
             case 0:
-                if (gCurrentInput[0].button == 0x16) {
+                if (gCurrentInput[0].button == R_TRIG | D_CBUTTONS | L_CBUTTONS) {
                     var_s0++;
                     var_s2 = 4000;
                 }
@@ -212,8 +212,8 @@ void Fault_ThreadEntry(void* arg0) {
             case 1:
             case 2:
             case 7:
-                if (gCurrentInput[0].button & 0x10) {
-                    if (gChangedInput[0].button == 0x8000) {
+                if (gCurrentInput[0].button & R_TRIG) {
+                    if (gChangedInput[0].button == A_BUTTON) {
                         var_s0++;
                         var_s2 = 3000;
                     } else if (gChangedInput[0].button != 0) {
@@ -224,8 +224,8 @@ void Fault_ThreadEntry(void* arg0) {
             case 3:
             case 4:
             case 8:
-                if (gCurrentInput[0].button & 0x10) {
-                    if (gChangedInput[0].button == 0x4000) {
+                if (gCurrentInput[0].button & R_TRIG) {
+                    if (gChangedInput[0].button == B_BUTTON) {
                         var_s0++;
                         var_s2 = 3000;
                     } else if (gChangedInput[0].button != 0) {
@@ -240,8 +240,8 @@ void Fault_ThreadEntry(void* arg0) {
             case 11:
             case 12:
             case 13:
-                if (gCurrentInput[0].button & 0x10) {
-                    if (gChangedInput[0].button == 2) {
+                if (gCurrentInput[0].button & R_TRIG) {
+                    if (gChangedInput[0].button == L_CBUTTONS) {
                         var_s0++;
                         var_s2 = 3000;
                     } else if (gChangedInput[0].button != 0) {
@@ -250,8 +250,8 @@ void Fault_ThreadEntry(void* arg0) {
                 }
                 break;
             case 14:
-                if (gCurrentInput[0].button & 0x10) {
-                    if (gChangedInput[0].button == 0x1000) {
+                if (gCurrentInput[0].button & R_TRIG) {
+                    if (gChangedInput[0].button == START_BUTTON) {
                         var_s0++;
                         var_s2 = 3000;
                     } else if (gChangedInput[0].button != 0) {

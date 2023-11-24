@@ -54,10 +54,10 @@ extern u8 gSerialThreadStack[0x1000]; // 800E0FB0
 extern u8 gUnusedStack[0x1000];
 
 extern SPTask* gCurrentTask;
-extern SPTask* D_800E1FB4[1];
-extern SPTask* D_800E1FB8[2];
-extern SPTask* D_800E1FC0[2];
-extern SPTask* D_800E1FC8[2];
+extern SPTask* sAudioTasks[1];
+extern SPTask* sGfxTasks[2];
+extern SPTask* sNewAudioTasks[1];
+extern SPTask* sNewGfxTasks[2];
 extern u32 gSegments[16]; // 800E1FD0
 extern OSMesgQueue gPiMgrCmdQueue; // 800E2010
 extern OSMesg sPiMgrCmdBuff[50]; // 800E2028
@@ -71,24 +71,24 @@ extern OSMesgQueue gMainThreadMsgQueue;
 extern void *sMainThreadMsgBuff[32];
 extern OSMesgQueue gTaskMsgQueue;
 extern void *sTaskMsgBuff[16];
-extern OSMesgQueue g_D_800E2238_Queue;
-extern void *s_D_800E2238_Buff[1];
-extern OSMesgQueue g_D_800E2258_Queue;
-extern void *s_D_800E2258_Buff[1];
-extern OSMesgQueue g_D_800E2278_Queue;
-extern void *s_D_800E2278_Buff[4];
-extern OSMesgQueue g_D_800E22A0_Queue;
-extern void *s_D_800E22A0_Buff[2];
+extern OSMesgQueue gAudioVImsgQueue;
+extern void *sAudioVImsgBuff[1];
+extern OSMesgQueue gAudioTaskMsgQueue;
+extern void *sAudioTaskMsgBuff[1];
+extern OSMesgQueue gGfxVImsgQueue;
+extern void *sGfxVImsgBuff[4];
+extern OSMesgQueue gGfxTaskMsgQueue;
+extern void *sGfxTaskMsgBuff[2];
 extern OSMesgQueue gSerialThreadMsgQueue;
 extern void *sSerialThreadMsgBuff[8];
-extern OSMesgQueue g_D_800E22F8_Queue;
-extern void *s_D_800E22F8_Buff[1];
-extern OSMesgQueue g_D_800E2318_Queue;
-extern void *s_D_800E2318_Buff[1];
-extern OSMesgQueue gThread7msgQueue;
-extern void *sThread7msgBuff[16];
-extern OSMesgQueue g_D_800E2390_Queue;
-extern void *s_D_800E2390_Buff[1];
+extern OSMesgQueue gControllerMsgQueue;
+extern void *sControllerMsgBuff[1];
+extern OSMesgQueue gSaveMsgQueue;
+extern void *sSaveMsgBuff[1];
+extern OSMesgQueue gThread7TaskMsgQueue;
+extern void *sThread7TaskMsgBuff[16];
+extern OSMesgQueue gThread7WaitMsgQueue;
+extern void *sThread7WaitMsgBuff[1];
 
 extern GfxPool gGfxPools[2]; // 800E23B0
 
@@ -106,7 +106,7 @@ extern s32* D_80137E74;
 // some sort of struct?
 extern u8 D_80137E78;
 extern u32 gFrameCounter;
-extern u8 D_80137E80;
+extern u8 gStartNMI;
 extern u8 D_80137E81;
 extern u8 D_80137E84[4];
 extern u16 D_80137E88;
