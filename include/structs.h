@@ -30,15 +30,15 @@ typedef struct {
     /* 0xC */ s32 compFlag;
 } DmaEntry; // size = 0x10;
 
-typedef void (*unkFunc_80007088)(s32*, s32);
+typedef void (*TimerAction)(s32*, s32);
 
 typedef struct {
-    /* 0x00 */ u8 unk0;
-    /* 0x08 */ OSTimer unk8;
-    /* 0x28 */ unkFunc_80007088 unk28;
-    /* 0x2C */ s32* unk2C;
-    /* 0x30 */ s32 unk30;
-} UnkStruct_func_80007088; // size = 0x38, 0x8 aligned
+    /* 0x00 */ u8 active;
+    /* 0x08 */ OSTimer timer;
+    /* 0x28 */ TimerAction action;
+    /* 0x2C */ s32* address;
+    /* 0x30 */ s32 value;
+} TimerTask; // size = 0x38, 0x8 aligned
 
 typedef union {
     u16 data[240 * 320];
@@ -52,7 +52,7 @@ typedef struct {
     /* bit 5 */ u8 unk_5 : 1;    
     /* bit 6 */ u8 unk_6 : 1;    
     /* bit 7 */ u8 unk_7 : 1;    
-} Save_00_SubStruct_00; // size = 0x1
+} Save_SubStruct_00; // size = 0x1
 
 typedef struct {
     /* bit 0 */ u16 unk_0 : 8;
@@ -61,10 +61,10 @@ typedef struct {
     /* bit D */ u16 unk_D : 1;
     /* bit E */ u16 unk_E : 1;
     /* bit F */ u16 unk_F : 1;
-} Save_00_SubStruct_5E; // size = 0x10
+} Save_SubStruct_5E; // size = 0x10
 
-typedef struct Save_00 {
-    /* 0x00 */ Save_00_SubStruct_00 unk_00[16];
+typedef struct{
+    /* 0x00 */ Save_SubStruct_00 unk_00[16];
     /* 0x10 */ char pad10[0x4];
     /* 0x14 */ u8 unk_14;
     /* 0x15 */ u8 unk_15;
@@ -74,24 +74,23 @@ typedef struct Save_00 {
     /* 0x36 */ u8 unk_36[10];
     /* 0x40 */ s8 unk_40[10];
     /* 0x4A */ char pad4A[0x14];
-    /* 0x5E */ Save_00_SubStruct_5E unk_5E[10][7];
+    /* 0x5E */ Save_SubStruct_5E unk_5E[10][7];
     /* 0xEA */ u8 unk_EA;
     /* 0xEB */ char padEB[0x3];
-} Save_00;
+    /* 0xEE */ char padEE[0x10];
+} SaveData; // size = 0xFE
 
 typedef struct {
-    /* 0x00 */ u8 unk_00[0xFE];
-    /* 0xFE */ u16 unk_FE;
-} Checksum;
+    /* 0x00 */ union {
+        SaveData data;
+        u8 raw[sizeof(SaveData)];
+        };
+    /* 0xFE */ u16 checksum;
+} Save;
 
-typedef union {
-    /* 0x00 */ Save_00 save_00;
-    /* 0x00 */ Checksum checksum;
-} Save; // size = 0x100
-
-typedef union {
-    Save save[2];
-    u8 raw[EEPROM_BLOCK_SIZE*EEPROM_MAXBLOCKS];
+typedef struct {
+    /* 0x000 */ Save save;
+    /* 0x100 */ Save backup;
 } SaveFile; // size = 0x200
 
 typedef struct {

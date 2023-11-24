@@ -18,3 +18,5 @@ int __rmonSetComm(KKHeader* req) {
 
     return TV_ERROR_NO_ERROR;
 }
+
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonmisc/D_800C97D0.s")

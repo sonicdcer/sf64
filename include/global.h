@@ -20,13 +20,13 @@
 #include "sf64animation.h"
 
 typedef enum {
-    SI_MESG_10 = 10,
-    SI_MESG_11,
-    SI_MESG_12,
-    SI_MESG_13,
-    SI_MESG_14,
-    SI_MESG_15,
-    SI_MESG_16,
+    SI_READ_CONTROLLER = 10,
+    SI_READ_SAVE,
+    SI_WRITE_SAVE,
+    SI_RUMBLE,
+    SI_SAVE_FAILED,
+    SI_SAVE_SUCCESS,
+    SI_CONT_READ_DONE,
 } SerialMesg;
 
 #define MSG_QUEUE_EMPTY -1

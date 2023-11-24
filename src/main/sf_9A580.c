@@ -2,7 +2,7 @@
 
 char *func_80099980(char *buf, s32 fill, s32 len) {
     s32 i;
-    s8* ptr = buf;
+    char* ptr = buf;
 
     for(i = len; i > 0 ; i--) {
         *ptr++ = fill;
@@ -16,7 +16,7 @@ s32 func_800999D8(char *fmt, ...) {
 
     va_start(args, fmt);
     func_80099980(D_801619A0, 0, 100);
-    func_80002E80(D_801619A0, fmt, args);
+    Lib_vsPrintf(D_801619A0, fmt, args);
     va_end(args);
 
     return 0;
@@ -71,8 +71,8 @@ void func_80099E28(u16 *arg0, u16 *arg1, u8 arg2) {
             }
             break;
         case 5:
-            var_s0_2 = arg0;
-            var_s4_2 = arg1;
+            var_s0_2 = (u8*)arg0;
+            var_s4_2 = (u8*)arg1;
             for(var_s3 = 0; var_s3 < 0x1000; var_s3 += 0x40) {
                 temp_ft3 = 4.0f * __sinf((s32)(((var_s3 / 64) + (D_80177DB0 / 4)) % 0x20U) * (M_PI / 16.0f));
                 for(var_v1 = 0; var_v1 < 0x40; var_v1++) {
@@ -82,11 +82,11 @@ void func_80099E28(u16 *arg0, u16 *arg1, u8 arg2) {
     }
 }
 
-s32 func_8009A400(void* arg0, void** arg1) {
+s32 func_8009A400(Limb* limb, Limb** skeleton) {
     s32 i = 1;
     
-    for(i = 1; *arg1 != 0; i++, arg1++) {
-        if(*arg1 == arg0){
+    for(i = 1; *skeleton != 0; i++, skeleton++) {
+        if(*skeleton == limb){
             return i;
         }
     }
@@ -102,7 +102,7 @@ void func_8009A440(s32 mode, Limb * limb, Limb* *skeleton, Vec3f* jointTable, Ov
     Vec3f pos;
     Vec3f origin = D_800D25D0;
     
-    Matrix_Push(&D_8013BBC8);
+    Matrix_Push(&gCalcMatrix);
     
     limbIndex = func_8009A400(limb, skeleton);
     limb = SEGMENTED_TO_VIRTUAL(limb);
@@ -111,7 +111,7 @@ void func_8009A440(s32 mode, Limb * limb, Limb* *skeleton, Vec3f* jointTable, Ov
     trans.y = limb->trans.y;
     trans.z = limb->trans.z;
     dList = limb->dList;
-    Matrix_Push(&D_8013B3C0);
+    Matrix_Push(&gGfxMatrix);
 
     if (overrideLimbDraw == NULL) {
         override = false;
@@ -119,18 +119,18 @@ void func_8009A440(s32 mode, Limb * limb, Limb* *skeleton, Vec3f* jointTable, Ov
         override = overrideLimbDraw(limbIndex - 1, &dList, &trans, &rot, data);
     }
     if (!override) {
-        Matrix_Translate(D_8013BBC8, trans.x, trans.y, trans.z, 1);
-        Matrix_RotateZ(D_8013BBC8, rot.z * 0.017453292f, 1);
-        Matrix_RotateY(D_8013BBC8, rot.y * 0.017453292f, 1);
-        Matrix_RotateX(D_8013BBC8, rot.x * 0.017453292f, 1);
+        Matrix_Translate(gCalcMatrix, trans.x, trans.y, trans.z, 1);
+        Matrix_RotateZ(gCalcMatrix, rot.z * 0.017453292f, 1);
+        Matrix_RotateY(gCalcMatrix, rot.y * 0.017453292f, 1);
+        Matrix_RotateX(gCalcMatrix, rot.x * 0.017453292f, 1);
         if (dList != NULL) {
             if (mode >= 2) {
-                Matrix_MultVec3f(D_8013BBC8, &origin, &pos);
+                Matrix_MultVec3f(gCalcMatrix, &origin, &pos);
                 if (mode != 5) {
                     func_8005F670(&pos);
                 }
             }
-            Matrix_Mult(D_8013B3C0, D_8013BBC8, 1);
+            Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, dList);
 
@@ -140,11 +140,11 @@ void func_8009A440(s32 mode, Limb * limb, Limb* *skeleton, Vec3f* jointTable, Ov
     if (postLimbDraw != NULL) {
         postLimbDraw(limbIndex - 1, &rot, data);
     }
-    Matrix_Pop(&D_8013B3C0);
+    Matrix_Pop(&gGfxMatrix);
     if (limb->child != NULL) {
         func_8009A440(mode, limb->child, skeleton, jointTable, overrideLimbDraw, postLimbDraw, data);
     }
-    Matrix_Pop(&D_8013BBC8);
+    Matrix_Pop(&gCalcMatrix);
     if (limb->sibling != NULL) {
         func_8009A440(mode, limb->sibling, skeleton, jointTable, overrideLimbDraw, postLimbDraw, data);
     }
@@ -159,8 +159,8 @@ void func_8009A72C(s32 mode, Limb** skeletonSegment, Vec3f* jointTable, Override
     Vec3f baseTrans;
     Vec3f baseRot;
 
-    Matrix_Push(&D_8013BBC8);
-    Matrix_Copy(D_8013BBC8, transform);
+    Matrix_Push(&gCalcMatrix);
+    Matrix_Copy(gCalcMatrix, transform);
     skeleton = SEGMENTED_TO_VIRTUAL(skeletonSegment);
     rootLimb = SEGMENTED_TO_VIRTUAL(skeleton[0]);
     rootIndex = func_8009A400(skeleton[0], skeleton);
@@ -175,19 +175,19 @@ void func_8009A72C(s32 mode, Limb** skeletonSegment, Vec3f* jointTable, Override
         baseTrans.z = jointTable[0].z;
     }
     dList = rootLimb->dList;
-    Matrix_Push(&D_8013B3C0);
+    Matrix_Push(&gGfxMatrix);
     if (overrideLimbDraw == NULL) {
         override = 0;
     } else {
         override = overrideLimbDraw(rootIndex - 1, &dList, &baseTrans, &baseRot, data);
     }
     if (override == 0) {
-        Matrix_Translate(D_8013BBC8, baseTrans.x, baseTrans.y, baseTrans.z, 1);
-        Matrix_RotateZ(D_8013BBC8, baseRot.z * 0.017453292f, 1);
-        Matrix_RotateY(D_8013BBC8, baseRot.y * 0.017453292f, 1);
-        Matrix_RotateX(D_8013BBC8, baseRot.x * 0.017453292f, 1);
+        Matrix_Translate(gCalcMatrix, baseTrans.x, baseTrans.y, baseTrans.z, 1);
+        Matrix_RotateZ(gCalcMatrix, baseRot.z * 0.017453292f, 1);
+        Matrix_RotateY(gCalcMatrix, baseRot.y * 0.017453292f, 1);
+        Matrix_RotateX(gCalcMatrix, baseRot.x * 0.017453292f, 1);
         if (dList != NULL) {
-            Matrix_Mult(D_8013B3C0, D_8013BBC8, 1);
+            Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, dList);
         }
@@ -195,13 +195,13 @@ void func_8009A72C(s32 mode, Limb** skeletonSegment, Vec3f* jointTable, Override
     if (postLimbDraw != NULL) {
         postLimbDraw(rootIndex - 1, &baseRot, data);
     }
-    Matrix_Pop(&D_8013B3C0);
+    Matrix_Pop(&gGfxMatrix);
     if (rootLimb->child != NULL) {
         func_8009A440(mode, rootLimb->child, skeleton, jointTable, overrideLimbDraw, postLimbDraw, data);
     }
-    Matrix_Pop(&D_8013BBC8);
+    Matrix_Pop(&gCalcMatrix);
     if (mode >= 2) {
-        Matrix_Mult(D_8013B3C0, D_8013BBC8, 1);
+        Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
     }
 }
 
@@ -232,10 +232,10 @@ s16 func_8009AA20(AnimationHeader *animationSegmemt, s32 frame, Vec3f *frameTabl
     return var4 + 1;
 }
 
-s16 func_8009ACDC(s16 *arg0) {
-    s16* temp = SEGMENTED_TO_VIRTUAL(arg0);
+s16 func_8009ACDC(AnimationHeader *arg0) {
+    AnimationHeader* temp = SEGMENTED_TO_VIRTUAL(arg0);
 
-    return *temp;
+    return temp->frameCount;
 }
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_9A580/func_8009AD18.s")

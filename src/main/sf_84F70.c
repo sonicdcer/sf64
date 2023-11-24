@@ -14,18 +14,18 @@ void func_80084488(s32 arg0) {
     s32 var_s1;
 
     func_800B8FA8();
-    Matrix_Push(&D_8013B3C0);
-    Matrix_Translate(D_8013B3C0, 0.0f, 0.0f, -150.0f, 0);
+    Matrix_Push(&gGfxMatrix);
+    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -150.0f, 0);
     for(var_s1 = 0; var_s1 < MIN(360, arg0 * 15); var_s1 += 0xF) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, MIN((arg0 - (var_s1 / 15)) * 15, 255));
-        Matrix_Push(&D_8013B3C0);
-        Matrix_RotateZ(D_8013B3C0,  var_s1 * M_DTOR, 1);
-        Matrix_Scale(D_8013B3C0, 0.53f, 1.0f, 1.0f, 1);
+        Matrix_Push(&gGfxMatrix);
+        Matrix_RotateZ(gGfxMatrix,  var_s1 * M_DTOR, 1);
+        Matrix_Scale(gGfxMatrix, 0.53f, 1.0f, 1.0f, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_Gfx_800D9688);
-        Matrix_Pop(&D_8013B3C0);
+        Matrix_Pop(&gGfxMatrix);
     }
-    Matrix_Pop(&D_8013B3C0);
+    Matrix_Pop(&gGfxMatrix);
 }
 
 void func_80084688(s32 arg0, s32 arg1) {
@@ -92,8 +92,8 @@ void func_800846F0(FrameBuffer *arg0) {
     s32 i;
     s32 j;
 
-    for(i = 0; i < D_80137E7C % 240U; i++) {
-        for(j = 0; j < D_80137E7C % 320U; j++) {
+    for(i = 0; i < gFrameCounter % 240U; i++) {
+        for(j = 0; j < gFrameCounter % 320U; j++) {
             sp64 = RGBA16_RED(arg0->array[i][j]);
             sp50 = RGBA16_GRN(arg0->array[i][j]);
             sp3C = RGBA16_BLU(arg0->array[i][j]);
@@ -119,9 +119,9 @@ void func_800846F0(FrameBuffer *arg0) {
     }
 
     // var_t1 = 0;
-    // var_t0 = (u32) D_80137E7C % 240U;
+    // var_t0 = (u32) gFrameCounter % 240U;
     // if (var_t0 != 0) {
-    //     var_a0 = (u32) D_80137E7C % 320U;
+    //     var_a0 = (u32) gFrameCounter % 320U;
     //     var_t2 = 0;
     //     do {
     //         var_v0 = (var_t2 * 2) + arg0;
@@ -165,9 +165,9 @@ void func_800846F0(FrameBuffer *arg0) {
     //                 temp_t7_3 = (s32) (sp48 + sp28 + temp_t5_2 + temp_t9_2) / 4;
     //                 sp38 = temp_t7_3;
     //                 var_v0->unk-2 = (u16) ((temp_t7_3 * 2) | (sp60 << 0xB) | (temp_t8 << 6));
-    //                 var_a0 = (u32) D_80137E7C % 320U;
+    //                 var_a0 = (u32) gFrameCounter % 320U;
     //             } while (var_v1 < var_a0);
-    //             var_t0 = (u32) D_80137E7C % 240U;
+    //             var_t0 = (u32) gFrameCounter % 240U;
     //         }
     //         var_t1 += 1;
     //         var_t2 += 0x140;

@@ -11,17 +11,16 @@
       - [0x02010, textbin, f3dex]
 
     # Nintendo libraries
-      - [0x03440, c, 3440]
-      - [0x03A80, c, 3A80]
-      - [0x03FE0, c, 3FE0]
-      - [0x041D0, c, 41D0]
-      - [0x04650, c, 4650]
+      - [0x03440, c, joybus]
+      - [0x03A80, c, lib]
+      - [0x041D0, c, lights]
+      - [0x04650, c, main]
       - [0x05A20, c, math]
       - [0x06280, c, matrix]
-      - [0x07B20, c, 7B20]
-      - [0x07B60, c, 7B60]
-      - [0x07D30, c, 7D30]
-      - [0x07FC0, c, 7FC0]
+      - [0x07B20, c, memory]
+      - [0x07B60, c, timer]
+      - [0x07D30, c, save]
+      - [0x07FC0, c, fault]
           # Audio block
       - [0x08CC0, c, 8CC0]
       - [0x0C870, c, C870]
@@ -188,7 +187,7 @@
       - [0xBB360, c, sf_BB360]
       - [0xBD360, c, sf_versus]
       - [0xC3430, c, sf_C3430]
-      - [0xC3BB0, c, sf_C3BB0]
+      - [0xC3BB0, c, fox_save]
 
       # DATA - Microcode
       - [0xC3EE0, data, aspmain]
@@ -196,10 +195,10 @@
       - [0xC49D0, data, f3dex]
 
       # DATA - Nintendo Libraries
-      - [0xC51D0, .data, 4650]
+      - [0xC51D0, .data, main]
       - [0xC51E0, .data, math]
       - [0xC5220, .data, matrix]
-      - [0xC52F0, data, 7FC0]
+      - [0xC52F0, .data, fault]
       - [0xC54D0, data, audio]
       - [0xC8880, data, sprintf]
 
@@ -226,8 +225,8 @@
       # RODATA - Nintendo Libraries
       - [0xC8CC0, .rodata, math]
       - [0xC8D10, .rodata, matrix]
-      - [0xC8D20, .rodata, 7D30]
-      - [0xC8E40, .rodata, 7FC0]
+      - [0xC8D20, .rodata, save]
+      - [0xC8E40, .rodata, fault]
       - [0xC9220, .rodata, 8CC0]
       - [0xC9260, .rodata, C870]
       - [0xC9280, .rodata, F0A0]
@@ -303,21 +302,21 @@
       - [0xD97F0, .rodata, sf_BB360]
       - [0xD9E50, .rodata, sf_versus]
       - [0xD9F60, .rodata, sf_C3430]
-      - [0xDA030, .rodata, sf_C3BB0]
+      - [0xDA030, .rodata, fox_save]
 
       # Common assets
       - [0xDA0A0, data, displists]
       - [0xDC710, data, audiodata]
 
       # Nintendo Library bss
-      - { start: 0xDE480, type: bss, vram: 0x800DD880, name: 3440 }
-      - { start: 0xDE480, type: bss, vram: 0x800DDAA0, name: 4650 }
-      - { start: 0xDE480, type: bss, vram: 0x8013B3A0, name: math }
-      - { start: 0xDE480, type: bss, vram: 0x8013B3C0, name: matrix }
-      - { start: 0xDE480, type: bss, vram: 0x8013C3D0, name: 7B20 }
-      - { start: 0xDE480, type: bss, vram: 0x80144BE0, name: 7B60 }
-      - { start: 0xDE480, type: bss, vram: 0x80144F60, name: 7D30 }
-      - { start: 0xDE480, type: bss, vram: 0x80145360, name: 7FC0 }
+      - { start: 0xDE480, type: .bss, vram: 0x800DD880, name: joybus }
+      - { start: 0xDE480, type: .bss, vram: 0x800DDAA0, name: main }
+      - { start: 0xDE480, type: .bss, vram: 0x8013B3A0, name: math }
+      - { start: 0xDE480, type: .bss, vram: 0x8013B3C0, name: matrix }
+      - { start: 0xDE480, type: .bss, vram: 0x8013C3D0, name: memory }
+      - { start: 0xDE480, type: .bss, vram: 0x80144BE0, name: timer }
+      - { start: 0xDE480, type: .bss, vram: 0x80144F60, name: save }
+      - { start: 0xDE480, type: .bss, vram: 0x80145360, name: fault }
       - { start: 0xDE480, type: bss, vram: 0x80145D40, name: audio }
 
 
@@ -349,3 +348,4 @@
 
       # Game engine bss
       - { start: 0xDE480, type: bss, vram: 0x8015F900, name: engine }
+      - { start: 0xDE480, type: .bss, vram: 0x80178870, name: fox_save }

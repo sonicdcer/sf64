@@ -20,11 +20,11 @@ s32 func_80060FE4(Vec3f* arg0, f32 arg1) {
     if ((D_80177880 != 1) && (D_80178280[0].unk_1C8 != 2)) {
         return 1;
     }
-    Matrix_RotateY(D_8013BBC8, D_80178280[D_801778A0].unk_058, 0);
+    Matrix_RotateY(gCalcMatrix, D_80178280[D_801778A0].unk_058, 0);
     sp2C.x = arg0->x - D_80178280[D_801778A0].unk_040.x;
     sp2C.y = 0.0f;
     sp2C.z = arg0->z - D_80178280[D_801778A0].unk_040.z;
-    Matrix_MultVec3fNoTranslate(D_8013BBC8, &sp2C, &sp20);
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp2C, &sp20);
 
     if ((sp20.z < 1000.0f) && (arg1 < sp20.z) && (fabsf(sp20.x) < (fabsf(sp20.z * 0.5f) + 2000.0f))) {
         return 1;
@@ -42,11 +42,11 @@ s32 func_80061148(Vec3f* arg0, f32 arg1) {
     if (D_80178280[0].unk_1C8 == 7) {
         return func_80060FE4(arg0, arg1);
     }
-    Matrix_RotateY(D_8013BBC8, D_80178280[D_801778A0].unk_058, 0);
+    Matrix_RotateY(gCalcMatrix, D_80178280[D_801778A0].unk_058, 0);
     sp2C.x = arg0->x - D_80178280[D_801778A0].unk_040.x;
     sp2C.y = 0.0f;
     sp2C.z = arg0->z - D_80178280[D_801778A0].unk_040.z;
-    Matrix_MultVec3fNoTranslate(D_8013BBC8, &sp2C, &sp20);
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp2C, &sp20);
 
     if ((sp20.z < 0.0f) && (arg1 < sp20.z) && (fabsf(sp20.x) < (fabsf(sp20.z * 0.5f) + 500.0f))) {
         return 1;
@@ -325,13 +325,13 @@ void func_80061F0C(Object_2F4* arg0, ObjectInit* arg1, s32 arg2) {
     arg0->unk_054 = D_80177E70;
     arg0->unk_078 = D_80163FE0[D_80177E70].unk_0E4;
     arg0->unk_16C = D_80161A54;
-    Matrix_RotateZ(D_8013BBC8, -D_80177E88.z * M_DTOR, 0);
-    Matrix_RotateX(D_8013BBC8, -D_80177E88.x * M_DTOR, 1);
-    Matrix_RotateY(D_8013BBC8, -D_80177E88.y * M_DTOR, 1);
+    Matrix_RotateZ(gCalcMatrix, -D_80177E88.z * M_DTOR, 0);
+    Matrix_RotateX(gCalcMatrix, -D_80177E88.x * M_DTOR, 1);
+    Matrix_RotateY(gCalcMatrix, -D_80177E88.y * M_DTOR, 1);
     sp24.x = arg0->obj.pos.x - D_80177F10.x;
     sp24.y = arg0->obj.pos.y - D_80177F10.y;
     sp24.z = arg0->obj.pos.z - D_80177F10.z;
-    Matrix_MultVec3fNoTranslate(D_8013BBC8, &sp24, &arg0->unk_2DC);
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp24, &arg0->unk_2DC);
     arg0->unk_074 = D_80177E78;
     D_80177E70 = arg2;
     func_80069AAC(arg0);
@@ -619,21 +619,21 @@ s32 func_80062DBC(Vec3f* arg0, f32* var_s0, Object* arg2, f32 arg3, f32 arg4, f3
                 var_ft4 = arg0->y;
                 var_ft5 = arg0->z;
             } else {
-                Matrix_RotateZ(D_8013BBC8, -var_fa0 * M_DTOR, 0);
-                Matrix_RotateX(D_8013BBC8, -var_fs1 * M_DTOR, 1);
-                Matrix_RotateY(D_8013BBC8, -var_fs2 * M_DTOR, 1);
-                Matrix_RotateZ(D_8013BBC8, -arg2->rot.z * M_DTOR, 1);
-                Matrix_RotateX(D_8013BBC8, -arg2->rot.x * M_DTOR, 1);
-                Matrix_RotateY(D_8013BBC8, -arg2->rot.y * M_DTOR, 1);
+                Matrix_RotateZ(gCalcMatrix, -var_fa0 * M_DTOR, 0);
+                Matrix_RotateX(gCalcMatrix, -var_fs1 * M_DTOR, 1);
+                Matrix_RotateY(gCalcMatrix, -var_fs2 * M_DTOR, 1);
+                Matrix_RotateZ(gCalcMatrix, -arg2->rot.z * M_DTOR, 1);
+                Matrix_RotateX(gCalcMatrix, -arg2->rot.x * M_DTOR, 1);
+                Matrix_RotateY(gCalcMatrix, -arg2->rot.y * M_DTOR, 1);
                 if ((arg3 != 0.0f) || (arg4 != 0.0f) || (arg5 != 0.0f)) {
-                    Matrix_RotateZ(D_8013BBC8, -arg5 * M_DTOR, 1);
-                    Matrix_RotateX(D_8013BBC8, -arg3 * M_DTOR, 1);
-                    Matrix_RotateY(D_8013BBC8, -arg4 * M_DTOR, 1);
+                    Matrix_RotateZ(gCalcMatrix, -arg5 * M_DTOR, 1);
+                    Matrix_RotateX(gCalcMatrix, -arg3 * M_DTOR, 1);
+                    Matrix_RotateY(gCalcMatrix, -arg4 * M_DTOR, 1);
                 }
                 sp80.x = arg0->x - arg2->pos.x;
                 sp80.y = arg0->y - arg2->pos.y;
                 sp80.z = arg0->z - arg2->pos.z;
-                Matrix_MultVec3fNoTranslate(D_8013BBC8, &sp80, &sp74);
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp80, &sp74);
                 var_fa1 = arg2->pos.x + sp74.x;
                 var_ft4 = arg2->pos.y + sp74.y;
                 var_ft5 = arg2->pos.z + sp74.z;
@@ -673,8 +673,8 @@ s32 func_8006326C(Vec3f* arg0, s32 arg1, s32 arg2, Object* arg3) {
     sp74.z = arg0->z - arg3->pos.z;
     if (((fabsf(sp74.x) < 1100.0f) && (fabsf(sp74.z) < 1100.0f)) || (arg2 == 0xB4)) {
         sp74.y = arg0->y - arg3->pos.y;
-        Matrix_RotateY(D_8013BBC8, -arg3->rot.y * M_DTOR, 0U);
-        Matrix_MultVec3fNoTranslate(D_8013BBC8, &sp74, &sp68);
+        Matrix_RotateY(gCalcMatrix, -arg3->rot.y * M_DTOR, 0U);
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp74, &sp68);
         sp5C.x = arg3->pos.x + sp68.x;
         sp5C.y = arg3->pos.y + sp68.y;
         sp5C.z = arg3->pos.z + sp68.z;
@@ -1643,7 +1643,7 @@ void func_8006654C(Object_2F4* arg0) {
                 arg0->unk_114 = arg0->unk_114 + 0.5f;
             }
             arg0->unk_0B6++;
-            if (func_8009ACDC(D_6029528) < arg0->unk_0B6) {
+            if (func_8009ACDC(&D_6029528) < arg0->unk_0B6) {
                 arg0->unk_0B6 = 0;
             }
             if ((arg0->obj.rot.z < 15.0f) && (arg0->unk_0B6 < 0x14)) {
@@ -1742,10 +1742,10 @@ void func_80066A8C(Object_80* arg0) {
         sp64.x = 120.0f;
     }
     for (yf = 0.0f; yf < 680.0f; yf += 100.0f) {
-        Matrix_RotateY(D_8013BBC8, arg0->obj.rot.y * M_DTOR, 0);
-        Matrix_RotateX(D_8013BBC8, arg0->obj.rot.x * M_DTOR, 1);
+        Matrix_RotateY(gCalcMatrix, arg0->obj.rot.y * M_DTOR, 0);
+        Matrix_RotateX(gCalcMatrix, arg0->obj.rot.x * M_DTOR, 1);
         sp64.y = yf;
-        Matrix_MultVec3fNoTranslate(D_8013BBC8, &sp64, &sp58);
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp64, &sp58);
         func_8007D0E0(arg0->obj.pos.x + sp58.x, arg0->obj.pos.y + sp58.y, arg0->obj.pos.z + sp58.z, 4.0f);
     }
 }
@@ -1760,11 +1760,11 @@ void func_80066C00(Object_80* arg0) {
     if (arg0->obj.rot.y > 90.0f) {
         sp64.x = 100.0f;
     }
-    Matrix_RotateY(D_8013BBC8, arg0->obj.rot.y * M_DTOR, 0);
+    Matrix_RotateY(gCalcMatrix, arg0->obj.rot.y * M_DTOR, 0);
 
     for (zf = -180.0f; zf <= 0.0f; zf += 30.0f) {
         sp64.z = zf;
-        Matrix_MultVec3fNoTranslate(D_8013BBC8, &sp64, &sp58);
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp64, &sp58);
         func_8007D0E0(arg0->obj.pos.x + sp58.x, arg0->obj.pos.y + sp58.y, arg0->obj.pos.z + sp58.z,
                       Rand_ZeroOne() + 2.0f);
     }
@@ -1868,11 +1868,11 @@ void func_800671D0(Object_6C* arg0) {
         var_v0 = 7;
     }
     if (!(var_v0 & D_80177DB0)) {
-        Matrix_RotateY(D_8013BBC8, D_80177DB0 * 23.0f * M_DTOR, 0);
+        Matrix_RotateY(gCalcMatrix, D_80177DB0 * 23.0f * M_DTOR, 0);
         sp40.x = 50.0f;
         sp40.y = (Rand_ZeroOne() - 0.5f) * 120.0f;
         sp40.z = 0.0f;
-        Matrix_MultVec3fNoTranslate(D_8013BBC8, &sp40, &sp34);
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp40, &sp34);
         func_80078E50(arg0->obj.pos.x + sp34.x, arg0->obj.pos.y + sp34.y, arg0->obj.pos.z + sp34.z, 3.0f);
     }
     arg0->obj.rot.y += arg0->unk_50;
@@ -1959,18 +1959,18 @@ void func_8006753C(Object_2F4* arg0) {
 void func_80067874(Object_2F4* arg0) {
     s32 i;
 
-    func_8000372C(&gMasterDisp, -60, -60, 60, 150, 150, 150, 20, 20, 20);
+    Lights_SetOneLight(&gMasterDisp, -60, -60, 60, 150, 150, 150, 20, 20, 20);
     for (i = 0; i < 6; i++) {
-        Matrix_Push(&D_8013B3C0);
-        Matrix_Translate(D_8013B3C0, D_800CFEC4[i].x, D_800CFEC4[i].y, D_800CFEC4[i].z, 1);
-        Matrix_RotateY(D_8013B3C0, D_800CFF0C[i].y * M_DTOR, 1);
-        Matrix_RotateX(D_8013B3C0, D_800CFF0C[i].x * M_DTOR, 1);
+        Matrix_Push(&gGfxMatrix);
+        Matrix_Translate(gGfxMatrix, D_800CFEC4[i].x, D_800CFEC4[i].y, D_800CFEC4[i].z, 1);
+        Matrix_RotateY(gGfxMatrix, D_800CFF0C[i].y * M_DTOR, 1);
+        Matrix_RotateX(gGfxMatrix, D_800CFF0C[i].x * M_DTOR, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_10177C0);
-        Matrix_Pop(&D_8013B3C0);
+        Matrix_Pop(&gGfxMatrix);
     }
-    func_8000372C(&gMasterDisp, D_801784DC, D_801784E0, D_801784E4, D_80178548, D_8017854C, D_80178550, D_80178554,
-                  D_80178558, D_8017855C);
+    Lights_SetOneLight(&gMasterDisp, D_801784DC, D_801784E0, D_801784E4, D_80178548, D_8017854C, D_80178550, D_80178554,
+                       D_80178558, D_8017855C);
 }
 
 void func_80067A40(void) {
@@ -2133,12 +2133,12 @@ void func_80068020(Object_6C* arg0) {
                 func_80060FBC(&arg0->obj, &arg0->unk_5C);
             }
             if (arg0->unk_68 > 0.3f) {
-                Matrix_RotateY(D_8013BBC8, arg0->obj.rot.y * M_DTOR, 0);
-                Matrix_RotateZ(D_8013BBC8, D_80177DB0 * 37.0f * M_DTOR, 1);
+                Matrix_RotateY(gCalcMatrix, arg0->obj.rot.y * M_DTOR, 0);
+                Matrix_RotateZ(gCalcMatrix, D_80177DB0 * 37.0f * M_DTOR, 1);
                 sp4C.x = 0.0f;
                 sp4C.y = arg0->unk_68 * 100.0f;
                 sp4C.z = 0.0f;
-                Matrix_MultVec3fNoTranslate(D_8013BBC8, &sp4C, &sp40);
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp4C, &sp40);
                 func_80078E50(arg0->obj.pos.x + sp40.x, arg0->obj.pos.y + sp40.y, arg0->obj.pos.z + sp40.z, 3.5f);
             }
             break;
@@ -2545,14 +2545,14 @@ void func_80069AAC(Object_2F4* arg0) {
     if (D_801778E8 != 0) {
         for (i = 0; i < D_801778A8; i++) {
             if (arg0->unk_0CA[i] != 0) {
-                if (!(D_800DD880[i].button & 0x8000)) {
+                if (!(gCurrentInput[i].button & 0x8000)) {
                     arg0->unk_0CA[i]--;
                 }
                 D_801779C8[i] = 0;
             }
         }
     } else if (arg0->unk_0CA[0] != 0) {
-        if (!(D_800DD880[D_80177AF8].button & 0x8000)) {
+        if (!(gCurrentInput[D_80177AF8].button & 0x8000)) {
             arg0->unk_0CA[0]--;
         }
         D_801779C8[0] = 0;
@@ -2726,12 +2726,12 @@ void func_8006A06C(UnkStruct_D_80174750* arg0) {
     if (D_80177834 == 7) {
         if (((arg0->unk_00 == 1) || (arg0->unk_00 == 0x65) || (arg0->unk_00 == 0x32)) && (D_80178280[0].unk_1C8 == 3) &&
             (D_80178280[0].unk_1F4 == 0)) {
-            Matrix_RotateX(D_8013BBC8, -arg0->unk_1C, 0);
-            Matrix_RotateY(D_8013BBC8, -arg0->unk_20, 1);
+            Matrix_RotateX(gCalcMatrix, -arg0->unk_1C, 0);
+            Matrix_RotateY(gCalcMatrix, -arg0->unk_20, 1);
             sp44.x = D_80178280[D_801778A0].unk_074 - arg0->unk_04;
             sp44.y = D_80178280[D_801778A0].unk_078 - arg0->unk_08;
             sp44.z = D_80178280[D_801778A0].unk_138 - arg0->unk_0C;
-            Matrix_MultVec3fNoTranslate(D_8013BBC8, &sp44, &sp38);
+            Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
             sp38.x += arg0->unk_04;
             sp38.y += arg0->unk_08;
             sp38.z += arg0->unk_0C;

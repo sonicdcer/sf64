@@ -14,12 +14,10 @@ Matrix gIdentityMatrix = { {
     { 0.0f, 0.0f, 0.0f, 1.0f },
 } };
 
-#ifdef DATA_IMPORT_PENDING
-Matrix* D_8013B3C0;
-Matrix D_8013B3C8[0x20];
-Matrix* D_8013BBC8;
-Matrix D_8013BBD0[0x20];
-#endif
+Matrix* gGfxMatrix;
+Matrix sGfxMatrixStack[0x20];
+Matrix* gCalcMatrix;
+Matrix sCalcMatrixStack[0x20];
 
 void Matrix_Copy(Matrix* dst, Matrix* src) {
     dst->m[0][0] = src->m[0][0];
@@ -387,12 +385,11 @@ void Matrix_RotateAxis(Matrix* mtx, f32 angle, f32 axisX, f32 axisY, f32 axisZ, 
     }
 }
 
-// Matrix_ToMtx
 void Matrix_ToMtx(Mtx* dest) {
     s32 temp;
     u16* m1 = (u16*) &dest->m[0][0];
     u16* m2 = (u16*) &dest->m[2][0];
-    Matrix* src = D_8013B3C0;
+    Matrix* src = gGfxMatrix;
 
     temp = src->xx * 0x10000;
     m1[0] = (temp >> 0x10);
@@ -459,7 +456,6 @@ void Matrix_ToMtx(Mtx* dest) {
     m2[15] = temp & 0xFFFF;
 }
 
-// Matrix_FromMtx
 void Matrix_FromMtx(Mtx* src, Matrix* dest) {
     u16* m1 = (u16*) &src->m[0][0];
     u16* m2 = (u16*) &src->m[2][0];
@@ -482,14 +478,12 @@ void Matrix_FromMtx(Mtx* src, Matrix* dest) {
     dest->ww = ((m1[15] << 0x10) | m2[15]) * (1 / 65536.0f);
 }
 
-// Matrix_MultVec3f
 void Matrix_MultVec3f(Matrix* mtx, Vec3f* src, Vec3f* dest) {
     dest->x = (mtx->m[0][0] * src->x) + (mtx->m[1][0] * src->y) + (mtx->m[2][0] * src->z) + mtx->m[3][0];
     dest->y = (mtx->m[0][1] * src->x) + (mtx->m[1][1] * src->y) + (mtx->m[2][1] * src->z) + mtx->m[3][1];
     dest->z = (mtx->m[0][2] * src->x) + (mtx->m[1][2] * src->y) + (mtx->m[2][2] * src->z) + mtx->m[3][2];
 }
 
-// Matrix_MultVec3fLinear ?
 void Matrix_MultVec3fNoTranslate(Matrix* mtx, Vec3f* src, Vec3f* dest) {
     dest->x = (mtx->m[0][0] * src->x) + (mtx->m[1][0] * src->y) + (mtx->m[2][0] * src->z);
     dest->y = (mtx->m[0][1] * src->x) + (mtx->m[1][1] * src->y) + (mtx->m[2][1] * src->z);
