@@ -35,7 +35,7 @@ void func_EBFBE0_801875E0(void) {
     D_EBFBE0_801B7BCC = 255.0f;
     D_EBFBE0_801B7BC8 = 255.0f;
 
-    func_80006F20();
+    Memory_FreeAll();
 
     func_800A5D6C();
     D_80178420 = 320.0f;

@@ -13,8 +13,8 @@ D_800DD8F0 = 0x800DD8F0; // size:0x10
 gAudioThreadStack =  0x800DDAA0;
 gGraphicsThread =      0x800DEAA0;
 gGraphicsThreadStack = 0x800DEC50;
-gUnkThread3 =      0x800DFC50;
-gUnkThread3Stack = 0x800DFE00;
+gTimerThread =      0x800DFC50;
+gTimerThreadStack = 0x800DFE00;
 gSerialThread =      0x800E0E00;
 gSerialThreadStack = 0x800E0FB0;
 
@@ -29,7 +29,7 @@ sPiMgrCmdBuff = 0x800E2028;
 
 gDmaMsgQueue = 0x800E20F0;
 
-sDmaMsgBuff = 0x800E2018;
+sDmaMsgBuff = 0x800E2108;
 gDmaIOMsg = 0x800E2110;
 gSerialEventQueue = 0x800E2128;
 sSerialEventBuff = 0x800E2140;
@@ -51,10 +51,10 @@ gControllerMsgQueue = 0x800E22F8;
 sControllerMsgBuff = 0x800E2310;
 gSaveMsgQueue = 0x800E2318;
 sSaveMsgBuff = 0x800E2330;
-gThread7TaskMsgQueue = 0x800E2338;
-sThread7TaskMsgBuff = 0x800E2350;
-gThread7WaitMsgQueue = 0x800E2390;
-sThread7WaitMsgBuff = 0x800E23A8;
+gTimerTaskMsgQueue = 0x800E2338;
+sTimerTaskMsgBuff = 0x800E2350;
+gTimerWaitMsgQueue = 0x800E2390;
+sTimerWaitMsgBuff = 0x800E23A8;
 
 gGfxPools = 0x800E23B0; // size:0x55AA0
 gGfxPool = 0x80137E50;
@@ -71,7 +71,7 @@ D_80137E78 = 0x80137E78;
 gFrameCounter = 0x80137E7C;
 gStartNMI = 0x80137E80;
 D_80137E81 = 0x80137E81;
-D_80137E84 = 0x80137E84;
+D_80137E84 = 0x80137E84; // size:0x4
 D_80137E88 = 0x80137E88;
 D_80137E8A = 0x80137E8A;
 
@@ -83,34 +83,38 @@ sMainThreadStack = 0x8013A1F0;
 gAudioThread = 0x8013B1F0;
 
 // math
-D_8013B3A0 = 0x8013B3A0;
-D_8013B3A4 = 0x8013B3A4;
-D_8013B3A8 = 0x8013B3A8;
-D_8013B3AC = 0x8013B3AC;
-D_8013B3B0 = 0x8013B3B0;
-D_8013B3B4 = 0x8013B3B4;
+sSeededRandSeed3 = 0x8013B3A0;
+sRandSeed1 = 0x8013B3A4;
+sRandSeed2 = 0x8013B3A8;
+sRandSeed3 = 0x8013B3AC;
+sSeededRandSeed1 = 0x8013B3B0;
+sSeededRandSeed2 = 0x8013B3B4;
 
 // matrix 
 gIdentityMtx = 0x800C4620;
 gIdentityMatrix = 0x800C4660;
+gGfxMatrix = 0x8013B3C0;
+sGfxMatrixStack = 0x8013B3C8;
+gCalcMatrix = 0x8013BBC8;
+sCalcMatrixStack = 0x8013BBD0;
 
 // memory 
-D_8013C3D0 = 0x8013C3D0; // size:0x8800
-D_80144BD0 = 0x80144BD0;
+sMemoryBuffer = 0x8013C3D0; // size:0x8800
+sMemoryPtr = 0x80144BD0;
 
 // thread 7
-sThread7Tasks = 0x80144BE0;
+sTimerTasks = 0x80144BE0;
 
 // save 
-D_80144F60 = 0x80144F60;
-D_80145160 = 0x80145160;
+gSaveIOBuffer = 0x80144F60;
+sPrevSaveData = 0x80145160;
 
 // fault 
 gFaultMgr = 0x80145360; // size:0x9D8
 sFaultCharIndex = 0x800C46F0;
 sFaultCharPixelFlags = 0x800C4770;
-D_800C4870 = 0x800C4870;
-D_800C48B8 = 0x800C48B8;
+sFaultCauses = 0x800C4870;
+sFloatExceptions = 0x800C48B8;
 
 // audio
 

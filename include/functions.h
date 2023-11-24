@@ -12,7 +12,7 @@ void Save_Write(void);
 void Controller_Rumble(void);
 void Lib_Perspective(Gfx** dList);
 void Lib_Ortho(Gfx** dList);
-void Lib_DmaRead(void* var_s2, void* var_s1, s32 var_s0);
+void Lib_DmaRead(void* src, void* dst, s32 size);
 void Lib_FillScreen(u8 arg0);
 
 void func_8000372C(Gfx** dList, s32 dirX, s32 dirY, s32 dirZ, s32 colR, s32 colG, s32 colB, s32 ambR, s32 ambG, s32 ambB);
@@ -48,18 +48,18 @@ void Matrix_GetXYZAngles(Matrix*, Vec3f*);
 void Matrix_LookAt(Matrix*, f32, f32, f32, f32, f32, f32, f32, f32, f32, u8);
 void Matrix_SetGfxMtx(Gfx**);
 
-s32 Thread7_CreateTask(u64, Thread7Action*, s32*, s32);
+s32 Timer_CreateTask(u64, TimerAction, s32*, s32);
 
-void func_80006F20(void);
-void* func_80006F38(s32);
+void Memory_FreeAll(void);
+void* Memory_Allocate(s32);
 
-void Thread7_Increment(s32* arg0, s32 arg1);
-void Thread7_SetValue(s32* arg0, s32 arg1);
-void Thread7_CompleteTask(Thread7Task*);
-void Thread7_Wait(u64);
+void Timer_Increment(s32* address, s32 value);
+void Timer_SetValue(s32* address, s32 value);
+void Timer_CompleteTask(TimerTask*);
+void Timer_Wait(u64);
 
-s32 func_800071FC(SaveFile*);
-s32 func_800072E0(SaveFile*);
+s32 Save_WriteData(SaveFile*);
+s32 Save_ReadData(SaveFile*);
 
 void Fault_ThreadEntry(void*);
 void func_80007FE4(FrameBuffer*, u16, u16);
@@ -136,6 +136,7 @@ s64 __ll_rshift(s64, s64);
 void func_8002E3E0(Object_2F4 *arg0);
 
 void func_8002E548(void);
+void func_8002F5F4(void);
 void func_8003DAF0(void);
 void func_8003DE68(s32, s32);
 void func_80040CDC(void);

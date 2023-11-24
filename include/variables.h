@@ -18,8 +18,8 @@ extern Matrix gIdentityMatrix; //800C4660
 
 extern u8 sFaultCharIndex[];
 extern s32 sFaultCharPixelFlags[];
-extern const char* D_800C4870[];
-extern const char* D_800C48B8[];
+extern const char* sFaultCauses[];
+extern const char* sFloatExceptions[];
 
 extern Vec3f D_800C5D28;
 extern f32 D_800C5D34;
@@ -47,11 +47,10 @@ extern u8 D_800DD8BC[4]; // Fake symbol. Only exists as loop terminator for gRum
 extern u8 gAudioThreadStack[0x1000];  // 800DDAA0
 extern OSThread gGraphicsThread;        // 800DEAA0
 extern u8 gGraphicsThreadStack[0x1000]; // 800DEC50
-extern OSThread gUnkThread3;        // 800DFC50
-extern u8 gUnkThread3Stack[0x1000]; // 800DFE00
+extern OSThread gTimerThread;        // 800DFC50
+extern u8 gTimerThreadStack[0x1000]; // 800DFE00
 extern OSThread gSerialThread;        // 800E0E00
 extern u8 gSerialThreadStack[0x1000]; // 800E0FB0
-extern u8 gUnusedStack[0x1000];
 
 extern SPTask* gCurrentTask;
 extern SPTask* sAudioTasks[1];
@@ -85,10 +84,10 @@ extern OSMesgQueue gControllerMsgQueue;
 extern void *sControllerMsgBuff[1];
 extern OSMesgQueue gSaveMsgQueue;
 extern void *sSaveMsgBuff[1];
-extern OSMesgQueue gThread7TaskMsgQueue;
-extern void *sThread7TaskMsgBuff[16];
-extern OSMesgQueue gThread7WaitMsgQueue;
-extern void *sThread7WaitMsgBuff[1];
+extern OSMesgQueue gTimerTaskMsgQueue;
+extern void *sTimerTaskMsgBuff[16];
+extern OSMesgQueue gTimerWaitMsgQueue;
+extern void *sTimerWaitMsgBuff[1];
 
 extern GfxPool gGfxPools[2]; // 800E23B0
 
@@ -112,19 +111,19 @@ extern u8 D_80137E84[4];
 extern u16 D_80137E88;
 extern u16 D_80137E8A;
 
-extern OSThread sIdleThread; // 80138E90
-extern u8 sIdleThreadStack[0x1000]; // 801390A0
-extern OSThread gMainThread; // 8013A040
-extern u8 sMainThreadStack[0x1000]; // 8013A1F0
-extern OSThread gAudioThread; //8013B1F0
+// extern OSThread sIdleThread; // 80138E90
+// extern u8 sIdleThreadStack[0x1000]; // 801390A0
+// extern OSThread gMainThread; // 8013A040
+// extern u8 sMainThreadStack[0x1000]; // 8013A1F0
+// extern OSThread gAudioThread; //8013B1F0
 
 extern Matrix* gGfxMatrix;
 extern Matrix sGfxMatrixStack[0x20];
 extern Matrix* gCalcMatrix;
 extern Matrix sCalcMatrixStack[0x20];
 
-extern SaveFile D_80144F60;
-extern SaveFile D_80145160;
+extern SaveFile gSaveIOBuffer;
+extern SaveFile sPrevSaveData;
 extern FaultMgr gFaultMgr;
 
 extern OSMesg D_80156600[1];
@@ -464,7 +463,7 @@ extern f32 D_80178740;
 extern s32 D_80178754;
 extern s32 D_80178758;
 extern s32 D_80178768[];
-extern SaveFile D_80178870;
+extern SaveFile gSaveFile;
 
 extern u16 D_Tex_800D99F8[];
 extern u16 D_Tex_800DBA20[];

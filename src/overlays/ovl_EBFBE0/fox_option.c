@@ -82,7 +82,7 @@ void func_EBFBE0_80191B20(void) {
         if (i == 14) {
             continue;
         }
-        if (!(D_80178870.save[0].save_00.unk_00[i].unk_6 & 1)) {
+        if (!(gSaveFile.save.data.unk_00[i].unk_6 & 1)) {
             var_a1_2 = 0;
             break;
         }
@@ -121,22 +121,22 @@ void func_EBFBE0_80191B20(void) {
         if (D_80161A34 == 8) {
             D_80177B8C[D_80177B48 + 1] = 13;
             if (D_800D3180[9] == 1) {
-                D_80178870.save[0].save_00.unk_00[14].unk_5 = 1;
+                gSaveFile.save.data.unk_00[14].unk_5 = 1;
                 if (var_v0_2 != 0) {
-                    D_80178870.save[0].save_00.unk_00[14].unk_4 = 1;
+                    gSaveFile.save.data.unk_00[14].unk_4 = 1;
                 } else {
-                    D_80178870.save[0].save_00.unk_00[14].unk_7 = 1;
+                    gSaveFile.save.data.unk_00[14].unk_7 = 1;
                 }
                 func_800C3084();
             } else if (D_800D3180[9] == 2) {
                 D_80177BB0[D_80177B48] = 1;
-                D_80178870.save[0].save_00.unk_00[15].unk_5 = 1;
+                gSaveFile.save.data.unk_00[15].unk_5 = 1;
                 if (var_v0_2 != 0) {
-                    D_80178870.save[0].save_00.unk_00[15].unk_4 = 1;
-                    D_80178870.save[0].save_00.unk_00[15].unk_3 = 1;
+                    gSaveFile.save.data.unk_00[15].unk_4 = 1;
+                    gSaveFile.save.data.unk_00[15].unk_3 = 1;
                 } else {
-                    D_80178870.save[0].save_00.unk_00[15].unk_7 = 1;
-                    D_80178870.save[0].save_00.unk_00[15].unk_6 = 1;
+                    gSaveFile.save.data.unk_00[15].unk_7 = 1;
+                    gSaveFile.save.data.unk_00[15].unk_6 = 1;
                 }
                 func_800C3084();
             }
@@ -195,7 +195,7 @@ void func_EBFBE0_80191B20(void) {
 
     D_8017784C = 2;
 
-    func_80006F20();
+    Memory_FreeAll();
 
     D_80178420 = 320.0f;
     D_80178424 = 240.0f;
@@ -662,12 +662,12 @@ void func_EBFBE0_80194678(void) {
     D_EBFBE0_801B91BC = 1;
     D_EBFBE0_801B91A0 = 0;
 
-    D_80177C74 = D_80178870.save[0].save_00.unk_14;
+    D_80177C74 = gSaveFile.save.data.unk_14;
     func_800182F4(D_EBFBE0_801AE998[D_80177C74] | 0xE0000000);
 
-    D_80177C80[0] = D_80178870.save[0].save_00.unk_15;
-    D_80177C80[1] = D_80178870.save[0].save_00.unk_16;
-    D_80177C80[2] = D_80178870.save[0].save_00.unk_17;
+    D_80177C80[0] = gSaveFile.save.data.unk_15;
+    D_80177C80[1] = gSaveFile.save.data.unk_16;
+    D_80177C80[2] = gSaveFile.save.data.unk_17;
 
     if (D_80177C80[0] > 99) {
         D_80177C80[0] = 99;
@@ -768,7 +768,7 @@ void func_EBFBE0_80194AEC(void) {
         if (D_80177C74 >= 3) {
             D_80177C74 = 0;
         }
-        D_80178870.save[0].save_00.unk_14 = D_80177C74;
+        gSaveFile.save.data.unk_14 = D_80177C74;
         func_800182F4(D_EBFBE0_801AE998[D_80177C74] | 0xE0000000);
     }
 }
@@ -789,15 +789,15 @@ void func_EBFBE0_80194BD0(void) {
 
         switch (D_EBFBE0_801B9288 - 1) {
             case 0:
-                D_80178870.save[0].save_00.unk_15 = var_v1;
+                gSaveFile.save.data.unk_15 = var_v1;
                 break;
 
             case 1:
-                D_80178870.save[0].save_00.unk_16 = var_v1;
+                gSaveFile.save.data.unk_16 = var_v1;
                 break;
 
             case 2:
-                D_80178870.save[0].save_00.unk_17 = var_v1;
+                gSaveFile.save.data.unk_17 = var_v1;
                 break;
         }
         func_8001D8A8(D_EBFBE0_801B924C, var_v1);
@@ -935,7 +935,7 @@ void func_EBFBE0_801962A4(void) {
                     if (temp_fv0 == 0.0f) {
                         D_EBFBE0_801B91CC = 3;
 
-                        D_80178870 = *(SaveFile*) &D_800D4D10;
+                        gSaveFile = *(SaveFile*) &D_800D4D10;
 
                         func_800C3084();
 
@@ -1189,7 +1189,7 @@ void func_EBFBE0_8019752C(void) {
             func_EBFBE0_80197A3C(i, 41, var_fs0);
             func_EBFBE0_80197D30(i, 75, var_fs0 - 25.0f);
             func_EBFBE0_80197DE4(i, 130, (var_fs0 - 26.0f));
-            func_EBFBE0_801AD7EC(210, (var_fs0 - 24.0f), D_80178870.save[0].save_00.unk_40[i]);
+            func_EBFBE0_801AD7EC(210, (var_fs0 - 24.0f), gSaveFile.save.data.unk_40[i]);
             func_EBFBE0_80197F74(i, 258, var_fs0 - 25.0f);
         }
         func_EBFBE0_80198164(i, var_fs0, var_fs1);
@@ -1295,9 +1295,9 @@ void func_EBFBE0_80197D30(s32 arg0, s32 arg1, s32 arg2) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
-    temp[0] = D_80178870.save[0].save_00.unk_18[arg0][0] & 0xFF;
-    temp[1] = D_80178870.save[0].save_00.unk_18[arg0][1] & 0xFF;
-    temp[2] = D_80178870.save[0].save_00.unk_18[arg0][2] & 0xFF;
+    temp[0] = gSaveFile.save.data.unk_18[arg0][0] & 0xFF;
+    temp[1] = gSaveFile.save.data.unk_18[arg0][1] & 0xFF;
+    temp[2] = gSaveFile.save.data.unk_18[arg0][2] & 0xFF;
     temp[3] = 0;
 
     func_800A0094(arg1, arg2, 1.0f, 1.0f, temp);
@@ -1331,7 +1331,7 @@ void func_EBFBE0_80197F74(s32 arg0, s32 arg1, s32 arg2) {
 
 void func_EBFBE0_80198164(s32 arg0, f32 arg1, f32 arg2) {
     f32 temp = 16.0f;
-    s32 temp_s2 = D_80178870.save[0].save_00.unk_36[arg0];
+    s32 temp_s2 = gSaveFile.save.data.unk_36[arg0];
     f32 var_fs2;
     s32 i;
 
@@ -1364,8 +1364,8 @@ void func_EBFBE0_801982B0(s32 arg0, s32 arg1, f32 arg2, f32 arg3, s32 arg4) {
             g = 255;
             r = 255;
             if (arg1 < (arg4 - 1)) {
-                temp1 = D_80178870.save[0].save_00.unk_5E[arg0][arg1].unk_8 & 15;
-                temp2 = D_80178870.save[0].save_00.unk_5E[arg0][arg1 + 1].unk_8 & 15;
+                temp1 = gSaveFile.save.data.unk_5E[arg0][arg1].unk_8 & 15;
+                temp2 = gSaveFile.save.data.unk_5E[arg0][arg1 + 1].unk_8 & 15;
 
                 temp_v0 = func_EBFBE0_80199284(temp1, temp2);
 
@@ -1406,8 +1406,8 @@ void func_EBFBE0_801984D0(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
     if ((arg3 > 22.0f) && (arg3 < 162.0f)) {
         func_800B8DD0(&gMasterDisp, 0x53);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-        sp1C = (D_80178870.save[0].save_00.unk_5E[arg0][arg1].unk_C & 1) << 8;
-        sp1C |= D_80178870.save[0].save_00.unk_5E[arg0][arg1].unk_0;
+        sp1C = (gSaveFile.save.data.unk_5E[arg0][arg1].unk_C & 1) << 8;
+        sp1C |= gSaveFile.save.data.unk_5E[arg0][arg1].unk_0;
         func_8009FEA0(arg2 + 15.0f - (func_8008BCBC(sp1C) - 1) * 8, arg3 + 24.0f + 1.0f, sp1C);
     }
 }
@@ -1420,9 +1420,9 @@ void func_EBFBE0_80198608(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
     if ((arg3 > 12.0f) && (arg3 < 154.0f)) {
         func_800B8DD0(&gMasterDisp, 0x53);
 
-        sp90[0] = D_80178870.save[0].save_00.unk_5E[arg0][arg1].unk_D & 1;
-        sp90[1] = D_80178870.save[0].save_00.unk_5E[arg0][arg1].unk_F & 1;
-        sp90[2] = D_80178870.save[0].save_00.unk_5E[arg0][arg1].unk_E & 1;
+        sp90[0] = gSaveFile.save.data.unk_5E[arg0][arg1].unk_D & 1;
+        sp90[1] = gSaveFile.save.data.unk_5E[arg0][arg1].unk_F & 1;
+        sp90[2] = gSaveFile.save.data.unk_5E[arg0][arg1].unk_E & 1;
 
         for (var_fs1 = 0.0f, i = 0; i < 3; i++, var_fs1 += 9.0f) {
             if (sp90[i] == 0) {
@@ -1440,7 +1440,7 @@ void func_EBFBE0_8019882C(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
     f32 temp2;
 
     if (arg3 > 58.0f && arg3 < 197.0f) {
-        temp = D_80178870.save[0].save_00.unk_5E[arg0][arg1].unk_8 & 0x0f;
+        temp = gSaveFile.save.data.unk_5E[arg0][arg1].unk_8 & 0x0f;
         sp20 = D_EBFBE0_801AEEAC[temp];
         func_800B8DD0(&gMasterDisp, 0x53);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
@@ -1675,15 +1675,15 @@ void func_EBFBE0_8019CBC0(void) {
     D_EBFBE0_801B911C = 0.0f;
     D_EBFBE0_801B9120 = 70.0f;
 
-    temp = D_80178870.save[0].save_00.unk_EA & 0xFF;
+    temp = gSaveFile.save.data.unk_EA & 0xFF;
 
     if (temp < 10) {
         D_EBFBE0_801B9098 = 3;
         D_EBFBE0_801B9138 = 1;
 
-        D_EBFBE0_801B9150[0][0] = D_80178870.save[0].save_00.unk_18[temp][0] & 0xFF;
-        D_EBFBE0_801B9150[1][0] = D_80178870.save[0].save_00.unk_18[temp][1] & 0xFF;
-        D_EBFBE0_801B9150[2][0] = D_80178870.save[0].save_00.unk_18[temp][2] & 0xFF;
+        D_EBFBE0_801B9150[0][0] = gSaveFile.save.data.unk_18[temp][0] & 0xFF;
+        D_EBFBE0_801B9150[1][0] = gSaveFile.save.data.unk_18[temp][1] & 0xFF;
+        D_EBFBE0_801B9150[2][0] = gSaveFile.save.data.unk_18[temp][2] & 0xFF;
 
         for (i = 0; i < 3; i++) {
             D_EBFBE0_801B90A0[i] = func_EBFBE0_8019DCE8(D_EBFBE0_801B9150[i][0]);

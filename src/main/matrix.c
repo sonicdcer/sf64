@@ -14,12 +14,10 @@ Matrix gIdentityMatrix = { {
     { 0.0f, 0.0f, 0.0f, 1.0f },
 } };
 
-#ifdef DATA_IMPORT_PENDING
 Matrix* gGfxMatrix;
 Matrix sGfxMatrixStack[0x20];
 Matrix* gCalcMatrix;
 Matrix sCalcMatrixStack[0x20];
-#endif
 
 void Matrix_Copy(Matrix* dst, Matrix* src) {
     dst->m[0][0] = src->m[0][0];

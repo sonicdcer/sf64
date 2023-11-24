@@ -22,7 +22,7 @@ D_800DD900 = 0x800DD900; // size:0x1A0
 
 D_800CBDD4 = 0x800CBDD4; //size:0x98
 
-D_80178870 = 0x80178870; //size:0x200
+gSaveFile = 0x80178870; //size:0x200
 
 __rspboot_start = 0x80000450;
 __rspboot_end = 0x80000520;

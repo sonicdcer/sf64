@@ -1,10 +1,52 @@
 #include "global.h"
 
-#ifdef DATA_IMPORT_PENDING
 FaultMgr gFaultMgr;
-#endif
 
-#include "fault_text.c"
+u8 sFaultCharIndex[0x80] = {
+    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x29, 0xFF, 0xFF, 0xFF, 0x2B,
+    0xFF, 0xFF, 0x25, 0x26, 0xFF, 0x2A, 0xFF, 0x27, 0x2C, 0xFF, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08,
+    0x09, 0x24, 0xFF, 0xFF, 0xFF, 0xFF, 0x28, 0xFF, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10, 0x11, 0x12, 0x13, 0x14,
+    0x15, 0x16, 0x17, 0x18, 0x19, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F, 0x20, 0x21, 0x22, 0x23, 0xFF, 0xFF, 0xFF, 0xFF,
+    0xFF, 0xFF, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1A,
+    0x1B, 0x1C, 0x1D, 0x1E, 0x1F, 0x20, 0x21, 0x22, 0x23, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+};
+
+s32 sFaultCharPixelFlags[0x40] = {
+    0x70871C30, 0x8988A250, 0x88808290, 0x88831C90, 0x888402F8, 0x88882210, 0x71CF9C10, 0xF9CF9C70,
+    0x8228A288, 0xF200A288, 0x0BC11C78, 0x0A222208, 0x8A222288, 0x71C21C70, 0x23C738F8, 0x5228A480,
+    0x8A282280, 0x8BC822F0, 0xFA282280, 0x8A28A480, 0x8BC738F8, 0xF9C89C08, 0x82288808, 0x82088808,
+    0xF2EF8808, 0x82288888, 0x82288888, 0x81C89C70, 0x8A08A270, 0x920DA288, 0xA20AB288, 0xC20AAA88,
+    0xA208A688, 0x9208A288, 0x8BE8A270, 0xF1CF1CF8, 0x8A28A220, 0x8A28A020, 0xF22F1C20, 0x82AA0220,
+    0x82492220, 0x81A89C20, 0x8A28A288, 0x8A28A288, 0x8A289488, 0x8A2A8850, 0x894A9420, 0x894AA220,
+    0x70852220, 0xF8011000, 0x08020800, 0x10840400, 0x20040470, 0x40840400, 0x80020800, 0xF8011000,
+    0x70800000, 0x88822200, 0x08820400, 0x108F8800, 0x20821000, 0x00022200, 0x20800020, 0x00000000,
+};
+
+const char* sFaultCauses[18] = {
+    "Interrupt",
+    "TLB modification",
+    "TLB exception on load",
+    "TLB exception on store",
+    "Address error on load",
+    "Address error on store",
+    "Bus error on inst.",
+    "Bus error on data",
+    "System call exception",
+    "Breakpoint exception",
+    "Reserved instruction",
+    "Coprocessor unusable",
+    "Arithmetic overflow",
+    "Trap exception",
+    "Virtual coherency on inst.",
+    "Floating point exception",
+    "Watchpoint exception",
+    "Virtual coherency on data",
+};
+
+const char* sFloatExceptions[6] = {
+    "Unimplemented operation", "Invalid operation", "Division by zero", "Overflow", "Underflow", "Inexact operation",
+};
 
 void func_800073C0(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     u16* var_v0;
@@ -77,11 +119,11 @@ void func_8000762C(s32 arg0, s32 arg1, const char* fmt, ...) {
     va_end(args);
 }
 
-void func_8000770C(s32 arg0) {
-    u64 temp_ret_4 = MSEC_TO_CYCLES(arg0);
+void func_8000770C(s32 time) {
+    u64 time64 = MSEC_TO_CYCLES(time);
 
     osSetTime(0);
-    while (osGetTime() < temp_ret_4) {
+    while (osGetTime() < time64) {
         ;
     }
 }
@@ -104,7 +146,7 @@ void func_80007880(u32 arg0) {
     func_8000762C(0x1E, 0xA0, "FPCSR:%08XH", arg0);
     for (var_v0 = 0; var_v0 < 6; var_v0++, var_v1 >>= 1) {
         if (arg0 & var_v1) {
-            func_8000762C(0x84, 0xA0, "(%s)", D_800C48B8[var_v0]);
+            func_8000762C(0x84, 0xA0, "(%s)", sFloatExceptions[var_v0]);
             return;
         }
     }
@@ -124,7 +166,7 @@ void func_80007910(OSThread* thread) {
     }
     func_8000770C(3000);
     func_800073C0(15, 15, 290, 210);
-    func_8000762C(30, 40, "THREAD:%d  (%s)", thread->id, D_800C4870[var_s0]);
+    func_8000762C(30, 40, "THREAD:%d  (%s)", thread->id, sFaultCauses[var_s0]);
     func_8000762C(30, 50, "PC:%08XH   SR:%08XH\tVA:%08XH", context->pc, context->sr, context->badvaddr);
     osWritebackDCacheAll();
     func_8000762C(30, 60, "AT:%08XH   V0:%08XH\tV1:%08XH", (s32) context->at, (s32) context->v0, (s32) context->v1);
@@ -204,7 +246,7 @@ void Fault_ThreadEntry(void* arg0) {
         Controller_UpdateInput();
         switch (var_s0) {
             case 0:
-                if (gCurrentInput[0].button == R_TRIG | D_CBUTTONS | L_CBUTTONS) {
+                if (gCurrentInput[0].button == (R_TRIG | D_CBUTTONS | L_CBUTTONS)) {
                     var_s0++;
                     var_s2 = 4000;
                 }
@@ -287,6 +329,6 @@ void Fault_Init(void) {
     gFaultMgr.height = SCREEN_HEIGHT;
     osCreateMesgQueue(&gFaultMgr.msgQueue, &gFaultMgr.msg, 1);
     osCreateThread(&gFaultMgr.thread, THREAD_ID_FAULT, Fault_ThreadEntry, 0, gFaultMgr.stack + sizeof(gFaultMgr.stack),
-                   0x7F);
+                   127);
     osStartThread(&gFaultMgr.thread);
 }

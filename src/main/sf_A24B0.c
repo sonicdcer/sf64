@@ -6,7 +6,7 @@ extern void func_80187520(s32, void*);
 #define RGBA16_BLUE(color16) ((((color16) >> 1) & 0x1F) * 8)
 
 void func_800A18B0(void) {
-    func_80006F20();
+    Memory_FreeAll();
     Rand_Init();
     Rand_SetSeed(1, 29000, 9876);
     D_80177834 = 100;
@@ -48,7 +48,7 @@ void func_800A1980(void) {
         case 0:
             return;
     }
-    func_80006F20();
+    Memory_FreeAll();
     func_800A6148();
     D_80177834 = D_80161A32;
     D_8017783C = 3;
@@ -315,11 +315,11 @@ void func_800A26C0(void) {
                 break;
             case 0x67:
                 if (func_800C3194() != 0) {
-                    D_80178870 = *((SaveFile*) &D_800D4D10);
+                    gSaveFile = *((SaveFile*) &D_800D4D10);
                     func_800C3084();
                 }
                 D_80177834++;
-                Thread7_CreateTask(MSEC_TO_CYCLES(1000), Thread7_Increment, &D_80177834, 1);
+                Timer_CreateTask(MSEC_TO_CYCLES(1000), Timer_Increment, &D_80177834, 1);
             case 0x68:
                 func_800B8DD0(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
@@ -338,7 +338,7 @@ void func_800A26C0(void) {
                 D_80177834 = 2;
                 D_80177AE0 = 1;
                 D_80177824 = 1;
-                func_80006F20();
+                Memory_FreeAll();
                 func_800A6148();
                 D_801778A8 = 1;
                 D_80161AA0[0] = 2;
@@ -368,7 +368,7 @@ void func_800A26C0(void) {
                     D_800D3180[i] = 0;
                 }
                 D_801779F8 = 0;
-                D_80177C74 = D_80178870.raw[0x14];
+                D_80177C74 = gSaveFile.save.data.unk_14;
                 switch (D_80177C74) {
                     case 0:
                         var_v0_3 = 0;
@@ -385,9 +385,9 @@ void func_800A26C0(void) {
                         break;
                 }
                 func_800182F4(var_v0_3 | 0xE0000000);
-                D_80177C80[0] = D_80178870.raw[0x15];
-                D_80177C80[1] = D_80178870.raw[0x16];
-                D_80177C80[2] = D_80178870.raw[0x17];
+                D_80177C80[0] = gSaveFile.save.data.unk_15;
+                D_80177C80[1] = gSaveFile.save.data.unk_16;
+                D_80177C80[2] = gSaveFile.save.data.unk_17;
                 if (D_80177C80[0] > 99) {
                     D_80177C80[0] = 99;
                 }

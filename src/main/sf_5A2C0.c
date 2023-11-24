@@ -881,7 +881,7 @@ void func_8005D654(Object_80* arg0, s32 arg1) {
         }
     } else if (arg0->unk_1C.unk_00 != NULL) {
         func_800597C0(arg1);
-        arg0->unk_1C.unk_00(arg0);
+        arg0->unk_1C.unk_00(&arg0->obj);
     }
 }
 

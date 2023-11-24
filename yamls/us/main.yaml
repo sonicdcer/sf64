@@ -18,9 +18,9 @@
       - [0x05A20, c, math]
       - [0x06280, c, matrix]
       - [0x07B20, c, memory]
-      - [0x07B60, c, 7B60]
+      - [0x07B60, c, timer]
       - [0x07D30, c, save]
-      - [0x07FC0, c, 7FC0]
+      - [0x07FC0, c, fault]
           # Audio block
       - [0x08CC0, c, 8CC0]
       - [0x0C870, c, C870]
@@ -198,7 +198,7 @@
       - [0xC51D0, .data, main]
       - [0xC51E0, .data, math]
       - [0xC5220, .data, matrix]
-      - [0xC52F0, .data, 7FC0]
+      - [0xC52F0, .data, fault]
       - [0xC54D0, data, audio]
       - [0xC8880, data, sprintf]
 
@@ -226,7 +226,7 @@
       - [0xC8CC0, .rodata, math]
       - [0xC8D10, .rodata, matrix]
       - [0xC8D20, .rodata, save]
-      - [0xC8E40, .rodata, 7FC0]
+      - [0xC8E40, .rodata, fault]
       - [0xC9220, .rodata, 8CC0]
       - [0xC9260, .rodata, C870]
       - [0xC9280, .rodata, F0A0]
@@ -309,14 +309,14 @@
       - [0xDC710, data, audiodata]
 
       # Nintendo Library bss
-      - { start: 0xDE480, type: bss, vram: 0x800DD880, name: joybus }
-      - { start: 0xDE480, type: bss, vram: 0x800DDAA0, name: main }
-      - { start: 0xDE480, type: bss, vram: 0x8013B3A0, name: math }
-      - { start: 0xDE480, type: bss, vram: 0x8013B3C0, name: matrix }
-      - { start: 0xDE480, type: bss, vram: 0x8013C3D0, name: memory }
-      - { start: 0xDE480, type: bss, vram: 0x80144BE0, name: 7B60 }
-      - { start: 0xDE480, type: bss, vram: 0x80144F60, name: save }
-      - { start: 0xDE480, type: bss, vram: 0x80145360, name: 7FC0 }
+      - { start: 0xDE480, type: .bss, vram: 0x800DD880, name: joybus }
+      - { start: 0xDE480, type: .bss, vram: 0x800DDAA0, name: main }
+      - { start: 0xDE480, type: .bss, vram: 0x8013B3A0, name: math }
+      - { start: 0xDE480, type: .bss, vram: 0x8013B3C0, name: matrix }
+      - { start: 0xDE480, type: .bss, vram: 0x8013C3D0, name: memory }
+      - { start: 0xDE480, type: .bss, vram: 0x80144BE0, name: timer }
+      - { start: 0xDE480, type: .bss, vram: 0x80144F60, name: save }
+      - { start: 0xDE480, type: .bss, vram: 0x80145360, name: fault }
       - { start: 0xDE480, type: bss, vram: 0x80145D40, name: audio }
 
 
@@ -348,3 +348,4 @@
 
       # Game engine bss
       - { start: 0xDE480, type: bss, vram: 0x8015F900, name: engine }
+      - { start: 0xDE480, type: .bss, vram: 0x80178870, name: sf_C3BB0 }

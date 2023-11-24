@@ -20,15 +20,16 @@ Lib_FillScreen = 0x800034E8;
 // lights
 func_800035D0 = 0x800035D0;
 func_8000372C = 0x8000372C;
+func_800038AC = 0x800038AC;
 
 // main
-func_80003A50 = 0x80003A50;
+Main_Initialize = 0x80003A50;
 Audio_ThreadEntry = 0x80003B48;
 Graphics_CreateTask = 0x80003C50;
 Graphics_InitializeTask = 0x80003DC0;
 func_80003EE0 = 0x80003EE0;
 SerialInterface_ThreadEntry = 0x80003FEC;
-Thread7_ThreadEntry = 0x800040D4;
+Timer_ThreadEntry = 0x800040D4;
 Graphics_ThreadEntry = 0x80004144;
 func_80004714 = 0x80004714;
 func_800049D4 = 0x800049D4;
@@ -71,21 +72,21 @@ Matrix_LookAt = 0x80006E3C;
 Matrix_SetGfxMtx = 0x80006EB8;
 
 // memory
-func_80006F20 = 0x80006F20;
-func_80006F38 = 0x80006F38;
+Memory_FreeAll = 0x80006F20;
+Memory_Allocate = 0x80006F38;
 
 // thread 7
-Thread7_AllocateTask = 0x80006F60;
-Thread7_Increment = 0x80007068;
-Thread7_SetValue = 0x8000707C;
-Thread7_CompleteTask = 0x80007088;
-Thread7_Wait = 0x800070C8;
+Timer_AllocateTask = 0x80006F60;
+Timer_Increment = 0x80007068;
+Timer_SetValue = 0x8000707C;
+Timer_CompleteTask = 0x80007088;
+Timer_Wait = 0x800070C8;
 
 // save
-func_80007130 = 0x80007130;
-func_8000716C = 0x8000716C;
-func_800071FC = 0x800071FC;
-func_800072E0 = 0x800072E0;
+Save_ReadEeprom = 0x80007130;
+Save_WriteEeprom = 0x8000716C;
+Save_WriteData = 0x800071FC;
+Save_ReadData = 0x800072E0;
 
 // fault
 func_800073C0 = 0x800073C0;

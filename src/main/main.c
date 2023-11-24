@@ -2,15 +2,13 @@
 
 s32 D_800C45D0 = 1;
 
-#ifdef IMPORT_DATA_PENDING
 u8 gAudioThreadStack[0x1000];    // 800DDAA0
 OSThread gGraphicsThread;        // 800DEAA0
 u8 gGraphicsThreadStack[0x1000]; // 800DEC50
-OSThread gUnkThread3;            // 800DFC50
-u8 gUnkThread3Stack[0x1000];     // 800DFE00
+OSThread gTimerThread;           // 800DFC50
+u8 gTimerThreadStack[0x1000];    // 800DFE00
 OSThread gSerialThread;          // 800E0E00
-u8 g
-SerialThreadStack[0x1000];   // 800E0FB0
+u8 gSerialThreadStack[0x1000];   // 800E0FB0
 
 SPTask* gCurrentTask;
 SPTask* sAudioTasks[1];
@@ -45,10 +43,10 @@ OSMesgQueue gControllerMsgQueue;
 void* sControllerMsgBuff[1];
 OSMesgQueue gSaveMsgQueue;
 void* sSaveMsgBuff[1];
-OSMesgQueue gThread7TaskMsgQueue;
-void* sThread7TaskMsgBuff[16];
-OSMesgQueue gThread7WaitMsgQueue;
-void* sThread7WaitMsgBuff[1];
+OSMesgQueue gTimerTaskMsgQueue;
+void* sTimerTaskMsgBuff[16];
+OSMesgQueue gTimerWaitMsgQueue;
+void* sTimerWaitMsgBuff[1];
 
 GfxPool gGfxPools[2];
 
@@ -77,9 +75,8 @@ u8 sIdleThreadStack[0x1000]; // 801390A0
 OSThread gMainThread;        // 8013A040
 u8 sMainThreadStack[0x1000]; // 8013A1F0
 OSThread gAudioThread;       // 8013B1F0
-#endif
 
-void func_80003A50(void) {
+void Main_Initialize(void) {
     u8 i;
 
     D_80137E78 = 0;
@@ -96,7 +93,7 @@ void func_80003A50(void) {
     for (i = 0; i < ARRAY_COUNT(sGfxTasks); i += 1) {
         sGfxTasks[i] = NULL;
     }
-    for (i = 0; i < 1; i += 1) {
+    for (i = 0; i < ARRAY_COUNT(sNewAudioTasks); i += 1) {
         sNewAudioTasks[i] = NULL;
     }
     for (i = 0; i < ARRAY_COUNT(sNewGfxTasks); i += 1) {
@@ -175,8 +172,9 @@ void Graphics_InitializeTask(u32 frameCount) {
 }
 
 void func_80003EE0(void) {
-    if ((gCurrentInput[0].button & D_JPAD) && (gCurrentInput[1].button & D_JPAD) && (gCurrentInput[2].button & D_JPAD) &&
-        (gCurrentInput[3].button & L_TRIG) && (gCurrentInput[3].button & R_TRIG) && (gCurrentInput[3].button & Z_TRIG)) {
+    if ((gCurrentInput[0].button & D_JPAD) && (gCurrentInput[1].button & D_JPAD) &&
+        (gCurrentInput[2].button & D_JPAD) && (gCurrentInput[3].button & L_TRIG) &&
+        (gCurrentInput[3].button & R_TRIG) && (gCurrentInput[3].button & Z_TRIG)) {
         D_800C45D0 = 1 - D_800C45D0;
     }
     switch (osTvType) {
@@ -222,12 +220,12 @@ void SerialInterface_ThreadEntry(void* arg0) {
     }
 }
 
-void Thread7_ThreadEntry(void* arg0) {
+void Timer_ThreadEntry(void* arg0) {
     void* sp24;
 
     while (1) {
-        osRecvMesg(&gThread7TaskMsgQueue, &sp24, OS_MESG_BLOCK);
-        Thread7_CompleteTask(sp24);
+        osRecvMesg(&gTimerTaskMsgQueue, &sp24, OS_MESG_BLOCK);
+        Timer_CompleteTask(sp24);
     }
 }
 
@@ -304,8 +302,8 @@ void Main_InitMesgQueues(void) {
     osSetEventMesg(OS_EVENT_SP, &gMainThreadMsgQueue, (OSMesg) EVENT_MESG_SP);
     osSetEventMesg(OS_EVENT_DP, &gMainThreadMsgQueue, (OSMesg) EVENT_MESG_DP);
     osSetEventMesg(OS_EVENT_PRENMI, &gMainThreadMsgQueue, (OSMesg) EVENT_MESG_PRENMI);
-    osCreateMesgQueue(&gThread7TaskMsgQueue, sThread7TaskMsgBuff, ARRAY_COUNT(sThread7TaskMsgBuff));
-    osCreateMesgQueue(&gThread7WaitMsgQueue, sThread7WaitMsgBuff, ARRAY_COUNT(sThread7WaitMsgBuff));
+    osCreateMesgQueue(&gTimerTaskMsgQueue, sTimerTaskMsgBuff, ARRAY_COUNT(sTimerTaskMsgBuff));
+    osCreateMesgQueue(&gTimerWaitMsgQueue, sTimerWaitMsgBuff, ARRAY_COUNT(sTimerWaitMsgBuff));
     osCreateMesgQueue(&gSerialThreadMsgQueue, sSerialThreadMsgBuff, ARRAY_COUNT(sSerialThreadMsgBuff));
     osCreateMesgQueue(&gControllerMsgQueue, sControllerMsgBuff, ARRAY_COUNT(sControllerMsgBuff));
     osCreateMesgQueue(&gSaveMsgQueue, sSaveMsgBuff, ARRAY_COUNT(sSaveMsgBuff));
@@ -319,7 +317,7 @@ void func_80004714(void) {
         osSendMesg((*var_v1)->msgQueue, (*var_v1)->msg, OS_MESG_PRI_NORMAL);
     }
     (*var_v1)->state = SPTASK_STATE_FINISHED_DP;
-    for (i = 0; i < 1; i += 1, var_v1++) {
+    for (i = 0; i < ARRAY_COUNT(sGfxTasks) - 1; i += 1, var_v1++) {
         *var_v1 = *(var_v1 + 1);
     }
     *var_v1 = NULL;
@@ -424,7 +422,7 @@ void func_800049D4(void) {
 }
 
 void Main_ThreadEntry(void* arg0) {
-    OSMesg sp54;
+    OSMesg osMsg;
     u8 mesg;
 
     osCreateThread(&gAudioThread, THREAD_ID_AUDIO, Audio_ThreadEntry, arg0,
@@ -433,9 +431,9 @@ void Main_ThreadEntry(void* arg0) {
     osCreateThread(&gGraphicsThread, THREAD_ID_GRAPHICS, Graphics_ThreadEntry, arg0,
                    gGraphicsThreadStack + sizeof(gGraphicsThreadStack), 40);
     osStartThread(&gGraphicsThread);
-    osCreateThread(&gUnkThread3, THREAD_ID_7, Thread7_ThreadEntry, arg0, gUnkThread3Stack + sizeof(gUnkThread3Stack),
+    osCreateThread(&gTimerThread, THREAD_ID_7, Timer_ThreadEntry, arg0, gTimerThreadStack + sizeof(gTimerThreadStack),
                    60);
-    osStartThread(&gUnkThread3);
+    osStartThread(&gTimerThread);
     osCreateThread(&gSerialThread, THREAD_ID_SERIAL, SerialInterface_ThreadEntry, arg0,
                    gSerialThreadStack + sizeof(gSerialThreadStack), 20);
     osStartThread(&gSerialThread);
@@ -443,8 +441,8 @@ void Main_ThreadEntry(void* arg0) {
     Main_InitMesgQueues();
 
     while (true) {
-        osRecvMesg(&gMainThreadMsgQueue, &sp54, OS_MESG_BLOCK);
-        mesg = (u32) sp54;
+        osRecvMesg(&gMainThreadMsgQueue, &osMsg, OS_MESG_BLOCK);
+        mesg = (u32) osMsg;
 
         switch (mesg) {
             case EVENT_MESG_VI:
@@ -485,7 +483,7 @@ loop_1:
 void bootproc(void) {
     RdRam_CheckIPL3();
     osInitialize();
-    func_80003A50();
+    Main_Initialize();
     osCreateThread(&sIdleThread, THREAD_ID_IDLE, &Idle_ThreadEntry, NULL, sIdleThreadStack + sizeof(sIdleThreadStack),
                    255);
     osStartThread(&sIdleThread);

@@ -1,6 +1,5 @@
 #include "global.h"
 
-#ifdef DATA_IMPORT_PENDING
 OSContPad gCurrentInput[4];
 OSContPad gChangedInput[4];
 u8 gControllerStatus[4];
@@ -10,12 +9,6 @@ OSContPad sNextInput[4];    //
 OSContPad sPrevInput[4];    //
 OSContStatus D_800DD8F0[4]; //
 OSPfs D_800DD900[4];        //
-#else
-extern OSContPad sNextInput[4];    //
-extern OSContPad sPrevInput[4];    //
-extern OSContStatus D_800DD8F0[4]; //
-extern OSPfs D_800DD900[4];        //
-#endif
 
 void Controller_AddDeadZone(s32 contrNum) {
     s32 temp_v0 = gCurrentInput[contrNum].stick_x;
@@ -77,12 +70,12 @@ void Controller_UpdateInput(void) {
             Controller_AddDeadZone(i);
         } else {
             gCurrentInput[i].button = gCurrentInput[i].stick_x = gCurrentInput[i].stick_y = gCurrentInput[i].errno =
-                gChangedInput[i].button = gChangedInput[i].stick_x = gChangedInput[i].stick_y = gChangedInput[i].errno = 0;
+                gChangedInput[i].button = gChangedInput[i].stick_x = gChangedInput[i].stick_y = gChangedInput[i].errno =
+                    0;
         }
     }
 }
 
-#ifdef DATA_IMPORT_PENDING // requires data import on sNextInput
 void Controller_ReadData(void) {
     s32 i;
 
@@ -98,12 +91,9 @@ void Controller_ReadData(void) {
     }
     osSendMesg(&gControllerMsgQueue, (OSMesg) SI_CONT_READ_DONE, OS_MESG_PRI_NORMAL);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/joybus/Controller_ReadData.s")
-#endif
 
 void Save_Read(void) {
-    if ((gStartNMI == 0) && (func_800072E0(&D_80144F60) == 0)) {
+    if ((gStartNMI == 0) && (Save_ReadData(&gSaveIOBuffer) == 0)) {
         osSendMesg(&gSaveMsgQueue, (OSMesg) SI_SAVE_SUCCESS, OS_MESG_PRI_NORMAL);
         return;
     }
@@ -111,7 +101,7 @@ void Save_Read(void) {
 }
 
 void Save_Write(void) {
-    if ((gStartNMI == 0) && (func_800071FC(&D_80144F60) == 0)) {
+    if ((gStartNMI == 0) && (Save_WriteData(&gSaveIOBuffer) == 0)) {
         osSendMesg(&gSaveMsgQueue, (OSMesg) SI_SAVE_SUCCESS, OS_MESG_PRI_NORMAL);
         return;
     }
