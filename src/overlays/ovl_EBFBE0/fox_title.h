@@ -24,13 +24,13 @@ typedef struct {
     /* 0x1C */ f32 scale;
     /* 0x20 */ char pad20[0x4];
     /* 0x24 */ Vec3f unk_24;
-} UnkStruct_D_EBFBE0_801B8658;
+} UnkStruct_D_EBFBE0_801B8658; // size = 0x30
 
 typedef struct {
     /* 0x00 */ Vec3f pos;
     /* 0x0C */ char pad0C[0x4];
     /* 0x10 */ f32 scale;
-} UnkStruct_D_EBFBE0_801B8688;
+} UnkStruct_D_EBFBE0_801B8688; // size = 0x14
 
 extern Gfx* D_EBFBE0_801AE48C[];
 extern f32 D_EBFBE0_801AE4BC[];
