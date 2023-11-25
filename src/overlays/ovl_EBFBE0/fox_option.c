@@ -119,7 +119,7 @@ void func_EBFBE0_80191B20(void) {
 
     if ((D_80161A34 == 5) || (D_80161A34 == 8)) {
         if (D_80161A34 == 8) {
-            D_80177B8C[D_80177B48 + 1] = 13;
+            D_80177B90[D_80177B48] = 13;
             if (D_800D3180[9] == 1) {
                 gSaveFile.save.data.unk_00[14].unk_5 = 1;
                 if (var_v0_2 != 0) {
@@ -1618,7 +1618,76 @@ void func_EBFBE0_8019B8A0(s32 arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019C5A0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019C66C.s")
+s32 func_EBFBE0_8019C66C(f32* arg0, f32 arg1, f32 arg2, UnkStruct_D_EBFBE0_801B9250* arg3) {
+    s32 x;
+    s32 y;
+    s32 var_a2;
+    f32 var_fv1;
+    f32 temp;
+    f32 temp2;
+
+    var_a2 = 0;
+    temp = *arg0;
+
+    x = gChangedInput[D_80177AF8].stick_x;
+    y = -gChangedInput[D_80177AF8].stick_y;
+
+    if ((y > 10) || (y < -10)) {
+        return 0;
+    }
+
+    if ((x < 10) && (x > -10)) {
+        x = 0;
+    } else if (x < 0) {
+        x += 10;
+    } else {
+        x -= 10;
+    }
+
+    if (arg3->unk_4 == 0) {
+        if (x != 0) {
+            var_fv1 = (f32) x / 20.0f;
+            arg3->unk_4 = arg3->unk_0;
+
+            if (arg3->unk_0 != 0) {
+                arg3->unk_0 -= 7;
+            }
+
+            if (arg3->unk_4 != 0) {
+                if (x > 0) {
+                    var_fv1 = 1.0f;
+                } else {
+                    var_fv1 = -1.0f;
+                }
+            }
+
+            *arg0 += var_fv1;
+
+            if (arg2 < *arg0) {
+                *arg0 = arg2;
+            }
+            if (*arg0 < arg1) {
+                *arg0 = arg1;
+            }
+        } else {
+            arg3->unk_4 = 0;
+            arg3->unk_0 = 7;
+        }
+    }
+
+    if (arg3->unk_4 > 0) {
+        arg3->unk_4--;
+    }
+
+    temp2 = *arg0;
+
+    if ((s32) temp2 != (s32) temp) {
+        func_80019218(0x49004007, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        var_a2 = 1;
+    }
+
+    return var_a2;
+}
 
 void func_EBFBE0_8019C824(f32* arg0) {
     if ((s32) func_8009BC2C(arg0, D_EBFBE0_801B91E4, 0.5f, 100.0f, 1.0f) == 0.0f) {

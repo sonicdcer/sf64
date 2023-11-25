@@ -45,5 +45,7 @@
         "typeinfo": "c",
         "sym_addrs_funcs": "c",
         "*.txt": "c"
+        "typeinfo": "c",
+        "fox_title.h": "c"
     },
 }

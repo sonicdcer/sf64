@@ -206,7 +206,7 @@ void func_EBFBE0_8018ACEC(void);
 void func_EBFBE0_8018B5C4(void);
 void func_EBFBE0_8018C644(void);
 void func_EBFBE0_80187CA8(void);
-void func_EBFBE0_80188010(void);
+s32 func_EBFBE0_80188010(void);
 void func_EBFBE0_80189208(void);
 void func_EBFBE0_8018A2F8(void);
 void func_EBFBE0_8018A990(void);
