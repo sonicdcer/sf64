@@ -805,7 +805,7 @@ void func_EBFBE0_80190E64(void) {
 void func_EBFBE0_80190EA4(void) {
     switch (D_EBFBE0_801B8280) {
         case 0:
-            if (gCurrentInput[D_80177AF8].button & 0xD00F) { // START, A, B, C-left, C-Down, C-Up, C-Right
+            if (gChangedInput[D_80177AF8].button & 0xD00F) { // START, A, B, C-left, C-Down, C-Up, C-Right
                 func_80019218(0x49000003, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 D_EBFBE0_801B8284 = 0;
                 D_EBFBE0_801B8280 = 1;
@@ -835,7 +835,7 @@ void func_EBFBE0_80190FD0(void) {
     if (gStopInputTimer == 0) {
         switch (D_EBFBE0_801B8280) {
             case 0:
-                if (((gCurrentInput[D_80177AF8].button & START_BUTTON) || (gCurrentInput[D_80177AF8].button & A_BUTTON)) &&
+                if (((gChangedInput[D_80177AF8].button & START_BUTTON) || (gChangedInput[D_80177AF8].button & A_BUTTON)) &&
                     (D_EBFBE0_801B8280 == 0)) {
                     func_80019218(0x49000003, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                     func_800182F4(0x101E00FF);
@@ -868,13 +868,13 @@ void func_EBFBE0_8019111C(void) {
     f32 y;
 
     if ((D_EBFBE0_801B82B0 == 0) && (D_EBFBE0_801B9040 == 0) &&
-        ((gCurrentInput[D_80177AF8].stick_x != 0) || (gCurrentInput[D_80177AF8].stick_y != 0))) {
+        ((gChangedInput[D_80177AF8].stick_x != 0) || (gChangedInput[D_80177AF8].stick_y != 0))) {
         D_EBFBE0_801B9040 = 1;
         D_EBFBE0_801B86A4 = 0;
     }
 
-    x = gCurrentInput[D_80177AF8].stick_x;
-    y = gCurrentInput[D_80177AF8].stick_y;
+    x = gChangedInput[D_80177AF8].stick_x;
+    y = gChangedInput[D_80177AF8].stick_y;
 
     if (D_EBFBE0_801B9040 != 0) {
         if (((x * 0.2f) + D_EBFBE0_801B905C > -500.0f) && ((x * 0.2f) + D_EBFBE0_801B905C < 500.0f)) {
@@ -885,7 +885,7 @@ void func_EBFBE0_8019111C(void) {
         }
     }
 
-    if ((D_EBFBE0_801B9040 != 0) && (gCurrentInput[D_80177AF8].stick_x == 0) && (gCurrentInput[D_80177AF8].stick_y == 0)) {
+    if ((D_EBFBE0_801B9040 != 0) && (gChangedInput[D_80177AF8].stick_x == 0) && (gChangedInput[D_80177AF8].stick_y == 0)) {
         D_EBFBE0_801B86A4++;
     } else {
         D_EBFBE0_801B86A4 = 0;

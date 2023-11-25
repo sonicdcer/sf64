@@ -1629,8 +1629,8 @@ s32 func_EBFBE0_8019C66C(f32* arg0, f32 arg1, f32 arg2, UnkStruct_D_EBFBE0_801B9
     var_a2 = 0;
     temp = *arg0;
 
-    x = gCurrentInput[D_80177AF8].stick_x;
-    y = -gCurrentInput[D_80177AF8].stick_y;
+    x = gChangedInput[D_80177AF8].stick_x;
+    y = -gChangedInput[D_80177AF8].stick_y;
 
     if ((y > 10) || (y < -10)) {
         return 0;
