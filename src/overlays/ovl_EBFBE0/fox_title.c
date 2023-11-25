@@ -223,8 +223,8 @@ void func_EBFBE0_80187B00(void) {
                 D_EBFBE0_801B82C4 = 1;
             }
 
-            if (D_EBFBE0_801B8288 == 0xA) {
-                D_EBFBE0_801B82BC -= 1;
+            if (D_EBFBE0_801B8288 == 10) {
+                D_EBFBE0_801B82BC--;
             }
             break;
     }
@@ -376,9 +376,53 @@ void func_EBFBE0_80189208(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018DDB8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018DF0C.s")
+void func_EBFBE0_8018DF0C(f32 arg0) {
+    f32 sp34;
+    f32 sp30;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018E058.s")
+    func_EBFBE0_80191798(&sp34, &sp30);
+    func_800B8DD0(&gMasterDisp, 0x35);
+
+    if (arg0 != 0.0f) {
+        D_EBFBE0_801B8688.pos.z = D_80177988 - arg0;
+    }
+
+    Matrix_Push(&gGfxMatrix);
+    Matrix_Translate(gGfxMatrix, D_EBFBE0_801B8688.pos.x, D_EBFBE0_801B8688.pos.y, D_EBFBE0_801B8688.pos.z, 1);
+    Matrix_RotateY(gGfxMatrix, M_DTOR * sp30, 1);
+    Matrix_RotateX(gGfxMatrix, M_DTOR * sp34, 1);
+    Matrix_Scale(gGfxMatrix, D_EBFBE0_801B8688.scale, D_EBFBE0_801B8688.scale, D_EBFBE0_801B8688.scale, 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    gSPDisplayList(gMasterDisp++, D_6037CF0);
+    func_EBFBE0_8018E200();
+    Matrix_Pop(&gGfxMatrix);
+}
+
+void func_EBFBE0_8018E058(void) {
+    Lights_SetOneLight(&gMasterDisp, D_EBFBE0_801B82E0, D_EBFBE0_801B82E4, D_EBFBE0_801B82E8, D_80178548, D_8017854C,
+                       D_80178550, D_80178554, D_80178558, D_8017855C);
+
+    Matrix_Push(&gGfxMatrix);
+
+    Matrix_Translate(gGfxMatrix, D_EBFBE0_801B8658.pos.x, D_EBFBE0_801B8658.pos.y, D_EBFBE0_801B8658.pos.z, 1);
+
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * D_EBFBE0_801B8658.angleZ, 1);
+    Matrix_RotateX(gGfxMatrix, M_DTOR * D_EBFBE0_801B8658.angleX, 1);
+    Matrix_RotateY(gGfxMatrix, M_DTOR * D_EBFBE0_801B8658.angleY, 1);
+
+    Matrix_Scale(gGfxMatrix, D_EBFBE0_801B8658.scale, D_EBFBE0_801B8658.scale, D_EBFBE0_801B8658.scale, 1);
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+    func_800B8DD0(&gMasterDisp, 0x17);
+
+    D_80177B8C = 1;
+
+    func_800515C4();
+    func_8005F1EC(&D_EBFBE0_801B8658.unk_24);
+
+    Matrix_Pop(&gGfxMatrix);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018E200.s")
 
@@ -721,7 +765,7 @@ void func_EBFBE0_801906A0(void) {
 
 void func_EBFBE0_80190950(void) {
     Lights_SetOneLight(&gMasterDisp, D_EBFBE0_801B82E0, D_EBFBE0_801B82E4, D_EBFBE0_801B82E8, 0, 0, 0, D_80178554,
-                  D_80178558, D_8017855C);
+                       D_80178558, D_8017855C);
     func_800B8DD0(&gMasterDisp, 0x17);
 
     Matrix_Push(&gGfxMatrix);
@@ -747,7 +791,7 @@ void func_EBFBE0_80190A98(void) {
 
 void func_EBFBE0_80190B30(s32 arg0) {
     Lights_SetOneLight(&gMasterDisp, D_EBFBE0_801B82E0, D_EBFBE0_801B82E4, D_EBFBE0_801B82E8, D_80178548, D_8017854C,
-                  D_80178550, D_80178554, D_80178558, D_8017855C);
+                       D_80178550, D_80178554, D_80178558, D_8017855C);
     func_800B8DD0(&gMasterDisp, 0x17);
 
     Matrix_Push(&gGfxMatrix);
@@ -835,7 +879,8 @@ void func_EBFBE0_80190FD0(void) {
     if (gStopInputTimer == 0) {
         switch (D_EBFBE0_801B8280) {
             case 0:
-                if (((gChangedInput[D_80177AF8].button & START_BUTTON) || (gChangedInput[D_80177AF8].button & A_BUTTON)) &&
+                if (((gChangedInput[D_80177AF8].button & START_BUTTON) ||
+                     (gChangedInput[D_80177AF8].button & A_BUTTON)) &&
                     (D_EBFBE0_801B8280 == 0)) {
                     func_80019218(0x49000003, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                     func_800182F4(0x101E00FF);
@@ -885,7 +930,8 @@ void func_EBFBE0_8019111C(void) {
         }
     }
 
-    if ((D_EBFBE0_801B9040 != 0) && (gChangedInput[D_80177AF8].stick_x == 0) && (gChangedInput[D_80177AF8].stick_y == 0)) {
+    if ((D_EBFBE0_801B9040 != 0) && (gChangedInput[D_80177AF8].stick_x == 0) &&
+        (gChangedInput[D_80177AF8].stick_y == 0)) {
         D_EBFBE0_801B86A4++;
     } else {
         D_EBFBE0_801B86A4 = 0;

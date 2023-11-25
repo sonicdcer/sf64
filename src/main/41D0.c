@@ -14,7 +14,7 @@ void func_800035D0(Gfx** dList) {
 }
 
 void Lights_SetOneLight(Gfx** dList, s32 dirX, s32 dirY, s32 dirZ, s32 colR, s32 colG, s32 colB, s32 ambR, s32 ambG,
-                   s32 ambB) {
+                        s32 ambB) {
     s32 i;
 
     for (i = 0; i < 4; i++) {
