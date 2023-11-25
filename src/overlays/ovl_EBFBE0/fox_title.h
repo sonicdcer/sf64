@@ -5,7 +5,9 @@
 
 typedef struct UnkStruct_D_801B8350 {
     /* 0x00 */ Vec3f unk_00;
-    /* 0x0C */ char pad0C[0x4C];
+    /* 0x0C */ f32 unk_0C;
+    /* 0x10 */ f32 unk_10;
+    /* 0x14 */ char pad14[0x44];
     /* 0x58 */ s32 unk_58;
     /* 0x5C */ s32 unk_5C;
 } UnkStruct_D_801B8350; // size = 0x60
@@ -64,8 +66,15 @@ extern f32 D_EBFBE0_801B82A0;
 extern f32 D_EBFBE0_801B82A4;
 extern s32 D_EBFBE0_801B82B0;
 extern f32 D_EBFBE0_801B82C8;
+extern f32 D_EBFBE0_801B8328;
+extern f32 D_EBFBE0_801B832C;
+extern f32 D_EBFBE0_801B8330;
+extern s32 D_EBFBE0_801B8334;
+extern s32 D_EBFBE0_801B8338;
 extern s32 D_EBFBE0_801B8340;
 extern UnkStruct_D_801B8350 D_EBFBE0_801B8350[];
+extern f32 D_EBFBE0_801B84D0;
+extern f32 D_EBFBE0_801B84D4;
 extern UnkStruct_D_EBFBE0_801B84E8 D_EBFBE0_801B84E8[];
 extern UnkStruct_D_EBFBE0_801B8658 D_EBFBE0_801B8658;
 extern UnkStruct_D_EBFBE0_801B8688 D_EBFBE0_801B8688;
