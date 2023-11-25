@@ -286,7 +286,50 @@ void func_EBFBE0_80187E28(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_80188010.s")
+s32 func_EBFBE0_80188010(void) {
+    s32 temp1;
+    s32 temp2;
+    s32 temp3;
+    s32 i;
+    s32 j;
+
+    for (i = 0; i < 10; i++) {
+        D_EBFBE0_801B8220[i] = 0;
+        for (j = 0; j < 3; j++) {
+            D_EBFBE0_801B81A8[i][j] = 0;
+        }
+    }
+
+    for (i = 0; i < 10; i++) {
+        D_EBFBE0_801B8248[i][0] = gSaveFile.save.data.unk_18[i][0] & 0xFF;
+        D_EBFBE0_801B8248[i][1] = gSaveFile.save.data.unk_18[i][1] & 0xFF;
+        D_EBFBE0_801B8248[i][2] = gSaveFile.save.data.unk_18[i][2] & 0xFF;
+        D_EBFBE0_801B8248[i][3] = 0;
+
+        temp3 = gSaveFile.save.data.unk_36[i];
+
+        for (j = 0; j < temp3; j++) {
+            temp2 = gSaveFile.save.data.unk_5E[i][j].unk_0;
+            temp2 |= (gSaveFile.save.data.unk_5E[i][j].unk_C & 1) * 256;
+
+            D_EBFBE0_801B8220[i] += temp2;
+
+            D_EBFBE0_801B81A8[i][0] += gSaveFile.save.data.unk_5E[i][j].unk_D & 1;
+            D_EBFBE0_801B81A8[i][1] += gSaveFile.save.data.unk_5E[i][j].unk_F & 1;
+            D_EBFBE0_801B81A8[i][2] += gSaveFile.save.data.unk_5E[i][j].unk_E & 1;
+        }
+    }
+
+    temp1 = D_EBFBE0_801B8220[0];
+
+    for (i = 1; i < 10; i++) {
+        if (temp1 < D_EBFBE0_801B8220[i]) {
+            temp1 = D_EBFBE0_801B8220[i];
+}
+    }
+
+    return temp1;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_801881FC.s")
 
