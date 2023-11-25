@@ -88,7 +88,7 @@ typedef struct {
         u8 raw[sizeof(SaveData)];
         };
     /* 0xFE */ u16 checksum;
-} Save;
+} Save; // size = 0x100
 
 typedef struct {
     /* 0x000 */ Save save;
