@@ -466,7 +466,12 @@ void func_EBFBE0_801894E8(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018994C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018A2F8.s")
+void func_EBFBE0_8018A2F8(void) {
+    if (D_EBFBE0_801B8694 != 0) {
+        func_EBFBE0_8018DF0C(-700.0f);
+    }
+    func_EBFBE0_8018E058();
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018A338.s")
 
