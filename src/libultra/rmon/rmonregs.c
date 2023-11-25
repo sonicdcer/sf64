@@ -44,3 +44,5 @@ s32 rmonGetRcpRegister(s32 arg0) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonregs/__rmonSetVRegs.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonregs/__rmonGetRegisterContents.s")
+
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonregs/D_800C9800.s")

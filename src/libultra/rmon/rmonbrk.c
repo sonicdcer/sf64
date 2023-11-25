@@ -27,3 +27,5 @@
 #pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonbrk/__rmonHitCpuFault.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonbrk/rmonFindFaultedThreads.s")
+
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/rmon/rmonbrk/D_800C9880.s")

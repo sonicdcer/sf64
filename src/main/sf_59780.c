@@ -11,12 +11,12 @@ void func_80058B80(void* arg0, void* arg1, ptrdiff_t arg2) {
     for (i = 0; gDmaTable[i].pRom.end != NULL; i++) {
         if (gDmaTable[i].vRomAddress == arg0) {
             if (gDmaTable[i].compFlag == 0) {
-                func_800033E0(gDmaTable[i].pRom.start, arg1, arg2);
+                Lib_DmaRead(gDmaTable[i].pRom.start, arg1, arg2);
             } else {
-                func_800034E8(1);
+                Lib_FillScreen(1);
                 D_800CA3B0 = 3;
                 D_80161A39 = 1;
-                func_800033E0(gDmaTable[i].pRom.start, gFrameBuffers, SEGMENT_SIZE(gDmaTable[i].pRom));
+                Lib_DmaRead(gDmaTable[i].pRom.start, gFrameBuffers, SEGMENT_SIZE(gDmaTable[i].pRom));
                 Mio0_Decompress(gFrameBuffers, arg1);
             }
             break;
@@ -65,8 +65,8 @@ u8 func_80058C48(OverlayInit* ovlInit) {
 
     if (D_800CA3B0 != 0) {
         D_800CA3B0--;
-    } else if (D_80137E80 == 0) {
-        func_800034E8(0);
+    } else if (gStartNMI == 0) {
+        Lib_FillScreen(0);
     }
     return startLoad;
 }
@@ -179,6 +179,6 @@ extern u8 D_DEA20[];
 extern u8 D_DF4260[];
 
 void func_80059498(void) {
-    func_800033E0(D_DE480, gDmaTable, D_DEA20 - D_DE480);
+    Lib_DmaRead(D_DE480, gDmaTable, D_DEA20 - D_DE480);
     func_80058B80(D_DE5D50, D_80179010, D_DF4260 - D_DE5D50);
 }
