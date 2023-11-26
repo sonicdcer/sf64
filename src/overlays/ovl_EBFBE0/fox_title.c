@@ -1332,7 +1332,9 @@ void func_EBFBE0_8018ACEC(void) {
     D_80178430 += 2.0f;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018B038.s")
+void func_EBFBE0_8018B038(void) {
+    func_EBFBE0_8018E058();
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018B058.s")
 
