@@ -283,7 +283,7 @@ expected:
 
 context:
 	@echo "Generating ctx.c ..."
-	@python3 ./tools/m2ctx.py $(filter-out $@, $(MAKECMDGOALS))
+	@$(PYTHON) ./tools/m2ctx.py $(filter-out $@, $(MAKECMDGOALS))
 
 #### Various Recipes ####
 
