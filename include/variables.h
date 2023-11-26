@@ -439,6 +439,7 @@ extern f32 D_80178420;
 extern f32 D_80178424;
 extern f32 D_80178428;
 extern f32 D_8017842C;
+extern f32 D_80178430;
 extern f32 D_8017847C;
 extern s32 D_80178480;
 extern s32 D_80178488;

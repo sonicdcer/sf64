@@ -1284,7 +1284,53 @@ void func_EBFBE0_8018ABC0(void) {
     D_EBFBE0_801B8658.angleZ = 0.0f;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018ACEC.s")
+void func_EBFBE0_8018ACEC(void) {
+    switch (D_EBFBE0_801B82C0) {
+        case 0:
+            func_EBFBE0_8018ABC0();
+            func_80019218(0x11030010, &D_EBFBE0_801B867C, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            func_80019218(0x31024059, &D_EBFBE0_801B867C, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+
+            D_EBFBE0_801B82CC = 0.01f;
+            D_EBFBE0_801B82B4 = 0;
+            D_EBFBE0_801B82C0++;
+            break;
+
+        case 1:
+            func_8009BC2C(&D_EBFBE0_801B86A8, 30.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
+            func_8009BC2C(&D_EBFBE0_801B86AC, -15.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
+            func_8009BC2C(&D_801779A0, 0.0f, 0.05f, 100.0f, 0.0001f);
+            func_8009BC2C(&D_801779B8, -40.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
+            func_8009BC2C(&D_EBFBE0_801B86B0, 100.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
+
+            D_EBFBE0_801B82CC *= 1.04f;
+            if (D_EBFBE0_801B82B4 == 50) {
+                D_EBFBE0_801B869C = 1;
+            }
+
+            if (D_80178340 == 255) {
+                func_8001A55C(&D_EBFBE0_801B867C.x, 0x11030010);
+                func_8001A55C(&D_EBFBE0_801B867C.x, 0x31024059);
+
+                D_80177898 = 0;
+
+                D_EBFBE0_801B82C0 = 0;
+                D_EBFBE0_801B82C4 = 4;
+            }
+            func_EBFBE0_801912A0();
+            D_EBFBE0_801B82B4++;
+            break;
+    }
+
+    func_EBFBE0_80191320(1, &D_80177978, &D_80177980, &D_80177988, &D_801779A0, &D_801779B8, &D_801779C0,
+                         D_EBFBE0_801B86A8, D_EBFBE0_801B86AC, D_EBFBE0_801B86B0);
+    func_EBFBE0_80191674(D_EBFBE0_801B86C8, D_EBFBE0_801B86CC, 100.0f, &D_EBFBE0_801B82E0, &D_EBFBE0_801B82E4,
+                         &D_EBFBE0_801B82E8);
+    func_800B6F50(D_80177978, D_80177980, D_80177988, D_801779A0, D_801779B8, D_801779C0);
+
+    D_8017842C += 2.0f;
+    D_80178430 += 2.0f;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018B038.s")
 
