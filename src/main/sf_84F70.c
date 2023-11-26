@@ -16,10 +16,10 @@ void func_80084488(s32 arg0) {
     func_800B8FA8();
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -150.0f, 0);
-    for(var_s1 = 0; var_s1 < MIN(360, arg0 * 15); var_s1 += 0xF) {
+    for (var_s1 = 0; var_s1 < MIN(360, arg0 * 15); var_s1 += 0xF) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, MIN((arg0 - (var_s1 / 15)) * 15, 255));
         Matrix_Push(&gGfxMatrix);
-        Matrix_RotateZ(gGfxMatrix,  var_s1 * M_DTOR, 1);
+        Matrix_RotateZ(gGfxMatrix, var_s1 * M_DTOR, 1);
         Matrix_Scale(gGfxMatrix, 0.53f, 1.0f, 1.0f, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_Gfx_800D9688);
@@ -34,21 +34,23 @@ void func_80084688(s32 arg0, s32 arg1) {
             case 0:
                 func_80084488(arg1);
                 break;
-
             case 1:
                 func_80084370(arg1);
                 break;
-
             case 2:
                 func_800843FC(arg1);
+                break;
+            default:
+                (void)"そのような フェード は ない (%d)\n"; // There is no such fade
                 break;
         }
     }
 }
 
 #ifdef NON_MATCHING
-// pretty sure this is equivalent, but it's almost certainly not implemented this way. Raw m2c included for those who want to try.
-void func_800846F0(FrameBuffer *arg0) {
+// pretty sure this is equivalent, but it's almost certainly not implemented this way. Raw m2c included for those who
+// want to try.
+void func_800846F0(FrameBuffer* arg0) {
     s32 sp70;
     s32 sp6C;
     s32 sp68;
@@ -83,7 +85,7 @@ void func_800846F0(FrameBuffer *arg0) {
     s32 temp_t9;
     s32 temp_t9_2;
     s32 var_t2;
-    u16 *var_v0;
+    u16* var_v0;
     u16 temp_t5;
     u32 var_a0;
     u32 var_t0;
@@ -92,8 +94,8 @@ void func_800846F0(FrameBuffer *arg0) {
     s32 i;
     s32 j;
 
-    for(i = 0; i < gFrameCounter % 240U; i++) {
-        for(j = 0; j < gFrameCounter % 320U; j++) {
+    for (i = 0; i < gFrameCounter % 240U; i++) {
+        for (j = 0; j < gFrameCounter % 320U; j++) {
             sp64 = RGBA16_RED(arg0->array[i][j]);
             sp50 = RGBA16_GRN(arg0->array[i][j]);
             sp3C = RGBA16_BLU(arg0->array[i][j]);
@@ -178,5 +180,3 @@ void func_800846F0(FrameBuffer *arg0) {
 #else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_84F70/func_800846F0.s")
 #endif
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_84F70/D_800D76F0.s")

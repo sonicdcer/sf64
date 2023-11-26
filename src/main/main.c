@@ -59,7 +59,7 @@ Gfx* gMasterDisp;
 Gfx* gUnkDisp2;
 Lightsn* gLight;
 FrameBuffer* gFrameBuffer;
-s32* D_80137E74;
+u16* D_80137E74;
 
 u8 D_80137E78;
 u32 gFrameCounter;

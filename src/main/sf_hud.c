@@ -121,27 +121,27 @@ void func_80084E78(Gfx** gfxP, void* arg1, void* arg2, u32 arg3, u32 arg4, f32 a
 }
 
 void func_800853A4(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
-    func_8009D0BC(&gMasterDisp, &D_1013170, &D_1013570, 24, 17, arg0, arg1, arg2, arg3);
+    func_8009D0BC(&gMasterDisp, D_1013170, D_1013570, 24, 17, arg0, arg1, arg2, arg3);
 }
 
 void func_80085404(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
-    func_8009C320(&gMasterDisp, &D_1011280, &D_10116A0, 48, 44, arg0, arg1, arg2, arg3);
+    func_8009C320(&gMasterDisp, D_1011280, D_10116A0, 48, 44, arg0, arg1, arg2, arg3);
 }
 
 void func_80085464(f32 arg0, f32 arg1) {
-    func_8009C320(&gMasterDisp, &D_1011AC0, &D_1011B90, 16, 26, arg0, arg1, 1.0f, 1.0f);
+    func_8009C320(&gMasterDisp, D_1011AC0, D_1011B90, 16, 26, arg0, arg1, 1.0f, 1.0f);
 }
 
 void func_800854BC(f32 arg0, f32 arg1) {
-    func_8009C320(&gMasterDisp, &D_1011BB0, &D_1011C80, 16, 26, arg0, arg1, 1.0f, 1.0f);
+    func_8009C320(&gMasterDisp, D_1011BB0, D_1011C80, 16, 26, arg0, arg1, 1.0f, 1.0f);
 }
 
 void func_80085514(f32 arg0, f32 arg1) {
-    func_8009C320(&gMasterDisp, &D_1011CA0, &D_1011D70, 16, 26, arg0, arg1, 1.0f, 1.0f);
+    func_8009C320(&gMasterDisp, D_1011CA0, D_1011D70, 16, 26, arg0, arg1, 1.0f, 1.0f);
 }
 
 void func_8008556C(f32 arg0, f32 arg1) {
-    func_8009C320(&gMasterDisp, &D_1011D90, &D_1011E60, 16, 26, arg0, arg1, 1.0f, 1.0f);
+    func_8009C320(&gMasterDisp, D_1011D90, D_1011E60, 16, 26, arg0, arg1, 1.0f, 1.0f);
 }
 
 void func_800855C4(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
@@ -178,9 +178,9 @@ void func_800857DC(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
 
 void func_80085890(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     if (D_801778E8 != 0) {
-        func_8009D0BC(&gMasterDisp, &D_300D350, &D_300D398, 24, 3, arg0, arg1, arg2, arg3);
+        func_8009D0BC(&gMasterDisp, D_300D350, D_300D398, 24, 3, arg0, arg1, arg2, arg3);
     } else {
-        func_8009D0BC(&gMasterDisp, &D_10127D0, &D_1012898, 40, 5, arg0, arg1, arg2, arg3);
+        func_8009D0BC(&gMasterDisp, D_10127D0, D_1012898, 40, 5, arg0, arg1, arg2, arg3);
     }
 }
 
@@ -1123,7 +1123,7 @@ void func_8008D0DC(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
 }
 
 void func_8008D1F0(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
-    func_8009C320(&gMasterDisp, &D_10116B0, &D_1011730, 16, 16, arg0, arg1, arg2, arg3);
+    func_8009C320(&gMasterDisp, D_10116B0, D_1011730, 16, 16, arg0, arg1, arg2, arg3);
 }
 
 #ifdef IMPORT_DATA_PENDING
@@ -1401,7 +1401,7 @@ void func_8008E2C8(f32 arg0, f32 arg1, s32* arg2, f32 arg3) {
         if (i & 1) {
             func_800BA4F0();
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-            func_8009C320(&gMasterDisp, &D_1011E80, &D_1011EC0, 0x10, 8, (var_fs0 * arg3) + arg0, arg1, arg3, arg3);
+            func_8009C320(&gMasterDisp, D_1011E80, D_1011EC0, 0x10, 8, (var_fs0 * arg3) + arg0, arg1, arg3, arg3);
         } else {
             func_800BA490();
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);

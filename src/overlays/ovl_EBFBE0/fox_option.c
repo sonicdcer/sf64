@@ -935,7 +935,7 @@ void func_EBFBE0_801962A4(void) {
                     if (temp_fv0 == 0.0f) {
                         D_EBFBE0_801B91CC = 3;
 
-                        gSaveFile = *(SaveFile*) &D_800D4D10;
+                        gSaveFile = *(SaveFile*) &gDefaultSave;
 
                         Save_Write();
 
@@ -1165,7 +1165,7 @@ void func_EBFBE0_801973C0(void) {
         func_EBFBE0_8019C824(&D_EBFBE0_801B93F0);
         temp_t0 = D_EBFBE0_801B93F0;
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, temp_t0, temp_t0, 255);
-        func_8009D994(&gMasterDisp, &D_7004010, 8, 8, 70.0f, (D_EBFBE0_801B93E4 * 17.0f) + 55.0f, 1.0f, 1.0f);
+        func_8009D994(&gMasterDisp, D_7004010, 8, 8, 70.0f, (D_EBFBE0_801B93E4 * 17.0f) + 55.0f, 1.0f, 1.0f);
     }
     func_800B8DD0(&gMasterDisp, 0x53);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
@@ -1220,7 +1220,7 @@ void func_EBFBE0_8019752C(void) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, temp_a0, temp_a0, 255);
     }
 
-    func_8009D994(&gMasterDisp, &D_800D070, 16, 16, 150.0f, 44.0f, 1.0f, 1.0f);
+    func_8009D994(&gMasterDisp, D_800D070, 16, 16, 150.0f, 44.0f, 1.0f, 1.0f);
 
     if (D_EBFBE0_801B91D4 <= -1055.0f) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 32, 32, 32, 255);
@@ -1230,7 +1230,7 @@ void func_EBFBE0_8019752C(void) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, temp_a0, temp_a0, 255);
     }
 
-    func_8009E4B0(&gMasterDisp, &D_800D070, 0x10, 0x10, 150.0f, 200.0f, 1.0f, 1.0f);
+    func_8009E4B0(&gMasterDisp, D_800D070, 0x10, 0x10, 150.0f, 200.0f, 1.0f, 1.0f);
 }
 #else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019752C.s")
@@ -1289,7 +1289,7 @@ void func_EBFBE0_80197A3C(s32 arg0, s32 arg1, s32 arg2) {
 }
 
 void func_EBFBE0_80197D30(s32 arg0, s32 arg1, s32 arg2) {
-    u8 temp[4];
+    char temp[4];
 
     func_800B8DD0(&gMasterDisp, 0x53);
 
@@ -1298,7 +1298,7 @@ void func_EBFBE0_80197D30(s32 arg0, s32 arg1, s32 arg2) {
     temp[0] = gSaveFile.save.data.unk_18[arg0][0] & 0xFF;
     temp[1] = gSaveFile.save.data.unk_18[arg0][1] & 0xFF;
     temp[2] = gSaveFile.save.data.unk_18[arg0][2] & 0xFF;
-    temp[3] = 0;
+    temp[3] = '\0';
 
     func_800A0094(arg1, arg2, 1.0f, 1.0f, temp);
 }
@@ -1306,7 +1306,7 @@ void func_EBFBE0_80197D30(s32 arg0, s32 arg1, s32 arg2) {
 void func_EBFBE0_80197DE4(s32 arg0, s32 arg1, s32 arg2) {
     func_800B8DD0(&gMasterDisp, 0x53);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 170);
-    func_8009D994(&gMasterDisp, &D_601B4B0, 24, 17, arg1, arg2, 3.17f, 1.05f);
+    func_8009D994(&gMasterDisp, D_601B4B0, 24, 17, arg1, arg2, 3.17f, 1.05f);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
     func_800A1200(arg1, arg2, 1.0f, 1.0f, "TOTAL HITS");
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);

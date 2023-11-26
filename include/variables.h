@@ -2,7 +2,7 @@
 #define VARIABLES_H
 
 #include "structs.h"
-#include "sf64animation.h"
+#include "gfx.h"
 
 extern u64 __rspboot_start[];
 extern u64 __rspboot_end[];
@@ -101,7 +101,7 @@ extern Gfx* gMasterDisp;
 extern Gfx* gUnkDisp2;
 extern Lightsn* gLight;
 extern FrameBuffer *gFrameBuffer;
-extern s32* D_80137E74;
+extern u16* D_80137E74;
 
 // some sort of struct?
 extern u8 D_80137E78;
@@ -180,7 +180,7 @@ extern Gfx* D_800CFC40[];
 extern Gfx* D_800CFC50[];
 extern Gfx* D_800CFC64[];
 extern Gfx* D_800CFC7C[];
-extern f32 D_800CFC98[];
+extern f32 D_800CFCA0[];
 extern Vec3f D_800CFCC0; // initializer in sf_5A240
 extern f32 D_800CFCCC[];
 extern Vec3f D_800CFCEC;
@@ -190,8 +190,8 @@ extern Vec3f D_800CFD10;
 extern Vec3f D_800CFD1C;
 extern Vec3f D_800CFD28;
 extern Vec3f D_800CFD34;
-extern ObjectInit* D_800CFDA0[];
 extern Gfx D_800CFD80[];
+extern ObjectInit* D_800CFDA0[];
 extern s32 D_800CFDF4[];
 extern f32 D_800CFE5C[];
 extern Vec3f D_800CFEC4[6];
@@ -212,7 +212,6 @@ extern s32 D_800D2180[];
 extern s32 D_800D2190[];
 extern f32 D_800D21A0;
 extern f32 D_800D21A4;
-extern Vec3f D_800D25D0; // initializer in sf_9A580
 extern s32 D_800D2860[];
 extern s32 D_800D2870;
 extern s32 D_800D2874[];
@@ -220,13 +219,9 @@ extern s32 D_800D2884[];
 extern s32 D_800D2894[];
 extern s32 D_800D28A4[];
 extern s32 D_800D28B4[];
-extern u8 D_800D2908;
-extern u8 D_800D290C;
-extern u8 D_800D2910;
-extern u8 D_800D2914;
 extern u8 D_800D3180[0x1E];
 extern s32 D_800D4A70;
-extern Save D_800D4D10;
+extern Save gDefaultSave;
 
 extern s32 D_8015F924;
 extern s32 D_8015F928;

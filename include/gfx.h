@@ -1,13 +1,24 @@
 #ifndef GFX_H
 #define GFX_H
 
+#include "libultra/ultra64.h"
+#include "sf64math.h"
+
 #define SCREEN_WIDTH  320
 #define SCREEN_HEIGHT 240
 
 #define RGBA16_RED(color16) (((color16) >> 0xB) & 0x1F)
 #define RGBA16_GRN(color16) (((color16) >> 6) & 0x1F)
 #define RGBA16_BLU(color16) (((color16) >> 1) & 0x1F)
-#define RGBA16_PACK(r, g, b, a) (((r) << 0xB) | ((g) << 0x6) | ((b) << 1) | (a))
+// unclear what the right macro for this is
+// #define RGBA16_PACK(r, g, b, a) (((u16) ((r) * 0x800) & 0xF800) | ((u16) ((g) * 0x40) & 0x7C0) | ((u16) ((b) * 2) & 0x3E) | ((a) & 1))
+
+#define gSPSetOtherModeHi(pkt, settings) gSPSetOtherMode(pkt, G_SETOTHERMODE_H, G_MDSFT_BLENDMASK, 24, settings)
+#define gsSPSetOtherModeHi(settings) gsSPSetOtherMode(G_SETOTHERMODE_H, G_MDSFT_BLENDMASK, 24, settings)
+
+#define VTX(x,y,z,s,t,crnx,cgny,cbnz,a) { { { x, y, z }, 0, { s, t }, { crnx, cgny, cbnz, a } } }
+
+#define VTX_T(x,y,z,s,t,cr,cg,cb,a) { { x, y, z }, 0, { s, t }, { cr, cg, cb, a } }
 
 typedef enum SetupDL {
     /* 0x00 */ SETUPDL_0,
@@ -102,6 +113,80 @@ typedef enum SetupDL {
 } SetupDL;
 
 extern Gfx gSetupDLs[SETUPDL_MAX][9]; // 0x800D31B0
+
+typedef s32 (*OverrideLimbDraw)(s32, Gfx**, Vec3f*, Vec3f*, void*);
+typedef void (*PostLimbDraw)(s32, Vec3f*, void*);
+
+typedef struct {
+    /* 0x0 */ u16 xLen;
+    /* 0x2 */ u16 x;
+    /* 0x4 */ u16 yLen;
+    /* 0x6 */ u16 y;
+    /* 0x8 */ u16 zLen;
+    /* 0xA */ u16 z;
+} JointKey; // size = 0xC
+
+typedef struct {
+    /* 0x00 */ s16 frameCount;
+    /* 0x02 */ s16 limbCount;
+    /* 0x04 */ u16* frameData;
+    /* 0x08 */ JointKey* jointKey;
+} AnimationHeader; // size = 0xC
+
+typedef struct Limb {
+    /* 0x000 */ Gfx* dList;
+    /* 0x004 */ Vec3f trans;
+    /* 0x010 */ Vec3s rot;
+    /* 0x018 */ struct Limb* sibling;
+    /* 0x01C */ struct Limb* child;
+} Limb; // size = 0x20
+
+char* func_80099980(char *buf, s32 fill, s32 len);
+s32 func_800999D8(const char *fmt, ...);
+void func_80099A2C(void *texture, s32 width, s32 height, u8 mode);
+void func_80099E28(void *dst, void *src, u8 mode);    
+s32 func_8009A400(Limb* limb, Limb** skeleton);
+void func_8009A440(s32 mode, Limb * limb, Limb* *skeleton, Vec3f* jointTable, OverrideLimbDraw overrideLimbDraw, PostLimbDraw postLimbDraw, void* data);
+void func_8009A72C(s32 mode, Limb** skeletonSegment, Vec3f* jointTable, OverrideLimbDraw overrideLimbDraw, PostLimbDraw postLimbDraw, void* data, Matrix* transform);
+s16 func_8009AA20(AnimationHeader *animationSegmemt, s32 frame, Vec3f *frameTable);
+s16 func_8009ACDC(AnimationHeader *animationSegment);
+void func_8009AD18(Gfx* dList, s32 len, Vec3f *min, Vec3f *max, s32 *vtxFound, s32 *vtxCount, Vtx* *vtxList);
+void func_8009B74C(Gfx *dList, s32 len, Vec3f *min, Vec3f *max);
+void func_8009B784(Limb **skeletonSegment, AnimationHeader *animationSegment, s32 frame, Vec3f *min, Vec3f* max);
+f32 func_8009BC2C(f32 *value, f32 target, f32 scale, f32 maxStep, f32 minStep);
+f32 func_8009BD38(f32 *angle, f32 target, f32 scale, f32 maxStep, f32 minStep);
+void func_8009BEEC(Vec3f *src, Vec3f *dst, s32 mode, s32 count, f32 scale, f32 maxStep, f32 minStep);
+s32 func_8009C124(Vec3f *pos, Vec3f *target, Vec3f *rot, f32 stepSize, f32 scaleTurn, f32 maxTurn, f32 dist);
+void func_8009C320(Gfx **gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void func_8009C674(Gfx **gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void func_8009C9C8(Gfx **gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void func_8009CD3C(Gfx **gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void func_8009D0BC(Gfx **gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void func_8009D418(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void func_8009D6CC(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void func_8009D994(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void func_8009DC4C(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void func_8009DF14(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void func_8009E1E8(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void func_8009E4B0(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void func_8009E784(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void func_8009EA38(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void func_8009ED04(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void func_8009EFDC(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void func_8009F2C0(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void func_8009F574(Gfx **gfxPtr, s32 ulx, s32 uly, s32 lrx, s32 lry, u8 r, u8 g, u8 b, u8 a);
+void func_8009F6CC(Vec3f *step, f32 xRot, f32 yRot, f32 stepsize);
+f32 func_8009F768(f32 rAngle);
+s32*  func_8009F7B4(Gfx **gfxPtr, u8 width, u8 height);
+void func_8009FC0C(s32 xPos, s32 yPos, s32 number);
+void func_8009FEA0(s32 xPos, s32 yPos, s32 number);
+void func_800A0094(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char *text);
+s32 func_800A06F8(char *text);
+void func_800A100C(s32 xPos, s32 yPos, s32 number);
+void func_800A1200(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char *text);
+s32 func_800A13EC(char *text);
+void func_800A1540(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+void func_800A1558(f32 weight, u16 size, void *src1, void *src2, void *dst);
 
 void func_800B8DD0(Gfx** gfxP, s16 i);
 void func_800B8E14(Gfx** gfxP, s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);

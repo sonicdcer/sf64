@@ -2,6 +2,16 @@
 
 extern void func_80187520(s32, void*);
 
+s32 D_800D2860[4] = { 1, 1, 1, 1 };
+s32 D_800D2870 = 0;
+s32 D_800D2874[] = { 0, 160, 0, 160 };
+s32 D_800D2884[] = { 159, 319, 159, 319 };
+s32 D_800D2894[] = { 0, 0, 120, 120 };
+s32 D_800D28A4[] = { 119, 119, 239, 239 };
+s32 D_800D28B4[] = {
+    0x05, 0x06, 0x08, 0x0A, 0x0C, 0x0D, 0x12, 0x0E, 0x0F, 0x10, 0x11,
+    0x15, 0x07, 0x09, 0x0B, 0x00, 0x13, 0x16, 0x17, 0x18, 0x32,
+};
 
 void func_800A18B0(void) {
     Memory_FreeAll();
@@ -72,12 +82,11 @@ void func_800A1980(void) {
     func_8001D400(0);
 }
 
-#ifdef DATA_IMPORT_PENDING
 s32 func_800A1B6C(void) {
-    static u8 D_800D2908 = 5;
-    static u8 D_800D290C = 5;
-    static u8 D_800D2910 = 5;
-    static u8 D_800D2914 = 5;
+    static u8 D_800D2908 = 0;
+    static u8 D_800D290C = 99;
+    static u8 D_800D2910 = 99;
+    static u8 D_800D2914 = 99;
 
     if (D_801774F8 != D_800D2910) {
         D_800D2908 = 2;
@@ -95,10 +104,6 @@ s32 func_800A1B6C(void) {
     }
     return 0;
 }
-#else
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A24B0/func_800A1B6C.s")
-#endif
 
 void func_800A1C14(Gfx** arg0) {
     gSPDisplayList((*arg0)++, D_Gfx_800DBAA0);
@@ -313,7 +318,7 @@ void func_800A26C0(void) {
                 break;
             case 0x67:
                 if (Save_Read() != 0) {
-                    gSaveFile = *((SaveFile*) &D_800D4D10);
+                    gSaveFile = *((SaveFile*) &gDefaultSave);
                     Save_Write();
                 }
                 D_80177834++;

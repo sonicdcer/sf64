@@ -82,8 +82,8 @@ typedef struct{
 
 typedef struct {
     /* 0x00 */ union {
-        SaveData data;
-        u8 raw[sizeof(SaveData)];
+            u8 raw[sizeof(SaveData)];
+            SaveData data;
         };
     /* 0xFE */ u16 checksum;
 } Save;

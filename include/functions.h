@@ -3,7 +3,6 @@
 
 #include "structs.h"
 #include "fox_option.h"
-#include "sf64animation.h"
 
 void Controller_Init(void);
 void Controller_UpdateInput(void);
@@ -12,7 +11,7 @@ void Save_ReadData(void);
 void Save_WriteData(void);
 void Controller_Rumble(void);
 
-s32 Lib_vsPrintf(char* dst, char* fmt, va_list args);
+s32 Lib_vsPrintf(char* dst, const char* fmt, va_list args);
 void Lib_Perspective(Gfx** dList);
 void Lib_Ortho(Gfx** dList);
 void Lib_DmaRead(void* src, void* dst, s32 size);
@@ -120,7 +119,7 @@ f32 func_8001FBC8(f32);
 
 void RdRam_CheckIPL3(void);
 void Mio0_Decompress(void* header, u8* dst);
-s32 vsprintf(char* dst, char* fmt, va_list args);
+s32 vsprintf(char* dst, const char* fmt, va_list args);
 
 f32 Math_FAtanF(f32);
 f32 Math_FAtan2F(f32, f32);
@@ -260,22 +259,7 @@ s32 func_8009092C(Object_2F4*);
 s32 func_800915FC(Object_2F4*);
 void func_80092D48(Object_2F4 *);  
 void func_80094D20(f32, f32);
-s32 func_800998FC(Vec3f*, Vec3f*, s32, s32, Vec3f*, Vec3f*);
-s16 func_8009ACDC(AnimationHeader *);
-f32 func_8009BC2C(f32*, f32, f32, f32, f32);
-f32 func_8009BD38(f32*, f32, f32, f32, f32);
-void func_8009C320(Gfx **, void *, void *, u32, u32, f32, f32, f32, f32);
-void func_8009D418(Gfx**, void*, u32, u32, f32, f32, f32, f32);
-void func_8009D994(Gfx**, void*, u32, u32, f32, f32, f32, f32);
-void func_8009E4B0(Gfx**, void*, u32, u32, f32, f32, f32, f32);
-void func_8009F574(Gfx **, s32, s32, s32, s32, u8, u8, u8, u8);
-void func_8009F6CC(Vec3f*, f32, f32, f32);
-f32 func_8009F768(f32);
-void func_8009FC0C(s32, s32, s32);
-void func_8009FEA0(s32, s32, s32);
-void func_800A0094(s32, s32, f32, f32, u8 *);
-void func_800A1200(s32, s32, f32, f32, char*);
-s32 func_800A13EC(s8*);
+
 void func_800A18B0(void);
 void func_800A1980(void);
 s32 func_800A1B6C(void);
