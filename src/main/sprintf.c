@@ -1,10 +1,12 @@
 #include "global.h"
 
+char D_800C7C80[] = "$Id: sprintf.c,v 1.5 1997/03/19 02:28:53 hayakawa Exp $";
+
 void* proutSprintf(void* dst, const char* fmt, size_t size) {
     return (void*) ((uintptr_t) memcpy(dst, fmt, size) + size);
 }
 
-s32 vsprintf(char* dst, char* fmt, va_list args) {
+s32 vsprintf(char* dst, const char* fmt, va_list args) {
     s32 ret = _Printf(proutSprintf, dst, fmt, args);
 
     if (ret > -1) {

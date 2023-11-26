@@ -1,6 +1,6 @@
 #include "global.h"
 
-s32 Lib_vsPrintf(char* dst, char* fmt, va_list args) {
+s32 Lib_vsPrintf(char* dst, const char* fmt, va_list args) {
     return vsprintf(dst, fmt, args);
 }
 

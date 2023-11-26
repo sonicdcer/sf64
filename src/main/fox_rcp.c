@@ -1,5 +1,7 @@
 #include "global.h"
 
+#include "fox_rcp_setup.c"
+
 void func_800B8DD0(Gfx** gfxP, s16 i) {
     gSPDisplayList((*gfxP)++, &((Gfx*) gSetupDLs)[i * 9]);
 }

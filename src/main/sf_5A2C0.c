@@ -1,5 +1,7 @@
 #include "global.h"
 
+char D_800CF970[] = "$Id: fox_edisplay.c,v 1.196 1997/05/08 08:31:50 morita Exp $";
+
 void func_800596C0(void) {
     Matrix_RotateZ(gGfxMatrix, D_80177DB0 * 13.0f * M_DTOR, 1);
     Matrix_Scale(gGfxMatrix, 1.02f, 0.98f, 1.0f, 1);
@@ -48,6 +50,17 @@ void func_800599A4(s32 arg0, Vec3f* arg1, s32* arg2) {
     }
 }
 
+f32 D_800CF9B0[] = {
+    -12.32422638f, -12.00849533f, -11.08310699f, -9.561470032f, -7.440753937f, -4.713317871f, -1.393303037f,
+    2.485869884f,  6.872662067f,  11.66899109f,  16.7521019f,   21.98126984f,  27.19302368f,  32.21533966f,
+    36.87569427f,  41.0078125f,   44.46230316f,  47.09422302f,  48.7610054f,   49.34596634f,  47.64530182f,
+    42.98818588f,  36.06262207f,  27.66272163f,  18.64647293f,  9.883304596f,  2.113918066f,  -4.157948017f,
+    -8.673706055f, -11.39522171f, -12.32422638f,
+};
+f32 D_800CFA2C[] = {
+    1.0f, 1.0f, 0.95f, 0.9f, 0.85f, 0.8f, 0.75f, 0.7f, 0.65f, 0.6f,
+};
+
 void func_80059A24(Object_2F4* arg0) {
     Vec3f sp30[30];
     f32 temp = D_800CF9B0[arg0->unk_0B6] - 114.0f;
@@ -63,7 +76,7 @@ void func_80059AEC(Object_80* arg0) {
 }
 
 void func_80059B20(Object_80* arg0) {
-    if (arg0->obj.id == 0x1D) {
+    if (arg0->obj.id == 29) {
         gSPDisplayList(gMasterDisp++, D_7007350);
     } else {
         func_8005980C(D_800CF9B0[arg0->obj.id + 2]);
@@ -153,17 +166,78 @@ void func_8005A07C(void* arg0) {
 void func_8005A088(void* arg0) {
 }
 
+Gfx* D_800CFA54[] = {
+    0x06027960, 0x060273A0, 0x060183B0, 0x060121E0, 0x0602A2E0, 0x0602A720, 0x0602B8F0,
+    0x0602A8C0, 0x06028E70, 0x0602E0A0, 0x0602DE70, 0x0602DC40, 0x0602D830, 0x0602D340,
+    0x06031280, 0x06031130, 0x06030850, 0x06030FD0, 0x0602DD40, 0x06033AF0, 0x060186E0,
+    0x06024160, 0x06033290, 0x06017F10, 0x060074E0, 0x06007590, 0x06007730, 0x06005CC0,
+};
+Gfx* D_800CFAC4[] = {
+    0x060176D0, 0x06017810, 0x06017770, 0x06016D90, 0x06016E30, 0x060178B0,
+};
+Gfx* D_800CFADC[] = {
+    0x06023690, 0x06021BB0, 0x06021C50, 0x06021CE0, 0x06021D80, 0x06016350,
+    0x06021E20, 0x060222A0, 0x06022BE0, 0x06022D70, 0x06022F00,
+};
+Gfx* D_800CFB08[] = {
+    0x06020F10,
+    0x06021100,
+    0x060214B0,
+};
+Gfx* D_800CFB14[] = {
+    0x060163E0, 0x060165D0, 0x06016880, 0x06016B50, 0x06000C40,
+};
+Gfx* D_800CFB28[] = {
+    0x06018E80, 0x0601F620, 0x0601F420, 0x06018C80, 0x0601F940, 0x0601F260,
+};
+Gfx* D_800CFB40[] = {
+    0x06014DB0, 0x060146D0, 0x06014B80, 0x06014470, 0x06014930, 0x060138A0, 0x060151A0, 0x0600F750, 0x06015810,
+};
+Gfx* D_800CFB64[] = {
+    0x0600D4A0, 0x0600D720, 0x0600D810, 0x0600CFF0, 0x0600BD20, 0x0600D390, 0x0600E150, 0x06007160, 0x0600D900,
+};
+Gfx* D_800CFB88[] = {
+    0x0600A8E0, 0x0600A840, 0x0600A480, 0x0600A720, 0x0600A970, 0x06007D70, 0x0600A520, 0x06009990,
+};
+Gfx* D_800CFBA8[] = {
+    0x06026460, 0x060266B0, 0x06026950, 0x060276F0, 0x06027810, 0x06027330, 0x060273C0, 0x06026E30,
+    0x06026EC0, 0x06026DA0, 0x06026D10, 0x06026C80, 0x06026BF0, 0x06027460, 0x06026F60,
+};
+Gfx* D_800CFBE4[] = {
+    0x060040F0, 0x06027C90, 0x06027FA0, 0x06003350, 0x06028240,
+    0x06028550, 0x06004DB0, 0x06027930, 0x0600F030, 0x060050F0,
+};
+Gfx* D_800CFC0C[] = {
+    0x060294A0, 0x060291B0, 0x060287F0, 0x06029330, 0x06029240, 0x06029790, 0x06029900,
+    0x06028F50, 0x060290C0, 0x06029530, 0x060296A0, 0x06028A80, 0x06028910,
+};
+Gfx* D_800CFC40[] = {
+    0x06014FD0,
+    0x06014FD0,
+    0x06014FD0,
+    0x06014FD0,
+};
+Gfx* D_800CFC50[] = {
+    0x0601EDE0, 0x0601F2F0, 0x0601F830, 0x0601FD70, 0x0601D110,
+};
+Gfx* D_800CFC64[] = {
+    0x06023940, 0x06023D70, 0x060249C0, 0x06023EB0, 0x060249C0, 0x06023B80,
+};
+Gfx* D_800CFC7C[] = {
+    0x0601B570, 0x0601B710, 0x060209B0, 0x06020B70, 0x06020D50, 0x0601B8F0, 0x0601B3B0, 0x0601B1C0, 0x06011660,
+};
+
 void func_8005A094(Object_2F4* arg0) {
     switch (arg0->unk_0B8) {
         case 0:
             Matrix_Translate(gGfxMatrix, 18.0f, 15.0f, -15.0f, 1);
-            Matrix_RotateY(gGfxMatrix, M_PI, 1U);
+            Matrix_RotateY(gGfxMatrix, M_PI, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_3016660);
             break;
         case 1:
             Matrix_Translate(gGfxMatrix, -18.0f, 15.0f, -15.0f, 1);
-            Matrix_RotateY(gGfxMatrix, M_PI, 1U);
+            Matrix_RotateY(gGfxMatrix, M_PI, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_3015D80);
             break;
@@ -396,13 +470,17 @@ void func_8005ADAC(Object_2F4* arg0) {
     }
 }
 
+f32 D_800CFCA0[] = {
+    1.7f, 1.8f, 2.0f, 3.0f, 3.0f, 3.0f, 3.0f, 3.0f,
+};
+
 void func_8005B1E8(Object_2F4* arg0, s32 arg1) {
     f32 var_fv0;
 
     if ((arg0->unk_07C != 0) && (arg0->obj.status == 2)) {
         var_fv0 = 0.63f;
         if (arg0->unk_07C >= 2) {
-            var_fv0 = D_800CFC98[arg0->unk_07C] * 0.45f;
+            var_fv0 = D_800CFCA0[arg0->unk_07C - 2] * 0.45f;
         }
         if (D_80177DB0 & 1) {
             var_fv0 *= 1.2f;
@@ -421,7 +499,7 @@ void func_8005B1E8(Object_2F4* arg0, s32 arg1) {
 
 #ifdef NON_MATCHING
 void func_8005B388(Object_2F4* arg0) {
-    Vec3f sp3C = D_800CFCC0;
+    Vec3f sp3C = { 0.0f, 0.0f, 0.0f };
     Vec3f sp30;
 
     Matrix_MultVec3f(gGfxMatrix, &sp3C, &sp30);
@@ -465,6 +543,7 @@ void func_8005B388(Object_2F4* arg0) {
     func_8005ADAC(arg0);
 }
 #else
+Vec3f D_800CFCC0 = { 0.0f, 0.0f, 0.0f };
 void func_8005B388(Object_2F4*);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_5A2C0/func_8005B388.s")
 #endif
@@ -514,8 +593,8 @@ void func_8005B848(Object_2F4* arg0) {
 
 void func_8005B9A4(Object_2F4* arg0) {
     Matrix_Translate(gGfxMatrix, 0.0f, -124.0f, 0.0f, 1);
-    func_8009AA20(D_6029528, arg0->unk_0B6, &arg0->unk_18C);
-    func_8009A72C(1, &D_6029674, &arg0->unk_18C, NULL, NULL, (s32*) arg0, &gIdentityMatrix);
+    func_8009AA20(&D_6029528, arg0->unk_0B6, &arg0->unk_18C);
+    func_8009A72C(1, D_6029674, &arg0->unk_18C, NULL, NULL, (s32*) arg0, &gIdentityMatrix);
 }
 
 void func_8005BA30(Object_2F4* arg0) {
@@ -528,6 +607,10 @@ void func_8005BA30(Object_2F4* arg0) {
 
 void func_8005BAAC(void) {
 }
+
+f32 D_800CFCCC[] = {
+    0.0f, 0.05f, 0.03f, 0.02f, 0.01f, 0.05f, 0.0f, 0.02f,
+};
 
 void func_8005BAB4(s32 arg0, s32 arg1) {
     f32 temp_fv0;
@@ -899,7 +982,7 @@ void func_8005D8B8(Object_4C* arg0, s32 arg1) {
 }
 
 void func_8005D954(Object_2F4* arg0) {
-    Vec3f sp34 = D_800CFCEC;
+    Vec3f sp34 = { 0.0f, 0.0f, 0.0f };
 
     if (arg0->unk_01C.unk_00 != NULL) {
         switch (arg0->obj.id) {
@@ -947,7 +1030,7 @@ void func_8005D954(Object_2F4* arg0) {
 #ifdef NON_MATCHING
 void func_8005DBC0(Object_2F4* arg0) {
     s32 var_v1;
-    Vec3f sp50 = D_800CFCF8;
+    Vec3f sp50 = { 0.0f, 0.0f, 0.0f };
     f32 var_fa1;
     f32 var_ft5;
     f32 var_fv0;
@@ -1029,6 +1112,7 @@ void func_8005DBC0(Object_2F4* arg0) {
     arg0->unk_0B0 = D_801615EC;
 }
 #else
+Vec3f D_800CFCF8 = { 0.0f, 0.0f, 0.0f };
 void func_8005DBC0(Object_2F4* arg0);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_5A2C0/func_8005DBC0.s")
 #endif
@@ -1040,7 +1124,7 @@ void func_8005E1B8(Object_408* arg0, s32 arg1) {
     f32 var_fv0;
     f32 var_fv1;
     f32 sp3C;
-    Vec3f sp30 = D_800CFD04;
+    Vec3f sp30 = { 0.0f, 0.0f, 0.0f };
 
     if (arg0->unk_01C.unk_19 != 0) {
         arg0->obj.pos.y += arg0->unk_068 + D_8017847C;
@@ -1094,6 +1178,7 @@ void func_8005E1B8(Object_408* arg0, s32 arg1) {
     }
 }
 #else
+Vec3f D_800CFD04 = { 0.0f, 0.0f, 0.0f };
 void func_8005E1B8(Object_408* arg0, s32 arg1);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_5A2C0/func_8005E1B8.s")
 #endif
@@ -1118,7 +1203,7 @@ void func_8005E454(Object_8C* arg0, s32 arg1) {
 
 #ifdef NON_MATCHING
 void func_8005E538(Object_8C* arg0) {
-    Vec3f sp4C = D_800CFD10;
+    Vec3f sp4C = { 0.0f, 0.0f, 0.0f };
     Vec3f sp40;
     f32 var_fv0;
     u8 sp3B = 0;
@@ -1151,13 +1236,14 @@ void func_8005E538(Object_8C* arg0) {
     }
 }
 #else
+Vec3f D_800CFD10 = { 0.0f, 0.0f, 0.0f };
 void func_8005E538(Object_8C* arg0);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_5A2C0/func_8005E538.s")
 #endif
 
 #ifdef NON_MATCHING
 void func_8005E7B8(Object_6C* arg0, s32 arg1) {
-    Vec3f sp44 = D_800CFD1C;
+    Vec3f sp44 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp38;
     u8 var_v0;
 
@@ -1185,6 +1271,7 @@ void func_8005E7B8(Object_6C* arg0, s32 arg1) {
     }
 }
 #else
+Vec3f D_800CFD1C = { 0.0f, 0.0f, 0.0f };
 void func_8005E7B8(Object_6C* arg0, s32 arg1);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_5A2C0/func_8005E7B8.s")
 #endif
@@ -1298,7 +1385,7 @@ void func_8005F0E8(Vec3f* arg0, Vec3f* arg1) {
 }
 
 void func_8005F1EC(Vec3f* arg0) {
-    Vec3f sp2C = D_800CFD28;
+    Vec3f sp2C = { 0.0f, 0.0f, 0.0f };
     Vec3f sp20;
     s32 pad;
 
@@ -1330,7 +1417,7 @@ void func_8005F290(Vec3f* arg0, Vec3f* arg1) {
 
 #ifdef NON_MATCHING
 void func_8005F2F4(Object_58* arg0) {
-    Vec3f sp54 = D_800CFD34;
+    Vec3f sp54 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp48;
     f32 sp44 = 1000.0f;
     f32 sp40 = -12000.0f;
@@ -1375,6 +1462,7 @@ void func_8005F2F4(Object_58* arg0) {
     }
 }
 #else
+Vec3f D_800CFD34 = { 0.0f, 0.0f, 0.0f };
 void func_8005F2F4(Object_58*);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_5A2C0/func_8005F2F4.s")
 #endif
@@ -1661,6 +1749,18 @@ void func_8006089C(u8 arg0) {
     }
     D_80161410 = 1;
 }
+
+Vtx D_800CFD40[] = {
+    VTX(1, 0, 0, 0, 0, 255, 255, 255, 255),
+    VTX(-1, 0, 0, 0, 0, 255, 255, 255, 255),
+    VTX(-1, 0, -1, 0, 0, 255, 255, 255, 255),
+    VTX(1, 0, -1, 0, 0, 255, 255, 255, 255),
+};
+Gfx D_800CFD80[] = {
+    gsSPVertex(D_800CFD40, 4, 0),
+    gsSP1Quadrangle(1, 2, 3, 0, 0),
+    gsSPEndDisplayList(),
+};
 
 #ifdef NON_MATCHING
 void func_80060968(void) {
