@@ -549,7 +549,156 @@ void func_EBFBE0_801881FC(void) {
     func_8001D444(0, 34, 0, 255);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_801888E8.s")
+void func_EBFBE0_801888E8(void) {
+    f32 temp_fv1;
+    s32 i;
+
+    switch (D_EBFBE0_801B82C0) {
+        case 0:
+            func_EBFBE0_801881FC();
+            D_EBFBE0_801B82CC = 0.04f;
+            D_EBFBE0_801B82D0 = 0.1f;
+            D_EBFBE0_801B8340 = 0;
+            D_EBFBE0_801B82C0++;
+            break;
+
+        case 1:
+            func_8009BC2C(&D_EBFBE0_801B86C8, -10.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
+            func_8009BC2C(&D_EBFBE0_801B86CC, 57.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
+            func_8009BC2C(&D_EBFBE0_801B8304, 13.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
+            func_8009BC2C(&D_EBFBE0_801B8308, 2.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
+            func_8009BC2C(&D_EBFBE0_801B830C, 15.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
+            D_EBFBE0_801B82CC *= 1.04f;
+
+            if (D_EBFBE0_801B86CC == 57.0f) {
+                D_EBFBE0_801B82C0++;
+            }
+            break;
+
+        case 2:
+            if (D_EBFBE0_801B82B0 == 0) {
+                D_EBFBE0_801B82C0++;
+            }
+            break;
+
+        case 3:
+            D_EBFBE0_801B82A8 = (s32) ((Rand_ZeroOne() * 5.0f) + 1.0f) * 10;
+            temp_fv1 = D_EBFBE0_801B8340;
+            D_EBFBE0_801B8350[D_EBFBE0_801B8340].unk_5C = 0;
+            D_EBFBE0_801B8350[D_EBFBE0_801B8340].unk_18 = 0.0f;
+
+            if (D_EBFBE0_801B8340 == 2) {
+                D_EBFBE0_801B8350[D_EBFBE0_801B8340].unk_58 = 0;
+            }
+
+            while (temp_fv1 == D_EBFBE0_801B8340) {
+                D_EBFBE0_801B8340 = (s32) (Rand_ZeroOne() * 4.0f);
+            }
+
+            D_EBFBE0_801B8350[D_EBFBE0_801B8340].unk_5C = (s32) (Rand_ZeroOne() * 6.0f) + 5;
+            D_EBFBE0_801B8350[D_EBFBE0_801B8340].unk_54 = 1;
+
+            D_EBFBE0_801B82CC = 0.07f;
+            D_EBFBE0_801B82C0++;
+            break;
+
+        case 4:
+            if (D_EBFBE0_801B82A8 == 0) {
+                D_EBFBE0_801B8350[D_EBFBE0_801B8340].unk_54 = 0;
+                func_8009BC2C(&D_EBFBE0_801B8350[D_EBFBE0_801B8340].unk_18, 0.0f, D_EBFBE0_801B82CC, 100.0f, 0.001f);
+                D_EBFBE0_801B82CC *= 1.07f;
+
+                if (D_EBFBE0_801B8350[D_EBFBE0_801B8340].unk_18 == 0.0f) {
+                    D_EBFBE0_801B82C0 = 3;
+                }
+            }
+            break;
+    }
+
+    if (D_EBFBE0_801B8350[D_EBFBE0_801B8340].unk_54 != 0) {
+        if ((D_EBFBE0_801B8350[D_EBFBE0_801B8340].unk_18 + D_EBFBE0_801B8350[D_EBFBE0_801B8340].unk_1C) < 0.0f) {
+            D_EBFBE0_801B8350[D_EBFBE0_801B8340].unk_1C = D_EBFBE0_801ADA74[D_EBFBE0_801B8340];
+        }
+
+        if ((D_EBFBE0_801B8350[D_EBFBE0_801B8340].unk_18 + D_EBFBE0_801B8350[D_EBFBE0_801B8340].unk_1C) >
+            D_EBFBE0_801ADA64[D_EBFBE0_801B8340]) {
+            D_EBFBE0_801B8350[D_EBFBE0_801B8340].unk_1C = -D_EBFBE0_801ADA74[D_EBFBE0_801B8340];
+        }
+
+        D_EBFBE0_801B8350[D_EBFBE0_801B8340].unk_18 += D_EBFBE0_801B8350[D_EBFBE0_801B8340].unk_1C;
+    }
+
+    if (D_EBFBE0_801B82B0 == 0) {
+        if (D_80177DB0 & 0x80) {
+            if (D_EBFBE0_801B8350[1].unk_20 + D_EBFBE0_801B8350[1].unk_24 < -20.0f)
+                D_EBFBE0_801B8350[1].unk_24 = 4.0f;
+            if (D_EBFBE0_801B8350[1].unk_20 + D_EBFBE0_801B8350[1].unk_24 > 0.0f)
+                D_EBFBE0_801B8350[1].unk_24 = -4.0f;
+            D_EBFBE0_801B8350[1].unk_20 += D_EBFBE0_801B8350[1].unk_24;
+        } else {
+            func_8009BC2C(&D_EBFBE0_801B8350[1].unk_20, 0.0f, 0.3f, 100.0f, 0.1f);
+        }
+    }
+
+    if ((D_EBFBE0_801B86A4 >= 3) && (D_EBFBE0_801B9040 != 0)) {
+        func_8009BC2C(&D_EBFBE0_801B86C8, -10.0f, D_EBFBE0_801B82D0, 100.0f, 0.0001f);
+        func_8009BC2C(&D_EBFBE0_801B86CC, 57.0f, D_EBFBE0_801B82D0, 100.0f, 0.0001f);
+        func_8009BC2C(&D_EBFBE0_801B905C, 124.0f, D_EBFBE0_801B82D0, 100.0f, 0.0001f);
+        func_8009BC2C(&D_EBFBE0_801B9060, 242.0f, D_EBFBE0_801B82D0, 100.0f, 0.0001f);
+
+        for (i = 0; i < 4; i++) {
+            func_8009BC2C(&D_EBFBE0_801B8350[i].unk_28, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.01f);
+            func_8009BC2C(&D_EBFBE0_801B8350[i].unk_2C, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.01f);
+            func_8009BC2C(&D_EBFBE0_801B8350[i].unk_30, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.01f);
+            func_8009BC2C(&D_EBFBE0_801B8350[i].unk_34, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.01f);
+            func_8009BC2C(&D_EBFBE0_801B8350[i].unk_38, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.01f);
+            func_8009BC2C(&D_EBFBE0_801B8350[i].unk_3C, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.01f);
+            func_8009BC2C(&D_EBFBE0_801B8350[i].unk_40, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.01f);
+            func_8009BC2C(&D_EBFBE0_801B8350[i].unk_44, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.01f);
+        }
+
+        D_EBFBE0_801B82D0 *= 1.1f;
+
+        if ((D_EBFBE0_801B905C == 124.0f) && (D_EBFBE0_801B9060 == 242.0f)) {
+            D_EBFBE0_801B9040 = 0;
+            D_EBFBE0_801B82D0 = 0.08f;
+            D_EBFBE0_801B86A4 = 0;
+        }
+
+        if ((gChangedInput[D_80177AF8].stick_x != 0) || (gChangedInput[D_80177AF8].stick_y != 0)) {
+            D_EBFBE0_801B82D0 = 0.08f;
+        }
+    }
+
+    D_EBFBE0_801B84E8->unk_18 += 0.6f;
+
+    func_EBFBE0_80191320(1, &D_80177978, &D_80177980, &D_80177988, &D_801779A0, &D_801779B8, &D_801779C0,
+                         D_EBFBE0_801B86A8, D_EBFBE0_801B86AC, D_EBFBE0_801B86B0);
+    func_800B6F50(D_80177978, D_80177980, D_80177988, D_801779A0, D_801779B8, D_801779C0);
+
+    D_8017842C -= 0.5f;
+
+    if (D_EBFBE0_801B82B0 > 0) {
+        D_EBFBE0_801B82B0 -= 1;
+    }
+
+    if (D_EBFBE0_801B9040 == 1) {
+        D_EBFBE0_801B82BC = 450;
+    }
+
+    if (D_EBFBE0_801B82BC != 0) {
+        D_EBFBE0_801B82BC -= 1;
+        return;
+    }
+
+    D_80178410 = 0;
+
+    D_EBFBE0_801B82C0 = 0;
+
+    D_80177898 = 0;
+
+    D_EBFBE0_801B82C4 = 7;
+}
 
 void func_EBFBE0_80189208(void) {
     s32 i;

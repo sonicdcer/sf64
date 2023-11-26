@@ -72,6 +72,8 @@ typedef struct {
 } UnkStruct_D_EBFBE0_801B8688; // size = 0x14
 
 extern UnkStruct_D_EBFBE0_801ADA00 D_EBFBE0_801ADA00[];
+extern f32 D_EBFBE0_801ADA64[];
+extern f32 D_EBFBE0_801ADA74[];
 extern Gfx* D_EBFBE0_801AE48C[];
 extern f32 D_EBFBE0_801AE4BC[];
 extern f32 D_EBFBE0_801AE4EC[];
@@ -104,6 +106,8 @@ extern f32 D_EBFBE0_801B82A0;
 extern f32 D_EBFBE0_801B82A4;
 extern s32 D_EBFBE0_801B82B0;
 extern f32 D_EBFBE0_801B82C8;
+extern f32 D_EBFBE0_801B82CC;
+extern f32 D_EBFBE0_801B82D0;
 extern f32 D_EBFBE0_801B8328;
 extern f32 D_EBFBE0_801B832C;
 extern f32 D_EBFBE0_801B8330;
@@ -149,6 +153,8 @@ void func_EBFBE0_80190EA4(void);
 void func_EBFBE0_80190FD0(void);
 void func_EBFBE0_80190144(void);
 void func_EBFBE0_801903B8(void);
+void func_EBFBE0_80191320(s32 arg0, f32* arg1, f32* arg2, f32* arg3, f32* arg4, f32* arg5, f32* arg6, f32 arg7,
+                          f32 arg8, f32 arg9);
 void func_EBFBE0_801914AC(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg5, f32 arg6, f32* arg7, f32* arg8,
                           f32* arg9, f32 argA, f32 argB, f32 argC);
 void func_EBFBE0_80191798(f32* arg0, f32* arg1);
