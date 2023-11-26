@@ -982,7 +982,7 @@ void func_8005D8B8(Object_4C* arg0, s32 arg1) {
 }
 
 void func_8005D954(Object_2F4* arg0) {
-    Vec3f sp34 = {0.0f, 0.0f, 0.0f};
+    Vec3f sp34 = { 0.0f, 0.0f, 0.0f };
 
     if (arg0->unk_01C.unk_00 != NULL) {
         switch (arg0->obj.id) {
@@ -1243,7 +1243,7 @@ void func_8005E538(Object_8C* arg0);
 
 #ifdef NON_MATCHING
 void func_8005E7B8(Object_6C* arg0, s32 arg1) {
-    Vec3f sp44 = {0.0f, 0.0f, 0.0f};
+    Vec3f sp44 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp38;
     u8 var_v0;
 
@@ -1271,7 +1271,7 @@ void func_8005E7B8(Object_6C* arg0, s32 arg1) {
     }
 }
 #else
-Vec3f D_800CFD1C = {0.0f, 0.0f, 0.0f};
+Vec3f D_800CFD1C = { 0.0f, 0.0f, 0.0f };
 void func_8005E7B8(Object_6C* arg0, s32 arg1);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_5A2C0/func_8005E7B8.s")
 #endif
@@ -1385,7 +1385,7 @@ void func_8005F0E8(Vec3f* arg0, Vec3f* arg1) {
 }
 
 void func_8005F1EC(Vec3f* arg0) {
-    Vec3f sp2C = {0.0f, 0.0f, 0.0f};
+    Vec3f sp2C = { 0.0f, 0.0f, 0.0f };
     Vec3f sp20;
     s32 pad;
 
@@ -1417,7 +1417,7 @@ void func_8005F290(Vec3f* arg0, Vec3f* arg1) {
 
 #ifdef NON_MATCHING
 void func_8005F2F4(Object_58* arg0) {
-    Vec3f sp54 = {0.0f, 0.0f, 0.0f};
+    Vec3f sp54 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp48;
     f32 sp44 = 1000.0f;
     f32 sp40 = -12000.0f;
@@ -1462,7 +1462,7 @@ void func_8005F2F4(Object_58* arg0) {
     }
 }
 #else
-Vec3f D_800CFD34 = {0.0f, 0.0f, 0.0f};
+Vec3f D_800CFD34 = { 0.0f, 0.0f, 0.0f };
 void func_8005F2F4(Object_58*);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_5A2C0/func_8005F2F4.s")
 #endif

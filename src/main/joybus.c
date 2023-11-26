@@ -3,7 +3,7 @@
 OSContPad gCurrentInput[4];
 OSContPad gChangedInput[4];
 u8 gControllerStatus[4];
-s32 gStopInputTimer;
+u32 gStopInputTimer;
 u8 gRumbleStatus[4];
 OSContPad sNextInput[4];    //
 OSContPad sPrevInput[4];    //

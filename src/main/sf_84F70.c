@@ -41,7 +41,7 @@ void func_80084688(s32 arg0, s32 arg1) {
                 func_800843FC(arg1);
                 break;
             default:
-                (void)"そのような フェード は ない (%d)\n"; // There is no such fade
+                (void) "そのような フェード は ない (%d)\n"; // There is no such fade
                 break;
         }
     }
