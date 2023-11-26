@@ -9,6 +9,15 @@ typedef struct {
     /* 0x08 */ char pad8[0x4];
 } UnkStruct_D_EBFBE0_801ADA00; // size = 0x0C
 
+typedef struct {
+    /* 0x00 */ f32 unk_00;
+    /* 0x04 */ f32 unk_04;
+    /* 0x08 */ f32 unk_08;
+    /* 0x0C */ f32 unk_0C;
+    /* 0x10 */ f32 unk_10;
+    /* 0x14 */ f32 unk_14;
+} UnkStruct_D_EBFBE0_801B8294; // size = 0x18
+
 typedef struct UnkStruct_D_801B8350 {
     /* 0x00 */ Vec3f unk_00;
     /* 0x0C */ f32 unk_0C;
@@ -72,6 +81,7 @@ typedef struct {
 } UnkStruct_D_EBFBE0_801B8688; // size = 0x14
 
 extern UnkStruct_D_EBFBE0_801ADA00 D_EBFBE0_801ADA00[];
+extern u16* D_EBFBE0_801ADA30;
 extern f32 D_EBFBE0_801ADA64[];
 extern f32 D_EBFBE0_801ADA74[];
 extern Gfx* D_EBFBE0_801AE48C[];
@@ -79,6 +89,7 @@ extern f32 D_EBFBE0_801AE4BC[];
 extern f32 D_EBFBE0_801AE4EC[];
 extern u8 D_EBFBE0_801AE51C[];
 extern s32 D_EBFBE0_801AE528[];
+extern UnkStruct_D_EBFBE0_801B8294 D_EBFBE0_801B6B40[];
 extern f32 D_EBFBE0_801B7BB0;
 extern f32 D_EBFBE0_801B7BB4;
 extern f32 D_EBFBE0_801B7BB8;
@@ -91,6 +102,7 @@ extern s32 D_EBFBE0_801B7BD8;
 extern f32 D_EBFBE0_801B7BDC;
 extern f32 D_EBFBE0_801B7BE0;
 extern s32 D_EBFBE0_801B7BE4;
+extern f32 D_EBFBE0_801B7BE8;
 extern s32 D_EBFBE0_801B7BF0;
 extern f32 D_EBFBE0_801B7BF8[];
 extern f32 D_EBFBE0_801B7C20[];
@@ -101,13 +113,22 @@ extern s32 D_EBFBE0_801B7CA0[];
 extern s32 D_EBFBE0_801B7CC8[];
 extern s32 D_EBFBE0_801B7CF0[];
 extern s32 D_EBFBE0_801B7D18[];
+extern f32 D_EBFBE0_801B828C;
+extern f32 D_EBFBE0_801B8290;
+extern UnkStruct_D_EBFBE0_801B8294* D_EBFBE0_801B8294;
+extern s32 D_EBFBE0_801B8298;
 extern f32 D_EBFBE0_801B829C;
 extern f32 D_EBFBE0_801B82A0;
 extern f32 D_EBFBE0_801B82A4;
 extern s32 D_EBFBE0_801B82B0;
+extern s32 D_EBFBE0_801B82B4;
+extern s32 D_EBFBE0_801B82B8;
 extern f32 D_EBFBE0_801B82C8;
 extern f32 D_EBFBE0_801B82CC;
 extern f32 D_EBFBE0_801B82D0;
+extern f32 D_EBFBE0_801B82D4;
+extern f32 D_EBFBE0_801B82D8;
+extern f32 D_EBFBE0_801B82DC;
 extern f32 D_EBFBE0_801B8328;
 extern f32 D_EBFBE0_801B832C;
 extern f32 D_EBFBE0_801B8330;
@@ -119,6 +140,7 @@ extern f32 D_EBFBE0_801B84D0;
 extern f32 D_EBFBE0_801B84D4;
 extern UnkStruct_D_EBFBE0_801B84E8 D_EBFBE0_801B84E8[];
 extern UnkStruct_D_EBFBE0_801B8658 D_EBFBE0_801B8658;
+extern Vec3f D_EBFBE0_801B867C;
 extern UnkStruct_D_EBFBE0_801B8688 D_EBFBE0_801B8688;
 extern s32 D_EBFBE0_801B8694;
 extern s32 D_EBFBE0_801B869C;
@@ -145,6 +167,7 @@ extern f32 D_EBFBE0_801B907C;
 extern f32 D_EBFBE0_801B9080;
 extern f32 D_EBFBE0_801B9084;
 
+void func_EBFBE0_8018CC30(UnkStruct_D_EBFBE0_801B8294*, s32, f32);
 void func_EBFBE0_8018DF0C(f32 arg0);
 void func_EBFBE0_8018E058(void);
 void func_EBFBE0_8018E200(void);
@@ -153,11 +176,14 @@ void func_EBFBE0_80190EA4(void);
 void func_EBFBE0_80190FD0(void);
 void func_EBFBE0_80190144(void);
 void func_EBFBE0_801903B8(void);
+void func_EBFBE0_801912A0(void);
 void func_EBFBE0_80191320(s32 arg0, f32* arg1, f32* arg2, f32* arg3, f32* arg4, f32* arg5, f32* arg6, f32 arg7,
                           f32 arg8, f32 arg9);
 void func_EBFBE0_801914AC(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg5, f32 arg6, f32* arg7, f32* arg8,
                           f32* arg9, f32 argA, f32 argB, f32 argC);
 void func_EBFBE0_80191798(f32* arg0, f32* arg1);
+void func_EBFBE0_80191844(f32 arg0, f32 arg1);
 void func_EBFBE0_801918FC(void);
+void func_EBFBE0_801919C4(u16** arg0, s32 arg1);
 
 #endif

@@ -410,6 +410,7 @@ extern f32 *D_801782C4;
 extern s32 D_801782D8;
 extern s32 D_801782E8;
 extern s32 D_801782F8;
+extern s32 D_80178300;
 extern u16* D_80178308;
 extern ObjectInit* D_80178310;
 extern s32 D_80178320;
@@ -477,6 +478,7 @@ extern Gfx D_Gfx_800DAC20[];
 
 extern DmaEntry gDmaTable[]; // 178A70
 extern u8 D_80179010[][16 * 13 / 2];
+extern u16 D_8017A0F4;
 extern u16 D_80182544[];
 extern u16 D_80183CA8[];
 extern u16 D_80183CF0[];
