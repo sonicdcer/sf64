@@ -17,10 +17,13 @@ gDmaTable = 0x80178A70;
 D_800D3180 = 0x800D3180; // size:0x1E
 gSetupDLs = 0x800D31B0; // size:0x18C0
 
+D_800CFCA0 = 0x800CFCA0;
 
 D_800DD900 = 0x800DD900; // size:0x1A0
 
 D_800CBDD4 = 0x800CBDD4; //size:0x98
+
+D_800D55D0 = 0x800D55D0; //type:f32
 
 Save_Checksum = 0x800C2FB0;
 Save_Write = 0x800C3084;

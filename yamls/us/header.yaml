@@ -18,6 +18,7 @@ options:
 
   symbol_addrs_path: 
     - linker_scripts/us/symbol_addrs.txt
+    - linker_scripts/us/symbol_addrs_engine.txt
     - linker_scripts/us/symbol_addrs_libultra.txt
     - linker_scripts/us/symbol_addrs_nlib_funcs.txt
     - linker_scripts/us/symbol_addrs_nlib_vars.txt
