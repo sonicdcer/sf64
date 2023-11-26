@@ -630,10 +630,12 @@ void func_EBFBE0_801888E8(void) {
 
     if (D_EBFBE0_801B82B0 == 0) {
         if (D_80177DB0 & 0x80) {
-            if (D_EBFBE0_801B8350[1].unk_20 + D_EBFBE0_801B8350[1].unk_24 < -20.0f)
+            if (D_EBFBE0_801B8350[1].unk_20 + D_EBFBE0_801B8350[1].unk_24 < -20.0f) {
                 D_EBFBE0_801B8350[1].unk_24 = 4.0f;
-            if (D_EBFBE0_801B8350[1].unk_20 + D_EBFBE0_801B8350[1].unk_24 > 0.0f)
+}
+            if (D_EBFBE0_801B8350[1].unk_20 + D_EBFBE0_801B8350[1].unk_24 > 0.0f) {
                 D_EBFBE0_801B8350[1].unk_24 = -4.0f;
+}
             D_EBFBE0_801B8350[1].unk_20 += D_EBFBE0_801B8350[1].unk_24;
         } else {
             func_8009BC2C(&D_EBFBE0_801B8350[1].unk_20, 0.0f, 0.3f, 100.0f, 0.1f);
