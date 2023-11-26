@@ -1246,7 +1246,43 @@ void func_EBFBE0_8018A990(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018ABC0.s")
+void func_EBFBE0_8018ABC0(void) {
+    D_80178410 = 800;
+
+    D_EBFBE0_801B869C = 255;
+
+    D_80178340 = 0;
+    D_80178348 = 0;
+    D_80178350 = 0;
+    D_80178354 = 0;
+    D_80178548 = 101;
+    D_8017854C = 106;
+    D_80178550 = 92;
+    D_80178554 = 3;
+    D_80178558 = 4;
+    D_8017855C = 10;
+
+    D_EBFBE0_801B86A8 = 10.0f;
+    D_EBFBE0_801B86AC = -30.0f;
+    D_EBFBE0_801B86B0 = 450.0f;
+    D_EBFBE0_801B86C8 = 0.0f;
+    D_EBFBE0_801B86CC = 0.0f;
+
+    D_801779A0 = -10.0f;
+    D_801779B8 = 0.0f;
+    D_801779C0 = 0.0f;
+
+    D_EBFBE0_801B829C = 0.0f;
+    D_EBFBE0_801B82A0 = 1.0f;
+    D_EBFBE0_801B82A4 = 0.0f;
+
+    D_EBFBE0_801B8658.pos.x = 0.0f;
+    D_EBFBE0_801B8658.pos.y = 0.0f;
+    D_EBFBE0_801B8658.pos.z = 0.0f;
+    D_EBFBE0_801B8658.angleX = 0.0f;
+    D_EBFBE0_801B8658.angleY = 0.0f;
+    D_EBFBE0_801B8658.angleZ = 0.0f;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018ACEC.s")
 
