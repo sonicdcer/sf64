@@ -282,8 +282,8 @@ expected:
 	cp -r build/ expected/build/
 
 context:
-	 python3 ./tools/m2ctx.py $(filter-out $@, $(MAKECMDGOALS))
-
+	@echo "Generating ctx.c ..."
+	@python3 ./tools/m2ctx.py $(filter-out $@, $(MAKECMDGOALS))
 
 #### Various Recipes ####
 
