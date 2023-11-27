@@ -2400,6 +2400,10 @@ void func_EBFBE0_8018FC14(void) {
 }
 
 #ifdef IMPORT_DATA_PENDING
+static f32 D_EBFBE0_801AE47C[] = { 90.0f, 100.0f, 75.0f, 75.0f };
+#else
+extern f32 D_EBFBE0_801AE47C[];
+
 void func_EBFBE0_8018FD08(void) {
     s32 i;
     Gfx* temp_v1;
@@ -2407,7 +2411,9 @@ void func_EBFBE0_8018FD08(void) {
     s32 var_s0;
     s32 var_s0_2;
     f32 temp;
+    #ifdef IMPORT_DATA_PENDING
     static f32 D_EBFBE0_801AE47C[] = { 90.0f, 100.0f, 75.0f, 75.0f };
+    #endif
 
     temp_fs2 = D_EBFBE0_801AE47C[D_EBFBE0_801B8340];
     temp = 210.0f;
@@ -2440,8 +2446,6 @@ void func_EBFBE0_8018FD08(void) {
             break;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018FD08.s")
 #endif
 
 void func_EBFBE0_8018FF74(void) {
