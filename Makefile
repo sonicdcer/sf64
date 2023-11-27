@@ -338,6 +338,4 @@ build/src/libultra/libc/ll.o: src/libultra/libc/ll.c
 # Print target for debugging
 print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
 
-.PHONY: all uncompressed compressed clean init extract expected format checkformat decompress
-
-.PHONY: context
+.PHONY: all uncompressed compressed clean init extract expected format checkformat decompress context
