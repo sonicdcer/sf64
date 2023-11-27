@@ -1901,7 +1901,23 @@ void func_EBFBE0_8018C644(void) {
     D_EBFBE0_801B7BEC++;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018CB90.s")
+void func_EBFBE0_8018CB90(void) {
+    s32 i;
+
+    if (D_EBFBE0_801B86A0 != 0) {
+        if (D_EBFBE0_801B8694 != 0) {
+            func_EBFBE0_8018DF0C(-1000.0f);
+        }
+
+        func_EBFBE0_8018E058();
+
+        for (i = 0; i < 4; i++) {
+            if ((D_EBFBE0_801B84E8[i].unk_38 <= 0) && (D_EBFBE0_801B84E8[i].unk_4C != 0)) {
+                func_EBFBE0_8018D2B8(i);
+            }
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018CC30.s")
 
