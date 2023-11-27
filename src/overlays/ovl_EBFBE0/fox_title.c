@@ -2520,9 +2520,9 @@ void func_EBFBE0_80190144(void) {
     }
 }
 
-// needs in-function static
-#ifdef IMPORT_DATA_PENDING
+#ifndef IMPORT_DATA_PENDING
 extern s32 D_EBFBE0_801AE558;
+#endif
 void func_EBFBE0_801903B8(void) {
     #ifdef IMPORT_DATA_PENDING
     static s32 D_EBFBE0_801AE558 = 12;
@@ -2573,9 +2573,6 @@ void func_EBFBE0_801903B8(void) {
         Matrix_Pop(&gGfxMatrix);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_801903B8.s")
-#endif
 
 void func_EBFBE0_801906A0(void) {
     s32 i;
