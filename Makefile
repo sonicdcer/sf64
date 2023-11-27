@@ -281,6 +281,9 @@ expected:
 	rm -rf expected/build/
 	cp -r build/ expected/build/
 
+context:
+	@echo "Generating ctx.c ..."
+	@$(PYTHON) ./tools/m2ctx.py $(filter-out $@, $(MAKECMDGOALS))
 
 #### Various Recipes ####
 
@@ -335,4 +338,4 @@ build/src/libultra/libc/ll.o: src/libultra/libc/ll.c
 # Print target for debugging
 print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
 
-.PHONY: all uncompressed compressed clean init extract expected format checkformat decompress
+.PHONY: all uncompressed compressed clean init extract expected format checkformat decompress context
