@@ -2399,11 +2399,9 @@ void func_EBFBE0_8018FC14(void) {
     }
 }
 
-#ifdef IMPORT_DATA_PENDING
-static f32 D_EBFBE0_801AE47C[] = { 90.0f, 100.0f, 75.0f, 75.0f };
-#else
+#ifndef IMPORT_DATA_PENDING
 extern f32 D_EBFBE0_801AE47C[];
-
+#endif
 void func_EBFBE0_8018FD08(void) {
     s32 i;
     Gfx* temp_v1;
@@ -2446,7 +2444,6 @@ void func_EBFBE0_8018FD08(void) {
             break;
     }
 }
-#endif
 
 void func_EBFBE0_8018FF74(void) {
     if (D_EBFBE0_801B7BD8 != 0) {
@@ -2525,8 +2522,11 @@ void func_EBFBE0_80190144(void) {
 
 // needs in-function static
 #ifdef IMPORT_DATA_PENDING
+extern s32 D_EBFBE0_801AE558;
 void func_EBFBE0_801903B8(void) {
+    #ifdef IMPORT_DATA_PENDING
     static s32 D_EBFBE0_801AE558 = 12;
+    #endif
     f32 temp_fs3;
     f32 temp_fs4;
     f32 var_fs1;
