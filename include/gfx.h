@@ -141,6 +141,14 @@ typedef struct Limb {
     /* 0x01C */ struct Limb* child;
 } Limb; // size = 0x20
 
+typedef Limb* SkelAnime;
+
+typedef struct {
+    /* 0x00 */ AnimationHeader* unk_0;
+    /* 0x04 */ void* unk_4;
+    /* 0x08 */ SkelAnime* skelanime;
+} Animation; // size = 0x0C
+
 char* func_80099980(char *buf, s32 fill, s32 len);
 s32 func_800999D8(const char *fmt, ...);
 void func_80099A2C(void *texture, s32 width, s32 height, u8 mode);

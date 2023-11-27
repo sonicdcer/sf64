@@ -4,12 +4,6 @@
 #include "global.h"
 
 typedef struct {
-    /* 0x00 */ char pad0[0x4];
-    /* 0x04 */ void* unk_04;
-    /* 0x08 */ char pad8[0x4];
-} UnkStruct_D_EBFBE0_801ADA00; // size = 0x0C
-
-typedef struct {
     /* 0x00 */ f32 unk_0;
     /* 0x04 */ f32 unk_4;
     /* 0x08 */ f32 unk_8;
@@ -88,7 +82,7 @@ typedef struct {
     /* 0x10 */ f32 scale;
 } UnkStruct_D_EBFBE0_801B8688; // size = 0x14
 
-extern UnkStruct_D_EBFBE0_801ADA00 D_EBFBE0_801ADA00[];
+extern Animation D_EBFBE0_801ADA00[];
 extern u16* D_EBFBE0_801ADA30;
 extern f32 D_EBFBE0_801ADA64[];
 extern f32 D_EBFBE0_801ADA74[];
@@ -166,7 +160,7 @@ extern s32 D_EBFBE0_801B8340;
 extern UnkStruct_D_801B8350 D_EBFBE0_801B8350[];
 extern f32 D_EBFBE0_801B84D0;
 extern f32 D_EBFBE0_801B84D4;
-extern f32 D_EBFBE0_801B84D8;
+extern Vec3f D_EBFBE0_801B84D8;
 extern UnkStruct_D_EBFBE0_801B84E8 D_EBFBE0_801B84E8[4];
 extern UnkStruct_D_EBFBE0_801B8658 D_EBFBE0_801B8658;
 extern Vec3f D_EBFBE0_801B867C;

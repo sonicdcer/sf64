@@ -748,6 +748,7 @@ extern Gfx D_6024B60[];
 extern Gfx D_6025B50[];
 extern Gfx D_6007CF0[];
 extern Gfx D_6007D90[];
+extern Gfx D_6041070[];
 extern u16 D_60447A0[];
 extern u16 D_6047550[];
 extern Gfx D_6004570[];
