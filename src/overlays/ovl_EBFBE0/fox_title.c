@@ -1919,7 +1919,45 @@ void func_EBFBE0_8018CB90(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018CC30.s")
+void func_EBFBE0_8018CC30(UnkStruct_D_EBFBE0_801B8294* arg0, s32 arg1, f32 arg2) {
+    s32 var_a3;
+    Vec3f pos[2];
+
+    if (D_EBFBE0_801B8298 != -1) {
+        if (D_EBFBE0_801B8298 == 0) {
+            var_a3 = 0;
+        } else if (D_EBFBE0_801B8298 == 1) {
+            var_a3 = 1;
+            if (arg1 == 5) {
+                var_a3 = 4;
+            }
+        } else if (arg1 == (D_EBFBE0_801B8298 + 5)) {
+            var_a3 = 3;
+        } else if (arg1 == (D_EBFBE0_801B8298 + 4)) {
+            { var_a3 = 4; }
+        } else {
+            var_a3 = 2;
+        }
+
+        func_EBFBE0_8018CD9C(&pos, &arg0[D_EBFBE0_801B8298], D_EBFBE0_801B828C, var_a3);
+        D_80177978 = pos[0].x;
+        D_80177980 = pos[0].y;
+        D_80177988 = pos[0].z;
+        D_801779A0 = pos[1].x;
+        D_801779B8 = pos[1].y;
+        D_801779C0 = pos[1].z;
+
+        D_EBFBE0_801B828C += arg2;
+
+        if (D_EBFBE0_801B828C > 1.0f) {
+            D_EBFBE0_801B8298++;
+            D_EBFBE0_801B828C = 0.0f;
+            if ((arg1 - 4) < D_EBFBE0_801B8298) {
+                D_EBFBE0_801B8298 = -1;
+            }
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018CD9C.s")
 
