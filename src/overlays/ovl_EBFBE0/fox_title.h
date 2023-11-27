@@ -200,6 +200,9 @@ extern f32 D_EBFBE0_801B9084;
 
 void func_EBFBE0_8018CC30(UnkStruct_D_EBFBE0_801B8294*, s32, f32);
 void func_EBFBE0_8018CD9C(Vec3f *pos, UnkStruct_D_EBFBE0_801B8294 *arg1, f32 arg2, s32 arg3);
+void func_EBFBE0_8018D510(s32);
+void func_EBFBE0_8018D80C(s32);
+void func_EBFBE0_8018DDB8(s32);
 void func_EBFBE0_8018DF0C(f32 arg0);
 void func_EBFBE0_8018E058(void);
 void func_EBFBE0_8018E200(void);

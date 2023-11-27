@@ -497,7 +497,8 @@ void func_8005B1E8(Object_2F4* arg0, s32 arg1) {
     }
 }
 
-#ifdef NON_MATCHING
+// Vec3f D_800CFCC0 = { 0.0f, 0.0f, 0.0f };
+
 void func_8005B388(Object_2F4* arg0) {
     Vec3f sp3C = { 0.0f, 0.0f, 0.0f };
     Vec3f sp30;
@@ -532,7 +533,7 @@ void func_8005B388(Object_2F4* arg0) {
         if (D_80177C98 == 1) {
             D_80161630.unk_04 = D_80161630.unk_08 = D_80161630.unk_0C = D_80161630.unk_10 = 0.0f;
         }
-        func_80053658(&D_80161630, D_80178280);
+        func_80053658(&D_80161630);
     } else if (D_80177C98 == 0) {
         gSPDisplayList(gMasterDisp++, D_40018A0);
     } else if (D_80178280[0].unk_204 == 2) {
@@ -542,11 +543,6 @@ void func_8005B388(Object_2F4* arg0) {
     }
     func_8005ADAC(arg0);
 }
-#else
-Vec3f D_800CFCC0 = { 0.0f, 0.0f, 0.0f };
-void func_8005B388(Object_2F4*);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_5A2C0/func_8005B388.s")
-#endif
 
 void func_8005B6A4(Object_2F4* arg0) {
     Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, 1);

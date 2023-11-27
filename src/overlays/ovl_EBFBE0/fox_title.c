@@ -2021,7 +2021,56 @@ void func_EBFBE0_8018CD9C(Vec3f* pos, UnkStruct_D_EBFBE0_801B8294* arg1, f32 arg
                (temp4 * (arg1 + 3)->unk_14);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018D2B8.s")
+void func_EBFBE0_8018D2B8(s32 arg0) {
+    UnkStruct_D_80161630 temp;
+
+    Lights_SetOneLight(&gMasterDisp, D_EBFBE0_801B82E0, D_EBFBE0_801B82E4, D_EBFBE0_801B82E8, D_80178548, D_8017854C,
+                       D_80178550, D_80178554, D_80178558, D_8017855C);
+
+    func_800B8DD0(&gMasterDisp, 0x17);
+
+    Matrix_Push(&gGfxMatrix);
+
+    Matrix_Translate(gGfxMatrix, D_EBFBE0_801B84E8[arg0].unk_00.x, D_EBFBE0_801B84E8[arg0].unk_00.y,
+                     D_EBFBE0_801B84E8[arg0].unk_00.z, 1);
+
+    Matrix_Scale(gGfxMatrix, D_EBFBE0_801B84E8[arg0].unk_0C, D_EBFBE0_801B84E8[arg0].unk_0C,
+                 D_EBFBE0_801B84E8[arg0].unk_0C, 1);
+
+    Matrix_RotateZ(gGfxMatrix, D_EBFBE0_801B84E8[arg0].unk_20 * 0.017453292f, 1);
+    Matrix_RotateX(gGfxMatrix, D_EBFBE0_801B84E8[arg0].unk_18 * 0.017453292f, 1);
+    Matrix_RotateY(gGfxMatrix, D_EBFBE0_801B84E8[arg0].unk_1C * 0.017453292f, 1);
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    temp.unk_00 = temp.unk_01 = 2;
+    temp.unk_18 = temp.unk_1C = temp.unk_20 = temp.unk_24 = temp.unk_04 = temp.unk_08 = temp.unk_0C = temp.unk_10 =
+        temp.unk_28 = 0.0f;
+
+    temp.unk_14 = D_EBFBE0_801B84E8[arg0].unk_28;
+    temp.unk_2C = D_EBFBE0_801B84E8[arg0].unk_34;
+    temp.unk_30 = D_EBFBE0_801B84E8[arg0].unk_2C;
+    temp.unk_34 = D_EBFBE0_801B84E8[arg0].unk_30;
+    temp.unk_38 = D_EBFBE0_801B84E8[arg0].unk_24;
+
+    func_80053658(&temp);
+
+    func_8005F1EC(&D_EBFBE0_801B84E8[arg0].unk_50);
+
+    if (D_EBFBE0_801B84E8[arg0].unk_40 != 0) {
+        func_EBFBE0_8018D80C(arg0);
+    }
+
+    if (D_EBFBE0_801B84E8[arg0].unk_3C != 0) {
+        func_EBFBE0_8018D510(arg0);
+    }
+
+    if (D_EBFBE0_801B84E8[arg0].unk_48 != 0) {
+        func_EBFBE0_8018DDB8(arg0);
+    }
+
+    Matrix_Pop(&gGfxMatrix);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018D510.s")
 
