@@ -62,13 +62,13 @@ typedef struct {
     /* 0x2C */ f32 unk_2C;
     /* 0x30 */ f32 unk_30;
     /* 0x34 */ s32 unk_34;
-    /* 0x38 */ char pad38[0x4];
+    /* 0x38 */ s32 unk_38;
     /* 0x3C */ s32 unk_3C;
     /* 0x40 */ s32 unk_40;
     /* 0x44 */ f32 unk_44;
     /* 0x48 */ s32 unk_48;
     /* 0x4C */ s32 unk_4C;
-    /* 0x50 */ char pad4C[0x0C];
+    /* 0x50 */ Vec3f unk_50;
 } UnkStruct_D_EBFBE0_801B84E8; // size = 0x5C
 
 typedef struct {
@@ -101,6 +101,7 @@ extern f32 D_EBFBE0_801AE4EC[];
 extern u8 D_EBFBE0_801AE51C[];
 extern s32 D_EBFBE0_801AE528[];
 extern UnkStruct_D_EBFBE0_801B8294 D_EBFBE0_801B6B40[];
+extern UnkStruct_D_EBFBE0_801B8294 D_EBFBE0_801B6C60[];
 extern f32 D_EBFBE0_801B7BB0;
 extern f32 D_EBFBE0_801B7BB4;
 extern f32 D_EBFBE0_801B7BB8;
@@ -149,6 +150,9 @@ extern f32 D_EBFBE0_801B82D0;
 extern f32 D_EBFBE0_801B82D4;
 extern f32 D_EBFBE0_801B82D8;
 extern f32 D_EBFBE0_801B82DC;
+extern f32 D_EBFBE0_801B82EC;
+extern f32 D_EBFBE0_801B82F0;
+extern f32 D_EBFBE0_801B82F4;
 extern f32 D_EBFBE0_801B8328;
 extern f32 D_EBFBE0_801B832C;
 extern f32 D_EBFBE0_801B8330;
