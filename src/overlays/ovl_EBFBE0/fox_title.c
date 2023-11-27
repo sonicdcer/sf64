@@ -2037,9 +2037,9 @@ void func_EBFBE0_8018D2B8(s32 arg0) {
     Matrix_Scale(gGfxMatrix, D_EBFBE0_801B84E8[arg0].unk_0C, D_EBFBE0_801B84E8[arg0].unk_0C,
                  D_EBFBE0_801B84E8[arg0].unk_0C, 1);
 
-    Matrix_RotateZ(gGfxMatrix, D_EBFBE0_801B84E8[arg0].unk_20 * 0.017453292f, 1);
-    Matrix_RotateX(gGfxMatrix, D_EBFBE0_801B84E8[arg0].unk_18 * 0.017453292f, 1);
-    Matrix_RotateY(gGfxMatrix, D_EBFBE0_801B84E8[arg0].unk_1C * 0.017453292f, 1);
+    Matrix_RotateZ(gGfxMatrix, D_EBFBE0_801B84E8[arg0].unk_20 * M_DTOR, 1);
+    Matrix_RotateX(gGfxMatrix, D_EBFBE0_801B84E8[arg0].unk_18 * M_DTOR, 1);
+    Matrix_RotateY(gGfxMatrix, D_EBFBE0_801B84E8[arg0].unk_1C * M_DTOR, 1);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
