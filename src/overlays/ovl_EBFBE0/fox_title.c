@@ -1336,7 +1336,108 @@ void func_EBFBE0_8018B038(void) {
     func_EBFBE0_8018E058();
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018B058.s")
+void func_EBFBE0_8018B058(void) {
+    f32 var_fv0;
+    s32 i;
+
+    D_EBFBE0_801B7C98 = 10;
+
+    for (i = 0; i < 10; i++) {
+        D_EBFBE0_801B7BF8[i] = (Rand_ZeroOne() * 10.0f) + 10.0f;
+        D_EBFBE0_801B7C20[i] = -10.0f + (Rand_ZeroOne() * -60.0f);
+        D_EBFBE0_801B7C48[i] = 0.0f;
+        D_EBFBE0_801B7C70[i] = 0.1f + (Rand_ZeroOne() * 0.3f);
+        D_EBFBE0_801B7D18[i] = 5 + (s32) (Rand_ZeroOne() * 5.0f);
+        D_EBFBE0_801B7CC8[i] = 255;
+        D_EBFBE0_801B7CF0[i] = 128;
+        D_EBFBE0_801B7CA0[i] = 0;
+    }
+
+    D_EBFBE0_801B8100 = 20;
+
+    for (i = 0; i < D_EBFBE0_801B8100; i++) {
+        D_EBFBE0_801B7D40[i] = -(Rand_ZeroOne() * 22.0f) + 13.0f;
+        D_EBFBE0_801B7DE0[i] = 5.0f - (Rand_ZeroOne() * 10.0f);
+        D_EBFBE0_801B7E80[i] = -25.0f - (Rand_ZeroOne() * 15.0f);
+        D_EBFBE0_801B7FC0[i] = 0.0f;
+        D_EBFBE0_801B8060[i] = Rand_ZeroOne() * 0.04f;
+        D_EBFBE0_801B7F20[i] = 0.02f + (Rand_ZeroOne() * 0.08f);
+        D_EBFBE0_801B8108[i] = 0;
+    }
+
+    D_EBFBE0_801B869C = 0xFF;
+
+    D_80178340 = 0;
+    D_80178348 = 0xFF;
+    D_80178350 = 0xFF;
+    D_80178354 = 0xFF;
+    D_80178410 = 0;
+
+    D_EBFBE0_801B8334 = 0;
+    D_EBFBE0_801B8338 = 1;
+    D_EBFBE0_801B86C8 = -360.0f;
+    D_EBFBE0_801B86CC = 131.0f;
+
+    D_80178548 = 90;
+    D_8017854C = 75;
+    D_80178550 = 90;
+    D_80178554 = 45;
+    D_80178558 = 34;
+    D_8017855C = 56;
+
+    D_EBFBE0_801B8688.pos.x = 0.0f;
+    D_EBFBE0_801B8688.pos.y = 0.0f;
+    D_EBFBE0_801B8688.pos.z = 1000.0f;
+    D_EBFBE0_801B8688.scale = 2.0f;
+    D_EBFBE0_801B8688.unk_0C = 0;
+
+    D_EBFBE0_801B7BE4 = 1;
+
+    var_fv0 = -120.0f;
+
+    for (i = 0; i < 4; i++, var_fv0 += 75.0f) {
+        D_EBFBE0_801B84E8[i].unk_00.x = var_fv0;
+        D_EBFBE0_801B84E8[i].unk_00.y = 0.0f;
+        D_EBFBE0_801B84E8[i].unk_00.z = 0.0f;
+        D_EBFBE0_801B84E8[i].unk_0C = 0.5f;
+        D_EBFBE0_801B84E8[i].unk_18 = 0.0f;
+        D_EBFBE0_801B84E8[i].unk_1C = 0.0f;
+        D_EBFBE0_801B84E8[i].unk_20 = 0.0f;
+        D_EBFBE0_801B84E8[i].unk_24 = -60.0f;
+        D_EBFBE0_801B84E8[i].unk_28 = -10.0f;
+        D_EBFBE0_801B84E8[i].unk_2C = 0.0f;
+        D_EBFBE0_801B84E8[i].unk_30 = 0.0f;
+        D_EBFBE0_801B84E8[i].unk_34 = 4 - i;
+
+        D_EBFBE0_801B84E8[i].unk_3C = 0;
+        D_EBFBE0_801B84E8[i].unk_40 = 0;
+        D_EBFBE0_801B84E8[i].unk_44 = 0.0f;
+        D_EBFBE0_801B84E8[i].unk_10 = 0.05f;
+
+        D_EBFBE0_801B84E8[i].unk_48 = 1;
+        D_EBFBE0_801B84E8[i].unk_4C = 1;
+    }
+
+    D_EBFBE0_801B86BC = 140.0f;
+    D_EBFBE0_801B86C0 = -20.0f;
+    D_EBFBE0_801B86C4 = 0.0f;
+    D_EBFBE0_801B86A8 = 0.0f;
+    D_EBFBE0_801B86AC = 90.0f;
+    D_EBFBE0_801B86B4 = 90.0f;
+    D_EBFBE0_801B86B8 = -50.0f;
+    D_EBFBE0_801B829C = 0.0f;
+    D_EBFBE0_801B82A0 = 1.0f;
+    D_EBFBE0_801B82A4 = 0.0f;
+
+    func_EBFBE0_801914AC(D_EBFBE0_801B86BC, D_EBFBE0_801B86C0, D_EBFBE0_801B86C4, &D_80177978, &D_80177980, &D_80177988,
+                         D_EBFBE0_801B86B4, &D_801779A0, &D_801779B8, &D_801779C0, D_EBFBE0_801B86B8, D_EBFBE0_801B86A8,
+                         D_EBFBE0_801B86AC);
+
+    D_EBFBE0_801B9044 = 25.0f;
+    D_EBFBE0_801B9048 = 84.0f;
+    D_EBFBE0_801B904C = -20.0f;
+    D_EBFBE0_801B9050 = -33.0f;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018B5C4.s")
 
