@@ -1959,7 +1959,67 @@ void func_EBFBE0_8018CC30(UnkStruct_D_EBFBE0_801B8294* arg0, s32 arg1, f32 arg2)
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018CD9C.s")
+void func_EBFBE0_8018CD9C(Vec3f* pos, UnkStruct_D_EBFBE0_801B8294* arg1, f32 arg2, s32 arg3) {
+    f32 temp1;
+    f32 temp2;
+    f32 temp3;
+    f32 temp4;
+
+    switch (arg3) {
+        case 0:
+            temp1 = (1.0f - arg2) * (1.0f - arg2) * (1.0f - arg2);
+            temp2 = 21.0f * (arg2 * arg2 * arg2) / 12.0f - 9.0f * (arg2 * arg2) / 2.0f + 3.0f * arg2;
+            temp3 = -11.0f * (arg2 * arg2 * arg2) / 12.0f + 3.0f * (arg2 * arg2) / 2.0f;
+            temp4 = (arg2 * arg2 * arg2) / 6.0f;
+            break;
+
+        case 1:
+            temp1 = ((1.0f - arg2) * (1.0f - arg2) * (1.0f - arg2)) / 4.0f;
+            temp2 = 7.0f * (arg2 * arg2 * arg2) / 12.0f - 5.0f * (arg2 * arg2) / 4.0f + arg2 / 4.0f + 7.0f / 12.0f;
+            temp3 = -(arg2 * arg2 * arg2) / 2.0f + (arg2 * arg2) / 2.0f + arg2 / 2.0f + 1.0f / 6.0f;
+            temp4 = (arg2 * arg2 * arg2) / 6.0f;
+            break;
+
+        case 2:
+            temp1 = (1.0f - arg2) * (1.0f - arg2) * (1.0f - arg2) / 6.0f;
+            temp2 = (0.5f * arg2 - 1.0f) * (arg2 * arg2) + 2.0f / 3.0f;
+            temp3 = ((-arg2 + 1.0f) * arg2 + 1.0f) * 0.5f * arg2 + 1.0f / 6.0f;
+            temp4 = (arg2 * arg2 * arg2) / 6.0f;
+            break;
+
+        case 3:
+            temp1 = ((1.0f - arg2) * (1.0f - arg2) * (1.0f - arg2)) / 6.0f;
+            temp2 = -((1.0f - arg2) * (1.0f - arg2) * (1.0f - arg2)) / 2.0f + ((1.0f - arg2) * (1.0f - arg2)) / 2.0f +
+                    (1.0f - arg2) / 2.0f + 1.0f / 6.0f;
+            temp3 = 7.0f * ((1.0f - arg2) * (1.0f - arg2) * (1.0f - arg2)) / 12.0f -
+                    5.0f * ((1.0f - arg2) * (1.0f - arg2)) / 4.0f + (1.0f - arg2) / 4.0f + 7.0f / 12.0f;
+            temp4 = (arg2 * arg2 * arg2) / 4.0f;
+            break;
+
+        case 4:
+            temp1 = ((1.0f - arg2) * (1.0f - arg2) * (1.0f - arg2)) / 6.0f;
+            temp2 = -11.0f * ((1.0f - arg2) * (1.0f - arg2) * (1.0f - arg2)) / 12.0f +
+                    3.0f * ((1.0f - arg2) * (1.0f - arg2)) / 2.0f;
+            temp3 = 21.0f * ((1.0f - arg2) * (1.0f - arg2) * (1.0f - arg2)) / 12.0f -
+                    9.0f * ((1.0f - arg2) * (1.0f - arg2)) / 2.0f + 3.0f * (1.0f - arg2);
+            temp4 = arg2 * arg2 * arg2;
+            break;
+    }
+
+    pos[0].x = (temp1 * (arg1 + 0)->unk_00) + (temp2 * (arg1 + 1)->unk_00) + (temp3 * (arg1 + 2)->unk_00) +
+               (temp4 * (arg1 + 3)->unk_00);
+    pos[0].y = (temp1 * (arg1 + 0)->unk_04) + (temp2 * (arg1 + 1)->unk_04) + (temp3 * (arg1 + 2)->unk_04) +
+               (temp4 * (arg1 + 3)->unk_04);
+    pos[0].z = (temp1 * (arg1 + 0)->unk_08) + (temp2 * (arg1 + 1)->unk_08) + (temp3 * (arg1 + 2)->unk_08) +
+               (temp4 * (arg1 + 3)->unk_08);
+
+    pos[1].x = (temp1 * (arg1 + 0)->unk_0C) + (temp2 * (arg1 + 1)->unk_0C) + (temp3 * (arg1 + 2)->unk_0C) +
+               (temp4 * (arg1 + 3)->unk_0C);
+    pos[1].y = (temp1 * (arg1 + 0)->unk_10) + (temp2 * (arg1 + 1)->unk_10) + (temp3 * (arg1 + 2)->unk_10) +
+               (temp4 * (arg1 + 3)->unk_10);
+    pos[1].z = (temp1 * (arg1 + 0)->unk_14) + (temp2 * (arg1 + 1)->unk_14) + (temp3 * (arg1 + 2)->unk_14) +
+               (temp4 * (arg1 + 3)->unk_14);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018D2B8.s")
 
