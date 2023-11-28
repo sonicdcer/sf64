@@ -1502,7 +1502,7 @@ void func_EBFBE0_801973C0(void) {
         func_EBFBE0_8019C824(&D_EBFBE0_801B93F0);
         temp_t0 = D_EBFBE0_801B93F0;
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, temp_t0, temp_t0, 255);
-        func_8009D994(&gMasterDisp, D_7004010, 8, 8, 70.0f, (D_EBFBE0_801B93E4 * 17.0f) + 55.0f, 1.0f, 1.0f);
+        TextureRect_8bIA(&gMasterDisp, D_7004010, 8, 8, 70.0f, (D_EBFBE0_801B93E4 * 17.0f) + 55.0f, 1.0f, 1.0f);
     }
     func_800B8DD0(&gMasterDisp, 0x53);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
@@ -1542,8 +1542,8 @@ void func_EBFBE0_8019752C(void) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    func_8009D994(&gMasterDisp, D_800D170, 8, 16, 0.0f, D_EBFBE0_801AF0F8[0], 40.0f, 1.5f);
-    func_8009E4B0(&gMasterDisp, D_800D170, 8, 16, 0.0f, D_EBFBE0_801AF0F8[1], 40.0f, 1.5f);
+    TextureRect_8bIA(&gMasterDisp, D_800D170, 8, 16, 0.0f, D_EBFBE0_801AF0F8[0], 40.0f, 1.5f);
+    TextureRect_8bIA_MirY(&gMasterDisp, D_800D170, 8, 16, 0.0f, D_EBFBE0_801AF0F8[1], 40.0f, 1.5f);
 
     func_8003DE68(0, 70);
     func_8003DE68(170, 239);
@@ -1557,7 +1557,7 @@ void func_EBFBE0_8019752C(void) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, temp_a0, temp_a0, 255);
     }
 
-    func_8009D994(&gMasterDisp, D_800D070, 16, 16, 150.0f, 44.0f, 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, D_800D070, 16, 16, 150.0f, 44.0f, 1.0f, 1.0f);
 
     if (D_EBFBE0_801B91D4 <= -1055.0f) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 32, 32, 32, 255);
@@ -1567,7 +1567,7 @@ void func_EBFBE0_8019752C(void) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, temp_a0, temp_a0, 255);
     }
 
-    func_8009E4B0(&gMasterDisp, D_800D070, 0x10, 0x10, 150.0f, 200.0f, 1.0f, 1.0f);
+    TextureRect_8bIA_MirY(&gMasterDisp, D_800D070, 0x10, 0x10, 150.0f, 200.0f, 1.0f, 1.0f);
 }
 #else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019752C.s")
@@ -1596,10 +1596,10 @@ void func_EBFBE0_80197A3C(s32 arg0, s32 arg1, s32 arg2) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     if (arg0 != 9) {
-        func_8009D994(&gMasterDisp, D_EBFBE0_801AECF8[arg0 + 1], 16, 15, arg1, arg2 - 25.0f, 1.0f, 1.0f);
+        TextureRect_8bIA(&gMasterDisp, D_EBFBE0_801AECF8[arg0 + 1], 16, 15, arg1, arg2 - 25.0f, 1.0f, 1.0f);
     } else {
-        func_8009D994(&gMasterDisp, D_500A050, 16, 15, arg1 - 14.0f, arg2 - 25.0f, 1.0f, 1.0f);
-        func_8009D994(&gMasterDisp, D_5009F60, 16, 15, arg1, arg2 - 25.0f, 1.0f, 1.0f);
+        TextureRect_8bIA(&gMasterDisp, D_500A050, 16, 15, arg1 - 14.0f, arg2 - 25.0f, 1.0f, 1.0f);
+        TextureRect_8bIA(&gMasterDisp, D_5009F60, 16, 15, arg1, arg2 - 25.0f, 1.0f, 1.0f);
     }
 
     func_800B8DD0(&gMasterDisp, 0x55);
@@ -1608,19 +1608,19 @@ void func_EBFBE0_80197A3C(s32 arg0, s32 arg1, s32 arg2) {
 
     switch (arg0) {
         case 0:
-            func_8009C320(&gMasterDisp, D_8003A70, D_8003AB8, 16, 9, arg1 + 17.0f, arg2 - 19.0f, 1.0f, 1.0f);
+            TextureRect_4bCI(&gMasterDisp, D_8003A70, D_8003AB8, 16, 9, arg1 + 17.0f, arg2 - 19.0f, 1.0f, 1.0f);
             break;
 
         case 1:
-            func_8009C320(&gMasterDisp, D_80038E0, D_8003930, 16, 10, arg1 + 17.0f, arg2 - 19.0f, 1.0f, 1.0f);
+            TextureRect_4bCI(&gMasterDisp, D_80038E0, D_8003930, 16, 10, arg1 + 17.0f, arg2 - 19.0f, 1.0f, 1.0f);
             break;
 
         case 2:
-            func_8009C320(&gMasterDisp, D_8003950, D_80039A8, 16, 11, arg1 + 17.0f, arg2 - 20.0f, 1.0f, 1.0f);
+            TextureRect_4bCI(&gMasterDisp, D_8003950, D_80039A8, 16, 11, arg1 + 17.0f, arg2 - 20.0f, 1.0f, 1.0f);
             break;
 
         default:
-            func_8009C320(&gMasterDisp, D_8003AE0, D_8003B28, 16, 9, arg1 + 17.0f, arg2 - 19.0f, 1.0f, 1.0f);
+            TextureRect_4bCI(&gMasterDisp, D_8003AE0, D_8003B28, 16, 9, arg1 + 17.0f, arg2 - 19.0f, 1.0f, 1.0f);
             break;
     }
 }
@@ -1643,7 +1643,7 @@ void func_EBFBE0_80197D30(s32 arg0, s32 arg1, s32 arg2) {
 void func_EBFBE0_80197DE4(s32 arg0, s32 arg1, s32 arg2) {
     func_800B8DD0(&gMasterDisp, 0x53);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 170);
-    func_8009D994(&gMasterDisp, D_601B4B0, 24, 17, arg1, arg2, 3.17f, 1.05f);
+    TextureRect_8bIA(&gMasterDisp, D_601B4B0, 24, 17, arg1, arg2, 3.17f, 1.05f);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
     func_800A1200(arg1, arg2, 1.0f, 1.0f, "TOTAL HITS");
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
@@ -1730,10 +1730,10 @@ void func_EBFBE0_801982B0(s32 arg0, s32 arg1, f32 arg2, f32 arg3, s32 arg4) {
                 }
             }
             gDPSetPrimColor(gMasterDisp++, 0, 0, r, g, b, 255);
-            func_8009D418(&gMasterDisp, D_60447A0, 8, 8, arg2 + 24.0f, arg3 + 11.0f, 2.0f, 0.2f);
+            TextureRect_16bRGBA(&gMasterDisp, D_60447A0, 8, 8, arg2 + 24.0f, arg3 + 11.0f, 2.0f, 0.2f);
         }
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-        func_8009D418(&gMasterDisp, D_6047550, 24, 24, arg2, arg3, 1.0f, 1.0f);
+        TextureRect_16bRGBA(&gMasterDisp, D_6047550, 24, 24, arg2, arg3, 1.0f, 1.0f);
     }
 }
 

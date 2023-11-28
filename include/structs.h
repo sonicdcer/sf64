@@ -1,7 +1,7 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
-#include "global.h"
+#include "libultra/ultra64.h"
 #include "sf64math.h"
 
 #define UNK_TYPE s32
@@ -10,25 +10,6 @@ typedef struct {
     s32 unk0;
     u16* unk4;
 } UnkStruct_D_80185CBC;
-
-typedef struct {
-    /* 0x0 */ void* start;
-    /* 0x4 */ void* end;
-} SegmentOffset; // size = 0x8
-
-typedef struct {
-    /* 0x00 */ SegmentOffset rom;
-    /* 0x08 */ SegmentOffset bss;
-    /* 0x10 */ SegmentOffset text;
-    /* 0x18 */ SegmentOffset data;
-    /* 0x20 */ SegmentOffset assets[15];
-} OverlayInit; // size = 0x98
-
-typedef struct {
-    /* 0x0 */ void* vRomAddress;
-    /* 0x8 */ SegmentOffset pRom;
-    /* 0xC */ s32 compFlag;
-} DmaEntry; // size = 0x10;
 
 typedef void (*TimerAction)(s32*, s32);
 
@@ -254,7 +235,7 @@ typedef struct {
     /* 0x00 */ void (*unk_00)(Object*);
     /* 0x00 */ u8 unk_04;
     /* 0x08 */ void (*unk_08)(Object*);
-    /* 0x0C */ void* unk_0C;
+    /* 0x0C */ f32* unk_0C;
     /* 0x10 */ f32 unk_10;
     /* 0x14 */ s16 unk_14;
     /* 0x16 */ s16 unk_16;

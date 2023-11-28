@@ -40,11 +40,10 @@ extern OSContPad gChangedInput[4];
 extern u8 gControllerStatus[4];
 extern u32 gStopInputTimer;
 extern u8 gRumbleStatus[4];
-extern u8 D_800DD8BC[4]; // Fake symbol. Only exists as loop terminator for gRumbleStatus
-// extern OSContPad sNextInput[4];
-// extern OSContPad sPrevInput[4];
-// extern OSContStatus D_800DD8F0[4];
-// extern OSPfs D_800DD900[4];
+extern OSContPad sNextInput[4];    //
+extern OSContPad sPrevInput[4];    //
+extern OSContStatus D_800DD8F0[4]; //
+extern OSPfs D_800DD900[4];        //
 
 extern u8 gAudioThreadStack[0x1000];  // 800DDAA0
 extern OSThread gGraphicsThread;        // 800DEAA0
@@ -113,11 +112,12 @@ extern u8 D_80137E84[4];
 extern u16 gFillScreenColor;
 extern u16 gFillScreen;
 
-// extern OSThread sIdleThread; // 80138E90
-// extern u8 sIdleThreadStack[0x1000]; // 801390A0
-// extern OSThread gMainThread; // 8013A040
-// extern u8 sMainThreadStack[0x1000]; // 8013A1F0
-// extern OSThread gAudioThread; //8013B1F0
+extern u8 gUnusedStack[0x1000];
+extern OSThread sIdleThread; // 80138E90
+extern u8 sIdleThreadStack[0x1000]; // 801390A0
+extern OSThread gMainThread; // 8013A040
+extern u8 sMainThreadStack[0x1000]; // 8013A1F0
+extern OSThread gAudioThread; //8013B1F0
 
 extern Matrix* gGfxMatrix;
 extern Matrix sGfxMatrixStack[0x20];
@@ -134,36 +134,9 @@ extern OSMesg D_80156618[1];
 extern OSMesg D_8015661C[1];
 
 extern u8 D_800CA3B0;
-extern OverlayInit D_800CA3B4[1]; // sets segment 15 with no overlay
-extern OverlayInit D_800CA44C[6]; // overlay EF0260
-extern OverlayInit D_800CA7DC[1]; // EBFBE0
-extern OverlayInit D_800CA874[1]; // EBFBE0
-extern OverlayInit D_800CA90C[1]; // EBFBE0
-extern OverlayInit D_800CA9A4[1]; // EBFBE0
-extern OverlayInit D_800CAA3C[1]; // DF4260
-extern OverlayInit D_800CAAD4[2]; // E08400
-extern OverlayInit D_800CAC04[6]; // E6A810
-extern OverlayInit D_800CAF94[2]; // E08400
-extern OverlayInit D_800CB0C4[1]; // E51970
-extern OverlayInit D_800CB15C[1]; // E16C50
-extern OverlayInit D_800CB1F4[1]; // E16C50
-extern OverlayInit D_800CB28C[2]; // E51970
-extern OverlayInit D_800CB3BC[1]; // E16C50
-extern OverlayInit D_800CB454[1]; // E9F1D0
-extern OverlayInit D_800CB4EC[1]; // E16C50
-extern OverlayInit D_800CB584[1]; // E16C50
-extern OverlayInit D_800CB61C[1]; // DF4260
-extern OverlayInit D_800CB6B4[1]; // E9F1D0
-extern OverlayInit D_800CB74C[2]; // E9F1D0
-extern OverlayInit D_800CB87C[1]; // E08400
-extern OverlayInit D_800CB914[1]; // E51970
-extern OverlayInit D_800CB9AC[1]; // E51970
-extern OverlayInit D_800CBA44[2]; // E6A810
-extern OverlayInit D_800CBB74[1]; // DF4260
-extern OverlayInit D_800CBC0C[1]; // E08400
-extern OverlayInit D_800CBD3C[1]; // EFFA40
+
 extern f32 D_800CBF18[];
-extern ObjectStruct_1C D_800CC124[400];
+extern ObjectStruct_1C D_800CC124[];
 extern f32 D_800CF9B0[];
 extern Gfx* D_800CFA54[];
 extern Gfx* D_800CFAC4[];
@@ -457,7 +430,7 @@ extern s32 D_80178558;
 extern s32 D_8017855C;
 extern s32 D_80178580;
 extern s32 *D_80178710;
-extern s32 D_80178720;
+extern u16** D_80178720;
 extern s32 D_80178724;
 extern s32 D_80178728;
 extern s32 D_8017872C;
@@ -477,9 +450,8 @@ extern Gfx D_Gfx_800DBAA0[];
 extern Gfx D_Gfx_800DAC20[];
 extern Gfx D_Gfx_800D9688[];
 
-extern DmaEntry gDmaTable[]; // 178A70
-extern u8 D_80179010[][16 * 13 / 2];
-extern u16 D_8017A0F4;
+extern u8 D_80179010[24][16 * 13 / 2];
+extern u16 D_8017A0F4[];
 extern u16 D_80182544[];
 extern u16 D_80183CA8[];
 extern u16 D_80183CF0[];
@@ -549,8 +521,6 @@ extern f32 D_EBFBE0_801B9060;
 extern f32 D_EBFBE0_801B9064;
 extern s8 D_E6A810_801BA1E8;
 
-
-
 extern char D_EBFBE0_801ADA44[];
 extern s32 D_EBFBE0_801ADA84[];
 extern s32 D_EBFEB0_801ADA94;
@@ -565,6 +535,17 @@ extern u16 D_8038F080[];
 extern u16 D_8038F300[];
 extern FrameBuffer gFrameBuffers[3]; // 8038F800
 
+extern u8 D_1013170[];
+extern u16 D_1013570[];
+extern u16 D_10041C0[];
+extern u16 D_1006000[];
+extern u16 D_1006F20[];
+extern u16 D_1007E40[];
+extern u16 D_1008D60[];
+extern u16 D_1009C80[];
+extern u16 D_100ABA0[];
+extern u16 D_100C9E0[];
+extern u16 D_100E820[];
 extern u16 D_1002040[];
 extern u16 D_10050E0[];
 extern u16 D_100BAC0[];
@@ -755,6 +736,29 @@ extern u16 D_6047550[];
 extern Gfx D_6004570[];
 extern u8 D_6001B80[];
 extern u8 D_60020D0[];
+extern u16 D_6000900[];
+extern u16 D_6000B60[];
+extern u16 D_6001820[];
+extern u16 D_6001A80[];
+extern u16 D_60029A0[];
+extern u16 D_60038C0[];
+extern u16 D_60047E0[];
+extern u16 D_6005700[];
+extern u16 D_600C6A0[];
+extern u16 D_6010C20[];
+extern u16 D_6011B40[];
+extern u16 D_6014510[];
+extern u16 D_6015430[];
+extern u16 D_6018F30[];
+extern u16 D_6019E50[];
+extern u16 D_601C8E0[];
+extern u16 D_601D800[];
+extern u16 D_6020FB0[];
+extern u16 D_6021ED0[];
+extern u16 D_60245E0[];
+extern u16 D_6025500[];
+extern u16 D_6026420[];
+extern u16 D_6027340[];
 
 extern Gfx D_7007350[];
 extern Gfx D_700BB10[];
@@ -779,8 +783,38 @@ extern Gfx D_90234D0[];
 extern ObjectInit* D_C0356A4[];
 extern Gfx D_C017440[];
 
+extern u16 D_D000170[];
+extern u16 D_D001090[];
+extern u16 D_D001FB0[];
+extern u16 D_D002ED0[];
+extern u16 D_D003DF0[];
+extern u16 D_D004D10[];
+extern u16 D_D005C30[];
+extern u16 D_D006B50[];
+extern u16 D_D007A70[];
+extern u16 D_D008990[];
 extern Gfx D_D0098B0[];
 
+extern u16 D_E00E100[];
+extern u16 D_E00F020[];
+extern u16 D_E00FF40[];
+extern u16 D_E010E60[];
+
+extern u16 D_F000F20[];
+extern u16 D_F001E40[];
+extern u16 D_F002D60[];
+extern u16 D_F003C80[];
+extern u16 D_F004BA0[];
+extern u16 D_F005AC0[];
+extern u16 D_F0069E0[];
+extern u16 D_F007900[];
+extern u16 D_F008820[];
+extern u16 D_F009740[];
+extern u16 D_F00A660[];
+extern u16 D_F00B580[];
+extern u16 D_F00C4A0[];
+extern u16 D_F00D3C0[];
+extern u16 D_F00E2E0[];
 extern Gfx D_F014310[];
 extern Gfx D_F014180[];
 extern u16 D_F000000[];
@@ -788,8 +822,6 @@ extern u16 D_F000800[];
 extern u16 D_F001000[];
 extern u16 D_F001800[];
 extern u16 D_F002000[];
-
-
 
 #endif // VARIABLES_H
 

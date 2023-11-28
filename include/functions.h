@@ -75,6 +75,8 @@ void func_8001A55C(f32*, u32);
 void func_8001A838(u32 arg0);
 void func_8001ACDC(s32);
 void func_8001AE58(void);
+s32 func_8001AE78(void);
+s32 func_8001AED4(void);
 void func_8001AF40(s32 arg0);
 void func_8001D400(s32);
 void func_8001D444(u8, u16, u8, u8);
@@ -88,7 +90,7 @@ void func_8001D8F4(u8);
 void func_8001DCE0(void);
 void func_8001DECC(void);
 SPTask* func_8001DF50(void);
-
+void func_8001EE00(void);
 f32 func_8001FE60(f32);
 f64 func_8001FE6C(f64);
 s32 func_8001FE78(f32);
@@ -234,12 +236,15 @@ void func_80084370(s32);
 void func_800843FC(s32);
 void func_80084488(s32);
 void func_80084688(s32, s32);
+void func_80084B94(s32 arg0);
 void func_800857DC(f32, f32, f32, f32);
 void func_80085890(f32, f32, f32, f32);
+void func_80086110(f32 arg0, f32 arg1, s32 arg2);
 void func_80086664(f32, f32);
 void func_800869A0(f32 arg0, f32 arg1, s32 k, f32 arg3, s32 arg4, s32 arg5);
 void func_80087530(f32, f32, s32);
 void func_8008865C(void);
+void func_8008AD94(void);
 void func_8008B5B0(f32 x, f32 y);
 s32 func_8008B774(void);
 void func_8008BD00(u8*, s32, s32, u8);
@@ -289,10 +294,18 @@ void func_800B9358(void);
 void func_800C1ED4(void);
 void func_800C20B0(void);
 void func_800C2190(void);
+u16* func_800C2830(u16 arg0);
 u16 func_800C2890(u16*);
+s32 func_800C28DC(u16* arg0);
+s32 func_800C2928(u16* arg0);
+void func_800C295C(Gfx** arg0, u16 arg1, s32 arg2, s32 arg3);
+s32 func_800C2AF0(Gfx** arg0, u16* arg1, s32 arg2, s32 arg3, s32 arg4);
+void func_800C2D3C(Gfx** arg0, u16* arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6);
 s32 func_800C2F30(u16*, s32);
 s32 Save_Write(void);
 s32 Save_Read(void); 
+
+
 
 void func_EFFA40_80187520(s32, void*);
 

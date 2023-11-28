@@ -12,10 +12,13 @@ D_80163FE0 = 0x80163FE0; //size:0xB130
 
 gZBuffer = 0x80282000;
 gFrameBuffers = 0x8038F800;
-gDmaTable = 0x80178A70;
+gDmaTable = 0x80178A70; //size:0x5A0
+D_80178A70 = 0x80178A78; //ignore:true
 
 D_800D3180 = 0x800D3180; // size:0x1E
 gSetupDLs = 0x800D31B0; // size:0x18C0
+
+D_80179010 = 0x80179010; //type:u8
 
 D_800CFCA0 = 0x800CFCA0;
 

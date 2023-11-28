@@ -1,14 +1,8 @@
-  - name: header
-    type: header
-    start: 0x0
-
-  - name: ipl3
-    type: bin
-    start: 0x40
-
-  - name: entry
+  - name: makerom
     type: code
-    start: 0x1000
-    vram: 0x80000400
+    start: 0x0
     subsegments:
-      - [0x1000, asm, entry]
+      - {start: 0x0, type: header, name: header}
+      - {start: 0x40, type: bin, name: ipl3}
+      - {start: 0x1000, type: asm, vram: 0x80000400, name: entry}
+
