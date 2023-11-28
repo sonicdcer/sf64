@@ -11,6 +11,7 @@ extern u8 gF3dexData;
 
 extern u8 D_8003B50[];
 extern u8 D_80046B0[];
+extern u8 D_8004C50[];
 extern s32 sGammaMode;
 extern f32 D_800C45E0[];
 
@@ -684,6 +685,8 @@ extern Gfx D_6023AC0[];
 extern Gfx D_602A720[];
 extern Gfx D_602DA20[];
 extern Gfx D_602E380[];
+extern Gfx D_60320E0[];
+extern Gfx D_6032580[];
 extern Gfx D_6032BC0[];
 extern Gfx D_6034B90[];
 extern Gfx D_6035DA0[];
@@ -727,6 +730,7 @@ extern Gfx D_6024B60[];
 extern Gfx D_6025B50[];
 extern Gfx D_6007CF0[];
 extern Gfx D_6007D90[];
+extern Gfx D_6041070[];
 extern u16 D_60447A0[];
 extern u16 D_6047550[];
 extern Gfx D_6004570[];

@@ -57,6 +57,12 @@ typedef struct {
 extern f32 D_EBFBE0_801AE588[];
 extern f32 D_EBFBE0_801AE5A0[];
 extern f32 D_EBFBE0_801AE5C4;
+extern f32 D_EBFBE0_801AE5E8[2];
+extern f32 D_EBFBE0_801AE5F0[2];
+extern f32 D_EBFBE0_801AE5F8[2];
+extern f32 D_EBFBE0_801AE600[2];
+extern f32 D_EBFBE0_801AE608[];
+extern f32 D_EBFBE0_801AE620[];
 
 extern MenuContext D_EBFBE0_801AE878[];
 
@@ -118,6 +124,7 @@ extern s32 D_EBFBE0_801B91BC;
 extern f32 D_EBFBE0_801B91FC;
 extern f32 D_EBFBE0_801B9200;
 extern f32 D_EBFBE0_801B9204;
+extern f32 D_EBFBE0_801B9208;
 extern s32 D_EBFBE0_801B9214;
 extern f32 D_EBFBE0_801B9218;
 extern f32 D_EBFBE0_801B921C;
@@ -177,6 +184,7 @@ extern s32 D_EBFBE0_801B91A8;
 extern s32 D_EBFBE0_801B91AC;
 extern s32 D_EBFBE0_801B91B0;
 extern s32 D_EBFBE0_801B91C0;
+extern s32 D_EBFBE0_801B91C4;
 extern s32 D_EBFBE0_801B91C8;
 extern s32 D_EBFBE0_801B91CC;
 extern f32 D_EBFBE0_801B91EC;
@@ -228,6 +236,7 @@ void func_EBFBE0_80192190(void);
 void func_EBFBE0_801928BC(void);
 void func_EBFBE0_80192D58(void);
 void func_EBFBE0_80192938(void);
+void func_EBFBE0_801929F0(void);
 void func_EBFBE0_80193864(void);
 void func_EBFBE0_80193C4C(void);
 void func_EBFBE0_801944F0(void);
