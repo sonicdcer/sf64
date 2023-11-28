@@ -1558,7 +1558,7 @@ void func_800656D4(Object_2F4* arg0) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_61B30/func_800656D4.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_61B30/func_800656D4.s")
 #endif
 
 void func_800660F0(Object_2F4* arg0) {
@@ -2868,4 +2868,4 @@ void func_8006A3E8(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_61B30/D_800D63D0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_61B30/D_800D63D0.s")

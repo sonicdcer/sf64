@@ -702,7 +702,7 @@ void func_800BB5D0(void) {
 #else
 extern s32 D_8017874C;
 void func_800BB5D0(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_BB360/func_800BB5D0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_BB360/func_800BB5D0.s")
 #endif
 
 void func_800BC040(void) {

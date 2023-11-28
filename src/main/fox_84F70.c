@@ -178,5 +178,5 @@ void func_800846F0(FrameBuffer* arg0) {
     osWritebackDCacheAll();
 }
 #else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_84F70/func_800846F0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_84F70/func_800846F0.s")
 #endif

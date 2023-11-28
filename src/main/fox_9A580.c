@@ -1217,5 +1217,5 @@ void func_800A1540(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 // }
 #else
 void func_800A1558(f32 weight, u16 size, void* src1, void* src2, void* dst);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_9A580/func_800A1558.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_9A580/func_800A1558.s")
 #endif

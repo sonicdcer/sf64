@@ -5,7 +5,7 @@
 
 u8 D_800CA3B0 = 3;
 
-#include "sf_59780_inits.c"
+#include "fox_59780_inits.c"
 
 void func_80058B80(void* arg0, void* arg1, ptrdiff_t arg2) {
     s32 i;

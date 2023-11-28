@@ -1108,7 +1108,7 @@ void func_8005DBC0(Object_2F4* arg0) {
 #else
 Vec3f D_800CFCF8 = { 0.0f, 0.0f, 0.0f };
 void func_8005DBC0(Object_2F4* arg0);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_5A2C0/func_8005DBC0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_edisplay/func_8005DBC0.s")
 #endif
 
 #ifdef NON_MATCHING
@@ -1174,7 +1174,7 @@ void func_8005E1B8(Object_408* arg0, s32 arg1) {
 #else
 Vec3f D_800CFD04 = { 0.0f, 0.0f, 0.0f };
 void func_8005E1B8(Object_408* arg0, s32 arg1);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_5A2C0/func_8005E1B8.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_edisplay/func_8005E1B8.s")
 #endif
 
 void func_8005E454(Object_8C* arg0, s32 arg1) {
@@ -1232,7 +1232,7 @@ void func_8005E538(Object_8C* arg0) {
 #else
 Vec3f D_800CFD10 = { 0.0f, 0.0f, 0.0f };
 void func_8005E538(Object_8C* arg0);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_5A2C0/func_8005E538.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_edisplay/func_8005E538.s")
 #endif
 
 #ifdef NON_MATCHING
@@ -1267,7 +1267,7 @@ void func_8005E7B8(Object_6C* arg0, s32 arg1) {
 #else
 Vec3f D_800CFD1C = { 0.0f, 0.0f, 0.0f };
 void func_8005E7B8(Object_6C* arg0, s32 arg1);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_5A2C0/func_8005E7B8.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_edisplay/func_8005E7B8.s")
 #endif
 
 void func_8005EA24(Object_2F4* arg0) {
@@ -1458,7 +1458,7 @@ void func_8005F2F4(Object_58* arg0) {
 #else
 Vec3f D_800CFD34 = { 0.0f, 0.0f, 0.0f };
 void func_8005F2F4(Object_58*);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_5A2C0/func_8005F2F4.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_edisplay/func_8005F2F4.s")
 #endif
 
 void func_8005F670(Vec3f* arg0) {
@@ -1528,7 +1528,7 @@ s32 func_8005F9DC(Vec3f* arg0) {
     return 0;
 }
 #else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_5A2C0/func_8005F9DC.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_edisplay/func_8005F9DC.s")
 #endif
 
 void func_8005FB70(s32 arg0) {
@@ -1810,7 +1810,7 @@ void func_80060968(void) {
 }
 #else
 void func_80060968(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_5A2C0/func_80060968.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_edisplay/func_80060968.s")
 #endif
 
 void func_80060D94(s32 arg0) {
