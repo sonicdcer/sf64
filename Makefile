@@ -285,6 +285,12 @@ context:
 	@echo "Generating ctx.c ..."
 	@$(PYTHON) ./tools/m2ctx.py $(filter-out $@, $(MAKECMDGOALS))
 
+disasm:
+	mv src src_tmp
+	make extract -j $(N_THREADS)
+	rm -rf src/
+	mv src_tmp src
+
 #### Various Recipes ####
 
 # Final ROM
