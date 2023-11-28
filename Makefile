@@ -285,6 +285,13 @@ context:
 	@echo "Generating ctx.c ..."
 	@$(PYTHON) ./tools/m2ctx.py $(filter-out $@, $(MAKECMDGOALS))
 
+disasm:
+	@$(RM) -r asm/$(VERSION) bin/$(VERSION)
+	@echo "Unifying yamls..."
+	@$(CAT) yamls/$(VERSION)/header.yaml yamls/$(VERSION)/makerom.yaml yamls/$(VERSION)/main.yaml yamls/$(VERSION)/overlays.yaml > $(SPLAT_YAML)
+	@echo "Extracting..."
+	@$(SPLAT) $(SPLAT_YAML) --disassemble-all
+
 #### Various Recipes ####
 
 # Final ROM
@@ -338,4 +345,4 @@ build/src/libultra/libc/ll.o: src/libultra/libc/ll.c
 # Print target for debugging
 print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
 
-.PHONY: all uncompressed compressed clean init extract expected format checkformat decompress context
+.PHONY: all uncompressed compressed clean init extract expected format checkformat decompress context disasm
