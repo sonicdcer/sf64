@@ -2397,9 +2397,172 @@ void func_EBFBE0_8018E67C(s32 arg0) {
     D_EBFBE0_801B8350[arg0].unk_10 = 3.0f - (D_EBFBE0_801B8350[arg0].unk_0C / 100.0f);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018EA78.s")
+void func_EBFBE0_8018EA78(s32 arg0) {
+    Vec3f sp48[50];
+    s32 sp44;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018EDC8.s")
+    sp44 = D_EBFBE0_801B8350[arg0].unk_58 % func_8009ACDC(D_EBFBE0_801ADA00[arg0].unk_4);
+
+    func_800B8DD0(&gMasterDisp, 0x17);
+
+    Lights_SetOneLight(&gMasterDisp, D_EBFBE0_801B82E0, D_EBFBE0_801B82E4, D_EBFBE0_801B82E8, D_80178548, D_8017854C,
+                       D_80178550, D_80178554, D_80178558, D_8017855C);
+
+    Matrix_Push(&gGfxMatrix);
+
+    Matrix_RotateX(gGfxMatrix, D_EBFBE0_801B8350[arg0].unk_48 * M_DTOR, 1);
+    Matrix_RotateY(gGfxMatrix, D_EBFBE0_801B8350[arg0].unk_4C * M_DTOR, 1);
+    Matrix_RotateZ(gGfxMatrix, D_EBFBE0_801B8350[arg0].unk_50 * M_DTOR, 1);
+
+    Matrix_Translate(gGfxMatrix, D_EBFBE0_801B8350[arg0].unk_00.x, D_EBFBE0_801B8350[arg0].unk_00.y,
+                     D_EBFBE0_801B8350[arg0].unk_00.z, 1);
+    Matrix_Scale(gGfxMatrix, D_EBFBE0_801B84D4, D_EBFBE0_801B84D4, D_EBFBE0_801B84D4, 1);
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    func_8009BEEC(sp48, D_EBFBE0_801B86E0[arg0], 1, func_8009AA20(D_EBFBE0_801ADA00[arg0].unk_4, sp44, &sp48), 0.2f,
+                  100.0f, 0.0001f);
+    func_8009A72C(1, D_EBFBE0_801ADA00[arg0].skelanime, D_EBFBE0_801B86E0[arg0], func_EBFBE0_8018EDC8, NULL, &arg0,
+                  &gIdentityMatrix);
+
+    Matrix_Pop(&gGfxMatrix);
+}
+
+s32 func_EBFBE0_8018EDC8(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
+    f32 x;
+    f32 y;
+    f32 z;
+    s32 i = *(s32*) arg4;
+
+    if ((D_EBFBE0_801B86A4 < 2) && D_EBFBE0_801B9040) {
+        x = D_EBFBE0_801B905C - D_EBFBE0_801B8350[i].unk_00.x;
+        y = D_EBFBE0_801B9060 - (D_EBFBE0_801B8350[i].unk_00.y + D_EBFBE0_801B8350[i].unk_14);
+        z = D_EBFBE0_801B9064 - D_EBFBE0_801B8350[i].unk_00.z;
+
+        D_EBFBE0_801B8350[i].unk_28 = Math_Atan2F(x, sqrtf(SQ(y) + SQ(z))) * M_RTOD;
+        D_EBFBE0_801B8350[i].unk_2C = Math_Atan2F(y, z) * M_RTOD;
+
+        D_EBFBE0_801B8350[i].unk_38 = D_EBFBE0_801B8350[i].unk_28;
+        D_EBFBE0_801B8350[i].unk_3C = D_EBFBE0_801B8350[i].unk_2C;
+
+        if (D_EBFBE0_801B8350[i].unk_28 < -45.0f) {
+            D_EBFBE0_801B8350[i].unk_28 = -45.0f;
+        } else if (D_EBFBE0_801B8350[i].unk_28 > 45.0f) {
+            D_EBFBE0_801B8350[i].unk_28 = 45.0f;
+        }
+
+        if (D_EBFBE0_801B8350[i].unk_2C < -40.0f) {
+            D_EBFBE0_801B8350[i].unk_2C = -40.0f;
+        } else if (D_EBFBE0_801B8350[i].unk_2C > 55.0f) {
+            D_EBFBE0_801B8350[i].unk_2C = 55.0f;
+        }
+
+        if (D_EBFBE0_801B8350[i].unk_38 < -20.0f) {
+            D_EBFBE0_801B8350[i].unk_38 = D_EBFBE0_801B8350[i].unk_38 - (-20.0f);
+            if (D_EBFBE0_801B8350[i].unk_38 < -20.0f) {
+                D_EBFBE0_801B8350[i].unk_38 = -20.0f;
+            }
+        } else if (D_EBFBE0_801B8350[i].unk_38 > 20.0f) {
+            D_EBFBE0_801B8350[i].unk_38 = D_EBFBE0_801B8350[i].unk_38 - 20.0f;
+            if (D_EBFBE0_801B8350[i].unk_38 > 20.0f) {
+                D_EBFBE0_801B8350[i].unk_38 = 20.0f;
+            }
+        } else {
+            D_EBFBE0_801B8350[i].unk_38 = 0.0f;
+        }
+
+        if (D_EBFBE0_801B8350[i].unk_3C < -35.0f) {
+            D_EBFBE0_801B8350[i].unk_3C = D_EBFBE0_801B8350[i].unk_3C - (-35.0f);
+            if (D_EBFBE0_801B8350[i].unk_3C < -10.0f) {
+                D_EBFBE0_801B8350[i].unk_3C = -10.0f;
+            }
+        } else if (D_EBFBE0_801B8350[i].unk_3C > 40.0f) {
+            D_EBFBE0_801B8350[i].unk_3C = D_EBFBE0_801B8350[i].unk_3C - 40.0f;
+            if (D_EBFBE0_801B8350[i].unk_3C > 10.0f) {
+                D_EBFBE0_801B8350[i].unk_3C = 10.0f;
+            }
+        } else {
+            D_EBFBE0_801B8350[i].unk_3C = 0.0f;
+        }
+
+        func_8009BC2C(&D_EBFBE0_801B8350[i].unk_30, D_EBFBE0_801B8350[i].unk_28, 0.01f, 100.0f, 0.0001f);
+        func_8009BC2C(&D_EBFBE0_801B8350[i].unk_34, D_EBFBE0_801B8350[i].unk_2C, 0.01f, 100.0f, 0.0001f);
+        func_8009BC2C(&D_EBFBE0_801B8350[i].unk_40, D_EBFBE0_801B8350[i].unk_38, 0.005f, 100.0f, 0.0001f);
+        func_8009BC2C(&D_EBFBE0_801B8350[i].unk_44, D_EBFBE0_801B8350[i].unk_3C, 0.005f, 100.0f, 0.0001f);
+    }
+
+    switch (i) {
+        case 0:
+            if (arg0 == 1) {
+                arg3->z += D_EBFBE0_801B8350[i].unk_18;
+            }
+            if (arg0 == 19) {
+                arg3->x += D_EBFBE0_801B8350[i].unk_30;
+                arg3->y += D_EBFBE0_801B8350[i].unk_34;
+            }
+            if (arg0 == 20) {
+                arg3->x += D_EBFBE0_801B8350[i].unk_40;
+                arg3->y += D_EBFBE0_801B8350[i].unk_44;
+            }
+            break;
+
+        case 1:
+            if (arg0 == 1) {
+                arg3->z += D_EBFBE0_801B8350[i].unk_18;
+            }
+            if (arg0 == 11) {
+                arg3->z += D_EBFBE0_801B8350[i].unk_20;
+            }
+            if (arg0 == 19) {
+                arg3->x += D_EBFBE0_801B8350[i].unk_30;
+                arg3->y += D_EBFBE0_801B8350[i].unk_34;
+            }
+            if (arg0 == 20) {
+                arg3->x += D_EBFBE0_801B8350[i].unk_40;
+                arg3->y += D_EBFBE0_801B8350[i].unk_44;
+            }
+            if (arg0 == 21) {
+                arg3->x += -5.0f;
+            }
+            break;
+
+        case 2:
+            if (arg0 == 1) {
+                arg3->z += D_EBFBE0_801B8350[i].unk_18;
+            }
+            if (arg0 == 19) {
+                arg3->x += D_EBFBE0_801B8350[i].unk_30;
+                arg3->y += D_EBFBE0_801B8350[i].unk_34;
+            }
+            if (arg0 == 20) {
+                arg3->x += D_EBFBE0_801B8350[i].unk_40;
+                arg3->y += D_EBFBE0_801B8350[i].unk_44;
+            }
+            if (arg0 == 21) {
+                arg3->x += 10.0f;
+            }
+            break;
+
+        case 3:
+            if (arg0 == 1) {
+                arg3->z += D_EBFBE0_801B8350[i].unk_18;
+            }
+            if (arg0 == 17) {
+                arg3->x += D_EBFBE0_801B8350[i].unk_30;
+                arg3->y += D_EBFBE0_801B8350[i].unk_34;
+            }
+            if (arg0 == 18) {
+                arg3->x += D_EBFBE0_801B8350[i].unk_40;
+                arg3->y += D_EBFBE0_801B8350[i].unk_44;
+            }
+            if (arg0 == 19) {
+                arg3->x += 4.0f;
+            }
+            break;
+    }
+
+    return 0;
+}
 
 void func_EBFBE0_8018F438(void) {
     f32 sp54;

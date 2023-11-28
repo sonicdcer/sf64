@@ -200,6 +200,7 @@ void func_EBFBE0_8018DDB8(s32);
 void func_EBFBE0_8018DF0C(f32 arg0);
 void func_EBFBE0_8018E058(void);
 void func_EBFBE0_8018E200(void);
+s32 func_EBFBE0_8018EDC8(s32, Gfx **, Vec3f *, Vec3f *, void *);
 void  func_EBFBE0_8018E67C(s32);
 void func_EBFBE0_8018F438(void);
 void func_EBFBE0_80190144(void);
