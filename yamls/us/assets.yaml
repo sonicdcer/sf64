@@ -1,0 +1,211 @@
+  - name: audio_seq
+    type: bin
+    start: 0xDEA20
+
+  - name: audio_bank
+    type: bin
+    start: 0x119710
+
+  - name: audio_table
+    type: bin
+    start: 0x137730
+
+  - name: ast_873CB0
+    type: bin
+    start: 0x873CB0
+
+  - name: ast_8A68C0
+    type: bin
+    start: 0x8A68C0
+
+  - name: ast_8AE0A0
+    type: bin
+    start: 0x8AE0A0
+
+  - name: ast_8BFC00
+    type: bin
+    start: 0x8BFC00
+
+  - name: ast_8D99F0
+    type: bin
+    start: 0x8D99F0
+
+  - name: ast_8E1F80
+    type: bin
+    start: 0x8E1F80
+
+  - name: ast_8E92D0
+    type: bin
+    start: 0x8E92D0
+
+  - name: ast_918430
+    type: bin
+    start: 0x918430
+
+  - name: ast_922730
+    type: bin
+    start: 0x922730
+
+  - name: ast_92EC40
+    type: bin
+    start: 0x92EC40
+
+  - name: ast_940AD0
+    type: bin
+    start: 0x940AD0
+
+  - name: ast_955270
+    type: bin
+    start: 0x955270
+
+  - name: ast_961CE0
+    type: bin
+    start: 0x961CE0
+
+  - name: ast_9A1460
+    type: bin
+    start: 0x9A1460
+
+  - name: ast_9D2FD0
+    type: bin
+    start: 0x9D2FD0
+
+  - name: ast_9DD390
+    type: bin
+    start: 0x9DD390
+
+  - name: ast_9EB5E0
+    type: bin
+    start: 0x9EB5E0
+
+  - name: ast_9F4880
+    type: bin
+    start: 0x9F4880
+
+  - name: ast_A049A0
+    type: bin
+    start: 0xA049A0
+
+  - name: ast_A0E340
+    type: bin
+    start: 0xA0E340
+
+  - name: ast_A1D0F0
+    type: bin
+    start: 0xA1D0F0
+
+  - name: ast_A4FBB0
+    type: bin
+    start: 0xA4FBB0
+
+  - name: ast_A58F60
+    type: bin
+    start: 0xA58F60
+
+  - name: ast_A8B470
+    type: bin
+    start: 0xA8B470
+
+  - name: ast_AB4000
+    type: bin
+    start: 0xAB4000
+
+  - name: ast_ACF960
+    type: bin
+    start: 0xACF960
+
+  - name: ast_AE60A0
+    type: bin
+    start: 0xAE60A0
+
+  - name: ast_B0AA00
+    type: bin
+    start: 0xB0AA00
+
+  - name: ast_B1CA50
+    type: bin
+    start: 0xB1CA50
+
+  - name: ast_B2CA50
+    type: bin
+    start: 0xB2CA50
+
+  - name: ast_B612E0
+    type: bin
+    start: 0xB612E0
+
+  - name: ast_B84560
+    type: bin
+    start: 0xB84560
+
+  - name: ast_BB11D0
+    type: bin
+    start: 0xBB11D0
+
+  - name: ast_BC23D0
+    type: bin
+    start: 0xBC23D0
+
+  - name: ast_BFA740
+    type: bin
+    start: 0xBFA740
+
+  - name: ast_BFC510
+    type: bin
+    start: 0xBFC510
+
+  - name: ast_C48F40
+    type: bin
+    start: 0xC48F40
+
+  - name: ast_CA9DE0
+    type: bin
+    start: 0xCA9DE0
+
+  - name: ast_CBFE70
+    type: bin
+    start: 0xCBFE70
+
+  - name: ast_CD2410
+    type: bin
+    start: 0xCD2410
+
+  - name: ast_CDDCA0
+    type: bin
+    start: 0xCDDCA0
+
+  - name: ast_CE9E70
+    type: bin
+    start: 0xCE9E70
+
+  - name: ast_D25100
+    type: bin
+    start: 0xD25100
+
+  - name: ast_D27600
+    type: bin
+    start: 0xD27600
+
+  - name: ast_D43400
+    type: bin
+    start: 0xD43400
+
+  - name: ast_D68480
+    type: bin
+    start: 0xD68480
+
+  - name: ast_D91F10
+    type: bin
+    start: 0xD91F10
+
+  - name: ast_DDC010
+    type: bin
+    start: 0xDDC010
+
+  - name: ast_DE5D50
+    type: data
+    dir: assets
+    start: 0xDE5D50
+    vram: 0x80179010
+    subsegments:
+      - [0xDE5D50, .data, ast_DE5D50]

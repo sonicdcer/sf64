@@ -309,11 +309,11 @@ void func_800A26C0(void) {
             case 0x66:
                 func_800B8DD0(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
-                func_8009D994(&gMasterDisp, D_F000000, 0x80, 0x10, 100.0f, 86.0f, 1.0f, 1.0f);
-                func_8009D994(&gMasterDisp, D_F000800, 0x80, 0x10, 100.0f, 102.0f, 1.0f, 1.0f);
-                func_8009D994(&gMasterDisp, D_F001000, 0x80, 0x10, 100.0f, 118.0f, 1.0f, 1.0f);
-                func_8009D994(&gMasterDisp, D_F001800, 0x80, 0x10, 100.0f, 134.0f, 1.0f, 1.0f);
-                func_8009D994(&gMasterDisp, D_F002000, 0x80, 0xA, 100.0f, 150.0f, 1.0f, 1.0f);
+                TextureRect_8bIA(&gMasterDisp, D_F000000, 0x80, 0x10, 100.0f, 86.0f, 1.0f, 1.0f);
+                TextureRect_8bIA(&gMasterDisp, D_F000800, 0x80, 0x10, 100.0f, 102.0f, 1.0f, 1.0f);
+                TextureRect_8bIA(&gMasterDisp, D_F001000, 0x80, 0x10, 100.0f, 118.0f, 1.0f, 1.0f);
+                TextureRect_8bIA(&gMasterDisp, D_F001800, 0x80, 0x10, 100.0f, 134.0f, 1.0f, 1.0f);
+                TextureRect_8bIA(&gMasterDisp, D_F002000, 0x80, 0xA, 100.0f, 150.0f, 1.0f, 1.0f);
                 D_80177834++;
                 break;
             case 0x67:
@@ -326,11 +326,11 @@ void func_800A26C0(void) {
             case 0x68:
                 func_800B8DD0(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
-                func_8009D994(&gMasterDisp, D_F000000, 0x80, 0x10, 100.0f, 86.0f, 1.0f, 1.0f);
-                func_8009D994(&gMasterDisp, D_F000800, 0x80, 0x10, 100.0f, 102.0f, 1.0f, 1.0f);
-                func_8009D994(&gMasterDisp, D_F001000, 0x80, 0x10, 100.0f, 118.0f, 1.0f, 1.0f);
-                func_8009D994(&gMasterDisp, D_F001800, 0x80, 0x10, 100.0f, 134.0f, 1.0f, 1.0f);
-                func_8009D994(&gMasterDisp, D_F002000, 0x80, 0xA, 100.0f, 150.0f, 1.0f, 1.0f);
+                TextureRect_8bIA(&gMasterDisp, D_F000000, 0x80, 0x10, 100.0f, 86.0f, 1.0f, 1.0f);
+                TextureRect_8bIA(&gMasterDisp, D_F000800, 0x80, 0x10, 100.0f, 102.0f, 1.0f, 1.0f);
+                TextureRect_8bIA(&gMasterDisp, D_F001000, 0x80, 0x10, 100.0f, 118.0f, 1.0f, 1.0f);
+                TextureRect_8bIA(&gMasterDisp, D_F001800, 0x80, 0x10, 100.0f, 134.0f, 1.0f, 1.0f);
+                TextureRect_8bIA(&gMasterDisp, D_F002000, 0x80, 0xA, 100.0f, 150.0f, 1.0f, 1.0f);
                 break;
             case 0x69:
                 D_80177834 = 1;

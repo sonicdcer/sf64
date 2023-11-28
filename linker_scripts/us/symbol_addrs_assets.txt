@@ -32,3 +32,25 @@ D_Vtx_800DAC80 = 0x800DAC80;
 D_Unk_800DACB8 = 0x800DACB8;
 D_Unk_800DB4B8 = 0x800DB4B8;
 D_Unk_800D96E8 = 0x800D96E8; // type:s16
+
+gSawtoothWaveSample = 0x800DBB10; // size:0x200 type:s16
+gTriangleWaveSample = 0x800DBD10; // size:0x200 type:s16
+gSineWaveSample = 0x800DBF10; // size:0x200 type:s16
+gSquareWaveSample = 0x800DC110; // size:0x200 type:s16
+gWhiteNoiseSample = 0x800DC310; // size:0x200 type:s16
+gUnkSample = 0x800DC510; // size:0x200 type:s16
+gWaveSamples = 0x800DC710; // size:0x20
+
+gBendPitchOneOctaveFrequencies = 0x800DC730; // size:0x400
+gBendPitchTwoSemitonesFrequencies = 0x800DCB30;
+gPitchFrequencies = 0x800DCF30;
+gDefaultShortNoteVelocityTable = 0x800DD130;
+gDefaultShortNoteGateTimeTable = 0x800DD140;
+gDefaultEnvelope = 0x800DD150;
+gZeroNoteSub = 0x800DD160;
+gDefaultNoteSub = 0x800DD170;
+gHaasEffectDelaySizes = 0x800DD180; // size:0x80 type:u16
+D_800DD200 = 0x800DD200; // size:0x80 type:s16
+gHeadsetPanVolume = 0x800DD280; // size:0x200 type:f32
+gStereoPanVolume = 0x800DD480; // size:0x200 type:f32
+gDefaultPanVolume = 0x800DD680; // size:0x200 type:f32

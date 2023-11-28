@@ -185,6 +185,7 @@
       - [0xA4B50, c, sf_A4B50]
       - [0xB99D0, c, fox_rcp]
       - [0xBB360, c, sf_BB360]
+      - [0xBD0B0, c, sf_BD0B0]
       - [0xBD360, c, sf_versus]
       - [0xC3430, c, sf_C3430]
       - [0xC3BB0, c, fox_save]
@@ -260,7 +261,7 @@
       - [0xCAB00, data, sf_43E80]
       - [0xCAB60, data, sf_496C0]
       - [0xCAE20, data, sf_52730]
-      - [0xCAFB0, data, sf_59780]
+      - [0xCAFB0, .data, sf_59780]
       - [0xCCA70, data, sf_50AF0]
       - [0xD0570, .data, sf_5A2C0]
       - [0xD09A0, .data, sf_61B30]
@@ -272,7 +273,8 @@
       - [0xD3520, data, sf_A48A0]
       - [0xD3B50, data, sf_A4B50]
       - [0xD3DB0, .data, fox_rcp]
-      - [0xD5670, data, sf_BB360]
+      - [0xD5670, .data, sf_BB360]
+      - [0xD5680, .data, sf_BD0B0]
       - [0xD5690, data, sf_versus]
       - [0xD5910, .data, fox_save]
 
@@ -307,7 +309,7 @@
 
       # Nintendo Library bss
       - { start: 0xDE480, type: .bss, vram: 0x800DD880, name: joybus }
-      - { start: 0xDE480, type: .bss, vram: 0x800DDAA0, name: main }
+      - { start: 0xDE480, type: bss, vram: 0x800DDAA0, name: main }
       - { start: 0xDE480, type: .bss, vram: 0x8013B3A0, name: math }
       - { start: 0xDE480, type: .bss, vram: 0x8013B3C0, name: matrix }
       - { start: 0xDE480, type: .bss, vram: 0x8013C3D0, name: memory }
@@ -346,3 +348,11 @@
       # Game engine bss
       - { start: 0xDE480, type: bss, vram: 0x8015F900, name: engine }
       - { start: 0xDE480, type: .bss, vram: 0x80178870, name: fox_save }
+
+  - name: dma_table
+    type: data
+    dir: main
+    start: 0xDE480
+    vram: 0x80178A70
+    subsegments:
+     - [0xDE480, .data, dmatable]

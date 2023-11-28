@@ -465,8 +465,9 @@ f32 func_8009BD38(f32* angle, f32 target, f32 scale, f32 maxStep, f32 minStep) {
     return var_fv1;
 }
 
-#ifdef NON_MATCHING
 void func_8009BEEC(Vec3f* src, Vec3f* dst, s32 mode, s32 count, f32 scale, f32 maxStep, f32 minStep) {
+    Vec3f* srcTemp;
+    Vec3f* dstTemp;
     s32 i;
 
     switch (mode) {
@@ -478,22 +479,24 @@ void func_8009BEEC(Vec3f* src, Vec3f* dst, s32 mode, s32 count, f32 scale, f32 m
             }
             break;
         case 1:
-            func_8009BC2C(&dst->x, src->x, scale, maxStep, minStep);
-            func_8009BC2C(&dst->y, src->y, scale, maxStep, minStep);
-            func_8009BC2C(&dst->z, src->z, scale, maxStep, minStep);
+            dstTemp = dst;
+            srcTemp = src;
+            func_8009BC2C(&dstTemp->x, srcTemp->x, scale, maxStep, minStep);
+            func_8009BC2C(&dstTemp->y, srcTemp->y, scale, maxStep, minStep);
+            func_8009BC2C(&dstTemp->z, srcTemp->z, scale, maxStep, minStep);
+            dstTemp++;
+            srcTemp++;
 
-            for (i = 1, src++, dst++; i < count; i++, src++, dst++) {
-                func_8009BD38(&dst->x, src->x, scale, maxStep, minStep);
-                func_8009BD38(&dst->y, src->y, scale, maxStep, minStep);
-                func_8009BD38(&dst->z, src->z, scale, maxStep, minStep);
+            for (i = 1; i < count; i++, dstTemp++, srcTemp++) {
+                func_8009BD38(&dstTemp->x, srcTemp->x, scale, maxStep, minStep);
+                func_8009BD38(&dstTemp->y, srcTemp->y, scale, maxStep, minStep);
+                func_8009BD38(&dstTemp->z, srcTemp->z, scale, maxStep, minStep);
             }
+            break;
+        default:
             break;
     }
 }
-#else
-void func_8009BEEC(Vec3f* src, Vec3f* dst, s32 mode, s32 count, f32 scale, f32 maxStep, f32 minStep);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_9A580/func_8009BEEC.s")
-#endif
 
 s32 func_8009C124(Vec3f* pos, Vec3f* target, Vec3f* rot, f32 stepSize, f32 scaleTurn, f32 maxTurn, f32 dist) {
     Vec3f diff;
@@ -527,8 +530,8 @@ s32 func_8009C124(Vec3f* pos, Vec3f* target, Vec3f* rot, f32 stepSize, f32 scale
     return sqrtf(VEC3F_SQ(diff)) < dist;
 }
 
-void func_8009C320(Gfx** gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale,
-                   f32 yScale) {
+void TextureRect_4bCI(Gfx** gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale,
+                      f32 yScale) {
     gDPLoadTLUT_pal16((*gfxPtr)++, 0, palette);
     gDPLoadTextureBlock_4b((*gfxPtr)++, texture, G_IM_FMT_CI, width, height, 0, G_TX_NOMIRROR | G_TX_WRAP,
                            G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
@@ -537,8 +540,8 @@ void func_8009C320(Gfx** gfxPtr, void* texture, void* palette, u32 width, u32 he
                         (s32) (1.0f / yScale * 1024.0f));
 }
 
-void func_8009C674(Gfx** gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale,
-                   f32 yScale) {
+void TextureRect_4bCI_Flip(Gfx** gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos,
+                           f32 xScale, f32 yScale) {
     gDPLoadTLUT_pal16((*gfxPtr)++, 0, palette);
     gDPLoadTextureBlock_4b((*gfxPtr)++, texture, G_IM_FMT_CI, width, height, 0, G_TX_NOMIRROR | G_TX_WRAP,
                            G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
@@ -547,8 +550,8 @@ void func_8009C674(Gfx** gfxPtr, void* texture, void* palette, u32 width, u32 he
                             (s32) (1.0f / xScale * 1024.0f), (s32) (1.0f / yScale * 1024.0f));
 }
 
-void func_8009C9C8(Gfx** gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale,
-                   f32 yScale) {
+void TextureRect_4bCI_MirX(Gfx** gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos,
+                           f32 xScale, f32 yScale) {
     gDPLoadTLUT_pal16((*gfxPtr)++, 0, palette);
     gDPLoadTextureBlock_4b((*gfxPtr)++, texture, G_IM_FMT_CI, width, height, 0, G_TX_MIRROR | G_TX_WRAP,
                            G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
@@ -557,8 +560,8 @@ void func_8009C9C8(Gfx** gfxPtr, void* texture, void* palette, u32 width, u32 he
                         (u16) (s32) (-1.0f / xScale * 1024.0f), (s32) (1.0f / yScale * 1024.0f));
 }
 
-void func_8009CD3C(Gfx** gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale,
-                   f32 yScale) {
+void TextureRect_4bCI_MirY(Gfx** gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos,
+                           f32 xScale, f32 yScale) {
     gDPLoadTLUT_pal16((*gfxPtr)++, 0, palette);
     gDPLoadTextureBlock_4b((*gfxPtr)++, texture, G_IM_FMT_CI, width, height, 0, G_TX_MIRROR | G_TX_WRAP,
                            G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
@@ -567,8 +570,8 @@ void func_8009CD3C(Gfx** gfxPtr, void* texture, void* palette, u32 width, u32 he
                         (s32) (1.0f / xScale * 1024.0f), (u16) (s32) (-1.0f / yScale * 1024.0f));
 }
 
-void func_8009D0BC(Gfx** gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale,
-                   f32 yScale) {
+void TextureRect_8bCI(Gfx** gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale,
+                      f32 yScale) {
     gDPLoadTLUT_pal256((*gfxPtr)++, palette);
     gDPLoadTextureBlock((*gfxPtr)++, texture, G_IM_FMT_CI, G_IM_SIZ_8b, width, height, 0, G_TX_NOMIRROR | G_TX_WRAP,
                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
@@ -577,7 +580,8 @@ void func_8009D0BC(Gfx** gfxPtr, void* texture, void* palette, u32 width, u32 he
                         (s32) (1.0f / yScale * 1024.0f));
 }
 
-void func_8009D418(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
+void TextureRect_16bRGBA(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale,
+                         f32 yScale) {
     gDPLoadTextureBlock((*gfxPtr)++, texture, G_IM_FMT_RGBA, G_IM_SIZ_16b, width, height, 0, G_TX_NOMIRROR | G_TX_WRAP,
                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangle((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f), (s32) ((xPos + width * xScale) * 4.0f),
@@ -585,7 +589,8 @@ void func_8009D418(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos,
                         (s32) (1.0f / yScale * 1024.0f));
 }
 
-void func_8009D6CC(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
+void TextureRect_16bRGBA_MirX(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale,
+                              f32 yScale) {
     gDPLoadTextureBlock((*gfxPtr)++, texture, G_IM_FMT_RGBA, G_IM_SIZ_16b, width, height, 0, G_TX_NOMIRROR | G_TX_WRAP,
                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangle((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f), (s32) ((xPos + width * xScale) * 4.0f),
@@ -593,7 +598,7 @@ void func_8009D6CC(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos,
                         (u16) (s32) (-1.0f / xScale * 1024.0f), (s32) (1.0f / yScale * 1024.0f));
 }
 
-void func_8009D994(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
+void TextureRect_8bIA(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
     gDPLoadTextureBlock((*gfxPtr)++, texture, G_IM_FMT_IA, G_IM_SIZ_8b, width, height, 0, G_TX_NOMIRROR | G_TX_WRAP,
                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangle((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f), (s32) ((xPos + width * xScale) * 4.0f),
@@ -601,7 +606,8 @@ void func_8009D994(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos,
                         (s32) (1.0f / yScale * 1024.0f));
 }
 
-void func_8009DC4C(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
+void TextureRect_8bIA_FilpMirX(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale,
+                               f32 yScale) {
     gDPLoadTextureBlock((*gfxPtr)++, texture, G_IM_FMT_IA, G_IM_SIZ_8b, width, height, 0, G_TX_NOMIRROR | G_TX_WRAP,
                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangleFlip((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f),
@@ -610,7 +616,8 @@ void func_8009DC4C(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos,
                             (s32) (1.0f / xScale * 1024.0f));
 }
 
-void func_8009DF14(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
+void TextureRect_8bIA_FilpMirY(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale,
+                               f32 yScale) {
     gDPLoadTextureBlock((*gfxPtr)++, texture, G_IM_FMT_IA, G_IM_SIZ_8b, width, height, 0, G_TX_NOMIRROR | G_TX_WRAP,
                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangleFlip((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f),
@@ -618,7 +625,8 @@ void func_8009DF14(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos,
                             (height - 1) * 32, (s32) (1.0f / yScale * 1024.0f), (u16) (s32) (-1.0f / xScale * 1024.0f));
 }
 
-void func_8009E1E8(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
+void TextureRect_8bIA_MirX(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale,
+                           f32 yScale) {
     gDPLoadTextureBlock((*gfxPtr)++, texture, G_IM_FMT_IA, G_IM_SIZ_8b, width, height, 0, G_TX_NOMIRROR | G_TX_WRAP,
                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangle((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f), (s32) ((xPos + width * xScale) * 4.0f),
@@ -626,7 +634,8 @@ void func_8009E1E8(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos,
                         (u16) (s32) (-1.0f / xScale * 1024.0f), (s32) (1.0f / yScale * 1024.0f));
 }
 
-void func_8009E4B0(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
+void TextureRect_8bIA_MirY(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale,
+                           f32 yScale) {
     gDPLoadTextureBlock((*gfxPtr)++, texture, G_IM_FMT_IA, G_IM_SIZ_8b, width, height, 0, G_TX_NOMIRROR | G_TX_WRAP,
                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangle((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f), (s32) ((xPos + width * xScale) * 4.0f),
@@ -634,7 +643,7 @@ void func_8009E4B0(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos,
                         (s32) (1.0f / xScale * 1024.0f), (u16) (s32) (-1.0f / yScale * 1024.0f));
 }
 
-void func_8009E784(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
+void TextureRect_16bIA(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
     gDPLoadTextureBlock((*gfxPtr)++, texture, G_IM_FMT_IA, G_IM_SIZ_16b, width, height, 0, G_TX_NOMIRROR | G_TX_WRAP,
                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangle((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f), (s32) ((xPos + width * xScale) * 4.0f),
@@ -642,7 +651,8 @@ void func_8009E784(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos,
                         (s32) (1.0f / yScale * 1024.0f));
 }
 
-void func_8009EA38(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
+void TextureRect_16bIA_MirX(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale,
+                            f32 yScale) {
     gDPLoadTextureBlock((*gfxPtr)++, texture, G_IM_FMT_IA, G_IM_SIZ_16b, width, height, 0, G_TX_MIRROR | G_TX_WRAP,
                         G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangle((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f), (s32) ((xPos + width * xScale) * 4.0f),
@@ -650,7 +660,8 @@ void func_8009EA38(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos,
                         (u16) (s32) (-1.0f / xScale * 1024.0f), (s32) (1.0f / yScale * 1024.0f));
 }
 
-void func_8009ED04(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
+void TextureRect_16bIA_MirY(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale,
+                            f32 yScale) {
     gDPLoadTextureBlock((*gfxPtr)++, texture, G_IM_FMT_IA, G_IM_SIZ_16b, width, height, 0, G_TX_MIRROR | G_TX_WRAP,
                         G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangle((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f), (s32) ((xPos + width * xScale) * 4.0f),
@@ -658,7 +669,8 @@ void func_8009ED04(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos,
                         (s32) (1.0f / xScale * 1024.0f), (u16) (s32) (-1.0f / yScale * 1024.0f));
 }
 
-void func_8009EFDC(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
+void TextureRect_16bIA_MirXY(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale,
+                             f32 yScale) {
     gDPLoadTextureBlock((*gfxPtr)++, texture, G_IM_FMT_IA, G_IM_SIZ_16b, width, height, 0, G_TX_MIRROR | G_TX_WRAP,
                         G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangle((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f), (s32) ((xPos + width * xScale) * 4.0f),
@@ -666,7 +678,8 @@ void func_8009EFDC(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos,
                         (u16) (s32) (-1.0f / xScale * 1024.0f), (u16) (s32) (-1.0f / yScale * 1024.0f));
 }
 
-void func_8009F2C0(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
+void TextureRect_32bRGBA(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale,
+                         f32 yScale) {
     gDPLoadTextureBlock((*gfxPtr)++, texture, G_IM_FMT_RGBA, G_IM_SIZ_32b, width, height, 0, G_TX_NOMIRROR | G_TX_WRAP,
                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangle((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f), (s32) ((xPos + width * xScale) * 4.0f),
@@ -766,13 +779,13 @@ void func_8009FC0C(s32 xPos, s32 yPos, s32 number) {
     var_s0 = 1000000;
     for (var_s0 = 1000000; var_s0 != 1; var_s0 /= 10) {
         if ((number / var_s0 != 0) || (var_s3 == 1)) {
-            func_8009C320(&gMasterDisp, spA0[number / var_s0], sp78[number / var_s0], 16, 8, xPos, yPos, 1.0f, 1.0f);
+            TextureRect_4bCI(&gMasterDisp, spA0[number / var_s0], sp78[number / var_s0], 16, 8, xPos, yPos, 1.0f, 1.0f);
             var_s3 = 1;
             xPos += 9;
             number %= var_s0;
         }
     }
-    func_8009C320(&gMasterDisp, spA0[number / var_s0], sp78[number / var_s0], 16, 8, xPos, yPos, 1.0f, 1.0f);
+    TextureRect_4bCI(&gMasterDisp, spA0[number / var_s0], sp78[number / var_s0], 16, 8, xPos, yPos, 1.0f, 1.0f);
 }
 
 void* D_800D2638[] = {
@@ -789,13 +802,13 @@ void func_8009FEA0(s32 xPos, s32 yPos, s32 number) {
     var_s0 = 1000000;
     for (var_s0 = 1000000; var_s0 != 1; var_s0 /= 10) {
         if ((number / var_s0 != 0) || (var_s3 == 1)) {
-            func_8009D994(&gMasterDisp, D_800D2638[number / var_s0], 16, 8, xPos, yPos, 1.0f, 1.0f);
+            TextureRect_8bIA(&gMasterDisp, D_800D2638[number / var_s0], 16, 8, xPos, yPos, 1.0f, 1.0f);
             var_s3 = 1;
             xPos += 9;
             number %= var_s0;
         }
     }
-    func_8009D994(&gMasterDisp, D_800D2638[number / var_s0], 16, 8, xPos, yPos, 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, D_800D2638[number / var_s0], 16, 8, xPos, yPos, 1.0f, 1.0f);
 }
 
 char D_800D2660[] = " ABCDEFGHIJKLMNOPQRSTUVWXYZ!:-.0123456789";
@@ -943,7 +956,7 @@ void func_800A0094(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char* text) {
                 if ((text[0] == 'W') || (text[0] == 'X')) {
                     width = 32;
                 }
-                func_8009D994(&gMasterDisp, D_800D26E4[var_t0], width, 15, xPosCurrent, yPos, xScale, yScale);
+                TextureRect_8bIA(&gMasterDisp, D_800D26E4[var_t0], width, 15, xPosCurrent, yPos, xScale, yScale);
             }
             var_t1 = 1;
             xPosCurrent += (D_800D26B8[var_t0] * xScale) + 2.0f;
@@ -1084,13 +1097,13 @@ void func_800A100C(s32 xPos, s32 yPos, s32 number) {
     var_s0 = 1000000;
     for (var_s0 = 1000000; var_s0 != 1; var_s0 /= 10) {
         if ((number / var_s0 != 0) || (var_s3 == 1)) {
-            func_8009D994(&gMasterDisp, D_800D2788[number / var_s0], 16, 15, xPos, yPos, 1.0f, 1.0f);
+            TextureRect_8bIA(&gMasterDisp, D_800D2788[number / var_s0], 16, 15, xPos, yPos, 1.0f, 1.0f);
             var_s3 = 1;
             xPos += 13;
             number %= var_s0;
         }
     }
-    func_8009D994(&gMasterDisp, D_800D2788[number / var_s0], 16, 15, xPos, yPos, 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, D_800D2788[number / var_s0], 16, 15, xPos, yPos, 1.0f, 1.0f);
 }
 
 void func_800A1200(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char* text) {
@@ -1111,7 +1124,7 @@ void func_800A1200(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char* text) {
                 if (var_t0 > 30) {
                     width = 16;
                 }
-                func_8009D994(&gMasterDisp, D_800D27B0[var_t0], width, 8, xPosCurrent, yPos, xScale, yScale);
+                TextureRect_8bIA(&gMasterDisp, D_800D27B0[var_t0], width, 8, xPosCurrent, yPos, xScale, yScale);
                 if (1) {}
             }
             switch (text[0]) {

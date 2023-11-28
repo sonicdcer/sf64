@@ -1,24 +1,3 @@
-  - name: dmaTable
-    type: data
-    start: 0xDE480
-    vram: 0x80178A70
-
-  - name: audio_seq
-    type: bin
-    start: 0xDEA20
-
-  - name: audio_bank
-    type: bin
-    start: 0x119710
-
-  - name: audio_table
-    type: bin
-    start: 0x137730
-
-  - name: assets
-    type: bin
-    start: 0x873BC0
-
   - name: ovl_DF4260
     type: code
     dir: overlays/ovl_DF4260
@@ -32,7 +11,7 @@
     - [0xDFEE30, c, DFEE30]
     - [0xE05620, c, E05620]
     - [0xE05990, c, E05990]
-    - [0xE06520, data, DF4260]
+    - [0xE06510, data, DF4260]
     - [0xE06880, data, DFEE30]
     - [0xE07B90, data, E05990]
     - [0xE07C30, .rodata, DF4260]
@@ -52,7 +31,7 @@
     subsegments:    
     - [0xE08400, c, E08400]
     - [0xE0FF10, c, E0FF10]
-    - [0xE16310, data, E08400]
+    - [0xE16300, data, E08400]
     - [0xE16520, data, E0FF10]
     - [0xE16670, .rodata, E08400]
     - [0xE16930, .rodata, E0FF10]
@@ -95,7 +74,7 @@
     - [0xE561B0, c, E561B0]
     - [0xE5CC30, c, E5CC30]
     - [0xE63D50, c, E63D50]
-    - [0xE69230, data, E51A40]
+    - [0xE69220, data, E51A40]
     - [0xE69310, data, E561B0]
     - [0xE69540, data, E5CC30]
     - [0xE69910, data, E63D50]
@@ -118,7 +97,7 @@
     - [0xE6A810, c, E6A810]
     - [0xE6C220, c, E6C220]
     - [0xE97CC0, c, E97CC0]
-    - [0xE9A590, data, E6A810]
+    - [0xE9A580, data, E6A810]
     - [0xE9A650, data, E6C220]
     - [0xE9DC00, data, E97CC0]
     - [0xE9DCD0, .rodata, E6A810]
@@ -139,7 +118,7 @@
     - [0xEADEC0, c, EADECO]
     - [0xEAF7E0, c, EAF7E0]
     - [0xEBD210, c, EBD210]
-    - [0xEBE410, data, E9F1D0]
+    - [0xEBE400, data, E9F1D0]
     - [0xEBE560, data, EADCE0]
     - [0xEBE5C0, data, EAF7E0]
     - [0xEBE830, data, EBD210]
@@ -162,7 +141,7 @@
     - [0xEBFCA0, c, fox_title]
     - [0xECA1E0, c, fox_option]
     - [0xED6EC0, c, ED6EC0]
-    - [0xEE60C0, data, fox_title]
+    - [0xEE60B0, data, fox_title]
     - [0xEE6C30, data, fox_option]
     - [0xEE7AE0, data, ED6EC0]
     - [0xEEF410, .rodata, EBFBE0]
