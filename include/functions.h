@@ -145,7 +145,7 @@ void func_8003DE68(s32, s32);
 void func_80040CDC(void);
 void func_80042FAC(Object_408 *);       
 void func_80042FD0(Object_408 *);
-void func_80053658(UnkStruct_D_80161630 *, UnkStruct_D_80178280 *);
+void func_80053658(UnkStruct_D_80161630 *);
 void func_8005465C(s32);
 u8 func_80058F14(u8 arg0, u8 arg1);
 void func_80059498(void);
