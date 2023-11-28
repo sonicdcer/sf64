@@ -11,6 +11,7 @@ extern u8 gF3dexData;
 
 extern u8 D_8003B50[];
 extern u8 D_80046B0[];
+extern u8 D_8004C50[];
 extern s32 sGammaMode;
 extern f32 D_800C45E0[];
 
