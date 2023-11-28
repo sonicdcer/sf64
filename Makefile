@@ -286,10 +286,11 @@ context:
 	@$(PYTHON) ./tools/m2ctx.py $(filter-out $@, $(MAKECMDGOALS))
 
 disasm:
-	mv src src_tmp
-	make extract -j $(N_THREADS)
-	rm -rf src/
-	mv src_tmp src
+	@$(RM) -r asm/$(VERSION) bin/$(VERSION)
+	@echo "Unifying yamls..."
+	@$(CAT) yamls/$(VERSION)/header.yaml yamls/$(VERSION)/makerom.yaml yamls/$(VERSION)/main.yaml yamls/$(VERSION)/overlays.yaml > $(SPLAT_YAML)
+	@echo "Extracting..."
+	@$(SPLAT) $(SPLAT_YAML) --disassemble-all
 
 #### Various Recipes ####
 
