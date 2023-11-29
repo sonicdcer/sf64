@@ -238,13 +238,14 @@ init:
 
 uncompressed: $(ROM)
 ifneq ($(COMPARE),0)
-	@echo MD5 CHECK:
+	@$(MAKE) fix_checksum
 	@md5sum $(ROM)
 	@md5sum -c $(TARGET).$(VERSION).uncompressed.md5
 endif
 
 compressed: $(ROMC)
 ifeq ($(COMPARE),1)
+	@$(MAKE) fix_checksum
 	@md5sum $(ROMC)
 	@md5sum -c $(TARGET).$(VERSION).md5
 endif
@@ -254,6 +255,10 @@ endif
 decompress: $(BASEROM)
 	@echo "Decompressing ROM..."
 	@$(PYTHON) $(COMPTOOL) -de $(COMPTOOL_DIR) -m $(MIO0) $(BASEROM) $(BASEROM_UNCOMPRESSED)
+
+fix_checksum: $(ROM)
+	@echo "Calculating Rom Header Checksum..."
+	@$(PYTHON) $(COMPTOOL) -r $(ROM) .
 
 extract:
 	@$(RM) -r asm/$(VERSION) bin/$(VERSION)
@@ -345,4 +350,4 @@ build/src/libultra/libc/ll.o: src/libultra/libc/ll.c
 # Print target for debugging
 print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
 
-.PHONY: all uncompressed compressed clean init extract expected format checkformat decompress context disasm
+.PHONY: all uncompressed compressed clean init extract expected format checkformat decompress context disasm fix_checksum
