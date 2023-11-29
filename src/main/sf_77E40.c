@@ -177,7 +177,74 @@ void func_80077B78(void* arg0) {
 
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80077B84.s")
+void func_80077B84(Object_8C* arg0) {
+    func_8005980C(arg0->unk_70);
+    if ((arg0->unk_6C == 71.0f) || ((D_80178280->unk_1C8 == 7) && (D_80178234 == 0))) {
+        func_800B8DD0(&gMasterDisp, 0x26);
+    } else {
+        func_800B8DD0(&gMasterDisp, 0x43);
+    }
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, arg0->unk_44);
+    switch (arg0->unk_4C) {
+        case 0:
+            gDPSetEnvColor(gMasterDisp++, 0, 128, 255, arg0->unk_44);
+            break;
+        case 1:
+            gDPSetEnvColor(gMasterDisp++, 255, 64, 255, arg0->unk_44);
+            break;
+        case 2:
+            gDPSetEnvColor(gMasterDisp++, 255, 128, 0, arg0->unk_44);
+            break;
+        case 3:
+            gDPSetEnvColor(gMasterDisp++, 255, 48, 48, arg0->unk_44);
+            break;
+        case 4:
+            gDPSetEnvColor(gMasterDisp++, 255, 255, 48, arg0->unk_44);
+            break;
+        case 5:
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, arg0->unk_44);
+            gDPSetEnvColor(gMasterDisp++, 255, 32, 32, arg0->unk_44);
+            break;
+        case 6:
+            if (D_80178234 == 0x11) {
+                func_800B8DD0(&gMasterDisp, 0x26);
+            }
+            switch ((arg0->unk_40 + D_80177DB0) & 3) {
+                case 0:  
+                    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 0, 0, arg0->unk_44);
+                    break;
+                case 1:
+                    gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 255, 0, arg0->unk_44);
+                    break;
+                case 2:
+                    gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 255, arg0->unk_44);
+                    break;
+                case 3:
+                    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, arg0->unk_44);
+                    break;
+            }
+            gDPSetEnvColor(gMasterDisp++, 0, 0, 0, arg0->unk_44);
+            break;
+        case 7:
+            gDPSetEnvColor(gMasterDisp++, 48, 48, 255, arg0->unk_44);
+            break;
+        case 10:
+            gDPSetEnvColor(gMasterDisp++, 255, 255, 32, arg0->unk_44);
+            break;
+        case 11:
+            gDPSetEnvColor(gMasterDisp++, 255, 32, 32, arg0->unk_44);
+            break;
+        case 12:
+            gDPSetEnvColor(gMasterDisp++, 32, 255, 32, arg0->unk_44);
+            break;
+        case 13:
+            gDPSetEnvColor(gMasterDisp++, 32, 32, 255, arg0->unk_44);
+            break;
+    }
+    
+    gSPDisplayList(gMasterDisp++, D_1024AC0);
+    func_800B8DD0(&gMasterDisp, 0x40);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80078038.s")
 
