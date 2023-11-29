@@ -1,6 +1,21 @@
-#include "common.h"
+#include "global.h"
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80077240.s")
+void func_80077240(f32 arg0, f32 arg1, f32 arg2, s32 arg3) {
+    s32 i;
+    UnkStruct_D_80176438* var_v1;
+
+    for (i = 0; i < ARRAY_COUNT(D_80176438); i++) {
+        if (D_80176438[i].unk0 == 0) {
+            D_80176438[i].unkC = arg2;
+            D_80176438[i].unk0 = arg3;
+            D_80176438[i].unk4 = arg0;
+            D_80176438[i].unk8 = arg1;
+            D_80176438[i].unk18 = 65;
+            D_80176438[i].unk10 = 0.0f;
+            break;
+        }
+    } 
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007729C.s")
 

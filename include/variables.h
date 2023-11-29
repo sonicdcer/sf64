@@ -273,7 +273,7 @@ extern Object_6C D_801737E0[20];
 extern UnkStruct_D_80174750 D_80174750[100];
 extern UnkStruct_D_80175A10 D_80175A10[64];
 extern UnkStruct_D_80175A10 D_80176410;
-// extern size_1C D_80176438[10]
+extern UnkStruct_D_80176438 D_80176438[10];
 extern s32 D_80176550[2];
 extern f32 D_80176558[2][100];
 extern f32 D_80176878[2][100];
