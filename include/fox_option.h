@@ -70,6 +70,10 @@ extern u8 D_EBFBE0_801AE998[];
 extern u8 D_EBFBE0_801AE99C[];
 extern MenuContext_00 D_EBFBE0_801AEB48[];
 
+extern Gfx D_EBFBE0_801AEC30[];
+extern Gfx D_EBFBE0_801AEC88[];
+extern Gfx D_EBFBE0_801AECE0[];
+
 extern u8* D_EBFBE0_801AECF8[];
 
 extern UnkStruct_D_EBFBE0_801AED4C D_EBFBE0_801AED4C[24];
@@ -286,6 +290,7 @@ void func_EBFBE0_8019A6DC(void);
 void func_EBFBE0_8019A954(void);
 void func_EBFBE0_8019AAB4(void);
 void func_EBFBE0_8019B5AC(void);
+void func_EBFBE0_8019B7D4(void);
 void func_EBFBE0_8019B8C8(void);
 void func_EBFBE0_8019B9C0(void); 
 void func_EBFBE0_8019BDF0(void);

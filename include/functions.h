@@ -67,6 +67,7 @@ void Fault_ThreadEntry(void*);
 void func_80007FE4(FrameBuffer*, u16, u16);
 void Fault_Init(void);
 
+u8* func_8001C3EC(void);
 void func_80016A50(void);
 void func_800182F4(s32);
 void func_80019218(u32, Vec3f*, u8, f32*, f32*, s8*);

@@ -13,6 +13,7 @@ extern u8 D_8003B50[];
 extern u8 D_80046B0[];
 extern u8 D_8004C50[];
 extern s32 sGammaMode;
+extern u8 D_80079F0[];
 extern f32 D_800C45E0[];
 
 extern Mtx gIdentityMtx; // 800C4620

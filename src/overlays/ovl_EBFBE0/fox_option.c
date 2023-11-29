@@ -1202,7 +1202,114 @@ void func_EBFBE0_80195944(void) {
     }
 }
 
+#ifdef IMPORT_DATA_PENDING
+u8* D_EBFBE0_801AECF8[10] = {
+    D_5009F60, D_500A050, D_500A140, D_500A230, D_500A320, D_500A410, D_500A500, 0x0500A5F0, 0x0500A6E0, 0x0500A7D0,
+};
+
+void func_EBFBE0_80195B74(void) {
+    u8* temp_v0_4;
+    f32 var_fs0;
+    f32 var_fv1;
+    s32 i;
+    f32 r;
+    f32 g;
+    f32 b;
+    static f32 D_EBFBE0_801AF004 = -125.0f;
+    static f32 D_EBFBE0_801AF008 = 0.0f;
+    static f32 D_EBFBE0_801AF00C = 2.0f;
+    static f32 D_EBFBE0_801AF010 = 8.0f;
+    static f32 D_EBFBE0_801AF014[4] = { 30.0f, 30.0f, 28.0f, 288.0f };
+    static f32 D_EBFBE0_801AF024[4] = { 125.0f, 197.0f, 125.0f, 125.0f };
+    static f32 D_EBFBE0_801AF034[4] = { 32.3f, 32.3f, 0.2f, 0.2f };
+    static f32 D_EBFBE0_801AF044[4] = { 0.2f, 0.2f, 9.2f, 9.2f };
+    static f32 D_EBFBE0_801AF054 = 255.0f;
+    static f32 D_EBFBE0_801AF058 = 100.0f;
+    static f32 D_EBFBE0_801AF05C = 255.0f;
+    static f32 D_EBFBE0_801AF060 = 100.0f;
+    static f32 D_EBFBE0_801AF064 = 255.0f;
+    static f32 D_EBFBE0_801AF068 = 100.0f;
+    static Gfx* D_EBFBE0_801AF06C[] = {
+        D_EBFBE0_801AEC30,
+        D_EBFBE0_801AEC88,
+        D_EBFBE0_801AECE0,
+    };
+    static f32 D_EBFBE0_801AF078[] = { -73.0f, -13.0f, -43.0f };
+
+    func_EBFBE0_8019B9C0();
+
+    func_800B8DD0(&gMasterDisp, 0x53);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+
+    TextureRect_8bIA(&gMasterDisp, D_80079F0, 128, 14, 49.0f, 81.0f, 1.0f, 1.0f);
+
+    TextureRect_8bIA(&gMasterDisp, D_EBFBE0_801AECF8[D_EBFBE0_801B931C / 10], 16, 15, 230.0f, 82.0f, 1.0f, 1.0f);
+
+    TextureRect_8bIA(&gMasterDisp, D_EBFBE0_801AECF8[D_EBFBE0_801B931C % 10], 16, 15, 244.0f, 82.0f, 1.0f, 1.0f);
+
+    func_EBFBE0_8019B7D4();
+
+    func_800B8DD0(&gMasterDisp, 0x4C);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 50, 50, 200, 255);
+
+    for (i = 0; i < 4; i++) {
+        TextureRect_16bRGBA(&gMasterDisp, D_60447A0, 8, 8, D_EBFBE0_801AF014[i], D_EBFBE0_801AF024[i],
+                            D_EBFBE0_801AF034[i], D_EBFBE0_801AF044[i]);
+    }
+
+    if (D_EBFBE0_801B9320 != 0) {
+        temp_v0_4 = func_8001C3EC();
+        var_fv1 = 60.0f;
+
+        if (spectrumAnalizerMode == 2) {
+            var_fv1 = 30.0f;
+        }
+
+        for (i = 0; i < 32; i++) {
+            if (spectrumAnalizerMode == 0 || spectrumAnalizerMode == 2)
+                D_EBFBE0_801B9298[i] = (var_fv1 / 255.0f) * temp_v0_4[i];
+            else
+                D_EBFBE0_801B9298[i] = var_fv1 - ((var_fv1 / 255.0f) * temp_v0_4[i]);
+        }
+    } else {
+        for (i = 0; i < 32; i++)
+            func_8009BC2C(&D_EBFBE0_801B9298[i], 0.0f, 0.2f, 100.0f, 0.1f);
+    }
+
+    Lib_Ortho(&gMasterDisp);
+
+    func_800B8DD0(&gMasterDisp, 5);
+
+    Matrix_Push(&gGfxMatrix);
+    Matrix_LookAt(gGfxMatrix, 0.0f, 0.0f, 100.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    for (var_fs0 = D_EBFBE0_801AF004, i = 0; i < 32; i++, var_fs0 += D_EBFBE0_801AF010) {
+        r = D_EBFBE0_801AF054 + ((D_EBFBE0_801AF060 - D_EBFBE0_801AF054) / 31.0f) * i;
+        g = D_EBFBE0_801AF058 + ((D_EBFBE0_801AF064 - D_EBFBE0_801AF058) / 31.0f) * i;
+        b = D_EBFBE0_801AF05C + ((D_EBFBE0_801AF068 - D_EBFBE0_801AF05C) / 31.0f) * i;
+
+        gDPSetPrimColor(gMasterDisp++, 0, 0, (s32) r, (s32) g, (s32) b, 255);
+
+        Matrix_Push(&gGfxMatrix);
+        Matrix_Translate(gGfxMatrix, var_fs0, D_EBFBE0_801AF078[spectrumAnalizerMode], D_EBFBE0_801AF008, 1);
+        Matrix_Scale(gGfxMatrix, D_EBFBE0_801AF00C, D_EBFBE0_801B9298[i], 1.0f, 1);
+        Matrix_SetGfxMtx(&gMasterDisp);
+
+        gSPDisplayList(gMasterDisp++, D_EBFBE0_801AF06C[spectrumAnalizerMode]);
+
+        Matrix_Pop(&gGfxMatrix);
+    }
+
+    Matrix_Pop(&gGfxMatrix);
+    Lib_Perspective(&gMasterDisp);
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80195B74.s")
+#endif
 
 void func_EBFBE0_80196260(void) {
     D_80178410 = 800;
