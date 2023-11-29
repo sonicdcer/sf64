@@ -165,7 +165,8 @@ typedef struct UnkStruct_D_80178280 {
     /* 0x0BC */ f32 unk_0BC;
     /* 0x0C0 */ f32 unk_0C0;
     /* 0x0C4 */ f32 unk_0C4;
-    /* 0x0C8 */ char padC8[8];
+    /* 0x0C8 */ f32 unk_0C8;
+    /* 0x0CC */ char padCC[4];
     /* 0x0D0 */ f32 unk_0D0;
     /* 0x0D4 */ char padD4[0x3C];
     /* 0x110 */ f32 unk_110;
@@ -468,13 +469,11 @@ typedef struct {
 } Object_2F4; // size = 0x2F4
 
 typedef struct {
-    u8 unk_0;
-    f32 unk_4;
-    f32 unk_8;
-    f32 unk_C;
-    f32 unk_10;
-    char pad14[0x4];
-    s16 unk_18;
+    /* 0x00 */ u8 unk_0;
+    /* 0x04 */ Vec3f unk_4; //May be a Vec4f
+    /* 0x10 */ f32 unk_10;
+    /* 0x14 */ char pad14[0x4];
+    /* 0x18 */ u16 unk_18;
 } UnkStruct_D_80176438; // size = 0x1C
 
 #endif

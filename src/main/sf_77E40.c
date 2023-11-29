@@ -1,23 +1,45 @@
 #include "global.h"
 
-void func_80077240(f32 arg0, f32 arg1, f32 arg2, s32 arg3) {
+void func_80077240(f32 posX, f32 posY, f32 posZ, s32 arg3) {
     s32 i;
-    UnkStruct_D_80176438* var_v1;
 
     for (i = 0; i < ARRAY_COUNT(D_80176438); i++) {
         if (D_80176438[i].unk_0 == 0) {
-            D_80176438[i].unk_C = arg2;
             D_80176438[i].unk_0 = arg3;
-            D_80176438[i].unk_4 = arg0;
-            D_80176438[i].unk_8 = arg1;
-            D_80176438[i].unk_18 = 65;
+            D_80176438[i].unk_4.x = posX;
+            D_80176438[i].unk_4.y = posY;
+            D_80176438[i].unk_4.z = posZ;
             D_80176438[i].unk_10 = 0.0f;
+            D_80176438[i].unk_18 = 65;
             break;
         }
-    } 
+    }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007729C.s")
+void func_8007729C(void) {
+    UnkStruct_D_80176438* var_s0;
+    s32 i;
+
+    for(i = 0,  var_s0 = D_80176438; i < ARRAY_COUNT(D_80176438); i++, var_s0++) {
+        if (var_s0->unk_0 != 0) {
+            if (var_s0->unk_18 != 0) {
+                var_s0->unk_18 -= 1;
+            }
+            if (var_s0->unk_18 == 0) {
+                var_s0->unk_0 = 0;
+            }
+            if (D_80177880 == 0) {
+                var_s0->unk_4.z -= D_80177D08;
+            } else if (D_80178280->unk_1C8 == 3) {
+                var_s0->unk_4.x += D_80178280->unk_0C0;
+                var_s0->unk_4.z += D_80178280->unk_0C8; 
+            }
+            if (var_s0->unk_18 < 45) {
+                func_8009BC2C(&var_s0->unk_10, 300.0f, 0.1f, 20.0f, 0.0f);
+            }
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80077404.s")
 
