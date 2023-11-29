@@ -82,22 +82,6 @@ typedef struct {
     /* 0x10 */ f32 scale;
 } UnkStruct_D_EBFBE0_801B8688; // size = 0x14
 
-extern Animation D_EBFBE0_801ADA00[];
-extern u16* D_EBFBE0_801ADA30;
-extern f32 D_EBFBE0_801ADA64[];
-extern f32 D_EBFBE0_801ADA74[];
-extern UnkStruct_D_EBFBE0_801B8294 D_EBFBE0_801ADA94[];
-extern s32 D_EBFBE0_801ADF44[];
-extern UnkStruct_D_EBFBE0_801ADF54 D_EBFBE0_801ADF54[];
-extern UnkStruct_D_EBFBE0_801B8294 D_EBFBE0_801ADF84[];
-extern f32 D_EBFBE0_801AE434[];
-extern f32 D_EBFBE0_801AE444[];
-extern f32 D_EBFBE0_801AE454[];
-extern Gfx* D_EBFBE0_801AE48C[];
-extern f32 D_EBFBE0_801AE4BC[];
-extern f32 D_EBFBE0_801AE4EC[];
-extern u8 D_EBFBE0_801AE51C[];
-extern s32 D_EBFBE0_801AE528[];
 extern UnkStruct_D_EBFBE0_801B8294 D_EBFBE0_801B6B40[];
 extern UnkStruct_D_EBFBE0_801B8294 D_EBFBE0_801B6C60[];
 extern f32 D_EBFBE0_801B7BB0;

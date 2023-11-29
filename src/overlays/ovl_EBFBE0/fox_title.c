@@ -1,6 +1,34 @@
 #include "global.h"
 #include "fox_title.h"
 
+extern AnimationHeader D_602F8E0;
+extern AnimationHeader D_60305C0;
+extern AnimationHeader D_6031DB8;
+extern AnimationHeader D_6031120;
+extern AnimationHeader D_60338DC;
+extern AnimationHeader D_6035024;
+extern AnimationHeader D_603531C;
+extern AnimationHeader D_6036278;
+
+extern SkelAnime D_602FBAC[];
+extern SkelAnime D_603088C[];
+extern SkelAnime D_60313AC[];
+extern SkelAnime D_6032084[];
+
+s32 pad_D_EBFBE0_801AD9F0[4] = { 0, 0, 0, 0 };
+
+//! TODO: Symbols for segmented addresses
+Animation D_EBFBE0_801ADA00[4] = {
+    { 0x0602F8E0, 0x06035024, 0x0602FBAC },
+    { 0x060305C0, 0x060338DC, 0x0603088C },
+    { 0x06031DB8, 0x0603531C, 0x06032084 },
+    { 0x06031120, 0x06036278, 0x060313AC },
+};
+
+u16* D_EBFBE0_801ADA30[5] = {
+    (u16*) 0x8017A150, (u16*) 0x8017A190, (u16*) 0x8017A1CC, (u16*) 0x8017A210, (u16*) 0x8017A260,
+};
+
 void func_EBFBE0_801875E0(void) {
     D_80137E78 = 2;
 
@@ -235,6 +263,7 @@ void func_EBFBE0_80187B00(void) {
 }
 
 void func_EBFBE0_80187CA8(void) {
+    static char D_EBFBE0_801ADA44[] = "S T A R F O X     R A N K I N G";
     s32 temp = 20;
     s32 temp2 = 36;
 
@@ -552,6 +581,8 @@ void func_EBFBE0_801881FC(void) {
 void func_EBFBE0_801888E8(void) {
     f32 temp_fv1;
     s32 i;
+    static f32 D_EBFBE0_801ADA64[4] = { 10.0f, 20.0f, 20.0f, 20.0f };
+    static f32 D_EBFBE0_801ADA74[4] = { 2.0f, 5.0f, 4.0f, 4.0f };
 
     switch (D_EBFBE0_801B82C0) {
         case 0:
@@ -704,6 +735,7 @@ void func_EBFBE0_801888E8(void) {
 
 void func_EBFBE0_80189208(void) {
     s32 i;
+    static s32 D_EBFBE0_801ADA84[4] = { 0, 1, 3, 2 };
 
     D_80178548 = D_EBFBE0_801B82F8;
     D_8017854C = D_EBFBE0_801B82FC;
@@ -948,7 +980,7 @@ void func_EBFBE0_8018994C(void) {
             }
 
             if (D_EBFBE0_801B82B8 == 838) {
-                func_EBFBE0_801919C4(&D_EBFBE0_801ADA30, 310);
+                func_EBFBE0_801919C4(D_EBFBE0_801ADA30, 310);
             }
 
             if (D_EBFBE0_801B82A8 == 1) {
@@ -1125,7 +1157,46 @@ void func_EBFBE0_8018A338(void) {
                          D_EBFBE0_801B86AC);
 }
 
+static UnkStruct_D_EBFBE0_801B8294 D_EBFBE0_801ADA94[50] = {
+    { 70.68093f, 95.06561f, -146.52567f, 9.829767f, 121.2336f, -642.1186f },
+    { 205.506f, 142.9332f, -268.0091f, 168.6235f, 176.76671f, -765.49774f },
+    { 247.74275f, 218.72449f, -519.0222f, 186.81432f, 211.56888f, -1015.24445f },
+    { 154.73712f, 157.72694f, -740.8712f, 222.56572f, 143.06827f, -1236.0322f },
+    { 135.52502f, 142.27957f, -793.6749f, 316.11874f, 98.18011f, -1257.8313f },
+    { 138.90092f, 142.27957f, -860.379f, 315.27478f, 98.18011f, -1326.1553f },
+    { 136.89713f, 214.43028f, -731.92285f, 283.27573f, 80.142426f, -1190.7693f },
+    { 120.86948f, 242.49208f, -629.05237f, 262.28262f, 73.12698f, -1077.7369f },
+    { 50.869476f, 242.49208f, -553.05237f, 192.28262f, 73.12698f, -1001.7369f },
+    { -16.4814f, 233.25653f, -604.46075f, 187.87035f, 75.43587f, -1032.6348f },
+    { -13.395493f, 191.66321f, -629.1167f, 204.59888f, 85.8342f, -1066.4708f },
+    { -41.594223f, 184.11728f, -669.04443f, 256.64856f, 100.22068f, -1061.4889f },
+    { -87.65735f, 182.94937f, -639.51697f, 274.41434f, 89.26266f, -971.3707f },
+    { -215.5498f, 103.66844f, -641.08514f, 160.13745f, 109.082886f, -970.9787f },
+    { -185.00772f, 8.353668f, -560.10535f, 28.75193f, 144.16159f, -991.2237f },
+    { -91.497696f, 107.96538f, -610.0586f, -332.12558f, 199.25865f, -1038.7354f },
+    { -84.526764f, 188.95499f, -642.84845f, -400.11832f, 179.01125f, -1030.5378f },
+    { -103.5627f, 179.47885f, -668.8744f, -420.3593f, 197.6303f, -1055.2814f },
+    { -109.0918f, 185.47885f, -678.64606f, -440.22705f, 203.6303f, -1052.8385f },
+    { -78.15802f, 293.8913f, -640.17566f, -433.1684f, 30.021736f, -1045.5648f },
+    { 87.70392f, 358.64935f, -198.21808f, -424.1852f, 182.75551f, -1062.7589f },
+    { 68.50934f, 201.02536f, -339.22345f, -376.33456f, 178.32996f, -1063.1702f },
+    { 64.247314f, 160.06393f, -446.7345f, -383.97687f, 209.50546f, -1058.4948f },
+    { 57.03543f, 138.23148f, -443.5014f, -281.83368f, 268.09802f, -1018.5687f },
+    { 0.701339f, 230.27605f, -198.30273f, -0.12092f, 252.22827f, -877.9478f },
+    { -313.9902f, 273.13742f, -157.31583f, -0.190525f, 139.842f, -687.0914f },
+    { -436.74377f, 352.97644f, -269.34598f, 53.6931f, 105.91397f, -809.0976f },
+    { -501.5115f, 422.98685f, -410.4659f, 61.23355f, 96.697556f, -858.7441f },
+    { -597.8429f, 475.272f, -752.4272f, 76.44749f, 88.40118f, -816.1725f },
+    { -536.05865f, 387.8474f, -1155.2682f, 68.51621f, 100.70934f, -774.557f },
+    { -406.2596f, 192.84035f, -1361.467f, 49.143227f, 129.81488f, -743.781f },
+    { -387.7423f, 192.84035f, -1374.6389f, 46.379448f, 129.81488f, -741.81506f },
+    { -368.49048f, 192.84035f, -1387.3623f, 43.506042f, 129.81488f, -739.9161f },
+    { -357.60858f, 192.84035f, -1394.141f, 41.881878f, 129.81488f, -738.9043f },
+};
+
 void func_EBFBE0_8018A644(void) {
+    static s32 D_EBFBE0_801ADF44[] = { 63, 170, 268, 368 };
+
     switch (D_EBFBE0_801B82C0) {
         case 0:
             func_EBFBE0_8018A338();
@@ -1205,6 +1276,12 @@ void func_EBFBE0_8018A644(void) {
 
 void func_EBFBE0_8018A990(void) {
     s32 i;
+    static UnkStruct_D_EBFBE0_801ADF54 D_EBFBE0_801ADF54[4] = {
+        { 255.0f, 155.0f, 155.0f },
+        { 155.0f, 255.0f, 155.0f },
+        { 135.0f, 206.0f, 255.0f },
+        { 255.0f, 255.0f, 155.0f },
+    };
 
     if ((D_80177DB0 & 7) == 7) {
         if (D_EBFBE0_801B8338 != 0) {
@@ -1790,11 +1867,26 @@ void func_EBFBE0_8018C1C0(void) {
                          D_EBFBE0_801B86AC);
 }
 
+static UnkStruct_D_EBFBE0_801B8294 D_EBFBE0_801ADF84[50] = {
+    { -223.5775f, -61.156242f, -26.375984f, -53.867554f, -42.139626f, 44.77107f },
+    { -160.05501f, -67.74775f, 85.750084f, -61.486446f, -44.164986f, 29.322315f },
+    { -22.228004f, -79.54139f, 121.01903f, -15.555059f, -64.843475f, 85.51631f },
+    { 94.76258f, -100.20792f, 96.57968f, 56.850273f, -76.324486f, 62.990417f },
+    { 187.5704f, -114.560425f, 12.510195f, 111.428185f, -84.394104f, 8.465982f },
+    { 244.8392f, -135.20625f, -212.59172f, 124.296425f, -87.25594f, -43.656223f },
+    { 279.38947f, -216.01698f, -401.49118f, 122.86145f, -89.64914f, -105.359215f },
+    { 440.83572f, -305.19196f, -598.5676f, 89.57457f, -23.879997f, -4.847023f },
+    { 481.63818f, -313.2934f, -628.9213f, 96.2103f, -5.343582f, -4.23885f },
+};
+
 void func_EBFBE0_8018C644(void) {
+    s32 i;
     f32 x;
     f32 y;
     f32 z;
-    s32 i;
+    static f32 D_EBFBE0_801AE434[4] = { -15.0f, -5.0f, 5.0f, 10.0f };
+    static f32 D_EBFBE0_801AE444[4] = { -50.0f, -45.0f, -55.0f, -60.0f };
+    static f32 D_EBFBE0_801AE454[4] = { 265.0f, 260.0f, 255.0f, 230.0f };
 
     switch (D_EBFBE0_801B82C0) {
         case 0:
@@ -2630,8 +2722,6 @@ void func_EBFBE0_8018F85C(void) {
     TextureRect_8bIA(&gMasterDisp, D_6013470, 16, 16, 234.0f, 20.0f, 1.0f, 1.0f);
 }
 
-// needs in-function static
-#ifdef IMPORT_DATA_PENDING
 void func_EBFBE0_8018F8E4(void) {
     f32 temp2;
     s32 i;
@@ -2679,9 +2769,6 @@ void func_EBFBE0_8018F8E4(void) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_8018F8E4.s")
-#endif
 
 void func_EBFBE0_8018FC14(void) {
     s32 i;
@@ -2694,9 +2781,6 @@ void func_EBFBE0_8018FC14(void) {
     }
 }
 
-#ifndef IMPORT_DATA_PENDING
-extern f32 D_EBFBE0_801AE47C[];
-#endif
 void func_EBFBE0_8018FD08(void) {
     s32 i;
     Gfx* temp_v1;
@@ -2704,9 +2788,7 @@ void func_EBFBE0_8018FD08(void) {
     s32 var_s0;
     s32 var_s0_2;
     f32 temp;
-#ifdef IMPORT_DATA_PENDING
     static f32 D_EBFBE0_801AE47C[] = { 90.0f, 100.0f, 75.0f, 75.0f };
-#endif
 
     temp_fs2 = D_EBFBE0_801AE47C[D_EBFBE0_801B8340];
     temp = 210.0f;
@@ -2739,6 +2821,27 @@ void func_EBFBE0_8018FD08(void) {
             break;
     }
 }
+
+static Gfx* D_EBFBE0_801AE48C[12] = {
+    (Gfx*) 0x06036290, (Gfx*) 0x06036290, (Gfx*) 0x06036290, (Gfx*) 0x06036290, (Gfx*) 0x06036B30, (Gfx*) 0x06036290,
+    (Gfx*) 0x06036290, (Gfx*) 0x06036290, (Gfx*) 0x06036290, (Gfx*) 0x06036290, (Gfx*) 0x06036B30, (Gfx*) 0x06036290,
+};
+
+static f32 D_EBFBE0_801AE4BC[12] = {
+    0.0f, 0.0f, 0.0f, 0.0f, 10.0f, 13.0f, 20.0f, 35.0f, 40.0f, 50.0f, 50.0f, 70.0f,
+};
+
+static f32 D_EBFBE0_801AE4EC[] = {
+    20.0f, 22.0f, 24.0f, 28.0f, 30.0f, 14.0f, 16.0f, 18.0f, 27.0f, 28.0f, 70.0f, 40.0f,
+};
+
+static u8 D_EBFBE0_801AE51C[] = {
+    0xC0, 0x80, 0x60, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40,
+};
+
+static s32 D_EBFBE0_801AE528[] = {
+    80, 64, 48, 32, 12, 32, 44, 32, 42, 36, 12, 38,
+};
 
 void func_EBFBE0_8018FF74(void) {
     if (D_EBFBE0_801B7BD8 != 0) {
@@ -2815,13 +2918,8 @@ void func_EBFBE0_80190144(void) {
     }
 }
 
-#ifndef IMPORT_DATA_PENDING
-extern s32 D_EBFBE0_801AE558;
-#endif
 void func_EBFBE0_801903B8(void) {
-#ifdef IMPORT_DATA_PENDING
     static s32 D_EBFBE0_801AE558 = 12;
-#endif
     f32 temp_fs3;
     f32 temp_fs4;
     f32 var_fs1;
@@ -2939,8 +3037,6 @@ void func_EBFBE0_80190B30(s32 arg0) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-// needs in-function static
-#ifdef IMPORT_DATA_PENDING
 void func_EBFBE0_80190C9C(void) {
     s32 i;
     static f32 D_EBFBE0_801AE55C = 89.0f;
@@ -2970,9 +3066,6 @@ void func_EBFBE0_80190C9C(void) {
                              1.0f);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_title/func_EBFBE0_80190C9C.s")
-#endif
 
 void func_EBFBE0_80190E64(void) {
     if (D_EBFBE0_801B82C4 == 0) {

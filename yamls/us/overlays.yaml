@@ -141,7 +141,7 @@
     - [0xEBFCA0, c, fox_title]
     - [0xECA1E0, c, fox_option]
     - [0xED6EC0, c, ED6EC0]
-    - [0xEE60B0, data, fox_title]
+    - [0xEE60B0, .data, fox_title]
     - [0xEE6C30, data, fox_option]
     - [0xEE7AE0, data, ED6EC0]
     - [0xEEF410, .rodata, EBFBE0]
