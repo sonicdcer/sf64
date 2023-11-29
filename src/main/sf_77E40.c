@@ -245,7 +245,15 @@ void func_80077B84(Object_8C* arg0) {
     func_800B8DD0(&gMasterDisp, 0x40);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80078038.s")
+void func_80078038(Object_8C* arg0) {
+    func_8005980C(arg0->unk_70);
+    func_800BA5B0();
+    func_800B8DD0(&gMasterDisp, 0x26);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 64, 192, 255, arg0->unk_44);
+    gDPSetEnvColor(gMasterDisp++, 0, 0, 0, arg0->unk_44);
+    gSPDisplayList(gMasterDisp++, D_1024AC0);
+    func_800B8DD0(&gMasterDisp, 0x40);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_800780F8.s")
 
