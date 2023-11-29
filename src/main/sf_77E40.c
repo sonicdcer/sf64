@@ -6,9 +6,9 @@ void func_80077240(f32 posX, f32 posY, f32 posZ, s32 arg3) {
     for (i = 0; i < ARRAY_COUNT(D_80176438); i++) {
         if (D_80176438[i].unk_00 == 0) {
             D_80176438[i].unk_00 = arg3;
-            D_80176438[i].unk_04.x = posX;
-            D_80176438[i].unk_04.y = posY;
-            D_80176438[i].unk_04.z = posZ;
+            D_80176438[i].pos.x = posX;
+            D_80176438[i].pos.y = posY;
+            D_80176438[i].pos.z = posZ;
             D_80176438[i].unk_10 = 0.0f;
             D_80176438[i].unk_18 = 65;
             break;
@@ -20,7 +20,7 @@ void func_8007729C(void) {
     UnkStruct_D_80176438* var_s0;
     s32 i;
 
-    for(i = 0,  var_s0 = D_80176438; i < ARRAY_COUNT(D_80176438); i++, var_s0++) {
+    for (i = 0,  var_s0 = D_80176438; i < ARRAY_COUNT(D_80176438); i++, var_s0++) {
         if (var_s0->unk_00 != 0) {
             if (var_s0->unk_18 != 0) {
                 var_s0->unk_18 -= 1;
@@ -29,10 +29,10 @@ void func_8007729C(void) {
                 var_s0->unk_00 = 0;
             }
             if (D_80177880 == 0) {
-                var_s0->unk_04.z -= D_80177D08;
+                var_s0->pos.z -= D_80177D08;
             } else if (D_80178280->unk_1C8 == 3) {
-                var_s0->unk_04.x += D_80178280->unk_0C0;
-                var_s0->unk_04.z += D_80178280->unk_0C8; 
+                var_s0->pos.x += D_80178280->unk_0C0;
+                var_s0->pos.z += D_80178280->unk_0C8; 
             }
             if (var_s0->unk_18 < 45) {
                 func_8009BC2C(&var_s0->unk_10, 300.0f, 0.1f, 20.0f, 0.0f);
@@ -41,21 +41,141 @@ void func_8007729C(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80077404.s")
+void func_80077404(UnkStruct_D_80176438* arg0) {
+    s32 var_a2;
+    Vec3f sp60;
+    Vec3f sp54;
+    f32 sp50;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80077790.s")
+    sp60 = D_800D1528;
+    if (arg0->unk_18 <= 45) {
+        Matrix_Translate(gGfxMatrix, arg0->pos.x, arg0->pos.y, arg0->pos.z + D_80177D20, 1);
+        Matrix_MultVec3f(gGfxMatrix, &sp60, &sp54);
+        if ((fabsf(sp54.x) < 20000.0f) && (fabsf(sp54.y) < 20000.0f)) {
+            if ((sp54.z < 0.0f) && (sp54.z > -20000.0f)) {
+                sp50 = sqrtf(VEC3F_SQ(sp54)) * 0.0015f * 0.2f;
+                Matrix_RotateY(gGfxMatrix, -D_80178280[D_801778A0].unk_058, 1);
+                Matrix_RotateX(gGfxMatrix, D_80178280[D_801778A0].unk_05C, 1);
+                Matrix_Scale(gGfxMatrix, sp50, sp50, 1.0f, 1);
+                Matrix_Translate(gGfxMatrix, 0.0f, arg0->unk_10, 0.0f, 1);
+                Matrix_SetGfxMtx(&gMasterDisp);
+                if (arg0->unk_00 < 11) {
+                    gSPDisplayList(gMasterDisp++, D_1015980);
+                    gSPDisplayList(gMasterDisp++, D_800D14FC[arg0->unk_00]);
+                } else if (arg0->unk_00 == 101) {
+                    gSPDisplayList(gMasterDisp++, D_1011F20);
+                } else if (arg0->unk_00 == 100) {
+                    gSPDisplayList(gMasterDisp++, D_1016580);
+                } else {
+                    gSPDisplayList(gMasterDisp++, D_1015980);
+                    switch(arg0->unk_00) {
+                        case 20:
+                            var_a2 = 0;
+                            break;
+                        case 30:
+                            var_a2 = 1;
+                            break;
+                        case 40:
+                            var_a2 = 2;
+                            break;
+                        case 50:
+                        default:
+                            var_a2 = 3;
+                            break;
+                    }
+                    gSPDisplayList(gMasterDisp++, D_800D14E0[var_a2][0]);
+                    gSPDisplayList(gMasterDisp++, D_800D14E0[var_a2][1]);
+                }
+            } else {
+                arg0->unk_00 = 0;
+            }
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007783C.s")
+void func_80077790(void) {
+    UnkStruct_D_80176438* var_s0;
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_800778C4.s")
+    func_800B8DD0(&gMasterDisp, 0x3E);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+    for (i = 0,  var_s0 = D_80176438; i < ARRAY_COUNT(D_80176438); i++, var_s0++) {
+        if (var_s0->unk_00 != 0) {
+            Matrix_Push(&gGfxMatrix);
+            func_80077404(var_s0);
+            Matrix_Pop(&gGfxMatrix);
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007797C.s")
+Object_8C* func_8007783C(s32 objId) {
+    Object_8C* var_a2;
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80077A00.s")
+    for (i = 0, var_a2 = D_80170130; i < ARRAY_COUNT(D_80170130); i++, var_a2++) {
+        if (var_a2->obj.status == 0) {
+            func_80061474(var_a2);
+            var_a2->obj.status = 2;
+            var_a2->obj.id = objId;
+            func_800612B8(&var_a2->unk_1C, var_a2->obj.id);
+            break;
+        }
+    }
+    if (i == ARRAY_COUNT(D_80170130)) {
+        var_a2 = NULL;
+    }
+    return var_a2;
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80077A7C.s")
+void func_800778C4(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
+    func_80061474(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = 0x153;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = posY;
+    arg0->obj.pos.z = posZ;
+    arg0->unk_54 = arg4;
+    arg0->unk_58 = arg5;
+    arg0->unk_5C = arg6;
+    arg0->unk_70 = arg7;
+    arg0->unk_4C = 0;
+    arg0->unk_6C = 0.5f;
+    arg0->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    func_800612B8(&arg0->unk_1C, arg0->obj.id);
+    arg0->unk_44 = 0xFF;
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80077B78.s")
+void func_8007797C(f32 posX, f32 posY, f32 posZ, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
+    s32 i;
+
+    for (i = ARRAY_COUNT(D_80170130) - 1; i >= 0; i--) {
+        if (D_80170130[i].obj.status == 0) {
+            func_800778C4(&D_80170130[i], posX, posY, posZ, arg3, arg4, arg5, arg6);
+            break;
+        }
+    }
+}
+
+void func_80077A00(Object_8C* arg0) {
+    func_8005980C(arg0->unk_70);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, arg0->unk_44);
+    gSPDisplayList(gMasterDisp++, D_3016B30);
+}
+
+void func_80077A7C(Object_8C* arg0) {
+    func_800BA5B0();
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, arg0->unk_44);
+    gDPSetEnvColor(gMasterDisp++, 255, 255, 255, arg0->unk_44);
+    Matrix_Scale(gGfxMatrix, arg0->unk_6C, arg0->unk_70, 1.0f, 1);
+    Matrix_Translate(gGfxMatrix, 0.0f, 20.0f, 0.0f, 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
+    gSPDisplayList(gMasterDisp++, D_6024220);
+    func_800B8DD0(&gMasterDisp, 0x40);
+}
+
+void func_80077B78(void* arg0) {
+
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80077B84.s")
 

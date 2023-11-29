@@ -323,7 +323,7 @@ typedef struct {
     /* 0x46 */ s16 unk_46;
     /* 0x48 */ s16 unk_48;
     /* 0x4A */ s16 unk_4A;
-    /* 0x4C */ char pad4C[0x2];
+    /* 0x4C */ s8 unk_4C;
     /* 0x4E */ s16 unk_4E;
     /* 0x50 */ u16 unk_50;
     /* 0x50 */ char pad50[0x2];
@@ -470,7 +470,7 @@ typedef struct {
 
 typedef struct {
     /* 0x00 */ u8 unk_00;
-    /* 0x04 */ Vec3f unk_04; //May be a Vec4f
+    /* 0x04 */ Vec3f pos; //May be a Vec4f
     /* 0x10 */ f32 unk_10;
     /* 0x14 */ char pad14[0x4];
     /* 0x18 */ u16 unk_18;

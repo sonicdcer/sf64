@@ -220,7 +220,11 @@ void func_8006EEFC(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 
 void func_800763A4(Object_2F4 *, s32);
 void func_8007717C(Object_2F4 *, s32);
-void func_80077240(f32, f32, f32, s32);
+void func_80077240(f32 posX, f32 posY, f32 posZ, s32 arg3);
+void func_8007729C(void);
+void func_80077790(void);
+Object_8C* func_8007783C(s32 objId);
+void func_8007797C(f32 posX, f32 posY, f32 posZ, f32 arg3, f32 arg4, f32 arg5, f32 arg6);
 void func_80078E50(f32, f32, f32, f32);
 void func_800794CC(f32, f32, f32, f32);
 void func_8007A6F0(Vec3f *, u32);
