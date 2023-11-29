@@ -20,7 +20,7 @@ void func_8007729C(void) {
     UnkStruct_D_80176438* var_s0;
     s32 i;
 
-    for (i = 0,  var_s0 = D_80176438; i < ARRAY_COUNT(D_80176438); i++, var_s0++) {
+    for (i = 0, var_s0 = D_80176438; i < ARRAY_COUNT(D_80176438); i++, var_s0++) {
         if (var_s0->unk_00 != 0) {
             if (var_s0->unk_18 != 0) {
                 var_s0->unk_18 -= 1;
@@ -32,7 +32,7 @@ void func_8007729C(void) {
                 var_s0->pos.z -= D_80177D08;
             } else if (D_80178280->unk_1C8 == 3) {
                 var_s0->pos.x += D_80178280->unk_0C0;
-                var_s0->pos.z += D_80178280->unk_0C8; 
+                var_s0->pos.z += D_80178280->unk_0C8;
             }
             if (var_s0->unk_18 < 45) {
                 func_8009BC2C(&var_s0->unk_10, 300.0f, 0.1f, 20.0f, 0.0f);
@@ -68,7 +68,7 @@ void func_80077404(UnkStruct_D_80176438* arg0) {
                     gSPDisplayList(gMasterDisp++, D_1016580);
                 } else {
                     gSPDisplayList(gMasterDisp++, D_1015980);
-                    switch(arg0->unk_00) {
+                    switch (arg0->unk_00) {
                         case 20:
                             var_a2 = 0;
                             break;
@@ -99,7 +99,7 @@ void func_80077790(void) {
 
     func_800B8DD0(&gMasterDisp, 0x3E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-    for (i = 0,  var_s0 = D_80176438; i < ARRAY_COUNT(D_80176438); i++, var_s0++) {
+    for (i = 0, var_s0 = D_80176438; i < ARRAY_COUNT(D_80176438); i++, var_s0++) {
         if (var_s0->unk_00 != 0) {
             Matrix_Push(&gGfxMatrix);
             func_80077404(var_s0);
@@ -174,7 +174,6 @@ void func_80077A7C(Object_8C* arg0) {
 }
 
 void func_80077B78(void* arg0) {
-
 }
 
 void func_80077B84(Object_8C* arg0) {
@@ -210,7 +209,7 @@ void func_80077B84(Object_8C* arg0) {
                 func_800B8DD0(&gMasterDisp, 0x26);
             }
             switch ((arg0->unk_40 + D_80177DB0) & 3) {
-                case 0:  
+                case 0:
                     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 0, 0, arg0->unk_44);
                     break;
                 case 1:
@@ -241,7 +240,7 @@ void func_80077B84(Object_8C* arg0) {
             gDPSetEnvColor(gMasterDisp++, 32, 32, 255, arg0->unk_44);
             break;
     }
-    
+
     gSPDisplayList(gMasterDisp++, D_1024AC0);
     func_800B8DD0(&gMasterDisp, 0x40);
 }
