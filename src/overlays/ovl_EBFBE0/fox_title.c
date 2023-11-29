@@ -1,6 +1,50 @@
 #include "global.h"
 #include "fox_title.h"
 
+#if 0
+
+
+extern AnimationHeader D_602F8E0;
+extern AnimationHeader D_60305C0;
+extern AnimationHeader D_6031DB8;
+extern AnimationHeader D_6031120;
+extern AnimationHeader D_60338DC;
+extern AnimationHeader D_6035024;
+extern AnimationHeader D_603531C;
+extern AnimationHeader D_6036278;
+
+extern SkelAnime D_602FBAC[];
+extern SkelAnime D_603088C[];
+extern SkelAnime D_60313AC[];
+extern SkelAnime D_6032084[];
+
+s32 pad_D_EBFBE0_801AD9F0[4] = { 0, 0, 0, 0 };
+
+Animation D_EBFBE0_801ADA00[4] = {
+    { &D_602F8E0, &D_6035024, D_602FBAC },
+    { &D_60305C0, &D_60338DC, D_603088C },
+    { &D_6031DB8, &D_603531C, D_6032084 },
+    { &D_6031120, &D_6036278, D_60313AC },
+};
+
+u16 *D_EBFBE0_801ADA30[5] = {
+    (u16 *)0x8017A150,
+    (u16 *)0x8017A190,
+    (u16 *)0x8017A1CC,
+    (u16 *)0x8017A210,
+    (u16 *)0x8017A260,
+};
+
+s8 D_EBFBE0_801ADA44[32] = "S T A R F O X     R A N K I N G";
+
+f32 D_EBFBE0_801ADA64[4] = { 10.0f, 20.0f, 20.0f, 20.0f };
+
+f32 D_EBFBE0_801ADA74[4] = { 2.0f, 5.0f, 4.0f, 4.0f };
+
+s32 D_EBFBE0_801ADA84[4] = { 0, 1, 3, 2 };
+
+#endif
+
 void func_EBFBE0_801875E0(void) {
     D_80137E78 = 2;
 
@@ -948,7 +992,7 @@ void func_EBFBE0_8018994C(void) {
             }
 
             if (D_EBFBE0_801B82B8 == 838) {
-                func_EBFBE0_801919C4(&D_EBFBE0_801ADA30, 310);
+                func_EBFBE0_801919C4(D_EBFBE0_801ADA30, 310);
             }
 
             if (D_EBFBE0_801B82A8 == 1) {

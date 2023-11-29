@@ -83,7 +83,7 @@ typedef struct {
 } UnkStruct_D_EBFBE0_801B8688; // size = 0x14
 
 extern Animation D_EBFBE0_801ADA00[];
-extern u16* D_EBFBE0_801ADA30;
+extern u16* D_EBFBE0_801ADA30[];
 extern f32 D_EBFBE0_801ADA64[];
 extern f32 D_EBFBE0_801ADA74[];
 extern UnkStruct_D_EBFBE0_801B8294 D_EBFBE0_801ADA94[];
