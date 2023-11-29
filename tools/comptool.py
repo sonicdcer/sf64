@@ -31,6 +31,16 @@ def calculate_crcs(buffer: bytearray, seed=0xF8CA4DDC, start=0x1000, end=0x10100
 
     return (t6 ^ t4 ^ t3, t5 ^ t2 ^ t1)
 
+def fix_crc(rom):
+    with open(rom, 'r+b') as romfile:
+        crc1, crc2 = calculate_crcs(romfile.read())
+    
+        romfile.seek(0x10)
+        romfile.write(crc1.to_bytes( 4, 'big'))
+        romfile.write(crc2.to_bytes( 4, 'big'))
+    return
+
+
 def mio0_comp_bytes(decomp_bytes, mio0):
     #possibly replace with a python implementation later
     decomp_path = os.path.dirname(mio0) + '/TempComp.bin.mio0'
@@ -215,6 +225,7 @@ parser.add_argument('-e', metavar='extract',dest='extract',help='directory for e
 parser.add_argument('-c', action='store_true',help='compress provided ROM')
 parser.add_argument('-d', action='store_true',help='decompress provided ROM')
 parser.add_argument('-m', metavar='mio0',dest='mio0',help='Path to mio0 tool if not in same directory')
+parser.add_argument('-r', action="store_true",help='Fix crc without compressing or decompressing')
 # parser.add_argument('-v', action='store_true',help='show what changes are made')
 
 if __name__ == '__main__':
@@ -225,7 +236,9 @@ if __name__ == '__main__':
     else:
         mio0 = args.mio0
 
-    if args.c:
+    if args.r:
+        fix_crc(args.inROM)
+    elif args.c:
         compress(args.inROM, args.outROM, mio0)
     elif args.d or args.extract:
         decompress(args.inROM, args.outROM, mio0, args.extract)
