@@ -1,6 +1,6 @@
 #include "global.h"
 
-char* func_80099980(char* buf, s32 fill, s32 len) {
+char* Graphics_ClearPrintBuffer(char* buf, s32 fill, s32 len) {
     s32 i;
     char* ptr = buf;
 
@@ -11,18 +11,18 @@ char* func_80099980(char* buf, s32 fill, s32 len) {
     return buf;
 }
 
-s32 func_800999D8(const char* fmt, ...) {
+s32 Graphics_Printf(const char* fmt, ...) {
     va_list args;
 
     va_start(args, fmt);
-    func_80099980(D_801619A0, 0, 100);
+    Graphics_ClearPrintBuffer(D_801619A0, 0, 100);
     Lib_vsPrintf(D_801619A0, fmt, args);
     va_end(args);
 
     return 0;
 }
 
-void func_80099A2C(void* texture, s32 width, s32 height, u8 mode) {
+void Texture_Scroll(void* texture, s32 width, s32 height, u8 mode) {
     u16* temp_t0 = SEGMENTED_TO_VIRTUAL(texture);
     u16 temp_a3;
     s32 var_a0;
@@ -68,7 +68,7 @@ void func_80099A2C(void* texture, s32 width, s32 height, u8 mode) {
     }
 }
 
-void func_80099E28(void* dst, void* src, u8 mode) {
+void Texture_Mottle(void* dst, void* src, u8 mode) {
     s32 var_v1;
     s32 var_s3;
     u8* var_s0_2;
@@ -122,7 +122,7 @@ void func_80099E28(void* dst, void* src, u8 mode) {
     }
 }
 
-s32 func_8009A400(Limb* limb, Limb** skeleton) {
+s32 Animation_LimbIndex(Limb* limb, Limb** skeleton) {
     s32 i = 1;
 
     for (i = 1; *skeleton != 0; i++, skeleton++) {
@@ -133,8 +133,8 @@ s32 func_8009A400(Limb* limb, Limb** skeleton) {
     return 0;
 }
 
-void func_8009A440(s32 mode, Limb* limb, Limb** skeleton, Vec3f* jointTable, OverrideLimbDraw overrideLimbDraw,
-                   PostLimbDraw postLimbDraw, void* data) {
+void Animation_DrawLimb(s32 mode, Limb* limb, Limb** skeleton, Vec3f* jointTable, OverrideLimbDraw overrideLimbDraw,
+                        PostLimbDraw postLimbDraw, void* data) {
     s32 override;
     s32 limbIndex;
     Gfx* dList;
@@ -145,7 +145,7 @@ void func_8009A440(s32 mode, Limb* limb, Limb** skeleton, Vec3f* jointTable, Ove
 
     Matrix_Push(&gCalcMatrix);
 
-    limbIndex = func_8009A400(limb, skeleton);
+    limbIndex = Animation_LimbIndex(limb, skeleton);
     limb = SEGMENTED_TO_VIRTUAL(limb);
     rot = jointTable[limbIndex];
     trans.x = limb->trans.x;
@@ -182,16 +182,16 @@ void func_8009A440(s32 mode, Limb* limb, Limb** skeleton, Vec3f* jointTable, Ove
     }
     Matrix_Pop(&gGfxMatrix);
     if (limb->child != NULL) {
-        func_8009A440(mode, limb->child, skeleton, jointTable, overrideLimbDraw, postLimbDraw, data);
+        Animation_DrawLimb(mode, limb->child, skeleton, jointTable, overrideLimbDraw, postLimbDraw, data);
     }
     Matrix_Pop(&gCalcMatrix);
     if (limb->sibling != NULL) {
-        func_8009A440(mode, limb->sibling, skeleton, jointTable, overrideLimbDraw, postLimbDraw, data);
+        Animation_DrawLimb(mode, limb->sibling, skeleton, jointTable, overrideLimbDraw, postLimbDraw, data);
     }
 }
 
-void func_8009A72C(s32 mode, Limb** skeletonSegment, Vec3f* jointTable, OverrideLimbDraw overrideLimbDraw,
-                   PostLimbDraw postLimbDraw, void* data, Matrix* transform) {
+void Animation_DrawSkeleton(s32 mode, Limb** skeletonSegment, Vec3f* jointTable, OverrideLimbDraw overrideLimbDraw,
+                            PostLimbDraw postLimbDraw, void* data, Matrix* transform) {
     s32 override;
     Limb** skeleton;
     Limb* rootLimb;
@@ -204,7 +204,7 @@ void func_8009A72C(s32 mode, Limb** skeletonSegment, Vec3f* jointTable, Override
     Matrix_Copy(gCalcMatrix, transform);
     skeleton = SEGMENTED_TO_VIRTUAL(skeletonSegment);
     rootLimb = SEGMENTED_TO_VIRTUAL(skeleton[0]);
-    rootIndex = func_8009A400(skeleton[0], skeleton);
+    rootIndex = Animation_LimbIndex(skeleton[0], skeleton);
     baseRot = jointTable[rootIndex];
     if (mode & 1) {
         baseTrans.x = rootLimb->trans.x;
@@ -238,7 +238,7 @@ void func_8009A72C(s32 mode, Limb** skeletonSegment, Vec3f* jointTable, Override
     }
     Matrix_Pop(&gGfxMatrix);
     if (rootLimb->child != NULL) {
-        func_8009A440(mode, rootLimb->child, skeleton, jointTable, overrideLimbDraw, postLimbDraw, data);
+        Animation_DrawLimb(mode, rootLimb->child, skeleton, jointTable, overrideLimbDraw, postLimbDraw, data);
     }
     Matrix_Pop(&gCalcMatrix);
     if (mode >= 2) {
@@ -246,7 +246,7 @@ void func_8009A72C(s32 mode, Limb** skeletonSegment, Vec3f* jointTable, Override
     }
 }
 
-s16 func_8009AA20(AnimationHeader* animationSegmemt, s32 frame, Vec3f* frameTable) {
+s16 Animation_FrameTable(AnimationHeader* animationSegmemt, s32 frame, Vec3f* frameTable) {
     AnimationHeader* animation = SEGMENTED_TO_VIRTUAL(animationSegmemt);
     u16 var4 = animation->limbCount;
     JointKey* key = SEGMENTED_TO_VIRTUAL(animation->jointKey);
@@ -273,13 +273,14 @@ s16 func_8009AA20(AnimationHeader* animationSegmemt, s32 frame, Vec3f* frameTabl
     return var4 + 1;
 }
 
-s16 func_8009ACDC(AnimationHeader* animationSegment) {
+s16 Animation_FrameCount(AnimationHeader* animationSegment) {
     AnimationHeader* animation = SEGMENTED_TO_VIRTUAL(animationSegment);
 
     return animation->frameCount;
 }
 
-void func_8009AD18(Gfx* dList, s32 len, Vec3f* min, Vec3f* max, s32* vtxFound, s32* vtxCount, Vtx** vtxList) {
+void Animation_FindBoundingBox(Gfx* dList, s32 len, Vec3f* min, Vec3f* max, s32* vtxFound, s32* vtxCount,
+                               Vtx** vtxList) {
     s64* sp44 = SEGMENTED_TO_VIRTUAL(dList);
     s64* var_s0;
     u32 temp_v1;
@@ -289,8 +290,8 @@ void func_8009AD18(Gfx* dList, s32 len, Vec3f* min, Vec3f* max, s32* vtxFound, s
         if (temp_v1 != G_TRI1) {
             if (temp_v1 != G_VTX) {
                 if (temp_v1 == G_DL) {
-                    func_8009AD18(*var_s0 & 0xFFFFFFFF, (*var_s0 >> 0x20) & 0xFFFF, min, max, vtxFound, vtxCount,
-                                  vtxList);
+                    Animation_FindBoundingBox(*var_s0 & 0xFFFFFFFF, (*var_s0 >> 0x20) & 0xFFFF, min, max, vtxFound,
+                                              vtxCount, vtxList);
                 }
             } else {
                 *vtxList = SEGMENTED_TO_VIRTUAL(*var_s0 & 0xFFFFFFFF);
@@ -326,15 +327,16 @@ void func_8009AD18(Gfx* dList, s32 len, Vec3f* min, Vec3f* max, s32* vtxFound, s
     }
 }
 
-void func_8009B74C(Gfx* dList, s32 len, Vec3f* min, Vec3f* max) {
+void Animation_DListBoundingBox(Gfx* dList, s32 len, Vec3f* min, Vec3f* max) {
     s32 vtxFound = false;
     s32 vtxCount;
     Vtx* vtxList;
 
-    func_8009AD18(dList, len, min, max, &vtxFound, &vtxCount, &vtxList);
+    Animation_FindBoundingBox(dList, len, min, max, &vtxFound, &vtxCount, &vtxList);
 }
 
-void func_8009B784(Limb** skeletonSegment, AnimationHeader* animationSegment, s32 frame, Vec3f* min, Vec3f* max) {
+void Animation_SkeletonBoundingBox(Limb** skeletonSegment, AnimationHeader* animationSegment, s32 frame, Vec3f* min,
+                                   Vec3f* max) {
     JointKey* key;
     u16* frameData;
     AnimationHeader* animation;
@@ -373,7 +375,7 @@ void func_8009B784(Limb** skeletonSegment, AnimationHeader* animationSegment, s3
     Matrix_RotateX(gGfxMatrix, (((s32) var_t6 * 360.0f) / 65536.0f) * 0.017453292f, 1);
     vtxFound = false;
     if (limb->dList != NULL) {
-        func_8009AD18(limb->dList, 0x2000, min, max, &vtxFound, &vtxCount, &vtxList);
+        Animation_FindBoundingBox(limb->dList, 0x2000, min, max, &vtxFound, &vtxCount, &vtxList);
         if (vtxFound) {
             boundBox[0].x = boundBox[3].x = boundBox[4].x = boundBox[7].x = min->x;
             boundBox[0].y = boundBox[1].y = boundBox[4].y = boundBox[5].y = max->y;
@@ -397,7 +399,7 @@ void func_8009B784(Limb** skeletonSegment, AnimationHeader* animationSegment, s3
     }
 }
 
-f32 func_8009BC2C(f32* value, f32 target, f32 scale, f32 maxStep, f32 minStep) {
+f32 Math_SmoothStepToF(f32* value, f32 target, f32 scale, f32 maxStep, f32 minStep) {
     f32 step = target - *value;
 
     if (step != 0.0f) {
@@ -426,7 +428,7 @@ f32 func_8009BC2C(f32* value, f32 target, f32 scale, f32 maxStep, f32 minStep) {
     return step;
 }
 
-f32 func_8009BD38(f32* angle, f32 target, f32 scale, f32 maxStep, f32 minStep) {
+f32 Math_SmoothStepToAngle(f32* angle, f32 target, f32 scale, f32 maxStep, f32 minStep) {
     f32 var_fv1 = target - *angle;
 
     if (var_fv1 != 0.0f) {
@@ -465,7 +467,7 @@ f32 func_8009BD38(f32* angle, f32 target, f32 scale, f32 maxStep, f32 minStep) {
     return var_fv1;
 }
 
-void func_8009BEEC(Vec3f* src, Vec3f* dst, s32 mode, s32 count, f32 scale, f32 maxStep, f32 minStep) {
+void Math_SmoothStepToVec3fArray(Vec3f* src, Vec3f* dst, s32 mode, s32 count, f32 scale, f32 maxStep, f32 minStep) {
     Vec3f* srcTemp;
     Vec3f* dstTemp;
     s32 i;
@@ -481,16 +483,16 @@ void func_8009BEEC(Vec3f* src, Vec3f* dst, s32 mode, s32 count, f32 scale, f32 m
         case 1:
             dstTemp = dst;
             srcTemp = src;
-            func_8009BC2C(&dstTemp->x, srcTemp->x, scale, maxStep, minStep);
-            func_8009BC2C(&dstTemp->y, srcTemp->y, scale, maxStep, minStep);
-            func_8009BC2C(&dstTemp->z, srcTemp->z, scale, maxStep, minStep);
+            Math_SmoothStepToF(&dstTemp->x, srcTemp->x, scale, maxStep, minStep);
+            Math_SmoothStepToF(&dstTemp->y, srcTemp->y, scale, maxStep, minStep);
+            Math_SmoothStepToF(&dstTemp->z, srcTemp->z, scale, maxStep, minStep);
             dstTemp++;
             srcTemp++;
 
             for (i = 1; i < count; i++, dstTemp++, srcTemp++) {
-                func_8009BD38(&dstTemp->x, srcTemp->x, scale, maxStep, minStep);
-                func_8009BD38(&dstTemp->y, srcTemp->y, scale, maxStep, minStep);
-                func_8009BD38(&dstTemp->z, srcTemp->z, scale, maxStep, minStep);
+                Math_SmoothStepToAngle(&dstTemp->x, srcTemp->x, scale, maxStep, minStep);
+                Math_SmoothStepToAngle(&dstTemp->y, srcTemp->y, scale, maxStep, minStep);
+                Math_SmoothStepToAngle(&dstTemp->z, srcTemp->z, scale, maxStep, minStep);
             }
             break;
         default:
@@ -498,7 +500,7 @@ void func_8009BEEC(Vec3f* src, Vec3f* dst, s32 mode, s32 count, f32 scale, f32 m
     }
 }
 
-s32 func_8009C124(Vec3f* pos, Vec3f* target, Vec3f* rot, f32 stepSize, f32 scaleTurn, f32 maxTurn, f32 dist) {
+s32 Math_PursueVec3f(Vec3f* pos, Vec3f* target, Vec3f* rot, f32 stepSize, f32 scaleTurn, f32 maxTurn, f32 dist) {
     Vec3f diff;
     f32 targetRotX;
     f32 targetRotY;
@@ -510,10 +512,10 @@ s32 func_8009C124(Vec3f* pos, Vec3f* target, Vec3f* rot, f32 stepSize, f32 scale
     diff.y = target->y - pos->y;
     diff.z = target->z - pos->z;
 
-    targetRotY = func_8009F768(Math_Atan2F(diff.x, diff.z));
-    targetRotX = func_8009F768(-Math_Atan2F(diff.y, sqrtf(SQ(diff.x) + SQ(diff.z))));
-    func_8009BD38(&rot->y, targetRotY, scaleTurn, maxTurn, 0.0f);
-    func_8009BD38(&rot->x, targetRotX, scaleTurn, maxTurn, 0.0f);
+    targetRotY = Math_RadToDeg(Math_Atan2F(diff.x, diff.z));
+    targetRotX = Math_RadToDeg(-Math_Atan2F(diff.y, sqrtf(SQ(diff.x) + SQ(diff.z))));
+    Math_SmoothStepToAngle(&rot->y, targetRotY, scaleTurn, maxTurn, 0.0f);
+    Math_SmoothStepToAngle(&rot->x, targetRotX, scaleTurn, maxTurn, 0.0f);
     Matrix_RotateY(&worldTransform, rot->y * 0.017453292f, 0);
     Matrix_RotateX(&worldTransform, rot->x * 0.017453292f, 1);
     localStep.z = stepSize;
@@ -700,7 +702,7 @@ void func_8009F574(Gfx** gfxPtr, s32 ulx, s32 uly, s32 lrx, s32 lry, u8 r, u8 g,
     }
 }
 
-void func_8009F6CC(Vec3f* step, f32 xRot, f32 yRot, f32 stepsize) {
+void Math_Vec3fFromAngles(Vec3f* step, f32 xRot, f32 yRot, f32 stepsize) {
     Vec3f sp1C;
 
     Matrix_RotateY(gCalcMatrix, yRot * 0.017453292f, 0);
@@ -710,7 +712,7 @@ void func_8009F6CC(Vec3f* step, f32 xRot, f32 yRot, f32 stepsize) {
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp1C, step);
 }
 
-f32 func_8009F768(f32 rAngle) {
+f32 Math_RadToDeg(f32 rAngle) {
     rAngle *= 57.295776f;
 
     while (rAngle < 0.0f) {
@@ -762,7 +764,7 @@ s32* func_8009F7B4(Gfx** gfxPtr, u8 width, u8 height) {
     return spB4;
 }
 
-void func_8009FC0C(s32 xPos, s32 yPos, s32 number) {
+void Text_DisplayHUDNumber(s32 xPos, s32 yPos, s32 number) {
     void* spA0[] = {
         0x01010660, 0x010106B0, 0x01010700, 0x01010750, 0x010107A0,
         0x010107F0, 0x01010840, 0x01010890, 0x010108E0, 0x01010930,
@@ -793,7 +795,7 @@ void* D_800D2638[] = {
     0x05000280, D_5000300,  0x05000380, 0x05000400, 0x05000480,
 };
 
-void func_8009FEA0(s32 xPos, s32 yPos, s32 number) {
+void Text_DisplaySmallNumber(s32 xPos, s32 yPos, s32 number) {
     s32 var_s0;
     s32 var_s3;
 
@@ -833,7 +835,7 @@ void* D_800D27B0[] = {
     0x05000280, D_5000300,  0x05000380, 0x05000400, 0x05000480,
 };
 
-void func_800A0094(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char* text) {
+void Text_DisplayLargeText(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char* text) {
     u32 var_t0;
     f32 xPosCurrent = (f32) xPos;
     s32 pad4C;
@@ -965,7 +967,7 @@ void func_800A0094(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char* text) {
     }
 }
 
-s32 func_800A06F8(char* text) {
+s32 Text_LargeTextWidth(char* text) {
     s32 var_t1 = 0;
     s32 var_fv0 = 0;
     u32 var_t0;
@@ -1089,7 +1091,7 @@ s32 func_800A06F8(char* text) {
     return var_fv0;
 }
 
-void func_800A100C(s32 xPos, s32 yPos, s32 number) {
+void Text_DisplayLargeNumber(s32 xPos, s32 yPos, s32 number) {
     s32 var_s0;
     s32 var_s3 = 0;
 
@@ -1106,7 +1108,7 @@ void func_800A100C(s32 xPos, s32 yPos, s32 number) {
     TextureRect_8bIA(&gMasterDisp, D_800D2788[number / var_s0], 16, 15, xPos, yPos, 1.0f, 1.0f);
 }
 
-void func_800A1200(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char* text) {
+void Text_DisplaySmallText(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char* text) {
     u32 var_t0;
     f32 xPosCurrent = (f32) xPos;
     s32 pad4C;
@@ -1148,7 +1150,7 @@ void func_800A1200(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char* text) {
     }
 }
 
-s32 func_800A13EC(char* text) {
+s32 Text_SmallTextWidth(char* text) {
     u32 var_t0;
     s32 var_fv0 = 0;
     s32 pad4C;

@@ -450,7 +450,7 @@ extern Gfx D_Gfx_800DBAA0[];
 extern Gfx D_Gfx_800DAC20[];
 extern Gfx D_Gfx_800D9688[];
 
-extern u8 D_80179010[24][16 * 13 / 2];
+extern u8 gTextCharTextures[24][16 * 13 / 2];
 extern u16 D_8017A0F4[];
 extern u16 D_80182544[];
 extern u16 D_80183CA8[];
@@ -468,7 +468,7 @@ extern u16 D_8018398C[];
 extern u16 D_801839B8[];
 extern u16 D_80183A08[];
 extern u16 D_80183A64[];
-extern UnkStruct_D_80185CBC D_80185CBC[];
+extern MsgLookup gMsgLookup[];
 
 extern Gfx* D_DF4260_8019A008[];
 extern Matrix D_E51970_8019EE80;

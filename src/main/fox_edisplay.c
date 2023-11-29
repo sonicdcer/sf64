@@ -67,8 +67,8 @@ void func_80059A24(Object_2F4* arg0) {
 
     Matrix_Translate(gGfxMatrix, 0.f, -temp, 0.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    func_8009AA20(&D_601E8C4, arg0->unk_0B6, sp30);
-    func_8009A72C(1, &D_601E9D0, sp30, NULL, func_800599A4, &arg0->unk_040, &gIdentityMatrix);
+    Animation_FrameTable(&D_601E8C4, arg0->unk_0B6, sp30);
+    Animation_DrawSkeleton(1, &D_601E9D0, sp30, NULL, func_800599A4, &arg0->unk_040, &gIdentityMatrix);
 }
 
 void func_80059AEC(Object_80* arg0) {
@@ -424,7 +424,7 @@ void func_8005ADAC(Object_2F4* arg0) {
         if (arg0->unk_07C >= 2) {
             temp1 = 1.3050001f;
         }
-        func_8009BC2C(&arg0->unk_188, temp1, 0.3f, 5.0f, 0.0f);
+        Math_SmoothStepToF(&arg0->unk_188, temp1, 0.3f, 5.0f, 0.0f);
         sp5C = arg0->unk_188;
         if (D_80177DB0 & 1) {
             sp5C *= 1.111f;
@@ -587,8 +587,8 @@ void func_8005B848(Object_2F4* arg0) {
 
 void func_8005B9A4(Object_2F4* arg0) {
     Matrix_Translate(gGfxMatrix, 0.0f, -124.0f, 0.0f, 1);
-    func_8009AA20(&D_6029528, arg0->unk_0B6, &arg0->unk_18C);
-    func_8009A72C(1, D_6029674, &arg0->unk_18C, NULL, NULL, (s32*) arg0, &gIdentityMatrix);
+    Animation_FrameTable(&D_6029528, arg0->unk_0B6, &arg0->unk_18C);
+    Animation_DrawSkeleton(1, D_6029674, &arg0->unk_18C, NULL, NULL, (s32*) arg0, &gIdentityMatrix);
 }
 
 void func_8005BA30(Object_2F4* arg0) {

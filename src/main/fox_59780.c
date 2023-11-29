@@ -177,5 +177,5 @@ u8 func_80058F14(u8 arg0, u8 arg1) {
 
 void func_80059498(void) {
     Lib_DmaRead(SEGMENT_ROM_START(dma_table), gDmaTable, SEGMENT_ROM_SIZE(dma_table));
-    func_80058B80(SEGMENT_ROM_START(ast_DE5D50), D_80179010, SEGMENT_ROM_SIZE(ast_DE5D50));
+    func_80058B80(SEGMENT_ROM_START(ast_DE5D50), gTextCharTextures, SEGMENT_ROM_SIZE(ast_DE5D50));
 }
