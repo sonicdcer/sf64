@@ -467,14 +467,14 @@ typedef struct {
     /* 0x2E8 */ Vec3f unk_2E8;
 } Object_2F4; // size = 0x2F4
 
-typedef struct UnkStruct_D_80176438 {
-    u8 unk0;
-    f32 unk4;
-    f32 unk8;
-    f32 unkC;
-    f32 unk10;
-    u8 pad14[0x4];
-    s16 unk18;
+typedef struct {
+    u8 unk_0;
+    f32 unk_4;
+    f32 unk_8;
+    f32 unk_C;
+    f32 unk_10;
+    char pad14[0x4];
+    s16 unk_18;
 } UnkStruct_D_80176438; // size = 0x1C
 
 #endif
