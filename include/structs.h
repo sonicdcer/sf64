@@ -469,8 +469,8 @@ typedef struct {
 } Object_2F4; // size = 0x2F4
 
 typedef struct {
-    /* 0x00 */ u8 unk_0;
-    /* 0x04 */ Vec3f unk_4; //May be a Vec4f
+    /* 0x00 */ u8 unk_00;
+    /* 0x04 */ Vec3f unk_04; //May be a Vec4f
     /* 0x10 */ f32 unk_10;
     /* 0x14 */ char pad14[0x4];
     /* 0x18 */ u16 unk_18;

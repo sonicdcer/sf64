@@ -4,11 +4,11 @@ void func_80077240(f32 posX, f32 posY, f32 posZ, s32 arg3) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(D_80176438); i++) {
-        if (D_80176438[i].unk_0 == 0) {
-            D_80176438[i].unk_0 = arg3;
-            D_80176438[i].unk_4.x = posX;
-            D_80176438[i].unk_4.y = posY;
-            D_80176438[i].unk_4.z = posZ;
+        if (D_80176438[i].unk_00 == 0) {
+            D_80176438[i].unk_00 = arg3;
+            D_80176438[i].unk_04.x = posX;
+            D_80176438[i].unk_04.y = posY;
+            D_80176438[i].unk_04.z = posZ;
             D_80176438[i].unk_10 = 0.0f;
             D_80176438[i].unk_18 = 65;
             break;
@@ -21,18 +21,18 @@ void func_8007729C(void) {
     s32 i;
 
     for(i = 0,  var_s0 = D_80176438; i < ARRAY_COUNT(D_80176438); i++, var_s0++) {
-        if (var_s0->unk_0 != 0) {
+        if (var_s0->unk_00 != 0) {
             if (var_s0->unk_18 != 0) {
                 var_s0->unk_18 -= 1;
             }
             if (var_s0->unk_18 == 0) {
-                var_s0->unk_0 = 0;
+                var_s0->unk_00 = 0;
             }
             if (D_80177880 == 0) {
-                var_s0->unk_4.z -= D_80177D08;
+                var_s0->unk_04.z -= D_80177D08;
             } else if (D_80178280->unk_1C8 == 3) {
-                var_s0->unk_4.x += D_80178280->unk_0C0;
-                var_s0->unk_4.z += D_80178280->unk_0C8; 
+                var_s0->unk_04.x += D_80178280->unk_0C0;
+                var_s0->unk_04.z += D_80178280->unk_0C8; 
             }
             if (var_s0->unk_18 < 45) {
                 func_8009BC2C(&var_s0->unk_10, 300.0f, 0.1f, 20.0f, 0.0f);
