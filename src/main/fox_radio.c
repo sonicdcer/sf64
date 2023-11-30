@@ -650,7 +650,7 @@ void func_800BB5D0(void) {
                 (D_801782A4 != 3) && (D_801782A4 != 1000)) {
                 func_800B8DD0(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
-                Text_DisplaySmallText(0x1F, 0xA7, 1.0f, 1.0f, "DOWN");
+                Graphics_DisplaySmallText(0x1F, 0xA7, 1.0f, 1.0f, "DOWN");
                 func_80084B94(1);
             }
             if ((D_801782A4 != 2) && (D_801782A4 != 3) && (D_801782A4 != 1000)) {
@@ -685,7 +685,7 @@ void func_800BB5D0(void) {
                 (D_801782A4 != 2) && (D_801782A4 != 3) && (D_801782A4 != 1000)) {
                 func_800B8DD0(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
-                Text_DisplaySmallText(0x1F, 0xA7, 1.0f, 1.0f, "DOWN");
+                Graphics_DisplaySmallText(0x1F, 0xA7, 1.0f, 1.0f, "DOWN");
             }
             if ((D_801782A4 != 2) && (D_801782A4 != 3) && (D_801782A4 != 1000)) {
                 func_80086110(22.0f, 165.0f, D_80163FE0[var_v1].unk_0CE * 2.55f);
@@ -702,7 +702,7 @@ void func_800BB5D0(void) {
 #else
 extern s32 D_8017874C;
 void func_800BB5D0(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_BB360/func_800BB5D0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_radio/func_800BB5D0.s")
 #endif
 
 void func_800BC040(void) {

@@ -1507,7 +1507,7 @@ void func_EBFBE0_801973C0(void) {
     }
     func_800B8DD0(&gMasterDisp, 0x53);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-    Text_DisplaySmallText(242, 215, 1.0f, 1.0f, "PUSH A");
+    Graphics_DisplaySmallText(242, 215, 1.0f, 1.0f, "PUSH A");
 }
 
 #ifdef IMPORT_DATA_PENDING
@@ -1638,7 +1638,7 @@ void func_EBFBE0_80197D30(s32 arg0, s32 arg1, s32 arg2) {
     temp[2] = gSaveFile.save.data.unk_18[arg0][2] & 0xFF;
     temp[3] = '\0';
 
-    Text_DisplayLargeText(arg1, arg2, 1.0f, 1.0f, temp);
+    Graphics_DisplayLargeText(arg1, arg2, 1.0f, 1.0f, temp);
 }
 
 void func_EBFBE0_80197DE4(s32 arg0, s32 arg1, s32 arg2) {
@@ -1646,9 +1646,9 @@ void func_EBFBE0_80197DE4(s32 arg0, s32 arg1, s32 arg2) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 170);
     TextureRect_8bIA(&gMasterDisp, D_601B4B0, 24, 17, arg1, arg2, 3.17f, 1.05f);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-    Text_DisplaySmallText(arg1, arg2, 1.0f, 1.0f, "TOTAL HITS");
+    Graphics_DisplaySmallText(arg1, arg2, 1.0f, 1.0f, "TOTAL HITS");
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-    Text_DisplaySmallNumber((arg1 + 40.0f) - ((func_8008BCBC(D_EBFBE0_801B8220[arg0]) * 8) - 8), (arg2 + 9.0f),
+    Graphics_DisplaySmallNumber((arg1 + 40.0f) - ((func_8008BCBC(D_EBFBE0_801B8220[arg0]) * 8) - 8), (arg2 + 9.0f),
                             D_EBFBE0_801B8220[arg0]);
 }
 
@@ -1660,9 +1660,9 @@ void func_EBFBE0_80197F74(s32 arg0, s32 arg1, s32 arg2) {
 
     for (temp_fs1 = 0.0f, i = 0; i < 3; i++, temp_fs1 += 12.0f) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, D_EBFBE0_801AF0D0[i], D_EBFBE0_801AF0DC[i], D_EBFBE0_801AF0E8[i], 255);
-        Text_DisplaySmallText(temp_fs1 + arg1, arg2, 1.0f, 1.0f, D_EBFBE0_801AF0C4[i]);
+        Graphics_DisplaySmallText(temp_fs1 + arg1, arg2, 1.0f, 1.0f, D_EBFBE0_801AF0C4[i]);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-        Text_DisplaySmallNumber(arg1 + temp_fs1 - ((func_8008BCBC(D_EBFBE0_801B81A8[arg0][i]) - 1) * 8), arg2 + 9.0f,
+        Graphics_DisplaySmallNumber(arg1 + temp_fs1 - ((func_8008BCBC(D_EBFBE0_801B81A8[arg0][i]) - 1) * 8), arg2 + 9.0f,
                                 D_EBFBE0_801B81A8[arg0][i]);
     }
 }
@@ -1746,7 +1746,7 @@ void func_EBFBE0_801984D0(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
         sp1C = (gSaveFile.save.data.unk_5E[arg0][arg1].unk_C & 1) << 8;
         sp1C |= gSaveFile.save.data.unk_5E[arg0][arg1].unk_0;
-        Text_DisplaySmallNumber(arg2 + 15.0f - (func_8008BCBC(sp1C) - 1) * 8, arg3 + 24.0f + 1.0f, sp1C);
+        Graphics_DisplaySmallNumber(arg2 + 15.0f - (func_8008BCBC(sp1C) - 1) * 8, arg3 + 24.0f + 1.0f, sp1C);
     }
 }
 
@@ -1767,7 +1767,7 @@ void func_EBFBE0_80198608(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
                 continue;
             }
             gDPSetPrimColor(gMasterDisp++, 0, 0, D_EBFBE0_801AF0D0[i], D_EBFBE0_801AF0DC[i], D_EBFBE0_801AF0E8[i], 255);
-            Text_DisplaySmallText(arg2 + var_fs1 - 1.0f, arg3 + 24.0f + 8.0f + 1.0f, 1.0f, 1.0f, D_EBFBE0_801AF0C4[i]);
+            Graphics_DisplaySmallText(arg2 + var_fs1 - 1.0f, arg3 + 24.0f + 8.0f + 1.0f, 1.0f, 1.0f, D_EBFBE0_801AF0C4[i]);
         }
     }
 }
@@ -1782,8 +1782,8 @@ void func_EBFBE0_8019882C(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
         sp20 = D_EBFBE0_801AEEAC[temp];
         func_800B8DD0(&gMasterDisp, 0x53);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-        temp2 = Text_SmallTextWidth(sp20) / 2.0f;
-        Text_DisplaySmallText(arg2 + 12.0f - temp2, arg3 - 8.0f, 1.0f, 1.0f, sp20);
+        temp2 = Graphics_GetSmallTextWidth(sp20) / 2.0f;
+        Graphics_DisplaySmallText(arg2 + 12.0f - temp2, arg3 - 8.0f, 1.0f, 1.0f, sp20);
     }
 }
 

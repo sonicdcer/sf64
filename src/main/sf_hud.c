@@ -201,9 +201,9 @@ void func_80086110(f32 arg0, f32 arg1, s32 arg2) {
         func_800B8DD0(&gMasterDisp, 0x4C);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
         if ((arg2 == 0) && (D_80178280[0].unk_1C8 == 7)) {
-            Text_DisplaySmallText(arg0 + (8.0f * temp) + 4.0f, arg1 + 2.0f, 1.0f, 1.0f, " OK ");
+            Graphics_DisplaySmallText(arg0 + (8.0f * temp) + 4.0f, arg1 + 2.0f, 1.0f, 1.0f, " OK ");
         } else {
-            Text_DisplaySmallText(arg0 + (8.0f * temp) + 4.0f, arg1 + 2.0f, 1.0f, 1.0f, "DOWN");
+            Graphics_DisplaySmallText(arg0 + (8.0f * temp) + 4.0f, arg1 + 2.0f, 1.0f, 1.0f, "DOWN");
         }
     }
 
@@ -739,47 +739,47 @@ void func_8008AD94(void) {
 
         switch ((s32) D_80177D68) {
             case 0:
-                Text_DisplaySmallText(73, 173, 1.0f, 1.0f, "FOX");
+                Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "FOX");
                 break;
 
             case 10:
-                Text_DisplaySmallText(73, 173, 1.0f, 1.0f, "FALCO");
+                Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "FALCO");
                 break;
 
             case 20:
-                Text_DisplaySmallText(73, 173, 1.0f, 1.0f, "SLIPPY");
+                Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "SLIPPY");
                 break;
 
             case 30:
-                Text_DisplaySmallText(73, 173, 1.0f, 1.0f, "PEPPY");
+                Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "PEPPY");
                 break;
 
             case 200:
             case 240:
-                Text_DisplaySmallText(73, 173, 1.0f, 1.0f, "WOLF");
+                Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "WOLF");
                 break;
 
             case 220:
             case 260:
-                Text_DisplaySmallText(73, 173, 1.0f, 1.0f, "LEON");
+                Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "LEON");
                 break;
 
             case 210:
             case 250:
-                Text_DisplaySmallText(73, 173, 1.0f, 1.0f, "PIGMA");
+                Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "PIGMA");
                 break;
 
             case 230:
             case 270:
-                Text_DisplaySmallText(73, 173, 1.0f, 1.0f, "ANDREW");
+                Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "ANDREW");
                 break;
 
             case 170:
-                Text_DisplaySmallText(73, 173, 1.0f, 1.0f, "BILL");
+                Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "BILL");
                 break;
 
             case 40:
-                Text_DisplaySmallText(73, 173, 1.0f, 1.0f, "KATT");
+                Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "KATT");
                 break;
         }
     }
@@ -1232,7 +1232,7 @@ void func_8008D7F4(void) {
 
     func_800B8DD0(&gMasterDisp, 0x4E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, D_800D2150[D_801778A0], D_800D2160[D_801778A0], D_800D2170[D_801778A0], 255);
-    Text_DisplayHUDNumber(D_800D2130[D_801778A0], D_800D2140[D_801778A0], D_801778A0 + 1);
+    Graphics_DisplayHUDNumber(D_800D2130[D_801778A0], D_800D2140[D_801778A0], D_801778A0 + 1);
 }
 #else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008D7F4.s")
@@ -1302,9 +1302,9 @@ void func_8008DD78(f32 arg0, f32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, arg3, arg4, arg5, D_80161708);
 
     if (arg2 >= 10) {
-        Text_DisplayHUDNumber((s32) arg0 - (func_8008BCBC(arg2) * 8) + 11, arg1, arg2);
+        Graphics_DisplayHUDNumber((s32) arg0 - (func_8008BCBC(arg2) * 8) + 11, arg1, arg2);
     } else {
-        Text_DisplayHUDNumber(arg0, arg1, arg2);
+        Graphics_DisplayHUDNumber(arg0, arg1, arg2);
     }
 }
 

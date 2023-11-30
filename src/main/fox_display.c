@@ -122,7 +122,7 @@ void Texture_Mottle(void* dst, void* src, u8 mode) {
     }
 }
 
-s32 Animation_LimbIndex(Limb* limb, Limb** skeleton) {
+s32 Animation_GetLimbIndex(Limb* limb, Limb** skeleton) {
     s32 i = 1;
 
     for (i = 1; *skeleton != 0; i++, skeleton++) {
@@ -145,7 +145,7 @@ void Animation_DrawLimb(s32 mode, Limb* limb, Limb** skeleton, Vec3f* jointTable
 
     Matrix_Push(&gCalcMatrix);
 
-    limbIndex = Animation_LimbIndex(limb, skeleton);
+    limbIndex = Animation_GetLimbIndex(limb, skeleton);
     limb = SEGMENTED_TO_VIRTUAL(limb);
     rot = jointTable[limbIndex];
     trans.x = limb->trans.x;
@@ -204,7 +204,7 @@ void Animation_DrawSkeleton(s32 mode, Limb** skeletonSegment, Vec3f* jointTable,
     Matrix_Copy(gCalcMatrix, transform);
     skeleton = SEGMENTED_TO_VIRTUAL(skeletonSegment);
     rootLimb = SEGMENTED_TO_VIRTUAL(skeleton[0]);
-    rootIndex = Animation_LimbIndex(skeleton[0], skeleton);
+    rootIndex = Animation_GetLimbIndex(skeleton[0], skeleton);
     baseRot = jointTable[rootIndex];
     if (mode & 1) {
         baseTrans.x = rootLimb->trans.x;
@@ -246,7 +246,7 @@ void Animation_DrawSkeleton(s32 mode, Limb** skeletonSegment, Vec3f* jointTable,
     }
 }
 
-s16 Animation_FrameTable(AnimationHeader* animationSegmemt, s32 frame, Vec3f* frameTable) {
+s16 Animation_GetFrameData(AnimationHeader* animationSegmemt, s32 frame, Vec3f* frameTable) {
     AnimationHeader* animation = SEGMENTED_TO_VIRTUAL(animationSegmemt);
     u16 var4 = animation->limbCount;
     JointKey* key = SEGMENTED_TO_VIRTUAL(animation->jointKey);
@@ -273,7 +273,7 @@ s16 Animation_FrameTable(AnimationHeader* animationSegmemt, s32 frame, Vec3f* fr
     return var4 + 1;
 }
 
-s16 Animation_FrameCount(AnimationHeader* animationSegment) {
+s16 Animation_GetFrameCount(AnimationHeader* animationSegment) {
     AnimationHeader* animation = SEGMENTED_TO_VIRTUAL(animationSegment);
 
     return animation->frameCount;
@@ -327,7 +327,7 @@ void Animation_FindBoundingBox(Gfx* dList, s32 len, Vec3f* min, Vec3f* max, s32*
     }
 }
 
-void Animation_DListBoundingBox(Gfx* dList, s32 len, Vec3f* min, Vec3f* max) {
+void Animation_GetDListBoundingBox(Gfx* dList, s32 len, Vec3f* min, Vec3f* max) {
     s32 vtxFound = false;
     s32 vtxCount;
     Vtx* vtxList;
@@ -335,7 +335,7 @@ void Animation_DListBoundingBox(Gfx* dList, s32 len, Vec3f* min, Vec3f* max) {
     Animation_FindBoundingBox(dList, len, min, max, &vtxFound, &vtxCount, &vtxList);
 }
 
-void Animation_SkeletonBoundingBox(Limb** skeletonSegment, AnimationHeader* animationSegment, s32 frame, Vec3f* min,
+void Animation_GetSkeletonBoundingBox(Limb** skeletonSegment, AnimationHeader* animationSegment, s32 frame, Vec3f* min,
                                    Vec3f* max) {
     JointKey* key;
     u16* frameData;
@@ -689,7 +689,7 @@ void TextureRect_32bRGBA(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32
                         (s32) (1.0f / yScale * 1024.0f));
 }
 
-void func_8009F574(Gfx** gfxPtr, s32 ulx, s32 uly, s32 lrx, s32 lry, u8 r, u8 g, u8 b, u8 a) {
+void Graphics_FillRectangle(Gfx** gfxPtr, s32 ulx, s32 uly, s32 lrx, s32 lry, u8 r, u8 g, u8 b, u8 a) {
     if (a != 0) {
         gDPPipeSync((*gfxPtr)++);
         gDPSetPrimColor((*gfxPtr)++, 0x00, 0x00, r, g, b, a);
@@ -764,70 +764,68 @@ s32* func_8009F7B4(Gfx** gfxPtr, u8 width, u8 height) {
     return spB4;
 }
 
-void Text_DisplayHUDNumber(s32 xPos, s32 yPos, s32 number) {
-    void* spA0[] = {
+void Graphics_DisplayHUDNumber(s32 xPos, s32 yPos, s32 number) {
+    void* hudNumberTex[] = {
         0x01010660, 0x010106B0, 0x01010700, 0x01010750, 0x010107A0,
         0x010107F0, 0x01010840, 0x01010890, 0x010108E0, 0x01010930,
     };
-    void* sp78[] = {
+    void* hudNumberPal[] = {
         0x010106A0, 0x010106F0, 0x01010740, 0x01010790, 0x010107E0,
         0x01010830, 0x01010880, 0x010108D0, 0x01010920, 0x01010970,
     };
-    s32 var_s0;
-    s32 var_s3;
+    s32 place;
+    s32 startNumber = false;
 
-    var_s3 = 0;
     number %= 10000000;
-    var_s0 = 1000000;
-    for (var_s0 = 1000000; var_s0 != 1; var_s0 /= 10) {
-        if ((number / var_s0 != 0) || (var_s3 == 1)) {
-            TextureRect_4bCI(&gMasterDisp, spA0[number / var_s0], sp78[number / var_s0], 16, 8, xPos, yPos, 1.0f, 1.0f);
-            var_s3 = 1;
+    place = 1000000;
+    for (place = 1000000; place != 1; place /= 10) {
+        if ((number / place != 0) || (startNumber == true)) {
+            TextureRect_4bCI(&gMasterDisp, hudNumberTex[number / place], hudNumberPal[number / place], 16, 8, xPos, yPos, 1.0f, 1.0f);
+            startNumber = true;
             xPos += 9;
-            number %= var_s0;
+            number %= place;
         }
     }
-    TextureRect_4bCI(&gMasterDisp, spA0[number / var_s0], sp78[number / var_s0], 16, 8, xPos, yPos, 1.0f, 1.0f);
+    TextureRect_4bCI(&gMasterDisp, hudNumberTex[number / place], hudNumberPal[number / place], 16, 8, xPos, yPos, 1.0f, 1.0f);
 }
 
-void* D_800D2638[] = {
+void* sSmallNumberTex[] = {
     0x05000000, 0x05000080, 0x05000100, 0x05000180, D_5000200,
     0x05000280, D_5000300,  0x05000380, 0x05000400, 0x05000480,
 };
 
-void Text_DisplaySmallNumber(s32 xPos, s32 yPos, s32 number) {
-    s32 var_s0;
-    s32 var_s3;
+void Graphics_DisplaySmallNumber(s32 xPos, s32 yPos, s32 number) {
+    s32 place;
+    s32 startNumber = false;
 
-    var_s3 = 0;
     number %= 10000000;
-    var_s0 = 1000000;
-    for (var_s0 = 1000000; var_s0 != 1; var_s0 /= 10) {
-        if ((number / var_s0 != 0) || (var_s3 == 1)) {
-            TextureRect_8bIA(&gMasterDisp, D_800D2638[number / var_s0], 16, 8, xPos, yPos, 1.0f, 1.0f);
-            var_s3 = 1;
+    place = 1000000;
+    for (place = 1000000; place != 1; place /= 10) {
+        if ((number / place != 0) || (startNumber == true)) {
+            TextureRect_8bIA(&gMasterDisp, sSmallNumberTex[number / place], 16, 8, xPos, yPos, 1.0f, 1.0f);
+            startNumber = true;
             xPos += 9;
-            number %= var_s0;
+            number %= place;
         }
     }
-    TextureRect_8bIA(&gMasterDisp, D_800D2638[number / var_s0], 16, 8, xPos, yPos, 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, sSmallNumberTex[number / place], 16, 8, xPos, yPos, 1.0f, 1.0f);
 }
 
-char D_800D2660[] = " ABCDEFGHIJKLMNOPQRSTUVWXYZ!:-.0123456789";
-char D_800D268C[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ. 0123456789st-";
-u8 D_800D26B8[] = { 15, 14, 14, 13, 13, 13, 14, 14, 5,  12, 14, 12, 16, 14, 15, 13, 16, 14, 13, 13, 13,
+char sSmallChars[] = " ABCDEFGHIJKLMNOPQRSTUVWXYZ!:-.0123456789";
+char sLargeChars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ. 0123456789st-";
+u8 sLargeCharWidths[] = { 15, 14, 14, 13, 13, 13, 14, 14, 5,  12, 14, 12, 16, 14, 15, 13, 16, 14, 13, 13, 13,
                     16, 17, 17, 16, 13, 5,  16, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 10, 9,  14, 0 };
-void* D_800D26E4[] = {
+void* sLargeCharTex[] = {
     0x05008020, 0x05008110, 0x05008200, 0x050082F0, 0x050083E0, 0x050084D0, 0x050085C0, 0x050086B0, 0x050087A0,
     0x05008890, 0x05008980, 0x05008A70, 0x05008B60, 0x05008C50, 0x05008D40, 0x05008E30, 0x05008F20, 0x05009010,
     0x05009100, 0x050091F0, 0x050092E0, 0x050093D0, 0x050094C0, 0x050096A0, 0x05009880, 0x05009A60, 0x05009DB0,
     NULL,       D_5009F60,  D_500A050,  D_500A140,  D_500A230,  D_500A320,  D_500A410,  D_500A500,  0x0500A5F0,
     0x0500A6E0, 0x0500A7D0, 0x05009B50, 0x05009C40, 0x05009970,
 };
-void* D_800D2788[] = {
+void* sLargeNumberTex[] = {
     D_5009F60, D_500A050, D_500A140, D_500A230, D_500A320, D_500A410, D_500A500, 0x0500A5F0, 0x0500A6E0, 0x0500A7D0,
 };
-void* D_800D27B0[] = {
+void* sSmallCharTex[] = {
     NULL,       0x050070C0, 0x05007100, 0x05007180, 0x050071C0, 0x05007200, 0x05007510, 0x05007550, 0x05007590,
     0x050075D0, 0x05007610, 0x05007650, 0x05007F60, 0x05007FA0, 0x05007FE0, 0x05009D30, 0x05009D70, 0x05009EA0,
     0x05009EE0, 0x05009F20, 0x0500B380, 0x0500B440, 0x0500B480, 0x0500B4C0, 0x0500B500, 0x0500B540, 0x0500B5C0,
@@ -835,298 +833,296 @@ void* D_800D27B0[] = {
     0x05000280, D_5000300,  0x05000380, 0x05000400, 0x05000480,
 };
 
-void Text_DisplayLargeText(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char* text) {
-    u32 var_t0;
+void Graphics_DisplayLargeText(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char* text) {
+    u32 charIndex;
     f32 xPosCurrent = (f32) xPos;
     s32 pad4C;
     s32 width;
-    s32 var_t1 = 0;
+    s32 startPrint = false;
 
     while (text[0] != 0) {
-        var_t0 = 0;
-        while ((var_t0 < ARRAY_COUNT(D_800D268C)) && D_800D268C[var_t0] != text[0]) {
-            var_t0++;
+        charIndex = 0;
+        while ((charIndex < ARRAY_COUNT(sLargeChars)) && sLargeChars[charIndex] != text[0]) {
+            charIndex++;
         }
-        if (D_800D268C[var_t0] == text[0]) {
-            if ((var_t1 == 1) && (text[-1] == 'Y') && (text[0] == 'A')) {
+        if (sLargeChars[charIndex] == text[0]) {
+            if ((startPrint == true) && (text[-1] == 'Y') && (text[0] == 'A')) {
                 xPosCurrent -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'K') && (text[0] == 'A')) {
+            if ((startPrint == true) && (text[-1] == 'K') && (text[0] == 'A')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'O')) {
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'O')) {
                 xPosCurrent -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'T') && (text[0] == 'A')) {
+            if ((startPrint == true) && (text[-1] == 'T') && (text[0] == 'A')) {
                 xPosCurrent -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'Y')) {
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'Y')) {
                 xPosCurrent -= 4.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'K') && (text[0] == 'I')) {
+            if ((startPrint == true) && (text[-1] == 'K') && (text[0] == 'I')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'K') && (text[0] == 'O')) {
+            if ((startPrint == true) && (text[-1] == 'K') && (text[0] == 'O')) {
                 xPosCurrent -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'J')) {
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'J')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'W') && (text[0] == 'A')) {
+            if ((startPrint == true) && (text[-1] == 'W') && (text[0] == 'A')) {
                 xPosCurrent -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'Y') && (text[0] == 'O')) {
+            if ((startPrint == true) && (text[-1] == 'Y') && (text[0] == 'O')) {
                 xPosCurrent -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'T')) {
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'T')) {
                 xPosCurrent -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'W')) {
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'W')) {
                 xPosCurrent -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'O') && (text[0] == 'T')) {
+            if ((startPrint == true) && (text[-1] == 'O') && (text[0] == 'T')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'G')) {
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'G')) {
                 xPosCurrent -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'O') && (text[0] == 'Y')) {
+            if ((startPrint == true) && (text[-1] == 'O') && (text[0] == 'Y')) {
                 xPosCurrent -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'J')) {
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'J')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'T') && (text[0] == 'O')) {
+            if ((startPrint == true) && (text[-1] == 'T') && (text[0] == 'O')) {
                 xPosCurrent -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'K') && (text[0] == 'U')) {
+            if ((startPrint == true) && (text[-1] == 'K') && (text[0] == 'U')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'S')) {
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'S')) {
                 xPosCurrent -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'R') && (text[0] == 'O')) {
+            if ((startPrint == true) && (text[-1] == 'R') && (text[0] == 'O')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'K') && (text[0] == 'Y')) {
+            if ((startPrint == true) && (text[-1] == 'K') && (text[0] == 'Y')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'N') && (text[0] == 'J')) {
+            if ((startPrint == true) && (text[-1] == 'N') && (text[0] == 'J')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'K') && (text[0] == 'E')) {
+            if ((startPrint == true) && (text[-1] == 'K') && (text[0] == 'E')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'S') && (text[0] == 't')) {
+            if ((startPrint == true) && (text[-1] == 'S') && (text[0] == 't')) {
                 xPosCurrent -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'X') && (text[0] == 'X')) {
+            if ((startPrint == true) && (text[-1] == 'X') && (text[0] == 'X')) {
                 xPosCurrent -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'O') && (text[0] == 'X')) {
+            if ((startPrint == true) && (text[-1] == 'O') && (text[0] == 'X')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'W') && (text[0] == 'W')) {
+            if ((startPrint == true) && (text[-1] == 'W') && (text[0] == 'W')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'X') && (text[0] == 'W')) {
+            if ((startPrint == true) && (text[-1] == 'X') && (text[0] == 'W')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'W') && (text[0] == 'X')) {
+            if ((startPrint == true) && (text[-1] == 'W') && (text[0] == 'X')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'H') && (text[0] == 'O')) {
+            if ((startPrint == true) && (text[-1] == 'H') && (text[0] == 'O')) {
                 xPosCurrent += 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'J') && (text[0] == 'I')) {
+            if ((startPrint == true) && (text[-1] == 'J') && (text[0] == 'I')) {
                 xPosCurrent += 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'I') && (text[0] == 'N')) {
+            if ((startPrint == true) && (text[-1] == 'I') && (text[0] == 'N')) {
                 xPosCurrent += 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'I') && (text[0] == 'M')) {
+            if ((startPrint == true) && (text[-1] == 'I') && (text[0] == 'M')) {
                 xPosCurrent += 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'I') && (text[0] == 'D')) {
+            if ((startPrint == true) && (text[-1] == 'I') && (text[0] == 'D')) {
                 xPosCurrent += 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'U') && (text[0] == 'K')) {
+            if ((startPrint == true) && (text[-1] == 'U') && (text[0] == 'K')) {
                 xPosCurrent += 1.0f;
             }
-            if (D_800D26E4[var_t0] != NULL) {
+            if (sLargeCharTex[charIndex] != NULL) {
                 width = 16;
                 if ((text[0] == 'W') || (text[0] == 'X')) {
                     width = 32;
                 }
-                TextureRect_8bIA(&gMasterDisp, D_800D26E4[var_t0], width, 15, xPosCurrent, yPos, xScale, yScale);
+                TextureRect_8bIA(&gMasterDisp, sLargeCharTex[charIndex], width, 15, xPosCurrent, yPos, xScale, yScale);
             }
-            var_t1 = 1;
-            xPosCurrent += (D_800D26B8[var_t0] * xScale) + 2.0f;
+            startPrint = true;
+            xPosCurrent += (sLargeCharWidths[charIndex] * xScale) + 2.0f;
         }
         text++;
     }
 }
 
-s32 Text_LargeTextWidth(char* text) {
-    s32 var_t1 = 0;
-    s32 var_fv0 = 0;
-    u32 var_t0;
+s32 Graphics_GetLargeTextWidth(char* text) {
+    s32 startPrint = false;
+    s32 xPos = 0;
+    u32 charIndex;
 
     while (text[0] != 0) {
-        var_t0 = 0;
-        while ((var_t0 < ARRAY_COUNT(D_800D268C)) && D_800D268C[var_t0] != text[0]) {
-            var_t0++;
+        charIndex = 0;
+        while ((charIndex < ARRAY_COUNT(sLargeChars)) && sLargeChars[charIndex] != text[0]) {
+            charIndex++;
         }
-        if (D_800D268C[var_t0] == text[0]) {
-            if ((var_t1 == 1) && (text[-1] == 'Y') && (text[0] == 'A')) {
-                var_fv0 -= 3.0f;
+        if (sLargeChars[charIndex] == text[0]) {
+            if ((startPrint == true) && (text[-1] == 'Y') && (text[0] == 'A')) {
+                xPos -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'K') && (text[0] == 'A')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'K') && (text[0] == 'A')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'O')) {
-                var_fv0 -= 2.0f;
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'O')) {
+                xPos -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'T') && (text[0] == 'A')) {
-                var_fv0 -= 3.0f;
+            if ((startPrint == true) && (text[-1] == 'T') && (text[0] == 'A')) {
+                xPos -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'Y')) {
-                var_fv0 -= 4.0f;
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'Y')) {
+                xPos -= 4.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'K') && (text[0] == 'I')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'K') && (text[0] == 'I')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'K') && (text[0] == 'O')) {
-                var_fv0 -= 3.0f;
+            if ((startPrint == true) && (text[-1] == 'K') && (text[0] == 'O')) {
+                xPos -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'J')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'J')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'W') && (text[0] == 'A')) {
-                var_fv0 -= 2.0f;
+            if ((startPrint == true) && (text[-1] == 'W') && (text[0] == 'A')) {
+                xPos -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'Y') && (text[0] == 'O')) {
-                var_fv0 -= 3.0f;
+            if ((startPrint == true) && (text[-1] == 'Y') && (text[0] == 'O')) {
+                xPos -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'T')) {
-                var_fv0 -= 3.0f;
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'T')) {
+                xPos -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'W')) {
-                var_fv0 -= 3.0f;
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'W')) {
+                xPos -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'O') && (text[0] == 'T')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'O') && (text[0] == 'T')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'G')) {
-                var_fv0 -= 2.0f;
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'G')) {
+                xPos -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'O') && (text[0] == 'Y')) {
-                var_fv0 -= 2.0f;
+            if ((startPrint == true) && (text[-1] == 'O') && (text[0] == 'Y')) {
+                xPos -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'J')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'J')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'T') && (text[0] == 'O')) {
-                var_fv0 -= 2.0f;
+            if ((startPrint == true) && (text[-1] == 'T') && (text[0] == 'O')) {
+                xPos -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'K') && (text[0] == 'U')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'K') && (text[0] == 'U')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'S')) {
-                var_fv0 -= 2.0f;
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'S')) {
+                xPos -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'R') && (text[0] == 'O')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'R') && (text[0] == 'O')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'K') && (text[0] == 'Y')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'K') && (text[0] == 'Y')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'N') && (text[0] == 'J')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'N') && (text[0] == 'J')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'K') && (text[0] == 'E')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'K') && (text[0] == 'E')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'S') && (text[0] == 't')) {
-                var_fv0 -= 2.0f;
+            if ((startPrint == true) && (text[-1] == 'S') && (text[0] == 't')) {
+                xPos -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'X') && (text[0] == 'X')) {
-                var_fv0 -= 3.0f;
+            if ((startPrint == true) && (text[-1] == 'X') && (text[0] == 'X')) {
+                xPos -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'O') && (text[0] == 'X')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'O') && (text[0] == 'X')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'W') && (text[0] == 'W')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'W') && (text[0] == 'W')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'X') && (text[0] == 'W')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'X') && (text[0] == 'W')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'W') && (text[0] == 'X')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'W') && (text[0] == 'X')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'H') && (text[0] == 'O')) {
-                var_fv0 += 1.0f;
+            if ((startPrint == true) && (text[-1] == 'H') && (text[0] == 'O')) {
+                xPos += 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'J') && (text[0] == 'I')) {
-                var_fv0 += 1.0f;
+            if ((startPrint == true) && (text[-1] == 'J') && (text[0] == 'I')) {
+                xPos += 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'I') && (text[0] == 'N')) {
-                var_fv0 += 1.0f;
+            if ((startPrint == true) && (text[-1] == 'I') && (text[0] == 'N')) {
+                xPos += 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'I') && (text[0] == 'M')) {
-                var_fv0 += 1.0f;
+            if ((startPrint == true) && (text[-1] == 'I') && (text[0] == 'M')) {
+                xPos += 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'I') && (text[0] == 'D')) {
-                var_fv0 += 1.0f;
+            if ((startPrint == true) && (text[-1] == 'I') && (text[0] == 'D')) {
+                xPos += 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'U') && (text[0] == 'K')) {
-                var_fv0 += 1.0f;
+            if ((startPrint == true) && (text[-1] == 'U') && (text[0] == 'K')) {
+                xPos += 1.0f;
             }
-            var_t1 = 1;
-            var_fv0 += D_800D26B8[var_t0] + 2.0f;
+            startPrint = true;
+            xPos += sLargeCharWidths[charIndex] + 2.0f;
         }
         text++;
     }
-    return var_fv0;
+    return xPos;
 }
 
-void Text_DisplayLargeNumber(s32 xPos, s32 yPos, s32 number) {
-    s32 var_s0;
-    s32 var_s3 = 0;
+void Graphics_DisplayLargeNumber(s32 xPos, s32 yPos, s32 number) {
+    s32 place;
+    s32 startNumber = false;
 
     number %= 10000000;
-    var_s0 = 1000000;
-    for (var_s0 = 1000000; var_s0 != 1; var_s0 /= 10) {
-        if ((number / var_s0 != 0) || (var_s3 == 1)) {
-            TextureRect_8bIA(&gMasterDisp, D_800D2788[number / var_s0], 16, 15, xPos, yPos, 1.0f, 1.0f);
-            var_s3 = 1;
+    place = 1000000;
+    for (place = 1000000; place != 1; place /= 10) {
+        if ((number / place != 0) || (startNumber == true)) {
+            TextureRect_8bIA(&gMasterDisp, sLargeNumberTex[number / place], 16, 15, xPos, yPos, 1.0f, 1.0f);
+            startNumber = true;
             xPos += 13;
-            number %= var_s0;
+            number %= place;
         }
     }
-    TextureRect_8bIA(&gMasterDisp, D_800D2788[number / var_s0], 16, 15, xPos, yPos, 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, sLargeNumberTex[number / place], 16, 15, xPos, yPos, 1.0f, 1.0f);
 }
 
-void Text_DisplaySmallText(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char* text) {
+void Graphics_DisplaySmallText(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char* text) {
     u32 var_t0;
     f32 xPosCurrent = (f32) xPos;
-    s32 pad4C;
     s32 width;
-    s32 var_t1 = 0;
 
     while (text[0] != 0) {
         var_t0 = 0;
-        while ((var_t0 < ARRAY_COUNT(D_800D2660)) && D_800D2660[var_t0] != text[0]) {
+        while ((var_t0 < ARRAY_COUNT(sSmallChars)) && sSmallChars[var_t0] != text[0]) {
             var_t0++;
         }
-        if (D_800D2660[var_t0] == text[0]) {
-            if (D_800D27B0[var_t0] != NULL) {
+        if (sSmallChars[var_t0] == text[0]) {
+            if (sSmallCharTex[var_t0] != NULL) {
                 width = 8;
                 if (var_t0 > 30) {
                     width = 16;
                 }
-                TextureRect_8bIA(&gMasterDisp, D_800D27B0[var_t0], width, 8, xPosCurrent, yPos, xScale, yScale);
+                TextureRect_8bIA(&gMasterDisp, sSmallCharTex[var_t0], width, 8, xPosCurrent, yPos, xScale, yScale);
                 if (1) {}
             }
             switch (text[0]) {
@@ -1150,39 +1146,36 @@ void Text_DisplaySmallText(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char* tex
     }
 }
 
-s32 Text_SmallTextWidth(char* text) {
-    u32 var_t0;
-    s32 var_fv0 = 0;
-    s32 pad4C;
-    s32 var_a2;
-    s32 var_t1 = 0;
+s32 Graphics_GetSmallTextWidth(char* text) {
+    u32 charIndex;
+    s32 xPos = 0;
 
     while (text[0] != 0) {
-        var_t0 = 0;
-        while ((var_t0 < ARRAY_COUNT(D_800D2660)) && D_800D2660[var_t0] != text[0]) {
-            var_t0++;
+        charIndex = 0;
+        while ((charIndex < ARRAY_COUNT(sSmallChars)) && sSmallChars[charIndex] != text[0]) {
+            charIndex++;
         }
-        if (D_800D2660[var_t0] == text[0]) {
+        if (sSmallChars[charIndex] == text[0]) {
             switch (text[0]) {
                 case '!':
                 case ':':
                 case 'I':
-                    var_fv0 += 4.0f;
+                    xPos += 4.0f;
                     break;
                 case '-':
-                    var_fv0 += 6.0f;
+                    xPos += 6.0f;
                     break;
                 default:
-                    if (var_t0 > 29) {
-                        var_fv0 += 9.0f;
+                    if (charIndex > 29) {
+                        xPos += 9.0f;
                     } else {
-                        var_fv0 += 8.0f;
+                        xPos += 8.0f;
                     }
             }
         }
         text++;
     }
-    return var_fv0;
+    return xPos;
 }
 
 void func_800A1540(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
@@ -1219,5 +1212,5 @@ void func_800A1540(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 // }
 #else
 void func_800A1558(f32 weight, u16 size, void* src1, void* src2, void* dst);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_9A580/func_800A1558.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_display/func_800A1558.s")
 #endif

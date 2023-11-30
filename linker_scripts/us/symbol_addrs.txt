@@ -36,7 +36,7 @@ __rspboot_end = 0x80000520;
 __f3dex_start = 0x80001410;
 gF3dexData = 0x800C3DD0;
 
-D_800CBD3C = 0x800CBD3C;
+sEFFA40_Overlay = 0x800CBD3C;
 
 D_80177E88 = 0x80177E88; // size:0xC
 D_800CFA54 = 0x800CFA54;

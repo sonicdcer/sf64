@@ -271,7 +271,7 @@ void func_EBFBE0_80187CA8(void) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
-    Text_DisplaySmallText(temp2, temp, 1.0f, 1.0f, D_EBFBE0_801ADA44);
+    Graphics_DisplaySmallText(temp2, temp, 1.0f, 1.0f, D_EBFBE0_801ADA44);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
@@ -294,23 +294,23 @@ void func_EBFBE0_80187E28(void) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
-    Text_DisplaySmallText(94, 38, 1.0f, 1.0f, "RANK");
-    Text_DisplaySmallText(146, 38, 1.0f, 1.0f, "NAME");
-    Text_DisplaySmallText(192, 38, 1.0f, 1.0f, "HITS");
+    Graphics_DisplaySmallText(94, 38, 1.0f, 1.0f, "RANK");
+    Graphics_DisplaySmallText(146, 38, 1.0f, 1.0f, "NAME");
+    Graphics_DisplaySmallText(192, 38, 1.0f, 1.0f, "HITS");
     temp = 55;
 
     for (i = 0; i < D_EBFBE0_801B8288; i++) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-        Text_DisplaySmallNumber(105 - ((func_8008BCBC(i + 1) - 1) * 8), temp, i + 1);
+        Graphics_DisplaySmallNumber(105 - ((func_8008BCBC(i + 1) - 1) * 8), temp, i + 1);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
-        Text_DisplaySmallText(150, temp, 1.0f, 1.0f, &D_EBFBE0_801B8248[i][0]);
+        Graphics_DisplaySmallText(150, temp, 1.0f, 1.0f, &D_EBFBE0_801B8248[i][0]);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-        Text_DisplaySmallNumber(211 - ((func_8008BCBC(D_EBFBE0_801B8220[i]) - 1) * 8), temp, D_EBFBE0_801B8220[i]);
+        Graphics_DisplaySmallNumber(211 - ((func_8008BCBC(D_EBFBE0_801B8220[i]) - 1) * 8), temp, D_EBFBE0_801B8220[i]);
         temp += 17;
     }
 }
@@ -568,8 +568,8 @@ void func_EBFBE0_801881FC(void) {
     D_EBFBE0_801B8350[3].unk_5C = 0;
 
     for (i = 0; i < 4; i++) {
-        Animation_FrameTable(D_EBFBE0_801ADA00[i].unk_4,
-                             D_EBFBE0_801B8350[i].unk_58 % Animation_FrameCount(D_EBFBE0_801ADA00[i].unk_4),
+        Animation_GetFrameData(D_EBFBE0_801ADA00[i].unk_4,
+                             D_EBFBE0_801B8350[i].unk_58 % Animation_GetFrameCount(D_EBFBE0_801ADA00[i].unk_4),
                              D_EBFBE0_801B86E0[i]);
     }
 
@@ -2435,7 +2435,7 @@ void func_EBFBE0_8018E67C(s32 arg0) {
     Lights_SetOneLight(&gMasterDisp, D_EBFBE0_801B82E0, D_EBFBE0_801B82E4, D_EBFBE0_801B82E8, D_80178548, D_8017854C,
                        D_80178550, D_80178554, D_80178558, D_8017855C);
 
-    sp5C = D_EBFBE0_801B8350[arg0].unk_58 % Animation_FrameCount(D_EBFBE0_801ADA00[arg0].unk_0);
+    sp5C = D_EBFBE0_801B8350[arg0].unk_58 % Animation_GetFrameCount(D_EBFBE0_801ADA00[arg0].unk_0);
 
     func_800BA1D0(D_80178320, D_80178328, D_80178330, 255, 995, 1000);
 
@@ -2450,7 +2450,7 @@ void func_EBFBE0_8018E67C(s32 arg0) {
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     }
 
-    Animation_FrameTable(D_EBFBE0_801ADA00[arg0].unk_0, sp5C, &sp60);
+    Animation_GetFrameData(D_EBFBE0_801ADA00[arg0].unk_0, sp5C, &sp60);
     Animation_DrawSkeleton(0, D_EBFBE0_801ADA00[arg0].skelanime, &sp60, NULL, NULL, NULL, &gIdentityMatrix);
 
     if (arg0 == 2) {
@@ -2495,7 +2495,7 @@ void func_EBFBE0_8018EA78(s32 arg0) {
     Vec3f sp48[50];
     s32 sp44;
 
-    sp44 = D_EBFBE0_801B8350[arg0].unk_58 % Animation_FrameCount(D_EBFBE0_801ADA00[arg0].unk_4);
+    sp44 = D_EBFBE0_801B8350[arg0].unk_58 % Animation_GetFrameCount(D_EBFBE0_801ADA00[arg0].unk_4);
 
     func_800B8DD0(&gMasterDisp, 0x17);
 
@@ -2515,7 +2515,7 @@ void func_EBFBE0_8018EA78(s32 arg0) {
     Matrix_SetGfxMtx(&gMasterDisp);
 
     Math_SmoothStepToVec3fArray(sp48, D_EBFBE0_801B86E0[arg0], 1,
-                                Animation_FrameTable(D_EBFBE0_801ADA00[arg0].unk_4, sp44, &sp48), 0.2f, 100.0f,
+                                Animation_GetFrameData(D_EBFBE0_801ADA00[arg0].unk_4, sp44, &sp48), 0.2f, 100.0f,
                                 0.0001f);
     Animation_DrawSkeleton(1, D_EBFBE0_801ADA00[arg0].skelanime, D_EBFBE0_801B86E0[arg0], func_EBFBE0_8018EDC8, NULL,
                            &arg0, &gIdentityMatrix);

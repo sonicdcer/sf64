@@ -133,8 +133,6 @@ extern OSMesg D_80156608[4];
 extern OSMesg D_80156618[1];
 extern OSMesg D_8015661C[1];
 
-extern u8 D_800CA3B0;
-
 extern f32 D_800CBF18[];
 extern ObjectStruct_1C D_800CC124[];
 extern f32 D_800CF9B0[];

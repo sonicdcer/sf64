@@ -7,22 +7,24 @@ void func_8002E3E0(Object_2F4* arg0) {
 
     if (D_80178234 == 0x13) {
         if (D_8015F940 < 0xF00) {
-            var_a3 = 0x32;
+            var_a3 = 50;
         } else if (D_8015F940 < 0x1680) {
-            var_a3 = 0x1E;
+            var_a3 = 30;
         } else if (D_8015F940 < 0x1E00) {
-            var_a3 = 0x14;
+            var_a3 = 20;
         } else if (D_8015F940 < 0x2580) {
-            var_a3 = 0xA;
+            var_a3 = 10;
         }
-    } else if (D_8015F940 < 0xF00) {
-        var_a3 = 0xA;
-    } else if (D_8015F940 < 0x1680) {
-        var_a3 = 5;
-    } else if (D_8015F940 < 0x1E00) {
-        var_a3 = 2;
-    } else if (D_8015F940 < 0x2580) {
-        var_a3 = 1;
+    } else {
+        if (D_8015F940 < 0xF00) {
+            var_a3 = 10;
+        } else if (D_8015F940 < 0x1680) {
+            var_a3 = 5;
+        } else if (D_8015F940 < 0x1E00) {
+            var_a3 = 2;
+        } else if (D_8015F940 < 0x2580) {
+            var_a3 = 1;
+        }
     }
     if (var_a3 != 0) {
         func_80077240(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, var_a3);

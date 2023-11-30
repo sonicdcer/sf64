@@ -1558,7 +1558,7 @@ void func_800656D4(Object_2F4* arg0) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_61B30/func_800656D4.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_enmy1/func_800656D4.s")
 #endif
 
 void func_800660F0(Object_2F4* arg0) {
@@ -1668,7 +1668,7 @@ void func_8006654C(Object_2F4* arg0) {
                 arg0->unk_114 = arg0->unk_114 + 0.5f;
             }
             arg0->unk_0B6++;
-            if (Animation_FrameCount(&D_6029528) < arg0->unk_0B6) {
+            if (Animation_GetFrameCount(&D_6029528) < arg0->unk_0B6) {
                 arg0->unk_0B6 = 0;
             }
             if ((arg0->obj.rot.z < 15.0f) && (arg0->unk_0B6 < 0x14)) {
@@ -2869,4 +2869,4 @@ void func_8006A3E8(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_61B30/D_800D63D0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_enmy1/D_800D63D0.s")
