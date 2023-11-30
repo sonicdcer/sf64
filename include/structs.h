@@ -7,9 +7,9 @@
 #define UNK_TYPE s32
 
 typedef struct {
-    s32 unk0;
-    u16* unk4;
-} UnkStruct_D_80185CBC;
+    s32 msgId;
+    u16* msgPtr;
+} MsgLookup;
 
 typedef void (*TimerAction)(s32*, s32);
 

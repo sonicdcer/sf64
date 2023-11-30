@@ -337,7 +337,7 @@ void Graphics_ThreadEntry(void* arg0) {
             gSPDisplayList(gMasterDisp++, gGfxPool->unkDL1);
             func_800A26C0();
             if (gStartNMI == 1) {
-                func_800BC4B0();
+                Graphics_NMIWipe();
             }
             gSPEndDisplayList(gUnkDisp1++);
             gSPEndDisplayList(gUnkDisp2++);

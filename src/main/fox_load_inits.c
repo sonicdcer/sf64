@@ -21,7 +21,7 @@
 #define ROM_SEGMENT(file) \
     { SEGMENT_ROM_START(file), SEGMENT_ROM_END(file) }
 
-OverlayInit D_800CA3B4[1] = {
+OverlayInit sLogoOverlay[1] = {
     { NO_OVERLAY,
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
@@ -40,7 +40,7 @@ OverlayInit D_800CA3B4[1] = {
         /* 0xF */ ROM_SEGMENT(ast_D25100) } },
 };
 
-OverlayInit D_800CA44C[6] = {
+OverlayInit sCreditsOverlay_6[6] = {
     { OVERLAY_OFFSETS(ovl_EF0260),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
@@ -139,7 +139,7 @@ OverlayInit D_800CA44C[6] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit D_800CA7DC[1] = {
+OverlayInit sEBFBE0_Overlay1[1] = {
     { OVERLAY_OFFSETS(ovl_EBFBE0),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
@@ -158,7 +158,7 @@ OverlayInit D_800CA7DC[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit D_800CA874[1] = {
+OverlayInit sEBFBE0_Overlay2[1] = {
     { OVERLAY_OFFSETS(ovl_EBFBE0),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
@@ -177,7 +177,7 @@ OverlayInit D_800CA874[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit D_800CA90C[1] = {
+OverlayInit sEBFBE0_Overlay3[1] = {
     { OVERLAY_OFFSETS(ovl_EBFBE0),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
@@ -196,7 +196,7 @@ OverlayInit D_800CA90C[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit D_800CA9A4[1] = {
+OverlayInit sEBFBE0_Overlay4[1] = {
     { OVERLAY_OFFSETS(ovl_EBFBE0),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
@@ -215,7 +215,7 @@ OverlayInit D_800CA9A4[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit D_800CAA3C[1] = {
+OverlayInit sDF4260_Overlay1[1] = {
     { OVERLAY_OFFSETS(ovl_DF4260),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -234,7 +234,7 @@ OverlayInit D_800CAA3C[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit D_800CAAD4[2] = {
+OverlayInit sE08400_Overlay1_2[2] = {
     { OVERLAY_OFFSETS(ovl_E08400),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
@@ -269,7 +269,7 @@ OverlayInit D_800CAAD4[2] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit D_800CAC04[6] = {
+OverlayInit sE6A810_Overlay1_6[6] = {
     { OVERLAY_OFFSETS(ovl_E6A810),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -368,7 +368,7 @@ OverlayInit D_800CAC04[6] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit D_800CAF94[2] = {
+OverlayInit sE08400_Overlay2_2[2] = {
     { OVERLAY_OFFSETS(ovl_E08400),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
@@ -403,7 +403,7 @@ OverlayInit D_800CAF94[2] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit D_800CB0C4[1] = {
+OverlayInit sE51970_Overlay1[1] = {
     { OVERLAY_OFFSETS(ovl_E51970),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
@@ -422,7 +422,7 @@ OverlayInit D_800CB0C4[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit D_800CB15C[1] = {
+OverlayInit sE16C50_Overlay1[1] = {
     { OVERLAY_OFFSETS(ovl_E16C50),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -441,7 +441,7 @@ OverlayInit D_800CB15C[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit D_800CB1F4[1] = {
+OverlayInit sE16C50_Overlay2[1] = {
     { OVERLAY_OFFSETS(ovl_E16C50),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
@@ -460,7 +460,7 @@ OverlayInit D_800CB1F4[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit D_800CB28C[2] = {
+OverlayInit sE51970_Overlay2_2[2] = {
     { OVERLAY_OFFSETS(ovl_E51970),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -495,7 +495,7 @@ OverlayInit D_800CB28C[2] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit D_800CB3BC[1] = {
+OverlayInit sE16C50_Overlay3[1] = {
     { OVERLAY_OFFSETS(ovl_E16C50),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
@@ -514,7 +514,7 @@ OverlayInit D_800CB3BC[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit D_800CB454[1] = {
+OverlayInit sE9F1D0_Overlay1[1] = {
     { OVERLAY_OFFSETS(ovl_E9F1D0),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
@@ -533,7 +533,7 @@ OverlayInit D_800CB454[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit D_800CB4EC[1] = {
+OverlayInit sE16C50_Overlay4[1] = {
     { OVERLAY_OFFSETS(ovl_E16C50),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -552,7 +552,7 @@ OverlayInit D_800CB4EC[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit D_800CB584[1] = {
+OverlayInit sE16C50_Overlay5[1] = {
     { OVERLAY_OFFSETS(ovl_E16C50),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -571,7 +571,7 @@ OverlayInit D_800CB584[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit D_800CB61C[1] = {
+OverlayInit sDF4260_Overlay2[1] = {
     { OVERLAY_OFFSETS(ovl_DF4260),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -590,7 +590,7 @@ OverlayInit D_800CB61C[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit D_800CB6B4[1] = {
+OverlayInit sE9F1D0_Overlay2[1] = {
     { OVERLAY_OFFSETS(ovl_E9F1D0),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -609,7 +609,7 @@ OverlayInit D_800CB6B4[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit D_800CB74C[2] = {
+OverlayInit sE9F1D0_Overlay3_2[2] = {
     { OVERLAY_OFFSETS(ovl_E9F1D0),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -644,7 +644,7 @@ OverlayInit D_800CB74C[2] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit D_800CB87C[1] = {
+OverlayInit sE08400_Overlay3[1] = {
     { OVERLAY_OFFSETS(ovl_E08400),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -663,7 +663,7 @@ OverlayInit D_800CB87C[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit D_800CB914[1] = {
+OverlayInit sE51970_Overlay3[1] = {
     { OVERLAY_OFFSETS(ovl_E51970),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
@@ -682,7 +682,7 @@ OverlayInit D_800CB914[1] = {
         /* 0xF */ ROM_SEGMENT(ast_940AD0) } },
 };
 
-OverlayInit D_800CB9AC[1] = {
+OverlayInit sE51970_Overlay4[1] = {
     { OVERLAY_OFFSETS(ovl_E51970),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -701,7 +701,7 @@ OverlayInit D_800CB9AC[1] = {
         /* 0xF */ ROM_SEGMENT(ast_940AD0) } },
 };
 
-OverlayInit D_800CBA44[2] = {
+OverlayInit sE6A810_Overlay2_2[2] = {
     { OVERLAY_OFFSETS(ovl_E6A810),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -736,7 +736,7 @@ OverlayInit D_800CBA44[2] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit D_800CBB74[1] = {
+OverlayInit sDF4260_Overlay3[1] = {
     { OVERLAY_OFFSETS(ovl_DF4260),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -755,7 +755,7 @@ OverlayInit D_800CBB74[1] = {
         /* 0xF */ ROM_SEGMENT(ast_940AD0) } },
 };
 
-OverlayInit D_800CBC0C[2] = {
+OverlayInit sE08400_Overlay4_2[2] = {
     { OVERLAY_OFFSETS(ovl_E08400),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -790,7 +790,7 @@ OverlayInit D_800CBC0C[2] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit D_800CBD3C[1] = {
+OverlayInit sEFFA40_Overlay[1] = {
     { OVERLAY_OFFSETS(ovl_EFFA40),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
@@ -807,23 +807,4 @@ OverlayInit D_800CBD3C[1] = {
         /* 0xD */ NO_SEGMENT,
         /* 0xE */ NO_SEGMENT,
         /* 0xF */ NO_SEGMENT } },
-};
-
-OverlayInit D_800CBDD4 = {
-    NO_OVERLAY,
-    { /* 0x1 */ NO_SEGMENT,
-      /* 0x2 */ NO_SEGMENT,
-      /* 0x3 */ NO_SEGMENT,
-      /* 0x4 */ NO_SEGMENT,
-      /* 0x5 */ NO_SEGMENT,
-      /* 0x6 */ NO_SEGMENT,
-      /* 0x7 */ NO_SEGMENT,
-      /* 0x8 */ NO_SEGMENT,
-      /* 0x9 */ NO_SEGMENT,
-      /* 0xA */ NO_SEGMENT,
-      /* 0xB */ NO_SEGMENT,
-      /* 0xC */ NO_SEGMENT,
-      /* 0xD */ NO_SEGMENT,
-      /* 0xE */ NO_SEGMENT,
-      /* 0xF */ NO_SEGMENT },
 };
