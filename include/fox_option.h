@@ -68,7 +68,6 @@ extern MenuContext D_EBFBE0_801AE878[];
 
 extern u8 D_EBFBE0_801AE998[];
 extern u8 D_EBFBE0_801AE99C[];
-extern MenuContext_00 D_EBFBE0_801AEB48[];
 
 extern Gfx D_EBFBE0_801AEC30[];
 extern Gfx D_EBFBE0_801AEC88[];

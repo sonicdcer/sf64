@@ -3,6 +3,7 @@
 
 #ifdef IMPORT_DATA_PENDING
 static f32 D_EBFBE0_801AE9A0[4] = { 62.0f, 222.0f, 75.0f, 235.0f };
+
 static f32 D_EBFBE0_801AE9B0[4] = { 43.0f, 43.0f, 46.0f, 46.0f };
 
 static MenuContext_00 D_EBFBE0_801AE9C0[4] = {
@@ -61,8 +62,21 @@ static MenuContext D_EBFBE0_801AE638[6] = {
         1,
     },
 };
+
+static MenuContext_00 D_EBFBE0_801AEAA0[3] = {
+    { 3, 0, (void*) 0x08013990, 0, 104, 10, 151.0f, 135.0f, 1.05f, 1.0f, 255, 255, 255, 255 },
+    { 3, 0, (void*) 0x08013990, 0, 104, 10, 151.0f, 161.0f, 1.05f, 1.0f, 255, 255, 255, 255 },
+    { 3, 0, (void*) 0x08013990, 0, 104, 10, 151.0f, 188.0f, 1.05f, 1.0f, 255, 255, 255, 255 },
+};
+
+static MenuContext_00 D_EBFBE0_801AEB48[3] = {
+    { 3, 0, (void*) 0x080141B0, 0, 16, 16, 245.0f, 132.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
+    { 3, 0, (void*) 0x080141B0, 0, 16, 16, 245.0f, 158.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
+    { 3, 0, (void*) 0x080141B0, 0, 16, 16, 245.0f, 185.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
+};
 #else
 extern MenuContext_00 D_EBFBE0_801AE9C0[4];
+extern MenuContext_00 D_EBFBE0_801AEB48[];
 extern f32 D_EBFBE0_801AE9A0[4];
 extern f32 D_EBFBE0_801AE9B0[4];
 extern f32 D_EBFBE0_801AE570[];
@@ -1156,18 +1170,6 @@ void func_EBFBE0_80194BD0(void) {
 }
 
 #ifdef IMPORT_DATA_PENDING
-static MenuContext_00 D_EBFBE0_801AEAA0[3] = {
-    { 3, 0, (void*) 0x08013990, 0, 104, 10, 151.0f, 135.0f, 1.05f, 1.0f, 255, 255, 255, 255 },
-    { 3, 0, (void*) 0x08013990, 0, 104, 10, 151.0f, 161.0f, 1.05f, 1.0f, 255, 255, 255, 255 },
-    { 3, 0, (void*) 0x08013990, 0, 104, 10, 151.0f, 188.0f, 1.05f, 1.0f, 255, 255, 255, 255 },
-};
-
-static MenuContext_00 D_EBFBE0_801AEB48[3] = {
-    { 3, 0, (void*) 0x080141B0, 0, 16, 16, 245.0f, 132.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
-    { 3, 0, (void*) 0x080141B0, 0, 16, 16, 245.0f, 158.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
-    { 3, 0, (void*) 0x080141B0, 0, 16, 16, 245.0f, 185.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
-};
-
 void func_EBFBE0_80194CE4(void) {
     s32 i;
     s32 colorGB;
