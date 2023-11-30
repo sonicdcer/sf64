@@ -68,7 +68,10 @@ extern MenuContext D_EBFBE0_801AE878[];
 
 extern u8 D_EBFBE0_801AE998[];
 extern u8 D_EBFBE0_801AE99C[];
-extern MenuContext_00 D_EBFBE0_801AEB48[];
+
+extern Gfx D_EBFBE0_801AEC30[];
+extern Gfx D_EBFBE0_801AEC88[];
+extern Gfx D_EBFBE0_801AECE0[];
 
 extern u8* D_EBFBE0_801AECF8[];
 
@@ -245,9 +248,10 @@ void func_EBFBE0_801948A8(void);
 void func_EBFBE0_80194AEC(void);
 void func_EBFBE0_80194BD0(void);
 void func_EBFBE0_80194CE4(void);
-void func_EBFBE0_80195B74(void);
+void func_EBFBE0_801952B4(void);
 void func_EBFBE0_801958DC(void);
 void func_EBFBE0_80195944(void);
+void func_EBFBE0_80195B74(void);
 void func_EBFBE0_80196260(void);
 void func_EBFBE0_801962A4(void);
 void func_EBFBE0_8019669C(void);
@@ -271,6 +275,7 @@ void func_EBFBE0_801984D0(s32, s32, f32, f32);
 void func_EBFBE0_80198608(s32, s32, f32, f32);
 void func_EBFBE0_8019882C(s32, s32, f32, f32);
 void func_EBFBE0_8019896C(s32, f32, s32);
+void func_EBFBE0_80199198(f32 arg0, f32 arg1, f32 arg2);
 s32 func_EBFBE0_80199284(s32 arg0, s32 arg1);
 void func_EBFBE0_801992C4(void);
 void func_EBFBE0_80199424(void);
@@ -286,6 +291,7 @@ void func_EBFBE0_8019A6DC(void);
 void func_EBFBE0_8019A954(void);
 void func_EBFBE0_8019AAB4(void);
 void func_EBFBE0_8019B5AC(void);
+void func_EBFBE0_8019B7D4(void);
 void func_EBFBE0_8019B8C8(void);
 void func_EBFBE0_8019B9C0(void); 
 void func_EBFBE0_8019BDF0(void);

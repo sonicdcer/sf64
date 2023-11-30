@@ -440,7 +440,7 @@ void func_800BB388(void) {
             D_800D4A78 = -1.0f;
         }
         sp30 = temp_fa0 * D_800D4A78;
-        func_800B8DD0(&gMasterDisp, 0x55);
+        RCP_SetupDL(&gMasterDisp, 0x55);
         switch (D_80177834) {
             case 2:
             case 8:
@@ -461,7 +461,7 @@ void func_800BB388(void) {
                          D_80177D50);
     }
     if (D_80177D50 == 1.3f) {
-        func_800B8DD0(&gMasterDisp, 0x55);
+        RCP_SetupDL(&gMasterDisp, 0x55);
         D_801782F8 = Message_DisplayText(&gMasterDisp, D_80178308, D_80178728, D_8017872C, D_801782D8);
     }
 }
@@ -648,7 +648,7 @@ void func_800BB5D0(void) {
             }
             if ((D_801778B0[var_v1] <= 0) && (D_80177DB0 & 4) && (D_801778B0[var_v1] != -2) && (D_801782A4 != 2) &&
                 (D_801782A4 != 3) && (D_801782A4 != 1000)) {
-                func_800B8DD0(&gMasterDisp, 0x4C);
+                RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                 Graphics_DisplaySmallText(0x1F, 0xA7, 1.0f, 1.0f, "DOWN");
                 func_80084B94(1);
@@ -683,7 +683,7 @@ void func_800BB5D0(void) {
             }
             if ((D_80163FE0[var_v1].obj.status != 2) && (D_80177DB0 & 4) && (D_80178280[0].unk_1C8 == 3) &&
                 (D_801782A4 != 2) && (D_801782A4 != 3) && (D_801782A4 != 1000)) {
-                func_800B8DD0(&gMasterDisp, 0x4C);
+                RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                 Graphics_DisplaySmallText(0x1F, 0xA7, 1.0f, 1.0f, "DOWN");
             }
