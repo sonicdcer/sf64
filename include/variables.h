@@ -613,6 +613,7 @@ extern Gfx D_20055A0[];
 extern Gfx D_2005E30[];
 extern Gfx D_2006360[];
 extern Gfx D_20066C0[];
+extern Gfx D_2006F50[];
 extern Gfx D_20073F0[];
 extern Gfx D_2008480[];
 extern Gfx D_2009510[];
