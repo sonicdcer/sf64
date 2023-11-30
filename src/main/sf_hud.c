@@ -201,9 +201,9 @@ void func_80086110(f32 arg0, f32 arg1, s32 arg2) {
         func_800B8DD0(&gMasterDisp, 0x4C);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
         if ((arg2 == 0) && (D_80178280[0].unk_1C8 == 7)) {
-            func_800A1200(arg0 + (8.0f * temp) + 4.0f, arg1 + 2.0f, 1.0f, 1.0f, " OK ");
+            Graphics_DisplaySmallText(arg0 + (8.0f * temp) + 4.0f, arg1 + 2.0f, 1.0f, 1.0f, " OK ");
         } else {
-            func_800A1200(arg0 + (8.0f * temp) + 4.0f, arg1 + 2.0f, 1.0f, 1.0f, "DOWN");
+            Graphics_DisplaySmallText(arg0 + (8.0f * temp) + 4.0f, arg1 + 2.0f, 1.0f, 1.0f, "DOWN");
         }
     }
 
@@ -739,47 +739,47 @@ void func_8008AD94(void) {
 
         switch ((s32) D_80177D68) {
             case 0:
-                func_800A1200(73, 173, 1.0f, 1.0f, "FOX");
+                Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "FOX");
                 break;
 
             case 10:
-                func_800A1200(73, 173, 1.0f, 1.0f, "FALCO");
+                Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "FALCO");
                 break;
 
             case 20:
-                func_800A1200(73, 173, 1.0f, 1.0f, "SLIPPY");
+                Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "SLIPPY");
                 break;
 
             case 30:
-                func_800A1200(73, 173, 1.0f, 1.0f, "PEPPY");
+                Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "PEPPY");
                 break;
 
             case 200:
             case 240:
-                func_800A1200(73, 173, 1.0f, 1.0f, "WOLF");
+                Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "WOLF");
                 break;
 
             case 220:
             case 260:
-                func_800A1200(73, 173, 1.0f, 1.0f, "LEON");
+                Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "LEON");
                 break;
 
             case 210:
             case 250:
-                func_800A1200(73, 173, 1.0f, 1.0f, "PIGMA");
+                Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "PIGMA");
                 break;
 
             case 230:
             case 270:
-                func_800A1200(73, 173, 1.0f, 1.0f, "ANDREW");
+                Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "ANDREW");
                 break;
 
             case 170:
-                func_800A1200(73, 173, 1.0f, 1.0f, "BILL");
+                Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "BILL");
                 break;
 
             case 40:
-                func_800A1200(73, 173, 1.0f, 1.0f, "KATT");
+                Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "KATT");
                 break;
         }
     }
@@ -903,7 +903,7 @@ void func_8008B2F0(void) {
                 D_801617A4 = 1.0f;
             }
 
-            func_8009BC2C(&D_801617A8, D_801617A4, 0.02f, 1000.0f, 0.001f);
+            Math_SmoothStepToF(&D_801617A8, D_801617A4, 0.02f, 1000.0f, 0.001f);
 
             var_fv0 = D_80178280[0].unk_264;
             if (var_fv0 > (256.0f * D_801617A8) - 1.0f) {
@@ -1145,7 +1145,7 @@ void func_8008D31C(void) {
     f32 D_800D20E8[] = { 60.0f, 220.0f, 60.0f, 220.0f };
     f32 D_800D20F8[] = { 78.0f, 78.0f, 198.0f, 198.0f };
 
-    func_8009BC2C(&D_800D19E0[D_801778A0], D_80178280[D_801778A0].unk_264 * (1.0f / 255.0f), 0.3f, 10.0f, 0.01f);
+    Math_SmoothStepToF(&D_800D19E0[D_801778A0], D_80178280[D_801778A0].unk_264 * (1.0f / 255.0f), 0.3f, 10.0f, 0.01f);
     func_800B8DD0(&gMasterDisp, 0x4E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
@@ -1197,9 +1197,9 @@ void func_8008D4F0(f32 arg0, f32 arg1) {
     temp2 = sp68 * temp_fs0;
 
     if (D_80178280[D_801778A0].unk_2B4 == 0) {
-        func_8009BC2C(&D_800D19AC[var_v1], 255.0f, 0.4f, 100.0f, 0.01f);
+        Math_SmoothStepToF(&D_800D19AC[var_v1], 255.0f, 0.4f, 100.0f, 0.01f);
     } else {
-        func_8009BC2C(&D_800D19AC[var_v1], 100.0f, 0.4f, 100.0f, 0.01f);
+        Math_SmoothStepToF(&D_800D19AC[var_v1], 100.0f, 0.4f, 100.0f, 0.01f);
     }
 
     temp_t9 = D_800D19AC[var_v1];
@@ -1232,7 +1232,7 @@ void func_8008D7F4(void) {
 
     func_800B8DD0(&gMasterDisp, 0x4E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, D_800D2150[D_801778A0], D_800D2160[D_801778A0], D_800D2170[D_801778A0], 255);
-    func_8009FC0C(D_800D2130[D_801778A0], D_800D2140[D_801778A0], D_801778A0 + 1);
+    Graphics_DisplayHUDNumber(D_800D2130[D_801778A0], D_800D2140[D_801778A0], D_801778A0 + 1);
 }
 #else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008D7F4.s")
@@ -1259,7 +1259,7 @@ void func_8008D984(void) {
     if ((D_800D2190[D_801778A0] & 2) || ((D_800D2190[D_801778A0] == 0) && (D_80177DA0[D_801778A0] != 0))) {
         func_800BA4F0();
         if (D_80177DA0[D_801778A0] >= 2) {
-            if (func_8009BC2C(&D_800D21A4, D_800D21A0, 0.4f, 100.0f, 0.1f) == 0.0f) {
+            if (Math_SmoothStepToF(&D_800D21A4, D_800D21A0, 0.4f, 100.0f, 0.1f) == 0.0f) {
                 if (D_800D21A0 == 255.0f) {
                     D_800D21A0 = 96.0f;
                 } else {
@@ -1302,9 +1302,9 @@ void func_8008DD78(f32 arg0, f32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, arg3, arg4, arg5, D_80161708);
 
     if (arg2 >= 10) {
-        func_8009FC0C((s32) arg0 - (func_8008BCBC(arg2) * 8) + 11, arg1, arg2);
+        Graphics_DisplayHUDNumber((s32) arg0 - (func_8008BCBC(arg2) * 8) + 11, arg1, arg2);
     } else {
-        func_8009FC0C(arg0, arg1, arg2);
+        Graphics_DisplayHUDNumber(arg0, arg1, arg2);
     }
 }
 
@@ -1325,7 +1325,7 @@ void func_8008DE68(void) {
             D_801616BC = 255.0f;
         }
 
-        func_8009BC2C(&D_801616C0, 25.0f, 0.3f, 4.0f, 4.0f);
+        Math_SmoothStepToF(&D_801616C0, 25.0f, 0.3f, 4.0f, 4.0f);
 
         sp3C = D_801616C0;
         temp1 = 52.0f;
@@ -1342,7 +1342,7 @@ void func_8008DE68(void) {
         TextureRect_8bIA(&gMasterDisp, D_1002040, 40, 12, sp3C, temp1, 1.0f, 1.0f);
 
         if (sp3C >= 25.0f) {
-            func_8009BC2C(&D_801616C4, 0.88f, 0.3f, 0.2f, 0.1f);
+            Math_SmoothStepToF(&D_801616C4, 0.88f, 0.3f, 0.2f, 0.1f);
         }
 
         if ((D_801616C4 >= 0.1f) && (sp3C >= 25.0f)) {
@@ -1362,7 +1362,7 @@ void func_8008DE68(void) {
             if (var_fv0 < 0.00f) {
                 var_fv0 = 0.00f;
             }
-            func_8009BC2C(&D_801616C8, var_fv0, 0.2f, 1000.0f, 0.01f);
+            Math_SmoothStepToF(&D_801616C8, var_fv0, 0.2f, 1000.0f, 0.01f);
         } else {
             D_801616C8 = 2.76f;
         }
@@ -1603,8 +1603,8 @@ void func_800907C4(Object_408* arg0) {
                 arg0->unk_04E = 1;
 
             } else {
-                func_8009BC2C(&arg0->unk_0DC, 255.0f, 0.3f, 6.0f, 6.0f);
-                func_8009BC2C(&arg0->unk_0E0, 212.0f, 0.3f, 4.98f, 4.98f);
+                Math_SmoothStepToF(&arg0->unk_0DC, 255.0f, 0.3f, 6.0f, 6.0f);
+                Math_SmoothStepToF(&arg0->unk_0E0, 212.0f, 0.3f, 4.98f, 4.98f);
             }
             break;
 
@@ -1612,8 +1612,8 @@ void func_800907C4(Object_408* arg0) {
             if ((arg0->unk_0DC == 28.0f) && (arg0->unk_0E0 == 23.0f)) {
                 arg0->unk_04E = 0;
             } else {
-                func_8009BC2C(&arg0->unk_0DC, 28.0f, 0.3f, 6.0f, 6.0f);
-                func_8009BC2C(&arg0->unk_0E0, 23.0f, 0.3f, 4.98f, 4.98f);
+                Math_SmoothStepToF(&arg0->unk_0DC, 28.0f, 0.3f, 6.0f, 6.0f);
+                Math_SmoothStepToF(&arg0->unk_0E0, 23.0f, 0.3f, 4.98f, 4.98f);
             }
             break;
     }
@@ -1953,8 +1953,8 @@ s32 func_80091864(Object_2F4* arg0) {
     y = arg0->unk_124.y - arg0->obj.pos.y;
     z = arg0->unk_124.z - arg0->obj.pos.z;
 
-    sp40 = func_8009F768(Math_Atan2F(x, z));
-    sp44 = func_8009F768(Math_Atan2F(y, sqrtf(SQ(x) + SQ(z))));
+    sp40 = Math_RadToDeg(Math_Atan2F(x, z));
+    sp44 = Math_RadToDeg(Math_Atan2F(y, sqrtf(SQ(x) + SQ(z))));
 
     if ((func_800915FC(arg0) != 0) && (arg0->unk_060 == 0)) {
         sp44 += 40.0f;
@@ -1966,8 +1966,8 @@ s32 func_80091864(Object_2F4* arg0) {
         arg0->unk_050 = 0;
     }
 
-    sp3C = func_8009BD38(&arg0->unk_0F8, sp40, 0.5f, arg0->unk_11C, 0.001f) * 30.0f;
-    func_8009BD38(&arg0->unk_0F4, sp44, 0.5f, arg0->unk_11C, 0.0001f);
+    sp3C = Math_SmoothStepToAngle(&arg0->unk_0F8, sp40, 0.5f, arg0->unk_11C, 0.001f) * 30.0f;
+    Math_SmoothStepToAngle(&arg0->unk_0F4, sp44, 0.5f, arg0->unk_11C, 0.0001f);
     sp2C = sp28 = 0.0f;
 
     if (sp3C < 0.0f) {
@@ -1976,10 +1976,10 @@ s32 func_80091864(Object_2F4* arg0) {
         sp28 = sp3C;
     }
 
-    func_8009BC2C(&arg0->unk_150, sp2C, 0.2f, 30.0f, 0.00f);
-    func_8009BC2C(&arg0->unk_17C, -sp2C, 0.2f, 30.0f, 0.00f);
-    func_8009BC2C(&arg0->unk_154, sp28, 0.2f, 30.0f, 0.00f);
-    func_8009BC2C(&arg0->unk_180, -sp28, 0.2f, 30.0f, 0.00f);
+    Math_SmoothStepToF(&arg0->unk_150, sp2C, 0.2f, 30.0f, 0.00f);
+    Math_SmoothStepToF(&arg0->unk_17C, -sp2C, 0.2f, 30.0f, 0.00f);
+    Math_SmoothStepToF(&arg0->unk_154, sp28, 0.2f, 30.0f, 0.00f);
+    Math_SmoothStepToF(&arg0->unk_180, -sp28, 0.2f, 30.0f, 0.00f);
 
     if (sp3C < 0.0f) {
         sp3C *= -1.0f;
@@ -1987,12 +1987,12 @@ s32 func_80091864(Object_2F4* arg0) {
         sp3C = 360.0f - sp3C;
     }
 
-    func_8009BC2C(&arg0->unk_130, arg0->unk_134, 0.2f, 30.0f, 0.0001f);
+    Math_SmoothStepToF(&arg0->unk_130, arg0->unk_134, 0.2f, 30.0f, 0.0001f);
 
     if ((arg0->unk_130 > 0.01f) && (arg0->unk_130 < 359.9f)) {
-        func_8009BD38(&arg0->obj.rot.z, arg0->unk_130, 0.2f, 100.0f, 0.01f);
+        Math_SmoothStepToAngle(&arg0->obj.rot.z, arg0->unk_130, 0.2f, 100.0f, 0.01f);
     } else {
-        func_8009BD38(&arg0->obj.rot.z, sp3C, 0.1f, 3.0f, 0.01f);
+        Math_SmoothStepToAngle(&arg0->obj.rot.z, sp3C, 0.1f, 3.0f, 0.01f);
     }
 
     return false;
@@ -2004,10 +2004,10 @@ s32 func_80091B90(Object_2F4* arg0) {
     arg0->obj.rot.x = -arg0->unk_0F4;
     arg0->obj.rot.y = arg0->unk_0F8;
 
-    func_8009BC2C(&arg0->unk_114, arg0->unk_118, 0.2f, 1.0f, 0.0f);
-    func_8009BC2C(&arg0->unk_11C, arg0->unk_120, 1.0f, 1.0f, 0.0f);
+    Math_SmoothStepToF(&arg0->unk_114, arg0->unk_118, 0.2f, 1.0f, 0.0f);
+    Math_SmoothStepToF(&arg0->unk_11C, arg0->unk_120, 1.0f, 1.0f, 0.0f);
 
-    func_8009F6CC(&vec, arg0->obj.rot.x, arg0->obj.rot.y, arg0->unk_138 + arg0->unk_114);
+    Math_Vec3fFromAngles(&vec, arg0->obj.rot.x, arg0->obj.rot.y, arg0->unk_138 + arg0->unk_114);
 
     arg0->unk_0EC = arg0->unk_14C + vec.y;
     arg0->unk_0E8 = arg0->unk_148 + vec.x;
@@ -2036,8 +2036,8 @@ s32 func_80091CF8(Object_2F4* arg0) {
         arg0->unk_054 = 0;
     }
 
-    func_8009BC2C(&arg0->unk_13C, 0.0f, 0.1f, 0.2f, 0.0f);
-    func_8009BC2C(&arg0->unk_138, arg0->unk_13C, 0.1f, 2.0f, 0.0f);
+    Math_SmoothStepToF(&arg0->unk_13C, 0.0f, 0.1f, 0.2f, 0.0f);
+    Math_SmoothStepToF(&arg0->unk_138, arg0->unk_13C, 0.1f, 2.0f, 0.0f);
 
     if (arg0->unk_13C < 0.1f) {
         arg0->unk_07C = 1;

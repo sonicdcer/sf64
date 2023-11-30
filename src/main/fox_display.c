@@ -1,6 +1,6 @@
 #include "global.h"
 
-char* func_80099980(char* buf, s32 fill, s32 len) {
+char* Graphics_ClearPrintBuffer(char* buf, s32 fill, s32 len) {
     s32 i;
     char* ptr = buf;
 
@@ -11,18 +11,18 @@ char* func_80099980(char* buf, s32 fill, s32 len) {
     return buf;
 }
 
-s32 func_800999D8(const char* fmt, ...) {
+s32 Graphics_Printf(const char* fmt, ...) {
     va_list args;
 
     va_start(args, fmt);
-    func_80099980(D_801619A0, 0, 100);
+    Graphics_ClearPrintBuffer(D_801619A0, 0, 100);
     Lib_vsPrintf(D_801619A0, fmt, args);
     va_end(args);
 
     return 0;
 }
 
-void func_80099A2C(void* texture, s32 width, s32 height, u8 mode) {
+void Texture_Scroll(void* texture, s32 width, s32 height, u8 mode) {
     u16* temp_t0 = SEGMENTED_TO_VIRTUAL(texture);
     u16 temp_a3;
     s32 var_a0;
@@ -68,7 +68,7 @@ void func_80099A2C(void* texture, s32 width, s32 height, u8 mode) {
     }
 }
 
-void func_80099E28(void* dst, void* src, u8 mode) {
+void Texture_Mottle(void* dst, void* src, u8 mode) {
     s32 var_v1;
     s32 var_s3;
     u8* var_s0_2;
@@ -122,7 +122,7 @@ void func_80099E28(void* dst, void* src, u8 mode) {
     }
 }
 
-s32 func_8009A400(Limb* limb, Limb** skeleton) {
+s32 Animation_GetLimbIndex(Limb* limb, Limb** skeleton) {
     s32 i = 1;
 
     for (i = 1; *skeleton != 0; i++, skeleton++) {
@@ -133,8 +133,8 @@ s32 func_8009A400(Limb* limb, Limb** skeleton) {
     return 0;
 }
 
-void func_8009A440(s32 mode, Limb* limb, Limb** skeleton, Vec3f* jointTable, OverrideLimbDraw overrideLimbDraw,
-                   PostLimbDraw postLimbDraw, void* data) {
+void Animation_DrawLimb(s32 mode, Limb* limb, Limb** skeleton, Vec3f* jointTable, OverrideLimbDraw overrideLimbDraw,
+                        PostLimbDraw postLimbDraw, void* data) {
     s32 override;
     s32 limbIndex;
     Gfx* dList;
@@ -145,7 +145,7 @@ void func_8009A440(s32 mode, Limb* limb, Limb** skeleton, Vec3f* jointTable, Ove
 
     Matrix_Push(&gCalcMatrix);
 
-    limbIndex = func_8009A400(limb, skeleton);
+    limbIndex = Animation_GetLimbIndex(limb, skeleton);
     limb = SEGMENTED_TO_VIRTUAL(limb);
     rot = jointTable[limbIndex];
     trans.x = limb->trans.x;
@@ -182,16 +182,16 @@ void func_8009A440(s32 mode, Limb* limb, Limb** skeleton, Vec3f* jointTable, Ove
     }
     Matrix_Pop(&gGfxMatrix);
     if (limb->child != NULL) {
-        func_8009A440(mode, limb->child, skeleton, jointTable, overrideLimbDraw, postLimbDraw, data);
+        Animation_DrawLimb(mode, limb->child, skeleton, jointTable, overrideLimbDraw, postLimbDraw, data);
     }
     Matrix_Pop(&gCalcMatrix);
     if (limb->sibling != NULL) {
-        func_8009A440(mode, limb->sibling, skeleton, jointTable, overrideLimbDraw, postLimbDraw, data);
+        Animation_DrawLimb(mode, limb->sibling, skeleton, jointTable, overrideLimbDraw, postLimbDraw, data);
     }
 }
 
-void func_8009A72C(s32 mode, Limb** skeletonSegment, Vec3f* jointTable, OverrideLimbDraw overrideLimbDraw,
-                   PostLimbDraw postLimbDraw, void* data, Matrix* transform) {
+void Animation_DrawSkeleton(s32 mode, Limb** skeletonSegment, Vec3f* jointTable, OverrideLimbDraw overrideLimbDraw,
+                            PostLimbDraw postLimbDraw, void* data, Matrix* transform) {
     s32 override;
     Limb** skeleton;
     Limb* rootLimb;
@@ -204,7 +204,7 @@ void func_8009A72C(s32 mode, Limb** skeletonSegment, Vec3f* jointTable, Override
     Matrix_Copy(gCalcMatrix, transform);
     skeleton = SEGMENTED_TO_VIRTUAL(skeletonSegment);
     rootLimb = SEGMENTED_TO_VIRTUAL(skeleton[0]);
-    rootIndex = func_8009A400(skeleton[0], skeleton);
+    rootIndex = Animation_GetLimbIndex(skeleton[0], skeleton);
     baseRot = jointTable[rootIndex];
     if (mode & 1) {
         baseTrans.x = rootLimb->trans.x;
@@ -238,7 +238,7 @@ void func_8009A72C(s32 mode, Limb** skeletonSegment, Vec3f* jointTable, Override
     }
     Matrix_Pop(&gGfxMatrix);
     if (rootLimb->child != NULL) {
-        func_8009A440(mode, rootLimb->child, skeleton, jointTable, overrideLimbDraw, postLimbDraw, data);
+        Animation_DrawLimb(mode, rootLimb->child, skeleton, jointTable, overrideLimbDraw, postLimbDraw, data);
     }
     Matrix_Pop(&gCalcMatrix);
     if (mode >= 2) {
@@ -246,7 +246,7 @@ void func_8009A72C(s32 mode, Limb** skeletonSegment, Vec3f* jointTable, Override
     }
 }
 
-s16 func_8009AA20(AnimationHeader* animationSegmemt, s32 frame, Vec3f* frameTable) {
+s16 Animation_GetFrameData(AnimationHeader* animationSegmemt, s32 frame, Vec3f* frameTable) {
     AnimationHeader* animation = SEGMENTED_TO_VIRTUAL(animationSegmemt);
     u16 var4 = animation->limbCount;
     JointKey* key = SEGMENTED_TO_VIRTUAL(animation->jointKey);
@@ -273,13 +273,14 @@ s16 func_8009AA20(AnimationHeader* animationSegmemt, s32 frame, Vec3f* frameTabl
     return var4 + 1;
 }
 
-s16 func_8009ACDC(AnimationHeader* animationSegment) {
+s16 Animation_GetFrameCount(AnimationHeader* animationSegment) {
     AnimationHeader* animation = SEGMENTED_TO_VIRTUAL(animationSegment);
 
     return animation->frameCount;
 }
 
-void func_8009AD18(Gfx* dList, s32 len, Vec3f* min, Vec3f* max, s32* vtxFound, s32* vtxCount, Vtx** vtxList) {
+void Animation_FindBoundingBox(Gfx* dList, s32 len, Vec3f* min, Vec3f* max, s32* vtxFound, s32* vtxCount,
+                               Vtx** vtxList) {
     s64* sp44 = SEGMENTED_TO_VIRTUAL(dList);
     s64* var_s0;
     u32 temp_v1;
@@ -289,8 +290,8 @@ void func_8009AD18(Gfx* dList, s32 len, Vec3f* min, Vec3f* max, s32* vtxFound, s
         if (temp_v1 != G_TRI1) {
             if (temp_v1 != G_VTX) {
                 if (temp_v1 == G_DL) {
-                    func_8009AD18(*var_s0 & 0xFFFFFFFF, (*var_s0 >> 0x20) & 0xFFFF, min, max, vtxFound, vtxCount,
-                                  vtxList);
+                    Animation_FindBoundingBox(*var_s0 & 0xFFFFFFFF, (*var_s0 >> 0x20) & 0xFFFF, min, max, vtxFound,
+                                              vtxCount, vtxList);
                 }
             } else {
                 *vtxList = SEGMENTED_TO_VIRTUAL(*var_s0 & 0xFFFFFFFF);
@@ -326,15 +327,16 @@ void func_8009AD18(Gfx* dList, s32 len, Vec3f* min, Vec3f* max, s32* vtxFound, s
     }
 }
 
-void func_8009B74C(Gfx* dList, s32 len, Vec3f* min, Vec3f* max) {
+void Animation_GetDListBoundingBox(Gfx* dList, s32 len, Vec3f* min, Vec3f* max) {
     s32 vtxFound = false;
     s32 vtxCount;
     Vtx* vtxList;
 
-    func_8009AD18(dList, len, min, max, &vtxFound, &vtxCount, &vtxList);
+    Animation_FindBoundingBox(dList, len, min, max, &vtxFound, &vtxCount, &vtxList);
 }
 
-void func_8009B784(Limb** skeletonSegment, AnimationHeader* animationSegment, s32 frame, Vec3f* min, Vec3f* max) {
+void Animation_GetSkeletonBoundingBox(Limb** skeletonSegment, AnimationHeader* animationSegment, s32 frame, Vec3f* min,
+                                      Vec3f* max) {
     JointKey* key;
     u16* frameData;
     AnimationHeader* animation;
@@ -373,7 +375,7 @@ void func_8009B784(Limb** skeletonSegment, AnimationHeader* animationSegment, s3
     Matrix_RotateX(gGfxMatrix, (((s32) var_t6 * 360.0f) / 65536.0f) * 0.017453292f, 1);
     vtxFound = false;
     if (limb->dList != NULL) {
-        func_8009AD18(limb->dList, 0x2000, min, max, &vtxFound, &vtxCount, &vtxList);
+        Animation_FindBoundingBox(limb->dList, 0x2000, min, max, &vtxFound, &vtxCount, &vtxList);
         if (vtxFound) {
             boundBox[0].x = boundBox[3].x = boundBox[4].x = boundBox[7].x = min->x;
             boundBox[0].y = boundBox[1].y = boundBox[4].y = boundBox[5].y = max->y;
@@ -397,7 +399,7 @@ void func_8009B784(Limb** skeletonSegment, AnimationHeader* animationSegment, s3
     }
 }
 
-f32 func_8009BC2C(f32* value, f32 target, f32 scale, f32 maxStep, f32 minStep) {
+f32 Math_SmoothStepToF(f32* value, f32 target, f32 scale, f32 maxStep, f32 minStep) {
     f32 step = target - *value;
 
     if (step != 0.0f) {
@@ -426,7 +428,7 @@ f32 func_8009BC2C(f32* value, f32 target, f32 scale, f32 maxStep, f32 minStep) {
     return step;
 }
 
-f32 func_8009BD38(f32* angle, f32 target, f32 scale, f32 maxStep, f32 minStep) {
+f32 Math_SmoothStepToAngle(f32* angle, f32 target, f32 scale, f32 maxStep, f32 minStep) {
     f32 var_fv1 = target - *angle;
 
     if (var_fv1 != 0.0f) {
@@ -465,7 +467,7 @@ f32 func_8009BD38(f32* angle, f32 target, f32 scale, f32 maxStep, f32 minStep) {
     return var_fv1;
 }
 
-void func_8009BEEC(Vec3f* src, Vec3f* dst, s32 mode, s32 count, f32 scale, f32 maxStep, f32 minStep) {
+void Math_SmoothStepToVec3fArray(Vec3f* src, Vec3f* dst, s32 mode, s32 count, f32 scale, f32 maxStep, f32 minStep) {
     Vec3f* srcTemp;
     Vec3f* dstTemp;
     s32 i;
@@ -481,16 +483,16 @@ void func_8009BEEC(Vec3f* src, Vec3f* dst, s32 mode, s32 count, f32 scale, f32 m
         case 1:
             dstTemp = dst;
             srcTemp = src;
-            func_8009BC2C(&dstTemp->x, srcTemp->x, scale, maxStep, minStep);
-            func_8009BC2C(&dstTemp->y, srcTemp->y, scale, maxStep, minStep);
-            func_8009BC2C(&dstTemp->z, srcTemp->z, scale, maxStep, minStep);
+            Math_SmoothStepToF(&dstTemp->x, srcTemp->x, scale, maxStep, minStep);
+            Math_SmoothStepToF(&dstTemp->y, srcTemp->y, scale, maxStep, minStep);
+            Math_SmoothStepToF(&dstTemp->z, srcTemp->z, scale, maxStep, minStep);
             dstTemp++;
             srcTemp++;
 
             for (i = 1; i < count; i++, dstTemp++, srcTemp++) {
-                func_8009BD38(&dstTemp->x, srcTemp->x, scale, maxStep, minStep);
-                func_8009BD38(&dstTemp->y, srcTemp->y, scale, maxStep, minStep);
-                func_8009BD38(&dstTemp->z, srcTemp->z, scale, maxStep, minStep);
+                Math_SmoothStepToAngle(&dstTemp->x, srcTemp->x, scale, maxStep, minStep);
+                Math_SmoothStepToAngle(&dstTemp->y, srcTemp->y, scale, maxStep, minStep);
+                Math_SmoothStepToAngle(&dstTemp->z, srcTemp->z, scale, maxStep, minStep);
             }
             break;
         default:
@@ -498,7 +500,7 @@ void func_8009BEEC(Vec3f* src, Vec3f* dst, s32 mode, s32 count, f32 scale, f32 m
     }
 }
 
-s32 func_8009C124(Vec3f* pos, Vec3f* target, Vec3f* rot, f32 stepSize, f32 scaleTurn, f32 maxTurn, f32 dist) {
+s32 Math_PursueVec3f(Vec3f* pos, Vec3f* target, Vec3f* rot, f32 stepSize, f32 scaleTurn, f32 maxTurn, f32 dist) {
     Vec3f diff;
     f32 targetRotX;
     f32 targetRotY;
@@ -510,10 +512,10 @@ s32 func_8009C124(Vec3f* pos, Vec3f* target, Vec3f* rot, f32 stepSize, f32 scale
     diff.y = target->y - pos->y;
     diff.z = target->z - pos->z;
 
-    targetRotY = func_8009F768(Math_Atan2F(diff.x, diff.z));
-    targetRotX = func_8009F768(-Math_Atan2F(diff.y, sqrtf(SQ(diff.x) + SQ(diff.z))));
-    func_8009BD38(&rot->y, targetRotY, scaleTurn, maxTurn, 0.0f);
-    func_8009BD38(&rot->x, targetRotX, scaleTurn, maxTurn, 0.0f);
+    targetRotY = Math_RadToDeg(Math_Atan2F(diff.x, diff.z));
+    targetRotX = Math_RadToDeg(-Math_Atan2F(diff.y, sqrtf(SQ(diff.x) + SQ(diff.z))));
+    Math_SmoothStepToAngle(&rot->y, targetRotY, scaleTurn, maxTurn, 0.0f);
+    Math_SmoothStepToAngle(&rot->x, targetRotX, scaleTurn, maxTurn, 0.0f);
     Matrix_RotateY(&worldTransform, rot->y * 0.017453292f, 0);
     Matrix_RotateX(&worldTransform, rot->x * 0.017453292f, 1);
     localStep.z = stepSize;
@@ -687,7 +689,7 @@ void TextureRect_32bRGBA(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32
                         (s32) (1.0f / yScale * 1024.0f));
 }
 
-void func_8009F574(Gfx** gfxPtr, s32 ulx, s32 uly, s32 lrx, s32 lry, u8 r, u8 g, u8 b, u8 a) {
+void Graphics_FillRectangle(Gfx** gfxPtr, s32 ulx, s32 uly, s32 lrx, s32 lry, u8 r, u8 g, u8 b, u8 a) {
     if (a != 0) {
         gDPPipeSync((*gfxPtr)++);
         gDPSetPrimColor((*gfxPtr)++, 0x00, 0x00, r, g, b, a);
@@ -700,7 +702,7 @@ void func_8009F574(Gfx** gfxPtr, s32 ulx, s32 uly, s32 lrx, s32 lry, u8 r, u8 g,
     }
 }
 
-void func_8009F6CC(Vec3f* step, f32 xRot, f32 yRot, f32 stepsize) {
+void Math_Vec3fFromAngles(Vec3f* step, f32 xRot, f32 yRot, f32 stepsize) {
     Vec3f sp1C;
 
     Matrix_RotateY(gCalcMatrix, yRot * 0.017453292f, 0);
@@ -710,7 +712,7 @@ void func_8009F6CC(Vec3f* step, f32 xRot, f32 yRot, f32 stepsize) {
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp1C, step);
 }
 
-f32 func_8009F768(f32 rAngle) {
+f32 Math_RadToDeg(f32 rAngle) {
     rAngle *= 57.295776f;
 
     while (rAngle < 0.0f) {
@@ -762,70 +764,70 @@ s32* func_8009F7B4(Gfx** gfxPtr, u8 width, u8 height) {
     return spB4;
 }
 
-void func_8009FC0C(s32 xPos, s32 yPos, s32 number) {
-    void* spA0[] = {
+void Graphics_DisplayHUDNumber(s32 xPos, s32 yPos, s32 number) {
+    void* hudNumberTex[] = {
         0x01010660, 0x010106B0, 0x01010700, 0x01010750, 0x010107A0,
         0x010107F0, 0x01010840, 0x01010890, 0x010108E0, 0x01010930,
     };
-    void* sp78[] = {
+    void* hudNumberPal[] = {
         0x010106A0, 0x010106F0, 0x01010740, 0x01010790, 0x010107E0,
         0x01010830, 0x01010880, 0x010108D0, 0x01010920, 0x01010970,
     };
-    s32 var_s0;
-    s32 var_s3;
+    s32 place;
+    s32 startNumber = false;
 
-    var_s3 = 0;
     number %= 10000000;
-    var_s0 = 1000000;
-    for (var_s0 = 1000000; var_s0 != 1; var_s0 /= 10) {
-        if ((number / var_s0 != 0) || (var_s3 == 1)) {
-            TextureRect_4bCI(&gMasterDisp, spA0[number / var_s0], sp78[number / var_s0], 16, 8, xPos, yPos, 1.0f, 1.0f);
-            var_s3 = 1;
+    place = 1000000;
+    for (place = 1000000; place != 1; place /= 10) {
+        if ((number / place != 0) || (startNumber == true)) {
+            TextureRect_4bCI(&gMasterDisp, hudNumberTex[number / place], hudNumberPal[number / place], 16, 8, xPos,
+                             yPos, 1.0f, 1.0f);
+            startNumber = true;
             xPos += 9;
-            number %= var_s0;
+            number %= place;
         }
     }
-    TextureRect_4bCI(&gMasterDisp, spA0[number / var_s0], sp78[number / var_s0], 16, 8, xPos, yPos, 1.0f, 1.0f);
+    TextureRect_4bCI(&gMasterDisp, hudNumberTex[number / place], hudNumberPal[number / place], 16, 8, xPos, yPos, 1.0f,
+                     1.0f);
 }
 
-void* D_800D2638[] = {
+void* sSmallNumberTex[] = {
     0x05000000, 0x05000080, 0x05000100, 0x05000180, D_5000200,
     0x05000280, D_5000300,  0x05000380, 0x05000400, 0x05000480,
 };
 
-void func_8009FEA0(s32 xPos, s32 yPos, s32 number) {
-    s32 var_s0;
-    s32 var_s3;
+void Graphics_DisplaySmallNumber(s32 xPos, s32 yPos, s32 number) {
+    s32 place;
+    s32 startNumber = false;
 
-    var_s3 = 0;
     number %= 10000000;
-    var_s0 = 1000000;
-    for (var_s0 = 1000000; var_s0 != 1; var_s0 /= 10) {
-        if ((number / var_s0 != 0) || (var_s3 == 1)) {
-            TextureRect_8bIA(&gMasterDisp, D_800D2638[number / var_s0], 16, 8, xPos, yPos, 1.0f, 1.0f);
-            var_s3 = 1;
+    place = 1000000;
+    for (place = 1000000; place != 1; place /= 10) {
+        if ((number / place != 0) || (startNumber == true)) {
+            TextureRect_8bIA(&gMasterDisp, sSmallNumberTex[number / place], 16, 8, xPos, yPos, 1.0f, 1.0f);
+            startNumber = true;
             xPos += 9;
-            number %= var_s0;
+            number %= place;
         }
     }
-    TextureRect_8bIA(&gMasterDisp, D_800D2638[number / var_s0], 16, 8, xPos, yPos, 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, sSmallNumberTex[number / place], 16, 8, xPos, yPos, 1.0f, 1.0f);
 }
 
-char D_800D2660[] = " ABCDEFGHIJKLMNOPQRSTUVWXYZ!:-.0123456789";
-char D_800D268C[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ. 0123456789st-";
-u8 D_800D26B8[] = { 15, 14, 14, 13, 13, 13, 14, 14, 5,  12, 14, 12, 16, 14, 15, 13, 16, 14, 13, 13, 13,
-                    16, 17, 17, 16, 13, 5,  16, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 10, 9,  14, 0 };
-void* D_800D26E4[] = {
+char sSmallChars[] = " ABCDEFGHIJKLMNOPQRSTUVWXYZ!:-.0123456789";
+char sLargeChars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ. 0123456789st-";
+u8 sLargeCharWidths[] = { 15, 14, 14, 13, 13, 13, 14, 14, 5,  12, 14, 12, 16, 14, 15, 13, 16, 14, 13, 13, 13,
+                          16, 17, 17, 16, 13, 5,  16, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 10, 9,  14, 0 };
+void* sLargeCharTex[] = {
     0x05008020, 0x05008110, 0x05008200, 0x050082F0, 0x050083E0, 0x050084D0, 0x050085C0, 0x050086B0, 0x050087A0,
     0x05008890, 0x05008980, 0x05008A70, 0x05008B60, 0x05008C50, 0x05008D40, 0x05008E30, 0x05008F20, 0x05009010,
     0x05009100, 0x050091F0, 0x050092E0, 0x050093D0, 0x050094C0, 0x050096A0, 0x05009880, 0x05009A60, 0x05009DB0,
     NULL,       D_5009F60,  D_500A050,  D_500A140,  D_500A230,  D_500A320,  D_500A410,  D_500A500,  0x0500A5F0,
     0x0500A6E0, 0x0500A7D0, 0x05009B50, 0x05009C40, 0x05009970,
 };
-void* D_800D2788[] = {
+void* sLargeNumberTex[] = {
     D_5009F60, D_500A050, D_500A140, D_500A230, D_500A320, D_500A410, D_500A500, 0x0500A5F0, 0x0500A6E0, 0x0500A7D0,
 };
-void* D_800D27B0[] = {
+void* sSmallCharTex[] = {
     NULL,       0x050070C0, 0x05007100, 0x05007180, 0x050071C0, 0x05007200, 0x05007510, 0x05007550, 0x05007590,
     0x050075D0, 0x05007610, 0x05007650, 0x05007F60, 0x05007FA0, 0x05007FE0, 0x05009D30, 0x05009D70, 0x05009EA0,
     0x05009EE0, 0x05009F20, 0x0500B380, 0x0500B440, 0x0500B480, 0x0500B4C0, 0x0500B500, 0x0500B540, 0x0500B5C0,
@@ -833,298 +835,296 @@ void* D_800D27B0[] = {
     0x05000280, D_5000300,  0x05000380, 0x05000400, 0x05000480,
 };
 
-void func_800A0094(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char* text) {
-    u32 var_t0;
+void Graphics_DisplayLargeText(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char* text) {
+    u32 charIndex;
     f32 xPosCurrent = (f32) xPos;
     s32 pad4C;
     s32 width;
-    s32 var_t1 = 0;
+    s32 startPrint = false;
 
     while (text[0] != 0) {
-        var_t0 = 0;
-        while ((var_t0 < ARRAY_COUNT(D_800D268C)) && D_800D268C[var_t0] != text[0]) {
-            var_t0++;
+        charIndex = 0;
+        while ((charIndex < ARRAY_COUNT(sLargeChars)) && sLargeChars[charIndex] != text[0]) {
+            charIndex++;
         }
-        if (D_800D268C[var_t0] == text[0]) {
-            if ((var_t1 == 1) && (text[-1] == 'Y') && (text[0] == 'A')) {
+        if (sLargeChars[charIndex] == text[0]) {
+            if ((startPrint == true) && (text[-1] == 'Y') && (text[0] == 'A')) {
                 xPosCurrent -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'K') && (text[0] == 'A')) {
+            if ((startPrint == true) && (text[-1] == 'K') && (text[0] == 'A')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'O')) {
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'O')) {
                 xPosCurrent -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'T') && (text[0] == 'A')) {
+            if ((startPrint == true) && (text[-1] == 'T') && (text[0] == 'A')) {
                 xPosCurrent -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'Y')) {
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'Y')) {
                 xPosCurrent -= 4.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'K') && (text[0] == 'I')) {
+            if ((startPrint == true) && (text[-1] == 'K') && (text[0] == 'I')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'K') && (text[0] == 'O')) {
+            if ((startPrint == true) && (text[-1] == 'K') && (text[0] == 'O')) {
                 xPosCurrent -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'J')) {
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'J')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'W') && (text[0] == 'A')) {
+            if ((startPrint == true) && (text[-1] == 'W') && (text[0] == 'A')) {
                 xPosCurrent -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'Y') && (text[0] == 'O')) {
+            if ((startPrint == true) && (text[-1] == 'Y') && (text[0] == 'O')) {
                 xPosCurrent -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'T')) {
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'T')) {
                 xPosCurrent -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'W')) {
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'W')) {
                 xPosCurrent -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'O') && (text[0] == 'T')) {
+            if ((startPrint == true) && (text[-1] == 'O') && (text[0] == 'T')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'G')) {
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'G')) {
                 xPosCurrent -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'O') && (text[0] == 'Y')) {
+            if ((startPrint == true) && (text[-1] == 'O') && (text[0] == 'Y')) {
                 xPosCurrent -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'J')) {
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'J')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'T') && (text[0] == 'O')) {
+            if ((startPrint == true) && (text[-1] == 'T') && (text[0] == 'O')) {
                 xPosCurrent -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'K') && (text[0] == 'U')) {
+            if ((startPrint == true) && (text[-1] == 'K') && (text[0] == 'U')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'S')) {
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'S')) {
                 xPosCurrent -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'R') && (text[0] == 'O')) {
+            if ((startPrint == true) && (text[-1] == 'R') && (text[0] == 'O')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'K') && (text[0] == 'Y')) {
+            if ((startPrint == true) && (text[-1] == 'K') && (text[0] == 'Y')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'N') && (text[0] == 'J')) {
+            if ((startPrint == true) && (text[-1] == 'N') && (text[0] == 'J')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'K') && (text[0] == 'E')) {
+            if ((startPrint == true) && (text[-1] == 'K') && (text[0] == 'E')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'S') && (text[0] == 't')) {
+            if ((startPrint == true) && (text[-1] == 'S') && (text[0] == 't')) {
                 xPosCurrent -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'X') && (text[0] == 'X')) {
+            if ((startPrint == true) && (text[-1] == 'X') && (text[0] == 'X')) {
                 xPosCurrent -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'O') && (text[0] == 'X')) {
+            if ((startPrint == true) && (text[-1] == 'O') && (text[0] == 'X')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'W') && (text[0] == 'W')) {
+            if ((startPrint == true) && (text[-1] == 'W') && (text[0] == 'W')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'X') && (text[0] == 'W')) {
+            if ((startPrint == true) && (text[-1] == 'X') && (text[0] == 'W')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'W') && (text[0] == 'X')) {
+            if ((startPrint == true) && (text[-1] == 'W') && (text[0] == 'X')) {
                 xPosCurrent -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'H') && (text[0] == 'O')) {
+            if ((startPrint == true) && (text[-1] == 'H') && (text[0] == 'O')) {
                 xPosCurrent += 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'J') && (text[0] == 'I')) {
+            if ((startPrint == true) && (text[-1] == 'J') && (text[0] == 'I')) {
                 xPosCurrent += 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'I') && (text[0] == 'N')) {
+            if ((startPrint == true) && (text[-1] == 'I') && (text[0] == 'N')) {
                 xPosCurrent += 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'I') && (text[0] == 'M')) {
+            if ((startPrint == true) && (text[-1] == 'I') && (text[0] == 'M')) {
                 xPosCurrent += 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'I') && (text[0] == 'D')) {
+            if ((startPrint == true) && (text[-1] == 'I') && (text[0] == 'D')) {
                 xPosCurrent += 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'U') && (text[0] == 'K')) {
+            if ((startPrint == true) && (text[-1] == 'U') && (text[0] == 'K')) {
                 xPosCurrent += 1.0f;
             }
-            if (D_800D26E4[var_t0] != NULL) {
+            if (sLargeCharTex[charIndex] != NULL) {
                 width = 16;
                 if ((text[0] == 'W') || (text[0] == 'X')) {
                     width = 32;
                 }
-                TextureRect_8bIA(&gMasterDisp, D_800D26E4[var_t0], width, 15, xPosCurrent, yPos, xScale, yScale);
+                TextureRect_8bIA(&gMasterDisp, sLargeCharTex[charIndex], width, 15, xPosCurrent, yPos, xScale, yScale);
             }
-            var_t1 = 1;
-            xPosCurrent += (D_800D26B8[var_t0] * xScale) + 2.0f;
+            startPrint = true;
+            xPosCurrent += (sLargeCharWidths[charIndex] * xScale) + 2.0f;
         }
         text++;
     }
 }
 
-s32 func_800A06F8(char* text) {
-    s32 var_t1 = 0;
-    s32 var_fv0 = 0;
-    u32 var_t0;
+s32 Graphics_GetLargeTextWidth(char* text) {
+    s32 startPrint = false;
+    s32 xPos = 0;
+    u32 charIndex;
 
     while (text[0] != 0) {
-        var_t0 = 0;
-        while ((var_t0 < ARRAY_COUNT(D_800D268C)) && D_800D268C[var_t0] != text[0]) {
-            var_t0++;
+        charIndex = 0;
+        while ((charIndex < ARRAY_COUNT(sLargeChars)) && sLargeChars[charIndex] != text[0]) {
+            charIndex++;
         }
-        if (D_800D268C[var_t0] == text[0]) {
-            if ((var_t1 == 1) && (text[-1] == 'Y') && (text[0] == 'A')) {
-                var_fv0 -= 3.0f;
+        if (sLargeChars[charIndex] == text[0]) {
+            if ((startPrint == true) && (text[-1] == 'Y') && (text[0] == 'A')) {
+                xPos -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'K') && (text[0] == 'A')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'K') && (text[0] == 'A')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'O')) {
-                var_fv0 -= 2.0f;
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'O')) {
+                xPos -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'T') && (text[0] == 'A')) {
-                var_fv0 -= 3.0f;
+            if ((startPrint == true) && (text[-1] == 'T') && (text[0] == 'A')) {
+                xPos -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'Y')) {
-                var_fv0 -= 4.0f;
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'Y')) {
+                xPos -= 4.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'K') && (text[0] == 'I')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'K') && (text[0] == 'I')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'K') && (text[0] == 'O')) {
-                var_fv0 -= 3.0f;
+            if ((startPrint == true) && (text[-1] == 'K') && (text[0] == 'O')) {
+                xPos -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'J')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'J')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'W') && (text[0] == 'A')) {
-                var_fv0 -= 2.0f;
+            if ((startPrint == true) && (text[-1] == 'W') && (text[0] == 'A')) {
+                xPos -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'Y') && (text[0] == 'O')) {
-                var_fv0 -= 3.0f;
+            if ((startPrint == true) && (text[-1] == 'Y') && (text[0] == 'O')) {
+                xPos -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'T')) {
-                var_fv0 -= 3.0f;
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'T')) {
+                xPos -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'W')) {
-                var_fv0 -= 3.0f;
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'W')) {
+                xPos -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'O') && (text[0] == 'T')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'O') && (text[0] == 'T')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'G')) {
-                var_fv0 -= 2.0f;
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'G')) {
+                xPos -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'O') && (text[0] == 'Y')) {
-                var_fv0 -= 2.0f;
+            if ((startPrint == true) && (text[-1] == 'O') && (text[0] == 'Y')) {
+                xPos -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'J')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'J')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'T') && (text[0] == 'O')) {
-                var_fv0 -= 2.0f;
+            if ((startPrint == true) && (text[-1] == 'T') && (text[0] == 'O')) {
+                xPos -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'K') && (text[0] == 'U')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'K') && (text[0] == 'U')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'A') && (text[0] == 'S')) {
-                var_fv0 -= 2.0f;
+            if ((startPrint == true) && (text[-1] == 'A') && (text[0] == 'S')) {
+                xPos -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'R') && (text[0] == 'O')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'R') && (text[0] == 'O')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'K') && (text[0] == 'Y')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'K') && (text[0] == 'Y')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'N') && (text[0] == 'J')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'N') && (text[0] == 'J')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'K') && (text[0] == 'E')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'K') && (text[0] == 'E')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'S') && (text[0] == 't')) {
-                var_fv0 -= 2.0f;
+            if ((startPrint == true) && (text[-1] == 'S') && (text[0] == 't')) {
+                xPos -= 2.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'X') && (text[0] == 'X')) {
-                var_fv0 -= 3.0f;
+            if ((startPrint == true) && (text[-1] == 'X') && (text[0] == 'X')) {
+                xPos -= 3.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'O') && (text[0] == 'X')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'O') && (text[0] == 'X')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'W') && (text[0] == 'W')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'W') && (text[0] == 'W')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'X') && (text[0] == 'W')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'X') && (text[0] == 'W')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'W') && (text[0] == 'X')) {
-                var_fv0 -= 1.0f;
+            if ((startPrint == true) && (text[-1] == 'W') && (text[0] == 'X')) {
+                xPos -= 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'H') && (text[0] == 'O')) {
-                var_fv0 += 1.0f;
+            if ((startPrint == true) && (text[-1] == 'H') && (text[0] == 'O')) {
+                xPos += 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'J') && (text[0] == 'I')) {
-                var_fv0 += 1.0f;
+            if ((startPrint == true) && (text[-1] == 'J') && (text[0] == 'I')) {
+                xPos += 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'I') && (text[0] == 'N')) {
-                var_fv0 += 1.0f;
+            if ((startPrint == true) && (text[-1] == 'I') && (text[0] == 'N')) {
+                xPos += 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'I') && (text[0] == 'M')) {
-                var_fv0 += 1.0f;
+            if ((startPrint == true) && (text[-1] == 'I') && (text[0] == 'M')) {
+                xPos += 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'I') && (text[0] == 'D')) {
-                var_fv0 += 1.0f;
+            if ((startPrint == true) && (text[-1] == 'I') && (text[0] == 'D')) {
+                xPos += 1.0f;
             }
-            if ((var_t1 == 1) && (text[-1] == 'U') && (text[0] == 'K')) {
-                var_fv0 += 1.0f;
+            if ((startPrint == true) && (text[-1] == 'U') && (text[0] == 'K')) {
+                xPos += 1.0f;
             }
-            var_t1 = 1;
-            var_fv0 += D_800D26B8[var_t0] + 2.0f;
+            startPrint = true;
+            xPos += sLargeCharWidths[charIndex] + 2.0f;
         }
         text++;
     }
-    return var_fv0;
+    return xPos;
 }
 
-void func_800A100C(s32 xPos, s32 yPos, s32 number) {
-    s32 var_s0;
-    s32 var_s3 = 0;
+void Graphics_DisplayLargeNumber(s32 xPos, s32 yPos, s32 number) {
+    s32 place;
+    s32 startNumber = false;
 
     number %= 10000000;
-    var_s0 = 1000000;
-    for (var_s0 = 1000000; var_s0 != 1; var_s0 /= 10) {
-        if ((number / var_s0 != 0) || (var_s3 == 1)) {
-            TextureRect_8bIA(&gMasterDisp, D_800D2788[number / var_s0], 16, 15, xPos, yPos, 1.0f, 1.0f);
-            var_s3 = 1;
+    place = 1000000;
+    for (place = 1000000; place != 1; place /= 10) {
+        if ((number / place != 0) || (startNumber == true)) {
+            TextureRect_8bIA(&gMasterDisp, sLargeNumberTex[number / place], 16, 15, xPos, yPos, 1.0f, 1.0f);
+            startNumber = true;
             xPos += 13;
-            number %= var_s0;
+            number %= place;
         }
     }
-    TextureRect_8bIA(&gMasterDisp, D_800D2788[number / var_s0], 16, 15, xPos, yPos, 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, sLargeNumberTex[number / place], 16, 15, xPos, yPos, 1.0f, 1.0f);
 }
 
-void func_800A1200(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char* text) {
+void Graphics_DisplaySmallText(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char* text) {
     u32 var_t0;
     f32 xPosCurrent = (f32) xPos;
-    s32 pad4C;
     s32 width;
-    s32 var_t1 = 0;
 
     while (text[0] != 0) {
         var_t0 = 0;
-        while ((var_t0 < ARRAY_COUNT(D_800D2660)) && D_800D2660[var_t0] != text[0]) {
+        while ((var_t0 < ARRAY_COUNT(sSmallChars)) && sSmallChars[var_t0] != text[0]) {
             var_t0++;
         }
-        if (D_800D2660[var_t0] == text[0]) {
-            if (D_800D27B0[var_t0] != NULL) {
+        if (sSmallChars[var_t0] == text[0]) {
+            if (sSmallCharTex[var_t0] != NULL) {
                 width = 8;
                 if (var_t0 > 30) {
                     width = 16;
                 }
-                TextureRect_8bIA(&gMasterDisp, D_800D27B0[var_t0], width, 8, xPosCurrent, yPos, xScale, yScale);
+                TextureRect_8bIA(&gMasterDisp, sSmallCharTex[var_t0], width, 8, xPosCurrent, yPos, xScale, yScale);
                 if (1) {}
             }
             switch (text[0]) {
@@ -1148,39 +1148,36 @@ void func_800A1200(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char* text) {
     }
 }
 
-s32 func_800A13EC(char* text) {
-    u32 var_t0;
-    s32 var_fv0 = 0;
-    s32 pad4C;
-    s32 var_a2;
-    s32 var_t1 = 0;
+s32 Graphics_GetSmallTextWidth(char* text) {
+    u32 charIndex;
+    s32 xPos = 0;
 
     while (text[0] != 0) {
-        var_t0 = 0;
-        while ((var_t0 < ARRAY_COUNT(D_800D2660)) && D_800D2660[var_t0] != text[0]) {
-            var_t0++;
+        charIndex = 0;
+        while ((charIndex < ARRAY_COUNT(sSmallChars)) && sSmallChars[charIndex] != text[0]) {
+            charIndex++;
         }
-        if (D_800D2660[var_t0] == text[0]) {
+        if (sSmallChars[charIndex] == text[0]) {
             switch (text[0]) {
                 case '!':
                 case ':':
                 case 'I':
-                    var_fv0 += 4.0f;
+                    xPos += 4.0f;
                     break;
                 case '-':
-                    var_fv0 += 6.0f;
+                    xPos += 6.0f;
                     break;
                 default:
-                    if (var_t0 > 29) {
-                        var_fv0 += 9.0f;
+                    if (charIndex > 29) {
+                        xPos += 9.0f;
                     } else {
-                        var_fv0 += 8.0f;
+                        xPos += 8.0f;
                     }
             }
         }
         text++;
     }
-    return var_fv0;
+    return xPos;
 }
 
 void func_800A1540(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
@@ -1217,5 +1214,5 @@ void func_800A1540(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 // }
 #else
 void func_800A1558(f32 weight, u16 size, void* src1, void* src2, void* dst);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_9A580/func_800A1558.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_display/func_800A1558.s")
 #endif

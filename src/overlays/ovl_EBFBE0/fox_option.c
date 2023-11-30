@@ -590,10 +590,10 @@ void func_EBFBE0_80192D58(void) {
                     }
                 }
 
-                func_8009BC2C(&D_EBFBE0_801AE638[i].unk_00.unk_1C, D_EBFBE0_801AE5D0[i], 0.15f, 100.0f, 0.1f);
-                func_8009BC2C(&D_EBFBE0_801AE638[i].unk_38.unk_04, D_EBFBE0_801AE570[i], 0.15f, 100.0f, 0.1f);
-                func_8009BC2C(&D_EBFBE0_801AE638[i].unk_00.unk_18, D_EBFBE0_801AE5B8[i], 0.2f, D_EBFBE0_801AE620[i],
-                              0.1f);
+                Math_SmoothStepToF(&D_EBFBE0_801AE638[i].unk_00.unk_1C, D_EBFBE0_801AE5D0[i], 0.15f, 100.0f, 0.1f);
+                Math_SmoothStepToF(&D_EBFBE0_801AE638[i].unk_38.unk_04, D_EBFBE0_801AE570[i], 0.15f, 100.0f, 0.1f);
+                Math_SmoothStepToF(&D_EBFBE0_801AE638[i].unk_00.unk_18, D_EBFBE0_801AE5B8[i], 0.2f,
+                                   D_EBFBE0_801AE620[i], 0.1f);
             }
 
             D_80161A38 += 4;
@@ -700,7 +700,7 @@ void func_EBFBE0_80192D58(void) {
                 if (D_EBFBE0_801AE638[i].unk_38.unk_0C > 0.01f) {
                     D_EBFBE0_801AE638[i].unk_38.unk_0C -= 0.05f;
                     D_EBFBE0_801AE638[i].unk_00.unk_20 -= 0.19f;
-                    func_8009BC2C(&D_EBFBE0_801AE638[i].unk_00.unk_18, 158.0f, 0.2f, D_EBFBE0_801AE608[i], 0.1f);
+                    Math_SmoothStepToF(&D_EBFBE0_801AE638[i].unk_00.unk_18, 158.0f, 0.2f, D_EBFBE0_801AE608[i], 0.1f);
                 } else {
                     D_EBFBE0_801AE638[i].unk_5C = 0;
                     D_EBFBE0_801AE638[i].unk_58 = 0;
@@ -719,8 +719,8 @@ void func_EBFBE0_80192D58(void) {
                 var_fs1 = 120.0f;
             }
 
-            func_8009BC2C(&D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_00.unk_1C, var_fs0, 0.25f, 100.0f, 0.1f);
-            func_8009BC2C(&D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_38.unk_04, var_fs1, 0.25f, 100.0f, 0.1f);
+            Math_SmoothStepToF(&D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_00.unk_1C, var_fs0, 0.25f, 100.0f, 0.1f);
+            Math_SmoothStepToF(&D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_38.unk_04, var_fs1, 0.25f, 100.0f, 0.1f);
 
             D_80161A38 += 4;
 
@@ -855,13 +855,13 @@ void func_EBFBE0_80193C4C(void) {
                     }
                 }
 
-                func_8009BC2C(&D_EBFBE0_801AE878[i].unk_38.unk_04, D_EBFBE0_801AEF84[i], 0.15f, 100.0f, 0.1f);
-                func_8009BC2C(&D_EBFBE0_801AE878[i].unk_00.unk_18, D_EBFBE0_801AEF90[i], 0.2f, 3.1f, 0.1f);
-                func_8009BC2C(&D_EBFBE0_801AE878[i].unk_00.unk_1C, D_EBFBE0_801AEF9C[i], 0.15f, 100.0f, 0.1f);
+                Math_SmoothStepToF(&D_EBFBE0_801AE878[i].unk_38.unk_04, D_EBFBE0_801AEF84[i], 0.15f, 100.0f, 0.1f);
+                Math_SmoothStepToF(&D_EBFBE0_801AE878[i].unk_00.unk_18, D_EBFBE0_801AEF90[i], 0.2f, 3.1f, 0.1f);
+                Math_SmoothStepToF(&D_EBFBE0_801AE878[i].unk_00.unk_1C, D_EBFBE0_801AEF9C[i], 0.15f, 100.0f, 0.1f);
             }
 
-            func_8009BC2C(&D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_00.unk_1C, 25.0f, 0.25f, 100.0f, 0.1f);
-            func_8009BC2C(&D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_38.unk_04, 90.0f, 0.25f, 100.0f, 0.1f);
+            Math_SmoothStepToF(&D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_00.unk_1C, 25.0f, 0.25f, 100.0f, 0.1f);
+            Math_SmoothStepToF(&D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_38.unk_04, 90.0f, 0.25f, 100.0f, 0.1f);
 
             D_80161A38 += 4;
 
@@ -931,7 +931,8 @@ void func_EBFBE0_80193C4C(void) {
                 if (D_EBFBE0_801AE878[i].unk_38.unk_0C > 0.01f) {
                     D_EBFBE0_801AE878[i].unk_38.unk_0C -= 0.05f;
                     D_EBFBE0_801AE878[i].unk_00.unk_20 -= 0.19f;
-                    func_8009BC2C(&D_EBFBE0_801AE878[i].unk_00.unk_18, 158.0f, 0.2f, D_EBFBE0_801AE608[i + 1], 0.1f);
+                    Math_SmoothStepToF(&D_EBFBE0_801AE878[i].unk_00.unk_18, 158.0f, 0.2f, D_EBFBE0_801AE608[i + 1],
+                                       0.1f);
                 } else {
                     D_EBFBE0_801AE878[i].unk_5C = 0;
                     D_EBFBE0_801AE878[i].unk_58 = 0;
@@ -945,10 +946,10 @@ void func_EBFBE0_80193C4C(void) {
                     var_fs0 = 131.0f;
                 }
 
-                func_8009BC2C(&D_EBFBE0_801AE878[D_EBFBE0_801B91A8].unk_00.unk_1C, var_fs0, 0.25f, 100.0f, 0.1f);
-                func_8009BC2C(&D_EBFBE0_801AE878[D_EBFBE0_801B91A8].unk_38.unk_04, -15.5f, 0.25f, 100.0f, 0.1f);
-                func_8009BC2C(&D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_00.unk_1C, -10.0f, 0.35f, 100.0f, 0.1f);
-                func_8009BC2C(&D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_38.unk_04, 150.0f, 0.35f, 100.0f, 0.1f);
+                Math_SmoothStepToF(&D_EBFBE0_801AE878[D_EBFBE0_801B91A8].unk_00.unk_1C, var_fs0, 0.25f, 100.0f, 0.1f);
+                Math_SmoothStepToF(&D_EBFBE0_801AE878[D_EBFBE0_801B91A8].unk_38.unk_04, -15.5f, 0.25f, 100.0f, 0.1f);
+                Math_SmoothStepToF(&D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_00.unk_1C, -10.0f, 0.35f, 100.0f, 0.1f);
+                Math_SmoothStepToF(&D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_38.unk_04, 150.0f, 0.35f, 100.0f, 0.1f);
 
                 D_80161A38 += 4;
 
@@ -1262,7 +1263,7 @@ void func_EBFBE0_801962A4(void) {
 
                 case 2:
                     D_80177990[D_80177AF8] += (s32) D_801779A8[D_80177AF8];
-                    temp_fv0 = func_8009BC2C(&D_801779A8[D_80177AF8], 100.0f, 0.05f, 100.0f, 0.1f);
+                    temp_fv0 = Math_SmoothStepToF(&D_801779A8[D_80177AF8], 100.0f, 0.05f, 100.0f, 0.1f);
 
                     if (D_80177990[D_80177AF8] >= 100) {
                         D_80177990[D_80177AF8] -= 100;
@@ -1426,8 +1427,8 @@ void func_EBFBE0_8019715C(void) {
             D_EBFBE0_801B91D0 = 0;
         }
     } else {
-        sp30 = func_8009BC2C(&D_EBFBE0_801B91D8, D_EBFBE0_801B91E0, 0.5f, 100.0f, 1.0f);
-        temp_fv0_2 = func_8009BC2C(&D_EBFBE0_801B91D4, D_EBFBE0_801B91DC, 0.5f, 100.0f, 1.0f);
+        sp30 = Math_SmoothStepToF(&D_EBFBE0_801B91D8, D_EBFBE0_801B91E0, 0.5f, 100.0f, 1.0f);
+        temp_fv0_2 = Math_SmoothStepToF(&D_EBFBE0_801B91D4, D_EBFBE0_801B91DC, 0.5f, 100.0f, 1.0f);
         if ((sp30 == 0.0f) && (temp_fv0_2 == 0.0f)) {
             D_EBFBE0_801B91D0 = 1;
         }
@@ -1506,7 +1507,7 @@ void func_EBFBE0_801973C0(void) {
     }
     func_800B8DD0(&gMasterDisp, 0x53);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-    func_800A1200(242, 215, 1.0f, 1.0f, "PUSH A");
+    Graphics_DisplaySmallText(242, 215, 1.0f, 1.0f, "PUSH A");
 }
 
 #ifdef IMPORT_DATA_PENDING
@@ -1637,7 +1638,7 @@ void func_EBFBE0_80197D30(s32 arg0, s32 arg1, s32 arg2) {
     temp[2] = gSaveFile.save.data.unk_18[arg0][2] & 0xFF;
     temp[3] = '\0';
 
-    func_800A0094(arg1, arg2, 1.0f, 1.0f, temp);
+    Graphics_DisplayLargeText(arg1, arg2, 1.0f, 1.0f, temp);
 }
 
 void func_EBFBE0_80197DE4(s32 arg0, s32 arg1, s32 arg2) {
@@ -1645,10 +1646,10 @@ void func_EBFBE0_80197DE4(s32 arg0, s32 arg1, s32 arg2) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 170);
     TextureRect_8bIA(&gMasterDisp, D_601B4B0, 24, 17, arg1, arg2, 3.17f, 1.05f);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-    func_800A1200(arg1, arg2, 1.0f, 1.0f, "TOTAL HITS");
+    Graphics_DisplaySmallText(arg1, arg2, 1.0f, 1.0f, "TOTAL HITS");
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-    func_8009FEA0((arg1 + 40.0f) - ((func_8008BCBC(D_EBFBE0_801B8220[arg0]) * 8) - 8), (arg2 + 9.0f),
-                  D_EBFBE0_801B8220[arg0]);
+    Graphics_DisplaySmallNumber((arg1 + 40.0f) - ((func_8008BCBC(D_EBFBE0_801B8220[arg0]) * 8) - 8), (arg2 + 9.0f),
+                                D_EBFBE0_801B8220[arg0]);
 }
 
 void func_EBFBE0_80197F74(s32 arg0, s32 arg1, s32 arg2) {
@@ -1659,10 +1660,10 @@ void func_EBFBE0_80197F74(s32 arg0, s32 arg1, s32 arg2) {
 
     for (temp_fs1 = 0.0f, i = 0; i < 3; i++, temp_fs1 += 12.0f) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, D_EBFBE0_801AF0D0[i], D_EBFBE0_801AF0DC[i], D_EBFBE0_801AF0E8[i], 255);
-        func_800A1200(temp_fs1 + arg1, arg2, 1.0f, 1.0f, D_EBFBE0_801AF0C4[i]);
+        Graphics_DisplaySmallText(temp_fs1 + arg1, arg2, 1.0f, 1.0f, D_EBFBE0_801AF0C4[i]);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-        func_8009FEA0(arg1 + temp_fs1 - ((func_8008BCBC(D_EBFBE0_801B81A8[arg0][i]) - 1) * 8), arg2 + 9.0f,
-                      D_EBFBE0_801B81A8[arg0][i]);
+        Graphics_DisplaySmallNumber(arg1 + temp_fs1 - ((func_8008BCBC(D_EBFBE0_801B81A8[arg0][i]) - 1) * 8),
+                                    arg2 + 9.0f, D_EBFBE0_801B81A8[arg0][i]);
     }
 }
 
@@ -1745,7 +1746,7 @@ void func_EBFBE0_801984D0(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
         sp1C = (gSaveFile.save.data.unk_5E[arg0][arg1].unk_C & 1) << 8;
         sp1C |= gSaveFile.save.data.unk_5E[arg0][arg1].unk_0;
-        func_8009FEA0(arg2 + 15.0f - (func_8008BCBC(sp1C) - 1) * 8, arg3 + 24.0f + 1.0f, sp1C);
+        Graphics_DisplaySmallNumber(arg2 + 15.0f - (func_8008BCBC(sp1C) - 1) * 8, arg3 + 24.0f + 1.0f, sp1C);
     }
 }
 
@@ -1766,7 +1767,8 @@ void func_EBFBE0_80198608(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
                 continue;
             }
             gDPSetPrimColor(gMasterDisp++, 0, 0, D_EBFBE0_801AF0D0[i], D_EBFBE0_801AF0DC[i], D_EBFBE0_801AF0E8[i], 255);
-            func_800A1200(arg2 + var_fs1 - 1.0f, arg3 + 24.0f + 8.0f + 1.0f, 1.0f, 1.0f, D_EBFBE0_801AF0C4[i]);
+            Graphics_DisplaySmallText(arg2 + var_fs1 - 1.0f, arg3 + 24.0f + 8.0f + 1.0f, 1.0f, 1.0f,
+                                      D_EBFBE0_801AF0C4[i]);
         }
     }
 }
@@ -1781,8 +1783,8 @@ void func_EBFBE0_8019882C(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
         sp20 = D_EBFBE0_801AEEAC[temp];
         func_800B8DD0(&gMasterDisp, 0x53);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-        temp2 = func_800A13EC(sp20) / 2.0f;
-        func_800A1200(arg2 + 12.0f - temp2, arg3 - 8.0f, 1.0f, 1.0f, sp20);
+        temp2 = Graphics_GetSmallTextWidth(sp20) / 2.0f;
+        Graphics_DisplaySmallText(arg2 + 12.0f - temp2, arg3 - 8.0f, 1.0f, 1.0f, sp20);
     }
 }
 
@@ -2027,7 +2029,7 @@ s32 func_EBFBE0_8019C66C(f32* arg0, f32 arg1, f32 arg2, UnkStruct_D_EBFBE0_801B9
 }
 
 void func_EBFBE0_8019C824(f32* arg0) {
-    if ((s32) func_8009BC2C(arg0, D_EBFBE0_801B91E4, 0.5f, 100.0f, 1.0f) == 0.0f) {
+    if ((s32) Math_SmoothStepToF(arg0, D_EBFBE0_801B91E4, 0.5f, 100.0f, 1.0f) == 0.0f) {
         if (*arg0 == 32.0f) {
             D_EBFBE0_801B91E4 = 255.0f;
         } else {
