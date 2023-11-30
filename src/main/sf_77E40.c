@@ -290,9 +290,19 @@ void func_800783C0(Object_8C* arg0) {
     gSPDisplayList(gMasterDisp++, D_2006F50);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80078438.s")
+void func_80078438(Object_8C* arg0) {
+    func_8005980C(arg0->unk_70);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, arg0->unk_4A);
+    gSPDisplayList(gMasterDisp++, D_102A8A0);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_800784B4.s")
+void func_800784B4(Object_8C* arg0) {
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, arg0->unk_46);
+    func_8005980C(arg0->unk_70);
+    Matrix_RotateX(gGfxMatrix, (M_PI / 2.0f), 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
+    gSPDisplayList(gMasterDisp++, D_200D750);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80078550.s")
 

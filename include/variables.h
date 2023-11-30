@@ -620,6 +620,7 @@ extern Gfx D_2009510[];
 extern Gfx D_200A5A0[];
 extern Gfx D_200B630[];
 extern Gfx D_200C6C0[];
+extern Gfx D_200D750[];
 extern Gfx D_200E7F0[];
 extern Gfx D_200F080[];
 extern Gfx D_200F910[];
