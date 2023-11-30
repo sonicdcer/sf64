@@ -774,6 +774,7 @@ extern u16 D_60245E0[];
 extern u16 D_6025500[];
 extern u16 D_6026420[];
 extern u16 D_6027340[];
+extern Gfx D_605C230[];
 
 extern Gfx D_7007350[];
 extern Gfx D_700BB10[];

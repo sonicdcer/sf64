@@ -275,6 +275,7 @@ void func_EBFBE0_801984D0(s32, s32, f32, f32);
 void func_EBFBE0_80198608(s32, s32, f32, f32);
 void func_EBFBE0_8019882C(s32, s32, f32, f32);
 void func_EBFBE0_8019896C(s32, f32, s32);
+void func_EBFBE0_80199198(f32 arg0, f32 arg1, f32 arg2);
 s32 func_EBFBE0_80199284(s32 arg0, s32 arg1);
 void func_EBFBE0_801992C4(void);
 void func_EBFBE0_80199424(void);

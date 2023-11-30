@@ -1986,7 +1986,181 @@ void func_EBFBE0_8019882C(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
     }
 }
 
+#ifdef IMPORT_DATA_PENDING
+extern Gfx D_EBFBE0_801B4A40[];
+extern Gfx D_EBFBE0_801B5E78[];
+extern Gfx D_EBFBE0_801B61E0[];
+extern Gfx D_EBFBE0_801B6548[];
+extern Gfx D_EBFBE0_801B4D70[];
+extern Gfx D_EBFBE0_801B5B10[];
+extern Gfx D_EBFBE0_801B5440[];
+extern Gfx D_EBFBE0_801B50D8[];
+extern Gfx D_EBFBE0_801B5E78[];
+extern Gfx D_EBFBE0_801B57A8[];
+
+static Gfx* D_EBFBE0_801AEE6C[16] = {
+    (Gfx*) 0x06060610, (Gfx*) 0x0601DE80, (Gfx*) 0x0604B750, (Gfx*) 0x0601F6B0, (Gfx*) 0x0601C0D0, (Gfx*) 0x0601C960,
+    D_EBFBE0_801B5E78, D_EBFBE0_801B61E0, D_EBFBE0_801B6548, D_EBFBE0_801B4D70, D_EBFBE0_801B5B10, D_EBFBE0_801B5440,
+    D_EBFBE0_801B50D8, (Gfx*) 0x0604DB10, D_EBFBE0_801B57A8, D_EBFBE0_801B57A8,
+};
+
+void func_EBFBE0_8019896C(s32 arg0, f32 y, s32 arg2) {
+    static f32 D_EBFBE0_801AF130 = 0.0f;
+    static f32 D_EBFBE0_801AF134 = -121.0f;
+    static f32 D_EBFBE0_801AF138 = 40.1f;
+    s32 i;
+    s32 data;
+    s32 spFC;
+    s32 spF4;
+    f32 x;
+    s32 pad[2];
+
+    Matrix_Push(&gGfxMatrix);
+    Matrix_LookAt(gGfxMatrix, 0.0f, 0.0f, 100.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    Lib_Ortho(&gMasterDisp);
+
+    spFC = gSaveFile.save.data.unk_4A[arg0];
+    for (x = D_EBFBE0_801AF134, i = 0; i < arg2; i++, x += D_EBFBE0_801AF138) {
+        data = gSaveFile.save.data.unk_5E[arg0][i].unk_8 & 15;
+
+        switch (data) {
+            case 13:
+                func_800B8DD0(&gMasterDisp, 0x43);
+
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 240, 0, 0, 255);
+                gDPSetEnvColor(gMasterDisp++, 31, 0, 0, 0);
+
+                Matrix_Push(&gGfxMatrix);
+                Matrix_Translate(gGfxMatrix, x, y, 0.0f, 1);
+                Matrix_RotateZ(gGfxMatrix, M_DTOR * D_EBFBE0_801AF130, 1);
+                Matrix_Scale(gGfxMatrix, 0.3f, 0.3f, 0.3f, 1);
+                Matrix_SetGfxMtx(&gMasterDisp);
+
+                gSPDisplayList(gMasterDisp++, D_EBFBE0_801AEE6C[data]);
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 128);
+                gDPSetEnvColor(gMasterDisp++, 31, 0, 0, 0);
+                Matrix_Scale(gGfxMatrix, 0.8f, 0.8f, 0.8f, 1);
+                Matrix_SetGfxMtx(&gMasterDisp);
+                gSPDisplayList(gMasterDisp++, D_EBFBE0_801AEE6C[data]);
+                Matrix_Pop(&gGfxMatrix);
+                break;
+
+            case 0:
+                func_800B8DD0(&gMasterDisp, 0x3E);
+
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+
+                Matrix_Push(&gGfxMatrix);
+                Matrix_Translate(gGfxMatrix, x - 1.0f, y + 4.0f, 0.0f, 1);
+                Matrix_Scale(gGfxMatrix, 0.3f, 0.3f, 0.3f, 1);
+                Matrix_SetGfxMtx(&gMasterDisp);
+
+                gSPDisplayList(gMasterDisp++, D_EBFBE0_801AEE6C[data]);
+
+                Matrix_Translate(gGfxMatrix, 18.0f, -20.0f, 0.0f, 1);
+                Matrix_SetGfxMtx(&gMasterDisp);
+
+                gSPDisplayList(gMasterDisp++, D_EBFBE0_801AEE6C[data]);
+
+                Matrix_Pop(&gGfxMatrix);
+                break;
+
+            case 4:
+            case 5:
+            case 3:
+                func_800B8DD0(&gMasterDisp, 0x3E);
+
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 144);
+
+                Matrix_Push(&gGfxMatrix);
+                Matrix_Translate(gGfxMatrix, x, y, 0.0f, 1);
+                Matrix_Scale(gGfxMatrix, 0.3f, 0.3f, 0.3f, 1);
+                Matrix_SetGfxMtx(&gMasterDisp);
+
+                gSPDisplayList(gMasterDisp++, D_EBFBE0_801AEE6C[data]);
+
+                Matrix_Pop(&gGfxMatrix);
+                break;
+
+            case 2:
+                func_800B8DD0(&gMasterDisp, 0x17);
+                Lights_SetOneLight(&gMasterDisp, 0, 0, 100, 100, 100, 70, 100, 100, 100);
+
+                Matrix_Push(&gGfxMatrix);
+                Matrix_Translate(gGfxMatrix, x, y, 0.0f, 1);
+                Matrix_RotateX(gGfxMatrix, M_DTOR * 20.0f, 1);
+                Matrix_Scale(gGfxMatrix, 0.01f, 0.01f, 0.01f, 1);
+                Matrix_SetGfxMtx(&gMasterDisp);
+
+                gSPDisplayList(gMasterDisp++, D_EBFBE0_801AEE6C[data]);
+
+                Matrix_Pop(&gGfxMatrix);
+                break;
+
+            case 1:
+                func_800B8DD0(&gMasterDisp, 0x17);
+                Lights_SetOneLight(&gMasterDisp, 0, 0, 100, 100, 100, 70, 100, 100, 100);
+
+                Matrix_Push(&gGfxMatrix);
+                Matrix_Translate(gGfxMatrix, x, y, 0.0f, 1);
+                Matrix_RotateX(gGfxMatrix, M_DTOR * 20.0f, 1);
+                Matrix_Scale(gGfxMatrix, 0.01f, 0.01f, 0.01f, 1);
+                Matrix_SetGfxMtx(&gMasterDisp);
+
+                gSPDisplayList(gMasterDisp++, D_EBFBE0_801AEE6C[data]);
+
+                Matrix_Pop(&gGfxMatrix);
+                break;
+
+            default:
+                func_800B8DD0(&gMasterDisp, 0x3E);
+
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+
+                Matrix_Push(&gGfxMatrix);
+                Matrix_Translate(gGfxMatrix, x, y, 0.0f, 1);
+                Matrix_Scale(gGfxMatrix, 0.3f, 0.3f, 0.3f, 1);
+                Matrix_SetGfxMtx(&gMasterDisp);
+
+                gSPDisplayList(gMasterDisp++, D_EBFBE0_801AEE6C[data]);
+
+                if ((data != 14) && (data != 15) && (data != 11)) {
+                    if (data == 7) {
+                        gDPSetPrimColor(gMasterDisp++, 0, 0, 64, 64, 64, 255);
+                    } else {
+                        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+                    }
+                    Matrix_SetGfxMtx(&gMasterDisp);
+                    gSPDisplayList(gMasterDisp++, D_EBFBE0_801B4A40);
+                }
+                Matrix_Scale(gGfxMatrix, 1.6f, 1.6f, 1.6f, 1);
+                Matrix_SetGfxMtx(&gMasterDisp);
+
+                gSPDisplayList(gMasterDisp++, D_605C230);
+
+                Matrix_Pop(&gGfxMatrix);
+                break;
+        }
+
+        spF4 = (spFC >> i) & 1;
+        if (spF4 != 0) {
+            func_EBFBE0_80199198(x, y, 0.0f);
+        }
+    }
+
+    Matrix_Pop(&gGfxMatrix);
+
+    func_EBFBE0_80192738();
+
+    D_EBFBE0_801AF130 += 0.1f;
+
+    Lib_Perspective(&gMasterDisp);
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019896C.s")
+#endif
 
 void func_EBFBE0_80199198(f32 arg0, f32 arg1, f32 arg2) {
     func_800B8DD0(&gMasterDisp, 0x35);
