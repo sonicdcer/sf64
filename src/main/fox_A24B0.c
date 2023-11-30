@@ -308,7 +308,7 @@ void func_800A26C0(void) {
                 }
                 break;
             case 0x66:
-                func_800B8DD0(&gMasterDisp, 0x4C);
+                RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
                 TextureRect_8bIA(&gMasterDisp, D_F000000, 128, 16, 100.0f, 86.0f, 1.0f, 1.0f);
                 TextureRect_8bIA(&gMasterDisp, D_F000800, 128, 16, 100.0f, 102.0f, 1.0f, 1.0f);
@@ -325,7 +325,7 @@ void func_800A26C0(void) {
                 D_80177834++;
                 Timer_CreateTask(MSEC_TO_CYCLES(1000), Timer_Increment, &D_80177834, 1);
             case 0x68:
-                func_800B8DD0(&gMasterDisp, 0x4C);
+                RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
                 TextureRect_8bIA(&gMasterDisp, D_F000000, 128, 16, 100.0f, 86.0f, 1.0f, 1.0f);
                 TextureRect_8bIA(&gMasterDisp, D_F000800, 128, 16, 100.0f, 102.0f, 1.0f, 1.0f);

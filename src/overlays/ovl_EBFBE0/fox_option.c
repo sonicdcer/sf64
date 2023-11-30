@@ -1182,12 +1182,12 @@ void func_EBFBE0_80194CE4(void) {
 
     func_EBFBE0_801952B4();
 
-    func_800B8DD0(&gMasterDisp, 0x4C);
+    RCP_SetupDL(&gMasterDisp, 0x4C);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     TextureRect_16bRGBA(&gMasterDisp, D_60447A0, 8, 8, D_EBFBE0_801AEFA8[0], D_EBFBE0_801AEFD4[0], D_EBFBE0_801AF000,
                         0.2f);
 
-    func_800B8DD0(&gMasterDisp, 0x53);
+    RCP_SetupDL(&gMasterDisp, 0x53);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     TextureRect_8bIA(&gMasterDisp, D_8005CD0, 112, 13, D_EBFBE0_801AEFA8[1], D_EBFBE0_801AEFD4[1], 1.0f, 1.0f);
 
@@ -1453,7 +1453,7 @@ void func_EBFBE0_80195B74(void) {
 
     func_EBFBE0_8019B9C0();
 
-    func_800B8DD0(&gMasterDisp, 0x53);
+    RCP_SetupDL(&gMasterDisp, 0x53);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
@@ -1466,7 +1466,7 @@ void func_EBFBE0_80195B74(void) {
 
     func_EBFBE0_8019B7D4();
 
-    func_800B8DD0(&gMasterDisp, 0x4C);
+    RCP_SetupDL(&gMasterDisp, 0x4C);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 50, 50, 200, 255);
 
@@ -1496,7 +1496,7 @@ void func_EBFBE0_80195B74(void) {
 
     Lib_Ortho(&gMasterDisp);
 
-    func_800B8DD0(&gMasterDisp, 5);
+    RCP_SetupDL(&gMasterDisp, 5);
 
     Matrix_Push(&gGfxMatrix);
     Matrix_LookAt(gGfxMatrix, 0.0f, 0.0f, 100.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1);
@@ -1680,7 +1680,7 @@ void func_EBFBE0_80196894(void) {
 
     func_EBFBE0_8019B9C0();
 
-    func_800B8DD0(&gMasterDisp, 0x53);
+    RCP_SetupDL(&gMasterDisp, 0x53);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
@@ -1913,13 +1913,13 @@ void func_EBFBE0_801973C0(void) {
         func_EBFBE0_8019752C();
     } else {
         func_EBFBE0_80187E28();
-        func_800B8DD0(&gMasterDisp, 0x53);
+        RCP_SetupDL(&gMasterDisp, 0x53);
         func_EBFBE0_8019C824(&D_EBFBE0_801B93F0);
         temp_t0 = D_EBFBE0_801B93F0;
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, temp_t0, temp_t0, 255);
         TextureRect_8bIA(&gMasterDisp, D_7004010, 8, 8, 70.0f, (D_EBFBE0_801B93E4 * 17.0f) + 55.0f, 1.0f, 1.0f);
     }
-    func_800B8DD0(&gMasterDisp, 0x53);
+    RCP_SetupDL(&gMasterDisp, 0x53);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
     Graphics_DisplaySmallText(242, 215, 1.0f, 1.0f, "PUSH A");
 }
@@ -1953,7 +1953,7 @@ void func_EBFBE0_8019752C(void) {
     func_EBFBE0_80197914();
 
     Matrix_Pop(&gGfxMatrix);
-    func_800B8DD0(&gMasterDisp, 0x4C);
+    RCP_SetupDL(&gMasterDisp, 0x4C);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
@@ -1962,7 +1962,7 @@ void func_EBFBE0_8019752C(void) {
 
     func_8003DE68(0, 70);
     func_8003DE68(170, 239);
-    func_800B8DD0(&gMasterDisp, 0x53);
+    RCP_SetupDL(&gMasterDisp, 0x53);
 
     if (D_EBFBE0_801B91D4 >= 114.0f) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 32, 32, 32, 255);
@@ -1993,7 +1993,7 @@ void func_EBFBE0_80197914(void) {
     Vec3f* vec2;
     s32 i;
 
-    func_800B8DD0(&gMasterDisp, 0);
+    RCP_SetupDL(&gMasterDisp, 0);
 
     for (i = 0, vec1 = D_EBFBE0_801AF100, vec2 = D_EBFBE0_801AF118; i < 2; i++, vec1++, vec2++) {
         Matrix_Push(&gGfxMatrix);
@@ -2006,7 +2006,7 @@ void func_EBFBE0_80197914(void) {
 }
 
 void func_EBFBE0_80197A3C(s32 arg0, s32 arg1, s32 arg2) {
-    func_800B8DD0(&gMasterDisp, 0x53);
+    RCP_SetupDL(&gMasterDisp, 0x53);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
@@ -2017,7 +2017,7 @@ void func_EBFBE0_80197A3C(s32 arg0, s32 arg1, s32 arg2) {
         TextureRect_8bIA(&gMasterDisp, D_5009F60, 16, 15, arg1, arg2 - 25.0f, 1.0f, 1.0f);
     }
 
-    func_800B8DD0(&gMasterDisp, 0x55);
+    RCP_SetupDL(&gMasterDisp, 0x55);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
@@ -2043,7 +2043,7 @@ void func_EBFBE0_80197A3C(s32 arg0, s32 arg1, s32 arg2) {
 void func_EBFBE0_80197D30(s32 arg0, s32 arg1, s32 arg2) {
     char temp[4];
 
-    func_800B8DD0(&gMasterDisp, 0x53);
+    RCP_SetupDL(&gMasterDisp, 0x53);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
@@ -2056,7 +2056,7 @@ void func_EBFBE0_80197D30(s32 arg0, s32 arg1, s32 arg2) {
 }
 
 void func_EBFBE0_80197DE4(s32 arg0, s32 arg1, s32 arg2) {
-    func_800B8DD0(&gMasterDisp, 0x53);
+    RCP_SetupDL(&gMasterDisp, 0x53);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 170);
     TextureRect_8bIA(&gMasterDisp, D_601B4B0, 24, 17, arg1, arg2, 3.17f, 1.05f);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
@@ -2070,7 +2070,7 @@ void func_EBFBE0_80197F74(s32 arg0, s32 arg1, s32 arg2) {
     f32 temp_fs1;
     s32 i;
 
-    func_800B8DD0(&gMasterDisp, 0x53);
+    RCP_SetupDL(&gMasterDisp, 0x53);
 
     for (temp_fs1 = 0.0f, i = 0; i < 3; i++, temp_fs1 += 12.0f) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, D_EBFBE0_801AF0D0[i], D_EBFBE0_801AF0DC[i], D_EBFBE0_801AF0E8[i], 255);
@@ -2110,7 +2110,7 @@ void func_EBFBE0_801982B0(s32 arg0, s32 arg1, f32 arg2, f32 arg3, s32 arg4) {
     s32 temp2;
 
     if ((arg3 > 30.0f) && (arg3 < 200.0f)) {
-        func_800B8DD0(&gMasterDisp, 0x4C);
+        RCP_SetupDL(&gMasterDisp, 0x4C);
         if (arg1 < 6) {
             b = 255;
             g = 255;
@@ -2156,7 +2156,7 @@ void func_EBFBE0_801984D0(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
     s32 sp1C;
 
     if ((arg3 > 22.0f) && (arg3 < 162.0f)) {
-        func_800B8DD0(&gMasterDisp, 0x53);
+        RCP_SetupDL(&gMasterDisp, 0x53);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
         sp1C = (gSaveFile.save.data.unk_5E[arg0][arg1].unk_C & 1) << 8;
         sp1C |= gSaveFile.save.data.unk_5E[arg0][arg1].unk_0;
@@ -2170,7 +2170,7 @@ void func_EBFBE0_80198608(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
     s32 i;
 
     if ((arg3 > 12.0f) && (arg3 < 154.0f)) {
-        func_800B8DD0(&gMasterDisp, 0x53);
+        RCP_SetupDL(&gMasterDisp, 0x53);
 
         sp90[0] = gSaveFile.save.data.unk_5E[arg0][arg1].unk_D & 1;
         sp90[1] = gSaveFile.save.data.unk_5E[arg0][arg1].unk_F & 1;
@@ -2195,7 +2195,7 @@ void func_EBFBE0_8019882C(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
     if ((arg3 > 58.0f) && (arg3 < 197.0f)) {
         temp = gSaveFile.save.data.unk_5E[arg0][arg1].unk_8 & 0xF;
         sp20 = D_EBFBE0_801AEEAC[temp];
-        func_800B8DD0(&gMasterDisp, 0x53);
+        RCP_SetupDL(&gMasterDisp, 0x53);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
         temp2 = Graphics_GetSmallTextWidth(sp20) / 2.0f;
         Graphics_DisplaySmallText(arg2 + 12.0f - temp2, arg3 - 8.0f, 1.0f, 1.0f, sp20);
@@ -2243,7 +2243,7 @@ void func_EBFBE0_8019896C(s32 arg0, f32 y, s32 arg2) {
 
         switch (data) {
             case 13:
-                func_800B8DD0(&gMasterDisp, 0x43);
+                RCP_SetupDL(&gMasterDisp, 0x43);
 
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 240, 0, 0, 255);
                 gDPSetEnvColor(gMasterDisp++, 31, 0, 0, 0);
@@ -2264,7 +2264,7 @@ void func_EBFBE0_8019896C(s32 arg0, f32 y, s32 arg2) {
                 break;
 
             case 0:
-                func_800B8DD0(&gMasterDisp, 0x3E);
+                RCP_SetupDL(&gMasterDisp, 0x3E);
 
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
@@ -2286,7 +2286,7 @@ void func_EBFBE0_8019896C(s32 arg0, f32 y, s32 arg2) {
             case 4:
             case 5:
             case 3:
-                func_800B8DD0(&gMasterDisp, 0x3E);
+                RCP_SetupDL(&gMasterDisp, 0x3E);
 
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 144);
 
@@ -2301,7 +2301,7 @@ void func_EBFBE0_8019896C(s32 arg0, f32 y, s32 arg2) {
                 break;
 
             case 2:
-                func_800B8DD0(&gMasterDisp, 0x17);
+                RCP_SetupDL(&gMasterDisp, 0x17);
                 Lights_SetOneLight(&gMasterDisp, 0, 0, 100, 100, 100, 70, 100, 100, 100);
 
                 Matrix_Push(&gGfxMatrix);
@@ -2316,7 +2316,7 @@ void func_EBFBE0_8019896C(s32 arg0, f32 y, s32 arg2) {
                 break;
 
             case 1:
-                func_800B8DD0(&gMasterDisp, 0x17);
+                RCP_SetupDL(&gMasterDisp, 0x17);
                 Lights_SetOneLight(&gMasterDisp, 0, 0, 100, 100, 100, 70, 100, 100, 100);
 
                 Matrix_Push(&gGfxMatrix);
@@ -2331,7 +2331,7 @@ void func_EBFBE0_8019896C(s32 arg0, f32 y, s32 arg2) {
                 break;
 
             default:
-                func_800B8DD0(&gMasterDisp, 0x3E);
+                RCP_SetupDL(&gMasterDisp, 0x3E);
 
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
@@ -2379,7 +2379,7 @@ void func_EBFBE0_8019896C(s32 arg0, f32 y, s32 arg2) {
 #endif
 
 void func_EBFBE0_80199198(f32 arg0, f32 arg1, f32 arg2) {
-    func_800B8DD0(&gMasterDisp, 0x35);
+    RCP_SetupDL(&gMasterDisp, 0x35);
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, arg0 - D_EBFBE0_801AF140, arg1 + D_EBFBE0_801AF144, arg2, 1);
     Matrix_Scale(gGfxMatrix, D_EBFBE0_801AF13C, D_EBFBE0_801AF13C, D_EBFBE0_801AF13C, 1);

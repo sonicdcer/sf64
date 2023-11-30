@@ -196,7 +196,7 @@ s32 Graphics_GetSmallTextWidth(char *text);
 void func_800A1540(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 void func_800A1558(f32 weight, u16 size, void *src1, void *src2, void *dst);
 
-void func_800B8DD0(Gfx** gfxP, s16 i);
+void RCP_SetupDL(Gfx** gfxP, s16 i);
 void func_800B8E14(Gfx** gfxP, s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
 void func_800B8F18(void);
 void func_800B8F48(void);
