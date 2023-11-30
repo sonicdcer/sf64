@@ -2,6 +2,16 @@
 #include "fox_option.h"
 
 #ifdef IMPORT_DATA_PENDING
+static f32 D_EBFBE0_801AE9A0[4] = { 62.0f, 222.0f, 75.0f, 235.0f };
+static f32 D_EBFBE0_801AE9B0[4] = { 43.0f, 43.0f, 46.0f, 46.0f };
+
+static MenuContext_00 D_EBFBE0_801AE9C0[4] = {
+    { 2, 0, (void*)0x080143B0, 0x080147B0, 32, 32, 56.0f, 175.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
+    { 2, 0, (void*)0x080143B0, 0x080147B0, 32, 32, 216.0f, 175.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
+    { 1, 0, (void*)0x080039D0, 0x08003A50, 16, 16, 69.0f, 178.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
+    { 1, 0, (void*)0x080039D0, 0x08003A50, 16, 16, 229.0f, 178.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
+};
+
 static UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9380[4];
 static f32 D_EBFBE0_801AE5B8[] = { 60.0f, 36.0f, 12.0f, -12.0f, -36.0f, -60.0f };
 static f32 D_EBFBE0_801AE5D0[] = { 126.0f, 117.0f, 139.0f, 124.0f, 130.0f, 117.0f };
@@ -52,6 +62,9 @@ static MenuContext D_EBFBE0_801AE638[6] = {
     },
 };
 #else
+extern MenuContext_00 D_EBFBE0_801AE9C0[4];
+extern f32 D_EBFBE0_801AE9A0[4];
+extern f32 D_EBFBE0_801AE9B0[4];
 extern f32 D_EBFBE0_801AE570[];
 extern f32 D_EBFBE0_801AE5B8[];
 extern f32 D_EBFBE0_801AE5D0[];
@@ -1157,7 +1170,7 @@ static MenuContext_00 D_EBFBE0_801AEB48[3] = {
 
 void func_EBFBE0_80194CE4(void) {
     s32 i;
-    int colorGB;
+    s32 colorGB;
 
     static f32 D_EBFBE0_801AEFA8[11] = { 48.0f,  103.0f, 77.0f,  55.0f,  71.0f, 87.0f,
                                          143.0f, 244.0f, 169.0f, 170.0f, 157.0f };
@@ -1235,7 +1248,117 @@ void func_EBFBE0_80194CE4(void) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80194CE4.s")
 #endif
 
+// needs data declared as static
+#ifdef IMPORT_DATA_PENDING
+void func_EBFBE0_801952B4(void) {
+    s32 i;
+
+    if (D_EBFBE0_801B9284 == 1) {
+        switch (D_EBFBE0_801B914C) {
+            case 0:
+                D_EBFBE0_801B914C++;
+                break;
+
+            case 1:
+                if (D_EBFBE0_801B9178) {
+                    break;
+                }
+
+                for (i = 2; i < 4; i++) {
+                    D_EBFBE0_801AE9C0[i].unk_20 += 0.02f;
+                    D_EBFBE0_801AE9C0[i].unk_24 += 0.02f;
+                    D_EBFBE0_801AE9C0[i].unk_18 -= 0.1f;
+                }
+                
+                D_EBFBE0_801B9178 = 2;
+                D_EBFBE0_801B914C++;
+                break;
+
+            case 2:
+                if (D_EBFBE0_801B9178) {
+                    break;
+                }
+                
+                for (i = 2; i < 4; i++) {
+                    D_EBFBE0_801AE9C0[i].unk_20 -= 0.02f;
+                    D_EBFBE0_801AE9C0[i].unk_24 -= 0.02f;
+                    D_EBFBE0_801AE9C0[i].unk_18 += 0.1f;
+                }
+
+                D_EBFBE0_801B914C++;
+                break;
+
+            case 3:
+                D_EBFBE0_801B9178 = Rand_ZeroOne() * 15.0f;
+                D_EBFBE0_801B914C = 1;
+                break;
+        }
+
+        switch (D_EBFBE0_801B9158) {
+            case 0:
+                if (D_EBFBE0_801B917C) {
+                    break;
+                }
+
+                for (i = 0; i < 4; i++) {
+                    D_EBFBE0_801AE9C0[i].unk_20 += 0.08f;
+                    D_EBFBE0_801AE9C0[i].unk_24 += 0.08f;
+                    D_EBFBE0_801AE9C0[i].unk_18 -= 0.4f;
+                    D_EBFBE0_801AE9C0[i].unk_1C -= 0.4f;
+                }
+
+                D_EBFBE0_801B917C = 2;
+                D_EBFBE0_801B9158++;
+                break;
+
+            case 1:
+                if (D_EBFBE0_801B917C) {
+                    break;
+                }
+
+                for (i = 0; i < 4; i++) {
+                    D_EBFBE0_801AE9C0[i].unk_20 -= 0.08f;
+                    D_EBFBE0_801AE9C0[i].unk_24 -= 0.08f;
+                    D_EBFBE0_801AE9C0[i].unk_18 += 0.4f;
+                    D_EBFBE0_801AE9C0[i].unk_1C += 0.4f;
+                }
+
+                D_EBFBE0_801B917C = 2;
+                D_EBFBE0_801B9158++;
+                break;
+
+            case 2:
+                if (D_EBFBE0_801B917C) {
+                    break;
+                }
+
+                D_EBFBE0_801B917C = Rand_ZeroOne() * 30.0f;
+                D_EBFBE0_801B9158 = 0;
+                break;
+        }
+
+    } else {
+        for (i = 0; i < 4; i++) {
+            D_EBFBE0_801AE9C0[i].unk_20 = 1.0f;
+            D_EBFBE0_801AE9C0[i].unk_24 = 1.0f;
+            D_EBFBE0_801AE9C0[i].unk_18 = D_EBFBE0_801AE9A0[i];
+            D_EBFBE0_801AE9C0[i].unk_1C = D_EBFBE0_801AE9B0[i];
+        }
+    }
+
+    for (i = 0; i < 2; i++) {
+        func_EBFBE0_8019C120(D_EBFBE0_801AE9C0[i]);
+    }
+
+    for (i = 2; i < 4; i++) {
+        if (D_EBFBE0_801B914C != 3) {
+            func_EBFBE0_8019C120(D_EBFBE0_801AE9C0[i]);
+        }
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_801952B4.s")
+#endif
 
 void func_EBFBE0_801958DC(void) {
     s32 i;
