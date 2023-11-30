@@ -255,7 +255,34 @@ void func_80078038(Object_8C* arg0) {
     func_800B8DD0(&gMasterDisp, 0x40);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_800780F8.s")
+void func_800780F8(Object_8C* arg0) {
+    s32 i;
+
+    if (arg0->unk_4A >= 0xB) {
+        if (!((arg0->unk_40 + D_80177DB0) & 1)) {
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 128, 128, 32);
+        } else {
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 128, 128, 128);
+        }
+    } else if (!((arg0->unk_40 + D_80177DB0) & 1)) {
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+    } else {
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 96, 96, 255, 255);
+    }
+    func_8005980C(arg0->unk_70);
+    for (i = 0; i < 10; i++) {
+        if ((i >= arg0->unk_48) && (i < arg0->unk_46)) {
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, -60.0f, 0.0f, 1);
+            Matrix_Scale(gGfxMatrix, 0.8f, 3.0f, 1.0f, 1);
+            Matrix_SetGfxMtx(&gMasterDisp);            
+            gSPDisplayList(gMasterDisp++, D_102F5E0);
+            Matrix_Pop(&gGfxMatrix);
+        }
+        Matrix_Translate(gGfxMatrix, 0.0f, -120.0f, 0.0f, 1);
+        Matrix_RotateZ(gGfxMatrix, D_800D1534[arg0->unk_4C][i] * (M_PI / 180.0f), 1);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_800783C0.s")
 

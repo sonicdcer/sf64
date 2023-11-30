@@ -161,9 +161,9 @@ void func_8009A440(s32 mode, Limb* limb, Limb** skeleton, Vec3f* jointTable, Ove
     }
     if (!override) {
         Matrix_Translate(gCalcMatrix, trans.x, trans.y, trans.z, 1);
-        Matrix_RotateZ(gCalcMatrix, rot.z * 0.017453292f, 1);
-        Matrix_RotateY(gCalcMatrix, rot.y * 0.017453292f, 1);
-        Matrix_RotateX(gCalcMatrix, rot.x * 0.017453292f, 1);
+        Matrix_RotateZ(gCalcMatrix, rot.z * (M_PI / 180.0f), 1);
+        Matrix_RotateY(gCalcMatrix, rot.y * (M_PI / 180.0f), 1);
+        Matrix_RotateX(gCalcMatrix, rot.x * (M_PI / 180.0f), 1);
         if (dList != NULL) {
             if (mode >= 2) {
                 Matrix_MultVec3f(gCalcMatrix, &origin, &pos);
@@ -224,9 +224,9 @@ void func_8009A72C(s32 mode, Limb** skeletonSegment, Vec3f* jointTable, Override
     }
     if (override == 0) {
         Matrix_Translate(gCalcMatrix, baseTrans.x, baseTrans.y, baseTrans.z, 1);
-        Matrix_RotateZ(gCalcMatrix, baseRot.z * 0.017453292f, 1);
-        Matrix_RotateY(gCalcMatrix, baseRot.y * 0.017453292f, 1);
-        Matrix_RotateX(gCalcMatrix, baseRot.x * 0.017453292f, 1);
+        Matrix_RotateZ(gCalcMatrix, baseRot.z * (M_PI / 180.0f), 1);
+        Matrix_RotateY(gCalcMatrix, baseRot.y * (M_PI / 180.0f), 1);
+        Matrix_RotateX(gCalcMatrix, baseRot.x * (M_PI / 180.0f), 1);
         if (dList != NULL) {
             Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
@@ -358,19 +358,19 @@ void func_8009B784(Limb** skeletonSegment, AnimationHeader* animationSegment, s3
     } else {
         var_t6 = frameData[(s16) key[1].z];
     }
-    Matrix_RotateZ(gGfxMatrix, (((s32) var_t6 * 360.0f) / 65536.0f) * 0.017453292f, 0);
+    Matrix_RotateZ(gGfxMatrix, (((s32) var_t6 * 360.0f) / 65536.0f) * (M_PI / 180.0f), 0);
     if (frame < (s16) key[1].yLen) {
         var_t6 = frameData[(s16) key[1].y + frame];
     } else {
         var_t6 = frameData[(s16) key[1].y];
     }
-    Matrix_RotateY(gGfxMatrix, (((s32) var_t6 * 360.0f) / 65536.0f) * 0.017453292f, 1);
+    Matrix_RotateY(gGfxMatrix, (((s32) var_t6 * 360.0f) / 65536.0f) * (M_PI / 180.0f), 1);
     if (frame < (s16) key[1].xLen) {
         var_t6 = frameData[(s16) key[1].x + frame];
     } else {
         var_t6 = frameData[(s16) key[1].x];
     }
-    Matrix_RotateX(gGfxMatrix, (((s32) var_t6 * 360.0f) / 65536.0f) * 0.017453292f, 1);
+    Matrix_RotateX(gGfxMatrix, (((s32) var_t6 * 360.0f) / 65536.0f) * (M_PI / 180.0f), 1);
     vtxFound = false;
     if (limb->dList != NULL) {
         func_8009AD18(limb->dList, 0x2000, min, max, &vtxFound, &vtxCount, &vtxList);
@@ -514,8 +514,8 @@ s32 func_8009C124(Vec3f* pos, Vec3f* target, Vec3f* rot, f32 stepSize, f32 scale
     targetRotX = func_8009F768(-Math_Atan2F(diff.y, sqrtf(SQ(diff.x) + SQ(diff.z))));
     func_8009BD38(&rot->y, targetRotY, scaleTurn, maxTurn, 0.0f);
     func_8009BD38(&rot->x, targetRotX, scaleTurn, maxTurn, 0.0f);
-    Matrix_RotateY(&worldTransform, rot->y * 0.017453292f, 0);
-    Matrix_RotateX(&worldTransform, rot->x * 0.017453292f, 1);
+    Matrix_RotateY(&worldTransform, rot->y * (M_PI / 180.0f), 0);
+    Matrix_RotateX(&worldTransform, rot->x * (M_PI / 180.0f), 1);
     localStep.z = stepSize;
     Matrix_MultVec3fNoTranslate(&worldTransform, &localStep, &worldStep);
 
@@ -703,8 +703,8 @@ void func_8009F574(Gfx** gfxPtr, s32 ulx, s32 uly, s32 lrx, s32 lry, u8 r, u8 g,
 void func_8009F6CC(Vec3f* step, f32 xRot, f32 yRot, f32 stepsize) {
     Vec3f sp1C;
 
-    Matrix_RotateY(gCalcMatrix, yRot * 0.017453292f, 0);
-    Matrix_RotateX(gCalcMatrix, xRot * 0.017453292f, 1);
+    Matrix_RotateY(gCalcMatrix, yRot * (M_PI / 180.0f), 0);
+    Matrix_RotateX(gCalcMatrix, xRot * (M_PI / 180.0f), 1);
     sp1C.x = sp1C.y = 0.0f;
     sp1C.z = stepsize;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp1C, step);
