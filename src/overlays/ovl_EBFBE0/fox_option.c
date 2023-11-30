@@ -1142,7 +1142,98 @@ void func_EBFBE0_80194BD0(void) {
     }
 }
 
+#ifdef IMPORT_DATA_PENDING
+static MenuContext_00 D_EBFBE0_801AEAA0[3] = {
+    { 3, 0, (void*) 0x08013990, 0, 104, 10, 151.0f, 135.0f, 1.05f, 1.0f, 255, 255, 255, 255 },
+    { 3, 0, (void*) 0x08013990, 0, 104, 10, 151.0f, 161.0f, 1.05f, 1.0f, 255, 255, 255, 255 },
+    { 3, 0, (void*) 0x08013990, 0, 104, 10, 151.0f, 188.0f, 1.05f, 1.0f, 255, 255, 255, 255 },
+};
+
+static MenuContext_00 D_EBFBE0_801AEB48[3] = {
+    { 3, 0, (void*) 0x080141B0, 0, 16, 16, 245.0f, 132.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
+    { 3, 0, (void*) 0x080141B0, 0, 16, 16, 245.0f, 158.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
+    { 3, 0, (void*) 0x080141B0, 0, 16, 16, 245.0f, 185.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
+};
+
+void func_EBFBE0_80194CE4(void) {
+    s32 i;
+    int colorGB;
+
+    static f32 D_EBFBE0_801AEFA8[11] = { 48.0f,  103.0f, 77.0f,  55.0f,  71.0f, 87.0f,
+                                         143.0f, 244.0f, 169.0f, 170.0f, 157.0f };
+    static f32 D_EBFBE0_801AEFD4[11] = { 79.0f,  52.0f,  99.0f, 131.0f, 157.0f, 186.0f,
+                                         102.0f, 102.0f, 98.0f, 99.0f,  98.0f };
+    static f32 D_EBFBE0_801AF000 = 27.5f;
+
+    func_EBFBE0_8019B9C0();
+
+    func_EBFBE0_801952B4();
+
+    func_800B8DD0(&gMasterDisp, 0x4C);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+    TextureRect_16bRGBA(&gMasterDisp, D_60447A0, 8, 8, D_EBFBE0_801AEFA8[0], D_EBFBE0_801AEFD4[0], D_EBFBE0_801AF000,
+                        0.2f);
+
+    func_800B8DD0(&gMasterDisp, 0x53);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+    TextureRect_8bIA(&gMasterDisp, D_8005CD0, 112, 13, D_EBFBE0_801AEFA8[1], D_EBFBE0_801AEFD4[1], 1.0f, 1.0f);
+
+    for (i = 0; i < 4; i++) {
+        if (D_EBFBE0_801B9288 == i) {
+            func_EBFBE0_8019C824(&D_EBFBE0_801B9270[i]);
+        } else {
+            D_EBFBE0_801B9270[i] = 255.0f;
+        }
+    }
+
+    colorGB = D_EBFBE0_801B9270[0];
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
+    TextureRect_8bIA(&gMasterDisp, D_8006280, 48, 13, D_EBFBE0_801AEFA8[2], D_EBFBE0_801AEFD4[2], 1.0f, 1.0f);
+
+    colorGB = D_EBFBE0_801B9270[1];
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
+    TextureRect_8bIA(&gMasterDisp, D_80064F0, 88, 14, D_EBFBE0_801AEFA8[3], D_EBFBE0_801AEFD4[3], 1.0f, 1.0f);
+
+    colorGB = D_EBFBE0_801B9270[2];
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
+    TextureRect_8bIA(&gMasterDisp, D_80069C0, 56, 15, D_EBFBE0_801AEFA8[4], D_EBFBE0_801AEFD4[4], 1.0f, 1.0f);
+
+    colorGB = D_EBFBE0_801B9270[3];
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
+    TextureRect_8bIA(&gMasterDisp, D_8006D10, 24, 13, D_EBFBE0_801AEFA8[5], D_EBFBE0_801AEFD4[5], 1.0f, 1.0f);
+
+    if (D_EBFBE0_801B9288 == 0) {
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+        TextureRect_8bIA_MirX(&gMasterDisp, D_800E130, 8, 8, D_EBFBE0_801AEFA8[6], D_EBFBE0_801AEFD4[6], 1.0f, 1.0f);
+        TextureRect_8bIA(&gMasterDisp, D_800E130, 8, 8, D_EBFBE0_801AEFA8[7], D_EBFBE0_801AEFD4[7], 1.0f, 1.0f);
+    }
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+
+    switch (D_80177C74) {
+        case 0:
+            TextureRect_8bIA(&gMasterDisp, D_800CD90, 56, 13, D_EBFBE0_801AEFA8[8], D_EBFBE0_801AEFD4[8], 1.0f, 1.0f);
+            break;
+
+        case 1:
+            TextureRect_8bIA(&gMasterDisp, D_80076E0, 56, 14, D_EBFBE0_801AEFA8[9], D_EBFBE0_801AEFD4[9], 1.0f, 1.0f);
+            break;
+
+        case 2:
+            TextureRect_8bIA(&gMasterDisp, D_8007210, 88, 14, D_EBFBE0_801AEFA8[10], D_EBFBE0_801AEFD4[10], 1.0f, 1.0f);
+            break;
+    }
+
+    TextureRect_8bIA(&gMasterDisp, D_8006E50, 96, 10, 166.0f, 213.0f, 1.0f, 1.0f);
+
+    for (i = 0; i < 3; i++) {
+        func_EBFBE0_8019C120(D_EBFBE0_801AEAA0[i]);
+        func_EBFBE0_8019C120(D_EBFBE0_801AEB48[i]);
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80194CE4.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_801952B4.s")
 
