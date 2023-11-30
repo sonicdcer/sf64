@@ -389,10 +389,10 @@ extern s32 D_801782F8;
 extern s32 D_80178300;
 extern u16* D_80178308;
 extern ObjectInit* D_80178310;
-extern s32 D_80178320;
-extern s32 D_80178328;
-extern s32 D_80178330;
-extern s32 D_80178338;
+extern s32 D_80178320; //red
+extern s32 D_80178328; //green
+extern s32 D_80178330; //blue
+extern s32 D_80178338; //alpha
 extern s32 D_80178340;
 extern s32 D_80178348;
 extern s32 D_80178350;
@@ -410,8 +410,8 @@ extern s32 D_801783A0[];
 extern s32 D_801783B0[];
 extern f32 D_801783D0;
 extern f32 D_801783D4;
-extern s32 D_801783D8;
-extern s32 D_801783DC;
+extern s32 D_801783D8; //near
+extern s32 D_801783DC; //far
 extern s32 D_80178410;
 extern f32 D_80178420;
 extern f32 D_80178424;
@@ -587,6 +587,7 @@ extern Gfx D_101A570[];
 extern Gfx D_1019CA0[];
 extern Gfx D_1016870[];
 extern Gfx D_1022E80[];
+extern Gfx D_1029780[];
 extern Gfx D_102A010[];
 extern Gfx D_1032780[];
 extern Gfx D_1019820[];

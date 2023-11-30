@@ -275,7 +275,7 @@ void func_800780F8(Object_8C* arg0) {
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, 0.0f, -60.0f, 0.0f, 1);
             Matrix_Scale(gGfxMatrix, 0.8f, 3.0f, 1.0f, 1);
-            Matrix_SetGfxMtx(&gMasterDisp);            
+            Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_102F5E0);
             Matrix_Pop(&gGfxMatrix);
         }
@@ -316,12 +316,23 @@ void func_80078550(Object_8C* arg0) {
 void func_80078604(Object_8C* arg0) {
     if (arg0->unk_50 == 0) {
         func_8005980C(arg0->unk_70);
-        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, arg0->unk_44);        
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, arg0->unk_44);
         gSPDisplayList(gMasterDisp++, D_20112C0);
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007868C.s")
+void func_8007868C(Object_8C* arg0) {
+    func_800B9B38(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
+    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+    Matrix_Scale(gGfxMatrix, arg0->unk_70, arg0->unk_70, arg0->unk_70, 1);
+    if (arg0->unk_44 >= 2) {
+        Matrix_RotateX(gGfxMatrix, (M_PI / 2.0f), 1);
+    }
+    Matrix_SetGfxMtx(&gMasterDisp);
+    gSPDisplayList(gMasterDisp++, D_1029780);
+    func_800B8DD0(&gMasterDisp, 0x40);
+}
+
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007879C.s")
 
