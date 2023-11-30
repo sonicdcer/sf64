@@ -64,10 +64,16 @@ CPPFLAGS += -fno-dollars-in-identifiers -P
 LDFLAGS  := --no-check-sections --accept-unknown-input-arch --emit-relocs
 
 UNAME_S := $(shell uname -s)
+UNAME_M := $(shell uname -m)
 ifeq ($(OS),Windows_NT)
 $(error Native Windows is currently unsupported for building this repository, use WSL instead c:)
 else ifeq ($(UNAME_S),Linux)
     DETECTED_OS := linux
+    #Detect aarch64 devices (Like Raspberry Pi OS 64-bit)
+    #If it's found, then change the compiler to a version that can compile in 32 bit mode.
+    ifeq ($(UNAME_M),aarch64)
+        CC_CHECK_COMP := arm-linux-gnueabihf-gcc
+    endif
 else ifeq ($(UNAME_S),Darwin)
     DETECTED_OS := mac
     MAKE := gmake
@@ -82,7 +88,7 @@ endif
 
 ### Compiler ###
 
-IDO              := $(TOOLS)/ido_recomp/$(DETECTED_OS)/5.3/cc
+IDO              := $(TOOLS)/ido-static-recomp/build/5.3/out/cc
 AS              := $(MIPS_BINUTILS_PREFIX)as
 LD              := $(MIPS_BINUTILS_PREFIX)ld
 OBJCOPY         := $(MIPS_BINUTILS_PREFIX)objcopy
@@ -117,10 +123,17 @@ CHECK_WARNINGS := -Wall -Wextra -Wimplicit-fallthrough -Wno-unknown-pragmas -Wno
 MIPS_BUILTIN_DEFS := -DMIPSEB -D_MIPS_FPSET=16 -D_MIPS_ISA=2 -D_ABIO32=1 -D_MIPS_SIM=_ABIO32 -D_MIPS_SZINT=32 -D_MIPS_SZPTR=32
 ifneq ($(RUN_CC_CHECK),0)
 #   The -MMD flags additionaly creates a .d file with the same name as the .o file.
-    CHECK_WARNINGS 	  := -Wno-unused-variable
+    CHECK_WARNINGS    := -Wno-unused-variable
     CC_CHECK          := $(CC_CHECK_COMP)
-    CC_CHECK_FLAGS    := -MMD -MP -fno-builtin -fsyntax-only -funsigned-char -fdiagnostics-color -std=gnu89 -m32 -DNON_MATCHING -DAVOID_UB -DCC_CHECK=1
-    ifneq ($(WERROR), 0)
+    CC_CHECK_FLAGS    := -MMD -MP -fno-builtin -fsyntax-only -funsigned-char -fdiagnostics-color -std=gnu89 -DNON_MATCHING -DAVOID_UB -DCC_CHECK=1
+
+    # Ensure that gcc treats the code as 32-bit
+    ifeq ($(UNAME_M),aarch64)
+        CC_CHECK_CFLAGS += -march=armv7-a+fp
+    else
+        CC_CHECK_CFLAGS += -m32
+    endif
+	ifneq ($(WERROR), 0)
         CHECK_WARNINGS += -Werror
     endif
 else
@@ -232,6 +245,7 @@ all: uncompressed
 init:
 	@$(MAKE) clean
 	@$(MAKE) decompress
+	@$(MAKE) -s -C tools
 	@$(MAKE) extract -j $(N_THREADS)
 	@$(MAKE) all -j $(N_THREADS)
 	@$(MAKE) compressed
