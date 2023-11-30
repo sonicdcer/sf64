@@ -1277,7 +1277,7 @@ void func_EBFBE0_80195B74(void) {
         }
     } else {
         for (i = 0; i < 32; i++)
-            func_8009BC2C(&D_EBFBE0_801B9298[i], 0.0f, 0.2f, 100.0f, 0.1f);
+            Math_SmoothStepToF(&D_EBFBE0_801B9298[i], 0.0f, 0.2f, 100.0f, 0.1f);
     }
 
     Lib_Ortho(&gMasterDisp);
