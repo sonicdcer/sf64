@@ -569,8 +569,8 @@ void func_EBFBE0_801881FC(void) {
 
     for (i = 0; i < 4; i++) {
         Animation_GetFrameData(D_EBFBE0_801ADA00[i].unk_4,
-                             D_EBFBE0_801B8350[i].unk_58 % Animation_GetFrameCount(D_EBFBE0_801ADA00[i].unk_4),
-                             D_EBFBE0_801B86E0[i]);
+                               D_EBFBE0_801B8350[i].unk_58 % Animation_GetFrameCount(D_EBFBE0_801ADA00[i].unk_4),
+                               D_EBFBE0_801B86E0[i]);
     }
 
     D_EBFBE0_801B86A4 = 0;

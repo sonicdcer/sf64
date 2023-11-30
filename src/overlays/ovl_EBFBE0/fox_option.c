@@ -1649,7 +1649,7 @@ void func_EBFBE0_80197DE4(s32 arg0, s32 arg1, s32 arg2) {
     Graphics_DisplaySmallText(arg1, arg2, 1.0f, 1.0f, "TOTAL HITS");
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     Graphics_DisplaySmallNumber((arg1 + 40.0f) - ((func_8008BCBC(D_EBFBE0_801B8220[arg0]) * 8) - 8), (arg2 + 9.0f),
-                            D_EBFBE0_801B8220[arg0]);
+                                D_EBFBE0_801B8220[arg0]);
 }
 
 void func_EBFBE0_80197F74(s32 arg0, s32 arg1, s32 arg2) {
@@ -1662,8 +1662,8 @@ void func_EBFBE0_80197F74(s32 arg0, s32 arg1, s32 arg2) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, D_EBFBE0_801AF0D0[i], D_EBFBE0_801AF0DC[i], D_EBFBE0_801AF0E8[i], 255);
         Graphics_DisplaySmallText(temp_fs1 + arg1, arg2, 1.0f, 1.0f, D_EBFBE0_801AF0C4[i]);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-        Graphics_DisplaySmallNumber(arg1 + temp_fs1 - ((func_8008BCBC(D_EBFBE0_801B81A8[arg0][i]) - 1) * 8), arg2 + 9.0f,
-                                D_EBFBE0_801B81A8[arg0][i]);
+        Graphics_DisplaySmallNumber(arg1 + temp_fs1 - ((func_8008BCBC(D_EBFBE0_801B81A8[arg0][i]) - 1) * 8),
+                                    arg2 + 9.0f, D_EBFBE0_801B81A8[arg0][i]);
     }
 }
 
@@ -1767,7 +1767,8 @@ void func_EBFBE0_80198608(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
                 continue;
             }
             gDPSetPrimColor(gMasterDisp++, 0, 0, D_EBFBE0_801AF0D0[i], D_EBFBE0_801AF0DC[i], D_EBFBE0_801AF0E8[i], 255);
-            Graphics_DisplaySmallText(arg2 + var_fs1 - 1.0f, arg3 + 24.0f + 8.0f + 1.0f, 1.0f, 1.0f, D_EBFBE0_801AF0C4[i]);
+            Graphics_DisplaySmallText(arg2 + var_fs1 - 1.0f, arg3 + 24.0f + 8.0f + 1.0f, 1.0f, 1.0f,
+                                      D_EBFBE0_801AF0C4[i]);
         }
     }
 }

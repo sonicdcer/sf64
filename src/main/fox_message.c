@@ -99,7 +99,6 @@ typedef enum {
     MSGCHAR_PIP,
 } CharCode;
 
-
 u16* Message_PtrFromId(u16 msgId) {
     s32 i;
     MsgLookup* lookup = gMsgLookup;
@@ -151,8 +150,9 @@ s32 Message_GetCharCount(u16* msgPtr) {
 }
 
 void Message_DisplayChar(Gfx** gfxPtr, u16 msgChar, s32 xpos, s32 ypos) {
-    gDPLoadTextureBlock_4b((*gfxPtr)++, gTextCharTextures[msgChar >> 2], G_IM_FMT_CI, 16, 13, msgChar & 3, G_TX_NOMIRROR | G_TX_WRAP,
-                           G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+    gDPLoadTextureBlock_4b((*gfxPtr)++, gTextCharTextures[msgChar >> 2], G_IM_FMT_CI, 16, 13, msgChar & 3,
+                           G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
+                           G_TX_NOLOD);
     gSPTextureRectangle((*gfxPtr)++, xpos << 2, ypos << 2, (xpos + 13) << 2, (ypos + 13) << 2, G_TX_RENDERTILE, 0x40, 0,
                         0x400, 0x400);
 }

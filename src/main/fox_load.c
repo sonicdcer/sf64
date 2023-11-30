@@ -26,7 +26,6 @@ OverlayInit sCurrentOverlay = {
       /* 0xF */ NO_SEGMENT },
 };
 
-
 void Overlay_LoadSegment(void* vRomAddress, void* dest, ptrdiff_t size) {
     s32 i;
 
@@ -66,7 +65,8 @@ u8 Overlay_Init(OverlayInit* ovlInit) {
         }
     }
     segment = 0;
-    while ((segment < 15) && (ovlInit->assets[segment].start == sCurrentOverlay.assets[segment].start) && changeOvl == 0) {
+    while ((segment < 15) && (ovlInit->assets[segment].start == sCurrentOverlay.assets[segment].start) &&
+           changeOvl == 0) {
         if (ovlInit->assets[segment].start != 0) {
             gSegments[segment + 1] = K0_TO_PHYS(ramPtr);
             gSPSegment(gUnkDisp1++, segment + 1, K0_TO_PHYS(ramPtr));

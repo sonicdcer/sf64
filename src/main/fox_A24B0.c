@@ -191,7 +191,8 @@ void func_800A1FB0(Gfx** arg0, u8 arg1, u8 arg2) {
                 gViewport->vp.vtrans[1] = SCREEN_HEIGHT * D_80161A14 * 2;
                 gViewport->vp.vtrans[2] = G_MAXZ / 2;
                 gViewport->vp.vtrans[3] = 0;
-                gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH - 8, SCREEN_HEIGHT - 8);
+                gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH - 8,
+                              SCREEN_HEIGHT - 8);
                 break;
             default:
                 func_800A1F44();
@@ -465,7 +466,8 @@ void func_800A26C0(void) {
         }
         spBB = 0;
         if (D_801778A8 == 1) {
-            Graphics_FillRectangle(&gMasterDisp, 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1, D_80178390[0], D_801783A0[0], D_801783B0[0], D_80178380[0]);
+            Graphics_FillRectangle(&gMasterDisp, 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1, D_80178390[0],
+                                   D_801783A0[0], D_801783B0[0], D_80178380[0]);
             if ((D_80177898 == 4) || (D_80177898 == 8)) {
                 func_800BB5D0();
                 if (D_80161A2C != 0) {
@@ -478,12 +480,12 @@ void func_800A26C0(void) {
             for (i = 0; i < D_801778A8; i++) {
                 if (D_80178280[i].unk_224 != 0) {
 
-                    Graphics_FillRectangle(&gMasterDisp, D_800D2874[i], D_800D2894[i], D_800D2884[i], D_800D28A4[i], D_80178348,
-                                  D_80178350, D_80178354, D_80178340);
+                    Graphics_FillRectangle(&gMasterDisp, D_800D2874[i], D_800D2894[i], D_800D2884[i], D_800D28A4[i],
+                                           D_80178348, D_80178350, D_80178354, D_80178340);
                     spBB = 1;
                 } else {
                     Graphics_FillRectangle(&gMasterDisp, D_800D2874[i], D_800D2894[i], D_800D2884[i], D_800D28A4[i],
-                                  D_80178390[i], D_801783A0[i], D_801783B0[i], D_80178380[i]);
+                                           D_80178390[i], D_801783A0[i], D_801783B0[i], D_80178380[i]);
                 }
             }
         }
@@ -495,7 +497,8 @@ void func_800A26C0(void) {
         }
         func_80084688(0, D_80177C50);
         if (spBB == 0) {
-            Graphics_FillRectangle(&gMasterDisp, 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1, D_80178348, D_80178350, D_80178354, D_80178340);
+            Graphics_FillRectangle(&gMasterDisp, 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1, D_80178348, D_80178350,
+                                   D_80178354, D_80178340);
         }
         func_80016A50();
     }

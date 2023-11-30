@@ -336,7 +336,7 @@ void Animation_GetDListBoundingBox(Gfx* dList, s32 len, Vec3f* min, Vec3f* max) 
 }
 
 void Animation_GetSkeletonBoundingBox(Limb** skeletonSegment, AnimationHeader* animationSegment, s32 frame, Vec3f* min,
-                                   Vec3f* max) {
+                                      Vec3f* max) {
     JointKey* key;
     u16* frameData;
     AnimationHeader* animation;
@@ -780,13 +780,15 @@ void Graphics_DisplayHUDNumber(s32 xPos, s32 yPos, s32 number) {
     place = 1000000;
     for (place = 1000000; place != 1; place /= 10) {
         if ((number / place != 0) || (startNumber == true)) {
-            TextureRect_4bCI(&gMasterDisp, hudNumberTex[number / place], hudNumberPal[number / place], 16, 8, xPos, yPos, 1.0f, 1.0f);
+            TextureRect_4bCI(&gMasterDisp, hudNumberTex[number / place], hudNumberPal[number / place], 16, 8, xPos,
+                             yPos, 1.0f, 1.0f);
             startNumber = true;
             xPos += 9;
             number %= place;
         }
     }
-    TextureRect_4bCI(&gMasterDisp, hudNumberTex[number / place], hudNumberPal[number / place], 16, 8, xPos, yPos, 1.0f, 1.0f);
+    TextureRect_4bCI(&gMasterDisp, hudNumberTex[number / place], hudNumberPal[number / place], 16, 8, xPos, yPos, 1.0f,
+                     1.0f);
 }
 
 void* sSmallNumberTex[] = {
@@ -814,7 +816,7 @@ void Graphics_DisplaySmallNumber(s32 xPos, s32 yPos, s32 number) {
 char sSmallChars[] = " ABCDEFGHIJKLMNOPQRSTUVWXYZ!:-.0123456789";
 char sLargeChars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ. 0123456789st-";
 u8 sLargeCharWidths[] = { 15, 14, 14, 13, 13, 13, 14, 14, 5,  12, 14, 12, 16, 14, 15, 13, 16, 14, 13, 13, 13,
-                    16, 17, 17, 16, 13, 5,  16, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 10, 9,  14, 0 };
+                          16, 17, 17, 16, 13, 5,  16, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 10, 9,  14, 0 };
 void* sLargeCharTex[] = {
     0x05008020, 0x05008110, 0x05008200, 0x050082F0, 0x050083E0, 0x050084D0, 0x050085C0, 0x050086B0, 0x050087A0,
     0x05008890, 0x05008980, 0x05008A70, 0x05008B60, 0x05008C50, 0x05008D40, 0x05008E30, 0x05008F20, 0x05009010,
