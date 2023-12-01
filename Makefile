@@ -112,7 +112,7 @@ endif
 
 ### Compiler ###
 
-IDO              := $(TOOLS)/ido-static-recomp/build/5.3/out/cc
+IDO              := $(TOOLS)/ido-recomp/$(DETECTED_OS)/cc
 AS              := $(MIPS_BINUTILS_PREFIX)as
 LD              := $(MIPS_BINUTILS_PREFIX)ld
 OBJCOPY         := $(MIPS_BINUTILS_PREFIX)objcopy

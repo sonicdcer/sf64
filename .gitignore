@@ -14,3 +14,4 @@ ctx.c.m2c
 *.bin
 /build
 tools/mio0
+tools/ido-recomp
