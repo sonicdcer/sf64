@@ -349,14 +349,14 @@ void func_800788B0(Object_8C* arg0) {
 
     switch (D_80178234) {
         case 1:
-            func_8005980C(arg0->unk_70);        
+            func_8005980C(arg0->unk_70);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 128, 128, 128, 255);
             gSPDisplayList(gMasterDisp++, D_601FF80);
             return;
         case 13:
             RCP_SetupDL(&gMasterDisp, 0x43);
             temp_ft3 = Math_ModF(arg0->unk_40, 4.0f);
-            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32)arg0->unk_6C);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32) arg0->unk_6C);
             tmp = &D_800D173C[(s32) (temp_ft3 * 4.0f)];
             gDPSetEnvColor(gMasterDisp++, tmp[0], tmp[1], tmp[2], 255);
             func_8005980C(arg0->unk_70);
@@ -366,7 +366,12 @@ void func_800788B0(Object_8C* arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80078A64.s")
+void func_80078A64(Object_8C* arg0) {
+    func_8005980C(arg0->unk_70);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, arg0->unk_44);
+    gSPDisplayList(gMasterDisp++, D_20112C0);
+}
+
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80078AE0.s")
 
