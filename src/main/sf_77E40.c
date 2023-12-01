@@ -333,7 +333,15 @@ void func_8007868C(Object_8C* arg0) {
     RCP_SetupDL(&gMasterDisp, 0x40);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007879C.s")
+void func_8007879C(Object_8C* arg0) {
+    func_800B9B38(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
+    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+    Matrix_Scale(gGfxMatrix, arg0->unk_70 * 0.6f, 1.0f, arg0->unk_70 * 3.5f, (u8) 1);
+    Matrix_RotateX(gGfxMatrix, (M_PI / 2.0f), 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
+    gSPDisplayList(gMasterDisp++, D_1029780);
+    RCP_SetupDL(&gMasterDisp, 0x40);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_800788B0.s")
 
