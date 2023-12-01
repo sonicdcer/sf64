@@ -1,13 +1,13 @@
 #include "global.h"
 
 void func_80084370(s32 arg0) {
-    func_8009F574(&gMasterDisp, 0, 0, arg0, SCREEN_HEIGHT, 0, 0, 0, 255);
-    func_8009F574(&gMasterDisp, SCREEN_WIDTH - arg0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, 255);
+    Graphics_FillRectangle(&gMasterDisp, 0, 0, arg0, SCREEN_HEIGHT, 0, 0, 0, 255);
+    Graphics_FillRectangle(&gMasterDisp, SCREEN_WIDTH - arg0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, 255);
 }
 
 void func_800843FC(s32 arg0) {
-    func_8009F574(&gMasterDisp, 0, 0, SCREEN_WIDTH, arg0, 0, 0, 0, 255);
-    func_8009F574(&gMasterDisp, 0, SCREEN_HEIGHT - arg0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, 255);
+    Graphics_FillRectangle(&gMasterDisp, 0, 0, SCREEN_WIDTH, arg0, 0, 0, 0, 255);
+    Graphics_FillRectangle(&gMasterDisp, 0, SCREEN_HEIGHT - arg0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, 255);
 }
 
 void func_80084488(s32 arg0) {
@@ -16,7 +16,7 @@ void func_80084488(s32 arg0) {
     func_800B8FA8();
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -150.0f, 0);
-    for (var_s1 = 0; var_s1 < MIN(360, arg0 * 15); var_s1 += 0xF) {
+    for (var_s1 = 0; var_s1 < MIN(360, arg0 * 15); var_s1 += 15) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, MIN((arg0 - (var_s1 / 15)) * 15, 255));
         Matrix_Push(&gGfxMatrix);
         Matrix_RotateZ(gGfxMatrix, var_s1 * M_DTOR, 1);

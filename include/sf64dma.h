@@ -89,34 +89,34 @@ typedef struct {
 
 extern DmaEntry gDmaTable[]; // 178A70
 
-extern OverlayInit D_800CA3B4[1]; // sets segment 15 with no overlay
-extern OverlayInit D_800CA44C[6]; // overlay EF0260
-extern OverlayInit D_800CA7DC[1]; // EBFBE0
-extern OverlayInit D_800CA874[1]; // EBFBE0
-extern OverlayInit D_800CA90C[1]; // EBFBE0
-extern OverlayInit D_800CA9A4[1]; // EBFBE0
-extern OverlayInit D_800CAA3C[1]; // DF4260
-extern OverlayInit D_800CAAD4[2]; // E08400
-extern OverlayInit D_800CAC04[6]; // E6A810
-extern OverlayInit D_800CAF94[2]; // E08400
-extern OverlayInit D_800CB0C4[1]; // E51970
-extern OverlayInit D_800CB15C[1]; // E16C50
-extern OverlayInit D_800CB1F4[1]; // E16C50
-extern OverlayInit D_800CB28C[2]; // E51970
-extern OverlayInit D_800CB3BC[1]; // E16C50
-extern OverlayInit D_800CB454[1]; // E9F1D0
-extern OverlayInit D_800CB4EC[1]; // E16C50
-extern OverlayInit D_800CB584[1]; // E16C50
-extern OverlayInit D_800CB61C[1]; // DF4260
-extern OverlayInit D_800CB6B4[1]; // E9F1D0
-extern OverlayInit D_800CB74C[2]; // E9F1D0
-extern OverlayInit D_800CB87C[1]; // E08400
-extern OverlayInit D_800CB914[1]; // E51970
-extern OverlayInit D_800CB9AC[1]; // E51970
-extern OverlayInit D_800CBA44[2]; // E6A810
-extern OverlayInit D_800CBB74[1]; // DF4260
-extern OverlayInit D_800CBC0C[2]; // E08400
-extern OverlayInit D_800CBD3C[1]; // EFFA40
+extern OverlayInit sLogoOverlay[1]; // sets segment 15 with no overlay
+extern OverlayInit sCreditsOverlay_6[6]; // overlay EF0260
+extern OverlayInit sEBFBE0_Overlay1[1]; // EBFBE0
+extern OverlayInit sEBFBE0_Overlay2[1]; // EBFBE0
+extern OverlayInit sEBFBE0_Overlay3[1]; // EBFBE0
+extern OverlayInit sEBFBE0_Overlay4[1]; // EBFBE0
+extern OverlayInit sDF4260_Overlay1[1]; // DF4260
+extern OverlayInit sE08400_Overlay1_2[2]; // E08400
+extern OverlayInit sE6A810_Overlay1_6[6]; // E6A810
+extern OverlayInit sE08400_Overlay2_2[2]; // E08400
+extern OverlayInit sE51970_Overlay1[1]; // E51970
+extern OverlayInit sE16C50_Overlay1[1]; // E16C50
+extern OverlayInit sE16C50_Overlay2[1]; // E16C50
+extern OverlayInit sE51970_Overlay2_2[2]; // E51970
+extern OverlayInit sE16C50_Overlay3[1]; // E16C50
+extern OverlayInit sE9F1D0_Overlay1[1]; // E9F1D0
+extern OverlayInit sE16C50_Overlay4[1]; // E16C50
+extern OverlayInit sE16C50_Overlay5[1]; // E16C50
+extern OverlayInit sDF4260_Overlay2[1]; // DF4260
+extern OverlayInit sE9F1D0_Overlay2[1]; // E9F1D0
+extern OverlayInit sE9F1D0_Overlay3_2[2]; // E9F1D0
+extern OverlayInit sE08400_Overlay3[1]; // E08400
+extern OverlayInit sE51970_Overlay3[1]; // E51970
+extern OverlayInit sE51970_Overlay4[1]; // E51970
+extern OverlayInit sE6A810_Overlay2_2[2]; // E6A810
+extern OverlayInit sDF4260_Overlay3[1]; // DF4260
+extern OverlayInit sE08400_Overlay4_2[2]; // E08400
+extern OverlayInit sEFFA40_Overlay[1]; // EFFA40
 
 DECLARE_SEGMENT(makerom);
 DECLARE_SEGMENT(main);

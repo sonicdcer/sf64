@@ -1467,7 +1467,7 @@ void func_800656D4(Object_2F4* arg0) {
         arg0->unk_180 = D_80178280[0].unk_074;
     }
     if (arg0->unk_0BC != 0) {
-        func_8009BD38(&arg0->obj.rot.x, 0.0f, 0.3f, 4.0f, 0.001f);
+        Math_SmoothStepToAngle(&arg0->obj.rot.x, 0.0f, 0.3f, 4.0f, 0.001f);
     } else {
         if ((arg0->unk_078 == 0) &&
             ((fabsf(arg0->unk_180 - arg0->obj.pos.x) > 300.0f) || (fabsf(arg0->unk_188 - arg0->obj.pos.z) > 300.0f))) {
@@ -1484,10 +1484,10 @@ void func_800656D4(Object_2F4* arg0) {
             sp88 = (arg0->unk_180 + spD4) - arg0->obj.pos.x;
             sp84 = (arg0->unk_184 + spD0) - arg0->obj.pos.y;
             sp80 = (arg0->unk_188 + spCC) - arg0->obj.pos.z;
-            sp78 = func_8009F768(Math_Atan2F(sp88, sp80));
-            sp7C = func_8009F768(-Math_Atan2F(sp84, sqrtf((sp88 * sp88) + (sp80 * sp80))));
-            sp84 = func_8009BD38(&arg0->obj.rot.y, sp78, 0.3f, 4.0f, 0.001f);
-            func_8009BD38(&arg0->obj.rot.x, sp7C, 0.3f, 4.0f, 0.001f);
+            sp78 = Math_RadToDeg(Math_Atan2F(sp88, sp80));
+            sp7C = Math_RadToDeg(-Math_Atan2F(sp84, sqrtf((sp88 * sp88) + (sp80 * sp80))));
+            sp84 = Math_SmoothStepToAngle(&arg0->obj.rot.y, sp78, 0.3f, 4.0f, 0.001f);
+            Math_SmoothStepToAngle(&arg0->obj.rot.x, sp7C, 0.3f, 4.0f, 0.001f);
         }
         if ((fabsf(arg0->unk_180 - arg0->obj.pos.x) < 60.0f) && (fabsf(arg0->unk_184 - arg0->obj.pos.y) < 60.0f) &&
             (fabsf(arg0->unk_188 - arg0->obj.pos.z) < 60.0f) && ((spC4 == 2) || (spC4 == 3) || (spC4 == 4))) {
@@ -1499,7 +1499,7 @@ void func_800656D4(Object_2F4* arg0) {
             func_80060FBC(&arg0->obj, &arg0->unk_100);
         }
     }
-    func_8009F6CC(&sp98, arg0->obj.rot.x, arg0->obj.rot.y, arg0->unk_124.y);
+    Math_Vec3fFromAngles(&sp98, arg0->obj.rot.x, arg0->obj.rot.y, arg0->unk_124.y);
     arg0->unk_0E8 = sp98.x;
     arg0->unk_0EC = sp98.y;
     arg0->unk_0F0 = sp98.z - D_80177D08;
@@ -1509,7 +1509,7 @@ void func_800656D4(Object_2F4* arg0) {
     if (arg0->unk_0B4 == 1) {
         if (arg0->unk_0BE == 0) {
             arg0->unk_0BE = 30;
-            func_8009F6CC(&sp98, arg0->obj.rot.x, arg0->obj.rot.y, 120.0f);
+            Math_Vec3fFromAngles(&sp98, arg0->obj.rot.x, arg0->obj.rot.y, 120.0f);
             func_8007F04C(0x161, arg0->obj.pos.x + sp98.x, arg0->obj.pos.y + sp98.y, arg0->obj.pos.z + sp98.z,
                           arg0->obj.rot.x, arg0->obj.rot.y, arg0->obj.rot.z, 0.0f, 0.0f, 0.0f, sp98.x, sp98.y, sp98.z,
                           1.0f);
@@ -1518,7 +1518,7 @@ void func_800656D4(Object_2F4* arg0) {
         if (sp84 < 0.0f) {
             var_fv0 = 30.0f;
         }
-        func_8009BD38(&arg0->obj.rot.z, var_fv0, 0.1f, 3.0f, 0.01f);
+        Math_SmoothStepToAngle(&arg0->obj.rot.z, var_fv0, 0.1f, 3.0f, 0.01f);
     }
     if ((D_801784AC == 4) &&
         (func_E6A810_801B6AEC(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z + D_80177D20) != 0)) {
@@ -1558,7 +1558,7 @@ void func_800656D4(Object_2F4* arg0) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_61B30/func_800656D4.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_enmy1/func_800656D4.s")
 #endif
 
 void func_800660F0(Object_2F4* arg0) {
@@ -1668,7 +1668,7 @@ void func_8006654C(Object_2F4* arg0) {
                 arg0->unk_114 = arg0->unk_114 + 0.5f;
             }
             arg0->unk_0B6++;
-            if (func_8009ACDC(&D_6029528) < arg0->unk_0B6) {
+            if (Animation_GetFrameCount(&D_6029528) < arg0->unk_0B6) {
                 arg0->unk_0B6 = 0;
             }
             if ((arg0->obj.rot.z < 15.0f) && (arg0->unk_0B6 < 0x14)) {
@@ -1848,24 +1848,24 @@ void func_80066EF0(Object_6C* arg0) {
             var_fa1 = 600.0f;
         }
         if (D_80178280[0].unk_0AC + var_fa1 < arg0->obj.pos.x) {
-            func_8009BC2C(&arg0->obj.pos.x, D_80178280[0].unk_0AC + var_fa1, 0.1f, 10.0f, 0.01f);
+            Math_SmoothStepToF(&arg0->obj.pos.x, D_80178280[0].unk_0AC + var_fa1, 0.1f, 10.0f, 0.01f);
         }
         if (arg0->obj.pos.x < D_80178280[0].unk_0AC - var_fa1) {
-            func_8009BC2C(&arg0->obj.pos.x, D_80178280[0].unk_0AC - var_fa1, 0.1f, 10.0f, 0.01f);
+            Math_SmoothStepToF(&arg0->obj.pos.x, D_80178280[0].unk_0AC - var_fa1, 0.1f, 10.0f, 0.01f);
         }
     }
     if (arg0->obj.pos.y > 650.0f) {
-        func_8009BC2C(&arg0->obj.pos.y, 650.0f, 0.1f, 10.0f, 0.01f);
+        Math_SmoothStepToF(&arg0->obj.pos.y, 650.0f, 0.1f, 10.0f, 0.01f);
     }
     if (D_80177C98 == 0) {
         if (arg0->obj.pos.y < D_80177940 + 70.0f) {
-            func_8009BC2C(&arg0->obj.pos.y, D_80177940 + 70.0f, 0.1f, 5.0f, 0.01f);
+            Math_SmoothStepToF(&arg0->obj.pos.y, D_80177940 + 70.0f, 0.1f, 5.0f, 0.01f);
         }
         if ((D_80178234 == 0xD) && (D_80178284 != 0)) {
             arg0->obj.pos.z += 20.0f;
         }
     } else if (arg0->obj.pos.y < -500.0f) {
-        func_8009BC2C(&arg0->obj.pos.y, -500.0f, 0.1f, 5.0f, 0.01f);
+        Math_SmoothStepToF(&arg0->obj.pos.y, -500.0f, 0.1f, 5.0f, 0.01f);
     }
     if ((D_801778E8 != 0) && (arg0->unk_40 == 0) && (D_801737E0[1].obj.status == 2)) {
         if (fabsf(arg0->obj.pos.x - D_801737E0[1].obj.pos.x) < 200.0f) {
@@ -1884,7 +1884,7 @@ void func_800671D0(Object_6C* arg0) {
     Vec3f sp40;
     Vec3f sp34;
 
-    func_8009BC2C(&arg0->unk_50, 10.0f, 1.0f, 2.0f, 0.0f);
+    Math_SmoothStepToF(&arg0->unk_50, 10.0f, 1.0f, 2.0f, 0.0f);
     if (arg0->unk_50 > 30.0f) {
         var_v0 = 0;
     } else if (arg0->unk_50 > 20.0f) {
@@ -1940,11 +1940,11 @@ void func_8006753C(Object_2F4* arg0) {
     arg0->obj.rot.y += 1.0f;
     if (D_80177880 == 1) {
         if (D_80178234 == 0x12) {
-            func_8009BC2C(&arg0->obj.pos.x, -2000.0f, 0.05f, 60.0f, 0.01f);
-            func_8009BC2C(&arg0->obj.pos.y, -200.0f, 0.05f, 3.0f, 0.01f);
-            func_8009BC2C(&arg0->obj.pos.z, 0.0f, 0.05f, 0.f, 0.01f);
+            Math_SmoothStepToF(&arg0->obj.pos.x, -2000.0f, 0.05f, 60.0f, 0.01f);
+            Math_SmoothStepToF(&arg0->obj.pos.y, -200.0f, 0.05f, 3.0f, 0.01f);
+            Math_SmoothStepToF(&arg0->obj.pos.z, 0.0f, 0.05f, 0.f, 0.01f);
         } else {
-            func_8009BC2C(&arg0->obj.pos.y, 300.0f, 0.05f, 50.0f, 0.01f);
+            Math_SmoothStepToF(&arg0->obj.pos.y, 300.0f, 0.05f, 50.0f, 0.01f);
         }
     }
     if (arg0->unk_0D0 != 0) {
@@ -2070,7 +2070,7 @@ void func_80067BEC(Object_6C* arg0) {
                 break;
         }
     } else {
-        func_8009BC2C(&arg0->unk_68, 2.5f, 1.0f, 0.5f, 0.0f);
+        Math_SmoothStepToF(&arg0->unk_68, 2.5f, 1.0f, 0.5f, 0.0f);
         arg0->obj.pos.x += (D_80178280[arg0->unk_4E].unk_074 - arg0->obj.pos.x) * 0.5f;
         if (D_80178280[arg0->unk_4E].unk_1CC == 1) {
             arg0->obj.pos.y += ((D_80178280[arg0->unk_4E].unk_078 + 50.0f) - arg0->obj.pos.y) * 0.5f;
@@ -2101,7 +2101,7 @@ void func_80068020(Object_6C* arg0) {
 
     switch (arg0->unk_46) {
         case 0:
-            func_8009BC2C(&arg0->unk_68, 0.4f, 1.0f, 0.05f, 0.0f);
+            Math_SmoothStepToF(&arg0->unk_68, 0.4f, 1.0f, 0.05f, 0.0f);
             func_80066EF0(arg0);
             func_800671D0(arg0);
             if (arg0->unk_4C != 0) {
@@ -2137,9 +2137,9 @@ void func_80068020(Object_6C* arg0) {
             break;
         case 1:
             if (arg0->unk_48 >= 0x1F) {
-                func_8009BC2C(&arg0->unk_68, 1.0f, 1.0f, 0.06f, 0.0f);
+                Math_SmoothStepToF(&arg0->unk_68, 1.0f, 1.0f, 0.06f, 0.0f);
             } else {
-                func_8009BC2C(&arg0->unk_68, 0.0f, 1.0f, 0.06f, 0.0f);
+                Math_SmoothStepToF(&arg0->unk_68, 0.0f, 1.0f, 0.06f, 0.0f);
             }
             arg0->obj.pos.x += (D_80178280[arg0->unk_4E].unk_074 - arg0->obj.pos.x) * 0.5f;
             if (D_80178280[arg0->unk_4E].unk_1CC == 1) {
@@ -2153,7 +2153,8 @@ void func_80068020(Object_6C* arg0) {
                 arg0->obj.pos.z += (D_80178280[arg0->unk_4E].unk_138 - arg0->obj.pos.z) * 0.5f;
             }
             arg0->obj.rot.z += 22.0f;
-            func_8009BD38(&arg0->obj.rot.y, func_8009F768(-D_80178280[arg0->unk_4E].unk_058), 0.2f, 10.0f, 0.0f);
+            Math_SmoothStepToAngle(&arg0->obj.rot.y, Math_RadToDeg(-D_80178280[arg0->unk_4E].unk_058), 0.2f, 10.0f,
+                                   0.0f);
             if (arg0->unk_48 == 0) {
                 func_80060FBC(&arg0->obj, &arg0->unk_5C);
             }
@@ -2251,9 +2252,9 @@ void func_80068914(Object_6C* arg0) {
             arg0->obj.pos.z += (D_80178280[arg0->unk_4E].unk_138 - 100.0f - arg0->obj.pos.z) * 0.3f;
         }
         if (arg0->unk_48 == 0) {
-            func_8009BC2C(&arg0->unk_68, 5.0f, 0.2f, 15.0f, 0.01f);
-            func_8009BC2C(&arg0->unk_50, 0.0f, 0.1f, 0.03f, 0.0f);
-            func_8009BC2C(&arg0->unk_54, 4.0f, 0.1f, 0.2f, 0.01f);
+            Math_SmoothStepToF(&arg0->unk_68, 5.0f, 0.2f, 15.0f, 0.01f);
+            Math_SmoothStepToF(&arg0->unk_50, 0.0f, 0.1f, 0.03f, 0.0f);
+            Math_SmoothStepToF(&arg0->unk_54, 4.0f, 0.1f, 0.2f, 0.01f);
         }
         if (arg0->unk_68 <= 6.5f) {
             func_80060FBC(&arg0->obj, &arg0->unk_5C);
@@ -2868,4 +2869,4 @@ void func_8006A3E8(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_61B30/D_800D63D0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_enmy1/D_800D63D0.s")

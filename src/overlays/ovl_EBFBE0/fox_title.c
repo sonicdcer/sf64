@@ -267,18 +267,18 @@ void func_EBFBE0_80187CA8(void) {
     s32 temp = 20;
     s32 temp2 = 36;
 
-    func_800B8DD0(&gMasterDisp, 0x53);
+    RCP_SetupDL(&gMasterDisp, 0x53);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
-    func_800A1200(temp2, temp, 1.0f, 1.0f, D_EBFBE0_801ADA44);
+    Graphics_DisplaySmallText(temp2, temp, 1.0f, 1.0f, D_EBFBE0_801ADA44);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     TextureRect_8bIA(&gMasterDisp, D_5000300, 16, 8, 148.0f, temp, 1.0f, 1.0f);
     TextureRect_8bIA(&gMasterDisp, D_5000200, 16, 8, 164, temp, 1.0f, 1.0f);
 
-    func_800B8DD0(&gMasterDisp, 0x53);
+    RCP_SetupDL(&gMasterDisp, 0x53);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
@@ -290,27 +290,27 @@ void func_EBFBE0_80187E28(void) {
     s32 temp;
     s32 i;
 
-    func_800B8DD0(&gMasterDisp, 0x53);
+    RCP_SetupDL(&gMasterDisp, 0x53);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
-    func_800A1200(94, 38, 1.0f, 1.0f, "RANK");
-    func_800A1200(146, 38, 1.0f, 1.0f, "NAME");
-    func_800A1200(192, 38, 1.0f, 1.0f, "HITS");
+    Graphics_DisplaySmallText(94, 38, 1.0f, 1.0f, "RANK");
+    Graphics_DisplaySmallText(146, 38, 1.0f, 1.0f, "NAME");
+    Graphics_DisplaySmallText(192, 38, 1.0f, 1.0f, "HITS");
     temp = 55;
 
     for (i = 0; i < D_EBFBE0_801B8288; i++) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-        func_8009FEA0(105 - ((func_8008BCBC(i + 1) - 1) * 8), temp, i + 1);
+        Graphics_DisplaySmallNumber(105 - ((func_8008BCBC(i + 1) - 1) * 8), temp, i + 1);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
-        func_800A1200(150, temp, 1.0f, 1.0f, &D_EBFBE0_801B8248[i][0]);
+        Graphics_DisplaySmallText(150, temp, 1.0f, 1.0f, &D_EBFBE0_801B8248[i][0]);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-        func_8009FEA0(211 - ((func_8008BCBC(D_EBFBE0_801B8220[i]) - 1) * 8), temp, D_EBFBE0_801B8220[i]);
+        Graphics_DisplaySmallNumber(211 - ((func_8008BCBC(D_EBFBE0_801B8220[i]) - 1) * 8), temp, D_EBFBE0_801B8220[i]);
         temp += 17;
     }
 }
@@ -568,8 +568,9 @@ void func_EBFBE0_801881FC(void) {
     D_EBFBE0_801B8350[3].unk_5C = 0;
 
     for (i = 0; i < 4; i++) {
-        func_8009AA20(D_EBFBE0_801ADA00[i].unk_4,
-                      D_EBFBE0_801B8350[i].unk_58 % func_8009ACDC(D_EBFBE0_801ADA00[i].unk_4), D_EBFBE0_801B86E0[i]);
+        Animation_GetFrameData(D_EBFBE0_801ADA00[i].unk_4,
+                               D_EBFBE0_801B8350[i].unk_58 % Animation_GetFrameCount(D_EBFBE0_801ADA00[i].unk_4),
+                               D_EBFBE0_801B86E0[i]);
     }
 
     D_EBFBE0_801B86A4 = 0;
@@ -594,11 +595,11 @@ void func_EBFBE0_801888E8(void) {
             break;
 
         case 1:
-            func_8009BC2C(&D_EBFBE0_801B86C8, -10.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
-            func_8009BC2C(&D_EBFBE0_801B86CC, 57.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
-            func_8009BC2C(&D_EBFBE0_801B8304, 13.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
-            func_8009BC2C(&D_EBFBE0_801B8308, 2.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
-            func_8009BC2C(&D_EBFBE0_801B830C, 15.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
+            Math_SmoothStepToF(&D_EBFBE0_801B86C8, -10.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
+            Math_SmoothStepToF(&D_EBFBE0_801B86CC, 57.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
+            Math_SmoothStepToF(&D_EBFBE0_801B8304, 13.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
+            Math_SmoothStepToF(&D_EBFBE0_801B8308, 2.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
+            Math_SmoothStepToF(&D_EBFBE0_801B830C, 15.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
             D_EBFBE0_801B82CC *= 1.04f;
 
             if (D_EBFBE0_801B86CC == 57.0f) {
@@ -636,7 +637,8 @@ void func_EBFBE0_801888E8(void) {
         case 4:
             if (D_EBFBE0_801B82A8 == 0) {
                 D_EBFBE0_801B8350[D_EBFBE0_801B8340].unk_54 = 0;
-                func_8009BC2C(&D_EBFBE0_801B8350[D_EBFBE0_801B8340].unk_18, 0.0f, D_EBFBE0_801B82CC, 100.0f, 0.001f);
+                Math_SmoothStepToF(&D_EBFBE0_801B8350[D_EBFBE0_801B8340].unk_18, 0.0f, D_EBFBE0_801B82CC, 100.0f,
+                                   0.001f);
                 D_EBFBE0_801B82CC *= 1.07f;
 
                 if (D_EBFBE0_801B8350[D_EBFBE0_801B8340].unk_18 == 0.0f) {
@@ -669,25 +671,25 @@ void func_EBFBE0_801888E8(void) {
             }
             D_EBFBE0_801B8350[1].unk_20 += D_EBFBE0_801B8350[1].unk_24;
         } else {
-            func_8009BC2C(&D_EBFBE0_801B8350[1].unk_20, 0.0f, 0.3f, 100.0f, 0.1f);
+            Math_SmoothStepToF(&D_EBFBE0_801B8350[1].unk_20, 0.0f, 0.3f, 100.0f, 0.1f);
         }
     }
 
     if ((D_EBFBE0_801B86A4 >= 3) && (D_EBFBE0_801B9040 != 0)) {
-        func_8009BC2C(&D_EBFBE0_801B86C8, -10.0f, D_EBFBE0_801B82D0, 100.0f, 0.0001f);
-        func_8009BC2C(&D_EBFBE0_801B86CC, 57.0f, D_EBFBE0_801B82D0, 100.0f, 0.0001f);
-        func_8009BC2C(&D_EBFBE0_801B905C, 124.0f, D_EBFBE0_801B82D0, 100.0f, 0.0001f);
-        func_8009BC2C(&D_EBFBE0_801B9060, 242.0f, D_EBFBE0_801B82D0, 100.0f, 0.0001f);
+        Math_SmoothStepToF(&D_EBFBE0_801B86C8, -10.0f, D_EBFBE0_801B82D0, 100.0f, 0.0001f);
+        Math_SmoothStepToF(&D_EBFBE0_801B86CC, 57.0f, D_EBFBE0_801B82D0, 100.0f, 0.0001f);
+        Math_SmoothStepToF(&D_EBFBE0_801B905C, 124.0f, D_EBFBE0_801B82D0, 100.0f, 0.0001f);
+        Math_SmoothStepToF(&D_EBFBE0_801B9060, 242.0f, D_EBFBE0_801B82D0, 100.0f, 0.0001f);
 
         for (i = 0; i < 4; i++) {
-            func_8009BC2C(&D_EBFBE0_801B8350[i].unk_28, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.01f);
-            func_8009BC2C(&D_EBFBE0_801B8350[i].unk_2C, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.01f);
-            func_8009BC2C(&D_EBFBE0_801B8350[i].unk_30, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.01f);
-            func_8009BC2C(&D_EBFBE0_801B8350[i].unk_34, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.01f);
-            func_8009BC2C(&D_EBFBE0_801B8350[i].unk_38, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.01f);
-            func_8009BC2C(&D_EBFBE0_801B8350[i].unk_3C, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.01f);
-            func_8009BC2C(&D_EBFBE0_801B8350[i].unk_40, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.01f);
-            func_8009BC2C(&D_EBFBE0_801B8350[i].unk_44, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.01f);
+            Math_SmoothStepToF(&D_EBFBE0_801B8350[i].unk_28, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.01f);
+            Math_SmoothStepToF(&D_EBFBE0_801B8350[i].unk_2C, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.01f);
+            Math_SmoothStepToF(&D_EBFBE0_801B8350[i].unk_30, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.01f);
+            Math_SmoothStepToF(&D_EBFBE0_801B8350[i].unk_34, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.01f);
+            Math_SmoothStepToF(&D_EBFBE0_801B8350[i].unk_38, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.01f);
+            Math_SmoothStepToF(&D_EBFBE0_801B8350[i].unk_3C, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.01f);
+            Math_SmoothStepToF(&D_EBFBE0_801B8350[i].unk_40, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.01f);
+            Math_SmoothStepToF(&D_EBFBE0_801B8350[i].unk_44, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.01f);
         }
 
         D_EBFBE0_801B82D0 *= 1.1f;
@@ -750,8 +752,8 @@ void func_EBFBE0_80189208(void) {
                             180.0f / M_PI;
         D_EBFBE0_801B86DC = (Math_Atan2F(D_EBFBE0_801B905C, D_EBFBE0_801B9064) * 180.0f) / M_PI;
 
-        func_8009BC2C(&D_EBFBE0_801B86C8, D_EBFBE0_801B86D8, 0.1f, 100.0f, 0.0001f);
-        func_8009BC2C(&D_EBFBE0_801B86CC, D_EBFBE0_801B86DC, 0.1f, 100.0f, 0.0001f);
+        Math_SmoothStepToF(&D_EBFBE0_801B86C8, D_EBFBE0_801B86D8, 0.1f, 100.0f, 0.0001f);
+        Math_SmoothStepToF(&D_EBFBE0_801B86CC, D_EBFBE0_801B86DC, 0.1f, 100.0f, 0.0001f);
     }
 
     func_EBFBE0_80191674(D_EBFBE0_801B86C8, D_EBFBE0_801B86CC, 100.0f, &D_EBFBE0_801B82E0, &D_EBFBE0_801B82E4,
@@ -892,7 +894,7 @@ void func_EBFBE0_8018994C(void) {
 
         case 1:
             if (D_EBFBE0_801B82A8 == 0) {
-                temp2 = func_8009BC2C(&D_EBFBE0_801B7BDC, 255.0f, D_EBFBE0_801B82CC, 100.0f, 1.0f);
+                temp2 = Math_SmoothStepToF(&D_EBFBE0_801B7BDC, 255.0f, D_EBFBE0_801B82CC, 100.0f, 1.0f);
                 D_EBFBE0_801B82CC *= 1.08f;
                 if (temp2 == 0.0f) {
                     D_EBFBE0_801B82A8 = 50;
@@ -906,10 +908,10 @@ void func_EBFBE0_8018994C(void) {
 
         case 2:
             if (D_EBFBE0_801B82A8 == 0) {
-                func_8009BC2C(&D_EBFBE0_801B7BDC, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.1f);
+                Math_SmoothStepToF(&D_EBFBE0_801B7BDC, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.1f);
                 D_EBFBE0_801B82D0 *= 1.06f;
                 if (D_EBFBE0_801B82AC == 0) {
-                    temp2 = func_8009BC2C(&D_EBFBE0_801B7BE0, 255.0f, D_EBFBE0_801B82CC, 100.0f, 1.0f);
+                    temp2 = Math_SmoothStepToF(&D_EBFBE0_801B7BE0, 255.0f, D_EBFBE0_801B82CC, 100.0f, 1.0f);
                     D_EBFBE0_801B82CC *= 1.08f;
                     if (temp2 == 0.0f) {
                         D_EBFBE0_801B82A8 = 30;
@@ -924,7 +926,7 @@ void func_EBFBE0_8018994C(void) {
 
         case 3:
             if (D_EBFBE0_801B82A8 == 0) {
-                func_8009BC2C(&D_EBFBE0_801B7BE0, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.1f);
+                Math_SmoothStepToF(&D_EBFBE0_801B7BE0, 0.0f, D_EBFBE0_801B82D0, 100.0f, 0.1f);
                 D_EBFBE0_801B82D0 *= 1.07f;
                 if (D_EBFBE0_801B7BB8 < 1200.0f) {
                     D_EBFBE0_801B7BB8 += 10.0f;
@@ -998,7 +1000,7 @@ void func_EBFBE0_8018994C(void) {
                 D_EBFBE0_801B9074 -= 0.5f;
             }
 
-            temp = func_8009BC2C(&D_EBFBE0_801B7BDC, 0.0f, D_EBFBE0_801B82DC, 100.0f, 0.1f);
+            temp = Math_SmoothStepToF(&D_EBFBE0_801B7BDC, 0.0f, D_EBFBE0_801B82DC, 100.0f, 0.1f);
 
             D_EBFBE0_801B82DC *= 1.06f;
 
@@ -1019,12 +1021,12 @@ void func_EBFBE0_8018994C(void) {
             }
 
             if (D_EBFBE0_801B86AC > -100.0f) {
-                func_8009BC2C(&D_EBFBE0_801B86C8, 15.0f, D_EBFBE0_801B82D4, 100.0f, 0.0001f);
-                func_8009BC2C(&D_EBFBE0_801B86CC, -35.0f, D_EBFBE0_801B82D4, 100.0f, 0.0001f);
+                Math_SmoothStepToF(&D_EBFBE0_801B86C8, 15.0f, D_EBFBE0_801B82D4, 100.0f, 0.0001f);
+                Math_SmoothStepToF(&D_EBFBE0_801B86CC, -35.0f, D_EBFBE0_801B82D4, 100.0f, 0.0001f);
                 D_EBFBE0_801B82D4 -= 0.000005f;
             } else {
-                func_8009BC2C(&D_EBFBE0_801B86C8, -20.0f, D_EBFBE0_801B82D8, 100.0f, 0.0001f);
-                func_8009BC2C(&D_EBFBE0_801B86CC, -25.0f, D_EBFBE0_801B82D8, 100.0f, 0.0001f);
+                Math_SmoothStepToF(&D_EBFBE0_801B86C8, -20.0f, D_EBFBE0_801B82D8, 100.0f, 0.0001f);
+                Math_SmoothStepToF(&D_EBFBE0_801B86CC, -25.0f, D_EBFBE0_801B82D8, 100.0f, 0.0001f);
 
                 if (D_EBFBE0_801B82B4 > 550) {
                     D_EBFBE0_801B82D8 += 0.0001f;
@@ -1215,7 +1217,7 @@ void func_EBFBE0_8018A644(void) {
             }
 
             if (D_EBFBE0_801B84D0 != 0.0f) {
-                func_8009BC2C(&D_EBFBE0_801B84D0, 0.0f, 0.09f, 70.0f, 1.0f);
+                Math_SmoothStepToF(&D_EBFBE0_801B84D0, 0.0f, 0.09f, 70.0f, 1.0f);
             }
 
             if (D_EBFBE0_801B84D0 == 0.0f) {
@@ -1374,11 +1376,11 @@ void func_EBFBE0_8018ACEC(void) {
             break;
 
         case 1:
-            func_8009BC2C(&D_EBFBE0_801B86A8, 30.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
-            func_8009BC2C(&D_EBFBE0_801B86AC, -15.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
-            func_8009BC2C(&D_801779A0, 0.0f, 0.05f, 100.0f, 0.0001f);
-            func_8009BC2C(&D_801779B8, -40.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
-            func_8009BC2C(&D_EBFBE0_801B86B0, 100.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
+            Math_SmoothStepToF(&D_EBFBE0_801B86A8, 30.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
+            Math_SmoothStepToF(&D_EBFBE0_801B86AC, -15.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
+            Math_SmoothStepToF(&D_801779A0, 0.0f, 0.05f, 100.0f, 0.0001f);
+            Math_SmoothStepToF(&D_801779B8, -40.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
+            Math_SmoothStepToF(&D_EBFBE0_801B86B0, 100.0f, D_EBFBE0_801B82CC, 100.0f, 0.0001f);
 
             D_EBFBE0_801B82CC *= 1.04f;
             if (D_EBFBE0_801B82B4 == 50) {
@@ -1576,9 +1578,9 @@ void func_EBFBE0_8018B5C4(void) {
                 };
 
                 if (D_EBFBE0_801B84E8[i].unk_38 == 0) {
-                    func_8009BC2C(&D_EBFBE0_801B84E8[i].unk_28, 0.0f, D_EBFBE0_801B84E8[i].unk_10, 100.0f, 0.01f);
-                    temp[i] =
-                        func_8009BC2C(&(D_EBFBE0_801B84E8[i].unk_24), 0.0f, D_EBFBE0_801B84E8[i].unk_10, 100.0f, 0.01f);
+                    Math_SmoothStepToF(&D_EBFBE0_801B84E8[i].unk_28, 0.0f, D_EBFBE0_801B84E8[i].unk_10, 100.0f, 0.01f);
+                    temp[i] = Math_SmoothStepToF(&(D_EBFBE0_801B84E8[i].unk_24), 0.0f, D_EBFBE0_801B84E8[i].unk_10,
+                                                 100.0f, 0.01f);
                     D_EBFBE0_801B84E8[i].unk_10 *= 1.04f;
                     if (temp[i] == 0.0f) {
                         func_8001A55C((f32*) &D_EBFBE0_801B84E8[i].unk_50, 0x1950107A);
@@ -1660,9 +1662,9 @@ void func_EBFBE0_8018B5C4(void) {
                     D_EBFBE0_801B84E8[3].unk_44 = 0.2f;
                 }
 
-                func_8009BC2C(&D_EBFBE0_801B82EC, 240.0f, 0.06f, 2.0f, 0.01f);
-                func_8009BC2C(&D_EBFBE0_801B82F0, 240.0f, 0.06f, 2.0f, 0.01f);
-                func_8009BC2C(&D_EBFBE0_801B82F4, 255.0f, 0.06f, 2.0f, 0.01f);
+                Math_SmoothStepToF(&D_EBFBE0_801B82EC, 240.0f, 0.06f, 2.0f, 0.01f);
+                Math_SmoothStepToF(&D_EBFBE0_801B82F0, 240.0f, 0.06f, 2.0f, 0.01f);
+                Math_SmoothStepToF(&D_EBFBE0_801B82F4, 255.0f, 0.06f, 2.0f, 0.01f);
 
                 D_80178548 = D_EBFBE0_801B82EC;
                 D_8017854C = D_EBFBE0_801B82F0;
@@ -1689,8 +1691,8 @@ void func_EBFBE0_8018B5C4(void) {
                 D_EBFBE0_801B84E8[1].unk_4C = 0;
             }
 
-            func_8009BC2C(&D_EBFBE0_801B86B4, 16.0f, 0.01f, 100.0f, 0.01f);
-            func_8009BC2C(&D_EBFBE0_801B86AC, 138.0f, 0.01f, 100.0f, 0.01f);
+            Math_SmoothStepToF(&D_EBFBE0_801B86B4, 16.0f, 0.01f, 100.0f, 0.01f);
+            Math_SmoothStepToF(&D_EBFBE0_801B86AC, 138.0f, 0.01f, 100.0f, 0.01f);
 
             func_EBFBE0_801914AC(D_EBFBE0_801B86BC, D_EBFBE0_801B86C0, D_EBFBE0_801B86C4, &D_80177978, &D_80177980,
                                  &D_80177988, D_EBFBE0_801B86B4, &D_801779A0, &D_801779B8, &D_801779C0,
@@ -1724,11 +1726,11 @@ void func_EBFBE0_8018B5C4(void) {
             if (D_EBFBE0_801B82A8 == 0) {
                 D_EBFBE0_801B84E8[3].unk_44 = 1.2f;
 
-                func_8009BC2C(&D_EBFBE0_801B84E8[3].unk_00.z, 900.0f, 0.06f, 100.0f, 0.0001f);
-                func_8009BC2C(&D_EBFBE0_801B86AC, 154.0f, 0.2f, 100.0f, 0.01f);
-                func_8009BC2C(&D_EBFBE0_801B86A8, -5.0f, 0.2f, 100.0f, 0.01f);
-                func_8009BC2C(&D_EBFBE0_801B86BC, 100.0f, 0.2f, 100.0f, 0.01f);
-                func_8009BC2C(&D_EBFBE0_801B86B4, 40.0f, 0.2f, 100.0f, 0.01f);
+                Math_SmoothStepToF(&D_EBFBE0_801B84E8[3].unk_00.z, 900.0f, 0.06f, 100.0f, 0.0001f);
+                Math_SmoothStepToF(&D_EBFBE0_801B86AC, 154.0f, 0.2f, 100.0f, 0.01f);
+                Math_SmoothStepToF(&D_EBFBE0_801B86A8, -5.0f, 0.2f, 100.0f, 0.01f);
+                Math_SmoothStepToF(&D_EBFBE0_801B86BC, 100.0f, 0.2f, 100.0f, 0.01f);
+                Math_SmoothStepToF(&D_EBFBE0_801B86B4, 40.0f, 0.2f, 100.0f, 0.01f);
 
                 func_EBFBE0_801914AC(D_EBFBE0_801B86BC, D_EBFBE0_801B86C0, D_EBFBE0_801B86C4, &D_80177978, &D_80177980,
                                      &D_80177988, D_EBFBE0_801B86B4, &D_801779A0, &D_801779B8, &D_801779C0,
@@ -1924,12 +1926,12 @@ void func_EBFBE0_8018C644(void) {
                         D_EBFBE0_801B84E8[i].unk_4C = 1;
                     }
 
-                    func_8009BC2C(&D_EBFBE0_801B84E8[i].unk_00.y, D_EBFBE0_801AE444[i], D_EBFBE0_801B84E8[i].unk_10,
-                                  100.0f, 0.001f);
-                    func_8009BC2C(&D_EBFBE0_801B84E8[i].unk_00.x, D_EBFBE0_801AE434[i], D_EBFBE0_801B84E8[i].unk_10,
-                                  100.0f, 0.001f);
-                    func_8009BC2C(&D_EBFBE0_801B84E8[i].unk_00.z, D_EBFBE0_801AE454[i], D_EBFBE0_801B84E8[i].unk_10,
-                                  100.0f, 0.001f);
+                    Math_SmoothStepToF(&D_EBFBE0_801B84E8[i].unk_00.y, D_EBFBE0_801AE444[i],
+                                       D_EBFBE0_801B84E8[i].unk_10, 100.0f, 0.001f);
+                    Math_SmoothStepToF(&D_EBFBE0_801B84E8[i].unk_00.x, D_EBFBE0_801AE434[i],
+                                       D_EBFBE0_801B84E8[i].unk_10, 100.0f, 0.001f);
+                    Math_SmoothStepToF(&D_EBFBE0_801B84E8[i].unk_00.z, D_EBFBE0_801AE454[i],
+                                       D_EBFBE0_801B84E8[i].unk_10, 100.0f, 0.001f);
 
                     D_EBFBE0_801B84E8[i].unk_10 *= 1.05f;
 
@@ -2119,7 +2121,7 @@ void func_EBFBE0_8018D2B8(s32 arg0) {
     Lights_SetOneLight(&gMasterDisp, D_EBFBE0_801B82E0, D_EBFBE0_801B82E4, D_EBFBE0_801B82E8, D_80178548, D_8017854C,
                        D_80178550, D_80178554, D_80178558, D_8017855C);
 
-    func_800B8DD0(&gMasterDisp, 0x17);
+    RCP_SetupDL(&gMasterDisp, 0x17);
 
     Matrix_Push(&gGfxMatrix);
 
@@ -2172,7 +2174,7 @@ void func_EBFBE0_8018D510(s32 arg0) {
     f32 var_fa0;
     f32 temp;
 
-    func_800B8DD0(&gMasterDisp, 0x43);
+    RCP_SetupDL(&gMasterDisp, 0x43);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     if (D_EBFBE0_801B84E8[arg0].unk_40 == 1) {
@@ -2223,7 +2225,7 @@ void func_EBFBE0_8018D80C(s32 arg0) {
     for (i = 0; i < D_EBFBE0_801B8100; i++) {
         switch (D_EBFBE0_801B8108[i]) {
             case 0:
-                func_8009BC2C(&D_EBFBE0_801B7FC0[i], D_EBFBE0_801B8060[i], 0.05f, 100.0f, 0.01f);
+                Math_SmoothStepToF(&D_EBFBE0_801B7FC0[i], D_EBFBE0_801B8060[i], 0.05f, 100.0f, 0.01f);
 
                 if (D_EBFBE0_801B7FC0[i] >= D_EBFBE0_801B8060[i]) {
                     D_EBFBE0_801B7FC0[i] = D_EBFBE0_801B8060[i];
@@ -2232,9 +2234,9 @@ void func_EBFBE0_8018D80C(s32 arg0) {
                 break;
 
             case 1:
-                func_8009BC2C(&D_EBFBE0_801B7D40[i], 0.0f, D_EBFBE0_801B7F20[i], 100.0f, 0.01f);
-                func_8009BC2C(&D_EBFBE0_801B7DE0[i], 0.0f, D_EBFBE0_801B7F20[i], 100.0f, 0.01f);
-                func_8009BC2C(&D_EBFBE0_801B7E80[i], -25.0f, D_EBFBE0_801B7F20[i], 100.0f, 0.01f);
+                Math_SmoothStepToF(&D_EBFBE0_801B7D40[i], 0.0f, D_EBFBE0_801B7F20[i], 100.0f, 0.01f);
+                Math_SmoothStepToF(&D_EBFBE0_801B7DE0[i], 0.0f, D_EBFBE0_801B7F20[i], 100.0f, 0.01f);
+                Math_SmoothStepToF(&D_EBFBE0_801B7E80[i], -25.0f, D_EBFBE0_801B7F20[i], 100.0f, 0.01f);
 
                 D_EBFBE0_801B7FC0[i] -= 0.002f;
                 if (D_EBFBE0_801B7FC0[i] < 0.0f) {
@@ -2259,7 +2261,7 @@ void func_EBFBE0_8018D80C(s32 arg0) {
     temp = sqrtf(SQ(D_80177988 - D_EBFBE0_801B84E8[arg0].unk_00.z) + SQ(D_80177978 - D_EBFBE0_801B84E8[arg0].unk_00.x));
     sp70 = Math_Atan2F(D_80177980 - D_EBFBE0_801B84E8[arg0].unk_00.y, temp);
 
-    func_800B8DD0(&gMasterDisp, 0x31);
+    RCP_SetupDL(&gMasterDisp, 0x31);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 253, 253, 255, 255);
     gDPSetEnvColor(gMasterDisp++, 251, 251, 255, 255);
@@ -2311,7 +2313,7 @@ void func_EBFBE0_8018DF0C(f32 arg0) {
     f32 sp30;
 
     func_EBFBE0_80191798(&sp34, &sp30);
-    func_800B8DD0(&gMasterDisp, 0x35);
+    RCP_SetupDL(&gMasterDisp, 0x35);
 
     if (arg0 != 0.0f) {
         D_EBFBE0_801B8688.pos.z = D_80177988 - arg0;
@@ -2344,7 +2346,7 @@ void func_EBFBE0_8018E058(void) {
     Matrix_Scale(gGfxMatrix, D_EBFBE0_801B8658.scale, D_EBFBE0_801B8658.scale, D_EBFBE0_801B8658.scale, 1);
 
     Matrix_SetGfxMtx(&gMasterDisp);
-    func_800B8DD0(&gMasterDisp, 0x17);
+    RCP_SetupDL(&gMasterDisp, 0x17);
 
     D_80177B8C = 1;
 
@@ -2402,7 +2404,7 @@ void func_EBFBE0_8018E200(void) {
         }
     }
 
-    func_800B8DD0(&gMasterDisp, 0x31);
+    RCP_SetupDL(&gMasterDisp, 0x31);
 
     for (i = 0; i < D_EBFBE0_801B7C98; i++) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 200, 200, D_EBFBE0_801B7CC8[i]);
@@ -2433,7 +2435,7 @@ void func_EBFBE0_8018E67C(s32 arg0) {
     Lights_SetOneLight(&gMasterDisp, D_EBFBE0_801B82E0, D_EBFBE0_801B82E4, D_EBFBE0_801B82E8, D_80178548, D_8017854C,
                        D_80178550, D_80178554, D_80178558, D_8017855C);
 
-    sp5C = D_EBFBE0_801B8350[arg0].unk_58 % func_8009ACDC(D_EBFBE0_801ADA00[arg0].unk_0);
+    sp5C = D_EBFBE0_801B8350[arg0].unk_58 % Animation_GetFrameCount(D_EBFBE0_801ADA00[arg0].unk_0);
 
     func_800BA1D0(D_80178320, D_80178328, D_80178330, 255, 995, 1000);
 
@@ -2448,8 +2450,8 @@ void func_EBFBE0_8018E67C(s32 arg0) {
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     }
 
-    func_8009AA20(D_EBFBE0_801ADA00[arg0].unk_0, sp5C, &sp60);
-    func_8009A72C(0, D_EBFBE0_801ADA00[arg0].skelanime, &sp60, NULL, NULL, NULL, &gIdentityMatrix);
+    Animation_GetFrameData(D_EBFBE0_801ADA00[arg0].unk_0, sp5C, &sp60);
+    Animation_DrawSkeleton(0, D_EBFBE0_801ADA00[arg0].skelanime, &sp60, NULL, NULL, NULL, &gIdentityMatrix);
 
     if (arg0 == 2) {
         gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -2493,9 +2495,9 @@ void func_EBFBE0_8018EA78(s32 arg0) {
     Vec3f sp48[50];
     s32 sp44;
 
-    sp44 = D_EBFBE0_801B8350[arg0].unk_58 % func_8009ACDC(D_EBFBE0_801ADA00[arg0].unk_4);
+    sp44 = D_EBFBE0_801B8350[arg0].unk_58 % Animation_GetFrameCount(D_EBFBE0_801ADA00[arg0].unk_4);
 
-    func_800B8DD0(&gMasterDisp, 0x17);
+    RCP_SetupDL(&gMasterDisp, 0x17);
 
     Lights_SetOneLight(&gMasterDisp, D_EBFBE0_801B82E0, D_EBFBE0_801B82E4, D_EBFBE0_801B82E8, D_80178548, D_8017854C,
                        D_80178550, D_80178554, D_80178558, D_8017855C);
@@ -2512,10 +2514,11 @@ void func_EBFBE0_8018EA78(s32 arg0) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    func_8009BEEC(sp48, D_EBFBE0_801B86E0[arg0], 1, func_8009AA20(D_EBFBE0_801ADA00[arg0].unk_4, sp44, &sp48), 0.2f,
-                  100.0f, 0.0001f);
-    func_8009A72C(1, D_EBFBE0_801ADA00[arg0].skelanime, D_EBFBE0_801B86E0[arg0], func_EBFBE0_8018EDC8, NULL, &arg0,
-                  &gIdentityMatrix);
+    Math_SmoothStepToVec3fArray(sp48, D_EBFBE0_801B86E0[arg0], 1,
+                                Animation_GetFrameData(D_EBFBE0_801ADA00[arg0].unk_4, sp44, &sp48), 0.2f, 100.0f,
+                                0.0001f);
+    Animation_DrawSkeleton(1, D_EBFBE0_801ADA00[arg0].skelanime, D_EBFBE0_801B86E0[arg0], func_EBFBE0_8018EDC8, NULL,
+                           &arg0, &gIdentityMatrix);
 
     Matrix_Pop(&gGfxMatrix);
 }
@@ -2577,10 +2580,10 @@ s32 func_EBFBE0_8018EDC8(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* a
             D_EBFBE0_801B8350[i].unk_3C = 0.0f;
         }
 
-        func_8009BC2C(&D_EBFBE0_801B8350[i].unk_30, D_EBFBE0_801B8350[i].unk_28, 0.01f, 100.0f, 0.0001f);
-        func_8009BC2C(&D_EBFBE0_801B8350[i].unk_34, D_EBFBE0_801B8350[i].unk_2C, 0.01f, 100.0f, 0.0001f);
-        func_8009BC2C(&D_EBFBE0_801B8350[i].unk_40, D_EBFBE0_801B8350[i].unk_38, 0.005f, 100.0f, 0.0001f);
-        func_8009BC2C(&D_EBFBE0_801B8350[i].unk_44, D_EBFBE0_801B8350[i].unk_3C, 0.005f, 100.0f, 0.0001f);
+        Math_SmoothStepToF(&D_EBFBE0_801B8350[i].unk_30, D_EBFBE0_801B8350[i].unk_28, 0.01f, 100.0f, 0.0001f);
+        Math_SmoothStepToF(&D_EBFBE0_801B8350[i].unk_34, D_EBFBE0_801B8350[i].unk_2C, 0.01f, 100.0f, 0.0001f);
+        Math_SmoothStepToF(&D_EBFBE0_801B8350[i].unk_40, D_EBFBE0_801B8350[i].unk_38, 0.005f, 100.0f, 0.0001f);
+        Math_SmoothStepToF(&D_EBFBE0_801B8350[i].unk_44, D_EBFBE0_801B8350[i].unk_3C, 0.005f, 100.0f, 0.0001f);
     }
 
     switch (i) {
@@ -2696,7 +2699,7 @@ void func_EBFBE0_8018F438(void) {
 void func_EBFBE0_8018F680(void) {
     s32 i;
 
-    func_800B8DD0(&gMasterDisp, 0x53);
+    RCP_SetupDL(&gMasterDisp, 0x53);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     for (i = 0; i < 30; i++) {
@@ -2706,7 +2709,7 @@ void func_EBFBE0_8018F680(void) {
 }
 
 void func_EBFBE0_8018F77C(void) {
-    func_800B8DD0(&gMasterDisp, 0x35);
+    RCP_SetupDL(&gMasterDisp, 0x35);
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, D_EBFBE0_801B905C, D_EBFBE0_801B9060, D_EBFBE0_801B9064, 1);
     Matrix_Scale(gGfxMatrix, D_EBFBE0_801B9068, D_EBFBE0_801B906C, 1.0f, 1);
@@ -2717,7 +2720,7 @@ void func_EBFBE0_8018F77C(void) {
 }
 
 void func_EBFBE0_8018F85C(void) {
-    func_800B8DD0(&gMasterDisp, 0x53);
+    RCP_SetupDL(&gMasterDisp, 0x53);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     TextureRect_8bIA(&gMasterDisp, D_6013470, 16, 16, 234.0f, 20.0f, 1.0f, 1.0f);
 }
@@ -2735,7 +2738,7 @@ void func_EBFBE0_8018F8E4(void) {
     if (gStopInputTimer == 0) {
         temp2 = 188.0f;
 
-        if ((s32) func_8009BC2C(&D_EBFBE0_801B7BC8, D_EBFBE0_801B7BCC, 0.5f, 100.0f, 1.0f) == 0.0f) {
+        if ((s32) Math_SmoothStepToF(&D_EBFBE0_801B7BC8, D_EBFBE0_801B7BCC, 0.5f, 100.0f, 1.0f) == 0.0f) {
             if (D_EBFBE0_801B7BC8 == 32.0f) {
                 D_EBFBE0_801B7BCC = 255.0f;
             } else {
@@ -2744,13 +2747,13 @@ void func_EBFBE0_8018F8E4(void) {
         }
 
         if (D_80177AF8 < 0) {
-            func_800B8DD0(&gMasterDisp, 0x55);
+            RCP_SetupDL(&gMasterDisp, 0x55);
 
             gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 200);
 
             TextureRect_8bCI(&gMasterDisp, &D_601D750, &D_601DB50, 32, 32, D_EBFBE0_801AE464, D_EBFBE0_801AE468,
                              D_EBFBE0_801AE46C, D_EBFBE0_801AE470);
-            func_800B8DD0(&gMasterDisp, 0x53);
+            RCP_SetupDL(&gMasterDisp, 0x53);
 
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, (s32) D_EBFBE0_801B7BC8, (s32) D_EBFBE0_801B7BC8, 255);
 
@@ -2759,7 +2762,7 @@ void func_EBFBE0_8018F8E4(void) {
                                  D_EBFBE0_801AE478 + (i * 4.0f), 1.0f, 1.0f);
             }
         } else {
-            func_800B8DD0(&gMasterDisp, 0x53);
+            RCP_SetupDL(&gMasterDisp, 0x53);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, (s32) D_EBFBE0_801B7BC8, (s32) D_EBFBE0_801B7BC8, 255);
 
             for (i = 0; i < 2; i++) {
@@ -2773,7 +2776,7 @@ void func_EBFBE0_8018F8E4(void) {
 void func_EBFBE0_8018FC14(void) {
     s32 i;
 
-    func_800B8DD0(&gMasterDisp, 0x53);
+    RCP_SetupDL(&gMasterDisp, 0x53);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     for (i = 0; i < 2; i++) {
@@ -2793,7 +2796,7 @@ void func_EBFBE0_8018FD08(void) {
     temp_fs2 = D_EBFBE0_801AE47C[D_EBFBE0_801B8340];
     temp = 210.0f;
 
-    func_800B8DD0(&gMasterDisp, 0x53);
+    RCP_SetupDL(&gMasterDisp, 0x53);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
@@ -2853,7 +2856,7 @@ void func_EBFBE0_8018FF74(void) {
                 D_EBFBE0_801B7BD0 -= 2;
             }
 
-            func_800B8DD0(&gMasterDisp, 0x53);
+            RCP_SetupDL(&gMasterDisp, 0x53);
 
             gDPSetAlphaDither(gMasterDisp++, G_AD_NOISE);
             gDPSetColorDither(gMasterDisp++, G_CD_NOISE);
@@ -2895,7 +2898,7 @@ void func_EBFBE0_80190144(void) {
     }
 
     if (D_80178340 > 0) {
-        func_800B8DD0(&gMasterDisp, 0x3E);
+        RCP_SetupDL(&gMasterDisp, 0x3E);
 
         gDPSetAlphaDither(gMasterDisp++, G_AD_NOISE);
         gDPSetColorDither(gMasterDisp++, G_CD_NOISE);
@@ -2926,7 +2929,7 @@ void func_EBFBE0_801903B8(void) {
     f32 temp;
     s32 i;
 
-    func_800B8DD0(&gMasterDisp, 0x3E);
+    RCP_SetupDL(&gMasterDisp, 0x3E);
 
     gDPSetAlphaDither(gMasterDisp++, G_AD_NOISE);
     gDPSetColorDither(gMasterDisp++, G_CD_NOISE);
@@ -2972,7 +2975,7 @@ void func_EBFBE0_801906A0(void) {
 
     switch (D_EBFBE0_801B7BD4) {
         case 0:
-            func_800B8DD0(&gMasterDisp, 0x55);
+            RCP_SetupDL(&gMasterDisp, 0x55);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32) D_EBFBE0_801B7BDC);
             TextureRect_4bCI(&gMasterDisp, D_6014140, D_60147C0, 256, 13, 90.0f, 110.0f, 1.0f, 1.0f);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32) D_EBFBE0_801B7BE0);
@@ -2980,7 +2983,7 @@ void func_EBFBE0_801906A0(void) {
             break;
 
         case 1:
-            func_800B8DD0(&gMasterDisp, 0x53);
+            RCP_SetupDL(&gMasterDisp, 0x53);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32) D_EBFBE0_801B7BDC);
 
             for (i = 0; i < 5; i++) {
@@ -2999,7 +3002,7 @@ void func_EBFBE0_801906A0(void) {
 void func_EBFBE0_80190950(void) {
     Lights_SetOneLight(&gMasterDisp, D_EBFBE0_801B82E0, D_EBFBE0_801B82E4, D_EBFBE0_801B82E8, 0, 0, 0, D_80178554,
                        D_80178558, D_8017855C);
-    func_800B8DD0(&gMasterDisp, 0x17);
+    RCP_SetupDL(&gMasterDisp, 0x17);
 
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, 0.0f, D_EBFBE0_801B9048, D_EBFBE0_801B904C, 1);
@@ -3025,7 +3028,7 @@ void func_EBFBE0_80190A98(void) {
 void func_EBFBE0_80190B30(s32 arg0) {
     Lights_SetOneLight(&gMasterDisp, D_EBFBE0_801B82E0, D_EBFBE0_801B82E4, D_EBFBE0_801B82E8, D_80178548, D_8017854C,
                        D_80178550, D_80178554, D_80178558, D_8017855C);
-    func_800B8DD0(&gMasterDisp, 0x17);
+    RCP_SetupDL(&gMasterDisp, 0x17);
 
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, D_EBFBE0_801B84E8[arg0].unk_00.x, -12.8f, D_EBFBE0_801B9044, 1);
@@ -3049,13 +3052,13 @@ void func_EBFBE0_80190C9C(void) {
             break;
 
         case 1:
-            func_800B8DD0(&gMasterDisp, 0x53);
+            RCP_SetupDL(&gMasterDisp, 0x53);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
             TextureRect_8bIA(&gMasterDisp, D_600E980, 144, 28, D_EBFBE0_801AE55C, D_EBFBE0_801AE560, 1.0f, 1.0f);
             break;
 
         case 2:
-            func_800B8DD0(&gMasterDisp, 0x53);
+            RCP_SetupDL(&gMasterDisp, 0x53);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
             for (i = 0; i < 4; i++) {
@@ -3374,5 +3377,5 @@ void func_EBFBE0_801919C4(u16** arg0, s32 arg1) {
             D_80178740 = 178.0f;
     }
 
-    func_8001ACDC(func_800C2890(D_80178308));
+    func_8001ACDC(Message_IdFromPtr(D_80178308));
 }

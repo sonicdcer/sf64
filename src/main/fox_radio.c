@@ -11,7 +11,7 @@ s32 D_800D4A70 = 0;
 void func_800BA760(void) {
     func_800B9358();
     if (D_80177D50 == 1.3f) {
-        D_801782F8 = func_800C2F30(D_80178308, D_801782D8);
+        D_801782F8 = Message_NotWhitespace(D_80178308, D_801782D8);
     }
 }
 
@@ -129,7 +129,7 @@ void func_800BA808(u16* arg0, s32 arg1) {
             break;
     }
 
-    D_801782E8 = func_800C2890(arg0);
+    D_801782E8 = Message_IdFromPtr(arg0);
     func_8001ACDC(D_801782E8);
 }
 
@@ -440,7 +440,7 @@ void func_800BB388(void) {
             D_800D4A78 = -1.0f;
         }
         sp30 = temp_fa0 * D_800D4A78;
-        func_800B8DD0(&gMasterDisp, 0x55);
+        RCP_SetupDL(&gMasterDisp, 0x55);
         switch (D_80177834) {
             case 2:
             case 8:
@@ -461,8 +461,8 @@ void func_800BB388(void) {
                          D_80177D50);
     }
     if (D_80177D50 == 1.3f) {
-        func_800B8DD0(&gMasterDisp, 0x55);
-        D_801782F8 = func_800C2AF0(&gMasterDisp, D_80178308, D_80178728, D_8017872C, D_801782D8);
+        RCP_SetupDL(&gMasterDisp, 0x55);
+        D_801782F8 = Message_DisplayText(&gMasterDisp, D_80178308, D_80178728, D_8017872C, D_801782D8);
     }
 }
 
@@ -519,7 +519,7 @@ void func_800BB5D0(void) {
         case 0x3:
             if (D_801782AC == 0) {
                 D_8017829C++;
-                temp_v0 = func_800C28DC(D_80178308);
+                temp_v0 = Message_GetWidth(D_80178308);
                 if (D_80137E78 == 3) {
                     D_801782AC = temp_v0 + 0x10;
                 } else {
@@ -543,12 +543,12 @@ void func_800BB5D0(void) {
             if (func_8001AE78() == 0) {
                 D_80178724++;
                 D_80178308 = D_80178720[D_80178724];
-                func_8001ACDC(func_800C2890(D_80178308));
+                func_8001ACDC(Message_IdFromPtr(D_80178308));
 
                 D_801782D8 = 0;
                 D_8017874C = 0;
                 D_801782AC = 0x50;
-                D_801782AC = func_800C28DC(D_80178308) * 2;
+                D_801782AC = Message_GetWidth(D_80178308) * 2;
                 D_8017829C = 4;
             }
             break;
@@ -648,9 +648,9 @@ void func_800BB5D0(void) {
             }
             if ((D_801778B0[var_v1] <= 0) && (D_80177DB0 & 4) && (D_801778B0[var_v1] != -2) && (D_801782A4 != 2) &&
                 (D_801782A4 != 3) && (D_801782A4 != 1000)) {
-                func_800B8DD0(&gMasterDisp, 0x4C);
+                RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
-                func_800A1200(0x1F, 0xA7, 1.0f, 1.0f, "DOWN");
+                Graphics_DisplaySmallText(0x1F, 0xA7, 1.0f, 1.0f, "DOWN");
                 func_80084B94(1);
             }
             if ((D_801782A4 != 2) && (D_801782A4 != 3) && (D_801782A4 != 1000)) {
@@ -683,9 +683,9 @@ void func_800BB5D0(void) {
             }
             if ((D_80163FE0[var_v1].obj.status != 2) && (D_80177DB0 & 4) && (D_80178280[0].unk_1C8 == 3) &&
                 (D_801782A4 != 2) && (D_801782A4 != 3) && (D_801782A4 != 1000)) {
-                func_800B8DD0(&gMasterDisp, 0x4C);
+                RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
-                func_800A1200(0x1F, 0xA7, 1.0f, 1.0f, "DOWN");
+                Graphics_DisplaySmallText(0x1F, 0xA7, 1.0f, 1.0f, "DOWN");
             }
             if ((D_801782A4 != 2) && (D_801782A4 != 3) && (D_801782A4 != 1000)) {
                 func_80086110(22.0f, 165.0f, D_80163FE0[var_v1].unk_0CE * 2.55f);
@@ -702,7 +702,7 @@ void func_800BB5D0(void) {
 #else
 extern s32 D_8017874C;
 void func_800BB5D0(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_BB360/func_800BB5D0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_radio/func_800BB5D0.s")
 #endif
 
 void func_800BC040(void) {
@@ -719,7 +719,7 @@ void func_800BC040(void) {
                 D_8017829C = 1;
                 D_80177D38 = 0.0f;
                 D_80177D50 = 0.0f;
-                D_801782D8 = func_800C28DC(D_80178308);
+                D_801782D8 = Message_GetWidth(D_80178308);
                 if (D_801778A8 != 1) {
                     D_8017829C = 0;
                 }
