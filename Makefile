@@ -86,6 +86,12 @@ else ifeq ($(UNAME_S),Darwin)
     CPPFLAGS += -xc++
 endif
 
+# Support python venv's if one is installed.
+PYTHON_VENV = .venv/bin/python3
+ifneq "$(wildcard $(PYTHON_VENV) )" ""
+  PYTHON = $(PYTHON_VENV)
+endif
+
 ifeq ($(VERBOSE),0)
   V := @
 endif
@@ -124,7 +130,7 @@ CAT             := cat
 
 ASM_PROC_FLAGS  := --input-enc=utf-8 --output-enc=euc-jp --convert-statics=global-with-filename
 
-SPLAT           ?= $(TOOLS)/splat/split.py
+SPLAT           ?= $(PYTHON) $(TOOLS)/splat/split.py
 SPLAT_YAML      ?= $(TARGET).$(VERSION).yaml
 
 COMPTOOL		:= $(TOOLS)/comptool.py
@@ -315,7 +321,7 @@ clean:
 	@git clean -fdx linker_scripts/*.ld
 
 format:
-	@$(TOOLS)/format.py -j $(N_THREADS)
+	@$(PYTHON) $(TOOLS)/format.py -j $(N_THREADS)
 
 checkformat:
 	@$(TOOLS)/check_format.sh -j $(N_THREADS)

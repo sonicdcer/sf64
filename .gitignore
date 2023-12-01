@@ -15,3 +15,4 @@ ctx.c.m2c
 /build
 tools/mio0
 tools/ido-recomp
+.venv/
