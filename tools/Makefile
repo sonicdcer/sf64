@@ -25,5 +25,7 @@ recomp:
 mio0:
 	@echo "Building mio0..."
 	@$(MAKE) -C sm64tools mio0
+	@rm sm64tools/mio0.d
+	@mv sm64tools/mio0 .
 
 .PHONY: all clean distclean default

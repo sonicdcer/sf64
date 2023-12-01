@@ -105,7 +105,7 @@ SPLAT_YAML      ?= $(TARGET).$(VERSION).yaml
 
 COMPTOOL		:= $(TOOLS)/comptool.py
 COMPTOOL_DIR	:= baserom
-MIO0			:= $(TOOLS)/sm64tools/mio0
+MIO0			:= $(TOOLS)/mio0
 
 
 IINC := -Iinclude -Ibin/$(VERSION) -I.
