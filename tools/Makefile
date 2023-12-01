@@ -25,6 +25,7 @@ recomp:
 mio0:
 	@echo "Building mio0..."
 	@$(MAKE) -C sm64tools mio0
+	# Delete and move the files as the sm64tools project .gitignore doesn't ignore these, and it creates an annoying diff, this works around it.
 	@rm sm64tools/mio0.d
 	@mv sm64tools/mio0 .
 

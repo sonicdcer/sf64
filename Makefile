@@ -129,9 +129,9 @@ ifneq ($(RUN_CC_CHECK),0)
 
     # Ensure that gcc treats the code as 32-bit
     ifeq ($(UNAME_M),aarch64)
-        CC_CHECK_CFLAGS += -march=armv7-a+fp
+        CC_CHECK_FLAGS += -march=armv7-a+fp
     else
-        CC_CHECK_CFLAGS += -m32
+        CC_CHECK_FLAGS += -m32
     endif
 	ifneq ($(WERROR), 0)
         CHECK_WARNINGS += -Werror
