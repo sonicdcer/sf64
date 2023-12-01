@@ -105,7 +105,7 @@ SPLAT_YAML      ?= $(TARGET).$(VERSION).yaml
 
 COMPTOOL		:= $(TOOLS)/comptool.py
 COMPTOOL_DIR	:= baserom
-MIO0			:= $(TOOLS)/mio0
+MIO0			:= $(TOOLS)/sm64tools/mio0
 
 
 IINC := -Iinclude -Ibin/$(VERSION) -I.
@@ -244,8 +244,8 @@ all: uncompressed
 
 init:
 	@$(MAKE) clean
-	@$(MAKE) decompress
 	@$(MAKE) -s -C tools
+	@$(MAKE) decompress
 	@$(MAKE) extract -j $(N_THREADS)
 	@$(MAKE) all -j $(N_THREADS)
 	@$(MAKE) compressed
