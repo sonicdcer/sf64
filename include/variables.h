@@ -608,9 +608,11 @@ extern Gfx D_102A010[];
 extern Gfx D_1032780[];
 extern Gfx D_1019820[];
 extern Gfx D_101A8E0[];
+extern Gfx D_101ABD0[];
+extern Gfx D_10231A0[];
+extern Gfx D_102ED50[];
 extern Gfx D_102F5E0[];
 extern Gfx D_102FE80[];
-extern Gfx D_10231A0[];
 
 extern Gfx D_2000000[];
 extern Gfx D_2000890[];
