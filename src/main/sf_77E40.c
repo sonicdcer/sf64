@@ -388,9 +388,23 @@ void func_80078B8C(s32 unused) {
     RCP_SetupDL(&gMasterDisp, 0x40);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80078BE0.s")
+void func_80078BE0(Object_8C* arg0) {
+    f32 var_fv0;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80078C84.s")
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 160);
+    var_fv0 = 3.0f;
+    if (D_80177DB0 & 1) {
+        var_fv0 *= 1.2f;
+    }
+    func_8005980C(arg0->unk_70 * var_fv0);
+    gSPDisplayList(gMasterDisp++, D_600F8A0);
+}
+
+void func_80078C84(Object_8C* arg0) {
+    func_8005980C(arg0->unk_70);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 192);
+    gSPDisplayList(gMasterDisp++, D_6000A80);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80078CE8.s")
 
