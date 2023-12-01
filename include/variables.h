@@ -192,6 +192,9 @@ extern Gfx* D_800D14E0[][2];
 extern Gfx* D_800D14FC[];
 extern Vec3f D_800D1528;
 extern f32 D_800D1534[10][10];
+extern s32 D_800D173C[];
+extern s32 D_800D18F0[]; //[6][4]?
+extern s32 D_800D1950[];
 extern f32 D_800D19AC[];
 extern f32 D_800D19E0[];
 extern Gfx D_800D1A40[];
@@ -753,6 +756,7 @@ extern AnimationHeader D_601E8C4;
 extern Limb* D_601E9D0[];
 extern Gfx D_6018C00[];
 extern Gfx D_6018D40[];
+extern Gfx D_601FF80[];
 extern Gfx D_6024220[];
 extern Gfx D_6024B60[];
 extern Gfx D_6025B50[];

@@ -336,14 +336,35 @@ void func_8007868C(Object_8C* arg0) {
 void func_8007879C(Object_8C* arg0) {
     func_800B9B38(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-    Matrix_Scale(gGfxMatrix, arg0->unk_70 * 0.6f, 1.0f, arg0->unk_70 * 3.5f, (u8) 1);
+    Matrix_Scale(gGfxMatrix, arg0->unk_70 * 0.6f, 1.0f, arg0->unk_70 * 3.5f, 1);
     Matrix_RotateX(gGfxMatrix, (M_PI / 2.0f), 1);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_1029780);
     RCP_SetupDL(&gMasterDisp, 0x40);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_800788B0.s")
+void func_800788B0(Object_8C* arg0) {
+    s32 temp_ft3;
+    s32* tmp;
+
+    switch (D_80178234) {
+        case 1:
+            func_8005980C(arg0->unk_70);        
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 128, 128, 128, 255);
+            gSPDisplayList(gMasterDisp++, D_601FF80);
+            return;
+        case 13:
+            RCP_SetupDL(&gMasterDisp, 0x43);
+            temp_ft3 = Math_ModF(arg0->unk_40, 4.0f);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32)arg0->unk_6C);
+            tmp = &D_800D173C[(s32) (temp_ft3 * 4.0f)];
+            gDPSetEnvColor(gMasterDisp++, tmp[0], tmp[1], tmp[2], 255);
+            func_8005980C(arg0->unk_70);
+            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            RCP_SetupDL(&gMasterDisp, 0x40);
+            return;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80078A64.s")
 
@@ -643,22 +664,16 @@ void func_8007879C(Object_8C* arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80083FA8.s")
 
-#ifdef NON_EQUIVALENT
-extern s32 D_800D18F0[]; //[8][3]?
-extern s32 D_800D1950[];
-
 void func_80084194(Object_8C* arg0) {
-    s32* temp_v1;
+    s32 tmp;
 
     if (D_80178234 != 0xD) {
         RCP_SetupDL(&gMasterDisp, 0x31);
         Matrix_Scale(gGfxMatrix, arg0->unk_70, arg0->unk_70, arg0->unk_70, (u8) 1);
         Matrix_SetGfxMtx(&gMasterDisp);
-
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-        temp_v1 = &D_800D18F0[(arg0->unk_44)];
-        // temp_v1 = (arg0->unk_44 * 4 * 4) + &D_800D18F0;
-        gDPSetEnvColor(gMasterDisp++, temp_v1[0], temp_v1[1], temp_v1[2], 255);
+        tmp = arg0->unk_44 * 4;
+        gDPSetEnvColor(gMasterDisp++, D_800D18F0[tmp + 0], D_800D18F0[tmp + 1], D_800D18F0[tmp + 2], 255);
     } else {
         RCP_SetupDL(&gMasterDisp, 0x31);
         Matrix_Scale(gGfxMatrix, arg0->unk_70, arg0->unk_70, arg0->unk_70, (u8) 1);
@@ -669,8 +684,5 @@ void func_80084194(Object_8C* arg0) {
     gSPDisplayList(gMasterDisp++, D_1024AC0);
     RCP_SetupDL(&gMasterDisp, 0x40);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80084194.s")
-#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/D_800D7230.s")
