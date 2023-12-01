@@ -23,7 +23,7 @@ void func_8005980C(f32 arg0) {
 }
 
 void func_80059850(Object_4C* arg0) {
-    func_800B8DD0(&gMasterDisp, 0x40);
+    RCP_SetupDL(&gMasterDisp, 0x40);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 60);
     func_800B9B38(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
 }
@@ -266,26 +266,26 @@ void func_8005A094(Object_2F4* arg0) {
                 case 0:
                     break;
                 case 1:
-                    func_800B8DD0(&gMasterDisp, 0x3D);
+                    RCP_SetupDL(&gMasterDisp, 0x3D);
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
                 case 2:
-                    func_800B8DD0(&gMasterDisp, 0x39);
+                    RCP_SetupDL(&gMasterDisp, 0x39);
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
                 case 3:
-                    func_800B8DD0(&gMasterDisp, 0x21);
+                    RCP_SetupDL(&gMasterDisp, 0x21);
                     break;
             }
             if (D_80178234 != 7) {
                 gSPDisplayList(gMasterDisp++, D_E6A810_801B769C[arg0->unk_046]);
             } else {
                 if (D_8016F110[0].unk_0E4 < 4800.0f) {
-                    func_800B8DD0(&gMasterDisp, 0x1E);
+                    RCP_SetupDL(&gMasterDisp, 0x1E);
                     gDPSetFogColor(gMasterDisp++, 0x40, 0x20, 0x20, D_80178338);
                     gSPFogPosition(gMasterDisp++, D_801783D8, D_801783DC);
                 } else {
-                    func_800B8DD0(&gMasterDisp, 0x1E);
+                    RCP_SetupDL(&gMasterDisp, 0x1E);
                     gDPSetFogColor(gMasterDisp++, 0x10, 0x10, 0x10, D_80178338);
                     gSPFogPosition(gMasterDisp++, D_801783D8, D_801783DC);
                 }
@@ -314,7 +314,7 @@ void func_8005A094(Object_2F4* arg0) {
             break;
         case 0x2E:
             if ((arg0->unk_048 == 2) || (arg0->unk_048 == 3) || (arg0->unk_048 == 4)) {
-                func_800B8DD0(&gMasterDisp, 0x21);
+                RCP_SetupDL(&gMasterDisp, 0x21);
             }
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
             gSPDisplayList(gMasterDisp++, D_E6A810_801B7584[arg0->unk_048]);
@@ -333,10 +333,10 @@ void func_8005A094(Object_2F4* arg0) {
         case 0x32:
             func_8005980C(0.7f);
             if (arg0->unk_054 == 1) {
-                func_800B8DD0(&gMasterDisp, 0x1E);
+                RCP_SetupDL(&gMasterDisp, 0x1E);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
             } else if (arg0->unk_054 == 2) {
-                func_800B8DD0(&gMasterDisp, 0x1E);
+                RCP_SetupDL(&gMasterDisp, 0x1E);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
                 func_8005980C(0.7f);
             }
@@ -355,7 +355,7 @@ void func_8005A094(Object_2F4* arg0) {
                     break;
             }
             if (arg0->unk_054 != 0) {
-                func_800B8DD0(&gMasterDisp, 0x1D);
+                RCP_SetupDL(&gMasterDisp, 0x1D);
                 func_8005980C(0.7f);
             }
             break;
@@ -381,7 +381,7 @@ void func_8005A094(Object_2F4* arg0) {
             break;
         case 0x38:
             func_8005980C(arg0->unk_110);
-            func_800B8DD0(&gMasterDisp, 0x29);
+            RCP_SetupDL(&gMasterDisp, 0x29);
             Matrix_SetGfxMtx(&gMasterDisp);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 191, 255, 223, 255);
             gSPDisplayList(gMasterDisp++, D_800CFC64[arg0->unk_048]);
@@ -619,7 +619,7 @@ void func_8005BAB4(s32 arg0, s32 arg1) {
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_102A8A0);
             }
-            func_800B8DD0(&gMasterDisp, 0x40);
+            RCP_SetupDL(&gMasterDisp, 0x40);
             break;
         case 0xC3:
         case 0xC6:
@@ -632,7 +632,7 @@ void func_8005BAB4(s32 arg0, s32 arg1) {
                     gSPDisplayList(gMasterDisp++, D_102A010);
                     break;
                 case 0x51:
-                    func_800B8DD0(&gMasterDisp, 0x30);
+                    RCP_SetupDL(&gMasterDisp, 0x30);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
                     gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 255);
                     temp_fv0 = D_80163FE0[arg1].unk_150 * 3.0f;
@@ -658,7 +658,7 @@ void func_8005BAB4(s32 arg0, s32 arg1) {
             break;
         case 0x13C:
             if (D_80178280[0].unk_1C8 == 0) {
-                func_800B8DD0(&gMasterDisp, 0x40);
+                RCP_SetupDL(&gMasterDisp, 0x40);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 200);
             }
             Matrix_RotateX(gGfxMatrix, M_PI / 2.0f, 1);
@@ -696,7 +696,7 @@ void func_8005BAB4(s32 arg0, s32 arg1) {
             break;
         case 0xE6:
             func_800BA550();
-            func_800B8DD0(&gMasterDisp, 0x45);
+            RCP_SetupDL(&gMasterDisp, 0x45);
             gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
             gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
@@ -708,7 +708,7 @@ void func_8005BAB4(s32 arg0, s32 arg1) {
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             break;
         case 0xE5:
-            func_800B8DD0(&gMasterDisp, 0x44);
+            RCP_SetupDL(&gMasterDisp, 0x44);
             gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
             gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
@@ -722,7 +722,7 @@ void func_8005BAB4(s32 arg0, s32 arg1) {
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             break;
         case 0xE7:
-            func_800B8DD0(&gMasterDisp, 0x45);
+            RCP_SetupDL(&gMasterDisp, 0x45);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
             gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
             Matrix_RotateX(gGfxMatrix, D_80163FE0[arg1].unk_118, 1);
@@ -752,7 +752,7 @@ void func_8005C5F0(Object_6C* arg0) {
 
     if ((D_80177DB0 & 0x18) && (arg0->unk_46 == 0)) {
         Matrix_Push(&gGfxMatrix);
-        func_800B8DD0(&gMasterDisp, 0x40);
+        RCP_SetupDL(&gMasterDisp, 0x40);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
         Matrix_Scale(gGfxMatrix, 3.2f, 3.2f, 3.2f, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
@@ -761,7 +761,7 @@ void func_8005C5F0(Object_6C* arg0) {
         gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
         Matrix_Pop(&gGfxMatrix);
     }
-    func_800B8DD0(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, 0x1D);
     gSPTexture(gMasterDisp++, 2000, 2000, 0, G_TX_RENDERTILE, G_ON);
     gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
     Matrix_RotateZ(gGfxMatrix, arg0->unk_58 * M_DTOR, 1);
@@ -779,7 +779,7 @@ void func_8005C5F0(Object_6C* arg0) {
 }
 
 void func_8005C900(Object_6C* arg0) {
-    func_800B8DD0(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, 0x1D);
     gSPTexture(gMasterDisp++, 3000, 0, 0, G_TX_RENDERTILE, G_ON);
     gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR);
     func_8005980C(arg0->unk_68);
@@ -788,7 +788,7 @@ void func_8005C900(Object_6C* arg0) {
 }
 
 void func_8005C9C0(Object_6C* arg0) {
-    func_800B8DD0(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, 0x1D);
     gSPTexture(gMasterDisp++, 3000, 0, 0, G_TX_RENDERTILE, G_ON);
     gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR);
     func_8005980C(arg0->unk_68);
@@ -797,7 +797,7 @@ void func_8005C9C0(Object_6C* arg0) {
 }
 
 void func_8005CA80(Object_6C* arg0) {
-    func_800B8DD0(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, 0x1D);
     gSPTexture(gMasterDisp++, 1900, 1700, 0, G_TX_RENDERTILE, G_ON);
     gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR);
     func_8005980C(arg0->unk_68);
@@ -811,12 +811,12 @@ void func_8005CB44(Object_6C* arg0) {
         gSPDisplayList(gMasterDisp++, D_3005980);
     } else {
         func_8005980C(arg0->unk_68 * 0.1f);
-        func_800B8DD0(&gMasterDisp, 0x1D);
+        RCP_SetupDL(&gMasterDisp, 0x1D);
         gSPTexture(gMasterDisp++, 2000, 2000, 0, G_TX_RENDERTILE, G_ON);
         gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
         gSPDisplayList(gMasterDisp++, D_10231A0);
         gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
-        func_800B8DD0(&gMasterDisp, 0x1B);
+        RCP_SetupDL(&gMasterDisp, 0x1B);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
         gSPDisplayList(gMasterDisp++, D_1022E80);
     }
@@ -824,12 +824,12 @@ void func_8005CB44(Object_6C* arg0) {
 
 void func_8005CC9C(Object_6C* arg0) {
     func_8005980C(arg0->unk_68 * 0.1f);
-    func_800B8DD0(&gMasterDisp, 0x1D);
+    RCP_SetupDL(&gMasterDisp, 0x1D);
     gSPTexture(gMasterDisp++, 2000, 2000, 0, G_TX_RENDERTILE, G_ON);
     gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
     gSPDisplayList(gMasterDisp++, D_1019820);
     gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
-    func_800B8DD0(&gMasterDisp, 0x1B);
+    RCP_SetupDL(&gMasterDisp, 0x1B);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
     gSPDisplayList(gMasterDisp++, D_101A8E0);
 }
@@ -842,7 +842,7 @@ void func_8005CDA8(Object_6C* arg0) {
                        180.0f) /
                       M_PI;
     if (arg0->unk_46 != 0) {
-        func_800B8DD0(&gMasterDisp, 0x29);
+        RCP_SetupDL(&gMasterDisp, 0x29);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, arg0->unk_44);
     } else {
         func_800B9B38(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
@@ -1302,7 +1302,7 @@ void func_8005EA24(Object_2F4* arg0) {
 }
 
 void func_8005ECD8(s32 arg0, Object* arg1) {
-    func_800B8DD0(&gMasterDisp, 0x42);
+    RCP_SetupDL(&gMasterDisp, 0x42);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 180);
     if (arg1->id == 0xC5) {
         func_8005EA24(&D_80163FE0[arg0]);
@@ -1660,7 +1660,7 @@ void func_8005FB70(s32 arg0) {
     for (i = 0, var_s0_6 = D_801737E0; i < ARRAY_COUNT(D_801737E0); i++, var_s0_6++) {
         if (var_s0_6->obj.status >= 2) {
             Matrix_Push(&gGfxMatrix);
-            func_800B8DD0(&gMasterDisp, 0x1D);
+            RCP_SetupDL(&gMasterDisp, 0x1D);
             func_800597C0(arg0);
             func_8005E7B8(var_s0_6, arg0);
             Matrix_Pop(&gGfxMatrix);
@@ -1675,7 +1675,7 @@ void func_8006046C(s32 arg0) {
     Object_408* var_s0_2;
     Object_8C* var_s0;
 
-    func_800B8DD0(&gMasterDisp, 0x40);
+    RCP_SetupDL(&gMasterDisp, 0x40);
     for (i = 0, var_s0 = D_80170130; i < ARRAY_COUNT(D_80170130); i++, var_s0++) {
         if (var_s0->obj.status >= 2) {
             if (var_s0->unk_1C.unk_14 == 1) {
@@ -1762,10 +1762,10 @@ void func_80060968(void) {
     s32 var_a1;
 
     if (D_80178234 == 0xB) {
-        func_800B8DD0(&gMasterDisp, 0x21);
+        RCP_SetupDL(&gMasterDisp, 0x21);
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     } else if ((D_80178234 == 0xD) || (D_80178234 == 9)) {
-        func_800B8DD0(&gMasterDisp, 0x29);
+        RCP_SetupDL(&gMasterDisp, 0x29);
     } else {
         func_800B92F8();
     }
@@ -1817,9 +1817,9 @@ void func_80060D94(s32 arg0) {
     UnkStruct_D_80174750* temp_s0 = &D_80174750[arg0];
 
     if (temp_s0->unk_2F == 0xFF) {
-        func_800B8DD0(&gMasterDisp, 5);
+        RCP_SetupDL(&gMasterDisp, 5);
     } else {
-        func_800B8DD0(&gMasterDisp, 0xE);
+        RCP_SetupDL(&gMasterDisp, 0xE);
     }
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, temp_s0->unk_2C, temp_s0->unk_2D, temp_s0->unk_2E, temp_s0->unk_2F);
     Matrix_Push(&gGfxMatrix);
