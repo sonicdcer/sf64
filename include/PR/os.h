@@ -243,7 +243,7 @@ typedef struct {
 	u16     type;                   /* Controller Type */
 	u8      status;                 /* Controller status */
 	u8	errno;
-}OSContStatus;
+} OSContStatus;
 
 typedef struct {
 	u16     button;

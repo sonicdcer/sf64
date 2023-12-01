@@ -17,7 +17,7 @@ void func_80084930(f32 arg0, f32 arg1, s32 arg2) {
     s32 var_v0;
     s32 i;
 
-    func_800B8DD0(&gMasterDisp, 0x4E);
+    RCP_SetupDL(&gMasterDisp, 0x4E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     temp = D_80178280;
@@ -42,7 +42,7 @@ void func_80084930(f32 arg0, f32 arg1, s32 arg2) {
         arg0 += 11.0f;
         arg1 -= 1.0f;
 
-        func_800B8DD0(&gMasterDisp, 0x4C);
+        RCP_SetupDL(&gMasterDisp, 0x4C);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
         var_v0 = 10;
@@ -76,7 +76,7 @@ void func_80084B94(s32 arg0) {
         { -191.0f, -129.0f, -600.0f },
     };
 
-    func_800B8DD0(&gMasterDisp, 0x24);
+    RCP_SetupDL(&gMasterDisp, 0x24);
     if (arg0 == 0) {
         for (i = 1; i < 4; i++) {
             if (((D_801778B0[i] != 0) || (D_80178280->unk_1C8 != 7)) && (D_801778B0[i] <= 0) && (D_801778B0[i] != -2)) {
@@ -190,7 +190,7 @@ void func_80086110(f32 arg0, f32 arg1, s32 arg2) {
     f32 temp = 0.82f;
     s32 pad;
 
-    func_800B8DD0(&gMasterDisp, 0x4B);
+    RCP_SetupDL(&gMasterDisp, 0x4B);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     if (arg2 != 0) {
@@ -198,7 +198,7 @@ void func_80086110(f32 arg0, f32 arg1, s32 arg2) {
     }
 
     if ((arg2 <= 0) && (arg2 != -2) && ((D_80177854 == 100) || (D_80177830 == 1) || (D_80177838 != 0))) {
-        func_800B8DD0(&gMasterDisp, 0x4C);
+        RCP_SetupDL(&gMasterDisp, 0x4C);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
         if ((arg2 == 0) && (D_80178280[0].unk_1C8 == 7)) {
             Graphics_DisplaySmallText(arg0 + (8.0f * temp) + 4.0f, arg1 + 2.0f, 1.0f, 1.0f, " OK ");
@@ -207,7 +207,7 @@ void func_80086110(f32 arg0, f32 arg1, s32 arg2) {
         }
     }
 
-    func_800B8DD0(&gMasterDisp, 0x4C);
+    RCP_SetupDL(&gMasterDisp, 0x4C);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     func_80085618(arg0, arg1, temp, 1.0f);
     func_800855C4(arg0 + (7.0f * temp) + (temp * 6.0f) * 8.0f, arg1, 1.0f, 1.0f);
@@ -301,7 +301,7 @@ void func_80086444(void) {
     }
 
     if (i != 9) {
-        func_800B8DD0(&gMasterDisp, 0x4C);
+        RCP_SetupDL(&gMasterDisp, 0x4C);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
         for (j = 0; j < 19; j++) {
@@ -351,7 +351,7 @@ void func_800869A0(f32 arg0, f32 arg1, s32 k, f32 arg3, s32 arg4, s32 arg5) {
 #endif
 
 void func_80086C08(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
-    func_800B8DD0(&gMasterDisp, 0x4E);
+    RCP_SetupDL(&gMasterDisp, 0x4E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 128, 96);
     gDPSetAlphaDither(gMasterDisp++, G_AD_DISABLE);
     TextureRect_8bCI(&gMasterDisp, D_1013170, D_1013570, 24, 17, arg0, arg1, arg2, arg3);
@@ -470,7 +470,7 @@ void func_80088784(s32 arg0) {
 
     if (arg0 != 0) {
         arg0--;
-        func_800B8DD0(&gMasterDisp, 0x24);
+        RCP_SetupDL(&gMasterDisp, 0x24);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, D_800D1DC8[arg0]);
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, 3.9f, -3.3f, -100.0f, 0);
@@ -493,7 +493,7 @@ void func_80088784(s32 arg0) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80088970.s")
 
 void func_80089670(void) {
-    func_800B8DD0(&gMasterDisp, 0x3E);
+    RCP_SetupDL(&gMasterDisp, 0x3E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     Matrix_Scale(gGfxMatrix, 18.64f, 21.04f, 1.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
@@ -501,7 +501,7 @@ void func_80089670(void) {
 }
 
 void func_80089710(void) {
-    func_800B8DD0(&gMasterDisp, 0x3E);
+    RCP_SetupDL(&gMasterDisp, 0x3E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     Matrix_Scale(gGfxMatrix, 11.0f, 11.0f, 1.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
@@ -509,7 +509,7 @@ void func_80089710(void) {
 }
 
 void func_800897B0(void) {
-    func_800B8DD0(&gMasterDisp, 0x3E);
+    RCP_SetupDL(&gMasterDisp, 0x3E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     Matrix_Scale(gGfxMatrix, 130.0f, 130.0f, 1.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
@@ -517,7 +517,7 @@ void func_800897B0(void) {
 }
 
 void func_80089850(void) {
-    func_800B8DD0(&gMasterDisp, 0x3E);
+    RCP_SetupDL(&gMasterDisp, 0x3E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, 255);
     Matrix_Scale(gGfxMatrix, 125.0f, 125.0f, 1.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
@@ -525,7 +525,7 @@ void func_80089850(void) {
 }
 
 void func_800898F0(void) {
-    func_800B8DD0(&gMasterDisp, 1);
+    RCP_SetupDL(&gMasterDisp, 1);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 208, 80, 255);
     Matrix_Scale(gGfxMatrix, 30.0f, 30.0f, 1.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
@@ -549,7 +549,7 @@ void func_80089994(s32 arg0) {
         var_fv2 = 54.0f;
     }
 
-    func_800B8DD0(&gMasterDisp, 0x3E);
+    RCP_SetupDL(&gMasterDisp, 0x3E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, D_800D1E14[arg0][0], D_800D1E14[arg0][1], D_800D1E14[arg0][2],
                     D_800D1E14[arg0][3]);
     Matrix_Scale(gGfxMatrix, var_fv1, var_fv2, 1.0f, 1);
@@ -561,7 +561,7 @@ void func_80089994(s32 arg0) {
 #endif
 
 void func_80089AF4(void) {
-    func_800B8DD0(&gMasterDisp, 0x3E);
+    RCP_SetupDL(&gMasterDisp, 0x3E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, 255);
     Matrix_Scale(gGfxMatrix, 54.0f, 54.0f, 1.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
@@ -569,7 +569,7 @@ void func_80089AF4(void) {
 }
 
 void func_80089B94(void) {
-    func_800B8DD0(&gMasterDisp, 0x3E);
+    RCP_SetupDL(&gMasterDisp, 0x3E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 92, 92, 255);
     Matrix_Scale(gGfxMatrix, 54.0f, 54.0f, 1.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
@@ -579,7 +579,7 @@ void func_80089B94(void) {
 void func_80089C38(void) {
     s32 alpha;
 
-    func_800B8DD0(&gMasterDisp, 0xC);
+    RCP_SetupDL(&gMasterDisp, 0xC);
 
     alpha = D_80177DB0 % 21;
 
@@ -597,7 +597,7 @@ void func_80089C38(void) {
 void func_80089D28(void) {
     s32 gb;
 
-    func_800B8DD0(&gMasterDisp, 1);
+    RCP_SetupDL(&gMasterDisp, 1);
 
     gb = D_80177DB0 % 21;
 
@@ -734,7 +734,7 @@ s32 func_8008AC54(s32 arg0) {
 
 void func_8008AD94(void) {
     if (D_80177834 == 7) {
-        func_800B8DD0(&gMasterDisp, 0x4C);
+        RCP_SetupDL(&gMasterDisp, 0x4C);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
         switch ((s32) D_80177D68) {
@@ -825,7 +825,7 @@ void func_8008B1B0(void) {
     f32 temp = 142.0f;
     f32 temp2 = 18.0f;
 
-    func_800B8DD0(&gMasterDisp, 0x4E);
+    RCP_SetupDL(&gMasterDisp, 0x4E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     switch (D_80161790 / 2) {
@@ -915,10 +915,10 @@ void func_8008B2F0(void) {
 }
 
 void func_8008B5B0(f32 x, f32 y) {
-    func_800B8DD0(&gMasterDisp, 0x4B);
+    RCP_SetupDL(&gMasterDisp, 0x4B);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     func_800856C0(x + 8.0f, y + 2.0f, D_801617A8, 1.0f, D_801617AC);
-    func_800B8DD0(&gMasterDisp, 0x4C);
+    RCP_SetupDL(&gMasterDisp, 0x4C);
     gDPSetPrimColor(gMasterDisp++, 0, 0, D_800D1EB4, D_800D1EB8, D_800D1EBC, 0xFF);
     func_80085618(x, y, 1.0f, 1.0f);
     func_800855C4(x + 7.0f + (D_801617A8 * 6.0f * 8.0f), y, 1.0f, 1.0f);
@@ -981,7 +981,7 @@ void func_8008BAE4(void) {
     }
 
     if ((D_80161788 != 0) || (D_8016178C != 0)) {
-        func_800B8DD0(&gMasterDisp, 0xC);
+        RCP_SetupDL(&gMasterDisp, 0xC);
         gDPSetPrimColor(gMasterDisp++, 0, 0, r, g, b, alpha);
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, -53.9f, -38.5f, -139.4f, 1);
@@ -1132,7 +1132,7 @@ void func_8008D250(void) {
     f32 D_800D20C8[] = { 113.0f, 273.0f, 113.0f, 273.0f };
     f32 D_800D20D8[] = { 79.0f, 79.0f, 199.0f, 199.0f };
 
-    func_800B8DD0(&gMasterDisp, 0x4C);
+    RCP_SetupDL(&gMasterDisp, 0x4C);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     func_8008C5C8(D_800D20C8[D_801778A0], D_800D20D8[D_801778A0], 0.54f, D_801778A0);
 }
@@ -1146,11 +1146,11 @@ void func_8008D31C(void) {
     f32 D_800D20F8[] = { 78.0f, 78.0f, 198.0f, 198.0f };
 
     Math_SmoothStepToF(&D_800D19E0[D_801778A0], D_80178280[D_801778A0].unk_264 * (1.0f / 255.0f), 0.3f, 10.0f, 0.01f);
-    func_800B8DD0(&gMasterDisp, 0x4E);
+    RCP_SetupDL(&gMasterDisp, 0x4E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     func_8008D0DC(D_800D20E8[D_801778A0] + 3.0f, D_800D20F8[D_801778A0] + 18.0f, 1.0f, 1.0f, D_800D19E0[D_801778A0]);
-    func_800B8DD0(&gMasterDisp, 0x4C);
+    RCP_SetupDL(&gMasterDisp, 0x4C);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
@@ -1204,7 +1204,7 @@ void func_8008D4F0(f32 arg0, f32 arg1) {
 
     temp_t9 = D_800D19AC[var_v1];
 
-    func_800B8DD0(&gMasterDisp, 0x4E);
+    RCP_SetupDL(&gMasterDisp, 0x4E);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, temp_t9, temp_t9, temp_t9, 255);
 
@@ -1214,7 +1214,7 @@ void func_8008D4F0(f32 arg0, f32 arg1) {
     if (temp_fs0 > 0.01f) {
         func_800857DC(D_800D2108[var_v1] + temp + 1.0f, D_800D211C[var_v1] + sp60, temp_fs0, 1.0f);
     }
-    func_800B8DD0(&gMasterDisp, 0x4C);
+    RCP_SetupDL(&gMasterDisp, 0x4C);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     func_80085740(D_800D2108[var_v1], D_800D211C[var_v1], 1.0f, 1.0f);
 }
@@ -1230,7 +1230,7 @@ void func_8008D7F4(void) {
     s32 D_800D2160[] = { 242, 30, 179, 30 };
     s32 D_800D2170[] = { 12, 0, 67, 255 };
 
-    func_800B8DD0(&gMasterDisp, 0x4E);
+    RCP_SetupDL(&gMasterDisp, 0x4E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, D_800D2150[D_801778A0], D_800D2160[D_801778A0], D_800D2170[D_801778A0], 255);
     Graphics_DisplayHUDNumber(D_800D2130[D_801778A0], D_800D2140[D_801778A0], D_801778A0 + 1);
 }
@@ -1334,11 +1334,11 @@ void func_8008DE68(void) {
         temp4 = sp3C + 6.0f;
         temp5 = temp1 + 10.0f;
 
-        func_800B8DD0(&gMasterDisp, 0x4E);
+        RCP_SetupDL(&gMasterDisp, 0x4E);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
         TextureRect_4bCI(&gMasterDisp, D_1011A40, D_1011AB0, 32, 7, temp2, temp3, 1.0f, 1.0f);
 
-        func_800B8DD0(&gMasterDisp, 0x4C);
+        RCP_SetupDL(&gMasterDisp, 0x4C);
         TextureRect_8bIA(&gMasterDisp, D_1002040, 40, 12, sp3C, temp1, 1.0f, 1.0f);
 
         if (sp3C >= 25.0f) {
@@ -1346,12 +1346,12 @@ void func_8008DE68(void) {
         }
 
         if ((D_801616C4 >= 0.1f) && (sp3C >= 25.0f)) {
-            func_800B8DD0(&gMasterDisp, 0x4E);
+            RCP_SetupDL(&gMasterDisp, 0x4E);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
             TextureRect_8bCI(&gMasterDisp, D_10129C0, D_1013090, 16, 109, temp4, temp5, 1.0f, D_801616C4);
         }
 
-        func_800B8DD0(&gMasterDisp, 0x4C);
+        RCP_SetupDL(&gMasterDisp, 0x4C);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, 255);
 
         if (D_801616BC > 0.0f) {
@@ -1546,7 +1546,7 @@ void func_8008E620(f32 arg0, f32 arg1) {
             b = 200;
         }
     }
-    func_800B8DD0(&gMasterDisp, 0x4C);
+    RCP_SetupDL(&gMasterDisp, 0x4C);
     gDPSetPrimColor(gMasterDisp++, 0, 0, r, g, b, 255);
     func_80094D20(arg0, arg1);
 }
@@ -2326,7 +2326,7 @@ void func_80094954(Object_8C* arg0) {
 
 void func_80094BBC(Object_8C* arg0) {
     if ((D_80178280[0].unk_1C8 == 2) && (D_80178234 == 13) && (D_80178280[0].unk_1D0 < 2)) {
-        func_800B8DD0(&gMasterDisp, 0x44);
+        RCP_SetupDL(&gMasterDisp, 0x44);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 21, 34, arg0->unk_4A);
         gDPSetEnvColor(gMasterDisp++, 255, 255, 251, 0);
         func_8005980C(arg0->unk_70);

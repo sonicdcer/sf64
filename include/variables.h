@@ -12,7 +12,22 @@ extern u8 gF3dexData;
 extern u8 D_8003B50[];
 extern u8 D_80046B0[];
 extern u8 D_8004C50[];
+
 extern s32 sGammaMode;
+
+extern u8 D_80079F0[];
+extern u8 D_80084B0[];
+extern u8 D_8008A30[];
+extern u8 D_8008DA0[];
+extern u8 D_80098E0[];
+extern u8 D_8009980[];
+extern u8 D_8009B00[];
+extern u8 D_8009CE0[];
+extern u8 D_800B5E0[];
+extern u8 D_800B680[];
+extern u8 D_800C640[];
+extern u8 D_800E130[];
+
 extern f32 D_800C45E0[];
 
 extern Mtx gIdentityMtx; // 800C4620
@@ -757,6 +772,7 @@ extern u16 D_60245E0[];
 extern u16 D_6025500[];
 extern u16 D_6026420[];
 extern u16 D_6027340[];
+extern Gfx D_605C230[];
 
 extern Gfx D_7007350[];
 extern Gfx D_700BB10[];
@@ -770,6 +786,15 @@ extern u8 D_8003A70[];
 extern u8 D_8003AB8[];
 extern u8 D_8003AE0[];
 extern u8 D_8003B28[];
+extern u8 D_8005CD0[];
+extern u8 D_8006280[];
+extern u8 D_80064F0[];
+extern u8 D_80069C0[];
+extern u8 D_8006D10[];
+extern u8 D_8006E50[];
+extern u8 D_8007210[];
+extern u8 D_80076E0[];
+extern u8 D_800CD90[];
 extern u8 D_800D070[];
 extern u8 D_800D170[];
 

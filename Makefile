@@ -282,7 +282,7 @@ init:
 
 uncompressed: $(ROM)
 ifneq ($(COMPARE),0)
-	@$(MAKE) fix_checksum
+	@echo "$(GREEN)Calculating Rom Header Checksum... $(YELLOW)$<$(NO_COL)"
 	@md5sum --status -c $(TARGET).$(VERSION).uncompressed.md5 && \
 	$(PRINT) "$(YELLOW) ___  ___\n/ __||  _|\n\__ \|  _|\n|___/|_|\n$(BLUE)$(TARGET).$(VERSION).uncompressed.z64$(NO_COL): $(GREEN)OK$(NO_COL)\n" || \
 	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).uncompressed.z64 $(RED)differs$(NO_COL)\n"
@@ -290,10 +290,12 @@ endif
 
 compressed: $(ROMC)
 ifeq ($(COMPARE),1)
+	@echo "$(GREEN)Calculating Rom Header Checksum... $(YELLOW)$<$(NO_COL)"
 	@$(MAKE) fix_checksum
 	@md5sum --status -c $(TARGET).$(VERSION).md5 && \
 	$(PRINT) "$(YELLOW) ___  ___\n/ __||  _|\n\__ \|  _|\n|___/|_|\n\n$(BLUE)$(TARGET).$(VERSION).z64$(NO_COL): $(GREEN)OK$(NO_COL)\n" || \
 	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).z64 $(RED)differs$(NO_COL)\n"
+
 endif
 
 #### Main Targets ###
@@ -301,10 +303,6 @@ endif
 decompress: $(BASEROM)
 	@echo "Decompressing ROM..."
 	@$(PYTHON) $(COMPTOOL) -de $(COMPTOOL_DIR) -m $(MIO0) $(BASEROM) $(BASEROM_UNCOMPRESSED)
-
-fix_checksum: $(ROM)
-	@echo "$(GREEN)Calculating Rom Header Checksum... $(YELLOW)$<$(NO_COL)"
-	@$(PYTHON) $(COMPTOOL) -r $(ROM) .
 
 extract:
 	@$(RM) -r asm/$(VERSION) bin/$(VERSION)
