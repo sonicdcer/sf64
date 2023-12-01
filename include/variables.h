@@ -720,6 +720,7 @@ extern Gfx D_602E380[];
 extern Gfx D_60320E0[];
 extern Gfx D_6032580[];
 extern Gfx D_6032BC0[];
+extern Gfx D_6033000[];
 extern Gfx D_6034B90[];
 extern Gfx D_6035DA0[];
 extern Gfx D_60361F0[];

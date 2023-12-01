@@ -372,7 +372,6 @@ void func_80078A64(Object_8C* arg0) {
     gSPDisplayList(gMasterDisp++, D_20112C0);
 }
 
-
 void func_80078AE0(s32 arg0) {
 }
 
@@ -406,9 +405,34 @@ void func_80078C84(Object_8C* arg0) {
     gSPDisplayList(gMasterDisp++, D_6000A80);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80078CE8.s")
+void func_80078CE8(Object_8C* arg0) {
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, arg0->unk_4A);
+    func_8005980C(arg0->unk_70);
+    gSPDisplayList(gMasterDisp++, D_6033000);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80078D60.s")
+void func_80078D60(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4) {
+    func_80061474(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = 0x189;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = posY;
+    arg0->obj.pos.z = posZ;
+    arg0->unk_70 = arg4;
+    if (arg4 == 3.1f) {
+        arg0->unk_54 = D_80163FE0[8].unk_0E8;
+        arg0->unk_58 = D_80163FE0[8].unk_0EC;
+        arg0->unk_5C = D_80163FE0[8].unk_0F0;
+    }
+    if (arg4 != 30.0f) {
+        arg0->unk_4E = 1;
+    }
+    if (arg4 == 3.5f) {
+        arg0->unk_4E = 2;
+    }
+    arg0->unk_50 = 0xE;
+    func_800612B8(&arg0->unk_1C, arg0->obj.id);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80078E50.s")
 
