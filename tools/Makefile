@@ -1,4 +1,5 @@
 MAKE = make
+CC   = gcc
 UNAME_S := $(shell uname -s)
 ifeq ($(OS),Windows_NT)
     $(error Native Windows is currently unsupported for building this repository, use WSL instead c:)
@@ -13,7 +14,7 @@ all: recomp mio0
 
 clean:
 	@$(MAKE) -C ido-static-recomp clean VERSION=5.3
-	@$(MAKE) -C sm64tools clean
+	@rm mio0
 
 distclean: clean
 
@@ -24,9 +25,6 @@ recomp:
 
 mio0:
 	@echo "Building mio0..."
-	@$(MAKE) -C sm64tools mio0
-	# Delete and move the files as the sm64tools project .gitignore doesn't ignore these, and it creates an annoying diff, this works around it.
-	@rm sm64tools/mio0.d
-	@mv sm64tools/mio0 .
+	$(CC) -Wall -Wextra -Wno-format-overflow -O2 -ffunction-sections -fdata-sections -DMIO0_STANDALONE -s -Wl,--gc-sections -o mio0 mio0-decompressor/libmio0.c
 
 .PHONY: all clean distclean default

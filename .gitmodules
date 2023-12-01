@@ -10,6 +10,3 @@
 [submodule "tools/ido-static-recomp"]
 	path = tools/ido-static-recomp
 	url = https://github.com/decompals/ido-static-recomp
-[submodule "tools/sm64tools"]
-	path = tools/sm64tools
-	url = https://github.com/queueRAM/sm64tools.git
