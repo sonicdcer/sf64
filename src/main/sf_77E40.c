@@ -445,7 +445,22 @@ void func_80078E50(f32 posX, f32 posY, f32 posZ, f32 arg3) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80078EBC.s")
+void func_80078EBC(Object_8C* arg0) {
+    if (arg0->unk_4E == 2) {
+        arg0->unk_54 = D_80178280->unk_0C0;
+        arg0->unk_58 = D_80178280->unk_0C4;
+        arg0->unk_5C = D_80178280->unk_0C8;
+    }
+    arg0->obj.rot.z += 35.0f;
+    if (arg0->unk_50 >= 7) {
+        arg0->unk_6C += 0.25f;
+    } else {
+        arg0->unk_6C -= 0.25f;
+    }
+    if (arg0->unk_6C <= 0.0f) {
+        func_80060FBC(&arg0->obj, &arg0->unk_80);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80078F78.s")
 
