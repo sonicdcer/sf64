@@ -117,23 +117,6 @@ typedef struct {
 
 typedef struct {
     /* 0x00 */ u8 unk_00;
-    /* 0x01 */ char pad01[0x1];
-    /* 0x02 */ u16 unk_02;
-    /* 0x04 */ Vec3f pos;
-    /* 0x10 */ f32 unk_10;
-    /* 0x14 */ char pad14[0x14];
-} UnkStruct_D_80175A10; // size = 0x28
-
-typedef struct {
-    char unk_00[0x1C];
-} UnkStruct_D_80176438;
-
-typedef struct {
-    char unk_00[0x70];
-} UnkStruct_D_80174050;
-
-typedef struct {
-    /* 0x00 */ u8 unk_00;
     /* 0x01 */ u8 unk_01;
     /* 0x04 */ f32 unk_04;
     /* 0x08 */ f32 unk_08;
@@ -310,6 +293,23 @@ typedef struct {
     /* 0x1C */ f32 unk_1C;
     /* 0x20 */ u8 unk_20;
 } ObjectStruct_1C; // size = 0x24
+
+typedef struct {
+    /* 0x00 */ u8 unk_00;
+    /* 0x01 */ char pad01[0x1];
+    /* 0x02 */ u16 unk_02;
+    /* 0x04 */ Vec3f pos;
+    /* 0x10 */ f32 unk_10;
+    /* 0x14 */ char pad14[0x14];
+} UnkStruct_D_80175A10; // size = 0x28
+
+typedef struct {
+    char unk_00[0x1C];
+} UnkStruct_D_80176438;
+
+typedef struct {
+    char unk_00[0x70];
+} UnkStruct_D_80174050;
 
 typedef struct {
     /* 0x00 */ Object obj;
