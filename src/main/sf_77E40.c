@@ -462,7 +462,18 @@ void func_80078EBC(Object_8C* arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80078F78.s")
+void func_80078F78(Object_8C* arg0) {
+    if (arg0->unk_4E != 0) {
+        RCP_SetupDL(&gMasterDisp, 0x43);
+    } else {
+        RCP_SetupDL(&gMasterDisp, 0x3F);
+    }
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+    gDPSetEnvColor(gMasterDisp++, 255, 255, 0, 255);
+    func_8005980C(arg0->unk_70 * arg0->unk_6C);
+    gSPDisplayList(gMasterDisp++, D_101C2E0);
+    RCP_SetupDL(&gMasterDisp, 0x40);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007905C.s")
 

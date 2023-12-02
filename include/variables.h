@@ -597,6 +597,7 @@ extern u8 D_1024A58[];
 extern Gfx D_102A8A0[];
 extern Gfx D_1024AC0[];
 extern Gfx D_1028230[];
+extern Gfx D_101C2E0[];
 extern Gfx D_101CAE0[];
 extern Gfx D_1023C80[];
 extern Gfx D_101A570[];
