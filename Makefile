@@ -282,7 +282,7 @@ init:
 
 uncompressed: $(ROM)
 ifneq ($(COMPARE),0)
-	@echo "$(GREEN)Calculating Rom Header Checksum... $(YELLOW)$<$(NO_COL)"
+	@echo "$(GREEN)Calculating uncompressed Rom Header Checksum... $(YELLOW)$<$(NO_COL)"
 	@md5sum --status -c $(TARGET).$(VERSION).uncompressed.md5 && \
 	$(PRINT) "$(YELLOW) ___  ___\n/ __||  _|\n\__ \|  _|\n|___/|_|\n$(BLUE)$(TARGET).$(VERSION).uncompressed.z64$(NO_COL): $(GREEN)OK$(NO_COL)\n" || \
 	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).uncompressed.z64 $(RED)differs$(NO_COL)\n"
@@ -290,10 +290,9 @@ endif
 
 compressed: $(ROMC)
 ifeq ($(COMPARE),1)
-	@echo "$(GREEN)Calculating Rom Header Checksum... $(YELLOW)$<$(NO_COL)"
-	@$(MAKE) fix_checksum
+	@echo "$(GREEN)Calculating compressed Rom Header Checksum... $(YELLOW)$<$(NO_COL)"
 	@md5sum --status -c $(TARGET).$(VERSION).md5 && \
-	$(PRINT) "$(YELLOW) ___  ___\n/ __||  _|\n\__ \|  _|\n|___/|_|\n\n$(BLUE)$(TARGET).$(VERSION).z64$(NO_COL): $(GREEN)OK$(NO_COL)\n" || \
+	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).z64$(NO_COL): $(GREEN)OK$(NO_COL)\n" || \
 	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).z64 $(RED)differs$(NO_COL)\n"
 
 endif
@@ -399,4 +398,4 @@ build/src/libultra/libc/ll.o: src/libultra/libc/ll.c
 # Print target for debugging
 print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
 
-.PHONY: all uncompressed compressed clean init extract expected format checkformat decompress context disasm fix_checksum
+.PHONY: all uncompressed compressed clean init extract expected format checkformat decompress context disasm
