@@ -149,6 +149,7 @@ extern bool D_EBFBE0_801B9320; // MusicPlaying status in the expert sound option
 extern s32 D_EBFBE0_801B9340;
 extern s32 D_EBFBE0_801B9348[4];
 extern f32 D_EBFBE0_801B9358[4];
+extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9380[];
 extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B93A0[4];
 extern u8 D_EBFBE0_801B93C4;
 extern s32 D_EBFBE0_801B93D0;
