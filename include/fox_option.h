@@ -21,18 +21,20 @@ typedef struct {
     /* 0x34 */ s32 unk_34; // alpha
 } MenuContext_00; // size = 0x38
 
+//! TODO: RENAME. Member names inferred by func_EBFBE0_8019BAB8
 typedef struct {
-    /* 0x00 */ f32 unk_00;
-    /* 0x04 */ f32 unk_04;
-    /* 0x08 */ f32 unk_08;
-    /* 0x0C */ f32 unk_0C;
-    /* 0x10 */ f32 unk_10;
+    /* 0x00 */ f32 unk_00; // x
+    /* 0x04 */ f32 unk_04; // y
+    /* 0x08 */ f32 unk_08; // z
+    /* 0x0C */ f32 unk_0C; // xScale
+    /* 0x10 */ f32 unk_10; // yScale
 } MenuContext_38; // size = 0x14
 
+//! TODO: RENAME. Member names inferred by func_EBFBE0_8019BBA4
 typedef struct {
-    /* 0x0 */ f32 unk_0;
-    /* 0x4 */ f32 unk_4;
-    /* 0x8 */ f32 unk_8;
+    /* 0x0 */ f32 unk_0; // x
+    /* 0x4 */ f32 unk_4; // y
+    /* 0x8 */ f32 unk_8; // range
 } MenuContext_4C; // size = 0xC
 
 typedef struct {

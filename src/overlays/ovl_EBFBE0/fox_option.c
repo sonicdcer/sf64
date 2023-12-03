@@ -3345,7 +3345,7 @@ void func_EBFBE0_8019BBA4(MenuContext_4C arg0) {
     }
 }
 
-void func_EBFBE0_8019BC44(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
+void func_EBFBE0_8019BC44(f32 x, f32 y, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
     f32 sp44;
     f32 sp40;
     f32 sp3C;
@@ -3357,7 +3357,7 @@ void func_EBFBE0_8019BC44(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
 
     Matrix_Push(&gGfxMatrix);
 
-    Matrix_Translate(gGfxMatrix, arg0, arg1, arg2, 1);
+    Matrix_Translate(gGfxMatrix, x, y, arg2, 1);
 
     Matrix_Scale(gGfxMatrix, arg5, arg5, arg5, 1);
     Matrix_RotateZ(gGfxMatrix, M_DTOR * arg4, 1);
