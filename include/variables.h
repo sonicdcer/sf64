@@ -144,6 +144,8 @@ extern SaveFile gSaveIOBuffer;
 extern SaveFile sPrevSaveData;
 extern FaultMgr gFaultMgr;
 
+extern Gfx D_8015550[];
+
 extern OSMesg D_80156600[1];
 extern OSMesg D_80156608[4];
 extern OSMesg D_80156618[1];
