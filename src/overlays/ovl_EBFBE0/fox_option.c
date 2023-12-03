@@ -2688,7 +2688,36 @@ void func_EBFBE0_80199EA8(void) {
     }
 }
 
+// D_EBFBE0_801B9358 needs to be static but belongs to bss section?
+#ifdef IMPORT_DATA_PENDING
+void func_EBFBE0_80199FA8(void) {
+    s32 i;
+
+    D_80178410 = 0;
+    D_EBFBE0_801B933C = 0;
+    D_EBFBE0_801B91E8 = 255.0f;
+    D_EBFBE0_801B93D4 = D_801778A4 - 1;
+    D_EBFBE0_801B93D8 = D_80161A28;
+    D_EBFBE0_801B93DC = D_EBFBE0_801B9340;
+    D_801778C8 = D_EBFBE0_801B93DC;
+
+    for (i = 0; i < 4; i++) {
+        D_EBFBE0_801B9358[i] = 0;
+    }
+
+    D_EBFBE0_801B936C = 0;
+    D_EBFBE0_801B9374 = 0;
+    D_EBFBE0_801B937C = 0;
+    D_EBFBE0_801B91EC = 0;
+    D_EBFBE0_801B91F0 = 0;
+    D_EBFBE0_801B9368 = 255.0f;
+    D_EBFBE0_801B9370 = 255.0f;
+    D_EBFBE0_801B9378 = 255.0f;
+    func_EBFBE0_8019A080();
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80199FA8.s")
+#endif
 
 // Needs static data type
 #ifdef IMPORT_DATA_PENDING
