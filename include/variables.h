@@ -781,6 +781,7 @@ extern Gfx D_605C230[];
 extern u8 D_7000F10[];
 extern u8 D_7001030[];
 extern u8 D_7001DF0[];
+extern u8 D_7002110[];
 extern u8 D_70118E0[];
 extern u16 D_70123F8[];
 extern Gfx D_7007350[];
