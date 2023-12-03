@@ -3372,7 +3372,11 @@ void func_EBFBE0_8019BC44(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
     Matrix_Pop(&gGfxMatrix);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019BDF0.s")
+void func_EBFBE0_8019BDF0(void) {
+    Matrix_Push(&gGfxMatrix);
+    Matrix_LookAt(gGfxMatrix, D_80177978, D_80177980, D_80177988, D_801779A0, D_801779B8, D_801779C0, 0.0f, 1.0f, 0.0f,
+                  1);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019BE7C.s")
 
