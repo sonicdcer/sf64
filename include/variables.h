@@ -16,6 +16,7 @@ extern u8 D_8004C50[];
 extern s32 sGammaMode;
 
 extern u8 D_80079F0[];
+extern u8 D_80080F0[];
 extern u8 D_80084B0[];
 extern u8 D_8008A30[];
 extern u8 D_8008DA0[];
