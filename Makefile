@@ -280,12 +280,13 @@ init:
 	@$(MAKE) all -j $(N_THREADS)
 	@$(MAKE) compressed
 
+SF := ___  ___\n/ __||  _|\n\__ \|  _|\n|___/|_|\n
 uncompressed: $(ROM)
 ifneq ($(COMPARE),0)
 	@echo "$(GREEN)Calculating uncompressed Rom Header Checksum... $(YELLOW)$<$(NO_COL)"
 	@md5sum --status -c $(TARGET).$(VERSION).uncompressed.md5 && \
-	$(PRINT) "$(YELLOW) ___  ___\n/ __||  _|\n\__ \|  _|\n|___/|_|\n$(BLUE)$(TARGET).$(VERSION).uncompressed.z64$(NO_COL): $(GREEN)OK$(NO_COL)\n" || \
-	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).uncompressed.z64 $(RED)differs$(NO_COL)\n"
+	$(PRINT) "$(YELLOW) $(SF) $(BLUE)$(TARGET).$(VERSION).uncompressed.z64$(NO_COL): $(GREEN)OK$(NO_COL)\n" || \
+	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).uncompressed.z64 $(RED)FAILED$(NO_COL)\n"
 endif
 
 compressed: $(ROMC)
@@ -293,7 +294,7 @@ ifeq ($(COMPARE),1)
 	@echo "$(GREEN)Calculating compressed Rom Header Checksum... $(YELLOW)$<$(NO_COL)"
 	@md5sum --status -c $(TARGET).$(VERSION).md5 && \
 	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).z64$(NO_COL): $(GREEN)OK$(NO_COL)\n" || \
-	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).z64 $(RED)differs$(NO_COL)\n"
+	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).z64 $(RED)FAILED$(NO_COL)\n"
 
 endif
 
