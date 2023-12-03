@@ -2983,7 +2983,26 @@ void func_EBFBE0_8019A954(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019AAB4.s")
+void func_EBFBE0_8019AAB4(void) {
+    switch (D_EBFBE0_801B93D0) {
+        case 20:
+            break;
+
+        case 10:
+            func_EBFBE0_8019AB30();
+            break;
+
+        case 30:
+            func_EBFBE0_8019AD84();
+            break;
+    }
+
+    func_EBFBE0_8019AFFC();
+
+    if (D_EBFBE0_801B933C != 0) {
+        func_EBFBE0_8019B5AC();
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019AB30.s")
 
