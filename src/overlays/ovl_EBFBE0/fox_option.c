@@ -3475,7 +3475,83 @@ void func_EBFBE0_8019C120(MenuContext_00 arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019C418.s")
+bool func_EBFBE0_8019C418(s32* arg0, s32 arg1, bool arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7,
+                          UnkStruct_D_EBFBE0_801B9250* arg8) {
+    s32 axis;
+    s32 x;
+    s32 y;
+    s32 temp;
+    bool ret = false;
+
+    if (arg1 == 0) {
+        return ret;
+    }
+
+    temp = *arg0;
+
+    x = gChangedInput[arg7].stick_x;
+    y = -gChangedInput[arg7].stick_y;
+
+    if (arg2 == true) {
+        axis = y;
+        if ((x > 40) || (x < -40)) {
+            return ret;
+        }
+    } else {
+        axis = x;
+        if ((y > 40) || (y < -40)) {
+            return ret;
+        }
+    }
+
+    if ((axis < arg4) && (axis > -arg4)) {
+        axis = 0;
+    }
+
+    if (!(arg8->unk_4)) {
+        if (axis != 0) {
+            if (axis > 0) {
+                (*arg0)++;
+                if (*arg0 > arg1) {
+                    if (arg3 == 0) {
+                        *arg0 = 0;
+                    } else {
+                        *arg0 = arg1;
+                    }
+                }
+            }
+
+            if (axis < 0) {
+                (*arg0)--;
+                if (*arg0 < 0) {
+                    if (arg3 == 0) {
+                        *arg0 = arg1;
+                    } else {
+                        *arg0 = 0;
+                    }
+                }
+            }
+
+            arg8->unk_4 = arg5 + arg8->unk_0;
+            if (arg8->unk_0 > 0) {
+                arg8->unk_0 -= arg6;
+            }
+        } else {
+            arg8->unk_4 = 0;
+            arg8->unk_0 = arg6;
+        }
+    }
+
+    if (arg8->unk_4 > 0) {
+        arg8->unk_4--;
+    }
+
+    if (temp != *arg0) {
+        ret = true;
+    }
+
+    return ret;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019C5A0.s")
 
