@@ -3422,7 +3422,24 @@ void func_EBFBE0_8019BF34(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019C04C.s")
+void func_EBFBE0_8019C04C(void) {
+    RCP_SetupDL(&gMasterDisp, 0x24);
+
+    Lib_Ortho(&gMasterDisp);
+
+    Matrix_Push(&gGfxMatrix);
+
+    Matrix_Translate(gGfxMatrix, D_EBFBE0_801B9204, D_EBFBE0_801B9208, 0.0f, 1);
+    Matrix_Scale(gGfxMatrix, D_EBFBE0_801B920C, D_EBFBE0_801B9210, 1.0f, 1);
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    gSPDisplayList(gMasterDisp++, D_8015DF0);
+
+    Matrix_Pop(&gGfxMatrix);
+
+    Lib_Perspective(&gMasterDisp);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019C120.s")
 
