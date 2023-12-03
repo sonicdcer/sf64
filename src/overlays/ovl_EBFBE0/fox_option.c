@@ -3378,7 +3378,22 @@ void func_EBFBE0_8019BDF0(void) {
                   1);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019BE7C.s")
+void func_EBFBE0_8019BE7C(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg5) {
+    Vec3f sp24;
+    Vec3f sp18;
+
+    sp18.x = 0.0f;
+    sp18.y = 0.0f;
+    sp18.z = arg2;
+
+    Matrix_RotateY(gCalcMatrix, M_DTOR * arg1, 0);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * arg0, 1);
+    Matrix_MultVec3f(gCalcMatrix, &sp18, &sp24);
+
+    *arg3 = sp24.x;
+    *arg4 = sp24.y;
+    *arg5 = sp24.z;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019BF34.s")
 
