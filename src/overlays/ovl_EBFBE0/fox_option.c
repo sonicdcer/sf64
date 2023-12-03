@@ -3441,7 +3441,39 @@ void func_EBFBE0_8019C04C(void) {
     Lib_Perspective(&gMasterDisp);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019C120.s")
+void func_EBFBE0_8019C120(MenuContext_00 arg0) {
+    if (!(arg0.unk_20 <= 0.0f) && !(arg0.unk_24 <= 0.0f)) {
+        switch (arg0.unk_00) {
+            case 1:
+                RCP_SetupDL(&gMasterDisp, 0x4E);
+                gDPSetPrimColor(gMasterDisp++, 0, 0, arg0.unk_28, arg0.unk_2C, arg0.unk_30, arg0.unk_34);
+                TextureRect_4bCI(&gMasterDisp, arg0.unk_08, arg0.unk_0C, arg0.unk_10, arg0.unk_14, arg0.unk_18,
+                                 arg0.unk_1C, arg0.unk_20, arg0.unk_24);
+                break;
+
+            case 2:
+                RCP_SetupDL(&gMasterDisp, 0x4E);
+                gDPSetPrimColor(gMasterDisp++, 0, 0, arg0.unk_28, arg0.unk_2C, arg0.unk_30, arg0.unk_34);
+                TextureRect_8bCI(&gMasterDisp, arg0.unk_08, arg0.unk_0C, arg0.unk_10, arg0.unk_14, arg0.unk_18,
+                                 arg0.unk_1C, arg0.unk_20, arg0.unk_24);
+                break;
+
+            case 0:
+                RCP_SetupDL(&gMasterDisp, 0x4C);
+                gDPSetPrimColor(gMasterDisp++, 0, 0, arg0.unk_28, arg0.unk_2C, arg0.unk_30, arg0.unk_34);
+                TextureRect_8bIA(&gMasterDisp, arg0.unk_08, arg0.unk_10, arg0.unk_14, arg0.unk_18, arg0.unk_1C,
+                                 arg0.unk_20, arg0.unk_24);
+                break;
+
+            case 3:
+                RCP_SetupDL(&gMasterDisp, 0x4C);
+                gDPSetPrimColor(gMasterDisp++, 0, 0, arg0.unk_28, arg0.unk_2C, arg0.unk_30, arg0.unk_34);
+                TextureRect_16bRGBA(&gMasterDisp, arg0.unk_08, arg0.unk_10, arg0.unk_14, arg0.unk_18, arg0.unk_1C,
+                                    arg0.unk_20, arg0.unk_24);
+                break;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019C418.s")
 

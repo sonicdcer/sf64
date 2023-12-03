@@ -3,21 +3,22 @@
 
 #include "global.h"
 
+//! TODO: RENAME. Member names inferred by func_EBFBE0_8019C120.
 typedef struct {
-    /* 0x00 */ s32 unk_00;
+    /* 0x00 */ s32 unk_00; // type
     /* 0x04 */ s32 unk_04;
-    /* 0x08 */ void* unk_08;
-    /* 0x0C */ u16 unk_0C;
-    /* 0x10 */ s32 unk_10;
-    /* 0x14 */ s32 unk_14;
-    /* 0x18 */ f32 unk_18;
-    /* 0x1C */ f32 unk_1C;
-    /* 0x20 */ f32 unk_20;
-    /* 0x24 */ f32 unk_24;
-    /* 0x28 */ s32 unk_28;
-    /* 0x2C */ s32 unk_2C;
-    /* 0x30 */ s32 unk_30;
-    /* 0x34 */ s32 unk_34;
+    /* 0x08 */ void* unk_08; // texture
+    /* 0x0C */ u16* unk_0C; // palette
+    /* 0x10 */ s32 unk_10; // width
+    /* 0x14 */ s32 unk_14; // height
+    /* 0x18 */ f32 unk_18; // xPos
+    /* 0x1C */ f32 unk_1C; // yPos
+    /* 0x20 */ f32 unk_20; // xScale
+    /* 0x24 */ f32 unk_24; // yScale
+    /* 0x28 */ s32 unk_28; // red
+    /* 0x2C */ s32 unk_2C; // green
+    /* 0x30 */ s32 unk_30; // blue
+    /* 0x34 */ s32 unk_34; // alpha
 } MenuContext_00; // size = 0x38
 
 typedef struct {
