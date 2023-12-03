@@ -75,6 +75,26 @@ static MenuContext_00 D_EBFBE0_801AEB48[3] = {
     { 3, 0, (void*) 0x080141B0, 0, 16, 16, 245.0f, 185.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
 };
 static s32 D_EBFBE0_801AED3C[4] = { 0, 0, 0, 0 };
+static f32 D_EBFBE0_801AF148[4] = { 30.0f, 214.0f, 30.0f, 215.0f };
+static f32 D_EBFBE0_801AF158[4] = { 18.0f, 18.0f, 151.0f, 151.0f };
+static f32 D_EBFBE0_801AF188[4] = { 12.0f, 16.0f, 12.0f, 18.0f };
+static f32 D_EBFBE0_801AF198 = -1.0f;
+static f32 D_EBFBE0_801AF19C[4] = { 46.0f, 41.0f, 41.0f, 41.0f };
+static f32 D_EBFBE0_801AF1AC = 24.0f;
+static f32 D_EBFBE0_801AF1B0 = 1.4f;
+static f32 D_EBFBE0_801AF1B4 = 5.0f;
+static f32 D_EBFBE0_801AF1B8 = 11.0f;
+static f32 D_EBFBE0_801AF1BC = 8.0f;
+static f32 D_EBFBE0_801AF1C0 = 45.0f;
+static f32 D_EBFBE0_801AF1C4 = 20.0f;
+static f32 D_EBFBE0_801AF1C8 = 55.0f;
+static f32 D_EBFBE0_801AF1CC = 37.0f;
+static f32 D_EBFBE0_801AF1D0 = 11.0f;
+static f32 D_EBFBE0_801AF1D4 = 7.0f;
+static f32 D_EBFBE0_801AF1D8 = 59.0f;
+static f32 D_EBFBE0_801AF1DC = 58.0f;
+static s32 D_EBFBE0_801AF168[4] = { 56, 48, 56, 48 };
+static s32 D_EBFBE0_801AF178[4] = { 8, 10, 10, 8 };
 #else
 extern MenuContext_00 D_EBFBE0_801AE9C0[4];
 extern MenuContext_00 D_EBFBE0_801AEB48[];
@@ -85,6 +105,26 @@ extern f32 D_EBFBE0_801AE5B8[];
 extern f32 D_EBFBE0_801AE5D0[];
 extern MenuContext D_EBFBE0_801AE638[];
 extern s32 D_EBFBE0_801AED3C[4];
+extern f32 D_EBFBE0_801AF148[4];
+extern f32 D_EBFBE0_801AF158[4];
+extern f32 D_EBFBE0_801AF188[4];
+extern f32 D_EBFBE0_801AF198;
+extern f32 D_EBFBE0_801AF19C[4];
+extern f32 D_EBFBE0_801AF1AC;
+extern f32 D_EBFBE0_801AF1B0;
+extern f32 D_EBFBE0_801AF1B4;
+extern f32 D_EBFBE0_801AF1B8;
+extern f32 D_EBFBE0_801AF1BC;
+extern f32 D_EBFBE0_801AF1C0;
+extern f32 D_EBFBE0_801AF1C4;
+extern f32 D_EBFBE0_801AF1C8;
+extern f32 D_EBFBE0_801AF1CC;
+extern f32 D_EBFBE0_801AF1D0;
+extern f32 D_EBFBE0_801AF1D4;
+extern f32 D_EBFBE0_801AF1D8;
+extern f32 D_EBFBE0_801AF1DC;
+extern s32 D_EBFBE0_801AF168[4];
+extern s32 D_EBFBE0_801AF178[4];
 #endif
 
 void func_EBFBE0_80191B20(void) {
@@ -2516,7 +2556,125 @@ void func_EBFBE0_8019978C(void) {
     }
 }
 
+#ifdef IMPORT_DATA_PENDING
+void func_EBFBE0_80199820(s32 arg0) {
+    s32 var_v0;
+    s32 var_a2;
+    s32 colorGB;
+    s32 i;
+    static u8* D_EBFBE0_801AF1E0[3] = {
+        (u8*) 0x070030B0,
+        (u8*) 0x07003290,
+        (u8*) 0x07003470,
+    };
+    static u8* D_EBFBE0_801AF1EC[4] = {
+        (u8*) 0x070049C0,
+        (u8*) 0x07004BB0,
+        (u8*) 0x07004DC0,
+        (u8*) 0x07005020,
+    };
+    static u16* D_EBFBE0_801AF1FC[4] = {
+        (u16*) 0x07004B80,
+        (u16*) 0x07004D90,
+        (u16*) 0x07004FF0,
+        (u16*) 0x070051A0,
+    };
+    static u16* D_EBFBE0_801AF20C[4] = {
+        (u16*) 0x07008EE0,
+        (u16*) 0x0700AD20,
+        (u16*) 0x0700CB60,
+        (u16*) 0x070070A0,
+    };
+    static u8* D_EBFBE0_801AF21C[4] = {
+        (u8*) 0x07000000,
+        (u8*) 0x070000D0,
+        (u8*) 0x07000210,
+        (u8*) 0x07000350,
+    };
+    static s32 D_EBFBE0_801AF22C[4] = { 177, 255, 0, 30 };
+    static s32 D_EBFBE0_801AF23C[4] = { 242, 30, 255, 30 };
+    static s32 D_EBFBE0_801AF24C[4] = { 12, 0, 67, 255 };
+
+    RCP_SetupDL(&gMasterDisp, 0x55);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+
+    for (i = 0; i < 4; i++) {
+        TextureRect_4bCI(&gMasterDisp, D_70118E0 + (80 * 16 * i) / 2, D_70123F8, 80, 16, D_EBFBE0_801AF148[arg0],
+                         D_EBFBE0_801AF158[arg0] + (16.0f * i), 1.0f, 1.0f);
+    }
+
+    TextureRect_4bCI(&gMasterDisp, D_70118E0 + (80 * 16 * 4) / 2, D_70123F8, 80, 7, D_EBFBE0_801AF148[arg0],
+                     D_EBFBE0_801AF158[arg0] + (16.0f * 4), 1.0f, 1.0f);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, D_EBFBE0_801AF22C[arg0], D_EBFBE0_801AF23C[arg0], D_EBFBE0_801AF24C[arg0],
+                    255);
+
+    TextureRect_8bCI(&gMasterDisp, D_EBFBE0_801AF1EC[arg0], D_EBFBE0_801AF1FC[arg0], D_EBFBE0_801AF168[arg0],
+                     D_EBFBE0_801AF178[arg0], D_EBFBE0_801AF148[arg0] + D_EBFBE0_801AF188[arg0],
+                     D_EBFBE0_801AF158[arg0] + D_EBFBE0_801AF198, 1.0f, 1.0f);
+
+    RCP_SetupDL(&gMasterDisp, 0x53);
+
+    var_v0 = 0xFFFFFFFF;
+    if (D_EBFBE0_801B9348[arg0] != 0) {
+        var_v0 = 1;
+        D_EBFBE0_801B9348[arg0]--;
+    }
+
+    if (D_80177DB0 & var_v0) {
+        colorGB = D_EBFBE0_801B9358[arg0];
+
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
+
+        TextureRect_8bIA(&gMasterDisp, D_7001030, 64, 9, D_EBFBE0_801AF148[arg0] + D_EBFBE0_801AF1BC,
+                         D_EBFBE0_801AF158[arg0] + D_EBFBE0_801AF1C0, 1.0f, 1.0f);
+
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
+
+        TextureRect_8bIA(&gMasterDisp, D_EBFBE0_801AF1E0[D_EBFBE0_801AED3C[arg0]], 40, 12,
+                         D_EBFBE0_801AF148[arg0] + D_EBFBE0_801AF1C4, D_EBFBE0_801AF158[arg0] + D_EBFBE0_801AF1C8, 1.0f,
+                         1.0f);
+    }
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+
+    TextureRect_8bIA_MirX(&gMasterDisp, D_800E130, 8, 8, D_EBFBE0_801AF148[arg0] + D_EBFBE0_801AF1D4,
+                          D_EBFBE0_801AF158[arg0] + D_EBFBE0_801AF1DC, 1.0f, 1.0f);
+
+    TextureRect_8bIA(&gMasterDisp, D_800E130, 8, 8, D_EBFBE0_801AF148[arg0] + D_EBFBE0_801AF1D8,
+                     D_EBFBE0_801AF158[arg0] + D_EBFBE0_801AF1DC, 1.0f, 1.0f);
+
+    TextureRect_8bIA(&gMasterDisp, D_7000F10, 40, 7, D_EBFBE0_801AF148[arg0] + D_EBFBE0_801AF1CC,
+                     D_EBFBE0_801AF158[arg0] + D_EBFBE0_801AF1D0, 1.0f, 1.0f);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+
+    for (i = 0; i < 2; i++) {
+        TextureRect_16bRGBA(&gMasterDisp, D_EBFBE0_801AF20C[arg0] + (44 * i * 20), 44, 20,
+                            D_EBFBE0_801AF148[arg0] + D_EBFBE0_801AF1B4,
+                            D_EBFBE0_801AF158[arg0] + D_EBFBE0_801AF1B8 + (i * 20.0f * 0.7f), 0.7f, 0.7f);
+    }
+
+    TextureRect_16bRGBA(&gMasterDisp, D_EBFBE0_801AF20C[arg0] + 1760, 44, 4,
+                        D_EBFBE0_801AF148[arg0] + D_EBFBE0_801AF1B4,
+                        D_EBFBE0_801AF158[arg0] + D_EBFBE0_801AF1B8 + 28.0f, 0.7f, 0.7f);
+
+    var_a2 = 24;
+    if (arg0 == 0) {
+        var_a2 = 16;
+    }
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, D_EBFBE0_801AF22C[arg0], D_EBFBE0_801AF23C[arg0], D_EBFBE0_801AF24C[arg0],
+                    255);
+
+    TextureRect_8bIA(&gMasterDisp, D_EBFBE0_801AF21C[arg0], var_a2, 13,
+                     D_EBFBE0_801AF148[arg0] + D_EBFBE0_801AF19C[arg0], D_EBFBE0_801AF158[arg0] + D_EBFBE0_801AF1AC,
+                     D_EBFBE0_801AF1B0, D_EBFBE0_801AF1B0);
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80199820.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80199EA8.s")
 
