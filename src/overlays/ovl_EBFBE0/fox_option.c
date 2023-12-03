@@ -2719,7 +2719,7 @@ void func_EBFBE0_80199FA8(void) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80199FA8.s")
 #endif
 
-// Needs static data type
+// D_EBFBE0_801B9380 needs to be static but belongs to bss section?
 #ifdef IMPORT_DATA_PENDING
 void func_EBFBE0_8019A080(void) {
     s32 i;
@@ -2733,7 +2733,21 @@ void func_EBFBE0_8019A080(void) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019A080.s")
 #endif
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019A0B8.s")
+void func_EBFBE0_8019A0B8(void) {
+    switch (D_EBFBE0_801B93D0) {
+        case 10:
+            func_EBFBE0_8019A124();
+            break;
+
+        case 20:
+            func_EBFBE0_8019A1A8();
+            break;
+
+        case 30:
+            func_EBFBE0_8019A214();
+            break;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019A124.s")
 
