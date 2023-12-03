@@ -316,6 +316,8 @@ void func_EBFBE0_8019AAB4(void);
 void func_EBFBE0_8019AB30(void);
 void func_EBFBE0_8019AD84(void);
 void func_EBFBE0_8019AFFC(void);
+void func_EBFBE0_8019B1F8(void);
+void func_EBFBE0_8019B3DC(void);
 void func_EBFBE0_8019B5AC(void);
 void func_EBFBE0_8019B7D4(void);
 void func_EBFBE0_8019B8A0(s32 arg0);

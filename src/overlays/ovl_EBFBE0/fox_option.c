@@ -3113,7 +3113,58 @@ void func_EBFBE0_8019AD84(void) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019AD84.s")
 #endif
 
+// needs in-function static
+#ifdef IMPORT_DATA_PENDING
+void func_EBFBE0_8019AFFC(void) {
+    static f32 D_EBFBE0_801AF2A0 = 101.0f;
+    static f32 D_EBFBE0_801AF2A4 = 86.0f;
+    static f32 D_EBFBE0_801B93C0;
+    static f32 D_EBFBE0_801B93C8;
+    static f32 D_EBFBE0_801B93CC;
+    s32 var_v0;
+    s32 colorGB;
+
+    if ((D_EBFBE0_801B912C == 0 && D_EBFBE0_801B93D0 == 20) || (D_EBFBE0_801B912C == 1 && D_EBFBE0_801B93D0 != 20)) {
+        D_EBFBE0_801B93C0 = 94.0f;
+        D_EBFBE0_801B93C8 = 88.0f;
+        D_EBFBE0_801B93CC = 114.0f;
+
+        RCP_SetupDL(&gMasterDisp, 0x53);
+
+        func_EBFBE0_8019B6D8(D_EBFBE0_801B93C0, D_EBFBE0_801B93C8, D_EBFBE0_801B93CC, 255, 255, 255);
+        func_EBFBE0_8019C824(&D_EBFBE0_801B9370);
+    } else {
+        D_EBFBE0_801B9370 = 255.0f;
+    }
+
+    colorGB = D_EBFBE0_801B9370;
+
+    var_v0 = 0xFFFFFFFF;
+    if (D_EBFBE0_801B9374 != 0) {
+        var_v0 = 1;
+        colorGB = 255;
+        D_EBFBE0_801B9374--;
+        if (!D_EBFBE0_801B9374)
+            D_EBFBE0_801B91F0 = 1;
+    }
+
+    if (D_80177DB0 & var_v0) {
+        RCP_SetupDL(&gMasterDisp, 0x53);
+
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
+
+        TextureRect_8bIA(&gMasterDisp, D_7001270, 112, 12, D_EBFBE0_801AF2A0, D_EBFBE0_801AF2A4, 1.0f, 1.0f);
+    }
+
+    if (D_EBFBE0_801B93D0 == 30) {
+        func_EBFBE0_8019B1F8();
+    } else {
+        func_EBFBE0_8019B3DC();
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019AFFC.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019B1F8.s")
 
