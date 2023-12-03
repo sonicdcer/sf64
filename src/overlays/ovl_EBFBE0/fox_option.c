@@ -2851,7 +2851,46 @@ void func_EBFBE0_8019A2E0(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019A4DC.s")
+void func_EBFBE0_8019A4DC(void) {
+    s32 i;
+
+    if (D_EBFBE0_801B937C) {
+        return;
+    }
+
+    if (D_EBFBE0_801B91F0) {
+        D_EBFBE0_801B912C++;
+        D_EBFBE0_801B91F0 = 0;
+        return;
+    }
+
+    for (i = 0; i < 4; i++) {
+        if (gControllerStatus[i] == 0) {
+            continue;
+        }
+
+        if (func_EBFBE0_8019C418(&D_EBFBE0_801B93DC, 4, 0, 0, 20, 2, 4, i, &D_EBFBE0_801B9380[i])) {
+            func_80019218(0x49000002, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            D_EBFBE0_801B9340 = D_EBFBE0_801B93DC;
+            D_801778C8 = D_EBFBE0_801B93DC;
+        }
+
+        if (gChangedInput[i].button & A_BUTTON) {
+            func_80019218(0x49000003, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            func_EBFBE0_8019A080();
+            D_EBFBE0_801B937C = 10;
+            break;
+        }
+
+        if (gChangedInput[i].button & B_BUTTON) {
+            func_80019218(0x4900101D, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            D_EBFBE0_801B9124 = D_EBFBE0_801B93D0;
+            D_EBFBE0_801B91C4 = 0;
+            func_EBFBE0_801924C4();
+            break;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019A6DC.s")
 
