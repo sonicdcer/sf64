@@ -2402,7 +2402,42 @@ s32 func_EBFBE0_80199284(s32 arg0, s32 arg1) {
     return D_EBFBE0_801AED4C[i].unk_8;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_801992C4.s")
+void func_EBFBE0_801992C4(void) {
+    s32 i;
+
+    if (D_EBFBE0_801B91C4) {
+        func_8001D444(0, 56, 0, 255);
+    }
+
+    D_EBFBE0_801B93D0 = D_EBFBE0_801B9124;
+
+    if (D_800D2870) {
+        D_EBFBE0_801AE638[1].unk_00.unk_1C = 129.0f;
+        D_EBFBE0_801AE638[1].unk_38.unk_04 = -7.5f;
+    }
+
+    D_801778A4 = 3;
+
+    D_EBFBE0_801B9340 = 2;
+
+    D_80161A28 = 0;
+    D_80178410 = 0;
+
+    D_EBFBE0_801B93C4 = 0;
+
+    for (i = 0; i < 4; i++) {
+        D_80161A18[i] = 0;
+        if (gControllerStatus[i] == 0) {
+            D_80161A18[i] = 1;
+            D_EBFBE0_801B93C4 |= 1 << i;
+        }
+        D_EBFBE0_801B9358[i] = 255.0f;
+        D_EBFBE0_801B93A0[i].unk_0 = 0;
+        D_EBFBE0_801B93A0[i].unk_4 = 0;
+    }
+
+    D_EBFBE0_801B91E8 = 255.0f;
+}
 
 void func_EBFBE0_80199424(void) {
     switch (D_EBFBE0_801B912C) {

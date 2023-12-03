@@ -253,6 +253,8 @@ extern s32 D_80161810[];
 extern char D_801619A0[100];
 extern f32 D_80161A10;
 extern f32 D_80161A14;
+extern s32 D_80161A18[4];
+extern s32 D_80161A28;
 extern u8 D_80161A2C;
 extern u16 D_80161A2E;
 extern u16 D_80161A30;
