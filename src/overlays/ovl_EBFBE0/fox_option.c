@@ -3282,7 +3282,12 @@ void func_EBFBE0_8019B5AC(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019B6D8.s")
+void func_EBFBE0_8019B6D8(f32 xPos, f32 yPos, f32 offset, s32 r, s32 g, s32 b) {
+    RCP_SetupDL(&gMasterDisp, 0x53);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, r, g, b, 255);
+    TextureRect_8bIA_MirX(&gMasterDisp, D_7004010, 8, 8, xPos, yPos, 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, D_7004010, 8, 8, xPos + offset, yPos, 1.0f, 1.0f);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019B7D4.s")
 
