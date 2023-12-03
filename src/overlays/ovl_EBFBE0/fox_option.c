@@ -2947,7 +2947,41 @@ void func_EBFBE0_8019A6DC(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019A954.s")
+void func_EBFBE0_8019A954(void) {
+    s32 i;
+
+    if (D_EBFBE0_801B91EC) {
+        return;
+    }
+
+    if (D_EBFBE0_801B91F0) {
+
+        D_EBFBE0_801B91F0 = 0;
+        D_EBFBE0_801B912C++;
+        return;
+    }
+
+    for (i = 0; i < 4; i++) {
+        if (gControllerStatus[i] == 0) {
+            continue;
+        }
+
+        if (gChangedInput[i].button & A_BUTTON) {
+            func_80019218(0x49000003, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            D_EBFBE0_801B91EC = 10;
+            break;
+        }
+
+        if (gChangedInput[i].button & B_BUTTON) {
+            func_80019218(0x4900101D, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            func_EBFBE0_8019A080();
+            D_EBFBE0_801B933C = 0;
+            D_EBFBE0_801B91F0 = 0;
+            D_EBFBE0_801B912C--;
+            break;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019AAB4.s")
 
