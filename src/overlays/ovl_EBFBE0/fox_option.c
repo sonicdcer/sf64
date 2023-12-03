@@ -74,6 +74,10 @@ static MenuContext_00 D_EBFBE0_801AEB48[3] = {
     { 3, 0, (void*) 0x080141B0, 0, 16, 16, 245.0f, 158.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
     { 3, 0, (void*) 0x080141B0, 0, 16, 16, 245.0f, 185.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
 };
+static u8* D_EBFBE0_801AECF8[10] = {
+    (u8*) 0x05009F60, (u8*) 0x0500A050, (u8*) 0x0500A140, (u8*) 0x0500A230, (u8*) 0x0500A320,
+    (u8*) 0x0500A410, (u8*) 0x0500A500, (u8*) 0x0500A5F0, (u8*) 0x0500A6E0, (u8*) 0x0500A7D0,
+};
 static s32 D_EBFBE0_801AED3C[4] = { 0, 0, 0, 0 };
 static f32 D_EBFBE0_801AF148[4] = { 30.0f, 214.0f, 30.0f, 215.0f };
 static f32 D_EBFBE0_801AF158[4] = { 18.0f, 18.0f, 151.0f, 151.0f };
@@ -3004,7 +3008,50 @@ void func_EBFBE0_8019AAB4(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019AB30.s")
+void func_EBFBE0_8019AB30(void) {
+    s32 pad[5];
+    s32 colorGB;
+    s32 sp44 = D_801778A4;
+    s32 var_v0;
+
+    RCP_SetupDL(&gMasterDisp, 0x53);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 190);
+
+    TextureRect_8bIA(&gMasterDisp, D_601B4B0, 24, 17, 94.0f, 43.0f, 5.0f, 1.1f);
+
+    if (D_EBFBE0_801B912C == 0) {
+        func_EBFBE0_8019B6D8(97.0f, 50.0f, 107.0f, 255, 255, 255);
+        func_EBFBE0_8019C824(&D_EBFBE0_801B9368);
+    } else {
+        D_EBFBE0_801B9368 = 255.0f;
+    }
+
+    colorGB = D_EBFBE0_801B9368;
+
+    var_v0 = 0xFFFFFFFFF;
+
+    if (D_EBFBE0_801B936C) {
+        colorGB = 255;
+        var_v0 = 1;
+        D_EBFBE0_801B936C--;
+        if (!D_EBFBE0_801B936C) {
+            D_EBFBE0_801B91F0 = 1;
+}
+    }
+
+    if (D_80177DB0 & var_v0) {
+        RCP_SetupDL(&gMasterDisp, 0x53);
+
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
+
+        TextureRect_8bIA(&gMasterDisp, D_EBFBE0_801AECF8[sp44], 16, 15, 109.0f, 45.0f, 1.0f, 1.0f);
+
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
+
+        TextureRect_8bIA(&gMasterDisp, D_7001DF0, 80, 10, 122.0f, 49.0f, 1.0f, 1.0f);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019AD84.s")
 
