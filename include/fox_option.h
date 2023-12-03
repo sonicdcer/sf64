@@ -147,6 +147,7 @@ extern s32 D_EBFBE0_801B931C;
 extern u8 D_EBFBE0_801B931F;
 extern bool D_EBFBE0_801B9320; // MusicPlaying status in the expert sound options
 extern s32 D_EBFBE0_801B9340;
+extern s32 D_EBFBE0_801B9348[4];
 extern f32 D_EBFBE0_801B9358[4];
 extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B93A0[4];
 extern u8 D_EBFBE0_801B93C4;
@@ -297,6 +298,7 @@ void func_EBFBE0_8019A954(void);
 void func_EBFBE0_8019AAB4(void);
 void func_EBFBE0_8019B5AC(void);
 void func_EBFBE0_8019B7D4(void);
+void func_EBFBE0_8019B8A0(s32 arg0);
 void func_EBFBE0_8019B8C8(void);
 void func_EBFBE0_8019B9C0(void); 
 void func_EBFBE0_8019BDF0(void);

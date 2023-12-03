@@ -313,6 +313,7 @@ extern s32 D_80177858[];
 extern s32 D_80177868;
 extern s32 D_80177870[];
 extern s32 D_80177880;
+extern s32 D_80177888[4];
 extern s32 D_80177898;
 extern s32 D_8017789C;
 extern s32 D_801778A0;
