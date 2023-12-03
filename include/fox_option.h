@@ -327,6 +327,7 @@ void func_EBFBE0_8019BDF0(void);
 void func_EBFBE0_8019BAB8(MenuContext_38 arg0);
 void func_EBFBE0_8019BBA4(MenuContext_4C arg0);
 void func_EBFBE0_8019BC44(f32, f32, f32, f32, f32, f32);
+void func_EBFBE0_8019BE7C(f32, f32, f32, f32 *, f32 *, f32 *);
 void func_EBFBE0_8019BF34(void);
 void func_EBFBE0_8019B6D8(f32 xPos, f32 yPos, f32 offset, s32 r, s32 g, s32 b);
 void func_EBFBE0_8019C120(MenuContext_00 arg0);
