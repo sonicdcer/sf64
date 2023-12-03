@@ -3337,7 +3337,13 @@ void func_EBFBE0_8019BAB8(MenuContext_38 arg0) {
     Lib_Perspective(&gMasterDisp);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019BBA4.s")
+void func_EBFBE0_8019BBA4(MenuContext_4C arg0) {
+    if (D_EBFBE0_801B91BC != 0) {
+        func_EBFBE0_8019BC44(arg0.unk_0, arg0.unk_4, D_EBFBE0_801B91F4, D_EBFBE0_801B9200, 90.0f, D_EBFBE0_801B91F8);
+        func_EBFBE0_8019BC44(arg0.unk_0 + arg0.unk_8, arg0.unk_4, D_EBFBE0_801B91F4, D_EBFBE0_801B91FC, -90.0f,
+                             D_EBFBE0_801B91F8);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019BC44.s")
 
