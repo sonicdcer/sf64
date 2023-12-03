@@ -3310,7 +3310,12 @@ void func_EBFBE0_8019B8C8(void) {
     func_EBFBE0_8019C120(D_EBFBE0_801AE878[D_EBFBE0_801B91A8].unk_00);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019B9C0.s")
+void func_EBFBE0_8019B9C0(void) {
+    func_EBFBE0_8019BDF0();
+    func_EBFBE0_8019BAB8(D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_38);
+    Matrix_Pop(&gGfxMatrix);
+    func_EBFBE0_8019C120(D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_00);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019BAB8.s")
 
