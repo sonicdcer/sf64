@@ -307,6 +307,7 @@ void func_EBFBE0_8019A124(void);
 void func_EBFBE0_8019A1A8(void);
 void func_EBFBE0_8019A214(void);
 void func_EBFBE0_8019A298(void);
+void func_EBFBE0_8019A2E0(void);
 void func_EBFBE0_8019A4DC(void);
 void func_EBFBE0_8019A6DC(void);
 void func_EBFBE0_8019A954(void);

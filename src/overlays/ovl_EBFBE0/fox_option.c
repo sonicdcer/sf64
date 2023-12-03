@@ -2749,9 +2749,41 @@ void func_EBFBE0_8019A0B8(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019A124.s")
+void func_EBFBE0_8019A124(void) {
+    switch (D_EBFBE0_801B912C) {
+        case 0:
+            func_EBFBE0_8019A2E0();
+            break;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019A1A8.s")
+        case 1:
+            func_EBFBE0_8019A6DC();
+            break;
+
+        case 2:
+            func_EBFBE0_8019A954();
+            break;
+
+        case 3:
+            func_EBFBE0_8019A298();
+            break;
+    }
+}
+
+void func_EBFBE0_8019A1A8(void) {
+    switch (D_EBFBE0_801B912C) {
+        case 0:
+            func_EBFBE0_8019A6DC();
+            break;
+
+        case 1:
+            func_EBFBE0_8019A954();
+            break;
+
+        case 2:
+            func_EBFBE0_8019A298();
+            break;
+    }
+}
 
 void func_EBFBE0_8019A214(void) {
     switch (D_EBFBE0_801B912C) {
