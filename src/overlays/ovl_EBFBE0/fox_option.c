@@ -3553,7 +3553,44 @@ bool func_EBFBE0_8019C418(s32* arg0, s32 arg1, bool arg2, s32 arg3, s32 arg4, s3
     return ret;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019C5A0.s")
+s32 func_EBFBE0_8019C5A0(s32* arg0) {
+    s32 ret = 0;
+    s32 temp = *arg0;
+    s32 x = gChangedInput[D_80177AF8].stick_x;
+    s32 y = -gChangedInput[D_80177AF8].stick_y;
+
+    if ((y > 40) || (y < -40)) {
+        return ret;
+    }
+
+    if ((x < 30) && (x > -30)) {
+        x = 0;
+    }
+
+    if (D_EBFBE0_801B91A0 == 0) {
+        if (x != 0) {
+            if (x > 0) {
+                *arg0 = 0;
+                ret = 1;
+            }
+            if (x < 0) {
+                *arg0 = 1;
+                ret = -1;
+            }
+            D_EBFBE0_801B91A0 = 6;
+        }
+    }
+
+    if (D_EBFBE0_801B91A0 > 0) {
+        D_EBFBE0_801B91A0--;
+    }
+
+    if (temp == *arg0) {
+        ret = 0;
+    }
+
+    return ret;
+}
 
 s32 func_EBFBE0_8019C66C(f32* arg0, f32 arg1, f32 arg2, UnkStruct_D_EBFBE0_801B9250* arg3) {
     s32 x;
