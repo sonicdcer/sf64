@@ -99,6 +99,11 @@ static f32 D_EBFBE0_801AF1D8 = 59.0f;
 static f32 D_EBFBE0_801AF1DC = 58.0f;
 static s32 D_EBFBE0_801AF168[4] = { 56, 48, 56, 48 };
 static s32 D_EBFBE0_801AF178[4] = { 8, 10, 10, 8 };
+extern u8 D_EBFBE0_801AEF5C[40] = {
+    0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x48, 0x49, 0x4A, 0x4B, 0x4C, 0x4D, 0x4E,
+    0x4F, 0x50, 0x51, 0x52, 0x53, 0x54, 0x55, 0x56, 0x57, 0x58, 0x59, 0x5A, 0x30, 0x31,
+    0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x2E, 0,    0,    0,
+};
 #else
 extern MenuContext_00 D_EBFBE0_801AE9C0[4];
 extern MenuContext_00 D_EBFBE0_801AEB48[];
@@ -129,6 +134,7 @@ extern f32 D_EBFBE0_801AF1D8;
 extern f32 D_EBFBE0_801AF1DC;
 extern s32 D_EBFBE0_801AF168[4];
 extern s32 D_EBFBE0_801AF178[4];
+extern u8 D_EBFBE0_801AEF5C[0x28];
 #endif
 
 void func_EBFBE0_80191B20(void) {
@@ -3803,7 +3809,95 @@ void func_EBFBE0_8019CBC0(void) {
     func_EBFBE0_80192598();
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019CD54.s")
+void func_EBFBE0_8019CD54(void) {
+    switch (D_EBFBE0_801B9128) {
+        case 0:
+            if (D_EBFBE0_801B9138 == 0) {
+                if (func_EBFBE0_8019C418(&D_EBFBE0_801B90A0[D_EBFBE0_801B9098], 36, 0, 0, 50, 5, 10, D_80177AF8,
+                                         &D_EBFBE0_801B9160[D_EBFBE0_801B9098]) != 0) {
+                    func_80019218(0x49000002U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    D_EBFBE0_801B9150[D_EBFBE0_801B9098][0] = D_EBFBE0_801AEF5C[D_EBFBE0_801B90A0[D_EBFBE0_801B9098]];
+                    D_EBFBE0_801B90D0[D_EBFBE0_801B9098] = 0.0f;
+                    D_EBFBE0_801B9100[D_EBFBE0_801B9098] = 0.0f;
+                }
+            }
+
+            if (gChangedInput[D_80177AF8].button & A_BUTTON) {
+                D_EBFBE0_801B90D0[D_EBFBE0_801B9098] = 0.0f;
+                if (D_EBFBE0_801B9138 != 0) {
+                    func_80019218(0x49000003U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    D_EBFBE0_801B9140[0] = 10;
+                    D_EBFBE0_801B9140[1] = 10;
+                    D_EBFBE0_801B9140[2] = 10;
+                    D_EBFBE0_801B9138 = -1;
+                    D_EBFBE0_801B9128 = 2;
+                    break;
+
+                } else {
+                    if (D_EBFBE0_801B9098 < 3) {
+                        func_80019218(0x49000003U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                        D_EBFBE0_801B90D0[D_EBFBE0_801B9098] = 0.0f;
+                        D_EBFBE0_801B9140[D_EBFBE0_801B9098] = 15;
+                        D_EBFBE0_801B9128 = 1;
+                        break;
+                    }
+                }
+            }
+
+            if ((gChangedInput[D_80177AF8].button & B_BUTTON) && (D_EBFBE0_801B9098 != 0)) {
+                func_80019218(0x4900101DU, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                if (D_EBFBE0_801B9138 != 0) {
+                    D_EBFBE0_801B9138 = 0;
+                }
+                D_EBFBE0_801B9098--;
+                D_EBFBE0_801B9140[D_EBFBE0_801B9098] = 15;
+                D_EBFBE0_801B9128 = 10;
+            }
+            break;
+
+        case 10:
+            D_EBFBE0_801B9140[D_EBFBE0_801B9098]--;
+            if (D_EBFBE0_801B9140[D_EBFBE0_801B9098] != 0) {
+                break;
+            }
+
+            D_EBFBE0_801B9128 = 0;
+            break;
+
+        case 1:
+            D_EBFBE0_801B9140[D_EBFBE0_801B9098]--;
+            if (D_EBFBE0_801B9140[D_EBFBE0_801B9098] != 0) {
+                break;
+            }
+
+            if ((D_EBFBE0_801B9098 + 1) > 2) {
+                D_EBFBE0_801B9138 = 1;
+            }
+
+            D_EBFBE0_801B9098++;
+            D_EBFBE0_801B9128 = 0;
+            break;
+
+        case 2:
+            D_EBFBE0_801B9140[0]--;
+            D_EBFBE0_801B9140[1]--;
+            D_EBFBE0_801B9140[2]--;
+
+            if (D_EBFBE0_801B9140[0] != 0) {
+                break;
+            }
+
+            D_EBFBE0_801B917C = 20;
+            D_EBFBE0_801B9128 = 3;
+            break;
+
+        case 3:
+            if (D_EBFBE0_801B917C == 0) {
+                D_EBFBE0_801B912C = 2;
+                break;
+            }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019D118.s")
 
