@@ -2197,9 +2197,9 @@ void func_EBFBE0_8018D510(s32 arg0) {
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, var_fa0, 1);
     Matrix_Scale(gGfxMatrix, var_fv0, var_fv0 * 0.7f, var_fv0, 1);
 
-    Matrix_RotateZ(gGfxMatrix, -D_EBFBE0_801B84E8[arg0].unk_20 * (M_PI / 180.0f), 1);
-    Matrix_RotateX(gGfxMatrix, -D_EBFBE0_801B84E8[arg0].unk_18 * (M_PI / 180.0f), 1);
-    Matrix_RotateY(gGfxMatrix, -D_EBFBE0_801B84E8[arg0].unk_1C * (M_PI / 180.0f), 1);
+    Matrix_RotateZ(gGfxMatrix, -D_EBFBE0_801B84E8[arg0].unk_20 * M_DTOR, 1);
+    Matrix_RotateX(gGfxMatrix, -D_EBFBE0_801B84E8[arg0].unk_18 * M_DTOR, 1);
+    Matrix_RotateY(gGfxMatrix, -D_EBFBE0_801B84E8[arg0].unk_1C * M_DTOR, 1);
 
     sp3C = -Math_Atan2F(D_80177978 - D_EBFBE0_801B84E8[arg0].unk_00.x, D_80177988 - D_EBFBE0_801B84E8[arg0].unk_00.z);
     temp = sqrtf(SQ(D_80177988 - D_EBFBE0_801B84E8[arg0].unk_00.z) + SQ(D_80177978 - D_EBFBE0_801B84E8[arg0].unk_00.x));
@@ -2479,7 +2479,7 @@ void func_EBFBE0_8018E67C(s32 arg0) {
 
     Matrix_Pop(&gGfxMatrix);
 
-    temp_fv1 = __sinf((f32) sp5C * 12.0f * (M_PI / 180.0f)) * 15.0f;
+    temp_fv1 = __sinf((f32) sp5C * 12.0f * M_DTOR) * 15.0f;
 
     if (temp_fv1 >= 0) {
         D_EBFBE0_801B8350[arg0].unk_0C = temp_fv1;

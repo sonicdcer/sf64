@@ -280,7 +280,7 @@ void func_800780F8(Object_8C* arg0) {
             Matrix_Pop(&gGfxMatrix);
         }
         Matrix_Translate(gGfxMatrix, 0.0f, -120.0f, 0.0f, 1);
-        Matrix_RotateZ(gGfxMatrix, D_800D1534[arg0->unk_4C][i] * (M_PI / 180.0f), 1);
+        Matrix_RotateZ(gGfxMatrix, D_800D1534[arg0->unk_4C][i] * M_DTOR, 1);
     }
 }
 
