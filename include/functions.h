@@ -311,7 +311,7 @@ void func_800BA808(u16*, s32);
 void func_800BB5D0(void);
 void Graphics_NMIWipe(void);
 void func_800B6F50(f32, f32, f32, f32, f32, f32);
-void func_800B9358(void);
+void RCP_SetupDL_36(void);
 void func_800C1ED4(void);
 void func_800C20B0(void);
 void func_800C2190(void);

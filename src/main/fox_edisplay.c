@@ -25,16 +25,16 @@ void func_8005980C(f32 arg0) {
 void func_80059850(Object_4C* arg0) {
     RCP_SetupDL(&gMasterDisp, 0x40);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 60);
-    func_800B9B38(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
+    RCP_SetupDL_60(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
 }
 
 void func_800598DC(s32 arg0) {
 }
 
 void func_800598E8(Object_2F4* arg0) {
-    func_800B9B38(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
+    RCP_SetupDL_60(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
     gSPDisplayList(gMasterDisp++, D_6025B50);
-    func_800BA1D0(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
+    RCP_SetupDL_29(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
 }
 
 void func_800599A4(s32 arg0, Vec3f* arg1, s32* arg2) {
@@ -104,7 +104,7 @@ void func_80059C34(Object_4C* arg0) {
 }
 
 void func_80059C40(Object_4C* arg0) {
-    func_800B9C50(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
+    RCP_SetupDL_47(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 180);
     switch (arg0->unk_45) {
         case 0x0:
@@ -139,7 +139,7 @@ void func_80059C40(Object_4C* arg0) {
             gSPDisplayList(gMasterDisp++, D_6034B90);
             break;
     }
-    func_800B9B38(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
+    RCP_SetupDL_60(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
 }
 
 void func_80059F68(Object_6C* arg0) {
@@ -447,7 +447,7 @@ void func_8005ADAC(Object_2F4* arg0) {
         if (D_80177DB0 & 1) {
             sp54 = 180.0f;
         }
-        func_800BA170();
+        RCP_SetupDL_64_2();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 100);
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, 70.0f, -10.0f, -100.0f, 1);
@@ -549,14 +549,14 @@ void func_8005B6A4(Object_2F4* arg0) {
 }
 
 void func_8005B71C(Object_2F4* arg0) {
-    func_800BA1D0(arg0->unk_046, D_80178328, D_80178330, D_80178338, arg0->unk_048, D_801783DC);
+    RCP_SetupDL_29(arg0->unk_046, D_80178328, D_80178330, D_80178338, arg0->unk_048, D_801783DC);
     Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_6018C00);
 }
 
 void func_8005B7CC(Object_2F4* arg0) {
-    func_800BA1D0(arg0->unk_046, D_80178328, D_80178330, D_80178338, arg0->unk_048, D_801783DC);
+    RCP_SetupDL_29(arg0->unk_046, D_80178328, D_80178330, D_80178338, arg0->unk_048, D_801783DC);
     gSPDisplayList(gMasterDisp++, D_6022920);
 }
 
@@ -593,7 +593,7 @@ void func_8005B9A4(Object_2F4* arg0) {
 
 void func_8005BA30(Object_2F4* arg0) {
     if (arg0->unk_0BC != 0) {
-        func_800BA400();
+        RCP_SetupDL_27();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
     gSPDisplayList(gMasterDisp++, D_6020B40);
@@ -695,7 +695,7 @@ void func_8005BAB4(s32 arg0, s32 arg1) {
             gSPDisplayList(gMasterDisp++, D_6034B90);
             break;
         case 0xE6:
-            func_800BA550();
+            RCP_SetupDL_48();
             RCP_SetupDL(&gMasterDisp, 0x45);
             gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
@@ -734,7 +734,7 @@ void func_8005BAB4(s32 arg0, s32 arg1) {
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             break;
         case 0xD7:
-            func_800BA550();
+            RCP_SetupDL_48();
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
             gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 255);
             Matrix_Scale(gGfxMatrix, 4.0f, 4.0f, 4.0f, 1);
@@ -845,7 +845,7 @@ void func_8005CDA8(Object_6C* arg0) {
         RCP_SetupDL(&gMasterDisp, 0x29);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, arg0->unk_44);
     } else {
-        func_800B9B38(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
+        RCP_SetupDL_60(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
     }
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK | G_LIGHTING); // wrong order?
     for (i = 0; i < 7; i++) {
@@ -933,19 +933,19 @@ void func_8005D654(Object_80* arg0, s32 arg1) {
     arg0->obj.pos.y -= D_8017847C;
     if (arg0->unk_1C.unk_04 == 0) {
         if ((arg0->obj.id == 0x13) || (arg0->obj.id == 0x37) || (arg0->obj.id == 9) || (arg0->obj.id == 0x32)) {
-            func_800B9EB0(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
+            RCP_SetupDL_57(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
             if (arg1 < 0) {
                 func_800596C0();
             }
             gSPDisplayList(gMasterDisp++, arg0->unk_1C.unk_00);
-            func_800BA1D0(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
+            RCP_SetupDL_29(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
         } else {
             if (arg0->obj.id == 8) {
                 if (arg1 < 0) {
                     return; // weird control flow
                 }
-                func_800B9B38(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
+                RCP_SetupDL_60(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
             }
             func_800597C0(arg1);
             if (arg1 < 0) {
@@ -953,7 +953,7 @@ void func_8005D654(Object_80* arg0, s32 arg1) {
             }
             gSPDisplayList(gMasterDisp++, arg0->unk_1C.unk_00);
             if (arg0->obj.id == 8) {
-                func_800BA1D0(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
+                RCP_SetupDL_29(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
             }
         }
     } else if (arg0->unk_1C.unk_00 != NULL) {
@@ -1544,7 +1544,7 @@ void func_8005FB70(s32 arg0) {
     Object_80* var_s0_2;
 
     if ((D_80177880 == 1) && (D_80178234 != 0x10)) {
-        func_800BA1D0(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
+        RCP_SetupDL_29(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
         if (D_80177AB0 == 5) {
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
         }
@@ -1563,7 +1563,7 @@ void func_8005FB70(s32 arg0) {
             }
         }
     } else {
-        func_800BA1D0(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
+        RCP_SetupDL_29(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
         for (i = 0, var_s0_2 = D_80161B00; i < ARRAY_COUNT(D_80161B00); i++, var_s0_2++) {
             if (var_s0_2->obj.status >= 2) {
                 if (arg0 > 0) {
@@ -1579,9 +1579,9 @@ void func_8005FB70(s32 arg0) {
     for (i = 0, var_s0_3 = D_8016F110; i < ARRAY_COUNT(D_8016F110); i++, var_s0_3++) {
         if ((var_s0_3->obj.status >= 2) && (var_s0_3->obj.id != 0x136)) {
             if (!(var_s0_3->unk_05C & 1)) {
-                func_800BA1D0(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
+                RCP_SetupDL_29(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
             } else {
-                func_800BA400();
+                RCP_SetupDL_27();
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 64, 64, 255, 255);
             }
             func_800597C0(arg0);
@@ -1601,9 +1601,9 @@ void func_8005FB70(s32 arg0) {
         if ((var_s0_4->obj.status >= 2) && (func_80060FE4(&var_s0_4->obj.pos, -12000.0f) != 0)) {
             Matrix_Push(&gGfxMatrix);
             if ((var_s0_4->obj.id == 0xA5) || (var_s0_4->obj.id == 0xA6)) {
-                func_800B9EB0(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
+                RCP_SetupDL_57(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
             } else {
-                func_800B9B38(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
+                RCP_SetupDL_60(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
             }
             func_8005D8B8(var_s0_4, arg0);
             Matrix_Pop(&gGfxMatrix);
@@ -1613,12 +1613,12 @@ void func_8005FB70(s32 arg0) {
         if (var_s0_5->obj.status >= 2) {
             if (!(var_s0_5->unk_0C6 & 1)) {
                 if (D_80178234 == 0xF) {
-                    func_800BA1A0();
+                    RCP_SetupDL_23();
                 } else {
-                    func_800BA1D0(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
+                    RCP_SetupDL_29(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
                 }
             } else {
-                func_800BA400();
+                RCP_SetupDL_27();
                 if (var_s0_5->unk_110 >= 0.0f) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
                 } else {
@@ -1703,9 +1703,9 @@ void func_8006046C(s32 arg0) {
     for (i = 0, var_s0_2 = D_8016F110; i < ARRAY_COUNT(D_8016F110); i++, var_s0_2++) {
         if ((var_s0_2->obj.status >= 2) && (var_s0_2->obj.id == 0x136)) {
             if (!(var_s0_2->unk_05C & 1)) {
-                func_800BA1D0(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
+                RCP_SetupDL_29(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
             } else {
-                func_800BA400();
+                RCP_SetupDL_27();
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 64, 64, 255, 255);
             }
             Matrix_Push(&gGfxMatrix);
@@ -1768,7 +1768,7 @@ void func_80060968(void) {
     } else if ((D_80178234 == 0xD) || (D_80178234 == 9)) {
         RCP_SetupDL(&gMasterDisp, 0x29);
     } else {
-        func_800B92F8();
+        RCP_SetupDL_14();
     }
     for (i = 0; i < ARRAY_COUNT(D_80174750); i++) {
         if (D_80174750[i].unk_00 != 0) {

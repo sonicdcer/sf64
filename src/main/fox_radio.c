@@ -9,7 +9,7 @@ extern s32 D_80178748;
 s32 D_800D4A70 = 0;
 
 void func_800BA760(void) {
-    func_800B9358();
+    RCP_SetupDL_36();
     if (D_80177D50 == 1.3f) {
         D_801782F8 = Message_IsPrintingChar(D_80178308, D_801782D8);
     }
@@ -403,7 +403,7 @@ void func_800BAAE8(void) {
             D_800D4A74 = -1.0f;
         }
         sp38 = D_80177D38 * 20.0f * D_800D4A74;
-        func_800BA490();
+        RCP_SetupDL_76();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
 
         if (var_s0 != 0) {
@@ -802,7 +802,7 @@ void func_800BC040(void) {
             func_800BB388();
             if (((s32) D_80177D68 == 10) || ((s32) D_80177D68 == 20) || ((s32) D_80177D68 == 30)) {
                 Matrix_Push(&gGfxMatrix);
-                func_800B9358();
+                RCP_SetupDL_36();
                 Matrix_Translate(gGfxMatrix, -150.0f, -115.0f, -443.0f, 1);
                 Matrix_Scale(gGfxMatrix, 0.068f, 0.068f, 1.0f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);

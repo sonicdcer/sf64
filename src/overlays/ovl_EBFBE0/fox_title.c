@@ -2300,7 +2300,7 @@ void func_EBFBE0_8018DDB8(s32 arg0) {
     Matrix_RotateY(gGfxMatrix, 3.1415927f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    func_800BA140();
+    RCP_SetupDL_64();
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 240);
     gSPDisplayList(gMasterDisp++, D_6032580);
@@ -2437,7 +2437,7 @@ void func_EBFBE0_8018E67C(s32 arg0) {
 
     sp5C = D_EBFBE0_801B8350[arg0].unk_58 % Animation_GetFrameCount(D_EBFBE0_801ADA00[arg0].unk_0);
 
-    func_800BA1D0(D_80178320, D_80178328, D_80178330, 255, 995, 1000);
+    RCP_SetupDL_29(D_80178320, D_80178328, D_80178330, 255, 995, 1000);
 
     Matrix_Push(&gGfxMatrix);
 
@@ -2472,7 +2472,7 @@ void func_EBFBE0_8018E67C(s32 arg0) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    func_800BA140();
+    RCP_SetupDL_64();
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 128);
     gSPDisplayList(gMasterDisp++, D_6041070);
@@ -2673,7 +2673,7 @@ void func_EBFBE0_8018F438(void) {
     D_EBFBE0_801B82C8 += 70.0f;
     D_EBFBE0_801B82C8 = Math_ModF(D_EBFBE0_801B82C8, 4101.6f);
 
-    func_800BA1D0(D_80178320, D_80178328, D_80178330, 255, 995, 1000);
+    RCP_SetupDL_29(D_80178320, D_80178328, D_80178330, 255, 995, 1000);
 
     Matrix_Push(&gGfxMatrix);
 
