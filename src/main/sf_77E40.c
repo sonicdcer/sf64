@@ -530,7 +530,16 @@ void func_8007905C(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 a
     func_800612B8(&arg0->unk_1C, arg0->obj.id);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_800794CC.s")
+void func_800794CC(f32 posX, f32 posY, f32 posZ, f32 arg3) {
+    s32 i;
+
+    for (i = (ARRAY_COUNT(D_80170130) / 2); i >= 0; i--) {
+        if (D_80170130[i].obj.status == 0) {
+            func_8007905C(&D_80170130[i], posX, posY, posZ, arg3, 0);
+            return;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007953C.s")
 
