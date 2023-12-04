@@ -86,7 +86,7 @@ void func_800A3FEC(void) {
             *var_s1 = 0.0f;
         }
         spB4[*spB0].n.ob[1] = (s32) *var_s0 + (s32) *var_s3;
-        Matrix_RotateZ(gCalcMatrix, *var_s3 * sp88 * 0.017453292f, 0);
+        Matrix_RotateZ(gCalcMatrix, *var_s3 * sp88 * M_DTOR, 0);
         spC4.x = 120.0f;
         spC4.y = 0.0f;
         spC4.z = 0.0f;
@@ -109,7 +109,7 @@ void func_800A3FEC(void) {
     //         D_801782EC[i] = 0.0f;
     //     }
     //     var_s7[var_s2[i]].n.ob[1] = (s32) D_801782E4[i] + (s32) D_801782CC[i];
-    //     Matrix_RotateZ(gCalcMatrix, D_801782CC[i] * sp88 * 0.017453292f, 0);
+    //     Matrix_RotateZ(gCalcMatrix, D_801782CC[i] * sp88 * M_DTOR, 0);
     //     spC4.x = 120.0f;
     //     spC4.y = 0.0f;
     //     spC4.z = 0.0f;
@@ -126,22 +126,22 @@ void func_800A3FEC(void);
 
 void func_800A4460(UnkStruct_D_80178280* arg0) {
     if ((D_80178234 == 9) && (D_8016F110[0].obj.status == 2) && (D_8016F110[0].unk_04E == 0x11)) {
-        arg0->unk_060 = __sinf(arg0->unk_0F4 * 0.7f * 0.017453292f) * 0.5f;
+        arg0->unk_060 = __sinf(arg0->unk_0F4 * 0.7f * M_DTOR) * 0.5f;
         arg0->unk_088 += 13.0f;
         arg0->unk_0F4 += 20.0f;
-        arg0->unk_080 = -__sinf(arg0->unk_088 * 0.017453292f) * 5.0f;
-        arg0->unk_0F0 = __sinf(arg0->unk_0F4 * 0.017453292f) * 10.0f;
+        arg0->unk_080 = -__sinf(arg0->unk_088 * M_DTOR) * 5.0f;
+        arg0->unk_0F0 = __sinf(arg0->unk_0F4 * M_DTOR) * 10.0f;
         return;
     } else {
-        arg0->unk_060 = __sinf(arg0->unk_0F4 * 0.7f * 0.017453292f) * 0.5f;
+        arg0->unk_060 = __sinf(arg0->unk_0F4 * 0.7f * M_DTOR) * 0.5f;
         arg0->unk_088 += 10.0f;
         arg0->unk_0F4 += 8.0f;
         if ((D_80177C98 == 0) || ((arg0->unk_238 == 1) && (D_80177880 == 0))) {
-            arg0->unk_080 = -__sinf(arg0->unk_088 * 0.017453292f) * 0.5f;
+            arg0->unk_080 = -__sinf(arg0->unk_088 * M_DTOR) * 0.5f;
             if ((arg0->unk_49C < 2) || (arg0->unk_49D < 2)) {
-                arg0->unk_0F0 = __sinf(arg0->unk_0F4 * 0.017453292f) * 5.0f;
+                arg0->unk_0F0 = __sinf(arg0->unk_0F4 * M_DTOR) * 5.0f;
             } else {
-                arg0->unk_0F0 = __sinf(arg0->unk_0F4 * 0.017453292f) * 1.5f;
+                arg0->unk_0F0 = __sinf(arg0->unk_0F4 * M_DTOR) * 1.5f;
             }
         }
     }
@@ -219,9 +219,9 @@ void func_800A4C40(UnkStruct_D_80178280* arg0) {
 
     if (D_80161A88 == 2) {
         Matrix_Translate(gCalcMatrix, arg0->unk_074, arg0->unk_078, arg0->unk_138, 0);
-        Matrix_RotateY(gCalcMatrix, (arg0->unk_114 + arg0->unk_0E8 + 180.0f) * 0.017453292f, 1);
-        Matrix_RotateX(gCalcMatrix, -((arg0->unk_0E4 + arg0->unk_4D8) * 0.017453292f), 1);
-        Matrix_RotateZ(gCalcMatrix, -(arg0->unk_0F8 * 0.017453292f), 1);
+        Matrix_RotateY(gCalcMatrix, (arg0->unk_114 + arg0->unk_0E8 + 180.0f) * M_DTOR, 1);
+        Matrix_RotateX(gCalcMatrix, -((arg0->unk_0E4 + arg0->unk_4D8) * M_DTOR), 1);
+        Matrix_RotateZ(gCalcMatrix, -(arg0->unk_0F8 * M_DTOR), 1);
         Matrix_MultVec3f(gCalcMatrix, &sp54, &sp3C);
         Matrix_MultVec3f(gCalcMatrix, &sp48, &sp30);
         if (arg0->unk_078 < (D_80177940 + 100.0f)) {
@@ -841,8 +841,8 @@ void func_800A6CD0(UnkStruct_D_80178280* arg0, s32 arg1, s32 arg2) {
             func_800A5FA0(arg0->unk_460, 0x0903A00F, arg0->unk_1C4);
         }
     }
-    Matrix_RotateY(gCalcMatrix, arg0->unk_114 * 0.017453292f, 0);
-    Matrix_RotateZ(gCalcMatrix, arg0->unk_0F8 * 0.017453292f, 1);
+    Matrix_RotateY(gCalcMatrix, arg0->unk_114 * M_DTOR, 0);
+    Matrix_RotateZ(gCalcMatrix, arg0->unk_0F8 * M_DTOR, 1);
     sp44.z = 0.0f;
     switch (arg0->unk_21C) {
         case 0:
@@ -1063,26 +1063,26 @@ s32 func_800A7974(UnkStruct_D_80178280* arg0, f32* arg1, s32* arg2, f32 arg3, f3
         for (i = 0; i < spB4; i++, arg1 += 6) {
             spA0 = 0;
             if (arg1[0] == 200000.0f) {
-                Matrix_RotateZ(gCalcMatrix, -arg1[3] * 0.017453292f, 0);
-                Matrix_RotateX(gCalcMatrix, -arg1[1] * 0.017453292f, 1);
-                Matrix_RotateY(gCalcMatrix, -arg1[2] * 0.017453292f, 1);
-                Matrix_RotateZ(gCalcMatrix, -arg8 * 0.017453292f, 1);
-                Matrix_RotateX(gCalcMatrix, -arg6 * 0.017453292f, 1);
-                Matrix_RotateY(gCalcMatrix, -arg7 * 0.017453292f, 1);
+                Matrix_RotateZ(gCalcMatrix, -arg1[3] * M_DTOR, 0);
+                Matrix_RotateX(gCalcMatrix, -arg1[1] * M_DTOR, 1);
+                Matrix_RotateY(gCalcMatrix, -arg1[2] * M_DTOR, 1);
+                Matrix_RotateZ(gCalcMatrix, -arg8 * M_DTOR, 1);
+                Matrix_RotateX(gCalcMatrix, -arg6 * M_DTOR, 1);
+                Matrix_RotateY(gCalcMatrix, -arg7 * M_DTOR, 1);
                 arg1 += 4;
                 spA0 = 1;
             } else {
                 if (arg1[0] >= 300000.0f) {
                     arg1++;
                 }
-                Matrix_RotateZ(gCalcMatrix, -arg8 * 0.017453292f, 0);
-                Matrix_RotateX(gCalcMatrix, -arg6 * 0.017453292f, 1);
-                Matrix_RotateY(gCalcMatrix, -arg7 * 0.017453292f, 1);
+                Matrix_RotateZ(gCalcMatrix, -arg8 * M_DTOR, 0);
+                Matrix_RotateX(gCalcMatrix, -arg6 * M_DTOR, 1);
+                Matrix_RotateY(gCalcMatrix, -arg7 * M_DTOR, 1);
             }
             if (!((arg9 == 0.0f) && (argA == 0.0f) && (argB == 0.0f))) {
-                Matrix_RotateZ(gCalcMatrix, -argB * 0.017453292f, 1);
-                Matrix_RotateX(gCalcMatrix, -arg9 * 0.017453292f, 1);
-                Matrix_RotateY(gCalcMatrix, -argA * 0.017453292f, 1);
+                Matrix_RotateZ(gCalcMatrix, -argB * M_DTOR, 1);
+                Matrix_RotateX(gCalcMatrix, -arg9 * M_DTOR, 1);
+                Matrix_RotateY(gCalcMatrix, -argA * M_DTOR, 1);
             }
             if ((arg7 == 0.0f) && (arg8 == 0.0f) && (arg6 == 0.0f) && (spA0 == 0)) {
                 var_fv0 = arg0->unk_2E0.x;
@@ -1366,7 +1366,7 @@ s32 func_800A8304(UnkStruct_D_80178280* arg0, s32 arg1, f32 arg2, f32 arg3, f32 
     sp84.x = arg2;
     sp84.y = arg3;
     sp84.z = arg4;
-    Matrix_RotateY(gCalcMatrix, -arg6 * 0.017453292f, 0);
+    Matrix_RotateY(gCalcMatrix, -arg6 * M_DTOR, 0);
     sp78.x = arg0->unk_0C0.x;
     sp78.y = arg0->unk_0C0.y;
     sp78.z = arg0->unk_0C0.z;
@@ -1478,8 +1478,8 @@ void func_800A887C(UnkStruct_D_80178280* arg0) {
         Matrix_MultVec3f(gCalcMatrix, &sp3C, &arg0->unk_2EC);
     }
     if ((arg0->unk_1CC == 0) || (arg0->unk_1CC == 2)) {
-        Matrix_RotateY(gCalcMatrix, (arg0->unk_114 + 180.0f) * 0.017453292f, 1);
-        Matrix_RotateZ(gCalcMatrix, -(arg0->unk_0F8 * 0.017453292f), 1);
+        Matrix_RotateY(gCalcMatrix, (arg0->unk_114 + 180.0f) * M_DTOR, 1);
+        Matrix_RotateZ(gCalcMatrix, -(arg0->unk_0F8 * M_DTOR), 1);
         sp3C.y = 0.0f;
         sp3C.z = 0.0f;
         if (arg0->unk_49D == 2) {

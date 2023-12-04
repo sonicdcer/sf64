@@ -48,7 +48,7 @@ typedef struct{
     /* 0x17 */ u8 unk_17;
     /* 0x18 */ u8 unk_18[10][3];
     /* 0x36 */ u8 unk_36[10];
-    /* 0x40 */ s8 unk_40[10];
+    /* 0x40 */ u8 unk_40[10];
     /* 0x4A */ u16 unk_4A[10];
     /* 0x5E */ Save_SubStruct_5E unk_5E[10][7];
     /* 0xEA */ u8 unk_EA;
