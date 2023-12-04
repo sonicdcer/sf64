@@ -496,7 +496,7 @@ void Main_StartNextTask(void) {
 }
 
 void Main_ThreadEntry(void* arg0) {
-    OSMesg osMsg;
+    OSMesg ogMsg;
     u8 mesg;
 
     osCreateThread(&gAudioThread, THREAD_ID_AUDIO, Audio_ThreadEntry, arg0,
@@ -515,8 +515,8 @@ void Main_ThreadEntry(void* arg0) {
     Main_InitMesgQueues();
 
     while (true) {
-        osRecvMesg(&gMainThreadMsgQueue, &osMsg, OS_MESG_BLOCK);
-        mesg = (u32) osMsg;
+        osRecvMesg(&gMainThreadMsgQueue, &ogMsg, OS_MESG_BLOCK);
+        mesg = (u32) ogMsg;
 
         switch (mesg) {
             case EVENT_MESG_VI:

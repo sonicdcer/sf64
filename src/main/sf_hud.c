@@ -1257,7 +1257,7 @@ void func_8008D984(void) {
     }
 
     if ((D_800D2190[D_801778A0] & 2) || ((D_800D2190[D_801778A0] == 0) && (D_80177DA0[D_801778A0] != 0))) {
-        func_800BA4F0();
+        RCP_SetupDL_78();
         if (D_80177DA0[D_801778A0] >= 2) {
             if (Math_SmoothStepToF(&D_800D21A4, D_800D21A0, 0.4f, 100.0f, 0.1f) == 0.0f) {
                 if (D_800D21A0 == 255.0f) {
@@ -1292,13 +1292,13 @@ void func_8008DC34(void) {
 }
 
 void func_8008DCB0(f32 arg0, f32 arg1, s32 arg2, s32 arg3, s32 arg4) {
-    func_800BA4F0();
+    RCP_SetupDL_78();
     gDPSetPrimColor(gMasterDisp++, 0, 0, arg2, arg3, arg4, D_80161708);
     TextureRect_4bCI(&gMasterDisp, D_1011ED0, D_1011F08, 16, 7, arg0, arg1, 1.0f, 1.0f);
 }
 
 void func_8008DD78(f32 arg0, f32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
-    func_800BA4F0();
+    RCP_SetupDL_78();
     gDPSetPrimColor(gMasterDisp++, 0, 0, arg3, arg4, arg5, D_80161708);
 
     if (arg2 >= 10) {
@@ -1400,11 +1400,11 @@ void func_8008E2C8(f32 arg0, f32 arg1, s32* arg2, f32 arg3) {
         }
 
         if (i & 1) {
-            func_800BA4F0();
+            RCP_SetupDL_78();
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
             TextureRect_4bCI(&gMasterDisp, D_1011E80, D_1011EC0, 0x10, 8, (var_fs0 * arg3) + arg0, arg1, arg3, arg3);
         } else {
-            func_800BA490();
+            RCP_SetupDL_76();
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
             func_8008C390((var_fs0 * arg3) + arg0, arg1, arg3, var_s2);
             var_fs0 += 9.0f;
@@ -1567,7 +1567,7 @@ void func_8008F96C(void) {
         func_8008E5E8();
     }
 
-    func_800B9358();
+    RCP_SetupDL_36();
 
     if ((D_80177880 != 2) && (D_80161708 != 0)) {
         func_8008D4F0(246.0f, 28.0f);
@@ -1621,19 +1621,19 @@ void func_800907C4(Object_408* arg0) {
 }
 
 s32 func_8009092C(Object_2F4* arg0) {
-    s32 var_s5 = 0;
+    bool var_s5 = false;
     Object_408* var_s1;
     s32 i = 0;
 
     if (arg0->unk_0E6 != 0) {
-        return 1;
+        return true;
     }
 
     var_s1 = &D_8016F110[1];
 
     for (i = 1; i < 4; i++, var_s1++) {
         if (var_s1->obj.status == 2) {
-            var_s5 = 1;
+            var_s5 = true;
             if (arg0->unk_0E6 == 0) {
                 arg0->unk_0E6 = i;
             } else if (Rand_ZeroOne() > 0.4f) {
@@ -1868,15 +1868,15 @@ s32 func_80091368(Object_2F4* arg0) {
 
             switch (arg0->unk_0E4) {
                 case 1:
-                    func_800BA808(D_801839B8, 10);
+                    func_800BA808(gMsg_ID_20220, 10);
                     break;
 
                 case 3:
-                    func_800BA808(D_80183A08, 30);
+                    func_800BA808(gMsg_ID_20221, 30);
                     break;
 
                 case 2:
-                    func_800BA808(D_80183A64, 20);
+                    func_800BA808(gMsg_ID_20222, 20);
                     break;
             }
             D_801778B0[arg0->unk_0E4] = -1;
@@ -2107,13 +2107,13 @@ s32 func_80091F00(Object_2F4* arg0) {
     if ((arg0->unk_0D0 == 3) && (arg0->unk_0D4 == 1)) {
         switch (arg0->unk_0E4) {
             case 1:
-                func_800BA808(D_8018398C, 10);
+                func_800BA808(gMsg_ID_20210, 10);
                 break;
             case 3:
-                func_800BA808(D_80183950, 30);
+                func_800BA808(gMsg_ID_20200, 30);
                 break;
             case 2:
-                func_800BA808(D_80183900, 20);
+                func_800BA808(gMsg_ID_20190, 20);
                 break;
         }
     }
@@ -2121,13 +2121,13 @@ s32 func_80091F00(Object_2F4* arg0) {
     if ((arg0->unk_0D0 != 3) && (arg0->unk_0D4 == 1)) {
         switch (arg0->unk_0E4) {
             case 1:
-                func_800BA808(D_801836B0, 10);
+                func_800BA808(gMsg_ID_20060, 10);
                 break;
             case 3:
-                func_800BA808(D_801836F8, 30);
+                func_800BA808(gMsg_ID_20070, 30);
                 break;
             case 2:
-                func_800BA808(D_80183724, 20);
+                func_800BA808(gMsg_ID_20080, 20);
                 break;
         }
     }
@@ -2135,13 +2135,13 @@ s32 func_80091F00(Object_2F4* arg0) {
     if ((arg0->unk_0D4 == 2) || (arg0->unk_0D4 == 100)) {
         switch (arg0->unk_0E4) {
             case 1:
-                func_800BA808(D_80183630, 10);
+                func_800BA808(gMsg_ID_20030, 10);
                 break;
             case 3:
-                func_800BA808(D_8018366C, 30);
+                func_800BA808(gMsg_ID_20040, 30);
                 break;
             case 2:
-                func_800BA808(D_80183690, 20);
+                func_800BA808(gMsg_ID_20050, 20);
                 break;
         }
     }
