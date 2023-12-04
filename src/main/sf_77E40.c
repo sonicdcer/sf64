@@ -475,7 +475,60 @@ void func_80078F78(Object_8C* arg0) {
     RCP_SetupDL(&gMasterDisp, 0x40);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007905C.s")
+void func_8007905C(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 arg5) {
+    Vec3f sp54;
+    Vec3f sp48;
+    Vec3f sp3C;
+    f32 sp38;
+    f32 xAng;
+    f32 yAng;
+
+    func_80061474(arg0);
+    arg0->obj.status = 2;
+    arg0->obj.id = 0x165;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = posY;
+    arg0->obj.pos.z = posZ;
+    arg0->unk_4C = arg5;
+    if (arg4 == 1.6f) {
+        arg0->unk_54 = (posX - D_8016F110[1].obj.pos.x) * 0.1f;
+        arg0->unk_5C = (posZ - D_8016F110[1].obj.pos.z) * 0.1f;
+    } else if (arg4 == 1.3f) {
+        arg0->unk_54 = ((Rand_ZeroOne() * 0.05f) + 0.03f) * posX;
+        arg0->unk_5C = ((Rand_ZeroOne() * 0.05f) + 0.03f) * posZ;
+        arg0->unk_58 = 5.0f;
+    } else if (arg4 == 1.55f) {
+        arg0->unk_54 = (Rand_ZeroOne() - 0.5f) * 10.0f;
+        arg0->unk_5C = (Rand_ZeroOne() - 0.5f) * 10.0f;
+    } else if ((D_80178234 == 0x11) && ((arg4 == 5.11f) || (arg4 == 7.22f))) {
+        sp3C.x = D_80178280->unk_074;
+        sp3C.y = D_80178280->unk_078;
+        sp3C.z = D_80178280->unk_07C;
+        yAng = Math_Atan2F(sp3C.x - posX, sp3C.z - posZ);
+        sp38 = sqrtf(SQ(sp3C.x - posX) + SQ(sp3C.z - posZ));
+        xAng = -Math_Atan2F(sp3C.y - posY, sp38);
+        Matrix_RotateY(gCalcMatrix, yAng, 0);
+        Matrix_RotateX(gCalcMatrix, xAng, 1);
+        sp54.x = (Rand_ZeroOne() - 0.5f) * 50.0f;
+        sp54.y = (Rand_ZeroOne() - 0.5f) * 50.0f;
+        sp54.z = (Rand_ZeroOne() * 10.0f) + 150.0f;
+        Matrix_MultVec3f(gCalcMatrix, &sp54, &sp48);
+        arg0->unk_54 = sp48.x;
+        arg0->unk_58 = sp48.y;
+        arg0->unk_5C = sp48.z;
+    } else {
+        arg0->unk_58 = (D_80177C98 == 0) ? (Rand_ZeroOne() * 7.0f) + 7.0f : (Rand_ZeroOne() - 0.5f) * 10.0f;
+        arg0->unk_54 = (Rand_ZeroOne() - 0.5f) * 10.0f;
+        arg0->unk_5C = (Rand_ZeroOne() - 0.5f) * 10.0f;
+    }
+    arg0->unk_70 = ((Rand_ZeroOne() * 0.8f) + 0.3f) * arg4;
+    arg0->unk_50 = (s32) (Rand_ZeroOne() * 50.0f) + 0x46;
+    arg0->obj.rot.x = Rand_ZeroOne() * 360.0f;
+    arg0->unk_60.x = (Rand_ZeroOne() - 0.5f) * 30.0f;
+    arg0->unk_60.y = (Rand_ZeroOne() - 0.5f) * 30.0f;
+    arg0->unk_60.z = (Rand_ZeroOne() - 0.5f) * 30.0f;
+    func_800612B8(&arg0->unk_1C, arg0->obj.id);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_800794CC.s")
 
@@ -756,14 +809,14 @@ void func_80084194(Object_8C* arg0) {
 
     if (D_80178234 != 0xD) {
         RCP_SetupDL(&gMasterDisp, 0x31);
-        Matrix_Scale(gGfxMatrix, arg0->unk_70, arg0->unk_70, arg0->unk_70, (u8) 1);
+        Matrix_Scale(gGfxMatrix, arg0->unk_70, arg0->unk_70, arg0->unk_70, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
         tmp = arg0->unk_44 * 4;
         gDPSetEnvColor(gMasterDisp++, D_800D18F0[tmp + 0], D_800D18F0[tmp + 1], D_800D18F0[tmp + 2], 255);
     } else {
         RCP_SetupDL(&gMasterDisp, 0x31);
-        Matrix_Scale(gGfxMatrix, arg0->unk_70, arg0->unk_70, arg0->unk_70, (u8) 1);
+        Matrix_Scale(gGfxMatrix, arg0->unk_70, arg0->unk_70, arg0->unk_70, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, D_800D1950[arg0->unk_44]);
         gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);

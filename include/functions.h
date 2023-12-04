@@ -249,6 +249,7 @@ void func_80078CE8(Object_8C* arg0);
 void func_80078E50(f32 posX, f32 posY, f32 posZ, f32 arg3);
 void func_80078EBC(Object_8C* arg0);
 void func_80078F78(Object_8C* arg0);
+void func_8007905C(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 arg5);
 void func_800794CC(f32, f32, f32, f32);
 void func_8007A6F0(Vec3f *, u32);
 void func_8007BFFC(f32, f32, f32, f32, f32, f32, f32, s32);
