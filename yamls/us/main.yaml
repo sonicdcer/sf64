@@ -1,3 +1,11 @@
+  - name: makerom
+    type: code
+    start: 0x0
+    subsegments:
+      - {start: 0x0, type: header, name: header}
+      - {start: 0x40, type: bin, name: ipl3}
+      - {start: 0x1000, type: asm, vram: 0x80000400, name: entry}
+ 
   - name: main
     type: code
     dir: main
