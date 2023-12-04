@@ -372,7 +372,7 @@ void func_80078A64(Object_8C* arg0) {
     gSPDisplayList(gMasterDisp++, D_20112C0);
 }
 
-void func_80078AE0(s32 arg0) {
+void func_80078AE0(void* arg0) {
 }
 
 void func_80078AEC(Object_8C* arg0) {
@@ -381,7 +381,7 @@ void func_80078AEC(Object_8C* arg0) {
     gSPDisplayList(gMasterDisp++, D_102ED50);
 }
 
-void func_80078B8C(s32 unused) {
+void func_80078B8C(void* unused) {
     func_800B9760();
     gSPDisplayList(gMasterDisp++, D_101ABD0);
     RCP_SetupDL(&gMasterDisp, 0x40);
