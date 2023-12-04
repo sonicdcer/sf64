@@ -431,11 +431,11 @@ void func_8005ADAC(Object_2F4* arg0) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
         Matrix_Scale(gGfxMatrix, sp5C, sp5C * 0.7f, sp5C, 1);
-        Matrix_RotateZ(gGfxMatrix, -arg0->obj.rot.z * M_DTOR, 1U);
-        Matrix_RotateX(gGfxMatrix, -arg0->obj.rot.x * M_DTOR, 1U);
-        Matrix_RotateY(gGfxMatrix, -arg0->obj.rot.y * M_DTOR, 1U);
-        Matrix_RotateY(gGfxMatrix, -D_80178280[D_801778A0].unk_058, 1U);
-        Matrix_RotateX(gGfxMatrix, D_80178280[D_801778A0].unk_05C, 1U);
+        Matrix_RotateZ(gGfxMatrix, -arg0->obj.rot.z * M_DTOR, 1);
+        Matrix_RotateX(gGfxMatrix, -arg0->obj.rot.x * M_DTOR, 1);
+        Matrix_RotateY(gGfxMatrix, -arg0->obj.rot.y * M_DTOR, 1);
+        Matrix_RotateY(gGfxMatrix, -D_80178280[D_801778A0].unk_058, 1);
+        Matrix_RotateX(gGfxMatrix, D_80178280[D_801778A0].unk_05C, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         func_8005465C(D_80177C98);
         Matrix_Pop(&gGfxMatrix);
@@ -728,7 +728,7 @@ void func_8005BAB4(s32 arg0, s32 arg1) {
             Matrix_RotateZ(gGfxMatrix, D_80163FE0[arg1].unk_11C, 1);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, 1);
             Matrix_Scale(gGfxMatrix, 1.2f, 1.0f, 1.2f, 1);
-            Matrix_RotateX(gGfxMatrix, -M_PI / 2.0f, 1U);
+            Matrix_RotateX(gGfxMatrix, -M_PI / 2.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             break;

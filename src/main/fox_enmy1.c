@@ -699,7 +699,7 @@ s32 func_8006326C(Vec3f* arg0, Vec3f* arg1, s32 arg2, Object* arg3) {
     sp74.z = arg0->z - arg3->pos.z;
     if (((fabsf(sp74.x) < 1100.0f) && (fabsf(sp74.z) < 1100.0f)) || (arg2 == 0xB4)) {
         sp74.y = arg0->y - arg3->pos.y;
-        Matrix_RotateY(gCalcMatrix, -arg3->rot.y * M_DTOR, 0U);
+        Matrix_RotateY(gCalcMatrix, -arg3->rot.y * M_DTOR, 0);
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp74, &sp68);
         sp5C.x = arg3->pos.x + sp68.x;
         sp5C.y = arg3->pos.y + sp68.y;
