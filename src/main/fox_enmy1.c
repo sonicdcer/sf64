@@ -43,7 +43,7 @@ s32 func_80060FE4(Vec3f* arg0, f32 arg1) {
     Vec3f sp20;
 
     if ((D_80177880 != 1) && (D_80178280[0].unk_1C8 != 2)) {
-        return 1;
+        return true;
     }
     Matrix_RotateY(gCalcMatrix, D_80178280[D_801778A0].unk_058, 0);
     sp2C.x = arg0->x - D_80178280[D_801778A0].unk_040.x;
@@ -52,9 +52,9 @@ s32 func_80060FE4(Vec3f* arg0, f32 arg1) {
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp2C, &sp20);
 
     if ((sp20.z < 1000.0f) && (arg1 < sp20.z) && (fabsf(sp20.x) < (fabsf(sp20.z * 0.5f) + 2000.0f))) {
-        return 1;
+        return true;
     }
-    return 0;
+    return false;
 }
 
 s32 func_80061148(Vec3f* arg0, f32 arg1) {
@@ -62,7 +62,7 @@ s32 func_80061148(Vec3f* arg0, f32 arg1) {
     Vec3f sp20;
 
     if (D_80177880 != 1) {
-        return 1;
+        return true;
     }
     if (D_80178280[0].unk_1C8 == 7) {
         return func_80060FE4(arg0, arg1);
@@ -74,9 +74,9 @@ s32 func_80061148(Vec3f* arg0, f32 arg1) {
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp2C, &sp20);
 
     if ((sp20.z < 0.0f) && (arg1 < sp20.z) && (fabsf(sp20.x) < (fabsf(sp20.z * 0.5f) + 500.0f))) {
-        return 1;
+        return true;
     }
-    return 0;
+    return false;
 }
 
 void func_800612B8(ObjectStruct_1C* arg0, u32 arg1) {
@@ -246,9 +246,9 @@ void func_80061A4C(void) {
     for (i = 0; i < ARRAY_COUNT(D_80170130); i++) {
         if (D_80170130[i].obj.status == 0) {
             sp1C = (Rand_ZeroOne() - 0.5f);
-            sp28 = D_80178280[0].unk_074 + (sp1C * 400.0f) + (5.0f * D_80178280[0].unk_0C0);
+            sp28 = D_80178280[0].unk_074 + (sp1C * 400.0f) + (5.0f * D_80178280[0].unk_0C0.x);
             sp1C = (Rand_ZeroOne() - 0.5f);
-            sp24 = D_80178280[0].unk_078 + (sp1C * 400.0f) + (5.0f * D_80178280[0].unk_0C4);
+            sp24 = D_80178280[0].unk_078 + (sp1C * 400.0f) + (5.0f * D_80178280[0].unk_0C0.y);
             sp20 = -D_80177D20 - 500.0f;
             if (D_80177D08 < 0.0f) {
                 sp20 = -D_80177D20 + 500.0f;
@@ -270,11 +270,11 @@ void func_80061B68(void) {
         if (D_80170130[i].obj.status == 0) {
 
             sp1C = (Rand_ZeroOne() - 0.5f);
-            sp28 = D_80178280[0].unk_074 + (sp1C * 2000.0f) + (5.0f * D_80178280[0].unk_0C0);
+            sp28 = D_80178280[0].unk_074 + (sp1C * 2000.0f) + (5.0f * D_80178280[0].unk_0C0.x);
             sp24 = 0;
             while (sp24 <= D_80177940) {
                 sp1C = (Rand_ZeroOne() - 0.5f);
-                sp24 = D_80178280[0].unk_078 + (sp1C * 2000.0f) + (5.0f * D_80178280[0].unk_0C4);
+                sp24 = D_80178280[0].unk_078 + (sp1C * 2000.0f) + (5.0f * D_80178280[0].unk_0C0.y);
             }
             sp20 = -D_80177D20 - 3000.0f;
             if (D_80177D08 < 0.0f) {
@@ -296,9 +296,10 @@ void func_80061CD0(void) {
     for (i = 0; i < ARRAY_COUNT(D_80170130); i++) {
         if (D_80170130[i].obj.status == 0) {
             sp1C = (Rand_ZeroOne() - 0.5f);
-            sp28 = D_80178280[D_801778A0].unk_074 + (sp1C * 3000.0f) + (5.0f * D_80178280[D_801778A0].unk_0C0);
+            sp28 = D_80178280[D_801778A0].unk_074 + (sp1C * 3000.0f) + (5.0f * D_80178280[D_801778A0].unk_0C0.x);
             sp1C = (Rand_ZeroOne() - 0.5f);
-            sp24 = D_80178280[D_801778A0].unk_078 + 1000.0f + (sp1C * 500.0f) + (5.0f * D_80178280[D_801778A0].unk_0C4);
+            sp24 =
+                D_80178280[D_801778A0].unk_078 + 1000.0f + (sp1C * 500.0f) + (5.0f * D_80178280[D_801778A0].unk_0C0.y);
             sp20 = -D_80177D20 - 2000.0f * Rand_ZeroOne();
             if (D_80177D08 < 0.0f) {
                 sp20 = -D_80177D20 + 1000.0f;
@@ -666,39 +667,39 @@ s32 func_80062DBC(Vec3f* arg0, f32* var_s0, Object* arg2, f32 arg3, f32 arg4, f3
             if ((var_s0[1] + 20.0f) > (fabsf((var_s0[0] + arg2->pos.z) - var_ft5)) &&
                 ((var_s0[5] + 20.0f) > fabsf((var_s0[4] + arg2->pos.x) - var_fa1)) &&
                 ((var_s0[3] + 10.0f) > fabsf((var_s0[2] + arg2->pos.y) - var_ft4))) {
-                return 1;
+                return true;
             }
             var_s0 += 6;
         }
     }
-    return 0;
+    return false;
 }
 
 s32 func_800631A8(Vec3f* arg0, f32* arg1, Vec3f* arg2) {
     if (((s32) arg1[0] != 0) && (fabsf((arg1[1] + arg2->z) - arg0->z) < (arg1[2] + 20.0f)) &&
         (fabsf((arg1[5] + arg2->x) - arg0->x) < (arg1[6] + 20.0f)) &&
         (fabsf((arg1[3] + arg2->y) - arg0->y) < (arg1[4] + 20.0f))) {
-        return 1;
+        return true;
     }
-    return 0;
+    return false;
 }
 
-s32 func_8006326C(Vec3f* arg0, s32 arg1, s32 arg2, Object* arg3) {
+s32 func_8006326C(Vec3f* arg0, Vec3f* arg1, s32 arg2, Object* arg3) {
     Vec3f sp74;
     Vec3f sp68;
     Vec3f sp5C;
     Vec3f sp50;
     Vec3f sp44;
     s32 var_s1;
-    s32 pad1;
-    Vec3f sp30;
+    s32 pad1[3];
+    f32 sp30;
     s32 pad2;
 
     sp74.x = arg0->x - arg3->pos.x;
     sp74.z = arg0->z - arg3->pos.z;
     if (((fabsf(sp74.x) < 1100.0f) && (fabsf(sp74.z) < 1100.0f)) || (arg2 == 0xB4)) {
         sp74.y = arg0->y - arg3->pos.y;
-        Matrix_RotateY(gCalcMatrix, -arg3->rot.y * M_DTOR, 0U);
+        Matrix_RotateY(gCalcMatrix, -arg3->rot.y * M_DTOR, 0);
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp74, &sp68);
         sp5C.x = arg3->pos.x + sp68.x;
         sp5C.y = arg3->pos.y + sp68.y;
@@ -726,7 +727,7 @@ s32 func_8006326C(Vec3f* arg0, s32 arg1, s32 arg2, Object* arg3) {
                 var_s1 = 8;
             }
             if (func_800998FC(&sp5C, &sp50, arg1, var_s1, &sp44, &sp30) > 0) {
-                return 1;
+                return true;
             }
         } else {
             var_s1 = 0;
@@ -748,14 +749,14 @@ s32 func_8006326C(Vec3f* arg0, s32 arg1, s32 arg2, Object* arg3) {
                 var_s1 = 1;
             }
             if (func_800A3690(&sp5C, &sp50, var_s1, &sp44) != 0) {
-                return 1;
+                return true;
             }
         }
     }
-    return 0;
+    return false;
 }
 
-s32 func_8006351C(s32 arg0, Vec3f* arg1, s32 arg2, s32 arg3) {
+s32 func_8006351C(s32 arg0, Vec3f* arg1, Vec3f* arg2, s32 arg3) {
     Object_58* var_s0;
     Object_80* var_s0_2;
     Object_4C* var_s0_3;
@@ -879,13 +880,13 @@ s32 func_8006351C(s32 arg0, Vec3f* arg1, s32 arg2, s32 arg3) {
                         var_s0_5->unk_0D8.x = arg1->x;
                         var_s0_5->unk_0D8.y = arg1->y;
                         var_s0_5->unk_0D8.z = arg1->z;
-                        return 1;
+                        return true;
                     }
                 }
             }
         }
     }
-    return 0;
+    return false;
 }
 
 void func_80063CAC(Object_80* arg0) {
@@ -1528,7 +1529,7 @@ void func_800656D4(Object_2F4* arg0) {
     sp8C.x = arg0->unk_0E8;
     sp8C.y = arg0->unk_0EC;
     sp8C.z = arg0->unk_0F0;
-    if ((func_8006351C(arg0->unk_040, &arg0->obj.pos, (s32) &sp8C, 1) != 0) || (arg0->unk_0D0 != 0) ||
+    if ((func_8006351C(arg0->unk_040, &arg0->obj.pos, &sp8C, 1) != 0) || (arg0->unk_0D0 != 0) ||
         (arg0->obj.pos.y < (D_80177940 + 10.0f)) || (D_80178280[0].unk_1C8 == 7)) {
         func_8007D2C8(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 3.0f);
         func_80060FBC(&arg0->obj, &arg0->unk_100);
@@ -1608,7 +1609,7 @@ void func_80066254(Object_2F4* arg0) {
                 switch (D_80161A62) {
                     case 9:
                         if (D_80178234 == 0x10) {
-                            func_800BA808(D_80182544, 0xAA);
+                            func_800BA808(gMsg_ID_18031, 0xAA);
                         }
                         /* fallthrough */
                     case 4:
@@ -1641,11 +1642,11 @@ void func_80066254(Object_2F4* arg0) {
                 func_80019218(0x4900000C, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             } else if (arg0->unk_044 == 0x18) {
                 if (D_801778B0[3] > 0) {
-                    func_800BA808(D_80183CA8, 0x1E);
+                    func_800BA808(gMsg_ID_20261, 0x1E);
                 } else if (D_801778B0[2] > 0) {
-                    func_800BA808(D_80183D3C, 0x14);
+                    func_800BA808(gMsg_ID_20263, 0x14);
                 } else if (D_801778B0[1] > 0) {
-                    func_800BA808(D_80183CF0, 0xA);
+                    func_800BA808(gMsg_ID_20262, 0xA);
                 }
             } else if (Rand_ZeroOne() <= D_800CFE5C[arg0->unk_044]) {
                 func_800660F0(arg0);

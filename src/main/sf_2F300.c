@@ -41,9 +41,9 @@ s32 func_8002FE74(void) {
         case 14:
             return D_8015F928 == (D_800C9B4C + 0x960);
         case 17:
-            return D_8016F9F0 == 4;
+            return D_8016F110[2].unk_0D0 == 4;
         case 16:
-            return D_8016F5BE == 2;
+            return D_8016F110[1].unk_0A6 == 2;
         default:
             return 0;
     }

@@ -16,6 +16,7 @@
 #include "structs.h"
 #include "macros.h"
 #include "sf64math.h"
+#include "sf64mesg.h"
 #include "gfx.h"
 
 typedef enum {

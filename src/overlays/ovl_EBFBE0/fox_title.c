@@ -476,7 +476,7 @@ void func_EBFBE0_801881FC(void) {
         D_EBFBE0_801B8350[1].unk_00.y = -7.0f;
         D_EBFBE0_801B8350[1].unk_00.z = -12.0f;
         D_EBFBE0_801B8350[1].unk_48 = -2.009996f;
-        D_EBFBE0_801B8350[1].unk_4C = 56.909969f;
+        D_EBFBE0_801B8350[1].unk_4C = 56.90997f;
         D_EBFBE0_801B8350[1].unk_50 = 0.00f;
     } else {
         D_EBFBE0_801B8350[1].unk_00.x = 147.0f;
@@ -508,7 +508,7 @@ void func_EBFBE0_801881FC(void) {
         D_EBFBE0_801B8350[2].unk_00.y = 1.00f;
         D_EBFBE0_801B8350[2].unk_00.z = -143.0f;
         D_EBFBE0_801B8350[2].unk_48 = -0.500016f;
-        D_EBFBE0_801B8350[2].unk_4C = -33.319988f;
+        D_EBFBE0_801B8350[2].unk_4C = -33.31999f;
         D_EBFBE0_801B8350[2].unk_50 = 0.00f;
     } else {
         D_EBFBE0_801B8350[2].unk_00.x = -143.0f;
@@ -978,7 +978,7 @@ void func_EBFBE0_8018994C(void) {
             if (D_EBFBE0_801B82B8 == 638) {
                 func_80019218(0x11030010, &D_EBFBE0_801B867C, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 func_80019218(0x31024059, &D_EBFBE0_801B867C, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-                func_800BA808(D_8017A0F4, 300);
+                func_800BA808(gMsg_ID_60, 300);
             }
 
             if (D_EBFBE0_801B82B8 == 838) {
@@ -2197,9 +2197,9 @@ void func_EBFBE0_8018D510(s32 arg0) {
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, var_fa0, 1);
     Matrix_Scale(gGfxMatrix, var_fv0, var_fv0 * 0.7f, var_fv0, 1);
 
-    Matrix_RotateZ(gGfxMatrix, -D_EBFBE0_801B84E8[arg0].unk_20 * 0.017453292f, 1);
-    Matrix_RotateX(gGfxMatrix, -D_EBFBE0_801B84E8[arg0].unk_18 * 0.017453292f, 1);
-    Matrix_RotateY(gGfxMatrix, -D_EBFBE0_801B84E8[arg0].unk_1C * 0.017453292f, 1);
+    Matrix_RotateZ(gGfxMatrix, -D_EBFBE0_801B84E8[arg0].unk_20 * M_DTOR, 1);
+    Matrix_RotateX(gGfxMatrix, -D_EBFBE0_801B84E8[arg0].unk_18 * M_DTOR, 1);
+    Matrix_RotateY(gGfxMatrix, -D_EBFBE0_801B84E8[arg0].unk_1C * M_DTOR, 1);
 
     sp3C = -Math_Atan2F(D_80177978 - D_EBFBE0_801B84E8[arg0].unk_00.x, D_80177988 - D_EBFBE0_801B84E8[arg0].unk_00.z);
     temp = sqrtf(SQ(D_80177988 - D_EBFBE0_801B84E8[arg0].unk_00.z) + SQ(D_80177978 - D_EBFBE0_801B84E8[arg0].unk_00.x));
@@ -2297,10 +2297,10 @@ void func_EBFBE0_8018DDB8(s32 arg0) {
         gGfxMatrix, 0.0f,
         (D_EBFBE0_801B9050 - D_EBFBE0_801B84E8[arg0].unk_00.y * 2.05f) + (D_EBFBE0_801B9048 - 84.0f) * 1.99f, 0.0f, 1);
     Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, 1);
-    Matrix_RotateY(gGfxMatrix, 3.1415927f, 1);
+    Matrix_RotateY(gGfxMatrix, M_PI, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    func_800BA140();
+    RCP_SetupDL_64();
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 240);
     gSPDisplayList(gMasterDisp++, D_6032580);
@@ -2437,7 +2437,7 @@ void func_EBFBE0_8018E67C(s32 arg0) {
 
     sp5C = D_EBFBE0_801B8350[arg0].unk_58 % Animation_GetFrameCount(D_EBFBE0_801ADA00[arg0].unk_0);
 
-    func_800BA1D0(D_80178320, D_80178328, D_80178330, 255, 995, 1000);
+    RCP_SetupDL_29(D_80178320, D_80178328, D_80178330, 255, 995, 1000);
 
     Matrix_Push(&gGfxMatrix);
 
@@ -2472,14 +2472,14 @@ void func_EBFBE0_8018E67C(s32 arg0) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    func_800BA140();
+    RCP_SetupDL_64();
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 128);
     gSPDisplayList(gMasterDisp++, D_6041070);
 
     Matrix_Pop(&gGfxMatrix);
 
-    temp_fv1 = __sinf((f32) sp5C * 12.0f * 0.017453292f) * 15.0f;
+    temp_fv1 = __sinf((f32) sp5C * 12.0f * M_DTOR) * 15.0f;
 
     if (temp_fv1 >= 0) {
         D_EBFBE0_801B8350[arg0].unk_0C = temp_fv1;
@@ -2673,7 +2673,7 @@ void func_EBFBE0_8018F438(void) {
     D_EBFBE0_801B82C8 += 70.0f;
     D_EBFBE0_801B82C8 = Math_ModF(D_EBFBE0_801B82C8, 4101.6f);
 
-    func_800BA1D0(D_80178320, D_80178328, D_80178330, 255, 995, 1000);
+    RCP_SetupDL_29(D_80178320, D_80178328, D_80178330, 255, 995, 1000);
 
     Matrix_Push(&gGfxMatrix);
 

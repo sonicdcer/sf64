@@ -6,11 +6,6 @@
 
 #define UNK_TYPE s32
 
-typedef struct {
-    s32 msgId;
-    u16* msgPtr;
-} MsgLookup;
-
 typedef void (*TimerAction)(s32*, s32);
 
 typedef struct {
@@ -53,7 +48,7 @@ typedef struct{
     /* 0x17 */ u8 unk_17;
     /* 0x18 */ u8 unk_18[10][3];
     /* 0x36 */ u8 unk_36[10];
-    /* 0x40 */ s8 unk_40[10];
+    /* 0x40 */ u8 unk_40[10];
     /* 0x4A */ u16 unk_4A[10];
     /* 0x5E */ Save_SubStruct_5E unk_5E[10][7];
     /* 0xEA */ u8 unk_EA;
@@ -117,15 +112,6 @@ typedef struct {
 
 typedef struct {
     /* 0x00 */ u8 unk_00;
-    /* 0x01 */ char pad01[0x1];
-    /* 0x02 */ u16 unk_02;
-    /* 0x04 */ Vec3f pos;
-    /* 0x10 */ f32 unk_10;
-    /* 0x14 */ char pad14[0x14];
-} UnkStruct_D_80175A10; // size = 0x28
-
-typedef struct {
-    /* 0x00 */ u8 unk_00;
     /* 0x01 */ u8 unk_01;
     /* 0x04 */ f32 unk_04;
     /* 0x08 */ f32 unk_08;
@@ -143,6 +129,28 @@ typedef struct {
     /* 0x38 */ f32 unk_38;
 } UnkStruct_D_80161630; // size = 0x3C
 
+typedef struct {
+    /* 0x00 */ s32 unk_00;
+    /* 0x04 */ s32 unk_04;
+    /* 0x08 */ u16 unk_08;
+    /* 0x0A */ u16 unk_0A;
+    /* 0x0C */ s32 unk_0C;
+    /* 0x10 */ s32 unk_10;
+    /* 0x14 */ s32 unk_14;
+    /* 0x18 */ s32 unk_18;
+    /* 0x1C */ s32 unk_1C;
+    /* 0x20 */ f32 unk_20;
+    /* 0x24 */ f32 unk_24;
+    /* 0x28 */ f32 unk_28;
+    /* 0x2C */ s32 unk_2C;
+    /* 0x30 */ s32 unk_30;
+    /* 0x34 */ s32 unk_34;
+    /* 0x38 */ s32 unk_38;
+    /* 0x3C */ s32 unk_3C;
+    /* 0x40 */ s32 unk_40;
+    /* 0x44 */ char pad44[0x60];
+} UnkStruct_D_80161A68; // size = 0x44?
+
 typedef struct UnkStruct_D_80178280 {
     /* 0x000 */ char pad0[0xC];
     /* 0x00C */ f32 unk_00C;
@@ -153,21 +161,39 @@ typedef struct UnkStruct_D_80178280 {
     /* 0x04C */ Vec3f unk_04C;
     /* 0x058 */ f32 unk_058;
     /* 0x05C */ f32 unk_05C;
-    /* 0x060 */ char pad060[0x14];
+    /* 0x05C */ f32 unk_060;
+    /* 0x064 */ char pad064[0x10];
     /* 0x074 */ f32 unk_074;
     /* 0x078 */ f32 unk_078;
     /* 0x07C */ f32 unk_07C;
-    /* 0x080 */ char pad80[0x2C];
+    /* 0x080 */ f32 unk_080;
+    /* 0x084 */ char pad84[4];
+    /* 0x088 */ f32 unk_088;
+    /* 0x08C */ char pad8C[4];
+    /* 0x090 */ f32 unk_090;
+    /* 0x094 */ f32 unk_094;
+    /* 0x098 */ f32 unk_098;
+    /* 0x09C */ char pad9C[0x10];
     /* 0x0AC */ f32 unk_0AC;
     /* 0x0B0 */ f32 unk_0B0;
     /* 0x0B4 */ f32 unk_0B4;
     /* 0x0B8 */ f32 unk_0B8;
     /* 0x0BC */ f32 unk_0BC;
-    /* 0x0C0 */ f32 unk_0C0;
-    /* 0x0C4 */ f32 unk_0C4;
-    /* 0x0C8 */ char padC8[8];
+    /* 0x0C0 */ Vec3f unk_0C0;
+    /* 0x0CC */ char padCC[4];
     /* 0x0D0 */ f32 unk_0D0;
-    /* 0x0D4 */ char padD4[0x3C];
+    /* 0x0D4 */ char padD4[4];
+    /* 0x0D8 */ Vec3f unk_0D8;
+    /* 0x0E4 */ f32 unk_0E4;
+    /* 0x0E8 */ f32 unk_0E8;
+    /* 0x0EC */ char padEC[4];
+    /* 0x0F0 */ f32 unk_0F0;
+    /* 0x0F4 */ f32 unk_0F4;
+    /* 0x0F8 */ f32 unk_0F8;
+    /* 0x0FC */ char padFC[8];
+    /* 0x104 */ f32 unk_104;
+    /* 0x108 */ char pad108[4];
+    /* 0x10C */ f32 unk_10C;
     /* 0x110 */ f32 unk_110;
     /* 0x114 */ f32 unk_114;
     /* 0x118 */ f32 unk_118;
@@ -176,41 +202,63 @@ typedef struct UnkStruct_D_80178280 {
     /* 0x124 */ f32 unk_124;
     /* 0x128 */ char pad128[0x10];
     /* 0x138 */ f32 unk_138;
-    /* 0x13C */ char pad13C[8];
+    /* 0x13C */ char pad13C[4];
+    /* 0x140 */ f32 unk_140;
     /* 0x144 */ f32 unk_144;
     /* 0x148 */ char pad148[0x54];
     /* 0x19C */ s32 unk_19C;
-    /* 0x1A0 */ char pad1A0[0x28];
+    /* 0x1A0 */ char pad1A0[4];
+    /* 0x1A4 */ s32 unk_1A4;
+    /* 0x1A8 */ char pad1A8[0x1C];
+    /* 0x1C4 */ s32 unk_1C4;
     /* 0x1C8 */ s32 unk_1C8;
     /* 0x1CC */ s32 unk_1CC;
     /* 0x1D0 */ s32 unk_1D0;
-    /* 0x1D4 */  char pad1D4[0x20];
+    /* 0x1D4 */ s32 unk_1D4;
+    /* 0x1D8 */ char pad1D8[0x1C];
     /* 0x1F4 */ s32 unk_1F4;
-    /* 0x1F8 */ char pad1F8[0xC];
+    /* 0x1F8 */ s32 unk_1F8;
+    /* 0x1FC */ s32 unk_1FC;
+    /* 0x200 */ char pad200[4];
     /* 0x204 */ s32 unk_204;
     /* 0x208 */ char pad208[8];
     /* 0x210 */ s32 unk_210;
-    /* 0x214 */ char pad214[0x10];
+    /* 0x214 */ char pad214[8];
+    /* 0x21C */ s32 unk_21C;
+    /* 0x220 */ s32 unk_220;
     /* 0x224 */ s32 unk_224;
     /* 0x228 */ s32 unk_228;
-    /* 0x22C */ char pad22C[0xC];
+    /* 0x22C */ s32 unk_22C;
+    /* 0x230 */ char pad230[8];
     /* 0x238 */ s32 unk_238;
-    /* 0x23C */ char pad23C[0x28];
+    /* 0x23C */ s32 unk_23C;
+    /* 0x240 */ char pad240[0x24];
     /* 0x264 */ s32 unk_264;
-    /* 0x268 */ char pad268[0x4];
+    /* 0x268 */ s32 unk_268;
     /* 0x26C */ s32 unk_26C;
     /* 0x270 */ char pad270[0xC];
     /* 0x27C */ s32 unk_27C;
-    /* 0x280 */ char pad280[0x34];
+    /* 0x280 */ char pad280[4];
+    /* 0x284 */ s32 unk_284;
+    /* 0x288 */ s32 unk_288;
+    /* 0x28C */ char pad28C[0x28];
     /* 0x2B4 */ s32 unk_2B4;
     /* 0x2B8 */ char pad2B8[0x4];
     /* 0x2BC */ f32 unk_2BC;
-    /* 0x2C0 */ char pad2C0[0x1A0];
+    /* 0x2C0 */ char pad2C0[8];
+    /* 0x2C8 */ Vec3f unk_2C8;
+    /* 0x2D4 */ Vec3f unk_2D4;
+    /* 0x2E0 */ Vec3f unk_2E0;
+    /* 0x2EC */ Vec3f unk_2EC;
+    /* 0x2F8 */ char pad2F8[0x168];
     /* 0x460 */ Vec3f unk_460[1];
-    /* 0x46C */ char pad46C[0x30];
+    /* 0x46C */ char pad46C[0x2C];
+    /* 0x498 */ s32 unk_498;
     /* 0x49C */ u8 unk_49C; // could be array
     /* 0x49C */ u8 unk_49D;
-    /* 0x49E */ char pad49E[0x42];
+    /* 0x49E */ char pad49E[0x3A];
+    /* 0x4D8 */ f32 unk_4D8;
+    /* 0x4DC */ s32 unk_4DC;
 } UnkStruct_D_80178280; // size = 0x4E0 Might be Player
 
 typedef struct {
@@ -244,6 +292,28 @@ typedef struct {
     /* 0x1C */ f32 unk_1C;
     /* 0x20 */ u8 unk_20;
 } ObjectStruct_1C; // size = 0x24
+
+typedef struct {
+    /* 0x00 */ u8 unk_00;
+    /* 0x01 */ char pad01[0x1];
+    /* 0x02 */ u16 unk_02;
+    /* 0x04 */ Vec3f pos;
+    /* 0x10 */ f32 unk_10;
+    /* 0x14 */ char pad14[0x14];
+} UnkStruct_D_80175A10; // size = 0x28
+
+typedef struct {
+    char unk_00[0x1C];
+} UnkStruct_D_80176438;
+
+typedef struct {
+    /* 0x00 */ Object obj;
+    /* 0x1C */ char pad1C[0x1C];
+    /* 0x38 */ Vec3f unk_38;
+    /* 0x44 */ char pad44[0x1C];
+    /* 0x60 */ s32 unk_60;
+    /* 0x64 */ char pad64[0xC];
+} Object_70; // size = 0x70
 
 typedef struct {
     /* 0x00 */ Object obj;
@@ -359,17 +429,22 @@ typedef struct {
     /* 0x074 */ f32 unk_074;       
     /* 0x078 */ char pad78[0xC]; 
     /* 0x084 */ f32 unk_084;       
-    /* 0x088 */  char pad88[0x3E];
+    /* 0x088 */ char pad88[0x1E];
+    /* 0x0A6 */ s16 unk_0A6;
+    /* 0x0A8 */ char padA8[0x1E];
     /* 0x0C6 */ u16 unk_0C6;
     /* 0x0C8 */ char padC8[1];
     /* 0x0C9 */ u8 unk_0C9;
-    /* 0x0CA */ char padCA[0x12];
+    /* 0x0CA */ char padCA[6];
+    /* 0x0D0 */ s16 unk_0D0;
+    /* 0x0D2 */ char padD2[0xA];
     /* 0x0DC */ f32 unk_0DC;
     /* 0x0E0 */ f32 unk_0E0;
     /* 0x0E4 */ f32 unk_0E4;
     /* 0x0E8 */ char padE8[0x28];
     /* 0x110 */ f32 unk_110;
-    /* 0x114 */ char pad114[0x1F4];
+    /* 0x114 */ f32 unk_114;
+    /* 0x118 */ char pad118[0x1F0];
     /* 0x308 */ Vec3f unk_308;
     /* 0x314 */ char pad314[0xE4];
     /* 0x3F8 */ f32 unk_3F8;

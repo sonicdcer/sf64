@@ -203,7 +203,7 @@
     start: 0xDDC010
 
   - name: ast_DE5D50
-    type: data
+    type: code
     dir: assets
     start: 0xDE5D50
     vram: 0x80179010
