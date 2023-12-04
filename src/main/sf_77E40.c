@@ -552,9 +552,27 @@ void func_8007953C(f32 posX, f32 posY, f32 posZ, f32 arg3) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_800795AC.s")
+void func_800795AC(f32 posX, f32 posY, f32 posZ, f32 arg3) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80079618.s")
+    for (i = 0; i < 95; i++) {
+        if (D_80170130[i].obj.status == 0) {
+            func_8007905C(&D_80170130[i], posX, posY, posZ, arg3, 0);
+            return;
+        }
+    }
+}
+
+void func_80079618(f32 posX, f32 posY, f32 posZ, f32 arg3) {
+    s32 i;
+
+    for (i = 50; i >= 0; i--) {
+        if (D_80170130[i].obj.status == 0) {
+            func_8007905C(&D_80170130[i], posX, posY, posZ, arg3, 1);
+            return;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007968C.s")
 
