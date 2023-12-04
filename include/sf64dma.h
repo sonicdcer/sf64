@@ -64,6 +64,9 @@
 #define SEGMENT_BSS_END(segment)   (segment ## _BSS_END)
 #define SEGMENT_BSS_SIZE(segment)  ((uintptr_t)SEGMENT_BSS_END(segment) - (uintptr_t)SEGMENT_BSS_START(segment))
 
+u8 Overlay_Load(u8, u8);
+void Overlay_InitDma(void);
+
 typedef struct {
     /* 0x0 */ void* start;
     /* 0x4 */ void* end;

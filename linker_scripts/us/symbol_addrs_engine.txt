@@ -47,6 +47,7 @@ func_800A1558 = 0x800A1558;
 RCP_SetupDL = 0x800B8DD0;
 
 gTextCharTextures = 0x80179010;
+
 gMsgLookup = 0x80185CBC;
 gDefaultSave = 0x800D4D10;
 

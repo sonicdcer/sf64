@@ -1868,15 +1868,15 @@ s32 func_80091368(Object_2F4* arg0) {
 
             switch (arg0->unk_0E4) {
                 case 1:
-                    func_800BA808(D_801839B8, 10);
+                    func_800BA808(gMsg_ID_20220, 10);
                     break;
 
                 case 3:
-                    func_800BA808(D_80183A08, 30);
+                    func_800BA808(gMsg_ID_20221, 30);
                     break;
 
                 case 2:
-                    func_800BA808(D_80183A64, 20);
+                    func_800BA808(gMsg_ID_20222, 20);
                     break;
             }
             D_801778B0[arg0->unk_0E4] = -1;
@@ -2107,13 +2107,13 @@ s32 func_80091F00(Object_2F4* arg0) {
     if ((arg0->unk_0D0 == 3) && (arg0->unk_0D4 == 1)) {
         switch (arg0->unk_0E4) {
             case 1:
-                func_800BA808(D_8018398C, 10);
+                func_800BA808(gMsg_ID_20210, 10);
                 break;
             case 3:
-                func_800BA808(D_80183950, 30);
+                func_800BA808(gMsg_ID_20200, 30);
                 break;
             case 2:
-                func_800BA808(D_80183900, 20);
+                func_800BA808(gMsg_ID_20190, 20);
                 break;
         }
     }
@@ -2121,13 +2121,13 @@ s32 func_80091F00(Object_2F4* arg0) {
     if ((arg0->unk_0D0 != 3) && (arg0->unk_0D4 == 1)) {
         switch (arg0->unk_0E4) {
             case 1:
-                func_800BA808(D_801836B0, 10);
+                func_800BA808(gMsg_ID_20060, 10);
                 break;
             case 3:
-                func_800BA808(D_801836F8, 30);
+                func_800BA808(gMsg_ID_20070, 30);
                 break;
             case 2:
-                func_800BA808(D_80183724, 20);
+                func_800BA808(gMsg_ID_20080, 20);
                 break;
         }
     }
@@ -2135,13 +2135,13 @@ s32 func_80091F00(Object_2F4* arg0) {
     if ((arg0->unk_0D4 == 2) || (arg0->unk_0D4 == 100)) {
         switch (arg0->unk_0E4) {
             case 1:
-                func_800BA808(D_80183630, 10);
+                func_800BA808(gMsg_ID_20030, 10);
                 break;
             case 3:
-                func_800BA808(D_8018366C, 30);
+                func_800BA808(gMsg_ID_20040, 30);
                 break;
             case 2:
-                func_800BA808(D_80183690, 20);
+                func_800BA808(gMsg_ID_20050, 20);
                 break;
         }
     }

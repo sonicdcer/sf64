@@ -978,7 +978,7 @@ void func_EBFBE0_8018994C(void) {
             if (D_EBFBE0_801B82B8 == 638) {
                 func_80019218(0x11030010, &D_EBFBE0_801B867C, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 func_80019218(0x31024059, &D_EBFBE0_801B867C, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-                func_800BA808(D_8017A0F4, 300);
+                func_800BA808(gMsg_ID_60, 300);
             }
 
             if (D_EBFBE0_801B82B8 == 838) {

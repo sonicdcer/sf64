@@ -1,4 +1,5 @@
 #include "global.h"
+#include "sf64dma.h"
 
 extern void func_80187520(s32, void*);
 

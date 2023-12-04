@@ -246,9 +246,9 @@ void func_80061A4C(void) {
     for (i = 0; i < ARRAY_COUNT(D_80170130); i++) {
         if (D_80170130[i].obj.status == 0) {
             sp1C = (Rand_ZeroOne() - 0.5f);
-            sp28 = D_80178280[0].unk_074 + (sp1C * 400.0f) + (5.0f * D_80178280[0].unk_0C0);
+            sp28 = D_80178280[0].unk_074 + (sp1C * 400.0f) + (5.0f * D_80178280[0].unk_0C0.x);
             sp1C = (Rand_ZeroOne() - 0.5f);
-            sp24 = D_80178280[0].unk_078 + (sp1C * 400.0f) + (5.0f * D_80178280[0].unk_0C4);
+            sp24 = D_80178280[0].unk_078 + (sp1C * 400.0f) + (5.0f * D_80178280[0].unk_0C0.y);
             sp20 = -D_80177D20 - 500.0f;
             if (D_80177D08 < 0.0f) {
                 sp20 = -D_80177D20 + 500.0f;
@@ -270,11 +270,11 @@ void func_80061B68(void) {
         if (D_80170130[i].obj.status == 0) {
 
             sp1C = (Rand_ZeroOne() - 0.5f);
-            sp28 = D_80178280[0].unk_074 + (sp1C * 2000.0f) + (5.0f * D_80178280[0].unk_0C0);
+            sp28 = D_80178280[0].unk_074 + (sp1C * 2000.0f) + (5.0f * D_80178280[0].unk_0C0.x);
             sp24 = 0;
             while (sp24 <= D_80177940) {
                 sp1C = (Rand_ZeroOne() - 0.5f);
-                sp24 = D_80178280[0].unk_078 + (sp1C * 2000.0f) + (5.0f * D_80178280[0].unk_0C4);
+                sp24 = D_80178280[0].unk_078 + (sp1C * 2000.0f) + (5.0f * D_80178280[0].unk_0C0.y);
             }
             sp20 = -D_80177D20 - 3000.0f;
             if (D_80177D08 < 0.0f) {
@@ -296,9 +296,9 @@ void func_80061CD0(void) {
     for (i = 0; i < ARRAY_COUNT(D_80170130); i++) {
         if (D_80170130[i].obj.status == 0) {
             sp1C = (Rand_ZeroOne() - 0.5f);
-            sp28 = D_80178280[D_801778A0].unk_074 + (sp1C * 3000.0f) + (5.0f * D_80178280[D_801778A0].unk_0C0);
+            sp28 = D_80178280[D_801778A0].unk_074 + (sp1C * 3000.0f) + (5.0f * D_80178280[D_801778A0].unk_0C0.x);
             sp1C = (Rand_ZeroOne() - 0.5f);
-            sp24 = D_80178280[D_801778A0].unk_078 + 1000.0f + (sp1C * 500.0f) + (5.0f * D_80178280[D_801778A0].unk_0C4);
+            sp24 = D_80178280[D_801778A0].unk_078 + 1000.0f + (sp1C * 500.0f) + (5.0f * D_80178280[D_801778A0].unk_0C0.y);
             sp20 = -D_80177D20 - 2000.0f * Rand_ZeroOne();
             if (D_80177D08 < 0.0f) {
                 sp20 = -D_80177D20 + 1000.0f;
@@ -683,15 +683,15 @@ s32 func_800631A8(Vec3f* arg0, f32* arg1, Vec3f* arg2) {
     return 0;
 }
 
-s32 func_8006326C(Vec3f* arg0, s32 arg1, s32 arg2, Object* arg3) {
+s32 func_8006326C(Vec3f* arg0, Vec3f* arg1, s32 arg2, Object* arg3) {
     Vec3f sp74;
     Vec3f sp68;
     Vec3f sp5C;
     Vec3f sp50;
     Vec3f sp44;
     s32 var_s1;
-    s32 pad1;
-    Vec3f sp30;
+    s32 pad1[3];
+    f32 sp30;
     s32 pad2;
 
     sp74.x = arg0->x - arg3->pos.x;
@@ -755,7 +755,7 @@ s32 func_8006326C(Vec3f* arg0, s32 arg1, s32 arg2, Object* arg3) {
     return 0;
 }
 
-s32 func_8006351C(s32 arg0, Vec3f* arg1, s32 arg2, s32 arg3) {
+s32 func_8006351C(s32 arg0, Vec3f* arg1, Vec3f* arg2, s32 arg3) {
     Object_58* var_s0;
     Object_80* var_s0_2;
     Object_4C* var_s0_3;
@@ -1528,7 +1528,7 @@ void func_800656D4(Object_2F4* arg0) {
     sp8C.x = arg0->unk_0E8;
     sp8C.y = arg0->unk_0EC;
     sp8C.z = arg0->unk_0F0;
-    if ((func_8006351C(arg0->unk_040, &arg0->obj.pos, (s32) &sp8C, 1) != 0) || (arg0->unk_0D0 != 0) ||
+    if ((func_8006351C(arg0->unk_040, &arg0->obj.pos, &sp8C, 1) != 0) || (arg0->unk_0D0 != 0) ||
         (arg0->obj.pos.y < (D_80177940 + 10.0f)) || (D_80178280[0].unk_1C8 == 7)) {
         func_8007D2C8(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 3.0f);
         func_80060FBC(&arg0->obj, &arg0->unk_100);
@@ -1608,7 +1608,7 @@ void func_80066254(Object_2F4* arg0) {
                 switch (D_80161A62) {
                     case 9:
                         if (D_80178234 == 0x10) {
-                            func_800BA808(D_80182544, 0xAA);
+                            func_800BA808(gMsg_ID_18031, 0xAA);
                         }
                         /* fallthrough */
                     case 4:
@@ -1641,11 +1641,11 @@ void func_80066254(Object_2F4* arg0) {
                 func_80019218(0x4900000C, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             } else if (arg0->unk_044 == 0x18) {
                 if (D_801778B0[3] > 0) {
-                    func_800BA808(D_80183CA8, 0x1E);
+                    func_800BA808(gMsg_ID_20261, 0x1E);
                 } else if (D_801778B0[2] > 0) {
-                    func_800BA808(D_80183D3C, 0x14);
+                    func_800BA808(gMsg_ID_20263, 0x14);
                 } else if (D_801778B0[1] > 0) {
-                    func_800BA808(D_80183CF0, 0xA);
+                    func_800BA808(gMsg_ID_20262, 0xA);
                 }
             } else if (Rand_ZeroOne() <= D_800CFE5C[arg0->unk_044]) {
                 func_800660F0(arg0);
