@@ -18,7 +18,7 @@ s32 Message_GetCharCount(u16* msgPtr);
 void Message_DisplayChar(Gfx** gfxPtr, u16 msgChar, s32 xpos, s32 ypos);
 s32 Message_DisplayText(Gfx** gfxPtr, u16* msgPtr, s32 xPos, s32 yPos, s32 len);
 void Message_DisplayScrollingText(Gfx** gfxPtr, u16* msgPtr, s32 xPos, s32 yPos, s32 yRangeHi, s32 yRangeLo, s32 len);
-s32 Message_NotWhitespace(u16* msgPtr, s32 len);
+s32 Message_NotWhitespace(u16* msgPtr, s32 charPos);
  
 typedef enum {
     MSGCHAR_END,
