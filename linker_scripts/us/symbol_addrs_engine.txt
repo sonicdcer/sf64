@@ -58,4 +58,4 @@ Message_GetCharCount = 0x800C2928;
 Message_DisplayChar = 0x800C295C;
 Message_DisplayText = 0x800C2AF0;
 Message_DisplayScrollingText = 0x800C2D3C;
-Message_NotWhitespace = 0x800C2F30;
+Message_IsPrintingChar = 0x800C2F30;

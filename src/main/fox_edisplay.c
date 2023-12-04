@@ -1511,7 +1511,7 @@ void func_8005F670(Vec3f* arg0) {
 }
 
 #ifdef NON_MATCHING
-s32 func_8005F9DC(Vec3f* arg0) {
+bool func_8005F9DC(Vec3f* arg0) {
     Vec3f sp2C;
     Vec3f sp20;
 
@@ -1523,11 +1523,12 @@ s32 func_8005F9DC(Vec3f* arg0) {
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp2C, &sp20);
     if ((sp20.z < 1000.0f) && (sp20.z > -13000.0f) && (fabsf(sp20.x) < (fabsf(sp20.z * 0.4f) + 2000.0f)) &&
         (fabsf(sp20.y) < (fabsf(sp20.y * 0.4f) + 2000.0f))) {
-        return 1;
+        return true;
     }
-    return 0;
+    return false;
 }
 #else
+bool func_8005F9DC(Vec3f* arg0);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_edisplay/func_8005F9DC.s")
 #endif
 

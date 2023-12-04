@@ -12,9 +12,9 @@ extern Vec3f D_800D30B8[4];
 
 s32 func_800A3F50(u16 arg0) {
     if ((D_801778B0[2] > 0) && (D_801778B0[3] > 0) && (D_801778B0[1] > 0) && (D_80161A98 >= arg0)) {
-        return 1;
+        return true;
     }
-    return 0;
+    return false;
 }
 
 void func_800A3FB0(void) {
@@ -1031,18 +1031,18 @@ s32 func_800A73E4(f32* arg0, s32* arg1, f32 arg2, f32 arg3, f32 arg4) {
     if (arg3 < sp48) {
         *arg0 = sp48;
         *arg1 = sp8C;
-        return 1;
+        return true;
     }
-    return 0;
+    return false;
 }
 
 s32 func_800A78C4(f32* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     if ((fabsf((arg0[0] + arg3) - arg6) < (arg0[1] + D_8017853C)) &&
         (fabsf((arg0[4] + arg1) - arg4) < (arg0[5] + D_8017853C)) &&
         (fabsf((arg0[2] + arg2) - arg5) < (arg0[3] + D_8017853C))) {
-        return 1;
+        return true;
     }
-    return 0;
+    return false;
 }
 
 #ifdef NON_MATCHING
@@ -1170,7 +1170,7 @@ s32 func_800A7974(UnkStruct_D_80178280* arg0, f32* arg1, s32* arg2, f32 arg3, f3
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800A7974.s")
 #endif
 
-s32 func_800A8054(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, Vec3f* arg7, Vec3f* arg8) {
+bool func_800A8054(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, Vec3f* arg7, Vec3f* arg8) {
     Vec3f sp54;
     Vec3f sp48;
     Vec3f sp3C;

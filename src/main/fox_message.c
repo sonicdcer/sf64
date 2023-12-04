@@ -58,7 +58,7 @@ void Message_DisplayChar(Gfx** gfxPtr, u16 msgChar, s32 xpos, s32 ypos) {
                         0x400, 0x400);
 }
 
-s32 Message_DisplayText(Gfx** gfxPtr, u16* msgPtr, s32 xPos, s32 yPos, s32 len) {
+bool Message_DisplayText(Gfx** gfxPtr, u16* msgPtr, s32 xPos, s32 yPos, s32 len) {
     s32 xChar = xPos;
     s32 yChar = yPos;
     s32 i;
@@ -157,13 +157,13 @@ void Message_DisplayScrollingText(Gfx** gfxPtr, u16* msgPtr, s32 xPos, s32 yPos,
     }
 }
 
-s32 Message_NotWhitespace(u16* msgPtr, s32 charPos) {
+bool Message_IsPrintingChar(u16* msgPtr, s32 charPos) {
     s32 i;
     s32 print;
 
     // bug: if the for loop is skipped, print is never initialized
     for (i = 0; msgPtr[i] != 0 && i < charPos; i++) {
-        print = 0;
+        print = false;
         switch (msgPtr[i]) {
             case 1:
             case 2:
@@ -182,7 +182,7 @@ s32 Message_NotWhitespace(u16* msgPtr, s32 charPos) {
             case 15:
                 break;
             default:
-                print = 1;
+                print = true;
                 break;
         }
     }

@@ -11,7 +11,7 @@ s32 D_800D4A70 = 0;
 void func_800BA760(void) {
     func_800B9358();
     if (D_80177D50 == 1.3f) {
-        D_801782F8 = Message_NotWhitespace(D_80178308, D_801782D8);
+        D_801782F8 = Message_IsPrintingChar(D_80178308, D_801782D8);
     }
 }
 

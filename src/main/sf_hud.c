@@ -1621,19 +1621,19 @@ void func_800907C4(Object_408* arg0) {
 }
 
 s32 func_8009092C(Object_2F4* arg0) {
-    s32 var_s5 = 0;
+    bool var_s5 = false;
     Object_408* var_s1;
     s32 i = 0;
 
     if (arg0->unk_0E6 != 0) {
-        return 1;
+        return true;
     }
 
     var_s1 = &D_8016F110[1];
 
     for (i = 1; i < 4; i++, var_s1++) {
         if (var_s1->obj.status == 2) {
-            var_s5 = 1;
+            var_s5 = true;
             if (arg0->unk_0E6 == 0) {
                 arg0->unk_0E6 = i;
             } else if (Rand_ZeroOne() > 0.4f) {

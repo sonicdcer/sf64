@@ -1,6 +1,7 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
+#include "libc/stdbool.h"
 #include "structs.h"
 #include "fox_option.h"
 
@@ -280,14 +281,14 @@ void func_8008E9EC(f32, f32);
 void func_8008EA14(f32, f32);
 void func_8008FA84(void);
 void func_8008FFF0(Object_408*, s32);
-s32 func_8009092C(Object_2F4*);
+bool func_8009092C(Object_2F4*);
 s32 func_800915FC(Object_2F4*);
 void func_80092D48(Object_2F4 *);  
 void func_80094D20(f32, f32);
 s32 func_800998FC(Vec3f*, Vec3f*, Vec3f*, s32, Vec3f*, f32*);
 void func_800A18B0(void);
 void func_800A1980(void);
-s32 func_800A1B6C(void);
+bool func_800A1B6C(void);
 void func_800A1C14(Gfx **);
 void func_800A1E68(Gfx **);
 void func_800A1F44(void);

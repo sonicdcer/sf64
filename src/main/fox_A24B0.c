@@ -83,7 +83,7 @@ void func_800A1980(void) {
     func_8001D400(0);
 }
 
-s32 func_800A1B6C(void) {
+bool func_800A1B6C(void) {
     static u8 sHoldTimer = 0;
     static u8 sOverlaySelect = 99;
     static u8 sCurrentOverlay = 99;
@@ -101,9 +101,9 @@ s32 func_800A1B6C(void) {
 
     if (sHoldTimer) {
         sHoldTimer--;
-        return 1;
+        return true;
     }
-    return 0;
+    return false;
 }
 
 void func_800A1C14(Gfx** arg0) {
@@ -292,7 +292,7 @@ void func_800A26C0(void) {
     }
     func_800A1C14(&gUnkDisp1);
     func_800A25DC();
-    if (func_800A1B6C() != 1) {
+    if (func_800A1B6C() != true) {
         Lib_Perspective(&gUnkDisp1);
         func_800A1FB0(&gUnkDisp1, D_801778A8, 0);
         if (D_8017783C != 0) {

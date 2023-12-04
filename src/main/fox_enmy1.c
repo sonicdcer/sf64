@@ -43,7 +43,7 @@ s32 func_80060FE4(Vec3f* arg0, f32 arg1) {
     Vec3f sp20;
 
     if ((D_80177880 != 1) && (D_80178280[0].unk_1C8 != 2)) {
-        return 1;
+        return true;
     }
     Matrix_RotateY(gCalcMatrix, D_80178280[D_801778A0].unk_058, 0);
     sp2C.x = arg0->x - D_80178280[D_801778A0].unk_040.x;
@@ -52,9 +52,9 @@ s32 func_80060FE4(Vec3f* arg0, f32 arg1) {
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp2C, &sp20);
 
     if ((sp20.z < 1000.0f) && (arg1 < sp20.z) && (fabsf(sp20.x) < (fabsf(sp20.z * 0.5f) + 2000.0f))) {
-        return 1;
+        return true;
     }
-    return 0;
+    return false;
 }
 
 s32 func_80061148(Vec3f* arg0, f32 arg1) {
@@ -62,7 +62,7 @@ s32 func_80061148(Vec3f* arg0, f32 arg1) {
     Vec3f sp20;
 
     if (D_80177880 != 1) {
-        return 1;
+        return true;
     }
     if (D_80178280[0].unk_1C8 == 7) {
         return func_80060FE4(arg0, arg1);
@@ -74,9 +74,9 @@ s32 func_80061148(Vec3f* arg0, f32 arg1) {
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp2C, &sp20);
 
     if ((sp20.z < 0.0f) && (arg1 < sp20.z) && (fabsf(sp20.x) < (fabsf(sp20.z * 0.5f) + 500.0f))) {
-        return 1;
+        return true;
     }
-    return 0;
+    return false;
 }
 
 void func_800612B8(ObjectStruct_1C* arg0, u32 arg1) {
@@ -667,21 +667,21 @@ s32 func_80062DBC(Vec3f* arg0, f32* var_s0, Object* arg2, f32 arg3, f32 arg4, f3
             if ((var_s0[1] + 20.0f) > (fabsf((var_s0[0] + arg2->pos.z) - var_ft5)) &&
                 ((var_s0[5] + 20.0f) > fabsf((var_s0[4] + arg2->pos.x) - var_fa1)) &&
                 ((var_s0[3] + 10.0f) > fabsf((var_s0[2] + arg2->pos.y) - var_ft4))) {
-                return 1;
+                return true;
             }
             var_s0 += 6;
         }
     }
-    return 0;
+    return false;
 }
 
 s32 func_800631A8(Vec3f* arg0, f32* arg1, Vec3f* arg2) {
     if (((s32) arg1[0] != 0) && (fabsf((arg1[1] + arg2->z) - arg0->z) < (arg1[2] + 20.0f)) &&
         (fabsf((arg1[5] + arg2->x) - arg0->x) < (arg1[6] + 20.0f)) &&
         (fabsf((arg1[3] + arg2->y) - arg0->y) < (arg1[4] + 20.0f))) {
-        return 1;
+        return true;
     }
-    return 0;
+    return false;
 }
 
 s32 func_8006326C(Vec3f* arg0, Vec3f* arg1, s32 arg2, Object* arg3) {
@@ -727,7 +727,7 @@ s32 func_8006326C(Vec3f* arg0, Vec3f* arg1, s32 arg2, Object* arg3) {
                 var_s1 = 8;
             }
             if (func_800998FC(&sp5C, &sp50, arg1, var_s1, &sp44, &sp30) > 0) {
-                return 1;
+                return true;
             }
         } else {
             var_s1 = 0;
@@ -749,11 +749,11 @@ s32 func_8006326C(Vec3f* arg0, Vec3f* arg1, s32 arg2, Object* arg3) {
                 var_s1 = 1;
             }
             if (func_800A3690(&sp5C, &sp50, var_s1, &sp44) != 0) {
-                return 1;
+                return true;
             }
         }
     }
-    return 0;
+    return false;
 }
 
 s32 func_8006351C(s32 arg0, Vec3f* arg1, Vec3f* arg2, s32 arg3) {
@@ -880,13 +880,13 @@ s32 func_8006351C(s32 arg0, Vec3f* arg1, Vec3f* arg2, s32 arg3) {
                         var_s0_5->unk_0D8.x = arg1->x;
                         var_s0_5->unk_0D8.y = arg1->y;
                         var_s0_5->unk_0D8.z = arg1->z;
-                        return 1;
+                        return true;
                     }
                 }
             }
         }
     }
-    return 0;
+    return false;
 }
 
 void func_80063CAC(Object_80* arg0) {
