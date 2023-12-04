@@ -356,6 +356,7 @@ extern u8 D_80177AB0;
 extern s32 D_80177AE0;
 extern s32 D_80177AF8;
 extern s32 D_80177B40;
+extern s32 D_80177B50[];
 extern s32 D_80177B48;
 extern u8 D_80177B8C;
 extern s32 D_80177B90[];

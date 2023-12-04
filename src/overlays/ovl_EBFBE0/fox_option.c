@@ -3593,18 +3593,12 @@ s32 func_EBFBE0_8019C5A0(s32* arg0) {
 }
 
 s32 func_EBFBE0_8019C66C(f32* arg0, f32 arg1, f32 arg2, UnkStruct_D_EBFBE0_801B9250* arg3) {
-    s32 x;
-    s32 y;
-    s32 var_a2;
     f32 var_fv1;
-    f32 temp;
     f32 temp2;
-
-    var_a2 = 0;
-    temp = *arg0;
-
-    x = gChangedInput[D_80177AF8].stick_x;
-    y = -gChangedInput[D_80177AF8].stick_y;
+    s32 var_a2 = 0;
+    f32 temp = *arg0;
+    s32 x = gChangedInput[D_80177AF8].stick_x;
+    s32 y = -gChangedInput[D_80177AF8].stick_y;
 
     if ((y > 10) || (y < -10)) {
         return 0;
@@ -3673,7 +3667,69 @@ void func_EBFBE0_8019C824(f32* arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019C8C4.s")
+s32 func_EBFBE0_8019C8C4(void) {
+    s32 i;
+    s32 j;
+    s32 k;
+    s32 m;
+    s32 ret;
+    s32 var_v0 = 0;
+    s32 var_a0 = 0;
+    s32 temp[10];
+
+    for (i = 0; i < D_80177B48 + 1; i++) {
+        var_v0 += ((D_80177B50[i] & 0x00FF0000) >> 16) & 1;
+        var_v0 += ((D_80177B50[i] & 0x0000FF00) >> 8) & 1;
+        var_v0 += (D_80177B50[i] & 0x000000FF) & 1;
+    }
+
+    for (i = 0; i < 10; i++) {
+        temp[i] = gSaveFile.save.data.unk_40[i];
+    }
+
+    ret = -1;
+
+    for (i = 0; i < 10; i++) {
+        if (D_EBFBE0_801B8220[i] <= D_80161714) {
+            if (D_EBFBE0_801B8220[i] == D_80161714) {
+                for (j = i; j < 10; j++) {
+                    if (D_EBFBE0_801B8220[j] != D_80161714) {
+                        ret = j;
+                        break;
+                    }
+
+                    if (temp[j] <= D_80161AA0[D_801778A0]) {
+                        if (temp[j] == D_80161AA0[D_801778A0]) {
+                            for (k = j; k < 10; k++) {
+                                if ((temp[k] != D_80161AA0[D_801778A0]) || (D_EBFBE0_801B8220[k] != D_80161714)) {
+                                    ret = k;
+                                    break;
+                                }
+
+                                for (var_a0 = 0, m = 0; m < 3; m++) {
+                                    var_a0 += D_EBFBE0_801B81A8[k][m];
+                                }
+
+                                if (var_v0 > var_a0) {
+                                    ret = k;
+                                    break;
+                                }
+                            }
+                        } else {
+                            ret = j;
+                        }
+                        break;
+                    }
+                }
+            } else {
+                ret = i;
+            }
+            break;
+        }
+    }
+
+    return ret;
+}
 
 void func_EBFBE0_8019CAE0(void) {
     switch (D_EBFBE0_801B912C) {
