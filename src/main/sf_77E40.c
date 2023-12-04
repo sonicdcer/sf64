@@ -616,7 +616,144 @@ s32 func_800798C4(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
     return 0;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_800798F0.s")
+void func_800798F0(Object_8C* arg0) {
+    Vec3f frameJointTable[50];
+
+    if ((D_80178234 == 0x11) && (D_80178280->unk_1C8 == 7)) {
+        func_8005F670(&arg0->obj.pos);
+    }
+    RCP_SetupDL(&gMasterDisp, 0x1D);
+    if (D_80178234 == 0x10) {
+        gSPFogPosition(gMasterDisp++, D_801783D8, 1005);
+    }
+    func_8005980C(arg0->unk_70);
+    switch (D_80178234) {
+        case 11:
+            switch (arg0->unk_44) {
+                case 1:
+                    if (arg0->unk_40 & 1) {
+                        gSPDisplayList(gMasterDisp++, D_6022530);
+                    } else {
+                        gSPDisplayList(gMasterDisp++, D_6022450);
+                    }
+                    break;
+                case 2:
+                    RCP_SetupDL(&gMasterDisp, 0x39);
+                    if (arg0->unk_40 & 1) {
+                        gSPDisplayList(gMasterDisp++, D_601A7A0);
+                    } else {
+                        gSPDisplayList(gMasterDisp++, D_60223C0);
+                    }
+                    RCP_SetupDL(&gMasterDisp, 0x1D);
+                    break;
+                case 7:
+                    Animation_GetFrameData(&D_6027320, 0, frameJointTable);
+                    Animation_DrawSkeleton(1, &D_602742C, frameJointTable, func_800798C4, NULL, arg0, &gIdentityMatrix);
+                    break;
+                case 8:
+                    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    gSPDisplayList(gMasterDisp++, D_6020E60);
+                    gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    break;
+                case 9:
+                    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    gSPDisplayList(gMasterDisp++, D_6020A30);
+                    gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    break;
+                case 10:
+                    RCP_SetupDL(&gMasterDisp, 0x43);
+                    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+                    gDPSetEnvColor(gMasterDisp++, 255, 80, 0, 255);
+                    func_8005980C(arg0->unk_6C);
+                    gSPDisplayList(gMasterDisp++, D_1024AC0);
+                    break;
+                case 11:
+                    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    gSPDisplayList(gMasterDisp++, D_60200E0);
+                    gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    break;
+                case 12:
+                    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    gSPDisplayList(gMasterDisp++, D_600F2F0);
+                    gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    break;
+                case 13:
+                    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    gSPDisplayList(gMasterDisp++, D_6001A60);
+                    gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    break;
+                case 14:
+                    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    gSPDisplayList(gMasterDisp++, D_600F160);
+                    gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    break;
+                case 15:
+                    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    gSPDisplayList(gMasterDisp++, D_600F3D0);
+                    gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    break;
+                case 16:
+                    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    gSPDisplayList(gMasterDisp++, D_600F6C0);
+                    gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    break;
+                case 17:
+                    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    gSPDisplayList(gMasterDisp++, D_600F9B0);
+                    gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    break;
+                default:
+                    if (arg0->unk_40 & 1) {
+                        gSPDisplayList(gMasterDisp++, D_10194C0);
+                    } else {
+                        gSPDisplayList(gMasterDisp++, D_1024290);
+                    }
+                    break;
+            }
+            break;
+        case 13:
+            Matrix_SetGfxMtx(&gMasterDisp);
+            RCP_SetupDL(&gMasterDisp, 0x3C);
+            gSPDisplayList(gMasterDisp++, D_600A220);
+            break;
+        default:
+            switch (arg0->unk_4C) {
+                case 0:
+                    if (arg0->unk_40 & 1) {
+                        gSPDisplayList(gMasterDisp++, D_10194C0);
+                    } else {
+                        gSPDisplayList(gMasterDisp++, D_1024290);
+                    }
+                    break;
+                case 1:
+                    switch (arg0->unk_40 & 3) {
+                        case 0:
+                            Matrix_Scale(gGfxMatrix, 1.0f, 0.3f, 1.0f, 1);
+                            break;
+                        case 1:
+                            Matrix_Scale(gGfxMatrix, 0.3f, 1.0f, 1.0f, 1);
+                            break;
+                        case 2:
+                            Matrix_Scale(gGfxMatrix, 1.0f, 0.5f, 1.0f, 1);
+                            break;
+                        case 3:
+                            Matrix_Scale(gGfxMatrix, 0.5f, 1.0f, 1.0f, 1);
+                            break;
+                    }
+                    Matrix_SetGfxMtx(&gMasterDisp);
+                    RCP_SetupDL(&gMasterDisp, 0x39);
+                    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    gSPDisplayList(gMasterDisp++, D_1021E20);
+                    RCP_SetupDL(&gMasterDisp, 0x40);
+                    break;
+            }
+            break;
+    }
+    RCP_SetupDL(&gMasterDisp, 0x40);
+    if (D_80178234 == 0x10) {
+        gSPFogPosition(gMasterDisp++, D_801783D8, D_801783DC);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007A28C.s")
 
