@@ -609,7 +609,12 @@ void func_8007968C(Object_8C* arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_800798C4.s")
+s32 func_800798C4(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
+    if ((arg0 != 1) && (arg0 != 5)) {
+        *arg1 = NULL;
+    }
+    return 0;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_800798F0.s")
 
