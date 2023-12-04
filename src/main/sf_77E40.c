@@ -574,7 +574,40 @@ void func_80079618(f32 posX, f32 posY, f32 posZ, f32 arg3) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007968C.s")
+void func_8007968C(Object_8C* arg0) {
+    if ((D_80178234 != 0xB) || (arg0->unk_44 != 7)) {
+        if ((arg0->unk_50 == 0) || (arg0->obj.pos.y < D_80177940)) {
+            func_80060FBC(&arg0->obj, &arg0->unk_80);
+        }
+    } else {
+        if (!(D_80177DB0 & 3)) {
+            func_8007D2C8(arg0->obj.pos.x, arg0->obj.pos.y + 550.0f, arg0->obj.pos.z, 10.0f);
+        }
+        if ((arg0->unk_50 == 0) || (arg0->obj.pos.y < (D_80177940 - 100.0f))) {
+            func_80060FBC(&arg0->obj, &arg0->unk_80);
+        }
+    }
+    arg0->obj.rot.x += arg0->unk_60.x;
+    arg0->obj.rot.y += arg0->unk_60.y;
+    arg0->obj.rot.z += arg0->unk_60.z;
+    if (D_80177C98 == 0) {
+        arg0->unk_58 -= 0.5f;
+    }
+    if ((D_80178234 == 0x11) && (D_80178280->unk_1C8 == 7) && (D_80177A80 >= 0xB0)) {
+        arg0->unk_54 *= 0.95f;
+        arg0->unk_58 *= 0.95f;
+        arg0->unk_5C *= 0.95f;
+    }
+    if ((D_80178234 == 0xB) && (arg0->unk_44 == 0xA)) {
+        arg0->obj.rot.x = 0.0f;
+        arg0->obj.rot.y = 0.0f;
+        if (arg0->unk_50 >= 25) {
+            arg0->unk_6C = 0.5f;
+        } else if (arg0->unk_6C > 0.03) {
+            arg0->unk_6C -= 0.02f;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_800798C4.s")
 
