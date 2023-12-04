@@ -2237,7 +2237,7 @@ void func_EBFBE0_80198608(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
 
 void func_EBFBE0_8019882C(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
     s32 temp;
-    s8* sp20;
+    char* sp20;
     f32 temp2;
 
     if ((arg3 > 58.0f) && (arg3 < 197.0f)) {
@@ -2683,7 +2683,7 @@ void func_EBFBE0_80199820(s32 arg0) {
 void func_EBFBE0_80199EA8(void) {
     s32 i;
 
-    func_800BA490();
+    RCP_SetupDL_76();
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
@@ -3029,7 +3029,7 @@ void func_EBFBE0_8019AB30(void) {
 
     colorGB = D_EBFBE0_801B9368;
 
-    var_v0 = 0xFFFFFFFFF;
+    var_v0 = 0xFFFFFFFF;
 
     if (D_EBFBE0_801B936C != 0) {
         colorGB = 255;
@@ -3365,7 +3365,7 @@ void func_EBFBE0_8019BC44(f32 x, f32 y, f32 arg2, f32 arg3, f32 arg4, f32 arg5) 
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    func_800B9E80();
+    RCP_SetupDL_55();
 
     gSPDisplayList(gMasterDisp++, D_604A9F0);
 

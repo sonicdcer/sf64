@@ -1,104 +1,5 @@
 #include "global.h"
 
-typedef enum {
-    MSGCHAR_END,
-    MSGCHAR_NWL,
-    MSGCHAR_NP2,
-    MSGCHAR_NP3,
-    MSGCHAR_NP4,
-    MSGCHAR_NP5,
-    MSGCHAR_NP6,
-    MSGCHAR_NP7,
-    MSGCHAR_NP8,
-    MSGCHAR_NP9,
-    MSGCHAR_NPA,
-    MSGCHAR_NPB,
-    MSGCHAR_SPC,
-    MSGCHAR_QSP,
-    MSGCHAR_HSP,
-    MSGCHAR_NPF,
-    MSGCHAR_CLF,
-    MSGCHAR_CUP,
-    MSGCHAR_CRT,
-    MSGCHAR_CDN,
-    MSGCHAR_AUP,
-    MSGCHAR_ALF,
-    MSGCHAR_ADN,
-    MSGCHAR_ART,
-    MSGCHAR_A,
-    MSGCHAR_B,
-    MSGCHAR_C,
-    MSGCHAR_D,
-    MSGCHAR_E,
-    MSGCHAR_F,
-    MSGCHAR_G,
-    MSGCHAR_H,
-    MSGCHAR_I,
-    MSGCHAR_J,
-    MSGCHAR_K,
-    MSGCHAR_L,
-    MSGCHAR_M,
-    MSGCHAR_N,
-    MSGCHAR_O,
-    MSGCHAR_P,
-    MSGCHAR_Q,
-    MSGCHAR_R,
-    MSGCHAR_S,
-    MSGCHAR_T,
-    MSGCHAR_U,
-    MSGCHAR_V,
-    MSGCHAR_W,
-    MSGCHAR_X,
-    MSGCHAR_Y,
-    MSGCHAR_Z,
-    MSGCHAR_a,
-    MSGCHAR_b,
-    MSGCHAR_c,
-    MSGCHAR_d,
-    MSGCHAR_e,
-    MSGCHAR_f,
-    MSGCHAR_g,
-    MSGCHAR_h,
-    MSGCHAR_i,
-    MSGCHAR_j,
-    MSGCHAR_k,
-    MSGCHAR_l,
-    MSGCHAR_m,
-    MSGCHAR_n,
-    MSGCHAR_o,
-    MSGCHAR_p,
-    MSGCHAR_q,
-    MSGCHAR_r,
-    MSGCHAR_s,
-    MSGCHAR_t,
-    MSGCHAR_u,
-    MSGCHAR_v,
-    MSGCHAR_w,
-    MSGCHAR_x,
-    MSGCHAR_y,
-    MSGCHAR_z,
-    MSGCHAR_EXM,
-    MSGCHAR_QST,
-    MSGCHAR_DSH,
-    MSGCHAR_CMA,
-    MSGCHAR_PRD,
-    MSGCHAR_0,
-    MSGCHAR_1,
-    MSGCHAR_2,
-    MSGCHAR_3,
-    MSGCHAR_4,
-    MSGCHAR_5,
-    MSGCHAR_6,
-    MSGCHAR_7,
-    MSGCHAR_8,
-    MSGCHAR_9,
-    MSGCHAR_APS,
-    MSGCHAR_LPR,
-    MSGCHAR_RPR,
-    MSGCHAR_CLN,
-    MSGCHAR_PIP,
-} CharCode;
-
 u16* Message_PtrFromId(u16 msgId) {
     s32 i;
     MsgLookup* lookup = gMsgLookup;
@@ -157,7 +58,7 @@ void Message_DisplayChar(Gfx** gfxPtr, u16 msgChar, s32 xpos, s32 ypos) {
                         0x400, 0x400);
 }
 
-s32 Message_DisplayText(Gfx** gfxPtr, u16* msgPtr, s32 xPos, s32 yPos, s32 len) {
+bool Message_DisplayText(Gfx** gfxPtr, u16* msgPtr, s32 xPos, s32 yPos, s32 len) {
     s32 xChar = xPos;
     s32 yChar = yPos;
     s32 i;
@@ -256,13 +157,13 @@ void Message_DisplayScrollingText(Gfx** gfxPtr, u16* msgPtr, s32 xPos, s32 yPos,
     }
 }
 
-s32 Message_NotWhitespace(u16* msgPtr, s32 charPos) {
+bool Message_IsPrintingChar(u16* msgPtr, s32 charPos) {
     s32 i;
     s32 print;
 
     // bug: if the for loop is skipped, print is never initialized
     for (i = 0; msgPtr[i] != 0 && i < charPos; i++) {
-        print = 0;
+        print = false;
         switch (msgPtr[i]) {
             case 1:
             case 2:
@@ -281,7 +182,7 @@ s32 Message_NotWhitespace(u16* msgPtr, s32 charPos) {
             case 15:
                 break;
             default:
-                print = 1;
+                print = true;
                 break;
         }
     }

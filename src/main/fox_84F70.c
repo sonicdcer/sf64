@@ -13,7 +13,7 @@ void func_800843FC(s32 arg0) {
 void func_80084488(s32 arg0) {
     s32 var_s1;
 
-    func_800B8FA8();
+    RCP_SetupDL_12();
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -150.0f, 0);
     for (var_s1 = 0; var_s1 < MIN(360, arg0 * 15); var_s1 += 15) {

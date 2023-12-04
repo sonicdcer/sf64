@@ -80,7 +80,7 @@ extern u8* D_EBFBE0_801AECF8[];
 
 extern UnkStruct_D_EBFBE0_801AED4C D_EBFBE0_801AED4C[24];
 
-extern s8* D_EBFBE0_801AEEAC[];
+extern const char* D_EBFBE0_801AEEAC[];
 
 extern Gfx D_EBFBE0_801AEF30[];
 
@@ -89,7 +89,7 @@ extern f32 D_EBFBE0_801AEF84[];
 extern f32 D_EBFBE0_801AEF90[];
 extern f32 D_EBFBE0_801AEF9C[];
 
-extern s8* D_EBFBE0_801AF0C4[];
+extern const char* D_EBFBE0_801AF0C4[];
 extern s32 D_EBFBE0_801AF0D0[];
 extern s32 D_EBFBE0_801AF0DC[];
 extern s32 D_EBFBE0_801AF0E8[];

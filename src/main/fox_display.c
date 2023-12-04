@@ -713,7 +713,7 @@ void Math_Vec3fFromAngles(Vec3f* step, f32 xRot, f32 yRot, f32 stepsize) {
 }
 
 f32 Math_RadToDeg(f32 rAngle) {
-    rAngle *= 57.295776f;
+    rAngle *= M_RTOD;
 
     while (rAngle < 0.0f) {
         rAngle += 360.0f;
