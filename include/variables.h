@@ -616,6 +616,7 @@ extern u16 D_10050E0[];
 extern u16 D_100BAC0[];
 extern u16 D_100D900[];
 extern u16 D_10032A0[];
+extern void *D_10190C0; // A texture of some sort.
 extern Gfx D_10194C0[];
 extern Gfx D_1021E20[];
 extern Gfx D_1024290[];
