@@ -3899,7 +3899,91 @@ void func_EBFBE0_8019CD54(void) {
     }
 }
 
+#ifdef IMPORT_DATA_PENDING
+void func_EBFBE0_8019D118(void) {
+    static f32 D_EBFBE0_801AF300[] = { -120.0f, 0.0f, 120.0f };
+    f32 dirX;
+    f32 dirY;
+    f32 dirZ;
+    s32 mask[3];
+    s32 i;
+    static f32 D_EBFBE0_801AF30C[6] = { 51.0f, 138.0f, 118.0f, 166.0f, 138.0f, 267.0f };
+    static f32 D_EBFBE0_801AF324[6] = { 29.0f, 49.0f, 145.0f, 155.0f, 87.0f, 127.0f };
+
+    RCP_SetupDL(&gMasterDisp, 0x4C);
+
+    if (D_80161A34 == 8) {
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+        Graphics_DisplayLargeText(D_EBFBE0_801AF30C[0], D_EBFBE0_801AF324[0], 1.0f, 1.0f, "CONGRATULATIONS");
+    }
+
+    if (D_EBFBE0_801B9178 != 0) {
+        return;
+    }
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
+    Graphics_DisplaySmallText(D_EBFBE0_801AF30C[1], D_EBFBE0_801AF324[1], 1.0f, 1.0f, "RANK");
+    Graphics_DisplaySmallText(D_EBFBE0_801AF30C[2], D_EBFBE0_801AF324[2], 1.0f, 1.0f, "TOTAL HITS");
+
+    if (D_EBFBE0_801B9138 == 1) {
+        if (D_80177DB0 & 0x10) {
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
+            TextureRect_8bIA(&gMasterDisp, D_50021F0, 32, 8, D_EBFBE0_801AF30C[5], D_EBFBE0_801AF324[5], 1.0f, 1.0f);
+        }
+    }
+
+    func_EBFBE0_80197A3C(D_EBFBE0_801B9094, D_EBFBE0_801AF30C[4], D_EBFBE0_801AF324[4]);
+
+    RCP_SetupDL(&gMasterDisp, 0x4C);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+
+    Graphics_DisplayLargeNumber(D_EBFBE0_801AF30C[3] - ((func_8008BCBC(D_80161714) - 1) * 13), D_EBFBE0_801AF324[3],
+                                D_80161714);
+
+    func_EBFBE0_801A9FD4(1);
+
+    func_EBFBE0_80192738();
+
+    for (i = 0; i < 3; i++) {
+        if (i == D_EBFBE0_801B9098) {
+            D_EBFBE0_801B9100[i] += 1.0f;
+        } else {
+            D_EBFBE0_801B9100[i] = 0.0f;
+        }
+
+        mask[i] = 0xFFFFFFFF;
+
+        if (D_EBFBE0_801B9140[i]) {
+            mask[i] = 0x1;
+            D_EBFBE0_801B9100[i] = 0.0f;
+        }
+    }
+
+    func_EBFBE0_8019BE7C(D_EBFBE0_801B911C, D_EBFBE0_801B9120, 127.0f, &dirX, &dirY, &dirZ);
+
+    Lights_SetOneLight(&gMasterDisp, dirX, dirY, dirZ, 255, 255, 255, 65, 70, 48);
+
+    Matrix_Push(&gGfxMatrix);
+
+    Matrix_LookAt(gGfxMatrix, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -100.0f, 0.0f, 1.0f, 0.0f, 1);
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    for (i = 0; i < 3; i++) {
+        if (D_80177DB0 & mask[i]) {
+            func_EBFBE0_8019DB20(D_EBFBE0_801B9150[i][0], D_EBFBE0_801AF300[i], 18.0f, -455.0f, 1.0f,
+                                 D_EBFBE0_801B90C0[i] + D_EBFBE0_801B90F0[i],
+                                 D_EBFBE0_801B90D0[i] + D_EBFBE0_801B9100[i],
+                                 D_EBFBE0_801B90E0[i] + D_EBFBE0_801B9110[i]);
+        }
+    }
+
+    Matrix_Pop(&gGfxMatrix);
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019D118.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019D624.s")
 

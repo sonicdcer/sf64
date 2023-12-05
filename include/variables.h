@@ -709,6 +709,7 @@ extern u16 D_5000300[];
 extern u8 D_5000380[];
 extern u8 D_5000400[];
 extern u8 D_5000480[];
+extern u8 D_50021F0[];
 extern u16 D_50077B0[];
 extern u8 D_5009F60[];
 extern u8 D_500A050[];

@@ -187,8 +187,12 @@ extern s32 D_EBFBE0_801B9094;
 extern s32 D_EBFBE0_801B9098;
 extern s32 D_EBFBE0_801B90A0[];
 extern s32 D_EBFBE0_801B90B0[];
+extern f32 D_EBFBE0_801B90C0[];
 extern f32 D_EBFBE0_801B90D0[];
+extern f32 D_EBFBE0_801B90E0[];
+extern f32 D_EBFBE0_801B90F0[];
 extern f32 D_EBFBE0_801B9100[];
+extern f32 D_EBFBE0_801B9110[];
 extern s32 D_EBFBE0_801B9140[];
 extern f32 D_EBFBE0_801B911C;
 extern f32 D_EBFBE0_801B9120;
@@ -349,6 +353,7 @@ void func_EBFBE0_8019CBC0(void);
 void func_EBFBE0_8019CD54(void);
 void func_EBFBE0_8019D118(void);
 void func_EBFBE0_8019D624(void);
+void func_EBFBE0_8019DB20(s32, f32, f32, f32, f32, f32, f32, f32);
 s32 func_EBFBE0_8019DCE8(s32 arg0);
 void func_EBFBE0_8019DD44(void);
 void func_EBFBE0_8019DE74(void);
@@ -366,5 +371,6 @@ s32 func_EBFBE0_8019C66C(f32* arg0, f32 arg1, f32 arg2, UnkStruct_D_EBFBE0_801B9
 void func_EBFBE0_8019E8D0(void);
 void func_EBFBE0_801A07E8(u8*, u8*, f32*);
 void func_EBFBE0_801AD7EC(s32, s32, u8);
+void func_EBFBE0_801A9FD4(s32);
 
 #endif
