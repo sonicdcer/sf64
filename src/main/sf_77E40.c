@@ -808,7 +808,17 @@ void func_8007A4B8(Object_8C* arg0, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     func_800612B8(&arg0->unk_1C, arg0->obj.id);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007A568.s")
+void func_8007A568(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
+    s32 i;
+
+    for (i = ARRAY_COUNT(D_80170130) - 1; i >= 0; i--) {
+        if (D_80170130[i].obj.status == 0) {
+            func_8007A4B8(&D_80170130[i], xPos, yPos, zPos, arg3);
+            break;
+        }
+    }
+    func_8007B344(xPos, yPos, zPos, 80.0f, 4);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007A5F8.s")
 
