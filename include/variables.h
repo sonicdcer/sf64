@@ -606,6 +606,7 @@ extern u16 D_1006000[];
 extern Gfx D_1016580[];
 extern u16 D_1006F20[];
 extern u16 D_1007E40[];
+extern Gfx D_10182C0[];
 extern u16 D_1008D60[];
 extern u16 D_1009C80[];
 extern u16 D_100ABA0[];
