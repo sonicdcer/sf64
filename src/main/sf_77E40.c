@@ -352,7 +352,7 @@ void func_800788B0(Object_8C* arg0) {
             func_8005980C(arg0->unk_70);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 128, 128, 128, 255);
             gSPDisplayList(gMasterDisp++, D_601FF80);
-            return;
+            break;
         case 13:
             RCP_SetupDL(&gMasterDisp, 0x43);
             temp_ft3 = Math_ModF(arg0->unk_40, 4.0f);
@@ -362,7 +362,7 @@ void func_800788B0(Object_8C* arg0) {
             func_8005980C(arg0->unk_70);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             RCP_SetupDL(&gMasterDisp, 0x40);
-            return;
+            break;
     }
 }
 
@@ -440,7 +440,7 @@ void func_80078E50(f32 posX, f32 posY, f32 posZ, f32 arg3) {
     for (i = ARRAY_COUNT(D_80170130) - 1; i >= 0; i--) {
         if (D_80170130[i].obj.status == 0) {
             func_80078D60(&D_80170130[i], posX, posY, posZ, arg3);
-            return;
+            break;
         }
     }
 }
@@ -536,7 +536,7 @@ void func_800794CC(f32 posX, f32 posY, f32 posZ, f32 arg3) {
     for (i = 50; i >= 0; i--) {
         if (D_80170130[i].obj.status == 0) {
             func_8007905C(&D_80170130[i], posX, posY, posZ, arg3, 0);
-            return;
+            break;
         }
     }
 }
@@ -547,7 +547,7 @@ void func_8007953C(f32 posX, f32 posY, f32 posZ, f32 arg3) {
     for (i = 79; i >= 0; i--) {
         if (D_80170130[i].obj.status == 0) {
             func_8007905C(&D_80170130[i], posX, posY, posZ, arg3, 0);
-            return;
+            break;
         }
     }
 }
@@ -558,7 +558,7 @@ void func_800795AC(f32 posX, f32 posY, f32 posZ, f32 arg3) {
     for (i = 0; i < 95; i++) {
         if (D_80170130[i].obj.status == 0) {
             func_8007905C(&D_80170130[i], posX, posY, posZ, arg3, 0);
-            return;
+            break;
         }
     }
 }
@@ -569,7 +569,7 @@ void func_80079618(f32 posX, f32 posY, f32 posZ, f32 arg3) {
     for (i = 50; i >= 0; i--) {
         if (D_80170130[i].obj.status == 0) {
             func_8007905C(&D_80170130[i], posX, posY, posZ, arg3, 1);
-            return;
+            break;
         }
     }
 }
