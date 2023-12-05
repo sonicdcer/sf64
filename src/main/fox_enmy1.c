@@ -1634,7 +1634,7 @@ void func_80066254(Object_2F4* arg0) {
                 var_v0 = D_80163FE0;
                 for (i = 0, var_v0 = D_80163FE0; i < ARRAY_COUNT(D_80163FE0); i++, var_v0++) {
                     if ((var_v0->obj.status != 0) && (var_v0->unk_040 != arg0->unk_040) &&
-                        (arg0->unk_8C == var_v0->unk_8C)) {
+                        (arg0->unk_08C == var_v0->unk_08C)) {
                         return;
                     }
                 }
@@ -1954,7 +1954,7 @@ void func_8006753C(Object_2F4* arg0) {
         if (arg0->unk_0CE <= 0) {
             func_8007A6F0(&arg0->obj.pos, 0x2903A008);
             func_8007D2C8(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 5.0f);
-            if (((new_var[0].unk_49C < 2) || (new_var[0].unk_49D < 2)) && (new_var[0].unk_1CC != 1)) {
+            if (((new_var[0].unk_49C.unk_00 < 2) || (new_var[0].unk_49C.unk_01 < 2)) && (new_var[0].unk_1CC != 1)) {
                 arg0->unk_044 = 0x17;
             } else if (D_80178280[0].unk_264 < 0x80) {
                 arg0->unk_044 = 0x19;
@@ -2001,13 +2001,13 @@ void func_80067874(Object_2F4* arg0) {
 
 void func_80067A40(void) {
     func_80019218(0x09008023, D_80178280[0].unk_460, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-    if (D_80178280[0].unk_49C < 2) {
+    if (D_80178280[0].unk_49C.unk_00 < 2) {
         D_80177D40[0] = 1050;
-        D_80178280[0].unk_49C = 2;
+        D_80178280[0].unk_49C.unk_00 = 2;
     }
-    if (D_80178280[0].unk_49D < 2) {
+    if (D_80178280[0].unk_49C.unk_01 < 2) {
         D_80177D58[0] = 1050;
-        D_80178280[0].unk_49D = 2;
+        D_80178280[0].unk_49C.unk_01 = 2;
     }
     if (D_801779F8 != 0) {
         D_80177D10[0] = D_80177D28[0] = 10;
@@ -2086,7 +2086,7 @@ void func_80067BEC(Object_6C* arg0) {
 }
 
 void func_80067F6C(Object_6C* arg0) {
-    if ((D_801778E8 == 0) && ((D_80178280[0].unk_49D < 2) || (D_80178280[0].unk_49C < 2))) {
+    if ((D_801778E8 == 0) && ((D_80178280[0].unk_49C.unk_01 < 2) || (D_80178280[0].unk_49C.unk_00 < 2))) {
         arg0->obj.id = 337;
         func_800612B8(&arg0->unk_1C, arg0->obj.id);
         arg0->unk_48 = 2000;

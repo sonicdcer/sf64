@@ -283,46 +283,44 @@ void Animation_FindBoundingBox(Gfx* dList, s32 len, Vec3f* min, Vec3f* max, s32*
                                Vtx** vtxList) {
     s64* sp44 = SEGMENTED_TO_VIRTUAL(dList);
     s64* var_s0;
-    u32 temp_v1;
 
     for (var_s0 = sp44; (s32) (*var_s0 >> 0x38) != G_ENDDL && var_s0 - sp44 < len; var_s0++) {
-        temp_v1 = (*var_s0 >> 0x38);
-        if (temp_v1 != G_TRI1) {
-            if (temp_v1 != G_VTX) {
-                if (temp_v1 == G_DL) {
-                    Animation_FindBoundingBox(*var_s0 & 0xFFFFFFFF, (*var_s0 >> 0x20) & 0xFFFF, min, max, vtxFound,
-                                              vtxCount, vtxList);
-                }
-            } else {
+        switch ((s32) (*var_s0 >> 0x38)) {
+            case G_DL:
+                Animation_FindBoundingBox(*var_s0 & 0xFFFFFFFF, (*var_s0 >> 0x20) & 0xFFFF, min, max, vtxFound,
+                                          vtxCount, vtxList);
+                break;
+            case G_VTX:
                 *vtxList = SEGMENTED_TO_VIRTUAL(*var_s0 & 0xFFFFFFFF);
                 *vtxCount = (*var_s0 >> 0x30) & 0xF;
-            }
-        } else {
-            if (!*vtxFound) {
-                *vtxFound = 1;
-                max->x = min->x = (*vtxList)[*var_s0 & 0xFF].v.ob[0];
-                max->y = min->y = (*vtxList)[*var_s0 & 0xFF].v.ob[1];
-                max->z = min->z = (*vtxList)[*var_s0 & 0xFF].v.ob[2];
-            } else {
-                min->x = MIN(min->x, (*vtxList)[*var_s0 & 0xFF].v.ob[0]);
-                min->y = MIN(min->y, (*vtxList)[*var_s0 & 0xFF].v.ob[1]);
-                min->z = MIN(min->z, (*vtxList)[*var_s0 & 0xFF].v.ob[2]);
-                max->x = MAX(max->x, (*vtxList)[*var_s0 & 0xFF].v.ob[0]);
-                max->y = MAX(max->y, (*vtxList)[*var_s0 & 0xFF].v.ob[1]);
-                max->z = MAX(max->z, (*vtxList)[*var_s0 & 0xFF].v.ob[2]);
-            }
-            min->x = MIN(min->x, (*vtxList)[(*var_s0 >> 8) & 0xFF].v.ob[0]);
-            min->y = MIN(min->y, (*vtxList)[(*var_s0 >> 8) & 0xFF].v.ob[1]);
-            min->z = MIN(min->z, (*vtxList)[(*var_s0 >> 8) & 0xFF].v.ob[2]);
-            max->x = MAX(max->x, (*vtxList)[(*var_s0 >> 8) & 0xFF].v.ob[0]);
-            max->y = MAX(max->y, (*vtxList)[(*var_s0 >> 8) & 0xFF].v.ob[1]);
-            max->z = MAX(max->z, (*vtxList)[(*var_s0 >> 8) & 0xFF].v.ob[2]);
-            min->x = MIN(min->x, (*vtxList)[(*var_s0 >> 0x10) & 0xFF].v.ob[0]);
-            min->y = MIN(min->y, (*vtxList)[(*var_s0 >> 0x10) & 0xFF].v.ob[1]);
-            min->z = MIN(min->z, (*vtxList)[(*var_s0 >> 0x10) & 0xFF].v.ob[2]);
-            max->x = MAX(max->x, (*vtxList)[(*var_s0 >> 0x10) & 0xFF].v.ob[0]);
-            max->y = MAX(max->y, (*vtxList)[(*var_s0 >> 0x10) & 0xFF].v.ob[1]);
-            max->z = MAX(max->z, (*vtxList)[(*var_s0 >> 0x10) & 0xFF].v.ob[2]);
+                break;
+            case G_TRI1:
+                if (!*vtxFound) {
+                    *vtxFound = 1;
+                    max->x = min->x = (*vtxList)[*var_s0 & 0xFF].v.ob[0];
+                    max->y = min->y = (*vtxList)[*var_s0 & 0xFF].v.ob[1];
+                    max->z = min->z = (*vtxList)[*var_s0 & 0xFF].v.ob[2];
+                } else {
+                    min->x = MIN(min->x, (*vtxList)[*var_s0 & 0xFF].v.ob[0]);
+                    min->y = MIN(min->y, (*vtxList)[*var_s0 & 0xFF].v.ob[1]);
+                    min->z = MIN(min->z, (*vtxList)[*var_s0 & 0xFF].v.ob[2]);
+                    max->x = MAX(max->x, (*vtxList)[*var_s0 & 0xFF].v.ob[0]);
+                    max->y = MAX(max->y, (*vtxList)[*var_s0 & 0xFF].v.ob[1]);
+                    max->z = MAX(max->z, (*vtxList)[*var_s0 & 0xFF].v.ob[2]);
+                }
+                min->x = MIN(min->x, (*vtxList)[(*var_s0 >> 8) & 0xFF].v.ob[0]);
+                min->y = MIN(min->y, (*vtxList)[(*var_s0 >> 8) & 0xFF].v.ob[1]);
+                min->z = MIN(min->z, (*vtxList)[(*var_s0 >> 8) & 0xFF].v.ob[2]);
+                max->x = MAX(max->x, (*vtxList)[(*var_s0 >> 8) & 0xFF].v.ob[0]);
+                max->y = MAX(max->y, (*vtxList)[(*var_s0 >> 8) & 0xFF].v.ob[1]);
+                max->z = MAX(max->z, (*vtxList)[(*var_s0 >> 8) & 0xFF].v.ob[2]);
+                min->x = MIN(min->x, (*vtxList)[(*var_s0 >> 0x10) & 0xFF].v.ob[0]);
+                min->y = MIN(min->y, (*vtxList)[(*var_s0 >> 0x10) & 0xFF].v.ob[1]);
+                min->z = MIN(min->z, (*vtxList)[(*var_s0 >> 0x10) & 0xFF].v.ob[2]);
+                max->x = MAX(max->x, (*vtxList)[(*var_s0 >> 0x10) & 0xFF].v.ob[0]);
+                max->y = MAX(max->y, (*vtxList)[(*var_s0 >> 0x10) & 0xFF].v.ob[1]);
+                max->z = MAX(max->z, (*vtxList)[(*var_s0 >> 0x10) & 0xFF].v.ob[2]);
+                break;
         }
     }
 }

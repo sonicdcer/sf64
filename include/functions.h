@@ -154,11 +154,13 @@ void func_80040CDC(void);
 void func_80042FAC(Object_408 *);       
 void func_80042FD0(Object_408 *);
 void func_800444BC(UnkStruct_D_80178280 *);
+
 void func_80053658(UnkStruct_D_80161630 *);
 void func_8005465C(s32);
-
+void func_80057814(UnkStruct_D_80178280* arg0);
 void func_80057D00(void);
 
+void func_800596C0(void);
 void func_8005980C(f32);
 void func_8005F030(Vec3f*);
 void func_8005F0E8(Vec3f*, Vec3f*);
@@ -167,6 +169,9 @@ void func_8005F290(Vec3f*, Vec3f*);
 void func_8005F670(Vec3f*);
 s32 func_8005F9DC(Vec3f*);
 
+void func_80060714(s32 arg0);
+void func_8006089C(u8 arg0);
+void func_80060968(void);
 void func_80060FBC(Object*, Vec3f*);
 s32 func_80060FE4(Vec3f*, f32);
 void func_800612B8(ObjectStruct_1C*, u32);
@@ -235,6 +240,7 @@ void func_800763A4(Object_2F4 *, s32);
 void func_8007717C(Object_2F4 *, s32);
 
 void func_80077240(f32, f32, f32, s32);
+void func_80077790(void);
 void func_80078E50(f32, f32, f32, f32);
 void func_800794CC(f32, f32, f32, f32);
 void func_8007A6F0(Vec3f *, u32);
@@ -344,6 +350,7 @@ void func_E16C50_8019B1F0(Object_2F4 *);
 void func_E16C50_8019B810(Object_2F4 *);
 void func_E16C50_8019C200(Object_2F4 *);
 void func_E16C50_8019D060(Object_2F4 *);
+void func_E16C50_801ACBB4(void);
 void func_E16C50_801AD688(Object_2F4 *);
 void func_E16C50_801AE3AC(Object_2F4 *);
 void func_E16C50_801AF9FC(Object_2F4 *);

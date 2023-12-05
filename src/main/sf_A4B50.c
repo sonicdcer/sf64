@@ -138,7 +138,7 @@ void func_800A4460(UnkStruct_D_80178280* arg0) {
         arg0->unk_0F4 += 8.0f;
         if ((D_80177C98 == 0) || ((arg0->unk_238 == 1) && (D_80177880 == 0))) {
             arg0->unk_080 = -__sinf(arg0->unk_088 * M_DTOR) * 0.5f;
-            if ((arg0->unk_49C < 2) || (arg0->unk_49D < 2)) {
+            if ((arg0->unk_49C.unk_00 < 2) || (arg0->unk_49C.unk_01 < 2)) {
                 arg0->unk_0F0 = __sinf(arg0->unk_0F4 * M_DTOR) * 5.0f;
             } else {
                 arg0->unk_0F0 = __sinf(arg0->unk_0F4 * M_DTOR) * 1.5f;
@@ -152,7 +152,7 @@ void func_800A46A0(UnkStruct_D_80178280* arg0) {
     f32 sp40;
 
     if ((arg0->unk_238 == 0) || (D_80177880 == 1)) {
-        if (arg0->unk_49C < 2) {
+        if (arg0->unk_49C.unk_00 < 2) {
             if (!(D_80177DB0 & 1) && (D_80177D70[arg0->unk_1C4] != 0)) {
                 func_8007D10C(((Rand_ZeroOne() - 0.5f) * 10.0f) + arg0->unk_2D4.x,
                               (Rand_ZeroOne() * 5.0f) + arg0->unk_2D4.y, arg0->unk_2D4.z, 1.0f);
@@ -163,7 +163,7 @@ void func_800A46A0(UnkStruct_D_80178280* arg0) {
                               arg0->unk_0C0.y, arg0->unk_0C0.z, (Rand_ZeroOne() * 0.02f) + 0.02f, arg0->unk_1C4 + 1);
             }
         }
-        if (arg0->unk_49D < 2) {
+        if (arg0->unk_49C.unk_01 < 2) {
             if (!(D_80177DB0 & 1) && (D_80177D88[arg0->unk_1C4] != 0)) {
                 func_8007D10C(((Rand_ZeroOne() - 0.5f) * 10.0f) + arg0->unk_2C8.x,
                               (Rand_ZeroOne() * 5.0f) + arg0->unk_2C8.y, arg0->unk_2C8.z, 1.0f);
@@ -760,11 +760,11 @@ void func_800A6AC0(UnkStruct_D_80178280* arg0, s32 arg1, s32 arg2) {
     if ((arg0->unk_1CC == 0) && (D_80177AB8[arg0->unk_1C4] < 1.0f)) {
         if (arg1 == 1) {
             D_80177D40[arg0->unk_1C4] = 30;
-            if (arg0->unk_49C == 2) {
+            if (arg0->unk_49C.unk_00 == 2) {
                 D_80177D10[arg0->unk_1C4] -= arg2;
                 if (D_80177D10[arg0->unk_1C4] <= 0) {
                     func_800A69F8(1, arg0->unk_2D4.x, arg0->unk_2D4.y, arg0->unk_2D4.z);
-                    arg0->unk_49C = 1;
+                    arg0->unk_49C.unk_00 = 1;
                     func_8007D0E0(arg0->unk_2D4.x, arg0->unk_2D4.y, arg0->unk_2D4.z, 2.0f);
                     D_80177D70[arg0->unk_1C4] = 50;
                     func_800A5FA0(arg0->unk_460, 0x0900A02C, arg0->unk_1C4);
@@ -775,11 +775,11 @@ void func_800A6AC0(UnkStruct_D_80178280* arg0, s32 arg1, s32 arg2) {
             }
         } else if (arg1 == 2) {
             D_80177D58[arg0->unk_1C4] = 30;
-            if (arg0->unk_49D == 2) {
+            if (arg0->unk_49C.unk_01 == 2) {
                 D_80177D28[arg0->unk_1C4] -= arg2;
                 if (D_80177D28[arg0->unk_1C4] <= 0) {
                     func_800A69F8(0, arg0->unk_2C8.x, arg0->unk_2C8.y, arg0->unk_2C8.z);
-                    arg0->unk_49D = 1;
+                    arg0->unk_49C.unk_01 = 1;
                     func_8007D0E0(arg0->unk_2C8.x, arg0->unk_2C8.y, arg0->unk_2C8.z, 2.0f);
                     D_80177D88[arg0->unk_1C4] = 50;
                     func_800A5FA0(arg0->unk_460, 0x0900A02C, arg0->unk_1C4);
@@ -1482,7 +1482,7 @@ void func_800A887C(UnkStruct_D_80178280* arg0) {
         Matrix_RotateZ(gCalcMatrix, -(arg0->unk_0F8 * M_DTOR), 1);
         sp3C.y = 0.0f;
         sp3C.z = 0.0f;
-        if (arg0->unk_49D == 2) {
+        if (arg0->unk_49C.unk_01 == 2) {
             sp3C.x = 40.0f;
         } else {
             sp3C.y = -10.0f;
@@ -1492,7 +1492,7 @@ void func_800A887C(UnkStruct_D_80178280* arg0) {
             sp3C.x = 24.0f;
         }
         Matrix_MultVec3f(gCalcMatrix, &sp3C, &arg0->unk_2C8);
-        if (arg0->unk_49C == 2) {
+        if (arg0->unk_49C.unk_00 == 2) {
             sp3C.x = -40.0f;
         } else {
             sp3C.x = -30.0f;
