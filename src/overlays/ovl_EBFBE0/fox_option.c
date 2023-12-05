@@ -4013,7 +4013,7 @@ void func_EBFBE0_8019D624(void) {
 
     for (j = 0; j < 7; j++) {
         var_s0[10][j].unk_C = 0;
-        
+
         var_t2 = D_80177B70[j];
 
         if (var_t2 > 255) {
@@ -4092,7 +4092,56 @@ void func_EBFBE0_8019D624(void) {
     Save_Write();
 }
 
+#ifdef IMPORT_DATA_PENDING
+void func_EBFBE0_8019DB20(s32 character, f32 x, f32 y, f32 z, f32 scale, f32 xAngle, f32 yAngle, f32 zAngle) {
+    static Gfx* D_EBFBE0_801AF33C[37] = {
+        (Gfx*) 0x090086F0, (Gfx*) 0x09007FD0, (Gfx*) 0x09007BB0, (Gfx*) 0x09000980, (Gfx*) 0x090075A0,
+        (Gfx*) 0x090070C0, (Gfx*) 0x09006AE0, (Gfx*) 0x09006500, (Gfx*) 0x090062D0, (Gfx*) 0x09001120,
+        (Gfx*) 0x09005CA0, (Gfx*) 0x09005980, (Gfx*) 0x09005380, (Gfx*) 0x09004E10, (Gfx*) 0x09000570,
+        (Gfx*) 0x090014E0, (Gfx*) 0x09004920, (Gfx*) 0x09004230, (Gfx*) 0x09003A30, (Gfx*) 0x09003620,
+        (Gfx*) 0x09003230, (Gfx*) 0x09002EA0, (Gfx*) 0x09002890, (Gfx*) 0x090022A0, (Gfx*) 0x09001E90,
+        (Gfx*) 0x09001A10, (Gfx*) 0x0900BB90, (Gfx*) 0x090001F0, (Gfx*) 0x0900B580, (Gfx*) 0x0900AF60,
+        (Gfx*) 0x0900A870, (Gfx*) 0x0900A290, (Gfx*) 0x09009CB0, (Gfx*) 0x09009990, (Gfx*) 0x09009280,
+        (Gfx*) 0x09008C60, (Gfx*) 0x09000000,
+    };
+
+    s32 i;
+    s32 charIndex = -1;
+
+    for (i = 0; D_EBFBE0_801AEF5C[i] != NULL; i++) {
+        if (character == D_EBFBE0_801AEF5C[i]) {
+            charIndex = i;
+            break;
+        }
+    }
+
+    if (charIndex == -1) {
+        return;
+    }
+
+    RCP_SetupDL(&gMasterDisp, 0x17);
+    gSPTexture(gMasterDisp++, 2500, 200, 0, G_TX_RENDERTILE, G_ON);
+    gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
+
+    Matrix_Push(&gGfxMatrix);
+
+    Matrix_Translate(gGfxMatrix, x, y, z, 1);
+
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * zAngle, 1);
+    Matrix_RotateX(gGfxMatrix, M_DTOR * xAngle, 1);
+    Matrix_RotateY(gGfxMatrix, M_DTOR * yAngle, 1);
+
+    Matrix_Scale(gGfxMatrix, scale, scale, scale, 1);
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    gSPDisplayList(gMasterDisp++, D_EBFBE0_801AF33C[charIndex]);
+
+    Matrix_Pop(&gGfxMatrix);
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019DB20.s")
+#endif
 
 s32 func_EBFBE0_8019DCE8(s32 arg0) {
     s32 i = 0;
