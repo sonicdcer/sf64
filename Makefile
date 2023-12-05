@@ -22,6 +22,12 @@ CC_CHECK_COMP ?= gcc
 OBJDUMP_BUILD ?= 0
 # Number of threads to compress with
 N_THREADS ?= $(shell nproc)
+# Whether to colorize build messages
+COLOR ?= 1
+# Whether to hide commands or not
+VERBOSE ?= 0
+# Command for printing messages during the make.
+PRINT ?= printf
 
 # Set prefix to mips binutils binaries (mips-linux-gnu-ld => 'mips-linux-gnu-') - Change at your own risk!
 # In nearly all cases, not having 'mips-linux-gnu-*' binaries on the PATH is indicative of missing dependencies
@@ -64,15 +70,45 @@ CPPFLAGS += -fno-dollars-in-identifiers -P
 LDFLAGS  := --no-check-sections --accept-unknown-input-arch --emit-relocs
 
 UNAME_S := $(shell uname -s)
+UNAME_M := $(shell uname -m)
 ifeq ($(OS),Windows_NT)
 $(error Native Windows is currently unsupported for building this repository, use WSL instead c:)
 else ifeq ($(UNAME_S),Linux)
     DETECTED_OS := linux
+    #Detect aarch64 devices (Like Raspberry Pi OS 64-bit)
+    #If it's found, then change the compiler to a version that can compile in 32 bit mode.
+    ifeq ($(UNAME_M),aarch64)
+        CC_CHECK_COMP := arm-linux-gnueabihf-gcc
+    endif
 else ifeq ($(UNAME_S),Darwin)
     DETECTED_OS := mac
     MAKE := gmake
     CPPFLAGS += -xc++
 endif
+
+# Support python venv's if one is installed.
+PYTHON_VENV = .venv/bin/python3
+ifneq "$(wildcard $(PYTHON_VENV) )" ""
+  PYTHON = $(PYTHON_VENV)
+endif
+
+ifeq ($(VERBOSE),0)
+  V := @
+endif
+
+ifeq ($(COLOR),1)
+NO_COL  := \033[0m
+RED     := \033[0;31m
+GREEN   := \033[0;32m
+BLUE    := \033[0;34m
+YELLOW  := \033[0;33m
+BLINK   := \033[33;5m
+endif
+
+# Common build print status function
+define print
+  @$(PRINT) "$(GREEN)$(1) $(YELLOW)$(2)$(GREEN) -> $(BLUE)$(3)$(NO_COL)\n"
+endef
 
 #### Tools ####
 ifneq ($(shell type $(MIPS_BINUTILS_PREFIX)ld >/dev/null 2>/dev/null; echo $$?), 0)
@@ -82,7 +118,7 @@ endif
 
 ### Compiler ###
 
-IDO              := $(TOOLS)/ido_recomp/$(DETECTED_OS)/5.3/cc
+IDO              := $(TOOLS)/ido-recomp/$(DETECTED_OS)/cc
 AS              := $(MIPS_BINUTILS_PREFIX)as
 LD              := $(MIPS_BINUTILS_PREFIX)ld
 OBJCOPY         := $(MIPS_BINUTILS_PREFIX)objcopy
@@ -94,7 +130,7 @@ CAT             := cat
 
 ASM_PROC_FLAGS  := --input-enc=utf-8 --output-enc=euc-jp --convert-statics=global-with-filename
 
-SPLAT           ?= $(TOOLS)/splat/split.py
+SPLAT           ?= $(PYTHON) $(TOOLS)/splat/split.py
 SPLAT_YAML      ?= $(TARGET).$(VERSION).yaml
 
 COMPTOOL		:= $(TOOLS)/comptool.py
@@ -117,10 +153,17 @@ CHECK_WARNINGS := -Wall -Wextra -Wimplicit-fallthrough -Wno-unknown-pragmas -Wno
 MIPS_BUILTIN_DEFS := -DMIPSEB -D_MIPS_FPSET=16 -D_MIPS_ISA=2 -D_ABIO32=1 -D_MIPS_SIM=_ABIO32 -D_MIPS_SZINT=32 -D_MIPS_SZPTR=32
 ifneq ($(RUN_CC_CHECK),0)
 #   The -MMD flags additionaly creates a .d file with the same name as the .o file.
-    CHECK_WARNINGS 	  := -Wno-unused-variable
+    CHECK_WARNINGS    := -Wno-unused-variable
     CC_CHECK          := $(CC_CHECK_COMP)
-    CC_CHECK_FLAGS    := -MMD -MP -fno-builtin -fsyntax-only -funsigned-char -fdiagnostics-color -std=gnu89 -m32 -DNON_MATCHING -DAVOID_UB -DCC_CHECK=1
-    ifneq ($(WERROR), 0)
+    CC_CHECK_FLAGS    := -MMD -MP -fno-builtin -fsyntax-only -funsigned-char -fdiagnostics-color -std=gnu89 -DNON_MATCHING -DAVOID_UB -DCC_CHECK=1
+
+    # Ensure that gcc treats the code as 32-bit
+    ifeq ($(UNAME_M),aarch64)
+        CC_CHECK_FLAGS += -march=armv7-a+fp
+    else
+        CC_CHECK_FLAGS += -m32
+    endif
+	ifneq ($(WERROR), 0)
         CHECK_WARNINGS += -Werror
     endif
 else
@@ -231,25 +274,30 @@ all: uncompressed
 
 init:
 	@$(MAKE) clean
+	@$(MAKE) -s -C tools
 	@$(MAKE) decompress
 	@$(MAKE) extract -j $(N_THREADS)
 	@$(MAKE) all -j $(N_THREADS)
 	@$(MAKE) compressed
 
+SF := ___  ___\n/ __||  _|\n\__ \|  _|\n|___/|_|\n
 uncompressed: $(ROM)
 ifneq ($(COMPARE),0)
-	@echo "Calculating Rom Header Checksum..."
+	@echo "$(GREEN)Calculating Rom Header Checksum... $(YELLOW)$<$(NO_COL)"	
 	@$(PYTHON) $(COMPTOOL) -r $(ROM) .
-	@md5sum $(ROM)
-	@md5sum -c $(TARGET).$(VERSION).uncompressed.md5
+	@md5sum --status -c $(TARGET).$(VERSION).uncompressed.md5 && \
+	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).uncompressed.z64$(NO_COL): $(GREEN)OK$(NO_COL)\n$(YELLOW) $(SF)" || \
+	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).uncompressed.z64 $(RED)FAILED$(NO_COL)\n"
 endif
 
 compressed: $(ROMC)
 ifeq ($(COMPARE),1)
-	@echo "Calculating Rom Header Checksum..."
+	@echo "$(GREEN)Calculating Rom Header Checksum... $(YELLOW)$<$(NO_COL)"
 	@$(PYTHON) $(COMPTOOL) -r $(ROMC) .
-	@md5sum $(ROMC)
-	@md5sum -c $(TARGET).$(VERSION).md5
+	@md5sum --status -c $(TARGET).$(VERSION).md5 && \
+	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).z64$(NO_COL): $(GREEN)OK$(NO_COL)\n" || \
+	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).z64 $(RED)FAILED$(NO_COL)\n"
+
 endif
 
 #### Main Targets ###
@@ -273,7 +321,7 @@ clean:
 	@git clean -fdx linker_scripts/*.ld
 
 format:
-	@$(TOOLS)/format.py -j $(N_THREADS)
+	@$(PYTHON) $(TOOLS)/format.py -j $(N_THREADS)
 
 checkformat:
 	@$(TOOLS)/check_format.sh -j $(N_THREADS)
@@ -299,53 +347,58 @@ disasm:
 
 # Final ROM
 $(ROMC): $(BASEROM_UNCOMPRESSED)
-	@echo "Compressing ROM..."
+	$(call print,Compressing ROM...,$<,$@)
 	@$(PYTHON) $(COMPTOOL) -c $(ROM) $(ROMC)
 
 # Uncompressed ROM
 $(ROM): $(ELF)
-	@echo "ELF->ROM:"
-	$(OBJCOPY) -O binary $< $@
+	$(call print,ELF->ROM:,$<,$@)
+	$(V)$(OBJCOPY) -O binary $< $@
 
 # Link
 $(ELF): $(LIBULTRA_O) $(O_FILES) $(LD_SCRIPT) $(BUILD_DIR)/linker_scripts/$(VERSION)/hardware_regs.ld $(BUILD_DIR)/linker_scripts/$(VERSION)/undefined_syms.ld $(BUILD_DIR)/linker_scripts/$(VERSION)/pif_syms.ld $(BUILD_DIR)/linker_scripts/$(VERSION)/auto/undefined_syms_auto.ld $(BUILD_DIR)/linker_scripts/$(VERSION)/auto/undefined_funcs_auto.ld
-	@echo "Linking..."
-	$(LD) $(LDFLAGS) -T $(LD_SCRIPT) \
+	$(call print,Linking:,$<,$@)
+	$(V)$(LD) $(LDFLAGS) -T $(LD_SCRIPT) \
 		-T $(BUILD_DIR)/linker_scripts/$(VERSION)/hardware_regs.ld -T $(BUILD_DIR)/linker_scripts/$(VERSION)/undefined_syms.ld -T $(BUILD_DIR)/linker_scripts/$(VERSION)/pif_syms.ld \
 		-T $(BUILD_DIR)/linker_scripts/$(VERSION)/auto/undefined_syms_auto.ld -T $(BUILD_DIR)/linker_scripts/$(VERSION)/auto/undefined_funcs_auto.ld \
 		-Map $(LD_MAP) -o $@
 
 # PreProcessor
 $(BUILD_DIR)/%.ld: %.ld
-	$(CPP) $(CPPFLAGS) $(BUILD_DEFINES) $(IINC) $< > $@
+	$(call print,PreProcessor:,$<,$@)
+	$(V)$(CPP) $(CPPFLAGS) $(BUILD_DEFINES) $(IINC) $< > $@
 
 # Binary
 $(BUILD_DIR)/%.o: %.bin
-	$(OBJCOPY) -I binary -O elf32-big $< $@
+	$(call print,Binary:,$<,$@)
+	$(V)$(OBJCOPY) -I binary -O elf32-big $< $@
 
 # Assembly
 $(BUILD_DIR)/%.o: %.s
-	$(CPP) $(CPPFLAGS) $(BUILD_DEFINES) $(IINC) -I $(dir $*) $(COMMON_DEFINES) $(RELEASE_DEFINES) $(GBI_DEFINES) $(AS_DEFINES) $< | $(ICONV) $(ICONV_FLAGS) | $(AS) $(ASFLAGS) $(ENDIAN) $(IINC) -I $(dir $*) -o $@
-	$(OBJDUMP_CMD)
+	$(call print,Assembling:,$<,$@)
+	$(V)$(CPP) $(CPPFLAGS) $(BUILD_DEFINES) $(IINC) -I $(dir $*) $(COMMON_DEFINES) $(RELEASE_DEFINES) $(GBI_DEFINES) $(AS_DEFINES) $< | $(ICONV) $(ICONV_FLAGS) | $(AS) $(ASFLAGS) $(ENDIAN) $(IINC) -I $(dir $*) -o $@
+	$(V)$(OBJDUMP_CMD)
 
 # C
 $(BUILD_DIR)/%.o: %.c
-	$(CC_CHECK) $(CC_CHECK_FLAGS) $(IINC) -I $(dir $*) $(CHECK_WARNINGS) $(BUILD_DEFINES) $(COMMON_DEFINES) $(RELEASE_DEFINES) $(GBI_DEFINES) $(C_DEFINES) $(MIPS_BUILTIN_DEFS) -o $@ $<
-	$(CC) -c $(CFLAGS) $(BUILD_DEFINES) $(IINC) $(WARNINGS) $(MIPS_VERSION) $(ENDIAN) $(COMMON_DEFINES) $(RELEASE_DEFINES) $(GBI_DEFINES) $(C_DEFINES) $(OPTFLAGS) -o $@ $<
-	$(OBJDUMP_CMD)
-	$(RM_MDEBUG)
+	$(call print,Compiling:,$<,$@)
+	@$(CC_CHECK) $(CC_CHECK_FLAGS) $(IINC) -I $(dir $*) $(CHECK_WARNINGS) $(BUILD_DEFINES) $(COMMON_DEFINES) $(RELEASE_DEFINES) $(GBI_DEFINES) $(C_DEFINES) $(MIPS_BUILTIN_DEFS) -o $@ $<
+	$(V)$(CC) -c $(CFLAGS) $(BUILD_DEFINES) $(IINC) $(WARNINGS) $(MIPS_VERSION) $(ENDIAN) $(COMMON_DEFINES) $(RELEASE_DEFINES) $(GBI_DEFINES) $(C_DEFINES) $(OPTFLAGS) -o $@ $<
+	$(V)$(OBJDUMP_CMD)
+	$(V)$(RM_MDEBUG)
 
 # Patch ll.o
 build/src/libultra/libc/ll.o: src/libultra/libc/ll.c
-	$(CC_CHECK) $(CC_CHECK_FLAGS) $(IINC) -I $(dir $*) $(CHECK_WARNINGS) $(BUILD_DEFINES) $(COMMON_DEFINES) $(RELEASE_DEFINES) $(GBI_DEFINES) $(C_DEFINES) $(MIPS_BUILTIN_DEFS) -o $@ $<
-	$(CC) -c $(CFLAGS) $(BUILD_DEFINES) $(IINC) $(WARNINGS) $(MIPS_VERSION) $(ENDIAN) $(COMMON_DEFINES) $(RELEASE_DEFINES) $(GBI_DEFINES) $(C_DEFINES) $(OPTFLAGS) -o $@ $<
-	$(PYTHON) tools/set_o32abi_bit.py $@
-	$(OBJDUMP_CMD)
-	$(RM_MDEBUG)
+	$(call print,Patching:,$<,$@)
+	@$(CC_CHECK) $(CC_CHECK_FLAGS) $(IINC) -I $(dir $*) $(CHECK_WARNINGS) $(BUILD_DEFINES) $(COMMON_DEFINES) $(RELEASE_DEFINES) $(GBI_DEFINES) $(C_DEFINES) $(MIPS_BUILTIN_DEFS) -o $@ $<
+	$(V)$(CC) -c $(CFLAGS) $(BUILD_DEFINES) $(IINC) $(WARNINGS) $(MIPS_VERSION) $(ENDIAN) $(COMMON_DEFINES) $(RELEASE_DEFINES) $(GBI_DEFINES) $(C_DEFINES) $(OPTFLAGS) -o $@ $<
+	$(V)$(PYTHON) tools/set_o32abi_bit.py $@
+	$(V)$(OBJDUMP_CMD)
+	$(V)$(RM_MDEBUG)
 
 -include $(DEP_FILES)
 
 # Print target for debugging
 print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
 
-.PHONY: all uncompressed compressed clean init extract expected format checkformat decompress context disasm fix_checksum
+.PHONY: all uncompressed compressed clean init extract expected format checkformat decompress context disasm
