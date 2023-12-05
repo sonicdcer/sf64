@@ -3985,7 +3985,112 @@ void func_EBFBE0_8019D118(void) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019D118.s")
 #endif
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019D624.s")
+void func_EBFBE0_8019D624(void) {
+    s32 i;
+    s32 j;
+    s32 var_t2;
+    s32 var_a3, var_a0;
+    s32 var_a1;
+    u8 sp142[11][3];
+    u8 sp122[11];
+    u8 sp116[11];
+    u8 sp10A[11];
+    Save_SubStruct_5E var_s0[11][7];
+
+    sp142[10][0] = D_EBFBE0_801B9150[0][0];
+    sp142[10][1] = D_EBFBE0_801B9150[1][0];
+    sp142[10][2] = D_EBFBE0_801B9150[2][0];
+
+    sp122[10] = D_80177B48 + 1;
+
+    sp116[10] = D_80161AA0[0];
+
+    sp10A[10] = 0;
+
+    for (i = 0; i < 7; i++) {
+        sp10A[10] |= (D_80177BB0[i] << i);
+    }
+
+    for (j = 0; j < 7; j++) {
+        var_s0[10][j].unk_C = 0;
+        
+        var_t2 = D_80177B70[j];
+
+        if (var_t2 > 255) {
+            var_t2 = var_t2 - 256;
+            var_s0[10][j].unk_C = 1;
+        }
+
+        var_s0[10][j].unk_0 = var_t2;
+
+        var_a0 = D_80177B90[j];
+
+        if (D_80177B90[j] == 13) {
+            var_a0 = 14;
+        }
+
+        if (D_80177B90[j] == 14) {
+            var_a0 = 13;
+        }
+
+        var_s0[10][j].unk_8 = var_a0;
+
+        var_s0[10][j].unk_D = ((D_80177B50[j] & 0x00FF0000) >> 16) & 1;
+        var_s0[10][j].unk_F = ((D_80177B50[j] & 0x0000FF00) >> 8) & 1;
+        var_s0[10][j].unk_E = (D_80177B50[j] & 0x000000FF) & 1;
+    }
+
+    for (i = 0; i < 10; i++) {
+        sp142[i][0] = gSaveFile.save.data.unk_18[i][0];
+        sp142[i][1] = gSaveFile.save.data.unk_18[i][1];
+        sp142[i][2] = gSaveFile.save.data.unk_18[i][2];
+        sp122[i] = gSaveFile.save.data.unk_36[i];
+        sp116[i] = gSaveFile.save.data.unk_40[i];
+        sp10A[i] = gSaveFile.save.data.unk_4A[i];
+
+        for (j = 0; j < 7; j++) {
+            var_s0[i][j].unk_0 = gSaveFile.save.data.unk_5E[i][j].unk_0;
+            var_s0[i][j].unk_8 = gSaveFile.save.data.unk_5E[i][j].unk_8;
+            var_s0[i][j].unk_C = gSaveFile.save.data.unk_5E[i][j].unk_C;
+            var_s0[i][j].unk_D = gSaveFile.save.data.unk_5E[i][j].unk_D;
+            var_s0[i][j].unk_E = gSaveFile.save.data.unk_5E[i][j].unk_E;
+            var_s0[i][j].unk_F = gSaveFile.save.data.unk_5E[i][j].unk_F;
+        }
+    }
+
+    for (var_a1 = 0, i = 0; i < 10; i++) {
+        if (i == D_EBFBE0_801B9094) {
+            var_a3 = var_a1;
+            var_a1 = 10;
+        }
+
+        gSaveFile.save.data.unk_18[i][0] = sp142[var_a1][0];
+        gSaveFile.save.data.unk_18[i][1] = sp142[var_a1][1];
+        gSaveFile.save.data.unk_18[i][2] = sp142[var_a1][2];
+        gSaveFile.save.data.unk_36[i] = sp122[var_a1];
+        gSaveFile.save.data.unk_40[i] = sp116[var_a1];
+        gSaveFile.save.data.unk_4A[i] = sp10A[var_a1];
+
+        for (j = 0; j < 7; j++) {
+            gSaveFile.save.data.unk_5E[i][j].unk_0 = var_s0[var_a1][j].unk_0;
+            gSaveFile.save.data.unk_5E[i][j].unk_8 = var_s0[var_a1][j].unk_8;
+            gSaveFile.save.data.unk_5E[i][j].unk_C = var_s0[var_a1][j].unk_C;
+            gSaveFile.save.data.unk_5E[i][j].unk_D = var_s0[var_a1][j].unk_D;
+            gSaveFile.save.data.unk_5E[i][j].unk_E = var_s0[var_a1][j].unk_E;
+            gSaveFile.save.data.unk_5E[i][j].unk_F = var_s0[var_a1][j].unk_F;
+        }
+
+        if (i == D_EBFBE0_801B9094) {
+            var_a1 = var_a3;
+        } else {
+            var_a1++;
+        }
+    }
+
+    gSaveFile.save.data.unk_EA = D_EBFBE0_801B9094;
+
+    Save_Write();
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019DB20.s")
 
