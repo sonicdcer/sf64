@@ -271,6 +271,7 @@ s32 func_800798C4(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4); /
 void func_800798F0(Object_8C* arg0);
 void func_8007A28C(Object_8C* arg0);
 void func_8007A3C0(Object_8C* arg0);
+void func_8007A4B8(Object_8C* arg0, f32 xPos, f32 yPos, f32 zPos, f32 arg4);
 void func_8007A6F0(Vec3f *, u32);
 void func_8007ACE0(f32, f32, f32, f32, f32, f32);
 void func_8007AFD0(f32, f32, f32, s32, f32);

@@ -794,7 +794,19 @@ void func_8007A3C0(Object_8C* arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007A4B8.s")
+void func_8007A4B8(Object_8C* arg0, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
+    func_80061474(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = 0x17F;
+    arg0->unk_6C = arg4;
+    arg0->unk_50 = 50;
+    arg0->unk_44 = 200;
+    arg0->obj.pos.x = xPos;
+    arg0->obj.pos.y = yPos;
+    arg0->obj.pos.z = zPos;
+    func_80019218(0x2940F026, &arg0->unk_80, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    func_800612B8(&arg0->unk_1C, arg0->obj.id);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007A568.s")
 
