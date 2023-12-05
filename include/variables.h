@@ -214,6 +214,7 @@ extern u8 D_800D3180[0x1E]; // might be bigger? at least 0x21
 extern s32 D_800D4A70;
 extern Save gDefaultSave;
 
+
 extern s32 D_8015F90C;
 extern s32 D_8015F924;
 extern s32 D_8015F928;
@@ -221,12 +222,17 @@ extern s32 D_8015F930[3];
 extern s32 D_8015F93C;
 extern s32 D_8015F940;
 extern f32 D_8015F944;
+extern u8 D_8015F964;
 extern Vec3f D_801613B0[];
 extern Vec3f D_801613E0[2];
 extern s16 D_80161410;
-extern Vec3f D_80161518[];
-extern Vec3f D_80161548[];
-extern Vec3f D_80161578[];
+extern Matrix D_80161418[4];
+extern Vec3f D_80161518[4];
+extern Vec3f D_80161548[4];
+extern Vec3f D_80161578[4];
+extern f32 D_801615A8[4];
+extern f32 D_801615B8[4];
+// file split
 extern Vec3f D_801615D0;
 extern Vec3f D_801615E0;
 extern s32 D_801615EC;
@@ -645,6 +651,12 @@ extern Gfx D_1019820[];
 extern Gfx D_101A8E0[];
 extern Gfx D_102FE80[];
 extern Gfx D_10231A0[];
+extern Gfx D_101DC10[];
+extern Gfx D_1024F60[];
+extern Gfx D_101CD70[];
+extern u16 D_101D070[];
+extern Gfx D_101C2E0[];
+extern Gfx D_1023700[];
 
 extern Gfx D_2000000[];
 extern Gfx D_2000890[];
@@ -677,7 +689,26 @@ extern Gfx D_20101A0[];
 
 extern u8 D_3000000[];
 extern u16 D_3000080[];
-
+extern Limb* D_301C614[];
+extern Limb* D_301D258[];
+extern Limb* D_301DB94[];
+extern Limb* D_301E3E8[];
+extern Limb* D_3016610[];
+extern AnimationHeader D_3015AF4;
+extern AnimationHeader D_3015C28;
+extern Gfx D_30183D0[];
+extern Gfx D_30066B0[];
+extern Gfx D_301B6E0[];
+extern Gfx D_30194E0[];
+extern Gfx D_3008100[];
+extern Gfx D_301E570[];
+extern Gfx D_3014BF0[];
+extern Gfx D_3015120[];
+extern Gfx D_300D550[];
+extern Gfx D_300EE80[];
+extern Gfx D_3010A90[];
+extern Gfx D_3011470[];
+extern Gfx D_30131F0[];
 extern u16 D_3000BC0[];
 extern u8 D_300D350[];
 extern u16 D_300D398[];
@@ -735,6 +766,7 @@ extern Gfx D_500B600[];
 
 extern u16 D_6000000[];
 extern f32 D_6006940[];
+extern Gfx D_6004330[];
 extern f32 D_600695C[];
 extern f32 D_6006978[];
 extern f32 D_6006994[];

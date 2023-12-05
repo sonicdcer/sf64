@@ -37,7 +37,7 @@ void func_800598E8(Object_2F4* arg0) {
     RCP_SetupDL_29(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
 }
 
-void func_800599A4(s32 arg0, Vec3f* arg1, s32* arg2) {
+void func_800599A4(s32 arg0, Vec3f* arg1, void* arg2) {
     Vec3f sp24;
     Vec3f sp18;
 
@@ -46,7 +46,7 @@ void func_800599A4(s32 arg0, Vec3f* arg1, s32* arg2) {
         sp24.y = 0.0f;
         sp24.z = 0.0f;
         Matrix_MultVec3f(gCalcMatrix, &sp24, &sp18);
-        D_80163FE0[*arg2].unk_114 = sp18.y;
+        D_80163FE0[*((s32*)arg2)].unk_114 = sp18.y;
     }
 }
 
@@ -67,7 +67,7 @@ void func_80059A24(Object_2F4* arg0) {
     Matrix_Translate(gGfxMatrix, 0.f, -temp, 0.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
     Animation_GetFrameData(&D_601E8C4, arg0->unk_0B6, sp30);
-    Animation_DrawSkeleton(1, &D_601E9D0, sp30, NULL, func_800599A4, &arg0->unk_040, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, D_601E9D0, sp30, NULL, func_800599A4, &arg0->unk_040, &gIdentityMatrix);
 }
 
 void func_80059AEC(Object_80* arg0) {

@@ -16,10 +16,7 @@
 #define GSPC(r, g, b, a) gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, r, g, b, a)
 #define GSEC(r, g, b, a) gDPSetEnvColor(gMasterDisp++, r, g, b, a)
 
-extern u8 D_8015F964;
-extern Matrix D_80161418[];
-extern f32 D_801615A8[];
-extern f32 D_801615B8[];
+
 
 extern Vec3f D_801779E8;
 extern f32 D_80177AA0[];
@@ -29,36 +26,6 @@ extern f32 D_80177CC8;
 extern s32 D_80178504;
 extern s32 D_80178508;
 extern s32 D_8017850C;
-
-extern Gfx D_6004330[];
-
-extern Limb* D_301C614[];
-extern Limb* D_301D258[];
-extern Limb* D_301DB94[];
-extern Limb* D_301E3E8[];
-extern Limb* D_3016610[];
-extern AnimationHeader D_3015AF4;
-extern AnimationHeader D_3015C28;
-extern Gfx D_30183D0[];
-extern Gfx D_30066B0[];
-extern Gfx D_301B6E0[];
-extern Gfx D_30194E0[];
-extern Gfx D_3008100[];
-extern Gfx D_301E570[];
-extern Gfx D_3014BF0[];
-extern Gfx D_3015120[];
-extern Gfx D_300D550[];
-extern Gfx D_300EE80[];
-extern Gfx D_3010A90[];
-extern Gfx D_3011470[];
-extern Gfx D_30131F0[];
-
-extern Gfx D_101DC10[];
-extern Gfx D_1024F60[];
-extern Gfx D_101CD70[];
-extern u16 D_101D070[];
-extern Gfx D_101C2E0[];
-extern Gfx D_1023700[];
 
 s32 D_800CA220 = 0;
 u8 D_800CA224[] = { 0, 0, 0, 0 };
