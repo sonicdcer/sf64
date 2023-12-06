@@ -214,7 +214,8 @@ extern u8 D_800D3180[0x1E]; // might be bigger? at least 0x21
 extern s32 D_800D4A70;
 extern Save gDefaultSave;
 
-
+// sf_2F300
+extern s32 D_8015F900;
 extern s32 D_8015F90C;
 extern s32 D_8015F924;
 extern s32 D_8015F928;
@@ -222,7 +223,15 @@ extern s32 D_8015F930[3];
 extern s32 D_8015F93C;
 extern s32 D_8015F940;
 extern f32 D_8015F944;
+
+// sf_36930
+extern Vec3f D_8015F950;
 extern u8 D_8015F964;
+
+// sf_43AC0
+extern s32 D_801613A0;
+
+// sf_52730
 extern Vec3f D_801613B0[];
 extern Vec3f D_801613E0[2];
 extern s16 D_80161410;
@@ -232,16 +241,23 @@ extern Vec3f D_80161548[4];
 extern Vec3f D_80161578[4];
 extern f32 D_801615A8[4];
 extern f32 D_801615B8[4];
-// file split
+
+// fox_edisplay
 extern Vec3f D_801615D0;
 extern Vec3f D_801615E0;
 extern s32 D_801615EC;
 extern Matrix D_801615F0;
 extern UnkStruct_D_80161630 D_80161630;
 extern s32 D_80161670[4];
+
+// fox_enmy1?
 extern s32 D_80161680;
 extern u8 D_80161684;
+// sf_6B3B0
 extern s32 D_80161690;
+
+// sf_hud?
+extern f32 D_801616A0;
 extern f32 D_801616BC;
 extern f32 D_801616C0;
 extern f32 D_801616C4;
@@ -265,7 +281,17 @@ extern s32 D_801617B0;
 extern s32 D_801617B4;
 extern s32 D_801617B8;
 extern s32 D_80161810[];
+extern s32 D_80161900[];
+
+extern s32 D_80161910[0x10]; // part of previous or next?
+
+// sf_97F80
+extern f32 D_80161950;
+
+// fox_display
 extern char D_801619A0[100];
+
+// fox_A24B0
 extern f32 D_80161A10;
 extern f32 D_80161A14;
 extern s32 D_80161A18[4];
@@ -281,6 +307,8 @@ extern u8 D_80161A39;
 extern f32 D_80161A3C;
 extern f32 D_80161A40;
 extern f32 D_80161A44;
+
+// sf_A4B50
 extern u8 D_80161A50;
 extern f32 D_80161A54;
 extern s32 D_80161A5C;
@@ -364,15 +392,19 @@ extern f32 D_801779B8;
 extern f32 D_801779C0;
 extern s32 D_801779C8[];
 extern Vec3f D_801779D8;
+extern Vec3f D_801779E8;
 extern s32 D_801779F8;
 extern s32 D_80177A80;
 extern s8 D_80177A98;
+extern f32 D_80177AA0[];
 extern u8 D_80177AB0;
 extern f32 D_80177AB8[];
+extern u8 D_80177AC8;
 extern s32 D_80177AD0[];
 extern s32 D_80177AE0;
 extern s32 D_80177AE8[];
 extern s32 D_80177AF8;
+extern s32 D_80177B00[][4];
 extern s32 D_80177B40;
 extern s32 D_80177B50[];
 extern s32 D_80177B48;
@@ -394,6 +426,7 @@ extern f32 D_80177CB0;
 extern s32 D_80177CB4;
 extern s32 D_80177CBC;
 extern s32 D_80177CC4;
+extern f32 D_80177CC8;
 extern f32 D_80177D08;
 extern s32 D_80177D10[];
 extern u16 D_8017D138;
@@ -495,6 +528,9 @@ extern s32 D_801784E4;
 extern f32 D_801784F8;
 extern f32 D_801784FC;
 extern f32 D_80178500;
+extern s32 D_80178504;
+extern s32 D_80178508;
+extern s32 D_8017850C;
 extern f32 D_80178520;
 extern f32 D_80178524;
 extern f32 D_80178528;
@@ -513,8 +549,12 @@ extern s32 D_8017856C;
 extern s32 D_80178570;
 extern s32 D_80178574;
 extern s32 D_80178578;
+
+// file split -- part of radio? rcp?
 extern s32 D_80178580;
 extern s32 *D_80178710;
+
+//fox_radio
 extern u16** D_80178720;
 extern s32 D_80178724;
 extern s32 D_80178728;
@@ -524,9 +564,14 @@ extern f32 D_80178734;
 extern f32 D_80178738;
 extern f32 D_8017873C;
 extern f32 D_80178740;
+
+// sf_versus
+extern s32 D_80178750;
 extern s32 D_80178754;
 extern s32 D_80178758;
 extern s32 D_80178768[];
+
+// fox_save
 extern SaveFile gSaveFile;
 
 extern u16 D_Tex_800D99F8[];
@@ -599,6 +644,12 @@ extern s32 D_80387800;
 extern u16 D_8038F080[];
 extern u16 D_8038F300[];
 extern FrameBuffer gFrameBuffers[3]; // 8038F800
+
+extern Gfx D_1024570[];
+extern Gfx D_10246D0[];
+extern Gfx D_1024410[];
+
+
 
 extern u8 D_1013170[];
 extern u16 D_1013570[];
@@ -687,6 +738,10 @@ extern Gfx D_200F080[];
 extern Gfx D_200F910[];
 extern Gfx D_20101A0[];
 
+extern Gfx D_3001C90[];
+extern Gfx D_3016CC0[];
+extern Gfx D_3005AB0[];
+extern Gfx D_3003CE0[];
 extern u8 D_3000000[];
 extern u16 D_3000080[];
 extern Limb* D_301C614[];
@@ -921,6 +976,7 @@ extern Gfx D_90234D0[];
 extern ObjectInit* D_C0356A4[];
 extern Gfx D_C017440[];
 
+extern Gfx D_D000000[];
 extern u16 D_D000170[];
 extern u16 D_D001090[];
 extern u16 D_D001FB0[];
@@ -932,6 +988,8 @@ extern u16 D_D006B50[];
 extern u16 D_D007A70[];
 extern u16 D_D008990[];
 extern Gfx D_D0098B0[];
+extern Gfx D_D00B5C0[];
+extern Gfx D_D00B720[];
 
 extern u16 D_E00E100[];
 extern u16 D_E00F020[];

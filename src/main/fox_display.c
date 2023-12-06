@@ -287,7 +287,7 @@ void Animation_FindBoundingBox(Gfx* dList, s32 len, Vec3f* min, Vec3f* max, s32*
     for (var_s0 = sp44; (s32) (*var_s0 >> 0x38) != G_ENDDL && var_s0 - sp44 < len; var_s0++) {
         switch ((s32) (*var_s0 >> 0x38)) {
             case G_DL:
-                Animation_FindBoundingBox((Gfx*)(*var_s0 & 0xFFFFFFFF), (*var_s0 >> 0x20) & 0xFFFF, min, max, vtxFound,
+                Animation_FindBoundingBox((Gfx*) (*var_s0 & 0xFFFFFFFF), (*var_s0 >> 0x20) & 0xFFFF, min, max, vtxFound,
                                           vtxCount, vtxList);
                 break;
             case G_VTX:

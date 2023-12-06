@@ -46,7 +46,7 @@ void func_800599A4(s32 arg0, Vec3f* arg1, void* arg2) {
         sp24.y = 0.0f;
         sp24.z = 0.0f;
         Matrix_MultVec3f(gCalcMatrix, &sp24, &sp18);
-        D_80163FE0[*((s32*)arg2)].unk_114 = sp18.y;
+        D_80163FE0[*((s32*) arg2)].unk_114 = sp18.y;
     }
 }
 

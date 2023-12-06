@@ -170,8 +170,8 @@
       - [0x2EF40, hasm, ../libultra/rmon/rmonrcp]
 
     # Game engine
-      - [0x2EFE0, c, fox_2EFE0]
-      - [0x2F300, c, sf_2F300]
+      # - [0x2EFE0, c, fox_2EFE0]
+      - [0x2EFE0, c, sf_2F300]
       - [0x36930, c, sf_36930]
       - [0x43AC0, c, sf_43AC0]
       - [0x43E80, c, sf_43E80]
@@ -356,6 +356,21 @@
 
       # Game engine bss
       - { start: 0xDE480, type: bss, vram: 0x8015F900, name: engine }
+      # - { start: 0xDE480, type: bss, vram: 0x8015F900, name: sf_2F300 }
+      # - { start: 0xDE480, type: bss, vram: 0x8015F950, name: sf_36930 }
+      # - { start: 0xDE480, type: bss, vram: 0x801613A0, name: sf_43AC0 }
+      # - { start: 0xDE480, type: bss, vram: 0x801613B0, name: sf_52730 }
+      # - { start: 0xDE480, type: bss, vram: 0x801615D0, name: fox_edisplay }
+      # - { start: 0xDE480, type: bss, vram: 0x80161680, name: fox_enmy1 }
+      # - { start: 0xDE480, type: bss, vram: 0x80161690, name: sf_6B3B0 }
+      # - { start: 0xDE480, type: bss, vram: 0x801616A0, name: sf_hud }
+      # - { start: 0xDE480, type: bss, vram: 0x80161950, name: sf_97F80 }
+      # - { start: 0xDE480, type: bss, vram: 0x801619A0, name: fox_display }
+      # - { start: 0xDE480, type: bss, vram: 0x80161A10, name: fox_A24B0 }
+      # - { start: 0xDE480, type: bss, vram: 0x80161A50, name: sf_A4B50 }
+      # - { start: 0xDE480, type: bss, vram: 0x80178580, name: fox_rcp }
+      # - { start: 0xDE480, type: bss, vram: 0x80178720, name: fox_radio }
+      # - { start: 0xDE480, type: bss, vram: 0x80178750, name: sf_versus }
       - { start: 0xDE480, type: .bss, vram: 0x80178870, name: fox_save }
 
   - name: dma_table
