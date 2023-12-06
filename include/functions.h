@@ -179,7 +179,7 @@ void func_800444BC(UnkStruct_D_80178280 *);
 void func_8004F8AC(Object*);
 void func_8004FEC0(Object*);
 
-// sf_52730
+// fox_52730
 void func_80053658(UnkStruct_D_80161630 *);
 void func_8005465C(s32);
 void func_80057814(UnkStruct_D_80178280* arg0);

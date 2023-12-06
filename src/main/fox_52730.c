@@ -1170,7 +1170,7 @@ bool func_800563B4(s32 arg0, s32 arg1) {
 #else
 Vec3f D_800CA2DC = { 0.0f, 0.0f, 0.0f };
 s32 func_800563B4(s32, s32);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_52730/func_800563B4.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_52730/func_800563B4.s")
 #endif
 
 s32 D_800CA2E8[16] = { 60, 40, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -1289,7 +1289,7 @@ void func_800564C0(UnkStruct_D_80178280* arg0, s32 arg1) {
 #else
 Vec3f D_800CA328 = { 0.0f, 0.0f, 0.0f };
 void func_800564C0(UnkStruct_D_80178280*, s32);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_52730/func_800564C0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_52730/func_800564C0.s")
 #endif
 
 f32 D_800CA334[] = {
@@ -1395,7 +1395,7 @@ void func_80057248(void) {
 }
 #else
 void func_80057248(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_52730/func_80057248.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_52730/func_80057248.s")
 #endif
 
 #ifdef NON_MATCHING
@@ -1441,7 +1441,7 @@ void func_80057504(void) {
 }
 #else
 void func_80057504(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_52730/func_80057504.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_52730/func_80057504.s")
 #endif
 
 void func_80057814(UnkStruct_D_80178280* arg0) {

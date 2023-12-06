@@ -233,7 +233,7 @@ extern u8 D_8015F964;
 // sf_43AC0
 extern s32 D_801613A0;
 
-// sf_52730
+// fox_52730
 extern Vec3f D_801613B0[];
 extern Vec3f D_801613E0[2];
 extern s16 D_80161410;
