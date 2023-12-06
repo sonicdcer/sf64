@@ -272,12 +272,14 @@ build/src/libultra/libc/ll.o: CC := $(IDO)
 
 all: uncompressed
 
+tools:
+	@$(MAKE) -s -C tools
+
 init:
 	@$(MAKE) clean
-	@$(MAKE) -s -C tools
 	@$(MAKE) decompress
 	@$(MAKE) extract -j $(N_THREADS)
-	@$(MAKE) all -j $(N_THREADS)
+	@$(MAKE) uncompressed -j $(N_THREADS)
 	@$(MAKE) compressed
 
 SF := ___  ___\n/ __||  _|\n\__ \|  _|\n|___/|_|\n
