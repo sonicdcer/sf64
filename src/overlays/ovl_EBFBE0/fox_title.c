@@ -19,10 +19,10 @@ s32 pad_D_EBFBE0_801AD9F0[4] = { 0, 0, 0, 0 };
 
 //! TODO: Symbols for segmented addresses
 Animation D_EBFBE0_801ADA00[4] = {
-    { (AnimationHeader *) 0x0602F8E0, (AnimationHeader *) 0x06035024, (SkelAnime *) 0x0602FBAC },
-    { (AnimationHeader *) 0x060305C0, (AnimationHeader *) 0x060338DC, (SkelAnime *) 0x0603088C },
-    { (AnimationHeader *) 0x06031DB8, (AnimationHeader *) 0x0603531C, (SkelAnime *) 0x06032084 },
-    { (AnimationHeader *) 0x06031120, (AnimationHeader *) 0x06036278, (SkelAnime *) 0x060313AC },
+    { (AnimationHeader*) 0x0602F8E0, (AnimationHeader*) 0x06035024, (SkelAnime*) 0x0602FBAC },
+    { (AnimationHeader*) 0x060305C0, (AnimationHeader*) 0x060338DC, (SkelAnime*) 0x0603088C },
+    { (AnimationHeader*) 0x06031DB8, (AnimationHeader*) 0x0603531C, (SkelAnime*) 0x06032084 },
+    { (AnimationHeader*) 0x06031120, (AnimationHeader*) 0x06036278, (SkelAnime*) 0x060313AC },
 };
 
 u16* D_EBFBE0_801ADA30[5] = {
