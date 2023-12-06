@@ -750,7 +750,7 @@ extern Gfx D_200F910[];
 extern Gfx D_20101A0[];
 extern Gfx D_20112C0[];
 
-// ast_8BFC00, ast_8D99F0, ast_8E1F80
+// ast_8BFC00, ast_8D99F0, ast_8E1F80, ast_8E92D0
 extern u8 D_3000000[];
 extern u16 D_3000080[];
 extern Gfx D_3000090[];

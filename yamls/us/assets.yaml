@@ -10,195 +10,203 @@
     type: bin
     start: 0x137730
 
-  - name: ast_873CB0
+  - name: ast_873CB0 #1
     type: bin
     start: 0x873CB0
 
-  - name: ast_8A68C0
+  - name: ast_8A68C0 #2
     type: bin
     start: 0x8A68C0
 
-  - name: ast_8AE0A0
+  - name: ast_8AE0A0 #2
     type: bin
     start: 0x8AE0A0
 
-  - name: ast_8BFC00
+  - name: ast_8BFC00 #3
     type: bin
     start: 0x8BFC00
 
-  - name: ast_8D99F0
+  - name: ast_8D99F0 #3
     type: bin
     start: 0x8D99F0
 
-  - name: ast_8E1F80
+  - name: ast_8E1F80 #3
     type: bin
     start: 0x8E1F80
 
-  - name: ast_8E92D0
+  - name: ast_8E92D0 #3
     type: bin
     start: 0x8E92D0
 
-  - name: ast_918430
+  - name: ast_918430 #4
     type: bin
     start: 0x918430
 
-  - name: ast_922730
+  - name: ast_922730 #4
     type: bin
     start: 0x922730
 
-  - name: ast_92EC40
+  - name: ast_92EC40 #E
     type: bin
     start: 0x92EC40
 
-  - name: ast_940AD0
+  - name: ast_940AD0 #F
     type: bin
     start: 0x940AD0
 
-  - name: ast_955270
+  - name: ast_955270 #D
     type: bin
     start: 0x955270
 
-  - name: ast_961CE0
+  - name: ast_961CE0 #6
     type: bin
     start: 0x961CE0
 
-  - name: ast_9A1460
+  - name: ast_9A1460 #6
     type: bin
     start: 0x9A1460
 
-  - name: ast_9D2FD0
+  - name: ast_9D2FD0 #6
     type: bin
     start: 0x9D2FD0
 
-  - name: ast_9DD390
+  - name: ast_9DD390 #7
     type: bin
     start: 0x9DD390
 
-  - name: ast_9EB5E0
+  - name: ast_9EB5E0 #8
     type: bin
     start: 0x9EB5E0
 
-  - name: ast_9F4880
+  - name: ast_9F4880 #9
     type: bin
     start: 0x9F4880
 
-  - name: ast_A049A0
+  - name: ast_A049A0 #A
     type: bin
     start: 0xA049A0
 
-  - name: ast_A0E340
+  - name: ast_A0E340 #7
     type: bin
     start: 0xA0E340
 
-  - name: ast_A1D0F0
+  - name: ast_A1D0F0 #6
     type: bin
     start: 0xA1D0F0
 
-  - name: ast_A4FBB0
+  - name: ast_A4FBB0 #6
     type: bin
     start: 0xA4FBB0
 
-  - name: ast_A58F60
+  - name: ast_A58F60 #6
     type: bin
     start: 0xA58F60
 
-  - name: ast_A8B470
+  - name: ast_A8B470 #6
     type: bin
     start: 0xA8B470
 
-  - name: ast_AB4000
+  - name: ast_AB4000 #6
     type: bin
     start: 0xAB4000
 
-  - name: ast_ACF960
+  - name: ast_ACF960 #6
     type: bin
     start: 0xACF960
 
-  - name: ast_AE60A0
+  - name: ast_AE60A0 #6, #9
     type: bin
     start: 0xAE60A0
 
-  - name: ast_B0AA00
+  - name: ast_B0AA00 #6
     type: bin
     start: 0xB0AA00
 
-  - name: ast_B1CA50
+  - name: ast_B1CA50 #6
     type: bin
     start: 0xB1CA50
 
-  - name: ast_B2CA50
+  - name: ast_B2CA50 #6
     type: bin
     start: 0xB2CA50
 
-  - name: ast_B612E0
+  - name: ast_B612E0 #6
     type: bin
     start: 0xB612E0
 
-  - name: ast_B84560
+  - name: ast_B84560 #6
     type: bin
     start: 0xB84560
 
-  - name: ast_BB11D0
+  - name: ast_BB11D0 #6
     type: bin
     start: 0xBB11D0
 
-  - name: ast_BC23D0
+  - name: ast_BC23D0 #6
     type: bin
     start: 0xBC23D0
 
-  - name: ast_BFA740
+  - name: ast_BFA740 #7
     type: bin
     start: 0xBFA740
 
-  - name: ast_BFC510
+  - name: ast_BFC510 #6
     type: bin
     start: 0xBFC510
 
-  - name: ast_C48F40
+  - name: ast_C48F40 #6
     type: bin
     start: 0xC48F40
 
-  - name: ast_CA9DE0
+  - name: ast_CA9DE0 #8
     type: bin
     start: 0xCA9DE0
 
-  - name: ast_CBFE70
+  - name: ast_CBFE70 #7
     type: bin
     start: 0xCBFE70
 
-  - name: ast_CD2410
+  - name: ast_CD2410 #5
     type: bin
     start: 0xCD2410
 
-  - name: ast_CDDCA0
+  - name: ast_CDDCA0 #9
     type: bin
     start: 0xCDDCA0
 
-  - name: ast_CE9E70
+  - name: ast_CE9E70 #C
     type: bin
     start: 0xCE9E70
 
-  - name: ast_D25100
+  - name: ast_D25100 #F
     type: bin
     start: 0xD25100
+    # width: 128
+    # height: 74
+    # subsegments:
+    # - [0xD25100, ia8, nintendo_logo_0, 128, 16]
+    # - [0xD25900, ia8, nintendo_logo_1, 128, 16]
+    # - [0xD26100, ia8, nintendo_logo_2, 128, 16]
+    # - [0xD26900, ia8, nintendo_logo_3, 128, 16]
+    # - [0xD27100, ia8, nintendo_logo_4, 128, 10]
 
-  - name: ast_D27600
+  - name: ast_D27600 #7
     type: bin
     start: 0xD27600
 
-  - name: ast_D43400
+  - name: ast_D43400 #8
     type: bin
     start: 0xD43400
 
-  - name: ast_D68480
+  - name: ast_D68480 #8
     type: bin
     start: 0xD68480
 
-  - name: ast_D91F10
+  - name: ast_D91F10 #8
     type: bin
     start: 0xD91F10
 
-  - name: ast_DDC010
+  - name: ast_DDC010 #6
     type: bin
     start: 0xDDC010
 
