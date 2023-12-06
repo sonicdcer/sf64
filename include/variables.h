@@ -395,7 +395,7 @@ extern f32 D_801779C0;
 extern s32 D_801779C8[];
 extern Vec3f D_801779D8;
 extern Vec3f D_801779E8;
-extern s32 D_801779F8;
+extern bool gExpertMode;
 extern s32 D_80177A80;
 extern s8 D_80177A98;
 extern f32 D_80177AA0[];

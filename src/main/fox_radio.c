@@ -83,7 +83,7 @@ void func_800BA808(u16* arg0, s32 arg1) {
     D_800D4A70 = var_a1;
     D_80177D68 = arg1;
 
-    if ((D_801779F8 != 0) && ((arg1 == 0) || (arg1 == 5))) {
+    if (gExpertMode && ((arg1 == 0) || (arg1 == 5))) {
         D_80177D68 = 400;
     }
 

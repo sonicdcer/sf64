@@ -545,7 +545,7 @@ void func_80053658(UnkStruct_D_80161630* arg0) {
             Matrix_Scale(gGfxMatrix, 0.95f, 0.95f, 0.95f, 1);
         }
         Matrix_SetGfxMtx(&gMasterDisp);
-        if (D_801779F8 != 0) {
+        if (gExpertMode) {
             gSPDisplayList(gMasterDisp++, D_800CA27C[sp64 - 1]);
         } else {
             gSPDisplayList(gMasterDisp++, D_800CA26C[sp64 - 1]);

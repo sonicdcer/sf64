@@ -802,7 +802,7 @@ void func_800A6CD0(UnkStruct_D_80178280* arg0, s32 arg1, s32 arg2) {
     if ((arg2 == 39) || (arg2 == 41) || (arg2 == 42) || (arg2 == 43)) {
         arg2 = 40;
     }
-    if (D_801779F8 != 0) {
+    if (gExpertMode) {
         arg0->unk_268 = arg2 * 2;
     } else {
         arg0->unk_268 = arg2;

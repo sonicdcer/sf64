@@ -2009,7 +2009,7 @@ void func_80067A40(void) {
         D_80177D58[0] = 1050;
         D_80178280[0].unk_49C.unk_01 = 2;
     }
-    if (D_801779F8 != 0) {
+    if (gExpertMode) {
         D_80177D10[0] = D_80177D28[0] = 10;
     } else {
         D_80177D10[0] = D_80177D28[0] = 60;
@@ -2060,7 +2060,7 @@ void func_80067BEC(Object_6C* arg0) {
                         D_80161AA8[arg0->unk_4E] = 2;
                     }
                     func_80060F30(D_80178280[arg0->unk_4E].unk_460, 0x49002004, arg0->unk_4E);
-                    if (D_801779F8 != 0) {
+                    if (gExpertMode) {
                         D_80177D10[arg0->unk_4E] = D_80177D28[arg0->unk_4E] = 10;
                     } else {
                         D_80177D10[arg0->unk_4E] = D_80177D28[arg0->unk_4E] = 60;

@@ -372,7 +372,7 @@ void func_800A26C0(void) {
                 for (i = 0; i < 30; i++) {
                     D_800D3180[i] = 0;
                 }
-                D_801779F8 = 0;
+                gExpertMode = false;
                 D_80177C74 = gSaveFile.save.data.unk_14;
                 switch (D_80177C74) {
                     case 0:
