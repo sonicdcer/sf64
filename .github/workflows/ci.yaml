@@ -22,6 +22,7 @@ jobs:
 
     - name: Install Python dependencies
       run: python3 -m pip install -r ./tools/requirements-python.txt
+      run: make -s -C tools
 
     - name: Update submodules
       run: git submodule update --init --recursive
