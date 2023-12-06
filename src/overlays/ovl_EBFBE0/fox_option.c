@@ -208,7 +208,7 @@ static f32 D_EBFBE0_801AEF9C[] = { 89.0f, 115.0f, 139.0f };
 
 /* beyond this point, data might be in-function static or near function static */
 
-static UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9380[4];
+static UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9380[4]; // bss
 #else
 extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9380[];
 extern f32 D_EBFBE0_801AE588[];
@@ -484,26 +484,32 @@ void func_EBFBE0_80192190(void) {
             break;
 
         case 0:
+            // goes to map
             func_EBFBE0_801928BC();
             break;
 
         case 1:
+            // goes to training
             func_EBFBE0_80192938();
             break;
 
         case 2:
+            // goes to versus
             func_EBFBE0_80193C4C();
             break;
 
         case 3:
+            // goes to ranking
             func_EBFBE0_80196EFC();
             break;
 
         case 4:
+            // goes to Sound Settings
             func_EBFBE0_801948A8();
             break;
 
         case 5:
+            // goes to Data
             func_EBFBE0_801962A4();
             break;
 
@@ -513,6 +519,7 @@ void func_EBFBE0_80192190(void) {
             break;
 
         case 2000:
+            // Versus stage select
             func_EBFBE0_8019A0B8();
             break;
 
