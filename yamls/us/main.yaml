@@ -270,7 +270,7 @@
       - [0xCAB60, data, sf_496C0]
       - [0xCAE20, .data, sf_52730]
       - [0xCAFB0, .data, fox_load]
-      - [0xCCA70, data, fox_edata]
+      - [0xCCA70, .data, fox_edata]
       - [0xD0570, .data, fox_edisplay]
       - [0xD09A0, .data, fox_enmy1]
       - [0xD0B80, data, sf_6B3B0]
