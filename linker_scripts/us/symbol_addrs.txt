@@ -49,8 +49,8 @@ Save_Write = 0x800C3084;
 Save_Read = 0x800C3194;
 gSaveFile = 0x80178870; //size:0x200
 
-__rspboot_start = 0x80000450;
-__rspboot_end = 0x80000520;
+__rspboot_start = 0x80000450;//name_end:__rspboot_end
+__aspmain_start = 0x80000520;//name_end:__aspmain_end
 __f3dex_start = 0x80001410;
 gF3dexData = 0x800C3DD0;
 

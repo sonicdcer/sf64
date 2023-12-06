@@ -6,8 +6,10 @@
 
 extern u64 __rspboot_start[];
 extern u64 __rspboot_end[];
+extern u64 __aspmain_start[];
+extern u64 __aspmain_end[];
 extern u64 __f3dex_start[];
-extern u8 gF3dexData;
+extern u8 gF3dexData[SP_UCODE_DATA_SIZE];
 
 extern Mtx gIdentityMtx; // 800C4620
 extern Matrix gIdentityMatrix; //800C4660
@@ -622,7 +624,7 @@ extern s32 D_EBFBE0_801B827C;
 extern s32 D_EBFBE0_801B8288;
 
 // buffers
-extern u8 D_80281000[0x400];
+extern u64 D_80281000[SP_DRAM_STACK_SIZE64];
 extern u8 D_80281400[0xC00];
 extern FrameBuffer gZBuffer; // z buffer
 extern u8 D_802A7800;
