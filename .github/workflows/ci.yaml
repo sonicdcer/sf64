@@ -22,6 +22,8 @@ jobs:
 
     - name: Install Python dependencies
       run: python3 -m pip install -r ./tools/requirements-python.txt
+
+    - name: build toolchain
       run: make -s -C tools
 
     - name: Update submodules
