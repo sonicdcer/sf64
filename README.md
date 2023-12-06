@@ -61,10 +61,11 @@ To install them simply run in a terminal:
 python3 -m pip install -r ./tools/requirements-python.txt --break-system-packages
 ```
 
-#### 4. Update submodules
+#### 4. Update submodules & build toolchain
 
 ```bash
 git submodule update --init --recursive
+make -s -C tools
 ```
 
 #### 5. Prepare a base ROM
