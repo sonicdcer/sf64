@@ -9,17 +9,8 @@ extern u64 __rspboot_end[];
 extern u64 __f3dex_start[];
 extern u8 gF3dexData;
 
-
-
-extern f32 D_800C45E0[];
-
 extern Mtx gIdentityMtx; // 800C4620
 extern Matrix gIdentityMatrix; //800C4660
-
-extern u8 sFaultCharIndex[];
-extern s32 sFaultCharPixelFlags[];
-extern const char* sFaultCauses[];
-extern const char* sFloatExceptions[];
 
 extern Vec3f D_800C5D28;
 extern f32 D_800C5D34;
@@ -30,8 +21,6 @@ extern OSMesgQueue* D_800C7C58;
 extern OSMesgQueue* D_800C7C5C;
 extern OSMesgQueue* D_800C7C60;
 extern OSMesgQueue* D_800C7C64;
-
-extern char D_800C7C80[];
 
 extern OSContPad gCurrentInput[4];
 extern OSContPad gChangedInput[4];
