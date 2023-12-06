@@ -170,8 +170,7 @@
       - [0x2EF40, hasm, ../libultra/rmon/rmonrcp]
 
     # Game engine
-      # - [0x2EFE0, c, fox_2EFE0]
-      - [0x2EFE0, c, sf_2F300]
+      - [0x2EFE0, c, sf_2EFE0]
       - [0x36930, c, sf_36930]
       - [0x43AC0, c, sf_43AC0]
       - [0x43E80, c, sf_43E80]
@@ -263,7 +262,7 @@
 
       # DATA - game engine
       
-      - [0xCA690, data, sf_2F300]
+      - [0xCA690, data, sf_2EFE0]
       - [0xCA7C0, data, sf_36930]
       - [0xCAA90, data, sf_43AC0]
       - [0xCAB00, data, sf_43E80]
@@ -287,7 +286,7 @@
       - [0xD5910, .data, fox_save]
 
       # RODATA - game engine
-      - [0xD5A10, .rodata, sf_2F300]
+      - [0xD5A10, .rodata, sf_2EFE0]
       - [0xD5CF0, .rodata, sf_36930]
       - [0xD61D0, .rodata, sf_43AC0]
       - [0xD61F0, .rodata, sf_43E80]
@@ -356,7 +355,7 @@
 
       # Game engine bss
       - { start: 0xDE480, type: bss, vram: 0x8015F900, name: engine }
-      # - { start: 0xDE480, type: bss, vram: 0x8015F900, name: sf_2F300 }
+      # - { start: 0xDE480, type: bss, vram: 0x8015F900, name: sf_2EFE0 }
       # - { start: 0xDE480, type: bss, vram: 0x8015F950, name: sf_36930 }
       # - { start: 0xDE480, type: bss, vram: 0x801613A0, name: sf_43AC0 }
       # - { start: 0xDE480, type: bss, vram: 0x801613B0, name: fox_52730 }

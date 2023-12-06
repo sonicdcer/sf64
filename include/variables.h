@@ -216,7 +216,7 @@ extern u8 D_800D3180[0x1E]; // might be bigger? at least 0x21
 extern s32 D_800D4A70;
 extern Save gDefaultSave;
 
-// sf_2F300
+// sf_2EFE0
 extern s32 D_8015F900;
 extern s32 D_8015F90C;
 extern s32 D_8015F924;

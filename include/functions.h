@@ -140,7 +140,7 @@ s64 __ull_div(s64, s64);
 s64 __ll_mul(s64, s64);
 s64 __ll_rshift(s64, s64);
 
-// sf_2F300
+// sf_2EFE0
 void func_8002E3E0(Object_2F4 *);
 void func_8002E548(void);
 void func_8002E5E0(Object*);
