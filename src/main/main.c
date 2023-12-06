@@ -544,7 +544,7 @@ void Idle_ThreadEntry(void* arg0) {
     osCreateViManager(OS_PRIORITY_VIMGR);
     Main_SetVIMode();
     Lib_FillScreen(1);
-    osCreatePiMgr(OS_PRIORITY_PIMGR, &gPiMgrCmdQueue, sPiMgrCmdBuff, ARRAY_COUNT(sPiMgrCmdBuff));
+    osCreatePiManager(OS_PRIORITY_PIMGR, &gPiMgrCmdQueue, sPiMgrCmdBuff, ARRAY_COUNT(sPiMgrCmdBuff));
     osCreateThread(&gMainThread, THREAD_ID_MAIN, &Main_ThreadEntry, arg0, sMainThreadStack + sizeof(sMainThreadStack),
                    100);
     osStartThread(&gMainThread);

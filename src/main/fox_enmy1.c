@@ -2597,8 +2597,8 @@ void func_80069AAC(Object_2F4* arg0) {
             break;
         case 2:
             func_800693E8(arg0);
-            if ((arg0->obj.status != 0) && (arg0->unk_01C.unk_08 != NULL)) {
-                arg0->unk_01C.unk_08(&arg0->obj);
+            if ((arg0->obj.status != 0) && (arg0->unk_01C.action != NULL)) {
+                arg0->unk_01C.action(&arg0->obj);
             }
             break;
         case 3:
@@ -2640,8 +2640,8 @@ void func_80069CBC(Object_408* arg0) {
             break;
         case 2:
             func_80069658(arg0);
-            if ((arg0->obj.status != 0) && (arg0->unk_01C.unk_08 != NULL)) {
-                arg0->unk_01C.unk_08(&arg0->obj);
+            if ((arg0->obj.status != 0) && (arg0->unk_01C.action != NULL)) {
+                arg0->unk_01C.action(&arg0->obj);
             }
             break;
         case 3:
@@ -2665,8 +2665,8 @@ void func_80069DF4(Object_80* arg0) {
             break;
         case 2:
             func_800696F8(arg0);
-            if (arg0->unk_1C.unk_08 != NULL) {
-                arg0->unk_1C.unk_08(&arg0->obj);
+            if (arg0->unk_1C.action != NULL) {
+                arg0->unk_1C.action(&arg0->obj);
             }
             break;
     }
@@ -2681,8 +2681,8 @@ void func_80069E88(Object_4C* arg0) {
             break;
         case 2:
             func_80069858(arg0);
-            if (arg0->unk_1C.unk_08 != NULL) {
-                arg0->unk_1C.unk_08(&arg0->obj);
+            if (arg0->unk_1C.action != NULL) {
+                arg0->unk_1C.action(&arg0->obj);
             }
             break;
         case 3:
@@ -2707,8 +2707,8 @@ void func_80069F30(Object_6C* arg0) {
             break;
         case 2:
             func_80069A10(arg0);
-            if (arg0->unk_1C.unk_08 != NULL) {
-                arg0->unk_1C.unk_08(&arg0->obj);
+            if (arg0->unk_1C.action != NULL) {
+                arg0->unk_1C.action(&arg0->obj);
             }
             break;
     }
@@ -2725,8 +2725,8 @@ void func_80069FD4(Object_8C* arg0) {
             /* fallthrough */
         case 2:
             func_80069924(arg0);
-            if ((arg0->obj.status != 0) && (arg0->unk_1C.unk_08 != NULL)) {
-                arg0->unk_1C.unk_08(&arg0->obj);
+            if ((arg0->obj.status != 0) && (arg0->unk_1C.action != NULL)) {
+                arg0->unk_1C.action(&arg0->obj);
             }
             break;
     }

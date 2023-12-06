@@ -10,10 +10,10 @@ extern char piThreadStack[];
 extern OSThread ramromThread;
 extern char ramromThreadStack[];
 
-#ifdef DATA_IMPORT_PENDING
+#ifdef IMPORT_DATA_PENDING
 OSDevMgr __osPiDevMgr = { 0 };
 
-void osCreatePiMgr(OSPri pri, OSMesgQueue* cmdQ, OSMesg* cmdBuf, s32 cmdMsgCnt) {
+void osCreatePiManager(OSPri pri, OSMesgQueue* cmdQ, OSMesg* cmdBuf, s32 cmdMsgCnt) {
     u32 savedMask;
     OSPri oldPri;
     OSPri myPri;
@@ -57,7 +57,7 @@ void osCreatePiMgr(OSPri pri, OSMesgQueue* cmdQ, OSMesg* cmdBuf, s32 cmdMsgCnt) 
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/io/pimgr/osCreatePiMgr.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/io/pimgr/osCreatePiManager.s")
 #endif
 
 extern OSMesg freeRamromBuf[];

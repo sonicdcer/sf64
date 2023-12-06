@@ -5,4 +5,4 @@ compiler_type = "ido"
 "gs[DS]P.*" = "void"
 
 [decompme.compilers]
-"tools/ido_recomp/linux/5.3/cc" = "ido5.3"
+"tools/ido-recomp/linux/cc" = "ido5.3"

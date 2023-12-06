@@ -1959,7 +1959,7 @@ void func_EBFBE0_80196894(void) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80196894.s")
 #endif
 
-#ifdef IMPORT_DATA_PËNDING
+#ifdef IMPORT_DATA_PENDING
 extern s8 D_EBFBE0_801B7150;
 extern s8 D_EBFBE0_801B7154;
 extern s8 D_EBFBE0_801B7158;

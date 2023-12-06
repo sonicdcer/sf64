@@ -316,17 +316,17 @@ typedef struct {
 } Object; // size = 0x1C
 
 typedef struct {
-    /* 0x00 */ void (*unk_00)(Object*);
-    /* 0x00 */ u8 unk_04;
-    /* 0x08 */ void (*unk_08)(Object*);
-    /* 0x0C */ f32* unk_0C;
-    /* 0x10 */ f32 unk_10;
-    /* 0x14 */ s16 unk_14;
-    /* 0x16 */ s16 unk_16;
-    /* 0x18 */ u8 unk_18;
-    /* 0x19 */ u8 unk_19;
-    /* 0x1C */ f32 unk_1C;
-    /* 0x20 */ u8 unk_20;
+    /* 0x00 */ void (*draw)(); // argument must have object type. Can be dlist.
+    /* 0x00 */ u8 drawType;
+    /* 0x08 */ void (*action)(); // argument must have object type.
+    /* 0x0C */ f32* unk_0C; // some sort of script?
+    /* 0x10 */ f32 unk_10; // z coordinate of something
+    /* 0x14 */ s16 unk_14; // can be -1, 0, 1
+    /* 0x16 */ s16 unk_16; // can be 0, 1, 2
+    /* 0x18 */ u8 unk_18; // damage?
+    /* 0x19 */ u8 unk_19; // can be 0, 1, 2
+    /* 0x1C */ f32 unk_1C; // y offset of something
+    /* 0x20 */ u8 unk_20; // increment for something
 } ObjectStruct_1C; // size = 0x24
 
 typedef struct {
@@ -337,10 +337,6 @@ typedef struct {
     /* 0x10 */ f32 unk_10;
     /* 0x14 */ char pad14[0x14];
 } UnkStruct_D_80175A10; // size = 0x28
-
-typedef struct {
-    char unk_00[0x1C];
-} UnkStruct_D_80176438;
 
 typedef struct {
     /* 0x00 */ Object obj;
@@ -428,7 +424,7 @@ typedef struct {
     /* 0x46 */ s16 unk_46;
     /* 0x48 */ s16 unk_48;
     /* 0x4A */ s16 unk_4A;
-    /* 0x4C */ char pad4C[0x2];
+    /* 0x4C */ u8 unk_4C;
     /* 0x4E */ s16 unk_4E;
     /* 0x50 */ u16 unk_50;
     /* 0x50 */ char pad50[0x2];
@@ -580,5 +576,13 @@ typedef struct {
     /* 0x2DC */ Vec3f unk_2DC;
     /* 0x2E8 */ Vec3f unk_2E8;
 } Object_2F4; // size = 0x2F4
+
+typedef struct {
+    /* 0x00 */ u8 unk_00;
+    /* 0x04 */ Vec3f pos; //May be a Vec4f
+    /* 0x10 */ f32 unk_10;
+    /* 0x14 */ char pad14[0x4];
+    /* 0x18 */ u16 unk_18;
+} UnkStruct_D_80176438; // size = 0x1C
 
 #endif

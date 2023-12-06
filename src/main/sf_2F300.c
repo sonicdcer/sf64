@@ -60,35 +60,35 @@ void func_8002E548(void) {
     }
 }
 
-void func_8002E5E0(void* arg0) {
+void func_8002E5E0(Object* arg0) {
     func_80187520(0x5B, arg0);
 }
 
-void func_8002E604(void* arg0) {
+void func_8002E604(Object* arg0) {
     func_80187520(0x5C, arg0);
 }
 
-void func_8002E628(void* arg0) {
+void func_8002E628(Object* arg0) {
     func_80187520(0x5D, arg0);
 }
 
-void func_8002E64C(void* arg0) {
+void func_8002E64C(Object* arg0) {
     func_80187520(0x5E, arg0);
 }
 
-void func_8002E670(void* arg0) {
+void func_8002E670(Object* arg0) {
     func_80187520(0x5F, arg0);
 }
 
-void func_8002E694(void* arg0) {
+void func_8002E694(Object* arg0) {
     func_80187520(0x60, arg0);
 }
 
-void func_8002E6B8(void* arg0) {
+void func_8002E6B8(Object* arg0) {
     func_80187520(0x61, arg0);
 }
 
-void func_8002E6DC(void* arg0) {
+void func_8002E6DC(Object* arg0) {
     func_80187520(0x62, arg0);
 }
 
