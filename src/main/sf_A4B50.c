@@ -336,7 +336,7 @@ void func_800A5338(void) {
             var_s0->obj.rot.y = D_80178310[j].unk_C;
             func_800612B8(&var_s0->unk_1C, var_s0->obj.id);
             if (var_s0->obj.id == 1) {
-                var_s0->unk_1C.unk_00 = D_6020760;
+                var_s0->unk_1C.unk_00 = (void (*)(Object *)) D_6020760;
             }
             var_s0++;
         }

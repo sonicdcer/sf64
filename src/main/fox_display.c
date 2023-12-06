@@ -721,7 +721,7 @@ f32 Math_RadToDeg(f32 rAngle) {
     return rAngle;
 }
 
-s32* func_8009F7B4(Gfx** gfxPtr, u8 width, u8 height) {
+u16* func_8009F7B4(Gfx** gfxPtr, u8 width, u8 height) {
     u16* spB4;
     u16 norm;
 

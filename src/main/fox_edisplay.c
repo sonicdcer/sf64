@@ -67,7 +67,7 @@ void func_80059A24(Object_2F4* arg0) {
     Matrix_Translate(gGfxMatrix, 0.f, -temp, 0.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
     Animation_GetFrameData(&D_601E8C4, arg0->unk_0B6, sp30);
-    Animation_DrawSkeleton(1, &D_601E9D0, sp30, NULL, func_800599A4, &arg0->unk_040, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, D_601E9D0, sp30, NULL, func_800599A4, &arg0->unk_040, &gIdentityMatrix);
 }
 
 void func_80059AEC(Object_80* arg0) {
