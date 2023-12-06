@@ -1,6 +1,17 @@
 #include "global.h"
 #include "fox_option.h"
 
+extern Gfx D_EBFBE0_801B4A40[];
+extern Gfx D_EBFBE0_801B5E78[];
+extern Gfx D_EBFBE0_801B61E0[];
+extern Gfx D_EBFBE0_801B6548[];
+extern Gfx D_EBFBE0_801B4D70[];
+extern Gfx D_EBFBE0_801B5B10[];
+extern Gfx D_EBFBE0_801B5440[];
+extern Gfx D_EBFBE0_801B50D8[];
+extern Gfx D_EBFBE0_801B5E78[];
+extern Gfx D_EBFBE0_801B57A8[];
+
 #ifdef IMPORT_DATA_PENDING
 static f32 D_EBFBE0_801AE570[] = { 60.0f, 36.0f, 12.0f, -12.0f, -36.0f, -60.0f };
 static f32 D_EBFBE0_801AE588[] = { 124.0f, 118.0f, 145.0f, 125.0f, 133.0f, 118.0f };
@@ -161,7 +172,7 @@ static s32 D_EBFBE0_801AED28[] = {
 
 static s32 D_EBFBE0_801AED3C[4] = { 0, 0, 0, 0 };
 
-UnkStruct_D_EBFBE0_801AED4C D_EBFBE0_801AED4C[24] = {
+static UnkStruct_D_EBFBE0_801AED4C D_EBFBE0_801AED4C[24] = {
     { 9, 0, 0 },  { 0, 12, 0 }, { 12, 4, 0 }, { 4, 10, 0 }, { 10, 2, 0 }, { 6, 4, 0 },   { 7, 2, 0 }, { 3, 2, 0 },
     { 2, 14, 0 }, { 5, 6, 1 },  { 6, 13, 1 }, { 13, 7, 1 }, { 4, 7, 1 },  { 12, 13, 1 }, { 8, 7, 1 }, { 9, 5, 2 },
     { 5, 1, 2 },  { 11, 8, 2 }, { 8, 3, 2 },  { 3, 1, 2 },  { 7, 1, 2 },  { 1, 14, 2 },  { 0, 6, 3 }, { 4, 3, 4 },
@@ -196,28 +207,43 @@ static f32 D_EBFBE0_801AEF90[] = { 111.0f, 112.0f, 121.0f };
 static f32 D_EBFBE0_801AEF9C[] = { 89.0f, 115.0f, 139.0f };
 
 /* beyond this point, data might be in-function static or near function static */
-static f32 D_EBFBE0_801AF148[4] = { 30.0f, 214.0f, 30.0f, 215.0f };
-static f32 D_EBFBE0_801AF158[4] = { 18.0f, 18.0f, 151.0f, 151.0f };
-static f32 D_EBFBE0_801AF188[4] = { 12.0f, 16.0f, 12.0f, 18.0f };
-static f32 D_EBFBE0_801AF198 = -1.0f;
-static f32 D_EBFBE0_801AF19C[4] = { 46.0f, 41.0f, 41.0f, 41.0f };
-static f32 D_EBFBE0_801AF1AC = 24.0f;
-static f32 D_EBFBE0_801AF1B0 = 1.4f;
-static f32 D_EBFBE0_801AF1B4 = 5.0f;
-static f32 D_EBFBE0_801AF1B8 = 11.0f;
-static f32 D_EBFBE0_801AF1BC = 8.0f;
-static f32 D_EBFBE0_801AF1C0 = 45.0f;
-static f32 D_EBFBE0_801AF1C4 = 20.0f;
-static f32 D_EBFBE0_801AF1C8 = 55.0f;
-static f32 D_EBFBE0_801AF1CC = 37.0f;
-static f32 D_EBFBE0_801AF1D0 = 11.0f;
-static f32 D_EBFBE0_801AF1D4 = 7.0f;
-static f32 D_EBFBE0_801AF1D8 = 59.0f;
-static f32 D_EBFBE0_801AF1DC = 58.0f;
-static s32 D_EBFBE0_801AF168[4] = { 56, 48, 56, 48 };
-static s32 D_EBFBE0_801AF178[4] = { 8, 10, 10, 8 };
+
 static UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9380[4];
 #else
+extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9380[];
+extern f32 D_EBFBE0_801AE588[];
+extern f32 D_EBFBE0_801AE5A0[];
+extern f32 D_EBFBE0_801AE5E8[2];
+extern f32 D_EBFBE0_801AE5F0[2];
+extern f32 D_EBFBE0_801AE5F8[2];
+extern f32 D_EBFBE0_801AE600[2];
+extern f32 D_EBFBE0_801AE608[];
+extern f32 D_EBFBE0_801AE620[];
+extern MenuContext D_EBFBE0_801AE878[];
+extern u8 D_EBFBE0_801AE998[];
+extern u8 D_EBFBE0_801AE99C[];
+extern Gfx D_EBFBE0_801AEC30[];
+extern Gfx D_EBFBE0_801AEC88[];
+extern Gfx D_EBFBE0_801AECE0[];
+extern u8* D_EBFBE0_801AECF8[];
+extern UnkStruct_D_EBFBE0_801AED4C D_EBFBE0_801AED4C[24];
+extern char* D_EBFBE0_801AEEAC[];
+extern Gfx D_EBFBE0_801AEF30[];
+extern u8 D_EBFBE0_801AEF5C[];
+extern f32 D_EBFBE0_801AEF84[];
+extern f32 D_EBFBE0_801AEF90[];
+extern f32 D_EBFBE0_801AEF9C[];
+extern char* D_EBFBE0_801AF0C4[];
+extern s32 D_EBFBE0_801AF0D0[];
+extern s32 D_EBFBE0_801AF0DC[];
+extern s32 D_EBFBE0_801AF0E8[];
+
+extern Vec3f D_EBFBE0_801AF100[];
+extern Vec3f D_EBFBE0_801AF118[];
+extern f32 D_EBFBE0_801AF13C;
+extern f32 D_EBFBE0_801AF140;
+extern f32 D_EBFBE0_801AF144;
+
 extern MenuContext_00 D_EBFBE0_801AE9C0[4];
 extern MenuContext_00 D_EBFBE0_801AEB48[];
 extern f32 D_EBFBE0_801AE9A0[4];
@@ -1585,9 +1611,9 @@ void func_EBFBE0_80195944(void) {
 }
 
 #ifdef IMPORT_DATA_PENDING
-u8* D_EBFBE0_801AECF8[10] = {
-    D_5009F60, D_500A050, D_500A140, D_500A230, D_500A320, D_500A410, D_500A500, 0x0500A5F0, 0x0500A6E0, 0x0500A7D0,
-};
+// u8* D_EBFBE0_801AECF8[10] = {
+//     D_5009F60, D_500A050, D_500A140, D_500A230, D_500A320, D_500A410, D_500A500, 0x0500A5F0, 0x0500A6E0, 0x0500A7D0,
+// };
 
 void func_EBFBE0_80195B74(void) {
     u8* temp_v0_4;
@@ -1926,6 +1952,16 @@ void func_EBFBE0_80196894(void) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80196894.s")
 #endif
 
+#ifdef IMPORT_DATA_PËNDING
+extern s8 D_EBFBE0_801B7150;
+extern s8 D_EBFBE0_801B7154;
+extern s8 D_EBFBE0_801B7158;
+static s8* D_EBFBE0_801AF0C4[3] = { &D_EBFBE0_801B7150, &D_EBFBE0_801B7154, &D_EBFBE0_801B7158 };
+static s32 D_EBFBE0_801AF0D0[3] = { 255, 0, 30 };
+static s32 D_EBFBE0_801AF0DC[3] = { 30, 179, 30 };
+static s32 D_EBFBE0_801AF0E8[3] = { 0, 67, 255 };
+#endif
+
 void func_EBFBE0_80196E54(void) {
     func_EBFBE0_80188010();
 
@@ -2154,6 +2190,11 @@ void func_EBFBE0_8019752C(void) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019752C.s")
 #endif
 
+#ifdef IMPORT_DATA_PENDING
+static Vec3f D_EBFBE0_801AF100[2] = { { 0.0f, 167.0f, 0.0f }, { 0.0f, -167.0f, 0.0f } };
+static Vec3f D_EBFBE0_801AF118[2] = { { 25.0f, 3.6f, 0.0f }, { 25.0f, 3.6f, 0.0f } };
+#endif
+
 void func_EBFBE0_80197914(void) {
     Vec3f* vec1;
     Vec3f* vec2;
@@ -2369,16 +2410,6 @@ void func_EBFBE0_8019882C(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
 }
 
 #ifdef IMPORT_DATA_PENDING
-extern Gfx D_EBFBE0_801B4A40[];
-extern Gfx D_EBFBE0_801B5E78[];
-extern Gfx D_EBFBE0_801B61E0[];
-extern Gfx D_EBFBE0_801B6548[];
-extern Gfx D_EBFBE0_801B4D70[];
-extern Gfx D_EBFBE0_801B5B10[];
-extern Gfx D_EBFBE0_801B5440[];
-extern Gfx D_EBFBE0_801B50D8[];
-extern Gfx D_EBFBE0_801B5E78[];
-extern Gfx D_EBFBE0_801B57A8[];
 
 void func_EBFBE0_8019896C(s32 arg0, f32 y, s32 arg2) {
     static f32 D_EBFBE0_801AF130 = 0.0f;
@@ -2538,6 +2569,12 @@ void func_EBFBE0_8019896C(s32 arg0, f32 y, s32 arg2) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019896C.s")
 #endif
 
+#ifdef IMPORT_DATA_PENDING
+static f32 D_EBFBE0_801AF13C = 0.7f;
+static f32 D_EBFBE0_801AF140 = 11.0f;
+static f32 D_EBFBE0_801AF144 = 2.7f;
+#endif
+
 void func_EBFBE0_80199198(f32 arg0, f32 arg1, f32 arg2) {
     RCP_SetupDL(&gMasterDisp, 0x35);
     Matrix_Push(&gGfxMatrix);
@@ -2671,6 +2708,29 @@ void func_EBFBE0_8019978C(void) {
         func_EBFBE0_8019B5AC();
     }
 }
+
+#ifdef IMPORT_DATA_PENDING
+static f32 D_EBFBE0_801AF148[4] = { 30.0f, 214.0f, 30.0f, 215.0f };
+static f32 D_EBFBE0_801AF158[4] = { 18.0f, 18.0f, 151.0f, 151.0f };
+static s32 D_EBFBE0_801AF168[4] = { 56, 48, 56, 48 };
+static s32 D_EBFBE0_801AF178[4] = { 8, 10, 10, 8 };
+static f32 D_EBFBE0_801AF188[4] = { 12.0f, 16.0f, 12.0f, 18.0f };
+static f32 D_EBFBE0_801AF198 = -1.0f;
+static f32 D_EBFBE0_801AF19C[4] = { 46.0f, 41.0f, 41.0f, 41.0f };
+static f32 D_EBFBE0_801AF1AC = 24.0f;
+static f32 D_EBFBE0_801AF1B0 = 1.4f;
+static f32 D_EBFBE0_801AF1B4 = 5.0f;
+static f32 D_EBFBE0_801AF1B8 = 11.0f;
+static f32 D_EBFBE0_801AF1BC = 8.0f;
+static f32 D_EBFBE0_801AF1C0 = 45.0f;
+static f32 D_EBFBE0_801AF1C4 = 20.0f;
+static f32 D_EBFBE0_801AF1C8 = 55.0f;
+static f32 D_EBFBE0_801AF1CC = 37.0f;
+static f32 D_EBFBE0_801AF1D0 = 11.0f;
+static f32 D_EBFBE0_801AF1D4 = 7.0f;
+static f32 D_EBFBE0_801AF1D8 = 59.0f;
+static f32 D_EBFBE0_801AF1DC = 58.0f;
+#endif
 
 #ifdef IMPORT_DATA_PENDING
 void func_EBFBE0_80199820(s32 arg0) {
@@ -4280,7 +4340,7 @@ void func_EBFBE0_8019DD44(void) {
 
             D_EBFBE0_801B91D4 = 114.0f - D_EBFBE0_801B93E4 * 130.0f;
             D_EBFBE0_801B91D8 = -6.0f + D_EBFBE0_801B93E4 * 130.0f;
-            D_EBFBE0_801AE638[3].unk_00.unk_18 = D_EBFBE0_801AE5C4;
+            D_EBFBE0_801AE638[3].unk_00.unk_18 = D_EBFBE0_801AE5B8[3];
             D_EBFBE0_801AE638[3].unk_00.unk_1C = 23.0f;
             D_EBFBE0_801AE638[3].unk_00.unk_20 = 1.0f;
             D_EBFBE0_801AE638[3].unk_00.unk_24 = 1.0f;

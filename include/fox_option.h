@@ -57,48 +57,7 @@ typedef struct {
 } UnkStruct_D_EBFBE0_801AED4C; // size = 0xC
 
 
-extern f32 D_EBFBE0_801AE588[];
-extern f32 D_EBFBE0_801AE5A0[];
-extern f32 D_EBFBE0_801AE5C4;
-extern f32 D_EBFBE0_801AE5E8[2];
-extern f32 D_EBFBE0_801AE5F0[2];
-extern f32 D_EBFBE0_801AE5F8[2];
-extern f32 D_EBFBE0_801AE600[2];
-extern f32 D_EBFBE0_801AE608[];
-extern f32 D_EBFBE0_801AE620[];
 
-extern MenuContext D_EBFBE0_801AE878[];
-
-extern u8 D_EBFBE0_801AE998[];
-extern u8 D_EBFBE0_801AE99C[];
-
-extern Gfx D_EBFBE0_801AEC30[];
-extern Gfx D_EBFBE0_801AEC88[];
-extern Gfx D_EBFBE0_801AECE0[];
-
-extern u8* D_EBFBE0_801AECF8[];
-
-extern UnkStruct_D_EBFBE0_801AED4C D_EBFBE0_801AED4C[24];
-
-extern char* D_EBFBE0_801AEEAC[];
-
-extern Gfx D_EBFBE0_801AEF30[];
-
-extern u8 D_EBFBE0_801AEF5C[];
-extern f32 D_EBFBE0_801AEF84[];
-extern f32 D_EBFBE0_801AEF90[];
-extern f32 D_EBFBE0_801AEF9C[];
-
-extern char* D_EBFBE0_801AF0C4[];
-extern s32 D_EBFBE0_801AF0D0[];
-extern s32 D_EBFBE0_801AF0DC[];
-extern s32 D_EBFBE0_801AF0E8[];
-
-extern Vec3f D_EBFBE0_801AF100[];
-extern Vec3f D_EBFBE0_801AF118[];
-extern f32 D_EBFBE0_801AF13C;
-extern f32 D_EBFBE0_801AF140;
-extern f32 D_EBFBE0_801AF144;
 
 extern void* D_EBFBE0_801B68B0[];
 extern void* D_EBFBE0_801B68D4[];
@@ -155,7 +114,7 @@ extern bool D_EBFBE0_801B9320; // MusicPlaying status in the expert sound option
 extern s32 D_EBFBE0_801B9340;
 extern s32 D_EBFBE0_801B9348[4];
 extern f32 D_EBFBE0_801B9358[4];
-extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9380[];
+
 extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B93A0[4];
 extern u8 D_EBFBE0_801B93C4;
 extern s32 D_EBFBE0_801B93D0;
