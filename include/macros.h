@@ -10,6 +10,7 @@
 #define SQ(x) ((x) * (x))
 
 #define VEC3F_SQ(vec) (SQ((vec).x) + SQ((vec).y) + SQ((vec).z))
+#define DOT_XYZ(a, b) ((a).x * (b).x + (a).y * (b).y + (a).z * (b).z)
 
 #define USEC_TO_CYCLES(n) (((u64)(n)*(osClockRate/15625LL))/(1000000LL/15625LL))
 #define MSEC_TO_CYCLES(n) (USEC_TO_CYCLES((n) * 1000LL))
