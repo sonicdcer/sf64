@@ -274,7 +274,7 @@ all: uncompressed
 
 init:
 	@$(MAKE) clean
-#	@$(MAKE) -s -C tools
+	@$(MAKE) -s -C tools
 	@$(MAKE) decompress
 	@$(MAKE) extract -j $(N_THREADS)
 	@$(MAKE) all -j $(N_THREADS)
