@@ -173,7 +173,7 @@ endif
 
 CFLAGS          += -G 0 -non_shared -Xcpluscomm -nostdinc -Wab,-r4300_mul
 
-WARNINGS        := -fullwarn -verbose -woff 624,649,838,712,516,513,596,564,594
+WARNINGS        := -fullwarn -verbose -woff 624,649,838,712,516,513,596,564,594,709
 ASFLAGS         := -march=vr4300 -32 -G0
 COMMON_DEFINES  := -D_MIPS_SZLONG=32
 GBI_DEFINES     := -DF3DEX_GBI

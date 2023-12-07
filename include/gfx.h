@@ -115,7 +115,7 @@ typedef enum SetupDL {
 extern Gfx gSetupDLs[SETUPDL_MAX][9]; // 0x800D31B0
 
 typedef s32 (*OverrideLimbDraw)(s32, Gfx**, Vec3f*, Vec3f*, void*);
-typedef void (*PostLimbDraw)(s32, Vec3f*, s32*);
+typedef void (*PostLimbDraw)(s32, Vec3f*, void*);
 
 typedef struct {
     /* 0x0 */ u16 xLen;
