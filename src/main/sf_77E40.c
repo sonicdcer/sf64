@@ -648,7 +648,7 @@ void func_800798F0(Object_8C* arg0) {
                     break;
                 case 7:
                     Animation_GetFrameData(&D_6027320, 0, frameJointTable);
-                    Animation_DrawSkeleton(1, &D_602742C, frameJointTable, func_800798C4, NULL, arg0, &gIdentityMatrix);
+                    Animation_DrawSkeleton(1, D_602742C, frameJointTable, func_800798C4, NULL, arg0, &gIdentityMatrix);
                     break;
                 case 8:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -756,7 +756,7 @@ void func_800798F0(Object_8C* arg0) {
 }
 
 void func_8007A28C(Object_8C* arg0) {
-    Texture_Scroll(&D_10190C0, 16, 32, 0);
+    Texture_Scroll(D_10190C0, 16, 32, 0);
     D_8017812C = 2;
     arg0->obj.rot.y += 1.0f;
     Math_SmoothStepToF(&arg0->unk_70, arg0->unk_6C, 0.05f, 1.5f, 0.001f);

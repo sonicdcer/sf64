@@ -1,6 +1,6 @@
 #include "global.h"
 
-#ifdef DATA_IMPORT_PENDING
+#ifdef IMPORT_DATA_PENDING
 s32 osAiSetNextBuffer(void* bufPtr, u32 size) {
     static u8 hdwrBugFlag = FALSE;
     char* bptr;

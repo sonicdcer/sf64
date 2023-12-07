@@ -210,11 +210,11 @@ void Graphics_SetTask(void) {
     gGfxTask->task.t.ucode_boot = __rspboot_start;
     gGfxTask->task.t.ucode_boot_size = (uintptr_t) __rspboot_end - (uintptr_t) __rspboot_start;
     gGfxTask->task.t.ucode = __f3dex_start;
-    gGfxTask->task.t.ucode_size = 0x1000;
+    gGfxTask->task.t.ucode_size = SP_UCODE_SIZE;
     gGfxTask->task.t.ucode_data = (u64*) &gF3dexData;
-    gGfxTask->task.t.ucode_data_size = 0x800;
-    gGfxTask->task.t.dram_stack = (u64*) &D_80281000;
-    gGfxTask->task.t.dram_stack_size = 0x400;
+    gGfxTask->task.t.ucode_data_size = SP_UCODE_DATA_SIZE;
+    gGfxTask->task.t.dram_stack = &D_80281000;
+    gGfxTask->task.t.dram_stack_size = SP_DRAM_STACK_SIZE8;
     gGfxTask->task.t.output_buff = (u64*) &D_802A7800;
     gGfxTask->task.t.output_buff_size = (u64*) &D_802D7800;
     gGfxTask->task.t.data_ptr = (u64*) gGfxPool->masterDL;
@@ -544,7 +544,7 @@ void Idle_ThreadEntry(void* arg0) {
     osCreateViManager(OS_PRIORITY_VIMGR);
     Main_SetVIMode();
     Lib_FillScreen(1);
-    osCreatePiMgr(OS_PRIORITY_PIMGR, &gPiMgrCmdQueue, sPiMgrCmdBuff, ARRAY_COUNT(sPiMgrCmdBuff));
+    osCreatePiManager(OS_PRIORITY_PIMGR, &gPiMgrCmdQueue, sPiMgrCmdBuff, ARRAY_COUNT(sPiMgrCmdBuff));
     osCreateThread(&gMainThread, THREAD_ID_MAIN, &Main_ThreadEntry, arg0, sMainThreadStack + sizeof(sMainThreadStack),
                    100);
     osStartThread(&gMainThread);
