@@ -2,7 +2,8 @@
 
 void func_800A3CA0(void) {
     Matrix_Push(&gGfxMatrix);
-    Matrix_LookAt(gGfxMatrix, D_80177978, D_80177980, D_80177988, D_801779A0, D_801779B8, D_801779C0, 0.0f, 1.0f, 0.0f, 1);
+    Matrix_LookAt(gGfxMatrix, D_80177978, D_80177980, D_80177988, D_801779A0, D_801779B8, D_801779C0, 0.0f, 1.0f, 0.0f,
+                  1);
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -200.0f, 1);
     Matrix_RotateY(gGfxMatrix, gChangedInput[D_801778A0].stick_x * 0.017453292f, 1);
     Matrix_RotateX(gGfxMatrix, gChangedInput[D_801778A0].stick_y * 0.017453292f, 1);
