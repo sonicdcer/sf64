@@ -57,9 +57,9 @@ f32 Math_FAtanF(f32 x) {
     }
 
     if (sector > 0) {
-        return M_PI / 2 - (x / (1.0f + conv));
+        return M_PI / 2.0f - (x / (1.0f + conv));
     } else if (sector < 0) {
-        return -M_PI / 2 - (x / (1.0f + conv));
+        return -M_PI / 2.0f - (x / (1.0f + conv));
     } else {
         return x / (1.0f + conv);
     }
@@ -71,9 +71,9 @@ f32 Math_FAtan2F(f32 y, f32 x) {
     }
     if (x == 0.0f) {
         if (y < 0.0f) {
-            return -M_PI / 2;
+            return -M_PI / 2.0f;
         }
-        return M_PI / 2;
+        return M_PI / 2.0f;
     }
     if (x < 0.0f) {
         if (y < 0.0f) {

@@ -133,8 +133,6 @@ f32 Math_FAtan2F(f32, f32);
 f32 Math_FAsinF(f32);
 f32 Math_FAcosF(f32);
 
-void osCreatePiMgr(s32, OSMesgQueue*, OSMesg*, s32);
-
 f32 __sinf(f32);
 f32 __cosf(f32);
 
@@ -142,25 +140,85 @@ s64 __ull_div(s64, s64);
 s64 __ll_mul(s64, s64);
 s64 __ll_rshift(s64, s64);
 
+// sf_2EFE0
 void func_8002E3E0(Object_2F4 *);
 void func_8002E548(void);
-
+void func_8002E5E0(Object*);
+void func_8002E604(Object*);
+void func_8002E628(Object*);
+void func_8002E64C(Object*);
+void func_8002E670(Object*);
+void func_8002E694(Object*);
+void func_8002E6B8(Object*);
+void func_8002E6DC(Object*);
 void func_8002F5F4(void);
+void func_800319AC(Object*);
+void func_80035448(Object*);
 
+//sf_36930
 void func_80035E48(Object_70 *);
+void func_8003DA0C(void);
 void func_8003DAF0(void);
 void func_8003DE68(s32, s32);
+void func_8003E1E8(void);
+void func_80040450(void);
+void func_80040954(void);
 void func_80040CDC(void);
-void func_80042FAC(Object_408 *);       
+void func_80040CE4(void);
+
+// sf_43AC0
+void func_80042FAC(Object_408 *);
+void func_80042FB8(Object*);
+void func_80042FC4(Object*);
 void func_80042FD0(Object_408 *);
+void func_80042FDC(Object*);
+void func_80042FE8(Object*);
 void func_800444BC(UnkStruct_D_80178280 *);
 void func_800515C4(void);
+
+// sf_496E0
+void func_8004F8AC(Object*);
+void func_8004FEC0(Object*);
+
+// fox_52730
 void func_80053658(UnkStruct_D_80161630 *);
 void func_8005465C(s32);
-
+void func_80057814(UnkStruct_D_80178280* arg0);
 void func_80057D00(void);
 
+// fox_edata
+void func_800594F0(Object_80*);
+void func_800595D0(Object_80*);
+void func_800596C0(void);
+void func_800596B0(Object_2F4*);
+
+// fox_edisplay
 void func_8005980C(f32);
+void func_80059850(Object_4C*);
+void func_800598E8(Object_2F4*);
+void func_80059A24(Object_2F4*);
+void func_80059AEC(Object_80*);
+void func_80059B20(Object_80*);
+void func_80059BBC(Object_80*);
+void func_80059BF0(Object_2F4*);
+void func_80059C34(Object_4C*);
+void func_80059C40(Object_4C*);
+void func_80059F68(Object_6C*);
+void func_80059FDC(Object_6C*);
+void func_8005A094(Object_2F4*);
+void func_8005B6A4(Object_2F4*);
+void func_8005B71C(Object_2F4*);
+void func_8005B7CC(Object_2F4*);
+void func_8005B848(Object_2F4*);
+void func_8005B9A4(Object_2F4*);
+void func_8005BA30(Object_2F4*);
+void func_8005C5F0(Object_6C*);
+void func_8005C900(Object_6C*);
+void func_8005C9C0(Object_6C*);
+void func_8005CA80(Object_6C*);
+void func_8005CB44(Object_6C*);
+void func_8005CC9C(Object_6C*);
+void func_8005CDA8(Object_6C*);
 void func_8005F030(Vec3f*);
 void func_8005F0E8(Vec3f*, Vec3f*);
 void func_8005F1EC(Vec3f*);
@@ -168,6 +226,10 @@ void func_8005F290(Vec3f*, Vec3f*);
 void func_8005F670(Vec3f*);
 s32 func_8005F9DC(Vec3f*);
 
+// fox_enmy1
+void func_80060714(s32 arg0);
+void func_8006089C(u8 arg0);
+void func_80060968(void);
 void func_80060FBC(Object*, Vec3f*);
 s32 func_80060FE4(Vec3f*, f32);
 void func_800612B8(ObjectStruct_1C*, u32);
@@ -194,6 +256,8 @@ void func_8006684C(Object_2F4*);
 void func_800669A0(Object_2F4*);
 void func_80066A80(Object_2F4*);
 void func_80066C00(Object_80*);
+void func_80066D5C(Object_80*);
+void func_80066E8C(Object_4C*);
 void func_80066EA8(Object_80*);
 void func_80066EF0(Object_6C *);
 void func_800671D0(Object_6C *);
@@ -229,11 +293,29 @@ void func_8006A06C(UnkStruct_D_80174750*);
 void func_8006A38C(void);
 void func_8006A3E8(void);
 
+//sf_6B3B0
+void func_8006A96C(Object*);
+void func_8006A978(Object*);
+void func_8006AA98(Object*);
+void func_8006AC08(Object*);
+void func_8006AD18(Object*);
+void func_8006B094(Object*);
 void func_8006B0A0(Object_2F4 *, s32);
 void func_8006B74C(Object_2F4 *);
+void func_8006B95C(Object*);
+void func_8006BB78(Object*);
+void func_8006C008(Object*);
+void func_8006D350(Object*);
 void func_8006EEFC(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
+void func_80072594(Object*);
+void func_80074F90(Object*);
+void func_80074FF0(Object*);
 void func_800763A4(Object_2F4 *, s32);
 void func_8007717C(Object_2F4 *, s32);
+void func_800771CC(Object*);
+void func_80077218(Object*);
+
+// sf_77E40
 void func_80077240(f32 posX, f32 posY, f32 posZ, s32 arg3);
 void func_8007729C(void);
 void func_80077790(void);
@@ -254,6 +336,7 @@ void func_8007868C(Object_8C* arg0);
 void func_8007879C(Object_8C* arg0);
 void func_800788B0(Object_8C* arg0);
 void func_80078A64(Object_8C* arg0);
+void func_8007AA60(Object*);
 void func_80078AEC(Object_8C* arg0);
 void func_80078B8C(void *unused);
 void func_80078BE0(Object_8C* arg0);
@@ -274,26 +357,85 @@ void func_8007A28C(Object_8C* arg0);
 void func_8007A3C0(Object_8C* arg0);
 void func_8007A568(f32 xPos, f32 yPos, f32 zPos, f32 arg3);
 void func_8007A6F0(Vec3f *, u32);
+void func_8007A748(Object*);
+void func_8007A994(Object*);
+void func_8007AB50(Object*);
 void func_8007ACE0(f32, f32, f32, f32, f32, f32);
 void func_8007AFD0(f32, f32, f32, s32, f32);
+void func_8007B040(Object*);
+void func_8007B0F4(Object*);
 void func_8007B228(f32, f32, f32, f32);
 void func_8007B2BC(Object_8C* arg0, f32 xPos, f32 yPos, f32 zPos, f32 arg4, s32 arg5);
 void func_8007B344(f32 xPos, f32 yPos, f32 zPos, f32 arg3, s32 arg4);
+void func_8007B3B8(Object*);
+void func_8007B5C0(Object*);
+void func_8007B62C(Object*);
+void func_8007B670(Object*);
+void func_8007B67C(Object*);
+void func_8007B758(Object*);
+void func_8007B960(Object*);
 void func_8007BC7C(f32, f32, f32, f32);
+void func_8007BCE8(Object*);
+void func_8007B9DC(Object*);
+void func_8007BDE0(Object*);
+void func_8007BE54(Object*);
+void func_8007BEE8(Object*);
 void func_8007BFFC(f32, f32, f32, f32, f32, f32, f32, s32);
 void func_8007C120(f32, f32, f32, f32, f32, f32, f32, s32);
+void func_8007C250(Object*);
 void func_8007C484(f32, f32, f32, f32, f32, f32, f32, s32);
+void func_8007C50C(Object*);
+void func_8007C8C4(Object*);
+void func_8007C9E0(Object*);
+void func_8007CAF0(Object*);
 void func_8007D074(f32, f32, f32, f32);
 void func_8007D0E0(f32, f32, f32, f32);
 void func_8007D10C(f32, f32, f32, f32);
 void func_8007D2C8(f32, f32, f32, f32);
+void func_8007D2F4(Object*);
+void func_8007D55C(Object*);
+void func_8007D748(Object*);
+void func_8007D8A8(Object*);
+void func_8007DA58(Object*);
+void func_8007DAE4(Object*);
+void func_8007DB70(Object*);
+void func_8007DED4(Object*);
+void func_8007E014(Object*);
+void func_8007E258(Object*);
+void func_8007E298(Object*);
+void func_8007E330(Object*);
+void func_8007E3E4(Object*);
+void func_8007E45C(Object*);
+void func_8007E5CC(Object*);
+void func_8007E648(Object*);
 void func_8007F04C(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32); // Object_Spawn?
+void func_8007F438(Object*);
+void func_8007F6B0(Object*);
+void func_8007F958(Object*);
+void func_8007FBE0(Object*);
+void func_8007FE88(Object*);
+void func_800802B8(Object*);
+void func_800802D8(Object*);
+void func_800802F8(Object*);
+void func_80080360(Object*);
+void func_8008040C(Object*);
+void func_8008092C(Object*);
+void func_80080ACC(Object*);
+void func_80080D04(Object*);
+void func_80081C5C(Object*);
+void func_80082F78(Object*);
+void func_800837EC(Object*);
+void func_80083B8C(Object*);
+void func_80083FA8(Object*);
+void func_80084194(Object_8C*);
 
+// fox_84F70
 void func_80084370(s32);
 void func_800843FC(s32);
 void func_80084488(s32);
 void func_80084688(s32, s32);
 
+// fox_hud
 void func_80084B94(s32);
 void func_800857DC(f32, f32, f32, f32);
 void func_80085890(f32, f32, f32, f32);
@@ -318,12 +460,21 @@ void func_8008E51C(s32* , f32);
 void func_8008E9EC(f32, f32);
 void func_8008EA14(f32, f32);
 void func_8008FA84(void);
+void func_8008FE78(Object*);
 void func_8008FFF0(Object_408*, s32);
 bool func_8009092C(Object_2F4*);
+void func_800907C4(Object_408*);
 s32 func_800915FC(Object_2F4*);
-void func_80092D48(Object_2F4 *);  
+void func_80092D48(Object_2F4 *);
+void func_80092EC0(Object*);
+void func_80094954(Object_8C*);
+void func_80094BBC(Object_8C*);
 void func_80094D20(f32, f32);
+
+// sf_97F80
 s32 func_800998FC(Vec3f*, Vec3f*, Vec3f*, s32, Vec3f*, f32*);
+
+// fox_A24B0
 void func_800A18B0(void);
 void func_800A1980(void);
 bool func_800A1B6C(void);
@@ -335,25 +486,37 @@ void func_800A24DC(s32);
 void func_800A26C0(void);
 void func_800A25DC(void);
 Object_2F4 *func_800A3608(s32);
+
+// fox_A4290
 s32 func_800A3690(Vec3f*, Vec3f*, s32, Vec3f*);
+
+// sf_A48A0
 void func_800A3CA0(void);
+
+// sf_A4B50
 s32 func_800A3F50(u16);
 void func_800A5844(void);
 void func_800A5D6C(void);
 void func_800A6148(void);
 void func_800A6CD0(UnkStruct_D_80178280 *, s32, s32);
+void func_800B6F50(f32, f32, f32, f32, f32, f32);
+void func_800B73E0(UnkStruct_D_80178280 *);
 void func_800B86CC(void);
 
+// fox_radio
 s32 func_800BA7BC(u16*, s32);
 void func_800BA808(u16*, s32);
 void func_800BB5D0(void);
+
+// fox_reset
 void Graphics_NMIWipe(void);
-void func_800B6F50(f32, f32, f32, f32, f32, f32);
-void RCP_SetupDL_36(void);
+
+// sf_versus
 void func_800C1ED4(void);
 void func_800C20B0(void);
 void func_800C2190(void);
 
+// fox_save
 s32 Save_Write(void);
 s32 Save_Read(void); 
 
@@ -382,6 +545,8 @@ void func_E16C50_8019B1F0(Object_2F4 *);
 void func_E16C50_8019B810(Object_2F4 *);
 void func_E16C50_8019C200(Object_2F4 *);
 void func_E16C50_8019D060(Object_2F4 *);
+void func_E16C50_801AA20C(void);
+void func_E16C50_801ACBB4(void);
 void func_E16C50_801AD688(Object_2F4 *);
 void func_E16C50_801AE3AC(Object_2F4 *);
 void func_E16C50_801AF9FC(Object_2F4 *);
@@ -415,12 +580,14 @@ void func_E6A810_801A5E2C(Object_2F4 *);
 void func_E6A810_801A6134(Object_2F4 *);
 void func_E6A810_801A65E0(Object_80 *); 
 void func_E6A810_801A7D98(Object_2F4 *);
+void func_E6A810_801B58AC(Gfx **, f32);
 s32 func_E6A810_801B6AEC(f32, f32, f32);
 void func_E6A810_801B6E20(f32, f32, f32 *, f32 *, f32 *); 
 
 void func_E9F1D0_801888F4(Object_2F4 *, s32);
 void func_E9F1D0_8018D16C(Object_408 *);
 void func_E9F1D0_80197CC4(Object_408 *);
+void func_E9F1D0_801A6164(UnkStruct_D_80178280 *);
 
 void func_EF0260_8018A96C(void);
 void func_EF0260_8018AAC4(void);

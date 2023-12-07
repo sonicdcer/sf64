@@ -13,6 +13,13 @@ gFrameBuffers = 0x8038F800;
 gDmaTable = 0x80178A70; //size:0x5A0
 D_80178A70 = 0x80178A78; //ignore:true
 
+D_80161AA8 = 0x80161AA8;//size:0x10
+D_800CA23C = 0x800CA23C;//size:0x18
+D_800CA26C = 0x800CA26C;//size:0x20
+D_800CA260 = 0x800CA260;//size:0xC
+D_801613E0 = 0x801613E0;//size:0x18
+D_800CC124 = 0x800CC124;//type:u8
+
 D_80161B00 = 0x80161B00; //size:0x1900
 D_80163400 = 0x80163400; //size:0xBE0
 D_80163FE0 = 0x80163FE0; //size:0xB130
@@ -20,9 +27,11 @@ D_8016F110 = 0x8016F110; //size:0x1020
 D_80170130 = 0x80170130; //size:0x36B0
 D_801737E0 = 0x801737E0; //size:0x870
 D_80174050 = 0x80174050; //size:0x700
-D_80174750 = 0x80174750;//size:0x12C0
-D_80175A10 = 0x80175A10;//size:0xA28
-D_80176438 = 0x80176438;//size:0x18
+D_80174750 = 0x80174750; //size:0x12C0
+D_80175A10 = 0x80175A10; //size:0xA28
+D_80176438 = 0x80176438; //size:0x18
+
+gExpertMode = 0x801779F8;
 
 D_800D3180 = 0x800D3180; // size:0x1E
 gSetupDLs = 0x800D31B0; // size:0x18C0
@@ -40,8 +49,8 @@ Save_Write = 0x800C3084;
 Save_Read = 0x800C3194;
 gSaveFile = 0x80178870; //size:0x200
 
-__rspboot_start = 0x80000450;
-__rspboot_end = 0x80000520;
+__rspboot_start = 0x80000450;//name_end:__rspboot_end
+__aspmain_start = 0x80000520;//name_end:__aspmain_end
 __f3dex_start = 0x80001410;
 gF3dexData = 0x800C3DD0;
 

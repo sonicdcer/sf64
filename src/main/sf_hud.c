@@ -2353,7 +2353,7 @@ void func_80095350(Object_2F4* arg0) {
     func_800612B8(&arg0->unk_01C, arg0->obj.id);
 }
 
-#ifdef DATA_IMPORT_PENDING
+#ifdef IMPORT_DATA_PENDING
 void func_800953A0(Object_2F4* arg0, s32 arg1) {
     Vec3f D_800D2510[] = {
         { 1800.0f, 0.0f, -4000.0f },
@@ -2374,7 +2374,7 @@ void func_800953A0(Object_2F4* arg0, s32 arg1) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800953A0.s")
 #endif
 
-#ifdef DATA_IMPORT_PENDING
+#ifdef IMPORT_DATA_PENDING
 void func_8009546C(Object_2F4* arg0, s32 arg1) {
     Vec3f D_800D2540[] = {
         { 1300.0f, 0.0f, -2000.0f },  { -1000.0f, 0.0f, -3000.0f }, { 800.0f, 0.0f, 0.0f },
@@ -2393,7 +2393,7 @@ void func_8009546C(Object_2F4* arg0, s32 arg1) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8009546C.s")
 #endif
 
-#ifdef DATA_IMPORT_PENDING
+#ifdef IMPORT_DATA_PENDING
 void func_80095538(Object_2F4* arg0, s32 arg1) {
     Vec3f D_800D257C[] = {
         { 0.0f, 0.0f, -200.0f },    { -300.0f, 0.0f, -700.0f },  { 400.0f, 0.0f, -900.0f },
