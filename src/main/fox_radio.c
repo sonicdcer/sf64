@@ -1,10 +1,16 @@
 #include "global.h"
 
-extern f32 D_80177D38;
-extern s32 D_801782AC;
-extern s32 D_801782B4;
-extern s32 D_80178744;
-extern s32 D_80178748;
+u16** D_80178720;
+s32 D_80178724;
+s32 D_80178728;
+s32 D_8017872C;
+f32 D_80178730;
+f32 D_80178734;
+f32 D_80178738;
+f32 D_8017873C;
+f32 D_80178740;
+s32 D_80178744;
+s32 D_80178748;
 
 s32 D_800D4A70 = 0;
 
@@ -700,7 +706,7 @@ void func_800BB5D0(void) {
     }
 }
 #else
-extern s32 D_8017874C;
+s32 D_8017874C;
 void func_800BB5D0(void);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_radio/func_800BB5D0.s")
 #endif

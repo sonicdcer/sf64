@@ -13,6 +13,11 @@ gFrameBuffers = 0x8038F800;
 gDmaTable = 0x80178A70; //size:0x5A0
 D_80178A70 = 0x80178A78; //ignore:true
 
+D_80161A18 = 0x80161A18;//size:0x10
+D_801615D0 = 0x801615D0;//size:0xC
+D_801615E0 = 0x801615E0;//size:0xC
+
+D_80161578 = 0x80161578;//size:0x30
 D_80161AA8 = 0x80161AA8;//size:0x10
 D_800CA23C = 0x800CA23C;//size:0x18
 D_800CA26C = 0x800CA26C;//size:0x20
@@ -43,6 +48,33 @@ D_800DD900 = 0x800DD900; // size:0x1A0
 D_800CBDD4 = 0x800CBDD4; //size:0x98
 
 D_800D55D0 = 0x800D55D0; //type:f32
+
+// vec97_0 = 0x80161950; //type:Vec3f size:0xC
+// vec97_1 = 0x8016195C; //type:Vec3f size:0xC
+// __vtx0_ = 0x80161968; //type:Vec3f size:0xC
+// __vtx1_ = 0x80161974; //type:Vec3f size:0xC
+// __vtx2_ = 0x80161980; //type:Vec3f size:0xC
+// __vtx3_ = 0x8016198C; //type:Vec3f size:0xC
+__dx1 = 0x80161950;
+__dx2 = 0x80161954;
+__dy1 = 0x80161958;
+__dy2 = 0x8016195C;
+__dz1 = 0x80161960;
+__dz2 = 0x80161964;
+__vtx0_x = 0x80161968;
+__vtx0_y = 0x8016196C;
+__vtx0_z = 0x80161970;
+__vtx1_x = 0x80161974;
+__vtx1_y = 0x80161978;
+__vtx1_z = 0x8016197C;
+__vtx2_x = 0x80161980;
+__vtx2_y = 0x80161984;
+__vtx2_z = 0x80161988;
+__vtx3_x = 0x8016198C;
+__vtx3_y = 0x80161990;
+__vtx3_z = 0x80161994;
+__pos_x = 0x80161998;//type:f32
+__pos_z = 0x8016199C;//type:f32
 
 Save_Checksum = 0x800C2FB0;
 Save_Write = 0x800C3084;

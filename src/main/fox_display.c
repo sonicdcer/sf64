@@ -1,5 +1,7 @@
 #include "global.h"
 
+char D_801619A0[100];
+
 char* Graphics_ClearPrintBuffer(char* buf, s32 fill, s32 len) {
     s32 i;
     char* ptr = buf;
