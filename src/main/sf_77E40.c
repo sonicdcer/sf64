@@ -931,7 +931,21 @@ void func_8007AA60(Object_8C* arg0) {
     RCP_SetupDL(&gMasterDisp, 0x40);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007AB50.s")
+void func_8007AB50(Object_8C* arg0) {
+    if (arg0->unk_4E == 0) {
+        Math_SmoothStepToF(&arg0->unk_70, arg0->unk_6C, 0.1f, 10.0f, 0.0f);
+        arg0->unk_44 -= 20;
+        if (arg0->unk_44 < 0) {
+            func_80060FBC(&arg0->obj, &arg0->unk_80);
+        }
+    } else {
+        Math_SmoothStepToF(&arg0->unk_70, arg0->unk_6C, 0.1f, 10.0f, 0.0f);
+        arg0->unk_44 -= 10;
+        if (arg0->unk_44 < 0) {
+            func_80060FBC(&arg0->obj, &arg0->unk_80);
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007AC0C.s")
 
