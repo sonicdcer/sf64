@@ -1652,8 +1652,8 @@ s32 func_80090A00(Object_2F4* arg0) {
             arg0->unk_134 = 0.0f;
             arg0->unk_130 = 360.0f;
             arg0->unk_0BC = 8;
-            arg0->unk_0F8 = 100.0f;
-            arg0->unk_0F4 = 300.0f;
+            arg0->unk_0F4.y = 100.0f;
+            arg0->unk_0F4.x = 300.0f;
             arg0->unk_060 = 1;
             arg0->unk_064 = 1;
 
@@ -1966,8 +1966,8 @@ s32 func_80091864(Object_2F4* arg0) {
         arg0->unk_050 = 0;
     }
 
-    sp3C = Math_SmoothStepToAngle(&arg0->unk_0F8, sp40, 0.5f, arg0->unk_11C, 0.001f) * 30.0f;
-    Math_SmoothStepToAngle(&arg0->unk_0F4, sp44, 0.5f, arg0->unk_11C, 0.0001f);
+    sp3C = Math_SmoothStepToAngle(&arg0->unk_0F4.y, sp40, 0.5f, arg0->unk_11C, 0.001f) * 30.0f;
+    Math_SmoothStepToAngle(&arg0->unk_0F4.x, sp44, 0.5f, arg0->unk_11C, 0.0001f);
     sp2C = sp28 = 0.0f;
 
     if (sp3C < 0.0f) {
@@ -2001,27 +2001,27 @@ s32 func_80091864(Object_2F4* arg0) {
 s32 func_80091B90(Object_2F4* arg0) {
     Vec3f vec;
 
-    arg0->obj.rot.x = -arg0->unk_0F4;
-    arg0->obj.rot.y = arg0->unk_0F8;
+    arg0->obj.rot.x = -arg0->unk_0F4.x;
+    arg0->obj.rot.y = arg0->unk_0F4.y;
 
     Math_SmoothStepToF(&arg0->unk_114, arg0->unk_118, 0.2f, 1.0f, 0.0f);
     Math_SmoothStepToF(&arg0->unk_11C, arg0->unk_120, 1.0f, 1.0f, 0.0f);
 
     Math_Vec3fFromAngles(&vec, arg0->obj.rot.x, arg0->obj.rot.y, arg0->unk_138 + arg0->unk_114);
 
-    arg0->unk_0EC = arg0->unk_14C + vec.y;
-    arg0->unk_0E8 = arg0->unk_148 + vec.x;
-    arg0->unk_0F0 = arg0->unk_144 + vec.z;
+    arg0->unk_0E8.y = arg0->unk_14C + vec.y;
+    arg0->unk_0E8.x = arg0->unk_148 + vec.x;
+    arg0->unk_0E8.z = arg0->unk_144 + vec.z;
 
     arg0->unk_148 -= arg0->unk_148 * 0.1f;
     arg0->unk_14C -= arg0->unk_14C * 0.1f;
     arg0->unk_144 -= arg0->unk_144 * 0.1f;
 
-    if ((arg0->obj.pos.y < D_80177940 + 40.0f) && (arg0->unk_0EC < 0.0f) && (D_80177C98 == 0)) {
+    if ((arg0->obj.pos.y < D_80177940 + 40.0f) && (arg0->unk_0E8.y < 0.0f) && (D_80177C98 == 0)) {
         arg0->obj.pos.y = D_80177940 + 40.0f;
-        arg0->unk_0EC = 0.0f;
+        arg0->unk_0E8.y = 0.0f;
     }
-    arg0->unk_0F0 -= D_80177D08;
+    arg0->unk_0E8.z -= D_80177D08;
 
     return false;
 }
@@ -2081,7 +2081,7 @@ s32 func_80091F00(Object_2F4* arg0) {
 
     func_80019218(0x2903300E, &arg0->unk_100, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     func_8007D10C(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 1.5f);
-    Matrix_RotateY(gCalcMatrix, arg0->unk_0F8 * M_DTOR, 0);
+    Matrix_RotateY(gCalcMatrix, arg0->unk_0F4.y * M_DTOR, 0);
 
     if (Rand_ZeroOne() < 0.5f) {
         sp40.x = -20.0f;
@@ -2156,7 +2156,7 @@ void func_80092244(Object_2F4* arg0) {
     D_80175A10[arg0->unk_040].pos.x = arg0->obj.pos.x;
     D_80175A10[arg0->unk_040].pos.y = arg0->obj.pos.y;
     D_80175A10[arg0->unk_040].pos.z = arg0->obj.pos.z;
-    D_80175A10[arg0->unk_040].unk_10 = arg0->unk_0F8 + 180.0f;
+    D_80175A10[arg0->unk_040].unk_10 = arg0->unk_0F4.y + 180.0f;
 }
 
 void func_800922F4(Object_2F4* arg0) {
@@ -2184,8 +2184,8 @@ void func_800922F4(Object_2F4* arg0) {
             if (Rand_ZeroOne() < 0.5f) {
                 func_8007C120(arg0->obj.pos.x + ((Rand_ZeroOne() - 0.5f) * 30.0f),
                               arg0->obj.pos.y + (Rand_ZeroOne() * 10.0f),
-                              arg0->obj.pos.z + ((Rand_ZeroOne() - 0.5f) * 30.0f), arg0->unk_0E8, arg0->unk_0EC,
-                              arg0->unk_0F0, arg0->unk_110 * 0.07f, 3);
+                              arg0->obj.pos.z + ((Rand_ZeroOne() - 0.5f) * 30.0f), arg0->unk_0E8.x, arg0->unk_0E8.y,
+                              arg0->unk_0E8.z, arg0->unk_110 * 0.07f, 3);
             }
         }
     }
@@ -2204,7 +2204,7 @@ void func_800922F4(Object_2F4* arg0) {
 void func_80093310(void) {
     Object_2F4* this = &D_80163FE0[0];
 
-    func_800613C4(this);
+    Object_2F4_Initialize(this);
     this->obj.status = 1;
     this->obj.pos.x = 0.0f;
     this->obj.pos.y += 1700.0f;
@@ -2223,7 +2223,7 @@ void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
 
     for (i = 0; i < 100; i++) {
         if (var_s0->obj.status == 0) {
-            func_80061474(var_s0);
+            Object_8C_Initialize(var_s0);
             var_s0->obj.status = 1;
             var_s0->obj.id = 363;
             var_s0->obj.pos.x = x;
@@ -2239,8 +2239,8 @@ void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
                     var_s0->unk_48 = -var_s0->unk_48;
                 }
             } else {
-                var_s0->unk_54 = (Rand_ZeroOne() - 0.5f) * 5.0f;
-                var_s0->unk_58 = (Rand_ZeroOne() - 0.5f) * 3.0f;
+                var_s0->unk_54.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
+                var_s0->unk_54.y = (Rand_ZeroOne() - 0.5f) * 3.0f;
                 var_s0->unk_48 = 0;
 
                 if (Rand_ZeroOne() < 0.5f) {
@@ -2293,7 +2293,7 @@ void func_80094954(Object_8C* arg0) {
             func_80060FBC(&arg0->obj, &arg0->unk_80);
         }
 
-        arg0->unk_58 += arg0->unk_6C;
+        arg0->unk_54.y += arg0->unk_6C;
         arg0->unk_6C -= 0.05f;
 
         if (arg0->unk_6C < -1.0f) {
@@ -2311,7 +2311,7 @@ void func_80094954(Object_8C* arg0) {
     if (temp->unk_1C8 == 6) {
         arg0->unk_46 = 2;
         if (temp->unk_1D0 >= 4) {
-            arg0->unk_58 -= 0.13f;
+            arg0->unk_54.y -= 0.13f;
         }
     }
 
@@ -2346,7 +2346,7 @@ void stub_80094D18(void) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80094D20.s")
 
 void func_80095350(Object_2F4* arg0) {
-    func_800613C4(arg0);
+    Object_2F4_Initialize(arg0);
     arg0->obj.status = 2;
     arg0->obj.id = 195;
     arg0->unk_0B6 = 9999;
@@ -2362,7 +2362,7 @@ void func_800953A0(Object_2F4* arg0, s32 arg1) {
         { -200.0f, 0.0f, -7000.0f },
     };
 
-    func_800613C4(arg0);
+    Object_2F4_Initialize(arg0);
     arg0->obj.status = 2;
     arg0->obj.id = 195;
     arg0->obj.pos = D_800D2510[arg1];
@@ -2381,7 +2381,7 @@ void func_8009546C(Object_2F4* arg0, s32 arg1) {
         { -1200.0f, 0.0f, -1000.0f }, { -1400.0f, 0.0f, 700.0f },
     };
 
-    func_800613C4(arg0);
+    Object_2F4_Initialize(arg0);
     arg0->obj.status = 2;
     arg0->obj.id = 195;
     arg0->obj.pos = D_800D2540[arg1];
@@ -2400,7 +2400,7 @@ void func_80095538(Object_2F4* arg0, s32 arg1) {
         { 300.0f, 0.0f, -1700.0f }, { -260.0f, 0.0f, -2000.0f }, { -200.0f, 0.0f, -2600.0f },
     };
 
-    func_800613C4(arg0);
+    Object_2F4_Initialize(arg0);
     arg0->obj.status = 2;
     arg0->obj.id = 195;
     arg0->obj.pos = D_800D257C[arg1];

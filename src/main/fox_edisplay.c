@@ -1001,7 +1001,7 @@ void func_8005D954(Object_2F4* arg0) {
                 func_8005D008(&arg0->obj, arg0->unk_01C.drawType);
                 arg0->obj.pos.y -= D_8017847C;
             } else if ((arg0->obj.id == 0xC8) && (arg0->unk_0B4 != 0x1F)) {
-                func_8005D3CC(&arg0->obj, arg0->unk_2E8.x, arg0->unk_2E8.y, arg0->unk_2E8.z + arg0->unk_0FC,
+                func_8005D3CC(&arg0->obj, arg0->unk_2E8.x, arg0->unk_2E8.y, arg0->unk_2E8.z + arg0->unk_0F4.z,
                               arg0->unk_01C.drawType);
             } else {
                 func_8005D008(&arg0->obj, arg0->unk_01C.drawType);

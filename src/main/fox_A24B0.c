@@ -527,7 +527,7 @@ Object_2F4* func_800A3608(s32 arg0) {
 
     for (i = 0; i < ARRAY_COUNT(D_80163FE0); i++, var_a2++) {
         if (var_a2->obj.status == 0) {
-            func_800613C4(var_a2);
+            Object_2F4_Initialize(var_a2);
             var_a2->obj.status = 1;
             var_a2->obj.id = arg0;
             func_800612B8(&var_a2->unk_01C, var_a2->obj.id);

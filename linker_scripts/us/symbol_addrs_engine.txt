@@ -113,3 +113,10 @@ Message_DisplayChar = 0x800C295C;
 Message_DisplayText = 0x800C2AF0;
 Message_DisplayScrollingText = 0x800C2D3C;
 Message_IsPrintingChar = 0x800C2F30;
+
+Object_80_Initialize = 0x80061364;
+Object_4C_Initialize = 0x80061394;
+Object_2F4_Initialize = 0x800613C4;
+Object_408_Initialize = 0x80061404;
+Object_6C_Initialize = 0x80061444;
+Object_8C_Initialize = 0x80061474;

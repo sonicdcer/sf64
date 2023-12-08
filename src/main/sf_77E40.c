@@ -114,7 +114,7 @@ Object_8C* func_8007783C(s32 objId) {
 
     for (i = 0, var_a2 = D_80170130; i < ARRAY_COUNT(D_80170130); i++, var_a2++) {
         if (var_a2->obj.status == 0) {
-            func_80061474(var_a2);
+            Object_8C_Initialize(var_a2);
             var_a2->obj.status = 2;
             var_a2->obj.id = objId;
             func_800612B8(&var_a2->unk_1C, var_a2->obj.id);
@@ -128,15 +128,15 @@ Object_8C* func_8007783C(s32 objId) {
 }
 
 void func_800778C4(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
-    func_80061474(arg0);
+    Object_8C_Initialize(arg0);
     arg0->obj.status = 1;
     arg0->obj.id = 0x153;
     arg0->obj.pos.x = posX;
     arg0->obj.pos.y = posY;
     arg0->obj.pos.z = posZ;
-    arg0->unk_54 = arg4;
-    arg0->unk_58 = arg5;
-    arg0->unk_5C = arg6;
+    arg0->unk_54.x = arg4;
+    arg0->unk_54.y = arg5;
+    arg0->unk_54.z = arg6;
     arg0->unk_70 = arg7;
     arg0->unk_4C = 0;
     arg0->unk_6C = 0.5f;
@@ -381,7 +381,7 @@ void func_80078AEC(Object_8C* arg0) {
     gSPDisplayList(gMasterDisp++, D_102ED50);
 }
 
-void func_80078B8C(void* unused) {
+void func_80078B8C(Object_8C *arg0) {
     RCP_SetupDL_21();
     gSPDisplayList(gMasterDisp++, D_101ABD0);
     RCP_SetupDL(&gMasterDisp, 0x40);
@@ -412,7 +412,7 @@ void func_80078CE8(Object_8C* arg0) {
 }
 
 void func_80078D60(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4) {
-    func_80061474(arg0);
+    Object_8C_Initialize(arg0);
     arg0->obj.status = 1;
     arg0->obj.id = 0x189;
     arg0->obj.pos.x = posX;
@@ -420,9 +420,9 @@ void func_80078D60(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4) {
     arg0->obj.pos.z = posZ;
     arg0->unk_70 = arg4;
     if (arg4 == 3.1f) {
-        arg0->unk_54 = D_80163FE0[8].unk_0E8;
-        arg0->unk_58 = D_80163FE0[8].unk_0EC;
-        arg0->unk_5C = D_80163FE0[8].unk_0F0;
+        arg0->unk_54.x = D_80163FE0[8].unk_0E8.x;
+        arg0->unk_54.y = D_80163FE0[8].unk_0E8.y;
+        arg0->unk_54.z = D_80163FE0[8].unk_0E8.z;
     }
     if (arg4 != 30.0f) {
         arg0->unk_4E = 1;
@@ -447,9 +447,9 @@ void func_80078E50(f32 posX, f32 posY, f32 posZ, f32 arg3) {
 
 void func_80078EBC(Object_8C* arg0) {
     if (arg0->unk_4E == 2) {
-        arg0->unk_54 = D_80178280->unk_0C0.x;
-        arg0->unk_58 = D_80178280->unk_0C0.y;
-        arg0->unk_5C = D_80178280->unk_0C0.z;
+        arg0->unk_54.x = D_80178280->unk_0C0.x;
+        arg0->unk_54.y = D_80178280->unk_0C0.y;
+        arg0->unk_54.z = D_80178280->unk_0C0.z;
     }
     arg0->obj.rot.z += 35.0f;
     if (arg0->unk_50 >= 7) {
@@ -483,7 +483,7 @@ void func_8007905C(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 a
     f32 xAng;
     f32 yAng;
 
-    func_80061474(arg0);
+    Object_8C_Initialize(arg0);
     arg0->obj.status = 2;
     arg0->obj.id = 0x165;
     arg0->obj.pos.x = posX;
@@ -491,15 +491,15 @@ void func_8007905C(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 a
     arg0->obj.pos.z = posZ;
     arg0->unk_4C = arg5;
     if (arg4 == 1.6f) {
-        arg0->unk_54 = (posX - D_8016F110[1].obj.pos.x) * 0.1f;
-        arg0->unk_5C = (posZ - D_8016F110[1].obj.pos.z) * 0.1f;
+        arg0->unk_54.x = (posX - D_8016F110[1].obj.pos.x) * 0.1f;
+        arg0->unk_54.z = (posZ - D_8016F110[1].obj.pos.z) * 0.1f;
     } else if (arg4 == 1.3f) {
-        arg0->unk_54 = ((Rand_ZeroOne() * 0.05f) + 0.03f) * posX;
-        arg0->unk_5C = ((Rand_ZeroOne() * 0.05f) + 0.03f) * posZ;
-        arg0->unk_58 = 5.0f;
+        arg0->unk_54.x = ((Rand_ZeroOne() * 0.05f) + 0.03f) * posX;
+        arg0->unk_54.z = ((Rand_ZeroOne() * 0.05f) + 0.03f) * posZ;
+        arg0->unk_54.y = 5.0f;
     } else if (arg4 == 1.55f) {
-        arg0->unk_54 = (Rand_ZeroOne() - 0.5f) * 10.0f;
-        arg0->unk_5C = (Rand_ZeroOne() - 0.5f) * 10.0f;
+        arg0->unk_54.x = (Rand_ZeroOne() - 0.5f) * 10.0f;
+        arg0->unk_54.z = (Rand_ZeroOne() - 0.5f) * 10.0f;
     } else if ((D_80178234 == 0x11) && ((arg4 == 5.11f) || (arg4 == 7.22f))) {
         sp3C.x = D_80178280->unk_074;
         sp3C.y = D_80178280->unk_078;
@@ -513,13 +513,13 @@ void func_8007905C(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 a
         sp54.y = (Rand_ZeroOne() - 0.5f) * 50.0f;
         sp54.z = (Rand_ZeroOne() * 10.0f) + 150.0f;
         Matrix_MultVec3f(gCalcMatrix, &sp54, &sp48);
-        arg0->unk_54 = sp48.x;
-        arg0->unk_58 = sp48.y;
-        arg0->unk_5C = sp48.z;
+        arg0->unk_54.x = sp48.x;
+        arg0->unk_54.y = sp48.y;
+        arg0->unk_54.z = sp48.z;
     } else {
-        arg0->unk_58 = (D_80177C98 == 0) ? (Rand_ZeroOne() * 7.0f) + 7.0f : (Rand_ZeroOne() - 0.5f) * 10.0f;
-        arg0->unk_54 = (Rand_ZeroOne() - 0.5f) * 10.0f;
-        arg0->unk_5C = (Rand_ZeroOne() - 0.5f) * 10.0f;
+        arg0->unk_54.y = (D_80177C98 == 0) ? (Rand_ZeroOne() * 7.0f) + 7.0f : (Rand_ZeroOne() - 0.5f) * 10.0f;
+        arg0->unk_54.x = (Rand_ZeroOne() - 0.5f) * 10.0f;
+        arg0->unk_54.z = (Rand_ZeroOne() - 0.5f) * 10.0f;
     }
     arg0->unk_70 = ((Rand_ZeroOne() * 0.8f) + 0.3f) * arg4;
     arg0->unk_50 = (s32) (Rand_ZeroOne() * 50.0f) + 0x46;
@@ -591,12 +591,12 @@ void func_8007968C(Object_8C* arg0) {
     arg0->obj.rot.y += arg0->unk_60.y;
     arg0->obj.rot.z += arg0->unk_60.z;
     if (D_80177C98 == 0) {
-        arg0->unk_58 -= 0.5f;
+        arg0->unk_54.y -= 0.5f;
     }
     if ((D_80178234 == 0x11) && (D_80178280->unk_1C8 == 7) && (D_80177A80 >= 0xB0)) {
-        arg0->unk_54 *= 0.95f;
-        arg0->unk_58 *= 0.95f;
-        arg0->unk_5C *= 0.95f;
+        arg0->unk_54.x *= 0.95f;
+        arg0->unk_54.y *= 0.95f;
+        arg0->unk_54.z *= 0.95f;
     }
     if ((D_80178234 == 0xB) && (arg0->unk_44 == 0xA)) {
         arg0->obj.rot.x = 0.0f;
@@ -795,7 +795,7 @@ void func_8007A3C0(Object_8C* arg0) {
 }
 
 void func_8007A4B8(Object_8C* arg0, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
-    func_80061474(arg0);
+    Object_8C_Initialize(arg0);
     arg0->obj.status = 1;
     arg0->obj.id = 0x17F;
     arg0->unk_6C = arg4;
@@ -859,7 +859,7 @@ void func_8007A568(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B228.s")
 
 void func_8007B2BC(Object_8C* arg0, f32 xPos, f32 yPos, f32 zPos, f32 arg4, s32 arg5) {
-    func_80061474(arg0);
+    Object_8C_Initialize(arg0);
     arg0->obj.status = 1;
     arg0->obj.id = 0x180;
     arg0->obj.pos.x = xPos;
