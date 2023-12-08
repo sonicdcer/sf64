@@ -316,9 +316,16 @@ typedef struct {
 } Object; // size = 0x1C
 
 typedef struct {
-    /* 0x00 */ void (*draw)(); // argument must have object type. Can be dlist.
+    union {
+    /* 0x00 */ void* drawVoid; // Have the first option be a void type to silence warnings about the wrong type in the initialization of this object.
+    /* 0x00 */ void (*draw)(Object*); // argument must have object type.
+    /* 0x00 */ Gfx* drawGfx; //Can be dlist.
+    };
     /* 0x00 */ u8 drawType;
-    /* 0x08 */ void (*action)(); // argument must have object type.
+    union {
+    /* 0x08 */ void* actionVoid; // Have the first option be a void type to silence warnings about the wrong type in the initialization of this object.
+    /* 0x08 */ void (*action)(Object*); // argument must have object type. But it can be one of many different types of objects.
+    };
     /* 0x0C */ f32* unk_0C; // some sort of script?
     /* 0x10 */ f32 unk_10; // z coordinate of something
     /* 0x14 */ s16 unk_14; // can be -1, 0, 1

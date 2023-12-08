@@ -240,7 +240,7 @@ void func_800A4C40(UnkStruct_D_80178280* arg0) {
             }
         } else {
             D_80161A64 = 0;
-            func_8001A55C(&arg0->unk_460[0], 0x1100000B);
+            func_8001A55C(&arg0->unk_460[0].x, 0x1100000B);
         }
     }
 }
@@ -336,7 +336,7 @@ void func_800A5338(void) {
             var_s0->obj.rot.y = D_80178310[j].unk_C;
             func_800612B8(&var_s0->unk_1C, var_s0->obj.id);
             if (var_s0->obj.id == 1) {
-                var_s0->unk_1C.draw = D_6020760;
+                var_s0->unk_1C.drawGfx = D_6020760;
             }
             var_s0++;
         }
