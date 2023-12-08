@@ -820,7 +820,24 @@ void func_8007A568(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
     func_8007B344(xPos, yPos, zPos, 80.0f, 4);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007A5F8.s")
+void func_8007A5F8(Object_8C* arg0, Vec3f* arg1, u32 arg2) {
+    func_80061474(arg0);
+    arg0->obj.status = 2;
+    arg0->obj.id = 0x175;
+    arg0->obj.pos.x = arg1->x;
+    arg0->obj.pos.y = arg1->y;
+    arg0->obj.pos.z = arg1->z;
+    arg0->unk_50 = 0x32;
+    if ((arg2 == 0x1903400F) || (arg2 == 0x11000055)) {
+        func_80019218(arg2, &arg0->unk_80, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        if (arg2 == 0x11000055) {
+            arg0->unk_50 = 0x12C;
+        }
+    } else {
+        func_80019218(arg2, &arg0->unk_80, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    }
+    func_800612B8(&arg0->unk_1C, arg0->obj.id);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007A6F0.s")
 

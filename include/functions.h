@@ -355,6 +355,7 @@ void func_800798F0(Object_8C* arg0);
 void func_8007A28C(Object_8C* arg0);
 void func_8007A3C0(Object_8C* arg0);
 void func_8007A568(f32 xPos, f32 yPos, f32 zPos, f32 arg3);
+void func_8007A5F8(Object_8C* arg0, Vec3f* arg1, u32 arg2);
 void func_8007A6F0(Vec3f *, u32);
 void func_8007A748(Object*);
 void func_8007A994(Object*);
