@@ -839,11 +839,33 @@ void func_8007A5F8(Object_8C* arg0, Vec3f* arg1, u32 arg2) {
     func_800612B8(&arg0->unk_1C, arg0->obj.id);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007A6F0.s")
+void func_8007A6F0(Vec3f* arg0, u32 arg1) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007A748.s")
+    for (i = 0; i < ARRAY_COUNT(D_80170130); i++) {
+        if (D_80170130[i].obj.status == 0) {
+            func_8007A5F8(&D_80170130[i], arg0, arg1);
+            break;
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007A774.s")
+void func_8007A748(Object_8C* arg0) {
+    if (arg0->unk_50 == 0) {
+        // TODO: Should func_80060FBC be a different type or is casting the best option here?
+        func_80060FBC((Object*) arg0, &arg0->unk_80);
+    }
+}
+
+s32 func_8007A774(UnkStruct_D_80178280* arg0, UnkStruct_8007A774* arg1, f32 arg2) {
+    if ((fabsf(arg0->unk_138 - arg1->unk_C) < arg2) && (fabsf(arg0->unk_074 - arg1->unk_4) < arg2) &&
+        (fabsf(arg0->unk_078 - arg1->unk_8) < arg2) && (arg0->unk_498 == 0)) {
+        func_800A6CD0(arg0, 0, arg1->unk_34);
+        return 1;
+    } else {
+        return 0;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007A818.s")
 

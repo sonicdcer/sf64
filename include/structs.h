@@ -579,10 +579,19 @@ typedef struct {
 
 typedef struct {
     /* 0x00 */ u8 unk_00;
-    /* 0x04 */ Vec3f pos; //May be a Vec4f
+    /* 0x04 */ Vec3f pos;
     /* 0x10 */ f32 unk_10;
     /* 0x14 */ char pad14[0x4];
     /* 0x18 */ u16 unk_18;
 } UnkStruct_D_80176438; // size = 0x1C
+
+typedef struct {
+    /* 0x00 */ char pad0[0x4];
+    /* 0x04 */ f32 unk_4;
+    /* 0x08 */ f32 unk_8;
+    /* 0x0C */ f32 unk_C;
+    /* 0x10 */ char pad10[0x24];
+    /* 0x34 */ u8 unk_34;
+} UnkStruct_8007A774; // size = unknown
 
 #endif
