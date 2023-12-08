@@ -947,7 +947,21 @@ void func_8007AB50(Object_8C* arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007AC0C.s")
+void func_8007AC0C(Object_8C* arg0, f32 posX, f32 unused, f32 posY, f32 arg4, f32 arg5, f32 arg6) {
+    func_80061474(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = 0x174;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = D_80177940;
+    arg0->obj.pos.z = posY;
+    arg0->unk_44 = 0xB4;
+    arg0->unk_70 = arg4;
+    arg0->unk_6C = arg5;
+    arg0->obj.rot.y = arg6;
+    arg0->unk_54 = D_80178280->unk_0C0.x * 0.6f;
+    arg0->unk_5C = D_80178280->unk_0C0.z * 0.6; // Forgotten f means bad codegen
+    func_800612B8(&arg0->unk_1C, arg0->obj.id);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007ACE0.s")
 
