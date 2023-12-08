@@ -915,7 +915,21 @@ void func_8007A994(Object_8C* arg0) {
     arg0->unk_4A++;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007AA60.s")
+// Gfx* D_800D178C[6] = {
+//     0x06003440, 0x060034E0, 0x06003580,
+//     0x06003620, 0x060036C0, 0x06003760
+// };
+
+void func_8007AA60(Object_8C* arg0) {
+    RCP_SetupDL(&gMasterDisp, 0x44);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 31, 10, 00, arg0->unk_44);
+    gDPSetEnvColor(gMasterDisp++, 141, 73, 5, 0);
+    Matrix_Scale(gGfxMatrix, arg0->unk_70, arg0->unk_70, 1.0f, 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
+    gSPDisplayList(gMasterDisp++, D_800D178C[arg0->unk_4C]);
+    arg0->unk_4C = arg0->unk_48;
+    RCP_SetupDL(&gMasterDisp, 0x40);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007AB50.s")
 
