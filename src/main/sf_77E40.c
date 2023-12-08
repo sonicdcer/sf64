@@ -898,7 +898,22 @@ void func_8007A900(f32 posX, f32 posY, f32 posZ, f32 arg3, u8 arg4, u8 arg5, u16
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007A994.s")
+void func_8007A994(Object_8C* arg0) {
+    Math_SmoothStepToF(&arg0->unk_70, arg0->unk_6C, 0.1f, 10.0f, 0.01f);
+    arg0->obj.rot.z += arg0->unk_60.z;
+    arg0->unk_58 += arg0->unk_60.y;
+    if (arg0->unk_4A & 1) {
+        arg0->unk_48++;
+        if (arg0->unk_48 >= 6) {
+            arg0->unk_48 = 5;
+        }
+    }
+    arg0->unk_44 -= arg0->unk_46;
+    if (arg0->unk_44 < 0x15) {
+        func_80060FBC(&arg0->obj, &arg0->unk_80);
+    }
+    arg0->unk_4A++;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007AA60.s")
 

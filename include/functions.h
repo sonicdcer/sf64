@@ -361,7 +361,7 @@ void func_8007A748(Object_8C*);
 s32 func_8007A774(UnkStruct_D_80178280*, UnkStruct_8007A774*, f32);
 void func_8007A818(Object_8C*, f32 posX, f32 posY, f32 posZ, f32, u8, u8, u16);
 void func_8007A900(f32 posX, f32 posY, f32 posZ, f32, u8, u8, u16);
-void func_8007A994(Object*);
+void func_8007A994(Object_8C*);
 void func_8007AB50(Object*);
 void func_8007ACE0(f32, f32, f32, f32, f32, f32);
 void func_8007AFD0(f32, f32, f32, s32, f32);
