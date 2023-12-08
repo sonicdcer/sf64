@@ -185,7 +185,7 @@ void TextureRect_32bRGBA(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32
 void Graphics_FillRectangle(Gfx **gfxPtr, s32 ulx, s32 uly, s32 lrx, s32 lry, u8 r, u8 g, u8 b, u8 a);
 void Math_Vec3fFromAngles(Vec3f *step, f32 xRot, f32 yRot, f32 stepsize);
 f32 Math_RadToDeg(f32 rAngle);
-s32*  func_8009F7B4(Gfx **gfxPtr, u8 width, u8 height);
+u16*  func_8009F7B4(Gfx **gfxPtr, u8 width, u8 height);
 void Graphics_DisplayHUDNumber(s32 xPos, s32 yPos, s32 number);
 void Graphics_DisplaySmallNumber(s32 xPos, s32 yPos, s32 number);
 void Graphics_DisplayLargeText(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char *text);

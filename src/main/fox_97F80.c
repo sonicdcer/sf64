@@ -347,8 +347,120 @@ s32 func_8009893C(Vec3f* vec, Plane* plane) {
     return (-plane->normal.y * vec->y - plane->normal.z * vec->z - plane->dist) / plane->normal.x;
 }
 
-s32 func_80098980(Vec3f* out, Vec3s* (*tri)[3], Vec3f* vec);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_97F80/func_80098980.s")
+#define INTSIGN_OF(x) ((((x) >= 1.0f) || ((x) <= -1.0f)) ? (f32) SIGN_OF(x) : 0.0f)
+
+s32 func_80098980(Vec3f* out, Vec3s** tri, Vec3f* vec) {
+    s32 signa2y;
+    s32 signa2z;
+    s32 signCross;
+    s32 signa2x;
+    f32 cross;
+    s32 var_v1;
+    Vec3s* pad;
+    f32 t0x;
+    f32 t0y;
+    f32 t0z;
+    f32 t1x;
+    f32 t1y;
+    f32 t1z;
+    f32 t2x;
+    f32 t2y;
+    f32 t2z;
+    f32 a0x;
+    f32 a0y;
+    f32 a0z;
+    f32 d01x;
+    f32 d12x;
+    f32 d20x;
+    f32 d01y;
+    f32 d12y;
+    f32 d20y;
+    f32 d01z;
+    f32 d12z;
+    f32 d20z;
+
+    var_v1 = 0;
+
+    pad = *tri++;
+    if (1) { // some sort of macro?
+        t0x = pad->x;
+        t0y = pad->y;
+        t0z = pad->z;
+
+        pad = *tri++;
+
+        t1x = pad->x;
+        t1y = pad->y;
+        t1z = pad->z;
+
+        pad = *tri++;
+
+        t2x = pad->x;
+        t2y = pad->y;
+        t2z = pad->z;
+
+        a0x = out->x;
+        a0y = out->y;
+        a0z = out->z;
+
+        d01x = t1x - t0x;
+        d12x = t2x - t1x;
+        d20x = t0x - t2x;
+        d01y = t1y - t0y;
+        d12y = t2y - t1y;
+        d20y = t0y - t2y;
+        d01z = t1z - t0z;
+        d12z = t2z - t1z;
+        d20z = t0z - t2z;
+
+        signa2x = SIGN_OF(vec->x);
+        signa2y = SIGN_OF(vec->y);
+        signa2z = SIGN_OF(vec->z);
+    }
+
+    cross = ((a0z - t1z) * d01y) - (d01z * (a0y - t1y));
+    signCross = INTSIGN_OF(cross);
+    if ((signa2x == 0) || (signCross == signa2x) || (signCross == 0)) {
+        cross = ((a0z - t2z) * d12y) - (d12z * (a0y - t2y));
+        signCross = INTSIGN_OF(cross);
+        if ((signa2x == 0) || (signCross == signa2x) || (signCross == 0)) {
+            cross = ((a0z - t0z) * d20y) - (d20z * (a0y - t0y));
+            signCross = INTSIGN_OF(cross);
+            if ((signa2x == 0) || (signCross == signa2x) || (signCross == 0)) {
+                cross = ((a0x - t1x) * d01z) - (d01x * (a0z - t1z));
+                signCross = INTSIGN_OF(cross);
+                if ((signa2y == 0) || (signCross == signa2y) || (signCross == 0)) {
+                    cross = ((a0x - t2x) * d12z) - (d12x * (a0z - t2z));
+                    signCross = INTSIGN_OF(cross);
+                    if ((signa2y == 0) || (signCross == signa2y) || (signCross == 0)) {
+                        cross = ((a0x - t0x) * d20z) - (d20x * (a0z - t0z));
+                        signCross = INTSIGN_OF(cross);
+                        if ((signa2y == 0) || (signCross == signa2y) || (signCross == 0)) {
+                            cross = ((a0y - t1y) * d01x) - (d01y * (a0x - t1x));
+                            signCross = INTSIGN_OF(cross);
+                            if ((signa2z == 0) || (signCross == signa2z) || (signCross == 0)) {
+                                cross = ((a0y - t2y) * d12x) - (d12y * (a0x - t2x));
+                                signCross = INTSIGN_OF(cross);
+                                if ((signa2z == 0) || (signCross == signa2z) || (signCross == 0)) {
+                                    cross = ((a0y - t0y) * d20x) - (d20y * (a0x - t0x));
+                                    signCross = INTSIGN_OF(cross);
+                                    if ((signa2z == 0) || (signCross == 0) || (signCross == signa2z)) {
+                                        var_v1 = 1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return var_v1;
+}
+
+// s32 func_80098980(Vec3f* out, Vec3s* (*tri)[3], Vec3f* vec);
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_97F80/func_80098980.s")
 
 s32 func_80099254(Vec3f* arg0, Vec3f* arg1, Vec3f* arg2, CollisionHeader* arg3, Vec3f* arg4, f32* arg5) {
     Vec3s* sp12C[3];

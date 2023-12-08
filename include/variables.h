@@ -631,7 +631,7 @@ extern u8 D_80281400[0xC00];
 extern FrameBuffer gZBuffer; // z buffer
 extern u8 D_802A7800;
 extern u8 D_802D7800;
-extern s32 D_80387800;
+extern u16 D_80387800;
 extern u16 D_8038F080[];
 extern u16 D_8038F300[];
 extern FrameBuffer gFrameBuffers[3]; // 8038F800
