@@ -867,7 +867,23 @@ s32 func_8007A774(UnkStruct_D_80178280* arg0, UnkStruct_8007A774* arg1, f32 arg2
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007A818.s")
+void func_8007A818(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 arg5, u8 arg6, u16 arg7) {
+    func_80061474(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = 0x167;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = posY;
+    arg0->obj.pos.z = posZ;
+    arg0->unk_6C = arg4;
+    arg0->unk_44 = arg5;
+    arg0->unk_46 = arg6;
+    arg0->unk_60.z = (Rand_ZeroOne() - 0.5f) * 10.0f;
+    arg0->unk_60.y = arg4 * 0.1f;
+    if (arg7 != 0) {
+        arg0->unk_54 = (Rand_ZeroOne() - 0.5f) * 30.0f;
+    }
+    func_800612B8(&arg0->unk_1C, arg0->obj.id);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007A900.s")
 
