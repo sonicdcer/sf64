@@ -179,6 +179,7 @@ void func_80042FD0(Object_408 *);
 void func_80042FDC(Object_408*);
 void func_80042FE8(Object_408*);
 void func_800444BC(UnkStruct_D_80178280 *);
+void func_800515C4(void);
 
 // sf_496E0
 void func_8004F8AC(Object_2F4*);

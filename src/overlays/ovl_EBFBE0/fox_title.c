@@ -19,10 +19,10 @@ s32 pad_D_EBFBE0_801AD9F0[4] = { 0, 0, 0, 0 };
 
 //! TODO: Symbols for segmented addresses
 Animation D_EBFBE0_801ADA00[4] = {
-    { 0x0602F8E0, 0x06035024, 0x0602FBAC },
-    { 0x060305C0, 0x060338DC, 0x0603088C },
-    { 0x06031DB8, 0x0603531C, 0x06032084 },
-    { 0x06031120, 0x06036278, 0x060313AC },
+    { (AnimationHeader*) 0x0602F8E0, (AnimationHeader*) 0x06035024, (SkelAnime*) 0x0602FBAC },
+    { (AnimationHeader*) 0x060305C0, (AnimationHeader*) 0x060338DC, (SkelAnime*) 0x0603088C },
+    { (AnimationHeader*) 0x06031DB8, (AnimationHeader*) 0x0603531C, (SkelAnime*) 0x06032084 },
+    { (AnimationHeader*) 0x06031120, (AnimationHeader*) 0x06036278, (SkelAnime*) 0x060313AC },
 };
 
 u16* D_EBFBE0_801ADA30[5] = {
@@ -1249,7 +1249,7 @@ void func_EBFBE0_8018A644(void) {
 
             if (D_EBFBE0_801B7BEC == 795) {
                 func_8001A838(0x49000014);
-                func_8001A55C(&D_EBFBE0_801B84D8, 0x0140001C);
+                func_8001A55C(&D_EBFBE0_801B84D8.x, 0x0140001C);
 
                 D_EBFBE0_801B82C0 = 0;
 
@@ -2033,7 +2033,7 @@ void func_EBFBE0_8018CC30(UnkStruct_D_EBFBE0_801B8294* arg0, s32 arg1, f32 arg2)
             var_a3 = 2;
         }
 
-        func_EBFBE0_8018CD9C(&pos, &arg0[D_EBFBE0_801B8298], D_EBFBE0_801B828C, var_a3);
+        func_EBFBE0_8018CD9C(&pos[0], &arg0[D_EBFBE0_801B8298], D_EBFBE0_801B828C, var_a3);
         D_80177978 = pos[0].x;
         D_80177980 = pos[0].y;
         D_80177988 = pos[0].z;
@@ -2450,8 +2450,8 @@ void func_EBFBE0_8018E67C(s32 arg0) {
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     }
 
-    Animation_GetFrameData(D_EBFBE0_801ADA00[arg0].unk_0, sp5C, &sp60);
-    Animation_DrawSkeleton(0, D_EBFBE0_801ADA00[arg0].skelanime, &sp60, NULL, NULL, NULL, &gIdentityMatrix);
+    Animation_GetFrameData(D_EBFBE0_801ADA00[arg0].unk_0, sp5C, sp60);
+    Animation_DrawSkeleton(0, D_EBFBE0_801ADA00[arg0].skelanime, sp60, NULL, NULL, NULL, &gIdentityMatrix);
 
     if (arg0 == 2) {
         gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -2515,7 +2515,7 @@ void func_EBFBE0_8018EA78(s32 arg0) {
     Matrix_SetGfxMtx(&gMasterDisp);
 
     Math_SmoothStepToVec3fArray(sp48, D_EBFBE0_801B86E0[arg0], 1,
-                                Animation_GetFrameData(D_EBFBE0_801ADA00[arg0].unk_4, sp44, &sp48), 0.2f, 100.0f,
+                                Animation_GetFrameData(D_EBFBE0_801ADA00[arg0].unk_4, sp44, sp48), 0.2f, 100.0f,
                                 0.0001f);
     Animation_DrawSkeleton(1, D_EBFBE0_801ADA00[arg0].skelanime, D_EBFBE0_801B86E0[arg0], func_EBFBE0_8018EDC8, NULL,
                            &arg0, &gIdentityMatrix);
@@ -3350,7 +3350,7 @@ void func_EBFBE0_801918FC(void) {
 }
 
 void func_EBFBE0_801919C4(u16** arg0, s32 arg1) {
-    D_80178720 = (s32) arg0;
+    D_80178720 = arg0;
     D_80178724 = 0;
     D_80178308 = arg0[D_80178724];
     D_80177D68 = arg1;

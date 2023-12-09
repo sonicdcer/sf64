@@ -213,7 +213,7 @@ void Graphics_SetTask(void) {
     gGfxTask->task.t.ucode_size = SP_UCODE_SIZE;
     gGfxTask->task.t.ucode_data = (u64*) &gF3dexData;
     gGfxTask->task.t.ucode_data_size = SP_UCODE_DATA_SIZE;
-    gGfxTask->task.t.dram_stack = &D_80281000;
+    gGfxTask->task.t.dram_stack = D_80281000;
     gGfxTask->task.t.dram_stack_size = SP_DRAM_STACK_SIZE8;
     gGfxTask->task.t.output_buff = (u64*) &D_802A7800;
     gGfxTask->task.t.output_buff_size = (u64*) &D_802D7800;
