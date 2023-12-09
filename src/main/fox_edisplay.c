@@ -1,5 +1,12 @@
 #include "global.h"
 
+Vec3f D_801615D0;
+Vec3f D_801615E0;
+s32 D_801615EC;
+Matrix D_801615F0;
+UnkStruct_D_80161630 D_80161630;
+s32 D_80161670[4];
+
 char D_800CF970[] = "$Id: fox_edisplay.c,v 1.196 1997/05/08 08:31:50 morita Exp $";
 
 void func_800596C0(void) {
@@ -937,7 +944,7 @@ void func_8005D654(Object_80* arg0, s32 arg1) {
             if (arg1 < 0) {
                 func_800596C0();
             }
-            gSPDisplayList(gMasterDisp++, arg0->unk_1C.draw);
+            gSPDisplayList(gMasterDisp++, arg0->unk_1C.dList);
             RCP_SetupDL_29(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
         } else {
             if (arg0->obj.id == 8) {
@@ -950,7 +957,7 @@ void func_8005D654(Object_80* arg0, s32 arg1) {
             if (arg1 < 0) {
                 func_800596C0();
             }
-            gSPDisplayList(gMasterDisp++, arg0->unk_1C.draw);
+            gSPDisplayList(gMasterDisp++, arg0->unk_1C.dList);
             if (arg0->obj.id == 8) {
                 RCP_SetupDL_29(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
             }
@@ -967,7 +974,7 @@ void func_8005D8B8(Object_4C* arg0, s32 arg1) {
         func_8005D008(&arg0->obj, 0);
         arg0->obj.pos.y -= D_8017847C;
         if (arg0->unk_1C.drawType == 0) {
-            gSPDisplayList(gMasterDisp++, arg0->unk_1C.draw);
+            gSPDisplayList(gMasterDisp++, arg0->unk_1C.dList);
         } else if (arg0->unk_1C.draw != NULL) {
             arg0->unk_1C.draw(&arg0->obj);
         }
@@ -1000,7 +1007,7 @@ void func_8005D954(Object_2F4* arg0) {
                 func_8005D008(&arg0->obj, arg0->unk_01C.drawType);
             }
             if (arg0->unk_01C.drawType == 0) {
-                gSPDisplayList(gMasterDisp++, arg0->unk_01C.draw);
+                gSPDisplayList(gMasterDisp++, arg0->unk_01C.dList);
                 func_8005F1EC(&arg0->unk_100);
             } else {
                 arg0->unk_01C.draw(&arg0->obj);
@@ -1251,7 +1258,7 @@ void func_8005E7B8(Object_6C* arg0, s32 arg1) {
             Matrix_RotateZ(gGfxMatrix, arg0->obj.rot.z * M_DTOR, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             if (arg0->unk_1C.drawType == 0) {
-                gSPDisplayList(gMasterDisp++, arg0->unk_1C.draw);
+                gSPDisplayList(gMasterDisp++, arg0->unk_1C.dList);
             } else {
                 arg0->unk_1C.draw(&arg0->obj);
             }
@@ -1450,7 +1457,7 @@ void func_8005F2F4(Object_58* arg0) {
         } else {
             Matrix_RotateY(gGfxMatrix, arg0->obj.rot.y * M_DTOR, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, arg0->unk_1C.draw);
+            gSPDisplayList(gMasterDisp++, arg0->unk_1C.dList);
         }
     }
 }

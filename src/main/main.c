@@ -242,7 +242,7 @@ void Graphics_InitializeTask(u32 frameCount) {
     gGfxMatrix = &sGfxMatrixStack[0];
     gCalcMatrix = &sCalcMatrixStack[0];
 
-    D_80178710 = &D_80178580;
+    D_80178710 = &D_80178580[0];
 }
 
 void Main_SetVIMode(void) {

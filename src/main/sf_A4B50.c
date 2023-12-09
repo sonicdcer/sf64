@@ -336,7 +336,7 @@ void func_800A5338(void) {
             var_s0->obj.rot.y = D_80178310[j].unk_C;
             func_800612B8(&var_s0->unk_1C, var_s0->obj.id);
             if (var_s0->obj.id == 1) {
-                var_s0->unk_1C.drawGfx = D_6020760;
+                var_s0->unk_1C.dList = D_6020760;
             }
             var_s0++;
         }
@@ -1221,15 +1221,15 @@ bool func_800A8054(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
             var_s0 = 1;
             break;
         case 0x78:
-            var_s0 = 0x12;
+            var_s0 = 18;
             var_v0 = true;
             break;
         case 0x7C:
-            var_s0 = 0xF;
+            var_s0 = 15;
             var_v0 = true;
             break;
         case 0x7E:
-            var_s0 = 0x10;
+            var_s0 = 16;
             var_v0 = true;
             break;
         case 0x2F:
@@ -1246,7 +1246,7 @@ bool func_800A8054(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
             var_v0 = true;
             break;
         case 0x8F:
-            var_s0 = 0x11;
+            var_s0 = 17;
             var_v0 = true;
             break;
         case 0x8C:
@@ -1258,7 +1258,7 @@ bool func_800A8054(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
             var_v0 = true;
             break;
         case 0x75:
-            var_s0 = 0xE;
+            var_s0 = 14;
             var_v0 = true;
             break;
         case 0x46:
@@ -1270,19 +1270,19 @@ bool func_800A8054(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
             var_v0 = true;
             break;
         case 0x47:
-            var_s0 = 0xA;
+            var_s0 = 10;
             var_v0 = true;
             break;
         case 0x49:
-            var_s0 = 0xB;
+            var_s0 = 11;
             var_v0 = true;
             break;
         case 0x43:
-            var_s0 = 0xC;
+            var_s0 = 12;
             var_v0 = true;
             break;
         case 0x4A:
-            var_s0 = 0xD;
+            var_s0 = 13;
             var_v0 = true;
             break;
         case 0x76:

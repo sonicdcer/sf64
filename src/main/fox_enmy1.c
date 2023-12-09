@@ -1,5 +1,8 @@
 #include "global.h"
 
+s32 D_80161680;
+u8 D_80161684;
+
 ObjectInit* D_800CFDA0[] = {
     0x060371A4, 0x06026CC4, 0x0602A164, 0x06023F64, 0x060287A4, 0x0602E4F4, 0x06007E74,
     0x0601F234, 0x06026714, 0x0C035154, 0x06006AA4, 0x06031000, 0x06006C60, 0x0602E5C8,
@@ -707,23 +710,23 @@ s32 func_8006326C(Vec3f* arg0, Vec3f* arg1, s32 arg2, Object* arg3) {
         sp50.x = arg3->pos.x;
         sp50.y = arg3->pos.y;
         sp50.z = arg3->pos.z;
-        if ((arg2 == 0xB4) || (arg2 == 0x95) || (arg2 == 0x96) || (arg2 == 0x134) || (arg2 == 0x139) ||
-            (arg2 == 0x138) || (arg2 == 0x135) || (arg2 == 0x27)) {
+        if ((arg2 == 180) || (arg2 == 149) || (arg2 == 150) || (arg2 == 308) || (arg2 == 313) || (arg2 == 312) ||
+            (arg2 == 309) || (arg2 == 39)) {
             var_s1 = 0;
-            if (arg2 == 0x138) {
+            if (arg2 == 312) {
                 var_s1 = 9;
             }
-            if (arg2 == 0x27) {
+            if (arg2 == 39) {
                 var_s1 = 1;
-            } else if (arg2 == 0x134) {
+            } else if (arg2 == 308) {
                 var_s1 = 4;
-            } else if (arg2 == 0x135) {
+            } else if (arg2 == 309) {
                 var_s1 = 7;
-            } else if (arg2 == 0x95) {
+            } else if (arg2 == 149) {
                 var_s1 = 5;
-            } else if (arg2 == 0x96) {
+            } else if (arg2 == 150) {
                 var_s1 = 6;
-            } else if (arg2 == 0x139) {
+            } else if (arg2 == 313) {
                 var_s1 = 8;
             }
             if (func_800998FC(&sp5C, &sp50, arg1, var_s1, &sp44, &sp30) > 0) {
@@ -737,14 +740,14 @@ s32 func_8006326C(Vec3f* arg0, Vec3f* arg1, s32 arg2, Object* arg3) {
             if (arg2 == 3) {
                 var_s1 = 3;
             }
-            if (arg2 == 0x8C) {
+            if (arg2 == 140) {
                 var_s1 = 4;
             }
-            if (arg2 == 0x8D) {
+            if (arg2 == 141) {
                 var_s1 = 6;
             }
-            if (arg2 == 0x75) {
-                var_s1 = 0xE;
+            if (arg2 == 117) {
+                var_s1 = 14;
             } else if ((arg2 == 4) || (arg2 == 5)) {
                 var_s1 = 1;
             }
