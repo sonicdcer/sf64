@@ -1048,8 +1048,8 @@ void func_EBFBE0_8018994C(void) {
             }
 
             if (D_80178340 == 255) {
-                func_8001A55C((f32*) &D_EBFBE0_801B867C, 0x11030010);
-                func_8001A55C((f32*) &D_EBFBE0_801B867C, 0x31024059);
+                func_8001A55C(&D_EBFBE0_801B867C, 0x11030010);
+                func_8001A55C(&D_EBFBE0_801B867C, 0x31024059);
 
                 D_EBFBE0_801B82C0 = 0;
 
@@ -1249,7 +1249,7 @@ void func_EBFBE0_8018A644(void) {
 
             if (D_EBFBE0_801B7BEC == 795) {
                 func_8001A838(0x49000014);
-                func_8001A55C(&D_EBFBE0_801B84D8.x, 0x0140001C);
+                func_8001A55C(&D_EBFBE0_801B84D8, 0x0140001C);
 
                 D_EBFBE0_801B82C0 = 0;
 
@@ -1388,8 +1388,8 @@ void func_EBFBE0_8018ACEC(void) {
             }
 
             if (D_80178340 == 255) {
-                func_8001A55C(&D_EBFBE0_801B867C.x, 0x11030010);
-                func_8001A55C(&D_EBFBE0_801B867C.x, 0x31024059);
+                func_8001A55C(&D_EBFBE0_801B867C, 0x11030010);
+                func_8001A55C(&D_EBFBE0_801B867C, 0x31024059);
 
                 D_80177898 = 0;
 
@@ -1583,7 +1583,7 @@ void func_EBFBE0_8018B5C4(void) {
                                                  100.0f, 0.01f);
                     D_EBFBE0_801B84E8[i].unk_10 *= 1.04f;
                     if (temp[i] == 0.0f) {
-                        func_8001A55C((f32*) &D_EBFBE0_801B84E8[i].unk_50, 0x1950107A);
+                        func_8001A55C(&D_EBFBE0_801B84E8[i].unk_50, 0x1950107A);
                     }
                 }
             }
@@ -1702,7 +1702,7 @@ void func_EBFBE0_8018B5C4(void) {
 
         case 3:
             if (D_EBFBE0_801B82A8 == 0) {
-                func_8001A55C((f32*) &D_EBFBE0_801B84E8[3].unk_50, 0x0100001E);
+                func_8001A55C(&D_EBFBE0_801B84E8[3].unk_50, 0x0100001E);
                 func_80019218(0x09000002, &D_EBFBE0_801B84E8[3].unk_50, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 
                 D_EBFBE0_801B82A8 = 4;
@@ -1958,8 +1958,8 @@ void func_EBFBE0_8018C644(void) {
             }
 
             if (D_80178340 == 0xFF) {
-                func_8001A55C(&D_EBFBE0_801B867C.x, 0x11030010);
-                func_8001A55C(&D_EBFBE0_801B867C.x, 0x31024059);
+                func_8001A55C(&D_EBFBE0_801B867C, 0x11030010);
+                func_8001A55C(&D_EBFBE0_801B867C, 0x31024059);
                 D_EBFBE0_801B82C0++;
             }
             func_EBFBE0_801912A0();

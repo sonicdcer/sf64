@@ -19,6 +19,7 @@ Matrix sGfxMatrixStack[0x20];
 Matrix* gCalcMatrix;
 Matrix sCalcMatrixStack[0x20];
 
+// Copies src Matrix into dst
 void Matrix_Copy(Matrix* dst, Matrix* src) {
     dst->m[0][0] = src->m[0][0];
     dst->m[0][1] = src->m[0][1];
@@ -36,29 +37,15 @@ void Matrix_Copy(Matrix* dst, Matrix* src) {
     dst->m[3][1] = src->m[3][1];
     dst->m[3][2] = src->m[3][2];
     dst->m[3][3] = src->m[3][3];
-    // dst->xx = src->xx;
-    // dst->yx = src->yx;
-    // dst->zx = src->zx;
-    // dst->wx = src->wx;
-    // dst->xy = src->xy;
-    // dst->yy = src->yy;
-    // dst->zy = src->zy;
-    // dst->wy = src->wy;
-    // dst->xz = src->xz;
-    // dst->yz = src->yz;
-    // dst->zz = src->zz;
-    // dst->wz = src->wz;
-    // dst->xw = src->xw;
-    // dst->yw = src->yw;
-    // dst->zw = src->zw;
-    // dst->ww = src->ww;
 }
 
+// Makes a copy of the stack's current matrix and puts it on the top of the stack
 void Matrix_Push(Matrix** mtxStack) {
     Matrix_Copy(*mtxStack + 1, *mtxStack);
     *mtxStack += 1;
 }
 
+// Removes the top matrix of the stack
 void Matrix_Pop(Matrix** mtxStack) {
     *mtxStack -= 1;
 }
@@ -385,75 +372,76 @@ void Matrix_RotateAxis(Matrix* mtx, f32 angle, f32 axisX, f32 axisY, f32 axisZ, 
     }
 }
 
+// Converts the current Gfx matrix to a Mtx
 void Matrix_ToMtx(Mtx* dest) {
     s32 temp;
-    u16* m1 = (u16*) &dest->m[0][0];
-    u16* m2 = (u16*) &dest->m[2][0];
+    u16* iPart = (u16*) &dest->m[0][0];
+    u16* fpart = (u16*) &dest->m[2][0];
     Matrix* src = gGfxMatrix;
 
-    temp = src->xx * 0x10000;
-    m1[0] = (temp >> 0x10);
-    m2[0] = temp & 0xFFFF;
+    temp = src->m[0][0] * 0x10000;
+    iPart[0] = (temp >> 0x10);
+    fpart[0] = temp & 0xFFFF;
 
-    temp = src->yx * 0x10000;
-    m1[1] = (temp >> 0x10);
-    m2[1] = temp & 0xFFFF;
+    temp = src->m[0][1] * 0x10000;
+    iPart[1] = (temp >> 0x10);
+    fpart[1] = temp & 0xFFFF;
 
-    temp = src->zx * 0x10000;
-    m1[2] = (temp >> 0x10);
-    m2[2] = temp & 0xFFFF;
+    temp = src->m[0][2] * 0x10000;
+    iPart[2] = (temp >> 0x10);
+    fpart[2] = temp & 0xFFFF;
 
-    temp = src->wx * 0x10000;
-    m1[3] = (temp >> 0x10);
-    m2[3] = temp & 0xFFFF;
+    temp = src->m[0][3] * 0x10000;
+    iPart[3] = (temp >> 0x10);
+    fpart[3] = temp & 0xFFFF;
 
-    temp = src->xy * 0x10000;
-    m1[4] = (temp >> 0x10);
-    m2[4] = temp & 0xFFFF;
+    temp = src->m[1][0] * 0x10000;
+    iPart[4] = (temp >> 0x10);
+    fpart[4] = temp & 0xFFFF;
 
-    temp = src->yy * 0x10000;
-    m1[5] = (temp >> 0x10);
-    m2[5] = temp & 0xFFFF;
+    temp = src->m[1][1] * 0x10000;
+    iPart[5] = (temp >> 0x10);
+    fpart[5] = temp & 0xFFFF;
 
-    temp = src->zy * 0x10000;
-    m1[6] = (temp >> 0x10);
-    m2[6] = temp & 0xFFFF;
+    temp = src->m[1][2] * 0x10000;
+    iPart[6] = (temp >> 0x10);
+    fpart[6] = temp & 0xFFFF;
 
-    temp = src->wy * 0x10000;
-    m1[7] = (temp >> 0x10);
-    m2[7] = temp & 0xFFFF;
+    temp = src->m[1][3] * 0x10000;
+    iPart[7] = (temp >> 0x10);
+    fpart[7] = temp & 0xFFFF;
 
-    temp = src->xz * 0x10000;
-    m1[8] = (temp >> 0x10);
-    m2[8] = temp & 0xFFFF;
+    temp = src->m[2][0] * 0x10000;
+    iPart[8] = (temp >> 0x10);
+    fpart[8] = temp & 0xFFFF;
 
-    temp = src->yz * 0x10000;
-    m1[9] = (temp >> 0x10);
-    m2[9] = temp & 0xFFFF;
+    temp = src->m[2][1] * 0x10000;
+    iPart[9] = (temp >> 0x10);
+    fpart[9] = temp & 0xFFFF;
 
-    temp = src->zz * 0x10000;
-    m1[10] = (temp >> 0x10);
-    m2[10] = temp & 0xFFFF;
+    temp = src->m[2][2] * 0x10000;
+    iPart[10] = (temp >> 0x10);
+    fpart[10] = temp & 0xFFFF;
 
-    temp = src->wz * 0x10000;
-    m1[11] = (temp >> 0x10);
-    m2[11] = temp & 0xFFFF;
+    temp = src->m[2][3] * 0x10000;
+    iPart[11] = (temp >> 0x10);
+    fpart[11] = temp & 0xFFFF;
 
-    temp = src->xw * 0x10000;
-    m1[12] = (temp >> 0x10);
-    m2[12] = temp & 0xFFFF;
+    temp = src->m[3][0] * 0x10000;
+    iPart[12] = (temp >> 0x10);
+    fpart[12] = temp & 0xFFFF;
 
-    temp = src->yw * 0x10000;
-    m1[13] = (temp >> 0x10);
-    m2[13] = temp & 0xFFFF;
+    temp = src->m[3][1] * 0x10000;
+    iPart[13] = (temp >> 0x10);
+    fpart[13] = temp & 0xFFFF;
 
-    temp = src->zw * 0x10000;
-    m1[14] = (temp >> 0x10);
-    m2[14] = temp & 0xFFFF;
+    temp = src->m[3][2] * 0x10000;
+    iPart[14] = (temp >> 0x10);
+    fpart[14] = temp & 0xFFFF;
 
-    temp = src->ww * 0x10000;
-    m1[15] = (temp >> 0x10);
-    m2[15] = temp & 0xFFFF;
+    temp = src->m[3][3] * 0x10000;
+    iPart[15] = (temp >> 0x10);
+    fpart[15] = temp & 0xFFFF;
 }
 
 void Matrix_FromMtx(Mtx* src, Matrix* dest) {
@@ -478,18 +466,21 @@ void Matrix_FromMtx(Mtx* src, Matrix* dest) {
     dest->ww = ((m1[15] << 0x10) | m2[15]) * (1 / 65536.0f);
 }
 
+// Applies the transform matrix mtx to the vector src, putting the result in dest
 void Matrix_MultVec3f(Matrix* mtx, Vec3f* src, Vec3f* dest) {
     dest->x = (mtx->m[0][0] * src->x) + (mtx->m[1][0] * src->y) + (mtx->m[2][0] * src->z) + mtx->m[3][0];
     dest->y = (mtx->m[0][1] * src->x) + (mtx->m[1][1] * src->y) + (mtx->m[2][1] * src->z) + mtx->m[3][1];
     dest->z = (mtx->m[0][2] * src->x) + (mtx->m[1][2] * src->y) + (mtx->m[2][2] * src->z) + mtx->m[3][2];
 }
 
+// Applies the linear part of the transformation matrix mtx to the vector src, ignoring any translation that mtx might have. Puts the result in dest.
 void Matrix_MultVec3fNoTranslate(Matrix* mtx, Vec3f* src, Vec3f* dest) {
     dest->x = (mtx->m[0][0] * src->x) + (mtx->m[1][0] * src->y) + (mtx->m[2][0] * src->z);
     dest->y = (mtx->m[0][1] * src->x) + (mtx->m[1][1] * src->y) + (mtx->m[2][1] * src->z);
     dest->z = (mtx->m[0][2] * src->x) + (mtx->m[1][2] * src->y) + (mtx->m[2][2] * src->z);
 }
 
+// Expresses the rotational part of the transform mtx as Tait-Bryan angles, in the yaw-pitch-roll (intrinsic YXZ) convention used in worldspace calculations
 void Matrix_GetYRPAngles(Matrix* mtx, Vec3f* rot) {
     Matrix invYP;
     Vec3f origin = { 0.0f, 0.0f, 0.0f };
@@ -518,6 +509,7 @@ void Matrix_GetYRPAngles(Matrix* mtx, Vec3f* rot) {
     rot->z = Math_Atan2F(xHat.y, xHat.x) * M_RTOD;
 }
 
+// Expresses the rotational part of the transform mtx as Tait-Bryan angles, in the extrinsic XYZ convention used in modelspace calculations
 void Matrix_GetXYZAngles(Matrix* mtx, Vec3f* rot) {
     Matrix invYZ;
     Vec3f origin = { 0.0f, 0.0f, 0.0f };
@@ -554,6 +546,7 @@ void Matrix_LookAt(Matrix* mtx, f32 xEye, f32 yEye, f32 zEye, f32 xAt, f32 yAt, 
     Matrix_Mult(mtx, &lookAt, mode);
 }
 
+// Converts the current Gfx matrix to a Mtx and sets it to the display list
 void Matrix_SetGfxMtx(Gfx** gfx) {
     Matrix_ToMtx(gGfxMtx);
     gSPMatrix((*gfx)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
