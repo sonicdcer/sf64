@@ -264,7 +264,7 @@
       
       - [0xCA690, data, sf_2EFE0]
       - [0xCA7C0, data, sf_36930]
-      - [0xCAA90, data, sf_43AC0]
+      - [0xCAA90, .data, sf_43AC0]
       - [0xCAB00, data, sf_43E80]
       - [0xCAB60, data, sf_496C0]
       - [0xCAE20, .data, fox_52730]
@@ -356,7 +356,7 @@
       # Game engine bss
       - { start: 0xDE480, type: bss, vram: 0x8015F900, name: sf_2EFE0 }
       - { start: 0xDE480, type: bss, vram: 0x8015F950, name: sf_36930 }
-      - { start: 0xDE480, type: bss, vram: 0x801613A0, name: sf_43AC0 }
+      - { start: 0xDE480, type: .bss, vram: 0x801613A0, name: sf_43AC0 }
       - { start: 0xDE480, type: .bss, vram: 0x801613B0, name: fox_52730 }
       - { start: 0xDE480, type: .bss, vram: 0x801615D0, name: fox_edisplay }
       - { start: 0xDE480, type: .bss, vram: 0x80161680, name: fox_enmy1 }

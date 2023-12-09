@@ -209,7 +209,8 @@ typedef struct {
 
 typedef struct UnkStruct_D_80178280 {
     /* 0x000 */ f32 unk_000;
-    /* 0x004 */ char pad4[8];
+    /* 0x004 */ f32 unk_004;
+    /* 0x008 */ char pad8[4];
     /* 0x00C */ f32 unk_00C;
     /* 0x010 */ char pad10[0x24];
     /* 0x034 */ f32 unk_034; 
