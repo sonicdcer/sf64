@@ -12,6 +12,8 @@ extern Gfx D_EBFBE0_801B50D8[];
 extern Gfx D_EBFBE0_801B5E78[];
 extern Gfx D_EBFBE0_801B57A8[];
 
+// #define IMPORT_DATA_PENDING
+
 #ifdef IMPORT_DATA_PENDING
 static f32 D_EBFBE0_801AE570[] = { 60.0f, 36.0f, 12.0f, -12.0f, -36.0f, -60.0f };
 static f32 D_EBFBE0_801AE588[] = { 124.0f, 118.0f, 145.0f, 125.0f, 133.0f, 118.0f };
