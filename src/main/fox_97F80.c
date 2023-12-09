@@ -459,9 +459,6 @@ s32 func_80098980(Vec3f* out, Vec3s** tri, Vec3f* vec) {
     return var_v1;
 }
 
-// s32 func_80098980(Vec3f* out, Vec3s* (*tri)[3], Vec3f* vec);
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_97F80/func_80098980.s")
-
 s32 func_80099254(Vec3f* arg0, Vec3f* arg1, Vec3f* arg2, CollisionHeader* arg3, Vec3f* arg4, f32* arg5) {
     Vec3s* sp12C[3];
     Vec3f temp_V3f1;
