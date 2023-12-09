@@ -43,11 +43,17 @@ typedef struct {
 
 typedef struct {
     /* 0x00 */ Object obj;
-    /* 0x1C */ char pad1C[0x1C];
+    /* 0x1C */ s32 pad1C;
+    /* 0x20 */ Vec3f unk_20;
+    /* 0x2C */ char pad2C[0xC];
     /* 0x38 */ Vec3f unk_38;
-    /* 0x44 */ char pad44[0x1C];
+    /* 0x44 */ char pad44[0x14];
+    /* 0x58 */ s32 unk_58;
+    /* 0x5C */ char pad5C[4];
     /* 0x60 */ s32 unk_60;
-    /* 0x64 */ char pad64[0xC];
+    /* 0x64 */ s32 unk_64;
+    /* 0x68 */ s32 unk_68;
+    /* 0x6C */ char pad6C[4];
 } Object_70; // size = 0x70
 
 typedef struct {
@@ -65,7 +71,10 @@ typedef struct {
     /* 0x44 */ s32 unk_44;
     /* 0x48 */ s32 unk_48;
     /* 0x4C */ s32 unk_4C;
-    /* 0x50 */ char pad50[0x10];
+    /* 0x50 */ u8 unk_50;
+    /* 0x51 */ char pad51[3];
+    /* 0x54 */ s32 unk_54;
+    /* 0x58 */ char pad58[8];
     /* 0x60 */ f32 unk_60;
     /* 0x64 */ Vec3f unk_64;
     /* 0x70 */ Vec3f unk_70;
@@ -115,7 +124,10 @@ typedef struct {
     /* 0x60 */ Vec3f unk_60;
     /* 0x6C */ f32 unk_6C;
     /* 0x70 */ f32 unk_70;
-    /* 0x74 */ char pad74[0xC];
+    /* 0x74 */ Gfx* unk_74;
+    /* 0x78 */ s16 unk_78;
+    /* 0x7A */ s16 unk_7A;
+    /* 0x7C */ char pad7C[4];
     /* 0x80 */ Vec3f unk_80;
 } Object_8C; // size 0x8C
 
@@ -135,29 +147,50 @@ typedef struct {
     /* 0x05E */ u8 unk_05E;
     /* 0x05F */ char pad5F[3];
     /* 0x062 */ s8 unk_062;
-    /* 0x063 */ char pad63[5];
+    /* 0x063 */ char pad63[1];
+    /* 0x064 */ s16 unk_064;
+    /* 0x066 */ s16 unk_066;
     /* 0x068 */ f32 unk_068;
     /* 0x06C */ f32 unk_06C;
     /* 0x070 */ f32 unk_070;       
     /* 0x074 */ f32 unk_074;       
     /* 0x078 */ char pad78[0xC]; 
     /* 0x084 */ f32 unk_084;       
-    /* 0x088 */ char pad88[0x1E];
+    /* 0x088 */ s16 unk_088;
+    /* 0x08A */ s16 unk_08A;
+    /* 0x08C */ char pad8C[6];
+    /* 0x092 */ u16 unk_092;
+    /* 0x094 */ char pad94[0x12];
     /* 0x0A6 */ s16 unk_0A6;
-    /* 0x0A8 */ char padA8[0x1E];
+    /* 0x0A8 */ char padA8[6];
+    /* 0x0AE */ s16 unk_0AE;
+    /* 0x0B0 */ char padB0[0x16];
     /* 0x0C6 */ u16 unk_0C6;
     /* 0x0C8 */ char padC8[1];
     /* 0x0C9 */ u8 unk_0C9;
     /* 0x0CA */ char padCA[6];
     /* 0x0D0 */ s16 unk_0D0;
-    /* 0x0D2 */ char padD2[0xA];
+    /* 0x0D2 */ char padD2[4];
+    /* 0x0D6 */ s16 unk_0D6;
+    /* 0x0D8 */ char padD8[4];
     /* 0x0DC */ f32 unk_0DC;
     /* 0x0E0 */ f32 unk_0E0;
     /* 0x0E4 */ f32 unk_0E4;
-    /* 0x0E8 */ char padE8[0x28];
+    /* 0x0E8 */ f32 unk_0E8;
+    /* 0x0EC */ f32 unk_0EC;
+    /* 0x0F0 */ f32 unk_0F0;
+    /* 0x0F4 */ f32 unk_0F4;
+    /* 0x0F8 */ f32 unk_0F8;
+    /* 0x0FC */ f32 unk_0FC;
+    /* 0x100 */ Vec3f unk_100;
+    /* 0x10C */ char pad10C[4];
     /* 0x110 */ f32 unk_110;
     /* 0x114 */ f32 unk_114;
-    /* 0x118 */ char pad118[0x1F0];
+    /* 0x118 */ char pad118[0x7C];
+    /* 0x194 */ f32 unk_194;
+    /* 0x198 */ f32 unk_198;
+    /* 0x19C */ f32 unk_19C;
+    /* 0x1A0 */ char pad1A0[0x168];
     /* 0x308 */ Vec3f unk_308;
     /* 0x314 */ char pad314[0xE4];
     /* 0x3F8 */ f32 unk_3F8;

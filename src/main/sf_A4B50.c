@@ -921,7 +921,7 @@ void func_800A729C(UnkStruct_D_80178280* arg0, u32 arg1, f32 arg2, f32 arg3) {
     switch (arg1) {
         case 1:
         case 2:
-            arg0->unk_074 = arg0->unk_090;
+            arg0->unk_074 = arg0->unk_08C.y;
             arg0->unk_0D8.x = 0.0f;
             arg0->unk_074 += D_800D2FEC[arg0->unk_21C];
             if (arg0->unk_1CC == 1) {

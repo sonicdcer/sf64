@@ -776,6 +776,20 @@ void func_8006D350(Object_80 *arg0) {
     arg0->obj.rot.z += 1.0f;
 }
 
+void func_8007240C(f32, f32, f32, f32);
+void func_8006D36C(Object_2F4 *);
+void func_8006EA50(Object_2F4 *);
+void func_8006F40C(Object_2F4 *);
+void func_8006FE28(Object_2F4 *);
+void func_8006FEEC(Object_2F4 *);
+void func_800701E0(Object_2F4 *);
+void func_80070BA8(Object_2F4 *);
+void func_80070CEC(Object_2F4 *);
+void func_80070D44(Object_2F4 *);
+void func_80071DC0(Object_2F4 *);
+void func_800720E8(Object_2F4 *);
+void func_80072474(Object_2F4 *); 
+
 #ifdef NON_MATCHING
 void func_8006D36C(Object_2F4 *arg0) {
     u16** var_v1;
@@ -784,8 +798,10 @@ void func_8006D36C(Object_2F4 *arg0) {
     u16* test;
     s32 i;
     s32 j;
+    volatile unsigned int new_var;
 
     while(true) {
+        new_var = (uintptr_t) D_602F3AC;
         switch (D_80178234) {
             case 9:
                 var_v1 = SEGMENTED_TO_VIRTUAL(D_C037E3C);
@@ -794,7 +810,7 @@ void func_8006D36C(Object_2F4 *arg0) {
                 var_v1 = SEGMENTED_TO_VIRTUAL(D_603D9E8);
                 break;
             case 1:
-                var_v1 = SEGMENTED_TO_VIRTUAL(D_602F3AC);
+                var_v1 = SEGMENTED_TO_VIRTUAL(new_var);
                 break;
             case 13:
                 var_v1 = SEGMENTED_TO_VIRTUAL(D_60308B8);
@@ -1249,31 +1265,187 @@ void func_8006D36C(Object_2F4 *arg0);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_8006D36C.s")
 #endif
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_8006EA50.s")
+void func_8006EA50(Object_2F4 *arg0) {
+    if ((arg0->unk_06C != 0) && (D_80174750[arg0->unk_070].unk_00 != 0)) {
+        D_80174750[arg0->unk_070].unk_10 = arg0->obj.pos.x;
+        D_80174750[arg0->unk_070].unk_14 = arg0->obj.pos.y;
+        D_80174750[arg0->unk_070].unk_18 = arg0->obj.pos.z;
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_8006EAC4.s")
+void func_8006EAC4(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3) {
+    Object_8C_Initialize(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = 374;
+    arg0->obj.pos.x = arg1;
+    arg0->obj.pos.y = arg2;
+    arg0->obj.pos.z = arg3;
+    arg0->unk_50 = 20;
+    func_800612B8(&arg0->unk_1C, arg0->obj.id);
+    func_80019218(0x2900201DU, &arg0->unk_80, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_8006EB64.s")
+void func_8006EB64(f32 arg0, f32 arg1, f32 arg2) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_8006EBC0.s")
+    for(i = 50; i < ARRAY_COUNT(D_80170130); i++) {
+        if (D_80170130[i].obj.status == 0) {
+            func_8006EAC4(&D_80170130[i], arg0, arg1, arg2);
+            break;
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_8006EC60.s")
+void func_8006EBC0(Object_2F4 *arg0, f32 arg1, f32 arg2, f32 arg3) {
+    Object_2F4_Initialize(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = 225;
+    arg0->obj.pos.x = arg1;
+    arg0->obj.pos.y = arg2;
+    arg0->obj.pos.z = arg3;
+    func_800612B8(&arg0->unk_01C, arg0->obj.id);
+    arg0->unk_01C.unk_16 = 2;
+    func_80019218(0x2900201D, &arg0->unk_100, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_8006ECBC.s")
+void func_8006EC60(f32 arg0, f32 arg1, f32 arg2) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_8006EEFC.s")
+    for(i = 0; i < ARRAY_COUNT(D_80163FE0); i++) {
+        if (D_80163FE0[i].obj.status == 0) {
+            func_8006EBC0(&D_80163FE0[i], arg0, arg1, arg2);
+            break;
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_8006EFA0.s")
+void func_8006ECBC(s32 arg0, Object_70 *arg1, s32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9, f32 argA, f32 argB) {
+    func_80035E48(arg1);
+    arg1->obj.status = 1;
+    arg1->unk_20.z = arg8;
+    arg1->unk_20.x = arg6;
+    arg1->unk_20.y = arg7;
+    arg1->obj.pos.x = arg3;
+    arg1->obj.pos.y = arg4;
+    arg1->obj.pos.z = arg5;
+    arg1->obj.rot.x = arg9 + 180.0f;
+    arg1->obj.rot.y = argA;
+    arg1->obj.rot.z = -argB;
+    arg1->obj.id = arg0;
+    arg1->unk_58 = 1;
+    arg1->unk_60 = 0;
+    if(arg0 == 9)  {
+        arg1->unk_64 = 120;
+    } else {
+        arg1->unk_64 = 30;
+    }
+    arg1->unk_68 = arg2 + 100;
+    
+    if (D_80177880 == 1) {
+        if (arg2 + 100 < 104) {
+            func_80019218(0x2900000D, &arg1->unk_38, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        } else {
+            func_80019218(0x29002002, &arg1->unk_38, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        }
+    } else if ((arg2 < 60) && (D_80163FE0[arg2].obj.id == 200) && (D_80163FE0[arg2].unk_080 > 0)) {
+        func_80019218(0x2900000D, &arg1->unk_38, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    } else if (arg2 + 100 == 200) {
+        arg1->unk_68 = 100;
+        func_80019218(0x19030037, &arg1->unk_38, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    } else {
+        func_80019218(0x29002002, &arg1->unk_38, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_8006F044.s")
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_8006F0D8.s")
+void func_8006EEFC(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_8006F140.s")
+    for(i = 0; i < 10; i++) {
+        if (D_80174050[i].obj.status == 0) {
+            func_8006ECBC(1, &D_80174050[i], arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+            break;
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_8006F1EC.s")
+void func_8006EFA0(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_8006F254.s")
+    for(i = 0; i < 10; i++) {
+        if (D_80174050[i].obj.status == 0) {
+            func_8006ECBC(9, &D_80174050[i], arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+            break;
+        }
+    }
+}
+
+void func_8006F044(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+    Object_8C_Initialize(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = 347;
+    arg0->obj.pos.x = arg1;
+    arg0->obj.pos.y = arg2;
+    arg0->obj.pos.z = arg3;
+    arg0->unk_6C = arg4;
+    arg0->unk_44 = 100;
+    func_800612B8(&arg0->unk_1C,arg0->obj.id);
+    func_8007A6F0(&arg0->obj.pos, 0x2903B009);
+}
+
+void func_8006F0D8(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
+    s32 i;
+
+    for(i = 0; i < ARRAY_COUNT(D_80170130); i++) {
+        if (D_80170130[i].obj.status == 0) {
+            func_8006F044(&D_80170130[i], arg0, arg1, arg2, arg3);
+            break;
+        }
+    }
+}
+
+void func_8006F140(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+    Object_8C_Initialize(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = 394;
+    arg0->obj.pos.x = arg1;
+    arg0->obj.pos.y = arg2;
+    arg0->obj.pos.z = arg3;
+    arg0->unk_6C = arg4;
+    arg0->unk_44 = 100;
+    arg0->unk_78 = 102;
+    arg0->unk_7A = 18;
+    func_800612B8(&arg0->unk_1C,arg0->obj.id);
+    arg0->unk_1C.unk_18 = 40;
+    func_8007A6F0(&arg0->obj.pos, 0x2903B009);
+}
+
+void func_8006F1EC(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
+    s32 i;
+
+    for(i = 0; i < ARRAY_COUNT(D_80170130); i++) {
+        if (D_80170130[i].obj.status == 0) {
+            func_8006F140(&D_80170130[i], arg0, arg1, arg2, arg3);
+            break;
+        }
+    }
+}
+
+void func_8006F254(Object_2F4 *arg0) {
+    Vec3f sp54;
+    Vec3f sp48;
+
+    Matrix_RotateY(gCalcMatrix, arg0->unk_2E8.y * 0.017453292f, 0);
+    Matrix_RotateX(gCalcMatrix, arg0->unk_2E8.x * 0.017453292f, 1);
+    Matrix_RotateZ(gCalcMatrix, (arg0->unk_2E8.z + arg0->unk_0F4.z) * 0.017453292f, 1);
+    Matrix_RotateY(gCalcMatrix, arg0->unk_0F4.y * 0.017453292f, 1);
+    Matrix_RotateX(gCalcMatrix, arg0->unk_0F4.x * 0.017453292f, 1);
+    sp54.x = 0.0f;
+    sp54.y = 0.0f;
+    sp54.z = D_80177828;
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
+    func_8007F04C(353, arg0->obj.pos.x + sp48.x, arg0->obj.pos.y + sp48.y, arg0->obj.pos.z + sp48.z, arg0->obj.rot.x, arg0->obj.rot.y, arg0->obj.rot.z, arg0->unk_2E8.x, arg0->unk_2E8.y, arg0->unk_2E8.z + arg0->unk_0F4.z, sp48.x, sp48.y, sp48.z, 1.0f);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_8006F40C.s")
 
