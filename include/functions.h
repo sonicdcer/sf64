@@ -563,7 +563,7 @@ void func_E08400_80188A40(Object_408 *);
 void func_E08400_8018CCF8(Object_2F4 *);
 
 void func_E16C50_80187754(Object_408 *);
-void func_E16C50_801900FC(Vec3f *arg0, Vec3f *arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5, f32 arg6, s32 arg7, s32 arg8);
+void func_E16C50_801900FC(Vec3f*, Vec3f*, f32, f32, f32, s32, f32, s32, s32);
 void func_E16C50_80190F08(Object_2F4 *);
 void func_E16C50_801915A4(Object_2F4 *);
 void func_E16C50_80191BB8(Object_2F4 *);

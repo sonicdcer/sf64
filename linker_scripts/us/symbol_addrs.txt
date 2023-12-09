@@ -12,6 +12,7 @@ gZBuffer = 0x80282000;
 gFrameBuffers = 0x8038F800;
 gDmaTable = 0x80178A70; //size:0x5A0
 D_80178A70 = 0x80178A78; //ignore:true
+D_80151650 = 0x80151650; //ignore:true
 
 D_80161A18 = 0x80161A18;//size:0x10
 D_801615D0 = 0x801615D0;//size:0xC
