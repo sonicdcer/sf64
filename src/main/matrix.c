@@ -473,14 +473,16 @@ void Matrix_MultVec3f(Matrix* mtx, Vec3f* src, Vec3f* dest) {
     dest->z = (mtx->m[0][2] * src->x) + (mtx->m[1][2] * src->y) + (mtx->m[2][2] * src->z) + mtx->m[3][2];
 }
 
-// Applies the linear part of the transformation matrix mtx to the vector src, ignoring any translation that mtx might have. Puts the result in dest.
+// Applies the linear part of the transformation matrix mtx to the vector src, ignoring any translation that mtx might
+// have. Puts the result in dest.
 void Matrix_MultVec3fNoTranslate(Matrix* mtx, Vec3f* src, Vec3f* dest) {
     dest->x = (mtx->m[0][0] * src->x) + (mtx->m[1][0] * src->y) + (mtx->m[2][0] * src->z);
     dest->y = (mtx->m[0][1] * src->x) + (mtx->m[1][1] * src->y) + (mtx->m[2][1] * src->z);
     dest->z = (mtx->m[0][2] * src->x) + (mtx->m[1][2] * src->y) + (mtx->m[2][2] * src->z);
 }
 
-// Expresses the rotational part of the transform mtx as Tait-Bryan angles, in the yaw-pitch-roll (intrinsic YXZ) convention used in worldspace calculations
+// Expresses the rotational part of the transform mtx as Tait-Bryan angles, in the yaw-pitch-roll (intrinsic YXZ)
+// convention used in worldspace calculations
 void Matrix_GetYRPAngles(Matrix* mtx, Vec3f* rot) {
     Matrix invYP;
     Vec3f origin = { 0.0f, 0.0f, 0.0f };
@@ -509,7 +511,8 @@ void Matrix_GetYRPAngles(Matrix* mtx, Vec3f* rot) {
     rot->z = Math_Atan2F(xHat.y, xHat.x) * M_RTOD;
 }
 
-// Expresses the rotational part of the transform mtx as Tait-Bryan angles, in the extrinsic XYZ convention used in modelspace calculations
+// Expresses the rotational part of the transform mtx as Tait-Bryan angles, in the extrinsic XYZ convention used in
+// modelspace calculations
 void Matrix_GetXYZAngles(Matrix* mtx, Vec3f* rot) {
     Matrix invYZ;
     Vec3f origin = { 0.0f, 0.0f, 0.0f };

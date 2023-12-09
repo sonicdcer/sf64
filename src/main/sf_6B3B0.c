@@ -3,15 +3,15 @@
 typedef struct {
     /* 0x00 */ Gfx* unk_00;
     /* 0x04 */ f32* unk_04;
-    /* 0x08 */ f32 unk_08; 
-    /* 0x0C */ f32 unk_0C; 
+    /* 0x08 */ f32 unk_08;
+    /* 0x0C */ f32 unk_0C;
     /* 0x10 */ f32 unk_10;
-    /* 0x14 */ u8  unk_14; 
-    /* 0x15 */ u8  unk_15; 
-    /* 0x16 */ u8  unk_16; 
-    /* 0x17 */ u8  unk_17; 
+    /* 0x14 */ u8 unk_14;
+    /* 0x15 */ u8 unk_15;
+    /* 0x16 */ u8 unk_16;
+    /* 0x17 */ u8 unk_17;
     /* 0x18 */ f32 unk_18;
-    /* 0x1C */ u8  unk_1C; 
+    /* 0x1C */ u8 unk_1C;
 } UnkStruct_D003C; // size = 0x20
 
 extern s32 D_800CFF80[4];
@@ -48,18 +48,18 @@ extern u16* D_603D9E8[];
 extern u16* D_C037E3C[];
 
 #define GDL(dl) gSPDisplayList(gMasterDisp++, dl)
-#define GPC(r,g,b,a) gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, r, g, b, a)
-#define GEC(r,g,b,a) gDPSetEnvColor(gMasterDisp++, r, g, b, a)
+#define GPC(r, g, b, a) gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, r, g, b, a)
+#define GEC(r, g, b, a) gDPSetEnvColor(gMasterDisp++, r, g, b, a)
 
 void func_8007F11C(s32, f32, f32, f32, f32);
 
-void func_8006A7B0(u16 *arg0, s32 arg1) {
+void func_8006A7B0(u16* arg0, s32 arg1) {
     if ((D_8017829C == 0) || (D_80177D68 != arg1)) {
         func_800BA808(arg0, arg1);
     }
 }
 
-void func_8006A800(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+void func_8006A800(Object_8C* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     Object_8C_Initialize(arg0);
     arg0->obj.status = 1;
     arg0->obj.id = 361;
@@ -83,7 +83,7 @@ void func_8006A800(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
 void func_8006A900(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     s32 i;
 
-    for(i  = ARRAY_COUNT(D_80170130) - 1; i >= 0; i--) {
+    for (i = ARRAY_COUNT(D_80170130) - 1; i >= 0; i--) {
         if (D_80170130[i].obj.status == 0) {
             func_8006A800(&D_80170130[i], arg0, arg1, arg2, arg3);
             break;
@@ -91,15 +91,13 @@ void func_8006A900(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     }
 }
 
-void func_8006A96C(Object_2F4 *arg0) {
-
+void func_8006A96C(Object_2F4* arg0) {
 }
 
-void func_8006A978(Object_2F4 *arg0) {
-
+void func_8006A978(Object_2F4* arg0) {
 }
 
-void func_8006A984(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3) {
+void func_8006A984(Object_8C* arg0, f32 arg1, f32 arg2, f32 arg3) {
     Object_8C_Initialize(arg0);
     arg0->obj.status = 1;
     arg0->obj.id = 365;
@@ -117,7 +115,7 @@ void func_8006A984(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3) {
 void func_8006AA3C(f32 arg0, f32 arg1, f32 arg2) {
     s32 i;
 
-    for(i = 0; i < ARRAY_COUNT(D_80170130); i++) {
+    for (i = 0; i < ARRAY_COUNT(D_80170130); i++) {
         if (D_80170130[i].obj.status == 0) {
             func_8006A984(&D_80170130[i], arg0, arg1, arg2);
             break;
@@ -125,7 +123,7 @@ void func_8006AA3C(f32 arg0, f32 arg1, f32 arg2) {
     }
 }
 
-void func_8006AA98(Object_80 *arg0) {
+void func_8006AA98(Object_80* arg0) {
     Vec3f sp24;
     Vec3f sp18;
 
@@ -133,21 +131,22 @@ void func_8006AA98(Object_80 *arg0) {
     if ((D_80177DB0 % 4) == 0) {
         Matrix_RotateY(gCalcMatrix, arg0->obj.rot.y * 0.017453292f, 0);
         sp18.x = (Rand_ZeroOne() - 0.5f) * 700.0f;
-        sp18.y= Rand_ZeroOne() * 50.0f;
+        sp18.y = Rand_ZeroOne() * 50.0f;
         sp18.z = 700.0f;
-        Matrix_MultVec3fNoTranslate(gCalcMatrix,  &sp18, &sp24);
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp18, &sp24);
         func_8006AA3C(arg0->obj.pos.x + sp24.x, arg0->obj.pos.y + sp24.y + 50.0f, arg0->obj.pos.z + sp24.z);
     }
 }
 
-s32 func_8006ABA4(Object_2F4 *arg0) {
-    if ((fabsf(arg0->obj.pos.x - D_80178280[0].unk_074) < 700.0f) && (fabsf(arg0->obj.pos.y - D_80178280[0].unk_078) < 700.0f)) {
+s32 func_8006ABA4(Object_2F4* arg0) {
+    if ((fabsf(arg0->obj.pos.x - D_80178280[0].unk_074) < 700.0f) &&
+        (fabsf(arg0->obj.pos.y - D_80178280[0].unk_078) < 700.0f)) {
         return 1;
     }
     return 0;
 }
 
-void func_8006AC08(Object_2F4 *arg0) {
+void func_8006AC08(Object_2F4* arg0) {
     f32 sp2C;
 
     if ((func_8006ABA4(arg0) != 0) && (arg0->unk_0BC == 0)) {
@@ -155,16 +154,20 @@ void func_8006AC08(Object_2F4 *arg0) {
         arg0->unk_0BC = 20;
     }
     sp2C = arg0->obj.pos.z + D_80177D20;
-    arg0->obj.rot.y = Math_RadToDeg(Math_Atan2F(D_80178280[0].unk_040.x - arg0->obj.pos.x, D_80178280[0].unk_040.z - sp2C));
-    arg0->obj.rot.x = -Math_RadToDeg(Math_Atan2F(D_80178280[0].unk_040.y - arg0->obj.pos.y, sqrtf(SQ(D_80178280[0].unk_040.x - arg0->obj.pos.x) + SQ(D_80178280->unk_040.z - sp2C))));
+    arg0->obj.rot.y =
+        Math_RadToDeg(Math_Atan2F(D_80178280[0].unk_040.x - arg0->obj.pos.x, D_80178280[0].unk_040.z - sp2C));
+    arg0->obj.rot.x = -Math_RadToDeg(
+        Math_Atan2F(D_80178280[0].unk_040.y - arg0->obj.pos.y,
+                    sqrtf(SQ(D_80178280[0].unk_040.x - arg0->obj.pos.x) + SQ(D_80178280->unk_040.z - sp2C))));
 }
 
-void func_8006AD18(Object_2F4 *arg0) {
+void func_8006AD18(Object_2F4* arg0) {
     bool sp34;
 
     arg0->unk_10C = 1.5f;
     sp34 = false;
-    arg0->obj.rot.y = Math_RadToDeg(Math_Atan2F(D_80178280[D_801778A0].unk_074 - arg0->obj.pos.x, D_80178280[D_801778A0].unk_138 - arg0->obj.pos.z));
+    arg0->obj.rot.y = Math_RadToDeg(Math_Atan2F(D_80178280[D_801778A0].unk_074 - arg0->obj.pos.x,
+                                                D_80178280[D_801778A0].unk_138 - arg0->obj.pos.z));
     if (arg0->obj.pos.y < -500.0f) {
         arg0->obj.pos.y = -500.0f;
         arg0->unk_0E8.y = 0.0f;
@@ -184,7 +187,7 @@ void func_8006AD18(Object_2F4 *arg0) {
             }
             if (arg0->unk_0B6 == 0x15) {
                 arg0->unk_0B8 = 1;
-                
+
                 arg0->unk_0E8.y = 40.0f;
                 arg0->unk_0E8.z = -40.0f;
                 arg0->unk_0E8.x = 10.0f;
@@ -220,7 +223,8 @@ void func_8006AD18(Object_2F4 *arg0) {
         arg0->unk_0CE -= 10;
         if ((arg0->unk_0CE <= 0) || (arg0->unk_0D0 >= 2)) {
             func_8007D2C8(arg0->obj.pos.x, arg0->obj.pos.y + 180.0f, arg0->obj.pos.z, 10.0f);
-            func_8007BFFC(arg0->obj.pos.x, arg0->obj.pos.y + 180.0f, arg0->obj.pos.z, arg0->unk_0E8.x, arg0->unk_0E8.y, arg0->unk_0E8.z, 8.0f, 30);
+            func_8007BFFC(arg0->obj.pos.x, arg0->obj.pos.y + 180.0f, arg0->obj.pos.z, arg0->unk_0E8.x, arg0->unk_0E8.y,
+                          arg0->unk_0E8.z, 8.0f, 30);
             func_80060FBC(&arg0->obj, &arg0->unk_100);
             func_8007A6F0(&arg0->obj.pos, 0x2903A008);
             D_80161A98 += arg0->unk_01C.unk_20;
@@ -234,11 +238,10 @@ void func_8006AD18(Object_2F4 *arg0) {
     }
 }
 
-void func_8006B094(Object_2F4 *arg0) {
-
+void func_8006B094(Object_2F4* arg0) {
 }
 
-void func_8006B0A0(Object_2F4 *arg0) {
+void func_8006B0A0(Object_2F4* arg0) {
     Vec3f sp34;
     s32 temp_hi;
 
@@ -262,9 +265,11 @@ void func_8006B0A0(Object_2F4 *arg0) {
     if ((arg0->unk_0BC == 0) && !(D_80177DB0 & 3)) {
         temp_hi = (D_800CFF94[arg0->unk_04A] + arg0->unk_04E) % 100;
         if (arg0->unk_04A == 0) {
-            func_8007D2C8(D_80176558[arg0->unk_046][temp_hi], D_80176878[arg0->unk_046][temp_hi], D_80176B98[arg0->unk_046][temp_hi], 7.0f);
+            func_8007D2C8(D_80176558[arg0->unk_046][temp_hi], D_80176878[arg0->unk_046][temp_hi],
+                          D_80176B98[arg0->unk_046][temp_hi], 7.0f);
         } else {
-            func_8007D2C8(D_80176558[arg0->unk_046][temp_hi], D_80176878[arg0->unk_046][temp_hi], D_80176B98[arg0->unk_046][temp_hi], 4.0f);
+            func_8007D2C8(D_80176558[arg0->unk_046][temp_hi], D_80176878[arg0->unk_046][temp_hi],
+                          D_80176B98[arg0->unk_046][temp_hi], 4.0f);
         }
         func_80019218(0x2903B009, &arg0->unk_100, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         arg0->unk_04A++;
@@ -277,7 +282,8 @@ void func_8006B0A0(Object_2F4 *arg0) {
     }
 }
 
-void func_8006B46C(Object_2F4 *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, u8 arg7, f32 arg8, s32 arg9) {
+void func_8006B46C(Object_2F4* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, u8 arg7, f32 arg8,
+                   s32 arg9) {
     Vec3f sp34 = D_800D0010;
 
     Matrix_Push(&gGfxMatrix);
@@ -310,39 +316,42 @@ void func_8006B46C(Object_2F4 *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32
     RCP_SetupDL_29(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
 }
 
-void func_8006B74C(Object_2F4 *arg0) {
+void func_8006B74C(Object_2F4* arg0) {
     s16 var_s0;
     s16 temp_hi;
 
-    for(var_s0 = arg0->unk_04A;var_s0 < 16; var_s0++) {
+    for (var_s0 = arg0->unk_04A; var_s0 < 16; var_s0++) {
         temp_hi = (D_800CFF94[var_s0] + arg0->unk_04E) % 100;
-        func_8006B46C(arg0, D_80176558[arg0->unk_046][temp_hi], D_80176878[arg0->unk_046][temp_hi], D_80176B98[arg0->unk_046][temp_hi], D_80176EB8[arg0->unk_046][temp_hi], D_801771D8[arg0->unk_046][temp_hi], D_80177500[arg0->unk_046][temp_hi], D_800CFFB4[var_s0], D_800CFFC4[var_s0], arg0->unk_0C6 & 1);
-        }
+        func_8006B46C(arg0, D_80176558[arg0->unk_046][temp_hi], D_80176878[arg0->unk_046][temp_hi],
+                      D_80176B98[arg0->unk_046][temp_hi], D_80176EB8[arg0->unk_046][temp_hi],
+                      D_801771D8[arg0->unk_046][temp_hi], D_80177500[arg0->unk_046][temp_hi], D_800CFFB4[var_s0],
+                      D_800CFFC4[var_s0], arg0->unk_0C6 & 1);
+    }
 }
 
-void func_8006B95C(Object_80 *arg0) {
+void func_8006B95C(Object_80* arg0) {
     arg0->obj.pos.x += arg0->unk_64.x;
     arg0->obj.pos.y += arg0->unk_64.y;
     arg0->obj.pos.z += arg0->unk_64.z;
     switch (arg0->unk_48) {
-    case 0:
-        arg0->unk_64.y -= 1.0f;
-        if (arg0->obj.pos.y < D_80177940 + 40.0f) {
-            arg0->obj.pos.y = D_80177940 + 40.0f;
-            func_80019218(0x19130003, &arg0->unk_70, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-            arg0->unk_48 = 2;
-            arg0->unk_64.y = 0.0f;
-        }
-        break;
-    case 2:
-        break;
-    case 1:
-        arg0->obj.rot.x += 10.0f;
-        break;
+        case 0:
+            arg0->unk_64.y -= 1.0f;
+            if (arg0->obj.pos.y < D_80177940 + 40.0f) {
+                arg0->obj.pos.y = D_80177940 + 40.0f;
+                func_80019218(0x19130003, &arg0->unk_70, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                arg0->unk_48 = 2;
+                arg0->unk_64.y = 0.0f;
+            }
+            break;
+        case 2:
+            break;
+        case 1:
+            arg0->obj.rot.x += 10.0f;
+            break;
     }
 }
 
-void func_8006BA64(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3) {
+void func_8006BA64(Object_8C* arg0, f32 arg1, f32 arg2, f32 arg3) {
     Object_8C_Initialize(arg0);
     arg0->obj.status = 1;
     arg0->obj.id = 375;
@@ -359,7 +368,7 @@ void func_8006BA64(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3) {
 void func_8006BB1C(f32 arg0, f32 arg1, f32 arg2) {
     s32 i;
 
-    for(i = 0; i < ARRAY_COUNT(D_80170130); i++) {
+    for (i = 0; i < ARRAY_COUNT(D_80170130); i++) {
         if (D_80170130[i].obj.status == 0) {
             func_8006BA64(&D_80170130[i], arg0, arg1, arg2);
             break;
@@ -367,7 +376,7 @@ void func_8006BB1C(f32 arg0, f32 arg1, f32 arg2) {
     }
 }
 
-void func_8006BB78(Object_2F4 *arg0) {
+void func_8006BB78(Object_2F4* arg0) {
     Vec3f sp44;
 
     switch (arg0->unk_0B8) {
@@ -438,7 +447,8 @@ void func_8006BB78(Object_2F4 *arg0) {
         func_8006BB1C(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z);
     }
     if (!(D_80177DB0 & 7)) {
-        func_8006A900(((Rand_ZeroOne() - 0.5f) * 50.0f) + arg0->obj.pos.x, arg0->obj.pos.y + 10.0f, ((Rand_ZeroOne() - 0.5f) * 50.0f) + arg0->obj.pos.z, 0.5f);
+        func_8006A900(((Rand_ZeroOne() - 0.5f) * 50.0f) + arg0->obj.pos.x, arg0->obj.pos.y + 10.0f,
+                      ((Rand_ZeroOne() - 0.5f) * 50.0f) + arg0->obj.pos.z, 0.5f);
     }
     if ((arg0->unk_0D0 != 0) && (arg0->unk_0B6 != 0)) {
         func_8007BFFC(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 0.0f, arg0->unk_0E8.y, 0.0f, 3.0f, 5);
@@ -452,17 +462,17 @@ void func_8006BB78(Object_2F4 *arg0) {
 void func_8006BF7C(f32 arg0, f32 arg1, f32 arg2) {
     s32 i;
 
-    for(i = 0; i < ARRAY_COUNT(D_800D001C); i++) {
+    for (i = 0; i < ARRAY_COUNT(D_800D001C); i++) {
         func_8006A900(arg0 + D_800D001C[i], arg1, arg2, 6.0f);
     }
 }
 
-void func_8006C008(Object_2F4 *arg0) {
+void func_8006C008(Object_2F4* arg0) {
     f32 sp4C;
     f32 sp48;
     f32 sp44;
     s32 sp40;
-    
+
     switch (arg0->unk_0B8) {
         case 0x28:
             if (arg0->unk_04A & 4) {
@@ -524,7 +534,7 @@ void func_8006C008(Object_2F4 *arg0) {
             if (arg0->obj.pos.y < sp48) {
                 arg0->obj.pos.y = sp48;
                 arg0->unk_058++;
-                if ( arg0->unk_058 >= 2) {
+                if (arg0->unk_058 >= 2) {
                     arg0->unk_0E8.x = 0.0f;
                     arg0->unk_0E8.y = 0.0f;
                     arg0->unk_0E8.z = 0.0f;
@@ -570,7 +580,9 @@ void func_8006C008(Object_2F4 *arg0) {
         case 0x34:
         case 0x35:
         case 0x37:
-            if (((arg0->unk_0BC == 0) || (func_8006351C(arg0->unk_040, &arg0->obj.pos, &D_800D0030, 1) != 0) || (arg0->obj.pos.y < (D_80177940 + 10.0f))) && (arg0->unk_0BE == 0)) {
+            if (((arg0->unk_0BC == 0) || (func_8006351C(arg0->unk_040, &arg0->obj.pos, &D_800D0030, 1) != 0) ||
+                 (arg0->obj.pos.y < (D_80177940 + 10.0f))) &&
+                (arg0->unk_0BE == 0)) {
                 func_8007B8F8(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z + 50.0f, arg0->unk_110 * 10.0f);
                 func_80060FBC(&arg0->obj, &arg0->unk_100);
                 func_8007A6F0(&arg0->obj.pos, 0x2903A008);
@@ -578,7 +590,9 @@ void func_8006C008(Object_2F4 *arg0) {
             break;
         case 0x38:
             Math_SmoothStepToF(&arg0->unk_110, 0.0f, 0.1f, 2.0f, 0.0001f);
-            if (((arg0->unk_0BC == 0) || (func_8006351C(arg0->unk_040, &arg0->obj.pos, &D_800D0030, 1) != 0) || (arg0->obj.pos.y < (D_80177940 + 10.0f))) && (arg0->unk_0BE == 0)) {
+            if (((arg0->unk_0BC == 0) || (func_8006351C(arg0->unk_040, &arg0->obj.pos, &D_800D0030, 1) != 0) ||
+                 (arg0->obj.pos.y < (D_80177940 + 10.0f))) &&
+                (arg0->unk_0BE == 0)) {
                 func_8007B8F8(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z + 50.0f, arg0->unk_110 * 10.0f);
                 func_80060FBC(&arg0->obj, &arg0->unk_100);
                 func_8007A6F0(&arg0->obj.pos, 0x2903A008);
@@ -594,14 +608,18 @@ void func_8006C008(Object_2F4 *arg0) {
             arg0->obj.rot.x += arg0->unk_114;
             arg0->obj.rot.y += arg0->unk_118;
             arg0->obj.rot.z += arg0->unk_11C;
-            if (((arg0->unk_0BC == 0) || (func_8006351C(arg0->unk_040, &arg0->obj.pos, &D_800D0030, 1) != 0) || (arg0->obj.pos.y < (D_80177940 + 10.0f))) && (arg0->unk_0BE == 0)) {
+            if (((arg0->unk_0BC == 0) || (func_8006351C(arg0->unk_040, &arg0->obj.pos, &D_800D0030, 1) != 0) ||
+                 (arg0->obj.pos.y < (D_80177940 + 10.0f))) &&
+                (arg0->unk_0BE == 0)) {
                 func_8007B8F8(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z + 50.0f, arg0->unk_110 * 10.0f);
                 func_80060FBC(&arg0->obj, &arg0->unk_100);
                 func_8007A6F0(&arg0->obj.pos, 0x2903A008);
             }
             break;
         case 0x36:
-            if (((arg0->unk_0BC == 0) || (func_8006351C(arg0->unk_040, &arg0->obj.pos, &D_800D0030, 1) != 0) || (arg0->obj.pos.y < (D_80177940 + 10.0f))) && (arg0->unk_0BE == 0)) {
+            if (((arg0->unk_0BC == 0) || (func_8006351C(arg0->unk_040, &arg0->obj.pos, &D_800D0030, 1) != 0) ||
+                 (arg0->obj.pos.y < (D_80177940 + 10.0f))) &&
+                (arg0->unk_0BE == 0)) {
                 func_8007B8F8(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z + 70.0f, arg0->unk_110 * 20.0f);
                 func_8007B8F8(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z + 70.0f, arg0->unk_110 * 20.0f);
                 func_80060FBC(&arg0->obj, &arg0->unk_100);
@@ -644,7 +662,6 @@ void func_8006C008(Object_2F4 *arg0) {
                     arg0->unk_114 *= 0.5f;
                     arg0->unk_118 *= 0.5f;
                     arg0->unk_11C *= 0.5f;
-                    
                 }
             }
             break;
@@ -659,17 +676,21 @@ void func_8006C008(Object_2F4 *arg0) {
             arg0->obj.rot.y += arg0->unk_140;
             arg0->obj.rot.z += arg0->unk_144;
             if (arg0->unk_0B8 == 0x46) {
-                if ((arg0->unk_0BC == 0) || (func_8006351C(arg0->unk_040, &arg0->obj.pos, &D_800D0030, 1) != 0) || (arg0->obj.pos.y < (D_80177940 + 10.0f))) {
+                if ((arg0->unk_0BC == 0) || (func_8006351C(arg0->unk_040, &arg0->obj.pos, &D_800D0030, 1) != 0) ||
+                    (arg0->obj.pos.y < (D_80177940 + 10.0f))) {
                     func_80060FBC(&arg0->obj, &arg0->unk_100);
                 }
             } else if (arg0->unk_0B8 == 0x27) {
-                if (((arg0->unk_0BC == 0) || (func_8006351C(arg0->unk_040, &arg0->obj.pos, &D_800D0030, 1) != 0) || (arg0->obj.pos.y < (D_80177940 + 10.0f))) && (arg0->unk_0BE == 0)) {
+                if (((arg0->unk_0BC == 0) || (func_8006351C(arg0->unk_040, &arg0->obj.pos, &D_800D0030, 1) != 0) ||
+                     (arg0->obj.pos.y < (D_80177940 + 10.0f))) &&
+                    (arg0->unk_0BE == 0)) {
                     func_8007D0E0(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 10.0f);
                     func_80060FBC(&arg0->obj, &arg0->unk_100);
                     func_8007A6F0(&arg0->obj.pos, 0x2903A008);
                 }
             } else if (((arg0->unk_0B8 >= 0x29) && (arg0->unk_0B8 < 0x2D)) || (arg0->unk_0B8 == 0x3B)) {
-                if (((arg0->unk_0BC == 0) || (func_8006351C(arg0->unk_040, &arg0->obj.pos, &D_800D0030, 1) != 0)) && (arg0->unk_0BE == 0)) {
+                if (((arg0->unk_0BC == 0) || (func_8006351C(arg0->unk_040, &arg0->obj.pos, &D_800D0030, 1) != 0)) &&
+                    (arg0->unk_0BE == 0)) {
                     func_8007D0E0(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 2.0f * arg0->unk_110);
                     func_80060FBC(&arg0->obj, &arg0->unk_100);
                     func_8007A6F0(&arg0->obj.pos, 0x2903A008);
@@ -682,8 +703,11 @@ void func_8006C008(Object_2F4 *arg0) {
                 if (!(arg0->unk_0BC & 3)) {
                     func_8007D0E0(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, arg0->unk_110);
                 }
-                if (((arg0->unk_0BC == 0) || (func_8006351C(arg0->unk_040, &arg0->obj.pos, &D_800D0030, 1) != 0) || (arg0->obj.pos.y < (D_80177940 + 10.0f))) && (arg0->unk_0BE == 0)) {
-                    func_8007BFFC(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, arg0->unk_0E8.x, arg0->unk_0E8.y, arg0->unk_0E8.z, arg0->unk_110 * 1.5f, 4);
+                if (((arg0->unk_0BC == 0) || (func_8006351C(arg0->unk_040, &arg0->obj.pos, &D_800D0030, 1) != 0) ||
+                     (arg0->obj.pos.y < (D_80177940 + 10.0f))) &&
+                    (arg0->unk_0BE == 0)) {
+                    func_8007BFFC(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, arg0->unk_0E8.x, arg0->unk_0E8.y,
+                                  arg0->unk_0E8.z, arg0->unk_110 * 1.5f, 4);
                     func_80060FBC(&arg0->obj, &arg0->unk_100);
                     func_8007A6F0(&arg0->obj.pos, 0x2903A008);
                 }
@@ -691,13 +715,14 @@ void func_8006C008(Object_2F4 *arg0) {
                 if ((arg0->unk_0B8 == 3) && !(arg0->unk_0BC & 7)) {
                     func_8007D0E0(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 1.5f);
                 }
-                if ((func_8006351C(arg0->unk_040, &arg0->obj.pos, &D_800D0030, 1) != 0) || (arg0->obj.pos.y < (D_80177940 + 10.0f))) {
+                if ((func_8006351C(arg0->unk_040, &arg0->obj.pos, &D_800D0030, 1) != 0) ||
+                    (arg0->obj.pos.y < (D_80177940 + 10.0f))) {
                     if (D_80177C98 == 1) {
                         func_8007D0E0(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 2.0f);
                         func_80060FBC(&arg0->obj, &arg0->unk_100);
                         return;
                     }
-                    
+
                     arg0->unk_0E8.y *= -0.2f;
                     arg0->obj.pos.y += arg0->unk_0E8.y * 5.0f;
                     arg0->unk_050++;
@@ -707,9 +732,12 @@ void func_8006C008(Object_2F4 *arg0) {
                     if ((arg0->unk_0B8 != 2) && (arg0->unk_0B8 != 4)) {
                         func_8006BF7C(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z);
                     } else if (D_80178234 == 14) {
-                        func_8007BC7C(((Rand_ZeroOne() - 0.5f) * 10.0f) + arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 1.0f);
-                        func_8007BC7C(((Rand_ZeroOne() - 0.5f) * 10.0f) + arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 1.0f);
-                        func_8007BC7C(((Rand_ZeroOne() - 0.5f) * 10.0f) + arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 1.0f);
+                        func_8007BC7C(((Rand_ZeroOne() - 0.5f) * 10.0f) + arg0->obj.pos.x, arg0->obj.pos.y,
+                                      arg0->obj.pos.z, 1.0f);
+                        func_8007BC7C(((Rand_ZeroOne() - 0.5f) * 10.0f) + arg0->obj.pos.x, arg0->obj.pos.y,
+                                      arg0->obj.pos.z, 1.0f);
+                        func_8007BC7C(((Rand_ZeroOne() - 0.5f) * 10.0f) + arg0->obj.pos.x, arg0->obj.pos.y,
+                                      arg0->obj.pos.z, 1.0f);
                     }
                 }
                 if (arg0->unk_0B8 == 4) {
@@ -729,10 +757,10 @@ void func_8006C008(Object_2F4 *arg0) {
     }
 }
 
-void func_8006D0F4(Object_2F4 *arg0) {
+void func_8006D0F4(Object_2F4* arg0) {
     s32 i;
     s32 j;
-    f32 *var_s0;
+    f32* var_s0;
     Vec3f spA8;
     Vec3f sp9C;
     s32 temp_fs0;
@@ -745,7 +773,7 @@ void func_8006D0F4(Object_2F4 *arg0) {
     D_80161A84 = 0x6E;
     D_80178544 = 0x28;
 
-    for(i = 0; i < ARRAY_COUNT(D_80161B00); i++) {
+    for (i = 0; i < ARRAY_COUNT(D_80161B00); i++) {
         if ((D_80161B00[i].obj.status == 2) && ((D_80178280->unk_138 - 3000.0f) < D_80161B00[i].obj.pos.z)) {
             var_s0 = D_800CF964[D_80161B00[i].obj.id];
             temp_ft4 = *var_s0;
@@ -759,8 +787,9 @@ void func_8006D0F4(Object_2F4 *arg0) {
                 temp_fs0 = D_80161B00[i].obj.pos.x + sp9C.x;
                 temp_fs1 = D_80161B00[i].obj.pos.y + sp9C.y;
                 temp_fs2 = D_80161B00[i].obj.pos.z + sp9C.z;
-                for(j = 0; j < temp_ft4; j++, var_s0 += 6) {
-                    if (func_800A78C4(var_s0, D_80161B00[i].obj.pos.x, D_80161B00[i].obj.pos.y, D_80161B00[i].obj.pos.z, temp_fs0, temp_fs1, temp_fs2)) {
+                for (j = 0; j < temp_ft4; j++, var_s0 += 6) {
+                    if (func_800A78C4(var_s0, D_80161B00[i].obj.pos.x, D_80161B00[i].obj.pos.y, D_80161B00[i].obj.pos.z,
+                                      temp_fs0, temp_fs1, temp_fs2)) {
                         D_80161A7C = 0xA;
                         D_80161A80 = 0xA;
                         D_80161A84 = 0xA;
@@ -772,26 +801,26 @@ void func_8006D0F4(Object_2F4 *arg0) {
     }
 }
 
-void func_8006D350(Object_80 *arg0) {
+void func_8006D350(Object_80* arg0) {
     arg0->obj.rot.z += 1.0f;
 }
 
 void func_8007240C(f32, f32, f32, f32);
-void func_8006D36C(Object_2F4 *);
-void func_8006EA50(Object_2F4 *);
-void func_8006F40C(Object_2F4 *);
-void func_8006FE28(Object_2F4 *);
-void func_8006FEEC(Object_2F4 *);
-void func_800701E0(Object_2F4 *);
-void func_80070BA8(Object_2F4 *);
-void func_80070CEC(Object_2F4 *);
-void func_80070D44(Object_2F4 *);
-void func_80071DC0(Object_2F4 *);
-void func_800720E8(Object_2F4 *);
-void func_80072474(Object_2F4 *); 
+void func_8006D36C(Object_2F4*);
+void func_8006EA50(Object_2F4*);
+void func_8006F40C(Object_2F4*);
+void func_8006FE28(Object_2F4*);
+void func_8006FEEC(Object_2F4*);
+void func_800701E0(Object_2F4*);
+void func_80070BA8(Object_2F4*);
+void func_80070CEC(Object_2F4*);
+void func_80070D44(Object_2F4*);
+void func_80071DC0(Object_2F4*);
+void func_800720E8(Object_2F4*);
+void func_80072474(Object_2F4*);
 
 #ifdef NON_MATCHING
-void func_8006D36C(Object_2F4 *arg0) {
+void func_8006D36C(Object_2F4* arg0) {
     u16** var_v1;
     u16* temp_s1;
     u16* temp_v0_4;
@@ -799,7 +828,7 @@ void func_8006D36C(Object_2F4 *arg0) {
     s32 i;
     s32 j;
 
-    while(true) {
+    while (true) {
         switch (D_80178234) {
             case 9:
                 var_v1 = SEGMENTED_TO_VIRTUAL(D_C037E3C);
@@ -877,11 +906,11 @@ void func_8006D36C(Object_2F4 *arg0) {
                     arg0->unk_046 = 100;
                     arg0->unk_01C.unk_0C = D_800CBEC4;
                     arg0->unk_01C.unk_1C = 1.0f;
-                    for(i = 0; i < 2; i++) {
-                        if(D_80176550[i] == 0) {
+                    for (i = 0; i < 2; i++) {
+                        if (D_80176550[i] == 0) {
                             D_80176550[i] = 1;
                             arg0->unk_046 = i;
-                            for(j = 0; j < 100; j++) {
+                            for (j = 0; j < 100; j++) {
                                 D_80176878[i][j] = arg0->obj.pos.y;
                                 D_80176B98[i][j] = arg0->obj.pos.z;
                             }
@@ -932,7 +961,8 @@ void func_8006D36C(Object_2F4 *arg0) {
                     arg0->unk_178 = D_800D003C[arg0->unk_0B4].unk_10;
                     switch (D_800D003C[arg0->unk_0B4].unk_16) {
                         case 1:
-                            if ((D_80178234 != 7) && (arg0->unk_0B4 != 6) && ((D_80178234 != 0) || (arg0->unk_0B4 != 8))) {
+                            if ((D_80178234 != 7) && (arg0->unk_0B4 != 6) &&
+                                ((D_80178234 != 0) || (arg0->unk_0B4 != 8))) {
                                 func_80019218(0x31000011, &arg0->unk_100, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                             }
                             break;
@@ -978,7 +1008,7 @@ void func_8006D36C(Object_2F4 *arg0) {
                 arg0->unk_0E6 += 2;
                 arg0->unk_090 = temp_s1[arg0->unk_0E6] & 0x1FF;
                 continue;
-            case 0x0600: 
+            case 0x0600:
                 D_80177E78 = arg0->unk_040;
                 D_80177F10.x = arg0->obj.pos.x;
                 D_80177F10.y = arg0->obj.pos.y;
@@ -1026,7 +1056,7 @@ void func_8006D36C(Object_2F4 *arg0) {
                 arg0->unk_0E6 += 2;
                 continue;
             case 0xEE00:
-                if ((D_80161A88 == 2) && (temp_s1[arg0->unk_0E6 + 1] !=  2)) {
+                if ((D_80161A88 == 2) && (temp_s1[arg0->unk_0E6 + 1] != 2)) {
                     func_8001A55C(&D_80178280->unk_460[0], 0x1100000B);
                 }
                 D_80161A88 = temp_s1[arg0->unk_0E6 + 1];
@@ -1058,7 +1088,7 @@ void func_8006D36C(Object_2F4 *arg0) {
                 continue;
             case 0xF200:
                 if (arg0->unk_080 == temp_s1[arg0->unk_0E6 + 1]) {
-                    arg0->unk_0D0 =  1;
+                    arg0->unk_0D0 = 1;
                     arg0->unk_0D4 = 100;
                     arg0->unk_0D6 = temp_s1[arg0->unk_0E6] & 0x1FF;
                 } else {
@@ -1068,7 +1098,7 @@ void func_8006D36C(Object_2F4 *arg0) {
                 continue;
             case 0xF800:
                 arg0->unk_06C = 1;
-                for(i = 0; i < 100; i++) {
+                for (i = 0; i < 100; i++) {
                     if (D_80174750[i].unk_00 == 0) {
                         D_80174750[i].unk_00 = 1;
                         D_80174750[i].unk_28 = 3.0f;
@@ -1160,25 +1190,25 @@ void func_8006D36C(Object_2F4 *arg0) {
                 arg0->unk_0BC = temp_s1[arg0->unk_0E6 + 1];
                 arg0->unk_0E6 += 2;
                 return;
-            case 0x0000:   
+            case 0x0000:
                 arg0->unk_118 = arg0->unk_114 = temp_s1[arg0->unk_0E6] & 0x7F;
                 arg0->unk_064 = temp_s1[arg0->unk_0E6] & 0x180;
                 arg0->unk_0B8 = 1;
                 arg0->unk_0BC = temp_s1[arg0->unk_0E6 + 1];
                 arg0->unk_0E6 += 2;
                 return;
-            case 0x0400: 
+            case 0x0400:
                 arg0->unk_16C = temp_s1[arg0->unk_0E6 + 1] & 0xFF;
                 arg0->unk_0E6 += 2;
                 continue;
-            case 0x0200: 
+            case 0x0200:
                 arg0->unk_118 = temp_s1[arg0->unk_0E6] & 0x7F;
                 arg0->unk_064 = temp_s1[arg0->unk_0E6] & 0x180;
                 arg0->unk_0B8 = 1;
                 arg0->unk_0BC = temp_s1[arg0->unk_0E6 + 1];
                 arg0->unk_0E6 += 2;
                 return;
-            case 0x0800: 
+            case 0x0800:
                 arg0->unk_084 = 1;
                 arg0->unk_0C0 = temp_s1[arg0->unk_0E6 + 1];
                 arg0->unk_0E6 += 2;
@@ -1220,7 +1250,7 @@ void func_8006D36C(Object_2F4 *arg0) {
             case 0x2200:
                 arg0->unk_124.x = temp_s1[arg0->unk_0E6] & 0x1FF;
                 arg0->unk_124.y = temp_s1[arg0->unk_0E6 + 1] * 0.1f;
-                arg0->unk_124.z = -1.0f;                
+                arg0->unk_124.z = -1.0f;
                 arg0->unk_0E6 += 2;
                 continue;
             case 0x2400:
@@ -1259,11 +1289,11 @@ void func_8006D36C(Object_2F4 *arg0) {
     }
 }
 #else
-void func_8006D36C(Object_2F4 *arg0);
+void func_8006D36C(Object_2F4* arg0);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_8006D36C.s")
 #endif
 
-void func_8006EA50(Object_2F4 *arg0) {
+void func_8006EA50(Object_2F4* arg0) {
     if ((arg0->unk_06C != 0) && (D_80174750[arg0->unk_070].unk_00 != 0)) {
         D_80174750[arg0->unk_070].unk_10 = arg0->obj.pos.x;
         D_80174750[arg0->unk_070].unk_14 = arg0->obj.pos.y;
@@ -1271,7 +1301,7 @@ void func_8006EA50(Object_2F4 *arg0) {
     }
 }
 
-void func_8006EAC4(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3) {
+void func_8006EAC4(Object_8C* arg0, f32 arg1, f32 arg2, f32 arg3) {
     Object_8C_Initialize(arg0);
     arg0->obj.status = 1;
     arg0->obj.id = 374;
@@ -1286,7 +1316,7 @@ void func_8006EAC4(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3) {
 void func_8006EB64(f32 arg0, f32 arg1, f32 arg2) {
     s32 i;
 
-    for(i = 50; i < ARRAY_COUNT(D_80170130); i++) {
+    for (i = 50; i < ARRAY_COUNT(D_80170130); i++) {
         if (D_80170130[i].obj.status == 0) {
             func_8006EAC4(&D_80170130[i], arg0, arg1, arg2);
             break;
@@ -1294,7 +1324,7 @@ void func_8006EB64(f32 arg0, f32 arg1, f32 arg2) {
     }
 }
 
-void func_8006EBC0(Object_2F4 *arg0, f32 arg1, f32 arg2, f32 arg3) {
+void func_8006EBC0(Object_2F4* arg0, f32 arg1, f32 arg2, f32 arg3) {
     Object_2F4_Initialize(arg0);
     arg0->obj.status = 1;
     arg0->obj.id = 225;
@@ -1309,7 +1339,7 @@ void func_8006EBC0(Object_2F4 *arg0, f32 arg1, f32 arg2, f32 arg3) {
 void func_8006EC60(f32 arg0, f32 arg1, f32 arg2) {
     s32 i;
 
-    for(i = 0; i < ARRAY_COUNT(D_80163FE0); i++) {
+    for (i = 0; i < ARRAY_COUNT(D_80163FE0); i++) {
         if (D_80163FE0[i].obj.status == 0) {
             func_8006EBC0(&D_80163FE0[i], arg0, arg1, arg2);
             break;
@@ -1317,7 +1347,8 @@ void func_8006EC60(f32 arg0, f32 arg1, f32 arg2) {
     }
 }
 
-void func_8006ECBC(s32 arg0, Object_70 *arg1, s32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9, f32 argA, f32 argB) {
+void func_8006ECBC(s32 arg0, Object_70* arg1, s32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,
+                   f32 arg9, f32 argA, f32 argB) {
     func_80035E48(arg1);
     arg1->obj.status = 1;
     arg1->unk_20.z = arg8;
@@ -1332,13 +1363,13 @@ void func_8006ECBC(s32 arg0, Object_70 *arg1, s32 arg2, f32 arg3, f32 arg4, f32 
     arg1->obj.id = arg0;
     arg1->unk_58 = 1;
     arg1->unk_60 = 0;
-    if(arg0 == 9)  {
+    if (arg0 == 9) {
         arg1->unk_64 = 120;
     } else {
         arg1->unk_64 = 30;
     }
     arg1->unk_68 = arg2 + 100;
-    
+
     if (D_80177880 == 1) {
         if (arg2 + 100 < 104) {
             func_80019218(0x2900000D, &arg1->unk_38, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -1353,13 +1384,12 @@ void func_8006ECBC(s32 arg0, Object_70 *arg1, s32 arg2, f32 arg3, f32 arg4, f32 
     } else {
         func_80019218(0x29002002, &arg1->unk_38, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
-
 }
 
 void func_8006EEFC(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9) {
     s32 i;
 
-    for(i = 0; i < 10; i++) {
+    for (i = 0; i < 10; i++) {
         if (D_80174050[i].obj.status == 0) {
             func_8006ECBC(1, &D_80174050[i], arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
             break;
@@ -1370,7 +1400,7 @@ void func_8006EEFC(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
 void func_8006EFA0(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9) {
     s32 i;
 
-    for(i = 0; i < 10; i++) {
+    for (i = 0; i < 10; i++) {
         if (D_80174050[i].obj.status == 0) {
             func_8006ECBC(9, &D_80174050[i], arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
             break;
@@ -1378,7 +1408,7 @@ void func_8006EFA0(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
     }
 }
 
-void func_8006F044(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+void func_8006F044(Object_8C* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     Object_8C_Initialize(arg0);
     arg0->obj.status = 1;
     arg0->obj.id = 347;
@@ -1387,14 +1417,14 @@ void func_8006F044(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     arg0->obj.pos.z = arg3;
     arg0->unk_6C = arg4;
     arg0->unk_44 = 100;
-    func_800612B8(&arg0->unk_1C,arg0->obj.id);
+    func_800612B8(&arg0->unk_1C, arg0->obj.id);
     func_8007A6F0(&arg0->obj.pos, 0x2903B009);
 }
 
 void func_8006F0D8(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     s32 i;
 
-    for(i = 0; i < ARRAY_COUNT(D_80170130); i++) {
+    for (i = 0; i < ARRAY_COUNT(D_80170130); i++) {
         if (D_80170130[i].obj.status == 0) {
             func_8006F044(&D_80170130[i], arg0, arg1, arg2, arg3);
             break;
@@ -1402,7 +1432,7 @@ void func_8006F0D8(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     }
 }
 
-void func_8006F140(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+void func_8006F140(Object_8C* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     Object_8C_Initialize(arg0);
     arg0->obj.status = 1;
     arg0->obj.id = 394;
@@ -1413,7 +1443,7 @@ void func_8006F140(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     arg0->unk_44 = 100;
     arg0->unk_78 = 102;
     arg0->unk_7A = 18;
-    func_800612B8(&arg0->unk_1C,arg0->obj.id);
+    func_800612B8(&arg0->unk_1C, arg0->obj.id);
     arg0->unk_1C.unk_18 = 40;
     func_8007A6F0(&arg0->obj.pos, 0x2903B009);
 }
@@ -1421,7 +1451,7 @@ void func_8006F140(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
 void func_8006F1EC(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     s32 i;
 
-    for(i = 0; i < ARRAY_COUNT(D_80170130); i++) {
+    for (i = 0; i < ARRAY_COUNT(D_80170130); i++) {
         if (D_80170130[i].obj.status == 0) {
             func_8006F140(&D_80170130[i], arg0, arg1, arg2, arg3);
             break;
@@ -1429,7 +1459,7 @@ void func_8006F1EC(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     }
 }
 
-void func_8006F254(Object_2F4 *arg0) {
+void func_8006F254(Object_2F4* arg0) {
     Vec3f sp54;
     Vec3f sp48;
 
@@ -1442,16 +1472,19 @@ void func_8006F254(Object_2F4 *arg0) {
     sp54.y = 0.0f;
     sp54.z = D_80177828;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
-    func_8007F04C(353, arg0->obj.pos.x + sp48.x, arg0->obj.pos.y + sp48.y, arg0->obj.pos.z + sp48.z, arg0->obj.rot.x, arg0->obj.rot.y, arg0->obj.rot.z, arg0->unk_2E8.x, arg0->unk_2E8.y, arg0->unk_2E8.z + arg0->unk_0F4.z, sp48.x, sp48.y, sp48.z, 1.0f);
+    func_8007F04C(353, arg0->obj.pos.x + sp48.x, arg0->obj.pos.y + sp48.y, arg0->obj.pos.z + sp48.z, arg0->obj.rot.x,
+                  arg0->obj.rot.y, arg0->obj.rot.z, arg0->unk_2E8.x, arg0->unk_2E8.y, arg0->unk_2E8.z + arg0->unk_0F4.z,
+                  sp48.x, sp48.y, sp48.z, 1.0f);
 }
 
-void func_8006F40C(Object_2F4 *arg0) {
+void func_8006F40C(Object_2F4* arg0) {
     s32 var_v1;
     Vec3f sp78;
     Vec3f sp6C;
-    Object_4C *var_v0;
+    Object_4C* var_v0;
 
-    if ((D_80178280->unk_1C8 == 3) && (arg0->unk_0B4 != 0x34) && (arg0->unk_0B4 != 0x67) && (arg0->unk_0B4 != 0x68) && (arg0->unk_0B4 != 0x30) && (arg0->unk_0B4 != 0x31) && (arg0->unk_0B4 != 0x32)) {
+    if ((D_80178280->unk_1C8 == 3) && (arg0->unk_0B4 != 0x34) && (arg0->unk_0B4 != 0x67) && (arg0->unk_0B4 != 0x68) &&
+        (arg0->unk_0B4 != 0x30) && (arg0->unk_0B4 != 0x31) && (arg0->unk_0B4 != 0x32)) {
         switch (arg0->unk_048) {
             case 0:
                 break;
@@ -1472,7 +1505,9 @@ void func_8006F40C(Object_2F4 *arg0) {
                     sp78.y = 0.0f;
                     sp78.z = 100.0f;
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
-                    func_8006EEFC(arg0->unk_040, arg0->obj.pos.x + (sp6C.x * 1.5), arg0->obj.pos.y + (sp6C.y * 1.5), arg0->obj.pos.z + (sp6C.z * 1.5), sp6C.x, sp6C.y, sp6C.z, arg0->unk_0F4.x, arg0->unk_0F4.y, arg0->unk_2E8.z + arg0->unk_0F4.z);
+                    func_8006EEFC(arg0->unk_040, arg0->obj.pos.x + (sp6C.x * 1.5), arg0->obj.pos.y + (sp6C.y * 1.5),
+                                  arg0->obj.pos.z + (sp6C.z * 1.5), sp6C.x, sp6C.y, sp6C.z, arg0->unk_0F4.x,
+                                  arg0->unk_0F4.y, arg0->unk_2E8.z + arg0->unk_0F4.z);
                     arg0->unk_0C2 = 2;
                     arg0->unk_04C--;
                     if (arg0->unk_04C <= 0) {
@@ -1494,7 +1529,9 @@ void func_8006F40C(Object_2F4 *arg0) {
                 sp78.y = 0.0f;
                 sp78.z = D_80177828;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
-                func_8007F04C(355, arg0->obj.pos.x + sp6C.x, arg0->obj.pos.y + sp6C.y, arg0->obj.pos.z + sp6C.z, arg0->obj.rot.x, arg0->obj.rot.y, arg0->obj.rot.z, arg0->unk_2E8.x, arg0->unk_2E8.y, arg0->unk_2E8.z + arg0->unk_0F4.z, sp6C.x, sp6C.y, sp6C.z, 1.0f);
+                func_8007F04C(355, arg0->obj.pos.x + sp6C.x, arg0->obj.pos.y + sp6C.y, arg0->obj.pos.z + sp6C.z,
+                              arg0->obj.rot.x, arg0->obj.rot.y, arg0->obj.rot.z, arg0->unk_2E8.x, arg0->unk_2E8.y,
+                              arg0->unk_2E8.z + arg0->unk_0F4.z, sp6C.x, sp6C.y, sp6C.z, 1.0f);
                 arg0->unk_048 = 0;
                 break;
             case 6:
@@ -1536,7 +1573,8 @@ void func_8006F40C(Object_2F4 *arg0) {
                 func_80060FBC(&arg0->obj, &arg0->unk_100);
                 break;
             case 11:
-                func_8007BFFC(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, arg0->unk_0E8.x, arg0->unk_0E8.y, arg0->unk_0E8.z, arg0->unk_110 * 3.0f, 15);
+                func_8007BFFC(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, arg0->unk_0E8.x, arg0->unk_0E8.y,
+                              arg0->unk_0E8.z, arg0->unk_110 * 3.0f, 15);
                 func_80066254(arg0);
                 func_80060FBC(&arg0->obj, &arg0->unk_100);
                 func_8007A6F0(&arg0->obj.pos, 0x2903B009U);
@@ -1560,8 +1598,10 @@ void func_8006F40C(Object_2F4 *arg0) {
                 }
                 break;
             case 16:
-                func_8007F11C(0x161, arg0->obj.pos.x + 190.0f, arg0->obj.pos.y + 90.0f, arg0->obj.pos.z + 220.0f, D_80177828);
-                func_8007F11C(0x161, arg0->obj.pos.x - 190.0f, arg0->obj.pos.y + 90.0f, arg0->obj.pos.z + 220.0f, D_80177828);
+                func_8007F11C(0x161, arg0->obj.pos.x + 190.0f, arg0->obj.pos.y + 90.0f, arg0->obj.pos.z + 220.0f,
+                              D_80177828);
+                func_8007F11C(0x161, arg0->obj.pos.x - 190.0f, arg0->obj.pos.y + 90.0f, arg0->obj.pos.z + 220.0f,
+                              D_80177828);
                 arg0->unk_048 = 0;
                 break;
             case 17:
@@ -1571,8 +1611,8 @@ void func_8006F40C(Object_2F4 *arg0) {
                 arg0->unk_048 = 0;
                 break;
             case 18:
-                for(var_v1 = 0, var_v0 = D_80163400; var_v1 < 40; var_v1++, var_v0++) {
-                    
+                for (var_v1 = 0, var_v0 = D_80163400; var_v1 < 40; var_v1++, var_v0++) {
+
                     if ((var_v0->obj.status == 2) && (var_v0->obj.id == 175)) {
                         f32 sp64;
                         f32 sp60;
@@ -1593,8 +1633,9 @@ void func_8006F40C(Object_2F4 *arg0) {
                         sp6C.x = 0.0f;
                         sp6C.y = 0.0f;
                         sp6C.z = 50.0f;
-                        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp6C,  &sp78);
-                        func_8006EFA0(100, arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, sp78.x, sp78.y, sp78.z, sp58, sp54, 0.0f);
+                        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp6C, &sp78);
+                        func_8006EFA0(100, arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, sp78.x, sp78.y, sp78.z,
+                                      sp58, sp54, 0.0f);
                         break;
                     }
                 }
@@ -1609,17 +1650,20 @@ void func_8006F40C(Object_2F4 *arg0) {
     }
 }
 
-void func_8006FE28(Object_2F4 *arg0) {
-    if ((fabsf(arg0->obj.pos.x - D_80178280->unk_074) < 100.0f) && (fabsf(arg0->obj.pos.y - D_80178280->unk_078) < 100.0f) && (fabsf(arg0->obj.pos.z - D_80178280->unk_138) < 50.0f)) {
+void func_8006FE28(Object_2F4* arg0) {
+    if ((fabsf(arg0->obj.pos.x - D_80178280->unk_074) < 100.0f) &&
+        (fabsf(arg0->obj.pos.y - D_80178280->unk_078) < 100.0f) &&
+        (fabsf(arg0->obj.pos.z - D_80178280->unk_138) < 50.0f)) {
         func_80067A40();
         func_8001A55C(&arg0->unk_100, 0x1900302BU);
         func_80060FBC(&arg0->obj, &arg0->unk_100);
     }
 }
-void func_801900FC(Vec3f *arg0, Vec3f *arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5, f32 arg6, s32 arg7, s32 arg8);
-void func_8018CCF8(Object_2F4 *);
 
-void func_8006FEEC(Object_2F4 *arg0) {
+void func_801900FC(Vec3f* arg0, Vec3f* arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5, f32 arg6, s32 arg7, s32 arg8);
+void func_8018CCF8(Object_2F4*);
+
+void func_8006FEEC(Object_2F4* arg0) {
     s32 i;
 
     if ((arg0->unk_0D0 != 0) && (arg0->unk_0CE != 0)) {
@@ -1627,8 +1671,9 @@ void func_8006FEEC(Object_2F4 *arg0) {
         arg0->unk_0C6 = 0xF;
         arg0->unk_0CE = arg0->unk_0CE - arg0->unk_0D6;
         if (arg0->unk_0CE <= 0) {
-            for(i = 3; i < 11; i++) {
-                func_801900FC(&arg0->unk_18C[i], &arg0->unk_18C[i + 11], (Rand_ZeroOne() - 0.5f) * 20.0f, Rand_ZeroOne() * -10.0f, Rand_ZeroOne() * 10.0f, 41, arg0->unk_110, 200, i);
+            for (i = 3; i < 11; i++) {
+                func_801900FC(&arg0->unk_18C[i], &arg0->unk_18C[i + 11], (Rand_ZeroOne() - 0.5f) * 20.0f,
+                              Rand_ZeroOne() * -10.0f, Rand_ZeroOne() * 10.0f, 41, arg0->unk_110, 200, i);
             }
             arg0->unk_044 = 0;
             func_80066254(arg0);
@@ -1642,7 +1687,7 @@ void func_8006FEEC(Object_2F4 *arg0) {
     }
 }
 
-bool func_800700A4(Object_2F4 *arg0) {
+bool func_800700A4(Object_2F4* arg0) {
     if ((arg0->unk_0B8 != 0xC) && (arg0->unk_080 > 0) && (arg0->unk_080 < 4) && (D_801778B0[arg0->unk_080] <= 0)) {
         arg0->unk_0B8 = 0xC;
         arg0->unk_058 = 0;
@@ -1669,7 +1714,7 @@ bool func_800700A4(Object_2F4 *arg0) {
     return false;
 }
 
-void func_800701E0(Object_2F4 *arg0) {
+void func_800701E0(Object_2F4* arg0) {
     Vec3f sp3C;
     f32 var_fv1;
     f32 temp_fv1;
@@ -1709,7 +1754,10 @@ void func_800701E0(Object_2F4 *arg0) {
                     if (D_80177C98 == 1) {
                         var_fv1 = 0.3f;
                     }
-                    if (((Rand_ZeroOne() < var_fv1) || (arg0->unk_080 != 0)) && (arg0->unk_01C.unk_14 == 0) && (arg0->unk_0B4 != 0xD) && (arg0->unk_0B4 != 0xE) && (arg0->unk_0B4 != 0x3D) && ((s32) arg0->unk_0D6 < 0x1F) && (arg0->unk_0B4 != 0x3E) && (arg0->unk_0B4 != 0x40) && (arg0->unk_0B4 != 0x48) && (arg0->unk_0B4 != 0x44)) {
+                    if (((Rand_ZeroOne() < var_fv1) || (arg0->unk_080 != 0)) && (arg0->unk_01C.unk_14 == 0) &&
+                        (arg0->unk_0B4 != 0xD) && (arg0->unk_0B4 != 0xE) && (arg0->unk_0B4 != 0x3D) &&
+                        ((s32) arg0->unk_0D6 < 0x1F) && (arg0->unk_0B4 != 0x3E) && (arg0->unk_0B4 != 0x40) &&
+                        (arg0->unk_0B4 != 0x48) && (arg0->unk_0B4 != 0x44)) {
                         func_8007D2C8(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, arg0->unk_110 * 4.0f);
                         arg0->unk_0D0 = 0;
                     }
@@ -1748,29 +1796,30 @@ void func_800701E0(Object_2F4 *arg0) {
                         }
                     } else {
                         switch (arg0->unk_0B4) {
-                        case 0xD:
-                            func_800654E4(&arg0->obj);
-                            break;
-                        case 0x3D:
-                            func_E08400_8018CCF8(arg0);
-                            break;
-                        case 0x1B:
-                            arg0->obj.pos.y -= arg0->unk_0E8.y;
-                            arg0->obj.status = 2;
-                            func_8007D0E0(arg0->obj.pos.x - arg0->unk_0E8.x, arg0->obj.pos.y + 30.0f, arg0->obj.pos.z - arg0->unk_0E8.z, arg0->unk_110 * 5.0f);
-                            arg0->unk_0D0 = 0;
-                            arg0->unk_0C2 = 0x2710;
-                            arg0->unk_01C.unk_1C = 0.0f;
-                            D_80161A98 += arg0->unk_01C.unk_20;
-                            D_80177850 = 0xF;
-                            break;
-                        default:
-                            arg0->unk_0BC = 0x23;
-                            arg0->unk_04C = 2;
-                            arg0->unk_0E8.y = (Rand_ZeroOne() - 0.5f) * 20.0f;
-                            arg0->unk_0E8.x = (Rand_ZeroOne() - 0.5f) * 20.0f;
-                            arg0->unk_0E8.z = 0.0f;
-                            break;
+                            case 0xD:
+                                func_800654E4(&arg0->obj);
+                                break;
+                            case 0x3D:
+                                func_E08400_8018CCF8(arg0);
+                                break;
+                            case 0x1B:
+                                arg0->obj.pos.y -= arg0->unk_0E8.y;
+                                arg0->obj.status = 2;
+                                func_8007D0E0(arg0->obj.pos.x - arg0->unk_0E8.x, arg0->obj.pos.y + 30.0f,
+                                              arg0->obj.pos.z - arg0->unk_0E8.z, arg0->unk_110 * 5.0f);
+                                arg0->unk_0D0 = 0;
+                                arg0->unk_0C2 = 0x2710;
+                                arg0->unk_01C.unk_1C = 0.0f;
+                                D_80161A98 += arg0->unk_01C.unk_20;
+                                D_80177850 = 0xF;
+                                break;
+                            default:
+                                arg0->unk_0BC = 0x23;
+                                arg0->unk_04C = 2;
+                                arg0->unk_0E8.y = (Rand_ZeroOne() - 0.5f) * 20.0f;
+                                arg0->unk_0E8.x = (Rand_ZeroOne() - 0.5f) * 20.0f;
+                                arg0->unk_0E8.z = 0.0f;
+                                break;
                         }
                     }
                 }
@@ -1797,36 +1846,36 @@ void func_800701E0(Object_2F4 *arg0) {
                         arg0->unk_148 *= -1.0f;
                     }
                 }
-                
+
                 if (arg0->unk_0D4 == 1) {
                     switch (arg0->unk_080) {
-                    case 1:
-                        if (arg0->unk_0D0 == 3) {
-                            func_8006A7B0(gMsg_ID_20210, 0xA);
-                        } else {
-                            func_8006A7B0(gMsg_ID_20060, 0xA);
-                        }
-                        break;
-                    case 3:
-                        if (arg0->unk_0D0 == 3) {
-                            func_8006A7B0(gMsg_ID_20200, 0x1E);
-                        } else {
-                            func_8006A7B0(gMsg_ID_20070, 0x1E);
-                        }
-                        break;
-                    case 2:
-                        if (arg0->unk_0D0 == 3) {
-                            func_8006A7B0(gMsg_ID_20190, 0x14);
-                        } else {
-                            func_8006A7B0(gMsg_ID_20080, 0x14);
-                        }
-                        break;
-                    case 4:
-                        func_8006A7B0(gMsg_ID_20084, 0x28);
-                        break;
-                    case 5:
-                        func_8006A7B0(gMsg_ID_20085, 0xAA);
-                        break;
+                        case 1:
+                            if (arg0->unk_0D0 == 3) {
+                                func_8006A7B0(gMsg_ID_20210, 0xA);
+                            } else {
+                                func_8006A7B0(gMsg_ID_20060, 0xA);
+                            }
+                            break;
+                        case 3:
+                            if (arg0->unk_0D0 == 3) {
+                                func_8006A7B0(gMsg_ID_20200, 0x1E);
+                            } else {
+                                func_8006A7B0(gMsg_ID_20070, 0x1E);
+                            }
+                            break;
+                        case 2:
+                            if (arg0->unk_0D0 == 3) {
+                                func_8006A7B0(gMsg_ID_20190, 0x14);
+                            } else {
+                                func_8006A7B0(gMsg_ID_20080, 0x14);
+                            }
+                            break;
+                        case 4:
+                            func_8006A7B0(gMsg_ID_20084, 0x28);
+                            break;
+                        case 5:
+                            func_8006A7B0(gMsg_ID_20085, 0xAA);
+                            break;
                     }
                 }
                 arg0->unk_0D0 = 0;
@@ -1836,27 +1885,30 @@ void func_800701E0(Object_2F4 *arg0) {
             sp3C.x = arg0->unk_0E8.x;
             sp3C.y = arg0->unk_0E8.y;
             sp3C.z = arg0->unk_0E8.z;
-            if((func_8006351C(arg0->unk_040, &arg0->obj.pos, &sp3C, 0) != 0)  || (arg0->obj.pos.y < (D_80177940 + 20.0f))) {
-            arg0->obj.status = 3;
-            arg0->obj.pos.z -= arg0->unk_0E8.z;
-            arg0->unk_0D0 = 1;
-            if (arg0->unk_0B4 == 0xD) {
-                arg0->obj.id = 0xB6;
-                func_800654E4(&arg0->obj);
-            }
-            if (arg0->unk_0B4 == 0x3D) {
-                func_E08400_8018CCF8(arg0);
+            if ((func_8006351C(arg0->unk_040, &arg0->obj.pos, &sp3C, 0) != 0) ||
+                (arg0->obj.pos.y < (D_80177940 + 20.0f))) {
+                arg0->obj.status = 3;
+                arg0->obj.pos.z -= arg0->unk_0E8.z;
+                arg0->unk_0D0 = 1;
+                if (arg0->unk_0B4 == 0xD) {
+                    arg0->obj.id = 0xB6;
+                    func_800654E4(&arg0->obj);
+                }
+                if (arg0->unk_0B4 == 0x3D) {
+                    func_E08400_8018CCF8(arg0);
+                }
             }
         }
     }
-}}
+}
 
-void func_80070BA8(Object_2F4 *arg0) {
+void func_80070BA8(Object_2F4* arg0) {
     if (arg0->unk_0D0 != 0) {
         arg0->unk_0D0 = 0;
         if ((arg0->unk_0B4 != 0x11) || ((arg0->unk_0B4 == 0x11) && (arg0->unk_0D2 == 0))) {
             arg0->unk_0C6 = 0xA;
-            func_8007C120(arg0->unk_0D8.x, arg0->unk_0D8.y, arg0->unk_0D8.z, arg0->unk_0E8.x, arg0->unk_0E8.y, arg0->unk_0E8.z, 0.2f, 0xA);
+            func_8007C120(arg0->unk_0D8.x, arg0->unk_0D8.y, arg0->unk_0D8.z, arg0->unk_0E8.x, arg0->unk_0E8.y,
+                          arg0->unk_0E8.z, 0.2f, 0xA);
             arg0->unk_0CE -= arg0->unk_0D6;
             func_80019218(0x29033064U, &arg0->unk_100, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             if (arg0->unk_0CE <= 0) {
@@ -1870,7 +1922,7 @@ void func_80070BA8(Object_2F4 *arg0) {
     }
 }
 
-void func_80070CEC(Object_2F4 *arg0) {
+void func_80070CEC(Object_2F4* arg0) {
     if (arg0->unk_05C < 0xC8) {
         arg0->unk_0E6 = arg0->unk_05C * 2;
         arg0->unk_050 = 0;
@@ -1885,31 +1937,30 @@ void func_80070CEC(Object_2F4 *arg0) {
     }
 }
 
-void func_80070D44(Object_2F4 *arg0) {
+void func_80070D44(Object_2F4* arg0) {
     s32 i;
-    s32 var_v1;
+    s32 var_v1 = 0;
     s32 var_v1_4;
-    
     Object_2F4* temp;
 
-    var_v1 = 0;
-    for(i = 1; i < 4; i++) {
+    for (i = 1; i < 4; i++) {
         if (D_801778B0[i] > 0) {
             var_v1++;
         }
     }
     if (arg0->unk_058 >= 100) {
 
-    if (fabsf(arg0->obj.pos.z - D_80178280->unk_138) <= ((arg0->unk_058 - 100) * 100.0f)) {
-        func_80070CEC(arg0);
-    }
+        if (fabsf(arg0->obj.pos.z - D_80178280->unk_138) <= ((arg0->unk_058 - 100) * 100.0f)) {
+            func_80070CEC(arg0);
+        }
         return;
     }
     switch (arg0->unk_058) {
         case 0:
             break;
         case 0x1:
-            if ((D_80163FE0[arg0->unk_054].obj.status != 2) || (D_80163FE0[arg0->unk_054].unk_0CE <= 0) || (arg0->unk_078 != D_80163FE0[arg0->unk_054].unk_0E4)) {
+            if ((D_80163FE0[arg0->unk_054].obj.status != 2) || (D_80163FE0[arg0->unk_054].unk_0CE <= 0) ||
+                (arg0->unk_078 != D_80163FE0[arg0->unk_054].unk_0E4)) {
                 func_80070CEC(arg0);
             }
             break;
@@ -1949,82 +2000,98 @@ void func_80070D44(Object_2F4 *arg0) {
             }
             break;
         case 0x9:
-            if (((arg0->obj.pos.x -  D_80178280->unk_074) <= 100.0f) && ((arg0->obj.pos.x -  D_80178280->unk_074) >= 0.0f)) {
+            if (((arg0->obj.pos.x - D_80178280->unk_074) <= 100.0f) &&
+                ((arg0->obj.pos.x - D_80178280->unk_074) >= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0xA:
-            if (((arg0->obj.pos.x -  D_80178280->unk_074) <= 400.0f) && ((arg0->obj.pos.x -  D_80178280->unk_074) >= 0.0f)) {
+            if (((arg0->obj.pos.x - D_80178280->unk_074) <= 400.0f) &&
+                ((arg0->obj.pos.x - D_80178280->unk_074) >= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0xB:
-            if (((arg0->obj.pos.x -  D_80178280->unk_074) <= 700.0f) && ((arg0->obj.pos.x -  D_80178280->unk_074) >= 0.0f)) {
+            if (((arg0->obj.pos.x - D_80178280->unk_074) <= 700.0f) &&
+                ((arg0->obj.pos.x - D_80178280->unk_074) >= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0xC:
-            if (((arg0->obj.pos.x -  D_80178280->unk_074) <= 200.0f) && ((arg0->obj.pos.x -  D_80178280->unk_074) >= 0.0f)) {
+            if (((arg0->obj.pos.x - D_80178280->unk_074) <= 200.0f) &&
+                ((arg0->obj.pos.x - D_80178280->unk_074) >= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0xD:
-            if (((arg0->obj.pos.x -  D_80178280->unk_074) >= -100.0f) && ((arg0->obj.pos.x -  D_80178280->unk_074) <= 0.0f)) {
+            if (((arg0->obj.pos.x - D_80178280->unk_074) >= -100.0f) &&
+                ((arg0->obj.pos.x - D_80178280->unk_074) <= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0xE:
-            if (((arg0->obj.pos.x -  D_80178280->unk_074) >= -400.0f) && ((arg0->obj.pos.x -  D_80178280->unk_074) <= 0.0f)) {
+            if (((arg0->obj.pos.x - D_80178280->unk_074) >= -400.0f) &&
+                ((arg0->obj.pos.x - D_80178280->unk_074) <= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0xF:
-            if (((arg0->obj.pos.x -  D_80178280->unk_074) >= -700.0f) && ((arg0->obj.pos.x -  D_80178280->unk_074) <= 0.0f)) {
+            if (((arg0->obj.pos.x - D_80178280->unk_074) >= -700.0f) &&
+                ((arg0->obj.pos.x - D_80178280->unk_074) <= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x10:
-            if (((arg0->obj.pos.x -  D_80178280->unk_074) >= -200.0f) && ((arg0->obj.pos.x -  D_80178280->unk_074) <= 0.0f)) {
+            if (((arg0->obj.pos.x - D_80178280->unk_074) >= -200.0f) &&
+                ((arg0->obj.pos.x - D_80178280->unk_074) <= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x11:
-            if (((arg0->obj.pos.y -  D_80178280->unk_078) <= 100.0f) && ((arg0->obj.pos.y -  D_80178280->unk_078) >= 0.0f)) {
+            if (((arg0->obj.pos.y - D_80178280->unk_078) <= 100.0f) &&
+                ((arg0->obj.pos.y - D_80178280->unk_078) >= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x12:
-            if (((arg0->obj.pos.y -  D_80178280->unk_078) <= 400.0f) && ((arg0->obj.pos.y -  D_80178280->unk_078) >= 0.0f)) {
+            if (((arg0->obj.pos.y - D_80178280->unk_078) <= 400.0f) &&
+                ((arg0->obj.pos.y - D_80178280->unk_078) >= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x13:
-            if (((arg0->obj.pos.y -  D_80178280->unk_078) <= 700.0f) && ((arg0->obj.pos.y -  D_80178280->unk_078) >= 0.0f)) {
+            if (((arg0->obj.pos.y - D_80178280->unk_078) <= 700.0f) &&
+                ((arg0->obj.pos.y - D_80178280->unk_078) >= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x14:
-            if (((arg0->obj.pos.y -  D_80178280->unk_078) <= 200.0f) && ((arg0->obj.pos.y -  D_80178280->unk_078) >= 0.0f)) {
+            if (((arg0->obj.pos.y - D_80178280->unk_078) <= 200.0f) &&
+                ((arg0->obj.pos.y - D_80178280->unk_078) >= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x15:
-            if (((arg0->obj.pos.y -  D_80178280->unk_078) >= -100.0f) && ((arg0->obj.pos.y -  D_80178280->unk_078) <= 0.0f)) {
+            if (((arg0->obj.pos.y - D_80178280->unk_078) >= -100.0f) &&
+                ((arg0->obj.pos.y - D_80178280->unk_078) <= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x16:
-            if (((arg0->obj.pos.y -  D_80178280->unk_078) >= -400.0f) && ((arg0->obj.pos.y -  D_80178280->unk_078) <= 0.0f)) {
+            if (((arg0->obj.pos.y - D_80178280->unk_078) >= -400.0f) &&
+                ((arg0->obj.pos.y - D_80178280->unk_078) <= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x17:
-            if (((arg0->obj.pos.y -  D_80178280->unk_078) >= -700.0f) && ((arg0->obj.pos.y -  D_80178280->unk_078) <= 0.0f)) {
+            if (((arg0->obj.pos.y - D_80178280->unk_078) >= -700.0f) &&
+                ((arg0->obj.pos.y - D_80178280->unk_078) <= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x18:
-            if (((arg0->obj.pos.y -  D_80178280->unk_078) >= -200.0f) && ((arg0->obj.pos.y -  D_80178280->unk_078) <= 0.0f)) {
+            if (((arg0->obj.pos.y - D_80178280->unk_078) >= -200.0f) &&
+                ((arg0->obj.pos.y - D_80178280->unk_078) <= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
@@ -2099,37 +2166,44 @@ void func_80070D44(Object_2F4 *arg0) {
             }
             break;
         case 0x27:
-            for(i = 0; i < ARRAY_COUNT(D_80174050); i++) {
-                if ((D_80174050[i].obj.status == 1) && (fabsf(arg0->obj.pos.x - D_80174050[i].obj.pos.x) < 150.0f) && (fabsf(arg0->obj.pos.y - D_80174050[i].obj.pos.y) < 150.0f) && (fabsf(arg0->obj.pos.z - D_80174050[i].obj.pos.z) < 150.0f)) {
+            for (i = 0; i < ARRAY_COUNT(D_80174050); i++) {
+                if ((D_80174050[i].obj.status == 1) && (fabsf(arg0->obj.pos.x - D_80174050[i].obj.pos.x) < 150.0f) &&
+                    (fabsf(arg0->obj.pos.y - D_80174050[i].obj.pos.y) < 150.0f) &&
+                    (fabsf(arg0->obj.pos.z - D_80174050[i].obj.pos.z) < 150.0f)) {
                     func_80070CEC(arg0);
                     break;
                 }
             }
             break;
         case 0x28:
-            for(i = 0; i < ARRAY_COUNT(D_80174050); i++) {
-                if ((D_80174050[i].obj.status == 1) && (fabsf(arg0->obj.pos.x - D_80174050[i].obj.pos.x) < 300.0f) && (fabsf(arg0->obj.pos.y - D_80174050[i].obj.pos.y) < 300.0f) && (fabsf(arg0->obj.pos.z - D_80174050[i].obj.pos.z) < 300.0f)) {
+            for (i = 0; i < ARRAY_COUNT(D_80174050); i++) {
+                if ((D_80174050[i].obj.status == 1) && (fabsf(arg0->obj.pos.x - D_80174050[i].obj.pos.x) < 300.0f) &&
+                    (fabsf(arg0->obj.pos.y - D_80174050[i].obj.pos.y) < 300.0f) &&
+                    (fabsf(arg0->obj.pos.z - D_80174050[i].obj.pos.z) < 300.0f)) {
                     func_80070CEC(arg0);
                     break;
                 }
             }
             break;
         case 0x29:
-            if ((D_80163FE0[arg0->unk_074].obj.status != 2) || ((D_80163FE0[arg0->unk_074].unk_110 < 0.0f) && (arg0->unk_0CE <= 0))) {
+            if ((D_80163FE0[arg0->unk_074].obj.status != 2) ||
+                ((D_80163FE0[arg0->unk_074].unk_110 < 0.0f) && (arg0->unk_0CE <= 0))) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x2A:
-            for(i = 0; i < ARRAY_COUNT(D_80163FE0); i++) {
-                if ((D_80163FE0[i].obj.status == 2) && (D_80163FE0[i].obj.id == 0xC8) && (D_80163FE0[i].unk_084 != 0) && (i != arg0->unk_040) && (arg0->unk_040 == D_80163FE0[i].unk_074)) {
+            for (i = 0; i < ARRAY_COUNT(D_80163FE0); i++) {
+                if ((D_80163FE0[i].obj.status == 2) && (D_80163FE0[i].obj.id == 0xC8) && (D_80163FE0[i].unk_084 != 0) &&
+                    (i != arg0->unk_040) && (arg0->unk_040 == D_80163FE0[i].unk_074)) {
                     return;
                 }
             }
             func_80070CEC(arg0);
             break;
         case 0x2B:
-            for(i = 0; i < ARRAY_COUNT(D_80163FE0); i++) {
-                if ((D_80163FE0[i].obj.status == 2) && (D_80163FE0[i].obj.id == 0xC8) && (D_80163FE0[i].unk_084 != 0) && (i != arg0->unk_040) && (arg0->unk_040 == D_80163FE0[i].unk_074)) {
+            for (i = 0; i < ARRAY_COUNT(D_80163FE0); i++) {
+                if ((D_80163FE0[i].obj.status == 2) && (D_80163FE0[i].obj.id == 0xC8) && (D_80163FE0[i].unk_084 != 0) &&
+                    (i != arg0->unk_040) && (arg0->unk_040 == D_80163FE0[i].unk_074)) {
                     func_80070CEC(arg0);
                     break;
                 }
@@ -2157,8 +2231,9 @@ void func_80070D44(Object_2F4 *arg0) {
             }
             break;
         case 0x2E:
-            for(i = 0, temp = D_80163FE0; i < ARRAY_COUNT(D_80163FE0); i++, temp++) {
-                if (((temp->obj.status == 3) || (temp->obj.status == 0)) && (arg0->unk_08C == temp->unk_08C) && (temp->unk_090 != 0)) {
+            for (i = 0, temp = D_80163FE0; i < ARRAY_COUNT(D_80163FE0); i++, temp++) {
+                if (((temp->obj.status == 3) || (temp->obj.status == 0)) && (arg0->unk_08C == temp->unk_08C) &&
+                    (temp->unk_090 != 0)) {
                     func_80070CEC(arg0);
                 }
             }
