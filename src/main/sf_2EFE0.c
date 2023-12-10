@@ -41,7 +41,7 @@ void func_8002E3E0(Object_2F4* arg0) {
 }
 
 s32 func_8002E4F8(u16* arg0, s32 arg1) {
-    if ((D_8017829C == 0) && (D_80178280[0].unk_1C8 != 0)) {
+    if ((D_8017829C == 0) && (gPlayers[0].unk_1C8 != 0)) {
         func_800BA808(arg0, arg1);
         return true;
     } else {

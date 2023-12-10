@@ -171,14 +171,14 @@ void func_80040954(void);
 void func_80040CDC(void);
 void func_80040CE4(void);
 
-// sf_43AC0
+// fox_43AC0
 void func_80042FAC(Object_408 *);
 void func_80042FB8(Object_408*);
 void func_80042FC4(Object_408*);
 void func_80042FD0(Object_408 *);
 void func_80042FDC(Object_408*);
 void func_80042FE8(Object_408*);
-void func_800444BC(UnkStruct_D_80178280 *);
+void func_800444BC(Player *);
 void func_800515C4(void);
 
 // sf_496E0
@@ -187,9 +187,9 @@ void func_8004FEC0(Object_2F4*);
 void func_800515C4(void);
 
 // fox_52730
-void func_80053658(UnkStruct_D_80161630 *);
+void func_80053658(WingInfo *);
 void func_8005465C(s32);
-void func_80057814(UnkStruct_D_80178280* arg0);
+void func_80057814(Player* arg0);
 void func_80057D00(void);
 
 // fox_edata
@@ -516,16 +516,16 @@ void func_800A3CA0(void);
 
 // sf_A4B50
 s32 func_800A3F50(u16);
-s32 func_800A3FC4(void);
+s32 Play_GetMaxHealth(void);
 void func_800A5844(void);
 void func_800A5D6C(void);
 void func_800A6148(void);
 void func_800A69F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3);
-void func_800A6CD0(UnkStruct_D_80178280 *, s32, s32);
+void func_800A6CD0(Player *, s32, s32);
 s32 func_800A73E4(f32* arg0, s32* arg1, f32 arg2, f32 arg3, f32 arg4);
 s32 func_800A78C4(f32* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6);
 void func_800B6F50(f32, f32, f32, f32, f32, f32);
-void func_800B73E0(UnkStruct_D_80178280 *);
+void func_800B73E0(Player *);
 void func_800B86CC(void);
 
 // fox_radio
@@ -614,7 +614,7 @@ void func_E6A810_801B6E20(f32, f32, f32 *, f32 *, f32 *);
 void func_E9F1D0_801888F4(Object_2F4 *);
 void func_E9F1D0_8018D16C(Object_408 *);
 void func_E9F1D0_80197CC4(Object_408 *);
-void func_E9F1D0_801A6164(UnkStruct_D_80178280 *);
+void func_E9F1D0_801A6164(Player *);
 
 void func_EF0260_8018A96C(void);
 void func_EF0260_8018AAC4(void);

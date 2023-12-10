@@ -495,7 +495,7 @@ void func_800A26C0(void) {
             }
         } else {
             for (i = 0; i < D_801778A8; i++) {
-                if (D_80178280[i].unk_224 != 0) {
+                if (gPlayers[i].unk_224 != 0) {
 
                     Graphics_FillRectangle(&gMasterDisp, D_800D2874[i], D_800D2894[i], D_800D2884[i], D_800D28A4[i],
                                            D_80178348, D_80178350, D_80178354, D_80178340);

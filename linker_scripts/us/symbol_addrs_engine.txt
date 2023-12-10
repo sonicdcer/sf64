@@ -1,3 +1,4 @@
+//fox_display
 Graphics_ClearPrintBuffer = 0x80099980;
 Graphics_Printf = 0x800999D8;
 Texture_Scroll = 0x80099A2C;
@@ -45,6 +46,7 @@ Graphics_GetSmallTextWidth = 0x800A13EC;
 func_800A1540 = 0x800A1540;
 func_800A1558 = 0x800A1558;
 
+// fox_rcp
 RCP_SetupDL = 0x800B8DD0;
 RCP_SetFog = 0x800B8E14;
 RCP_SetupDL_0  = 0x800b8f18;
@@ -100,10 +102,9 @@ RCP_SetupDL_44 = 0x800BA5E0;
 RCP_SetupDL_50 = 0x800BA610;
 RCP_SetupDL_61 = 0x800BA640;
 
+// fox_message
 gTextCharTextures = 0x80179010;
-
 gMsgLookup = 0x80185CBC;
-gDefaultSave = 0x800D4D10;
 
 Message_PtrFromId = 0x800C2830;
 Message_IdFromPtr = 0x800C2890;
@@ -114,9 +115,19 @@ Message_DisplayText = 0x800C2AF0;
 Message_DisplayScrollingText = 0x800C2D3C;
 Message_IsPrintingChar = 0x800C2F30;
 
+// fox_save
+gDefaultSave = 0x800D4D10;
+
+// fox_enmy1
 Object_80_Initialize = 0x80061364;
 Object_4C_Initialize = 0x80061394;
 Object_2F4_Initialize = 0x800613C4;
 Object_408_Initialize = 0x80061404;
 Object_6C_Initialize = 0x80061444;
 Object_8C_Initialize = 0x80061474;
+
+// sf_A4B50
+gGoldRingCount = 0x80161A90;
+gPlayers = 0x80178280;
+
+Play_GetMaxHealth = 0x800A3FC4;

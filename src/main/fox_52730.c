@@ -30,7 +30,7 @@ void func_80051B30(void) {
     if ((D_80177854 == 0x64) || (D_800CA234 == NULL)) {
         return;
     }
-    if ((D_800CA234->obj.status != 2) || (D_80178280->unk_1C8 != 3)) {
+    if ((D_800CA234->obj.status != 2) || (gPlayers[0].unk_1C8 != 3)) {
         D_800CA234 = NULL;
         D_800CA238 = 0;
         return;
@@ -43,11 +43,11 @@ void func_80051B30(void) {
         }
     }
     if (!(D_800CA238 & 4)) {
-        Matrix_RotateY(gCalcMatrix, D_80178280->unk_058, 0);
-        Matrix_RotateX(gCalcMatrix, D_80178280->unk_05C, 1);
-        sp68.x = D_800CA234->obj.pos.x - D_80178280->unk_040.x;
-        sp68.y = D_800CA234->obj.pos.y - D_80178280->unk_040.y;
-        sp68.z = D_800CA234->obj.pos.z + D_80177D20 - D_80178280->unk_040.z;
+        Matrix_RotateY(gCalcMatrix, gPlayers[0].unk_058, 0);
+        Matrix_RotateX(gCalcMatrix, gPlayers[0].unk_05C, 1);
+        sp68.x = D_800CA234->obj.pos.x - gPlayers[0].unk_040.x;
+        sp68.y = D_800CA234->obj.pos.y - gPlayers[0].unk_040.y;
+        sp68.z = D_800CA234->obj.pos.z + D_80177D20 - gPlayers[0].unk_040.z;
         Matrix_MultVec3f(gCalcMatrix, &sp68, &sp5C);
         sp7C = 0;
         if ((sp5C.z < 0.0f) && (sp5C.z > -12000.0f) && (fabsf(sp5C.x) < fabsf(sp5C.z * 0.4f))) {
@@ -121,7 +121,7 @@ void func_80051B30(void) {
 }
 
 s32 func_800520FC(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, void* data) {
-    UnkStruct_D_80178280* arg4 = (UnkStruct_D_80178280*) data;
+    Player* arg4 = (Player*) data;
 
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
     if (arg4->unk_1C4 == 1) {
@@ -178,7 +178,7 @@ s32 func_800520FC(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, void* dat
 
 void func_800523A8(s32 limbIndex, Vec3f* rot, void* data) {
     Vec3f sp1C;
-    UnkStruct_D_80178280* arg2 = (UnkStruct_D_80178280*) data;
+    Player* arg2 = (Player*) data;
 
     if (limbIndex == 0xB) {
         sp1C.x = 3.0f;
@@ -190,7 +190,7 @@ void func_800523A8(s32 limbIndex, Vec3f* rot, void* data) {
 
 void func_80052420(s32 limbIndex, Vec3f* rot, void* data) {
     Vec3f sp1C;
-    UnkStruct_D_80178280* arg2 = (UnkStruct_D_80178280*) data;
+    Player* arg2 = (Player*) data;
 
     if (limbIndex == 0x10) {
         sp1C.x = 13.0f;
@@ -202,7 +202,7 @@ void func_80052420(s32 limbIndex, Vec3f* rot, void* data) {
 
 void func_80052498(s32 limbIndex, Vec3f* rot, void* data) {
     Vec3f sp1C;
-    UnkStruct_D_80178280* arg2 = (UnkStruct_D_80178280*) data;
+    Player* arg2 = (Player*) data;
 
     if (limbIndex == 0xB) {
         sp1C.x = 0.0f;
@@ -214,7 +214,7 @@ void func_80052498(s32 limbIndex, Vec3f* rot, void* data) {
 
 void func_8005250C(s32 limbIndex, Vec3f* rot, void* data) {
     Vec3f sp1C;
-    UnkStruct_D_80178280* arg2 = (UnkStruct_D_80178280*) data;
+    Player* arg2 = (Player*) data;
 
     if (limbIndex == 0xB) {
         sp1C.x = 19.0f;
@@ -224,7 +224,7 @@ void func_8005250C(s32 limbIndex, Vec3f* rot, void* data) {
     }
 }
 
-void func_80052584(UnkStruct_D_80178280* arg0) {
+void func_80052584(Player* arg0) {
     Matrix_Push(&gGfxMatrix);
     Matrix_Copy(gGfxMatrix, &gIdentityMatrix);
     if ((arg0->unk_1C8 == 3) && (arg0->unk_1F8 != 0)) {
@@ -240,7 +240,7 @@ void func_80052584(UnkStruct_D_80178280* arg0) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_800526B8(UnkStruct_D_80178280* arg0) {
+void func_800526B8(Player* arg0) {
     Matrix_Push(&gGfxMatrix);
     Matrix_Scale(gCalcMatrix, 0.5f, 0.5f, 0.5f, 1);
     Matrix_Translate(gCalcMatrix, 0.0f, 35.0f, 0.0f, 1);
@@ -264,7 +264,7 @@ void func_800526B8(UnkStruct_D_80178280* arg0) {
 
 // Vec3f D_800CA254 = {0.0f, 0.0f, 90.0f};
 // Vec3f D_800CA260 = {0.0f, 40.0f, -70.0f};
-void func_80052884(UnkStruct_D_80178280* arg0) {
+void func_80052884(Player* arg0) {
     f32 sp64;
     Vec3f sp58;
     Vec3f sp4C = { 0.0f, 0.0f, 90.0f };
@@ -314,7 +314,7 @@ f32 D_800CA294 = -10.0f;
 f32 D_800CA298[] = { 0.0f, 0.0f, 0.0f, 0.0f };
 f32 D_800CA2A8 = 0.0f;
 
-void func_80052B80(UnkStruct_D_80178280* arg0) {
+void func_80052B80(Player* arg0) {
     Matrix_Push(&gGfxMatrix);
     if ((arg0->unk_1C8 == 3) && (arg0->unk_1A0 != 0)) {
         Matrix_Translate(gGfxMatrix, D_80161548[arg0->unk_1C4].x, D_80161548[arg0->unk_1C4].y,
@@ -338,7 +338,7 @@ void func_80052B80(UnkStruct_D_80178280* arg0) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_80052D48(UnkStruct_D_80178280* arg0) {
+void func_80052D48(Player* arg0) {
     f32 sp2C;
 
     Matrix_Push(&gGfxMatrix);
@@ -362,7 +362,7 @@ void func_80052D48(UnkStruct_D_80178280* arg0) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, 20.0f, 30.0f, -10.0f, 1);
         if (D_801778E8 == 0) {
-            Matrix_RotateY(gGfxMatrix, -D_80178280[D_801778A0].unk_058, 1);
+            Matrix_RotateY(gGfxMatrix, -gPlayers[D_801778A0].unk_058, 1);
         }
         Matrix_Scale(gGfxMatrix, sp2C, sp2C, sp2C, 1);
         Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, 1);
@@ -385,7 +385,7 @@ void func_80052D48(UnkStruct_D_80178280* arg0) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, -20.0f, 30.0f, -10.0f, 1);
         if (D_801778E8 == 0) {
-            Matrix_RotateY(gGfxMatrix, -D_80178280[D_801778A0].unk_058, 1);
+            Matrix_RotateY(gGfxMatrix, -gPlayers[D_801778A0].unk_058, 1);
         }
         Matrix_Scale(gGfxMatrix, sp2C, sp2C, sp2C, 1);
         Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, 1);
@@ -408,9 +408,9 @@ void func_8005314C(void) {
 }
 
 s32 func_800531A4(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, void* wingData) {
-    UnkStruct_D_80161630* wings = (UnkStruct_D_80161630*) wingData;
+    WingInfo* wings = (WingInfo*) wingData;
 
-    if ((D_800CA22C != 0) && (D_80178280->unk_200 == 0)) {
+    if ((D_800CA22C != 0) && (gPlayers[0].unk_200 == 0)) {
         RCP_SetupDL(&gMasterDisp, 0x1D);
         func_8005314C();
     }
@@ -511,7 +511,7 @@ s32 func_800531A4(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, void* win
     return 0;
 }
 
-void func_80053658(UnkStruct_D_80161630* arg0) {
+void func_80053658(WingInfo* arg0) {
     Vec3f sp68[30];
     s32 sp64;
 
@@ -521,7 +521,7 @@ void func_80053658(UnkStruct_D_80161630* arg0) {
         arg0->unk_18 = (-arg0->unk_14 - 7.0f) * 2.5f;
     }
     if (D_80177834 == 7) {
-        Animation_DrawSkeleton(1, D_3016610, D_80178280[0].jointTable, func_800531A4, NULL, arg0, &gIdentityMatrix);
+        Animation_DrawSkeleton(1, D_3016610, gPlayers[0].jointTable, func_800531A4, NULL, arg0, &gIdentityMatrix);
     } else {
         if (D_80177834 == 3) {
             Animation_GetFrameData(&D_3015AF4, 0, sp68);
@@ -556,7 +556,7 @@ void func_80053658(UnkStruct_D_80161630* arg0) {
     Matrix_RotateX(gGfxMatrix, arg0->unk_38 * M_DTOR, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
     RCP_SetupDL_64_2();
-    if ((D_80177834 == 7) && (D_80178280->unk_1C8 == 2) && (D_80178234 == 0)) {
+    if ((D_80177834 == 7) && (gPlayers[0].unk_1C8 == 2) && (D_80178234 == 0)) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 120);
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
         gSPDisplayList(gMasterDisp++, D_30194E0);
@@ -590,7 +590,7 @@ void func_80053B18(void) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_80053C38(UnkStruct_D_80178280* arg0, s32 arg1) {
+void func_80053C38(Player* arg0, s32 arg1) {
     Vec3f sp4C;
     f32 sp48;
 
@@ -618,28 +618,28 @@ void func_80053C38(UnkStruct_D_80178280* arg0, s32 arg1) {
         }
     } else {
         if (D_801778E8 != 0) {
-            if ((arg0->unk_49C.unk_00 == 2) && (arg0->unk_49C.unk_01 == 2)) {
+            if ((arg0->wings.unk_00 == 2) && (arg0->wings.unk_01 == 2)) {
                 gSPDisplayList(gMasterDisp++, D_300EE80);
-            } else if ((arg0->unk_49C.unk_00 < 2) && (arg0->unk_49C.unk_01 == 2)) {
+            } else if ((arg0->wings.unk_00 < 2) && (arg0->wings.unk_01 == 2)) {
                 gSPDisplayList(gMasterDisp++, D_3010A90);
-            } else if ((arg0->unk_49C.unk_00 == 2) && (arg0->unk_49C.unk_01 < 2)) {
+            } else if ((arg0->wings.unk_00 == 2) && (arg0->wings.unk_01 < 2)) {
                 gSPDisplayList(gMasterDisp++, D_3011470);
             } else {
                 gSPDisplayList(gMasterDisp++, D_300D550);
             }
         } else {
             if ((D_80177C98 == 1) || (D_80178234 == 0x11)) {
-                arg0->unk_49C.unk_28 = arg0->unk_49C.unk_04 = arg0->unk_49C.unk_08 = arg0->unk_49C.unk_0C =
-                    arg0->unk_49C.unk_10 = 0.0f;
+                arg0->wings.unk_28 = arg0->wings.unk_04 = arg0->wings.unk_08 = arg0->wings.unk_0C =
+                    arg0->wings.unk_10 = 0.0f;
             }
             D_800CA22C = 1;
             D_80161410 = arg1;
-            func_80053658(&arg0->unk_49C);
+            func_80053658(&arg0->wings);
         }
     }
 }
 
-void func_80053F7C(UnkStruct_D_80178280* arg0) {
+void func_80053F7C(Player* arg0) {
     Vec3f* pad;
     s32 i;
 
@@ -674,7 +674,7 @@ void func_80053F7C(UnkStruct_D_80178280* arg0) {
     }
 }
 
-void func_80054280(UnkStruct_D_80178280* arg0, s32 arg1) {
+void func_80054280(Player* arg0, s32 arg1) {
     switch (arg0->unk_1CC) {
         case 0:
             func_80053C38(arg0, arg1);
@@ -691,7 +691,7 @@ void func_80054280(UnkStruct_D_80178280* arg0, s32 arg1) {
     }
 }
 
-void func_80054300(UnkStruct_D_80178280* arg0) {
+void func_80054300(Player* arg0) {
     Math_SmoothStepToF(&D_800CA2A8, arg0->unk_23C, 1.0f, 10.0f, 0.0f);
     RCP_SetupDL(&gMasterDisp, 0x42);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, (s32) D_800CA2A8);
@@ -762,7 +762,7 @@ void func_8005465C(s32 arg0) {
     gSPDisplayList(gMasterDisp++, D_1024AC0);
 }
 
-void func_8005478C(UnkStruct_D_80178280* arg0) {
+void func_8005478C(Player* arg0) {
     RCP_SetupDL_64();
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 100);
     Matrix_Push(&gGfxMatrix);
@@ -786,7 +786,7 @@ void func_8005478C(UnkStruct_D_80178280* arg0) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_80054914(UnkStruct_D_80178280* arg0) {
+void func_80054914(Player* arg0) {
     f32 sp4C;
     Vec3f sp40;
     Vec3f sp34;
@@ -807,8 +807,8 @@ void func_80054914(UnkStruct_D_80178280* arg0) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, arg0->unk_074 + sp34.x, arg0->unk_078 + sp34.y,
                          arg0->unk_138 + arg0->unk_144 + sp34.z, 1);
-        Matrix_RotateY(gGfxMatrix, -D_80178280[D_801778A0].unk_058, 1);
-        Matrix_RotateX(gGfxMatrix, D_80178280[D_801778A0].unk_05C, 1);
+        Matrix_RotateY(gGfxMatrix, -gPlayers[D_801778A0].unk_058, 1);
+        Matrix_RotateX(gGfxMatrix, gPlayers[D_801778A0].unk_05C, 1);
         Matrix_RotateZ(gGfxMatrix, D_80177DB0 * 20.0f * sp4C * M_DTOR, 1);
         if (arg0->unk_1CC == 0) {
             Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, 1);
@@ -827,7 +827,7 @@ void func_80054914(UnkStruct_D_80178280* arg0) {
     }
 }
 
-void func_80054CA4(UnkStruct_D_80178280* arg0) {
+void func_80054CA4(Player* arg0) {
     if (D_80177AB8[arg0->unk_1C4] > 1.0f) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Copy(gGfxMatrix, &D_80161418[arg0->unk_1C4]);
@@ -848,7 +848,7 @@ void func_80054CA4(UnkStruct_D_80178280* arg0) {
 // Vec3f D_800CA2B8 = {0.0f, -14.0f, 60.0f};
 // Vec3f D_800CA2C4 = {30.0f, -10.0f, 30.0f};
 // Vec3f D_800CA2D0 = {-30.0f, -10.0f, 30.0f};
-void func_80054E80(UnkStruct_D_80178280* arg0) {
+void func_80054E80(Player* arg0) {
     Vec3f spC4 = { 0.0f, -5.0f, 60.0f };
     Vec3f spB8 = { 0.0f, -14.0f, 60.0f };
     Vec3f spAC = { 30.0f, -10.0f, 30.0f };
@@ -921,7 +921,7 @@ void func_80054E80(UnkStruct_D_80178280* arg0) {
         RCP_SetupDL(&gMasterDisp, 0x43);
         Matrix_Copy(gCalcMatrix, &D_80161418[arg0->unk_1C4]);
         var_v1 = D_80161AA8[arg0->unk_1C4];
-        if (arg0->unk_49C.unk_14 > -8.0f) {
+        if (arg0->wings.unk_14 > -8.0f) {
             var_v1 = 0;
         }
         switch (var_v1) {
@@ -969,7 +969,7 @@ void func_80054E80(UnkStruct_D_80178280* arg0) {
     }
 }
 
-void func_80055788(UnkStruct_D_80178280* arg0) {
+void func_80055788(Player* arg0) {
     f32 sp54;
 
     if (D_801779C8[arg0->unk_1C4] >= 0xB) {
@@ -1020,7 +1020,7 @@ void func_80055788(UnkStruct_D_80178280* arg0) {
     }
 }
 
-void func_80055B58(UnkStruct_D_80178280* arg0) {
+void func_80055B58(Player* arg0) {
     Vec3f sp4C;
     Vec3f sp40;
     f32 var_fv0;
@@ -1048,8 +1048,8 @@ void func_80055B58(UnkStruct_D_80178280* arg0) {
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, arg0->unk_074 + sp40.x, arg0->unk_078 + sp40.y,
                                  arg0->unk_138 + arg0->unk_144 + sp40.z, 1);
-                Matrix_RotateY(gGfxMatrix, -D_80178280[D_801778A0].unk_058, 1);
-                Matrix_RotateX(gGfxMatrix, D_80178280[D_801778A0].unk_05C, 1);
+                Matrix_RotateY(gGfxMatrix, -gPlayers[D_801778A0].unk_058, 1);
+                Matrix_RotateX(gGfxMatrix, gPlayers[D_801778A0].unk_05C, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 func_8005478C(arg0);
                 Matrix_Pop(&gGfxMatrix);
@@ -1074,7 +1074,7 @@ void func_80055B58(UnkStruct_D_80178280* arg0) {
     }
 }
 
-void func_80055E98(UnkStruct_D_80178280* arg0) {
+void func_80055E98(Player* arg0) {
     f32 sp5C;
     f32 sp58;
     f32 sp54;
@@ -1104,7 +1104,7 @@ void func_80055E98(UnkStruct_D_80178280* arg0) {
         }
         RCP_SetupDL_64();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 100);
-        if (arg0->unk_49C.unk_01 == 2) {
+        if (arg0->wings.unk_01 == 2) {
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, sp5C, sp58, -100.0f, 1);
             Matrix_RotateX(gGfxMatrix, M_DTOR * sp50, 1);
@@ -1117,7 +1117,7 @@ void func_80055E98(UnkStruct_D_80178280* arg0) {
             gSPDisplayList(gMasterDisp++, D_102A8A0);
             Matrix_Pop(&gGfxMatrix);
         }
-        if (arg0->unk_49C.unk_00 == 2) {
+        if (arg0->wings.unk_00 == 2) {
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, -sp5C, sp58, -100.0f, 1);
             Matrix_RotateX(gGfxMatrix, M_DTOR * sp50, 1);
@@ -1133,7 +1133,7 @@ void func_80055E98(UnkStruct_D_80178280* arg0) {
     }
 }
 
-void func_80056230(UnkStruct_D_80178280* arg0) {
+void func_80056230(Player* arg0) {
     if ((arg0->unk_234 != 0) && (arg0->unk_1CC == 0) && (D_80178234 != 9) && (D_80178234 != 0xA) && (D_80177C98 == 0)) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, arg0->unk_074, arg0->unk_078, arg0->unk_138 + arg0->unk_144, 1);
@@ -1177,7 +1177,7 @@ s32 D_800CA2E8[16] = { 60, 40, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 #ifdef NON_MATCHING
 // Vec3f D_800CA328 = {0.0f, 0.0f, 0.0f};
-void func_800564C0(UnkStruct_D_80178280* arg0, s32 arg1) {
+void func_800564C0(Player* arg0, s32 arg1) {
     s32 i;
     Vec3f sp50 = { 0.0f, 0.0f, 0.0f };
     Vec3f* temp_s0;
@@ -1288,7 +1288,7 @@ void func_800564C0(UnkStruct_D_80178280* arg0, s32 arg1) {
 }
 #else
 Vec3f D_800CA328 = { 0.0f, 0.0f, 0.0f };
-void func_800564C0(UnkStruct_D_80178280*, s32);
+void func_800564C0(Player*, s32);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_52730/func_800564C0.s")
 #endif
 
@@ -1309,7 +1309,7 @@ f32 D_800CA38C[] = {
     -50.0f,
 };
 
-void func_80056E2C(UnkStruct_D_80178280* arg0) {
+void func_80056E2C(Player* arg0) {
     f32 sp34;
     f32 sp30;
     f32 sp2C;
@@ -1444,28 +1444,28 @@ void func_80057504(void);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_52730/func_80057504.s")
 #endif
 
-void func_80057814(UnkStruct_D_80178280* arg0) {
+void func_80057814(Player* arg0) {
     Vec3f sp2C;
     Vec3f sp20;
 
     sp20.x = arg0->unk_074;
     sp20.y = arg0->unk_078;
     sp20.z = arg0->unk_138;
-    sp2C.x = arg0->unk_460[0].x;
-    sp2C.y = arg0->unk_460[0].y;
-    sp2C.z = arg0->unk_460[0].z;
-    func_8005F0E8(&arg0->unk_460[0], &sp20);
-    arg0->unk_460[1].x = arg0->unk_460[0].x - sp2C.x;
-    arg0->unk_460[1].y = arg0->unk_460[0].y - sp2C.y;
-    arg0->unk_460[1].z = arg0->unk_460[0].z - sp2C.z;
-    arg0->unk_480 = &arg0->unk_460[1];
-    arg0->unk_47C = &arg0->unk_460[0];
+    sp2C.x = arg0->unk_460.x;
+    sp2C.y = arg0->unk_460.y;
+    sp2C.z = arg0->unk_460.z;
+    func_8005F0E8(&arg0->unk_460, &sp20);
+    arg0->unk_46C.x = arg0->unk_460.x - sp2C.x;
+    arg0->unk_46C.y = arg0->unk_460.y - sp2C.y;
+    arg0->unk_46C.z = arg0->unk_460.z - sp2C.z;
+    arg0->unk_480 = &arg0->unk_46C;
+    arg0->unk_47C = &arg0->unk_460;
     arg0->unk_488 = arg0->unk_0C0.y;
     arg0->unk_490 = arg0->unk_0F8;
 }
 
 // Vec3f D_800CA39C = {0.0f, 0.0f, -300.0f};
-void func_800578C4(UnkStruct_D_80178280* arg0) {
+void func_800578C4(Player* arg0) {
     Vec3f sp4C = { 0.0f, 0.0f, -300.0f };
     Vec3f sp40;
     f32 sp3C;
@@ -1473,8 +1473,8 @@ void func_800578C4(UnkStruct_D_80178280* arg0) {
 
     switch (D_800CA220) {
         case 0:
-            Math_SmoothStepToAngle(&arg0->unk_49C.unk_30, 0.0f, 0.2f, 3.0f, 0.0f);
-            Math_SmoothStepToAngle(&arg0->unk_49C.unk_34, 0.0f, 0.2f, 3.0f, 0.0f);
+            Math_SmoothStepToAngle(&arg0->wings.unk_30, 0.0f, 0.2f, 3.0f, 0.0f);
+            Math_SmoothStepToAngle(&arg0->wings.unk_34, 0.0f, 0.2f, 3.0f, 0.0f);
             D_801779D8.x = arg0->unk_040.x;
             D_801779D8.y = arg0->unk_040.y;
             D_801779D8.z = arg0->unk_040.z;
@@ -1500,8 +1500,8 @@ void func_800578C4(UnkStruct_D_80178280* arg0) {
                 sp3C += 360.0f;
             }
             sp3C = 360.0f - sp3C;
-            Math_SmoothStepToAngle(&arg0->unk_49C.unk_30, sp38, 0.2f, 6.0f, 0.0f);
-            Math_SmoothStepToAngle(&arg0->unk_49C.unk_34, sp3C, 0.2f, 6.0f, 0.0f);
+            Math_SmoothStepToAngle(&arg0->wings.unk_30, sp38, 0.2f, 6.0f, 0.0f);
+            Math_SmoothStepToAngle(&arg0->wings.unk_34, sp3C, 0.2f, 6.0f, 0.0f);
             Math_SmoothStepToF(&D_800CA380, gChangedInput->stick_y * 0.75f, 0.1f, 2.0f, 0.0f);
             Math_SmoothStepToF(&D_800CA384, gChangedInput->stick_x * 3.0f, 0.1f, 5.0f, 0.0f);
             Math_SmoothStepToF(&D_800CA388, D_800CA38C[D_800CA220], 0.1f, 10.0f, 0.0f);
@@ -1525,8 +1525,8 @@ void func_80057D00(void) {
     Vec3f sp6C;
     Vec3f sp60;
     s32 pad;
-    UnkStruct_D_80178280* var_s0;
-    UnkStruct_D_80178280* sp54 = &D_80178280[D_801778A0];
+    Player* var_s0;
+    Player* sp54 = &gPlayers[D_801778A0];
 
     D_800CA228 = 0;
 
@@ -1534,22 +1534,22 @@ void func_80057D00(void) {
         D_80161A98 = 0x1FF;
     }
     Matrix_Push(&gGfxMatrix);
-    if ((D_80178234 == 0xD) && (D_80178280->unk_1C8 == 3)) {
+    if ((D_80178234 == 0xD) && (gPlayers[0].unk_1C8 == 3)) {
         Math_SmoothStepToF(&D_800CA230, 0.01f, 0.2f, 0.002f, 0.0f);
     } else {
         Math_SmoothStepToF(&D_800CA230, 0.0f, 0.2f, 0.002f, 0.0f);
     }
-    Matrix_RotateZ(gGfxMatrix, (f32) D_80177DB0 * 10.0f * 0.017453292f, 1);
+    Matrix_RotateZ(gGfxMatrix, (f32) D_80177DB0 * 10.0f * M_DTOR, 1);
     Matrix_Scale(gGfxMatrix, 1.0f + D_800CA230, 1.0f - D_800CA230, 1.0f, 1);
-    Matrix_RotateZ(gGfxMatrix, -(f32) D_80177DB0 * 10.0f * 0.017453292f, 1);
+    Matrix_RotateZ(gGfxMatrix, -(f32) D_80177DB0 * 10.0f * M_DTOR, 1);
     Matrix_Scale(gGfxMatrix, 1.0f + D_800CA230, 1.0f - D_800CA230, 1.0f, 1);
     Matrix_Push(&gGfxMatrix);
     func_800B73E0(sp54);
     Lights_SetOneLight(&gMasterDisp, D_801784DC, D_801784E0, D_801784E4, D_80178548, D_8017854C, D_80178550, D_80178554,
                        D_80178558, D_8017855C);
     if (D_80177880 == 0) {
-        Matrix_RotateY(gCalcMatrix, sp54->unk_114 * 0.017453292f, 0);
-        Matrix_RotateX(gCalcMatrix, sp54->unk_120 * 0.017453292f, 1);
+        Matrix_RotateY(gCalcMatrix, sp54->unk_114 * M_DTOR, 0);
+        Matrix_RotateX(gCalcMatrix, sp54->unk_120 * M_DTOR, 1);
         sp78.x = sp54->unk_040.x - sp54->unk_074;
         sp78.y = sp54->unk_040.y - sp54->unk_078;
         sp78.z = sp54->unk_040.z - (sp54->unk_138 + sp54->unk_144);
@@ -1565,7 +1565,7 @@ void func_80057D00(void) {
         D_801779E8.y += sp54->unk_078;
         D_801779E8.z += sp54->unk_138 + sp54->unk_144;
         if ((sp54->unk_238 != 0) && (sp54->unk_110 > 5.0f)) {
-            D_801779E8.x += __sinf((f32) D_80177DB0 * 150.0f * 0.017453292f) * sp54->unk_110 * 0.2f;
+            D_801779E8.x += __sinf((f32) D_80177DB0 * 150.0f * M_DTOR) * sp54->unk_110 * 0.2f;
         }
     } else if (sp54->unk_1C8 == 7) {
         func_800578C4(sp54);
@@ -1582,13 +1582,13 @@ void func_80057D00(void) {
                                  sqrtf(SQ(D_801779D8.z - D_801779E8.z) + SQ(D_801779D8.x - D_801779E8.x)));
     Matrix_RotateY(gCalcMatrix, -sp54->unk_058, 0);
     Matrix_RotateX(gCalcMatrix, sp54->unk_05C, 1);
-    Matrix_RotateZ(gCalcMatrix, -sp54->unk_034 * 0.017453292f, 1);
+    Matrix_RotateZ(gCalcMatrix, -sp54->unk_034 * M_DTOR, 1);
     sp78.x = 0.0f;
     sp78.y = 100.0f;
     sp78.z = 0.0f;
     Matrix_MultVec3f(gCalcMatrix, &sp78, &sp6C);
     if (D_80178410 != 0) {
-        D_80178428 = (D_80178280->unk_034 / 180.0f) * M_PI;
+        D_80178428 = (gPlayers[0].unk_034 / 180.0f) * M_PI;
         func_800B6F50(D_801779D8.x, D_801779D8.y, D_801779D8.z, D_801779E8.x, D_801779E8.y, D_801779E8.z);
         func_8003DAF0();
     }
@@ -1598,7 +1598,7 @@ void func_80057D00(void) {
     Matrix_LookAt(gGfxMatrix, D_801779D8.x, D_801779D8.y, D_801779D8.z, D_801779E8.x, D_801779E8.y, D_801779E8.z,
                   sp6C.x, sp6C.y, sp6C.z, 1);
     if ((D_80177C98 == 0) || (D_80178234 == 0x11)) {
-        if ((D_80178234 == 0xC) && ((D_80178280->unk_1C8 != 2) || (D_80178280->unk_19C != 0))) {
+        if ((D_80178234 == 0xC) && ((gPlayers[0].unk_1C8 != 2) || (gPlayers[0].unk_19C != 0))) {
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, 0.0f, D_8017847C, 0.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
@@ -1612,7 +1612,7 @@ void func_80057D00(void) {
     }
     Lights_SetOneLight(&gMasterDisp, D_80178504, D_80178508, D_8017850C, D_80178564, D_80178568, D_8017856C, D_80178554,
                        D_80178558, D_8017855C);
-    for (i = 0, var_s0 = D_80178280; i < D_801778A8; i++, var_s0++) {
+    for (i = 0, var_s0 = gPlayers; i < D_801778A8; i++, var_s0++) {
         sp60.x = var_s0->unk_074;
         sp60.y = var_s0->unk_078;
         sp60.z = var_s0->unk_138;
@@ -1620,12 +1620,12 @@ void func_80057D00(void) {
         func_800564C0(var_s0, 0);
         func_80057814(var_s0);
     }
-    if ((D_80161A88 == 2) && (D_80178280->unk_1C8 != 2)) {
+    if ((D_80161A88 == 2) && (gPlayers[0].unk_1C8 != 2)) {
         Lights_SetOneLight(&gMasterDisp, D_80178504, -1 * D_80178508, D_8017850C, D_80178564, D_80178568, D_8017856C,
                            D_80178554, D_80178558, D_8017855C);
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, 1);
-        for (i = 0, var_s0 = D_80178280; i < D_801778A8; i++, var_s0++) {
+        for (i = 0, var_s0 = gPlayers; i < D_801778A8; i++, var_s0++) {
             sp60.x = var_s0->unk_074;
             sp60.y = var_s0->unk_078;
             sp60.z = var_s0->unk_138;
@@ -1639,7 +1639,7 @@ void func_80057D00(void) {
     func_80060968();
     D_80161410 = 1;
     func_8003DA0C();
-    if ((D_80161A88 == 2) && (D_80178280->unk_1C8 != 2)) {
+    if ((D_80161A88 == 2) && (gPlayers[0].unk_1C8 != 2)) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, 1);
         D_80161410 = -1;
@@ -1647,10 +1647,10 @@ void func_80057D00(void) {
         Matrix_Pop(&gGfxMatrix);
     }
     D_80161410 = -1;
-    if ((D_80161A88 == 2) && (D_80178280->unk_1C8 != 2)) {
+    if ((D_80161A88 == 2) && (gPlayers[0].unk_1C8 != 2)) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, 1);
-        for (i = 0, var_s0 = D_80178280; i < D_801778A8; i++, var_s0++) {
+        for (i = 0, var_s0 = gPlayers; i < D_801778A8; i++, var_s0++) {
             if (D_800CA224[i] != 0) {
                 func_80055B58(var_s0);
                 func_80056230(var_s0);
@@ -1667,21 +1667,21 @@ void func_80057D00(void) {
         func_80040CE4();
     }
     if ((D_80178234 != 0xD) &&
-        (((D_80178234 != 0) && (D_80178234 != 9)) || ((D_80178280->unk_1C8 != 7) && (D_80178280->unk_1C8 != 2)))) {
+        (((D_80178234 != 0) && (D_80178234 != 9)) || ((gPlayers[0].unk_1C8 != 7) && (gPlayers[0].unk_1C8 != 2)))) {
         func_8006089C(0);
     }
     D_80161410 = 1;
-    for (i = 0, var_s0 = D_80178280; i < D_801778A8; i++, var_s0++) {
+    for (i = 0, var_s0 = gPlayers; i < D_801778A8; i++, var_s0++) {
         if (D_800CA224[i] != 0) {
             func_80056E2C(var_s0);
             func_80055B58(var_s0);
             func_80056230(var_s0);
         }
     }
-    if ((D_80178234 == 0xD) && (D_80178280->unk_1C8 == 3)) {
+    if ((D_80178234 == 0xD) && (gPlayers[0].unk_1C8 == 3)) {
         func_E16C50_801AA20C();
     }
-    if (((D_80178234 == 0) || (D_80178234 == 9)) && ((D_80178280->unk_1C8 == 7) || (D_80178280->unk_1C8 == 2))) {
+    if (((D_80178234 == 0) || (D_80178234 == 9)) && ((gPlayers[0].unk_1C8 == 7) || (gPlayers[0].unk_1C8 == 2))) {
         func_8006089C(0);
     }
     func_80077790();
@@ -1691,7 +1691,7 @@ void func_80057D00(void) {
     if (D_800CA228 != 0) {
         func_80053B18();
     }
-    for (i = 0, var_s0 = D_80178280; i < D_801778A8; i++, var_s0++) {
+    for (i = 0, var_s0 = gPlayers; i < D_801778A8; i++, var_s0++) {
         if (D_800CA224[i] != 0) {
             if (D_800D2860[i] != 0) {
                 func_80053F7C(var_s0);
@@ -1703,8 +1703,8 @@ void func_80057D00(void) {
             }
         }
     }
-    if ((D_80177880 == 2) && (D_80178280->unk_1C8 == 3)) {
-        func_E9F1D0_801A6164(D_80178280);
+    if ((D_80177880 == 2) && (gPlayers[0].unk_1C8 == 3)) {
+        func_E9F1D0_801A6164(gPlayers);
     }
     func_80040954();
     if ((D_801778A8 != 1) && ((sp54->unk_1C8 == 3) || (sp54->unk_1C8 == 5))) {

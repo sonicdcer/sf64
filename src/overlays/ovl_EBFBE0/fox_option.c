@@ -1287,7 +1287,7 @@ void func_EBFBE0_801948A8(void) {
     temp = func_EBFBE0_8019C418(&D_EBFBE0_801B9288, 3, 1, 0, 20, 5, 4, D_80177AF8, &D_EBFBE0_801B9250);
     if (temp != 0) {
         D_EBFBE0_801B9270[sp34] = 255.0f;
-        func_80019218(0x49000002U, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        func_80019218(0x49000002, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
 
     if (D_EBFBE0_801B9288 == 0) {
@@ -3013,7 +3013,7 @@ void func_EBFBE0_8019A2E0(void) {
         }
 
         if (func_EBFBE0_8019C418(&D_EBFBE0_801B93D4, 4, 0, 0, 20, 2, 4, i, &D_EBFBE0_801B9380[i])) {
-            func_80019218(0x49000002U, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            func_80019218(0x49000002, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             D_801778A4 = D_EBFBE0_801B93D4 + 1;
         }
 
@@ -3988,7 +3988,7 @@ void func_EBFBE0_8019CD54(void) {
             if (D_EBFBE0_801B9138 == 0) {
                 if (func_EBFBE0_8019C418(&D_EBFBE0_801B90A0[D_EBFBE0_801B9098], 36, 0, 0, 50, 5, 10, D_80177AF8,
                                          &D_EBFBE0_801B9160[D_EBFBE0_801B9098]) != 0) {
-                    func_80019218(0x49000002U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    func_80019218(0x49000002, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                     D_EBFBE0_801B9150[D_EBFBE0_801B9098][0] = D_EBFBE0_801AEF5C[D_EBFBE0_801B90A0[D_EBFBE0_801B9098]];
                     D_EBFBE0_801B90D0[D_EBFBE0_801B9098] = 0.0f;
                     D_EBFBE0_801B9100[D_EBFBE0_801B9098] = 0.0f;
@@ -3998,7 +3998,7 @@ void func_EBFBE0_8019CD54(void) {
             if (gChangedInput[D_80177AF8].button & A_BUTTON) {
                 D_EBFBE0_801B90D0[D_EBFBE0_801B9098] = 0.0f;
                 if (D_EBFBE0_801B9138 != 0) {
-                    func_80019218(0x49000003U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    func_80019218(0x49000003, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                     D_EBFBE0_801B9140[0] = 10;
                     D_EBFBE0_801B9140[1] = 10;
                     D_EBFBE0_801B9140[2] = 10;
@@ -4008,7 +4008,7 @@ void func_EBFBE0_8019CD54(void) {
 
                 } else {
                     if (D_EBFBE0_801B9098 < 3) {
-                        func_80019218(0x49000003U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                        func_80019218(0x49000003, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                         D_EBFBE0_801B90D0[D_EBFBE0_801B9098] = 0.0f;
                         D_EBFBE0_801B9140[D_EBFBE0_801B9098] = 15;
                         D_EBFBE0_801B9128 = 1;
@@ -4018,7 +4018,7 @@ void func_EBFBE0_8019CD54(void) {
             }
 
             if ((gChangedInput[D_80177AF8].button & B_BUTTON) && (D_EBFBE0_801B9098 != 0)) {
-                func_80019218(0x4900101DU, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                func_80019218(0x4900101D, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 if (D_EBFBE0_801B9138 != 0) {
                     D_EBFBE0_801B9138 = 0;
                 }

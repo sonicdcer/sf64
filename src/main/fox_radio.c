@@ -463,7 +463,7 @@ void func_800BB388(void) {
         } else {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 60, 60, 255, 170);
         }
-        TextureRect_8bCI(&gMasterDisp, sp38, sp34, 0x20U, 0x20U, D_80178730, D_80178734 + 16.0f + sp30, D_80178738,
+        TextureRect_8bCI(&gMasterDisp, sp38, sp34, 0x20, 0x20, D_80178730, D_80178734 + 16.0f + sp30, D_80178738,
                          D_80177D50);
     }
     if (D_80177D50 == 1.3f) {
@@ -687,7 +687,7 @@ void func_800BB5D0(void) {
                     var_v1 = 0;
                     break;
             }
-            if ((D_80163FE0[var_v1].obj.status != 2) && (D_80177DB0 & 4) && (D_80178280[0].unk_1C8 == 3) &&
+            if ((D_80163FE0[var_v1].obj.status != 2) && (D_80177DB0 & 4) && (gPlayers[0].unk_1C8 == 3) &&
                 (D_801782A4 != 2) && (D_801782A4 != 3) && (D_801782A4 != 1000)) {
                 RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);

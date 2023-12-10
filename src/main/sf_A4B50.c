@@ -21,8 +21,8 @@ void func_800A3FB0(void) {
     D_800D2F64 = 0.0f;
 }
 
-s32 func_800A3FC4(void) {
-    if (D_80161A90[0] >= 3) {
+s32 Play_GetMaxHealth(void) {
+    if (gGoldRingCount[0] >= 3) {
         return 0x17F;
     }
     return 0xFF;
@@ -124,7 +124,7 @@ void func_800A3FEC(void);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800A3FEC.s")
 #endif
 
-void func_800A4460(UnkStruct_D_80178280* arg0) {
+void func_800A4460(Player* arg0) {
     if ((D_80178234 == 9) && (D_8016F110[0].obj.status == 2) && (D_8016F110[0].unk_04E == 0x11)) {
         arg0->unk_060 = __sinf(arg0->unk_0F4 * 0.7f * M_DTOR) * 0.5f;
         arg0->unk_088 += 13.0f;
@@ -138,7 +138,7 @@ void func_800A4460(UnkStruct_D_80178280* arg0) {
         arg0->unk_0F4 += 8.0f;
         if ((D_80177C98 == 0) || ((arg0->unk_238 == 1) && (D_80177880 == 0))) {
             arg0->unk_080 = -__sinf(arg0->unk_088 * M_DTOR) * 0.5f;
-            if ((arg0->unk_49C.unk_00 < 2) || (arg0->unk_49C.unk_01 < 2)) {
+            if ((arg0->wings.unk_00 < 2) || (arg0->wings.unk_01 < 2)) {
                 arg0->unk_0F0 = __sinf(arg0->unk_0F4 * M_DTOR) * 5.0f;
             } else {
                 arg0->unk_0F0 = __sinf(arg0->unk_0F4 * M_DTOR) * 1.5f;
@@ -147,12 +147,12 @@ void func_800A4460(UnkStruct_D_80178280* arg0) {
     }
 }
 
-void func_800A46A0(UnkStruct_D_80178280* arg0) {
+void func_800A46A0(Player* arg0) {
     s32 var_v1;
     f32 sp40;
 
     if ((arg0->unk_238 == 0) || (D_80177880 == 1)) {
-        if (arg0->unk_49C.unk_00 < 2) {
+        if (arg0->wings.unk_00 < 2) {
             if (!(D_80177DB0 & 1) && (D_80177D70[arg0->unk_1C4] != 0)) {
                 func_8007D10C(((Rand_ZeroOne() - 0.5f) * 10.0f) + arg0->unk_2D4.x,
                               (Rand_ZeroOne() * 5.0f) + arg0->unk_2D4.y, arg0->unk_2D4.z, 1.0f);
@@ -163,7 +163,7 @@ void func_800A46A0(UnkStruct_D_80178280* arg0) {
                               arg0->unk_0C0.y, arg0->unk_0C0.z, (Rand_ZeroOne() * 0.02f) + 0.02f, arg0->unk_1C4 + 1);
             }
         }
-        if (arg0->unk_49C.unk_01 < 2) {
+        if (arg0->wings.unk_01 < 2) {
             if (!(D_80177DB0 & 1) && (D_80177D88[arg0->unk_1C4] != 0)) {
                 func_8007D10C(((Rand_ZeroOne() - 0.5f) * 10.0f) + arg0->unk_2C8.x,
                               (Rand_ZeroOne() * 5.0f) + arg0->unk_2C8.y, arg0->unk_2C8.z, 1.0f);
@@ -176,14 +176,14 @@ void func_800A46A0(UnkStruct_D_80178280* arg0) {
         }
     }
     var_v1 = 7;
-    if (arg0->unk_264 < 0x40) {
-        if (arg0->unk_264 >= 0x11) {
+    if (arg0->health < 0x40) {
+        if (arg0->health > 0x10) {
             var_v1 = 0xF;
         }
-        if (arg0->unk_264 >= 0x21) {
+        if (arg0->health > 0x20) {
             var_v1 = 0x1F;
         }
-        if (arg0->unk_264 >= 0x31) {
+        if (arg0->health > 0x30) {
             var_v1 = 0x3F;
         }
         if ((arg0->unk_238 == 0) || (D_80177880 == 1)) {
@@ -211,7 +211,7 @@ void func_800A46A0(UnkStruct_D_80178280* arg0) {
     }
 }
 
-void func_800A4C40(UnkStruct_D_80178280* arg0) {
+void func_800A4C40(Player* arg0) {
     Vec3f sp54 = D_800D2F80;
     Vec3f sp48 = D_800D2F8C;
     Vec3f sp3C;
@@ -236,11 +236,11 @@ void func_800A4C40(UnkStruct_D_80178280* arg0) {
         if ((sp30.y < D_80177940 + 80.0f) || (sp3C.y < D_80177940 + 80.0f)) {
             if (D_80161A64 == 0) {
                 D_80161A64 = 1;
-                func_80019218(0x1100000B, arg0->unk_460, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                func_80019218(0x1100000B, &arg0->unk_460, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
         } else {
             D_80161A64 = 0;
-            func_8001A55C(&arg0->unk_460[0], 0x1100000B);
+            func_8001A55C(&arg0->unk_460, 0x1100000B);
         }
     }
 }
@@ -472,8 +472,8 @@ void func_800A594C(void) {
     if (D_8017782C == 0) {
         if (D_80178234 == 7) {
             func_8001D1C8(0xFF, 1);
-            func_80019218(0x4100C023U, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-            func_8001A55C(&D_80178280->unk_460[0], 0x3140807E);
+            func_80019218(0x4100C023, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            func_8001A55C(&gPlayers[0].unk_460, 0x3140807E);
         }
     } else if (D_80178234 == 0xD) {
         D_80161A68 = SEGMENTED_TO_VIRTUAL(D_602E584);
@@ -564,11 +564,11 @@ void func_800A6070(Vec3f* arg0, u32 arg1) {
     func_80019218(arg1, arg0, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-void func_800A60B8(void* arg0) {
+void func_800A60B8(UnkStruct_D_80176438* arg0) {
     s32 i;
     u8* var_v0 = (u8*) arg0;
 
-    for (i = 0; i < 0x1C; i++, var_v0++) {
+    for (i = 0; i < sizeof(UnkStruct_D_80176438); i++, var_v0++) {
         *var_v0 = 0;
     }
 }
@@ -749,25 +749,25 @@ void func_800A69F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
 
 #ifdef NON_MATCHING
 s32 func_800A6A74(void) {
-    return D_80161A90[0] && D_80161A90[1] && D_80161A90[2] && D_80161A90[3];
+    return gGoldRingCount[0] && gGoldRingCount[1] && gGoldRingCount[2] && gGoldRingCount[3];
 }
 #else
 s32 func_800A6A74(void);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800A6A74.s")
 #endif
 
-void func_800A6AC0(UnkStruct_D_80178280* arg0, s32 arg1, s32 arg2) {
+void func_800A6AC0(Player* arg0, s32 arg1, s32 arg2) {
     if ((arg0->unk_1CC == 0) && (D_80177AB8[arg0->unk_1C4] < 1.0f)) {
         if (arg1 == 1) {
             D_80177D40[arg0->unk_1C4] = 30;
-            if (arg0->unk_49C.unk_00 == 2) {
+            if (arg0->wings.unk_00 == 2) {
                 D_80177D10[arg0->unk_1C4] -= arg2;
                 if (D_80177D10[arg0->unk_1C4] <= 0) {
                     func_800A69F8(1, arg0->unk_2D4.x, arg0->unk_2D4.y, arg0->unk_2D4.z);
-                    arg0->unk_49C.unk_00 = 1;
+                    arg0->wings.unk_00 = 1;
                     func_8007D0E0(arg0->unk_2D4.x, arg0->unk_2D4.y, arg0->unk_2D4.z, 2.0f);
                     D_80177D70[arg0->unk_1C4] = 50;
-                    func_800A5FA0(arg0->unk_460, 0x0900A02C, arg0->unk_1C4);
+                    func_800A5FA0(&arg0->unk_460, 0x0900A02C, arg0->unk_1C4);
                     if (D_8015F90C == 0) {
                         D_8015F90C = 1000;
                     }
@@ -775,14 +775,14 @@ void func_800A6AC0(UnkStruct_D_80178280* arg0, s32 arg1, s32 arg2) {
             }
         } else if (arg1 == 2) {
             D_80177D58[arg0->unk_1C4] = 30;
-            if (arg0->unk_49C.unk_01 == 2) {
+            if (arg0->wings.unk_01 == 2) {
                 D_80177D28[arg0->unk_1C4] -= arg2;
                 if (D_80177D28[arg0->unk_1C4] <= 0) {
                     func_800A69F8(0, arg0->unk_2C8.x, arg0->unk_2C8.y, arg0->unk_2C8.z);
-                    arg0->unk_49C.unk_01 = 1;
+                    arg0->wings.unk_01 = 1;
                     func_8007D0E0(arg0->unk_2C8.x, arg0->unk_2C8.y, arg0->unk_2C8.z, 2.0f);
                     D_80177D88[arg0->unk_1C4] = 50;
-                    func_800A5FA0(arg0->unk_460, 0x0900A02C, arg0->unk_1C4);
+                    func_800A5FA0(&arg0->unk_460, 0x0900A02C, arg0->unk_1C4);
                     if (D_8015F90C == 0) {
                         D_8015F90C = 1000;
                     }
@@ -792,22 +792,22 @@ void func_800A6AC0(UnkStruct_D_80178280* arg0, s32 arg1, s32 arg2) {
     }
 }
 
-void func_800A6CD0(UnkStruct_D_80178280* arg0, s32 arg1, s32 arg2) {
+void func_800A6CD0(Player* arg0, s32 arg1, s32 damage) {
     Vec3f sp44;
     Vec3f sp38;
     f32 sp34 = 20.0f;
 
-    arg0->unk_1A4 = arg2;
+    arg0->unk_1A4 = damage;
     arg0->unk_21C = arg1;
-    if ((arg2 == 39) || (arg2 == 41) || (arg2 == 42) || (arg2 == 43)) {
-        arg2 = 40;
+    if ((damage == 39) || (damage == 41) || (damage == 42) || (damage == 43)) {
+        damage = 40;
     }
     if (gExpertMode) {
-        arg0->unk_268 = arg2 * 2;
+        arg0->damage = damage * 2;
     } else {
-        arg0->unk_268 = arg2;
+        arg0->damage = damage;
     }
-    if (arg0->unk_268 != 0) {
+    if (arg0->damage != 0) {
         arg0->unk_220 = 4;
     }
     arg0->unk_284 = 0;
@@ -823,22 +823,22 @@ void func_800A6CD0(UnkStruct_D_80178280* arg0, s32 arg1, s32 arg2) {
         arg0->unk_498 = 20;
     }
     if (D_80177AD0[arg0->unk_1C4] != 0) {
-        func_800A5FA0(arg0->unk_460, 0x0903900E, arg0->unk_1C4);
+        func_800A5FA0(&arg0->unk_460, 0x0903900E, arg0->unk_1C4);
         D_80177AE8[arg0->unk_1C4] = 5;
         D_80177AB8[arg0->unk_1C4] = 2.0f;
-        arg0->unk_268 = 0;
+        arg0->damage = 0;
     } else {
-        if (arg0->unk_264 != 0) {
-            if (arg0->unk_264 < 50) {
+        if (arg0->health != 0) {
+            if (arg0->health < 50) {
                 func_80019218(0x49008011, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-            } else if (arg0->unk_264 < 100) {
+            } else if (arg0->health < 100) {
                 func_80019218(0x49008010, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
         }
-        if (arg2 < 25) {
-            func_800A5FA0(arg0->unk_460, 0x0903900E, arg0->unk_1C4);
+        if (damage < 25) {
+            func_800A5FA0(&arg0->unk_460, 0x0903900E, arg0->unk_1C4);
         } else {
-            func_800A5FA0(arg0->unk_460, 0x0903A00F, arg0->unk_1C4);
+            func_800A5FA0(&arg0->unk_460, 0x0903A00F, arg0->unk_1C4);
         }
     }
     Matrix_RotateY(gCalcMatrix, arg0->unk_114 * M_DTOR, 0);
@@ -916,7 +916,7 @@ void func_800A6CD0(UnkStruct_D_80178280* arg0, s32 arg1, s32 arg2) {
     }
 }
 
-void func_800A729C(UnkStruct_D_80178280* arg0, u32 arg1, f32 arg2, f32 arg3) {
+void func_800A729C(Player* arg0, u32 arg1, f32 arg2, f32 arg3) {
     arg0->unk_21C = arg1;
     switch (arg1) {
         case 1:
@@ -1047,7 +1047,7 @@ s32 func_800A78C4(f32* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
 
 #ifdef NON_MATCHING
 // stupid 0.0f stuff
-s32 func_800A7974(UnkStruct_D_80178280* arg0, f32* arg1, s32* arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7,
+s32 func_800A7974(Player* arg0, f32* arg1, s32* arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7,
                   f32 arg8, f32 arg9, f32 argA, f32 argB) {
     s32 spB4;
     s32 i;
@@ -1165,7 +1165,7 @@ s32 func_800A7974(UnkStruct_D_80178280* arg0, f32* arg1, s32* arg2, f32 arg3, f3
     return 0;
 }
 #else
-s32 func_800A7974(UnkStruct_D_80178280* arg0, f32* arg1, s32* arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7,
+s32 func_800A7974(Player* arg0, f32* arg1, s32* arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7,
                   f32 arg8, f32 arg9, f32 argA, f32 argB);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800A7974.s")
 #endif
@@ -1356,7 +1356,7 @@ bool func_800A8054(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
 }
 
 // arg5 could be Vec3f (not Vec3f*)
-s32 func_800A8304(UnkStruct_D_80178280* arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
+s32 func_800A8304(Player* arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
     Vec3f sp84;
     Vec3f sp78;
     Vec3f sp6C;
@@ -1421,7 +1421,7 @@ s32 func_800A8304(UnkStruct_D_80178280* arg0, s32 arg1, f32 arg2, f32 arg3, f32 
     return 0;
 }
 
-void func_800A86E4(UnkStruct_D_80178280* arg0) {
+void func_800A86E4(Player* arg0) {
     s32 i;
     Object_6C* var_s0;
     s32 sp6C;
@@ -1436,7 +1436,7 @@ void func_800A86E4(UnkStruct_D_80178280* arg0) {
     }
 }
 
-void func_800A8804(UnkStruct_D_80178280* arg0, UnkStruct_D_80178280* arg1) {
+void func_800A8804(Player* arg0, Player* arg1) {
     if (arg0->unk_498 == 0) {
         func_800A6CD0(arg0, 0, D_800D3000[arg0->unk_1CC][arg1->unk_1CC]);
         arg0->unk_288 = arg1->unk_1C4 + 1;
@@ -1444,7 +1444,7 @@ void func_800A8804(UnkStruct_D_80178280* arg0, UnkStruct_D_80178280* arg1) {
     }
 }
 
-void func_800A887C(UnkStruct_D_80178280* arg0) {
+void func_800A887C(Player* arg0) {
     Vec3f sp3C;
 
     Matrix_Translate(gCalcMatrix, arg0->unk_074, arg0->unk_078, arg0->unk_138, 0);
@@ -1482,7 +1482,7 @@ void func_800A887C(UnkStruct_D_80178280* arg0) {
         Matrix_RotateZ(gCalcMatrix, -(arg0->unk_0F8 * M_DTOR), 1);
         sp3C.y = 0.0f;
         sp3C.z = 0.0f;
-        if (arg0->unk_49C.unk_01 == 2) {
+        if (arg0->wings.unk_01 == 2) {
             sp3C.x = 40.0f;
         } else {
             sp3C.y = -10.0f;
@@ -1492,7 +1492,7 @@ void func_800A887C(UnkStruct_D_80178280* arg0) {
             sp3C.x = 24.0f;
         }
         Matrix_MultVec3f(gCalcMatrix, &sp3C, &arg0->unk_2C8);
-        if (arg0->unk_49C.unk_00 == 2) {
+        if (arg0->wings.unk_00 == 2) {
             sp3C.x = -40.0f;
         } else {
             sp3C.x = -30.0f;

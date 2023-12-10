@@ -2116,7 +2116,7 @@ void func_EBFBE0_8018CD9C(Vec3f* pos, UnkStruct_D_EBFBE0_801B8294* arg1, f32 arg
 }
 
 void func_EBFBE0_8018D2B8(s32 arg0) {
-    UnkStruct_D_80161630 temp;
+    WingInfo temp;
 
     Lights_SetOneLight(&gMasterDisp, D_EBFBE0_801B82E0, D_EBFBE0_801B82E4, D_EBFBE0_801B82E8, D_80178548, D_8017854C,
                        D_80178550, D_80178554, D_80178558, D_8017855C);

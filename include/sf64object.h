@@ -284,6 +284,7 @@ typedef struct {
     /* 0x184 */ f32 unk_184;
     /* 0x188 */ f32 unk_188;
     /* 0x18C */ Vec3f unk_18C[28]; // could be joint table
+
     /* 0x2DC */ Vec3f unk_2DC;
     /* 0x2E8 */ Vec3f unk_2E8;
 } Object_2F4; // size = 0x2F4

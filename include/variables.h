@@ -227,7 +227,7 @@ extern f32 D_8015F944;
 extern Vec3f D_8015F950;
 extern u8 D_8015F964;
 
-// sf_43AC0
+// fox_43AC0
 extern s32 D_801613A0;
 
 // fox_52730
@@ -246,7 +246,7 @@ extern Vec3f D_801615D0;
 extern Vec3f D_801615E0;
 extern s32 D_801615EC;
 extern Matrix D_801615F0;
-extern UnkStruct_D_80161630 D_80161630;
+extern WingInfo D_80161630;
 extern s32 D_80161670[4];
 
 // fox_enmy1?
@@ -320,7 +320,7 @@ extern s32 D_80161A80;
 extern s32 D_80161A84;
 extern s32 D_80161A88;
 extern s32 D_80161A8C;
-extern u8 D_80161A90[];
+extern u8 gGoldRingCount[];
 extern s32 D_80161A98;
 extern s32 D_80161A9C;
 extern s16 D_80161AA0[];
@@ -452,7 +452,7 @@ extern Vec3f D_80177F10;
 extern s32 D_8017812C;
 extern s32 D_80178234;
 extern s32 D_8017827C;
-extern UnkStruct_D_80178280* D_80178280;
+extern Player* gPlayers;
 extern s32 D_80178284;
 extern f32* D_80178288;
 extern s32 D_8017828C;

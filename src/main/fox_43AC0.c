@@ -95,7 +95,7 @@ void func_80043188(Object_2F4* arg0) {
     arg0->unk_01C.unk_10 = 30000.0f;
 }
 
-void func_8004319C(UnkStruct_D_80178280* arg0, f32 arg1, f32 arg2, f32 arg3) {
+void func_8004319C(Player* arg0, f32 arg1, f32 arg2, f32 arg3) {
     func_800182F4(0x105000FF);
     func_800182F4(0x115000FF);
 
@@ -113,5 +113,5 @@ void func_8004319C(UnkStruct_D_80178280* arg0, f32 arg1, f32 arg2, f32 arg3) {
     if (arg0->unk_074 < arg0->unk_0AC) {
         arg0->unk_004 = -1.0f;
     }
-    D_80178280->unk_0C0.x = 0.0f;
+    gPlayers[0].unk_0C0.x = 0.0f;
 }

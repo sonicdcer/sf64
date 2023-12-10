@@ -148,14 +148,10 @@ typedef struct {
 } UnkStruct_D_80175A10; // size = 0x28
 
 typedef struct {
-    /* 0x00 */ u8 unk_00;
-    /* 0x02 */ u16 unk_02;
-    /* 0x04 */ f32 unk_04;
-    /* 0x08 */ f32 unk_08;
-    /* 0x0C */ f32 unk_0C;
-    /* 0x10 */ f32 unk_10; // Vec3f?
-    /* 0x14 */ f32 unk_14;
-    /* 0x18 */ f32 unk_18;
+    /* 0x00 */ u8 mode;
+    /* 0x02 */ u16 timer;
+    /* 0x04 */ Vec3f unk_04;
+    /* 0x10 */ Vec3f unk_10;
     /* 0x1C */ f32 unk_1C;
     /* 0x20 */ f32 unk_20;
     /* 0x24 */ f32 unk_24;
@@ -183,7 +179,7 @@ typedef struct {
     /* 0x30 */ f32 unk_30;
     /* 0x34 */ f32 unk_34;
     /* 0x38 */ f32 unk_38;
-} UnkStruct_D_80161630; // size = 0x3C
+} WingInfo; // size = 0x3C
 
 typedef struct {
     /* 0x00 */ s32 unk_00;
@@ -207,7 +203,7 @@ typedef struct {
     /* 0x44 */ char pad44[0x60];
 } UnkStruct_D_80161A68; // size = 0x44?
 
-typedef struct UnkStruct_D_80178280 {
+typedef struct Player {
     /* 0x000 */ f32 unk_000;
     /* 0x004 */ f32 unk_004;
     /* 0x008 */ char pad8[4];
@@ -328,9 +324,9 @@ typedef struct UnkStruct_D_80178280 {
     /* 0x250 */ char pad254[8];
     /* 0x25C */ f32 unk_25C;
     /* 0x260 */ char pad260[4];
-    /* 0x264 */ s32 unk_264;
-    /* 0x268 */ s32 unk_268;
-    /* 0x26C */ s32 unk_26C;
+    /* 0x264 */ s32 health;
+    /* 0x268 */ s32 damage;
+    /* 0x26C */ s32 heal;
     /* 0x270 */ s32 unk_270;
     /* 0x274 */ char pad274[4];
     /* 0x278 */ s32 unk_278;
@@ -349,7 +345,11 @@ typedef struct UnkStruct_D_80178280 {
     /* 0x2E0 */ Vec3f unk_2E0;
     /* 0x2EC */ Vec3f unk_2EC;
     /* 0x2F8 */ Vec3f jointTable[30];
-    /* 0x460 */ Vec3f unk_460[2];
+    /* 0x460 */ union {
+                Vec3f unk_460;
+                Vec3f unk_460_arr[1]; // probably fake
+    };
+    /* 0x460 */ Vec3f unk_46C;
     /* 0x494 */ char pad478[4];
     /* 0x47C */ Vec3f *unk_47C;
     /* 0x480 */ Vec3f *unk_480;
@@ -359,10 +359,10 @@ typedef struct UnkStruct_D_80178280 {
     /* 0x490 */ f32 unk_490;
     /* 0x494 */ s32 unk_494;
     /* 0x498 */ s32 unk_498;
-    /* 0x49C */ UnkStruct_D_80161630 unk_49C;
+    /* 0x49C */ WingInfo wings;
     /* 0x4D8 */ f32 unk_4D8;
     /* 0x4DC */ f32 unk_4DC;
-} UnkStruct_D_80178280; // size = 0x4E0 Might be Player
+} Player; // size = 0x4E0 Might be Player
 
 typedef struct {
     /* 0x00 */ u8 unk_00;

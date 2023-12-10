@@ -32,7 +32,7 @@
           # Audio block
       - [0x08CC0, c, 8CC0]
       - [0x0C870, c, C870]
-      - [0x0F0A0, c, F0A0]
+      - [0x0F0A0, c, F0A0] # audio_load
       - [0x12490, c, 12490]
       - [0x14AA0, c, 14AA0]
       - [0x17650, c, 17650] # Sound related
@@ -172,7 +172,7 @@
     # Game engine
       - [0x2EFE0, c, sf_2EFE0]
       - [0x36930, c, sf_36930]
-      - [0x43AC0, c, sf_43AC0]
+      - [0x43AC0, c, fox_43AC0]
       - [0x43E80, c, sf_43E80]
       - [0x496C0, c, sf_496C0]
       - [0x52730, c, fox_52730]
@@ -264,7 +264,7 @@
       
       - [0xCA690, data, sf_2EFE0]
       - [0xCA7C0, data, sf_36930]
-      - [0xCAA90, .data, sf_43AC0]
+      - [0xCAA90, .data, fox_43AC0]
       - [0xCAB00, data, sf_43E80]
       - [0xCAB60, data, sf_496C0]
       - [0xCAE20, .data, fox_52730]
@@ -288,7 +288,7 @@
       # RODATA - game engine
       - [0xD5A10, .rodata, sf_2EFE0]
       - [0xD5CF0, .rodata, sf_36930]
-      - [0xD61D0, .rodata, sf_43AC0]
+      - [0xD61D0, .rodata, fox_43AC0]
       - [0xD61F0, .rodata, sf_43E80]
       - [0xD6350, .rodata, sf_496C0]
       - [0xD69A0, .rodata, fox_52730]
@@ -356,7 +356,7 @@
       # Game engine bss
       - { start: 0xDE480, type: bss, vram: 0x8015F900, name: sf_2EFE0 }
       - { start: 0xDE480, type: bss, vram: 0x8015F950, name: sf_36930 }
-      - { start: 0xDE480, type: .bss, vram: 0x801613A0, name: sf_43AC0 }
+      - { start: 0xDE480, type: .bss, vram: 0x801613A0, name: fox_43AC0 }
       - { start: 0xDE480, type: .bss, vram: 0x801613B0, name: fox_52730 }
       - { start: 0xDE480, type: .bss, vram: 0x801615D0, name: fox_edisplay }
       - { start: 0xDE480, type: .bss, vram: 0x80161680, name: fox_enmy1 }
