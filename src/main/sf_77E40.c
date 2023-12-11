@@ -1104,7 +1104,30 @@ void func_8007B344(f32 xPos, f32 yPos, f32 zPos, f32 arg3, s32 arg4) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B3B8.s")
+void func_8007B3B8(Object_8C* arg0) {
+    f32 var_fv0;
+    f32 var_fv1;
+    s32 var_v0;
+
+    if (arg0->unk_4C == 6) {
+        var_fv0 = 15.0f;
+        var_fv1 = 0.05f;
+        var_v0 = 4;
+    } else if ((arg0->unk_4C == 5) && ((D_80178234 == 0x10) || (D_80178234 == 1))) {
+        var_fv0 = 10.0f;
+        var_fv1 = 0.1f;
+        var_v0 = 4;
+    } else {
+        var_fv0 = 10.0f;
+        var_fv1 = 0.1f;
+        var_v0 = 8;
+    }
+    Math_SmoothStepToF(&arg0->unk_70, arg0->unk_6C, var_fv1, var_fv0, 0.0f);
+    arg0->unk_44 -= var_v0;
+    if (arg0->unk_44 < 0) {
+        func_80060FBC(&arg0->obj, &arg0->unk_80);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B494.s")
 

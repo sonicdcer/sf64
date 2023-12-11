@@ -372,7 +372,7 @@ void func_8007B040(Object_8C*);
 void func_8007B0F4(Object_8C*);
 void func_8007B228(f32 posX, f32 posY, f32 posZ, f32 arg3);
 void func_8007B344(f32 xPos, f32 yPos, f32 zPos, f32 arg3, s32 arg4);
-void func_8007B3B8(Object*);
+void func_8007B3B8(Object_8C*);
 void func_8007B5C0(Object*);
 void func_8007B62C(Object*);
 void func_8007B670(Object*);
