@@ -64,7 +64,7 @@ extern s32 D_80161718;
 extern s32 D_8016171C;
 extern s32 D_801617E8[];
 extern s32 D_801617FC;
-extern s32 D_80161A98;
+extern s32 gHitCount;
 extern s32 D_80177838;
 extern s32 D_80177854;
 extern s32 D_80177880;
@@ -75,7 +75,7 @@ extern s32 D_80177B48;
 extern s32 D_80177B50[];
 extern s32 D_80177B70[];
 extern s32 D_80177E7C;
-extern s32 D_80178234;
+extern s32 gCurrentLevel;
 extern s32 D_80178750;
 
 #endif

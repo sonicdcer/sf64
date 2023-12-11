@@ -239,7 +239,7 @@ s32 func_8005F9DC(Vec3f*);
 void func_80060714(s32 arg0);
 void func_8006089C(u8 arg0);
 void func_80060968(void);
-void func_80060FBC(Object*, Vec3f*);
+void Object_Kill(Object*, Vec3f*);
 s32 func_80060FE4(Vec3f*, f32);
 void func_800612B8(ObjectStruct_1C*, u32);
 void Object_80_Initialize(Object_80*);
@@ -301,7 +301,7 @@ void func_80069DF4(Object_80 *);
 void func_80069E88(Object_4C *);
 void func_80069F30(Object_6C *);
 void func_80069FD4(Object_8C *);
-void func_8006A06C(UnkStruct_D_80174750*);
+void func_8006A06C(UnkEntity30*);
 void func_8006A38C(void);
 void func_8006A3E8(void);
 
@@ -496,8 +496,8 @@ s32 func_800988B4(Vec3f *vec, Plane *plane);
 s32 func_800998FC(Vec3f*, Vec3f*, Vec3f*, s32, Vec3f*, f32*);
 
 // fox_A24B0
-void func_800A18B0(void);
-void func_800A1980(void);
+void Game_Initialize(void);
+void Game_SetGameState(void);
 bool func_800A1B6C(void);
 void func_800A1C14(Gfx **);
 void func_800A1E68(Gfx **);
@@ -515,7 +515,7 @@ bool func_800A3690(Vec3f*, Vec3f*, s32, Vec3f*);
 void func_800A3CA0(void);
 
 // sf_A4B50
-s32 func_800A3F50(u16);
+s32 Play_CheckMedalStatus(u16);
 s32 Play_GetMaxHealth(void);
 void func_800A5844(void);
 void func_800A5D6C(void);

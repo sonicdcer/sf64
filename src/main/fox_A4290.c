@@ -72,7 +72,7 @@ bool func_800A36FC(Vec3f* arg0, Vec3f* arg1, CollisionHeader2* arg2, Vec3f* arg3
         } else {
             arg3->z = -Math_Atan2F_XY(sp48.y, sp48.x);
         }
-        if ((arg0->y <= arg3->y) || (D_80178234 == 11)) {
+        if ((arg0->y <= arg3->y) || (gCurrentLevel == LEVEL_MACBETH)) {
             sp38 = true;
         }
     }

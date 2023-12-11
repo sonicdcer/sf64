@@ -33,7 +33,7 @@ void func_80042EC0(Object_408* arg0) {
         }
         func_80077240(arg0->obj.pos.x, arg0->obj.pos.y + var_fv0, arg0->obj.pos.z, var_a3);
     }
-    D_80161A98 += var_a3 + 1;
+    gHitCount += var_a3 + 1;
     D_80177850 = 0xF;
 }
 
@@ -84,8 +84,8 @@ void func_800430DC(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
     s32 i;
 
     for (i = 59; i >= 0; i--) {
-        if (D_80163FE0[i].obj.status == 0) {
-            func_80042FF4(&D_80163FE0[i], arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB);
+        if (gObjects2F4[i].obj.status == 0) {
+            func_80042FF4(&gObjects2F4[i], arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB);
             return;
         }
     }

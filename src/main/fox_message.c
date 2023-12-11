@@ -98,10 +98,10 @@ bool Message_DisplayText(Gfx** gfxPtr, u16* msgPtr, s32 xPos, s32 yPos, s32 len)
             case MSGCHAR_NP5:
             case MSGCHAR_NP6:
             case MSGCHAR_NP7:
-            case MSGCHAR_NP8:
-            case MSGCHAR_NP9:
-            case MSGCHAR_NPA:
-            case MSGCHAR_NPB:
+            case MSGCHAR_PRI0:
+            case MSGCHAR_PRI1:
+            case MSGCHAR_PRI2:
+            case MSGCHAR_PRI3:
             case MSGCHAR_QSP:
             case MSGCHAR_HSP:
             case MSGCHAR_NPF:
@@ -147,10 +147,10 @@ void Message_DisplayScrollingText(Gfx** gfxPtr, u16* msgPtr, s32 xPos, s32 yPos,
             case MSGCHAR_NP5:
             case MSGCHAR_NP6:
             case MSGCHAR_NP7:
-            case MSGCHAR_NP8:
-            case MSGCHAR_NP9:
-            case MSGCHAR_NPA:
-            case MSGCHAR_NPB:
+            case MSGCHAR_PRI0:
+            case MSGCHAR_PRI1:
+            case MSGCHAR_PRI2:
+            case MSGCHAR_PRI3:
             case MSGCHAR_NPF:
                 break;
         }

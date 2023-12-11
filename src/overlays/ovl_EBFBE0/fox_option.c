@@ -317,7 +317,7 @@ void func_EBFBE0_80191B20(void) {
     D_80161A36 = 0;
 
     D_EBFBE0_801B91A4 = 0;
-    if ((D_80161A34 == 7) && (D_80178234 == 10)) {
+    if ((D_80161A34 == 7) && (gCurrentLevel == LEVEL_TRAINING)) {
         D_80161A34 = 0;
         D_EBFBE0_801B91A4 = 1;
     }
@@ -693,7 +693,7 @@ void func_EBFBE0_801928BC(void) {
     if (D_80178340 == 0xFF) {
         D_80178410 = 0;
         D_EBFBE0_801B9124 = 100;
-        D_80177834 = 4;
+        gGameState = GSTATE_MAP;
         D_8017783C = 2;
         D_80177B40 = 0;
         D_80177898 = 0;
@@ -708,8 +708,8 @@ void func_EBFBE0_801928BC(void) {
 
 void func_EBFBE0_80192938(void) {
     if (D_80178340 == 0xFF) {
-        D_80178234 = 0xA;
-        D_80177834 = 7;
+        gCurrentLevel = LEVEL_TRAINING;
+        gGameState = GSTATE_PLAY;
         D_8017783C = 2;
         D_80177854 = 0;
         D_80177898 = 0;
@@ -721,7 +721,7 @@ void func_EBFBE0_80192938(void) {
         func_8001DC6C(0, 28);
     } else {
         D_80178340 += 0x20;
-        if (D_80178340 >= 0x100) {
+        if (D_80178340 > 0xFF) {
             D_80178340 = 0xFF;
         }
     }
@@ -967,7 +967,7 @@ void func_EBFBE0_80192D58(void) {
                 D_EBFBE0_801B8284 += 18;
             } else {
                 D_80178410 = 0;
-                D_80177834 = 2;
+                gGameState = GSTATE_TITLE;
                 D_8017783C = 2;
                 D_80177AE0 = 0;
                 D_EBFBE0_801B827C = 1;
@@ -1225,30 +1225,30 @@ void func_EBFBE0_80194678(void) {
     D_EBFBE0_801B91BC = 1;
     D_EBFBE0_801B91A0 = 0;
 
-    D_80177C74 = gSaveFile.save.data.unk_14;
-    func_800182F4(D_EBFBE0_801AE998[D_80177C74] | 0xE0000000);
+    gStereoSettings = gSaveFile.save.data.unk_14;
+    func_800182F4(D_EBFBE0_801AE998[gStereoSettings] | 0xE0000000);
 
-    D_80177C80[0] = gSaveFile.save.data.unk_15;
-    D_80177C80[1] = gSaveFile.save.data.unk_16;
-    D_80177C80[2] = gSaveFile.save.data.unk_17;
+    gVolumeSettings[0] = gSaveFile.save.data.unk_15;
+    gVolumeSettings[1] = gSaveFile.save.data.unk_16;
+    gVolumeSettings[2] = gSaveFile.save.data.unk_17;
 
-    if (D_80177C80[0] > 99) {
-        D_80177C80[0] = 99;
+    if (gVolumeSettings[0] > 99) {
+        gVolumeSettings[0] = 99;
     }
-    if (D_80177C80[1] > 99) {
-        D_80177C80[1] = 99;
+    if (gVolumeSettings[1] > 99) {
+        gVolumeSettings[1] = 99;
     }
-    if (D_80177C80[2] > 99) {
-        D_80177C80[2] = 99;
+    if (gVolumeSettings[2] > 99) {
+        gVolumeSettings[2] = 99;
     }
 
-    func_8001D8A8(0, D_80177C80[0]);
-    func_8001D8A8(1, D_80177C80[1]);
-    func_8001D8A8(2, D_80177C80[2]);
+    func_8001D8A8(0, gVolumeSettings[0]);
+    func_8001D8A8(1, gVolumeSettings[1]);
+    func_8001D8A8(2, gVolumeSettings[2]);
 
-    D_EBFBE0_801AEB48[0].unk_18 = D_80177C80[0] + 146.0f;
-    D_EBFBE0_801AEB48[1].unk_18 = D_80177C80[1] + 146.0f;
-    D_EBFBE0_801AEB48[2].unk_18 = D_80177C80[2] + 146.0f;
+    D_EBFBE0_801AEB48[0].unk_18 = gVolumeSettings[0] + 146.0f;
+    D_EBFBE0_801AEB48[1].unk_18 = gVolumeSettings[1] + 146.0f;
+    D_EBFBE0_801AEB48[2].unk_18 = gVolumeSettings[2] + 146.0f;
 
     D_EBFBE0_801B9288 = 0;
     D_EBFBE0_801B9284 = 0;
@@ -1322,17 +1322,17 @@ void func_EBFBE0_801948A8(void) {
 }
 
 void func_EBFBE0_80194AEC(void) {
-    s32 sp3C = D_80177C74;
+    s32 sp3C = gStereoSettings;
     s32 pad;
 
     if (func_EBFBE0_8019C418(&sp3C, 2, 0, 0, 20, 5, 4, D_80177AF8, &D_EBFBE0_801B9260) != 0) {
         func_80019218(0x49000002, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-        D_80177C74 = sp3C;
-        if (D_80177C74 >= 3) {
-            D_80177C74 = 0;
+        gStereoSettings = sp3C;
+        if (gStereoSettings >= 3) {
+            gStereoSettings = 0;
         }
-        gSaveFile.save.data.unk_14 = D_80177C74;
-        func_800182F4(D_EBFBE0_801AE998[D_80177C74] | 0xE0000000);
+        gSaveFile.save.data.unk_14 = gStereoSettings;
+        func_800182F4(D_EBFBE0_801AE998[gStereoSettings] | 0xE0000000);
     }
 }
 
@@ -1344,7 +1344,7 @@ void func_EBFBE0_80194BD0(void) {
     if (func_EBFBE0_8019C66C(&(D_EBFBE0_801AEB48[D_EBFBE0_801B9288 - 1].unk_18), 146.0f, 245.0f, &D_EBFBE0_801B9268)) {
         var_v1 = D_EBFBE0_801AEB48[D_EBFBE0_801B9288 - 1].unk_18 - 146.0f;
 
-        D_80177C80[D_EBFBE0_801B9288 - 1] = var_v1;
+        gVolumeSettings[D_EBFBE0_801B9288 - 1] = var_v1;
 
         if (var_v1 > 99) {
             var_v1 = 99;
@@ -1423,7 +1423,7 @@ void func_EBFBE0_80194CE4(void) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    switch (D_80177C74) {
+    switch (gStereoSettings) {
         case 0:
             TextureRect_8bIA(&gMasterDisp, D_800CD90, 56, 13, D_EBFBE0_801AEFA8[8], D_EBFBE0_801AEFD4[8], 1.0f, 1.0f);
             break;
@@ -2987,7 +2987,7 @@ void func_EBFBE0_8019A214(void) {
 
 void func_EBFBE0_8019A298(void) {
     if (D_EBFBE0_801B91EC == 0.0f) {
-        D_80177834 = 6;
+        gGameState = GSTATE_VS_INIT;
         D_8017783C = 2;
         D_8017784C = 0;
         D_80177898 = 0;
@@ -4376,7 +4376,7 @@ void func_EBFBE0_8019DE74(void) {
 
         if (D_80161A34 == 5) {
             D_80178410 = 0;
-            D_80177834 = 1;
+            gGameState = GSTATE_INIT;
             D_80161AA0[0] = 2;
             D_80161714 = 0;
         } else if (D_80161A34 == 8) {
@@ -4434,7 +4434,7 @@ void func_EBFBE0_8019E030(void) {
         case 3:
             if (D_EBFBE0_801B9178 == 0) {
                 D_80178410 = 0;
-                D_80177834 = 1;
+                gGameState = GSTATE_INIT;
                 D_80177898 = 0;
                 *D_80161AA0 = 2;
                 D_80161714 = 0;

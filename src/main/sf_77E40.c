@@ -3,24 +3,24 @@
 void func_80077240(f32 posX, f32 posY, f32 posZ, s32 arg3) {
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(D_80176438); i++) {
-        if (D_80176438[i].unk_00 == 0) {
-            D_80176438[i].unk_00 = arg3;
-            D_80176438[i].pos.x = posX;
-            D_80176438[i].pos.y = posY;
-            D_80176438[i].pos.z = posZ;
-            D_80176438[i].unk_10 = 0.0f;
-            D_80176438[i].unk_18 = 65;
+    for (i = 0; i < ARRAY_COUNT(gUnkEntities1C); i++) {
+        if (gUnkEntities1C[i].unk_00 == 0) {
+            gUnkEntities1C[i].unk_00 = arg3;
+            gUnkEntities1C[i].pos.x = posX;
+            gUnkEntities1C[i].pos.y = posY;
+            gUnkEntities1C[i].pos.z = posZ;
+            gUnkEntities1C[i].unk_10 = 0.0f;
+            gUnkEntities1C[i].unk_18 = 65;
             break;
         }
     }
 }
 
 void func_8007729C(void) {
-    UnkStruct_D_80176438* var_s0;
+    UnkEntity1C* var_s0;
     s32 i;
 
-    for (i = 0, var_s0 = D_80176438; i < ARRAY_COUNT(D_80176438); i++, var_s0++) {
+    for (i = 0, var_s0 = gUnkEntities1C; i < ARRAY_COUNT(gUnkEntities1C); i++, var_s0++) {
         if (var_s0->unk_00 != 0) {
             if (var_s0->unk_18 != 0) {
                 var_s0->unk_18 -= 1;
@@ -41,7 +41,7 @@ void func_8007729C(void) {
     }
 }
 
-void func_80077404(UnkStruct_D_80176438* arg0) {
+void func_80077404(UnkEntity1C* arg0) {
     s32 var_a2;
     Vec3f sp60;
     Vec3f sp54;
@@ -94,12 +94,12 @@ void func_80077404(UnkStruct_D_80176438* arg0) {
 }
 
 void func_80077790(void) {
-    UnkStruct_D_80176438* var_s0;
+    UnkEntity1C* var_s0;
     s32 i;
 
     RCP_SetupDL(&gMasterDisp, 0x3E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-    for (i = 0, var_s0 = D_80176438; i < ARRAY_COUNT(D_80176438); i++, var_s0++) {
+    for (i = 0, var_s0 = gUnkEntities1C; i < ARRAY_COUNT(gUnkEntities1C); i++, var_s0++) {
         if (var_s0->unk_00 != 0) {
             Matrix_Push(&gGfxMatrix);
             func_80077404(var_s0);
@@ -112,7 +112,7 @@ Object_8C* func_8007783C(s32 objId) {
     Object_8C* var_a2;
     s32 i;
 
-    for (i = 0, var_a2 = D_80170130; i < ARRAY_COUNT(D_80170130); i++, var_a2++) {
+    for (i = 0, var_a2 = gObjects8C; i < ARRAY_COUNT(gObjects8C); i++, var_a2++) {
         if (var_a2->obj.status == 0) {
             Object_8C_Initialize(var_a2);
             var_a2->obj.status = 2;
@@ -121,7 +121,7 @@ Object_8C* func_8007783C(s32 objId) {
             break;
         }
     }
-    if (i == ARRAY_COUNT(D_80170130)) {
+    if (i == ARRAY_COUNT(gObjects8C)) {
         var_a2 = NULL;
     }
     return var_a2;
@@ -148,9 +148,9 @@ void func_800778C4(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4, f32 
 void func_8007797C(f32 posX, f32 posY, f32 posZ, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     s32 i;
 
-    for (i = ARRAY_COUNT(D_80170130) - 1; i >= 0; i--) {
-        if (D_80170130[i].obj.status == 0) {
-            func_800778C4(&D_80170130[i], posX, posY, posZ, arg3, arg4, arg5, arg6);
+    for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
+        if (gObjects8C[i].obj.status == 0) {
+            func_800778C4(&gObjects8C[i], posX, posY, posZ, arg3, arg4, arg5, arg6);
             break;
         }
     }
@@ -178,7 +178,7 @@ void func_80077B78(void* arg0) {
 
 void func_80077B84(Object_8C* arg0) {
     func_8005980C(arg0->unk_70);
-    if ((arg0->unk_6C == 71.0f) || ((gPlayers[0].unk_1C8 == 7) && (D_80178234 == 0))) {
+    if ((arg0->unk_6C == 71.0f) || ((gPlayers[0].unk_1C8 == 7) && (gCurrentLevel == LEVEL_CORNERIA))) {
         RCP_SetupDL(&gMasterDisp, 0x26);
     } else {
         RCP_SetupDL(&gMasterDisp, 0x43);
@@ -205,7 +205,7 @@ void func_80077B84(Object_8C* arg0) {
             gDPSetEnvColor(gMasterDisp++, 255, 32, 32, arg0->unk_44);
             break;
         case 6:
-            if (D_80178234 == 0x11) {
+            if (gCurrentLevel == LEVEL_BOLSE) {
                 RCP_SetupDL(&gMasterDisp, 0x26);
             }
             switch ((arg0->unk_40 + D_80177DB0) & 3) {
@@ -347,13 +347,13 @@ void func_800788B0(Object_8C* arg0) {
     s32 temp_ft3;
     s32* tmp;
 
-    switch (D_80178234) {
-        case 1:
+    switch (gCurrentLevel) {
+        case LEVEL_METEO:
             func_8005980C(arg0->unk_70);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 128, 128, 128, 255);
             gSPDisplayList(gMasterDisp++, D_601FF80);
             break;
-        case 13:
+        case LEVEL_AQUAS:
             RCP_SetupDL(&gMasterDisp, 0x43);
             temp_ft3 = Math_ModF(arg0->unk_40, 4.0f);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32) arg0->unk_6C);
@@ -420,9 +420,9 @@ void func_80078D60(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4) {
     arg0->obj.pos.z = posZ;
     arg0->unk_70 = arg4;
     if (arg4 == 3.1f) {
-        arg0->unk_54.x = D_80163FE0[8].unk_0E8.x;
-        arg0->unk_54.y = D_80163FE0[8].unk_0E8.y;
-        arg0->unk_54.z = D_80163FE0[8].unk_0E8.z;
+        arg0->unk_54.x = gObjects2F4[8].unk_0E8.x;
+        arg0->unk_54.y = gObjects2F4[8].unk_0E8.y;
+        arg0->unk_54.z = gObjects2F4[8].unk_0E8.z;
     }
     if (arg4 != 30.0f) {
         arg0->unk_4E = 1;
@@ -437,9 +437,9 @@ void func_80078D60(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4) {
 void func_80078E50(f32 posX, f32 posY, f32 posZ, f32 arg3) {
     s32 i;
 
-    for (i = ARRAY_COUNT(D_80170130) - 1; i >= 0; i--) {
-        if (D_80170130[i].obj.status == 0) {
-            func_80078D60(&D_80170130[i], posX, posY, posZ, arg3);
+    for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
+        if (gObjects8C[i].obj.status == 0) {
+            func_80078D60(&gObjects8C[i], posX, posY, posZ, arg3);
             break;
         }
     }
@@ -458,7 +458,7 @@ void func_80078EBC(Object_8C* arg0) {
         arg0->unk_6C -= 0.25f;
     }
     if (arg0->unk_6C <= 0.0f) {
-        func_80060FBC(&arg0->obj, &arg0->unk_80);
+        Object_Kill(&arg0->obj, &arg0->unk_80);
     }
 }
 
@@ -491,8 +491,8 @@ void func_8007905C(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 a
     arg0->obj.pos.z = posZ;
     arg0->unk_4C = arg5;
     if (arg4 == 1.6f) {
-        arg0->unk_54.x = (posX - D_8016F110[1].obj.pos.x) * 0.1f;
-        arg0->unk_54.z = (posZ - D_8016F110[1].obj.pos.z) * 0.1f;
+        arg0->unk_54.x = (posX - gObjects408[1].obj.pos.x) * 0.1f;
+        arg0->unk_54.z = (posZ - gObjects408[1].obj.pos.z) * 0.1f;
     } else if (arg4 == 1.3f) {
         arg0->unk_54.x = ((Rand_ZeroOne() * 0.05f) + 0.03f) * posX;
         arg0->unk_54.z = ((Rand_ZeroOne() * 0.05f) + 0.03f) * posZ;
@@ -500,7 +500,7 @@ void func_8007905C(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 a
     } else if (arg4 == 1.55f) {
         arg0->unk_54.x = (Rand_ZeroOne() - 0.5f) * 10.0f;
         arg0->unk_54.z = (Rand_ZeroOne() - 0.5f) * 10.0f;
-    } else if ((D_80178234 == 0x11) && ((arg4 == 5.11f) || (arg4 == 7.22f))) {
+    } else if ((gCurrentLevel == LEVEL_BOLSE) && ((arg4 == 5.11f) || (arg4 == 7.22f))) {
         sp3C.x = gPlayers[0].unk_074;
         sp3C.y = gPlayers[0].unk_078;
         sp3C.z = gPlayers[0].unk_07C;
@@ -534,8 +534,8 @@ void func_800794CC(f32 posX, f32 posY, f32 posZ, f32 arg3) {
     s32 i;
 
     for (i = 50; i >= 0; i--) {
-        if (D_80170130[i].obj.status == 0) {
-            func_8007905C(&D_80170130[i], posX, posY, posZ, arg3, 0);
+        if (gObjects8C[i].obj.status == 0) {
+            func_8007905C(&gObjects8C[i], posX, posY, posZ, arg3, 0);
             break;
         }
     }
@@ -545,8 +545,8 @@ void func_8007953C(f32 posX, f32 posY, f32 posZ, f32 arg3) {
     s32 i;
 
     for (i = 79; i >= 0; i--) {
-        if (D_80170130[i].obj.status == 0) {
-            func_8007905C(&D_80170130[i], posX, posY, posZ, arg3, 0);
+        if (gObjects8C[i].obj.status == 0) {
+            func_8007905C(&gObjects8C[i], posX, posY, posZ, arg3, 0);
             break;
         }
     }
@@ -556,8 +556,8 @@ void func_800795AC(f32 posX, f32 posY, f32 posZ, f32 arg3) {
     s32 i;
 
     for (i = 0; i < 95; i++) {
-        if (D_80170130[i].obj.status == 0) {
-            func_8007905C(&D_80170130[i], posX, posY, posZ, arg3, 0);
+        if (gObjects8C[i].obj.status == 0) {
+            func_8007905C(&gObjects8C[i], posX, posY, posZ, arg3, 0);
             break;
         }
     }
@@ -567,24 +567,24 @@ void func_80079618(f32 posX, f32 posY, f32 posZ, f32 arg3) {
     s32 i;
 
     for (i = 50; i >= 0; i--) {
-        if (D_80170130[i].obj.status == 0) {
-            func_8007905C(&D_80170130[i], posX, posY, posZ, arg3, 1);
+        if (gObjects8C[i].obj.status == 0) {
+            func_8007905C(&gObjects8C[i], posX, posY, posZ, arg3, 1);
             break;
         }
     }
 }
 
 void func_8007968C(Object_8C* arg0) {
-    if ((D_80178234 != 0xB) || (arg0->unk_44 != 7)) {
+    if ((gCurrentLevel != LEVEL_MACBETH) || (arg0->unk_44 != 7)) {
         if ((arg0->unk_50 == 0) || (arg0->obj.pos.y < D_80177940)) {
-            func_80060FBC(&arg0->obj, &arg0->unk_80);
+            Object_Kill(&arg0->obj, &arg0->unk_80);
         }
     } else {
         if (!(D_80177DB0 & 3)) {
             func_8007D2C8(arg0->obj.pos.x, arg0->obj.pos.y + 550.0f, arg0->obj.pos.z, 10.0f);
         }
         if ((arg0->unk_50 == 0) || (arg0->obj.pos.y < (D_80177940 - 100.0f))) {
-            func_80060FBC(&arg0->obj, &arg0->unk_80);
+            Object_Kill(&arg0->obj, &arg0->unk_80);
         }
     }
     arg0->obj.rot.x += arg0->unk_60.x;
@@ -593,12 +593,12 @@ void func_8007968C(Object_8C* arg0) {
     if (D_80177C98 == 0) {
         arg0->unk_54.y -= 0.5f;
     }
-    if ((D_80178234 == 0x11) && (gPlayers[0].unk_1C8 == 7) && (D_80177A80 >= 0xB0)) {
+    if ((gCurrentLevel == LEVEL_BOLSE) && (gPlayers[0].unk_1C8 == 7) && (D_80177A80 >= 0xB0)) {
         arg0->unk_54.x *= 0.95f;
         arg0->unk_54.y *= 0.95f;
         arg0->unk_54.z *= 0.95f;
     }
-    if ((D_80178234 == 0xB) && (arg0->unk_44 == 0xA)) {
+    if ((gCurrentLevel == LEVEL_MACBETH) && (arg0->unk_44 == 0xA)) {
         arg0->obj.rot.x = 0.0f;
         arg0->obj.rot.y = 0.0f;
         if (arg0->unk_50 >= 25) {
@@ -619,16 +619,16 @@ s32 func_800798C4(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
 void func_800798F0(Object_8C* arg0) {
     Vec3f frameJointTable[50];
 
-    if ((D_80178234 == 0x11) && (gPlayers[0].unk_1C8 == 7)) {
+    if ((gCurrentLevel == LEVEL_BOLSE) && (gPlayers[0].unk_1C8 == 7)) {
         func_8005F670(&arg0->obj.pos);
     }
     RCP_SetupDL(&gMasterDisp, 0x1D);
-    if (D_80178234 == 0x10) {
+    if (gCurrentLevel == LEVEL_KATINA) {
         gSPFogPosition(gMasterDisp++, D_801783D8, 1005);
     }
     func_8005980C(arg0->unk_70);
-    switch (D_80178234) {
-        case 11:
+    switch (gCurrentLevel) {
+        case LEVEL_MACBETH:
             switch (arg0->unk_44) {
                 case 1:
                     if (arg0->unk_40 & 1) {
@@ -711,7 +711,7 @@ void func_800798F0(Object_8C* arg0) {
                     break;
             }
             break;
-        case 13:
+        case LEVEL_AQUAS:
             Matrix_SetGfxMtx(&gMasterDisp);
             RCP_SetupDL(&gMasterDisp, 0x3C);
             gSPDisplayList(gMasterDisp++, D_600A220);
@@ -750,7 +750,7 @@ void func_800798F0(Object_8C* arg0) {
             break;
     }
     RCP_SetupDL(&gMasterDisp, 0x40);
-    if (D_80178234 == 0x10) {
+    if (gCurrentLevel == LEVEL_KATINA) {
         gSPFogPosition(gMasterDisp++, D_801783D8, D_801783DC);
     }
 }
@@ -775,7 +775,7 @@ void func_8007A28C(Object_8C* arg0) {
         arg0->unk_44 -= 2;
         if (arg0->unk_44 < 0) {
             arg0->unk_44 = 0;
-            func_80060FBC(&arg0->obj, &arg0->unk_80);
+            Object_Kill(&arg0->obj, &arg0->unk_80);
             D_8017812C = 0;
         }
     }
@@ -811,9 +811,9 @@ void func_8007A4B8(Object_8C* arg0, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
 void func_8007A568(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
     s32 i;
 
-    for (i = ARRAY_COUNT(D_80170130) - 1; i >= 0; i--) {
-        if (D_80170130[i].obj.status == 0) {
-            func_8007A4B8(&D_80170130[i], xPos, yPos, zPos, arg3);
+    for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
+        if (gObjects8C[i].obj.status == 0) {
+            func_8007A4B8(&gObjects8C[i], xPos, yPos, zPos, arg3);
             break;
         }
     }
@@ -874,9 +874,9 @@ void func_8007B2BC(Object_8C* arg0, f32 xPos, f32 yPos, f32 zPos, f32 arg4, s32 
 void func_8007B344(f32 xPos, f32 yPos, f32 zPos, f32 arg3, s32 arg4) {
     s32 i;
 
-    for (i = ARRAY_COUNT(D_80170130) - 1; i >= 0; i--) {
-        if (D_80170130[i].obj.status == 0) {
-            func_8007B2BC(&D_80170130[i], xPos, yPos, zPos, arg3, arg4);
+    for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
+        if (gObjects8C[i].obj.status == 0) {
+            func_8007B2BC(&gObjects8C[i], xPos, yPos, zPos, arg3, arg4);
             break;
         }
     }
@@ -1095,7 +1095,7 @@ void func_8007B344(f32 xPos, f32 yPos, f32 zPos, f32 arg3, s32 arg4) {
 void func_80084194(Object_8C* arg0) {
     s32 tmp;
 
-    if (D_80178234 != 0xD) {
+    if (gCurrentLevel != LEVEL_AQUAS) {
         RCP_SetupDL(&gMasterDisp, 0x31);
         Matrix_Scale(gGfxMatrix, arg0->unk_70, arg0->unk_70, arg0->unk_70, 1);
         Matrix_SetGfxMtx(&gMasterDisp);

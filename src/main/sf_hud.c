@@ -217,58 +217,59 @@ void func_80086110(f32 arg0, f32 arg1, s32 arg2) {
 s32 func_800863C8(void) {
     s32 var_v1 = 0;
 
-    switch (D_80178234) {
-        case 10:
+    switch (gCurrentLevel) {
+        case LEVEL_TRAINING:
             var_v1++;
 
-        case 9:
+        case LEVEL_VENOM_2:
             var_v1++;
 
-        case 19:
+        case LEVEL_VENOM_SW:
             var_v1++;
 
-        case 6:
+        case LEVEL_VENOM_1:
             var_v1++;
 
-        case 3:
+        case LEVEL_AREA_6:
             var_v1++;
 
-        case 17:
+        case LEVEL_BOLSE:
             var_v1++;
 
-        case 18:
+        case LEVEL_SECTOR_Z:
             var_v1++;
 
-        case 11:
+        case LEVEL_MACBETH:
             var_v1++;
 
-        case 12:
+        case LEVEL_TITANIA:
             var_v1++;
 
-        case 8:
+        case LEVEL_ZONESS:
             var_v1++;
 
-        case 7:
+        case LEVEL_SOLAR:
             var_v1++;
 
-        case 2:
+        case LEVEL_SECTOR_X:
             var_v1++;
 
-        case 13:
+        case LEVEL_AQUAS:
             var_v1++;
 
-        case 16:
+        case LEVEL_KATINA:
             var_v1++;
 
-        case 14:
+        case LEVEL_FORTUNA:
             var_v1++;
 
-        case 5:
+        case LEVEL_SECTOR_Y:
             var_v1++;
 
-        case 1:
+        case LEVEL_METEO:
             var_v1++;
-        case 0:
+
+        case LEVEL_CORNERIA:
             break;
     }
     return var_v1;
@@ -287,12 +288,12 @@ void func_80086444(void) {
     f32 D_800D1CC4[] = { 2.0f, 5.0f };
     f32 D_800D1CCC[] = { 1.6f, 1.6f };
 
-    switch (D_80178234) {
-        case 19:
+    switch (gCurrentLevel) {
+        case LEVEL_VENOM_SW:
             i = 1;
             break;
 
-        case 6:
+        case LEVEL_VENOM_2:
             i = 0;
             break;
 
@@ -377,7 +378,7 @@ void func_80086CC8(void) {
     if (D_80177838 != 0) {
         func_80086C08(temp - 4.5f - 32.0f, sp18 - 24.0f - 4.0f, 7.4f, 3.9f);
 
-        if (D_80178234 != 10) {
+        if (gCurrentLevel != LEVEL_TRAINING) {
             func_80086C08(122.0f, 122.0f, 2.9f, 1.2f);
         }
 
@@ -397,7 +398,7 @@ void func_800884E4(void) {
     s32 var_v1;
     s32 i;
 
-    D_80177B70[D_80177B48] = D_80161A98;
+    D_80177B70[D_80177B48] = gHitCount;
     var_v1 = 0xFF0000;
 
     for (i = 0; i < 3; i++) {
@@ -541,7 +542,7 @@ void func_80089994(s32 arg0) {
     f32 var_fv1;
     f32 var_fv2;
 
-    if (D_801778A8 != 1) {
+    if (gCamCount != 1) {
         var_fv1 = 38.0f;
         var_fv2 = 38.0f;
     } else {
@@ -631,7 +632,7 @@ void func_80089E98(s32 arg0) {
         case 2:
         case 3:
             var_a1_2 = var_a1 = arg0;
-            if (D_801778A8 != 1) {
+            if (gCamCount != 1) {
                 if (arg0 == 1) {
                     var_a1 = 3;
                 }
@@ -707,7 +708,7 @@ s32 func_8008AC54(s32 arg0) {
     s32 i;
     s32 ret = 0;
 
-    for (i = 0, var_a1 = D_80163FE0; i < 60; i++, var_a1++) {
+    for (i = 0, var_a1 = gObjects2F4; i < 60; i++, var_a1++) {
         switch (arg0) {
             case 0:
                 if ((var_a1->obj.status == 2) && (var_a1->obj.id == 0xBE)) {
@@ -733,52 +734,52 @@ s32 func_8008AC54(s32 arg0) {
 }
 
 void func_8008AD94(void) {
-    if (D_80177834 == 7) {
+    if (gGameState == GSTATE_PLAY) {
         RCP_SetupDL(&gMasterDisp, 0x4C);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
         switch ((s32) D_80177D68) {
-            case 0:
+            case RCID_FOX:
                 Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "FOX");
                 break;
 
-            case 10:
+            case RCID_FALCO:
                 Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "FALCO");
                 break;
 
-            case 20:
+            case RCID_SLIPPY:
                 Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "SLIPPY");
                 break;
 
-            case 30:
+            case RCID_PEPPY:
                 Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "PEPPY");
                 break;
 
-            case 200:
-            case 240:
+            case RCID_WOLF:
+            case RCID_WOLF_2:
                 Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "WOLF");
                 break;
 
-            case 220:
-            case 260:
+            case RCID_LEON:
+            case RCID_LEON_2:
                 Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "LEON");
                 break;
 
-            case 210:
-            case 250:
+            case RCID_PIGMA:
+            case RCID_PIGMA_2:
                 Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "PIGMA");
                 break;
 
-            case 230:
-            case 270:
+            case RCID_ANDREW:
+            case RCID_ANDREW_2:
                 Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "ANDREW");
                 break;
 
-            case 170:
+            case RCID_BILL:
                 Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "BILL");
                 break;
 
-            case 40:
+            case RCID_KATT:
                 Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "KATT");
                 break;
         }
@@ -1455,66 +1456,66 @@ void func_8008E620(f32 arg0, f32 arg1) {
     f32 b;
     s32 ret;
 
-    switch (D_80178234) {
-        case 0:
-            ret = func_800A3F50(150);
+    switch (gCurrentLevel) {
+        case LEVEL_CORNERIA:
+            ret = Play_CheckMedalStatus(150);
             break;
 
-        case 1:
-            ret = func_800A3F50(200);
+        case LEVEL_METEO:
+            ret = Play_CheckMedalStatus(200);
             break;
 
-        case 14:
-            ret = func_800A3F50(50);
+        case LEVEL_FORTUNA:
+            ret = Play_CheckMedalStatus(50);
             break;
 
-        case 2:
-            ret = func_800A3F50(150);
+        case LEVEL_SECTOR_X:
+            ret = Play_CheckMedalStatus(150);
             break;
 
-        case 12:
-            ret = func_800A3F50(150);
+        case LEVEL_TITANIA:
+            ret = Play_CheckMedalStatus(150);
             break;
 
-        case 17:
-            ret = func_800A3F50(150);
+        case LEVEL_BOLSE:
+            ret = Play_CheckMedalStatus(150);
             break;
 
-        case 5:
-            ret = func_800A3F50(150);
+        case LEVEL_SECTOR_Y:
+            ret = Play_CheckMedalStatus(150);
             break;
 
-        case 16:
-            ret = func_800A3F50(150);
+        case LEVEL_KATINA:
+            ret = Play_CheckMedalStatus(150);
             break;
 
-        case 7:
-            ret = func_800A3F50(100);
+        case LEVEL_SOLAR:
+            ret = Play_CheckMedalStatus(100);
             break;
 
-        case 11:
-            ret = func_800A3F50(150);
+        case LEVEL_MACBETH:
+            ret = Play_CheckMedalStatus(150);
             break;
 
-        case 13:
-            ret = func_800A3F50(150);
+        case LEVEL_AQUAS:
+            ret = Play_CheckMedalStatus(150);
             break;
 
-        case 8:
-            ret = func_800A3F50(250);
+        case LEVEL_ZONESS:
+            ret = Play_CheckMedalStatus(250);
             break;
 
-        case 18:
-            ret = func_800A3F50(100);
+        case LEVEL_SECTOR_Z:
+            ret = Play_CheckMedalStatus(100);
             break;
 
-        case 3:
-            ret = func_800A3F50(300);
+        case LEVEL_AREA_6:
+            ret = Play_CheckMedalStatus(300);
             break;
 
-        case 9:
-        case 19:
-            ret = func_800A3F50(200);
+        case LEVEL_VENOM_2:
+        case LEVEL_VENOM_SW:
+            ret = Play_CheckMedalStatus(200);
             break;
 
         default:
@@ -1522,16 +1523,16 @@ void func_8008E620(f32 arg0, f32 arg1) {
             break;
     }
 
-    if (D_801617B8) {
-        D_801617B8--;
+    if (gMedalFlashTimer) {
+        gMedalFlashTimer--;
     }
 
-    if (ret != D_801617B4) {
-        D_801617B8 = 30;
-        D_801617B4 = ret;
+    if (ret != gMedalStatus) {
+        gMedalFlashTimer = 30;
+        gMedalStatus = ret;
     }
 
-    if (D_801617B8 & 1) {
+    if (gMedalFlashTimer & 1) {
         r = 255;
         g = 255;
         b = 255;
@@ -1578,12 +1579,12 @@ void func_8008F96C(void) {
 
     if (D_80161708 != 0) {
         func_8008E9EC(24.0f, 30.0f);
-        if (D_80178234 != 10) {
+        if (gCurrentLevel != LEVEL_TRAINING) {
             func_80087530(248.0f, 11.0f, D_80161AA0[D_801778A0]);
         }
     }
 
-    if (D_80178234 == 10) {
+    if (gCurrentLevel == LEVEL_TRAINING) {
         func_DF4260_801988E0();
     }
 }
@@ -1629,7 +1630,7 @@ s32 func_8009092C(Object_2F4* arg0) {
         return true;
     }
 
-    var_s1 = &D_8016F110[1];
+    var_s1 = &gObjects408[1];
 
     for (i = 1; i < 4; i++, var_s1++) {
         if (var_s1->obj.status == 2) {
@@ -1670,7 +1671,7 @@ s32 func_80090A00(Object_2F4* arg0) {
             }
 
         case 2:
-            arg0->unk_124.x = D_8016F110[0].obj.pos.x + 1000.0f;
+            arg0->unk_124.x = gObjects408[0].obj.pos.x + 1000.0f;
             arg0->unk_124.y = 300.0f;
             arg0->unk_124.z = arg0->obj.pos.z - 10000.0f;
             arg0->unk_058++;
@@ -1684,9 +1685,9 @@ s32 func_80090A00(Object_2F4* arg0) {
             break;
 
         case 3:
-            arg0->unk_124.x = D_8016F110[0].obj.pos.x - 1000.0f;
+            arg0->unk_124.x = gObjects408[0].obj.pos.x - 1000.0f;
             arg0->unk_124.y = 400.0f;
-            arg0->unk_124.z = D_8016F110[0].obj.pos.z;
+            arg0->unk_124.z = gObjects408[0].obj.pos.z;
             arg0->unk_058++;
             if (arg0->unk_05C == arg0->unk_058) {
                 arg0->unk_064 = 4;
@@ -1713,7 +1714,7 @@ s32 func_80090A00(Object_2F4* arg0) {
             arg0->unk_124.x = gPlayers[0].unk_074 - 1000.0f;
             arg0->unk_058++;
             if (arg0->unk_05C == arg0->unk_058) {
-                func_80060FBC(&arg0->obj, &arg0->unk_100);
+                Object_Kill(&arg0->obj, &arg0->unk_100);
             }
             break;
     }
@@ -1724,13 +1725,13 @@ s32 func_80090CCC(Object_2F4* arg0) {
     s32 ret = 0;
 
     if (func_8009092C(arg0) != 0) {
-        arg0->unk_124.z = D_8016F110[arg0->unk_0E6].obj.pos.z;
-        arg0->unk_124.y = D_8016F110[arg0->unk_0E6].obj.pos.y;
-        arg0->unk_124.x = D_8016F110[arg0->unk_0E6].obj.pos.x;
+        arg0->unk_124.z = gObjects408[arg0->unk_0E6].obj.pos.z;
+        arg0->unk_124.y = gObjects408[arg0->unk_0E6].obj.pos.y;
+        arg0->unk_124.x = gObjects408[arg0->unk_0E6].obj.pos.x;
     } else {
-        arg0->unk_124.z = D_8016F110[0].obj.pos.z;
-        arg0->unk_124.y = D_8016F110[0].obj.pos.y;
-        arg0->unk_124.x = D_8016F110[0].obj.pos.x;
+        arg0->unk_124.z = gObjects408[0].obj.pos.z;
+        arg0->unk_124.y = gObjects408[0].obj.pos.y;
+        arg0->unk_124.x = gObjects408[0].obj.pos.x;
     }
 
     if ((fabsf(arg0->obj.pos.x - arg0->unk_124.x) < 2000.0f) && (fabsf(arg0->obj.pos.z - arg0->unk_124.z) < 2000.0f)) {
@@ -1752,7 +1753,7 @@ s32 func_80090CCC(Object_2F4* arg0) {
         arg0->unk_13C = 30.0f;
     }
 
-    if (D_8016F110[arg0->unk_0E6].obj.status == 0) {
+    if (gObjects408[arg0->unk_0E6].obj.status == 0) {
         arg0->unk_0B8 = 1;
         arg0->unk_0E6 = 0;
         arg0->unk_068 = 0;
@@ -1793,8 +1794,8 @@ s32 func_80090E8C(Object_2F4* arg0) {
         var_fv1_2 = 5000.0f;
     }
 
-    if ((var_fv1_2 < fabsf(arg0->obj.pos.x - D_8016F110->obj.pos.x)) &&
-        (var_fv1_2 < fabsf(arg0->obj.pos.z - D_8016F110->obj.pos.z))) {
+    if ((var_fv1_2 < fabsf(arg0->obj.pos.x - gObjects408->obj.pos.x)) &&
+        (var_fv1_2 < fabsf(arg0->obj.pos.z - gObjects408->obj.pos.z))) {
         arg0->unk_0B8 = 0;
     }
 
@@ -1815,9 +1816,9 @@ s32 func_800910C0(Object_2F4* arg0) {
         arg0->unk_0BC = (s32) (Rand_ZeroOne() * 20.0f) + 10;
     }
 
-    arg0->unk_124.x = arg0->unk_2DC.x + D_8016F110->obj.pos.x;
+    arg0->unk_124.x = arg0->unk_2DC.x + gObjects408->obj.pos.x;
     arg0->unk_124.y = arg0->unk_2DC.y;
-    arg0->unk_124.z = arg0->unk_2DC.z + D_8016F110->obj.pos.z;
+    arg0->unk_124.z = arg0->unk_2DC.z + gObjects408->obj.pos.z;
 
     if (arg0->unk_0E4 == 1) {
         var_fv1 = 1500.0f;
@@ -1868,15 +1869,15 @@ s32 func_80091368(Object_2F4* arg0) {
 
             switch (arg0->unk_0E4) {
                 case 1:
-                    func_800BA808(gMsg_ID_20220, 10);
+                    func_800BA808(gMsg_ID_20220, RCID_FALCO);
                     break;
 
                 case 3:
-                    func_800BA808(gMsg_ID_20221, 30);
+                    func_800BA808(gMsg_ID_20221, RCID_PEPPY);
                     break;
 
                 case 2:
-                    func_800BA808(gMsg_ID_20222, 20);
+                    func_800BA808(gMsg_ID_20222, RCID_SLIPPY);
                     break;
             }
             D_801778B0[arg0->unk_0E4] = -1;
@@ -1894,7 +1895,7 @@ s32 func_80091368(Object_2F4* arg0) {
             }
 
             if (arg0->obj.pos.y > 3000.0f) {
-                func_80060FBC(&arg0->obj, &arg0->unk_100);
+                Object_Kill(&arg0->obj, &arg0->unk_100);
             }
             break;
     }
@@ -2107,13 +2108,13 @@ s32 func_80091F00(Object_2F4* arg0) {
     if ((arg0->unk_0D0 == 3) && (arg0->unk_0D4 == 1)) {
         switch (arg0->unk_0E4) {
             case 1:
-                func_800BA808(gMsg_ID_20210, 10);
+                func_800BA808(gMsg_ID_20210, RCID_FALCO);
                 break;
             case 3:
-                func_800BA808(gMsg_ID_20200, 30);
+                func_800BA808(gMsg_ID_20200, RCID_PEPPY);
                 break;
             case 2:
-                func_800BA808(gMsg_ID_20190, 20);
+                func_800BA808(gMsg_ID_20190, RCID_SLIPPY);
                 break;
         }
     }
@@ -2121,13 +2122,13 @@ s32 func_80091F00(Object_2F4* arg0) {
     if ((arg0->unk_0D0 != 3) && (arg0->unk_0D4 == 1)) {
         switch (arg0->unk_0E4) {
             case 1:
-                func_800BA808(gMsg_ID_20060, 10);
+                func_800BA808(gMsg_ID_20060, RCID_FALCO);
                 break;
             case 3:
-                func_800BA808(gMsg_ID_20070, 30);
+                func_800BA808(gMsg_ID_20070, RCID_PEPPY);
                 break;
             case 2:
-                func_800BA808(gMsg_ID_20080, 20);
+                func_800BA808(gMsg_ID_20080, RCID_SLIPPY);
                 break;
         }
     }
@@ -2135,13 +2136,13 @@ s32 func_80091F00(Object_2F4* arg0) {
     if ((arg0->unk_0D4 == 2) || (arg0->unk_0D4 == 100)) {
         switch (arg0->unk_0E4) {
             case 1:
-                func_800BA808(gMsg_ID_20030, 10);
+                func_800BA808(gMsg_ID_20030, RCID_FALCO);
                 break;
             case 3:
-                func_800BA808(gMsg_ID_20040, 30);
+                func_800BA808(gMsg_ID_20040, RCID_PEPPY);
                 break;
             case 2:
-                func_800BA808(gMsg_ID_20050, 20);
+                func_800BA808(gMsg_ID_20050, RCID_SLIPPY);
                 break;
         }
     }
@@ -2151,12 +2152,12 @@ s32 func_80091F00(Object_2F4* arg0) {
 }
 
 void func_80092244(Object_2F4* arg0) {
-    D_80175A10[arg0->unk_040].unk_00 = 1;
-    D_80175A10[arg0->unk_040].unk_02 = arg0->unk_0E4;
-    D_80175A10[arg0->unk_040].pos.x = arg0->obj.pos.x;
-    D_80175A10[arg0->unk_040].pos.y = arg0->obj.pos.y;
-    D_80175A10[arg0->unk_040].pos.z = arg0->obj.pos.z;
-    D_80175A10[arg0->unk_040].unk_10 = arg0->unk_0F4.y + 180.0f;
+    gUnkEntities28[arg0->unk_040].unk_00 = 1;
+    gUnkEntities28[arg0->unk_040].unk_02 = arg0->unk_0E4;
+    gUnkEntities28[arg0->unk_040].pos.x = arg0->obj.pos.x;
+    gUnkEntities28[arg0->unk_040].pos.y = arg0->obj.pos.y;
+    gUnkEntities28[arg0->unk_040].pos.z = arg0->obj.pos.z;
+    gUnkEntities28[arg0->unk_040].unk_10 = arg0->unk_0F4.y + 180.0f;
 }
 
 void func_800922F4(Object_2F4* arg0) {
@@ -2202,14 +2203,14 @@ void func_800922F4(Object_2F4* arg0) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80093164.s")
 
 void func_80093310(void) {
-    Object_2F4* this = &D_80163FE0[0];
+    Object_2F4* this = &gObjects2F4[0];
 
     Object_2F4_Initialize(this);
     this->obj.status = 1;
     this->obj.pos.x = 0.0f;
     this->obj.pos.y += 1700.0f;
     this->obj.pos.z -= 5000.0f;
-    D_80163FE0->unk_0B6 = 1;
+    gObjects2F4->unk_0B6 = 1;
     if (1) {}
     this->obj.id = 195;
     func_800612B8(&this->unk_01C, this->obj.id);
@@ -2218,7 +2219,7 @@ void func_80093310(void) {
 
 void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
     s32 i;
-    Object_8C* var_s0 = &D_80170130[ARRAY_COUNT(D_80170130) - 1];
+    Object_8C* var_s0 = &gObjects8C[ARRAY_COUNT(gObjects8C) - 1];
     Player* sp24 = gPlayers;
 
     for (i = 0; i < 100; i++) {
@@ -2230,7 +2231,7 @@ void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
             var_s0->obj.pos.y = y;
             var_s0->obj.pos.z = z;
 
-            if ((sp24->unk_1C8 == 2) && (D_80178234 == 13) && (sp24->unk_1D0 < 2)) {
+            if ((sp24->unk_1C8 == 2) && (gCurrentLevel == LEVEL_AQUAS) && (sp24->unk_1D0 < 2)) {
                 var_s0->unk_6C = 0.4f;
                 var_s0->unk_44 = 0;
                 var_s0->unk_46 = 24;
@@ -2270,7 +2271,7 @@ void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
 void func_80094954(Object_8C* arg0) {
     Player* temp = gPlayers;
 
-    if ((temp->unk_1C8 == 2) && (D_80178234 == 13) && (temp->unk_1D0 < 2)) {
+    if ((temp->unk_1C8 == 2) && (gCurrentLevel == LEVEL_AQUAS) && (temp->unk_1D0 < 2)) {
         switch (arg0->unk_4E) {
             case 0:
                 arg0->unk_44 += arg0->unk_46;
@@ -2290,7 +2291,7 @@ void func_80094954(Object_8C* arg0) {
         }
 
         if ((arg0->unk_4E == 1) && (arg0->unk_4A <= 0)) {
-            func_80060FBC(&arg0->obj, &arg0->unk_80);
+            Object_Kill(&arg0->obj, &arg0->unk_80);
         }
 
         arg0->unk_54.y += arg0->unk_6C;
@@ -2318,14 +2319,14 @@ void func_80094954(Object_8C* arg0) {
     arg0->unk_70 += 0.8f;
     arg0->unk_4A -= arg0->unk_46;
 
-    if ((arg0->unk_4A < 0) || ((temp->unk_1C8 == 2) && (D_80178234 == 13) && (temp->unk_1D0 == 5))) {
-        func_80060FBC(&arg0->obj, &arg0->unk_80);
+    if ((arg0->unk_4A < 0) || ((temp->unk_1C8 == 2) && (gCurrentLevel == LEVEL_AQUAS) && (temp->unk_1D0 == 5))) {
+        Object_Kill(&arg0->obj, &arg0->unk_80);
     }
     arg0->obj.rot.z += arg0->unk_48;
 }
 
 void func_80094BBC(Object_8C* arg0) {
-    if ((gPlayers[0].unk_1C8 == 2) && (D_80178234 == 13) && (gPlayers[0].unk_1D0 < 2)) {
+    if ((gPlayers[0].unk_1C8 == 2) && (gCurrentLevel == LEVEL_AQUAS) && (gPlayers[0].unk_1D0 < 2)) {
         RCP_SetupDL(&gMasterDisp, 0x44);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 21, 34, arg0->unk_4A);
         gDPSetEnvColor(gMasterDisp++, 255, 255, 251, 0);

@@ -880,7 +880,7 @@ void func_EBFBE0_8018994C(void) {
 
             D_8017829C = 0;
             D_80178300 = 0;
-            D_800D4A70 = 0;
+            sCurrentMsgPri = 0;
             break;
 
         case 100:
@@ -978,11 +978,11 @@ void func_EBFBE0_8018994C(void) {
             if (D_EBFBE0_801B82B8 == 638) {
                 func_80019218(0x11030010, &D_EBFBE0_801B867C, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 func_80019218(0x31024059, &D_EBFBE0_801B867C, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-                func_800BA808(gMsg_ID_60, 300);
+                func_800BA808(gMsg_ID_60, RCID_ROB64_TITLE);
             }
 
             if (D_EBFBE0_801B82B8 == 838) {
-                func_EBFBE0_801919C4(D_EBFBE0_801ADA30, 310);
+                func_EBFBE0_801919C4(D_EBFBE0_801ADA30, RCID_PEPPER_TITLE);
             }
 
             if (D_EBFBE0_801B82A8 == 1) {
@@ -3126,7 +3126,7 @@ void func_EBFBE0_80190FD0(void) {
                 if (D_EBFBE0_801B8284 < 120) {
                     D_EBFBE0_801B8284 += 18;
                 } else {
-                    D_80177834 = 3;
+                    gGameState = GSTATE_MENU;
                     D_8017783C = 2;
                     D_8017784C = 0;
                     D_80177898 = 0;
@@ -3356,8 +3356,8 @@ void func_EBFBE0_801919C4(u16** arg0, s32 arg1) {
     D_80177D68 = arg1;
     D_8017829C = 100;
 
-    switch (D_80177834) {
-        case 2:
+    switch (gGameState) {
+        case GSTATE_TITLE:
             D_8017872C = 176;
             D_80178728 = 85;
             D_80178730 = 80.0f;
@@ -3367,7 +3367,7 @@ void func_EBFBE0_801919C4(u16** arg0, s32 arg1) {
             D_80178740 = 174.0f;
             break;
 
-        case 7:
+        case GSTATE_PLAY:
             D_8017872C = 179;
             D_80178728 = 79;
             D_80178730 = 74.0f;
