@@ -368,7 +368,7 @@ void func_8007AB50(Object_8C*);
 void func_8007ACE0(f32, f32, f32, f32, f32, f32);
 void func_8007ADF4(f32 arg0, f32 posY, f32 arg2, f32 arg3, f32 arg4);
 void func_8007AFD0(f32 posX, f32 posZ, f32 arg2, f32 arg3, f32 arg4);
-void func_8007B040(Object*);
+void func_8007B040(Object_8C*);
 void func_8007B0F4(Object*);
 void func_8007B228(f32, f32, f32, f32);
 void func_8007B344(f32 xPos, f32 yPos, f32 zPos, f32 arg3, s32 arg4);
@@ -508,6 +508,7 @@ void func_800A6148(void);
 void func_800A6CD0(UnkStruct_D_80178280 *, s32, s32);
 void func_800B6F50(f32, f32, f32, f32, f32, f32);
 void func_800B73E0(UnkStruct_D_80178280 *);
+s32 func_800A73E4(f32* arg0, s32* arg1, f32 posX, f32 posY, f32 posZ);
 void func_800B86CC(void);
 
 // fox_radio

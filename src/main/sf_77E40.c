@@ -1033,7 +1033,19 @@ void func_8007AFD0(f32 posX, f32 posZ, f32 arg2, f32 arg3, f32 arg4) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B040.s")
+void func_8007B040(Object_8C* arg0) {
+    f32 sp2C;
+    s32 sp28;
+
+    if (func_800A73E4(&sp2C, &sp28, arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z)) {
+        D_801782EC[sp28] = arg0->unk_6C;
+        D_801782EC[sp28 + 1] = arg0->unk_6C * 0.7f;
+        D_801782EC[sp28 - 1] = arg0->unk_6C * 0.7f;
+    }
+    if (arg0->unk_50 == 0) {
+        func_80060FBC(arg0, &arg0->unk_80);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B0F4.s")
 
