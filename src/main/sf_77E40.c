@@ -852,8 +852,7 @@ void func_8007A6F0(Vec3f* arg0, u32 arg1) {
 
 void func_8007A748(Object_8C* arg0) {
     if (arg0->unk_50 == 0) {
-        // TODO: Should func_80060FBC be a different type or is casting the best option here?
-        func_80060FBC((Object*) arg0, &arg0->unk_80);
+        func_80060FBC(&arg0->obj, &arg0->unk_80);
     }
 }
 
