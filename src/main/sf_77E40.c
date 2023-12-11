@@ -947,7 +947,7 @@ void func_8007AB50(Object_8C* arg0) {
     }
 }
 
-void func_8007AC0C(Object_8C* arg0, f32 posX, f32 unused, f32 posY, f32 arg4, f32 arg5, f32 arg6) {
+void func_8007AC0C(Object_8C* arg0, f32 posX, f32 unused_posY, f32 posY, f32 arg4, f32 arg5, f32 arg6) {
     func_80061474(arg0);
     arg0->obj.status = 1;
     arg0->obj.id = 0x174;
@@ -963,11 +963,50 @@ void func_8007AC0C(Object_8C* arg0, f32 posX, f32 unused, f32 posY, f32 arg4, f3
     func_800612B8(&arg0->unk_1C, arg0->obj.id);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007ACE0.s")
+void func_8007ACE0(f32 posX, f32 posY, f32 posZ, f32 arg3, f32 arg4, f32 arg5) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007AD58.s")
+    for (i = 0; i < ARRAY_COUNT(D_80170130); i++) {
+        if (D_80170130[i].obj.status == 0) {
+            func_8007AC0C(&D_80170130[i], posX, posY, posZ, arg3, arg4, arg5);
+            break;
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007ADF4.s")
+void func_8007AD58(Object_8C* arg0, f32 posX, f32 unused_posY, f32 posZ, f32 arg4, f32 arg5, f32 arg6) {
+    func_80061474(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = 0x174;
+    arg0->unk_4E = 1;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = D_80177940;
+    arg0->obj.pos.z = posZ;
+    arg0->unk_44 = 0xB4;
+    arg0->unk_70 = arg4;
+    arg0->unk_6C = arg5;
+    arg0->obj.rot.y = arg6;
+    func_800612B8(&arg0->unk_1C, arg0->obj.id);
+}
+
+void func_8007ADF4(f32 arg0, f32 posY, f32 arg2, f32 arg3, f32 arg4) {
+    f32 temp_fs0;
+    f32 temp_fs2;
+    f32 var_fs1;
+    s32 var_s2;
+    s32 i;
+
+    for (var_fs1 = 11.25f, var_s2 = 0; var_s2 < 16; var_s2++, var_fs1 += 22.5f) {
+        for (i = 0; i < ARRAY_COUNT(D_80170130); i++) {
+            if (D_80170130[i].obj.status == 0) {
+                temp_fs2 = __sinf(M_DTOR * var_fs1) * arg4 * 20.0f;
+                temp_fs0 = __cosf(M_DTOR * var_fs1) * arg4 * 20.0f;
+                func_8007AD58(&D_80170130[i], arg0 + temp_fs2, posY, arg2 + temp_fs0, arg3, arg4, var_fs1);
+                break;
+            }
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007AF30.s")
 
