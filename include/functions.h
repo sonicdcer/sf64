@@ -85,6 +85,7 @@ void func_8001AF40(s32);
 void func_8001D1C8(s32, s32);
 void func_8001D400(s32);
 void func_8001D444(u8, u16, u8, u8);
+void func_8001D638(u8);
 void func_8001DA90(u8);
 void func_8001DBD0(s32);
 void func_8001DC6C(u8, u16);
@@ -174,6 +175,7 @@ void func_80042FD0(Object_408 *);
 void func_80042FDC(Object*);
 void func_80042FE8(Object*);
 void func_800444BC(UnkStruct_D_80178280 *);
+void func_800515C4(void);
 
 // sf_496E0
 void func_8004F8AC(Object*);
@@ -474,7 +476,9 @@ void func_80094954(Object_8C*);
 void func_80094BBC(Object_8C*);
 void func_80094D20(f32, f32);
 
-// sf_97F80
+// fox_97F80
+void func_80098860(Plane *plane, Vec3f *point, Vec3f *normal);
+s32 func_800988B4(Vec3f *vec, Plane *plane);
 s32 func_800998FC(Vec3f*, Vec3f*, Vec3f*, s32, Vec3f*, f32*);
 
 // fox_A24B0
@@ -491,9 +495,9 @@ void func_800A25DC(void);
 Object_2F4 *func_800A3608(s32);
 
 // fox_A4290
-s32 func_800A3690(Vec3f*, Vec3f*, s32, Vec3f*);
+bool func_800A3690(Vec3f*, Vec3f*, s32, Vec3f*);
 
-// sf_A48A0
+// fox_A48A0
 void func_800A3CA0(void);
 
 // sf_A4B50

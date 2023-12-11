@@ -6,6 +6,34 @@
 
 #define UNK_TYPE s32
 
+typedef struct {
+    Vec3f normal;
+    f32 dist;
+} Plane;
+
+typedef struct {
+    s16 vtx[3];
+    s16 unk_06;
+    Vec3s normal;
+    s32 dist;
+} CollisionPoly;
+
+typedef struct {
+    Vec3f min;
+    Vec3f max;
+    s32 polyCount;
+    CollisionPoly* polys;
+    Vec3s* mesh;
+} CollisionHeader; // size = 0x24
+
+typedef struct {
+    Vec3f min;
+    Vec3f max;
+    s32 polyCount;
+    s16 (*polys)[3];
+    Vec3f* mesh;
+} CollisionHeader2; // size = 0x24
+
 typedef void (*TimerAction)(s32*, s32);
 
 typedef struct {
@@ -315,10 +343,15 @@ typedef struct {
     /* 0x10 */ Vec3f rot;
 } Object; // size = 0x1C
 
+typedef void (*ObjectFunc)(Object*);
+
 typedef struct {
-    /* 0x00 */ void (*draw)(); // argument must have object type. Can be dlist.
+    /* 0x00 */ union {
+        ObjectFunc draw;
+        Gfx* dList;
+    };
     /* 0x00 */ u8 drawType;
-    /* 0x08 */ void (*action)(); // argument must have object type.
+    /* 0x08 */ ObjectFunc action; // argument must have object type.
     /* 0x0C */ f32* unk_0C; // some sort of script?
     /* 0x10 */ f32 unk_10; // z coordinate of something
     /* 0x14 */ s16 unk_14; // can be -1, 0, 1

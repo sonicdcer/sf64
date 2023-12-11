@@ -2,6 +2,9 @@
 
 #include "fox_rcp_setup.c"
 
+u8 D_80178580[0x190];
+void* D_80178710;
+
 void RCP_SetupDL(Gfx** gfxP, s16 i) {
     gSPDisplayList((*gfxP)++, &((Gfx*) gSetupDLs)[i * 9]);
 }

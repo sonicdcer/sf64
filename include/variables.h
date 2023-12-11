@@ -204,6 +204,8 @@ extern s32 D_800D2884[];
 extern s32 D_800D2894[];
 extern s32 D_800D28A4[];
 extern s32 D_800D28B4[];
+extern CollisionHeader D_800D2B38[];
+extern CollisionHeader2 D_800D2CA0[];
 extern u8 D_800D3180[0x1E]; // might be bigger? at least 0x21
 extern s32 D_800D4A70;
 extern Save gDefaultSave;
@@ -227,7 +229,7 @@ extern s32 D_801613A0;
 
 // fox_52730
 extern Vec3f D_801613B0[];
-extern Vec3f D_801613E0[2];
+extern Vec3f D_801613E0[];
 extern s16 D_80161410;
 extern Matrix D_80161418[4];
 extern Vec3f D_80161518[4];
@@ -277,10 +279,7 @@ extern s32 D_801617B8;
 extern s32 D_80161810[];
 extern s32 D_80161900[];
 
-extern s32 D_80161910[0x10]; // part of previous or next?
-
-// sf_97F80
-extern f32 D_80161950;
+extern s32 D_80161910[0x10]; // part of sf_hud or fox_97F80?
 
 // fox_display
 extern char D_801619A0[100];
@@ -426,6 +425,7 @@ extern f32 D_80177D08;
 extern s32 D_80177D10[];
 extern f32 D_80177D20;
 extern s32 D_80177D28[];
+extern f32 D_80177D38;
 extern s32 D_80177D40[];
 extern f32 D_80177D50;
 extern s32 D_80177D58[];
@@ -454,6 +454,8 @@ extern u32* D_80178298;
 extern s32 D_8017829C;
 extern s32 D_801782A4;
 extern Object_58 *D_801782A8;
+extern s32 D_801782AC;
+extern s32 D_801782B4;
 extern s32 D_801782B8;
 extern s32 D_801782BC;
 extern s32 D_801782C0;
@@ -544,9 +546,9 @@ extern s32 D_80178570;
 extern s32 D_80178574;
 extern s32 D_80178578;
 
-// file split -- part of radio? rcp?
-extern s32 D_80178580;
-extern s32 *D_80178710;
+// fox_rcp?
+extern u8 D_80178580[];
+extern void *D_80178710;
 
 //fox_radio
 extern u16** D_80178720;
@@ -630,7 +632,7 @@ extern u8 D_80281400[0xC00];
 extern FrameBuffer gZBuffer; // z buffer
 extern u8 D_802A7800;
 extern u8 D_802D7800;
-extern s32 D_80387800;
+extern u16 D_80387800;
 extern u16 D_8038F080[];
 extern u16 D_8038F300[];
 extern FrameBuffer gFrameBuffers[3]; // 8038F800

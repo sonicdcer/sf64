@@ -65,7 +65,7 @@ python3 -m pip install -r ./tools/requirements-python.txt --break-system-package
 
 ```bash
 git submodule update --init --recursive
-make -s -C tools
+make toolchain
 ```
 
 #### 5. Prepare a base ROM

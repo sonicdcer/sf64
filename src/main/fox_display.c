@@ -1,5 +1,7 @@
 #include "global.h"
 
+char D_801619A0[100];
+
 char* Graphics_ClearPrintBuffer(char* buf, s32 fill, s32 len) {
     s32 i;
     char* ptr = buf;
@@ -287,7 +289,7 @@ void Animation_FindBoundingBox(Gfx* dList, s32 len, Vec3f* min, Vec3f* max, s32*
     for (var_s0 = sp44; (s32) (*var_s0 >> 0x38) != G_ENDDL && var_s0 - sp44 < len; var_s0++) {
         switch ((s32) (*var_s0 >> 0x38)) {
             case G_DL:
-                Animation_FindBoundingBox((Gfx*) (*var_s0 & 0xFFFFFFFF), (*var_s0 >> 0x20) & 0xFFFF, min, max, vtxFound,
+                Animation_FindBoundingBox(*var_s0 & 0xFFFFFFFF, (*var_s0 >> 0x20) & 0xFFFF, min, max, vtxFound,
                                           vtxCount, vtxList);
                 break;
             case G_VTX:
@@ -719,7 +721,7 @@ f32 Math_RadToDeg(f32 rAngle) {
     return rAngle;
 }
 
-s32* func_8009F7B4(Gfx** gfxPtr, u8 width, u8 height) {
+u16* func_8009F7B4(Gfx** gfxPtr, u8 width, u8 height) {
     u16* spB4;
     u16 norm;
 
