@@ -12,7 +12,7 @@ extern Gfx D_EBFBE0_801B50D8[];
 extern Gfx D_EBFBE0_801B5E78[];
 extern Gfx D_EBFBE0_801B57A8[];
 
-#define IMPORT_DATA_PENDING
+// #define IMPORT_DATA_PENDING
 
 #ifdef IMPORT_DATA_PENDING
 static f32 D_EBFBE0_801AE570[] = { 60.0f, 36.0f, 12.0f, -12.0f, -36.0f, -60.0f };
@@ -214,6 +214,7 @@ static f32 D_EBFBE0_801AEF9C[] = { 89.0f, 115.0f, 139.0f };
 
 /* beyond this point, data might be in-function static or near function static */
 
+s32 D_EBFBE0_801B9090;
 s32 D_EBFBE0_801B9094;
 s32 D_EBFBE0_801B9098; //gap
 s32 D_EBFBE0_801B90A0[3]; //gap
@@ -329,7 +330,6 @@ UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9400;
 UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9408;
 
 #else
-extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9380[];
 extern f32 D_EBFBE0_801AE588[];
 extern f32 D_EBFBE0_801AE5A0[];
 extern f32 D_EBFBE0_801AE5E8[2];
@@ -393,6 +393,121 @@ extern f32 D_EBFBE0_801AF1DC;
 extern s32 D_EBFBE0_801AF168[4];
 extern s32 D_EBFBE0_801AF178[4];
 extern u8 D_EBFBE0_801AEF5C[0x28];
+
+extern s32 D_EBFBE0_801B9090;
+extern s32 D_EBFBE0_801B9094;
+extern s32 D_EBFBE0_801B9098; //gap
+extern s32 D_EBFBE0_801B90A0[3]; //gap
+extern s32 D_EBFBE0_801B90B0[3]; //gap
+extern f32 D_EBFBE0_801B90C0[3]; //gap
+extern f32 D_EBFBE0_801B90D0[3]; //gap
+extern f32 D_EBFBE0_801B90E0[3]; //gap
+extern f32 D_EBFBE0_801B90F0[3]; //gap
+extern f32 D_EBFBE0_801B9100[3]; //gap
+extern f32 D_EBFBE0_801B9110[3];
+extern f32 D_EBFBE0_801B911C;
+extern f32 D_EBFBE0_801B9120;
+extern s32 D_EBFBE0_801B9124;
+extern s32 D_EBFBE0_801B9128;
+extern s32 D_EBFBE0_801B912C;
+extern s32 D_EBFBE0_801B9130;
+extern s32 D_EBFBE0_801B9134;
+extern s32 D_EBFBE0_801B9138;
+extern s32 D_EBFBE0_801B913C;
+extern s32 D_EBFBE0_801B9140[3];
+extern s32 D_EBFBE0_801B914C;
+extern  u8 D_EBFBE0_801B9150[3][2];
+extern s32 D_EBFBE0_801B9158;
+extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9160[3];
+extern s32 D_EBFBE0_801B9178;
+extern s32 D_EBFBE0_801B917C;
+extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9180; //gap
+extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9188;
+extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9190;
+extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9198;
+extern s32 D_EBFBE0_801B91A0;
+extern s32 D_EBFBE0_801B91A4;
+extern s32 D_EBFBE0_801B91A8;
+extern s32 D_EBFBE0_801B91AC;
+extern s32 D_EBFBE0_801B91B0;
+extern s32 D_EBFBE0_801B91B4;
+extern s32 D_EBFBE0_801B91B8;
+extern s32 D_EBFBE0_801B91BC;
+extern s32 D_EBFBE0_801B91C0;
+extern s32 D_EBFBE0_801B91C4;
+extern s32 D_EBFBE0_801B91C8;
+extern s32 D_EBFBE0_801B91CC;
+extern s32 D_EBFBE0_801B91D0;
+extern f32 D_EBFBE0_801B91D4;
+extern f32 D_EBFBE0_801B91D8;
+extern f32 D_EBFBE0_801B91DC;
+extern f32 D_EBFBE0_801B91E0;
+extern f32 D_EBFBE0_801B91E4;
+extern f32 D_EBFBE0_801B91E8;
+extern f32 D_EBFBE0_801B91EC;
+extern s32 D_EBFBE0_801B91F0;
+extern f32 D_EBFBE0_801B91F4;
+extern f32 D_EBFBE0_801B91F8;
+extern f32 D_EBFBE0_801B91FC;
+extern f32 D_EBFBE0_801B9200;
+extern f32 D_EBFBE0_801B9204;
+extern f32 D_EBFBE0_801B9208;
+extern f32 D_EBFBE0_801B920C;
+extern f32 D_EBFBE0_801B9210;
+extern s32 D_EBFBE0_801B9214;
+extern f32 D_EBFBE0_801B9218;
+extern f32 D_EBFBE0_801B921C;
+extern f32 D_EBFBE0_801B9220;
+extern f32 D_EBFBE0_801B9224;
+extern f32 D_EBFBE0_801B9228;
+extern s32 D_EBFBE0_801B922C;
+extern s32 D_EBFBE0_801B9230;
+extern s32 D_EBFBE0_801B9234;
+extern s32 D_EBFBE0_801B9238;
+extern s32 D_EBFBE0_801B923C;
+extern s32 D_EBFBE0_801B9240;
+extern s32 D_EBFBE0_801B9244;
+extern s32 D_EBFBE0_801B9248;
+extern  u8 D_EBFBE0_801B924C;
+extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9250;
+extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9258;
+extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9260;
+extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9268;
+extern f32 D_EBFBE0_801B9270[5];
+extern s32 D_EBFBE0_801B9284;
+extern s32 D_EBFBE0_801B9288; //gap
+extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9290;
+extern f32 D_EBFBE0_801B9298[32];
+extern s32 spectrumAnalizerMode;
+extern s32 D_EBFBE0_801B931C;
+extern bool D_EBFBE0_801B9320; // MusicPlaying status in the expert sound options
+extern s32 D_EBFBE0_801B9330[2];
+extern s32 D_EBFBE0_801B933C;
+extern s32 D_EBFBE0_801B9340; //gap
+extern s32 D_EBFBE0_801B9348[4];
+extern f32 D_EBFBE0_801B9358[4];
+extern f32 D_EBFBE0_801B9368;
+extern s32 D_EBFBE0_801B936C;
+extern f32 D_EBFBE0_801B9370;
+extern s32 D_EBFBE0_801B9374;
+extern f32 D_EBFBE0_801B9378;
+extern s32 D_EBFBE0_801B937C;
+extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9380[4];
+extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B93A0[4];
+extern u8 D_EBFBE0_801B93C4;
+extern s32 D_EBFBE0_801B93D0;
+extern s32 D_EBFBE0_801B93D4;
+extern s32 D_EBFBE0_801B93D8;
+extern s32 D_EBFBE0_801B93DC;
+extern s32 D_EBFBE0_801B93E0;
+extern s32 D_EBFBE0_801B93E4;
+extern s32 D_EBFBE0_801B93E8;
+extern s32 D_EBFBE0_801B93EC;
+extern f32 D_EBFBE0_801B93F0;
+extern f32 D_EBFBE0_801B93F4;
+extern f32 D_EBFBE0_801B93F8; //gap
+extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9400;
+extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9408;
 #endif
 
 void func_EBFBE0_80191B20(void) {
@@ -2193,11 +2308,27 @@ void func_EBFBE0_8019715C(void) {
     }
 }
 
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7150.s")
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7154.s")
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7158.s")
+#ifndef IMPORT_DATA_PENDING
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7110.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7114.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7118.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B711C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7120.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7124.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7128.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B712C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7130.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7134.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7138.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B713C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7140.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7144.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7148.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B714C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7150.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7154.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7158.s")
+#endif
 
 void func_EBFBE0_801973C0(void) {
     s32 temp_t0;
@@ -4488,8 +4619,6 @@ void func_EBFBE0_8019DF64(void) {
     Matrix_Pop(&gGfxMatrix);
     func_EBFBE0_8019C120(D_EBFBE0_801AE638[3].unk_00);
 }
-
-s32 D_EBFBE0_801B9090;
 
 void func_EBFBE0_8019E030(void) {
     switch (D_EBFBE0_801B912C) {
