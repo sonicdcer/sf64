@@ -582,7 +582,7 @@ void func_80089C38(void) {
 
     RCP_SetupDL(&gMasterDisp, 0xC);
 
-    alpha = D_80177DB0 % 21;
+    alpha = gFrameCount % 21;
 
     if (alpha > 10) {
         alpha = 20 - alpha;
@@ -600,7 +600,7 @@ void func_80089D28(void) {
 
     RCP_SetupDL(&gMasterDisp, 1);
 
-    gb = D_80177DB0 % 21;
+    gb = gFrameCount % 21;
 
     if (gb > 10) {
         gb = 20 - gb;
@@ -644,7 +644,7 @@ void func_80089E98(s32 arg0) {
                     break;
                 }
             }
-            if ((var_a1_2 == D_801778A0) && (D_80177DB0 & 2)) {
+            if ((var_a1_2 == D_801778A0) && (gFrameCount & 2)) {
                 var_a1 = (var_a1 * 2) + 1;
             } else {
                 var_a1 = var_a1 * 2;
@@ -711,19 +711,19 @@ s32 func_8008AC54(s32 arg0) {
     for (i = 0, var_a1 = gObjects2F4; i < 60; i++, var_a1++) {
         switch (arg0) {
             case 0:
-                if ((var_a1->obj.status == 2) && (var_a1->obj.id == 0xBE)) {
+                if ((var_a1->obj.status == 2) && (var_a1->obj.id == OBJECT_190)) {
                     ret++;
                 }
                 break;
 
             case 1:
-                if ((var_a1->obj.status == 2) && (var_a1->obj.id == 0xBF)) {
+                if ((var_a1->obj.status == 2) && (var_a1->obj.id == OBJECT_191)) {
                     ret++;
                 }
                 break;
 
             case 2:
-                if (((var_a1->obj.id == 0xBE) || (var_a1->obj.id == 0xBF)) && (var_a1->obj.status == 2)) {
+                if (((var_a1->obj.id == OBJECT_190) || (var_a1->obj.id == OBJECT_191)) && (var_a1->obj.status == 2)) {
                     ret++;
                 }
                 break;
@@ -892,7 +892,7 @@ void func_8008B2F0(void) {
                 }
             }
 
-            if (((D_801617B0 != 0) || ((D_801617A4 - D_801617A8) > 0.1f)) && (D_80177DB0 & 2)) {
+            if (((D_801617B0 != 0) || ((D_801617A4 - D_801617A8) > 0.1f)) && (gFrameCount & 2)) {
                 D_800D1EB4 = 0;
                 D_800D1EB8 = 255;
                 D_800D1EBC = 0;
@@ -1085,10 +1085,10 @@ void func_8008CA44(void) {
 
             j = (D_800D2048[i] ^ 0xFF) & j;
 
-            if (D_80177DB0 & 4) {
+            if (gFrameCount & 4) {
                 func_8008C6F4(i, 0);
             }
-            if ((D_80177DB0 - 2) & 4) {
+            if ((gFrameCount - 2) & 4) {
                 func_8008C6F4(i, 1);
             }
         }
@@ -1244,9 +1244,9 @@ void func_8008D984(void) {
     s32 D_800D21A8[] = { 146, 165, 146, 165 };
     s32 D_800D21B8[] = { 94, 94, 137, 137 };
 
-    if (D_80177DA0[D_801778A0] != D_800D2180[D_801778A0]) {
-        D_800D2180[D_801778A0] = D_80177DA0[D_801778A0];
-        if (D_80177DA0[D_801778A0] == 0) {
+    if (gBombCount[D_801778A0] != D_800D2180[D_801778A0]) {
+        D_800D2180[D_801778A0] = gBombCount[D_801778A0];
+        if (gBombCount[D_801778A0] == 0) {
             D_800D2190[D_801778A0] = 0;
         } else {
             D_800D2190[D_801778A0] = 30;
@@ -1257,9 +1257,9 @@ void func_8008D984(void) {
         D_800D2190[D_801778A0]--;
     }
 
-    if ((D_800D2190[D_801778A0] & 2) || ((D_800D2190[D_801778A0] == 0) && (D_80177DA0[D_801778A0] != 0))) {
+    if ((D_800D2190[D_801778A0] & 2) || ((D_800D2190[D_801778A0] == 0) && (gBombCount[D_801778A0] != 0))) {
         RCP_SetupDL_78();
-        if (D_80177DA0[D_801778A0] >= 2) {
+        if (gBombCount[D_801778A0] >= 2) {
             if (Math_SmoothStepToF(&D_800D21A4, D_800D21A0, 0.4f, 100.0f, 0.1f) == 0.0f) {
                 if (D_800D21A0 == 255.0f) {
                     D_800D21A0 = 96.0f;
@@ -1580,7 +1580,7 @@ void func_8008F96C(void) {
     if (D_80161708 != 0) {
         func_8008E9EC(24.0f, 30.0f);
         if (gCurrentLevel != LEVEL_TRAINING) {
-            func_80087530(248.0f, 11.0f, D_80161AA0[D_801778A0]);
+            func_80087530(248.0f, 11.0f, gLifeCount[D_801778A0]);
         }
     }
 
@@ -2175,13 +2175,13 @@ void func_800922F4(Object_2F4* arg0) {
             temp = 63;
         }
 
-        if (!(D_80177DB0 & temp)) {
+        if (!(gFrameCount & temp)) {
             func_8007D10C(arg0->obj.pos.x + ((Rand_ZeroOne() - 0.5f) * 10.0f),
                           arg0->obj.pos.y + (Rand_ZeroOne() * 10.0f),
                           arg0->obj.pos.z + ((Rand_ZeroOne() - 0.5f) * 10.0f), 2.2f);
         }
 
-        if (!((temp >> 2) & D_80177DB0)) {
+        if (!((temp >> 2) & gFrameCount)) {
             if (Rand_ZeroOne() < 0.5f) {
                 func_8007C120(arg0->obj.pos.x + ((Rand_ZeroOne() - 0.5f) * 30.0f),
                               arg0->obj.pos.y + (Rand_ZeroOne() * 10.0f),
@@ -2212,7 +2212,7 @@ void func_80093310(void) {
     this->obj.pos.z -= 5000.0f;
     gObjects2F4->unk_0B6 = 1;
     if (1) {}
-    this->obj.id = 195;
+    this->obj.id = OBJECT_195;
     func_800612B8(&this->unk_01C, this->obj.id);
     func_80019218(0x11030010, &this->unk_100, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
@@ -2226,7 +2226,7 @@ void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
         if (var_s0->obj.status == 0) {
             Object_8C_Initialize(var_s0);
             var_s0->obj.status = 1;
-            var_s0->obj.id = 363;
+            var_s0->obj.id = OBJECT_363;
             var_s0->obj.pos.x = x;
             var_s0->obj.pos.y = y;
             var_s0->obj.pos.z = z;
@@ -2349,7 +2349,7 @@ void stub_80094D18(void) {
 void func_80095350(Object_2F4* arg0) {
     Object_2F4_Initialize(arg0);
     arg0->obj.status = 2;
-    arg0->obj.id = 195;
+    arg0->obj.id = OBJECT_195;
     arg0->unk_0B6 = 9999;
     func_800612B8(&arg0->unk_01C, arg0->obj.id);
 }
@@ -2365,7 +2365,7 @@ void func_800953A0(Object_2F4* arg0, s32 arg1) {
 
     Object_2F4_Initialize(arg0);
     arg0->obj.status = 2;
-    arg0->obj.id = 195;
+    arg0->obj.id = OBJECT_195;
     arg0->obj.pos = D_800D2510[arg1];
     arg0->obj.pos.z -= D_80177D20;
     arg0->unk_0B6 = 45;
@@ -2384,7 +2384,7 @@ void func_8009546C(Object_2F4* arg0, s32 arg1) {
 
     Object_2F4_Initialize(arg0);
     arg0->obj.status = 2;
-    arg0->obj.id = 195;
+    arg0->obj.id = OBJECT_195;
     arg0->obj.pos = D_800D2540[arg1];
     arg0->obj.pos.z -= D_80177D20;
     arg0->unk_0B6 = 46;
@@ -2403,7 +2403,7 @@ void func_80095538(Object_2F4* arg0, s32 arg1) {
 
     Object_2F4_Initialize(arg0);
     arg0->obj.status = 2;
-    arg0->obj.id = 195;
+    arg0->obj.id = OBJECT_195;
     arg0->obj.pos = D_800D257C[arg1];
     arg0->obj.pos.z -= D_80177D20;
     arg0->unk_0B6 = 47;

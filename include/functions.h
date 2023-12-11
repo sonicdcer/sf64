@@ -547,6 +547,8 @@ s32 Save_Read(void);
 
 void func_EFFA40_80187520(s32, void*);
 
+void func_DF4260_80187530(Object_80*);
+void func_DF4260_8018753C(Object_80*);
 void func_DF4260_801878D8(Object_408 *);
 void func_DF4260_8018B0B4(Object_2F4 *);
 void func_DF4260_8018BE7C(Object_408 *);    
@@ -562,6 +564,8 @@ void func_E08400_80187B08(Object_2F4 *);
 void func_E08400_80188A40(Object_408 *);
 void func_E08400_8018CCF8(Object_2F4 *);
 
+void func_E16C50_801AC8A8(f32, f32, f32, f32, s32);
+void func_E16C50_8019E9F4(f32, f32, f32, f32, f32, f32, f32, s32);
 void func_E16C50_80187754(Object_408 *);
 void func_E16C50_801900FC(Vec3f*, Vec3f*, f32, f32, f32, s32, f32, s32, s32);
 void func_E16C50_80190F08(Object_2F4 *);
@@ -611,6 +615,8 @@ void func_E6A810_801B58AC(Gfx **, f32);
 s32 func_E6A810_801B6AEC(f32, f32, f32);
 void func_E6A810_801B6E20(f32, f32, f32 *, f32 *, f32 *); 
 
+void func_E9F1D0_801A4CB0(Object_2F4*);
+void func_E9F1D0_801A3BD4(Object_2F4*);
 void func_E9F1D0_801888F4(Object_2F4 *);
 void func_E9F1D0_8018D16C(Object_408 *);
 void func_E9F1D0_80197CC4(Object_408 *);

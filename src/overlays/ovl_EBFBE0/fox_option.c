@@ -328,7 +328,7 @@ void func_EBFBE0_80191B20(void) {
     var_v0_2 = gExpertMode;
     gExpertMode = false;
 
-    D_80177DB0 = 0;
+    gFrameCount = 0;
     D_EBFBE0_801B8284 = 0;
     D_EBFBE0_801B9178 = 0;
     D_EBFBE0_801B917C = 0;
@@ -474,7 +474,7 @@ void func_EBFBE0_801920C4(void) {
             func_EBFBE0_80192190();
             break;
     }
-    D_80177DB0++;
+    gFrameCount++;
 }
 
 void func_EBFBE0_80192190(void) {
@@ -1907,13 +1907,13 @@ void func_EBFBE0_80196894(void) {
             }
         }
 
-        if (D_80177DB0 & sp74[1]) {
+        if (gFrameCount & sp74[1]) {
             sp7C[1] = D_EBFBE0_801AED20[1];
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, sp7C[1], sp7C[1], 255);
             TextureRect_8bIA(&gMasterDisp, D_8009980, 32, 12, D_EBFBE0_801AF094[1], D_EBFBE0_801AF0AC[1], 1.0f, 1.0f);
         }
 
-        if (D_80177DB0 & sp74[0]) {
+        if (gFrameCount & sp74[0]) {
             sp7C[0] = D_EBFBE0_801AED20[0];
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, sp7C[0], sp7C[0], 255);
             TextureRect_8bIA(&gMasterDisp, D_8009B00, 40, 12, D_EBFBE0_801AF094[2], D_EBFBE0_801AF0AC[2], 1.0f, 1.0f);
@@ -2805,7 +2805,7 @@ void func_EBFBE0_80199820(s32 arg0) {
         D_EBFBE0_801B9348[arg0]--;
     }
 
-    if (D_80177DB0 & var_v0) {
+    if (gFrameCount & var_v0) {
         colorGB = D_EBFBE0_801B9358[arg0];
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
@@ -3219,7 +3219,7 @@ void func_EBFBE0_8019AB30(void) {
         }
     }
 
-    if (D_80177DB0 & var_v0) {
+    if (gFrameCount & var_v0) {
         RCP_SetupDL(&gMasterDisp, 0x53);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
@@ -3274,7 +3274,7 @@ void func_EBFBE0_8019AD84(void) {
         }
     }
 
-    if (D_80177DB0 & var_v0) {
+    if (gFrameCount & var_v0) {
         RCP_SetupDL(&gMasterDisp, 0x53);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
@@ -3327,7 +3327,7 @@ void func_EBFBE0_8019AFFC(void) {
             D_EBFBE0_801B91F0 = 1;
     }
 
-    if (D_80177DB0 & var_v0) {
+    if (gFrameCount & var_v0) {
         RCP_SetupDL(&gMasterDisp, 0x53);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
@@ -3454,7 +3454,7 @@ void func_EBFBE0_8019B5AC(void) {
         }
     }
 
-    if (D_80177DB0 & var_v0) {
+    if (gFrameCount & var_v0) {
         RCP_SetupDL(&gMasterDisp, 0x53);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
         TextureRect_8bIA(&gMasterDisp, D_7003650, 40, 12, 143.0f, 210.0f, 1.0f, 1.0f);
@@ -3877,10 +3877,10 @@ s32 func_EBFBE0_8019C8C4(void) {
                         break;
                     }
 
-                    if (temp[j] <= D_80161AA0[D_801778A0]) {
-                        if (temp[j] == D_80161AA0[D_801778A0]) {
+                    if (temp[j] <= gLifeCount[D_801778A0]) {
+                        if (temp[j] == gLifeCount[D_801778A0]) {
                             for (k = j; k < 10; k++) {
-                                if ((temp[k] != D_80161AA0[D_801778A0]) || (D_EBFBE0_801B8220[k] != D_80161714)) {
+                                if ((temp[k] != gLifeCount[D_801778A0]) || (D_EBFBE0_801B8220[k] != D_80161714)) {
                                     ret = k;
                                     break;
                                 }
@@ -4099,7 +4099,7 @@ void func_EBFBE0_8019D118(void) {
     Graphics_DisplaySmallText(D_EBFBE0_801AF30C[2], D_EBFBE0_801AF324[2], 1.0f, 1.0f, "TOTAL HITS");
 
     if (D_EBFBE0_801B9138 == 1) {
-        if (D_80177DB0 & 0x10) {
+        if (gFrameCount & 0x10) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
             TextureRect_8bIA(&gMasterDisp, D_50021F0, 32, 8, D_EBFBE0_801AF30C[5], D_EBFBE0_801AF324[5], 1.0f, 1.0f);
         }
@@ -4144,7 +4144,7 @@ void func_EBFBE0_8019D118(void) {
     Matrix_SetGfxMtx(&gMasterDisp);
 
     for (i = 0; i < 3; i++) {
-        if (D_80177DB0 & mask[i]) {
+        if (gFrameCount & mask[i]) {
             func_EBFBE0_8019DB20(D_EBFBE0_801B9150[i][0], D_EBFBE0_801AF300[i], 18.0f, -455.0f, 1.0f,
                                  D_EBFBE0_801B90C0[i] + D_EBFBE0_801B90F0[i],
                                  D_EBFBE0_801B90D0[i] + D_EBFBE0_801B9100[i],
@@ -4176,7 +4176,7 @@ void func_EBFBE0_8019D624(void) {
 
     sp122[10] = D_80177B48 + 1;
 
-    sp116[10] = D_80161AA0[0];
+    sp116[10] = gLifeCount[0];
 
     sp10A[10] = 0;
 
@@ -4377,7 +4377,7 @@ void func_EBFBE0_8019DE74(void) {
         if (D_80161A34 == 5) {
             D_80178410 = 0;
             gGameState = GSTATE_INIT;
-            D_80161AA0[0] = 2;
+            gLifeCount[0] = 2;
             D_80161714 = 0;
         } else if (D_80161A34 == 8) {
             func_800182F4(0x100100FF);
@@ -4436,7 +4436,7 @@ void func_EBFBE0_8019E030(void) {
                 D_80178410 = 0;
                 gGameState = GSTATE_INIT;
                 D_80177898 = 0;
-                *D_80161AA0 = 2;
+                *gLifeCount = 2;
                 D_80161714 = 0;
             }
             break;

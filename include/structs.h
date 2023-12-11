@@ -235,8 +235,8 @@ typedef struct {
 } UnkEntity30; // size = 0x30
 
 typedef struct {
-    /* 0x00 */ u8 unk_00;
-    /* 0x01 */ u8 unk_01;
+    /* 0x00 */ u8 rightState;
+    /* 0x01 */ u8 leftState;
     /* 0x04 */ f32 unk_04;
     /* 0x08 */ f32 unk_08;
     /* 0x0C */ f32 unk_0C;

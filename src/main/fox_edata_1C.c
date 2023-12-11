@@ -1,8 +1,7 @@
 #include "global.h"
 
 // these are overlay functions. They will need to be replaced with their proper overlay names
-void func_80187530(Object*);
-void func_8018753C(Object*);
+
 void func_8018756C(Object*);
 void func_801875A4(Object*);
 void func_80187650(Object*);
@@ -192,13 +191,11 @@ void func_801A2A78(Object*);
 void func_801A2B24(Object*);
 void func_801A2DD8(Object*);
 void func_801A3240(Object*);
-void func_801A3BD4(Object*);
 void func_801A3E98(Object*);
 void func_801A43BC(Object*);
 void func_801A46A0(Object*);
 void func_801A4A64(Object*);
 void func_801A4B24(Object*);
-void func_801A4CB0(Object*);
 void func_801A4E44(Object*);
 void func_801A52B8(Object*);
 void func_801A54E8(Object*);
@@ -343,7 +340,7 @@ ObjectStruct_1C D_800CC124[0x190] = {
   /* OBJECT_80_15,  */  {(void*)     D_60361F0, 0, (ObjectFunc) func_80066EA8,        D_603E014,   200.0f,  0, 0, 39, 0,   0.0f,  0 },
   /* OBJECT_80_16,  */  {(void*)     D_6018E80, 0, (ObjectFunc) func_80066EA8,        D_603E030,   200.0f,  0, 0, 39, 0,   0.0f,  0 },
   /* OBJECT_80_17,  */  {(void*)     D_6035F10, 0, (ObjectFunc) func_80066EA8,        D_603E09C,   200.0f,  0, 0, 39, 0,   0.0f,  0 },
-  /* OBJECT_80_18,  */  {(void*) func_8018753C, 1, (ObjectFunc) func_80187530,        D_603E98C,   200.0f,  0, 0, 39, 0,   0.0f,  0 },
+  /* OBJECT_80_18,  */  {(void*) func_DF4260_8018753C, 1, (ObjectFunc) func_DF4260_80187530,        D_603E98C,   200.0f,  0, 0, 39, 0,   0.0f,  0 },
   /* OBJECT_80_19,  */  {(void*)     D_60153B0, 0, (ObjectFunc)          NULL,        D_603E118,   100.0f,  0, 0, 39, 0,   0.0f,  0 },
   /* OBJECT_80_20,  */  {(void*)     D_601F5A0, 0, (ObjectFunc)          NULL,        D_603E14C,   500.0f,  0, 0, 39, 0,   0.0f,  0 },
   /* OBJECT_80_21,  */  {(void*)     D_60137B0, 0, (ObjectFunc)          NULL,        D_603E1B4,   400.0f,  0, 0, 39, 0,   0.0f,  0 },
@@ -529,7 +526,7 @@ ObjectStruct_1C D_800CC124[0x190] = {
   /* OBJECT_2F4_201 */  {(void*) func_800598E8, 1, (ObjectFunc) func_8006AC08,        D_602F684,   100.0f,  0, 1, 39, 0,   1.0f,  1 },
   /* OBJECT_2F4_202 */  {(void*) func_80059A24, 1, (ObjectFunc) func_8006AD18,        D_602F6A0,   100.0f,  0, 1, 39, 0, 180.0f,  1 },
   /* OBJECT_2F4_203 */  {(void*) func_8018F884, 1, (ObjectFunc) func_8018F330,       D_800CBF34,  1000.0f,  0, 0, 39, 0,   0.0f,  0 },
-  /* OBJECT_2F4_204 */  {(void*) func_801A4CB0, 1, (ObjectFunc) func_801A3BD4,        D_603405C,  1000.0f,  0, 0, 39, 0,   1.0f,  1 },
+  /* OBJECT_2F4_204 */  {(void*) func_E9F1D0_801A4CB0, 1, (ObjectFunc) func_E9F1D0_801A3BD4,        D_603405C,  1000.0f,  0, 0, 39, 0,   1.0f,  1 },
   /* OBJECT_2F4_205 */  {(void*) func_801A12C4, 1, (ObjectFunc) func_8019C778,        D_60359C8, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },
   /* OBJECT_2F4_206 */  {(void*) func_801A12C4, 1, (ObjectFunc) func_801AC438,        D_6035A48, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },
   /* OBJECT_2F4_207 */  {(void*) func_801AC294, 2, (ObjectFunc) func_801A7E7C,        D_603677C, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },
@@ -647,12 +644,12 @@ ObjectStruct_1C D_800CC124[0x190] = {
   /* OBJECT_408_319 */  {(void*) func_801985E4, 1, (ObjectFunc) func_80194398,D_DF4260_8019A9B8,  3000.0f,  0, 0, 40, 1,   0.0f, 10 },
   /* OBJECT_408_320 */  {(void*) func_801928C8, 2, (ObjectFunc) func_8018DBF0,        D_C038DC0, 10000.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJECT_408_321 */  {(void*) func_8018B8C0, 1, (ObjectFunc) func_80189B70,        D_C038F24, 10000.0f,  0, 0, 40, 0,   0.0f, 10 },
-  /* OBJECT_6C_322  */  {(void*) func_8005CC9C, 1, (ObjectFunc) func_80067F6C,       D_800CBFA8,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJECT_6C_LASERS  */  {(void*) func_8005CC9C, 1, (ObjectFunc) func_80067F6C,       D_800CBFA8,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJECT_6C_323  */  {(void*) func_8005C5F0, 1, (ObjectFunc) func_80068914,       D_800CBF38,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJECT_6C_324  */  {(void*) func_8005C900, 1, (ObjectFunc) func_80068020,       D_800CBF54,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJECT_6C_SILVER_RING  */  {(void*) func_8005C900, 1, (ObjectFunc) func_80068020,       D_800CBF54,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJECT_6C_325  */  {(void*) func_8005C9C0, 1, (ObjectFunc) func_800685D8,       D_800CBF54,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJECT_6C_326  */  {(void*) func_8005CDA8, 1, (ObjectFunc) func_80068688,       D_800CBF70,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJECT_6C_327  */  {(void*) func_8005CB44, 1, (ObjectFunc) func_80067BEC,       D_800CBFC8,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJECT_6C_BOMB  */  {(void*) func_8005CB44, 1, (ObjectFunc) func_80067BEC,       D_800CBFC8,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJECT_6C_328  */  {(void*)          NULL, 1, (ObjectFunc) func_80068C88,       D_800CBF8C,  1500.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJECT_6C_329  */  {(void*)          NULL, 1, (ObjectFunc) func_80068C88,       D_800CBF8C,  1500.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJECT_6C_330  */  {(void*)          NULL, 1, (ObjectFunc) func_80068C88,       D_800CBF8C,  1500.0f,  0, 0,  0, 0,   0.0f,  0 },
@@ -660,9 +657,9 @@ ObjectStruct_1C D_800CC124[0x190] = {
   /* OBJECT_6C_332  */  {(void*)          NULL, 1, (ObjectFunc) func_80068C88,       D_800CBF8C,  1500.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJECT_6C_333  */  {(void*)          NULL, 1, (ObjectFunc) func_80068C88,       D_800CBF8C,  1500.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJECT_6C_334  */  {(void*)          NULL, 1, (ObjectFunc) func_80068C48,       D_800CBF18,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJECT_6C_335  */  {(void*)     D_1022120, 0, (ObjectFunc) func_80067B1C,       D_800CBE8C,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJECT_6C_336  */  {(void*) func_8005CA80, 1, (ObjectFunc) func_800685F8,       D_800CBF54,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJECT_6C_337  */  {(void*)     D_3007650, 0, (ObjectFunc) func_80068618,       D_800CBFA8,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJECT_6C_1UP  */  {(void*)     D_1022120, 0, (ObjectFunc) func_80067B1C,       D_800CBE8C,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJECT_6C_GOLD_RING  */  {(void*) func_8005CA80, 1, (ObjectFunc) func_800685F8,       D_800CBF54,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJECT_6C_WING_REPAIR  */  {(void*)     D_3007650, 0, (ObjectFunc) func_80068618,       D_800CBFA8,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJECT_6C_338  */  {(void*)     D_6006140, 0, (ObjectFunc) func_80198968,        D_6009CFC,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJECT_8C_339  */  {(void*) func_8007D55C, 1, (ObjectFunc) func_8007D2F4,             NULL,  -200.0f,  1, 2,  0, 0,   0.0f,  0 },
   /* OBJECT_8C_340  */  {(void*) func_8007D55C, 1, (ObjectFunc) func_8007D748,             NULL,  -200.0f,  1, 2,  0, 0,   0.0f,  0 },

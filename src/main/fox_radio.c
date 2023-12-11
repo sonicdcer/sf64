@@ -500,7 +500,7 @@ void func_800BB5D0(void) {
                 D_801782AC = 10;
             }
             D_801782A4 = 2;
-            if (D_80177DB0 & 1) {
+            if (gFrameCount & 1) {
                 D_801782A4 = 3;
             }
             break;
@@ -510,7 +510,7 @@ void func_800BB5D0(void) {
                 D_801782AC = 10;
             }
             D_801782A4 = 2;
-            if (D_80177DB0 & 1) {
+            if (gFrameCount & 1) {
                 D_801782A4 = 3;
             }
             break;
@@ -602,7 +602,7 @@ void func_800BB5D0(void) {
                 D_8017829C++;
             }
             D_801782A4 = 2;
-            if (D_80177DB0 & 1) {
+            if (gFrameCount & 1) {
                 D_801782A4 = 3;
             }
             D_80177D50 -= 0.26f;
@@ -618,7 +618,7 @@ void func_800BB5D0(void) {
                 D_8017829C = 0;
             }
             D_801782A4 = 2;
-            if (D_80177DB0 & 1) {
+            if (gFrameCount & 1) {
                 D_801782A4 = 3;
             }
             break;
@@ -644,7 +644,7 @@ void func_800BB5D0(void) {
             if (temp_ft0 == RCID_PEPPY) {
                 var_v1 = 3;
             }
-            if ((D_801778B0[var_v1] <= 0) && (D_80177DB0 & 4) && (D_801778B0[var_v1] != -2) && (D_801782A4 != 2) &&
+            if ((D_801778B0[var_v1] <= 0) && (gFrameCount & 4) && (D_801778B0[var_v1] != -2) && (D_801782A4 != 2) &&
                 (D_801782A4 != 3) && (D_801782A4 != 1000)) {
                 RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
@@ -680,7 +680,7 @@ void func_800BB5D0(void) {
                     var_v1 = 0;
                     break;
             }
-            if ((gObjects2F4[var_v1].obj.status != 2) && (D_80177DB0 & 4) && (gPlayers[0].unk_1C8 == 3) &&
+            if ((gObjects2F4[var_v1].obj.status != 2) && (gFrameCount & 4) && (gPlayers[0].unk_1C8 == 3) &&
                 (D_801782A4 != 2) && (D_801782A4 != 3) && (D_801782A4 != 1000)) {
                 RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
@@ -737,7 +737,7 @@ void func_800BC040(void) {
                     D_801782AC = 5;
                 }
                 D_801782A4 = 2;
-                if (D_80177DB0 & 1) {
+                if (gFrameCount & 1) {
                     D_801782A4 = 3;
                 }
                 break;
@@ -774,7 +774,7 @@ void func_800BC040(void) {
                     D_8017829C++;
                 }
                 D_801782A4 = 2;
-                if (D_80177DB0 & 1) {
+                if (gFrameCount & 1) {
                     D_801782A4 = 3;
                 }
                 D_80177D50 -= 0.015f;
@@ -789,7 +789,7 @@ void func_800BC040(void) {
                     D_801782AC = 5;
                 }
                 D_801782A4 = 2;
-                if (D_80177DB0 & 1) {
+                if (gFrameCount & 1) {
                     D_801782A4 = 3;
                 }
                 break;

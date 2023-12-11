@@ -32,7 +32,7 @@ u16* D_EBFBE0_801ADA30[5] = {
 void func_EBFBE0_801875E0(void) {
     D_80137E78 = 2;
 
-    D_80177DB0 = 0;
+    gFrameCount = 0;
 
     D_80177AE0 = 2;
 
@@ -102,7 +102,7 @@ void func_EBFBE0_80187754(void) {
             func_EBFBE0_801877F0();
             break;
     }
-    D_80177DB0++;
+    gFrameCount++;
 }
 
 void func_EBFBE0_801877F0(void) {
@@ -257,7 +257,7 @@ void func_EBFBE0_80187B00(void) {
             break;
     }
 
-    if ((D_EBFBE0_801B82A8 == 0) && ((D_80177DB0 & 7) == 7) && (D_EBFBE0_801B8288 < 10)) {
+    if ((D_EBFBE0_801B82A8 == 0) && ((gFrameCount & 7) == 7) && (D_EBFBE0_801B8288 < 10)) {
         D_EBFBE0_801B8288++;
     }
 }
@@ -662,7 +662,7 @@ void func_EBFBE0_801888E8(void) {
     }
 
     if (D_EBFBE0_801B82B0 == 0) {
-        if (D_80177DB0 & 0x80) {
+        if (gFrameCount & 0x80) {
             if (D_EBFBE0_801B8350[1].unk_20 + D_EBFBE0_801B8350[1].unk_24 < -20.0f) {
                 D_EBFBE0_801B8350[1].unk_24 = 4.0f;
             }
@@ -1285,7 +1285,7 @@ void func_EBFBE0_8018A990(void) {
         { 255.0f, 255.0f, 155.0f },
     };
 
-    if ((D_80177DB0 & 7) == 7) {
+    if ((gFrameCount & 7) == 7) {
         if (D_EBFBE0_801B8338 != 0) {
             D_EBFBE0_801B8334 = (D_EBFBE0_801B8334 + 1) & 3;
             D_EBFBE0_801B8328 = D_EBFBE0_801ADF54[D_EBFBE0_801B8334].unk_0;
@@ -1299,7 +1299,7 @@ void func_EBFBE0_8018A990(void) {
         D_EBFBE0_801B8338 ^= 1;
     }
 
-    if (D_80177DB0 & 1) {
+    if (gFrameCount & 1) {
         D_EBFBE0_801B86CC += 30.0f;
         if (D_EBFBE0_801B86CC > 90.0f) {
             D_EBFBE0_801B86CC = -90.0f;
@@ -2137,7 +2137,7 @@ void func_EBFBE0_8018D2B8(s32 arg0) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    temp.unk_00 = temp.unk_01 = 2;
+    temp.rightState = temp.leftState = 2;
     temp.unk_18 = temp.unk_1C = temp.unk_20 = temp.unk_24 = temp.unk_04 = temp.unk_08 = temp.unk_0C = temp.unk_10 =
         temp.unk_28 = 0.0f;
 
@@ -2189,7 +2189,7 @@ void func_EBFBE0_8018D510(s32 arg0) {
 
     var_fv0 = D_EBFBE0_801B84E8[arg0].unk_44;
 
-    if (D_80177DB0 & 1) {
+    if (gFrameCount & 1) {
         var_fv0 += var_fv1;
     }
 

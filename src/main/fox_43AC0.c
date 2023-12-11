@@ -26,9 +26,9 @@ void func_80042EC0(Object_408* arg0) {
     }
     if (var_a3 != 0) {
         var_fv0 = 0.0f;
-        if (arg0->obj.id == 292) {
+        if (arg0->obj.id == OBJECT_292) {
             var_fv0 = 300.0f;
-        } else if (arg0->obj.id == 306) {
+        } else if (arg0->obj.id == OBJECT_306) {
             var_fv0 = 200.0f;
         }
         func_80077240(arg0->obj.pos.x, arg0->obj.pos.y + var_fv0, arg0->obj.pos.z, var_a3);
@@ -59,7 +59,7 @@ void func_80042FF4(Object_2F4* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32
                    f32 arg9, f32 argA, s32 argB, s32 argC) {
     Object_2F4_Initialize(arg0);
     arg0->obj.status = 1;
-    arg0->obj.id = 189;
+    arg0->obj.id = OBJECT_189;
     arg0->unk_0B8 = argB;
     arg0->obj.pos.x = arg1;
     arg0->obj.pos.y = arg2;

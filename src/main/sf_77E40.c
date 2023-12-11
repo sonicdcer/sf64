@@ -130,7 +130,7 @@ Object_8C* func_8007783C(s32 objId) {
 void func_800778C4(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
     Object_8C_Initialize(arg0);
     arg0->obj.status = 1;
-    arg0->obj.id = 0x153;
+    arg0->obj.id = OBJECT_339;
     arg0->obj.pos.x = posX;
     arg0->obj.pos.y = posY;
     arg0->obj.pos.z = posZ;
@@ -208,7 +208,7 @@ void func_80077B84(Object_8C* arg0) {
             if (gCurrentLevel == LEVEL_BOLSE) {
                 RCP_SetupDL(&gMasterDisp, 0x26);
             }
-            switch ((arg0->unk_40 + D_80177DB0) & 3) {
+            switch ((arg0->unk_40 + gFrameCount) & 3) {
                 case 0:
                     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 0, 0, arg0->unk_44);
                     break;
@@ -259,12 +259,12 @@ void func_800780F8(Object_8C* arg0) {
     s32 i;
 
     if (arg0->unk_4A >= 0xB) {
-        if (!((arg0->unk_40 + D_80177DB0) & 1)) {
+        if (!((arg0->unk_40 + gFrameCount) & 1)) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 128, 128, 32);
         } else {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 128, 128, 128);
         }
-    } else if (!((arg0->unk_40 + D_80177DB0) & 1)) {
+    } else if (!((arg0->unk_40 + gFrameCount) & 1)) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     } else {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 96, 96, 255, 255);
@@ -377,7 +377,7 @@ void func_80078AE0(void* arg0) {
 
 void func_80078AEC(Object_8C* arg0) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 180);
-    func_8005980C(arg0->unk_70 * (13.0f + ((D_80177DB0 & 1) * 2.5f)));
+    func_8005980C(arg0->unk_70 * (13.0f + ((gFrameCount & 1) * 2.5f)));
     gSPDisplayList(gMasterDisp++, D_102ED50);
 }
 
@@ -392,7 +392,7 @@ void func_80078BE0(Object_8C* arg0) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 160);
     var_fv0 = 3.0f;
-    if (D_80177DB0 & 1) {
+    if (gFrameCount & 1) {
         var_fv0 *= 1.2f;
     }
     func_8005980C(arg0->unk_70 * var_fv0);
@@ -414,7 +414,7 @@ void func_80078CE8(Object_8C* arg0) {
 void func_80078D60(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4) {
     Object_8C_Initialize(arg0);
     arg0->obj.status = 1;
-    arg0->obj.id = 0x189;
+    arg0->obj.id = OBJECT_393;
     arg0->obj.pos.x = posX;
     arg0->obj.pos.y = posY;
     arg0->obj.pos.z = posZ;
@@ -485,7 +485,7 @@ void func_8007905C(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 a
 
     Object_8C_Initialize(arg0);
     arg0->obj.status = 2;
-    arg0->obj.id = 0x165;
+    arg0->obj.id = OBJECT_357;
     arg0->obj.pos.x = posX;
     arg0->obj.pos.y = posY;
     arg0->obj.pos.z = posZ;
@@ -580,7 +580,7 @@ void func_8007968C(Object_8C* arg0) {
             Object_Kill(&arg0->obj, &arg0->unk_80);
         }
     } else {
-        if (!(D_80177DB0 & 3)) {
+        if (!(gFrameCount & 3)) {
             func_8007D2C8(arg0->obj.pos.x, arg0->obj.pos.y + 550.0f, arg0->obj.pos.z, 10.0f);
         }
         if ((arg0->unk_50 == 0) || (arg0->obj.pos.y < (D_80177940 - 100.0f))) {
@@ -797,7 +797,7 @@ void func_8007A3C0(Object_8C* arg0) {
 void func_8007A4B8(Object_8C* arg0, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     Object_8C_Initialize(arg0);
     arg0->obj.status = 1;
-    arg0->obj.id = 0x17F;
+    arg0->obj.id = OBJECT_383;
     arg0->unk_6C = arg4;
     arg0->unk_50 = 50;
     arg0->unk_44 = 200;
@@ -861,7 +861,7 @@ void func_8007A568(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
 void func_8007B2BC(Object_8C* arg0, f32 xPos, f32 yPos, f32 zPos, f32 arg4, s32 arg5) {
     Object_8C_Initialize(arg0);
     arg0->obj.status = 1;
-    arg0->obj.id = 0x180;
+    arg0->obj.id = OBJECT_384;
     arg0->obj.pos.x = xPos;
     arg0->obj.pos.y = yPos;
     arg0->obj.pos.z = zPos;
