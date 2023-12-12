@@ -1212,11 +1212,46 @@ void func_8007B758(Object_8C* arg0) {
     func_8007A774(D_80178280, arg0, arg0->unk_70 * 20.0f);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B7E8.s")
+void func_8007B7E8(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4) {
+    func_80061474(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = 0x16C;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = posY;
+    arg0->obj.pos.z = posZ;
+    arg0->unk_54 = (Rand_ZeroOne() - 0.5f) * 5.0f;
+    arg0->unk_58 = (Rand_ZeroOne() - 0.5f) * 3.0f;
+    arg0->unk_48 = 3;
+    if (Rand_ZeroOne() < 0.5f) {
+        arg0->unk_48 = -arg0->unk_48;
+    }
+    arg0->unk_4A = 50;
+    arg0->unk_46 = 1;
+    arg0->unk_70 = arg4 * 0.2f;
+    arg0->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    func_800612B8(&arg0->unk_1C, arg0->obj.id);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B8F8.s")
+void func_8007B8F8(f32 posX, f32 posY, f32 posZ, f32 arg3) {
+    s32 i, j;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B960.s")
+    for (i = ARRAY_COUNT(D_80170130) - 1, j = 0; j < ARRAY_COUNT(D_80170130); i--, j++) {
+        if (D_80170130[i].obj.status == 0) {
+            func_8007B7E8(&D_80170130[i], posX, posY, posZ, arg3);
+            break;
+        }
+    }
+}
+
+void func_8007B960(Object_8C* arg0) {
+    arg0->unk_70 += 0.07f;
+    arg0->unk_4A -= arg0->unk_46;
+    if (arg0->unk_4A < 0) {
+        func_80060FBC(&arg0->obj, &arg0->unk_80);
+    }
+    arg0->obj.rot.z += arg0->unk_48;
+    arg0->unk_58 += 0.2f;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B9DC.s")
 
