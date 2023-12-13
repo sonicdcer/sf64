@@ -1,6 +1,8 @@
 #include "global.h"
 #include "fox_option.h"
 
+//! TODO: IMPORT BSS
+
 extern Gfx D_EBFBE0_801B4A40[];
 extern Gfx D_EBFBE0_801B5E78[];
 extern Gfx D_EBFBE0_801B61E0[];
@@ -130,7 +132,6 @@ static u32 D_EBFBE0_801AEBF0[] = {
     0xFFFF0000, 0x00000000, 0x00000000, 0xFFFFFFFF, 0x00010000, 0x00000000, 0x00000000, 0xFFFFFFFF,
 };
 
-// DisplayList?
 static Gfx D_EBFBE0_801AEC30[] = {
     gsSPVertex(D_EBFBE0_801AEBF0, 4, 0),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
