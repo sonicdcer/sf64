@@ -12,9 +12,8 @@ extern Gfx D_EBFBE0_801B50D8[];
 extern Gfx D_EBFBE0_801B5E78[];
 extern Gfx D_EBFBE0_801B57A8[];
 
-// #define IMPORT_DATA_PENDING
+// #define IMPORT_BSS
 
-#ifdef IMPORT_DATA_PENDING
 static f32 D_EBFBE0_801AE570[] = { 60.0f, 36.0f, 12.0f, -12.0f, -36.0f, -60.0f };
 static f32 D_EBFBE0_801AE588[] = { 124.0f, 118.0f, 145.0f, 125.0f, 133.0f, 118.0f };
 static f32 D_EBFBE0_801AE5A0[] = { 54.0f, 78.0f, 103.0f, 126.0f, 151.0f, 175.0f };
@@ -133,7 +132,9 @@ static u32 D_EBFBE0_801AEBF0[] = {
 
 // DisplayList?
 static Gfx D_EBFBE0_801AEC30[] = {
-    gsSPVertex(D_EBFBE0_801AEBF0, 4, 0) , gsSP1Quadrangle(1, 2, 3, 0, 0), gsSPEndDisplayList(),
+    gsSPVertex(D_EBFBE0_801AEBF0, 4, 0),
+    gsSP1Quadrangle(1, 2, 3, 0, 0),
+    gsSPEndDisplayList(),
 };
 
 // Something inside D_EBFBE0_801AEC88 display list
@@ -142,9 +143,10 @@ static u32 D_EBFBE0_801AEC48[] = {
     0xFFFFFFFF, 0x00000000, 0x00000000, 0xFFFFFFFF, 0x0001FFFF, 0x00000000, 0x00000000, 0xFFFFFFFF,
 };
 
-// DisplayList?
 static Gfx D_EBFBE0_801AEC88[] = {
-    gsSPVertex(D_EBFBE0_801AEC48, 4, 0) , gsSP1Quadrangle(1, 2, 3, 0, 0), gsSPEndDisplayList(),
+    gsSPVertex(D_EBFBE0_801AEC48, 4, 0),
+    gsSP1Quadrangle(1, 2, 3, 0, 0),
+    gsSPEndDisplayList(),
 };
 
 // Something inside D_EBFBE0_801AECE0 display list
@@ -152,9 +154,11 @@ static u32 D_EBFBE0_801AECA0[] = {
     0x00010001, 0x00000000, 0x00000000, 0xFFFFFFFF, 0xFFFF0001, 0x00000000, 0x00000000, 0xFFFFFFFF,
     0xFFFFFFFF, 0x00000000, 0x00000000, 0xFFFFFFFF, 0x0001FFFF, 0x00000000, 0x00000000, 0xFFFFFFFF,
 };
-// DisplayList?
+
 static Gfx D_EBFBE0_801AECE0[] = {
-    gsSPVertex(D_EBFBE0_801AECA0, 4, 0) , gsSP1Quadrangle(1, 2, 3, 0, 0), gsSPEndDisplayList(),
+    gsSPVertex(D_EBFBE0_801AECA0, 4, 0),
+    gsSP1Quadrangle(1, 2, 3, 0, 0),
+    gsSPEndDisplayList(),
 };
 
 static u8* D_EBFBE0_801AECF8[10] = {
@@ -177,7 +181,7 @@ static s32 D_EBFBE0_801AED3C[4] = { 0, 0, 0, 0 };
 static UnkStruct_D_EBFBE0_801AED4C D_EBFBE0_801AED4C[24] = {
     { 9, 0, 0 },  { 0, 12, 0 }, { 12, 4, 0 }, { 4, 10, 0 }, { 10, 2, 0 }, { 6, 4, 0 },   { 7, 2, 0 }, { 3, 2, 0 },
     { 2, 14, 0 }, { 5, 6, 1 },  { 6, 13, 1 }, { 13, 7, 1 }, { 4, 7, 1 },  { 12, 13, 1 }, { 8, 7, 1 }, { 9, 5, 2 },
-    { 5, 1, 2 },  { 11, 8, 2 }, { 8, 3, 2 },  { 3, 1, 2 },  { 7, 1, 2 },  { 1, 14, 2 },  { 0, 6, 3 }, { 4, 3, 4 },
+    { 5, 11, 2 }, { 11, 8, 2 }, { 8, 3, 2 },  { 3, 1, 2 },  { 7, 1, 2 },  { 1, 14, 2 },  { 0, 6, 3 }, { 4, 3, 4 },
 };
 
 static Gfx* D_EBFBE0_801AEE6C[16] = {
@@ -198,13 +202,14 @@ static u32 D_EBFBE0_801AEEF0[] = {
     0x000B000B, 0x00000000, 0x00FF0000, 0x00000000, 0xFFF5000B, 0x00000000, 0x00000000, 0x00000000,
 };
 
-// DisplayList?
 static Gfx D_EBFBE0_801AEF30[] = {
-    gsSPVertex(D_EBFBE0_801AEEF0, 4, 0) , gsSP1Triangle(0, 1, 2, 0), gsSP1Triangle(0, 2, 3, 0),
+    gsSPVertex(D_EBFBE0_801AEEF0, 4, 0),
+    gsSP1Triangle(0, 1, 2, 0),
+    gsSP1Triangle(0, 2, 3, 0),
     gsSPEndDisplayList(),
 };
 
-static s32 PAD_EBFBE0_801AEF50 = {0x00000000, 0x00000000, 0x00000000};
+static s32 PAD_EBFBE0_801AEF50[] = { 0x00000000, 0x00000000, 0x00000000 };
 
 static char D_EBFBE0_801AEF5C[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.";
 
@@ -212,18 +217,17 @@ static f32 D_EBFBE0_801AEF84[] = { 24.0f, 0.0f, -24.0f };
 static f32 D_EBFBE0_801AEF90[] = { 111.0f, 112.0f, 121.0f };
 static f32 D_EBFBE0_801AEF9C[] = { 89.0f, 115.0f, 139.0f };
 
-/* beyond this point, data might be in-function static or near function static */
-
+#ifdef IMPORT_BSS
 s32 D_EBFBE0_801B9090;
 s32 D_EBFBE0_801B9094;
-s32 D_EBFBE0_801B9098; //gap
-s32 D_EBFBE0_801B90A0[3]; //gap
-s32 D_EBFBE0_801B90B0[3]; //gap
-f32 D_EBFBE0_801B90C0[3]; //gap
-f32 D_EBFBE0_801B90D0[3]; //gap
-f32 D_EBFBE0_801B90E0[3]; //gap
-f32 D_EBFBE0_801B90F0[3]; //gap
-f32 D_EBFBE0_801B9100[3]; //gap
+s32 D_EBFBE0_801B9098;    // gap
+s32 D_EBFBE0_801B90A0[3]; // gap
+s32 D_EBFBE0_801B90B0[3]; // gap
+f32 D_EBFBE0_801B90C0[3]; // gap
+f32 D_EBFBE0_801B90D0[3]; // gap
+f32 D_EBFBE0_801B90E0[3]; // gap
+f32 D_EBFBE0_801B90F0[3]; // gap
+f32 D_EBFBE0_801B9100[3]; // gap
 f32 D_EBFBE0_801B9110[3];
 f32 D_EBFBE0_801B911C;
 f32 D_EBFBE0_801B9120;
@@ -236,12 +240,12 @@ s32 D_EBFBE0_801B9138;
 s32 D_EBFBE0_801B913C;
 s32 D_EBFBE0_801B9140[3];
 s32 D_EBFBE0_801B914C;
- u8 D_EBFBE0_801B9150[3][2];
+u8 D_EBFBE0_801B9150[3][2];
 s32 D_EBFBE0_801B9158;
 UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9160[3];
 s32 D_EBFBE0_801B9178;
 s32 D_EBFBE0_801B917C;
-UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9180; //gap
+UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9180; // gap
 UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9188;
 UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9190;
 UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9198;
@@ -288,14 +292,14 @@ s32 D_EBFBE0_801B923C;
 s32 D_EBFBE0_801B9240;
 s32 D_EBFBE0_801B9244;
 s32 D_EBFBE0_801B9248;
- u8 D_EBFBE0_801B924C;
+u8 D_EBFBE0_801B924C;
 UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9250;
 UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9258;
 UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9260;
 UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9268;
 f32 D_EBFBE0_801B9270[5];
 s32 D_EBFBE0_801B9284;
-s32 D_EBFBE0_801B9288; //gap
+s32 D_EBFBE0_801B9288; // gap
 UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9290;
 f32 D_EBFBE0_801B9298[32];
 s32 spectrumAnalizerMode;
@@ -303,7 +307,7 @@ s32 D_EBFBE0_801B931C;
 bool D_EBFBE0_801B9320; // MusicPlaying status in the expert sound options
 s32 D_EBFBE0_801B9330[2];
 s32 D_EBFBE0_801B933C;
-s32 D_EBFBE0_801B9340; //gap
+s32 D_EBFBE0_801B9340; // gap
 s32 D_EBFBE0_801B9348[4];
 f32 D_EBFBE0_801B9358[4];
 f32 D_EBFBE0_801B9368;
@@ -325,189 +329,9 @@ s32 D_EBFBE0_801B93E8;
 s32 D_EBFBE0_801B93EC;
 f32 D_EBFBE0_801B93F0;
 f32 D_EBFBE0_801B93F4;
-f32 D_EBFBE0_801B93F8; //gap
+f32 D_EBFBE0_801B93F8; // gap
 UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9400;
 UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9408;
-
-#else
-extern f32 D_EBFBE0_801AE588[];
-extern f32 D_EBFBE0_801AE5A0[];
-extern f32 D_EBFBE0_801AE5E8[2];
-extern f32 D_EBFBE0_801AE5F0[2];
-extern f32 D_EBFBE0_801AE5F8[2];
-extern f32 D_EBFBE0_801AE600[2];
-extern f32 D_EBFBE0_801AE608[];
-extern f32 D_EBFBE0_801AE620[];
-extern MenuContext D_EBFBE0_801AE878[];
-extern u8 D_EBFBE0_801AE998[];
-extern u8 D_EBFBE0_801AE99C[];
-extern Gfx D_EBFBE0_801AEC30[];
-extern Gfx D_EBFBE0_801AEC88[];
-extern Gfx D_EBFBE0_801AECE0[];
-extern u8* D_EBFBE0_801AECF8[];
-extern UnkStruct_D_EBFBE0_801AED4C D_EBFBE0_801AED4C[24];
-extern char* D_EBFBE0_801AEEAC[];
-extern Gfx D_EBFBE0_801AEF30[];
-extern u8 D_EBFBE0_801AEF5C[];
-extern f32 D_EBFBE0_801AEF84[];
-extern f32 D_EBFBE0_801AEF90[];
-extern f32 D_EBFBE0_801AEF9C[];
-extern char* D_EBFBE0_801AF0C4[];
-extern s32 D_EBFBE0_801AF0D0[];
-extern s32 D_EBFBE0_801AF0DC[];
-extern s32 D_EBFBE0_801AF0E8[];
-
-extern Vec3f D_EBFBE0_801AF100[];
-extern Vec3f D_EBFBE0_801AF118[];
-extern f32 D_EBFBE0_801AF13C;
-extern f32 D_EBFBE0_801AF140;
-extern f32 D_EBFBE0_801AF144;
-
-extern MenuContext_00 D_EBFBE0_801AE9C0[4];
-extern MenuContext_00 D_EBFBE0_801AEB48[];
-extern f32 D_EBFBE0_801AE9A0[4];
-extern f32 D_EBFBE0_801AE9B0[4];
-extern f32 D_EBFBE0_801AE570[];
-extern f32 D_EBFBE0_801AE5B8[];
-extern f32 D_EBFBE0_801AE5D0[];
-extern MenuContext D_EBFBE0_801AE638[];
-extern s32 D_EBFBE0_801AED3C[4];
-extern f32 D_EBFBE0_801AF148[4];
-extern f32 D_EBFBE0_801AF158[4];
-extern f32 D_EBFBE0_801AF188[4];
-extern f32 D_EBFBE0_801AF198;
-extern f32 D_EBFBE0_801AF19C[4];
-extern f32 D_EBFBE0_801AF1AC;
-extern f32 D_EBFBE0_801AF1B0;
-extern f32 D_EBFBE0_801AF1B4;
-extern f32 D_EBFBE0_801AF1B8;
-extern f32 D_EBFBE0_801AF1BC;
-extern f32 D_EBFBE0_801AF1C0;
-extern f32 D_EBFBE0_801AF1C4;
-extern f32 D_EBFBE0_801AF1C8;
-extern f32 D_EBFBE0_801AF1CC;
-extern f32 D_EBFBE0_801AF1D0;
-extern f32 D_EBFBE0_801AF1D4;
-extern f32 D_EBFBE0_801AF1D8;
-extern f32 D_EBFBE0_801AF1DC;
-extern s32 D_EBFBE0_801AF168[4];
-extern s32 D_EBFBE0_801AF178[4];
-extern u8 D_EBFBE0_801AEF5C[0x28];
-
-extern s32 D_EBFBE0_801B9090;
-extern s32 D_EBFBE0_801B9094;
-extern s32 D_EBFBE0_801B9098; //gap
-extern s32 D_EBFBE0_801B90A0[3]; //gap
-extern s32 D_EBFBE0_801B90B0[3]; //gap
-extern f32 D_EBFBE0_801B90C0[3]; //gap
-extern f32 D_EBFBE0_801B90D0[3]; //gap
-extern f32 D_EBFBE0_801B90E0[3]; //gap
-extern f32 D_EBFBE0_801B90F0[3]; //gap
-extern f32 D_EBFBE0_801B9100[3]; //gap
-extern f32 D_EBFBE0_801B9110[3];
-extern f32 D_EBFBE0_801B911C;
-extern f32 D_EBFBE0_801B9120;
-extern s32 D_EBFBE0_801B9124;
-extern s32 D_EBFBE0_801B9128;
-extern s32 D_EBFBE0_801B912C;
-extern s32 D_EBFBE0_801B9130;
-extern s32 D_EBFBE0_801B9134;
-extern s32 D_EBFBE0_801B9138;
-extern s32 D_EBFBE0_801B913C;
-extern s32 D_EBFBE0_801B9140[3];
-extern s32 D_EBFBE0_801B914C;
-extern  u8 D_EBFBE0_801B9150[3][2];
-extern s32 D_EBFBE0_801B9158;
-extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9160[3];
-extern s32 D_EBFBE0_801B9178;
-extern s32 D_EBFBE0_801B917C;
-extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9180; //gap
-extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9188;
-extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9190;
-extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9198;
-extern s32 D_EBFBE0_801B91A0;
-extern s32 D_EBFBE0_801B91A4;
-extern s32 D_EBFBE0_801B91A8;
-extern s32 D_EBFBE0_801B91AC;
-extern s32 D_EBFBE0_801B91B0;
-extern s32 D_EBFBE0_801B91B4;
-extern s32 D_EBFBE0_801B91B8;
-extern s32 D_EBFBE0_801B91BC;
-extern s32 D_EBFBE0_801B91C0;
-extern s32 D_EBFBE0_801B91C4;
-extern s32 D_EBFBE0_801B91C8;
-extern s32 D_EBFBE0_801B91CC;
-extern s32 D_EBFBE0_801B91D0;
-extern f32 D_EBFBE0_801B91D4;
-extern f32 D_EBFBE0_801B91D8;
-extern f32 D_EBFBE0_801B91DC;
-extern f32 D_EBFBE0_801B91E0;
-extern f32 D_EBFBE0_801B91E4;
-extern f32 D_EBFBE0_801B91E8;
-extern f32 D_EBFBE0_801B91EC;
-extern s32 D_EBFBE0_801B91F0;
-extern f32 D_EBFBE0_801B91F4;
-extern f32 D_EBFBE0_801B91F8;
-extern f32 D_EBFBE0_801B91FC;
-extern f32 D_EBFBE0_801B9200;
-extern f32 D_EBFBE0_801B9204;
-extern f32 D_EBFBE0_801B9208;
-extern f32 D_EBFBE0_801B920C;
-extern f32 D_EBFBE0_801B9210;
-extern s32 D_EBFBE0_801B9214;
-extern f32 D_EBFBE0_801B9218;
-extern f32 D_EBFBE0_801B921C;
-extern f32 D_EBFBE0_801B9220;
-extern f32 D_EBFBE0_801B9224;
-extern f32 D_EBFBE0_801B9228;
-extern s32 D_EBFBE0_801B922C;
-extern s32 D_EBFBE0_801B9230;
-extern s32 D_EBFBE0_801B9234;
-extern s32 D_EBFBE0_801B9238;
-extern s32 D_EBFBE0_801B923C;
-extern s32 D_EBFBE0_801B9240;
-extern s32 D_EBFBE0_801B9244;
-extern s32 D_EBFBE0_801B9248;
-extern  u8 D_EBFBE0_801B924C;
-extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9250;
-extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9258;
-extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9260;
-extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9268;
-extern f32 D_EBFBE0_801B9270[5];
-extern s32 D_EBFBE0_801B9284;
-extern s32 D_EBFBE0_801B9288; //gap
-extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9290;
-extern f32 D_EBFBE0_801B9298[32];
-extern s32 spectrumAnalizerMode;
-extern s32 D_EBFBE0_801B931C;
-extern bool D_EBFBE0_801B9320; // MusicPlaying status in the expert sound options
-extern s32 D_EBFBE0_801B9330[2];
-extern s32 D_EBFBE0_801B933C;
-extern s32 D_EBFBE0_801B9340; //gap
-extern s32 D_EBFBE0_801B9348[4];
-extern f32 D_EBFBE0_801B9358[4];
-extern f32 D_EBFBE0_801B9368;
-extern s32 D_EBFBE0_801B936C;
-extern f32 D_EBFBE0_801B9370;
-extern s32 D_EBFBE0_801B9374;
-extern f32 D_EBFBE0_801B9378;
-extern s32 D_EBFBE0_801B937C;
-extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9380[4];
-extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B93A0[4];
-extern u8 D_EBFBE0_801B93C4;
-extern s32 D_EBFBE0_801B93D0;
-extern s32 D_EBFBE0_801B93D4;
-extern s32 D_EBFBE0_801B93D8;
-extern s32 D_EBFBE0_801B93DC;
-extern s32 D_EBFBE0_801B93E0;
-extern s32 D_EBFBE0_801B93E4;
-extern s32 D_EBFBE0_801B93E8;
-extern s32 D_EBFBE0_801B93EC;
-extern f32 D_EBFBE0_801B93F0;
-extern f32 D_EBFBE0_801B93F4;
-extern f32 D_EBFBE0_801B93F8; //gap
-extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9400;
-extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9408;
 #endif
 
 void func_EBFBE0_80191B20(void) {
@@ -961,9 +785,6 @@ void func_EBFBE0_80192938(void) {
     }
 }
 
-// https://decomp.me/scratch/qI7sN
-// Matches but requires data migration
-#ifdef IMPORT_DATA_PENDING
 void func_EBFBE0_801929F0(void) {
     s32 i;
 
@@ -1009,9 +830,6 @@ void func_EBFBE0_801929F0(void) {
     D_EBFBE0_801B9198.unk_0 = 0;
     D_EBFBE0_801B9198.unk_4 = 0;
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_801929F0.s")
-#endif
 
 void func_EBFBE0_80192D58(void) {
     s32 i;
@@ -1601,7 +1419,6 @@ void func_EBFBE0_80194BD0(void) {
     }
 }
 
-#ifdef IMPORT_DATA_PENDING
 void func_EBFBE0_80194CE4(void) {
     s32 i;
     s32 colorGB;
@@ -1678,12 +1495,7 @@ void func_EBFBE0_80194CE4(void) {
         func_EBFBE0_8019C120(D_EBFBE0_801AEB48[i]);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80194CE4.s")
-#endif
 
-// needs data declared as static
-#ifdef IMPORT_DATA_PENDING
 void func_EBFBE0_801952B4(void) {
     s32 i;
 
@@ -1790,9 +1602,6 @@ void func_EBFBE0_801952B4(void) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_801952B4.s")
-#endif
 
 void func_EBFBE0_801958DC(void) {
     s32 i;
@@ -1850,11 +1659,6 @@ void func_EBFBE0_80195944(void) {
         }
     }
 }
-
-#ifdef IMPORT_DATA_PENDING
-// u8* D_EBFBE0_801AECF8[10] = {
-//     D_5009F60, D_500A050, D_500A140, D_500A230, D_500A320, D_500A410, D_500A500, 0x0500A5F0, 0x0500A6E0, 0x0500A7D0,
-// };
 
 void func_EBFBE0_80195B74(void) {
     u8* temp_v0_4;
@@ -1918,14 +1722,16 @@ void func_EBFBE0_80195B74(void) {
         }
 
         for (i = 0; i < 32; i++) {
-            if (spectrumAnalizerMode == 0 || spectrumAnalizerMode == 2)
+            if (spectrumAnalizerMode == 0 || spectrumAnalizerMode == 2) {
                 D_EBFBE0_801B9298[i] = (var_fv1 / 255.0f) * temp_v0_4[i];
-            else
+            } else {
                 D_EBFBE0_801B9298[i] = var_fv1 - ((var_fv1 / 255.0f) * temp_v0_4[i]);
+            }
         }
     } else {
-        for (i = 0; i < 32; i++)
+        for (i = 0; i < 32; i++) {
             Math_SmoothStepToF(&D_EBFBE0_801B9298[i], 0.0f, 0.2f, 100.0f, 0.1f);
+        }
     }
 
     Lib_Ortho(&gMasterDisp);
@@ -1956,9 +1762,6 @@ void func_EBFBE0_80195B74(void) {
     Matrix_Pop(&gGfxMatrix);
     Lib_Perspective(&gMasterDisp);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80195B74.s")
-#endif
 
 void func_EBFBE0_80196260(void) {
     D_80178410 = 800;
@@ -2099,8 +1902,6 @@ void func_EBFBE0_8019669C(void) {
     }
 }
 
-#ifdef IMPORT_DATA_PENDING
-
 void func_EBFBE0_80196894(void) {
     s32 i;
     s32 sp7C[2];
@@ -2189,16 +1990,11 @@ void func_EBFBE0_80196894(void) {
 
     func_EBFBE0_8019B7D4();
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80196894.s")
-#endif
 
-#ifdef IMPORT_DATA_PENDING
 static char* D_EBFBE0_801AF0C4[3] = { "P", "S", "F" };
 static s32 D_EBFBE0_801AF0D0[3] = { 255, 0, 30 };
 static s32 D_EBFBE0_801AF0DC[3] = { 30, 179, 30 };
 static s32 D_EBFBE0_801AF0E8[3] = { 0, 67, 255 };
-#endif
 
 void func_EBFBE0_80196E54(void) {
     func_EBFBE0_80188010();
@@ -2308,28 +2104,6 @@ void func_EBFBE0_8019715C(void) {
     }
 }
 
-#ifndef IMPORT_DATA_PENDING
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7110.s")
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7114.s")
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7118.s")
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B711C.s")
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7120.s")
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7124.s")
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7128.s")
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B712C.s")
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7130.s")
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7134.s")
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7138.s")
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B713C.s")
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7140.s")
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7144.s")
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7148.s")
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B714C.s")
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7150.s")
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7154.s")
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/D_EBFBE0_801B7158.s")
-#endif
-
 void func_EBFBE0_801973C0(void) {
     s32 temp_t0;
 
@@ -2348,7 +2122,6 @@ void func_EBFBE0_801973C0(void) {
     Graphics_DisplaySmallText(242, 215, 1.0f, 1.0f, "PUSH A");
 }
 
-#ifdef IMPORT_DATA_PENDING
 void func_EBFBE0_8019752C(void) {
     f32 var_fs0;
     f32 var_fs1;
@@ -2408,14 +2181,9 @@ void func_EBFBE0_8019752C(void) {
 
     TextureRect_8bIA_MirY(&gMasterDisp, D_800D070, 0x10, 0x10, 150.0f, 200.0f, 1.0f, 1.0f);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019752C.s")
-#endif
 
-#ifdef IMPORT_DATA_PENDING
 static Vec3f D_EBFBE0_801AF100[2] = { { 0.0f, 167.0f, 0.0f }, { 0.0f, -167.0f, 0.0f } };
 static Vec3f D_EBFBE0_801AF118[2] = { { 25.0f, 3.6f, 0.0f }, { 25.0f, 3.6f, 0.0f } };
-#endif
 
 void func_EBFBE0_80197914(void) {
     Vec3f* vec1;
@@ -2631,8 +2399,6 @@ void func_EBFBE0_8019882C(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
     }
 }
 
-#ifdef IMPORT_DATA_PENDING
-
 void func_EBFBE0_8019896C(s32 arg0, f32 y, s32 arg2) {
     static f32 D_EBFBE0_801AF130 = 0.0f;
     static f32 D_EBFBE0_801AF134 = -121.0f;
@@ -2787,15 +2553,10 @@ void func_EBFBE0_8019896C(s32 arg0, f32 y, s32 arg2) {
 
     Lib_Perspective(&gMasterDisp);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019896C.s")
-#endif
 
-#ifdef IMPORT_DATA_PENDING
 static f32 D_EBFBE0_801AF13C = 0.7f;
 static f32 D_EBFBE0_801AF140 = 11.0f;
 static f32 D_EBFBE0_801AF144 = 2.7f;
-#endif
 
 void func_EBFBE0_80199198(f32 arg0, f32 arg1, f32 arg2) {
     RCP_SetupDL(&gMasterDisp, 0x35);
@@ -2931,7 +2692,6 @@ void func_EBFBE0_8019978C(void) {
     }
 }
 
-#ifdef IMPORT_DATA_PENDING
 static f32 D_EBFBE0_801AF148[4] = { 30.0f, 214.0f, 30.0f, 215.0f };
 static f32 D_EBFBE0_801AF158[4] = { 18.0f, 18.0f, 151.0f, 151.0f };
 static s32 D_EBFBE0_801AF168[4] = { 56, 48, 56, 48 };
@@ -2952,9 +2712,7 @@ static f32 D_EBFBE0_801AF1D0 = 11.0f;
 static f32 D_EBFBE0_801AF1D4 = 7.0f;
 static f32 D_EBFBE0_801AF1D8 = 59.0f;
 static f32 D_EBFBE0_801AF1DC = 58.0f;
-#endif
 
-#ifdef IMPORT_DATA_PENDING
 void func_EBFBE0_80199820(s32 arg0) {
     s32 var_v0;
     s32 var_a2;
@@ -3070,9 +2828,6 @@ void func_EBFBE0_80199820(s32 arg0) {
                      D_EBFBE0_801AF148[arg0] + D_EBFBE0_801AF19C[arg0], D_EBFBE0_801AF158[arg0] + D_EBFBE0_801AF1AC,
                      D_EBFBE0_801AF1B0, D_EBFBE0_801AF1B0);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80199820.s")
-#endif
 
 void func_EBFBE0_80199EA8(void) {
     s32 i;
@@ -3087,7 +2842,7 @@ void func_EBFBE0_80199EA8(void) {
 }
 
 // D_EBFBE0_801B9358 needs to be static but belongs to bss section?
-#ifdef IMPORT_DATA_PENDING
+#ifdef IMPORT_BSS
 void func_EBFBE0_80199FA8(void) {
     s32 i;
 
@@ -3118,7 +2873,7 @@ void func_EBFBE0_80199FA8(void) {
 #endif
 
 // D_EBFBE0_801B9380 needs to be static but belongs to bss section?
-#ifdef IMPORT_DATA_PENDING
+#ifdef IMPORT_BSS
 void func_EBFBE0_8019A080(void) {
     s32 i;
 
@@ -3451,7 +3206,7 @@ void func_EBFBE0_8019AB30(void) {
 
 // extern f32 D_EBFBE0_801B9338; // in-function
 // needs in function static
-#ifdef IMPORT_DATA_PENDING
+#ifdef IMPORT_BSS
 void func_EBFBE0_8019AD84(void) {
     static f32 D_EBFBE0_801B9324;
     static f32 D_EBFBE0_801B9328;
@@ -3509,14 +3264,16 @@ void func_EBFBE0_8019AD84(void) {
     }
 }
 #else
+static f32 D_EBFBE0_801AF25C[6] = { 156.0f, 112.0f, 112.0f, 112.0f, 112.0f, 112.0f };
+static f32 D_EBFBE0_801AF274[6] = { 46.0f, 43.0f, 43.0f, 43.0f, 43.0f, 43.0f };
+static u8* D_EBFBE0_801AF28C[] = {
+    (u8*) 0x070024D0, (u8*) 0x07002730, (u8*) 0x07002990, (u8*) 0x07002BF0, (u8*) 0x07002E50,
+};
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019AD84.s")
 #endif
 
-
-
-
-// needs in-function static
-#ifdef IMPORT_DATA_PENDING
+// needs in-function static data & bss
+#ifdef IMPORT_BSS
 void func_EBFBE0_8019AFFC(void) {
     static f32 D_EBFBE0_801AF2A0 = 101.0f;
     static f32 D_EBFBE0_801AF2A4 = 86.0f;
@@ -3565,12 +3322,11 @@ void func_EBFBE0_8019AFFC(void) {
     }
 }
 #else
+static f32 D_EBFBE0_801AF2A0 = 101.0f;
+static f32 D_EBFBE0_801AF2A4 = 86.0f;
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019AFFC.s")
 #endif
 
-
-
-#ifdef IMPORT_DATA_PENDING
 void func_EBFBE0_8019B1F8(void) {
     static f32 D_EBFBE0_801AF2A8 = 69.0f;
     static f32 D_EBFBE0_801AF2AC = 110.0f;
@@ -3608,11 +3364,7 @@ void func_EBFBE0_8019B1F8(void) {
                          1.0f, 1.0f);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019B1F8.s")
-#endif
 
-#ifdef IMPORT_DATA_PENDING
 void func_EBFBE0_8019B3DC(void) {
     static f32 D_EBFBE0_801AF2D4 = 69.0f;
     static f32 D_EBFBE0_801AF2D8 = 110.0f;
@@ -3656,9 +3408,6 @@ void func_EBFBE0_8019B3DC(void) {
                          1.0f, 1.0f);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019B3DC.s")
-#endif
 
 void func_EBFBE0_8019B5AC(void) {
     s32 pad[2];
@@ -4297,7 +4046,6 @@ void func_EBFBE0_8019CD54(void) {
     }
 }
 
-#ifdef IMPORT_DATA_PENDING
 void func_EBFBE0_8019D118(void) {
     static f32 D_EBFBE0_801AF300[] = { -120.0f, 0.0f, 120.0f };
     f32 dirX;
@@ -4379,9 +4127,6 @@ void func_EBFBE0_8019D118(void) {
 
     Matrix_Pop(&gGfxMatrix);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019D118.s")
-#endif
 
 void func_EBFBE0_8019D624(void) {
     s32 i;
@@ -4490,7 +4235,6 @@ void func_EBFBE0_8019D624(void) {
     Save_Write();
 }
 
-#ifdef IMPORT_DATA_PENDING
 void func_EBFBE0_8019DB20(s32 character, f32 x, f32 y, f32 z, f32 scale, f32 xAngle, f32 yAngle, f32 zAngle) {
     static Gfx* D_EBFBE0_801AF33C[37] = {
         (Gfx*) 0x090086F0, (Gfx*) 0x09007FD0, (Gfx*) 0x09007BB0, (Gfx*) 0x09000980, (Gfx*) 0x090075A0,
@@ -4537,9 +4281,6 @@ void func_EBFBE0_8019DB20(s32 character, f32 x, f32 y, f32 z, f32 scale, f32 xAn
 
     Matrix_Pop(&gGfxMatrix);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019DB20.s")
-#endif
 
 s32 func_EBFBE0_8019DCE8(s32 arg0) {
     s32 i = 0;
@@ -4668,7 +4409,6 @@ void func_EBFBE0_8019E030(void) {
     }
 }
 
-#ifdef IMPORT_DATA_PENDING
 void func_EBFBE0_8019E284(void) {
     s32 i;
     s32 temp_a0;
@@ -4731,6 +4471,12 @@ void func_EBFBE0_8019E284(void) {
         }
     }
 
+    /**
+     * Debug: The following code was probably left out by mistake,
+     * It lets you move the graphics on the bill at the end with the 4th controller,
+     * programmers probably used it to know which position values to hardcode in place.
+     */
+
     if (gChangedInput[3].button & R_TRIG) {
         D_EBFBE0_801AF410++;
         if (D_EBFBE0_801AF410 > 7) {
@@ -4761,6 +4507,3 @@ void func_EBFBE0_8019E284(void) {
         D_EBFBE0_801AF3D0[D_EBFBE0_801AF410] += 1.0f;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019E284.s")
-#endif
