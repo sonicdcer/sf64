@@ -1,8 +1,9 @@
 #include "global.h"
 
+s16 D_80161410;
 Vec3f D_801613B0[4];
 Vec3f D_801613E0[4];
-s16 D_80161410;
+
 Matrix D_80161418[4];
 Vec3f D_80161518[4];
 Vec3f D_80161548[4];
@@ -1546,8 +1547,8 @@ void func_80057D00(void) {
     Matrix_Scale(gGfxMatrix, 1.0f + D_800CA230, 1.0f - D_800CA230, 1.0f, 1);
     Matrix_Push(&gGfxMatrix);
     func_800B73E0(sp54);
-    Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR,
-                       gAmbientG, gAmbientB);
+    Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR, gAmbientG,
+                       gAmbientB);
     if (D_80177880 == 0) {
         Matrix_RotateY(gCalcMatrix, sp54->unk_114 * M_DTOR, 0);
         Matrix_RotateX(gCalcMatrix, sp54->unk_120 * M_DTOR, 1);
@@ -1611,8 +1612,8 @@ void func_80057D00(void) {
             func_80040CE4();
         }
     }
-    Lights_SetOneLight(&gMasterDisp, gLight2x, gLight2y, gLight2z, gLight2R, gLight2G, gLight2B, gAmbientR,
-                       gAmbientG, gAmbientB);
+    Lights_SetOneLight(&gMasterDisp, gLight2x, gLight2y, gLight2z, gLight2R, gLight2G, gLight2B, gAmbientR, gAmbientG,
+                       gAmbientB);
     for (i = 0, var_s0 = gPlayers; i < gCamCount; i++, var_s0++) {
         sp60.x = var_s0->unk_074;
         sp60.y = var_s0->unk_078;
@@ -1622,8 +1623,8 @@ void func_80057D00(void) {
         func_80057814(var_s0);
     }
     if ((D_80161A88 == 2) && (gPlayers[0].unk_1C8 != 2)) {
-        Lights_SetOneLight(&gMasterDisp, gLight2x, -1 * gLight2y, gLight2z, gLight2R, gLight2G, gLight2B,
-                           gAmbientR, gAmbientG, gAmbientB);
+        Lights_SetOneLight(&gMasterDisp, gLight2x, -1 * gLight2y, gLight2z, gLight2R, gLight2G, gLight2B, gAmbientR,
+                           gAmbientG, gAmbientB);
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, 1);
         for (i = 0, var_s0 = gPlayers; i < gCamCount; i++, var_s0++) {
@@ -1634,8 +1635,8 @@ void func_80057D00(void) {
         }
         Matrix_Pop(&gGfxMatrix);
     }
-    Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR,
-                       gAmbientG, gAmbientB);
+    Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR, gAmbientG,
+                       gAmbientB);
     func_80060714(1);
     func_80060968();
     D_80161410 = 1;

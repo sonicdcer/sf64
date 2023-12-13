@@ -252,7 +252,6 @@ void func_8006B0A0(Object_2F4* arg0) {
     }
 }
 
-
 void func_8006B46C(Object_2F4* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, u8 arg7, f32 arg8,
                    s32 arg9) {
     Vec3f sp34 = { 0.0f, 0.0f, 0.0f };
@@ -889,7 +888,8 @@ UnkStruct_D003C D_800D003C[108] = {
     { NULL, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 0, 0, 6, 0, 0.0f, 0 },
     { 0x06002890, 0x060368E0, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
 };
-u8 D_800D0DBC[6][4] = { // could be in-function
+u8 D_800D0DBC[6][4] = {
+    // could be in-function
     { 0xFF, 0xFF, 0xFF, 0xFF }, { 0xA0, 0xA0, 0xFF, 0xFF }, { 0x50, 0x50, 0xFF, 0xFF },
     { 0x50, 0xFF, 0x50, 0xFF }, { 0xFF, 0x50, 0x50, 0xFF }, { 0xFF, 0xFF, 0x50, 0xFF },
 };
@@ -3627,7 +3627,7 @@ void func_80074FF0(Object_2F4* arg0) {
                     break;
             }
             if ((D_80161410 > 0) && ((arg0->unk_080 > 0) && (arg0->unk_080 < 6))) {
-                Vec3f sp58  = { 0.0f, 0.0f, 0.0f };
+                Vec3f sp58 = { 0.0f, 0.0f, 0.0f };
 
                 if ((arg0->unk_080 == 4) || (arg0->unk_080 == 5)) {
                     Matrix_MultVec3f(gGfxMatrix, &sp58, &D_80177E98[arg0->unk_080 + 4]);

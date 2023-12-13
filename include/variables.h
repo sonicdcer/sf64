@@ -193,6 +193,7 @@ extern Gfx* D_800D14FC[];
 extern Vec3f D_800D1528;
 extern f32 D_800D1534[10][10];
 extern s32 D_800D173C[];
+extern Gfx* D_800D178C[6];
 extern s32 D_800D18F0[]; //[6][4]?
 extern s32 D_800D1950[];
 extern f32 D_800D19AC[];
@@ -237,7 +238,6 @@ extern u8 D_8015F964;
 extern s32 D_801613A0;
 
 // fox_52730
-extern Vec3f D_80161548[4];
 extern Vec3f D_80161578[4];
 extern f32 D_801615A8[4];
 extern f32 D_801615B8[4];
@@ -246,9 +246,10 @@ extern Vec3f D_801613E0[];
 extern s16 D_80161410;
 extern Matrix D_80161418[4];
 extern Vec3f D_80161518[4];
+extern Vec3f D_80161548[4];
 
 // fox_edisplay
-// extern Vec3f D_801615D0; // referenced in overlay. commented for bss ordering
+extern Vec3f D_801615D0;
 
 // fox_enmy1
 extern s32 D_80161670[4];

@@ -6,7 +6,6 @@ s32 D_801615EC;
 Matrix D_801615F0;
 WingInfo D_80161630;
 
-
 char D_800CF970[] = "$Id: fox_edisplay.c,v 1.196 1997/05/08 08:31:50 morita Exp $";
 
 void func_800596C0(void) {
@@ -1516,8 +1515,8 @@ void func_8005F670(Vec3f* arg0) {
         temp1 = D_80178360 * D_8017836C * var_fs0;
         temp2 = D_80178364 * D_8017836C * var_fs0;
         temp3 = D_80178368 * D_8017836C * var_fs0;
-        Lights_SetTwoLights(&gMasterDisp, gLight1x, gLight1y, gLight1z, sp84.x, sp84.y, sp84.z, gLight1R,
-                            gLight1G, gLight1B, temp1, temp2, temp3, gAmbientR, gAmbientG, gAmbientB);
+        Lights_SetTwoLights(&gMasterDisp, gLight1x, gLight1y, gLight1z, sp84.x, sp84.y, sp84.z, gLight1R, gLight1G,
+                            gLight1B, temp1, temp2, temp3, gAmbientR, gAmbientG, gAmbientB);
     }
 }
 
@@ -1606,8 +1605,8 @@ void func_8005FB70(s32 arg0) {
             }
         }
     }
-    Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR,
-                       gAmbientG, gAmbientB);
+    Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR, gAmbientG,
+                       gAmbientB);
     for (i = 0, var_s0_4 = gObjects4C; i < ARRAY_COUNT(gObjects4C); i++, var_s0_4++) {
         if ((var_s0_4->obj.status >= 2) && (func_80060FE4(&var_s0_4->obj.pos, -12000.0f) != 0)) {
             Matrix_Push(&gGfxMatrix);
@@ -1678,8 +1677,8 @@ void func_8005FB70(s32 arg0) {
             Matrix_Pop(&gGfxMatrix);
         }
     }
-    Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR,
-                       gAmbientG, gAmbientB);
+    Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR, gAmbientG,
+                       gAmbientB);
 }
 
 void func_8006046C(s32 arg0) {
@@ -1731,14 +1730,14 @@ void func_80060714(s32 arg0) {
     func_8005FB70(1);
     if ((D_80161A88 == 2) && (gPlayers[0].unk_1C8 != 2)) {
         D_80161410 = -1;
-        Lights_SetOneLight(&gMasterDisp, gLight1x, -1 * gLight1y, gLight1z, gLight1R, gLight1G, gLight1B,
-                           gAmbientR, gAmbientG, gAmbientB);
+        Lights_SetOneLight(&gMasterDisp, gLight1x, -1 * gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR,
+                           gAmbientG, gAmbientB);
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, 1);
         func_8005FB70(-1);
         Matrix_Pop(&gGfxMatrix);
-        Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B,
-                           gAmbientR, gAmbientG, gAmbientB);
+        Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR,
+                           gAmbientG, gAmbientB);
     }
 }
 

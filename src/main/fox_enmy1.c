@@ -2010,8 +2010,8 @@ void func_80067874(Object_2F4* arg0) {
         gSPDisplayList(gMasterDisp++, D_10177C0);
         Matrix_Pop(&gGfxMatrix);
     }
-    Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR,
-                       gAmbientG, gAmbientB);
+    Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR, gAmbientG,
+                       gAmbientB);
 }
 
 void func_80067A40(void) {

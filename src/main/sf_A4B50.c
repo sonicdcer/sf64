@@ -946,7 +946,7 @@ void func_800A729C(Player* arg0, u32 arg1, f32 arg2, f32 arg3) {
     }
 }
 
-s32 func_800A73E4(f32* arg0, s32* arg1, f32 arg2, f32 arg3, f32 arg4) {
+s32 func_800A73E4(f32* arg0, s32* arg1, f32 posX, f32 posY, f32 posZ) {
     Vtx* spA4;
     u16* spA0;
     s32 sp9C;
@@ -988,13 +988,13 @@ s32 func_800A73E4(f32* arg0, s32* arg1, f32 arg2, f32 arg3, f32 arg4) {
             return 0;
     }
 
-    sp9C = (s32) ((arg2 + 2400.0f) / 300.0f);
-    sp98 = (s32) ((arg4 + D_80177D20 + 1500.0f + 2400.0f) / 300.0f);
+    sp9C = (s32) ((posX + 2400.0f) / 300.0f);
+    sp98 = (s32) ((posZ + D_80177D20 + 1500.0f + 2400.0f) / 300.0f);
     if ((sp9C < 0) || (sp9C >= 16) || (sp98 < 0) || (sp98 >= 16)) {
         return 0;
     }
-    sp90 = Math_ModF(arg2 + 2400.0f, 300.0f);
-    sp94 = Math_ModF(arg4 + D_80177D20 + 1500.0f + 2400.0f, 300.0f);
+    sp90 = Math_ModF(posX + 2400.0f, 300.0f);
+    sp94 = Math_ModF(posZ + D_80177D20 + 1500.0f + 2400.0f, 300.0f);
     sp8C = (sp98 * 17) + sp9C;
     x0 = spA4[spA0[sp8C]].n.ob[0] * 3.0f;
     y0 = spA4[spA0[sp8C]].n.ob[1] * 2.0f;
@@ -1027,8 +1027,8 @@ s32 func_800A73E4(f32* arg0, s32* arg1, f32 arg2, f32 arg3, f32 arg4) {
     crz = (dx10 * dy21) - (dy10 * dx21);
 
     temp1 = -crx * x0 - cry * y0 - crz * z0;
-    sp48 = (-temp1 - crx * arg2 - crz * (arg4 + D_80177D20 + 1500.0f)) / cry;
-    if (arg3 < sp48) {
+    sp48 = (-temp1 - crx * posX - crz * (posZ + D_80177D20 + 1500.0f)) / cry;
+    if (posY < sp48) {
         *arg0 = sp48;
         *arg1 = sp8C;
         return true;
