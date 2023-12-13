@@ -820,43 +820,264 @@ void func_8007A568(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
     func_8007B344(xPos, yPos, zPos, 80.0f, 4);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007A5F8.s")
+void func_8007A5F8(Object_8C* arg0, Vec3f* arg1, u32 arg2) {
+    func_80061474(arg0);
+    arg0->obj.status = 2;
+    arg0->obj.id = 0x175;
+    arg0->obj.pos.x = arg1->x;
+    arg0->obj.pos.y = arg1->y;
+    arg0->obj.pos.z = arg1->z;
+    arg0->unk_50 = 0x32;
+    if ((arg2 == 0x1903400F) || (arg2 == 0x11000055)) {
+        func_80019218(arg2, &arg0->unk_80, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        if (arg2 == 0x11000055) {
+            arg0->unk_50 = 0x12C;
+        }
+    } else {
+        func_80019218(arg2, &arg0->unk_80, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    }
+    func_800612B8(&arg0->unk_1C, arg0->obj.id);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007A6F0.s")
+void func_8007A6F0(Vec3f* arg0, u32 arg1) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007A748.s")
+    for (i = 0; i < ARRAY_COUNT(D_80170130); i++) {
+        if (D_80170130[i].obj.status == 0) {
+            func_8007A5F8(&D_80170130[i], arg0, arg1);
+            break;
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007A774.s")
+void func_8007A748(Object_8C* arg0) {
+    if (arg0->unk_50 == 0) {
+        func_80060FBC(&arg0->obj, &arg0->unk_80);
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007A818.s")
+s32 func_8007A774(UnkStruct_D_80178280* arg0, Object_8C* arg1, f32 arg2) {
+    if ((fabsf(arg0->unk_138 - arg1->obj.pos.z) < arg2) && (fabsf(arg0->unk_074 - arg1->obj.pos.x) < arg2) &&
+        (fabsf(arg0->unk_078 - arg1->obj.pos.y) < arg2) && (arg0->unk_498 == 0)) {
+        func_800A6CD0(arg0, 0, arg1->unk_1C.unk_18);
+        return 1;
+    } else {
+        return 0;
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007A900.s")
+void func_8007A818(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 arg5, u8 arg6, u16 arg7) {
+    func_80061474(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = 0x167;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = posY;
+    arg0->obj.pos.z = posZ;
+    arg0->unk_6C = arg4;
+    arg0->unk_44 = arg5;
+    arg0->unk_46 = arg6;
+    arg0->unk_60.z = (Rand_ZeroOne() - 0.5f) * 10.0f;
+    arg0->unk_60.y = arg4 * 0.1f;
+    if (arg7 != 0) {
+        arg0->unk_54 = (Rand_ZeroOne() - 0.5f) * 30.0f;
+    }
+    func_800612B8(&arg0->unk_1C, arg0->obj.id);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007A994.s")
+void func_8007A900(f32 posX, f32 posY, f32 posZ, f32 arg3, u8 arg4, u8 arg5, u16 arg6) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007AA60.s")
+    if (D_80178234 == 0xC) {
+        for (i = ARRAY_COUNT(D_80170130) - 1; i >= 0; i--) {
+            if (D_80170130[i].obj.status == 0) {
+                func_8007A818(&D_80170130[i], posX, posY, posZ, arg3, arg4, arg5, arg6);
+                break;
+            }
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007AB50.s")
+void func_8007A994(Object_8C* arg0) {
+    Math_SmoothStepToF(&arg0->unk_70, arg0->unk_6C, 0.1f, 10.0f, 0.01f);
+    arg0->obj.rot.z += arg0->unk_60.z;
+    arg0->unk_58 += arg0->unk_60.y;
+    if (arg0->unk_4A & 1) {
+        arg0->unk_48++;
+        if (arg0->unk_48 >= 6) {
+            arg0->unk_48 = 5;
+        }
+    }
+    arg0->unk_44 -= arg0->unk_46;
+    if (arg0->unk_44 < 0x15) {
+        func_80060FBC(&arg0->obj, &arg0->unk_80);
+    }
+    arg0->unk_4A++;
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007AC0C.s")
+// Gfx* D_800D178C[6] = {
+//     0x06003440, 0x060034E0, 0x06003580,
+//     0x06003620, 0x060036C0, 0x06003760
+// };
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007ACE0.s")
+void func_8007AA60(Object_8C* arg0) {
+    RCP_SetupDL(&gMasterDisp, 0x44);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 31, 10, 00, arg0->unk_44);
+    gDPSetEnvColor(gMasterDisp++, 141, 73, 5, 0);
+    Matrix_Scale(gGfxMatrix, arg0->unk_70, arg0->unk_70, 1.0f, 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
+    gSPDisplayList(gMasterDisp++, D_800D178C[arg0->unk_4C]);
+    arg0->unk_4C = arg0->unk_48;
+    RCP_SetupDL(&gMasterDisp, 0x40);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007AD58.s")
+void func_8007AB50(Object_8C* arg0) {
+    if (arg0->unk_4E == 0) {
+        Math_SmoothStepToF(&arg0->unk_70, arg0->unk_6C, 0.1f, 10.0f, 0.0f);
+        arg0->unk_44 -= 20;
+        if (arg0->unk_44 < 0) {
+            func_80060FBC(&arg0->obj, &arg0->unk_80);
+        }
+    } else {
+        Math_SmoothStepToF(&arg0->unk_70, arg0->unk_6C, 0.1f, 10.0f, 0.0f);
+        arg0->unk_44 -= 10;
+        if (arg0->unk_44 < 0) {
+            func_80060FBC(&arg0->obj, &arg0->unk_80);
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007ADF4.s")
+void func_8007AC0C(Object_8C* arg0, f32 posX, f32 unused_posY, f32 posY, f32 arg4, f32 arg5, f32 arg6) {
+    func_80061474(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = 0x174;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = D_80177940;
+    arg0->obj.pos.z = posY;
+    arg0->unk_44 = 0xB4;
+    arg0->unk_70 = arg4;
+    arg0->unk_6C = arg5;
+    arg0->obj.rot.y = arg6;
+    arg0->unk_54 = D_80178280->unk_0C0.x * 0.6f;
+    arg0->unk_5C = D_80178280->unk_0C0.z * 0.6; // Forgotten f means bad codegen
+    func_800612B8(&arg0->unk_1C, arg0->obj.id);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007AF30.s")
+void func_8007ACE0(f32 posX, f32 posY, f32 posZ, f32 arg3, f32 arg4, f32 arg5) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007AFD0.s")
+    for (i = 0; i < ARRAY_COUNT(D_80170130); i++) {
+        if (D_80170130[i].obj.status == 0) {
+            func_8007AC0C(&D_80170130[i], posX, posY, posZ, arg3, arg4, arg5);
+            break;
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B040.s")
+void func_8007AD58(Object_8C* arg0, f32 posX, f32 unused_posY, f32 posZ, f32 arg4, f32 arg5, f32 arg6) {
+    func_80061474(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = 0x174;
+    arg0->unk_4E = 1;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = D_80177940;
+    arg0->obj.pos.z = posZ;
+    arg0->unk_44 = 0xB4;
+    arg0->unk_70 = arg4;
+    arg0->unk_6C = arg5;
+    arg0->obj.rot.y = arg6;
+    func_800612B8(&arg0->unk_1C, arg0->obj.id);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B0F4.s")
+void func_8007ADF4(f32 arg0, f32 posY, f32 arg2, f32 arg3, f32 arg4) {
+    f32 temp_fs0;
+    f32 temp_fs2;
+    f32 var_fs1;
+    s32 var_s2;
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B180.s")
+    for (var_fs1 = 11.25f, var_s2 = 0; var_s2 < 16; var_s2++, var_fs1 += 22.5f) {
+        for (i = 0; i < ARRAY_COUNT(D_80170130); i++) {
+            if (D_80170130[i].obj.status == 0) {
+                temp_fs2 = __sinf(M_DTOR * var_fs1) * arg4 * 20.0f;
+                temp_fs0 = __cosf(M_DTOR * var_fs1) * arg4 * 20.0f;
+                func_8007AD58(&D_80170130[i], arg0 + temp_fs2, posY, arg2 + temp_fs0, arg3, arg4, var_fs1);
+                break;
+            }
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B228.s")
+void func_8007AF30(Object_8C* arg0, f32 posX, f32 posZ, f32 arg3, f32 arg4, f32 arg5) {
+    func_80061474(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = 0x17E;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = -10.0f;
+    arg0->obj.pos.z = posZ;
+    arg0->unk_54 = arg3;
+    arg0->unk_5C = arg4 - D_80177D08;
+    arg0->unk_6C = arg5;
+    arg0->unk_50 = 0x64;
+    func_800612B8(&arg0->unk_1C, arg0->obj.id);
+}
+
+void func_8007AFD0(f32 posX, f32 posZ, f32 arg2, f32 arg3, f32 arg4) {
+    s32 i;
+
+    for (i = 0; i < ARRAY_COUNT(D_80170130); i++) {
+        if (D_80170130[i].obj.status == 0) {
+            func_8007AF30(&D_80170130[i], posX, posZ, arg2, arg3, arg4);
+            break;
+        }
+    }
+}
+
+void func_8007B040(Object_8C* arg0) {
+    f32 sp2C;
+    s32 sp28;
+
+    if (func_800A73E4(&sp2C, &sp28, arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z)) {
+        D_801782EC[sp28] = arg0->unk_6C;
+        D_801782EC[sp28 + 1] = arg0->unk_6C * 0.7f;
+        D_801782EC[sp28 - 1] = arg0->unk_6C * 0.7f;
+    }
+    if (arg0->unk_50 == 0) {
+        func_80060FBC(&arg0->obj, &arg0->unk_80);
+    }
+}
+
+void func_8007B0F4(Object_8C* arg0) {
+    Math_SmoothStepToF(&arg0->unk_70, arg0->unk_6C * 3.0f, 0.1f, 10.0f, 0.0f);
+    arg0->unk_44 -= 13;
+    arg0->obj.rot.y = 180.0f - arg0->obj.rot.y;
+    if (arg0->unk_44 < 0) {
+        func_80060FBC(&arg0->obj, &arg0->unk_80);
+    }
+}
+
+void func_8007B180(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4) {
+    func_80061474(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = 0x17D;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = posY;
+    arg0->obj.pos.z = posZ;
+    arg0->unk_44 = 0xFF;
+    arg0->unk_6C = arg4;
+    func_800612B8(&arg0->unk_1C, arg0->obj.id);
+    func_80019218(0x1100000C, &arg0->unk_80, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+}
+
+void func_8007B228(f32 posX, f32 posY, f32 posZ, f32 arg3) {
+    s32 i;
+
+    for (i = 0; i < ARRAY_COUNT(D_80170130) && D_80178234 == 8; i++) {
+        if (D_80170130[i].obj.status == 0) {
+            func_8007B180(&D_80170130[i], posX, posY, posZ, arg3);
+            break;
+        }
+    }
+}
 
 void func_8007B2BC(Object_8C* arg0, f32 xPos, f32 yPos, f32 zPos, f32 arg4, s32 arg5) {
     func_80061474(arg0);
@@ -882,27 +1103,155 @@ void func_8007B344(f32 xPos, f32 yPos, f32 zPos, f32 arg3, s32 arg4) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B3B8.s")
+void func_8007B3B8(Object_8C* arg0) {
+    f32 var_fv0;
+    f32 var_fv1;
+    s32 var_v0;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B494.s")
+    if (arg0->unk_4C == 6) {
+        var_fv0 = 15.0f;
+        var_fv1 = 0.05f;
+        var_v0 = 4;
+    } else if ((arg0->unk_4C == 5) && ((D_80178234 == 0x10) || (D_80178234 == 1))) {
+        var_fv0 = 10.0f;
+        var_fv1 = 0.1f;
+        var_v0 = 4;
+    } else {
+        var_fv0 = 10.0f;
+        var_fv1 = 0.1f;
+        var_v0 = 8;
+    }
+    Math_SmoothStepToF(&arg0->unk_70, arg0->unk_6C, var_fv1, var_fv0, 0.0f);
+    arg0->unk_44 -= var_v0;
+    if (arg0->unk_44 < 0) {
+        func_80060FBC(&arg0->obj, &arg0->unk_80);
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B550.s")
+void func_8007B494(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4, s32 arg5) {
+    func_80061474(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = 0x181;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = posY;
+    arg0->obj.pos.z = posZ;
+    arg0->obj.rot.x = 90.0f;
+    arg0->unk_6C = arg4;
+    arg0->unk_44 = arg5;
+    if (arg5 < 60) {
+        arg0->unk_46 = 1;
+    } else if (arg5 < 90) {
+        arg0->unk_46 = 2;
+    } else {
+        arg0->unk_46 = 3;
+    }
+    func_800612B8(&arg0->unk_1C, arg0->obj.id);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B5C0.s")
+void func_8007B550(f32 posX, f32 posY, f32 posZ, f32 arg3, s32 arg4) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B62C.s")
+    for (i = 0; i < ARRAY_COUNT(D_80170130); i++) {
+        if (D_80170130[i].obj.status == 0) {
+            func_8007B494(&D_80170130[i], posX, posY, posZ, arg3, arg4);
+            break;
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B670.s")
+void func_8007B5C0(Object_8C* arg0) {
+    Math_SmoothStepToF(&arg0->unk_70, arg0->unk_6C, 0.1f, 10.0f, 0.1f);
+    arg0->unk_44 -= arg0->unk_46;
+    if (arg0->unk_44 < 0) {
+        func_80060FBC(&arg0->obj, &arg0->unk_80);
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B67C.s")
+void func_8007B62C(Object_8C* arg0) {
+    if (arg0->unk_50 == 0) {
+        arg0->unk_46 -= 4;
+        if (arg0->unk_46 <= 0) {
+            func_80060FBC(&arg0->obj, &arg0->unk_80);
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B758.s")
+void func_8007B670(void* arg0) {
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B7E8.s")
+void func_8007B67C(Object_8C* arg0) {
+    s32 var_v1;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B8F8.s")
+    arg0->unk_46 += 2;
+    if (arg0->unk_46 >= 10) {
+        arg0->unk_46 = 10;
+    }
+    if (arg0->unk_46 >= 9) {
+        arg0->unk_48++;
+        if (arg0->unk_48 >= 10) {
+            func_80060FBC(&arg0->obj, &arg0->unk_80);
+        }
+    }
+    var_v1 = arg0->unk_4A;
+    if (var_v1 != 0) {
+        if (var_v1 > 10) {
+            var_v1 -= 10;
+        }
+        arg0->unk_54 = D_80178280[var_v1 - 1].unk_0C0.x;
+        arg0->unk_58 = D_80178280[var_v1 - 1].unk_0C0.y;
+        arg0->unk_5C = D_80178280[var_v1 - 1].unk_0C0.z;
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B960.s")
+void func_8007B758(Object_8C* arg0) {
+    Math_SmoothStepToF(&arg0->unk_70, arg0->unk_6C, 0.1f, 10.0f, 0.1f);
+    arg0->unk_44 -= 2;
+    if (arg0->unk_44 < 0) {
+        func_80060FBC(&arg0->obj, &arg0->unk_80);
+    }
+    func_8007A774(D_80178280, arg0, arg0->unk_70 * 20.0f);
+}
+
+void func_8007B7E8(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4) {
+    func_80061474(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = 0x16C;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = posY;
+    arg0->obj.pos.z = posZ;
+    arg0->unk_54 = (Rand_ZeroOne() - 0.5f) * 5.0f;
+    arg0->unk_58 = (Rand_ZeroOne() - 0.5f) * 3.0f;
+    arg0->unk_48 = 3;
+    if (Rand_ZeroOne() < 0.5f) {
+        arg0->unk_48 = -arg0->unk_48;
+    }
+    arg0->unk_4A = 50;
+    arg0->unk_46 = 1;
+    arg0->unk_70 = arg4 * 0.2f;
+    arg0->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    func_800612B8(&arg0->unk_1C, arg0->obj.id);
+}
+
+void func_8007B8F8(f32 posX, f32 posY, f32 posZ, f32 arg3) {
+    s32 i, j;
+
+    for (i = ARRAY_COUNT(D_80170130) - 1, j = 0; j < ARRAY_COUNT(D_80170130); i--, j++) {
+        if (D_80170130[i].obj.status == 0) {
+            func_8007B7E8(&D_80170130[i], posX, posY, posZ, arg3);
+            break;
+        }
+    }
+}
+
+void func_8007B960(Object_8C* arg0) {
+    arg0->unk_70 += 0.07f;
+    arg0->unk_4A -= arg0->unk_46;
+    if (arg0->unk_4A < 0) {
+        func_80060FBC(&arg0->obj, &arg0->unk_80);
+    }
+    arg0->obj.rot.z += arg0->unk_48;
+    arg0->unk_58 += 0.2f;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B9DC.s")
 
