@@ -1,72 +1,20 @@
 #include "global.h"
 
-typedef struct {
-    /* 0x00 */ Gfx* unk_00;
-    /* 0x04 */ f32* unk_04;
-    /* 0x08 */ f32 unk_08;
-    /* 0x0C */ f32 unk_0C;
-    /* 0x10 */ f32 unk_10;
-    /* 0x14 */ u8 unk_14;
-    /* 0x15 */ u8 unk_15;
-    /* 0x16 */ u8 unk_16;
-    /* 0x17 */ u8 unk_17;
-    /* 0x18 */ f32 unk_18;
-    /* 0x1C */ u8 unk_1C;
-} UnkStruct_D003C; // size = 0x20
-
-extern s32 D_800CFF80[4];
-extern s32 D_800CFF90;
-extern s16 D_800CFF94[16];
-extern u8 D_800CFFB4[16];
-extern f32 D_800CFFC4[16];
-extern Gfx* D_800D0004[3];
-extern Vec3f D_800D0010;
-extern f32 D_800D001C[5];
-extern Vec3f D_800D0030;
-extern UnkStruct_D003C D_800D003C[108];
-extern u8 D_800D0DBC[][4]; // could be color struct
-extern Vec3f D_800D0DD4[56];
-extern Vec3f D_800D1074[24];
-extern Vec3f D_800D1194[21];
-extern Vec3f D_800D1290;
-extern UNK_TYPE D_800D129C[0x8C];
-extern Vec3f D_800D14CC;
-
-extern Gfx D_601AD70[];
-extern f32 D_6032408[];
-extern u16* D_600631C[];
-extern u16* D_6009B34[];
-extern u16* D_601B1E4[];
-extern u16* D_6020DD0[];
-extern u16* D_6027F50[];
-extern u16* D_60289FC[];
-extern u16* D_602AAC0[];
-extern u16* D_602F3AC[];
-extern u16* D_60308B8[];
-extern u16* D_60320D0[];
-extern u16* D_6032E18[];
-extern u16* D_60381D8[];
-extern u16* D_603D9E8[];
-extern u16* D_C037E3C[];
-
-extern AnimationHeader D_40001A4;
-extern AnimationHeader D_40057AC;
-extern AnimationHeader D_600636C;
-extern AnimationHeader D_600E5EC;
-extern f32 D_601B4C4[];
-extern f32 D_602F638[];
-
-#define GDL(dl) gSPDisplayList(gMasterDisp++, dl)
-#define GPC(r, g, b, a) gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, r, g, b, a)
-#define GEC(r, g, b, a) gDPSetEnvColor(gMasterDisp++, r, g, b, a)
+s32 D_800CFF80[4] = { 0, 0, 0, 0 };
+s32 D_800CFF90 = 0;
+s32 D_80161690;
 
 void func_8007F11C(s32, f32, f32, f32, f32);
 void func_80187530(Object_2F4*);
 void func_801A3BD4(Object_2F4*);
 void func_8019E9F4(f32, f32, f32, f32, f32, f32, f32, s32);
 void func_801AC8A8(f32, f32, f32, f32, s32);
+void func_8018769C(Object_2F4*);
+void func_80190430(Object_2F4*);
+void func_801A4CB0(Object_2F4*);
 
 void func_8006A7B0(u16* msg, s32 character) {
+    (void) "Enm->obj.pos.y + tmp_xyz.y=<%10.3f>\n";
     if ((D_8017829C == 0) || (D_80177D68 != character)) {
         func_800BA808(msg, character);
     }
@@ -254,6 +202,15 @@ void func_8006AD18(Object_2F4* arg0) {
 void func_8006B094(Object_2F4* arg0) {
 }
 
+s16 D_800CFF94[16] = {
+    0, 0x62, 0x60, 0x5E, 0x5C, 0x5A, 0x58, 0x56, 0x54, 0x52, 0x50, 0x4E, 0x4C, 0x4A, 0x48, 0x46,
+};
+u8 D_800CFFB4[16] = { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2 };
+f32 D_800CFFC4[16] = {
+    1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.99f, 0.98f, 0.94f, 0.88f, 0.8f, 1.0f,
+};
+Gfx* D_800D0004[3] = { 0x04000170, 0x040084D0, 0x0400A630 };
+
 void func_8006B0A0(Object_2F4* arg0) {
     Vec3f sp34;
     s32 temp_hi;
@@ -295,9 +252,10 @@ void func_8006B0A0(Object_2F4* arg0) {
     }
 }
 
+
 void func_8006B46C(Object_2F4* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, u8 arg7, f32 arg8,
                    s32 arg9) {
-    Vec3f sp34 = D_800D0010;
+    Vec3f sp34 = { 0.0f, 0.0f, 0.0f };
 
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, arg1, arg2, arg3 + D_80177D20, 1);
@@ -309,7 +267,7 @@ void func_8006B46C(Object_2F4* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32
     Matrix_Scale(gGfxMatrix, arg8, arg8, 1.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
     if (arg7 != 1) {
-        RCP_SetupDL_29(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
+        RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
         if ((arg7 == 0) && (arg0->unk_0CA[0] != 0)) {
             sp34.y += arg0->unk_01C.unk_1C;
             Matrix_MultVec3f(gGfxMatrix, &sp34, D_80161578);
@@ -318,15 +276,15 @@ void func_8006B46C(Object_2F4* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32
             }
         }
     } else {
-        RCP_SetupDL_60(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
+        RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     }
     if (arg9 != 0) {
         RCP_SetupDL_64();
-        GPC(255, 0, 0, 255);
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
-    GDL(D_800D0004[arg7]);
+    gSPDisplayList(gMasterDisp++, D_800D0004[arg7]);
     Matrix_Pop(&gGfxMatrix);
-    RCP_SetupDL_29(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
+    RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
 
 void func_8006B74C(Object_2F4* arg0) {
@@ -472,6 +430,7 @@ void func_8006BB78(Object_2F4* arg0) {
     arg0->unk_0D0 = 0;
 }
 
+f32 D_800D001C[5] = { 0.0f, 30.0f, 60.0f, -60.0f, -30.0f }; // could be in-function
 void func_8006BF7C(f32 arg0, f32 arg1, f32 arg2) {
     s32 i;
 
@@ -481,6 +440,7 @@ void func_8006BF7C(f32 arg0, f32 arg1, f32 arg2) {
 }
 
 // fake? gPlayers[0]. doesn't match
+Vec3f D_800D0030 = { 0.0f, -10.0f, 0.0f }; // could be in-function
 void func_8006C008(Object_2F4* arg0) {
     f32 sp4C;
     f32 sp48;
@@ -731,7 +691,7 @@ void func_8006C008(Object_2F4* arg0) {
                 }
                 if ((func_8006351C(arg0->unk_040, &arg0->obj.pos, &D_800D0030, 1) != 0) ||
                     (arg0->obj.pos.y < (D_80177940 + 10.0f))) {
-                    if (D_80177C98 == 1) {
+                    if (gLevelType == 1) {
                         func_8007D0E0(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 2.0f);
                         Object_Kill(&arg0->obj, &arg0->unk_100);
                         return;
@@ -762,7 +722,7 @@ void func_8006C008(Object_2F4* arg0) {
                     if (arg0->unk_0BC & 1) {
                         func_8007D24C(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 1.0f);
                     }
-                    if ((D_80177C98 == 1) && (arg0->unk_0BC == 0)) {
+                    if ((gLevelType == 1) && (arg0->unk_0BC == 0)) {
                         Object_Kill(&arg0->obj, &arg0->unk_100);
                     }
                 }
@@ -782,10 +742,10 @@ void func_8006D0F4(Object_2F4* arg0) {
     s32 temp_fs2;
     s32 temp_ft4;
 
-    D_80161A7C = 0x6E;
-    D_80161A80 = 0x6E;
-    D_80161A84 = 0x6E;
-    D_80178544 = 0x28;
+    D_80161A7C = 110;
+    D_80161A80 = 110;
+    D_80161A84 = 110;
+    D_80178544 = 40;
 
     for (i = 0; i < ARRAY_COUNT(gObjects80); i++) {
         if ((gObjects80[i].obj.status == 2) && ((gPlayers[0].unk_138 - 3000.0f) < gObjects80[i].obj.pos.z)) {
@@ -804,9 +764,9 @@ void func_8006D0F4(Object_2F4* arg0) {
                 for (j = 0; j < temp_ft4; j++, var_s0 += 6) {
                     if (func_800A78C4(var_s0, gObjects80[i].obj.pos.x, gObjects80[i].obj.pos.y, gObjects80[i].obj.pos.z,
                                       temp_fs0, temp_fs1, temp_fs2)) {
-                        D_80161A7C = 0xA;
-                        D_80161A80 = 0xA;
-                        D_80161A84 = 0xA;
+                        D_80161A7C = 10;
+                        D_80161A80 = 10;
+                        D_80161A84 = 10;
                         arg0->unk_0C8 = 5;
                     }
                 }
@@ -818,6 +778,121 @@ void func_8006D0F4(Object_2F4* arg0) {
 void func_8006D350(Object_80* arg0) {
     arg0->obj.rot.z += 1.0f;
 }
+
+UnkStruct_D003C D_800D003C[108] = {
+    { 0x040068F0, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    { 0x04006E90, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    { NULL, D_800CBE8C, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
+    { 0x04009800, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    { 0x040073C0, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    { D_4007AF0, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    { NULL, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    { 0x06011F90, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 0.0f, 1 },
+    { 0x04000710, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 2, 0, 1, 1, 1.0f, 1 },
+    { NULL, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 6, 0, 1.0f, 1 },
+    { 0x0400BD20, D_800CBEC4, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    { 0x04001310, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 6, 0, 1.0f, 1 },
+    { D_400B390, D_800CBE8C, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    { D_6018C00, D_800CBE8C, 2.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    { 0x0601F2A0, D_800CBEFC, 7.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    { 0x0400AAE0, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    { 0x04000650, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 6, 0, 1.0f, 1 },
+    { 0x06016190, 0x060282A0, -2.0f, 2100.0f, 3000.0f, 0, 0, 7, 0, 0.0f, 5 },
+    { 0x06023500, D_800CBEC4, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    { 0x06022DF0, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    { NULL, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 2, 1, 1, 0, 0.0f, 1 },
+    { NULL, D_800CBEC4, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 0.0f, 1 },
+    { NULL, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 0.0f, 1 },
+    { 0x04008FA0, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    { 0x060285F0, 0x0603298C, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { 0x0600AF70, 0x06032904, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { 0x06023E30, 0x06032970, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { NULL, 0x0603285C, 2.5f, 100.0f, 3000.0f, 2, 0, 0, 0, 1.0f, 1 },
+    { 0x06001CE0, 0x06032938, 3.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 1.0f, 1 },
+    { 0x06000840, 0x06032954, 1.0f, 100.0f, 3000.0f, 2, 1, 0, 0, 1.0f, 1 },
+    { 0x06012A40, 0x06028254, -2.0f, 2100.0f, 3001.0f, 0, 0, 7, 0, 0.0f, 2 },
+    { NULL, 0x060280E0, -2.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 3 },
+    { 0x06009950, 0x06032878, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { NULL, D_800CBEC4, 2.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    { 0x0600B2B0, 0x06032894, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { 0x0600A2E0, 0x060328B0, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { NULL, D_800CBEFC, 2.0f, 200.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    { 0x0600B830, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    { NULL, 0x0603238C, 1.0f, 500.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    { 0x06020D20, 0x060328CC, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { NULL, D_800CBF34, 1.0f, 100.0f, 3001.0f, 2, 0, 0, 0, 0.0f, 1 },
+    { D_60097E0, 0x06034478, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { D_601D730, 0x0603450C, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { NULL, D_800CBE8C, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
+    { 0x060102C0, 0x06034588, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { 0x06017B60, D_800CBEC4, -1.0f, 300.0f, 3001.0f, 0, 0, 0, 0, 1.0f, 1 },
+    { 0x06004D00, D_800CBEC4, 1.0f, 100.0f, 3000.0f, 1, 0, 4, 0, 1.0f, 1 },
+    { 0x0601A880, D_800CBE8C, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    { NULL, D_603405C, 0.3f, 100.0f, 3000.0f, 0, 0, 1, 0, 1.0f, 1 },
+    { NULL, D_603405C, 0.3f, 100.0f, 3000.0f, 0, 0, 1, 0, 1.0f, 1 },
+    { NULL, D_603405C, 0.3f, 100.0f, 3000.0f, 0, 0, 1, 0, 1.0f, 1 },
+    { 0x06015D60, 0x06034124, 2.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 1.0f, 1 },
+    { NULL, 0x0602C1A0, -1.0f, 1000.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { 0x0600B540, 0x060328E8, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { 0x04000EC0, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    { 0x04008D50, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    { NULL, D_800CBF34, -1.0f, 2000.0f, 3000.0f, 0, 0, 3, 0, 0.0f, 1 },
+    { 0x060102C0, D_800CBF34, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { 0x0601F3D0, D_800CBF34, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { 0x06022B10, D_800CBF34, 2.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 0.0f, 1 },
+    { 0x060209F0, D_800CBF34, 2.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 0.0f, 1 },
+    { 0x06019430, D_800CBEC4, 2.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    { 0x06018960, D_800CBE8C, 2.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    { 0x06009F50, D_800CBF34, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    { NULL, D_800CBEC4, 3.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    { 0x0600C2A0, D_800CBEC4, -1.0f, 100.0f, 8000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    { 0x0600BD40, D_800CBE8C, -1.0f, 100.0f, 8000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    { NULL, 0x0602F604, 3.0f, 100.0f, 3000.0f, 2, 0, 1, 0, 1.0f, 1 },
+    { 0x060205D0, 0x0603445C, 3.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    { 0x060036A0, 0x06034664, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { D_601AD70, D_800CBF34, 4.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 0.0f, 1 },
+    { 0x03007650, D_800CBF34, 1.0f, 100.0f, 3000.0f, 2, 0, 5, 0, 0.0f, 1 },
+    { 0x060034D0, 0x060347D4, 3.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    { 0x06005360, 0x06034770, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { D_600F6C0, 0x060347F0, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { 0x0601B610, D_800CBF34, -1.0f, 10000.0f, 3001.0f, 0, 0, 1, 0, 0.0f, 1 },
+    { 0x0601C6A0, D_800CBF34, -1.0f, 10000.0f, 3001.0f, 0, 0, 1, 0, 0.0f, 1 },
+    { 0x060188D0, 0x0603486C, 3.0f, 100.0f, 3001.0f, 0, 0, 1, 0, 0.0f, 1 },
+    { NULL, D_800CBEA8, 1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 1.0f, 0 },
+    { NULL, 0x0602C294, 1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 1.0f, 1 },
+    { NULL, 0x0601B474, -1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 0.0f, 1 },
+    { NULL, D_800CBF34, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { NULL, D_800CBE8C, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    { NULL, 0x06030B4C, 1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 60.0f, 1 },
+    { 0x09012180, 0x0601B43C, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { NULL, D_800CBE8C, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
+    { NULL, D_800CBE8C, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
+    { 0x0900EFC0, D_800CBF34, 1.0f, 100.0f, 3000.0f, 1, 1, 0, 0, 0.0f, 1 },
+    { NULL, 0x06030B30, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    { NULL, D_6030B14_f32, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    { 0x0601C520, 0x060368FC, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    { 0x0600AF40, 0x060368E0, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    { 0x07000C40, D_800CC0D4, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { 0x070010E0, D_800CC0F0, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { 0x07000E80, D_800CC054, 2.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    { 0x070008F0, D_800CBE8C, -1.0f, 100.0f, 8000.0f, 1, 0, 0, 0, 0.0f, 0 },
+    { 0x07000280, D_800CC070, -1.0f, 1000.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 0 },
+    { 0x0600AC70, D_800CBE8C, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    { 0x0601A2B0, 0x060364C0, 1.0f, 100.0f, 3000.0f, 1, 1, 0, 0, 0.0f, 1 },
+    { 0x06002500, 0x0601B944, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { 0x060043F0, D_800CBF34, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { 0x06004310, D_800CBF34, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { 0x06002740, 0x06009D18, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { NULL, D_800CBF34, -1.0f, 500.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 0 },
+    { NULL, D_800CBF34, -1.0f, 500.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 0 },
+    { NULL, D_800CBEC4, 1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 1.0f, 1 },
+    { NULL, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 0, 0, 6, 0, 0.0f, 0 },
+    { 0x06002890, 0x060368E0, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+};
+u8 D_800D0DBC[6][4] = { // could be in-function
+    { 0xFF, 0xFF, 0xFF, 0xFF }, { 0xA0, 0xA0, 0xFF, 0xFF }, { 0x50, 0x50, 0xFF, 0xFF },
+    { 0x50, 0xFF, 0x50, 0xFF }, { 0xFF, 0x50, 0x50, 0xFF }, { 0xFF, 0xFF, 0x50, 0xFF },
+};
 
 #ifdef NON_MATCHING
 void func_8006D36C(Object_2F4* arg0) {
@@ -900,8 +975,9 @@ void func_8006D36C(Object_2F4* arg0) {
                 } else if (arg0->unk_0B4 == 79) {
                     arg0->unk_01C.drawType = 2;
                 }
-                arg0->unk_0E6 += 2;
+
                 arg0->unk_0CE = temp_s1[arg0->unk_0E6] & 0x1FF;
+                arg0->unk_0E6 += 2;
                 if ((arg0->unk_0B4 >= 200) && (arg0->unk_0B4 < 300)) {
                     arg0->unk_046 = 100;
                     arg0->unk_01C.unk_0C = D_800CBEC4;
@@ -1005,8 +1081,8 @@ void func_8006D36C(Object_2F4* arg0) {
                 continue;
             case 0xE200:
                 arg0->unk_08C = temp_s1[arg0->unk_0E6 + 1];
-                arg0->unk_0E6 += 2;
                 arg0->unk_090 = temp_s1[arg0->unk_0E6] & 0x1FF;
+                arg0->unk_0E6 += 2;
                 continue;
             case 0x0600:
                 D_80177E78 = arg0->unk_040;
@@ -1193,8 +1269,8 @@ void func_8006D36C(Object_2F4* arg0) {
             case 0x0000:
                 arg0->unk_118 = arg0->unk_114 = temp_s1[arg0->unk_0E6] & 0x7F;
                 arg0->unk_064 = temp_s1[arg0->unk_0E6] & 0x180;
-                arg0->unk_0B8 = 1;
                 arg0->unk_0BC = temp_s1[arg0->unk_0E6 + 1];
+                arg0->unk_0B8 = 1;
                 arg0->unk_0E6 += 2;
                 return;
             case 0x0400:
@@ -1204,8 +1280,8 @@ void func_8006D36C(Object_2F4* arg0) {
             case 0x0200:
                 arg0->unk_118 = temp_s1[arg0->unk_0E6] & 0x7F;
                 arg0->unk_064 = temp_s1[arg0->unk_0E6] & 0x180;
-                arg0->unk_0B8 = 1;
                 arg0->unk_0BC = temp_s1[arg0->unk_0E6 + 1];
+                arg0->unk_0B8 = 1;
                 arg0->unk_0E6 += 2;
                 return;
             case 0x0800:
@@ -1747,7 +1823,7 @@ void func_800701E0(Object_2F4* arg0) {
                     }
                     arg0->obj.status = 3;
                     var_fv1 = 0.7f;
-                    if (D_80177C98 == 1) {
+                    if (gLevelType == 1) {
                         var_fv1 = 0.3f;
                     }
                     if (((Rand_ZeroOne() < var_fv1) || (arg0->unk_080 != 0)) && (arg0->unk_01C.unk_14 == 0) &&
@@ -1762,7 +1838,7 @@ void func_800701E0(Object_2F4* arg0) {
                     arg0->unk_046 = 0xFF;
                     arg0->unk_048 = 0x384;
                     arg0->unk_0C9 = 1;
-                    if (D_80177C98 == 0) {
+                    if (gLevelType == 0) {
                         arg0->unk_04C = (s16) (s32) (Rand_ZeroOne() * 2.9f);
                         if (arg0->unk_0B4 == 2) {
                             arg0->unk_04C = 1;
@@ -1877,7 +1953,7 @@ void func_800701E0(Object_2F4* arg0) {
                 arg0->unk_0D0 = 0;
             }
         }
-        if ((arg0->unk_080 == 0) && (arg0->unk_084 == 0) && (arg0->unk_01C.unk_16 != 2) && (D_80177C98 == 1)) {
+        if ((arg0->unk_080 == 0) && (arg0->unk_084 == 0) && (arg0->unk_01C.unk_16 != 2) && (gLevelType == 1)) {
             sp3C.x = arg0->unk_0E8.x;
             sp3C.y = arg0->unk_0E8.y;
             sp3C.z = arg0->unk_0E8.z;
@@ -2346,6 +2422,47 @@ void func_80070D44(Object_2F4* arg0) {
     }
 }
 
+// could be in-function, but probably weren't
+Vec3f D_800D0DD4[56] = {
+    { 158.0f, 256.0f, 1513.0f },   { 384.0f, 42.0f, 1187.0f },   { 284.0f, 129.0f, 769.0f },
+    { 482.0f, 19.0f, 769.0f },     { 386.0f, 105.0f, 253.0f },   { 221.0f, 209.0f, 33.0f },
+    { 78.0f, 263.0f, 637.0f },     { 78.0f, 263.0f, 76.0f },     { 18.0f, 263.0f, 1683.0f },
+    { 106.0f, 98.0f, 1655.0f },    { 196.0f, -11.0f, 1365.0f },  { 104.0f, -175.0f, 1236.0f },
+    { 313.0f, -175.0f, 972.0f },   { 456.0f, -132.0f, 695.0f },  { 157.0f, -360.0f, 904.0f },
+    { 186.0f, -263.0f, 354.0f },   { 186.0f, -130.0f, 307.0f },  { 692.0f, 16.0f, 190.0f },
+    { 337.0f, 120.0f, -297.0f },   { 337.0f, 373.0f, -242.0f },  { 240.0f, 359.0f, -611.0f },
+    { 504.0f, 447.0f, -611.0f },   { 656.0f, 506.0f, -829.0f },  { 73.0f, 337.0f, -426.0f },
+    { 73.0f, 548.0f, -411.0f },    { 65.0f, 391.0f, -1237.0f },  { 193.0f, 250.0f, -1026.0f },
+    { 292.0f, 271.0f, -587.0f },   { -158.0f, 256.0f, 1513.0f }, { -384.0f, 42.0f, 1187.0f },
+    { -284.0f, 129.0f, 769.0f },   { -482.0f, 19.0f, 769.0f },   { -386.0f, 105.0f, 253.0f },
+    { -221.0f, 209.0f, 33.0f },    { -78.0f, 263.0f, 637.0f },   { -78.0f, 263.0f, 76.0f },
+    { -18.0f, 263.0f, 1683.0f },   { -106.0f, 98.0f, 1655.0f },  { -196.0f, -11.0f, 1365.0f },
+    { -104.0f, -175.0f, 1236.0f }, { -313.0f, -175.0f, 972.0f }, { -456.0f, -132.0f, 695.0f },
+    { -157.0f, -360.0f, 904.0f },  { -186.0f, -263.0f, 354.0f }, { -186.0f, -130.0f, 307.0f },
+    { -692.0f, 16.0f, 190.0f },    { -337.0f, 120.0f, -297.0f }, { -337.0f, 373.0f, -242.0f },
+    { -240.0f, 359.0f, -611.0f },  { -504.0f, 447.0f, -611.0f }, { -656.0f, 506.0f, -829.0f },
+    { -73.0f, 337.0f, -426.0f },   { -73.0f, 548.0f, -411.0f },  { -65.0f, 391.0f, -1237.0f },
+    { -193.0f, 250.0f, -1026.0f }, { -292.0f, 271.0f, -587.0f },
+};
+Vec3f D_800D1074[24] = {
+    { 100.0f, 55.0f, 450.0f },     { 117.0f, 57.0f, 738.0f },    { 14.0f, 31.0f, 894.0f },
+    { 204.0f, 0.0f, -72.0f },      { 204.0f, 33.0f, -253.0f },   { 344.0f, 0.0f, -295.0f },
+    { 344.0f, -51.0f, -457.0f },   { 87.0f, 124.0f, -699.0f },   { 169.0f, -40.0f, -564.0f },
+    { 113.0f, -147.0f, -367.0f },  { 112.0f, -146.0f, -13.0f },  { 69.0f, -118.0f, 158.0f },
+    { -100.0f, 55.0f, 450.0f },    { -117.0f, 57.0f, 738.0f },   { -14.0f, 31.0f, 894.0f },
+    { -204.0f, 0.0f, -72.0f },     { -204.0f, 33.0f, -253.0f },  { -344.0f, 0.0f, -295.0f },
+    { -344.0f, -51.0f, -457.0f },  { -87.0f, 124.0f, -699.0f },  { -169.0f, -40.0f, -564.0f },
+    { -113.0f, -147.0f, -367.0f }, { -112.0f, -146.0f, -13.0f }, { -69.0f, -118.0f, 158.0f },
+};
+Vec3f D_800D1194[21] = {
+    { 764.0f, 13.0f, 71.0f },    { 390.0f, 13.0f, 67.0f },    { 390.0f, 332.0f, 67.0f },   { 504.0f, 508.0f, 67.0f },
+    { 251.0f, 508.0f, 67.0f },   { -35.0f, 341.0f, 67.0f },   { -35.0f, 673.0f, 67.0f },   { -354.0f, 594.0f, 67.0f },
+    { -354.0f, 273.0f, 67.0f },  { -695.0f, 97.0f, 67.0f },   { -378.0f, -57.0f, 67.0f },  { -378.0f, -266.0f, 67.0f },
+    { -475.0f, -518.0f, 67.0f }, { -255.0f, -518.0f, 67.0f }, { -112.0f, -375.0f, 67.0f }, { -46.0f, -628.0f, 67.0f },
+    { -97.0f, -375.0f, 67.0f },  { 207.0f, -639.0f, 67.0f },  { 437.0f, -474.0f, 67.0f },  { 591.0f, -210.0f, 67.0f },
+    { 453.0f, 420.0f, 67.0f },
+};
+
 void func_80071DC0(Object_2F4* arg0) {
     s32 rInd;
     Vec3f sp38;
@@ -2354,15 +2471,15 @@ void func_80071DC0(Object_2F4* arg0) {
     Matrix_RotateX(gCalcMatrix, arg0->obj.rot.x * M_DTOR, 1);
     Matrix_RotateZ(gCalcMatrix, arg0->obj.rot.z * M_DTOR, 1);
     if (arg0->unk_0B4 == 30) {
-        rInd = Rand_ZeroOne() * 22.9f;
+        rInd = Rand_ZeroOne() * (ARRAY_COUNT(D_800D1074) - 1.1f); // off by 1 error?
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D1074[rInd], &sp38);
     }
     if (arg0->unk_0B4 == 17) {
-        rInd = Rand_ZeroOne() * 55.9f;
+        rInd = Rand_ZeroOne() * (ARRAY_COUNT(D_800D0DD4) - 0.1f);
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D0DD4[rInd], &sp38);
     }
     if (arg0->unk_0B4 == 31) {
-        rInd = Rand_ZeroOne() * 20.9f;
+        rInd = Rand_ZeroOne() * (ARRAY_COUNT(D_800D1194) - 0.1f);
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D1194[rInd], &sp38);
     }
     if (!(gFrameCount & 1)) {
@@ -2487,7 +2604,7 @@ void func_80072474(Object_2F4* arg0) {
     Math_SmoothStepToAngle(&arg0->unk_150, arg0->unk_154, 0.5f, 8.0f, 0.0f);
 }
 
-#ifdef NON_MATCHING
+Vec3f D_800D1290 = { 0.0f, 837.00006f, 0.0f }; // could be in-function
 void func_80072594(Object_2F4* arg0) {
     s32 spFC;
     f32 var_fv0;
@@ -2507,11 +2624,6 @@ void func_80072594(Object_2F4* arg0) {
     Vec3f spB8;
     Vec3f spAC;
     Vec3f spA0;
-    Object_8C* temp_v0_8;
-    Vec3f sp90;
-    Vec3f sp84;
-    Vec3f sp78;
-    s32 sp74;
 
     spDC = 0.0f;
     spD8 = 0.0f;
@@ -2582,9 +2694,9 @@ void func_80072594(Object_2F4* arg0) {
                 spEC = arg0->obj.pos.y;
                 spE8 = arg0->obj.pos.z;
                 if ((arg0->unk_0B4 == 0x21) || (arg0->unk_0B4 == 0x44)) {
-                    Matrix_RotateZ(gCalcMatrix, -(arg0->unk_2E8.z + arg0->unk_0F4.z) * 0.017453292f, 0);
-                    Matrix_RotateX(gCalcMatrix, -arg0->unk_2E8.x * 0.017453292f, 1);
-                    Matrix_RotateY(gCalcMatrix, -arg0->unk_2E8.y * 0.017453292f, 1);
+                    Matrix_RotateZ(gCalcMatrix, -(arg0->unk_2E8.z + arg0->unk_0F4.z) * M_DTOR, 0);
+                    Matrix_RotateX(gCalcMatrix, -arg0->unk_2E8.x * M_DTOR, 1);
+                    Matrix_RotateY(gCalcMatrix, -arg0->unk_2E8.y * M_DTOR, 1);
                     if ((arg0->unk_0B8 == 0xE) || (arg0->unk_0B8 == 0xF)) {
                         spB8.x = gPlayers->unk_040.x - spF0;
                         spB8.y = gPlayers->unk_040.y - (spEC + 25.0f);
@@ -2610,15 +2722,15 @@ void func_80072594(Object_2F4* arg0) {
                     Math_SmoothStepToAngle(&arg0->obj.rot.y, spE0, 0.2f, arg0->unk_174, 0.001f);
                     Math_SmoothStepToAngle(&arg0->unk_150, spE4, 0.2f, arg0->unk_174, 0.001f);
                     if (!(arg0->unk_0BC & 0x1F) && (spFC == 0)) {
-                        Matrix_RotateY(gCalcMatrix, arg0->unk_2E8.y * 0.017453292f, 0);
-                        Matrix_RotateX(gCalcMatrix, arg0->unk_2E8.x * 0.017453292f, 1);
-                        Matrix_RotateZ(gCalcMatrix, (arg0->unk_2E8.z + arg0->unk_0F4.z) * 0.017453292f, 1);
+                        Matrix_RotateY(gCalcMatrix, arg0->unk_2E8.y * M_DTOR, 0);
+                        Matrix_RotateX(gCalcMatrix, arg0->unk_2E8.x * M_DTOR, 1);
+                        Matrix_RotateZ(gCalcMatrix, (arg0->unk_2E8.z + arg0->unk_0F4.z) * M_DTOR, 1);
                         spB8.x = 0.0f;
                         spB8.y = 25.0f;
                         spB8.z = 0.0f;
                         Matrix_MultVec3fNoTranslate(gCalcMatrix, &spB8, &spA0);
-                        Matrix_RotateY(gCalcMatrix, arg0->obj.rot.y * 0.017453292f, 1);
-                        Matrix_RotateX(gCalcMatrix, arg0->unk_150 * 0.017453292f, 1);
+                        Matrix_RotateY(gCalcMatrix, arg0->obj.rot.y * M_DTOR, 1);
+                        Matrix_RotateX(gCalcMatrix, arg0->unk_150 * M_DTOR, 1);
                         spB8.x = 0.0f;
                         spB8.y = 0.0f;
                         spB8.z = D_80177828;
@@ -2669,9 +2781,11 @@ void func_80072594(Object_2F4* arg0) {
                 }
                 break;
             case 0xD:
-                spDC = __sinf(((arg0->unk_040 * 0x2D) + gFrameCount) * 0.017453292f) * arg0->unk_158;
-                spD8 = __cosf(((arg0->unk_040 * 0x2D) + (gFrameCount * 2)) * 0.017453292f) * arg0->unk_158;
-                D_80161670[gObjects2F4[arg0->unk_054].unk_080] = 5;
+                spDC = __sinf(((arg0->unk_040 * 0x2D) + gFrameCount) * M_DTOR) * arg0[0].unk_158;
+                spD8 = __cosf(((arg0->unk_040 * 0x2D) + (gFrameCount * 2)) * M_DTOR) * arg0[0].unk_158;
+                pad = arg0->unk_054;
+                pad = gObjects2F4[pad].unk_080;
+                D_80161670[pad] = 5;
                 /* fallthrough */
             case 0x8:
             case 0x9:
@@ -2763,9 +2877,9 @@ void func_80072594(Object_2F4* arg0) {
             if (gObjects2F4[arg0->unk_074].obj.status != 2) {
                 arg0->unk_084 = 0;
             } else {
-                Matrix_RotateY(gCalcMatrix, gObjects2F4[arg0->unk_074].obj.rot.y * 0.017453292f, 0);
-                Matrix_RotateX(gCalcMatrix, gObjects2F4[arg0->unk_074].obj.rot.x * 0.017453292f, 1);
-                Matrix_RotateZ(gCalcMatrix, gObjects2F4[arg0->unk_074].obj.rot.z * 0.017453292f, 1);
+                Matrix_RotateY(gCalcMatrix, gObjects2F4[arg0->unk_074].obj.rot.y * M_DTOR, 0);
+                Matrix_RotateX(gCalcMatrix, gObjects2F4[arg0->unk_074].obj.rot.x * M_DTOR, 1);
+                Matrix_RotateZ(gCalcMatrix, gObjects2F4[arg0->unk_074].obj.rot.z * M_DTOR, 1);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &arg0->unk_2DC, &spAC);
                 arg0->obj.pos.x = gObjects2F4[arg0->unk_074].obj.pos.x + spAC.x;
                 arg0->obj.pos.y = gObjects2F4[arg0->unk_074].obj.pos.y + spAC.y;
@@ -2839,9 +2953,9 @@ void func_80072594(Object_2F4* arg0) {
             arg0->unk_170 += 360.0f;
         }
         Math_SmoothStepToAngle(&arg0->obj.rot.z, arg0->unk_170, 0.2f, 100.0f, 0.0001f);
-        Matrix_RotateZ(gCalcMatrix, (arg0->unk_2E8.z + arg0->unk_0F4.z) * 0.017453292f, 0);
-        Matrix_RotateY(gCalcMatrix, arg0->unk_0F4.y * 0.017453292f, 1);
-        Matrix_RotateX(gCalcMatrix, arg0->unk_0F4.x * 0.017453292f, 1);
+        Matrix_RotateZ(gCalcMatrix, (arg0->unk_2E8.z + arg0->unk_0F4.z) * M_DTOR, 0);
+        Matrix_RotateY(gCalcMatrix, arg0->unk_0F4.y * M_DTOR, 1);
+        Matrix_RotateX(gCalcMatrix, arg0->unk_0F4.x * M_DTOR, 1);
         spB8.x = 0.0f;
         spB8.y = 0.0f;
         spB8.z = arg0->unk_114;
@@ -2985,20 +3099,25 @@ void func_80072594(Object_2F4* arg0) {
                     }
                 }
                 break;
-            case 0x50:
+            case 0x50: {
+                Object_8C* temp_v0_8;
+                Vec3f sp90;
+                Vec3f sp84;
+                Vec3f sp78;
+                s32 sp74;
+
                 switch (arg0->unk_046) {
                     case 1:
                         break;
                     case 0:
-                        Matrix_RotateZ(gCalcMatrix, arg0->unk_0F4.z * 0.017453292f, 0);
+                        Matrix_RotateZ(gCalcMatrix, arg0->unk_0F4.z * M_DTOR, 0);
                         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D1290, &sp90);
                         if ((arg0->obj.pos.y + sp90.y) > -30.0f) {
                             for (sp74 = 0; sp74 < 7; sp74++) {
                                 temp_v0_8 = func_8007783C(OBJECT_394);
                                 if (temp_v0_8 != NULL) {
-                                    temp_v0_8->unk_7A = 12;
+                                    temp_v0_8->unk_78 = temp_v0_8->unk_7A = 12;
                                     temp_v0_8->obj.status = 2;
-                                    temp_v0_8->unk_78 = temp_v0_8->unk_7A;
                                     temp_v0_8->obj.pos.x = arg0->obj.pos.x + sp90.x;
                                     temp_v0_8->obj.pos.y = arg0->obj.pos.y + sp90.y;
                                     temp_v0_8->obj.pos.z = arg0->obj.pos.z;
@@ -3010,7 +3129,7 @@ void func_80072594(Object_2F4* arg0) {
                                     sp84.z = 0.0f;
                                     temp_v0_8->unk_44 = 10;
                                     temp_v0_8->unk_70 = 1.0f;
-                                    Matrix_RotateY(gCalcMatrix, ((Rand_ZeroOne() * 180.0f) + 180.0f) * 0.017453292f, 0);
+                                    Matrix_RotateY(gCalcMatrix, ((Rand_ZeroOne() * 180.0f) + 180.0f) * M_DTOR, 0);
                                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp84, &sp78);
                                     temp_v0_8->unk_54.x = sp78.x;
                                     temp_v0_8->unk_54.y = sp78.y;
@@ -3027,7 +3146,7 @@ void func_80072594(Object_2F4* arg0) {
                 if ((fabsf(arg0->unk_114) > 10.0f) && !(gFrameCount & 1)) {
                     temp_v0_8 = func_8007783C(OBJECT_394);
                     if (temp_v0_8 != NULL) {
-                        Matrix_RotateZ(gCalcMatrix, arg0->unk_0F4.z * 0.017453292f, 0);
+                        Matrix_RotateZ(gCalcMatrix, arg0->unk_0F4.z * M_DTOR, 0);
                         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D1290, &sp90);
                         temp_v0_8->unk_78 = temp_v0_8->unk_7A = 0xB;
                         temp_v0_8->obj.status = 2;
@@ -3072,7 +3191,7 @@ void func_80072594(Object_2F4* arg0) {
                         }
                     }
                 }
-                break;
+            } break;
             case 0x51:
                 Math_SmoothStepToF(&arg0->unk_150, 1.0f, 0.1f, 0.1f, 0.001f);
                 if (arg0->unk_150 > 0.5f) {
@@ -3155,32 +3274,598 @@ void func_80072594(Object_2F4* arg0) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_80072594.s")
-#endif
 
-s32 func_80074BFC(s32, Gfx**, Vec3f*, Vec3f*, Object_2F4*);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_80074BFC.s")
+UNK_TYPE D_800D129C[0x8C] = { 0 }; // unused
 
-s32 func_80074C44(s32, Gfx**, Vec3f*, Vec3f*, Object_2F4*);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_80074C44.s")
+bool func_80074BFC(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg42) {
+    Object_2F4* arg4 = arg42;
 
-void func_80074E3C(Object_2F4*);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_80074E3C.s")
+    if (arg0 == 1) {
+        arg2->x += arg4->unk_154;
+    }
+    if (arg0 == 2) {
+        arg3->z -= arg4->unk_150;
+    }
+    return false;
+}
 
-s32 func_80074F04(s32, Gfx**, Vec3f*, Vec3f*, Object_2F4*);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_80074F04.s")
+bool func_80074C44(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg42) {
+    Object_2F4* arg4 = arg42;
+    s32 var_s1;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_80074F90.s")
+    if (arg0 == 5) {
+        var_s1 = (s32) (arg4->unk_0CE * 0.6375f);
+        if (var_s1 > 255) {
+            var_s1 = 255;
+        }
+        if (var_s1 < 0) {
+            var_s1 = 1.0f / 70.925f;
+        }
+        Matrix_Translate(gCalcMatrix, arg2->x, arg2->y, arg2->z, 1);
+        Matrix_RotateZ(gCalcMatrix, arg3->z * M_DTOR, 1);
+        Matrix_RotateY(gCalcMatrix, arg3->y * M_DTOR, 1);
+        Matrix_RotateX(gCalcMatrix, arg3->x * M_DTOR, 1);
+        Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
+        Matrix_SetGfxMtx(&gMasterDisp);
+        if (*arg1 != NULL) {
+            RCP_SetupDL(&gMasterDisp, 0x22);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, var_s1, var_s1, 255);
+            gSPDisplayList(gMasterDisp++, *arg1);
+            RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
+        }
+        return true;
+    }
+    return false;
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_80074FF0.s")
+void func_80074E3C(Object_2F4* arg0) {
+    Vec3f sp30[10];
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_800763A4.s")
+    Animation_GetFrameData(&D_6013820, 0, sp30);
+    sp30[6].y += arg0->unk_150;
+    sp30[5].z += arg0->unk_154 + ((arg0->unk_0BE >> 2) & 1);
+    sp30[4].z -= arg0->unk_154 + ((arg0->unk_0BE >> 2) & 1);
+    Animation_DrawSkeleton(1, D_601390C, sp30, func_80074C44, NULL, arg0, &gIdentityMatrix);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_8007717C.s")
+bool func_80074F04(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_800771CC.s")
+    gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
+    if ((arg0 == 3) || (arg0 == 5)) {
+        gSPTexture(gMasterDisp++, 5000, 5000, 0, G_TX_RENDERTILE, G_ON);
+        gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
+    }
+    return false;
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_80077218.s")
+s32 func_80074F90(Object_80* arg0) {
+    RCP_SetupDL(&gMasterDisp, 0x3C);
+    gSPDisplayList(gMasterDisp++, D_601AD70);
+    RCP_SetupDL(&gMasterDisp, 0x40);
+    return 0;
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/D_800D6A50.s")
+void func_80074FF0(Object_2F4* arg0) {
+    Vec3f sp114[31];
+    f32 sp40;
+    s16 temp_s0;
+    s32 pad;
+
+    if (arg0->unk_0C6 && (arg0->unk_0B4 != 0x5A) && (arg0->unk_0B4 != 0x44) && (arg0->unk_0B4 != 0x48)) {
+        if ((arg0->unk_0B4 != 0xD) && (arg0->unk_0B4 != 0xE) && (arg0->unk_0B4 != 0x3D) && (arg0->unk_0B4 != 0x3E) &&
+            (arg0->unk_0B4 != 0x53) && (arg0->unk_0B4 != 0x62) && (arg0->unk_110 > 0.5f) && (arg0->unk_0C6 >= 9) &&
+            !(arg0->unk_0C6 & 3) && (D_80177854 != 0x64)) {
+            func_8007C120(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, arg0->unk_0E8.x, arg0->unk_0E8.y,
+                          arg0->unk_0E8.z, arg0->unk_110 * 0.07f, 3);
+        }
+        if ((arg0->unk_0B4 != 0x15) && (arg0->unk_0B4 != 0x17) && (arg0->unk_0B4 != 0x4F) && (arg0->unk_0B4 != 0x53) &&
+            (arg0->unk_0B4 != 0x1B) && (arg0->unk_0B4 != 0x33) && (arg0->unk_0B4 != 0xD) && (arg0->unk_0B4 != 0x48) &&
+            (arg0->unk_0B4 != 0x1C) && (arg0->unk_110 > 0.5f)) {
+            sp40 = __sinf(arg0->unk_0C6 * 400.0f * M_DTOR) * arg0->unk_0C6;
+            Matrix_RotateY(gGfxMatrix, M_DTOR * sp40, 1);
+            Matrix_RotateX(gGfxMatrix, M_DTOR * sp40, 1);
+            Matrix_RotateZ(gGfxMatrix, M_DTOR * sp40, 1);
+            Matrix_SetGfxMtx(&gMasterDisp);
+        }
+    }
+    if ((arg0->obj.status == 3) && (arg0->unk_0BE != 0)) {
+        RCP_SetupDL_27();
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
+    }
+    if ((arg0->unk_0B4 == 0x1D) || (arg0->unk_0B4 == 0x3B) || (arg0->unk_0B4 == 0x3C)) {
+        RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
+    } else if ((arg0->unk_0B4 == 0x52) || (arg0->unk_0B4 == 0x5A) ||
+               ((arg0->unk_0B4 == 6) && (gCurrentLevel == LEVEL_SOLAR))) {
+        if (!(arg0->unk_0C6 & 1)) {
+            RCP_SetupDL(&gMasterDisp, 0x39);
+        } else {
+            RCP_SetupDL(&gMasterDisp, 0x3D);
+        }
+    }
+    switch (arg0->unk_0B4) {
+        case 0x5C:
+        case 0x5D:
+        case 0x5E:
+        case 0x5F:
+        case 0x60:
+            RCP_SetupDL(&gMasterDisp, 0x22);
+            gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, (s32) arg0[0].unk_150, (s32) arg0[0].unk_154,
+                            (s32) arg0[0].unk_158, 255);
+            gSPDisplayList(gMasterDisp++, D_800D003C[arg0->unk_0B4].unk_00);
+            gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
+            break;
+        default: {
+
+            if ((arg0->unk_0B4 < 0xC8) && (D_800D003C[arg0->unk_0B4].unk_00 != NULL)) {
+                gSPDisplayList(gMasterDisp++, D_800D003C[arg0->unk_0B4].unk_00);
+            }
+            switch (arg0->unk_0B4) {
+                case 0x38:
+                    func_800515C4();
+                    break;
+                case 0x0:
+                    arg0->unk_07C = 1;
+                    func_8005ADAC(arg0);
+                    break;
+                case 0x2:
+                    arg0->unk_150 -= arg0->unk_150 * 0.1f;
+                    arg0->unk_17C -= arg0->unk_17C * 0.1f;
+                    arg0->unk_154 -= arg0->unk_154 * 0.1f;
+                    arg0->unk_180 -= arg0->unk_180 * 0.1f;
+                    if (arg0->obj.rot.z > 0.0f) {
+                        arg0->unk_150 += (arg0->obj.rot.z * 0.7f - arg0->unk_150) * 0.2f;
+                        arg0->unk_17C += (-arg0->obj.rot.z * 0.7f - arg0->unk_17C) * 0.2f;
+                    }
+                    if (arg0->obj.rot.z < 0.0f) {
+                        arg0->unk_154 += (-arg0->obj.rot.z * 0.7f - arg0->unk_154) * 0.2f;
+                        arg0->unk_180 += (arg0->obj.rot.z * 0.7f - arg0->unk_180) * 0.2f;
+                    }
+                    func_8005B388(arg0);
+                    break;
+                case 0x2B:
+                    if (gLevelType == 0) {
+                        gSPDisplayList(gMasterDisp++, D_40018A0);
+                    } else {
+                        gSPDisplayList(gMasterDisp++, D_4007870);
+                    }
+                    func_8005ADAC(arg0);
+                    break;
+                case 0x5:
+                    arg0->unk_07C = 1;
+                    func_8005ADAC(arg0);
+                    break;
+                case 0x6:
+                    if (gCurrentLevel == LEVEL_SOLAR) {
+                        gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+                        Animation_GetFrameData(&D_600636C, arg0->unk_0B6, sp114);
+                        Animation_DrawSkeleton(1, D_6006558, sp114, NULL, NULL, arg0, &gIdentityMatrix);
+                        gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    } else {
+                        Animation_GetFrameData(&D_40057AC, arg0->unk_0B6, sp114);
+                        Animation_DrawSkeleton(1, D_40058B8, sp114, NULL, NULL, arg0, &gIdentityMatrix);
+                    }
+                    break;
+                case 0x7:
+                    arg0->unk_07C = 1;
+                    func_8005ADAC(arg0);
+                    break;
+                case 0x9:
+                    Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, 1);
+                    Animation_GetFrameData(&D_40001A4, arg0->unk_0B6, sp114);
+                    Animation_DrawSkeleton(1, D_4000270, sp114, NULL, NULL, arg0, &gIdentityMatrix);
+                    break;
+                case 0x12:
+                    if (arg0->unk_114 > 0.1f) {
+                        arg0->unk_07C = 1;
+                        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, 1);
+                        Matrix_Scale(gGfxMatrix, 2.5f, 2.5f, 2.5f, 1);
+                        func_8005B1E8(arg0, 2);
+                    }
+                    break;
+                case 0x13:
+                    if (arg0->unk_114 > 0.1f) {
+                        arg0->unk_07C = 1;
+                        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, 1);
+                        Matrix_Scale(gGfxMatrix, 2.5f, 2.5f, 2.5f, 1);
+                        func_8005B1E8(arg0, 2);
+                    }
+                    break;
+                case 0x14:
+                    RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
+                    gSPDisplayList(gMasterDisp++, D_601A120);
+                    break;
+                case 0x15:
+                    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    gSPDisplayList(gMasterDisp++, D_6018BF0);
+                    gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, 1);
+                    arg0->unk_07C = 1;
+                    func_8005B1E8(arg0, 2);
+                    break;
+                case 0x16:
+                    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    gSPDisplayList(gMasterDisp++, D_6019730);
+                    gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, 1);
+                    arg0->unk_07C = 1;
+                    func_8005B1E8(arg0, 2);
+                    break;
+                case 0x1B:
+                    if (arg0->unk_0C2 != 0) {
+                        if (!(arg0->unk_0C2 & 3) && (D_80177854 != 0x64)) {
+                            func_8007D0E0(((Rand_ZeroOne() - 0.5f) * 200.0f) + arg0->obj.pos.x,
+                                          ((Rand_ZeroOne() - 0.5f) * 200.0f) + arg0->obj.pos.y,
+                                          ((Rand_ZeroOne() - 0.5f) * 200.0f) + arg0->obj.pos.z,
+                                          (Rand_ZeroOne() * 1.5f) + 2.5f);
+                        }
+                        RCP_SetupDL(&gMasterDisp, 0x39);
+                        gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+                        gSPDisplayList(gMasterDisp++, D_6001950);
+                    } else {
+                        gSPDisplayList(gMasterDisp++, D_60066F0);
+                    }
+                    break;
+                case 0x1F:
+                    Matrix_RotateX(gGfxMatrix, M_PI / 2.0f, 1);
+                    Matrix_SetGfxMtx(&gMasterDisp);
+                    gSPDisplayList(gMasterDisp++, D_600E0C0);
+                    break;
+                case 0x21:
+                    Animation_GetFrameData(&D_400A30C, arg0->unk_0B6, sp114);
+                    Matrix_RotateY(gGfxMatrix, M_PI, 1);
+                    Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, 1);
+                    Animation_DrawSkeleton(1, D_400A398, sp114, func_80074BFC, NULL, arg0, &gIdentityMatrix);
+                    Math_SmoothStepToF(&arg0[0].unk_154, 0.0f, 0.3f, 2.0f, 0.0001f);
+                    break;
+                case 0x24:
+                    Animation_GetFrameData(&D_700CAF4, arg0->unk_0B6, sp114);
+                    sp114[2].z += arg0->unk_150;
+                    Animation_DrawSkeleton(1, D_700CB60, sp114, NULL, NULL, arg0, &gIdentityMatrix);
+                    break;
+                case 0x26:
+                    func_80074E3C(arg0);
+                    break;
+                case 0x30:
+                case 0x31:
+                case 0x32:
+                    func_801A4CB0(arg0);
+                    break;
+                case 0x34:
+                    Animation_GetFrameData(&D_601F874, arg0->unk_0B6, sp114);
+                    sp114[2].z -= arg0->unk_150;
+                    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    Matrix_Scale(gGfxMatrix, 2.6f, 2.6f, 2.6f, 1);
+                    Animation_DrawSkeleton(1, D_601F920, sp114, NULL, NULL, arg0, &gIdentityMatrix);
+                    gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    break;
+                case 0x40:
+                    Matrix_Push(&gGfxMatrix);
+                    Matrix_RotateX(gGfxMatrix, arg0->unk_0F4.x * M_DTOR, 1);
+                    Matrix_RotateY(gGfxMatrix, arg0->unk_0F4.y * M_DTOR, 1);
+                    Matrix_Push(&gGfxMatrix);
+                    Matrix_Translate(gGfxMatrix, 0.0f, arg0->unk_150, 0.0f, 1);
+                    Matrix_SetGfxMtx(&gMasterDisp);
+                    gSPDisplayList(gMasterDisp++, D_600CAA0);
+                    Matrix_Pop(&gGfxMatrix);
+                    gSPDisplayList(gMasterDisp++, D_600C130);
+                    Matrix_Translate(gGfxMatrix, 0.0f, -arg0->unk_150, 0.0f, 1);
+                    Matrix_SetGfxMtx(&gMasterDisp);
+                    gSPDisplayList(gMasterDisp++, D_600C740);
+                    Matrix_Pop(&gGfxMatrix);
+                    break;
+                case 0x43:
+                    gSPDisplayList(gMasterDisp++, D_6008AA0);
+                    RCP_SetupDL(&gMasterDisp, 0x35);
+                    gSPDisplayList(gMasterDisp++, D_6009E30);
+                    break;
+                case 0x4E:
+                    func_80067874(arg0);
+                    break;
+                case 0x4F:
+                    temp_s0 = arg0->unk_0B8;
+                    arg0->unk_0B8 = 2;
+                    func_80190430(arg0);
+                    arg0->unk_0B8 = temp_s0;
+                    break;
+                case 0x50:
+                    Matrix_Scale(gGfxMatrix, 0.6f, 0.6f, 0.6f, 1);
+                    Matrix_SetGfxMtx(&gMasterDisp);
+                    gSPDisplayList(gMasterDisp++, D_9011200);
+                    break;
+                case 0x51:
+                    if (arg0->unk_150 > 0.001f) {
+                        Matrix_Scale(gGfxMatrix, arg0->unk_150, arg0->unk_150, arg0->unk_150, 1);
+                        Matrix_SetGfxMtx(&gMasterDisp);
+                        func_800A1558(arg0->unk_154, 0xB0, D_9003890, D_9003DF0, D_9003330);
+                        gSPDisplayList(gMasterDisp++, D_9002CF0);
+                    }
+                    break;
+                case 0x52:
+                    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    gSPDisplayList(gMasterDisp++, D_600DA10);
+                    gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+                    break;
+                case 0x53:
+                    Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, 1);
+                    Animation_GetFrameData(&D_602201C, arg0->unk_0B6, sp114);
+                    Animation_DrawSkeleton(1, D_60220E8, sp114, NULL, NULL, arg0, &gIdentityMatrix);
+                    break;
+                case 0x55:
+                    gSPDisplayList(gMasterDisp++, D_D00B880);
+                    func_8005ADAC(arg0);
+                    break;
+                case 0x56:
+                    gSPDisplayList(gMasterDisp++, D_D009A40);
+                    func_8005ADAC(arg0);
+                    break;
+                case 0x58:
+                    RCP_SetupDL(&gMasterDisp, 0x16);
+                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, arg0->unk_046, arg0->unk_046, arg0->unk_046, 255);
+                    gSPDisplayList(gMasterDisp++, D_6008970);
+                    break;
+                case 0x59:
+                    RCP_SetupDL(&gMasterDisp, 0x15);
+                    gSPDisplayList(gMasterDisp++, D_6000E10);
+                    break;
+                case 0x67:
+                case 0x68:
+                    func_8018769C(arg0);
+                    break;
+                case 0x69:
+                    RCP_SetupDL(&gMasterDisp, 0x23);
+                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 0x8F);
+                    gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
+                    gSPDisplayList(gMasterDisp++, D_7000000);
+                    break;
+                case 0x6A:
+                    Animation_GetFrameData(&D_4000080, arg0->unk_0B6, sp114);
+                    Animation_DrawSkeleton(1, D_400014C, sp114, NULL, NULL, arg0, &gIdentityMatrix);
+                    break;
+                case 0xFFF:
+                    arg0->unk_0C2 = 10;
+                    break;
+            }
+            if ((D_80161410 > 0) && ((arg0->unk_080 > 0) && (arg0->unk_080 < 6))) {
+                Vec3f sp58  = { 0.0f, 0.0f, 0.0f };
+
+                if ((arg0->unk_080 == 4) || (arg0->unk_080 == 5)) {
+                    Matrix_MultVec3f(gGfxMatrix, &sp58, &D_80177E98[arg0->unk_080 + 4]);
+                    return;
+                } else {
+                    Matrix_MultVec3f(gGfxMatrix, &sp58, &D_80177E98[arg0->unk_080]);
+                }
+            }
+        } break;
+    }
+}
+
+void func_800763A4(Object_2F4* arg0) {
+    s32 var_s0;
+    s32 sp60;
+    s32 sp5C;
+    f32 sp58;
+    Vec3f sp4C;
+    s32 pad;
+
+    if (arg0->unk_0B4 == 0x1B) {
+        arg0->obj.pos.y -= arg0->unk_0E8.y;
+        arg0->obj.status = 2;
+        func_8007D0E0(arg0->obj.pos.x - arg0->unk_0E8.x, arg0->obj.pos.y + 30.0f, arg0->obj.pos.z - arg0->unk_0E8.z,
+                      arg0->unk_110 * 5.0f);
+        arg0->unk_0C2 = 10000;
+        return;
+    }
+    if (arg0->unk_0BE != 0) {
+        arg0->unk_0E8.z = 0.0f;
+        arg0->unk_0E8.x = 0.0f;
+        arg0->unk_0E8.y = 0.0f;
+        if (arg0->unk_0BE == 1) {
+            Object_Kill(&arg0->obj, &arg0->unk_100);
+            func_80066254(arg0);
+            if (D_80177880 == 1) {
+                D_80177F24[arg0->unk_040] = arg0->obj.pos.x;
+                D_8017802C[arg0->unk_040] = arg0->obj.pos.z;
+                D_80178134[arg0->unk_040] = 1001.0f;
+            }
+            return;
+        }
+    } else {
+        if ((gLevelType == 0) || (gCurrentLevel == 0x11)) {
+            arg0->unk_10C = 0.4f;
+        }
+        switch (arg0->unk_04C) {
+            case 0:
+            case 1:
+                if (arg0->unk_040 & 1) {
+                    arg0->obj.rot.z -= 8.0f;
+                } else {
+                    arg0->obj.rot.z += 8.0f;
+                }
+                break;
+            case 2:
+                arg0->obj.rot.y += 5.0f;
+                arg0->obj.rot.x += 7.3f;
+                break;
+            case 3:
+                arg0->obj.rot.y += 6.0f;
+                arg0->obj.rot.x += 18.3f;
+                arg0->unk_10C = 0.7f;
+                break;
+            case 4:
+                arg0->obj.rot.x += (-90.0f - arg0->obj.rot.x) * 0.1f;
+                break;
+        }
+        if (((arg0->unk_0BC & 3) == 1) && (arg0->unk_0B4 != 0xD) && (arg0->unk_0B4 != 0x3D)) {
+            func_8007D24C(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 2.2f);
+        }
+        if ((D_80178294 != 0) &&
+            (func_800A73E4(&sp58, &sp5C, arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z) != 0)) {
+            func_8007BFFC(arg0->obj.pos.x, sp58 + 20.0f, arg0->obj.pos.z, 0.0f, 0.0f, 0.0f, arg0->unk_110 * 3.0f, 5);
+            func_8007B228(arg0->obj.pos.x, sp58, arg0->obj.pos.z, 2.0f);
+            arg0->unk_0BE = 2;
+            func_8007A6F0(&arg0->obj.pos, 0x2903A008);
+            return;
+        }
+        if (D_801784AC == 4) {
+            if (func_E6A810_801B6AEC(arg0->obj.pos.x, arg0->obj.pos.y - 10.0f, arg0->obj.pos.z + D_80177D20) != 0) {
+                func_8007D2C8(arg0->obj.pos.x, arg0->obj.pos.y + 20.0f, arg0->obj.pos.z, arg0->unk_110 * 6.0f);
+                func_8007BFFC(arg0->obj.pos.x - arg0->unk_0E8.x, arg0->obj.pos.y + 30.0f,
+                              arg0->obj.pos.z - arg0->unk_0E8.z, 0.0f, 0.0f, 0.0f, arg0->unk_110 * 4.0f, 0x14);
+                func_80062C38(arg0->obj.pos.x, arg0->obj.pos.z);
+                arg0->unk_0BE = 2;
+                func_8007A6F0(&arg0->obj.pos, 0x2903A008);
+                return;
+            }
+        } else {
+            sp4C.x = arg0->unk_0E8.x;
+            sp4C.y = arg0->unk_0E8.y;
+            sp4C.z = arg0->unk_0E8.z;
+            sp60 = func_8006351C(arg0->unk_040, &arg0->obj.pos, &sp4C, 0);
+            if ((sp60 != 0) || (arg0->obj.pos.y < (D_80177940 + 30.0f))) {
+                if ((Rand_ZeroOne() < 0.5f) && (arg0->unk_04C < 3) && (gLevelType == 0) && (sp60 != 999) &&
+                    (D_80161A88 != 2) && ((arg0->unk_0E8.z < -20.0f) || (arg0->unk_0E8.z > 0.0f))) {
+                    if (gCurrentLevel == 0xE) {
+                        func_8006BF7C(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z - arg0->unk_0E8.z);
+                        func_80062C38(arg0->obj.pos.x, arg0->obj.pos.z);
+                    }
+                    arg0->obj.pos.y -= arg0->unk_0E8.y;
+                    arg0->unk_0E8.y = Rand_ZeroOne() * 10.0f;
+                    arg0->unk_04C = 3;
+                    if (D_80177880 == 1) {
+                        func_8007D2C8(arg0->obj.pos.x - arg0->unk_0E8.x, arg0->obj.pos.y,
+                                      arg0->obj.pos.z - arg0->unk_0E8.z, arg0->unk_110 * 3.0f);
+                    }
+                    func_8007D2C8(arg0->obj.pos.x - arg0->unk_0E8.x, arg0->obj.pos.y, arg0->obj.pos.z - arg0->unk_0E8.z,
+                                  arg0->unk_110 * 3.0f);
+                    if ((arg0->obj.id == 0xC5) && (arg0->unk_0E4 < 8)) {
+                        func_8007A6F0(&arg0->obj.pos, 0x2903B009);
+                    } else {
+                        func_8007A6F0(&arg0->obj.pos, 0x2903A008);
+                    }
+                    if ((arg0->obj.id == 0xC8) && (arg0->unk_0B4 == 2)) {
+                        if (arg0->unk_158 < 360.0f) {
+                            func_800A69F8(1, arg0->obj.pos.x + 20.0f, arg0->obj.pos.y, arg0->obj.pos.z);
+                            arg0->unk_158 = 777.0f;
+                        }
+                        if (arg0->unk_15C < 360.0f) {
+                            func_800A69F8(0, arg0->obj.pos.x - 20.0f, arg0->obj.pos.y, arg0->obj.pos.z);
+                            arg0->unk_15C = 777.0f;
+                        }
+                    }
+                } else {
+                    if ((arg0->obj.pos.y < (D_80177940 + 30.0f)) && (gLevelType == 0)) {
+                        arg0->unk_0E8.z = 0.0f;
+                        if (D_80161A88 == 2) {
+                            func_8007D9DC(arg0->obj.pos.x, D_80177940 + 2.0f, arg0->obj.pos.z, 3.0f, 20.0f, 0);
+                            func_8007D9DC(arg0->obj.pos.x, D_80177940 + 2.0f, arg0->obj.pos.z, 3.0f, 20.0f, 0xA);
+                            func_8007D9DC(arg0->obj.pos.x, D_80177940 + 2.0f, arg0->obj.pos.z, 3.0f, 20.0f, 0x14);
+                            func_8007ADF4(arg0->obj.pos.x, D_80177940, arg0->obj.pos.z, 0.1f, 3.0f);
+                        } else {
+                            func_800365E4(arg0->obj.pos.x, 3.0f, arg0->obj.pos.z, arg0->obj.pos.x, arg0->obj.pos.z,
+                                          0.0f, 0.0f, 90.0f, 6.5f, 0, 0);
+                        }
+                        func_8007C120(arg0->obj.pos.x, 20.0f, arg0->obj.pos.z, 0.0f, 0.0f, 0.0f, arg0->unk_110 * 0.05f,
+                                      0x1E);
+                        if ((gCurrentLevel == 0xE) || (gCurrentLevel == 0x13)) {
+                            func_8007C688(arg0->obj.pos.x, D_80177940 + 30.0f, arg0->obj.pos.z, 3.0f, 0x3C);
+                            if (gCurrentLevel == 0xE) {
+                                func_80062C38(arg0->obj.pos.x, arg0->obj.pos.z);
+                            }
+                        }
+                    }
+                    arg0->obj.pos.y -= arg0->unk_0E8.y;
+                    func_8007D0E0(arg0->obj.pos.x - arg0->unk_0E8.x, arg0->obj.pos.y + 30.0f,
+                                  arg0->obj.pos.z - arg0->unk_0E8.z, arg0->unk_110 * 5.0f);
+                    if (D_80177880 == 1) {
+                        func_8007BFFC(arg0->obj.pos.x, arg0->obj.pos.y + 30.0f, arg0->obj.pos.z, arg0->unk_0E8.x, 10.0f,
+                                      arg0->unk_0E8.z, arg0->unk_110 * 3.0f, 0x14);
+                        if (sp60 == 0x3E7) {
+                            func_8007C688(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, arg0->unk_110 * 3.0f,
+                                          0x46);
+                        }
+                        for (var_s0 = 0; var_s0 < 4; var_s0++) {
+                            if (Rand_ZeroOne() < 0.7f) {
+                                if (gCurrentLevel == 0xE) {
+                                    func_800A69F8(4, arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z);
+                                } else {
+                                    func_800794CC(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 1.0f);
+                                }
+                            }
+                        }
+                    } else {
+                        func_8007BFFC(arg0->obj.pos.x - arg0->unk_0E8.x, arg0->obj.pos.y + 30.0f,
+                                      (arg0->obj.pos.z - arg0->unk_0E8.z) + 48.0f, 0.0f, 0.0f, 0.0f,
+                                      arg0->unk_110 * 3.0f, 5);
+                    }
+                    arg0->unk_0BE = 2;
+                    if ((arg0->obj.id == 0xC5) && (arg0->unk_0E4 < 8)) {
+                        func_8007A6F0(&arg0->obj.pos, 0x2903B009);
+                    } else {
+                        func_8007A6F0(&arg0->obj.pos, 0x2903A008);
+                    }
+                }
+            }
+        }
+        if ((arg0->unk_0D0 != 0) || (arg0->unk_0BC == 0) || ((arg0->unk_044 != 0) && (arg0->obj.id != 0xC5))) {
+            if (D_80177880 == 1) {
+                for (var_s0 = 0; var_s0 < 4; var_s0++) {
+                    if (Rand_ZeroOne() < 0.7f) {
+                        if (gCurrentLevel == 0xE) {
+                            func_800A69F8(4, arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z);
+                        } else {
+                            func_800794CC(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 1.0f);
+                        }
+                    }
+                }
+                func_8007BFFC(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, arg0->unk_0E8.x, arg0->unk_0E8.y,
+                              arg0->unk_0E8.z, 5.0f, 0xF);
+                func_8007D0E0(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z - arg0->unk_0E8.z, 8.0f);
+            } else {
+                if ((arg0->unk_0B4 != 0xD) && (arg0->unk_0B4 != 0x3D)) {
+                    func_8007D0E0(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z - arg0->unk_0E8.z,
+                                  arg0->unk_110 * 5.0f);
+                }
+                if (arg0->unk_0B4 == 0x24) {
+                    func_8007BFFC(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, arg0->unk_0E8.x, arg0->unk_0E8.y,
+                                  arg0->unk_0E8.z, 5.0f, 0xF);
+                }
+            }
+            arg0->unk_0BE = 2;
+            if ((arg0->obj.id == 0xC5) && (arg0->unk_0E4 < 8)) {
+                func_8007A6F0(&arg0->obj.pos, 0x2903B009);
+            } else {
+                func_8007A6F0(&arg0->obj.pos, 0x2903A008);
+            }
+        }
+    }
+    if (D_80177880 == 1) {
+        D_80177F24[arg0->unk_040] = arg0->obj.pos.x;
+        D_8017802C[arg0->unk_040] = arg0->obj.pos.z;
+        D_80178134[arg0->unk_040] = arg0->unk_0F4.y + 180.0f;
+    }
+    if (arg0->obj.id == 0xC5) {
+        func_8002EE64(arg0);
+    }
+}
+
+void func_8007717C(Object_2F4* arg0) {
+    if ((arg0->unk_0B4 == 0x30) || (arg0->unk_0B4 == 0x31) || (arg0->unk_0B4 == 0x32)) {
+        func_801A3BD4(arg0);
+    } else {
+        func_800763A4(arg0);
+    }
+}
+
+void func_800771CC(Object_2F4* arg0) {
+    Vec3f sp24;
+
+    Math_Vec3fFromAngles(&sp24, arg0->obj.rot.x, arg0->obj.rot.y, 50.0f);
+    arg0->unk_0E8.x = sp24.x;
+    arg0->unk_0E8.y = sp24.y;
+    arg0->unk_0E8.z = sp24.z;
+}
+
+void func_80077218(Object_2F4* arg0) {
+    func_800515C4();
+}

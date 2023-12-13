@@ -7,6 +7,13 @@
 #define UNK_TYPE s32
 
 typedef enum {
+    LEVELTYPE_GROUND,
+    LEVELTYPE_SPACE,
+    LEVELTYPE_UNK2,
+    LEVELTYPE_UNK3,
+} LevelType;
+
+typedef enum {
     GSTATE_NONE,
     GSTATE_INIT,
     GSTATE_TITLE,
@@ -235,6 +242,20 @@ typedef struct {
 } UnkEntity30; // size = 0x30
 
 typedef struct {
+    /* 0x00 */ Gfx* unk_00;
+    /* 0x04 */ f32* unk_04;
+    /* 0x08 */ f32 unk_08;
+    /* 0x0C */ f32 unk_0C;
+    /* 0x10 */ f32 unk_10;
+    /* 0x14 */ u8 unk_14;
+    /* 0x15 */ u8 unk_15;
+    /* 0x16 */ u8 unk_16;
+    /* 0x17 */ u8 unk_17;
+    /* 0x18 */ f32 unk_18;
+    /* 0x1C */ u8 unk_1C;
+} UnkStruct_D003C; // size = 0x20
+
+typedef struct {
     /* 0x00 */ u8 rightState;
     /* 0x01 */ u8 leftState;
     /* 0x04 */ f32 unk_04;
@@ -254,26 +275,23 @@ typedef struct {
 } WingInfo; // size = 0x3C
 
 typedef struct {
-    /* 0x00 */ s32 unk_00;
-    /* 0x04 */ s32 unk_04;
-    /* 0x08 */ u16 unk_08;
-    /* 0x0A */ u16 unk_0A;
-    /* 0x0C */ s32 unk_0C;
-    /* 0x10 */ s32 unk_10;
-    /* 0x14 */ s32 unk_14;
-    /* 0x18 */ s32 unk_18;
-    /* 0x1C */ s32 unk_1C;
-    /* 0x20 */ f32 unk_20;
-    /* 0x24 */ f32 unk_24;
-    /* 0x28 */ f32 unk_28;
-    /* 0x2C */ s32 unk_2C;
-    /* 0x30 */ s32 unk_30;
-    /* 0x34 */ s32 unk_34;
-    /* 0x38 */ s32 unk_38;
-    /* 0x3C */ s32 unk_3C;
-    /* 0x40 */ s32 unk_40;
-    /* 0x44 */ char pad44[0x60];
-} UnkStruct_D_80161A68; // size = 0x44?
+    /* 0x00 */ s32 type; // level type
+    /* 0x04 */ s32 unk_04; // some sort of draw mode?
+    /* 0x08 */ u16 bgColor; // rgba8 color
+    /* 0x0A */ u16 unk_0A; // sound id
+    /* 0x0C */ s32 fogR; // fog red
+    /* 0x10 */ s32 fogG; // fog green
+    /* 0x14 */ s32 fogB; // fog blue
+    /* 0x18 */ s32 fogN; // fog near
+    /* 0x1C */ s32 fogF; // fog far
+    /* 0x20 */ Vec3f unk_20; // Vec3f?
+    /* 0x2C */ s32 lightR; // light color 32
+    /* 0x30 */ s32 lightG;
+    /* 0x34 */ s32 lightB;
+    /* 0x38 */ s32 ambR; // anbient color 32
+    /* 0x3C */ s32 ambG;
+    /* 0x40 */ s32 ambB;
+} EnvSettings; // size = 0x44?
 
 typedef struct Player {
     /* 0x000 */ f32 unk_000;

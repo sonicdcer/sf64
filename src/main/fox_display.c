@@ -744,14 +744,14 @@ u16* func_8009F7B4(Gfx** gfxPtr, u8 width, u8 height) {
     gDPSetScissorFrac((*gfxPtr)++, G_SC_NON_INTERLACE, 0, 0, width * 4.0f, height * 4.0f);
     gDPSetDepthImage((*gfxPtr)++, &gZBuffer);
     gDPSetColorImage((*gfxPtr)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, width, &gZBuffer);
-    gDPSetFillColor((*gfxPtr)++, 0xFFFCFFFC);
+    gDPSetFillColor((*gfxPtr)++, FILL_COLOR(GPACK_ZDZ(G_MAXFBZ, 0)));
     gDPFillRectangle((*gfxPtr)++, 0, 0, width - 1, height - 1);
     gDPPipeSync((*gfxPtr)++);
     gDPSetDepthSource((*gfxPtr)++, G_ZS_PIXEL);
     gDPSetColorImage((*gfxPtr)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, width, spB4);
     gDPSetColorDither((*gfxPtr)++, G_CD_DISABLE);
     gDPSetFillColor((*gfxPtr)++, 0);
-    gDPSetFillColor((*gfxPtr)++, ((D_80161A36 | 1) << 0x10) | (D_80161A36 | 1));
+    gDPSetFillColor((*gfxPtr)++, FILL_COLOR(gBgColor | 1));
     gDPFillRectangle((*gfxPtr)++, 0, 0, width - 1, height - 1);
     gDPPipeSync((*gfxPtr)++);
     guPerspective(gGfxMtx, &norm, D_80161A3C, (f32) width / height, 10.0f, 12800.0f, 1.0f);

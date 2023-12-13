@@ -3,7 +3,7 @@
 extern f32 D_800D2F64;
 extern Vec3f D_800D2F80;
 extern Vec3f D_800D2F8C;
-extern UnkStruct_D_80161A68* D_800D2F98[21];
+extern EnvSettings* D_800D2F98[21];
 extern f32 D_800D2FEC[5];
 extern s32 D_800D3000[4][4];
 extern Vec3f D_800D3040[6];
@@ -136,7 +136,7 @@ void func_800A4460(Player* arg0) {
         arg0->unk_060 = __sinf(arg0->unk_0F4 * 0.7f * M_DTOR) * 0.5f;
         arg0->unk_088 += 10.0f;
         arg0->unk_0F4 += 8.0f;
-        if ((D_80177C98 == 0) || ((arg0->unk_238 == 1) && (D_80177880 == 0))) {
+        if ((gLevelType == 0) || ((arg0->unk_238 == 1) && (D_80177880 == 0))) {
             arg0->unk_080 = -__sinf(arg0->unk_088 * M_DTOR) * 0.5f;
             if ((arg0->wings.rightState <= 1) || (arg0->wings.leftState <= 1)) {
                 arg0->unk_0F0 = __sinf(arg0->unk_0F4 * M_DTOR) * 5.0f;
@@ -457,17 +457,17 @@ void func_800A594C(void) {
     if (D_801778E8 != 0) {
         switch (D_8017789C) {
             case 0:
-                D_80161A68 = SEGMENTED_TO_VIRTUAL(D_302DD70);
+                sEnvSettings = SEGMENTED_TO_VIRTUAL(D_302DD70);
                 break;
             case 1:
-                D_80161A68 = SEGMENTED_TO_VIRTUAL(D_302DDB4);
+                sEnvSettings = SEGMENTED_TO_VIRTUAL(D_302DDB4);
                 break;
             case 2:
-                D_80161A68 = SEGMENTED_TO_VIRTUAL(D_302DDF8);
+                sEnvSettings = SEGMENTED_TO_VIRTUAL(D_302DDF8);
                 break;
         }
     } else {
-        D_80161A68 = SEGMENTED_TO_VIRTUAL(D_800D2F98[gCurrentLevel]);
+        sEnvSettings = SEGMENTED_TO_VIRTUAL(D_800D2F98[gCurrentLevel]);
     }
     if (D_8017782C == 0) {
         if (gCurrentLevel == LEVEL_SOLAR) {
@@ -476,26 +476,26 @@ void func_800A594C(void) {
             func_8001A55C(&gPlayers[0].unk_460, 0x3140807E);
         }
     } else if (gCurrentLevel == LEVEL_AQUAS) {
-        D_80161A68 = SEGMENTED_TO_VIRTUAL(D_602E584);
+        sEnvSettings = SEGMENTED_TO_VIRTUAL(D_602E584);
     }
-    D_80177C90 = D_80161A68->unk_0A;
-    D_80177C98 = D_80161A68->unk_00;
-    D_801784AC = D_80161A68->unk_04;
-    D_80161A36 = D_80161A68->unk_08;
-    D_80178320 = D_80161A68->unk_0C;
-    D_80178328 = D_80161A68->unk_10;
-    D_80178330 = D_80161A68->unk_14;
-    D_801783D8 = D_80161A68->unk_18;
-    D_801783DC = D_80161A68->unk_1C;
-    D_80178548 = D_80178564 = D_80161A70 = D_80161A68->unk_2C;
-    D_8017854C = D_80178568 = D_80161A74 = D_80161A68->unk_30;
-    D_80178550 = D_8017856C = D_80161A78 = D_80161A68->unk_34;
-    D_80178554 = D_80161A68->unk_38;
-    D_80178558 = D_80161A68->unk_3C;
-    D_8017855C = D_80161A68->unk_40;
-    D_801784D0 = D_801784F8 = D_80178520 = D_801784B8 = D_801784C4 = D_80161A68->unk_20;
-    D_801784D4 = D_801784FC = D_80178524 = D_801784BC = D_801784C8 = D_80161A68->unk_24;
-    D_801784D8 = D_80178500 = D_80178528 = D_801784C0 = D_801784CC = D_80161A68->unk_28;
+    D_80177C90 = sEnvSettings->unk_0A;
+    gLevelType = sEnvSettings->type;
+    D_801784AC = sEnvSettings->unk_04;
+    gBgColor = sEnvSettings->bgColor;
+    gFogRed = sEnvSettings->fogR;
+    gFogGreen = sEnvSettings->fogG;
+    gFogBlue = sEnvSettings->fogB;
+    gFogNear = sEnvSettings->fogN;
+    gFogFar = sEnvSettings->fogF;
+    gLight1R = gLight2R = D_80161A70 = sEnvSettings->lightR;
+    gLight1G = gLight2G = D_80161A74 = sEnvSettings->lightG;
+    gLight1B = gLight2B = D_80161A78 = sEnvSettings->lightB;
+    gAmbientR = sEnvSettings->ambR;
+    gAmbientG = sEnvSettings->ambG;
+    gAmbientB = sEnvSettings->ambB;
+    D_801784D0 = D_801784F8 = D_80178520 = D_801784B8 = D_801784C4 = sEnvSettings->unk_20.x;
+    D_801784D4 = D_801784FC = D_80178524 = D_801784BC = D_801784C8 = sEnvSettings->unk_20.y;
+    D_801784D8 = D_80178500 = D_80178528 = D_801784C0 = D_801784CC = sEnvSettings->unk_20.z;
     D_80161A44 = 12800.0f;
     D_80178540 = 40;
     D_80178544 = 40;
@@ -515,7 +515,7 @@ void func_800A5D6C(void) {
     for (i = 0; i < 1000; i++) {
         D_80178288[i] = (Rand_ZeroOneSeeded() * 480.0f) - 80.0f;
         D_80178290[i] = (Rand_ZeroOneSeeded() * 360.0f) - 60.0f;
-        D_80178298[i] = (D_800C9C3C[i % ARRAY_COUNT(D_800C9C3C)] << 0x10) | D_800C9C3C[i % ARRAY_COUNT(D_800C9C3C)];
+        D_80178298[i] = FILL_COLOR(D_800C9C3C[i % ARRAY_COUNT(D_800C9C3C)]);
     }
 }
 
@@ -664,10 +664,10 @@ void func_800A6590(void) {
     if (D_80161A60 != 0) {
         D_80161A60--;
         if (D_80161A60 & 2) {
-            D_80178348 = 0xFF;
-            D_80178350 = 0xFF;
-            D_80178354 = 0xFF;
-            D_80178340 = 0xFE;
+            D_80178348 = 255;
+            D_80178350 = 255;
+            D_80178354 = 255;
+            D_80178340 = 254;
         } else {
             D_80178340 = 0;
         }
@@ -708,7 +708,7 @@ void func_800A670C(Object_2F4* arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
         }
         arg0->unk_0BC = 15;
     } else {
-        if (D_80177C98 == 0) {
+        if (gLevelType == 0) {
             arg0->unk_0E8.y = (Rand_ZeroOne() * 7.0f) + 7.0f;
             arg0->unk_0E8.x = (Rand_ZeroOne() - 0.5f) * 10.0f;
             arg0->unk_0E8.z = (Rand_ZeroOne() * 5.0f) + 5.0f;

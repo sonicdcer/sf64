@@ -540,7 +540,7 @@ void func_80053658(WingInfo* arg0) {
         Matrix_Translate(gGfxMatrix, 0.0f, 6.4f, -16.5f, 1);
         Matrix_RotateY(gGfxMatrix, arg0->unk_34 * M_DTOR, 1);
         Matrix_RotateX(gGfxMatrix, arg0->unk_30 * M_DTOR, 1);
-        Matrix_Scale(gGfxMatrix, 0.0140994005f, 0.0140994005f, 0.0140994005f, 1);
+        Matrix_Scale(gGfxMatrix, 1.0f / 70.925f, 1.0f / 70.925f, 1.0f / 70.925f, 1);
         if (gGameState == GSTATE_CREDITS) {
             Matrix_Scale(gGfxMatrix, 0.95f, 0.95f, 0.95f, 1);
         }
@@ -628,7 +628,7 @@ void func_80053C38(Player* arg0, s32 arg1) {
                 gSPDisplayList(gMasterDisp++, D_300D550);
             }
         } else {
-            if ((D_80177C98 == 1) || (gCurrentLevel == LEVEL_BOLSE)) {
+            if ((gLevelType == 1) || (gCurrentLevel == LEVEL_BOLSE)) {
                 arg0->wings.unk_28 = arg0->wings.unk_04 = arg0->wings.unk_08 = arg0->wings.unk_0C = arg0->wings.unk_10 =
                     0.0f;
             }
@@ -782,7 +782,7 @@ void func_8005478C(Player* arg0) {
         Matrix_Scale(gGfxMatrix, 0.80999994f, 0.567f, 1.0f, 1);
     }
     Matrix_SetGfxMtx(&gMasterDisp);
-    func_8005465C(D_80177C98);
+    func_8005465C(gLevelType);
     Matrix_Pop(&gGfxMatrix);
 }
 
@@ -1135,7 +1135,7 @@ void func_80055E98(Player* arg0) {
 
 void func_80056230(Player* arg0) {
     if ((arg0->unk_234 != 0) && (arg0->unk_1CC == 0) && (gCurrentLevel != LEVEL_VENOM_2) &&
-        (gCurrentLevel != LEVEL_TRAINING) && (D_80177C98 == 0)) {
+        (gCurrentLevel != LEVEL_TRAINING) && (gLevelType == 0)) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, arg0->unk_074, arg0->unk_078, arg0->unk_138 + arg0->unk_144, 1);
         Matrix_RotateY(gGfxMatrix, (arg0->unk_114 + arg0->unk_0E8 + 180.0f) * M_DTOR, 1);
@@ -1260,14 +1260,14 @@ void func_800564C0(Player* arg0, s32 arg1) {
             case 0:
                 if (D_801778E8 == 0) {
                     if ((gCurrentLevel == LEVEL_FORTUNA) || (gCurrentLevel == LEVEL_TITANIA)) {
-                        RCP_SetupDL_29(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, 0x3ED);
+                        RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, 0x3ED);
                     } else {
-                        RCP_SetupDL_29(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
+                        RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
                     }
                 } else if (D_8017789C == 2) {
-                    RCP_SetupDL_29(0x80, 0x80, 0xFF, 0xFF, D_801783D8, D_801783DC);
+                    RCP_SetupDL_29(0x80, 0x80, 0xFF, 0xFF, gFogNear, gFogFar);
                 } else {
-                    RCP_SetupDL_29(0, 0, 0, 0xFF, D_801783D8, D_801783DC);
+                    RCP_SetupDL_29(0, 0, 0, 0xFF, gFogNear, gFogFar);
                 }
                 break;
             case 1:
@@ -1546,8 +1546,8 @@ void func_80057D00(void) {
     Matrix_Scale(gGfxMatrix, 1.0f + D_800CA230, 1.0f - D_800CA230, 1.0f, 1);
     Matrix_Push(&gGfxMatrix);
     func_800B73E0(sp54);
-    Lights_SetOneLight(&gMasterDisp, D_801784DC, D_801784E0, D_801784E4, D_80178548, D_8017854C, D_80178550, D_80178554,
-                       D_80178558, D_8017855C);
+    Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR,
+                       gAmbientG, gAmbientB);
     if (D_80177880 == 0) {
         Matrix_RotateY(gCalcMatrix, sp54->unk_114 * M_DTOR, 0);
         Matrix_RotateX(gCalcMatrix, sp54->unk_120 * M_DTOR, 1);
@@ -1598,7 +1598,7 @@ void func_80057D00(void) {
     Matrix_Push(&gGfxMatrix);
     Matrix_LookAt(gGfxMatrix, D_801779D8.x, D_801779D8.y, D_801779D8.z, D_801779E8.x, D_801779E8.y, D_801779E8.z,
                   sp6C.x, sp6C.y, sp6C.z, 1);
-    if ((D_80177C98 == 0) || (gCurrentLevel == LEVEL_BOLSE)) {
+    if ((gLevelType == 0) || (gCurrentLevel == LEVEL_BOLSE)) {
         if ((gCurrentLevel == LEVEL_TITANIA) && ((gPlayers[0].unk_1C8 != 2) || (gPlayers[0].unk_19C != 0))) {
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, 0.0f, D_8017847C, 0.0f, 1);
@@ -1611,8 +1611,8 @@ void func_80057D00(void) {
             func_80040CE4();
         }
     }
-    Lights_SetOneLight(&gMasterDisp, D_80178504, D_80178508, D_8017850C, D_80178564, D_80178568, D_8017856C, D_80178554,
-                       D_80178558, D_8017855C);
+    Lights_SetOneLight(&gMasterDisp, gLight2x, gLight2y, gLight2z, gLight2R, gLight2G, gLight2B, gAmbientR,
+                       gAmbientG, gAmbientB);
     for (i = 0, var_s0 = gPlayers; i < gCamCount; i++, var_s0++) {
         sp60.x = var_s0->unk_074;
         sp60.y = var_s0->unk_078;
@@ -1622,8 +1622,8 @@ void func_80057D00(void) {
         func_80057814(var_s0);
     }
     if ((D_80161A88 == 2) && (gPlayers[0].unk_1C8 != 2)) {
-        Lights_SetOneLight(&gMasterDisp, D_80178504, -1 * D_80178508, D_8017850C, D_80178564, D_80178568, D_8017856C,
-                           D_80178554, D_80178558, D_8017855C);
+        Lights_SetOneLight(&gMasterDisp, gLight2x, -1 * gLight2y, gLight2z, gLight2R, gLight2G, gLight2B,
+                           gAmbientR, gAmbientG, gAmbientB);
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, 1);
         for (i = 0, var_s0 = gPlayers; i < gCamCount; i++, var_s0++) {
@@ -1634,8 +1634,8 @@ void func_80057D00(void) {
         }
         Matrix_Pop(&gGfxMatrix);
     }
-    Lights_SetOneLight(&gMasterDisp, D_801784DC, D_801784E0, D_801784E4, D_80178548, D_8017854C, D_80178550, D_80178554,
-                       D_80178558, D_8017855C);
+    Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR,
+                       gAmbientG, gAmbientB);
     func_80060714(1);
     func_80060968();
     D_80161410 = 1;

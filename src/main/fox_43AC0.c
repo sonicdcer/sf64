@@ -74,7 +74,7 @@ void func_80042FF4(Object_2F4* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32
     arg0->unk_0BC = argC;
     arg0->unk_0BE = 20;
     func_800612B8(&arg0->unk_01C, arg0->obj.id);
-    if (D_80177C98 == 0) {
+    if (gLevelType == 0) {
         arg0->unk_10C = 0.5f;
     }
 }

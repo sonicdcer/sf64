@@ -46,11 +46,11 @@ void func_EBFBE0_801875E0(void) {
     D_80178354 = 0;
     D_80178340 = 0;
 
-    D_80178320 = 0;
-    D_80178328 = 0;
-    D_80178330 = 0;
+    gFogRed = 0;
+    gFogGreen = 0;
+    gFogBlue = 0;
 
-    D_80161A36 = 0;
+    gBgColor = 0;
 
     D_EBFBE0_801B8284 = 0;
     D_EBFBE0_801B82A8 = 0;
@@ -739,12 +739,12 @@ void func_EBFBE0_80189208(void) {
     s32 i;
     static s32 D_EBFBE0_801ADA84[4] = { 0, 1, 3, 2 };
 
-    D_80178548 = D_EBFBE0_801B82F8;
-    D_8017854C = D_EBFBE0_801B82FC;
-    D_80178550 = D_EBFBE0_801B8300;
-    D_80178554 = D_EBFBE0_801B8304;
-    D_80178558 = D_EBFBE0_801B8308;
-    D_8017855C = D_EBFBE0_801B830C;
+    gLight1R = D_EBFBE0_801B82F8;
+    gLight1G = D_EBFBE0_801B82FC;
+    gLight1B = D_EBFBE0_801B8300;
+    gAmbientR = D_EBFBE0_801B8304;
+    gAmbientG = D_EBFBE0_801B8308;
+    gAmbientB = D_EBFBE0_801B830C;
 
     if ((D_EBFBE0_801B86A4 < 2) && (D_EBFBE0_801B9040 != 0)) {
         D_EBFBE0_801B86D8 = Math_Atan2F(-D_EBFBE0_801B9060, sqrtf((-D_EBFBE0_801B905C * -D_EBFBE0_801B905C) +
@@ -764,13 +764,13 @@ void func_EBFBE0_80189208(void) {
         D_EBFBE0_801B8350[D_EBFBE0_801ADA84[i]].unk_58 += D_EBFBE0_801B8350[D_EBFBE0_801ADA84[i]].unk_5C;
     }
 
-    D_80178548 = D_EBFBE0_801B8310;
-    D_8017854C = D_EBFBE0_801B8314;
-    D_80178550 = D_EBFBE0_801B8318;
+    gLight1R = D_EBFBE0_801B8310;
+    gLight1G = D_EBFBE0_801B8314;
+    gLight1B = D_EBFBE0_801B8318;
 
-    D_80178554 = D_EBFBE0_801B831C;
-    D_80178558 = D_EBFBE0_801B8320;
-    D_8017855C = D_EBFBE0_801B8324;
+    gAmbientR = D_EBFBE0_801B831C;
+    gAmbientG = D_EBFBE0_801B8320;
+    gAmbientB = D_EBFBE0_801B8324;
 
     func_EBFBE0_80191674(D_EBFBE0_801B86D0, D_EBFBE0_801B86D4, 100.0f, &D_EBFBE0_801B82E0, &D_EBFBE0_801B82E4,
                          &D_EBFBE0_801B82E8);
@@ -821,12 +821,12 @@ void func_EBFBE0_801894E8(void) {
     D_EBFBE0_801B86C8 = 0.0f;
     D_EBFBE0_801B86CC = 162.0f;
 
-    D_80178548 = 101;
-    D_8017854C = 106;
-    D_80178550 = 92;
-    D_80178554 = 3;
-    D_80178558 = 4;
-    D_8017855C = 10;
+    gLight1R = 101;
+    gLight1G = 106;
+    gLight1B = 92;
+    gAmbientR = 3;
+    gAmbientG = 4;
+    gAmbientB = 10;
 
     D_EBFBE0_801B8688.pos.y = 0.0f;
     D_EBFBE0_801B8688.unk_0C = 0;
@@ -1306,18 +1306,18 @@ void func_EBFBE0_8018A990(void) {
         }
     }
 
-    D_80178554 = D_EBFBE0_801B8328;
-    D_80178558 = D_EBFBE0_801B832C;
-    D_8017855C = D_EBFBE0_801B8330;
+    gAmbientR = D_EBFBE0_801B8328;
+    gAmbientG = D_EBFBE0_801B832C;
+    gAmbientB = D_EBFBE0_801B8330;
 
     func_EBFBE0_8018F438();
 
-    D_80178548 = D_EBFBE0_801B82F8;
-    D_8017854C = D_EBFBE0_801B82FC;
-    D_80178550 = D_EBFBE0_801B8300;
-    D_80178554 = D_EBFBE0_801B8304;
-    D_80178558 = D_EBFBE0_801B8308;
-    D_8017855C = D_EBFBE0_801B830C;
+    gLight1R = D_EBFBE0_801B82F8;
+    gLight1G = D_EBFBE0_801B82FC;
+    gLight1B = D_EBFBE0_801B8300;
+    gAmbientR = D_EBFBE0_801B8304;
+    gAmbientG = D_EBFBE0_801B8308;
+    gAmbientB = D_EBFBE0_801B830C;
 
     for (i = 0; i < 4; i++) {
         func_EBFBE0_8018E67C(i);
@@ -1334,12 +1334,12 @@ void func_EBFBE0_8018ABC0(void) {
     D_80178348 = 0;
     D_80178350 = 0;
     D_80178354 = 0;
-    D_80178548 = 101;
-    D_8017854C = 106;
-    D_80178550 = 92;
-    D_80178554 = 3;
-    D_80178558 = 4;
-    D_8017855C = 10;
+    gLight1R = 101;
+    gLight1G = 106;
+    gLight1B = 92;
+    gAmbientR = 3;
+    gAmbientG = 4;
+    gAmbientB = 10;
 
     D_EBFBE0_801B86A8 = 10.0f;
     D_EBFBE0_801B86AC = -30.0f;
@@ -1457,12 +1457,12 @@ void func_EBFBE0_8018B058(void) {
     D_EBFBE0_801B86C8 = -360.0f;
     D_EBFBE0_801B86CC = 131.0f;
 
-    D_80178548 = 90;
-    D_8017854C = 75;
-    D_80178550 = 90;
-    D_80178554 = 45;
-    D_80178558 = 34;
-    D_8017855C = 56;
+    gLight1R = 90;
+    gLight1G = 75;
+    gLight1B = 90;
+    gAmbientR = 45;
+    gAmbientG = 34;
+    gAmbientB = 56;
 
     D_EBFBE0_801B8688.pos.x = 0.0f;
     D_EBFBE0_801B8688.pos.y = 0.0f;
@@ -1633,13 +1633,13 @@ void func_EBFBE0_8018B5C4(void) {
                 D_EBFBE0_801B82F0 = 45.0f;
                 D_EBFBE0_801B82F4 = 60.0f;
 
-                D_80178548 = D_EBFBE0_801B82EC;
-                D_8017854C = D_EBFBE0_801B82F0;
-                D_80178550 = D_EBFBE0_801B82F4;
+                gLight1R = D_EBFBE0_801B82EC;
+                gLight1G = D_EBFBE0_801B82F0;
+                gLight1B = D_EBFBE0_801B82F4;
 
-                D_80178554 = 35;
-                D_80178558 = 24;
-                D_8017855C = 46;
+                gAmbientR = 35;
+                gAmbientG = 24;
+                gAmbientB = 46;
 
                 D_EBFBE0_801B82C0++;
             }
@@ -1666,9 +1666,9 @@ void func_EBFBE0_8018B5C4(void) {
                 Math_SmoothStepToF(&D_EBFBE0_801B82F0, 240.0f, 0.06f, 2.0f, 0.01f);
                 Math_SmoothStepToF(&D_EBFBE0_801B82F4, 255.0f, 0.06f, 2.0f, 0.01f);
 
-                D_80178548 = D_EBFBE0_801B82EC;
-                D_8017854C = D_EBFBE0_801B82F0;
-                D_80178550 = D_EBFBE0_801B82F4;
+                gLight1R = D_EBFBE0_801B82EC;
+                gLight1G = D_EBFBE0_801B82F0;
+                gLight1B = D_EBFBE0_801B82F4;
             }
 
             if ((D_EBFBE0_801B82B4 > 60) && (D_80178340 < 255)) {
@@ -1823,12 +1823,12 @@ void func_EBFBE0_8018C1C0(void) {
     D_EBFBE0_801B86C8 = 0.0f;
     D_EBFBE0_801B86CC = 0.0f;
 
-    D_80178548 = 101;
-    D_8017854C = 106;
-    D_80178550 = 92;
-    D_80178554 = 3;
-    D_80178558 = 4;
-    D_8017855C = 10;
+    gLight1R = 101;
+    gLight1G = 106;
+    gLight1B = 92;
+    gAmbientR = 3;
+    gAmbientG = 4;
+    gAmbientB = 10;
 
     for (i = 0; i < 4; i++) {
         D_EBFBE0_801B84E8[i].unk_00.x = 0.0f;
@@ -2118,8 +2118,8 @@ void func_EBFBE0_8018CD9C(Vec3f* pos, UnkStruct_D_EBFBE0_801B8294* arg1, f32 arg
 void func_EBFBE0_8018D2B8(s32 arg0) {
     WingInfo temp;
 
-    Lights_SetOneLight(&gMasterDisp, D_EBFBE0_801B82E0, D_EBFBE0_801B82E4, D_EBFBE0_801B82E8, D_80178548, D_8017854C,
-                       D_80178550, D_80178554, D_80178558, D_8017855C);
+    Lights_SetOneLight(&gMasterDisp, D_EBFBE0_801B82E0, D_EBFBE0_801B82E4, D_EBFBE0_801B82E8, gLight1R, gLight1G,
+                       gLight1B, gAmbientR, gAmbientG, gAmbientB);
 
     RCP_SetupDL(&gMasterDisp, 0x17);
 
@@ -2332,8 +2332,8 @@ void func_EBFBE0_8018DF0C(f32 arg0) {
 }
 
 void func_EBFBE0_8018E058(void) {
-    Lights_SetOneLight(&gMasterDisp, D_EBFBE0_801B82E0, D_EBFBE0_801B82E4, D_EBFBE0_801B82E8, D_80178548, D_8017854C,
-                       D_80178550, D_80178554, D_80178558, D_8017855C);
+    Lights_SetOneLight(&gMasterDisp, D_EBFBE0_801B82E0, D_EBFBE0_801B82E4, D_EBFBE0_801B82E8, gLight1R, gLight1G,
+                       gLight1B, gAmbientR, gAmbientG, gAmbientB);
 
     Matrix_Push(&gGfxMatrix);
 
@@ -2432,12 +2432,12 @@ void func_EBFBE0_8018E67C(s32 arg0) {
     s32 sp5C;
     f32 temp_fv1;
 
-    Lights_SetOneLight(&gMasterDisp, D_EBFBE0_801B82E0, D_EBFBE0_801B82E4, D_EBFBE0_801B82E8, D_80178548, D_8017854C,
-                       D_80178550, D_80178554, D_80178558, D_8017855C);
+    Lights_SetOneLight(&gMasterDisp, D_EBFBE0_801B82E0, D_EBFBE0_801B82E4, D_EBFBE0_801B82E8, gLight1R, gLight1G,
+                       gLight1B, gAmbientR, gAmbientG, gAmbientB);
 
     sp5C = D_EBFBE0_801B8350[arg0].unk_58 % Animation_GetFrameCount(D_EBFBE0_801ADA00[arg0].unk_0);
 
-    RCP_SetupDL_29(D_80178320, D_80178328, D_80178330, 255, 995, 1000);
+    RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, 255, 995, 1000);
 
     Matrix_Push(&gGfxMatrix);
 
@@ -2499,8 +2499,8 @@ void func_EBFBE0_8018EA78(s32 arg0) {
 
     RCP_SetupDL(&gMasterDisp, 0x17);
 
-    Lights_SetOneLight(&gMasterDisp, D_EBFBE0_801B82E0, D_EBFBE0_801B82E4, D_EBFBE0_801B82E8, D_80178548, D_8017854C,
-                       D_80178550, D_80178554, D_80178558, D_8017855C);
+    Lights_SetOneLight(&gMasterDisp, D_EBFBE0_801B82E0, D_EBFBE0_801B82E4, D_EBFBE0_801B82E8, gLight1R, gLight1G,
+                       gLight1B, gAmbientR, gAmbientG, gAmbientB);
 
     Matrix_Push(&gGfxMatrix);
 
@@ -2662,7 +2662,7 @@ s32 func_EBFBE0_8018EDC8(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* a
 void func_EBFBE0_8018F438(void) {
     f32 sp54;
 
-    Lights_SetOneLight(&gMasterDisp, 0, 0, 0, 0, 0, 0, D_80178554, D_80178558, D_8017855C);
+    Lights_SetOneLight(&gMasterDisp, 0, 0, 0, 0, 0, 0, gAmbientR, gAmbientG, gAmbientB);
 
     if (D_801779C0 < D_80177988) {
         sp54 = 1.0f;
@@ -2673,7 +2673,7 @@ void func_EBFBE0_8018F438(void) {
     D_EBFBE0_801B82C8 += 70.0f;
     D_EBFBE0_801B82C8 = Math_ModF(D_EBFBE0_801B82C8, 4101.6f);
 
-    RCP_SetupDL_29(D_80178320, D_80178328, D_80178330, 255, 995, 1000);
+    RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, 255, 995, 1000);
 
     Matrix_Push(&gGfxMatrix);
 
@@ -3000,8 +3000,8 @@ void func_EBFBE0_801906A0(void) {
 }
 
 void func_EBFBE0_80190950(void) {
-    Lights_SetOneLight(&gMasterDisp, D_EBFBE0_801B82E0, D_EBFBE0_801B82E4, D_EBFBE0_801B82E8, 0, 0, 0, D_80178554,
-                       D_80178558, D_8017855C);
+    Lights_SetOneLight(&gMasterDisp, D_EBFBE0_801B82E0, D_EBFBE0_801B82E4, D_EBFBE0_801B82E8, 0, 0, 0, gAmbientR,
+                       gAmbientG, gAmbientB);
     RCP_SetupDL(&gMasterDisp, 0x17);
 
     Matrix_Push(&gGfxMatrix);
@@ -3026,8 +3026,8 @@ void func_EBFBE0_80190A98(void) {
 }
 
 void func_EBFBE0_80190B30(s32 arg0) {
-    Lights_SetOneLight(&gMasterDisp, D_EBFBE0_801B82E0, D_EBFBE0_801B82E4, D_EBFBE0_801B82E8, D_80178548, D_8017854C,
-                       D_80178550, D_80178554, D_80178558, D_8017855C);
+    Lights_SetOneLight(&gMasterDisp, D_EBFBE0_801B82E0, D_EBFBE0_801B82E4, D_EBFBE0_801B82E8, gLight1R, gLight1G,
+                       gLight1B, gAmbientR, gAmbientG, gAmbientB);
     RCP_SetupDL(&gMasterDisp, 0x17);
 
     Matrix_Push(&gGfxMatrix);

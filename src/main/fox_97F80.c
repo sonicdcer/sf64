@@ -551,7 +551,7 @@ s32 func_80099254(Vec3f* arg0, Vec3f* arg1, Vec3f* arg2, CollisionHeader* arg3, 
             sp108.dist = var_s0->dist;
             if ((DOT_XYZ(sp108.normal, temp_V3f1) + sp108.dist) <= 0.0f) {
                 temp_fs0 = sp108.normal.x * arg2->x + sp108.normal.y * arg2->y + sp108.normal.z * arg2->z;
-                if (Math_FAcosF(temp_fs0 / (sqrtf(VEC3F_SQ(sp108.normal)) * spEC)) > 1.5707964f) {
+                if (Math_FAcosF(temp_fs0 / (sqrtf(VEC3F_SQ(sp108.normal)) * spEC)) > M_PI / 2.0f) {
                     temp_fs0 = (DOT_XYZ(sp108.normal, temp_V3f1) + sp108.dist) / temp_fs0;
                     spDC.x = temp_V3f1.x - (arg2->x * temp_fs0);
                     spDC.y = temp_V3f1.y - (arg2->y * temp_fs0);
@@ -574,7 +574,7 @@ s32 func_80099254(Vec3f* arg0, Vec3f* arg1, Vec3f* arg2, CollisionHeader* arg3, 
                             arg5[1] =
                                 -Math_Atan2F_XY(__sinf(Math_Atan2F_XY(sp108.normal.y, sp108.normal.z)) * sp108.normal.z,
                                                 sp108.normal.x);
-                        } else if (arg5[0] >= 3.1415927f) {
+                        } else if (arg5[0] >= M_PI) {
                             arg5[1] = Math_Atan2F_XY(sp108.normal.y, sp108.normal.x);
                         } else {
                             arg5[1] = -Math_Atan2F_XY(sp108.normal.y, sp108.normal.x);

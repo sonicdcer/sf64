@@ -322,7 +322,7 @@ void func_80078604(Object_8C* arg0) {
 }
 
 void func_8007868C(Object_8C* arg0) {
-    RCP_SetupDL_60(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
+    RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     Matrix_Scale(gGfxMatrix, arg0->unk_70, arg0->unk_70, arg0->unk_70, 1);
     if (arg0->unk_44 >= 2) {
@@ -334,7 +334,7 @@ void func_8007868C(Object_8C* arg0) {
 }
 
 void func_8007879C(Object_8C* arg0) {
-    RCP_SetupDL_60(D_80178320, D_80178328, D_80178330, D_80178338, D_801783D8, D_801783DC);
+    RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     Matrix_Scale(gGfxMatrix, arg0->unk_70 * 0.6f, 1.0f, arg0->unk_70 * 3.5f, 1);
     Matrix_RotateX(gGfxMatrix, (M_PI / 2.0f), 1);
@@ -517,7 +517,7 @@ void func_8007905C(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 a
         arg0->unk_54.y = sp48.y;
         arg0->unk_54.z = sp48.z;
     } else {
-        arg0->unk_54.y = (D_80177C98 == 0) ? (Rand_ZeroOne() * 7.0f) + 7.0f : (Rand_ZeroOne() - 0.5f) * 10.0f;
+        arg0->unk_54.y = (gLevelType == 0) ? (Rand_ZeroOne() * 7.0f) + 7.0f : (Rand_ZeroOne() - 0.5f) * 10.0f;
         arg0->unk_54.x = (Rand_ZeroOne() - 0.5f) * 10.0f;
         arg0->unk_54.z = (Rand_ZeroOne() - 0.5f) * 10.0f;
     }
@@ -590,7 +590,7 @@ void func_8007968C(Object_8C* arg0) {
     arg0->obj.rot.x += arg0->unk_60.x;
     arg0->obj.rot.y += arg0->unk_60.y;
     arg0->obj.rot.z += arg0->unk_60.z;
-    if (D_80177C98 == 0) {
+    if (gLevelType == 0) {
         arg0->unk_54.y -= 0.5f;
     }
     if ((gCurrentLevel == LEVEL_BOLSE) && (gPlayers[0].unk_1C8 == 7) && (D_80177A80 >= 0xB0)) {
@@ -624,7 +624,7 @@ void func_800798F0(Object_8C* arg0) {
     }
     RCP_SetupDL(&gMasterDisp, 0x1D);
     if (gCurrentLevel == LEVEL_KATINA) {
-        gSPFogPosition(gMasterDisp++, D_801783D8, 1005);
+        gSPFogPosition(gMasterDisp++, gFogNear, 1005);
     }
     func_8005980C(arg0->unk_70);
     switch (gCurrentLevel) {
@@ -751,7 +751,7 @@ void func_800798F0(Object_8C* arg0) {
     }
     RCP_SetupDL(&gMasterDisp, 0x40);
     if (gCurrentLevel == LEVEL_KATINA) {
-        gSPFogPosition(gMasterDisp++, D_801783D8, D_801783DC);
+        gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
     }
 }
 
@@ -763,12 +763,12 @@ void func_8007A28C(Object_8C* arg0) {
     if (arg0->unk_50 >= 0xB) {
         D_801779A8[0] = 60.0f;
     }
-    if (arg0->unk_50 == 0x30) {
-        D_80178340 = 0x96;
+    if (arg0->unk_50 == 48) {
+        D_80178340 = 150;
     }
-    if (arg0->unk_50 >= 0x2E) {
+    if (arg0->unk_50 > 45) {
         D_80178358 = 0;
-        D_80178348 = D_80178350 = D_80178354 = 0xFF;
+        D_80178348 = D_80178350 = D_80178354 = 255;
     }
     D_8017835C = 3;
     if (arg0->unk_50 == 0) {

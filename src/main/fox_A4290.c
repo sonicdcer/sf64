@@ -67,7 +67,7 @@ bool func_800A36FC(Vec3f* arg0, Vec3f* arg1, CollisionHeader2* arg2, Vec3f* arg3
         arg3->x = Math_Atan2F_XY(sp48.y, sp48.z);
         if (sp48.z != 0.0f) {
             arg3->z = -Math_Atan2F_XY(__sinf(Math_Atan2F_XY(sp48.y, sp48.z)) * sp48.z, sp48.x);
-        } else if (arg3->x >= 3.1415927f) {
+        } else if (arg3->x >= M_PI) {
             arg3->z = Math_Atan2F_XY(sp48.y, sp48.x);
         } else {
             arg3->z = -Math_Atan2F_XY(sp48.y, sp48.x);

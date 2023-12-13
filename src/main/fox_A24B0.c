@@ -12,8 +12,8 @@ u16 D_80161A2E;
 u16 gNextLevel;
 u16 gNextGameState;
 u16 D_80161A34;
-u16 D_80161A36;
-u8 D_80161A38;
+u16 gBgColor;
+u8 gBlurAlpha;
 u8 D_80161A39;
 f32 D_80161A3C;
 f32 D_80161A40;
@@ -55,8 +55,8 @@ void Game_Initialize(void) {
     Rand_SetSeed(1, 29000, 9876);
     gGameState = GSTATE_BOOT;
     D_8017783C = 0;
-    D_80161A36 = 0;
-    D_80161A38 = 0xFF;
+    gBgColor = 0;
+    gBlurAlpha = 0xFF;
     D_80161A3C = 45.0f;
     D_80161A40 = 10.0f;
     D_80161A44 = 12800.0f;
@@ -99,10 +99,10 @@ void Game_SetGameState(void) {
     D_8015F924 = 0;
     gNextGameState = GSTATE_NONE;
     gOverlayStage = 0;
-    gFillScreenColor = D_80161A36 = 0;
+    gFillScreenColor = gBgColor = 0;
     D_80177D20 = 0.0f;
     if ((gCurrentLevel == LEVEL_VENOM_SW) && (D_8017827C == 2)) {
-        gFillScreenColor = D_80161A36 = 0xFFFF;
+        gFillScreenColor = gBgColor = 0xFFFF;
         D_80178348 = D_80178350 = D_80178354 = 0xFF;
     } else {
         D_80178348 = D_80178350 = D_80178354 = 0;
@@ -112,7 +112,7 @@ void Game_SetGameState(void) {
     D_80178380[0] = 0;
     D_8017829C = 0;
     D_80178428 = 0.0f;
-    D_80161A38 = 0xFF;
+    gBlurAlpha = 0xFF;
     D_80177898 = 0;
     func_8001AE58();
     func_8001D400(0);
@@ -146,19 +146,19 @@ void func_800A1C14(Gfx** arg0) {
     gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 8, SCREEN_WIDTH - 8, SCREEN_HEIGHT - 8);
     gDPSetDepthImage((*arg0)++, &gZBuffer);
     gDPSetColorImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, &gZBuffer);
-    gDPSetFillColor((*arg0)++, 0xFFFCFFFC);
+    gDPSetFillColor((*arg0)++, FILL_COLOR(GPACK_ZDZ(G_MAXFBZ, 0)));
     gDPFillRectangle((*arg0)++, 8, 8, SCREEN_WIDTH - 8 - 1, SCREEN_HEIGHT - 8 - 1);
     gDPSetColorImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, gFrameBuffer);
 
-    if (D_80161A38 < 0xFF) {
+    if (gBlurAlpha < 0xFF) {
         gDPPipeSync((*arg0)++);
         gDPSetCycleType((*arg0)++, G_CYC_1CYCLE);
         gDPSetCombineMode((*arg0)++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
         gDPSetRenderMode((*arg0)++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
-        gDPSetPrimColor((*arg0)++, 0x00, 0x00, RGBA16_RED(D_80161A36) * 8, RGBA16_GRN(D_80161A36) * 8,
-                        RGBA16_BLU(D_80161A36) * 8, D_80161A38);
+        gDPSetPrimColor((*arg0)++, 0x00, 0x00, RGBA16_RED(gBgColor) * 8, RGBA16_GRN(gBgColor) * 8,
+                        RGBA16_BLU(gBgColor) * 8, gBlurAlpha);
     } else {
-        gDPSetFillColor((*arg0)++, (((D_80161A36 | 1) << 0x10) | (D_80161A36 | 1)));
+        gDPSetFillColor((*arg0)++, FILL_COLOR(gBgColor | 1));
     }
     gDPFillRectangle((*arg0)++, 8, 8, SCREEN_WIDTH - 8 - 1, SCREEN_HEIGHT - 8);
     gDPPipeSync((*arg0)++);
@@ -386,7 +386,7 @@ void func_800A26C0(void) {
                 D_80177D20 = 0.0f;
                 D_8016170C = D_80177A80 = D_80177830 = D_80177838 = D_80177840 = D_80178754 = D_801778E8 = D_80177AE0 =
                     D_80178410 = D_80177B40 = D_80177854 = D_8017784C = D_80177898 = D_80161734 = D_80161A2C =
-                        D_80161A36 = D_80178340 = 0;
+                        gBgColor = D_80178340 = 0;
                 gNextGameState = D_80177C94 = D_80177CAC = D_80177CB4 = D_80177CBC = D_80177CC4 = D_80177C9C =
                     D_80177CA4 = D_80161A5C = D_80161A34 = 0;
                 for (i = 0; i < 4; i++) {
@@ -404,7 +404,7 @@ void func_800A26C0(void) {
                 }
                 D_8017789C = 0;
                 D_801778A4 = 3;
-                D_80161A38 = 0xFF;
+                gBlurAlpha = 0xFF;
                 for (i = 0; i < 30; i++) {
                     D_800D3180[i] = 0;
                 }
@@ -442,25 +442,25 @@ void func_800A26C0(void) {
                 func_8001D8A8(1, gVolumeSettings[1]);
                 func_8001D8A8(2, gVolumeSettings[2]);
                 break;
-            case GSTATE_TITLE: // title screen?
+            case GSTATE_TITLE: // title screen
                 func_80187520(0x67, NULL);
                 break;
-            case GSTATE_MENU: // main menu?
+            case GSTATE_MENU: // main menu
                 func_80187520(0x6B, NULL);
                 break;
-            case GSTATE_MAP: // world map?
+            case GSTATE_MAP: // world map
                 func_EBFBE0_8019E8D0();
                 break;
-            case GSTATE_VS_INIT: // vs mode?
+            case GSTATE_VS_INIT: // vs mode
                 func_800C20B0();
                 break;
             case GSTATE_PLAY: // play
                 func_800B86CC();
                 break;
-            case GSTATE_STATE_5: // world map?
+            case GSTATE_STATE_5: // world map
                 func_80187520(0x6D, NULL);
                 break;
-            case GSTATE_CREDITS: // credits?
+            case GSTATE_CREDITS: // credits
                 D_80177898 = 8;
                 func_EF0260_8018A96C();
                 break;
@@ -491,7 +491,7 @@ void func_800A26C0(void) {
             gDPFillRectangle(gMasterDisp++, SCREEN_WIDTH / 2 - 3, 8, SCREEN_WIDTH / 2 + 2, SCREEN_HEIGHT - 8);
             gDPFillRectangle(gMasterDisp++, 8, SCREEN_HEIGHT / 2 - 3, SCREEN_WIDTH - 8, SCREEN_HEIGHT / 2 + 2);
 
-            if (D_80177C98 == 0) {
+            if (gLevelType == 0) {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x0, 0, 0, 0, 255);
             } else {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x0, 100, 100, 255, 255);

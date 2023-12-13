@@ -312,9 +312,9 @@ void func_EBFBE0_80191B20(void) {
     D_80178354 = 0;
     D_80178340 = 0;
 
-    D_80161A38 = 0xFF;
+    gBlurAlpha = 0xFF;
 
-    D_80161A36 = 0;
+    gBgColor = 0;
 
     D_EBFBE0_801B91A4 = 0;
     if ((D_80161A34 == 7) && (gCurrentLevel == LEVEL_TRAINING)) {
@@ -606,7 +606,7 @@ void func_EBFBE0_80192340(void) {
 }
 
 void func_EBFBE0_801924C4(void) {
-    D_80161A38 = 0xFF;
+    gBlurAlpha = 0xFF;
     D_EBFBE0_801B912C = 0;
 
     switch (D_EBFBE0_801B9124) {
@@ -734,7 +734,7 @@ void func_EBFBE0_801929F0(void) {
     s32 i;
 
     D_800D2870 = 0;
-    D_80161A38 = 0xFF;
+    gBlurAlpha = 0xFF;
     gStopInputTimer = 0;
     D_80178410 = 800;
     D_EBFBE0_801B9248 = 0;
@@ -821,7 +821,7 @@ void func_EBFBE0_80192D58(void) {
                                    D_EBFBE0_801AE620[i], 0.1f);
             }
 
-            D_80161A38 += 4;
+            gBlurAlpha += 4;
 
             if (D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_38.unk_04 == D_EBFBE0_801AE570[D_EBFBE0_801B91A4]) {
                 for (i = 0; i < 6; i++) {
@@ -830,7 +830,7 @@ void func_EBFBE0_80192D58(void) {
                     D_EBFBE0_801AE638[i].unk_00.unk_1C = D_EBFBE0_801AE5D0[i];
                 }
                 D_EBFBE0_801B91BC = 1;
-                D_80161A38 = 0xFF;
+                gBlurAlpha = 0xFF;
                 D_EBFBE0_801B912C = 1;
             }
             break;
@@ -896,7 +896,7 @@ void func_EBFBE0_80192D58(void) {
             break;
 
         case 11:
-            D_80161A38 = 0x10;
+            gBlurAlpha = 0x10;
             D_EBFBE0_801B9178 = 3;
             D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_38.unk_0C -= 0.01f;
             D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_38.unk_10 -= 0.01f;
@@ -947,11 +947,11 @@ void func_EBFBE0_80192D58(void) {
             Math_SmoothStepToF(&D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_00.unk_1C, var_fs0, 0.25f, 100.0f, 0.1f);
             Math_SmoothStepToF(&D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_38.unk_04, var_fs1, 0.25f, 100.0f, 0.1f);
 
-            D_80161A38 += 4;
+            gBlurAlpha += 4;
 
             if ((D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_00.unk_1C == var_fs0) &&
                 (D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_38.unk_04 == var_fs1)) {
-                D_80161A38 += 255;
+                gBlurAlpha += 255;
                 D_EBFBE0_801B9124 = D_EBFBE0_801B91A4;
 
                 if (D_EBFBE0_801B91A4 == 4 && D_EBFBE0_801B91AC) {
@@ -1013,7 +1013,7 @@ void func_EBFBE0_80193864(void) {
 void func_EBFBE0_80193B04(void) {
     s32 i;
 
-    D_80161A38 = 0xFF;
+    gBlurAlpha = 0xFF;
     gStopInputTimer = 0;
     D_80178410 = 800;
 
@@ -1088,7 +1088,7 @@ void func_EBFBE0_80193C4C(void) {
             Math_SmoothStepToF(&D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_00.unk_1C, 25.0f, 0.25f, 100.0f, 0.1f);
             Math_SmoothStepToF(&D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_38.unk_04, 90.0f, 0.25f, 100.0f, 0.1f);
 
-            D_80161A38 += 4;
+            gBlurAlpha += 4;
 
             if (D_EBFBE0_801AE878[D_EBFBE0_801B91A8].unk_38.unk_04 == D_EBFBE0_801AEF84[D_EBFBE0_801B91A8]) {
                 for (i = 0; i < 3; i++) {
@@ -1100,7 +1100,7 @@ void func_EBFBE0_80193C4C(void) {
                 D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_00.unk_1C = 25.0f;
                 D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_38.unk_04 = 90.0f;
                 D_EBFBE0_801B91BC = 1;
-                D_80161A38 = 0xFF;
+                gBlurAlpha = 0xFF;
                 D_EBFBE0_801B912C = 1;
             }
             break;
@@ -1127,7 +1127,7 @@ void func_EBFBE0_80193C4C(void) {
             break;
 
         case 11:
-            D_80161A38 = 0x10;
+            gBlurAlpha = 0x10;
             D_EBFBE0_801B9178 = 5;
             D_EBFBE0_801AE878[D_EBFBE0_801B91A8].unk_38.unk_0C -= 0.01f;
             D_EBFBE0_801AE878[D_EBFBE0_801B91A8].unk_38.unk_10 -= 0.01f;
@@ -1176,11 +1176,11 @@ void func_EBFBE0_80193C4C(void) {
                 Math_SmoothStepToF(&D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_00.unk_1C, -10.0f, 0.35f, 100.0f, 0.1f);
                 Math_SmoothStepToF(&D_EBFBE0_801AE638[D_EBFBE0_801B91A4].unk_38.unk_04, 150.0f, 0.35f, 100.0f, 0.1f);
 
-                D_80161A38 += 4;
+                gBlurAlpha += 4;
 
                 if ((var_fs0 == D_EBFBE0_801AE878[D_EBFBE0_801B91A8].unk_00.unk_1C) &&
                     (D_EBFBE0_801AE878[D_EBFBE0_801B91A8].unk_38.unk_04 == -15.5f)) {
-                    D_80161A38 += 0xFF;
+                    gBlurAlpha += 0xFF;
                     D_EBFBE0_801B9124 = (D_EBFBE0_801B91A8 + 1) * 10;
                     D_801778AC = D_EBFBE0_801B91A8;
                     D_EBFBE0_801B91C4 = 1;
@@ -3930,7 +3930,7 @@ void func_EBFBE0_8019CAE0(void) {
 
         case 3:
             if (D_EBFBE0_801B917C == 0) {
-                D_80161A38 = 255;
+                gBlurAlpha = 255;
                 D_80177898 = 0;
                 D_EBFBE0_801B912C = 0;
                 D_EBFBE0_801B9124 = 300;
@@ -3945,7 +3945,7 @@ void func_EBFBE0_8019CBC0(void) {
 
     func_8001D444(0, 36, 0, 255);
 
-    D_80161A38 = 0xD0;
+    gBlurAlpha = 0xD0;
     D_80178410 = 800;
 
     D_EBFBE0_801B9130 = 1;
@@ -4399,7 +4399,7 @@ void func_EBFBE0_8019E030(void) {
     switch (D_EBFBE0_801B912C) {
         case 0:
             D_80178410 = 0;
-            D_80161A36 = 0;
+            gBgColor = 0;
             D_80178348 = 0;
             D_80178350 = 0;
             D_80178354 = 0;

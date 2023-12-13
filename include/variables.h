@@ -129,6 +129,8 @@ extern f32 D_800CBE70[];
 extern f32 D_800CBE8C[];
 extern f32 D_800CBEA8[];
 extern f32 D_800CBEC4[];
+extern f32 D_800CBEE0[];
+extern f32 D_800CBEFC[];
 extern f32 D_800CBF18[];
 extern f32 D_800CBF34[];
 extern f32 D_800CBF38[];
@@ -141,6 +143,10 @@ extern f32 D_800CBFE4[];
 extern f32 D_800CC000[];
 extern f32 D_800CC01C[];
 extern f32 D_800CC038[];
+extern f32 D_800CC054[];
+extern f32 D_800CC070[];
+extern f32 D_800CC0D4[];
+extern f32 D_800CC0F0[];
 extern ObjectStruct_1C D_800CC124[];
 extern f32 D_800CF9B0[];
 extern Gfx* D_800CFA54[];
@@ -231,27 +237,23 @@ extern u8 D_8015F964;
 extern s32 D_801613A0;
 
 // fox_52730
+extern Vec3f D_80161548[4];
+extern Vec3f D_80161578[4];
+extern f32 D_801615A8[4];
+extern f32 D_801615B8[4];
 extern Vec3f D_801613B0[];
 extern Vec3f D_801613E0[];
 extern s16 D_80161410;
 extern Matrix D_80161418[4];
 extern Vec3f D_80161518[4];
-extern Vec3f D_80161548[4];
-extern Vec3f D_80161578[4];
-extern f32 D_801615A8[4];
-extern f32 D_801615B8[4];
 
 // fox_edisplay
-extern Vec3f D_801615D0;
-extern Vec3f D_801615E0;
-extern s32 D_801615EC;
-extern Matrix D_801615F0;
-extern WingInfo D_80161630;
-extern s32 D_80161670[4];
+// extern Vec3f D_801615D0; // referenced in overlay. commented for bss ordering
 
-// fox_enmy1?
-extern u8 D_80161684;
+// fox_enmy1
+extern s32 D_80161670[4];
 extern s32 D_80161680;
+extern u8 D_80161684;
 
 // extern u8 temp_55[];
 // sf_6B3B0
@@ -283,11 +285,7 @@ extern s32 gMedalStatus;
 extern s32 gMedalFlashTimer;
 extern s32 D_80161810[];
 extern s32 D_80161900[];
-
-extern s32 D_80161910[0x10]; // part of sf_hud or fox_97F80?
-
-// fox_display
-extern char D_801619A0[100];
+extern s32 D_80161910[0x10]; // could be in fox_97F80
 
 // fox_A24B0
 extern f32 D_80161A10;
@@ -299,8 +297,8 @@ extern u16 D_80161A2E;
 extern u16 gNextLevel;
 extern u16 gNextGameState;
 extern u16 D_80161A34;
-extern u16 D_80161A36;
-extern u8 D_80161A38;
+extern u16 gBgColor;
+extern u8 gBlurAlpha;
 extern u8 D_80161A39;
 extern f32 D_80161A3C;
 extern f32 D_80161A40;
@@ -313,8 +311,8 @@ extern s32 D_80161A5C;
 extern u16 D_80161A60;
 extern u16 D_80161A62;
 extern s32 D_80161A64;
-extern UnkStruct_D_80161A68* D_80161A68;
-extern s32 D_80161A70;
+extern EnvSettings* sEnvSettings;
+extern s32 D_80161A70; // Color32?
 extern s32 D_80161A74;
 extern s32 D_80161A78;
 extern s32 D_80161A7C;
@@ -397,7 +395,11 @@ extern s32 D_801779C8[];
 extern Vec3f D_801779D8;
 extern Vec3f D_801779E8;
 extern bool gExpertMode;
+extern s32 D_80177A10[10];
+extern f32 D_80177A48[10];
+extern s32 D_80177A70[4];
 extern s32 D_80177A80;
+extern s32 D_80177A88[4];
 extern s8 D_80177A98;
 extern f32 D_80177AA0[];
 extern u8 D_80177AB0;
@@ -418,10 +420,10 @@ extern s32 D_80177BB0[];
 extern u16 D_80177C30[];
 extern s32 D_80177C50;
 extern u8  gStereoSettings;
-extern s32 gVolumeSettings[];
+extern s32 gVolumeSettings[3];
 extern u16 D_80177C90;
 extern s32 D_80177C94;
-extern u8  D_80177C98;
+extern u8  gLevelType;
 extern s32 D_80177C9C;
 extern s32 D_80177CA0;
 extern s32 D_80177CA4;
@@ -429,20 +431,21 @@ extern s32 D_80177CAC;
 extern f32 D_80177CB0;
 extern s32 D_80177CB4;
 extern s32 D_80177CBC;
+extern f32 D_80177CC0;
 extern s32 D_80177CC4;
 extern f32 D_80177CC8;
 extern f32 D_80177D08;
-extern s32 gRightWingHealth[];
+extern s32 gRightWingHealth[4];
 extern f32 D_80177D20;
-extern s32 gLeftWingHealth[];
+extern s32 gLeftWingHealth[4];
 extern f32 D_80177D38;
-extern s32 D_80177D40[];
+extern s32 D_80177D40[4];
 extern f32 D_80177D50;
-extern s32 D_80177D58[];
+extern s32 D_80177D58[4];
 extern f32 D_80177D68;
-extern s32 D_80177D70[];
-extern s32 D_80177D88[];
-extern s32 gBombCount[];
+extern s32 D_80177D70[4];
+extern s32 D_80177D88[4];
+extern s32 gBombCount[4];
 extern s32 gFrameCount;
 extern s32 D_80177DC8;
 extern s32 D_80177E70;
@@ -487,31 +490,31 @@ extern s32 D_801782FC;
 extern s32 D_80178300;
 extern u16* D_80178308;
 extern ObjectInit* D_80178310;
-extern s32 D_80178320; //red
-extern s32 D_80178328; //green
-extern s32 D_80178330; //blue
-extern s32 D_80178338; //alpha
-extern s32 D_80178340;
-extern s32 D_80178348;
-extern s32 D_80178350;
-extern s32 D_80178354;
-extern s32 D_80178358;
-extern s32 D_8017835C;
-extern s32 D_80178360;
+extern s32 gFogRed;
+extern s32 gFogGreen;
+extern s32 gFogBlue;
+extern s32 gFogAlpha;
+extern s32 D_80178340; // alpha something
+extern s32 D_80178348; // red something
+extern s32 D_80178350; // green something
+extern s32 D_80178354; // blue something
+extern s32 D_80178358; // alpha target
+extern s32 D_8017835C; // alpha step
+extern s32 D_80178360; // 2 lights second color
 extern s32 D_80178364;
 extern s32 D_80178368;
-extern f32 D_8017836C;
+extern f32 D_8017836C; // 2 lights second color brightness
 extern f32 D_80178370;
 extern f32 D_80178374;
 extern f32 D_80178378;
-extern s32 D_80178380[];
-extern s32 D_80178390[];
-extern s32 D_801783A0[];
-extern s32 D_801783B0[];
-extern f32 D_801783D0;
-extern f32 D_801783D4;
-extern s32 D_801783D8; //near
-extern s32 D_801783DC; //far
+extern s32 D_80178380[]; // player alphas
+extern s32 D_80178390[]; // player reds
+extern s32 D_801783A0[]; // player greens
+extern s32 D_801783B0[]; // player alphas
+extern f32 D_801783D0; // something x translate
+extern f32 D_801783D4; // something y translate
+extern s32 gFogNear; //near
+extern s32 gFogFar; //far
 extern s32 D_80178410;
 extern f32 D_80178420;
 extern f32 D_80178424;
@@ -526,42 +529,47 @@ extern s32 D_80178480;
 extern s32 D_80178488;
 extern s32 D_801784A4;
 extern s32 D_801784AC;
-extern f32 D_801784B8;
+extern f32 D_801784B8; // effective Vec3f
 extern f32 D_801784BC;
 extern f32 D_801784C0;
-extern f32 D_801784C4;
+extern f32 D_801784C4; // effective Vec3f
 extern f32 D_801784C8;
 extern f32 D_801784CC;
-extern f32 D_801784D0;
+extern f32 D_801784D0; // effective Vec3f
 extern f32 D_801784D4;
 extern f32 D_801784D8;
-extern s32 D_801784DC;
-extern s32 D_801784E0;
-extern s32 D_801784E4;
-extern f32 D_801784F8;
+extern s32 gLight1x; // Vec3i light direction 
+extern s32 gLight1y;
+extern s32 gLight1z;
+extern f32 D_801784E8;
+extern f32 D_801784EC; // effective Vec3f?
+extern f32 D_801784F0;
+extern f32 D_801784F4;
+extern f32 D_801784F8; // effective Vec3f
 extern f32 D_801784FC;
 extern f32 D_80178500;
-extern s32 D_80178504;
-extern s32 D_80178508;
-extern s32 D_8017850C;
-extern f32 D_80178520;
+extern s32 gLight2x; // Vec3i light direction alternate
+extern s32 gLight2y;
+extern s32 gLight2z;
+extern f32 D_80178520; // effective Vec3f
 extern f32 D_80178524;
 extern f32 D_80178528;
+extern f32 D_80178538;
 extern f32 D_8017853C;
 extern s32 D_80178540;
 extern s32 D_80178544;
-extern s32 D_80178548;
-extern s32 D_8017854C;
-extern s32 D_80178550;
-extern s32 D_80178554;
-extern s32 D_80178558;
-extern s32 D_8017855C;
-extern s32 D_80178564;
-extern s32 D_80178568;
-extern s32 D_8017856C;
-extern s32 D_80178570;
+extern s32 gLight1R; // Color32 light color 1
+extern s32 gLight1G;
+extern s32 gLight1B;
+extern s32 gAmbientR; // Color32 ambient color
+extern s32 gAmbientG;
+extern s32 gAmbientB;
+extern s32 gLight2R; // Color32 light color 2
+extern s32 gLight2G;
+extern s32 gLight2B;
+extern s32 D_80178570; // Color32 light color 2 modifier?
 extern s32 D_80178574;
-extern s32 D_80178578;
+extern s32 D_80178578; 
 
 // fox_rcp?
 extern u8 D_80178580[];
@@ -818,9 +826,9 @@ extern Gfx D_301E570[];
 extern Gfx D_301F140[];
 extern Gfx D_301FD20[];
 extern Gfx D_302D240[];
-extern UnkStruct_D_80161A68 D_302DD70[];
-extern UnkStruct_D_80161A68 D_302DDB4[];
-extern UnkStruct_D_80161A68 D_302DDF8[];
+extern EnvSettings D_302DD70[];
+extern EnvSettings D_302DDB4[];
+extern EnvSettings D_302DDF8[];
 extern ObjectInit D_302DE3C[];
 extern ObjectInit D_302E0E4[];
 extern ObjectInit D_302E170[];
@@ -834,10 +842,18 @@ extern f32 D_302EE80[];
 extern f32 D_302EE9C[];
 
 // ast_918430, ast_922730
+extern AnimationHeader D_4000080;
+extern Limb* D_400014C[];
+extern AnimationHeader D_40001A4;
+extern Limb* D_4000270[];
 extern Gfx D_40018A0[];
 extern Gfx D_4003BD0[];
+extern AnimationHeader D_40057AC;
+extern Limb* D_40058B8[];
 extern Gfx D_4007870[];
 extern Gfx D_4007AF0[];
+extern AnimationHeader D_400A30C;
+extern Limb* D_400A398[];
 extern Gfx D_400B390[];
 
 // ast_CD2410
@@ -870,13 +886,16 @@ extern Gfx D_500B600[];
  * ast_B0AA00, ast_B1CA50, ast_B2CA50, ast_B612E0, ast_B84560,
  * ast_BB11D0, ast_BC23D0, ast_BFC510, ast_C48F40, ast_DDC010
  */
+
 extern u16 D_6000000[];
 extern u16 D_6000900[];
 extern Gfx D_6000A80[];
 extern u16 D_6000B60[];
 extern Gfx D_6000E00[];
+extern Gfx D_6000E10[];
 extern Gfx D_6001360[];
 extern u16 D_6001820[];
+extern Gfx D_6001950[];
 extern Gfx D_6001A60[];
 extern u16 D_6001A80[];
 extern u8 D_6001B80[];
@@ -903,10 +922,13 @@ extern u16 D_6005700[];
 extern Gfx D_6005780[];
 extern Gfx D_6006140[];
 extern Gfx D_6006310[];
+extern u16* D_600631C[];
+extern AnimationHeader D_600636C;
 extern f32 D_60064AC[];
 extern f32 D_60064C8[];
 extern f32 D_60064FC[];
 extern f32 D_6006518[];
+extern Limb* D_6006558[];
 extern f32 D_6006564[];
 extern f32 D_60065B0[];
 extern f32 D_60065FC[];
@@ -914,6 +936,7 @@ extern f32 D_6006648[];
 extern f32 D_6006694[];
 extern f32 D_60066E0_f32[];
 extern Gfx D_60066E0_Gfx[];
+extern Gfx D_60066F0[];
 extern f32 D_600672C[];
 extern f32 D_6006778[];
 extern f32 D_60067C4[];
@@ -947,12 +970,16 @@ extern Gfx D_6007CF0[];
 extern Gfx D_6007D80[];
 extern Gfx D_6007D90[];
 extern Gfx D_6008370[];
+extern Gfx D_6008970[];
+extern Gfx D_6008AA0[];
 extern f32 D_600924C[];
 extern f32 D_60092E8[];
 extern f32 D_6009388[];
 extern Gfx D_60097E0[];
+extern u16* D_6009B34[];
 extern f32 D_6009CC4[];
 extern f32 D_6009CFC[];
+extern Gfx D_6009E30[];
 extern Vtx D_6009ED0[];
 extern Gfx D_6009F90[];
 extern Gfx D_600A220[];
@@ -962,13 +989,19 @@ extern Gfx D_600B8B0[];
 extern Gfx D_600BAF0[];
 extern u16 D_600BEA0[];
 extern Gfx D_600BF80[];
+extern Gfx D_600C130[];
 extern u16 D_600C6A0[];
+extern Gfx D_600C740[];
 extern Vtx D_600C780[];
+extern Gfx D_600CAA0[];
 extern u16 D_600D5C0[];
 extern Gfx D_600D730[];
+extern Gfx D_600DA10[];
 extern Gfx D_600DBC0[];
 extern u8 D_600DDC0[];
+extern Gfx D_600E0C0[];
 extern u8 D_600E360[];
+extern AnimationHeader D_600E5EC;
 extern Gfx D_600E820[];
 extern u8 D_600E980[];
 extern Gfx D_600EC90[];
@@ -1018,6 +1051,8 @@ extern Gfx D_6012C00[];
 extern Gfx D_60132B0[];
 extern u8 D_6013470[];
 extern Gfx D_60137B0[];
+extern AnimationHeader D_6013820;
+extern Limb* D_601390C[];
 extern Gfx D_6013960[];
 extern Gfx D_6013B50[];
 extern u8 D_6014140[];
@@ -1044,16 +1079,22 @@ extern f32 D_60166F4[];
 extern f32 D_6016714[];
 extern Gfx D_6018450[];
 extern Gfx D_60188D0[];
+extern Gfx D_6018BF0[];
 extern Gfx D_6018C00[]; // possible collision
 extern Gfx D_6018D40[];
 extern Gfx D_6018E80[];
 extern u16 D_6018F30[];
+extern Gfx D_6019730[];
 extern u16 D_6019E50[];
+extern Gfx D_601A120[];
 extern Gfx D_601A7A0[];
 extern Gfx D_601A7D0[];
+extern Gfx D_601AD70[];
 extern Gfx D_601AE40[];
 extern Gfx D_601B0D0[];
+extern u16* D_601B1E4[];
 extern u16 D_601B4B0[];
+extern f32 D_601B4C4[];
 extern f32 D_601B4E0[];
 extern f32 D_601B4FC[];
 extern f32 D_601B518[];
@@ -1088,15 +1129,20 @@ extern Limb* D_601E9D0[];
 extern Gfx D_601F1D0[];
 extern Gfx D_601F500[];
 extern Gfx D_601F5A0[];
+extern AnimationHeader D_601F874;
+extern Limb* D_601F920[];
 extern Gfx D_601FCB0[];
 extern Gfx D_601FF80[];
 extern Gfx D_60200E0[];
 extern Gfx D_6020760[];
 extern Gfx D_6020A30[];
 extern Gfx D_6020B40[];
+extern u16* D_6020DD0[];
 extern Gfx D_6020E60[];
 extern u16 D_6020FB0[];
 extern u16 D_6021ED0[];
+extern AnimationHeader D_602201C;
+extern Limb* D_60220E8[];
 extern Gfx D_60223C0[];
 extern Gfx D_6022450[];
 extern Gfx D_6022530[];
@@ -1120,10 +1166,13 @@ extern AnimationHeader D_6027320;
 extern u16 D_6027340[];
 extern Limb* D_602742C[];
 extern Gfx D_6027900[];
+extern u16* D_6027F50[];
 extern f32 D_6028454[];
+extern u16* D_60289FC[];
 extern AnimationHeader D_6029528;
 extern Limb* D_6029674[];
 extern Gfx D_602A720[];
+extern u16* D_602AAC0[];
 extern u16 D_602AC50[];
 extern ObjectInit* D_602B148[];
 extern Gfx D_602B4C0[];
@@ -1152,10 +1201,12 @@ extern Gfx D_602DCA0[];
 extern Gfx D_602E080[];
 extern Gfx D_602E380[];
 extern Gfx D_602E570[];
-extern UnkStruct_D_80161A68 D_602E584[];
+extern EnvSettings D_602E584[];
 extern Gfx D_602E7A0[];
 extern Gfx D_602E9E0[];
 extern ObjectInit* D_602F18C[];
+extern u16* D_602F3AC[];
+extern f32 D_602F638[];
 extern f32 D_602F684[];
 extern f32 D_602F6A0[];
 extern f32 D_602F6EC[];
@@ -1167,8 +1218,10 @@ extern Gfx D_602F7C0[];
 extern f32 D_602FA50[];
 extern Gfx D_6030500[];
 extern Gfx D_6030630[];
+extern u16* D_60308B8[];
 extern f32 D_6030B10[];
 extern ObjectInit D_6030B14[];
+extern f32 D_6030B14_f32[];
 extern f32 D_6030BE0[];
 extern f32 D_6030BFC[];
 extern f32 D_6030C18[];
@@ -1193,13 +1246,16 @@ extern f32 D_6031500[];
 extern f32 D_6031538[];
 extern f32 D_6031554[];
 extern f32 D_6031570[];
+extern u16* D_60320D0[];
 extern Gfx D_60320E0[];
 extern f32 D_6032328[];
+extern f32 D_6032408[];
 extern f32 D_6032488[];
 extern f32 D_60324EC[];
 extern f32 D_6032550[];
 extern Gfx D_6032580[];
 extern Gfx D_6032BC0[];
+extern u16* D_6032E18[];
 extern Gfx D_6033000[];
 extern f32 D_603405C[];
 extern f32 D_6034368[];
@@ -1257,7 +1313,9 @@ extern f32 D_603694C[];
 extern f32 D_6036968[];
 extern Gfx D_6036CD0[];
 extern Gfx D_6037CF0[];
+extern u16* D_60381D8[];
 extern ObjectInit D_603B074[];
+extern u16* D_603D9E8[];
 extern f32 D_603DCA4[];
 extern f32 D_603DD40[];
 extern f32 D_603DDF0[];
@@ -1305,6 +1363,7 @@ extern Gfx D_604A9F0[];
 extern Gfx D_605C230[];
 
 // ast_9DD390, ast_A0E340, ast_BFA740, ast_CBFE70, ast_D27600
+extern Gfx D_7000000[];
 extern u8 D_7000F10[];
 extern u8 D_7001030[];
 extern u8 D_7001270[];
@@ -1316,6 +1375,8 @@ extern Gfx D_7007350[];
 extern Gfx D_700AB70[];
 extern Gfx D_700BB10[];
 extern Gfx D_700BE00[];
+extern AnimationHeader D_700CAF4;
+extern Limb* D_700CB60[];
 extern u16 D_700E9A0[];
 extern u8 D_70118E0[];
 extern u16 D_70123F8[];
@@ -1368,6 +1429,10 @@ extern Gfx D_8015550[];
 extern Gfx D_8015DF0[];
 
 // ast_9F4880, ast_AE60A0, ast_CDDCA0
+extern Gfx D_9002CF0[];
+extern Gfx D_9003330[];
+extern Gfx D_9003890[];
+extern Gfx D_9003DF0[];
 extern Gfx D_9003F50[];
 extern Gfx D_9005C80[];
 extern Gfx D_900D180[];
@@ -1375,6 +1440,7 @@ extern Gfx D_900DD20[];
 extern Gfx D_900F060[];
 extern Gfx D_900F1D0[];
 extern Gfx D_9010FD0[];
+extern Gfx D_9011200[];
 extern Gfx D_901DA50[];
 extern Gfx D_9023290[];
 extern Gfx D_90234D0[];
@@ -1388,6 +1454,7 @@ extern Gfx D_A000000[];
 // ast_CE9E70
 extern Gfx D_C017440[];
 extern ObjectInit* D_C0356A4[];
+extern u16* D_C037E3C[];
 extern f32 D_C038A48[];
 extern f32 D_C038B40[];
 extern f32 D_C038B40[];
@@ -1409,8 +1476,10 @@ extern u16 D_D006B50[];
 extern u16 D_D007A70[];
 extern u16 D_D008990[];
 extern Gfx D_D0098B0[];
+extern Gfx D_D009A40[];
 extern Gfx D_D00B5C0[];
 extern Gfx D_D00B720[];
+extern Gfx D_D00B880[];
 
 // ast_92EC40
 extern u16 D_E00E100[];

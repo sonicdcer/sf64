@@ -1,5 +1,6 @@
 #include "global.h"
 
+s32 D_80161670[4];
 s32 D_80161680;
 u8 D_80161684;
 
@@ -239,7 +240,7 @@ void func_80061958(Object_8C* arg0, f32 arg1, f32 arg2, f32 arg3) {
     arg0->obj.pos.z = arg3;
     arg0->obj.rot.z = Rand_ZeroOne() * 360.0f;
     func_800612B8(&arg0->unk_1C, arg0->obj.id);
-    if (D_80177C98 == 0) {
+    if (gLevelType == 0) {
         arg0->unk_1C.unk_10 = 100.0f;
     }
 }
@@ -554,7 +555,7 @@ void func_80062664(void) {
 void func_80062B60(f32 arg0, f32 arg1, s32 arg2, f32 arg3) {
     s32 i;
 
-    if (D_80177C98 == 0) {
+    if (gLevelType == 0) {
         for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
             if (gObjects8C[i].obj.status == 0) {
                 Object_8C_Initialize(&gObjects8C[i]);
@@ -577,7 +578,7 @@ void func_80062B60(f32 arg0, f32 arg1, s32 arg2, f32 arg3) {
 void func_80062C38(f32 arg0, f32 arg1) {
     s32 i;
 
-    if (D_80177C98 == 0) {
+    if (gLevelType == 0) {
         for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
             if (gObjects8C[i].obj.status == 0) {
                 Object_8C_Initialize(&gObjects8C[i]);
@@ -832,9 +833,9 @@ s32 func_8006351C(s32 arg0, Vec3f* arg1, Vec3f* arg2, s32 arg3) {
                             return 2;
                         }
                     } else if (var_s0_4->obj.id == OBJECT_310) {
-                        temp.x = fabsf(var_s0_4->obj.pos.x - arg1->x) * 0.8333333f;
+                        temp.x = fabsf(var_s0_4->obj.pos.x - arg1->x) * (5.0f / 6.0f);
                         temp.y = fabsf(var_s0_4->obj.pos.y - arg1->y) * 2;
-                        temp.z = fabsf(var_s0_4->obj.pos.z - arg1->z) * 0.8333333f;
+                        temp.z = fabsf(var_s0_4->obj.pos.z - arg1->z) * (5.0f / 6.0f);
                         if (sqrtf(VEC3F_SQ(temp)) < 1500.0f) {
                             var_s0_4->unk_062 = 1;
                             return 2;
@@ -1088,8 +1089,8 @@ void func_80063F90(s32 arg0, s32 objId) {
             break;
         case 0xB6:
         case 0xBA:
-            gObjects2F4[arg0].unk_046 = D_80178320;
-            gObjects2F4[arg0].unk_048 = D_801783D8;
+            gObjects2F4[arg0].unk_046 = gFogRed;
+            gObjects2F4[arg0].unk_048 = gFogNear;
             gObjects2F4[arg0].obj.rot.x = Rand_ZeroOne() * 360.0f;
             gObjects2F4[arg0].obj.rot.y = Rand_ZeroOne() * 360.0f;
             break;
@@ -1871,7 +1872,7 @@ void func_80066EF0(Object_6C* arg0) {
     if (arg0->obj.pos.y > 650.0f) {
         Math_SmoothStepToF(&arg0->obj.pos.y, 650.0f, 0.1f, 10.0f, 0.01f);
     }
-    if (D_80177C98 == 0) {
+    if (gLevelType == 0) {
         if (arg0->obj.pos.y < D_80177940 + 70.0f) {
             Math_SmoothStepToF(&arg0->obj.pos.y, D_80177940 + 70.0f, 0.1f, 5.0f, 0.01f);
         }
@@ -2009,8 +2010,8 @@ void func_80067874(Object_2F4* arg0) {
         gSPDisplayList(gMasterDisp++, D_10177C0);
         Matrix_Pop(&gGfxMatrix);
     }
-    Lights_SetOneLight(&gMasterDisp, D_801784DC, D_801784E0, D_801784E4, D_80178548, D_8017854C, D_80178550, D_80178554,
-                       D_80178558, D_8017855C);
+    Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR,
+                       gAmbientG, gAmbientB);
 }
 
 void func_80067A40(void) {
