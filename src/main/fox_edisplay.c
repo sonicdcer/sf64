@@ -1028,7 +1028,6 @@ void func_8005D954(Object_2F4* arg0) {
     }
 }
 
-#ifdef NON_MATCHING
 void func_8005DBC0(Object_2F4* arg0) {
     s32 var_v1;
     Vec3f sp50 = { 0.0f, 0.0f, 0.0f };
@@ -1051,16 +1050,18 @@ void func_8005DBC0(Object_2F4* arg0) {
             var_fv0 = 1000.0f;
             var_fv1 = -25000.0f;
         }
-        if (((var_fv0 > D_801615E0.z) && (D_801615E0.z > var_fv1)) &&
-            ((fabsf(D_801615E0.x) < (fabsf(D_801615E0.z * 0.5f) + 500.0f)) &&
-             (fabsf(D_801615E0.y) < (fabsf(D_801615E0.z * 0.5f) + 500.0f)))) {
-            Matrix_RotateY(gCalcMatrix, arg0->obj.rot.y * M_DTOR, 1);
-            Matrix_RotateX(gCalcMatrix, arg0->obj.rot.x * M_DTOR, 1);
-            Matrix_RotateZ(gCalcMatrix, arg0->obj.rot.z * M_DTOR, 1);
-            arg0->unk_01C.draw(&arg0->obj);
-            D_801615EC = 1;
-            if ((gPlayer[0].unk_1C8 == 3) && (arg0->obj.id == OBJECT_197) && (arg0->unk_0E4 == 200)) {
-                D_80177E98[0] = D_801615E0;
+        if ((var_fv0 > D_801615E0.z) && (D_801615E0.z > var_fv1)) {
+            if (fabsf(D_801615E0.x) < (fabsf(D_801615E0.z * 0.5f) + 500.0f)) {
+                if (fabsf(D_801615E0.y) < (fabsf(D_801615E0.z * 0.5f) + 500.0f)) {
+                    Matrix_RotateY(gCalcMatrix, arg0->obj.rot.y * M_DTOR, 1);
+                    Matrix_RotateX(gCalcMatrix, arg0->obj.rot.x * M_DTOR, 1);
+                    Matrix_RotateZ(gCalcMatrix, arg0->obj.rot.z * M_DTOR, 1);
+                    arg0->unk_01C.draw(&arg0->obj);
+                    D_801615EC = 1;
+                    if ((gPlayer[0].unk_1C8 == 3) && (arg0->obj.id == OBJECT_197) && (arg0->unk_0E4 == 200)) {
+                        D_80177E98[0] = D_801615E0;
+                    }
+                }
             }
         }
     } else {
@@ -1078,19 +1079,24 @@ void func_8005DBC0(Object_2F4* arg0) {
             var_fv1 = -20000.0f;
             var_fa1 = 0.5f;
         }
-        if (((D_801615E0.z < var_fv0) && (var_fv1 < D_801615E0.z)) &&
-            ((fabsf(D_801615E0.x) < (fabsf(D_801615E0.z * var_fa1) + var_ft5)) &&
-             (fabsf(D_801615E0.y) < (fabsf(D_801615E0.z * var_fa1) + var_ft5)) && (arg0->unk_01C.draw != NULL))) {
-            Matrix_RotateY(gGfxMatrix, arg0->obj.rot.y * M_DTOR, 1);
-            Matrix_RotateX(gGfxMatrix, arg0->obj.rot.x * M_DTOR, 1);
-            Matrix_RotateZ(gGfxMatrix, arg0->obj.rot.z * M_DTOR, 1);
-            Matrix_SetGfxMtx(&gMasterDisp);
-            arg0->unk_01C.draw(&arg0->obj);
-            D_801615EC = 1;
-            if ((gPlayer[0].unk_1C8 == 3) && (((arg0->obj.id == OBJECT_197) &&
-                                               ((arg0->unk_0E4 < 4) || (arg0->unk_0E4 == 8) || (arg0->unk_0E4 == 9))) ||
-                                              (arg0->obj.id == OBJECT_198))) {
-                D_80177E98[arg0->unk_0E4] = D_801615E0;
+        if ((var_fv0 > D_801615E0.z) && (D_801615E0.z > var_fv1)) {
+            if (fabsf(D_801615E0.x) < (fabsf(D_801615E0.z * var_fa1) + var_ft5)) {
+                if (fabsf(D_801615E0.y) < (fabsf(D_801615E0.z * var_fa1) + var_ft5)) {
+                    if (arg0->unk_01C.draw != NULL) {
+                        Matrix_RotateY(gGfxMatrix, arg0->obj.rot.y * M_DTOR, 1);
+                        Matrix_RotateX(gGfxMatrix, arg0->obj.rot.x * M_DTOR, 1);
+                        Matrix_RotateZ(gGfxMatrix, arg0->obj.rot.z * M_DTOR, 1);
+                        Matrix_SetGfxMtx(&gMasterDisp);
+                        arg0->unk_01C.draw(&arg0->obj);
+                        D_801615EC = 1;
+                        if ((gPlayer[0].unk_1C8 == 3) &&
+                            (((arg0->obj.id == OBJECT_197) &&
+                              ((arg0->unk_0E4 < 4) || (arg0->unk_0E4 == 8) || (arg0->unk_0E4 == 9))) ||
+                             (arg0->obj.id == OBJECT_198))) {
+                            D_80177E98[arg0->unk_0E4] = D_801615E0;
+                        }
+                    }
+                }
             }
         }
     }
@@ -1112,13 +1118,7 @@ void func_8005DBC0(Object_2F4* arg0) {
     func_8005F290(&arg0->unk_100, &D_801615E0);
     arg0->unk_0B0 = D_801615EC;
 }
-#else
-Vec3f D_800CFCF8 = { 0.0f, 0.0f, 0.0f };
-void func_8005DBC0(Object_2F4* arg0);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_edisplay/func_8005DBC0.s")
-#endif
 
-#ifdef NON_MATCHING
 void func_8005E1B8(Object_408* arg0, s32 arg1) {
     f32 var_fa1;
     f32 var_ft5;
@@ -1153,21 +1153,23 @@ void func_8005E1B8(Object_408* arg0, s32 arg1) {
         var_fv1 = -15000.0f;
     }
     sp3C = -1.0f;
-    if (((D_801615D0.z < var_fv0) && (var_fv1 < D_801615D0.z)) &&
-        ((fabsf(D_801615D0.x) < (fabsf(D_801615D0.z * var_ft5) + var_fa1)) &&
-         (fabsf(D_801615D0.y) < (fabsf(D_801615D0.z * var_ft5) + var_fa1)))) {
-        sp3C = 1.0f;
-        if (arg0->obj.id == OBJECT_309) {
-            if (arg0->obj.id == OBJECT_316) {
-                func_8005F670(&arg0->obj.pos);
+    if ((D_801615D0.z < var_fv0) && (var_fv1 < D_801615D0.z)) {
+        if (fabsf(D_801615D0.x) < (fabsf(D_801615D0.z * var_ft5) + var_fa1)) {
+            if (fabsf(D_801615D0.y) < (fabsf(D_801615D0.z * var_ft5) + var_fa1)) {
+                sp3C = 1.0f;
+                if (arg0->obj.id != OBJECT_309) {
+                    if (arg0->obj.id != OBJECT_316) {
+                        func_8005F670(&arg0->obj.pos);
+                    }
+                    if (arg0->unk_01C.drawType != 2) {
+                        Matrix_SetGfxMtx(&gMasterDisp);
+                    }
+                    if (arg1 < 0) {
+                        func_800596C0();
+                    }
+                    arg0->unk_01C.draw(&arg0->obj);
+                }
             }
-            if (arg0->unk_01C.drawType != 2) {
-                Matrix_SetGfxMtx(&gMasterDisp);
-            }
-            if (arg1 < 0) {
-                func_800596C0();
-            }
-            arg0->unk_01C.draw(&arg0->obj);
         }
     }
     D_801615D0.y = sp3C;
@@ -1178,11 +1180,6 @@ void func_8005E1B8(Object_408* arg0, s32 arg1) {
         arg0->unk_01C.draw(&arg0->obj);
     }
 }
-#else
-Vec3f D_800CFD04 = { 0.0f, 0.0f, 0.0f };
-void func_8005E1B8(Object_408* arg0, s32 arg1);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_edisplay/func_8005E1B8.s")
-#endif
 
 void func_8005E454(Object_8C* arg0, s32 arg1) {
     if ((arg1 < 0) && (arg0->obj.pos.y < 7.0f)) {
@@ -1202,7 +1199,6 @@ void func_8005E454(Object_8C* arg0, s32 arg1) {
     }
 }
 
-#ifdef NON_MATCHING
 void func_8005E538(Object_8C* arg0) {
     Vec3f sp4C = { 0.0f, 0.0f, 0.0f };
     Vec3f sp40;
@@ -1220,29 +1216,26 @@ void func_8005E538(Object_8C* arg0) {
     } else {
         var_fv0 = -10000.0f;
     }
-    if ((sp40.z < 0.0f) && (var_fv0 < sp40.z) && (fabsf(sp40.x) < (fabsf(sp40.z * 0.5f) + 500.0f)) &&
-        (fabsf(sp40.y) < (fabsf(sp40.z * 0.5f) + 500.0f))) {
-        if (arg0->unk_1C.draw != NULL) {
-            Matrix_RotateY(gGfxMatrix, arg0->obj.rot.y * M_DTOR, 1);
-            Matrix_RotateX(gGfxMatrix, arg0->obj.rot.x * M_DTOR, 1);
-            Matrix_RotateZ(gGfxMatrix, arg0->obj.rot.z * M_DTOR, 1);
-            Matrix_SetGfxMtx(&gMasterDisp);
-            arg0->unk_1C.draw(&arg0->obj);
+    if ((sp40.z < 0.0f) && (var_fv0 < sp40.z)) {
+        if (fabsf(sp40.x) < (fabsf(sp40.z * 0.5f) + 500.0f)) {
+            if (fabsf(sp40.y) < (fabsf(sp40.z * 0.5f) + 500.0f)) {
+                if (arg0->unk_1C.draw != NULL) {
+                    Matrix_RotateY(gGfxMatrix, arg0->obj.rot.y * M_DTOR, 1);
+                    Matrix_RotateX(gGfxMatrix, arg0->obj.rot.x * M_DTOR, 1);
+                    Matrix_RotateZ(gGfxMatrix, arg0->obj.rot.z * M_DTOR, 1);
+                    Matrix_SetGfxMtx(&gMasterDisp);
+                    arg0->unk_1C.draw(&arg0->obj);
+                }
+                sp3B = 1;
+            }
         }
-        sp3B = 1;
     }
     func_8005F290(&arg0->unk_80, &sp40);
-    if ((sp3B == 0) && (arg0->obj.id == OBJECT_352) && (arg0->obj.id == OBJECT_373) && (D_801778E8 == 0)) {
+    if ((sp3B == 0) && (arg0->obj.id != OBJECT_352) && (arg0->obj.id != OBJECT_373) && (D_801778E8 == 0)) {
         Object_Kill(&arg0->obj, &arg0->unk_80);
     }
 }
-#else
-Vec3f D_800CFD10 = { 0.0f, 0.0f, 0.0f };
-void func_8005E538(Object_8C* arg0);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_edisplay/func_8005E538.s")
-#endif
 
-#ifdef NON_MATCHING
 void func_8005E7B8(Object_6C* arg0, s32 arg1) {
     Vec3f sp44 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp38;
@@ -1251,20 +1244,23 @@ void func_8005E7B8(Object_6C* arg0, s32 arg1) {
     Matrix_Translate(gGfxMatrix, arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z + D_80177D20, 1);
     Matrix_MultVec3f(gGfxMatrix, &sp44, &sp38);
     var_v0 = 0;
-    if ((sp38.z < 0.0f) && (sp38.z > -12000.0f) && (fabsf(sp38.x) < (fabsf(sp38.z * 0.5f) + 500.0f)) &&
-        (fabsf(sp38.y) < (fabsf(sp38.z * 0.5f) + 500.0f))) {
-        if (arg0->unk_1C.draw != NULL) {
-            Matrix_RotateY(gGfxMatrix, arg0->obj.rot.y * M_DTOR, 1);
-            Matrix_RotateX(gGfxMatrix, arg0->obj.rot.x * M_DTOR, 1);
-            Matrix_RotateZ(gGfxMatrix, arg0->obj.rot.z * M_DTOR, 1);
-            Matrix_SetGfxMtx(&gMasterDisp);
-            if (arg0->unk_1C.drawType == 0) {
-                gSPDisplayList(gMasterDisp++, arg0->unk_1C.dList);
-            } else {
-                arg0->unk_1C.draw(&arg0->obj);
+    if ((sp38.z < 0.0f) && (sp38.z > -12000.0f)) {
+        if (fabsf(sp38.x) < (fabsf(sp38.z * 0.5f) + 500.0f)) {
+            if (fabsf(sp38.y) < (fabsf(sp38.z * 0.5f) + 500.0f)) {
+                if (arg0->unk_1C.draw != NULL) {
+                    Matrix_RotateY(gGfxMatrix, arg0->obj.rot.y * M_DTOR, 1);
+                    Matrix_RotateX(gGfxMatrix, arg0->obj.rot.x * M_DTOR, 1);
+                    Matrix_RotateZ(gGfxMatrix, arg0->obj.rot.z * M_DTOR, 1);
+                    Matrix_SetGfxMtx(&gMasterDisp);
+                    if (arg0->unk_1C.drawType == 0) {
+                        gSPDisplayList(gMasterDisp++, arg0->unk_1C.dList);
+                    } else {
+                        arg0->unk_1C.draw(&arg0->obj);
+                    }
+                }
+                var_v0 = 1;
             }
         }
-        var_v0 = 1;
     }
     func_8005F290(&arg0->unk_5C, &sp38);
     if ((var_v0 == 0) && (D_80177880 == 1) && (gCamCount == 1) && (arg0->obj.id < 336) &&
@@ -1272,11 +1268,6 @@ void func_8005E7B8(Object_6C* arg0, s32 arg1) {
         Object_Kill(&arg0->obj, &arg0->unk_5C);
     }
 }
-#else
-Vec3f D_800CFD1C = { 0.0f, 0.0f, 0.0f };
-void func_8005E7B8(Object_6C* arg0, s32 arg1);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_edisplay/func_8005E7B8.s")
-#endif
 
 void func_8005EA24(Object_2F4* arg0) {
     Matrix_Translate(gGfxMatrix, arg0->obj.pos.x, arg0->unk_178 + 3.0f, arg0->obj.pos.z, 1);
@@ -1418,7 +1409,6 @@ void func_8005F290(Vec3f* arg0, Vec3f* arg1) {
     func_8005F030(arg0);
 }
 
-#ifdef NON_MATCHING
 void func_8005F2F4(Object_58* arg0) {
     Vec3f sp54 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp48;
@@ -1446,29 +1436,27 @@ void func_8005F2F4(Object_58* arg0) {
         Matrix_Translate(gGfxMatrix, arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 1);
     }
     Matrix_MultVec3f(gGfxMatrix, &sp54, &sp48);
-    if ((sp48.z < sp44) && (sp40 < sp48.z) && (fabsf(sp48.y) < (fabsf(sp48.z * sp38) + sp3C)) &&
-        (fabsf(sp48.x) < (fabsf(sp48.z * sp38) + sp3C))) {
-        func_8005F670(&arg0->obj.pos);
-        if (arg0->obj.id == OBJECT_131) {
-            Matrix_RotateY(gGfxMatrix, arg0->obj.rot.y * M_DTOR, 1);
-            Matrix_RotateX(gGfxMatrix, arg0->obj.rot.x * M_DTOR, 1);
-            Matrix_RotateZ(gGfxMatrix, arg0->obj.rot.z * M_DTOR, 1);
-            Matrix_RotateY(gGfxMatrix, M_PI / 2.0f, 1);
-            Matrix_Translate(gGfxMatrix, -551.0f, 0.0f, 0.0f, 1);
-            Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_6007650);
-        } else {
-            Matrix_RotateY(gGfxMatrix, arg0->obj.rot.y * M_DTOR, 1);
-            Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, arg0->unk_1C.dList);
+    if ((sp48.z < sp44) && (sp40 < sp48.z)) {
+        if (fabsf(sp48.y) < (fabsf(sp48.z * sp38) + sp3C)) {
+            if (fabsf(sp48.x) < (fabsf(sp48.z * sp38) + sp3C)) {
+                func_8005F670(&arg0->obj.pos);
+                if (arg0->obj.id == OBJECT_131) {
+                    Matrix_RotateY(gGfxMatrix, arg0->obj.rot.y * M_DTOR, 1);
+                    Matrix_RotateX(gGfxMatrix, arg0->obj.rot.x * M_DTOR, 1);
+                    Matrix_RotateZ(gGfxMatrix, arg0->obj.rot.z * M_DTOR, 1);
+                    Matrix_RotateY(gGfxMatrix, M_PI / 2.0f, 1);
+                    Matrix_Translate(gGfxMatrix, -551.0f, 0.0f, 0.0f, 1);
+                    Matrix_SetGfxMtx(&gMasterDisp);
+                    gSPDisplayList(gMasterDisp++, D_6007650);
+                } else {
+                    Matrix_RotateY(gGfxMatrix, arg0->obj.rot.y * M_DTOR, 1);
+                    Matrix_SetGfxMtx(&gMasterDisp);
+                    gSPDisplayList(gMasterDisp++, arg0->unk_1C.dList);
+                }
+            }
         }
     }
 }
-#else
-Vec3f D_800CFD34 = { 0.0f, 0.0f, 0.0f };
-void func_8005F2F4(Object_58*);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_edisplay/func_8005F2F4.s")
-#endif
 
 void func_8005F670(Vec3f* arg0) {
     Vec3f sp9C;
@@ -1519,7 +1507,6 @@ void func_8005F670(Vec3f* arg0) {
     }
 }
 
-#ifdef NON_MATCHING
 bool func_8005F9DC(Vec3f* arg0) {
     Vec3f sp2C;
     Vec3f sp20;
@@ -1530,16 +1517,15 @@ bool func_8005F9DC(Vec3f* arg0) {
     sp2C.y = arg0->y - gPlayer[D_801778A0].unk_040.y;
     sp2C.z = arg0->z - gPlayer[D_801778A0].unk_040.z;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp2C, &sp20);
-    if ((sp20.z < 1000.0f) && (sp20.z > -13000.0f) && (fabsf(sp20.x) < (fabsf(sp20.z * 0.4f) + 2000.0f)) &&
-        (fabsf(sp20.y) < (fabsf(sp20.y * 0.4f) + 2000.0f))) {
-        return true;
+    if ((sp20.z < 1000.0f) && (sp20.z > -13000.0f)) {
+        if (fabsf(sp20.x) < (fabsf(sp20.z * 0.4f) + 2000.0f)) {
+            if (fabsf(sp20.y) < (fabsf(sp20.y * 0.4f) + 2000.0f)) {
+                return true;
+            }
+        }
     }
     return false;
 }
-#else
-bool func_8005F9DC(Vec3f* arg0);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_edisplay/func_8005F9DC.s")
-#endif
 
 void func_8005FB70(s32 arg0) {
     Vec3f spAC;
@@ -1766,10 +1752,8 @@ Gfx D_800CFD80[] = {
     gsSPEndDisplayList(),
 };
 
-#ifdef NON_MATCHING
 void func_80060968(void) {
     s32 i;
-    s32 var_a1;
 
     if (gCurrentLevel == LEVEL_MACBETH) {
         RCP_SetupDL(&gMasterDisp, 0x21);
@@ -1780,17 +1764,20 @@ void func_80060968(void) {
         RCP_SetupDL_14();
     }
     for (i = 0; i < ARRAY_COUNT(gUnkEntities30); i++) {
+        UnkEntity30* ent30 = &gUnkEntities30[i];
+
         if (gUnkEntities30[i].mode != 0) {
             Matrix_Push(&gGfxMatrix);
-            Matrix_Translate(gGfxMatrix, gUnkEntities30[i].unk_04.x, gUnkEntities30[i].unk_04.y,
-                             gUnkEntities30[i].unk_04.z + D_80177D20, 1);
-            Matrix_RotateY(gGfxMatrix, gUnkEntities30[i].unk_20, 1);
-            Matrix_RotateX(gGfxMatrix, gUnkEntities30[i].unk_1C, 1);
-            Matrix_RotateZ(gGfxMatrix, gUnkEntities30[i].unk_20, 1);
-            Matrix_Scale(gGfxMatrix, gUnkEntities30[i].unk_28, gUnkEntities30[i].unk_28, gUnkEntities30[i].unk_24, 1);
+            Matrix_Translate(gGfxMatrix, ent30->unk_04.x, ent30->unk_04.y, ent30->unk_04.z + D_80177D20, 1);
+            Matrix_RotateY(gGfxMatrix, ent30->unk_20, 1);
+            Matrix_RotateX(gGfxMatrix, ent30->unk_1C, 1);
+            Matrix_RotateZ(gGfxMatrix, ent30->unk_20, 1);
+            Matrix_Scale(gGfxMatrix, ent30->unk_28, ent30->unk_28, ent30->unk_24, 1);
+
             if ((gCurrentLevel == LEVEL_AQUAS) || (gCurrentLevel == LEVEL_VENOM_2)) {
-                var_a1 = (gFrameCount & 1) ? 180 : 50;
-                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, var_a1);
+                s32 alpha = (gFrameCount & 1) ? 180 : 50;
+
+                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, alpha);
                 if (gCurrentLevel == LEVEL_AQUAS) {
                     Matrix_Scale(gGfxMatrix, 0.01f, 0.3f, 0.0025f, 1);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -200.0f, 1);
@@ -1809,8 +1796,8 @@ void func_80060968(void) {
                 if (gCurrentLevel == LEVEL_MACBETH) {
                     gSPDisplayList(gMasterDisp++, D_6012C00);
                 } else {
-                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, gUnkEntities30[i].unk_2C, gUnkEntities30[i].unk_2D,
-                                    gUnkEntities30[i].unk_2E, gUnkEntities30[i].unk_2F);
+                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, ent30->unk_2C, ent30->unk_2D, ent30->unk_2E,
+                                    ent30->unk_2F);
                     gSPDisplayList(gMasterDisp++, D_800CFD80);
                 }
             }
@@ -1818,10 +1805,6 @@ void func_80060968(void) {
         }
     }
 }
-#else
-void func_80060968(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_edisplay/func_80060968.s")
-#endif
 
 void func_80060D94(s32 arg0) {
     UnkEntity30* temp_s0 = &gUnkEntities30[arg0];
