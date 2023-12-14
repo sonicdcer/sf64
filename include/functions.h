@@ -33,7 +33,7 @@ void func_8001AF40(s32);
 void func_8001D1C8(s32, s32);
 void func_8001D2FC(Vec3f *, u16);
 void func_8001D3A0(Vec3f *, u16);
-void func_8001D400(u8);
+void func_8001D400(s8);
 void func_8001D444(u8, u16, u8, u8);
 void func_8001D4AC(u16, u8, u8, u8);
 void func_8001D638(u8);

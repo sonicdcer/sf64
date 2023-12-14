@@ -1,6 +1,8 @@
 #ifndef VARIABLES_H
 #define VARIABLES_H
 
+#include "libc/stdbool.h"
+#include "sf64math.h"
 #include "structs.h"
 #include "gfx.h"
 #include "sf64level.h"

@@ -4,6 +4,21 @@ D_1 = 0x1; //ignore:true
 D_80120000 = 0x80120000;//ignore:true
 D_80130001 = 0x80130001;//ignore:true
 D_80000000 = 0x80000000;//ignore:true
+D_80000001 = 0x80000001;//ignore:true
+D_80000002 = 0x80000002;//ignore:true
+D_80000003 = 0x80000003;//ignore:true
+D_80000004 = 0x80000004;//ignore:true
+D_80000005 = 0x80000005;//ignore:true
+D_80000006 = 0x80000006;//ignore:true
+D_80000007 = 0x80000007;//ignore:true
+D_80000008 = 0x80000008;//ignore:true
+D_80000009 = 0x80000009;//ignore:true
+D_8000000A = 0x8000000A;//ignore:true
+D_8000000B = 0x8000000B;//ignore:true
+D_8000000C = 0x8000000C;//ignore:true
+D_8000000D = 0x8000000D;//ignore:true
+D_8000000E = 0x8000000E;//ignore:true
+D_8000000F = 0x8000000F;//ignore:true
 
 D_800C45E0 = 0x800C45E0;
 
