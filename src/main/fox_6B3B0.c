@@ -903,7 +903,6 @@ void func_8006D36C(Object_2F4* arg0) {
     s32 j;
     UnkEntity30* ent30;
 
-
     switch (gCurrentLevel) {
         case LEVEL_VENOM_2:
             var_v1 = SEGMENTED_TO_VIRTUAL(D_C037E3C);
@@ -917,7 +916,7 @@ void func_8006D36C(Object_2F4* arg0) {
         case LEVEL_AQUAS:
             var_v1 = SEGMENTED_TO_VIRTUAL(D_60308B8);
             break;
-        case LEVEL_TITANIA:    
+        case LEVEL_TITANIA:
             var_v1 = SEGMENTED_TO_VIRTUAL(D_600631C);
             break;
         case LEVEL_SECTOR_X:
@@ -1110,7 +1109,7 @@ void func_8006D36C(Object_2F4* arg0) {
                 arg0->unk_0B8 = 0xB;
                 arg0->unk_0E6 += 2;
                 break;
-            } 
+            }
             arg0->unk_048 = temp_s1[arg0->unk_0E6 + 1];
             if (arg0->unk_048 == 3) {
                 arg0->unk_04C = 4;
