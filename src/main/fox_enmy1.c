@@ -919,22 +919,22 @@ void func_80063CAC(Object_80* arg0) {
     }
 }
 
-void func_80063D58(Object* arg0) {
+void func_80063D58(Object_80* arg0) {
     s32 i;
 
-    arg0->pos.y = D_80177940;
+    arg0->obj.pos.y = D_80177940;
     for (i = 0; i < ARRAY_COUNT(gObjects4C); i++) {
         if (gObjects4C[i].obj.status == 0) {
             Object_4C_Initialize(&gObjects4C[i]);
             gObjects4C[i].obj.status = 1;
             gObjects4C[i].obj.id = OBJECT_164;
-            gObjects4C[i].unk_45 = arg0->id;
-            gObjects4C[i].obj.pos.x = arg0->pos.x;
+            gObjects4C[i].unk_45 = arg0->obj.id;
+            gObjects4C[i].obj.pos.x = arg0->obj.pos.x;
             gObjects4C[i].obj.pos.y = 5.0f;
-            gObjects4C[i].obj.pos.z = arg0->pos.z;
-            if ((arg0->id == OBJECT_0) || (arg0->id == OBJECT_6) || (arg0->id == OBJECT_7) || (arg0->id == OBJECT_56) ||
-                (arg0->id == OBJECT_20) || (arg0->id == OBJECT_21) || (arg0->id == OBJECT_22)) {
-                gObjects4C[i].obj.rot.y = arg0->rot.y;
+            gObjects4C[i].obj.pos.z = arg0->obj.pos.z;
+            if ((arg0->obj.id == OBJECT_0) || (arg0->obj.id == OBJECT_6) || (arg0->obj.id == OBJECT_7) || (arg0->obj.id == OBJECT_56) ||
+                (arg0->obj.id == OBJECT_20) || (arg0->obj.id == OBJECT_21) || (arg0->obj.id == OBJECT_22)) {
+                gObjects4C[i].obj.rot.y = arg0->obj.rot.y;
             } else {
                 gObjects4C[i].obj.rot.y = 44.9f;
             }
@@ -944,7 +944,7 @@ void func_80063D58(Object* arg0) {
     }
 }
 
-void func_80063E5C(Object* arg0, f32* arg1) {
+void func_80063E5C(Object_80* arg0, f32* arg1) {
     s32 i;
     Object_6C* var_v1;
 
@@ -953,10 +953,10 @@ void func_80063E5C(Object* arg0, f32* arg1) {
             Object_6C_Initialize(&gObjects6C[i]);
             var_v1->obj.status = 1;
             var_v1->obj.id = OBJECT_334;
-            var_v1->obj.pos.x = arg0->pos.x;
-            var_v1->obj.pos.y = arg0->pos.y;
-            var_v1->obj.pos.z = arg0->pos.z;
-            var_v1->obj.rot.y = arg0->rot.y;
+            var_v1->obj.pos.x = arg0->obj.pos.x;
+            var_v1->obj.pos.y = arg0->obj.pos.y;
+            var_v1->obj.pos.z = arg0->obj.pos.z;
+            var_v1->obj.rot.y = arg0->obj.rot.y;
             func_800612B8(&var_v1->unk_1C, var_v1->obj.id);
             var_v1->unk_1C.unk_0C = SEGMENTED_TO_VIRTUAL(arg1);
             break;
@@ -993,10 +993,10 @@ void func_80063F90(s32 arg0, s32 objId) {
         case 54:
             func_80019218(0x11000000, &gObjects80[arg0].unk_70, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             break;
-        case 0xC6:
+        case 198:
             func_80092D48(&gObjects2F4[arg0]);
             break;
-        case 0xEB:
+        case 235:
             gObjects2F4[arg0].unk_13C = fabsf(Math_ModF(gObjects2F4[arg0].obj.pos.x, 100.0f));
             break;
         case 0xF7:
@@ -1014,31 +1014,31 @@ void func_80063F90(s32 arg0, s32 objId) {
             }
             break;
         case 0x1E:
-            func_80063E5C(&gObjects80[arg0].obj, D_6006940);
+            func_80063E5C(&gObjects80[arg0], D_6006940);
             break;
         case 0x1F:
-            func_80063E5C(&gObjects80[arg0].obj, D_600695C);
+            func_80063E5C(&gObjects80[arg0], D_600695C);
             break;
         case 0x20:
-            func_80063E5C(&gObjects80[arg0].obj, D_6006978);
+            func_80063E5C(&gObjects80[arg0], D_6006978);
             break;
         case 0x21:
-            func_80063E5C(&gObjects80[arg0].obj, D_6006994);
+            func_80063E5C(&gObjects80[arg0], D_6006994);
             break;
         case 0x22:
-            func_80063E5C(&gObjects80[arg0].obj, D_60069B0);
+            func_80063E5C(&gObjects80[arg0], D_60069B0);
             break;
         case 0x23:
-            func_80063E5C(&gObjects80[arg0].obj, D_60069CC);
+            func_80063E5C(&gObjects80[arg0], D_60069CC);
             break;
         case 0x24:
-            func_80063E5C(&gObjects80[arg0].obj, D_60069E8);
+            func_80063E5C(&gObjects80[arg0], D_60069E8);
             break;
         case 0x25:
-            func_80063E5C(&gObjects80[arg0].obj, D_6006A04);
+            func_80063E5C(&gObjects80[arg0], D_6006A04);
             break;
         case 0x26:
-            func_80063E5C(&gObjects80[arg0].obj, D_6006A20);
+            func_80063E5C(&gObjects80[arg0], D_6006A20);
             break;
         case 0x17:
             func_80063CAC(&gObjects80[arg0]);
@@ -1071,7 +1071,7 @@ void func_80063F90(s32 arg0, s32 objId) {
             }
             break;
         case 0x0:
-            func_80063E5C(&gObjects80[arg0].obj, D_800CBF18);
+            func_80063E5C(&gObjects80[arg0], D_800CBF18);
             /* fallthrough */
         case 0x6:
         case 0x7:
@@ -1079,7 +1079,7 @@ void func_80063F90(s32 arg0, s32 objId) {
         case 0x15:
         case 0x16:
         case 0x38:
-            func_80063D58(&gObjects80[arg0].obj);
+            func_80063D58(&gObjects80[arg0]);
             break;
         case 0xBB:
             gObjects2F4[arg0].unk_114 = gObjects2F4[arg0].obj.pos.x;

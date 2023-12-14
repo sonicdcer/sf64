@@ -16,6 +16,20 @@ typedef struct {
 } ObjectInit; // size = 0x14
 
 typedef struct {
+    /* 0x00 */ Gfx* unk_00;
+    /* 0x04 */ f32* unk_04;
+    /* 0x08 */ f32 unk_08;
+    /* 0x0C */ f32 unk_0C;
+    /* 0x10 */ f32 unk_10;
+    /* 0x14 */ u8 unk_14;
+    /* 0x15 */ u8 unk_15;
+    /* 0x16 */ u8 unk_16;
+    /* 0x17 */ u8 unk_17;
+    /* 0x18 */ f32 unk_18;
+    /* 0x1C */ u8 unk_1C;
+} UnkStruct_D003C; // size = 0x20
+
+typedef struct {
     /* 0x00 */ u8 status;
     /* 0x02 */ u16 id;
     /* 0x04 */ Vec3f pos;
@@ -43,7 +57,7 @@ typedef struct {
 
 typedef struct {
     /* 0x00 */ Object obj;
-    /* 0x1C */ s32 pad1C;
+    /* 0x1C */ char pad1C[4];
     /* 0x20 */ Vec3f unk_20;
     /* 0x2C */ char pad2C[0xC];
     /* 0x38 */ Vec3f unk_38;

@@ -1,6 +1,9 @@
 D_800C90F0 = 0x800C90F0;
 __libm_qnan_f = 0x800C9570;
 D_1 = 0x1; //ignore:true
+D_80120000 = 0x80120000;//ignore:true
+D_80130001 = 0x80130001;//ignore:true
+D_80000000 = 0x80000000;//ignore:true
 
 D_800C45E0 = 0x800C45E0;
 

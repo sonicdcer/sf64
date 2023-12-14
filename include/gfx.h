@@ -28,6 +28,146 @@
 
 #define VTX_T(x,y,z,s,t,cr,cg,cb,a) { { x, y, z }, 0, { s, t }, { cr, cg, cb, a } }
 
+typedef union {
+    u16 data[SCREEN_HEIGHT * SCREEN_WIDTH];
+    u16 array[SCREEN_HEIGHT][SCREEN_WIDTH];
+} FrameBuffer; // size = 0x25800
+
+typedef s32 (*OverrideLimbDraw)(s32, Gfx**, Vec3f*, Vec3f*, void*);
+typedef void (*PostLimbDraw)(s32, Vec3f*, void*);
+
+typedef struct {
+    /* 0x0 */ u16 xLen;
+    /* 0x2 */ u16 x;
+    /* 0x4 */ u16 yLen;
+    /* 0x6 */ u16 y;
+    /* 0x8 */ u16 zLen;
+    /* 0xA */ u16 z;
+} JointKey; // size = 0xC
+
+typedef struct {
+    /* 0x00 */ s16 frameCount;
+    /* 0x02 */ s16 limbCount;
+    /* 0x04 */ u16* frameData;
+    /* 0x08 */ JointKey* jointKey;
+} AnimationHeader; // size = 0xC
+
+typedef struct Limb {
+    /* 0x000 */ Gfx* dList;
+    /* 0x004 */ Vec3f trans;
+    /* 0x010 */ Vec3s rot;
+    /* 0x018 */ struct Limb* sibling;
+    /* 0x01C */ struct Limb* child;
+} Limb; // size = 0x20
+
+typedef Limb* SkelAnime;
+
+typedef struct {
+    /* 0x00 */ AnimationHeader* unk_0;
+    /* 0x04 */ AnimationHeader* unk_4;
+    /* 0x08 */ SkelAnime* skelanime;
+} Animation; // size = 0x0C
+
+void Lights_SetOneLight(Gfx** dList, s32 dirX, s32 dirY, s32 dirZ, s32 colR, s32 colG, s32 colB, s32 ambR, s32 ambG, s32 ambB);
+void Lights_SetTwoLights(Gfx** dList, s32 dir1x, s32 dir1y, s32 dir1z, s32 dir2x, s32 dir2y, s32 dir2z, s32 col1r, s32 col1g,
+                   s32 col1b, s32 col2r, s32 col2g, s32 col2b, s32 ambR, s32 ambG, s32 ambB);  
+
+char* Graphics_ClearPrintBuffer(char *buf, s32 fill, s32 len);
+s32 Graphics_Printf(const char *fmt, ...);
+void Texture_Scroll(void *texture, s32 width, s32 height, u8 mode);
+void Texture_Mottle(void *dst, void *src, u8 mode);    
+s32 Animation_GetLimbIndex(Limb* limb, Limb** skeleton);
+void Animation_DrawLimb(s32 mode, Limb * limb, Limb* *skeleton, Vec3f* jointTable, OverrideLimbDraw overrideLimbDraw, PostLimbDraw postLimbDraw, void* data);
+void Animation_DrawSkeleton(s32 mode, Limb** skeletonSegment, Vec3f* jointTable, OverrideLimbDraw overrideLimbDraw, PostLimbDraw postLimbDraw, void* data, Matrix* transform);
+s16 Animation_GetFrameData(AnimationHeader *animationSegmemt, s32 frame, Vec3f *frameTable);
+s16 Animation_GetFrameCount(AnimationHeader *animationSegment);
+void Animation_FindBoundingBox(Gfx* dList, s32 len, Vec3f *min, Vec3f *max, s32 *vtxFound, s32 *vtxCount, Vtx* *vtxList);
+void Animation_GetDListBoundingBox(Gfx *dList, s32 len, Vec3f *min, Vec3f *max);
+void Animation_GetSkeletonBoundingBox(Limb **skeletonSegment, AnimationHeader *animationSegment, s32 frame, Vec3f *min, Vec3f* max);
+void TextureRect_4bCI(Gfx **gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void TextureRect_4bCI_Flip(Gfx **gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void TextureRect_4bCI_MirX(Gfx **gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void TextureRect_4bCI_MirY(Gfx **gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void TextureRect_8bCI(Gfx **gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void TextureRect_16bRGBA(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void TextureRect_16bRGBA_MirX(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void TextureRect_8bIA(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void TextureRect_8bIA_FilpMirX(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void TextureRect_8bIA_FilpMirY(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void TextureRect_8bIA_MirX(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void TextureRect_8bIA_MirY(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void TextureRect_16bIA(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void TextureRect_16bIA_MirX(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void TextureRect_16bIA_MirY(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void TextureRect_16bIA_MirXY(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void TextureRect_32bRGBA(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
+void Graphics_FillRectangle(Gfx **gfxPtr, s32 ulx, s32 uly, s32 lrx, s32 lry, u8 r, u8 g, u8 b, u8 a);
+u16*  func_8009F7B4(Gfx **gfxPtr, u8 width, u8 height);
+void Graphics_DisplayHUDNumber(s32 xPos, s32 yPos, s32 number);
+void Graphics_DisplaySmallNumber(s32 xPos, s32 yPos, s32 number);
+void Graphics_DisplayLargeText(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char *text);
+s32 Graphics_GetLargeTextWidth(char *text);
+void Graphics_DisplayLargeNumber(s32 xPos, s32 yPos, s32 number);
+void Graphics_DisplaySmallText(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char *text);
+s32 Graphics_GetSmallTextWidth(char *text);
+void func_800A1540(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+void func_800A1558(f32 weight, u16 size, void *src1, void *src2, void *dst);
+
+void RCP_SetupDL(Gfx** gfxP, s16 i);
+void RCP_SetFog(Gfx** gfxP, s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void RCP_SetupDL_0(void);
+void RCP_SetupDL_1(void);
+void RCP_SetupDL_11(void);
+void RCP_SetupDL_12(void);
+void RCP_SetupDL_2(void);
+void RCP_SetupDL_3(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void RCP_SetupDL_4(void);
+void RCP_SetupDL_7(void);
+void RCP_SetupDL_9(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void RCP_SetupDL_8(void);
+void RCP_SetupDL_13(void);
+void RCP_SetupDL_14(void);
+void RCP_SetupDL_17(void);
+void RCP_SetupDL_36(void);
+void RCP_SetupDL_52(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void RCP_SetupDL_62(void);
+void RCP_SetupDL_37(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void RCP_SetupDL_18(void);
+void RCP_SetupDL_20(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void RCP_SetupDL_19(void);
+void RCP_SetupDL_21(void);
+void RCP_SetupDL_33(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void RCP_SetupDL_34(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void RCP_SetupDL_40(void);
+void RCP_SetupDL_42(void);
+void RCP_SetupDL_43(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void RCP_SetupDL_60(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void RCP_SetupDL_47(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void RCP_SetupDL_66(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void RCP_SetupDL_55(void);
+void RCP_SetupDL_57(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void RCP_SetupDL_45(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void RCP_SetupDL_46(void);
+void RCP_SetupDL_41(void);
+void RCP_SetupDL_64(void);
+void RCP_SetupDL_64_2(void);
+void RCP_SetupDL_23(void);
+void RCP_SetupDL_29(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void RCP_SetupDL_30(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+void RCP_SetupDL_27(void);
+void RCP_SetupDL_32(void);
+void RCP_SetupDL_73(void);
+void RCP_SetupDL_76(void);
+void RCP_SetupDL_74(void);
+void RCP_SetupDL_78(void);
+void RCP_SetupDL_81(void);
+void RCP_SetupDL_48(void);
+void RCP_SetupDL_68(void);
+void RCP_SetupDL_49(void);
+void RCP_SetupDL_44(void);
+void RCP_SetupDL_50(void);
+void RCP_SetupDL_61(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
+
 typedef enum SetupDL {
     /* 0x00 */ SETUPDL_0,
     /* 0x01 */ SETUPDL_1,
@@ -121,142 +261,5 @@ typedef enum SetupDL {
 } SetupDL;
 
 extern Gfx gSetupDLs[SETUPDL_MAX][9]; // 0x800D31B0
-
-typedef s32 (*OverrideLimbDraw)(s32, Gfx**, Vec3f*, Vec3f*, void*);
-typedef void (*PostLimbDraw)(s32, Vec3f*, void*);
-
-typedef struct {
-    /* 0x0 */ u16 xLen;
-    /* 0x2 */ u16 x;
-    /* 0x4 */ u16 yLen;
-    /* 0x6 */ u16 y;
-    /* 0x8 */ u16 zLen;
-    /* 0xA */ u16 z;
-} JointKey; // size = 0xC
-
-typedef struct {
-    /* 0x00 */ s16 frameCount;
-    /* 0x02 */ s16 limbCount;
-    /* 0x04 */ u16* frameData;
-    /* 0x08 */ JointKey* jointKey;
-} AnimationHeader; // size = 0xC
-
-typedef struct Limb {
-    /* 0x000 */ Gfx* dList;
-    /* 0x004 */ Vec3f trans;
-    /* 0x010 */ Vec3s rot;
-    /* 0x018 */ struct Limb* sibling;
-    /* 0x01C */ struct Limb* child;
-} Limb; // size = 0x20
-
-typedef Limb* SkelAnime;
-
-typedef struct {
-    /* 0x00 */ AnimationHeader* unk_0;
-    /* 0x04 */ AnimationHeader* unk_4;
-    /* 0x08 */ SkelAnime* skelanime;
-} Animation; // size = 0x0C
-
-char* Graphics_ClearPrintBuffer(char *buf, s32 fill, s32 len);
-s32 Graphics_Printf(const char *fmt, ...);
-void Texture_Scroll(void *texture, s32 width, s32 height, u8 mode);
-void Texture_Mottle(void *dst, void *src, u8 mode);    
-s32 Animation_GetLimbIndex(Limb* limb, Limb** skeleton);
-void Animation_DrawLimb(s32 mode, Limb * limb, Limb* *skeleton, Vec3f* jointTable, OverrideLimbDraw overrideLimbDraw, PostLimbDraw postLimbDraw, void* data);
-void Animation_DrawSkeleton(s32 mode, Limb** skeletonSegment, Vec3f* jointTable, OverrideLimbDraw overrideLimbDraw, PostLimbDraw postLimbDraw, void* data, Matrix* transform);
-s16 Animation_GetFrameData(AnimationHeader *animationSegmemt, s32 frame, Vec3f *frameTable);
-s16 Animation_GetFrameCount(AnimationHeader *animationSegment);
-void Animation_FindBoundingBox(Gfx* dList, s32 len, Vec3f *min, Vec3f *max, s32 *vtxFound, s32 *vtxCount, Vtx* *vtxList);
-void Animation_GetDListBoundingBox(Gfx *dList, s32 len, Vec3f *min, Vec3f *max);
-void Animation_GetSkeletonBoundingBox(Limb **skeletonSegment, AnimationHeader *animationSegment, s32 frame, Vec3f *min, Vec3f* max);
-f32 Math_SmoothStepToF(f32 *value, f32 target, f32 scale, f32 maxStep, f32 minStep);
-f32 Math_SmoothStepToAngle(f32 *angle, f32 target, f32 scale, f32 maxStep, f32 minStep);
-void Math_SmoothStepToVec3fArray(Vec3f *src, Vec3f *dst, s32 mode, s32 count, f32 scale, f32 maxStep, f32 minStep);
-s32 Math_PursueVec3f(Vec3f *pos, Vec3f *target, Vec3f *rot, f32 stepSize, f32 scaleTurn, f32 maxTurn, f32 dist);
-void TextureRect_4bCI(Gfx **gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
-void TextureRect_4bCI_Flip(Gfx **gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
-void TextureRect_4bCI_MirX(Gfx **gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
-void TextureRect_4bCI_MirY(Gfx **gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
-void TextureRect_8bCI(Gfx **gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
-void TextureRect_16bRGBA(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
-void TextureRect_16bRGBA_MirX(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
-void TextureRect_8bIA(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
-void TextureRect_8bIA_FilpMirX(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
-void TextureRect_8bIA_FilpMirY(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
-void TextureRect_8bIA_MirX(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
-void TextureRect_8bIA_MirY(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
-void TextureRect_16bIA(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
-void TextureRect_16bIA_MirX(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
-void TextureRect_16bIA_MirY(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
-void TextureRect_16bIA_MirXY(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
-void TextureRect_32bRGBA(Gfx **gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
-void Graphics_FillRectangle(Gfx **gfxPtr, s32 ulx, s32 uly, s32 lrx, s32 lry, u8 r, u8 g, u8 b, u8 a);
-void Math_Vec3fFromAngles(Vec3f *step, f32 xRot, f32 yRot, f32 stepsize);
-f32 Math_RadToDeg(f32 rAngle);
-u16*  func_8009F7B4(Gfx **gfxPtr, u8 width, u8 height);
-void Graphics_DisplayHUDNumber(s32 xPos, s32 yPos, s32 number);
-void Graphics_DisplaySmallNumber(s32 xPos, s32 yPos, s32 number);
-void Graphics_DisplayLargeText(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char *text);
-s32 Graphics_GetLargeTextWidth(char *text);
-void Graphics_DisplayLargeNumber(s32 xPos, s32 yPos, s32 number);
-void Graphics_DisplaySmallText(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char *text);
-s32 Graphics_GetSmallTextWidth(char *text);
-void func_800A1540(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-void func_800A1558(f32 weight, u16 size, void *src1, void *src2, void *dst);
-
-void RCP_SetupDL(Gfx** gfxP, s16 i);
-void RCP_SetFog(Gfx** gfxP, s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
-void RCP_SetupDL_0(void);
-void RCP_SetupDL_1(void);
-void RCP_SetupDL_11(void);
-void RCP_SetupDL_12(void);
-void RCP_SetupDL_2(void);
-void RCP_SetupDL_3(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
-void RCP_SetupDL_4(void);
-void RCP_SetupDL_7(void);
-void RCP_SetupDL_9(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
-void RCP_SetupDL_8(void);
-void RCP_SetupDL_13(void);
-void RCP_SetupDL_14(void);
-void RCP_SetupDL_17(void);
-void RCP_SetupDL_36(void);
-void RCP_SetupDL_52(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
-void RCP_SetupDL_62(void);
-void RCP_SetupDL_37(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
-void RCP_SetupDL_18(void);
-void RCP_SetupDL_20(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
-void RCP_SetupDL_19(void);
-void RCP_SetupDL_21(void);
-void RCP_SetupDL_33(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
-void RCP_SetupDL_34(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
-void RCP_SetupDL_40(void);
-void RCP_SetupDL_42(void);
-void RCP_SetupDL_43(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
-void RCP_SetupDL_60(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
-void RCP_SetupDL_47(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
-void RCP_SetupDL_66(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
-void RCP_SetupDL_55(void);
-void RCP_SetupDL_57(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
-void RCP_SetupDL_45(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
-void RCP_SetupDL_46(void);
-void RCP_SetupDL_41(void);
-void RCP_SetupDL_64(void);
-void RCP_SetupDL_64_2(void);
-void RCP_SetupDL_23(void);
-void RCP_SetupDL_29(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
-void RCP_SetupDL_30(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
-void RCP_SetupDL_27(void);
-void RCP_SetupDL_32(void);
-void RCP_SetupDL_73(void);
-void RCP_SetupDL_76(void);
-void RCP_SetupDL_74(void);
-void RCP_SetupDL_78(void);
-void RCP_SetupDL_81(void);
-void RCP_SetupDL_48(void);
-void RCP_SetupDL_68(void);
-void RCP_SetupDL_49(void);
-void RCP_SetupDL_44(void);
-void RCP_SetupDL_50(void);
-void RCP_SetupDL_61(s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
 
 #endif

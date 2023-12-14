@@ -504,7 +504,7 @@ void func_EBFBE0_80191B20(void) {
     D_EBFBE0_801B91EC = 0;
     D_EBFBE0_801B9244 = 0;
     D_EBFBE0_801B9248 = 0;
-    func_8001D444(0, 0x24, 0, 0xFF);
+    func_8001D444(0, 36, 0, 255);
 }
 
 void func_EBFBE0_801920C4(void) {
@@ -1639,7 +1639,7 @@ void func_EBFBE0_80195944(void) {
     if (gChangedInput[D_80177AF8].button & B_BUTTON) {
         if (!D_EBFBE0_801B9320) {
             func_80019218(0x49000021, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-            func_8001D444(0, 0x24, 0, 0xFF);
+            func_8001D444(0, 36, 0, 255);
             D_80177898 = 0;
             D_EBFBE0_801B9124 = 1000;
             D_EBFBE0_801B912C = 0;
@@ -1796,7 +1796,7 @@ void func_EBFBE0_801962A4(void) {
                 break;
             }
             D_80177898 = 0;
-            D_EBFBE0_801B9124 = 0x3E8;
+            D_EBFBE0_801B9124 = 1000;
             D_EBFBE0_801B912C = 0;
             D_EBFBE0_801B9244 = 1;
             break;

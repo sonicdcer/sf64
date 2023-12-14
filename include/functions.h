@@ -5,13 +5,7 @@
 #include "structs.h"
 #include "fox_option.h"
 #include "sf64object.h"
-
-void Controller_Init(void);
-void Controller_UpdateInput(void);
-void Controller_ReadData(void);
-void Save_ReadData(void);
-void Save_WriteData(void);
-void Controller_Rumble(void);
+#include "sf64thread.h"
 
 s32 Lib_vsPrintf(char* dst, const char* fmt, va_list args);
 void Lib_Perspective(Gfx** dList);
@@ -19,55 +13,8 @@ void Lib_Ortho(Gfx** dList);
 void Lib_DmaRead(void* src, void* dst, s32 size);
 void Lib_FillScreen(u8 setFill);
 
-void Lights_SetOneLight(Gfx** dList, s32 dirX, s32 dirY, s32 dirZ, s32 colR, s32 colG, s32 colB, s32 ambR, s32 ambG, s32 ambB);
-void Lights_SetTwoLights(Gfx** dList, s32 dir1x, s32 dir1y, s32 dir1z, s32 dir2x, s32 dir2y, s32 dir2z, s32 col1r, s32 col1g,
-                   s32 col1b, s32 col2r, s32 col2g, s32 col2b, s32 ambR, s32 ambG, s32 ambB);  
-f32 Math_ModF(f32 value, f32 mod);
-void Rand_Init(void);
-f32 Rand_ZeroOne(void);
-void Rand_SetSeed(s32 seed1, s32 seed2, s32 seed3);
-f32 Rand_ZeroOneSeeded(void);
-f32 Math_Atan2F(f32 y, f32 x);
-f32 Math_Atan2F_XY(f32 x, f32 y);
-f32 Math_Atan2F_XYAlt(f32 x, f32 y);
-f32 Math_PowF(f32 base, s32 exp);
-void Math_MinMax(s32* min, s32* max, s32 val1, s32 val2, s32 val3);
-
-void Matrix_Copy(Matrix*, Matrix*);
-void Matrix_Push(Matrix** mtxStack);
-void Matrix_Pop(Matrix** mtxStack);
-void Matrix_Mult(Matrix*, Matrix*, u8);
-void Matrix_Translate(Matrix*, f32, f32, f32, u8);
-void Matrix_Scale(Matrix*, f32, f32, f32, u8);
-void Matrix_RotateX(Matrix*, f32, u8);
-void Matrix_RotateY(Matrix*, f32, u8);
-void Matrix_RotateZ(Matrix*, f32, u8);
-void Matrix_RotateAxis(Matrix*, f32, f32, f32, f32, u8);
-void Matrix_ToMtx(Mtx *dest);
-void Matrix_FromMtx(Mtx *src, Matrix *dest);
-void Matrix_MultVec3f(Matrix*, Vec3f*, Vec3f*);
-void Matrix_MultVec3fNoTranslate(Matrix*, Vec3f*, Vec3f*);
-void Matrix_GetYRPAngles(Matrix*, Vec3f*);
-void Matrix_GetXYZAngles(Matrix*, Vec3f*);
-void Matrix_LookAt(Matrix*, f32, f32, f32, f32, f32, f32, f32, f32, f32, u8);
-void Matrix_SetGfxMtx(Gfx**);
-
-s32 Timer_CreateTask(u64, TimerAction, s32*, s32);
-
 void Memory_FreeAll(void);
 void* Memory_Allocate(s32);
-
-void Timer_Increment(s32* address, s32 value);
-void Timer_SetValue(s32* address, s32 value);
-void Timer_CompleteTask(TimerTask*);
-void Timer_Wait(u64);
-
-s32 Save_WriteEeprom(SaveFile*);
-s32 Save_ReadEeprom(SaveFile*);
-
-void Fault_ThreadEntry(void*);
-void func_80007FE4(FrameBuffer*, u16, u16);
-void Fault_Init(void);
 
 void func_8000FFCC(void);
 
@@ -132,18 +79,6 @@ f32 func_8001FBC8(f32);
 void RdRam_CheckIPL3(void);
 void Mio0_Decompress(void* header, u8* dst);
 s32 vsprintf(char* dst, const char* fmt, va_list args);
-
-f32 Math_FAtanF(f32);
-f32 Math_FAtan2F(f32, f32);
-f32 Math_FAsinF(f32);
-f32 Math_FAcosF(f32);
-
-f32 __sinf(f32);
-f32 __cosf(f32);
-
-s64 __ull_div(s64, s64);
-s64 __ll_mul(s64, s64);
-s64 __ll_rshift(s64, s64);
 
 // sf_2EFE0
 void func_8002E3E0(Object_2F4*);

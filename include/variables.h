@@ -3,6 +3,9 @@
 
 #include "structs.h"
 #include "gfx.h"
+#include "sf64level.h"
+#include "sf64thread.h"
+#include "sf64object.h"
 
 extern u64 __rspboot_start[];
 extern u64 __rspboot_end[];
@@ -238,15 +241,15 @@ extern u8 D_8015F964;
 extern s32 D_801613A0;
 
 // fox_52730
-extern Vec3f D_80161578[4];
-extern f32 D_801615A8[4];
-extern f32 D_801615B8[4];
 extern Vec3f D_801613B0[];
 extern Vec3f D_801613E0[];
 extern s16 D_80161410;
 extern Matrix D_80161418[4];
 extern Vec3f D_80161518[4];
 extern Vec3f D_80161548[4];
+extern Vec3f D_80161578[4];
+extern f32 D_801615A8[4];
+extern f32 D_801615B8[4];
 
 // fox_edisplay
 extern Vec3f D_801615D0;

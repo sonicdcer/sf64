@@ -6,90 +6,6 @@
 
 #define UNK_TYPE s32
 
-typedef enum {
-    LEVELTYPE_GROUND,
-    LEVELTYPE_SPACE,
-    LEVELTYPE_UNK2,
-    LEVELTYPE_UNK3,
-} LevelType;
-
-typedef enum {
-    GSTATE_NONE,
-    GSTATE_INIT,
-    GSTATE_TITLE,
-    GSTATE_MENU,
-    GSTATE_MAP,
-    GSTATE_STATE_5,
-    GSTATE_VS_INIT,
-    GSTATE_PLAY,
-    GSTATE_CREDITS,
-    GSTATE_BOOT = 100,
-    GSTATE_BOOT_WAIT,
-    GSTATE_SHOW_LOGO,
-    GSTATE_CHECK_SAVE,
-    GSTATE_LOGO_WAIT,
-    GSTATE_START,
-} GameStates;
-
-typedef enum {
-    OVL_SETUP_TITLE,
-    OVL_SETUP_MENU,
-    OVL_SETUP_MAP,
-    OVL_SETUP_STATE_5,
-    OVL_SETUP_CREDITS,
-    OVL_SETUP_CORNERIA,
-    OVL_SETUP_METEO,
-    OVL_SETUP_TITANIA,
-    OVL_SETUP_SECTOR_X,
-    OVL_SETUP_AQUAS,
-    OVL_SETUP_AREA_6,
-    OVL_SETUP_FORTUNA,
-    OVL_SETUP_UNK_4,
-    OVL_SETUP_SECTOR_Y,
-    OVL_SETUP_SOLAR,
-    OVL_SETUP_ZONESS,
-    OVL_SETUP_VENOM_2,
-    OVL_SETUP_TRAINING,
-    OVL_SETUP_VENOM_1,
-    OVL_SETUP_KATINA,
-    OVL_SETUP_20,
-    OVL_SETUP_MACBETH,
-    OVL_SETUP_BOLSE,
-    OVL_SETUP_SECTOR_Z,
-    OVL_SETUP_VENOM_SW,
-    OVL_SETUP_VERSUS = 50,
-    OVL_SETUP_LOGO = 99,
-} OverlaySetups;
-
-typedef enum {
-    LEVEL_CORNERIA,
-    LEVEL_METEO,
-    LEVEL_SECTOR_X,
-    LEVEL_AREA_6,
-    LEVEL_UNK_4,
-    LEVEL_SECTOR_Y,
-    LEVEL_VENOM_1,
-    LEVEL_SOLAR,
-    LEVEL_ZONESS,
-    LEVEL_VENOM_2,
-    LEVEL_TRAINING,
-    LEVEL_MACBETH,
-    LEVEL_TITANIA,
-    LEVEL_AQUAS,
-    LEVEL_FORTUNA,
-    LEVEL_UNK_15,
-    LEVEL_KATINA,
-    LEVEL_BOLSE,
-    LEVEL_SECTOR_Z,
-    LEVEL_VENOM_SW,
-    LEVEL_VERSUS,
-} LevelId;
-
-typedef struct {
-    Vec3f normal;
-    f32 dist;
-} Plane;
-
 typedef struct {
     s16 vtx[3];
     s16 unk_06;
@@ -112,21 +28,6 @@ typedef struct {
     s16 (*polys)[3];
     Vec3f* mesh;
 } CollisionHeader2; // size = 0x24
-
-typedef void (*TimerAction)(s32*, s32);
-
-typedef struct {
-    /* 0x00 */ u8 active;
-    /* 0x08 */ OSTimer timer;
-    /* 0x28 */ TimerAction action;
-    /* 0x2C */ s32* address;
-    /* 0x30 */ s32 value;
-} TimerTask; // size = 0x38, 0x8 aligned
-
-typedef union {
-    u16 data[240 * 320];
-    u16 array[240][320];
-} FrameBuffer; // size = 0x25800
 
 typedef struct {
     /* bit 0 */ u8 unk_0 : 3;    
@@ -177,41 +78,6 @@ typedef struct {
 } SaveFile; // size = 0x200
 
 typedef struct {
-    /* 0x000 */ OSThread thread;
-    /* 0x1B0 */ char stack[0x800];
-    /* 0x9B0 */ OSMesgQueue msgQueue;
-    /* 0x9C8 */ OSMesg msg;
-    /* 0x9CC */ FrameBuffer* fb;
-    /* 0x9D0 */ u16 width;
-    /* 0x9D2 */ u16 height;
-} FaultMgr; // size = 0x9D8, 0x8 aligned
-
-typedef enum {
-    SPTASK_STATE_NOT_STARTED,
-    SPTASK_STATE_RUNNING,
-    SPTASK_STATE_INTERRUPTED,
-    SPTASK_STATE_FINISHED,
-    SPTASK_STATE_FINISHED_DP
-} SpTaskState;
-
-typedef struct {
-    /* 0x00 */ OSTask task;
-    /* 0x40 */ OSMesgQueue* msgQueue;
-    /* 0x44 */ OSMesg msg;
-    /* 0x48 */ SpTaskState state;
-} SPTask; // size = 0x50, 0x8 aligned
-
-typedef struct {
-    /* 0x00000 */ SPTask task;
-    /* 0x00050 */ Vp viewports[0x10];
-    /* 0x00150 */ Mtx mtx[0x480];
-    /* 0x12150 */ Gfx unkDL1[0x180];
-    /* 0x12D50 */ Gfx masterDL[0x1380];
-    /* 0x1C950 */ Gfx unkDL2[0xD80];
-    /* 0x23550 */ Lightsn lights[0x100];
-} GfxPool; // size = 0x2AD50, 0x8 aligned
-
-typedef struct {
     /* 0x0 */ u16 unk_0;
     /* 0x2 */ s8 unk_2;
     /* 0x3 */ s8 unk_3;
@@ -242,20 +108,6 @@ typedef struct {
 } UnkEntity30; // size = 0x30
 
 typedef struct {
-    /* 0x00 */ Gfx* unk_00;
-    /* 0x04 */ f32* unk_04;
-    /* 0x08 */ f32 unk_08;
-    /* 0x0C */ f32 unk_0C;
-    /* 0x10 */ f32 unk_10;
-    /* 0x14 */ u8 unk_14;
-    /* 0x15 */ u8 unk_15;
-    /* 0x16 */ u8 unk_16;
-    /* 0x17 */ u8 unk_17;
-    /* 0x18 */ f32 unk_18;
-    /* 0x1C */ u8 unk_1C;
-} UnkStruct_D003C; // size = 0x20
-
-typedef struct {
     /* 0x00 */ u8 rightState;
     /* 0x01 */ u8 leftState;
     /* 0x04 */ f32 unk_04;
@@ -273,25 +125,6 @@ typedef struct {
     /* 0x34 */ f32 unk_34;
     /* 0x38 */ f32 unk_38;
 } WingInfo; // size = 0x3C
-
-typedef struct {
-    /* 0x00 */ s32 type; // level type
-    /* 0x04 */ s32 unk_04; // some sort of draw mode?
-    /* 0x08 */ u16 bgColor; // rgba8 color
-    /* 0x0A */ u16 unk_0A; // sound id
-    /* 0x0C */ s32 fogR; // fog red
-    /* 0x10 */ s32 fogG; // fog green
-    /* 0x14 */ s32 fogB; // fog blue
-    /* 0x18 */ s32 fogN; // fog near
-    /* 0x1C */ s32 fogF; // fog far
-    /* 0x20 */ Vec3f unk_20; // Vec3f?
-    /* 0x2C */ s32 lightR; // light color 32
-    /* 0x30 */ s32 lightG;
-    /* 0x34 */ s32 lightB;
-    /* 0x38 */ s32 ambR; // anbient color 32
-    /* 0x3C */ s32 ambG;
-    /* 0x40 */ s32 ambB;
-} EnvSettings; // size = 0x44?
 
 typedef struct Player {
     /* 0x000 */ f32 unk_000;
