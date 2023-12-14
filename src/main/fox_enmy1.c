@@ -1431,10 +1431,10 @@ void func_800656D4(Object_2F4* arg0) {
             for (i = 0, j = 1; j < 3; i++, j++) {
                 temp_a0 = spB4[i];
                 temp_a2 = spB4[j];
-                if (spB4[i] < temp_a2) {
-                    temp_v0 = spA8[j];
-                    spB4[j] = spB4[i];
+                temp_v0 = spA8[j];
+                if (spB4[i] < spB4[j]) {
                     spA8[j] = spA8[i];
+                    spB4[j] = temp_a0;
                     spB4[i] = temp_a2;
                     spA8[i] = temp_v0;
                 }
@@ -1454,14 +1454,25 @@ void func_800656D4(Object_2F4* arg0) {
                     break;
             }
 
-            if (((D_80177880 == 1) && (D_801778B0[spC4 - 1] > 0)) || D_801778B0[spC4 + 1] > 0) {
-                arg0->unk_054 = spC4;
+            if (D_80177880 == 1) {
+
+                if (D_801778B0[spC4 - 1] > 0) {
+                    arg0->unk_054 = spC4;
+                    goto label;
+                } else {
+                    arg0->unk_054 = 10000;
+                }
             } else {
-                arg0->unk_054 = 10000;
+                if (D_801778B0[spC4 + 1] > 0) {
+                    arg0->unk_054 = spC4;
+                    goto label;
+                } else {
+                    arg0->unk_054 = 10000;
+                }
             }
-        } else {
-            arg0->unk_054 = 10000;
         }
+        arg0->unk_054 = 10000;
+    label:
         arg0->unk_058 = 1;
     }
     spC4 = arg0->unk_054;

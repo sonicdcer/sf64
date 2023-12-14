@@ -1149,40 +1149,32 @@ void func_80056230(Player* arg0) {
     }
 }
 
-#ifdef NON_MATCHING
-// Vec3f D_800CA2DC = {0.0f, 0.0f, 0.0f};
 bool func_800563B4(s32 arg0, s32 arg1) {
     Vec3f sp2C = { 0.0f, 0.0f, 0.0f };
     Vec3f sp20;
 
     Matrix_MultVec3f(gGfxMatrix, &sp2C, &sp20);
-    if ((sp20.z < 200.0f) && (sp20.z > -12000.0f) && (fabsf(sp20.x) < (fabsf(sp20.z * 0.5f) + 500.0f)) &&
-        (fabsf(sp20.y) < (fabsf(sp20.z * 0.5f) + 500.0f))) {
-        if (arg1 == 0) {
-            D_800CA224[arg0] = 1;
+    if ((sp20.z < 200.0f) && (sp20.z > -12000.0f)) {
+        if (fabsf(sp20.x) < (fabsf(sp20.z * 0.5f) + 500.0f)) {
+            if (fabsf(sp20.y) < (fabsf(sp20.z * 0.5f) + 500.0f)) {
+                if (arg1 == 0) {
+                    D_800CA224[arg0] = 1;
+                }
+                return true;
+            }
         }
-        return true;
-    } else {
-        if (arg1 == 0) {
-            D_800CA224[arg0] = 0;
-        }
-        return false;
     }
+    if (arg1 == 0) {
+        D_800CA224[arg0] = 0;
+    }
+    return false;
 }
-#else
-Vec3f D_800CA2DC = { 0.0f, 0.0f, 0.0f };
-s32 func_800563B4(s32, s32);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_52730/func_800563B4.s")
-#endif
 
 s32 D_800CA2E8[16] = { 60, 40, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-#ifdef NON_MATCHING
-// Vec3f D_800CA328 = {0.0f, 0.0f, 0.0f};
 void func_800564C0(Player* arg0, s32 arg1) {
     s32 i;
     Vec3f sp50 = { 0.0f, 0.0f, 0.0f };
-    Vec3f* temp_s0;
 
     if (arg0->unk_234 != 0) {
         Matrix_Push(&gGfxMatrix);
@@ -1195,11 +1187,12 @@ void func_800564C0(Player* arg0, s32 arg1) {
             if (D_801778E8 != 0) {
                 for (i = 0; i < gCamCount; i++) {
                     if (D_80177B00[arg0->unk_1C4][i] != 0) {
-                        temp_s0 = &D_80161578[i];
-                        Matrix_MultVec3f(gGfxMatrix, &sp50, temp_s0);
-                        if ((i == D_801778A0) && ((temp_s0->z > 300.0f) || (temp_s0->z < -8000.0f) ||
-                                                  ((fabsf(temp_s0->z * 0.5f) + 100.0f) < fabsf(temp_s0->x)) ||
-                                                  ((fabsf(temp_s0->z * 0.5f) + 100.0f) < fabsf(temp_s0->y)))) {
+                        Matrix_MultVec3f(gGfxMatrix, &sp50, &D_80161578[i]);
+                        if ((i == D_801778A0) &&
+                            ((D_80161578[i].z > 300.0f) || (D_80161578[i].z < -8000.0f) ||
+                             (fabsf(D_80161578[i].x) > (fabsf(D_80161578[i].z * 0.5f) + 100.0f)) ||
+                             (fabsf(D_80161578[i].y)) > (fabsf(D_80161578[i].z * 0.5f) + 100.0f))) {
+
                             D_80177B00[arg0->unk_1C4][i] = 0;
                         }
                     }
@@ -1237,11 +1230,12 @@ void func_800564C0(Player* arg0, s32 arg1) {
             if (D_801778E8 != 0) {
                 for (i = 0; i < gCamCount; i++) {
                     if (D_80177B00[arg0->unk_1C4][i] != 0) {
-                        temp_s0 = &D_80161578[i];
-                        Matrix_MultVec3f(gGfxMatrix, &sp50, temp_s0);
-                        if ((i == D_801778A0) && ((temp_s0->z > 300.0f) || (temp_s0->z < -8000.0f) ||
-                                                  ((fabsf(temp_s0->z * 0.5f) + 100.0f) < fabsf(temp_s0->x)) ||
-                                                  ((fabsf(temp_s0->z * 0.5f) + 100.0f) < fabsf(temp_s0->y)))) {
+                        Matrix_MultVec3f(gGfxMatrix, &sp50, &D_80161578[i]);
+                        if ((i == D_801778A0) &&
+                            ((D_80161578[i].z > 300.0f) || (D_80161578[i].z < -8000.0f) ||
+                             (fabsf(D_80161578[i].x) > (fabsf(D_80161578[i].z * 0.5f) + 100.0f)) ||
+                             (fabsf(D_80161578[i].y) > (fabsf(D_80161578[i].z * 0.5f) + 100.0f)))) {
+
                             D_80177B00[arg0->unk_1C4][i] = 0;
                         }
                     }
@@ -1288,11 +1282,6 @@ void func_800564C0(Player* arg0, s32 arg1) {
         Matrix_Pop(&gGfxMatrix);
     }
 }
-#else
-Vec3f D_800CA328 = { 0.0f, 0.0f, 0.0f };
-void func_800564C0(Player*, s32);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_52730/func_800564C0.s")
-#endif
 
 f32 D_800CA334[] = {
     0.02f, 0.06f, 0.08f, 0.05f, 0.04f, 0.03f, 0.06f, 0.04f,
@@ -1357,24 +1346,22 @@ void func_80056E2C(Player* arg0) {
     }
 }
 
-#ifdef NON_MATCHING
 void func_80057248(void) {
     s32 i;
-    Vec3f* var_s0;
     f32 var_fs0;
 
     if (!(gFrameCount & 4)) {
         RCP_SetupDL_40();
-        for (i = 0, var_s0 = D_80177E98; i < ARRAY_COUNT(D_80177E98); i++, var_s0++) {
-            if (var_s0->z < 0.0f) {
-                var_fs0 = sqrtf(VEC3F_SQ(*var_s0)) * 0.0015f;
+        for (i = 0; i < ARRAY_COUNT(D_80177E98); i++) {
+            if (D_80177E98[i].z < 0.0f) {
+                var_fs0 = sqrtf(VEC3F_SQ(D_80177E98[i])) * 0.0015f;
                 if (var_fs0 > 100.0f) {
                     var_fs0 = 100.0f;
                 } else if (var_fs0 < 1.0f) {
                     var_fs0 = 1.0f;
                 }
                 Matrix_Push(&gGfxMatrix);
-                Matrix_Translate(gGfxMatrix, var_s0->x, var_s0->y, var_s0->z, 1);
+                Matrix_Translate(gGfxMatrix, D_80177E98[i].x, D_80177E98[i].y, D_80177E98[i].z, 1);
                 Matrix_Scale(gGfxMatrix, var_fs0 * 0.25f, var_fs0 * 0.25f, 1.0f, 1);
                 if ((i == 0) && (gCurrentLevel == LEVEL_SECTOR_Z)) {
                     Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 1.0f, 1);
@@ -1389,29 +1376,23 @@ void func_80057248(void) {
                 }
                 Matrix_Pop(&gGfxMatrix);
             }
-            var_s0->x = var_s0->y = 0;
-            var_s0->z = 100.0f;
+            D_80177E98[i].x = D_80177E98[i].y = 0;
+            D_80177E98[i].z = 100.0f;
         }
         gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
     }
 }
-#else
-void func_80057248(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_52730/func_80057248.s")
-#endif
 
-#ifdef NON_MATCHING
 void func_80057504(void) {
     s32 i;
+    s32 j;
     f32 var_fs0;
-    Vec3f* var_s0;
-    f32 tm;
 
-    for (i = 0, var_s0 = D_80161578; i < gCamCount; i++, var_s0++) {
-        if (var_s0->z < 0.f) {
-            tm = sqrtf(VEC3F_SQ(*var_s0));
-            if (tm < 20000.0f) {
-                var_fs0 = tm * 0.0015f;
+    for (i = 0; i < gCamCount; i++) {
+        if (D_80161578[i].z < 0.0f) {
+            var_fs0 = sqrtf(VEC3F_SQ(D_80161578[i]));
+            if (var_fs0 < 20000.0f) {
+                var_fs0 *= 0.0015f;
                 if (var_fs0 > 100.0f) {
                     var_fs0 = 100.0f;
                 }
@@ -1419,10 +1400,10 @@ void func_80057504(void) {
                     var_fs0 = 1.2f;
                 }
                 Matrix_Push(&gGfxMatrix);
-                Matrix_Translate(gGfxMatrix, var_s0->x, var_s0->y, var_s0->z, 1);
+                Matrix_Translate(gGfxMatrix, D_80161578[i].x, D_80161578[i].y, D_80161578[i].z, 1);
                 if ((D_80177854 != 0x64) && (i == D_801778A0)) {
-                    Math_SmoothStepToF(&D_801615A8[i], 0.0f, 0.5f, 20.0f, 0.0f);
-                    Math_SmoothStepToF(&D_801615B8[i], 1.0, 0.5f, 0.2f, 0.0f);
+                    Math_SmoothStepToF(&D_801615A8[i], 0.0f, 0.5f, 20.0f, 0);
+                    Math_SmoothStepToF(&D_801615B8[i], 1.0, 0.5f, 0.2f, 0);
                 }
                 var_fs0 *= D_801615B8[i];
                 Matrix_Scale(gGfxMatrix, var_fs0 * 1.5f, var_fs0 * 1.5f, 1.0f, 1);
@@ -1436,15 +1417,12 @@ void func_80057504(void) {
             }
         }
     }
-    for (i = 0; i < gCamCount; i++) {
-        D_80161578[i].x = D_80161578[i].y = 0;
-        D_80161578[i].z = 100.0f;
+    for (j = 0; j < gCamCount; j++) {
+
+        D_80161578[j].x = D_80161578[j].y = 0.f;
+        D_80161578[j].z = 100.0f;
     }
 }
-#else
-void func_80057504(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_52730/func_80057504.s")
-#endif
 
 void func_80057814(Player* arg0) {
     Vec3f sp2C;

@@ -28,7 +28,6 @@ s32 Play_GetMaxHealth(void) {
     return 0xFF;
 }
 
-#ifdef NON_MATCHING
 void func_800A3FEC(void) {
     Vec3f spC4;
     Vec3f spB8;
@@ -49,7 +48,11 @@ void func_800A3FEC(void) {
     D_801782FC++;
     switch (gCurrentLevel) {
         case LEVEL_SOLAR:
-            spB4 = (gFrameCount & 1) ? SEGMENTED_TO_VIRTUAL(D_6001C50) : SEGMENTED_TO_VIRTUAL(D_6004500);
+            if (gFrameCount & 1) {
+                spB4 = SEGMENTED_TO_VIRTUAL(D_6001C50);
+            } else {
+                spB4 = SEGMENTED_TO_VIRTUAL(D_6004500);
+            }
             spB0 = SEGMENTED_TO_VIRTUAL(D_6022760);
             spA8 = 15;
             sp90 = 70.0f;
@@ -58,7 +61,11 @@ void func_800A3FEC(void) {
             sp84 = 0.5f;
             break;
         case LEVEL_ZONESS:
-            spB4 = (gFrameCount & 1) ? SEGMENTED_TO_VIRTUAL(D_6009ED0) : SEGMENTED_TO_VIRTUAL(D_600C780);
+            if (gFrameCount & 1) {
+                spB4 = SEGMENTED_TO_VIRTUAL(D_6009ED0);
+            } else {
+                spB4 = SEGMENTED_TO_VIRTUAL(D_600C780);
+            }
             spB0 = SEGMENTED_TO_VIRTUAL(D_602AC50);
             spA8 = 7;
             sp90 = 40.0f;
@@ -75,17 +82,16 @@ void func_800A3FEC(void) {
     for (i = 0; i < 17 * 17; i++, var_s3++, var_s5++, var_s4++, var_s0++, var_s1++, spB0++) {
         Math_SmoothStepToF(var_s3, *var_s5, sp8C, *var_s4, 0.0f);
         Math_SmoothStepToF(var_s4, 100.0f, 1.0f, sp84, 0.0f);
-        if ((i & spA8) == (D_801782FC & spA8)) {
+        if ((D_801782FC & spA8) == (i & spA8)) {
             *var_s5 = Rand_ZeroOne() * sp90;
             *var_s4 = 0.0f;
         }
         *var_s0 += *var_s1;
         *var_s1 -= 0.5f;
         if (*var_s0 < 0.0f) {
-            *var_s0 = 0.0f;
-            *var_s1 = 0.0f;
+            *var_s1 = *var_s0 = 0.0f;
         }
-        spB4[*spB0].n.ob[1] = (s32) *var_s0 + (s32) *var_s3;
+        spB4[*spB0].n.ob[1] = (s16) *var_s3 + (s16) *var_s0;
         Matrix_RotateZ(gCalcMatrix, *var_s3 * sp88 * M_DTOR, 0);
         spC4.x = 120.0f;
         spC4.y = 0.0f;
@@ -95,34 +101,7 @@ void func_800A3FEC(void) {
         spB4[*spB0].n.n[1] = spB8.y;
         spB4[*spB0].n.n[2] = spB8.z;
     }
-    //     for(i = 0; i < 17 * 17; i++) {
-    //     Math_SmoothStepToF(&D_801782CC[i], D_801782D4[i], var_fs5, D_801782DC[i], 0.0f);
-    //     Math_SmoothStepToF(&D_801782DC[i], 100.0f, 1.0f, sp84, 0.0f);
-    //     if ((i & spA8) == (D_801782FC & spA8)) {
-    //         D_801782D4[i] = Rand_ZeroOne() * var_fs4;
-    //         D_801782DC[i] = 0.0f;
-    //     }
-    //     D_801782E4[i] += *var_s1;
-    //     D_801782EC[i] -= 0.5f;
-    //     if (D_801782E4[i] < 0.0f) {
-    //         D_801782E4[i] = 0.0f;
-    //         D_801782EC[i] = 0.0f;
-    //     }
-    //     var_s7[var_s2[i]].n.ob[1] = (s32) D_801782E4[i] + (s32) D_801782CC[i];
-    //     Matrix_RotateZ(gCalcMatrix, D_801782CC[i] * sp88 * M_DTOR, 0);
-    //     spC4.x = 120.0f;
-    //     spC4.y = 0.0f;
-    //     spC4.z = 0.0f;
-    //     Matrix_MultVec3fNoTranslate(gCalcMatrix, &spC4, &spB8);
-    //     var_s7[var_s2[i]].n.n[0]= spB8.x;
-    //     var_s7[var_s2[i]].n.n[1]= spB8.y;
-    //     var_s7[var_s2[i]].n.n[2]= spB8.z;
-    // }
 }
-#else
-void func_800A3FEC(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800A3FEC.s")
-#endif
 
 void func_800A4460(Player* arg0) {
     if ((gCurrentLevel == LEVEL_VENOM_2) && (gObjects408[0].obj.status == 2) && (gObjects408[0].unk_04E == 0x11)) {
@@ -747,14 +726,10 @@ void func_800A69F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     }
 }
 
-#ifdef NON_MATCHING
-s32 func_800A6A74(void) {
+// has to be int. s32 and u32 don't match
+int func_800A6A74(void) {
     return gGoldRingCount[0] && gGoldRingCount[1] && gGoldRingCount[2] && gGoldRingCount[3];
 }
-#else
-s32 func_800A6A74(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800A6A74.s")
-#endif
 
 void func_800A6AC0(Player* player, s32 side, s32 damage) {
     if ((player->unk_1CC == 0) && (D_80177AB8[player->unk_1C4] < 1.0f)) {
@@ -1045,8 +1020,6 @@ s32 func_800A78C4(f32* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
     return false;
 }
 
-#ifdef NON_MATCHING
-// stupid 0.0f stuff
 s32 func_800A7974(Player* arg0, f32* arg1, s32* arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,
                   f32 arg9, f32 argA, f32 argB) {
     s32 spB4;
@@ -1079,7 +1052,7 @@ s32 func_800A7974(Player* arg0, f32* arg1, s32* arg2, f32 arg3, f32 arg4, f32 ar
                 Matrix_RotateX(gCalcMatrix, -arg6 * M_DTOR, 1);
                 Matrix_RotateY(gCalcMatrix, -arg7 * M_DTOR, 1);
             }
-            if (!((arg9 == 0.0f) && (argA == 0.0f) && (argB == 0.0f))) {
+            if (!((arg9 == 0) && (argA == 0) && (argB == 0))) {
                 Matrix_RotateZ(gCalcMatrix, -argB * M_DTOR, 1);
                 Matrix_RotateX(gCalcMatrix, -arg9 * M_DTOR, 1);
                 Matrix_RotateY(gCalcMatrix, -argA * M_DTOR, 1);
@@ -1164,11 +1137,6 @@ s32 func_800A7974(Player* arg0, f32* arg1, s32* arg2, f32 arg3, f32 arg4, f32 ar
     }
     return 0;
 }
-#else
-s32 func_800A7974(Player* arg0, f32* arg1, s32* arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,
-                  f32 arg9, f32 argA, f32 argB);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800A7974.s")
-#endif
 
 bool func_800A8054(s32 objId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, Vec3f* arg7, Vec3f* arg8) {
     Vec3f sp54;
