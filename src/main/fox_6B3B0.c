@@ -1366,7 +1366,7 @@ void func_8006D36C(Object_2F4* arg0) {
 }
 #else
 void func_8006D36C(Object_2F4* arg0);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_6B3B0/func_8006D36C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_6B3B0/func_8006D36C.s")
 #endif
 
 void func_8006EA50(Object_2F4* arg0) {

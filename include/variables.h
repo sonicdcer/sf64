@@ -260,7 +260,7 @@ extern s32 D_80161680;
 extern u8 D_80161684;
 
 // extern u8 temp_55[];
-// sf_6B3B0
+// fox_6B3B0
 extern s32 D_80161690;
 
 // sf_hud?

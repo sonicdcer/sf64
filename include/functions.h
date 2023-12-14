@@ -242,7 +242,7 @@ void func_8006A06C(UnkEntity30*);
 void func_8006A38C(void);
 void func_8006A3E8(void);
 
-//sf_6B3B0
+//fox_6B3B0
 void func_8006A96C(Object_2F4*);
 void func_8006A978(Object_2F4*);
 void func_8006AA98(Object_80*);
