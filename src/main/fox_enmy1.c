@@ -932,8 +932,9 @@ void func_80063D58(Object_80* arg0) {
             gObjects4C[i].obj.pos.x = arg0->obj.pos.x;
             gObjects4C[i].obj.pos.y = 5.0f;
             gObjects4C[i].obj.pos.z = arg0->obj.pos.z;
-            if ((arg0->obj.id == OBJECT_0) || (arg0->obj.id == OBJECT_6) || (arg0->obj.id == OBJECT_7) || (arg0->obj.id == OBJECT_56) ||
-                (arg0->obj.id == OBJECT_20) || (arg0->obj.id == OBJECT_21) || (arg0->obj.id == OBJECT_22)) {
+            if ((arg0->obj.id == OBJECT_0) || (arg0->obj.id == OBJECT_6) || (arg0->obj.id == OBJECT_7) ||
+                (arg0->obj.id == OBJECT_56) || (arg0->obj.id == OBJECT_20) || (arg0->obj.id == OBJECT_21) ||
+                (arg0->obj.id == OBJECT_22)) {
                 gObjects4C[i].obj.rot.y = arg0->obj.rot.y;
             } else {
                 gObjects4C[i].obj.rot.y = 44.9f;
