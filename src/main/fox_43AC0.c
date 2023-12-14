@@ -113,5 +113,5 @@ void func_8004319C(Player* arg0, f32 arg1, f32 arg2, f32 arg3) {
     if (arg0->unk_074 < arg0->unk_0AC) {
         arg0->unk_004 = -1.0f;
     }
-    gPlayers[0].unk_0C0.x = 0.0f;
+    gPlayer[0].unk_0C0.x = 0.0f;
 }

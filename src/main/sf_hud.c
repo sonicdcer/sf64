@@ -20,7 +20,7 @@ void func_80084930(f32 arg0, f32 arg1, s32 arg2) {
     RCP_SetupDL(&gMasterDisp, 0x4E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    temp = gPlayers;
+    temp = gPlayer;
     var_t0 = 0;
 
     switch (temp->unk_1CC) {
@@ -79,7 +79,7 @@ void func_80084B94(s32 arg0) {
     RCP_SetupDL(&gMasterDisp, 0x24);
     if (arg0 == 0) {
         for (i = 1; i < 4; i++) {
-            if (((D_801778B0[i] != 0) || (gPlayers[0].unk_1C8 != 7)) && (D_801778B0[i] <= 0) && (D_801778B0[i] != -2)) {
+            if (((D_801778B0[i] != 0) || (gPlayer[0].unk_1C8 != 7)) && (D_801778B0[i] <= 0) && (D_801778B0[i] != -2)) {
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, D_800D1A70[i - 1].x, D_800D1A70[i - 1].y, D_800D1A70[i - 1].z, 1);
                 Matrix_Scale(gGfxMatrix, 0.68f, 0.68f, 1.0f, 1);
@@ -200,7 +200,7 @@ void func_80086110(f32 arg0, f32 arg1, s32 arg2) {
     if ((arg2 <= 0) && (arg2 != -2) && ((D_80177854 == 100) || (D_80177830 == 1) || (D_80177838 != 0))) {
         RCP_SetupDL(&gMasterDisp, 0x4C);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-        if ((arg2 == 0) && (gPlayers[0].unk_1C8 == 7)) {
+        if ((arg2 == 0) && (gPlayer[0].unk_1C8 == 7)) {
             Graphics_DisplaySmallText(arg0 + (8.0f * temp) + 4.0f, arg1 + 2.0f, 1.0f, 1.0f, " OK ");
         } else {
             Graphics_DisplaySmallText(arg0 + (8.0f * temp) + 4.0f, arg1 + 2.0f, 1.0f, 1.0f, "DOWN");
@@ -640,7 +640,7 @@ void func_80089E98(s32 arg0) {
                     var_a1 = 1;
                 }
 
-                if (gPlayers[arg0].unk_1C8 == 13) {
+                if (gPlayer[arg0].unk_1C8 == 13) {
                     break;
                 }
             }
@@ -868,7 +868,7 @@ void func_8008B2F0(void) {
                 D_801617A4 = D_801617A8 = 1.0f;
             }
 
-            var_fv0 = gPlayers[0].health;
+            var_fv0 = gPlayer[0].health;
             D_801617AC = var_fv0 / ((256.0f * D_801617A8) - 1.0f);
 
             if (gGoldRingCount[0] >= 3) {
@@ -888,7 +888,7 @@ void func_8008B2F0(void) {
             D_800D1EB4 = D_800D1EB8 = D_800D1EBC = 255;
             if (D_801617B0 > 0) {
                 if (--D_801617B0 == 0) {
-                    gPlayers[0].heal += 128;
+                    gPlayer[0].heal += 128;
                 }
             }
 
@@ -906,7 +906,7 @@ void func_8008B2F0(void) {
 
             Math_SmoothStepToF(&D_801617A8, D_801617A4, 0.02f, 1000.0f, 0.001f);
 
-            var_fv0 = gPlayers[0].health;
+            var_fv0 = gPlayer[0].health;
             if (var_fv0 > (256.0f * D_801617A8) - 1.0f) {
                 var_fv0 = (256.0f * D_801617A8) - 1.0f;
             }
@@ -1075,8 +1075,8 @@ void func_8008CA44(void) {
     s32 i;
     s32 j;
 
-    if ((gPlayers[D_801778A0].unk228 != 0) && (gPlayers[D_801778A0].unk210 == 0) && (D_80177854 != 0x64)) {
-        j = gPlayers[D_801778A0].unk228;
+    if ((gPlayer[D_801778A0].unk228 != 0) && (gPlayer[D_801778A0].unk210 == 0) && (D_80177854 != 0x64)) {
+        j = gPlayer[D_801778A0].unk228;
 
         for (i = 0; i < 12; i++) {
             if ((j & D_800D2048[i]) != D_800D2048[i]) {
@@ -1146,7 +1146,7 @@ void func_8008D31C(void) {
     f32 D_800D20E8[] = { 60.0f, 220.0f, 60.0f, 220.0f };
     f32 D_800D20F8[] = { 78.0f, 78.0f, 198.0f, 198.0f };
 
-    Math_SmoothStepToF(&D_800D19E0[D_801778A0], gPlayers[D_801778A0].health * (1.0f / 255.0f), 0.3f, 10.0f, 0.01f);
+    Math_SmoothStepToF(&D_800D19E0[D_801778A0], gPlayer[D_801778A0].health * (1.0f / 255.0f), 0.3f, 10.0f, 0.01f);
     RCP_SetupDL(&gMasterDisp, 0x4E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
@@ -1192,12 +1192,12 @@ void func_8008D4F0(f32 arg0, f32 arg1) {
         D_800D211C[var_v1] = arg1;
     }
 
-    temp_fs0 = gPlayers[D_801778A0].unk_2BC * (1.0f / 90.0f);
+    temp_fs0 = gPlayer[D_801778A0].unk_2BC * (1.0f / 90.0f);
 
     temp_fv0 = 1.0f - temp_fs0;
     temp2 = sp68 * temp_fs0;
 
-    if (gPlayers[D_801778A0].unk_2B4 == 0) {
+    if (gPlayer[D_801778A0].unk_2B4 == 0) {
         Math_SmoothStepToF(&D_800D19AC[var_v1], 255.0f, 0.4f, 100.0f, 0.01f);
     } else {
         Math_SmoothStepToF(&D_800D19AC[var_v1], 100.0f, 0.4f, 100.0f, 0.01f);
@@ -1697,11 +1697,11 @@ s32 func_80090A00(Object_2F4* arg0) {
             break;
 
         case 4:
-            arg0->unk_124.z = gPlayers[0].unk_138;
+            arg0->unk_124.z = gPlayer[0].unk_138;
             arg0->unk_124.y = 100.0f;
-            arg0->unk_124.x = gPlayers[0].unk_074;
-            if ((fabsf(arg0->obj.pos.x - gPlayers[0].unk_074) < 300.0f) &&
-                (fabsf(arg0->obj.pos.z - gPlayers[0].unk_138) < 300.0f)) {
+            arg0->unk_124.x = gPlayer[0].unk_074;
+            if ((fabsf(arg0->obj.pos.x - gPlayer[0].unk_074) < 300.0f) &&
+                (fabsf(arg0->obj.pos.z - gPlayer[0].unk_138) < 300.0f)) {
                 arg0->unk_064 = 5;
                 arg0->unk_05C = 20;
                 arg0->unk_058 = 0;
@@ -1709,9 +1709,9 @@ s32 func_80090A00(Object_2F4* arg0) {
             break;
 
         case 5:
-            arg0->unk_124.z = gPlayers[0].unk_138 + 1000.0f;
+            arg0->unk_124.z = gPlayer[0].unk_138 + 1000.0f;
             arg0->unk_124.y = 1000.0f;
-            arg0->unk_124.x = gPlayers[0].unk_074 - 1000.0f;
+            arg0->unk_124.x = gPlayer[0].unk_074 - 1000.0f;
             arg0->unk_058++;
             if (arg0->unk_05C == arg0->unk_058) {
                 Object_Kill(&arg0->obj, &arg0->unk_100);
@@ -1846,14 +1846,14 @@ void func_80091254(Object_2F4* arg0) {
 }
 
 s32 func_80091298(Object_2F4* arg0) {
-    arg0->unk_118 = gPlayers[0].unk_0D0 + 10.0f;
+    arg0->unk_118 = gPlayer[0].unk_0D0 + 10.0f;
     arg0->unk_120 = 3.6f;
-    arg0->unk_124.x = gPlayers[0].unk_074 + ((f32) (arg0->unk_0E4 - 2) * 700.0f);
-    arg0->unk_124.y = gPlayers[0].unk_078;
-    arg0->unk_124.z = gPlayers[0].unk_138;
+    arg0->unk_124.x = gPlayer[0].unk_074 + ((f32) (arg0->unk_0E4 - 2) * 700.0f);
+    arg0->unk_124.y = gPlayer[0].unk_078;
+    arg0->unk_124.z = gPlayer[0].unk_138;
 
     if ((fabsf(arg0->obj.pos.x - arg0->unk_124.x) < 700.0f) || (fabsf(arg0->obj.pos.z - arg0->unk_124.z) < 700.0f)) {
-        arg0->unk_118 = gPlayers[0].unk_0D0 - 10.0f;
+        arg0->unk_118 = gPlayer[0].unk_0D0 - 10.0f;
         arg0->unk_120 = 1.2f;
     }
     return false;
@@ -1930,7 +1930,7 @@ void func_800914FC(Object_2F4* arg0) {
         arg0->unk_0B8 = 3;
     }
 
-    if (gPlayers[0].unk_1C8 == 7) {
+    if (gPlayer[0].unk_1C8 == 7) {
         if ((arg0->unk_0B8 != 2) && (arg0->unk_0B8 != 3)) {
             arg0->unk_060 = 1;
             arg0->unk_0B8 = 2;
@@ -2163,7 +2163,7 @@ void func_80092244(Object_2F4* arg0) {
 void func_800922F4(Object_2F4* arg0) {
     s32 temp;
 
-    if ((D_801778B0[arg0->unk_0E4] < 64) && (gPlayers[0].unk_1C8 != 7)) {
+    if ((D_801778B0[arg0->unk_0E4] < 64) && (gPlayer[0].unk_1C8 != 7)) {
         temp = 7;
         if (D_801778B0[arg0->unk_0E4] > 16) {
             temp = 15;
@@ -2220,7 +2220,7 @@ void func_80093310(void) {
 void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
     s32 i;
     Object_8C* var_s0 = &gObjects8C[ARRAY_COUNT(gObjects8C) - 1];
-    Player* sp24 = gPlayers;
+    Player* sp24 = gPlayer;
 
     for (i = 0; i < 100; i++) {
         if (var_s0->obj.status == 0) {
@@ -2269,7 +2269,7 @@ void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800935E8.s")
 
 void func_80094954(Object_8C* arg0) {
-    Player* temp = gPlayers;
+    Player* temp = gPlayer;
 
     if ((temp->unk_1C8 == 2) && (gCurrentLevel == LEVEL_AQUAS) && (temp->unk_1D0 < 2)) {
         switch (arg0->unk_4E) {
@@ -2326,7 +2326,7 @@ void func_80094954(Object_8C* arg0) {
 }
 
 void func_80094BBC(Object_8C* arg0) {
-    if ((gPlayers[0].unk_1C8 == 2) && (gCurrentLevel == LEVEL_AQUAS) && (gPlayers[0].unk_1D0 < 2)) {
+    if ((gPlayer[0].unk_1C8 == 2) && (gCurrentLevel == LEVEL_AQUAS) && (gPlayer[0].unk_1D0 < 2)) {
         RCP_SetupDL(&gMasterDisp, 0x44);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 21, 34, arg0->unk_4A);
         gDPSetEnvColor(gMasterDisp++, 255, 255, 251, 0);

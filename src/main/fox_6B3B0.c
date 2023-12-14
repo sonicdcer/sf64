@@ -94,14 +94,14 @@ void func_8006AA98(Object_80* arg0) {
 }
 
 s32 func_8006ABA4(Object_2F4* arg0) {
-    if ((fabsf(arg0->obj.pos.x - gPlayers[0].unk_074) < 700.0f) &&
-        (fabsf(arg0->obj.pos.y - gPlayers[0].unk_078) < 700.0f)) {
+    if ((fabsf(arg0->obj.pos.x - gPlayer[0].unk_074) < 700.0f) &&
+        (fabsf(arg0->obj.pos.y - gPlayer[0].unk_078) < 700.0f)) {
         return 1;
     }
     return 0;
 }
 
-// fake? gPlayers[0]. doesn't match
+// fake? gPlayer[0]. doesn't match
 void func_8006AC08(Object_2F4* arg0) {
     f32 sp2C;
 
@@ -110,10 +110,10 @@ void func_8006AC08(Object_2F4* arg0) {
         arg0->unk_0BC = 20;
     }
     sp2C = arg0->obj.pos.z + D_80177D20;
-    arg0->obj.rot.y = Math_RadToDeg(Math_Atan2F(gPlayers->unk_040.x - arg0->obj.pos.x, gPlayers->unk_040.z - sp2C));
+    arg0->obj.rot.y = Math_RadToDeg(Math_Atan2F(gPlayer->unk_040.x - arg0->obj.pos.x, gPlayer->unk_040.z - sp2C));
     arg0->obj.rot.x =
-        -Math_RadToDeg(Math_Atan2F(gPlayers->unk_040.y - arg0->obj.pos.y,
-                                   sqrtf(SQ(gPlayers->unk_040.x - arg0->obj.pos.x) + SQ(gPlayers->unk_040.z - sp2C))));
+        -Math_RadToDeg(Math_Atan2F(gPlayer->unk_040.y - arg0->obj.pos.y,
+                                   sqrtf(SQ(gPlayer->unk_040.x - arg0->obj.pos.x) + SQ(gPlayer->unk_040.z - sp2C))));
 }
 
 void func_8006AD18(Object_2F4* arg0) {
@@ -122,7 +122,7 @@ void func_8006AD18(Object_2F4* arg0) {
     arg0->unk_10C = 1.5f;
     sp34 = false;
     arg0->obj.rot.y = Math_RadToDeg(
-        Math_Atan2F(gPlayers[D_801778A0].unk_074 - arg0->obj.pos.x, gPlayers[D_801778A0].unk_138 - arg0->obj.pos.z));
+        Math_Atan2F(gPlayer[D_801778A0].unk_074 - arg0->obj.pos.x, gPlayer[D_801778A0].unk_138 - arg0->obj.pos.z));
     if (arg0->obj.pos.y < -500.0f) {
         arg0->obj.pos.y = -500.0f;
         arg0->unk_0E8.y = 0.0f;
@@ -367,7 +367,7 @@ void func_8006BB78(Object_2F4* arg0) {
             arg0->unk_0E8.x = sp44.x;
             arg0->unk_0E8.y = sp44.y;
             arg0->unk_0E8.z = sp44.z;
-            if (fabsf((arg0->obj.pos.z + arg0->unk_13C) - gPlayers[0].unk_138) < 3000.0f) {
+            if (fabsf((arg0->obj.pos.z + arg0->unk_13C) - gPlayer[0].unk_138) < 3000.0f) {
                 arg0->unk_0B8 = 2;
                 arg0->unk_0BC = 20;
                 arg0->unk_0E8.z = 0.0f;
@@ -432,7 +432,7 @@ void func_8006BF7C(f32 arg0, f32 arg1, f32 arg2) {
     }
 }
 
-// fake? gPlayers[0]. doesn't match
+// fake? gPlayer[0]. doesn't match
 Vec3f D_800D0030 = { 0.0f, -10.0f, 0.0f }; // could be in-function
 void func_8006C008(Object_2F4* arg0) {
     f32 sp4C;
@@ -443,8 +443,8 @@ void func_8006C008(Object_2F4* arg0) {
     switch (arg0->unk_0B8) {
         case 0x28:
             if (arg0->unk_04A & 4) {
-                arg0->obj.pos.x = arg0->unk_120 + gPlayers->unk_074;
-                arg0->obj.pos.z = arg0->unk_124.x + gPlayers->unk_138;
+                arg0->obj.pos.x = arg0->unk_120 + gPlayer->unk_074;
+                arg0->obj.pos.z = arg0->unk_124.x + gPlayer->unk_138;
             }
             arg0->obj.rot.x += arg0->unk_114;
             arg0->obj.rot.y += arg0->unk_118;
@@ -741,7 +741,7 @@ void func_8006D0F4(Object_2F4* arg0) {
     D_80178544 = 40;
 
     for (i = 0; i < ARRAY_COUNT(gObjects80); i++) {
-        if ((gObjects80[i].obj.status == 2) && ((gPlayers[0].unk_138 - 3000.0f) < gObjects80[i].obj.pos.z)) {
+        if ((gObjects80[i].obj.status == 2) && ((gPlayer[0].unk_138 - 3000.0f) < gObjects80[i].obj.pos.z)) {
             var_s0 = D_800CF964[gObjects80[i].obj.id];
             temp_ft4 = *var_s0;
             if (temp_ft4 != 0) {
@@ -1000,7 +1000,7 @@ void func_8006D36C(Object_2F4* arg0) {
             if (arg0->unk_0B4 == 81) {
                 arg0->unk_0C9 = 1;
             }
-            if (gPlayers[0].unk_1C8 == 3) {
+            if (gPlayer[0].unk_1C8 == 3) {
                 if (arg0->unk_0B4 == 86) {
                     func_8001D4AC(0x36, 0x14, 0xA, 0xA);
                 }
@@ -1053,7 +1053,7 @@ void func_8006D36C(Object_2F4* arg0) {
                         func_80019218(0x31000015, &arg0->unk_100, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                         break;
                 }
-                if (gPlayers[0].unk_138 < arg0->obj.pos.z) {
+                if (gPlayer[0].unk_138 < arg0->obj.pos.z) {
                     arg0->unk_01C.unk_10 = 3000.0f;
                 }
                 if (arg0->unk_01C.unk_16 == 0) {
@@ -1125,7 +1125,7 @@ void func_8006D36C(Object_2F4* arg0) {
             break;
         case 0xF000:
             temp_v0_4 = Message_PtrFromId(temp_s1[arg0->unk_0E6 + 1]);
-            if ((temp_v0_4 != NULL) && (gPlayers[0].unk_1C8 == 3)) {
+            if ((temp_v0_4 != NULL) && (gPlayer[0].unk_1C8 == 3)) {
                 func_800BA808(temp_v0_4, temp_s1[arg0->unk_0E6] & 0x1FF);
             }
             arg0->unk_0E6 += 2;
@@ -1133,7 +1133,7 @@ void func_8006D36C(Object_2F4* arg0) {
             break;
         case 0xEE00:
             if ((D_80161A88 == 2) && (temp_s1[arg0->unk_0E6 + 1] != 2)) {
-                func_8001A55C(&gPlayers[0].unk_460, 0x1100000B);
+                func_8001A55C(&gPlayer[0].unk_460, 0x1100000B);
             }
             D_80161A88 = temp_s1[arg0->unk_0E6 + 1];
             arg0->unk_0E6 += 2;
@@ -1577,7 +1577,7 @@ void func_8006F40C(Object_2F4* arg0) {
     Vec3f sp6C;
     Object_4C* var_v0;
 
-    if ((gPlayers[0].unk_1C8 == 3) && (arg0->unk_0B4 != 0x34) && (arg0->unk_0B4 != 0x67) && (arg0->unk_0B4 != 0x68) &&
+    if ((gPlayer[0].unk_1C8 == 3) && (arg0->unk_0B4 != 0x34) && (arg0->unk_0B4 != 0x67) && (arg0->unk_0B4 != 0x68) &&
         (arg0->unk_0B4 != 0x30) && (arg0->unk_0B4 != 0x31) && (arg0->unk_0B4 != 0x32)) {
         switch (arg0->unk_048) {
             case 0:
@@ -1587,7 +1587,7 @@ void func_8006F40C(Object_2F4* arg0) {
                 arg0->unk_048 = 0;
                 break;
             case 2:
-                if (arg0->obj.pos.z < (gPlayers[0].unk_138 - 600.0f)) {
+                if (arg0->obj.pos.z < (gPlayer[0].unk_138 - 600.0f)) {
                     func_8007F11C(OBJECT_353, arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, D_80177828);
                 }
                 arg0->unk_048 = 0;
@@ -1629,25 +1629,25 @@ void func_8006F40C(Object_2F4* arg0) {
                 arg0->unk_048 = 0;
                 break;
             case 6:
-                if (arg0->obj.pos.z < (gPlayers[0].unk_138 - 600.0f)) {
+                if (arg0->obj.pos.z < (gPlayer[0].unk_138 - 600.0f)) {
                     func_8007F11C(OBJECT_355, arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, D_80177828);
                 }
                 arg0->unk_048 = 0;
                 break;
             case 7:
-                if (arg0->obj.pos.z < (gPlayers[0].unk_138 - 600.0f)) {
+                if (arg0->obj.pos.z < (gPlayer[0].unk_138 - 600.0f)) {
                     func_8007F11C(OBJECT_356, arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 60.0f);
                 }
                 arg0->unk_048 = 0;
                 break;
             case 8:
-                sp6C.x = gPlayers[0].unk_074;
-                sp6C.y = gPlayers[0].unk_078;
-                gPlayers[0].unk_074 += (Rand_ZeroOne() - 0.5f) * 300.0f;
-                gPlayers[0].unk_078 += (Rand_ZeroOne() - 0.5f) * 300.0f;
+                sp6C.x = gPlayer[0].unk_074;
+                sp6C.y = gPlayer[0].unk_078;
+                gPlayer[0].unk_074 += (Rand_ZeroOne() - 0.5f) * 300.0f;
+                gPlayer[0].unk_078 += (Rand_ZeroOne() - 0.5f) * 300.0f;
                 func_8007F11C(OBJECT_353, arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, D_80177828);
-                gPlayers[0].unk_074 = sp6C.x;
-                gPlayers[0].unk_078 = sp6C.y;
+                gPlayer[0].unk_074 = sp6C.x;
+                gPlayer[0].unk_078 = sp6C.y;
                 arg0->unk_048 = 0;
                 break;
             case 9:
@@ -1699,7 +1699,7 @@ void func_8006F40C(Object_2F4* arg0) {
                 arg0->unk_048 = 0;
                 break;
             case 17:
-                if (arg0->obj.pos.z < (gPlayers[0].unk_040.z - 600.0f)) {
+                if (arg0->obj.pos.z < (gPlayer[0].unk_040.z - 600.0f)) {
                     func_8007F20C(OBJECT_353, arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, D_80177828);
                 }
                 arg0->unk_048 = 0;
@@ -1745,9 +1745,9 @@ void func_8006F40C(Object_2F4* arg0) {
 }
 
 void func_8006FE28(Object_2F4* arg0) {
-    if ((fabsf(arg0->obj.pos.x - gPlayers[0].unk_074) < 100.0f) &&
-        (fabsf(arg0->obj.pos.y - gPlayers[0].unk_078) < 100.0f) &&
-        (fabsf(arg0->obj.pos.z - gPlayers[0].unk_138) < 50.0f)) {
+    if ((fabsf(arg0->obj.pos.x - gPlayer[0].unk_074) < 100.0f) &&
+        (fabsf(arg0->obj.pos.y - gPlayer[0].unk_078) < 100.0f) &&
+        (fabsf(arg0->obj.pos.z - gPlayer[0].unk_138) < 50.0f)) {
         func_80067A40();
         func_8001A55C(&arg0->unk_100, 0x1900302B);
         Object_Kill(&arg0->obj, &arg0->unk_100);
@@ -2039,7 +2039,7 @@ void func_80070D44(Object_2F4* arg0) {
         }
     }
     if (arg0->unk_058 >= 100) {
-        if (fabsf(arg0->obj.pos.z - gPlayers[0].unk_138) <= ((arg0->unk_058 - 100) * 100.0f)) {
+        if (fabsf(arg0->obj.pos.z - gPlayer[0].unk_138) <= ((arg0->unk_058 - 100) * 100.0f)) {
             func_80070CEC(arg0);
         }
         return;
@@ -2089,168 +2089,168 @@ void func_80070D44(Object_2F4* arg0) {
             }
             break;
         case 0x9:
-            if (((arg0->obj.pos.x - gPlayers[0].unk_074) <= 100.0f) &&
-                ((arg0->obj.pos.x - gPlayers[0].unk_074) >= 0.0f)) {
+            if (((arg0->obj.pos.x - gPlayer[0].unk_074) <= 100.0f) &&
+                ((arg0->obj.pos.x - gPlayer[0].unk_074) >= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0xA:
-            if (((arg0->obj.pos.x - gPlayers[0].unk_074) <= 400.0f) &&
-                ((arg0->obj.pos.x - gPlayers[0].unk_074) >= 0.0f)) {
+            if (((arg0->obj.pos.x - gPlayer[0].unk_074) <= 400.0f) &&
+                ((arg0->obj.pos.x - gPlayer[0].unk_074) >= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0xB:
-            if (((arg0->obj.pos.x - gPlayers[0].unk_074) <= 700.0f) &&
-                ((arg0->obj.pos.x - gPlayers[0].unk_074) >= 0.0f)) {
+            if (((arg0->obj.pos.x - gPlayer[0].unk_074) <= 700.0f) &&
+                ((arg0->obj.pos.x - gPlayer[0].unk_074) >= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0xC:
-            if (((arg0->obj.pos.x - gPlayers[0].unk_074) <= 200.0f) &&
-                ((arg0->obj.pos.x - gPlayers[0].unk_074) >= 0.0f)) {
+            if (((arg0->obj.pos.x - gPlayer[0].unk_074) <= 200.0f) &&
+                ((arg0->obj.pos.x - gPlayer[0].unk_074) >= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0xD:
-            if (((arg0->obj.pos.x - gPlayers[0].unk_074) >= -100.0f) &&
-                ((arg0->obj.pos.x - gPlayers[0].unk_074) <= 0.0f)) {
+            if (((arg0->obj.pos.x - gPlayer[0].unk_074) >= -100.0f) &&
+                ((arg0->obj.pos.x - gPlayer[0].unk_074) <= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0xE:
-            if (((arg0->obj.pos.x - gPlayers[0].unk_074) >= -400.0f) &&
-                ((arg0->obj.pos.x - gPlayers[0].unk_074) <= 0.0f)) {
+            if (((arg0->obj.pos.x - gPlayer[0].unk_074) >= -400.0f) &&
+                ((arg0->obj.pos.x - gPlayer[0].unk_074) <= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0xF:
-            if (((arg0->obj.pos.x - gPlayers[0].unk_074) >= -700.0f) &&
-                ((arg0->obj.pos.x - gPlayers[0].unk_074) <= 0.0f)) {
+            if (((arg0->obj.pos.x - gPlayer[0].unk_074) >= -700.0f) &&
+                ((arg0->obj.pos.x - gPlayer[0].unk_074) <= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x10:
-            if (((arg0->obj.pos.x - gPlayers[0].unk_074) >= -200.0f) &&
-                ((arg0->obj.pos.x - gPlayers[0].unk_074) <= 0.0f)) {
+            if (((arg0->obj.pos.x - gPlayer[0].unk_074) >= -200.0f) &&
+                ((arg0->obj.pos.x - gPlayer[0].unk_074) <= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x11:
-            if (((arg0->obj.pos.y - gPlayers[0].unk_078) <= 100.0f) &&
-                ((arg0->obj.pos.y - gPlayers[0].unk_078) >= 0.0f)) {
+            if (((arg0->obj.pos.y - gPlayer[0].unk_078) <= 100.0f) &&
+                ((arg0->obj.pos.y - gPlayer[0].unk_078) >= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x12:
-            if (((arg0->obj.pos.y - gPlayers[0].unk_078) <= 400.0f) &&
-                ((arg0->obj.pos.y - gPlayers[0].unk_078) >= 0.0f)) {
+            if (((arg0->obj.pos.y - gPlayer[0].unk_078) <= 400.0f) &&
+                ((arg0->obj.pos.y - gPlayer[0].unk_078) >= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x13:
-            if (((arg0->obj.pos.y - gPlayers[0].unk_078) <= 700.0f) &&
-                ((arg0->obj.pos.y - gPlayers[0].unk_078) >= 0.0f)) {
+            if (((arg0->obj.pos.y - gPlayer[0].unk_078) <= 700.0f) &&
+                ((arg0->obj.pos.y - gPlayer[0].unk_078) >= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x14:
-            if (((arg0->obj.pos.y - gPlayers[0].unk_078) <= 200.0f) &&
-                ((arg0->obj.pos.y - gPlayers[0].unk_078) >= 0.0f)) {
+            if (((arg0->obj.pos.y - gPlayer[0].unk_078) <= 200.0f) &&
+                ((arg0->obj.pos.y - gPlayer[0].unk_078) >= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x15:
-            if (((arg0->obj.pos.y - gPlayers[0].unk_078) >= -100.0f) &&
-                ((arg0->obj.pos.y - gPlayers[0].unk_078) <= 0.0f)) {
+            if (((arg0->obj.pos.y - gPlayer[0].unk_078) >= -100.0f) &&
+                ((arg0->obj.pos.y - gPlayer[0].unk_078) <= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x16:
-            if (((arg0->obj.pos.y - gPlayers[0].unk_078) >= -400.0f) &&
-                ((arg0->obj.pos.y - gPlayers[0].unk_078) <= 0.0f)) {
+            if (((arg0->obj.pos.y - gPlayer[0].unk_078) >= -400.0f) &&
+                ((arg0->obj.pos.y - gPlayer[0].unk_078) <= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x17:
-            if (((arg0->obj.pos.y - gPlayers[0].unk_078) >= -700.0f) &&
-                ((arg0->obj.pos.y - gPlayers[0].unk_078) <= 0.0f)) {
+            if (((arg0->obj.pos.y - gPlayer[0].unk_078) >= -700.0f) &&
+                ((arg0->obj.pos.y - gPlayer[0].unk_078) <= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x18:
-            if (((arg0->obj.pos.y - gPlayers[0].unk_078) >= -200.0f) &&
-                ((arg0->obj.pos.y - gPlayers[0].unk_078) <= 0.0f)) {
+            if (((arg0->obj.pos.y - gPlayer[0].unk_078) >= -200.0f) &&
+                ((arg0->obj.pos.y - gPlayer[0].unk_078) <= 0.0f)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x19:
-            if (gPlayers[0].health >= Play_GetMaxHealth()) {
+            if (gPlayer[0].health >= Play_GetMaxHealth()) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x1A:
-            if (gPlayers[0].health >= (Play_GetMaxHealth() * 3 / 4)) {
+            if (gPlayer[0].health >= (Play_GetMaxHealth() * 3 / 4)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x1B:
-            if (gPlayers[0].health >= (Play_GetMaxHealth() / 2)) {
+            if (gPlayer[0].health >= (Play_GetMaxHealth() / 2)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x1C:
-            if (gPlayers[0].health >= (Play_GetMaxHealth() / 4)) {
+            if (gPlayer[0].health >= (Play_GetMaxHealth() / 4)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x1D:
-            if (gPlayers[0].health == 0) {
+            if (gPlayer[0].health == 0) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x1E:
-            if (gPlayers[0].unk_270 >= 5) {
+            if (gPlayer[0].unk_270 >= 5) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x1F:
-            if (gPlayers[0].unk_270 != 0) {
+            if (gPlayer[0].unk_270 != 0) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x20:
-            if (gPlayers[0].unk_270 == 0) {
+            if (gPlayer[0].unk_270 == 0) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x21:
-            if (gPlayers[0].unk_250 >= 16.8f) {
+            if (gPlayer[0].unk_250 >= 16.8f) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x22:
-            if (gPlayers[0].unk_250 <= 8.4f) {
+            if (gPlayer[0].unk_250 <= 8.4f) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x23:
-            if (gPlayers[0].wings.unk_14 > -8.0f) {
+            if (gPlayer[0].wings.unk_14 > -8.0f) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x24:
-            if ((gPlayers[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == 1)) {
+            if ((gPlayer[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == 1)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x25:
-            if ((gPlayers[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == 2)) {
+            if ((gPlayer[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == 2)) {
                 func_80070CEC(arg0);
             }
             break;
         case 0x26:
-            if ((gPlayers[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == 3)) {
+            if ((gPlayer[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == 3)) {
                 func_80070CEC(arg0);
             }
             break;
@@ -2338,7 +2338,7 @@ void func_80070D44(Object_2F4* arg0) {
             }
             break;
         case 0x30:
-            if ((gPlayers[0].wings.rightState <= 1) || (gPlayers[0].wings.leftState <= 1)) {
+            if ((gPlayer[0].wings.rightState <= 1) || (gPlayer[0].wings.leftState <= 1)) {
                 func_80070CEC(arg0);
             }
             break;
@@ -2612,7 +2612,7 @@ void func_80072474(Object_2F4* arg0) {
     }
     if (arg0->unk_08C != 0) {
         var_fv1 =
-            Math_RadToDeg(Math_Atan2F(gPlayers[0].unk_074 - arg0->obj.pos.x, gPlayers[0].unk_138 - arg0->obj.pos.z));
+            Math_RadToDeg(Math_Atan2F(gPlayer[0].unk_074 - arg0->obj.pos.x, gPlayer[0].unk_138 - arg0->obj.pos.z));
     } else if (arg0->unk_068 != 0) {
         var_fv1 = arg0->unk_0F4.y;
     } else {
@@ -2646,7 +2646,7 @@ void func_80072594(Object_2F4* arg0) {
     spDC = 0.0f;
     spD8 = 0.0f;
     spD4 = 0.0f;
-    if ((gPlayers->unk_1C8 == 7) || (D_8017828C != 0)) {
+    if ((gPlayer->unk_1C8 == 7) || (D_8017828C != 0)) {
         Object_Kill(&arg0->obj, &arg0->unk_100);
         return;
     }
@@ -2663,7 +2663,7 @@ void func_80072594(Object_2F4* arg0) {
             return;
         }
         if (arg0->unk_0B4 == 300) {
-            gPlayers->unk_1A4 = arg0->unk_040;
+            gPlayer->unk_1A4 = arg0->unk_040;
             arg0->unk_0C2 = 100;
         } else if (arg0->unk_0B4 >= 200) {
             arg0->unk_04E++;
@@ -2716,13 +2716,13 @@ void func_80072594(Object_2F4* arg0) {
                     Matrix_RotateX(gCalcMatrix, -arg0->unk_2E8.x * M_DTOR, 1);
                     Matrix_RotateY(gCalcMatrix, -arg0->unk_2E8.y * M_DTOR, 1);
                     if ((arg0->unk_0B8 == 0xE) || (arg0->unk_0B8 == 0xF)) {
-                        spB8.x = gPlayers->unk_040.x - spF0;
-                        spB8.y = gPlayers->unk_040.y - (spEC + 25.0f);
-                        spB8.z = (gPlayers->unk_040.z * 15.0f) - spE8;
+                        spB8.x = gPlayer->unk_040.x - spF0;
+                        spB8.y = gPlayer->unk_040.y - (spEC + 25.0f);
+                        spB8.z = (gPlayer->unk_040.z * 15.0f) - spE8;
                     } else {
-                        spB8.x = gPlayers->unk_074 - spF0;
-                        spB8.y = gPlayers->unk_078 - (spEC + 25.0f);
-                        spB8.z = (gPlayers->unk_0C0.z * 15.0f) + gPlayers->unk_07C - spE8;
+                        spB8.x = gPlayer->unk_074 - spF0;
+                        spB8.y = gPlayer->unk_078 - (spEC + 25.0f);
+                        spB8.z = (gPlayer->unk_0C0.z * 15.0f) + gPlayer->unk_07C - spE8;
                     }
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &spB8, &spAC);
                     spE0 = Math_RadToDeg(Math_Atan2F(spAC.x, spAC.z));
@@ -2766,13 +2766,13 @@ void func_80072594(Object_2F4* arg0) {
                     }
                 } else {
                     if ((arg0->unk_0B8 == 0xE) || (arg0->unk_0B8 == 0xF)) {
-                        spCC = gPlayers->unk_040.x;
-                        spC8 = gPlayers->unk_040.y;
-                        spC4 = gPlayers->unk_040.z;
+                        spCC = gPlayer->unk_040.x;
+                        spC8 = gPlayer->unk_040.y;
+                        spC4 = gPlayer->unk_040.z;
                     } else {
-                        spCC = gPlayers->unk_074;
-                        spC8 = gPlayers->unk_078;
-                        spC4 = gPlayers->unk_07C;
+                        spCC = gPlayer->unk_074;
+                        spC8 = gPlayer->unk_078;
+                        spC4 = gPlayer->unk_07C;
                     }
                     Math_SmoothStepToAngle(&arg0->unk_2E8.z, 0.0f, 0.1f, 5.0f, 0.0001f);
                     Math_SmoothStepToAngle(&arg0->unk_0F4.z, 0.0f, 0.1f, 5.0f, 0.0001f);
@@ -2992,7 +2992,7 @@ void func_80072594(Object_2F4* arg0) {
         if (arg0->unk_064 == 0x100) {
             arg0->unk_0E8.z -= D_80177D08;
         }
-        if (gPlayers->unk_1C8 == 8) {
+        if (gPlayer->unk_1C8 == 8) {
             arg0->unk_0E8.z = 100.0f;
         }
         func_80070D44(arg0);

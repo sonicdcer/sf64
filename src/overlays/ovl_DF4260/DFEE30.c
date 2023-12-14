@@ -14,7 +14,7 @@
 void func_DF4260_801924A8(UnkStruct_func_DF4260_801924A8* arg0) {
     switch (arg0->unk48) {
         case 0:
-            if (gPlayers[0].unk_07C < arg0->unkC) {
+            if (gPlayer[0].unk_07C < arg0->unkC) {
                 D_80177AB0 = 0;
                 D_80177A98 = 0;
                 arg0->unk48++;

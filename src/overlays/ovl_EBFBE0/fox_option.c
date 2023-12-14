@@ -1278,12 +1278,12 @@ void func_EBFBE0_80194678(void) {
     D_EBFBE0_801B91BC = 1;
     D_EBFBE0_801B91A0 = 0;
 
-    gStereoSettings = gSaveFile.save.data.unk_14;
-    func_800182F4(D_EBFBE0_801AE998[gStereoSettings] | 0xE0000000);
+    gSoundMode = gSaveFile.save.data.soundMode;
+    func_800182F4(D_EBFBE0_801AE998[gSoundMode] | 0xE0000000);
 
-    gVolumeSettings[0] = gSaveFile.save.data.unk_15;
-    gVolumeSettings[1] = gSaveFile.save.data.unk_16;
-    gVolumeSettings[2] = gSaveFile.save.data.unk_17;
+    gVolumeSettings[0] = gSaveFile.save.data.musicVolume;
+    gVolumeSettings[1] = gSaveFile.save.data.voiceVolume;
+    gVolumeSettings[2] = gSaveFile.save.data.sfxVolume;
 
     if (gVolumeSettings[0] > 99) {
         gVolumeSettings[0] = 99;
@@ -1375,17 +1375,17 @@ void func_EBFBE0_801948A8(void) {
 }
 
 void func_EBFBE0_80194AEC(void) {
-    s32 sp3C = gStereoSettings;
+    s32 sp3C = gSoundMode;
     s32 pad;
 
     if (func_EBFBE0_8019C418(&sp3C, 2, 0, 0, 20, 5, 4, D_80177AF8, &D_EBFBE0_801B9260) != 0) {
         func_80019218(0x49000002, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-        gStereoSettings = sp3C;
-        if (gStereoSettings >= 3) {
-            gStereoSettings = 0;
+        gSoundMode = sp3C;
+        if (gSoundMode >= 3) {
+            gSoundMode = 0;
         }
-        gSaveFile.save.data.unk_14 = gStereoSettings;
-        func_800182F4(D_EBFBE0_801AE998[gStereoSettings] | 0xE0000000);
+        gSaveFile.save.data.soundMode = gSoundMode;
+        func_800182F4(D_EBFBE0_801AE998[gSoundMode] | 0xE0000000);
     }
 }
 
@@ -1405,15 +1405,15 @@ void func_EBFBE0_80194BD0(void) {
 
         switch (D_EBFBE0_801B9288 - 1) {
             case 0:
-                gSaveFile.save.data.unk_15 = var_v1;
+                gSaveFile.save.data.musicVolume = var_v1;
                 break;
 
             case 1:
-                gSaveFile.save.data.unk_16 = var_v1;
+                gSaveFile.save.data.voiceVolume = var_v1;
                 break;
 
             case 2:
-                gSaveFile.save.data.unk_17 = var_v1;
+                gSaveFile.save.data.sfxVolume = var_v1;
                 break;
         }
         func_8001D8A8(D_EBFBE0_801B924C, var_v1);
@@ -1475,7 +1475,7 @@ void func_EBFBE0_80194CE4(void) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    switch (gStereoSettings) {
+    switch (gSoundMode) {
         case 0:
             TextureRect_8bIA(&gMasterDisp, D_800CD90, 56, 13, D_EBFBE0_801AEFA8[8], D_EBFBE0_801AEFD4[8], 1.0f, 1.0f);
             break;

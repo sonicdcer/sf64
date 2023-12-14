@@ -21,7 +21,7 @@
 #define ROM_SEGMENT(file) \
     { SEGMENT_ROM_START(file), SEGMENT_ROM_END(file) }
 
-OverlayInit sLogoOverlay[1] = {
+OverlayInit sNoOvl_Logo[1] = {
     { NO_OVERLAY,
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
@@ -40,7 +40,7 @@ OverlayInit sLogoOverlay[1] = {
         /* 0xF */ ROM_SEGMENT(ast_D25100) } },
 };
 
-OverlayInit sCreditsOverlay_6[6] = {
+OverlayInit sOvlEF0260_Credits[6] = {
     { OVERLAY_OFFSETS(ovl_EF0260),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
@@ -139,7 +139,7 @@ OverlayInit sCreditsOverlay_6[6] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sEBFBE0_Overlay1[1] = {
+OverlayInit sOvlEBFBE0_Title[1] = {
     { OVERLAY_OFFSETS(ovl_EBFBE0),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
@@ -158,7 +158,7 @@ OverlayInit sEBFBE0_Overlay1[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sEBFBE0_Overlay2[1] = {
+OverlayInit sOvlEBFBE0_Menu[1] = {
     { OVERLAY_OFFSETS(ovl_EBFBE0),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
@@ -177,7 +177,7 @@ OverlayInit sEBFBE0_Overlay2[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sEBFBE0_Overlay3[1] = {
+OverlayInit sOvlEBFBE0_Map[1] = {
     { OVERLAY_OFFSETS(ovl_EBFBE0),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
@@ -196,7 +196,7 @@ OverlayInit sEBFBE0_Overlay3[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sEBFBE0_Overlay4[1] = {
+OverlayInit sOvlEBFBE0_State5[1] = {
     { OVERLAY_OFFSETS(ovl_EBFBE0),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
@@ -215,7 +215,7 @@ OverlayInit sEBFBE0_Overlay4[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sDF4260_Overlay1[1] = {
+OverlayInit sOvlDF4260_Corneria[1] = {
     { OVERLAY_OFFSETS(ovl_DF4260),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -234,7 +234,7 @@ OverlayInit sDF4260_Overlay1[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sE08400_Overlay1_2[2] = {
+OverlayInit sOvlE08400_Meteo[2] = {
     { OVERLAY_OFFSETS(ovl_E08400),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
@@ -269,7 +269,7 @@ OverlayInit sE08400_Overlay1_2[2] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sE6A810_Overlay1_6[6] = {
+OverlayInit sOvlE6A810_Titania[6] = {
     { OVERLAY_OFFSETS(ovl_E6A810),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -368,7 +368,7 @@ OverlayInit sE6A810_Overlay1_6[6] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sE08400_Overlay2_2[2] = {
+OverlayInit sOvlE08400_SectorX[2] = {
     { OVERLAY_OFFSETS(ovl_E08400),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
@@ -403,7 +403,7 @@ OverlayInit sE08400_Overlay2_2[2] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sE51970_Overlay1[1] = {
+OverlayInit sOvlE51970_SectorZ[1] = {
     { OVERLAY_OFFSETS(ovl_E51970),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
@@ -422,7 +422,7 @@ OverlayInit sE51970_Overlay1[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sE16C50_Overlay1[1] = {
+OverlayInit sOvlE16C50_Aquas[1] = {
     { OVERLAY_OFFSETS(ovl_E16C50),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -441,7 +441,7 @@ OverlayInit sE16C50_Overlay1[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sE16C50_Overlay2[1] = {
+OverlayInit sOvlE16C50_Area6[1] = {
     { OVERLAY_OFFSETS(ovl_E16C50),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
@@ -460,7 +460,7 @@ OverlayInit sE16C50_Overlay2[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sE51970_Overlay2_2[2] = {
+OverlayInit sOvlE51970_Fortuna[2] = {
     { OVERLAY_OFFSETS(ovl_E51970),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -495,7 +495,7 @@ OverlayInit sE51970_Overlay2_2[2] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sE16C50_Overlay3[1] = {
+OverlayInit sOvlE16C50_Unk4[1] = {
     { OVERLAY_OFFSETS(ovl_E16C50),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
@@ -514,7 +514,7 @@ OverlayInit sE16C50_Overlay3[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sE9F1D0_Overlay1[1] = {
+OverlayInit sOvlE9F1D0_SectorY[1] = {
     { OVERLAY_OFFSETS(ovl_E9F1D0),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
@@ -533,7 +533,7 @@ OverlayInit sE9F1D0_Overlay1[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sE16C50_Overlay4[1] = {
+OverlayInit sOvlE16C50_Solar[1] = {
     { OVERLAY_OFFSETS(ovl_E16C50),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -552,7 +552,7 @@ OverlayInit sE16C50_Overlay4[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sE16C50_Overlay5[1] = {
+OverlayInit sOvlE16C50_Zoness[1] = {
     { OVERLAY_OFFSETS(ovl_E16C50),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -571,7 +571,7 @@ OverlayInit sE16C50_Overlay5[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sDF4260_Overlay2[1] = {
+OverlayInit sOvlDF4260_Venom1[1] = {
     { OVERLAY_OFFSETS(ovl_DF4260),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -590,7 +590,7 @@ OverlayInit sDF4260_Overlay2[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sE9F1D0_Overlay2[1] = {
+OverlayInit sOvlE9F1D0_Venom2[1] = {
     { OVERLAY_OFFSETS(ovl_E9F1D0),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -609,7 +609,7 @@ OverlayInit sE9F1D0_Overlay2[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sE9F1D0_Overlay3_2[2] = {
+OverlayInit sOvlE9F1D0_VenomSW[2] = {
     { OVERLAY_OFFSETS(ovl_E9F1D0),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -644,7 +644,7 @@ OverlayInit sE9F1D0_Overlay3_2[2] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sE08400_Overlay3[1] = {
+OverlayInit sOvlE08400_Setup20[1] = {
     { OVERLAY_OFFSETS(ovl_E08400),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -663,7 +663,7 @@ OverlayInit sE08400_Overlay3[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sE51970_Overlay3[1] = {
+OverlayInit sOvlE51970_Bolse[1] = {
     { OVERLAY_OFFSETS(ovl_E51970),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
@@ -682,7 +682,7 @@ OverlayInit sE51970_Overlay3[1] = {
         /* 0xF */ ROM_SEGMENT(ast_940AD0) } },
 };
 
-OverlayInit sE51970_Overlay4[1] = {
+OverlayInit sOvlE51970_Katina[1] = {
     { OVERLAY_OFFSETS(ovl_E51970),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -701,7 +701,7 @@ OverlayInit sE51970_Overlay4[1] = {
         /* 0xF */ ROM_SEGMENT(ast_940AD0) } },
 };
 
-OverlayInit sE6A810_Overlay2_2[2] = {
+OverlayInit sOvlE6A810_Macbeth[2] = {
     { OVERLAY_OFFSETS(ovl_E6A810),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -736,7 +736,7 @@ OverlayInit sE6A810_Overlay2_2[2] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sDF4260_Overlay3[1] = {
+OverlayInit sOvlDF4260_Training[1] = {
     { OVERLAY_OFFSETS(ovl_DF4260),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -755,7 +755,7 @@ OverlayInit sDF4260_Overlay3[1] = {
         /* 0xF */ ROM_SEGMENT(ast_940AD0) } },
 };
 
-OverlayInit sE08400_Overlay4_2[2] = {
+OverlayInit sOvlE08400_Versus[2] = {
     { OVERLAY_OFFSETS(ovl_E08400),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),

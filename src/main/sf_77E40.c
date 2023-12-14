@@ -30,9 +30,9 @@ void func_8007729C(void) {
             }
             if (D_80177880 == 0) {
                 var_s0->pos.z -= D_80177D08;
-            } else if (gPlayers[0].unk_1C8 == 3) {
-                var_s0->pos.x += gPlayers[0].unk_0C0.x;
-                var_s0->pos.z += gPlayers[0].unk_0C0.z;
+            } else if (gPlayer[0].unk_1C8 == 3) {
+                var_s0->pos.x += gPlayer[0].unk_0C0.x;
+                var_s0->pos.z += gPlayer[0].unk_0C0.z;
             }
             if (var_s0->unk_18 < 45) {
                 Math_SmoothStepToF(&var_s0->unk_10, 300.0f, 0.1f, 20.0f, 0.0f);
@@ -54,8 +54,8 @@ void func_80077404(UnkEntity1C* arg0) {
         if ((fabsf(sp54.x) < 20000.0f) && (fabsf(sp54.y) < 20000.0f)) {
             if ((sp54.z < 0.0f) && (sp54.z > -20000.0f)) {
                 sp50 = sqrtf(VEC3F_SQ(sp54)) * 0.0015f * 0.2f;
-                Matrix_RotateY(gGfxMatrix, -gPlayers[D_801778A0].unk_058, 1);
-                Matrix_RotateX(gGfxMatrix, gPlayers[D_801778A0].unk_05C, 1);
+                Matrix_RotateY(gGfxMatrix, -gPlayer[D_801778A0].unk_058, 1);
+                Matrix_RotateX(gGfxMatrix, gPlayer[D_801778A0].unk_05C, 1);
                 Matrix_Scale(gGfxMatrix, sp50, sp50, 1.0f, 1);
                 Matrix_Translate(gGfxMatrix, 0.0f, arg0->unk_10, 0.0f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
@@ -178,7 +178,7 @@ void func_80077B78(void* arg0) {
 
 void func_80077B84(Object_8C* arg0) {
     func_8005980C(arg0->unk_70);
-    if ((arg0->unk_6C == 71.0f) || ((gPlayers[0].unk_1C8 == 7) && (gCurrentLevel == LEVEL_CORNERIA))) {
+    if ((arg0->unk_6C == 71.0f) || ((gPlayer[0].unk_1C8 == 7) && (gCurrentLevel == LEVEL_CORNERIA))) {
         RCP_SetupDL(&gMasterDisp, 0x26);
     } else {
         RCP_SetupDL(&gMasterDisp, 0x43);
@@ -447,9 +447,9 @@ void func_80078E50(f32 posX, f32 posY, f32 posZ, f32 arg3) {
 
 void func_80078EBC(Object_8C* arg0) {
     if (arg0->unk_4E == 2) {
-        arg0->unk_54.x = gPlayers[0].unk_0C0.x;
-        arg0->unk_54.y = gPlayers[0].unk_0C0.y;
-        arg0->unk_54.z = gPlayers[0].unk_0C0.z;
+        arg0->unk_54.x = gPlayer[0].unk_0C0.x;
+        arg0->unk_54.y = gPlayer[0].unk_0C0.y;
+        arg0->unk_54.z = gPlayer[0].unk_0C0.z;
     }
     arg0->obj.rot.z += 35.0f;
     if (arg0->unk_50 >= 7) {
@@ -501,9 +501,9 @@ void func_8007905C(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 a
         arg0->unk_54.x = (Rand_ZeroOne() - 0.5f) * 10.0f;
         arg0->unk_54.z = (Rand_ZeroOne() - 0.5f) * 10.0f;
     } else if ((gCurrentLevel == LEVEL_BOLSE) && ((arg4 == 5.11f) || (arg4 == 7.22f))) {
-        sp3C.x = gPlayers[0].unk_074;
-        sp3C.y = gPlayers[0].unk_078;
-        sp3C.z = gPlayers[0].unk_07C;
+        sp3C.x = gPlayer[0].unk_074;
+        sp3C.y = gPlayer[0].unk_078;
+        sp3C.z = gPlayer[0].unk_07C;
         yAng = Math_Atan2F(sp3C.x - posX, sp3C.z - posZ);
         sp38 = sqrtf(SQ(sp3C.x - posX) + SQ(sp3C.z - posZ));
         xAng = -Math_Atan2F(sp3C.y - posY, sp38);
@@ -593,7 +593,7 @@ void func_8007968C(Object_8C* arg0) {
     if (gLevelType == 0) {
         arg0->unk_54.y -= 0.5f;
     }
-    if ((gCurrentLevel == LEVEL_BOLSE) && (gPlayers[0].unk_1C8 == 7) && (D_80177A80 >= 0xB0)) {
+    if ((gCurrentLevel == LEVEL_BOLSE) && (gPlayer[0].unk_1C8 == 7) && (D_80177A80 >= 0xB0)) {
         arg0->unk_54.x *= 0.95f;
         arg0->unk_54.y *= 0.95f;
         arg0->unk_54.z *= 0.95f;
@@ -619,7 +619,7 @@ s32 func_800798C4(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
 void func_800798F0(Object_8C* arg0) {
     Vec3f frameJointTable[50];
 
-    if ((gCurrentLevel == LEVEL_BOLSE) && (gPlayers[0].unk_1C8 == 7)) {
+    if ((gCurrentLevel == LEVEL_BOLSE) && (gPlayer[0].unk_1C8 == 7)) {
         func_8005F670(&arg0->obj.pos);
     }
     RCP_SetupDL(&gMasterDisp, 0x1D);
@@ -957,8 +957,8 @@ void func_8007AC0C(Object_8C* arg0, f32 posX, f32 unused_posY, f32 posY, f32 arg
     arg0->unk_70 = arg4;
     arg0->unk_6C = arg5;
     arg0->obj.rot.y = arg6;
-    arg0->unk_54.x = gPlayers[0].unk_0C0.x * 0.6f;
-    arg0->unk_54.z = gPlayers[0].unk_0C0.z * 0.6; // Forgotten f means bad codegen
+    arg0->unk_54.x = gPlayer[0].unk_0C0.x * 0.6f;
+    arg0->unk_54.z = gPlayer[0].unk_0C0.z * 0.6; // Forgotten f means bad codegen
     func_800612B8(&arg0->unk_1C, arg0->obj.id);
 }
 
@@ -1197,9 +1197,9 @@ void func_8007B67C(Object_8C* arg0) {
         if (var_v1 > 10) {
             var_v1 -= 10;
         }
-        arg0->unk_54.x = gPlayers[var_v1 - 1].unk_0C0.x;
-        arg0->unk_54.y = gPlayers[var_v1 - 1].unk_0C0.y;
-        arg0->unk_54.z = gPlayers[var_v1 - 1].unk_0C0.z;
+        arg0->unk_54.x = gPlayer[var_v1 - 1].unk_0C0.x;
+        arg0->unk_54.y = gPlayer[var_v1 - 1].unk_0C0.y;
+        arg0->unk_54.z = gPlayer[var_v1 - 1].unk_0C0.z;
     }
 }
 
@@ -1209,7 +1209,7 @@ void func_8007B758(Object_8C* arg0) {
     if (arg0->unk_44 < 0) {
         Object_Kill(&arg0->obj, &arg0->unk_80);
     }
-    func_8007A774(gPlayers, arg0, arg0->unk_70 * 20.0f);
+    func_8007A774(gPlayer, arg0, arg0->unk_70 * 20.0f);
 }
 
 void func_8007B7E8(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4) {

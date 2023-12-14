@@ -103,16 +103,16 @@ void Game_SetGameState(void) {
     D_80177D20 = 0.0f;
     if ((gCurrentLevel == LEVEL_VENOM_SW) && (D_8017827C == 2)) {
         gFillScreenColor = gBgColor = 0xFFFF;
-        D_80178348 = D_80178350 = D_80178354 = 0xFF;
+        D_80178348 = D_80178350 = D_80178354 = 255;
     } else {
         D_80178348 = D_80178350 = D_80178354 = 0;
         func_8001DBD0(1);
     }
-    D_80178340 = 0xFF;
+    D_80178340 = 255;
     D_80178380[0] = 0;
     D_8017829C = 0;
     D_80178428 = 0.0f;
-    gBlurAlpha = 0xFF;
+    gBlurAlpha = 255;
     D_80177898 = 0;
     func_8001AE58();
     func_8001D400(0);
@@ -404,13 +404,13 @@ void func_800A26C0(void) {
                 }
                 D_8017789C = 0;
                 D_801778A4 = 3;
-                gBlurAlpha = 0xFF;
+                gBlurAlpha = 255;
                 for (i = 0; i < 30; i++) {
                     D_800D3180[i] = 0;
                 }
                 gExpertMode = false;
-                gStereoSettings = gSaveFile.save.data.unk_14;
-                switch (gStereoSettings) {
+                gSoundMode = gSaveFile.save.data.soundMode;
+                switch (gSoundMode) {
                     case 0:
                         var_v0_3 = 0;
                         break;
@@ -421,14 +421,14 @@ void func_800A26C0(void) {
                         var_v0_3 = 1;
                         break;
                     default:
-                        gStereoSettings = 0;
+                        gSoundMode = 0;
                         var_v0_3 = 0;
                         break;
                 }
                 func_800182F4(var_v0_3 | 0xE0000000);
-                gVolumeSettings[0] = gSaveFile.save.data.unk_15;
-                gVolumeSettings[1] = gSaveFile.save.data.unk_16;
-                gVolumeSettings[2] = gSaveFile.save.data.unk_17;
+                gVolumeSettings[0] = gSaveFile.save.data.musicVolume;
+                gVolumeSettings[1] = gSaveFile.save.data.voiceVolume;
+                gVolumeSettings[2] = gSaveFile.save.data.sfxVolume;
                 if (gVolumeSettings[0] > 99) {
                     gVolumeSettings[0] = 99;
                 }
@@ -515,7 +515,7 @@ void func_800A26C0(void) {
             }
         } else {
             for (i = 0; i < gCamCount; i++) {
-                if (gPlayers[i].unk_224 != 0) {
+                if (gPlayer[i].unk_224 != 0) {
 
                     Graphics_FillRectangle(&gMasterDisp, D_800D2874[i], D_800D2894[i], D_800D2884[i], D_800D28A4[i],
                                            D_80178348, D_80178350, D_80178354, D_80178340);

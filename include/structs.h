@@ -50,10 +50,10 @@ typedef struct {
 typedef struct{
     /* 0x00 */ Save_SubStruct_00 unk_00[16];
     /* 0x10 */ char pad10[0x4];
-    /* 0x14 */ u8 unk_14;
-    /* 0x15 */ u8 unk_15;
-    /* 0x16 */ u8 unk_16;
-    /* 0x17 */ u8 unk_17;
+    /* 0x14 */ u8 soundMode;
+    /* 0x15 */ u8 musicVolume;
+    /* 0x16 */ u8 voiceVolume;
+    /* 0x17 */ u8 sfxVolume;
     /* 0x18 */ u8 unk_18[10][3];
     /* 0x36 */ u8 unk_36[10];
     /* 0x40 */ u8 unk_40[10];

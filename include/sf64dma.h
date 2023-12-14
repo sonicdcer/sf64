@@ -92,33 +92,33 @@ typedef struct {
 
 extern DmaEntry gDmaTable[]; // 178A70
 
-extern OverlayInit sLogoOverlay[1]; // sets segment 15 with no overlay
-extern OverlayInit sCreditsOverlay_6[6]; // overlay EF0260
-extern OverlayInit sEBFBE0_Overlay1[1]; // EBFBE0
-extern OverlayInit sEBFBE0_Overlay2[1]; // EBFBE0
-extern OverlayInit sEBFBE0_Overlay3[1]; // EBFBE0
-extern OverlayInit sEBFBE0_Overlay4[1]; // EBFBE0
-extern OverlayInit sDF4260_Overlay1[1]; // DF4260
-extern OverlayInit sE08400_Overlay1_2[2]; // E08400
-extern OverlayInit sE6A810_Overlay1_6[6]; // E6A810
-extern OverlayInit sE08400_Overlay2_2[2]; // E08400
-extern OverlayInit sE51970_Overlay1[1]; // E51970
-extern OverlayInit sE16C50_Overlay1[1]; // E16C50
-extern OverlayInit sE16C50_Overlay2[1]; // E16C50
-extern OverlayInit sE51970_Overlay2_2[2]; // E51970
-extern OverlayInit sE16C50_Overlay3[1]; // E16C50
-extern OverlayInit sE9F1D0_Overlay1[1]; // E9F1D0
-extern OverlayInit sE16C50_Overlay4[1]; // E16C50
-extern OverlayInit sE16C50_Overlay5[1]; // E16C50
-extern OverlayInit sDF4260_Overlay2[1]; // DF4260
-extern OverlayInit sE9F1D0_Overlay2[1]; // E9F1D0
-extern OverlayInit sE9F1D0_Overlay3_2[2]; // E9F1D0
-extern OverlayInit sE08400_Overlay3[1]; // E08400
-extern OverlayInit sE51970_Overlay3[1]; // E51970
-extern OverlayInit sE51970_Overlay4[1]; // E51970
-extern OverlayInit sE6A810_Overlay2_2[2]; // E6A810
-extern OverlayInit sDF4260_Overlay3[1]; // DF4260
-extern OverlayInit sE08400_Overlay4_2[2]; // E08400
+extern OverlayInit sNoOvl_Logo[1]; // sets segment 15 with no overlay
+extern OverlayInit sOvlEF0260_Credits[6]; // overlay EF0260
+extern OverlayInit sOvlEBFBE0_Title[1]; // EBFBE0
+extern OverlayInit sOvlEBFBE0_Menu[1]; // EBFBE0
+extern OverlayInit sOvlEBFBE0_Map[1]; // EBFBE0
+extern OverlayInit sOvlEBFBE0_State5[1]; // EBFBE0
+extern OverlayInit sOvlDF4260_Corneria[1]; // DF4260
+extern OverlayInit sOvlE08400_Meteo[2]; // E08400
+extern OverlayInit sOvlE6A810_Titania[6]; // E6A810
+extern OverlayInit sOvlE08400_SectorX[2]; // E08400
+extern OverlayInit sOvlE51970_SectorZ[1]; // E51970
+extern OverlayInit sOvlE16C50_Aquas[1]; // E16C50
+extern OverlayInit sOvlE16C50_Area6[1]; // E16C50
+extern OverlayInit sOvlE51970_Fortuna[2]; // E51970
+extern OverlayInit sOvlE16C50_Unk4[1]; // E16C50
+extern OverlayInit sOvlE9F1D0_SectorY[1]; // E9F1D0
+extern OverlayInit sOvlE16C50_Solar[1]; // E16C50
+extern OverlayInit sOvlE16C50_Zoness[1]; // E16C50
+extern OverlayInit sOvlDF4260_Venom1[1]; // DF4260
+extern OverlayInit sOvlE9F1D0_Venom2[1]; // E9F1D0
+extern OverlayInit sOvlE9F1D0_VenomSW[2]; // E9F1D0
+extern OverlayInit sOvlE08400_Setup20[1]; // E08400
+extern OverlayInit sOvlE51970_Bolse[1]; // E51970
+extern OverlayInit sOvlE51970_Katina[1]; // E51970
+extern OverlayInit sOvlE6A810_Macbeth[2]; // E6A810
+extern OverlayInit sOvlDF4260_Training[1]; // DF4260
+extern OverlayInit sOvlE08400_Versus[2]; // E08400
 extern OverlayInit sEFFA40_Overlay[1]; // EFFA40
 
 DECLARE_SEGMENT(makerom);

@@ -680,7 +680,7 @@ void func_800BB5D0(void) {
                     var_v1 = 0;
                     break;
             }
-            if ((gObjects2F4[var_v1].obj.status != 2) && (gFrameCount & 4) && (gPlayers[0].unk_1C8 == 3) &&
+            if ((gObjects2F4[var_v1].obj.status != 2) && (gFrameCount & 4) && (gPlayer[0].unk_1C8 == 3) &&
                 (D_801782A4 != 2) && (D_801782A4 != 3) && (D_801782A4 != 1000)) {
                 RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);

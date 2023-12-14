@@ -98,94 +98,94 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
 
     switch (ovlSetup) {
         case OVL_SETUP_TITLE:
-            changeOvl = Overlay_Init(&sEBFBE0_Overlay1[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlEBFBE0_Title[ovlStage]);
             if (changeOvl == true) {
                 func_8001DC6C(0, 0x16);
             }
             break;
         case OVL_SETUP_MENU:
-            changeOvl = Overlay_Init(&sEBFBE0_Overlay2[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlEBFBE0_Menu[ovlStage]);
             break;
         case OVL_SETUP_MAP:
-            changeOvl = Overlay_Init(&sEBFBE0_Overlay3[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlEBFBE0_Map[ovlStage]);
             break;
         case OVL_SETUP_STATE_5:
-            changeOvl = Overlay_Init(&sEBFBE0_Overlay4[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlEBFBE0_State5[ovlStage]);
             break;
         case OVL_SETUP_CORNERIA:
-            changeOvl = Overlay_Init(&sDF4260_Overlay1[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlDF4260_Corneria[ovlStage]);
             break;
         case OVL_SETUP_METEO:
-            changeOvl = Overlay_Init(&sE08400_Overlay1_2[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlE08400_Meteo[ovlStage]);
             break;
         case OVL_SETUP_TITANIA:
-            changeOvl = Overlay_Init(&sE6A810_Overlay1_6[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlE6A810_Titania[ovlStage]);
             break;
         case OVL_SETUP_SECTOR_X:
-            changeOvl = Overlay_Init(&sE08400_Overlay2_2[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlE08400_SectorX[ovlStage]);
             break;
         case OVL_SETUP_SECTOR_Z:
-            changeOvl = Overlay_Init(&sE51970_Overlay1[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlE51970_SectorZ[ovlStage]);
             break;
         case OVL_SETUP_AQUAS:
-            changeOvl = Overlay_Init(&sE16C50_Overlay1[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlE16C50_Aquas[ovlStage]);
             break;
         case OVL_SETUP_AREA_6:
-            changeOvl = Overlay_Init(&sE16C50_Overlay2[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlE16C50_Area6[ovlStage]);
             break;
         case OVL_SETUP_FORTUNA:
-            changeOvl = Overlay_Init(&sE51970_Overlay2_2[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlE51970_Fortuna[ovlStage]);
             break;
         case OVL_SETUP_UNK_4:
-            changeOvl = Overlay_Init(&sE16C50_Overlay3[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlE16C50_Unk4[ovlStage]);
             break;
         case OVL_SETUP_SECTOR_Y:
-            changeOvl = Overlay_Init(&sE9F1D0_Overlay1[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlE9F1D0_SectorY[ovlStage]);
             break;
         case OVL_SETUP_SOLAR:
-            changeOvl = Overlay_Init(&sE16C50_Overlay4[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlE16C50_Solar[ovlStage]);
             break;
         case OVL_SETUP_ZONESS:
-            changeOvl = Overlay_Init(&sE16C50_Overlay5[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlE16C50_Zoness[ovlStage]);
             break;
         case OVL_SETUP_VENOM_2:
-            changeOvl = Overlay_Init(&sE9F1D0_Overlay2[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlE9F1D0_Venom2[ovlStage]);
             break;
         case OVL_SETUP_TRAINING:
-            changeOvl = Overlay_Init(&sDF4260_Overlay3[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlDF4260_Training[ovlStage]);
             break;
         case OVL_SETUP_VENOM_1:
-            changeOvl = Overlay_Init(&sDF4260_Overlay2[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlDF4260_Venom1[ovlStage]);
             break;
         case OVL_SETUP_VENOM_SW:
-            changeOvl = Overlay_Init(&sE9F1D0_Overlay3_2[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlE9F1D0_VenomSW[ovlStage]);
             break;
         case OVL_SETUP_20:
-            changeOvl = Overlay_Init(&sE08400_Overlay3[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlE08400_Setup20[ovlStage]);
             break;
         case OVL_SETUP_BOLSE:
-            changeOvl = Overlay_Init(&sE51970_Overlay3[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlE51970_Bolse[ovlStage]);
             break;
         case OVL_SETUP_KATINA:
-            changeOvl = Overlay_Init(&sE51970_Overlay4[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlE51970_Katina[ovlStage]);
             break;
         case OVL_SETUP_MACBETH:
-            changeOvl = Overlay_Init(&sE6A810_Overlay2_2[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlE6A810_Macbeth[ovlStage]);
             break;
         case OVL_SETUP_VERSUS:
-            changeOvl = Overlay_Init(&sE08400_Overlay4_2[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlE08400_Versus[ovlStage]);
             if (changeOvl == true) {
                 func_8001DC6C(3, 0x310);
             }
             break;
         case OVL_SETUP_LOGO:
-            changeOvl = Overlay_Init(&sLogoOverlay[ovlStage]);
+            changeOvl = Overlay_Init(&sNoOvl_Logo[ovlStage]); // Logo does not load an overlay file
             if (changeOvl == true) {
                 func_8001DC6C(0, 0xE);
             }
             break;
         case OVL_SETUP_CREDITS:
-            changeOvl = Overlay_Init(&sCreditsOverlay_6[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlEF0260_Credits[ovlStage]);
             break;
         default:
             (void) "DMA MODE ERROR %d\n";
