@@ -890,8 +890,8 @@ UnkStruct_D003C D_800D003C[108] = {
 };
 u8 D_800D0DBC[6][4] = {
     // could be in-function
-    { 0xFF, 0xFF, 0xFF, 0xFF }, { 0xA0, 0xA0, 0xFF, 0xFF }, { 0x50, 0x50, 0xFF, 0xFF },
-    { 0x50, 0xFF, 0x50, 0xFF }, { 0xFF, 0x50, 0x50, 0xFF }, { 0xFF, 0xFF, 0x50, 0xFF },
+    { 255, 255, 255, 255 }, { 160, 160, 255, 255 }, { 80, 80, 255, 255 },
+    { 80, 255, 80, 255 },   { 255, 80, 80, 255 },   { 255, 255, 80, 255 },
 };
 
 void func_8006D36C(Object_2F4* arg0) {
@@ -901,7 +901,6 @@ void func_8006D36C(Object_2F4* arg0) {
     u16* test;
     s32 i;
     s32 j;
-    UnkEntity30* ent30;
 
     switch (gCurrentLevel) {
         case LEVEL_VENOM_2:
