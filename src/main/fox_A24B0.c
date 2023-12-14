@@ -9,11 +9,11 @@ s32 D_80161A18[4];
 s32 D_80161A28;
 u8 D_80161A2C;
 u16 D_80161A2E;
-u16 D_80161A30;
-u16 D_80161A32;
+u16 gNextLevel;
+u16 gNextGameState;
 u16 D_80161A34;
-u16 D_80161A36;
-u8 D_80161A38;
+u16 gBgColor;
+u8 gBlurAlpha;
 u8 D_80161A39;
 f32 D_80161A3C;
 f32 D_80161A40;
@@ -25,75 +25,94 @@ s32 D_800D2874[] = { 0, 160, 0, 160 };
 s32 D_800D2884[] = { 159, 319, 159, 319 };
 s32 D_800D2894[] = { 0, 0, 120, 120 };
 s32 D_800D28A4[] = { 119, 119, 239, 239 };
-s32 D_800D28B4[] = {
-    0x05, 0x06, 0x08, 0x0A, 0x0C, 0x0D, 0x12, 0x0E, 0x0F, 0x10, 0x11,
-    0x15, 0x07, 0x09, 0x0B, 0x00, 0x13, 0x16, 0x17, 0x18, 0x32,
+s32 sOverlaySetups[] = {
+    /* LEVEL_CORNERIA */ OVL_SETUP_CORNERIA,
+    /* LEVEL_METEO */ OVL_SETUP_METEO,
+    /* LEVEL_SECTOR_X */ OVL_SETUP_SECTOR_X,
+    /* LEVEL_AREA_6 */ OVL_SETUP_AREA_6,
+    /* LEVEL_UNK_4 */ OVL_SETUP_UNK_4,
+    /* LEVEL_SECTOR_Y */ OVL_SETUP_SECTOR_Y,
+    /* LEVEL_VENOM_1 */ OVL_SETUP_VENOM_1,
+    /* LEVEL_SOLAR */ OVL_SETUP_SOLAR,
+    /* LEVEL_ZONESS */ OVL_SETUP_ZONESS,
+    /* LEVEL_VENOM_2 */ OVL_SETUP_VENOM_2,
+    /* LEVEL_TRAINING */ OVL_SETUP_TRAINING,
+    /* LEVEL_MACBETH */ OVL_SETUP_MACBETH,
+    /* LEVEL_TITANIA */ OVL_SETUP_TITANIA,
+    /* LEVEL_AQUAS */ OVL_SETUP_AQUAS,
+    /* LEVEL_FORTUNA */ OVL_SETUP_FORTUNA,
+    /* LEVEL_UNK_15 */ OVL_SETUP_TITLE,
+    /* LEVEL_KATINA */ OVL_SETUP_KATINA,
+    /* LEVEL_BOLSE */ OVL_SETUP_BOLSE,
+    /* LEVEL_SECTOR_Z */ OVL_SETUP_SECTOR_Z,
+    /* LEVEL_VENOM_SW */ OVL_SETUP_VENOM_SW,
+    /* LEVEL_VERSUS */ OVL_SETUP_VERSUS,
 };
 
-void func_800A18B0(void) {
+void Game_Initialize(void) {
     Memory_FreeAll();
     Rand_Init();
     Rand_SetSeed(1, 29000, 9876);
-    D_80177834 = 100;
+    gGameState = GSTATE_BOOT;
     D_8017783C = 0;
-    D_80161A36 = 0;
-    D_80161A38 = 0xFF;
+    gBgColor = 0;
+    gBlurAlpha = 0xFF;
     D_80161A3C = 45.0f;
     D_80161A40 = 10.0f;
     D_80161A44 = 12800.0f;
     D_80161A10 = D_80161A14 = 0.0f;
-    D_801774F8 = 99;
-    D_80177820 = 0;
+    gOverlaySetup = OVL_SETUP_LOGO;
+    gOverlayStage = 0;
     Overlay_InitDma();
     D_80161A39 = true;
 }
 
-void func_800A1980(void) {
-    u16 temp;
+void Game_SetGameState(void) {
     D_80161A14 = D_80161A10;
-    temp = D_80161A32; // fake?
 
-    switch (temp) {
-        case 7:
-            D_80178234 = D_80161A30;
+    if (gNextGameState == GSTATE_NONE) {
+        return;
+    }
+
+    switch (gNextGameState) {
+        case GSTATE_PLAY:
+            gCurrentLevel = gNextLevel;
             func_800A5844();
             D_80177854 = 0;
             D_8017827C = D_80161A2E;
             D_80161A2E = 0;
-            if ((D_8017827C != 0) && (D_80178234 != 9)) {
+            if ((D_8017827C != 0) && (gCurrentLevel != LEVEL_VENOM_2)) {
                 D_8017782C = 0;
             }
             break;
-        case 4:
+        case GSTATE_MAP:
             D_80177B40 = 0;
             break;
-        case 5:
+        case GSTATE_STATE_5:
             D_80177868 = 0;
             break;
-        case 0:
-            return;
     }
     Memory_FreeAll();
     func_800A6148();
-    D_80177834 = D_80161A32;
+    gGameState = gNextGameState;
     D_8017783C = 3;
     D_8015F924 = 0;
-    D_80161A32 = 0;
-    D_80177820 = 0;
-    gFillScreenColor = D_80161A36 = 0;
+    gNextGameState = GSTATE_NONE;
+    gOverlayStage = 0;
+    gFillScreenColor = gBgColor = 0;
     D_80177D20 = 0.0f;
-    if ((D_80178234 == 0x13) && (D_8017827C == 2)) {
-        gFillScreenColor = D_80161A36 = 0xFFFF;
-        D_80178348 = D_80178350 = D_80178354 = 0xFF;
+    if ((gCurrentLevel == LEVEL_VENOM_SW) && (D_8017827C == 2)) {
+        gFillScreenColor = gBgColor = 0xFFFF;
+        D_80178348 = D_80178350 = D_80178354 = 255;
     } else {
         D_80178348 = D_80178350 = D_80178354 = 0;
         func_8001DBD0(1);
     }
-    D_80178340 = 0xFF;
+    D_80178340 = 255;
     D_80178380[0] = 0;
     D_8017829C = 0;
     D_80178428 = 0.0f;
-    D_80161A38 = 0xFF;
+    gBlurAlpha = 255;
     D_80177898 = 0;
     func_8001AE58();
     func_8001D400(0);
@@ -103,17 +122,17 @@ bool func_800A1B6C(void) {
     static u8 sHoldTimer = 0;
     static u8 sOverlaySelect = 99;
     static u8 sCurrentOverlay = 99;
-    static u8 sOverlayMode = 99;
+    static u8 sCurrentStage = 99;
 
-    if (D_801774F8 != sCurrentOverlay) {
+    if (gOverlaySetup != sCurrentOverlay) {
         sHoldTimer = 2;
-        sCurrentOverlay = D_801774F8;
+        sCurrentOverlay = gOverlaySetup;
     }
     if (sHoldTimer == 0) {
         sOverlaySelect = sCurrentOverlay;
-        sOverlayMode = D_80177820;
+        sCurrentStage = gOverlayStage;
     }
-    Overlay_Load(sOverlaySelect, sOverlayMode);
+    Overlay_Load(sOverlaySelect, sCurrentStage);
 
     if (sHoldTimer) {
         sHoldTimer--;
@@ -127,19 +146,19 @@ void func_800A1C14(Gfx** arg0) {
     gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 8, SCREEN_WIDTH - 8, SCREEN_HEIGHT - 8);
     gDPSetDepthImage((*arg0)++, &gZBuffer);
     gDPSetColorImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, &gZBuffer);
-    gDPSetFillColor((*arg0)++, 0xFFFCFFFC);
+    gDPSetFillColor((*arg0)++, FILL_COLOR(GPACK_ZDZ(G_MAXFBZ, 0)));
     gDPFillRectangle((*arg0)++, 8, 8, SCREEN_WIDTH - 8 - 1, SCREEN_HEIGHT - 8 - 1);
     gDPSetColorImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, gFrameBuffer);
 
-    if (D_80161A38 < 0xFF) {
+    if (gBlurAlpha < 0xFF) {
         gDPPipeSync((*arg0)++);
         gDPSetCycleType((*arg0)++, G_CYC_1CYCLE);
         gDPSetCombineMode((*arg0)++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
         gDPSetRenderMode((*arg0)++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
-        gDPSetPrimColor((*arg0)++, 0x00, 0x00, RGBA16_RED(D_80161A36) * 8, RGBA16_GRN(D_80161A36) * 8,
-                        RGBA16_BLU(D_80161A36) * 8, D_80161A38);
+        gDPSetPrimColor((*arg0)++, 0x00, 0x00, RGBA16_RED(gBgColor) * 8, RGBA16_GRN(gBgColor) * 8,
+                        RGBA16_BLU(gBgColor) * 8, gBlurAlpha);
     } else {
-        gDPSetFillColor((*arg0)++, (((D_80161A36 | 1) << 0x10) | (D_80161A36 | 1)));
+        gDPSetFillColor((*arg0)++, FILL_COLOR(gBgColor | 1));
     }
     gDPFillRectangle((*arg0)++, 8, 8, SCREEN_WIDTH - 8 - 1, SCREEN_HEIGHT - 8);
     gDPPipeSync((*arg0)++);
@@ -262,35 +281,35 @@ void func_800A24DC(s32 arg0) {
 }
 
 void func_800A25DC(void) {
-    switch (D_80177834) {
+    switch (gGameState) {
         case 1:
-            D_801774F8 = 0;
-            D_80177820 = 0;
+            gOverlaySetup = OVL_SETUP_TITLE;
+            gOverlayStage = 0;
             break;
         case 2:
-            D_801774F8 = 0;
-            D_80177820 = 0;
+            gOverlaySetup = OVL_SETUP_TITLE;
+            gOverlayStage = 0;
             break;
         case 3:
-            D_801774F8 = 1;
-            D_80177820 = 0;
+            gOverlaySetup = OVL_SETUP_MENU;
+            gOverlayStage = 0;
             break;
         case 4:
-            D_801774F8 = 2;
-            D_80177820 = 0;
+            gOverlaySetup = OVL_SETUP_MAP;
+            gOverlayStage = 0;
             return;
         case 6:
-            D_801774F8 = 50;
+            gOverlaySetup = OVL_SETUP_VERSUS;
             break;
         case 7:
-            D_801774F8 = D_800D28B4[D_80178234];
+            gOverlaySetup = sOverlaySetups[gCurrentLevel];
             break;
         case 5:
-            D_801774F8 = 3;
-            D_80177820 = 0;
+            gOverlaySetup = OVL_SETUP_STATE_5;
+            gOverlayStage = 0;
             break;
         case 8:
-            D_801774F8 = 4;
+            gOverlaySetup = OVL_SETUP_CREDITS;
             break;
     }
 }
@@ -300,7 +319,7 @@ void func_800A26C0(void) {
     u8 spBB;
     u16 var_v0_3;
 
-    func_800A1980();
+    Game_SetGameState();
     if (D_80161A39) {
         func_800A1E68(&gUnkDisp1);
         D_80161A39 = false;
@@ -310,21 +329,21 @@ void func_800A26C0(void) {
     func_800A25DC();
     if (func_800A1B6C() != true) {
         Lib_Perspective(&gUnkDisp1);
-        func_800A1FB0(&gUnkDisp1, D_801778A8, 0);
+        func_800A1FB0(&gUnkDisp1, gCamCount, 0);
         if (D_8017783C != 0) {
             D_8017783C--;
         }
-        switch (D_80177834) {
-            case 0x64:
+        switch (gGameState) {
+            case GSTATE_BOOT:
                 D_8017783C = 2;
-                D_80177834++;
+                gGameState++;
                 break;
-            case 0x65:
+            case GSTATE_BOOT_WAIT:
                 if (D_8017783C == 0) {
-                    D_80177834++;
+                    gGameState++;
                 }
                 break;
-            case 0x66:
+            case GSTATE_SHOW_LOGO:
                 RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
                 TextureRect_8bIA(&gMasterDisp, D_F000000, 128, 16, 100.0f, 86.0f, 1.0f, 1.0f);
@@ -332,16 +351,17 @@ void func_800A26C0(void) {
                 TextureRect_8bIA(&gMasterDisp, D_F001000, 128, 16, 100.0f, 118.0f, 1.0f, 1.0f);
                 TextureRect_8bIA(&gMasterDisp, D_F001800, 128, 16, 100.0f, 134.0f, 1.0f, 1.0f);
                 TextureRect_8bIA(&gMasterDisp, D_F002000, 128, 10, 100.0f, 150.0f, 1.0f, 1.0f);
-                D_80177834++;
+                gGameState++;
                 break;
-            case 0x67:
+            case GSTATE_CHECK_SAVE:
                 if (Save_Read() != 0) {
                     gSaveFile = *((SaveFile*) &gDefaultSave);
                     Save_Write();
                 }
-                D_80177834++;
-                Timer_CreateTask(MSEC_TO_CYCLES(1000), Timer_Increment, &D_80177834, 1);
-            case 0x68:
+                gGameState++;
+                Timer_CreateTask(MSEC_TO_CYCLES(1000), Timer_Increment, &gGameState, 1);
+                /* fallthrough */
+            case GSTATE_LOGO_WAIT:
                 RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
                 TextureRect_8bIA(&gMasterDisp, D_F000000, 128, 16, 100.0f, 86.0f, 1.0f, 1.0f);
@@ -350,25 +370,25 @@ void func_800A26C0(void) {
                 TextureRect_8bIA(&gMasterDisp, D_F001800, 128, 16, 100.0f, 134.0f, 1.0f, 1.0f);
                 TextureRect_8bIA(&gMasterDisp, D_F002000, 128, 10, 100.0f, 150.0f, 1.0f, 1.0f);
                 break;
-            case 0x69:
-                D_80177834 = 1;
-                D_801774F8 = 0;
-                D_80177820 = 0;
+            case GSTATE_START:
+                gGameState = GSTATE_INIT;
+                gOverlaySetup = OVL_SETUP_TITLE;
+                gOverlayStage = 0;
                 break;
-            case 0x1:
-                D_80177834 = 2;
+            case GSTATE_INIT:
+                gGameState = GSTATE_TITLE;
                 D_80177AE0 = 1;
                 D_80177824 = 1;
                 Memory_FreeAll();
                 func_800A6148();
-                D_801778A8 = 1;
-                D_80161AA0[0] = 2;
+                gCamCount = 1;
+                gLifeCount[0] = 2;
                 D_80177D20 = 0.0f;
                 D_8016170C = D_80177A80 = D_80177830 = D_80177838 = D_80177840 = D_80178754 = D_801778E8 = D_80177AE0 =
                     D_80178410 = D_80177B40 = D_80177854 = D_8017784C = D_80177898 = D_80161734 = D_80161A2C =
-                        D_80161A36 = D_80178340 = 0;
-                D_80161A32 = D_80177C94 = D_80177CAC = D_80177CB4 = D_80177CBC = D_80177CC4 = D_80177C9C = D_80177CA4 =
-                    D_80161A5C = D_80161A34 = 0;
+                        gBgColor = D_80178340 = 0;
+                gNextGameState = D_80177C94 = D_80177CAC = D_80177CB4 = D_80177CBC = D_80177CC4 = D_80177C9C =
+                    D_80177CA4 = D_80161A5C = D_80161A34 = 0;
                 for (i = 0; i < 4; i++) {
                     D_80177908[i] = 2;
                     D_80177928[i] = 4;
@@ -384,13 +404,13 @@ void func_800A26C0(void) {
                 }
                 D_8017789C = 0;
                 D_801778A4 = 3;
-                D_80161A38 = 0xFF;
+                gBlurAlpha = 255;
                 for (i = 0; i < 30; i++) {
                     D_800D3180[i] = 0;
                 }
                 gExpertMode = false;
-                D_80177C74 = gSaveFile.save.data.unk_14;
-                switch (D_80177C74) {
+                gSoundMode = gSaveFile.save.data.soundMode;
+                switch (gSoundMode) {
                     case 0:
                         var_v0_3 = 0;
                         break;
@@ -401,46 +421,46 @@ void func_800A26C0(void) {
                         var_v0_3 = 1;
                         break;
                     default:
-                        D_80177C74 = 0;
+                        gSoundMode = 0;
                         var_v0_3 = 0;
                         break;
                 }
                 func_800182F4(var_v0_3 | 0xE0000000);
-                D_80177C80[0] = gSaveFile.save.data.unk_15;
-                D_80177C80[1] = gSaveFile.save.data.unk_16;
-                D_80177C80[2] = gSaveFile.save.data.unk_17;
-                if (D_80177C80[0] > 99) {
-                    D_80177C80[0] = 99;
+                gVolumeSettings[0] = gSaveFile.save.data.musicVolume;
+                gVolumeSettings[1] = gSaveFile.save.data.voiceVolume;
+                gVolumeSettings[2] = gSaveFile.save.data.sfxVolume;
+                if (gVolumeSettings[0] > 99) {
+                    gVolumeSettings[0] = 99;
                 }
-                if (D_80177C80[1] > 99) {
-                    D_80177C80[1] = 99;
+                if (gVolumeSettings[1] > 99) {
+                    gVolumeSettings[1] = 99;
                 }
-                if (D_80177C80[2] > 99) {
-                    D_80177C80[2] = 99;
+                if (gVolumeSettings[2] > 99) {
+                    gVolumeSettings[2] = 99;
                 }
-                func_8001D8A8(0, D_80177C80[0]);
-                func_8001D8A8(1, D_80177C80[1]);
-                func_8001D8A8(2, D_80177C80[2]);
+                func_8001D8A8(0, gVolumeSettings[0]);
+                func_8001D8A8(1, gVolumeSettings[1]);
+                func_8001D8A8(2, gVolumeSettings[2]);
                 break;
-            case 0x2:
+            case GSTATE_TITLE: // title screen
                 func_80187520(0x67, NULL);
                 break;
-            case 0x3:
+            case GSTATE_MENU: // main menu
                 func_80187520(0x6B, NULL);
                 break;
-            case 0x4:
+            case GSTATE_MAP: // world map
                 func_EBFBE0_8019E8D0();
                 break;
-            case 0x6:
+            case GSTATE_VS_INIT: // vs mode
                 func_800C20B0();
                 break;
-            case 0x7:
+            case GSTATE_PLAY: // play
                 func_800B86CC();
                 break;
-            case 0x5:
+            case GSTATE_STATE_5: // world map
                 func_80187520(0x6D, NULL);
                 break;
-            case 0x8:
+            case GSTATE_CREDITS: // credits
                 D_80177898 = 8;
                 func_EF0260_8018A96C();
                 break;
@@ -448,17 +468,17 @@ void func_800A26C0(void) {
                 break;
         }
         func_800A24DC(0);
-        if (D_801778A8 == 2) {
-            func_800A1FB0(&gMasterDisp, D_801778A8, 1);
+        if (gCamCount == 2) {
+            func_800A1FB0(&gMasterDisp, gCamCount, 1);
             func_800A24DC(1);
             gDPPipeSync(gMasterDisp++);
             gDPSetScissor(gMasterDisp++, G_SC_NON_INTERLACE, 8, 8, SCREEN_WIDTH - 8, SCREEN_HEIGHT - 8);
-        } else if ((D_801778A8 == 4) && (D_80177898 != 0)) {
-            func_800A1FB0(&gMasterDisp, D_801778A8, 3);
+        } else if ((gCamCount == 4) && (D_80177898 != 0)) {
+            func_800A1FB0(&gMasterDisp, gCamCount, 3);
             func_800A24DC(3);
-            func_800A1FB0(&gMasterDisp, D_801778A8, 2);
+            func_800A1FB0(&gMasterDisp, gCamCount, 2);
             func_800A24DC(2);
-            func_800A1FB0(&gMasterDisp, D_801778A8, 1);
+            func_800A1FB0(&gMasterDisp, gCamCount, 1);
             func_800A24DC(1);
             gDPPipeSync(gMasterDisp++);
             gDPSetScissor(gMasterDisp++, G_SC_NON_INTERLACE, 8, 8, SCREEN_WIDTH - 8, SCREEN_HEIGHT - 8);
@@ -471,7 +491,7 @@ void func_800A26C0(void) {
             gDPFillRectangle(gMasterDisp++, SCREEN_WIDTH / 2 - 3, 8, SCREEN_WIDTH / 2 + 2, SCREEN_HEIGHT - 8);
             gDPFillRectangle(gMasterDisp++, 8, SCREEN_HEIGHT / 2 - 3, SCREEN_WIDTH - 8, SCREEN_HEIGHT / 2 + 2);
 
-            if (D_80177C98 == 0) {
+            if (gLevelType == 0) {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x0, 0, 0, 0, 255);
             } else {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x0, 100, 100, 255, 255);
@@ -482,7 +502,7 @@ void func_800A26C0(void) {
             func_8008CB8C();
         }
         spBB = 0;
-        if (D_801778A8 == 1) {
+        if (gCamCount == 1) {
             Graphics_FillRectangle(&gMasterDisp, 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1, D_80178390[0],
                                    D_801783A0[0], D_801783B0[0], D_80178380[0]);
             if ((D_80177898 == 4) || (D_80177898 == 8)) {
@@ -494,8 +514,8 @@ void func_800A26C0(void) {
                 func_8008DE68();
             }
         } else {
-            for (i = 0; i < D_801778A8; i++) {
-                if (D_80178280[i].unk_224 != 0) {
+            for (i = 0; i < gCamCount; i++) {
+                if (gPlayer[i].unk_224 != 0) {
 
                     Graphics_FillRectangle(&gMasterDisp, D_800D2874[i], D_800D2894[i], D_800D2884[i], D_800D28A4[i],
                                            D_80178348, D_80178350, D_80178354, D_80178340);
@@ -509,7 +529,7 @@ void func_800A26C0(void) {
         func_80040CDC();
         func_8008865C();
         func_8002E548();
-        if ((D_80177834 == 7) && (D_801778E8 != 0)) {
+        if ((gGameState == GSTATE_PLAY) && (D_801778E8 != 0)) {
             func_800C1ED4();
         }
         func_80084688(0, D_80177C50);
@@ -522,19 +542,19 @@ void func_800A26C0(void) {
 }
 
 Object_2F4* func_800A3608(s32 arg0) {
-    Object_2F4* var_a2 = D_80163FE0;
+    Object_2F4* var_a2 = gObjects2F4;
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(D_80163FE0); i++, var_a2++) {
+    for (i = 0; i < ARRAY_COUNT(gObjects2F4); i++, var_a2++) {
         if (var_a2->obj.status == 0) {
-            func_800613C4(var_a2);
+            Object_2F4_Initialize(var_a2);
             var_a2->obj.status = 1;
             var_a2->obj.id = arg0;
             func_800612B8(&var_a2->unk_01C, var_a2->obj.id);
             break;
         }
     }
-    if (i == ARRAY_COUNT(D_80163FE0)) {
+    if (i == ARRAY_COUNT(gObjects2F4)) {
         var_a2 = NULL;
     }
     return var_a2;

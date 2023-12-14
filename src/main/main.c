@@ -308,7 +308,7 @@ void Graphics_ThreadEntry(void* arg0) {
     u8 var_v1;
     u8 var_v2;
 
-    func_800A18B0();
+    Game_Initialize();
     osSendMesg(&gSerialThreadMsgQueue, (OSMesg) SI_READ_CONTROLLER, OS_MESG_PRI_NORMAL);
     Graphics_InitializeTask(gFrameCounter);
     {

@@ -86,7 +86,7 @@ void Lib_QuickSort(u8* first, u32 curLen, u32 size, CompareFunc cFunc) {
 void Lib_Perspective(Gfx** dList) {
     u16 norm;
 
-    guPerspective(gGfxMtx, &norm, D_80161A3C, 1.3333334f, D_80161A40, D_80161A44, 1.0f);
+    guPerspective(gGfxMtx, &norm, D_80161A3C, (f32) SCREEN_WIDTH / SCREEN_HEIGHT, D_80161A40, D_80161A44, 1.0f);
     gSPPerspNormalize((*dList)++, norm);
     gSPMatrix((*dList)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
     guLookAt(gGfxMtx, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -12800.0f, 0.0f, 1.0f, 0.0f);

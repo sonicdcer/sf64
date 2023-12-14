@@ -12,7 +12,7 @@ void func_80084930(f32 arg0, f32 arg1, s32 arg2) {
         D_3000080,
         D_3000080,
     };
-    UnkStruct_D_80178280* temp;
+    Player* temp;
     s32 var_t0;
     s32 var_v0;
     s32 i;
@@ -20,7 +20,7 @@ void func_80084930(f32 arg0, f32 arg1, s32 arg2) {
     RCP_SetupDL(&gMasterDisp, 0x4E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    temp = D_80178280;
+    temp = gPlayer;
     var_t0 = 0;
 
     switch (temp->unk_1CC) {
@@ -79,7 +79,7 @@ void func_80084B94(s32 arg0) {
     RCP_SetupDL(&gMasterDisp, 0x24);
     if (arg0 == 0) {
         for (i = 1; i < 4; i++) {
-            if (((D_801778B0[i] != 0) || (D_80178280->unk_1C8 != 7)) && (D_801778B0[i] <= 0) && (D_801778B0[i] != -2)) {
+            if (((D_801778B0[i] != 0) || (gPlayer[0].unk_1C8 != 7)) && (D_801778B0[i] <= 0) && (D_801778B0[i] != -2)) {
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, D_800D1A70[i - 1].x, D_800D1A70[i - 1].y, D_800D1A70[i - 1].z, 1);
                 Matrix_Scale(gGfxMatrix, 0.68f, 0.68f, 1.0f, 1);
@@ -200,7 +200,7 @@ void func_80086110(f32 arg0, f32 arg1, s32 arg2) {
     if ((arg2 <= 0) && (arg2 != -2) && ((D_80177854 == 100) || (D_80177830 == 1) || (D_80177838 != 0))) {
         RCP_SetupDL(&gMasterDisp, 0x4C);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-        if ((arg2 == 0) && (D_80178280[0].unk_1C8 == 7)) {
+        if ((arg2 == 0) && (gPlayer[0].unk_1C8 == 7)) {
             Graphics_DisplaySmallText(arg0 + (8.0f * temp) + 4.0f, arg1 + 2.0f, 1.0f, 1.0f, " OK ");
         } else {
             Graphics_DisplaySmallText(arg0 + (8.0f * temp) + 4.0f, arg1 + 2.0f, 1.0f, 1.0f, "DOWN");
@@ -217,58 +217,59 @@ void func_80086110(f32 arg0, f32 arg1, s32 arg2) {
 s32 func_800863C8(void) {
     s32 var_v1 = 0;
 
-    switch (D_80178234) {
-        case 10:
+    switch (gCurrentLevel) {
+        case LEVEL_TRAINING:
             var_v1++;
 
-        case 9:
+        case LEVEL_VENOM_2:
             var_v1++;
 
-        case 19:
+        case LEVEL_VENOM_SW:
             var_v1++;
 
-        case 6:
+        case LEVEL_VENOM_1:
             var_v1++;
 
-        case 3:
+        case LEVEL_AREA_6:
             var_v1++;
 
-        case 17:
+        case LEVEL_BOLSE:
             var_v1++;
 
-        case 18:
+        case LEVEL_SECTOR_Z:
             var_v1++;
 
-        case 11:
+        case LEVEL_MACBETH:
             var_v1++;
 
-        case 12:
+        case LEVEL_TITANIA:
             var_v1++;
 
-        case 8:
+        case LEVEL_ZONESS:
             var_v1++;
 
-        case 7:
+        case LEVEL_SOLAR:
             var_v1++;
 
-        case 2:
+        case LEVEL_SECTOR_X:
             var_v1++;
 
-        case 13:
+        case LEVEL_AQUAS:
             var_v1++;
 
-        case 16:
+        case LEVEL_KATINA:
             var_v1++;
 
-        case 14:
+        case LEVEL_FORTUNA:
             var_v1++;
 
-        case 5:
+        case LEVEL_SECTOR_Y:
             var_v1++;
 
-        case 1:
+        case LEVEL_METEO:
             var_v1++;
-        case 0:
+
+        case LEVEL_CORNERIA:
             break;
     }
     return var_v1;
@@ -287,12 +288,12 @@ void func_80086444(void) {
     f32 D_800D1CC4[] = { 2.0f, 5.0f };
     f32 D_800D1CCC[] = { 1.6f, 1.6f };
 
-    switch (D_80178234) {
-        case 19:
+    switch (gCurrentLevel) {
+        case LEVEL_VENOM_SW:
             i = 1;
             break;
 
-        case 6:
+        case LEVEL_VENOM_2:
             i = 0;
             break;
 
@@ -377,7 +378,7 @@ void func_80086CC8(void) {
     if (D_80177838 != 0) {
         func_80086C08(temp - 4.5f - 32.0f, sp18 - 24.0f - 4.0f, 7.4f, 3.9f);
 
-        if (D_80178234 != 10) {
+        if (gCurrentLevel != LEVEL_TRAINING) {
             func_80086C08(122.0f, 122.0f, 2.9f, 1.2f);
         }
 
@@ -397,7 +398,7 @@ void func_800884E4(void) {
     s32 var_v1;
     s32 i;
 
-    D_80177B70[D_80177B48] = D_80161A98;
+    D_80177B70[D_80177B48] = gHitCount;
     var_v1 = 0xFF0000;
 
     for (i = 0; i < 3; i++) {
@@ -477,7 +478,7 @@ void func_80088784(s32 arg0) {
         Matrix_Scale(gGfxMatrix, 0.37f, 0.37f, 0.37f, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
 
-        if (D_80177C98 == 0) {
+        if (gLevelType == 0) {
             gSPDisplayList(gMasterDisp++, D_800D1D4C[arg0]);
         } else {
             gSPDisplayList(gMasterDisp++, D_800D1D94[arg0]);
@@ -541,7 +542,7 @@ void func_80089994(s32 arg0) {
     f32 var_fv1;
     f32 var_fv2;
 
-    if (D_801778A8 != 1) {
+    if (gCamCount != 1) {
         var_fv1 = 38.0f;
         var_fv2 = 38.0f;
     } else {
@@ -581,7 +582,7 @@ void func_80089C38(void) {
 
     RCP_SetupDL(&gMasterDisp, 0xC);
 
-    alpha = D_80177DB0 % 21;
+    alpha = gFrameCount % 21;
 
     if (alpha > 10) {
         alpha = 20 - alpha;
@@ -599,7 +600,7 @@ void func_80089D28(void) {
 
     RCP_SetupDL(&gMasterDisp, 1);
 
-    gb = D_80177DB0 % 21;
+    gb = gFrameCount % 21;
 
     if (gb > 10) {
         gb = 20 - gb;
@@ -631,7 +632,7 @@ void func_80089E98(s32 arg0) {
         case 2:
         case 3:
             var_a1_2 = var_a1 = arg0;
-            if (D_801778A8 != 1) {
+            if (gCamCount != 1) {
                 if (arg0 == 1) {
                     var_a1 = 3;
                 }
@@ -639,11 +640,11 @@ void func_80089E98(s32 arg0) {
                     var_a1 = 1;
                 }
 
-                if (D_80178280[arg0].unk_1C8 == 13) {
+                if (gPlayer[arg0].unk_1C8 == 13) {
                     break;
                 }
             }
-            if ((var_a1_2 == D_801778A0) && (D_80177DB0 & 2)) {
+            if ((var_a1_2 == D_801778A0) && (gFrameCount & 2)) {
                 var_a1 = (var_a1 * 2) + 1;
             } else {
                 var_a1 = var_a1 * 2;
@@ -677,9 +678,9 @@ void func_80089E98(s32 arg0) {
         case 103:
             if (D_801778E8 == 1) {
                 func_80089670();
-                break;
+            } else {
+                func_80089C38();
             }
-            func_80089C38();
             break;
 
         case 200:
@@ -707,22 +708,22 @@ s32 func_8008AC54(s32 arg0) {
     s32 i;
     s32 ret = 0;
 
-    for (i = 0, var_a1 = D_80163FE0; i < 60; i++, var_a1++) {
+    for (i = 0, var_a1 = gObjects2F4; i < 60; i++, var_a1++) {
         switch (arg0) {
             case 0:
-                if ((var_a1->obj.status == 2) && (var_a1->obj.id == 0xBE)) {
+                if ((var_a1->obj.status == 2) && (var_a1->obj.id == OBJECT_190)) {
                     ret++;
                 }
                 break;
 
             case 1:
-                if ((var_a1->obj.status == 2) && (var_a1->obj.id == 0xBF)) {
+                if ((var_a1->obj.status == 2) && (var_a1->obj.id == OBJECT_191)) {
                     ret++;
                 }
                 break;
 
             case 2:
-                if (((var_a1->obj.id == 0xBE) || (var_a1->obj.id == 0xBF)) && (var_a1->obj.status == 2)) {
+                if (((var_a1->obj.id == OBJECT_190) || (var_a1->obj.id == OBJECT_191)) && (var_a1->obj.status == 2)) {
                     ret++;
                 }
                 break;
@@ -733,52 +734,52 @@ s32 func_8008AC54(s32 arg0) {
 }
 
 void func_8008AD94(void) {
-    if (D_80177834 == 7) {
+    if (gGameState == GSTATE_PLAY) {
         RCP_SetupDL(&gMasterDisp, 0x4C);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
         switch ((s32) D_80177D68) {
-            case 0:
+            case RCID_FOX:
                 Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "FOX");
                 break;
 
-            case 10:
+            case RCID_FALCO:
                 Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "FALCO");
                 break;
 
-            case 20:
+            case RCID_SLIPPY:
                 Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "SLIPPY");
                 break;
 
-            case 30:
+            case RCID_PEPPY:
                 Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "PEPPY");
                 break;
 
-            case 200:
-            case 240:
+            case RCID_WOLF:
+            case RCID_WOLF_2:
                 Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "WOLF");
                 break;
 
-            case 220:
-            case 260:
+            case RCID_LEON:
+            case RCID_LEON_2:
                 Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "LEON");
                 break;
 
-            case 210:
-            case 250:
+            case RCID_PIGMA:
+            case RCID_PIGMA_2:
                 Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "PIGMA");
                 break;
 
-            case 230:
-            case 270:
+            case RCID_ANDREW:
+            case RCID_ANDREW_2:
                 Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "ANDREW");
                 break;
 
-            case 170:
+            case RCID_BILL:
                 Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "BILL");
                 break;
 
-            case 40:
+            case RCID_KATT:
                 Graphics_DisplaySmallText(73, 173, 1.0f, 1.0f, "KATT");
                 break;
         }
@@ -861,16 +862,16 @@ void func_8008B2F0(void) {
             D_8016179C = 20.0f;
             D_801617A0 = 18.0f;
 
-            if (D_80161A90[0] >= 3) {
+            if (gGoldRingCount[0] >= 3) {
                 D_801617A4 = D_801617A8 = 1.5f;
             } else {
                 D_801617A4 = D_801617A8 = 1.0f;
             }
 
-            var_fv0 = D_80178280[0].unk_264;
+            var_fv0 = gPlayer[0].health;
             D_801617AC = var_fv0 / ((256.0f * D_801617A8) - 1.0f);
 
-            if (D_80161A90[0] >= 3) {
+            if (gGoldRingCount[0] >= 3) {
                 D_80161730 = 2;
             } else {
                 D_80161730 = 1;
@@ -878,7 +879,7 @@ void func_8008B2F0(void) {
             break;
 
         case 1:
-            if (D_80161A90[0] >= 3) {
+            if (gGoldRingCount[0] >= 3) {
                 D_801617B0 = 55;
                 D_80161730 = 2;
             }
@@ -887,17 +888,17 @@ void func_8008B2F0(void) {
             D_800D1EB4 = D_800D1EB8 = D_800D1EBC = 255;
             if (D_801617B0 > 0) {
                 if (--D_801617B0 == 0) {
-                    D_80178280[0].unk_26C += 128;
+                    gPlayer[0].heal += 128;
                 }
             }
 
-            if (((D_801617B0 != 0) || ((D_801617A4 - D_801617A8) > 0.1f)) && (D_80177DB0 & 2)) {
+            if (((D_801617B0 != 0) || ((D_801617A4 - D_801617A8) > 0.1f)) && (gFrameCount & 2)) {
                 D_800D1EB4 = 0;
                 D_800D1EB8 = 255;
                 D_800D1EBC = 0;
             }
 
-            if ((D_801617B0 == 0) && ((s32) D_80161A90[0] >= 3)) {
+            if ((D_801617B0 == 0) && ((s32) gGoldRingCount[0] >= 3)) {
                 D_801617A4 = 1.5f;
             } else {
                 D_801617A4 = 1.0f;
@@ -905,7 +906,7 @@ void func_8008B2F0(void) {
 
             Math_SmoothStepToF(&D_801617A8, D_801617A4, 0.02f, 1000.0f, 0.001f);
 
-            var_fv0 = D_80178280[0].unk_264;
+            var_fv0 = gPlayer[0].health;
             if (var_fv0 > (256.0f * D_801617A8) - 1.0f) {
                 var_fv0 = (256.0f * D_801617A8) - 1.0f;
             }
@@ -1074,8 +1075,8 @@ void func_8008CA44(void) {
     s32 i;
     s32 j;
 
-    if ((D_80178280[D_801778A0].unk228 != 0) && (D_80178280[D_801778A0].unk210 == 0) && (D_80177854 != 0x64)) {
-        j = D_80178280[D_801778A0].unk228;
+    if ((gPlayer[D_801778A0].unk228 != 0) && (gPlayer[D_801778A0].unk210 == 0) && (D_80177854 != 0x64)) {
+        j = gPlayer[D_801778A0].unk228;
 
         for (i = 0; i < 12; i++) {
             if ((j & D_800D2048[i]) != D_800D2048[i]) {
@@ -1084,10 +1085,10 @@ void func_8008CA44(void) {
 
             j = (D_800D2048[i] ^ 0xFF) & j;
 
-            if (D_80177DB0 & 4) {
+            if (gFrameCount & 4) {
                 func_8008C6F4(i, 0);
             }
-            if ((D_80177DB0 - 2) & 4) {
+            if ((gFrameCount - 2) & 4) {
                 func_8008C6F4(i, 1);
             }
         }
@@ -1145,7 +1146,7 @@ void func_8008D31C(void) {
     f32 D_800D20E8[] = { 60.0f, 220.0f, 60.0f, 220.0f };
     f32 D_800D20F8[] = { 78.0f, 78.0f, 198.0f, 198.0f };
 
-    Math_SmoothStepToF(&D_800D19E0[D_801778A0], D_80178280[D_801778A0].unk_264 * (1.0f / 255.0f), 0.3f, 10.0f, 0.01f);
+    Math_SmoothStepToF(&D_800D19E0[D_801778A0], gPlayer[D_801778A0].health * (1.0f / 255.0f), 0.3f, 10.0f, 0.01f);
     RCP_SetupDL(&gMasterDisp, 0x4E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
@@ -1191,12 +1192,12 @@ void func_8008D4F0(f32 arg0, f32 arg1) {
         D_800D211C[var_v1] = arg1;
     }
 
-    temp_fs0 = D_80178280[D_801778A0].unk_2BC * 0.011111111f;
+    temp_fs0 = gPlayer[D_801778A0].unk_2BC * (1.0f / 90.0f);
 
     temp_fv0 = 1.0f - temp_fs0;
     temp2 = sp68 * temp_fs0;
 
-    if (D_80178280[D_801778A0].unk_2B4 == 0) {
+    if (gPlayer[D_801778A0].unk_2B4 == 0) {
         Math_SmoothStepToF(&D_800D19AC[var_v1], 255.0f, 0.4f, 100.0f, 0.01f);
     } else {
         Math_SmoothStepToF(&D_800D19AC[var_v1], 100.0f, 0.4f, 100.0f, 0.01f);
@@ -1243,9 +1244,9 @@ void func_8008D984(void) {
     s32 D_800D21A8[] = { 146, 165, 146, 165 };
     s32 D_800D21B8[] = { 94, 94, 137, 137 };
 
-    if (D_80177DA0[D_801778A0] != D_800D2180[D_801778A0]) {
-        D_800D2180[D_801778A0] = D_80177DA0[D_801778A0];
-        if (D_80177DA0[D_801778A0] == 0) {
+    if (gBombCount[D_801778A0] != D_800D2180[D_801778A0]) {
+        D_800D2180[D_801778A0] = gBombCount[D_801778A0];
+        if (gBombCount[D_801778A0] == 0) {
             D_800D2190[D_801778A0] = 0;
         } else {
             D_800D2190[D_801778A0] = 30;
@@ -1256,9 +1257,9 @@ void func_8008D984(void) {
         D_800D2190[D_801778A0]--;
     }
 
-    if ((D_800D2190[D_801778A0] & 2) || ((D_800D2190[D_801778A0] == 0) && (D_80177DA0[D_801778A0] != 0))) {
+    if ((D_800D2190[D_801778A0] & 2) || ((D_800D2190[D_801778A0] == 0) && (gBombCount[D_801778A0] != 0))) {
         RCP_SetupDL_78();
-        if (D_80177DA0[D_801778A0] >= 2) {
+        if (gBombCount[D_801778A0] >= 2) {
             if (Math_SmoothStepToF(&D_800D21A4, D_800D21A0, 0.4f, 100.0f, 0.1f) == 0.0f) {
                 if (D_800D21A0 == 255.0f) {
                     D_800D21A0 = 96.0f;
@@ -1455,66 +1456,66 @@ void func_8008E620(f32 arg0, f32 arg1) {
     f32 b;
     s32 ret;
 
-    switch (D_80178234) {
-        case 0:
-            ret = func_800A3F50(150);
+    switch (gCurrentLevel) {
+        case LEVEL_CORNERIA:
+            ret = Play_CheckMedalStatus(150);
             break;
 
-        case 1:
-            ret = func_800A3F50(200);
+        case LEVEL_METEO:
+            ret = Play_CheckMedalStatus(200);
             break;
 
-        case 14:
-            ret = func_800A3F50(50);
+        case LEVEL_FORTUNA:
+            ret = Play_CheckMedalStatus(50);
             break;
 
-        case 2:
-            ret = func_800A3F50(150);
+        case LEVEL_SECTOR_X:
+            ret = Play_CheckMedalStatus(150);
             break;
 
-        case 12:
-            ret = func_800A3F50(150);
+        case LEVEL_TITANIA:
+            ret = Play_CheckMedalStatus(150);
             break;
 
-        case 17:
-            ret = func_800A3F50(150);
+        case LEVEL_BOLSE:
+            ret = Play_CheckMedalStatus(150);
             break;
 
-        case 5:
-            ret = func_800A3F50(150);
+        case LEVEL_SECTOR_Y:
+            ret = Play_CheckMedalStatus(150);
             break;
 
-        case 16:
-            ret = func_800A3F50(150);
+        case LEVEL_KATINA:
+            ret = Play_CheckMedalStatus(150);
             break;
 
-        case 7:
-            ret = func_800A3F50(100);
+        case LEVEL_SOLAR:
+            ret = Play_CheckMedalStatus(100);
             break;
 
-        case 11:
-            ret = func_800A3F50(150);
+        case LEVEL_MACBETH:
+            ret = Play_CheckMedalStatus(150);
             break;
 
-        case 13:
-            ret = func_800A3F50(150);
+        case LEVEL_AQUAS:
+            ret = Play_CheckMedalStatus(150);
             break;
 
-        case 8:
-            ret = func_800A3F50(250);
+        case LEVEL_ZONESS:
+            ret = Play_CheckMedalStatus(250);
             break;
 
-        case 18:
-            ret = func_800A3F50(100);
+        case LEVEL_SECTOR_Z:
+            ret = Play_CheckMedalStatus(100);
             break;
 
-        case 3:
-            ret = func_800A3F50(300);
+        case LEVEL_AREA_6:
+            ret = Play_CheckMedalStatus(300);
             break;
 
-        case 9:
-        case 19:
-            ret = func_800A3F50(200);
+        case LEVEL_VENOM_2:
+        case LEVEL_VENOM_SW:
+            ret = Play_CheckMedalStatus(200);
             break;
 
         default:
@@ -1522,16 +1523,16 @@ void func_8008E620(f32 arg0, f32 arg1) {
             break;
     }
 
-    if (D_801617B8) {
-        D_801617B8--;
+    if (gMedalFlashTimer) {
+        gMedalFlashTimer--;
     }
 
-    if (ret != D_801617B4) {
-        D_801617B8 = 30;
-        D_801617B4 = ret;
+    if (ret != gMedalStatus) {
+        gMedalFlashTimer = 30;
+        gMedalStatus = ret;
     }
 
-    if (D_801617B8 & 1) {
+    if (gMedalFlashTimer & 1) {
         r = 255;
         g = 255;
         b = 255;
@@ -1578,12 +1579,12 @@ void func_8008F96C(void) {
 
     if (D_80161708 != 0) {
         func_8008E9EC(24.0f, 30.0f);
-        if (D_80178234 != 10) {
-            func_80087530(248.0f, 11.0f, D_80161AA0[D_801778A0]);
+        if (gCurrentLevel != LEVEL_TRAINING) {
+            func_80087530(248.0f, 11.0f, gLifeCount[D_801778A0]);
         }
     }
 
-    if (D_80178234 == 10) {
+    if (gCurrentLevel == LEVEL_TRAINING) {
         func_DF4260_801988E0();
     }
 }
@@ -1629,7 +1630,7 @@ s32 func_8009092C(Object_2F4* arg0) {
         return true;
     }
 
-    var_s1 = &D_8016F110[1];
+    var_s1 = &gObjects408[1];
 
     for (i = 1; i < 4; i++, var_s1++) {
         if (var_s1->obj.status == 2) {
@@ -1652,8 +1653,8 @@ s32 func_80090A00(Object_2F4* arg0) {
             arg0->unk_134 = 0.0f;
             arg0->unk_130 = 360.0f;
             arg0->unk_0BC = 8;
-            arg0->unk_0F8 = 100.0f;
-            arg0->unk_0F4 = 300.0f;
+            arg0->unk_0F4.y = 100.0f;
+            arg0->unk_0F4.x = 300.0f;
             arg0->unk_060 = 1;
             arg0->unk_064 = 1;
 
@@ -1670,7 +1671,7 @@ s32 func_80090A00(Object_2F4* arg0) {
             }
 
         case 2:
-            arg0->unk_124.x = D_8016F110[0].obj.pos.x + 1000.0f;
+            arg0->unk_124.x = gObjects408[0].obj.pos.x + 1000.0f;
             arg0->unk_124.y = 300.0f;
             arg0->unk_124.z = arg0->obj.pos.z - 10000.0f;
             arg0->unk_058++;
@@ -1684,9 +1685,9 @@ s32 func_80090A00(Object_2F4* arg0) {
             break;
 
         case 3:
-            arg0->unk_124.x = D_8016F110[0].obj.pos.x - 1000.0f;
+            arg0->unk_124.x = gObjects408[0].obj.pos.x - 1000.0f;
             arg0->unk_124.y = 400.0f;
-            arg0->unk_124.z = D_8016F110[0].obj.pos.z;
+            arg0->unk_124.z = gObjects408[0].obj.pos.z;
             arg0->unk_058++;
             if (arg0->unk_05C == arg0->unk_058) {
                 arg0->unk_064 = 4;
@@ -1696,11 +1697,11 @@ s32 func_80090A00(Object_2F4* arg0) {
             break;
 
         case 4:
-            arg0->unk_124.z = D_80178280[0].unk_138;
+            arg0->unk_124.z = gPlayer[0].unk_138;
             arg0->unk_124.y = 100.0f;
-            arg0->unk_124.x = D_80178280[0].unk_074;
-            if ((fabsf(arg0->obj.pos.x - D_80178280[0].unk_074) < 300.0f) &&
-                (fabsf(arg0->obj.pos.z - D_80178280[0].unk_138) < 300.0f)) {
+            arg0->unk_124.x = gPlayer[0].unk_074;
+            if ((fabsf(arg0->obj.pos.x - gPlayer[0].unk_074) < 300.0f) &&
+                (fabsf(arg0->obj.pos.z - gPlayer[0].unk_138) < 300.0f)) {
                 arg0->unk_064 = 5;
                 arg0->unk_05C = 20;
                 arg0->unk_058 = 0;
@@ -1708,12 +1709,12 @@ s32 func_80090A00(Object_2F4* arg0) {
             break;
 
         case 5:
-            arg0->unk_124.z = D_80178280[0].unk_138 + 1000.0f;
+            arg0->unk_124.z = gPlayer[0].unk_138 + 1000.0f;
             arg0->unk_124.y = 1000.0f;
-            arg0->unk_124.x = D_80178280[0].unk_074 - 1000.0f;
+            arg0->unk_124.x = gPlayer[0].unk_074 - 1000.0f;
             arg0->unk_058++;
             if (arg0->unk_05C == arg0->unk_058) {
-                func_80060FBC(&arg0->obj, &arg0->unk_100);
+                Object_Kill(&arg0->obj, &arg0->unk_100);
             }
             break;
     }
@@ -1724,13 +1725,13 @@ s32 func_80090CCC(Object_2F4* arg0) {
     s32 ret = 0;
 
     if (func_8009092C(arg0) != 0) {
-        arg0->unk_124.z = D_8016F110[arg0->unk_0E6].obj.pos.z;
-        arg0->unk_124.y = D_8016F110[arg0->unk_0E6].obj.pos.y;
-        arg0->unk_124.x = D_8016F110[arg0->unk_0E6].obj.pos.x;
+        arg0->unk_124.z = gObjects408[arg0->unk_0E6].obj.pos.z;
+        arg0->unk_124.y = gObjects408[arg0->unk_0E6].obj.pos.y;
+        arg0->unk_124.x = gObjects408[arg0->unk_0E6].obj.pos.x;
     } else {
-        arg0->unk_124.z = D_8016F110[0].obj.pos.z;
-        arg0->unk_124.y = D_8016F110[0].obj.pos.y;
-        arg0->unk_124.x = D_8016F110[0].obj.pos.x;
+        arg0->unk_124.z = gObjects408[0].obj.pos.z;
+        arg0->unk_124.y = gObjects408[0].obj.pos.y;
+        arg0->unk_124.x = gObjects408[0].obj.pos.x;
     }
 
     if ((fabsf(arg0->obj.pos.x - arg0->unk_124.x) < 2000.0f) && (fabsf(arg0->obj.pos.z - arg0->unk_124.z) < 2000.0f)) {
@@ -1752,7 +1753,7 @@ s32 func_80090CCC(Object_2F4* arg0) {
         arg0->unk_13C = 30.0f;
     }
 
-    if (D_8016F110[arg0->unk_0E6].obj.status == 0) {
+    if (gObjects408[arg0->unk_0E6].obj.status == 0) {
         arg0->unk_0B8 = 1;
         arg0->unk_0E6 = 0;
         arg0->unk_068 = 0;
@@ -1769,7 +1770,7 @@ s32 func_80090E8C(Object_2F4* arg0) {
     f32 var_fv1_2;
 
     if (arg0->unk_0BC == 0) {
-        if (D_80177C98 == 1) {
+        if (gLevelType == 1) {
             x = (Rand_ZeroOne() - 0.5f) * 20000.0f;
             y = (Rand_ZeroOne() - 0.5f) * 5000.0f;
             z = (Rand_ZeroOne() - 0.5f) * 20000.0f;
@@ -1793,8 +1794,8 @@ s32 func_80090E8C(Object_2F4* arg0) {
         var_fv1_2 = 5000.0f;
     }
 
-    if ((var_fv1_2 < fabsf(arg0->obj.pos.x - D_8016F110->obj.pos.x)) &&
-        (var_fv1_2 < fabsf(arg0->obj.pos.z - D_8016F110->obj.pos.z))) {
+    if ((var_fv1_2 < fabsf(arg0->obj.pos.x - gObjects408->obj.pos.x)) &&
+        (var_fv1_2 < fabsf(arg0->obj.pos.z - gObjects408->obj.pos.z))) {
         arg0->unk_0B8 = 0;
     }
 
@@ -1815,9 +1816,9 @@ s32 func_800910C0(Object_2F4* arg0) {
         arg0->unk_0BC = (s32) (Rand_ZeroOne() * 20.0f) + 10;
     }
 
-    arg0->unk_124.x = arg0->unk_2DC.x + D_8016F110->obj.pos.x;
+    arg0->unk_124.x = arg0->unk_2DC.x + gObjects408->obj.pos.x;
     arg0->unk_124.y = arg0->unk_2DC.y;
-    arg0->unk_124.z = arg0->unk_2DC.z + D_8016F110->obj.pos.z;
+    arg0->unk_124.z = arg0->unk_2DC.z + gObjects408->obj.pos.z;
 
     if (arg0->unk_0E4 == 1) {
         var_fv1 = 1500.0f;
@@ -1845,14 +1846,14 @@ void func_80091254(Object_2F4* arg0) {
 }
 
 s32 func_80091298(Object_2F4* arg0) {
-    arg0->unk_118 = D_80178280[0].unk_0D0 + 10.0f;
+    arg0->unk_118 = gPlayer[0].unk_0D0 + 10.0f;
     arg0->unk_120 = 3.6f;
-    arg0->unk_124.x = D_80178280[0].unk_074 + ((f32) (arg0->unk_0E4 - 2) * 700.0f);
-    arg0->unk_124.y = D_80178280[0].unk_078;
-    arg0->unk_124.z = D_80178280[0].unk_138;
+    arg0->unk_124.x = gPlayer[0].unk_074 + ((f32) (arg0->unk_0E4 - 2) * 700.0f);
+    arg0->unk_124.y = gPlayer[0].unk_078;
+    arg0->unk_124.z = gPlayer[0].unk_138;
 
     if ((fabsf(arg0->obj.pos.x - arg0->unk_124.x) < 700.0f) || (fabsf(arg0->obj.pos.z - arg0->unk_124.z) < 700.0f)) {
-        arg0->unk_118 = D_80178280[0].unk_0D0 - 10.0f;
+        arg0->unk_118 = gPlayer[0].unk_0D0 - 10.0f;
         arg0->unk_120 = 1.2f;
     }
     return false;
@@ -1868,15 +1869,15 @@ s32 func_80091368(Object_2F4* arg0) {
 
             switch (arg0->unk_0E4) {
                 case 1:
-                    func_800BA808(gMsg_ID_20220, 10);
+                    func_800BA808(gMsg_ID_20220, RCID_FALCO);
                     break;
 
                 case 3:
-                    func_800BA808(gMsg_ID_20221, 30);
+                    func_800BA808(gMsg_ID_20221, RCID_PEPPY);
                     break;
 
                 case 2:
-                    func_800BA808(gMsg_ID_20222, 20);
+                    func_800BA808(gMsg_ID_20222, RCID_SLIPPY);
                     break;
             }
             D_801778B0[arg0->unk_0E4] = -1;
@@ -1894,7 +1895,7 @@ s32 func_80091368(Object_2F4* arg0) {
             }
 
             if (arg0->obj.pos.y > 3000.0f) {
-                func_80060FBC(&arg0->obj, &arg0->unk_100);
+                Object_Kill(&arg0->obj, &arg0->unk_100);
             }
             break;
     }
@@ -1929,7 +1930,7 @@ void func_800914FC(Object_2F4* arg0) {
         arg0->unk_0B8 = 3;
     }
 
-    if (D_80178280[0].unk_1C8 == 7) {
+    if (gPlayer[0].unk_1C8 == 7) {
         if ((arg0->unk_0B8 != 2) && (arg0->unk_0B8 != 3)) {
             arg0->unk_060 = 1;
             arg0->unk_0B8 = 2;
@@ -1960,14 +1961,14 @@ s32 func_80091864(Object_2F4* arg0) {
         sp44 += 40.0f;
         if (sp44 >= 360.0f) {
             sp44 -= 360.0f;
-        } else if ((arg0->obj.pos.y < (D_80177940 + 50.0f)) && (D_80177C98 == 0) && (sp44 > 180.0f)) {
+        } else if ((arg0->obj.pos.y < (D_80177940 + 50.0f)) && (gLevelType == 0) && (sp44 > 180.0f)) {
             sp44 = 0.0f;
         }
         arg0->unk_050 = 0;
     }
 
-    sp3C = Math_SmoothStepToAngle(&arg0->unk_0F8, sp40, 0.5f, arg0->unk_11C, 0.001f) * 30.0f;
-    Math_SmoothStepToAngle(&arg0->unk_0F4, sp44, 0.5f, arg0->unk_11C, 0.0001f);
+    sp3C = Math_SmoothStepToAngle(&arg0->unk_0F4.y, sp40, 0.5f, arg0->unk_11C, 0.001f) * 30.0f;
+    Math_SmoothStepToAngle(&arg0->unk_0F4.x, sp44, 0.5f, arg0->unk_11C, 0.0001f);
     sp2C = sp28 = 0.0f;
 
     if (sp3C < 0.0f) {
@@ -2001,27 +2002,27 @@ s32 func_80091864(Object_2F4* arg0) {
 s32 func_80091B90(Object_2F4* arg0) {
     Vec3f vec;
 
-    arg0->obj.rot.x = -arg0->unk_0F4;
-    arg0->obj.rot.y = arg0->unk_0F8;
+    arg0->obj.rot.x = -arg0->unk_0F4.x;
+    arg0->obj.rot.y = arg0->unk_0F4.y;
 
     Math_SmoothStepToF(&arg0->unk_114, arg0->unk_118, 0.2f, 1.0f, 0.0f);
     Math_SmoothStepToF(&arg0->unk_11C, arg0->unk_120, 1.0f, 1.0f, 0.0f);
 
     Math_Vec3fFromAngles(&vec, arg0->obj.rot.x, arg0->obj.rot.y, arg0->unk_138 + arg0->unk_114);
 
-    arg0->unk_0EC = arg0->unk_14C + vec.y;
-    arg0->unk_0E8 = arg0->unk_148 + vec.x;
-    arg0->unk_0F0 = arg0->unk_144 + vec.z;
+    arg0->unk_0E8.y = arg0->unk_14C + vec.y;
+    arg0->unk_0E8.x = arg0->unk_148 + vec.x;
+    arg0->unk_0E8.z = arg0->unk_144 + vec.z;
 
     arg0->unk_148 -= arg0->unk_148 * 0.1f;
     arg0->unk_14C -= arg0->unk_14C * 0.1f;
     arg0->unk_144 -= arg0->unk_144 * 0.1f;
 
-    if ((arg0->obj.pos.y < D_80177940 + 40.0f) && (arg0->unk_0EC < 0.0f) && (D_80177C98 == 0)) {
+    if ((arg0->obj.pos.y < D_80177940 + 40.0f) && (arg0->unk_0E8.y < 0.0f) && (gLevelType == 0)) {
         arg0->obj.pos.y = D_80177940 + 40.0f;
-        arg0->unk_0EC = 0.0f;
+        arg0->unk_0E8.y = 0.0f;
     }
-    arg0->unk_0F0 -= D_80177D08;
+    arg0->unk_0E8.z -= D_80177D08;
 
     return false;
 }
@@ -2081,7 +2082,7 @@ s32 func_80091F00(Object_2F4* arg0) {
 
     func_80019218(0x2903300E, &arg0->unk_100, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     func_8007D10C(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 1.5f);
-    Matrix_RotateY(gCalcMatrix, arg0->unk_0F8 * M_DTOR, 0);
+    Matrix_RotateY(gCalcMatrix, arg0->unk_0F4.y * M_DTOR, 0);
 
     if (Rand_ZeroOne() < 0.5f) {
         sp40.x = -20.0f;
@@ -2107,13 +2108,13 @@ s32 func_80091F00(Object_2F4* arg0) {
     if ((arg0->unk_0D0 == 3) && (arg0->unk_0D4 == 1)) {
         switch (arg0->unk_0E4) {
             case 1:
-                func_800BA808(gMsg_ID_20210, 10);
+                func_800BA808(gMsg_ID_20210, RCID_FALCO);
                 break;
             case 3:
-                func_800BA808(gMsg_ID_20200, 30);
+                func_800BA808(gMsg_ID_20200, RCID_PEPPY);
                 break;
             case 2:
-                func_800BA808(gMsg_ID_20190, 20);
+                func_800BA808(gMsg_ID_20190, RCID_SLIPPY);
                 break;
         }
     }
@@ -2121,13 +2122,13 @@ s32 func_80091F00(Object_2F4* arg0) {
     if ((arg0->unk_0D0 != 3) && (arg0->unk_0D4 == 1)) {
         switch (arg0->unk_0E4) {
             case 1:
-                func_800BA808(gMsg_ID_20060, 10);
+                func_800BA808(gMsg_ID_20060, RCID_FALCO);
                 break;
             case 3:
-                func_800BA808(gMsg_ID_20070, 30);
+                func_800BA808(gMsg_ID_20070, RCID_PEPPY);
                 break;
             case 2:
-                func_800BA808(gMsg_ID_20080, 20);
+                func_800BA808(gMsg_ID_20080, RCID_SLIPPY);
                 break;
         }
     }
@@ -2135,13 +2136,13 @@ s32 func_80091F00(Object_2F4* arg0) {
     if ((arg0->unk_0D4 == 2) || (arg0->unk_0D4 == 100)) {
         switch (arg0->unk_0E4) {
             case 1:
-                func_800BA808(gMsg_ID_20030, 10);
+                func_800BA808(gMsg_ID_20030, RCID_FALCO);
                 break;
             case 3:
-                func_800BA808(gMsg_ID_20040, 30);
+                func_800BA808(gMsg_ID_20040, RCID_PEPPY);
                 break;
             case 2:
-                func_800BA808(gMsg_ID_20050, 20);
+                func_800BA808(gMsg_ID_20050, RCID_SLIPPY);
                 break;
         }
     }
@@ -2151,18 +2152,18 @@ s32 func_80091F00(Object_2F4* arg0) {
 }
 
 void func_80092244(Object_2F4* arg0) {
-    D_80175A10[arg0->unk_040].unk_00 = 1;
-    D_80175A10[arg0->unk_040].unk_02 = arg0->unk_0E4;
-    D_80175A10[arg0->unk_040].pos.x = arg0->obj.pos.x;
-    D_80175A10[arg0->unk_040].pos.y = arg0->obj.pos.y;
-    D_80175A10[arg0->unk_040].pos.z = arg0->obj.pos.z;
-    D_80175A10[arg0->unk_040].unk_10 = arg0->unk_0F8 + 180.0f;
+    gUnkEntities28[arg0->unk_040].unk_00 = 1;
+    gUnkEntities28[arg0->unk_040].unk_02 = arg0->unk_0E4;
+    gUnkEntities28[arg0->unk_040].pos.x = arg0->obj.pos.x;
+    gUnkEntities28[arg0->unk_040].pos.y = arg0->obj.pos.y;
+    gUnkEntities28[arg0->unk_040].pos.z = arg0->obj.pos.z;
+    gUnkEntities28[arg0->unk_040].unk_10 = arg0->unk_0F4.y + 180.0f;
 }
 
 void func_800922F4(Object_2F4* arg0) {
     s32 temp;
 
-    if ((D_801778B0[arg0->unk_0E4] < 64) && (D_80178280[0].unk_1C8 != 7)) {
+    if ((D_801778B0[arg0->unk_0E4] < 64) && (gPlayer[0].unk_1C8 != 7)) {
         temp = 7;
         if (D_801778B0[arg0->unk_0E4] > 16) {
             temp = 15;
@@ -2174,18 +2175,18 @@ void func_800922F4(Object_2F4* arg0) {
             temp = 63;
         }
 
-        if (!(D_80177DB0 & temp)) {
+        if (!(gFrameCount & temp)) {
             func_8007D10C(arg0->obj.pos.x + ((Rand_ZeroOne() - 0.5f) * 10.0f),
                           arg0->obj.pos.y + (Rand_ZeroOne() * 10.0f),
                           arg0->obj.pos.z + ((Rand_ZeroOne() - 0.5f) * 10.0f), 2.2f);
         }
 
-        if (!((temp >> 2) & D_80177DB0)) {
+        if (!((temp >> 2) & gFrameCount)) {
             if (Rand_ZeroOne() < 0.5f) {
                 func_8007C120(arg0->obj.pos.x + ((Rand_ZeroOne() - 0.5f) * 30.0f),
                               arg0->obj.pos.y + (Rand_ZeroOne() * 10.0f),
-                              arg0->obj.pos.z + ((Rand_ZeroOne() - 0.5f) * 30.0f), arg0->unk_0E8, arg0->unk_0EC,
-                              arg0->unk_0F0, arg0->unk_110 * 0.07f, 3);
+                              arg0->obj.pos.z + ((Rand_ZeroOne() - 0.5f) * 30.0f), arg0->unk_0E8.x, arg0->unk_0E8.y,
+                              arg0->unk_0E8.z, arg0->unk_110 * 0.07f, 3);
             }
         }
     }
@@ -2202,35 +2203,35 @@ void func_800922F4(Object_2F4* arg0) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80093164.s")
 
 void func_80093310(void) {
-    Object_2F4* this = &D_80163FE0[0];
+    Object_2F4* this = &gObjects2F4[0];
 
-    func_800613C4(this);
+    Object_2F4_Initialize(this);
     this->obj.status = 1;
     this->obj.pos.x = 0.0f;
     this->obj.pos.y += 1700.0f;
     this->obj.pos.z -= 5000.0f;
-    D_80163FE0->unk_0B6 = 1;
+    gObjects2F4->unk_0B6 = 1;
     if (1) {}
-    this->obj.id = 195;
+    this->obj.id = OBJECT_195;
     func_800612B8(&this->unk_01C, this->obj.id);
     func_80019218(0x11030010, &this->unk_100, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
 void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
     s32 i;
-    Object_8C* var_s0 = &D_80170130[ARRAY_COUNT(D_80170130) - 1];
-    UnkStruct_D_80178280* sp24 = D_80178280;
+    Object_8C* var_s0 = &gObjects8C[ARRAY_COUNT(gObjects8C) - 1];
+    Player* sp24 = gPlayer;
 
     for (i = 0; i < 100; i++) {
         if (var_s0->obj.status == 0) {
-            func_80061474(var_s0);
+            Object_8C_Initialize(var_s0);
             var_s0->obj.status = 1;
-            var_s0->obj.id = 363;
+            var_s0->obj.id = OBJECT_363;
             var_s0->obj.pos.x = x;
             var_s0->obj.pos.y = y;
             var_s0->obj.pos.z = z;
 
-            if ((sp24->unk_1C8 == 2) && (D_80178234 == 13) && (sp24->unk_1D0 < 2)) {
+            if ((sp24->unk_1C8 == 2) && (gCurrentLevel == LEVEL_AQUAS) && (sp24->unk_1D0 < 2)) {
                 var_s0->unk_6C = 0.4f;
                 var_s0->unk_44 = 0;
                 var_s0->unk_46 = 24;
@@ -2239,8 +2240,8 @@ void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
                     var_s0->unk_48 = -var_s0->unk_48;
                 }
             } else {
-                var_s0->unk_54 = (Rand_ZeroOne() - 0.5f) * 5.0f;
-                var_s0->unk_58 = (Rand_ZeroOne() - 0.5f) * 3.0f;
+                var_s0->unk_54.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
+                var_s0->unk_54.y = (Rand_ZeroOne() - 0.5f) * 3.0f;
                 var_s0->unk_48 = 0;
 
                 if (Rand_ZeroOne() < 0.5f) {
@@ -2268,9 +2269,9 @@ void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800935E8.s")
 
 void func_80094954(Object_8C* arg0) {
-    UnkStruct_D_80178280* temp = D_80178280;
+    Player* temp = gPlayer;
 
-    if ((temp->unk_1C8 == 2) && (D_80178234 == 13) && (temp->unk_1D0 < 2)) {
+    if ((temp->unk_1C8 == 2) && (gCurrentLevel == LEVEL_AQUAS) && (temp->unk_1D0 < 2)) {
         switch (arg0->unk_4E) {
             case 0:
                 arg0->unk_44 += arg0->unk_46;
@@ -2290,10 +2291,10 @@ void func_80094954(Object_8C* arg0) {
         }
 
         if ((arg0->unk_4E == 1) && (arg0->unk_4A <= 0)) {
-            func_80060FBC(&arg0->obj, &arg0->unk_80);
+            Object_Kill(&arg0->obj, &arg0->unk_80);
         }
 
-        arg0->unk_58 += arg0->unk_6C;
+        arg0->unk_54.y += arg0->unk_6C;
         arg0->unk_6C -= 0.05f;
 
         if (arg0->unk_6C < -1.0f) {
@@ -2311,21 +2312,21 @@ void func_80094954(Object_8C* arg0) {
     if (temp->unk_1C8 == 6) {
         arg0->unk_46 = 2;
         if (temp->unk_1D0 >= 4) {
-            arg0->unk_58 -= 0.13f;
+            arg0->unk_54.y -= 0.13f;
         }
     }
 
     arg0->unk_70 += 0.8f;
     arg0->unk_4A -= arg0->unk_46;
 
-    if ((arg0->unk_4A < 0) || ((temp->unk_1C8 == 2) && (D_80178234 == 13) && (temp->unk_1D0 == 5))) {
-        func_80060FBC(&arg0->obj, &arg0->unk_80);
+    if ((arg0->unk_4A < 0) || ((temp->unk_1C8 == 2) && (gCurrentLevel == LEVEL_AQUAS) && (temp->unk_1D0 == 5))) {
+        Object_Kill(&arg0->obj, &arg0->unk_80);
     }
     arg0->obj.rot.z += arg0->unk_48;
 }
 
 void func_80094BBC(Object_8C* arg0) {
-    if ((D_80178280[0].unk_1C8 == 2) && (D_80178234 == 13) && (D_80178280[0].unk_1D0 < 2)) {
+    if ((gPlayer[0].unk_1C8 == 2) && (gCurrentLevel == LEVEL_AQUAS) && (gPlayer[0].unk_1D0 < 2)) {
         RCP_SetupDL(&gMasterDisp, 0x44);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 21, 34, arg0->unk_4A);
         gDPSetEnvColor(gMasterDisp++, 255, 255, 251, 0);
@@ -2346,9 +2347,9 @@ void stub_80094D18(void) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80094D20.s")
 
 void func_80095350(Object_2F4* arg0) {
-    func_800613C4(arg0);
+    Object_2F4_Initialize(arg0);
     arg0->obj.status = 2;
-    arg0->obj.id = 195;
+    arg0->obj.id = OBJECT_195;
     arg0->unk_0B6 = 9999;
     func_800612B8(&arg0->unk_01C, arg0->obj.id);
 }
@@ -2362,9 +2363,9 @@ void func_800953A0(Object_2F4* arg0, s32 arg1) {
         { -200.0f, 0.0f, -7000.0f },
     };
 
-    func_800613C4(arg0);
+    Object_2F4_Initialize(arg0);
     arg0->obj.status = 2;
-    arg0->obj.id = 195;
+    arg0->obj.id = OBJECT_195;
     arg0->obj.pos = D_800D2510[arg1];
     arg0->obj.pos.z -= D_80177D20;
     arg0->unk_0B6 = 45;
@@ -2381,9 +2382,9 @@ void func_8009546C(Object_2F4* arg0, s32 arg1) {
         { -1200.0f, 0.0f, -1000.0f }, { -1400.0f, 0.0f, 700.0f },
     };
 
-    func_800613C4(arg0);
+    Object_2F4_Initialize(arg0);
     arg0->obj.status = 2;
-    arg0->obj.id = 195;
+    arg0->obj.id = OBJECT_195;
     arg0->obj.pos = D_800D2540[arg1];
     arg0->obj.pos.z -= D_80177D20;
     arg0->unk_0B6 = 46;
@@ -2400,9 +2401,9 @@ void func_80095538(Object_2F4* arg0, s32 arg1) {
         { 300.0f, 0.0f, -1700.0f }, { -260.0f, 0.0f, -2000.0f }, { -200.0f, 0.0f, -2600.0f },
     };
 
-    func_800613C4(arg0);
+    Object_2F4_Initialize(arg0);
     arg0->obj.status = 2;
-    arg0->obj.id = 195;
+    arg0->obj.id = OBJECT_195;
     arg0->obj.pos = D_800D257C[arg1];
     arg0->obj.pos.z -= D_80177D20;
     arg0->unk_0B6 = 47;

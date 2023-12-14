@@ -12,7 +12,7 @@ void func_80187520(s32, void*);
 void func_8002E3E0(Object_2F4* arg0) {
     s32 var_a3 = 0;
 
-    if (D_80178234 == 0x13) {
+    if (gCurrentLevel == LEVEL_VENOM_SW) {
         if (D_8015F940 < 0xF00) {
             var_a3 = 50;
         } else if (D_8015F940 < 0x1680) {
@@ -36,12 +36,12 @@ void func_8002E3E0(Object_2F4* arg0) {
     if (var_a3 != 0) {
         func_80077240(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, var_a3);
     }
-    D_80161A98 += var_a3;
+    gHitCount += var_a3;
     D_80177850 = 0xF;
 }
 
 s32 func_8002E4F8(u16* arg0, s32 arg1) {
-    if ((D_8017829C == 0) && (D_80178280[0].unk_1C8 != 0)) {
+    if ((D_8017829C == 0) && (gPlayer[0].unk_1C8 != 0)) {
         func_800BA808(arg0, arg1);
         return true;
     } else {
@@ -60,35 +60,35 @@ void func_8002E548(void) {
     }
 }
 
-void func_8002E5E0(Object* arg0) {
+void func_8002E5E0(Object_408* arg0) {
     func_80187520(0x5B, arg0);
 }
 
-void func_8002E604(Object* arg0) {
+void func_8002E604(Object_408* arg0) {
     func_80187520(0x5C, arg0);
 }
 
-void func_8002E628(Object* arg0) {
+void func_8002E628(Object_408* arg0) {
     func_80187520(0x5D, arg0);
 }
 
-void func_8002E64C(Object* arg0) {
+void func_8002E64C(Object_408* arg0) {
     func_80187520(0x5E, arg0);
 }
 
-void func_8002E670(Object* arg0) {
+void func_8002E670(Object_2F4* arg0) {
     func_80187520(0x5F, arg0);
 }
 
-void func_8002E694(Object* arg0) {
+void func_8002E694(Object_2F4* arg0) {
     func_80187520(0x60, arg0);
 }
 
-void func_8002E6B8(Object* arg0) {
+void func_8002E6B8(Object_2F4* arg0) {
     func_80187520(0x61, arg0);
 }
 
-void func_8002E6DC(Object* arg0) {
+void func_8002E6DC(Object_2F4* arg0) {
     func_80187520(0x62, arg0);
 }
 
@@ -97,7 +97,7 @@ void func_8002E6DC(Object* arg0) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_2EFE0/func_8002ED60.s")
 
 void func_8002EE34(void) {
-    D_8015F904 = D_8017829C = D_80163FE0[1].unk_054 = D_80163FE0[2].unk_054 = D_80163FE0[3].unk_054 = 0;
+    D_8015F904 = D_8017829C = gObjects2F4[1].unk_054 = gObjects2F4[2].unk_054 = gObjects2F4[3].unk_054 = 0;
 }
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_2EFE0/func_8002EE64.s")
@@ -122,17 +122,14 @@ void func_8002F64C(void) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_2EFE0/func_8002FC00.s")
 
 s32 func_8002FE74(void) {
-    switch (D_80178234) {
-        case 14:
+    switch (gCurrentLevel) {
+        case LEVEL_FORTUNA:
             return D_8015F928 == (D_800C9B4C + 0x960);
-        case 17:
-            return D_8016F110[2].unk_0D0 == 4;
-        case 16:
-            return D_8016F110[1].unk_0A6 == 2;
-        default:
-            return 0;
+        case LEVEL_BOLSE:
+            return gObjects408[2].unk_0D0 == 4;
+        case LEVEL_KATINA:
+            return gObjects408[1].unk_0A6 == 2;
     }
-
     return 0;
 }
 
