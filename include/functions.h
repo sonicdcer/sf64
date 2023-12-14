@@ -561,7 +561,6 @@ void func_E6A810_801B58AC(Gfx **, f32);
 s32 func_E6A810_801B6AEC(f32, f32, f32);
 void func_E6A810_801B6E20(f32, f32, f32 *, f32 *, f32 *); 
 
-void func_E9F1D0_801A4CB0(Object_2F4 *);
 void func_E9F1D0_801A4CB0(Object_2F4*);
 void func_E9F1D0_801A3BD4(Object_2F4*);
 void func_E9F1D0_801888F4(Object_2F4 *);

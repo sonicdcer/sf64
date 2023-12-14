@@ -5,13 +5,7 @@ s32 D_800CFF90 = 0;
 s32 D_80161690;
 
 void func_8007F11C(s32, f32, f32, f32, f32);
-void func_80187530(Object_2F4*);
-void func_801A3BD4(Object_2F4*);
-void func_8019E9F4(f32, f32, f32, f32, f32, f32, f32, s32);
-void func_801AC8A8(f32, f32, f32, f32, s32);
-void func_8018769C(Object_2F4*);
-void func_80190430(Object_2F4*);
-void func_801A4CB0(Object_2F4*);
+void func_80187530(Object_2F4*); // figure out which one later
 
 void func_8006A7B0(u16* msg, s32 character) {
     (void) "Enm->obj.pos.y + tmp_xyz.y=<%10.3f>\n";
@@ -3088,8 +3082,8 @@ void func_80072594(Object_2F4* arg0) {
                         arg0->unk_0B6 = 0;
                     }
                     if (((s32) gFrameCount % 3) == 0) {
-                        func_8019E9F4(arg0->obj.pos.x, arg0->obj.pos.y - 20, arg0->obj.pos.z - 180.0f, 0.0f,
-                                      Rand_ZeroOne() * 20.0f * -1.0f, 0.0f, 4.0f, 2);
+                        func_E16C50_8019E9F4(arg0->obj.pos.x, arg0->obj.pos.y - 20, arg0->obj.pos.z - 180.0f, 0.0f,
+                                             Rand_ZeroOne() * 20.0f * -1.0f, 0.0f, 4.0f, 2);
                     }
                 } else if (arg0->unk_0B6 >= Animation_GetFrameCount(&D_40057AC)) {
                     arg0->unk_0B6 = 0;
@@ -3107,7 +3101,7 @@ void func_80072594(Object_2F4* arg0) {
             case 0x30:
             case 0x31:
             case 0x32:
-                func_801A3BD4(arg0);
+                func_E9F1D0_801A3BD4(arg0);
                 break;
             case 0x34:
                 func_80072474(arg0);
@@ -3256,9 +3250,9 @@ void func_80072594(Object_2F4* arg0) {
                             arg0->unk_0B6 = 49;
                         }
                         if (gFrameCount & 1) {
-                            func_801AC8A8(((Rand_ZeroOne() - 0.5f) * 100.0f) + arg0->obj.pos.x,
-                                          (Rand_ZeroOne() * 50.0f) + arg0->obj.pos.y,
-                                          ((Rand_ZeroOne() - 0.5f) * 100.0f) + arg0->obj.pos.z, 1.0f, 0);
+                            func_E16C50_801AC8A8(((Rand_ZeroOne() - 0.5f) * 100.0f) + arg0->obj.pos.x,
+                                                 (Rand_ZeroOne() * 50.0f) + arg0->obj.pos.y,
+                                                 ((Rand_ZeroOne() - 0.5f) * 100.0f) + arg0->obj.pos.z, 1.0f, 0);
                         }
                     }
                     arg0->unk_0C2 = 10000;
@@ -3553,7 +3547,7 @@ void func_80074FF0(Object_2F4* arg0) {
                 case 0x30:
                 case 0x31:
                 case 0x32:
-                    func_801A4CB0(arg0);
+                    func_E9F1D0_801A4CB0(arg0);
                     break;
                 case 0x34:
                     Animation_GetFrameData(&D_601F874, arg0->unk_0B6, sp114);
@@ -3589,7 +3583,7 @@ void func_80074FF0(Object_2F4* arg0) {
                 case 0x4F:
                     temp_s0 = arg0->unk_0B8;
                     arg0->unk_0B8 = 2;
-                    func_80190430(arg0);
+                    func_E16C50_80190430(arg0);
                     arg0->unk_0B8 = temp_s0;
                     break;
                 case 0x50:
@@ -3634,7 +3628,7 @@ void func_80074FF0(Object_2F4* arg0) {
                     break;
                 case 0x67:
                 case 0x68:
-                    func_8018769C(arg0);
+                    func_E6A810_8018769C(arg0);
                     break;
                 case 0x69:
                     RCP_SetupDL(&gMasterDisp, 0x23);
@@ -3875,7 +3869,7 @@ void func_800763A4(Object_2F4* arg0) {
 
 void func_8007717C(Object_2F4* arg0) {
     if ((arg0->unk_0B4 == 0x30) || (arg0->unk_0B4 == 0x31) || (arg0->unk_0B4 == 0x32)) {
-        func_801A3BD4(arg0);
+        func_E9F1D0_801A3BD4(arg0);
     } else {
         func_800763A4(arg0);
     }
