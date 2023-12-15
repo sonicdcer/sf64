@@ -1543,7 +1543,7 @@ void func_8005FB70(s32 arg0) {
         if (D_80177AB0 == 5) {
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
         }
-        for (i = 0, var_s0 = D_801782A8; i < 200; i++, var_s0++) {
+        for (i = 0, var_s0 = gObjects58; i < 200; i++, var_s0++) {
             if ((var_s0->obj.status == 2) && (var_s0->obj.id != OBJECT_147)) {
                 if (gCurrentLevel == LEVEL_BOLSE) {
                     spAC.x = var_s0->unk_48.x;

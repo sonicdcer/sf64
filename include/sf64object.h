@@ -45,7 +45,7 @@ typedef struct {
     };
     /* 0x00 */ u8 drawType;
     /* 0x08 */ ObjectFunc action; // argument must have object type.
-    /* 0x0C */ f32* unk_0C; // some sort of script?
+    /* 0x0C */ f32* unk_0C; // some sort of script? hitboxes?
     /* 0x10 */ f32 unk_10; // z coordinate of something
     /* 0x14 */ s16 unk_14; // can be -1, 0, 1
     /* 0x16 */ s16 unk_16; // can be 0, 1, 2
@@ -57,13 +57,19 @@ typedef struct {
 
 typedef struct {
     /* 0x00 */ Object obj;
-    /* 0x1C */ char pad1C[4];
+    /* 0x1C */ s32 unk_1C;
     /* 0x20 */ Vec3f unk_20;
-    /* 0x2C */ char pad2C[0xC];
+    /* 0x2C */ f32 unk_2C;
+    /* 0x30 */ f32 unk_30;
+    /* 0x34 */ f32 unk_34; 
     /* 0x38 */ Vec3f unk_38;
-    /* 0x44 */ char pad44[0x14];
+    /* 0x44 */ f32 unk_44;
+    /* 0x44 */ f32 unk_48;
+    /* 0x44 */ f32 unk_4C;
+    /* 0x44 */ f32 unk_50;
+    /* 0x44 */ f32 unk_54;
     /* 0x58 */ s32 unk_58;
-    /* 0x5C */ char pad5C[4];
+    /* 0x5C */ s32 unk_5C;
     /* 0x60 */ s32 unk_60;
     /* 0x64 */ s32 unk_64;
     /* 0x68 */ s32 unk_68;

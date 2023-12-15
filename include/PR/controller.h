@@ -128,7 +128,7 @@ typedef struct
 #define CONT_CMD_CHANNEL_RESET  0xFD
 #define CONT_CMD_RESET          0xFF
 
-// Bytes transmitted for each joybus command
+// Bytes transmitted for each sys_joybus command
 #define CONT_CMD_REQUEST_STATUS_TX 1
 #define CONT_CMD_READ_BUTTON_TX    1
 #define CONT_CMD_READ_PAK_TX       3
@@ -142,7 +142,7 @@ typedef struct
 #define CONT_CMD_SWRITE_VOICE_TX   3
 #define CONT_CMD_RESET_TX          1
 
-// Bytes received for each joybus command
+// Bytes received for each sys_joybus command
 #define CONT_CMD_REQUEST_STATUS_RX 3
 #define CONT_CMD_READ_BUTTON_RX    4
 #define CONT_CMD_READ_PAK_RX       33

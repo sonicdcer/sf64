@@ -1117,7 +1117,13 @@ typedef struct {
  */
 typedef long	Mtx_t[4][4];
 
+typedef struct {
+	u16 i[4][4];
+	u16 f[4][4];
+} Mtx_u;
+
 typedef union {
+	Mtx_u		u;
     Mtx_t		m;
     long long int	force_structure_alignment;
 } Mtx;

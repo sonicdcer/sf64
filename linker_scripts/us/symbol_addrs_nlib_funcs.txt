@@ -1,4 +1,4 @@
-// joybus
+// sys_joybus
 Controller_AddDeadZone = 0x80002840;
 Controller_Init = 0x8000291C;
 Controller_UpdateInput = 0x800029A8;
@@ -7,7 +7,7 @@ Save_ReadData = 0x80002BE8;
 Save_WriteData = 0x80002C50;
 Controller_Rumble = 0x80002CB8;
 
-// lib
+// sys_lib
 Lib_vsPrintf = 0x80002E80;
 Lib_vTable = 0x80002EA0;
 Lib_SwapBuffers = 0x80002EE4;
@@ -17,7 +17,7 @@ Lib_Ortho = 0x800032B4;
 Lib_DmaRead = 0x800033E0;
 Lib_FillScreen = 0x800034E8;
 
-// lights
+// sys_lights
 Lights_AddLight = 0x800035D0;
 Lights_SetOneLight = 0x8000372C;
 Lights_SetTwoLights = 0x800038AC;

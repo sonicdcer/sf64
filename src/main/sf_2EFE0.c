@@ -1,12 +1,5 @@
 #include "global.h"
 
-extern s32 D_8015F904;
-extern s32 D_80177CD0[4];
-extern s32 D_8017829C;
-extern s32 D_800C9B4C;
-extern s16 D_8016F5BE;
-extern s16 D_8016F9F0;
-
 void func_80187520(s32, void*);
 
 void func_8002E3E0(Object_2F4* arg0) {

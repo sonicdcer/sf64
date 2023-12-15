@@ -1,10 +1,18 @@
 #include "global.h"
 
 Mtx gIdentityMtx = { {
-    { 0x00010000, 0, 1, 0 },
-    { 0, 0x00010000, 0, 1 },
-    { 0, 0, 0, 0 },
-    { 0, 0, 0, 0 },
+    {
+        { 1, 0, 0, 0 },
+        { 0, 1, 0, 0 },
+        { 0, 0, 1, 0 },
+        { 0, 0, 0, 1 },
+    },
+    {
+        { 0, 0, 0, 0 },
+        { 0, 0, 0, 0 },
+        { 0, 0, 0, 0 },
+        { 0, 0, 0, 0 },
+    },
 } };
 
 Matrix gIdentityMatrix = { {
@@ -21,22 +29,14 @@ Matrix sCalcMatrixStack[0x20];
 
 // Copies src Matrix into dst
 void Matrix_Copy(Matrix* dst, Matrix* src) {
-    dst->m[0][0] = src->m[0][0];
-    dst->m[0][1] = src->m[0][1];
-    dst->m[0][2] = src->m[0][2];
-    dst->m[0][3] = src->m[0][3];
-    dst->m[1][0] = src->m[1][0];
-    dst->m[1][1] = src->m[1][1];
-    dst->m[1][2] = src->m[1][2];
-    dst->m[1][3] = src->m[1][3];
-    dst->m[2][0] = src->m[2][0];
-    dst->m[2][1] = src->m[2][1];
-    dst->m[2][2] = src->m[2][2];
-    dst->m[2][3] = src->m[2][3];
-    dst->m[3][0] = src->m[3][0];
-    dst->m[3][1] = src->m[3][1];
-    dst->m[3][2] = src->m[3][2];
-    dst->m[3][3] = src->m[3][3];
+    s32 i;
+
+    for (i = 0; i < 4; i++) {
+        dst->m[i][0] = src->m[i][0];
+        dst->m[i][1] = src->m[i][1];
+        dst->m[i][2] = src->m[i][2];
+        dst->m[i][3] = src->m[i][3];
+    }
 }
 
 // Makes a copy of the stack's current matrix and puts it on the top of the stack
@@ -50,11 +50,16 @@ void Matrix_Pop(Matrix** mtxStack) {
     *mtxStack -= 1;
 }
 
+// Copies tf into mtx (MTXMODE_NEW) or applies it to mtx (MTXMODE_APPLY)
 void Matrix_Mult(Matrix* mtx, Matrix* tf, u8 mode) {
     f32 rx;
     f32 ry;
     f32 rz;
     f32 rw;
+    s32 i0;
+    s32 i1;
+    s32 i2;
+    s32 i3;
 
     if (mode == 1) {
         rx = mtx->m[0][0];
@@ -62,69 +67,54 @@ void Matrix_Mult(Matrix* mtx, Matrix* tf, u8 mode) {
         rz = mtx->m[2][0];
         rw = mtx->m[3][0];
 
-        mtx->m[0][0] = (rx * tf->m[0][0]) + (ry * tf->m[0][1]) + (rz * tf->m[0][2]) + (rw * tf->m[0][3]);
-        mtx->m[1][0] = (rx * tf->m[1][0]) + (ry * tf->m[1][1]) + (rz * tf->m[1][2]) + (rw * tf->m[1][3]);
-        mtx->m[2][0] = (rx * tf->m[2][0]) + (ry * tf->m[2][1]) + (rz * tf->m[2][2]) + (rw * tf->m[2][3]);
-        mtx->m[3][0] = (rx * tf->m[3][0]) + (ry * tf->m[3][1]) + (rz * tf->m[3][2]) + (rw * tf->m[3][3]);
+        for (i0 = 0; i0 < 4; i0++) {
+            mtx->m[i0][0] = (rx * tf->m[i0][0]) + (ry * tf->m[i0][1]) + (rz * tf->m[i0][2]) + (rw * tf->m[i0][3]);
+        }
 
         rx = mtx->m[0][1];
         ry = mtx->m[1][1];
         rz = mtx->m[2][1];
         rw = mtx->m[3][1];
 
-        mtx->m[0][1] = (rx * tf->m[0][0]) + (ry * tf->m[0][1]) + (rz * tf->m[0][2]) + (rw * tf->m[0][3]);
-        mtx->m[1][1] = (rx * tf->m[1][0]) + (ry * tf->m[1][1]) + (rz * tf->m[1][2]) + (rw * tf->m[1][3]);
-        mtx->m[2][1] = (rx * tf->m[2][0]) + (ry * tf->m[2][1]) + (rz * tf->m[2][2]) + (rw * tf->m[2][3]);
-        mtx->m[3][1] = (rx * tf->m[3][0]) + (ry * tf->m[3][1]) + (rz * tf->m[3][2]) + (rw * tf->m[3][3]);
+        for (i1 = 0; i1 < 4; i1++) {
+            mtx->m[i1][1] = (rx * tf->m[i1][0]) + (ry * tf->m[i1][1]) + (rz * tf->m[i1][2]) + (rw * tf->m[i1][3]);
+        }
 
         rx = mtx->m[0][2];
         ry = mtx->m[1][2];
         rz = mtx->m[2][2];
         rw = mtx->m[3][2];
 
-        mtx->m[0][2] = (rx * tf->m[0][0]) + (ry * tf->m[0][1]) + (rz * tf->m[0][2]) + (rw * tf->m[0][3]);
-        mtx->m[1][2] = (rx * tf->m[1][0]) + (ry * tf->m[1][1]) + (rz * tf->m[1][2]) + (rw * tf->m[1][3]);
-        mtx->m[2][2] = (rx * tf->m[2][0]) + (ry * tf->m[2][1]) + (rz * tf->m[2][2]) + (rw * tf->m[2][3]);
-        mtx->m[3][2] = (rx * tf->m[3][0]) + (ry * tf->m[3][1]) + (rz * tf->m[3][2]) + (rw * tf->m[3][3]);
+        for (i2 = 0; i2 < 4; i2++) {
+            mtx->m[i2][2] = (rx * tf->m[i2][0]) + (ry * tf->m[i2][1]) + (rz * tf->m[i2][2]) + (rw * tf->m[i2][3]);
+        }
 
         rx = mtx->m[0][3];
         ry = mtx->m[1][3];
         rz = mtx->m[2][3];
         rw = mtx->m[3][3];
 
-        mtx->m[0][3] = (rx * tf->m[0][0]) + (ry * tf->m[0][1]) + (rz * tf->m[0][2]) + (rw * tf->m[0][3]);
-        mtx->m[1][3] = (rx * tf->m[1][0]) + (ry * tf->m[1][1]) + (rz * tf->m[1][2]) + (rw * tf->m[1][3]);
-        mtx->m[2][3] = (rx * tf->m[2][0]) + (ry * tf->m[2][1]) + (rz * tf->m[2][2]) + (rw * tf->m[2][3]);
-        mtx->m[3][3] = (rx * tf->m[3][0]) + (ry * tf->m[3][1]) + (rz * tf->m[3][2]) + (rw * tf->m[3][3]);
+        for (i3 = 0; i3 < 4; i3++) {
+            mtx->m[i3][3] = (rx * tf->m[i3][0]) + (ry * tf->m[i3][1]) + (rz * tf->m[i3][2]) + (rw * tf->m[i3][3]);
+        }
     } else {
         Matrix_Copy(mtx, tf);
     }
 }
 
+// Creates a translation matrix in mtx (MTXMODE_NEW) or applies one to mtx (MTXMODE_APPLY)
 void Matrix_Translate(Matrix* mtx, f32 x, f32 y, f32 z, u8 mode) {
     f32 rx;
     f32 ry;
+    s32 i;
 
     if (mode == 1) {
-        rx = mtx->m[0][0];
-        ry = mtx->m[1][0];
+        for (i = 0; i < 4; i++) {
+            rx = mtx->m[0][i];
+            ry = mtx->m[1][i];
 
-        mtx->m[3][0] += (rx * x) + (ry * y) + (mtx->m[2][0] * z);
-
-        rx = mtx->m[0][1];
-        ry = mtx->m[1][1];
-
-        mtx->m[3][1] += (rx * x) + (ry * y) + (mtx->m[2][1] * z);
-
-        rx = mtx->m[0][2];
-        ry = mtx->m[1][2];
-
-        mtx->m[3][2] += (rx * x) + (ry * y) + (mtx->m[2][2] * z);
-
-        rx = mtx->m[0][3];
-        ry = mtx->m[1][3];
-
-        mtx->m[3][3] += (rx * x) + (ry * y) + (mtx->m[2][3] * z);
+            mtx->m[3][i] += (rx * x) + (ry * y) + (mtx->m[2][i] * z);
+        }
     } else {
         mtx->m[3][0] = x;
         mtx->m[3][1] = y;
@@ -135,22 +125,21 @@ void Matrix_Translate(Matrix* mtx, f32 x, f32 y, f32 z, u8 mode) {
     }
 }
 
-// Matrix_Scale
-#ifdef NON_MATCHING
+// Creates a scale matrix in mtx (MTXMODE_NEW) or applies one to mtx (MTXMODE_APPLY)
 void Matrix_Scale(Matrix* mtx, f32 xScale, f32 yScale, f32 zScale, u8 mode) {
+    f32 rx;
+    f32 ry;
+    s32 i;
+
     if (mode == 1) {
-        mtx->m[0][0] *= xScale;
-        mtx->m[1][0] *= yScale;
-        mtx->m[2][0] *= zScale;
-        mtx->m[0][1] *= xScale;
-        mtx->m[1][1] *= yScale;
-        mtx->m[2][1] *= zScale;
-        mtx->m[0][2] *= xScale;
-        mtx->m[1][2] *= yScale;
-        mtx->m[2][2] *= zScale;
-        mtx->m[0][3] *= xScale;
-        mtx->m[1][3] *= yScale;
-        mtx->m[2][3] *= zScale;
+        for (i = 0; i < 4; i++) {
+            rx = mtx->m[0][i];
+            ry = mtx->m[1][i];
+
+            mtx->m[0][i] = rx * xScale;
+            mtx->m[1][i] = ry * yScale;
+            mtx->m[2][i] *= zScale;
+        }
     } else {
         mtx->m[0][0] = xScale;
         mtx->m[1][1] = yScale;
@@ -160,40 +149,25 @@ void Matrix_Scale(Matrix* mtx, f32 xScale, f32 yScale, f32 zScale, u8 mode) {
         mtx->m[3][3] = 1.0f;
     }
 }
-#else
-// https://decomp.me/scratch/v4KEJ 91%
-void Matrix_Scale(Matrix* mtx, f32 xScale, f32 yScale, f32 zScale, u8 mode);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/matrix/Matrix_Scale.s")
-#endif
 
+// Creates rotation matrix about the X axis in mtx (MTXMODE_NEW) or applies one to mtx (MTXMODE_APPLY)
 void Matrix_RotateX(Matrix* mtx, f32 angle, u8 mode) {
     f32 cs;
     f32 sn;
     f32 ry;
     f32 rz;
+    s32 i;
 
     sn = __sinf(angle);
     cs = __cosf(angle);
     if (mode == 1) {
-        ry = mtx->m[1][0];
-        rz = mtx->m[2][0];
-        mtx->m[1][0] = (ry * cs) + (rz * sn);
-        mtx->m[2][0] = (rz * cs) - (ry * sn);
+        for (i = 0; i < 4; i++) {
+            ry = mtx->m[1][i];
+            rz = mtx->m[2][i];
 
-        ry = mtx->m[1][1];
-        rz = mtx->m[2][1];
-        mtx->m[1][1] = (ry * cs) + (rz * sn);
-        mtx->m[2][1] = (rz * cs) - (ry * sn);
-
-        ry = mtx->m[1][2];
-        rz = mtx->m[2][2];
-        mtx->m[1][2] = (ry * cs) + (rz * sn);
-        mtx->m[2][2] = (rz * cs) - (ry * sn);
-
-        ry = mtx->m[1][3];
-        rz = mtx->m[2][3];
-        mtx->m[1][3] = (ry * cs) + (rz * sn);
-        mtx->m[2][3] = (rz * cs) - (ry * sn);
+            mtx->m[1][i] = (ry * cs) + (rz * sn);
+            mtx->m[2][i] = (rz * cs) - (ry * sn);
+        }
     } else {
         mtx->m[1][1] = mtx->m[2][2] = cs;
         mtx->m[1][2] = sn;
@@ -204,34 +178,24 @@ void Matrix_RotateX(Matrix* mtx, f32 angle, u8 mode) {
     }
 }
 
+// Creates rotation matrix about the Y axis in mtx (MTXMODE_NEW) or applies one to mtx (MTXMODE_APPLY)
 void Matrix_RotateY(Matrix* mtx, f32 angle, u8 mode) {
     f32 cs;
     f32 sn;
     f32 rx;
     f32 rz;
+    s32 i;
 
     sn = __sinf(angle);
     cs = __cosf(angle);
     if (mode == 1) {
-        rx = mtx->m[0][0];
-        rz = mtx->m[2][0];
-        mtx->m[0][0] = (rx * cs) - (rz * sn);
-        mtx->m[2][0] = (rx * sn) + (rz * cs);
+        for (i = 0; i < 4; i++) {
+            rx = mtx->m[0][i];
+            rz = mtx->m[2][i];
 
-        rx = mtx->m[0][1];
-        rz = mtx->m[2][1];
-        mtx->m[0][1] = (rx * cs) - (rz * sn);
-        mtx->m[2][1] = (rx * sn) + (rz * cs);
-
-        rx = mtx->m[0][2];
-        rz = mtx->m[2][2];
-        mtx->m[0][2] = (rx * cs) - (rz * sn);
-        mtx->m[2][2] = (rx * sn) + (rz * cs);
-
-        rx = mtx->m[0][3];
-        rz = mtx->m[2][3];
-        mtx->m[0][3] = (rx * cs) - (rz * sn);
-        mtx->m[2][3] = (rx * sn) + (rz * cs);
+            mtx->m[0][i] = (rx * cs) - (rz * sn);
+            mtx->m[2][i] = (rx * sn) + (rz * cs);
+        }
     } else {
         mtx->m[0][0] = mtx->m[2][2] = cs;
         mtx->m[0][2] = -sn;
@@ -242,34 +206,24 @@ void Matrix_RotateY(Matrix* mtx, f32 angle, u8 mode) {
     }
 }
 
+// Creates rotation matrix about the Z axis in mtx (MTXMODE_NEW) or applies one to mtx (MTXMODE_APPLY)
 void Matrix_RotateZ(Matrix* mtx, f32 angle, u8 mode) {
     f32 cs;
     f32 sn;
     f32 rx;
     f32 ry;
+    s32 i;
 
     sn = __sinf(angle);
     cs = __cosf(angle);
     if (mode == 1) {
-        rx = mtx->m[0][0];
-        ry = mtx->m[1][0];
-        mtx->m[0][0] = (rx * cs) + (ry * sn);
-        mtx->m[1][0] = (ry * cs) - (rx * sn);
+        for (i = 0; i < 4; i++) {
+            rx = mtx->m[0][i];
+            ry = mtx->m[1][i];
 
-        rx = mtx->m[0][1];
-        ry = mtx->m[1][1];
-        mtx->m[0][1] = (rx * cs) + (ry * sn);
-        mtx->m[1][1] = (ry * cs) - (rx * sn);
-
-        rx = mtx->m[0][2];
-        ry = mtx->m[1][2];
-        mtx->m[0][2] = (rx * cs) + (ry * sn);
-        mtx->m[1][2] = (ry * cs) - (rx * sn);
-
-        rx = mtx->m[0][3];
-        ry = mtx->m[1][3];
-        mtx->m[0][3] = (rx * cs) + (ry * sn);
-        mtx->m[1][3] = (ry * cs) - (rx * sn);
+            mtx->m[0][i] = (rx * cs) + (ry * sn);
+            mtx->m[1][i] = (ry * cs) - (rx * sn);
+        }
     } else {
         mtx->m[0][0] = mtx->m[1][1] = cs;
         mtx->m[0][1] = sn;
@@ -280,6 +234,8 @@ void Matrix_RotateZ(Matrix* mtx, f32 angle, u8 mode) {
     }
 }
 
+// Creates rotation matrix about a given vector axis in mtx (MTXMODE_NEW) or applies one to mtx (MTXMODE_APPLY).
+// The vector specifying the axis does not need to be a unit vector.
 void Matrix_RotateAxis(Matrix* mtx, f32 angle, f32 axisX, f32 axisY, f32 axisZ, u8 mode) {
     f32 rx;
     f32 ry;
@@ -330,6 +286,7 @@ void Matrix_RotateAxis(Matrix* mtx, f32 angle, f32 axisX, f32 axisY, f32 axisZ, 
             cyz = (1.0f - cosA) * yz - axisX * sinA;
             czz = (1.0f - zz) * cosA + zz;
 
+            // loop doesn't seem to work here.
             rx = mtx->m[0][0];
             ry = mtx->m[0][1];
             rz = mtx->m[0][2];
@@ -374,96 +331,94 @@ void Matrix_RotateAxis(Matrix* mtx, f32 angle, f32 axisX, f32 axisY, f32 axisZ, 
 
 // Converts the current Gfx matrix to a Mtx
 void Matrix_ToMtx(Mtx* dest) {
-    s32 temp;
-    u16* iPart = (u16*) &dest->m[0][0];
-    u16* fpart = (u16*) &dest->m[2][0];
+    s32 intVal;
+    u16(*iPart)[4] = dest->u.i;
+    u16(*fPart)[4] = dest->u.f;
     Matrix* src = gGfxMatrix;
 
-    temp = src->m[0][0] * 0x10000;
-    iPart[0] = (temp >> 0x10);
-    fpart[0] = temp & 0xFFFF;
+    intVal = src->m[0][0] * 0x10000;
+    iPart[0][0] = intVal >> 0x10;
+    fPart[0][0] = intVal % 0x10000U;
 
-    temp = src->m[0][1] * 0x10000;
-    iPart[1] = (temp >> 0x10);
-    fpart[1] = temp & 0xFFFF;
+    intVal = src->m[0][1] * 0x10000;
+    iPart[0][1] = intVal >> 0x10;
+    fPart[0][1] = intVal % 0x10000U;
 
-    temp = src->m[0][2] * 0x10000;
-    iPart[2] = (temp >> 0x10);
-    fpart[2] = temp & 0xFFFF;
+    intVal = src->m[0][2] * 0x10000;
+    iPart[0][2] = intVal >> 0x10;
+    fPart[0][2] = intVal % 0x10000U;
 
-    temp = src->m[0][3] * 0x10000;
-    iPart[3] = (temp >> 0x10);
-    fpart[3] = temp & 0xFFFF;
+    intVal = src->m[0][3] * 0x10000;
+    iPart[0][3] = intVal >> 0x10;
+    fPart[0][3] = intVal % 0x10000U;
 
-    temp = src->m[1][0] * 0x10000;
-    iPart[4] = (temp >> 0x10);
-    fpart[4] = temp & 0xFFFF;
+    intVal = src->m[1][0] * 0x10000;
+    iPart[1][0] = intVal >> 0x10;
+    fPart[1][0] = intVal % 0x10000U;
 
-    temp = src->m[1][1] * 0x10000;
-    iPart[5] = (temp >> 0x10);
-    fpart[5] = temp & 0xFFFF;
+    intVal = src->m[1][1] * 0x10000;
+    iPart[1][1] = intVal >> 0x10;
+    fPart[1][1] = intVal % 0x10000U;
 
-    temp = src->m[1][2] * 0x10000;
-    iPart[6] = (temp >> 0x10);
-    fpart[6] = temp & 0xFFFF;
+    intVal = src->m[1][2] * 0x10000;
+    iPart[1][2] = intVal >> 0x10;
+    fPart[1][2] = intVal % 0x10000U;
 
-    temp = src->m[1][3] * 0x10000;
-    iPart[7] = (temp >> 0x10);
-    fpart[7] = temp & 0xFFFF;
+    intVal = src->m[1][3] * 0x10000;
+    iPart[1][3] = intVal >> 0x10;
+    fPart[1][3] = intVal % 0x10000U;
 
-    temp = src->m[2][0] * 0x10000;
-    iPart[8] = (temp >> 0x10);
-    fpart[8] = temp & 0xFFFF;
+    intVal = src->m[2][0] * 0x10000;
+    iPart[2][0] = intVal >> 0x10;
+    fPart[2][0] = intVal % 0x10000U;
 
-    temp = src->m[2][1] * 0x10000;
-    iPart[9] = (temp >> 0x10);
-    fpart[9] = temp & 0xFFFF;
+    intVal = src->m[2][1] * 0x10000;
+    iPart[2][1] = intVal >> 0x10;
+    fPart[2][1] = intVal % 0x10000U;
 
-    temp = src->m[2][2] * 0x10000;
-    iPart[10] = (temp >> 0x10);
-    fpart[10] = temp & 0xFFFF;
+    intVal = src->m[2][2] * 0x10000;
+    iPart[2][2] = intVal >> 0x10;
+    fPart[2][2] = intVal % 0x10000U;
 
-    temp = src->m[2][3] * 0x10000;
-    iPart[11] = (temp >> 0x10);
-    fpart[11] = temp & 0xFFFF;
+    intVal = src->m[2][3] * 0x10000;
+    iPart[2][3] = intVal >> 0x10;
+    fPart[2][3] = intVal % 0x10000U;
 
-    temp = src->m[3][0] * 0x10000;
-    iPart[12] = (temp >> 0x10);
-    fpart[12] = temp & 0xFFFF;
+    intVal = src->m[3][0] * 0x10000;
+    iPart[3][0] = intVal >> 0x10;
+    fPart[3][0] = intVal % 0x10000U;
 
-    temp = src->m[3][1] * 0x10000;
-    iPart[13] = (temp >> 0x10);
-    fpart[13] = temp & 0xFFFF;
+    intVal = src->m[3][1] * 0x10000;
+    iPart[3][1] = intVal >> 0x10;
+    fPart[3][1] = intVal % 0x10000U;
 
-    temp = src->m[3][2] * 0x10000;
-    iPart[14] = (temp >> 0x10);
-    fpart[14] = temp & 0xFFFF;
+    intVal = src->m[3][2] * 0x10000;
+    iPart[3][2] = intVal >> 0x10;
+    fPart[3][2] = intVal % 0x10000U;
 
-    temp = src->m[3][3] * 0x10000;
-    iPart[15] = (temp >> 0x10);
-    fpart[15] = temp & 0xFFFF;
+    intVal = src->m[3][3] * 0x10000;
+    iPart[3][3] = intVal >> 0x10;
+    fPart[3][3] = intVal % 0x10000U;
 }
 
+// Converts the Mtx src to a Matrix, putting the result in dest
 void Matrix_FromMtx(Mtx* src, Matrix* dest) {
-    u16* m1 = (u16*) &src->m[0][0];
-    u16* m2 = (u16*) &src->m[2][0];
-
-    dest->xx = ((m1[0] << 0x10) | m2[0]) * (1 / 65536.0f);
-    dest->yx = ((m1[1] << 0x10) | m2[1]) * (1 / 65536.0f);
-    dest->zx = ((m1[2] << 0x10) | m2[2]) * (1 / 65536.0f);
-    dest->wx = ((m1[3] << 0x10) | m2[3]) * (1 / 65536.0f);
-    dest->xy = ((m1[4] << 0x10) | m2[4]) * (1 / 65536.0f);
-    dest->yy = ((m1[5] << 0x10) | m2[5]) * (1 / 65536.0f);
-    dest->zy = ((m1[6] << 0x10) | m2[6]) * (1 / 65536.0f);
-    dest->wy = ((m1[7] << 0x10) | m2[7]) * (1 / 65536.0f);
-    dest->xz = ((m1[8] << 0x10) | m2[8]) * (1 / 65536.0f);
-    dest->yz = ((m1[9] << 0x10) | m2[9]) * (1 / 65536.0f);
-    dest->zz = ((m1[10] << 0x10) | m2[10]) * (1 / 65536.0f);
-    dest->wz = ((m1[11] << 0x10) | m2[11]) * (1 / 65536.0f);
-    dest->xw = ((m1[12] << 0x10) | m2[12]) * (1 / 65536.0f);
-    dest->yw = ((m1[13] << 0x10) | m2[13]) * (1 / 65536.0f);
-    dest->zw = ((m1[14] << 0x10) | m2[14]) * (1 / 65536.0f);
-    dest->ww = ((m1[15] << 0x10) | m2[15]) * (1 / 65536.0f);
+    dest->m[0][0] = ((src->u.i[0][0] << 0x10) | src->u.f[0][0]) * (1.0f / 0x10000);
+    dest->m[0][1] = ((src->u.i[0][1] << 0x10) | src->u.f[0][1]) * (1.0f / 0x10000);
+    dest->m[0][2] = ((src->u.i[0][2] << 0x10) | src->u.f[0][2]) * (1.0f / 0x10000);
+    dest->m[0][3] = ((src->u.i[0][3] << 0x10) | src->u.f[0][3]) * (1.0f / 0x10000);
+    dest->m[1][0] = ((src->u.i[1][0] << 0x10) | src->u.f[1][0]) * (1.0f / 0x10000);
+    dest->m[1][1] = ((src->u.i[1][1] << 0x10) | src->u.f[1][1]) * (1.0f / 0x10000);
+    dest->m[1][2] = ((src->u.i[1][2] << 0x10) | src->u.f[1][2]) * (1.0f / 0x10000);
+    dest->m[1][3] = ((src->u.i[1][3] << 0x10) | src->u.f[1][3]) * (1.0f / 0x10000);
+    dest->m[2][0] = ((src->u.i[2][0] << 0x10) | src->u.f[2][0]) * (1.0f / 0x10000);
+    dest->m[2][1] = ((src->u.i[2][1] << 0x10) | src->u.f[2][1]) * (1.0f / 0x10000);
+    dest->m[2][2] = ((src->u.i[2][2] << 0x10) | src->u.f[2][2]) * (1.0f / 0x10000);
+    dest->m[2][3] = ((src->u.i[2][3] << 0x10) | src->u.f[2][3]) * (1.0f / 0x10000);
+    dest->m[3][0] = ((src->u.i[3][0] << 0x10) | src->u.f[3][0]) * (1.0f / 0x10000);
+    dest->m[3][1] = ((src->u.i[3][1] << 0x10) | src->u.f[3][1]) * (1.0f / 0x10000);
+    dest->m[3][2] = ((src->u.i[3][2] << 0x10) | src->u.f[3][2]) * (1.0f / 0x10000);
+    dest->m[3][3] = ((src->u.i[3][3] << 0x10) | src->u.f[3][3]) * (1.0f / 0x10000);
 }
 
 // Applies the transform matrix mtx to the vector src, putting the result in dest
@@ -541,6 +496,8 @@ void Matrix_GetXYZAngles(Matrix* mtx, Vec3f* rot) {
     rot->z *= M_RTOD;
 }
 
+// Creates a look-at matrix from Eye, At, and Up in mtx (MTXMODE_NEW) or applies one to mtx (MTXMODE_APPLY).
+// A look-at matrix is a rotation-translation matrix that maps y to Up, z to (At - Eye), and translates to Eye
 void Matrix_LookAt(Matrix* mtx, f32 xEye, f32 yEye, f32 zEye, f32 xAt, f32 yAt, f32 zAt, f32 xUp, f32 yUp, f32 zUp,
                    u8 mode) {
     Matrix lookAt;

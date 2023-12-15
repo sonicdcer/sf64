@@ -1,6 +1,11 @@
 #include "global.h"
 
-extern f32 D_800D2F64;
+extern UNK_TYPE D_800D2F50; // type unclear. unused?
+extern s32 D_800D2F54;      // only gets set to 0. unused?
+extern f32 D_800D2F58;
+extern f32 D_800D2F5C[3]; // holds float versions of gVolumeSettings. Unused?
+extern u8 D_800D2F68;
+extern u8 D_800D2F6C[20];
 extern Vec3f D_800D2F80;
 extern Vec3f D_800D2F8C;
 extern EnvSettings* D_800D2F98[21];
@@ -9,6 +14,16 @@ extern s32 D_800D3000[4][4];
 extern Vec3f D_800D3040[6];
 extern Vec3f D_800D3088[4];
 extern Vec3f D_800D30B8[4];
+extern Vec3f D_800D30E8;
+extern f32 D_800D30F4[4];
+extern f32 D_800D3104[4];
+extern f32 D_800D3114[4];
+extern f32 D_800D3124[12];
+extern f32 D_800D3154[4];
+extern s32 D_800D3164[4];
+extern u8 D_800D317C;
+extern u8 D_800D3180[30];
+extern s32 D_800D31A0[4];
 
 s32 Play_CheckMedalStatus(u16 arg0) {
     if ((D_801778B0[2] > 0) && (D_801778B0[3] > 0) && (D_801778B0[1] > 0) && (gHitCount >= arg0)) {
@@ -18,7 +33,7 @@ s32 Play_CheckMedalStatus(u16 arg0) {
 }
 
 void func_800A3FB0(void) {
-    D_800D2F64 = 0.0f;
+    D_800D2F5C[2] = 0.0f;
 }
 
 s32 Play_GetMaxHealth(void) {
@@ -262,13 +277,13 @@ void func_800A4F7C(void) {
             break;
         }
         if (D_80178310[j].id == OBJECT_147) {
-            func_800A4F4C(&D_801782A8[i]);
-            D_801782A8[i].obj.status = 2;
-            D_801782A8[i].obj.id = D_80178310[j].id;
-            D_801782A8[i].obj.pos.x = D_80178310[j].xPos;
-            D_801782A8[i].obj.pos.z = D_80178310[j].zPos1;
-            D_801782A8[i].obj.pos.y = D_80178310[j].yPos;
-            func_800612B8(&D_801782A8[i].unk_1C, D_801782A8[i].obj.id);
+            func_800A4F4C(&gObjects58[i]);
+            gObjects58[i].obj.status = 2;
+            gObjects58[i].obj.id = D_80178310[j].id;
+            gObjects58[i].obj.pos.x = D_80178310[j].xPos;
+            gObjects58[i].obj.pos.z = D_80178310[j].zPos1;
+            gObjects58[i].obj.pos.y = D_80178310[j].yPos;
+            func_800612B8(&gObjects58[i].unk_1C, gObjects58[i].obj.id);
             i++;
         }
     }
@@ -277,14 +292,14 @@ void func_800A4F7C(void) {
             break;
         }
         if (D_80178310[j].id != OBJECT_147) {
-            func_800A4F4C(&D_801782A8[i]);
-            D_801782A8[i].obj.status = 2;
-            D_801782A8[i].obj.id = D_80178310[j].id;
-            D_801782A8[i].obj.pos.x = D_80178310[j].xPos;
-            D_801782A8[i].obj.pos.z = D_80178310[j].zPos1;
-            D_801782A8[i].obj.pos.y = D_80178310[j].yPos;
-            D_801782A8[i].obj.rot.y = D_80178310[j].unk_C;
-            func_800612B8(&D_801782A8[i].unk_1C, D_801782A8[i].obj.id);
+            func_800A4F4C(&gObjects58[i]);
+            gObjects58[i].obj.status = 2;
+            gObjects58[i].obj.id = D_80178310[j].id;
+            gObjects58[i].obj.pos.x = D_80178310[j].xPos;
+            gObjects58[i].obj.pos.z = D_80178310[j].zPos1;
+            gObjects58[i].obj.pos.y = D_80178310[j].yPos;
+            gObjects58[i].obj.rot.y = D_80178310[j].unk_C;
+            func_800612B8(&gObjects58[i].unk_1C, gObjects58[i].obj.id);
             i++;
         }
     }
@@ -301,7 +316,7 @@ void func_800A5338(void) {
 
     D_80178310 = SEGMENTED_TO_VIRTUAL(D_603B074);
 
-    for (j = 0, var_s0 = D_801782A8; j < 200; j++) {
+    for (j = 0, var_s0 = gObjects58; j < 200; j++) {
         if (D_80178310[j].id <= OBJECT_INVALID) {
             break;
         }
@@ -353,7 +368,7 @@ void func_800A55B0(void) {
 
     D_80178310 = SEGMENTED_TO_VIRTUAL(D_6030B14);
 
-    for (j = 0, var_s0 = D_801782A8; j < 200; j++) {
+    for (j = 0, var_s0 = gObjects58; j < 200; j++) {
         if (D_80178310[j].id <= OBJECT_INVALID) {
             break;
         }
