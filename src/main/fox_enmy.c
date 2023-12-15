@@ -1608,7 +1608,7 @@ void func_800656D4(Object_2F4* arg0) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_61B30/func_800656D4.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_enmy/func_800656D4.s")
 #endif
 
 void func_800660F0(Object_2F4* arg0) {

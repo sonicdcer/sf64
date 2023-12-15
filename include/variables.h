@@ -281,7 +281,7 @@ extern f32 D_801615B8[4];
 // fox_edisplay
 extern Vec3f D_801615D0;
 
-// fox_61B30
+// fox_enmy
 extern s32 D_80161670[4];
 extern s32 D_80161680;
 extern u8 D_80161684;

@@ -1,4 +1,4 @@
-// fox_61B30
+// fox_enmy
 Object_Kill = 0x80060FBC;
 
 //fox_std_lib
@@ -143,7 +143,7 @@ Message_IsPrintingChar = 0x800C2F30;
 gDefaultSave = 0x800D4D10;
 gSaveFile = 0x80178870; //size:0x200
 
-// fox_61B30
+// fox_enmy
 Object_80_Initialize = 0x80061364;
 Object_4C_Initialize = 0x80061394;
 Object_2F4_Initialize = 0x800613C4;

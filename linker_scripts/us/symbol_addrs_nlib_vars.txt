@@ -132,9 +132,9 @@ D_80178A70 = 0x80178A78; //ignore:true
 gDramStack = 0x80281000; //size:0x400
 gOSYieldData = 0x80281400; //size:0xC00
 gZBuffer = 0x80282000; //size:0x25800
-gTaskOutputBuffer = 0x802A7800; // size:0x30000 name_end:gTaskOutputBufferEnd
-gAudioDataBuffer = 0x802D7800; // size:0xB0000
-gTextureRenderBuffer = 0x80387800; // size:0x7880
-gFillBuffer = 0x8038F080; // size:0x780
+gTaskOutputBuffer = 0x802A7800; //size:0x30000 name_end:gTaskOutputBufferEnd
+gAudioDataBuffer = 0x802D7800; //size:0xB0000
+gTextureRenderBuffer = 0x80387800; //size:0x7880
+gFillBuffer = 0x8038F080; //size:0x780
 gFrameBuffers = 0x8038F800; //size:0x70800
 

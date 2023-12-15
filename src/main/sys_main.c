@@ -216,7 +216,7 @@ void Graphics_SetTask(void) {
     gGfxTask->task.t.dram_stack = gDramStack;
     gGfxTask->task.t.dram_stack_size = SP_DRAM_STACK_SIZE8;
     gGfxTask->task.t.output_buff = (u64*) gTaskOutputBuffer;
-    gGfxTask->task.t.output_buff_size = (u64*) &gTaskOutputBufferEnd;
+    gGfxTask->task.t.output_buff_size = (u64*) gAudioDataBuffer;
     gGfxTask->task.t.data_ptr = (u64*) gGfxPool->masterDL;
     gGfxTask->task.t.data_size = (gMasterDisp - gGfxPool->masterDL) * sizeof(Gfx);
     gGfxTask->task.t.yield_data_ptr = (u64*) &gOSYieldData;

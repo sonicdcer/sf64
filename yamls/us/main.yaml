@@ -179,7 +179,7 @@
       - [0x59780, c, fox_load]
       - [0x5A0F0, c, fox_edata]
       - [0x5A2C0, c, fox_edisplay]
-      - [0x61B30, c, fox_61B30]
+      - [0x61B30, c, fox_enmy]
       - [0x6B3B0, c, fox_6B3B0]
       - [0x77E40, c, sf_77E40]
       - [0x84F70, c, fox_84F70]
@@ -271,7 +271,7 @@
       - [0xCAFB0, .data, fox_load]
       - [0xCCA70, .data, fox_edata]
       - [0xD0570, .data, fox_edisplay]
-      - [0xD09A0, .data, fox_61B30]
+      - [0xD09A0, .data, fox_enmy]
       - [0xD0B80, .data, fox_6B3B0]
       - [0xD20E0, data, sf_77E40]
       - [0xD2570, data, sf_hud]
@@ -294,7 +294,7 @@
       - [0xD69A0, .rodata, fox_52730]
       - [0xD6BA0, .rodata, fox_load]
       - [0xD6C20, .rodata, fox_edisplay]
-      - [0xD6FD0, .rodata, fox_61B30]
+      - [0xD6FD0, .rodata, fox_enmy]
       - [0xD7650, .rodata, fox_6B3B0]
       - [0xD7E30, .rodata, sf_77E40]
       - [0xD82F0, .rodata, fox_84F70]
@@ -359,7 +359,7 @@
       - { start: 0xDE480, type: .bss, vram: 0x801613A0, name: fox_43AC0 }
       - { start: 0xDE480, type: .bss, vram: 0x801613B0, name: fox_52730 }
       - { start: 0xDE480, type: .bss, vram: 0x801615D0, name: fox_edisplay }
-      - { start: 0xDE480, type: .bss, vram: 0x80161670, name: fox_61B30 }
+      - { start: 0xDE480, type: .bss, vram: 0x80161670, name: fox_enmy }
       - { start: 0xDE480, type: .bss, vram: 0x80161690, name: fox_6B3B0 }
       - { start: 0xDE480, type: bss, vram: 0x801616A0, name: sf_hud }
       - { start: 0xDE480, type: .bss, vram: 0x80161950, name: fox_97F80 }
