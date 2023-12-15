@@ -135,21 +135,33 @@ void Matrix_Translate(Matrix* mtx, f32 x, f32 y, f32 z, u8 mode) {
     }
 }
 
-// Matrix_Scale
-#ifdef NON_MATCHING
 void Matrix_Scale(Matrix* mtx, f32 xScale, f32 yScale, f32 zScale, u8 mode) {
+    f32 rx;
+    f32 ry;
+
     if (mode == 1) {
-        mtx->m[0][0] *= xScale;
-        mtx->m[1][0] *= yScale;
+        rx = mtx->m[0][0] * xScale;
+        ry = mtx->m[1][0] * yScale;
+        mtx->m[0][0] = rx;
+        mtx->m[1][0] = ry;
         mtx->m[2][0] *= zScale;
-        mtx->m[0][1] *= xScale;
-        mtx->m[1][1] *= yScale;
+
+        rx = mtx->m[0][1] * xScale;
+        ry = mtx->m[1][1] * yScale;
+        mtx->m[0][1] = rx;
+        mtx->m[1][1] = ry;
         mtx->m[2][1] *= zScale;
-        mtx->m[0][2] *= xScale;
-        mtx->m[1][2] *= yScale;
+
+        rx = mtx->m[0][2] * xScale;
+        ry = mtx->m[1][2] * yScale;
+        mtx->m[0][2] = rx;
+        mtx->m[1][2] = ry;
         mtx->m[2][2] *= zScale;
-        mtx->m[0][3] *= xScale;
-        mtx->m[1][3] *= yScale;
+
+        rx = mtx->m[0][3] * xScale;
+        ry = mtx->m[1][3] * yScale;
+        mtx->m[0][3] = rx;
+        mtx->m[1][3] = ry;
         mtx->m[2][3] *= zScale;
     } else {
         mtx->m[0][0] = xScale;
@@ -160,11 +172,6 @@ void Matrix_Scale(Matrix* mtx, f32 xScale, f32 yScale, f32 zScale, u8 mode) {
         mtx->m[3][3] = 1.0f;
     }
 }
-#else
-// https://decomp.me/scratch/v4KEJ 91%
-void Matrix_Scale(Matrix* mtx, f32 xScale, f32 yScale, f32 zScale, u8 mode);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/matrix/Matrix_Scale.s")
-#endif
 
 void Matrix_RotateX(Matrix* mtx, f32 angle, u8 mode) {
     f32 cs;

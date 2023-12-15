@@ -10,8 +10,8 @@ ObjectInit* D_800CFDA0[] = {
     0x0600EAD4, NULL,       0x06011044, 0x0600FF74, 0x06006EB4, 0x06014D94, 0x0302DE3C,
 };
 s32 D_800CFDF4[] = {
-    0,     0x144, 0x144, 0x144, 0x144, 0x147, 0x147, 0x147, 0x147, 0x142, 0x142, 0x142, 0x142,
-    0x14F, 0x150, 0x150, 0x150, 0x150, 0x150, 0x142, 0x147, 0x144, 0x144, 0x151, 0,     0x145,
+    OBJECT_0,     OBJECT_6C_SILVER_RING, OBJECT_6C_SILVER_RING, OBJECT_6C_SILVER_RING, OBJECT_6C_SILVER_RING, OBJECT_6C_BOMB, OBJECT_6C_BOMB, OBJECT_6C_BOMB, OBJECT_6C_BOMB, OBJECT_6C_LASERS, OBJECT_6C_LASERS, OBJECT_6C_LASERS, OBJECT_6C_LASERS,
+    OBJECT_6C_1UP, OBJECT_6C_GOLD_RING, OBJECT_6C_GOLD_RING, OBJECT_6C_GOLD_RING, OBJECT_6C_GOLD_RING, OBJECT_6C_GOLD_RING, OBJECT_6C_LASERS, OBJECT_6C_BOMB, OBJECT_6C_SILVER_RING, OBJECT_6C_SILVER_RING, OBJECT_6C_WING_REPAIR, OBJECT_0,     OBJECT_325,
 };
 f32 D_800CFE5C[] = {
     0.0f, 1.0f, 0.5f, 0.33f, 0.25f, 1.0f,  0.5f,  0.33f, 0.25f, 1.0f, 0.5f, 0.33f, 0.25f,
@@ -775,7 +775,7 @@ s32 func_8006351C(s32 arg0, Vec3f* arg1, Vec3f* arg2, s32 arg3) {
     s32 i;
 
     if ((D_80177880 == 1) && (gCurrentLevel != LEVEL_KATINA)) {
-        var_s0 = D_801782A8;
+        var_s0 = gObjects58;
         for (i = 0; i < 200; i++, var_s0++) {
             if (var_s0->obj.status == 2) {
                 if ((var_s0->obj.id == OBJECT_1) || (var_s0->obj.id == OBJECT_3) || (var_s0->obj.id == OBJECT_117) ||
@@ -892,13 +892,13 @@ s32 func_8006351C(s32 arg0, Vec3f* arg1, Vec3f* arg2, s32 arg3) {
                         var_s0_5->unk_0D8.x = arg1->x;
                         var_s0_5->unk_0D8.y = arg1->y;
                         var_s0_5->unk_0D8.z = arg1->z;
-                        return true;
+                        return 1;
                     }
                 }
             }
         }
     }
-    return false;
+    return 0;
 }
 
 void func_80063CAC(Object_80* arg0) {
@@ -2137,7 +2137,7 @@ void func_80068020(Object_6C* arg0) {
             func_800671D0(arg0);
             if (arg0->unk_4C != 0) {
                 arg0->unk_46 = 1;
-                arg0->unk_48 = 0x32;
+                arg0->unk_48 = 50;
                 if (arg0->obj.id == OBJECT_6C_SILVER_RING) {
                     gPlayer[arg0->unk_4E].heal += 0x20;
                     func_80060F30(gPlayer[arg0->unk_4E].unk_460_arr, 0x4900200E, arg0->unk_4E);
@@ -2853,7 +2853,7 @@ void func_8006A3E8(void) {
             }
         }
     } else if (D_801778E8 != 0) {
-        for (i = 0, var_v0 = D_801782A8; i < 200; i++, var_v0++) {
+        for (i = 0, var_v0 = gObjects58; i < 200; i++, var_v0++) {
             if ((var_v0->obj.status != 0) && (var_v0->obj.id == OBJECT_146)) {
                 if (i & 1) {
                     var_v0->obj.rot.y += 0.5f;
