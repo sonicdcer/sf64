@@ -1,7 +1,7 @@
-// fox_enmy1
+// fox_61B30
 Object_Kill = 0x80060FBC;
 
-//fox_display
+//fox_std_lib
 Graphics_ClearPrintBuffer = 0x80099980;
 Graphics_Printf = 0x800999D8;
 Texture_Scroll = 0x80099A2C;
@@ -38,7 +38,7 @@ TextureRect_32bRGBA = 0x8009F2C0;
 Graphics_FillRectangle = 0x8009F574;
 Math_Vec3fFromAngles = 0x8009F6CC;
 Math_RadToDeg = 0x8009F768;
-func_8009F7B4 = 0x8009F7B4;
+Graphics_SetupTextureRender = 0x8009F7B4;
 Graphics_DisplayHUDNumber = 0x8009FC0C;
 Graphics_DisplaySmallNumber = 0x8009FEA0;
 Graphics_DisplayLargeText = 0x800A0094;
@@ -143,7 +143,7 @@ Message_IsPrintingChar = 0x800C2F30;
 gDefaultSave = 0x800D4D10;
 gSaveFile = 0x80178870; //size:0x200
 
-// fox_enmy1
+// fox_61B30
 Object_80_Initialize = 0x80061364;
 Object_4C_Initialize = 0x80061394;
 Object_2F4_Initialize = 0x800613C4;
@@ -353,6 +353,7 @@ D_80178294 = 0x80178294;
 D_80178298 = 0x80178298;
 D_8017829C = 0x8017829C;
 D_801782A4 = 0x801782A4;
+gObjects58 = 0x801782A8;
 D_801782AC = 0x801782AC;
 D_801782B4 = 0x801782B4;
 D_801782B8 = 0x801782B8;

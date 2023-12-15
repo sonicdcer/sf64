@@ -20,6 +20,11 @@ typedef struct {
     /* 0x4 */ s16 z;
 } Vec3s; // size = 0x6;
 
+// typedef struct {
+//     u16 i[4][4];
+//     u16 f[4][4];
+// } Mtx_u;
+
 typedef union {
     float m[4][4];
     struct {
@@ -59,7 +64,7 @@ void Matrix_RotateX(Matrix*, f32, u8);
 void Matrix_RotateY(Matrix*, f32, u8);
 void Matrix_RotateZ(Matrix*, f32, u8);
 void Matrix_RotateAxis(Matrix*, f32, f32, f32, f32, u8);
-void Matrix_ToMtx(Mtx *dest);
+// void Matrix_ToMtx(Mtx *dest);
 void Matrix_FromMtx(Mtx *src, Matrix *dest);
 void Matrix_MultVec3f(Matrix*, Vec3f*, Vec3f*);
 void Matrix_MultVec3fNoTranslate(Matrix*, Vec3f*, Vec3f*);

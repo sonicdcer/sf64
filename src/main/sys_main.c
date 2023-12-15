@@ -51,7 +51,7 @@ Gfx* gMasterDisp;
 Gfx* gUnkDisp2;
 Lightsn* gLight;
 FrameBuffer* gFrameBuffer;
-u16* D_80137E74;
+u16* gTextureRender;
 
 u8 D_80137E78;
 u32 gFrameCounter;
@@ -132,7 +132,7 @@ extern Gfx* gMasterDisp;
 extern Gfx* gUnkDisp2;
 extern Lightsn* gLight;
 extern FrameBuffer* gFrameBuffer;
-extern u16* D_80137E74;
+extern u16* gTextureRender;
 
 extern u8 D_80137E78;
 extern u32 gFrameCounter;
@@ -213,13 +213,13 @@ void Graphics_SetTask(void) {
     gGfxTask->task.t.ucode_size = SP_UCODE_SIZE;
     gGfxTask->task.t.ucode_data = (u64*) &gF3dexData;
     gGfxTask->task.t.ucode_data_size = SP_UCODE_DATA_SIZE;
-    gGfxTask->task.t.dram_stack = D_80281000;
+    gGfxTask->task.t.dram_stack = gDramStack;
     gGfxTask->task.t.dram_stack_size = SP_DRAM_STACK_SIZE8;
-    gGfxTask->task.t.output_buff = (u64*) &D_802A7800;
-    gGfxTask->task.t.output_buff_size = (u64*) &D_802D7800;
+    gGfxTask->task.t.output_buff = (u64*) gTaskOutputBuffer;
+    gGfxTask->task.t.output_buff_size = (u64*) &gTaskOutputBufferEnd;
     gGfxTask->task.t.data_ptr = (u64*) gGfxPool->masterDL;
     gGfxTask->task.t.data_size = (gMasterDisp - gGfxPool->masterDL) * sizeof(Gfx);
-    gGfxTask->task.t.yield_data_ptr = (u64*) &D_80281400;
+    gGfxTask->task.t.yield_data_ptr = (u64*) &gOSYieldData;
     gGfxTask->task.t.yield_data_size = OS_YIELD_DATA_SIZE;
     osWritebackDCacheAll();
     osSendMesg(&gTaskMsgQueue, gGfxTask, OS_MESG_PRI_NORMAL);
@@ -237,7 +237,7 @@ void Graphics_InitializeTask(u32 frameCount) {
     gLight = gGfxPool->lights;
 
     gFrameBuffer = &gFrameBuffers[frameCount % 3];
-    D_80137E74 = &D_80387800;
+    gTextureRender = &gTextureRenderBuffer[0];
 
     gGfxMatrix = &sGfxMatrixStack[0];
     gCalcMatrix = &sCalcMatrixStack[0];

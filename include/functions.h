@@ -186,7 +186,7 @@ void func_8005F290(Vec3f*, Vec3f*);
 void func_8005F670(Vec3f*);
 s32 func_8005F9DC(Vec3f*);
 
-// fox_enmy1
+// fox_61B30
 void func_80060714(s32 arg0);
 void func_8006089C(u8 arg0);
 void func_80060968(void);

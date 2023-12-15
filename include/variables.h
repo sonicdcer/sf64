@@ -95,7 +95,7 @@ extern Gfx* gMasterDisp;
 extern Gfx* gUnkDisp2;
 extern Lightsn* gLight;
 extern FrameBuffer *gFrameBuffer;
-extern u16* D_80137E74;
+extern u16* gTextureRender;
 
 // some sort of struct?
 extern u8 D_80137E78;
@@ -281,7 +281,7 @@ extern f32 D_801615B8[4];
 // fox_edisplay
 extern Vec3f D_801615D0;
 
-// fox_enmy1
+// fox_61B30
 extern s32 D_80161670[4];
 extern s32 D_80161680;
 extern u8 D_80161684;
@@ -814,14 +814,14 @@ extern s32 D_EBFBE0_801B827C;
 extern s32 D_EBFBE0_801B8288;
 
 // buffers
-extern u64 D_80281000[SP_DRAM_STACK_SIZE64];
-extern u8 D_80281400[0xC00];
+extern u64 gDramStack[SP_DRAM_STACK_SIZE64];
+extern u8 gOSYieldData[OS_YIELD_DATA_SIZE];
 extern FrameBuffer gZBuffer; // z buffer
-extern u8 D_802A7800;
-extern u8 D_802D7800;
-extern u16 D_80387800;
-extern u16 D_8038F080[];
-extern u16 D_8038F300[];
+extern u8 gTaskOutputBuffer[0x30000];
+extern u8 gTaskOutputBufferEnd;
+extern u8 gAudioDataBuffer[0xB0000];
+extern u16 gTextureRenderBuffer[0x3C40];
+extern u16 gFillBuffer[3 * SCREEN_WIDTH];
 extern FrameBuffer gFrameBuffers[3]; // 8038F800
 
 // ast_873CB0

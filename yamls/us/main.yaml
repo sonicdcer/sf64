@@ -19,31 +19,31 @@
       - [0x02010, textbin, f3dex]
 
     # Nintendo libraries
-      - [0x03440, c, joybus]
-      - [0x03A80, c, lib]
-      - [0x041D0, c, lights]
-      - [0x04650, c, main]
-      - [0x05A20, c, math]
-      - [0x06280, c, matrix]
-      - [0x07B20, c, memory]
-      - [0x07B60, c, timer]
-      - [0x07D30, c, save]
-      - [0x07FC0, c, fault]
+      - [0x03440, c, sys_joybus]
+      - [0x03A80, c, sys_lib]
+      - [0x041D0, c, sys_lights]
+      - [0x04650, c, sys_main]
+      - [0x05A20, c, sys_math]
+      - [0x06280, c, sys_matrix]
+      - [0x07B20, c, sys_memory]
+      - [0x07B60, c, sys_timer]
+      - [0x07D30, c, sys_save]
+      - [0x07FC0, c, sys_fault]
           # Audio block
-      - [0x08CC0, c, 8CC0]
-      - [0x0C870, c, C870]
-      - [0x0F0A0, c, F0A0] # audio_load
-      - [0x12490, c, 12490]
-      - [0x14AA0, c, 14AA0]
-      - [0x17650, c, 17650] # Sound related
-      - [0x1EB50, c, 1EB50] # Audio Thread
+      - [0x08CC0, c, sys_audio_8CC0]
+      - [0x0C870, c, sys_audio_C870]
+      - [0x0F0A0, c, sys_audio_F0A0] # audio_load
+      - [0x12490, c, sys_audio_12490]
+      - [0x14AA0, c, sys_audio_14AA0]
+      - [0x17650, c, sys_audio_17650] # Sound related
+      - [0x1EB50, c, sys_audio_1EB50] # Audio Thread
 
-      - [0x1FA60, c, 1FA60] # May be blanked out osDriveRomInit
-      - [0x1FA70, hasm, mio0]
-      - [0x1FB10, hasm, rdramcheck]
-      - [0x205E0, c, sprintf]
-      - [0x206B0, c, math64]
-      - [0x20A60, hasm, fp.text]
+      - [0x1FA60, c, sys_1FA60] # May be blanked out osDriveRomInit
+      - [0x1FA70, hasm, sys_mio0]
+      - [0x1FB10, hasm, sys_rdramcheck]
+      - [0x205E0, c, sys_sprintf]
+      - [0x206B0, c, sys_math64]
+      - [0x20A60, hasm, sys_fp_text]
 
     # Libultra
       - [0x20BC0, c, ../libultra/io/controller]
@@ -179,13 +179,13 @@
       - [0x59780, c, fox_load]
       - [0x5A0F0, c, fox_edata]
       - [0x5A2C0, c, fox_edisplay]
-      - [0x61B30, c, fox_enmy1]
+      - [0x61B30, c, fox_61B30]
       - [0x6B3B0, c, fox_6B3B0]
       - [0x77E40, c, sf_77E40]
       - [0x84F70, c, fox_84F70]
       - [0x85530, c, sf_hud]
       - [0x97F80, c, fox_97F80]
-      - [0x9A580, c, fox_display]
+      - [0x9A580, c, fox_std_lib]
       - [0xA24B0, c, fox_A24B0]
       - [0xA4290, c, fox_A4290]
       - [0xA48A0, c, fox_A48A0]
@@ -203,12 +203,12 @@
       - [0xC49D0, data, f3dex]
 
       # DATA - Nintendo Libraries
-      - [0xC51D0, .data, main]
-      - [0xC51E0, .data, math]
-      - [0xC5220, .data, matrix]
-      - [0xC52F0, .data, fault]
-      - [0xC54D0, data, audio]
-      - [0xC8880, .data, sprintf]
+      - [0xC51D0, .data, sys_main]
+      - [0xC51E0, .data, sys_math]
+      - [0xC5220, .data, sys_matrix]
+      - [0xC52F0, .data, sys_fault]
+      - [0xC54D0, data, sys_audio]
+      - [0xC8880, .data, sys_sprintf]
 
       # DATA - Libultra
       - [0xC88C0, data, ../libultra/io/controller]
@@ -231,18 +231,18 @@
       - [0xC8CB0, data, ../libultra/rmon/rmonmain]
 
       # RODATA - Nintendo Libraries
-      - [0xC8CC0, .rodata, math]
-      - [0xC8D10, .rodata, matrix]
-      - [0xC8D20, .rodata, save]
-      - [0xC8E40, .rodata, fault]
-      - [0xC9220, .rodata, 8CC0]
-      - [0xC9260, .rodata, C870]
-      - [0xC9280, .rodata, F0A0]
-      - [0xC92C0, .rodata, 12490]
-      - [0xC9320, .rodata, 14AA0]
-      - [0xC99D0, .rodata, 17650]
-      - [0xC9CF0, .rodata, 1EB50]
-      - [0xC9F10, .rodata, math64]
+      - [0xC8CC0, .rodata, sys_math]
+      - [0xC8D10, .rodata, sys_matrix]
+      - [0xC8D20, .rodata, sys_save]
+      - [0xC8E40, .rodata, sys_fault]
+      - [0xC9220, .rodata, sys_audio_8CC0]
+      - [0xC9260, .rodata, sys_audio_C870]
+      - [0xC9280, .rodata, sys_audio_F0A0]
+      - [0xC92C0, .rodata, sys_audio_12490]
+      - [0xC9320, .rodata, sys_audio_14AA0]
+      - [0xC99D0, .rodata, sys_audio_17650]
+      - [0xC9CF0, .rodata, sys_audio_1EB50]
+      - [0xC9F10, .rodata, sys_math64]
 
       # RODATA - Libultra
       - [0xC9F30, .rodata, ../libultra/gu/perspective]
@@ -271,11 +271,11 @@
       - [0xCAFB0, .data, fox_load]
       - [0xCCA70, .data, fox_edata]
       - [0xD0570, .data, fox_edisplay]
-      - [0xD09A0, .data, fox_enmy1]
+      - [0xD09A0, .data, fox_61B30]
       - [0xD0B80, .data, fox_6B3B0]
       - [0xD20E0, data, sf_77E40]
       - [0xD2570, data, sf_hud]
-      - [0xD31D0, .data, fox_display]
+      - [0xD31D0, .data, fox_std_lib]
       - [0xD3460, .data, fox_A24B0]
       - [0xD3520, .data, fox_A4290]
       - [0xD3B50, data, sf_A4B50]
@@ -294,13 +294,13 @@
       - [0xD69A0, .rodata, fox_52730]
       - [0xD6BA0, .rodata, fox_load]
       - [0xD6C20, .rodata, fox_edisplay]
-      - [0xD6FD0, .rodata, fox_enmy1]
+      - [0xD6FD0, .rodata, fox_61B30]
       - [0xD7650, .rodata, fox_6B3B0]
       - [0xD7E30, .rodata, sf_77E40]
       - [0xD82F0, .rodata, fox_84F70]
       - [0xD8320, .rodata, sf_hud]
       - [0xD8DE0, .rodata, fox_97F80]
-      - [0xD8DF0, .rodata, fox_display]
+      - [0xD8DF0, .rodata, fox_std_lib]
       - [0xD8E50, .rodata, fox_A24B0]
       - [0xD8ED0, .rodata, fox_A4290]
       - [0xD8EE0, .rodata, fox_A48A0]
@@ -316,15 +316,15 @@
       - [0xDD330, .data, note_data]
 
       # Nintendo Library bss
-      - { start: 0xDE480, type: .bss, vram: 0x800DD880, name: joybus }
-      - { start: 0xDE480, type: bss, vram: 0x800DDAA0, name: main }
-      - { start: 0xDE480, type: .bss, vram: 0x8013B3A0, name: math }
-      - { start: 0xDE480, type: .bss, vram: 0x8013B3C0, name: matrix }
-      - { start: 0xDE480, type: .bss, vram: 0x8013C3D0, name: memory }
-      - { start: 0xDE480, type: .bss, vram: 0x80144BE0, name: timer }
-      - { start: 0xDE480, type: .bss, vram: 0x80144F60, name: save }
-      - { start: 0xDE480, type: .bss, vram: 0x80145360, name: fault }
-      - { start: 0xDE480, type: bss, vram: 0x80145D40, name: audio }
+      - { start: 0xDE480, type: .bss, vram: 0x800DD880, name: sys_joybus }
+      - { start: 0xDE480, type: bss, vram: 0x800DDAA0, name:  sys_main }
+      - { start: 0xDE480, type: .bss, vram: 0x8013B3A0, name: sys_math }
+      - { start: 0xDE480, type: .bss, vram: 0x8013B3C0, name: sys_matrix }
+      - { start: 0xDE480, type: .bss, vram: 0x8013C3D0, name: sys_memory }
+      - { start: 0xDE480, type: .bss, vram: 0x80144BE0, name: sys_timer }
+      - { start: 0xDE480, type: .bss, vram: 0x80144F60, name: sys_save }
+      - { start: 0xDE480, type: .bss, vram: 0x80145360, name: sys_fault }
+      - { start: 0xDE480, type: bss, vram: 0x80145D40, name: sys_audio }
 
 
       # Libultra bss
@@ -359,11 +359,11 @@
       - { start: 0xDE480, type: .bss, vram: 0x801613A0, name: fox_43AC0 }
       - { start: 0xDE480, type: .bss, vram: 0x801613B0, name: fox_52730 }
       - { start: 0xDE480, type: .bss, vram: 0x801615D0, name: fox_edisplay }
-      - { start: 0xDE480, type: .bss, vram: 0x80161670, name: fox_enmy1 }
+      - { start: 0xDE480, type: .bss, vram: 0x80161670, name: fox_61B30 }
       - { start: 0xDE480, type: .bss, vram: 0x80161690, name: fox_6B3B0 }
       - { start: 0xDE480, type: bss, vram: 0x801616A0, name: sf_hud }
       - { start: 0xDE480, type: .bss, vram: 0x80161950, name: fox_97F80 }
-      - { start: 0xDE480, type: .bss, vram: 0x801619A0, name: fox_display }
+      - { start: 0xDE480, type: .bss, vram: 0x801619A0, name: fox_std_lib }
       - { start: 0xDE480, type: .bss, vram: 0x80161A10, name: fox_A24B0 }
       - { start: 0xDE480, type: bss, vram: 0x80161A50, name: sf_A4B50 }
       - { start: 0xDE480, type: .bss, vram: 0x80178580, name: fox_rcp }

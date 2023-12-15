@@ -721,14 +721,14 @@ f32 Math_RadToDeg(f32 rAngle) {
     return rAngle;
 }
 
-u16* func_8009F7B4(Gfx** gfxPtr, u8 width, u8 height) {
-    u16* spB4;
+u16* Graphics_SetupTextureRender(Gfx** gfxPtr, u8 width, u8 height) {
+    u16* texture;
     u16 norm;
 
     width += 0xF;
     width &= 0x70;
-    spB4 = D_80137E74;
-    D_80137E74 = D_80137E74 + width * height;
+    texture = gTextureRender;
+    gTextureRender = gTextureRender + width * height;
     gDPPipeSync((*gfxPtr)++);
     gDPSetCycleType((*gfxPtr)++, G_CYC_FILL);
     gDPSetRenderMode((*gfxPtr)++, G_RM_NOOP, G_RM_NOOP2);
@@ -748,7 +748,7 @@ u16* func_8009F7B4(Gfx** gfxPtr, u8 width, u8 height) {
     gDPFillRectangle((*gfxPtr)++, 0, 0, width - 1, height - 1);
     gDPPipeSync((*gfxPtr)++);
     gDPSetDepthSource((*gfxPtr)++, G_ZS_PIXEL);
-    gDPSetColorImage((*gfxPtr)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, width, spB4);
+    gDPSetColorImage((*gfxPtr)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, width, texture);
     gDPSetColorDither((*gfxPtr)++, G_CD_DISABLE);
     gDPSetFillColor((*gfxPtr)++, 0);
     gDPSetFillColor((*gfxPtr)++, FILL_COLOR(gBgColor | 1));
@@ -761,7 +761,7 @@ u16* func_8009F7B4(Gfx** gfxPtr, u8 width, u8 height) {
     gSPMatrix((*gfxPtr)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
     Matrix_Copy(gGfxMatrix, &gIdentityMatrix);
 
-    return spB4;
+    return texture;
 }
 
 void Graphics_DisplayHUDNumber(s32 xPos, s32 yPos, s32 number) {
@@ -1214,5 +1214,5 @@ void func_800A1540(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 // }
 #else
 void func_800A1558(f32 weight, u16 size, void* src1, void* src2, void* dst);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_display/func_800A1558.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_std_lib/func_800A1558.s")
 #endif

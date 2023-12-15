@@ -1,7 +1,7 @@
 #include "global.h"
 
 extern UNK_TYPE D_800D2F50; // type unclear. unused?
-extern s32 D_800D2F54; // only gets set to 0. unused?
+extern s32 D_800D2F54;      // only gets set to 0. unused?
 extern f32 D_800D2F58;
 extern f32 D_800D2F5C[3]; // holds float versions of gVolumeSettings. Unused?
 extern u8 D_800D2F68;
