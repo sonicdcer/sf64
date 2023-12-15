@@ -1,4 +1,5 @@
 #include "global.h"
+#include "hud.h"
 
 void func_80077240(f32 posX, f32 posY, f32 posZ, s32 arg3) {
     s32 i;
@@ -1253,9 +1254,51 @@ void func_8007B960(Object_8C* arg0) {
     arg0->unk_54.y += 0.2f;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B9DC.s")
+void func_8007B9DC(Object_8C* arg0) {
+    if (gCurrentInput[CONTROLLER(4)].button & Z_TRIG) {
+        RCP_SetupDL(&gMasterDisp, 4);
+    }
+    func_8005980C(arg0->unk_70);
+    if (gCurrentLevel != LEVEL_MACBETH) {
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 140, 99, 58, arg0->unk_4A);
+    } else {
+        gDPSetPrimColor(gMasterDisp++, 0, 0, (gFrameCount & 3) + 5, (gFrameCount & 3) + 3, (gFrameCount & 3) + 3, 220);
+    }
+    if (!(gCurrentInput[CONTROLLER(4)].button & A_BUTTON)) {
+        gSPDisplayList(gMasterDisp++, D_2010A30);
+    }
+    if (gCurrentInput[CONTROLLER(4)].button & Z_TRIG) {
+        RCP_SetupDL(&gMasterDisp, 0x40);
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007BB14.s")
+void func_8007BB14(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4) {
+    Object_8C_Initialize(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = OBJECT_362;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = posY;
+    arg0->obj.pos.z = posZ;
+    arg0->unk_54.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
+    arg0->unk_54.y = (Rand_ZeroOne() - 0.5f) * 3.0f;
+    arg0->unk_48 = 3;
+    if (Rand_ZeroOne() < 0.5f) {
+        arg0->unk_48 = -arg0->unk_48;
+    }
+    arg0->unk_4A = 0xB4;
+    arg0->unk_46 = 8;
+    if (arg4 > 15.0f) {
+        arg0->unk_46 = 5;
+        arg0->unk_4A = 0x50;
+    }
+    arg0->unk_70 = arg4 * 0.25f;
+    arg0->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    if (arg4 == 6.0f) {
+        arg0->unk_54.z = gPlayer->unk_0C0.z * 0.6f;
+    }
+    func_800612B8(&arg0->unk_1C, arg0->obj.id);
+}
+
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007BC7C.s")
 
