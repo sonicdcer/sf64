@@ -781,7 +781,7 @@ s32 func_8006326C(Vec3f* arg0, Vec3f* arg1, s32 arg2, Object* arg3) {
             } else if ((arg2 == 4) || (arg2 == 5)) {
                 var_s1 = 1;
             }
-            if (func_800A3690(&sp5C, &sp50, var_s1, &sp44) != 0) {
+            if (func_800A3690(&sp5C, &sp50, var_s1, &sp44)) {
                 return true;
             }
         }

@@ -7,6 +7,17 @@
 #define UNK_TYPE s32
 
 typedef struct {
+    f32 offset;
+    f32 size;
+} HitboxDim;
+
+typedef struct {
+    HitboxDim x;
+    HitboxDim y;
+    HitboxDim z;
+} Hitbox;
+
+typedef struct {
     s16 vtx[3];
     s16 unk_06;
     Vec3s normal;

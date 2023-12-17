@@ -483,8 +483,10 @@ void func_800A5FA0(Vec3f* arg0, u32 arg1, s32 arg2);
 void func_800A6148(void);
 void func_800A69F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3);
 void func_800A6CD0(Player *, s32, s32);
-s32 func_800A73E4(f32* arg0, s32* arg1, f32 posX, f32 posY, f32 posZ);
-s32 func_800A78C4(f32* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6);
+bool func_800A73E4(f32* arg0, s32* arg1, f32 posX, f32 posY, f32 posZ);
+s32 func_800A78C4(f32* hitbox, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6);
+void func_800A8BA4(Player* player);
+void func_800AA800(Player *player);
 void func_800ACDC0(Player *arg0, Object_70 *arg1, s32 arg2);
 void func_800B0F50(Player *arg0); 
 void func_800B44C4(Player *arg0);
@@ -495,7 +497,6 @@ void func_800B6BFC(Player *arg0, s32 arg1);
 void func_800B6F50(f32, f32, f32, f32, f32, f32);
 void func_800B7184(Player *arg0, s32);
 void func_800B73E0(Player *);
-s32 func_800A73E4(f32* arg0, s32* arg1, f32 posX, f32 posY, f32 posZ);
 void func_800B852C(s32 arg0, Object_6C *arg1);
 void func_800B86CC(void);
 
@@ -518,6 +519,9 @@ void func_800C26C8(void);
 s32 Save_Write(void);
 s32 Save_Read(void); 
 
+
+
+
 void func_EFFA40_80187520(s32, void*);
 
 void func_DF4260_80187530(Object_80*);
@@ -537,6 +541,7 @@ void func_E08400_80187B08(Object_2F4 *);
 void func_E08400_80188A40(Object_408 *);
 void func_E08400_8018CCF8(Object_2F4 *);
 
+void func_E16C50_801A9824(void);
 void func_E16C50_801AC8A8(f32, f32, f32, f32, s32);
 void func_E16C50_8019E9F4(f32, f32, f32, f32, f32, f32, f32, s32);
 void func_E16C50_80187754(Object_408 *);
@@ -565,6 +570,8 @@ void func_E16C50_80190430(Object_2F4 *);
 void func_E51970_80193CA4(Object_408 *);
 void func_E51970_80198594(Object_408 *);
 
+void func_E6A810_80188F30(void);
+void func_E6A810_80199920(void);
 void func_E6A810_8018769C(Object_2F4 *);
 void func_E6A810_80189B80(Object_2F4 *);
 void func_E6A810_8018ADC4(Object_2F4 *);

@@ -137,4 +137,3 @@ gAudioDataBuffer = 0x802D7800; //size:0xB0000
 gTextureRenderBuffer = 0x80387800; //size:0x7880
 gFillBuffer = 0x8038F080; //size:0x780
 gFrameBuffers = 0x8038F800; //size:0x70800
-
