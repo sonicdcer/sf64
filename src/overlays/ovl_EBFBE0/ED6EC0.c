@@ -1,8 +1,33 @@
-#include "common.h"
+#include "global.h"
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_8019E800.s")
+void func_EBFBE0_8019E800(void);
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_8019E85C.s")
+void func_EBFBE0_8019E800(void) {
+    Memory_FreeAll();
+    func_800A5D6C();
+    D_80178410 = 0;
+    gNextGameState = 4;
+    D_80161A34 = 5;
+    D_80177868 = 2;
+    D_80177898 = 0;
+}
+
+void func_EBFBE0_8019E85C(void) {
+    switch (D_80177868) {
+        case 0:
+            if (D_8017783C == 0) {
+                D_80177868 = 1;
+            }
+            break;
+
+        case 2:
+            break;
+
+        case 1:
+            func_EBFBE0_8019E800();
+            break;
+    }
+}
 
 void func_EBFBE0_8019E8C8(void) {
 }
