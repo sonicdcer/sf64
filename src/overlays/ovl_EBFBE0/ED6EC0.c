@@ -1,6 +1,12 @@
 #include "global.h"
 
+extern s32 D_EBFBE0_801CD9B8;
+extern s32 D_EBFBE0_801CD9BC;
+extern s32 D_EBFBE0_801CD9C0;
+
 void func_EBFBE0_8019E800(void);
+void func_EBFBE0_8019E99C(void);
+void func_EBFBE0_8019FF48(void);
 
 void func_EBFBE0_8019E800(void) {
     Memory_FreeAll();
@@ -32,7 +38,35 @@ void func_EBFBE0_8019E85C(void) {
 void func_EBFBE0_8019E8C8(void) {
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_8019E8D0.s")
+void func_EBFBE0_8019E8D0(void) {
+    if (D_EBFBE0_801CD9B8 > 0) {
+        D_EBFBE0_801CD9B8--;
+    }
+    if (D_EBFBE0_801CD9BC > 0) {
+        D_EBFBE0_801CD9BC--;
+    }
+    if (D_EBFBE0_801CD9C0 > 0) {
+        D_EBFBE0_801CD9C0--;
+    }
+
+    switch (D_80177B40) {
+        case 0:
+            if (D_8017783C == 0) {
+                D_80177B40 = 1;
+            }
+            break;
+
+        case 1:
+            D_80177898 = 0;
+            func_EBFBE0_8019E99C();
+            break;
+
+        case 2:
+            D_80177898 = 3;
+            func_EBFBE0_8019FF48();
+            break;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_8019E99C.s")
 
