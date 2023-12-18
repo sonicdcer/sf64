@@ -550,7 +550,7 @@ Object_2F4* func_800A3608(s32 arg0) {
             Object_2F4_Initialize(var_a2);
             var_a2->obj.status = 1;
             var_a2->obj.id = arg0;
-            func_800612B8(&var_a2->unk_01C, var_a2->obj.id);
+            Object_Set1C(&var_a2->unk_01C, var_a2->obj.id);
             break;
         }
     }

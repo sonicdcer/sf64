@@ -45,24 +45,24 @@ typedef struct {
     };
     /* 0x00 */ u8 drawType;
     /* 0x08 */ ObjectFunc action; // argument must have object type.
-    /* 0x0C */ f32* unk_0C; // some sort of script? hitboxes?
+    /* 0x0C */ f32* hitbox; // some sort of script? hitboxes?
     /* 0x10 */ f32 unk_10; // z coordinate of something
     /* 0x14 */ s16 unk_14; // can be -1, 0, 1
     /* 0x16 */ s16 unk_16; // can be 0, 1, 2
-    /* 0x18 */ u8 unk_18; // damage?
+    /* 0x18 */ u8 damage; // damage?
     /* 0x19 */ u8 unk_19; // can be 0, 1, 2
     /* 0x1C */ f32 unk_1C; // y offset of something
-    /* 0x20 */ u8 unk_20; // increment for something
+    /* 0x20 */ u8 bonus; // increment for something
 } ObjectStruct_1C; // size = 0x24
 
 typedef struct {
     /* 0x00 */ Object obj;
-    /* 0x1C */ s32 unk_1C;
+    /* 0x1C */ s32 index;
     /* 0x20 */ Vec3f unk_20;
     /* 0x2C */ f32 unk_2C;
     /* 0x30 */ f32 unk_30;
     /* 0x34 */ f32 unk_34; 
-    /* 0x38 */ Vec3f unk_38;
+    /* 0x38 */ Vec3f sfxPos;
     /* 0x44 */ f32 unk_44;
     /* 0x44 */ f32 unk_48;
     /* 0x44 */ f32 unk_4C;
@@ -80,14 +80,14 @@ typedef struct {
     /* 0x00 */ Object obj;
     /* 0x1C */ ObjectStruct_1C unk_1C;
     /* 0x40 */ char unk40[0x8];
-    /* 0x48 */ Vec3f unk_48;
+    /* 0x48 */ Vec3f sfxPos;
     /* 0x54 */ f32 unk_54;
 } Object_58; // size = 0x58
 
 typedef struct {
     /* 0x00 */ Object obj;
     /* 0x1C */ ObjectStruct_1C unk_1C;
-    /* 0x40 */ s32 unk_40;
+    /* 0x40 */ s32 index;
     /* 0x44 */ s32 unk_44;
     /* 0x48 */ s32 unk_48;
     /* 0x4C */ s32 unk_4C;
@@ -97,14 +97,14 @@ typedef struct {
     /* 0x58 */ char pad58[8];
     /* 0x60 */ f32 unk_60;
     /* 0x64 */ Vec3f unk_64;
-    /* 0x70 */ Vec3f unk_70;
+    /* 0x70 */ Vec3f sfxPos;
     /* 0x7C */ char pad7C[4];
 } Object_80; // size = 0x80
 
 typedef struct {
     /* 0x00 */ Object obj;
     /* 0x1C */ ObjectStruct_1C unk_1C;
-    /* 0x40 */ s32 unk_40;
+    /* 0x40 */ s32 index;
     /* 0x44 */ char pad44[1];
     /* 0x45 */ u8 unk_45; // could be short loaded as u8
     /* 0x46 */ s8 unk_46;
@@ -114,7 +114,7 @@ typedef struct {
 typedef struct {
     /* 0x00 */ Object obj;
     /* 0x1C */ ObjectStruct_1C unk_1C;
-    /* 0x40 */ s32 unk_40;
+    /* 0x40 */ s32 index;
     /* 0x44 */ s16 unk_44;
     /* 0x46 */ u8 unk_46;
     /* 0x48 */ u16 unk_48;
@@ -124,14 +124,14 @@ typedef struct {
     /* 0x50 */ f32 unk_50;
     /* 0x54 */ f32 unk_54;
     /* 0x58 */ f32 unk_58;
-    /* 0x5C */ Vec3f unk_5C;
+    /* 0x5C */ Vec3f sfxPos;
     /* 0x68 */ f32 unk_68;
 } Object_6C; // size 0x6C
 
 typedef struct {
     /* 0x00 */ Object obj;
     /* 0x1C */ ObjectStruct_1C unk_1C;
-    /* 0x40 */ s32 unk_40;
+    /* 0x40 */ s32 index;
     /* 0x44 */ s16 unk_44;
     /* 0x46 */ s16 unk_46;
     /* 0x48 */ s16 unk_48;
@@ -148,7 +148,7 @@ typedef struct {
     /* 0x78 */ s16 unk_78;
     /* 0x7A */ s16 unk_7A;
     /* 0x7C */ char pad7C[4];
-    /* 0x80 */ Vec3f unk_80;
+    /* 0x80 */ Vec3f sfxPos;
 } Object_8C; // size 0x8C
 
 typedef struct {
@@ -171,9 +171,7 @@ typedef struct {
     /* 0x064 */ s16 unk_064;
     /* 0x066 */ s16 unk_066;
     /* 0x068 */ f32 unk_068;
-    /* 0x06C */ f32 unk_06C;
-    /* 0x070 */ f32 unk_070;       
-    /* 0x074 */ f32 unk_074;       
+    /* 0x06C */ Vec3f unk_06C;     
     /* 0x078 */ char pad78[0xC]; 
     /* 0x084 */ f32 unk_084;       
     /* 0x088 */ s16 unk_088;
@@ -214,7 +212,7 @@ typedef struct {
     /* 0x308 */ Vec3f unk_308;
     /* 0x314 */ char pad314[0xE4];
     /* 0x3F8 */ f32 unk_3F8;
-    /* 0x3FC */ Vec3f unk_3FC;
+    /* 0x3FC */ Vec3f sfxPos;
 } Object_408; // size = 0x408
 
 typedef struct {
@@ -272,7 +270,7 @@ typedef struct {
     /* 0x0E6 */ s16 unk_0E6;
     /* 0x0E8 */ Vec3f unk_0E8;
     /* 0x0F4 */ Vec3f unk_0F4;
-    /* 0x100 */ Vec3f unk_100;
+    /* 0x100 */ Vec3f sfxPos;
     /* 0x10C */ f32 unk_10C;
     /* 0x110 */ f32 unk_110;
     /* 0x114 */ f32 unk_114;
@@ -633,10 +631,10 @@ typedef enum{
   /* 320 */  OBJECT_320,
   /* 321 */  OBJECT_321,
   /* 322 */  OBJECT_6C_LASERS, // start of 6C
-  /* 323 */  OBJECT_323,
+  /* 323 */  OBJECT_6C_CHECKPOINT,
   /* 324 */  OBJECT_6C_SILVER_RING,
-  /* 325 */  OBJECT_325,
-  /* 326 */  OBJECT_326,
+  /* 325 */  OBJECT_6C_STAR_RING,
+  /* 326 */  OBJECT_6C_METEO_WARP,
   /* 327 */  OBJECT_6C_BOMB,
   /* 328 */  OBJECT_328,
   /* 329 */  OBJECT_329,
@@ -644,11 +642,11 @@ typedef enum{
   /* 331 */  OBJECT_331,
   /* 332 */  OBJECT_332,
   /* 333 */  OBJECT_333,
-  /* 334 */  OBJECT_334,
+  /* 334 */  OBJECT_6C_CORN_ARCH,
   /* 335 */  OBJECT_6C_1UP,
   /* 336 */  OBJECT_6C_GOLD_RING,
   /* 337 */  OBJECT_6C_WING_REPAIR,
-  /* 338 */  OBJECT_338,
+  /* 338 */  OBJECT_6C_TRAINING_RING,
   /* 339 */  OBJECT_339, // start of 8C
   /* 340 */  OBJECT_340,
   /* 341 */  OBJECT_341,

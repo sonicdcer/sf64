@@ -12,9 +12,9 @@ typedef struct {
 } HitboxDim;
 
 typedef struct {
-    HitboxDim x;
-    HitboxDim y;
     HitboxDim z;
+    HitboxDim y;
+    HitboxDim x;
 } Hitbox;
 
 typedef struct {
@@ -306,9 +306,9 @@ typedef struct Player {
     /* 0x484 */ s8 unk_484;
     /* 0x485 */ s8 unk_485;
     /* 0x488 */ f32 unk_488;
-    /* 0x48C */ s8 unk_48C;
+    /* 0x48C */ u8 unk_48C;
     /* 0x490 */ f32 unk_490;
-    /* 0x494 */ s32 unk_494;
+    /* 0x494 */ u8 unk_494;
     /* 0x498 */ s32 unk_498;
     /* 0x49C */ WingInfo wings;
     /* 0x4D8 */ f32 unk_4D8;
@@ -316,11 +316,11 @@ typedef struct Player {
 } Player; // size = 0x4E0 Might be Player
 
 typedef struct {
-    /* 0x00 */ u8 unk_00;
+    /* 0x00 */ u8 hits;
     /* 0x04 */ Vec3f pos;
     /* 0x10 */ f32 unk_10;
     /* 0x14 */ char pad14[0x4];
-    /* 0x18 */ u16 unk_18;
+    /* 0x18 */ u16 timer;
 } UnkEntity1C; // size = 0x1C
 
 #endif

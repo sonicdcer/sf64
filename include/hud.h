@@ -17,7 +17,7 @@ void func_80085944(void);
 void func_80086CC8(void);
 void func_80086DCC(void);
 void func_80087B5C(void);
-void func_80089994(s32 arg0);
+void func_80089994(s32);
 void func_8008A4DC(void);
 void func_8008B044(void);
 void func_8008B1B0(void);
@@ -33,8 +33,8 @@ void func_8008D7F4(void);
 void func_8008D984(void);
 void func_8008DC34(void);
 void func_8008E5E8(void);
-s32 func_80090E8C(Object_2F4* arg0);
-s32 func_800910C0(Object_2F4* arg0);
+s32 func_80090E8C(Object_2F4*);
+s32 func_800910C0(Object_2F4*);
 
 // Weird addresses, assets maybe?
 extern u16 D_1000E80[];
@@ -68,7 +68,7 @@ extern s32 gHitCount;
 extern s32 D_80177838;
 extern s32 D_80177854;
 extern s32 D_80177880;
-extern s32 D_801778B0[];
+extern s32 gTeamHealth[];
 extern s32 D_801778BC;
 extern s32 D_801778E8;
 extern s32 D_80177B48;
