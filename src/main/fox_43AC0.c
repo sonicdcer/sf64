@@ -9,7 +9,7 @@ s32 D_800C9E90[28] = {
 
 const f32 D_800D55D0[] = { 6000.0f, 18000.0f, -6000.0f, -18000.0f };
 
-void func_80042EC0(Object_408* arg0) {
+void func_80042EC0(Object_408* obj408) {
     s32 var_a3;
     f32 var_fv0;
 
@@ -26,56 +26,56 @@ void func_80042EC0(Object_408* arg0) {
     }
     if (var_a3 != 0) {
         var_fv0 = 0.0f;
-        if (arg0->obj.id == OBJECT_292) {
+        if (obj408->obj.id == OBJECT_292) {
             var_fv0 = 300.0f;
-        } else if (arg0->obj.id == OBJECT_306) {
+        } else if (obj408->obj.id == OBJECT_306) {
             var_fv0 = 200.0f;
         }
-        func_80077240(arg0->obj.pos.x, arg0->obj.pos.y + var_fv0, arg0->obj.pos.z, var_a3);
+        func_80077240(obj408->obj.pos.x, obj408->obj.pos.y + var_fv0, obj408->obj.pos.z, var_a3);
     }
     gHitCount += var_a3 + 1;
     D_80177850 = 0xF;
 }
 
-void func_80042FAC(Object_408* arg0) {
+void func_80042FAC(Object_408* obj408) {
 }
 
-void func_80042FB8(Object_408* arg0) {
+void func_80042FB8(Object_408* obj408) {
 }
 
-void func_80042FC4(Object_408* arg0) {
+void func_80042FC4(Object_408* obj408) {
 }
 
-void func_80042FD0(Object_408* arg0) {
+void func_80042FD0(Object_408* obj408) {
 }
 
-void func_80042FDC(Object_408* arg0) {
+void func_80042FDC(Object_408* obj408) {
 }
 
-void func_80042FE8(Object_408* arg0) {
+void func_80042FE8(Object_408* obj408) {
 }
 
-void func_80042FF4(Object_2F4* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,
+void func_80042FF4(Object_2F4* obj2F4, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,
                    f32 arg9, f32 argA, s32 argB, s32 argC) {
-    Object_2F4_Initialize(arg0);
-    arg0->obj.status = 1;
-    arg0->obj.id = OBJECT_189;
-    arg0->unk_0B8 = argB;
-    arg0->obj.pos.x = arg1;
-    arg0->obj.pos.y = arg2;
-    arg0->obj.pos.z = arg3;
-    arg0->obj.rot.x = arg4;
-    arg0->obj.rot.y = arg5;
-    arg0->obj.rot.z = arg6;
-    arg0->unk_0E8.x = arg7;
-    arg0->unk_0E8.y = arg8;
-    arg0->unk_0E8.z = arg9;
-    arg0->unk_110 = argA;
-    arg0->unk_0BC = argC;
-    arg0->unk_0BE = 20;
-    func_800612B8(&arg0->unk_01C, arg0->obj.id);
+    Object_2F4_Initialize(obj2F4);
+    obj2F4->obj.status = 1;
+    obj2F4->obj.id = OBJECT_189;
+    obj2F4->unk_0B8 = argB;
+    obj2F4->obj.pos.x = arg1;
+    obj2F4->obj.pos.y = arg2;
+    obj2F4->obj.pos.z = arg3;
+    obj2F4->obj.rot.x = arg4;
+    obj2F4->obj.rot.y = arg5;
+    obj2F4->obj.rot.z = arg6;
+    obj2F4->unk_0E8.x = arg7;
+    obj2F4->unk_0E8.y = arg8;
+    obj2F4->unk_0E8.z = arg9;
+    obj2F4->unk_110 = argA;
+    obj2F4->unk_0BC = argC;
+    obj2F4->unk_0BE = 20;
+    Object_Set1C(&obj2F4->unk_01C, obj2F4->obj.id);
     if (gLevelType == 0) {
-        arg0->unk_10C = 0.5f;
+        obj2F4->unk_10C = 0.5f;
     }
 }
 
@@ -91,11 +91,11 @@ void func_800430DC(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
     }
 }
 
-void func_80043188(Object_2F4* arg0) {
-    arg0->unk_01C.unk_10 = 30000.0f;
+void func_80043188(Object_2F4* obj2F4) {
+    obj2F4->unk_01C.unk_10 = 30000.0f;
 }
 
-void func_8004319C(Player* arg0, f32 arg1, f32 arg2, f32 arg3) {
+void func_8004319C(Player* player, f32 arg1, f32 arg2, f32 arg3) {
     func_800182F4(0x105000FF);
     func_800182F4(0x115000FF);
 
@@ -104,14 +104,14 @@ void func_8004319C(Player* arg0, f32 arg1, f32 arg2, f32 arg3) {
     D_80178440 = arg1;
     D_80178444 = arg2;
 
-    arg0->unk_1C8 = 7;
-    arg0->unk_1D0 = 10;
-    arg0->unk_1F8 = 50;
-    arg0->unk_1FC = 50;
-    arg0->unk_000 = 0.0f;
-    arg0->unk_004 = 1.0f;
-    if (arg0->unk_074 < arg0->unk_0AC) {
-        arg0->unk_004 = -1.0f;
+    player->unk_1C8 = 7;
+    player->unk_1D0 = 10;
+    player->unk_1F8 = 50;
+    player->unk_1FC = 50;
+    player->unk_000 = 0.0f;
+    player->unk_004 = 1.0f;
+    if (player->unk_074 < player->unk_0AC) {
+        player->unk_004 = -1.0f;
     }
     gPlayer[0].unk_0C0.x = 0.0f;
 }

@@ -328,6 +328,7 @@ s32 func_800985CC(Vec3f* vec, Vtx_tn* tri) {
     return 1;
 }
 
+// Plane from normal and point
 void func_80098860(Plane* plane, Vec3f* point, Vec3f* normal) {
     plane->normal.x = normal->x;
     plane->normal.y = normal->y;
@@ -335,14 +336,17 @@ void func_80098860(Plane* plane, Vec3f* point, Vec3f* normal) {
     plane->dist = -normal->x * point->x - normal->y * point->y - normal->z * point->z;
 }
 
+// y dist to plane
 s32 func_800988B4(Vec3f* vec, Plane* plane) {
     return (-plane->normal.x * vec->x - plane->normal.z * vec->z - plane->dist) / plane->normal.y;
 }
 
+// z dist to plane
 s32 func_800988F8(Vec3f* vec, Plane* plane) {
     return (-plane->normal.x * vec->x - plane->normal.y * vec->y - plane->dist) / plane->normal.z;
 }
 
+// x dist to plane
 s32 func_8009893C(Vec3f* vec, Plane* plane) {
     return (-plane->normal.y * vec->y - plane->normal.z * vec->z - plane->dist) / plane->normal.x;
 }
