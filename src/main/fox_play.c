@@ -311,46 +311,46 @@ void func_800A5330(void) {
 }
 
 void func_800A5338(void) {
-    Object_4C* var_s0_2;
-    Object_58* var_s0;
+    Object_4C* obj4C;
+    Object_58* obj58;
     s32 i;
     s32 j;
 
     D_80178310 = SEGMENTED_TO_VIRTUAL(D_603B074);
 
-    for (j = 0, var_s0 = gObjects58; j < 200; j++) {
+    for (j = 0, obj58 = gObjects58; j < 200; j++) {
         if (D_80178310[j].id <= OBJECT_INVALID) {
             break;
         }
         if (D_80178310[j].id < OBJECT_161) {
-            func_800A4F4C(var_s0);
-            var_s0->obj.status = 2;
-            var_s0->obj.id = D_80178310[j].id;
-            var_s0->obj.pos.x = D_80178310[j].xPos;
-            var_s0->obj.pos.z = D_80178310[j].zPos1;
-            var_s0->obj.pos.y = D_80178310[j].yPos;
-            var_s0->obj.rot.y = D_80178310[j].unk_C;
-            Object_Set1C(&var_s0->unk_1C, var_s0->obj.id);
-            if (var_s0->obj.id == OBJECT_1) {
-                var_s0->unk_1C.dList = D_6020760;
+            func_800A4F4C(obj58);
+            obj58->obj.status = 2;
+            obj58->obj.id = D_80178310[j].id;
+            obj58->obj.pos.x = D_80178310[j].xPos;
+            obj58->obj.pos.z = D_80178310[j].zPos1;
+            obj58->obj.pos.y = D_80178310[j].yPos;
+            obj58->obj.rot.y = D_80178310[j].unk_C;
+            Object_Set1C(&obj58->unk_1C, obj58->obj.id);
+            if (obj58->obj.id == OBJECT_1) {
+                obj58->unk_1C.dList = D_6020760;
             }
-            var_s0++;
+            obj58++;
         }
     }
 
-    for (j = 0, var_s0_2 = gObjects4C; j < ARRAY_COUNT(gObjects4C); j++) {
+    for (j = 0, obj4C = gObjects4C; j < ARRAY_COUNT(gObjects4C); j++) {
         if (D_80178310[j].id <= OBJECT_INVALID) {
             break;
         }
         if (D_80178310[j].id == OBJECT_162) {
-            Object_4C_Initialize(var_s0_2);
-            var_s0_2->obj.status = 1;
-            var_s0_2->obj.id = D_80178310[j].id;
-            var_s0_2->obj.pos.x = D_80178310[j].xPos;
-            var_s0_2->obj.pos.z = D_80178310[j].zPos1;
-            var_s0_2->obj.pos.y = D_80178310[j].yPos;
-            Object_Set1C(&var_s0_2->unk_1C, var_s0_2->obj.id);
-            var_s0_2++;
+            Object_4C_Initialize(obj4C);
+            obj4C->obj.status = 1;
+            obj4C->obj.id = D_80178310[j].id;
+            obj4C->obj.pos.x = D_80178310[j].xPos;
+            obj4C->obj.pos.z = D_80178310[j].zPos1;
+            obj4C->obj.pos.y = D_80178310[j].yPos;
+            Object_Set1C(&obj4C->unk_1C, obj4C->obj.id);
+            obj4C++;
         }
     }
     i = 0; // fake?
@@ -364,26 +364,26 @@ void func_800A5338(void) {
 }
 
 void func_800A55B0(void) {
-    Object_58* var_s0;
+    Object_58* obj58;
     s32 i;
     s32 j;
 
     D_80178310 = SEGMENTED_TO_VIRTUAL(D_6030B14);
 
-    for (j = 0, var_s0 = gObjects58; j < 200; j++) {
+    for (j = 0, obj58 = gObjects58; j < 200; j++) {
         if (D_80178310[j].id <= OBJECT_INVALID) {
             break;
         }
         if (D_80178310[j].id < OBJECT_161) {
-            func_800A4F4C(var_s0);
-            var_s0->obj.status = 2;
-            var_s0->obj.id = D_80178310[j].id;
-            var_s0->obj.pos.x = D_80178310[j].xPos;
-            var_s0->obj.pos.z = D_80178310[j].zPos1;
-            var_s0->obj.pos.y = D_80178310[j].yPos;
-            var_s0->obj.rot.y = D_80178310[j].unk_C;
-            Object_Set1C(&var_s0->unk_1C, var_s0->obj.id);
-            var_s0++;
+            func_800A4F4C(obj58);
+            obj58->obj.status = 2;
+            obj58->obj.id = D_80178310[j].id;
+            obj58->obj.pos.x = D_80178310[j].xPos;
+            obj58->obj.pos.z = D_80178310[j].zPos1;
+            obj58->obj.pos.y = D_80178310[j].yPos;
+            obj58->obj.rot.y = D_80178310[j].unk_C;
+            Object_Set1C(&obj58->unk_1C, obj58->obj.id);
+            obj58++;
         }
     }
     i = 0; // fake?
@@ -2050,8 +2050,8 @@ void func_800A8BA4(Player* player);
 
 void func_800AA800(Player* player) {
     s32 sp144;
-    Object_58* var_s6;
-    Object_80* var_fp;
+    Object_58* obj58;
+    Object_80* obj80;
     s32 temp_ft3;
     s32 var_s0;
     s32 var_s6_2;
@@ -2101,22 +2101,22 @@ void func_800AA800(Player* player) {
         if (gCamCount != 1) {
             if (player->unk_1CC == 3) {
                 for (sp144 = 0; sp144 < 200; sp144++) {
-                    var_s6 = &gObjects58[sp144];
-                    if ((var_s6->obj.status == 2) &&
-                        ((var_s6->obj.id == OBJECT_143) || (var_s6->obj.id == OBJECT_140) ||
-                         (var_s6->obj.id == OBJECT_141)) &&
-                        (fabsf(var_s6->obj.pos.x - player->unk_074) < 2000.0f) &&
-                        (fabsf(var_s6->obj.pos.z - player->unk_138) < 2000.0f)) {
-                        spC8.x = var_s6->obj.pos.x;
-                        spC8.y = var_s6->obj.pos.y;
-                        spC8.z = var_s6->obj.pos.z;
+                    obj58 = &gObjects58[sp144];
+                    if ((obj58->obj.status == 2) &&
+                        ((obj58->obj.id == OBJECT_143) || (obj58->obj.id == OBJECT_140) ||
+                         (obj58->obj.id == OBJECT_141)) &&
+                        (fabsf(obj58->obj.pos.x - player->unk_074) < 2000.0f) &&
+                        (fabsf(obj58->obj.pos.z - player->unk_138) < 2000.0f)) {
+                        spC8.x = obj58->obj.pos.x;
+                        spC8.y = obj58->obj.pos.y;
+                        spC8.z = obj58->obj.pos.z;
                         spD4.x = player->unk_074;
                         spD4.y = D_80177940;
                         spD4.z = player->unk_138;
                         var_s0 = 4;
-                        if (var_s6->obj.id == OBJECT_141) {
+                        if (obj58->obj.id == OBJECT_141) {
                             var_s0 = 6;
-                        } else if (var_s6->obj.id == OBJECT_143) {
+                        } else if (obj58->obj.id == OBJECT_143) {
                             var_s0 = 17;
                         }
                         if (func_800A3690(&spD4, &spC8, var_s0, &spBC) != 0) {
@@ -2132,17 +2132,16 @@ void func_800AA800(Player* player) {
             if ((D_80177880 == 1) && (gLevelType == 0)) {
                 player->unk_064 = player->unk_074;
                 player->unk_06C = player->unk_138;
-                for (sp144 = 0, var_s6 = gObjects58; sp144 < 200; sp144++, var_s6++) {
-                    if ((var_s6->obj.status == 2) &&
-                        ((var_s6->obj.id == OBJECT_150) || (var_s6->obj.id == OBJECT_149) ||
-                         (var_s6->obj.id == OBJECT_148) || (var_s6->obj.id == OBJECT_1) ||
-                         (var_s6->obj.id == OBJECT_3)) &&
-                        (fabsf(var_s6->obj.pos.x - player->unk_074) < 2500.0f) &&
-                        (fabsf(var_s6->obj.pos.z - player->unk_138) < 2500.0f)) {
-                        tempx = var_s6->obj.pos.x;
-                        tempy = var_s6->obj.pos.y;
-                        tempz = var_s6->obj.pos.z;
-                        sp120 = var_s6->obj.rot.y;
+                for (sp144 = 0, obj58 = gObjects58; sp144 < 200; sp144++, obj58++) {
+                    if ((obj58->obj.status == 2) &&
+                        ((obj58->obj.id == OBJECT_150) || (obj58->obj.id == OBJECT_149) ||
+                         (obj58->obj.id == OBJECT_148) || (obj58->obj.id == OBJECT_1) || (obj58->obj.id == OBJECT_3)) &&
+                        (fabsf(obj58->obj.pos.x - player->unk_074) < 2500.0f) &&
+                        (fabsf(obj58->obj.pos.z - player->unk_138) < 2500.0f)) {
+                        tempx = obj58->obj.pos.x;
+                        tempy = obj58->obj.pos.y;
+                        tempz = obj58->obj.pos.z;
+                        sp120 = obj58->obj.rot.y;
                         Matrix_RotateY(gCalcMatrix, -sp120 * M_DTOR, 0);
                         spEC.x = player->unk_074 - tempx;
                         spEC.y = 0.0f;
@@ -2155,8 +2154,8 @@ void func_800AA800(Player* player) {
                         spC8.y = tempy;
                         spC8.z = tempz;
 
-                        if ((var_s6->obj.id == OBJECT_149) || (var_s6->obj.id == OBJECT_150)) {
-                            if (var_s6->obj.id == OBJECT_149) {
+                        if ((obj58->obj.id == OBJECT_149) || (obj58->obj.id == OBJECT_150)) {
+                            if (obj58->obj.id == OBJECT_149) {
                                 var_s0 = 5;
                             } else {
                                 var_s0 = 6;
@@ -2169,7 +2168,7 @@ void func_800AA800(Player* player) {
                             }
                         } else {
                             var_s0 = 0;
-                            if (var_s6->obj.id == OBJECT_3) {
+                            if (obj58->obj.id == OBJECT_3) {
                                 var_s0 = 3;
                             }
                             if (func_800A3690(&spD4, &spC8, var_s0, &spBC) != 0) {
@@ -2182,16 +2181,16 @@ void func_800AA800(Player* player) {
                     }
                 }
             }
-            for (sp144 = 0, var_fp = gObjects80; (sp144 < 50) && (D_80177880 == 0) && (gCurrentLevel != 6);
-                 sp144++, var_fp++) {
-                if ((var_fp->obj.status == 2) && ((player->unk_138 - 3000.0f) < var_fp->obj.pos.z) &&
-                    (var_fp->obj.id != 0) && (var_fp->obj.id != 8)) {
-                    tempx = var_fp->obj.pos.x;
-                    tempy = var_fp->obj.pos.y;
-                    tempz = var_fp->obj.pos.z;
-                    sp120 = var_fp->obj.rot.y;
-                    if ((var_fp->obj.id == OBJECT_3) || (var_fp->obj.id == OBJECT_2) || (var_fp->obj.id == OBJECT_47) ||
-                        (var_fp->obj.id == OBJECT_4) || (var_fp->obj.id == OBJECT_5)) {
+            for (sp144 = 0, obj80 = gObjects80; (sp144 < 50) && (D_80177880 == 0) && (gCurrentLevel != 6);
+                 sp144++, obj80++) {
+                if ((obj80->obj.status == 2) && ((player->unk_138 - 3000.0f) < obj80->obj.pos.z) &&
+                    (obj80->obj.id != 0) && (obj80->obj.id != 8)) {
+                    tempx = obj80->obj.pos.x;
+                    tempy = obj80->obj.pos.y;
+                    tempz = obj80->obj.pos.z;
+                    sp120 = obj80->obj.rot.y;
+                    if ((obj80->obj.id == OBJECT_3) || (obj80->obj.id == OBJECT_2) || (obj80->obj.id == OBJECT_47) ||
+                        (obj80->obj.id == OBJECT_4) || (obj80->obj.id == OBJECT_5)) {
                         Matrix_RotateY(gCalcMatrix, -sp120 * M_DTOR, 0);
                         for (var_fs1 = var_fs0 = -50.0f; var_fs0 > -500.0f; var_fs0 -= 5.0f, var_fs1 -= 5.0f) {
                             spEC.x = player->unk_074 - tempx;
@@ -2210,14 +2209,14 @@ void func_800AA800(Player* player) {
 
                             var_s0 = 0;
 
-                            if (var_fp->obj.id == OBJECT_47) {
+                            if (obj80->obj.id == OBJECT_47) {
                                 var_s0 = 7;
                             }
-                            if (var_fp->obj.id == OBJECT_2) {
+                            if (obj80->obj.id == OBJECT_2) {
                                 var_s0 = 2;
-                            } else if (var_fp->obj.id == OBJECT_3) {
+                            } else if (obj80->obj.id == OBJECT_3) {
                                 var_s0 = 3;
-                            } else if ((var_fp->obj.id == OBJECT_4) || (var_fp->obj.id == OBJECT_5)) {
+                            } else if ((obj80->obj.id == OBJECT_4) || (obj80->obj.id == OBJECT_5)) {
                                 var_s0 = 1;
                             }
                             if (func_800A3690(&spD4, &spC8, var_s0, &spBC) != 0) {
@@ -2230,10 +2229,10 @@ void func_800AA800(Player* player) {
                             }
                         }
                     } else {
-                        temp_s0 = var_fp->unk_1C.hitbox;
+                        temp_s0 = obj80->unk_1C.hitbox;
                         temp_ft3 = (s32) *temp_s0;
                         if (temp_ft3 != 0) {
-                            if (var_fp->unk_1C.action == (ObjectFunc) func_80066EA8) {
+                            if (obj80->unk_1C.action == (ObjectFunc) func_80066EA8) {
                                 sp120 = 0.0f;
                             }
 

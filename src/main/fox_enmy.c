@@ -784,92 +784,88 @@ s32 func_8006326C(Vec3f* arg0, Vec3f* arg1, s32 objId, Object* obj) {
 }
 
 s32 func_8006351C(s32 index, Vec3f* pos, Vec3f* arg2, s32 arg3) {
-    Object_58* var_s0;
-    Object_80* var_s0_2;
-    Object_4C* var_s0_3;
-    Object_408* var_s0_4;
-    Object_2F4* var_s0_5;
+    Object_58* obj58;
+    Object_80* obj80;
+    Object_4C* obj4C;
+    Object_408* obj408;
+    Object_2F4* obj2F4;
     Vec3f temp;
     s32 i;
 
     if ((D_80177880 == 1) && (gCurrentLevel != LEVEL_KATINA)) {
-        var_s0 = gObjects58;
-        for (i = 0; i < 200; i++, var_s0++) {
-            if (var_s0->obj.status == 2) {
-                if ((var_s0->obj.id == OBJECT_1) || (var_s0->obj.id == OBJECT_3) || (var_s0->obj.id == OBJECT_117) ||
-                    (var_s0->obj.id == OBJECT_141) || (var_s0->obj.id == OBJECT_150) ||
-                    (var_s0->obj.id == OBJECT_149) || (var_s0->obj.id == OBJECT_148) ||
-                    (var_s0->obj.id == OBJECT_140)) {
-                    if (func_8006326C(pos, arg2, var_s0->obj.id, &var_s0->obj)) {
+        obj58 = gObjects58;
+        for (i = 0; i < 200; i++, obj58++) {
+            if (obj58->obj.status == 2) {
+                if ((obj58->obj.id == OBJECT_1) || (obj58->obj.id == OBJECT_3) || (obj58->obj.id == OBJECT_117) ||
+                    (obj58->obj.id == OBJECT_141) || (obj58->obj.id == OBJECT_150) || (obj58->obj.id == OBJECT_149) ||
+                    (obj58->obj.id == OBJECT_148) || (obj58->obj.id == OBJECT_140)) {
+                    if (func_8006326C(pos, arg2, obj58->obj.id, &obj58->obj)) {
                         return 999;
                     }
-                } else if ((fabsf(pos->x - var_s0->obj.pos.x) < 2000.0f) &&
-                           (fabsf(pos->z - var_s0->obj.pos.z) < 2000.0f)) {
-                    if (func_80062DBC(pos, var_s0->unk_1C.hitbox, &var_s0->obj, 0.0f, 0.0f, 0.0f)) {
+                } else if ((fabsf(pos->x - obj58->obj.pos.x) < 2000.0f) &&
+                           (fabsf(pos->z - obj58->obj.pos.z) < 2000.0f)) {
+                    if (func_80062DBC(pos, obj58->unk_1C.hitbox, &obj58->obj, 0.0f, 0.0f, 0.0f)) {
                         return 2;
                     }
                 }
             }
         }
     }
-    var_s0_2 = gObjects80;
-    for (i = 0; i < ARRAY_COUNT(gObjects80) && D_80177880 == 0; i++, var_s0_2++) {
-        if (var_s0_2->obj.status == 2) {
-            if ((var_s0_2->obj.id == OBJECT_1) || (var_s0_2->obj.id == OBJECT_4) || (var_s0_2->obj.id == OBJECT_5) ||
-                (var_s0_2->obj.id == OBJECT_2) || (var_s0_2->obj.id == OBJECT_39) || (var_s0_2->obj.id == OBJECT_3)) {
-                if (func_8006326C(pos, arg2, var_s0_2->obj.id, &var_s0_2->obj)) {
+    obj80 = gObjects80;
+    for (i = 0; i < ARRAY_COUNT(gObjects80) && D_80177880 == 0; i++, obj80++) {
+        if (obj80->obj.status == 2) {
+            if ((obj80->obj.id == OBJECT_1) || (obj80->obj.id == OBJECT_4) || (obj80->obj.id == OBJECT_5) ||
+                (obj80->obj.id == OBJECT_2) || (obj80->obj.id == OBJECT_39) || (obj80->obj.id == OBJECT_3)) {
+                if (func_8006326C(pos, arg2, obj80->obj.id, &obj80->obj)) {
                     return 2;
                 }
-            } else if ((fabsf(pos->x - var_s0_2->obj.pos.x) < 2000.0f) &&
-                       (fabsf(pos->z - var_s0_2->obj.pos.z) < 2000.0f)) {
-                if (func_80062DBC(pos, var_s0_2->unk_1C.hitbox, &var_s0_2->obj, 0.0f, 0.0f, 0.0f)) {
+            } else if ((fabsf(pos->x - obj80->obj.pos.x) < 2000.0f) && (fabsf(pos->z - obj80->obj.pos.z) < 2000.0f)) {
+                if (func_80062DBC(pos, obj80->unk_1C.hitbox, &obj80->obj, 0.0f, 0.0f, 0.0f)) {
                     return i + 10;
                 }
             }
         }
     }
-    var_s0_3 = gObjects4C;
-    for (i = 0; i < ARRAY_COUNT(gObjects4C); i++, var_s0_3++) {
-        if ((var_s0_3->obj.status == 2) && (fabsf(pos->x - var_s0_3->obj.pos.x) < 500.0f) &&
-            (fabsf(pos->z - var_s0_3->obj.pos.z) < 500.0f) &&
-            func_800631A8(pos, var_s0_3->unk_1C.hitbox, &var_s0_3->obj.pos)) {
-            if ((var_s0_3->obj.id == OBJECT_163) || (var_s0_3->obj.id == OBJECT_162) ||
-                (var_s0_3->obj.id == OBJECT_162)) {
-                var_s0_3->unk_46 = 1;
+    obj4C = gObjects4C;
+    for (i = 0; i < ARRAY_COUNT(gObjects4C); i++, obj4C++) {
+        if ((obj4C->obj.status == 2) && (fabsf(pos->x - obj4C->obj.pos.x) < 500.0f) &&
+            (fabsf(pos->z - obj4C->obj.pos.z) < 500.0f) && func_800631A8(pos, obj4C->unk_1C.hitbox, &obj4C->obj.pos)) {
+            if ((obj4C->obj.id == OBJECT_163) || (obj4C->obj.id == OBJECT_162) || (obj4C->obj.id == OBJECT_162)) {
+                obj4C->unk_46 = 1;
             }
             return 0;
         }
     }
     if ((arg3 == 0) || (arg3 == 2) || (arg3 == 3)) {
         if (arg3 != 2) {
-            var_s0_4 = gObjects408;
-            for (i = 0; i < ARRAY_COUNT(gObjects408); i++, var_s0_4++) {
-                if (var_s0_4->obj.status == 2) {
-                    if ((var_s0_4->obj.id == OBJECT_308) || (var_s0_4->obj.id == OBJECT_312) ||
-                        (var_s0_4->obj.id == OBJECT_313) || (var_s0_4->obj.id == OBJECT_309)) {
-                        if (func_8006326C(pos, arg2, var_s0_4->obj.id, &var_s0_4->obj)) {
+            obj408 = gObjects408;
+            for (i = 0; i < ARRAY_COUNT(gObjects408); i++, obj408++) {
+                if (obj408->obj.status == 2) {
+                    if ((obj408->obj.id == OBJECT_308) || (obj408->obj.id == OBJECT_312) ||
+                        (obj408->obj.id == OBJECT_313) || (obj408->obj.id == OBJECT_309)) {
+                        if (func_8006326C(pos, arg2, obj408->obj.id, &obj408->obj)) {
                             return 2;
                         }
-                    } else if (var_s0_4->obj.id == OBJECT_310) {
-                        temp.x = fabsf(var_s0_4->obj.pos.x - pos->x) * (5.0f / 6.0f);
-                        temp.y = fabsf(var_s0_4->obj.pos.y - pos->y) * 2;
-                        temp.z = fabsf(var_s0_4->obj.pos.z - pos->z) * (5.0f / 6.0f);
+                    } else if (obj408->obj.id == OBJECT_310) {
+                        temp.x = fabsf(obj408->obj.pos.x - pos->x) * (5.0f / 6.0f);
+                        temp.y = fabsf(obj408->obj.pos.y - pos->y) * 2;
+                        temp.z = fabsf(obj408->obj.pos.z - pos->z) * (5.0f / 6.0f);
                         if (sqrtf(VEC3F_SQ(temp)) < 1500.0f) {
-                            var_s0_4->unk_062 = 1;
+                            obj408->unk_062 = 1;
                             return 2;
                         }
                     } else {
-                        if (var_s0_4->obj.id == OBJECT_316) {
-                            temp.x = fabsf(var_s0_4->obj.pos.x - pos->x);
-                            temp.y = fabsf(var_s0_4->obj.pos.y - 300.0f - pos->y) * 7.42f;
-                            temp.z = fabsf(var_s0_4->obj.pos.z - pos->z);
+                        if (obj408->obj.id == OBJECT_316) {
+                            temp.x = fabsf(obj408->obj.pos.x - pos->x);
+                            temp.y = fabsf(obj408->obj.pos.y - 300.0f - pos->y) * 7.42f;
+                            temp.z = fabsf(obj408->obj.pos.z - pos->z);
                             if (sqrtf(VEC3F_SQ(temp)) < 2700.0f) {
                                 return 2;
                             }
                         }
-                        if ((fabsf(pos->x - var_s0_4->obj.pos.x) < 2000.0f) &&
-                            (fabsf(pos->z - var_s0_4->obj.pos.z) < 2000.0f)) {
-                            if (func_80062DBC(pos, var_s0_4->unk_01C.hitbox, &var_s0_4->obj, 0.0f, 0.0f, 0.0f)) {
+                        if ((fabsf(pos->x - obj408->obj.pos.x) < 2000.0f) &&
+                            (fabsf(pos->z - obj408->obj.pos.z) < 2000.0f)) {
+                            if (func_80062DBC(pos, obj408->unk_01C.hitbox, &obj408->obj, 0.0f, 0.0f, 0.0f)) {
                                 return 2;
                             }
                         }
@@ -877,39 +873,38 @@ s32 func_8006351C(s32 index, Vec3f* pos, Vec3f* arg2, s32 arg3) {
                 }
             }
         }
-        var_s0_5 = gObjects2F4;
-        for (i = 0; i < ARRAY_COUNT(gObjects2F4); i++, var_s0_5++) {
-            if ((var_s0_5->obj.status >= 2) && (fabsf(pos->x - var_s0_5->obj.pos.x) < 1000.0f) &&
-                (fabsf(pos->z - var_s0_5->obj.pos.z) < 1500.0f) && (index != i) && (var_s0_5->unk_01C.unk_16 != 2) &&
-                ((var_s0_5->obj.id != OBJECT_197) || (var_s0_5->unk_0E4 >= 4)) && (var_s0_5->unk_0C2 == 0)) {
-                if (var_s0_5->obj.id == OBJECT_180) {
-                    if (func_8006326C(pos, arg2, var_s0_5->obj.id, &var_s0_5->obj) != 0) {
+        obj2F4 = gObjects2F4;
+        for (i = 0; i < ARRAY_COUNT(gObjects2F4); i++, obj2F4++) {
+            if ((obj2F4->obj.status >= 2) && (fabsf(pos->x - obj2F4->obj.pos.x) < 1000.0f) &&
+                (fabsf(pos->z - obj2F4->obj.pos.z) < 1500.0f) && (index != i) && (obj2F4->unk_01C.unk_16 != 2) &&
+                ((obj2F4->obj.id != OBJECT_197) || (obj2F4->unk_0E4 >= 4)) && (obj2F4->unk_0C2 == 0)) {
+                if (obj2F4->obj.id == OBJECT_180) {
+                    if (func_8006326C(pos, arg2, obj2F4->obj.id, &obj2F4->obj) != 0) {
                         return 2;
                     }
-                } else if (var_s0_5->unk_110 < 0.0f) {
-                    if (func_80062DBC(pos, var_s0_5->unk_01C.hitbox, &var_s0_5->obj, var_s0_5->unk_2E8.x,
-                                      var_s0_5->unk_2E8.y, var_s0_5->unk_2E8.z + var_s0_5->unk_0F4.z)) {
-                        var_s0_5->unk_0D0 = 1;
-                        var_s0_5->unk_0D6 = 10;
-                        var_s0_5->unk_0D2 = -1;
-                        var_s0_5->unk_0D8.x = pos->x;
-                        var_s0_5->unk_0D8.y = pos->y;
-                        var_s0_5->unk_0D8.z = pos->z;
+                } else if (obj2F4->unk_110 < 0.0f) {
+                    if (func_80062DBC(pos, obj2F4->unk_01C.hitbox, &obj2F4->obj, obj2F4->unk_2E8.x, obj2F4->unk_2E8.y,
+                                      obj2F4->unk_2E8.z + obj2F4->unk_0F4.z)) {
+                        obj2F4->unk_0D0 = 1;
+                        obj2F4->unk_0D6 = 10;
+                        obj2F4->unk_0D2 = -1;
+                        obj2F4->unk_0D8.x = pos->x;
+                        obj2F4->unk_0D8.y = pos->y;
+                        obj2F4->unk_0D8.z = pos->z;
                         return 2;
                     }
                 } else if ((arg3 != 2) && (arg3 != 3)) {
-                    if (func_800631A8(pos, var_s0_5->unk_01C.hitbox, &var_s0_5->obj.pos)) {
-                        var_s0_5->unk_0D0 = 1;
-                        var_s0_5->unk_0D6 = 10;
-                        var_s0_5->unk_0D2 = -1;
-                        if (((var_s0_5->obj.id != OBJECT_200) || (var_s0_5->unk_080 == 0)) &&
-                            ((var_s0_5->obj.id != OBJECT_197) ||
-                             ((var_s0_5->unk_0E4 >= 10) && (var_s0_5->unk_0E4 < 100)))) {
-                            var_s0_5->unk_0CE = 0;
+                    if (func_800631A8(pos, obj2F4->unk_01C.hitbox, &obj2F4->obj.pos)) {
+                        obj2F4->unk_0D0 = 1;
+                        obj2F4->unk_0D6 = 10;
+                        obj2F4->unk_0D2 = -1;
+                        if (((obj2F4->obj.id != OBJECT_200) || (obj2F4->unk_080 == 0)) &&
+                            ((obj2F4->obj.id != OBJECT_197) || ((obj2F4->unk_0E4 >= 10) && (obj2F4->unk_0E4 < 100)))) {
+                            obj2F4->unk_0CE = 0;
                         }
-                        var_s0_5->unk_0D8.x = pos->x;
-                        var_s0_5->unk_0D8.y = pos->y;
-                        var_s0_5->unk_0D8.z = pos->z;
+                        obj2F4->unk_0D8.x = pos->x;
+                        obj2F4->unk_0D8.y = pos->y;
+                        obj2F4->unk_0D8.z = pos->z;
                         return 1;
                     }
                 }
@@ -965,19 +960,19 @@ void func_80063D58(Object_80* obj80) {
 
 void func_80063E5C(Object_80* obj80, f32* hitboxData) {
     s32 i;
-    Object_6C* var_v1;
+    Object_6C* obj6C;
 
-    for (i = 0, var_v1 = gObjects6C; i < ARRAY_COUNT(gObjects6C); i++, var_v1++) {
-        if (var_v1->obj.status == 0) {
+    for (i = 0, obj6C = gObjects6C; i < ARRAY_COUNT(gObjects6C); i++, obj6C++) {
+        if (obj6C->obj.status == 0) {
             Object_6C_Initialize(&gObjects6C[i]);
-            var_v1->obj.status = 1;
-            var_v1->obj.id = OBJECT_6C_CORN_ARCH;
-            var_v1->obj.pos.x = obj80->obj.pos.x;
-            var_v1->obj.pos.y = obj80->obj.pos.y;
-            var_v1->obj.pos.z = obj80->obj.pos.z;
-            var_v1->obj.rot.y = obj80->obj.rot.y;
-            Object_Set1C(&var_v1->unk_1C, var_v1->obj.id);
-            var_v1->unk_1C.hitbox = SEGMENTED_TO_VIRTUAL(hitboxData);
+            obj6C->obj.status = 1;
+            obj6C->obj.id = OBJECT_6C_CORN_ARCH;
+            obj6C->obj.pos.x = obj80->obj.pos.x;
+            obj6C->obj.pos.y = obj80->obj.pos.y;
+            obj6C->obj.pos.z = obj80->obj.pos.z;
+            obj6C->obj.rot.y = obj80->obj.rot.y;
+            Object_Set1C(&obj6C->unk_1C, obj6C->obj.id);
+            obj6C->unk_1C.hitbox = SEGMENTED_TO_VIRTUAL(hitboxData);
             break;
         }
     }
@@ -1637,7 +1632,7 @@ void func_800660F0(Object_2F4* obj2F4) {
 }
 
 void func_80066254(Object_2F4* obj2F4) {
-    Object_2F4* var_v0;
+    Object_2F4* other2F4;
     s32 i;
 
     if (D_801778E8 != 0) {
@@ -1675,10 +1670,10 @@ void func_80066254(Object_2F4* obj2F4) {
         }
         if (obj2F4->unk_044) {
             if (D_800CFE5C[obj2F4->unk_044] < 0.0f) {
-                var_v0 = gObjects2F4;
-                for (i = 0, var_v0 = gObjects2F4; i < ARRAY_COUNT(gObjects2F4); i++, var_v0++) {
-                    if ((var_v0->obj.status != 0) && (var_v0->unk_040 != obj2F4->unk_040) &&
-                        (obj2F4->unk_08C == var_v0->unk_08C)) {
+                other2F4 = gObjects2F4;
+                for (i = 0, other2F4 = gObjects2F4; i < ARRAY_COUNT(gObjects2F4); i++, other2F4++) {
+                    if ((other2F4->obj.status != 0) && (other2F4->unk_040 != obj2F4->unk_040) &&
+                        (obj2F4->unk_08C == other2F4->unk_08C)) {
                         return;
                     }
                 }
@@ -2850,13 +2845,13 @@ void func_8006A38C(void) {
 void Object_UpdateAll(void) {
     s32 i;
     s32 pad;
-    Object_58* var_v0;
-    Object_2F4* sp38;
-    Object_408* sp34;
-    Object_4C* sp30;
-    Object_80* sp2C;
-    Object_6C* sp28;
-    Object_8C* sp24;
+    Object_58* obj58;
+    Object_2F4* obj2F4;
+    Object_408* obj408;
+    Object_4C* obj4C;
+    Object_80* obj80;
+    Object_6C* obj6C;
+    Object_8C* obj8C;
 
     D_80161AB8 = 0;
     if ((D_80177880 == 0) && ((gPlayer[0].unk_1C8 == 1) || (gPlayer[0].unk_1C8 == 3) || (gPlayer[0].unk_1C8 == 4) ||
@@ -2867,51 +2862,51 @@ void Object_UpdateAll(void) {
         if ((D_80178488 != 0) && (gPlayer[0].unk_1C8 != 2)) {
             func_80062664();
         }
-        for (i = 0, sp2C = gObjects80; i < ARRAY_COUNT(gObjects80); i++, sp2C++) {
-            if (sp2C->obj.status != 0) {
-                sp2C->index = i;
-                Object_80_Update(sp2C);
+        for (i = 0, obj80 = gObjects80; i < ARRAY_COUNT(gObjects80); i++, obj80++) {
+            if (obj80->obj.status != 0) {
+                obj80->index = i;
+                Object_80_Update(obj80);
             }
         }
     } else if (D_801778E8 != 0) {
-        for (i = 0, var_v0 = gObjects58; i < 200; i++, var_v0++) {
-            if ((var_v0->obj.status != 0) && (var_v0->obj.id == OBJECT_146)) {
+        for (i = 0, obj58 = gObjects58; i < 200; i++, obj58++) {
+            if ((obj58->obj.status != 0) && (obj58->obj.id == OBJECT_146)) {
                 if (i & 1) {
-                    var_v0->obj.rot.y += 0.5f;
+                    obj58->obj.rot.y += 0.5f;
                 } else {
-                    var_v0->obj.rot.y -= 0.5f;
+                    obj58->obj.rot.y -= 0.5f;
                 }
             }
         }
     }
-    for (i = 0, sp30 = gObjects4C; i < ARRAY_COUNT(gObjects4C); i++, sp30++) {
-        if (sp30->obj.status != 0) {
-            sp30->index = i;
-            Object_4C_Update(sp30);
+    for (i = 0, obj4C = gObjects4C; i < ARRAY_COUNT(gObjects4C); i++, obj4C++) {
+        if (obj4C->obj.status != 0) {
+            obj4C->index = i;
+            Object_4C_Update(obj4C);
         }
     }
-    for (i = 0, sp34 = gObjects408; i < ARRAY_COUNT(gObjects408); i++, sp34++) {
-        if (sp34->obj.status != 0) {
-            sp34->unk_040 = i;
-            Object_408_Update(sp34);
+    for (i = 0, obj408 = gObjects408; i < ARRAY_COUNT(gObjects408); i++, obj408++) {
+        if (obj408->obj.status != 0) {
+            obj408->unk_040 = i;
+            Object_408_Update(obj408);
         }
     }
-    for (i = 0, sp38 = gObjects2F4; i < ARRAY_COUNT(gObjects2F4); i++, sp38++) {
-        if (sp38->obj.status != 0) {
-            sp38->unk_040 = i;
-            Object_2F4_Update(sp38);
+    for (i = 0, obj2F4 = gObjects2F4; i < ARRAY_COUNT(gObjects2F4); i++, obj2F4++) {
+        if (obj2F4->obj.status != 0) {
+            obj2F4->unk_040 = i;
+            Object_2F4_Update(obj2F4);
         }
     }
-    for (i = 0, sp28 = gObjects6C; i < ARRAY_COUNT(gObjects6C); i++, sp28++) {
-        if (sp28->obj.status != 0) {
-            sp28->index = i;
-            Object_6C_Update(sp28);
+    for (i = 0, obj6C = gObjects6C; i < ARRAY_COUNT(gObjects6C); i++, obj6C++) {
+        if (obj6C->obj.status != 0) {
+            obj6C->index = i;
+            Object_6C_Update(obj6C);
         }
     }
-    for (i = 0, sp24 = gObjects8C; i < ARRAY_COUNT(gObjects8C); i++, sp24++) {
-        if (sp24->obj.status != 0) {
-            sp24->index = i;
-            Object_8C_Update(sp24);
+    for (i = 0, obj8C = gObjects8C; i < ARRAY_COUNT(gObjects8C); i++, obj8C++) {
+        if (obj8C->obj.status != 0) {
+            obj8C->index = i;
+            Object_8C_Update(obj8C);
         }
     }
     func_8006A38C();

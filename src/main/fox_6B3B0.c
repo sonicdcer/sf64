@@ -1580,7 +1580,7 @@ void func_8006F40C(Object_2F4* obj2F4) {
     s32 var_v1;
     Vec3f sp78;
     Vec3f sp6C;
-    Object_4C* var_v0;
+    Object_4C* obj4C;
 
     if ((gPlayer[0].unk_1C8 == 3) && (obj2F4->unk_0B4 != 0x34) && (obj2F4->unk_0B4 != 0x67) &&
         (obj2F4->unk_0B4 != 0x68) && (obj2F4->unk_0B4 != 0x30) && (obj2F4->unk_0B4 != 0x31) &&
@@ -1713,19 +1713,19 @@ void func_8006F40C(Object_2F4* obj2F4) {
                 obj2F4->unk_048 = 0;
                 break;
             case 18:
-                for (var_v1 = 0, var_v0 = gObjects4C; var_v1 < 40; var_v1++, var_v0++) {
+                for (var_v1 = 0, obj4C = gObjects4C; var_v1 < 40; var_v1++, obj4C++) {
 
-                    if ((var_v0->obj.status == 2) && (var_v0->obj.id == OBJECT_175)) {
+                    if ((obj4C->obj.status == 2) && (obj4C->obj.id == OBJECT_175)) {
                         f32 sp64;
                         f32 sp60;
                         f32 sp5C;
                         f32 sp58;
                         f32 sp54;
 
-                        var_v0->obj.status = 0;
-                        sp64 = var_v0->obj.pos.x - obj2F4->obj.pos.x;
-                        sp60 = var_v0->obj.pos.y - obj2F4->obj.pos.y;
-                        sp5C = var_v0->obj.pos.z - obj2F4->obj.pos.z;
+                        obj4C->obj.status = 0;
+                        sp64 = obj4C->obj.pos.x - obj2F4->obj.pos.x;
+                        sp60 = obj4C->obj.pos.y - obj2F4->obj.pos.y;
+                        sp5C = obj4C->obj.pos.z - obj2F4->obj.pos.z;
                         sp54 = Math_Atan2F(sp64, sp5C);
                         sp54 = Math_RadToDeg(sp54);
                         sp58 = -Math_Atan2F(sp60, sqrtf(SQ(sp64) + SQ(sp5C)));
@@ -2042,7 +2042,7 @@ void func_80070D44(Object_2F4* obj2F4) {
     s32 i;
     s32 var_v1 = 0;
     s32 var_v1_4;
-    Object_2F4* temp;
+    Object_2F4* other2F4;
 
     for (i = 1; i < 4; i++) {
         if (gTeamHealth[i] > 0) {
@@ -2333,9 +2333,9 @@ void func_80070D44(Object_2F4* obj2F4) {
             }
             break;
         case 0x2E:
-            for (i = 0, temp = gObjects2F4; i < ARRAY_COUNT(gObjects2F4); i++, temp++) {
-                if (((temp->obj.status == 3) || (temp->obj.status == 0)) && (obj2F4->unk_08C == temp->unk_08C) &&
-                    (temp->unk_090 != 0)) {
+            for (i = 0, other2F4 = gObjects2F4; i < ARRAY_COUNT(gObjects2F4); i++, other2F4++) {
+                if (((other2F4->obj.status == 3) || (other2F4->obj.status == 0)) &&
+                    (obj2F4->unk_08C == other2F4->unk_08C) && (other2F4->unk_090 != 0)) {
                     func_80070CEC(obj2F4);
                 }
             }
@@ -3131,7 +3131,7 @@ void func_80072594(Object_2F4* obj2F4) {
                 }
                 break;
             case 0x50: {
-                Object_8C* temp_v0_8;
+                Object_8C* obj8C;
                 Vec3f sp90;
                 Vec3f sp84;
                 Vec3f sp78;
@@ -3145,29 +3145,29 @@ void func_80072594(Object_2F4* obj2F4) {
                         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D1290, &sp90);
                         if ((obj2F4->obj.pos.y + sp90.y) > -30.0f) {
                             for (sp74 = 0; sp74 < 7; sp74++) {
-                                temp_v0_8 = func_8007783C(OBJECT_394);
-                                if (temp_v0_8 != NULL) {
-                                    temp_v0_8->unk_78 = temp_v0_8->unk_7A = 12;
-                                    temp_v0_8->obj.status = 2;
-                                    temp_v0_8->obj.pos.x = obj2F4->obj.pos.x + sp90.x;
-                                    temp_v0_8->obj.pos.y = obj2F4->obj.pos.y + sp90.y;
-                                    temp_v0_8->obj.pos.z = obj2F4->obj.pos.z;
-                                    temp_v0_8->obj.rot.x = Rand_ZeroOne() * 360.0f;
-                                    temp_v0_8->obj.rot.y = Rand_ZeroOne() * 360.0f;
-                                    temp_v0_8->obj.rot.z = Rand_ZeroOne() * 360.0f;
+                                obj8C = func_8007783C(OBJECT_394);
+                                if (obj8C != NULL) {
+                                    obj8C->unk_78 = obj8C->unk_7A = 12;
+                                    obj8C->obj.status = 2;
+                                    obj8C->obj.pos.x = obj2F4->obj.pos.x + sp90.x;
+                                    obj8C->obj.pos.y = obj2F4->obj.pos.y + sp90.y;
+                                    obj8C->obj.pos.z = obj2F4->obj.pos.z;
+                                    obj8C->obj.rot.x = Rand_ZeroOne() * 360.0f;
+                                    obj8C->obj.rot.y = Rand_ZeroOne() * 360.0f;
+                                    obj8C->obj.rot.z = Rand_ZeroOne() * 360.0f;
                                     sp84.x = (Rand_ZeroOne() * 25.0f) + 30.0f;
                                     sp84.y = (Rand_ZeroOne() * 25.0f) + 20.0f;
                                     sp84.z = 0.0f;
-                                    temp_v0_8->unk_44 = 10;
-                                    temp_v0_8->unk_70 = 1.0f;
+                                    obj8C->unk_44 = 10;
+                                    obj8C->unk_70 = 1.0f;
                                     Matrix_RotateY(gCalcMatrix, ((Rand_ZeroOne() * 180.0f) + 180.0f) * M_DTOR, 0);
                                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp84, &sp78);
-                                    temp_v0_8->unk_54.x = sp78.x;
-                                    temp_v0_8->unk_54.y = sp78.y;
-                                    temp_v0_8->unk_54.z = sp78.z;
-                                    temp_v0_8->unk_60.x = (Rand_ZeroOne() - 0.5f) + 5.0f;
-                                    temp_v0_8->unk_60.y = (Rand_ZeroOne() - 0.5f) + 5.0f;
-                                    temp_v0_8->unk_60.z = (Rand_ZeroOne() - 0.5f) + 5.0f;
+                                    obj8C->unk_54.x = sp78.x;
+                                    obj8C->unk_54.y = sp78.y;
+                                    obj8C->unk_54.z = sp78.z;
+                                    obj8C->unk_60.x = (Rand_ZeroOne() - 0.5f) + 5.0f;
+                                    obj8C->unk_60.y = (Rand_ZeroOne() - 0.5f) + 5.0f;
+                                    obj8C->unk_60.z = (Rand_ZeroOne() - 0.5f) + 5.0f;
                                 }
                             }
                             obj2F4->unk_046++;
@@ -3175,49 +3175,49 @@ void func_80072594(Object_2F4* obj2F4) {
                         break;
                 }
                 if ((fabsf(obj2F4->unk_114) > 10.0f) && !(gFrameCount & 1)) {
-                    temp_v0_8 = func_8007783C(OBJECT_394);
-                    if (temp_v0_8 != NULL) {
+                    obj8C = func_8007783C(OBJECT_394);
+                    if (obj8C != NULL) {
                         Matrix_RotateZ(gCalcMatrix, obj2F4->unk_0F4.z * M_DTOR, 0);
                         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D1290, &sp90);
-                        temp_v0_8->unk_78 = temp_v0_8->unk_7A = 0xB;
-                        temp_v0_8->obj.status = 2;
-                        temp_v0_8->obj.pos.x = ((Rand_ZeroOne() - 0.5f) * 3.0f) + obj2F4->obj.pos.x + sp90.x;
-                        temp_v0_8->obj.pos.y = ((Rand_ZeroOne() - 0.5f) * 3.0f) + obj2F4->obj.pos.y + sp90.y;
-                        temp_v0_8->obj.pos.z = ((Rand_ZeroOne() - 0.5f) * 3.0f) + obj2F4->obj.pos.z + 180.0f;
-                        temp_v0_8->unk_70 = 9.0f;
-                        temp_v0_8->obj.rot.z = Rand_ZeroOne() * 360.0f;
-                        temp_v0_8->unk_54.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
-                        temp_v0_8->unk_54.y = (Rand_ZeroOne() - 0.5f) * 3.0f + 30.0f;
-                        temp_v0_8->unk_44 = 100;
-                        temp_v0_8->unk_46 = -8;
-                        temp_v0_8->unk_60.z = 3;
+                        obj8C->unk_78 = obj8C->unk_7A = 0xB;
+                        obj8C->obj.status = 2;
+                        obj8C->obj.pos.x = ((Rand_ZeroOne() - 0.5f) * 3.0f) + obj2F4->obj.pos.x + sp90.x;
+                        obj8C->obj.pos.y = ((Rand_ZeroOne() - 0.5f) * 3.0f) + obj2F4->obj.pos.y + sp90.y;
+                        obj8C->obj.pos.z = ((Rand_ZeroOne() - 0.5f) * 3.0f) + obj2F4->obj.pos.z + 180.0f;
+                        obj8C->unk_70 = 9.0f;
+                        obj8C->obj.rot.z = Rand_ZeroOne() * 360.0f;
+                        obj8C->unk_54.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
+                        obj8C->unk_54.y = (Rand_ZeroOne() - 0.5f) * 3.0f + 30.0f;
+                        obj8C->unk_44 = 100;
+                        obj8C->unk_46 = -8;
+                        obj8C->unk_60.z = 3;
                         if (Rand_ZeroOne() < 0.5f) {
-                            temp_v0_8->unk_60.z = -temp_v0_8->unk_60.z;
+                            obj8C->unk_60.z = -obj8C->unk_60.z;
                         }
                         if (gFrameCount & 2) {
-                            temp_v0_8->unk_54.y = -temp_v0_8->unk_54.y;
+                            obj8C->unk_54.y = -obj8C->unk_54.y;
                         }
                     }
                     if (!(gFrameCount & 3)) {
-                        temp_v0_8 = func_8007783C(OBJECT_394);
-                        if (temp_v0_8 != NULL) {
-                            temp_v0_8->unk_78 = temp_v0_8->unk_7A = 0xB;
-                            temp_v0_8->obj.status = 2;
-                            temp_v0_8->obj.pos.x = ((Rand_ZeroOne() - 0.5f) * 3.0f) + obj2F4->obj.pos.x;
-                            temp_v0_8->obj.pos.y = ((Rand_ZeroOne() - 0.5f) * 5.0f) + obj2F4->obj.pos.y + 50.0f;
-                            temp_v0_8->obj.pos.z = ((Rand_ZeroOne() - 0.5f) * 3.0f) + obj2F4->obj.pos.z + 200.0f;
-                            temp_v0_8->unk_70 = 9.0f;
-                            temp_v0_8->obj.rot.z = Rand_ZeroOne() * 360.0f;
-                            temp_v0_8->unk_54.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
-                            temp_v0_8->unk_54.y = (Rand_ZeroOne() - 0.5f) * 3.0f + 10.0f;
-                            temp_v0_8->unk_44 = 100;
-                            temp_v0_8->unk_46 = -8;
-                            temp_v0_8->unk_60.z = 3;
+                        obj8C = func_8007783C(OBJECT_394);
+                        if (obj8C != NULL) {
+                            obj8C->unk_78 = obj8C->unk_7A = 0xB;
+                            obj8C->obj.status = 2;
+                            obj8C->obj.pos.x = ((Rand_ZeroOne() - 0.5f) * 3.0f) + obj2F4->obj.pos.x;
+                            obj8C->obj.pos.y = ((Rand_ZeroOne() - 0.5f) * 5.0f) + obj2F4->obj.pos.y + 50.0f;
+                            obj8C->obj.pos.z = ((Rand_ZeroOne() - 0.5f) * 3.0f) + obj2F4->obj.pos.z + 200.0f;
+                            obj8C->unk_70 = 9.0f;
+                            obj8C->obj.rot.z = Rand_ZeroOne() * 360.0f;
+                            obj8C->unk_54.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
+                            obj8C->unk_54.y = (Rand_ZeroOne() - 0.5f) * 3.0f + 10.0f;
+                            obj8C->unk_44 = 100;
+                            obj8C->unk_46 = -8;
+                            obj8C->unk_60.z = 3;
                             if (Rand_ZeroOne() < 0.5f) {
-                                temp_v0_8->unk_60.z = -temp_v0_8->unk_60.z;
+                                obj8C->unk_60.z = -obj8C->unk_60.z;
                             }
                             if (gFrameCount & 4) {
-                                temp_v0_8->unk_54.y = -temp_v0_8->unk_54.y;
+                                obj8C->unk_54.y = -obj8C->unk_54.y;
                             }
                         }
                     }

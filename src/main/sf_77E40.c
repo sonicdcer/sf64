@@ -1441,21 +1441,21 @@ void func_8007B960(Object_8C* obj8C) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80083FA8.s")
 
-void func_80084194(Object_8C* arg0) {
+void func_80084194(Object_8C* obj8C) {
     s32 tmp;
 
     if (gCurrentLevel != LEVEL_AQUAS) {
         RCP_SetupDL(&gMasterDisp, 0x31);
-        Matrix_Scale(gGfxMatrix, arg0->unk_70, arg0->unk_70, arg0->unk_70, 1);
+        Matrix_Scale(gGfxMatrix, obj8C->unk_70, obj8C->unk_70, obj8C->unk_70, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-        tmp = arg0->unk_44 * 4;
+        tmp = obj8C->unk_44 * 4;
         gDPSetEnvColor(gMasterDisp++, D_800D18F0[tmp + 0], D_800D18F0[tmp + 1], D_800D18F0[tmp + 2], 255);
     } else {
         RCP_SetupDL(&gMasterDisp, 0x31);
-        Matrix_Scale(gGfxMatrix, arg0->unk_70, arg0->unk_70, arg0->unk_70, 1);
+        Matrix_Scale(gGfxMatrix, obj8C->unk_70, obj8C->unk_70, obj8C->unk_70, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, D_800D1950[arg0->unk_44]);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, D_800D1950[obj8C->unk_44]);
         gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
     }
     gSPDisplayList(gMasterDisp++, D_1024AC0);

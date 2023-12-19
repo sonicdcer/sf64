@@ -542,20 +542,20 @@ void func_800A26C0(void) {
 }
 
 Object_2F4* func_800A3608(s32 arg0) {
-    Object_2F4* var_a2 = gObjects2F4;
+    Object_2F4* obj2F4 = gObjects2F4;
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects2F4); i++, var_a2++) {
-        if (var_a2->obj.status == 0) {
-            Object_2F4_Initialize(var_a2);
-            var_a2->obj.status = 1;
-            var_a2->obj.id = arg0;
-            Object_Set1C(&var_a2->unk_01C, var_a2->obj.id);
+    for (i = 0; i < ARRAY_COUNT(gObjects2F4); i++, obj2F4++) {
+        if (obj2F4->obj.status == 0) {
+            Object_2F4_Initialize(obj2F4);
+            obj2F4->obj.status = 1;
+            obj2F4->obj.id = arg0;
+            Object_Set1C(&obj2F4->unk_01C, obj2F4->obj.id);
             break;
         }
     }
     if (i == ARRAY_COUNT(gObjects2F4)) {
-        var_a2 = NULL;
+        obj2F4 = NULL;
     }
-    return var_a2;
+    return obj2F4;
 }

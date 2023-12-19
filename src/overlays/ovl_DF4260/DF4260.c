@@ -4,7 +4,7 @@
 void func_DF4260_80187520(s32 arg0, s32 arg1) {
 }
 
-void func_DF4260_80187530(Object_80* arg0) {
+void func_DF4260_80187530(Object_80* obj80) {
 }
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_DF4260/DF4260/func_DF4260_8018753C.s")

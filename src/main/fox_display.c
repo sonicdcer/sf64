@@ -1511,8 +1511,8 @@ void func_80057D00(void) {
     Vec3f sp6C;
     Vec3f sp60;
     s32 pad;
-    Player* player;
-    Player* sp54 = &gPlayer[D_801778A0];
+    Player* opponent;
+    Player* player = &gPlayer[D_801778A0];
 
     D_800CA228 = 0;
 
@@ -1530,45 +1530,45 @@ void func_80057D00(void) {
     Matrix_RotateZ(gGfxMatrix, -(f32) gFrameCount * 10.0f * M_DTOR, 1);
     Matrix_Scale(gGfxMatrix, 1.0f + D_800CA230, 1.0f - D_800CA230, 1.0f, 1);
     Matrix_Push(&gGfxMatrix);
-    func_800B73E0(sp54);
+    func_800B73E0(player);
     Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR, gAmbientG,
                        gAmbientB);
     if (D_80177880 == 0) {
-        Matrix_RotateY(gCalcMatrix, sp54->unk_114 * M_DTOR, 0);
-        Matrix_RotateX(gCalcMatrix, sp54->unk_120 * M_DTOR, 1);
-        sp78.x = sp54->unk_040.x - sp54->unk_074;
-        sp78.y = sp54->unk_040.y - sp54->unk_078;
-        sp78.z = sp54->unk_040.z - (sp54->unk_138 + sp54->unk_144);
+        Matrix_RotateY(gCalcMatrix, player->unk_114 * M_DTOR, 0);
+        Matrix_RotateX(gCalcMatrix, player->unk_120 * M_DTOR, 1);
+        sp78.x = player->unk_040.x - player->unk_074;
+        sp78.y = player->unk_040.y - player->unk_078;
+        sp78.z = player->unk_040.z - (player->unk_138 + player->unk_144);
         Matrix_MultVec3f(gCalcMatrix, &sp78, &D_801779D8);
-        D_801779D8.x += sp54->unk_074;
-        D_801779D8.y += sp54->unk_078;
-        D_801779D8.z += sp54->unk_138 + sp54->unk_144;
-        sp78.x = sp54->unk_04C.x - sp54->unk_074;
-        sp78.y = sp54->unk_04C.y - sp54->unk_078;
-        sp78.z = sp54->unk_04C.z - (sp54->unk_138 + sp54->unk_144);
+        D_801779D8.x += player->unk_074;
+        D_801779D8.y += player->unk_078;
+        D_801779D8.z += player->unk_138 + player->unk_144;
+        sp78.x = player->unk_04C.x - player->unk_074;
+        sp78.y = player->unk_04C.y - player->unk_078;
+        sp78.z = player->unk_04C.z - (player->unk_138 + player->unk_144);
         Matrix_MultVec3f(gCalcMatrix, &sp78, &D_801779E8);
-        D_801779E8.x += sp54->unk_074;
-        D_801779E8.y += sp54->unk_078;
-        D_801779E8.z += sp54->unk_138 + sp54->unk_144;
-        if ((sp54->unk_238 != 0) && (sp54->unk_110 > 5.0f)) {
-            D_801779E8.x += __sinf((f32) gFrameCount * 150.0f * M_DTOR) * sp54->unk_110 * 0.2f;
+        D_801779E8.x += player->unk_074;
+        D_801779E8.y += player->unk_078;
+        D_801779E8.z += player->unk_138 + player->unk_144;
+        if ((player->unk_238 != 0) && (player->unk_110 > 5.0f)) {
+            D_801779E8.x += __sinf((f32) gFrameCount * 150.0f * M_DTOR) * player->unk_110 * 0.2f;
         }
-    } else if (sp54->unk_1C8 == 7) {
-        func_800578C4(sp54);
+    } else if (player->unk_1C8 == 7) {
+        func_800578C4(player);
     } else {
-        D_801779D8.x = sp54->unk_040.x;
-        D_801779D8.y = sp54->unk_040.y;
-        D_801779D8.z = sp54->unk_040.z;
-        D_801779E8.x = sp54->unk_04C.x;
-        D_801779E8.y = sp54->unk_04C.y;
-        D_801779E8.z = sp54->unk_04C.z;
+        D_801779D8.x = player->unk_040.x;
+        D_801779D8.y = player->unk_040.y;
+        D_801779D8.z = player->unk_040.z;
+        D_801779E8.x = player->unk_04C.x;
+        D_801779E8.y = player->unk_04C.y;
+        D_801779E8.z = player->unk_04C.z;
     }
-    sp54->unk_058 = -Math_Atan2F(D_801779D8.x - D_801779E8.x, D_801779D8.z - D_801779E8.z);
-    sp54->unk_05C = -Math_Atan2F(D_801779D8.y - D_801779E8.y,
-                                 sqrtf(SQ(D_801779D8.z - D_801779E8.z) + SQ(D_801779D8.x - D_801779E8.x)));
-    Matrix_RotateY(gCalcMatrix, -sp54->unk_058, 0);
-    Matrix_RotateX(gCalcMatrix, sp54->unk_05C, 1);
-    Matrix_RotateZ(gCalcMatrix, -sp54->unk_034 * M_DTOR, 1);
+    player->unk_058 = -Math_Atan2F(D_801779D8.x - D_801779E8.x, D_801779D8.z - D_801779E8.z);
+    player->unk_05C = -Math_Atan2F(D_801779D8.y - D_801779E8.y,
+                                   sqrtf(SQ(D_801779D8.z - D_801779E8.z) + SQ(D_801779D8.x - D_801779E8.x)));
+    Matrix_RotateY(gCalcMatrix, -player->unk_058, 0);
+    Matrix_RotateX(gCalcMatrix, player->unk_05C, 1);
+    Matrix_RotateZ(gCalcMatrix, -player->unk_034 * M_DTOR, 1);
     sp78.x = 0.0f;
     sp78.y = 100.0f;
     sp78.z = 0.0f;
@@ -1598,24 +1598,24 @@ void func_80057D00(void) {
     }
     Lights_SetOneLight(&gMasterDisp, gLight2x, gLight2y, gLight2z, gLight2R, gLight2G, gLight2B, gAmbientR, gAmbientG,
                        gAmbientB);
-    for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
-        sp60.x = player->unk_074;
-        sp60.y = player->unk_078;
-        sp60.z = player->unk_138;
+    for (i = 0, opponent = gPlayer; i < gCamCount; i++, opponent++) {
+        sp60.x = opponent->unk_074;
+        sp60.y = opponent->unk_078;
+        sp60.z = opponent->unk_138;
         func_8005F670(&sp60);
-        func_800564C0(player, 0);
-        func_80057814(player);
+        func_800564C0(opponent, 0);
+        func_80057814(opponent);
     }
     if ((D_80161A88 == 2) && (gPlayer[0].unk_1C8 != 2)) {
         Lights_SetOneLight(&gMasterDisp, gLight2x, -1 * gLight2y, gLight2z, gLight2R, gLight2G, gLight2B, gAmbientR,
                            gAmbientG, gAmbientB);
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, 1);
-        for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
-            sp60.x = player->unk_074;
-            sp60.y = player->unk_078;
-            sp60.z = player->unk_138;
-            func_800564C0(player, 1);
+        for (i = 0, opponent = gPlayer; i < gCamCount; i++, opponent++) {
+            sp60.x = opponent->unk_074;
+            sp60.y = opponent->unk_078;
+            sp60.z = opponent->unk_138;
+            func_800564C0(opponent, 1);
         }
         Matrix_Pop(&gGfxMatrix);
     }
@@ -1636,10 +1636,10 @@ void func_80057D00(void) {
     if ((D_80161A88 == 2) && (gPlayer[0].unk_1C8 != 2)) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, 1);
-        for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
+        for (i = 0, opponent = gPlayer; i < gCamCount; i++, opponent++) {
             if (D_800CA224[i] != 0) {
-                func_80055B58(player);
-                func_80056230(player);
+                func_80055B58(opponent);
+                func_80056230(opponent);
             }
             Matrix_Pop(&gGfxMatrix);
         }
@@ -1657,11 +1657,11 @@ void func_80057D00(void) {
         func_8006089C(0);
     }
     D_80161410 = 1;
-    for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
+    for (i = 0, opponent = gPlayer; i < gCamCount; i++, opponent++) {
         if (D_800CA224[i] != 0) {
-            func_80056E2C(player);
-            func_80055B58(player);
-            func_80056230(player);
+            func_80056E2C(opponent);
+            func_80055B58(opponent);
+            func_80056230(opponent);
         }
     }
     if ((gCurrentLevel == LEVEL_AQUAS) && (gPlayer[0].unk_1C8 == 3)) {
@@ -1678,15 +1678,15 @@ void func_80057D00(void) {
     if (D_800CA228 != 0) {
         func_80053B18();
     }
-    for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
+    for (i = 0, opponent = gPlayer; i < gCamCount; i++, opponent++) {
         if (D_800CA224[i] != 0) {
             if (D_800D2860[i] != 0) {
-                func_80053F7C(player);
+                func_80053F7C(opponent);
             }
-            if (player->unk_1CC == 1) {
-                func_80052B80(player);
-            } else if (player->unk_1CC == 3) {
-                func_80052584(player);
+            if (opponent->unk_1CC == 1) {
+                func_80052B80(opponent);
+            } else if (opponent->unk_1CC == 3) {
+                func_80052584(opponent);
             }
         }
     }
@@ -1694,7 +1694,7 @@ void func_80057D00(void) {
         func_E9F1D0_801A6164(gPlayer);
     }
     func_80040954();
-    if ((gCamCount != 1) && ((sp54->unk_1C8 == 3) || (sp54->unk_1C8 == 5))) {
+    if ((gCamCount != 1) && ((player->unk_1C8 == 3) || (player->unk_1C8 == 5))) {
         func_8008FA84();
         func_8008CA44();
     }
