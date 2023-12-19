@@ -386,7 +386,7 @@ void func_8007E45C(Object_8C*);
 void func_8007E5CC(Object_8C*);
 void func_8007E648(Object_8C*);
 void func_8007E93C(Object_8C *, u16 , f32 , f32 , f32 , f32 );
-void func_8007F04C(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32); // Object_Spawn?
+void func_8007F04C(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 void func_8007F20C(s32 , f32 , f32 , f32 , f32 );
 void func_8007F438(Object_8C*);
 void func_8007F6B0(Object_8C*);
@@ -520,9 +520,6 @@ void func_800C26C8(void);
 // fox_save
 s32 Save_Write(void);
 s32 Save_Read(void); 
-
-
-
 
 void func_EFFA40_80187520(s32, void*);
 
