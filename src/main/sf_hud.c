@@ -429,7 +429,7 @@ void func_8008865C(void) {
 
 s32 func_800886B8(void) {
     s32 var_v1 = 0;
-    f32 var_fv1 = D_8017797C->stick_y; // related to the vertical height of the arwing
+    f32 var_fv1 = gChngInputPtr->stick_y; // related to the vertical height of the arwing
 
     if ((var_fv1 != 0.0f) && (D_80161810[4] != 0)) {
         return 0;

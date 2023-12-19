@@ -92,7 +92,7 @@ typedef struct {
     /* 0x0 */ u16 unk_0;
     /* 0x2 */ s8 unk_2;
     /* 0x3 */ s8 unk_3;
-} UnkStruct_D_8017797C; // size = 0x4
+} UnkStruct_gChngInputPtr; // size = 0x4
 
 typedef struct {
     /* 0x00 */ u8 unk_00;
@@ -299,7 +299,7 @@ typedef struct Player {
                 Vec3f unk_460_arr[1]; // probably fake
     };
     /* 0x460 */ Vec3f unk_46C;
-    /* 0x494 */ u8 unk_478;
+    /* 0x478 */ u8 unk_478;
     /* 0x479 */ s8 unk_479;
     /* 0x47C */ Vec3f *unk_47C;
     /* 0x480 */ Vec3f *unk_480;
@@ -312,8 +312,8 @@ typedef struct Player {
     /* 0x498 */ s32 unk_498;
     /* 0x49C */ WingInfo wings;
     /* 0x4D8 */ f32 unk_4D8;
-    /* 0x4DC */ f32 unk_4DC;
-} Player; // size = 0x4E0 Might be Player
+    /* 0x4DC */ s32 unk_4DC;
+} Player; // size = 0x4E0
 
 typedef struct {
     /* 0x00 */ u8 hits;

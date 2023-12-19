@@ -139,7 +139,7 @@ void func_8004F8AC(Object_2F4*);
 void func_8004FEC0(Object_2F4*);
 void func_800515C4(void);
 
-// fox_52730
+// fox_display
 void func_80053658(WingInfo *);
 void func_8005465C(s32);
 void func_80057814(Player*);
@@ -409,7 +409,7 @@ void func_80083D2C(f32 , f32 , f32 , f32 );
 void func_80083FA8(Object_8C*);
 void func_80084194(Object_8C*);
 
-// fox_84F70
+// fox_fade
 void func_80084370(s32);
 void func_800843FC(s32);
 void func_80084488(s32);
@@ -457,7 +457,7 @@ void func_80098860(Plane *plane, Vec3f *point, Vec3f *normal);
 s32 func_800988B4(Vec3f *vec, Plane *plane);
 s32 func_800998FC(Vec3f*, Vec3f*, Vec3f*, s32, Vec3f*, f32*);
 
-// fox_A24B0
+// fox_game
 void Game_Initialize(void);
 void Game_SetGameState(void);
 bool func_800A1B6C(void);
@@ -476,7 +476,7 @@ bool func_800A3690(Vec3f*, Vec3f*, s32, Vec3f*);
 // fox_A48A0
 void func_800A3CA0(void);
 
-// sf_A4B50
+// fox_play
 s32 Play_CheckMedalStatus(u16);
 s32 Play_GetMaxHealth(void);
 void func_800A5844(void);

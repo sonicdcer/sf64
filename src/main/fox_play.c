@@ -2045,7 +2045,7 @@ void func_800A8BA4(Player* player) {
 }
 #else
 void func_800A8BA4(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800A8BA4.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800A8BA4.s")
 #endif
 
 void func_800AA800(Player* player) {
@@ -2303,27 +2303,25 @@ void func_800AB304(Player* player) {
     }
 }
 
-extern s32 D_801778B8;
-
 void func_800AB334(void) {
-    Vtx* var_v1_8;
+    Vtx* mesh;
     u8* ptr;
     s32 i;
     f32* fptr;
 
     switch (gCurrentLevel) {
         case LEVEL_TRAINING:
-            func_8001DC6C(0, 0x1CU);
+            func_8001DC6C(0, 28);
             D_8017796C = -1;
             break;
         case LEVEL_VENOM_1:
-            func_8001DC6C(0, 6U);
+            func_8001DC6C(0, 6);
             break;
         case LEVEL_VENOM_SW:
-            func_8001DC6C(0, 6U);
+            func_8001DC6C(0, 6);
             break;
         case LEVEL_VENOM_2:
-            func_8001DC6C(0, 0xFU);
+            func_8001DC6C(0, 15);
             func_8001D400(0);
             D_8017796C = -1;
             break;
@@ -2364,7 +2362,7 @@ void func_800AB334(void) {
             break;
         case LEVEL_TITANIA:
             func_E6A810_80188F30();
-            D_801778B8 = -2;
+            gTeamHealth[2] = -2;
             break;
         case LEVEL_MACBETH:
             func_E6A810_80199920();
@@ -2403,41 +2401,41 @@ void func_800AB334(void) {
 
             switch (gCurrentLevel) {
                 case 7:
-                    var_v1_8 = SEGMENTED_TO_VIRTUAL(D_6001C50);
+                    mesh = SEGMENTED_TO_VIRTUAL(D_6001C50);
                     break;
                 case 8:
-                    var_v1_8 = SEGMENTED_TO_VIRTUAL(D_6009ED0);
+                    mesh = SEGMENTED_TO_VIRTUAL(D_6009ED0);
                     break;
             }
-            for (i = 0; i < 17 * 17; i++, var_v1_8++) {
-                if (var_v1_8->v.ob[0] == 800) {
-                    var_v1_8->v.ob[0] = 1400;
+            for (i = 0; i < 17 * 17; i++, mesh++) {
+                if (mesh->v.ob[0] == 800) {
+                    mesh->v.ob[0] = 1400;
                 }
-                if (var_v1_8->v.ob[0] == -800) {
-                    var_v1_8->v.ob[0] = -1400;
+                if (mesh->v.ob[0] == -800) {
+                    mesh->v.ob[0] = -1400;
                 }
-                if (var_v1_8->v.ob[2] == -800) {
-                    var_v1_8->v.ob[2] = -1400;
+                if (mesh->v.ob[2] == -800) {
+                    mesh->v.ob[2] = -1400;
                 }
             }
 
             switch (gCurrentLevel) {
                 case 7:
-                    var_v1_8 = SEGMENTED_TO_VIRTUAL(D_6004500);
+                    mesh = SEGMENTED_TO_VIRTUAL(D_6004500);
                     break;
                 case 8:
-                    var_v1_8 = SEGMENTED_TO_VIRTUAL(D_600C780);
+                    mesh = SEGMENTED_TO_VIRTUAL(D_600C780);
                     break;
             }
-            for (i = 0; i < 17 * 17; i++, var_v1_8++) {
-                if (var_v1_8->v.ob[0] == 800) {
-                    var_v1_8->v.ob[0] = 1400;
+            for (i = 0; i < 17 * 17; i++, mesh++) {
+                if (mesh->v.ob[0] == 800) {
+                    mesh->v.ob[0] = 1400;
                 }
-                if (var_v1_8->v.ob[0] == -800) {
-                    var_v1_8->v.ob[0] = -1400;
+                if (mesh->v.ob[0] == -800) {
+                    mesh->v.ob[0] = -1400;
                 }
-                if (var_v1_8->v.ob[2] == -800) {
-                    var_v1_8->v.ob[2] = -1400;
+                if (mesh->v.ob[2] == -800) {
+                    mesh->v.ob[2] = -1400;
                 }
             }
             break;
@@ -2808,7 +2806,7 @@ void func_800ACABC(Player* player) {
 }
 
 void func_800ACC7C(Player* player) {
-    if ((gBombCount[player->unk_1C4] != 0) && (D_80177948[player->unk_1C4] & D_8017797C->button) &&
+    if ((gBombCount[player->unk_1C4] != 0) && (D_80177948[player->unk_1C4] & gChngInputPtr->button) &&
         (gObjects70[ARRAY_COUNT(gObjects70) - 1].obj.status == 0)) {
         if (D_801778E8 != 0) {
             gBombCount[player->unk_1C4] = 0;
@@ -2875,8 +2873,8 @@ void func_800ACDC0(Player* player, Object_70* obj70, s32 objId) {
 }
 
 void func_800AD094(Player* player) {
-
     s32 i;
+
     for (i = 0; i < ARRAY_COUNT(gObjects70); i++) {
         if (gObjects70[i].obj.status == 0) {
             func_800ACDC0(player, &gObjects70[i], 6);
@@ -2889,11 +2887,11 @@ void func_800AD094(Player* player) {
 }
 
 s32 func_800AD118(s32 arg0) {
-    Object_2F4* var_v1;
+    Object_2F4* obj2F4;
     s32 i;
 
-    for (i = 0, var_v1 = gObjects2F4; i < ARRAY_COUNT(gObjects2F4); i++, var_v1++) {
-        if ((var_v1->obj.status == 2) && (var_v1->unk_0CA[arg0] != 0)) {
+    for (i = 0, obj2F4 = gObjects2F4; i < ARRAY_COUNT(gObjects2F4); i++, obj2F4++) {
+        if ((obj2F4->obj.status == 2) && (obj2F4->unk_0CA[arg0] != 0)) {
             return 0;
         }
     }
@@ -2911,7 +2909,7 @@ s32 func_800AD1F4(Player* player) {
     s32 var_a2;
     s32 i;
 
-    if (D_80177974->button & A_BUTTON) {
+    if (gCurInputPtr->button & A_BUTTON) {
         D_801779C8[player->unk_1C4]++;
         if (D_801779C8[player->unk_1C4] > 21) {
             D_801779C8[player->unk_1C4] = 21;
@@ -2919,7 +2917,7 @@ s32 func_800AD1F4(Player* player) {
         if (D_801779C8[player->unk_1C4] == 20) {
             func_80060F30(&player->unk_460, 0x0900302D, player->unk_1C4);
         }
-        if ((!(D_80177974->button & R_TRIG) || !(D_80177974->button & Z_TRIG) || (player->unk_1CC != 0) ||
+        if ((!(gCurInputPtr->button & R_TRIG) || !(gCurInputPtr->button & Z_TRIG) || (player->unk_1CC != 0) ||
              (player->unk_1C8 != 3)) &&
             !(gFrameCount & 3) && (func_800AD118(player->unk_1C4) != 0)) {
             if (D_801779C8[player->unk_1C4] >= 21) {
@@ -2941,7 +2939,7 @@ s32 func_800AD1F4(Player* player) {
         }
     }
 
-    if (D_8017797C->button & A_BUTTON) {
+    if (gChngInputPtr->button & A_BUTTON) {
         for (i = 0; i < ARRAY_COUNT(gObjects2F4); i++) {
             if ((gObjects2F4[i].obj.status == 2) && (gObjects2F4[i].unk_0CA[player->unk_1C4] != 0)) {
                 if ((gObjects70[14 - player->unk_1C4].obj.status == 0) ||
@@ -2976,7 +2974,7 @@ s32 func_800AD1F4(Player* player) {
         }
         D_801779C8[player->unk_1C4] = 0;
     }
-    if (D_8017797C->button & B_BUTTON) {
+    if (gChngInputPtr->button & B_BUTTON) {
         var_a2 = 0;
         for (i = 0; i < ARRAY_COUNT(gObjects2F4); i++) {
             if ((gObjects2F4[i].obj.status == 2) && (gObjects2F4[i].unk_0CA[player->unk_1C4] != 0)) {
@@ -3021,13 +3019,13 @@ void func_800AD7F0(Player* player) {
                 } else {
                     Math_SmoothStepToF(&player->wings.unk_14, 0.0f, 1.0f, 0.5f, 0.0f);
                 }
-                if (D_80177938[player->unk_1C4] & D_8017797C->button) {
+                if (D_80177938[player->unk_1C4] & gChngInputPtr->button) {
                     func_800ACABC(player);
                     player->unk_244 = 8;
                 }
                 if (player->unk_244 != 0) {
                     player->unk_244--;
-                    if ((D_80177938[player->unk_1C4] & D_80177974->button) && !(player->unk_244 & 3)) {
+                    if ((D_80177938[player->unk_1C4] & gCurInputPtr->button) && !(player->unk_244 & 3)) {
                         func_800ACABC(player);
                     }
                 }
@@ -3036,17 +3034,17 @@ void func_800AD7F0(Player* player) {
             break;
         case 1:
             if (func_800AD1F4(player) == 0) {
-                if (D_80177938[player->unk_1C4] & D_8017797C->button) {
+                if (D_80177938[player->unk_1C4] & gChngInputPtr->button) {
                     func_800ACA40(player);
                 }
                 func_800ACC7C(player);
             }
             break;
         case 3:
-            if (D_8017797C->button & A_BUTTON) {
+            if (gChngInputPtr->button & A_BUTTON) {
                 player->unk_244 = 0;
             }
-            if (D_80177974->button & A_BUTTON) {
+            if (gCurInputPtr->button & A_BUTTON) {
                 if (player->unk_244 == 0) {
                     func_800AD094(player);
                 }
@@ -3071,7 +3069,7 @@ void func_800ADA28(Player* player) {
         sp3C = 17.0f;
     }
     sp38 = 0.1f;
-    if ((D_80177974->button & Z_TRIG) && !(D_80177974->button & R_TRIG)) {
+    if ((gCurInputPtr->button & Z_TRIG) && !(gCurInputPtr->button & R_TRIG)) {
         sp3C = 90.0f;
         sp38 = 0.2f;
         if (player->unk_12C < 70.0f) {
@@ -3085,7 +3083,7 @@ void func_800ADA28(Player* player) {
         }
     }
 
-    if ((D_80177974->button & R_TRIG) && !(D_80177974->button & Z_TRIG)) {
+    if ((gCurInputPtr->button & R_TRIG) && !(gCurInputPtr->button & Z_TRIG)) {
         sp3C = -90.0f;
         sp38 = 0.2f;
         if (player->unk_12C > -70.0f) {
@@ -3099,7 +3097,7 @@ void func_800ADA28(Player* player) {
         }
     }
     Math_SmoothStepToF(&player->unk_12C, sp3C, sp38, 10.0f, 0.f);
-    if (D_8017797C->button & Z_TRIG) {
+    if (gChngInputPtr->button & Z_TRIG) {
         player->unk_48C = 1;
         if (player->unk_1E0 != 0) {
             player->unk_1DC = 1;
@@ -3110,7 +3108,7 @@ void func_800ADA28(Player* player) {
             player->unk_1E0 = 10;
         }
     }
-    if (D_8017797C->button & R_TRIG) {
+    if (gChngInputPtr->button & R_TRIG) {
         player->unk_48C = 1;
         if (player->unk_1E4 != 0) {
             player->unk_1DC = 1;
@@ -3126,7 +3124,7 @@ void func_800ADA28(Player* player) {
 void func_800ADD98(Player* player) {
     Math_SmoothStepToF(&player->unk_170, 0.0f, 1.0f, 0.2f, 0.0f);
     Math_SmoothStepToF(&player->unk_16C, 0.0f, 1.0f, 0.2f, 0.0f);
-    if (D_8017797C->button & Z_TRIG) {
+    if (gChngInputPtr->button & Z_TRIG) {
         if ((player->unk_1E0 != 0) && (player->unk_12C > 0.0f) && (player->unk_2BC < 10.0f)) {
             player->unk_1DC = 1;
             player->unk_1E8 = 15;
@@ -3135,7 +3133,7 @@ void func_800ADD98(Player* player) {
             player->unk_1E0 = 10;
         }
     }
-    if (D_8017797C->button & R_TRIG) {
+    if (gChngInputPtr->button & R_TRIG) {
         if ((player->unk_1E4 != 0) && (player->unk_12C < 0.0f) && (player->unk_2BC < 10.0f)) {
             player->unk_1DC = 1;
             player->unk_1E8 = 15;
@@ -3260,117 +3258,117 @@ void func_800AE278(Player* player) {
 }
 
 void func_800AE4A4(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800AE4A4.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800AE4A4.s")
 
 void func_800AECAC(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800AECAC.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800AECAC.s")
 
 void func_800AF07C(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800AF07C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800AF07C.s")
 
 void func_800AF928(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800AF928.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800AF928.s")
 
 void func_800B00C0(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B00C0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B00C0.s")
 
 void func_800B0194(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B0194.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B0194.s")
 
 void func_800B0F50(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B0F50.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B0F50.s")
 
 void func_800B2130(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B2130.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B2130.s")
 
 void func_800B22C0(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B22C0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B22C0.s")
 
 void func_800B2574(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B2574.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B2574.s")
 
 void func_800B2BE0(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B2BE0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B2BE0.s")
 
 void func_800B2C00(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B2C00.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B2C00.s")
 
 void func_800B3010(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B3010.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B3010.s")
 
 void func_800B3314(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B3314.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B3314.s")
 
 void func_800B39E0(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B39E0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B39E0.s")
 
 void func_800B40AC(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B40AC.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B40AC.s")
 
 void func_800B415C(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B415C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B415C.s")
 
 void func_800B41E0(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B41E0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B41E0.s")
 
 void func_800B41EC(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B41EC.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B41EC.s")
 
 void func_800B42B0(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B42B0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B42B0.s")
 
 void func_800B44C4(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B44C4.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B44C4.s")
 
 void func_800B46F8(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B46F8.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B46F8.s")
 
 void func_800B48BC(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B48BC.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B48BC.s")
 
 void func_800B56BC(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B56BC.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B56BC.s")
 
 void func_800B5D30(Player* player, s32);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B5D30.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B5D30.s")
 
 void func_800B5FBC(Player* player, s32 arg1, s32 arg2);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B5FBC.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B5FBC.s")
 
 void func_800B63BC(Player* player, s32);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B63BC.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B63BC.s")
 
 void func_800B6848(Player* player, s32 arg1);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B6848.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B6848.s")
 
 void func_800B6BFC(Player* player, s32 arg1);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B6BFC.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B6BFC.s")
 
 void func_800B6F50(f32, f32, f32, f32, f32, f32);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B6F50.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B6F50.s")
 
 void func_800B7184(Player* player, s32);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B7184.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B7184.s")
 
 void func_800B71E4(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B71E4.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B71E4.s")
 
 void func_800B73E0(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B73E0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B73E0.s")
 
 void func_800B79B0(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B79B0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B79B0.s")
 
 void func_800B832C(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B832C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B832C.s")
 
 void func_800B852C(s32 arg0, Object_6C* obj6C);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B852C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B852C.s")
 
 void func_800B86A4(f32* arg0);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B86A4.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B86A4.s")
 
 void func_800B86CC(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/func_800B86CC.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800B86CC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_A4B50/D_800D82F0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/D_800D82F0.s")
