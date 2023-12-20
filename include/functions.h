@@ -484,6 +484,7 @@ s32 Play_GetMaxHealth(void);
 void func_800A5844(void);
 void func_800A5D6C(void);
 void func_800A5FA0(Vec3f* , u32 , s32 );
+void func_800A6070(Vec3f* arg0, u32 arg1);
 void func_800A6148(void);
 void func_800A69F8(s32 , f32 , f32 , f32 );
 void func_800A6CD0(Player *, s32, s32);
