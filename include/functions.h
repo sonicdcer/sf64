@@ -356,7 +356,7 @@ void func_8007BDE0(Object_8C*);
 void func_8007BE54(Object_8C*);
 void func_8007BEE8(Object_8C*);
 void func_8007BFFC(f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg6, s32 arg7);
-void func_8007C120(f32, f32, f32, f32, f32, f32, f32, s32);
+void func_8007C120(f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg6, s32 arg7);
 void func_8007C250(Object_8C*);
 void func_8007C484(f32, f32, f32, f32, f32, f32, f32, s32);
 void func_8007C50C(Object_8C*);

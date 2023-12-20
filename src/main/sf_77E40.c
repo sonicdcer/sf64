@@ -1399,7 +1399,16 @@ void func_8007C088(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 x, f32 y, 
     Object_Set1C(&arg0->unk_1C, arg0->obj.id);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007C120.s")
+void func_8007C120(f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg6, s32 arg7) {
+    s32 i;
+
+    for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
+        if (gObjects8C[i].obj.status == 0) {
+            func_8007C088(&gObjects8C[i], posX, posY, posZ, x, y, z, arg6, arg7);
+            break;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007C1AC.s")
 
