@@ -1358,7 +1358,20 @@ void func_8007BEE8(Object_8C* arg0) {
     gSPDisplayList(gMasterDisp++, D_2010A30);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007BF64.s")
+void func_8007BF64(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg7, s32 arg8) {
+    Object_8C_Initialize(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = OBJECT_386;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = posY;
+    arg0->obj.pos.z = posZ;
+    arg0->unk_54.x = x;
+    arg0->unk_54.y = y;
+    arg0->unk_54.z = z;
+    arg0->unk_70 = arg7;
+    arg0->unk_50 = arg8;
+    Object_Set1C(&arg0->unk_1C, arg0->obj.id);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007BFFC.s")
 
