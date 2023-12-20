@@ -1,18 +1,18 @@
 #include "global.h"
 
-OSContPad gCurrentInput[4];
-OSContPad gChangedInput[4];
-u8 gControllerStatus[4];
-u32 gStopInputTimer;
-u8 gRumbleStatus[4];
-OSContPad sNextInput[4];    //
-OSContPad sPrevInput[4];    //
-OSContStatus D_800DD8F0[4]; //
-OSPfs D_800DD900[4];        //
+OSContPad gControllerHold[4];
+OSContPad gControllerPress[4];
+u8 gControllerPlugged[4];
+u32 gControllerLock;
+u8 gControllerRumble[4];
+OSContPad sNextController[4];      //
+OSContPad sPrevController[4];      //
+OSContStatus sControllerStatus[4]; //
+OSPfs sControllerMotor[4];         //
 
 void Controller_AddDeadZone(s32 contrNum) {
-    s32 temp_v0 = gCurrentInput[contrNum].stick_x;
-    s32 temp_a2 = gCurrentInput[contrNum].stick_y;
+    s32 temp_v0 = gControllerHold[contrNum].stick_x;
+    s32 temp_a2 = gControllerHold[contrNum].stick_y;
     s32 var_a0;
     s32 var_v0;
 
@@ -44,18 +44,18 @@ void Controller_AddDeadZone(s32 contrNum) {
     if (var_v0 < -60) {
         var_v0 = -60;
     }
-    gChangedInput[contrNum].stick_x = var_a0;
-    gChangedInput[contrNum].stick_y = var_v0;
+    gControllerPress[contrNum].stick_x = var_a0;
+    gControllerPress[contrNum].stick_y = var_v0;
 }
 
 void Controller_Init(void) {
     u8 sp1F;
     s32 i;
 
-    osContInit(&gSerialEventQueue, &sp1F, D_800DD8F0);
+    osContInit(&gSerialEventQueue, &sp1F, sControllerStatus);
     for (i = 0; i < 4; i++) {
-        gControllerStatus[i] = (sp1F >> i) & 1;
-        gRumbleStatus[i] = 0;
+        gControllerPlugged[i] = (sp1F >> i) & 1;
+        gControllerRumble[i] = 0;
     }
 }
 
@@ -63,15 +63,16 @@ void Controller_UpdateInput(void) {
     s32 i;
 
     for (i = 0; i < 4; i++) {
-        if (gControllerStatus[i] == 1 && sNextInput[i].errno == 0) {
-            sPrevInput[i] = gCurrentInput[i];
-            gCurrentInput[i] = sNextInput[i];
-            gChangedInput[i].button = (gCurrentInput[i].button ^ sPrevInput[i].button) & gCurrentInput[i].button;
+        if (gControllerPlugged[i] == 1 && sNextController[i].errno == 0) {
+            sPrevController[i] = gControllerHold[i];
+            gControllerHold[i] = sNextController[i];
+            gControllerPress[i].button =
+                (gControllerHold[i].button ^ sPrevController[i].button) & gControllerHold[i].button;
             Controller_AddDeadZone(i);
         } else {
-            gCurrentInput[i].button = gCurrentInput[i].stick_x = gCurrentInput[i].stick_y = gCurrentInput[i].errno =
-                gChangedInput[i].button = gChangedInput[i].stick_x = gChangedInput[i].stick_y = gChangedInput[i].errno =
-                    0;
+            gControllerHold[i].button = gControllerHold[i].stick_x = gControllerHold[i].stick_y =
+                gControllerHold[i].errno = gControllerPress[i].button = gControllerPress[i].stick_x =
+                    gControllerPress[i].stick_y = gControllerPress[i].errno = 0;
         }
     }
 }
@@ -79,15 +80,16 @@ void Controller_UpdateInput(void) {
 void Controller_ReadData(void) {
     s32 i;
 
-    if (gStopInputTimer != 0) {
-        gStopInputTimer--;
+    if (gControllerLock != 0) {
+        gControllerLock--;
         for (i = 0; i < 4; i++) {
-            sNextInput[i].button = sNextInput[i].stick_x = sNextInput[i].stick_y = sNextInput[i].errno = 0;
+            sNextController[i].button = sNextController[i].stick_x = sNextController[i].stick_y =
+                sNextController[i].errno = 0;
         }
     } else {
         osContStartReadData(&gSerialEventQueue);
         osRecvMesg(&gSerialEventQueue, NULL, OS_MESG_BLOCK);
-        osContGetReadData(sNextInput);
+        osContGetReadData(sNextController);
     }
     osSendMesg(&gControllerMsgQueue, (OSMesg) SI_CONT_READ_DONE, OS_MESG_PRI_NORMAL);
 }
@@ -113,31 +115,31 @@ void Controller_Rumble(void) {
 
     osContStartQuery(&gSerialEventQueue);
     osRecvMesg(&gSerialEventQueue, NULL, OS_MESG_BLOCK);
-    osContGetQuery(D_800DD8F0);
+    osContGetQuery(sControllerStatus);
 
     for (i = 0; i < 4; i++) {
-        if ((gControllerStatus[i] != 0) && (D_800DD8F0[i].errno == 0)) {
-            if (D_800DD8F0[i].status & 1) {
-                if (gRumbleStatus[i] == 0) {
-                    if (osMotorInit(&gSerialEventQueue, &D_800DD900[i], i)) {
-                        gRumbleStatus[i] = 0;
+        if ((gControllerPlugged[i] != 0) && (sControllerStatus[i].errno == 0)) {
+            if (sControllerStatus[i].status & 1) {
+                if (gControllerRumble[i] == 0) {
+                    if (osMotorInit(&gSerialEventQueue, &sControllerMotor[i], i)) {
+                        gControllerRumble[i] = 0;
                     } else {
-                        gRumbleStatus[i] = 1;
+                        gControllerRumble[i] = 1;
                     }
                 }
-                if (gRumbleStatus[i] == 1) {
+                if (gControllerRumble[i] == 1) {
                     if (D_80137E84[i] != 0) {
-                        if (osMotorStart(&D_800DD900[i])) {
-                            gRumbleStatus[i] = 0;
+                        if (osMotorStart(&sControllerMotor[i])) {
+                            gControllerRumble[i] = 0;
                         }
                     } else {
-                        if (osMotorStop(&D_800DD900[i])) {
-                            gRumbleStatus[i] = 0;
+                        if (osMotorStop(&sControllerMotor[i])) {
+                            gControllerRumble[i] = 0;
                         }
                     }
                 }
             } else {
-                gRumbleStatus[i] = 0;
+                gControllerRumble[i] = 0;
             }
         }
     }

@@ -45,7 +45,7 @@ gSetupDLs = 0x800D31B0; // size:0x18C0
 
 D_800CFCA0 = 0x800CFCA0;
 
-D_800DD900 = 0x800DD900; // size:0x1A0
+sControllerMotor = 0x800DD900; // size:0x1A0
 
 D_800CBDD4 = 0x800CBDD4; //size:0x98
 
