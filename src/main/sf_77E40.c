@@ -1352,7 +1352,11 @@ void func_8007BE54(Object_8C* arg0) {
     arg0->unk_54.y += 0.1f;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007BEE8.s")
+void func_8007BEE8(Object_8C* arg0) {
+    func_8005980C(arg0->unk_70);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, arg0->unk_4A);
+    gSPDisplayList(gMasterDisp++, D_2010A30);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007BF64.s")
 
