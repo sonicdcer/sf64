@@ -1313,7 +1313,23 @@ void func_8007BC7C(f32 posX, f32 posY, f32 posZ, f32 arg3) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007BCE8.s")
+void func_8007BCE8(Object_8C* arg0) {
+    if (gPlayer->unk_1C8 == 7) {
+        arg0->obj.rot.x = (gPlayer->unk_05C * 180.0f) / M_PI;
+        arg0->obj.rot.y = (-gPlayer->unk_058 * 180.0f) / M_PI;
+    }
+    if (gPlayer->unk_1C8 == 6) {
+        arg0->unk_46 = 2;
+        arg0->unk_54.y -= 0.13f;
+    }
+    arg0->unk_70 += 0.07f;
+    arg0->unk_4A -= arg0->unk_46;
+    if (arg0->unk_4A < 0) {
+        Object_Kill(&arg0->obj, &arg0->sfxPos);
+    }
+    arg0->obj.rot.z += arg0->unk_48;
+    arg0->unk_54.y += 0.2f;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007BDE0.s")
 
