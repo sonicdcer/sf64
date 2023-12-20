@@ -1302,7 +1302,7 @@ void func_8007BB14(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4) {
     Object_Set1C(&arg0->unk_1C, arg0->obj.id);
 }
 
-void func_8007BC7C(f32 posX, f32 posY, f32 posZ, f32 arg3) {    
+void func_8007BC7C(f32 posX, f32 posY, f32 posZ, f32 arg3) {
     s32 i;
 
     for (i = ARRAY_COUNT(gObjects8C) - 20; i >= 0; i--) {
@@ -1341,7 +1341,16 @@ void func_8007BDE0(Object_8C* arg0) {
     arg0->unk_54.y += arg0->unk_6C;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007BE54.s")
+void func_8007BE54(Object_8C* arg0) {
+    arg0->unk_70 += 0.02f;
+    arg0->unk_4A -= 3;
+    if (arg0->unk_4A < 0) {
+        Object_Kill(&arg0->obj, &arg0->sfxPos);
+    }
+    arg0->unk_54.z = gPlayer->unk_0C0.z + 7.0f;
+    arg0->obj.rot.z += arg0->unk_48;
+    arg0->unk_54.y += 0.1f;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007BEE8.s")
 
