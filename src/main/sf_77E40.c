@@ -1257,7 +1257,7 @@ void func_8007B960(Object_8C* obj8C) {
 
 void func_8007B9DC(Object_8C* arg0) {
     //! DEBUG
-    if (gCurrentInput[3].button & Z_TRIG) {
+    if (gControllerHold[3].button & Z_TRIG) {
         RCP_SetupDL(&gMasterDisp, 4);
     }
     func_8005980C(arg0->unk_70);
@@ -1267,11 +1267,11 @@ void func_8007B9DC(Object_8C* arg0) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, (gFrameCount & 3) + 5, (gFrameCount & 3) + 3, (gFrameCount & 3) + 3, 220);
     }
     //! DEBUG
-    if (!(gCurrentInput[3].button & A_BUTTON)) {
+    if (!(gControllerHold[3].button & A_BUTTON)) {
         gSPDisplayList(gMasterDisp++, D_2010A30);
     }
     //! DEBUG
-    if (gCurrentInput[3].button & Z_TRIG) {
+    if (gControllerHold[3].button & Z_TRIG) {
         RCP_SetupDL(&gMasterDisp, 0x40);
     }
 }
@@ -1279,7 +1279,7 @@ void func_8007B9DC(Object_8C* arg0) {
 void func_8007BB14(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4) {
     Object_8C_Initialize(arg0);
     arg0->obj.status = 1;
-    arg0->obj.id = OBJECT_362;
+    arg0->obj.id = OBJ_8C_362;
     arg0->obj.pos.x = posX;
     arg0->obj.pos.y = posY;
     arg0->obj.pos.z = posZ;
@@ -1300,7 +1300,7 @@ void func_8007BB14(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4) {
     if (arg4 == 6.0f) {
         arg0->unk_54.z = gPlayer->unk_0C0.z * 0.6f;
     }
-    Object_Set1C(&arg0->unk_1C, arg0->obj.id);
+    Object_SetInfo(&arg0->info, arg0->obj.id);
 }
 
 void func_8007BC7C(f32 posX, f32 posY, f32 posZ, f32 arg3) {
@@ -1362,7 +1362,7 @@ void func_8007BEE8(Object_8C* arg0) {
 void func_8007BF64(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg7, s32 arg8) {
     Object_8C_Initialize(arg0);
     arg0->obj.status = 1;
-    arg0->obj.id = OBJECT_386;
+    arg0->obj.id = OBJ_8C_386;
     arg0->obj.pos.x = posX;
     arg0->obj.pos.y = posY;
     arg0->obj.pos.z = posZ;
@@ -1371,7 +1371,7 @@ void func_8007BF64(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 x, f32 y, 
     arg0->unk_54.z = z;
     arg0->unk_70 = arg7;
     arg0->unk_50 = arg8;
-    Object_Set1C(&arg0->unk_1C, arg0->obj.id);
+    Object_SetInfo(&arg0->info, arg0->obj.id);
 }
 
 void func_8007BFFC(f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg6, s32 arg7) {
@@ -1388,7 +1388,7 @@ void func_8007BFFC(f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg6, 
 void func_8007C088(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg7, s32 arg8) {
     Object_8C_Initialize(arg0);
     arg0->obj.status = 1;
-    arg0->obj.id = OBJECT_390;
+    arg0->obj.id = OBJ_8C_390;
     arg0->obj.pos.x = posX;
     arg0->obj.pos.y = posY;
     arg0->obj.pos.z = posZ;
@@ -1397,7 +1397,7 @@ void func_8007C088(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 x, f32 y, 
     arg0->unk_54.z = z;
     arg0->unk_70 = arg7;
     arg0->unk_50 = arg8;
-    Object_Set1C(&arg0->unk_1C, arg0->obj.id);
+    Object_SetInfo(&arg0->info, arg0->obj.id);
 }
 
 void func_8007C120(f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg6, s32 arg7) {
@@ -1433,7 +1433,7 @@ void func_8007C250(Object_8C* arg0) {
     Math_SmoothStepToF(&arg0->unk_54.y, 0.0f, 0.2f, 10.0f, 0.1f);
     Math_SmoothStepToF(&arg0->unk_54.z, 0.0f, 0.2f, 10.0f, 0.1f);
     var_v0 = 3;
-    if (D_80177880 == 1) {
+    if (gAllRangeMode == 1) {
         var_v0 = 1;
     }
     if (!(arg0->unk_50 & var_v0)) {
