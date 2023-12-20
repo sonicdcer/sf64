@@ -1331,7 +1331,15 @@ void func_8007BCE8(Object_8C* arg0) {
     arg0->unk_54.y += 0.2f;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007BDE0.s")
+void func_8007BDE0(Object_8C* arg0) {
+    arg0->unk_70 += 0.04f;
+    arg0->unk_4A -= 2;
+    if (arg0->unk_4A < 0) {
+        Object_Kill(&arg0->obj, &arg0->sfxPos);
+    }
+    arg0->obj.rot.z += arg0->unk_48;
+    arg0->unk_54.y += arg0->unk_6C;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007BE54.s")
 
