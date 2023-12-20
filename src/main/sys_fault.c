@@ -239,14 +239,14 @@ void Fault_ThreadEntry(void* arg0) {
     }
 
     func_8000762C(300, 10, "-");
-    gControllerStatus[0] = 1;
+    gControllerPlugged[0] = 1;
     while (var_s5 == 0) {
         osSendMesg(&gSerialThreadMsgQueue, (OSMesg) SI_READ_CONTROLLER, OS_MESG_PRI_NORMAL);
         osRecvMesg(&gControllerMsgQueue, NULL, OS_MESG_BLOCK);
         Controller_UpdateInput();
         switch (var_s0) {
             case 0:
-                if (gCurrentInput[0].button == (R_TRIG | D_CBUTTONS | L_CBUTTONS)) {
+                if (gControllerHold[0].button == (R_TRIG | D_CBUTTONS | L_CBUTTONS)) {
                     var_s0++;
                     var_s2 = 4000;
                 }
@@ -254,11 +254,11 @@ void Fault_ThreadEntry(void* arg0) {
             case 1:
             case 2:
             case 7:
-                if (gCurrentInput[0].button & R_TRIG) {
-                    if (gChangedInput[0].button == A_BUTTON) {
+                if (gControllerHold[0].button & R_TRIG) {
+                    if (gControllerPress[0].button == A_BUTTON) {
                         var_s0++;
                         var_s2 = 3000;
-                    } else if (gChangedInput[0].button != 0) {
+                    } else if (gControllerPress[0].button != 0) {
                         var_s0 = 0;
                     }
                 }
@@ -266,11 +266,11 @@ void Fault_ThreadEntry(void* arg0) {
             case 3:
             case 4:
             case 8:
-                if (gCurrentInput[0].button & R_TRIG) {
-                    if (gChangedInput[0].button == B_BUTTON) {
+                if (gControllerHold[0].button & R_TRIG) {
+                    if (gControllerPress[0].button == B_BUTTON) {
                         var_s0++;
                         var_s2 = 3000;
-                    } else if (gChangedInput[0].button != 0) {
+                    } else if (gControllerPress[0].button != 0) {
                         var_s0 = 0;
                     }
                 }
@@ -282,21 +282,21 @@ void Fault_ThreadEntry(void* arg0) {
             case 11:
             case 12:
             case 13:
-                if (gCurrentInput[0].button & R_TRIG) {
-                    if (gChangedInput[0].button == L_CBUTTONS) {
+                if (gControllerHold[0].button & R_TRIG) {
+                    if (gControllerPress[0].button == L_CBUTTONS) {
                         var_s0++;
                         var_s2 = 3000;
-                    } else if (gChangedInput[0].button != 0) {
+                    } else if (gControllerPress[0].button != 0) {
                         var_s0 = 0;
                     }
                 }
                 break;
             case 14:
-                if (gCurrentInput[0].button & R_TRIG) {
-                    if (gChangedInput[0].button == START_BUTTON) {
+                if (gControllerHold[0].button & R_TRIG) {
+                    if (gControllerPress[0].button == START_BUTTON) {
                         var_s0++;
                         var_s2 = 3000;
-                    } else if (gChangedInput[0].button != 0) {
+                    } else if (gControllerPress[0].button != 0) {
                         var_s0 = 0;
                     }
                 }

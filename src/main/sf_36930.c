@@ -4,7 +4,7 @@
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_36930/func_80035DEC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_36930/Object_70_Initialize.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_36930/PlayerShot_Initialize.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_36930/func_80035E78.s")
 

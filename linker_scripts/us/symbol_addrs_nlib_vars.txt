@@ -5,15 +5,15 @@ __f3dex_start = 0x80001410;
 gF3dexData = 0x800C3DD0;
 
 // sys_joybus
-gCurrentInput = 0x800DD880; // size:0x18
-gChangedInput = 0x800DD898; // size:0x18
-gControllerStatus = 0x800DD8B0; // size:0x4
-gStopInputTimer = 0x800DD8B4; // size:0x4
-gRumbleStatus = 0x800DD8B8; // size:0x4
+gControllerHold = 0x800DD880; // size:0x18
+gControllerPress = 0x800DD898; // size:0x18
+gControllerPlugged = 0x800DD8B0; // size:0x4
+gControllerLock = 0x800DD8B4; // size:0x4
+gControllerRumble = 0x800DD8B8; // size:0x4
 D_800DD8BC = 0x800DD8BC; // ignore:true
-sNextInput = 0x800DD8C0; // size:0x18
-sPrevInput = 0x800DD8D8; // size:0x18
-D_800DD8F0 = 0x800DD8F0; // size:0x10
+sNextController = 0x800DD8C0; // size:0x18
+sPrevController = 0x800DD8D8; // size:0x18
+sControllerStatus = 0x800DD8F0; // size:0x10
 
 // main
 gAudioThreadStack =  0x800DDAA0;

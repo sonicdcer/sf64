@@ -31,7 +31,7 @@ void Graphics_NMIWipe(void) {
         gStopTasks = 1;
     }
     for (i = 0; i < MAXCONTROLLERS; i++) {
-        gRumbleStatus[i] = 0;
+        gControllerRumble[i] = 0;
         D_80137E84[i] = 0;
     }
 }
