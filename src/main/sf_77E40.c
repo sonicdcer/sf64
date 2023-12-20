@@ -1299,7 +1299,7 @@ void func_8007BB14(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4) {
     if (arg4 == 6.0f) {
         arg0->unk_54.z = gPlayer->unk_0C0.z * 0.6f;
     }
-    func_800612B8(&arg0->unk_1C, arg0->obj.id);
+    Object_Set1C(&arg0->unk_1C, arg0->obj.id);
 }
 
 
