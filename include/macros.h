@@ -16,7 +16,4 @@
 #define USEC_TO_CYCLES(n) (((u64)(n)*(osClockRate/15625LL))/(1000000LL/15625LL))
 #define MSEC_TO_CYCLES(n) (USEC_TO_CYCLES((n) * 1000LL))
 
-#define PLAYER(n) ((n) - 1)
-#define CONTROLLER(n) ((n) - 1)
-
 #endif // MACROS_H

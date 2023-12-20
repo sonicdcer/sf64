@@ -1255,7 +1255,8 @@ void func_8007B960(Object_8C* arg0) {
 }
 
 void func_8007B9DC(Object_8C* arg0) {
-    if (gCurrentInput[CONTROLLER(4)].button & Z_TRIG) {
+    //! DEBUG
+    if (gCurrentInput[3].button & Z_TRIG) {
         RCP_SetupDL(&gMasterDisp, 4);
     }
     func_8005980C(arg0->unk_70);
@@ -1264,10 +1265,12 @@ void func_8007B9DC(Object_8C* arg0) {
     } else {
         gDPSetPrimColor(gMasterDisp++, 0, 0, (gFrameCount & 3) + 5, (gFrameCount & 3) + 3, (gFrameCount & 3) + 3, 220);
     }
-    if (!(gCurrentInput[CONTROLLER(4)].button & A_BUTTON)) {
+    //! DEBUG
+    if (!(gCurrentInput[3].button & A_BUTTON)) {
         gSPDisplayList(gMasterDisp++, D_2010A30);
     }
-    if (gCurrentInput[CONTROLLER(4)].button & Z_TRIG) {
+    //! DEBUG
+    if (gCurrentInput[3].button & Z_TRIG) {
         RCP_SetupDL(&gMasterDisp, 0x40);
     }
 }
