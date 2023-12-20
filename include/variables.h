@@ -228,7 +228,7 @@ extern CollisionHeader D_800D2B38[];
 extern CollisionHeader2 D_800D2CA0[];
 extern u8 D_800D2F68;
 extern u8 D_800D3180[30];
-extern s32 D_800D31A0[4]; // could belong to fox_rcp or sf_A4B50
+extern s32 D_800D31A0[4]; // could belong to fox_rcp or fox_play
 extern s32 sCurrentMsgPri;
 extern Save gDefaultSave;
 
@@ -267,7 +267,7 @@ extern f32 D_80161394;
 // fox_43AC0
 extern s32 D_801613A0;
 
-// fox_52730
+// fox_display
 extern Vec3f D_801613B0[];
 extern Vec3f D_801613E0[];
 extern s16 D_80161410;
@@ -322,7 +322,7 @@ extern s32 D_80161810[];
 extern s32 D_80161900[];
 extern s32 D_80161910[0x10]; // could be in fox_97F80
 
-// fox_A24B0
+// fox_game
 extern f32 D_80161A10;
 extern f32 D_80161A14;
 extern s32 D_80161A18[4];
@@ -339,7 +339,7 @@ extern f32 D_80161A3C;
 extern f32 D_80161A40;
 extern f32 D_80161A44;
 
-// sf_A4B50
+// fox_play
 extern u8 D_80161A50;
 extern f32 D_80161A54;
 //
@@ -360,7 +360,7 @@ extern s32 D_80161A8C;
 extern u8 gGoldRingCount[4];
 extern u8 D_80161A94;
 extern s32 gHitCount;
-extern s32 D_80161A9C;
+extern s32 gSavedHitCount;
 extern s16 gLifeCount[4];
 extern s32 gLaserStrength[4];
 //
@@ -413,17 +413,17 @@ extern s32 D_801778A0;
 extern s32 D_801778A4;
 extern s32 gCamCount;
 extern s32 D_801778AC;
-extern s32 D_801778B0[6];
+extern s32 gTeamHealth[6];
 extern s32 D_801778C8;
 //
-extern s32 D_801778D0[6];
+extern s32 gSavedTeamHealth[6];
 extern s32 D_801778E8;
 //
 extern UNK_TYPE D_801778F0[6];
 extern u16 D_80177908[4];
 extern s32 D_80177910[6];
 extern u16 D_80177928[4];
-extern s8 D_80177930;
+extern u8 D_80177930;
 //
 extern u16 D_80177938[4];
 extern f32 D_80177940;
@@ -435,9 +435,9 @@ extern f32 D_80177958[4];
 extern f32 D_80177968;
 extern s32 D_8017796C;
 extern f32 D_80177970;
-extern OSContPad *D_80177974;
+extern OSContPad *gCurInputPtr;
 extern f32 D_80177978;
-extern OSContPad* D_8017797C;
+extern OSContPad* gChngInputPtr;
 extern f32 D_80177980;
 extern u8 *D_80177984;
 extern f32 D_80177988;
@@ -483,7 +483,7 @@ extern s32 D_80177B00[4][4];
 extern s32 D_80177B40;
 extern u8 D_80177B44;
 extern s32 D_80177B48;
-extern s8 D_80177B4C;
+extern u8 D_80177B4C;
 extern s32 D_80177B50[7];
 extern u8 D_80177B6C;
 extern s32 D_80177B70[7];
@@ -589,7 +589,7 @@ extern s32 D_801782B4;
 extern s32 D_801782B8;
 extern s32 D_801782BC;
 extern s32 D_801782C0;
-extern f32 *D_801782C4;
+extern PosRot *D_801782C4;
 extern s32 D_801782C8;
 extern f32 *D_801782CC;
 extern s32 D_801782D0;

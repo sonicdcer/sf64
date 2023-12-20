@@ -172,24 +172,26 @@
     # Game engine
       - [0x2EFE0, c, sf_2EFE0]
       - [0x36930, c, sf_36930]
+      - [0x3E6F0, c, sf_3E6F0]
       - [0x43AC0, c, fox_43AC0]
       - [0x43E80, c, sf_43E80]
       - [0x496C0, c, sf_496C0]
-      - [0x52730, c, fox_52730]
+      - [0x52730, c, fox_display]
       - [0x59780, c, fox_load]
       - [0x5A0F0, c, fox_edata]
       - [0x5A2C0, c, fox_edisplay]
       - [0x61B30, c, fox_enmy]
       - [0x6B3B0, c, fox_6B3B0]
       - [0x77E40, c, sf_77E40]
-      - [0x84F70, c, fox_84F70]
+      - [0x84F70, c, fox_fade]
+      - [0x852F0, c, sf_852F0]
       - [0x85530, c, sf_hud]
       - [0x97F80, c, fox_97F80]
       - [0x9A580, c, fox_std_lib]
-      - [0xA24B0, c, fox_A24B0]
+      - [0xA24B0, c, fox_game]
       - [0xA4290, c, fox_A4290]
       - [0xA48A0, c, fox_A48A0]
-      - [0xA4B50, c, sf_A4B50]
+      - [0xA4B50, c, fox_play]
       - [0xB99D0, c, fox_rcp]
       - [0xBB360, c, fox_radio]
       - [0xBD0B0, c, fox_reset]
@@ -264,10 +266,11 @@
       
       - [0xCA690, data, sf_2EFE0]
       - [0xCA7C0, data, sf_36930]
+      - [0xCA830, data, sf_3E6F0]
       - [0xCAA90, .data, fox_43AC0]
       - [0xCAB00, data, sf_43E80]
       - [0xCAB60, data, sf_496C0]
-      - [0xCAE20, .data, fox_52730]
+      - [0xCAE20, .data, fox_display]
       - [0xCAFB0, .data, fox_load]
       - [0xCCA70, .data, fox_edata]
       - [0xD0570, .data, fox_edisplay]
@@ -276,9 +279,9 @@
       - [0xD20E0, data, sf_77E40]
       - [0xD2570, data, sf_hud]
       - [0xD31D0, .data, fox_std_lib]
-      - [0xD3460, .data, fox_A24B0]
+      - [0xD3460, .data, fox_game]
       - [0xD3520, .data, fox_A4290]
-      - [0xD3B50, data, sf_A4B50]
+      - [0xD3B50, data, fox_play]
       - [0xD3DB0, .data, fox_rcp]
       - [0xD5670, .data, fox_radio]
       - [0xD5680, .data, fox_reset]
@@ -288,23 +291,24 @@
       # RODATA - game engine
       - [0xD5A10, .rodata, sf_2EFE0]
       - [0xD5CF0, .rodata, sf_36930]
+      - [0xD5F90, .rodata, sf_3E6F0]
       - [0xD61D0, .rodata, fox_43AC0]
       - [0xD61F0, .rodata, sf_43E80]
       - [0xD6350, .rodata, sf_496C0]
-      - [0xD69A0, .rodata, fox_52730]
+      - [0xD69A0, .rodata, fox_display]
       - [0xD6BA0, .rodata, fox_load]
       - [0xD6C20, .rodata, fox_edisplay]
       - [0xD6FD0, .rodata, fox_enmy]
       - [0xD7650, .rodata, fox_6B3B0]
       - [0xD7E30, .rodata, sf_77E40]
-      - [0xD82F0, .rodata, fox_84F70]
+      - [0xD82F0, .rodata, fox_fade]
       - [0xD8320, .rodata, sf_hud]
       - [0xD8DE0, .rodata, fox_97F80]
       - [0xD8DF0, .rodata, fox_std_lib]
-      - [0xD8E50, .rodata, fox_A24B0]
+      - [0xD8E50, .rodata, fox_game]
       - [0xD8ED0, .rodata, fox_A4290]
       - [0xD8EE0, .rodata, fox_A48A0]
-      - [0xD8EF0, .rodata, sf_A4B50]
+      - [0xD8EF0, .rodata, fox_play]
       - [0xD97F0, .rodata, fox_radio]
       - [0xD9E50, .rodata, sf_versus]
       - [0xD9F60, .rodata, fox_message]
@@ -356,16 +360,17 @@
       # Game engine bss
       - { start: 0xDE480, type: bss, vram: 0x8015F900, name: sf_2EFE0 }
       - { start: 0xDE480, type: bss, vram: 0x8015F950, name: sf_36930 }
+      - { start: 0xDE480, type: bss, vram: 0x8015F960, name: sf_3E6F0 }
       - { start: 0xDE480, type: .bss, vram: 0x801613A0, name: fox_43AC0 }
-      - { start: 0xDE480, type: .bss, vram: 0x801613B0, name: fox_52730 }
+      - { start: 0xDE480, type: .bss, vram: 0x801613B0, name: fox_display }
       - { start: 0xDE480, type: .bss, vram: 0x801615D0, name: fox_edisplay }
       - { start: 0xDE480, type: .bss, vram: 0x80161670, name: fox_enmy }
       - { start: 0xDE480, type: .bss, vram: 0x80161690, name: fox_6B3B0 }
       - { start: 0xDE480, type: bss, vram: 0x801616A0, name: sf_hud }
       - { start: 0xDE480, type: .bss, vram: 0x80161950, name: fox_97F80 }
       - { start: 0xDE480, type: .bss, vram: 0x801619A0, name: fox_std_lib }
-      - { start: 0xDE480, type: .bss, vram: 0x80161A10, name: fox_A24B0 }
-      - { start: 0xDE480, type: bss, vram: 0x80161A50, name: sf_A4B50 }
+      - { start: 0xDE480, type: .bss, vram: 0x80161A10, name: fox_game }
+      - { start: 0xDE480, type: bss, vram: 0x80161A50, name: fox_play }
       - { start: 0xDE480, type: .bss, vram: 0x80178580, name: fox_rcp }
       - { start: 0xDE480, type: .bss, vram: 0x80178720, name: fox_radio }
       - { start: 0xDE480, type: bss, vram: 0x80178750, name: sf_versus }

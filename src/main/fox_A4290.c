@@ -79,41 +79,42 @@ bool func_800A36FC(Vec3f* arg0, Vec3f* arg1, CollisionHeader2* arg2, Vec3f* arg3
     return sp38;
 }
 
+// Checks if arg0 is above the triangle arg1. If so, returns the triangle normal in arg2.
 s32 func_800A3A74(Vec3f* arg0, Vec3f** arg1, Vec3f* arg2) {
     s32 pad;
     f32 temp1;
     s32 var_v1;
     f32 temp_fv0;
-    Vec3f sp44;
-    Vec3f sp38;
-    Vec3f sp2C;
-    f32 sp28;
-    f32 sp24;
+    Vec3f v1;
+    Vec3f v2;
+    Vec3f v3;
+    f32 a0x;
+    f32 a0y;
 
-    var_v1 = 0;
-    sp44.x = (*arg1)->x;
-    sp44.y = (*arg1)->y;
-    sp44.z = (*arg1)->z;
+    var_v1 = false;
+    v1.x = (*arg1)->x;
+    v1.y = (*arg1)->y;
+    v1.z = (*arg1)->z;
     arg1++;
-    sp38.x = (*arg1)->x;
-    sp38.y = (*arg1)->y;
-    sp38.z = (*arg1)->z;
+    v2.x = (*arg1)->x;
+    v2.y = (*arg1)->y;
+    v2.z = (*arg1)->z;
     arg1++;
-    sp2C.x = (*arg1)->x;
-    sp2C.y = (*arg1)->y;
-    sp2C.z = (*arg1)->z;
+    v3.x = (*arg1)->x;
+    v3.y = (*arg1)->y;
+    v3.z = (*arg1)->z;
     arg1++;
 
-    sp28 = arg0->x;
-    sp24 = arg0->z;
-    temp1 = ((sp38.z - sp44.z) * (sp28 - sp38.x)) - ((sp38.x - sp44.x) * (sp24 - sp38.z));
+    a0x = arg0->x;
+    a0y = arg0->z;
+    temp1 = ((v2.z - v1.z) * (a0x - v2.x)) - ((v2.x - v1.x) * (a0y - v2.z));
     if (temp1 >= 0.0f) {
-        if (((sp2C.x - sp38.x) * (sp24 - sp2C.z)) <= ((sp2C.z - sp38.z) * (sp28 - sp2C.x))) {
-            if (((sp44.x - sp2C.x) * (sp24 - sp44.z)) <= ((sp44.z - sp2C.z) * (sp28 - sp44.x))) {
-                var_v1 = 1;
-                arg2->x = ((sp38.y - sp44.y) * (sp2C.z - sp38.z)) - ((sp38.z - sp44.z) * (sp2C.y - sp38.y));
-                arg2->y = ((sp38.z - sp44.z) * (sp2C.x - sp38.x)) - ((sp38.x - sp44.x) * (sp2C.z - sp38.z));
-                arg2->z = ((sp38.x - sp44.x) * (sp2C.y - sp38.y)) - ((sp38.y - sp44.y) * (sp2C.x - sp38.x));
+        if (((v3.x - v2.x) * (a0y - v3.z)) <= ((v3.z - v2.z) * (a0x - v3.x))) {
+            if (((v1.x - v3.x) * (a0y - v1.z)) <= ((v1.z - v3.z) * (a0x - v1.x))) {
+                var_v1 = true;
+                arg2->x = ((v2.y - v1.y) * (v3.z - v2.z)) - ((v2.z - v1.z) * (v3.y - v2.y));
+                arg2->y = ((v2.z - v1.z) * (v3.x - v2.x)) - ((v2.x - v1.x) * (v3.z - v2.z));
+                arg2->z = ((v2.x - v1.x) * (v3.y - v2.y)) - ((v2.y - v1.y) * (v3.x - v2.x));
                 if ((arg2->x != 0.0f) || (arg2->y != 0.0f) || (arg2->z != 0.0f)) {
                     temp_fv0 = sqrtf(SQ(arg2->x) + SQ(arg2->y) + SQ(arg2->z));
                     if (temp_fv0 != 0) {

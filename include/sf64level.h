@@ -14,7 +14,7 @@ typedef struct {
     /* 0x00 */ s32 type;
     /* 0x04 */ s32 unk_04;
     /* 0x08 */ u16 bgColor;
-    /* 0x0A */ u16 unk_0A;
+    /* 0x0A */ u16 seqId;
     /* 0x0C */ s32 fogR;
     /* 0x10 */ s32 fogG;
     /* 0x14 */ s32 fogB;

@@ -390,16 +390,16 @@ void func_800A26C0(void) {
                 gNextGameState = D_80177C94 = D_80177CAC = D_80177CB4 = D_80177CBC = D_80177CC4 = D_80177C9C =
                     D_80177CA4 = D_80161A5C = D_80161A34 = 0;
                 for (i = 0; i < 4; i++) {
-                    D_80177908[i] = 2;
-                    D_80177928[i] = 4;
-                    D_80177938[i] = 0x8000;
-                    D_80177948[i] = 0x4000;
+                    D_80177908[i] = L_CBUTTONS;
+                    D_80177928[i] = D_CBUTTONS;
+                    D_80177938[i] = A_BUTTON;
+                    D_80177948[i] = B_BUTTON;
 
                     D_80177958[i] = 1.0f;
 
                     D_80177858[i] = 3;
                     D_80177870[i] = 0;
-                    D_800D2860[i] = 1;
+                    D_800D2860[i] = R_CBUTTONS;
                     D_80178380[i] = 0;
                 }
                 D_8017789C = 0;
@@ -542,20 +542,20 @@ void func_800A26C0(void) {
 }
 
 Object_2F4* func_800A3608(s32 arg0) {
-    Object_2F4* var_a2 = gObjects2F4;
+    Object_2F4* obj2F4 = gObjects2F4;
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects2F4); i++, var_a2++) {
-        if (var_a2->obj.status == 0) {
-            Object_2F4_Initialize(var_a2);
-            var_a2->obj.status = 1;
-            var_a2->obj.id = arg0;
-            func_800612B8(&var_a2->unk_01C, var_a2->obj.id);
+    for (i = 0; i < ARRAY_COUNT(gObjects2F4); i++, obj2F4++) {
+        if (obj2F4->obj.status == 0) {
+            Object_2F4_Initialize(obj2F4);
+            obj2F4->obj.status = 1;
+            obj2F4->obj.id = arg0;
+            Object_Set1C(&obj2F4->unk_01C, obj2F4->obj.id);
             break;
         }
     }
     if (i == ARRAY_COUNT(gObjects2F4)) {
-        var_a2 = NULL;
+        obj2F4 = NULL;
     }
-    return var_a2;
+    return obj2F4;
 }

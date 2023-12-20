@@ -68,7 +68,7 @@ void func_800BA808(u16* msg, s32 character) {
             if (character == RCID_PEPPY) {
                 var_v1 = 3;
             }
-            if ((D_801778B0[var_v1] <= 0) && (D_801778B0[var_v1] != -2)) {
+            if ((gTeamHealth[var_v1] <= 0) && (gTeamHealth[var_v1] != -2)) {
                 return;
             }
         }
@@ -644,7 +644,7 @@ void func_800BB5D0(void) {
             if (temp_ft0 == RCID_PEPPY) {
                 var_v1 = 3;
             }
-            if ((D_801778B0[var_v1] <= 0) && (gFrameCount & 4) && (D_801778B0[var_v1] != -2) && (D_801782A4 != 2) &&
+            if ((gTeamHealth[var_v1] <= 0) && (gFrameCount & 4) && (gTeamHealth[var_v1] != -2) && (D_801782A4 != 2) &&
                 (D_801782A4 != 3) && (D_801782A4 != 1000)) {
                 RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
@@ -652,7 +652,7 @@ void func_800BB5D0(void) {
                 func_80084B94(1);
             }
             if ((D_801782A4 != 2) && (D_801782A4 != 3) && (D_801782A4 != 1000)) {
-                func_80086110(22.0f, 165.0f, D_801778B0[var_v1]);
+                func_80086110(22.0f, 165.0f, gTeamHealth[var_v1]);
             }
         }
         temp_ft0 = (s32) D_80177D68;

@@ -10,6 +10,11 @@ typedef struct {
 } Vec3f; // size = 0xC
 
 typedef struct {
+    Vec3f pos;
+    Vec3f rot;
+} PosRot;
+
+typedef struct {
     Vec3f normal;
     f32 dist;
 } Plane;
