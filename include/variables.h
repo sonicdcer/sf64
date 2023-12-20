@@ -8,6 +8,7 @@
 #include "sf64level.h"
 #include "sf64thread.h"
 #include "sf64object.h"
+#include "sf64player.h"
 
 extern u64 __rspboot_start[];
 extern u64 __rspboot_end[];
@@ -29,15 +30,15 @@ extern OSMesgQueue* D_800C7C5C;
 extern OSMesgQueue* D_800C7C60;
 extern OSMesgQueue* D_800C7C64;
 
-extern OSContPad gCurrentInput[4];
-extern OSContPad gChangedInput[4];
-extern u8 gControllerStatus[4];
-extern u32 gStopInputTimer;
-extern u8 gRumbleStatus[4];
-extern OSContPad sNextInput[4];    //
-extern OSContPad sPrevInput[4];    //
-extern OSContStatus D_800DD8F0[4]; //
-extern OSPfs D_800DD900[4];        //
+extern OSContPad gControllerHold[4];
+extern OSContPad gControllerPress[4];
+extern u8 gControllerPlugged[4];
+extern u32 gControllerLock;
+extern u8 gControllerRumble[4];
+extern OSContPad sNextController[4];    //
+extern OSContPad sPrevController[4];    //
+extern OSContStatus sControllerStatus[4]; //
+extern OSPfs sControllerMotor[4];        //
 
 extern u8 gAudioThreadStack[0x1000];  // 800DDAA0
 extern OSThread gGraphicsThread;        // 800DEAA0
@@ -156,7 +157,7 @@ extern f32 D_800CC054[];
 extern f32 D_800CC070[];
 extern f32 D_800CC0D4[];
 extern f32 D_800CC0F0[];
-extern ObjectStruct_1C D_800CC124[];
+extern ObjectInfo D_800CC124[];
 extern f32 D_800CF9B0[];
 extern Gfx* D_800CFA54[];
 extern Gfx* D_800CFAC4[];
@@ -371,8 +372,8 @@ extern Object_4C gObjects4C[40];
 extern Object_2F4 gObjects2F4[60];
 extern Object_408 gObjects408[4];
 extern Object_8C gObjects8C[100];
-extern Object_6C gObjects6C[20];
-extern Object_70 gObjects70[16];
+extern Item gItems[20];
+extern PlayerShot gPlayerShots[16];
 extern UnkEntity30 gUnkEntities30[100];
 extern UnkEntity28 gUnkEntities28[65];
 extern UnkEntity1C gUnkEntities1C[10];
@@ -404,20 +405,20 @@ extern s32 D_80177858[4];
 extern s32 D_80177868;
 //
 extern s32 D_80177870[4];
-extern s32 D_80177880;
+extern s32 gAllRangeMode;
 //
 extern s32 D_80177888[4];
 extern s32 D_80177898;
-extern s32 D_8017789C;
+extern s32 gVersusStage;
 extern s32 D_801778A0;
 extern s32 D_801778A4;
 extern s32 gCamCount;
 extern s32 D_801778AC;
-extern s32 gTeamHealth[6];
+extern s32 gTeamShields[6];
 extern s32 D_801778C8;
 //
-extern s32 gSavedTeamHealth[6];
-extern s32 D_801778E8;
+extern s32 gSavedTeamShields[6];
+extern bool gVersusMode;
 //
 extern UNK_TYPE D_801778F0[6];
 extern u16 D_80177908[4];
@@ -435,9 +436,9 @@ extern f32 D_80177958[4];
 extern f32 D_80177968;
 extern s32 D_8017796C;
 extern f32 D_80177970;
-extern OSContPad *gCurInputPtr;
+extern OSContPad *gInputHold;
 extern f32 D_80177978;
-extern OSContPad* gChngInputPtr;
+extern OSContPad* gInputPress;
 extern f32 D_80177980;
 extern u8 *D_80177984;
 extern f32 D_80177988;
@@ -465,7 +466,7 @@ extern s32 D_80177A70[4];
 extern s32 D_80177A80;
 //
 extern s32 D_80177A88[4];
-extern s8 D_80177A98;
+extern u8 D_80177A98;
 //
 extern f32 D_80177AA0[4];
 extern u8 D_80177AB0;

@@ -26,9 +26,9 @@ void func_80042EC0(Object_408* obj408) {
     }
     if (var_a3 != 0) {
         var_fv0 = 0.0f;
-        if (obj408->obj.id == OBJECT_292) {
+        if (obj408->obj.id == OBJ_408_292) {
             var_fv0 = 300.0f;
-        } else if (obj408->obj.id == OBJECT_306) {
+        } else if (obj408->obj.id == OBJ_408_306) {
             var_fv0 = 200.0f;
         }
         func_80077240(obj408->obj.pos.x, obj408->obj.pos.y + var_fv0, obj408->obj.pos.z, var_a3);
@@ -59,7 +59,7 @@ void func_80042FF4(Object_2F4* obj2F4, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f
                    f32 arg9, f32 argA, s32 argB, s32 argC) {
     Object_2F4_Initialize(obj2F4);
     obj2F4->obj.status = 1;
-    obj2F4->obj.id = OBJECT_189;
+    obj2F4->obj.id = OBJ_2F4_189;
     obj2F4->unk_0B8 = argB;
     obj2F4->obj.pos.x = arg1;
     obj2F4->obj.pos.y = arg2;
@@ -73,8 +73,8 @@ void func_80042FF4(Object_2F4* obj2F4, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f
     obj2F4->unk_110 = argA;
     obj2F4->unk_0BC = argC;
     obj2F4->unk_0BE = 20;
-    Object_Set1C(&obj2F4->unk_01C, obj2F4->obj.id);
-    if (gLevelType == 0) {
+    Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
+    if (gLevelType == LEVELTYPE_GROUND) {
         obj2F4->unk_10C = 0.5f;
     }
 }
@@ -92,7 +92,7 @@ void func_800430DC(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
 }
 
 void func_80043188(Object_2F4* obj2F4) {
-    obj2F4->unk_01C.unk_10 = 30000.0f;
+    obj2F4->info.unk_10 = 30000.0f;
 }
 
 void func_8004319C(Player* player, f32 arg1, f32 arg2, f32 arg3) {

@@ -83,4 +83,10 @@ typedef enum {
     LEVEL_VERSUS,
 } LevelId;
 
+typedef enum {
+    VSTAGE_CORNERIA,
+    VSTAGE_KATINA,
+    VSTAGE_SECTOR_Z,
+} VsStage;
+
 #endif

@@ -741,7 +741,7 @@ u16* Graphics_SetupTextureRender(Gfx** gfxPtr, u8 width, u8 height) {
     gViewport->vp.vtrans[2] = G_MAXZ / 2;
     gViewport->vp.vtrans[3] = 0;
     gSPViewport((*gfxPtr)++, gViewport++);
-    gDPSetScissorFrac((*gfxPtr)++, G_SC_NON_INTERLACE, 0, 0, width * 4.0f, height * 4.0f);
+    gDPSetScissor((*gfxPtr)++, G_SC_NON_INTERLACE, 0, 0, width, height);
     gDPSetDepthImage((*gfxPtr)++, &gZBuffer);
     gDPSetColorImage((*gfxPtr)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, width, &gZBuffer);
     gDPSetFillColor((*gfxPtr)++, FILL_COLOR(GPACK_ZDZ(G_MAXFBZ, 0)));

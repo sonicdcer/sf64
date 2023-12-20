@@ -29,7 +29,7 @@ void func_8007729C(void) {
             if (ent1C->timer == 0) {
                 ent1C->hits = 0;
             }
-            if (D_80177880 == 0) {
+            if (gAllRangeMode == 0) {
                 ent1C->pos.z -= D_80177D08;
             } else if (gPlayer[0].unk_1C8 == 3) {
                 ent1C->pos.x += gPlayer[0].unk_0C0.x;
@@ -118,7 +118,7 @@ Object_8C* func_8007783C(s32 objId) {
             Object_8C_Initialize(obj8C);
             obj8C->obj.status = 2;
             obj8C->obj.id = objId;
-            Object_Set1C(&obj8C->unk_1C, obj8C->obj.id);
+            Object_SetInfo(&obj8C->info, obj8C->obj.id);
             break;
         }
     }
@@ -131,7 +131,7 @@ Object_8C* func_8007783C(s32 objId) {
 void func_800778C4(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
-    obj8C->obj.id = OBJECT_339;
+    obj8C->obj.id = OBJ_8C_339;
     obj8C->obj.pos.x = posX;
     obj8C->obj.pos.y = posY;
     obj8C->obj.pos.z = posZ;
@@ -142,7 +142,7 @@ void func_800778C4(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4, f32
     obj8C->unk_4C = 0;
     obj8C->unk_6C = 0.5f;
     obj8C->obj.rot.z = Rand_ZeroOne() * 360.0f;
-    Object_Set1C(&obj8C->unk_1C, obj8C->obj.id);
+    Object_SetInfo(&obj8C->info, obj8C->obj.id);
     obj8C->unk_44 = 0xFF;
 }
 
@@ -415,7 +415,7 @@ void func_80078CE8(Object_8C* obj8C) {
 void func_80078D60(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
-    obj8C->obj.id = OBJECT_393;
+    obj8C->obj.id = OBJ_8C_393;
     obj8C->obj.pos.x = posX;
     obj8C->obj.pos.y = posY;
     obj8C->obj.pos.z = posZ;
@@ -432,7 +432,7 @@ void func_80078D60(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4) {
         obj8C->unk_4E = 2;
     }
     obj8C->unk_50 = 0xE;
-    Object_Set1C(&obj8C->unk_1C, obj8C->obj.id);
+    Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
 void func_80078E50(f32 posX, f32 posY, f32 posZ, f32 arg3) {
@@ -486,7 +486,7 @@ void func_8007905C(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 
 
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 2;
-    obj8C->obj.id = OBJECT_357;
+    obj8C->obj.id = OBJ_8C_357;
     obj8C->obj.pos.x = posX;
     obj8C->obj.pos.y = posY;
     obj8C->obj.pos.z = posZ;
@@ -518,7 +518,8 @@ void func_8007905C(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 
         obj8C->unk_54.y = sp48.y;
         obj8C->unk_54.z = sp48.z;
     } else {
-        obj8C->unk_54.y = (gLevelType == 0) ? (Rand_ZeroOne() * 7.0f) + 7.0f : (Rand_ZeroOne() - 0.5f) * 10.0f;
+        obj8C->unk_54.y =
+            (gLevelType == LEVELTYPE_GROUND) ? (Rand_ZeroOne() * 7.0f) + 7.0f : (Rand_ZeroOne() - 0.5f) * 10.0f;
         obj8C->unk_54.x = (Rand_ZeroOne() - 0.5f) * 10.0f;
         obj8C->unk_54.z = (Rand_ZeroOne() - 0.5f) * 10.0f;
     }
@@ -528,7 +529,7 @@ void func_8007905C(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 
     obj8C->unk_60.x = (Rand_ZeroOne() - 0.5f) * 30.0f;
     obj8C->unk_60.y = (Rand_ZeroOne() - 0.5f) * 30.0f;
     obj8C->unk_60.z = (Rand_ZeroOne() - 0.5f) * 30.0f;
-    Object_Set1C(&obj8C->unk_1C, obj8C->obj.id);
+    Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
 void func_800794CC(f32 posX, f32 posY, f32 posZ, f32 arg3) {
@@ -591,7 +592,7 @@ void func_8007968C(Object_8C* obj8C) {
     obj8C->obj.rot.x += obj8C->unk_60.x;
     obj8C->obj.rot.y += obj8C->unk_60.y;
     obj8C->obj.rot.z += obj8C->unk_60.z;
-    if (gLevelType == 0) {
+    if (gLevelType == LEVELTYPE_GROUND) {
         obj8C->unk_54.y -= 0.5f;
     }
     if ((gCurrentLevel == LEVEL_BOLSE) && (gPlayer[0].unk_1C8 == 7) && (D_80177A80 >= 176)) {
@@ -798,7 +799,7 @@ void func_8007A3C0(Object_8C* obj8C) {
 void func_8007A4B8(Object_8C* obj8C, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
-    obj8C->obj.id = OBJECT_383;
+    obj8C->obj.id = OBJ_8C_383;
     obj8C->unk_6C = arg4;
     obj8C->unk_50 = 50;
     obj8C->unk_44 = 200;
@@ -806,7 +807,7 @@ void func_8007A4B8(Object_8C* obj8C, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     obj8C->obj.pos.y = yPos;
     obj8C->obj.pos.z = zPos;
     func_80019218(0x2940F026, &obj8C->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-    Object_Set1C(&obj8C->unk_1C, obj8C->obj.id);
+    Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
 void func_8007A568(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
@@ -824,7 +825,7 @@ void func_8007A568(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
 void func_8007A5F8(Object_8C* obj8C, Vec3f* arg1, u32 arg2) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 2;
-    obj8C->obj.id = OBJECT_373;
+    obj8C->obj.id = OBJ_8C_373;
     obj8C->obj.pos.x = arg1->x;
     obj8C->obj.pos.y = arg1->y;
     obj8C->obj.pos.z = arg1->z;
@@ -837,7 +838,7 @@ void func_8007A5F8(Object_8C* obj8C, Vec3f* arg1, u32 arg2) {
     } else {
         func_80019218(arg2, &obj8C->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
-    Object_Set1C(&obj8C->unk_1C, obj8C->obj.id);
+    Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
 void func_8007A6F0(Vec3f* arg0, u32 arg1) {
@@ -860,7 +861,7 @@ void func_8007A748(Object_8C* obj8C) {
 s32 func_8007A774(Player* player, Object_8C* obj8C, f32 arg2) {
     if ((fabsf(player->unk_138 - obj8C->obj.pos.z) < arg2) && (fabsf(player->unk_074 - obj8C->obj.pos.x) < arg2) &&
         (fabsf(player->unk_078 - obj8C->obj.pos.y) < arg2) && (player->unk_498 == 0)) {
-        func_800A6CD0(player, 0, obj8C->unk_1C.damage);
+        func_800A6CD0(player, 0, obj8C->info.damage);
         return 1;
     } else {
         return 0;
@@ -870,7 +871,7 @@ s32 func_8007A774(Player* player, Object_8C* obj8C, f32 arg2) {
 void func_8007A818(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 arg5, u8 arg6, u16 arg7) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
-    obj8C->obj.id = OBJECT_359;
+    obj8C->obj.id = OBJ_8C_359;
     obj8C->obj.pos.x = posX;
     obj8C->obj.pos.y = posY;
     obj8C->obj.pos.z = posZ;
@@ -882,13 +883,13 @@ void func_8007A818(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 
     if (arg7 != 0) {
         obj8C->unk_54.x = (Rand_ZeroOne() - 0.5f) * 30.0f;
     }
-    Object_Set1C(&obj8C->unk_1C, obj8C->obj.id);
+    Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
 void func_8007A900(f32 posX, f32 posY, f32 posZ, f32 arg3, u8 arg4, u8 arg5, u16 arg6) {
     s32 i;
 
-    if (gCurrentLevel == 0xC) {
+    if (gCurrentLevel == LEVEL_TITANIA) {
         for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
             if (gObjects8C[i].obj.status == 0) {
                 func_8007A818(&gObjects8C[i], posX, posY, posZ, arg3, arg4, arg5, arg6);
@@ -950,7 +951,7 @@ void func_8007AB50(Object_8C* obj8C) {
 void func_8007AC0C(Object_8C* obj8C, f32 posX, f32 unused_posY, f32 posZ, f32 arg4, f32 arg5, f32 arg6) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
-    obj8C->obj.id = OBJECT_372;
+    obj8C->obj.id = OBJ_8C_372;
     obj8C->obj.pos.x = posX;
     obj8C->obj.pos.y = D_80177940;
     obj8C->obj.pos.z = posZ;
@@ -960,7 +961,7 @@ void func_8007AC0C(Object_8C* obj8C, f32 posX, f32 unused_posY, f32 posZ, f32 ar
     obj8C->obj.rot.y = arg6;
     obj8C->unk_54.x = gPlayer[0].unk_0C0.x * 0.6f;
     obj8C->unk_54.z = gPlayer[0].unk_0C0.z * 0.6; // Forgotten f means bad codegen
-    Object_Set1C(&obj8C->unk_1C, obj8C->obj.id);
+    Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
 void func_8007ACE0(f32 posX, f32 posY, f32 posZ, f32 arg3, f32 arg4, f32 arg5) {
@@ -977,7 +978,7 @@ void func_8007ACE0(f32 posX, f32 posY, f32 posZ, f32 arg3, f32 arg4, f32 arg5) {
 void func_8007AD58(Object_8C* obj8C, f32 posX, f32 unused_posY, f32 posZ, f32 arg4, f32 arg5, f32 arg6) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
-    obj8C->obj.id = OBJECT_372;
+    obj8C->obj.id = OBJ_8C_372;
     obj8C->unk_4E = 1;
     obj8C->obj.pos.x = posX;
     obj8C->obj.pos.y = D_80177940;
@@ -986,7 +987,7 @@ void func_8007AD58(Object_8C* obj8C, f32 posX, f32 unused_posY, f32 posZ, f32 ar
     obj8C->unk_70 = arg4;
     obj8C->unk_6C = arg5;
     obj8C->obj.rot.y = arg6;
-    Object_Set1C(&obj8C->unk_1C, obj8C->obj.id);
+    Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
 void func_8007ADF4(f32 posX, f32 posY, f32 posZ, f32 arg3, f32 arg4) {
@@ -1011,7 +1012,7 @@ void func_8007ADF4(f32 posX, f32 posY, f32 posZ, f32 arg3, f32 arg4) {
 void func_8007AF30(Object_8C* obj8C, f32 posX, f32 posZ, f32 arg3, f32 arg4, f32 arg5) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
-    obj8C->obj.id = OBJECT_382;
+    obj8C->obj.id = OBJ_8C_382;
     obj8C->obj.pos.x = posX;
     obj8C->obj.pos.y = -10.0f;
     obj8C->obj.pos.z = posZ;
@@ -1019,7 +1020,7 @@ void func_8007AF30(Object_8C* obj8C, f32 posX, f32 posZ, f32 arg3, f32 arg4, f32
     obj8C->unk_54.z = arg4 - D_80177D08;
     obj8C->unk_6C = arg5;
     obj8C->unk_50 = 0x64;
-    Object_Set1C(&obj8C->unk_1C, obj8C->obj.id);
+    Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
 void func_8007AFD0(f32 posX, f32 posZ, f32 arg2, f32 arg3, f32 arg4) {
@@ -1059,20 +1060,20 @@ void func_8007B0F4(Object_8C* obj8C) {
 void func_8007B180(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
-    obj8C->obj.id = OBJECT_381;
+    obj8C->obj.id = OBJ_8C_381;
     obj8C->obj.pos.x = posX;
     obj8C->obj.pos.y = posY;
     obj8C->obj.pos.z = posZ;
     obj8C->unk_44 = 0xFF;
     obj8C->unk_6C = arg4;
-    Object_Set1C(&obj8C->unk_1C, obj8C->obj.id);
+    Object_SetInfo(&obj8C->info, obj8C->obj.id);
     func_80019218(0x1100000C, &obj8C->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
 void func_8007B228(f32 posX, f32 posY, f32 posZ, f32 arg3) {
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C) && gCurrentLevel == 8; i++) {
+    for (i = 0; i < ARRAY_COUNT(gObjects8C) && gCurrentLevel == LEVEL_ZONESS; i++) {
         if (gObjects8C[i].obj.status == 0) {
             func_8007B180(&gObjects8C[i], posX, posY, posZ, arg3);
             break;
@@ -1083,14 +1084,14 @@ void func_8007B228(f32 posX, f32 posY, f32 posZ, f32 arg3) {
 void func_8007B2BC(Object_8C* obj8C, f32 xPos, f32 yPos, f32 zPos, f32 arg4, s32 arg5) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
-    obj8C->obj.id = OBJECT_384;
+    obj8C->obj.id = OBJ_8C_384;
     obj8C->obj.pos.x = xPos;
     obj8C->obj.pos.y = yPos;
     obj8C->obj.pos.z = zPos;
     obj8C->unk_6C = arg4;
     obj8C->unk_44 = 0xFF;
     obj8C->unk_4C = arg5;
-    Object_Set1C(&obj8C->unk_1C, obj8C->obj.id);
+    Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
 void func_8007B344(f32 xPos, f32 yPos, f32 zPos, f32 arg3, s32 arg4) {
@@ -1113,7 +1114,7 @@ void func_8007B3B8(Object_8C* obj8C) {
         var_fv0 = 15.0f;
         var_fv1 = 0.05f;
         var_v0 = 4;
-    } else if ((obj8C->unk_4C == 5) && ((gCurrentLevel == 0x10) || (gCurrentLevel == 1))) {
+    } else if ((obj8C->unk_4C == 5) && ((gCurrentLevel == LEVEL_KATINA) || (gCurrentLevel == LEVEL_METEO))) {
         var_fv0 = 10.0f;
         var_fv1 = 0.1f;
         var_v0 = 4;
@@ -1132,7 +1133,7 @@ void func_8007B3B8(Object_8C* obj8C) {
 void func_8007B494(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4, s32 arg5) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
-    obj8C->obj.id = OBJECT_385;
+    obj8C->obj.id = OBJ_8C_385;
     obj8C->obj.pos.x = posX;
     obj8C->obj.pos.y = posY;
     obj8C->obj.pos.z = posZ;
@@ -1146,7 +1147,7 @@ void func_8007B494(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4, s32
     } else {
         obj8C->unk_46 = 3;
     }
-    Object_Set1C(&obj8C->unk_1C, obj8C->obj.id);
+    Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
 void func_8007B550(f32 posX, f32 posY, f32 posZ, f32 arg3, s32 arg4) {
@@ -1216,7 +1217,7 @@ void func_8007B758(Object_8C* obj8C) {
 void func_8007B7E8(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
-    obj8C->obj.id = OBJECT_364;
+    obj8C->obj.id = OBJ_8C_364;
     obj8C->obj.pos.x = posX;
     obj8C->obj.pos.y = posY;
     obj8C->obj.pos.z = posZ;
@@ -1230,7 +1231,7 @@ void func_8007B7E8(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4) {
     obj8C->unk_46 = 1;
     obj8C->unk_70 = arg4 * 0.2f;
     obj8C->obj.rot.z = Rand_ZeroOne() * 360.0f;
-    Object_Set1C(&obj8C->unk_1C, obj8C->obj.id);
+    Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
 void func_8007B8F8(f32 posX, f32 posY, f32 posZ, f32 arg3) {

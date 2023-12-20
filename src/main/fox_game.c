@@ -384,7 +384,7 @@ void func_800A26C0(void) {
                 gCamCount = 1;
                 gLifeCount[0] = 2;
                 D_80177D20 = 0.0f;
-                D_8016170C = D_80177A80 = D_80177830 = D_80177838 = D_80177840 = D_80178754 = D_801778E8 = D_80177AE0 =
+                D_8016170C = D_80177A80 = D_80177830 = D_80177838 = D_80177840 = D_80178754 = gVersusMode = D_80177AE0 =
                     D_80178410 = D_80177B40 = D_80177854 = D_8017784C = D_80177898 = D_80161734 = D_80161A2C =
                         gBgColor = D_80178340 = 0;
                 gNextGameState = D_80177C94 = D_80177CAC = D_80177CB4 = D_80177CBC = D_80177CC4 = D_80177C9C =
@@ -402,7 +402,7 @@ void func_800A26C0(void) {
                     D_800D2860[i] = R_CBUTTONS;
                     D_80178380[i] = 0;
                 }
-                D_8017789C = 0;
+                gVersusStage = 0;
                 D_801778A4 = 3;
                 gBlurAlpha = 255;
                 for (i = 0; i < 30; i++) {
@@ -491,7 +491,7 @@ void func_800A26C0(void) {
             gDPFillRectangle(gMasterDisp++, SCREEN_WIDTH / 2 - 3, 8, SCREEN_WIDTH / 2 + 2, SCREEN_HEIGHT - 8);
             gDPFillRectangle(gMasterDisp++, 8, SCREEN_HEIGHT / 2 - 3, SCREEN_WIDTH - 8, SCREEN_HEIGHT / 2 + 2);
 
-            if (gLevelType == 0) {
+            if (gLevelType == LEVELTYPE_GROUND) {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x0, 0, 0, 0, 255);
             } else {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x0, 100, 100, 255, 255);
@@ -529,7 +529,7 @@ void func_800A26C0(void) {
         func_80040CDC();
         func_8008865C();
         func_8002E548();
-        if ((gGameState == GSTATE_PLAY) && (D_801778E8 != 0)) {
+        if ((gGameState == GSTATE_PLAY) && (gVersusMode)) {
             func_800C1ED4();
         }
         func_80084688(0, D_80177C50);
@@ -550,7 +550,7 @@ Object_2F4* func_800A3608(s32 arg0) {
             Object_2F4_Initialize(obj2F4);
             obj2F4->obj.status = 1;
             obj2F4->obj.id = arg0;
-            Object_Set1C(&obj2F4->unk_01C, obj2F4->obj.id);
+            Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
             break;
         }
     }
