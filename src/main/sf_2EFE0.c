@@ -1,43 +1,36 @@
 #include "global.h"
 
-extern s32 D_8015F904;
-extern s32 D_80177CD0[4];
-extern s32 D_8017829C;
-extern s32 D_800C9B4C;
-extern s16 D_8016F5BE;
-extern s16 D_8016F9F0;
-
 void func_80187520(s32, void*);
 
-void func_8002E3E0(Object_2F4* arg0) {
-    s32 var_a3 = 0;
+void func_8002E3E0(Object_2F4* obj2F4) {
+    s32 hits = 0;
 
     if (gCurrentLevel == LEVEL_VENOM_SW) {
         if (D_8015F940 < 0xF00) {
-            var_a3 = 50;
+            hits = 50;
         } else if (D_8015F940 < 0x1680) {
-            var_a3 = 30;
+            hits = 30;
         } else if (D_8015F940 < 0x1E00) {
-            var_a3 = 20;
+            hits = 20;
         } else if (D_8015F940 < 0x2580) {
-            var_a3 = 10;
+            hits = 10;
         }
     } else {
         if (D_8015F940 < 0xF00) {
-            var_a3 = 10;
+            hits = 10;
         } else if (D_8015F940 < 0x1680) {
-            var_a3 = 5;
+            hits = 5;
         } else if (D_8015F940 < 0x1E00) {
-            var_a3 = 2;
+            hits = 2;
         } else if (D_8015F940 < 0x2580) {
-            var_a3 = 1;
+            hits = 1;
         }
     }
-    if (var_a3 != 0) {
-        func_80077240(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, var_a3);
+    if (hits != 0) {
+        func_80077240(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, hits);
     }
-    gHitCount += var_a3;
-    D_80177850 = 0xF;
+    gHitCount += hits;
+    D_80177850 = 15;
 }
 
 s32 func_8002E4F8(u16* arg0, s32 arg1) {
@@ -60,36 +53,36 @@ void func_8002E548(void) {
     }
 }
 
-void func_8002E5E0(Object_408* arg0) {
-    func_80187520(0x5B, arg0);
+void func_8002E5E0(Object_408* obj408) {
+    func_80187520(0x5B, obj408);
 }
 
-void func_8002E604(Object_408* arg0) {
-    func_80187520(0x5C, arg0);
+void func_8002E604(Object_408* obj408) {
+    func_80187520(0x5C, obj408);
 }
 
-void func_8002E628(Object_408* arg0) {
-    func_80187520(0x5D, arg0);
+void func_8002E628(Object_408* obj408) {
+    func_80187520(0x5D, obj408);
 }
 
-void func_8002E64C(Object_408* arg0) {
-    func_80187520(0x5E, arg0);
+void func_8002E64C(Object_408* obj408) {
+    func_80187520(0x5E, obj408);
 }
 
-void func_8002E670(Object_2F4* arg0) {
-    func_80187520(0x5F, arg0);
+void func_8002E670(Object_2F4* obj408) {
+    func_80187520(0x5F, obj408);
 }
 
-void func_8002E694(Object_2F4* arg0) {
-    func_80187520(0x60, arg0);
+void func_8002E694(Object_2F4* obj408) {
+    func_80187520(0x60, obj408);
 }
 
-void func_8002E6B8(Object_2F4* arg0) {
-    func_80187520(0x61, arg0);
+void func_8002E6B8(Object_2F4* obj408) {
+    func_80187520(0x61, obj408);
 }
 
-void func_8002E6DC(Object_2F4* arg0) {
-    func_80187520(0x62, arg0);
+void func_8002E6DC(Object_2F4* obj408) {
+    func_80187520(0x62, obj408);
 }
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_2EFE0/func_8002E700.s")

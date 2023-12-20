@@ -26,10 +26,6 @@ D_800C57EC = 0x800C57EC;
 D_800C7380 = 0x800C7380;
 D_800C5FF4 = 0x800C5FF4; //type:u16 size:5000
 
-gZBuffer = 0x80282000;
-gFrameBuffers = 0x8038F800;
-gDmaTable = 0x80178A70; //size:0x5A0
-D_80178A70 = 0x80178A78; //ignore:true
 D_80151650 = 0x80151650; //ignore:true
 
 D_801615D0 = 0x801615D0;//size:0xC
@@ -55,12 +51,6 @@ D_800CBDD4 = 0x800CBDD4; //size:0x98
 
 D_800D55D0 = 0x800D55D0; //type:f32
 
-// vec97_0 = 0x80161950; //type:Vec3f size:0xC
-// vec97_1 = 0x8016195C; //type:Vec3f size:0xC
-// __vtx0_ = 0x80161968; //type:Vec3f size:0xC
-// __vtx1_ = 0x80161974; //type:Vec3f size:0xC
-// __vtx2_ = 0x80161980; //type:Vec3f size:0xC
-// __vtx3_ = 0x8016198C; //type:Vec3f size:0xC
 __dx1 = 0x80161950;
 __dx2 = 0x80161954;
 __dy1 = 0x80161958;
@@ -85,11 +75,6 @@ __pos_z = 0x8016199C;//type:f32
 Save_Checksum = 0x800C2FB0;
 Save_Write = 0x800C3084;
 Save_Read = 0x800C3194;
-
-__rspboot_start = 0x80000450;//name_end:__rspboot_end
-__aspmain_start = 0x80000520;//name_end:__aspmain_end
-__f3dex_start = 0x80001410;
-gF3dexData = 0x800C3DD0;
 
 sEFFA40_Overlay = 0x800CBD3C;
 

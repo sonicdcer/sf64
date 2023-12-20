@@ -23,12 +23,12 @@ void func_800597C0(s32 arg0) {
     }
 }
 
-void func_8005980C(f32 arg0) {
-    Matrix_Scale(gGfxMatrix, arg0, arg0, arg0, 1);
+void func_8005980C(f32 scale) {
+    Matrix_Scale(gGfxMatrix, scale, scale, scale, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
 }
 
-void func_80059850(Object_4C* arg0) {
+void func_80059850(Object_4C* obj4C) {
     RCP_SetupDL(&gMasterDisp, 0x40);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 60);
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
@@ -37,22 +37,22 @@ void func_80059850(Object_4C* arg0) {
 void func_800598DC(s32 arg0) {
 }
 
-void func_800598E8(Object_2F4* arg0) {
+void func_800598E8(Object_2F4* obj2F4) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPDisplayList(gMasterDisp++, D_6025B50);
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
 
-void func_800599A4(s32 arg0, Vec3f* arg1, void* arg2) {
+void func_800599A4(s32 limbIndex, Vec3f* rot, void* index) {
     Vec3f sp24;
     Vec3f sp18;
 
-    if (arg0 == 1) {
+    if (limbIndex == 1) {
         sp24.x = 0.0f;
         sp24.y = 0.0f;
         sp24.z = 0.0f;
         Matrix_MultVec3f(gCalcMatrix, &sp24, &sp18);
-        gObjects2F4[*((s32*) arg2)].unk_114 = sp18.y;
+        gObjects2F4[*((s32*) index)].unk_114 = sp18.y;
     }
 }
 
@@ -66,25 +66,25 @@ f32 D_800CFA2C[] = {
     1.0f, 1.0f, 0.95f, 0.9f, 0.85f, 0.8f, 0.75f, 0.7f, 0.65f, 0.6f,
 };
 
-void func_80059A24(Object_2F4* arg0) {
+void func_80059A24(Object_2F4* obj2F4) {
     Vec3f sp30[30];
-    f32 temp = D_800CF9B0[arg0->unk_0B6] - 114.0f;
+    f32 temp = D_800CF9B0[obj2F4->unk_0B6] - 114.0f;
 
     Matrix_Translate(gGfxMatrix, 0.f, -temp, 0.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    Animation_GetFrameData(&D_601E8C4, arg0->unk_0B6, sp30);
-    Animation_DrawSkeleton(1, D_601E9D0, sp30, NULL, func_800599A4, &arg0->unk_040, &gIdentityMatrix);
+    Animation_GetFrameData(&D_601E8C4, obj2F4->unk_0B6, sp30);
+    Animation_DrawSkeleton(1, D_601E9D0, sp30, NULL, func_800599A4, &obj2F4->unk_040, &gIdentityMatrix);
 }
 
-void func_80059AEC(Object_80* arg0) {
+void func_80059AEC(Object_80* obj80) {
     gSPDisplayList(gMasterDisp++, D_601AE40);
 }
 
-void func_80059B20(Object_80* arg0) {
-    if (arg0->obj.id == OBJECT_29) {
+void func_80059B20(Object_80* obj80) {
+    if (obj80->obj.id == OBJECT_29) {
         gSPDisplayList(gMasterDisp++, D_7007350);
     } else {
-        func_8005980C(D_800CF9B0[arg0->obj.id + 2]);
+        func_8005980C(D_800CF9B0[obj80->obj.id + 2]);
         gSPDisplayList(gMasterDisp++, D_700BB10);
     }
 }
@@ -92,12 +92,12 @@ void func_80059B20(Object_80* arg0) {
 void func_80059BB0(void* arg0) {
 }
 
-void func_80059BBC(Object_80* arg0) {
+void func_80059BBC(Object_80* obj80) {
     gSPDisplayList(gMasterDisp++, D_6023AC0);
 }
 
-void func_80059BF0(Object_2F4* arg0) {
-    if (arg0->unk_0B6 != 0) {
+void func_80059BF0(Object_2F4* obj2F4) {
+    if (obj2F4->unk_0B6 != 0) {
         gSPDisplayList(gMasterDisp++, D_6032BC0);
     }
 }
@@ -105,13 +105,13 @@ void func_80059BF0(Object_2F4* arg0) {
 void func_80059C28(void* arg0) {
 }
 
-void func_80059C34(Object_4C* arg0) {
+void func_80059C34(Object_4C* obj4C) {
 }
 
-void func_80059C40(Object_4C* arg0) {
+void func_80059C40(Object_4C* obj4C) {
     RCP_SetupDL_47(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 180);
-    switch (arg0->unk_45) {
+    switch (obj4C->unk_45) {
         case 0:
             Matrix_Scale(gGfxMatrix, 2.0f, 1.0f, 0.7f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
@@ -147,18 +147,18 @@ void func_80059C40(Object_4C* arg0) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
 
-void func_80059F68(Object_6C* arg0) {
+void func_80059F68(Object_6C* obj6C) {
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -95.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_602DA20);
 }
 
-void func_80059FDC(Object_6C* arg0) {
+void func_80059FDC(Object_6C* obj6C) {
     gSPDisplayList(gMasterDisp++, D_6035DA0);
 }
 
-void func_8005A010(Object_4C* arg0) {
-    if (arg0->unk_48 == 0) {
+void func_8005A010(Object_4C* obj4C) {
+    if (obj4C->unk_48 == 0) {
         Matrix_RotateY(gGfxMatrix, M_PI / 2.0f, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_60361F0);
@@ -232,8 +232,8 @@ Gfx* D_800CFC7C[] = {
     0x0601B570, 0x0601B710, 0x060209B0, 0x06020B70, 0x06020D50, 0x0601B8F0, 0x0601B3B0, 0x0601B1C0, 0x06011660,
 };
 
-void func_8005A094(Object_2F4* arg0) {
-    switch (arg0->unk_0B8) {
+void func_8005A094(Object_2F4* obj2F4) {
+    switch (obj2F4->unk_0B8) {
         case 0:
             Matrix_Translate(gGfxMatrix, 18.0f, 15.0f, -15.0f, 1);
             Matrix_RotateY(gGfxMatrix, M_PI, 1);
@@ -247,15 +247,15 @@ void func_8005A094(Object_2F4* arg0) {
             gSPDisplayList(gMasterDisp++, D_3015D80);
             break;
         case 2:
-            func_8005980C(arg0->unk_110);
+            func_8005980C(obj2F4->unk_110);
             gSPDisplayList(gMasterDisp++, D_30155E0);
             break;
         case 3:
             gSPDisplayList(gMasterDisp++, D_3011720);
             break;
         case 4:
-            func_8005980C(arg0->unk_110);
-            if (arg0->unk_040 & 1) {
+            func_8005980C(obj2F4->unk_110);
+            if (obj2F4->unk_040 & 1) {
                 gSPDisplayList(gMasterDisp++, D_10194C0);
             } else {
                 gSPDisplayList(gMasterDisp++, D_1024290);
@@ -263,11 +263,11 @@ void func_8005A094(Object_2F4* arg0) {
             break;
         case 39:
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-            gSPDisplayList(gMasterDisp++, D_800CFAC4[arg0->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_800CFAC4[obj2F4->unk_048]);
             break;
         case 40:
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
-            switch (arg0->unk_048) {
+            switch (obj2F4->unk_048) {
                 case 0:
                     break;
                 case 1:
@@ -283,7 +283,7 @@ void func_8005A094(Object_2F4* arg0) {
                     break;
             }
             if (gCurrentLevel != LEVEL_SOLAR) {
-                gSPDisplayList(gMasterDisp++, D_E6A810_801B769C[arg0->unk_046]);
+                gSPDisplayList(gMasterDisp++, D_E6A810_801B769C[obj2F4->unk_046]);
             } else {
                 if (gObjects408[0].unk_0E4 < 4800.0f) {
                     RCP_SetupDL(&gMasterDisp, 0x1E);
@@ -294,58 +294,58 @@ void func_8005A094(Object_2F4* arg0) {
                     gDPSetFogColor(gMasterDisp++, 0x10, 0x10, 0x10, gFogAlpha);
                     gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
                 }
-                func_8005980C(arg0->unk_110);
-                gSPDisplayList(gMasterDisp++, D_800CFB40[arg0->unk_046]);
+                func_8005980C(obj2F4->unk_110);
+                gSPDisplayList(gMasterDisp++, D_800CFB40[obj2F4->unk_046]);
             }
             break;
         case 41:
-            func_8005980C(arg0->unk_110);
-            gSPDisplayList(gMasterDisp++, D_800CFADC[arg0->unk_048]);
+            func_8005980C(obj2F4->unk_110);
+            gSPDisplayList(gMasterDisp++, D_800CFADC[obj2F4->unk_048]);
             break;
         case 42:
-            func_8005980C(arg0->unk_110);
-            gSPDisplayList(gMasterDisp++, D_800CFB08[arg0->unk_048]);
+            func_8005980C(obj2F4->unk_110);
+            gSPDisplayList(gMasterDisp++, D_800CFB08[obj2F4->unk_048]);
             break;
         case 43:
-            func_8005980C(arg0->unk_110);
-            gSPDisplayList(gMasterDisp++, D_800CFB14[arg0->unk_048]);
+            func_8005980C(obj2F4->unk_110);
+            gSPDisplayList(gMasterDisp++, D_800CFB14[obj2F4->unk_048]);
             break;
         case 44:
-            func_8005980C(arg0->unk_110);
-            gSPDisplayList(gMasterDisp++, D_800CFB28[arg0->unk_048]);
+            func_8005980C(obj2F4->unk_110);
+            gSPDisplayList(gMasterDisp++, D_800CFB28[obj2F4->unk_048]);
             break;
         case 45:
             gSPDisplayList(gMasterDisp++, D_40018A0);
             break;
         case 46:
-            if ((arg0->unk_048 == 2) || (arg0->unk_048 == 3) || (arg0->unk_048 == 4)) {
+            if ((obj2F4->unk_048 == 2) || (obj2F4->unk_048 == 3) || (obj2F4->unk_048 == 4)) {
                 RCP_SetupDL(&gMasterDisp, 0x21);
             }
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-            gSPDisplayList(gMasterDisp++, D_E6A810_801B7584[arg0->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_E6A810_801B7584[obj2F4->unk_048]);
             break;
         case 47:
-            gSPDisplayList(gMasterDisp++, D_E6A810_801B7608[arg0->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_E6A810_801B7608[obj2F4->unk_048]);
             break;
         case 48:
-            func_8005980C(arg0->unk_110);
-            gSPDisplayList(gMasterDisp++, D_800CFB64[arg0->unk_048]);
+            func_8005980C(obj2F4->unk_110);
+            gSPDisplayList(gMasterDisp++, D_800CFB64[obj2F4->unk_048]);
             break;
         case 49:
-            func_8005980C(arg0->unk_110);
-            gSPDisplayList(gMasterDisp++, D_800CFB88[arg0->unk_048]);
+            func_8005980C(obj2F4->unk_110);
+            gSPDisplayList(gMasterDisp++, D_800CFB88[obj2F4->unk_048]);
             break;
         case 50:
             func_8005980C(0.7f);
-            if (arg0->unk_054 == 1) {
+            if (obj2F4->unk_054 == 1) {
                 RCP_SetupDL(&gMasterDisp, 0x1E);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
-            } else if (arg0->unk_054 == 2) {
+            } else if (obj2F4->unk_054 == 2) {
                 RCP_SetupDL(&gMasterDisp, 0x1E);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
                 func_8005980C(0.7f);
             }
-            switch (arg0->unk_050) {
+            switch (obj2F4->unk_050) {
                 case 0:
                     gSPDisplayList(gMasterDisp++, D_90234D0);
                     break;
@@ -359,94 +359,94 @@ void func_8005A094(Object_2F4* arg0) {
                     gSPDisplayList(gMasterDisp++, D_9010FD0);
                     break;
             }
-            if (arg0->unk_054 != 0) {
+            if (obj2F4->unk_054 != 0) {
                 RCP_SetupDL(&gMasterDisp, 0x1D);
                 func_8005980C(0.7f);
             }
             break;
         case 51:
-            func_8005980C(arg0->unk_110);
-            gSPDisplayList(gMasterDisp++, D_800CFBA8[arg0->unk_048]);
+            func_8005980C(obj2F4->unk_110);
+            gSPDisplayList(gMasterDisp++, D_800CFBA8[obj2F4->unk_048]);
             break;
         case 52:
-            func_8005980C(arg0->unk_110);
-            gSPDisplayList(gMasterDisp++, D_800CFBE4[arg0->unk_048]);
+            func_8005980C(obj2F4->unk_110);
+            gSPDisplayList(gMasterDisp++, D_800CFBE4[obj2F4->unk_048]);
             break;
         case 53:
-            func_8005980C(arg0->unk_110);
-            gSPDisplayList(gMasterDisp++, D_800CFC0C[arg0->unk_048]);
+            func_8005980C(obj2F4->unk_110);
+            gSPDisplayList(gMasterDisp++, D_800CFC0C[obj2F4->unk_048]);
             break;
         case 54:
-            func_8005980C(arg0->unk_110);
-            gSPDisplayList(gMasterDisp++, D_800CFC40[arg0->unk_048]);
+            func_8005980C(obj2F4->unk_110);
+            gSPDisplayList(gMasterDisp++, D_800CFC40[obj2F4->unk_048]);
             break;
         case 55:
-            func_8005980C(arg0->unk_110);
-            gSPDisplayList(gMasterDisp++, D_800CFC50[arg0->unk_048]);
+            func_8005980C(obj2F4->unk_110);
+            gSPDisplayList(gMasterDisp++, D_800CFC50[obj2F4->unk_048]);
             break;
         case 56:
-            func_8005980C(arg0->unk_110);
+            func_8005980C(obj2F4->unk_110);
             RCP_SetupDL(&gMasterDisp, 0x29);
             Matrix_SetGfxMtx(&gMasterDisp);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 191, 255, 223, 255);
-            gSPDisplayList(gMasterDisp++, D_800CFC64[arg0->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_800CFC64[obj2F4->unk_048]);
             break;
         case 58:
-            func_8005980C(arg0->unk_110);
+            func_8005980C(obj2F4->unk_110);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_60148B0);
             break;
         case 59:
-            func_8005980C(arg0->unk_110);
+            func_8005980C(obj2F4->unk_110);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_800CFC7C[arg0->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_800CFC7C[obj2F4->unk_048]);
             break;
         case 70:
             gSPDisplayList(gMasterDisp++, D_10177C0);
             break;
         case 57:
-            gSPDisplayList(gMasterDisp++, D_DF4260_8019A008[arg0->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_DF4260_8019A008[obj2F4->unk_048]);
             break;
         default:
-            if (arg0->unk_0B8 > 9) { // part of switch tree somehow?
-                if (arg0->unk_0B8 == 0x24) {
+            if (obj2F4->unk_0B8 > 9) { // part of switch tree somehow?
+                if (obj2F4->unk_0B8 == 0x24) {
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                 }
-                gSPDisplayList(gMasterDisp++, D_800CFA54[arg0->unk_0B8 - 10]);
+                gSPDisplayList(gMasterDisp++, D_800CFA54[obj2F4->unk_0B8 - 10]);
             }
             break;
     }
 }
 
-void func_8005ADAC(Object_2F4* arg0) {
+void func_8005ADAC(Object_2F4* obj2F4) {
     f32 sp5C;
     f32 temp1;
     f32 sp54;
     s32 pad[5]; // fake? seems like a lot of padding
 
-    if ((arg0->unk_07C != 0) && (arg0->obj.status == 2)) {
+    if ((obj2F4->unk_07C != 0) && (obj2F4->obj.status == 2)) {
         temp1 = 652.5f * 0.001f; // 0.65250003f;
-        if (arg0->unk_07C >= 2) {
+        if (obj2F4->unk_07C >= 2) {
             temp1 = 1.3050001f;
         }
-        Math_SmoothStepToF(&arg0->unk_188, temp1, 0.3f, 5.0f, 0.0f);
-        sp5C = arg0->unk_188;
+        Math_SmoothStepToF(&obj2F4->unk_188, temp1, 0.3f, 5.0f, 0.0f);
+        sp5C = obj2F4->unk_188;
         if (gFrameCount & 1) {
             sp5C *= 1.111f;
         }
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
         Matrix_Scale(gGfxMatrix, sp5C, sp5C * 0.7f, sp5C, 1);
-        Matrix_RotateZ(gGfxMatrix, -arg0->obj.rot.z * M_DTOR, 1);
-        Matrix_RotateX(gGfxMatrix, -arg0->obj.rot.x * M_DTOR, 1);
-        Matrix_RotateY(gGfxMatrix, -arg0->obj.rot.y * M_DTOR, 1);
+        Matrix_RotateZ(gGfxMatrix, -obj2F4->obj.rot.z * M_DTOR, 1);
+        Matrix_RotateX(gGfxMatrix, -obj2F4->obj.rot.x * M_DTOR, 1);
+        Matrix_RotateY(gGfxMatrix, -obj2F4->obj.rot.y * M_DTOR, 1);
         Matrix_RotateY(gGfxMatrix, -gPlayer[D_801778A0].unk_058, 1);
         Matrix_RotateX(gGfxMatrix, gPlayer[D_801778A0].unk_05C, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         func_8005465C(gLevelType);
         Matrix_Pop(&gGfxMatrix);
     }
-    sp5C = arg0->unk_168;
+    sp5C = obj2F4->unk_168;
     if ((sp5C != 0.0f) && (gLevelType == 0)) {
         sp54 = 0.0f;
         if (gFrameCount & 1) {
@@ -479,30 +479,30 @@ f32 D_800CFCA0[] = {
     1.7f, 1.8f, 2.0f, 3.0f, 3.0f, 3.0f, 3.0f, 3.0f,
 };
 
-void func_8005B1E8(Object_2F4* arg0, s32 arg1) {
-    f32 var_fv0;
+void func_8005B1E8(Object_2F4* obj2F4, s32 levelType) {
+    f32 scale;
 
-    if ((arg0->unk_07C != 0) && (arg0->obj.status == 2)) {
-        var_fv0 = 0.63f;
-        if (arg0->unk_07C >= 2) {
-            var_fv0 = D_800CFCA0[arg0->unk_07C - 2] * 0.45f;
+    if ((obj2F4->unk_07C != 0) && (obj2F4->obj.status == 2)) {
+        scale = 0.63f;
+        if (obj2F4->unk_07C >= 2) {
+            scale = D_800CFCA0[obj2F4->unk_07C - 2] * 0.45f;
         }
         if (gFrameCount & 1) {
-            var_fv0 *= 1.2f;
+            scale *= 1.2f;
         }
         Matrix_Push(&gGfxMatrix);
-        Matrix_Scale(gGfxMatrix, var_fv0, var_fv0, var_fv0, 1);
-        Matrix_RotateZ(gGfxMatrix, -arg0->obj.rot.z * M_DTOR, 1);
-        Matrix_RotateX(gGfxMatrix, -arg0->obj.rot.x * M_DTOR, 1);
-        Matrix_RotateY(gGfxMatrix, -arg0->obj.rot.y * M_DTOR, 1);
+        Matrix_Scale(gGfxMatrix, scale, scale, scale, 1);
+        Matrix_RotateZ(gGfxMatrix, -obj2F4->obj.rot.z * M_DTOR, 1);
+        Matrix_RotateX(gGfxMatrix, -obj2F4->obj.rot.x * M_DTOR, 1);
+        Matrix_RotateY(gGfxMatrix, -obj2F4->obj.rot.y * M_DTOR, 1);
         Matrix_RotateY(gGfxMatrix, -gPlayer[D_801778A0].unk_058, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
-        func_8005465C(arg1);
+        func_8005465C(levelType);
         Matrix_Pop(&gGfxMatrix);
     }
 }
 
-void func_8005B388(Object_2F4* arg0) {
+void func_8005B388(Object_2F4* obj2F4) {
     Vec3f sp3C = { 0.0f, 0.0f, 0.0f };
     Vec3f sp30;
 
@@ -510,11 +510,11 @@ void func_8005B388(Object_2F4* arg0) {
     if ((((fabsf(sp30.z) < 3000.0f) && (fabsf(sp30.x) < 3000.0f) && (D_80178284 == 0)) || (gPlayer[0].unk_1C8 == 0) ||
          (gCurrentLevel == LEVEL_VENOM_2) || (gCurrentLevel == LEVEL_VENOM_SW) || (gPlayer[0].unk_1C8 == 7)) &&
         (gCurrentLevel != LEVEL_MACBETH) && (gCurrentLevel != LEVEL_TITANIA)) {
-        if (arg0->obj.id == OBJECT_195) {
-            if (((gCurrentLevel == LEVEL_VENOM_SW) && (gPlayer[0].unk_1C8 == 7) && (arg0->unk_040 == 10)) ||
+        if (obj2F4->obj.id == OBJECT_195) {
+            if (((gCurrentLevel == LEVEL_VENOM_SW) && (gPlayer[0].unk_1C8 == 7) && (obj2F4->unk_040 == 10)) ||
                 ((gPlayer[0].unk_1C8 == 7) && (gPlayer[0].unk_1D0 >= 100) && (gCurrentLevel == LEVEL_KATINA) &&
-                 (arg0->unk_040 == 1)) ||
-                ((gCurrentLevel == LEVEL_SECTOR_Y) && (gPlayer[0].unk_1C8 == 0) && (arg0->unk_0B8 == 5))) {
+                 (obj2F4->unk_040 == 1)) ||
+                ((gCurrentLevel == LEVEL_SECTOR_Y) && (gPlayer[0].unk_1C8 == 0) && (obj2F4->unk_0B8 == 5))) {
                 D_80161630.rightState = gPlayer[0].wings.rightState;
                 D_80161630.leftState = gPlayer[0].wings.leftState;
             } else {
@@ -523,52 +523,52 @@ void func_8005B388(Object_2F4* arg0) {
         } else {
             D_80161630.rightState = D_80161630.leftState = 2;
         }
-        D_80161630.unk_04 = arg0->unk_150;
-        D_80161630.unk_0C = arg0->unk_154;
-        D_80161630.unk_08 = arg0->unk_17C;
-        D_80161630.unk_10 = arg0->unk_180;
+        D_80161630.unk_04 = obj2F4->unk_150;
+        D_80161630.unk_0C = obj2F4->unk_154;
+        D_80161630.unk_08 = obj2F4->unk_17C;
+        D_80161630.unk_10 = obj2F4->unk_180;
         D_80161630.unk_14 = D_80161630.unk_18 = D_80161630.unk_1C = D_80161630.unk_20 = D_80161630.unk_38 =
             D_80161630.unk_24 = 0.0f;
-        D_80161630.unk_28 = arg0->unk_158;
-        D_80161630.unk_2C = arg0->unk_088;
-        D_80161630.unk_30 = arg0->unk_164;
-        D_80161630.unk_34 = arg0->unk_160;
-        if (gLevelType == 1) {
+        D_80161630.unk_28 = obj2F4->unk_158;
+        D_80161630.unk_2C = obj2F4->unk_088;
+        D_80161630.unk_30 = obj2F4->unk_164;
+        D_80161630.unk_34 = obj2F4->unk_160;
+        if (gLevelType == LEVELTYPE_SPACE) {
             D_80161630.unk_04 = D_80161630.unk_08 = D_80161630.unk_0C = D_80161630.unk_10 = 0.0f;
         }
         func_80053658(&D_80161630);
-    } else if (gLevelType == 0) {
+    } else if (gLevelType == LEVELTYPE_GROUND) {
         gSPDisplayList(gMasterDisp++, D_40018A0);
     } else if (gPlayer[0].unk_204 == 2) {
         gSPDisplayList(gMasterDisp++, D_4003BD0);
     } else {
         gSPDisplayList(gMasterDisp++, D_4007870);
     }
-    func_8005ADAC(arg0);
+    func_8005ADAC(obj2F4);
 }
 
-void func_8005B6A4(Object_2F4* arg0) {
+void func_8005B6A4(Object_2F4* obj2F4) {
     Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_6024B60);
 }
 
-void func_8005B71C(Object_2F4* arg0) {
-    RCP_SetupDL_29(arg0->unk_046, gFogGreen, gFogBlue, gFogAlpha, arg0->unk_048, gFogFar);
+void func_8005B71C(Object_2F4* obj2F4) {
+    RCP_SetupDL_29(obj2F4->unk_046, gFogGreen, gFogBlue, gFogAlpha, obj2F4->unk_048, gFogFar);
     Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_6018C00);
 }
 
-void func_8005B7CC(Object_2F4* arg0) {
-    RCP_SetupDL_29(arg0->unk_046, gFogGreen, gFogBlue, gFogAlpha, arg0->unk_048, gFogFar);
+void func_8005B7CC(Object_2F4* obj2F4) {
+    RCP_SetupDL_29(obj2F4->unk_046, gFogGreen, gFogBlue, gFogAlpha, obj2F4->unk_048, gFogFar);
     gSPDisplayList(gMasterDisp++, D_6022920);
 }
 
-void func_8005B848(Object_2F4* arg0) {
-    f32 var_fv0;
+void func_8005B848(Object_2F4* obj2F4) {
+    f32 scale;
 
-    switch (arg0->unk_0B4) {
+    switch (obj2F4->unk_0B4) {
         case 0:
             gSPDisplayList(gMasterDisp++, D_1028230);
             break;
@@ -580,24 +580,24 @@ void func_8005B848(Object_2F4* arg0) {
             }
             break;
     }
-    var_fv0 = 2.0f;
+    scale = 2.0f;
     if (gFrameCount & 1) {
-        var_fv0 = 1.7f;
+        scale = 1.7f;
     }
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
-    arg0->unk_07C = 1;
-    Matrix_Scale(gGfxMatrix, var_fv0, var_fv0, var_fv0, 1);
-    func_8005B1E8(arg0, 2);
+    obj2F4->unk_07C = 1;
+    Matrix_Scale(gGfxMatrix, scale, scale, scale, 1);
+    func_8005B1E8(obj2F4, 2);
 }
 
-void func_8005B9A4(Object_2F4* arg0) {
+void func_8005B9A4(Object_2F4* obj2F4) {
     Matrix_Translate(gGfxMatrix, 0.0f, -124.0f, 0.0f, 1);
-    Animation_GetFrameData(&D_6029528, arg0->unk_0B6, arg0->unk_18C);
-    Animation_DrawSkeleton(1, D_6029674, arg0->unk_18C, NULL, NULL, arg0, &gIdentityMatrix);
+    Animation_GetFrameData(&D_6029528, obj2F4->unk_0B6, obj2F4->unk_18C);
+    Animation_DrawSkeleton(1, D_6029674, obj2F4->unk_18C, NULL, NULL, obj2F4, &gIdentityMatrix);
 }
 
-void func_8005BA30(Object_2F4* arg0) {
-    if (arg0->unk_0BC != 0) {
+void func_8005BA30(Object_2F4* obj2F4) {
+    if (obj2F4->unk_0BC != 0) {
         RCP_SetupDL_27();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
@@ -611,14 +611,14 @@ f32 D_800CFCCC[] = {
     0.0f, 0.05f, 0.03f, 0.02f, 0.01f, 0.05f, 0.0f, 0.02f,
 };
 
-void func_8005BAB4(s32 objId, s32 arg1) {
+void func_8005BAB4(s32 objId, s32 index) {
     f32 temp_fv0;
     f32 temp1;
     f32 temp2;
 
     switch (objId) {
         case OBJECT_374:
-            if (gObjects8C[arg1].unk_4E == 0) {
+            if (gObjects8C[index].unk_4E == 0) {
                 Matrix_Scale(gGfxMatrix, 1.2f, 0.0f, 1.2f, 1);
                 Matrix_RotateX(gGfxMatrix, M_PI / 2.0f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
@@ -629,7 +629,7 @@ void func_8005BAB4(s32 objId, s32 arg1) {
         case OBJECT_195:
         case OBJECT_198:
         case OBJECT_200:
-            switch (gObjects2F4[arg1].unk_0B4) {
+            switch (gObjects2F4[index].unk_0B4) {
                 case 3:
                     Matrix_Scale(gGfxMatrix, 2.3f, 0.0f, 2.3f, 1);
                     Matrix_RotateX(gGfxMatrix, M_PI / 2.0f, 1);
@@ -640,7 +640,7 @@ void func_8005BAB4(s32 objId, s32 arg1) {
                     RCP_SetupDL(&gMasterDisp, 0x30);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
                     gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 255);
-                    temp_fv0 = gObjects2F4[arg1].unk_150 * 3.0f;
+                    temp_fv0 = gObjects2F4[index].unk_150 * 3.0f;
                     Matrix_Scale(gGfxMatrix, temp_fv0, temp_fv0, temp_fv0, 1);
                     Matrix_RotateX(gGfxMatrix, -M_PI / 2.0f, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
@@ -674,7 +674,7 @@ void func_8005BAB4(s32 objId, s32 arg1) {
         case OBJECT_294:
         case OBJECT_295:
         case OBJECT_296:
-            __cosf(gObjects408[arg1].obj.rot.z * M_DTOR);
+            __cosf(gObjects408[index].obj.rot.z * M_DTOR);
             if (D_80161A88 == 2) {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 90);
             } else {
@@ -695,7 +695,7 @@ void func_8005BAB4(s32 objId, s32 arg1) {
             break;
         case OBJECT_192:
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 150);
-            Matrix_Scale(gGfxMatrix, 0.4f, 0.4f, gObjects2F4[arg1].unk_110, 1);
+            Matrix_Scale(gGfxMatrix, 0.4f, 0.4f, gObjects2F4[index].unk_110, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_6034B90);
             break;
@@ -705,9 +705,9 @@ void func_8005BAB4(s32 objId, s32 arg1) {
             gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
             gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
-            Matrix_RotateX(gGfxMatrix, gObjects2F4[arg1].unk_114, 1);
-            Matrix_RotateZ(gGfxMatrix, gObjects2F4[arg1].unk_11C, 1);
-            Matrix_Scale(gGfxMatrix, gObjects2F4[arg1].unk_110, 1.0f, gObjects2F4[arg1].unk_110, 1);
+            Matrix_RotateX(gGfxMatrix, gObjects2F4[index].unk_114, 1);
+            Matrix_RotateZ(gGfxMatrix, gObjects2F4[index].unk_11C, 1);
+            Matrix_Scale(gGfxMatrix, gObjects2F4[index].unk_110, 1.0f, gObjects2F4[index].unk_110, 1);
             Matrix_RotateX(gGfxMatrix, -M_PI / 2.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
@@ -718,9 +718,9 @@ void func_8005BAB4(s32 objId, s32 arg1) {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
             gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 120.0f, 1);
-            Matrix_RotateX(gGfxMatrix, gObjects2F4[arg1].unk_118 * M_DTOR, 1);
-            Matrix_RotateZ(gGfxMatrix, gObjects2F4[arg1].unk_11C * M_DTOR, 1);
-            Matrix_RotateY(gGfxMatrix, gObjects2F4[arg1].obj.rot.y * M_DTOR, 1);
+            Matrix_RotateX(gGfxMatrix, gObjects2F4[index].unk_118 * M_DTOR, 1);
+            Matrix_RotateZ(gGfxMatrix, gObjects2F4[index].unk_11C * M_DTOR, 1);
+            Matrix_RotateY(gGfxMatrix, gObjects2F4[index].obj.rot.y * M_DTOR, 1);
             Matrix_Scale(gGfxMatrix, 6.0f, 1.0f, 7.5f, 1);
             Matrix_RotateX(gGfxMatrix, -M_PI / 2.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
@@ -730,8 +730,8 @@ void func_8005BAB4(s32 objId, s32 arg1) {
             RCP_SetupDL(&gMasterDisp, 0x45);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
             gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
-            Matrix_RotateX(gGfxMatrix, gObjects2F4[arg1].unk_118, 1);
-            Matrix_RotateZ(gGfxMatrix, gObjects2F4[arg1].unk_11C, 1);
+            Matrix_RotateX(gGfxMatrix, gObjects2F4[index].unk_118, 1);
+            Matrix_RotateZ(gGfxMatrix, gObjects2F4[index].unk_11C, 1);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, 1);
             Matrix_Scale(gGfxMatrix, 1.2f, 1.0f, 1.2f, 1);
             Matrix_RotateX(gGfxMatrix, -M_PI / 2.0f, 1);
@@ -747,15 +747,15 @@ void func_8005BAB4(s32 objId, s32 arg1) {
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             break;
         case OBJECT_319:
-            func_DF4260_80198310(&gObjects408[arg1]);
+            func_DF4260_80198310(&gObjects408[index]);
             break;
     }
 }
 
-void func_8005C5F0(Object_6C* arg0) {
+void func_8005C5F0(Object_6C* obj6C) {
     s32 i;
 
-    if ((gFrameCount & 0x18) && (arg0->unk_46 == 0)) {
+    if ((gFrameCount & 0x18) && (obj6C->unk_46 == 0)) {
         Matrix_Push(&gGfxMatrix);
         RCP_SetupDL(&gMasterDisp, 0x40);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
@@ -769,53 +769,53 @@ void func_8005C5F0(Object_6C* arg0) {
     RCP_SetupDL(&gMasterDisp, 0x1D);
     gSPTexture(gMasterDisp++, 2000, 2000, 0, G_TX_RENDERTILE, G_ON);
     gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
-    Matrix_RotateZ(gGfxMatrix, arg0->unk_58 * M_DTOR, 1);
+    Matrix_RotateZ(gGfxMatrix, obj6C->unk_58 * M_DTOR, 1);
 
     for (i = 0; i < 8; i++) {
         Matrix_Push(&gGfxMatrix);
         Matrix_RotateZ(gGfxMatrix, i * 45.0f * M_DTOR, 1);
-        Matrix_Translate(gGfxMatrix, 2.0f * arg0->unk_68, 0.0f, 0.0f, 1);
-        Matrix_RotateZ(gGfxMatrix, (gFrameCount + (i * 110.0f)) * M_DTOR * 7.2f * arg0->unk_54, 1);
-        func_8005980C(2.0f * arg0->unk_50);
+        Matrix_Translate(gGfxMatrix, 2.0f * obj6C->unk_68, 0.0f, 0.0f, 1);
+        Matrix_RotateZ(gGfxMatrix, (gFrameCount + (i * 110.0f)) * M_DTOR * 7.2f * obj6C->unk_54, 1);
+        func_8005980C(2.0f * obj6C->unk_50);
         gSPDisplayList(gMasterDisp++, D_101CAE0);
         Matrix_Pop(&gGfxMatrix);
     }
     gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
 }
 
-void func_8005C900(Object_6C* arg0) {
+void func_8005C900(Object_6C* obj6C) {
     RCP_SetupDL(&gMasterDisp, 0x1D);
     gSPTexture(gMasterDisp++, 3000, 0, 0, G_TX_RENDERTILE, G_ON);
     gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR);
-    func_8005980C(arg0->unk_68);
+    func_8005980C(obj6C->unk_68);
     gSPDisplayList(gMasterDisp++, D_101A570);
     gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR);
 }
 
-void func_8005C9C0(Object_6C* arg0) {
+void func_8005C9C0(Object_6C* obj6C) {
     RCP_SetupDL(&gMasterDisp, 0x1D);
     gSPTexture(gMasterDisp++, 3000, 0, 0, G_TX_RENDERTILE, G_ON);
     gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR);
-    func_8005980C(arg0->unk_68);
+    func_8005980C(obj6C->unk_68);
     gSPDisplayList(gMasterDisp++, D_1019CA0);
     gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR);
 }
 
-void func_8005CA80(Object_6C* arg0) {
+void func_8005CA80(Object_6C* obj6C) {
     RCP_SetupDL(&gMasterDisp, 0x1D);
     gSPTexture(gMasterDisp++, 1900, 1700, 0, G_TX_RENDERTILE, G_ON);
     gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR);
-    func_8005980C(arg0->unk_68);
+    func_8005980C(obj6C->unk_68);
     gSPDisplayList(gMasterDisp++, D_1016870);
     gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR);
 }
 
-void func_8005CB44(Object_6C* arg0) {
+void func_8005CB44(Object_6C* obj6C) {
     if (gCurrentLevel == LEVEL_AQUAS) {
-        func_8005980C(arg0->unk_68);
+        func_8005980C(obj6C->unk_68);
         gSPDisplayList(gMasterDisp++, D_3005980);
     } else {
-        func_8005980C(arg0->unk_68 * 0.1f);
+        func_8005980C(obj6C->unk_68 * 0.1f);
         RCP_SetupDL(&gMasterDisp, 0x1D);
         gSPTexture(gMasterDisp++, 2000, 2000, 0, G_TX_RENDERTILE, G_ON);
         gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
@@ -827,8 +827,8 @@ void func_8005CB44(Object_6C* arg0) {
     }
 }
 
-void func_8005CC9C(Object_6C* arg0) {
-    func_8005980C(arg0->unk_68 * 0.1f);
+void func_8005CC9C(Object_6C* obj6C) {
+    func_8005980C(obj6C->unk_68 * 0.1f);
     RCP_SetupDL(&gMasterDisp, 0x1D);
     gSPTexture(gMasterDisp++, 2000, 2000, 0, G_TX_RENDERTILE, G_ON);
     gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
@@ -839,16 +839,16 @@ void func_8005CC9C(Object_6C* arg0) {
     gSPDisplayList(gMasterDisp++, D_101A8E0);
 }
 
-void func_8005CDA8(Object_6C* arg0) {
+void func_8005CDA8(Object_6C* obj6C) {
     s32 i;
 
-    arg0->obj.rot.y = (Math_Atan2F(gPlayer[D_801778A0].unk_040.x - arg0->obj.pos.x,
-                                   gPlayer[D_801778A0].unk_040.z - (arg0->obj.pos.z + D_80177D20)) *
-                       180.0f) /
-                      M_PI;
-    if (arg0->unk_46 != 0) {
+    obj6C->obj.rot.y = (Math_Atan2F(gPlayer[D_801778A0].unk_040.x - obj6C->obj.pos.x,
+                                    gPlayer[D_801778A0].unk_040.z - (obj6C->obj.pos.z + D_80177D20)) *
+                        180.0f) /
+                       M_PI;
+    if (obj6C->unk_46 != 0) {
         RCP_SetupDL(&gMasterDisp, 0x29);
-        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, arg0->unk_44);
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, obj6C->unk_44);
     } else {
         RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     }
@@ -856,7 +856,7 @@ void func_8005CDA8(Object_6C* arg0) {
     for (i = 0; i < 7; i++) {
         Matrix_Push(&gGfxMatrix);
         Matrix_RotateZ(gGfxMatrix, (i * 360.0f / 7.0f) * M_DTOR, 1);
-        Matrix_Translate(gGfxMatrix, 0.0f, arg0->unk_68, 0.0f, 1);
+        Matrix_Translate(gGfxMatrix, 0.0f, obj6C->unk_68, 0.0f, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_102FE80);
         Matrix_Pop(&gGfxMatrix);
@@ -864,90 +864,90 @@ void func_8005CDA8(Object_6C* arg0) {
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK | G_LIGHTING);
 }
 
-void func_8005D008(Object* arg0, s32 arg1) {
-    if (arg1 == 2) {
+void func_8005D008(Object* obj, s32 drawType) {
+    if (drawType == 2) {
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, D_80177D20, 1);
-        Matrix_Translate(gCalcMatrix, arg0->pos.x, arg0->pos.y, arg0->pos.z, 0);
+        Matrix_Translate(gCalcMatrix, obj->pos.x, obj->pos.y, obj->pos.z, 0);
         Matrix_Push(&gGfxMatrix);
         Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
         Matrix_Copy(&D_801615F0, gGfxMatrix);
         Matrix_Pop(&gGfxMatrix);
-        Matrix_RotateY(gCalcMatrix, arg0->rot.y * M_DTOR, 1);
-        Matrix_RotateX(gCalcMatrix, arg0->rot.x * M_DTOR, 1);
-        Matrix_RotateZ(gCalcMatrix, arg0->rot.z * M_DTOR, 1);
+        Matrix_RotateY(gCalcMatrix, obj->rot.y * M_DTOR, 1);
+        Matrix_RotateX(gCalcMatrix, obj->rot.x * M_DTOR, 1);
+        Matrix_RotateZ(gCalcMatrix, obj->rot.z * M_DTOR, 1);
     } else {
-        Matrix_Translate(gGfxMatrix, arg0->pos.x, arg0->pos.y, arg0->pos.z + D_80177D20, 1);
+        Matrix_Translate(gGfxMatrix, obj->pos.x, obj->pos.y, obj->pos.z + D_80177D20, 1);
         Matrix_Copy(&D_801615F0, gGfxMatrix);
-        Matrix_RotateY(gGfxMatrix, arg0->rot.y * M_DTOR, 1);
-        Matrix_RotateX(gGfxMatrix, arg0->rot.x * M_DTOR, 1);
-        Matrix_RotateZ(gGfxMatrix, arg0->rot.z * M_DTOR, 1);
+        Matrix_RotateY(gGfxMatrix, obj->rot.y * M_DTOR, 1);
+        Matrix_RotateX(gGfxMatrix, obj->rot.x * M_DTOR, 1);
+        Matrix_RotateZ(gGfxMatrix, obj->rot.z * M_DTOR, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
     }
 }
 
-void func_8005D1F0(Object* arg0, s32 arg1) {
-    if (arg1 == 2) {
+void func_8005D1F0(Object* obj, s32 drawType) {
+    if (drawType == 2) {
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, D_80177D20, 1);
-        Matrix_Translate(gCalcMatrix, arg0->pos.x, arg0->pos.y, arg0->pos.z, 0);
+        Matrix_Translate(gCalcMatrix, obj->pos.x, obj->pos.y, obj->pos.z, 0);
         Matrix_Push(&gGfxMatrix);
         Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
         Matrix_Copy(&D_801615F0, gGfxMatrix);
         Matrix_Pop(&gGfxMatrix);
-        Matrix_RotateY(gCalcMatrix, arg0->rot.y * M_DTOR, 1);
-        Matrix_RotateX(gCalcMatrix, arg0->rot.x * M_DTOR, 1);
-        Matrix_RotateZ(gCalcMatrix, arg0->rot.z * M_DTOR, 1);
+        Matrix_RotateY(gCalcMatrix, obj->rot.y * M_DTOR, 1);
+        Matrix_RotateX(gCalcMatrix, obj->rot.x * M_DTOR, 1);
+        Matrix_RotateZ(gCalcMatrix, obj->rot.z * M_DTOR, 1);
     } else {
-        Matrix_Translate(gGfxMatrix, arg0->pos.x, arg0->pos.y, arg0->pos.z + D_80177D20, 1);
+        Matrix_Translate(gGfxMatrix, obj->pos.x, obj->pos.y, obj->pos.z + D_80177D20, 1);
         Matrix_Copy(&D_801615F0, gGfxMatrix);
-        Matrix_RotateY(gGfxMatrix, arg0->rot.y * M_DTOR, 1);
-        Matrix_RotateX(gGfxMatrix, arg0->rot.x * M_DTOR, 1);
-        Matrix_RotateZ(gGfxMatrix, arg0->rot.z * M_DTOR, 1);
+        Matrix_RotateY(gGfxMatrix, obj->rot.y * M_DTOR, 1);
+        Matrix_RotateX(gGfxMatrix, obj->rot.x * M_DTOR, 1);
+        Matrix_RotateZ(gGfxMatrix, obj->rot.z * M_DTOR, 1);
     }
 }
 
-void func_8005D3CC(Object* arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4) {
-    if (arg4 == 2) {
+void func_8005D3CC(Object* obj, f32 xRot, f32 yRot, f32 zRot, s32 drawType) {
+    if (drawType == 2) {
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, D_80177D20, 1);
-        Matrix_Translate(gCalcMatrix, arg0->pos.x, arg0->pos.y, arg0->pos.z, 0);
+        Matrix_Translate(gCalcMatrix, obj->pos.x, obj->pos.y, obj->pos.z, 0);
         Matrix_Push(&gGfxMatrix);
         Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
         Matrix_Copy(&D_801615F0, gGfxMatrix);
         Matrix_Pop(&gGfxMatrix);
-        Matrix_RotateY(gCalcMatrix, M_DTOR * arg2, 1);
-        Matrix_RotateX(gCalcMatrix, M_DTOR * arg1, 1);
-        Matrix_RotateZ(gCalcMatrix, M_DTOR * arg3, 1);
-        Matrix_RotateY(gCalcMatrix, arg0->rot.y * M_DTOR, 1);
-        Matrix_RotateX(gCalcMatrix, arg0->rot.x * M_DTOR, 1);
-        Matrix_RotateZ(gCalcMatrix, arg0->rot.z * M_DTOR, 1);
+        Matrix_RotateY(gCalcMatrix, M_DTOR * yRot, 1);
+        Matrix_RotateX(gCalcMatrix, M_DTOR * xRot, 1);
+        Matrix_RotateZ(gCalcMatrix, M_DTOR * zRot, 1);
+        Matrix_RotateY(gCalcMatrix, obj->rot.y * M_DTOR, 1);
+        Matrix_RotateX(gCalcMatrix, obj->rot.x * M_DTOR, 1);
+        Matrix_RotateZ(gCalcMatrix, obj->rot.z * M_DTOR, 1);
     } else {
-        Matrix_Translate(gGfxMatrix, arg0->pos.x, arg0->pos.y, arg0->pos.z + D_80177D20, 1);
+        Matrix_Translate(gGfxMatrix, obj->pos.x, obj->pos.y, obj->pos.z + D_80177D20, 1);
         Matrix_Copy(&D_801615F0, gGfxMatrix);
-        Matrix_RotateY(gGfxMatrix, M_DTOR * arg2, 1);
-        Matrix_RotateX(gGfxMatrix, M_DTOR * arg1, 1);
-        Matrix_RotateZ(gGfxMatrix, M_DTOR * arg3, 1);
-        Matrix_RotateY(gGfxMatrix, arg0->rot.y * M_DTOR, 1);
-        Matrix_RotateX(gGfxMatrix, arg0->rot.x * M_DTOR, 1);
-        Matrix_RotateZ(gGfxMatrix, arg0->rot.z * M_DTOR, 1);
+        Matrix_RotateY(gGfxMatrix, M_DTOR * yRot, 1);
+        Matrix_RotateX(gGfxMatrix, M_DTOR * xRot, 1);
+        Matrix_RotateZ(gGfxMatrix, M_DTOR * zRot, 1);
+        Matrix_RotateY(gGfxMatrix, obj->rot.y * M_DTOR, 1);
+        Matrix_RotateX(gGfxMatrix, obj->rot.x * M_DTOR, 1);
+        Matrix_RotateZ(gGfxMatrix, obj->rot.z * M_DTOR, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
     }
 }
 
-void func_8005D654(Object_80* arg0, s32 arg1) {
-    arg0->obj.pos.y += D_8017847C;
-    func_8005D008(&arg0->obj, arg0->unk_1C.drawType);
-    arg0->obj.pos.y -= D_8017847C;
-    if (arg0->unk_1C.drawType == 0) {
-        if ((arg0->obj.id == OBJECT_19) || (arg0->obj.id == OBJECT_55) || (arg0->obj.id == OBJECT_9) ||
-            (arg0->obj.id == OBJECT_50)) {
+void Object_80_Draw(Object_80* obj80, s32 arg1) {
+    obj80->obj.pos.y += D_8017847C;
+    func_8005D008(&obj80->obj, obj80->unk_1C.drawType);
+    obj80->obj.pos.y -= D_8017847C;
+    if (obj80->unk_1C.drawType == 0) {
+        if ((obj80->obj.id == OBJECT_19) || (obj80->obj.id == OBJECT_55) || (obj80->obj.id == OBJECT_9) ||
+            (obj80->obj.id == OBJECT_50)) {
             RCP_SetupDL_57(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
             if (arg1 < 0) {
                 func_800596C0();
             }
-            gSPDisplayList(gMasterDisp++, arg0->unk_1C.dList);
+            gSPDisplayList(gMasterDisp++, obj80->unk_1C.dList);
             RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
         } else {
-            if (arg0->obj.id == OBJECT_8) {
+            if (obj80->obj.id == OBJECT_8) {
                 if (arg1 < 0) {
                     return; // weird control flow
                 }
@@ -957,78 +957,78 @@ void func_8005D654(Object_80* arg0, s32 arg1) {
             if (arg1 < 0) {
                 func_800596C0();
             }
-            gSPDisplayList(gMasterDisp++, arg0->unk_1C.dList);
-            if (arg0->obj.id == OBJECT_8) {
+            gSPDisplayList(gMasterDisp++, obj80->unk_1C.dList);
+            if (obj80->obj.id == OBJECT_8) {
                 RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             }
         }
-    } else if (arg0->unk_1C.draw != NULL) {
+    } else if (obj80->unk_1C.draw != NULL) {
         func_800597C0(arg1);
-        arg0->unk_1C.draw(&arg0->obj);
+        obj80->unk_1C.draw(&obj80->obj);
     }
 }
 
-void func_8005D8B8(Object_4C* arg0, s32 arg1) {
+void Object_4C_Draw(Object_4C* obj4C, s32 arg1) {
     if (arg1 >= 0) {
-        arg0->obj.pos.y += D_8017847C;
-        func_8005D008(&arg0->obj, 0);
-        arg0->obj.pos.y -= D_8017847C;
-        if (arg0->unk_1C.drawType == 0) {
-            gSPDisplayList(gMasterDisp++, arg0->unk_1C.dList);
-        } else if (arg0->unk_1C.draw != NULL) {
-            arg0->unk_1C.draw(&arg0->obj);
+        obj4C->obj.pos.y += D_8017847C;
+        func_8005D008(&obj4C->obj, 0);
+        obj4C->obj.pos.y -= D_8017847C;
+        if (obj4C->unk_1C.drawType == 0) {
+            gSPDisplayList(gMasterDisp++, obj4C->unk_1C.dList);
+        } else if (obj4C->unk_1C.draw != NULL) {
+            obj4C->unk_1C.draw(&obj4C->obj);
         }
     }
 }
 
-void func_8005D954(Object_2F4* arg0) {
+void Object_2F4_Draw2(Object_2F4* obj2F4) {
     Vec3f sp34 = { 0.0f, 0.0f, 0.0f };
 
-    if (arg0->unk_01C.draw != NULL) {
-        switch (arg0->obj.id) {
+    if (obj2F4->unk_01C.draw != NULL) {
+        switch (obj2F4->obj.id) {
             case OBJECT_194:
-                func_8006B74C(arg0);
+                func_8006B74C(obj2F4);
                 return;
             case OBJECT_236:
-                func_E16C50_80190F08(arg0);
+                func_E16C50_80190F08(obj2F4);
                 return;
         }
-        if ((arg0->obj.id == OBJECT_200) && (arg0->unk_0B4 == 200)) {
-            func_8006B74C(arg0);
+        if ((obj2F4->obj.id == OBJECT_200) && (obj2F4->unk_0B4 == 200)) {
+            func_8006B74C(obj2F4);
         } else {
-            if (arg0->unk_01C.unk_19 != 0) {
-                arg0->obj.pos.y += D_8017847C;
-                func_8005D008(&arg0->obj, arg0->unk_01C.drawType);
-                arg0->obj.pos.y -= D_8017847C;
-            } else if ((arg0->obj.id == OBJECT_200) && (arg0->unk_0B4 != 31)) {
-                func_8005D3CC(&arg0->obj, arg0->unk_2E8.x, arg0->unk_2E8.y, arg0->unk_2E8.z + arg0->unk_0F4.z,
-                              arg0->unk_01C.drawType);
+            if (obj2F4->unk_01C.unk_19 != 0) {
+                obj2F4->obj.pos.y += D_8017847C;
+                func_8005D008(&obj2F4->obj, obj2F4->unk_01C.drawType);
+                obj2F4->obj.pos.y -= D_8017847C;
+            } else if ((obj2F4->obj.id == OBJECT_200) && (obj2F4->unk_0B4 != 31)) {
+                func_8005D3CC(&obj2F4->obj, obj2F4->unk_2E8.x, obj2F4->unk_2E8.y, obj2F4->unk_2E8.z + obj2F4->unk_0F4.z,
+                              obj2F4->unk_01C.drawType);
             } else {
-                func_8005D008(&arg0->obj, arg0->unk_01C.drawType);
+                func_8005D008(&obj2F4->obj, obj2F4->unk_01C.drawType);
             }
-            if (arg0->unk_01C.drawType == 0) {
-                gSPDisplayList(gMasterDisp++, arg0->unk_01C.dList);
-                func_8005F1EC(&arg0->unk_100);
+            if (obj2F4->unk_01C.drawType == 0) {
+                gSPDisplayList(gMasterDisp++, obj2F4->unk_01C.dList);
+                func_8005F1EC(&obj2F4->sfxPos);
             } else {
-                arg0->unk_01C.draw(&arg0->obj);
-                func_8005F1EC(&arg0->unk_100);
-                if (((arg0->obj.id == OBJECT_198) || ((arg0->obj.id == OBJECT_203) && (arg0->unk_0B6 > 0))) &&
+                obj2F4->unk_01C.draw(&obj2F4->obj);
+                func_8005F1EC(&obj2F4->sfxPos);
+                if (((obj2F4->obj.id == OBJECT_198) || ((obj2F4->obj.id == OBJECT_203) && (obj2F4->unk_0B6 > 0))) &&
                     (D_80161410 > 0)) {
-                    Matrix_MultVec3f(gGfxMatrix, &sp34, &D_80177E98[arg0->unk_0E4]);
+                    Matrix_MultVec3f(gGfxMatrix, &sp34, &D_80177E98[obj2F4->unk_0E4]);
                 }
             }
-            if ((arg0->unk_0CA[0] != 0) && (D_80161410 > 0)) {
-                sp34.y += arg0->unk_01C.unk_1C;
+            if ((obj2F4->unk_0CA[0] != 0) && (D_80161410 > 0)) {
+                sp34.y += obj2F4->unk_01C.unk_1C;
                 Matrix_MultVec3f(gGfxMatrix, &sp34, &D_80161578[0]);
                 if (D_80161578[0].z > -200.0f) {
-                    arg0->unk_0CA[0] = 0;
+                    obj2F4->unk_0CA[0] = 0;
                 }
             }
         }
     }
 }
 
-void func_8005DBC0(Object_2F4* arg0) {
+void Object_2F4_Draw1(Object_2F4* obj2F4) {
     s32 var_v1;
     Vec3f sp50 = { 0.0f, 0.0f, 0.0f };
     f32 var_fa1;
@@ -1037,39 +1037,39 @@ void func_8005DBC0(Object_2F4* arg0) {
     f32 var_fv1;
 
     D_801615EC = 0;
-    if (arg0->unk_01C.drawType == 2) {
+    if (obj2F4->unk_01C.drawType == 2) {
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, D_80177D20, 1);
-        Matrix_Translate(gCalcMatrix, arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 0);
+        Matrix_Translate(gCalcMatrix, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, 0);
         Matrix_Push(&gGfxMatrix);
         Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
         Matrix_MultVec3f(gGfxMatrix, &sp50, &D_801615E0);
         Matrix_Pop(&gGfxMatrix);
         var_fv0 = 0.0f;
         var_fv1 = -12000.0f;
-        if ((arg0->obj.id == OBJECT_197) && (arg0->unk_0E4 >= 100)) {
+        if ((obj2F4->obj.id == OBJECT_197) && (obj2F4->unk_0E4 >= 100)) {
             var_fv0 = 1000.0f;
             var_fv1 = -25000.0f;
         }
         if ((var_fv0 > D_801615E0.z) && (D_801615E0.z > var_fv1)) {
             if (fabsf(D_801615E0.x) < (fabsf(D_801615E0.z * 0.5f) + 500.0f)) {
                 if (fabsf(D_801615E0.y) < (fabsf(D_801615E0.z * 0.5f) + 500.0f)) {
-                    Matrix_RotateY(gCalcMatrix, arg0->obj.rot.y * M_DTOR, 1);
-                    Matrix_RotateX(gCalcMatrix, arg0->obj.rot.x * M_DTOR, 1);
-                    Matrix_RotateZ(gCalcMatrix, arg0->obj.rot.z * M_DTOR, 1);
-                    arg0->unk_01C.draw(&arg0->obj);
+                    Matrix_RotateY(gCalcMatrix, obj2F4->obj.rot.y * M_DTOR, 1);
+                    Matrix_RotateX(gCalcMatrix, obj2F4->obj.rot.x * M_DTOR, 1);
+                    Matrix_RotateZ(gCalcMatrix, obj2F4->obj.rot.z * M_DTOR, 1);
+                    obj2F4->unk_01C.draw(&obj2F4->obj);
                     D_801615EC = 1;
-                    if ((gPlayer[0].unk_1C8 == 3) && (arg0->obj.id == OBJECT_197) && (arg0->unk_0E4 == 200)) {
+                    if ((gPlayer[0].unk_1C8 == 3) && (obj2F4->obj.id == OBJECT_197) && (obj2F4->unk_0E4 == 200)) {
                         D_80177E98[0] = D_801615E0;
                     }
                 }
             }
         }
     } else {
-        Matrix_Translate(gGfxMatrix, arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 1);
+        Matrix_Translate(gGfxMatrix, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, 1);
         Matrix_MultVec3f(gGfxMatrix, &sp50, &D_801615E0);
         if ((gPlayer[0].unk_1C8 == 2) || (gPlayer[0].unk_1C8 == 0) ||
-            ((arg0->obj.id == OBJECT_197) && (arg0->unk_0E4 >= 100)) ||
-            ((arg0->obj.id == OBJECT_195) && (arg0->unk_01C.unk_20 != 0))) {
+            ((obj2F4->obj.id == OBJECT_197) && (obj2F4->unk_0E4 >= 100)) ||
+            ((obj2F4->obj.id == OBJECT_195) && (obj2F4->unk_01C.bonus != 0))) {
             var_ft5 = var_fv0 = 3000.0f;
             var_fv1 = -29000.0f;
             var_fa1 = 0.7f;
@@ -1082,18 +1082,18 @@ void func_8005DBC0(Object_2F4* arg0) {
         if ((var_fv0 > D_801615E0.z) && (D_801615E0.z > var_fv1)) {
             if (fabsf(D_801615E0.x) < (fabsf(D_801615E0.z * var_fa1) + var_ft5)) {
                 if (fabsf(D_801615E0.y) < (fabsf(D_801615E0.z * var_fa1) + var_ft5)) {
-                    if (arg0->unk_01C.draw != NULL) {
-                        Matrix_RotateY(gGfxMatrix, arg0->obj.rot.y * M_DTOR, 1);
-                        Matrix_RotateX(gGfxMatrix, arg0->obj.rot.x * M_DTOR, 1);
-                        Matrix_RotateZ(gGfxMatrix, arg0->obj.rot.z * M_DTOR, 1);
+                    if (obj2F4->unk_01C.draw != NULL) {
+                        Matrix_RotateY(gGfxMatrix, obj2F4->obj.rot.y * M_DTOR, 1);
+                        Matrix_RotateX(gGfxMatrix, obj2F4->obj.rot.x * M_DTOR, 1);
+                        Matrix_RotateZ(gGfxMatrix, obj2F4->obj.rot.z * M_DTOR, 1);
                         Matrix_SetGfxMtx(&gMasterDisp);
-                        arg0->unk_01C.draw(&arg0->obj);
+                        obj2F4->unk_01C.draw(&obj2F4->obj);
                         D_801615EC = 1;
                         if ((gPlayer[0].unk_1C8 == 3) &&
-                            (((arg0->obj.id == OBJECT_197) &&
-                              ((arg0->unk_0E4 < 4) || (arg0->unk_0E4 == 8) || (arg0->unk_0E4 == 9))) ||
-                             (arg0->obj.id == OBJECT_198))) {
-                            D_80177E98[arg0->unk_0E4] = D_801615E0;
+                            (((obj2F4->obj.id == OBJECT_197) &&
+                              ((obj2F4->unk_0E4 < 4) || (obj2F4->unk_0E4 == 8) || (obj2F4->unk_0E4 == 9))) ||
+                             (obj2F4->obj.id == OBJECT_198))) {
+                            D_80177E98[obj2F4->unk_0E4] = D_801615E0;
                         }
                     }
                 }
@@ -1101,25 +1101,25 @@ void func_8005DBC0(Object_2F4* arg0) {
         }
     }
     if (D_801615EC == 0) {
-        arg0->unk_0CA[D_801778A0] = 0;
-        if ((arg0->obj.id == OBJECT_189) || (arg0->obj.id == OBJECT_286)) {
-            Object_Kill(&arg0->obj, &arg0->unk_100);
+        obj2F4->unk_0CA[D_801778A0] = 0;
+        if ((obj2F4->obj.id == OBJECT_189) || (obj2F4->obj.id == OBJECT_286)) {
+            Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
         }
     }
     for (var_v1 = 0; var_v1 < gCamCount; var_v1++) {
-        if (arg0->unk_0CA[var_v1] != 0) {
+        if (obj2F4->unk_0CA[var_v1] != 0) {
             D_80161578[var_v1] = D_801615E0;
-            D_80161578[var_v1].y += arg0->unk_01C.unk_1C;
+            D_80161578[var_v1].y += obj2F4->unk_01C.unk_1C;
             if ((var_v1 == D_801778A0) && (D_80161578[var_v1].z > -300.0f)) {
-                arg0->unk_0CA[var_v1] = 0;
+                obj2F4->unk_0CA[var_v1] = 0;
             }
         }
     }
-    func_8005F290(&arg0->unk_100, &D_801615E0);
-    arg0->unk_0B0 = D_801615EC;
+    func_8005F290(&obj2F4->sfxPos, &D_801615E0);
+    obj2F4->unk_0B0 = D_801615EC;
 }
 
-void func_8005E1B8(Object_408* arg0, s32 arg1) {
+void Object_408_Draw(Object_408* obj408, s32 arg1) {
     f32 var_fa1;
     f32 var_ft5;
     f32 var_fv0;
@@ -1127,21 +1127,21 @@ void func_8005E1B8(Object_408* arg0, s32 arg1) {
     f32 sp3C;
     Vec3f sp30 = { 0.0f, 0.0f, 0.0f };
 
-    if (arg0->unk_01C.unk_19 != 0) {
-        arg0->obj.pos.y += arg0->unk_068 + D_8017847C;
-        func_8005D1F0(&arg0->obj, arg0->unk_01C.drawType);
-        arg0->obj.pos.y -= arg0->unk_068 + D_8017847C;
+    if (obj408->unk_01C.unk_19 != 0) {
+        obj408->obj.pos.y += obj408->unk_068 + D_8017847C;
+        func_8005D1F0(&obj408->obj, obj408->unk_01C.drawType);
+        obj408->obj.pos.y -= obj408->unk_068 + D_8017847C;
     } else {
-        func_8005D1F0(&arg0->obj, arg0->unk_01C.drawType);
+        func_8005D1F0(&obj408->obj, obj408->unk_01C.drawType);
     }
     Matrix_MultVec3f(&D_801615F0, &sp30, &D_801615D0);
-    func_8005F290(&arg0->unk_3FC, &D_801615D0);
-    if ((arg0->obj.id == OBJECT_316) || (arg0->obj.id == OBJECT_317)) {
+    func_8005F290(&obj408->sfxPos, &D_801615D0);
+    if ((obj408->obj.id == OBJECT_316) || (obj408->obj.id == OBJECT_317)) {
         var_fa1 = 6000.0f;
         var_fv0 = 6000.0f;
         var_ft5 = 0.9f;
         var_fv1 = -20000.0f;
-    } else if (arg0->obj.id == OBJECT_313) {
+    } else if (obj408->obj.id == OBJECT_313) {
         var_fv1 = -25000.0f;
         var_ft5 = 0.7f;
         var_fa1 = 3000.0f;
@@ -1157,58 +1157,58 @@ void func_8005E1B8(Object_408* arg0, s32 arg1) {
         if (fabsf(D_801615D0.x) < (fabsf(D_801615D0.z * var_ft5) + var_fa1)) {
             if (fabsf(D_801615D0.y) < (fabsf(D_801615D0.z * var_ft5) + var_fa1)) {
                 sp3C = 1.0f;
-                if (arg0->obj.id != OBJECT_309) {
-                    if (arg0->obj.id != OBJECT_316) {
-                        func_8005F670(&arg0->obj.pos);
+                if (obj408->obj.id != OBJECT_309) {
+                    if (obj408->obj.id != OBJECT_316) {
+                        func_8005F670(&obj408->obj.pos);
                     }
-                    if (arg0->unk_01C.drawType != 2) {
+                    if (obj408->unk_01C.drawType != 2) {
                         Matrix_SetGfxMtx(&gMasterDisp);
                     }
                     if (arg1 < 0) {
                         func_800596C0();
                     }
-                    arg0->unk_01C.draw(&arg0->obj);
+                    obj408->unk_01C.draw(&obj408->obj);
                 }
             }
         }
     }
     D_801615D0.y = sp3C;
-    if (arg0->obj.id == OBJECT_309) {
-        arg0->unk_308 = D_801615D0;
-        func_8005F670(&arg0->obj.pos);
+    if (obj408->obj.id == OBJECT_309) {
+        obj408->unk_308 = D_801615D0;
+        func_8005F670(&obj408->obj.pos);
         Matrix_SetGfxMtx(&gMasterDisp);
-        arg0->unk_01C.draw(&arg0->obj);
+        obj408->unk_01C.draw(&obj408->obj);
     }
 }
 
-void func_8005E454(Object_8C* arg0, s32 arg1) {
-    if ((arg1 < 0) && (arg0->obj.pos.y < 7.0f)) {
+void Object_8C_Draw1(Object_8C* obj8C, s32 arg1) {
+    if ((arg1 < 0) && (obj8C->obj.pos.y < 7.0f)) {
         return;
     }
-    if ((arg0->obj.id == OBJECT_353) || (arg0->obj.id == OBJECT_369)) {
-        func_8005D3CC(&arg0->obj, arg0->unk_60.x, arg0->unk_60.y, arg0->unk_60.z, 0);
-    } else if (arg0->unk_1C.unk_14 == -1) {
-        arg0->obj.pos.y += D_8017847C;
-        func_8005D008(&arg0->obj, 0);
-        arg0->obj.pos.y -= D_8017847C;
+    if ((obj8C->obj.id == OBJECT_353) || (obj8C->obj.id == OBJECT_369)) {
+        func_8005D3CC(&obj8C->obj, obj8C->unk_60.x, obj8C->unk_60.y, obj8C->unk_60.z, 0);
+    } else if (obj8C->unk_1C.unk_14 == -1) {
+        obj8C->obj.pos.y += D_8017847C;
+        func_8005D008(&obj8C->obj, 0);
+        obj8C->obj.pos.y -= D_8017847C;
     } else {
-        func_8005D008(&arg0->obj, 0);
+        func_8005D008(&obj8C->obj, 0);
     }
-    if (arg0->unk_1C.draw != NULL) {
-        arg0->unk_1C.draw(&arg0->obj);
+    if (obj8C->unk_1C.draw != NULL) {
+        obj8C->unk_1C.draw(&obj8C->obj);
     }
 }
 
-void func_8005E538(Object_8C* arg0) {
+void Object_8C_Draw2(Object_8C* obj8C) {
     Vec3f sp4C = { 0.0f, 0.0f, 0.0f };
     Vec3f sp40;
     f32 var_fv0;
     u8 sp3B = 0;
 
-    if (arg0->unk_1C.unk_14 == -1) {
-        Matrix_Translate(gGfxMatrix, arg0->obj.pos.x, arg0->obj.pos.y + D_8017847C, arg0->obj.pos.z + D_80177D20, 1);
+    if (obj8C->unk_1C.unk_14 == -1) {
+        Matrix_Translate(gGfxMatrix, obj8C->obj.pos.x, obj8C->obj.pos.y + D_8017847C, obj8C->obj.pos.z + D_80177D20, 1);
     } else {
-        Matrix_Translate(gGfxMatrix, arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z + D_80177D20, 1);
+        Matrix_Translate(gGfxMatrix, obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z + D_80177D20, 1);
     }
     Matrix_MultVec3f(gGfxMatrix, &sp4C, &sp40);
     if ((gCurrentLevel == LEVEL_SECTOR_Z) || (gCurrentLevel == LEVEL_BOLSE)) {
@@ -1219,79 +1219,79 @@ void func_8005E538(Object_8C* arg0) {
     if ((sp40.z < 0.0f) && (var_fv0 < sp40.z)) {
         if (fabsf(sp40.x) < (fabsf(sp40.z * 0.5f) + 500.0f)) {
             if (fabsf(sp40.y) < (fabsf(sp40.z * 0.5f) + 500.0f)) {
-                if (arg0->unk_1C.draw != NULL) {
-                    Matrix_RotateY(gGfxMatrix, arg0->obj.rot.y * M_DTOR, 1);
-                    Matrix_RotateX(gGfxMatrix, arg0->obj.rot.x * M_DTOR, 1);
-                    Matrix_RotateZ(gGfxMatrix, arg0->obj.rot.z * M_DTOR, 1);
+                if (obj8C->unk_1C.draw != NULL) {
+                    Matrix_RotateY(gGfxMatrix, obj8C->obj.rot.y * M_DTOR, 1);
+                    Matrix_RotateX(gGfxMatrix, obj8C->obj.rot.x * M_DTOR, 1);
+                    Matrix_RotateZ(gGfxMatrix, obj8C->obj.rot.z * M_DTOR, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    arg0->unk_1C.draw(&arg0->obj);
+                    obj8C->unk_1C.draw(&obj8C->obj);
                 }
                 sp3B = 1;
             }
         }
     }
-    func_8005F290(&arg0->unk_80, &sp40);
-    if ((sp3B == 0) && (arg0->obj.id != OBJECT_352) && (arg0->obj.id != OBJECT_373) && (D_801778E8 == 0)) {
-        Object_Kill(&arg0->obj, &arg0->unk_80);
+    func_8005F290(&obj8C->sfxPos, &sp40);
+    if ((sp3B == 0) && (obj8C->obj.id != OBJECT_352) && (obj8C->obj.id != OBJECT_373) && (D_801778E8 == 0)) {
+        Object_Kill(&obj8C->obj, &obj8C->sfxPos);
     }
 }
 
-void func_8005E7B8(Object_6C* arg0, s32 arg1) {
+void Object_6C_Draw(Object_6C* obj6C, s32 arg1) {
     Vec3f sp44 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp38;
     u8 var_v0;
 
-    Matrix_Translate(gGfxMatrix, arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z + D_80177D20, 1);
+    Matrix_Translate(gGfxMatrix, obj6C->obj.pos.x, obj6C->obj.pos.y, obj6C->obj.pos.z + D_80177D20, 1);
     Matrix_MultVec3f(gGfxMatrix, &sp44, &sp38);
     var_v0 = 0;
     if ((sp38.z < 0.0f) && (sp38.z > -12000.0f)) {
         if (fabsf(sp38.x) < (fabsf(sp38.z * 0.5f) + 500.0f)) {
             if (fabsf(sp38.y) < (fabsf(sp38.z * 0.5f) + 500.0f)) {
-                if (arg0->unk_1C.draw != NULL) {
-                    Matrix_RotateY(gGfxMatrix, arg0->obj.rot.y * M_DTOR, 1);
-                    Matrix_RotateX(gGfxMatrix, arg0->obj.rot.x * M_DTOR, 1);
-                    Matrix_RotateZ(gGfxMatrix, arg0->obj.rot.z * M_DTOR, 1);
+                if (obj6C->unk_1C.draw != NULL) {
+                    Matrix_RotateY(gGfxMatrix, obj6C->obj.rot.y * M_DTOR, 1);
+                    Matrix_RotateX(gGfxMatrix, obj6C->obj.rot.x * M_DTOR, 1);
+                    Matrix_RotateZ(gGfxMatrix, obj6C->obj.rot.z * M_DTOR, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    if (arg0->unk_1C.drawType == 0) {
-                        gSPDisplayList(gMasterDisp++, arg0->unk_1C.dList);
+                    if (obj6C->unk_1C.drawType == 0) {
+                        gSPDisplayList(gMasterDisp++, obj6C->unk_1C.dList);
                     } else {
-                        arg0->unk_1C.draw(&arg0->obj);
+                        obj6C->unk_1C.draw(&obj6C->obj);
                     }
                 }
                 var_v0 = 1;
             }
         }
     }
-    func_8005F290(&arg0->unk_5C, &sp38);
-    if ((var_v0 == 0) && (D_80177880 == 1) && (gCamCount == 1) && (arg0->obj.id < 336) &&
+    func_8005F290(&obj6C->sfxPos, &sp38);
+    if ((var_v0 == 0) && (D_80177880 == 1) && (gCamCount == 1) && (obj6C->obj.id < 336) &&
         (gCurrentLevel != LEVEL_VENOM_2)) {
-        Object_Kill(&arg0->obj, &arg0->unk_5C);
+        Object_Kill(&obj6C->obj, &obj6C->sfxPos);
     }
 }
 
-void func_8005EA24(Object_2F4* arg0) {
-    Matrix_Translate(gGfxMatrix, arg0->obj.pos.x, arg0->unk_178 + 3.0f, arg0->obj.pos.z, 1);
+void func_8005EA24(Object_2F4* obj2F4) {
+    Matrix_Translate(gGfxMatrix, obj2F4->obj.pos.x, obj2F4->unk_178 + 3.0f, obj2F4->obj.pos.z, 1);
     if (gCurrentLevel == LEVEL_FORTUNA) {
-        Matrix_RotateY(gGfxMatrix, arg0->unk_180, 1);
-        Matrix_RotateX(gGfxMatrix, arg0->unk_17C, 1);
-        Matrix_RotateZ(gGfxMatrix, arg0->unk_184, 1);
-        Matrix_RotateY(gGfxMatrix, -arg0->unk_180, 1);
+        Matrix_RotateY(gGfxMatrix, obj2F4->unk_180, 1);
+        Matrix_RotateX(gGfxMatrix, obj2F4->unk_17C, 1);
+        Matrix_RotateZ(gGfxMatrix, obj2F4->unk_184, 1);
+        Matrix_RotateY(gGfxMatrix, -obj2F4->unk_180, 1);
     }
     Matrix_Scale(gGfxMatrix, 1.4f, 0.0f, 1.4f, 1);
-    Matrix_RotateY(gGfxMatrix, (arg0->obj.rot.y + 180.0f) * M_DTOR, 1);
-    Matrix_RotateZ(gGfxMatrix, arg0->obj.rot.z * M_DTOR, 1);
+    Matrix_RotateY(gGfxMatrix, (obj2F4->obj.rot.y + 180.0f) * M_DTOR, 1);
+    Matrix_RotateZ(gGfxMatrix, obj2F4->obj.rot.z * M_DTOR, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    if (arg0->unk_0E4 < 4) {
+    if (obj2F4->unk_0E4 < 4) {
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 30.0f, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_1032780);
     } else if (gCurrentLevel == LEVEL_KATINA) {
-        if ((arg0->unk_0B6 == 1) || (arg0->unk_0B6 == 2)) {
+        if ((obj2F4->unk_0B6 == 1) || (obj2F4->unk_0B6 == 2)) {
             gSPDisplayList(gMasterDisp++, D_600D730);
         } else {
             gSPDisplayList(gMasterDisp++, D_600DBC0);
         }
-    } else if ((arg0->unk_0E4 < 8) || (gCurrentLevel != LEVEL_FORTUNA)) {
+    } else if ((obj2F4->unk_0E4 < 8) || (gCurrentLevel != LEVEL_FORTUNA)) {
         gSPDisplayList(gMasterDisp++, D_F014310);
     } else if (gCurrentLevel == LEVEL_FORTUNA) {
         gSPDisplayList(gMasterDisp++, D_6009F90);
@@ -1300,40 +1300,39 @@ void func_8005EA24(Object_2F4* arg0) {
     }
 }
 
-void func_8005ECD8(s32 arg0, Object* arg1) {
+void func_8005ECD8(s32 index, Object* obj) {
     RCP_SetupDL(&gMasterDisp, 0x42);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 180);
-    if (arg1->id == OBJECT_197) {
-        func_8005EA24(&gObjects2F4[arg0]);
+    if (obj->id == OBJECT_197) {
+        func_8005EA24(&gObjects2F4[index]);
     } else {
-        switch (arg1->id) {
+        switch (obj->id) {
             case OBJECT_230:
-                Matrix_Translate(gGfxMatrix, arg1->pos.x, D_80177940 + 2.0f + gObjects2F4[arg0].unk_118,
-                                 arg1->pos.z + D_80177D20, 1);
+                Matrix_Translate(gGfxMatrix, obj->pos.x, D_80177940 + 2.0f + gObjects2F4[index].unk_118,
+                                 obj->pos.z + D_80177D20, 1);
                 break;
             case OBJECT_229:
             case OBJECT_231:
-                Matrix_Translate(gGfxMatrix, arg1->pos.x, D_80177940 + 2.0f + gObjects2F4[arg0].unk_114,
-                                 arg1->pos.z + D_80177D20, 1);
+                Matrix_Translate(gGfxMatrix, obj->pos.x, D_80177940 + 2.0f + gObjects2F4[index].unk_114,
+                                 obj->pos.z + D_80177D20, 1);
                 break;
             case OBJECT_316:
-                Matrix_Translate(gGfxMatrix, arg1->pos.x, D_80177940 + 2.0f + D_8017847C, arg1->pos.z, 1);
+                Matrix_Translate(gGfxMatrix, obj->pos.x, D_80177940 + 2.0f + D_8017847C, obj->pos.z, 1);
                 break;
             default:
-                Matrix_Translate(gGfxMatrix, arg1->pos.x, D_80177940 + 2.0f, arg1->pos.z + D_80177D20, 1);
+                Matrix_Translate(gGfxMatrix, obj->pos.x, D_80177940 + 2.0f, obj->pos.z + D_80177D20, 1);
                 break;
         }
-        if ((D_801784AC != 4) || (arg1->id == OBJECT_200) || (arg1->id == OBJECT_195) || (arg1->id == OBJECT_198)) {
+        if ((D_801784AC != 4) || (obj->id == OBJECT_200) || (obj->id == OBJECT_195) || (obj->id == OBJECT_198)) {
             Matrix_Scale(gGfxMatrix, 1.0f, 0.0f, 1.0f, 1);
-            Matrix_RotateY(gGfxMatrix, arg1->rot.y * M_DTOR, 1);
+            Matrix_RotateY(gGfxMatrix, obj->rot.y * M_DTOR, 1);
         }
-        if ((arg1->id < OBJECT_292) && (arg1->id != OBJECT_230) && (arg1->id != OBJECT_229) &&
-            (arg1->id != OBJECT_231)) {
-            Matrix_RotateX(gGfxMatrix, arg1->rot.x * M_DTOR, 1);
-            Matrix_RotateZ(gGfxMatrix, arg1->rot.z * M_DTOR, 1);
+        if ((obj->id < OBJECT_292) && (obj->id != OBJECT_230) && (obj->id != OBJECT_229) && (obj->id != OBJECT_231)) {
+            Matrix_RotateX(gGfxMatrix, obj->rot.x * M_DTOR, 1);
+            Matrix_RotateZ(gGfxMatrix, obj->rot.z * M_DTOR, 1);
         }
         Matrix_SetGfxMtx(&gMasterDisp);
-        func_8005BAB4(arg1->id, arg0);
+        func_8005BAB4(obj->id, index);
     }
 }
 
@@ -1377,7 +1376,7 @@ void func_8005F0E8(Vec3f* arg0, Vec3f* arg1) {
     }
     func_8005F030(arg0);
 }
-
+// check
 void func_8005F1EC(Vec3f* arg0) {
     Vec3f sp2C = { 0.0f, 0.0f, 0.0f };
     Vec3f sp20;
@@ -1409,7 +1408,7 @@ void func_8005F290(Vec3f* arg0, Vec3f* arg1) {
     func_8005F030(arg0);
 }
 
-void func_8005F2F4(Object_58* arg0) {
+void Object_58_Draw(Object_58* obj58) {
     Vec3f sp54 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp48;
     f32 sp44 = 1000.0f;
@@ -1417,41 +1416,41 @@ void func_8005F2F4(Object_58* arg0) {
     f32 sp3C = 2000.0f;
     f32 sp38 = 0.5f;
 
-    if (arg0->obj.id == OBJECT_156) {
+    if (obj58->obj.id == OBJECT_156) {
         sp44 = 4000.0f;
         sp40 = -13000.0f;
         sp3C = 4500.0f;
     } else if (gCurrentLevel == LEVEL_VENOM_2) {
         sp40 = -20000.0f;
         sp38 = 0.4f;
-    } else if (arg0->obj.id == OBJECT_143) {
+    } else if (obj58->obj.id == OBJECT_143) {
         sp44 = 6000.0f;
         sp40 = -20000.0f;
         sp3C = 6000.0f;
         sp38 = 0.9f;
     }
     if ((gLevelType == 0) || (gCurrentLevel == LEVEL_BOLSE)) {
-        Matrix_Translate(gGfxMatrix, arg0->obj.pos.x, arg0->obj.pos.y + D_8017847C, arg0->obj.pos.z, 1);
+        Matrix_Translate(gGfxMatrix, obj58->obj.pos.x, obj58->obj.pos.y + D_8017847C, obj58->obj.pos.z, 1);
     } else {
-        Matrix_Translate(gGfxMatrix, arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 1);
+        Matrix_Translate(gGfxMatrix, obj58->obj.pos.x, obj58->obj.pos.y, obj58->obj.pos.z, 1);
     }
     Matrix_MultVec3f(gGfxMatrix, &sp54, &sp48);
     if ((sp48.z < sp44) && (sp40 < sp48.z)) {
         if (fabsf(sp48.y) < (fabsf(sp48.z * sp38) + sp3C)) {
             if (fabsf(sp48.x) < (fabsf(sp48.z * sp38) + sp3C)) {
-                func_8005F670(&arg0->obj.pos);
-                if (arg0->obj.id == OBJECT_131) {
-                    Matrix_RotateY(gGfxMatrix, arg0->obj.rot.y * M_DTOR, 1);
-                    Matrix_RotateX(gGfxMatrix, arg0->obj.rot.x * M_DTOR, 1);
-                    Matrix_RotateZ(gGfxMatrix, arg0->obj.rot.z * M_DTOR, 1);
+                func_8005F670(&obj58->obj.pos);
+                if (obj58->obj.id == OBJECT_131) {
+                    Matrix_RotateY(gGfxMatrix, obj58->obj.rot.y * M_DTOR, 1);
+                    Matrix_RotateX(gGfxMatrix, obj58->obj.rot.x * M_DTOR, 1);
+                    Matrix_RotateZ(gGfxMatrix, obj58->obj.rot.z * M_DTOR, 1);
                     Matrix_RotateY(gGfxMatrix, M_PI / 2.0f, 1);
                     Matrix_Translate(gGfxMatrix, -551.0f, 0.0f, 0.0f, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_6007650);
                 } else {
-                    Matrix_RotateY(gGfxMatrix, arg0->obj.rot.y * M_DTOR, 1);
+                    Matrix_RotateY(gGfxMatrix, obj58->obj.rot.y * M_DTOR, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, arg0->unk_1C.dList);
+                    gSPDisplayList(gMasterDisp++, obj58->unk_1C.dList);
                 }
             }
         }
@@ -1527,53 +1526,53 @@ bool func_8005F9DC(Vec3f* arg0) {
     return false;
 }
 
-void func_8005FB70(s32 arg0) {
+void Object_DrawAll(s32 arg0) {
     Vec3f spAC;
     s32 i;
     s32 pad[5]; // probably separate iterators for each loop
-    Object_2F4* var_s0_5;
-    Object_408* var_s0_3;
-    Object_4C* var_s0_4;
-    Object_58* var_s0;
-    Object_6C* var_s0_6;
-    Object_80* var_s0_2;
+    Object_2F4* obj2F4;
+    Object_408* obj408;
+    Object_4C* obj4C;
+    Object_58* obj58;
+    Object_6C* obj6C;
+    Object_80* obj80;
 
     if ((D_80177880 == 1) && (gCurrentLevel != LEVEL_KATINA)) {
         RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
         if (D_80177AB0 == 5) {
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
         }
-        for (i = 0, var_s0 = D_801782A8; i < 200; i++, var_s0++) {
-            if ((var_s0->obj.status == 2) && (var_s0->obj.id != OBJECT_147)) {
+        for (i = 0, obj58 = gObjects58; i < 200; i++, obj58++) {
+            if ((obj58->obj.status == 2) && (obj58->obj.id != OBJECT_147)) {
                 if (gCurrentLevel == LEVEL_BOLSE) {
-                    spAC.x = var_s0->unk_48.x;
-                    spAC.y = var_s0->unk_48.y;
-                    spAC.z = var_s0->unk_48.z;
-                    Matrix_MultVec3fNoTranslate(&D_E51970_8019EE80, &spAC, &var_s0->obj.pos);
-                    var_s0->obj.rot.y = var_s0->unk_54 + gObjects408->obj.rot.y;
+                    spAC.x = obj58->sfxPos.x;
+                    spAC.y = obj58->sfxPos.y;
+                    spAC.z = obj58->sfxPos.z;
+                    Matrix_MultVec3fNoTranslate(&D_E51970_8019EE80, &spAC, &obj58->obj.pos);
+                    obj58->obj.rot.y = obj58->unk_54 + gObjects408->obj.rot.y;
                 }
                 Matrix_Push(&gGfxMatrix);
-                func_8005F2F4(var_s0);
+                Object_58_Draw(obj58);
                 Matrix_Pop(&gGfxMatrix);
             }
         }
     } else {
         RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-        for (i = 0, var_s0_2 = gObjects80; i < ARRAY_COUNT(gObjects80); i++, var_s0_2++) {
-            if (var_s0_2->obj.status >= 2) {
+        for (i = 0, obj80 = gObjects80; i < ARRAY_COUNT(gObjects80); i++, obj80++) {
+            if (obj80->obj.status >= 2) {
                 if (arg0 > 0) {
-                    func_8005F670(&var_s0_2->obj.pos);
+                    func_8005F670(&obj80->obj.pos);
                 }
                 Matrix_Push(&gGfxMatrix);
-                func_8005D654(var_s0_2, arg0);
+                Object_80_Draw(obj80, arg0);
                 Matrix_Pop(&gGfxMatrix);
-                func_8005F1EC(&var_s0_2->unk_70);
+                func_8005F1EC(&obj80->sfxPos);
             }
         }
     }
-    for (i = 0, var_s0_3 = gObjects408; i < ARRAY_COUNT(gObjects408); i++, var_s0_3++) {
-        if ((var_s0_3->obj.status >= 2) && (var_s0_3->obj.id != OBJECT_310)) {
-            if (!(var_s0_3->unk_05C & 1)) {
+    for (i = 0, obj408 = gObjects408; i < ARRAY_COUNT(gObjects408); i++, obj408++) {
+        if ((obj408->obj.status >= 2) && (obj408->obj.id != OBJECT_310)) {
+            if (!(obj408->unk_05C & 1)) {
                 RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             } else {
                 RCP_SetupDL_27();
@@ -1581,32 +1580,32 @@ void func_8005FB70(s32 arg0) {
             }
             func_800597C0(arg0);
             Matrix_Push(&gGfxMatrix);
-            func_8005E1B8(var_s0_3, arg0);
+            Object_408_Draw(obj408, arg0);
             Matrix_Pop(&gGfxMatrix);
-            if ((var_s0_3->unk_05E != 0) && (D_801615D0.y > 0.0f)) {
+            if ((obj408->unk_05E != 0) && (D_801615D0.y > 0.0f)) {
                 Matrix_Push(&gGfxMatrix);
-                func_8005ECD8(i, &var_s0_3->obj);
+                func_8005ECD8(i, &obj408->obj);
                 Matrix_Pop(&gGfxMatrix);
             }
         }
     }
     Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR, gAmbientG,
                        gAmbientB);
-    for (i = 0, var_s0_4 = gObjects4C; i < ARRAY_COUNT(gObjects4C); i++, var_s0_4++) {
-        if ((var_s0_4->obj.status >= 2) && (func_80060FE4(&var_s0_4->obj.pos, -12000.0f) != 0)) {
+    for (i = 0, obj4C = gObjects4C; i < ARRAY_COUNT(gObjects4C); i++, obj4C++) {
+        if ((obj4C->obj.status >= 2) && (func_80060FE4(&obj4C->obj.pos, -12000.0f) != 0)) {
             Matrix_Push(&gGfxMatrix);
-            if ((var_s0_4->obj.id == OBJECT_165) || (var_s0_4->obj.id == OBJECT_166)) {
+            if ((obj4C->obj.id == OBJECT_165) || (obj4C->obj.id == OBJECT_166)) {
                 RCP_SetupDL_57(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             } else {
                 RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             }
-            func_8005D8B8(var_s0_4, arg0);
+            Object_4C_Draw(obj4C, arg0);
             Matrix_Pop(&gGfxMatrix);
         }
     }
-    for (i = 0, var_s0_5 = gObjects2F4; i < ARRAY_COUNT(gObjects2F4); i++, var_s0_5++) {
-        if (var_s0_5->obj.status >= 2) {
-            if (!(var_s0_5->unk_0C6 & 1)) {
+    for (i = 0, obj2F4 = gObjects2F4; i < ARRAY_COUNT(gObjects2F4); i++, obj2F4++) {
+        if (obj2F4->obj.status >= 2) {
+            if (!(obj2F4->unk_0C6 & 1)) {
                 if (gCurrentLevel == LEVEL_UNK_15) {
                     RCP_SetupDL_23();
                 } else {
@@ -1614,7 +1613,7 @@ void func_8005FB70(s32 arg0) {
                 }
             } else {
                 RCP_SetupDL_27();
-                if (var_s0_5->unk_110 >= 0.0f) {
+                if (obj2F4->unk_110 >= 0.0f) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
                 } else {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 64, 64, 255, 255);
@@ -1625,25 +1624,25 @@ void func_8005FB70(s32 arg0) {
                 case 2:
                     Matrix_Push(&gGfxMatrix);
                     if ((gPlayer[0].unk_1C8 == 2) || (gPlayer[0].unk_1C8 == 7) || (gCurrentLevel == LEVEL_AQUAS)) {
-                        func_8005F670(&var_s0_5->obj.pos);
+                        func_8005F670(&obj2F4->obj.pos);
                     }
                     func_800597C0(arg0);
-                    func_8005D954(var_s0_5);
+                    Object_2F4_Draw2(obj2F4);
                     Matrix_Pop(&gGfxMatrix);
-                    if (var_s0_5->unk_0C9 != 0) {
+                    if (obj2F4->unk_0C9 != 0) {
                         Matrix_Push(&gGfxMatrix);
-                        func_8005ECD8(i, &var_s0_5->obj);
+                        func_8005ECD8(i, &obj2F4->obj);
                         Matrix_Pop(&gGfxMatrix);
                     }
                     break;
                 case 1:
                     Matrix_Push(&gGfxMatrix);
-                    func_8005DBC0(var_s0_5);
+                    Object_2F4_Draw1(obj2F4);
                     Matrix_Pop(&gGfxMatrix);
-                    if ((var_s0_5->unk_0C9 != 0) && (D_801615EC != 0) &&
+                    if ((obj2F4->unk_0C9 != 0) && (D_801615EC != 0) &&
                         ((D_801615E0.z > -4000.0f) || (gCurrentLevel != LEVEL_KATINA))) {
                         Matrix_Push(&gGfxMatrix);
-                        func_8005ECD8(i, &var_s0_5->obj);
+                        func_8005ECD8(i, &obj2F4->obj);
                         Matrix_Pop(&gGfxMatrix);
                     }
                     break;
@@ -1653,12 +1652,12 @@ void func_8005FB70(s32 arg0) {
     gDPSetFogColor(gMasterDisp++, gFogRed, gFogGreen, gFogBlue, gFogAlpha);
     gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
     Lights_SetOneLight(&gMasterDisp, -0x3C, -0x3C, 0x3C, 0x96, 0x96, 0x96, 0x14, 0x14, 0x14);
-    for (i = 0, var_s0_6 = gObjects6C; i < ARRAY_COUNT(gObjects6C); i++, var_s0_6++) {
-        if (var_s0_6->obj.status >= 2) {
+    for (i = 0, obj6C = gObjects6C; i < ARRAY_COUNT(gObjects6C); i++, obj6C++) {
+        if (obj6C->obj.status >= 2) {
             Matrix_Push(&gGfxMatrix);
             RCP_SetupDL(&gMasterDisp, 0x1D);
             func_800597C0(arg0);
-            func_8005E7B8(var_s0_6, arg0);
+            Object_6C_Draw(obj6C, arg0);
             Matrix_Pop(&gGfxMatrix);
         }
     }
@@ -1668,43 +1667,43 @@ void func_8005FB70(s32 arg0) {
 
 void func_8006046C(s32 arg0) {
     s32 i;
-    Object_408* var_s0_2;
-    Object_8C* var_s0;
+    Object_408* obj408;
+    Object_8C* obj8C;
 
     RCP_SetupDL(&gMasterDisp, 0x40);
-    for (i = 0, var_s0 = gObjects8C; i < ARRAY_COUNT(gObjects8C); i++, var_s0++) {
-        if (var_s0->obj.status >= 2) {
-            if (var_s0->unk_1C.unk_14 == 1) {
-                var_s0->obj.rot.y = (-gPlayer[D_801778A0].unk_058 * 180.0f) / M_PI;
-                var_s0->obj.rot.x = (gPlayer[D_801778A0].unk_05C * 180.0f) / M_PI;
+    for (i = 0, obj8C = gObjects8C; i < ARRAY_COUNT(gObjects8C); i++, obj8C++) {
+        if (obj8C->obj.status >= 2) {
+            if (obj8C->unk_1C.unk_14 == 1) {
+                obj8C->obj.rot.y = (-gPlayer[D_801778A0].unk_058 * 180.0f) / M_PI;
+                obj8C->obj.rot.x = (gPlayer[D_801778A0].unk_05C * 180.0f) / M_PI;
             }
             if (D_80177880 == 1) {
                 Matrix_Push(&gGfxMatrix);
-                func_8005E538(var_s0);
+                Object_8C_Draw2(obj8C);
                 Matrix_Pop(&gGfxMatrix);
             } else {
                 Matrix_Push(&gGfxMatrix);
-                func_8005E454(var_s0, arg0);
+                Object_8C_Draw1(obj8C, arg0);
                 Matrix_Pop(&gGfxMatrix);
-                func_8005F1EC(&var_s0->unk_80);
-                if (var_s0->obj.id == OBJECT_374) {
+                func_8005F1EC(&obj8C->sfxPos);
+                if (obj8C->obj.id == OBJECT_374) {
                     Matrix_Push(&gGfxMatrix);
-                    func_8005ECD8(i, &var_s0->obj);
+                    func_8005ECD8(i, &obj8C->obj);
                     Matrix_Pop(&gGfxMatrix);
                 }
             }
         }
     }
-    for (i = 0, var_s0_2 = gObjects408; i < ARRAY_COUNT(gObjects408); i++, var_s0_2++) {
-        if ((var_s0_2->obj.status >= 2) && (var_s0_2->obj.id == OBJECT_310)) {
-            if (!(var_s0_2->unk_05C & 1)) {
+    for (i = 0, obj408 = gObjects408; i < ARRAY_COUNT(gObjects408); i++, obj408++) {
+        if ((obj408->obj.status >= 2) && (obj408->obj.id == OBJECT_310)) {
+            if (!(obj408->unk_05C & 1)) {
                 RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             } else {
                 RCP_SetupDL_27();
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 64, 64, 255, 255);
             }
             Matrix_Push(&gGfxMatrix);
-            func_8005E1B8(var_s0_2, arg0);
+            Object_408_Draw(obj408, arg0);
             Matrix_Pop(&gGfxMatrix);
         }
     }
@@ -1712,14 +1711,14 @@ void func_8006046C(s32 arg0) {
 
 void func_80060714(s32 arg0) {
     D_80161410 = 1;
-    func_8005FB70(1);
+    Object_DrawAll(1);
     if ((D_80161A88 == 2) && (gPlayer[0].unk_1C8 != 2)) {
         D_80161410 = -1;
         Lights_SetOneLight(&gMasterDisp, gLight1x, -1 * gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR,
                            gAmbientG, gAmbientB);
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, 1);
-        func_8005FB70(-1);
+        Object_DrawAll(-1);
         Matrix_Pop(&gGfxMatrix);
         Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR,
                            gAmbientG, gAmbientB);
@@ -1807,20 +1806,20 @@ void func_80060968(void) {
 }
 
 void func_80060D94(s32 arg0) {
-    UnkEntity30* temp_s0 = &gUnkEntities30[arg0];
+    UnkEntity30* ent30 = &gUnkEntities30[arg0];
 
-    if (temp_s0->unk_2F == 0xFF) {
+    if (ent30->unk_2F == 0xFF) {
         RCP_SetupDL(&gMasterDisp, 5);
     } else {
         RCP_SetupDL(&gMasterDisp, 0xE);
     }
-    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, temp_s0->unk_2C, temp_s0->unk_2D, temp_s0->unk_2E, temp_s0->unk_2F);
+    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, ent30->unk_2C, ent30->unk_2D, ent30->unk_2E, ent30->unk_2F);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, temp_s0->unk_04.x, temp_s0->unk_04.y, temp_s0->unk_04.z, 1);
-    Matrix_RotateY(gGfxMatrix, temp_s0->unk_20, 1);
-    Matrix_RotateX(gGfxMatrix, temp_s0->unk_1C, 1);
-    Matrix_RotateZ(gGfxMatrix, temp_s0->unk_1C, 1);
-    Matrix_Scale(gGfxMatrix, temp_s0->unk_28, 1.0f, temp_s0->unk_24, 1);
+    Matrix_Translate(gGfxMatrix, ent30->unk_04.x, ent30->unk_04.y, ent30->unk_04.z, 1);
+    Matrix_RotateY(gGfxMatrix, ent30->unk_20, 1);
+    Matrix_RotateX(gGfxMatrix, ent30->unk_1C, 1);
+    Matrix_RotateZ(gGfxMatrix, ent30->unk_1C, 1);
+    Matrix_Scale(gGfxMatrix, ent30->unk_28, 1.0f, ent30->unk_24, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     gSPDisplayList(gMasterDisp++, D_800CFD80);

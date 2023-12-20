@@ -128,10 +128,10 @@ void Lib_FillScreen(u8 setFill) {
                 osViBlack(1);
             } else {
                 for (i = 0; i < 3 * SCREEN_WIDTH; i++) {
-                    D_8038F080[i] = gFillScreenColor;
+                    gFillBuffer[i] = gFillScreenColor;
                 }
                 osWritebackDCacheAll();
-                osViSwapBuffer(&D_8038F300);
+                osViSwapBuffer(&gFillBuffer[SCREEN_WIDTH]);
                 osViRepeatLine(1);
             }
             gFillScreen = true;
