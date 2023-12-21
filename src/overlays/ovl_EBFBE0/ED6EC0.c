@@ -199,7 +199,7 @@ s32 func_EBFBE0_801A5770(void) {
     bool ret = 0;
     s8 y = gControllerPress[D_80177AF8].stick_y;
 
-    if ((y >= -0x27) && (y < 0x28)) {
+    if ((y > -40) && (y < 40)) {
         y = 0;
     }
 
