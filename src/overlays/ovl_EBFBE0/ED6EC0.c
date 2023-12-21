@@ -9,6 +9,7 @@ extern s32 D_EBFBE0_801CD9BC;
 extern s32 D_EBFBE0_801CD9C0;
 extern s32 D_EBFBE0_801CD9D4;
 extern s32 D_EBFBE0_801CEFC8;
+extern s32 D_EBFBE0_801CEFD4;
 
 void func_EBFBE0_8019E800(void);
 void func_EBFBE0_8019E99C(void);
@@ -194,7 +195,29 @@ void func_EBFBE0_801A4F8C(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A53C8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A5770.s")
+s32 func_EBFBE0_801A5770(void) {
+    bool ret = 0;
+    s8 y = gControllerPress[D_80177AF8].stick_y;
+
+    if ((y >= -0x27) && (y < 0x28)) {
+        y = 0;
+    }
+
+    if (y != 0) {
+        if (D_EBFBE0_801CEFD4 == 0) {
+            ret = 1;
+        }
+        D_EBFBE0_801CEFD4 = y;
+    } else {
+        D_EBFBE0_801CEFD4 = 0;
+    }
+
+    if (ret) {
+        func_80019218(0x49000002U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    }
+
+    return ret;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A5834.s")
 
