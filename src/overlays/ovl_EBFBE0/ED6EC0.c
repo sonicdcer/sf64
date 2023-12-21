@@ -4,10 +4,14 @@ extern s32 D_EBFBE0_801CD960;
 extern s32 D_EBFBE0_801CD9B8;
 extern s32 D_EBFBE0_801CD9BC;
 extern s32 D_EBFBE0_801CD9C0;
+extern s32 D_EBFBE0_801CD9D4;
 
 void func_EBFBE0_8019E800(void);
 void func_EBFBE0_8019E99C(void);
 void func_EBFBE0_8019FF48(void);
+void func_EBFBE0_801A4F8C(void);
+void func_EBFBE0_801A4FC4(void);
+void func_EBFBE0_801A53C8(void);
 
 void func_EBFBE0_8019E800(void) {
     Memory_FreeAll();
@@ -153,7 +157,24 @@ void func_EBFBE0_801A0788(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A4AE8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A4D0C.s")
+void func_EBFBE0_801A4D0C(u32 arg0) {
+    switch (arg0) {
+        case 1:
+        case 4:
+            if (D_EBFBE0_801CD9D4 != 0) {
+                func_EBFBE0_801A4F8C();
+            } else {
+                func_EBFBE0_801A4FC4();
+            }
+            break;
+
+        case 3:
+            func_EBFBE0_801A53C8();
+        case 0:
+        case 2:
+            break;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A4D7C.s")
 
@@ -209,21 +230,21 @@ void func_EBFBE0_801A6628(void) {
 
 void func_EBFBE0_801A6A24(void) {
     switch (D_EBFBE0_801CD960) {
-    case 0:
-        if (D_80178340 != 0) {
-            D_80178340 -= 5;
-        } else {
-            D_EBFBE0_801CD960 = 255;
-        }
-        break;
+        case 0:
+            if (D_80178340 != 0) {
+                D_80178340 -= 5;
+            } else {
+                D_EBFBE0_801CD960 = 255;
+            }
+            break;
 
-    case 1:
-        if (D_80178340 != 255) {
-            D_80178340 += 15;
-        } else {
-            D_EBFBE0_801CD960 = 255;
-        }
-        break;
+        case 1:
+            if (D_80178340 != 255) {
+                D_80178340 += 15;
+            } else {
+                D_EBFBE0_801CD960 = 255;
+            }
+            break;
     }
 }
 
