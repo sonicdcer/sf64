@@ -196,7 +196,7 @@ void func_EBFBE0_801A4F8C(void) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A53C8.s")
 
 s32 func_EBFBE0_801A5770(void) {
-    bool ret = 0;
+    bool ret = false;
     s8 y = gControllerPress[D_80177AF8].stick_y;
 
     if ((y > -40) && (y < 40)) {
@@ -205,7 +205,7 @@ s32 func_EBFBE0_801A5770(void) {
 
     if (y != 0) {
         if (D_EBFBE0_801CEFD4 == 0) {
-            ret = 1;
+            ret = true;
         }
         D_EBFBE0_801CEFD4 = y;
     } else {
