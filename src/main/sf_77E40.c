@@ -1,4 +1,5 @@
 #include "global.h"
+#include "hud.h"
 
 void func_80077240(f32 posX, f32 posY, f32 posZ, s32 hits) {
     s32 i;
@@ -1254,47 +1255,327 @@ void func_8007B960(Object_8C* obj8C) {
     obj8C->unk_54.y += 0.2f;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007B9DC.s")
+void func_8007B9DC(Object_8C* arg0) {
+    //! DEBUG
+    if (gControllerHold[3].button & Z_TRIG) {
+        RCP_SetupDL(&gMasterDisp, 4);
+    }
+    func_8005980C(arg0->unk_70);
+    if (gCurrentLevel != LEVEL_MACBETH) {
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 140, 99, 58, arg0->unk_4A);
+    } else {
+        gDPSetPrimColor(gMasterDisp++, 0, 0, (gFrameCount & 3) + 5, (gFrameCount & 3) + 3, (gFrameCount & 3) + 3, 220);
+    }
+    //! DEBUG
+    if (!(gControllerHold[3].button & A_BUTTON)) {
+        gSPDisplayList(gMasterDisp++, D_2010A30);
+    }
+    //! DEBUG
+    if (gControllerHold[3].button & Z_TRIG) {
+        RCP_SetupDL(&gMasterDisp, 0x40);
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007BB14.s")
+void func_8007BB14(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4) {
+    Object_8C_Initialize(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = OBJ_8C_362;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = posY;
+    arg0->obj.pos.z = posZ;
+    arg0->unk_54.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
+    arg0->unk_54.y = (Rand_ZeroOne() - 0.5f) * 3.0f;
+    arg0->unk_48 = 3;
+    if (Rand_ZeroOne() < 0.5f) {
+        arg0->unk_48 = -arg0->unk_48;
+    }
+    arg0->unk_4A = 0xB4;
+    arg0->unk_46 = 8;
+    if (arg4 > 15.0f) {
+        arg0->unk_46 = 5;
+        arg0->unk_4A = 0x50;
+    }
+    arg0->unk_70 = arg4 * 0.25f;
+    arg0->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    if (arg4 == 6.0f) {
+        arg0->unk_54.z = gPlayer->unk_0C0.z * 0.6f;
+    }
+    Object_SetInfo(&arg0->info, arg0->obj.id);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007BC7C.s")
+void func_8007BC7C(f32 posX, f32 posY, f32 posZ, f32 arg3) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007BCE8.s")
+    for (i = ARRAY_COUNT(gObjects8C) - 20; i >= 0; i--) {
+        if (gObjects8C[i].obj.status == 0) {
+            func_8007BB14(&gObjects8C[i], posX, posY, posZ, arg3);
+            break;
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007BDE0.s")
+void func_8007BCE8(Object_8C* arg0) {
+    if (gPlayer->unk_1C8 == 7) {
+        arg0->obj.rot.x = (gPlayer->unk_05C * 180.0f) / M_PI;
+        arg0->obj.rot.y = (-gPlayer->unk_058 * 180.0f) / M_PI;
+    }
+    if (gPlayer->unk_1C8 == 6) {
+        arg0->unk_46 = 2;
+        arg0->unk_54.y -= 0.13f;
+    }
+    arg0->unk_70 += 0.07f;
+    arg0->unk_4A -= arg0->unk_46;
+    if (arg0->unk_4A < 0) {
+        Object_Kill(&arg0->obj, &arg0->sfxPos);
+    }
+    arg0->obj.rot.z += arg0->unk_48;
+    arg0->unk_54.y += 0.2f;
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007BE54.s")
+void func_8007BDE0(Object_8C* arg0) {
+    arg0->unk_70 += 0.04f;
+    arg0->unk_4A -= 2;
+    if (arg0->unk_4A < 0) {
+        Object_Kill(&arg0->obj, &arg0->sfxPos);
+    }
+    arg0->obj.rot.z += arg0->unk_48;
+    arg0->unk_54.y += arg0->unk_6C;
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007BEE8.s")
+void func_8007BE54(Object_8C* arg0) {
+    arg0->unk_70 += 0.02f;
+    arg0->unk_4A -= 3;
+    if (arg0->unk_4A < 0) {
+        Object_Kill(&arg0->obj, &arg0->sfxPos);
+    }
+    arg0->unk_54.z = gPlayer->unk_0C0.z + 7.0f;
+    arg0->obj.rot.z += arg0->unk_48;
+    arg0->unk_54.y += 0.1f;
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007BF64.s")
+void func_8007BEE8(Object_8C* arg0) {
+    func_8005980C(arg0->unk_70);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, arg0->unk_4A);
+    gSPDisplayList(gMasterDisp++, D_2010A30);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007BFFC.s")
+void func_8007BF64(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg7, s32 arg8) {
+    Object_8C_Initialize(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = OBJ_8C_386;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = posY;
+    arg0->obj.pos.z = posZ;
+    arg0->unk_54.x = x;
+    arg0->unk_54.y = y;
+    arg0->unk_54.z = z;
+    arg0->unk_70 = arg7;
+    arg0->unk_50 = arg8;
+    Object_SetInfo(&arg0->info, arg0->obj.id);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007C088.s")
+void func_8007BFFC(f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg6, s32 arg7) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007C120.s")
+    for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
+        if (gObjects8C[i].obj.status == 0) {
+            func_8007BF64(&gObjects8C[i], posX, posY, posZ, x, y, z, arg6, arg7);
+            break;
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007C1AC.s")
+void func_8007C088(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg7, s32 arg8) {
+    Object_8C_Initialize(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = OBJ_8C_390;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = posY;
+    arg0->obj.pos.z = posZ;
+    arg0->unk_54.x = x;
+    arg0->unk_54.y = y;
+    arg0->unk_54.z = z;
+    arg0->unk_70 = arg7;
+    arg0->unk_50 = arg8;
+    Object_SetInfo(&arg0->info, arg0->obj.id);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007C250.s")
+void func_8007C120(f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg6, s32 arg7) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007C3B4.s")
+    for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
+        if (gObjects8C[i].obj.status == 0) {
+            func_8007C088(&gObjects8C[i], posX, posY, posZ, x, y, z, arg6, arg7);
+            break;
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007C484.s")
+void func_8007C1AC(f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg6, s32 arg7) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007C50C.s")
+    for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
+        if (gObjects8C[i].obj.status == 0) {
+            func_8007BF64(&gObjects8C[i], posX, posY, posZ, x, y, z, arg6, arg7);
+            func_800A6070(&gObjects8C[i].sfxPos, 0x29000000);
+            break;
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007C608.s")
+void func_8007C250(Object_8C* arg0) {
+    f32 randX;
+    f32 randY;
+    f32 randOther;
+    s32 var_v0;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007C688.s")
+    Math_SmoothStepToF(&arg0->unk_54.x, 0.0f, 0.2f, 10.0f, 0.1f);
+    Math_SmoothStepToF(&arg0->unk_54.y, 0.0f, 0.2f, 10.0f, 0.1f);
+    Math_SmoothStepToF(&arg0->unk_54.z, 0.0f, 0.2f, 10.0f, 0.1f);
+    var_v0 = 3;
+    if (gAllRangeMode == 1) {
+        var_v0 = 1;
+    }
+    if (!(arg0->unk_50 & var_v0)) {
+        randX = (Rand_ZeroOne() - 0.5f) * 40.0f;
+        randY = (Rand_ZeroOne() - 0.5f) * 40.0f;
+        randOther = ((Rand_ZeroOne() * 0.5f) + 1.0f);
+        func_8007D0E0(arg0->obj.pos.x + randX, arg0->obj.pos.y + randY, arg0->obj.pos.z, arg0->unk_70 * randOther);
+        if (arg0->unk_50 == 0) {
+            Object_Kill(&arg0->obj, &arg0->sfxPos);
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007C6FC.s")
+void func_8007C3B4(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg7, s32 arg8) {
+    Object_8C_Initialize(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = OBJ_8C_389;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = posY;
+    arg0->obj.pos.z = posZ;
+    arg0->unk_54.x = x;
+    arg0->unk_54.y = y;
+    arg0->unk_54.z = z;
+    arg0->unk_70 = arg7;
+    arg0->unk_4A = arg8;
+    arg0->unk_4C = (s32) (Rand_ZeroOne() * 12.0f);
+    arg0->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    Object_SetInfo(&arg0->info, arg0->obj.id);
+    arg0->unk_44 = 0xFF;
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007C85C.s")
+void func_8007C484(f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg6, s32 arg7) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007C8C4.s")
+    for (i = ARRAY_COUNT(gObjects8C) - 1; i > 32; i--) {
+        if (gObjects8C[i].obj.status == 0) {
+            func_8007C3B4(&gObjects8C[i], posX, posY, posZ, x, y, z, arg6, arg7);
+            break;
+        }
+    }
+}
+
+void func_8007C50C(Object_8C* arg0) {
+    f32 randX;
+    f32 randY;
+    f32 randOther;
+
+    if (!(arg0->unk_50 & 7)) {
+        randX = (Rand_ZeroOne() - 0.5f) * 40.0f * arg0->unk_70;
+        randY = (Rand_ZeroOne() - 0.5f) * 40.0f * arg0->unk_70;
+        randOther = (Rand_ZeroOne() + 1.0f);
+        func_8007C484(arg0->obj.pos.x + randX, arg0->obj.pos.y + randY, arg0->obj.pos.z, arg0->unk_54.x, arg0->unk_54.y,
+                      arg0->unk_54.z, arg0->unk_70 * randOther, 0);
+        if (arg0->unk_50 == 0) {
+            Object_Kill(&arg0->obj, &arg0->sfxPos);
+        }
+    }
+}
+
+void func_8007C608(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4, s32 arg5) {
+    Object_8C_Initialize(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = OBJ_8C_387;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = posY;
+    arg0->obj.pos.z = posZ;
+    arg0->unk_70 = arg4;
+    arg0->unk_50 = arg5;
+    Object_SetInfo(&arg0->info, arg0->obj.id);
+}
+
+void func_8007C688(f32 posX, f32 posY, f32 posZ, f32 arg3, s32 arg4) {
+    s32 i;
+
+    for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
+        if (gObjects8C[i].obj.status == 0) {
+            func_8007C608(&gObjects8C[i], posX, posY, posZ, arg3, arg4);
+            break;
+        }
+    }
+}
+
+void func_8007C6FC(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4) {
+    Object_8C_Initialize(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = OBJ_8C_343;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = posY;
+    arg0->obj.pos.z = posZ;
+    arg0->unk_48 = 3;
+    arg0->unk_54.y = 5.0f;
+    if (Rand_ZeroOne() < 0.5f) {
+        arg0->unk_48 = -arg0->unk_48;
+    }
+    if ((gCurrentLevel == LEVEL_FORTUNA) && (gPlayer->unk_1C8 != 6)) {
+        arg0->unk_4A = 180;
+    } else {
+        arg0->unk_4A = 255;
+    }
+    arg0->unk_70 = arg4 * 0.25f;
+    arg0->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    arg0->unk_44 = 0;
+    if (Rand_ZeroOne() < 0.3f) {
+        arg0->unk_44 = 1;
+        arg0->unk_4A = 255;
+        arg0->unk_70 = arg4 * 0.3f;
+    }
+    arg0->unk_6C = Rand_ZeroOne() * 0.2f;
+    Object_SetInfo(&arg0->info, arg0->obj.id);
+}
+
+void func_8007C85C(f32 posX, f32 posY, f32 posZ, f32 arg3) {
+    s32 i;
+
+    for (i = 0; i < ARRAY_COUNT(gObjects8C) - 20; i++) {
+        if (gObjects8C[i].obj.status == 0) {
+            func_8007C6FC(&gObjects8C[i], posX, posY, posZ, arg3);
+            break;
+        }
+    }
+}
+
+void func_8007C8C4(Object_8C* arg0) {
+    f32 randX;
+    f32 randY;
+    f32 randOther;
+    s32 var_v0;
+
+    var_v0 = 0;
+    if ((gCurrentLevel == LEVEL_FORTUNA) && (gPlayer->unk_1C8 != 6)) {
+        var_v0 = 3;
+    }
+    if (!(arg0->unk_50 & var_v0) && (gLevelType == LEVELTYPE_GROUND)) {
+        randX = (Rand_ZeroOne() - 0.5f) * 10.0f;
+        randY = (Rand_ZeroOne() - 0.5f) * 10.0f;
+        randOther = ((Rand_ZeroOne() * 0.5f) + 1.0f);
+        func_8007C85C(arg0->obj.pos.x + randX, arg0->obj.pos.y + randY, arg0->obj.pos.z, arg0->unk_70 * randOther);
+        if (arg0->unk_50 == 0) {
+            Object_Kill(&arg0->obj, &arg0->sfxPos);
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007C9E0.s")
 
