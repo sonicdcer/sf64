@@ -8,6 +8,14 @@ extern s32 D_EBFBE0_801CD9B8;
 extern s32 D_EBFBE0_801CD9BC;
 extern s32 D_EBFBE0_801CD9C0;
 extern s32 D_EBFBE0_801CD9D4;
+extern f32 D_EBFBE0_801CDA00;
+extern f32 D_EBFBE0_801CDA04;
+extern f32 D_EBFBE0_801CDA08;
+extern f32 D_EBFBE0_801CDA2C;
+extern f32 D_EBFBE0_801CDA30;
+extern f32 D_EBFBE0_801CDA40;
+extern f32 D_EBFBE0_801CDA44;
+extern f32 D_EBFBE0_801CDA48;
 extern s32 D_EBFBE0_801CEFC8;
 extern s32 D_EBFBE0_801CEFD4;
 
@@ -158,7 +166,13 @@ void func_EBFBE0_801A0788(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A48C0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A4A38.s")
+void func_EBFBE0_801A4A38(f32 arg0) {
+    Math_SmoothStepToF(&D_EBFBE0_801CDA2C, D_EBFBE0_801CDA40, arg0, 100.0f, 0.1f);
+    Math_SmoothStepToF(&D_EBFBE0_801CDA30, D_EBFBE0_801CDA44, arg0, 100.0f, 0.1f);
+    Math_SmoothStepToF(&D_EBFBE0_801CDA08, D_EBFBE0_801CDA48, arg0, 100.0f, 0.1f);
+    D_EBFBE0_801CDA00 = D_EBFBE0_801CDA2C;
+    D_EBFBE0_801CDA04 = D_EBFBE0_801CDA30;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A4AE8.s")
 
