@@ -1528,7 +1528,7 @@ void func_8007C6FC(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4) {
     if (Rand_ZeroOne() < 0.5f) {
         arg0->unk_48 = -arg0->unk_48;
     }
-    if ((gCurrentLevel == 14) && (gPlayer->unk_1C8 != 6)) {
+    if ((gCurrentLevel == LEVEL_FORTUNA) && (gPlayer->unk_1C8 != 6)) {
         arg0->unk_4A = 180;
     } else {
         arg0->unk_4A = 255;
@@ -1556,7 +1556,26 @@ void func_8007C85C(f32 posX, f32 posY, f32 posZ, f32 arg3) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007C8C4.s")
+void func_8007C8C4(Object_8C* arg0) {
+    f32 randX;
+    f32 randY;
+    f32 randOther;
+    s32 var_v0;
+
+    var_v0 = 0;
+    if ((gCurrentLevel == LEVEL_FORTUNA) && (gPlayer->unk_1C8 != 6)) {
+        var_v0 = 3;
+    }
+    if (!(arg0->unk_50 & var_v0) && (gLevelType == LEVELTYPE_GROUND)) {
+        randX = (Rand_ZeroOne() - 0.5f) * 10.0f;
+        randY = (Rand_ZeroOne() - 0.5f) * 10.0f;
+        randOther = ((Rand_ZeroOne() * 0.5f) + 1.0f);
+        func_8007C85C(arg0->obj.pos.x + randX, arg0->obj.pos.y + randY, arg0->obj.pos.z, arg0->unk_70 * randOther);
+        if (arg0->unk_50 == 0) {
+            Object_Kill(&arg0->obj, &arg0->sfxPos);
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007C9E0.s")
 
