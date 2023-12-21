@@ -1485,7 +1485,8 @@ void func_8007C50C(Object_8C* arg0) {
         randX = (Rand_ZeroOne() - 0.5f) * 40.0f * arg0->unk_70;
         randY = (Rand_ZeroOne() - 0.5f) * 40.0f * arg0->unk_70;
         randOther = (Rand_ZeroOne() + 1.0f);
-        func_8007C484(arg0->obj.pos.x + randX, arg0->obj.pos.y + randY, arg0->obj.pos.z, arg0->unk_54.x, arg0->unk_54.y, arg0->unk_54.z, arg0->unk_70 * randOther, 0);
+        func_8007C484(arg0->obj.pos.x + randX, arg0->obj.pos.y + randY, arg0->obj.pos.z, arg0->unk_54.x, arg0->unk_54.y,
+                      arg0->unk_54.z, arg0->unk_70 * randOther, 0);
         if (arg0->unk_50 == 0) {
             Object_Kill(&arg0->obj, &arg0->sfxPos);
         }
@@ -1515,9 +1516,45 @@ void func_8007C688(f32 posX, f32 posY, f32 posZ, f32 arg3, s32 arg4) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007C6FC.s")
+void func_8007C6FC(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4) {
+    Object_8C_Initialize(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = OBJ_8C_343;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = posY;
+    arg0->obj.pos.z = posZ;
+    arg0->unk_48 = 3;
+    arg0->unk_54.y = 5.0f;
+    if (Rand_ZeroOne() < 0.5f) {
+        arg0->unk_48 = -arg0->unk_48;
+    }
+    if ((gCurrentLevel == 14) && (gPlayer->unk_1C8 != 6)) {
+        arg0->unk_4A = 180;
+    } else {
+        arg0->unk_4A = 255;
+    }
+    arg0->unk_70 = arg4 * 0.25f;
+    arg0->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    arg0->unk_44 = 0;
+    if (Rand_ZeroOne() < 0.3f) {
+        arg0->unk_44 = 1;
+        arg0->unk_4A = 255;
+        arg0->unk_70 = arg4 * 0.3f;
+    }
+    arg0->unk_6C = Rand_ZeroOne() * 0.2f;
+    Object_SetInfo(&arg0->info, arg0->obj.id);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007C85C.s")
+void func_8007C85C(f32 posX, f32 posY, f32 posZ, f32 arg3) {
+    s32 i;
+
+    for (i = 0; i < ARRAY_COUNT(gObjects8C) - 20; i++) {
+        if (gObjects8C[i].obj.status == 0) {
+            func_8007C6FC(&gObjects8C[i], posX, posY, posZ, arg3);
+            break;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007C8C4.s")
 

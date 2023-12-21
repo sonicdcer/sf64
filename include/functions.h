@@ -198,7 +198,7 @@ void func_80060968(void);
 void func_80060F30(Vec3f* , u32 , s32 );
 void Object_Kill(Object*, Vec3f*);
 s32 func_80060FE4(Vec3f*, f32);
-void Object_SetInfo(ObjectInfo*, u32);
+void Object_SetInfo(ObjectInfo* info, u32 objId);
 void Object_80_Initialize(Object_80*);
 void Object_4C_Initialize(Object_4C*);
 void Object_2F4_Initialize(Object_2F4*);
@@ -363,6 +363,7 @@ void func_8007C484(f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg6, 
 void func_8007C50C(Object_8C*);
 void func_8007C688(f32 posX, f32 posY, f32 posZ, f32 arg3, s32 arg4);
 void func_8007C8C4(Object_8C*);
+void func_8007C85C(f32 posX, f32 posY, f32 posZ, f32 arg3);
 void func_8007C9E0(Object_8C*);
 void func_8007CAF0(Object_8C*);
 void func_8007D074(f32, f32, f32, f32);
