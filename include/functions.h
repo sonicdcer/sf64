@@ -361,7 +361,7 @@ void func_8007C120(f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg6, 
 void func_8007C250(Object_8C*);
 void func_8007C484(f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg6, s32 arg7);
 void func_8007C50C(Object_8C*);
-void func_8007C688(f32 , f32 , f32 , f32 , s32 );
+void func_8007C688(f32 posX, f32 posY, f32 posZ, f32 arg3, s32 arg4);
 void func_8007C8C4(Object_8C*);
 void func_8007C9E0(Object_8C*);
 void func_8007CAF0(Object_8C*);
