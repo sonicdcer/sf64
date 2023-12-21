@@ -1465,9 +1465,32 @@ void func_8007C3B4(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 x, f32 y, 
     arg0->unk_44 = 0xFF;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007C484.s")
+void func_8007C484(f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg6, s32 arg7) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007C50C.s")
+    for (i = ARRAY_COUNT(gObjects8C) - 1; i > 32; i--) {
+        if (gObjects8C[i].obj.status == 0) {
+            func_8007C3B4(&gObjects8C[i], posX, posY, posZ, x, y, z, arg6, arg7);
+            break;
+        }
+    }
+}
+
+void func_8007C50C(Object_8C* arg0) {
+    f32 randX;
+    f32 randY;
+    f32 randOther;
+
+    if (!(arg0->unk_50 & 7)) {
+        randX = (Rand_ZeroOne() - 0.5f) * 40.0f * arg0->unk_70;
+        randY = (Rand_ZeroOne() - 0.5f) * 40.0f * arg0->unk_70;
+        randOther = (Rand_ZeroOne() + 1.0f);
+        func_8007C484(arg0->obj.pos.x + randX, arg0->obj.pos.y + randY, arg0->obj.pos.z, arg0->unk_54.x, arg0->unk_54.y, arg0->unk_54.z, arg0->unk_70 * randOther, 0);
+        if (arg0->unk_50 == 0) {
+            Object_Kill(&arg0->obj, &arg0->sfxPos);
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007C608.s")
 
