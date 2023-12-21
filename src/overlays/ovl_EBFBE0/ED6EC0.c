@@ -1,5 +1,6 @@
 #include "global.h"
 
+extern s32 D_EBFBE0_801CD960;
 extern s32 D_EBFBE0_801CD9B8;
 extern s32 D_EBFBE0_801CD9BC;
 extern s32 D_EBFBE0_801CD9C0;
@@ -206,7 +207,25 @@ void func_EBFBE0_801A6628(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A68E4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A6A24.s")
+void func_EBFBE0_801A6A24(void) {
+    switch (D_EBFBE0_801CD960) {
+    case 0:
+        if (D_80178340 != 0) {
+            D_80178340 -= 5;
+        } else {
+            D_EBFBE0_801CD960 = 255;
+        }
+        break;
+
+    case 1:
+        if (D_80178340 != 255) {
+            D_80178340 += 15;
+        } else {
+            D_EBFBE0_801CD960 = 255;
+        }
+        break;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A6A98.s")
 
