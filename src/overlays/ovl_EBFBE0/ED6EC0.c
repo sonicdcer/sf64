@@ -1,10 +1,14 @@
 #include "global.h"
 
+extern s32 D_EBFBE0_801CD944;
+extern s32 D_EBFBE0_801CD948;
+extern s32 D_EBFBE0_801CD954;
 extern s32 D_EBFBE0_801CD960;
 extern s32 D_EBFBE0_801CD9B8;
 extern s32 D_EBFBE0_801CD9BC;
 extern s32 D_EBFBE0_801CD9C0;
 extern s32 D_EBFBE0_801CD9D4;
+extern s32 D_EBFBE0_801CEFC8;
 
 void func_EBFBE0_8019E800(void);
 void func_EBFBE0_8019E99C(void);
@@ -200,7 +204,38 @@ void func_EBFBE0_801A4F8C(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A61B4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A62FC.s")
+bool func_EBFBE0_801A62FC(u32 arg0) {
+    u32 sp4;
+    s32 ret = true;
+
+    switch (arg0) {
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+        case 10:
+        case 11:
+        case 12:
+            sp4 = arg0;
+            break;
+
+        case 14:
+            sp4 = 0xD;
+            break;
+    }
+
+    if (gSaveFile.save.data.unk_00[sp4].unk_5 & 1) {
+        ret = false;
+    }
+
+    return ret;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A6368.s")
 
@@ -208,7 +243,18 @@ void func_EBFBE0_801A4F8C(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A655C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A659C.s")
+void func_EBFBE0_801A659C(void) {
+    func_8001A838(0x1100004CU);
+    func_8001A838(0x1100204CU);
+
+    if (D_EBFBE0_801CD954 != 9) {
+        func_80019218(0x49000003U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    }
+
+    D_EBFBE0_801CEFC8 = 0;
+    D_EBFBE0_801CD944 = 2;
+    D_EBFBE0_801CD948 = 0;
+}
 
 void func_EBFBE0_801A6628(void) {
     gGameState = 7;
