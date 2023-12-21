@@ -204,11 +204,11 @@ void func_EBFBE0_801A4F8C(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A61B4.s")
 
-bool func_EBFBE0_801A62FC(u32 arg0) {
-    u32 sp4;
+bool func_EBFBE0_801A62FC(u32 level) {
+    u32 i;
     s32 ret = true;
 
-    switch (arg0) {
+    switch (level) {
         case 0:
         case 1:
         case 2:
@@ -222,15 +222,15 @@ bool func_EBFBE0_801A62FC(u32 arg0) {
         case 10:
         case 11:
         case 12:
-            sp4 = arg0;
+            i = level;
             break;
 
         case 14:
-            sp4 = 0xD;
+            i = 13;
             break;
     }
 
-    if (gSaveFile.save.data.unk_00[sp4].unk_5 & 1) {
+    if (gSaveFile.save.data.unk_00[i].unk_5 & 1) {
         ret = false;
     }
 
