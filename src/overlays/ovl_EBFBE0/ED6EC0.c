@@ -68,6 +68,10 @@ extern f32 D_EBFBE0_801CEA60;
 extern s32 D_EBFBE0_801CEEC4;
 extern s32 D_EBFBE0_801CEEC8;
 extern s32 D_EBFBE0_801CEFC4; // bss
+extern s32 D_EBFBE0_801CD940; // bss
+extern s32 D_EBFBE0_801CF018; // bss
+extern u16* D_EBFBE0_801AF428[15][2];
+extern s32 D_EBFBE0_801AF420[2];
 
 extern u8 D_6047F80[];
 extern u8 D_6048F80[];
@@ -911,7 +915,14 @@ void func_EBFBE0_801A6A24(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AB17C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AB284.s")
+void func_EBFBE0_801AB284(void) {
+    D_EBFBE0_801CD940 = 0;
+    D_80178308 = D_EBFBE0_801AF428[D_EBFBE0_801CD954][D_EBFBE0_801CD940];
+    D_80177D68 = D_EBFBE0_801AF420[D_EBFBE0_801CD940];
+    D_EBFBE0_801CF018 = 100;
+    D_80178728 = 78;
+    D_8017872C = 166;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AB300.s")
 
