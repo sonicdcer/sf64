@@ -197,7 +197,125 @@ void func_EBFBE0_8019FC04(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_8019FD1C.s")
+bool func_EBFBE0_8019FD1C(u32 arg0, s32 arg1) {
+    s32 ret;
+    s32 var_v0;
+
+    switch (arg0) {
+        case 1:
+            var_v0 = 0;
+            break;
+
+        case 3:
+            var_v0 = 1;
+            break;
+
+        case 17:
+            var_v0 = 2;
+            break;
+
+        case 18:
+            var_v0 = 3;
+            break;
+
+        case 2:
+            var_v0 = 4;
+            break;
+
+        case 5:
+            var_v0 = 5;
+            break;
+
+        case 16:
+            var_v0 = 6;
+            break;
+
+        case 11:
+            var_v0 = 7;
+            break;
+
+        case 8:
+            var_v0 = 8;
+            break;
+
+        case 0:
+            var_v0 = 9;
+            break;
+
+        case 12:
+            var_v0 = 10;
+            break;
+
+        case 13:
+            var_v0 = 11;
+            break;
+
+        case 14:
+            var_v0 = 12;
+            break;
+
+        case 7:
+            var_v0 = 13;
+            break;
+
+        case 6:
+            var_v0 = 14;
+            break;
+
+        case 19:
+            var_v0 = 15;
+            break;
+
+        case 9:
+            if (D_8017827C == 0) {
+                var_v0 = 14;
+            } else {
+                var_v0 = 15;
+            }
+            break;
+    }
+
+    ret = false;
+
+    switch (arg1) {
+        case 0:
+            if (!(gSaveFile.save.data.unk_00[var_v0].unk_5 & 1)) {
+                gSaveFile.save.data.unk_00[var_v0].unk_5 = 1;
+                ret = true;
+            }
+            break;
+
+        case 1:
+            if (gExpertMode) {
+                if (!(gSaveFile.save.data.unk_00[var_v0].unk_3 & 1)) {
+                    gSaveFile.save.data.unk_00[var_v0].unk_3 = 1;
+                    ret = true;
+                }
+            } else {
+                if (!(gSaveFile.save.data.unk_00[var_v0].unk_6 & 1)) {
+                    gSaveFile.save.data.unk_00[var_v0].unk_6 = 1;
+                    ret = true;
+                }
+            }
+            break;
+
+        case 2:
+            if (gExpertMode) {
+                if (!(gSaveFile.save.data.unk_00[var_v0].unk_4 & 1)) {
+                    gSaveFile.save.data.unk_00[var_v0].unk_4 = 1;
+                    ret = true;
+                }
+            } else {
+                if (!(gSaveFile.save.data.unk_00[var_v0].unk_7 & 1)) {
+                    gSaveFile.save.data.unk_00[var_v0].unk_7 = 1;
+                    ret = true;
+                }
+            }
+            break;
+    }
+
+    return ret;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_8019FF48.s")
 
