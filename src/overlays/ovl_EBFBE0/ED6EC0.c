@@ -11,10 +11,12 @@ typedef struct {
     /* 0x10 */ f32 posX;
     /* 0x14 */ f32 posY;
     /* 0x18 */ f32 posZ;
-    /* 0x1C */ char pad1C[0x1C];
+    /* 0x1C */ char pad1C[0x8];
+    /* 0x24 */ s32 unk_24;
+    /* 0x28 */ char pad28[0x10];
 } Planet; // size = 0x38
 
-extern Planet Planets[];
+extern Planet planet[15];
 
 extern f32 D_EBFBE0_801CD9F4;
 extern f32 D_EBFBE0_801CD9F8;
@@ -154,13 +156,27 @@ void func_EBFBE0_8019F910(void) {
 void func_EBFBE0_8019F97C(void) {
     D_EBFBE0_801CEA54 = func_EBFBE0_801A25C8(D_EBFBE0_801CD954);
 
-    D_EBFBE0_801CD9F4 = D_EBFBE0_801CDA00 = Planets[D_EBFBE0_801CD954].posX;
-    D_EBFBE0_801CD9F8 = D_EBFBE0_801CDA04 = Planets[D_EBFBE0_801CD954].posY;
-    D_EBFBE0_801CDA08 = Planets[D_EBFBE0_801CD954].posZ;
-    D_EBFBE0_801CD9FC = Planets[D_EBFBE0_801CD954].posZ + D_EBFBE0_801CEA54;
+    D_EBFBE0_801CD9F4 = D_EBFBE0_801CDA00 = planet[D_EBFBE0_801CD954].posX;
+    D_EBFBE0_801CD9F8 = D_EBFBE0_801CDA04 = planet[D_EBFBE0_801CD954].posY;
+    D_EBFBE0_801CDA08 = planet[D_EBFBE0_801CD954].posZ;
+    D_EBFBE0_801CD9FC = planet[D_EBFBE0_801CD954].posZ + D_EBFBE0_801CEA54;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_8019FA1C.s")
+void func_EBFBE0_8019FA1C(void) {
+    s32 i;
+
+    for (i = 0; i < 15; i++) {
+        if (i == D_EBFBE0_801CD954) {
+            if ((i == 3) || (i == 4) || (i == 5)) {
+                planet[i].unk_24 = 144;
+            } else {
+                planet[i].unk_24 = 255;
+            }
+        } else {
+            planet[i].unk_24 = 0;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_8019FC04.s")
 
