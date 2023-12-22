@@ -73,6 +73,7 @@ extern s32 D_EBFBE0_801CF018; // bss
 extern u16* D_EBFBE0_801AF428[15][2];
 extern s32 D_EBFBE0_801AF420[2];
 
+extern Gfx D_601D1F0[];
 extern u8 D_6047F80[];
 extern u8 D_6048F80[];
 
@@ -913,7 +914,32 @@ void func_EBFBE0_801A6A24(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AA778.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AB17C.s")
+#ifndef DATA_IMPORT_PENDING
+extern f32 D_EBFBE0_801B6B00; // likely in-function static
+extern f32 D_EBFBE0_801B6B04; // likely in-function static
+extern f32 D_EBFBE0_801B6B08; // likely in-function static
+#endif
+
+void func_EBFBE0_801AB17C(f32 x, f32 y, f32 z) {
+#ifdef DATA_IMPORT_PENDING
+    static f32 D_EBFBE0_801B6B00 = 0.23f; // scale
+    static f32 D_EBFBE0_801B6B04 = 4.4f;  // posX
+    static f32 D_EBFBE0_801B6B08 = 1.0f;  // posY
+#endif
+
+    RCP_SetupDL(&gMasterDisp, 0x35);
+    gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
+
+    Matrix_Push(&gGfxMatrix);
+
+    Matrix_Translate(gGfxMatrix, x - D_EBFBE0_801B6B04, y + D_EBFBE0_801B6B08, z, 1);
+    Matrix_Scale(gGfxMatrix, D_EBFBE0_801B6B00, D_EBFBE0_801B6B00, D_EBFBE0_801B6B00, 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    gSPDisplayList(gMasterDisp++, D_601D1F0);
+
+    Matrix_Pop(&gGfxMatrix);
+}
 
 void func_EBFBE0_801AB284(void) {
     D_EBFBE0_801CD940 = 0;
