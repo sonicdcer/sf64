@@ -1,9 +1,17 @@
 #include "global.h"
 
+typedef struct {
+    /* 0x00 */ char pad00[0x14];
+    /* 0x14 */ s32 unk_14;
+    /* 0x18 */ s32 unk_18;
+} UnkStruct_D_EBFBE0_801AFD18; // size = 0x1C
+
+extern UnkStruct_D_EBFBE0_801AFD18 D_EBFBE0_801AFD18[24];
 extern s32 D_EBFBE0_801CD944;
 extern s32 D_EBFBE0_801CD948;
 extern s32 D_EBFBE0_801CD954;
 extern s32 D_EBFBE0_801CD960;
+extern s32 D_EBFBE0_801CD970;
 extern s32 D_EBFBE0_801CD9B8;
 extern s32 D_EBFBE0_801CD9BC;
 extern s32 D_EBFBE0_801CD9C0;
@@ -94,7 +102,24 @@ void func_EBFBE0_8019E8D0(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_8019F600.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_8019F83C.s")
+void func_EBFBE0_8019F83C(void) {
+    s32 i;
+
+    D_EBFBE0_801CD970 = 0;
+
+    for (i = 0; i < 24; i++) {
+        if ((D_80177BD8[i] == 4) || (D_80177BD8[i] == 5) || (D_80177BD8[i] == 1) || (D_80177BD8[i] == 11)) {
+            D_80177BD8[i] = 0;
+        }
+
+        if (D_80177BD8[i] == 6) {
+            D_EBFBE0_801AFD18[i].unk_14 = 5;
+        }
+
+        D_EBFBE0_801AFD18[i].unk_18 = 0;
+        gUnkEntities30[i].unk_24 = 0.0f;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_8019F910.s")
 
