@@ -974,7 +974,14 @@ void func_EBFBE0_801AB284(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801ACD90.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AD048.s")
+void func_EBFBE0_801AD048(void) {
+    f32 sp1C = Math_Atan2F(D_EBFBE0_801CD9F8 - D_EBFBE0_801CDA04, sqrtf(SQ(D_EBFBE0_801CD9F4 - D_EBFBE0_801CDA00) +
+                                                                        SQ(D_EBFBE0_801CD9FC - D_EBFBE0_801CDA08)));
+    f32 temp = -Math_Atan2F(D_EBFBE0_801CD9F4 - D_EBFBE0_801CDA00, D_EBFBE0_801CD9FC - D_EBFBE0_801CDA08);
+
+    Matrix_RotateY(gGfxMatrix, -temp, 1);
+    Matrix_RotateX(gGfxMatrix, -sp1C, 1);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AD11C.s")
 
