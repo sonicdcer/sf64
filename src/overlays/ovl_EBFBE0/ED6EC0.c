@@ -636,7 +636,55 @@ void func_EBFBE0_801A07E8(u8* arg0, u8* arg1, f32* arg2) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A2304.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A25C8.s")
+f32 func_EBFBE0_801A25C8(s32 arg0) {
+    f32 sp4;
+
+    switch (arg0) {
+        case 1:
+            sp4 = 900.0f;
+            break;
+
+        case 2:
+            sp4 = 800.0f;
+            break;
+
+        case 0:
+            sp4 = 650.0f;
+            break;
+
+        case 6:
+        case 7:
+        case 8:
+        case 10:
+        case 11:
+        case 12:
+            sp4 = 550.0f;
+            break;
+
+        case 9:
+            sp4 = 1100.0f;
+            break;
+
+        case 13:
+            sp4 = 2100.0f;
+            break;
+
+        case 14:
+            sp4 = 850.0f;
+            break;
+
+        case 3:
+        case 4:
+        case 5:
+            sp4 = 650.0f;
+            break;
+
+        default:
+            break;
+    }
+
+    return sp4;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A2674.s")
 
