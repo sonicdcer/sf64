@@ -906,7 +906,17 @@ void func_EBFBE0_801A914C(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A9448.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A9814.s")
+void func_EBFBE0_801A9814(void) {
+    if (D_EBFBE0_801B8280 != 0) {
+        Matrix_Push(&gGfxMatrix);
+        Matrix_LookAt(gGfxMatrix, D_EBFBE0_801CD9F4, D_EBFBE0_801CD9F8, D_EBFBE0_801CD9FC, D_EBFBE0_801CDA00,
+                      D_EBFBE0_801CDA04, D_EBFBE0_801CDA08, D_EBFBE0_801CDA20, D_EBFBE0_801CDA24, D_EBFBE0_801CDA28, 1);
+        Matrix_Translate(gGfxMatrix, D_EBFBE0_801CEA58, D_EBFBE0_801CEA5C, D_EBFBE0_801CEA60, 1);
+        Matrix_SetGfxMtx(&gMasterDisp);
+        func_80084688(2, D_EBFBE0_801B8284);
+        Matrix_Pop(&gGfxMatrix);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A9910.s")
 
@@ -939,6 +949,8 @@ void func_EBFBE0_801A9DE8(void) {
     }
 }
 
+#ifndef IMPORT_DATA_PENDING
+
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B74C0.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B74C4.s")
@@ -968,6 +980,8 @@ void func_EBFBE0_801A9DE8(void) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B74F4.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B74F8.s")
+
+#endif
 
 void func_EBFBE0_801A9EE4(void) {
     RCP_SetupDL(&gMasterDisp, 0x53);
