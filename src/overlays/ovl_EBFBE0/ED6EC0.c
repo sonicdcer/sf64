@@ -348,21 +348,21 @@ bool func_EBFBE0_8019FD1C(u32 arg0, s32 arg1) {
 
     switch (arg1) {
         case 0:
-            if (!(gSaveFile.save.data.unk_00[var_v0].unk_5 & 1)) {
-                gSaveFile.save.data.unk_00[var_v0].unk_5 = 1;
+            if (!(gSaveFile.save.data.planet[var_v0].unk_5 & 1)) {
+                gSaveFile.save.data.planet[var_v0].unk_5 = 1;
                 ret = true;
             }
             break;
 
         case 1:
             if (gExpertMode) {
-                if (!(gSaveFile.save.data.unk_00[var_v0].unk_3 & 1)) {
-                    gSaveFile.save.data.unk_00[var_v0].unk_3 = 1;
+                if (!(gSaveFile.save.data.planet[var_v0].unk_3 & 1)) {
+                    gSaveFile.save.data.planet[var_v0].unk_3 = 1;
                     ret = true;
                 }
             } else {
-                if (!(gSaveFile.save.data.unk_00[var_v0].unk_6 & 1)) {
-                    gSaveFile.save.data.unk_00[var_v0].unk_6 = 1;
+                if (!(gSaveFile.save.data.planet[var_v0].unk_6 & 1)) {
+                    gSaveFile.save.data.planet[var_v0].unk_6 = 1;
                     ret = true;
                 }
             }
@@ -370,13 +370,13 @@ bool func_EBFBE0_8019FD1C(u32 arg0, s32 arg1) {
 
         case 2:
             if (gExpertMode) {
-                if (!(gSaveFile.save.data.unk_00[var_v0].unk_4 & 1)) {
-                    gSaveFile.save.data.unk_00[var_v0].unk_4 = 1;
+                if (!(gSaveFile.save.data.planet[var_v0].unk_4 & 1)) {
+                    gSaveFile.save.data.planet[var_v0].unk_4 = 1;
                     ret = true;
                 }
             } else {
-                if (!(gSaveFile.save.data.unk_00[var_v0].unk_7 & 1)) {
-                    gSaveFile.save.data.unk_00[var_v0].unk_7 = 1;
+                if (!(gSaveFile.save.data.planet[var_v0].unk_7 & 1)) {
+                    gSaveFile.save.data.planet[var_v0].unk_7 = 1;
                     ret = true;
                 }
             }
@@ -809,7 +809,7 @@ bool func_EBFBE0_801A62FC(u32 level) {
             break;
     }
 
-    if (gSaveFile.save.data.unk_00[i].unk_5 & 1) {
+    if (gSaveFile.save.data.planet[i].unk_5 & 1) {
         ret = false;
     }
 
@@ -893,11 +893,11 @@ s32 func_EBFBE0_801A6DAC(s32 planet) {
 
     if (planet == 13) {
         if (gExpertMode) {
-            var_v0 = gSaveFile.save.data.unk_00[15].unk_3 & 1;
-            var_a0 = gSaveFile.save.data.unk_00[14].unk_4 & 1 | gSaveFile.save.data.unk_00[15].unk_4 & 1;
+            var_v0 = gSaveFile.save.data.planet[15].unk_3 & 1;
+            var_a0 = gSaveFile.save.data.planet[14].unk_4 & 1 | gSaveFile.save.data.planet[15].unk_4 & 1;
         } else {
-            var_v0 = gSaveFile.save.data.unk_00[15].unk_6 & 1;
-            var_a0 = gSaveFile.save.data.unk_00[14].unk_7 & 1 | gSaveFile.save.data.unk_00[15].unk_7 & 1;
+            var_v0 = gSaveFile.save.data.planet[15].unk_6 & 1;
+            var_a0 = gSaveFile.save.data.planet[14].unk_7 & 1 | gSaveFile.save.data.planet[15].unk_7 & 1;
         }
     } else {
         planet_ = planet;
@@ -907,11 +907,11 @@ s32 func_EBFBE0_801A6DAC(s32 planet) {
         }
 
         if (gExpertMode) {
-            var_v0 = gSaveFile.save.data.unk_00[planet_].unk_3 & 1;
-            var_a0 = gSaveFile.save.data.unk_00[planet_].unk_4 & 1;
+            var_v0 = gSaveFile.save.data.planet[planet_].unk_3 & 1;
+            var_a0 = gSaveFile.save.data.planet[planet_].unk_4 & 1;
         } else {
-            var_v0 = gSaveFile.save.data.unk_00[planet_].unk_6 & 1;
-            var_a0 = gSaveFile.save.data.unk_00[planet_].unk_7 & 1;
+            var_v0 = gSaveFile.save.data.planet[planet_].unk_6 & 1;
+            var_a0 = gSaveFile.save.data.planet[planet_].unk_7 & 1;
         }
     }
 
