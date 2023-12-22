@@ -17,8 +17,9 @@ typedef struct {
 } Planet; // size = 0x38
 
 extern Planet planet[15];
-
 extern UnkStruct_D_EBFBE0_801AFD18 D_EBFBE0_801AFD18[24];
+extern s32 D_EBFBE0_801B0004[47];
+extern s32 D_EBFBE0_801B00C0[47][96];
 extern void* D_EBFBE0_801B68D4[];
 extern f32 D_EBFBE0_801CD818[];
 extern s32 D_EBFBE0_801CD8A0[15]; // bss
@@ -570,7 +571,39 @@ void func_EBFBE0_801A0788(void) {
     D_80178430 = 0.0f;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A07E8.s")
+void func_EBFBE0_801A07E8(u8* arg0, u8* arg1, f32* arg2) {
+    s32* var_v0 = D_EBFBE0_801B0004;
+    s32 temp;
+    s32 i;
+    s32 j;
+    s32 k;
+
+    for (i = 1; i < 48; i++, var_v0++) {
+        for (k = 0, j = *var_v0; j < (95 - *var_v0); j++, k++) {
+            temp = D_EBFBE0_801B00C0[i - 1][k] + (s32) *arg2;
+
+            if (temp > 95) {
+                temp -= 95;
+            }
+            if (temp < 0) {
+                temp += 95;
+            }
+
+            *(arg0 + ((i * 96) + j)) = *(arg1 + ((i * 96) + temp));
+            *(arg0 + ((95 - i) * 96) + j) = *(arg1 + ((95 - i) * 96) + temp);
+        }
+    }
+
+    *arg2 -= 1.0f;
+
+    if (*arg2 <= 0.0f) {
+        *arg2 = 95.0f;
+    }
+
+    if (*arg2 > 95.0f) {
+        *arg2 = 0.0f;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A0954.s")
 
