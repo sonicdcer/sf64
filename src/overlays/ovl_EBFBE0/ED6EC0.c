@@ -37,6 +37,11 @@ extern s32 D_EBFBE0_801CD9D4;
 extern f32 D_EBFBE0_801CDA00;
 extern f32 D_EBFBE0_801CDA04;
 extern f32 D_EBFBE0_801CDA08;
+extern f32 D_EBFBE0_801CDA0C;
+extern f32 D_EBFBE0_801CDA10;
+extern f32 D_EBFBE0_801CDA14;
+extern f32 D_EBFBE0_801CDA18;
+extern f32 D_EBFBE0_801CDA1C;
 extern f32 D_EBFBE0_801CDA2C;
 extern f32 D_EBFBE0_801CDA30;
 extern f32 D_EBFBE0_801CDA40;
@@ -45,6 +50,18 @@ extern f32 D_EBFBE0_801CDA48;
 extern s32 D_EBFBE0_801CEFC8;
 extern s32 D_EBFBE0_801CEFD4;
 
+void func_EBFBE0_801A0954(void);
+void func_EBFBE0_801A1528(void);
+void func_EBFBE0_801A1C14(void);
+void func_EBFBE0_801A2B8C(void);
+void func_EBFBE0_801A36A8(void);
+void func_EBFBE0_801A4AE8(void);
+void func_EBFBE0_801A5E80(void);
+void func_EBFBE0_801A6694(void);
+void func_EBFBE0_801A68E4(void);
+void func_EBFBE0_801A6A24(void);
+void func_EBFBE0_801AD11C(void);
+void func_EBFBE0_801AD718(f32, f32, f32, f32*, f32*, f32*, f32, f32, f32);
 void func_EBFBE0_8019E800(void);
 void func_EBFBE0_8019E99C(void);
 void func_EBFBE0_8019FF48(void);
@@ -317,7 +334,60 @@ bool func_EBFBE0_8019FD1C(u32 arg0, s32 arg1) {
     return ret;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_8019FF48.s")
+void func_EBFBE0_8019FF48(void) {
+    func_EBFBE0_801A6694();
+    func_EBFBE0_801A68E4();
+    func_EBFBE0_801A6A24();
+
+    switch (D_EBFBE0_801CD944) {
+        case 0:
+            func_EBFBE0_801A0954();
+            D_8017842C += 0.09f;
+            break;
+
+        case 1:
+            func_EBFBE0_801A1528();
+            D_EBFBE0_801CDA1C += 0.03f;
+            break;
+
+        case 3:
+            func_EBFBE0_801AD11C();
+            D_EBFBE0_801CDA1C += 0.03f;
+            break;
+
+        case 2:
+            func_EBFBE0_801A1C14();
+            break;
+
+        case 4:
+            func_EBFBE0_801A5E80();
+            break;
+
+        case 5:
+            func_EBFBE0_801A2B8C();
+            break;
+
+        case 6:
+            func_EBFBE0_801A4AE8();
+            break;
+
+        case 7:
+            func_EBFBE0_801A36A8();
+            break;
+
+        default:
+            break;
+    }
+
+    if ((D_EBFBE0_801CD944 == 0) || (D_EBFBE0_801CD944 == 1) || (D_EBFBE0_801CD944 == 7) || (D_EBFBE0_801CD944 == 3)) {
+        func_EBFBE0_801AD718(D_EBFBE0_801CDA00, D_EBFBE0_801CDA04, D_EBFBE0_801CDA08, &D_EBFBE0_801CD9F4,
+                             &D_EBFBE0_801CD9F8, &D_EBFBE0_801CD9FC, D_EBFBE0_801CDA14,
+                             D_EBFBE0_801CDA0C + D_EBFBE0_801CDA18, D_EBFBE0_801CDA10 + D_EBFBE0_801CDA1C);
+        func_800B6F50(D_EBFBE0_801CD9F4, D_EBFBE0_801CD9F8, D_EBFBE0_801CD9FC, D_EBFBE0_801CDA00, D_EBFBE0_801CDA04,
+                      D_EBFBE0_801CDA08);
+    }
+    gFrameCount++;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A01A8.s")
 
