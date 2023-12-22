@@ -121,7 +121,19 @@ void func_EBFBE0_8019F83C(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_8019F910.s")
+void func_EBFBE0_8019F910(void) {
+    s32 i;
+    s32 mask = 0x00FF0000;
+
+    for (i = 0; i < 3; i++) {
+        if (gTeamShields[3 - i] <= 0) {
+            D_80177B50[D_80177B48] ^= mask;
+        } else {
+            D_80177B50[D_80177B48] |= mask;
+        }
+        mask >>= 8;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_8019F97C.s")
 
