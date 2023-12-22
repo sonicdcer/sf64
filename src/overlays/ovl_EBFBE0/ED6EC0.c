@@ -37,11 +37,13 @@ extern f32 D_EBFBE0_801CD9FC;
 extern f32 D_EBFBE0_801CDA20;
 extern f32 D_EBFBE0_801CDA24;
 extern f32 D_EBFBE0_801CDA28;
+extern s32 D_EBFBE0_801CD940; // bss
 extern s32 D_EBFBE0_801CD944; // bss
 extern s32 D_EBFBE0_801CD948;
 extern s32 D_EBFBE0_801CD954;
 extern s32 D_EBFBE0_801CD960;
 extern s32 D_EBFBE0_801CD970;
+extern s32 D_EBFBE0_801CD978;
 extern s32 D_EBFBE0_801CD9B8;
 extern s32 D_EBFBE0_801CD9BC;
 extern s32 D_EBFBE0_801CD9C0;
@@ -72,7 +74,7 @@ extern f32 D_EBFBE0_801CEA60;
 extern s32 D_EBFBE0_801CEEC4;
 extern s32 D_EBFBE0_801CEEC8;
 extern s32 D_EBFBE0_801CEFC4; // bss
-extern s32 D_EBFBE0_801CD940; // bss
+extern s32 D_EBFBE0_801CF00C;
 extern s32 D_EBFBE0_801CF018; // bss
 extern u16* D_EBFBE0_801AF428[15][2];
 extern s32 D_EBFBE0_801AF420[2];
@@ -91,6 +93,7 @@ void func_EBFBE0_801A5E80(void);
 void func_EBFBE0_801A6694(void);
 void func_EBFBE0_801A68E4(void);
 void func_EBFBE0_801A6A24(void);
+void func_EBFBE0_801A9EE4(void);
 void func_EBFBE0_801AD11C(void);
 void func_EBFBE0_801AD718(f32, f32, f32, f32*, f32*, f32*, f32, f32, f32);
 void func_EBFBE0_8019E800(void);
@@ -909,7 +912,32 @@ void func_EBFBE0_801A914C(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A9A8C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A9DE8.s")
+void func_EBFBE0_801A9DE8(void) {
+    s32 mask;
+
+    if (!((D_EBFBE0_801CD978 != 0) || (D_EBFBE0_801CD944 == 3) || (D_EBFBE0_801CD944 == 6) ||
+          ((D_EBFBE0_801CD944 == 7) && (D_EBFBE0_801CD948 == 2)))) {
+        return;
+    }
+
+    mask = 0xFFFFFFFF;
+    if (D_EBFBE0_801CF00C != 0) {
+        mask = 1;
+        D_EBFBE0_801CF00C--;
+    }
+
+    if (gFrameCount & mask) {
+        func_EBFBE0_801AD7EC(254, 16, gLifeCount[D_801778A0]);
+    }
+
+    if ((D_80161A34 == 7) || (D_80161A34 == 5)) {
+        if (D_EBFBE0_801CD83C < D_80161714) {
+            D_EBFBE0_801CD83C = D_80161714;
+        }
+        func_EBFBE0_801A9EE4();
+        func_EBFBE0_801A9FD4(0);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B74C0.s")
 
