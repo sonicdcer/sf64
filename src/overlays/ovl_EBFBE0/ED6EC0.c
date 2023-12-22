@@ -12,7 +12,7 @@ typedef struct {
     /* 0x14 */ f32 posY;
     /* 0x18 */ f32 posZ;
     /* 0x1C */ char pad1C[0x8];
-    /* 0x24 */ s32 unk_24;
+    /* 0x24 */ s32 unk_24; // primColor?
     /* 0x28 */ char pad28[0x10];
 } Planet; // size = 0x38
 
