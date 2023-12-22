@@ -31,9 +31,9 @@ extern s32 D_EBFBE0_801CD964;     // bss
 extern s32 D_EBFBE0_801CD968;     // bss
 extern s32 D_EBFBE0_801CD96C;     // bss
 extern s32 D_EBFBE0_801CD974;
-extern f32 D_EBFBE0_801CD9F4;
-extern f32 D_EBFBE0_801CD9F8;
-extern f32 D_EBFBE0_801CD9FC;
+extern f32 D_EBFBE0_801CD9F4; // x
+extern f32 D_EBFBE0_801CD9F8; // y
+extern f32 D_EBFBE0_801CD9FC; // z
 extern f32 D_EBFBE0_801CDA20;
 extern f32 D_EBFBE0_801CDA24;
 extern f32 D_EBFBE0_801CDA28;
@@ -48,9 +48,9 @@ extern s32 D_EBFBE0_801CD9B8;
 extern s32 D_EBFBE0_801CD9BC;
 extern s32 D_EBFBE0_801CD9C0;
 extern s32 D_EBFBE0_801CD9D4;
-extern f32 D_EBFBE0_801CDA00;
-extern f32 D_EBFBE0_801CDA04;
-extern f32 D_EBFBE0_801CDA08;
+extern f32 D_EBFBE0_801CDA00; // x
+extern f32 D_EBFBE0_801CDA04; // y
+extern f32 D_EBFBE0_801CDA08; // z
 extern f32 D_EBFBE0_801CDA0C;
 extern f32 D_EBFBE0_801CDA10;
 extern f32 D_EBFBE0_801CDA14;
@@ -73,6 +73,10 @@ extern f32 D_EBFBE0_801CEA5C;
 extern f32 D_EBFBE0_801CEA60;
 extern s32 D_EBFBE0_801CEEC4;
 extern s32 D_EBFBE0_801CEEC8;
+extern s32 D_EBFBE0_801CEED8;
+extern f32 D_EBFBE0_801CEEDC;
+extern Vec3f D_EBFBE0_801CEEE8[9];
+extern Vec3f D_EBFBE0_801CEF58[9];
 extern s32 D_EBFBE0_801CEFC4; // bss
 extern s32 D_EBFBE0_801CF00C;
 extern s32 D_EBFBE0_801CF018; // bss
@@ -87,6 +91,7 @@ void func_EBFBE0_801A0954(void);
 void func_EBFBE0_801A1528(void);
 void func_EBFBE0_801A1C14(void);
 void func_EBFBE0_801A2B8C(void);
+void func_EBFBE0_801A3550(Vec3f*, Vec3f*, Vec3f*, f32);
 void func_EBFBE0_801A36A8(void);
 void func_EBFBE0_801A4AE8(void);
 void func_EBFBE0_801A5E80(void);
@@ -694,7 +699,29 @@ f32 func_EBFBE0_801A25C8(s32 arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A2EB8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A3440.s")
+void func_EBFBE0_801A3440(f32 arg0) {
+    Vec3f vec[2];
+
+    if (D_EBFBE0_801CEED8 != -1) {
+        func_EBFBE0_801A3550(&vec, &D_EBFBE0_801CEEE8[D_EBFBE0_801CEED8], &D_EBFBE0_801CEF58[D_EBFBE0_801CEED8],
+                             D_EBFBE0_801CEEDC);
+        D_EBFBE0_801CD9F4 = vec[0].x;
+        D_EBFBE0_801CD9F8 = vec[0].y;
+        D_EBFBE0_801CD9FC = vec[0].z;
+        D_EBFBE0_801CDA00 = vec[1].x;
+        D_EBFBE0_801CDA04 = vec[1].y;
+        D_EBFBE0_801CDA08 = vec[1].z;
+        D_EBFBE0_801CEEDC += arg0;
+
+        if (D_EBFBE0_801CEEDC > 1.0f) {
+            D_EBFBE0_801CEED8++;
+            D_EBFBE0_801CEEDC = 0.0f;
+            if (D_EBFBE0_801CEED8 >= 6) {
+                D_EBFBE0_801CEED8 = -1;
+            }
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A3550.s")
 
