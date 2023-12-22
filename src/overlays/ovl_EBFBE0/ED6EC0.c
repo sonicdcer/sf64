@@ -59,6 +59,9 @@ extern f32 D_EBFBE0_801CDA40;
 extern f32 D_EBFBE0_801CDA44;
 extern f32 D_EBFBE0_801CDA48;
 extern f32 D_EBFBE0_801CEA54;
+extern f32 D_EBFBE0_801CEAA8;
+extern f32 D_EBFBE0_801CEAAC;
+extern f32 D_EBFBE0_801CEAB0;
 extern s32 D_EBFBE0_801CEB48[3];
 extern s32 D_EBFBE0_801CEFC8;
 extern s32 D_EBFBE0_801CEFD4;
@@ -860,7 +863,40 @@ void func_EBFBE0_801A6A24(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A8F40.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A914C.s")
+void func_EBFBE0_801A914C(void) {
+    D_EBFBE0_801CEAA8 = 140.0f;
+
+    if (D_EBFBE0_801CD954 == 9) {
+        D_EBFBE0_801CEAA8 = 230.0f;
+    }
+
+    if (D_EBFBE0_801CD954 == 1) {
+        D_EBFBE0_801CEAA8 = 210.0f;
+    }
+
+    if (D_EBFBE0_801CD954 == 0xE) {
+        D_EBFBE0_801CEAA8 = 250.0f;
+    }
+
+    if (D_EBFBE0_801CD954 == 4) {
+        D_EBFBE0_801CEAA8 = 150.0f;
+    }
+
+    if (D_EBFBE0_801CD954 == 5) {
+        D_EBFBE0_801CEAA8 = 150.0f;
+    }
+
+    if (D_EBFBE0_801CD954 == 3) {
+        D_EBFBE0_801CEAA8 = 150.0f;
+    }
+
+    if (D_EBFBE0_801CD954 == 0xD) {
+        D_EBFBE0_801CEAA8 = 300.0f;
+    }
+
+    D_EBFBE0_801CEAAC = D_EBFBE0_801CEAA8;
+    D_EBFBE0_801CEAB0 = D_EBFBE0_801CEAA8;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A9224.s")
 
