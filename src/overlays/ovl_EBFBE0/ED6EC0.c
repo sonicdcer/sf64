@@ -524,7 +524,39 @@ void func_EBFBE0_801A01A8(void) {
     Texture_Mottle((u16*) D_6047F80, (u16*) D_6048F80, 5);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A05B4.s")
+s32 func_EBFBE0_801A05B4(void) {
+    s32 i;
+    s32 j;
+    s32 sp30[10];
+    s32 ret;
+    s32 var_a3;
+    s32 temp_a0;
+
+    for (i = 0; i < 10; i++) {
+        sp30[i] = 0;
+    }
+
+    for (i = 0; i < 10; i++) {
+        temp_a0 = gSaveFile.save.data.unk_36[i];
+        for (j = 0; j < temp_a0; j++) {
+            var_a3 = gSaveFile.save.data.unk_5E[i][j].unk_0;
+            if (gSaveFile.save.data.unk_5E[i][j].unk_C != 0) {
+                var_a3 += 256;
+            }
+            sp30[i] += var_a3;
+        }
+    }
+
+    ret = sp30[0];
+
+    for (i = 1; i < 10; i++) {
+        if (ret < sp30[i]) {
+            ret = sp30[i];
+        }
+    }
+
+    return ret;
+}
 
 void func_EBFBE0_801A0788(void) {
     D_80178410 = 800;
