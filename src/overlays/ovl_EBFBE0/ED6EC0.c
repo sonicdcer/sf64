@@ -1,7 +1,10 @@
 #include "global.h"
 
 typedef struct {
-    /* 0x00 */ char pad00[0x14];
+    /* 0x00 */ char pad00[0x4];
+    /* 0x04 */ s32 unk_04;
+    /* 0x08 */ s32 unk_08;
+    /* 0x0C */ char pad0C[0x8];
     /* 0x14 */ s32 unk_14;
     /* 0x18 */ s32 unk_18;
 } UnkStruct_D_EBFBE0_801AFD18; // size = 0x1C
@@ -757,7 +760,17 @@ bool func_EBFBE0_801A62FC(u32 level) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A6480.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A655C.s")
+s32 func_EBFBE0_801A655C(s32 arg0, s32 arg1) {
+    s32 i;
+
+    for (i = 0; i < 24; i++) {
+        if ((D_EBFBE0_801AFD18[i].unk_04 == arg0) && (D_EBFBE0_801AFD18[i].unk_08 == arg1)) {
+            break;
+        }
+    }
+
+    return i;
+}
 
 void func_EBFBE0_801A659C(void) {
     func_8001A838(0x1100004CU);
