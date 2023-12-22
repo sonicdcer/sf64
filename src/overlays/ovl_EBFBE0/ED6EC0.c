@@ -22,6 +22,7 @@ extern f32 D_EBFBE0_801CD9F4;
 extern f32 D_EBFBE0_801CD9F8;
 extern f32 D_EBFBE0_801CD9FC;
 extern f32 D_EBFBE0_801CEA54;
+extern s32 D_EBFBE0_801CEB48[3];
 
 extern UnkStruct_D_EBFBE0_801AFD18 D_EBFBE0_801AFD18[24];
 extern s32 D_EBFBE0_801CD944;
@@ -178,7 +179,23 @@ void func_EBFBE0_8019FA1C(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_8019FC04.s")
+void func_EBFBE0_8019FC04(void) {
+    s32 i;
+
+    if (D_80177B48 != 0) {
+        D_EBFBE0_801CEB48[1] = 1;
+        D_EBFBE0_801CEB48[2] = 1;
+    }
+
+    for (i = 0; i < 7; i++) {
+        if (D_80177B90[i] == 6) {
+            D_EBFBE0_801CEB48[1] = 0;
+        }
+        if (D_80177B90[i] == 5) {
+            D_EBFBE0_801CEB48[2] = 0;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_8019FD1C.s")
 
