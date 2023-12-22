@@ -6,6 +6,21 @@ typedef struct {
     /* 0x18 */ s32 unk_18;
 } UnkStruct_D_EBFBE0_801AFD18; // size = 0x1C
 
+typedef struct {
+    /* 0x00 */ char pad0[0x10];
+    /* 0x10 */ f32 posX;
+    /* 0x14 */ f32 posY;
+    /* 0x18 */ f32 posZ;
+    /* 0x1C */ char pad1C[0x1C];
+} Planet; // size = 0x38
+
+extern Planet Planets[];
+
+extern f32 D_EBFBE0_801CD9F4;
+extern f32 D_EBFBE0_801CD9F8;
+extern f32 D_EBFBE0_801CD9FC;
+extern f32 D_EBFBE0_801CEA54;
+
 extern UnkStruct_D_EBFBE0_801AFD18 D_EBFBE0_801AFD18[24];
 extern s32 D_EBFBE0_801CD944;
 extern s32 D_EBFBE0_801CD948;
@@ -30,6 +45,7 @@ extern s32 D_EBFBE0_801CEFD4;
 void func_EBFBE0_8019E800(void);
 void func_EBFBE0_8019E99C(void);
 void func_EBFBE0_8019FF48(void);
+f32 func_EBFBE0_801A25C8(s32);
 void func_EBFBE0_801A4F8C(void);
 void func_EBFBE0_801A4FC4(void);
 void func_EBFBE0_801A53C8(void);
@@ -135,7 +151,14 @@ void func_EBFBE0_8019F910(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_8019F97C.s")
+void func_EBFBE0_8019F97C(void) {
+    D_EBFBE0_801CEA54 = func_EBFBE0_801A25C8(D_EBFBE0_801CD954);
+
+    D_EBFBE0_801CD9F4 = D_EBFBE0_801CDA00 = Planets[D_EBFBE0_801CD954].posX;
+    D_EBFBE0_801CD9F8 = D_EBFBE0_801CDA04 = Planets[D_EBFBE0_801CD954].posY;
+    D_EBFBE0_801CDA08 = Planets[D_EBFBE0_801CD954].posZ;
+    D_EBFBE0_801CD9FC = Planets[D_EBFBE0_801CD954].posZ + D_EBFBE0_801CEA54;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_8019FA1C.s")
 
