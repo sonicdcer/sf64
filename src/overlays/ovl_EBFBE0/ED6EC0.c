@@ -885,7 +885,46 @@ void func_EBFBE0_801A6A24(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A6A98.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A6DAC.s")
+s32 func_EBFBE0_801A6DAC(s32 planet) {
+    s32 ret;
+    s32 planet_;
+    s32 var_v0;
+    s32 var_a0;
+
+    if (planet == 13) {
+        if (gExpertMode) {
+            var_v0 = gSaveFile.save.data.unk_00[15].unk_3 & 1;
+            var_a0 = gSaveFile.save.data.unk_00[14].unk_4 & 1 | gSaveFile.save.data.unk_00[15].unk_4 & 1;
+        } else {
+            var_v0 = gSaveFile.save.data.unk_00[15].unk_6 & 1;
+            var_a0 = gSaveFile.save.data.unk_00[14].unk_7 & 1 | gSaveFile.save.data.unk_00[15].unk_7 & 1;
+        }
+    } else {
+        planet_ = planet;
+
+        if (planet == 14) {
+            planet_ = 13;
+        }
+
+        if (gExpertMode) {
+            var_v0 = gSaveFile.save.data.unk_00[planet_].unk_3 & 1;
+            var_a0 = gSaveFile.save.data.unk_00[planet_].unk_4 & 1;
+        } else {
+            var_v0 = gSaveFile.save.data.unk_00[planet_].unk_6 & 1;
+            var_a0 = gSaveFile.save.data.unk_00[planet_].unk_7 & 1;
+        }
+    }
+
+    ret = 0;
+
+    if (var_v0) {
+        ret = 2;
+    } else if (var_a0) {
+        ret = 1;
+    }
+
+    return ret;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A6EC0.s")
 
