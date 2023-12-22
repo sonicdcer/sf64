@@ -25,6 +25,7 @@ extern s32 D_EBFBE0_801B0004[47];
 extern s32 D_EBFBE0_801B00C0[47][96];
 extern void* D_EBFBE0_801B68D4[];
 extern f32 D_EBFBE0_801CD818[];
+extern s32 D_EBFBE0_801CD83C;
 extern s32 D_EBFBE0_801CD8A0[15]; // bss
 extern s32 D_EBFBE0_801CD964;     // bss
 extern s32 D_EBFBE0_801CD968;     // bss
@@ -940,7 +941,16 @@ void func_EBFBE0_801A914C(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B74F8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A9EE4.s")
+void func_EBFBE0_801A9EE4(void) {
+    RCP_SetupDL(&gMasterDisp, 0x53);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
+
+    Graphics_DisplaySmallText(24, 14, 1.0f, 1.0f, "TOTAL HITS");
+    Graphics_DisplaySmallNumber(71 - (func_8008BCBC(D_80161714) * 8), 24, D_80161714);
+    Graphics_DisplaySmallText(143, 14, 1.0f, 1.0f, "TOP");
+    Graphics_DisplaySmallNumber(167 - (func_8008BCBC(D_EBFBE0_801CD83C) * 8), 24, D_EBFBE0_801CD83C);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A9FD4.s")
 
