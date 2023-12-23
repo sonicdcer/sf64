@@ -479,7 +479,7 @@ void func_80088784(s32 arg0) {
         Matrix_Scale(gGfxMatrix, 0.37f, 0.37f, 0.37f, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
 
-        if (gLevelType == LEVELTYPE_GROUND) {
+        if (gLevelType == LEVELTYPE_PLANET) {
             gSPDisplayList(gMasterDisp++, D_800D1D4C[arg0]);
         } else {
             gSPDisplayList(gMasterDisp++, D_800D1D94[arg0]);
@@ -1076,7 +1076,7 @@ void func_8008CA44(void) {
     s32 i;
     s32 j;
 
-    if ((gPlayer[D_801778A0].unk228 != 0) && (gPlayer[D_801778A0].unk210 == 0) && (D_80177854 != 0x64)) {
+    if ((gPlayer[D_801778A0].unk228 != 0) && (gPlayer[D_801778A0].unk210 == 0) && (D_80177854 != 100)) {
         j = gPlayer[D_801778A0].unk228;
 
         for (i = 0; i < 12; i++) {
@@ -1700,8 +1700,8 @@ s32 func_80090A00(Object_2F4* obj2F4) {
         case 4:
             obj2F4->unk_124.z = gPlayer[0].unk_138;
             obj2F4->unk_124.y = 100.0f;
-            obj2F4->unk_124.x = gPlayer[0].unk_074;
-            if ((fabsf(obj2F4->obj.pos.x - gPlayer[0].unk_074) < 300.0f) &&
+            obj2F4->unk_124.x = gPlayer[0].unk_074.x;
+            if ((fabsf(obj2F4->obj.pos.x - gPlayer[0].unk_074.x) < 300.0f) &&
                 (fabsf(obj2F4->obj.pos.z - gPlayer[0].unk_138) < 300.0f)) {
                 obj2F4->unk_064 = 5;
                 obj2F4->unk_05C = 20;
@@ -1712,7 +1712,7 @@ s32 func_80090A00(Object_2F4* obj2F4) {
         case 5:
             obj2F4->unk_124.z = gPlayer[0].unk_138 + 1000.0f;
             obj2F4->unk_124.y = 1000.0f;
-            obj2F4->unk_124.x = gPlayer[0].unk_074 - 1000.0f;
+            obj2F4->unk_124.x = gPlayer[0].unk_074.x - 1000.0f;
             obj2F4->unk_058++;
             if (obj2F4->unk_05C == obj2F4->unk_058) {
                 Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
@@ -1852,8 +1852,8 @@ void func_80091254(Object_2F4* obj2F4) {
 s32 func_80091298(Object_2F4* obj2F4) {
     obj2F4->unk_118 = gPlayer[0].unk_0D0 + 10.0f;
     obj2F4->unk_120 = 3.6f;
-    obj2F4->unk_124.x = gPlayer[0].unk_074 + ((f32) (obj2F4->unk_0E4 - 2) * 700.0f);
-    obj2F4->unk_124.y = gPlayer[0].unk_078;
+    obj2F4->unk_124.x = gPlayer[0].unk_074.x + ((f32) (obj2F4->unk_0E4 - 2) * 700.0f);
+    obj2F4->unk_124.y = gPlayer[0].unk_074.y;
     obj2F4->unk_124.z = gPlayer[0].unk_138;
 
     if ((fabsf(obj2F4->obj.pos.x - obj2F4->unk_124.x) < 700.0f) ||
@@ -1966,7 +1966,7 @@ s32 func_80091864(Object_2F4* obj2F4) {
         sp44 += 40.0f;
         if (sp44 >= 360.0f) {
             sp44 -= 360.0f;
-        } else if ((obj2F4->obj.pos.y < (D_80177940 + 50.0f)) && (gLevelType == LEVELTYPE_GROUND) && (sp44 > 180.0f)) {
+        } else if ((obj2F4->obj.pos.y < (D_80177940 + 50.0f)) && (gLevelType == LEVELTYPE_PLANET) && (sp44 > 180.0f)) {
             sp44 = 0.0f;
         }
         obj2F4->unk_050 = 0;
@@ -2023,7 +2023,7 @@ s32 func_80091B90(Object_2F4* obj2F4) {
     obj2F4->unk_14C -= obj2F4->unk_14C * 0.1f;
     obj2F4->unk_144 -= obj2F4->unk_144 * 0.1f;
 
-    if ((obj2F4->obj.pos.y < D_80177940 + 40.0f) && (obj2F4->unk_0E8.y < 0.0f) && (gLevelType == LEVELTYPE_GROUND)) {
+    if ((obj2F4->obj.pos.y < D_80177940 + 40.0f) && (obj2F4->unk_0E8.y < 0.0f) && (gLevelType == LEVELTYPE_PLANET)) {
         obj2F4->obj.pos.y = D_80177940 + 40.0f;
         obj2F4->unk_0E8.y = 0.0f;
     }

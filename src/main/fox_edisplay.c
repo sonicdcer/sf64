@@ -447,7 +447,7 @@ void func_8005ADAC(Object_2F4* obj2F4) {
         Matrix_Pop(&gGfxMatrix);
     }
     sp5C = obj2F4->unk_168;
-    if ((sp5C != 0.0f) && (gLevelType == LEVELTYPE_GROUND)) {
+    if ((sp5C != 0.0f) && (gLevelType == LEVELTYPE_PLANET)) {
         sp54 = 0.0f;
         if (gFrameCount & 1) {
             sp54 = 180.0f;
@@ -537,7 +537,7 @@ void func_8005B388(Object_2F4* obj2F4) {
             D_80161630.unk_04 = D_80161630.unk_08 = D_80161630.unk_0C = D_80161630.unk_10 = 0.0f;
         }
         func_80053658(&D_80161630);
-    } else if (gLevelType == LEVELTYPE_GROUND) {
+    } else if (gLevelType == LEVELTYPE_PLANET) {
         gSPDisplayList(gMasterDisp++, D_40018A0);
     } else if (gPlayer[0].unk_204 == 2) {
         gSPDisplayList(gMasterDisp++, D_4003BD0);
@@ -1430,7 +1430,7 @@ void Object_58_Draw(Object_58* obj58) {
         sp3C = 6000.0f;
         sp38 = 0.9f;
     }
-    if ((gLevelType == LEVELTYPE_GROUND) || (gCurrentLevel == LEVEL_BOLSE)) {
+    if ((gLevelType == LEVELTYPE_PLANET) || (gCurrentLevel == LEVEL_BOLSE)) {
         Matrix_Translate(gGfxMatrix, obj58->obj.pos.x, obj58->obj.pos.y + D_8017847C, obj58->obj.pos.z, 1);
     } else {
         Matrix_Translate(gGfxMatrix, obj58->obj.pos.x, obj58->obj.pos.y, obj58->obj.pos.z, 1);

@@ -14,7 +14,7 @@
 void func_DF4260_801924A8(Object_80* arg0) {
     switch (arg0->unk_48) {
         case 0:
-            if (gPlayer[0].unk_07C < arg0->obj.pos.z) {
+            if (gPlayer[0].unk_074.z < arg0->obj.pos.z) {
                 D_80177AB0 = 0;
                 D_80177A98 = 0;
 

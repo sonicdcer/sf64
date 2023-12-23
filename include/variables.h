@@ -359,7 +359,7 @@ extern s32 D_80161A84;
 extern s32 D_80161A88;
 extern s32 D_80161A8C;
 extern u8 gGoldRingCount[4];
-extern u8 D_80161A94;
+extern u8 D_80161A94[4];
 extern s32 gHitCount;
 extern s32 gSavedHitCount;
 extern s16 gLifeCount[4];
@@ -421,15 +421,15 @@ extern s32 gSavedTeamShields[6];
 extern bool gVersusMode;
 //
 extern UNK_TYPE D_801778F0[6];
-extern u16 D_80177908[4];
+extern u16 gBoostButton[4];
 extern s32 D_80177910[6];
-extern u16 D_80177928[4];
+extern u16 gBrakeButton[4];
 extern u8 D_80177930;
 //
-extern u16 D_80177938[4];
+extern u16 gShootButton[4];
 extern f32 D_80177940;
 //
-extern u16 D_80177948[4];
+extern u16 gBombButton[4];
 extern f32 D_80177950;
 //
 extern f32 D_80177958[4];
@@ -493,7 +493,7 @@ extern s32 D_80177B90[7];
 extern s8 D_80177BAC;
 extern s32 D_80177BB0[7];
 //
-extern s16 D_80177BD0[4]; // up to [48]
+extern u16 D_80177BD0[4]; // up to [48]
 // 0x58
 extern u16 D_80177C30[4];
 extern UNK_TYPE D_80177C38[6];

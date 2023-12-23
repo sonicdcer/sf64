@@ -4,7 +4,7 @@
 #include "structs.h"
 
 typedef enum {
-    LEVELTYPE_GROUND,
+    LEVELTYPE_PLANET,
     LEVELTYPE_SPACE,
     LEVELTYPE_UNK2,
     LEVELTYPE_UNK3,
@@ -84,9 +84,9 @@ typedef enum {
 } LevelId;
 
 typedef enum {
-    VSTAGE_CORNERIA,
-    VSTAGE_KATINA,
-    VSTAGE_SECTOR_Z,
+    VS_STAGE_CORNERIA,
+    VS_STAGE_KATINA,
+    VS_STAGE_SECTOR_Z,
 } VsStage;
 
 #endif

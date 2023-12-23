@@ -751,7 +751,7 @@ void func_8005465C(s32 levelType) {
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
 
     switch (levelType) {
-        case LEVELTYPE_GROUND:
+        case LEVELTYPE_PLANET:
             gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
             break;
         case LEVELTYPE_SPACE:
@@ -811,7 +811,7 @@ void func_80054914(Player* player) {
             sp4C = -1.0f;
         }
         Matrix_Push(&gGfxMatrix);
-        Matrix_Translate(gGfxMatrix, player->unk_074 + sp34.x, player->unk_078 + sp34.y,
+        Matrix_Translate(gGfxMatrix, player->unk_074.x + sp34.x, player->unk_074.y + sp34.y,
                          player->unk_138 + player->unk_144 + sp34.z, 1);
         Matrix_RotateY(gGfxMatrix, -gPlayer[D_801778A0].unk_058, 1);
         Matrix_RotateX(gGfxMatrix, gPlayer[D_801778A0].unk_05C, 1);
@@ -1052,7 +1052,7 @@ void func_80055B58(Player* player) {
 
                 Matrix_MultVec3f(gCalcMatrix, &sp4C, &sp40);
                 Matrix_Push(&gGfxMatrix);
-                Matrix_Translate(gGfxMatrix, player->unk_074 + sp40.x, player->unk_078 + sp40.y,
+                Matrix_Translate(gGfxMatrix, player->unk_074.x + sp40.x, player->unk_074.y + sp40.y,
                                  player->unk_138 + player->unk_144 + sp40.z, 1);
                 Matrix_RotateY(gGfxMatrix, -gPlayer[D_801778A0].unk_058, 1);
                 Matrix_RotateX(gGfxMatrix, gPlayer[D_801778A0].unk_05C, 1);
@@ -1141,9 +1141,9 @@ void func_80055E98(Player* player) {
 
 void func_80056230(Player* player) {
     if ((player->unk_234 != 0) && (player->unk_1CC == 0) && (gCurrentLevel != LEVEL_VENOM_2) &&
-        (gCurrentLevel != LEVEL_TRAINING) && (gLevelType == LEVELTYPE_GROUND)) {
+        (gCurrentLevel != LEVEL_TRAINING) && (gLevelType == LEVELTYPE_PLANET)) {
         Matrix_Push(&gGfxMatrix);
-        Matrix_Translate(gGfxMatrix, player->unk_074, player->unk_078, player->unk_138 + player->unk_144, 1);
+        Matrix_Translate(gGfxMatrix, player->unk_074.x, player->unk_074.y, player->unk_138 + player->unk_144, 1);
         Matrix_RotateY(gGfxMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, 1);
         Matrix_RotateX(gGfxMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_4D8) * M_DTOR), 1);
         Matrix_RotateZ(gGfxMatrix, -((player->unk_0F8 + player->unk_0F0 + player->unk_134) * M_DTOR), 1);
@@ -1187,7 +1187,7 @@ void func_800564C0(Player* player, s32 arg1) {
             if (player->unk_1D4 != 0) {
                 Matrix_Translate(gGfxMatrix, 0.0f, D_8017847C, 0.0f, 1);
             }
-            Matrix_Translate(gGfxMatrix, player->unk_074, player->unk_078 + player->unk_18C + 30.0f,
+            Matrix_Translate(gGfxMatrix, player->unk_074.x, player->unk_074.y + player->unk_18C + 30.0f,
                              player->unk_138 + player->unk_144, 1);
             if (gVersusMode) {
                 for (i = 0; i < gCamCount; i++) {
@@ -1218,21 +1218,21 @@ void func_800564C0(Player* player, s32 arg1) {
             Matrix_SetGfxMtx(&gMasterDisp);
         } else if (player->unk_1CC == 3) {
             Matrix_Push(&gGfxMatrix);
-            Matrix_Translate(gGfxMatrix, player->unk_074, player->unk_078, player->unk_138 + player->unk_144, 1);
+            Matrix_Translate(gGfxMatrix, player->unk_074.x, player->unk_074.y, player->unk_138 + player->unk_144, 1);
             if (func_800563B4(player->unk_1C4, arg1) == 0) {
                 Matrix_Pop(&gGfxMatrix);
                 Matrix_Pop(&gGfxMatrix);
                 return;
             }
             Matrix_Pop(&gGfxMatrix);
-            Matrix_Translate(gCalcMatrix, player->unk_074, player->unk_078 + D_8017847C,
+            Matrix_Translate(gCalcMatrix, player->unk_074.x, player->unk_074.y + D_8017847C,
                              player->unk_138 + player->unk_144, 0);
             Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + player->unk_134 + 180.0f) * M_DTOR, 1);
             Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_134) * M_DTOR), 1);
             Matrix_RotateZ(gCalcMatrix, -((player->unk_0F8 + player->unk_0F0 + player->unk_134) * M_DTOR), 1);
             Matrix_Translate(gCalcMatrix, player->unk_084, player->unk_080, 0.0f, 1);
         } else {
-            Matrix_Translate(gGfxMatrix, player->unk_074, player->unk_078, player->unk_138 + player->unk_144, 1);
+            Matrix_Translate(gGfxMatrix, player->unk_074.x, player->unk_074.y, player->unk_138 + player->unk_144, 1);
             if (gVersusMode) {
                 for (i = 0; i < gCamCount; i++) {
                     if (D_80177B00[player->unk_1C4][i] != 0) {
@@ -1436,8 +1436,8 @@ void func_80057814(Player* player) {
     Vec3f sp2C;
     Vec3f sp20;
 
-    sp20.x = player->unk_074;
-    sp20.y = player->unk_078;
+    sp20.x = player->unk_074.x;
+    sp20.y = player->unk_074.y;
     sp20.z = player->unk_138;
     sp2C.x = player->unk_460.x;
     sp2C.y = player->unk_460.y;
@@ -1497,11 +1497,11 @@ void func_800578C4(Player* player) {
             Matrix_RotateX(gCalcMatrix, (player->unk_0E8 + D_800CA380) * M_DTOR, 0);
             Matrix_RotateY(gCalcMatrix, (player->unk_0E4 + D_800CA384) * M_DTOR, 1);
             Matrix_MultVec3f(gCalcMatrix, &sp4C, &sp40);
-            D_801779D8.x = player->unk_074 + sp40.x;
-            D_801779D8.y = player->unk_078 + sp40.y + 20.0f;
+            D_801779D8.x = player->unk_074.x + sp40.x;
+            D_801779D8.y = player->unk_074.y + sp40.y + 20.0f;
             D_801779D8.z = player->unk_138 + sp40.z;
-            D_801779E8.x = (__sinf(gFrameCount * 3.0f * M_DTOR) * 3.0f) + player->unk_074;
-            D_801779E8.y = (__cosf(gFrameCount * 4.0f * M_DTOR) * 3.0f) + player->unk_078;
+            D_801779E8.x = (__sinf(gFrameCount * 3.0f * M_DTOR) * 3.0f) + player->unk_074.x;
+            D_801779E8.y = (__cosf(gFrameCount * 4.0f * M_DTOR) * 3.0f) + player->unk_074.y;
             D_801779E8.z = (__sinf(gFrameCount * 3.5f * M_DTOR) * 3.0f) + player->unk_138;
             break;
     }
@@ -1538,19 +1538,19 @@ void func_80057D00(void) {
     if (gAllRangeMode == 0) {
         Matrix_RotateY(gCalcMatrix, player->unk_114 * M_DTOR, 0);
         Matrix_RotateX(gCalcMatrix, player->unk_120 * M_DTOR, 1);
-        sp78.x = player->unk_040.x - player->unk_074;
-        sp78.y = player->unk_040.y - player->unk_078;
+        sp78.x = player->unk_040.x - player->unk_074.x;
+        sp78.y = player->unk_040.y - player->unk_074.y;
         sp78.z = player->unk_040.z - (player->unk_138 + player->unk_144);
         Matrix_MultVec3f(gCalcMatrix, &sp78, &D_801779D8);
-        D_801779D8.x += player->unk_074;
-        D_801779D8.y += player->unk_078;
+        D_801779D8.x += player->unk_074.x;
+        D_801779D8.y += player->unk_074.y;
         D_801779D8.z += player->unk_138 + player->unk_144;
-        sp78.x = player->unk_04C.x - player->unk_074;
-        sp78.y = player->unk_04C.y - player->unk_078;
+        sp78.x = player->unk_04C.x - player->unk_074.x;
+        sp78.y = player->unk_04C.y - player->unk_074.y;
         sp78.z = player->unk_04C.z - (player->unk_138 + player->unk_144);
         Matrix_MultVec3f(gCalcMatrix, &sp78, &D_801779E8);
-        D_801779E8.x += player->unk_074;
-        D_801779E8.y += player->unk_078;
+        D_801779E8.x += player->unk_074.x;
+        D_801779E8.y += player->unk_074.y;
         D_801779E8.z += player->unk_138 + player->unk_144;
         if ((player->unk_238 != 0) && (player->unk_110 > 5.0f)) {
             D_801779E8.x += __sinf((f32) gFrameCount * 150.0f * M_DTOR) * player->unk_110 * 0.2f;
@@ -1585,7 +1585,7 @@ void func_80057D00(void) {
     Matrix_Push(&gGfxMatrix);
     Matrix_LookAt(gGfxMatrix, D_801779D8.x, D_801779D8.y, D_801779D8.z, D_801779E8.x, D_801779E8.y, D_801779E8.z,
                   sp6C.x, sp6C.y, sp6C.z, 1);
-    if ((gLevelType == LEVELTYPE_GROUND) || (gCurrentLevel == LEVEL_BOLSE)) {
+    if ((gLevelType == LEVELTYPE_PLANET) || (gCurrentLevel == LEVEL_BOLSE)) {
         if ((gCurrentLevel == LEVEL_TITANIA) && ((gPlayer[0].unk_1C8 != 2) || (gPlayer[0].unk_19C != 0))) {
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, 0.0f, D_8017847C, 0.0f, 1);
@@ -1601,8 +1601,8 @@ void func_80057D00(void) {
     Lights_SetOneLight(&gMasterDisp, gLight2x, gLight2y, gLight2z, gLight2R, gLight2G, gLight2B, gAmbientR, gAmbientG,
                        gAmbientB);
     for (i = 0, opponent = gPlayer; i < gCamCount; i++, opponent++) {
-        sp60.x = opponent->unk_074;
-        sp60.y = opponent->unk_078;
+        sp60.x = opponent->unk_074.x;
+        sp60.y = opponent->unk_074.y;
         sp60.z = opponent->unk_138;
         func_8005F670(&sp60);
         func_800564C0(opponent, 0);
@@ -1614,8 +1614,8 @@ void func_80057D00(void) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, 1);
         for (i = 0, opponent = gPlayer; i < gCamCount; i++, opponent++) {
-            sp60.x = opponent->unk_074;
-            sp60.y = opponent->unk_078;
+            sp60.x = opponent->unk_074.x;
+            sp60.y = opponent->unk_074.y;
             sp60.z = opponent->unk_138;
             func_800564C0(opponent, 1);
         }
@@ -1682,7 +1682,7 @@ void func_80057D00(void) {
     }
     for (i = 0, opponent = gPlayer; i < gCamCount; i++, opponent++) {
         if (D_800CA224[i] != 0) {
-            if (D_800D2860[i] != 0) {
+            if (D_800D2860[i]) {
                 func_80053F7C(opponent);
             }
             if (opponent->unk_1CC == 1) {

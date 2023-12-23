@@ -123,3 +123,5 @@
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E9F1D0/E9F1D0/func_E9F1D0_80195E44.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E9F1D0/E9F1D0/func_E9F1D0_801961AC.s")
+
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E9F1D0/E9F1D0/D_E9F1D0_801A6B90.s")

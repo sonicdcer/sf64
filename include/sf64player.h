@@ -75,7 +75,7 @@ typedef struct Player {
     /* 0x020 */ char pad20[8];
     /* 0x028 */ f32 unk_028;
     /* 0x02C */ f32 unk_02C;
-    /* 0x030 */ char pad30[4];
+    /* 0x030 */ f32 unk_030;
     /* 0x034 */ f32 unk_034; 
     /* 0x038 */ char pad38[8];
     /* 0x040 */ Vec3f unk_040;
@@ -87,14 +87,12 @@ typedef struct Player {
     /* 0x068 */ f32 unk_068;
     /* 0x06C */ f32 unk_06C;
     /* 0x070 */ f32 unk_070;
-    /* 0x074 */ f32 unk_074;
-    /* 0x078 */ f32 unk_078;
-    /* 0x07C */ f32 unk_07C;
+    /* 0x074 */ Vec3f unk_074;
     /* 0x080 */ f32 unk_080;
     /* 0x084 */ f32 unk_084;
     /* 0x088 */ f32 unk_088;
-    /* 0x08C */ Vec3f unk_08C;
-    /* 0x098 */ f32 unk_098;
+    /* 0x08C */ f32 unk_08C;
+    /* 0x090 */ Vec3f unk_090;
     /* 0x09C */ f32 unk_09C;
     /* 0x0A0 */ f32 unk_0A0;
     /* 0x0A4 */ f32 unk_0A4;

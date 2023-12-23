@@ -350,7 +350,7 @@ void Graphics_ThreadEntry(void* arg0) {
         if (gFillScreen == 0) {
             osViSwapBuffer(&gFrameBuffers[(gFrameCounter - 1) % 3]);
         }
-        func_80007FE4(&gFrameBuffers[(gFrameCounter - 1) % 3], 320, 16);
+        func_80007FE4(&gFrameBuffers[(gFrameCounter - 1) % 3], SCREEN_WIDTH, 16);
 
         var_v1 = MIN(D_80137E78, 4);
         var_v2 = MAX(var_v1, gGfxVImsgQueue.validCount + 1);

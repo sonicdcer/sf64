@@ -501,9 +501,9 @@ void func_8007905C(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 
         obj8C->unk_54.x = (Rand_ZeroOne() - 0.5f) * 10.0f;
         obj8C->unk_54.z = (Rand_ZeroOne() - 0.5f) * 10.0f;
     } else if ((gCurrentLevel == LEVEL_BOLSE) && ((arg4 == 5.11f) || (arg4 == 7.22f))) {
-        sp3C.x = gPlayer[0].unk_074;
-        sp3C.y = gPlayer[0].unk_078;
-        sp3C.z = gPlayer[0].unk_07C;
+        sp3C.x = gPlayer[0].unk_074.x;
+        sp3C.y = gPlayer[0].unk_074.y;
+        sp3C.z = gPlayer[0].unk_074.z;
         yAng = Math_Atan2F(sp3C.x - posX, sp3C.z - posZ);
         sp38 = sqrtf(SQ(sp3C.x - posX) + SQ(sp3C.z - posZ));
         xAng = -Math_Atan2F(sp3C.y - posY, sp38);
@@ -518,7 +518,7 @@ void func_8007905C(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 
         obj8C->unk_54.z = sp48.z;
     } else {
         obj8C->unk_54.y =
-            (gLevelType == LEVELTYPE_GROUND) ? (Rand_ZeroOne() * 7.0f) + 7.0f : (Rand_ZeroOne() - 0.5f) * 10.0f;
+            (gLevelType == LEVELTYPE_PLANET) ? (Rand_ZeroOne() * 7.0f) + 7.0f : (Rand_ZeroOne() - 0.5f) * 10.0f;
         obj8C->unk_54.x = (Rand_ZeroOne() - 0.5f) * 10.0f;
         obj8C->unk_54.z = (Rand_ZeroOne() - 0.5f) * 10.0f;
     }
@@ -591,7 +591,7 @@ void func_8007968C(Object_8C* obj8C) {
     obj8C->obj.rot.x += obj8C->unk_60.x;
     obj8C->obj.rot.y += obj8C->unk_60.y;
     obj8C->obj.rot.z += obj8C->unk_60.z;
-    if (gLevelType == LEVELTYPE_GROUND) {
+    if (gLevelType == LEVELTYPE_PLANET) {
         obj8C->unk_54.y -= 0.5f;
     }
     if ((gCurrentLevel == LEVEL_BOLSE) && (gPlayer[0].unk_1C8 == 7) && (D_80177A80 >= 176)) {
@@ -840,7 +840,7 @@ void func_8007A5F8(Object_8C* obj8C, Vec3f* arg1, u32 arg2) {
     Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
-void func_8007A6F0(Vec3f* arg0, u32 arg1) {
+void func_8007A6F0(Vec3f* arg0, s32 arg1) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
@@ -858,8 +858,8 @@ void func_8007A748(Object_8C* obj8C) {
 }
 
 s32 func_8007A774(Player* player, Object_8C* obj8C, f32 arg2) {
-    if ((fabsf(player->unk_138 - obj8C->obj.pos.z) < arg2) && (fabsf(player->unk_074 - obj8C->obj.pos.x) < arg2) &&
-        (fabsf(player->unk_078 - obj8C->obj.pos.y) < arg2) && (player->unk_498 == 0)) {
+    if ((fabsf(player->unk_138 - obj8C->obj.pos.z) < arg2) && (fabsf(player->unk_074.x - obj8C->obj.pos.x) < arg2) &&
+        (fabsf(player->unk_074.y - obj8C->obj.pos.y) < arg2) && (player->unk_498 == 0)) {
         func_800A6CD0(player, 0, obj8C->info.damage);
         return 1;
     } else {

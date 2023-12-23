@@ -3072,12 +3072,12 @@ void func_EBFBE0_8019A6DC(void) {
         if (gControllerPress[i].button & A_BUTTON) {
             func_80019218(0x49000003, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             if (D_80161A28 == 0) {
-                gVersusStage = VSTAGE_CORNERIA;
+                gVersusStage = VS_STAGE_CORNERIA;
                 if (D_EBFBE0_801B93D0 == 30) {
-                    gVersusStage = VSTAGE_KATINA;
+                    gVersusStage = VS_STAGE_KATINA;
                 }
             } else {
-                gVersusStage = VSTAGE_SECTOR_Z;
+                gVersusStage = VS_STAGE_SECTOR_Z;
             }
 
             D_EBFBE0_801B9374 = 10;

@@ -19,7 +19,7 @@ f32 D_80161A3C;
 f32 D_80161A40;
 f32 D_80161A44;
 
-s32 D_800D2860[4] = { 1, 1, 1, 1 };
+s32 D_800D2860[4] = { true, true, true, true };
 s32 D_800D2870 = 0;
 s32 D_800D2874[] = { 0, 160, 0, 160 };
 s32 D_800D2884[] = { 159, 319, 159, 319 };
@@ -390,16 +390,16 @@ void func_800A26C0(void) {
                 gNextGameState = D_80177C94 = D_80177CAC = D_80177CB4 = D_80177CBC = D_80177CC4 = D_80177C9C =
                     D_80177CA4 = D_80161A5C = D_80161A34 = 0;
                 for (i = 0; i < 4; i++) {
-                    D_80177908[i] = L_CBUTTONS;
-                    D_80177928[i] = D_CBUTTONS;
-                    D_80177938[i] = A_BUTTON;
-                    D_80177948[i] = B_BUTTON;
+                    gBoostButton[i] = L_CBUTTONS;
+                    gBrakeButton[i] = D_CBUTTONS;
+                    gShootButton[i] = A_BUTTON;
+                    gBombButton[i] = B_BUTTON;
 
                     D_80177958[i] = 1.0f;
 
                     D_80177858[i] = 3;
                     D_80177870[i] = 0;
-                    D_800D2860[i] = R_CBUTTONS;
+                    D_800D2860[i] = true;
                     D_80178380[i] = 0;
                 }
                 gVersusStage = 0;
@@ -491,7 +491,7 @@ void func_800A26C0(void) {
             gDPFillRectangle(gMasterDisp++, SCREEN_WIDTH / 2 - 3, 8, SCREEN_WIDTH / 2 + 2, SCREEN_HEIGHT - 8);
             gDPFillRectangle(gMasterDisp++, 8, SCREEN_HEIGHT / 2 - 3, SCREEN_WIDTH - 8, SCREEN_HEIGHT / 2 + 2);
 
-            if (gLevelType == LEVELTYPE_GROUND) {
+            if (gLevelType == LEVELTYPE_PLANET) {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x0, 0, 0, 0, 255);
             } else {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x0, 100, 100, 255, 255);
