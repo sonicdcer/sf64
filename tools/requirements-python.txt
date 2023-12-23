@@ -7,3 +7,5 @@ intervaltree
 colorama
 pygfxd
 n64img>=0.1.4
+GitPython
+colour
