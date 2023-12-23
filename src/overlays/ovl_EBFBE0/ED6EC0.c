@@ -1523,6 +1523,22 @@ void func_EBFBE0_801AD048(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AD11C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AD718.s")
+void func_EBFBE0_801AD718(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg5, f32 arg6, f32 arg7, f32 arg8) {
+    Vec3f sp2C;
+    Vec3f sp20;
+
+    sp20.x = 0.0f;
+    sp20.y = 0.0f;
+    sp20.z = arg6;
+
+    Matrix_Translate(gCalcMatrix, arg0, arg1, arg2, 0);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * arg8, 1);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * arg7, 1);
+    Matrix_MultVec3f(gCalcMatrix, &sp20, &sp2C);
+
+    *arg3 = sp2C.x;
+    *arg4 = sp2C.y;
+    *arg5 = sp2C.z;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AD7EC.s")
