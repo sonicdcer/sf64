@@ -16,7 +16,8 @@ typedef struct {
     /* 0x10 */ f32 posX;
     /* 0x14 */ f32 posY;
     /* 0x18 */ f32 posZ;
-    /* 0x1C */ char pad1C[0x8];
+    /* 0x1C */ char pad1C[0x4];
+    /* 0x20 */ f32 scale;
     /* 0x24 */ s32 alpha;
     /* 0x28 */ s32 unk_28;
     /* 0x2C */ char pad2C[0x0C];
@@ -24,6 +25,10 @@ typedef struct {
 
 extern Planet planet[15];
 extern UnkStruct_D_EBFBE0_801AFD18 D_EBFBE0_801AFD18[24];
+extern f32 D_EBFBE0_801AFFF4; // yRot of something
+extern f32 D_EBFBE0_801AFFF8; // xRot of something
+extern f32 D_EBFBE0_801AFFFC; // yRot of something
+extern f32 D_EBFBE0_801B0000; // xRot of something
 extern s32 D_EBFBE0_801B0004[47];
 extern s32 D_EBFBE0_801B00C0[47][96];
 extern Gfx D_EBFBE0_801B4A40[];
@@ -74,6 +79,7 @@ extern Matrix D_EBFBE0_801CDA60[];
 extern Matrix D_EBFBE0_801CDE20[15]; // bss // planet related
 extern Matrix D_EBFBE0_801CE1E0[15];
 extern Matrix D_EBFBE0_801CE5A0[];
+extern Vec3f D_EBFBE0_801CE960[]; // pos of something
 extern f32 D_EBFBE0_801CEA54;
 extern f32 D_EBFBE0_801CEAA8;
 extern f32 D_EBFBE0_801CEAAC;
@@ -974,7 +980,72 @@ s32 func_EBFBE0_801A6DAC(s32 planet) {
     return ret;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A6EC0.s")
+void func_EBFBE0_801A6EC0(s32 planetId) {
+    f32 dirX;
+    f32 dirY;
+    f32 dirZ;
+    Vec3f dst;
+    Vec3f src;
+    f32 x1;
+    f32 y1;
+    f32 x2;
+    f32 y2;
+    f32 z2;
+
+    src.x = 0.0f;
+    src.y = 0.0f;
+    src.z = 0.0f;
+
+    Matrix_Push(&gGfxMatrix);
+
+    Matrix_Mult(gGfxMatrix, &D_EBFBE0_801CDA60[planetId], 1);
+
+    if (planet[planetId].unk_28 == 2) {
+        if (planetId == 2) {
+            Matrix_RotateX(gGfxMatrix, M_DTOR * D_EBFBE0_801AFFF8, 1);
+            Matrix_RotateY(gGfxMatrix, M_DTOR * D_EBFBE0_801AFFF4, 1);
+        } else {
+            Matrix_RotateX(gGfxMatrix, M_DTOR * D_EBFBE0_801B0000, 1);
+            Matrix_RotateY(gGfxMatrix, M_DTOR * D_EBFBE0_801AFFFC, 1);
+        }
+    }
+
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * (planet[planetId].zAngle), 1);
+
+    Matrix_Scale(gGfxMatrix, planet[planetId].scale, planet[planetId].scale, planet[planetId].scale, 1);
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    if (planet[planetId].unk_28 == 2) {
+        x2 = D_EBFBE0_801CE960[14].x - D_EBFBE0_801CE960[planetId].x;
+        y2 = D_EBFBE0_801CE960[14].y - D_EBFBE0_801CE960[planetId].y;
+        z2 = D_EBFBE0_801CE960[14].z - D_EBFBE0_801CE960[planetId].z;
+
+        x1 = Math_Atan2F(y2, sqrtf(SQ(x2) + SQ(z2)));
+        y1 = -Math_Atan2F(x2, z2);
+
+        src.x = 0.0f;
+        src.y = 0.0f;
+        src.z = 100.0f;
+
+        Matrix_RotateY(gCalcMatrix, M_DTOR * (-D_EBFBE0_801CDA10 - y1), 0);
+        Matrix_RotateX(gCalcMatrix, M_DTOR * (-D_EBFBE0_801CDA0C - x1), 1);
+
+        Matrix_MultVec3f(gCalcMatrix, &src, &dst);
+
+        dirX = dst.x;
+        dirY = dst.y;
+        dirZ = dst.z;
+        Lights_SetOneLight(&gMasterDisp, dirX, dirY, dirZ, 80, 80, 60, 10, 10, 8);
+    }
+
+    Matrix_Copy(&D_EBFBE0_801CDE20[planetId], gGfxMatrix);
+
+    Matrix_Pop(&gGfxMatrix);
+
+    D_EBFBE0_801AFFF4 += 0.1f;
+    D_EBFBE0_801AFFFC -= 0.09f;
+}
 
 void func_EBFBE0_801A7230(s32 planetId) {
     switch (planet[planetId].unk_28) {
