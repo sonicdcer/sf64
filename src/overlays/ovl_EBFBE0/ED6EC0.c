@@ -10,7 +10,8 @@ typedef struct {
 } UnkStruct_D_EBFBE0_801AFD18; // size = 0x1C
 
 typedef struct {
-    /* 0x00 */ char pad0[0xC];
+    /* 0x00 */ s32 id;
+    /* 0x04 */ char pad0[0x8];
     /* 0x0C */ f32 zAngle;
     /* 0x10 */ f32 posX;
     /* 0x14 */ f32 posY;
@@ -26,6 +27,7 @@ extern s32 D_EBFBE0_801B0004[47];
 extern s32 D_EBFBE0_801B00C0[47][96];
 extern Gfx D_EBFBE0_801B4A40[];
 extern void* D_EBFBE0_801B68D4[];
+extern Gfx* D_EBFBE0_801B68F8[];
 extern f32 D_EBFBE0_801CD818[];
 extern s32 D_EBFBE0_801CD83C;
 extern s32 D_EBFBE0_801CD8A0[15]; // bss
@@ -974,7 +976,36 @@ s32 func_EBFBE0_801A6DAC(s32 planet) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A7230.s")
 
+#ifdef IMPORT_DATA
+void func_EBFBE0_801A74F4(s32 planetId) {
+    static float D_EBFBE0_801B6A74 = 0.0f;
+    s32 alpha = planet[13].alpha;
+    
+    if (planet[planetId].alpha > 128)
+        alpha = 128;
+
+    RCP_SetupDL(&gMasterDisp, 0x43);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha);
+    gDPSetEnvColor(gMasterDisp++, 0x1f, 0, 0, 0);
+
+    Matrix_Push(&gGfxMatrix);
+
+    Matrix_Copy(gGfxMatrix, &D_EBFBE0_801CDE20[planetId]);
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * D_EBFBE0_801B6A74, 1);
+    Matrix_Scale(gGfxMatrix, 0.8f, 0.8f, 0.8f, 1);
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    gSPDisplayList(gMasterDisp++, D_EBFBE0_801B68F8[planet[planetId].id]);
+
+    Matrix_Pop(&gGfxMatrix);
+
+    D_EBFBE0_801B6A74 -= 0.2f;
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A74F4.s")
+#endif
 
 void func_EBFBE0_801A7684(s32 planetId) {
     s32 r;
