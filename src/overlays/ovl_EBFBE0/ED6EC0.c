@@ -18,7 +18,8 @@ typedef struct {
     /* 0x18 */ f32 posZ;
     /* 0x1C */ char pad1C[0x8];
     /* 0x24 */ s32 alpha;
-    /* 0x28 */ char pad28[0x10];
+    /* 0x28 */ s32 unk_28;
+    /* 0x2C */ char pad2C[0x0C];
 } Planet; // size = 0x38
 
 extern Planet planet[15];
@@ -31,20 +32,21 @@ extern Gfx* D_EBFBE0_801B68F8[];
 extern f32 D_EBFBE0_801CD818[];
 extern s32 D_EBFBE0_801CD83C;
 extern s32 D_EBFBE0_801CD8A0[15]; // bss
-extern s32 D_EBFBE0_801CD964;     // bss
-extern s32 D_EBFBE0_801CD968;     // bss
-extern s32 D_EBFBE0_801CD96C;     // bss
-extern s32 D_EBFBE0_801CD974;
-extern f32 D_EBFBE0_801CD9F4; // x
-extern f32 D_EBFBE0_801CD9F8; // y
-extern f32 D_EBFBE0_801CD9FC; // z
+extern f32 D_EBFBE0_801CD9F4;     // x
+extern f32 D_EBFBE0_801CD9F8;     // y
+extern f32 D_EBFBE0_801CD9FC;     // z
 extern s32 D_EBFBE0_801CD900[15];
 extern s32 D_EBFBE0_801CD940; // bss
-extern s32 D_EBFBE0_801CD944; // bss
+extern s32 D_EBFBE0_801CD944; // mapState // bss
 extern s32 D_EBFBE0_801CD948;
 extern s32 D_EBFBE0_801CD954;
+extern s32 D_EBFBE0_801CD958;
 extern s32 D_EBFBE0_801CD960;
+extern s32 D_EBFBE0_801CD964; // bss
+extern s32 D_EBFBE0_801CD968; // bss
+extern s32 D_EBFBE0_801CD96C; // bss
 extern s32 D_EBFBE0_801CD970;
+extern s32 D_EBFBE0_801CD974;
 extern s32 D_EBFBE0_801CD978;
 extern s32 D_EBFBE0_801CD980;
 extern s32 D_EBFBE0_801CD984;
@@ -974,7 +976,54 @@ s32 func_EBFBE0_801A6DAC(s32 planet) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A6EC0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A7230.s")
+void func_EBFBE0_801A7230(s32 planetId) {
+    switch (planet[planetId].unk_28) {
+        case 0:
+            if ((D_EBFBE0_801CD944 == 3 || planetId == D_EBFBE0_801CD954 || planetId == D_EBFBE0_801CD958) &&
+                D_EBFBE0_801CD944 != 1 && D_EBFBE0_801CD944 != 7) {
+                RCP_SetupDL(&gMasterDisp, 0x35);
+            } else {
+                RCP_SetupDL(&gMasterDisp, 0x29);
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, planet[planetId].alpha);
+            }
+            break;
+
+        case 2:
+            if ((D_EBFBE0_801CD944 == 3 || planetId == D_EBFBE0_801CD954 || planetId == D_EBFBE0_801CD958) &&
+                D_EBFBE0_801CD944 != 1 && D_EBFBE0_801CD944 != 7) {
+                RCP_SetupDL(&gMasterDisp, 0x17);
+            } else {
+                RCP_SetupDL(&gMasterDisp, 0x2E);
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, planet[planetId].alpha);
+            }
+            break;
+
+        case 1:
+        case 4:
+            RCP_SetupDL(&gMasterDisp, 0x40);
+
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, planet[planetId].alpha);
+            break;
+
+        case 3:
+            RCP_SetupDL(&gMasterDisp, 0x43);
+
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 240, 0, 0, planet[planetId].alpha);
+            gDPSetEnvColor(gMasterDisp++, 31, 0, 0, 0);
+
+            planet[planetId].zAngle += 0.1f;
+            break;
+    }
+
+    Matrix_Push(&gGfxMatrix);
+
+    Matrix_Copy(gGfxMatrix, &D_EBFBE0_801CDE20[planetId]);
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    gSPDisplayList(gMasterDisp++, D_EBFBE0_801B68F8[planet[planetId].id]);
+
+    Matrix_Pop(&gGfxMatrix);
+}
 
 #ifdef IMPORT_DATA
 void func_EBFBE0_801A74F4(s32 planetId) {
