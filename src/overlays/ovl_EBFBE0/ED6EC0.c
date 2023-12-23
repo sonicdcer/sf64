@@ -980,7 +980,7 @@ s32 func_EBFBE0_801A6DAC(s32 planet) {
 void func_EBFBE0_801A74F4(s32 planetId) {
     static float D_EBFBE0_801B6A74 = 0.0f;
     s32 alpha = planet[13].alpha;
-    
+
     if (planet[planetId].alpha > 128)
         alpha = 128;
 
