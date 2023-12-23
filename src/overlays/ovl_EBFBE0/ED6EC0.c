@@ -1475,14 +1475,14 @@ void func_EBFBE0_801A9EE4(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AA778.s")
 
-#ifndef DATA_IMPORT_PENDING
+#ifndef IMPORT_DATA
 extern f32 D_EBFBE0_801B6B00; // likely in-function static
 extern f32 D_EBFBE0_801B6B04; // likely in-function static
 extern f32 D_EBFBE0_801B6B08; // likely in-function static
 #endif
 
 void func_EBFBE0_801AB17C(f32 x, f32 y, f32 z) {
-#ifdef DATA_IMPORT_PENDING
+#ifdef IMPORT_DATA
     static f32 D_EBFBE0_801B6B00 = 0.23f; // scale
     static f32 D_EBFBE0_801B6B04 = 4.4f;  // posX
     static f32 D_EBFBE0_801B6B08 = 1.0f;  // posY
@@ -1568,54 +1568,54 @@ void func_EBFBE0_801ABCDC(s32 arg0, s32 alpha) {
 
 void func_EBFBE0_801ABF1C(void) {
     Matrix_Push(&gGfxMatrix);
+    {
+        Matrix_LookAt(gGfxMatrix, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -400.0f, 0.0f, 1.0f, 0.0f, 1);
 
-    Matrix_LookAt(gGfxMatrix, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -400.0f, 0.0f, 1.0f, 0.0f, 1);
+        Matrix_SetGfxMtx(&gMasterDisp);
 
-    Matrix_SetGfxMtx(&gMasterDisp);
+        RCP_SetupDL(&gMasterDisp, 0x15);
 
-    RCP_SetupDL(&gMasterDisp, 0x15);
+        Matrix_Push(&gGfxMatrix);
+        {
+            Matrix_Translate(gGfxMatrix, D_EBFBE0_801CEA88, D_EBFBE0_801CEA8C, D_EBFBE0_801CEA90, 1);
+            Matrix_RotateY(gGfxMatrix, M_DTOR * D_EBFBE0_801CEA94, 1);
 
-    Matrix_Push(&gGfxMatrix);
+            func_EBFBE0_801AD048();
 
-    Matrix_Translate(gGfxMatrix, D_EBFBE0_801CEA88, D_EBFBE0_801CEA8C, D_EBFBE0_801CEA90, 1);
-    Matrix_RotateY(gGfxMatrix, M_DTOR * D_EBFBE0_801CEA94, 1);
+            Matrix_Scale(gGfxMatrix, D_EBFBE0_801CEA78, D_EBFBE0_801CEA7C, 1.0f, 1);
 
-    func_EBFBE0_801AD048();
+            Matrix_SetGfxMtx(&gMasterDisp);
 
-    Matrix_Scale(gGfxMatrix, D_EBFBE0_801CEA78, D_EBFBE0_801CEA7C, 1.0f, 1);
+            gSPDisplayList(gMasterDisp++, D_EBFBE0_801AFA30[D_EBFBE0_801CD810]);
 
-    Matrix_SetGfxMtx(&gMasterDisp);
+            Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_EBFBE0_801AFA30[D_EBFBE0_801CD810]);
+            gSPDisplayList(gMasterDisp++, D_605A120);
+        }
+        Matrix_Pop(&gGfxMatrix);
 
-    Matrix_SetGfxMtx(&gMasterDisp);
+        RCP_SetupDL(&gMasterDisp, 0x43);
 
-    gSPDisplayList(gMasterDisp++, D_605A120);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 32, 32, 255, D_EBFBE0_801CEA98);
+        gDPSetEnvColor(gMasterDisp++, 207, 207, 255, 0);
 
-    Matrix_Pop(&gGfxMatrix);
+        Matrix_Push(&gGfxMatrix);
+        {
+            Matrix_Translate(gGfxMatrix, D_EBFBE0_801CEA88, D_EBFBE0_801CEA8C - 1.5f, D_EBFBE0_801CEA90, 1);
+            Matrix_RotateY(gGfxMatrix, M_DTOR * D_EBFBE0_801CEA94, 1);
 
-    RCP_SetupDL(&gMasterDisp, 0x43);
+            func_EBFBE0_801AD048();
 
-    gDPSetPrimColor(gMasterDisp++, 0, 0, 32, 32, 255, D_EBFBE0_801CEA98);
-    gDPSetEnvColor(gMasterDisp++, 207, 207, 255, 0);
+            Matrix_Scale(gGfxMatrix, D_EBFBE0_801CEA80, D_EBFBE0_801CEA84, 3.3f, 1);
 
-    Matrix_Push(&gGfxMatrix);
+            Matrix_SetGfxMtx(&gMasterDisp);
 
-    Matrix_Translate(gGfxMatrix, D_EBFBE0_801CEA88, D_EBFBE0_801CEA8C - 1.5f, D_EBFBE0_801CEA90, 1);
-    Matrix_RotateY(gGfxMatrix, M_DTOR * D_EBFBE0_801CEA94, 1);
-
-    func_EBFBE0_801AD048();
-
-    Matrix_Scale(gGfxMatrix, D_EBFBE0_801CEA80, D_EBFBE0_801CEA84, 3.3f, 1);
-
-    Matrix_SetGfxMtx(&gMasterDisp);
-
-    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-    gSPDisplayList(gMasterDisp++, D_604C350);
-    gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
-
-    Matrix_Pop(&gGfxMatrix);
-
+            gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+            gSPDisplayList(gMasterDisp++, D_604C350);
+            gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+        }
+        Matrix_Pop(&gGfxMatrix);
+    }
     Matrix_Pop(&gGfxMatrix);
 }
 
@@ -1623,6 +1623,7 @@ void func_EBFBE0_801ABF1C(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AC530.s")
 
+// needs in-function static
 #ifdef IMPORT_DATA
 void func_EBFBE0_801AC80C(s32 arg0) {
     static f32 D_EBFBE0_801B6B30 = 0.0f;
