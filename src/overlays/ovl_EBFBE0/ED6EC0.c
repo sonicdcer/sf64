@@ -38,6 +38,7 @@ extern s32 D_EBFBE0_801B00C0[47][96];
 extern Gfx D_EBFBE0_801B4A40[];
 extern void* D_EBFBE0_801B68D4[];
 extern Gfx* D_EBFBE0_801B68F8[];
+extern s32 D_EBFBE0_801B6B24[]; // data
 extern f32 D_EBFBE0_801B6B30;
 extern f32 D_EBFBE0_801CD818[];
 extern s32 D_EBFBE0_801CD83C;
@@ -1512,15 +1513,58 @@ void func_EBFBE0_801AB284(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AB300.s")
 
+#ifndef IMPORT_DATA
+
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B750C.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B7510.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B7514.s")
 
+#endif
+
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AB978.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801ABCDC.s")
+void func_EBFBE0_801ABCDC(s32 arg0, s32 alpha) {
+#ifdef IMPORT_DATA
+    static s32 D_EBFBE0_801B6B24[] = { 81.0f, 125.0f, 170.0f };
+#endif
+
+    Matrix_Push(&gGfxMatrix);
+
+    Matrix_LookAt(gGfxMatrix, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -400.0f, 0.0f, 1.0f, 0.0f, 1);
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    RCP_SetupDL(&gMasterDisp, 0x29);
+
+    gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha);
+
+    Matrix_Push(&gGfxMatrix);
+
+    Matrix_Translate(gGfxMatrix, D_EBFBE0_801B6B24[arg0], -35.0f, -400.0f, 1);
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * -40.0f, 1);
+    Matrix_Scale(gGfxMatrix, 0.3f, 0.3f, 1.0f, 1);
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    gSPDisplayList(gMasterDisp++, D_500B600);
+
+    Matrix_Pop(&gGfxMatrix);
+    Matrix_Push(&gGfxMatrix);
+
+    Matrix_Translate(gGfxMatrix, D_EBFBE0_801B6B24[arg0], -35.0f, -400.0f, 1);
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * 40.0f, 1);
+    Matrix_Scale(gGfxMatrix, 0.3f, 0.3f, 1.0f, 1);
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    gSPDisplayList(gMasterDisp++, D_500B600);
+
+    Matrix_Pop(&gGfxMatrix);
+    Matrix_Pop(&gGfxMatrix);
+}
 
 void func_EBFBE0_801ABF1C(void) {
     Matrix_Push(&gGfxMatrix);
