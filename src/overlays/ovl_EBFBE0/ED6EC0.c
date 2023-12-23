@@ -10,12 +10,13 @@ typedef struct {
 } UnkStruct_D_EBFBE0_801AFD18; // size = 0x1C
 
 typedef struct {
-    /* 0x00 */ char pad0[0x10];
+    /* 0x00 */ char pad0[0xC];
+    /* 0x0C */ f32 zAngle;
     /* 0x10 */ f32 posX;
     /* 0x14 */ f32 posY;
     /* 0x18 */ f32 posZ;
     /* 0x1C */ char pad1C[0x8];
-    /* 0x24 */ s32 primColor;
+    /* 0x24 */ s32 alpha;
     /* 0x28 */ char pad28[0x10];
 } Planet; // size = 0x38
 
@@ -245,12 +246,12 @@ void func_EBFBE0_8019FA1C(void) {
     for (i = 0; i < 15; i++) {
         if (i == D_EBFBE0_801CD954) {
             if ((i == 3) || (i == 4) || (i == 5)) {
-                planet[i].primColor = 144;
+                planet[i].alpha = 144;
             } else {
-                planet[i].primColor = 255;
+                planet[i].alpha = 255;
             }
         } else {
-            planet[i].primColor = 0;
+            planet[i].alpha = 0;
         }
     }
 }
@@ -974,7 +975,7 @@ void func_EBFBE0_801A7684(s32 planetId) {
 
     RCP_SetupDL(&gMasterDisp, 0x40);
 
-    gDPSetPrimColor(gMasterDisp++, 0, 0, r, g, b, planet[planetId].primColor);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, r, g, b, planet[planetId].alpha);
 
     Matrix_Push(&gGfxMatrix);
     Matrix_Copy(gGfxMatrix, &D_EBFBE0_801CDE20[planetId]);
@@ -985,7 +986,28 @@ void func_EBFBE0_801A7684(s32 planetId) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A77B0.s")
+void func_EBFBE0_801A77B0(s32 planetId) {
+    RCP_SetupDL(&gMasterDisp, 0x40);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, planet[planetId].alpha);
+
+    Matrix_Push(&gGfxMatrix);
+
+    Matrix_Copy(gGfxMatrix, &D_EBFBE0_801CDE20[planetId]);
+
+    if ((planetId == 10) || (planetId == 7) || (planetId == 8)) {
+        Matrix_RotateY(gGfxMatrix, M_DTOR * 180.0f, 1);
+    }
+
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * planet[planetId].zAngle, 1);
+    Matrix_Scale(gGfxMatrix, 1.6f, 1.6f, 1.6f, 1);
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    gSPDisplayList(gMasterDisp++, D_605C230);
+
+    Matrix_Pop(&gGfxMatrix);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A791C.s")
 
