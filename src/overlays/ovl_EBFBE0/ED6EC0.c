@@ -24,7 +24,11 @@ typedef struct {
 } Planet; // size = 0x38
 
 extern Planet planet[15];
+extern s32 D_EBFBE0_801AF420[2];
+extern u16* D_EBFBE0_801AF428[15][2];
+extern Gfx* D_EBFBE0_801AFA30[];
 extern UnkStruct_D_EBFBE0_801AFD18 D_EBFBE0_801AFD18[24];
+extern f32 D_EBFBE0_801AFFB8[];
 extern f32 D_EBFBE0_801AFFF4; // yRot of something
 extern f32 D_EBFBE0_801AFFF8; // xRot of something
 extern f32 D_EBFBE0_801AFFFC; // yRot of something
@@ -105,9 +109,6 @@ extern s32 D_EBFBE0_801CEFC8;
 extern s32 D_EBFBE0_801CEFD4;
 extern s32 D_EBFBE0_801CF00C;
 extern s32 D_EBFBE0_801CF018; // bss
-extern s32 D_EBFBE0_801AF420[2];
-extern u16* D_EBFBE0_801AF428[15][2];
-extern f32 D_EBFBE0_801AFFB8[];
 
 extern Gfx D_601D1F0[];
 extern u8 D_601DC10[];
@@ -117,9 +118,22 @@ extern u16 D_601DCD8[];
 extern Gfx D_6047E70[];
 extern u8 D_6047F80[];
 extern u8 D_6048F80[];
+extern Gfx D_604C350[];
 extern Gfx D_604C540[];
 extern Gfx D_604CDE0[];
 extern Gfx D_604D680[];
+extern Gfx D_605A120[];
+
+extern s32 D_EBFBE0_801CD810;
+extern f32 D_EBFBE0_801CEA78;
+extern f32 D_EBFBE0_801CEA7C;
+extern f32 D_EBFBE0_801CEA80;
+extern f32 D_EBFBE0_801CEA84;
+extern f32 D_EBFBE0_801CEA88;
+extern f32 D_EBFBE0_801CEA8C;
+extern f32 D_EBFBE0_801CEA90;
+extern f32 D_EBFBE0_801CEA94;
+extern s32 D_EBFBE0_801CEA98;
 
 void func_EBFBE0_8019E800(void);
 void func_EBFBE0_8019E99C(void);
@@ -1508,7 +1522,58 @@ void func_EBFBE0_801AB284(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801ABCDC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801ABF1C.s")
+void func_EBFBE0_801ABF1C(void) {
+    Matrix_Push(&gGfxMatrix);
+
+    Matrix_LookAt(gGfxMatrix, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -400.0f, 0.0f, 1.0f, 0.0f, 1);
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    RCP_SetupDL(&gMasterDisp, 0x15);
+
+    Matrix_Push(&gGfxMatrix);
+
+    Matrix_Translate(gGfxMatrix, D_EBFBE0_801CEA88, D_EBFBE0_801CEA8C, D_EBFBE0_801CEA90, 1);
+    Matrix_RotateY(gGfxMatrix, M_DTOR * D_EBFBE0_801CEA94, 1);
+
+    func_EBFBE0_801AD048();
+
+    Matrix_Scale(gGfxMatrix, D_EBFBE0_801CEA78, D_EBFBE0_801CEA7C, 1.0f, 1);
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    gSPDisplayList(gMasterDisp++, D_EBFBE0_801AFA30[D_EBFBE0_801CD810]);
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    gSPDisplayList(gMasterDisp++, D_605A120);
+
+    Matrix_Pop(&gGfxMatrix);
+
+    RCP_SetupDL(&gMasterDisp, 0x43);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 32, 32, 255, D_EBFBE0_801CEA98);
+    gDPSetEnvColor(gMasterDisp++, 207, 207, 255, 0);
+
+    Matrix_Push(&gGfxMatrix);
+
+    Matrix_Translate(gGfxMatrix, D_EBFBE0_801CEA88, D_EBFBE0_801CEA8C - 1.5f, D_EBFBE0_801CEA90, 1);
+    Matrix_RotateY(gGfxMatrix, M_DTOR * D_EBFBE0_801CEA94, 1);
+
+    func_EBFBE0_801AD048();
+
+    Matrix_Scale(gGfxMatrix, D_EBFBE0_801CEA80, D_EBFBE0_801CEA84, 3.3f, 1);
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+    gSPDisplayList(gMasterDisp++, D_604C350);
+    gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+
+    Matrix_Pop(&gGfxMatrix);
+
+    Matrix_Pop(&gGfxMatrix);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AC200.s")
 
