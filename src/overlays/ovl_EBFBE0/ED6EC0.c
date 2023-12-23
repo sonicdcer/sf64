@@ -63,17 +63,21 @@ extern f32 D_EBFBE0_801CDA30;
 extern f32 D_EBFBE0_801CDA40;
 extern f32 D_EBFBE0_801CDA44;
 extern f32 D_EBFBE0_801CDA48;
+extern Matrix D_EBFBE0_801CDA60[];
 extern Matrix D_EBFBE0_801CDE20[15]; // bss // planet related
+extern Matrix D_EBFBE0_801CE1E0[15];
+extern Matrix D_EBFBE0_801CE5A0[];
 extern f32 D_EBFBE0_801CEA54;
 extern f32 D_EBFBE0_801CEAA8;
 extern f32 D_EBFBE0_801CEAAC;
 extern f32 D_EBFBE0_801CEAB0;
-extern s32 D_EBFBE0_801CEB48[3];
-extern s32 D_EBFBE0_801CEFC8;
-extern s32 D_EBFBE0_801CEFD4;
+extern f32 D_EBFBE0_801CEA18[];
 extern f32 D_EBFBE0_801CEA58;
 extern f32 D_EBFBE0_801CEA5C;
 extern f32 D_EBFBE0_801CEA60;
+extern f32 D_EBFBE0_801CEAB8[];
+extern f32 D_EBFBE0_801CEAF8[];
+extern s32 D_EBFBE0_801CEB48[3];
 extern s32 D_EBFBE0_801CEEC4;
 extern s32 D_EBFBE0_801CEEC8;
 extern s32 D_EBFBE0_801CEED8;
@@ -81,10 +85,13 @@ extern f32 D_EBFBE0_801CEEDC;
 extern Vec3f D_EBFBE0_801CEEE8[9];
 extern Vec3f D_EBFBE0_801CEF58[9];
 extern s32 D_EBFBE0_801CEFC4; // bss
+extern s32 D_EBFBE0_801CEFC8;
+extern s32 D_EBFBE0_801CEFD4;
 extern s32 D_EBFBE0_801CF00C;
 extern s32 D_EBFBE0_801CF018; // bss
-extern u16* D_EBFBE0_801AF428[15][2];
 extern s32 D_EBFBE0_801AF420[2];
+extern u16* D_EBFBE0_801AF428[15][2];
+extern f32 D_EBFBE0_801AFFB8[];
 
 extern Gfx D_601D1F0[];
 extern Gfx D_6047E70[];
@@ -1081,7 +1088,39 @@ void func_EBFBE0_801A7BEC(f32* zAngle, f32 next, f32 scale) {
     *zAngle += next;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A7D3C.s")
+void func_EBFBE0_801A7D3C(s32 i) {
+    Vec3f src;
+    Vec3f dest;
+    f32 scale;
+
+    src.x = 0.0f;
+    src.y = 0.0f;
+    src.z = 0.0f;
+
+    scale = 7.0f + (Rand_ZeroOne() * 8.0f);
+
+    Matrix_Push(&gGfxMatrix);
+
+    Matrix_Mult(gGfxMatrix, &D_EBFBE0_801CDA60[i], 1);
+    Matrix_RotateY(gGfxMatrix, M_DTOR * D_EBFBE0_801CEAF8[i], 1);
+    Matrix_Translate(gGfxMatrix, D_EBFBE0_801AFFB8[i], 0.0f, 0.0f, 1);
+    Matrix_RotateY(gGfxMatrix, M_DTOR * -D_EBFBE0_801CEAF8[i], 1);
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    Matrix_Copy(&D_EBFBE0_801CE5A0[i], gGfxMatrix);
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * D_EBFBE0_801CEAB8[i], 1);
+    Matrix_Scale(gGfxMatrix, scale, scale, scale, 1);
+    Matrix_MultVec3f(gGfxMatrix, &src, &dest);
+
+    D_EBFBE0_801CEA18[i] = dest.z;
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    Matrix_Copy(&D_EBFBE0_801CE1E0[i], gGfxMatrix);
+
+    Matrix_Pop(&gGfxMatrix);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A7F1C.s")
 
