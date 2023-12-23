@@ -63,7 +63,7 @@ extern f32 D_EBFBE0_801CDA30;
 extern f32 D_EBFBE0_801CDA40;
 extern f32 D_EBFBE0_801CDA44;
 extern f32 D_EBFBE0_801CDA48;
-extern Matrix D_EBFBE0_801CDE20[15]; // bss
+extern Matrix D_EBFBE0_801CDE20[15]; // bss // planet related
 extern f32 D_EBFBE0_801CEA54;
 extern f32 D_EBFBE0_801CEAA8;
 extern f32 D_EBFBE0_801CEAAC;
@@ -88,6 +88,7 @@ extern s32 D_EBFBE0_801AF420[2];
 
 extern Gfx D_601D1F0[];
 extern u8 D_6047F80[];
+extern Gfx D_604C540[];
 extern u8 D_6048F80[];
 
 void func_EBFBE0_801A0954(void);
@@ -1009,7 +1010,27 @@ void func_EBFBE0_801A77B0(s32 planetId) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A791C.s")
+void func_EBFBE0_801A791C(s32 planetId) {
+    RCP_SetupDL(&gMasterDisp, 0x43);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 175, 175, planet[planetId].alpha);
+    gDPSetEnvColor(gMasterDisp++, 73, 31, 15, 0);
+
+    Matrix_Push(&gGfxMatrix);
+
+    Matrix_Copy(gGfxMatrix, &D_EBFBE0_801CDE20[planetId]);
+
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * -planet[planetId].zAngle, 1);
+    Matrix_RotateX(gGfxMatrix, M_DTOR * 20.0f, 1);
+
+    Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, 1);
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    gSPDisplayList(gMasterDisp++, D_604C540);
+
+    Matrix_Pop(&gGfxMatrix);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A7A84.s")
 
