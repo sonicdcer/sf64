@@ -23,6 +23,7 @@ extern Planet planet[15];
 extern UnkStruct_D_EBFBE0_801AFD18 D_EBFBE0_801AFD18[24];
 extern s32 D_EBFBE0_801B0004[47];
 extern s32 D_EBFBE0_801B00C0[47][96];
+extern Gfx D_EBFBE0_801B4A40[];
 extern void* D_EBFBE0_801B68D4[];
 extern f32 D_EBFBE0_801CD818[];
 extern s32 D_EBFBE0_801CD83C;
@@ -61,6 +62,7 @@ extern f32 D_EBFBE0_801CDA30;
 extern f32 D_EBFBE0_801CDA40;
 extern f32 D_EBFBE0_801CDA44;
 extern f32 D_EBFBE0_801CDA48;
+extern Matrix D_EBFBE0_801CDE20[15]; // bss
 extern f32 D_EBFBE0_801CEA54;
 extern f32 D_EBFBE0_801CEAA8;
 extern f32 D_EBFBE0_801CEAAC;
@@ -703,7 +705,7 @@ void func_EBFBE0_801A3440(f32 arg0) {
     Vec3f vec[2];
 
     if (D_EBFBE0_801CEED8 != -1) {
-        func_EBFBE0_801A3550(&vec, &D_EBFBE0_801CEEE8[D_EBFBE0_801CEED8], &D_EBFBE0_801CEF58[D_EBFBE0_801CEED8],
+        func_EBFBE0_801A3550(vec, &D_EBFBE0_801CEEE8[D_EBFBE0_801CEED8], &D_EBFBE0_801CEF58[D_EBFBE0_801CEED8],
                              D_EBFBE0_801CEEDC);
         D_EBFBE0_801CD9F4 = vec[0].x;
         D_EBFBE0_801CD9F8 = vec[0].y;
@@ -959,7 +961,29 @@ s32 func_EBFBE0_801A6DAC(s32 planet) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A74F4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A7684.s")
+void func_EBFBE0_801A7684(s32 arg0) {
+    s32 r;
+    s32 g;
+    s32 b;
+
+    r = g = b = 255;
+
+    if (arg0 == 7) {
+        r = g = b = 64;
+    }
+
+    RCP_SetupDL(&gMasterDisp, 0x40);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, r, g, b, planet[arg0].unk_24);
+
+    Matrix_Push(&gGfxMatrix);
+    Matrix_Copy(gGfxMatrix, &D_EBFBE0_801CDE20[arg0]);
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    gSPDisplayList(gMasterDisp++, D_EBFBE0_801B4A40);
+
+    Matrix_Pop(&gGfxMatrix);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A77B0.s")
 
