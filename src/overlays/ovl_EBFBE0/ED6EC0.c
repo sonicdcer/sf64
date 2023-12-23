@@ -36,9 +36,7 @@ extern s32 D_EBFBE0_801CD974;
 extern f32 D_EBFBE0_801CD9F4; // x
 extern f32 D_EBFBE0_801CD9F8; // y
 extern f32 D_EBFBE0_801CD9FC; // z
-extern f32 D_EBFBE0_801CDA20;
-extern f32 D_EBFBE0_801CDA24;
-extern f32 D_EBFBE0_801CDA28;
+extern s32 D_EBFBE0_801CD900[15];
 extern s32 D_EBFBE0_801CD940; // bss
 extern s32 D_EBFBE0_801CD944; // bss
 extern s32 D_EBFBE0_801CD948;
@@ -46,6 +44,8 @@ extern s32 D_EBFBE0_801CD954;
 extern s32 D_EBFBE0_801CD960;
 extern s32 D_EBFBE0_801CD970;
 extern s32 D_EBFBE0_801CD978;
+extern s32 D_EBFBE0_801CD980;
+extern s32 D_EBFBE0_801CD984;
 extern s32 D_EBFBE0_801CD9B8;
 extern s32 D_EBFBE0_801CD9BC;
 extern s32 D_EBFBE0_801CD9C0;
@@ -58,6 +58,9 @@ extern f32 D_EBFBE0_801CDA10;
 extern f32 D_EBFBE0_801CDA14;
 extern f32 D_EBFBE0_801CDA18;
 extern f32 D_EBFBE0_801CDA1C;
+extern f32 D_EBFBE0_801CDA20;
+extern f32 D_EBFBE0_801CDA24;
+extern f32 D_EBFBE0_801CDA28;
 extern f32 D_EBFBE0_801CDA2C;
 extern f32 D_EBFBE0_801CDA30;
 extern f32 D_EBFBE0_801CDA40;
@@ -99,6 +102,7 @@ extern u8 D_6047F80[];
 extern u8 D_6048F80[];
 extern Gfx D_604C540[];
 extern Gfx D_604CDE0[];
+extern Gfx D_604D680[];
 
 void func_EBFBE0_801A0954(void);
 void func_EBFBE0_801A1528(void);
@@ -1122,7 +1126,37 @@ void func_EBFBE0_801A7D3C(s32 i) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A7F1C.s")
+void func_EBFBE0_801A7F1C(s32 arg0) {
+    s32 alpha;
+
+    if (D_EBFBE0_801CD980 != 1) {
+        alpha = D_EBFBE0_801CD900[arg0];
+    } else {
+        alpha = D_EBFBE0_801CD984;
+        D_EBFBE0_801CD900[arg0] = 255;
+    }
+
+    if (alpha != 0) {
+        RCP_SetupDL(&gMasterDisp, 0x43);
+
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha);
+        gDPSetEnvColor(gMasterDisp++, 80, 80, 0, 0);
+
+        Matrix_Push(&gGfxMatrix);
+
+        Matrix_Copy(gGfxMatrix, &D_EBFBE0_801CE1E0[arg0]);
+        Matrix_SetGfxMtx(&gMasterDisp);
+
+        gSPDisplayList(gMasterDisp++, D_604D680);
+
+        Matrix_Pop(&gGfxMatrix);
+
+        D_EBFBE0_801CEAB8[arg0] += 45.0f;
+        if (D_EBFBE0_801CD980 == 0) {
+            D_EBFBE0_801CEAF8[arg0] += 5.0f;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A809C.s")
 
@@ -1214,7 +1248,7 @@ void func_EBFBE0_801A9DE8(void) {
     }
 }
 
-#ifndef IMPORT_DATA_PENDING
+#ifndef IMPORT_DATA
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B74C0.s")
 
