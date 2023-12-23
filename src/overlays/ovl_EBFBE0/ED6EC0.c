@@ -107,6 +107,10 @@ extern u16* D_EBFBE0_801AF428[15][2];
 extern f32 D_EBFBE0_801AFFB8[];
 
 extern Gfx D_601D1F0[];
+extern u8 D_601DC10[];
+extern u16 D_601DC90[];
+extern u8 D_601DCA0[];
+extern u16 D_601DCD8[];
 extern Gfx D_6047E70[];
 extern u8 D_6047F80[];
 extern u8 D_6048F80[];
@@ -1541,4 +1545,24 @@ void func_EBFBE0_801AD718(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f3
     *arg5 = sp2C.z;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AD7EC.s")
+void func_EBFBE0_801AD7EC(s32 xPos, s32 yPos, s32 number) {
+    RCP_SetupDL(&gMasterDisp, 0x55);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+
+    TextureRect_4bCI(&gMasterDisp, D_601DC10, D_601DC90, 16, 16, xPos, yPos, 1.0f, 1.0f);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
+
+    TextureRect_4bCI(&gMasterDisp, D_601DCA0, D_601DCD8, 16, 7, xPos + 18.0f, yPos + 9.0f, 1.0f, 1.0f);
+
+    RCP_SetupDL(&gMasterDisp, 0x53);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
+
+    if (number >= 10) {
+        Graphics_DisplaySmallNumber(xPos + 33.0f - ((func_8008BCBC(number) - 1) * 8) + 3, yPos + 8.0f, number);
+    } else {
+        Graphics_DisplaySmallNumber(xPos + 33.0f, yPos + 8.0f, number);
+    }
+}
