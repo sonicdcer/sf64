@@ -961,23 +961,23 @@ s32 func_EBFBE0_801A6DAC(s32 planet) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A74F4.s")
 
-void func_EBFBE0_801A7684(s32 arg0) {
+void func_EBFBE0_801A7684(s32 planetId) {
     s32 r;
     s32 g;
     s32 b;
 
     r = g = b = 255;
 
-    if (arg0 == 7) {
+    if (planetId == 7) {
         r = g = b = 64;
     }
 
     RCP_SetupDL(&gMasterDisp, 0x40);
 
-    gDPSetPrimColor(gMasterDisp++, 0, 0, r, g, b, planet[arg0].primColor);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, r, g, b, planet[planetId].primColor);
 
     Matrix_Push(&gGfxMatrix);
-    Matrix_Copy(gGfxMatrix, &D_EBFBE0_801CDE20[arg0]);
+    Matrix_Copy(gGfxMatrix, &D_EBFBE0_801CDE20[planetId]);
     Matrix_SetGfxMtx(&gMasterDisp);
 
     gSPDisplayList(gMasterDisp++, D_EBFBE0_801B4A40);
