@@ -15,7 +15,7 @@ typedef struct {
     /* 0x14 */ f32 posY;
     /* 0x18 */ f32 posZ;
     /* 0x1C */ char pad1C[0x8];
-    /* 0x24 */ s32 unk_24; // primColor?
+    /* 0x24 */ s32 primColor;
     /* 0x28 */ char pad28[0x10];
 } Planet; // size = 0x38
 
@@ -245,12 +245,12 @@ void func_EBFBE0_8019FA1C(void) {
     for (i = 0; i < 15; i++) {
         if (i == D_EBFBE0_801CD954) {
             if ((i == 3) || (i == 4) || (i == 5)) {
-                planet[i].unk_24 = 144;
+                planet[i].primColor = 144;
             } else {
-                planet[i].unk_24 = 255;
+                planet[i].primColor = 255;
             }
         } else {
-            planet[i].unk_24 = 0;
+            planet[i].primColor = 0;
         }
     }
 }
@@ -974,7 +974,7 @@ void func_EBFBE0_801A7684(s32 arg0) {
 
     RCP_SetupDL(&gMasterDisp, 0x40);
 
-    gDPSetPrimColor(gMasterDisp++, 0, 0, r, g, b, planet[arg0].unk_24);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, r, g, b, planet[arg0].primColor);
 
     Matrix_Push(&gGfxMatrix);
     Matrix_Copy(gGfxMatrix, &D_EBFBE0_801CDE20[arg0]);
