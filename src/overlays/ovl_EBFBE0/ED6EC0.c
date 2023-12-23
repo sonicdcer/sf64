@@ -87,6 +87,7 @@ extern u16* D_EBFBE0_801AF428[15][2];
 extern s32 D_EBFBE0_801AF420[2];
 
 extern Gfx D_601D1F0[];
+extern Gfx D_6047E70[];
 extern u8 D_6047F80[];
 extern u8 D_6048F80[];
 extern Gfx D_604C540[];
@@ -1053,7 +1054,32 @@ void func_EBFBE0_801A7A84(s32 planetId) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A7BEC.s")
+void func_EBFBE0_801A7BEC(f32* arg0, f32 arg1, f32 scale) {
+    s32 alpha = planet[13].alpha;
+
+    if (planet[13].alpha > 128) {
+        alpha = 128;
+    }
+
+    RCP_SetupDL(&gMasterDisp, 0x43);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 63, 95, 30, alpha);
+    gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
+
+    Matrix_Push(&gGfxMatrix);
+
+    Matrix_Copy(gGfxMatrix, &D_EBFBE0_801CDE20[13]);
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * *arg0, 1);
+    Matrix_Scale(gGfxMatrix, scale, scale, scale, 1);
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    gSPDisplayList(gMasterDisp++, D_6047E70);
+
+    Matrix_Pop(&gGfxMatrix);
+
+    *arg0 += arg1;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A7D3C.s")
 
