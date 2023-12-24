@@ -324,80 +324,80 @@ void func_EBFBE0_8019FC04(void) {
     }
 }
 
-bool func_EBFBE0_8019FD1C(u32 arg0, s32 arg1) {
+bool func_EBFBE0_8019FD1C(LevelId levelId, s32 arg1) {
     s32 ret;
-    s32 var_v0;
+    s32 planetSaveSlot;
 
-    switch (arg0) {
-        case 1:
-            var_v0 = 0;
+    switch (levelId) {
+        case LEVEL_METEO:
+            planetSaveSlot = PLANET_METEO;
             break;
 
-        case 3:
-            var_v0 = 1;
+        case LEVEL_AREA_6:
+            planetSaveSlot = PLANET_AREA_6;
             break;
 
-        case 17:
-            var_v0 = 2;
+        case LEVEL_BOLSE:
+            planetSaveSlot = PLANET_BOLSE;
             break;
 
-        case 18:
-            var_v0 = 3;
+        case LEVEL_SECTOR_Z:
+            planetSaveSlot = PLANET_SECTOR_Z;
             break;
 
-        case 2:
-            var_v0 = 4;
+        case LEVEL_SECTOR_X:
+            planetSaveSlot = PLANET_SECTOR_X;
             break;
 
-        case 5:
-            var_v0 = 5;
+        case LEVEL_SECTOR_Y:
+            planetSaveSlot = PLANET_SECTOR_Y;
             break;
 
-        case 16:
-            var_v0 = 6;
+        case LEVEL_KATINA:
+            planetSaveSlot = PLANET_KATINA;
             break;
 
-        case 11:
-            var_v0 = 7;
+        case LEVEL_MACBETH:
+            planetSaveSlot = PLANET_MACBETH;
             break;
 
-        case 8:
-            var_v0 = 8;
+        case LEVEL_ZONESS:
+            planetSaveSlot = PLANET_ZONESS;
             break;
 
-        case 0:
-            var_v0 = 9;
+        case LEVEL_CORNERIA:
+            planetSaveSlot = PLANET_CORNERIA;
             break;
 
-        case 12:
-            var_v0 = 10;
+        case LEVEL_TITANIA:
+            planetSaveSlot = PLANET_TITANIA;
             break;
 
-        case 13:
-            var_v0 = 11;
+        case LEVEL_AQUAS:
+            planetSaveSlot = PLANET_AQUAS;
             break;
 
-        case 14:
-            var_v0 = 12;
+        case LEVEL_FORTUNA:
+            planetSaveSlot = PLANET_FORTUNA;
             break;
 
-        case 7:
-            var_v0 = 13;
+        case LEVEL_SOLAR:
+            planetSaveSlot = SAVE_SLOT_SOLAR;
             break;
 
-        case 6:
-            var_v0 = 14;
+        case LEVEL_VENOM_1:
+            planetSaveSlot = SAVE_SLOT_VENOM_1;
             break;
 
-        case 19:
-            var_v0 = 15;
+        case LEVEL_VENOM_SW:
+            planetSaveSlot = SAVE_SLOT_VENOM_2;
             break;
 
-        case 9:
+        case LEVEL_VENOM_2:
             if (D_8017827C == 0) {
-                var_v0 = 14;
+                planetSaveSlot = SAVE_SLOT_VENOM_1;
             } else {
-                var_v0 = 15;
+                planetSaveSlot = SAVE_SLOT_VENOM_2;
             }
             break;
     }
@@ -406,21 +406,21 @@ bool func_EBFBE0_8019FD1C(u32 arg0, s32 arg1) {
 
     switch (arg1) {
         case 0:
-            if (!(gSaveFile.save.data.planet[var_v0].unk_5 & 1)) {
-                gSaveFile.save.data.planet[var_v0].unk_5 = 1;
+            if (!(gSaveFile.save.data.planet[planetSaveSlot].unk_5 & 1)) {
+                gSaveFile.save.data.planet[planetSaveSlot].unk_5 = 1;
                 ret = true;
             }
             break;
 
         case 1:
             if (gExpertMode) {
-                if (!(gSaveFile.save.data.planet[var_v0].unk_3 & 1)) {
-                    gSaveFile.save.data.planet[var_v0].unk_3 = 1;
+                if (!(gSaveFile.save.data.planet[planetSaveSlot].unk_3 & 1)) {
+                    gSaveFile.save.data.planet[planetSaveSlot].unk_3 = 1;
                     ret = true;
                 }
             } else {
-                if (!(gSaveFile.save.data.planet[var_v0].unk_6 & 1)) {
-                    gSaveFile.save.data.planet[var_v0].unk_6 = 1;
+                if (!(gSaveFile.save.data.planet[planetSaveSlot].unk_6 & 1)) {
+                    gSaveFile.save.data.planet[planetSaveSlot].unk_6 = 1;
                     ret = true;
                 }
             }
@@ -428,13 +428,13 @@ bool func_EBFBE0_8019FD1C(u32 arg0, s32 arg1) {
 
         case 2:
             if (gExpertMode) {
-                if (!(gSaveFile.save.data.planet[var_v0].unk_4 & 1)) {
-                    gSaveFile.save.data.planet[var_v0].unk_4 = 1;
+                if (!(gSaveFile.save.data.planet[planetSaveSlot].unk_4 & 1)) {
+                    gSaveFile.save.data.planet[planetSaveSlot].unk_4 = 1;
                     ret = true;
                 }
             } else {
-                if (!(gSaveFile.save.data.planet[var_v0].unk_7 & 1)) {
-                    gSaveFile.save.data.planet[var_v0].unk_7 = 1;
+                if (!(gSaveFile.save.data.planet[planetSaveSlot].unk_7 & 1)) {
+                    gSaveFile.save.data.planet[planetSaveSlot].unk_7 = 1;
                     ret = true;
                 }
             }
