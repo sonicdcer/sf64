@@ -405,10 +405,10 @@ extern s32 D_80177858[4];
 extern s32 D_80177868;
 //
 extern s32 D_80177870[4];
-extern s32 gAllRangeMode;
+extern s32 gLevelMode;
 //
 extern s32 gHandicap[4];
-extern s32 D_80177898;
+extern s32 gDrawMode;
 extern s32 gVersusStage;
 extern s32 gPlayerNum;
 extern s32 D_801778A4;
@@ -493,8 +493,9 @@ extern s32 D_80177B90[7];
 extern s8 D_80177BAC;
 extern s32 D_80177BB0[7];
 //
-extern u16 D_Timer_80177BD0[4]; // up to [48]
-// 0x58
+extern u16 D_Timer_80177BD0[4];
+extern s32 D_80177BD8[24]; // overruns D_80177C30?
+// -0x8??
 extern u16 D_80177C30[4];
 extern UNK_TYPE D_80177C38[6];
 extern s32 D_80177C50;

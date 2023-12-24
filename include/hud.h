@@ -67,7 +67,7 @@ extern s32 D_801617FC;
 extern s32 gHitCount;
 extern s32 D_80177838;
 extern s32 D_80177854;
-extern s32 gAllRangeMode;
+extern s32 gLevelMode;
 extern s32 gTeamShields[];
 extern s32 D_801778BC;
 extern s32 gVersusMode;

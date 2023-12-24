@@ -187,13 +187,13 @@ void func_EBFBE0_8019E800(void) {
     gNextGameState = 4;
     D_80161A34 = 5;
     D_80177868 = 2;
-    D_80177898 = 0;
+    gDrawMode = DRAWMODE_0;
 }
 
 void func_EBFBE0_8019E85C(void) {
     switch (D_80177868) {
         case 0:
-            if (D_8017783C == 0) {
+            if (D_Timer_8017783C == 0) {
                 D_80177868 = 1;
             }
             break;
@@ -223,18 +223,18 @@ void func_EBFBE0_8019E8D0(void) {
 
     switch (D_80177B40) {
         case 0:
-            if (D_8017783C == 0) {
+            if (D_Timer_8017783C == 0) {
                 D_80177B40 = 1;
             }
             break;
 
         case 1:
-            D_80177898 = 0;
+            gDrawMode = DRAWMODE_0;
             func_EBFBE0_8019E99C();
             break;
 
         case 2:
-            D_80177898 = 3;
+            gDrawMode = DRAWMODE_3;
             func_EBFBE0_8019FF48();
             break;
     }
@@ -406,21 +406,21 @@ bool func_EBFBE0_8019FD1C(LevelId levelId, s32 arg1) {
 
     switch (arg1) {
         case 0:
-            if (!(gSaveFile.save.data.planet[planetSaveSlot].unk_5 & 1)) {
-                gSaveFile.save.data.planet[planetSaveSlot].unk_5 = 1;
+            if (!(gSaveFile.save.data.planet[planetSaveSlot].played & 1)) {
+                gSaveFile.save.data.planet[planetSaveSlot].played = 1;
                 ret = true;
             }
             break;
 
         case 1:
             if (gExpertMode) {
-                if (!(gSaveFile.save.data.planet[planetSaveSlot].unk_3 & 1)) {
-                    gSaveFile.save.data.planet[planetSaveSlot].unk_3 = 1;
+                if (!(gSaveFile.save.data.planet[planetSaveSlot].expertMedal & 1)) {
+                    gSaveFile.save.data.planet[planetSaveSlot].expertMedal = 1;
                     ret = true;
                 }
             } else {
-                if (!(gSaveFile.save.data.planet[planetSaveSlot].unk_6 & 1)) {
-                    gSaveFile.save.data.planet[planetSaveSlot].unk_6 = 1;
+                if (!(gSaveFile.save.data.planet[planetSaveSlot].normalMedal & 1)) {
+                    gSaveFile.save.data.planet[planetSaveSlot].normalMedal = 1;
                     ret = true;
                 }
             }
@@ -428,13 +428,13 @@ bool func_EBFBE0_8019FD1C(LevelId levelId, s32 arg1) {
 
         case 2:
             if (gExpertMode) {
-                if (!(gSaveFile.save.data.planet[planetSaveSlot].unk_4 & 1)) {
-                    gSaveFile.save.data.planet[planetSaveSlot].unk_4 = 1;
+                if (!(gSaveFile.save.data.planet[planetSaveSlot].expertClear & 1)) {
+                    gSaveFile.save.data.planet[planetSaveSlot].expertClear = 1;
                     ret = true;
                 }
             } else {
-                if (!(gSaveFile.save.data.planet[planetSaveSlot].unk_7 & 1)) {
-                    gSaveFile.save.data.planet[planetSaveSlot].unk_7 = 1;
+                if (!(gSaveFile.save.data.planet[planetSaveSlot].normalClear & 1)) {
+                    gSaveFile.save.data.planet[planetSaveSlot].normalClear = 1;
                     ret = true;
                 }
             }
@@ -823,8 +823,8 @@ void func_EBFBE0_801A4F8C(void) {
     D_80178410 = 0;
     gGameState = 5;
     D_80177868 = 0;
-    D_8017783C = 2;
-    D_80177898 = 0;
+    D_Timer_8017783C = 2;
+    gDrawMode = DRAWMODE_0;
 }
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A4FC4.s")
@@ -833,7 +833,7 @@ void func_EBFBE0_801A4F8C(void) {
 
 s32 func_EBFBE0_801A5770(void) {
     bool ret = false;
-    s8 y = gControllerPress[D_80177AF8].stick_y;
+    s8 y = gControllerPress[gMainController].stick_y;
 
     if ((y > -40) && (y < 40)) {
         y = 0;
@@ -849,7 +849,7 @@ s32 func_EBFBE0_801A5770(void) {
     }
 
     if (ret) {
-        func_80019218(0x49000002U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(0x49000002, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
 
     return ret;
@@ -949,7 +949,7 @@ bool func_EBFBE0_801A62FC(PlanetId planet) {
             break;
     }
 
-    if (gSaveFile.save.data.planet[planetSaveSlot].unk_5 & 1) {
+    if (gSaveFile.save.data.planet[planetSaveSlot].played & 1) {
         ret = false;
     }
 
@@ -1104,11 +1104,11 @@ s32 func_EBFBE0_801A655C(s32 arg0, s32 arg1) {
 }
 
 void func_EBFBE0_801A659C(void) {
-    func_8001A838(0x1100004CU);
-    func_8001A838(0x1100204CU);
+    func_8001A838(0x1100004C);
+    func_8001A838(0x1100204C);
 
     if (D_EBFBE0_801CD954 != 9) {
-        func_80019218(0x49000003U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(0x49000003, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
 
     D_EBFBE0_801CEFC8 = 0;
@@ -1118,9 +1118,9 @@ void func_EBFBE0_801A659C(void) {
 
 void func_EBFBE0_801A6628(void) {
     gGameState = 7;
-    D_8017783C = 2;
+    D_Timer_8017783C = 2;
     D_80177854 = 0;
-    D_80177898 = 0;
+    gDrawMode = DRAWMODE_0;
     gHitCount = 0;
 
     func_800A5844();
@@ -1222,13 +1222,13 @@ s32 func_EBFBE0_801A6DAC(PlanetId planetId) {
 
     if (planetId == PLANET_VENOM) {
         if (gExpertMode) {
-            var_v0 = gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].unk_3 & 1;
-            var_a0 = gSaveFile.save.data.planet[SAVE_SLOT_VENOM_1].unk_4 & 1 |
-                     gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].unk_4 & 1;
+            var_v0 = gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].expertMedal & 1;
+            var_a0 = gSaveFile.save.data.planet[SAVE_SLOT_VENOM_1].expertClear & 1 |
+                     gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].expertClear & 1;
         } else {
-            var_v0 = gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].unk_6 & 1;
-            var_a0 = gSaveFile.save.data.planet[SAVE_SLOT_VENOM_1].unk_7 & 1 |
-                     gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].unk_7 & 1;
+            var_v0 = gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].normalMedal & 1;
+            var_a0 = gSaveFile.save.data.planet[SAVE_SLOT_VENOM_1].normalClear & 1 |
+                     gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].normalClear & 1;
         }
     } else {
         planetSaveSlot = planetId;
@@ -1238,11 +1238,11 @@ s32 func_EBFBE0_801A6DAC(PlanetId planetId) {
         }
 
         if (gExpertMode) {
-            var_v0 = gSaveFile.save.data.planet[planetSaveSlot].unk_3 & 1;
-            var_a0 = gSaveFile.save.data.planet[planetSaveSlot].unk_4 & 1;
+            var_v0 = gSaveFile.save.data.planet[planetSaveSlot].expertMedal & 1;
+            var_a0 = gSaveFile.save.data.planet[planetSaveSlot].expertClear & 1;
         } else {
-            var_v0 = gSaveFile.save.data.planet[planetSaveSlot].unk_6 & 1;
-            var_a0 = gSaveFile.save.data.planet[planetSaveSlot].unk_7 & 1;
+            var_v0 = gSaveFile.save.data.planet[planetSaveSlot].normalMedal & 1;
+            var_a0 = gSaveFile.save.data.planet[planetSaveSlot].normalClear & 1;
         }
     }
 
@@ -1664,7 +1664,7 @@ void func_EBFBE0_801A9DE8(void) {
     }
 
     if (gFrameCount & mask) {
-        func_EBFBE0_801AD7EC(254, 16, gLifeCount[D_801778A0]);
+        func_EBFBE0_801AD7EC(254, 16, gLifeCount[gPlayerNum]);
     }
 
     if ((D_80161A34 == 7) || (D_80161A34 == 5)) {

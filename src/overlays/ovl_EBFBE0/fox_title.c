@@ -87,18 +87,18 @@ void func_EBFBE0_80187754(void) {
     switch (D_80177AE0) {
         case 0:
             if (D_Timer_8017783C == 0) {
-                D_80177898 = 0;
+                gDrawMode = DRAWMODE_0;
                 D_80177AE0 = 1;
             }
             break;
 
         case 1:
-            D_80177898 = 0;
+            gDrawMode = DRAWMODE_0;
             func_EBFBE0_801875E0();
             break;
 
         case 2:
-            D_80177898 = 1;
+            gDrawMode = DRAWMODE_1;
             func_EBFBE0_801877F0();
             break;
     }
@@ -246,7 +246,7 @@ void func_EBFBE0_80187B00(void) {
                 D_80178410 = 0;
                 gRadioState = 0;
                 D_EBFBE0_801B82C0 = 0;
-                D_80177898 = 0;
+                gDrawMode = DRAWMODE_0;
                 func_8001DC6C(0, 0x16);
                 D_EBFBE0_801B82C4 = 1;
             }
@@ -333,7 +333,7 @@ s32 func_EBFBE0_80188010(void) {
         D_EBFBE0_801B8248[i][0] = gSaveFile.save.data.unk_18[i][0] & 0xFF;
         D_EBFBE0_801B8248[i][1] = gSaveFile.save.data.unk_18[i][1] & 0xFF;
         D_EBFBE0_801B8248[i][2] = gSaveFile.save.data.unk_18[i][2] & 0xFF;
-        D_EBFBE0_801B8248[i][3] = 0;
+        D_EBFBE0_801B8248[i][3] = '\0';
 
         temp3 = gSaveFile.save.data.unk_36[i];
 
@@ -365,7 +365,7 @@ void func_EBFBE0_801881FC(void) {
     s32 i;
 
     for (i = 0; i < 16; i++) {
-        if ((i != 14) && (!(gSaveFile.save.data.planet[i].unk_3 & 1))) {
+        if ((i != 14) && (!(gSaveFile.save.data.planet[i].expertMedal & 1))) {
             var_a1 = false;
             break;
         }
@@ -730,7 +730,7 @@ void func_EBFBE0_801888E8(void) {
 
     D_EBFBE0_801B82C0 = 0;
 
-    D_80177898 = 0;
+    gDrawMode = DRAWMODE_0;
 
     D_EBFBE0_801B82C4 = 7;
 }
@@ -1053,7 +1053,7 @@ void func_EBFBE0_8018994C(void) {
 
                 D_EBFBE0_801B82C0 = 0;
 
-                D_80177898 = 0;
+                gDrawMode = DRAWMODE_0;
 
                 D_EBFBE0_801B82C4 = 2;
             }
@@ -1253,7 +1253,7 @@ void func_EBFBE0_8018A644(void) {
 
                 D_EBFBE0_801B82C0 = 0;
 
-                D_80177898 = 0;
+                gDrawMode = DRAWMODE_0;
 
                 D_EBFBE0_801B82C4 = 3;
             }
@@ -1391,7 +1391,7 @@ void func_EBFBE0_8018ACEC(void) {
                 func_8001A55C(&D_EBFBE0_801B867C, 0x11030010);
                 func_8001A55C(&D_EBFBE0_801B867C, 0x31024059);
 
-                D_80177898 = 0;
+                gDrawMode = DRAWMODE_0;
 
                 D_EBFBE0_801B82C0 = 0;
                 D_EBFBE0_801B82C4 = 4;
@@ -1979,7 +1979,7 @@ void func_EBFBE0_8018C644(void) {
                 break;
             }
             D_EBFBE0_801B82C0 = 0;
-            D_80177898 = 0;
+            gDrawMode = DRAWMODE_0;
             D_EBFBE0_801B82C4 = 0;
             func_8001DC6C(0, 23);
             break;
@@ -3097,7 +3097,7 @@ void func_EBFBE0_80190EA4(void) {
                 D_80178410 = 0;
                 gRadioState = 0;
                 D_EBFBE0_801B82C0 = 0;
-                D_80177898 = 0;
+                gDrawMode = DRAWMODE_0;
                 D_EBFBE0_801B82C4 = 0;
                 gControllerLock = 30;
                 D_EBFBE0_801B8284 = 0;
@@ -3129,7 +3129,7 @@ void func_EBFBE0_80190FD0(void) {
                     gGameState = GSTATE_MENU;
                     D_Timer_8017783C = 2;
                     D_8017784C = 0;
-                    D_80177898 = 0;
+                    gDrawMode = DRAWMODE_0;
                     D_80178410 = 0;
                     D_EBFBE0_801B8280 = 0;
                     D_EBFBE0_801B8284 = 0;

@@ -19,10 +19,22 @@ typedef enum {
 } PlayerForm;
 
 typedef enum {
-    ALLRANGEMODE_0,
-    ALLRANGEMODE_1,
-    ALLRANGEMODE_2,
-} AllRangeMode;
+    DRAWMODE_0,
+    DRAWMODE_1,
+    DRAWMODE_2,
+    DRAWMODE_3,
+    DRAWMODE_4,
+    DRAWMODE_5,
+    DRAWMODE_6,
+    DRAWMODE_7,
+    DRAWMODE_8,
+} DrawMode;
+
+typedef enum {
+    LEVELMODE_ON_RAILS,
+    LEVELMODE_ALL_RANGE,
+    LEVELMODE_UNK_2,
+} LevelMode;
 
 typedef enum {
     PLAYERSTATE_1C8_0,

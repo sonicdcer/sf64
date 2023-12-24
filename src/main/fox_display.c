@@ -229,8 +229,8 @@ void func_80052584(Player* player) {
     Matrix_Push(&gGfxMatrix);
     Matrix_Copy(gGfxMatrix, &gIdentityMatrix);
     if ((player->state_1C8 == PLAYERSTATE_1C8_3) && (player->timer_1F8 != 0)) {
-        Matrix_Translate(gGfxMatrix, D_801613B0[player->num].x, D_801613B0[player->num].y,
-                         D_801613B0[player->num].z, 1);
+        Matrix_Translate(gGfxMatrix, D_801613B0[player->num].x, D_801613B0[player->num].y, D_801613B0[player->num].z,
+                         1);
         Matrix_Scale(gGfxMatrix, D_800CA23C[player->timer_1F8 - 1], D_800CA23C[player->timer_1F8 - 1],
                      D_800CA23C[player->timer_1F8 - 1], 1);
         Matrix_SetGfxMtx(&gMasterDisp);
@@ -318,8 +318,8 @@ f32 D_800CA2A8 = 0.0f;
 void func_80052B80(Player* player) {
     Matrix_Push(&gGfxMatrix);
     if ((player->state_1C8 == PLAYERSTATE_1C8_3) && (player->unk_1A0 != 0)) {
-        Matrix_Translate(gGfxMatrix, D_80161548[player->num].x, D_80161548[player->num].y,
-                         D_80161548[player->num].z, 1);
+        Matrix_Translate(gGfxMatrix, D_80161548[player->num].x, D_80161548[player->num].y, D_80161548[player->num].z,
+                         1);
         Matrix_Scale(gGfxMatrix, D_800CA248[player->unk_1A0 - 1], D_800CA248[player->unk_1A0 - 1],
                      D_800CA248[player->unk_1A0 - 1], 1);
         Matrix_SetGfxMtx(&gMasterDisp);
@@ -557,7 +557,8 @@ void func_80053658(WingInfo* wings) {
     Matrix_RotateX(gGfxMatrix, wings->unk_38 * M_DTOR, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
     RCP_SetupDL_64_2();
-    if ((gGameState == GSTATE_PLAY) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2) && (gCurrentLevel == LEVEL_CORNERIA)) {
+    if ((gGameState == GSTATE_PLAY) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2) &&
+        (gCurrentLevel == LEVEL_CORNERIA)) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 120);
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
         gSPDisplayList(gMasterDisp++, D_30194E0);
@@ -607,7 +608,7 @@ void func_80053C38(Player* player, s32 arg1) {
         sp4C.z = 2400.0f + sp48;
         Matrix_MultVec3f(gGfxMatrix, &sp4C, &D_801613E0[1]);
     }
-    if ((player->unk_238 != 0) && (gAllRangeMode == ALLRANGEMODE_0) &&
+    if ((player->unk_238 != 0) && (gLevelMode == LEVELMODE_ON_RAILS) &&
         (fabsf((player->unk_138 + D_80177D20) - player->camEye.z) < 10.0f)) {
         if (arg1 == 0) {
             D_800CA228 = 1;
@@ -867,7 +868,7 @@ void func_80054E80(Player* player) {
     if (gChargeTimers[player->num] > 10) {
         RCP_SetupDL(&gMasterDisp, 0x43);
         Matrix_Copy(gCalcMatrix, &D_80161418[player->num]);
-        if ((player->unk_238 != 0) && (gAllRangeMode == ALLRANGEMODE_0)) {
+        if ((player->unk_238 != 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
             Matrix_MultVec3f(gCalcMatrix, &spB8, &sp94);
         } else {
             Matrix_MultVec3f(gCalcMatrix, &spC4, &sp94);
@@ -877,7 +878,7 @@ void func_80054E80(Player* player) {
         Matrix_Translate(gGfxMatrix, sp94.x, sp94.y, sp94.z, 0);
         Matrix_Scale(gGfxMatrix, sp80, sp80, 1.0f, 1);
         Matrix_Push(&gGfxMatrix);
-        if ((player->unk_238 != 0) && (gAllRangeMode == ALLRANGEMODE_0)) {
+        if ((player->unk_238 != 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
             Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, 1);
         } else {
             Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 10.0f, 1);
@@ -909,7 +910,7 @@ void func_80054E80(Player* player) {
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_101C2E0);
         Matrix_Pop(&gGfxMatrix);
-        if ((player->unk_238 != 0) && (gAllRangeMode == ALLRANGEMODE_0)) {
+        if ((player->unk_238 != 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
             Matrix_Scale(gGfxMatrix, 0.3f, 0.3f, 0.3f, 1);
         }
         Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 1.0f, 1);
@@ -934,7 +935,7 @@ void func_80054E80(Player* player) {
             case 0:
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 192, 255, 192, 128);
                 gDPSetEnvColor(gMasterDisp++, 64, 255, 64, 128);
-                if ((player->unk_238 != 0) && (gAllRangeMode == ALLRANGEMODE_0)) {
+                if ((player->unk_238 != 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
                     Matrix_MultVec3f(gCalcMatrix, &spB8, &sp94);
                 } else {
                     Matrix_MultVec3f(gCalcMatrix, &spC4, &sp94);
@@ -982,8 +983,8 @@ void func_80055788(Player* player) {
         RCP_SetupDL(&gMasterDisp, 0x43);
         Matrix_Push(&gGfxMatrix);
         sp54 = gChargeTimers[player->num] / 20.0f;
-        Matrix_Translate(gGfxMatrix, D_80161548[player->num].x, D_80161548[player->num].y,
-                         D_80161548[player->num].z, 0);
+        Matrix_Translate(gGfxMatrix, D_80161548[player->num].x, D_80161548[player->num].y, D_80161548[player->num].z,
+                         0);
         Matrix_Scale(gGfxMatrix, sp54, sp54, 1.0f, 1);
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 10.0f, 1);
@@ -1224,8 +1225,8 @@ void func_800564C0(Player* player, s32 arg1) {
                 return;
             }
             Matrix_Pop(&gGfxMatrix);
-            Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y + D_8017847C,
-                             player->unk_138 + player->unk_144, 0);
+            Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y + D_8017847C, player->unk_138 + player->unk_144,
+                             0);
             Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + player->unk_134 + 180.0f) * M_DTOR, 1);
             Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_134) * M_DTOR), 1);
             Matrix_RotateZ(gCalcMatrix, -((player->unk_0F8 + player->unk_0F0 + player->unk_134) * M_DTOR), 1);
@@ -1318,7 +1319,7 @@ void func_80056E2C(Player* player) {
             sp34 = sp30 = 0.0f;
         }
         Matrix_Push(&gGfxMatrix);
-        if (gAllRangeMode == ALLRANGEMODE_1) {
+        if (gLevelMode == LEVELMODE_ALL_RANGE) {
             if (player->form == FORM_RAMBO) {
                 Matrix_Translate(gGfxMatrix, player->unk_064, player->unk_068 + 2.0f, player->unk_06C, 1);
             } else {
@@ -1534,7 +1535,7 @@ void func_80057D00(void) {
     func_800B73E0(player);
     Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR, gAmbientG,
                        gAmbientB);
-    if (gAllRangeMode == ALLRANGEMODE_0) {
+    if (gLevelMode == LEVELMODE_ON_RAILS) {
         Matrix_RotateY(gCalcMatrix, player->unk_114 * M_DTOR, 0);
         Matrix_RotateX(gCalcMatrix, player->unk_120 * M_DTOR, 1);
 
@@ -1588,7 +1589,8 @@ void func_80057D00(void) {
     Matrix_LookAt(gGfxMatrix, D_801779D8.x, D_801779D8.y, D_801779D8.z, D_801779E8.x, D_801779E8.y, D_801779E8.z,
                   sp6C.x, sp6C.y, sp6C.z, 1);
     if ((gLevelType == LEVELTYPE_PLANET) || (gCurrentLevel == LEVEL_BOLSE)) {
-        if ((gCurrentLevel == LEVEL_TITANIA) && ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_2) || (gPlayer[0].unk_19C != 0))) {
+        if ((gCurrentLevel == LEVEL_TITANIA) &&
+            ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_2) || (gPlayer[0].unk_19C != 0))) {
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, 0.0f, D_8017847C, 0.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
@@ -1656,8 +1658,9 @@ void func_80057D00(void) {
         func_8006089C(1);
         func_80040CE4();
     }
-    if ((gCurrentLevel != LEVEL_AQUAS) && (((gCurrentLevel != LEVEL_CORNERIA) && (gCurrentLevel != LEVEL_VENOM_2)) ||
-                                           ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_2)))) {
+    if ((gCurrentLevel != LEVEL_AQUAS) &&
+        (((gCurrentLevel != LEVEL_CORNERIA) && (gCurrentLevel != LEVEL_VENOM_2)) ||
+         ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_2)))) {
         func_8006089C(0);
     }
     D_80161410 = 1;
@@ -1694,7 +1697,7 @@ void func_80057D00(void) {
             }
         }
     }
-    if ((gAllRangeMode == ALLRANGEMODE_2) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3)) {
+    if ((gLevelMode == LEVELMODE_UNK_2) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3)) {
         func_E9F1D0_801A6164(gPlayer);
     }
     func_80040954();

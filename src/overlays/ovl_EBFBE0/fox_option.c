@@ -356,10 +356,10 @@ void func_EBFBE0_80191B20(void) {
 
     var_a1_2 = 1;
     for (i = 0; i < 16; i++) {
-        if (i == 14) {
+        if (i == SAVE_SLOT_VENOM_1) {
             continue;
         }
-        if (!(gSaveFile.save.data.planet[i].unk_6 & 1)) {
+        if (!(gSaveFile.save.data.planet[i].normalMedal & 1)) {
             var_a1_2 = 0;
             break;
         }
@@ -398,22 +398,22 @@ void func_EBFBE0_80191B20(void) {
         if (D_80161A34 == 8) {
             D_80177B90[D_80177B48] = 13;
             if (D_800D3180[9] == 1) {
-                gSaveFile.save.data.planet[14].unk_5 = 1;
+                gSaveFile.save.data.planet[SAVE_SLOT_VENOM_1].played = 1;
                 if (var_v0_2 != 0) {
-                    gSaveFile.save.data.planet[14].unk_4 = 1;
+                    gSaveFile.save.data.planet[SAVE_SLOT_VENOM_1].expertClear = 1;
                 } else {
-                    gSaveFile.save.data.planet[14].unk_7 = 1;
+                    gSaveFile.save.data.planet[SAVE_SLOT_VENOM_1].normalClear = 1;
                 }
                 Save_Write();
             } else if (D_800D3180[9] == 2) {
                 D_80177BB0[D_80177B48] = 1;
-                gSaveFile.save.data.planet[15].unk_5 = 1;
+                gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].played = 1;
                 if (var_v0_2) {
-                    gSaveFile.save.data.planet[15].unk_4 = 1;
-                    gSaveFile.save.data.planet[15].unk_3 = 1;
+                    gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].expertClear = 1;
+                    gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].expertMedal = 1;
                 } else {
-                    gSaveFile.save.data.planet[15].unk_7 = 1;
-                    gSaveFile.save.data.planet[15].unk_6 = 1;
+                    gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].normalClear = 1;
+                    gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].normalMedal = 1;
                 }
                 Save_Write();
             }
@@ -524,12 +524,12 @@ void func_EBFBE0_801920C4(void) {
             break;
 
         case 1:
-            D_80177898 = 0;
+            gDrawMode = DRAWMODE_0;
             func_EBFBE0_80191B20();
             break;
 
         case 2:
-            D_80177898 = 2;
+            gDrawMode = DRAWMODE_2;
             func_EBFBE0_80192190();
             break;
     }
@@ -670,7 +670,7 @@ void func_EBFBE0_801924C4(void) {
 
     switch (D_EBFBE0_801B9124) {
         case 0:
-            D_80177898 = 0;
+            gDrawMode = DRAWMODE_0;
             break;
 
         case 10:
@@ -755,7 +755,7 @@ void func_EBFBE0_801928BC(void) {
         gGameState = GSTATE_MAP;
         D_Timer_8017783C = 2;
         D_80177B40 = 0;
-        D_80177898 = 0;
+        gDrawMode = DRAWMODE_0;
         gControllerLock = 3;
     } else {
         D_80178340 += 0x20;
@@ -771,7 +771,7 @@ void func_EBFBE0_80192938(void) {
         gGameState = GSTATE_PLAY;
         D_Timer_8017783C = 2;
         D_80177854 = 0;
-        D_80177898 = 0;
+        gDrawMode = DRAWMODE_0;
         func_800A5844();
         D_80177CA0 = 0;
         D_80177CB0 = 0.0f;
@@ -895,7 +895,8 @@ void func_EBFBE0_80192D58(void) {
             // clang-format on
 
             if ((D_EBFBE0_801B91A4 == 0) && (D_EBFBE0_801B91C8 != 0)) {
-                temp2 = func_EBFBE0_8019C418(&D_EBFBE0_801B91B0, 1, 0, 0, 20, 5, 4, gMainController, &D_EBFBE0_801B9190);
+                temp2 =
+                    func_EBFBE0_8019C418(&D_EBFBE0_801B91B0, 1, 0, 0, 20, 5, 4, gMainController, &D_EBFBE0_801B9190);
                 if (temp2 != 0) {
                     Audio_PlaySfx(0x49000022, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                     if (D_EBFBE0_801B91B0) {
@@ -915,7 +916,8 @@ void func_EBFBE0_80192D58(void) {
                 }
             }
             if ((D_EBFBE0_801B91A4 == 4) && (D_EBFBE0_801B91C8 != 0)) {
-                temp2 = func_EBFBE0_8019C418(&D_EBFBE0_801B91AC, 1, 0, 0, 20, 5, 4, gMainController, &D_EBFBE0_801B9198);
+                temp2 =
+                    func_EBFBE0_8019C418(&D_EBFBE0_801B91AC, 1, 0, 0, 20, 5, 4, gMainController, &D_EBFBE0_801B9198);
                 if (temp2 != 0) {
                     Audio_PlaySfx(0x49000022, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                     if (D_EBFBE0_801B91AC) {
@@ -1024,7 +1026,7 @@ void func_EBFBE0_80192D58(void) {
                 D_Timer_8017783C = 2;
                 D_80177AE0 = 0;
                 D_EBFBE0_801B827C = 1;
-                D_80177898 = 0;
+                gDrawMode = DRAWMODE_0;
                 D_EBFBE0_801B8280 = 0;
                 D_EBFBE0_801B8284 = 0;
                 gControllerLock = 3;
@@ -1174,7 +1176,7 @@ void func_EBFBE0_80193C4C(void) {
                 Audio_PlaySfx(0x49000021, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 D_EBFBE0_801B912C = 0;
                 D_EBFBE0_801B9124 = 1000;
-                D_80177898 = 0;
+                gDrawMode = DRAWMODE_0;
                 D_EBFBE0_801B9244 = 1;
             }
             break;
@@ -1367,7 +1369,7 @@ void func_EBFBE0_801948A8(void) {
             func_8001D8F4(D_EBFBE0_801B9284);
         }
         Save_Write();
-        D_80177898 = 0;
+        gDrawMode = DRAWMODE_0;
         D_EBFBE0_801B9124 = 1000;
         D_EBFBE0_801B912C = 0;
         D_EBFBE0_801B9244 = 1;
@@ -1640,7 +1642,7 @@ void func_EBFBE0_80195944(void) {
         if (!D_EBFBE0_801B9320) {
             Audio_PlaySfx(0x49000021, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             func_8001D444(0, 36, 0, 255);
-            D_80177898 = 0;
+            gDrawMode = DRAWMODE_0;
             D_EBFBE0_801B9124 = 1000;
             D_EBFBE0_801B912C = 0;
             D_EBFBE0_801B9244 = 1;
@@ -1795,7 +1797,7 @@ void func_EBFBE0_801962A4(void) {
             if (D_EBFBE0_801B9330[D_EBFBE0_801B91C0]) {
                 break;
             }
-            D_80177898 = 0;
+            gDrawMode = DRAWMODE_0;
             D_EBFBE0_801B9124 = 1000;
             D_EBFBE0_801B912C = 0;
             D_EBFBE0_801B9244 = 1;
@@ -2027,7 +2029,7 @@ void func_EBFBE0_80196EFC(void) {
 
     if (gControllerPress[gMainController].button & B_BUTTON) {
         Audio_PlaySfx(0x49000021, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-        D_80177898 = 0;
+        gDrawMode = DRAWMODE_0;
         D_EBFBE0_801B9124 = 1000;
         D_EBFBE0_801B912C = 0;
         D_EBFBE0_801B9244 = 1;
@@ -2961,7 +2963,7 @@ void func_EBFBE0_8019A298(void) {
         gGameState = GSTATE_VS_INIT;
         D_Timer_8017783C = 2;
         D_8017784C = 0;
-        D_80177898 = 0;
+        gDrawMode = DRAWMODE_0;
     }
 }
 
@@ -3452,7 +3454,7 @@ void func_EBFBE0_8019B7D4(void) {
 
 void func_EBFBE0_8019B8A0(s32 arg0) {
     D_EBFBE0_801B9124 = arg0;
-    D_80177898 = 0;
+    gDrawMode = DRAWMODE_0;
     D_EBFBE0_801B912C = 0;
     D_EBFBE0_801B91B4 = 0;
 }
@@ -3906,7 +3908,7 @@ void func_EBFBE0_8019CAE0(void) {
         case 3:
             if (D_EBFBE0_801B917C == 0) {
                 gBlurAlpha = 255;
-                D_80177898 = 0;
+                gDrawMode = DRAWMODE_0;
                 D_EBFBE0_801B912C = 0;
                 D_EBFBE0_801B9124 = 300;
             }
@@ -4338,7 +4340,7 @@ void func_EBFBE0_8019DE74(void) {
     if (gControllerPress[gMainController].button & 0xD00E) { // START, A, B, C-UP, C-LEFT, C-DOWN
         Audio_PlaySfx(0x49000003, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 
-        D_80177898 = 0;
+        gDrawMode = DRAWMODE_0;
         D_EBFBE0_801B912C = 0;
 
         if (D_80161A34 == 5) {
@@ -4402,7 +4404,7 @@ void func_EBFBE0_8019E030(void) {
             if (D_EBFBE0_801B9178 == 0) {
                 D_80178410 = 0;
                 gGameState = GSTATE_INIT;
-                D_80177898 = 0;
+                gDrawMode = DRAWMODE_0;
                 *gLifeCount = 2;
                 D_80161714 = 0;
             }

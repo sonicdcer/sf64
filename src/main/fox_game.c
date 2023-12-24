@@ -113,7 +113,7 @@ void Game_SetGameState(void) {
     gRadioState = 0;
     D_80178428 = 0.0f;
     gBlurAlpha = 255;
-    D_80177898 = 0;
+    gDrawMode = DRAWMODE_0;
     func_8001AE58();
     func_8001D400(0);
 }
@@ -242,37 +242,37 @@ void func_800A1FB0(Gfx** arg0, u8 arg1, u8 arg2) {
 }
 
 void func_800A24DC(s32 arg0) {
-    switch (D_80177898) {
-        case 0:
+    switch (gDrawMode) {
+        case DRAWMODE_0:
             break;
-        case 1:
+        case DRAWMODE_1:
             func_8003DAF0();
             func_80187520(0x68, NULL);
             break;
-        case 2:
+        case DRAWMODE_2:
             func_8003DAF0();
             func_80187520(0x6C, NULL);
             break;
-        case 3:
+        case DRAWMODE_3:
             func_8003DAF0();
             func_80187520(0x6A, NULL);
             break;
-        case 4:
+        case DRAWMODE_4:
             gPlayerNum = arg0;
             func_80057D00();
             break;
-        case 5:
+        case DRAWMODE_5:
             func_8003DAF0();
             func_80187520(0x6E, NULL);
             break;
-        case 6:
+        case DRAWMODE_6:
             func_800C2190();
             break;
-        case 7:
+        case DRAWMODE_7:
             gPlayerNum = arg0;
             func_800A3CA0();
             break;
-        case 8:
+        case DRAWMODE_8:
             func_8003DAF0();
             gPlayerNum = arg0;
             func_EF0260_8018AAC4();
@@ -385,8 +385,8 @@ void func_800A26C0(void) {
                 gLifeCount[0] = 2;
                 D_80177D20 = 0.0f;
                 D_8016170C = D_80177A80 = D_80177830 = D_80177838 = D_80177840 = D_80178754 = gVersusMode = D_80177AE0 =
-                    D_80178410 = D_80177B40 = D_80177854 = D_8017784C = D_80177898 = D_80161734 = D_80161A2C =
-                        gBgColor = D_80178340 = 0;
+                    D_80178410 = D_80177B40 = D_80177854 = D_8017784C = gDrawMode = D_80161734 = D_80161A2C = gBgColor =
+                        D_80178340 = 0;
                 gNextGameState = D_80177C94 = D_80177CAC = D_80177CB4 = D_80177CBC = D_80177CC4 = D_80177C9C =
                     D_80177CA4 = D_80161A5C = D_80161A34 = 0;
                 for (i = 0; i < 4; i++) {
@@ -461,7 +461,7 @@ void func_800A26C0(void) {
                 func_80187520(0x6D, NULL);
                 break;
             case GSTATE_CREDITS: // credits
-                D_80177898 = 8;
+                gDrawMode = DRAWMODE_8;
                 func_EF0260_8018A96C();
                 break;
             default:
@@ -473,7 +473,7 @@ void func_800A26C0(void) {
             func_800A24DC(1);
             gDPPipeSync(gMasterDisp++);
             gDPSetScissor(gMasterDisp++, G_SC_NON_INTERLACE, 8, 8, SCREEN_WIDTH - 8, SCREEN_HEIGHT - 8);
-        } else if ((gCamCount == 4) && (D_80177898 != 0)) {
+        } else if ((gCamCount == 4) && (gDrawMode != DRAWMODE_0)) {
             func_800A1FB0(&gMasterDisp, gCamCount, 3);
             func_800A24DC(3);
             func_800A1FB0(&gMasterDisp, gCamCount, 2);
@@ -505,7 +505,7 @@ void func_800A26C0(void) {
         if (gCamCount == 1) {
             Graphics_FillRectangle(&gMasterDisp, 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1, D_80178390[0],
                                    D_801783A0[0], D_801783B0[0], D_80178380[0]);
-            if ((D_80177898 == 4) || (D_80177898 == 8)) {
+            if ((gDrawMode == DRAWMODE_4) || (gDrawMode == DRAWMODE_8)) {
                 func_800BB5D0();
                 if (D_80161A2C != 0) {
                     func_8008FA84();

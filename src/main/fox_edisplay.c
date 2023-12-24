@@ -507,14 +507,17 @@ void func_8005B388(Object_2F4* obj2F4) {
     Vec3f sp30;
 
     Matrix_MultVec3f(gGfxMatrix, &sp3C, &sp30);
-    if ((((fabsf(sp30.z) < 3000.0f) && (fabsf(sp30.x) < 3000.0f) && (D_80178284 == 0)) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_0) ||
-         (gCurrentLevel == LEVEL_VENOM_2) || (gCurrentLevel == LEVEL_VENOM_SW) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7)) &&
+    if ((((fabsf(sp30.z) < 3000.0f) && (fabsf(sp30.x) < 3000.0f) && (D_80178284 == 0)) ||
+         (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_0) || (gCurrentLevel == LEVEL_VENOM_2) ||
+         (gCurrentLevel == LEVEL_VENOM_SW) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7)) &&
         (gCurrentLevel != LEVEL_MACBETH) && (gCurrentLevel != LEVEL_TITANIA)) {
         if (obj2F4->obj.id == OBJ_2F4_195) {
-            if (((gCurrentLevel == LEVEL_VENOM_SW) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) && (obj2F4->index == 10)) ||
-                ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) && (gPlayer[0].unk_1D0 >= 100) && (gCurrentLevel == LEVEL_KATINA) &&
-                 (obj2F4->index == 1)) ||
-                ((gCurrentLevel == LEVEL_SECTOR_Y) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_0) && (obj2F4->unk_0B8 == 5))) {
+            if (((gCurrentLevel == LEVEL_VENOM_SW) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) &&
+                 (obj2F4->index == 10)) ||
+                ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) && (gPlayer[0].unk_1D0 >= 100) &&
+                 (gCurrentLevel == LEVEL_KATINA) && (obj2F4->index == 1)) ||
+                ((gCurrentLevel == LEVEL_SECTOR_Y) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_0) &&
+                 (obj2F4->unk_0B8 == 5))) {
                 D_80161630.rightState = gPlayer[0].wings.rightState;
                 D_80161630.leftState = gPlayer[0].wings.leftState;
             } else {
@@ -1058,7 +1061,8 @@ void Object_2F4_Draw1(Object_2F4* obj2F4) {
                     Matrix_RotateZ(gCalcMatrix, obj2F4->obj.rot.z * M_DTOR, 1);
                     obj2F4->info.draw(&obj2F4->obj);
                     D_801615EC = 1;
-                    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && (obj2F4->obj.id == OBJ_2F4_197) && (obj2F4->unk_0E4 == 200)) {
+                    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && (obj2F4->obj.id == OBJ_2F4_197) &&
+                        (obj2F4->unk_0E4 == 200)) {
                         D_80177E98[0] = D_801615E0;
                     }
                 }
@@ -1263,7 +1267,7 @@ void Item_Draw(Item* item, s32 arg1) {
         }
     }
     func_8005F290(&item->sfxPos, &sp38);
-    if ((var_v0 == 0) && (gAllRangeMode == ALLRANGEMODE_1) && (gCamCount == 1) && (item->obj.id < 336) &&
+    if ((var_v0 == 0) && (gLevelMode == LEVELMODE_ALL_RANGE) && (gCamCount == 1) && (item->obj.id < 336) &&
         (gCurrentLevel != LEVEL_VENOM_2)) {
         Object_Kill(&item->obj, &item->sfxPos);
     }
@@ -1538,7 +1542,7 @@ void Object_DrawAll(s32 arg0) {
     Item* item;
     Object_80* obj80;
 
-    if ((gAllRangeMode == ALLRANGEMODE_1) && (gCurrentLevel != LEVEL_KATINA)) {
+    if ((gLevelMode == LEVELMODE_ALL_RANGE) && (gCurrentLevel != LEVEL_KATINA)) {
         RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
         if (D_80177AB0 == 5) {
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -1620,11 +1624,12 @@ void Object_DrawAll(s32 arg0) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 64, 64, 255, 255);
                 }
             }
-            switch (gAllRangeMode) {
-                case ALLRANGEMODE_0:
-                case ALLRANGEMODE_2:
+            switch (gLevelMode) {
+                case LEVELMODE_ON_RAILS:
+                case LEVELMODE_UNK_2:
                     Matrix_Push(&gGfxMatrix);
-                    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) || (gCurrentLevel == LEVEL_AQUAS)) {
+                    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) ||
+                        (gCurrentLevel == LEVEL_AQUAS)) {
                         func_8005F670(&obj2F4->obj.pos);
                     }
                     func_800597C0(arg0);
@@ -1636,7 +1641,7 @@ void Object_DrawAll(s32 arg0) {
                         Matrix_Pop(&gGfxMatrix);
                     }
                     break;
-                case ALLRANGEMODE_1:
+                case LEVELMODE_ALL_RANGE:
                     Matrix_Push(&gGfxMatrix);
                     Object_2F4_Draw1(obj2F4);
                     Matrix_Pop(&gGfxMatrix);
@@ -1678,7 +1683,7 @@ void func_8006046C(s32 arg0) {
                 obj8C->obj.rot.y = (-gPlayer[gPlayerNum].unk_058 * 180.0f) / M_PI;
                 obj8C->obj.rot.x = (gPlayer[gPlayerNum].unk_05C * 180.0f) / M_PI;
             }
-            if (gAllRangeMode == ALLRANGEMODE_1) {
+            if (gLevelMode == LEVELMODE_ALL_RANGE) {
                 Matrix_Push(&gGfxMatrix);
                 Object_8C_Draw2(obj8C);
                 Matrix_Pop(&gGfxMatrix);

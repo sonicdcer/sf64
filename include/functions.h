@@ -208,7 +208,7 @@ void func_80061B68(void);
 void func_80061CD0(void);
 void func_80061E48(Object_2F4* , f32 , f32 , f32 );
 void func_80061F0C(Object_2F4* , ObjectInit* , s32 );
-void Object_Spawn(ObjectInit* , f32 , f32 , f32 , f32 );
+void Object_Load(ObjectInit* , f32 , f32 , f32 , f32 );
 void func_80062568(void);
 void func_80062C38(f32, f32); 
 s32 func_800631A8(Vec3f*, f32*, Vec3f*);

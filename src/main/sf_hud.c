@@ -1571,7 +1571,7 @@ void func_8008F96C(void) {
 
     RCP_SetupDL_36();
 
-    if ((gAllRangeMode == ALLRANGEMODE_2) && (D_80161708 != 0)) {
+    if ((gLevelMode != LEVELMODE_UNK_2) && (D_80161708 != 0)) {
         func_8008D4F0(246.0f, 28.0f);
         func_8008EA14(250.0f, 38.0f);
     }
@@ -1842,7 +1842,7 @@ s32 func_800910C0(Object_2F4* obj2F4) {
 }
 
 void func_80091254(Object_2F4* obj2F4) {
-    if (gAllRangeMode == ALLRANGEMODE_1) {
+    if (gLevelMode == LEVELMODE_ALL_RANGE) {
         func_80090E8C(obj2F4);
     } else {
         func_800910C0(obj2F4);
@@ -2324,7 +2324,8 @@ void func_80094954(Object_8C* obj8C) {
     obj8C->scale2 += 0.8f;
     obj8C->unk_4A -= obj8C->unk_46;
 
-    if ((obj8C->unk_4A < 0) || ((player->state_1C8 == PLAYERSTATE_1C8_2) && (gCurrentLevel == LEVEL_AQUAS) && (player->unk_1D0 == 5))) {
+    if ((obj8C->unk_4A < 0) ||
+        ((player->state_1C8 == PLAYERSTATE_1C8_2) && (gCurrentLevel == LEVEL_AQUAS) && (player->unk_1D0 == 5))) {
         Object_Kill(&obj8C->obj, &obj8C->sfxPos);
     }
     obj8C->obj.rot.z += obj8C->unk_48;

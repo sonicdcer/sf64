@@ -75,7 +75,7 @@ s32 func_80060FE4(Vec3f* arg0, f32 arg1) {
     Vec3f sp2C;
     Vec3f sp20;
 
-    if ((gAllRangeMode == ALLRANGEMODE_1) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_2)) {
+    if ((gLevelMode != LEVELMODE_ALL_RANGE) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_2)) {
         return true;
     }
     Matrix_RotateY(gCalcMatrix, gPlayer[gPlayerNum].unk_058, 0);
@@ -94,7 +94,7 @@ s32 func_80061148(Vec3f* arg0, f32 arg1) {
     Vec3f sp2C;
     Vec3f sp20;
 
-    if (gAllRangeMode == ALLRANGEMODE_1) {
+    if (gLevelMode != LEVELMODE_ALL_RANGE) {
         return true;
     }
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) {
@@ -115,7 +115,7 @@ s32 func_80061148(Vec3f* arg0, f32 arg1) {
 void Object_SetInfo(ObjectInfo* info, u32 objId) {
     *info = D_800CC124[objId];
     info->hitbox = SEGMENTED_TO_VIRTUAL(D_800CC124[objId].hitbox);
-    if (gAllRangeMode == ALLRANGEMODE_2) {
+    if (gLevelMode == LEVELMODE_UNK_2) {
         info->unk_10 += 200.0f;
     }
 }
@@ -177,7 +177,7 @@ void Object_8C_Initialize(Object_8C* obj8C) {
     obj8C->scale2 = 1.0f;
 }
 
-void Object_80_Spawn(Object_80* obj80, ObjectInit* objInit) {
+void Object_80_Load(Object_80* obj80, ObjectInit* objInit) {
     Object_80_Initialize(obj80);
     obj80->obj.status = 1;
     obj80->obj.pos.z = -objInit->zPos1;
@@ -191,7 +191,7 @@ void Object_80_Spawn(Object_80* obj80, ObjectInit* objInit) {
     Object_SetInfo(&obj80->info, obj80->obj.id);
 }
 
-void Object_4C_Spawn(Object_4C* obj4C, ObjectInit* objInit) {
+void Object_4C_Load(Object_4C* obj4C, ObjectInit* objInit) {
     Object_4C_Initialize(obj4C);
     obj4C->obj.status = 1;
     obj4C->obj.pos.z = -objInit->zPos1;
@@ -205,7 +205,7 @@ void Object_4C_Spawn(Object_4C* obj4C, ObjectInit* objInit) {
     Object_SetInfo(&obj4C->info, obj4C->obj.id);
 }
 
-void Object_2F4_Spawn(Object_2F4* obj2F4, ObjectInit* objInit) {
+void Object_2F4_Load(Object_2F4* obj2F4, ObjectInit* objInit) {
     Object_2F4_Initialize(obj2F4);
     obj2F4->obj.status = 1;
     obj2F4->obj.pos.z = -objInit->zPos1;
@@ -219,7 +219,7 @@ void Object_2F4_Spawn(Object_2F4* obj2F4, ObjectInit* objInit) {
     Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
 }
 
-void Object_408_Spawn(Object_408* obj408, ObjectInit* objInit) {
+void Object_408_Load(Object_408* obj408, ObjectInit* objInit) {
     Object_408_Initialize(obj408);
     obj408->obj.status = 1;
     obj408->obj.pos.z = -objInit->zPos1;
@@ -233,7 +233,7 @@ void Object_408_Spawn(Object_408* obj408, ObjectInit* objInit) {
     Object_SetInfo(&obj408->info, obj408->obj.id);
 }
 
-void Item_Spawn(Item* item, ObjectInit* objInit) {
+void Item_Load(Item* item, ObjectInit* objInit) {
     Item_Initialize(item);
     item->obj.status = 1;
     item->obj.pos.z = -objInit->zPos1;
@@ -395,7 +395,7 @@ void func_80061F0C(Object_2F4* obj2F4, ObjectInit* objInit, s32 arg2) {
     Object_2F4_Update(obj2F4);
 }
 
-void Object_Spawn(ObjectInit* objInit, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+void Object_Load(ObjectInit* objInit, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     s32 i;
 
     if ((arg1 > objInit->xPos - gPlayer[0].unk_0AC) && (objInit->xPos - gPlayer[0].unk_0AC > arg2) &&
@@ -403,7 +403,7 @@ void Object_Spawn(ObjectInit* objInit, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
         if (objInit->id < OBJ_4C_161) {
             for (i = 0; i < ARRAY_COUNT(gObjects80); i++) {
                 if (gObjects80[i].obj.status == 0) {
-                    Object_80_Spawn(&gObjects80[i], objInit);
+                    Object_80_Load(&gObjects80[i], objInit);
                     break;
                 }
             }
@@ -411,7 +411,7 @@ void Object_Spawn(ObjectInit* objInit, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
         if ((objInit->id >= OBJ_4C_161) && (objInit->id < OBJ_2F4_176)) {
             for (i = 0; i < ARRAY_COUNT(gObjects4C); i++) {
                 if (gObjects4C[i].obj.status == 0) {
-                    Object_4C_Spawn(&gObjects4C[i], objInit);
+                    Object_4C_Load(&gObjects4C[i], objInit);
                     break;
                 }
             }
@@ -420,21 +420,21 @@ void Object_Spawn(ObjectInit* objInit, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
             if ((objInit->id == OBJ_2F4_267) || (objInit->id == OBJ_2F4_254)) {
                 for (i = ARRAY_COUNT(gObjects2F4) - 1; i >= 0; i--) {
                     if (gObjects2F4[i].obj.status == 0) {
-                        Object_2F4_Spawn(&gObjects2F4[i], objInit);
+                        Object_2F4_Load(&gObjects2F4[i], objInit);
                         break;
                     }
                 }
             } else if (objInit->id == OBJ_2F4_198) {
                 for (i = 0; i < 3; i++) {
                     if (gObjects2F4[i].obj.status == 0) {
-                        Object_2F4_Spawn(&gObjects2F4[i], objInit);
+                        Object_2F4_Load(&gObjects2F4[i], objInit);
                         break;
                     }
                 }
             } else {
                 for (i = 4; i < ARRAY_COUNT(gObjects2F4); i++) {
                     if (gObjects2F4[i].obj.status == 0) {
-                        Object_2F4_Spawn(&gObjects2F4[i], objInit);
+                        Object_2F4_Load(&gObjects2F4[i], objInit);
                         break;
                     }
                 }
@@ -443,7 +443,7 @@ void Object_Spawn(ObjectInit* objInit, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
         if ((objInit->id >= OBJ_408_292) && (objInit->id < OBJ_ITEM_LASERS)) {
             for (i = 0; i < ARRAY_COUNT(gObjects408); i++) {
                 if (gObjects408[i].obj.status == 0) {
-                    Object_408_Spawn(&gObjects408[i], objInit);
+                    Object_408_Load(&gObjects408[i], objInit);
                     break;
                 }
             }
@@ -451,7 +451,7 @@ void Object_Spawn(ObjectInit* objInit, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
         if ((objInit->id >= OBJ_ITEM_LASERS) && (objInit->id < OBJ_8C_339)) {
             for (i = 0; i < ARRAY_COUNT(gItems); i++) {
                 if (gItems[i].obj.status == 0) {
-                    Item_Spawn(&gItems[i], objInit);
+                    Item_Load(&gItems[i], objInit);
                     break;
                 }
             }
@@ -503,7 +503,7 @@ void func_80062568(void) {
     var_s1 = &D_80178310[var_s0];
 
     for (; var_s0 < D_80177CA0; var_s0++, var_s1++) {
-        Object_Spawn(var_s1, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
+        Object_Load(var_s1, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
     }
 }
 
@@ -563,10 +563,10 @@ void func_80062664(void) {
             if ((gCurrentLevel == LEVEL_VENOM_1) && (objInit->id >= OBJ_UNK_1000)) {
                 if (((objInit->unk_C < 180.0f) && (objInit->xPos < gPlayer[0].unk_0AC)) ||
                     ((objInit->unk_C > 180.0f) && (gPlayer[0].unk_0AC < objInit->xPos))) {
-                    Object_Spawn(objInit, var_fs1, var_fs2, var_fs3, var_fs4);
+                    Object_Load(objInit, var_fs1, var_fs2, var_fs3, var_fs4);
                 }
             } else {
-                Object_Spawn(objInit, var_fs1, var_fs2, var_fs3, var_fs4);
+                Object_Load(objInit, var_fs1, var_fs2, var_fs3, var_fs4);
             }
         } else {
             break;
@@ -792,7 +792,7 @@ s32 func_8006351C(s32 index, Vec3f* pos, Vec3f* arg2, s32 arg3) {
     Vec3f temp;
     s32 i;
 
-    if ((gAllRangeMode == ALLRANGEMODE_1) && (gCurrentLevel != LEVEL_KATINA)) {
+    if ((gLevelMode == LEVELMODE_ALL_RANGE) && (gCurrentLevel != LEVEL_KATINA)) {
         obj58 = gObjects58;
         for (i = 0; i < 200; i++, obj58++) {
             if (obj58->obj.status == 2) {
@@ -812,7 +812,7 @@ s32 func_8006351C(s32 index, Vec3f* pos, Vec3f* arg2, s32 arg3) {
         }
     }
     obj80 = gObjects80;
-    for (i = 0; (i < ARRAY_COUNT(gObjects80)) && (gAllRangeMode == ALLRANGEMODE_0); i++, obj80++) {
+    for (i = 0; (i < ARRAY_COUNT(gObjects80)) && (gLevelMode == LEVELMODE_ON_RAILS); i++, obj80++) {
         if (obj80->obj.status == 2) {
             if ((obj80->obj.id == OBJ_80_1) || (obj80->obj.id == OBJ_80_4) || (obj80->obj.id == OBJ_80_5) ||
                 (obj80->obj.id == OBJ_80_2) || (obj80->obj.id == OBJ_80_39) || (obj80->obj.id == OBJ_80_3)) {
@@ -1430,7 +1430,7 @@ void func_800656D4(Object_2F4* obj2F4) {
     s32 i;
     s32 j;
 
-    if (gAllRangeMode == ALLRANGEMODE_1) {
+    if (gLevelMode == LEVELMODE_ALL_RANGE) {
         var_ra = 2;
     } else {
         var_ra = 0;
@@ -1467,7 +1467,7 @@ void func_800656D4(Object_2F4* obj2F4) {
                     break;
             }
 
-            if (gAllRangeMode == ALLRANGEMODE_1) {
+            if (gLevelMode == LEVELMODE_ALL_RANGE) {
                 if (gTeamShields[spC4 - 1] > 0) {
                     obj2F4->unk_054 = spC4;
                     goto label;
@@ -1574,7 +1574,7 @@ void func_800656D4(Object_2F4* obj2F4) {
         if (obj2F4->unk_0D0 != 0) {
             obj2F4->unk_044 = 2;
             if ((gCurrentLevel == LEVEL_CORNERIA)) {
-                if (gAllRangeMode == ALLRANGEMODE_1) {
+                if (gLevelMode == LEVELMODE_ALL_RANGE) {
                     obj2F4->unk_044 = 2;
                 } else {
                     obj2F4->unk_044 = 4;
@@ -1587,7 +1587,7 @@ void func_800656D4(Object_2F4* obj2F4) {
         }
         func_8007A6F0(&obj2F4->obj.pos, 0x2903A008);
     }
-    if (gAllRangeMode == ALLRANGEMODE_0) {
+    if (gLevelMode == LEVELMODE_ON_RAILS) {
         if (fabsf(obj2F4->obj.pos.z - gPlayer[0].unk_138) < 100.0f) {
             obj2F4->unk_078 = 1;
         }
@@ -1644,7 +1644,7 @@ void func_80066254(Object_2F4* obj2F4) {
         if ((obj2F4->unk_0D4 == 1) && (obj2F4->info.bonus != 0)) {
             gHitCount += obj2F4->info.bonus;
             D_80177850 = 0xF;
-            if ((gAllRangeMode == ALLRANGEMODE_1) && (D_80161A62 != 0)) {
+            if ((gLevelMode == LEVELMODE_ALL_RANGE) && (D_80161A62 != 0)) {
                 switch (D_80161A62) {
                     case 9:
                         if (gCurrentLevel == LEVEL_KATINA) {
@@ -1882,7 +1882,7 @@ void func_80066EF0(Item* item) {
     if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_0)) {
         Object_Kill(&item->obj, &item->sfxPos);
     }
-    if ((gAllRangeMode == ALLRANGEMODE_0) && (D_80161680 == 0)) {
+    if ((gLevelMode == LEVELMODE_ON_RAILS) && (D_80161680 == 0)) {
         var_fa1 = 900.0f;
         if (gPlayer[0].form != FORM_ARWING) {
             var_fa1 = 600.0f;
@@ -1978,7 +1978,7 @@ void func_8006753C(Object_2F4* obj2F4) {
     s32 i;
 
     obj2F4->obj.rot.y += 1.0f;
-    if (gAllRangeMode == ALLRANGEMODE_1) {
+    if (gLevelMode == LEVELMODE_ALL_RANGE) {
         if (gCurrentLevel == LEVEL_SECTOR_Z) {
             Math_SmoothStepToF(&obj2F4->obj.pos.x, -2000.0f, 0.05f, 60.0f, 0.01f);
             Math_SmoothStepToF(&obj2F4->obj.pos.y, -200.0f, 0.05f, 3.0f, 0.01f);
@@ -2192,7 +2192,7 @@ void func_80068020(Item* item) {
             } else {
                 item->obj.pos.y += (gPlayer[item->unk_4E].pos.y - item->obj.pos.y) * 0.5f;
             }
-            if ((gPlayer[0].unk_238 != 0) && (gAllRangeMode == ALLRANGEMODE_0)) {
+            if ((gPlayer[0].unk_238 != 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
                 item->obj.pos.z += (gPlayer[item->unk_4E].unk_138 - 300.0f - item->obj.pos.z) * 0.3f;
             } else {
                 item->obj.pos.z += (gPlayer[item->unk_4E].unk_138 - item->obj.pos.z) * 0.5f;
@@ -2538,7 +2538,7 @@ void func_800696F8(Object_80* obj80) {
         if (obj80->info.unk_10 < obj80->obj.pos.z) {
             Object_Kill(&obj80->obj, &obj80->sfxPos);
         }
-    } else if ((gAllRangeMode == ALLRANGEMODE_0) && (D_80178284 != 2)) {
+    } else if ((gLevelMode == LEVELMODE_ON_RAILS) && (D_80178284 != 2)) {
         f32 temp_fv0 = fabsf(obj80->obj.pos.x - gPlayer[0].camEye.x);
         f32 var_fa0 = 500.0f;
 
@@ -2823,7 +2823,7 @@ void func_8006A06C(UnkEntity30* unkEnt30) {
                 }
             }
         }
-        if (((unkEnt30->unk_04.z + D_80177D20) > 1000.0f) && (gAllRangeMode == ALLRANGEMODE_1)) {
+        if (((unkEnt30->unk_04.z + D_80177D20) > 1000.0f) && (gLevelMode != LEVELMODE_ALL_RANGE)) {
             unkEnt30->mode = 0;
         }
         if (((unkEnt30->mode == 3) || (unkEnt30->mode == 50)) && (unkEnt30->timer == 0)) {
@@ -2855,11 +2855,13 @@ void Object_UpdateAll(void) {
     Object_8C* obj8C;
 
     D_80161AB8 = 0;
-    if ((gAllRangeMode == ALLRANGEMODE_0) && ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_1) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_4) ||
-                                 (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_8) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_9) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_6))) {
+    if ((gLevelMode == LEVELMODE_ON_RAILS) &&
+        ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_1) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) ||
+         (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_4) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_8) ||
+         (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_9) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_6))) {
         D_80161AB8 = 1;
     }
-    if (gAllRangeMode == ALLRANGEMODE_1) {
+    if (gLevelMode != LEVELMODE_ALL_RANGE) {
         if ((D_80178488 != 0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_2)) {
             func_80062664();
         }

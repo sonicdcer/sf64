@@ -21,7 +21,7 @@ void func_800A3E00(void) {
             break;
         case 1:
             D_80177868 = 2;
-            D_80177898 = 7;
+            gDrawMode = DRAWMODE_7;
             D_801779B8 = 0.0f;
             D_801779A0 = D_801779B8;
             D_80177988 = D_801779A0;
@@ -33,7 +33,7 @@ void func_800A3E00(void) {
             if ((gControllerPress[0].button & START_BUTTON) || (gControllerPress[1].button & START_BUTTON)) {
                 func_8001D638(0);
                 D_80177868 = 3;
-                D_80177898 = 0;
+                gDrawMode = DRAWMODE_0;
                 func_800A5844();
                 D_Timer_8017783C = 0;
             }

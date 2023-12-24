@@ -42,11 +42,11 @@ typedef struct {
 
 typedef struct {
     /* bit 0 */ u8 unk_0 : 3;    
-    /* bit 3 */ u8 unk_3 : 1;    
-    /* bit 4 */ u8 unk_4 : 1;    
-    /* bit 5 */ u8 unk_5 : 1;    
-    /* bit 6 */ u8 unk_6 : 1;    
-    /* bit 7 */ u8 unk_7 : 1;    
+    /* bit 3 */ u8 expertMedal : 1;    
+    /* bit 4 */ u8 expertClear : 1;    
+    /* bit 5 */ u8 played : 1;    
+    /* bit 6 */ u8 normalMedal : 1;    
+    /* bit 7 */ u8 normalClear : 1;    
 } PlanetData; // size = 0x1
 
 typedef struct {
