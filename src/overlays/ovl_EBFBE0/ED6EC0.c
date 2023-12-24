@@ -11,12 +11,13 @@ typedef struct {
 
 typedef struct {
     /* 0x00 */ s32 id;
-    /* 0x04 */ char pad0[0x8];
+    /* 0x04 */ f32 unk_04;
+    /* 0x08 */ f32 unk_08;
     /* 0x0C */ f32 zAngle;
     /* 0x10 */ f32 posX;
     /* 0x14 */ f32 posY;
     /* 0x18 */ f32 posZ;
-    /* 0x1C */ char pad1C[0x4];
+    /* 0x1C */ f32 unk_1C;
     /* 0x20 */ f32 scale;
     /* 0x24 */ s32 alpha;
     /* 0x28 */ s32 unk_28;
@@ -936,7 +937,51 @@ void func_EBFBE0_801A6628(void) {
     D_8017782C = 1;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A6694.s")
+void func_EBFBE0_801A6694(void) {
+    s32 i;
+    Vec3f dest;
+    Vec3f src;
+
+    src.x = 0.0f;
+    src.y = 0.0f;
+    src.z = 0.0f;
+
+    for (i = 0; i < 15; i++) {
+        Matrix_Push(&gGfxMatrix);
+
+        Matrix_RotateY(gGfxMatrix, M_DTOR * (planet[i].unk_1C), 1);
+        Matrix_Translate(gGfxMatrix, planet[i].unk_04, planet[i].unk_08, 0.0f, 1);
+
+        Matrix_RotateY(gGfxMatrix, M_DTOR * (-(planet[i].unk_1C)), 1);
+
+        func_EBFBE0_801AD048();
+
+        Matrix_SetGfxMtx(&gMasterDisp);
+
+        Matrix_Copy(&D_EBFBE0_801CDA60[i], gGfxMatrix);
+
+        Matrix_MultVec3f(gGfxMatrix, &src, &dest);
+
+        planet[i].posX = dest.x;
+        planet[i].posY = dest.y;
+        planet[i].posZ = dest.z;
+
+        Matrix_Pop(&gGfxMatrix);
+
+        Matrix_Push(&gGfxMatrix);
+
+        Matrix_LookAt(gGfxMatrix, D_EBFBE0_801CD9F4, D_EBFBE0_801CD9F8, D_EBFBE0_801CD9FC, D_EBFBE0_801CDA00,
+                      D_EBFBE0_801CDA04, D_EBFBE0_801CDA08, D_EBFBE0_801CDA20, D_EBFBE0_801CDA24, D_EBFBE0_801CDA28, 1);
+        Matrix_Translate(gGfxMatrix, D_EBFBE0_801CEA58, D_EBFBE0_801CEA5C, D_EBFBE0_801CEA60, 1);
+        Matrix_Mult(gGfxMatrix, &D_EBFBE0_801CDA60[i], 1);
+
+        Matrix_SetGfxMtx(&gMasterDisp);
+
+        Matrix_MultVec3f(gGfxMatrix, &src, &D_EBFBE0_801CE960[i]);
+
+        Matrix_Pop(&gGfxMatrix);
+    }
+}
 
 void func_EBFBE0_801A68E4(void) {
     s32 i;
