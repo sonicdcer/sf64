@@ -5,7 +5,7 @@ void func_80187520(s32, void*);
 void func_8002E3E0(Object_2F4* obj2F4) {
     s32 hits = 0;
 
-    if (gCurrentLevel == LEVEL_VENOM_SW) {
+    if (gCurrentLevel == LEVEL_VENOM_2) {
         if (D_8015F940 < 0xF00) {
             hits = 50;
         } else if (D_8015F940 < 0x1680) {
@@ -34,7 +34,7 @@ void func_8002E3E0(Object_2F4* obj2F4) {
 }
 
 s32 func_8002E4F8(u16* arg0, s32 arg1) {
-    if ((D_8017829C == 0) && (gPlayer[0].unk_1C8 != 0)) {
+    if ((gRadioState == 0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_0)) {
         func_800BA808(arg0, arg1);
         return true;
     } else {
@@ -48,7 +48,7 @@ void func_8002E548(void) {
 
         func_8008E51C(D_8015F930, D_8015F944);
         if ((D_8015F930[0] == 0) && (sp24 != D_8015F930[1]) && (D_8015F930[1] < 15)) {
-            func_80019218(0x4900C02A, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x4900C02A, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         }
     }
 }
@@ -90,7 +90,7 @@ void func_8002E6DC(Object_2F4* obj408) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_2EFE0/func_8002ED60.s")
 
 void func_8002EE34(void) {
-    D_8015F904 = D_8017829C = gObjects2F4[1].unk_054 = gObjects2F4[2].unk_054 = gObjects2F4[3].unk_054 = 0;
+    D_8015F904 = gRadioState = gObjects2F4[1].unk_054 = gObjects2F4[2].unk_054 = gObjects2F4[3].unk_054 = 0;
 }
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_2EFE0/func_8002EE64.s")
@@ -103,7 +103,7 @@ void func_8002EE34(void) {
 
 void func_8002F64C(void) {
     if ((D_80177CD0[0] + D_80177CD0[1] + D_80177CD0[2] + D_80177CD0[3]) == 0) {
-        D_8017829C = 0;
+        gRadioState = 0;
     }
     func_8002F5F4();
 }

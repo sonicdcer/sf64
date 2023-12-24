@@ -3,7 +3,7 @@
 
 #define SEGMENT_SIZE(segment) ((ptrdiff_t) ((uintptr_t) (segment).end - (uintptr_t) (segment).start))
 
-u8 D_800CA3B0 = 3;
+u8 sFillTimer = 3;
 
 #include "fox_load_inits.c"
 
@@ -35,7 +35,7 @@ void Overlay_LoadSegment(void* vRomAddress, void* dest, ptrdiff_t size) {
                 Lib_DmaRead(gDmaTable[i].pRom.start, dest, size);
             } else {
                 Lib_FillScreen(true);
-                D_800CA3B0 = 3;
+                sFillTimer = 3;
                 D_80161A39 = true;
                 Lib_DmaRead(gDmaTable[i].pRom.start, gFrameBuffers, SEGMENT_SIZE(gDmaTable[i].pRom));
                 Mio0_Decompress(gFrameBuffers, dest);
@@ -85,8 +85,8 @@ u8 Overlay_Init(OverlayInit* ovlInit) {
         }
     }
 
-    if (D_800CA3B0 != 0) {
-        D_800CA3B0--;
+    if (sFillTimer != 0) {
+        sFillTimer--;
     } else if (gStartNMI == 0) {
         Lib_FillScreen(false);
     }
@@ -148,7 +148,7 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
         case OVL_SETUP_ZONESS:
             changeOvl = Overlay_Init(&sOvlE16C50_Zoness[ovlStage]);
             break;
-        case OVL_SETUP_VENOM_2:
+        case OVL_SETUP_VENOM_ANDROSS:
             changeOvl = Overlay_Init(&sOvlE9F1D0_Venom2[ovlStage]);
             break;
         case OVL_SETUP_TRAINING:
@@ -157,7 +157,7 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
         case OVL_SETUP_VENOM_1:
             changeOvl = Overlay_Init(&sOvlDF4260_Venom1[ovlStage]);
             break;
-        case OVL_SETUP_VENOM_SW:
+        case OVL_SETUP_VENOM_2:
             changeOvl = Overlay_Init(&sOvlE9F1D0_VenomSW[ovlStage]);
             break;
         case OVL_SETUP_20:

@@ -15,7 +15,9 @@ extern u64 __rspboot_end[];
 extern u64 __aspmain_start[];
 extern u64 __aspmain_end[];
 extern u64 __f3dex_start[];
+extern u64 __f3dex_end[];
 extern u8 gF3dexData[SP_UCODE_DATA_SIZE];
+extern u8 gAspMainData[];
 
 extern Mtx gIdentityMtx; // 800C4620
 extern Matrix gIdentityMatrix; //800C4660
@@ -130,11 +132,11 @@ extern OSMesg D_8015661C[1];
 
 extern s32 D_800C9B4C;
 extern u16 D_800C9C3C[16];
-extern Vec3f D_800C9F2C; // could be f32[4]?
+extern Vec3f D_800C9F2C;
 extern s32 D_800CA220;
 extern f32 D_800CA230;
 extern Object_2F4* D_800CA234;
-extern s32 D_800CA238;
+extern s32 D_Timer_800CA238;
 extern f32 D_800CBE70[];
 extern f32 D_800CBE8C[];
 extern f32 D_800CBEA8[];
@@ -177,15 +179,7 @@ extern Gfx* D_800CFC64[];
 extern Gfx* D_800CFC7C[];
 extern f32* D_800CF964[];
 extern f32 D_800CFCA0[];
-extern Vec3f D_800CFCC0; // initializer in sf_5A240
 extern f32 D_800CFCCC[];
-extern Vec3f D_800CFCEC;
-extern Vec3f D_800CFCF8;
-extern Vec3f D_800CFD04;
-extern Vec3f D_800CFD10;
-extern Vec3f D_800CFD1C;
-extern Vec3f D_800CFD28;
-extern Vec3f D_800CFD34;
 extern Gfx D_800CFD80[];
 extern ObjectInit* D_800CFDA0[];
 extern s32 D_800CFDF4[];
@@ -283,7 +277,7 @@ extern f32 D_801615B8[4];
 extern Vec3f D_801615D0;
 
 // fox_enmy
-extern s32 D_80161670[4];
+extern s32 D_Timer_80161670[4];
 extern s32 D_80161680;
 extern u8 D_80161684;
 
@@ -326,7 +320,7 @@ extern s32 D_80161910[0x10]; // could be in fox_97F80
 // fox_game
 extern f32 D_80161A10;
 extern f32 D_80161A14;
-extern s32 D_80161A18[4];
+extern s32 gPlayerInactive[4];
 extern s32 D_80161A28;
 extern u8 D_80161A2C;
 extern u16 D_80161A2E;
@@ -345,7 +339,7 @@ extern u8 D_80161A50;
 extern f32 D_80161A54;
 //
 extern s32 D_80161A5C;
-extern u16 D_80161A60;
+extern u16 D_Timer_80161A60;
 extern u16 D_80161A62;
 extern s32 D_80161A64;
 extern EnvSettings* sEnvSettings;
@@ -359,7 +353,7 @@ extern s32 D_80161A84;
 extern s32 D_80161A88;
 extern s32 D_80161A8C;
 extern u8 gGoldRingCount[4];
-extern u8 D_80161A94;
+extern u8 D_80161A94[4];
 extern s32 gHitCount;
 extern s32 gSavedHitCount;
 extern s16 gLifeCount[4];
@@ -394,7 +388,7 @@ extern s32 D_8017782C;
 extern u8 D_80177830;
 extern s32 gGameState;
 extern s32 D_80177838;
-extern s32 D_8017783C;
+extern s32 D_Timer_8017783C;
 extern s32 D_80177840;
 extern s32 D_80177848;
 extern s32 D_80177844;
@@ -405,12 +399,12 @@ extern s32 D_80177858[4];
 extern s32 D_80177868;
 //
 extern s32 D_80177870[4];
-extern s32 gAllRangeMode;
+extern s32 gLevelMode;
 //
-extern s32 D_80177888[4];
-extern s32 D_80177898;
+extern s32 gHandicap[4];
+extern s32 gDrawMode;
 extern s32 gVersusStage;
-extern s32 D_801778A0;
+extern s32 gPlayerNum;
 extern s32 D_801778A4;
 extern s32 gCamCount;
 extern s32 D_801778AC;
@@ -421,15 +415,15 @@ extern s32 gSavedTeamShields[6];
 extern bool gVersusMode;
 //
 extern UNK_TYPE D_801778F0[6];
-extern u16 D_80177908[4];
-extern s32 D_80177910[6];
-extern u16 D_80177928[4];
+extern u16 gBoostButton[4];
+extern s32 gTeamDamage[6];
+extern u16 gBrakeButton[4];
 extern u8 D_80177930;
 //
-extern u16 D_80177938[4];
+extern u16 gShootButton[4];
 extern f32 D_80177940;
 //
-extern u16 D_80177948[4];
+extern u16 gBombButton[4];
 extern f32 D_80177950;
 //
 extern f32 D_80177958[4];
@@ -451,21 +445,21 @@ extern f32 D_801779B8;
 extern u8 D_801779BC;
 extern f32 D_801779C0;
 //
-extern s32 D_801779C8[4];
+extern s32 gChargeTimers[4];
 extern Vec3f D_801779D8;
 extern f32 D_801779E4;
 extern Vec3f D_801779E8;
 extern f32 D_801779F4;
 extern bool gExpertMode;
 //
-extern UNK_TYPE D_80177A00[4];
+extern s32 D_Timer_80177A00[4];
 extern s32 D_80177A10[10];
-extern UNK_TYPE D_80177A38[4];
+extern s32 D_Timer_80177A38[4];
 extern f32 D_80177A48[10];
-extern s32 D_80177A70[4];
+extern s32 D_Timer_80177A70[4];
 extern s32 D_80177A80;
 //
-extern s32 D_80177A88[4];
+extern s32 D_Timer_80177A88[4];
 extern u8 D_80177A98;
 //
 extern f32 D_80177AA0[4];
@@ -478,11 +472,11 @@ extern s32 D_80177AD0[4];
 extern s32 D_80177AE0;
 //
 extern s32 D_80177AE8[4];
-extern s32 D_80177AF8;
+extern s32 gMainController;
 //
 extern s32 D_80177B00[4][4];
 extern s32 D_80177B40;
-extern u8 D_80177B44;
+extern u8 D_Timer_80177B44;
 extern s32 D_80177B48;
 extern u8 D_80177B4C;
 extern s32 D_80177B50[7];
@@ -493,9 +487,9 @@ extern s32 D_80177B90[7];
 extern s8 D_80177BAC;
 extern s32 D_80177BB0[7];
 //
-extern s16 D_80177BD0[4]; // up to [48]
-extern s32 D_80177BD8[];
-// 0x58
+extern u16 D_Timer_80177BD0[4];
+extern s32 D_80177BD8[24]; // overruns D_80177C30?
+// -0x8??
 extern u16 D_80177C30[4];
 extern UNK_TYPE D_80177C38[6];
 extern s32 D_80177C50;
@@ -581,13 +575,13 @@ extern s32 D_8017828C;
 extern f32* D_80178290;
 extern s32 D_80178294;
 extern u32* D_80178298;
-extern s32 D_8017829C;
+extern s32 gRadioState;
 //
 extern s32 D_801782A4;
 extern Object_58 *gObjects58;
-extern s32 D_801782AC;
+extern s32 D_Timer_801782AC;
 //
-extern s32 D_801782B4;
+extern s32 D_Timer_801782B4;
 extern s32 D_801782B8;
 extern s32 D_801782BC;
 extern s32 D_801782C0;
@@ -631,7 +625,7 @@ extern s32 D_80178360; // 2 lights second color
 extern s32 D_80178364;
 extern s32 D_80178368;
 extern f32 D_8017836C; // 2 lights second color brightness
-extern f32 D_80178370;
+extern f32 D_80178370; // Vec3f?
 extern f32 D_80178374;
 extern f32 D_80178378;
 extern s32 D_8017837C;
@@ -667,7 +661,7 @@ extern f32 D_80178470[3];
 extern f32 D_8017847C;
 extern s32 D_80178480;
 extern s32 D_80178484;
-extern s32 D_80178488;
+extern bool D_80178488;
 // 0x8
 extern s32 D_80178494;
 extern f32 D_80178498;

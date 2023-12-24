@@ -7,46 +7,46 @@
 #define UNK_TYPE s32
 
 typedef struct {
-    f32 offset;
-    f32 size;
-} HitboxDim;
+    /* 0x0 */ f32 offset;
+    /* 0x4 */ f32 size;
+} HitboxDim; // size = 0x8
 
 typedef struct {
-    HitboxDim z;
-    HitboxDim y;
-    HitboxDim x;
-} Hitbox;
+    /* 0x00 */ HitboxDim z;
+    /* 0x08 */ HitboxDim y;
+    /* 0x10 */ HitboxDim x;
+} Hitbox; // size = 0x18
 
 typedef struct {
-    s16 vtx[3];
-    s16 unk_06;
-    Vec3s normal;
-    s32 dist;
-} CollisionPoly;
+   /* 0x00 */ s16 vtx[3];
+   /* 0x06 */ s16 unk_06;
+   /* 0x08 */ Vec3s normal;
+   /* 0x10 */ s32 dist;
+} CollisionPoly; // size = 0x14
 
 typedef struct {
-    Vec3f min;
-    Vec3f max;
-    s32 polyCount;
-    CollisionPoly* polys;
-    Vec3s* mesh;
+    /* 0x00 */ Vec3f min;
+    /* 0x0C */ Vec3f max;
+    /* 0x18 */ s32 polyCount;
+    /* 0x1C */ CollisionPoly* polys;
+    /* 0x20 */ Vec3s* mesh;
 } CollisionHeader; // size = 0x24
 
 typedef struct {
-    Vec3f min;
-    Vec3f max;
-    s32 polyCount;
-    s16 (*polys)[3];
-    Vec3f* mesh;
+   /* 0x00 */ Vec3f min;
+   /* 0x0C */ Vec3f max;
+   /* 0x18 */ s32 polyCount;
+   /* 0x1C */ s16 (*polys)[3];
+   /* 0x20 */ Vec3f* mesh;
 } CollisionHeader2; // size = 0x24
 
 typedef struct {
     /* bit 0 */ u8 unk_0 : 3;    
-    /* bit 3 */ u8 unk_3 : 1;    
-    /* bit 4 */ u8 unk_4 : 1;    
-    /* bit 5 */ u8 unk_5 : 1;    
-    /* bit 6 */ u8 unk_6 : 1;    
-    /* bit 7 */ u8 unk_7 : 1;    
+    /* bit 3 */ u8 expertMedal : 1;    
+    /* bit 4 */ u8 expertClear : 1;    
+    /* bit 5 */ u8 played : 1;    
+    /* bit 6 */ u8 normalMedal : 1;    
+    /* bit 7 */ u8 normalClear : 1;    
 } PlanetData; // size = 0x1
 
 typedef struct {
@@ -87,12 +87,6 @@ typedef struct {
     /* 0x000 */ Save save;
     /* 0x100 */ Save backup;
 } SaveFile; // size = 0x200
-
-typedef struct {
-    /* 0x0 */ u16 unk_0;
-    /* 0x2 */ s8 unk_2;
-    /* 0x3 */ s8 unk_3;
-} UnkStruct_gInputPress; // size = 0x4
 
 typedef struct {
     /* 0x00 */ u8 unk_00;

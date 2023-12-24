@@ -74,7 +74,7 @@ void func_800BA808(u16* msg, s32 character) {
         }
     }
 
-    if ((D_8017829C != 0) && (func_800BA7BC(msg, priority) == 1)) {
+    if ((gRadioState != 0) && (func_800BA7BC(msg, priority) == 1)) {
         return;
     }
 
@@ -85,7 +85,7 @@ void func_800BA808(u16* msg, s32 character) {
         D_80177D68 = RCID_FOX_EXPERT;
     }
 
-    if (gCurrentLevel == LEVEL_VENOM_SW) {
+    if (gCurrentLevel == LEVEL_VENOM_2) {
         switch (character) {
             case RCID_WOLF:
                 D_80177D68 = RCID_WOLF_2;
@@ -103,7 +103,7 @@ void func_800BA808(u16* msg, s32 character) {
     }
 
     D_80178308 = msg;
-    D_8017829C = 100;
+    gRadioState = 100;
 
     switch (gGameState) {
         case GSTATE_TITLE:
@@ -245,55 +245,55 @@ void func_800BAAE8(void) {
         case RCID_ANDREW_2_OPEN:
             sp44 = D_F002D60;
             break;
-        case RCID_BOSS_CORNERIA: // Corneria robot boss
+        case RCID_BOSS_CORNERIA:
             sp44 = D_6026420;
             break;
         case RCID_BOSS_CORNERIA_OPEN:
             sp44 = D_6027340;
             break;
-        case RCID_BOSS_CORNERIA2: // Corneria secret boss
+        case RCID_BOSS_CORNERIA2:
             sp44 = D_60245E0;
             break;
         case RCID_BOSS_CORNERIA2_OPEN:
             sp44 = D_6025500;
             break;
-        case RCID_BOSS_METEO: // Meteo Boss
+        case RCID_BOSS_METEO:
             sp44 = D_601C8E0;
             break;
         case RCID_BOSS_METEO_OPEN:
             sp44 = D_601D800;
             break;
-        case RCID_BOSS_AREA6: // Area 6 Boss
+        case RCID_BOSS_AREA6:
             sp44 = D_60047E0;
             break;
         case RCID_BOSS_AREA6_OPEN:
             sp44 = D_6005700;
             break;
-        case RCID_CAIMAN_AREA6: // Area 6 Caiman
+        case RCID_CAIMAN_AREA6:
             sp44 = D_60029A0;
             break;
         case RCID_CAIMAN_AREA6_OPEN:
             sp44 = D_60038C0;
             break;
-        case RCID_BOSS_ZONESS: // Zoness boss
+        case RCID_BOSS_ZONESS:
             sp44 = D_6014510;
             break;
         case RCID_BOSS_ZONESS_OPEN:
             sp44 = D_6015430;
             break;
-        case RCID_BOSS_SECTORX: // Sector X boss
+        case RCID_BOSS_SECTORX:
             sp44 = D_6020FB0;
             break;
         case RCID_BOSS_SECTORX_OPEN:
             sp44 = D_6021ED0;
             break;
-        case RCID_BOSS_SECTORY: // Sector Y boss
+        case RCID_BOSS_SECTORY:
             sp44 = D_6018F30;
             break;
         case RCID_BOSS_SECTORY_OPEN:
             sp44 = D_6019E50;
             break;
-        case RCID_BOSS_MACBETH: // Macbeth boss
+        case RCID_BOSS_MACBETH:
             sp44 = D_6010C20;
             break;
         case RCID_BOSS_MACBETH_OPEN:
@@ -353,13 +353,13 @@ void func_800BAAE8(void) {
         case RCID_PEPPER_OPEN:
             sp44 = D_D008990;
             break;
-        case RCID_ROB64_TITLE: // rob title?
+        case RCID_ROB64_TITLE:
             sp44 = D_E00E100;
             break;
         case RCID_ROB64_TITLE_OPEN:
             sp44 = D_E00F020;
             break;
-        case RCID_PEPPER_TITLE: // pepper title?
+        case RCID_PEPPER_TITLE:
             sp44 = D_E00FF40;
             break;
         case RCID_PEPPER_TITLE_OPEN:
@@ -474,30 +474,30 @@ void func_800BB5D0(void) {
     if ((D_80177854 == 100) && (gGameState != GSTATE_CREDITS)) {
         return;
     }
-    if (D_801782AC > 0) {
-        D_801782AC--;
+    if (D_Timer_801782AC > 0) {
+        D_Timer_801782AC--;
     }
-    if (D_801782B4 > 0) {
-        D_801782B4--;
+    if (D_Timer_801782B4 > 0) {
+        D_Timer_801782B4--;
     }
-    switch (D_8017829C) {
+    switch (gRadioState) {
         case 100:
             D_80178748 = 1;
             D_801782A4 = 1000;
-            D_8017829C = 1;
+            gRadioState = 1;
             D_801782D8 = 0;
             D_80177D38 = 0.0f;
             D_80177D50 = 0.0f;
             D_8017874C = 0;
             if (gCamCount != 1) {
-                D_8017829C = 0;
+                gRadioState = 0;
             }
             break;
         case 1:
             D_80177D38 += 0.25f;
             if (D_80177D38 == 1.0f) {
-                D_8017829C++;
-                D_801782AC = 10;
+                gRadioState++;
+                D_Timer_801782AC = 10;
             }
             D_801782A4 = 2;
             if (gFrameCount & 1) {
@@ -505,9 +505,9 @@ void func_800BB5D0(void) {
             }
             break;
         case 2:
-            if (D_801782AC == 0) {
-                D_8017829C++;
-                D_801782AC = 10;
+            if (D_Timer_801782AC == 0) {
+                gRadioState++;
+                D_Timer_801782AC = 10;
             }
             D_801782A4 = 2;
             if (gFrameCount & 1) {
@@ -515,16 +515,16 @@ void func_800BB5D0(void) {
             }
             break;
         case 3:
-            if (D_801782AC == 0) {
-                D_8017829C++;
+            if (D_Timer_801782AC == 0) {
+                gRadioState++;
                 temp_v0 = Message_GetWidth(D_80178308);
                 if (D_80137E78 == 3) {
-                    D_801782AC = temp_v0 + 16;
+                    D_Timer_801782AC = temp_v0 + 16;
                 } else {
-                    D_801782AC = 2 * temp_v0 + 16;
+                    D_Timer_801782AC = 2 * temp_v0 + 16;
                 }
                 if ((gGameState == GSTATE_TITLE) || (gGameState == GSTATE_CREDITS)) {
-                    D_801782AC = temp_v0 * 2;
+                    D_Timer_801782AC = temp_v0 * 2;
                 }
             }
             D_801782A4 = (s32) D_80177D68;
@@ -534,8 +534,8 @@ void func_800BB5D0(void) {
             }
             break;
         case 31:
-            D_8017829C++;
-            D_801782AC = 80 - D_801782AC;
+            gRadioState++;
+            D_Timer_801782AC = 80 - D_Timer_801782AC;
             break;
         case 32:
             if (func_8001AE78() == 0) {
@@ -545,26 +545,26 @@ void func_800BB5D0(void) {
 
                 D_801782D8 = 0;
                 D_8017874C = 0;
-                D_801782AC = 80;
-                D_801782AC = Message_GetWidth(D_80178308) * 2;
-                D_8017829C = 4;
+                D_Timer_801782AC = 80;
+                D_Timer_801782AC = Message_GetWidth(D_80178308) * 2;
+                gRadioState = 4;
             }
             break;
         case 4:
-            if ((func_8001AE78() == 0) && (D_801782AC == 0)) {
-                D_801782AC = 10;
+            if ((func_8001AE78() == 0) && (D_Timer_801782AC == 0)) {
+                D_Timer_801782AC = 10;
                 D_801782A4 = (s32) D_80177D68;
-                D_8017829C = 6;
+                gRadioState = 6;
             }
             D_801782A4 = (s32) D_80177D68;
-            if (D_801782B4 > 0) {
+            if (D_Timer_801782B4 > 0) {
                 D_801782A4++;
             }
             temp_v0 = func_8001AED4();
             if (D_801782D8 < 60) {
                 if (D_80178308[D_801782D8 + 1] == 15) {
                     if (temp_v0 == 0) {
-                        D_8017829C = 31;
+                        gRadioState = 31;
                     }
                 } else {
                     D_801782D8++;
@@ -573,33 +573,33 @@ void func_800BB5D0(void) {
             if (D_8017874C != 0) {
                 if ((D_801782E8 >= 23000) && (D_801782E8 < 23033)) {
                     if (D_801782F8 != 0) {
-                        D_801782B4 = 2;
-                        func_80019218(0x49000017, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                        D_Timer_801782B4 = 2;
+                        Audio_PlaySfx(0x49000017, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                     }
                 } else if (temp_v0 == 1) {
-                    D_801782B4 = 2;
+                    D_Timer_801782B4 = 2;
                 } else {
-                    D_801782B4 = 0;
+                    D_Timer_801782B4 = 0;
                 }
             }
             D_8017874C ^= 1;
             break;
         case 5:
-            if (D_801782AC == 0) {
-                D_8017829C++;
-                D_801782AC = 10;
+            if (D_Timer_801782AC == 0) {
+                gRadioState++;
+                D_Timer_801782AC = 10;
             }
             D_801782A4 = (s32) D_80177D68;
             break;
         case 6:
-            if (D_801782AC == 0) {
+            if (D_Timer_801782AC == 0) {
                 if (!D_801782A4) {}
                 if (gGameState == GSTATE_CREDITS) {
                     func_8001AE58();
                 } else {
                     func_8001ACDC(0);
                 }
-                D_8017829C++;
+                gRadioState++;
             }
             D_801782A4 = 2;
             if (gFrameCount & 1) {
@@ -615,7 +615,7 @@ void func_800BB5D0(void) {
             if (D_80177D38 == 0) {
                 D_80178300 = 0;
                 sCurrentMsgPri = 0;
-                D_8017829C = 0;
+                gRadioState = 0;
             }
             D_801782A4 = 2;
             if (gFrameCount & 1) {
@@ -630,7 +630,7 @@ void func_800BB5D0(void) {
         case 0:
             break;
     }
-    if ((D_8017829C > 0) && (D_8017829C != 100) && (D_80178300 == 0)) {
+    if ((gRadioState > 0) && (gRadioState != 100) && (D_80178300 == 0)) {
         func_800BAAE8();
         func_800BB388();
         temp_ft0 = (s32) D_80177D68;
@@ -680,8 +680,9 @@ void func_800BB5D0(void) {
                     var_v1 = 0;
                     break;
             }
-            if ((gObjects2F4[var_v1].obj.status != 2) && (gFrameCount & 4) && (gPlayer[0].unk_1C8 == 3) &&
-                (D_801782A4 != 2) && (D_801782A4 != 3) && (D_801782A4 != 1000)) {
+            if ((gObjects2F4[var_v1].obj.status != 2) && (gFrameCount & 4) &&
+                (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && (D_801782A4 != 2) && (D_801782A4 != 3) &&
+                (D_801782A4 != 1000)) {
                 RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                 Graphics_DisplaySmallText(31, 167, 1.0f, 1.0f, "DOWN");
@@ -706,35 +707,35 @@ void func_800BB5D0(void);
 
 void func_800BC040(void) {
     if (D_80177854 != 100) {
-        if (D_801782AC > 0) {
-            D_801782AC--;
+        if (D_Timer_801782AC > 0) {
+            D_Timer_801782AC--;
         }
-        if (D_801782B4 > 0) {
-            D_801782B4--;
+        if (D_Timer_801782B4 > 0) {
+            D_Timer_801782B4--;
         }
-        switch (D_8017829C) {
+        switch (gRadioState) {
             case 100:
                 D_801782A4 = 1000;
-                D_8017829C = 1;
+                gRadioState = 1;
                 D_80177D38 = 0.0f;
                 D_80177D50 = 0.0f;
                 D_801782D8 = Message_GetWidth(D_80178308);
                 if (gCamCount != 1) {
-                    D_8017829C = 0;
+                    gRadioState = 0;
                 }
                 break;
 
             case 1:
                 D_80177D38 += 0.02f;
                 if (D_80177D38 == 0.04f) {
-                    D_8017829C++;
-                    D_801782AC = 5;
+                    gRadioState++;
+                    D_Timer_801782AC = 5;
                 }
                 break;
             case 2:
-                if (D_801782AC == 0) {
-                    D_8017829C++;
-                    D_801782AC = 5;
+                if (D_Timer_801782AC == 0) {
+                    gRadioState++;
+                    D_Timer_801782AC = 5;
                 }
                 D_801782A4 = 2;
                 if (gFrameCount & 1) {
@@ -742,11 +743,11 @@ void func_800BC040(void) {
                 }
                 break;
             case 3:
-                if (D_801782AC == 0) {
-                    D_8017829C++;
-                    D_801782AC = 5;
+                if (D_Timer_801782AC == 0) {
+                    gRadioState++;
+                    D_Timer_801782AC = 5;
                     if (gGameState == GSTATE_TITLE) {
-                        D_801782AC = 30;
+                        D_Timer_801782AC = 30;
                     }
                 }
                 D_801782A4 = (s32) D_80177D68;
@@ -756,22 +757,22 @@ void func_800BC040(void) {
                 }
                 break;
             case 4:
-                if (D_801782AC == 0) {
-                    D_8017829C++;
-                    D_801782AC = 10;
+                if (D_Timer_801782AC == 0) {
+                    gRadioState++;
+                    D_Timer_801782AC = 10;
                 }
                 break;
             case 5:
-                if (D_801782AC == 0) {
-                    D_8017829C++;
-                    D_801782AC = 5;
+                if (D_Timer_801782AC == 0) {
+                    gRadioState++;
+                    D_Timer_801782AC = 5;
                 }
                 D_801782A4 = (s32) D_80177D68;
                 break;
             case 6:
-                if (D_801782AC == 0) {
+                if (D_Timer_801782AC == 0) {
                     func_8001ACDC(0);
-                    D_8017829C++;
+                    gRadioState++;
                 }
                 D_801782A4 = 2;
                 if (gFrameCount & 1) {
@@ -785,8 +786,8 @@ void func_800BC040(void) {
             case 7:
                 D_80177D38 -= 0.02f;
                 if (D_80177D38 == 0) {
-                    D_8017829C = 0;
-                    D_801782AC = 5;
+                    gRadioState = 0;
+                    D_Timer_801782AC = 5;
                 }
                 D_801782A4 = 2;
                 if (gFrameCount & 1) {
@@ -796,7 +797,7 @@ void func_800BC040(void) {
             case 0:
                 break;
         }
-        if ((D_8017829C > 0) && (D_8017829C != 100)) {
+        if ((gRadioState > 0) && (gRadioState != 100)) {
             func_800BAAE8();
             func_800BB388();
             if (((s32) D_80177D68 == RCID_FALCO) || ((s32) D_80177D68 == RCID_SLIPPY) ||
@@ -806,7 +807,7 @@ void func_800BC040(void) {
                 Matrix_Translate(gGfxMatrix, -150.0f, -115.0f, -443.0f, 1);
                 Matrix_Scale(gGfxMatrix, 0.068f, 0.068f, 1.0f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                D_801778A0 = 0;
+                gPlayerNum = 0;
                 Matrix_Pop(&gGfxMatrix);
             }
         }

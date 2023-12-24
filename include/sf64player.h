@@ -4,11 +4,54 @@
 #include "sf64math.h"
 #include "sf64object.h"
 
-typedef enum {
-    WINGSTATE_NONE,
-    WINGSTATE_BROKEN,
-    WINGSTATE_INTACT,
+typedef enum WingState {
+    /* 0 */ WINGSTATE_NONE,
+    /* 1 */ WINGSTATE_BROKEN,
+    /* 2 */ WINGSTATE_INTACT,
 } WingState;
+
+typedef enum PlayerForm {
+    /* 0 */ FORM_ARWING,
+    /* 1 */ FORM_LANDMASTER,
+    /* 2 */ FORM_BLUE_MARINE,
+    /* 3 */ FORM_ON_FOOT,
+    /* 4 */ FORM_UNK_4,
+} PlayerForm;
+
+typedef enum DrawMode {
+    /* 0 */ DRAWMODE_0,
+    /* 1 */ DRAWMODE_1,
+    /* 2 */ DRAWMODE_2,
+    /* 3 */ DRAWMODE_3,
+    /* 4 */ DRAWMODE_4,
+    /* 5 */ DRAWMODE_5,
+    /* 6 */ DRAWMODE_6,
+    /* 7 */ DRAWMODE_7,
+    /* 8 */ DRAWMODE_8,
+} DrawMode;
+
+typedef enum LevelMode {
+    /* 0 */ LEVELMODE_ON_RAILS,
+    /* 1 */ LEVELMODE_ALL_RANGE,
+    /* 2 */ LEVELMODE_UNK_2,
+} LevelMode;
+
+typedef enum PlayerState1C8 {
+    /*  0 */ PLAYERSTATE_1C8_0,
+    /*  1 */ PLAYERSTATE_1C8_1,
+    /*  2 */ PLAYERSTATE_1C8_2,
+    /*  3 */ PLAYERSTATE_1C8_3,
+    /*  4 */ PLAYERSTATE_1C8_4,
+    /*  5 */ PLAYERSTATE_1C8_5,
+    /*  6 */ PLAYERSTATE_1C8_6,
+    /*  7 */ PLAYERSTATE_1C8_7,
+    /*  8 */ PLAYERSTATE_1C8_8,
+    /*  9 */ PLAYERSTATE_1C8_9,
+    /* 10 */ PLAYERSTATE_1C8_10,
+    /* 11 */ PLAYERSTATE_1C8_11,
+    /* 12 */ PLAYERSTATE_1C8_12,
+    /* 13 */ PLAYERSTATE_1C8_13,
+} PlayerState1C8;
 
 typedef struct {
     /* 0x00 */ u8 rightState;
@@ -30,16 +73,16 @@ typedef struct {
 } WingInfo; // size = 0x3C
 
 typedef enum {
-    PLAYERSHOT_0,
-    PLAYERSHOT_1,
-    PLAYERSHOT_2,
-    PLAYERSHOT_3,
-    PLAYERSHOT_4,
-    PLAYERSHOT_5,
-    PLAYERSHOT_6,
-    PLAYERSHOT_7,
-    PLAYERSHOT_8,
-    PLAYERSHOT_9,
+    /* 0 */ PLAYERSHOT_0,
+    /* 1 */ PLAYERSHOT_1,
+    /* 2 */ PLAYERSHOT_2,
+    /* 3 */ PLAYERSHOT_3,
+    /* 4 */ PLAYERSHOT_4,
+    /* 5 */ PLAYERSHOT_5,
+    /* 6 */ PLAYERSHOT_6,
+    /* 7 */ PLAYERSHOT_7,
+    /* 8 */ PLAYERSHOT_8,
+    /* 9 */ PLAYERSHOT_9,
 } PlayerShotId;
 
 typedef struct {
@@ -59,7 +102,7 @@ typedef struct {
     /* 0x5C */ s32 unk_5C;
     /* 0x60 */ s32 unk_60;
     /* 0x64 */ s32 unk_64;
-    /* 0x68 */ s32 unk_68;
+    /* 0x68 */ s32 playerNum;
     /* 0x6C */ char pad6C[4];
 } PlayerShot; // size = 0x70
 
@@ -75,11 +118,11 @@ typedef struct Player {
     /* 0x020 */ char pad20[8];
     /* 0x028 */ f32 unk_028;
     /* 0x02C */ f32 unk_02C;
-    /* 0x030 */ char pad30[4];
+    /* 0x030 */ f32 unk_030;
     /* 0x034 */ f32 unk_034; 
     /* 0x038 */ char pad38[8];
-    /* 0x040 */ Vec3f unk_040;
-    /* 0x04C */ Vec3f unk_04C;
+    /* 0x040 */ Vec3f camEye;
+    /* 0x04C */ Vec3f camAt;
     /* 0x058 */ f32 unk_058;
     /* 0x05C */ f32 unk_05C;
     /* 0x05C */ f32 unk_060;
@@ -87,14 +130,12 @@ typedef struct Player {
     /* 0x068 */ f32 unk_068;
     /* 0x06C */ f32 unk_06C;
     /* 0x070 */ f32 unk_070;
-    /* 0x074 */ f32 unk_074;
-    /* 0x078 */ f32 unk_078;
-    /* 0x07C */ f32 unk_07C;
+    /* 0x074 */ Vec3f pos;
     /* 0x080 */ f32 unk_080;
     /* 0x084 */ f32 unk_084;
     /* 0x088 */ f32 unk_088;
-    /* 0x08C */ Vec3f unk_08C;
-    /* 0x098 */ f32 unk_098;
+    /* 0x08C */ f32 unk_08C;
+    /* 0x090 */ Vec3f unk_090;
     /* 0x09C */ f32 unk_09C;
     /* 0x0A0 */ f32 unk_0A0;
     /* 0x0A4 */ f32 unk_0A4;
@@ -104,7 +145,7 @@ typedef struct Player {
     /* 0x0B4 */ f32 unk_0B4;
     /* 0x0B8 */ f32 unk_0B8;
     /* 0x0BC */ f32 unk_0BC;
-    /* 0x0C0 */ Vec3f unk_0C0;
+    /* 0x0C0 */ Vec3f vel;
     /* 0x0CC */ f32 unk_0CC;
     /* 0x0D0 */ f32 unk_0D0;
     /* 0x0D4 */ f32 unk_0D4;
@@ -159,31 +200,31 @@ typedef struct Player {
     /* 0x1A0 */ s32 unk_1A0;
     /* 0x1A4 */ s32 unk_1A4;
     /* 0x1A8 */ char pad1A8[0x1C];
-    /* 0x1C4 */ s32 unk_1C4;
-    /* 0x1C8 */ s32 unk_1C8;
-    /* 0x1CC */ s32 unk_1CC;
+    /* 0x1C4 */ s32 num;
+    /* 0x1C8 */ s32 state_1C8;
+    /* 0x1CC */ s32 form;
     /* 0x1D0 */ s32 unk_1D0;
     /* 0x1D4 */ s32 unk_1D4;
     /* 0x1D8 */ char pad1D8[4];
     /* 0x1DC */ s32 unk_1DC;
-    /* 0x1E0 */ s32 unk_1E0;
-    /* 0x1E4 */ s32 unk_1E4;
-    /* 0x1E8 */ s32 unk_1E8;
+    /* 0x1E0 */ s32 timer_1E0;
+    /* 0x1E4 */ s32 timer_1E4;
+    /* 0x1E8 */ s32 timer_1E8;
     /* 0x1EC */ s32 unk_1EC;
     /* 0x1F0 */ s32 unk_1F0;
     /* 0x1F4 */ s32 unk_1F4;
-    /* 0x1F8 */ s32 unk_1F8;
-    /* 0x1FC */ s32 unk_1FC;
+    /* 0x1F8 */ s32 timer_1F8;
+    /* 0x1FC */ s32 timer_1FC;
     /* 0x200 */ s32 unk_200;
     /* 0x204 */ s32 unk_204;
     /* 0x208 */ char pad208[4];
     /* 0x20C */ s32 unk_20C; 
-    /* 0x210 */ s32 unk_210;
-    /* 0x214 */ s32 unk_214;
-    /* 0x218 */ s32 unk_218;
+    /* 0x210 */ s32 timer_210;
+    /* 0x214 */ s32 timer_214;
+    /* 0x218 */ s32 timer_218;
     /* 0x21C */ s32 unk_21C;
-    /* 0x220 */ s32 unk_220;
-    /* 0x224 */ s32 unk_224;
+    /* 0x220 */ s32 timer_220;
+    /* 0x224 */ s32 timer_224;
     /* 0x228 */ s32 unk_228;
     /* 0x22C */ s32 unk_22C;
     /* 0x230 */ char pad230[4];
@@ -191,7 +232,7 @@ typedef struct Player {
     /* 0x238 */ s32 unk_238;
     /* 0x23C */ s32 unk_23C;
     /* 0x240 */ s32 unk_240;
-    /* 0x244 */ s32 unk_244;
+    /* 0x244 */ s32 timer_244;
     /* 0x248 */ f32 unk_248;
     /* 0x24C */ f32 unk_24C;
     /* 0x250 */ f32 unk_250;
@@ -204,8 +245,8 @@ typedef struct Player {
     /* 0x26C */ s32 heal;
     /* 0x270 */ s32 unk_270;
     /* 0x274 */ char pad274[4];
-    /* 0x278 */ s32 unk_278;
-    /* 0x27C */ s32 unk_27C;
+    /* 0x278 */ s32 timer_278;
+    /* 0x27C */ s32 timer_27C;
     /* 0x280 */ s32 unk_280;
     /* 0x284 */ s32 unk_284;
     /* 0x288 */ s32 unk_288;
@@ -215,10 +256,10 @@ typedef struct Player {
     /* 0x2BC */ f32 unk_2BC;
     /* 0x2C0 */ f32 unk_2C0;
     /* 0x2C4 */ s32 unk_2C4;
-    /* 0x2C8 */ Vec3f unk_2C8;
-    /* 0x2D4 */ Vec3f unk_2D4;
-    /* 0x2E0 */ Vec3f unk_2E0;
-    /* 0x2EC */ Vec3f unk_2EC;
+    /* 0x2C8 */ Vec3f hit2;
+    /* 0x2D4 */ Vec3f hit1;
+    /* 0x2E0 */ Vec3f hit4;
+    /* 0x2EC */ Vec3f hit3;
     /* 0x2F8 */ Vec3f jointTable[30];
     /* 0x460 */ union {
                 Vec3f unk_460;
@@ -235,7 +276,7 @@ typedef struct Player {
     /* 0x48C */ u8 unk_48C;
     /* 0x490 */ f32 unk_490;
     /* 0x494 */ u8 unk_494;
-    /* 0x498 */ s32 unk_498;
+    /* 0x498 */ s32 timer_498;
     /* 0x49C */ WingInfo wings;
     /* 0x4D8 */ f32 unk_4D8;
     /* 0x4DC */ s32 unk_4DC;

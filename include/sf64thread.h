@@ -5,21 +5,21 @@
 #include "gfx.h"
 
 typedef enum {
-    GSTATE_NONE,
-    GSTATE_INIT,
-    GSTATE_TITLE,
-    GSTATE_MENU,
-    GSTATE_MAP,
-    GSTATE_STATE_5,
-    GSTATE_VS_INIT,
-    GSTATE_PLAY,
-    GSTATE_CREDITS,
-    GSTATE_BOOT = 100,
-    GSTATE_BOOT_WAIT,
-    GSTATE_SHOW_LOGO,
-    GSTATE_CHECK_SAVE,
-    GSTATE_LOGO_WAIT,
-    GSTATE_START,
+    /*   0 */ GSTATE_NONE,
+    /*   1 */ GSTATE_INIT,
+    /*   2 */ GSTATE_TITLE,
+    /*   3 */ GSTATE_MENU,
+    /*   4 */ GSTATE_MAP,
+    /*   5 */ GSTATE_GAME_OVER,
+    /*   6 */ GSTATE_VS_INIT,
+    /*   7 */ GSTATE_PLAY,
+    /*   8 */ GSTATE_CREDITS,
+    /* 100 */ GSTATE_BOOT = 100,
+    /* 101 */ GSTATE_BOOT_WAIT,
+    /* 102 */ GSTATE_SHOW_LOGO,
+    /* 103 */ GSTATE_CHECK_SAVE,
+    /* 104 */ GSTATE_LOGO_WAIT,
+    /* 105 */ GSTATE_START,
 } GameStates;
 
 typedef void (*TimerAction)(s32*, s32);
@@ -43,11 +43,11 @@ typedef struct {
 } FaultMgr; // size = 0x9D8, 0x8 aligned
 
 typedef enum {
-    SPTASK_STATE_NOT_STARTED,
-    SPTASK_STATE_RUNNING,
-    SPTASK_STATE_INTERRUPTED,
-    SPTASK_STATE_FINISHED,
-    SPTASK_STATE_FINISHED_DP
+    /* 0 */ SPTASK_STATE_NOT_STARTED,
+    /* 1 */ SPTASK_STATE_RUNNING,
+    /* 2 */ SPTASK_STATE_INTERRUPTED,
+    /* 3 */ SPTASK_STATE_FINISHED,
+    /* 4 */ SPTASK_STATE_FINISHED_DP
 } SpTaskState;
 
 typedef struct {
@@ -88,13 +88,13 @@ void func_80007FE4(FrameBuffer*, u16, u16);
 void Fault_Init(void);
 
 typedef enum {
-    SI_READ_CONTROLLER = 10,
-    SI_READ_SAVE,
-    SI_WRITE_SAVE,
-    SI_RUMBLE,
-    SI_SAVE_FAILED,
-    SI_SAVE_SUCCESS,
-    SI_CONT_READ_DONE,
+    /* 10 */ SI_READ_CONTROLLER = 10,
+    /* 11 */ SI_READ_SAVE,
+    /* 12 */ SI_WRITE_SAVE,
+    /* 13 */ SI_RUMBLE,
+    /* 14 */ SI_SAVE_FAILED,
+    /* 15 */ SI_SAVE_SUCCESS,
+    /* 16 */ SI_CONT_READ_DONE,
 } SerialMesg;
 
 #define MSG_QUEUE_EMPTY -1
@@ -111,15 +111,15 @@ typedef enum {
 #define EVENT_MESG_PRENMI 4
 
 typedef enum {
-    THREAD_ID_SYSTEM,
-    THREAD_ID_IDLE,
-    THREAD_ID_FAULT,
-    THREAD_ID_MAIN,
-    THREAD_ID_4,
-    THREAD_ID_AUDIO,
-    THREAD_ID_GRAPHICS,
-    THREAD_ID_7,
-    THREAD_ID_SERIAL,
+    /* 0 */ THREAD_ID_SYSTEM,
+    /* 1 */ THREAD_ID_IDLE,
+    /* 2 */ THREAD_ID_FAULT,
+    /* 3 */ THREAD_ID_MAIN,
+    /* 4 */ THREAD_ID_4,
+    /* 5 */ THREAD_ID_AUDIO,
+    /* 6 */ THREAD_ID_GRAPHICS,
+    /* 7 */ THREAD_ID_TIMER,
+    /* 8 */ THREAD_ID_SERIAL,
 } ThreadID;
 
 #endif

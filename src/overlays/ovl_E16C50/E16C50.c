@@ -51,3 +51,5 @@
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E16C50/func_E16C50_8018EC38.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E16C50/func_E16C50_8018ED78.s")
+
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E16C50/D_E16C50_801C0900.s")

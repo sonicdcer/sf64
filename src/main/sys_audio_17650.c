@@ -59,7 +59,7 @@ void func_80016A50(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_17650/func_800191BC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_17650/func_80019218.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_17650/Audio_PlaySfx.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_17650/func_80019290.s")
 
@@ -77,17 +77,7 @@ void func_80016A50(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_17650/func_8001A4B8.s")
 
-void func_8001A500(Vec3f* sfxPos) {
-    Vec3f pad[4];
-    Vec3f* sp24;
-    u8 i;
-
-    for (i = 0; i < 5; i++) {
-        func_8001A38C(i, sfxPos);
-    }
-    sp24 = sfxPos;
-    func_80019290(2, &sp24);
-}
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_17650/Audio_KillSfx.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_17650/func_8001A55C.s")
 
