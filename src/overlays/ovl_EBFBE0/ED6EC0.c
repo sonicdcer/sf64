@@ -859,7 +859,67 @@ s32 func_EBFBE0_801A5770(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A5E80.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A61B4.s")
+void func_EBFBE0_801A61B4(u32 level) {
+    switch (level) {
+        case LEVEL_CORNERIA:
+            func_8001DC6C(0, 0);
+            break;
+
+        case LEVEL_METEO:
+            func_8001DC6C(0, 1);
+            break;
+
+        case LEVEL_TITANIA:
+            func_8001DC6C(0, 2);
+            break;
+
+        case LEVEL_AQUAS:
+            func_8001DC6C(0, 12);
+            break;
+
+        case LEVEL_BOLSE:
+            func_8001DC6C(0, 10);
+            break;
+
+        case LEVEL_KATINA:
+            func_8001DC6C(0, 11);
+            break;
+
+        case LEVEL_AREA_6:
+            func_8001DC6C(0, 5);
+            break;
+
+        case LEVEL_SECTOR_Z:
+            func_8001DC6C(0, 13);
+            break;
+
+        case LEVEL_FORTUNA:
+            func_8001DC6C(0, 8);
+            break;
+
+        case LEVEL_SECTOR_X:
+            func_8001DC6C(0, 3);
+            break;
+
+        case LEVEL_MACBETH:
+            func_8001DC6C(0, 14);
+            break;
+
+        case LEVEL_ZONESS:
+            func_8001DC6C(0, 4);
+            break;
+
+        case LEVEL_SECTOR_Y:
+            func_8001DC6C(0, 7);
+            break;
+
+        case LEVEL_SOLAR:
+            func_8001DC6C(0, 521);
+
+        default:
+            break;
+    }
+}
 
 bool func_EBFBE0_801A62FC(u32 level) {
     u32 i;
