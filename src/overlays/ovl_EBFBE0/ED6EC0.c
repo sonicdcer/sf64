@@ -114,6 +114,7 @@ extern s32 D_EBFBE0_801CEFD4;
 extern s32 D_EBFBE0_801CF00C;
 extern s32 D_EBFBE0_801CF018; // bss
 
+extern u8 D_600D590[];
 extern Gfx D_601D1F0[];
 extern u8 D_601DC10[];
 extern u16 D_601DC90[];
@@ -138,6 +139,7 @@ extern f32 D_EBFBE0_801CEA8C;
 extern f32 D_EBFBE0_801CEA90;
 extern f32 D_EBFBE0_801CEA94;
 extern s32 D_EBFBE0_801CEA98;
+extern f32 D_EBFBE0_801CEA9C;
 
 void func_EBFBE0_8019E800(void);
 void func_EBFBE0_8019E99C(void);
@@ -686,7 +688,18 @@ void func_EBFBE0_801A07E8(u8* arg0, u8* arg1, f32* arg2) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A1528.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A19A8.s")
+void func_EBFBE0_801A19A8(void) {
+    s32 i;
+
+    RCP_SetupDL(&gMasterDisp, 0x53);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32) D_EBFBE0_801CEA9C);
+
+    for (i = 0; i < 4; i++) {
+        TextureRect_8bIA(&gMasterDisp, D_600D590 + (i * 168 * 4), 168, 4, 72.0f, 104.0f + (4.0f * i), 1.0f, 1.0f);
+    }
+    TextureRect_8bIA(&gMasterDisp, D_600D590 + (168 * 16), 168, 3, 72.0f, 104.0f + 16.0f, 1.0f, 1.0f);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A1AE8.s")
 
