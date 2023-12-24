@@ -26,8 +26,16 @@ typedef struct {
     /* 0x2C */ char pad2C[0x0C];
 } Planet; // size = 0x38
 
+typedef struct {
+    /* 0x0 */ u8* addr;
+    /* 0x4 */ s32 width;
+    /* 0x8 */ s32 height;
+    /* 0xC */ f32 posX;
+} Texture; // size = 0x10
+
 extern Planet planet[15];
 extern s32 D_EBFBE0_801AF420[2];
+extern Texture D_EBFBE0_801AF834[14];
 extern u16* D_EBFBE0_801AF428[15][2];
 extern Gfx* D_EBFBE0_801AFA30[];
 extern UnkStruct_D_EBFBE0_801AFD18 D_EBFBE0_801AFD18[24];
@@ -41,6 +49,7 @@ extern s32 D_EBFBE0_801B00C0[47][96];
 extern Gfx D_EBFBE0_801B4A40[];
 extern void* D_EBFBE0_801B68D4[];
 extern Gfx* D_EBFBE0_801B68F8[];
+extern s32 D_EBFBE0_801B6A84[];
 extern s32 D_EBFBE0_801B6B24[]; // data
 extern f32 D_EBFBE0_801B6B30;
 extern f32 D_EBFBE0_801CD818[];
@@ -100,6 +109,8 @@ extern f32 D_EBFBE0_801CEA18[];
 extern f32 D_EBFBE0_801CEA58;
 extern f32 D_EBFBE0_801CEA5C;
 extern f32 D_EBFBE0_801CEA60;
+extern f32 D_EBFBE0_801CEA6C;
+extern f32 D_EBFBE0_801CEA70;
 extern f32 D_EBFBE0_801CEAB8[];
 extern f32 D_EBFBE0_801CEAF8[];
 extern s32 D_EBFBE0_801CEB48[3];
@@ -1705,7 +1716,28 @@ void func_EBFBE0_801A9814(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A9910.s")
+void func_EBFBE0_801A9910(void) {
+    s32 i;
+    s32 var_s0;
+#ifdef IMPORT_DATA
+    static s32 D_EBFBE0_801B6A84[] = { 1, 13, 12, 11, 6, 2, 4, 10, 8, 0, 9, 5, 3, 7, 7 };
+#endif
+    var_s0 = D_EBFBE0_801B6A84[D_EBFBE0_801CD954];
+
+    RCP_SetupDL(&gMasterDisp, 0x53);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32) D_EBFBE0_801CEA6C);
+
+    for (i = 0; i < D_EBFBE0_801AF834[var_s0].height; i++) {
+        TextureRect_8bIA(&gMasterDisp, D_EBFBE0_801AF834[var_s0].addr + (D_EBFBE0_801AF834[var_s0].width * i),
+                         D_EBFBE0_801AF834[var_s0].width, 1, D_EBFBE0_801AF834[var_s0].posX, 20.0f + (1.0f * i), 1.0f,
+                         1.0f);
+    }
+
+    Math_SmoothStepToF(&D_EBFBE0_801CEA6C, 255.0f, D_EBFBE0_801CEA70, 10.0f, 1.0f);
+
+    D_EBFBE0_801CEA70 *= 1.08;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A9A8C.s")
 
