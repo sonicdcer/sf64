@@ -894,7 +894,71 @@ bool func_EBFBE0_801A62FC(u32 level) {
     return ret;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A6368.s")
+void func_EBFBE0_801A6368(void) {
+    switch (D_EBFBE0_801CD954) {
+        case 9:
+            gCurrentLevel = 0;
+            break;
+
+        case 0:
+            gCurrentLevel = 1;
+            break;
+
+        case 10:
+            gCurrentLevel = 12;
+            break;
+
+        case 11:
+            gCurrentLevel = 13;
+            break;
+
+        case 2:
+            gCurrentLevel = 17;
+            break;
+
+        case 6:
+            gCurrentLevel = 16;
+            break;
+
+        case 1:
+            gCurrentLevel = 3;
+            break;
+
+        case 3:
+            gCurrentLevel = 18;
+            break;
+
+        case 12:
+            gCurrentLevel = 14;
+            break;
+
+        case 4:
+            gCurrentLevel = 2;
+            break;
+
+        case 7:
+            gCurrentLevel = 11;
+            break;
+
+        case 8:
+            gCurrentLevel = 8;
+            break;
+
+        case 5:
+            gCurrentLevel = 5;
+            break;
+
+        case 13:
+            gCurrentLevel = 6;
+            break;
+
+        case 14:
+            gCurrentLevel = 7;
+
+        default:
+            break;
+    }
+}
 
 s32 func_EBFBE0_801A6480(u32 arg0) {
     s32 ret;
