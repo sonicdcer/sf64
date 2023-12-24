@@ -859,7 +859,7 @@ s32 func_EBFBE0_801A5770(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A5E80.s")
 
-void func_EBFBE0_801A61B4(u32 level) {
+void func_EBFBE0_801A61B4(LevelId level) {
     switch (level) {
         case LEVEL_CORNERIA:
             func_8001DC6C(0, 0);
