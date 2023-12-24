@@ -494,6 +494,7 @@ extern s8 D_80177BAC;
 extern s32 D_80177BB0[7];
 //
 extern s16 D_80177BD0[4]; // up to [48]
+extern s32 D_80177BD8[];
 // 0x58
 extern u16 D_80177C30[4];
 extern UNK_TYPE D_80177C38[6];

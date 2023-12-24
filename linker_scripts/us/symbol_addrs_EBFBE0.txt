@@ -1,3 +1,4 @@
+planet = 0x801AF4A0; // type:Planet segment:ovl_EBFBE0 size:0x38
 D_EBFBE0_801AE638 = 0x801AE638; // type:MenuContext segment:ovl_EBFBE0 size:0x240
 D_EBFBE0_801AE99C = 0x801AE99C; // force_migration:True segment:ovl_EBFBE0
 spectrumAnalizerMode = 0x801B9318;

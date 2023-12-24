@@ -195,6 +195,7 @@ s32 func_8005F9DC(Vec3f*);
 void func_80060714(s32 );
 void func_8006089C(u8 );
 void func_80060968(void);
+void func_80060D94(s32);  
 void func_80060F30(Vec3f* , u32 , s32 );
 void Object_Kill(Object*, Vec3f*);
 s32 func_80060FE4(Vec3f*, f32);
