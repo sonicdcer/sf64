@@ -85,7 +85,7 @@ void func_800BA808(u16* msg, s32 character) {
         D_80177D68 = RCID_FOX_EXPERT;
     }
 
-    if (gCurrentLevel == LEVEL_VENOM_SW) {
+    if (gCurrentLevel == LEVEL_VENOM_2) {
         switch (character) {
             case RCID_WOLF:
                 D_80177D68 = RCID_WOLF_2;

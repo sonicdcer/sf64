@@ -222,10 +222,10 @@ s32 func_800863C8(void) {
         case LEVEL_TRAINING:
             var_v1++;
 
-        case LEVEL_VENOM_2:
+        case LEVEL_VENOM_ANDROSS:
             var_v1++;
 
-        case LEVEL_VENOM_SW:
+        case LEVEL_VENOM_2:
             var_v1++;
 
         case LEVEL_VENOM_1:
@@ -290,11 +290,11 @@ void func_80086444(void) {
     f32 D_800D1CCC[] = { 1.6f, 1.6f };
 
     switch (gCurrentLevel) {
-        case LEVEL_VENOM_SW:
+        case LEVEL_VENOM_2:
             i = 1;
             break;
 
-        case LEVEL_VENOM_2:
+        case LEVEL_VENOM_ANDROSS:
             i = 0;
             break;
 
@@ -1514,8 +1514,8 @@ void func_8008E620(f32 arg0, f32 arg1) {
             ret = Play_CheckMedalStatus(300);
             break;
 
+        case LEVEL_VENOM_ANDROSS:
         case LEVEL_VENOM_2:
-        case LEVEL_VENOM_SW:
             ret = Play_CheckMedalStatus(200);
             break;
 

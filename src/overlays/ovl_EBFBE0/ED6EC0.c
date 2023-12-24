@@ -389,11 +389,11 @@ bool func_EBFBE0_8019FD1C(LevelId levelId, s32 arg1) {
             planetSaveSlot = SAVE_SLOT_VENOM_1;
             break;
 
-        case LEVEL_VENOM_SW:
+        case LEVEL_VENOM_2:
             planetSaveSlot = SAVE_SLOT_VENOM_2;
             break;
 
-        case LEVEL_VENOM_2:
+        case LEVEL_VENOM_ANDROSS:
             if (D_8017827C == 0) {
                 planetSaveSlot = SAVE_SLOT_VENOM_1;
             } else {
@@ -1079,8 +1079,8 @@ PlanetId func_EBFBE0_801A6480(LevelId level) {
             break;
 
         case LEVEL_VENOM_1:
+        case LEVEL_VENOM_ANDROSS:
         case LEVEL_VENOM_2:
-        case LEVEL_VENOM_SW:
             planet = PLANET_VENOM;
             break;
 

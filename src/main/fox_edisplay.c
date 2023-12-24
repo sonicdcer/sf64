@@ -508,11 +508,11 @@ void func_8005B388(Object_2F4* obj2F4) {
 
     Matrix_MultVec3f(gGfxMatrix, &sp3C, &sp30);
     if ((((fabsf(sp30.z) < 3000.0f) && (fabsf(sp30.x) < 3000.0f) && (D_80178284 == 0)) ||
-         (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_0) || (gCurrentLevel == LEVEL_VENOM_2) ||
-         (gCurrentLevel == LEVEL_VENOM_SW) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7)) &&
+         (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_0) || (gCurrentLevel == LEVEL_VENOM_ANDROSS) ||
+         (gCurrentLevel == LEVEL_VENOM_2) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7)) &&
         (gCurrentLevel != LEVEL_MACBETH) && (gCurrentLevel != LEVEL_TITANIA)) {
         if (obj2F4->obj.id == OBJ_2F4_195) {
-            if (((gCurrentLevel == LEVEL_VENOM_SW) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) &&
+            if (((gCurrentLevel == LEVEL_VENOM_2) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) &&
                  (obj2F4->index == 10)) ||
                 ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) && (gPlayer[0].unk_1D0 >= 100) &&
                  (gCurrentLevel == LEVEL_KATINA) && (obj2F4->index == 1)) ||
@@ -1268,7 +1268,7 @@ void Item_Draw(Item* item, s32 arg1) {
     }
     func_8005F290(&item->sfxPos, &sp38);
     if ((var_v0 == 0) && (gLevelMode == LEVELMODE_ALL_RANGE) && (gCamCount == 1) && (item->obj.id < 336) &&
-        (gCurrentLevel != LEVEL_VENOM_2)) {
+        (gCurrentLevel != LEVEL_VENOM_ANDROSS)) {
         Object_Kill(&item->obj, &item->sfxPos);
     }
 }
@@ -1425,7 +1425,7 @@ void Object_58_Draw(Object_58* obj58) {
         sp44 = 4000.0f;
         sp40 = -13000.0f;
         sp3C = 4500.0f;
-    } else if (gCurrentLevel == LEVEL_VENOM_2) {
+    } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
         sp40 = -20000.0f;
         sp38 = 0.4f;
     } else if (obj58->obj.id == OBJ_80_143) {
@@ -1763,7 +1763,7 @@ void func_80060968(void) {
     if (gCurrentLevel == LEVEL_MACBETH) {
         RCP_SetupDL(&gMasterDisp, 0x21);
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-    } else if ((gCurrentLevel == LEVEL_AQUAS) || (gCurrentLevel == LEVEL_VENOM_2)) {
+    } else if ((gCurrentLevel == LEVEL_AQUAS) || (gCurrentLevel == LEVEL_VENOM_ANDROSS)) {
         RCP_SetupDL(&gMasterDisp, 0x29);
     } else {
         RCP_SetupDL_14();
@@ -1779,7 +1779,7 @@ void func_80060968(void) {
             Matrix_RotateZ(gGfxMatrix, ent30->unk_20, 1);
             Matrix_Scale(gGfxMatrix, ent30->unk_28, ent30->unk_28, ent30->unk_24, 1);
 
-            if ((gCurrentLevel == LEVEL_AQUAS) || (gCurrentLevel == LEVEL_VENOM_2)) {
+            if ((gCurrentLevel == LEVEL_AQUAS) || (gCurrentLevel == LEVEL_VENOM_ANDROSS)) {
                 s32 alpha = (gFrameCount & 1) ? 180 : 50;
 
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, alpha);
@@ -1789,7 +1789,7 @@ void func_80060968(void) {
                     Matrix_RotateZ(gGfxMatrix, gFrameCount * 5.0f * M_DTOR, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_60119A0);
-                } else if (gCurrentLevel == LEVEL_VENOM_2) {
+                } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
                     Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.0025f, 1);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -200.0f, 1);
                     Matrix_RotateZ(gGfxMatrix, gFrameCount * 25.0f * M_DTOR, 1);

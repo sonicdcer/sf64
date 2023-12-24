@@ -35,7 +35,7 @@ s32 sOverlaySetups[] = {
     /* LEVEL_VENOM_1 */ OVL_SETUP_VENOM_1,
     /* LEVEL_SOLAR */ OVL_SETUP_SOLAR,
     /* LEVEL_ZONESS */ OVL_SETUP_ZONESS,
-    /* LEVEL_VENOM_2 */ OVL_SETUP_VENOM_2,
+    /* LEVEL_VENOM_ANDROSS */ OVL_SETUP_VENOM_ANDROSS,
     /* LEVEL_TRAINING */ OVL_SETUP_TRAINING,
     /* LEVEL_MACBETH */ OVL_SETUP_MACBETH,
     /* LEVEL_TITANIA */ OVL_SETUP_TITANIA,
@@ -45,7 +45,7 @@ s32 sOverlaySetups[] = {
     /* LEVEL_KATINA */ OVL_SETUP_KATINA,
     /* LEVEL_BOLSE */ OVL_SETUP_BOLSE,
     /* LEVEL_SECTOR_Z */ OVL_SETUP_SECTOR_Z,
-    /* LEVEL_VENOM_SW */ OVL_SETUP_VENOM_SW,
+    /* LEVEL_VENOM_2 */ OVL_SETUP_VENOM_2,
     /* LEVEL_VERSUS */ OVL_SETUP_VERSUS,
 };
 
@@ -81,7 +81,7 @@ void Game_SetGameState(void) {
             D_80177854 = 0;
             D_8017827C = D_80161A2E;
             D_80161A2E = 0;
-            if ((D_8017827C != 0) && (gCurrentLevel != LEVEL_VENOM_2)) {
+            if ((D_8017827C != 0) && (gCurrentLevel != LEVEL_VENOM_ANDROSS)) {
                 D_8017782C = 0;
             }
             break;
@@ -101,7 +101,7 @@ void Game_SetGameState(void) {
     gOverlayStage = 0;
     gFillScreenColor = gBgColor = 0;
     D_80177D20 = 0.0f;
-    if ((gCurrentLevel == LEVEL_VENOM_SW) && (D_8017827C == 2)) {
+    if ((gCurrentLevel == LEVEL_VENOM_2) && (D_8017827C == 2)) {
         gFillScreenColor = gBgColor = 0xFFFF;
         D_80178348 = D_80178350 = D_80178354 = 255;
     } else {

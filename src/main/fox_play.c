@@ -123,7 +123,7 @@ void func_800A3FEC(void) {
 }
 
 void func_800A4460(Player* player) {
-    if ((gCurrentLevel == LEVEL_VENOM_2) && (gObjects408[0].obj.status == 2) && (gObjects408[0].unk_04E == 17)) {
+    if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (gObjects408[0].obj.status == 2) && (gObjects408[0].unk_04E == 17)) {
         player->unk_060 = __sinf(player->unk_0F4 * 0.7f * M_DTOR) * 0.5f;
         player->unk_088 += 13.0f;
         player->unk_0F4 += 20.0f;
@@ -438,7 +438,7 @@ void func_800A5844(void) {
     D_80177CB0 = 0.0f;
     gSavedHitCount = D_80177A80 = D_80177838 = D_80177840 = gRadioState = 0;
     D_8017782C = 1;
-    if (((gCurrentLevel == LEVEL_VENOM_SW) && (D_80161A2E == 2)) || (gCurrentLevel == LEVEL_VENOM_2)) {
+    if (((gCurrentLevel == LEVEL_VENOM_2) && (D_80161A2E == 2)) || (gCurrentLevel == LEVEL_VENOM_ANDROSS)) {
         return;
     }
     for (i = 1; i < 4; i++) {
@@ -807,7 +807,7 @@ void Player_ApplyDamage(Player* player, s32 direction, s32 damage) {
     if (player->unk_1A4 > 40) {
         sp34 = (player->unk_110 * 0.3f) + 20.0f;
         player->timer_498 = 5;
-    } else if ((gCurrentLevel == LEVEL_VENOM_2) && (D_80178284 == 0)) {
+    } else if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (D_80178284 == 0)) {
         player->timer_498 = 3;
     } else if ((gCurrentLevel == LEVEL_VENOM_1) || (gCurrentLevel == LEVEL_AQUAS)) {
         player->timer_498 = 5;
@@ -1572,7 +1572,7 @@ void func_800A8BA4(Player* player) {
             Object_58* obj58;
 
             sp8C = 1100.0f;
-            if ((gCurrentLevel == LEVEL_SECTOR_Y) || (gCurrentLevel == LEVEL_VENOM_2)) {
+            if ((gCurrentLevel == LEVEL_SECTOR_Y) || (gCurrentLevel == LEVEL_VENOM_ANDROSS)) {
                 sp8C = 4000.0f;
             }
             for (i = 0, obj58 = gObjects58; i < 200; i++, obj58++) {
@@ -1595,7 +1595,7 @@ void func_800A8BA4(Player* player) {
                                     Player_ApplyDamage(player, temp_v0, obj58->info.damage);
                                 }
                             }
-                            if ((gCurrentLevel == LEVEL_FORTUNA) || (gCurrentLevel == LEVEL_VENOM_SW)) {
+                            if ((gCurrentLevel == LEVEL_FORTUNA) || (gCurrentLevel == LEVEL_VENOM_2)) {
                                 temp_v0 = func_800A7974(player, obj58->info.hitbox, &sp98, obj58->obj.pos.x,
                                                         obj58->obj.pos.y, obj58->obj.pos.z, obj58->obj.rot.x,
                                                         obj58->obj.rot.y, obj58->obj.rot.z, 0.0f, 0.0f, 0.0f);
@@ -2317,10 +2317,10 @@ void func_800AB334(void) {
         case LEVEL_VENOM_1:
             func_8001DC6C(0, 6);
             break;
-        case LEVEL_VENOM_SW:
+        case LEVEL_VENOM_2:
             func_8001DC6C(0, 6);
             break;
-        case LEVEL_VENOM_2:
+        case LEVEL_VENOM_ANDROSS:
             func_8001DC6C(0, 15);
             func_8001D400(0);
             D_8017796C = -1;
@@ -2345,7 +2345,7 @@ void func_800AB334(void) {
                 gAmbientB = 100;
             }
             break;
-        case LEVEL_VENOM_2:
+        case LEVEL_VENOM_ANDROSS:
             D_80177A98 = 0;
             D_80177AB0 = 6;
             D_E9F1D0_801A7F78 = 0.0f;
@@ -2513,7 +2513,7 @@ void func_800ABAB4(void) {
             func_800AB964();
         }
     }
-    if ((gCurrentLevel == LEVEL_VENOM_2) && (D_8017827C == 1)) {
+    if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (D_8017827C == 1)) {
         gLevelMode = LEVELMODE_ALL_RANGE;
     }
     D_80177E7C = 0;
@@ -2526,7 +2526,7 @@ void func_800ABAB4(void) {
     }
     D_80177CC0 = -25000.0f;
     D_80177950 = 1.0f;
-    if ((gCurrentLevel == LEVEL_VENOM_SW) && (D_8017827C == 2)) {
+    if ((gCurrentLevel == LEVEL_VENOM_2) && (D_8017827C == 2)) {
         D_80178348 = D_80178350 = D_80178354 = 255;
     } else {
         D_80178348 = D_80178350 = D_80178354 = 0;
@@ -2607,13 +2607,13 @@ void func_800ABAB4(void) {
                     func_8002F180();
                 }
                 break;
-            case LEVEL_VENOM_SW:
+            case LEVEL_VENOM_2:
                 func_E9F1D0_80196968(&gObjects58);
                 if (D_8017827C == 0) {
                     func_8002F180();
                 }
                 break;
-            case LEVEL_VENOM_2:
+            case LEVEL_VENOM_ANDROSS:
                 if (D_8017827C == 1) {
                     if (D_8015F924 == 0) {
                         func_E9F1D0_801878A8(&gObjects58);
@@ -3248,7 +3248,7 @@ void func_800AE278(Player* player) {
             var_fv1 = 10000.0f;
         } else if (gCurrentLevel == LEVEL_SECTOR_Z) {
             var_fv1 = 20000.0f;
-        } else if ((gCurrentLevel == LEVEL_VENOM_2) && (D_80177AB0 >= 4)) {
+        } else if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (D_80177AB0 >= 4)) {
             var_fv1 = 100000.0f;
         }
         if ((var_fv1 < fabsf(player->pos.x)) || (var_fv1 < fabsf(player->pos.z))) {
@@ -3572,7 +3572,7 @@ void func_800AF07C(Player* player) {
     player->vel.x = (sp5C.x + sp50.x) * player->unk_150;
     player->vel.y = (sp5C.y + sp50.y) * player->unk_150;
     player->vel.z = sp5C.z + sp50.z;
-    if (gCurrentLevel == LEVEL_VENOM_2) {
+    if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
         player->vel.z += D_E9F1D0_801A7F58;
     }
     sp68.x = 0.0f;
@@ -4072,7 +4072,7 @@ void func_800B0F50(Player* playerx) {
         gGoldRingCount[0] = 0;
     }
     gHitCount = gSavedHitCount;
-    if ((gCurrentLevel == LEVEL_VENOM_2) || ((gCurrentLevel == LEVEL_VENOM_SW) && (D_8017827C == 2))) {
+    if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) || ((gCurrentLevel == LEVEL_VENOM_2) && (D_8017827C == 2))) {
         if (D_80177C9C != 0) {
             player->shields = D_80177C9C - 1;
             gGoldRingCount[0] = D_80177C94;
@@ -4080,7 +4080,7 @@ void func_800B0F50(Player* playerx) {
             player->wings.leftState = D_80177CB4;
             gRightWingHealth[0] = D_80177CBC;
             gLeftWingHealth[0] = D_80177CC4;
-            if (gCurrentLevel == LEVEL_VENOM_2) {
+            if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
                 D_80177C94 = D_80177CAC = D_80177CB4 = D_80177CBC = D_80177CC4 = D_80177C9C = 0;
             }
         }
@@ -4162,7 +4162,7 @@ void func_800B0F50(Player* playerx) {
         player->pos.y = 670.0f;
         player->unk_0A0 = 730.0f;
         player->unk_204 = 2;
-        if ((gCurrentLevel == LEVEL_VENOM_2) && (D_8017827C == 1)) {
+        if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (D_8017827C == 1)) {
             player->pos.x = -7910.0f;
             player->pos.y = 300.0f;
 
@@ -4206,7 +4206,7 @@ void func_800B0F50(Player* playerx) {
             case LEVEL_FORTUNA:
             case LEVEL_KATINA:
             case LEVEL_SECTOR_Z:
-            case LEVEL_VENOM_SW:
+            case LEVEL_VENOM_2:
                 player->state_1C8 = PLAYERSTATE_1C8_2;
                 break;
             case LEVEL_METEO:
@@ -4214,7 +4214,7 @@ void func_800B0F50(Player* playerx) {
                 break;
         }
     } else {
-        if (!gVersusMode && !((gCurrentLevel == LEVEL_VENOM_SW) && (D_8017827C == 2))) {
+        if (!gVersusMode && !((gCurrentLevel == LEVEL_VENOM_2) && (D_8017827C == 2))) {
             D_80177838 = 80;
         }
 
@@ -4245,7 +4245,7 @@ void func_800B0F50(Player* playerx) {
                 break;
             case LEVEL_FORTUNA:
             case LEVEL_BOLSE:
-            case LEVEL_VENOM_SW:
+            case LEVEL_VENOM_2:
                 func_8001D444(0, 0x33, 0, 0xFF);
                 break;
             case LEVEL_VENOM_1:
@@ -4259,7 +4259,7 @@ void func_800B0F50(Player* playerx) {
                 break;
             case LEVEL_ZONESS:
             case LEVEL_SECTOR_X:
-            case LEVEL_VENOM_2:
+            case LEVEL_VENOM_ANDROSS:
             case LEVEL_TRAINING:
             case LEVEL_MACBETH:
             default:
@@ -5411,7 +5411,7 @@ void func_800B48BC(Player* player) {
                     func_8001AE58();
                     func_8001D400(0);
                     D_80161A94[0] = gGoldRingCount[0];
-                    if (gCurrentLevel == LEVEL_VENOM_2) {
+                    if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
                         if (1) {}
                         if (1) {}
                         if (1) {}
@@ -6050,7 +6050,7 @@ void func_800B79B0(void) {
                 D_80177844 = 0;
             }
             break;
-        case LEVEL_VENOM_SW:
+        case LEVEL_VENOM_2:
             if ((gPlayer->state_1C8 != PLAYERSTATE_1C8_7) && (D_8017827C == 2)) {
                 gPlayer->state_1C8 = PLAYERSTATE_1C8_7;
                 gPlayer->unk_1D0 = 0;
@@ -6064,7 +6064,7 @@ void func_800B79B0(void) {
                 D_80178348 = D_80178350 = D_80178354 = 255;
             }
             break;
-        case LEVEL_VENOM_2:
+        case LEVEL_VENOM_ANDROSS:
             func_E9F1D0_8018BDD8();
             D_80177940 = -25000.0f;
             gPlayer->unk_0A0 = 612.0f;
@@ -6280,7 +6280,7 @@ void func_800B86CC(void) {
     if (D_80177E84 != 0) {
         D_80177E84 = 0;
         gLevelMode = LEVELMODE_ALL_RANGE;
-        if (gCurrentLevel != LEVEL_VENOM_2) {
+        if (gCurrentLevel != LEVEL_VENOM_ANDROSS) {
             MEM_ARRAY_ALLOCATE(gObjects58, 200);
         }
         for (i = 0; i < 200; i++) {
@@ -6291,7 +6291,7 @@ void func_800B86CC(void) {
             func_800A5338();
         } else if (gCurrentLevel == LEVEL_SECTOR_Y) {
             func_800A55B0();
-        } else if (gCurrentLevel == LEVEL_VENOM_2) {
+        } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
             func_800A57E0();
         } else if (gCurrentLevel == LEVEL_TRAINING) {
             func_DF4260_80198C50();

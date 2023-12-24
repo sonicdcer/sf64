@@ -520,7 +520,7 @@ void func_80062664(void) {
         D_80178310 = SEGMENTED_TO_VIRTUAL(D_602B148);
     } else if ((gCurrentLevel == LEVEL_SECTOR_X) && (D_8017827C == 1)) {
         D_80178310 = SEGMENTED_TO_VIRTUAL(D_602F18C);
-    } else if ((gCurrentLevel == LEVEL_VENOM_2) && (D_8017827C == 1)) {
+    } else if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (D_8017827C == 1)) {
         D_80178310 = SEGMENTED_TO_VIRTUAL(D_C0356A4);
     } else if ((gCurrentLevel == LEVEL_VENOM_1) && (D_8017827C == 1)) {
         D_80178310 = SEGMENTED_TO_VIRTUAL(D_6010088);
@@ -2433,7 +2433,7 @@ void func_800690D0(s32 index, s32 objId) {
             func_8007717C(&gObjects2F4[index]);
             break;
         case OBJ_2F4_197:
-            if (gCurrentLevel == LEVEL_VENOM_2) {
+            if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
                 func_E9F1D0_801888F4(&gObjects2F4[index]);
             } else {
                 func_800763A4(&gObjects2F4[index]);

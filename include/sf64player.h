@@ -4,53 +4,53 @@
 #include "sf64math.h"
 #include "sf64object.h"
 
-typedef enum {
-    WINGSTATE_NONE,
-    WINGSTATE_BROKEN,
-    WINGSTATE_INTACT,
+typedef enum WingState {
+    /* 0 */ WINGSTATE_NONE,
+    /* 1 */ WINGSTATE_BROKEN,
+    /* 2 */ WINGSTATE_INTACT,
 } WingState;
 
-typedef enum {
-    FORM_ARWING,
-    FORM_LANDMASTER,
-    FORM_BLUE_MARINE,
-    FORM_ON_FOOT,
-    FORM_UNK_4,
+typedef enum PlayerForm {
+    /* 0 */ FORM_ARWING,
+    /* 1 */ FORM_LANDMASTER,
+    /* 2 */ FORM_BLUE_MARINE,
+    /* 3 */ FORM_ON_FOOT,
+    /* 4 */ FORM_UNK_4,
 } PlayerForm;
 
-typedef enum {
-    DRAWMODE_0,
-    DRAWMODE_1,
-    DRAWMODE_2,
-    DRAWMODE_3,
-    DRAWMODE_4,
-    DRAWMODE_5,
-    DRAWMODE_6,
-    DRAWMODE_7,
-    DRAWMODE_8,
+typedef enum DrawMode {
+    /* 0 */ DRAWMODE_0,
+    /* 1 */ DRAWMODE_1,
+    /* 2 */ DRAWMODE_2,
+    /* 3 */ DRAWMODE_3,
+    /* 4 */ DRAWMODE_4,
+    /* 5 */ DRAWMODE_5,
+    /* 6 */ DRAWMODE_6,
+    /* 7 */ DRAWMODE_7,
+    /* 8 */ DRAWMODE_8,
 } DrawMode;
 
-typedef enum {
-    LEVELMODE_ON_RAILS,
-    LEVELMODE_ALL_RANGE,
-    LEVELMODE_UNK_2,
+typedef enum LevelMode {
+    /* 0 */ LEVELMODE_ON_RAILS,
+    /* 1 */ LEVELMODE_ALL_RANGE,
+    /* 2 */ LEVELMODE_UNK_2,
 } LevelMode;
 
-typedef enum {
-    PLAYERSTATE_1C8_0,
-    PLAYERSTATE_1C8_1,
-    PLAYERSTATE_1C8_2,
-    PLAYERSTATE_1C8_3,
-    PLAYERSTATE_1C8_4,
-    PLAYERSTATE_1C8_5,
-    PLAYERSTATE_1C8_6,
-    PLAYERSTATE_1C8_7,
-    PLAYERSTATE_1C8_8,
-    PLAYERSTATE_1C8_9,
-    PLAYERSTATE_1C8_10,
-    PLAYERSTATE_1C8_11,
-    PLAYERSTATE_1C8_12,
-    PLAYERSTATE_1C8_13,
+typedef enum PlayerState1C8 {
+    /*  0 */ PLAYERSTATE_1C8_0,
+    /*  1 */ PLAYERSTATE_1C8_1,
+    /*  2 */ PLAYERSTATE_1C8_2,
+    /*  3 */ PLAYERSTATE_1C8_3,
+    /*  4 */ PLAYERSTATE_1C8_4,
+    /*  5 */ PLAYERSTATE_1C8_5,
+    /*  6 */ PLAYERSTATE_1C8_6,
+    /*  7 */ PLAYERSTATE_1C8_7,
+    /*  8 */ PLAYERSTATE_1C8_8,
+    /*  9 */ PLAYERSTATE_1C8_9,
+    /* 10 */ PLAYERSTATE_1C8_10,
+    /* 11 */ PLAYERSTATE_1C8_11,
+    /* 12 */ PLAYERSTATE_1C8_12,
+    /* 13 */ PLAYERSTATE_1C8_13,
 } PlayerState1C8;
 
 typedef struct {
@@ -73,16 +73,16 @@ typedef struct {
 } WingInfo; // size = 0x3C
 
 typedef enum {
-    PLAYERSHOT_0,
-    PLAYERSHOT_1,
-    PLAYERSHOT_2,
-    PLAYERSHOT_3,
-    PLAYERSHOT_4,
-    PLAYERSHOT_5,
-    PLAYERSHOT_6,
-    PLAYERSHOT_7,
-    PLAYERSHOT_8,
-    PLAYERSHOT_9,
+    /* 0 */ PLAYERSHOT_0,
+    /* 1 */ PLAYERSHOT_1,
+    /* 2 */ PLAYERSHOT_2,
+    /* 3 */ PLAYERSHOT_3,
+    /* 4 */ PLAYERSHOT_4,
+    /* 5 */ PLAYERSHOT_5,
+    /* 6 */ PLAYERSHOT_6,
+    /* 7 */ PLAYERSHOT_7,
+    /* 8 */ PLAYERSHOT_8,
+    /* 9 */ PLAYERSHOT_9,
 } PlayerShotId;
 
 typedef struct {

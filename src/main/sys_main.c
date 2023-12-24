@@ -505,8 +505,8 @@ void Main_ThreadEntry(void* arg0) {
     osCreateThread(&gGraphicsThread, THREAD_ID_GRAPHICS, Graphics_ThreadEntry, arg0,
                    gGraphicsThreadStack + sizeof(gGraphicsThreadStack), 40);
     osStartThread(&gGraphicsThread);
-    osCreateThread(&gTimerThread, THREAD_ID_7, Timer_ThreadEntry, arg0, gTimerThreadStack + sizeof(gTimerThreadStack),
-                   60);
+    osCreateThread(&gTimerThread, THREAD_ID_TIMER, Timer_ThreadEntry, arg0,
+                   gTimerThreadStack + sizeof(gTimerThreadStack), 60);
     osStartThread(&gTimerThread);
     osCreateThread(&gSerialThread, THREAD_ID_SERIAL, SerialInterface_ThreadEntry, arg0,
                    gSerialThreadStack + sizeof(gSerialThreadStack), 20);

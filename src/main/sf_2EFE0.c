@@ -5,7 +5,7 @@ void func_80187520(s32, void*);
 void func_8002E3E0(Object_2F4* obj2F4) {
     s32 hits = 0;
 
-    if (gCurrentLevel == LEVEL_VENOM_SW) {
+    if (gCurrentLevel == LEVEL_VENOM_2) {
         if (D_8015F940 < 0xF00) {
             hits = 50;
         } else if (D_8015F940 < 0x1680) {

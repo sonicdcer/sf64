@@ -903,7 +903,7 @@ void func_8006D36C(Object_2F4* obj2F4) {
     s32 j;
 
     switch (gCurrentLevel) {
-        case LEVEL_VENOM_2:
+        case LEVEL_VENOM_ANDROSS:
             var_v1 = SEGMENTED_TO_VIRTUAL(D_C037E3C);
             break;
         case LEVEL_CORNERIA:
@@ -3807,7 +3807,7 @@ void func_800763A4(Object_2F4* obj2F4) {
                         }
                         func_8007C120(obj2F4->obj.pos.x, 20.0f, obj2F4->obj.pos.z, 0.0f, 0.0f, 0.0f,
                                       obj2F4->scale * 0.05f, 0x1E);
-                        if ((gCurrentLevel == LEVEL_FORTUNA) || (gCurrentLevel == LEVEL_VENOM_SW)) {
+                        if ((gCurrentLevel == LEVEL_FORTUNA) || (gCurrentLevel == LEVEL_VENOM_2)) {
                             func_8007C688(obj2F4->obj.pos.x, D_80177940 + 30.0f, obj2F4->obj.pos.z, 3.0f, 60);
                             if (gCurrentLevel == LEVEL_FORTUNA) {
                                 func_80062C38(obj2F4->obj.pos.x, obj2F4->obj.pos.z);
