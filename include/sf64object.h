@@ -4,6 +4,10 @@
 #include "libultra/ultra64.h"
 #include "sf64math.h"
 
+#define HITBOX_UNK_2 200000.0f
+#define HITBOX_UNK_3 300000.0f
+#define HITBOX_UNK_4 400000.0f
+
 typedef struct {
     /* 0x00 */ f32 zPos1;
     /* 0x04 */ s16 zPos2;
@@ -69,7 +73,7 @@ typedef struct {
     /* 0x40 */ s32 index;
     /* 0x44 */ s32 unk_44;
     /* 0x48 */ s32 unk_48;
-    /* 0x4C */ s32 unk_4C;
+    /* 0x4C */ s32 timer_4C;
     /* 0x50 */ u8 unk_50;
     /* 0x51 */ char pad51[3];
     /* 0x54 */ s32 unk_54;
@@ -96,15 +100,15 @@ typedef struct {
     /* 0x40 */ s32 index;
     /* 0x44 */ s16 unk_44;
     /* 0x46 */ u8 unk_46;
-    /* 0x48 */ u16 unk_48;
-    /* 0x4A */ u16 unk_4A;
+    /* 0x48 */ u16 timer_48;
+    /* 0x4A */ u16 timer_4A;
     /* 0x4C */ s8 unk_4C;
     /* 0x4E */ s16 unk_4E;
     /* 0x50 */ f32 unk_50;
     /* 0x54 */ f32 unk_54;
     /* 0x58 */ f32 unk_58;
     /* 0x5C */ Vec3f sfxPos;
-    /* 0x68 */ f32 unk_68;
+    /* 0x68 */ f32 scale;
 } Item; // size 0x6C
 
 typedef struct {
@@ -117,12 +121,12 @@ typedef struct {
     /* 0x4A */ s16 unk_4A;
     /* 0x4C */ u8 unk_4C;
     /* 0x4E */ s16 unk_4E;
-    /* 0x50 */ u16 unk_50;
+    /* 0x50 */ u16 timer_50;
     /* 0x52 */ char pad52[0x2];
     /* 0x54 */ Vec3f unk_54;
     /* 0x60 */ Vec3f unk_60;
-    /* 0x6C */ f32 unk_6C;
-    /* 0x70 */ f32 unk_70;
+    /* 0x6C */ f32 scale1;
+    /* 0x70 */ f32 scale2;
     /* 0x74 */ Gfx* unk_74;
     /* 0x78 */ s16 unk_78;
     /* 0x7A */ s16 unk_7A;
@@ -136,13 +140,13 @@ typedef struct {
     /* 0x040 */ s32 index;
     /* 0x044 */ char unk_44[0xA];
     /* 0x04E */ s16 unk_04E;
-    /* 0x050 */ s16 unk_050;
-    /* 0x052 */ s16 unk_052;
-    /* 0x054 */ s16 unk_054;
-    /* 0x056 */ s16 unk_056;
-    /* 0x058 */ s16 unk_058;
-    /* 0x05A */ s16 unk_05A;
-    /* 0x05C */ s16 unk_05C;
+    /* 0x050 */ s16 timer_050;
+    /* 0x052 */ s16 timer_052;
+    /* 0x054 */ s16 timer_054;
+    /* 0x056 */ s16 timer_056;
+    /* 0x058 */ s16 timer_058;
+    /* 0x05A */ s16 timer_05A;
+    /* 0x05C */ s16 timer_05C;
     /* 0x05E */ u8 unk_05E;
     /* 0x05F */ char pad5F[3];
     /* 0x062 */ s8 unk_062;
@@ -202,7 +206,7 @@ typedef struct {
     /* 0x046 */ s16 unk_046;
     /* 0x048 */ s16 unk_048;
     /* 0x04A */ s16 unk_04A;
-    /* 0x04C */ s16 unk_04C;
+    /* 0x04C */ s16 timer_04C;
     /* 0x04E */ s16 unk_04E;
     /* 0x050 */ bool unk_050;
     /* 0x054 */ bool unk_054;
@@ -230,15 +234,15 @@ typedef struct {
     /* 0x0B6 */ s16 unk_0B6;
     /* 0x0B8 */ s16 unk_0B8;
     /* 0x0BA */ char pad0BA[0x2];
-    /* 0x0BC */ u16 unk_0BC;
-    /* 0x0BC */ u16 unk_0BE;
-    /* 0x0C0 */ u16 unk_0C0;
-    /* 0x0C2 */ u16 unk_0C2;
-    /* 0x0C4 */ u16 unk_0C4;
-    /* 0x0C6 */ u16 unk_0C6;
+    /* 0x0BC */ u16 timer_0BC;
+    /* 0x0BC */ u16 timer_0BE;
+    /* 0x0C0 */ u16 timer_0C0;
+    /* 0x0C2 */ u16 timer_0C2;
+    /* 0x0C4 */ u16 timer_0C4;
+    /* 0x0C6 */ u16 timer_0C6;
     /* 0x0C8 */ u8 unk_0C8;
     /* 0x0C9 */ u8 unk_0C9;
-    /* 0x0C9 */ u8 unk_0CA[4];
+    /* 0x0C9 */ u8 timer_0CA[4];
     /* 0x0CE */ s16 unk_0CE;
     /* 0x0D0 */ s8 unk_0D0;
     /* 0x0D1 */ s16 unk_0D2;
@@ -251,7 +255,7 @@ typedef struct {
     /* 0x0F4 */ Vec3f unk_0F4;
     /* 0x100 */ Vec3f sfxPos;
     /* 0x10C */ f32 unk_10C;
-    /* 0x110 */ f32 unk_110;
+    /* 0x110 */ f32 scale;
     /* 0x114 */ f32 unk_114;
     /* 0x118 */ f32 unk_118;
     /* 0x11C */ f32 unk_11C;
@@ -621,7 +625,7 @@ typedef enum{
   /* 331 */  OBJ_ITEM_331,
   /* 332 */  OBJ_ITEM_332,
   /* 333 */  OBJ_ITEM_333,
-  /* 334 */  OBJ_ITEM_CORN_ARCH,
+  /* 334 */  OBJ_ITEM_334,
   /* 335 */  OBJ_ITEM_1UP,
   /* 336 */  OBJ_ITEM_GOLD_RING,
   /* 337 */  OBJ_ITEM_WING_REPAIR,

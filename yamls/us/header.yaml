@@ -23,7 +23,8 @@ options:
     - linker_scripts/us/symbol_addrs_nlib_funcs.txt
     - linker_scripts/us/symbol_addrs_nlib_vars.txt
     - linker_scripts/us/symbol_addrs_assets.txt
-    - linker_scripts/us/symbol_addr_mesg.txt
+    - linker_scripts/us/symbol_addrs_mesg.txt
+    - linker_scripts/us/symbol_addrs_audio.txt
     - linker_scripts/us/symbol_addrs_overlays.txt
     - linker_scripts/us/symbol_addrs_EBFBE0.txt
     - linker_scripts/us/ignored_addresses.txt

@@ -22,8 +22,8 @@ void func_8000FFCC(void);
 u8* func_8001C3EC(void);
 void func_80016A50(void);
 void func_800182F4(s32);
-void func_80019218(u32, Vec3f*, u8, f32*, f32*, s8*);
-void func_8001A500(Vec3f*);
+void Audio_PlaySfx(u32, Vec3f*, u8, f32*, f32*, s8*);
+void Audio_KillSfx(Vec3f*);
 void func_8001A55C(Vec3f*, u32);
 void func_8001A838(u32);
 void func_8001ACDC(s32);
@@ -153,7 +153,7 @@ void func_800596C0(void);
 void func_800596B0(Object_2F4*);
 
 // fox_edisplay
-void func_8005980C(f32);
+void Graphics_SetScaleMtx(f32);
 void func_80059850(Object_4C*);
 void func_800598E8(Object_2F4*);
 void func_80059A24(Object_2F4*);
@@ -485,7 +485,7 @@ void func_800A5D6C(void);
 void func_800A5FA0(Vec3f* , u32 , s32 );
 void func_800A6148(void);
 void func_800A69F8(s32 , f32 , f32 , f32 );
-void func_800A6CD0(Player *, s32, s32);
+void Player_ApplyDamage(Player *, s32, s32);
 bool func_800A73E4(f32* , s32* , f32 posX, f32 posY, f32 posZ);
 s32 func_800A78C4(Hitbox* hitbox, f32 , f32 , f32 , f32 , f32 , f32 );
 void func_800A8BA4(Player* player);

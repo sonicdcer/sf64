@@ -59,7 +59,7 @@ void func_80016A50(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_17650/func_800191BC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_17650/func_80019218.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_17650/Audio_PlaySfx.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_17650/func_80019290.s")
 
@@ -77,7 +77,7 @@ void func_80016A50(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_17650/func_8001A4B8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_17650/func_8001A500.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_17650/Audio_KillSfx.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_17650/func_8001A55C.s")
 

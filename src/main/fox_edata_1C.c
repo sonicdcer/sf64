@@ -927,7 +927,7 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_ITEM_331  */  {(void*)          NULL, 1, (ObjectFunc) func_80068C88,       D_800CBF8C,  1500.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_ITEM_332  */  {(void*)          NULL, 1, (ObjectFunc) func_80068C88,       D_800CBF8C,  1500.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_ITEM_333  */  {(void*)          NULL, 1, (ObjectFunc) func_80068C88,       D_800CBF8C,  1500.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_ITEM_CORN_ARCH  */  {(void*)          NULL, 1, (ObjectFunc) func_80068C48,       D_800CBF18,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_ITEM_334  */  {(void*)          NULL, 1, (ObjectFunc) func_80068C48,       D_800CBF18,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_ITEM_1UP  */  {(void*)     D_1022120, 0, (ObjectFunc) func_80067B1C,       D_800CBE8C,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_ITEM_GOLD_RING  */  {(void*) func_8005CA80, 1, (ObjectFunc) func_800685F8,       D_800CBF54,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_ITEM_WING_REPAIR  */  {(void*)     D_3007650, 0, (ObjectFunc) func_80068618,       D_800CBFA8,   700.0f,  0, 0,  0, 0,   0.0f,  0 },

@@ -70,9 +70,9 @@ void func_80042FF4(Object_2F4* obj2F4, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f
     obj2F4->unk_0E8.x = arg7;
     obj2F4->unk_0E8.y = arg8;
     obj2F4->unk_0E8.z = arg9;
-    obj2F4->unk_110 = argA;
-    obj2F4->unk_0BC = argC;
-    obj2F4->unk_0BE = 20;
+    obj2F4->scale = argA;
+    obj2F4->timer_0BC = argC;
+    obj2F4->timer_0BE = 20;
     Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
     if (gLevelType == LEVELTYPE_PLANET) {
         obj2F4->unk_10C = 0.5f;
@@ -104,14 +104,14 @@ void func_8004319C(Player* player, f32 arg1, f32 arg2, f32 arg3) {
     D_80178440 = arg1;
     D_80178444 = arg2;
 
-    player->unk_1C8 = 7;
+    player->state_1C8 = PLAYERSTATE_1C8_7;
     player->unk_1D0 = 10;
-    player->unk_1F8 = 50;
-    player->unk_1FC = 50;
+    player->timer_1F8 = 50;
+    player->timer_1FC = 50;
     player->unk_000 = 0.0f;
     player->unk_004 = 1.0f;
-    if (player->unk_074.x < player->unk_0AC) {
+    if (player->pos.x < player->unk_0AC) {
         player->unk_004 = -1.0f;
     }
-    gPlayer[0].unk_0C0.x = 0.0f;
+    gPlayer[0].vel.x = 0.0f;
 }
