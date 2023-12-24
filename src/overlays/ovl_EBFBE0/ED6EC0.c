@@ -957,63 +957,63 @@ bool func_EBFBE0_801A62FC(u32 level) {
 void func_EBFBE0_801A6368(void) {
     switch (D_EBFBE0_801CD954) {
         case 9:
-            gCurrentLevel = 0;
+            gCurrentLevel = LEVEL_CORNERIA;
             break;
 
         case 0:
-            gCurrentLevel = 1;
+            gCurrentLevel = LEVEL_METEO;
             break;
 
         case 10:
-            gCurrentLevel = 12;
+            gCurrentLevel = LEVEL_TITANIA;
             break;
 
         case 11:
-            gCurrentLevel = 13;
+            gCurrentLevel = LEVEL_AQUAS;
             break;
 
         case 2:
-            gCurrentLevel = 17;
+            gCurrentLevel = LEVEL_BOLSE;
             break;
 
         case 6:
-            gCurrentLevel = 16;
+            gCurrentLevel = LEVEL_KATINA;
             break;
 
         case 1:
-            gCurrentLevel = 3;
+            gCurrentLevel = LEVEL_AREA_6;
             break;
 
         case 3:
-            gCurrentLevel = 18;
+            gCurrentLevel = LEVEL_SECTOR_Z;
             break;
 
         case 12:
-            gCurrentLevel = 14;
+            gCurrentLevel = LEVEL_FORTUNA;
             break;
 
         case 4:
-            gCurrentLevel = 2;
+            gCurrentLevel = LEVEL_SECTOR_X;
             break;
 
         case 7:
-            gCurrentLevel = 11;
+            gCurrentLevel = LEVEL_MACBETH;
             break;
 
         case 8:
-            gCurrentLevel = 8;
+            gCurrentLevel = LEVEL_ZONESS;
             break;
 
         case 5:
-            gCurrentLevel = 5;
+            gCurrentLevel = LEVEL_SECTOR_Y;
             break;
 
         case 13:
-            gCurrentLevel = 6;
+            gCurrentLevel = LEVEL_VENOM_1;
             break;
 
         case 14:
-            gCurrentLevel = 7;
+            gCurrentLevel = LEVEL_SOLAR;
 
         default:
             break;
