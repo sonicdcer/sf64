@@ -464,22 +464,26 @@ void func_800BB388(void) {
     }
 }
 
-#ifdef NON_MATCHING
+s32 D_8017874C;
+
 void func_800BB5D0(void) {
-    static s32 D_8017874C;
     s32 var_v1;
     s32 temp_ft0;
     u32 temp_v0;
+    s32 fakeTemp;
 
     if ((D_80177854 == 100) && (gGameState != GSTATE_CREDITS)) {
         return;
     }
+
     if (D_Timer_801782AC > 0) {
         D_Timer_801782AC--;
     }
+
     if (D_Timer_801782B4 > 0) {
         D_Timer_801782B4--;
     }
+
     switch (gRadioState) {
         case 100:
             D_80178748 = 1;
@@ -493,6 +497,7 @@ void func_800BB5D0(void) {
                 gRadioState = 0;
             }
             break;
+
         case 1:
             D_80177D38 += 0.25f;
             if (D_80177D38 == 1.0f) {
@@ -504,6 +509,7 @@ void func_800BB5D0(void) {
                 D_801782A4 = 3;
             }
             break;
+
         case 2:
             if (D_Timer_801782AC == 0) {
                 gRadioState++;
@@ -514,6 +520,7 @@ void func_800BB5D0(void) {
                 D_801782A4 = 3;
             }
             break;
+
         case 3:
             if (D_Timer_801782AC == 0) {
                 gRadioState++;
@@ -521,7 +528,7 @@ void func_800BB5D0(void) {
                 if (D_80137E78 == 3) {
                     D_Timer_801782AC = temp_v0 + 16;
                 } else {
-                    D_Timer_801782AC = 2 * temp_v0 + 16;
+                    D_Timer_801782AC = (2 * temp_v0) + 16;
                 }
                 if ((gGameState == GSTATE_TITLE) || (gGameState == GSTATE_CREDITS)) {
                     D_Timer_801782AC = temp_v0 * 2;
@@ -533,16 +540,17 @@ void func_800BB5D0(void) {
                 D_80177D50 = 1.3f;
             }
             break;
+
         case 31:
             gRadioState++;
             D_Timer_801782AC = 80 - D_Timer_801782AC;
             break;
+
         case 32:
             if (func_8001AE78() == 0) {
                 D_80178724++;
                 D_80178308 = D_80178720[D_80178724];
                 func_8001ACDC(Message_IdFromPtr(D_80178308));
-
                 D_801782D8 = 0;
                 D_8017874C = 0;
                 D_Timer_801782AC = 80;
@@ -550,6 +558,7 @@ void func_800BB5D0(void) {
                 gRadioState = 4;
             }
             break;
+
         case 4:
             if ((func_8001AE78() == 0) && (D_Timer_801782AC == 0)) {
                 D_Timer_801782AC = 10;
@@ -558,32 +567,44 @@ void func_800BB5D0(void) {
             }
             D_801782A4 = (s32) D_80177D68;
             if (D_Timer_801782B4 > 0) {
-                D_801782A4++;
+                D_801782A4 = (s32) D_80177D68 + 1;
             }
-            temp_v0 = func_8001AED4();
-            if (D_801782D8 < 60) {
-                if (D_80178308[D_801782D8 + 1] == 15) {
-                    if (temp_v0 == 0) {
-                        gRadioState = 31;
+
+            if (!D_80137E78) {}
+
+            if (1) {
+                fakeTemp = 0;
+            }
+
+            if (!(fakeTemp)) {
+                temp_v0 = func_8001AED4();
+
+                if (D_801782D8 < 60) {
+                    if (D_80178308[D_801782D8 + 1] == 15) {
+                        if (temp_v0 == 0) {
+                            gRadioState = 31;
+                        }
+                    } else {
+                        D_801782D8++;
                     }
-                } else {
-                    D_801782D8++;
                 }
-            }
-            if (D_8017874C != 0) {
-                if ((D_801782E8 >= 23000) && (D_801782E8 < 23033)) {
-                    if (D_801782F8 != 0) {
+
+                if (D_8017874C != 0) {
+                    if ((D_801782E8 >= 23000) && (D_801782E8 < 23033)) {
+                        if (D_801782F8 != 0) {
+                            D_Timer_801782B4 = 2;
+                            Audio_PlaySfx(0x49000017, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                        }
+                    } else if (temp_v0 == 1) {
                         D_Timer_801782B4 = 2;
-                        Audio_PlaySfx(0x49000017, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    } else {
+                        D_Timer_801782B4 = 0;
                     }
-                } else if (temp_v0 == 1) {
-                    D_Timer_801782B4 = 2;
-                } else {
-                    D_Timer_801782B4 = 0;
                 }
             }
             D_8017874C ^= 1;
             break;
+
         case 5:
             if (D_Timer_801782AC == 0) {
                 gRadioState++;
@@ -591,9 +612,9 @@ void func_800BB5D0(void) {
             }
             D_801782A4 = (s32) D_80177D68;
             break;
+
         case 6:
             if (D_Timer_801782AC == 0) {
-                if (!D_801782A4) {}
                 if (gGameState == GSTATE_CREDITS) {
                     func_8001AE58();
                 } else {
@@ -610,6 +631,7 @@ void func_800BB5D0(void) {
                 D_80177D50 = 0.0f;
             }
             break;
+
         case 7:
             D_80177D38 -= 0.25f;
             if (D_80177D38 == 0) {
@@ -622,19 +644,24 @@ void func_800BB5D0(void) {
                 D_801782A4 = 3;
             }
             break;
+
         case 8:
             D_801782A4 = (s32) D_80177D68;
             D_80177D50 = 1.3f;
             D_80177D38 = 1.0f;
             break;
+
         case 0:
             break;
     }
-    if ((gRadioState > 0) && (gRadioState != 100) && (D_80178300 == 0)) {
+
+    if (((gRadioState > 0) && (gRadioState != 100)) && (D_80178300 == 0)) {
         func_800BAAE8();
         func_800BB388();
+
         temp_ft0 = (s32) D_80177D68;
-        if ((temp_ft0 == RCID_FALCO) || (temp_ft0 == RCID_SLIPPY) || (temp_ft0 == RCID_PEPPY)) {
+
+        if (((temp_ft0 == RCID_FALCO) || (temp_ft0 == RCID_SLIPPY)) || (temp_ft0 == RCID_PEPPY)) {
             if (temp_ft0 == RCID_FALCO) {
                 var_v1 = 1;
             }
@@ -644,66 +671,80 @@ void func_800BB5D0(void) {
             if (temp_ft0 == RCID_PEPPY) {
                 var_v1 = 3;
             }
-            if ((gTeamShields[var_v1] <= 0) && (gFrameCount & 4) && (gTeamShields[var_v1] != -2) && (D_801782A4 != 2) &&
-                (D_801782A4 != 3) && (D_801782A4 != 1000)) {
+            if ((((((gTeamShields[var_v1] <= 0) && (gFrameCount & 4)) && (gTeamShields[var_v1] != (-2))) &&
+                  (D_801782A4 != 2)) &&
+                 (D_801782A4 != 3)) &&
+                (D_801782A4 != 1000)) {
                 RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                 Graphics_DisplaySmallText(31, 167, 1.0f, 1.0f, "DOWN");
                 func_80084B94(1);
             }
-            if ((D_801782A4 != 2) && (D_801782A4 != 3) && (D_801782A4 != 1000)) {
+            if (((D_801782A4 != 2) && (D_801782A4 != 3)) && (D_801782A4 != 1000)) {
                 func_80086110(22.0f, 165.0f, gTeamShields[var_v1]);
             }
         }
+
         temp_ft0 = (s32) D_80177D68;
-        if ((temp_ft0 == RCID_WOLF) || (temp_ft0 == RCID_PIGMA) || (temp_ft0 == RCID_LEON) ||
-            (temp_ft0 == RCID_ANDREW) || (temp_ft0 == RCID_WOLF_2) || (temp_ft0 == RCID_PIGMA_2) ||
-            (temp_ft0 == RCID_LEON_2) || (temp_ft0 == RCID_ANDREW_2)) {
+
+        if ((((((((temp_ft0 == RCID_WOLF) || (temp_ft0 == RCID_PIGMA)) || (temp_ft0 == RCID_LEON)) ||
+                (temp_ft0 == RCID_ANDREW)) ||
+               (temp_ft0 == RCID_WOLF_2)) ||
+              (temp_ft0 == RCID_PIGMA_2)) ||
+             (temp_ft0 == RCID_LEON_2)) ||
+            (temp_ft0 == RCID_ANDREW_2)) {
             switch (temp_ft0) {
                 case RCID_WOLF:
+
                 case RCID_WOLF_2:
                     var_v1 = 4;
                     break;
+
                 case RCID_LEON:
+
                 case RCID_LEON_2:
                     var_v1 = 5;
                     break;
+
                 case RCID_PIGMA:
+
                 case RCID_PIGMA_2:
                     var_v1 = 6;
                     break;
+
                 case RCID_ANDREW:
+
                 case RCID_ANDREW_2:
                     var_v1 = 7;
                     break;
+
                 default:
                     var_v1 = 0;
                     break;
             }
-            if ((gObjects2F4[var_v1].obj.status != 2) && (gFrameCount & 4) &&
-                (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && (D_801782A4 != 2) && (D_801782A4 != 3) &&
+
+            if ((((((gObjects2F4[var_v1].obj.status != 2) && (gFrameCount & 4)) &&
+                   (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3)) &&
+                  (D_801782A4 != 2)) &&
+                 (D_801782A4 != 3)) &&
                 (D_801782A4 != 1000)) {
                 RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                 Graphics_DisplaySmallText(31, 167, 1.0f, 1.0f, "DOWN");
             }
-            if ((D_801782A4 != 2) && (D_801782A4 != 3) && (D_801782A4 != 1000)) {
+            if (((D_801782A4 != 2) && (D_801782A4 != 3)) && (D_801782A4 != 1000)) {
                 func_80086110(22.0f, 165.0f, gObjects2F4[var_v1].unk_0CE * 2.55f);
             }
         }
-        if ((D_801782A4 != 2) && (D_801782A4 != 3) && (D_801782A4 != 1000)) {
+        if (((D_801782A4 != 2) && (D_801782A4 != 3)) && (D_801782A4 != 1000)) {
             func_8008AD94();
         }
     }
+
     if (D_80178300 == 1) {
         func_800BA760();
     }
 }
-#else
-s32 D_8017874C;
-void func_800BB5D0(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_radio/func_800BB5D0.s")
-#endif
 
 void func_800BC040(void) {
     if (D_80177854 != 100) {
@@ -713,6 +754,7 @@ void func_800BC040(void) {
         if (D_Timer_801782B4 > 0) {
             D_Timer_801782B4--;
         }
+
         switch (gRadioState) {
             case 100:
                 D_801782A4 = 1000;
@@ -732,36 +774,45 @@ void func_800BC040(void) {
                     D_Timer_801782AC = 5;
                 }
                 break;
+
             case 2:
                 if (D_Timer_801782AC == 0) {
                     gRadioState++;
                     D_Timer_801782AC = 5;
                 }
+
                 D_801782A4 = 2;
+
                 if (gFrameCount & 1) {
                     D_801782A4 = 3;
                 }
                 break;
+
             case 3:
                 if (D_Timer_801782AC == 0) {
                     gRadioState++;
                     D_Timer_801782AC = 5;
+
                     if (gGameState == GSTATE_TITLE) {
                         D_Timer_801782AC = 30;
                     }
                 }
+
                 D_801782A4 = (s32) D_80177D68;
                 D_80177D50 += 0.015f;
+
                 if (D_80177D50 > 0.07f) {
                     D_80177D50 = 0.07f;
                 }
                 break;
+
             case 4:
                 if (D_Timer_801782AC == 0) {
                     gRadioState++;
                     D_Timer_801782AC = 10;
                 }
                 break;
+
             case 5:
                 if (D_Timer_801782AC == 0) {
                     gRadioState++;
@@ -769,20 +820,26 @@ void func_800BC040(void) {
                 }
                 D_801782A4 = (s32) D_80177D68;
                 break;
+
             case 6:
                 if (D_Timer_801782AC == 0) {
                     func_8001ACDC(0);
                     gRadioState++;
                 }
+
                 D_801782A4 = 2;
+
                 if (gFrameCount & 1) {
                     D_801782A4 = 3;
                 }
+
                 D_80177D50 -= 0.015f;
+
                 if (D_80177D50 < 0.0f) {
                     D_80177D50 = 0.0f;
                 }
                 break;
+
             case 7:
                 D_80177D38 -= 0.02f;
                 if (D_80177D38 == 0) {
@@ -794,9 +851,11 @@ void func_800BC040(void) {
                     D_801782A4 = 3;
                 }
                 break;
+
             case 0:
                 break;
         }
+
         if ((gRadioState > 0) && (gRadioState != 100)) {
             func_800BAAE8();
             func_800BB388();

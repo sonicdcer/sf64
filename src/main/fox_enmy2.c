@@ -23,7 +23,7 @@ void func_8006A800(Object_8C* obj8C, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     obj8C->obj.pos.y = yPos;
     obj8C->obj.pos.z = zPos;
     obj8C->unk_48 = 3;
-    
+
     if (Rand_ZeroOne() < 0.5f) {
         obj8C->unk_48 = -obj8C->unk_48;
     }
@@ -228,7 +228,7 @@ void func_8006B0A0(Object_2F4* obj2F4) {
     s32 temp_hi;
 
     obj2F4->unk_04E++;
-    
+
     if (obj2F4->unk_04E >= 100) {
         obj2F4->unk_04E = 0;
     }
@@ -385,7 +385,7 @@ void func_8006BB78(Object_2F4* obj2F4) {
             obj2F4->unk_13C = (Rand_ZeroOne() - 0.5f) * 1000.0f;
             obj2F4->unk_0B8 = 1;
             break;
-            
+
         case 1:
             switch (obj2F4->unk_046) {
                 case 0:
@@ -459,7 +459,7 @@ void func_8006BB78(Object_2F4* obj2F4) {
         func_8006A900(((Rand_ZeroOne() - 0.5f) * 50.0f) + obj2F4->obj.pos.x, obj2F4->obj.pos.y + 10.0f,
                       ((Rand_ZeroOne() - 0.5f) * 50.0f) + obj2F4->obj.pos.z, 0.5f);
     }
-    
+
     if ((obj2F4->unk_0D0 != 0) && (obj2F4->unk_0B6 != 0)) {
         func_8007BFFC(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, 0.0f, obj2F4->unk_0E8.y, 0.0f, 3.0f, 5);
         Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
@@ -567,10 +567,10 @@ void func_8006C008(Object_2F4* obj2F4) {
                 }
             }
             break;
-            
+
         case 0x2F:
             func_E6A810_801B6E20(obj2F4->obj.pos.x, obj2F4->obj.pos.z + D_80177D20, &sp4C, &sp48, &sp4C);
-            
+
             if (obj2F4->obj.pos.y < obj2F4->unk_120 + (-100.0f + sp48)) {
                 obj2F4->obj.pos.y = obj2F4->unk_120 + sp48;
                 obj2F4->unk_050 = 0;
@@ -1169,7 +1169,7 @@ void func_8006D36C(Object_2F4* obj2F4) {
 
         case 0xD200:
             obj2F4->unk_080 = temp_s1[obj2F4->unk_0E6 + 1];
-            
+
             if (obj2F4->unk_080 < 4) {
                 D_800CFF80[obj2F4->unk_080] = obj2F4->index;
             }
@@ -1184,7 +1184,7 @@ void func_8006D36C(Object_2F4* obj2F4) {
             obj2F4->unk_0E6 += 2;
             func_8006D36C(obj2F4);
             break;
-            
+
         case 0x0600:
             D_80177E78 = obj2F4->index;
             D_80177F10.x = obj2F4->obj.pos.x;
@@ -1204,7 +1204,7 @@ void func_8006D36C(Object_2F4* obj2F4) {
                 obj2F4->unk_0E6 += 2;
                 break;
             }
-            
+
             if (temp_s1[obj2F4->unk_0E6 + 1] == 0xF) {
                 obj2F4->info.hitbox = SEGMENTED_TO_VIRTUAL(D_800CBEC4);
                 obj2F4->unk_0B8 = 0xB;
@@ -2193,7 +2193,7 @@ void func_800701E0(Object_2F4* obj2F4) {
             sp3C.x = obj2F4->unk_0E8.x;
             sp3C.y = obj2F4->unk_0E8.y;
             sp3C.z = obj2F4->unk_0E8.z;
-            
+
             if ((func_8006351C(obj2F4->index, &obj2F4->obj.pos, &sp3C, 0) != 0) ||
                 (obj2F4->obj.pos.y < (D_80177940 + 20.0f))) {
                 obj2F4->obj.status = 3;
@@ -2288,7 +2288,7 @@ void func_80070D44(Object_2F4* obj2F4) {
                 func_80070CEC(obj2F4);
             }
             break;
-            
+
         case 0x4:
             if (var_v1 == 1) {
                 func_80070CEC(obj2F4);
@@ -2416,7 +2416,7 @@ void func_80070D44(Object_2F4* obj2F4) {
                 func_80070CEC(obj2F4);
             }
             break;
-            
+
         case 0x17:
             if (((obj2F4->obj.pos.y - gPlayer[0].pos.y) >= -700.0f) &&
                 ((obj2F4->obj.pos.y - gPlayer[0].pos.y) <= 0.0f)) {
@@ -2850,7 +2850,7 @@ void func_800720E8(Object_2F4* obj2F4) {
                 obj2F4->unk_0D0 = 0;
             }
             break;
-            
+
         case 1:
         case 2:
             Math_SmoothStepToF(&obj2F4->unk_154, 130.0f, 0.2f, 8.0f, 0.001f);
@@ -3133,7 +3133,7 @@ void func_80072594(Object_2F4* obj2F4) {
                         Math_SmoothStepToAngle(&obj2F4->unk_170, var_fv0, 0.1f, 5.0f, 0.01f);
                     }
                 }
-                
+
                 if (obj2F4->timer_0BC == 0) {
                     func_8006D36C(obj2F4);
                 }
@@ -3145,7 +3145,7 @@ void func_80072594(Object_2F4* obj2F4) {
                 pad = obj2F4->unk_054;
                 pad = gObjects2F4[pad].unk_080;
                 D_Timer_80161670[pad] = 5;
-                
+
             case 0x8:
             case 0x9:
                 spF0 = obj2F4->obj.pos.x;
@@ -3740,7 +3740,7 @@ bool func_80074C44(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* dat
         Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, 1);
         Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
-        
+
         if (*dList != NULL) {
             RCP_SetupDL(&gMasterDisp, 0x22);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, var_s1, var_s1, 255);
@@ -4350,7 +4350,7 @@ void func_800763A4(Object_2F4* obj2F4) {
         D_8017802C[obj2F4->index] = obj2F4->obj.pos.z;
         D_80178134[obj2F4->index] = obj2F4->unk_0F4.y + 180.0f;
     }
-    
+
     if (obj2F4->obj.id == OBJ_2F4_197) {
         func_8002EE64(obj2F4);
     }
