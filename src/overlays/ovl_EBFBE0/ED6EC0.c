@@ -896,7 +896,74 @@ bool func_EBFBE0_801A62FC(u32 level) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A6368.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A6480.s")
+s32 func_EBFBE0_801A6480(u32 arg0) {
+    s32 ret;
+
+    switch (arg0) {
+        case 0:
+            ret = 9;
+            break;
+
+        case 1:
+            ret = 0;
+            break;
+
+        case 12:
+            ret = 10;
+            break;
+
+        case 13:
+            ret = 11;
+            break;
+
+        case 17:
+            ret = 2;
+            break;
+
+        case 16:
+            ret = 6;
+            break;
+
+        case 3:
+            ret = 1;
+            break;
+
+        case 18:
+            ret = 3;
+            break;
+
+        case 14:
+            ret = 12;
+            break;
+
+        case 2:
+            ret = 4;
+            break;
+
+        case 11:
+            ret = 7;
+            break;
+
+        case 8:
+            ret = 8;
+            break;
+
+        case 5:
+            ret = 5;
+            break;
+
+        case 6:
+        case 9:
+        case 19:
+            ret = 13;
+            break;
+
+        case 7:
+            ret = 14;
+    }
+
+    return ret;
+}
 
 s32 func_EBFBE0_801A655C(s32 arg0, s32 arg1) {
     s32 i;
@@ -949,10 +1016,10 @@ void func_EBFBE0_801A6694(void) {
     for (i = 0; i < 15; i++) {
         Matrix_Push(&gGfxMatrix);
 
-        Matrix_RotateY(gGfxMatrix, M_DTOR * (planet[i].unk_1C), 1);
+        Matrix_RotateY(gGfxMatrix, M_DTOR * planet[i].unk_1C, 1);
         Matrix_Translate(gGfxMatrix, planet[i].unk_04, planet[i].unk_08, 0.0f, 1);
 
-        Matrix_RotateY(gGfxMatrix, M_DTOR * (-(planet[i].unk_1C)), 1);
+        Matrix_RotateY(gGfxMatrix, M_DTOR * -planet[i].unk_1C, 1);
 
         func_EBFBE0_801AD048();
 
