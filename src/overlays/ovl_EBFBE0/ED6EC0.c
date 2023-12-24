@@ -1213,7 +1213,7 @@ void func_EBFBE0_801A6A24(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A6A98.s")
 
-s32 func_EBFBE0_801A6DAC(s32 planetId) {
+s32 func_EBFBE0_801A6DAC(PlanetId planetId) {
     s32 ret;
     s32 planetSaveSlot;
     s32 var_v0;
