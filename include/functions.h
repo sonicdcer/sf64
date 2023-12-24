@@ -127,6 +127,8 @@ void func_80042FC4(Object_408*);
 void func_80042FD0(Object_408 *);
 void func_80042FDC(Object_408*);
 void func_80042FE8(Object_408*);
+
+// fox_43E80
 void func_80043468(Player* );
 void func_800444BC(Player *);
 void func_80047504(Player *);
