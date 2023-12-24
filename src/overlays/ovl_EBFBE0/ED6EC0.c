@@ -922,32 +922,32 @@ void func_EBFBE0_801A61B4(LevelId level) {
 }
 
 bool func_EBFBE0_801A62FC(u32 level) {
-    u32 i;
+    u32 planetId;
     s32 ret = true;
 
     switch (level) {
-        case 0:
-        case 1:
-        case 2:
-        case 3:
-        case 4:
-        case 5:
-        case 6:
-        case 7:
-        case 8:
-        case 9:
-        case 10:
-        case 11:
-        case 12:
-            i = level;
+        case LEVEL_CORNERIA:
+        case LEVEL_METEO:
+        case LEVEL_SECTOR_X:
+        case LEVEL_AREA_6:
+        case LEVEL_UNK_4:
+        case LEVEL_SECTOR_Y:
+        case LEVEL_VENOM_1:
+        case LEVEL_SOLAR:
+        case LEVEL_ZONESS:
+        case LEVEL_VENOM_2:
+        case LEVEL_TRAINING:
+        case LEVEL_MACBETH:
+        case LEVEL_TITANIA:
+            planetId = level;
             break;
 
-        case 14:
-            i = 13;
+        case LEVEL_FORTUNA:
+            planetId = 13;
             break;
     }
 
-    if (gSaveFile.save.data.planet[i].unk_5 & 1) {
+    if (gSaveFile.save.data.planet[planetId].unk_5 & 1) {
         ret = false;
     }
 
