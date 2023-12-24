@@ -59,7 +59,7 @@ typedef enum {
     OVL_SETUP_LOGO = 99,
 } OverlaySetups;
 
-typedef enum {
+typedef enum LevelId {
     /* 0 */ LEVEL_CORNERIA,
     /* 1 */ LEVEL_METEO,
     /* 2 */ LEVEL_SECTOR_X,
