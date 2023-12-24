@@ -290,7 +290,8 @@ ifneq ($(COMPARE),0)
 	@$(PYTHON) $(COMPTOOL) -r $(ROM) .
 	@md5sum --status -c $(TARGET).$(VERSION).uncompressed.md5 && \
 	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).uncompressed.z64$(NO_COL): $(GREEN)OK$(NO_COL)\n$(YELLOW) $(SF)" || \
-	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).uncompressed.z64 $(RED)FAILED$(NO_COL)\n"
+	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).uncompressed.z64 $(RED)FAILED$(NO_COL)\n\
+	$(RED)CAN'T LET YOU DO THAT, STARFOX.$(NO_COL)\n"
 endif
 
 compressed: $(ROMC)
