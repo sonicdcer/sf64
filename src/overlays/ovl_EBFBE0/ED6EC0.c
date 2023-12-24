@@ -938,7 +938,21 @@ void func_EBFBE0_801A6628(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A6694.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A68E4.s")
+void func_EBFBE0_801A68E4(void) {
+    s32 i;
+    s32 j;
+    s32 var_a0;
+
+    for (i = 0; i < 14; i++) {
+        for (j = i; j < 15; j++) {
+            if (D_EBFBE0_801CE960[D_EBFBE0_801CD8A0[i]].z > D_EBFBE0_801CE960[D_EBFBE0_801CD8A0[j]].z) {
+                var_a0 = D_EBFBE0_801CD8A0[i];
+                D_EBFBE0_801CD8A0[i] = D_EBFBE0_801CD8A0[j];
+                D_EBFBE0_801CD8A0[j] = var_a0;
+            }
+        }
+    }
+}
 
 void func_EBFBE0_801A6A24(void) {
     switch (D_EBFBE0_801CD960) {
