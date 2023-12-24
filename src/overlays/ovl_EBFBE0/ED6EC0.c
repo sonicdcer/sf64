@@ -1,4 +1,5 @@
 #include "global.h"
+#include "fox_map.h"
 
 typedef struct {
     /* 0x00 */ char pad00[0x4];
@@ -943,7 +944,7 @@ bool func_EBFBE0_801A62FC(u32 level) {
             break;
 
         case LEVEL_FORTUNA:
-            planetId = 13;
+            planetId = PLANET_VENOM;
             break;
     }
 
@@ -956,63 +957,63 @@ bool func_EBFBE0_801A62FC(u32 level) {
 
 void func_EBFBE0_801A6368(void) {
     switch (D_EBFBE0_801CD954) {
-        case 9:
+        case PLANET_CORNERIA:
             gCurrentLevel = LEVEL_CORNERIA;
             break;
 
-        case 0:
+        case PLANET_METEO:
             gCurrentLevel = LEVEL_METEO;
             break;
 
-        case 10:
+        case PLANET_TITANIA:
             gCurrentLevel = LEVEL_TITANIA;
             break;
 
-        case 11:
+        case PLANET_AQUAS:
             gCurrentLevel = LEVEL_AQUAS;
             break;
 
-        case 2:
+        case PLANET_BOLSE:
             gCurrentLevel = LEVEL_BOLSE;
             break;
 
-        case 6:
+        case PLANET_KATINA:
             gCurrentLevel = LEVEL_KATINA;
             break;
 
-        case 1:
+        case PLANET_AREA_6:
             gCurrentLevel = LEVEL_AREA_6;
             break;
 
-        case 3:
+        case PLANET_SECTOR_Z:
             gCurrentLevel = LEVEL_SECTOR_Z;
             break;
 
-        case 12:
+        case PLANET_FORTUNA:
             gCurrentLevel = LEVEL_FORTUNA;
             break;
 
-        case 4:
+        case PLANET_SECTOR_X:
             gCurrentLevel = LEVEL_SECTOR_X;
             break;
 
-        case 7:
+        case PLANET_MACBETH:
             gCurrentLevel = LEVEL_MACBETH;
             break;
 
-        case 8:
+        case PLANET_ZONESS:
             gCurrentLevel = LEVEL_ZONESS;
             break;
 
-        case 5:
+        case PLANET_SECTOR_Y:
             gCurrentLevel = LEVEL_SECTOR_Y;
             break;
 
-        case 13:
+        case PLANET_VENOM:
             gCurrentLevel = LEVEL_VENOM_1;
             break;
 
-        case 14:
+        case PLANET_SOLAR:
             gCurrentLevel = LEVEL_SOLAR;
 
         default:
@@ -1020,73 +1021,73 @@ void func_EBFBE0_801A6368(void) {
     }
 }
 
-s32 func_EBFBE0_801A6480(LevelId level) {
-    s32 ret;
+PlanetId func_EBFBE0_801A6480(LevelId level) {
+    PlanetId planet;
 
     switch (level) {
         case LEVEL_CORNERIA:
-            ret = 9;
+            planet = PLANET_CORNERIA;
             break;
 
         case LEVEL_METEO:
-            ret = 0;
+            planet = PLANET_METEO;
             break;
 
         case LEVEL_TITANIA:
-            ret = 10;
+            planet = PLANET_TITANIA;
             break;
 
         case LEVEL_AQUAS:
-            ret = 11;
+            planet = PLANET_AQUAS;
             break;
 
         case LEVEL_BOLSE:
-            ret = 2;
+            planet = PLANET_BOLSE;
             break;
 
         case LEVEL_KATINA:
-            ret = 6;
+            planet = PLANET_KATINA;
             break;
 
         case LEVEL_AREA_6:
-            ret = 1;
+            planet = PLANET_AREA_6;
             break;
 
         case LEVEL_SECTOR_Z:
-            ret = 3;
+            planet = PLANET_SECTOR_Z;
             break;
 
         case LEVEL_FORTUNA:
-            ret = 12;
+            planet = PLANET_FORTUNA;
             break;
 
         case LEVEL_SECTOR_X:
-            ret = 4;
+            planet = PLANET_SECTOR_X;
             break;
 
         case LEVEL_MACBETH:
-            ret = 7;
+            planet = PLANET_MACBETH;
             break;
 
         case LEVEL_ZONESS:
-            ret = 8;
+            planet = PLANET_ZONESS;
             break;
 
         case LEVEL_SECTOR_Y:
-            ret = 5;
+            planet = PLANET_SECTOR_Y;
             break;
 
         case LEVEL_VENOM_1:
         case LEVEL_VENOM_2:
         case LEVEL_VENOM_SW:
-            ret = 13;
+            planet = PLANET_VENOM;
             break;
 
         case LEVEL_SOLAR:
-            ret = 14;
+            planet = PLANET_SOLAR;
     }
 
-    return ret;
+    return planet;
 }
 
 s32 func_EBFBE0_801A655C(s32 arg0, s32 arg1) {
