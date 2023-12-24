@@ -1,4 +1,4 @@
-#include "common.h"
+#include "global.h"
 
 void func_80016A50(void) {
 }

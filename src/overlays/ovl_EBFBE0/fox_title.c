@@ -365,7 +365,7 @@ void func_EBFBE0_801881FC(void) {
     s32 i;
 
     for (i = 0; i < 16; i++) {
-        if ((i != 14) && (!(gSaveFile.save.data.unk_00[i].unk_3 & 1))) {
+        if ((i != 14) && (!(gSaveFile.save.data.planet[i].unk_3 & 1))) {
             var_a1 = false;
             break;
         }

@@ -359,7 +359,7 @@ void func_EBFBE0_80191B20(void) {
         if (i == 14) {
             continue;
         }
-        if (!(gSaveFile.save.data.unk_00[i].unk_6 & 1)) {
+        if (!(gSaveFile.save.data.planet[i].unk_6 & 1)) {
             var_a1_2 = 0;
             break;
         }
@@ -398,22 +398,22 @@ void func_EBFBE0_80191B20(void) {
         if (D_80161A34 == 8) {
             D_80177B90[D_80177B48] = 13;
             if (D_800D3180[9] == 1) {
-                gSaveFile.save.data.unk_00[14].unk_5 = 1;
+                gSaveFile.save.data.planet[14].unk_5 = 1;
                 if (var_v0_2 != 0) {
-                    gSaveFile.save.data.unk_00[14].unk_4 = 1;
+                    gSaveFile.save.data.planet[14].unk_4 = 1;
                 } else {
-                    gSaveFile.save.data.unk_00[14].unk_7 = 1;
+                    gSaveFile.save.data.planet[14].unk_7 = 1;
                 }
                 Save_Write();
             } else if (D_800D3180[9] == 2) {
                 D_80177BB0[D_80177B48] = 1;
-                gSaveFile.save.data.unk_00[15].unk_5 = 1;
+                gSaveFile.save.data.planet[15].unk_5 = 1;
                 if (var_v0_2) {
-                    gSaveFile.save.data.unk_00[15].unk_4 = 1;
-                    gSaveFile.save.data.unk_00[15].unk_3 = 1;
+                    gSaveFile.save.data.planet[15].unk_4 = 1;
+                    gSaveFile.save.data.planet[15].unk_3 = 1;
                 } else {
-                    gSaveFile.save.data.unk_00[15].unk_7 = 1;
-                    gSaveFile.save.data.unk_00[15].unk_6 = 1;
+                    gSaveFile.save.data.planet[15].unk_7 = 1;
+                    gSaveFile.save.data.planet[15].unk_6 = 1;
                 }
                 Save_Write();
             }

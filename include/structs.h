@@ -47,7 +47,7 @@ typedef struct {
     /* bit 5 */ u8 unk_5 : 1;    
     /* bit 6 */ u8 unk_6 : 1;    
     /* bit 7 */ u8 unk_7 : 1;    
-} Save_SubStruct_00; // size = 0x1
+} PlanetData; // size = 0x1
 
 typedef struct {
     /* bit 0 */ u16 unk_0 : 8;
@@ -59,7 +59,7 @@ typedef struct {
 } Save_SubStruct_5E; // size = 0x10
 
 typedef struct{
-    /* 0x00 */ Save_SubStruct_00 unk_00[16];
+    /* 0x00 */ PlanetData planet[16];
     /* 0x10 */ char pad10[0x4];
     /* 0x14 */ u8 soundMode;
     /* 0x15 */ u8 musicVolume;
