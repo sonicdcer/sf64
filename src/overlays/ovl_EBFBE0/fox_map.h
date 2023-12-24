@@ -1,10 +1,6 @@
 #ifndef FOX_MAP_H
 #define FOX_MAP_H
 
-#define SAVE_SLOT_SOLAR 13
-#define SAVE_SLOT_VENOM_1 14
-#define SAVE_SLOT_VENOM_2 15
-
 typedef enum PlanetId {
     /* 0 */ PLANET_METEO,
     /* 1 */ PLANET_AREA_6,

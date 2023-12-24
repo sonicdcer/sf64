@@ -3,6 +3,10 @@
 
 #include "structs.h"
 
+#define SAVE_SLOT_SOLAR 13
+#define SAVE_SLOT_VENOM_1 14
+#define SAVE_SLOT_VENOM_2 15
+
 typedef enum {
     LEVELTYPE_GROUND,
     LEVELTYPE_SPACE,

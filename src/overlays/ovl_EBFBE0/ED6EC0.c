@@ -1,5 +1,6 @@
 #include "global.h"
 #include "fox_map.h"
+#include "sf64level.h"
 
 typedef struct {
     /* 0x00 */ char pad00[0x4];
