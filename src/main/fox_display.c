@@ -648,7 +648,7 @@ void func_80053F7C(Player* player) {
     Vec3f* pad;
     s32 i;
 
-    if ((gPlayerNum == player->num) && ((player->form == FORM_ARWING) || (player->form == FORM_TANK)) &&
+    if ((gPlayerNum == player->num) && ((player->form == FORM_ARWING) || (player->form == FORM_LANDMASTER)) &&
         (player->unk_234 != 0) &&
         (((gGameState == GSTATE_PLAY) && (player->state_1C8 == PLAYERSTATE_1C8_3)) || (gGameState == GSTATE_MENU))) {
         for (i = 0; i < 2; i++) {
@@ -685,13 +685,13 @@ void func_80054280(Player* player, s32 arg1) {
         case FORM_ARWING:
             func_80053C38(player, arg1);
             return;
-        case FORM_TANK:
+        case FORM_LANDMASTER:
             func_80052884(player);
             return;
-        case FORM_SABUMARIN:
+        case FORM_BLUE_MARINE:
             func_E16C50_801ACBB4();
             return;
-        case FORM_RAMBO:
+        case FORM_ON_FOOT:
             func_800526B8(player);
             return;
     }
@@ -717,7 +717,7 @@ void func_80054300(Player* player) {
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_1032780);
             break;
-        case FORM_TANK:
+        case FORM_LANDMASTER:
             Matrix_Push(&gGfxMatrix);
             Matrix_Scale(gGfxMatrix, 1.17f, 1.17f, 1.17f, 1);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 20.0f, 1);
@@ -732,9 +732,9 @@ void func_80054300(Player* player) {
             }
             Matrix_Pop(&gGfxMatrix);
             break;
-        case FORM_SABUMARIN:
+        case FORM_BLUE_MARINE:
             break;
-        case FORM_RAMBO:
+        case FORM_ON_FOOT:
             Matrix_Push(&gGfxMatrix);
             Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, 1);
             Matrix_RotateX(gGfxMatrix, M_PI / 2.0f, 1);
@@ -773,7 +773,7 @@ void func_8005478C(Player* player) {
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 100);
     Matrix_Push(&gGfxMatrix);
     Matrix_RotateZ(gGfxMatrix, player->unk_0F8 * M_DTOR, 1);
-    if (player->form == FORM_TANK) {
+    if (player->form == FORM_LANDMASTER) {
         if (player->unk_194 <= 0.0f) {
             Matrix_Pop(&gGfxMatrix);
             return;
@@ -1063,7 +1063,7 @@ void func_80055B58(Player* player) {
                 func_80054CA4(player);
                 func_80054E80(player);
                 break;
-            case FORM_TANK:
+            case FORM_LANDMASTER:
                 func_80052D48(player);
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, D_80161518[player->num].x, D_80161518[player->num].y,
@@ -1073,7 +1073,7 @@ void func_80055B58(Player* player) {
                 Matrix_Pop(&gGfxMatrix);
                 func_80055788(player);
                 break;
-            case FORM_SABUMARIN:
+            case FORM_BLUE_MARINE:
                 func_80054914(player);
                 break;
         }
@@ -1183,7 +1183,7 @@ void func_800564C0(Player* player, s32 arg1) {
 
     if (player->unk_234 != 0) {
         Matrix_Push(&gGfxMatrix);
-        if (player->form == FORM_TANK) {
+        if (player->form == FORM_LANDMASTER) {
             if (player->unk_1D4 != 0) {
                 Matrix_Translate(gGfxMatrix, 0.0f, D_8017847C, 0.0f, 1);
             }
@@ -1216,7 +1216,7 @@ void func_800564C0(Player* player, s32 arg1) {
             Matrix_RotateZ(gGfxMatrix, (-player->unk_12C - player->unk_130) * M_DTOR, 1);
             Matrix_Translate(gGfxMatrix, player->unk_084, player->unk_080 - 30.0f, 0.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-        } else if (player->form == FORM_RAMBO) {
+        } else if (player->form == FORM_ON_FOOT) {
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, player->pos.x, player->pos.y, player->unk_138 + player->unk_144, 1);
             if (func_800563B4(player->num, arg1) == 0) {
@@ -1320,7 +1320,7 @@ void func_80056E2C(Player* player) {
         }
         Matrix_Push(&gGfxMatrix);
         if (gLevelMode == LEVELMODE_ALL_RANGE) {
-            if (player->form == FORM_RAMBO) {
+            if (player->form == FORM_ON_FOOT) {
                 Matrix_Translate(gGfxMatrix, player->unk_064, player->unk_068 + 2.0f, player->unk_06C, 1);
             } else {
                 Matrix_Translate(gGfxMatrix, player->unk_064, player->unk_068 + 2.0f, player->unk_06C, 1);
@@ -1332,7 +1332,7 @@ void func_80056E2C(Player* player) {
         Matrix_RotateX(gGfxMatrix, player->unk_248, 1);
         Matrix_RotateZ(gGfxMatrix, player->unk_24C, 1);
         Matrix_Scale(gGfxMatrix, 0.8f + sp34, 0.0f, 0.8f + sp30, 1);
-        if ((player->form == FORM_ARWING) || (player->form == FORM_SABUMARIN) || (player->form == FORM_RAMBO)) {
+        if ((player->form == FORM_ARWING) || (player->form == FORM_BLUE_MARINE) || (player->form == FORM_ON_FOOT)) {
             sp2C = player->unk_0F8 + player->unk_0F0 + player->unk_134;
             if (((sp2C > 70.0f) && (sp2C < 110.0f)) || ((sp2C < -70.0f) && (sp2C > -110.0f))) {
                 sp2C = 70.0f;
@@ -1690,9 +1690,9 @@ void func_80057D00(void) {
             if (D_800D2860[i]) {
                 func_80053F7C(opponent);
             }
-            if (opponent->form == FORM_TANK) {
+            if (opponent->form == FORM_LANDMASTER) {
                 func_80052B80(opponent);
-            } else if (opponent->form == FORM_RAMBO) {
+            } else if (opponent->form == FORM_ON_FOOT) {
                 func_80052584(opponent);
             }
         }

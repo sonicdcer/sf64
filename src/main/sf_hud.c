@@ -27,10 +27,10 @@ void func_80084930(f32 arg0, f32 arg1, s32 arg2) {
         case FORM_ARWING:
             var_t0 = 0;
             break;
-        case FORM_TANK:
+        case FORM_LANDMASTER:
             var_t0 = 1;
             break;
-        case FORM_SABUMARIN:
+        case FORM_BLUE_MARINE:
             var_t0 = 2;
             break;
     }

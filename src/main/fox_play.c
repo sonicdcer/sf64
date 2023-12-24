@@ -186,7 +186,7 @@ void func_800A46A0(Player* player) {
         }
         if ((player->unk_238 == 0) || (gLevelMode == LEVELMODE_ALL_RANGE)) {
             sp40 = 0.0f;
-            if (player->form == FORM_TANK) {
+            if (player->form == FORM_LANDMASTER) {
                 sp40 = 30.0f;
             }
             if (!(gFrameCount & var_v1)) {
@@ -868,7 +868,7 @@ void Player_ApplyDamage(Player* player, s32 direction, s32 damage) {
         case 3:
             player->timer_224 = 20;
             func_800A668C(player->hit3.x - player->vel.x, player->hit3.y, player->hit3.z - player->vel.z);
-            if (player->form != FORM_TANK) {
+            if (player->form != FORM_LANDMASTER) {
                 sp44.x = 0.0f;
                 sp44.y = -sp34;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
@@ -916,7 +916,7 @@ void func_800A729C(Player* player, u32 arg1, f32 arg2, f32 arg3) {
             player->pos.x = player->unk_090.x;
             player->unk_0D8.x = 0.0f;
             player->pos.x += D_800D2FEC[player->unk_21C];
-            if (player->form == FORM_TANK) {
+            if (player->form == FORM_LANDMASTER) {
                 player->pos.x -= D_800D2FEC[player->unk_21C];
             }
             Math_SmoothStepToF(&player->unk_0D0, 2.0f, 1.0f, 2.0f, 0.00001f);
@@ -926,7 +926,7 @@ void func_800A729C(Player* player, u32 arg1, f32 arg2, f32 arg3) {
             player->pos.z = player->unk_090.z;
             player->unk_0D8.z = 0.0f;
             player->pos.z += D_800D2FEC[player->unk_21C];
-            if (player->form == FORM_TANK) {
+            if (player->form == FORM_LANDMASTER) {
                 player->pos.z += D_800D2FEC[player->unk_21C];
             }
             player->unk_138 = player->pos.z;
@@ -1357,7 +1357,7 @@ s32 func_800A8304(Player* player, s32 objId, f32 arg2, f32 arg3, f32 arg4, f32 a
     sp78.y = player->vel.y;
     sp78.z = player->vel.z;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp54);
-    if ((player->form == FORM_TANK) || (player->form == FORM_RAMBO)) {
+    if ((player->form == FORM_LANDMASTER) || (player->form == FORM_ON_FOOT)) {
         sp78.x = player->pos.x - sp84.x;
         sp78.y = player->pos.y - sp84.y;
         sp78.z = player->unk_138 - sp84.z;
@@ -1368,7 +1368,7 @@ s32 func_800A8304(Player* player, s32 objId, f32 arg2, f32 arg3, f32 arg4, f32 a
             player->unk_104 = Math_RadToDeg(sp60.x);
             player->unk_10C = Math_RadToDeg(sp60.z);
             player->vel.y = 0.0f;
-            if (player->form == FORM_RAMBO) {
+            if (player->form == FORM_ON_FOOT) {
                 player->vel.y = -5.0f;
             }
             player->unk_1D4 = 1;
@@ -1436,7 +1436,7 @@ void func_800A887C(Player* player) {
     Vec3f sp3C;
 
     Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y, player->unk_138, 0);
-    if (player->form == FORM_TANK) {
+    if (player->form == FORM_LANDMASTER) {
         player->unk_10C = 0.0f;
         player->unk_104 = 0.0f;
 
@@ -1452,7 +1452,7 @@ void func_800A887C(Player* player) {
         sp3C.z = 40.0f;
         Matrix_MultVec3f(gCalcMatrix, &sp3C, &player->hit3);
     }
-    if ((player->form == FORM_RAMBO) || (player->form == FORM_TCRF)) {
+    if ((player->form == FORM_ON_FOOT) || (player->form == FORM_UNK_4)) {
         sp3C.x = 20.0f;
         sp3C.y = 20.0f;
         sp3C.z = 0.0f;
@@ -1465,7 +1465,7 @@ void func_800A887C(Player* player) {
         sp3C.z = 20.0f;
         Matrix_MultVec3f(gCalcMatrix, &sp3C, &player->hit3);
     }
-    if ((player->form == FORM_ARWING) || (player->form == FORM_SABUMARIN)) {
+    if ((player->form == FORM_ARWING) || (player->form == FORM_BLUE_MARINE)) {
         Matrix_RotateY(gCalcMatrix, (player->unk_114 + 180.0f) * M_DTOR, 1);
         Matrix_RotateZ(gCalcMatrix, -(player->unk_0F8 * M_DTOR), 1);
         sp3C.y = 0.0f;
@@ -1476,7 +1476,7 @@ void func_800A887C(Player* player) {
             sp3C.y = -10.0f;
             sp3C.x = 30.0f;
         }
-        if (player->form == FORM_SABUMARIN) {
+        if (player->form == FORM_BLUE_MARINE) {
             sp3C.x = 24.0f;
         }
         Matrix_MultVec3f(gCalcMatrix, &sp3C, &player->hit2);
@@ -1486,7 +1486,7 @@ void func_800A887C(Player* player) {
         } else {
             sp3C.x = -30.0f;
         }
-        if (player->form == FORM_SABUMARIN) {
+        if (player->form == FORM_BLUE_MARINE) {
             sp3C.x = -24.0f;
         }
         Matrix_MultVec3f(gCalcMatrix, &sp3C, &player->hit1);
@@ -1525,10 +1525,10 @@ void func_800A8BA4(Player* player) {
     func_800A887C(player);
     if (D_801784AC == 4) {
         switch (player->form) {
-            case FORM_TANK:
+            case FORM_LANDMASTER:
                 func_800444BC(player);
                 break;
-            case FORM_SABUMARIN:
+            case FORM_BLUE_MARINE:
                 if (func_E6A810_801B6AEC(player->pos.x, player->pos.y - 12.0f, player->unk_138 + player->unk_144) !=
                     0) {
                     func_E6A810_801B6E20(player->pos.x, player->unk_138 + player->unk_144, &spE8, &spE0, &spE4);
@@ -1563,7 +1563,7 @@ void func_800A8BA4(Player* player) {
                 func_8007BC7C(player->hit2.x, player->hit2.y, player->hit2.z, 6.0f);
             }
         }
-    } else if ((player->form == FORM_TANK) && (!gVersusMode)) {
+    } else if ((player->form == FORM_LANDMASTER) && (!gVersusMode)) {
         func_800444BC(player);
     }
 
@@ -1589,7 +1589,7 @@ void func_800A8BA4(Player* player) {
                                 func_800A8304(player, obj58->obj.id, obj58->obj.pos.x, obj58->obj.pos.y,
                                               obj58->obj.pos.z, obj58->obj.rot.x, obj58->obj.rot.y, obj58->obj.rot.z);
                             if (temp_v0 != 0) {
-                                if ((player->form == FORM_TANK) || (player->form == FORM_RAMBO)) {
+                                if ((player->form == FORM_LANDMASTER) || (player->form == FORM_ON_FOOT)) {
                                     func_800A729C(player, temp_v0, obj58->obj.pos.x, obj58->obj.pos.z);
                                 } else {
                                     Player_ApplyDamage(player, temp_v0, obj58->info.damage);
@@ -1622,7 +1622,7 @@ void func_800A8BA4(Player* player) {
                                     if (player->unk_22C >= 4) {
                                         player->unk_22C = 4;
                                     }
-                                } else if ((player->form == FORM_TANK) || (player->form == FORM_RAMBO)) {
+                                } else if ((player->form == FORM_LANDMASTER) || (player->form == FORM_ON_FOOT)) {
                                     func_800A729C(player, temp_v0, obj58->obj.pos.x, obj58->obj.pos.z);
                                 } else {
                                     Player_ApplyDamage(player, temp_v0, obj58->info.damage);
@@ -1963,27 +1963,27 @@ void func_800A8BA4(Player* player) {
         for (opponent = &gPlayer[3], i = 3; i >= 0; i--, opponent--) {
             if ((i != gPlayerNum) && (opponent->state_1C8 == PLAYERSTATE_1C8_3)) {
                 spC8.x = 25.0f;
-                if (player->form == FORM_RAMBO) {
+                if (player->form == FORM_ON_FOOT) {
                     spC8.x = 4.0f;
                 }
                 spC8.y = 25.0f;
-                if (opponent->form == FORM_RAMBO) {
+                if (opponent->form == FORM_ON_FOOT) {
                     spC8.y = 4.0f;
                 }
                 spBC.x = spBC.z = spC8.x + spC8.y;
                 spC8.x = 23.0f;
-                if (player->form == FORM_RAMBO) {
+                if (player->form == FORM_ON_FOOT) {
                     spC8.x = 7.0f;
                 }
                 spC8.y = 23.0f;
-                if (opponent->form == FORM_RAMBO) {
+                if (opponent->form == FORM_ON_FOOT) {
                     spC8.y = 7.0f;
                 }
                 spBC.y = spC8.x + spC8.y;
                 if ((fabsf(opponent->unk_138 - player->unk_138) <= spBC.z) &&
                     (fabsf(opponent->pos.y - player->pos.y) <= spBC.y) &&
                     (fabsf(opponent->pos.x - player->pos.x) <= spBC.x)) {
-                    if ((player->form == FORM_RAMBO) && (opponent->form == FORM_RAMBO)) {
+                    if ((player->form == FORM_ON_FOOT) && (opponent->form == FORM_ON_FOOT)) {
                         player->pos.x = player->unk_090.x;
                         player->pos.y = player->unk_090.y;
                         player->pos.z = player->unk_138 = player->unk_090.z;
@@ -2088,7 +2088,7 @@ void func_800AA800(Player* player) {
                 player->unk_068 = D_80177940 + 3.0f;
             } else {
                 player->unk_068 = D_80177940;
-                if (player->form == FORM_RAMBO) {
+                if (player->form == FORM_ON_FOOT) {
                     player->unk_06C = player->unk_138;
                 }
             }
@@ -2098,7 +2098,7 @@ void func_800AA800(Player* player) {
         spFC = 0.0f;
         spF8 = 0.0f;
         if (gCamCount != 1) {
-            if (player->form == FORM_RAMBO) {
+            if (player->form == FORM_ON_FOOT) {
                 for (sp144 = 0; sp144 < 200; sp144++) {
                     obj58 = &gObjects58[sp144];
                     if ((obj58->obj.status == 2) &&
@@ -2815,7 +2815,7 @@ void func_800ACC7C(Player* player) {
         }
         if (player->form == FORM_ARWING) {
             func_800AC290(player, &gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1], 0.0f, 0.0f, PLAYERSHOT_3, 180.0f);
-        } else if (player->form == FORM_TANK) {
+        } else if (player->form == FORM_LANDMASTER) {
             func_800AC650(player, &gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1], PLAYERSHOT_3, 180.0f);
         } else {
             func_800ACDC0(player, &gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1], PLAYERSHOT_3);
@@ -3037,7 +3037,7 @@ void func_800AD7F0(Player* player) {
                 func_800ACC7C(player);
             }
             break;
-        case FORM_TANK:
+        case FORM_LANDMASTER:
             if (func_800AD1F4(player) == 0) {
                 if (gShootButton[player->num] & gInputPress->button) {
                     func_800ACA40(player);
@@ -3045,7 +3045,7 @@ void func_800AD7F0(Player* player) {
                 func_800ACC7C(player);
             }
             break;
-        case FORM_RAMBO:
+        case FORM_ON_FOOT:
             if (gInputPress->button & A_BUTTON) {
                 player->timer_244 = 0;
             }
@@ -4030,7 +4030,7 @@ void func_800B0F50(Player* playerx) {
     switch (gCurrentLevel) {
         case LEVEL_MACBETH:
         case LEVEL_TITANIA:
-            player->form = FORM_TANK;
+            player->form = FORM_LANDMASTER;
             player->unk_014 = 1.0f;
             player->unk_14C = 0.67f;
             player->unk_148 = 0.67f;
@@ -4046,7 +4046,7 @@ void func_800B0F50(Player* playerx) {
             }
             break;
         case LEVEL_AQUAS:
-            player->form = FORM_SABUMARIN;
+            player->form = FORM_BLUE_MARINE;
             player->unk_0D4 = 0.0f;
             player->unk_09C = 700.0f;
             player->unk_0D0 = 20.0f;
@@ -4106,7 +4106,7 @@ void func_800B0F50(Player* playerx) {
         }
         func_80062568();
     }
-    if (player->form == FORM_TANK) {
+    if (player->form == FORM_LANDMASTER) {
         player->pos.z -= 200.0f;
         player->unk_138 -= 200.0f;
     }
@@ -4125,12 +4125,12 @@ void func_800B0F50(Player* playerx) {
         switch (player->form) {
             case FORM_ARWING:
                 break;
-            case FORM_TANK:
+            case FORM_LANDMASTER:
                 player->pos.y = 0.0f;
                 player->unk_0D0 = 15.0f;
                 player->unk_0D4 = 3.0f;
                 break;
-            case FORM_RAMBO:
+            case FORM_ON_FOOT:
                 player->pos.y = 0.0f;
                 player->unk_0D0 = 15.0f;
                 player->unk_068 = 0;
@@ -4872,7 +4872,7 @@ void func_800B39E0(Player* player) {
         Math_SmoothStepToF(&D_80177AB8[player->num], 0.0f, 1.0f, 10.0f, 0.01f);
     }
     Math_SmoothStepToF(&D_80177AA0[player->num], 0.0f, 1.0f, 0.4f, 0.01f);
-    if ((player->form == FORM_TANK) && (player->unk_1A0 != 0)) {
+    if ((player->form == FORM_LANDMASTER) && (player->unk_1A0 != 0)) {
         player->unk_1A0--;
     }
     player->unk_200 = player->timer_224 & 1;
@@ -5046,10 +5046,10 @@ void func_800B42B0(Player* player) {
                 player->timer_1FC = 120;
             }
             break;
-        case FORM_TANK:
+        case FORM_LANDMASTER:
             func_80047504(player);
             break;
-        case FORM_SABUMARIN:
+        case FORM_BLUE_MARINE:
             func_E16C50_801ACE50(player);
             func_E16C50_801AD328(player);
             func_800B41E0(player);
@@ -5101,7 +5101,7 @@ void func_800B44C4(Player* player) {
                 player->unk_4D8 = 0.0f;
             }
             break;
-        case FORM_TANK:
+        case FORM_LANDMASTER:
             func_800ADD98(player);
             func_800B3314(player);
             func_800B3010(player);
@@ -5116,10 +5116,10 @@ void func_800B44C4(Player* player) {
                 func_800B41EC(player);
             }
             break;
-        case FORM_SABUMARIN:
+        case FORM_BLUE_MARINE:
             func_E16C50_801BEC80(player);
             return;
-        case FORM_RAMBO:
+        case FORM_ON_FOOT:
             func_800B00C0(player);
             func_800B0194(player);
             func_800AD7F0(player);
@@ -5252,7 +5252,7 @@ void func_800B48BC(Player* player) {
             player->wings.unk_2C = 0;
             D_80161704 = 0xFF;
             if ((!gVersusMode || (D_80177E7C != 0)) && (player->unk_4DC == 0) && (gInputPress->button & U_CBUTTONS) &&
-                ((player->form == FORM_ARWING) || (gVersusMode && (player->form == FORM_TANK)))) {
+                ((player->form == FORM_ARWING) || (gVersusMode && (player->form == FORM_LANDMASTER)))) {
                 if (player->unk_238 = 1 - player->unk_238) {
                     Audio_PlaySfx(0x4900002C, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 } else {
@@ -5477,7 +5477,7 @@ void func_800B48BC(Player* player) {
             player->unk_190 = 1.0f;
         }
 
-    } else if (player->form == FORM_TANK) {
+    } else if (player->form == FORM_LANDMASTER) {
         Math_SmoothStepToF(&player->unk_194, player->unk_190, 0.5f, 0.5f, 0.0f);
         player->unk_190 = 0.0f;
     }
@@ -5600,7 +5600,7 @@ void func_800B5FBC(Player* player, s32 playerNum, bool arg2) {
     Vec3f sp4C;
 
     var_v0 = 0x7F;
-    if (gPlayer[playerNum].form == FORM_TANK) {
+    if (gPlayer[playerNum].form == FORM_LANDMASTER) {
         var_v0 = 0xFF;
     }
     if (((var_v0 & gFrameCount) == (gPlayerNum * 32)) || arg2) {
@@ -5620,11 +5620,11 @@ void func_800B5FBC(Player* player, s32 playerNum, bool arg2) {
                 sp58.x = 300.0f;
                 sp58.z = -800.0f;
                 break;
-            case FORM_TANK:
+            case FORM_LANDMASTER:
                 sp58.x = 300.0f;
                 sp58.z = -400.0f;
                 break;
-            case FORM_RAMBO:
+            case FORM_ON_FOOT:
                 sp58.x = 100.0f;
                 sp58.z = -300.0f;
                 break;
@@ -5646,11 +5646,11 @@ void func_800B5FBC(Player* player, s32 playerNum, bool arg2) {
             player->camEye.x += gPlayer[playerNum].vel.x * 0.5f;
             player->camEye.z += gPlayer[playerNum].vel.z * 0.5f;
             break;
-        case FORM_TANK:
+        case FORM_LANDMASTER:
             player->camEye.x += gPlayer[playerNum].vel.x * 0.7f;
             player->camEye.z += gPlayer[playerNum].vel.z * 0.7f;
             break;
-        case FORM_RAMBO:
+        case FORM_ON_FOOT:
             player->camEye.x += gPlayer[playerNum].vel.x * 0.7f;
             player->camEye.z += gPlayer[playerNum].vel.z * 0.7f;
             player->camEye.y = gPlayer[playerNum].unk_068 + 20.0f;
@@ -5875,10 +5875,10 @@ void func_800B6F50(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
 
 void func_800B7184(Player* player, s32 arg1) {
     switch (player->form) {
-        case FORM_RAMBO:
+        case FORM_ON_FOOT:
             func_800B6BFC(player, arg1);
             break;
-        case FORM_TANK:
+        case FORM_LANDMASTER:
             func_800B6848(player, arg1);
             break;
         case FORM_ARWING:
@@ -5898,9 +5898,9 @@ void func_800B71E4(Player* player) {
                         } else {
                             func_800B5D30(player, 0);
                         }
-                    } else if (player->form == FORM_TANK) {
+                    } else if (player->form == FORM_LANDMASTER) {
                         func_80043468(player);
-                    } else if (player->form == FORM_SABUMARIN) {
+                    } else if (player->form == FORM_BLUE_MARINE) {
                         func_E16C50_801AA8E8(player);
                     }
                     break;
@@ -6356,7 +6356,7 @@ void func_800B86CC(void) {
             break;
         case 100:
             if (!gVersusMode) {
-                if ((gControllerPress[gMainController].button & R_TRIG) && (gPlayer[0].form != FORM_SABUMARIN) &&
+                if ((gControllerPress[gMainController].button & R_TRIG) && (gPlayer[0].form != FORM_BLUE_MARINE) &&
                     (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_0)) {
                     if (D_800D2860[0] = 1 - D_800D2860[0]) {
                         Audio_PlaySfx(0x49000019, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -6366,7 +6366,7 @@ void func_800B86CC(void) {
                 }
             } else {
                 for (i = 0; i < 4; i++) {
-                    if ((gControllerPress[i].button & R_TRIG) && (gPlayer[i].form != FORM_RAMBO)) {
+                    if ((gControllerPress[i].button & R_TRIG) && (gPlayer[i].form != FORM_ON_FOOT)) {
                         if (D_800D2860[i] = 1 - D_800D2860[i]) {
                             func_80060F30(gPlayer[i].unk_460_arr, 0x49000019, i);
                         } else {

@@ -1994,11 +1994,11 @@ void func_8006753C(Object_2F4* obj2F4) {
             func_8007A6F0(&obj2F4->obj.pos, 0x2903A008);
             func_8007D2C8(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, 5.0f);
             if (((player[0].wings.rightState <= WINGSTATE_BROKEN) || (player[0].wings.leftState <= WINGSTATE_BROKEN)) &&
-                (player[0].form != FORM_TANK)) {
+                (player[0].form != FORM_LANDMASTER)) {
                 obj2F4->unk_044 = 23;
             } else if (gPlayer[0].shields < 0x80) {
                 obj2F4->unk_044 = 25;
-            } else if ((gLaserStrength[0] == 0) && (player[0].form != FORM_TANK)) {
+            } else if ((gLaserStrength[0] == 0) && (player[0].form != FORM_LANDMASTER)) {
                 obj2F4->unk_044 = 9;
             } else {
                 obj2F4->unk_044 = 5;
@@ -2116,7 +2116,7 @@ void func_80067BEC(Item* item) {
     } else {
         Math_SmoothStepToF(&item->scale, 2.5f, 1.0f, 0.5f, 0.0f);
         item->obj.pos.x += (gPlayer[item->unk_4E].pos.x - item->obj.pos.x) * 0.5f;
-        if (gPlayer[item->unk_4E].form == FORM_TANK) {
+        if (gPlayer[item->unk_4E].form == FORM_LANDMASTER) {
             item->obj.pos.y += ((gPlayer[item->unk_4E].pos.y + 50.0f) - item->obj.pos.y) * 0.5f;
         } else {
             item->obj.pos.y += (gPlayer[item->unk_4E].pos.y - item->obj.pos.y) * 0.5f;
@@ -2187,7 +2187,7 @@ void func_80068020(Item* item) {
                 Math_SmoothStepToF(&item->scale, 0.0f, 1.0f, 0.06f, 0.0f);
             }
             item->obj.pos.x += (gPlayer[item->unk_4E].pos.x - item->obj.pos.x) * 0.5f;
-            if (gPlayer[item->unk_4E].form == FORM_TANK) {
+            if (gPlayer[item->unk_4E].form == FORM_LANDMASTER) {
                 item->obj.pos.y += (gPlayer[item->unk_4E].pos.y + 50.0f - item->obj.pos.y) * 0.5f;
             } else {
                 item->obj.pos.y += (gPlayer[item->unk_4E].pos.y - item->obj.pos.y) * 0.5f;
@@ -2285,7 +2285,7 @@ void func_80068914(Item* item) {
     if (item->unk_46 > 0) {
         item->unk_44++;
         item->obj.pos.x += (gPlayer[item->unk_4E].pos.x - item->obj.pos.x) * 0.3f;
-        if (gPlayer[item->unk_4E].form == FORM_TANK) {
+        if (gPlayer[item->unk_4E].form == FORM_LANDMASTER) {
             item->obj.pos.y += (gPlayer[item->unk_4E].pos.y + 50.0f - item->obj.pos.y) * 0.3f;
         } else {
             item->obj.pos.y += (gPlayer[item->unk_4E].pos.y - item->obj.pos.y) * 0.3f;

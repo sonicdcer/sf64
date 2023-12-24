@@ -12,10 +12,10 @@ typedef enum {
 
 typedef enum {
     FORM_ARWING,
-    FORM_TANK,
-    FORM_SABUMARIN,
-    FORM_RAMBO,
-    FORM_TCRF,
+    FORM_LANDMASTER,
+    FORM_BLUE_MARINE,
+    FORM_ON_FOOT,
+    FORM_UNK_4,
 } PlayerForm;
 
 typedef enum {
