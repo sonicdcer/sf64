@@ -1,8 +1,9 @@
 // rsp
 __rspboot_start = 0x80000450;//name_end:__rspboot_end
 __aspmain_start = 0x80000520;//name_end:__aspmain_end
-__f3dex_start = 0x80001410;
-gF3dexData = 0x800C3DD0;
+__f3dex_start = 0x80001410;//name_end:__f3dex_end
+gF3dexData = 0x800C3DD0; //name_end:gF3dexData_end
+gAspMainData = 0x800C32E0; //name_end:gAspMainData_end
 
 // sys_joybus
 gControllerHold = 0x800DD880; // size:0x18

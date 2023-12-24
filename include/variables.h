@@ -15,7 +15,9 @@ extern u64 __rspboot_end[];
 extern u64 __aspmain_start[];
 extern u64 __aspmain_end[];
 extern u64 __f3dex_start[];
+extern u64 __f3dex_end[];
 extern u8 gF3dexData[SP_UCODE_DATA_SIZE];
+extern u8 gAspMainData[];
 
 extern Mtx gIdentityMtx; // 800C4620
 extern Matrix gIdentityMatrix; //800C4660
@@ -130,7 +132,7 @@ extern OSMesg D_8015661C[1];
 
 extern s32 D_800C9B4C;
 extern u16 D_800C9C3C[16];
-extern Vec3f D_800C9F2C; // could be f32[4]?
+extern Vec3f D_800C9F2C;
 extern s32 D_800CA220;
 extern f32 D_800CA230;
 extern Object_2F4* D_800CA234;
@@ -177,15 +179,7 @@ extern Gfx* D_800CFC64[];
 extern Gfx* D_800CFC7C[];
 extern f32* D_800CF964[];
 extern f32 D_800CFCA0[];
-extern Vec3f D_800CFCC0; // initializer in sf_5A240
 extern f32 D_800CFCCC[];
-extern Vec3f D_800CFCEC;
-extern Vec3f D_800CFCF8;
-extern Vec3f D_800CFD04;
-extern Vec3f D_800CFD10;
-extern Vec3f D_800CFD1C;
-extern Vec3f D_800CFD28;
-extern Vec3f D_800CFD34;
 extern Gfx D_800CFD80[];
 extern ObjectInit* D_800CFDA0[];
 extern s32 D_800CFDF4[];

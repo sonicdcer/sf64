@@ -442,25 +442,25 @@ void func_800A26C0(void) {
                 func_8001D8A8(1, gVolumeSettings[1]);
                 func_8001D8A8(2, gVolumeSettings[2]);
                 break;
-            case GSTATE_TITLE: // title screen
+            case GSTATE_TITLE:
                 func_80187520(0x67, NULL);
                 break;
-            case GSTATE_MENU: // main menu
+            case GSTATE_MENU:
                 func_80187520(0x6B, NULL);
                 break;
-            case GSTATE_MAP: // world map
+            case GSTATE_MAP:
                 func_EBFBE0_8019E8D0();
                 break;
-            case GSTATE_VS_INIT: // vs mode
+            case GSTATE_VS_INIT:
                 func_800C20B0();
                 break;
-            case GSTATE_PLAY: // play
+            case GSTATE_PLAY:
                 func_800B86CC();
                 break;
-            case GSTATE_GAME_OVER: // world map
+            case GSTATE_GAME_OVER:
                 func_80187520(0x6D, NULL);
                 break;
-            case GSTATE_CREDITS: // credits
+            case GSTATE_CREDITS:
                 gDrawMode = DRAWMODE_8;
                 func_EF0260_8018A96C();
                 break;

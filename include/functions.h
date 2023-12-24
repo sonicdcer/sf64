@@ -23,6 +23,8 @@ u8* func_8001C3EC(void);
 void func_80016A50(void);
 void func_800182F4(s32);
 void Audio_PlaySfx(u32, Vec3f*, u8, f32*, f32*, s8*);
+void func_80019290(s32, Vec3f**);
+void func_8001A38C(u8, Vec3f*);
 void Audio_KillSfx(Vec3f*);
 void func_8001A55C(Vec3f*, u32);
 void func_8001A838(u32);

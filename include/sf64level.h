@@ -31,7 +31,7 @@ typedef struct {
     /* 0x38 */ s32 ambR;
     /* 0x3C */ s32 ambG;
     /* 0x40 */ s32 ambB;
-} EnvSettings; // size = 0x44?
+} EnvSettings; // size = 0x44
 
 typedef enum {
     OVL_SETUP_TITLE,

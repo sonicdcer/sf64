@@ -115,7 +115,6 @@ void Message_DisplayScrollingText(Gfx** gfxPtr, u16* msgPtr, s32 xPos, s32 yPos,
     s32 var_s2 = xPos;
     s32 var_s4 = yPos;
     s32 i;
-    // s32 var_v1;
 
     gDPSetTextureLUT((*gfxPtr)++, G_TT_RGBA16);
     gDPLoadTLUT((*gfxPtr)++, 64, 0x100, D_Tex_800DBA20);

@@ -245,55 +245,55 @@ void func_800BAAE8(void) {
         case RCID_ANDREW_2_OPEN:
             sp44 = D_F002D60;
             break;
-        case RCID_BOSS_CORNERIA: // Corneria robot boss
+        case RCID_BOSS_CORNERIA:
             sp44 = D_6026420;
             break;
         case RCID_BOSS_CORNERIA_OPEN:
             sp44 = D_6027340;
             break;
-        case RCID_BOSS_CORNERIA2: // Corneria secret boss
+        case RCID_BOSS_CORNERIA2:
             sp44 = D_60245E0;
             break;
         case RCID_BOSS_CORNERIA2_OPEN:
             sp44 = D_6025500;
             break;
-        case RCID_BOSS_METEO: // Meteo Boss
+        case RCID_BOSS_METEO:
             sp44 = D_601C8E0;
             break;
         case RCID_BOSS_METEO_OPEN:
             sp44 = D_601D800;
             break;
-        case RCID_BOSS_AREA6: // Area 6 Boss
+        case RCID_BOSS_AREA6:
             sp44 = D_60047E0;
             break;
         case RCID_BOSS_AREA6_OPEN:
             sp44 = D_6005700;
             break;
-        case RCID_CAIMAN_AREA6: // Area 6 Caiman
+        case RCID_CAIMAN_AREA6:
             sp44 = D_60029A0;
             break;
         case RCID_CAIMAN_AREA6_OPEN:
             sp44 = D_60038C0;
             break;
-        case RCID_BOSS_ZONESS: // Zoness boss
+        case RCID_BOSS_ZONESS:
             sp44 = D_6014510;
             break;
         case RCID_BOSS_ZONESS_OPEN:
             sp44 = D_6015430;
             break;
-        case RCID_BOSS_SECTORX: // Sector X boss
+        case RCID_BOSS_SECTORX:
             sp44 = D_6020FB0;
             break;
         case RCID_BOSS_SECTORX_OPEN:
             sp44 = D_6021ED0;
             break;
-        case RCID_BOSS_SECTORY: // Sector Y boss
+        case RCID_BOSS_SECTORY:
             sp44 = D_6018F30;
             break;
         case RCID_BOSS_SECTORY_OPEN:
             sp44 = D_6019E50;
             break;
-        case RCID_BOSS_MACBETH: // Macbeth boss
+        case RCID_BOSS_MACBETH:
             sp44 = D_6010C20;
             break;
         case RCID_BOSS_MACBETH_OPEN:
@@ -353,13 +353,13 @@ void func_800BAAE8(void) {
         case RCID_PEPPER_OPEN:
             sp44 = D_D008990;
             break;
-        case RCID_ROB64_TITLE: // rob title?
+        case RCID_ROB64_TITLE:
             sp44 = D_E00E100;
             break;
         case RCID_ROB64_TITLE_OPEN:
             sp44 = D_E00F020;
             break;
-        case RCID_PEPPER_TITLE: // pepper title?
+        case RCID_PEPPER_TITLE:
             sp44 = D_E00FF40;
             break;
         case RCID_PEPPER_TITLE_OPEN:

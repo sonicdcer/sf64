@@ -1947,7 +1947,6 @@ void func_EBFBE0_8018C644(void) {
                     y = D_EBFBE0_801AE444[i] - D_EBFBE0_801B84E8[i].unk_00.y;
                     z = D_EBFBE0_801AE454[i] + 10.0f - D_EBFBE0_801B84E8[i].unk_00.z;
 
-                    // M_RTOD doesn't seem to work here for some reason
                     D_EBFBE0_801B84E8[i].unk_18 = -Math_Atan2F(y, sqrtf(SQ(x) + SQ(z))) * 180.0f / M_PI;
                     D_EBFBE0_801B84E8[i].unk_1C = Math_Atan2F(x, z) * 180.0f / M_PI;
                 }
