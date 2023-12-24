@@ -81,15 +81,18 @@ extern f32 D_EBFBE0_801CDA24;
 extern f32 D_EBFBE0_801CDA28;
 extern f32 D_EBFBE0_801CDA2C;
 extern f32 D_EBFBE0_801CDA30;
-extern f32 D_EBFBE0_801CDA40;
-extern f32 D_EBFBE0_801CDA44;
-extern f32 D_EBFBE0_801CDA48;
+extern f32 D_EBFBE0_801CDA34;
+extern f32 D_EBFBE0_801CDA38;
+extern Vec3f D_EBFBE0_801CDA40;
+extern Vec3f D_EBFBE0_801CDA50;
 extern Matrix D_EBFBE0_801CDA60[];
 extern Matrix D_EBFBE0_801CDE20[15]; // bss // planet related
 extern Matrix D_EBFBE0_801CE1E0[15];
 extern Matrix D_EBFBE0_801CE5A0[];
 extern Vec3f D_EBFBE0_801CE960[]; // pos of something
 extern f32 D_EBFBE0_801CEA54;
+extern f32 D_EBFBE0_801CEA64;
+extern f32 D_EBFBE0_801CEA68;
 extern f32 D_EBFBE0_801CEAA8;
 extern f32 D_EBFBE0_801CEAAC;
 extern f32 D_EBFBE0_801CEAB0;
@@ -701,7 +704,35 @@ void func_EBFBE0_801A19A8(void) {
     TextureRect_8bIA(&gMasterDisp, D_600D590 + (168 * 16), 168, 3, 72.0f, 104.0f + 16.0f, 1.0f, 1.0f);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A1AE8.s")
+void func_EBFBE0_801A1AE8(void) {
+    f32 x;
+    f32 y;
+    f32 z;
+
+    D_EBFBE0_801CEA64 = 0.04f;
+
+    D_EBFBE0_801CEA54 = func_EBFBE0_801A25C8(D_EBFBE0_801CD954);
+
+    D_EBFBE0_801CDA40.x = planet[D_EBFBE0_801CD954].posX;
+    D_EBFBE0_801CDA40.y = planet[D_EBFBE0_801CD954].posY;
+    D_EBFBE0_801CDA40.z = planet[D_EBFBE0_801CD954].posZ;
+
+    D_EBFBE0_801CDA50.x = planet[D_EBFBE0_801CD954].posX;
+    D_EBFBE0_801CDA50.y = planet[D_EBFBE0_801CD954].posY;
+    D_EBFBE0_801CDA50.z = D_EBFBE0_801CDA40.z + D_EBFBE0_801CEA54;
+
+    D_EBFBE0_801CDA2C = D_EBFBE0_801CDA00;
+    D_EBFBE0_801CDA30 = D_EBFBE0_801CDA04;
+
+    D_EBFBE0_801CDA34 = D_EBFBE0_801CD9F4;
+    D_EBFBE0_801CDA38 = D_EBFBE0_801CD9F8;
+
+    x = D_EBFBE0_801CDA50.x - D_EBFBE0_801CD9F4;
+    y = D_EBFBE0_801CDA50.y - D_EBFBE0_801CD9F8;
+    z = D_EBFBE0_801CDA50.z - D_EBFBE0_801CD9FC;
+
+    D_EBFBE0_801CEA68 = sqrtf(SQ(x) + SQ(y) + SQ(z));
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A1C14.s")
 
@@ -818,9 +849,9 @@ void func_EBFBE0_801A3550(Vec3f* arg0, Vec3f* arg1, Vec3f* arg2, f32 arg3) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A48C0.s")
 
 void func_EBFBE0_801A4A38(f32 arg0) {
-    Math_SmoothStepToF(&D_EBFBE0_801CDA2C, D_EBFBE0_801CDA40, arg0, 100.0f, 0.1f);
-    Math_SmoothStepToF(&D_EBFBE0_801CDA30, D_EBFBE0_801CDA44, arg0, 100.0f, 0.1f);
-    Math_SmoothStepToF(&D_EBFBE0_801CDA08, D_EBFBE0_801CDA48, arg0, 100.0f, 0.1f);
+    Math_SmoothStepToF(&D_EBFBE0_801CDA2C, D_EBFBE0_801CDA40.x, arg0, 100.0f, 0.1f);
+    Math_SmoothStepToF(&D_EBFBE0_801CDA30, D_EBFBE0_801CDA40.y, arg0, 100.0f, 0.1f);
+    Math_SmoothStepToF(&D_EBFBE0_801CDA08, D_EBFBE0_801CDA40.z, arg0, 100.0f, 0.1f);
     D_EBFBE0_801CDA00 = D_EBFBE0_801CDA2C;
     D_EBFBE0_801CDA04 = D_EBFBE0_801CDA30;
 }
