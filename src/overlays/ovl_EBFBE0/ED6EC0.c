@@ -1020,69 +1020,69 @@ void func_EBFBE0_801A6368(void) {
     }
 }
 
-s32 func_EBFBE0_801A6480(u32 arg0) {
+s32 func_EBFBE0_801A6480(LevelId level) {
     s32 ret;
 
-    switch (arg0) {
-        case 0:
+    switch (level) {
+        case LEVEL_CORNERIA:
             ret = 9;
             break;
 
-        case 1:
+        case LEVEL_METEO:
             ret = 0;
             break;
 
-        case 12:
+        case LEVEL_TITANIA:
             ret = 10;
             break;
 
-        case 13:
+        case LEVEL_AQUAS:
             ret = 11;
             break;
 
-        case 17:
+        case LEVEL_BOLSE:
             ret = 2;
             break;
 
-        case 16:
+        case LEVEL_KATINA:
             ret = 6;
             break;
 
-        case 3:
+        case LEVEL_AREA_6:
             ret = 1;
             break;
 
-        case 18:
+        case LEVEL_SECTOR_Z:
             ret = 3;
             break;
 
-        case 14:
+        case LEVEL_FORTUNA:
             ret = 12;
             break;
 
-        case 2:
+        case LEVEL_SECTOR_X:
             ret = 4;
             break;
 
-        case 11:
+        case LEVEL_MACBETH:
             ret = 7;
             break;
 
-        case 8:
+        case LEVEL_ZONESS:
             ret = 8;
             break;
 
-        case 5:
+        case LEVEL_SECTOR_Y:
             ret = 5;
             break;
 
-        case 6:
-        case 9:
-        case 19:
+        case LEVEL_VENOM_1:
+        case LEVEL_VENOM_2:
+        case LEVEL_VENOM_SW:
             ret = 13;
             break;
 
-        case 7:
+        case LEVEL_SOLAR:
             ret = 14;
     }
 
