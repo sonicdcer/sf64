@@ -1213,13 +1213,13 @@ void func_EBFBE0_801A6A24(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A6A98.s")
 
-s32 func_EBFBE0_801A6DAC(s32 planet) {
+s32 func_EBFBE0_801A6DAC(s32 planetId) {
     s32 ret;
-    s32 planet_;
+    s32 planetSaveSlot;
     s32 var_v0;
     s32 var_a0;
 
-    if (planet == 13) {
+    if (planetId == 13) {
         if (gExpertMode) {
             var_v0 = gSaveFile.save.data.planet[15].unk_3 & 1;
             var_a0 = gSaveFile.save.data.planet[14].unk_4 & 1 | gSaveFile.save.data.planet[15].unk_4 & 1;
@@ -1228,18 +1228,18 @@ s32 func_EBFBE0_801A6DAC(s32 planet) {
             var_a0 = gSaveFile.save.data.planet[14].unk_7 & 1 | gSaveFile.save.data.planet[15].unk_7 & 1;
         }
     } else {
-        planet_ = planet;
+        planetSaveSlot = planetId;
 
-        if (planet == 14) {
-            planet_ = 13;
+        if (planetId == 14) {
+            planetSaveSlot = 13;
         }
 
         if (gExpertMode) {
-            var_v0 = gSaveFile.save.data.planet[planet_].unk_3 & 1;
-            var_a0 = gSaveFile.save.data.planet[planet_].unk_4 & 1;
+            var_v0 = gSaveFile.save.data.planet[planetSaveSlot].unk_3 & 1;
+            var_a0 = gSaveFile.save.data.planet[planetSaveSlot].unk_4 & 1;
         } else {
-            var_v0 = gSaveFile.save.data.planet[planet_].unk_6 & 1;
-            var_a0 = gSaveFile.save.data.planet[planet_].unk_7 & 1;
+            var_v0 = gSaveFile.save.data.planet[planetSaveSlot].unk_6 & 1;
+            var_a0 = gSaveFile.save.data.planet[planetSaveSlot].unk_7 & 1;
         }
     }
 
