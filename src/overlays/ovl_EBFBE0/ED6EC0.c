@@ -2571,7 +2571,111 @@ void func_EBFBE0_801AC80C(s32 arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AC9A0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801ACD90.s")
+void func_EBFBE0_801ACD90(s32 index, Vec3f* src, Vec3f* dest) {
+    f32 x1;
+    f32 y1;
+    f32 z1;
+    f32 x2;
+    f32 y2;
+    f32 z2;
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 r;
+    f32 temp1;
+    f32 temp2;
+
+    temp1 = 40.0f;
+
+    if (D_EBFBE0_801AFD18[index].unk_04 == 12) {
+        temp1 = 50.0f;
+    }
+    if (D_EBFBE0_801AFD18[index].unk_04 == 10) {
+        temp1 = 60.0f;
+    }
+    if (D_EBFBE0_801AFD18[index].unk_04 == 14) {
+        temp1 = 20.0f;
+    }
+    if (D_EBFBE0_801AFD18[index].unk_04 == 0) {
+        temp1 = 60.0f;
+    }
+    if (D_EBFBE0_801AFD18[index].unk_04 == 4) {
+        temp1 = 20.0f;
+    }
+    if (D_EBFBE0_801AFD18[index].unk_04 == 5) {
+        temp1 = 20.0f;
+    }
+    if (D_EBFBE0_801AFD18[index].unk_04 == 3) {
+        temp1 = 20.0f;
+    }
+    if (D_EBFBE0_801AFD18[index].unk_04 == 1) {
+        temp1 = 1200.0f;
+    }
+    if (D_EBFBE0_801AFD18[index].unk_04 == 2) {
+        temp1 = 1200.0f;
+    }
+
+    temp2 = 40.0f;
+
+    if (D_EBFBE0_801AFD18[index].unk_08 == 10) {
+        temp2 = 60.0f;
+    }
+    if (D_EBFBE0_801AFD18[index].unk_08 == 12) {
+        temp2 = 50.0f;
+    }
+    if (D_EBFBE0_801AFD18[index].unk_08 == 14) {
+        temp2 = 20.0f;
+    }
+    if (D_EBFBE0_801AFD18[index].unk_08 == 0) {
+        temp2 = 60.0f;
+    }
+    if (D_EBFBE0_801AFD18[index].unk_08 == 4) {
+        temp2 = 20.0f;
+    }
+    if (D_EBFBE0_801AFD18[index].unk_08 == 5) {
+        temp2 = 20.0f;
+    }
+    if (D_EBFBE0_801AFD18[index].unk_08 == 3) {
+        temp2 = 20.0f;
+    }
+    if (D_EBFBE0_801AFD18[index].unk_08 == 1) {
+        temp2 = 1200.0f;
+    }
+    if (D_EBFBE0_801AFD18[index].unk_08 == 2) {
+        temp2 = 1200.0f;
+    }
+    if (D_EBFBE0_801AFD18[index].unk_08 == 13) {
+        temp2 = 30.0f;
+    }
+
+    x = planet[D_EBFBE0_801AFD18[index].unk_08].posX - planet[D_EBFBE0_801AFD18[index].unk_04].posX;
+    y = planet[D_EBFBE0_801AFD18[index].unk_08].posY - planet[D_EBFBE0_801AFD18[index].unk_04].posY;
+    z = planet[D_EBFBE0_801AFD18[index].unk_08].posZ - planet[D_EBFBE0_801AFD18[index].unk_04].posZ;
+
+    r = sqrtf(SQ(x) + SQ(y) + SQ(z));
+
+    x1 = planet[D_EBFBE0_801AFD18[index].unk_04].posX +
+         (temp1 * planet[D_EBFBE0_801AFD18[index].unk_04].scale * (x / r));
+    y1 = planet[D_EBFBE0_801AFD18[index].unk_04].posY +
+         (temp1 * planet[D_EBFBE0_801AFD18[index].unk_04].scale * (y / r));
+    z1 = planet[D_EBFBE0_801AFD18[index].unk_04].posZ +
+         (temp1 * planet[D_EBFBE0_801AFD18[index].unk_04].scale * (z / r));
+
+    x2 = planet[D_EBFBE0_801AFD18[index].unk_08].posX +
+         (temp2 * planet[D_EBFBE0_801AFD18[index].unk_08].scale * (-x / r));
+    y2 = planet[D_EBFBE0_801AFD18[index].unk_08].posY +
+         (temp2 * planet[D_EBFBE0_801AFD18[index].unk_08].scale * (-y / r));
+    z2 = planet[D_EBFBE0_801AFD18[index].unk_08].posZ +
+         (temp2 * planet[D_EBFBE0_801AFD18[index].unk_08].scale * (-z / r));
+
+    src->x = x1;
+    src->y = y1;
+    src->z = z1;
+
+    dest->x = x2;
+    dest->y = y2;
+    dest->z = z2;
+}
 
 void func_EBFBE0_801AD048(void) {
     f32 sp1C = Math_Atan2F(D_EBFBE0_801CD9F8 - D_EBFBE0_801CDA04, sqrtf(SQ(D_EBFBE0_801CD9F4 - D_EBFBE0_801CDA00) +
