@@ -62,6 +62,7 @@ extern f32 D_EBFBE0_801CD9F4; // x
 extern f32 D_EBFBE0_801CD9F8; // y
 extern f32 D_EBFBE0_801CD9FC; // z
 extern s32 D_EBFBE0_801CD900[15];
+extern s32 D_EBFBE0_801CD93C;
 extern s32 D_EBFBE0_801CD940; // bss
 extern s32 D_EBFBE0_801CD944; // mapState // bss
 extern s32 D_EBFBE0_801CD948;
@@ -132,7 +133,12 @@ extern Vec3f D_EBFBE0_801CEEE8[9];
 extern Vec3f D_EBFBE0_801CEF58[9];
 extern s32 D_EBFBE0_801CEFC4; // bss
 extern s32 D_EBFBE0_801CEFC8;
+extern s32 D_EBFBE0_801CEFD0;
 extern s32 D_EBFBE0_801CEFD4;
+extern s32 D_EBFBE0_801CEFDC;
+extern f32 D_EBFBE0_801CEFE0;
+extern f32 D_EBFBE0_801CEFE8[3];
+extern s32 D_EBFBE0_801CF000[];
 extern s32 D_EBFBE0_801CF00C;
 extern s32 D_EBFBE0_801CF018; // bss
 
@@ -180,6 +186,7 @@ void func_EBFBE0_801A36A8(void);
 void func_EBFBE0_801A48C0(f32 speed);
 void func_EBFBE0_801A4A38(f32 arg0);
 void func_EBFBE0_801A4AE8(void);
+s32 func_EBFBE0_801A5770(void);
 void func_EBFBE0_801A5E80(void);
 void func_EBFBE0_801A6694(void);
 void func_EBFBE0_801A68E4(void);
@@ -1030,7 +1037,58 @@ void func_EBFBE0_801A4D0C(u32 arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A4D7C.s")
+void func_EBFBE0_801A4D7C(void) {
+    f32 temp;
+
+    if (func_EBFBE0_801A5770() != 0) {
+        D_EBFBE0_801CEFE8[D_EBFBE0_801CEFDC] = 255.0f;
+        if (D_EBFBE0_801CD93C != 0) {
+            if (D_EBFBE0_801CEFD4 < 0) {
+                D_EBFBE0_801CEFDC++;
+                if (D_EBFBE0_801CEFDC >= 3) {
+                    D_EBFBE0_801CEFDC = 0;
+                }
+            } else {
+                D_EBFBE0_801CEFDC--;
+                if (D_EBFBE0_801CEFDC < 0) {
+                    D_EBFBE0_801CEFDC = 2;
+                }
+            }
+        } else {
+            D_EBFBE0_801CEFDC ^= 1;
+        }
+    }
+
+    temp = Math_SmoothStepToF(&D_EBFBE0_801CEFE8[D_EBFBE0_801CEFDC], D_EBFBE0_801CEFE0, 0.5f, 100.0f, 1.0f);
+
+    if (temp == 0.0f) {
+        if (D_EBFBE0_801CEFE0 == 32.0f) {
+            D_EBFBE0_801CEFE0 = 255.0f;
+        } else {
+            D_EBFBE0_801CEFE0 = 32.0f;
+        }
+    }
+
+    if (gControllerPress[gMainController].button & (B_BUTTON | START_BUTTON)) {
+        func_8001D6DC(0);
+        D_EBFBE0_801CEFC4 = 0;
+        D_EBFBE0_801CD944 = 3;
+        return;
+    }
+
+    if (gControllerPress[gMainController].button & A_BUTTON) {
+        func_8001D6DC(0);
+        Audio_PlaySfx(0x49000003U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        D_EBFBE0_801CF000[D_EBFBE0_801CEFDC] = 10;
+
+        if (((D_EBFBE0_801CD93C != 0) && (D_EBFBE0_801CEFDC == 2)) ||
+            ((D_EBFBE0_801CD93C == 0) && (D_EBFBE0_801CEFDC == 1))) {
+            D_EBFBE0_801CEFD0 = 1;
+            D_EBFBE0_801CF00C = 10;
+        }
+        D_EBFBE0_801CD94C = 1;
+    }
+}
 
 void func_EBFBE0_801A4F8C(void) {
     D_80178410 = 0;
