@@ -6,7 +6,7 @@ ifeq ($(OS),Windows_NT)
 else ifeq ($(UNAME_S),Linux)
 	DETECTED_OS := linux
 else ifeq ($(UNAME_S),Darwin)
-    DETECTED_OS := mac
+    DETECTED_OS := macos
 endif
 
 RECOMP_DIR := ido-recomp/$(DETECTED_OS)
@@ -30,6 +30,6 @@ recomp:
 
 mio0:
 	@echo "Building mio0..."
-	$(CC) -Wall -Wextra -Wno-format-overflow -O2 -ffunction-sections -fdata-sections -DMIO0_STANDALONE -s -Wl,--gc-sections -o mio0 mio0-decompressor/libmio0.c
+	$(CC) -Wall -Wextra -Wno-format-overflow -O2 -ffunction-sections -fdata-sections -DMIO0_STANDALONE -s -Wl, -o mio0 mio0-decompressor/libmio0.c
 
 .PHONY: all clean distclean default
