@@ -10,7 +10,7 @@ typedef struct {
 } ObjPosition;
 
 typedef struct {
-    /* 0x00 */ char pad00[0x4];
+    /* 0x00 */ s32 unk_00;
     /* 0x04 */ s32 unk_04;
     /* 0x08 */ s32 unk_08;
     /* 0x0C */ char pad0C[0x8];
@@ -243,6 +243,7 @@ void func_EBFBE0_801AB300(void);
 void func_EBFBE0_801ABF1C(void);
 void func_EBFBE0_801AC200(s32);
 void func_EBFBE0_801AC9A0(s32);
+void func_EBFBE0_801ACD90(s32 index, Vec3f* src, Vec3f* dest);
 void func_EBFBE0_801AD048(void);
 
 void func_EBFBE0_8019E800(void) {
@@ -1985,7 +1986,7 @@ void func_EBFBE0_801A791C(s32 planetId) {
 void func_EBFBE0_801A7A84(s32 planetId) {
     RCP_SetupDL(&gMasterDisp, 0x43);
 
-    gDPSetPrimColor(gMasterDisp++, 0, 0, 0xff, 0xaf, 0xaf, planet[planetId].alpha);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 175, 175, planet[planetId].alpha);
     gDPSetEnvColor(gMasterDisp++, 0x49, 0x1f, 0x0f, 0);
 
     Matrix_Push(&gGfxMatrix);
@@ -2569,7 +2570,119 @@ void func_EBFBE0_801AC80C(s32 arg0) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AC80C.s")
 #endif
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AC9A0.s")
+void func_EBFBE0_801AC9A0(s32 index) {
+    Vec3f srcPos;
+    Vec3f destPos;
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 target;
+    f32 temp;
+
+    func_EBFBE0_801ACD90(index, &srcPos, &destPos);
+
+    x = srcPos.x - destPos.x;
+    y = srcPos.y - destPos.y;
+    z = srcPos.z - destPos.z;
+
+    target = sqrtf(SQ(x) + SQ(y) + SQ(z));
+
+    gUnkEntities30[index].mode = 4;
+
+    gUnkEntities30[index].unk_04.x = srcPos.x;
+    gUnkEntities30[index].unk_04.y = srcPos.y;
+    gUnkEntities30[index].unk_04.z = srcPos.z;
+
+    gUnkEntities30[index].unk_10.x = destPos.x;
+    gUnkEntities30[index].unk_10.y = destPos.y;
+    gUnkEntities30[index].unk_10.z = destPos.z;
+
+    gUnkEntities30[index].unk_20 = Math_Atan2F(x, z);
+    gUnkEntities30[index].unk_1C = -Math_Atan2F(y, sqrtf(SQ(x) + SQ(z)));
+
+    switch (D_80177BD8[index]) {
+        case 1:
+            Audio_PlaySfx(0x1900404DU, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            D_80177BD8[index] = 11;
+            break;
+
+        case 11:
+            Math_SmoothStepToF(&gUnkEntities30[index].unk_24, target, 0.1f, 100.0f, 4.0f);
+            gUnkEntities30[index].unk_2F = 255;
+            if (gUnkEntities30[index].unk_24 == target) {
+                func_8001A838(0x1900404DU);
+                D_80177BD8[index] = 4;
+            }
+            break;
+
+        case 5:
+        case 6:
+            Math_SmoothStepToF(&gUnkEntities30[index].unk_24, target, 0.1f, 100.0f, 1.0f);
+            if (gUnkEntities30[index].unk_24 == target) {
+                gUnkEntities30[index].unk_24 = 0.0f;
+                D_80177BD8[index] = 6;
+                D_EBFBE0_801CEEAC = 255;
+            }
+            break;
+
+        case 2:
+            temp = 0.04f;
+            if (D_EBFBE0_801CD944 == 7) {
+                temp = 0.25f;
+            }
+            Math_SmoothStepToF(&gUnkEntities30[index].unk_24, target, temp, 100.0f, 4.0f);
+            gUnkEntities30[index].unk_2F = 255;
+            if (gUnkEntities30[index].unk_24 == target) {
+                D_80177BD8[index] = 3;
+            }
+            break;
+
+        case 3:
+        case 4:
+            gUnkEntities30[index].unk_24 = target;
+            gUnkEntities30[index].unk_2F = D_EBFBE0_801AFD18[index].unk_18;
+            break;
+    }
+
+    if ((D_80177BD8[index] == 1) || (D_80177BD8[index] == 11) || (D_80177BD8[index] == 4)) {
+        gUnkEntities30[index].unk_2C = 32;
+        gUnkEntities30[index].unk_2D = 32;
+        gUnkEntities30[index].unk_2E = 32;
+        gUnkEntities30[index].unk_28 = 4.0f;
+    } else {
+        switch (D_EBFBE0_801AFD18[index].unk_00) {
+            case 0:
+                gUnkEntities30[index].unk_2C = 16;
+                gUnkEntities30[index].unk_2D = 64;
+                gUnkEntities30[index].unk_2E = 255;
+                gUnkEntities30[index].unk_28 = 8.0f;
+                break;
+
+            case 1:
+                gUnkEntities30[index].unk_2C = 255;
+                gUnkEntities30[index].unk_2D = 175;
+                gUnkEntities30[index].unk_2E = 0;
+                gUnkEntities30[index].unk_28 = 8.0f;
+                break;
+
+            case 2:
+                gUnkEntities30[index].unk_2C = 255;
+                gUnkEntities30[index].unk_2D = 0;
+                gUnkEntities30[index].unk_2E = 0;
+                gUnkEntities30[index].unk_28 = 8.0f;
+                break;
+
+            case 3:
+            case 4:
+                gUnkEntities30[index].unk_2C = 0;
+                gUnkEntities30[index].unk_2D = 0;
+                gUnkEntities30[index].unk_2E = 0;
+                gUnkEntities30[index].unk_2F = 0;
+                gUnkEntities30[index].unk_28 = 0.1f;
+                break;
+        }
+    }
+}
 
 void func_EBFBE0_801ACD90(s32 index, Vec3f* src, Vec3f* dest) {
     f32 x1;
