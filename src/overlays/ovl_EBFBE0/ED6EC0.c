@@ -857,7 +857,28 @@ void func_EBFBE0_801A3550(Vec3f* arg0, Vec3f* arg1, Vec3f* arg2, f32 arg3) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A4650.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A48C0.s")
+void func_EBFBE0_801A48C0(f32 speed) {
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 temp;
+    f32 angle;
+
+    Math_SmoothStepToF(&D_EBFBE0_801CDA34, D_EBFBE0_801CDA50.x, speed, 100.0f, 0.1f);
+    Math_SmoothStepToF(&D_EBFBE0_801CDA38, D_EBFBE0_801CDA50.y, speed, 100.0f, 0.1f);
+    Math_SmoothStepToF(&D_EBFBE0_801CD9FC, D_EBFBE0_801CDA50.z, speed, 100.0f, 0.1f);
+
+    x = D_EBFBE0_801CDA50.x - D_EBFBE0_801CDA34;
+    y = D_EBFBE0_801CDA50.y - D_EBFBE0_801CDA38;
+    z = D_EBFBE0_801CDA50.z - D_EBFBE0_801CD9FC;
+
+    temp = sqrtf(SQ(x) + SQ(y) + SQ(z));
+
+    angle = M_DTOR * ((1 - (temp / D_EBFBE0_801CEA68)) * 180.0f);
+
+    D_EBFBE0_801CD9F4 = D_EBFBE0_801CDA34 * (1 + __sinf((angle)) * 1.1f);
+    D_EBFBE0_801CD9F8 = D_EBFBE0_801CDA38 * (1 + __sinf((angle)) * 1.3f);
+}
 
 void func_EBFBE0_801A4A38(f32 arg0) {
     Math_SmoothStepToF(&D_EBFBE0_801CDA2C, D_EBFBE0_801CDA40.x, arg0, 100.0f, 0.1f);
