@@ -1,4 +1,4 @@
-spimdisasm==1.17.0
+spimdisasm @ git+https://github.com/Decompollaborate/spimdisasm@develop
 rabbitizer==1.7.0
 PyYAML
 pylibyaml
