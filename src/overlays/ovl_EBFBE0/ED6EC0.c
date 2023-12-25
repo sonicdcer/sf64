@@ -60,7 +60,6 @@ extern s32 D_EBFBE0_801B00C0[47][96];
 extern Gfx D_EBFBE0_801B4A40[];
 extern void* D_EBFBE0_801B68D4[];
 extern Gfx* D_EBFBE0_801B68F8[];
-extern Gfx* D_EBFBE0_801B6A4C[];
 extern f32 D_EBFBE0_801B6A7C;
 extern s32 D_EBFBE0_801B6A84[];
 extern s32 D_EBFBE0_801B6B24[]; // data
@@ -1069,6 +1068,10 @@ void func_EBFBE0_801A3550(Vec3f* arg0, Vec3f* arg1, Vec3f* arg2, f32 arg3) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A4394.s")
 
+#ifndef IMPORT_DATA
+extern Gfx* D_EBFBE0_801B6A4C[]; // likely in-function static
+#endif
+
 void func_EBFBE0_801A4650(void) {
     s32 i;
 #ifdef IMPORT_DATA
@@ -1183,7 +1186,7 @@ void func_EBFBE0_801A4AE8(void) {
                     var_a0 += 2;
                 }
 
-                func_EBFBE0_801A4D0C((u32) var_a0);
+                func_EBFBE0_801A4D0C(var_a0);
 
                 if (D_EBFBE0_801CEFDC == 0) {
                     for (i = 0; i < 6; i++) {
