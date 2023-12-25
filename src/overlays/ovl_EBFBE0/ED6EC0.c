@@ -30,7 +30,9 @@ typedef struct {
     /* 0x20 */ f32 scale;
     /* 0x24 */ s32 alpha;
     /* 0x28 */ s32 unk_28;
-    /* 0x2C */ char pad2C[0x0C];
+    /* 0x2C */ s32 unk_2C;
+    /* 0x30 */ s32 unk_30;
+    /* 0x34 */ char pad2C[0x04];
 } Planet; // size = 0x38
 
 typedef struct {
@@ -75,6 +77,7 @@ extern s32 D_EBFBE0_801CD940; // bss
 extern s32 D_EBFBE0_801CD944; // mapState // bss
 extern s32 D_EBFBE0_801CD948;
 extern s32 D_EBFBE0_801CD94C;
+extern s32 D_EBFBE0_801CD950;
 extern s32 D_EBFBE0_801CD954;
 extern s32 D_EBFBE0_801CD958;
 extern s32 D_EBFBE0_801CD95C;
@@ -89,6 +92,8 @@ extern s32 D_EBFBE0_801CD97C;
 extern s32 D_EBFBE0_801CD980;
 extern s32 D_EBFBE0_801CD984;
 extern s32 D_EBFBE0_801CD9AC;
+extern f32 D_EBFBE0_801CD9B0;
+extern f32 D_EBFBE0_801CD9B4;
 extern s32 D_EBFBE0_801CD9B8;
 extern s32 D_EBFBE0_801CD9BC;
 extern s32 D_EBFBE0_801CD9C0;
@@ -341,7 +346,70 @@ void func_EBFBE0_8019F42C(void) {
     D_EBFBE0_801CD944 = 7;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_8019F600.s")
+void func_EBFBE0_8019F600(void) {
+    s32 i;
+    s32 sp18;
+    s32 temp_t4;
+
+    D_80161714 = 0;
+    gHitCount = 0;
+
+    gTeamShields[1] = 255;
+    gTeamShields[2] = 255;
+    gTeamShields[3] = 255;
+    gSavedTeamShields[1] = 255;
+    gSavedTeamShields[2] = 255;
+    gSavedTeamShields[3] = 255;
+    D_80177C38[1] = 255;
+    D_80177C38[2] = 255;
+    D_80177C38[3] = 255;
+    D_80177C58[1] = 255;
+    D_80177C58[2] = 255;
+    D_80177C58[3] = 255;
+
+    D_EBFBE0_801CD950 = -1;
+
+    for (i = 0; i < 15; i++) {
+        planet[i].alpha = 0;
+    }
+
+    D_EBFBE0_801CD970 = 0;
+    for (i = 0; i < 24; i++) {
+        D_80177BD8[i] = 0;
+        gUnkEntities30[i].unk_24 = 0.0f;
+    }
+
+    for (i = 0; i < 7; i++) {
+        D_80177BB0[i] = 0;
+        D_80177B70[i] = 0;
+        D_80177B50[i] = 0x00FFFFFF;
+    }
+    D_80177B90[0] = 9;
+    D_80177B90[1] = -1;
+    D_80177B90[2] = -1;
+    D_80177B90[3] = -1;
+    D_80177B90[4] = -1;
+    D_80177B90[5] = -1;
+    D_80177B90[6] = 13;
+
+    for (i = 0; i < 24; i++) {
+        D_EBFBE0_801AFD18[i].unk_18 = 255;
+    }
+
+    D_80177B48 = 0;
+    gCurrentLevel = 0;
+
+    D_EBFBE0_801CD954 = 9;
+    D_EBFBE0_801CEA9C = 0.0f;
+    D_EBFBE0_801CD9B0 = 0.002f;
+    D_EBFBE0_801CD9B4 = 0.01f;
+    D_EBFBE0_801CD944 = 0;
+
+    sp18 = func_EBFBE0_801A655C(D_EBFBE0_801CD954, planet[D_EBFBE0_801CD954].unk_2C);
+    temp_t4 = func_EBFBE0_801A655C(D_EBFBE0_801CD954, planet[D_EBFBE0_801CD954].unk_30);
+    D_80177BD8[sp18] = 1;
+    D_80177BD8[temp_t4] = 1;
+}
 
 void func_EBFBE0_8019F83C(void) {
     s32 i;
@@ -1059,7 +1127,7 @@ void func_EBFBE0_801A4AE8(void) {
 
         case 2:
             if ((D_EBFBE0_801CD9CC != 0) && (D_EBFBE0_801CD9B8 == 110)) {
-                gLifeCount[gPlayerNum] -= 1;
+                gLifeCount[gPlayerNum]--;
             }
 
             if (D_EBFBE0_801CD9B8 == 0) {
