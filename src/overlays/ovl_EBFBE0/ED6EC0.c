@@ -55,13 +55,15 @@ extern f32 D_EBFBE0_801B6B30;
 extern f32 D_EBFBE0_801CD818[];
 extern s32 D_EBFBE0_801CD83C;
 extern s32 D_EBFBE0_801CD8A0[15]; // bss
-extern f32 D_EBFBE0_801CD9F4;     // x
-extern f32 D_EBFBE0_801CD9F8;     // y
-extern f32 D_EBFBE0_801CD9FC;     // z
+extern s32 D_EBFBE0_801CD8E0[7];
+extern f32 D_EBFBE0_801CD9F4; // x
+extern f32 D_EBFBE0_801CD9F8; // y
+extern f32 D_EBFBE0_801CD9FC; // z
 extern s32 D_EBFBE0_801CD900[15];
 extern s32 D_EBFBE0_801CD940; // bss
 extern s32 D_EBFBE0_801CD944; // mapState // bss
 extern s32 D_EBFBE0_801CD948;
+extern s32 D_EBFBE0_801CD94C;
 extern s32 D_EBFBE0_801CD954;
 extern s32 D_EBFBE0_801CD958;
 extern s32 D_EBFBE0_801CD960;
@@ -73,6 +75,7 @@ extern s32 D_EBFBE0_801CD974;
 extern s32 D_EBFBE0_801CD978;
 extern s32 D_EBFBE0_801CD980;
 extern s32 D_EBFBE0_801CD984;
+extern s32 D_EBFBE0_801CD9AC;
 extern s32 D_EBFBE0_801CD9B8;
 extern s32 D_EBFBE0_801CD9BC;
 extern s32 D_EBFBE0_801CD9C0;
@@ -157,6 +160,10 @@ extern f32 D_EBFBE0_801CEA9C;
 
 void func_EBFBE0_8019E800(void);
 void func_EBFBE0_8019E99C(void);
+void func_EBFBE0_8019F910(void);
+void func_EBFBE0_8019F83C(void);
+void func_EBFBE0_8019FC04(void);
+s32 func_EBFBE0_8019FD1C(LevelId levelId, s32 arg1);
 void func_EBFBE0_8019FF48(void);
 void func_EBFBE0_801A0954(void);
 void func_EBFBE0_801A1528(void);
@@ -183,6 +190,8 @@ void func_EBFBE0_801A4FC4(void);
 void func_EBFBE0_801A53C8(void);
 void func_EBFBE0_801A5834(void);
 void func_EBFBE0_801A5C90(void);
+PlanetId GetPlanetId(LevelId level);
+s32 func_EBFBE0_801A655C(s32 arg0, s32 arg1);
 void func_EBFBE0_801A6A98(s32);
 void func_EBFBE0_801A8738(void);
 void func_EBFBE0_801A8F40(void);
@@ -262,7 +271,48 @@ void func_EBFBE0_8019E8D0(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_8019F164.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_8019F42C.s")
+void func_EBFBE0_8019F42C(void) {
+    s32 i;
+
+    D_80161714 += gHitCount;
+    gLifeCount[gPlayerNum] = 0;
+    D_EBFBE0_801CD974 = 1;
+    D_EBFBE0_801CD954 = GetPlanetId(gCurrentLevel);
+    D_80177B70[D_80177B48] = gHitCount;
+
+    func_EBFBE0_8019F910();
+    func_EBFBE0_8019FD1C(gCurrentLevel, 0);
+    Save_Write();
+    func_EBFBE0_8019F83C();
+
+    for (i = 0; i < 7; i++) {
+        D_EBFBE0_801CD8E0[i] = 0;
+    }
+
+    if (D_80177B48 != 0) {
+        for (i = 0; i < D_80177B48; i++) {
+            D_EBFBE0_801CD8E0[i] = func_EBFBE0_801A655C(D_80177B90[i], D_80177B90[i + 1]);
+        }
+    }
+
+    for (i = 0; i < 24; i++) {
+        D_80177BD8[i] = 0;
+    }
+
+    for (i = 0; i < 15; i++) {
+        planet[i].alpha = 0;
+    }
+
+    func_EBFBE0_8019FC04();
+
+    D_EBFBE0_801CD9AC = 0;
+
+    func_8001DC6C(0, 0x19);
+
+    D_EBFBE0_801CD948 = 0;
+    D_EBFBE0_801CD94C = 0;
+    D_EBFBE0_801CD944 = 7;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_8019F600.s")
 
@@ -1176,7 +1226,7 @@ void func_EBFBE0_801A6368(void) {
     }
 }
 
-PlanetId func_EBFBE0_801A6480(LevelId level) {
+PlanetId GetPlanetId(LevelId level) {
     PlanetId planet;
 
     switch (level) {
