@@ -164,6 +164,8 @@ void func_EBFBE0_801A1C14(void);
 void func_EBFBE0_801A2B8C(void);
 void func_EBFBE0_801A3550(Vec3f*, Vec3f*, Vec3f*, f32);
 void func_EBFBE0_801A36A8(void);
+void func_EBFBE0_801A48C0(f32 speed);
+void func_EBFBE0_801A4A38(f32 arg0);
 void func_EBFBE0_801A4AE8(void);
 void func_EBFBE0_801A5E80(void);
 void func_EBFBE0_801A6694(void);
@@ -799,7 +801,67 @@ f32 func_EBFBE0_801A25C8(s32 arg0) {
     return sp4;
 }
 
+// Doesn't match for some reason, related to "D_EBFBE0_801CEA64 *= 1.04f;"
+// 1.04f gets put in rodata for some reason. Maybe it needs Data imported?
+#ifdef NON_MATCHING
+void func_EBFBE0_801A2674(void) {
+    s32 i;
+
+    func_EBFBE0_801A48C0(D_EBFBE0_801CEA64);
+
+    func_EBFBE0_801A4A38(D_EBFBE0_801CEA64);
+
+    D_EBFBE0_801CEA64 *= 1.04f;
+
+    for (i = 0; i < 15; i++) {
+        D_EBFBE0_801CD900[i] -= 16;
+
+        if (D_EBFBE0_801CD900[i] < 0) {
+            D_EBFBE0_801CD900[i] = 0;
+        }
+
+        if (i == D_EBFBE0_801CD954) {
+            continue;
+        }
+
+        planet[i].alpha -= 16;
+
+        if (planet[i].alpha < 0) {
+            planet[i].alpha = 0;
+        }
+    }
+
+    for (i = 0; i < 24; i++) {
+        if (D_80177BD8[i] == 0) {
+            continue;
+        }
+
+        D_EBFBE0_801AFD18[i].unk_18 -= 16;
+
+        if (D_EBFBE0_801AFD18[i].unk_18 < 0) {
+            D_EBFBE0_801AFD18[i].unk_18 = 0;
+        }
+    }
+
+    if (D_EBFBE0_801CD954 == 2) {
+        Math_SmoothStepToF(&D_EBFBE0_801AFFF8, 20.0f, 0.05f, 100.0f, 0.1f);
+    }
+
+    if (D_EBFBE0_801CD954 == 1) {
+        Math_SmoothStepToF(&D_EBFBE0_801B0000, 15.0f, 0.05f, 100.0f, 0.1f);
+    }
+
+    D_EBFBE0_801CD970 -= 16;
+    if (D_EBFBE0_801CD970 < 0) {
+        D_EBFBE0_801CD970 = 0;
+    }
+
+    func_800182F4(0x102D00FF);
+    func_800182F4(0x112D00FF);
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A2674.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A281C.s")
 
