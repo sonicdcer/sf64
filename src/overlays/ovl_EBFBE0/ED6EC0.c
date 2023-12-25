@@ -195,6 +195,8 @@ void func_EBFBE0_801A36A8(void);
 void func_EBFBE0_801A48C0(f32 speed);
 void func_EBFBE0_801A4A38(f32 arg0);
 void func_EBFBE0_801A4AE8(void);
+void func_EBFBE0_801A4D0C(u32);
+void func_EBFBE0_801A4D7C(void);
 s32 func_EBFBE0_801A5770(void);
 void func_EBFBE0_801A5E80(void);
 void func_EBFBE0_801A6694(void);
@@ -1013,8 +1015,8 @@ void func_EBFBE0_801A48C0(f32 speed) {
 
     angle = M_DTOR * ((1 - (temp / D_EBFBE0_801CEA68)) * 180.0f);
 
-    D_EBFBE0_801CD9F4 = D_EBFBE0_801CDA34 * (1 + __sinf((angle)) * 1.1f);
-    D_EBFBE0_801CD9F8 = D_EBFBE0_801CDA38 * (1 + __sinf((angle)) * 1.3f);
+    D_EBFBE0_801CD9F4 = D_EBFBE0_801CDA34 * (1 + __sinf(angle) * 1.1f);
+    D_EBFBE0_801CD9F8 = D_EBFBE0_801CDA38 * (1 + __sinf(angle) * 1.3f);
 }
 
 void func_EBFBE0_801A4A38(f32 arg0) {
@@ -1025,7 +1027,66 @@ void func_EBFBE0_801A4A38(f32 arg0) {
     D_EBFBE0_801CDA04 = D_EBFBE0_801CDA30;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A4AE8.s")
+void func_EBFBE0_801A4AE8(void) {
+    s32 var_a0;
+    s32 i;
+
+    switch (D_EBFBE0_801CD94C) {
+        case 0:
+            func_EBFBE0_801A4D7C();
+            break;
+
+        case 1:
+            if (D_EBFBE0_801CF000[D_EBFBE0_801CEFDC] == 0) {
+                if (D_EBFBE0_801CEFD0 != 0) {
+                    if (gLifeCount[gPlayerNum] != 0) {
+                        func_8001D520();
+                        D_EBFBE0_801CD9CC = 1;
+                        D_EBFBE0_801CD9D0 = 0;
+                        D_EBFBE0_801CD9B8 = 120;
+                    } else {
+                        D_EBFBE0_801CD9D4 = 1;
+                        D_EBFBE0_801CD9B8 = 0;
+                    }
+                } else {
+
+                    D_EBFBE0_801CD9B8 = 0;
+                }
+                D_EBFBE0_801CEFC4 = 0;
+                D_EBFBE0_801CD94C = 2;
+            }
+            break;
+
+        case 2:
+            if ((D_EBFBE0_801CD9CC != 0) && (D_EBFBE0_801CD9B8 == 110)) {
+                gLifeCount[gPlayerNum] -= 1;
+            }
+
+            if (D_EBFBE0_801CD9B8 == 0) {
+                D_EBFBE0_801CD9CC = 0;
+
+                var_a0 = D_EBFBE0_801CEFDC;
+                if (D_EBFBE0_801CD93C != 0) {
+                    var_a0 += 2;
+                }
+
+                func_EBFBE0_801A4D0C((u32) var_a0);
+
+                if (D_EBFBE0_801CEFDC == 0) {
+                    for (i = 0; i < 6; i++) {
+                        D_80177C58[i] = gTeamShields[i];
+                    }
+                    D_EBFBE0_801CEFC8 = 0;
+                    D_EBFBE0_801CD948 = 0;
+                    D_EBFBE0_801CD944 = 2;
+                } else {
+                    D_EBFBE0_801CD944 = 3;
+                }
+                D_EBFBE0_801CD94C = 0;
+            }
+            break;
+    }
+}
 
 void func_EBFBE0_801A4D0C(u32 arg0) {
     switch (arg0) {
@@ -1040,6 +1101,7 @@ void func_EBFBE0_801A4D0C(u32 arg0) {
 
         case 3:
             func_EBFBE0_801A53C8();
+
         case 0:
         case 2:
             break;
@@ -1999,7 +2061,6 @@ void func_EBFBE0_801A914C(void) {
 
 void func_EBFBE0_801A9224(void) {
     s32 i;
-    f32 temp_fv0;
     s32 mask;
 
     if ((planet[PLANET_METEO].alpha != 0) || (D_EBFBE0_801CD954 == 0)) {

@@ -43,6 +43,7 @@ void func_8001D3A0(Vec3f *, u16);
 void func_8001D400(s8);
 void func_8001D444(u8, u16, u8, u8);
 void func_8001D4AC(u16, u8, u8, u8);
+void func_8001D520(void);
 void func_8001D638(u8);
 void func_8001D6DC(s32);
 void func_8001DA90(u8);
