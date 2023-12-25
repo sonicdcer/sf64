@@ -3,6 +3,13 @@
 #include "sf64level.h"
 
 typedef struct {
+    /* 0x0 */ f32 angle;
+    /* 0x4 */ f32 x;
+    /* 0x8 */ f32 y;
+    /* 0xC */ f32 scale;
+} ObjPosition;
+
+typedef struct {
     /* 0x00 */ char pad00[0x4];
     /* 0x04 */ s32 unk_04;
     /* 0x08 */ s32 unk_08;
@@ -38,7 +45,8 @@ extern s32 D_EBFBE0_801AF420[2];
 extern Gfx* D_EBFBE0_801AF824[4];
 extern Texture D_EBFBE0_801AF834[14];
 extern u16* D_EBFBE0_801AF428[15][2];
-extern Gfx* D_EBFBE0_801AFA30[];
+extern Gfx* D_EBFBE0_801AFA30[2];
+extern ObjPosition D_EBFBE0_801AFA38[];
 extern UnkStruct_D_EBFBE0_801AFD18 D_EBFBE0_801AFD18[24];
 extern f32 D_EBFBE0_801AFFB8[];
 extern f32 D_EBFBE0_801AFFF4; // yRot of something
@@ -69,6 +77,7 @@ extern s32 D_EBFBE0_801CD948;
 extern s32 D_EBFBE0_801CD94C;
 extern s32 D_EBFBE0_801CD954;
 extern s32 D_EBFBE0_801CD958;
+extern s32 D_EBFBE0_801CD95C;
 extern s32 D_EBFBE0_801CD960;
 extern s32 D_EBFBE0_801CD964; // bss
 extern s32 D_EBFBE0_801CD968; // bss
@@ -1988,7 +1997,47 @@ void func_EBFBE0_801A914C(void) {
     D_EBFBE0_801CEAB0 = D_EBFBE0_801CEAA8;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A9224.s")
+void func_EBFBE0_801A9224(void) {
+    s32 i;
+    f32 temp_fv0;
+    s32 mask;
+
+    if ((planet[PLANET_METEO].alpha != 0) || (D_EBFBE0_801CD954 == 0)) {
+        if ((D_EBFBE0_801CD954 == 0) && (D_EBFBE0_801CD944 == 2) && (D_EBFBE0_801CD95C != 0)) {
+            mask = 0x00000001;
+        } else {
+            mask = 0xFFFFFFFF;
+        }
+
+        if ((D_EBFBE0_801CD944 == 3) || ((D_EBFBE0_801CD954 == 0) && (D_EBFBE0_801CD944 != 7))) {
+            RCP_SetupDL(&gMasterDisp, 0x35);
+        } else {
+            RCP_SetupDL(&gMasterDisp, 0x40);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, planet[PLANET_METEO].alpha);
+        }
+
+        if (gFrameCount & mask) {
+            for (i = 0; i < 42; i++) {
+                Matrix_Push(&gGfxMatrix);
+
+                Matrix_RotateY(gGfxMatrix, M_DTOR * D_EBFBE0_801AFA38[i].angle, 1);
+                Matrix_Translate(gGfxMatrix, D_EBFBE0_801AFA38[i].x, D_EBFBE0_801AFA38[i].y, 0.0f, 1);
+                Matrix_RotateY(gGfxMatrix, M_DTOR * -D_EBFBE0_801AFA38[i].angle, 1);
+
+                func_EBFBE0_801AD048();
+
+                Matrix_Scale(gGfxMatrix, D_EBFBE0_801AFA38[i].scale, D_EBFBE0_801AFA38[i].scale,
+                             D_EBFBE0_801AFA38[i].scale, 1);
+
+                Matrix_SetGfxMtx(&gMasterDisp);
+
+                gSPDisplayList(gMasterDisp++, D_EBFBE0_801B68F8[0]);
+
+                Matrix_Pop(&gGfxMatrix);
+            }
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A9448.s")
 
@@ -2039,7 +2088,7 @@ void func_EBFBE0_801A9DE8(void) {
 
     mask = 0xFFFFFFFF;
     if (D_EBFBE0_801CF00C != 0) {
-        mask = 1;
+        mask = 0x00000001;
         D_EBFBE0_801CF00C--;
     }
 
