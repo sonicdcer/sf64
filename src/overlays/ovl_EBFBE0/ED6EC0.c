@@ -50,6 +50,7 @@ extern s32 D_EBFBE0_801B00C0[47][96];
 extern Gfx D_EBFBE0_801B4A40[];
 extern void* D_EBFBE0_801B68D4[];
 extern Gfx* D_EBFBE0_801B68F8[];
+extern f32 D_EBFBE0_801B6A7C;
 extern s32 D_EBFBE0_801B6A84[];
 extern s32 D_EBFBE0_801B6B24[]; // data
 extern f32 D_EBFBE0_801B6B30;
@@ -74,6 +75,7 @@ extern s32 D_EBFBE0_801CD96C; // bss
 extern s32 D_EBFBE0_801CD970;
 extern s32 D_EBFBE0_801CD974;
 extern s32 D_EBFBE0_801CD978;
+extern s32 D_EBFBE0_801CD97C;
 extern s32 D_EBFBE0_801CD980;
 extern s32 D_EBFBE0_801CD984;
 extern s32 D_EBFBE0_801CD9AC;
@@ -138,6 +140,7 @@ extern u8 D_600D590[];
 extern Gfx D_601D1F0[];
 extern u8 D_601DC10[];
 extern u16 D_601DC90[];
+extern Gfx D_601DCF0[];
 extern u8 D_601DCA0[];
 extern u16 D_601DCD8[];
 extern Gfx D_6047E70[];
@@ -1853,7 +1856,44 @@ void func_EBFBE0_801A7F1C(s32 arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A89BC.s")
 
+// needs in-function static
+#ifdef IMPORT_DATA
+void func_EBFBE0_801A8F40(void) {
+    static f32 D_EBFBE0_801B6A7C = 0.0f;
+    s32 temp;
+
+    if (D_EBFBE0_801CD97C != 0) {
+        Lights_SetOneLight(&gMasterDisp, 0, 0, 127, 80, 80, 60, 50, 50, 50);
+
+        RCP_SetupDL(&gMasterDisp, 0x17);
+
+        temp = Math_SmoothStepToF(&D_EBFBE0_801CEAA8, D_EBFBE0_801CEAB0, 0.1f, 100.0f, 1.0f);
+
+        if (temp == 0.0f) {
+            if (D_EBFBE0_801CEAB0 == D_EBFBE0_801CEAAC) {
+                D_EBFBE0_801CEAA8 = D_EBFBE0_801CEAAC + 50.0f;
+            }
+        }
+
+        Matrix_Push(&gGfxMatrix);
+
+        Matrix_Mult(gGfxMatrix, &D_EBFBE0_801CDA60[D_EBFBE0_801CD954], 1);
+        Matrix_Translate(gGfxMatrix, 0.0f, D_EBFBE0_801CEAA8, 0.0f, 1);
+        Matrix_RotateY(gGfxMatrix, M_DTOR * D_EBFBE0_801B6A7C, 1);
+        Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, 1);
+
+        Matrix_SetGfxMtx(&gMasterDisp);
+
+        gSPDisplayList(gMasterDisp++, D_601DCF0);
+
+        Matrix_Pop(&gGfxMatrix);
+
+        D_EBFBE0_801B6A7C += 6.0f;
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A8F40.s")
+#endif
 
 void func_EBFBE0_801A914C(void) {
     D_EBFBE0_801CEAA8 = 140.0f;
