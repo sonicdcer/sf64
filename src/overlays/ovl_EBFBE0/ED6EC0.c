@@ -61,6 +61,7 @@ extern s32 D_EBFBE0_801B00C0[47][96];
 extern Gfx D_EBFBE0_801B4A40[];
 extern void* D_EBFBE0_801B68D4[];
 extern Gfx* D_EBFBE0_801B68F8[];
+extern f32 D_EBFBE0_801B6A78; // in-func static
 extern f32 D_EBFBE0_801B6A7C;
 extern s32 D_EBFBE0_801B6A84[];
 extern s32 D_EBFBE0_801B6B24[]; // data
@@ -92,12 +93,18 @@ extern s32 D_EBFBE0_801CD978;
 extern s32 D_EBFBE0_801CD97C;
 extern s32 D_EBFBE0_801CD980;
 extern s32 D_EBFBE0_801CD984;
+extern s32 D_EBFBE0_801CD98C;
+extern s32 D_EBFBE0_801CD990;
+extern s32 D_EBFBE0_801CD994;
+extern s32 D_EBFBE0_801CD998;
+extern f32 D_EBFBE0_801CD99C;
 extern s32 D_EBFBE0_801CD9AC;
 extern f32 D_EBFBE0_801CD9B0;
 extern f32 D_EBFBE0_801CD9B4;
 extern s32 D_EBFBE0_801CD9B8;
 extern s32 D_EBFBE0_801CD9BC;
 extern s32 D_EBFBE0_801CD9C0;
+extern s32 D_EBFBE0_801CD9C8;
 extern s32 D_EBFBE0_801CD9CC;
 extern s32 D_EBFBE0_801CD9D0;
 extern s32 D_EBFBE0_801CD9D4;
@@ -2108,7 +2115,146 @@ void func_EBFBE0_801A7F1C(s32 arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A809C.s")
+void func_EBFBE0_801A809C(s32 index) {
+#ifdef IMPORT_DATA
+    static f32 D_EBFBE0_801B6A78 = 0.0f;
+#endif
+    s32 i;
+    s32 alpha;
+    f32 scale;
+
+    if (D_EBFBE0_801CD98C != 1) {
+        alpha = D_EBFBE0_801CD900[index];
+    } else {
+        alpha = D_EBFBE0_801CD984;
+        D_EBFBE0_801CD900[index] = 255;
+    }
+
+    if (alpha == 0) {
+        return;
+    }
+
+    if (D_EBFBE0_801CD98C == 1) {
+        switch (D_EBFBE0_801CD990) {
+            case 0:
+                RCP_SetupDL(&gMasterDisp, 0x43);
+
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha);
+                gDPSetEnvColor(gMasterDisp++, 80, 80, 0, 0);
+
+                Matrix_Push(&gGfxMatrix);
+
+                Matrix_Copy(gGfxMatrix, &D_EBFBE0_801CE1E0[index]);
+                Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, 1);
+
+                Matrix_SetGfxMtx(&gMasterDisp);
+
+                gSPDisplayList(gMasterDisp++, D_604D680);
+
+                Matrix_Pop(&gGfxMatrix);
+
+                D_EBFBE0_801CEAB8[index] += 45.0f;
+                if (alpha == 255) {
+                    D_EBFBE0_801CD9C8 = 15;
+                    D_EBFBE0_801CD998 = 0;
+                    D_EBFBE0_801CD994 = 255;
+                    D_EBFBE0_801CD99C = 0.0f;
+                    D_EBFBE0_801CD990++;
+                }
+                break;
+
+            case 1:
+                scale = 5.0f + (Rand_ZeroOne() * 4.0f);
+
+                Math_SmoothStepToF(&D_EBFBE0_801CD99C, 150.0f, 0.09f, 100.0f, 0.1f);
+
+                RCP_SetupDL(&gMasterDisp, 0x43);
+
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, D_EBFBE0_801CD994);
+                gDPSetEnvColor(gMasterDisp++, 80, 80, 0, 0);
+
+                for (i = 0; i < 8; i++) {
+                    Matrix_Push(&gGfxMatrix);
+
+                    Matrix_Copy(gGfxMatrix, &D_EBFBE0_801CE5A0[index]);
+                    Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, 1);
+                    Matrix_RotateZ(gGfxMatrix, M_DTOR * (i * -45.0f), 1);
+                    Matrix_Translate(gGfxMatrix, 0.0f, D_EBFBE0_801CD99C, 0.0f, 1);
+                    Matrix_RotateZ(gGfxMatrix, M_DTOR * (D_EBFBE0_801B6A78), 1);
+                    Matrix_Scale(gGfxMatrix, scale, scale, scale, 1);
+
+                    Matrix_SetGfxMtx(&gMasterDisp);
+
+                    gSPDisplayList(gMasterDisp++, D_604D680);
+
+                    Matrix_Pop(&gGfxMatrix);
+                }
+
+                D_EBFBE0_801B6A78 += 45.0f;
+                D_EBFBE0_801CD994 -= 16;
+
+                if (D_EBFBE0_801CD994 <= 0) {
+                    D_EBFBE0_801CD994 = 0;
+                }
+
+                RCP_SetupDL(&gMasterDisp, 0x40);
+
+                gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, D_EBFBE0_801CD998);
+
+                Matrix_Push(&gGfxMatrix);
+
+                Matrix_Copy(gGfxMatrix, &D_EBFBE0_801CE5A0[index]);
+                Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, 1);
+                Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, 1);
+
+                Matrix_SetGfxMtx(&gMasterDisp);
+
+                gSPDisplayList(gMasterDisp++, D_601D1F0);
+
+                Matrix_Pop(&gGfxMatrix);
+
+                D_EBFBE0_801CEAF8[index] = -90.0f;
+
+                D_EBFBE0_801CD998 += 8;
+
+                if (D_EBFBE0_801CD998 == 8) {
+                    Audio_PlaySfx(0x49008030U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                }
+
+                if (D_EBFBE0_801CD998 >= 255) {
+                    D_EBFBE0_801CD998 = 255;
+                }
+                if (D_EBFBE0_801CD998 == 255) {
+                    if (!D_EBFBE0_801CD9C8) {
+                        D_EBFBE0_801CD98C = 0;
+                    } else {
+                        D_EBFBE0_801CD9C8--;
+                    }
+                }
+                break;
+        }
+    } else {
+        RCP_SetupDL(&gMasterDisp, 0x40);
+
+        gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha);
+
+        Matrix_Push(&gGfxMatrix);
+
+        Matrix_Copy(gGfxMatrix, &D_EBFBE0_801CE5A0[index]);
+        Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, 1);
+        Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, 1);
+
+        Matrix_SetGfxMtx(&gMasterDisp);
+
+        gSPDisplayList(gMasterDisp++, D_601D1F0);
+
+        Matrix_Pop(&gGfxMatrix);
+
+        D_EBFBE0_801CEAF8[index] = -90.0f;
+    }
+}
 
 void func_EBFBE0_801A8738(void) {
     if (D_EBFBE0_801CEB34 >= 0) {
