@@ -2,12 +2,12 @@ CC   = gcc
 
 UNAME_S := $(shell uname -s)
 ifeq ($(OS),Windows_NT)
-    $(error Native Windows is currently unsupported for building this repository, use WSL instead c:)
+	$(error Native Windows is currently unsupported for building this repository, use WSL instead c:)
 else ifeq ($(UNAME_S),Linux)
 	DETECTED_OS := linux
 	MIO0_FLAGS := --gc-sections
 else ifeq ($(UNAME_S),Darwin)
-    DETECTED_OS := macos
+	DETECTED_OS := macos
 	MIO0_FLAGS :=
 endif
 
