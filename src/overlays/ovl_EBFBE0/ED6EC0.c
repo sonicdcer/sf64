@@ -931,7 +931,69 @@ void func_EBFBE0_801A1AE8(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A1C14.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A2304.s")
+bool func_EBFBE0_801A2304(void) {
+    s32 ret = false;
+    f32 sp28;
+    f32 sp24;
+    f32 sp20;
+    f32 temp_fv0;
+
+    switch (D_EBFBE0_801CD94C) {
+        case 0:
+            func_8001ACDC(3);
+            D_EBFBE0_801CEA78 += 2.9f;
+            D_EBFBE0_801CEA80 += 2.9f;
+            if (D_EBFBE0_801CEA78 > 5.5f) {
+                D_EBFBE0_801CEA78 = 5.5f;
+                D_EBFBE0_801CEA80 = 4.6f;
+                D_EBFBE0_801CD94C += 1;
+                D_EBFBE0_801CD9B8 = 0xD;
+            }
+            break;
+
+        case 1:
+            D_EBFBE0_801CEA78 -= 2.5f;
+            D_EBFBE0_801CEA98 += 0xA;
+            D_EBFBE0_801CEA80 -= 2.5f;
+
+            if (D_EBFBE0_801CEA78 < 5.0f) {
+                D_EBFBE0_801CEA78 = 5.0f;
+            }
+
+            if (D_EBFBE0_801CEA80 < 3.9f) {
+                D_EBFBE0_801CEA80 = 3.9f;
+            }
+
+            D_EBFBE0_801CEA7C += 2.5f;
+            D_EBFBE0_801CEA84 += 2.5f;
+
+            if (D_EBFBE0_801CEA7C > 5.0f) {
+                D_EBFBE0_801CEA7C = 5.0f;
+            }
+
+            if (D_EBFBE0_801CEA84 > 3.9f) {
+                D_EBFBE0_801CEA84 = 3.9f;
+            }
+
+            if (D_EBFBE0_801CD9B8 == 0) {
+                D_EBFBE0_801CEA98 = 0xFF;
+                D_EBFBE0_801CD94C = 0x64;
+            }
+            break;
+
+        case 100:
+            sp28 = Math_SmoothStepToF(&D_EBFBE0_801CEA88, -206.0f, 0.4f, 100.0f, 1.0f);
+            sp24 = Math_SmoothStepToF(&D_EBFBE0_801CEA8C, 51.0f, 0.4f, 100.0f, 1.0f);
+            sp20 = Math_SmoothStepToF(&D_EBFBE0_801CEA90, -627.0f, 0.4f, 100.0f, 1.0f);
+            temp_fv0 = Math_SmoothStepToF(&D_EBFBE0_801CEA94, 42.8f, 0.4f, 100.0f, 1.0f);
+            if ((sp28 == 0.0f) && (sp24 == 0.0f) && (sp20 == 0.0f) && (temp_fv0 == 0.0f)) {
+                ret = true;
+            }
+            break;
+    }
+
+    return ret;
+}
 
 f32 func_EBFBE0_801A25C8(s32 arg0) {
     f32 sp4;
