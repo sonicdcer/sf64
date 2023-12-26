@@ -120,6 +120,7 @@ extern Vec3f D_EBFBE0_801CDA40;
 extern Vec3f D_EBFBE0_801CDA50;
 extern Matrix D_EBFBE0_801CDA60[];
 extern Matrix D_EBFBE0_801CDE20[15]; // bss // planet related
+extern Matrix D_EBFBE0_801CE060;
 extern Matrix D_EBFBE0_801CE1E0[15];
 extern Matrix D_EBFBE0_801CE5A0[];
 extern Vec3f D_EBFBE0_801CE960[]; // pos of something
@@ -137,6 +138,10 @@ extern f32 D_EBFBE0_801CEA6C;
 extern f32 D_EBFBE0_801CEA70;
 extern f32 D_EBFBE0_801CEAB8[];
 extern f32 D_EBFBE0_801CEAF8[];
+extern s32 D_EBFBE0_801CEB34;
+extern s32 D_EBFBE0_801CEB38;
+extern f32 D_EBFBE0_801CEB3C;
+extern f32 D_EBFBE0_801CEB40;
 extern s32 D_EBFBE0_801CEB48[3];
 extern s32 D_EBFBE0_801CEEA0;
 extern s32 D_EBFBE0_801CEEA4;
@@ -173,6 +178,7 @@ extern u16 D_601DC90[];
 extern Gfx D_601DCF0[];
 extern u8 D_601DCA0[];
 extern u16 D_601DCD8[];
+extern Gfx D_60479D0[];
 extern Gfx D_6047E70[];
 extern u8 D_6047F80[];
 extern u8 D_6048F80[];
@@ -2104,7 +2110,60 @@ void func_EBFBE0_801A7F1C(s32 arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A809C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A8738.s")
+void func_EBFBE0_801A8738(void) {
+    if (D_EBFBE0_801CEB34 >= 0) {
+        RCP_SetupDL(&gMasterDisp, 0x43);
+
+        gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 0);
+
+        switch (D_EBFBE0_801CEB34) {
+            case 0:
+                D_EBFBE0_801CEB3C += 0.15f;
+                if (D_EBFBE0_801CEB3C >= 0.7f) {
+                    D_EBFBE0_801CEB3C = 0.8f;
+                    D_EBFBE0_801CEB34 = 2;
+                    D_EBFBE0_801CEB40 = 2.0f;
+                }
+                break;
+
+            case 2:
+                D_EBFBE0_801CEB40--;
+                if (D_EBFBE0_801CEB40 <= 0.0f) {
+                    D_EBFBE0_801CEB34 = 3;
+                    D_EBFBE0_801CEB3C = 0.7f;
+                }
+                break;
+
+            case 3:
+                D_EBFBE0_801CEB38 -= 8;
+                D_EBFBE0_801CEB3C -= 0.001f;
+
+                if (D_EBFBE0_801CEB38 < 0) {
+                    D_EBFBE0_801CEB38 = 0;
+                }
+
+                if (D_EBFBE0_801CEB38 == 0) {
+                    D_EBFBE0_801CEB34 = 4;
+                }
+                break;
+        }
+
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 200, 200, D_EBFBE0_801CEB38);
+
+        Matrix_Push(&gGfxMatrix);
+
+        Matrix_Copy(gGfxMatrix, &D_EBFBE0_801CE060);
+        Matrix_RotateZ(gGfxMatrix, M_DTOR * -50.0f, 1);
+        Matrix_Translate(gGfxMatrix, 0.0f, 25.0f, 0.0f, 1);
+        Matrix_Scale(gGfxMatrix, D_EBFBE0_801CEB3C, D_EBFBE0_801CEB3C, D_EBFBE0_801CEB3C, 1);
+
+        Matrix_SetGfxMtx(&gMasterDisp);
+
+        gSPDisplayList(gMasterDisp++, D_60479D0);
+
+        Matrix_Pop(&gGfxMatrix);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A89BC.s")
 
