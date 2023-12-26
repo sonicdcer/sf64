@@ -5,6 +5,9 @@
 
 MAKEFLAGS += --no-builtin-rules --no-print-directory
 
+# Returns the path to the command $(1) if exists. Otherwise returns an empty string.
+find-command = $(shell which $(1) 2>/dev/null)
+
 #### Defaults ####
 
 # If COMPARE is 1, check the output md5sum after building
@@ -30,8 +33,16 @@ VERBOSE ?= 0
 PRINT ?= printf
 
 # Set prefix to mips binutils binaries (mips-linux-gnu-ld => 'mips-linux-gnu-') - Change at your own risk!
-# In nearly all cases, not having 'mips-linux-gnu-*' binaries on the PATH is indicative of missing dependencies
-MIPS_BINUTILS_PREFIX ?= mips-linux-gnu-
+# Auto-detect prefix for MIPS toolchain
+ifneq      ($(call find-command,mips-linux-gnu-ld),)
+  MIPS_BINUTILS_PREFIX := mips-linux-gnu-
+else ifneq ($(call find-command,mips64-linux-gnu-ld),)
+  MIPS_BINUTILS_PREFIX := mips64-linux-gnu-
+else ifneq ($(call find-command,mips64-elf-ld),)
+  MIPS_BINUTILS_PREFIX := mips64-elf-
+else
+  $(error Unable to detect a suitable MIPS toolchain installed)
+endif
 
 VERSION ?= us
 
@@ -81,7 +92,7 @@ else ifeq ($(UNAME_S),Linux)
         CC_CHECK_COMP := arm-linux-gnueabihf-gcc
     endif
 else ifeq ($(UNAME_S),Darwin)
-    DETECTED_OS := mac
+    DETECTED_OS := macos
     MAKE := gmake
     CPPFLAGS += -xc++
 endif
@@ -123,10 +134,18 @@ AS              := $(MIPS_BINUTILS_PREFIX)as
 LD              := $(MIPS_BINUTILS_PREFIX)ld
 OBJCOPY         := $(MIPS_BINUTILS_PREFIX)objcopy
 OBJDUMP         := $(MIPS_BINUTILS_PREFIX)objdump
-CPP             := cpp
 ICONV           := iconv
 ASM_PROC        := $(PYTHON) $(TOOLS)/asm-processor/build.py
 CAT             := cat
+
+# Prefer clang as C preprocessor if installed on the system
+ifneq (,$(call find-command,clang))
+  CPP      := clang
+  CPPFLAGS := -E -P -x c -Wno-trigraphs -D_LANGUAGE_ASSEMBLY
+else
+  CPP      := cpp
+  CPPFLAGS := -P -Wno-trigraphs -D_LANGUAGE_ASSEMBLY
+endif
 
 ASM_PROC_FLAGS  := --input-enc=utf-8 --output-enc=euc-jp --convert-statics=global-with-filename
 
@@ -286,7 +305,7 @@ init:
 SF := ___  ___\n/ __||  _|\n\__ \|  _|\n|___/|_|\n
 uncompressed: $(ROM)
 ifneq ($(COMPARE),0)
-	@echo "$(GREEN)Calculating Rom Header Checksum... $(YELLOW)$<$(NO_COL)"	
+	@echo "$(GREEN)Calculating Rom Header Checksum... $(YELLOW)$<$(NO_COL)"
 	@$(PYTHON) $(COMPTOOL) -r $(ROM) .
 	@md5sum --status -c $(TARGET).$(VERSION).uncompressed.md5 && \
 	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).uncompressed.z64$(NO_COL): $(GREEN)OK$(NO_COL)\n$(YELLOW) $(SF)" || \
