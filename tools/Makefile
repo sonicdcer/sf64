@@ -5,8 +5,10 @@ ifeq ($(OS),Windows_NT)
     $(error Native Windows is currently unsupported for building this repository, use WSL instead c:)
 else ifeq ($(UNAME_S),Linux)
 	DETECTED_OS := linux
+	MIO0_FLAGS := --gc-sections
 else ifeq ($(UNAME_S),Darwin)
     DETECTED_OS := macos
+	MIO0_FLAGS :=
 endif
 
 RECOMP_DIR := ido-recomp/$(DETECTED_OS)
@@ -30,6 +32,6 @@ recomp:
 
 mio0:
 	@echo "Building mio0..."
-	$(CC) -Wall -Wextra -Wno-format-overflow -O2 -ffunction-sections -fdata-sections -DMIO0_STANDALONE -s -Wl,--gc-sections -o mio0 mio0-decompressor/libmio0.c
+	$(CC) -Wall -Wextra -Wno-format-overflow -O2 -ffunction-sections -fdata-sections -DMIO0_STANDALONE -s -Wl,${MIO0_FLAGS} -o mio0 mio0-decompressor/libmio0.c
 
 .PHONY: all clean distclean default
