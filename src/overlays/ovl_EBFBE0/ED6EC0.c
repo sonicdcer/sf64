@@ -13,7 +13,8 @@ typedef struct {
     /* 0x00 */ s32 unk_00;
     /* 0x04 */ s32 unk_04;
     /* 0x08 */ s32 unk_08;
-    /* 0x0C */ char pad0C[0x8];
+    /* 0x0C */ s32 unk_0C;
+    /* 0x10 */ char pad10[0x4];
     /* 0x14 */ s32 unk_14;
     /* 0x18 */ s32 unk_18;
 } UnkStruct_D_EBFBE0_801AFD18; // size = 0x1C
@@ -137,6 +138,8 @@ extern f32 D_EBFBE0_801CEA70;
 extern f32 D_EBFBE0_801CEAB8[];
 extern f32 D_EBFBE0_801CEAF8[];
 extern s32 D_EBFBE0_801CEB48[3];
+extern s32 D_EBFBE0_801CEEA0;
+extern s32 D_EBFBE0_801CEEA4;
 extern s32 D_EBFBE0_801CEEA8;
 extern s32 D_EBFBE0_801CEEAC;
 extern Vec3f D_EBFBE0_801CEEB0; // bss
@@ -243,6 +246,8 @@ void func_EBFBE0_801AA778(s32, f32, f32, s32);
 void func_EBFBE0_801AB300(void);
 void func_EBFBE0_801ABF1C(void);
 void func_EBFBE0_801AC200(s32);
+void func_EBFBE0_801AC530(s32 index);
+s32 func_EBFBE0_801AC80C(s32);
 void func_EBFBE0_801AC9A0(s32);
 void func_EBFBE0_801ACD90(s32 index, Vec3f* src, Vec3f* dest);
 void func_EBFBE0_801AD048(void);
@@ -2523,7 +2528,95 @@ void func_EBFBE0_801ABF1C(void) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AC200.s")
+void func_EBFBE0_801AC200(s32 index) {
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 r;
+    f32 r2;
+    Vec3f vec;
+
+    x = gUnkEntities30[index].unk_10.x - gUnkEntities30[index].unk_04.x;
+    y = gUnkEntities30[index].unk_10.y - gUnkEntities30[index].unk_04.y;
+    z = gUnkEntities30[index].unk_10.z - gUnkEntities30[index].unk_04.z;
+
+    r = sqrtf(SQ(x) + SQ(y) + SQ(z));
+
+    if (r == 0.0f) {
+        r = 1.0f;
+    }
+
+    if (D_EBFBE0_801AFD18[index].unk_14 == 2) {
+        vec.x = (x / r) * (r / (D_EBFBE0_801AFD18[index].unk_0C - 1));
+        vec.y = (y / r) * (r / (D_EBFBE0_801AFD18[index].unk_0C - 1));
+        vec.z = (z / r) * (r / (D_EBFBE0_801AFD18[index].unk_0C - 1));
+
+        D_EBFBE0_801CEEB0.x = gUnkEntities30[index].unk_04.x + (vec.x * D_EBFBE0_801CEEA0);
+        D_EBFBE0_801CEEB0.y = gUnkEntities30[index].unk_04.y + (vec.y * D_EBFBE0_801CEEA0);
+        D_EBFBE0_801CEEB0.z = gUnkEntities30[index].unk_04.z + (vec.z * D_EBFBE0_801CEEA0);
+
+        switch (D_EBFBE0_801CEEA4) {
+            case 0:
+                break;
+
+            case 100:
+                D_EBFBE0_801CD9BC = 5;
+                D_EBFBE0_801CEEA4 = 10;
+                break;
+
+            case 10:
+                if (D_EBFBE0_801CD9BC) {
+                    break;
+                }
+                D_EBFBE0_801CD9BC = 5;
+                D_EBFBE0_801CEEA4 = 20;
+                break;
+
+            case 20:
+                if (D_EBFBE0_801CD9BC) {
+                    break;
+                }
+
+                D_EBFBE0_801CEEA0++;
+                if (D_EBFBE0_801CEEA0 > D_EBFBE0_801AFD18[index].unk_0C - 1) {
+                    D_EBFBE0_801CEEA0 = 0;
+                }
+
+                D_EBFBE0_801CEEA4 = 100;
+                break;
+        }
+
+        if (D_EBFBE0_801CEEA4 != 10) {
+            return;
+        }
+    } else {
+        vec.x = (x / r) * gUnkEntities30[index].unk_24;
+        vec.y = (y / r) * gUnkEntities30[index].unk_24;
+        vec.z = (z / r) * gUnkEntities30[index].unk_24;
+
+        D_EBFBE0_801CEEB0.x = gUnkEntities30[index].unk_04.x + vec.x;
+        D_EBFBE0_801CEEB0.y = gUnkEntities30[index].unk_04.y + vec.y;
+        D_EBFBE0_801CEEB0.z = gUnkEntities30[index].unk_04.z + vec.z;
+
+        x = D_EBFBE0_801CEEB0.x - gUnkEntities30[index].unk_04.x;
+        y = D_EBFBE0_801CEEB0.y - gUnkEntities30[index].unk_04.y;
+        z = D_EBFBE0_801CEEB0.z - gUnkEntities30[index].unk_04.z;
+        r2 = sqrtf(SQ(x) + SQ(y) + SQ(z));
+
+        if (((r / 9.0f) * 8.0f) < r2) {
+            D_EBFBE0_801CEEAC -= 16;
+            if (D_EBFBE0_801CEEAC < 0) {
+                D_EBFBE0_801CEEAC = 0;
+            }
+        }
+    }
+
+    if (D_EBFBE0_801AFD18[index].unk_14 == 5) {
+        func_EBFBE0_801AC80C(D_EBFBE0_801AFD18[index].unk_00);
+    } else {
+        func_EBFBE0_801AC530(index);
+    }
+}
 
 void func_EBFBE0_801AC530(s32 index) {
     f32 dirX;
