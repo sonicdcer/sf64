@@ -602,7 +602,6 @@ void func_E51970_80199C60(Object_2F4*);
 void func_E51970_8019AB8C(Object_2F4*);
 void func_E51970_8019EA68(Object_58**);
 
-
 void func_E6A810_8018769C(Object_2F4 *);
 void func_E6A810_80188F30(void);
 void func_E6A810_80189B80(Object_2F4 *);

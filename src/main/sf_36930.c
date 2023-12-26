@@ -1,4 +1,4 @@
-#include "common.h"
+#include "global.h"
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_36930/func_80035D30.s")
 
@@ -30,6 +30,7 @@
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_36930/func_80037CF4.s")
 
+void func_80038140(PlayerShot* shot);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_36930/func_80038140.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_36930/func_80038F34.s")
