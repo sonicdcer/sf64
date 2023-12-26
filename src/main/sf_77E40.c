@@ -1316,11 +1316,11 @@ void func_8007BC7C(f32 posX, f32 posY, f32 posZ, f32 arg3) {
 }
 
 void func_8007BCE8(Object_8C* arg0) {
-    if (gPlayer->state_1C8 == 7) {
+    if (gPlayer->state_1C8 == PLAYERSTATE_1C8_7) {
         arg0->obj.rot.x = (gPlayer->unk_05C * 180.0f) / M_PI;
         arg0->obj.rot.y = (-gPlayer->unk_058 * 180.0f) / M_PI;
     }
-    if (gPlayer->state_1C8 == 6) {
+    if (gPlayer->state_1C8 == PLAYERSTATE_1C8_6) {
         arg0->unk_46 = 2;
         arg0->unk_54.y -= 0.13f;
     }
@@ -1529,7 +1529,7 @@ void func_8007C6FC(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 arg4) {
     if (Rand_ZeroOne() < 0.5f) {
         arg0->unk_48 = -arg0->unk_48;
     }
-    if ((gCurrentLevel == LEVEL_FORTUNA) && (gPlayer->state_1C8 != 6)) {
+    if ((gCurrentLevel == LEVEL_FORTUNA) && (gPlayer->state_1C8 != PLAYERSTATE_1C8_6)) {
         arg0->unk_4A = 180;
     } else {
         arg0->unk_4A = 255;
@@ -1564,7 +1564,7 @@ void func_8007C8C4(Object_8C* arg0) {
     s32 var_v0;
 
     var_v0 = 0;
-    if ((gCurrentLevel == LEVEL_FORTUNA) && (gPlayer->state_1C8 != 6)) {
+    if ((gCurrentLevel == LEVEL_FORTUNA) && (gPlayer->state_1C8 != PLAYERSTATE_1C8_6)) {
         var_v0 = 3;
     }
     if (!(arg0->timer_50 & var_v0) && (gLevelType == LEVELTYPE_PLANET)) {

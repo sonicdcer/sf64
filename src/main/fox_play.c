@@ -5501,7 +5501,7 @@ void func_800B56BC(Player* player) {
         var_fv1 = 0;
     }
     Math_SmoothStepToF(&player->unk_030, var_fv1 * 1.6f, 0.1f, 3.0f, 0.05f);
-    if (gLevelType == 1) {
+    if (gLevelType == LEVELTYPE_SPACE) {
         Math_SmoothStepToF(&player->unk_02C, var_fv0 * 0.8f, 0.1f, 3.0f, 0.05f);
     } else if (player->pos.y < (D_80177940 + 50.0f)) {
         Math_SmoothStepToF(&player->unk_02C, var_fv0 * 0.3f, 0.1f, 3.0f, 0.05f);
@@ -5890,8 +5890,8 @@ void func_800B7184(Player* player, s32 arg1) {
 void func_800B71E4(Player* player) {
     switch (player->state_1C8) {
         case 3:
-            switch (gLevelMode) { /* switch 1; irregular */
-                case 0:           /* switch 1 */
+            switch (gLevelMode) {
+                case LEVELMODE_ON_RAILS:
                     if (player->form == FORM_ARWING) {
                         if (player->unk_238 == 0) {
                             func_800B56BC(player);
@@ -5904,10 +5904,10 @@ void func_800B71E4(Player* player) {
                         func_E16C50_801AA8E8(player);
                     }
                     break;
-                case 1: /* switch 1 */
+                case LEVELMODE_ALL_RANGE:
                     func_800B7184(player, 0);
                     break;
-                case 2: /* switch 1 */
+                case LEVELMODE_UNK_2:
                     func_E9F1D0_801A5FC0(player);
                     break;
             }
