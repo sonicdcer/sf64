@@ -880,7 +880,7 @@ void func_EBFBE0_8018994C(void) {
 
             gRadioState = 0;
             D_80178300 = 0;
-            sCurrentMsgPri = 0;
+            gCurrentMsgPri = 0;
             break;
 
         case 100:
@@ -982,7 +982,7 @@ void func_EBFBE0_8018994C(void) {
             }
 
             if (D_EBFBE0_801B82B8 == 838) {
-                func_EBFBE0_801919C4(D_EBFBE0_801ADA30, RCID_PEPPER_TITLE);
+                func_EBFBE0_801919C4(D_EBFBE0_801ADA30, RCID_GEN_PEPPER_TITLE);
             }
 
             if (D_EBFBE0_801B82A8 == 1) {

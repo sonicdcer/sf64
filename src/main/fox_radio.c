@@ -12,7 +12,7 @@ f32 D_80178740;
 s32 D_80178744;
 s32 D_80178748;
 
-s32 sCurrentMsgPri = 0;
+s32 gCurrentMsgPri = 0;
 
 void func_800BA760(void) {
     RCP_SetupDL_36();
@@ -22,16 +22,16 @@ void func_800BA760(void) {
 }
 
 s32 func_800BA7BC(u16* msg, s32 priority) {
-    if (priority == sCurrentMsgPri) {
+    if (priority == gCurrentMsgPri) {
         return 0;
     }
 
-    if (priority < sCurrentMsgPri) {
+    if (priority < gCurrentMsgPri) {
         return 1;
     }
 
-    if (sCurrentMsgPri < priority) {
-        sCurrentMsgPri = priority;
+    if (gCurrentMsgPri < priority) {
+        gCurrentMsgPri = priority;
         return 2;
     }
 }
@@ -78,7 +78,7 @@ void func_800BA808(u16* msg, s32 character) {
         return;
     }
 
-    sCurrentMsgPri = priority;
+    gCurrentMsgPri = priority;
     D_80177D68 = character;
 
     if (gExpertMode && ((character == RCID_FOX) || (character == RCID_FOX_RED))) {
@@ -347,10 +347,10 @@ void func_800BAAE8(void) {
         case RCID_BILL_OPEN:
             sp44 = D_D002ED0;
             break;
-        case RCID_PEPPER:
+        case RCID_GEN_PEPPER:
             sp44 = D_D007A70;
             break;
-        case RCID_PEPPER_OPEN:
+        case RCID_GEN_PEPPER_OPEN:
             sp44 = D_D008990;
             break;
         case RCID_ROB64_TITLE:
@@ -359,10 +359,10 @@ void func_800BAAE8(void) {
         case RCID_ROB64_TITLE_OPEN:
             sp44 = D_E00F020;
             break;
-        case RCID_PEPPER_TITLE:
+        case RCID_GEN_PEPPER_TITLE:
             sp44 = D_E00FF40;
             break;
-        case RCID_PEPPER_TITLE_OPEN:
+        case RCID_GEN_PEPPER_TITLE_OPEN:
             sp44 = D_E010E60;
             break;
         case RCID_TRAINING:
@@ -614,7 +614,7 @@ void func_800BB5D0(void) {
             D_80177D38 -= 0.25f;
             if (D_80177D38 == 0) {
                 D_80178300 = 0;
-                sCurrentMsgPri = 0;
+                gCurrentMsgPri = 0;
                 gRadioState = 0;
             }
             D_801782A4 = 2;

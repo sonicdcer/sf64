@@ -2840,6 +2840,7 @@ u16 gMsg_ID_16175[26] = {
     _d, _e, _s, _t, _r, _o, _y, _e, _d, PRD, NWL,
     END,
 };
+// Scratch one missile.
 u16 gMsg_ID_16180[24] = {
     PRI1, _S, _c, _r, _a, _t, _c, _h, SPC, _o, _n, _e, SPC, _m, _i, _s, _s, _i, _l, _e, PRD, NWL,
     END,

@@ -2469,7 +2469,7 @@ void func_800690D0(s32 index, s32 objId) {
             func_E6A810_8018B720(&gObjects2F4[index]);
             break;
         case OBJ_408_319:
-            func_E51970_80198594(&gObjects408[index]);
+            func_DF4260_80198594(&gObjects408[index]);
             break;
     }
 }

@@ -264,7 +264,7 @@
 
       # DATA - game engine
       
-      - [0xCA690, data, sf_2EFE0]
+      - [0xCA690, .data, sf_2EFE0]
       - [0xCA7C0, data, sf_36930]
       - [0xCA830, data, sf_3E6F0]
       - [0xCAA90, .data, fox_43AC0]
@@ -358,7 +358,7 @@
       - { start: 0xDE480, type: bss, vram: 0x8015F480, name: ../libultra/rmon/rmonmain }
 
       # Game engine bss
-      - { start: 0xDE480, type: bss, vram: 0x8015F900, name: sf_2EFE0 }
+      - { start: 0xDE480, type: .bss, vram: 0x8015F900, name: sf_2EFE0 }
       - { start: 0xDE480, type: bss, vram: 0x8015F950, name: sf_36930 }
       - { start: 0xDE480, type: bss, vram: 0x8015F960, name: sf_3E6F0 }
       - { start: 0xDE480, type: .bss, vram: 0x801613A0, name: fox_43AC0 }

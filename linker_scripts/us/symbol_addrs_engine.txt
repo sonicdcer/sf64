@@ -120,7 +120,7 @@ D_8017873C = 0x8017873C;
 D_80178740 = 0x80178740;
 D_80178744 = 0x80178744;
 D_80178748 = 0x80178748;
-sCurrentMsgPri = 0x800D4A70;
+gCurrentMsgPri = 0x800D4A70;
 
 func_800BA760 = 0x800BA760;
 func_800BA7BC = 0x800BA7BC;
@@ -141,6 +141,10 @@ Message_DisplayChar = 0x800C295C;
 Message_DisplayText = 0x800C2AF0;
 Message_DisplayScrollingText = 0x800C2D3C;
 Message_IsPrintingChar = 0x800C2F30;
+
+// sf_3E6F0
+D_800C9CC4 = 0x800C9CC4;
+D_800C9CF8 = 0x800C9CF8;
 
 // fox_save
 gDefaultSave = 0x800D4D10;

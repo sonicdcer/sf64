@@ -87,8 +87,6 @@ void RdRam_CheckIPL3(void);
 void Mio0_Decompress(void* header, u8* dst);
 s32 vsprintf(char* dst, const char* fmt, va_list args);
 
-
-
 // sf_2EFE0
 void func_8002E3E0(Object_2F4*);
 void func_8002E548(void);
@@ -101,17 +99,19 @@ void func_8002E694(Object_2F4*);
 void func_8002E6B8(Object_2F4*);
 void func_8002E6DC(Object_2F4*);
 void func_8002E700(Player *);
-void func_8002EE64(Object_2F4 *);
+void func_8002EE64(Object_2F4 * obj2F4);
 void func_8002F180(void);
-void func_8002F5F4(void);
-void func_800319AC(Object_2F4*);
-void func_80035448(Object_2F4*);
+void func_8002F5F4(u16* msg, s32 character);
+void func_800319AC(Object_2F4* this);
+void func_80035448(Object_2F4* obj2F4);
 
 //sf_36930
 void PlayerShot_Initialize(PlayerShot *);
 void func_800365E4(f32, f32, f32, f32, f32, f32, f32, f32, f32, s32, s32);
 void func_8003D9B8(void);
 void func_8003DA0C(void);
+
+// sf_3E6F0
 void func_8003DAF0(void);
 void func_8003DE68(s32, s32);
 void func_8003E1E8(void);
@@ -119,6 +119,7 @@ void func_80040450(void);
 void func_80040954(void);
 void func_80040CDC(void);
 void func_80040CE4(void);
+void func_80042D38(void);
 
 // fox_43AC0
 void func_80042FAC(Object_408 *);
@@ -536,6 +537,7 @@ void func_DF4260_8018753C(Object_80*);
 void func_DF4260_801878D8(Object_408 *);
 void func_DF4260_8018B0B4(Object_2F4 *);
 void func_DF4260_8018BE7C(Object_408 *);    
+void func_DF4260_8018ED78(Object_408*);
 void func_DF4260_801924A8(Object_80* );
 void func_DF4260_8019250C(Object_2F4 *);    
 void func_DF4260_80192CB0(Object_2F4 *);    
@@ -543,48 +545,39 @@ void func_DF4260_80192EA4(Object_2F4 *);
 void func_DF4260_801933B4(Object_2F4 *);    
 void func_DF4260_801935CC(Object_408 *);
 void func_DF4260_80198310(Object_408 *);
+void func_DF4260_80198594(Object_408 *);
 void func_DF4260_801988E0(void);
-void func_DF4260_8018ED78(Object_408*);
-
-void func_E9F1D0_80189214(void);
-void func_E9F1D0_8018BDD8(void);
-void func_E9F1D0_8018C390(Player*);
 void func_DF4260_80198C50(void);
 void func_DF4260_8019949C(void);
-void func_E16C50_8019E8B8(f32, f32, f32, f32);
-void func_E9F1D0_801A5AD4(Player*);
-void func_E9F1D0_801A5FC0(Player*);
-void func_E16C50_801AA8E8(Player*);
-void func_E16C50_801AACF8(Player*);
-void func_E16C50_801AC274(Player*);
-void func_E16C50_801ACE50(Player*);
-void func_E6A810_801ACFBC(ObjectInit*);
-void func_E6A810_801AD080(void);
-void func_E16C50_801AD328(Player*);
-void func_E16C50_801BEC80(Player*);
 
 void func_E08400_80187B08(Object_2F4 *);
 void func_E08400_80188A40(Object_408 *);
 void func_E08400_8018CCF8(Object_2F4 *);
 
-void func_E16C50_80191DB0(Object_2F4*);
-void func_E16C50_8018ED78(Player*);
 void func_E16C50_80187754(Object_408 *);
+void func_E16C50_8018ED78(Player*);
 void func_E16C50_801900FC(Vec3f*, Vec3f*, f32, f32, f32, s32, f32, s32, s32);
 void func_E16C50_80190430(Object_2F4 *);
 void func_E16C50_80190F08(Object_2F4 *);
 void func_E16C50_801915A4(Object_2F4 *);
 void func_E16C50_80191BB8(Object_2F4 *);
+void func_E16C50_80191DB0(Object_2F4*);
 void func_E16C50_801932AC(Object_408 *);
 void func_E16C50_8019B1F0(Object_2F4 *);
 void func_E16C50_8019B810(Object_2F4 *);
 void func_E16C50_8019C200(Object_2F4 *);
 void func_E16C50_8019D060(Object_2F4 *);
+void func_E16C50_8019E8B8(f32, f32, f32, f32);
 void func_E16C50_8019E9F4(f32, f32, f32, f32, f32, f32, f32, s32);
 void func_E16C50_801A9824(void);
 void func_E16C50_801AA20C(void);
+void func_E16C50_801AA8E8(Player*);
+void func_E16C50_801AACF8(Player*);
+void func_E16C50_801AC274(Player*);
 void func_E16C50_801AC8A8(f32, f32, f32, f32, s32);
 void func_E16C50_801ACBB4(void);
+void func_E16C50_801ACE50(Player*);
+void func_E16C50_801AD328(Player*);
 void func_E16C50_801AD688(Object_2F4 *);
 void func_E16C50_801AE3AC(Object_2F4 *);
 void func_E16C50_801AF9FC(Object_2F4 *);
@@ -594,18 +587,23 @@ void func_E16C50_801B6E54(Object_2F4 *);
 void func_E16C50_801B7AF0(Object_2F4 *);
 void func_E16C50_801BA57C(Object_2F4 *);
 void func_E16C50_801BB26C(Object_2F4 *);
+void func_E16C50_801BEC80(Player*);
 
-void func_E51970_80193CA4(Object_408 *);
-void func_E51970_80198594(Object_408 *);
-void func_E51970_8019EA68(Object_58**);
-void func_E51970_80198930(Object_58**);
+void func_E51970_80187960(Object_2F4*);
 void func_E51970_8018BA2C(Object_58**);
+void func_E51970_8018C158(Object_2F4*);
 void func_E51970_80191ED8(Object_58**);
+void func_E51970_80192264(void);
+void func_E51970_80193CA4(Object_408 *);
+void func_E51970_80198594(Object_2F4*);
+void func_E51970_80198930(Object_58**);
+void func_E51970_80199900(Object_2F4 *, s32);
+void func_E51970_8019AB8C(Object_2F4*);
+void func_E51970_8019EA68(Object_58**);
 
-void func_E6A810_80188F30(void);
-void func_E6A810_80199920(void);
-void func_E6A810_801B5110(f32, f32, f32);
+
 void func_E6A810_8018769C(Object_2F4 *);
+void func_E6A810_80188F30(void);
 void func_E6A810_80189B80(Object_2F4 *);
 void func_E6A810_8018ADC4(Object_2F4 *);
 void func_E6A810_8018B720(Object_2F4 *);
@@ -618,6 +616,7 @@ void func_E6A810_8018EFF0(Object_4C *);
 void func_E6A810_8018F0D8(Object_80 *); 
 void func_E6A810_8018FA48(Object_408 *);
 void func_E6A810_801990DC(Object_408 *);
+void func_E6A810_80199920(void);
 void func_E6A810_80199F8C(Object_2F4 *);
 void func_E6A810_801A3E70(Object_2F4 *);
 void func_E6A810_801A4660(Object_2F4 *);
@@ -626,18 +625,27 @@ void func_E6A810_801A5E2C(Object_2F4 *);
 void func_E6A810_801A6134(Object_2F4 *);
 void func_E6A810_801A65E0(Object_80 *); 
 void func_E6A810_801A7D98(Object_2F4 *);
+void func_E6A810_801ACFBC(ObjectInit*);
+void func_E6A810_801AD080(void);
+void func_E6A810_801B5110(f32, f32, f32);
 void func_E6A810_801B58AC(Gfx **, f32);
-s32 func_E6A810_801B6AEC(f32, f32, f32);
-void func_E6A810_801B6E20(f32, f32, f32 *, f32 *, f32 *); 
+ s32 func_E6A810_801B6AEC(f32, f32, f32);
+void func_E6A810_801B6E20(f32, f32, f32 *, f32 *, f32 *);
 
-void func_E9F1D0_80196968(Object_58**);
 void func_E9F1D0_801878A8(Object_58**);
-void func_E9F1D0_801961AC(Object_58**);
-void func_E9F1D0_801A4CB0(Object_2F4*);
-void func_E9F1D0_801A3BD4(Object_2F4*);
 void func_E9F1D0_801888F4(Object_2F4 *);
+void func_E9F1D0_80189214(void);
+void func_E9F1D0_8018BDD8(void);
+void func_E9F1D0_8018C390(Player*);
 void func_E9F1D0_8018D16C(Object_408 *);
+void func_E9F1D0_801961AC(Object_58**);
+void func_E9F1D0_80196314(Object_2F4*);
+void func_E9F1D0_80196968(Object_58**);
 void func_E9F1D0_80197CC4(Object_408 *);
+void func_E9F1D0_801A3BD4(Object_2F4*);
+void func_E9F1D0_801A4CB0(Object_2F4*);
+void func_E9F1D0_801A5AD4(Player*);
+void func_E9F1D0_801A5FC0(Player*);
 void func_E9F1D0_801A6164(Player *);
 
 void func_EF0260_8018A96C(void);
