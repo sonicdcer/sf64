@@ -520,11 +520,12 @@ extern s8 D_80177BAC;
 extern s32 D_80177BB0[7];
 //
 extern u16 D_Timer_80177BD0[4];
-extern s32 D_80177BD8[24]; // overruns D_80177C30?
+extern s32 D_80177BD8[22]; // overruns D_80177C30?
 // -0x8??
 extern u16 D_80177C30[4];
 extern UNK_TYPE D_80177C38[6];
 extern s32 D_80177C50;
+extern s32 D_80177C58[6];
 // 0x1C
 extern s32 D_80177C70;
 extern u8  gSoundMode;
