@@ -61,6 +61,12 @@ extern s32 D_EBFBE0_801B00C0[47][96];
 extern Gfx D_EBFBE0_801B4A40[];
 extern void* D_EBFBE0_801B68D4[];
 extern Gfx* D_EBFBE0_801B68F8[];
+extern f32 D_EBFBE0_801B69D4[8];
+extern f32 D_EBFBE0_801B69F4[8];
+extern f32 D_EBFBE0_801B6A14[8];
+extern f32* D_EBFBE0_801B6A34[2];
+extern f32* D_EBFBE0_801B6A3C[2];
+extern f32* D_EBFBE0_801B6A44[2];
 extern f32 D_EBFBE0_801B6A78; // in-func static
 extern f32 D_EBFBE0_801B6A7C;
 extern s32 D_EBFBE0_801B6A84[];
@@ -177,6 +183,11 @@ extern f32 D_EBFBE0_801CF060[8];
 extern f32 D_EBFBE0_801CF080;
 extern f32 D_EBFBE0_801CF088[8];
 extern f32 D_EBFBE0_801CF0A8[8];
+extern f32* D_EBFBE0_801CF0C8;
+extern f32* D_EBFBE0_801CF0CC;
+extern f32* D_EBFBE0_801CF0D0;
+extern s32 D_EBFBE0_801CF11C;
+extern s32 D_EBFBE0_801CF120;
 
 extern u8 D_600D590[];
 extern Gfx D_601D1F0[];
@@ -1086,7 +1097,75 @@ void func_EBFBE0_801A3550(Vec3f* arg0, Vec3f* arg1, Vec3f* arg2, f32 arg3) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A3A00.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A4394.s")
+void func_EBFBE0_801A4394(void) {
+    s32 i;
+
+    switch (D_EBFBE0_801CD94C) {
+        case 0:
+            if (D_80177B48 == 0) {
+                D_EBFBE0_801CD9C0 = 45;
+                D_EBFBE0_801CD94C = 3;
+            } else {
+                D_EBFBE0_801CD94C++;
+            }
+            break;
+
+        case 1:
+            if (D_80177B48 == D_EBFBE0_801CD9AC) {
+                D_EBFBE0_801CD94C = 3;
+                D_EBFBE0_801CD9C0 = 45;
+                break;
+            }
+
+            if ((D_EBFBE0_801AFD18[D_EBFBE0_801CD8E0[D_EBFBE0_801CD9AC]].unk_00 == 3) ||
+                (D_EBFBE0_801AFD18[D_EBFBE0_801CD8E0[D_EBFBE0_801CD9AC]].unk_00 == 4)) {
+                D_80177BD8[D_EBFBE0_801CD8E0[D_EBFBE0_801CD9AC]] = 5;
+                D_EBFBE0_801AFD18[D_EBFBE0_801CD8E0[D_EBFBE0_801CD9AC]].unk_14 = 5;
+            } else {
+                D_80177BD8[D_EBFBE0_801CD8E0[D_EBFBE0_801CD9AC]] = 2;
+                D_EBFBE0_801AFD18[D_EBFBE0_801CD8E0[D_EBFBE0_801CD9AC]].unk_14 = 0;
+            }
+
+            D_EBFBE0_801AFD18[D_EBFBE0_801CD8E0[D_EBFBE0_801CD9AC]].unk_18 = 255;
+            D_EBFBE0_801CEEAC = 255;
+            D_EBFBE0_801CEEA8 = 255;
+            D_EBFBE0_801CD94C++;
+            break;
+
+        case 2:
+            if ((D_80177BD8[D_EBFBE0_801CD8E0[D_EBFBE0_801CD9AC]] == 3) ||
+                (D_80177BD8[D_EBFBE0_801CD8E0[D_EBFBE0_801CD9AC]] == 6)) {
+                D_EBFBE0_801CD9AC++;
+                D_EBFBE0_801CD94C = 1;
+            }
+            break;
+
+        case 3:
+            if (D_EBFBE0_801CD9C0) {
+                break;
+            }
+
+            for (i = 0; i < 8; i++) {
+                D_EBFBE0_801CF020[i] = D_EBFBE0_801B69D4[i];
+                D_EBFBE0_801CF040[i] = D_EBFBE0_801B69F4[i];
+                D_EBFBE0_801CF060[i] = D_EBFBE0_801B6A14[i];
+            }
+
+            D_EBFBE0_801CD978 = 1;
+            D_EBFBE0_801CF120 = 1;
+            D_EBFBE0_801CF11C = 1;
+
+            D_EBFBE0_801CF0C8 = D_EBFBE0_801B6A34[1];
+            D_EBFBE0_801CF0CC = D_EBFBE0_801B6A3C[1];
+            D_EBFBE0_801CF0D0 = D_EBFBE0_801B6A44[1];
+
+            D_EBFBE0_801CF080 = 1.0f;
+            D_EBFBE0_801CD9C0 = 450;
+            D_EBFBE0_801CD94C = 0;
+            D_EBFBE0_801CD948 = 1;
+            break;
+    }
+}
 
 #ifndef IMPORT_DATA
 extern Gfx* D_EBFBE0_801B6A4C[]; // likely in-function static
