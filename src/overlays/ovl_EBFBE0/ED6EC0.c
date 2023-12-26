@@ -137,6 +137,7 @@ extern f32 D_EBFBE0_801CEA70;
 extern f32 D_EBFBE0_801CEAB8[];
 extern f32 D_EBFBE0_801CEAF8[];
 extern s32 D_EBFBE0_801CEB48[3];
+extern s32 D_EBFBE0_801CEEA8;
 extern s32 D_EBFBE0_801CEEAC;
 extern Vec3f D_EBFBE0_801CEEB0; // bss
 extern s32 D_EBFBE0_801CEEC4;
@@ -2524,7 +2525,68 @@ void func_EBFBE0_801ABF1C(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AC200.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AC530.s")
+void func_EBFBE0_801AC530(s32 index) {
+    f32 dirX;
+    f32 dirY;
+    f32 dirZ;
+    Vec3f dest;
+    Vec3f src;
+    f32 x1;
+    f32 y1;
+    f32 x;
+    f32 y;
+    f32 z;
+
+    src.x = 0.0f;
+    src.y = 0.0f;
+    src.z = 0.0f;
+
+    if (D_EBFBE0_801CEEA8 == 255) {
+        RCP_SetupDL(&gMasterDisp, 0x17);
+    } else {
+        RCP_SetupDL(&gMasterDisp, 0x2E);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, D_EBFBE0_801CEEA8);
+    }
+
+    Matrix_Push(&gGfxMatrix);
+
+    Matrix_Translate(gGfxMatrix, D_EBFBE0_801CEEB0.x, D_EBFBE0_801CEEB0.y, D_EBFBE0_801CEEB0.z, 1);
+
+    Matrix_RotateY(gGfxMatrix, gUnkEntities30[index].unk_20, 1);
+    Matrix_RotateX(gGfxMatrix, M_DTOR * -90.0f, 1);
+    Matrix_RotateX(gGfxMatrix, gUnkEntities30[index].unk_1C, 1);
+
+    Matrix_Scale(gGfxMatrix, 0.8f, 0.8f, 0.8f, 1);
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    Matrix_MultVec3f(gGfxMatrix, &src, &dest);
+
+    x = D_EBFBE0_801CE960[14].x - dest.x;
+    y = D_EBFBE0_801CE960[14].y - dest.y;
+    z = D_EBFBE0_801CE960[14].z - dest.z;
+
+    x1 = Math_Atan2F(y, sqrtf(SQ(x) + SQ(z)));
+    y1 = -Math_Atan2F(x, z);
+
+    src.x = 0.0f;
+    src.y = 0.0f;
+    src.z = 10.0f;
+
+    Matrix_RotateY(gCalcMatrix, M_DTOR * (-D_EBFBE0_801CDA10 - y1), 0);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * (-D_EBFBE0_801CDA0C - x1), 1);
+    Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+
+    dirX = dest.x;
+    dirY = dest.y;
+    dirZ = dest.z;
+
+    Lights_SetOneLight(&gMasterDisp, dirX, dirY, dirZ, 50, 50, 40, 0, 0, 0);
+
+    gSPDisplayList(gMasterDisp++, D_604A9F0);
+
+    Matrix_Pop(&gGfxMatrix);
+}
 
 // needs in-function static
 #ifdef IMPORT_DATA
