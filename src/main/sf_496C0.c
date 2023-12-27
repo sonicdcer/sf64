@@ -17,7 +17,7 @@ extern void func_80187520(s32, void*);
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_80049630.s")
 
-void func_8004990C(Player *player) {
+void func_8004990C(Player* player) {
     if (D_801784AC == 0) {
         D_80177CE8 += 60.0f;
     }
@@ -35,7 +35,7 @@ void func_8004990C(Player *player) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004A52C.s")
 
-void func_8004A700(Object_2F4 *obj2F4, s32 arg1) {
+void func_8004A700(Object_2F4* obj2F4, s32 arg1) {
     Object_2F4_Initialize(obj2F4);
     obj2F4->obj.status = 1;
     obj2F4->obj.id = 0xC3;
@@ -75,10 +75,9 @@ void func_8004C90C(s32 arg0) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004CCC0.s")
 
 void func_8004D3C8(s32 arg0) {
-
 }
 
-void func_8004D3D4(Player *player, s32 arg1, Item *arg2) {
+void func_8004D3D4(Player* player, s32 arg1, Item* arg2) {
     u16 itemId;
     Item_Initialize(arg2);
     arg2->obj.status = 1;
