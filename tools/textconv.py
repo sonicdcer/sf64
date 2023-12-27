@@ -44,6 +44,50 @@ def convert_names(filepath):
         file.write(file_text)
     return
 
+code_to_text = {'CLF':'(C<)', 'CUP':'(C^)', 'CRT':'(C>)', 'CDN':'(Cv)', 'AUP':'^', 'ALF':'<', 'ADN':'v', 'ART':'>', 'EXM':'!', 'QST':'?', 'DSH':'-', 'CMA':',', 'PRD':'.', 'APS':"'", 'LPR':'(', 'RPR':')', 'CLN':':', 'PIP':'|'}
+
+def parse_line(line):
+    codes = [x.strip() for x in line.split(',')]
+    text = ''
+    for i, code in enumerate(codes):
+        if code.startswith(('NP', 'PRI')) or code == '':
+            continue
+        elif 'SP' in code:
+            if(text and text[-1] != ' '):
+                text += ' '
+        elif 'NWL' in code:
+            if text:
+                text += '\n// '
+        elif code.startswith('_'):
+            text += code.strip('_')
+        else:
+            text += code_to_text[code]
+    return text
+        
+
+def add_comments(filepath):
+    with open(filepath, 'r') as file:
+        file_lines = file.readlines()
+    found_text = False
+    start_line = 0
+    for i, line in enumerate(file_lines):
+        if not found_text:
+            found_text = line.startswith('u16 gMsg_ID_')
+            out_text = '// '
+            start_line = i
+        elif 'END' in line:
+            if out_text.endswith('\n// '):
+                out_text = out_text[:-4]
+            file_lines[start_line] = out_text + '\n' + file_lines[start_line]
+            print(file_lines[start_line])
+            found_text = False
+        else:
+            out_text += parse_line(line)
+    with open(filepath, 'w') as file:
+        file.writelines(file_lines)
+    return
+        
+
 parser = argparse.ArgumentParser(description='Convert StarFox 64 dialog characters')
 parser.add_argument('infile', help="SF64 text file to convert")
 
@@ -51,4 +95,5 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # convert_file(args.infile)
-    convert_names(args.infile)
+    # convert_names(args.infile)
+    add_comments(args.infile)

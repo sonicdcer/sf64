@@ -85,6 +85,7 @@ typedef enum LevelId {
     /* 18 */ LEVEL_SECTOR_Z,
     /* 19 */ LEVEL_VENOM_2,
     /* 20 */ LEVEL_VERSUS,
+    /* 77 */ LEVEL_WARP_ZONE = 77,
 } LevelId;
 
 typedef enum {

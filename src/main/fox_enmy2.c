@@ -4044,7 +4044,7 @@ void func_80074FF0(Object_2F4* obj2F4) {
                     if (obj2F4->unk_150 > 0.001f) {
                         Matrix_Scale(gGfxMatrix, obj2F4->unk_150, obj2F4->unk_150, obj2F4->unk_150, 1);
                         Matrix_SetGfxMtx(&gMasterDisp);
-                        func_800A1558(obj2F4->unk_154, 0xB0, D_9003890, D_9003DF0, D_9003330);
+                        Texture_BlendRGBA16(obj2F4->unk_154, 16 * 11, D_9003890, D_9003DF0, D_9003330);
                         gSPDisplayList(gMasterDisp++, D_9002CF0);
                     }
                     break;

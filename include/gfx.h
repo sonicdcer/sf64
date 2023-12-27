@@ -11,8 +11,6 @@
 #define RGBA16_RED(color16) (((color16) >> 0xB) & 0x1F)
 #define RGBA16_GRN(color16) (((color16) >> 6) & 0x1F)
 #define RGBA16_BLU(color16) (((color16) >> 1) & 0x1F)
-// unclear what the right macro for this is
-// #define RGBA16_PACK(r, g, b, a) (((u16) ((r) * 0x800) & 0xF800) | ((u16) ((g) * 0x40) & 0x7C0) | ((u16) ((b) * 2) & 0x3E) | ((a) & 1))
 
 // used for convenience while decopming. You should find/replace them with the full macros before PRing
 #define GDL(dl) gSPDisplayList(gMasterDisp++, dl) // 06000000 dl
@@ -111,7 +109,7 @@ void Graphics_DisplayLargeNumber(s32 xPos, s32 yPos, s32 number);
 void Graphics_DisplaySmallText(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char *text);
 s32 Graphics_GetSmallTextWidth(char *text);
 void func_800A1540(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-void func_800A1558(f32 weight, u16 size, void *src1, void *src2, void *dst);
+void Texture_BlendRGBA16(f32 weight, u16 size, u16 *src1, u16 *src2, u16 *dst);
 
 void RCP_SetupDL(Gfx** gfxP, s16 i);
 void RCP_SetFog(Gfx** gfxP, s32 r, s32 g, s32 b, s32 a, s32 near, s32 far);
