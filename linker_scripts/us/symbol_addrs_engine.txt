@@ -47,7 +47,7 @@ Graphics_DisplayLargeNumber = 0x800A100C;
 Graphics_DisplaySmallText = 0x800A1200;
 Graphics_GetSmallTextWidth = 0x800A13EC;
 func_800A1540 = 0x800A1540;
-func_800A1558 = 0x800A1558;
+Texture_BlendRGBA16 = 0x800A1558;
 
 // sf_36930
 PlayerShot_Initialize = 0x80035E48;

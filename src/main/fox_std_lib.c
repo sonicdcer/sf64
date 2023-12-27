@@ -1183,36 +1183,46 @@ s32 Graphics_GetSmallTextWidth(char* text) {
 void func_800A1540(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
 
-#ifdef NON_MATCHING
-// It's something like this.
-// void func_800A1558(f32 weight, u16 size, u16 *src1, u16 *src2, u16 *dst) {
-//     f32 r1;
-//     f32 g1;
-//     f32 b1;
-//     s32 a1;
-//     f32 r2;
-//     f32 g2;
-//     f32 b2;
-//     s32 a2;
-//     s32 i;
+// 20 kinds of fake. Try to improve it here: https://decomp.me/scratch/NMQZB
+void Texture_BlendRGBA16(f32 weight, u16 size, u16* src1, u16* src2, u16* dst) {
+    s32 i;
+    u16* var_a1 = SEGMENTED_TO_VIRTUAL(src1);
+    u16* var_a2 = SEGMENTED_TO_VIRTUAL(src2);
+    u16* var_a3 = SEGMENTED_TO_VIRTUAL(dst);
+    u16 temp1;
+    u16 temp2;
+    u16 temp3;
+    f32 r1;
+    f32 g1;
+    f32 b1;
+    s32 a1;
+    f32 r2;
+    f32 g2;
+    f32 b2;
+    s32 a2;
+    f32 red;
+    f32 grn;
+    f32 blu;
+    g2 = RGBA16_GRN(temp2); // mega fake
 
-//     src1 = SEGMENTED_TO_VIRTUAL(src1);
-//     src2 = SEGMENTED_TO_VIRTUAL(src2);
-//     dst = SEGMENTED_TO_VIRTUAL(dst);
-//     for(i = 0; i < size; i++) {
-//         r1 = RGBA16_RED(src1[i]);
-//         g1 = RGBA16_GRN(src1[i]);
-//         b1 = RGBA16_BLU(src1[i]);
-//         a1 = src1[i] & 1;
-//         r2 = RGBA16_RED(src2[i]);
-//         g2 = RGBA16_GRN(src2[i]);
-//         b2 = RGBA16_BLU(src2[i]);
-//         a2 = src2[i] & 1;
-//         dst[i] = RGBA16_PACK((r1 - r2) * weight / 100.0f + r2, (g1 - g2) * weight / 100.0f + g2, (b1 - b2) * weight /
-//         100.0f + b2, a1 | a2);
-//     }
-// }
-#else
-void func_800A1558(f32 weight, u16 size, void* src1, void* src2, void* dst);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_std_lib/func_800A1558.s")
-#endif
+    for (i = 0; i < size; i++) {
+        temp1 = var_a1[i];
+        r1 = RGBA16_RED(temp1);
+        g1 = RGBA16_GRN(temp1);
+        b1 = RGBA16_BLU(temp1);
+        temp1 = temp1 & 1; // fake?
+        if (1) {}          // fake?
+        temp2 = var_a2[i];
+        r2 = RGBA16_RED(temp2);
+        g2 = RGBA16_GRN(temp2);
+        b2 = RGBA16_BLU(temp2);
+        a2 = temp2 & 1;
+
+        red = (r2 - r1) * weight / 100.0f + r1;
+        grn = (g2 - g1) * weight / 100.0f + g1;
+        blu = (b2 - b1) * weight / 100.0f + b1;
+
+        var_a3[i] = ((u16) (red * 2048.0f) & 0xF800) | ((u16) (grn * 64.0f) & 0x7C0) | ((u16) (blu * 2.0f) & 0x3E) |
+                    (temp1 | a2 & 1);
+    }
+}

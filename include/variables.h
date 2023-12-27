@@ -1706,9 +1706,9 @@ extern Gfx D_8015DF0[];
 
 // ast_9F4880, ast_AE60A0, ast_CDDCA0
 extern Gfx D_9002CF0[];
-extern Gfx D_9003330[];
-extern Gfx D_9003890[];
-extern Gfx D_9003DF0[];
+extern u16 D_9003330[];
+extern u16 D_9003890[];
+extern u16 D_9003DF0[];
 extern Gfx D_9003F50[];
 extern Gfx D_9005C80[];
 extern Gfx D_900D180[];
