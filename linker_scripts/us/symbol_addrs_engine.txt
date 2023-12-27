@@ -49,7 +49,7 @@ Graphics_GetSmallTextWidth = 0x800A13EC;
 func_800A1540 = 0x800A1540;
 Texture_BlendRGBA16 = 0x800A1558;
 
-// sf_36930
+// sf_beam
 PlayerShot_Initialize = 0x80035E48;
 
 // fox_rcp
@@ -142,7 +142,7 @@ Message_DisplayText = 0x800C2AF0;
 Message_DisplayScrollingText = 0x800C2D3C;
 Message_IsPrintingChar = 0x800C2F30;
 
-// sf_3E6F0
+// fox_bg
 D_800C9CC4 = 0x800C9CC4;
 D_800C9CF8 = 0x800C9CF8;
 

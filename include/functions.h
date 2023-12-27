@@ -89,7 +89,7 @@ void RdRam_CheckIPL3(void);
 void Mio0_Decompress(void* header, u8* dst);
 s32 vsprintf(char* dst, const char* fmt, va_list args);
 
-// sf_2EFE0
+// fox_360
 void func_8002E3E0(Object_2F4*);
 void func_8002E548(void);
 void func_8002E5E0(Object_408*);
@@ -107,13 +107,13 @@ void func_8002F5F4(u16* msg, s32 character);
 void func_800319AC(Object_2F4* this);
 void func_80035448(Object_2F4* obj2F4);
 
-//sf_36930
+//sf_beam
 void PlayerShot_Initialize(PlayerShot *);
 void func_800365E4(f32, f32, f32, f32, f32, f32, f32, f32, f32, s32, s32);
 void func_8003D9B8(void);
 void func_8003DA0C(void);
 
-// sf_3E6F0
+// fox_bg
 void func_8003DAF0(void);
 void func_8003DE68(s32, s32);
 void func_8003E1E8(void);

@@ -129,10 +129,10 @@ extern OSMesg D_80156608[4];
 extern OSMesg D_80156618[1];
 extern OSMesg D_8015661C[1];
 
-// sf_2EFE0
+// fox_360
 extern s32 D_800C9B4C;
 
-// sf_36930
+// sf_beam
 extern u16 D_800C9C3C[16];
 
 // sf_43E80
@@ -257,7 +257,7 @@ extern s32 gCurrentMsgPri;
 // fox_save
 extern Save gDefaultSave;
 
-// sf_2EFE0
+// fox_360
 extern s32 D_8015F900;
 extern s32 D_8015F904;
 extern s16 D_8015F908;
@@ -275,10 +275,10 @@ extern s32 D_8015F93C;
 extern s32 D_8015F940;
 extern f32 D_8015F944;
 
-// sf_36930
+// sf_beam
 extern Vec3f D_8015F950;
 
-// sf_3E6F0
+// fox_bg
 extern f32 D_8015F960;
 extern u8 D_8015F964;
 extern f32 D_8015F968;

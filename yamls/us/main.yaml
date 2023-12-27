@@ -170,9 +170,9 @@
       - [0x2EF40, hasm, ../libultra/rmon/rmonrcp]
 
     # Game engine
-      - [0x2EFE0, c, sf_2EFE0]
-      - [0x36930, c, sf_36930]
-      - [0x3E6F0, c, sf_3E6F0]
+      - [0x2EFE0, c, fox_360]
+      - [0x36930, c, sf_beam]
+      - [0x3E6F0, c, fox_bg]
       - [0x43AC0, c, fox_43AC0]
       - [0x43E80, c, sf_43E80]
       - [0x496C0, c, sf_496C0]
@@ -184,7 +184,7 @@
       - [0x6B3B0, c, fox_enmy2]
       - [0x77E40, c, sf_77E40]
       - [0x84F70, c, fox_fade]
-      - [0x852F0, c, sf_852F0]
+      - [0x852F0, c, fox_852F0]
       - [0x85530, c, sf_hud]
       - [0x97F80, c, fox_97F80]
       - [0x9A580, c, fox_std_lib]
@@ -264,9 +264,9 @@
 
       # DATA - game engine
       
-      - [0xCA690, .data, sf_2EFE0]
-      - [0xCA7C0, data, sf_36930]
-      - [0xCA830, data, sf_3E6F0]
+      - [0xCA690, .data, fox_360]
+      - [0xCA7C0, data, sf_beam]
+      - [0xCA830, data, fox_bg]
       - [0xCAA90, .data, fox_43AC0]
       - [0xCAB00, data, sf_43E80]
       - [0xCAB60, data, sf_496C0]
@@ -289,9 +289,9 @@
       - [0xD5910, .data, fox_save]
 
       # RODATA - game engine
-      - [0xD5A10, .rodata, sf_2EFE0]
-      - [0xD5CF0, .rodata, sf_36930]
-      - [0xD5F90, .rodata, sf_3E6F0]
+      - [0xD5A10, .rodata, fox_360]
+      - [0xD5CF0, .rodata, sf_beam]
+      - [0xD5F90, .rodata, fox_bg]
       - [0xD61D0, .rodata, fox_43AC0]
       - [0xD61F0, .rodata, sf_43E80]
       - [0xD6350, .rodata, sf_496C0]
@@ -358,9 +358,9 @@
       - { start: 0xDE480, type: bss, vram: 0x8015F480, name: ../libultra/rmon/rmonmain }
 
       # Game engine bss
-      - { start: 0xDE480, type: .bss, vram: 0x8015F900, name: sf_2EFE0 }
-      - { start: 0xDE480, type: bss, vram: 0x8015F950, name: sf_36930 }
-      - { start: 0xDE480, type: bss, vram: 0x8015F960, name: sf_3E6F0 }
+      - { start: 0xDE480, type: .bss, vram: 0x8015F900, name: fox_360 }
+      - { start: 0xDE480, type: bss, vram: 0x8015F950, name: sf_beam }
+      - { start: 0xDE480, type: bss, vram: 0x8015F960, name: fox_bg }
       - { start: 0xDE480, type: .bss, vram: 0x801613A0, name: fox_43AC0 }
       - { start: 0xDE480, type: .bss, vram: 0x801613B0, name: fox_display }
       - { start: 0xDE480, type: .bss, vram: 0x801615D0, name: fox_edisplay }
