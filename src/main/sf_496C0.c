@@ -8,6 +8,7 @@ extern float D_800CA068[3];
 extern float D_800CA074[3];
 
 extern void func_80187520(s32, void*);
+extern UNK_TYPE func_8004D440(Object_8C*);
 extern UNK_TYPE func_8004A888(Object_8C*);
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_80048AC0.s")
@@ -131,7 +132,17 @@ void func_8004D3D4(Player* player, s32 arg1, Item* arg2) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004D440.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004D738.s")
+void func_8004D738(Player* arg0) {
+    arg0->pos.y += 30.0f;
+    func_8007D0E0(arg0->pos.x, arg0->pos.y, arg0->unk_138, 6.0f);
+    if (gCamCount == 1) {
+        func_8007BFFC(arg0->pos.x, arg0->pos.y, arg0->unk_138, 0.0f, 0.0f, 0.0f, 3.0f, 0x50);
+        func_8007C688(arg0->pos.x, arg0->pos.y, arg0->unk_138, 3.0f, 0x320);
+    } else {
+        func_8007BFFC(arg0->pos.x, arg0->pos.y, arg0->unk_138, 0.0f, 0.0f, 0.0f, 3.0f, 0xA);
+    }
+    func_8004D440(arg0);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004D828.s")
 
