@@ -23,7 +23,23 @@ extern UNK_TYPE func_8004D440(Object_8C*);
 extern UNK_TYPE func_8004A888(Object_8C*);
 extern UNK_TYPE func_8004D828(Player*);
 extern UNK_TYPE func_8004DEF8(Player*);
+extern UNK_TYPE func_8002ED60(Player *);
+extern UNK_TYPE func_800935E8(Player *);
+extern UNK_TYPE func_8018769C(Player *);
+extern UNK_TYPE func_8018CD8C(Player *);
+extern UNK_TYPE func_8018DF74(Player *);
+extern UNK_TYPE func_8018EF6C(Player *);
+extern UNK_TYPE func_8018F880(Player *);
+extern UNK_TYPE func_80192E20(Player *);
+extern UNK_TYPE func_80193A30(Player *);
+extern UNK_TYPE func_80196BF8(Player *);
+extern UNK_TYPE func_801988B8(Player *);
+extern UNK_TYPE func_8019BA64(Player *);
+extern UNK_TYPE func_8019D428(Player *);
+extern UNK_TYPE func_801A0AC0(Player *);
+extern UNK_TYPE func_801A10F4(Player *);
 extern UNK_TYPE func_801AB9B0(Player*);
+extern UNK_TYPE func_801AC754(Player *);
 
 void func_80048AC0(s32 arg0) {
     s32 teamShield;
@@ -184,7 +200,73 @@ void func_80049B44(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_80049C0C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004A52C.s")
+void func_8004A52C(Player *arg0) {
+    D_80177A80 += 1;
+    if (gLevelMode == 0) {
+        switch (gCurrentLevel) {
+        case 0:
+            func_8018F880(arg0);
+            func_800AA800(arg0);
+            break;
+        case 1:
+            func_8018CD8C(arg0);
+            break;
+        case 2:
+            func_80193A30(arg0);
+            break;
+        case 12:
+            func_8018769C(arg0);
+            func_800AA800(arg0);
+            break;
+        case 8:
+            func_8019D428(arg0);
+            break;
+        case 11:
+            func_801AC754(arg0);
+            break;
+        case 5:
+            func_801A0AC0(arg0);
+            break;
+        case 7:
+            func_801A10F4(arg0);
+            break;
+        case 6:
+            func_801988B8(arg0);
+            func_800AA800(arg0);
+            break;
+        case 13:
+            func_800935E8(arg0);
+            break;
+        case 3:
+            func_8018DF74(arg0);
+            break;
+        }
+        func_8004990C(arg0);
+        return;
+    }
+    switch (gCurrentLevel) {
+    case 14:
+        func_8002ED60(arg0);
+        func_800AA800(arg0);
+        return;
+    case 19:
+        func_80196BF8(arg0);
+        func_800AA800(arg0);
+        return;
+    case 17:
+        func_8018EF6C(arg0);
+        func_800AA800(arg0);
+        return;
+    case 16:
+        func_80192E20(arg0);
+        func_800AA800(arg0);
+        return;
+    case 18:
+        func_8019BA64(arg0);
+    default:
+        return;
+    }
+}
 
 void func_8004A700(Object_2F4* obj2F4, s32 arg1) {
     Object_2F4_Initialize(obj2F4);
