@@ -2,10 +2,10 @@
 
 #include "variables.h"
 
-extern float D_800CA050[3];
-extern float D_800CA05C[3];
-extern float D_800CA068[3];
-extern float D_800CA074[3];
+extern f32 D_800CA050[];
+extern f32 D_800CA05C[];
+extern f32 D_800CA068[];
+extern f32 D_800CA074[];
 
 extern void func_80187520(s32, void*);
 extern void func_800ADF58(Player*);
@@ -15,7 +15,57 @@ extern UNK_TYPE func_8004D828(Player*);
 extern UNK_TYPE func_8004DEF8(Player*);
 extern UNK_TYPE func_801AB9B0(Player*);
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_80048AC0.s")
+void func_80048AC0(s32 arg0) {
+    s32 teamShield;
+
+    if (arg0 == 1) {
+        if (gTeamShields[1] < 0x40) {
+            func_800BA808(gMsg_ID_20303, 0xA);
+            return;
+        }
+        if ((s32) (Play_GetMaxShields() * 0.8f) < gPlayer->shields) {
+            func_800BA808(gMsg_ID_20017, 0xA);
+            return;
+        }
+        if ((s32) (Play_GetMaxShields() * 0.3f) < gPlayer->shields) {
+            func_800BA808(gMsg_ID_20019, 0xA);
+            return;
+        }
+        func_800BA808(gMsg_ID_20018, 0xA);
+        return;
+    }
+
+    teamShield = gTeamShields[arg0];
+
+    if (teamShield >= 0xA1) {
+        switch (arg0) {
+            case 2:
+                func_800BA808(gMsg_ID_20011, 0x14);
+                return;
+            case 3:
+                func_800BA808(gMsg_ID_20012, 0x1E);
+                return;
+        }
+    } else if (teamShield >= 0x41) {
+        switch (arg0) {
+            case 2:
+                func_800BA808(gMsg_ID_20013, 0x14);
+                return;
+            case 3:
+                func_800BA808(gMsg_ID_20014, 0x1E);
+                return;
+        }
+    } else {
+        switch (arg0) {
+            case 2:
+                func_800BA808(gMsg_ID_20015, 0x14);
+                return;
+            case 3:
+                func_800BA808(gMsg_ID_20016, 0x1E);
+                return;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_80048CC4.s")
 
