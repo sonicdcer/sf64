@@ -28,7 +28,19 @@ void func_8004990C(Player* player) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_80049968.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_80049A9C.s")
+void func_80049A9C(Object_8C* obj8c, f32 x, f32 y, f32 z) {
+    Object_8C_Initialize(obj8c);
+    obj8c->obj.status = 1;
+    obj8c->obj.id = 0x15A;
+    obj8c->timer_50 = 0x64;
+    obj8c->scale2 = 0.2f;
+    obj8c->obj.pos.x = x;
+    obj8c->obj.pos.y = y;
+    obj8c->obj.pos.z = z;
+    obj8c->unk_54.z = 40.0f;
+    obj8c->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    Object_SetInfo(&obj8c->info, obj8c->obj.id);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_80049B44.s")
 
