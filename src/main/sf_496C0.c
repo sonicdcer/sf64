@@ -3,14 +3,14 @@
 #include "variables.h"
 
 extern Vec3f D_800C9FA0[];
-extern f32 D_800C9FD0[4];
-extern f32 D_800C9FE0[4];
-extern f32 D_800C9FF0[4];
-extern f32 D_800CA000[4];
-extern f32 D_800CA010[4];
-extern f32 D_800CA020[4];
-extern s32 D_800CA030[4];
-extern s32 D_800CA040[4];
+extern f32 D_800C9FD0[];
+extern f32 D_800C9FE0[];
+extern f32 D_800C9FF0[];
+extern f32 D_800CA000[];
+extern f32 D_800CA010[];
+extern f32 D_800CA020[];
+extern s32 D_800CA030[];
+extern s32 D_800CA040[];
 extern f32 D_800CA050[];
 extern f32 D_800CA05C[];
 extern f32 D_800CA068[];
@@ -21,7 +21,6 @@ extern void func_800ADF58(Player*);
 extern UNK_TYPE func_80048CC4(Object_2F4*, s32);
 extern UNK_TYPE func_8004D440(Player*);
 extern UNK_TYPE func_8004D828(Player*);
-extern UNK_TYPE func_8004DEF8(Player*);
 extern UNK_TYPE func_80046358(Player*);
 extern UNK_TYPE func_80048E40(Player*);
 extern UNK_TYPE func_8004B368(Player*);
@@ -381,7 +380,7 @@ void func_8004C930(Player* arg0) {
             } else if (gCurrentLevel == 3) {
                 func_DF4260_8018ED78((Object_408*) arg0);
             } else if (gCurrentLevel == 0xE) {
-                func_8004C90C((s32) arg0);
+                func_8004C90C(arg0);
                 func_800AA800(arg0);
             } else if (gCurrentLevel == 0x11) {
                 func_8018F94C(arg0);
@@ -427,8 +426,8 @@ void func_8004C930(Player* arg0) {
             gInputPress->button = 0;
             btn = gInputPress->button;
             gInputHold->button = gInputPress->button;
-            gInputPress->stick_y = (s8) btn;
-            gInputPress->stick_x = (s8) btn;
+            gInputPress->stick_y = btn;
+            gInputPress->stick_x = btn;
             if (gCurrentLevel == 0xC) {
                 func_801882CC(arg0, &gInputPress, &gInputHold);
             } else if (D_80177930 != 0) {
@@ -437,8 +436,8 @@ void func_8004C930(Player* arg0) {
                 func_801B3D04(arg0, &gInputPress, &gInputHold);
             }
             func_80046358(arg0);
-            gInputPress->button = (u16) sp20;
-            gInputHold->button = (u16) sp24;
+            gInputPress->button = sp20;
+            gInputHold->button = sp24;
             return;
         case FORM_BLUE_MARINE:
             if (gCurrentLevel == 0xD) {
@@ -482,7 +481,89 @@ void func_8004D738(Player* arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004D828.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004DEF8.s")
+void func_8004DEF8(Player* arg0) {
+    s32 pad[2];
+    f32 sp34;
+    s32 var_s0;
+
+    if (arg0->unk_0E4 < 0.0f) {
+        arg0->unk_0E4 += 1.0f;
+    }
+    if (arg0->unk_0E4 > 0.0f) {
+        arg0->unk_0E4 -= 1.0f;
+    }
+
+    arg0->pos.x += arg0->vel.x;
+    arg0->pos.y += arg0->vel.y;
+
+    if (((gCurrentLevel != 9) || (D_80178284 == 0)) && (gLevelType == 0)) {
+        arg0->vel.y = arg0->vel.y - 0.5f;
+    }
+
+    arg0->pos.z += arg0->vel.z;
+    arg0->unk_138 = arg0->pos.z + arg0->unk_08C;
+    arg0->unk_0F8 = (arg0->unk_0EC + arg0->unk_12C) + arg0->unk_130;
+    arg0->unk_12C = arg0->unk_12C + 15.0f;
+
+    if (arg0->unk_1D0 != 0) {
+        arg0->unk_0E8 += 14.0f;
+        arg0->unk_0E4 += 26.0f;
+    }
+
+    if (!(gFrameCount & 1)) {
+        sp34 = Rand_ZeroOne();
+        func_8007D24C(((sp34 - 0.5f) * 20.0) + arg0->pos.x, ((Rand_ZeroOne() - 0.5f) * 20.0) + arg0->pos.y,
+                      arg0->unk_138, 2.2f);
+    }
+
+    if ((arg0->pos.y < arg0->unk_0A4) && (arg0->unk_1D0 == 0)) {
+        arg0->pos.y = arg0->unk_0A4;
+        arg0->timer_220 = 0;
+        arg0->vel.y = 10.0f;
+        arg0->unk_1D0 = 1;
+        func_800A6070(&arg0->unk_460, 0x29000000U);
+        if (gCurrentLevel == 0) {
+            func_80062C38(arg0->pos.x, arg0->pos.z);
+        }
+        if (arg0->wings.rightState == 2) {
+            func_800A69F8(1, arg0->hit1.x, arg0->hit1.y, arg0->hit1.z);
+            arg0->wings.rightState = 0;
+            func_8007D0E0(arg0->hit1.x, arg0->hit1.y, arg0->hit1.z, 2.0f);
+        }
+        if (arg0->wings.leftState == 2) {
+            func_800A69F8(0, arg0->hit2.x, arg0->hit2.y, arg0->hit2.z);
+            arg0->wings.leftState = 0;
+            func_8007D0E0(arg0->hit2.x, arg0->hit2.y, arg0->hit2.z, 2.0f);
+        }
+    } else if ((((arg0->timer_220 > 0) || (arg0->pos.y < arg0->unk_0A4)) || (arg0->timer_1FC == 0)) &&
+               (arg0->timer_1F8 == 0)) {
+        if (arg0->pos.y < arg0->unk_0A4) {
+            func_8007C688(arg0->pos.x, D_80177940 + 20.0f, arg0->unk_138 - (2.0f * arg0->vel.z), 3.0f, 0x320);
+            func_80062C38(arg0->pos.x, arg0->pos.z);
+        }
+        func_8007D0E0(arg0->pos.x, arg0->pos.y - (2.0f * arg0->vel.y), arg0->unk_138 - (2.0f * arg0->vel.z), 6.0f);
+        func_8007BFFC(arg0->pos.x, arg0->pos.y - arg0->vel.y, arg0->unk_138 - (2.0f * arg0->vel.z), 0.0f, 0.0f, 0.0f,
+                      3.0f, 0x14);
+        if (gLevelType == 0) {
+            for (var_s0 = 0; var_s0 < 2; var_s0++) {
+                func_800A69F8(2, arg0->pos.x, arg0->pos.y, arg0->unk_138);
+            }
+
+            for (var_s0 = 0; var_s0 < 4; var_s0++) {
+                func_800A69F8(4, arg0->pos.x, arg0->pos.y, arg0->unk_138);
+            }
+        }
+        func_8004D440(arg0);
+    }
+    arg0->unk_034 -= 3.0f;
+    if (arg0->unk_1D0 != 0) {
+        arg0->unk_034 += 10.0f;
+    }
+    if ((D_80161A88 == 2) && (arg0->pos.y <= arg0->unk_0A4)) {
+        func_8007D9DC(arg0->pos.x, D_80177940 + 2.0f, arg0->unk_138, 3.0f, 20.0f, 0);
+        func_8007ADF4(arg0->pos.x, D_80177940, arg0->unk_138, 0.1f, 2.0f);
+    }
+}
 
 void func_8004E3D8(Player* arg0) {
     arg0->unk_228 = 0;
