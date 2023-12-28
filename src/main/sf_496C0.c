@@ -42,7 +42,22 @@ void func_80049A9C(Object_8C* obj8c, f32 x, f32 y, f32 z) {
     Object_SetInfo(&obj8c->info, obj8c->obj.id);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_80049B44.s")
+void func_80049B44(void) {
+    s32 i;
+    f32 x;
+    f32 y;
+    f32 z;
+
+    for (i = 0; i < sizeof(gObjects8C) / sizeof(gObjects8C[0]); i++) {
+        if (!gObjects8C[i].obj.status) {
+            x = (Rand_ZeroOne() - 0.5f) * 400.0f;
+            y = (Rand_ZeroOne() - 0.5f) * 400.0f;
+            z = (-D_80177D20 - 500.0f) - Rand_ZeroOne() * 500.0f;
+            func_80049A9C(&gObjects8C[i], x, y, z);
+            break;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_80049C0C.s")
 
