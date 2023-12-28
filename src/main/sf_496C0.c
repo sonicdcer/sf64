@@ -19,9 +19,28 @@ extern f32 D_800CA074[];
 extern void func_80187520(s32, void*);
 extern void func_800ADF58(Player*);
 extern UNK_TYPE func_80048CC4(Object_2F4*, s32);
-extern UNK_TYPE func_8004D440(Object_8C*);
+extern UNK_TYPE func_8004D440(Player*);
 extern UNK_TYPE func_8004D828(Player*);
 extern UNK_TYPE func_8004DEF8(Player*);
+extern UNK_TYPE func_80046358(Player*);
+extern UNK_TYPE func_80048E40(Player*);
+extern UNK_TYPE func_8004B368(Player*);
+extern UNK_TYPE func_80095604(Player*);
+extern UNK_TYPE func_800B2130(Player*);
+extern UNK_TYPE func_801882CC(Player*, OSContPad**, OSContPad**);
+extern UNK_TYPE func_8018E084(Player*);
+extern UNK_TYPE func_8018F94C(Player*);
+extern UNK_TYPE func_80191160(Player*);
+extern UNK_TYPE func_80193C4C(Player*);
+extern UNK_TYPE func_80194728(Player*);
+extern UNK_TYPE func_80196D88(Player*);
+extern UNK_TYPE func_80197290(Player*);
+extern UNK_TYPE func_8019C85C(Player*);
+extern UNK_TYPE func_8019D76C(Player*);
+extern UNK_TYPE func_8019EE60(Player*);
+extern UNK_TYPE func_801A7930(Player*);
+extern UNK_TYPE func_801AF8F4(Player*, OSContPad**, OSContPad**);
+extern UNK_TYPE func_801B3D04(Player*, OSContPad**, OSContPad**);
 extern UNK_TYPE func_8002ED60(Player*);
 extern UNK_TYPE func_800935E8(Player*);
 extern UNK_TYPE func_8018769C(Player*);
@@ -343,7 +362,91 @@ void func_8004C90C(s32 arg0) {
     func_80187520(0x5A, arg0);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004C930.s")
+void func_8004C930(Player* arg0) {
+    s32 sp24;
+    s32 sp20;
+    s32 btn;
+
+    D_80177A80 += 1;
+    switch (arg0->form) {
+        case FORM_ARWING:
+            if ((gCurrentLevel == 9) || ((gCurrentLevel == 0x13) && (D_8017827C == 1))) {
+                func_80193C4C(arg0);
+            } else if (gCurrentLevel == 2) {
+                if (D_8017827C == 0) {
+                    func_80194728(arg0);
+                } else {
+                    func_80048E40(arg0);
+                }
+            } else if (gCurrentLevel == 3) {
+                func_DF4260_8018ED78((Object_408*) arg0);
+            } else if (gCurrentLevel == 0xE) {
+                func_8004C90C((s32) arg0);
+                func_800AA800(arg0);
+            } else if (gCurrentLevel == 0x11) {
+                func_8018F94C(arg0);
+                func_800AA800(arg0);
+            } else if (gCurrentLevel == 0x12) {
+                func_8019C85C(arg0);
+            } else if (gCurrentLevel == 0x10) {
+                func_80197290(arg0);
+                func_800AA800(arg0);
+            } else if (gCurrentLevel == 5) {
+                func_8019EE60(arg0);
+                func_800AA800(arg0);
+            } else if (gCurrentLevel == 7) {
+                func_801A7930(arg0);
+                func_800AA800(arg0);
+            } else if (gCurrentLevel == 8) {
+                func_8019D76C(arg0);
+                func_800AA800(arg0);
+            } else if (gCurrentLevel == 0x13) {
+                func_80196D88(arg0);
+                func_800AA800(arg0);
+            } else if (gCurrentLevel == 1) {
+                if (D_8017827C == 0) {
+                    func_8018E084(arg0);
+                } else {
+                    func_80048E40(arg0);
+                }
+            } else if ((gCurrentLevel == 0) && (gLevelMode == 1)) {
+                func_80191160(arg0);
+                func_800AA800(arg0);
+            } else {
+                if (D_80177A80 == 0xAA) {
+                    func_8001D444(0U, 0x26U, 0U, 0xFFU);
+                }
+                func_8004B368(arg0);
+                func_800AA800(arg0);
+            }
+            func_800B2130(arg0);
+            return;
+        case FORM_LANDMASTER:
+            sp20 = gInputPress->button;
+            sp24 = gInputHold->button;
+            gInputPress->button = 0;
+            btn = gInputPress->button;
+            gInputHold->button = gInputPress->button;
+            gInputPress->stick_y = (s8) btn;
+            gInputPress->stick_x = (s8) btn;
+            if (gCurrentLevel == 0xC) {
+                func_801882CC(arg0, &gInputPress, &gInputHold);
+            } else if (D_80177930 != 0) {
+                func_801AF8F4(arg0, &gInputPress, &gInputHold);
+            } else {
+                func_801B3D04(arg0, &gInputPress, &gInputHold);
+            }
+            func_80046358(arg0);
+            gInputPress->button = (u16) sp20;
+            gInputHold->button = (u16) sp24;
+            return;
+        case FORM_BLUE_MARINE:
+            if (gCurrentLevel == 0xD) {
+                func_80095604(arg0);
+            }
+            return;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004CCC0.s")
 
