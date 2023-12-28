@@ -57,6 +57,9 @@ extern UNK_TYPE func_801A0AC0(Player*);
 extern UNK_TYPE func_801A10F4(Player*);
 extern UNK_TYPE func_801AB9B0(Player*);
 extern UNK_TYPE func_801AC754(Player*);
+extern UNK_TYPE func_800A46A0(Player*);
+extern UNK_TYPE func_800AD7F0(Player*);
+extern UNK_TYPE func_800B2574(Player*);
 
 void func_80048AC0(s32 arg0) {
     s32 teamShield;
@@ -300,7 +303,7 @@ void func_8004A700(Object_2F4* obj2F4, s32 arg1) {
     obj2F4->unk_134 = Rand_ZeroOne() * 100.0f;
     obj2F4->obj.rot.z = D_800CA074[arg1];
     obj2F4->unk_07C = 1;
-    Object_SetInfo(&obj2F4->info, (u32) obj2F4->obj.id);
+    Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
     Audio_PlaySfx(0x3100000CU, &obj2F4->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
@@ -447,7 +450,133 @@ void func_8004C930(Player* arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004CCC0.s")
+void func_8004CCC0(Player* arg0) {
+    Vec3f sp58;
+    PosRot sp50;
+
+    Math_SmoothStepToF(&arg0->unk_130, 0.0f, 0.1f, 15.0f, 0.0f);
+    Math_SmoothStepToF(&arg0->unk_0EC, 0.0f, 0.1f, 5.0f, 0.0f);
+    Math_SmoothStepToF(&arg0->unk_0E8, 0.0f, 0.1f, 5.0f, 0.0f);
+    Math_SmoothStepToF(&arg0->unk_0E4, 0.0f, 0.1f, 5.0f, 0.0f);
+    Math_SmoothStepToF(&arg0->camEye.y, arg0->pos.y - 20.0f, 0.2f, 100.0f, 0.0f);
+    sp50.rot.z = arg0->unk_0D0;
+    sp58.x = Math_RadToDeg(Math_Atan2F(arg0->pos.x, arg0->unk_138));
+    arg0->unk_2B4 = 1;
+    arg0->unk_2BC += 1.0f;
+    if (arg0->unk_2BC > 90.0f) {
+        arg0->unk_2BC = 90.0f;
+    }
+    switch (arg0->unk_1D0) {
+        case 0:
+            if (arg0->unk_19C != 0) {
+                arg0->timer_1F8 = 0xA;
+            } else {
+                arg0->timer_1F8 = 0x1E;
+            }
+            arg0->unk_1D0 = 1;
+            if (arg0->unk_4D8 > 180.0f) {
+                arg0->unk_4D8 -= 360.0f;
+            }
+        case 1:
+            if (arg0->timer_1F8 == 0) {
+                arg0->unk_1D0 = 2;
+                if (arg0->unk_19C != 0) {
+                    arg0->timer_1F8 = 0x3C;
+                } else {
+                    arg0->timer_1F8 = 0x50;
+                }
+            }
+            arg0->camEye.x += arg0->vel.x * 0.2f;
+            arg0->camEye.z += arg0->vel.z * 0.2f;
+            Math_SmoothStepToF(&arg0->unk_12C, 0.0f, 0.1f, 15.0f, 0.0f);
+            break;
+        case 2:
+            if (arg0->unk_4D8 > 140.0f) {
+                sp58.y = 0.0f;
+            } else {
+                sp58.y = 60.0f;
+            }
+            Math_SmoothStepToF(&arg0->wings.unk_04, sp58.y, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&arg0->wings.unk_08, sp58.y, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&arg0->wings.unk_0C, sp58.y, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&arg0->wings.unk_10, sp58.y, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&arg0->unk_12C, 0.0f, 0.1f, 15.0f, 0.0f);
+            Math_SmoothStepToF(&arg0->unk_4D8, 190.0f, 0.1f, 6.0f, 0.001f);
+            if (arg0->unk_4D8 > 180.0f) {
+                arg0->unk_114 += 180.0f;
+                if (arg0->unk_114 >= 360.0f) {
+                    arg0->unk_114 -= 360.0f;
+                }
+                arg0->unk_4D8 = 360.0f - (arg0->unk_4D8 - 180.0f);
+                if ((sp58.x - arg0->unk_114) < 180.0f) {
+                    arg0->unk_12C = 180.0f;
+                } else {
+                    arg0->unk_12C = -180.0f;
+                }
+                arg0->unk_1D0 = 3;
+                func_800A5FA0(&arg0->unk_460, 0x09000002U, arg0->num);
+                arg0->unk_194 = 7.0f;
+                arg0->unk_190 = 7.0f;
+            }
+            arg0->unk_004 -= 0.2f;
+            break;
+        case 3:
+            Math_SmoothStepToF(&arg0->unk_12C, 0.0f, 0.05f, 5.0f, 0.0f);
+            sp58.y = arg0->unk_12C * 0.3f;
+            Math_SmoothStepToF(&arg0->wings.unk_04, sp58.y, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&arg0->wings.unk_08, sp58.y, 0.3f, 100.0f, 0.0f);
+            sp58.z = -sp58.y;
+            Math_SmoothStepToF(&arg0->wings.unk_0C, sp58.z, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&arg0->wings.unk_10, sp58.z, 0.3f, 100.0f, 0.0f);
+            arg0->unk_190 = 2.0f;
+            arg0->camEye.x += arg0->vel.x * 0.1f;
+            arg0->camEye.z += arg0->vel.z * 0.1f;
+            if (arg0->unk_19C != 0) {
+                arg0->camEye.x += arg0->vel.z * 0.2f;
+                arg0->camEye.z += arg0->vel.x * 0.2f;
+            }
+            if (arg0->unk_19C == 0) {
+                Math_SmoothStepToAngle(&arg0->unk_114, sp58.x, 0.1f, 2.0f, 0.0f);
+            }
+            if (arg0->pos.y < arg0->unk_0A0) {
+                if (arg0->unk_004 < 0.0f) {
+                    arg0->unk_004 += 0.2f;
+                }
+            } else {
+                arg0->unk_004 -= 0.2f;
+            }
+            if (arg0->timer_1F8 == 0) {
+                arg0->state_1C8 = 3;
+                arg0->unk_014 = 0.0f;
+                arg0->unk_018 = 0.0f;
+            }
+            break;
+    }
+    arg0->pos.y += arg0->unk_004;
+    arg0->camAt.y += arg0->unk_004;
+    arg0->unk_0F8 = arg0->unk_0EC + arg0->unk_12C + arg0->unk_130;
+    Matrix_RotateY(gCalcMatrix, (arg0->unk_114 + arg0->unk_0E8 + 180.0f) * 0.017453292f, 0U);
+    Matrix_RotateX(gCalcMatrix, -((arg0->unk_120 + arg0->unk_0E4 + arg0->unk_4D8) * 0.017453292f), 1U);
+    sp50.rot.x = 0.0f;
+    sp50.rot.y = 0.0f;
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp50.rot, &sp50.pos);
+    arg0->vel.x = sp50.pos.x;
+    arg0->vel.z = sp50.pos.z;
+    arg0->vel.y = sp50.pos.y;
+    arg0->pos.x += arg0->vel.x;
+    arg0->pos.y += arg0->vel.y;
+    if (arg0->pos.y < arg0->unk_0A4) {
+        arg0->pos.y = arg0->unk_0A4;
+        arg0->vel.y = 0.0f;
+    }
+    arg0->pos.z += arg0->vel.z;
+    arg0->unk_138 = arg0->pos.z;
+    func_800B2574(arg0);
+    func_800B2130(arg0);
+    func_800AD7F0(arg0);
+    func_800AA800(arg0);
+    func_800A46A0(arg0);
+}
 
 void func_8004D3C8(s32 arg0) {
 }
