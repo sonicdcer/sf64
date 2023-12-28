@@ -8,8 +8,12 @@ extern float D_800CA068[3];
 extern float D_800CA074[3];
 
 extern void func_80187520(s32, void*);
+extern void func_800ADF58(Player*);
 extern UNK_TYPE func_8004D440(Object_8C*);
 extern UNK_TYPE func_8004A888(Object_8C*);
+extern UNK_TYPE func_8004D828(Player*);
+extern UNK_TYPE func_8004DEF8(Player*);
+extern UNK_TYPE func_801AB9B0(Player*);
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_80048AC0.s")
 
@@ -148,7 +152,35 @@ void func_8004D738(Player* arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004DEF8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004E3D8.s")
+void func_8004E3D8(Player* arg0) {
+    arg0->unk_228 = 0;
+    arg0->unk_280 = 0;
+
+    if (gFrameCount & 1) {
+        D_80137E84[gPlayerNum] = 1;
+    }
+    switch (arg0->form) {
+        case FORM_ARWING:
+            if (gLevelMode == 1) {
+                func_8004D828(arg0);
+            } else {
+                func_8004DEF8(arg0);
+                func_800ADF58(arg0);
+            }
+            func_800A8BA4(arg0);
+            func_800AA800(arg0);
+            return;
+        case FORM_LANDMASTER:
+            func_8004D738(arg0);
+            return;
+        case FORM_BLUE_MARINE:
+            func_801AB9B0(arg0);
+            return;
+        case FORM_ON_FOOT:
+            func_8004D738(arg0);
+            return;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004E4D4.s")
 
