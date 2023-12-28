@@ -31,7 +31,33 @@ void func_8004990C(Player* player) {
     player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_80049968.s")
+extern f32 D_800C9FD0[4];
+extern f32 D_800C9FE0[4];
+extern f32 D_800C9FF0[4];
+extern f32 D_800CA000[4];
+extern f32 D_800CA010[4];
+extern f32 D_800CA020[4];
+extern s32 D_800CA030[4];
+extern s32 D_800CA040[4];
+
+void func_80049968(Object_2F4* arg0, s32 arg1) {
+    Object_2F4_Initialize(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = 0xC3;
+    arg0->obj.pos.x = D_800C9FD0[arg1];
+    arg0->obj.pos.y = D_800C9FE0[arg1];
+    arg0->obj.pos.z = D_800C9FF0[arg1] + (((void) 0, gPlayer))->unk_138;
+    arg0->unk_114 = D_800CA000[arg1];
+    arg0->unk_118 = D_800CA010[arg1];
+    arg0->unk_0B6 = D_800CA030[arg1];
+    arg0->unk_0B8 = D_800CA040[arg1];
+    arg0->obj.rot.z = D_800CA020[arg1];
+    arg0->obj.rot.y = 180.0f;
+    arg0->unk_0E8.z = gPlayer->vel.z;
+    Object_SetInfo(&arg0->info, arg0->obj.id);
+    arg0->unk_07C = 1;
+    Audio_PlaySfx(0x3100000CU, &arg0->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+}
 
 void func_80049A9C(Object_8C* obj8c, f32 x, f32 y, f32 z) {
     Object_8C_Initialize(obj8c);
