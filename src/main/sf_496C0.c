@@ -8,6 +8,7 @@ extern float D_800CA068[3];
 extern float D_800CA074[3];
 
 extern void func_80187520(s32, void*);
+extern UNK_TYPE func_8004A888(Object_8C*);
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_80048AC0.s")
 
@@ -60,7 +61,18 @@ void func_8004A840(s32 arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004A888.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004AA84.s")
+void func_8004AA84(void) {
+    s32 i;
+
+    if (!(gFrameCount & 7) && gLevelType == LEVEL_CORNERIA) {
+        for (i = 0; i < sizeof(gObjects8C) / sizeof(gObjects8C[0]); i++) {
+            if (!gObjects8C[i].obj.status) {
+                func_8004A888(&gObjects8C[i]);
+                break;
+            }
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004AAF4.s")
 
@@ -79,6 +91,7 @@ void func_8004D3C8(s32 arg0) {
 
 void func_8004D3D4(Player* player, s32 arg1, Item* arg2) {
     u16 itemId;
+
     Item_Initialize(arg2);
     arg2->obj.status = 1;
     arg2->obj.pos.x = player->pos.x;
