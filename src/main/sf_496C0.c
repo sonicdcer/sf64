@@ -2,6 +2,7 @@
 
 #include "variables.h"
 
+extern Vec3f D_800C9FA0[];
 extern f32 D_800CA050[];
 extern f32 D_800CA05C[];
 extern f32 D_800CA068[];
@@ -9,11 +10,14 @@ extern f32 D_800CA074[];
 
 extern void func_80187520(s32, void*);
 extern void func_800ADF58(Player*);
+extern UNK_TYPE func_80048CC4(Object_2F4*, s32);
 extern UNK_TYPE func_8004D440(Object_8C*);
 extern UNK_TYPE func_8004A888(Object_8C*);
 extern UNK_TYPE func_8004D828(Player*);
 extern UNK_TYPE func_8004DEF8(Player*);
 extern UNK_TYPE func_801AB9B0(Player*);
+
+// extern void func_80049630(Object_2F4 *arg0);
 
 void func_80048AC0(s32 arg0) {
     s32 teamShield;
@@ -71,7 +75,48 @@ void func_80048AC0(s32 arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_80048E40.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_80049630.s")
+void func_80049630(Object_2F4* obj2F4) {
+    Vec3f sp3C;
+    Vec3f sp30;
+
+    switch (obj2F4->unk_0B8) {
+        case 0:
+            obj2F4->unk_18C[0].x = D_800C9FA0[obj2F4->index].x + gPlayer->pos.x;
+            obj2F4->unk_18C[0].y = D_800C9FA0[obj2F4->index].y + gPlayer->pos.y;
+            obj2F4->unk_18C[0].z = D_800C9FA0[obj2F4->index].z + gPlayer->pos.z;
+            Math_SmoothStepToF(&obj2F4->obj.pos.x, obj2F4->unk_18C[0].x, 0.05f, 50.0f, 0.0001f);
+            Math_SmoothStepToF(&obj2F4->obj.pos.y, obj2F4->unk_18C[0].y, 0.05f, 50.0f, 0.0001f);
+            Math_SmoothStepToF(&obj2F4->obj.pos.z, obj2F4->unk_18C[0].z, 0.05f, 50.0f, 0.0001f);
+            Math_SmoothStepToF(&obj2F4->unk_0F4.x, gPlayer->unk_0E4, 0.1f, 2.0f, 0.0001f);
+            Math_SmoothStepToF(&obj2F4->unk_0F4.y, gPlayer->unk_0E8, 0.1f, 2.0f, 0.0001f);
+            Math_SmoothStepToF(&obj2F4->unk_0F4.z, 0.0f, 0.05f, 0.2f, 0.0001f);
+            break;
+        case 1:
+            obj2F4->unk_0B8 = 2;
+            Audio_PlaySfx(0x09000002U, &obj2F4->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            obj2F4->timer_0BC = 0x96;
+            obj2F4->unk_188 = 5.0f;
+        case 2:
+            obj2F4->unk_07C = 2;
+            obj2F4->unk_114 += 2.0f;
+            if (obj2F4->timer_0BC == 0) {
+                Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
+            }
+            break;
+    }
+    Matrix_RotateY(gCalcMatrix, (obj2F4->unk_0F4.y + 180.0f) * 0.017453292f, 0U);
+    Matrix_RotateX(gCalcMatrix, -(obj2F4->unk_0F4.x * 0.017453292f), 1U);
+    sp3C.x = 0.0f;
+    sp3C.y = 0.0f;
+    sp3C.z = obj2F4->unk_114;
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, (Vec3f*) &sp3C, &sp30);
+    obj2F4->unk_0E8.x = sp30.x;
+    obj2F4->unk_0E8.y = sp30.y;
+    obj2F4->unk_0E8.z = sp30.z;
+    obj2F4->obj.rot.x = -obj2F4->unk_0F4.x;
+    obj2F4->obj.rot.y = obj2F4->unk_0F4.y + 180.0f;
+    obj2F4->obj.rot.z = -obj2F4->unk_0F4.z;
+}
 
 void func_8004990C(Player* player) {
     if (D_801784AC == 0) {
