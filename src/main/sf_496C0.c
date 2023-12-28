@@ -3,6 +3,14 @@
 #include "variables.h"
 
 extern Vec3f D_800C9FA0[];
+extern f32 D_800C9FD0[4];
+extern f32 D_800C9FE0[4];
+extern f32 D_800C9FF0[4];
+extern f32 D_800CA000[4];
+extern f32 D_800CA010[4];
+extern f32 D_800CA020[4];
+extern s32 D_800CA030[4];
+extern s32 D_800CA040[4];
 extern f32 D_800CA050[];
 extern f32 D_800CA05C[];
 extern f32 D_800CA068[];
@@ -16,8 +24,6 @@ extern UNK_TYPE func_8004A888(Object_8C*);
 extern UNK_TYPE func_8004D828(Player*);
 extern UNK_TYPE func_8004DEF8(Player*);
 extern UNK_TYPE func_801AB9B0(Player*);
-
-// extern void func_80049630(Object_2F4 *arg0);
 
 void func_80048AC0(s32 arg0) {
     s32 teamShield;
@@ -125,15 +131,6 @@ void func_8004990C(Player* player) {
     player->unk_138 = player->pos.z + player->unk_08C;
     player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
 }
-
-extern f32 D_800C9FD0[4];
-extern f32 D_800C9FE0[4];
-extern f32 D_800C9FF0[4];
-extern f32 D_800CA000[4];
-extern f32 D_800CA010[4];
-extern f32 D_800CA020[4];
-extern s32 D_800CA030[4];
-extern s32 D_800CA040[4];
 
 void func_80049968(Object_2F4* arg0, s32 arg1) {
     Object_2F4_Initialize(arg0);
