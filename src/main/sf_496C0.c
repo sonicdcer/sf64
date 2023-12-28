@@ -188,7 +188,25 @@ void func_8004E3D8(Player* arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004F05C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004F798.s")
+void func_8004F798(Object_2F4* arg0) {
+    arg0->unk_07C = 2;
+
+    switch (arg0->unk_0B8) {
+        case 0:
+            Math_SmoothStepToF(&arg0->obj.pos.x, arg0->unk_114, 0.05f, 50.0f, 0.0f);
+            Math_SmoothStepToF(&arg0->obj.pos.y, arg0->unk_118, 0.05f, 50.0f, 0.0f);
+            Math_SmoothStepToF(&arg0->obj.rot.z, 0.0f, 0.05f, 1.0f, 0.0f);
+            arg0->obj.pos.z -= 2.0f;
+            return;
+        case 1:
+            arg0->unk_188 = 10.0f;
+            arg0->unk_0E8.z -= 100.0f;
+            if ((arg0->obj.pos.z + D_80177D20) < -15000.0f) {
+                Object_Kill(&arg0->obj, &arg0->sfxPos);
+            }
+            return;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004F8AC.s")
 
