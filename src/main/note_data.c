@@ -1,13 +1,13 @@
 #include "global.h"
 
 #define MK_CMD(b0, b1, b2, b3) \
-    ((((b0) & 0xFF) << 0x18) | (((b1) & 0xFF) << 0x10) | (((b2) & 0xFF) << 0x8) | (((b3) & 0xFF) << 0))
+    ((((b0) &0xFF) << 0x18) | (((b1) &0xFF) << 0x10) | (((b2) &0xFF) << 0x8) | (((b3) &0xFF) << 0))
 
 #define NO_LAYER ((SequenceLayer*) (-1))
 
 #define TATUMS_PER_BEAT 48
 
-#define IS_SEQUENCE_CHANNEL_VALID(ptr) ((u32) (ptr) != (u32) & gAudioCtx.sequenceChannelNone)
+#define IS_SEQUENCE_CHANNEL_VALID(ptr) ((u32) (ptr) != (u32) &gAudioCtx.sequenceChannelNone)
 #define SEQ_NUM_CHANNELS 16
 #define SEQ_IO_VAL_NONE -1
 
