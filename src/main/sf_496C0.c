@@ -2,6 +2,9 @@
 
 #include "variables.h"
 
+extern Vec3f D_800C9F60[];
+extern f32 D_800C9F90[];
+extern f32 D_800C9F9C;
 extern Vec3f D_800C9FA0[];
 extern f32 D_800C9FD0[];
 extern f32 D_800C9FE0[];
@@ -18,7 +21,6 @@ extern f32 D_800CA074[];
 
 extern void func_80187520(s32, void*);
 extern void func_800ADF58(Player*);
-extern UNK_TYPE func_80048CC4(Object_2F4*, s32);
 extern UNK_TYPE func_8004D440(Player*);
 extern UNK_TYPE func_80046358(Player*);
 extern UNK_TYPE func_80048E40(Player*);
@@ -113,7 +115,25 @@ void func_80048AC0(s32 arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_80048CC4.s")
+void func_80048CC4(Object_2F4* arg0, s32 arg1) {
+    Object_2F4_Initialize(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = 0xC3;
+    arg0->obj.pos.x = D_800C9F60[arg1].x + gPlayer[0].pos.x;
+    arg0->obj.pos.y = D_800C9F60[arg1].y + gPlayer[0].pos.y;
+    arg0->obj.pos.z = D_800C9F60[arg1].z + gPlayer[0].unk_138;
+    arg0->unk_0F4.y = 0.0f;
+    arg0->unk_0F4.z = D_800C9F90[arg1];
+    Object_SetInfo(&arg0->info, arg0->obj.id);
+    if (arg1 == 3) {
+        Audio_PlaySfx(0x11030010U, &arg0->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(0x31024059U, &arg0->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        arg0->unk_0B6 = 1;
+    } else {
+        arg0->unk_07C = 1;
+        Audio_PlaySfx(0x3100000CU, &arg0->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_80048E40.s")
 
@@ -151,7 +171,7 @@ void func_80049630(Object_2F4* obj2F4) {
     sp3C.x = 0.0f;
     sp3C.y = 0.0f;
     sp3C.z = obj2F4->unk_114;
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, (Vec3f*) &sp3C, &sp30);
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp3C, &sp30);
     obj2F4->unk_0E8.x = sp30.x;
     obj2F4->unk_0E8.y = sp30.y;
     obj2F4->unk_0E8.z = sp30.z;
