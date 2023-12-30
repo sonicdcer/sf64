@@ -42,6 +42,10 @@ jobs:
     - name: Compile
       run: make init
 
+#    - name: Upload frogress
+#      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+#      run: python3 tools/upload_frogress.py --apikey ${{ secrets.PROGRESS_API_KEY }}
+
     - name: Upload progress to Discord
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       run: python3 tools/upload_progress.py --discord_url ${{ secrets.DISCORD_URL }}
