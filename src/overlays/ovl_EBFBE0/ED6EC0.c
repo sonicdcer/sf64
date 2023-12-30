@@ -3611,7 +3611,150 @@ void func_EBFBE0_801AD048(void) {
     Matrix_RotateX(gGfxMatrix, -sp1C, 1);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AD11C.s")
+void func_EBFBE0_801AD11C(void) {
+    s32 i;
+    s32 var_t0;
+    s32 var_a3;
+    u8 var_a1 = 0;
+    u8 var_a2 = 0;
+    u8 var_a0;
+    f32 x;
+    f32 y;
+
+    var_a3 = 0;
+    var_t0 = 0;
+
+    if (gControllerPress[gMainController].button & A_BUTTON) {
+        if ((D_80161A34 == 7) && (D_EBFBE0_801CD93C != 0) && (!D_EBFBE0_801CEFD0)) {
+            func_8001D6DC(1);
+            D_EBFBE0_801CEFC4 = 1;
+            D_EBFBE0_801CEFD4 = 0;
+            D_EBFBE0_801CEFDC = 0;
+            D_EBFBE0_801CD944 = 6;
+            D_EBFBE0_801CD94C = 0;
+        } else {
+            for (i = 0; i < 6; i++) {
+                D_80177C58[i] = gTeamShields[i];
+            }
+            func_EBFBE0_801A659C();
+        }
+        return;
+    }
+
+    if (gControllerPress[gMainController].button & START_BUTTON) {
+        if (D_EBFBE0_801CD944 == 3 && D_80161A34 == 7) {
+            if (D_EBFBE0_801CEFD0) {
+                Audio_PlaySfx(0x4900100AU, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            } else {
+                func_8001D6DC(1);
+                D_EBFBE0_801CEFC4 = 1;
+                D_EBFBE0_801CEFD4 = 0;
+                D_EBFBE0_801CEFDC = 0;
+                D_EBFBE0_801CD944 = 6;
+                D_EBFBE0_801CD94C = 0;
+            }
+            return;
+        }
+    }
+
+    x = gControllerPress[gMainController].stick_x;
+    y = gControllerPress[gMainController].stick_y;
+
+    if (y != 0.0f) {
+        if (D_EBFBE0_801CDA0C - (y * 0.05f) < -80.0f) {
+            D_EBFBE0_801CDA0C = -80.0f;
+            y = 0.0f;
+        } else if (D_EBFBE0_801CDA0C - (y * 0.05f) > 80.0f) {
+            D_EBFBE0_801CDA0C = 80.0f;
+            y = 0.0f;
+        } else {
+            D_EBFBE0_801CDA0C -= y * 0.05f;
+            var_a3 = 1;
+            var_a1 = (s32) fabsf(((y * 0.05f) / 0.27f));
+        }
+    }
+
+    if (x != 0.0f) {
+        D_EBFBE0_801CDA10 += x * 0.05f;
+        var_a2 = (s32) fabsf((x * 0.05f) / 0.27f);
+        var_a3 = 1;
+    }
+
+    if (D_EBFBE0_801CF014 == 1) {
+        var_a0 = var_a1;
+        if (var_a1 < var_a2) {
+            var_a0 = var_a2;
+        }
+        func_8001D15C(var_a0);
+    }
+
+    if (D_EBFBE0_801CF014 == 0 && var_a3 == 1) {
+        func_8001D10C(&D_800C5D28, 0x1100204C);
+        D_EBFBE0_801CF014 = 1;
+    }
+
+    if ((D_EBFBE0_801CF014 == 1) && (var_a3 == 0) && (y == 0.0f) && (x == 0.0f)) {
+        var_a1 = 0;
+        var_a2 = 0;
+        func_8001A838(0x1100204CU);
+        D_EBFBE0_801CF014 = 0;
+    }
+
+    if (gControllerHold[gMainController].button & R_TRIG) {
+        if (D_EBFBE0_801CDA14 - 20.0f > 2475.0f) {
+            D_EBFBE0_801CDA14 -= 20.0f;
+            var_t0 = 1;
+        }
+    }
+
+    if (gControllerHold[gMainController].button & Z_TRIG) {
+        if (D_EBFBE0_801CDA14 + 20.0f < 7695.0f) {
+            D_EBFBE0_801CDA14 += 20.0f;
+            var_t0 = 1;
+        }
+    }
+
+    if (gControllerHold[gMainController].button & U_CBUTTONS) {
+        if (D_EBFBE0_801CDA04 - 10.0f >= -1200.0f) {
+            D_EBFBE0_801CDA04 -= 10.0f;
+            var_t0 = 1;
+        }
+    }
+
+    if (gControllerHold[gMainController].button & D_CBUTTONS) {
+        if (D_EBFBE0_801CDA04 + 10.0f <= 1200.0f) {
+            D_EBFBE0_801CDA04 += 10.0f;
+            var_t0 = 1;
+        }
+    }
+
+    if (gControllerHold[gMainController].button & L_CBUTTONS) {
+        if (D_EBFBE0_801CDA00 + 10.0f <= 1200.0f) {
+            D_EBFBE0_801CDA00 += 10.0f;
+            var_t0 = 1;
+        }
+    }
+
+    if (gControllerHold[gMainController].button & R_CBUTTONS) {
+        if (D_EBFBE0_801CDA00 - 10.0f >= -1200.0f) {
+            D_EBFBE0_801CDA00 -= 10.0f;
+            var_t0 = 1;
+        }
+    }
+
+    if (D_EBFBE0_801CF010 == 0 && var_t0 == 1) {
+        Audio_PlaySfx(0x1100004CU, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        D_EBFBE0_801CF010 = 1;
+    }
+
+    if (D_EBFBE0_801CF010 == 1 && var_t0 == 0) {
+        func_8001A838(0x1100004CU);
+        D_EBFBE0_801CF010 = 0;
+    }
+}
+
+void func_dummy_() {
+}
 
 void func_EBFBE0_801AD718(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg5, f32 arg6, f32 arg7, f32 arg8) {
     Vec3f sp2C;
