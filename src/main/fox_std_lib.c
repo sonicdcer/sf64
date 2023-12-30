@@ -837,7 +837,7 @@ void* sSmallCharTex[] = {
 
 void Graphics_DisplayLargeText(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char* text) {
     u32 charIndex;
-    f32 xPosCurrent = (f32) xPos;
+    f32 xPosCurrent = xPos;
     s32 pad4C;
     s32 width;
     s32 startPrint = false;
@@ -1110,7 +1110,7 @@ void Graphics_DisplayLargeNumber(s32 xPos, s32 yPos, s32 number) {
 
 void Graphics_DisplaySmallText(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char* text) {
     u32 var_t0;
-    f32 xPosCurrent = (f32) xPos;
+    f32 xPosCurrent = xPos;
     s32 width;
 
     while (text[0] != 0) {

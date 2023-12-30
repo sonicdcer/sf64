@@ -289,7 +289,7 @@ extern s32 D_8015F978;
 extern s32 D_8015F97C;
 extern s32 D_8015F980;
 extern f32 D_8015F984;
-extern f32 D_80161394;
+// extern f32 D_80161394;
 
 // fox_43AC0
 extern s32 D_801613A0;

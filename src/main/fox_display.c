@@ -1527,7 +1527,7 @@ void func_80057D00(void) {
     } else {
         Math_SmoothStepToF(&D_800CA230, 0.0f, 0.2f, 0.002f, 0.0f);
     }
-    Matrix_RotateZ(gGfxMatrix, (f32) gFrameCount * 10.0f * M_DTOR, 1);
+    Matrix_RotateZ(gGfxMatrix, gFrameCount * 10.0f * M_DTOR, 1);
     Matrix_Scale(gGfxMatrix, 1.0f + D_800CA230, 1.0f - D_800CA230, 1.0f, 1);
     Matrix_RotateZ(gGfxMatrix, -(f32) gFrameCount * 10.0f * M_DTOR, 1);
     Matrix_Scale(gGfxMatrix, 1.0f + D_800CA230, 1.0f - D_800CA230, 1.0f, 1);
@@ -1556,7 +1556,7 @@ void func_80057D00(void) {
         D_801779E8.z += player->unk_138 + player->unk_144;
 
         if ((player->unk_238 != 0) && (player->unk_110 > 5.0f)) {
-            D_801779E8.x += __sinf((f32) gFrameCount * 150.0f * M_DTOR) * player->unk_110 * 0.2f;
+            D_801779E8.x += __sinf(gFrameCount * 150.0f * M_DTOR) * player->unk_110 * 0.2f;
         }
     } else if (player->state_1C8 == PLAYERSTATE_1C8_7) {
         func_800578C4(player);

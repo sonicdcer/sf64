@@ -487,7 +487,7 @@ void func_8006C008(Object_2F4* obj2F4) {
     s32 sp40;
 
     switch (obj2F4->unk_0B8) {
-        case 0x28:
+        case 40:
             if (obj2F4->unk_04A & 4) {
                 obj2F4->obj.pos.x = obj2F4->unk_120 + gPlayer->pos.x;
                 obj2F4->obj.pos.z = obj2F4->unk_124.x + gPlayer->unk_138;
@@ -539,12 +539,12 @@ void func_8006C008(Object_2F4* obj2F4) {
             }
             break;
 
-        case 0x2D:
+        case 45:
             obj2F4->obj.rot.y += obj2F4->unk_114;
             obj2F4->obj.rot.z += obj2F4->unk_118;
             break;
 
-        case 0x2E:
+        case 46:
             obj2F4->obj.rot.x += obj2F4->unk_114;
             obj2F4->obj.rot.y += obj2F4->unk_118;
             obj2F4->obj.rot.z += obj2F4->unk_11C;
@@ -568,7 +568,7 @@ void func_8006C008(Object_2F4* obj2F4) {
             }
             break;
 
-        case 0x2F:
+        case 47:
             func_E6A810_801B6E20(obj2F4->obj.pos.x, obj2F4->obj.pos.z + D_80177D20, &sp4C, &sp48, &sp4C);
 
             if (obj2F4->obj.pos.y < obj2F4->unk_120 + (-100.0f + sp48)) {
@@ -600,12 +600,12 @@ void func_8006C008(Object_2F4* obj2F4) {
             }
             break;
 
-        case 0x30:
-        case 0x31:
-        case 0x33:
-        case 0x34:
-        case 0x35:
-        case 0x37:
+        case 48:
+        case 49:
+        case 51:
+        case 52:
+        case 53:
+        case 55:
             if (((obj2F4->timer_0BC == 0) || (func_8006351C(obj2F4->index, &obj2F4->obj.pos, &D_800D0030, 1) != 0) ||
                  (obj2F4->obj.pos.y < (D_80177940 + 10.0f))) &&
                 (obj2F4->timer_0BE == 0)) {
@@ -615,7 +615,7 @@ void func_8006C008(Object_2F4* obj2F4) {
             }
             break;
 
-        case 0x38:
+        case 56:
             Math_SmoothStepToF(&obj2F4->scale, 0.0f, 0.1f, 2.0f, 0.0001f);
             if (((obj2F4->timer_0BC == 0) || (func_8006351C(obj2F4->index, &obj2F4->obj.pos, &D_800D0030, 1) != 0) ||
                  (obj2F4->obj.pos.y < (D_80177940 + 10.0f))) &&
@@ -626,7 +626,7 @@ void func_8006C008(Object_2F4* obj2F4) {
             }
             break;
 
-        case 0x3A:
+        case 58:
             if (obj2F4->unk_046 == 0) {
                 obj2F4->unk_046++;
                 obj2F4->unk_114 = (Rand_ZeroOne() - 0.5f) * 30.0f;
@@ -647,7 +647,7 @@ void func_8006C008(Object_2F4* obj2F4) {
             }
             break;
 
-        case 0x36:
+        case 54:
             if (((obj2F4->timer_0BC == 0) || (func_8006351C(obj2F4->index, &obj2F4->obj.pos, &D_800D0030, 1) != 0) ||
                  (obj2F4->obj.pos.y < (D_80177940 + 10.0f))) &&
                 (obj2F4->timer_0BE == 0)) {
@@ -658,7 +658,7 @@ void func_8006C008(Object_2F4* obj2F4) {
             }
             break;
 
-        case 0x32:
+        case 50:
             if ((obj2F4->unk_050 == 2) && (obj2F4->timer_0BC == 0)) {
                 func_8007D2C8(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, 5.0f);
                 obj2F4->timer_0BC = 4;
@@ -674,7 +674,7 @@ void func_8006C008(Object_2F4* obj2F4) {
             }
             break;
 
-        case 0x39:
+        case 57:
             obj2F4->obj.rot.x += obj2F4->unk_114;
             obj2F4->obj.rot.y += obj2F4->unk_118;
             obj2F4->obj.rot.z += obj2F4->unk_11C;
@@ -2092,15 +2092,15 @@ void func_800701E0(Object_2F4* obj2F4) {
                         }
                     } else {
                         switch (obj2F4->unk_0B4) {
-                            case 0xD:
+                            case 13:
                                 func_800654E4(&obj2F4->obj);
                                 break;
 
-                            case 0x3D:
+                            case 61:
                                 func_E08400_8018CCF8(obj2F4);
                                 break;
 
-                            case 0x1B:
+                            case 27:
                                 obj2F4->obj.pos.y -= obj2F4->unk_0E8.y;
                                 obj2F4->obj.status = 2;
                                 func_8007D0E0(obj2F4->obj.pos.x - obj2F4->unk_0E8.x, obj2F4->obj.pos.y + 30.0f,
@@ -2270,252 +2270,252 @@ void func_80070D44(Object_2F4* obj2F4) {
         case 0:
             break;
 
-        case 0x1:
+        case 1:
             if ((gObjects2F4[obj2F4->unk_054].obj.status != 2) || (gObjects2F4[obj2F4->unk_054].unk_0CE <= 0) ||
                 (obj2F4->unk_078 != gObjects2F4[obj2F4->unk_054].unk_0E4)) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x2:
+        case 2:
             if (var_v1 == 3) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x3:
+        case 3:
             if (var_v1 == 2) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x4:
+        case 4:
             if (var_v1 == 1) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x5:
+        case 5:
             if (var_v1 == 0) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x6:
+        case 6:
             if (gTeamShields[1] > 0) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x7:
+        case 7:
             if (gTeamShields[3] > 0) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x8:
+        case 8:
             if (gTeamShields[2] > 0) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x9:
+        case 9:
             if (((obj2F4->obj.pos.x - gPlayer[0].pos.x) <= 100.0f) &&
                 ((obj2F4->obj.pos.x - gPlayer[0].pos.x) >= 0.0f)) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0xA:
+        case 10:
             if (((obj2F4->obj.pos.x - gPlayer[0].pos.x) <= 400.0f) &&
                 ((obj2F4->obj.pos.x - gPlayer[0].pos.x) >= 0.0f)) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0xB:
+        case 11:
             if (((obj2F4->obj.pos.x - gPlayer[0].pos.x) <= 700.0f) &&
                 ((obj2F4->obj.pos.x - gPlayer[0].pos.x) >= 0.0f)) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0xC:
+        case 12:
             if (((obj2F4->obj.pos.x - gPlayer[0].pos.x) <= 200.0f) &&
                 ((obj2F4->obj.pos.x - gPlayer[0].pos.x) >= 0.0f)) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0xD:
+        case 13:
             if (((obj2F4->obj.pos.x - gPlayer[0].pos.x) >= -100.0f) &&
                 ((obj2F4->obj.pos.x - gPlayer[0].pos.x) <= 0.0f)) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0xE:
+        case 14:
             if (((obj2F4->obj.pos.x - gPlayer[0].pos.x) >= -400.0f) &&
                 ((obj2F4->obj.pos.x - gPlayer[0].pos.x) <= 0.0f)) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0xF:
+        case 15:
             if (((obj2F4->obj.pos.x - gPlayer[0].pos.x) >= -700.0f) &&
                 ((obj2F4->obj.pos.x - gPlayer[0].pos.x) <= 0.0f)) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x10:
+        case 16:
             if (((obj2F4->obj.pos.x - gPlayer[0].pos.x) >= -200.0f) &&
                 ((obj2F4->obj.pos.x - gPlayer[0].pos.x) <= 0.0f)) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x11:
+        case 17:
             if (((obj2F4->obj.pos.y - gPlayer[0].pos.y) <= 100.0f) &&
                 ((obj2F4->obj.pos.y - gPlayer[0].pos.y) >= 0.0f)) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x12:
+        case 18:
             if (((obj2F4->obj.pos.y - gPlayer[0].pos.y) <= 400.0f) &&
                 ((obj2F4->obj.pos.y - gPlayer[0].pos.y) >= 0.0f)) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x13:
+        case 19:
             if (((obj2F4->obj.pos.y - gPlayer[0].pos.y) <= 700.0f) &&
                 ((obj2F4->obj.pos.y - gPlayer[0].pos.y) >= 0.0f)) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x14:
+        case 20:
             if (((obj2F4->obj.pos.y - gPlayer[0].pos.y) <= 200.0f) &&
                 ((obj2F4->obj.pos.y - gPlayer[0].pos.y) >= 0.0f)) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x15:
+        case 21:
             if (((obj2F4->obj.pos.y - gPlayer[0].pos.y) >= -100.0f) &&
                 ((obj2F4->obj.pos.y - gPlayer[0].pos.y) <= 0.0f)) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x16:
+        case 22:
             if (((obj2F4->obj.pos.y - gPlayer[0].pos.y) >= -400.0f) &&
                 ((obj2F4->obj.pos.y - gPlayer[0].pos.y) <= 0.0f)) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x17:
+        case 23:
             if (((obj2F4->obj.pos.y - gPlayer[0].pos.y) >= -700.0f) &&
                 ((obj2F4->obj.pos.y - gPlayer[0].pos.y) <= 0.0f)) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x18:
+        case 24:
             if (((obj2F4->obj.pos.y - gPlayer[0].pos.y) >= -200.0f) &&
                 ((obj2F4->obj.pos.y - gPlayer[0].pos.y) <= 0.0f)) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x19:
+        case 25:
             if (gPlayer[0].shields >= Play_GetMaxShields()) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x1A:
+        case 26:
             if (gPlayer[0].shields >= (Play_GetMaxShields() * 3 / 4)) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x1B:
+        case 27:
             if (gPlayer[0].shields >= (Play_GetMaxShields() / 2)) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x1C:
+        case 28:
             if (gPlayer[0].shields >= (Play_GetMaxShields() / 4)) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x1D:
+        case 29:
             if (gPlayer[0].shields == 0) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x1E:
+        case 30:
             if (gPlayer[0].unk_270 >= 5) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x1F:
+        case 31:
             if (gPlayer[0].unk_270 != 0) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x20:
+        case 32:
             if (gPlayer[0].unk_270 == 0) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x21:
+        case 33:
             if (gPlayer[0].unk_250 >= 16.8f) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x22:
+        case 34:
             if (gPlayer[0].unk_250 <= 8.4f) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x23:
+        case 35:
             if (gPlayer[0].wings.unk_14 > -8.0f) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x24:
+        case 36:
             if ((gPlayer[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == 1)) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x25:
+        case 37:
             if ((gPlayer[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == 2)) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x26:
+        case 38:
             if ((gPlayer[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == 3)) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x27:
+        case 39:
             for (i = 0; i < ARRAY_COUNT(gPlayerShots); i++) {
                 if ((gPlayerShots[i].obj.status == 1) &&
                     (fabsf(obj2F4->obj.pos.x - gPlayerShots[i].obj.pos.x) < 150.0f) &&
@@ -2527,7 +2527,7 @@ void func_80070D44(Object_2F4* obj2F4) {
             }
             break;
 
-        case 0x28:
+        case 40:
             for (i = 0; i < ARRAY_COUNT(gPlayerShots); i++) {
                 if ((gPlayerShots[i].obj.status == 1) &&
                     (fabsf(obj2F4->obj.pos.x - gPlayerShots[i].obj.pos.x) < 300.0f) &&
@@ -2539,14 +2539,14 @@ void func_80070D44(Object_2F4* obj2F4) {
             }
             break;
 
-        case 0x29:
+        case 41:
             if ((gObjects2F4[obj2F4->unk_074].obj.status != 2) ||
                 ((gObjects2F4[obj2F4->unk_074].scale < 0.0f) && (obj2F4->unk_0CE <= 0))) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x2A:
+        case 42:
             for (i = 0; i < ARRAY_COUNT(gObjects2F4); i++) {
                 if ((gObjects2F4[i].obj.status == 2) && (gObjects2F4[i].obj.id == OBJ_2F4_200) &&
                     (gObjects2F4[i].unk_084 != 0) && (i != obj2F4->index) &&
@@ -2557,7 +2557,7 @@ void func_80070D44(Object_2F4* obj2F4) {
             func_80070CEC(obj2F4);
             break;
 
-        case 0x2B:
+        case 43:
             for (i = 0; i < ARRAY_COUNT(gObjects2F4); i++) {
                 if ((gObjects2F4[i].obj.status == 2) && (gObjects2F4[i].obj.id == OBJ_2F4_200) &&
                     (gObjects2F4[i].unk_084 != 0) && (i != obj2F4->index) &&
@@ -2568,13 +2568,13 @@ void func_80070D44(Object_2F4* obj2F4) {
             }
             break;
 
-        case 0x2C:
+        case 44:
             if (obj2F4->unk_0D0 != 0) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x2D:
+        case 45:
             var_v1_4 = 7;
             switch (gCurrentLevel) {
                 case LEVEL_CORNERIA:
@@ -2592,7 +2592,7 @@ void func_80070D44(Object_2F4* obj2F4) {
             }
             break;
 
-        case 0x2E:
+        case 46:
             for (i = 0, other2F4 = gObjects2F4; i < ARRAY_COUNT(gObjects2F4); i++, other2F4++) {
                 if (((other2F4->obj.status == 3) || (other2F4->obj.status == 0)) &&
                     (obj2F4->unk_08C == other2F4->unk_08C) && (other2F4->unk_090 != 0)) {
@@ -2601,7 +2601,7 @@ void func_80070D44(Object_2F4* obj2F4) {
             }
             break;
 
-        case 0x2F:
+        case 47:
             if (gControllerPress[gMainController].button & R_CBUTTONS) {
                 func_8001AF40(0);
                 D_800CFF90 = 0;
@@ -2610,121 +2610,121 @@ void func_80070D44(Object_2F4* obj2F4) {
             }
             break;
 
-        case 0x30:
+        case 48:
             if ((gPlayer[0].wings.rightState <= WINGSTATE_BROKEN) || (gPlayer[0].wings.leftState <= WINGSTATE_BROKEN)) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x31:
+        case 49:
             if (D_800D3180[1] != 0) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x32:
+        case 50:
             if (D_800D3180[0xE] != 0) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x33:
+        case 51:
             if (D_800D3180[2] != 0) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x34:
+        case 52:
             if (D_800D3180[0xC] != 0) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x35:
+        case 53:
             if (D_800D3180[0x11] != 0) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x36:
+        case 54:
             if (D_800D3180[5] != 0) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x37:
+        case 55:
             if (D_800D3180[0x10] != 0) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x38:
+        case 56:
             if (D_800D3180[7] != 0) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x39:
+        case 57:
             if (D_800D3180[0xB] != 0) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x3A:
+        case 58:
             if (D_800D3180[0xD] != 0) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x3B:
+        case 59:
             if (D_800D3180[8] != 0) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x3C:
+        case 60:
             if (D_800D3180[0x12] != 0) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x3D:
+        case 61:
             if (D_800D3180[3] != 0) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x3E:
+        case 62:
             if (D_Timer_80161670[obj2F4->unk_080] == 0) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x3F:
+        case 63:
             if (D_Timer_80161670[obj2F4->unk_080] != 0) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x40:
+        case 64:
             if (D_80161684 != 0) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x41:
+        case 65:
             if (gHitCount >= 30) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x42:
+        case 66:
             if (gHitCount >= 80) {
                 func_80070CEC(obj2F4);
             }
             break;
 
-        case 0x43:
+        case 67:
             if (gExpertMode != 0) {
                 func_80070CEC(obj2F4);
             }
@@ -3011,20 +3011,20 @@ void func_80072594(Object_2F4* obj2F4) {
         }
 
         switch (obj2F4->unk_0B8) {
-            case 0x0:
+            case 0:
                 func_8006D36C(obj2F4);
                 break;
 
-            case 0x1:
+            case 1:
                 if (obj2F4->timer_0BC == 0) {
                     func_8006D36C(obj2F4);
                 }
                 break;
 
-            case 0x6:
-            case 0x7:
-            case 0xE:
-            case 0xF:
+            case 6:
+            case 7:
+            case 14:
+            case 15:
                 spF0 = obj2F4->obj.pos.x;
                 spEC = obj2F4->obj.pos.y;
                 spE8 = obj2F4->obj.pos.z;
@@ -3139,15 +3139,15 @@ void func_80072594(Object_2F4* obj2F4) {
                 }
                 break;
 
-            case 0xD:
-                spDC = __sinf(((obj2F4->index * 0x2D) + gFrameCount) * M_DTOR) * obj2F4[0].unk_158;
-                spD8 = __cosf(((obj2F4->index * 0x2D) + (gFrameCount * 2)) * M_DTOR) * obj2F4[0].unk_158;
+            case 13:
+                spDC = __sinf(((obj2F4->index * 45) + gFrameCount) * M_DTOR) * (*obj2F4).unk_158;
+                spD8 = __cosf(((obj2F4->index * 45) + (gFrameCount * 2)) * M_DTOR) * (*obj2F4).unk_158;
                 pad = obj2F4->unk_054;
                 pad = gObjects2F4[pad].unk_080;
                 D_Timer_80161670[pad] = 5;
 
-            case 0x8:
-            case 0x9:
+            case 8:
+            case 9:
                 spF0 = obj2F4->obj.pos.x;
                 spEC = obj2F4->obj.pos.y;
                 spE8 = obj2F4->obj.pos.z;
@@ -3182,7 +3182,7 @@ void func_80072594(Object_2F4* obj2F4) {
                 }
                 break;
 
-            case 0x2:
+            case 2:
                 obj2F4->unk_0F4.x += obj2F4->unk_120;
                 obj2F4->unk_11C -= obj2F4->unk_120;
                 if (obj2F4->unk_11C <= 0.0f) {
@@ -3190,7 +3190,7 @@ void func_80072594(Object_2F4* obj2F4) {
                 }
                 break;
 
-            case 0x3:
+            case 3:
                 obj2F4->unk_0F4.x -= obj2F4->unk_120;
                 obj2F4->unk_11C -= obj2F4->unk_120;
                 if (obj2F4->unk_11C <= 0.0f) {
@@ -3198,7 +3198,7 @@ void func_80072594(Object_2F4* obj2F4) {
                 }
                 break;
 
-            case 0x4:
+            case 4:
                 obj2F4->unk_0F4.y += obj2F4->unk_120;
                 obj2F4->unk_11C -= obj2F4->unk_120;
                 if (obj2F4->unk_11C <= 0.0f) {
@@ -3206,7 +3206,7 @@ void func_80072594(Object_2F4* obj2F4) {
                 }
                 break;
 
-            case 0x5:
+            case 5:
                 obj2F4->unk_0F4.y -= obj2F4->unk_120;
                 obj2F4->unk_11C -= obj2F4->unk_120;
                 if (obj2F4->unk_11C <= 0.0f) {
@@ -3214,7 +3214,7 @@ void func_80072594(Object_2F4* obj2F4) {
                 }
                 break;
 
-            case 0xA:
+            case 10:
                 var_s0 = 0;
                 if (Math_SmoothStepToAngle(&obj2F4->obj.rot.x, 0.0f, 0.3f, 10.0f, 1.0f) == 0.0f) {
                     var_s0++;
@@ -3234,13 +3234,13 @@ void func_80072594(Object_2F4* obj2F4) {
                 }
                 break;
 
-            case 0xB:
+            case 11:
                 if (Math_SmoothStepToF(&obj2F4->unk_150, 0.0f, 0.3f, 10.0f, 1.0f) == 0.0f) {
                     func_8006D36C(obj2F4);
                 }
                 break;
 
-            case 0xC:
+            case 12:
                 Math_SmoothStepToAngle(&obj2F4->unk_0F4.x, 270.0f, 0.1f, 2.0f, 0.0f);
                 gTeamShields[obj2F4->unk_080] = -1;
                 gTeamDamage[obj2F4->unk_080] = 0;
@@ -3286,7 +3286,7 @@ void func_80072594(Object_2F4* obj2F4) {
         }
 
         if (obj2F4->unk_068 != 0) {
-            if ((gLevelMode == LEVELMODE_UNK_2) && (obj2F4->unk_0B4 == 0xC8)) {
+            if ((gLevelMode == LEVELMODE_UNK_2) && (obj2F4->unk_0B4 == 200)) {
                 Math_SmoothStepToAngle(&obj2F4->obj.rot.x, obj2F4->unk_0F4.x, 0.1f, 10.0f, 0.00001f);
                 Math_SmoothStepToAngle(&obj2F4->obj.rot.y, obj2F4->unk_0F4.y, 0.1f, 10.0f, 0.00001f);
             } else {
@@ -3390,12 +3390,12 @@ void func_80072594(Object_2F4* obj2F4) {
                     }
                 }
 
-                if ((obj2F4->unk_0B4 < 0xC8) && (obj2F4->unk_0B4 != 0x4E) && (obj2F4->scale >= 0.5f)) {
+                if ((obj2F4->unk_0B4 < 200) && (obj2F4->unk_0B4 != 78) && (obj2F4->scale >= 0.5f)) {
                     switch (obj2F4->unk_0B4) {
-                        case 0x47:
+                        case 71:
                             func_8006FE28(obj2F4);
                             break;
-                        case 0x4F:
+                        case 79:
                             func_8006FEEC(obj2F4);
                             break;
                         default:
@@ -3406,11 +3406,11 @@ void func_80072594(Object_2F4* obj2F4) {
             }
         }
         switch (obj2F4->unk_0B4) {
-            case 0x5C:
-            case 0x5D:
-            case 0x5E:
-            case 0x5F:
-            case 0x60:
+            case 92:
+            case 93:
+            case 94:
+            case 95:
+            case 96:
                 if (!(gFrameCount & 7)) {
                     obj2F4->unk_15C = Rand_ZeroOne() * 255.0f;
                     obj2F4->unk_160 = Rand_ZeroOne() * 255.0f;
@@ -3421,7 +3421,7 @@ void func_80072594(Object_2F4* obj2F4) {
                 Math_SmoothStepToF(&obj2F4->unk_158, obj2F4->unk_164, 1.0f, 10.0f, 0.0f);
                 break;
 
-            case 0x2E:
+            case 46:
                 if (func_800A73E4(&spEC, &spFC, obj2F4->obj.pos.x, -100.0f, obj2F4->obj.pos.z) != 0) {
                     spF0 = 10.0f;
 
@@ -3446,21 +3446,21 @@ void func_80072594(Object_2F4* obj2F4) {
                 obj2F4->obj.rot.y = obj2F4->unk_0F4.y;
                 break;
 
-            case 0x1F:
-                obj2F4->obj.rot.z = (f32) gFrameCount;
+            case 31:
+                obj2F4->obj.rot.z = gFrameCount;
                 break;
 
-            case 0x15:
-            case 0x16:
-                obj2F4->obj.rot.z = (f32) gFrameCount * 3.0f;
+            case 21:
+            case 22:
+                obj2F4->obj.rot.z = gFrameCount * 3.0f;
                 break;
 
-            case 0x3:
+            case 3:
                 obj2F4->unk_0C9 = 1;
                 obj2F4->obj.rot.y -= 10.0f;
                 break;
 
-            case 0x6:
+            case 6:
                 obj2F4->unk_0B6++;
                 if (gCurrentLevel == LEVEL_SOLAR) {
                     if (obj2F4->unk_0B6 >= Animation_GetFrameCount(&D_600636C)) {
@@ -3475,7 +3475,7 @@ void func_80072594(Object_2F4* obj2F4) {
                 }
                 break;
 
-            case 0x9:
+            case 9:
                 obj2F4->unk_0B6++;
                 if (obj2F4->unk_0B6 >= Animation_GetFrameCount(&D_40001A4)) {
                     obj2F4->unk_0B6 = 0;
@@ -3485,21 +3485,21 @@ void func_80072594(Object_2F4* obj2F4) {
                 }
                 break;
 
-            case 0x30:
-            case 0x31:
-            case 0x32:
+            case 48:
+            case 49:
+            case 50:
                 func_E9F1D0_801A3BD4(obj2F4);
                 break;
 
-            case 0x34:
+            case 52:
                 func_80072474(obj2F4);
                 break;
 
-            case 0x4E:
+            case 78:
                 func_8006753C(obj2F4);
                 break;
 
-            case 0x4F:
+            case 79:
                 if (obj2F4->timer_0C4 == 0) {
                     obj2F4->unk_0B6 += 1;
                     if (Animation_GetFrameCount(&D_600E5EC) < obj2F4->unk_0B6) {
@@ -3508,7 +3508,7 @@ void func_80072594(Object_2F4* obj2F4) {
                 }
                 break;
 
-            case 0x50: {
+            case 80: {
                 Object_8C* obj8C;
                 Vec3f sp90;
                 Vec3f sp84;
@@ -3615,7 +3615,7 @@ void func_80072594(Object_2F4* obj2F4) {
                 }
             } break;
 
-            case 0x51:
+            case 81:
                 Math_SmoothStepToF(&obj2F4->unk_150, 1.0f, 0.1f, 0.1f, 0.001f);
 
                 if (obj2F4->unk_150 > 0.5f) {
@@ -3637,7 +3637,7 @@ void func_80072594(Object_2F4* obj2F4) {
                 }
                 break;
 
-            case 0x53:
+            case 83:
                 if (obj2F4->unk_0CE <= 0) {
                     if (obj2F4->unk_0B6 == 0x14) {
                         spD4 = obj2F4->obj.pos.z;
@@ -3669,7 +3669,7 @@ void func_80072594(Object_2F4* obj2F4) {
                 }
                 break;
 
-            case 0x58:
+            case 88:
                 if (obj2F4->unk_04A == 0) {
                     obj2F4->unk_046 += 4;
                     if (obj2F4->unk_046 >= 0xFF) {
@@ -3685,12 +3685,12 @@ void func_80072594(Object_2F4* obj2F4) {
                 }
                 break;
 
-            case 0x67:
-            case 0x68:
+            case 103:
+            case 104:
                 func_80187530(obj2F4);
                 break;
 
-            case 0x6A:
+            case 106:
                 obj2F4->unk_0B6 += 1;
                 if (obj2F4->unk_0B6 >= 6) {
                     obj2F4->unk_0B6 = 0;
@@ -3822,35 +3822,34 @@ void func_80074FF0(Object_2F4* obj2F4) {
     }
 
     switch (obj2F4->unk_0B4) {
-        case 0x5C:
-        case 0x5D:
-        case 0x5E:
-        case 0x5F:
-        case 0x60:
+        case 92:
+        case 93:
+        case 94:
+        case 95:
+        case 96:
             RCP_SetupDL(&gMasterDisp, 0x22);
             gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, (s32) obj2F4[0].unk_150, (s32) obj2F4[0].unk_154,
-                            (s32) obj2F4[0].unk_158, 255);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, (s32) (*obj2F4).unk_150, (s32) (*obj2F4).unk_154,
+                            (s32) (*obj2F4).unk_158, 255);
             gSPDisplayList(gMasterDisp++, D_800D003C[obj2F4->unk_0B4].unk_00);
             gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
             break;
-        default: {
-
-            if ((obj2F4->unk_0B4 < 0xC8) && (D_800D003C[obj2F4->unk_0B4].unk_00 != NULL)) {
+        default:
+            if ((obj2F4->unk_0B4 < 200) && (D_800D003C[obj2F4->unk_0B4].unk_00 != NULL)) {
                 gSPDisplayList(gMasterDisp++, D_800D003C[obj2F4->unk_0B4].unk_00);
             }
 
             switch (obj2F4->unk_0B4) {
-                case 0x38:
+                case 56:
                     func_800515C4();
                     break;
 
-                case 0x0:
+                case 0:
                     obj2F4->unk_07C = 1;
                     func_8005ADAC(obj2F4);
                     break;
 
-                case 0x2:
+                case 2:
                     obj2F4->unk_150 -= obj2F4->unk_150 * 0.1f;
                     obj2F4->unk_17C -= obj2F4->unk_17C * 0.1f;
                     obj2F4->unk_154 -= obj2F4->unk_154 * 0.1f;
@@ -3868,7 +3867,7 @@ void func_80074FF0(Object_2F4* obj2F4) {
                     func_8005B388(obj2F4);
                     break;
 
-                case 0x2B:
+                case 43:
                     if (gLevelType == LEVELTYPE_PLANET) {
                         gSPDisplayList(gMasterDisp++, D_40018A0);
                     } else {
@@ -3877,12 +3876,12 @@ void func_80074FF0(Object_2F4* obj2F4) {
                     func_8005ADAC(obj2F4);
                     break;
 
-                case 0x5:
+                case 5:
                     obj2F4->unk_07C = 1;
                     func_8005ADAC(obj2F4);
                     break;
 
-                case 0x6:
+                case 6:
                     if (gCurrentLevel == LEVEL_SOLAR) {
                         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                         Animation_GetFrameData(&D_600636C, obj2F4->unk_0B6, sp114);
@@ -3894,18 +3893,18 @@ void func_80074FF0(Object_2F4* obj2F4) {
                     }
                     break;
 
-                case 0x7:
+                case 7:
                     obj2F4->unk_07C = 1;
                     func_8005ADAC(obj2F4);
                     break;
 
-                case 0x9:
+                case 9:
                     Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, 1);
                     Animation_GetFrameData(&D_40001A4, obj2F4->unk_0B6, sp114);
                     Animation_DrawSkeleton(1, D_4000270, sp114, NULL, NULL, obj2F4, &gIdentityMatrix);
                     break;
 
-                case 0x12:
+                case 18:
                     if (obj2F4->unk_114 > 0.1f) {
                         obj2F4->unk_07C = 1;
                         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, 1);
@@ -3914,7 +3913,7 @@ void func_80074FF0(Object_2F4* obj2F4) {
                     }
                     break;
 
-                case 0x13:
+                case 19:
                     if (obj2F4->unk_114 > 0.1f) {
                         obj2F4->unk_07C = 1;
                         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, 1);
@@ -3923,12 +3922,12 @@ void func_80074FF0(Object_2F4* obj2F4) {
                     }
                     break;
 
-                case 0x14:
+                case 20:
                     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
                     gSPDisplayList(gMasterDisp++, D_601A120);
                     break;
 
-                case 0x15:
+                case 21:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                     gSPDisplayList(gMasterDisp++, D_6018BF0);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -3937,7 +3936,7 @@ void func_80074FF0(Object_2F4* obj2F4) {
                     func_8005B1E8(obj2F4, 2);
                     break;
 
-                case 0x16:
+                case 22:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                     gSPDisplayList(gMasterDisp++, D_6019730);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -3946,7 +3945,7 @@ void func_80074FF0(Object_2F4* obj2F4) {
                     func_8005B1E8(obj2F4, 2);
                     break;
 
-                case 0x1B:
+                case 27:
                     if (obj2F4->timer_0C2 != 0) {
                         if (!(obj2F4->timer_0C2 & 3) && (D_80177854 != 0x64)) {
                             func_8007D0E0(((Rand_ZeroOne() - 0.5f) * 200.0f) + obj2F4->obj.pos.x,
@@ -3962,37 +3961,37 @@ void func_80074FF0(Object_2F4* obj2F4) {
                     }
                     break;
 
-                case 0x1F:
+                case 31:
                     Matrix_RotateX(gGfxMatrix, M_PI / 2.0f, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_600E0C0);
                     break;
 
-                case 0x21:
+                case 33:
                     Animation_GetFrameData(&D_400A30C, obj2F4->unk_0B6, sp114);
                     Matrix_RotateY(gGfxMatrix, M_PI, 1);
                     Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, 1);
                     Animation_DrawSkeleton(1, D_400A398, sp114, func_80074BFC, NULL, obj2F4, &gIdentityMatrix);
-                    Math_SmoothStepToF(&obj2F4[0].unk_154, 0.0f, 0.3f, 2.0f, 0.0001f);
+                    Math_SmoothStepToF(&(*obj2F4).unk_154, 0.0f, 0.3f, 2.0f, 0.0001f);
                     break;
 
-                case 0x24:
+                case 36:
                     Animation_GetFrameData(&D_700CAF4, obj2F4->unk_0B6, sp114);
                     sp114[2].z += obj2F4->unk_150;
                     Animation_DrawSkeleton(1, D_700CB60, sp114, NULL, NULL, obj2F4, &gIdentityMatrix);
                     break;
 
-                case 0x26:
+                case 38:
                     func_80074E3C(obj2F4);
                     break;
 
-                case 0x30:
-                case 0x31:
-                case 0x32:
+                case 48:
+                case 49:
+                case 50:
                     func_E9F1D0_801A4CB0(obj2F4);
                     break;
 
-                case 0x34:
+                case 52:
                     Animation_GetFrameData(&D_601F874, obj2F4->unk_0B6, sp114);
                     sp114[2].z -= obj2F4->unk_150;
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -4001,7 +4000,7 @@ void func_80074FF0(Object_2F4* obj2F4) {
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
 
-                case 0x40:
+                case 64:
                     Matrix_Push(&gGfxMatrix);
                     Matrix_RotateX(gGfxMatrix, obj2F4->unk_0F4.x * M_DTOR, 1);
                     Matrix_RotateY(gGfxMatrix, obj2F4->unk_0F4.y * M_DTOR, 1);
@@ -4017,30 +4016,30 @@ void func_80074FF0(Object_2F4* obj2F4) {
                     Matrix_Pop(&gGfxMatrix);
                     break;
 
-                case 0x43:
+                case 67:
                     gSPDisplayList(gMasterDisp++, D_6008AA0);
                     RCP_SetupDL(&gMasterDisp, 0x35);
                     gSPDisplayList(gMasterDisp++, D_6009E30);
                     break;
 
-                case 0x4E:
+                case 78:
                     func_80067874(obj2F4);
                     break;
 
-                case 0x4F:
+                case 79:
                     temp_s0 = obj2F4->unk_0B8;
                     obj2F4->unk_0B8 = 2;
                     func_E16C50_80190430(obj2F4);
                     obj2F4->unk_0B8 = temp_s0;
                     break;
 
-                case 0x50:
+                case 80:
                     Matrix_Scale(gGfxMatrix, 0.6f, 0.6f, 0.6f, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_9011200);
                     break;
 
-                case 0x51:
+                case 81:
                     if (obj2F4->unk_150 > 0.001f) {
                         Matrix_Scale(gGfxMatrix, obj2F4->unk_150, obj2F4->unk_150, obj2F4->unk_150, 1);
                         Matrix_SetGfxMtx(&gMasterDisp);
@@ -4049,52 +4048,52 @@ void func_80074FF0(Object_2F4* obj2F4) {
                     }
                     break;
 
-                case 0x52:
+                case 82:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                     gSPDisplayList(gMasterDisp++, D_600DA10);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
 
-                case 0x53:
+                case 83:
                     Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, 1);
                     Animation_GetFrameData(&D_602201C, obj2F4->unk_0B6, sp114);
                     Animation_DrawSkeleton(1, D_60220E8, sp114, NULL, NULL, obj2F4, &gIdentityMatrix);
                     break;
 
-                case 0x55:
+                case 85:
                     gSPDisplayList(gMasterDisp++, D_D00B880);
                     func_8005ADAC(obj2F4);
                     break;
 
-                case 0x56:
+                case 86:
                     gSPDisplayList(gMasterDisp++, D_D009A40);
                     func_8005ADAC(obj2F4);
                     break;
 
-                case 0x58:
+                case 88:
                     RCP_SetupDL(&gMasterDisp, 0x16);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, obj2F4->unk_046, obj2F4->unk_046, obj2F4->unk_046, 255);
                     gSPDisplayList(gMasterDisp++, D_6008970);
                     break;
 
-                case 0x59:
+                case 89:
                     RCP_SetupDL(&gMasterDisp, 0x15);
                     gSPDisplayList(gMasterDisp++, D_6000E10);
                     break;
 
-                case 0x67:
-                case 0x68:
+                case 103:
+                case 104:
                     func_E6A810_8018769C(obj2F4);
                     break;
 
-                case 0x69:
+                case 105:
                     RCP_SetupDL(&gMasterDisp, 0x23);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 0x8F);
                     gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
                     gSPDisplayList(gMasterDisp++, D_7000000);
                     break;
 
-                case 0x6A:
+                case 106:
                     Animation_GetFrameData(&D_4000080, obj2F4->unk_0B6, sp114);
                     Animation_DrawSkeleton(1, D_400014C, sp114, NULL, NULL, obj2F4, &gIdentityMatrix);
                     break;
@@ -4114,7 +4113,7 @@ void func_80074FF0(Object_2F4* obj2F4) {
                     Matrix_MultVec3f(gGfxMatrix, &sp58, &D_80177E98[obj2F4->unk_080]);
                 }
             }
-        } break;
+            break;
     }
 }
 

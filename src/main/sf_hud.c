@@ -899,7 +899,7 @@ void func_8008B2F0(void) {
                 D_800D1EBC = 0;
             }
 
-            if ((D_801617B0 == 0) && ((s32) gGoldRingCount[0] >= 3)) {
+            if ((D_801617B0 == 0) && (gGoldRingCount[0] >= 3)) {
                 D_801617A4 = 1.5f;
             } else {
                 D_801617A4 = 1.0f;
@@ -1198,7 +1198,7 @@ void func_8008D4F0(f32 arg0, f32 arg1) {
     temp_fv0 = 1.0f - temp_fs0;
     temp2 = sp68 * temp_fs0;
 
-    if (gPlayer[gPlayerNum].unk_2B4 == 0) {
+    if (!gPlayer[gPlayerNum].unk_2B4) {
         Math_SmoothStepToF(&D_800D19AC[var_v1], 255.0f, 0.4f, 100.0f, 0.01f);
     } else {
         Math_SmoothStepToF(&D_800D19AC[var_v1], 100.0f, 0.4f, 100.0f, 0.01f);
@@ -1394,11 +1394,11 @@ void func_8008E2C8(f32 arg0, f32 arg1, s32* arg2, f32 arg3) {
 
     for (i = 0; i != 5; i++) {
         if ((i == 0) || (i == 2)) {
-            var_s2 = (s32) arg2[i / 2] % 60;
+            var_s2 = arg2[i / 2] % 60;
         }
 
         if (i == 4) {
-            var_s2 = (s32) arg2[i / 2] % 100;
+            var_s2 = arg2[i / 2] % 100;
         }
 
         if (i & 1) {

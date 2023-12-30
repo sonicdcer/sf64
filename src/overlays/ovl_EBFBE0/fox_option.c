@@ -3770,7 +3770,7 @@ s32 func_EBFBE0_8019C66C(f32* arg0, f32 arg1, f32 arg2, UnkStruct_D_EBFBE0_801B9
 
     if (arg3->unk_4 == 0) {
         if (x != 0) {
-            var_fv1 = (f32) x / 20.0f;
+            var_fv1 = x / 20.0f;
             arg3->unk_4 = arg3->unk_0;
 
             if (arg3->unk_0 != 0) {

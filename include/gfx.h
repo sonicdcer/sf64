@@ -26,6 +26,10 @@
 
 #define VTX_T(x,y,z,s,t,cr,cg,cb,a) { { x, y, z }, 0, { s, t }, { cr, cg, cb, a } }
 
+typedef struct {
+    u8 r, g, b;
+} Color_RGB8; // size = 0x3
+
 typedef union {
     u16 data[SCREEN_HEIGHT * SCREEN_WIDTH];
     u16 array[SCREEN_HEIGHT][SCREEN_WIDTH];

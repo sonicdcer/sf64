@@ -1406,7 +1406,7 @@ void func_8006566C(f32 xPos, f32 yPos, f32 zPos, s32 arg3) {
     }
 }
 
-#ifdef NON_MATCHING
+#ifdef NON_EQUIVALENT
 void func_800656D4(Object_2F4* obj2F4) {
     f32 spD4;
     f32 spD0;

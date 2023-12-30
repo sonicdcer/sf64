@@ -1045,9 +1045,6 @@ f32 func_EBFBE0_801A25C8(s32 arg0) {
     return sp4;
 }
 
-// Doesn't match for some reason, related to "D_EBFBE0_801CEA64 *= 1.04f;"
-// 1.04f gets put in rodata for some reason. Maybe it needs Data imported?
-#ifdef NON_MATCHING
 void func_EBFBE0_801A2674(void) {
     s32 i;
 
@@ -1055,7 +1052,7 @@ void func_EBFBE0_801A2674(void) {
 
     func_EBFBE0_801A4A38(D_EBFBE0_801CEA64);
 
-    D_EBFBE0_801CEA64 *= 1.04f;
+    D_EBFBE0_801CEA64 *= 1.03f;
 
     for (i = 0; i < 15; i++) {
         D_EBFBE0_801CD900[i] -= 16;
@@ -1103,9 +1100,6 @@ void func_EBFBE0_801A2674(void) {
     func_800182F4(0x102D00FF);
     func_800182F4(0x112D00FF);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A2674.s")
-#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A281C.s")
 
