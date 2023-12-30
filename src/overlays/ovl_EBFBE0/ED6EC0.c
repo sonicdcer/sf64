@@ -33,7 +33,7 @@ typedef struct {
     /* 0x28 */ s32 unk_28;
     /* 0x2C */ s32 unk_2C;
     /* 0x30 */ s32 unk_30;
-    /* 0x34 */ char pad2C[0x04];
+    /* 0x34 */ s32 unk_34;
 } Planet; // size = 0x38
 
 typedef struct {
@@ -171,6 +171,7 @@ extern s32 D_EBFBE0_801CEFC4; // bss
 extern s32 D_EBFBE0_801CEFC8;
 extern s32 D_EBFBE0_801CEFD0;
 extern s32 D_EBFBE0_801CEFD4;
+extern s32 D_EBFBE0_801CEFD8;
 extern s32 D_EBFBE0_801CEFDC;
 extern f32 D_EBFBE0_801CEFE0;
 extern f32 D_EBFBE0_801CEFE8[3];
@@ -221,7 +222,9 @@ extern f32 D_EBFBE0_801CEA9C;
 void func_EBFBE0_8019E800(void);
 void func_EBFBE0_8019E99C(void);
 void func_EBFBE0_8019F910(void);
+void func_EBFBE0_8019F97C(void);
 void func_EBFBE0_8019F83C(void);
+void func_EBFBE0_8019FA1C(void);
 void func_EBFBE0_8019FC04(void);
 s32 func_EBFBE0_8019FD1C(LevelId levelId, s32 arg1);
 void func_EBFBE0_8019FF48(void);
@@ -338,15 +341,98 @@ void func_EBFBE0_8019E8D0(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_8019E99C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_8019F164.s")
+void func_EBFBE0_8019F164(void) {
+    s32 i;
+
+    D_EBFBE0_801CD974 = 1;
+
+    if (gLifeCount[gPlayerNum] > 99) {
+        gLifeCount[gPlayerNum] = 99;
+    }
+
+    for (i = 0; i < 6; i++) {
+        D_80177C38[i] = gTeamShields[i];
+        D_801778F0[i] = gSavedTeamShields[i];
+        gSavedTeamShields[i] = gTeamShields[i];
+    }
+
+    for (i = 1; i < 4; i++) {
+        if (D_80177C38[i] == 0) {
+            D_80177C38[i] = 255;
+        }
+    }
+
+    D_EBFBE0_801CD93C = D_80177930;
+
+    D_EBFBE0_801CD954 = GetPlanetId(gCurrentLevel);
+
+    D_EBFBE0_801CD950 = D_EBFBE0_801CD954;
+
+    D_EBFBE0_801CD980 = func_EBFBE0_8019FD1C(gCurrentLevel, 0);
+
+    func_EBFBE0_8019FD1C(gCurrentLevel, 2);
+
+    if (D_800D3180[gCurrentLevel] == 2) {
+        D_EBFBE0_801CD98C = 1;
+        D_80177BB0[D_80177B48] = 1;
+        func_EBFBE0_8019FD1C(gCurrentLevel, 1);
+    }
+
+    Save_Write();
+
+    func_EBFBE0_8019F97C();
+
+    func_EBFBE0_8019F83C();
+
+    func_EBFBE0_8019FA1C();
+
+    switch (D_EBFBE0_801CD93C) {
+        case 0:
+            D_EBFBE0_801CD958 = planet[D_EBFBE0_801CD954].unk_2C;
+            break;
+
+        case 1:
+            D_EBFBE0_801CD958 = planet[D_EBFBE0_801CD954].unk_30;
+            break;
+
+        case 2:
+            D_EBFBE0_801CD958 = planet[D_EBFBE0_801CD954].unk_34;
+            break;
+    }
+
+    D_80177B48++;
+
+    func_EBFBE0_8019FC04();
+
+    D_EBFBE0_801CEFC4 = 0;
+    D_EBFBE0_801CEFD0 = 0;
+    D_EBFBE0_801CEFE0 = 32.0f;
+
+    D_EBFBE0_801CEFE8[0] = 255.0f;
+    D_EBFBE0_801CEFE8[1] = 255.0f;
+    D_EBFBE0_801CEFE8[2] = 255.0f;
+
+    D_EBFBE0_801CEFD8 = 0;
+
+    if (D_EBFBE0_801CD93C) {
+        D_EBFBE0_801CEFD8 = 1;
+    }
+
+    gHitCount = 0;
+
+    D_EBFBE0_801CD94C = 0;
+    D_EBFBE0_801CD944 = 5;
+}
 
 void func_EBFBE0_8019F42C(void) {
     s32 i;
 
     D_80161714 += gHitCount;
     gLifeCount[gPlayerNum] = 0;
+
     D_EBFBE0_801CD974 = 1;
     D_EBFBE0_801CD954 = GetPlanetId(gCurrentLevel);
+
     D_80177B70[D_80177B48] = gHitCount;
 
     func_EBFBE0_8019F910();
