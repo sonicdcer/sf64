@@ -2478,7 +2478,7 @@ void func_EBFBE0_8018E67C(s32 arg0) {
 
     Matrix_Pop(&gGfxMatrix);
 
-    temp_fv1 = __sinf((f32) sp5C * 12.0f * M_DTOR) * 15.0f;
+    temp_fv1 = __sinf(sp5C * 12.0f * M_DTOR) * 15.0f;
 
     if (temp_fv1 >= 0) {
         D_EBFBE0_801B8350[arg0].unk_0C = temp_fv1;
@@ -2955,7 +2955,7 @@ void func_EBFBE0_801903B8(void) {
 
             Matrix_SetGfxMtx(&gMasterDisp);
 
-            temp = (f32) D_EBFBE0_801AE528[i] * var_fs1;
+            temp = D_EBFBE0_801AE528[i] * var_fs1;
 
             if (i != 10) {
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, D_EBFBE0_801AE51C[i], (s32) temp);

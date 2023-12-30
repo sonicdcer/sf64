@@ -11,35 +11,35 @@ void func_EBFBE0_801A01A8(void);
 
 void func_EBFBE0_80187520(s32 arg0, s32 arg1) {
     switch (arg0) {
-        case 0x67:
+        case 103:
             func_EBFBE0_80187754();
             break;
 
-        case 0x68:
+        case 104:
             func_EBFBE0_801878D8();
             break;
 
-        case 0x69:
+        case 105:
             func_EBFBE0_8019E8D0();
             break;
 
-        case 0x6A:
+        case 106:
             func_EBFBE0_801A01A8();
             break;
 
-        case 0x6B:
+        case 107:
             func_EBFBE0_801920C4();
             break;
 
-        case 0x6C:
+        case 108:
             func_EBFBE0_80192340();
             break;
 
-        case 0x6D:
+        case 109:
             func_EBFBE0_8019E85C();
             break;
 
-        case 0x6E:
+        case 110:
             func_EBFBE0_8019E8C8();
 
         default:

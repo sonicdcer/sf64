@@ -289,7 +289,7 @@ extern s32 D_8015F978;
 extern s32 D_8015F97C;
 extern s32 D_8015F980;
 extern f32 D_8015F984;
-extern f32 D_80161394;
+// extern f32 D_80161394;
 
 // fox_43AC0
 extern s32 D_801613A0;
@@ -516,7 +516,7 @@ extern u8 D_80177B6C;
 extern s32 D_80177B70[7];
 extern u8  D_80177B8C;
 extern s32 D_80177B90[7];
-extern s8 D_80177BAC;
+extern u8 D_80177BAC;
 extern s32 D_80177BB0[7];
 //
 extern u16 D_Timer_80177BD0[4];
@@ -826,7 +826,7 @@ extern Gfx* D_E6A810_801B7584[];
 extern Gfx* D_E6A810_801B7608[];
 extern Gfx* D_E6A810_801B769C[];
 extern f32 D_E6A810_801B83A8[];
-extern s8 D_E6A810_801BA1E8;
+extern u8 D_E6A810_801BA1E8;
 
 // ovl_E9F1D0
 extern f32 D_E9F1D0_801A7F58;
@@ -969,10 +969,12 @@ extern Gfx D_3000090[];
 extern Gfx D_3000660[];
 extern u16 D_3000BC0[];
 extern Gfx D_3001C90[];
+extern u16 D_3002E80[];
 extern Gfx D_3003CE0[];
 extern Gfx D_3004680[];
 extern Gfx D_3005980[];
 extern Gfx D_3005AB0[];
+extern u16 D_3005EA8[];
 extern Gfx D_30066B0[];
 extern Gfx D_3007650[];
 extern Gfx D_3008100[];
@@ -1052,7 +1054,6 @@ extern f32 D_302EE00[];
 extern f32 D_302EE64[];
 extern f32 D_302EE80[];
 extern f32 D_302EE9C[];
-
 
 // ast_918430, ast_922730
 extern AnimationHeader D_4000080;
@@ -1210,6 +1211,7 @@ extern f32 D_60092E8[];
 extern f32 D_6009388[];
 extern Gfx D_60097E0[];
 extern u16* D_6009B34[];
+extern u16 D_6009BB8[];
 extern f32 D_6009CC4[];
 extern f32 D_6009CFC[];
 extern Gfx D_6009E30[];

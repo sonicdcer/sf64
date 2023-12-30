@@ -2230,7 +2230,7 @@ void func_800AA800(Player* player) {
                         }
                     } else {
                         hitboxData = obj80->info.hitbox;
-                        count = (s32) *hitboxData;
+                        count = *hitboxData;
                         if (count != 0) {
                             if (obj80->info.action == (ObjectFunc) func_80066EA8) {
                                 sp120 = 0.0f;
@@ -3410,7 +3410,7 @@ void func_800AECAC(Player* player) {
     if (player->unk_4D8 < 180.0f) {
         player->pos.y += 2.0f;
     }
-    player->unk_2B4 = 1;
+    player->unk_2B4 = true;
     if (gLevelMode == LEVELMODE_ON_RAILS) {
         player->unk_2BC += 2.0f;
     } else {
@@ -4485,7 +4485,7 @@ void func_800B2574(Player* player) {
 
     if ((player->unk_2BC != 0.0f) && (gInputHold->button & gBrakeButton[player->num]) &&
         (gInputHold->button & gBoostButton[player->num])) {
-        player->unk_2B4 = 1;
+        player->unk_2B4 = true;
     }
     if (gLevelMode == LEVELMODE_ON_RAILS) {
         sp28 = 3.0f;
@@ -4524,7 +4524,7 @@ void func_800B2574(Player* player) {
     }
     if (player->timer_27C != 0) {
         player->timer_27C--;
-        player->unk_2B4 = 1;
+        player->unk_2B4 = true;
         if (D_80177E80 > 0) {
             Math_SmoothStepToF(&D_801779A8[player->num], D_80177E80 * 10.0f, 1.0f, 5.0f, 0.0f);
         }
@@ -4548,13 +4548,13 @@ void func_800B2574(Player* player) {
             }
         }
         if (!(gInputHold->button & gBrakeButton[player->num]) && !(gInputHold->button & gBoostButton[player->num])) {
-            player->unk_2B4 = 1;
+            player->unk_2B4 = true;
             if (player->unk_2BC == 0.0f) {
-                player->unk_2B4 = 0;
+                player->unk_2B4 = false;
             }
         }
         if ((gInputHold->button & gBoostButton[player->num]) && !(gInputHold->button & gBrakeButton[player->num]) &&
-            (player->state_1C8 != PLAYERSTATE_1C8_5) && (player->unk_2B4 == 0)) {
+            (player->state_1C8 != PLAYERSTATE_1C8_5) && !player->unk_2B4) {
             if (player->unk_2BC == 0.0f) {
                 func_800A5FA0(&player->unk_460, 0x09000002, player->num);
                 player->unk_194 = 5.0f;
@@ -4573,7 +4573,7 @@ void func_800B2574(Player* player) {
             player->unk_2BC += sp28;
             if (player->unk_2BC > 90.0f) {
                 player->unk_2BC = 90.0f;
-                player->unk_2B4 = 1;
+                player->unk_2B4 = true;
             }
             player->unk_25C += 0.04f;
             if (player->unk_25C > 0.6f) {
@@ -4592,7 +4592,7 @@ void func_800B2574(Player* player) {
                 player->unk_2BC -= sp2C;
                 if (player->unk_2BC <= 0.0f) {
                     player->unk_2BC = 0.0f;
-                    player->unk_2B4 = 0;
+                    player->unk_2B4 = false;
                 }
             }
             if (player->unk_110 > 0.0f) {
@@ -4648,7 +4648,7 @@ void func_800B2C00(Player* player) {
         }
     }
     if ((gInputHold->button & gBrakeButton[player->num]) && !(gInputHold->button & gBoostButton[player->num]) &&
-        (player->state_1C8 != PLAYERSTATE_1C8_5) && (player->unk_2B4 == 0)) {
+        (player->state_1C8 != PLAYERSTATE_1C8_5) && !player->unk_2B4) {
         if (player->unk_2BC == 0.0f) {
             func_800A5FA0(&player->unk_460, 0x09000003, player->num);
             if ((gLevelMode == LEVELMODE_ALL_RANGE) && (gInputPress->button & gBrakeButton[player->num])) {
@@ -4663,7 +4663,7 @@ void func_800B2C00(Player* player) {
         }
         player->unk_2BC += sp30;
         if (player->unk_2BC > 90.0f) {
-            player->unk_2B4 = 1;
+            player->unk_2B4 = true;
             player->unk_2BC = 90.0f;
         }
         player->unk_190 = 0.3f;
@@ -4678,7 +4678,7 @@ void func_800B2C00(Player* player) {
         player->unk_2BC -= sp34;
         if (player->unk_2BC <= 0.0f) {
             player->unk_2BC = 0.0f;
-            player->unk_2B4 = 0;
+            player->unk_2B4 = false;
         }
         if (player->unk_110 < 0.0f) {
             player->unk_110 += 0.5f;
@@ -4693,18 +4693,18 @@ void func_800B2C00(Player* player) {
 void func_800B3010(Player* player) {
     f32 sp2C;
 
-    if (player->unk_2B8 == 0) {
+    if (!player->unk_2B8) {
         Math_SmoothStepToF(&player->unk_2BC, 0.0f, 1.0f, 1.0f, 0.0f);
     }
-    player->unk_2B8 = 0;
+    player->unk_2B8 = false;
     if (player->unk_2BC == 0.0f) {
-        player->unk_2B4 = 0;
+        player->unk_2B4 = false;
     } else if (!(gInputHold->button & Z_TRIG) && !(gInputHold->button & R_TRIG) &&
                !(gInputHold->button & gBoostButton[player->num]) && !(gInputHold->button & gBrakeButton[player->num])) {
-        player->unk_2B4 = 1;
+        player->unk_2B4 = true;
     }
     sp2C = 20.0f;
-    if ((gInputHold->button & gBoostButton[player->num]) && (player->unk_2B4 == 0)) {
+    if ((gInputHold->button & gBoostButton[player->num]) && !player->unk_2B4) {
         if (player->unk_2BC == 0.0f) {
             player->unk_194 = 4.0f;
             player->unk_190 = 4.0f;
@@ -4713,22 +4713,22 @@ void func_800B3010(Player* player) {
         Math_SmoothStepToF(&D_801779A8[player->num], 30.0f, 1.0f, 10.0f, 0.0f);
         player->unk_190 = 2.0f;
         sp2C = 35.0f;
-        player->unk_2B8 = 1;
+        player->unk_2B8 = true;
         Math_SmoothStepToF(&player->unk_2BC, 90.0f, 1.0f, 1.0f, 0.0f);
         if (player->unk_2BC >= 90.0f) {
-            player->unk_2B4 = 1;
+            player->unk_2B4 = true;
         }
     }
-    if ((gInputHold->button & gBrakeButton[player->num]) && (player->unk_2B4 == 0)) {
+    if ((gInputHold->button & gBrakeButton[player->num]) && !player->unk_2B4) {
         if (player->unk_2BC == 0.0f) {
             func_800A5FA0(&player->unk_460, 0x09000003, player->num);
         }
         Math_SmoothStepToF(&D_801779A8[player->num], 20.0f, 1.0f, 10.0f, 0.0f);
         sp2C = 5.0f;
-        player->unk_2B8 = 1;
+        player->unk_2B8 = true;
         Math_SmoothStepToF(&player->unk_2BC, 90.0f, 1.0f, 1.0f, 0.0f);
         if (player->unk_2BC >= 90.0f) {
-            player->unk_2B4 = 1;
+            player->unk_2B4 = true;
         }
     }
     Math_SmoothStepToF(&player->unk_0D0, sp2C, 0.1f, 2.0f, 0.001f);
@@ -4739,7 +4739,7 @@ void func_800B3314(Player* player) {
     f32 temp2;
 
     player->unk_0D4 = 3.0f;
-    if ((gInputHold->button & Z_TRIG) && (player->unk_2B4 == 0)) {
+    if ((gInputHold->button & Z_TRIG) && !player->unk_2B4) {
         if (player->unk_2BC == 0.0f) {
             func_800A5FA0(&player->unk_460, 0x09000002, player->num);
         }
@@ -4749,10 +4749,10 @@ void func_800B3314(Player* player) {
             player->unk_12C = 50.0f;
         }
         Math_SmoothStepToF(&player->unk_170, 1.0f, 1.0f, 0.4f, 0.0f);
-        player->unk_2B8 = 1;
+        player->unk_2B8 = true;
         Math_SmoothStepToF(&player->unk_2BC, 90.0f, 1.0f, 0.7f, 0.0f);
         if (player->unk_2BC >= 90.0f) {
-            player->unk_2B4 = 1;
+            player->unk_2B4 = true;
         }
     } else {
         if (player->unk_12C > 0.0f) {
@@ -4767,7 +4767,7 @@ void func_800B3314(Player* player) {
             }
         }
     }
-    if ((gInputHold->button & R_TRIG) && (player->unk_2B4 == 0)) {
+    if ((gInputHold->button & R_TRIG) && !player->unk_2B4) {
         if (player->unk_2BC == 0.0f) {
             func_800A5FA0(&player->unk_460, 0x09000002, player->num);
         }
@@ -4777,10 +4777,10 @@ void func_800B3314(Player* player) {
             player->unk_12C = -50.0f;
         }
         Math_SmoothStepToF(&player->unk_16C, 1.0f, 1.0f, 0.4f, 0.0f);
-        player->unk_2B8 = 1;
+        player->unk_2B8 = true;
         Math_SmoothStepToF(&player->unk_2BC, 90.0f, 1.0f, 0.7f, 0.0f);
         if (player->unk_2BC >= 90.0f) {
-            player->unk_2B4 = 1;
+            player->unk_2B4 = true;
         }
     } else if (player->unk_12C < 0.0f) {
         player->unk_188 += 1.5f;
@@ -4794,7 +4794,7 @@ void func_800B3314(Player* player) {
         }
     }
     if ((player->unk_16C > 0.2f) && (player->unk_170 > 0.2f) && (player->timer_220 == 0)) {
-        player->unk_12C += (((__cosf((f32) gFrameCount * M_DTOR * 8.0f) * 10.0f) - player->unk_12C) * 0.1f);
+        player->unk_12C += (((__cosf(gFrameCount * M_DTOR * 8.0f) * 10.0f) - player->unk_12C) * 0.1f);
         Math_SmoothStepToAngle(&player->unk_0E4, 0.0f, 0.05f, 5.0f, 0.00001f);
         Math_SmoothStepToAngle(&player->unk_0EC, 0.0f, 0.05f, 5.0f, 0.00001f);
         temp = gInputPress->stick_y;
@@ -4914,7 +4914,7 @@ void func_800B39E0(Player* player) {
         if ((gLevelMode != LEVELMODE_UNK_2) &&
             ((player->unk_0D8.x != 0.f) || (player->unk_0D8.y != 0.f) || (player->unk_0D8.z != 0.f)) &&
             ((player->unk_1A4 >= 40) || (player->unk_1A4 == 21))) {
-            player->unk_2B4 = 1;
+            player->unk_2B4 = true;
             player->unk_0E4 = 0;
             player->unk_0E8 = 0;
             Math_SmoothStepToF(&player->unk_110, 0, 1.0f, 5.0f, 0);
@@ -5471,7 +5471,7 @@ void func_800B48BC(Player* player) {
     Math_SmoothStepToF(&player->unk_09C, sp1C8, 1.0f, 10.0f, 0.0f);
     if (player->form == FORM_ARWING) {
         Math_SmoothStepToF(&player->unk_194, player->unk_190, 0.5f, 5.0f, 0.0f);
-        if ((player->unk_2B4 != 0) && (gPlayer->state_1C8 == PLAYERSTATE_1C8_3)) {
+        if (player->unk_2B4 && (gPlayer->state_1C8 == PLAYERSTATE_1C8_3)) {
             player->unk_190 = 0.5f;
         } else {
             player->unk_190 = 1.0f;
