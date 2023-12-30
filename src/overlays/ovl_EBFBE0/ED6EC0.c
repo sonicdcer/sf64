@@ -1046,7 +1046,7 @@ f32 func_EBFBE0_801A25C8(s32 arg0) {
 }
 
 // Doesn't match for some reason, related to "D_EBFBE0_801CEA64 *= 1.04f;"
-// 1.04f gets put in rodata for some reason. Maybe it needs Data imported?
+// 1.04f gets put in rodata for some reason. Maybe it needs Data imported? /
 #ifdef NON_MATCHING
 void func_EBFBE0_801A2674(void) {
     s32 i;
