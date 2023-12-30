@@ -284,9 +284,9 @@ void func_8002EE34(void) {
 }
 
 void func_8002EE64(Object_2F4* obj2F4) {
-    s32 var_s3;
+    s32 i;
     s32 var_s0;
-    Object_58* var_s2;
+    Object_58* obj58;
     Vec3f temp1;
     f32 temp4;
     f32 temp5;
@@ -303,16 +303,16 @@ void func_8002EE64(Object_2F4* obj2F4) {
 
     obj2F4->unk_178 = obj2F4->unk_17C = obj2F4->unk_184 = obj2F4->unk_180 = 0.0f;
     if ((obj2F4->unk_0C9 != 0) && (gLevelMode == LEVELMODE_ALL_RANGE) && (gLevelType == LEVELTYPE_PLANET)) {
-        for (var_s3 = 0, var_s2 = gObjects58; var_s3 < 200; var_s3++, var_s2++) {
-            if ((var_s2->obj.status == 2) &&
-                ((var_s2->obj.id == 150) || (var_s2->obj.id == 149) || (var_s2->obj.id == 148) ||
-                 (var_s2->obj.id == 1) || (var_s2->obj.id == 3)) &&
-                (fabsf(var_s2->obj.pos.x - obj2F4->obj.pos.x) < 2500.0f) &&
-                (fabsf(var_s2->obj.pos.z - obj2F4->obj.pos.z) < 2500.0f)) {
-                temp1.x = var_s2->obj.pos.x;
-                temp1.y = var_s2->obj.pos.y;
-                temp1.z = var_s2->obj.pos.z;
-                temp4 = var_s2->obj.rot.y;
+        for (i = 0, obj58 = gObjects58; i < 200; i++, obj58++) {
+            if ((obj58->obj.status == 2) &&
+                ((obj58->obj.id == OBJ_80_150) || (obj58->obj.id == OBJ_80_149) || (obj58->obj.id == OBJ_80_148) ||
+                 (obj58->obj.id == OBJ_80_1) || (obj58->obj.id == OBJ_80_3)) &&
+                (fabsf(obj58->obj.pos.x - obj2F4->obj.pos.x) < 2500.0f) &&
+                (fabsf(obj58->obj.pos.z - obj2F4->obj.pos.z) < 2500.0f)) {
+                temp1.x = obj58->obj.pos.x;
+                temp1.y = obj58->obj.pos.y;
+                temp1.z = obj58->obj.pos.z;
+                temp4 = obj58->obj.rot.y;
 
                 Matrix_RotateY(gCalcMatrix, -temp4 * M_DTOR, 0);
                 spE4.x = obj2F4->obj.pos.x - temp1.x;
@@ -326,8 +326,8 @@ void func_8002EE64(Object_2F4* obj2F4) {
                 spC0.z = temp1.z; // fake?
                 spCC.y = spD8.y + temp1.y;
                 spCC.z = spD8.z + temp1.z;
-                if ((var_s2->obj.id == 149) || (var_s2->obj.id == 150)) {
-                    if (var_s2->obj.id == 149) {
+                if ((obj58->obj.id == OBJ_80_149) || (obj58->obj.id == OBJ_80_150)) {
+                    if (obj58->obj.id == OBJ_80_149) {
                         var_s0 = 5;
                     } else {
                         var_s0 = 6;
@@ -340,7 +340,7 @@ void func_8002EE64(Object_2F4* obj2F4) {
                     }
                 } else {
                     var_s0 = 0;
-                    if (var_s2->obj.id == 3) {
+                    if (obj58->obj.id == OBJ_80_3) {
                         var_s0 = 3;
                     }
                     if (func_800A3690(&spCC, &spC0, var_s0, &spB4) != 0) {
@@ -366,7 +366,7 @@ void func_8002F180(void) {
         }
         Object_2F4_Initialize(obj2F4);
         obj2F4->obj.status = 2;
-        obj2F4->obj.id = 197;
+        obj2F4->obj.id = OBJ_2F4_197;
         Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
         if (i == 0) {
             obj2F4->unk_0E4 = 1000;
@@ -413,7 +413,7 @@ void func_8002F3E0(void) {
             obj2F4->obj.pos.x = D_800C9AFC[i].x;
             obj2F4->obj.pos.y = D_800C9AFC[i].y;
             obj2F4->obj.pos.z = D_800C9AFC[i].z;
-            obj2F4->obj.id = 197;
+            obj2F4->obj.id = OBJ_2F4_197;
             obj2F4->unk_0E4 = i + 4;
             obj2F4->unk_0E6 = D_800C9B2C[i];
             gObjects2F4[obj2F4->unk_0E6].unk_0E6 = -1;
@@ -548,7 +548,8 @@ void func_8002FB4C(Object_2F4* obj2F4) {
     s32 i;
 
     for (i = 10, var_v1 = &gObjects2F4[10]; i < 60; i++, var_v1++) {
-        if ((var_v1->obj.status == 2) && (var_v1->obj.id == 197) && (var_v1->unk_0B6 == 0) && (var_v1->unk_0E6 < 0)) {
+        if ((var_v1->obj.status == 2) && (var_v1->obj.id == OBJ_2F4_197) && (var_v1->unk_0B6 == 0) &&
+            (var_v1->unk_0E6 < 0)) {
             var_a0 = false;
             for (j = 1, var_a2 = &gObjects2F4[1]; j < 4; j++, var_a2++) {
                 if ((j != obj2F4->index) && (i == var_a2->unk_0E6)) {
@@ -635,7 +636,7 @@ void func_8002FEF0(Object_2F4* arg0) {
                 if (var_s0->obj.status == 0) {
                     Object_2F4_Initialize(var_s0);
                     var_s0->obj.status = 1;
-                    var_s0->obj.id = 291;
+                    var_s0->obj.id = OBJ_2F4_291;
                     if (gCurrentLevel == LEVEL_SECTOR_Z) {
                         var_s0->obj.pos.x = 200.0f;
                         var_s0->obj.pos.y = -500.0f;
@@ -1454,9 +1455,9 @@ void func_800319AC(Object_2F4* this) {
                     }
                     if ((this->unk_0E4 >= 4) && (this->unk_0E4 != 8) &&
                         ((gCurrentLevel != LEVEL_VENOM_2) || (this->unk_0E4 != 4))) {
-                        spCC = __sinf(((this->index * 45) + gFrameCount) * 0.017453292f) * 100.0f;
-                        spC8 = __cosf(((this->index * 45) + (gFrameCount * 2)) * 0.017453292f) * 100.0f;
-                        spC4 = __sinf(((this->index * 45) + gFrameCount) * 0.017453292f) * 100.0f;
+                        spCC = __sinf(((this->index * 45) + gFrameCount) * M_DTOR) * 100.0f;
+                        spC8 = __cosf(((this->index * 45) + (gFrameCount * 2)) * M_DTOR) * 100.0f;
+                        spC4 = __sinf(((this->index * 45) + gFrameCount) * M_DTOR) * 100.0f;
                     }
                     if (gPlayer->unk_4DC == 0) {
                         this->unk_124.x = gPlayer->pos.x + spCC;
@@ -1484,9 +1485,9 @@ void func_800319AC(Object_2F4* this) {
                     }
                 } else if (this->unk_0E6 != 100) {
                     if (this->unk_0E4 >= 10) {
-                        spCC = __sinf(((this->index * 45) + gFrameCount) * 0.017453292f) * 200.0f;
-                        spC8 = __cosf(((this->index * 45) + (gFrameCount * 2)) * 0.017453292f) * 200.0f;
-                        spC4 = __sinf(((this->index * 45) + gFrameCount) * 0.017453292f) * 200.0f;
+                        spCC = __sinf(((this->index * 45) + gFrameCount) * M_DTOR) * 200.0f;
+                        spC8 = __cosf(((this->index * 45) + (gFrameCount * 2)) * M_DTOR) * 200.0f;
+                        spC4 = __sinf(((this->index * 45) + gFrameCount) * M_DTOR) * 200.0f;
                     }
                     this->unk_124.x = gObjects2F4[this->unk_0E6].obj.pos.x + spCC;
                     this->unk_124.y = gObjects2F4[this->unk_0E6].obj.pos.y + spC8;
@@ -1790,7 +1791,7 @@ void func_800319AC(Object_2F4* this) {
                 this->timer_0C0 = (s32) (Rand_ZeroOne() * 200.0f) + 200;
                 this->unk_13C = 30.0f;
             }
-            if ((this->unk_0E6 > 0) && (gObjects2F4[this->unk_0E6].obj.id == 0xC5) &&
+            if ((this->unk_0E6 > 0) && (gObjects2F4[this->unk_0E6].obj.id == OBJ_2F4_197) &&
                 (gObjects2F4[this->unk_0E6].timer_0C2 == 0) && (gObjects2F4[this->unk_0E6].obj.status == 2)) {
                 this->unk_0B8 = 2;
                 this->unk_058 = 0;
@@ -1941,9 +1942,9 @@ void func_800319AC(Object_2F4* this) {
         Math_SmoothStepToAngle(&this->obj.rot.z, this->unk_130, 0.2f, 100.0f, 0.01f);
         if ((this->unk_0E4 == 8) && !(gFrameCount & 1)) {
             if ((this->unk_130 > 10.0f) && (this->unk_130 < 350.0f)) {
-                Matrix_RotateY(gCalcMatrix, this->obj.rot.y * 0.017453292f, 0);
-                Matrix_RotateX(gCalcMatrix, this->obj.rot.x * 0.017453292f, 1);
-                Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * 0.017453292f, 1);
+                Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, 0);
+                Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, 1);
+                Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, 1);
                 spA8.x = 0.0f;
                 spA8.y = 70.0f;
 
@@ -1957,10 +1958,10 @@ void func_800319AC(Object_2F4* this) {
     this->obj.rot.y = this->unk_0F4.y;
     Math_SmoothStepToF(&this->unk_114, this->unk_118, 0.2f, 1.0f, 0.1f);
     Math_SmoothStepToF(&this->unk_11C, this->unk_120, 1.0f, 0.1f, 0.1f);
-    spC0 = __sinf(this->obj.rot.x * 0.017453292f);
-    spB8 = __cosf(this->obj.rot.x * 0.017453292f);
-    spBC = __sinf(this->obj.rot.y * 0.017453292f);
-    spB4 = __cosf(this->obj.rot.y * 0.017453292f);
+    spC0 = __sinf(this->obj.rot.x * M_DTOR);
+    spB8 = __cosf(this->obj.rot.x * M_DTOR);
+    spBC = __sinf(this->obj.rot.y * M_DTOR);
+    spB4 = __cosf(this->obj.rot.y * M_DTOR);
 
     sp9C.z = (this->unk_138 + this->unk_114) * spB8;
     sp9C.y = (this->unk_138 + this->unk_114) * -spC0;
@@ -1986,9 +1987,9 @@ void func_800319AC(Object_2F4* this) {
         sp90.z = spB4 * sp90.z;
 
         if ((gCurrentLevel == LEVEL_VENOM_2) && (this->unk_0E4 >= 4)) {
-            Matrix_RotateY(gCalcMatrix, this->obj.rot.y * 0.017453292f, 0);
-            Matrix_RotateX(gCalcMatrix, this->obj.rot.x * 0.017453292f, 1);
-            Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * 0.017453292f, 1);
+            Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, 0);
+            Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, 1);
+            Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, 1);
             spA8.y = 0.0f;
             spA8.z = 0.0f;
             if (Rand_ZeroOne() < 0.8f) {
@@ -2155,7 +2156,7 @@ bool func_800352E0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thi
         RCP_SetupDL(&gMasterDisp, 0x1D);
     }
     if ((limbIndex == 1) || (limbIndex == 3)) {
-        rot->z += (f32) gFrameCount * 3.0f;
+        rot->z += gFrameCount * 3.0f;
     }
     if ((limbIndex == 1) || (limbIndex == 2)) {
         RCP_SetupDL(&gMasterDisp, 0x22);

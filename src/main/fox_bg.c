@@ -1,41 +1,76 @@
 #include "global.h"
 
-typedef struct {
-    u8 r, g, b;
-} Color_RGB8;
+f32 D_8015F960;
+u8 D_8015F964;
+f32 D_8015F968;
+f32 D_8015F96C;
+f32 D_8015F970;
+s32 D_8015F974;
+s32 D_8015F978;
+s32 D_8015F97C;
+s32 D_8015F980;
+f32 D_8015F984;
+UNK_TYPE D_8015F988[0x683]; // Unused? Close to being [13][0x80]
+f32 D_80161394;             // can be static
 
-extern f32 D_8015F960;
-extern u8 D_8015F964;
-extern f32 D_8015F968;
-extern f32 D_8015F96C;
-extern f32 D_8015F970;
-extern s32 D_8015F974;
-extern s32 D_8015F978;
-extern s32 D_8015F97C;
-extern s32 D_8015F980;
-extern f32 D_8015F984;
-// extern s32 D_8015F988[0x67F] // enormous unused space. D_8015F984[0x680] perhaps? Fits the divisible by 13 pattern
-extern f32 D_80161394; // can be static
-
-extern f32 D_800C9C30;
-extern u16 D_800C9C34;
-// D_800C9C38 missing
-extern u16 D_800C9C3C[16];
-extern Gfx* D_800C9C5C[13];
-extern Gfx* D_800C9C90[13];
-extern f32 D_800C9CC4[13];
-extern f32 D_800C9CF8[13];
-extern f32 D_800C9D2C[13];
-extern f32 D_800C9D60[13];
-extern Color_RGB8 D_800C9D94[13];
-extern Color_RGB8 D_800C9DBC[13];
-extern s32 D_800C9DE4[13];
-extern s32 D_800C9E18[13];
-extern s32 D_800C9E4C[2];
-extern s32 D_800C9E54[2];
-extern f32 D_800C9E5C[2];
-extern f32 D_800C9E64[4];
-extern f32 D_800C9E74[4];
+f32 D_800C9C30 = 0.0f;
+u16 D_800C9C34 = 1;
+s32 D_800C9C38 = 0; // unused?
+u16 D_800C9C3C[16] = {
+    0x108B, 0x108B, 0x1087, 0x1089, 0x39FF, 0x190D, 0x108B, 0x1089,
+    0x294B, 0x18DF, 0x294B, 0x1085, 0x39FF, 0x108B, 0x18CD, 0x108B,
+};
+Gfx* D_800C9C5C[13] = {
+    D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0, D_20112C0, D_102A8A0,
+    D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0, D_20112C0, D_102A8A0,
+};
+Gfx* D_800C9C90[13] = {
+    D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0,
+    D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0, D_102A8A0,
+};
+f32 D_800C9CC4[13] = {
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 10.0f, 13.0f, 20.0f, 35.0f, 40.0f, 50.0f, 50.0f, 70.0f,
+};
+f32 D_800C9CF8[13] = {
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 10.0f, 16.0f, 20.0f, 30.0f, 45.0f, 60.0f, 70.0f,
+};
+f32 D_800C9D2C[13] = {
+    0.7f, 1.0f, 1.2f, 1.4f, 1.8f, 2.0f, 0.4f, 0.6f, 0.8f, 1.7f, 0.8f, 4.0f, 2.0f,
+};
+f32 D_800C9D60[13] = {
+    0.525f, 0.75f, 0.90000004f, 1.05f, 1.3499999f, 0.15f, 0.25f, 0.35f, 1.0f, 0.6f, 0.35f, 0.9f, 1.0f,
+};
+Color_RGB8 D_800C9D94[13] = {
+    { 255, 255, 255 }, { 255, 255, 192 }, { 255, 255, 128 }, { 255, 255, 96 }, { 255, 255, 64 },
+    { 255, 255, 64 },  { 255, 255, 64 },  { 255, 255, 64 },  { 255, 255, 64 }, { 255, 255, 64 },
+    { 255, 255, 64 },  { 255, 255, 64 },  { 255, 255, 64 },
+};
+Color_RGB8 D_800C9DBC[13] = {
+    { 255, 128, 64 },  { 255, 128, 64 }, { 255, 128, 64 }, { 255, 128, 64 }, { 255, 128, 64 },
+    { 255, 255, 64 },  { 255, 128, 64 }, { 255, 128, 64 }, { 255, 255, 64 }, { 128, 128, 128 },
+    { 128, 128, 255 }, { 255, 255, 64 }, { 255, 128, 64 },
+};
+s32 D_800C9DE4[13] = {
+    255, 80, 64, 48, 32, 12, 32, 44, 32, 42, 36, 12, 38,
+};
+s32 D_800C9E18[13] = {
+    80, 60, 40, 20, 10, 20, 30, 20, 15, 30, 20, 27, 20,
+};
+s32 D_800C9E4C[2] = { 10, 4 };
+s32 D_800C9E54[2] = { 140, 40 };
+f32 D_800C9E5C[2] = { 1.2f, 0.5f };
+f32 D_800C9E64[4] = {
+    6000.0f,
+    -6000.0f,
+    6000.0f,
+    -6000.0f,
+};
+f32 D_800C9E74[4] = {
+    6000.0f,
+    6000.0f,
+    -6000.0f,
+    -6000.0f,
+};
 
 void func_8003DAF0(void) {
     f32 var_fa0;
@@ -189,237 +224,182 @@ void func_8003E1E8(void) {
     u8 var_s0;
     s32 sp11C;
 
-    if (D_80177AB0 != 0) {
-        var_s0 = gLevelType;
-        if ((gCurrentLevel == LEVEL_VERSUS) && (gVersusStage == VS_STAGE_SECTOR_Z)) {
-            var_s0 = LEVELTYPE_PLANET;
-        }
-        if (gCurrentLevel == LEVEL_TRAINING) {
-            var_s0 = LEVELTYPE_SPACE;
-        }
-        sp11C = gCurrentLevel;
-        Matrix_Push(&gGfxMatrix);
-        if (D_80177C70 == 2) {
-            Matrix_Scale(gGfxMatrix, 1.2f, 1.2f, 1.0f, 1);
-        }
-        switch (var_s0) {
-            case LEVELTYPE_PLANET:
-                RCP_SetupDL(&gMasterDisp, 0x11);
-                switch (sp11C) {
-                    case LEVEL_FORTUNA:
-                    case LEVEL_KATINA:
-                    case LEVEL_VENOM_2:
-                    case LEVEL_VERSUS:
-                        sp134 = (gPlayer[gPlayerNum].unk_05C * -6000.0f) - (gPlayer[gPlayerNum].camEye.y * 0.4f);
-                        sp13C = Math_ModF(Math_RadToDeg(gPlayer[gPlayerNum].unk_058) * -20.222221f * 5.0f, 7280.0f);
-                        Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].unk_034 * 0.017453292f, 1);
-                        Matrix_Translate(gGfxMatrix, sp13C, -2000.0f + sp134, -6000.0f, 1);
-                        if (gCurrentLevel == LEVEL_FORTUNA) {
-                            Matrix_Translate(gGfxMatrix, 0.0f, -2000.0f, 0, 1);
-                        } else if (gCurrentLevel == LEVEL_KATINA) {
-                            Matrix_Translate(gGfxMatrix, 0.0f, -2500.0f, 0, 1);
-                        }
-                        Matrix_SetGfxMtx(&gMasterDisp);
-                        switch (gCurrentLevel) {
-                            case LEVEL_VERSUS:
-                                if (gVersusStage == VS_STAGE_CORNERIA) {
-                                    gSPDisplayList(gMasterDisp++, D_302D4D0);
-                                } else if (gVersusStage == VS_STAGE_KATINA) {
-                                    gSPDisplayList(gMasterDisp++, D_30146B0);
-                                } else {
-                                    gSPDisplayList(gMasterDisp++, D_3011E40);
-                                }
-                                break;
-                            case LEVEL_FORTUNA:
-                                gSPDisplayList(gMasterDisp++, D_600D9F0);
-                                break;
-                            case LEVEL_KATINA:
-                                gSPDisplayList(gMasterDisp++, D_600F1D0);
-                                break;
-                            case LEVEL_VENOM_2:
-                                gSPDisplayList(gMasterDisp++, D_600F670);
-                                break;
-                        }
-                        Matrix_Translate(gGfxMatrix, 7280.0f, 0.0f, 0.0f, 1);
-                        Matrix_SetGfxMtx(&gMasterDisp);
-                        switch (gCurrentLevel) {
-                            case LEVEL_VERSUS:
-                                if (gVersusStage == VS_STAGE_CORNERIA) {
-                                    gSPDisplayList(gMasterDisp++, D_302D4D0);
-                                } else if (gVersusStage == VS_STAGE_KATINA) {
-                                    gSPDisplayList(gMasterDisp++, D_30146B0);
-                                } else {
-                                    gSPDisplayList(gMasterDisp++, D_3011E40);
-                                }
-                                break;
-                            case LEVEL_FORTUNA:
-                                gSPDisplayList(gMasterDisp++, D_600D9F0);
-                                break;
-                            case LEVEL_KATINA:
-                                gSPDisplayList(gMasterDisp++, D_600F1D0);
-                                break;
-                            case LEVEL_VENOM_2:
-                                gSPDisplayList(gMasterDisp++, D_600F670);
-                                break;
-                        }
-                        break;
-                    case LEVEL_CORNERIA:
-                    case LEVEL_VENOM_1:
-                        sp134 = (gPlayer[gPlayerNum].unk_05C * -6000.0f) - (gPlayer[gPlayerNum].camEye.y * 0.6f);
-                        sp13C = Math_ModF(Math_RadToDeg(gPlayer[gPlayerNum].unk_058) * -20.222221f * 5.0f, 7280.0f);
-                        Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].unk_034 * 0.017453292f, 1);
-                        Matrix_Translate(gGfxMatrix, sp13C, -2000.0f + sp134, -6000.0f, 1);
-                        Matrix_SetGfxMtx(&gMasterDisp);
-                        switch (gCurrentLevel) {
-                            case LEVEL_CORNERIA:
-                                gSPDisplayList(gMasterDisp++, D_60059F0);
-                                break;
-                            case LEVEL_VENOM_1:
-                                gSPDisplayList(gMasterDisp++, D_60046F0);
-                                break;
-                        }
-                        Matrix_Translate(gGfxMatrix, 7280.0f, 0.0f, 0.0f, 1);
-                        Matrix_SetGfxMtx(&gMasterDisp);
-                        switch (gCurrentLevel) {
-                            case LEVEL_CORNERIA:
-                                gSPDisplayList(gMasterDisp++, D_60059F0);
-                                break;
-                            case LEVEL_VENOM_1:
-                                gSPDisplayList(gMasterDisp++, D_60046F0);
-                                break;
-                        }
-                        break;
-                    case LEVEL_VENOM_ANDROSS:
-                        if (D_80177AB0 != 6) {
-                            if ((D_80177AB0 == 2) || (D_80177AB0 == 7)) {
-                                Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].unk_034 * 0.017453292f, 1);
-                                Matrix_Translate(gGfxMatrix, 0.0f, -4000.0f, -7000.0f, 1);
-                                Matrix_SetGfxMtx(&gMasterDisp);
-                                gSPDisplayList(gMasterDisp++, D_600F670);
-                            } else if ((D_80177AB0 == 3) || (D_80177AB0 == 4)) {
-                                RCP_SetupDL(&gMasterDisp, 0x3E);
-                                if (D_80177AB0 == 4) {
-                                    if (!(gFrameCount & 8)) {
-                                        Math_SmoothStepToF(&D_80161394, 0.0f, 1.0f, 30.0f, 0);
-                                    } else {
-                                        Math_SmoothStepToF(&D_80161394, 120.0f, 1.0f, 30.0f, 0);
-                                    }
-                                } else {
-                                    D_80161394 = 255.0f;
-                                }
-                                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, (s32) D_80161394, (s32) D_80161394,
-                                                (s32) D_800C9C30);
+    if (D_80177AB0 == 0) {
+        return;
+    }
 
-                                sp134 =
-                                    (gPlayer[gPlayerNum].unk_05C * -6000.0f) - (gPlayer[gPlayerNum].camEye.y * 0.4f);
-                                sp13C =
-                                    Math_ModF(Math_RadToDeg(gPlayer[gPlayerNum].unk_058) * -20.222221f * 5.0f, 7280.0f);
-                                Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].unk_034 * 0.017453292f, 1);
-                                Matrix_Translate(gGfxMatrix, sp13C, -2000.0f + sp134, -6000.0f, 1);
-                                Matrix_Translate(gGfxMatrix, 0.0f, -2500.0f, 0.0f, 1);
-                                Matrix_SetGfxMtx(&gMasterDisp);
-                                gSPDisplayList(gMasterDisp++, D_60038E0);
-                                Matrix_Translate(gGfxMatrix, 7280.0f, 0.0f, 0.0f, 1);
-                                Matrix_SetGfxMtx(&gMasterDisp);
-                                gSPDisplayList(gMasterDisp++, D_60038E0);
+    var_s0 = gLevelType;
+    if ((gCurrentLevel == LEVEL_VERSUS) && (gVersusStage == VS_STAGE_SECTOR_Z)) {
+        var_s0 = LEVELTYPE_PLANET;
+    }
+    if (gCurrentLevel == LEVEL_TRAINING) {
+        var_s0 = LEVELTYPE_SPACE;
+    }
+    sp11C = gCurrentLevel;
+    Matrix_Push(&gGfxMatrix);
+    if (D_80177C70 == 2) {
+        Matrix_Scale(gGfxMatrix, 1.2f, 1.2f, 1.0f, 1);
+    }
+    switch (var_s0) {
+        case LEVELTYPE_PLANET:
+            RCP_SetupDL(&gMasterDisp, 0x11);
+            switch (sp11C) {
+                case LEVEL_FORTUNA:
+                case LEVEL_KATINA:
+                case LEVEL_VENOM_2:
+                case LEVEL_VERSUS:
+                    sp134 = (gPlayer[gPlayerNum].unk_05C * -6000.0f) - (gPlayer[gPlayerNum].camEye.y * 0.4f);
+                    sp13C = Math_ModF(Math_RadToDeg(gPlayer[gPlayerNum].unk_058) * -20.222221f * 5.0f, 7280.0f);
+                    Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].unk_034 * M_DTOR, 1);
+                    Matrix_Translate(gGfxMatrix, sp13C, -2000.0f + sp134, -6000.0f, 1);
+                    if (gCurrentLevel == LEVEL_FORTUNA) {
+                        Matrix_Translate(gGfxMatrix, 0.0f, -2000.0f, 0, 1);
+                    } else if (gCurrentLevel == LEVEL_KATINA) {
+                        Matrix_Translate(gGfxMatrix, 0.0f, -2500.0f, 0, 1);
+                    }
+                    Matrix_SetGfxMtx(&gMasterDisp);
+                    switch (gCurrentLevel) {
+                        case LEVEL_VERSUS:
+                            if (gVersusStage == VS_STAGE_CORNERIA) {
+                                gSPDisplayList(gMasterDisp++, D_302D4D0);
+                            } else if (gVersusStage == VS_STAGE_KATINA) {
+                                gSPDisplayList(gMasterDisp++, D_30146B0);
                             } else {
-                                RCP_SetupDL(&gMasterDisp, 0x3E);
-                                if (D_80177AB0 == 5) {
-                                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 64);
+                                gSPDisplayList(gMasterDisp++, D_3011E40);
+                            }
+                            break;
+                        case LEVEL_FORTUNA:
+                            gSPDisplayList(gMasterDisp++, D_600D9F0);
+                            break;
+                        case LEVEL_KATINA:
+                            gSPDisplayList(gMasterDisp++, D_600F1D0);
+                            break;
+                        case LEVEL_VENOM_2:
+                            gSPDisplayList(gMasterDisp++, D_600F670);
+                            break;
+                    }
+                    Matrix_Translate(gGfxMatrix, 7280.0f, 0.0f, 0.0f, 1);
+                    Matrix_SetGfxMtx(&gMasterDisp);
+                    switch (gCurrentLevel) {
+                        case LEVEL_VERSUS:
+                            if (gVersusStage == VS_STAGE_CORNERIA) {
+                                gSPDisplayList(gMasterDisp++, D_302D4D0);
+                            } else if (gVersusStage == VS_STAGE_KATINA) {
+                                gSPDisplayList(gMasterDisp++, D_30146B0);
+                            } else {
+                                gSPDisplayList(gMasterDisp++, D_3011E40);
+                            }
+                            break;
+                        case LEVEL_FORTUNA:
+                            gSPDisplayList(gMasterDisp++, D_600D9F0);
+                            break;
+                        case LEVEL_KATINA:
+                            gSPDisplayList(gMasterDisp++, D_600F1D0);
+                            break;
+                        case LEVEL_VENOM_2:
+                            gSPDisplayList(gMasterDisp++, D_600F670);
+                            break;
+                    }
+                    break;
+                case LEVEL_CORNERIA:
+                case LEVEL_VENOM_1:
+                    sp134 = (gPlayer[gPlayerNum].unk_05C * -6000.0f) - (gPlayer[gPlayerNum].camEye.y * 0.6f);
+                    sp13C = Math_ModF(Math_RadToDeg(gPlayer[gPlayerNum].unk_058) * -20.222221f * 5.0f, 7280.0f);
+                    Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].unk_034 * M_DTOR, 1);
+                    Matrix_Translate(gGfxMatrix, sp13C, -2000.0f + sp134, -6000.0f, 1);
+                    Matrix_SetGfxMtx(&gMasterDisp);
+                    switch (gCurrentLevel) {
+                        case LEVEL_CORNERIA:
+                            gSPDisplayList(gMasterDisp++, D_60059F0);
+                            break;
+                        case LEVEL_VENOM_1:
+                            gSPDisplayList(gMasterDisp++, D_60046F0);
+                            break;
+                    }
+                    Matrix_Translate(gGfxMatrix, 7280.0f, 0.0f, 0.0f, 1);
+                    Matrix_SetGfxMtx(&gMasterDisp);
+                    switch (gCurrentLevel) {
+                        case LEVEL_CORNERIA:
+                            gSPDisplayList(gMasterDisp++, D_60059F0);
+                            break;
+                        case LEVEL_VENOM_1:
+                            gSPDisplayList(gMasterDisp++, D_60046F0);
+                            break;
+                    }
+                    break;
+                case LEVEL_VENOM_ANDROSS:
+                    if (D_80177AB0 != 6) {
+                        if ((D_80177AB0 == 2) || (D_80177AB0 == 7)) {
+                            Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].unk_034 * M_DTOR, 1);
+                            Matrix_Translate(gGfxMatrix, 0.0f, -4000.0f, -7000.0f, 1);
+                            Matrix_SetGfxMtx(&gMasterDisp);
+                            gSPDisplayList(gMasterDisp++, D_600F670);
+                        } else if ((D_80177AB0 == 3) || (D_80177AB0 == 4)) {
+                            RCP_SetupDL(&gMasterDisp, 0x3E);
+                            if (D_80177AB0 == 4) {
+                                if (!(gFrameCount & 8)) {
+                                    Math_SmoothStepToF(&D_80161394, 0.0f, 1.0f, 30.0f, 0);
                                 } else {
-                                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 255, 128, (s32) D_800C9C30);
+                                    Math_SmoothStepToF(&D_80161394, 120.0f, 1.0f, 30.0f, 0);
                                 }
-                                Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -290.0f, 1);
+                            } else {
+                                D_80161394 = 255.0f;
+                            }
+                            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, (s32) D_80161394, (s32) D_80161394,
+                                            (s32) D_800C9C30);
+
+                            sp134 = (gPlayer[gPlayerNum].unk_05C * -6000.0f) - (gPlayer[gPlayerNum].camEye.y * 0.4f);
+                            sp13C = Math_ModF(Math_RadToDeg(gPlayer[gPlayerNum].unk_058) * -20.222221f * 5.0f, 7280.0f);
+                            Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].unk_034 * M_DTOR, 1);
+                            Matrix_Translate(gGfxMatrix, sp13C, -2000.0f + sp134, -6000.0f, 1);
+                            Matrix_Translate(gGfxMatrix, 0.0f, -2500.0f, 0.0f, 1);
+                            Matrix_SetGfxMtx(&gMasterDisp);
+                            gSPDisplayList(gMasterDisp++, D_60038E0);
+                            Matrix_Translate(gGfxMatrix, 7280.0f, 0.0f, 0.0f, 1);
+                            Matrix_SetGfxMtx(&gMasterDisp);
+                            gSPDisplayList(gMasterDisp++, D_60038E0);
+                        } else {
+                            RCP_SetupDL(&gMasterDisp, 0x3E);
+                            if (D_80177AB0 == 5) {
+                                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 64);
+                            } else {
+                                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 255, 128, (s32) D_800C9C30);
+                            }
+                            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -290.0f, 1);
+                            Matrix_Push(&gGfxMatrix);
+                            Matrix_Scale(gGfxMatrix, 11.0f, 11.0f, 1.0f, 1);
+                            Matrix_RotateZ(gGfxMatrix, (gPlayer->unk_034 + (gFrameCount * 1.5f)) * M_DTOR, 1);
+                            Matrix_SetGfxMtx(&gMasterDisp);
+                            gSPDisplayList(gMasterDisp++, D_C039208);
+                            Matrix_Pop(&gGfxMatrix);
+                            if (D_80177AB0 != 5) {
                                 Matrix_Push(&gGfxMatrix);
-                                Matrix_Scale(gGfxMatrix, 11.0f, 11.0f, 1.0f, 1);
-                                Matrix_RotateZ(gGfxMatrix,
-                                               (gPlayer->unk_034 + ((f32) gFrameCount * 1.5f)) * 0.017453292f, 1);
+                                Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 1.0f, 1);
+                                Matrix_RotateZ(gGfxMatrix, (gPlayer->unk_034 + (gFrameCount * -1.3f)) * M_DTOR, 1);
                                 Matrix_SetGfxMtx(&gMasterDisp);
                                 gSPDisplayList(gMasterDisp++, D_C039208);
                                 Matrix_Pop(&gGfxMatrix);
-                                if (D_80177AB0 != 5) {
-                                    Matrix_Push(&gGfxMatrix);
-                                    Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 1.0f, 1);
-                                    Matrix_RotateZ(gGfxMatrix,
-                                                   (gPlayer->unk_034 + ((f32) gFrameCount * -1.3f)) * 0.017453292f, 1);
-                                    Matrix_SetGfxMtx(&gMasterDisp);
-                                    gSPDisplayList(gMasterDisp++, D_C039208);
-                                    Matrix_Pop(&gGfxMatrix);
-                                }
                             }
                         }
-                        break;
-                    case LEVEL_AQUAS:
-                        if (gPlayer->state_1C8 == PLAYERSTATE_1C8_2) {
-                            sp13C = ((Math_RadToDeg(gPlayer[gPlayerNum].unk_058) - gPlayer[gPlayerNum].unk_114));
-                            sp134 = (gPlayer[gPlayerNum].unk_05C * -7000.0f) - (gPlayer[gPlayerNum].camEye.y * 0.6f);
-                            sp13C = Math_ModF(sp13C * -40.44444f * 2.0f, 7280.0f);
-                            RCP_SetupDL_17();
-                            Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].unk_034 * 0.017453292f, 1);
-                            Matrix_Scale(gGfxMatrix, 1.5f, 1.0f, 1.0f, 1);
-                            Matrix_Push(&gGfxMatrix);
-                            Matrix_Translate(gGfxMatrix, sp13C, sp134, -7000.0f, 1);
-                            Matrix_SetGfxMtx(&gMasterDisp);
-                            if (gPlayer->state_1C8 == PLAYERSTATE_1C8_2) {
-                                gSPDisplayList(gMasterDisp++, D_601AFF0);
-                            } else {
-                                gSPDisplayList(gMasterDisp++, D_601C080);
-                            }
-
-                            if (sp13C < 0) {
-                                sp13C = 1.0f;
-                            } else {
-                                sp13C = -1.0f;
-                            }
-                            Matrix_Translate(gGfxMatrix, 7280.0f * sp13C, 0.0f, 0.0f, 1);
-                            Matrix_SetGfxMtx(&gMasterDisp);
-                            if (gPlayer->state_1C8 == PLAYERSTATE_1C8_2) {
-                                gSPDisplayList(gMasterDisp++, D_601AFF0);
-
-                            } else {
-                                gSPDisplayList(gMasterDisp++, D_601C080);
-                            }
-                            Matrix_Pop(&gGfxMatrix);
-                        }
-                        break;
-                    case LEVEL_SOLAR:
-                    case LEVEL_ZONESS:
-                    case LEVEL_MACBETH:
-                    case LEVEL_TITANIA:
-                        sp13C = (Math_RadToDeg(gPlayer[gPlayerNum].unk_058) - gPlayer[gPlayerNum].unk_114) *
-                                -40.44444f * 2.0f;
+                    }
+                    break;
+                case LEVEL_AQUAS:
+                    if (gPlayer->state_1C8 == PLAYERSTATE_1C8_2) {
+                        sp13C = ((Math_RadToDeg(gPlayer[gPlayerNum].unk_058) - gPlayer[gPlayerNum].unk_114));
                         sp134 = (gPlayer[gPlayerNum].unk_05C * -7000.0f) - (gPlayer[gPlayerNum].camEye.y * 0.6f);
-                        if ((gCurrentLevel == LEVEL_TITANIA) && (gPlayer->state_1C8 == PLAYERSTATE_1C8_2) &&
-                            (gPlayer->unk_1D0 < 3)) {
-                            D_8015F968 += __sinf(gPlayer->unk_058) * 20.0f;
-                            sp13C += D_8015F968;
-                        }
-                        if ((gCurrentLevel == LEVEL_SOLAR) && (gPlayer->state_1C8 == PLAYERSTATE_1C8_2) &&
-                            (gPlayer->unk_1D0 >= 2) && (gPlayer->camEye.z <= -1900.0f)) {
-                            D_8015F968 = __sinf(gPlayer->unk_05C) * 7000.0f;
-                            sp134 -= fabsf(D_8015F968);
-                        }
-                        sp13C = Math_ModF(sp13C, 7280.0f);
+                        sp13C = Math_ModF(sp13C * -40.44444f * 2.0f, 7280.0f);
                         RCP_SetupDL_17();
-                        Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].unk_034 * 0.017453292f, 1);
+                        Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].unk_034 * M_DTOR, 1);
                         Matrix_Scale(gGfxMatrix, 1.5f, 1.0f, 1.0f, 1);
-                        if ((gCurrentLevel == LEVEL_TITANIA) || (gCurrentLevel == LEVEL_ZONESS)) {
-                            Matrix_Translate(gGfxMatrix, sp13C, -3000.0f + sp134, -7000.0f, 1);
-                        } else if (gCurrentLevel == LEVEL_SOLAR) {
-                            Matrix_Translate(gGfxMatrix, sp13C, -3500.0f + sp134, -7000.0f, 1);
-                        } else if (gCurrentLevel == LEVEL_MACBETH) {
-                            Matrix_Translate(gGfxMatrix, sp13C, -4000.0f + sp134, -7000.0f, 1);
-                        }
+                        Matrix_Push(&gGfxMatrix);
+                        Matrix_Translate(gGfxMatrix, sp13C, sp134, -7000.0f, 1);
                         Matrix_SetGfxMtx(&gMasterDisp);
-                        if (gCurrentLevel == LEVEL_TITANIA) {
-                            gSPDisplayList(gMasterDisp++, D_6000A80);
-                        } else if (gCurrentLevel == LEVEL_MACBETH) {
-                            gSPDisplayList(gMasterDisp++, D_6019220);
-                        } else if (gCurrentLevel == LEVEL_ZONESS) {
-                            gSPDisplayList(gMasterDisp++, D_6013480);
-                        } else if (gCurrentLevel == LEVEL_SOLAR) {
-                            gSPDisplayList(gMasterDisp++, D_601E150);
+                        if (gPlayer->state_1C8 == PLAYERSTATE_1C8_2) {
+                            gSPDisplayList(gMasterDisp++, D_601AFF0);
+                        } else {
+                            gSPDisplayList(gMasterDisp++, D_601C080);
                         }
+
                         if (sp13C < 0) {
                             sp13C = 1.0f;
                         } else {
@@ -427,192 +407,241 @@ void func_8003E1E8(void) {
                         }
                         Matrix_Translate(gGfxMatrix, 7280.0f * sp13C, 0.0f, 0.0f, 1);
                         Matrix_SetGfxMtx(&gMasterDisp);
-                        if (gCurrentLevel == LEVEL_TITANIA) {
-                            gSPDisplayList(gMasterDisp++, D_6000A80);
-                        } else if (gCurrentLevel == LEVEL_MACBETH) {
-                            gSPDisplayList(gMasterDisp++, D_6019220);
-                        } else if (gCurrentLevel == LEVEL_ZONESS) {
-                            gSPDisplayList(gMasterDisp++, D_6013480);
-                        } else if (gCurrentLevel == LEVEL_SOLAR) {
-                            gSPDisplayList(gMasterDisp++, D_601E150);
-                        }
-                        break;
-                }
-                break;
-            case LEVELTYPE_SPACE:
-                if (gPlayer->state_1C8 != PLAYERSTATE_1C8_8) {
-                    Matrix_Push(&gGfxMatrix);
-                    sp12C = Math_RadToDeg(gPlayer->unk_058);
-                    sp130 = Math_RadToDeg(gPlayer->unk_05C);
-                    if (((sp12C < 45.0f) || (sp12C > 315.0f)) && ((sp130 < 40.0f) || (sp130 > 325.0f))) {
-                        RCP_SetupDL_36();
-                        sp138 = D_80178420;
-                        sp134 = D_80178424;
-                        if (((gCurrentLevel == LEVEL_SECTOR_X) || (gCurrentLevel == LEVEL_METEO)) &&
-                            (D_8017827C == 1)) {
-                            sp11C = LEVEL_WARP_ZONE;
-                        }
-                        if (sp11C == LEVEL_SECTOR_X) {
-                            sp138 = Math_ModF(sp138 + 60.0f, 480.0f);
-                            sp134 = Math_ModF(sp134 + 360.0f - 40.0f, 360.0f);
-                        } else if (sp11C == LEVEL_TRAINING) {
-                            sp138 = Math_ModF(sp138 - 30.0f, 480.0f);
-                            sp134 = Math_ModF(sp134 + 360.0f - 40.0f, 360.0f);
-                        } else if ((sp11C == LEVEL_SECTOR_Y) && (gLevelMode == LEVELMODE_ON_RAILS)) {
-                            sp138 = Math_ModF(sp138 + 480.0f - 60.0f, 480.0f);
-                            sp134 = Math_ModF(sp134, 360.0f);
-                        } else if (sp11C == LEVEL_FORTUNA) {
-                            sp138 = Math_ModF(sp138 - 34.5f, 480.0f);
-                            sp134 = Math_ModF(sp134 + 19.0f, 360.0f);
-                        } else if (sp11C == LEVEL_BOLSE) {
-                            if ((gPlayer->state_1C8 != PLAYERSTATE_1C8_7) || (gPlayer->unk_1D0 < 10)) {
-                                sp134 = Math_ModF(sp134 + 360.0f - 100.0f, 360.0f);
-                            }
+                        if (gPlayer->state_1C8 == PLAYERSTATE_1C8_2) {
+                            gSPDisplayList(gMasterDisp++, D_601AFF0);
+
                         } else {
-                            sp138 = Math_ModF(sp138, 480.0f);
-                            sp134 = Math_ModF(sp134, 360.0f);
+                            gSPDisplayList(gMasterDisp++, D_601C080);
                         }
-                        if ((sp12C < 180.0f) && (sp138 > 380.0f)) {
-                            sp138 = -(480.0f - sp138);
+                        Matrix_Pop(&gGfxMatrix);
+                    }
+                    break;
+                case LEVEL_SOLAR:
+                case LEVEL_ZONESS:
+                case LEVEL_MACBETH:
+                case LEVEL_TITANIA:
+                    sp138 = Math_RadToDeg(gPlayer[gPlayerNum].unk_058) - gPlayer[gPlayerNum].unk_114;
+                    sp134 = (gPlayer[gPlayerNum].unk_05C * -7000.0f) - (gPlayer[gPlayerNum].camEye.y * 0.6f);
+                    sp13C = sp138 * -40.44444f * 2.0f;
+                    if ((gCurrentLevel == LEVEL_TITANIA) && (gPlayer->state_1C8 == PLAYERSTATE_1C8_2) &&
+                        (gPlayer->unk_1D0 < 3)) {
+                        D_8015F968 += __sinf(gPlayer->unk_058) * 20.0f;
+                        sp13C += D_8015F968;
+                    }
+                    if ((gCurrentLevel == LEVEL_SOLAR) && (gPlayer->state_1C8 == PLAYERSTATE_1C8_2) &&
+                        (gPlayer->unk_1D0 >= 2) && (gPlayer->camEye.z <= -1900.0f)) {
+                        D_8015F968 = __sinf(gPlayer->unk_05C) * 7000.0f;
+                        sp134 -= fabsf(D_8015F968);
+                    }
+                    sp13C = Math_ModF(sp13C, 7280.0f);
+                    RCP_SetupDL_17();
+                    Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].unk_034 * M_DTOR, 1);
+                    Matrix_Scale(gGfxMatrix, 1.5f, 1.0f, 1.0f, 1);
+                    if ((gCurrentLevel == LEVEL_TITANIA) || (gCurrentLevel == LEVEL_ZONESS)) {
+                        Matrix_Translate(gGfxMatrix, sp13C, -3000.0f + sp134, -7000.0f, 1);
+                    } else if (gCurrentLevel == LEVEL_SOLAR) {
+                        Matrix_Translate(gGfxMatrix, sp13C, -3500.0f + sp134, -7000.0f, 1);
+                    } else if (gCurrentLevel == LEVEL_MACBETH) {
+                        Matrix_Translate(gGfxMatrix, sp13C, -4000.0f + sp134, -7000.0f, 1);
+                    }
+                    Matrix_SetGfxMtx(&gMasterDisp);
+                    if (gCurrentLevel == LEVEL_TITANIA) {
+                        gSPDisplayList(gMasterDisp++, D_6000A80);
+                    } else if (gCurrentLevel == LEVEL_MACBETH) {
+                        gSPDisplayList(gMasterDisp++, D_6019220);
+                    } else if (gCurrentLevel == LEVEL_ZONESS) {
+                        gSPDisplayList(gMasterDisp++, D_6013480);
+                    } else if (gCurrentLevel == LEVEL_SOLAR) {
+                        gSPDisplayList(gMasterDisp++, D_601E150);
+                    }
+                    if (sp13C < 0) {
+                        sp13C = 1.0f;
+                    } else {
+                        sp13C = -1.0f;
+                    }
+                    Matrix_Translate(gGfxMatrix, 7280.0f * sp13C, 0.0f, 0.0f, 1);
+                    Matrix_SetGfxMtx(&gMasterDisp);
+                    if (gCurrentLevel == LEVEL_TITANIA) {
+                        gSPDisplayList(gMasterDisp++, D_6000A80);
+                    } else if (gCurrentLevel == LEVEL_MACBETH) {
+                        gSPDisplayList(gMasterDisp++, D_6019220);
+                    } else if (gCurrentLevel == LEVEL_ZONESS) {
+                        gSPDisplayList(gMasterDisp++, D_6013480);
+                    } else if (gCurrentLevel == LEVEL_SOLAR) {
+                        gSPDisplayList(gMasterDisp++, D_601E150);
+                    }
+                    break;
+            }
+            break;
+        case LEVELTYPE_SPACE:
+            if (gPlayer->state_1C8 != PLAYERSTATE_1C8_8) {
+                Matrix_Push(&gGfxMatrix);
+                sp12C = Math_RadToDeg(gPlayer->unk_058);
+                sp130 = Math_RadToDeg(gPlayer->unk_05C);
+                if (((sp12C < 45.0f) || (sp12C > 315.0f)) && ((sp130 < 40.0f) || (sp130 > 325.0f))) {
+                    RCP_SetupDL_36();
+                    sp138 = D_80178420;
+                    sp134 = D_80178424;
+                    if (((gCurrentLevel == LEVEL_SECTOR_X) || (gCurrentLevel == LEVEL_METEO)) && (D_8017827C == 1)) {
+                        sp11C = LEVEL_WARP_ZONE;
+                    }
+                    if (sp11C == LEVEL_SECTOR_X) {
+                        sp138 = Math_ModF(sp138 + 60.0f, 480.0f);
+                        sp134 = Math_ModF(sp134 + 360.0f - 40.0f, 360.0f);
+                    } else if (sp11C == LEVEL_TRAINING) {
+                        sp138 = Math_ModF(sp138 - 30.0f, 480.0f);
+                        sp134 = Math_ModF(sp134 + 360.0f - 40.0f, 360.0f);
+                    } else if ((sp11C == LEVEL_SECTOR_Y) && (gLevelMode == LEVELMODE_ON_RAILS)) {
+                        sp138 = Math_ModF(sp138 + 480.0f - 60.0f, 480.0f);
+                        sp134 = Math_ModF(sp134, 360.0f);
+                    } else if (sp11C == LEVEL_FORTUNA) {
+                        sp138 = Math_ModF(sp138 - 34.5f, 480.0f);
+                        sp134 = Math_ModF(sp134 + 19.0f, 360.0f);
+                    } else if (sp11C == LEVEL_BOLSE) {
+                        if ((gPlayer->state_1C8 != PLAYERSTATE_1C8_7) || (gPlayer->unk_1D0 < 10)) {
+                            sp134 = Math_ModF(sp134 + 360.0f - 100.0f, 360.0f);
                         }
-                        if ((sp130 > 180.0f) && (sp134 > 280.0f)) {
-                            sp134 = -(360.0f - sp134);
-                        }
-                        Matrix_RotateZ(gGfxMatrix, D_80178428, 1);
-                        switch (sp11C) {
-                            case LEVEL_WARP_ZONE:
-                                if ((s32) D_8015F960 != 0) {
-                                    RCP_SetupDL_62();
-                                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) D_8015F960);
-                                    Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, 1);
-                                    Matrix_Scale(gGfxMatrix, 1.7f, 1.7f, 1.0f, 1);
-                                    Matrix_Push(&gGfxMatrix);
-                                    Matrix_RotateZ(gGfxMatrix, -(f32) gFrameCount * 10.0f * 0.017453292f, 1);
-                                    Matrix_Scale(gGfxMatrix, 1.07f, 0.93f, 1.0f, 1);
-                                    Matrix_RotateZ(gGfxMatrix, (f32) gFrameCount * 10.0f * 0.017453292f, 1);
-                                    Matrix_Scale(gGfxMatrix, 1.07f, 0.93f, 1.0f, 1);
-                                    Matrix_SetGfxMtx(&gMasterDisp);
-                                    gSPDisplayList(gMasterDisp++, D_7001540);
-                                    Matrix_Pop(&gGfxMatrix);
-                                }
-                                break;
-                            case LEVEL_METEO:
-                                if ((gPlayer->state_1C8 == PLAYERSTATE_1C8_7) && (D_80177A80 > 260)) {
-                                    Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f) - 30.0f, -290.0f, 1);
-                                    Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 1.0f, 1);
-                                    Matrix_SetGfxMtx(&gMasterDisp);
-                                    gSPDisplayList(gMasterDisp++, D_600DDF0);
-                                } else if (D_80177D20 > 185668.0f) {
-                                    Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f) - 130.0f, -290.0f,
-                                                     1);
-                                    Matrix_Scale(gGfxMatrix, 0.4f, 0.4f, 1.0f, 1);
-                                    Matrix_SetGfxMtx(&gMasterDisp);
-                                    gSPDisplayList(gMasterDisp++, D_600DDF0);
-                                }
-                                break;
-                            case LEVEL_SECTOR_X:
-                                if (gOverlayStage == 0) {
-                                    Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, 1);
-                                    Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 1.0f, 1);
-                                    Matrix_SetGfxMtx(&gMasterDisp);
-                                    RCP_SetupDL_62();
-                                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 192);
-                                    gSPDisplayList(gMasterDisp++, D_6029890);
-                                }
-                                break;
-                            case LEVEL_TRAINING:
-                                Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, 1);
-                                Matrix_Scale(gGfxMatrix, 0.2f, 0.2f, 1.0f, 1);
-                                Matrix_SetGfxMtx(&gMasterDisp);
+                    } else {
+                        sp138 = Math_ModF(sp138, 480.0f);
+                        sp134 = Math_ModF(sp134, 360.0f);
+                    }
+                    if ((sp12C < 180.0f) && (sp138 > 380.0f)) {
+                        sp138 = -(480.0f - sp138);
+                    }
+                    if ((sp130 > 180.0f) && (sp134 > 280.0f)) {
+                        sp134 = -(360.0f - sp134);
+                    }
+                    Matrix_RotateZ(gGfxMatrix, D_80178428, 1);
+                    switch (sp11C) {
+                        case LEVEL_WARP_ZONE:
+                            if ((s32) D_8015F960 != 0) {
                                 RCP_SetupDL_62();
-                                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
-                                gSPDisplayList(gMasterDisp++, D_6003760);
-                                break;
-                            case LEVEL_AREA_6:
-                            case LEVEL_UNK_4:
-                                sp128 = (D_80177D20 * 0.00004f) + 0.5f;
-                                if (sp128 > 3.5f) {
-                                    sp128 = 3.5f;
-                                }
-                                if (gPlayer->state_1C8 == PLAYERSTATE_1C8_7) {
-                                    sp128 = D_8015F984;
-                                    if (sp128 > 3.5f) {
-                                        sp128 = 3.5f;
-                                    }
-                                }
-                                sp128 = sp128;
+                                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) D_8015F960);
                                 Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, 1);
-                                Matrix_Scale(gGfxMatrix, sp128 * 0.75, sp128 * 0.75f, 1.0f, 1);
+                                Matrix_Scale(gGfxMatrix, 1.7f, 1.7f, 1.0f, 1);
+                                Matrix_Push(&gGfxMatrix);
+                                Matrix_RotateZ(gGfxMatrix, -(f32) gFrameCount * 10.0f * M_DTOR, 1);
+                                Matrix_Scale(gGfxMatrix, 1.07f, 0.93f, 1.0f, 1);
+                                Matrix_RotateZ(gGfxMatrix, gFrameCount * 10.0f * M_DTOR, 1);
+                                Matrix_Scale(gGfxMatrix, 1.07f, 0.93f, 1.0f, 1);
                                 Matrix_SetGfxMtx(&gMasterDisp);
-                                gSPDisplayList(gMasterDisp++, D_601BB40);
-                                break;
-                            case LEVEL_FORTUNA:
-                                sp128 = 1.5f;
-                                if ((D_80177A80 > 400) && (D_80177930 == 0)) {
-                                    sp128 = 0.75f;
-                                }
-                                Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, 1);
-                                Matrix_Scale(gGfxMatrix, sp128, sp128, sp128, 1);
+                                gSPDisplayList(gMasterDisp++, D_7001540);
+                                Matrix_Pop(&gGfxMatrix);
+                            }
+                            break;
+                        case LEVEL_METEO:
+                            if ((gPlayer->state_1C8 == PLAYERSTATE_1C8_7) && (D_80177A80 > 260)) {
+                                Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f) - 30.0f, -290.0f, 1);
+                                Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 1.0f, 1);
                                 Matrix_SetGfxMtx(&gMasterDisp);
-                                gSPDisplayList(gMasterDisp++, D_600B4B0);
-                                break;
-                            case LEVEL_BOLSE:
-                                sp128 = 1.0f;
-                                if ((D_80177A80 > 500) && (gPlayer->state_1C8 == PLAYERSTATE_1C8_7)) {
-                                    sp128 = 1.3f;
-                                }
-                                Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, 1);
-                                Matrix_Scale(gGfxMatrix, sp128, sp128, sp128, 1);
-                                Matrix_SetGfxMtx(&gMasterDisp);
-                                gSPDisplayList(gMasterDisp++, D_600D190);
-                                break;
-                            case LEVEL_SECTOR_Z:
-                                Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, 1);
-                                Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, 1);
-                                Matrix_RotateX(gGfxMatrix, 1.5707964f, 1);
-                                Matrix_SetGfxMtx(&gMasterDisp);
-                                gSPDisplayList(gMasterDisp++, D_6002F80);
-                                break;
-                            case LEVEL_SECTOR_Y:
-                                Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, 1);
+                                gSPDisplayList(gMasterDisp++, D_600DDF0);
+                            } else if (D_80177D20 > 185668.0f) {
+                                Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f) - 130.0f, -290.0f, 1);
                                 Matrix_Scale(gGfxMatrix, 0.4f, 0.4f, 1.0f, 1);
+                                Matrix_SetGfxMtx(&gMasterDisp);
+                                gSPDisplayList(gMasterDisp++, D_600DDF0);
+                            }
+                            break;
+                        case LEVEL_SECTOR_X:
+                            if (gOverlayStage == 0) {
+                                Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, 1);
+                                Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 1.0f, 1);
                                 Matrix_SetGfxMtx(&gMasterDisp);
                                 RCP_SetupDL_62();
                                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 192);
-                                gSPDisplayList(gMasterDisp++, D_6001840);
-                                break;
-                        }
+                                gSPDisplayList(gMasterDisp++, D_6029890);
+                            }
+                            break;
+                        case LEVEL_TRAINING:
+                            Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, 1);
+                            Matrix_Scale(gGfxMatrix, 0.2f, 0.2f, 1.0f, 1);
+                            Matrix_SetGfxMtx(&gMasterDisp);
+                            RCP_SetupDL_62();
+                            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
+                            gSPDisplayList(gMasterDisp++, D_6003760);
+                            break;
+                        case LEVEL_AREA_6:
+                        case LEVEL_UNK_4:
+                            sp128 = (D_80177D20 * 0.00004f) + 0.5f;
+                            if (sp128 > 3.5f) {
+                                sp128 = 3.5f;
+                            }
+                            if (gPlayer->state_1C8 == PLAYERSTATE_1C8_7) {
+                                sp128 = D_8015F984;
+                                if (sp128 > 3.5f) {
+                                    sp128 = 3.5f;
+                                }
+                            }
+                            sp128 = sp128;
+                            Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, 1);
+                            Matrix_Scale(gGfxMatrix, sp128 * 0.75, sp128 * 0.75f, 1.0f, 1);
+                            Matrix_SetGfxMtx(&gMasterDisp);
+                            gSPDisplayList(gMasterDisp++, D_601BB40);
+                            break;
+                        case LEVEL_FORTUNA:
+                            sp128 = 1.5f;
+                            if ((D_80177A80 > 400) && (D_80177930 == 0)) {
+                                sp128 = 0.75f;
+                            }
+                            Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, 1);
+                            Matrix_Scale(gGfxMatrix, sp128, sp128, sp128, 1);
+                            Matrix_SetGfxMtx(&gMasterDisp);
+                            gSPDisplayList(gMasterDisp++, D_600B4B0);
+                            break;
+                        case LEVEL_BOLSE:
+                            sp128 = 1.0f;
+                            if ((D_80177A80 > 500) && (gPlayer->state_1C8 == PLAYERSTATE_1C8_7)) {
+                                sp128 = 1.3f;
+                            }
+                            Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, 1);
+                            Matrix_Scale(gGfxMatrix, sp128, sp128, sp128, 1);
+                            Matrix_SetGfxMtx(&gMasterDisp);
+                            gSPDisplayList(gMasterDisp++, D_600D190);
+                            break;
+                        case LEVEL_SECTOR_Z:
+                            Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, 1);
+                            Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, 1);
+                            Matrix_RotateX(gGfxMatrix, M_PI / 2.0f, 1);
+                            Matrix_SetGfxMtx(&gMasterDisp);
+                            gSPDisplayList(gMasterDisp++, D_6002F80);
+                            break;
+                        case LEVEL_SECTOR_Y:
+                            Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, 1);
+                            Matrix_Scale(gGfxMatrix, 0.4f, 0.4f, 1.0f, 1);
+                            Matrix_SetGfxMtx(&gMasterDisp);
+                            RCP_SetupDL_62();
+                            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 192);
+                            gSPDisplayList(gMasterDisp++, D_6001840);
+                            break;
                     }
-                    Matrix_Pop(&gGfxMatrix);
                 }
-                if (D_80178414 > 0.0f) {
-                    f32* sp50 = D_80178288;
-                    f32* sp4C = D_80178290;
-                    f32 sp48;
-                    s32 pad;
-                    s32 pad2;
+                Matrix_Pop(&gGfxMatrix);
+            }
+            if (D_80178414 > 0.0f) {
+                f32* sp50 = D_80178288;
+                f32* sp4C = D_80178290;
+                f32 sp48;
 
-                    RCP_SetupDL_14();
-                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 128, 128, 255, 255);
-                    sp124 = 0;
-                    sp48 = 0.0f;
-                    for (sp124 = 0; sp124 < 300; sp124++, sp50++, sp4C++) {
-                        *sp50 = (Rand_ZeroOneSeeded() * 480.0f) - 80.0f;
-                        *sp4C = (Rand_ZeroOneSeeded() * 360.0f) - 60.0f;
-                        Matrix_Push(&gGfxMatrix);
-                        Matrix_Translate(gGfxMatrix, (*sp50 - 160.0f) * 10.0f, (*sp4C - 120.0f) * 10.0f, -5000.0f, 1);
-                        Matrix_RotateZ(gGfxMatrix, sp48, 1);
-                        Matrix_Scale(gGfxMatrix, 10.0f, 1.0f, -D_80178414, 1);
-                        Matrix_SetGfxMtx(&gMasterDisp);
-                        gSPDisplayList(gMasterDisp++, D_800CFD80);
-                        Matrix_Pop(&gGfxMatrix);
-                        sp48 += 0.7853982f;
-                    }
+                RCP_SetupDL_14();
+                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 128, 128, 255, 255);
+                sp124 = 0;
+                sp48 = 0.0f;
+                for (sp124 = 0; sp124 < 300; sp124++, sp50++, sp4C++) {
+                    *sp50 = (Rand_ZeroOneSeeded() * 480.0f) - 80.0f;
+                    *sp4C = (Rand_ZeroOneSeeded() * 360.0f) - 60.0f;
+                    Matrix_Push(&gGfxMatrix);
+                    Matrix_Translate(gGfxMatrix, (*sp50 - 160.0f) * 10.0f, (*sp4C - 120.0f) * 10.0f, -5000.0f, 1);
+                    Matrix_RotateZ(gGfxMatrix, sp48, 1);
+                    Matrix_Scale(gGfxMatrix, 10.0f, 1.0f, -D_80178414, 1);
+                    Matrix_SetGfxMtx(&gMasterDisp);
+                    gSPDisplayList(gMasterDisp++, D_800CFD80);
+                    Matrix_Pop(&gGfxMatrix);
+                    sp48 += M_PI / 4.0f;
                 }
-                break;
-        }
-        Matrix_Pop(&gGfxMatrix);
+            }
+            break;
     }
+    Matrix_Pop(&gGfxMatrix);
 }
 #else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_bg/func_8003E1E8.s")
@@ -667,7 +696,7 @@ void func_80040450(void) {
     }
     if (D_80178380[gPlayerNum] != 0) {
         Matrix_Push(&gGfxMatrix);
-        Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].unk_034 * 0.017453292f, 1);
+        Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].unk_034 * M_DTOR, 1);
         Matrix_Translate(gGfxMatrix, D_801783D0, D_801783D4, -200.0f, 1);
         RCP_SetupDL_62();
         var_s1 = D_800C9D94;
@@ -711,7 +740,7 @@ void func_80040954(void) {
         }
         var_fs2 *= D_800C9E5C[gLevelType];
         Matrix_Push(&gGfxMatrix);
-        Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].unk_034 * 0.017453292f, 1);
+        Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].unk_034 * M_DTOR, 1);
         Matrix_Translate(gGfxMatrix, D_801783D0, D_801783D4, -200.0f, 1);
         RCP_SetupDL_62();
         temp_fs0 = D_801783D0 * -0.03f;
@@ -733,7 +762,7 @@ void func_80040954(void) {
             Matrix_Translate(gGfxMatrix, *var_s7 * temp_fs0, *var_s7 * -temp_fs1, 0.0f, 1);
             Matrix_Scale(gGfxMatrix, *var_s6, *var_s6, *var_s6, 1);
             if (((i == 5) || (i == 11)) && (gCurrentLevel != LEVEL_KATINA)) {
-                Matrix_RotateX(gGfxMatrix, 1.5707964f, 1);
+                Matrix_RotateX(gGfxMatrix, M_PI / 2.0f, 1);
             }
             Matrix_SetGfxMtx(&gMasterDisp);
             var_fv0 = *var_s4;
@@ -751,7 +780,6 @@ void func_80040954(void) {
 void func_80040CDC(void) {
 }
 
-#ifdef NON_MATCHING
 void func_80040CE4(void) {
     f32 sp1D4;
     s32 i;
@@ -985,13 +1013,14 @@ void func_80040CE4(void) {
                 Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -3000.0f, 1);
                 Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.5f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_600AB10);
+                sp1C0 = D_600AB10;
+                gSPDisplayList(gMasterDisp++, sp1C0);
                 Matrix_Pop(&gGfxMatrix);
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 3000.0f, 1);
                 Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.5f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_600AB10);
+                gSPDisplayList(gMasterDisp++, sp1C0);
                 Matrix_Pop(&gGfxMatrix);
             }
             if ((D_8015F964 != 0) || (D_80177AC8 == 0)) {
@@ -1101,25 +1130,27 @@ void func_80040CE4(void) {
     }
     Matrix_Pop(&gGfxMatrix);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_bg/func_80040CE4.s")
-#endif
 
-#ifdef NON_MATCHING
 void func_80042D38(void) {
+    f32 xEye;
+    f32 zEye;
+
+    if (!gPlayer[gPlayerNum].camEye.x) {}
+    if (!gPlayer[gPlayerNum].camEye.y) {} // all sorts of fake
+
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, gPlayer[gPlayerNum].camEye.x, 2.0f + D_8017847C, gPlayer[gPlayerNum].camEye.z, 1);
+    xEye = gPlayer[gPlayerNum].camEye.x;
+    if (0) {}
+    zEye = gPlayer[gPlayerNum].camEye.z;
+    Matrix_Translate(gGfxMatrix, xEye, 2.0f + D_8017847C, zEye, 1);
     Matrix_Scale(gGfxMatrix, 1.5f, 1.0f, 1.0f, 1);
     RCP_SetupDL_37(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    GPC(255, 255, 255, 125);
+    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 125);
     Matrix_SetGfxMtx(&gMasterDisp);
     if (gFrameCount & 1) {
-        GDL(D_602C030);
+        gSPDisplayList(gMasterDisp++, D_602C030);
     } else {
-        GDL(D_602C088);
+        gSPDisplayList(gMasterDisp++, D_602C088);
     }
     Matrix_Pop(&gGfxMatrix);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_bg/func_80042D38.s")
-#endif

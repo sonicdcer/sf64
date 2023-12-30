@@ -132,9 +132,9 @@ void func_80042FDC(Object_408*);
 void func_80042FE8(Object_408*);
 
 // fox_43E80
-void func_80043468(Player* );
-void func_800444BC(Player *);
-void func_80047504(Player *);
+void func_80043468(Player*  player);
+void func_800444BC(Player * player);
+void func_80047504(Player * player);
 
 // sf_496E0
 void func_80049C0C(Player *);
@@ -512,6 +512,17 @@ void func_800B7184(Player *, s32);
 void func_800B73E0(Player *);
 void func_800B852C(s32 , Item *);
 void func_800B86CC(void);
+void func_800AD7F0(Player *player);
+void func_800ADF58(Player *player);
+void func_800B415C(Player *player);
+void func_800B41E0(Player *player);
+void func_800B41EC(Player *player);
+void func_800A46A0(Player* player);
+void func_800A86E4(Player* player);
+void func_800A887C(Player* player);
+s32 func_800A7974(Player* player, f32* hitboxData, s32* index, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot,
+                  f32 zRot, f32 arg9, f32 argA, f32 argB);
+bool func_800A8054(s32 objId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, Vec3f* arg7, Vec3f* arg8);
 
 // fox_radio
 s32 func_800BA7BC(u16*, s32);
