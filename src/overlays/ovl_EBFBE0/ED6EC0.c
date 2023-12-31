@@ -3047,7 +3047,58 @@ void func_EBFBE0_801AA1CC(s32 arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AA434.s")
+#ifndef IMPORT_DATA
+extern char* D_EBFBE0_801AF9F4[15];
+extern char* D_EBFBE0_801B6AD0[];
+extern s32 D_EBFBE0_801B6ADC[];
+extern s32 D_EBFBE0_801B6AE8[];
+extern s32 D_EBFBE0_801B6AF4[];
+#endif
+
+void func_EBFBE0_801AA434(s32 arg0, f32 x, f32 y, s32 pp) {
+    s32 i;
+    f32 x2;
+    s32 pad;
+    s32 mask;
+    s32 temp;
+#ifdef IMPORT_DATA
+    static char* D_EBFBE0_801B6AD0[] = { "P", "S", "F" };
+    static s32 D_EBFBE0_801B6ADC[] = { 255, 0, 30 };
+    static s32 D_EBFBE0_801B6AE8[] = { 30, 179, 30 };
+    static s32 D_EBFBE0_801B6AF4[] = { 0, 67, 255 };
+#endif
+
+    RCP_SetupDL(&gMasterDisp, 0x53);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
+
+    Graphics_DisplaySmallText(x + 12.0f - Graphics_GetSmallTextWidth(D_EBFBE0_801AF9F4[pp]) * 0.5f, y - 8.0f, 1.0f,
+                              1.0f, D_EBFBE0_801AF9F4[pp]);
+
+    Graphics_DisplaySmallNumber(x + 15.0f - ((func_8008BCBC(D_80177B70[arg0]) - 1) * 8), y + 24.0f + 1.0f,
+                                D_80177B70[arg0]);
+
+    if (D_80161A34 == 7) {
+        temp = D_80177B48;
+    }
+    if ((D_80161A34 == 5) || (D_80161A34 == 8)) {
+        temp = D_80177B48 + 1;
+    }
+
+    if (arg0 < temp) {
+        mask = 0x00FF0000;
+        x2 = 0.0f;
+        for (i = 0; i < 3; i++, x2 += 9.0f) {
+            if ((D_80177B50[arg0] & mask)) {
+                RCP_SetupDL(&gMasterDisp, 0x53);
+                gDPSetPrimColor(gMasterDisp++, 0, 0, D_EBFBE0_801B6ADC[i], D_EBFBE0_801B6AE8[i], D_EBFBE0_801B6AF4[i],
+                                255);
+                Graphics_DisplaySmallText((s32) x + x2 - 1.0f, (s32) y + 24.0f + 8.0f + 2.0f, 1.0f, 1.0f,
+                                          D_EBFBE0_801B6AD0[i]);
+            }
+            mask >>= 8;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AA778.s")
 
