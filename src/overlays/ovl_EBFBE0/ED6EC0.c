@@ -107,6 +107,7 @@ extern s32 D_EBFBE0_801CD998;
 extern f32 D_EBFBE0_801CD99C;
 extern s32 D_EBFBE0_801CD9A0;
 extern s32 D_EBFBE0_801CD9A4;
+extern s32 D_EBFBE0_801CD9A8;
 extern s32 D_EBFBE0_801CD9AC;
 extern f32 D_EBFBE0_801CD9B0;
 extern f32 D_EBFBE0_801CD9B4;
@@ -277,7 +278,11 @@ void func_EBFBE0_801A5834(void);
 void func_EBFBE0_801A5C90(void);
 s32 func_EBFBE0_801A5770(void);
 void func_EBFBE0_801A5E80(void);
+void func_EBFBE0_801A6368(void);
+void func_EBFBE0_801A61B4(LevelId level);
+bool func_EBFBE0_801A62FC(PlanetId planet);
 s32 func_EBFBE0_801A655C(s32 arg0, s32 arg1);
+void func_EBFBE0_801A6628(void);
 void func_EBFBE0_801A6694(void);
 void func_EBFBE0_801A68E4(void);
 void func_EBFBE0_801A6A24(void);
@@ -311,6 +316,7 @@ void func_EBFBE0_801A9DE8(void);
 void func_EBFBE0_801AA1CC(s32);
 void func_EBFBE0_801AA434(s32, f32, f32, s32);
 void func_EBFBE0_801AA778(s32, f32, f32, s32);
+void func_EBFBE0_801AB284(void);
 void func_EBFBE0_801AB300(void);
 void func_EBFBE0_801AB978(s32);
 void func_EBFBE0_801ABCDC(s32 arg0, s32 alpha);
@@ -1817,7 +1823,87 @@ void func_EBFBE0_801A5C90(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A5E80.s")
+void func_EBFBE0_801A5E80(void) {
+    switch (D_EBFBE0_801B8280) {
+        case 0:
+            D_EBFBE0_801B8284 = 0;
+            D_EBFBE0_801CD9A0 = 1;
+            func_EBFBE0_801A6368();
+            D_EBFBE0_801CD9A8 = func_EBFBE0_801A62FC(D_EBFBE0_801CD954);
+            func_EBFBE0_801AB284();
+            D_EBFBE0_801B8280++;
+            break;
+
+        case 1:
+            if ((gControllerPress[gMainController].button & START_BUTTON) && !(D_EBFBE0_801CD9A8)) {
+                func_8001A838(0x4100001EU);
+                func_8001AE58();
+                D_EBFBE0_801CF018 = 0;
+                D_EBFBE0_801B8280 = 2;
+                D_EBFBE0_801CD9B8 = 0;
+            }
+
+            if ((gControllerPress[gMainController].button & A_BUTTON) && (D_EBFBE0_801CD9A0 == 0) &&
+                !(D_EBFBE0_801CD9A8)) {
+                func_8001AE58();
+                D_Timer_801782AC = 0;
+            }
+
+            if ((gControllerPress[gMainController].button & A_BUTTON) && (D_EBFBE0_801CD9A0 == 1) &&
+                !(D_EBFBE0_801CD9A8)) {
+                D_EBFBE0_801CD9A0 = 0;
+            }
+
+            if (D_EBFBE0_801CF018 == 7) {
+                D_EBFBE0_801CD9B8 = 5;
+                D_EBFBE0_801B8280++;
+            }
+            break;
+
+        case 2:
+            if (D_EBFBE0_801CD9B8 != 0) {
+                break;
+            }
+
+            if (D_EBFBE0_801B8284 < 120) {
+                D_EBFBE0_801B8284 += 15;
+                if (D_EBFBE0_801CD954 == PLANET_CORNERIA) {
+                    *D_EBFBE0_801CEB48 = 0;
+                }
+            } else {
+                D_EBFBE0_801CD9B8 = 5;
+                D_EBFBE0_801CF018 = 0;
+                D_EBFBE0_801B8280 += 1;
+            }
+
+            break;
+
+        case 3:
+            if (D_EBFBE0_801CD9B8 == 0) {
+                D_EBFBE0_801CD9B8 = 5;
+                D_EBFBE0_801CD968 = 1;
+                D_EBFBE0_801B8280 += 1;
+            }
+            break;
+
+        case 4:
+            if (D_EBFBE0_801CD9B8 == 0) {
+                Audio_PlaySfx(0x49002016U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                D_EBFBE0_801CD9B8 = 75;
+                D_EBFBE0_801B8280++;
+            }
+            break;
+
+        case 5:
+            if (D_EBFBE0_801CD9B8 == 0) {
+                func_EBFBE0_801A61B4(gCurrentLevel);
+                D_EBFBE0_801B8280 = 0;
+                D_EBFBE0_801CD968 = 0;
+                func_EBFBE0_801A6628();
+            }
+            break;
+    }
+}
 
 void func_EBFBE0_801A61B4(LevelId level) {
     switch (level) {
