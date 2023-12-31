@@ -43,7 +43,7 @@ extern f32 D_E6A810_801BE2A4;
 extern s16 D_E6A810_801BE2FA;
 
 void func_80189120(f32 x, f32 y, f32 z, f32, f32);
-s32 func_801A3C20(f32);
+bool func_801A3C20(f32);
 s32 func_801A3300(Player*, f32, f32);
 s32 func_801A3790(Player*, f32, f32);
 
@@ -877,7 +877,7 @@ void func_8004641C(Player* player, s32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 a
         D_E6A810_801BE250.unk_70 = sp58.x;
         D_E6A810_801BE250.unk_74 = sp58.z;
     } else if ((arg1 == OBJ_80_67) && (D_E6A810_801BE250.unk_6C == 0.0f) &&
-               (func_800A8054(arg1, arg2 + 20.0f, arg3, arg4, sp84, sp80, sp7C, &sp58, &sp4C) != 0)) {
+               func_800A8054(arg1, arg2 + 20.0f, arg3, arg4, sp84, sp80, sp7C, &sp58, &sp4C)) {
         player->unk_1DC = 9;
         player->timer_1E8 = 15;
         if ((arg6 > 90.0f) && (arg6 < 270.0f)) {
@@ -995,7 +995,7 @@ void func_80046704(Player* player) {
                         (obj80->obj.pos.z <= (player->unk_138 + 220.0f)) && (player->pos.y >= 200.0f)) {
                         player->unk_068 = obj80->obj.pos.y + 204.0f;
                     }
-                } else if ((obj80->obj.id == OBJ_80_105) && (func_801A3C20(player->unk_138) != 0)) {
+                } else if ((obj80->obj.id == OBJ_80_105) && func_801A3C20(player->unk_138)) {
                     if (((player->pos.x - 200.0f) < D_E6A810_801BE250.unk_54) &&
                         (D_E6A810_801BE250.unk_54 < (player->pos.x + 200.0f))) {
                         player->unk_068 = D_E6A810_801BE250.unk_58 - 1.0f;
@@ -1202,7 +1202,7 @@ void func_80047754(Player* player) {
             func_80047E7C(player, D_E6A810_801BE274, D_E6A810_801BE258 + 30.0f);
         }
     }
-    if (func_801A3C20(player->unk_138) != 0) {
+    if (func_801A3C20(player->unk_138)) {
         player->unk_0E4 = D_E6A810_801BE250.unk_5C;
         if (((player->pos.x - 200.0f) < D_E6A810_801BE250.unk_54) &&
             (D_E6A810_801BE250.unk_54 < (player->pos.x + 200.0f))) {

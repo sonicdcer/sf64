@@ -121,7 +121,7 @@ void func_80051B30(void) {
     }
 }
 
-s32 func_800520FC(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, void* data) {
+bool func_800520FC(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, void* data) {
     Player* player = (Player*) data;
 
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -174,7 +174,7 @@ s32 func_800520FC(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, void* dat
             rot->x += -player->unk_15C * 0.2f;
         }
     }
-    return 0;
+    return false;
 }
 
 void func_800523A8(s32 limbIndex, Vec3f* rot, void* data) {
@@ -1203,7 +1203,7 @@ void func_800564C0(Player* player, s32 arg1) {
                     }
                 }
             }
-            if (func_800563B4(player->num, arg1) == 0) {
+            if (!func_800563B4(player->num, arg1)) {
                 Matrix_Pop(&gGfxMatrix);
                 return;
             }
@@ -1219,7 +1219,7 @@ void func_800564C0(Player* player, s32 arg1) {
         } else if (player->form == FORM_ON_FOOT) {
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, player->pos.x, player->pos.y, player->unk_138 + player->unk_144, 1);
-            if (func_800563B4(player->num, arg1) == 0) {
+            if (!func_800563B4(player->num, arg1)) {
                 Matrix_Pop(&gGfxMatrix);
                 Matrix_Pop(&gGfxMatrix);
                 return;
@@ -1247,7 +1247,7 @@ void func_800564C0(Player* player, s32 arg1) {
                     }
                 }
             }
-            if (func_800563B4(player->num, arg1) == 0) {
+            if (!func_800563B4(player->num, arg1)) {
                 Matrix_Pop(&gGfxMatrix);
                 return;
             }

@@ -74,7 +74,7 @@ typedef struct {
     /* 0x44 */ s32 unk_44;
     /* 0x48 */ s32 unk_48;
     /* 0x4C */ s32 timer_4C;
-    /* 0x50 */ u8 unk_50;
+    /* 0x50 */ s8 unk_50;
     /* 0x51 */ char pad51[3];
     /* 0x54 */ s32 unk_54;
     /* 0x58 */ char pad58[8];

@@ -90,7 +90,7 @@ void func_8002E3E0(Object_2F4* obj2F4) {
     D_80177850 = 15;
 }
 
-s32 func_8002E4F8(u16* arg0, s32 arg1) {
+bool func_8002E4F8(u16* arg0, s32 arg1) {
     if ((gRadioState == 0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_0)) {
         func_800BA808(arg0, arg1);
         return true;
@@ -343,7 +343,7 @@ void func_8002EE64(Object_2F4* obj2F4) {
                     if (obj58->obj.id == OBJ_80_3) {
                         var_s0 = 3;
                     }
-                    if (func_800A3690(&spCC, &spC0, var_s0, &spB4) != 0) {
+                    if (func_800A3690(&spCC, &spC0, var_s0, &spB4)) {
                         obj2F4->unk_178 = spB4.y;
                         obj2F4->unk_17C = spB4.x;
                         obj2F4->unk_184 = spB4.z;
@@ -1531,8 +1531,7 @@ void func_800319AC(Object_2F4* this) {
                     if ((spE8 < spF4) && (spEC < spF4)) {
                         this->unk_060++;
                         this->unk_064 = 1;
-                        if (!((this->index + gFrameCount) & sp10F) && (Rand_ZeroOne() < spF0) &&
-                            (func_80031900(this) != 0) &&
+                        if (!((this->index + gFrameCount) & sp10F) && (Rand_ZeroOne() < spF0) && func_80031900(this) &&
                             ((gObjects2F4->unk_0B8 == 2) || (gCurrentLevel == LEVEL_TRAINING))) {
                             if ((this->unk_0E6 == 0) && (gCurrentLevel != LEVEL_TRAINING)) {
                                 if ((this->unk_060 > 250) && (gCurrentLevel != LEVEL_VENOM_ANDROSS)) {

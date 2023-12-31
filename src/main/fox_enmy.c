@@ -71,7 +71,7 @@ void Object_Kill(Object* obj, Vec3f* arg1) {
     Audio_KillSfx(arg1);
 }
 
-s32 func_80060FE4(Vec3f* arg0, f32 arg1) {
+bool func_80060FE4(Vec3f* arg0, f32 arg1) {
     Vec3f sp2C;
     Vec3f sp20;
 
@@ -90,7 +90,7 @@ s32 func_80060FE4(Vec3f* arg0, f32 arg1) {
     return false;
 }
 
-s32 func_80061148(Vec3f* arg0, f32 arg1) {
+bool func_80061148(Vec3f* arg0, f32 arg1) {
     Vec3f sp2C;
     Vec3f sp20;
 
@@ -639,7 +639,7 @@ void func_80062D04(f32 xPos, f32 yPos) {
     }
 }
 
-s32 func_80062DBC(Vec3f* pos, f32* hitboxData, Object* obj, f32 xRot, f32 yRot, f32 zRot) {
+bool func_80062DBC(Vec3f* pos, f32* hitboxData, Object* obj, f32 xRot, f32 yRot, f32 zRot) {
     s32 i;
     Vec3f hitRot;
     Vec3f hitPos;
@@ -656,7 +656,7 @@ s32 func_80062DBC(Vec3f* pos, f32* hitboxData, Object* obj, f32 xRot, f32 yRot, 
             rotate = 0.0f;
             hitRot.x = hitRot.y = hitRot.z = 0.0f;
             if (*hitboxData >= HITBOX_UNK_3) {
-                return 0;
+                return false;
             }
             if (*hitboxData == HITBOX_UNK_2) {
                 rotate = 1.0f;
@@ -700,7 +700,7 @@ s32 func_80062DBC(Vec3f* pos, f32* hitboxData, Object* obj, f32 xRot, f32 yRot, 
     return false;
 }
 
-s32 func_800631A8(Vec3f* posD, f32* hitboxData, Vec3f* posA) {
+bool func_800631A8(Vec3f* posD, f32* hitboxData, Vec3f* posA) {
     if ((s32) hitboxData[0] != 0) {
         if ((fabsf(hitboxData[1] + posA->z - posD->z) < (hitboxData[2] + 20.0f)) &&
             (fabsf(hitboxData[5] + posA->x - posD->x) < (hitboxData[6] + 20.0f)) &&
@@ -711,7 +711,7 @@ s32 func_800631A8(Vec3f* posD, f32* hitboxData, Vec3f* posA) {
     return false;
 }
 
-s32 func_8006326C(Vec3f* arg0, Vec3f* arg1, s32 objId, Object* obj) {
+bool func_8006326C(Vec3f* arg0, Vec3f* arg1, s32 objId, Object* obj) {
     Vec3f sp74;
     Vec3f sp68;
     Vec3f sp5C;
@@ -879,7 +879,7 @@ s32 func_8006351C(s32 index, Vec3f* pos, Vec3f* arg2, s32 arg3) {
                 (fabsf(pos->z - obj2F4->obj.pos.z) < 1500.0f) && (index != i) && (obj2F4->info.unk_16 != 2) &&
                 ((obj2F4->obj.id != OBJ_2F4_197) || (obj2F4->unk_0E4 >= 4)) && (obj2F4->timer_0C2 == 0)) {
                 if (obj2F4->obj.id == OBJ_2F4_180) {
-                    if (func_8006326C(pos, arg2, obj2F4->obj.id, &obj2F4->obj) != 0) {
+                    if (func_8006326C(pos, arg2, obj2F4->obj.id, &obj2F4->obj)) {
                         return 2;
                     }
                 } else if (obj2F4->scale < 0.0f) {
@@ -1560,7 +1560,7 @@ void func_800656D4(Object_2F4* obj2F4) {
         Math_SmoothStepToAngle(&obj2F4->obj.rot.z, var_fv0, 0.1f, 3.0f, 0.01f);
     }
     if ((D_801784AC == 4) &&
-        (func_E6A810_801B6AEC(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z + D_80177D20) != 0)) {
+        func_E6A810_801B6AEC(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z + D_80177D20)) {
         func_8007D2C8(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, 5.0f);
         Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
     }
@@ -1643,7 +1643,7 @@ void func_80066254(Object_2F4* obj2F4) {
     } else if ((obj2F4->obj.id != OBJ_2F4_197) || (obj2F4->unk_0B6 != 1)) {
         if ((obj2F4->unk_0D4 == 1) && (obj2F4->info.bonus != 0)) {
             gHitCount += obj2F4->info.bonus;
-            D_80177850 = 0xF;
+            D_80177850 = 15;
             if ((gLevelMode == LEVELMODE_ALL_RANGE) && (D_80161A62 != 0)) {
                 switch (D_80161A62) {
                     case 9:
@@ -1765,7 +1765,7 @@ void func_8006684C(Object_2F4* obj2F4) {
             Audio_PlaySfx(0x2903B009, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             func_80077240(obj2F4->obj.pos.x, obj2F4->obj.pos.y + 250.0f, obj2F4->obj.pos.z, 3);
             gHitCount += 3;
-            D_80177850 = 0xF;
+            D_80177850 = 15;
         }
     } else {
         obj2F4->obj.rot.x += 11.0f;
@@ -1907,7 +1907,7 @@ void func_80066EF0(Item* item) {
     } else if (item->obj.pos.y < -500.0f) {
         Math_SmoothStepToF(&item->obj.pos.y, -500.0f, 0.1f, 5.0f, 0.01f);
     }
-    if ((gVersusMode) && (item->index == 0) && (gItems[1].obj.status == 2)) {
+    if (gVersusMode && (item->index == 0) && (gItems[1].obj.status == 2)) {
         if (fabsf(item->obj.pos.x - gItems[1].obj.pos.x) < 200.0f) {
             if (fabsf(item->obj.pos.z - gItems[1].obj.pos.z) < 200.0f) {
                 item->obj.pos.x = item->obj.pos.x - 5.0f;
@@ -2129,7 +2129,7 @@ void func_80067BEC(Item* item) {
 }
 
 void func_80067F6C(Item* item) {
-    if ((!gVersusMode) &&
+    if (!gVersusMode &&
         ((gPlayer[0].wings.leftState <= WINGSTATE_BROKEN) || (gPlayer[0].wings.rightState <= WINGSTATE_BROKEN))) {
         item->obj.id = OBJ_ITEM_WING_REPAIR;
         Object_SetInfo(&item->info, item->obj.id);

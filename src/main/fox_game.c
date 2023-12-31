@@ -529,7 +529,7 @@ void func_800A26C0(void) {
         func_80040CDC();
         func_8008865C();
         func_8002E548();
-        if ((gGameState == GSTATE_PLAY) && (gVersusMode)) {
+        if ((gGameState == GSTATE_PLAY) && gVersusMode) {
             func_800C1ED4();
         }
         func_80084688(0, D_80177C50);

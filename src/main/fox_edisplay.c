@@ -1597,7 +1597,7 @@ void Object_DrawAll(s32 arg0) {
     Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR, gAmbientG,
                        gAmbientB);
     for (i = 0, obj4C = gObjects4C; i < ARRAY_COUNT(gObjects4C); i++, obj4C++) {
-        if ((obj4C->obj.status >= 2) && (func_80060FE4(&obj4C->obj.pos, -12000.0f) != 0)) {
+        if ((obj4C->obj.status >= 2) && func_80060FE4(&obj4C->obj.pos, -12000.0f)) {
             Matrix_Push(&gGfxMatrix);
             if ((obj4C->obj.id == OBJ_4C_165) || (obj4C->obj.id == OBJ_4C_166)) {
                 RCP_SetupDL_57(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);

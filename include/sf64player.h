@@ -94,16 +94,14 @@ typedef struct {
     /* 0x34 */ f32 unk_34; 
     /* 0x38 */ Vec3f sfxPos;
     /* 0x44 */ f32 unk_44;
-    /* 0x44 */ f32 unk_48;
-    /* 0x44 */ f32 unk_4C;
-    /* 0x44 */ f32 unk_50;
+    /* 0x44 */ Vec3f unk_48;
     /* 0x44 */ f32 unk_54;
     /* 0x58 */ s32 unk_58;
     /* 0x5C */ s32 unk_5C;
     /* 0x60 */ s32 unk_60;
     /* 0x64 */ s32 unk_64;
     /* 0x68 */ s32 playerNum;
-    /* 0x6C */ char pad6C[4];
+    /* 0x6C */ u8 unk_6C;
 } PlayerShot; // size = 0x70
 
 typedef struct Player {

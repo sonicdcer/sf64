@@ -114,7 +114,7 @@ bool func_8006ABA4(Object_2F4* obj2F4) {
 void func_8006AC08(Object_2F4* obj2F4) {
     f32 sp2C;
 
-    if ((func_8006ABA4(obj2F4) != 0) && (obj2F4->timer_0BC == 0)) {
+    if (func_8006ABA4(obj2F4) && (obj2F4->timer_0BC == 0)) {
         func_8007F11C(OBJ_8C_353, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, D_80177828);
         obj2F4->timer_0BC = 20;
     }
@@ -735,7 +735,7 @@ void func_8006C008(Object_2F4* obj2F4) {
                     Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
                     func_8007A6F0(&obj2F4->obj.pos, 0x2903A008);
                 }
-                if (func_800A73E4(&sp44, &sp40, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z) != 0) {
+                if (func_800A73E4(&sp44, &sp40, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z)) {
                     func_8007B228(obj2F4->obj.pos.x, sp44, obj2F4->obj.pos.z, 2.0f);
                     Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
                 }
@@ -2002,7 +2002,7 @@ void func_800701E0(Object_2F4* obj2F4) {
     f32 var_fv1;
     f32 temp_fv1;
 
-    if (func_800700A4(obj2F4) == 0) {
+    if (!func_800700A4(obj2F4)) {
         if ((obj2F4->unk_0D0 != 0) && (obj2F4->unk_0B4 == 0x43) && (obj2F4->unk_0D2 == 0)) {
             obj2F4->unk_0D0 = 0;
         }
@@ -2029,7 +2029,7 @@ void func_800701E0(Object_2F4* obj2F4) {
                 if (obj2F4->unk_0B4 == 0x6A) {
                     func_80077240(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, 3);
                     gHitCount += 4;
-                    D_80177850 = 0xF;
+                    D_80177850 = 15;
                 }
 
                 if (obj2F4->unk_0B4 != 0x53) {
@@ -2106,14 +2106,14 @@ void func_800701E0(Object_2F4* obj2F4) {
                                 func_8007D0E0(obj2F4->obj.pos.x - obj2F4->unk_0E8.x, obj2F4->obj.pos.y + 30.0f,
                                               obj2F4->obj.pos.z - obj2F4->unk_0E8.z, obj2F4->scale * 5.0f);
                                 obj2F4->unk_0D0 = 0;
-                                obj2F4->timer_0C2 = 0x2710;
+                                obj2F4->timer_0C2 = 10000;
                                 obj2F4->info.unk_1C = 0.0f;
                                 gHitCount += obj2F4->info.bonus;
                                 D_80177850 = 0xF;
                                 break;
 
                             default:
-                                obj2F4->timer_0BC = 0x23;
+                                obj2F4->timer_0BC = 35;
                                 obj2F4->timer_04C = 2;
                                 obj2F4->unk_0E8.y = (Rand_ZeroOne() - 0.5f) * 20.0f;
                                 obj2F4->unk_0E8.x = (Rand_ZeroOne() - 0.5f) * 20.0f;
@@ -2725,7 +2725,7 @@ void func_80070D44(Object_2F4* obj2F4) {
             break;
 
         case 67:
-            if (gExpertMode != 0) {
+            if (gExpertMode) {
                 func_80070CEC(obj2F4);
             }
             break;
@@ -3422,7 +3422,7 @@ void func_80072594(Object_2F4* obj2F4) {
                 break;
 
             case 46:
-                if (func_800A73E4(&spEC, &spFC, obj2F4->obj.pos.x, -100.0f, obj2F4->obj.pos.z) != 0) {
+                if (func_800A73E4(&spEC, &spFC, obj2F4->obj.pos.x, -100.0f, obj2F4->obj.pos.z)) {
                     spF0 = 10.0f;
 
                     if (Math_SmoothStepToF(&obj2F4->obj.pos.y, spEC, 0.5f, 7.0f, 0.0f) >= 0.0f) {
@@ -3763,7 +3763,6 @@ void func_80074E3C(Object_2F4* obj2F4) {
 }
 
 bool func_80074F04(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
-
     gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
     if ((limbIndex == 3) || (limbIndex == 5)) {
         gSPTexture(gMasterDisp++, 5000, 5000, 0, G_TX_RENDERTILE, G_ON);
@@ -4184,8 +4183,7 @@ void func_800763A4(Object_2F4* obj2F4) {
             func_8007D24C(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, 2.2f);
         }
 
-        if ((D_80178294 != 0) &&
-            (func_800A73E4(&sp58, &sp5C, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z) != 0)) {
+        if ((D_80178294 != 0) && func_800A73E4(&sp58, &sp5C, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z)) {
             func_8007BFFC(obj2F4->obj.pos.x, sp58 + 20.0f, obj2F4->obj.pos.z, 0.0f, 0.0f, 0.0f, obj2F4->scale * 3.0f,
                           5);
             func_8007B228(obj2F4->obj.pos.x, sp58, obj2F4->obj.pos.z, 2.0f);
