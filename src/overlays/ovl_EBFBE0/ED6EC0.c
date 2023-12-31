@@ -256,38 +256,51 @@ void func_EBFBE0_8019FF48(void);
 s32 func_EBFBE0_801A05B4(void);
 void func_EBFBE0_801A0788(void);
 void func_EBFBE0_801A0954(void);
+void func_EBFBE0_801A0D14(void);
 void func_EBFBE0_801A1528(void);
+void func_EBFBE0_801A19A8(void);
 void func_EBFBE0_801A1C14(void);
+f32 func_EBFBE0_801A25C8(s32);
 void func_EBFBE0_801A2B8C(void);
 void func_EBFBE0_801A3550(Vec3f*, Vec3f*, Vec3f*, f32);
 void func_EBFBE0_801A36A8(void);
+void func_EBFBE0_801A4650(void);
 void func_EBFBE0_801A48C0(f32 speed);
 void func_EBFBE0_801A4A38(f32 arg0);
 void func_EBFBE0_801A4AE8(void);
 void func_EBFBE0_801A4D0C(u32);
 void func_EBFBE0_801A4D7C(void);
-s32 func_EBFBE0_801A5770(void);
-void func_EBFBE0_801A5E80(void);
-void func_EBFBE0_801A6694(void);
-void func_EBFBE0_801A68E4(void);
-void func_EBFBE0_801A6A24(void);
-void func_EBFBE0_801A914C(void);
-void func_EBFBE0_801A9EE4(void);
-void func_EBFBE0_801AD11C(void);
-void func_EBFBE0_801AD718(f32, f32, f32, f32*, f32*, f32*, f32, f32, f32);
-void func_EBFBE0_801A0D14(void);
-void func_EBFBE0_801A19A8(void);
-f32 func_EBFBE0_801A25C8(s32);
-void func_EBFBE0_801A4650(void);
 void func_EBFBE0_801A4F8C(void);
 void func_EBFBE0_801A4FC4(void);
 void func_EBFBE0_801A53C8(void);
 void func_EBFBE0_801A5834(void);
 void func_EBFBE0_801A5C90(void);
-PlanetId GetPlanetId(LevelId level);
+s32 func_EBFBE0_801A5770(void);
+void func_EBFBE0_801A5E80(void);
 s32 func_EBFBE0_801A655C(s32 arg0, s32 arg1);
-void func_EBFBE0_801A6A98(s32);
+void func_EBFBE0_801A6694(void);
+void func_EBFBE0_801A68E4(void);
+void func_EBFBE0_801A6A24(void);
+void func_EBFBE0_801A6A98(PlanetId);
+s32 func_EBFBE0_801A6DAC(PlanetId planetId);
+void func_EBFBE0_801A6EC0(PlanetId planetId);
+void func_EBFBE0_801A7230(PlanetId planetId);
+void func_EBFBE0_801A74F4(PlanetId);
+void func_EBFBE0_801A7684(PlanetId planetId);
+void func_EBFBE0_801A77B0(PlanetId planetId);
+void func_EBFBE0_801A791C(PlanetId planetId);
+void func_EBFBE0_801A7A84(PlanetId planetId);
+void func_EBFBE0_801A7BEC(f32* zAngle, f32 next, f32 scale);
+void func_EBFBE0_801A7D3C(PlanetId planetId);
+void func_EBFBE0_801A7F1C(PlanetId planetId);
+void func_EBFBE0_801A914C(void);
+void func_EBFBE0_801A9EE4(void);
+void func_EBFBE0_801AD11C(void);
+void func_EBFBE0_801AD718(f32, f32, f32, f32*, f32*, f32*, f32, f32, f32);
+PlanetId GetPlanetId(LevelId level);
+void func_EBFBE0_801A809C(PlanetId planetId);
 void func_EBFBE0_801A8738(void);
+void func_EBFBE0_801A89BC(PlanetId, s32);
 void func_EBFBE0_801A8F40(void);
 void func_EBFBE0_801A9224(void);
 void func_EBFBE0_801A9448(void);
@@ -2157,7 +2170,91 @@ void func_EBFBE0_801A6A24(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A6A98.s")
+void func_EBFBE0_801A6A98(PlanetId planetId) {
+    s32 mask;
+    s32 temp;
+
+    if ((planet[planetId].alpha == 0) && (planetId != D_EBFBE0_801CD954)) {
+        return;
+    }
+
+    if ((planetId == D_EBFBE0_801CD954) && (D_EBFBE0_801CD944 == 2) && (D_EBFBE0_801CD95C != 0)) {
+        mask = 0x00000001;
+    } else {
+        mask = 0xFFFFFFFF;
+    }
+
+    temp = func_EBFBE0_801A6DAC(planetId);
+
+    func_EBFBE0_801A6EC0(planetId);
+    func_EBFBE0_801A7D3C(planetId);
+    Matrix_Push(&gGfxMatrix);
+
+    if (gFrameCount & mask) {
+        if (planetId == PLANET_TITANIA) {
+            func_EBFBE0_801A791C(planetId);
+        }
+
+        if ((temp == 1) && (D_EBFBE0_801CE960[planetId].z > D_EBFBE0_801CEA18[planetId]) &&
+            (planetId != PLANET_AREA_6) && (planetId != PLANET_BOLSE)) {
+
+            func_EBFBE0_801A7F1C(planetId);
+        }
+
+        func_EBFBE0_801A7230(planetId);
+
+        if (planetId == PLANET_SOLAR) {
+            func_EBFBE0_801A74F4(planetId);
+        }
+
+        if (planet[planetId].unk_28 == 4) {
+            if (planetId != PLANET_VENOM) {
+
+                if ((planetId != PLANET_AQUAS) && (planetId != PLANET_TITANIA)) {
+                    func_EBFBE0_801A7684(planetId);
+                }
+
+                func_EBFBE0_801A77B0(planetId);
+            }
+            if (planetId == PLANET_VENOM) {
+                func_EBFBE0_801A7BEC(&D_EBFBE0_801CEEBC, 0.1f, 3.1f);
+                func_EBFBE0_801A7BEC(&D_EBFBE0_801CEEC0, -0.1f, 2.9f);
+            }
+        }
+
+        if (planetId == PLANET_TITANIA) {
+            func_EBFBE0_801A7A84(planetId);
+        }
+
+        if (planetId == PLANET_CORNERIA && D_EBFBE0_801CEB48[0]) {
+            func_EBFBE0_801A89BC(PLANET_CORNERIA, 0);
+        }
+
+        if (planetId == PLANET_KATINA && D_EBFBE0_801CEB48[1]) {
+            func_EBFBE0_801A89BC(PLANET_KATINA, 1);
+        }
+
+        if (planetId == PLANET_SECTOR_Y && D_EBFBE0_801CEB48[2]) {
+            func_EBFBE0_801A89BC(PLANET_SECTOR_Y, 2);
+        }
+
+        if ((temp == 1) && (D_EBFBE0_801CE960[planetId].z <= D_EBFBE0_801CEA18[planetId]) &&
+            (planetId != PLANET_AREA_6) && (planetId != PLANET_BOLSE)) {
+
+            func_EBFBE0_801A7F1C(planetId);
+        }
+
+        if ((temp == 1) && ((planetId == PLANET_AREA_6) || (planetId == PLANET_BOLSE))) {
+
+            func_EBFBE0_801A7F1C(planetId);
+        }
+
+        if (temp == 2) {
+            func_EBFBE0_801A809C(planetId);
+        }
+    }
+    Matrix_Pop(&gGfxMatrix);
+}
 
 s32 func_EBFBE0_801A6DAC(PlanetId planetId) {
     s32 ret;
@@ -2202,7 +2299,7 @@ s32 func_EBFBE0_801A6DAC(PlanetId planetId) {
     return ret;
 }
 
-void func_EBFBE0_801A6EC0(s32 planetId) {
+void func_EBFBE0_801A6EC0(PlanetId planetId) {
     f32 dirX;
     f32 dirY;
     f32 dirZ;
@@ -2269,7 +2366,7 @@ void func_EBFBE0_801A6EC0(s32 planetId) {
     D_EBFBE0_801AFFFC -= 0.09f;
 }
 
-void func_EBFBE0_801A7230(s32 planetId) {
+void func_EBFBE0_801A7230(PlanetId planetId) {
     switch (planet[planetId].unk_28) {
         case 0:
             if ((D_EBFBE0_801CD944 == 3 || planetId == D_EBFBE0_801CD954 || planetId == D_EBFBE0_801CD958) &&
@@ -2349,7 +2446,7 @@ void func_EBFBE0_801A74F4(s32 planetId) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A74F4.s")
 #endif
 
-void func_EBFBE0_801A7684(s32 planetId) {
+void func_EBFBE0_801A7684(PlanetId planetId) {
     s32 r;
     s32 g;
     s32 b;
@@ -2373,7 +2470,7 @@ void func_EBFBE0_801A7684(s32 planetId) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_EBFBE0_801A77B0(s32 planetId) {
+void func_EBFBE0_801A77B0(PlanetId planetId) {
     RCP_SetupDL(&gMasterDisp, 0x40);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, planet[planetId].alpha);
@@ -2396,7 +2493,7 @@ void func_EBFBE0_801A77B0(s32 planetId) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_EBFBE0_801A791C(s32 planetId) {
+void func_EBFBE0_801A791C(PlanetId planetId) {
     RCP_SetupDL(&gMasterDisp, 0x43);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 175, 175, planet[planetId].alpha);
@@ -2418,7 +2515,7 @@ void func_EBFBE0_801A791C(s32 planetId) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_EBFBE0_801A7A84(s32 planetId) {
+void func_EBFBE0_801A7A84(PlanetId planetId) {
     RCP_SetupDL(&gMasterDisp, 0x43);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 175, 175, planet[planetId].alpha);
@@ -2465,7 +2562,7 @@ void func_EBFBE0_801A7BEC(f32* zAngle, f32 next, f32 scale) {
     *zAngle += next;
 }
 
-void func_EBFBE0_801A7D3C(s32 i) {
+void func_EBFBE0_801A7D3C(PlanetId planetId) {
     Vec3f src;
     Vec3f dest;
     f32 scale;
@@ -2478,35 +2575,35 @@ void func_EBFBE0_801A7D3C(s32 i) {
 
     Matrix_Push(&gGfxMatrix);
 
-    Matrix_Mult(gGfxMatrix, &D_EBFBE0_801CDA60[i], 1);
-    Matrix_RotateY(gGfxMatrix, M_DTOR * D_EBFBE0_801CEAF8[i], 1);
-    Matrix_Translate(gGfxMatrix, D_EBFBE0_801AFFB8[i], 0.0f, 0.0f, 1);
-    Matrix_RotateY(gGfxMatrix, M_DTOR * -D_EBFBE0_801CEAF8[i], 1);
+    Matrix_Mult(gGfxMatrix, &D_EBFBE0_801CDA60[planetId], 1);
+    Matrix_RotateY(gGfxMatrix, M_DTOR * D_EBFBE0_801CEAF8[planetId], 1);
+    Matrix_Translate(gGfxMatrix, D_EBFBE0_801AFFB8[planetId], 0.0f, 0.0f, 1);
+    Matrix_RotateY(gGfxMatrix, M_DTOR * -D_EBFBE0_801CEAF8[planetId], 1);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    Matrix_Copy(&D_EBFBE0_801CE5A0[i], gGfxMatrix);
-    Matrix_RotateZ(gGfxMatrix, M_DTOR * D_EBFBE0_801CEAB8[i], 1);
+    Matrix_Copy(&D_EBFBE0_801CE5A0[planetId], gGfxMatrix);
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * D_EBFBE0_801CEAB8[planetId], 1);
     Matrix_Scale(gGfxMatrix, scale, scale, scale, 1);
     Matrix_MultVec3f(gGfxMatrix, &src, &dest);
 
-    D_EBFBE0_801CEA18[i] = dest.z;
+    D_EBFBE0_801CEA18[planetId] = dest.z;
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    Matrix_Copy(&D_EBFBE0_801CE1E0[i], gGfxMatrix);
+    Matrix_Copy(&D_EBFBE0_801CE1E0[planetId], gGfxMatrix);
 
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_EBFBE0_801A7F1C(s32 arg0) {
+void func_EBFBE0_801A7F1C(PlanetId planetId) {
     s32 alpha;
 
     if (D_EBFBE0_801CD980 != 1) {
-        alpha = D_EBFBE0_801CD900[arg0];
+        alpha = D_EBFBE0_801CD900[planetId];
     } else {
         alpha = D_EBFBE0_801CD984;
-        D_EBFBE0_801CD900[arg0] = 255;
+        D_EBFBE0_801CD900[planetId] = 255;
     }
 
     if (alpha != 0) {
@@ -2517,21 +2614,21 @@ void func_EBFBE0_801A7F1C(s32 arg0) {
 
         Matrix_Push(&gGfxMatrix);
 
-        Matrix_Copy(gGfxMatrix, &D_EBFBE0_801CE1E0[arg0]);
+        Matrix_Copy(gGfxMatrix, &D_EBFBE0_801CE1E0[planetId]);
         Matrix_SetGfxMtx(&gMasterDisp);
 
         gSPDisplayList(gMasterDisp++, D_604D680);
 
         Matrix_Pop(&gGfxMatrix);
 
-        D_EBFBE0_801CEAB8[arg0] += 45.0f;
+        D_EBFBE0_801CEAB8[planetId] += 45.0f;
         if (D_EBFBE0_801CD980 == 0) {
-            D_EBFBE0_801CEAF8[arg0] += 5.0f;
+            D_EBFBE0_801CEAF8[planetId] += 5.0f;
         }
     }
 }
 
-void func_EBFBE0_801A809C(s32 index) {
+void func_EBFBE0_801A809C(PlanetId planetId) {
 #ifdef IMPORT_DATA
     static f32 D_EBFBE0_801B6A78 = 0.0f;
 #endif
@@ -2540,10 +2637,10 @@ void func_EBFBE0_801A809C(s32 index) {
     f32 scale;
 
     if (D_EBFBE0_801CD98C != 1) {
-        alpha = D_EBFBE0_801CD900[index];
+        alpha = D_EBFBE0_801CD900[planetId];
     } else {
         alpha = D_EBFBE0_801CD984;
-        D_EBFBE0_801CD900[index] = 255;
+        D_EBFBE0_801CD900[planetId] = 255;
     }
 
     if (alpha == 0) {
@@ -2560,7 +2657,7 @@ void func_EBFBE0_801A809C(s32 index) {
 
                 Matrix_Push(&gGfxMatrix);
 
-                Matrix_Copy(gGfxMatrix, &D_EBFBE0_801CE1E0[index]);
+                Matrix_Copy(gGfxMatrix, &D_EBFBE0_801CE1E0[planetId]);
                 Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, 1);
 
                 Matrix_SetGfxMtx(&gMasterDisp);
@@ -2569,7 +2666,7 @@ void func_EBFBE0_801A809C(s32 index) {
 
                 Matrix_Pop(&gGfxMatrix);
 
-                D_EBFBE0_801CEAB8[index] += 45.0f;
+                D_EBFBE0_801CEAB8[planetId] += 45.0f;
                 if (alpha == 255) {
                     D_EBFBE0_801CD9C8 = 15;
                     D_EBFBE0_801CD998 = 0;
@@ -2592,7 +2689,7 @@ void func_EBFBE0_801A809C(s32 index) {
                 for (i = 0; i < 8; i++) {
                     Matrix_Push(&gGfxMatrix);
 
-                    Matrix_Copy(gGfxMatrix, &D_EBFBE0_801CE5A0[index]);
+                    Matrix_Copy(gGfxMatrix, &D_EBFBE0_801CE5A0[planetId]);
                     Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, 1);
                     Matrix_RotateZ(gGfxMatrix, M_DTOR * (i * -45.0f), 1);
                     Matrix_Translate(gGfxMatrix, 0.0f, D_EBFBE0_801CD99C, 0.0f, 1);
@@ -2620,7 +2717,7 @@ void func_EBFBE0_801A809C(s32 index) {
 
                 Matrix_Push(&gGfxMatrix);
 
-                Matrix_Copy(gGfxMatrix, &D_EBFBE0_801CE5A0[index]);
+                Matrix_Copy(gGfxMatrix, &D_EBFBE0_801CE5A0[planetId]);
                 Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, 1);
                 Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, 1);
 
@@ -2630,7 +2727,7 @@ void func_EBFBE0_801A809C(s32 index) {
 
                 Matrix_Pop(&gGfxMatrix);
 
-                D_EBFBE0_801CEAF8[index] = -90.0f;
+                D_EBFBE0_801CEAF8[planetId] = -90.0f;
 
                 D_EBFBE0_801CD998 += 8;
 
@@ -2658,7 +2755,7 @@ void func_EBFBE0_801A809C(s32 index) {
 
         Matrix_Push(&gGfxMatrix);
 
-        Matrix_Copy(gGfxMatrix, &D_EBFBE0_801CE5A0[index]);
+        Matrix_Copy(gGfxMatrix, &D_EBFBE0_801CE5A0[planetId]);
         Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, 1);
         Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, 1);
 
@@ -2668,7 +2765,7 @@ void func_EBFBE0_801A809C(s32 index) {
 
         Matrix_Pop(&gGfxMatrix);
 
-        D_EBFBE0_801CEAF8[index] = -90.0f;
+        D_EBFBE0_801CEAF8[planetId] = -90.0f;
     }
 }
 
