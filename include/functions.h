@@ -528,6 +528,7 @@ bool func_800A8054(s32 objId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
 // fox_radio
 s32 func_800BA7BC(u16*, s32);
 void func_800BA808(u16*, s32);
+void func_800BB388(void);
 void func_800BB5D0(void);
 
 // fox_reset
