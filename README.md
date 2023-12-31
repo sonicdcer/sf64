@@ -39,7 +39,6 @@ sudo apt install make git build-essential binutils-mips-linux-gnu python3 python
 
 ### MacOS
 
-#### 1. Install build dependencies
 Install [Homebrew](https://brew.sh) and the following dependencies:
 ```
 brew update
