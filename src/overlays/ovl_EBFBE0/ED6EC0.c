@@ -150,6 +150,7 @@ extern f32 D_EBFBE0_801CEA5C;
 extern f32 D_EBFBE0_801CEA60;
 extern f32 D_EBFBE0_801CEA6C;
 extern f32 D_EBFBE0_801CEA70;
+extern s32 D_EBFBE0_801CEA74;
 extern f32 D_EBFBE0_801CEAB8[];
 extern f32 D_EBFBE0_801CEAF8[];
 extern s32 D_EBFBE0_801CEB34;
@@ -211,6 +212,9 @@ extern u16 D_601DC90[];
 extern Gfx D_601DCF0[];
 extern u8 D_601DCA0[];
 extern u16 D_601DCD8[];
+extern u16 D_6044820[];
+extern u16 D_6046AA0[];
+extern u16 D_6046CD0[];
 extern Gfx D_60479D0[];
 extern Gfx D_6047E70[];
 extern u8 D_6047F80[];
@@ -291,6 +295,7 @@ void func_EBFBE0_801AA1CC(s32);
 void func_EBFBE0_801AA434(s32, f32, f32, s32);
 void func_EBFBE0_801AA778(s32, f32, f32, s32);
 void func_EBFBE0_801AB300(void);
+void func_EBFBE0_801ABCDC(s32 arg0, s32 alpha);
 void func_EBFBE0_801ABF1C(void);
 void func_EBFBE0_801AC200(s32);
 void func_EBFBE0_801AC530(s32 index);
@@ -3089,7 +3094,86 @@ void func_EBFBE0_801AB284(void) {
 
 #endif
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AB978.s")
+#ifndef IMPORT_DATA
+extern f32 D_EBFBE0_801B6B0C[];
+extern u16* D_EBFBE0_801B6B18[];
+#endif
+
+void func_EBFBE0_801AB978(s32 arg0) {
+    s32 i;
+    f32 xPos;
+    f32 yPos;
+    s32 sp90[3];
+#ifdef IMPORT_DATA
+    static f32 D_EBFBE0_801B6B0C[3] = { 205.0f, 237.0f, 269.0f };
+    static u16* D_EBFBE0_801B6B18[3] = {
+        (u16*) 0x06032A60,
+        (u16*) 0x06044180,
+        (u16*) 0x06032440,
+    };
+#endif
+
+    switch (arg0) {
+        case 10:
+        case 11:
+            D_EBFBE0_801CD810 = arg0 - 10;
+            break;
+
+        case 20:
+        case 21:
+            if (D_EBFBE0_801CEA74 != 0) {
+                RCP_SetupDL(&gMasterDisp, 0x4C);
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, D_EBFBE0_801CEA74);
+                xPos = 205.0f;
+                yPos = 77.0f;
+
+                for (i = 0; i < 12; i++) {
+                    TextureRect_16bRGBA(&gMasterDisp, D_6044820 + (i * 92 * 4), 92, 4, xPos, yPos + (i * 4.0f), 1.0f,
+                                        1.0f);
+                }
+                TextureRect_16bRGBA(&gMasterDisp, D_6044820 + (92 * 12 * 4), 92, 3, xPos, yPos + 48.0f, 1.0f, 1.0f);
+
+                if (arg0 == 21) {
+                    TextureRect_16bRGBA(&gMasterDisp, D_6046CD0, 32, 34, xPos + 47.0, yPos, 1.0f, 1.0f);
+                }
+
+                for (i = 0; i < 3; i++) {
+                    switch (gSavedTeamShields[3 - i]) {
+                        case -1:
+                        case -2:
+                            if (D_EBFBE0_801CEA74 > 0x20) {
+                                sp90[i] = 32;
+                            } else {
+                                sp90[i] = D_EBFBE0_801CEA74;
+                            }
+                            break;
+
+                        case 0:
+                            RCP_SetupDL(&gMasterDisp, 0x53);
+                            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
+                            if (gFrameCount & 0x10) {
+                                Graphics_DisplaySmallText(D_EBFBE0_801B6B0C[i], 131 + 28, 1.0f, 1.0f, "OK !");
+                            }
+                            sp90[i] = D_EBFBE0_801CEA74;
+                            break;
+
+                        default:
+                            sp90[i] = D_EBFBE0_801CEA74;
+                            break;
+                    }
+
+                    RCP_SetupDL(&gMasterDisp, 0x4C);
+                    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, sp90[i]);
+                    TextureRect_16bRGBA(&gMasterDisp, D_EBFBE0_801B6B18[i], 28, 28, D_EBFBE0_801B6B0C[i], 131.0f, 1.0f,
+                                        1.0f);
+
+                    if ((gSavedTeamShields[3 - i] < 0) && (gSavedTeamShields[3 - i] != -2)) {
+                        func_EBFBE0_801ABCDC(i, D_EBFBE0_801CEA74);
+                    }
+                }
+            }
+    }
+}
 
 void func_EBFBE0_801ABCDC(s32 arg0, s32 alpha) {
 #ifdef IMPORT_DATA
