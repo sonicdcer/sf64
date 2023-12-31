@@ -59,8 +59,8 @@ extern UNK_TYPE func_801A0AC0(Player*);
 extern UNK_TYPE func_801A10F4(Player*);
 extern UNK_TYPE func_801AB9B0(Player*);
 extern UNK_TYPE func_801AC754(Player*);
-extern UNK_TYPE func_800A46A0(Player*);
-extern UNK_TYPE func_800AD7F0(Player*);
+extern void func_800A46A0(Player*);
+extern void func_800AD7F0(Player*);
 extern UNK_TYPE func_800B2574(Player*);
 extern void func_800AE278(Player*);
 
