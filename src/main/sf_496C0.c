@@ -376,7 +376,144 @@ void func_8004AA84(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004AAF4.s")
+extern s32 D_800C9E90[];
+extern f32 D_800CA080[];
+extern f32 D_800CA08C[];
+
+void func_8004AAF4(Player* arg0) {
+    s32 pad;
+    Vec3f sp70;
+    Vec3f sp64;
+    Object_2F4* var_s0;
+    f32 var_s1;
+    f32 var_s2;
+    f32 var_s3;
+    s32 temp_v0;
+    s32 pad1;
+    s32 pad2;
+
+    D_80177A80 += 1;
+    Math_SmoothStepToAngle(&arg0->unk_4D8, 0.0f, 0.1f, 20.0f, 0.0f);
+    if (D_80177A80 == 0x25) {
+        D_80177E84 = 1;
+        if (gCurrentLevel == 9) {
+            func_800BA808(gMsg_ID_19466, 0);
+            func_8001D444(0U, 0x803DU, 0U, 0xFFU);
+        } else if (gCurrentLevel != 0xA) {
+            func_800BA808(gMsg_ID_20180, 0);
+            if (gCurrentLevel == 5) {
+                func_8001D444(0U, D_800C9E90[gCurrentLevel], 0U, 2U);
+            } else {
+                func_8001D444(0U, D_800C9E90[gCurrentLevel], 0U, 0xFFU);
+            }
+        }
+    }
+    arg0->wings.unk_10 = 0.0f;
+    arg0->wings.unk_08 = 0.0f;
+    arg0->wings.unk_0C = 0.0f;
+    arg0->wings.unk_04 = 0.0f;
+    Math_SmoothStepToF(&arg0->unk_0E4, 0.0f, 0.1f, 5.0f, 0.0f);
+    Math_SmoothStepToF(&arg0->unk_0E8, 0.0f, 0.1f, 5.0f, 0.0f);
+    Math_SmoothStepToF(&arg0->unk_0EC, 0.0f, 0.1f, 1.0f, 0.0f);
+    Math_SmoothStepToF(&arg0->unk_12C, 0.0f, 0.1f, 5.0f, 0.0f);
+    Math_SmoothStepToF(&arg0->unk_034, 0.0f, 0.1f, 3.0f, 0.0f);
+    Math_SmoothStepToF(&arg0->unk_110, 0.0f, 0.1f, 3.0f, 0.0f);
+    Math_SmoothStepToF(&arg0->unk_08C, 0.0f, 0.1f, 3.0f, 0.0f);
+    switch (arg0->unk_1D0) {
+        case 0:
+            func_8001ACDC(0);
+            D_80177A48[0] = 0.005f;
+            D_80177A48[1] = 0.0f;
+            D_80177A48[2] = 60.0f;
+            D_80177A48[3] = 0.0f;
+            arg0->wings.unk_2C = 1;
+            arg0->unk_1D0 += 1;
+            D_80177A80 = 0;
+        case 1:
+            if (arg0->pos.y < 350.0f) {
+                Math_SmoothStepToF(&arg0->pos.y, 350.0f, 0.1f, D_80177A48[3], 0.0f);
+            }
+            Math_SmoothStepToF(&D_80177A48[3], 10.0f, 1.0f, 1.0f, 0.0f);
+            Math_SmoothStepToF(&D_80177A48[1], 360.0f, 0.05f, 1.5f, 0.0f);
+            Math_SmoothStepToF(&D_80177A48[2], -70.0f, 0.1f, 0.7f, 0.0f);
+            if (D_80177A48[1] > 220.0f) {
+                arg0->unk_204 = 2;
+            }
+            if ((D_80177A80 >= 0x88) && (D_80177A80 < 0xB4)) {
+                Math_SmoothStepToF(&D_801779A8[arg0->num], 30.0f, 1.0f, 10.0f, 0.0f);
+            }
+            if (D_80177A80 == 0x8A) {
+                Audio_PlaySfx(0x09000007U, &arg0->unk_460, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            }
+            if (D_80177A80 == 0xBE) {
+                Audio_PlaySfx(0x09000013U, &arg0->unk_460, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            }
+            if (D_80177A48[1] > 350.0f) {
+                arg0->state_1C8 = 3;
+                arg0->unk_014 = 0.0f;
+                arg0->unk_018 = 0.1f;
+                arg0->unk_194 = 10.0f;
+                arg0->unk_190 = 10.0f;
+                Audio_PlaySfx(0x09000002U, &arg0->unk_460, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                D_801779A8[arg0->num] = 70.0f;
+                if ((gCurrentLevel != 9) && (gCurrentLevel != 0xA)) {
+                    D_800D1970 = 0;
+                    // var_s1 = D_800CA08C.x;
+                    // var_s2 = D_800CA080.x;
+                    for (temp_v0 = 0, var_s0 = &gObjects2F4[2]; temp_v0 < 3; temp_v0++, var_s0++) {
+                        Object_2F4_Initialize(var_s0);
+                        var_s0->obj.status = 1;
+                        var_s0->obj.id = 0xC6;
+                        var_s0->obj.pos.x = D_800CA080[temp_v0] + arg0->pos.x;
+                        var_s0->obj.pos.y = D_800CA08C[temp_v0] + arg0->pos.y;
+                        var_s0->obj.pos.z = arg0->unk_138 - 1000.0f;
+                        var_s0->unk_0F4.y = 180.0f;
+                        Object_SetInfo(&var_s0->info, var_s0->obj.id);
+                    }
+                }
+            }
+            Matrix_RotateY(gCalcMatrix, D_80177A48[1] * 0.017453292f, 0U);
+            Matrix_RotateX(gCalcMatrix, D_80177A48[2] * 0.017453292f, 1U);
+            sp70.x = 0.0f;
+            sp70.y = 0.0f;
+            sp70.z = 200.0f;
+            Matrix_MultVec3f(gCalcMatrix, &sp70, &sp64);
+            if ((gCurrentLevel == 0) || (gCurrentLevel == 9)) {
+                sp64.x *= -1.0f;
+            }
+            Math_SmoothStepToF(D_80177A48, 0.1f, 1.0f, 0.005f, 0.0f);
+            Math_SmoothStepToF(&arg0->camEye.x, arg0->pos.x + sp64.x, *D_80177A48, 500.0f, 0.0f);
+            Math_SmoothStepToF(&arg0->camEye.y, arg0->pos.y + sp64.y, *D_80177A48, 500.0f, 0.0f);
+            Math_SmoothStepToF(&arg0->camEye.z, arg0->unk_138 + D_80177D20 + sp64.z, *D_80177A48, 500.0f, 0.0f);
+            Math_SmoothStepToF(&arg0->camAt.x, arg0->pos.x, *D_80177A48, 500.0f, 0.0f);
+            Math_SmoothStepToF(&arg0->camAt.y, arg0->pos.y, *D_80177A48, 500.0f, 0.0f);
+            Math_SmoothStepToF(&arg0->camAt.z, arg0->unk_138 + D_80177D20, *D_80177A48, 500.0f, 0.0f);
+            break;
+    }
+    Matrix_RotateY(gCalcMatrix, (arg0->unk_0E8 + 180.0f) * 0.017453292f, 0U);
+    Matrix_RotateX(gCalcMatrix, -(arg0->unk_0E4 * 0.017453292f), 1U);
+    sp70.x = 0.0f;
+    sp70.y = 0.0f;
+    sp70.z = arg0->unk_0D0 + arg0->unk_110;
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp70, &sp64);
+    arg0->vel.x = sp64.x;
+    arg0->vel.z = sp64.z;
+    arg0->vel.y = sp64.y;
+    arg0->pos.x += arg0->vel.x;
+    arg0->pos.y += arg0->vel.y;
+    arg0->pos.z += arg0->vel.z;
+    arg0->unk_138 = arg0->pos.z + arg0->unk_08C;
+    arg0->camAt.z += arg0->vel.z;
+    arg0->camEye.z += arg0->vel.z;
+
+    arg0->unk_0F8 = arg0->unk_0EC + arg0->unk_12C + arg0->unk_130;
+    arg0->unk_088 += 10.0f;
+    arg0->unk_080 = -__sinf(arg0->unk_088 * 0.017453292f) * 0.3f;
+    arg0->unk_0F4 += 8.0f;
+    arg0->unk_0F0 = __sinf(arg0->unk_0F4 * 0.017453292f);
+
+    func_800AA800(arg0);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004B368.s")
 
@@ -871,7 +1008,389 @@ void func_8004F798(Object_2F4* arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004FCB8.s")
 
+#ifdef IMPORT_BSS
+extern AnimationHeader* D_800CA1F4[];
+
+void func_8004FEC0(Object_2F4* arg0) {
+    static f32 D_800CA210;
+    static f32 D_800CA214;
+    static f32 D_800CA218;
+    f32 sp2DC;
+    f32 sp2D8;
+    f32 sp2D4;
+    s32 sp2D0;
+    s32 pad2C4[3];
+    Vec3f sp2B8;
+    Vec3f sp2AC;
+    Vec3f sp144[30];
+    s32 pad[3];
+    s32 animFrameData;
+    f32 camX;
+    f32 camY;
+    f32 camZ;
+    f32 y;
+    f32 x;
+
+    switch (arg0->unk_0B6) {
+        case 1000:
+            RCP_SetupDL(&gMasterDisp, 0x2D);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, arg0->unk_046);
+            gSPDisplayList(gMasterDisp++, D_40018A0);
+
+            if (arg0->unk_046 >= 0x33) {
+                func_8005ADAC(arg0);
+            }
+            break;
+
+        case 0:
+            func_8005B388(arg0);
+            break;
+
+        case 1:
+            if (gCurrentLevel == LEVEL_SECTOR_Z) {
+                gSPFogPosition(gMasterDisp++, gFogNear, 1005);
+            }
+            arg0->info.bonus = 1;
+            func_800515C4();
+            break;
+
+        case 10:
+            RCP_SetupDL_40();
+            Matrix_Scale(gGfxMatrix, 60.0f, 60.0f, 1.0f, 1);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_6020810);
+            break;
+
+        case 11:
+            RCP_SetupDL_64_2();
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+            Matrix_Scale(gGfxMatrix, 60.0f, 60.0f, 1.0f, 1);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 10.0f, 1);
+            Matrix_Scale(gGfxMatrix, arg0->scale, arg0->scale, 1.0f, 1);
+            Matrix_SetGfxMtx(&gMasterDisp);
+
+            RCP_SetupDL_49();
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, arg0->unk_050);
+            gDPSetEnvColor(gMasterDisp++, 255, 255, 00, arg0->unk_050);
+            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            break;
+
+        case 20:
+            gSPDisplayList(gMasterDisp++, D_400AAE0);
+            break;
+
+        case 24:
+            gSPDisplayList(gMasterDisp++, D_D009A40);
+            func_8005ADAC(arg0);
+            break;
+
+        case 25:
+            if (arg0->index & 1) {
+                gSPDisplayList(gMasterDisp++, D_6001DA0);
+                break;
+            } else {
+                gSPDisplayList(gMasterDisp++, D_6001360);
+                break;
+            }
+
+        case 26:
+            gSPDisplayList(gMasterDisp++, D_6004FE0);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
+            func_8005B1E8(arg0, 2);
+            break;
+
+        case 28:
+            gSPDisplayList(gMasterDisp++, D_400AAE0);
+            Matrix_Translate(gGfxMatrix, 0.f, 0.f, -60.0f, 1);
+            func_8005B1E8(arg0, 2);
+            break;
+
+        case 30:
+            func_8005F670(&arg0->obj.pos);
+
+            if (arg0->unk_046 != 0) {
+                RCP_SetupDL(&gMasterDisp, 0x37);
+                gSPClearGeometryMode(gMasterDisp++, 0x00002000);
+                Rand_SetSeed(1, 29000, 9876);
+
+                for (sp2D0 = 0; sp2D0 < 30; sp2D0++) {
+                    Matrix_Push(&gGfxMatrix);
+                    Matrix_Translate(gGfxMatrix, ((Rand_ZeroOneSeeded() - 0.5f) * 3000.0f) * (*arg0).unk_164,
+                                     ((Rand_ZeroOneSeeded() - 0.5f) * 3000.0f) * (*arg0).unk_164,
+                                     ((Rand_ZeroOneSeeded() - 0.5f) * 3000.0f) * (*arg0).unk_164, 1);
+                    Matrix_RotateY(gGfxMatrix, 2.0f * (Rand_ZeroOneSeeded() * 3.1415927f), 1);
+                    Matrix_RotateZ(gGfxMatrix, (2.0f * gFrameCount) * 0.017453292f, 1);
+                    Matrix_RotateX(gGfxMatrix, 2.0f * (Rand_ZeroOneSeeded() * 3.1415927f), 1);
+
+                    switch (sp2D0 & 3) {
+                        case 0:
+                            Matrix_Scale(gGfxMatrix, 1.0f, 0.3f, 1.0f, 1);
+                            break;
+
+                        case 1:
+                            Matrix_Scale(gGfxMatrix, 0.3f, 1.0f, 1.0f, 1);
+                            break;
+
+                        case 2:
+                            Matrix_Scale(gGfxMatrix, 1.0f, 0.5f, 1.0f, 1);
+                            break;
+
+                        case 3:
+                            Matrix_Scale(gGfxMatrix, 0.5f, 1.0f, 1.0f, 1);
+                            break;
+                    }
+
+                    Matrix_Scale(gGfxMatrix, (Rand_ZeroOneSeeded() * 8.0f) + 8.0f, (Rand_ZeroOneSeeded() * 8.0f) + 8.0f,
+                                 10.0f, 1);
+                    Matrix_SetGfxMtx(&gMasterDisp);
+                    gSPDisplayList(gMasterDisp++, D_1021E20);
+                    Matrix_Pop(&gGfxMatrix);
+                }
+
+                break;
+            }
+
+            if (gPlayer->state_1C8 == 2) {
+                Matrix_Push(&gGfxMatrix);
+                Matrix_RotateX(gGfxMatrix, 0.34906584f, 1);
+                Matrix_RotateY(gGfxMatrix, (gFrameCount * 0.5f) * 0.017453292f, 1);
+                Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, 1);
+            } else {
+                Matrix_RotateX(gGfxMatrix, -0.17453292f, 1);
+                Matrix_RotateY(gGfxMatrix, (gFrameCount * 0.3f) * 0.017453292f, 1);
+                Matrix_Scale(gGfxMatrix, 4.0f, 4.0f, 4.0f, 1);
+                Matrix_Push(&gGfxMatrix);
+            }
+
+            Matrix_Translate(gGfxMatrix, 0.f, -590.0f, 0.f, 1);
+
+            Matrix_SetGfxMtx(&gMasterDisp);
+
+            gSPDisplayList(gMasterDisp++, D_600BAA0);
+
+            Matrix_Push(&gGfxMatrix);
+
+            RCP_SetupDL(&gMasterDisp, 0x40);
+
+            switch ((gFrameCount >> 3) & 3) {
+                case 0:
+                    sp2DC = 255.0f;
+                    sp2D8 = 0.0f;
+                    sp2D4 = 0.0f;
+                    break;
+
+                case 1:
+                    sp2DC = 0.0f;
+                    sp2D8 = 255.0f;
+                    sp2D4 = 0.0f;
+                    break;
+
+                case 2:
+                    sp2DC = 0.0f;
+                    sp2D8 = 0.0f;
+                    sp2D4 = 255.0f;
+                    break;
+
+                case 3:
+                    sp2DC = 255.0f;
+                    sp2D8 = 255.0f;
+                    sp2D4 = 0.0f;
+                    break;
+            }
+
+            Math_SmoothStepToF(&D_800CA210, sp2DC, 1.0f, 20.0f, 0);
+            Math_SmoothStepToF(&D_800CA214, sp2D8, 1.0f, 20.0f, 0);
+            Math_SmoothStepToF(&D_800CA218, sp2D4, 1.0f, 20.0f, 0);
+
+            gDPSetPrimColor(gMasterDisp++, 0, 0, (s32) D_800CA210, (s32) D_800CA214, (s32) D_800CA218, 0x80);
+
+            if (gPlayer->state_1C8 == 2) {
+                Matrix_Scale(gGfxMatrix, 1.02f, 1.02f, 1.02f, 1);
+            } else {
+                Matrix_Scale(gGfxMatrix, 0.97f, 0.97f, 0.97f, 1);
+            }
+
+            Matrix_SetGfxMtx(&gMasterDisp);
+
+            gDPSetTextureFilter(gMasterDisp++, 0 << 12);
+            gSPDisplayList(gMasterDisp++, D_6000D80);
+            gDPSetTextureFilter(gMasterDisp++, 2 << 12);
+
+            Matrix_Pop(&gGfxMatrix);
+            Matrix_Pop(&gGfxMatrix);
+
+            if (gPlayer->state_1C8 == 7) {
+                Matrix_Scale(gGfxMatrix, 0.075f, 0.075f, 0.075f, 1);
+                break;
+            }
+            break;
+
+        case 31:
+            RCP_SetupDL_21();
+            Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 2.0f, 1);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_101ABD0);
+            break;
+
+        case 32:
+            gSPDisplayList(gMasterDisp++, D_6008770);
+            break;
+
+        case 33:
+            if ((arg0->index == 3) && (gPlayer->state_1C8 == 7)) {
+                gSPDisplayList(gMasterDisp++, D_D00B880);
+            } else {
+                gSPDisplayList(gMasterDisp++, D_600E050);
+            }
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
+            func_8005B1E8(arg0, 0);
+            break;
+
+        case 34:
+            gSPDisplayList(gMasterDisp++, D_6001530);
+            break;
+
+        case 35:
+            Matrix_Scale(gGfxMatrix, 0.125f, 0.125f, 0.125f, 1);
+            Matrix_SetGfxMtx(&gMasterDisp);
+
+        case 39:
+            gSPDisplayList(gMasterDisp++, D_60097E0);
+            func_8004FCB8(arg0, 4);
+            break;
+
+        case 36:
+            Matrix_Scale(gGfxMatrix, arg0->scale, arg0->scale, arg0->scale, 1);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_601D730);
+            func_8004FCB8(arg0, 0);
+            break;
+
+        case 37:
+            RCP_SetupDL_49();
+            gDPSetPrimColor(gMasterDisp++, 0, 0, (*arg0).unk_050, (*arg0).unk_054, (*arg0).unk_058, (*arg0).unk_05C);
+            gDPSetEnvColor(gMasterDisp++, (*arg0).unk_060, (*arg0).unk_064, (*arg0).unk_068, (*arg0).unk_06C);
+            Matrix_Scale(gGfxMatrix, arg0->scale, arg0->unk_124.x, 1.0f, 1);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            break;
+
+        case 38:
+            animFrameData = Animation_GetFrameData(D_800CA1F4[arg0->unk_060], arg0->unk_064, sp144);
+            Math_SmoothStepToVec3fArray(sp144, arg0->unk_18C, 1, animFrameData, arg0->unk_11C, 100.0f, .0f);
+            RCP_SetupDL_30(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 0x96, 0xFF, 0x96, 0xFF);
+            Animation_DrawSkeleton(1, &D_602D140, arg0->unk_18C, 0, 0, arg0, &gIdentityMatrix);
+
+            if (arg0->unk_114 != 0.0f) {
+                RCP_SetupDL_49();
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+                gDPSetEnvColor(gMasterDisp++, 0xFF, 0x20, 0x20, 0xFF);
+                Matrix_Translate(gGfxMatrix, 10.0f, -5.0f, -40.0f, 1);
+                Matrix_RotateY(gGfxMatrix, (-arg0->obj.rot.y) * 0.017453292f, 1);
+                Graphics_SetScaleMtx(1.0f);
+                Matrix_Scale(gGfxMatrix, arg0->unk_114, arg0->unk_114, arg0->unk_114, 1);
+
+                camX = gPlayer->camEye.x - arg0->obj.pos.x;
+                camY = gPlayer->camEye.y - arg0->obj.pos.y;
+                camZ = gPlayer->camEye.z - (arg0->obj.pos.z + D_80177D20);
+
+                y = -Math_Atan2F(camX, camZ);
+                x = Math_Atan2F(camY, sqrtf(SQ(camZ) + SQ(camX)));
+
+                Matrix_RotateY(gGfxMatrix, -y, 1);
+                Matrix_RotateX(gGfxMatrix, -x, 1);
+
+                Matrix_SetGfxMtx(&gMasterDisp);
+                gSPDisplayList(gMasterDisp++, D_1024AC0);
+                Math_SmoothStepToF(&arg0->unk_114, 0.0f, 0.1f, 0.2f, 0.05f);
+            }
+
+            if (arg0->unk_124.z != 0.0f) {
+                RCP_SetupDL_49();
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+                gDPSetEnvColor(gMasterDisp++, 0xFF, 0x30, 0x00, 0xFF);
+                Matrix_Pop(&gGfxMatrix);
+                Matrix_Push(&gGfxMatrix);
+                Matrix_RotateY(gCalcMatrix, (arg0->obj.rot.y - 90.0f) * 0.017453292f, 0);
+
+                sp2B8.x = 210.0f;
+                sp2B8.y = 0.0f;
+                sp2B8.z = 40.0f;
+
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, (Vec3f*) (&sp2B8), &sp2AC);
+                Matrix_Translate(gGfxMatrix, arg0->obj.pos.x + sp2AC.x, arg0->obj.pos.y + sp2AC.y,
+                                 arg0->obj.pos.z + sp2AC.z, 1);
+                Matrix_Scale(gGfxMatrix, arg0->unk_124.z, arg0->unk_124.z, arg0->unk_124.z, 1);
+
+                camX = gPlayer->camEye.x - arg0->obj.pos.x;
+                camY = gPlayer->camEye.y - arg0->obj.pos.y;
+                camZ = gPlayer->camEye.z - (arg0->obj.pos.z + D_80177D20);
+
+                y = -Math_Atan2F(camX, camZ);
+                x = Math_Atan2F(camY, sqrtf((camZ * camZ) + (camX * camX)));
+
+                Matrix_RotateY(gGfxMatrix, -y, 1);
+                Matrix_RotateX(gGfxMatrix, -x, 1);
+
+                Matrix_SetGfxMtx(&gMasterDisp);
+                gSPDisplayList(gMasterDisp++, D_1024AC0);
+                Math_SmoothStepToF(&arg0->unk_124.z, 0.00f, 0.1f, 0.6f, 0);
+            }
+            break;
+
+        case 40:
+            gSPDisplayList(gMasterDisp++, D_60132A0);
+            break;
+
+        case 41:
+            func_801BE0F0(arg0);
+            break;
+
+        case 42:
+            gSPDisplayList(gMasterDisp++, D_6014A40);
+            break;
+
+        case 43:
+            RCP_SetupDL_49();
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, arg0->unk_050);
+            gDPSetEnvColor(gMasterDisp++, 0xFF, 0xC0, 0x80, 0xFF);
+            Matrix_RotateY(gGfxMatrix,
+                           Math_Atan2F(gPlayer->camEye.x - gPlayer->camAt.x, gPlayer->camEye.z - gPlayer->camAt.z), 1);
+            Matrix_Scale(gGfxMatrix, arg0->unk_114, arg0->unk_114, arg0->unk_114, 1);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            if (arg0->unk_050 != 0) {
+                arg0->unk_050 -= 7;
+            }
+            arg0->unk_114 += 0.2f;
+            break;
+
+        case 44:
+            Animation_GetFrameData(&D_6020A40, arg0->unk_050, arg0->unk_18C);
+            gSPClearGeometryMode(gMasterDisp++, 0x00002000);
+            Animation_DrawSkeleton(1, &D_6020C6C, arg0->unk_18C, 0, 0, &arg0->index, &gIdentityMatrix);
+            gSPSetGeometryMode(gMasterDisp++, 0x00002000);
+            break;
+
+        case 45:
+            Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, 1);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_600EEF0);
+            break;
+
+        case 46:
+            gSPDisplayList(gMasterDisp++, D_601DE60);
+            break;
+
+        case 47:
+            gSPDisplayList(gMasterDisp++, D_602B4C0);
+            break;
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004FEC0.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_800515C4.s")
 
