@@ -694,9 +694,9 @@ void func_EBFBE0_8019F600(void) {
     D_80177C38[1] = 255;
     D_80177C38[2] = 255;
     D_80177C38[3] = 255;
-    gTeamShieldsMapDisplay[1] = 255;
-    gTeamShieldsMapDisplay[2] = 255;
-    gTeamShieldsMapDisplay[3] = 255;
+    D_80177C58[1] = 255;
+    D_80177C58[2] = 255;
+    D_80177C58[3] = 255;
 
     D_EBFBE0_801CD950 = -1;
 
@@ -1639,7 +1639,7 @@ void func_EBFBE0_801A4AE8(void) {
 
                 if (D_EBFBE0_801CEFDC == 0) {
                     for (i = 0; i < 6; i++) {
-                        gTeamShieldsMapDisplay[i] = gTeamShields[i];
+                        D_80177C58[i] = gTeamShields[i];
                     }
                     D_EBFBE0_801CEFC8 = 0;
                     D_EBFBE0_801CD948 = 0;
@@ -4026,7 +4026,7 @@ void func_EBFBE0_801AD11C(void) {
             D_EBFBE0_801CD94C = 0;
         } else {
             for (i = 0; i < 6; i++) {
-                gTeamShieldsMapDisplay[i] = gTeamShields[i];
+                D_80177C58[i] = gTeamShields[i];
             }
             func_EBFBE0_801A659C();
         }
