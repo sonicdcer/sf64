@@ -18,6 +18,7 @@ extern f32 D_800CA050[];
 extern f32 D_800CA05C[];
 extern f32 D_800CA068[];
 extern f32 D_800CA074[];
+extern Vec3f D_800CA110[];
 
 extern void func_80187520(s32, void*);
 extern void func_800ADF58(Player*);
@@ -1006,7 +1007,36 @@ void func_8004F798(Object_2F4* arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004F8AC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004FCB8.s")
+void func_8004FCB8(Object_2F4* arg0, s32 arg1) {
+    f32 angle;
+    f32 scale;
+    s32 i;
+
+    if (arg0->timer_0BC == 0) {
+        arg0->timer_0BC = 32;
+        arg0->unk_124.y = 0.3f;
+    }
+
+    if (arg0->unk_124.y > 0.0f) {
+        scale = arg0->unk_124.y;
+        arg0->unk_124.y -= 0.05f;
+        RCP_SetupDL_49();
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+        gDPSetEnvColor(gMasterDisp++, 16, 16, 240, 255);
+        angle = Math_Atan2F(gPlayer->camEye.x - gPlayer->camAt.x, gPlayer->camEye.z - gPlayer->camAt.z);
+
+        for (i = arg1; i < (arg1 + 4); i++) {
+            Matrix_Pop(&gGfxMatrix);
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, D_800CA110[i].x + arg0->obj.pos.x, D_800CA110[i].y + arg0->obj.pos.y,
+                             D_800CA110[i].z + arg0->obj.pos.z, 1);
+            Matrix_RotateY(gGfxMatrix, angle, 1);
+            Matrix_Scale(gGfxMatrix, scale, scale, scale, 1);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_1024AC0);
+        }
+    }
+}
 
 #ifdef IMPORT_BSS
 extern AnimationHeader* D_800CA1F4[];
