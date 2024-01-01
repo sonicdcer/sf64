@@ -1309,47 +1309,47 @@ bool func_EBFBE0_801A2304(void) {
 
     return ret;
 }
-//! TODO: PLANET ENUM
+
 f32 func_EBFBE0_801A25C8(s32 arg0) {
     f32 sp4;
 
     switch (arg0) {
-        case 1:
+        case PLANET_AREA_6:
             sp4 = 900.0f;
             break;
 
-        case 2:
+        case PLANET_BOLSE:
             sp4 = 800.0f;
             break;
 
-        case 0:
+        case PLANET_METEO:
             sp4 = 650.0f;
             break;
 
-        case 6:
-        case 7:
-        case 8:
-        case 10:
-        case 11:
-        case 12:
+        case PLANET_KATINA:
+        case PLANET_MACBETH:
+        case PLANET_ZONESS:
+        case PLANET_TITANIA:
+        case PLANET_AQUAS:
+        case PLANET_FORTUNA:
             sp4 = 550.0f;
             break;
 
-        case 9:
+        case PLANET_CORNERIA:
             sp4 = 1100.0f;
             break;
 
-        case 13:
+        case PLANET_VENOM:
             sp4 = 2100.0f;
             break;
 
-        case 14:
+        case PLANET_SOLAR:
             sp4 = 850.0f;
             break;
 
-        case 3:
-        case 4:
-        case 5:
+        case PLANET_SECTOR_Z:
+        case PLANET_SECTOR_X:
+        case PLANET_SECTOR_Y:
             sp4 = 650.0f;
             break;
 
