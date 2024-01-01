@@ -274,7 +274,7 @@ void func_EBFBE0_801A0D14(void);
 void func_EBFBE0_801A1528(void);
 void func_EBFBE0_801A19A8(void);
 void func_EBFBE0_801A1C14(void);
-f32 func_EBFBE0_801A25C8(s32);
+f32 func_EBFBE0_801A25C8(PlanetId);
 void func_EBFBE0_801A281C();
 void func_EBFBE0_801A2B8C(void);
 void func_EBFBE0_801A2EB8();
@@ -1310,10 +1310,10 @@ bool func_EBFBE0_801A2304(void) {
     return ret;
 }
 
-f32 func_EBFBE0_801A25C8(s32 arg0) {
+f32 func_EBFBE0_801A25C8(PlanetId planetId) {
     f32 sp4;
 
-    switch (arg0) {
+    switch (planetId) {
         case PLANET_AREA_6:
             sp4 = 900.0f;
             break;
