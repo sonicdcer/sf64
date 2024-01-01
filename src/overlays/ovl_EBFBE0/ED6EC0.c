@@ -101,6 +101,7 @@ extern s32 D_EBFBE0_801CD978;
 extern s32 D_EBFBE0_801CD97C;
 extern s32 D_EBFBE0_801CD980;
 extern s32 D_EBFBE0_801CD984;
+extern s32 D_EBFBE0_801CD988;
 extern s32 D_EBFBE0_801CD98C;
 extern s32 D_EBFBE0_801CD990;
 extern s32 D_EBFBE0_801CD994;
@@ -115,6 +116,7 @@ extern f32 D_EBFBE0_801CD9B4;
 extern s32 D_EBFBE0_801CD9B8;
 extern s32 D_EBFBE0_801CD9BC;
 extern s32 D_EBFBE0_801CD9C0;
+extern s32 D_EBFBE0_801CD9C4;
 extern s32 D_EBFBE0_801CD9C8;
 extern s32 D_EBFBE0_801CD9CC;
 extern s32 D_EBFBE0_801CD9D0;
@@ -265,7 +267,9 @@ void func_EBFBE0_801A1528(void);
 void func_EBFBE0_801A19A8(void);
 void func_EBFBE0_801A1C14(void);
 f32 func_EBFBE0_801A25C8(s32);
+void func_EBFBE0_801A281C();
 void func_EBFBE0_801A2B8C(void);
+void func_EBFBE0_801A2EB8();
 void func_EBFBE0_801A3550(Vec3f*, Vec3f*, Vec3f*, f32);
 void func_EBFBE0_801A36A8(void);
 void func_EBFBE0_801A4650(void);
@@ -1297,7 +1301,7 @@ bool func_EBFBE0_801A2304(void) {
 
     return ret;
 }
-
+//! TODO: PLANET ENUM
 f32 func_EBFBE0_801A25C8(s32 arg0) {
     f32 sp4;
 
@@ -1406,7 +1410,122 @@ void func_EBFBE0_801A2674(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A281C.s")
 
+// needs in-function static for D_EBFBE0_801CD900
+#ifdef IMPORT_DATA
+void func_EBFBE0_801A2B8C(void) {
+    s32 i;
+
+    switch (D_EBFBE0_801CD94C) {
+        case 0:
+            func_EBFBE0_801A281C();
+            D_EBFBE0_801CD94C = 100;
+            break;
+
+        case 100:
+            if (D_80178340 != 0) {
+                D_80178340 -= 64;
+                if (D_80178340 < 0) {
+                    D_80178340 = 0;
+                }
+            } else {
+                D_EBFBE0_801CD9C0 = 30;
+
+                if ((D_EBFBE0_801CD98C == 1) || (D_EBFBE0_801CD980 == 1)) {
+                    D_80178348 = 255;
+                    D_80178350 = 255;
+                    D_80178354 = 255;
+                    D_80178340 = 0;
+                    D_EBFBE0_801CD984 = 0;
+                    D_EBFBE0_801CD94C = 10;
+                    break;
+                }
+                D_EBFBE0_801CD9C4 = 0;
+                D_EBFBE0_801CD94C = 1;
+            }
+            break;
+
+        case 10:
+            if (D_EBFBE0_801CD9C0 != 0) {
+                break;
+            }
+
+            if ((D_EBFBE0_801CD984 == 255) && (D_80178340 == 0)) {
+                D_EBFBE0_801CD980 = 0;
+                D_EBFBE0_801CD9C0 = 30;
+                D_EBFBE0_801CD94C = 20;
+            } else if (D_EBFBE0_801CD988 != 0) {
+                D_80178340 ^= 255;
+                D_EBFBE0_801CD988--;
+            } else {
+                D_EBFBE0_801CD988 = 0;
+
+                if (D_80178340 != 0) {
+                    D_80178340 -= 21;
+                    if (D_80178340 < 0) {
+                        D_80178340 = 0;
+                    }
+                }
+
+                D_EBFBE0_801CD984 += 8;
+
+                if (D_EBFBE0_801CD984 > 255) {
+                    D_80178340 = 0;
+                    D_EBFBE0_801CD984 = 255;
+                }
+            }
+
+            break;
+
+        case 20:
+            if (D_EBFBE0_801CD9C0 != 0) {
+                break;
+            }
+            if ((D_EBFBE0_801CD98C == 1) || (D_EBFBE0_801CD980 == 1)) {
+                break;
+            }
+            D_EBFBE0_801CD9C4 = 0;
+            D_EBFBE0_801CD9C0 = 30;
+            D_EBFBE0_801CD94C = 1;
+            break;
+
+        case 1:
+            if (D_EBFBE0_801CD9C0 != 0) {
+                break;
+            }
+            func_EBFBE0_801A2EB8();
+            break;
+
+        case 2:
+            if (D_EBFBE0_801CD9C0 != 0) {
+                break;
+            }
+
+            for (i = 0; i < 15; i++) {
+                D_EBFBE0_801CD900[i] = 255;
+            }
+            D_EBFBE0_801CD9C0 = 0;
+            D_EBFBE0_801CD94C++;
+            break;
+
+        case 3:
+            if (D_EBFBE0_801CD9C0 != 0) {
+                break;
+            }
+            D_EBFBE0_801CEFC8 = 1;
+            D_EBFBE0_801CD97C = 1;
+            D_EBFBE0_801CD94C = 0;
+            D_EBFBE0_801CD944 = 3;
+            break;
+    }
+
+    func_800B6F50(D_EBFBE0_801CD9F4, D_EBFBE0_801CD9F8, D_EBFBE0_801CD9FC, D_EBFBE0_801CDA00, D_EBFBE0_801CDA04,
+                  D_EBFBE0_801CDA08);
+
+    D_EBFBE0_801CD9C4++;
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A2B8C.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A2EB8.s")
 
