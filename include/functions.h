@@ -29,6 +29,7 @@ void Audio_KillSfx(Vec3f*);
 void func_8001A55C(Vec3f*, u32);
 void func_8001A838(u32);
 void func_8001ACDC(s32);
+void func_8001AD00(u32);
 void func_8001AE58(void);
 s32 func_8001AE78(void);
 s32 func_8001AED4(void);

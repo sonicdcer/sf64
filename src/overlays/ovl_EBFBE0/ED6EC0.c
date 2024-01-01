@@ -121,6 +121,12 @@ extern s32 D_EBFBE0_801CD9C8;
 extern s32 D_EBFBE0_801CD9CC;
 extern s32 D_EBFBE0_801CD9D0;
 extern s32 D_EBFBE0_801CD9D4;
+extern f32 D_EBFBE0_801CD9DC;
+extern f32 D_EBFBE0_801CD9E0;
+extern f32 D_EBFBE0_801CD9E4;
+extern f32 D_EBFBE0_801CD9E8;
+extern f32 D_EBFBE0_801CD9EC;
+extern s32 D_EBFBE0_801CD9F0;
 extern f32 D_EBFBE0_801CDA00; // x
 extern f32 D_EBFBE0_801CDA04; // y
 extern f32 D_EBFBE0_801CDA08; // z
@@ -1193,7 +1199,112 @@ void func_EBFBE0_801A07E8(u8* arg0, u8* arg1, f32* arg2) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A0954.s")
+#ifndef IMPORT_DATA
+extern f32 D_EBFBE0_801B6934[];
+#endif
+
+void func_EBFBE0_801A0954(void) {
+    PlanetId planetId;
+#ifdef IMPORT_DATA
+    static f32 D_EBFBE0_801B6934[] = {
+        99.0f, 24, -90.0f, -150.0f, -208.0f, -276.0f,
+    };
+#endif
+
+    switch (D_EBFBE0_801CD948) {
+        case 100:
+            break;
+
+        case 0:
+            D_EBFBE0_801CD9F0 = 0;
+            D_EBFBE0_801CD9DC = 30.0f;
+            D_EBFBE0_801CD9E0 = 230.0f;
+            D_EBFBE0_801CD9E8 = 0;
+            D_EBFBE0_801CD9E4 = 0;
+            D_EBFBE0_801CD9EC = 0.29f;
+            D_80178410 = 800;
+            D_EBFBE0_801CD9C0 = 5;
+            D_EBFBE0_801CD948++;
+            break;
+
+        case 1:
+            if (D_EBFBE0_801CD9C0 != 0) {
+                break;
+            }
+
+            if (D_80178340 != 0) {
+                break;
+            }
+
+            if ((s32) D_EBFBE0_801CD9E0 == 205) {
+                func_8001AD00(1000);
+            }
+
+            if (D_EBFBE0_801CD9E0 > -355.0f) {
+                D_EBFBE0_801CD9E0 -= D_EBFBE0_801CD9EC;
+            }
+
+            if ((D_EBFBE0_801CD9E0 < 200.0f) && (D_EBFBE0_801CD9E8 != 255)) {
+                D_EBFBE0_801CD9E8 += 8;
+                if (D_EBFBE0_801CD9E8 > 255) {
+                    D_EBFBE0_801CD9E8 = 255;
+                }
+            }
+
+            if (D_EBFBE0_801CD9E0 < D_EBFBE0_801B6934[D_EBFBE0_801CD9F0]) {
+                D_EBFBE0_801CD9E4 += 8;
+                if (D_EBFBE0_801CD9E4 > 255) {
+                    D_EBFBE0_801CD9E4 = 255;
+                }
+            }
+
+            if (D_EBFBE0_801CD9E0 <= -355.0f) {
+                D_EBFBE0_801CD948++;
+            }
+            break;
+
+        case 2:
+            D_EBFBE0_801CD9E8 -= 16;
+            if (D_EBFBE0_801CD9E8 < 0) {
+                D_EBFBE0_801CD9E8 = 0;
+                D_EBFBE0_801CD948++;
+                D_EBFBE0_801CD9C0 = 20;
+            }
+            break;
+
+        case 3:
+            if (D_EBFBE0_801CD9C0 != 0) {
+                break;
+            }
+            D_EBFBE0_801CD948 = 0;
+            D_EBFBE0_801CD944 = 1;
+            break;
+    }
+
+    if (gControllerPress[gMainController].button & START_BUTTON) {
+        func_8001D444(0, 0x3C, 0, 0xFF);
+
+        Audio_PlaySfx(0x4900001FU, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+
+        for (planetId = 0; planetId < 15; planetId++) {
+            if ((planetId == PLANET_SECTOR_Z) || (planetId == PLANET_SECTOR_X) || (planetId == PLANET_SECTOR_Y)) {
+                planet[planetId].alpha = 144;
+            } else {
+                planet[planetId].alpha = 255;
+            }
+            D_EBFBE0_801CD900[planetId] = 255;
+        }
+
+        D_EBFBE0_801CD970 = 255;
+
+        func_8001AE58();
+
+        D_EBFBE0_801CD974 = 1;
+        D_EBFBE0_801CD97C = 1;
+        D_EBFBE0_801CD948 = 0;
+        D_EBFBE0_801CD944 = 3;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A0D14.s")
 
