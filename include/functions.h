@@ -29,6 +29,7 @@ void Audio_KillSfx(Vec3f*);
 void func_8001A55C(Vec3f*, u32);
 void func_8001A838(u32);
 void func_8001ACDC(s32);
+void func_8001AD00(u32);
 void func_8001AE58(void);
 s32 func_8001AE78(void);
 s32 func_8001AED4(void);
@@ -37,6 +38,7 @@ void func_8001C8B8(u8);
 void func_8001CA24(u8);      
 void func_8001CB80(u8, u8);  
 void func_8001CCDC(u8, Vec3f *);
+void func_8001D15C(u8);
 void func_8001D1C8(u8, s32);
 void func_8001D2FC(Vec3f *, u16);
 void func_8001D3A0(Vec3f *, u16);
@@ -527,6 +529,7 @@ bool func_800A8054(s32 objId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
 // fox_radio
 s32 func_800BA7BC(u16*, s32);
 void func_800BA808(u16*, s32);
+void func_800BB388(void);
 void func_800BB5D0(void);
 
 // fox_reset
