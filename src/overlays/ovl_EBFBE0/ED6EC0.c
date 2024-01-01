@@ -47,6 +47,7 @@ extern Planet planet[15];
 extern s32 D_EBFBE0_801AF420[2];
 extern Gfx* D_EBFBE0_801AF824[4];
 extern Texture D_EBFBE0_801AF834[14];
+extern Texture D_EBFBE0_801AF914[14];
 extern u16* D_EBFBE0_801AF428[15][2];
 extern Gfx* D_EBFBE0_801AFA30[2];
 extern ObjPosition D_EBFBE0_801AFA38[];
@@ -209,6 +210,8 @@ extern f32* D_EBFBE0_801CF0D0;
 extern s32 D_EBFBE0_801CF11C;
 extern s32 D_EBFBE0_801CF120;
 extern f32 D_EBFBE0_801CF124;
+
+extern u8 D_5000500[];
 
 extern u8 D_600D590[];
 extern Gfx D_601D1F0[];
@@ -3064,7 +3067,110 @@ void func_EBFBE0_801A9910(void) {
     D_EBFBE0_801CEA70 *= 1.08;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A9A8C.s")
+#ifndef IMPORT_DATA
+extern f32 D_EBFBE0_801B6AC0[2];
+extern f32 D_EBFBE0_801B6AC8[2];
+#endif
+
+void func_EBFBE0_801A9A8C(void) {
+    s32 i;
+    s32 sp58;
+    u8* sp54;
+#ifdef IMPORT_DATA
+    static f32 D_EBFBE0_801B6AC0[2] = { 91.0f, 207.0f };
+    static f32 D_EBFBE0_801B6AC8[2] = { 61.0f, 61.0f };
+#endif
+
+    switch (gCurrentLevel) {
+        case LEVEL_CORNERIA:
+            sp54 = D_500A050;
+            sp58 = 0;
+            break;
+
+        case LEVEL_METEO:
+            sp54 = D_500A140;
+            sp58 = 1;
+            break;
+
+        case LEVEL_SECTOR_Y:
+            sp54 = D_500A140;
+            sp58 = 2;
+            break;
+
+        case LEVEL_FORTUNA:
+            sp54 = D_500A230;
+            sp58 = 3;
+            break;
+
+        case LEVEL_KATINA:
+            sp54 = D_500A230;
+            sp58 = 4;
+            break;
+
+        case LEVEL_AQUAS:
+            sp54 = D_500A230;
+            sp58 = 5;
+            break;
+
+        case LEVEL_SECTOR_X:
+            sp54 = D_500A320;
+            sp58 = 6;
+            break;
+
+        case LEVEL_SOLAR:
+            sp54 = D_500A320;
+            sp58 = 7;
+            break;
+
+        case LEVEL_ZONESS:
+            sp54 = D_500A320;
+            sp58 = 8;
+            break;
+
+        case LEVEL_TITANIA:
+            sp54 = D_500A410;
+            sp58 = 9;
+            break;
+
+        case LEVEL_MACBETH:
+            sp54 = D_500A410;
+            sp58 = 10;
+            break;
+
+        case LEVEL_SECTOR_Z:
+            sp54 = D_500A410;
+            sp58 = 11;
+            break;
+
+        case LEVEL_BOLSE:
+            sp54 = D_500A500;
+            sp58 = 12;
+            break;
+
+        case LEVEL_AREA_6:
+            sp54 = D_500A500;
+            sp58 = 13;
+            break;
+    }
+
+    RCP_SetupDL(&gMasterDisp, 0x53);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+
+    TextureRect_8bIA(&gMasterDisp, &D_5000500, 112, 19, D_EBFBE0_801B6AC0[0], D_EBFBE0_801B6AC8[0], 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, sp54, 16, 15, D_EBFBE0_801B6AC0[1], D_EBFBE0_801B6AC8[1], 1.0f, 1.0f);
+
+    for (i = 0; i < D_EBFBE0_801AF834[sp58].height; i++) {
+        TextureRect_8bIA(&gMasterDisp, D_EBFBE0_801AF834[sp58].addr + (D_EBFBE0_801AF834[sp58].width * i),
+                         D_EBFBE0_801AF834[sp58].width, 1, D_EBFBE0_801AF834[sp58].posX, 94.0f + (1.0f * i), 1.0f,
+                         1.0f);
+    }
+
+    for (i = 0; i < D_EBFBE0_801AF914[sp58].height; i++) {
+        TextureRect_8bIA(&gMasterDisp, D_EBFBE0_801AF914[sp58].addr + (D_EBFBE0_801AF914[sp58].width * i),
+                         D_EBFBE0_801AF914[sp58].width, 1, D_EBFBE0_801AF914[sp58].posX, 140.0f + (1.0f * i), 1.0f,
+                         1.0f);
+    }
+}
 
 void func_EBFBE0_801A9DE8(void) {
     s32 mask;
