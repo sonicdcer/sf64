@@ -1752,7 +1752,7 @@ void func_8007D138(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 scale2) {
     arg0->scale2 = scale2;
     arg0->obj.rot.z = Rand_ZeroOne() * 360.0f;
     Object_SetInfo(&arg0->info, arg0->obj.id);
-    if (gLevelType == 0) {
+    if (gLevelType == LEVELTYPE_PLANET) {
         arg0->unk_4C = 15;
     }
     arg0->unk_44 = 180;
@@ -1770,7 +1770,7 @@ void func_8007D1E0(f32 posX, f32 posY, f32 posZ, f32 scale2) {
 }
 
 void func_8007D24C(f32 posX, f32 posY, f32 posZ, f32 scale2) {
-    if (gLevelType == 0) {
+    if (gLevelType == LEVELTYPE_PLANET) {
         func_8007D1E0(posX, posY, posZ, scale2);
         func_8007CEBC(posX, scale2 + posY, posZ, scale2, 9);
     } else {
@@ -1782,7 +1782,58 @@ void func_8007D2C8(f32 posX, f32 posY, f32 posZ, f32 scale2) {
     func_8007D008(posX, posY, posZ, scale2);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007D2F4.s")
+void func_8007D2F4(Object_8C* arg0) {
+    if (gLevelType == LEVELTYPE_PLANET) {
+        if ((gCurrentLevel == LEVEL_KATINA) && (gPlayer->state_1C8 == PLAYERSTATE_1C8_7)) {
+            arg0->unk_54.y += 0.1f;
+            if (arg0->timer_50 == 0) {
+                arg0->unk_4C++;
+                arg0->timer_50 = 4;
+                if (arg0->unk_4C > 15) {
+                    arg0->timer_50 = 5;
+                }
+                if (arg0->unk_4C > 20) {
+                    Object_Kill(&arg0->obj, &arg0->sfxPos);
+                }
+            }
+        } else {
+            if ((gCurrentLevel == LEVEL_MACBETH) && (gPlayer->state_1C8 == PLAYERSTATE_1C8_7) && (arg0->unk_54.x != 0)) {
+                Math_SmoothStepToF(&arg0->unk_54.x, -1.0f, 1.0f, 1.0f, 0.0f);
+                Math_SmoothStepToF(&arg0->unk_54.z,  4.0f, 1.0f, 1.0f, 0.0f);
+                arg0->unk_54.y += 1.7f;
+            }
+            arg0->unk_54.y += 0.3f;
+            if (arg0->timer_50 == 0) {
+                arg0->unk_4C++;
+                if (arg0->unk_4C > 15) {
+                    arg0->timer_50 = 2;
+                }
+                if (arg0->unk_4C > 20) {
+                    Object_Kill(&arg0->obj, &arg0->sfxPos);
+                }
+            }
+        }
+    } else {
+        if (arg0->timer_50 == 0) {
+            arg0->unk_4C++;
+            arg0->timer_50 = arg0->unk_46;
+            if (arg0->unk_4C > 13) {
+                Object_Kill(&arg0->obj, &arg0->sfxPos);
+            }
+        }
+        arg0->unk_44 -= 15;
+    }
+    if (D_8017836C < arg0->scale1) {
+        D_8017836C = arg0->scale1;
+        D_80178370 = arg0->obj.pos.x;
+        D_80178374 = arg0->obj.pos.y;
+        D_80178378 = arg0->obj.pos.z;
+        D_80178360 = 0xFF;
+        D_80178364 = 50;
+        D_80178368 = 0;
+    }
+    Math_SmoothStepToF(&arg0->scale1, 0.0f, 1.0f, 0.05f, 0.0f);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007D55C.s")
 
