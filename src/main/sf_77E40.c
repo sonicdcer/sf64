@@ -1679,7 +1679,16 @@ void func_8007CD7C(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 scale2, s3
     Object_SetInfo(&arg0->info, arg0->obj.id);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007CEBC.s")
+void func_8007CEBC(f32 posX, f32 posY, f32 posZ, f32 scale2, s32 timer50) {
+    s32 i;
+
+    for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
+        if (gObjects8C[i].obj.status == 0) {
+            func_8007CD7C(&gObjects8C[i], posX, posY, posZ, scale2, timer50);
+            break;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007CF30.s")
 
