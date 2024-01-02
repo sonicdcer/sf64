@@ -597,7 +597,7 @@ extern s32 D_8017812C;
 //
 extern f32 D_80178134[60];
 // 0x10
-extern s32 gCurrentLevel;
+extern LevelId gCurrentLevel;
 extern u8 D_80178238[60];
 // 0x8
 extern s32 D_8017827C;

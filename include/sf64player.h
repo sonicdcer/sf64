@@ -22,7 +22,7 @@ typedef enum DrawMode {
     /* 0 */ DRAWMODE_0,
     /* 1 */ DRAWMODE_1,
     /* 2 */ DRAWMODE_2,
-    /* 3 */ DRAWMODE_3,
+    /* 3 */ DRAW_MAP,
     /* 4 */ DRAWMODE_4,
     /* 5 */ DRAWMODE_5,
     /* 6 */ DRAWMODE_6,

@@ -10,6 +10,8 @@ It currently builds the following ROM:
 
 ## Installation
 
+#### 1. Install build dependencies
+
 ### Windows
 
 For Windows 10, install WSL and a distribution by following this
@@ -17,8 +19,6 @@ For Windows 10, install WSL and a distribution by following this
 We recommend using Debian or Ubuntu 22.04 Linux distributions.
 
 ### Linux (Native or under WSL / VM)
-
-#### 1. Install build dependencies
 
 The build process has the following package requirements:
 

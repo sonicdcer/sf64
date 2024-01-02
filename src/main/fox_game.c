@@ -253,7 +253,7 @@ void func_800A24DC(s32 arg0) {
             func_8003DAF0();
             func_80187520(0x6C, NULL);
             break;
-        case DRAWMODE_3:
+        case DRAW_MAP:
             func_8003DAF0();
             func_80187520(0x6A, NULL);
             break;
