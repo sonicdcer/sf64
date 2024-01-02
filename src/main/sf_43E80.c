@@ -335,7 +335,7 @@ void func_800444BC(Player* player) {
     if (D_801784AC == 4) {
         func_E6A810_801B6E20(player->pos.x, player->unk_138 + player->unk_144, &sp40, &sp38, &sp3C);
     }
-    if (gCurrentLevel == 0xB) {
+    if (gCurrentLevel == LEVEL_MACBETH) {
         D_E6A810_801BE250.unk_6C = D_80177940;
         D_E6A810_801BE250.unk_70 = D_E6A810_801BE250.unk_74 = 0.0f;
         D_800C9F10 = 0.0f;

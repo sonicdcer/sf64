@@ -1602,9 +1602,9 @@ void func_8006ECBC(s32 objId, PlayerShot* shot, s32 arg2, f32 xPos, f32 yPos, f3
     PlayerShot_Initialize(shot);
     shot->obj.status = 1;
 
-    shot->unk_20.z = arg8;
-    shot->unk_20.x = arg6;
-    shot->unk_20.y = arg7;
+    shot->vel.z = arg8;
+    shot->vel.x = arg6;
+    shot->vel.y = arg7;
 
     shot->obj.pos.x = xPos;
     shot->obj.pos.y = yPos;
@@ -2498,19 +2498,19 @@ void func_80070D44(Object_2F4* obj2F4) {
             break;
 
         case 36:
-            if ((gPlayer[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == 1)) {
+            if ((gPlayer[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == LASERS_TWIN)) {
                 func_80070CEC(obj2F4);
             }
             break;
 
         case 37:
-            if ((gPlayer[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == 2)) {
+            if ((gPlayer[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == LASERS_HYPER)) {
                 func_80070CEC(obj2F4);
             }
             break;
 
         case 38:
-            if ((gPlayer[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == 3)) {
+            if ((gPlayer[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == LASERS_UNK_3)) {
                 func_80070CEC(obj2F4);
             }
             break;

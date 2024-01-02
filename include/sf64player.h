@@ -85,23 +85,32 @@ typedef enum {
     /* 9 */ PLAYERSHOT_9,
 } PlayerShotId;
 
+typedef enum {
+    /* 0 */ LASERS_SINGLE,
+    /* 1 */ LASERS_TWIN,
+    /* 2 */ LASERS_HYPER,
+    /* 3 */ LASERS_UNK_3,
+} LaserStrength;
+
 typedef struct {
     /* 0x00 */ Object obj;
     /* 0x1C */ s32 index;
-    /* 0x20 */ Vec3f unk_20;
+    /* 0x20 */ Vec3f vel;
     /* 0x2C */ f32 unk_2C;
     /* 0x30 */ f32 unk_30;
     /* 0x34 */ f32 unk_34; 
     /* 0x38 */ Vec3f sfxPos;
     /* 0x44 */ f32 unk_44;
-    /* 0x44 */ Vec3f unk_48;
-    /* 0x44 */ f32 unk_54;
+    /* 0x48 */ f32 unk_48;
+    /* 0x4C */ f32 unk_4C;
+    /* 0x50 */ f32 unk_50;
+    /* 0x54 */ f32 unk_54;
     /* 0x58 */ s32 unk_58;
     /* 0x5C */ s32 unk_5C;
     /* 0x60 */ s32 unk_60;
     /* 0x64 */ s32 unk_64;
     /* 0x68 */ s32 playerNum;
-    /* 0x6C */ u8 unk_6C;
+    /* 0x6C */ u8 bonus;
 } PlayerShot; // size = 0x70
 
 typedef struct Player {

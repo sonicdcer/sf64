@@ -275,7 +275,7 @@ extern s32 D_8015F93C;
 extern s32 D_8015F940;
 extern f32 D_8015F944;
 
-// sf_beam
+// fox_beam
 // extern Vec3f D_8015F950;
 
 // fox_bg
@@ -389,7 +389,7 @@ extern u8 D_80161A94[4];
 extern s32 gHitCount;
 extern s32 gSavedHitCount;
 extern s16 gLifeCount[4];
-extern s32 gLaserStrength[4];
+extern LaserStrength gLaserStrength[4];
 //
 extern s32 D_80161AB8;
 // 0x44
@@ -1063,6 +1063,14 @@ extern f32 D_302EE00[];
 extern f32 D_302EE64[];
 extern f32 D_302EE80[];
 extern f32 D_302EE9C[];
+extern Triangle D_302EEE8[];
+extern Vec3f D_302EF00[];
+extern Triangle D_302EF6C[];
+extern Vec3f D_302EF84[];
+extern Triangle D_302EFF0[];
+extern Vec3f D_302F008[];
+extern Triangle D_302F044[];
+extern Vec3f D_302F098[];
 
 // ast_918430, ast_922730
 extern AnimationHeader D_4000080;
@@ -1110,6 +1118,52 @@ extern Gfx D_500B600[];
  * ast_B0AA00, ast_B1CA50, ast_B2CA50, ast_B612E0, ast_B84560,
  * ast_BB11D0, ast_BC23D0, ast_BFC510, ast_C48F40, ast_DDC010
  */
+extern CollisionPoly D_602FA9C[];
+extern Vec3s D_60300C8[];
+extern CollisionPoly D_60305DC[];
+extern Vec3s D_603184C[];
+extern CollisionPoly D_6030208[];
+extern Vec3s D_6030550[];
+extern CollisionPoly D_6033070[];
+extern Vec3s D_6033E08[];
+extern CollisionPoly D_600F60C[];
+extern Vec3s D_600FD50[];
+extern CollisionPoly D_600F3F4[];
+extern Vec3s D_600F5AC[];
+extern CollisionPoly D_600F1DC[];
+extern Vec3s D_600F394[];
+extern CollisionPoly D_6010294[];
+extern Vec3s D_601170C[];
+extern CollisionPoly D_6007558[];
+extern Vec3s D_6008E08[];
+extern CollisionPoly D_6014FEC[];
+extern Vec3s D_6016374[];
+extern Triangle D_603F338[];
+extern Vec3f D_603F388[];
+extern Triangle D_603F40C[];
+extern Vec3f D_603F4E4[];
+extern Triangle D_602CACC[];
+extern Vec3f D_602CB80[];
+extern Triangle D_6030E74[];
+extern Vec3f D_6030E80[];
+extern Triangle D_6030EB0[];
+extern Vec3f D_6030EBC[];
+extern Triangle D_6030EEC[];
+extern Vec3f D_6030EF8[];
+extern Triangle D_6030F28[];
+extern Vec3f D_6030F34[];
+extern Triangle D_6030F64[];
+extern Vec3f D_6030F7C[];
+extern Triangle D_6030FC4[];
+extern Vec3f D_6030FD0[];
+extern Triangle D_60320B8[];
+extern Vec3f D_603216C[];
+extern Triangle D_6031FB0[];
+extern Vec3f D_6031FE0[];
+extern Triangle D_6031FB0[];
+extern Vec3f D_603204C[];
+extern Triangle D_6032388[];
+extern Vec3f D_6032430[];
 extern u16 D_6000000[];
 extern Gfx D_60005B0[];
 extern u16 D_6000900[];

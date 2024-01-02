@@ -108,7 +108,7 @@ void func_8002F5F4(u16* msg, s32 character);
 void func_800319AC(Object_2F4* this);
 void func_80035448(Object_2F4* obj2F4);
 
-//sf_beam
+//fox_beam
 void PlayerShot_Initialize(PlayerShot *);
 void func_800365E4(f32, f32, f32, f32, f32, f32, f32, f32, f32, s32, s32);
 void func_8003D9B8(void);

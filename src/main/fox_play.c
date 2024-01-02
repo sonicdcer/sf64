@@ -1162,8 +1162,8 @@ bool func_800A8054(s32 objId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
     Vec3f sp3C;
     f32 pad1;
     f32 sp34;
-    s32 var_s0;
-    s32 var_v0;
+    s32 colId;
+    s32 useCol2;
 
     sp54.x = arg4;
     sp54.y = arg5;
@@ -1172,104 +1172,104 @@ bool func_800A8054(s32 objId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
     sp48.y = arg2;
     sp48.z = arg3;
 
-    var_v0 = false;
+    useCol2 = false;
     switch (objId) {
         case OBJ_2F4_180:
-            var_s0 = 0;
+            colId = COL1_0;
             break;
         case OBJ_80_4:
         case OBJ_80_5:
-            var_s0 = 1;
-            var_v0 = true;
+            colId = COL2_1;
+            useCol2 = true;
             break;
         case OBJ_80_149:
-            var_s0 = 5;
+            colId = COL1_5;
             break;
         case OBJ_80_150:
-            var_s0 = 6;
+            colId = COL1_6;
             break;
         case OBJ_408_308:
-            var_s0 = 4;
+            colId = COL1_4;
             break;
         case OBJ_408_312:
-            var_s0 = 9;
+            colId = COL1_9;
             break;
         case OBJ_408_309:
-            var_s0 = 7;
+            colId = COL1_7;
             break;
         case OBJ_UNK_1000:
-            var_s0 = 3;
+            colId = COL1_3;
             break;
         case OBJ_408_313:
-            var_s0 = 8;
+            colId = COL1_8;
             break;
         case OBJ_80_39:
-            var_s0 = 1;
+            colId = COL1_1;
             break;
         case OBJ_80_120:
-            var_s0 = 18;
-            var_v0 = true;
+            colId = COL2_18;
+            useCol2 = true;
             break;
         case OBJ_80_124:
-            var_s0 = 15;
-            var_v0 = true;
+            colId = COL2_15;
+            useCol2 = true;
             break;
         case OBJ_80_126:
-            var_s0 = 16;
-            var_v0 = true;
+            colId = COL2_16;
+            useCol2 = true;
             break;
         case OBJ_80_47:
-            var_s0 = 7;
-            var_v0 = true;
+            colId = COL2_7;
+            useCol2 = true;
             break;
         case OBJ_80_2:
-            var_s0 = 2;
-            var_v0 = true;
+            colId = COL2_2;
+            useCol2 = true;
             break;
         case OBJ_80_3:
         case OBJ_80_69:
-            var_s0 = 3;
-            var_v0 = true;
+            colId = COL2_3;
+            useCol2 = true;
             break;
         case OBJ_80_143:
-            var_s0 = 17;
-            var_v0 = true;
+            colId = COL2_17;
+            useCol2 = true;
             break;
         case OBJ_80_140:
-            var_s0 = 4;
-            var_v0 = true;
+            colId = COL2_4;
+            useCol2 = true;
             break;
         case OBJ_80_141:
-            var_s0 = 6;
-            var_v0 = true;
+            colId = COL2_6;
+            useCol2 = true;
             break;
         case OBJ_80_117:
-            var_s0 = 14;
-            var_v0 = true;
+            colId = COL2_14;
+            useCol2 = true;
             break;
         case OBJ_80_70:
-            var_s0 = 8;
-            var_v0 = true;
+            colId = COL2_8;
+            useCol2 = true;
             break;
         case OBJ_80_72:
-            var_s0 = 9;
-            var_v0 = true;
+            colId = COL2_9;
+            useCol2 = true;
             break;
         case OBJ_80_71:
-            var_s0 = 10;
-            var_v0 = true;
+            colId = COL2_10;
+            useCol2 = true;
             break;
         case OBJ_80_73:
-            var_s0 = 11;
-            var_v0 = true;
+            colId = COL2_11;
+            useCol2 = true;
             break;
         case OBJ_80_67:
-            var_s0 = 12;
-            var_v0 = true;
+            colId = COL2_12;
+            useCol2 = true;
             break;
         case OBJ_80_74:
-            var_s0 = 13;
-            var_v0 = true;
+            colId = COL2_13;
+            useCol2 = true;
             break;
         case OBJ_80_118:
         case OBJ_80_119:
@@ -1324,17 +1324,17 @@ bool func_800A8054(s32 objId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
         case OBJ_80_66:
         case OBJ_80_68:
         default:
-            var_s0 = 0;
-            var_v0 = true;
+            colId = COL2_0;
+            useCol2 = true;
             break;
     }
 
-    if (!var_v0) {
-        if (func_800998FC(&sp54, &sp48, arg8, var_s0, &sp3C, &sp34) > 0) {
+    if (!useCol2) {
+        if (func_800998FC(&sp54, &sp48, arg8, colId, &sp3C, &sp34) > 0) {
             return true;
         }
     } else {
-        if (func_800A3690(&sp54, &sp48, var_s0, arg7)) {
+        if (func_800A3690(&sp54, &sp48, colId, arg7)) {
             return true;
         }
     }
@@ -2052,7 +2052,7 @@ void func_800AA800(Player* player) {
     Object_58* obj58;
     Object_80* obj80;
     s32 count;
-    s32 var_s0;
+    s32 colId;
     s32 i;
     f32 tempx;
     f32 tempy;
@@ -2112,13 +2112,13 @@ void func_800AA800(Player* player) {
                         spD4.x = player->pos.x;
                         spD4.y = D_80177940;
                         spD4.z = player->unk_138;
-                        var_s0 = 4;
+                        colId = COL2_4;
                         if (obj58->obj.id == OBJ_80_141) {
-                            var_s0 = 6;
+                            colId = COL2_6;
                         } else if (obj58->obj.id == OBJ_80_143) {
-                            var_s0 = 17;
+                            colId = COL2_17;
                         }
-                        if (func_800A3690(&spD4, &spC8, var_s0, &spBC)) {
+                        if (func_800A3690(&spD4, &spC8, colId, &spBC)) {
                             player->unk_068 = spBC.y + 1.0f;
                             player->unk_248 = spBC.x;
                             player->unk_24C = spBC.z;
@@ -2155,22 +2155,22 @@ void func_800AA800(Player* player) {
 
                         if ((obj58->obj.id == OBJ_80_149) || (obj58->obj.id == OBJ_80_150)) {
                             if (obj58->obj.id == OBJ_80_149) {
-                                var_s0 = 5;
+                                colId = COL1_5;
                             } else {
-                                var_s0 = 6;
+                                colId = COL1_6;
                             }
-                            if (func_800998FC(&spD4, &spC8, &sp9C, var_s0, &spB0, spA8) > 0) {
+                            if (func_800998FC(&spD4, &spC8, &sp9C, colId, &spB0, spA8) > 0) {
                                 player->unk_068 = spB0.y;
                                 player->unk_248 = spA8[0];
                                 player->unk_24C = spA8[1];
                                 player->unk_070 = (sp120 / 180.0f) * M_PI;
                             }
                         } else {
-                            var_s0 = 0;
+                            colId = COL2_0;
                             if (obj58->obj.id == OBJ_80_3) {
-                                var_s0 = 3;
+                                colId = COL2_3;
                             }
-                            if (func_800A3690(&spD4, &spC8, var_s0, &spBC)) {
+                            if (func_800A3690(&spD4, &spC8, colId, &spBC)) {
                                 player->unk_068 = spBC.y;
                                 player->unk_248 = spBC.x;
                                 player->unk_24C = spBC.z;
@@ -2207,19 +2207,19 @@ void func_800AA800(Player* player) {
                             spC8.y = tempy;
                             spC8.z = tempz;
 
-                            var_s0 = 0;
+                            colId = COL2_0;
 
                             if (obj80->obj.id == OBJ_80_47) {
-                                var_s0 = 7;
+                                colId = COL2_7;
                             }
                             if (obj80->obj.id == OBJ_80_2) {
-                                var_s0 = 2;
+                                colId = COL2_2;
                             } else if (obj80->obj.id == OBJ_80_3) {
-                                var_s0 = 3;
+                                colId = COL2_3;
                             } else if ((obj80->obj.id == OBJ_80_4) || (obj80->obj.id == OBJ_80_5)) {
-                                var_s0 = 1;
+                                colId = COL2_1;
                             }
-                            if (func_800A3690(&spD4, &spC8, var_s0, &spBC)) {
+                            if (func_800A3690(&spD4, &spC8, colId, &spBC)) {
                                 player->unk_068 = spBC.y;
                                 player->unk_06C = player->unk_138 + var_fs1;
                                 player->unk_248 = spBC.x;
@@ -2366,7 +2366,7 @@ void func_800AB334(void) {
         case LEVEL_ZONESS:
             MEM_ARRAY_ALLOCATE(D_801782C4, 200);
             ptr = (u8*) D_801782C4;
-            for (i = 0; i < 200 * sizeof(PosRot); i++, ptr++) {
+            for (i = 0; i < 200 * sizeof(*D_801782C4); i++, ptr++) {
                 *ptr = 0;
             }
             D_801784A4 = 0;
@@ -2448,7 +2448,7 @@ void func_800AB964(void) {
         for (j = 0; j < 10; j++) {
             D_80177DD0[i][j] = 0;
         }
-        gLaserStrength[i] = 0;
+        gLaserStrength[i] = LASERS_SINGLE;
         gBombCount[i] = 0;
     }
     D_80177E7C = D_80177E74 = 0;
@@ -2649,9 +2649,9 @@ void func_800AC290(Player* player, PlayerShot* shot, f32 arg2, f32 arg3, s32 obj
     sp44.z = 0.0f;
     Matrix_MultVec3f(gCalcMatrix, &sp44, &sp2C);
     shot->obj.status = 1;
-    shot->unk_20.x = sp38.x;
-    shot->unk_20.y = sp38.y;
-    shot->unk_20.z = sp38.z;
+    shot->vel.x = sp38.x;
+    shot->vel.y = sp38.y;
+    shot->vel.z = sp38.z;
     shot->unk_60 = 0;
     shot->obj.id = objId;
 
@@ -2725,9 +2725,9 @@ void func_800AC650(Player* player, PlayerShot* shot, s32 objId, f32 arg3) {
     sp54.y = 7;
     sp54.z = 0;
     Matrix_MultVec3f(gCalcMatrix, &sp54, &sp3C);
-    shot->unk_20.x = sp48.x;
-    shot->unk_20.y = sp48.y;
-    shot->unk_20.z = sp48.z;
+    shot->vel.x = sp48.x;
+    shot->vel.y = sp48.y;
+    shot->vel.z = sp48.z;
     shot->obj.pos.x = player->pos.x + sp3C.x;
     shot->obj.pos.y = player->pos.y + sp3C.y;
     shot->obj.pos.z = player->unk_138 + sp3C.z;
@@ -2766,13 +2766,13 @@ void func_800ACA40(Player* player) {
 
 void func_800ACABC(Player* player) {
     s32 i;
-    s32 laser = gLaserStrength[gPlayerNum];
+    LaserStrength laser = gLaserStrength[gPlayerNum];
 
     if (player->wings.unk_14 > -8.0f) {
-        laser = 0;
+        laser = LASERS_SINGLE;
     }
     switch (laser) {
-        case 0:
+        case LASERS_SINGLE:
             for (i = 0; i < ARRAY_COUNT(gPlayerShots) - 1; i++) {
                 if (gPlayerShots[i].obj.status == 0) {
                     func_800AC290(player, &gPlayerShots[i], 0.0f, 0.0f, PLAYERSHOT_0, 400.0f / 3.0f);
@@ -2782,12 +2782,12 @@ void func_800ACABC(Player* player) {
                 }
             }
             break;
-        case 1:
-        case 2:
+        case LASERS_TWIN:
+        case LASERS_HYPER:
             for (i = 0; i < ARRAY_COUNT(gPlayerShots) - 1; i++) {
                 if (gPlayerShots[i].obj.status == 0) {
                     func_800AC290(player, &gPlayerShots[i], 0.0f, -10.0f, PLAYERSHOT_1, 400.0f / 3.0f);
-                    if (laser == 1) {
+                    if (laser == LASERS_TWIN) {
                         func_800A5FA0(&player->unk_460, 0x0940800C, player->num);
                         D_80177AA0[player->num] = 0.5f;
                     } else {
@@ -2816,7 +2816,7 @@ void func_800ACC7C(Player* player) {
         } else {
             func_800ACDC0(player, &gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1], PLAYERSHOT_3);
         }
-        gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1].unk_48.x = 30.0f;
+        gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1].unk_48 = 30.0f;
         gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1].unk_60 = 0;
         func_8001CB80(player->num, 1);
         func_8001CCDC(player->num, &gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1].sfxPos);
@@ -2851,9 +2851,9 @@ void func_800ACDC0(Player* player, PlayerShot* shot, s32 objId) {
     sp5C.y = 0.0f;
     sp5C.z = 0;
     Matrix_MultVec3f(gCalcMatrix, &sp5C, &sp44);
-    shot->unk_20.x = sp50.x;
-    shot->unk_20.y = sp50.y;
-    shot->unk_20.z = sp50.z;
+    shot->vel.x = sp50.x;
+    shot->vel.y = sp50.y;
+    shot->vel.z = sp50.z;
     shot->obj.pos.x = player->pos.x + sp44.x;
     shot->obj.pos.y = player->pos.y + sp44.y;
     shot->obj.pos.z = player->unk_138 + sp44.z;
@@ -2997,7 +2997,7 @@ bool func_800AD1F4(Player* player) {
                 } else {
                     func_800AC650(player, &gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1], PLAYERSHOT_8, 60.0f);
                 }
-                gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1].unk_48.x = 30.0f;
+                gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1].unk_48 = 30.0f;
                 gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1].unk_60 = 0;
                 func_8001CB80(player->num, 1);
                 func_8001CCDC(player->num, &gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1].sfxPos);
@@ -3012,10 +3012,10 @@ void func_800AD7F0(Player* player) {
     switch (player->form) {
         case FORM_ARWING:
             if ((player->wings.rightState <= WINGSTATE_BROKEN) || (player->wings.leftState <= WINGSTATE_BROKEN)) {
-                gLaserStrength[player->num] = 0;
+                gLaserStrength[player->num] = LASERS_SINGLE;
             }
             if (!func_800AD1F4(player)) {
-                if (gLaserStrength[gPlayerNum] > 0) {
+                if (gLaserStrength[gPlayerNum] > LASERS_SINGLE) {
                     Math_SmoothStepToF(&player->wings.unk_14, -10.0f, 1.0f, 0.5f, 0.0f);
                 } else {
                     Math_SmoothStepToF(&player->wings.unk_14, 0.0f, 1.0f, 0.5f, 0.0f);
@@ -4090,10 +4090,8 @@ void func_800B0F50(Player* playerx) {
     D_80161684 = D_80161A50;
     D_80177DC8 = D_80177CA0;
     D_80161A88 = D_80161A8C;
-    player->unk_144 = D_80177CB0;
-    D_80177D20 = player->unk_144;
-    player->unk_138 = -player->unk_144;
-    player->pos.z = -player->unk_144;
+    D_80177D20 = player->unk_144 = D_80177CB0;
+    player->pos.z = player->unk_138 = -player->unk_144;
     if ((D_80177CA0 > 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
         if (gCurrentLevel == LEVEL_MACBETH) {
             sp2E = D_80177DC8;
@@ -4112,7 +4110,7 @@ void func_800B0F50(Player* playerx) {
     D_801779E8.x = D_801779E8.y = D_801779E8.z = D_801779D8.x = D_801779D8.y = D_801779D8.z = 0.0f;
 
     if (gVersusMode) {
-        gLaserStrength[gPlayerNum] = 0;
+        gLaserStrength[gPlayerNum] = LASERS_SINGLE;
         player->pos.y = 500.0f;
         player->pos.x = D_800D3114[gPlayerNum];
         player->pos.z = D_800D3124[gPlayerNum];
@@ -4283,7 +4281,7 @@ void func_800B0F50(Player* playerx) {
         for (j = 0; j < 6; j++) {
             D_80177CD0[j] = D_80177CF0[j] = 1;
         }
-        gLaserStrength[gPlayerNum] = 0;
+        gLaserStrength[gPlayerNum] = LASERS_SINGLE;
         gGoldRingCount[0] = D_80161A94[0] = D_80161714 = 0;
         gLifeCount[gPlayerNum] = 2;
         gBombCount[gPlayerNum] = 3;
@@ -4320,7 +4318,7 @@ void func_800B0F50(Player* playerx) {
                 break;
         }
     }
-    if (gLaserStrength[gPlayerNum] > 0) {
+    if (gLaserStrength[gPlayerNum] > LASERS_SINGLE) {
         player->wings.unk_14 = -10.0f;
     }
     D_801779BC = 0;
@@ -5130,7 +5128,7 @@ void func_800B44C4(Player* player) {
 }
 
 void func_800B46F8(Player* player) {
-    s32 temp_ft2;
+    s32 teamId;
 
     if ((player->state_1C8 == PLAYERSTATE_1C8_3) && (D_8017796C >= 0)) {
         D_8017796C++;
@@ -5140,10 +5138,10 @@ void func_800B46F8(Player* player) {
             if ((player->shields < 0x40) && ((gTeamShields[1] > 0) || (gTeamShields[3] > 0) || (gTeamShields[2] > 0))) {
                 do {
                     do {
-                        temp_ft2 = (s32) (Rand_ZeroOne() * 2.9f) + 1;
-                    } while (gTeamShields[temp_ft2] <= 0);
+                        teamId = (s32) (Rand_ZeroOne() * 2.9f) + 1;
+                    } while (gTeamShields[teamId] <= 0);
                 } while (0); // macro?
-                switch (temp_ft2) {
+                switch (teamId) {
                     case 1:
                         if (Rand_ZeroOne() < 0.5f) {
                             func_800BA808(gMsg_ID_20306, RCID_FALCO);
@@ -5436,7 +5434,7 @@ void func_800B48BC(Player* player) {
                                 D_80177854 = 1;
                             }
                             gBombCount[gPlayerNum] = 3;
-                            gLaserStrength[gPlayerNum] = 0;
+                            gLaserStrength[gPlayerNum] = LASERS_SINGLE;
                             D_80178488 = true;
                             gDrawMode = DRAWMODE_0;
                         }
@@ -6034,8 +6032,8 @@ void func_800B79B0(void) {
         case LEVEL_VERSUS:
             func_800C26C8();
             D_80177844++;
-            if ((D_80177844 == 200) && (gLaserStrength[0] == 0) && (gLaserStrength[1] == 0) &&
-                (gLaserStrength[2] == 0) && (gLaserStrength[3] == 0)) {
+            if ((D_80177844 == 200) && (gLaserStrength[0] == LASERS_SINGLE) && (gLaserStrength[1] == LASERS_SINGLE) &&
+                (gLaserStrength[2] == LASERS_SINGLE) && (gLaserStrength[3] == LASERS_SINGLE)) {
                 func_800B852C(OBJ_ITEM_LASERS, &gItems[0]);
             }
             if ((D_80177844 == 400) && (gBombCount[0] == 0) && (gBombCount[1] == 0) && (gBombCount[2] == 0) &&

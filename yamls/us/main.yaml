@@ -171,7 +171,7 @@
 
     # Game engine
       - [0x2EFE0, c, fox_360]
-      - [0x36930, c, sf_beam]
+      - [0x36930, c, fox_beam]
       - [0x3E6F0, c, fox_bg]
       - [0x43AC0, c, fox_43AC0]
       - [0x43E80, c, sf_43E80]
@@ -264,7 +264,7 @@
 
       # DATA - game engine
       - [0xCA690, .data, fox_360]
-      - [0xCA7C0, .data, sf_beam]
+      - [0xCA7C0, .data, fox_beam]
       - [0xCA830, .data, fox_bg]
       - [0xCAA90, .data, fox_43AC0]
       - [0xCAB00, .data, sf_43E80]
@@ -289,7 +289,7 @@
 
       # RODATA - game engine
       - [0xD5A10, .rodata, fox_360]
-      - [0xD5CF0, .rodata, sf_beam]
+      - [0xD5CF0, .rodata, fox_beam]
       - [0xD5F90, .rodata, fox_bg]
       - [0xD61D0, .rodata, fox_43AC0]
       - [0xD61F0, .rodata, sf_43E80]
@@ -357,7 +357,7 @@
 
       # Game engine bss
       - { start: 0xDE480, type: .bss, vram: 0x8015F900, name: fox_360 }
-      - { start: 0xDE480, type: .bss, vram: 0x8015F950, name: sf_beam }
+      - { start: 0xDE480, type: .bss, vram: 0x8015F950, name: fox_beam }
       - { start: 0xDE480, type: .bss, vram: 0x8015F960, name: fox_bg }
       - { start: 0xDE480, type: .bss, vram: 0x801613A0, name: fox_43AC0 }
       - { start: 0xDE480, type: .bss, vram: 0x801613B0, name: fox_display }

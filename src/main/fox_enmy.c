@@ -717,7 +717,7 @@ bool func_8006326C(Vec3f* arg0, Vec3f* arg1, s32 objId, Object* obj) {
     Vec3f sp5C;
     Vec3f sp50;
     Vec3f sp44;
-    s32 var_s1;
+    s32 colId;
     s32 pad1[3];
     f32 sp30;
     s32 pad2;
@@ -736,46 +736,46 @@ bool func_8006326C(Vec3f* arg0, Vec3f* arg1, s32 objId, Object* obj) {
         sp50.z = obj->pos.z;
         if ((objId == OBJ_2F4_180) || (objId == OBJ_80_149) || (objId == OBJ_80_150) || (objId == OBJ_408_308) ||
             (objId == OBJ_408_313) || (objId == OBJ_408_312) || (objId == OBJ_408_309) || (objId == OBJ_80_39)) {
-            var_s1 = 0;
+            colId = COL1_0;
             if (objId == OBJ_408_312) {
-                var_s1 = 9;
+                colId = COL1_9;
             }
             if (objId == OBJ_80_39) {
-                var_s1 = 1;
+                colId = COL1_1;
             } else if (objId == OBJ_408_308) {
-                var_s1 = 4;
+                colId = COL1_4;
             } else if (objId == OBJ_408_309) {
-                var_s1 = 7;
+                colId = COL1_7;
             } else if (objId == OBJ_80_149) {
-                var_s1 = 5;
+                colId = COL1_5;
             } else if (objId == OBJ_80_150) {
-                var_s1 = 6;
+                colId = COL1_6;
             } else if (objId == OBJ_408_313) {
-                var_s1 = 8;
+                colId = COL1_8;
             }
-            if (func_800998FC(&sp5C, &sp50, arg1, var_s1, &sp44, &sp30) > 0) {
+            if (func_800998FC(&sp5C, &sp50, arg1, colId, &sp44, &sp30) > 0) {
                 return true;
             }
         } else {
-            var_s1 = 0;
+            colId = COL2_0;
             if (objId == OBJ_80_2) {
-                var_s1 = 2;
+                colId = COL2_2;
             }
             if (objId == OBJ_80_3) {
-                var_s1 = 3;
+                colId = COL2_3;
             }
             if (objId == OBJ_80_140) {
-                var_s1 = 4;
+                colId = COL2_4;
             }
             if (objId == OBJ_80_141) {
-                var_s1 = 6;
+                colId = COL2_6;
             }
             if (objId == OBJ_80_117) {
-                var_s1 = 14;
+                colId = COL2_14;
             } else if ((objId == OBJ_80_4) || (objId == OBJ_80_5)) {
-                var_s1 = 1;
+                colId = COL2_1;
             }
-            if (func_800A3690(&sp5C, &sp50, var_s1, &sp44)) {
+            if (func_800A3690(&sp5C, &sp50, colId, &sp44)) {
                 return true;
             }
         }
@@ -1996,9 +1996,9 @@ void func_8006753C(Object_2F4* obj2F4) {
             if (((player[0].wings.rightState <= WINGSTATE_BROKEN) || (player[0].wings.leftState <= WINGSTATE_BROKEN)) &&
                 (player[0].form != FORM_LANDMASTER)) {
                 obj2F4->unk_044 = 23;
-            } else if (gPlayer[0].shields < 0x80) {
+            } else if (gPlayer[0].shields < 128) {
                 obj2F4->unk_044 = 25;
-            } else if ((gLaserStrength[0] == 0) && (player[0].form != FORM_LANDMASTER)) {
+            } else if ((gLaserStrength[0] == LASERS_SINGLE) && (player[0].form != FORM_LANDMASTER)) {
                 obj2F4->unk_044 = 9;
             } else {
                 obj2F4->unk_044 = 5;
@@ -2099,8 +2099,8 @@ void func_80067BEC(Item* item) {
                     item->timer_48 = 20;
                     item->unk_50 = 60.0f;
                     gLaserStrength[item->unk_4E]++;
-                    if (gLaserStrength[item->unk_4E] > 2) {
-                        gLaserStrength[item->unk_4E] = 2;
+                    if (gLaserStrength[item->unk_4E] > LASERS_HYPER) {
+                        gLaserStrength[item->unk_4E] = LASERS_HYPER;
                     }
                     func_80060F30(gPlayer[item->unk_4E].unk_460_arr, 0x49002004, item->unk_4E);
                     if (gExpertMode) {
