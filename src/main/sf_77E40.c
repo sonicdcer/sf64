@@ -1738,15 +1738,49 @@ void func_8007D0E0(f32 posX, f32 posY, f32 posZ, f32 scale2) {
     func_8007CF30(posX, posY, posZ, scale2);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007D10C.s")
+void func_8007D10C(f32 posX, f32 posY, f32 posZ, f32 scale2) {
+    func_8007CF9C(posX, posY, posZ, scale2);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007D138.s")
+void func_8007D138(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 scale2) {
+    Object_8C_Initialize(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = OBJ_8C_341;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = posY;
+    arg0->obj.pos.z = posZ;
+    arg0->scale2 = scale2;
+    arg0->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    Object_SetInfo(&arg0->info, arg0->obj.id);
+    if (gLevelType == 0) {
+        arg0->unk_4C = 15;
+    }
+    arg0->unk_44 = 180;
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007D1E0.s")
+void func_8007D1E0(f32 posX, f32 posY, f32 posZ, f32 scale2) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007D24C.s")
+    for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
+        if (gObjects8C[i].obj.status == 0) {
+            func_8007D138(&gObjects8C[i], posX, posY, posZ, scale2);
+            break;
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007D2C8.s")
+void func_8007D24C(f32 posX, f32 posY, f32 posZ, f32 scale2) {
+    if (gLevelType == 0) {
+        func_8007D1E0(posX, posY, posZ, scale2);
+        func_8007CEBC(posX, scale2 + posY, posZ, scale2, 9);
+    } else {
+        func_8007D0E0(posX, posY, posZ, scale2);
+    }
+}
+
+void func_8007D2C8(f32 posX, f32 posY, f32 posZ, f32 scale2) {
+    func_8007D008(posX, posY, posZ, scale2);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007D2F4.s")
 
