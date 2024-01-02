@@ -63,6 +63,19 @@ extern void func_800A46A0(Player*);
 extern void func_800AD7F0(Player*);
 extern UNK_TYPE func_800B2574(Player*);
 extern void func_800AE278(Player*);
+extern void func_8004E4D4(Object_2F4*, enum LevelId);
+extern void func_8004EBD0(Object_2F4*, enum LevelId);
+extern void func_8004F05C(Object_2F4*, enum LevelId);
+extern void func_80093164(Object_2F4*, enum LevelId);
+extern void func_8018DA58(Object_2F4*, enum LevelId);
+extern void func_8018ED9C(Object_2F4*, enum LevelId);
+extern void func_80195E44(Object_2F4*, enum LevelId);
+extern void func_80197F10(Object_2F4*, enum LevelId);
+extern void func_8019DD20(Object_2F4*, enum LevelId);
+extern void func_8019E5F0(Object_2F4*, enum LevelId);
+extern void func_8019FF00(Object_2F4*, enum LevelId);
+extern void func_801A8BE8(Object_2F4*, enum LevelId);
+extern void func_801B28BC(Object_2F4*, enum LevelId);
 
 void func_80048AC0(s32 arg0) {
     s32 teamShield;
@@ -1006,7 +1019,128 @@ void func_8004F798(Object_2F4* arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004F8AC.s")
+void func_8004F8AC(Object_2F4* arg0) {
+
+    if (gCurrentLevel == LEVEL_AQUAS) {
+        func_80093164(arg0, gCurrentLevel);
+        return;
+    }
+
+    switch (gPlayer->state_1C8) {
+        case PLAYERSTATE_1C8_7:
+            switch (gCurrentLevel) {
+                case LEVEL_SECTOR_Y:
+                    if (gPlayer->unk_1D0 >= 3) {
+                        func_8019FF00(arg0, gCurrentLevel);
+                    }
+                    break;
+                case LEVEL_SOLAR:
+                    if (gPlayer->unk_1D0 >= 3) {
+                        func_801A8BE8(arg0, gCurrentLevel);
+                    }
+                    break;
+                case LEVEL_ZONESS:
+                    if (gPlayer->unk_1D0 >= 3) {
+                        func_8019E5F0(arg0, gCurrentLevel);
+                    }
+                    break;
+                case LEVEL_VENOM_ANDROSS:
+                case LEVEL_VENOM_2:
+                    func_80195E44(arg0, gCurrentLevel);
+                    break;
+                case LEVEL_KATINA:
+                    func_80197F10(arg0, gCurrentLevel);
+                    break;
+                case LEVEL_SECTOR_Z:
+                    func_8019DD20(arg0, gCurrentLevel);
+                    break;
+                case LEVEL_AREA_6:
+                    func_8018DA58(arg0, gCurrentLevel);
+                    break;
+                case LEVEL_METEO:
+                    if (D_8017827C == 0) {
+                        func_8018ED9C(arg0, gCurrentLevel);
+                        break;
+                    }
+                    func_80049630(arg0);
+                    break;
+                case LEVEL_FORTUNA:
+                    if (arg0->unk_0B6 == 0xB) {
+                        switch (arg0->unk_0B8) {
+                            case 0:
+                                if (D_80177A80 == 0x64) {
+                                    arg0->unk_0B8 = 1;
+                                    arg0->timer_0BC = 0x32;
+                                    arg0->unk_050 = 0xFF;
+                                    Audio_PlaySfx(0x2902F026U, &arg0->sfxPos, 0U, &D_800C5D34, &D_800C5D34,
+                                                  &D_800C5D3C);
+                                }
+                                break;
+                            case 1:
+                                Math_SmoothStepToF(&arg0->scale, 0.5f, 0.03f, 0.01f, 0.0f);
+                                D_80178348 = D_80178340 = D_80178350 = D_80178354 = 0;
+                                if ((arg0->timer_0BC == 0x2B) || (arg0->timer_0BC == 0x2E) ||
+                                    (arg0->timer_0BC == 0x31)) {
+                                    D_80178340 = 0xC0;
+                                    D_80178348 = D_80178350 = D_80178354 = 0xFF;
+                                }
+                                arg0->unk_050 -= 2;
+                                if (arg0->unk_050 < 0) {
+                                    arg0->unk_050 = 0;
+                                    arg0->scale = 0.0f;
+                                }
+                                D_8017836C = arg0->unk_050 / 255.0f;
+                                D_80178370 = gObjects2F4->obj.pos.x + 10.0f;
+                                D_80178374 = gObjects2F4->obj.pos.y - 40.0f;
+                                D_80178378 = gObjects2F4->obj.pos.z - 70.0f;
+                                D_80178360 = 0xFF;
+                                D_80178364 = 0xFF;
+                                D_80178368 = 0x50;
+                                break;
+                        }
+                    }
+                    break;
+                case LEVEL_CORNERIA:
+                    if (gLevelMode == 1) {
+                        func_8004E4D4(arg0, gCurrentLevel);
+                        break;
+                    }
+                    func_8004EBD0(arg0, gCurrentLevel);
+                    break;
+                case LEVEL_SECTOR_X:
+                    if (D_8017827C != 0) {
+                        func_80049630(arg0);
+                        break;
+                    }
+                    func_8004E4D4(arg0, gCurrentLevel);
+                    break;
+                case LEVEL_TITANIA:
+                    func_8004E4D4(arg0, gCurrentLevel);
+                    break;
+                case LEVEL_MACBETH:
+                    func_801B28BC(arg0, gCurrentLevel);
+                    break;
+                case LEVEL_BOLSE:
+                    func_8004F05C(arg0, gCurrentLevel);
+                    break;
+                default:
+                    func_8004EBD0(arg0, gCurrentLevel);
+                    break;
+            }
+            break;
+        case PLAYERSTATE_1C8_2:
+            func_8004F05C(arg0, gCurrentLevel);
+            break;
+        case PLAYERSTATE_1C8_8:
+            func_8004F798(arg0);
+            break;
+        case PLAYERSTATE_1C8_0:
+            if (gCurrentLevel == LEVEL_SECTOR_Y) {
+                func_8019FF00(arg0, gCurrentLevel);
+            }
+            break;
+    }
+}
 
 void func_8004FCB8(Object_2F4* arg0, s32 arg1) {
     f32 angle;
