@@ -73,15 +73,15 @@ typedef struct {
 } WingInfo; // size = 0x3C
 
 typedef enum {
-    /* 0 */ PLAYERSHOT_0,
-    /* 1 */ PLAYERSHOT_1,
+    /* 0 */ PLAYERSHOT_0, // single laser?
+    /* 1 */ PLAYERSHOT_1, // twin laser?
     /* 2 */ PLAYERSHOT_2,
-    /* 3 */ PLAYERSHOT_3,
+    /* 3 */ PLAYERSHOT_3, // bomb?
     /* 4 */ PLAYERSHOT_4,
-    /* 5 */ PLAYERSHOT_5,
-    /* 6 */ PLAYERSHOT_6,
-    /* 7 */ PLAYERSHOT_7,
-    /* 8 */ PLAYERSHOT_8,
+    /* 5 */ PLAYERSHOT_5, // landmaster shot
+    /* 6 */ PLAYERSHOT_6, // on-foot shot
+    /* 7 */ PLAYERSHOT_7, // unused? related to on-foot shot somehow
+    /* 8 */ PLAYERSHOT_8, // charge shot
     /* 9 */ PLAYERSHOT_9,
 } PlayerShotId;
 

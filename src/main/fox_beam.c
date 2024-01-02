@@ -817,7 +817,7 @@ void func_80038140(PlayerShot* shot) {
             for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
                 temp_fv1 = 50.0f;
                 if (gVersusMode && (shot->playerNum < 4) &&
-                    ((gLaserStrength[shot->playerNum] != LASERS_SINGLE) || (shot->obj.id == PLAYERSHOT_8))) {
+                    !((gLaserStrength[shot->playerNum] == LASERS_SINGLE) && (shot->obj.id != PLAYERSHOT_8))) {
                     temp_fv1 = 100.0f;
                 }
                 if (player->unk_280 >= 100) {
@@ -1480,7 +1480,7 @@ void func_8003AF88(PlayerShot* shot) {
 
 void func_8003AFD8(PlayerShot* shot) {
     shot->unk_60++;
-    if (shot->unk_60 >= 3) {
+    if (shot->unk_60 > 2) {
         Object_Kill(&shot->obj, &shot->sfxPos);
     }
 }
@@ -2154,7 +2154,7 @@ void func_8003CF90(PlayerShot* shot) {
 
 void func_8003D54C(PlayerShot* shot, s32 index) {
     s32 teamId;
-    s32 var_a3;
+    s32 bonus;
 
     shot->obj.pos.x += shot->vel.x;
     shot->obj.pos.y += shot->vel.y;
@@ -2192,11 +2192,11 @@ void func_8003D54C(PlayerShot* shot, s32 index) {
                     if (gVersusMode) {
                         D_80177C30[shot->playerNum] += shot->bonus;
                     } else {
-                        var_a3 = shot->bonus;
+                        bonus = shot->bonus;
                         if (shot->bonus > 10) {
-                            var_a3 = 100;
+                            bonus = 100;
                         }
-                        func_80077240(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, var_a3);
+                        func_80077240(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, bonus);
                         gHitCount += shot->bonus;
                     }
                     if ((shot->bonus >= 7) && (D_80178284 == 0) && (gLevelMode == LEVELMODE_ON_RAILS) &&
