@@ -64,9 +64,9 @@ extern void func_800AD7F0(Player*);
 extern UNK_TYPE func_800B2574(Player*);
 extern void func_800AE278(Player*);
 extern void func_8004E4D4(Object_2F4*, enum LevelId);
-extern void func_8004EBD0(Object_2F4*, enum LevelId);
 extern void func_8004F05C(Object_2F4*, enum LevelId);
 extern void func_80093164(Object_2F4*, enum LevelId);
+extern void func_800A6028(Vec3f*, u32);
 extern void func_8018DA58(Object_2F4*, enum LevelId);
 extern void func_8018ED9C(Object_2F4*, enum LevelId);
 extern void func_80195E44(Object_2F4*, enum LevelId);
@@ -994,7 +994,102 @@ void func_8004E3D8(Player* arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004E4D4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004EBD0.s")
+void func_8004EBD0(Object_2F4* arg0) {
+    Vec3f src;
+    Vec3f dest;
+
+    if (arg0->unk_0B8 < 4) {
+        arg0->unk_138 = 0.4f;
+
+        arg0->obj.pos.x += (D_80178450[arg0->index] - arg0->obj.pos.x) * 0.4f;
+        arg0->obj.pos.y += (D_80178460[arg0->index] - arg0->obj.pos.y) * 0.4f;
+        arg0->obj.pos.z += (D_80178470[arg0->index] - arg0->obj.pos.z) * 0.4f;
+
+        arg0->obj.rot.z *= 0.98f;
+        arg0->obj.rot.x = -gPlayer->unk_0E4;
+        arg0->obj.rot.y = gPlayer->unk_0E8 + 180.0f;
+
+        if (1) {
+            arg0->unk_130 += 1.0f;
+            if ((s32) arg0->unk_130 & 0x40) {
+                arg0->unk_114 += 0.1f;
+            } else {
+                arg0->unk_114 -= 0.1f;
+            }
+        }
+
+        arg0->unk_134 += 1.2f;
+        if ((s32) arg0->unk_134 & 0x40) {
+            arg0->unk_118 += 0.1f;
+        } else {
+            arg0->unk_118 -= 0.1f;
+        }
+    }
+
+    switch (arg0->unk_0B8) {
+        case 0:
+            arg0->unk_120 *= 0.992f;
+            if (arg0->unk_120 < 1.2f) {
+                arg0->unk_0B8 += 1;
+            }
+            break;
+        case 1:
+            arg0->unk_120 *= 0.997f;
+            if (arg0->unk_120 < 1.0f) {
+                arg0->unk_120 = 1.0f;
+                arg0->unk_0B8 += 1;
+            }
+            arg0->timer_0BC = 0x230;
+            break;
+        case 2:
+            if (arg0->timer_0BC == 0x6E) {
+                gPlayer->timer_1F8 = 0x2710;
+            }
+            if (arg0->timer_0BC == 0x104) {
+                gPlayer->timer_1FC = 0x2710;
+            }
+            if (arg0->timer_0BC == 0) {
+                arg0->unk_0B8++;
+                arg0->timer_0BC = 0xA;
+                func_800A6028(&arg0->sfxPos, 0x09000002);
+                arg0->unk_188 = 5.0f;
+            }
+            break;
+        case 3:
+            arg0->unk_07C = 2;
+            if (arg0->timer_0BC == 0) {
+                arg0->unk_0B8++;
+                arg0->timer_0BC = 0x1E;
+            }
+            break;
+        case 4:
+            arg0->unk_168 += 0.4f;
+            if (arg0->unk_168 > 0.6f) {
+                arg0->unk_168 = 0.6f;
+            }
+            arg0->unk_124.z += 1.0f;
+            Matrix_RotateY(gCalcMatrix, (gPlayer->unk_0E8 + 180.0f) * 0.017453292f, 0);
+            Matrix_RotateX(gCalcMatrix, -(gPlayer->unk_0E4 * 0.017453292f), 1);
+            Matrix_RotateZ(gCalcMatrix, -((gPlayer->unk_0F0 + gPlayer->unk_0F8) * 0.017453292f), 1);
+            src.x = 0.0f;
+            src.y = 0.0f;
+            src.z = arg0->unk_124.z * arg0->unk_124.z;
+            Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+            arg0->unk_0E8.x = dest.x;
+            arg0->unk_0E8.y = dest.y;
+            arg0->unk_0E8.z = dest.z;
+            if (arg0->timer_0BC == 0) {
+                func_80078E50(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 30.0f);
+                Object_Kill(&arg0->obj, &arg0->sfxPos);
+            }
+            break;
+    }
+    arg0->obj.pos.y += 5.0f;
+    arg0->unk_168 -= 0.02f;
+    if (arg0->unk_168 < 0.0f) {
+        arg0->unk_168 = 0.0f;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004F05C.s")
 
@@ -1105,7 +1200,7 @@ void func_8004F8AC(Object_2F4* arg0) {
                         func_8004E4D4(arg0, gCurrentLevel);
                         break;
                     }
-                    func_8004EBD0(arg0, gCurrentLevel);
+                    func_8004EBD0(arg0);
                     break;
                 case LEVEL_SECTOR_X:
                     if (D_8017827C != 0) {
@@ -1124,7 +1219,7 @@ void func_8004F8AC(Object_2F4* arg0) {
                     func_8004F05C(arg0, gCurrentLevel);
                     break;
                 default:
-                    func_8004EBD0(arg0, gCurrentLevel);
+                    func_8004EBD0(arg0);
                     break;
             }
             break;
