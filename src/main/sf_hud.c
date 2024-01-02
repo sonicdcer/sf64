@@ -1520,7 +1520,7 @@ void func_8008E620(f32 arg0, f32 arg1) {
             break;
 
         default:
-            ret = 0;
+            ret = false;
             break;
     }
 
@@ -1622,7 +1622,7 @@ void func_800907C4(Object_408* obj408) {
     func_8008FFF0(obj408, D_8015F928);
 }
 
-s32 func_8009092C(Object_2F4* obj2F4) {
+bool func_8009092C(Object_2F4* obj2F4) {
     bool var_s5 = false;
     Object_408* obj408;
     s32 i = 0;
@@ -1648,7 +1648,7 @@ s32 func_8009092C(Object_2F4* obj2F4) {
     return var_s5;
 }
 
-s32 func_80090A00(Object_2F4* obj2F4) {
+bool func_80090A00(Object_2F4* obj2F4) {
     switch (obj2F4->unk_064) {
         case 0:
             obj2F4->unk_134 = 0.0f;
@@ -1722,10 +1722,10 @@ s32 func_80090A00(Object_2F4* obj2F4) {
     return false;
 }
 
-s32 func_80090CCC(Object_2F4* obj2F4) {
-    s32 ret = 0;
+bool func_80090CCC(Object_2F4* obj2F4) {
+    bool ret = false;
 
-    if (func_8009092C(obj2F4) != 0) {
+    if (func_8009092C(obj2F4)) {
         obj2F4->unk_124.z = gObjects408[obj2F4->unk_0E6].obj.pos.z;
         obj2F4->unk_124.y = gObjects408[obj2F4->unk_0E6].obj.pos.y;
         obj2F4->unk_124.x = gObjects408[obj2F4->unk_0E6].obj.pos.x;
@@ -1748,7 +1748,7 @@ s32 func_80090CCC(Object_2F4* obj2F4) {
         (fabsf(obj2F4->obj.pos.x - obj2F4->unk_124.x) < 700.0f)) {
         obj2F4->unk_0B8 = 1;
         obj2F4->unk_068 = 0;
-        ret = 1;
+        ret = true;
     }
 
     if (obj2F4->timer_0BE == 0) {
@@ -1760,7 +1760,7 @@ s32 func_80090CCC(Object_2F4* obj2F4) {
         obj2F4->unk_0B8 = 1;
         obj2F4->unk_0E6 = 0;
         obj2F4->unk_068 = 0;
-        ret = 1;
+        ret = true;
     }
 
     return ret;
@@ -1809,7 +1809,7 @@ s32 func_80090E8C(Object_2F4* obj2F4) {
     return false;
 }
 
-s32 func_800910C0(Object_2F4* obj2F4) {
+bool func_800910C0(Object_2F4* obj2F4) {
     f32 var_fv1;
 
     if (obj2F4->timer_0BC == 0) {
@@ -1849,7 +1849,7 @@ void func_80091254(Object_2F4* obj2F4) {
     }
 }
 
-s32 func_80091298(Object_2F4* obj2F4) {
+bool func_80091298(Object_2F4* obj2F4) {
     obj2F4->unk_118 = gPlayer[0].unk_0D0 + 10.0f;
     obj2F4->unk_120 = 3.6f;
     obj2F4->unk_124.x = gPlayer[0].pos.x + ((f32) (obj2F4->unk_0E4 - 2) * 700.0f);
@@ -1864,7 +1864,7 @@ s32 func_80091298(Object_2F4* obj2F4) {
     return false;
 }
 
-s32 func_80091368(Object_2F4* obj2F4) {
+bool func_80091368(Object_2F4* obj2F4) {
     switch (obj2F4->unk_064) {
         case 0:
             obj2F4->unk_124.y = 20000.0f;
@@ -1910,7 +1910,7 @@ s32 func_80091368(Object_2F4* obj2F4) {
 void func_800914FC(Object_2F4* obj2F4) {
     switch (obj2F4->unk_0B8) {
         case 0:
-            if (func_80090CCC(obj2F4) == 0) {
+            if (!func_80090CCC(obj2F4)) {
                 break;
             }
         case 1:
@@ -1945,7 +1945,7 @@ void func_800914FC(Object_2F4* obj2F4) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800915FC.s")
 
-s32 func_80091864(Object_2F4* obj2F4) {
+bool func_80091864(Object_2F4* obj2F4) {
     f32 sp44;
     f32 sp40;
     f32 sp3C;
@@ -2004,7 +2004,7 @@ s32 func_80091864(Object_2F4* obj2F4) {
     return false;
 }
 
-s32 func_80091B90(Object_2F4* obj2F4) {
+bool func_80091B90(Object_2F4* obj2F4) {
     Vec3f vec;
 
     obj2F4->obj.rot.x = -obj2F4->unk_0F4.x;
@@ -2032,7 +2032,7 @@ s32 func_80091B90(Object_2F4* obj2F4) {
     return false;
 }
 
-s32 func_80091CF8(Object_2F4* obj2F4) {
+bool func_80091CF8(Object_2F4* obj2F4) {
     if (obj2F4->unk_054 != 0) {
         if (obj2F4->unk_13C < 0.1f) {
             obj2F4->unk_13C = 20.0f;
@@ -2051,7 +2051,7 @@ s32 func_80091CF8(Object_2F4* obj2F4) {
     return false;
 }
 
-s32 func_80091DF4(Object_2F4* obj2F4) {
+bool func_80091DF4(Object_2F4* obj2F4) {
     Vec3f sp44;
     Vec3f sp38;
 
@@ -2068,7 +2068,7 @@ s32 func_80091DF4(Object_2F4* obj2F4) {
     return false;
 }
 
-s32 func_80091F00(Object_2F4* obj2F4) {
+bool func_80091F00(Object_2F4* obj2F4) {
     u8 temp_v0 = obj2F4->unk_0D0;
     Vec3f sp40;
     Vec3f sp34;

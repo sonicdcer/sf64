@@ -298,7 +298,7 @@ s32 func_8009808C(Vec3f* pos, Vtx_tn* quad, Vec3f* norm) {
     return var_v1;
 }
 
-s32 func_800985CC(Vec3f* vec, Vtx_tn* tri) {
+bool func_800985CC(Vec3f* vec, Vtx_tn* tri) {
     f32 sp24;
     f32 sp20;
 
@@ -318,14 +318,14 @@ s32 func_800985CC(Vec3f* vec, Vtx_tn* tri) {
     sp20 = TRINORM_Y(__vtx1, __vtx0, __vtx2);
 
     if (SIGN_OF(sp24) != SIGN_OF(sp20)) {
-        return 0;
+        return false;
     }
     sp24 = TRINORM_Y(__vtx0, __pos, __vtx2);
 
     if (SIGN_OF(sp24) != SIGN_OF(sp20)) {
-        return 0;
+        return false;
     }
-    return 1;
+    return true;
 }
 
 // Plane from normal and point
@@ -463,7 +463,7 @@ s32 func_80098980(Vec3f* out, Vec3s** tri, Vec3f* vec) {
     return var_v1;
 }
 
-s32 func_80099254(Vec3f* arg0, Vec3f* arg1, Vec3f* arg2, CollisionHeader* arg3, Vec3f* arg4, f32* arg5) {
+bool func_80099254(Vec3f* arg0, Vec3f* arg1, Vec3f* arg2, CollisionHeader* arg3, Vec3f* arg4, f32* arg5) {
     Vec3s* sp12C[3];
     Vec3f temp_V3f1;
     s32 pad11C;
@@ -507,7 +507,7 @@ s32 func_80099254(Vec3f* arg0, Vec3f* arg1, Vec3f* arg2, CollisionHeader* arg3, 
 
     if ((temp_V3f1.x < min.x) || (temp_V3f1.y < min.y) || (temp_V3f1.z < min.z) || (max.x < temp_V3f1.x) ||
         (max.y < temp_V3f1.y) || ((max.z < temp_V3f1.z))) {
-        return 0;
+        return false;
     }
     if ((arg2->x == 0.0f) && (arg2->y == 0.0f) && (arg2->z == 0.0f)) {
         arg2->y = -5.0f;
@@ -584,7 +584,7 @@ s32 func_80099254(Vec3f* arg0, Vec3f* arg1, Vec3f* arg2, CollisionHeader* arg3, 
                             arg5[1] = -Math_Atan2F_XY(sp108.normal.y, sp108.normal.x);
                         }
 
-                        sp100 = 1;
+                        sp100 = true;
                         break;
                     }
                 }
@@ -594,6 +594,6 @@ s32 func_80099254(Vec3f* arg0, Vec3f* arg1, Vec3f* arg2, CollisionHeader* arg3, 
     return sp100;
 }
 
-s32 func_800998FC(Vec3f* arg0, Vec3f* arg1, Vec3f* arg2, s32 arg3, Vec3f* arg4, f32* arg5) {
+bool func_800998FC(Vec3f* arg0, Vec3f* arg1, Vec3f* arg2, s32 arg3, Vec3f* arg4, f32* arg5) {
     return func_80099254(arg0, arg1, arg2, SEGMENTED_TO_VIRTUAL(&D_800D2B38[arg3]), arg4, arg5);
 }
