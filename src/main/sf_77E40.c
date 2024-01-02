@@ -1601,7 +1601,18 @@ void func_8007C9E0(Object_8C* arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007CAF0.s")
+void func_8007CAF0(Object_8C* arg0) {
+    Graphics_SetScaleMtx(arg0->scale2);
+    if (arg0->unk_44 == 0) {        
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, arg0->unk_4A);
+        gSPDisplayList(gMasterDisp++, D_102A010);
+    } else {
+        Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, (u8) 1);
+        Matrix_SetGfxMtx(&gMasterDisp);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255,255, 255, arg0->unk_4A);
+        gSPDisplayList(gMasterDisp++, D_20031B0);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007CC00.s")
 
