@@ -45,12 +45,13 @@ typedef struct {
 
 extern Planet planet[15];
 extern s32 D_EBFBE0_801AF420[2];
+extern u16* D_EBFBE0_801AF428[15][2];
 extern Gfx* D_EBFBE0_801AF824[4];
 extern Texture D_EBFBE0_801AF834[14];
 extern Texture D_EBFBE0_801AF914[14];
-extern u16* D_EBFBE0_801AF428[15][2];
 extern Gfx* D_EBFBE0_801AFA30[2];
 extern ObjPosition D_EBFBE0_801AFA38[];
+extern ObjPosition D_EBFBE0_801AFCD8[];
 extern UnkStruct_D_EBFBE0_801AFD18 D_EBFBE0_801AFD18[24];
 extern f32 D_EBFBE0_801AFFB8[];
 extern f32 D_EBFBE0_801AFFF4; // yRot of something
@@ -136,8 +137,8 @@ extern s32 D_EBFBE0_801CD9F0;
 extern f32 D_EBFBE0_801CDA00; // x
 extern f32 D_EBFBE0_801CDA04; // y
 extern f32 D_EBFBE0_801CDA08; // z
-extern f32 D_EBFBE0_801CDA0C;
-extern f32 D_EBFBE0_801CDA10;
+extern f32 D_EBFBE0_801CDA0C; // camera x
+extern f32 D_EBFBE0_801CDA10; // camera y
 extern f32 D_EBFBE0_801CDA14;
 extern f32 D_EBFBE0_801CDA18;
 extern f32 D_EBFBE0_801CDA1C;
@@ -155,7 +156,7 @@ extern Matrix D_EBFBE0_801CDE20[15]; // planet related
 extern Matrix D_EBFBE0_801CE060;
 extern Matrix D_EBFBE0_801CE1E0[15];
 extern Matrix D_EBFBE0_801CE5A0[];
-extern Vec3f D_EBFBE0_801CE960[]; // pos of something
+extern Vec3f D_EBFBE0_801CE960[]; // sPlanetsPositions
 extern f32 D_EBFBE0_801CEA54;
 extern f32 D_EBFBE0_801CEA64;
 extern f32 D_EBFBE0_801CEA68;
@@ -255,6 +256,7 @@ extern u16 D_601DC90[];
 extern Gfx D_601DCF0[];
 extern u8 D_601DCA0[];
 extern u16 D_601DCD8[];
+extern Gfx D_601E9A0[];
 extern u16 D_6044820[];
 extern u16 D_6046AA0[];
 extern u16 D_6046CD0[];
@@ -3695,7 +3697,85 @@ void func_EBFBE0_801A9224(void) {
     }
 }
 
+// needs in-function static
+#ifdef IMPORT_DATA
+void func_EBFBE0_801A9448(void) {
+    Vec3f src;
+    Vec3f dest;
+    f32 x1;
+    f32 y1;
+    f32 x;
+    f32 y;
+    f32 z;
+    s32 i;
+    s32 mask;
+    static f32 D_EBFBE0_801B6A80 = -22.0f;
+
+    if ((planet[PLANET_AREA_6].alpha == 0) && (D_EBFBE0_801CD954 != PLANET_AREA_6)) {
+        return;
+    }
+
+    if ((D_EBFBE0_801CD954 == PLANET_AREA_6) && (D_EBFBE0_801CD944 == 2) && (D_EBFBE0_801CD95C != 0)) {
+        mask = 0x00000001;
+    } else {
+        mask = 0xFFFFFFFF;
+    }
+
+    if ((D_EBFBE0_801CD944 == 3) || (D_EBFBE0_801CD954 == PLANET_AREA_6)) {
+        RCP_SetupDL(&gMasterDisp, 0x17);
+    } else {
+        RCP_SetupDL(&gMasterDisp, 0x2E);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, planet[PLANET_AREA_6].alpha);
+    }
+
+    dest.x = 0.0f;
+    dest.y = 0.0f;
+    dest.z = 0.0f;
+
+    if (gFrameCount & mask) {
+        for (i = 0; i < 4; i++) {
+            Matrix_Push(&gGfxMatrix);
+
+            Matrix_RotateY(gGfxMatrix, M_DTOR * D_EBFBE0_801AFCD8[i].angle, 1);
+            Matrix_Translate(gGfxMatrix, D_EBFBE0_801AFCD8[i].x, D_EBFBE0_801AFCD8[i].y, 0.0f, 1);
+            Matrix_RotateY(gGfxMatrix, M_DTOR * -(D_EBFBE0_801AFCD8[i].angle), 1);
+
+            func_EBFBE0_801AD048();
+
+            Matrix_RotateY(gGfxMatrix, M_DTOR * D_EBFBE0_801B6A80, 1);
+            Matrix_Scale(gGfxMatrix, D_EBFBE0_801AFCD8[i].scale, D_EBFBE0_801AFCD8[i].scale, D_EBFBE0_801AFCD8[i].scale,
+                         1);
+
+            Matrix_SetGfxMtx(&gMasterDisp);
+
+            Matrix_MultVec3f(gGfxMatrix, &dest, &src);
+
+            x = D_EBFBE0_801CE960[PLANET_SOLAR].x - src.x;
+            y = D_EBFBE0_801CE960[PLANET_SOLAR].y - src.y;
+            z = D_EBFBE0_801CE960[PLANET_SOLAR].z - src.z;
+
+            x1 = Math_Atan2F(y, sqrtf(SQ(x) + SQ(z)));
+            y1 = -Math_Atan2F(x, z);
+
+            dest.x = 0.0f;
+            dest.y = 0.0f;
+            dest.z = 100.0f;
+
+            Matrix_RotateY(gCalcMatrix, M_DTOR * (-D_EBFBE0_801CDA10 - y1), 0);
+            Matrix_RotateX(gCalcMatrix, M_DTOR * (-D_EBFBE0_801CDA0C - x1), 1);
+
+            Matrix_MultVec3f(gCalcMatrix, &dest, &src);
+            Lights_SetOneLight(&gMasterDisp, src.x, src.y, src.z, 80, 80, 60, 0, 0, 0);
+
+            gSPDisplayList(gMasterDisp++, D_601E9A0);
+
+            Matrix_Pop(&gGfxMatrix);
+        }
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A9448.s")
+#endif
 
 void func_EBFBE0_801A9814(void) {
     if (D_EBFBE0_801B8280 != 0) {
