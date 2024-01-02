@@ -1578,7 +1578,28 @@ void func_8007C8C4(Object_8C* arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007C9E0.s")
+void func_8007C9E0(Object_8C* arg0) {
+    if (arg0->unk_44 == 0) {
+        arg0->scale2 *= 1.03f;
+        arg0->unk_4A -= 3;
+        if (arg0->unk_4A < 0) {
+            Object_Kill(&arg0->obj, &arg0->sfxPos);
+        }
+        arg0->obj.rot.z += arg0->unk_48;
+        arg0->unk_54.y += 0.3f;
+        arg0->unk_54.x += arg0->scale1;
+    }
+    else {
+        arg0->scale2 *= 1.03f;
+        arg0->unk_4A -= 7;
+        if (arg0->unk_4A < 0) {
+            Object_Kill(&arg0->obj, &arg0->sfxPos);
+        }
+        arg0->obj.rot.z += arg0->unk_48;
+        arg0->unk_54.y += 0.3f;
+        arg0->unk_54.x += arg0->scale1;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007CAF0.s")
 
