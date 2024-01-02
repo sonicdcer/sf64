@@ -1701,13 +1701,42 @@ void func_8007CF30(f32 posX, f32 posY, f32 posZ, f32 scale2) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007CF9C.s")
+void func_8007CF9C(f32 posX, f32 posY, f32 posZ, f32 scale2) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007D008.s")
+    for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
+        if (gObjects8C[i].obj.status == 0) {
+            func_8007CCBC(&gObjects8C[i], posX, posY, posZ, scale2);
+            break;
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007D074.s")
+void func_8007D008(f32 posX, f32 posY, f32 posZ, f32 scale2) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007D0E0.s")
+    for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
+        if (gObjects8C[i].obj.status == 0) {
+            func_8007CC00(&gObjects8C[i], posX, posY, posZ, scale2);
+            break;
+        }
+    }
+}
+
+void func_8007D074(f32 posX, f32 posY, f32 posZ, f32 scale2) {
+    s32 i;
+
+    for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
+        if (gObjects8C[i].obj.status == 0) {
+            func_8007CCBC(&gObjects8C[i], posX, posY, posZ, scale2);
+            break;
+        }
+    }
+}
+
+void func_8007D0E0(f32 posX, f32 posY, f32 posZ, f32 scale2) {
+    func_8007CF30(posX, posY, posZ, scale2);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007D10C.s")
 
