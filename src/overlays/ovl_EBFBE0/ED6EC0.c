@@ -159,6 +159,8 @@ extern Vec3f D_EBFBE0_801CE960[]; // pos of something
 extern f32 D_EBFBE0_801CEA54;
 extern f32 D_EBFBE0_801CEA64;
 extern f32 D_EBFBE0_801CEA68;
+extern f32 D_EBFBE0_801CEAA0;
+extern f32 D_EBFBE0_801CEAA4;
 extern f32 D_EBFBE0_801CEAA8;
 extern f32 D_EBFBE0_801CEAAC;
 extern f32 D_EBFBE0_801CEAB0;
@@ -818,17 +820,17 @@ void func_EBFBE0_8019F97C(void) {
 }
 
 void func_EBFBE0_8019FA1C(void) {
-    s32 i;
+    PlanetId planetId;
 
-    for (i = 0; i < 15; i++) {
-        if (i == D_EBFBE0_801CD954) {
-            if ((i == 3) || (i == 4) || (i == 5)) {
-                planet[i].alpha = 144;
+    for (planetId = 0; planetId < PLANET_MAX; planetId++) {
+        if (planetId == D_EBFBE0_801CD954) {
+            if ((planetId == PLANET_SECTOR_Z) || (planetId == PLANET_SECTOR_X) || (planetId == PLANET_SECTOR_Y)) {
+                planet[planetId].alpha = 144;
             } else {
-                planet[i].alpha = 255;
+                planet[planetId].alpha = 255;
             }
         } else {
-            planet[i].alpha = 0;
+            planet[planetId].alpha = 0;
         }
     }
 }
@@ -1292,7 +1294,7 @@ void func_EBFBE0_801A0954(void) {
 
         Audio_PlaySfx(0x4900001FU, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 
-        for (planetId = 0; planetId < 15; planetId++) {
+        for (planetId = 0; planetId < PLANET_MAX; planetId++) {
             if ((planetId == PLANET_SECTOR_Z) || (planetId == PLANET_SECTOR_X) || (planetId == PLANET_SECTOR_Y)) {
                 planet[planetId].alpha = 144;
             } else {
@@ -1448,7 +1450,81 @@ void func_EBFBE0_801A116C(void) {
     D_EBFBE0_801B6970 += 0.6f;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A1528.s")
+void func_EBFBE0_801A1528(void) {
+    PlanetId planetId;
+    f32 temp;
+
+    switch (D_EBFBE0_801CD948) {
+        case 0:
+            temp = Math_SmoothStepToF(&D_EBFBE0_801CEA9C, 255.0f, D_EBFBE0_801CD9B0, 10.0f, 1.0f);
+
+            D_EBFBE0_801CD9B0 *= 1.06f;
+
+            if (temp == 0.0f) {
+                D_EBFBE0_801CEAA0 = 0.0f;
+                D_EBFBE0_801CEAA4 = 0.0f;
+                D_EBFBE0_801CD9B0 = 0.002f;
+                D_EBFBE0_801CD9B8 = 10;
+                D_EBFBE0_801CD9BC = 45;
+                D_EBFBE0_801CD948++;
+            }
+            break;
+
+        case 1:
+            if (D_EBFBE0_801CD9B8 != 0) {
+                break;
+            }
+
+            Math_SmoothStepToF(&D_EBFBE0_801CEA9C, 0.0f, D_EBFBE0_801CD9B4, 50.0f, 0.1f);
+            D_EBFBE0_801CD9B4 *= 1.06f;
+
+            if (D_EBFBE0_801CD9BC != 0) {
+                break;
+            }
+
+            Math_SmoothStepToF(&D_EBFBE0_801CEAA0, 144.0f, D_EBFBE0_801CD9B0, 50.0f, 0.1f);
+            temp = Math_SmoothStepToF(&D_EBFBE0_801CEAA4, 255.0f, D_EBFBE0_801CD9B0, 50.0f, 0.1f);
+            D_EBFBE0_801CD9B0 *= 1.09f;
+
+            for (planetId = 0; planetId < PLANET_MAX; planetId++) {
+                if ((planetId == PLANET_SECTOR_Z) || (planetId == PLANET_SECTOR_X) || (planetId == PLANET_SECTOR_Y)) {
+                    planet[planetId].alpha = D_EBFBE0_801CEAA0;
+                } else {
+                    planet[planetId].alpha = D_EBFBE0_801CEAA4;
+                    D_EBFBE0_801CD970 = D_EBFBE0_801CEAA4;
+                }
+                D_EBFBE0_801CD900[planetId] = D_EBFBE0_801CEAA4;
+            }
+
+            if (D_EBFBE0_801CEAA0 > 32) {
+                D_EBFBE0_801CD974 = 1;
+            }
+
+            if (temp == 0.0f) {
+                Audio_PlaySfx(0x4900001FU, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                D_EBFBE0_801CD948 = 0;
+                D_EBFBE0_801CD97C = 1;
+                D_EBFBE0_801CD944 = 3;
+            }
+            break;
+    }
+
+    if (gControllerPress[gMainController].button & START_BUTTON) {
+        Audio_PlaySfx(0x4900001FU, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+
+        for (planetId = 0; planetId < PLANET_MAX; planetId++) {
+            if ((planetId == PLANET_SECTOR_Z) || (planetId == PLANET_SECTOR_X) || (planetId == PLANET_SECTOR_Y)) {
+                planet[planetId].alpha = 144;
+            } else {
+                planet[planetId].alpha = 255;
+            }
+            D_EBFBE0_801CD900[planetId] = 255;
+        }
+        D_EBFBE0_801CD970 = 255;
+        D_EBFBE0_801CD944 = 3;
+        D_EBFBE0_801CD97C = 1;
+    }
+}
 
 void func_EBFBE0_801A19A8(void) {
     s32 i;
@@ -2617,7 +2693,7 @@ void func_EBFBE0_801A6628(void) {
 }
 
 void func_EBFBE0_801A6694(void) {
-    s32 i;
+    PlanetId planetId;
     Vec3f dest;
     Vec3f src;
 
@@ -2625,25 +2701,25 @@ void func_EBFBE0_801A6694(void) {
     src.y = 0.0f;
     src.z = 0.0f;
 
-    for (i = 0; i < 15; i++) {
+    for (planetId = 0; planetId < PLANET_MAX; planetId++) {
         Matrix_Push(&gGfxMatrix);
 
-        Matrix_RotateY(gGfxMatrix, M_DTOR * planet[i].unk_1C, 1);
-        Matrix_Translate(gGfxMatrix, planet[i].unk_04, planet[i].unk_08, 0.0f, 1);
+        Matrix_RotateY(gGfxMatrix, M_DTOR * planet[planetId].unk_1C, 1);
+        Matrix_Translate(gGfxMatrix, planet[planetId].unk_04, planet[planetId].unk_08, 0.0f, 1);
 
-        Matrix_RotateY(gGfxMatrix, M_DTOR * -planet[i].unk_1C, 1);
+        Matrix_RotateY(gGfxMatrix, M_DTOR * -planet[planetId].unk_1C, 1);
 
         func_EBFBE0_801AD048();
 
         Matrix_SetGfxMtx(&gMasterDisp);
 
-        Matrix_Copy(&D_EBFBE0_801CDA60[i], gGfxMatrix);
+        Matrix_Copy(&D_EBFBE0_801CDA60[planetId], gGfxMatrix);
 
         Matrix_MultVec3f(gGfxMatrix, &src, &dest);
 
-        planet[i].posX = dest.x;
-        planet[i].posY = dest.y;
-        planet[i].posZ = dest.z;
+        planet[planetId].posX = dest.x;
+        planet[planetId].posY = dest.y;
+        planet[planetId].posZ = dest.z;
 
         Matrix_Pop(&gGfxMatrix);
 
@@ -2652,11 +2728,11 @@ void func_EBFBE0_801A6694(void) {
         Matrix_LookAt(gGfxMatrix, D_EBFBE0_801CD9F4, D_EBFBE0_801CD9F8, D_EBFBE0_801CD9FC, D_EBFBE0_801CDA00,
                       D_EBFBE0_801CDA04, D_EBFBE0_801CDA08, D_EBFBE0_801CDA20, D_EBFBE0_801CDA24, D_EBFBE0_801CDA28, 1);
         Matrix_Translate(gGfxMatrix, D_EBFBE0_801CEA58, D_EBFBE0_801CEA5C, D_EBFBE0_801CEA60, 1);
-        Matrix_Mult(gGfxMatrix, &D_EBFBE0_801CDA60[i], 1);
+        Matrix_Mult(gGfxMatrix, &D_EBFBE0_801CDA60[planetId], 1);
 
         Matrix_SetGfxMtx(&gMasterDisp);
 
-        Matrix_MultVec3f(gGfxMatrix, &src, &D_EBFBE0_801CE960[i]);
+        Matrix_MultVec3f(gGfxMatrix, &src, &D_EBFBE0_801CE960[planetId]);
 
         Matrix_Pop(&gGfxMatrix);
     }
