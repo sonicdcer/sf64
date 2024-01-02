@@ -671,10 +671,8 @@ void func_800BB5D0(void) {
             if (temp_ft0 == RCID_PEPPY) {
                 var_v1 = 3;
             }
-            if ((((((gTeamShields[var_v1] <= 0) && (gFrameCount & 4)) && (gTeamShields[var_v1] != (-2))) &&
-                  (D_801782A4 != 2)) &&
-                 (D_801782A4 != 3)) &&
-                (D_801782A4 != 1000)) {
+            if ((gTeamShields[var_v1] <= 0) && (gFrameCount & 4) && (gTeamShields[var_v1] != -2) && (D_801782A4 != 2) &&
+                (D_801782A4 != 3) && (D_801782A4 != 1000)) {
                 RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                 Graphics_DisplaySmallText(31, 167, 1.0f, 1.0f, "DOWN");
@@ -687,12 +685,9 @@ void func_800BB5D0(void) {
 
         temp_ft0 = (s32) D_80177D68;
 
-        if ((((((((temp_ft0 == RCID_WOLF) || (temp_ft0 == RCID_PIGMA)) || (temp_ft0 == RCID_LEON)) ||
-                (temp_ft0 == RCID_ANDREW)) ||
-               (temp_ft0 == RCID_WOLF_2)) ||
-              (temp_ft0 == RCID_PIGMA_2)) ||
-             (temp_ft0 == RCID_LEON_2)) ||
-            (temp_ft0 == RCID_ANDREW_2)) {
+        if ((temp_ft0 == RCID_WOLF) || (temp_ft0 == RCID_PIGMA) || (temp_ft0 == RCID_LEON) ||
+            (temp_ft0 == RCID_ANDREW) || (temp_ft0 == RCID_WOLF_2) || (temp_ft0 == RCID_PIGMA_2) ||
+            (temp_ft0 == RCID_LEON_2) || (temp_ft0 == RCID_ANDREW_2)) {
             switch (temp_ft0) {
                 case RCID_WOLF:
 
@@ -723,10 +718,8 @@ void func_800BB5D0(void) {
                     break;
             }
 
-            if ((((((gObjects2F4[var_v1].obj.status != 2) && (gFrameCount & 4)) &&
-                   (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3)) &&
-                  (D_801782A4 != 2)) &&
-                 (D_801782A4 != 3)) &&
+            if ((gObjects2F4[var_v1].obj.status != 2) && (gFrameCount & 4) &&
+                (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && (D_801782A4 != 2) && (D_801782A4 != 3) &&
                 (D_801782A4 != 1000)) {
                 RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);

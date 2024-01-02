@@ -2522,7 +2522,7 @@ void func_EBFBE0_8018EA78(s32 arg0) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-s32 func_EBFBE0_8018EDC8(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
+bool func_EBFBE0_8018EDC8(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
     f32 x;
     f32 y;
     f32 z;
@@ -2655,7 +2655,7 @@ s32 func_EBFBE0_8018EDC8(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* a
             break;
     }
 
-    return 0;
+    return false;
 }
 
 void func_EBFBE0_8018F438(void) {

@@ -7,40 +7,6 @@
 #define UNK_TYPE s32
 
 typedef struct {
-    /* 0x0 */ f32 offset;
-    /* 0x4 */ f32 size;
-} HitboxDim; // size = 0x8
-
-typedef struct {
-    /* 0x00 */ HitboxDim z;
-    /* 0x08 */ HitboxDim y;
-    /* 0x10 */ HitboxDim x;
-} Hitbox; // size = 0x18
-
-typedef struct {
-   /* 0x00 */ s16 vtx[3];
-   /* 0x06 */ s16 unk_06;
-   /* 0x08 */ Vec3s normal;
-   /* 0x10 */ s32 dist;
-} CollisionPoly; // size = 0x14
-
-typedef struct {
-    /* 0x00 */ Vec3f min;
-    /* 0x0C */ Vec3f max;
-    /* 0x18 */ s32 polyCount;
-    /* 0x1C */ CollisionPoly* polys;
-    /* 0x20 */ Vec3s* mesh;
-} CollisionHeader; // size = 0x24
-
-typedef struct {
-   /* 0x00 */ Vec3f min;
-   /* 0x0C */ Vec3f max;
-   /* 0x18 */ s32 polyCount;
-   /* 0x1C */ s16 (*polys)[3];
-   /* 0x20 */ Vec3f* mesh;
-} CollisionHeader2; // size = 0x24
-
-typedef struct {
     /* bit 0 */ u8 unk_0 : 3;    
     /* bit 3 */ u8 expertMedal : 1;    
     /* bit 4 */ u8 expertClear : 1;    

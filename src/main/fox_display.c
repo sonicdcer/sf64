@@ -121,7 +121,7 @@ void func_80051B30(void) {
     }
 }
 
-s32 func_800520FC(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, void* data) {
+bool func_800520FC(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, void* data) {
     Player* player = (Player*) data;
 
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -174,7 +174,7 @@ s32 func_800520FC(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, void* dat
             rot->x += -player->unk_15C * 0.2f;
         }
     }
-    return 0;
+    return false;
 }
 
 void func_800523A8(s32 limbIndex, Vec3f* rot, void* data) {
@@ -609,7 +609,7 @@ void func_80053C38(Player* player, s32 arg1) {
         Matrix_MultVec3f(gGfxMatrix, &sp4C, &D_801613E0[1]);
     }
     if ((player->unk_238 != 0) && (gLevelMode == LEVELMODE_ON_RAILS) &&
-        (fabsf((player->unk_138 + D_80177D20) - player->camEye.z) < 10.0f)) {
+        (fabsf(player->unk_138 + D_80177D20 - player->camEye.z) < 10.0f)) {
         if (arg1 == 0) {
             D_800CA228 = 1;
             Matrix_Push(&gGfxMatrix);
@@ -929,10 +929,10 @@ void func_80054E80(Player* player) {
         Matrix_Copy(gCalcMatrix, &D_80161418[player->num]);
         var_v1 = gLaserStrength[player->num];
         if (player->wings.unk_14 > -8.0f) {
-            var_v1 = 0;
+            var_v1 = LASERS_SINGLE;
         }
         switch (var_v1) {
-            case 0:
+            case LASERS_SINGLE:
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 192, 255, 192, 128);
                 gDPSetEnvColor(gMasterDisp++, 64, 255, 64, 128);
                 if ((player->unk_238 != 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
@@ -947,9 +947,9 @@ void func_80054E80(Player* player) {
                 gSPDisplayList(gMasterDisp++, D_1024AC0);
                 Matrix_Pop(&gGfxMatrix);
                 break;
-            case 1:
-            case 2:
-                if (var_v1 == 1) {
+            case LASERS_TWIN:
+            case LASERS_HYPER:
+                if (var_v1 == LASERS_TWIN) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 192, 255, 192, 128);
                     gDPSetEnvColor(gMasterDisp++, 64, 255, 64, 128);
                 } else {
@@ -1203,7 +1203,7 @@ void func_800564C0(Player* player, s32 arg1) {
                     }
                 }
             }
-            if (func_800563B4(player->num, arg1) == 0) {
+            if (!func_800563B4(player->num, arg1)) {
                 Matrix_Pop(&gGfxMatrix);
                 return;
             }
@@ -1219,7 +1219,7 @@ void func_800564C0(Player* player, s32 arg1) {
         } else if (player->form == FORM_ON_FOOT) {
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, player->pos.x, player->pos.y, player->unk_138 + player->unk_144, 1);
-            if (func_800563B4(player->num, arg1) == 0) {
+            if (!func_800563B4(player->num, arg1)) {
                 Matrix_Pop(&gGfxMatrix);
                 Matrix_Pop(&gGfxMatrix);
                 return;
@@ -1247,7 +1247,7 @@ void func_800564C0(Player* player, s32 arg1) {
                     }
                 }
             }
-            if (func_800563B4(player->num, arg1) == 0) {
+            if (!func_800563B4(player->num, arg1)) {
                 Matrix_Pop(&gGfxMatrix);
                 return;
             }

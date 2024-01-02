@@ -90,7 +90,7 @@ void func_8002E3E0(Object_2F4* obj2F4) {
     D_80177850 = 15;
 }
 
-s32 func_8002E4F8(u16* arg0, s32 arg1) {
+bool func_8002E4F8(u16* arg0, s32 arg1) {
     if ((gRadioState == 0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_0)) {
         func_800BA808(arg0, arg1);
         return true;
@@ -285,7 +285,7 @@ void func_8002EE34(void) {
 
 void func_8002EE64(Object_2F4* obj2F4) {
     s32 i;
-    s32 var_s0;
+    s32 colId;
     Object_58* obj58;
     Vec3f temp1;
     f32 temp4;
@@ -328,22 +328,22 @@ void func_8002EE64(Object_2F4* obj2F4) {
                 spCC.z = spD8.z + temp1.z;
                 if ((obj58->obj.id == OBJ_80_149) || (obj58->obj.id == OBJ_80_150)) {
                     if (obj58->obj.id == OBJ_80_149) {
-                        var_s0 = 5;
+                        colId = COL1_5;
                     } else {
-                        var_s0 = 6;
+                        colId = COL1_6;
                     }
-                    if (func_800998FC(&spCC, &spC0, &sp94, var_s0, &spA8, spA0) > 0) {
+                    if (func_800998FC(&spCC, &spC0, &sp94, colId, &spA8, spA0) > 0) {
                         obj2F4->unk_178 = spA8.y;
                         obj2F4->unk_17C = spA0[0];
                         obj2F4->unk_184 = spA0[1];
                         obj2F4->unk_180 = (temp4 / 180.0f) * M_PI;
                     }
                 } else {
-                    var_s0 = 0;
+                    colId = COL2_0;
                     if (obj58->obj.id == OBJ_80_3) {
-                        var_s0 = 3;
+                        colId = COL2_3;
                     }
-                    if (func_800A3690(&spCC, &spC0, var_s0, &spB4) != 0) {
+                    if (func_800A3690(&spCC, &spC0, colId, &spB4)) {
                         obj2F4->unk_178 = spB4.y;
                         obj2F4->unk_17C = spB4.x;
                         obj2F4->unk_184 = spB4.z;
@@ -1531,8 +1531,7 @@ void func_800319AC(Object_2F4* this) {
                     if ((spE8 < spF4) && (spEC < spF4)) {
                         this->unk_060++;
                         this->unk_064 = 1;
-                        if (!((this->index + gFrameCount) & sp10F) && (Rand_ZeroOne() < spF0) &&
-                            (func_80031900(this) != 0) &&
+                        if (!((this->index + gFrameCount) & sp10F) && (Rand_ZeroOne() < spF0) && func_80031900(this) &&
                             ((gObjects2F4->unk_0B8 == 2) || (gCurrentLevel == LEVEL_TRAINING))) {
                             if ((this->unk_0E6 == 0) && (gCurrentLevel != LEVEL_TRAINING)) {
                                 if ((this->unk_060 > 250) && (gCurrentLevel != LEVEL_VENOM_ANDROSS)) {
@@ -2110,13 +2109,13 @@ void func_80034E64(Object_2F4* obj2F4) {
         Matrix_SetGfxMtx(&gMasterDisp);
         RCP_SetupDL(&gMasterDisp, 0x29);
         if (gCurrentLevel == LEVEL_KATINA) {
-            GPC(128, 255, 255, sp20);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 128, 255, 255, sp20);
         } else if (gCurrentLevel == LEVEL_BOLSE) {
-            GPC(255, 128, 128, sp20);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, sp20);
         } else {
-            GPC(48, 255, 255, sp20);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 48, 255, 255, sp20);
         }
-        GDL(D_1031630);
+        gSPDisplayList(gMasterDisp++, D_1031630);
         Matrix_Pop(&gGfxMatrix);
     }
 }
@@ -2139,9 +2138,9 @@ void func_80035098(Object_2F4* obj2F4) {
         Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         RCP_SetupDL(&gMasterDisp, 0x43);
-        GPC(255, 255, 255, sp2C);
-        GEC(0, 0, 160, sp2C);
-        GDL(D_101DC10);
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, sp2C);
+        gDPSetEnvColor(gMasterDisp++, 0, 0, 160, sp2C);
+        gSPDisplayList(gMasterDisp++, D_101DC10);
         Matrix_Pop(&gGfxMatrix);
     }
 }
@@ -2151,7 +2150,7 @@ bool func_800352E0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thi
 
     if (this->timer_0C6 & 1) {
         RCP_SetupDL(&gMasterDisp, 0x22);
-        GPC(255, 128, 128, 255);
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, 255);
     } else {
         RCP_SetupDL(&gMasterDisp, 0x1D);
     }
@@ -2160,7 +2159,7 @@ bool func_800352E0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thi
     }
     if ((limbIndex == 1) || (limbIndex == 2)) {
         RCP_SetupDL(&gMasterDisp, 0x22);
-        GPC((s32) D_8015F914, (s32) D_8015F918, (s32) D_8015F91C, 255);
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, (s32) D_8015F914, (s32) D_8015F918, (s32) D_8015F91C, 255);
     }
     return false;
 }
@@ -2200,7 +2199,7 @@ void func_80035448(Object_2F4* obj2F4) {
             case 6:
             case 7:
                 if (gCurrentLevel == LEVEL_VENOM_2) {
-                    GDL(D_F0103D0);
+                    gSPDisplayList(gMasterDisp++, D_F0103D0);
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, 30.0f, 0.0f, -60.0f, 1);
                     func_8005B1E8(obj2F4, 2);
@@ -2212,7 +2211,7 @@ void func_80035448(Object_2F4* obj2F4) {
                     func_80035098(obj2F4);
                     func_80034E64(obj2F4);
                 } else {
-                    GDL(D_F00F200);
+                    gSPDisplayList(gMasterDisp++, D_F00F200);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
                     if (gCurrentLevel == LEVEL_BOLSE) {
                         func_8005B1E8(obj2F4, 3);
@@ -2222,11 +2221,11 @@ void func_80035448(Object_2F4* obj2F4) {
                 }
                 break;
             case 8:
-                GDL(D_D009A40);
+                gSPDisplayList(gMasterDisp++, D_D009A40);
                 func_8005ADAC(obj2F4);
                 break;
             case 9:
-                GDL(D_D00B880);
+                gSPDisplayList(gMasterDisp++, D_D00B880);
                 func_8005ADAC(obj2F4);
                 break;
             case 100:
@@ -2245,33 +2244,31 @@ void func_80035448(Object_2F4* obj2F4) {
                 if (gCurrentLevel == LEVEL_FORTUNA) {
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 60.0f, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    GDL(D_6006BE0);
+                    gSPDisplayList(gMasterDisp++, D_6006BE0);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -100.0f, 1);
                     Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, 1);
                     func_8005B1E8(obj2F4, 2);
                 } else if (gCurrentLevel == LEVEL_KATINA) {
                     switch (obj2F4->unk_0B6) {
                         case 0:
-                            GDL(D_600EFF0);
+                            gSPDisplayList(gMasterDisp++, D_600EFF0);
                             break;
                         case 1:
-                            GDL(D_600E050);
+                            gSPDisplayList(gMasterDisp++, D_600E050);
                             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
                             func_8005B1E8(obj2F4, 0);
                             break;
                         case 3:
-                            GDL(D_6001530);
+                            gSPDisplayList(gMasterDisp++, D_6001530);
                             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 30.0f, 1);
                             func_80034E64(obj2F4);
                             break;
                     }
                 } else if (gCurrentLevel == LEVEL_SECTOR_Z) {
-                    GDL(D_6004FE0)
-                    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
+                    gSPDisplayList(gMasterDisp++, D_6004FE0) Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
                     func_8005B1E8(obj2F4, 2);
                 } else if (gCurrentLevel == LEVEL_BOLSE) {
-                    GDL(D_6008770)
-                    Matrix_Push(&gGfxMatrix);
+                    gSPDisplayList(gMasterDisp++, D_6008770) Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
                     func_8005B1E8(obj2F4, 2);
                     Matrix_Pop(&gGfxMatrix);
@@ -2281,14 +2278,14 @@ void func_80035448(Object_2F4* obj2F4) {
                     Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 10.0f, 1);
                     Animation_DrawSkeleton(0, D_600C2AC, obj2F4->unk_18C, NULL, NULL, obj2F4, &gIdentityMatrix);
                 } else if (gCurrentLevel == LEVEL_VERSUS) {
-                    GDL(D_3015740);
+                    gSPDisplayList(gMasterDisp++, D_3015740);
                 } else if (gCurrentLevel == LEVEL_TRAINING) {
                     if (obj2F4->unk_0E6 == 0) {
-                        GDL(D_F00F200);
+                        gSPDisplayList(gMasterDisp++, D_F00F200);
                         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
                         func_8005B1E8(obj2F4, 3);
                     } else {
-                        GDL(D_40068F0);
+                        gSPDisplayList(gMasterDisp++, D_40068F0);
                         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
                         func_8005B1E8(obj2F4, 2);
                     }
