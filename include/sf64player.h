@@ -208,8 +208,8 @@ typedef struct Player {
     /* 0x1A4 */ s32 unk_1A4;
     /* 0x1A8 */ char pad1A8[0x1C];
     /* 0x1C4 */ s32 num;
-    /* 0x1C8 */ s32 state_1C8;
-    /* 0x1CC */ s32 form;
+    /* 0x1C8 */ PlayerState1C8 state_1C8;
+    /* 0x1CC */ PlayerForm form;
     /* 0x1D0 */ s32 unk_1D0;
     /* 0x1D4 */ s32 unk_1D4;
     /* 0x1D8 */ char pad1D8[4];
@@ -258,8 +258,8 @@ typedef struct Player {
     /* 0x284 */ s32 unk_284;
     /* 0x288 */ s32 unk_288;
     /* 0x28C */ char pad28C[0x28];
-    /* 0x2B4 */ s32 unk_2B4;
-    /* 0x2B8 */ s32 unk_2B8;
+    /* 0x2B4 */ bool unk_2B4;
+    /* 0x2B8 */ bool unk_2B8;
     /* 0x2BC */ f32 unk_2BC;
     /* 0x2C0 */ f32 unk_2C0;
     /* 0x2C4 */ s32 unk_2C4;

@@ -614,7 +614,7 @@ f32 D_800CFCCC[] = {
     0.0f, 0.05f, 0.03f, 0.02f, 0.01f, 0.05f, 0.0f, 0.02f,
 };
 
-void func_8005BAB4(s32 objId, s32 index) {
+void func_8005BAB4(ObjectId objId, s32 index) {
     f32 temp_fv0;
     f32 temp1;
     f32 temp2;

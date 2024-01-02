@@ -515,7 +515,7 @@ void func_80044868(Player* player) {
         if ((gCurrentLevel == LEVEL_TITANIA) && (D_80178284 == 0)) {
             func_80043280(D_3005EA8, D_6009BB8, gFrameCount * -55.0f);
         }
-        if ((gCurrentLevel == LEVEL_MACBETH) && (player->state_1C8 == 7)) {
+        if ((gCurrentLevel == LEVEL_MACBETH) && (player->state_1C8 == PLAYERSTATE_1C8_7)) {
             func_80043280(D_3005EA8, *D_Unk_800DACB8, gFrameCount * -55.0f);
         }
     }
@@ -1317,7 +1317,7 @@ void func_80047FBC(Player* player) {
     if (!(D_800C9F08 & 1)) {
         Math_SmoothStepToF(&player->unk_0EC, -((player->vel.z / 5.0f) * 4.0f), 0.4f, 8.0f, 0.01f);
         if (player->unk_0EC >= 3.0f) {
-            if (gPlayer->state_1C8 != 7) {
+            if (gPlayer->state_1C8 != PLAYERSTATE_1C8_7) {
                 Audio_PlaySfx(0x19000065, &player->unk_460, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
             D_800C9F08 |= 1;

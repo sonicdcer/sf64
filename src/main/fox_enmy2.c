@@ -1597,7 +1597,7 @@ void func_8006EC60(f32 xPos, f32 yPos, f32 zPos) {
     }
 }
 
-void func_8006ECBC(s32 objId, PlayerShot* shot, s32 arg2, f32 xPos, f32 yPos, f32 zPos, f32 arg6, f32 arg7, f32 arg8,
+void func_8006ECBC(PlayerShotId objId, PlayerShot* shot, s32 unk0E4, f32 xPos, f32 yPos, f32 zPos, f32 arg6, f32 arg7, f32 arg8,
                    f32 xRot, f32 yRot, f32 zRot) {
     PlayerShot_Initialize(shot);
     shot->obj.status = 1;
@@ -1618,22 +1618,22 @@ void func_8006ECBC(s32 objId, PlayerShot* shot, s32 arg2, f32 xPos, f32 yPos, f3
     shot->unk_58 = 1;
     shot->unk_60 = 0;
 
-    if (objId == OBJ_80_9) {
+    if (objId == PLAYERSHOT_9) {
         shot->unk_64 = 120;
     } else {
         shot->unk_64 = 30;
     }
-    shot->playerNum = arg2 + 100;
+    shot->playerNum = unk0E4 + 100;
 
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
-        if (arg2 + 100 < 104) {
+        if (unk0E4 + 100 < 104) {
             Audio_PlaySfx(0x2900000D, &shot->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         } else {
             Audio_PlaySfx(0x29002002, &shot->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         }
-    } else if ((arg2 < 60) && (gObjects2F4[arg2].obj.id == OBJ_2F4_200) && (gObjects2F4[arg2].unk_080 > 0)) {
+    } else if ((unk0E4 < 60) && (gObjects2F4[unk0E4].obj.id == OBJ_2F4_200) && (gObjects2F4[unk0E4].unk_080 > 0)) {
         Audio_PlaySfx(0x2900000D, &shot->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-    } else if (arg2 + 100 == 200) {
+    } else if (unk0E4 + 100 == 200) {
         shot->playerNum = 100;
         Audio_PlaySfx(0x19030037, &shot->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     } else {
@@ -1641,25 +1641,25 @@ void func_8006ECBC(s32 objId, PlayerShot* shot, s32 arg2, f32 xPos, f32 yPos, f3
     }
 }
 
-void func_8006EEFC(s32 objId, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 arg5, f32 arg6, f32 xRot, f32 yRot,
+void func_8006EEFC(s32 unk0E4, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 arg5, f32 arg6, f32 xRot, f32 yRot,
                    f32 zRot) {
     s32 i;
 
     for (i = 0; i < 10; i++) {
         if (gPlayerShots[i].obj.status == 0) {
-            func_8006ECBC(PLAYERSHOT_1, &gPlayerShots[i], objId, xPos, yPos, zPos, arg4, arg5, arg6, xRot, yRot, zRot);
+            func_8006ECBC(PLAYERSHOT_1, &gPlayerShots[i], unk0E4, xPos, yPos, zPos, arg4, arg5, arg6, xRot, yRot, zRot);
             break;
         }
     }
 }
 
-void func_8006EFA0(s32 objId, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 arg5, f32 arg6, f32 xRot, f32 yRot,
+void func_8006EFA0(s32 unk0E4, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 arg5, f32 arg6, f32 xRot, f32 yRot,
                    f32 zRot) {
     s32 i;
 
     for (i = 0; i < 10; i++) {
         if (gPlayerShots[i].obj.status == 0) {
-            func_8006ECBC(PLAYERSHOT_9, &gPlayerShots[i], objId, xPos, yPos, zPos, arg4, arg5, arg6, xRot, yRot, zRot);
+            func_8006ECBC(PLAYERSHOT_9, &gPlayerShots[i], unk0E4, xPos, yPos, zPos, arg4, arg5, arg6, xRot, yRot, zRot);
             break;
         }
     }

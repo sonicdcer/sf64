@@ -109,7 +109,7 @@ void func_80077790(void) {
     }
 }
 
-Object_8C* func_8007783C(s32 objId) {
+Object_8C* func_8007783C(ObjectId objId) {
     Object_8C* obj8C;
     s32 i;
 

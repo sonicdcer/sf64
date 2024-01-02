@@ -359,7 +359,7 @@ void func_800A26C0(void) {
                     Save_Write();
                 }
                 gGameState++;
-                Timer_CreateTask(MSEC_TO_CYCLES(1000), Timer_Increment, &gGameState, 1);
+                Timer_CreateTask(MSEC_TO_CYCLES(1000), Timer_Increment, (s32*) &gGameState, 1);
                 /* fallthrough */
             case GSTATE_LOGO_WAIT:
                 RCP_SetupDL(&gMasterDisp, 0x4C);

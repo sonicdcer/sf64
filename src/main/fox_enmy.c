@@ -711,7 +711,7 @@ bool func_800631A8(Vec3f* posD, f32* hitboxData, Vec3f* posA) {
     return false;
 }
 
-bool func_8006326C(Vec3f* arg0, Vec3f* arg1, s32 objId, Object* obj) {
+bool func_8006326C(Vec3f* arg0, Vec3f* arg1, ObjectId objId, Object* obj) {
     Vec3f sp74;
     Vec3f sp68;
     Vec3f sp5C;
@@ -989,7 +989,7 @@ void func_80063F74(Item* item) {
     item->scale = item->obj.rot.z * 100.0f;
 }
 
-void Object_Init(s32 index, s32 objId) {
+void Object_Init(s32 index, ObjectId objId) {
     s32 var_a0;
     s32 var_a2;
     f32 sp54;
@@ -2427,7 +2427,7 @@ void func_80068FE0(Object_4C* obj4C) {
     }
 }
 
-void func_800690D0(s32 index, s32 objId) {
+void func_800690D0(s32 index, ObjectId objId) {
     switch (objId) {
         case OBJ_2F4_200:
             func_8007717C(&gObjects2F4[index]);

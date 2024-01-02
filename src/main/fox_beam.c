@@ -463,7 +463,7 @@ bool func_80037698(PlayerShot* shot, Object_4C* obj4C) {
     return false;
 }
 
-bool func_8003774C(PlayerShot* shot, s32 objId, Object* obj) {
+bool func_8003774C(PlayerShot* shot, ObjectId objId, Object* obj) {
     Vec3f sp7C;
     Vec3f sp70;
     Vec3f sp64;
@@ -831,7 +831,7 @@ void func_80038140(PlayerShot* shot) {
                 } else {
                     temp_fa0 = temp_fv1;
                 }
-                if ((i != shot->playerNum) && ((player->state_1C8 == 3) || (player->state_1C8 == 4)) &&
+                if ((i != shot->playerNum) && ((player->state_1C8 == PLAYERSTATE_1C8_3) || (player->state_1C8 == PLAYERSTATE_1C8_4)) &&
                     (fabsf(player->unk_138 - shot->obj.pos.z) < temp_fv1) &&
                     (fabsf(player->pos.x - shot->obj.pos.x) < temp_fv1) &&
                     (fabsf(player->pos.y - shot->obj.pos.y) < temp_fa0)) {
@@ -1072,7 +1072,7 @@ void func_80039210(PlayerShot* shot) {
     if (gCamCount < 4) {
         RCP_SetupDL_21();
         sp70 = 9.0f;
-        if ((shot->unk_58 == 0) || ((gCurrentLevel == LEVEL_METEO) && (gPlayer[0].state_1C8 == 2))) {
+        if ((shot->unk_58 == 0) || ((gCurrentLevel == LEVEL_METEO) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2))) {
             var_fv0 = 4.0f;
             var_fv1 = 20.0f;
         } else {
@@ -1107,7 +1107,7 @@ void func_80039210(PlayerShot* shot) {
                     var_a1 = 2;
                 }
             } else if (gCurrentLevel == LEVEL_KATINA) {
-                if (gPlayer[0].state_1C8 != 2) {
+                if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_2) {
                     if (shot->playerNum >= 104) {
                         if (gObjects2F4[shot->playerNum - 100].unk_0B6 == 0) {
                             var_a1 = 1;
@@ -1698,7 +1698,7 @@ bool func_8003BB4C(PlayerShot* shot) {
     }
     if (gVersusMode) {
         for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
-            if ((player->state_1C8 == 3) && (player->unk_4DC == 0) && (player->form != FORM_ON_FOOT) &&
+            if ((player->state_1C8 == PLAYERSTATE_1C8_3) && (player->unk_4DC == 0) && (player->form != FORM_ON_FOOT) &&
                 (i != shot->playerNum) && (D_80177B00[i][shot->playerNum] == 0) &&
                 (fabsf(shot->obj.pos.x - player->pos.x) <= var_fa0) &&
                 (fabsf(shot->obj.pos.y - player->pos.y) <= var_fa0) &&
@@ -1950,7 +1950,7 @@ void func_8003C4D0(PlayerShot* shot, s32 unkD6) {
     }
     if (gVersusMode) {
         for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
-            if ((i != shot->playerNum) && (player->state_1C8 == 3) && (player->unk_1F4 == 0)) {
+            if ((i != shot->playerNum) && (player->state_1C8 == PLAYERSTATE_1C8_3) && (player->unk_1F4 == 0)) {
                 sp68 = player->pos.x - shot->obj.pos.x;
                 sp64 = player->pos.y - shot->obj.pos.y;
                 sp60 = player->unk_138 - shot->obj.pos.z;
@@ -2017,7 +2017,7 @@ void func_8003CC08(PlayerShot* shot) {
             shot->obj.rot.y += 1.0f;
             Math_SmoothStepToF(&shot->unk_44, shot->unk_48, 0.05f, 1.5f, 0.001f);
             if ((shot->unk_64 > 0) && (shot->unk_64 < 30)) {
-                if (!gVersusMode && ((gPlayer[0].state_1C8 == 3) || (gPlayer[0].state_1C8 == 5))) {
+                if (!gVersusMode && ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5))) {
                     temp_fv1 = gPlayer[0].pos.x - shot->obj.pos.x;
                     temp_fa0 = gPlayer[0].pos.y - shot->obj.pos.y;
                     temp_fa1 = gPlayer[0].unk_138 - shot->obj.pos.z;
@@ -2080,7 +2080,7 @@ void func_8003CF90(PlayerShot* shot) {
                 }
             }
             for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
-                if (((player->state_1C8 == 3) || (player->state_1C8 == 5)) && (D_80177B00[i][shot->playerNum] != 0)) {
+                if (((player->state_1C8 == PLAYERSTATE_1C8_3) || (player->state_1C8 == PLAYERSTATE_1C8_5)) && (D_80177B00[i][shot->playerNum] != 0)) {
                     var_a3 = 1;
                     D_80177B00[i][shot->playerNum] = 2;
                     D_800C9C24.x = player->pos.x;
@@ -2240,7 +2240,7 @@ void func_8003D854(PlayerShot* shot) {
                     break;
                 case PLAYERSHOT_0:
                 case PLAYERSHOT_1:
-                    if ((shot->unk_58 == 0) || (gPlayer[0].state_1C8 == 2)) {
+                    if ((shot->unk_58 == 0) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2)) {
                         var_s5 = 4;
                     } else {
                         var_s5 = 3;

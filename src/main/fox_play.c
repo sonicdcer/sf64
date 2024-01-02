@@ -1156,7 +1156,7 @@ s32 func_800A7974(Player* player, f32* hitboxData, s32* index, f32 xPos, f32 yPo
     return 0;
 }
 
-bool func_800A8054(s32 objId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, Vec3f* arg7, Vec3f* arg8) {
+bool func_800A8054(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, Vec3f* arg7, Vec3f* arg8) {
     Vec3f sp54;
     Vec3f sp48;
     Vec3f sp3C;
@@ -1342,7 +1342,7 @@ bool func_800A8054(s32 objId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
 }
 
 // arg5 could be Vec3f (not Vec3f*)
-s32 func_800A8304(Player* player, s32 objId, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
+s32 func_800A8304(Player* player, ObjectId objId, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
     Vec3f sp84;
     Vec3f sp78;
     Vec3f sp6C;
@@ -2627,7 +2627,7 @@ void func_800ABAB4(void) {
     func_800AB334();
 }
 
-void func_800AC290(Player* player, PlayerShot* shot, f32 arg2, f32 arg3, s32 objId, f32 arg5) {
+void func_800AC290(Player* player, PlayerShot* shot, f32 arg2, f32 arg3, PlayerShotId shotId, f32 arg5) {
     Vec3f sp44;
     Vec3f sp38;
     Vec3f sp2C;
@@ -2637,7 +2637,7 @@ void func_800AC290(Player* player, PlayerShot* shot, f32 arg2, f32 arg3, s32 obj
     Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_4D8) * M_DTOR), 1);
     Matrix_RotateZ(gCalcMatrix, -((player->unk_0F8 + player->unk_0F0) * M_DTOR), 1);
     Matrix_Translate(gCalcMatrix, player->unk_084, player->unk_080, 0.0f, 1);
-    if (gVersusMode && (objId <= PLAYERSHOT_1)) {
+    if (gVersusMode && (shotId <= PLAYERSHOT_1)) {
         arg5 *= 0.5f;
     }
     sp44.x = 0.0f;
@@ -2653,7 +2653,7 @@ void func_800AC290(Player* player, PlayerShot* shot, f32 arg2, f32 arg3, s32 obj
     shot->vel.y = sp38.y;
     shot->vel.z = sp38.z;
     shot->unk_60 = 0;
-    shot->obj.id = objId;
+    shot->obj.id = shotId;
 
     if (!gVersusMode) {
         shot->unk_64 = 35;
@@ -2673,7 +2673,7 @@ void func_800AC290(Player* player, PlayerShot* shot, f32 arg2, f32 arg3, s32 obj
     shot->obj.rot.x = player->unk_120 + player->unk_0E4 + player->unk_4D8;
     shot->obj.rot.y = player->unk_0E8 + player->unk_114;
     shot->obj.rot.z = player->unk_0F8;
-    if (objId == PLAYERSHOT_8) {
+    if (shotId == PLAYERSHOT_8) {
         if (gCurrentLevel == LEVEL_AQUAS) {
             shot->unk_58 = Rand_ZeroOne() * 360.0f;
             shot->unk_60 = Rand_ZeroOne() * 360.0f;
@@ -2693,7 +2693,7 @@ void func_800AC290(Player* player, PlayerShot* shot, f32 arg2, f32 arg3, s32 obj
     shot->playerNum = player->num;
 }
 
-void func_800AC650(Player* player, PlayerShot* shot, s32 objId, f32 arg3) {
+void func_800AC650(Player* player, PlayerShot* shot, PlayerShotId shotId, f32 arg3) {
     Vec3f sp54;
     Vec3f sp48;
     Vec3f sp3C;
@@ -2739,10 +2739,10 @@ void func_800AC650(Player* player, PlayerShot* shot, s32 objId, f32 arg3) {
     shot->obj.rot.y = player->unk_0E8 + player->unk_114;
     shot->obj.rot.z = player->unk_0EC;
     shot->unk_64 = 40;
-    shot->obj.id = objId;
+    shot->obj.id = shotId;
 
     shot->playerNum = player->num;
-    if (objId == PLAYERSHOT_8) {
+    if (shotId == PLAYERSHOT_8) {
         if (arg3 <= 65.0f) {
             shot->unk_5C = 1;
         }
@@ -2823,7 +2823,7 @@ void func_800ACC7C(Player* player) {
     }
 }
 
-void func_800ACDC0(Player* player, PlayerShot* shot, s32 objId) {
+void func_800ACDC0(Player* player, PlayerShot* shot, PlayerShotId shotId) {
     Vec3f sp5C;
     Vec3f sp50;
     Vec3f sp44;
@@ -2835,7 +2835,7 @@ void func_800ACDC0(Player* player, PlayerShot* shot, s32 objId) {
     Matrix_RotateX(gCalcMatrix, player->unk_154 * M_DTOR, 1);
     sp5C.x = 0.0f;
     sp5C.y = 0.0f;
-    if (objId == PLAYERSHOT_3) {
+    if (shotId == PLAYERSHOT_3) {
         sp5C.z = 100.0f;
     } else {
         sp5C.z = 150.0f;
@@ -2861,7 +2861,7 @@ void func_800ACDC0(Player* player, PlayerShot* shot, s32 objId) {
     shot->unk_44 = 1.0f;
 
     shot->obj.status = 1;
-    shot->obj.id = objId;
+    shot->obj.id = shotId;
     shot->unk_64 = 30;
     shot->unk_58 = 1;
 
@@ -5200,11 +5200,11 @@ void func_800B48BC(Player* player) {
             *D_80177984 = 1;
         }
     }
-    if (player->state_1C8 >= 2) {
+    if (player->state_1C8 >= PLAYERSTATE_1C8_2) {
         func_800B39E0(player);
     }
     player->unk_228 = 0;
-    if ((player->state_1C8 >= 2) && (player->form == FORM_ARWING) && !gVersusMode) {
+    if ((player->state_1C8 >= PLAYERSTATE_1C8_2) && (player->form == FORM_ARWING) && !gVersusMode) {
         switch (player->unk_204) {
             case 0:
                 sp1C4 = Animation_GetFrameData(&D_3015AF4, 0, sp58);
@@ -5883,7 +5883,7 @@ void func_800B7184(Player* player, s32 arg1) {
 
 void func_800B71E4(Player* player) {
     switch (player->state_1C8) {
-        case 3:
+        case PLAYERSTATE_1C8_3:
             switch (gLevelMode) {
                 case LEVELMODE_ON_RAILS:
                     if (player->form == FORM_ARWING) {
@@ -5906,11 +5906,11 @@ void func_800B71E4(Player* player) {
                     break;
             }
             break;
-        case 5:
+        case PLAYERSTATE_1C8_5:
             player->unk_034 -= player->unk_034 * 0.1f;
             func_800B7184(player, 0);
             break;
-        case 4:
+        case PLAYERSTATE_1C8_4:
             if ((gLevelMode == LEVELMODE_ON_RAILS) && (player->form == FORM_ARWING)) {
                 player->camEye.x += (player->pos.x - player->camEye.x) * 0.1f;
                 player->camEye.y += (player->pos.y - player->camEye.y) * 0.1f;
@@ -5923,8 +5923,8 @@ void func_800B71E4(Player* player) {
                 player->camAt.z = player->unk_138 + D_80177D20 - 1.0f;
             }
             break;
-        case 6:
-        case 7:
+        case PLAYERSTATE_1C8_6:
+        case PLAYERSTATE_1C8_7:
             break;
     }
 }
@@ -6229,7 +6229,7 @@ void func_800B832C(void) {
     func_800B79B0();
 }
 
-void func_800B852C(s32 objId, Item* item) {
+void func_800B852C(ObjectId objId, Item* item) {
     u8 sp1F = Rand_ZeroOne() * 5.0f;
 
     if (D_800D317C == sp1F) {
