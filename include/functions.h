@@ -19,7 +19,6 @@ void* Memory_Allocate(s32);
 
 void func_8000FFCC(void);
 
-u8* func_8001C3EC(void);
 void func_80016A50(void);
 void func_800182F4(s32);
 void Audio_PlaySfx(u32, Vec3f*, u8, f32*, f32*, s8*);
@@ -34,10 +33,12 @@ void func_8001AE58(void);
 s32 func_8001AE78(void);
 s32 func_8001AED4(void);
 void func_8001AF40(s32);
+u8* func_8001C3EC(void);
 void func_8001C8B8(u8);      
 void func_8001CA24(u8);      
 void func_8001CB80(u8, u8);  
 void func_8001CCDC(u8, Vec3f *);
+void func_8001CE28(u8, Vec3f *);
 void func_8001D10C(Vec3f*, u32);
 void func_8001D15C(u8);
 void func_8001D1C8(u8, s32);
@@ -110,7 +111,7 @@ void func_8002F5F4(u16* msg, s32 character);
 void func_800319AC(Object_2F4* this);
 void func_80035448(Object_2F4* obj2F4);
 
-//sf_beam
+//fox_beam
 void PlayerShot_Initialize(PlayerShot *);
 void func_800365E4(f32, f32, f32, f32, f32, f32, f32, f32, f32, s32, s32);
 void func_8003D9B8(void);
@@ -220,9 +221,10 @@ void func_80061E48(Object_2F4* , f32 , f32 , f32 );
 void func_80061F0C(Object_2F4* , ObjectInit* , s32 );
 void Object_Load(ObjectInit* , f32 , f32 , f32 , f32 );
 void func_80062568(void);
+void func_80062B60(f32 xPos, f32 zPos, s32 arg2, f32 arg3);
 void func_80062C38(f32, f32); 
 s32 func_800631A8(Vec3f*, f32*, Vec3f*);
-s32 func_8006326C(Vec3f* , Vec3f* , s32 , Object* );
+s32 func_8006326C(Vec3f* , Vec3f* , ObjectId , Object* );
 s32 func_8006351C(s32 , Vec3f* , Vec3f* , s32 );
 void func_800652CC(Object_80*);
 void func_800654E4(Object *);
@@ -255,7 +257,7 @@ void func_80068914(Item*);
 void func_80068C48(Item*);
 void func_80068C88(Item*);
 void func_80068FE0(Object_4C*);
-void func_800690D0(s32, s32);
+void func_800690D0(s32, ObjectId);
 void func_80069924(Object_8C *);
 void func_800693E8(Object_2F4 *);
 void func_80069658(Object_408 *);
@@ -298,7 +300,7 @@ void func_80077218(Object_2F4*);
 void func_80077240(f32 posX, f32 posY, f32 posZ, s32 );
 void func_8007729C(void);
 void func_80077790(void);
-Object_8C* func_8007783C(s32 objId);
+Object_8C* func_8007783C(ObjectId objId);
 void func_8007797C(f32 posX, f32 posY, f32 posZ, f32 , f32 , f32 , f32 );
 void func_80077A00(Object_8C* );
 void func_80077A7C(Object_8C* );
@@ -504,7 +506,7 @@ bool func_800A73E4(f32* , s32* , f32 posX, f32 posY, f32 posZ);
 s32 func_800A78C4(Hitbox* hitbox, f32 , f32 , f32 , f32 , f32 , f32 );
 void func_800A8BA4(Player* player);
 void func_800AA800(Player *player);
-void func_800ACDC0(Player *, PlayerShot *, s32 );
+void func_800ACDC0(Player *, PlayerShot *, PlayerShotId );
 void func_800B0F50(Player *); 
 void func_800B44C4(Player *);
 void func_800B5FBC(Player *, s32 , s32 );
@@ -514,8 +516,9 @@ void func_800B6BFC(Player *, s32 );
 void func_800B6F50(f32, f32, f32, f32, f32, f32);
 void func_800B7184(Player *, s32);
 void func_800B73E0(Player *);
-void func_800B852C(s32 , Item *);
+void func_800B852C(ObjectId , Item *);
 void func_800B86CC(void);
+void func_800A668C(f32 xPos, f32 yPos, f32 zPos);
 void func_800AD7F0(Player *player);
 void func_800ADF58(Player *player);
 void func_800B415C(Player *player);
@@ -526,7 +529,7 @@ void func_800A86E4(Player* player);
 void func_800A887C(Player* player);
 s32 func_800A7974(Player* player, f32* hitboxData, s32* index, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot,
                   f32 zRot, f32 arg9, f32 argA, f32 argB);
-bool func_800A8054(s32 objId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, Vec3f* arg7, Vec3f* arg8);
+bool func_800A8054(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, Vec3f* arg7, Vec3f* arg8);
 
 // fox_radio
 s32 func_800BA7BC(u16*, s32);
@@ -567,11 +570,14 @@ void func_DF4260_80198594(Object_408 *);
 void func_DF4260_801988E0(void);
 void func_DF4260_80198C50(void);
 void func_DF4260_8019949C(void);
+void func_DF4260_8019864C(PlayerShot*);
 
 void func_E08400_80187B08(Object_2F4 *);
 void func_E08400_80188A40(Object_408 *);
 void func_E08400_8018CCF8(Object_2F4 *);
 
+void func_E16C50_801ABA40(PlayerShot*);
+void func_E16C50_801AC8A8(f32, f32, f32, f32, s32);
 void func_E16C50_80187754(Object_408 *);
 void func_E16C50_8018ED78(Player*);
 void func_E16C50_801900FC(Vec3f*, Vec3f*, f32, f32, f32, s32, f32, s32, s32);
@@ -647,8 +653,9 @@ void func_E6A810_801ACFBC(ObjectInit*);
 void func_E6A810_801AD080(void);
 void func_E6A810_801B5110(f32, f32, f32);
 void func_E6A810_801B58AC(Gfx **, f32);
- s32 func_E6A810_801B6AEC(f32, f32, f32);
+bool func_E6A810_801B6AEC(f32, f32, f32);
 void func_E6A810_801B6E20(f32, f32, f32 *, f32 *, f32 *);
+void func_E6A810_801AD144(PlayerShot*);
 
 void func_E9F1D0_801878A8(Object_58**);
 void func_E9F1D0_801888F4(Object_2F4 *);

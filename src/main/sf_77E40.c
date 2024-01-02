@@ -109,7 +109,7 @@ void func_80077790(void) {
     }
 }
 
-Object_8C* func_8007783C(s32 objId) {
+Object_8C* func_8007783C(ObjectId objId) {
     Object_8C* obj8C;
     s32 i;
 
@@ -612,11 +612,11 @@ void func_8007968C(Object_8C* obj8C) {
     }
 }
 
-s32 func_800798C4(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
+bool func_800798C4(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
     if ((arg0 != 1) && (arg0 != 5)) {
         *arg1 = NULL;
     }
-    return 0;
+    return false;
 }
 
 void func_800798F0(Object_8C* obj8C) {
@@ -859,13 +859,13 @@ void func_8007A748(Object_8C* obj8C) {
     }
 }
 
-s32 func_8007A774(Player* player, Object_8C* obj8C, f32 arg2) {
+bool func_8007A774(Player* player, Object_8C* obj8C, f32 arg2) {
     if ((fabsf(player->unk_138 - obj8C->obj.pos.z) < arg2) && (fabsf(player->pos.x - obj8C->obj.pos.x) < arg2) &&
         (fabsf(player->pos.y - obj8C->obj.pos.y) < arg2) && (player->timer_498 == 0)) {
         Player_ApplyDamage(player, 0, obj8C->info.damage);
-        return 1;
+        return true;
     } else {
-        return 0;
+        return false;
     }
 }
 

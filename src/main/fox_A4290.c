@@ -10,67 +10,67 @@ bool func_800A3690(Vec3f* arg0, Vec3f* arg1, s32 arg2, Vec3f* arg3) {
 }
 
 bool func_800A36FC(Vec3f* arg0, Vec3f* arg1, CollisionHeader2* arg2, Vec3f* arg3) {
-    Vec3f sp7C;
-    Plane sp6C;
-    s32 var_v1;
+    Vec3f pos;
+    Plane triPlane;
+    bool above;
     s32 i;
     s32 j;
-    Vec3f* sp54[3];
-    Vec3f sp48;
-    Vec3f sp3C;
+    Vec3f* tri[3];
+    Vec3f norm;
+    Vec3f vtx;
     s32 sp38 = false;
-    s32 sp34;
-    s16(*sp30)[3];
-    Vec3f* sp2C;
+    s32 count;
+    Triangle* polys;
+    Vec3f* mesh;
 
-    sp7C.x = arg0->x - arg1->x;
-    sp7C.y = arg0->y - arg1->y;
-    sp7C.z = arg0->z - arg1->z;
-    if ((sp7C.x < arg2->min.x) || (sp7C.y < arg2->min.y) || (sp7C.z < arg2->min.z) || (arg2->max.x < sp7C.x) ||
-        (arg2->max.y < sp7C.y) || (arg2->max.z < sp7C.z)) {
+    pos.x = arg0->x - arg1->x;
+    pos.y = arg0->y - arg1->y;
+    pos.z = arg0->z - arg1->z;
+    if ((pos.x < arg2->min.x) || (pos.y < arg2->min.y) || (pos.z < arg2->min.z) || (arg2->max.x < pos.x) ||
+        (arg2->max.y < pos.y) || (arg2->max.z < pos.z)) {
         return false;
     }
-    var_v1 = false;
-    sp34 = arg2->polyCount;
-    sp30 = SEGMENTED_TO_VIRTUAL(arg2->polys);
-    sp2C = SEGMENTED_TO_VIRTUAL(arg2->mesh);
-    for (i = 0; i < sp34; i++, sp30++) {
+    above = false;
+    count = arg2->polyCount;
+    polys = SEGMENTED_TO_VIRTUAL(arg2->polys);
+    mesh = SEGMENTED_TO_VIRTUAL(arg2->mesh);
+    for (i = 0; i < count; i++, polys++) {
         for (j = 0; j < 3; j++) {
-            sp54[j] = &sp2C[(*sp30)[j]];
+            tri[j] = &mesh[polys->vtx[j]];
         }
-        var_v1 = func_800A3A74(&sp7C, sp54, &sp48);
-        if (var_v1) {
+        above = func_800A3A74(&pos, tri, &norm);
+        if (above) {
             break;
         }
     }
-    if (var_v1) {
-        sp3C.x = sp54[0]->x;
-        sp3C.y = sp54[0]->y;
-        sp3C.z = sp54[0]->z;
-        func_80098860(&sp6C, &sp3C, &sp48);
-        arg3->y = func_800988B4(&sp7C, &sp6C);
-        if (sp6C.normal.x != 0.0f) {
-            sp48.x = -sp6C.dist / sp6C.normal.x;
+    if (above) {
+        vtx.x = tri[0]->x;
+        vtx.y = tri[0]->y;
+        vtx.z = tri[0]->z;
+        func_80098860(&triPlane, &vtx, &norm);
+        arg3->y = func_800988B4(&pos, &triPlane);
+        if (triPlane.normal.x != 0.0f) {
+            norm.x = -triPlane.dist / triPlane.normal.x;
         } else {
-            sp48.x = 0.0f;
+            norm.x = 0.0f;
         }
-        if (sp6C.normal.y != 0.0f) {
-            sp48.y = -sp6C.dist / sp6C.normal.y;
+        if (triPlane.normal.y != 0.0f) {
+            norm.y = -triPlane.dist / triPlane.normal.y;
         } else {
-            sp48.y = 0.0f;
+            norm.y = 0.0f;
         }
-        if (sp6C.normal.z != 0.0f) {
-            sp48.z = -sp6C.dist / sp6C.normal.z;
+        if (triPlane.normal.z != 0.0f) {
+            norm.z = -triPlane.dist / triPlane.normal.z;
         } else {
-            sp48.z = 0.0f;
+            norm.z = 0.0f;
         }
-        arg3->x = Math_Atan2F_XY(sp48.y, sp48.z);
-        if (sp48.z != 0.0f) {
-            arg3->z = -Math_Atan2F_XY(__sinf(Math_Atan2F_XY(sp48.y, sp48.z)) * sp48.z, sp48.x);
+        arg3->x = Math_Atan2F_XY(norm.y, norm.z);
+        if (norm.z != 0.0f) {
+            arg3->z = -Math_Atan2F_XY(__sinf(Math_Atan2F_XY(norm.y, norm.z)) * norm.z, norm.x);
         } else if (arg3->x >= M_PI) {
-            arg3->z = Math_Atan2F_XY(sp48.y, sp48.x);
+            arg3->z = Math_Atan2F_XY(norm.y, norm.x);
         } else {
-            arg3->z = -Math_Atan2F_XY(sp48.y, sp48.x);
+            arg3->z = -Math_Atan2F_XY(norm.y, norm.x);
         }
         if ((arg0->y <= arg3->y) || (gCurrentLevel == LEVEL_MACBETH)) {
             sp38 = true;
@@ -79,52 +79,51 @@ bool func_800A36FC(Vec3f* arg0, Vec3f* arg1, CollisionHeader2* arg2, Vec3f* arg3
     return sp38;
 }
 
-// Checks if arg0 is above the triangle arg1. If so, returns the triangle normal in arg2.
-s32 func_800A3A74(Vec3f* arg0, Vec3f** arg1, Vec3f* arg2) {
+// Checks if point is above the triangle tri. If so, returns the triangle normal in arg2.
+s32 func_800A3A74(Vec3f* point, Vec3f** tri, Vec3f* norm) {
     s32 pad;
     f32 temp1;
-    s32 var_v1;
+    bool ret = false;
     f32 temp_fv0;
-    Vec3f v1;
-    Vec3f v2;
-    Vec3f v3;
-    f32 a0x;
-    f32 a0y;
+    Vec3f vtx1;
+    Vec3f vtx2;
+    Vec3f vtx3;
+    f32 ptx;
+    f32 ptz;
 
-    var_v1 = false;
-    v1.x = (*arg1)->x;
-    v1.y = (*arg1)->y;
-    v1.z = (*arg1)->z;
-    arg1++;
-    v2.x = (*arg1)->x;
-    v2.y = (*arg1)->y;
-    v2.z = (*arg1)->z;
-    arg1++;
-    v3.x = (*arg1)->x;
-    v3.y = (*arg1)->y;
-    v3.z = (*arg1)->z;
-    arg1++;
+    vtx1.x = (*tri)->x;
+    vtx1.y = (*tri)->y;
+    vtx1.z = (*tri)->z;
+    tri++;
+    vtx2.x = (*tri)->x;
+    vtx2.y = (*tri)->y;
+    vtx2.z = (*tri)->z;
+    tri++;
+    vtx3.x = (*tri)->x;
+    vtx3.y = (*tri)->y;
+    vtx3.z = (*tri)->z;
+    tri++;
 
-    a0x = arg0->x;
-    a0y = arg0->z;
-    temp1 = ((v2.z - v1.z) * (a0x - v2.x)) - ((v2.x - v1.x) * (a0y - v2.z));
+    ptx = point->x;
+    ptz = point->z;
+    temp1 = ((vtx2.z - vtx1.z) * (ptx - vtx2.x)) - ((vtx2.x - vtx1.x) * (ptz - vtx2.z));
     if (temp1 >= 0.0f) {
-        if (((v3.x - v2.x) * (a0y - v3.z)) <= ((v3.z - v2.z) * (a0x - v3.x))) {
-            if (((v1.x - v3.x) * (a0y - v1.z)) <= ((v1.z - v3.z) * (a0x - v1.x))) {
-                var_v1 = true;
-                arg2->x = ((v2.y - v1.y) * (v3.z - v2.z)) - ((v2.z - v1.z) * (v3.y - v2.y));
-                arg2->y = ((v2.z - v1.z) * (v3.x - v2.x)) - ((v2.x - v1.x) * (v3.z - v2.z));
-                arg2->z = ((v2.x - v1.x) * (v3.y - v2.y)) - ((v2.y - v1.y) * (v3.x - v2.x));
-                if ((arg2->x != 0.0f) || (arg2->y != 0.0f) || (arg2->z != 0.0f)) {
-                    temp_fv0 = sqrtf(SQ(arg2->x) + SQ(arg2->y) + SQ(arg2->z));
+        if (((vtx3.x - vtx2.x) * (ptz - vtx3.z)) <= ((vtx3.z - vtx2.z) * (ptx - vtx3.x))) {
+            if (((vtx1.x - vtx3.x) * (ptz - vtx1.z)) <= ((vtx1.z - vtx3.z) * (ptx - vtx1.x))) {
+                ret = true;
+                norm->x = ((vtx2.y - vtx1.y) * (vtx3.z - vtx2.z)) - ((vtx2.z - vtx1.z) * (vtx3.y - vtx2.y));
+                norm->y = ((vtx2.z - vtx1.z) * (vtx3.x - vtx2.x)) - ((vtx2.x - vtx1.x) * (vtx3.z - vtx2.z));
+                norm->z = ((vtx2.x - vtx1.x) * (vtx3.y - vtx2.y)) - ((vtx2.y - vtx1.y) * (vtx3.x - vtx2.x));
+                if ((norm->x != 0.0f) || (norm->y != 0.0f) || (norm->z != 0.0f)) {
+                    temp_fv0 = sqrtf(SQ(norm->x) + SQ(norm->y) + SQ(norm->z));
                     if (temp_fv0 != 0) {
-                        arg2->x = (arg2->x / temp_fv0) * 127.0f;
-                        arg2->y = (arg2->y / temp_fv0) * 127.0f;
-                        arg2->z = (arg2->z / temp_fv0) * 127.0f;
+                        norm->x = (norm->x / temp_fv0) * 127.0f;
+                        norm->y = (norm->y / temp_fv0) * 127.0f;
+                        norm->z = (norm->z / temp_fv0) * 127.0f;
                     }
                 }
             }
         }
     }
-    return var_v1;
+    return ret;
 }

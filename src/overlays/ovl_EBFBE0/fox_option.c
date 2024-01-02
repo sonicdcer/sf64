@@ -1162,7 +1162,7 @@ void func_EBFBE0_80193C4C(void) {
 
         case 1:
             // clang-format off
-            if (func_EBFBE0_8019C418(&D_EBFBE0_801B91A8, 2, 1, 0, 20, 5, 4, gMainController, &D_EBFBE0_801B9188) != 0) { Audio_PlaySfx(0x49000022, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C); }
+            if (func_EBFBE0_8019C418(&D_EBFBE0_801B91A8, 2, 1, 0, 20, 5, 4, gMainController, &D_EBFBE0_801B9188)) { Audio_PlaySfx(0x49000022, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C); }
             // clang-format on
 
             if (gControllerPress[gMainController].button & (A_BUTTON | START_BUTTON)) {
@@ -1380,7 +1380,7 @@ void func_EBFBE0_80194AEC(void) {
     s32 sp3C = gSoundMode;
     s32 pad;
 
-    if (func_EBFBE0_8019C418(&sp3C, 2, 0, 0, 20, 5, 4, gMainController, &D_EBFBE0_801B9260) != 0) {
+    if (func_EBFBE0_8019C418(&sp3C, 2, 0, 0, 20, 5, 4, gMainController, &D_EBFBE0_801B9260)) {
         Audio_PlaySfx(0x49000002, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         gSoundMode = sp3C;
         if (gSoundMode >= 3) {
@@ -2056,7 +2056,7 @@ void func_EBFBE0_80196FC4(void) {
 }
 
 void func_EBFBE0_80197074(void) {
-    if (func_EBFBE0_8019C418(&D_EBFBE0_801B93E4, 9, 1, 0, 20, 5, 4, gMainController, &D_EBFBE0_801B9400) != 0) {
+    if (func_EBFBE0_8019C418(&D_EBFBE0_801B93E4, 9, 1, 0, 20, 5, 4, gMainController, &D_EBFBE0_801B9400)) {
         Audio_PlaySfx(0x49000002, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         D_EBFBE0_801B91D4 = 114.0f - D_EBFBE0_801B93E4 * 130.0f;
         D_EBFBE0_801B91DC = 114.0f - D_EBFBE0_801B93E4 * 130.0f;
@@ -3748,10 +3748,10 @@ s32 func_EBFBE0_8019C5A0(s32* arg0) {
     return ret;
 }
 
-s32 func_EBFBE0_8019C66C(f32* arg0, f32 arg1, f32 arg2, UnkStruct_D_EBFBE0_801B9250* arg3) {
+bool func_EBFBE0_8019C66C(f32* arg0, f32 arg1, f32 arg2, UnkStruct_D_EBFBE0_801B9250* arg3) {
     f32 var_fv1;
     f32 temp2;
-    s32 var_a2 = 0;
+    bool var_a2 = false;
     f32 temp = *arg0;
     s32 x = gControllerPress[gMainController].stick_x;
     s32 y = -gControllerPress[gMainController].stick_y;
@@ -3807,7 +3807,7 @@ s32 func_EBFBE0_8019C66C(f32* arg0, f32 arg1, f32 arg2, UnkStruct_D_EBFBE0_801B9
 
     if ((s32) temp2 != (s32) temp) {
         Audio_PlaySfx(0x49004007, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-        var_a2 = 1;
+        var_a2 = true;
     }
 
     return var_a2;
@@ -3964,7 +3964,7 @@ void func_EBFBE0_8019CD54(void) {
         case 0:
             if (D_EBFBE0_801B9138 == 0) {
                 if (func_EBFBE0_8019C418(&D_EBFBE0_801B90A0[D_EBFBE0_801B9098], 36, 0, 0, 50, 5, 10, gMainController,
-                                         &D_EBFBE0_801B9160[D_EBFBE0_801B9098]) != 0) {
+                                         &D_EBFBE0_801B9160[D_EBFBE0_801B9098])) {
                     Audio_PlaySfx(0x49000002, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                     D_EBFBE0_801B9150[D_EBFBE0_801B9098][0] = D_EBFBE0_801AEF5C[D_EBFBE0_801B90A0[D_EBFBE0_801B9098]];
                     D_EBFBE0_801B90D0[D_EBFBE0_801B9098] = 0.0f;

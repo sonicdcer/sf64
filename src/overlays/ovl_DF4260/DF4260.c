@@ -80,11 +80,11 @@ f32 func_DF4260_80187A88(s32 arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_DF4260/DF4260/func_DF4260_8018BBF8.s")
 
-s32 func_DF4260_8018BC50(s32 arg0, s32* arg1, s32 arg2, s32 arg3, UnkStruct_func_DF4260_8018BC50* arg4) {
+bool func_DF4260_8018BC50(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, UnkStruct_func_DF4260_8018BC50* arg4) {
     if ((arg4->unkB8 == 0x65) && (arg0 != 8)) {
-        *arg1 = 0;
+        *arg1 = NULL;
     }
-    return 0;
+    return false;
 }
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_DF4260/DF4260/func_DF4260_8018BC84.s")

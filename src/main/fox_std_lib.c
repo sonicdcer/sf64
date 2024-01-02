@@ -137,7 +137,7 @@ s32 Animation_GetLimbIndex(Limb* limb, Limb** skeleton) {
 
 void Animation_DrawLimb(s32 mode, Limb* limb, Limb** skeleton, Vec3f* jointTable, OverrideLimbDraw overrideLimbDraw,
                         PostLimbDraw postLimbDraw, void* data) {
-    s32 override;
+    bool override;
     s32 limbIndex;
     Gfx* dList;
     Vec3f trans;
@@ -194,7 +194,7 @@ void Animation_DrawLimb(s32 mode, Limb* limb, Limb** skeleton, Vec3f* jointTable
 
 void Animation_DrawSkeleton(s32 mode, Limb** skeletonSegment, Vec3f* jointTable, OverrideLimbDraw overrideLimbDraw,
                             PostLimbDraw postLimbDraw, void* data, Matrix* transform) {
-    s32 override;
+    bool override;
     Limb** skeleton;
     Limb* rootLimb;
     s32 rootIndex;

@@ -9,6 +9,75 @@
 #define HITBOX_UNK_4 400000.0f
 
 typedef struct {
+    /* 0x0 */ f32 offset;
+    /* 0x4 */ f32 size;
+} HitboxDim; // size = 0x8
+
+typedef struct {
+    /* 0x00 */ HitboxDim z;
+    /* 0x08 */ HitboxDim y;
+    /* 0x10 */ HitboxDim x;
+} Hitbox; // size = 0x18
+
+typedef struct {
+   /* 0x00 */ s16 vtx[3];
+   /* 0x06 */ s16 unk_06;
+   /* 0x08 */ Vec3s normal;
+   /* 0x10 */ s32 dist;
+} CollisionPoly; // size = 0x14
+
+typedef struct {
+    /* 0x00 */ Vec3f min;
+    /* 0x0C */ Vec3f max;
+    /* 0x18 */ s32 polyCount;
+    /* 0x1C */ CollisionPoly* polys;
+    /* 0x20 */ Vec3s* mesh;
+} CollisionHeader; // size = 0x24
+
+typedef struct {
+   /* 0x00 */ Vec3f min;
+   /* 0x0C */ Vec3f max;
+   /* 0x18 */ s32 polyCount;
+   /* 0x1C */ Triangle* polys;
+   /* 0x20 */ Vec3f* mesh;
+} CollisionHeader2; // size = 0x24
+
+typedef enum {
+    /*  0 */ COL1_0, // OBJ_2F4_180
+    /*  1 */ COL1_1, // OBJ_80_39
+    /*  2 */ COL1_2,
+    /*  3 */ COL1_3, // OBJ_UNK_1000
+    /*  4 */ COL1_4, // OBJ_408_308
+    /*  5 */ COL1_5, // OBJ_80_149
+    /*  6 */ COL1_6, // OBJ_80_150
+    /*  7 */ COL1_7, // OBJ_408_309
+    /*  8 */ COL1_8, // OBJ_408_313
+    /*  9 */ COL1_9, // OBJ_408_312
+} CollisonId_1;
+
+typedef enum {
+    /*  0 */  COL2_0, // default
+    /*  1 */  COL2_1, // OBJ_80_4, OBJ_80_5
+    /*  2 */  COL2_2, // OBJ_80_2
+    /*  3 */  COL2_3, // OBJ_80_3, OBJ_80_69
+    /*  4 */  COL2_4, // OBJ_80_140
+    /*  5 */  COL2_5, // PLAYERSHOT_7 ?
+    /*  6 */  COL2_6, // OBJ_80_141
+    /*  7 */  COL2_7, // OBJ_80_47
+    /*  8 */  COL2_8, // OBJ_80_70
+    /*  9 */  COL2_9, // OBJ_80_72
+    /* 10 */ COL2_10, // OBJ_80_71
+    /* 11 */ COL2_11, // OBJ_80_73
+    /* 12 */ COL2_12, // OBJ_80_67
+    /* 13 */ COL2_13, // OBJ_80_74
+    /* 14 */ COL2_14, // OBJ_80_117
+    /* 15 */ COL2_15, // OBJ_80_124
+    /* 16 */ COL2_16, // OBJ_80_126
+    /* 17 */ COL2_17, // OBJ_80_143
+    /* 18 */ COL2_18, // OBJ_80_120
+} CollisionId_2;
+
+typedef struct {
     /* 0x00 */ f32 zPos1;
     /* 0x04 */ s16 zPos2;
     /* 0x06 */ s16 xPos;
@@ -74,7 +143,7 @@ typedef struct {
     /* 0x44 */ s32 unk_44;
     /* 0x48 */ s32 unk_48;
     /* 0x4C */ s32 timer_4C;
-    /* 0x50 */ u8 unk_50;
+    /* 0x50 */ s8 unk_50;
     /* 0x51 */ char pad51[3];
     /* 0x54 */ s32 unk_54;
     /* 0x58 */ char pad58[8];
