@@ -94,7 +94,7 @@ extern s32 D_EBFBE0_801CD944; // mapState
 extern s32 D_EBFBE0_801CD948;
 extern s32 D_EBFBE0_801CD94C;
 extern s32 D_EBFBE0_801CD950;
-extern s32 D_EBFBE0_801CD954;
+extern s32 D_EBFBE0_801CD954; // sCurrentPlanetId
 extern s32 D_EBFBE0_801CD958;
 extern s32 D_EBFBE0_801CD95C;
 extern s32 D_EBFBE0_801CD960;
@@ -670,7 +670,7 @@ void func_EBFBE0_8019F164(void) {
 void func_EBFBE0_8019F42C(void) {
     s32 i;
 
-    D_80161714 += gHitCount;
+    gTotalHits += gHitCount;
     gLifeCount[gPlayerNum] = 0;
 
     D_EBFBE0_801CD974 = 1;
@@ -717,7 +717,7 @@ void func_EBFBE0_8019F600(void) {
     s32 sp18;
     s32 temp_t4;
 
-    D_80161714 = 0;
+    gTotalHits = 0;
     gHitCount = 0;
 
     gTeamShields[1] = 255;
@@ -2258,7 +2258,84 @@ void func_EBFBE0_801A4F8C(void) {
     gDrawMode = DRAWMODE_0;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A4FC4.s")
+void func_EBFBE0_801A4FC4(void) {
+    s32 i;
+    s32 temp;
+    s32 temp2;
+
+    gPlayerNum = 0;
+
+    for (i = 0; i < 6; i++) {
+        gSavedTeamShields[i] = D_80177C58[i];
+        gTeamShields[i] = D_80177C58[i];
+        D_80177C38[i] = D_80177C58[i];
+    }
+
+    for (i = 1; i < 4; i++) {
+        if (D_80177C38[i] == 0) {
+            D_80177C38[i] = 255;
+        }
+    }
+
+    gLaserStrength[gPlayerNum] = 0;
+    gBombCount[gPlayerNum] = 3;
+
+    if (planet[D_EBFBE0_801CD954].unk_2C != -1) {
+        temp2 = func_EBFBE0_801A655C(D_EBFBE0_801CD954, planet[D_EBFBE0_801CD954].unk_2C);
+        D_80177BD8[temp2] = 0;
+        D_EBFBE0_801AFD18[temp2].unk_18 = 0;
+    }
+
+    if (planet[D_EBFBE0_801CD954].unk_30 != -1) {
+        temp = func_EBFBE0_801A655C(D_EBFBE0_801CD954, planet[D_EBFBE0_801CD954].unk_30);
+        D_80177BD8[temp] = 0;
+        D_EBFBE0_801AFD18[temp].unk_18 = 0;
+    }
+
+    if (planet[D_EBFBE0_801CD954].unk_34 != -1) {
+        temp = func_EBFBE0_801A655C(D_EBFBE0_801CD954, planet[D_EBFBE0_801CD954].unk_34);
+        D_80177BD8[temp] = 0;
+        D_EBFBE0_801AFD18[temp].unk_18 = 0;
+    }
+
+    D_EBFBE0_801AFD18[D_EBFBE0_801CEECC].unk_14 = 0;
+    D_EBFBE0_801CEEA0 = 0;
+    D_EBFBE0_801CEEA4 = 0;
+    D_EBFBE0_801CEEA8 = 255;
+    D_EBFBE0_801CEEAC = 255;
+
+    gTotalHits -= D_80177B70[D_80177B48 - 1];
+    D_80177B90[D_80177B48] = -1;
+    D_80177B70[D_80177B48 - 1] = 0;
+    D_80177BB0[D_80177B48 - 1] = 0;
+    D_80177B50[D_80177B48 - 1] = 0x00FFFFFF;
+    gHitCount = 0;
+    D_80177B48--;
+
+    D_EBFBE0_801CD83C = func_EBFBE0_801A05B4();
+
+    D_EBFBE0_801CD954 = D_EBFBE0_801CD950;
+
+    if (planet[D_EBFBE0_801CD954].unk_2C != -1) {
+        temp2 = func_EBFBE0_801A655C(D_EBFBE0_801CD954, planet[D_EBFBE0_801CD954].unk_2C);
+        D_80177BD8[temp2] = 1;
+        D_EBFBE0_801AFD18[temp2].unk_18 = 255;
+    }
+
+    if (planet[D_EBFBE0_801CD954].unk_30 != -1) {
+        temp = func_EBFBE0_801A655C(D_EBFBE0_801CD954, planet[D_EBFBE0_801CD954].unk_30);
+        D_80177BD8[temp] = 1;
+        D_EBFBE0_801AFD18[temp].unk_18 = 255;
+    }
+
+    if (planet[D_EBFBE0_801CD954].unk_34 != -1) {
+        temp = func_EBFBE0_801A655C(D_EBFBE0_801CD954, planet[D_EBFBE0_801CD954].unk_34);
+        D_80177BD8[temp] = 0;
+        D_EBFBE0_801AFD18[temp].unk_18 = 0;
+    }
+
+    func_EBFBE0_801A6368();
+}
 
 void func_EBFBE0_801A53C8(void) {
     s32 temp;
@@ -3779,8 +3856,8 @@ void func_EBFBE0_801A9DE8(void) {
     }
 
     if ((D_80161A34 == 7) || (D_80161A34 == 5)) {
-        if (D_EBFBE0_801CD83C < D_80161714) {
-            D_EBFBE0_801CD83C = D_80161714;
+        if (D_EBFBE0_801CD83C < gTotalHits) {
+            D_EBFBE0_801CD83C = gTotalHits;
         }
         func_EBFBE0_801A9EE4();
         func_EBFBE0_801A9FD4(0);
@@ -3827,7 +3904,7 @@ void func_EBFBE0_801A9EE4(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
     Graphics_DisplaySmallText(24, 14, 1.0f, 1.0f, "TOTAL HITS");
-    Graphics_DisplaySmallNumber(71 - (func_8008BCBC(D_80161714) * 8), 24, D_80161714);
+    Graphics_DisplaySmallNumber(71 - (func_8008BCBC(gTotalHits) * 8), 24, gTotalHits);
     Graphics_DisplaySmallText(143, 14, 1.0f, 1.0f, "TOP");
     Graphics_DisplaySmallNumber(167 - (func_8008BCBC(D_EBFBE0_801CD83C) * 8), 24, D_EBFBE0_801CD83C);
 }

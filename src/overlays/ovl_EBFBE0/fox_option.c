@@ -3846,10 +3846,10 @@ s32 func_EBFBE0_8019C8C4(void) {
     ret = -1;
 
     for (i = 0; i < 10; i++) {
-        if (D_EBFBE0_801B8220[i] <= D_80161714) {
-            if (D_EBFBE0_801B8220[i] == D_80161714) {
+        if (D_EBFBE0_801B8220[i] <= gTotalHits) {
+            if (D_EBFBE0_801B8220[i] == gTotalHits) {
                 for (j = i; j < 10; j++) {
-                    if (D_EBFBE0_801B8220[j] != D_80161714) {
+                    if (D_EBFBE0_801B8220[j] != gTotalHits) {
                         ret = j;
                         break;
                     }
@@ -3857,7 +3857,7 @@ s32 func_EBFBE0_8019C8C4(void) {
                     if (temp[j] <= gLifeCount[gPlayerNum]) {
                         if (temp[j] == gLifeCount[gPlayerNum]) {
                             for (k = j; k < 10; k++) {
-                                if ((temp[k] != gLifeCount[gPlayerNum]) || (D_EBFBE0_801B8220[k] != D_80161714)) {
+                                if ((temp[k] != gLifeCount[gPlayerNum]) || (D_EBFBE0_801B8220[k] != gTotalHits)) {
                                     ret = k;
                                     break;
                                 }
@@ -4087,8 +4087,8 @@ void func_EBFBE0_8019D118(void) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    Graphics_DisplayLargeNumber(D_EBFBE0_801AF30C[3] - ((func_8008BCBC(D_80161714) - 1) * 13), D_EBFBE0_801AF324[3],
-                                D_80161714);
+    Graphics_DisplayLargeNumber(D_EBFBE0_801AF30C[3] - ((func_8008BCBC(gTotalHits) - 1) * 13), D_EBFBE0_801AF324[3],
+                                gTotalHits);
 
     func_EBFBE0_801A9FD4(1);
 
@@ -4347,7 +4347,7 @@ void func_EBFBE0_8019DE74(void) {
             D_80178410 = 0;
             gGameState = GSTATE_INIT;
             gLifeCount[0] = 2;
-            D_80161714 = 0;
+            gTotalHits = 0;
         } else if (D_80161A34 == 8) {
             func_800182F4(0x100100FF);
             func_800182F4(0x110100FF);
@@ -4380,10 +4380,10 @@ void func_EBFBE0_8019E030(void) {
 
         case 1:
             if (D_EBFBE0_801B9178 == 0) {
-                if (((D_80161714 * 64) >= 50000) && ((D_80161714 * 64) < 70000)) {
+                if (((gTotalHits * 64) >= 50000) && ((gTotalHits * 64) < 70000)) {
                     Audio_PlaySfx(0x49000032, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 }
-                if ((D_80161714 * 64) >= 70000) {
+                if ((gTotalHits * 64) >= 70000) {
                     Audio_PlaySfx(0x49000033, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 }
                 D_EBFBE0_801B9178 = 20;
@@ -4406,7 +4406,7 @@ void func_EBFBE0_8019E030(void) {
                 gGameState = GSTATE_INIT;
                 gDrawMode = DRAWMODE_0;
                 *gLifeCount = 2;
-                D_80161714 = 0;
+                gTotalHits = 0;
             }
             break;
     }
@@ -4458,10 +4458,10 @@ void func_EBFBE0_8019E284(void) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, 255);
 
-    Graphics_DisplayLargeNumber(D_EBFBE0_801AF3D0[6] - ((func_8008BCBC(D_80161714) - 1) * 13), D_EBFBE0_801AF3F0[6],
-                                D_80161714);
+    Graphics_DisplayLargeNumber(D_EBFBE0_801AF3D0[6] - ((func_8008BCBC(gTotalHits) - 1) * 13), D_EBFBE0_801AF3F0[6],
+                                gTotalHits);
 
-    temp_a0 = D_80161714 * 64;
+    temp_a0 = gTotalHits * 64;
 
     Graphics_DisplayLargeNumber(D_EBFBE0_801AF3D0[7] - ((func_8008BCBC(temp_a0) - 1) * 13), D_EBFBE0_801AF3F0[7],
                                 temp_a0);

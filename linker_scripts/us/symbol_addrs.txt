@@ -86,6 +86,7 @@ D_800D8570 = 0x800D8570; // force_migration:True
 D_800D8594 = 0x800D8594; // force_migration:True
 D_800C93EC = 0x800C93EC; // force_migration:True
 
+gTotalHits = 0x80161714;
 D_80177BD8 = 0x80177BD8;
 D_80177C58 = 0x80177C58;
 
