@@ -1614,7 +1614,24 @@ void func_8007CAF0(Object_8C* arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007CC00.s")
+void func_8007CC00(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 scale2) {
+    Object_8C_Initialize(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = OBJ_8C_339;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = posY;
+    arg0->obj.pos.z = posZ;
+    arg0->scale2 = scale2;
+    arg0->scale1 = 0.5f;
+    arg0->unk_4C = 0;
+    arg0->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    Object_SetInfo(&arg0->info, arg0->obj.id);
+    if (gLevelType == LEVELTYPE_PLANET) {
+        arg0->unk_44 = 230;
+    } else {
+        arg0->unk_44 = 0xFF;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007CCBC.s")
 
