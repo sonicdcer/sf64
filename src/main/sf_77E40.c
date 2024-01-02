@@ -1607,7 +1607,7 @@ void func_8007CAF0(Object_8C* arg0) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, arg0->unk_4A);
         gSPDisplayList(gMasterDisp++, D_102A010);
     } else {
-        Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, (u8) 1);
+        Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255,255, 255, arg0->unk_4A);
         gSPDisplayList(gMasterDisp++, D_20031B0);
@@ -1652,7 +1652,32 @@ void func_8007CCBC(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 scale2) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007CD7C.s")
+void func_8007CD7C(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 scale2, s32 timer50) {
+    Object_8C_Initialize(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = OBJ_8C_342;
+    arg0->timer_50 = timer50;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = posY;
+    arg0->obj.pos.z = posZ;
+    arg0->unk_48 = 3;
+    if (Rand_ZeroOne() < 0.5f) {
+        arg0->unk_48 = -arg0->unk_48;
+    }
+    arg0->unk_4A = 0xFF;
+    arg0->scale2 = scale2;
+    arg0->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    if ((Rand_ZeroOne() < 0.5f) && (gLevelType == LEVELTYPE_PLANET) && (timer50 != 1)) {
+        arg0->unk_44 = 1;
+    }
+    if (timer50 == 2) {
+        arg0->unk_44 = 1;
+    }
+    if (scale2 == 2.2f) {
+        arg0->unk_44 = 0;
+    }
+    Object_SetInfo(&arg0->info, arg0->obj.id);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007CEBC.s")
 
