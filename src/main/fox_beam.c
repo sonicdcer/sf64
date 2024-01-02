@@ -831,7 +831,8 @@ void func_80038140(PlayerShot* shot) {
                 } else {
                     temp_fa0 = temp_fv1;
                 }
-                if ((i != shot->playerNum) && ((player->state_1C8 == PLAYERSTATE_1C8_3) || (player->state_1C8 == PLAYERSTATE_1C8_4)) &&
+                if ((i != shot->playerNum) &&
+                    ((player->state_1C8 == PLAYERSTATE_1C8_3) || (player->state_1C8 == PLAYERSTATE_1C8_4)) &&
                     (fabsf(player->unk_138 - shot->obj.pos.z) < temp_fv1) &&
                     (fabsf(player->pos.x - shot->obj.pos.x) < temp_fv1) &&
                     (fabsf(player->pos.y - shot->obj.pos.y) < temp_fa0)) {
@@ -2017,7 +2018,8 @@ void func_8003CC08(PlayerShot* shot) {
             shot->obj.rot.y += 1.0f;
             Math_SmoothStepToF(&shot->unk_44, shot->unk_48, 0.05f, 1.5f, 0.001f);
             if ((shot->unk_64 > 0) && (shot->unk_64 < 30)) {
-                if (!gVersusMode && ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5))) {
+                if (!gVersusMode &&
+                    ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5))) {
                     temp_fv1 = gPlayer[0].pos.x - shot->obj.pos.x;
                     temp_fa0 = gPlayer[0].pos.y - shot->obj.pos.y;
                     temp_fa1 = gPlayer[0].unk_138 - shot->obj.pos.z;
@@ -2080,7 +2082,8 @@ void func_8003CF90(PlayerShot* shot) {
                 }
             }
             for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
-                if (((player->state_1C8 == PLAYERSTATE_1C8_3) || (player->state_1C8 == PLAYERSTATE_1C8_5)) && (D_80177B00[i][shot->playerNum] != 0)) {
+                if (((player->state_1C8 == PLAYERSTATE_1C8_3) || (player->state_1C8 == PLAYERSTATE_1C8_5)) &&
+                    (D_80177B00[i][shot->playerNum] != 0)) {
                     var_a3 = 1;
                     D_80177B00[i][shot->playerNum] = 2;
                     D_800C9C24.x = player->pos.x;

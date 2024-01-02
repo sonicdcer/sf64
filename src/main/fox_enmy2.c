@@ -1597,8 +1597,8 @@ void func_8006EC60(f32 xPos, f32 yPos, f32 zPos) {
     }
 }
 
-void func_8006ECBC(PlayerShotId objId, PlayerShot* shot, s32 unk0E4, f32 xPos, f32 yPos, f32 zPos, f32 arg6, f32 arg7, f32 arg8,
-                   f32 xRot, f32 yRot, f32 zRot) {
+void func_8006ECBC(PlayerShotId objId, PlayerShot* shot, s32 unk0E4, f32 xPos, f32 yPos, f32 zPos, f32 arg6, f32 arg7,
+                   f32 arg8, f32 xRot, f32 yRot, f32 zRot) {
     PlayerShot_Initialize(shot);
     shot->obj.status = 1;
 
