@@ -63,6 +63,8 @@ extern Gfx D_EBFBE0_801B4A40[];
 extern void* D_EBFBE0_801B68D4[];
 extern Gfx* D_EBFBE0_801B68F8[];
 extern f32 D_EBFBE0_801B6970;
+extern f32 D_EBFBE0_801B694C;
+extern f32 D_EBFBE0_801B6950;
 extern f32 D_EBFBE0_801B69D4[8];
 extern f32 D_EBFBE0_801B69F4[8];
 extern f32 D_EBFBE0_801B6A14[8];
@@ -231,6 +233,7 @@ extern f32 D_EBFBE0_801CF124;
 extern u8 D_5000500[];
 
 extern u8 D_600D590[];
+extern u8 D_6019030[];
 extern Gfx D_601D1F0[];
 extern u8 D_601DC10[];
 extern u16 D_601DC90[];
@@ -279,6 +282,7 @@ void func_EBFBE0_801A0788(void);
 void func_EBFBE0_801A0954(void);
 void func_EBFBE0_801A0D14(void);
 void func_EBFBE0_801A1528(void);
+void func_EBFBE0_801A116C(void);
 void func_EBFBE0_801A19A8(void);
 void func_EBFBE0_801A1C14(void);
 f32 func_EBFBE0_801A25C8(PlanetId);
@@ -1307,7 +1311,63 @@ void func_EBFBE0_801A0954(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A0D14.s")
+#ifndef IMPORT_DATA
+u16* D_EBFBE0_801B6954[];
+#endif
+
+void func_EBFBE0_801A0D14(void) {
+    s32 i;
+#ifdef IMPORT_DATA
+    static f32 D_EBFBE0_801B694C = 71.0f;
+    static f32 D_EBFBE0_801B6950 = 205.0f;
+    static u16* D_EBFBE0_801B6954[] = {
+        (u16*) 0x06041A80, (u16*) 0x06035780, (u16*) 0x06033080, (u16*) 0x0603A580,
+        (u16*) 0x0603F380, (u16*) 0x06037E80, (u16*) 0x0603CC80,
+    };
+#endif
+
+    func_EBFBE0_801A116C();
+
+    RCP_SetupDL(&gMasterDisp, 0x51);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 180, 180, 180, 255);
+
+    Message_DisplayScrollingText(&gMasterDisp, gMsg_ID_1, D_EBFBE0_801CD9DC, D_EBFBE0_801CD9E0, 218, 70,
+                                 Message_GetCharCount(gMsg_ID_1));
+
+    RCP_SetupDL(&gMasterDisp, 0x4C);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+
+    TextureRect_8bIA(&gMasterDisp, D_6019030, 8, 16, 0.0f, D_EBFBE0_801B694C, 40.0f, 1.66f);
+    TextureRect_8bIA_MirY(&gMasterDisp, D_6019030, 8, 16, 0.0f, D_EBFBE0_801B6950, 40.0f, 1.68f);
+
+    func_8003DE68(0x47, 0x76);
+    func_8003DE68(0xCD, 0xEF);
+
+    RCP_SetupDL(&gMasterDisp, 0x4C);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, D_EBFBE0_801CD9E8);
+
+    for (i = 0; i < 13; i++) {
+        TextureRect_16bRGBA(&gMasterDisp, D_EBFBE0_801B6954[D_EBFBE0_801CD9F0] + (96 * 4 * i), 96, 4, 109.0f,
+                            24.0f + (4.0f * i), 1.0f, 1.0f);
+    }
+
+    if ((D_EBFBE0_801CD9E4 != 0) && (D_EBFBE0_801CD9F0 + 1 < 7)) {
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, D_EBFBE0_801CD9E4);
+
+        for (i = 0; i < 13; i++) {
+            TextureRect_16bRGBA(&gMasterDisp, D_EBFBE0_801B6954[D_EBFBE0_801CD9F0 + 1] + (i * 96 * 4), 96, 4, 109.0f,
+                                24.0f + (i * 4.0f), 1.0f, 1.0f);
+        }
+
+        if (D_EBFBE0_801CD9E4 == 255) {
+            D_EBFBE0_801CD9E4 = 0;
+            D_EBFBE0_801CD9F0++;
+        }
+    }
+}
 
 void func_EBFBE0_801A116C(void) {
 #ifdef IMPORT_DATA
