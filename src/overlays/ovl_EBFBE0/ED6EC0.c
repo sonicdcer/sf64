@@ -296,6 +296,7 @@ void func_EBFBE0_801A2B8C(void);
 void func_EBFBE0_801A2EB8();
 void func_EBFBE0_801A3550(Vec3f*, Vec3f*, Vec3f*, f32);
 void func_EBFBE0_801A36A8(void);
+void func_EBFBE0_801A4394(void);
 void func_EBFBE0_801A4650(void);
 void func_EBFBE0_801A48C0(f32 speed);
 void func_EBFBE0_801A4A38(f32 arg0);
@@ -1969,7 +1970,92 @@ void func_EBFBE0_801A3550(Vec3f* arg0, Vec3f* arg1, Vec3f* arg2, f32 arg3) {
     (arg0 + 1)->z = (temp_fa1 * arg2->z) + (temp_fs0 * (arg2 + 1)->z) + (temp_ft5 * (arg2 + 2)->z);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A36A8.s")
+void func_EBFBE0_801A36A8(void) {
+    s32 i;
+    f32 temp;
+
+    switch (D_EBFBE0_801CD948) {
+        case 0:
+            D_80178348 = 0;
+            D_80178350 = 0;
+            D_80178354 = 0;
+            D_80178340 = 0xFF;
+
+            for (i = 0; i < 8; i++) {
+                D_EBFBE0_801CF020[i] = D_EBFBE0_801B69D4[i];
+                D_EBFBE0_801CF040[i] = D_EBFBE0_801B69F4[i];
+                D_EBFBE0_801CF060[i] = D_EBFBE0_801B6A14[i];
+            }
+
+            D_EBFBE0_801CF0C8 = D_EBFBE0_801B6A34[1];
+            D_EBFBE0_801CF0CC = D_EBFBE0_801B6A3C[1];
+            D_EBFBE0_801CF0D0 = D_EBFBE0_801B6A44[1];
+
+            D_EBFBE0_801CF120 = 0;
+            D_EBFBE0_801CEA9C = 255.0f;
+            D_EBFBE0_801CF080 = 1.0f;
+            D_EBFBE0_801CD948 = 10;
+
+            func_8001D444(0, 0x28, 0, 0xFF);
+            break;
+
+        case 10:
+            temp = Math_SmoothStepToF(&D_EBFBE0_801CEA9C, 0.0f, 1.0f, 100.0f, 1.0f);
+
+            D_80178340 = D_EBFBE0_801CEA9C;
+
+            if (temp == 0.0f) {
+                D_80178340 = 0;
+                D_EBFBE0_801CD9C0 = 0;
+                D_EBFBE0_801CD948 = 20;
+            }
+            break;
+
+        case 20:
+            if (D_EBFBE0_801CD9C0 != 0) {
+                break;
+            }
+            D_EBFBE0_801CD94C = 0;
+            D_EBFBE0_801CD9C0 = 0;
+            D_EBFBE0_801CD948 = 1;
+            break;
+
+        case 1:
+            if (D_EBFBE0_801CF120) {
+                D_EBFBE0_801CDA1C += 0.03f;
+            }
+            if (D_EBFBE0_801CD9C0) {
+                break;
+            }
+            func_EBFBE0_801A3A00();
+            break;
+
+        case 2:
+            func_EBFBE0_801A4394();
+            break;
+
+        case 3:
+            D_80178340 += 32;
+            if (D_80178340 > 255) {
+                D_80178340 = 255;
+                D_EBFBE0_801CD948++;
+            }
+            break;
+
+        case 4:
+            gGameState = 3;
+            D_Timer_8017783C = 2;
+            D_8017784C = 0;
+            gDrawMode = 0;
+            D_80178410 = 0;
+            break;
+    }
+
+    if (gControllerPress[gMainController].button & (A_BUTTON | START_BUTTON)) {
+        Audio_PlaySfx(0x49000003U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        D_EBFBE0_801CD948 = 3;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A3A00.s")
 
@@ -2017,7 +2103,7 @@ void func_EBFBE0_801A4394(void) {
             break;
 
         case 3:
-            if (D_EBFBE0_801CD9C0) {
+            if (D_EBFBE0_801CD9C0 != 0) {
                 break;
             }
 
