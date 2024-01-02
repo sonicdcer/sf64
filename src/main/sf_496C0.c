@@ -1009,13 +1009,13 @@ void func_8004EBD0(Object_2F4* arg0) {
         arg0->obj.rot.x = -gPlayer->unk_0E4;
         arg0->obj.rot.y = gPlayer->unk_0E8 + 180.0f;
 
-        if (1) {
-            arg0->unk_130 += 1.0f;
-            if ((s32) arg0->unk_130 & 0x40) {
-                arg0->unk_114 += 0.1f;
-            } else {
-                arg0->unk_114 -= 0.1f;
-            }
+        if (1) {}
+
+        arg0->unk_130 += 1.0f;
+        if ((s32) arg0->unk_130 & 0x40) {
+            arg0->unk_114 += 0.1f;
+        } else {
+            arg0->unk_114 -= 0.1f;
         }
 
         arg0->unk_134 += 1.2f;
