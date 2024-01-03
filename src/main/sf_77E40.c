@@ -1894,11 +1894,48 @@ void func_8007D748(Object_8C* arg0) {
     Math_SmoothStepToF(&arg0->scale1, 0, 1.0f, 0.1f, 0.0f);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007D8A8.s")
+void func_8007D8A8(Object_8C* arg0) {
+    if (gLevelType == LEVELTYPE_SPACE) {
+        func_8007D2F4(arg0);
+        return;
+    }
+    arg0->unk_54.y += 0.3f;
+    if (arg0->timer_50 == 0) {
+        arg0->unk_4C++;
+        arg0->timer_50 = 2;
+        if (arg0->unk_4C >= 20) {
+            Object_Kill(&arg0->obj, &arg0->sfxPos);
+        }
+    }
+    if (arg0->unk_4C >= 16) {
+        arg0->unk_44 -= 20;
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007D94C.s")
+void func_8007D94C(Object_8C* arg0, f32 posX, f32 posY, f32 posZ, f32 scale2, f32 scale1, s32 timer50) {
+    Object_8C_Initialize(arg0);
+    arg0->obj.status = 1;
+    arg0->obj.id = OBJ_8C_367;
+    arg0->obj.pos.x = posX;
+    arg0->obj.pos.y = posY;
+    arg0->obj.pos.z = posZ;
+    arg0->unk_44 = 80;
+    arg0->scale2 = scale2;
+    arg0->scale1 = scale1;
+    arg0->timer_50 = timer50;
+    Object_SetInfo(&arg0->info, arg0->obj.id);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007D9DC.s")
+void func_8007D9DC(f32 posX, f32 posY, f32 posZ, f32 scale2, f32 scale1, s32 timer50) {
+    s32 i;
+
+    for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
+        if (gObjects8C[i].obj.status == 0) {
+            func_8007D94C(&gObjects8C[i], posX, posY, posZ, scale2, scale1, timer50);
+            break;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007DA58.s")
 
