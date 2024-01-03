@@ -225,7 +225,7 @@ typedef struct {
     /* 0x068 */ f32 unk_068;
     /* 0x06C */ Vec3f vel;     
     /* 0x078 */ char pad78[0xC]; 
-    /* 0x084 */ f32 unk_084;       
+    /* 0x084 */ f32 gravity;       
     /* 0x088 */ s16 unk_088;
     /* 0x08A */ s16 unk_08A;
     /* 0x08C */ char pad8C[6];
@@ -323,7 +323,7 @@ typedef struct {
     /* 0x0E8 */ Vec3f vel;
     /* 0x0F4 */ Vec3f unk_0F4;
     /* 0x100 */ Vec3f sfxPos;
-    /* 0x10C */ f32 unk_10C;
+    /* 0x10C */ f32 gravity;
     /* 0x110 */ f32 scale;
     /* 0x114 */ f32 unk_114;
     /* 0x118 */ f32 unk_118;

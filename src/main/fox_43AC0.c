@@ -75,7 +75,7 @@ void func_80042FF4(Object_2F4* obj2F4, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f
     obj2F4->timer_0BE = 20;
     Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
     if (gLevelType == LEVELTYPE_PLANET) {
-        obj2F4->unk_10C = 0.5f;
+        obj2F4->gravity = 0.5f;
     }
 }
 

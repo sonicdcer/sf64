@@ -1695,7 +1695,7 @@ void func_80066254(Object_2F4* obj2F4) {
 }
 
 void func_8006654C(Object_2F4* obj2F4) {
-    obj2F4->unk_10C = 0.4f;
+    obj2F4->gravity = 0.4f;
     if (obj2F4->obj.pos.y <= D_80177940 + 130.0f) {
         obj2F4->obj.pos.y = D_80177940 + 130.0f;
         obj2F4->vel.y = 0.0f;
@@ -1745,7 +1745,7 @@ void func_8006654C(Object_2F4* obj2F4) {
             obj2F4->vel.y = -2.0f;
         }
         obj2F4->vel.z = -15.0f;
-        obj2F4->unk_10C = 0.5f;
+        obj2F4->gravity = 0.5f;
         func_8007D2C8(obj2F4->obj.pos.x, obj2F4->obj.pos.y + 30.0f, obj2F4->obj.pos.z, 13.0f);
         Audio_PlaySfx(0x2903A008, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
@@ -1958,7 +1958,7 @@ void func_80067348(Object_2F4* obj2F4, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f
     obj2F4->vel.y = arg7;
     obj2F4->vel.z = arg8;
     obj2F4->timer_0BC = (s32) (Rand_ZeroOne() * 15.0f) + 25.0f;
-    obj2F4->unk_10C = 0.5f;
+    obj2F4->gravity = 0.5f;
     Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
 }
 
@@ -2478,7 +2478,7 @@ void func_800693E8(Object_2F4* obj2F4) {
     obj2F4->obj.pos.x += obj2F4->vel.x;
     obj2F4->obj.pos.z += obj2F4->vel.z;
     obj2F4->obj.pos.y += obj2F4->vel.y;
-    obj2F4->vel.y -= obj2F4->unk_10C;
+    obj2F4->vel.y -= obj2F4->gravity;
 
     if ((D_80161AB8 != 0) && (obj2F4->obj.id != OBJ_2F4_198) &&
         ((gCurrentLevel != LEVEL_MACBETH) || (obj2F4->obj.id == OBJ_2F4_200))) {
@@ -2525,7 +2525,7 @@ void func_80069658(Object_408* obj408) {
     obj408->obj.pos.x += obj408->vel.x;
     obj408->obj.pos.y += obj408->vel.y;
     obj408->obj.pos.z += obj408->vel.z;
-    obj408->vel.y -= obj408->unk_084;
+    obj408->vel.y -= obj408->gravity;
     if ((D_80161AB8 != 0) && ((obj408->obj.pos.z + D_80177D20) > (obj408->info.unk_10 - gPlayer[0].camEye.z))) {
         if (gPlayer[0].camEye.z) {} // fake
         Object_Kill(&obj408->obj, &obj408->sfxPos);

@@ -128,7 +128,7 @@ void func_8006AC08(Object_2F4* obj2F4) {
 void func_8006AD18(Object_2F4* obj2F4) {
     bool sp34;
 
-    obj2F4->unk_10C = 1.5f;
+    obj2F4->gravity = 1.5f;
     sp34 = false;
     obj2F4->obj.rot.y = Math_RadToDeg(
         Math_Atan2F(gPlayer[gPlayerNum].pos.x - obj2F4->obj.pos.x, gPlayer[gPlayerNum].unk_138 - obj2F4->obj.pos.z));
@@ -422,7 +422,7 @@ void func_8006BB78(Object_2F4* obj2F4) {
                 obj2F4->obj.pos.y += 30.0f;
                 obj2F4->timer_0BC = 30;
                 obj2F4->vel.y = 30.0f;
-                obj2F4->unk_10C = 1.0f;
+                obj2F4->gravity = 1.0f;
             }
             break;
 
@@ -438,7 +438,7 @@ void func_8006BB78(Object_2F4* obj2F4) {
                 obj2F4->unk_0B8 = 4;
                 obj2F4->unk_0B6 = 0;
                 obj2F4->vel.y = 0.0f;
-                obj2F4->unk_10C = 0.0f;
+                obj2F4->gravity = 0.0f;
                 obj2F4->obj.rot.x = 0.0f;
             }
             break;
@@ -509,7 +509,7 @@ void func_8006C008(Object_2F4* obj2F4) {
                     obj2F4->vel.x = 0.0f;
                     obj2F4->vel.y = 0.0f;
                     obj2F4->vel.z = 0.0f;
-                    obj2F4->unk_10C = 0.0f;
+                    obj2F4->gravity = 0.0f;
                 } else {
                     if (obj2F4->unk_04A & 4) {
                         switch (obj2F4->unk_046) {
@@ -561,7 +561,7 @@ void func_8006C008(Object_2F4* obj2F4) {
                     obj2F4->unk_114 = 0.0f;
                     obj2F4->unk_118 = 0.0f;
                     obj2F4->unk_11C = 0.0f;
-                    obj2F4->unk_10C = 0.0f;
+                    obj2F4->gravity = 0.0f;
                 } else {
                     obj2F4->vel.y = -obj2F4->vel.y * 0.3f;
                 }
@@ -578,7 +578,7 @@ void func_8006C008(Object_2F4* obj2F4) {
                 obj2F4->vel.x = 0.0f;
                 obj2F4->vel.y = 0.0f;
                 obj2F4->vel.z = 0.0f;
-                obj2F4->unk_10C = 0.0f;
+                obj2F4->gravity = 0.0f;
                 obj2F4->unk_114 = 0.0f;
                 obj2F4->unk_118 = 0.0f;
                 obj2F4->unk_11C = 0.0f;
@@ -686,7 +686,7 @@ void func_8006C008(Object_2F4* obj2F4) {
             if (obj2F4->obj.pos.y < D_80177940) {
                 if (obj2F4->unk_050 >= 3) {
                     obj2F4->vel.y = 0.0f;
-                    obj2F4->unk_10C = 0.0f;
+                    obj2F4->gravity = 0.0f;
                     obj2F4->unk_11C = 0.0f;
                     obj2F4->unk_118 = 0.0f;
                     obj2F4->unk_114 = 0.0f;
@@ -4151,7 +4151,7 @@ void func_800763A4(Object_2F4* obj2F4) {
         }
     } else {
         if ((gLevelType == LEVELTYPE_PLANET) || (gCurrentLevel == LEVEL_BOLSE)) {
-            obj2F4->unk_10C = 0.4f;
+            obj2F4->gravity = 0.4f;
         }
         switch (obj2F4->timer_04C) {
             case 0:
@@ -4171,7 +4171,7 @@ void func_800763A4(Object_2F4* obj2F4) {
             case 3:
                 obj2F4->obj.rot.y += 6.0f;
                 obj2F4->obj.rot.x += 18.3f;
-                obj2F4->unk_10C = 0.7f;
+                obj2F4->gravity = 0.7f;
                 break;
 
             case 4:
