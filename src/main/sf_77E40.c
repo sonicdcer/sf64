@@ -2056,11 +2056,35 @@ void func_8007E014(Object_8C* arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007E258.s")
+void func_8007E258(Object_8C* arg0) {
+    if ((gCamCount != 1) && (arg0->timer_50 == 0)) {
+        Object_Kill(&arg0->obj, &arg0->sfxPos);
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007E298.s")
+void func_8007E298(Object_8C* arg0) {
+    if (arg0->timer_50 == 0) {
+        arg0->scale2 *= 1.035f;
+        arg0->unk_4A -= 8;
+        if (arg0->unk_4A < 0) {
+            Object_Kill(&arg0->obj, &arg0->sfxPos);
+        }
+    }
+    arg0->obj.rot.z += arg0->unk_48;
+    if (gLevelType == LEVELTYPE_PLANET) {
+        arg0->unk_54.y += 0.2f;
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007E330.s")
+void func_8007E330(Object_8C* arg0) {
+    Graphics_SetScaleMtx(arg0->scale2);
+    if (arg0->unk_44 == 0) {
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, arg0->unk_4A);
+    } else {
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, arg0->unk_4A);
+    }
+    gSPDisplayList(gMasterDisp++, D_2010A30);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007E3E4.s")
 
