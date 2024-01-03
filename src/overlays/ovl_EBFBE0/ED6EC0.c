@@ -3648,7 +3648,7 @@ void func_EBFBE0_801A7A84(PlanetId planetId) {
     RCP_SetupDL(&gMasterDisp, 0x43);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 175, 175, planet[planetId].alpha);
-    gDPSetEnvColor(gMasterDisp++, 0x49, 0x1f, 0x0f, 0);
+    gDPSetEnvColor(gMasterDisp++, 73, 31, 15, 0);
 
     Matrix_Push(&gGfxMatrix);
 
