@@ -2030,7 +2030,31 @@ void func_8007DED4(Object_8C* arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007E014.s")
+void func_8007E014(Object_8C* arg0) {
+    s32 i;
+    f32 x;
+    f32 z;
+    f32 y;
+
+    if (D_801784AC == 4) {
+        func_E6A810_801B6E20(arg0->obj.pos.x, arg0->obj.pos.z + D_80177D20, &x, &y, &z);
+        arg0->obj.pos.y = y + 3.0f;
+        arg0->obj.rot.x = (x * 180.0f) / M_PI;
+        arg0->obj.rot.z = (z * 180.0f) / M_PI;
+    }
+    if (((arg0->unk_44 == 1) || (arg0->unk_44 == 3)) && ((arg0->timer_50 & 3) == 1) && (Rand_ZeroOne() < 0.5f)) {
+        func_8007D10C(arg0->obj.pos.x, arg0->obj.pos.y + (arg0->scale2 * 5.0f), arg0->obj.pos.z + 3.0f,
+                      ((Rand_ZeroOne() * 0.7f) + 1.0f) * (arg0->scale2 * 1.2f));
+    }
+    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
+        if ((gObjects8C[i].obj.status == 2) && (gObjects8C[i].obj.id == OBJ_8C_344) && (i != arg0->index) &&
+            (fabsf(arg0->obj.pos.z - gObjects8C[i].obj.pos.z) < 20.0f) &&
+            (fabsf(arg0->obj.pos.x - gObjects8C[i].obj.pos.x) < 20.0f) &&
+            (fabsf(arg0->obj.pos.y - gObjects8C[i].obj.pos.y) < 20.0f)) {
+            Object_Kill(&arg0->obj, &arg0->sfxPos);
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007E258.s")
 
