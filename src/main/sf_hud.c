@@ -2190,8 +2190,8 @@ void func_800922F4(Object_2F4* obj2F4) {
             if (Rand_ZeroOne() < 0.5f) {
                 func_8007C120(obj2F4->obj.pos.x + ((Rand_ZeroOne() - 0.5f) * 30.0f),
                               obj2F4->obj.pos.y + (Rand_ZeroOne() * 10.0f),
-                              obj2F4->obj.pos.z + ((Rand_ZeroOne() - 0.5f) * 30.0f), obj2F4->vel.x,
-                              obj2F4->vel.y, obj2F4->vel.z, obj2F4->scale * 0.07f, 3);
+                              obj2F4->obj.pos.z + ((Rand_ZeroOne() - 0.5f) * 30.0f), obj2F4->vel.x, obj2F4->vel.y,
+                              obj2F4->vel.z, obj2F4->scale * 0.07f, 3);
             }
         }
     }

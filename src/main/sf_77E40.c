@@ -1796,8 +1796,7 @@ void func_8007D2F4(Object_8C* obj8C) {
                 }
             }
         } else {
-            if ((gCurrentLevel == LEVEL_MACBETH) && (gPlayer->state_1C8 == PLAYERSTATE_1C8_7) &&
-                (obj8C->vel.x != 0)) {
+            if ((gCurrentLevel == LEVEL_MACBETH) && (gPlayer->state_1C8 == PLAYERSTATE_1C8_7) && (obj8C->vel.x != 0)) {
                 Math_SmoothStepToF(&obj8C->vel.x, -1.0f, 1.0f, 1.0f, 0.0f);
                 Math_SmoothStepToF(&obj8C->vel.z, 4.0f, 1.0f, 1.0f, 0.0f);
                 obj8C->vel.y += 1.7f;
@@ -1981,8 +1980,8 @@ void func_8007DB70(Object_8C* obj8C) {
                 func_8007D0E0(obj8C->obj.pos.x, obj8C->obj.pos.y + 30.0f, obj8C->obj.pos.z, 7.0f);
                 func_8007BFFC(obj8C->obj.pos.x, obj8C->obj.pos.y + 30.0f, obj8C->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 5);
                 if ((obj8C->obj.pos.y < (D_80177940 + 10.0f)) || (D_80161A88 != 2)) {
-                    func_800365E4(obj8C->obj.pos.x, 3.0f, obj8C->obj.pos.z, obj8C->obj.pos.x, obj8C->obj.pos.z, 0.0f, 0.0f,
-                                  90.0f, 5.0f, 0, 0);
+                    func_800365E4(obj8C->obj.pos.x, 3.0f, obj8C->obj.pos.z, obj8C->obj.pos.x, obj8C->obj.pos.z, 0.0f,
+                                  0.0f, 90.0f, 5.0f, 0, 0);
                     break;
                 }
             }
