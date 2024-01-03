@@ -192,7 +192,7 @@ typedef struct {
     /* 0x4E */ s16 unk_4E;
     /* 0x50 */ u16 timer_50;
     /* 0x52 */ char pad52[0x2];
-    /* 0x54 */ Vec3f unk_54;
+    /* 0x54 */ Vec3f vel;
     /* 0x60 */ Vec3f unk_60;
     /* 0x6C */ f32 scale1;
     /* 0x70 */ f32 scale2;

@@ -147,9 +147,9 @@ void func_800438E0(Object_8C* obj8C, f32 xPos, f32 yPos, f32 zPos, f32 scale) {
     obj8C->obj.pos.x = xPos;
     obj8C->obj.pos.y = yPos;
     obj8C->obj.pos.z = zPos;
-    obj8C->unk_54.x = Rand_ZeroOne() - (2.0f * Rand_ZeroOne());
-    obj8C->unk_54.y = ((Rand_ZeroOne() * 3.0f) - (gPlayer->vel.z / 5.0f)) + 3.0f;
-    obj8C->unk_54.z = ((Rand_ZeroOne() * 3.0f) - (gPlayer->vel.z / 5.0f)) + 2.0f;
+    obj8C->vel.x = Rand_ZeroOne() - (2.0f * Rand_ZeroOne());
+    obj8C->vel.y = ((Rand_ZeroOne() * 3.0f) - (gPlayer->vel.z / 5.0f)) + 3.0f;
+    obj8C->vel.z = ((Rand_ZeroOne() * 3.0f) - (gPlayer->vel.z / 5.0f)) + 2.0f;
     obj8C->scale2 = ((Rand_ZeroOne() * 0.8f) + 0.3f) * scale;
     obj8C->timer_50 = (s32) (Rand_ZeroOne() * 5.0f) + 8;
     obj8C->obj.rot.x = Rand_ZeroOne() * 360.0f;

@@ -2245,8 +2245,8 @@ void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
                     obj8C->unk_48 = -obj8C->unk_48;
                 }
             } else {
-                obj8C->unk_54.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
-                obj8C->unk_54.y = (Rand_ZeroOne() - 0.5f) * 3.0f;
+                obj8C->vel.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
+                obj8C->vel.y = (Rand_ZeroOne() - 0.5f) * 3.0f;
                 obj8C->unk_48 = 0;
 
                 if (Rand_ZeroOne() < 0.5f) {
@@ -2299,7 +2299,7 @@ void func_80094954(Object_8C* obj8C) {
             Object_Kill(&obj8C->obj, &obj8C->sfxPos);
         }
 
-        obj8C->unk_54.y += obj8C->scale1;
+        obj8C->vel.y += obj8C->scale1;
         obj8C->scale1 -= 0.05f;
 
         if (obj8C->scale1 < -1.0f) {
@@ -2317,7 +2317,7 @@ void func_80094954(Object_8C* obj8C) {
     if (player->state_1C8 == PLAYERSTATE_1C8_6) {
         obj8C->unk_46 = 2;
         if (player->unk_1D0 >= 4) {
-            obj8C->unk_54.y -= 0.13f;
+            obj8C->vel.y -= 0.13f;
         }
     }
 

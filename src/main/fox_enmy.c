@@ -2574,9 +2574,9 @@ void func_80069858(Object_4C* obj4C) {
 }
 
 void func_80069924(Object_8C* obj8C) {
-    obj8C->obj.pos.x += obj8C->unk_54.x;
-    obj8C->obj.pos.y += obj8C->unk_54.y;
-    obj8C->obj.pos.z += obj8C->unk_54.z;
+    obj8C->obj.pos.x += obj8C->vel.x;
+    obj8C->obj.pos.y += obj8C->vel.y;
+    obj8C->obj.pos.z += obj8C->vel.z;
     if (D_80161AB8 != 0) {
         if ((gPlayer[0].camEye.z + obj8C->info.unk_10) < (obj8C->obj.pos.z + D_80177D20)) {
             Object_Kill(&obj8C->obj, &obj8C->sfxPos);
