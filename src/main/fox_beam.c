@@ -1892,9 +1892,9 @@ void func_8003C4D0(PlayerShot* shot, s32 unkD6) {
                     }
                 } else if ((obj2F4->obj.id == OBJ_2F4_200) && (obj2F4->scale >= 0.5f) && (unkD6 >= 31)) {
                     obj2F4->unk_0D4 = shot->playerNum + 1;
-                    obj2F4->unk_0E8.x = sp68 * 0.03f;
-                    obj2F4->unk_0E8.y = sp64 * 0.03f;
-                    obj2F4->unk_0E8.z = sp60 * 0.03f;
+                    obj2F4->vel.x = sp68 * 0.03f;
+                    obj2F4->vel.y = sp64 * 0.03f;
+                    obj2F4->vel.z = sp60 * 0.03f;
                     obj2F4->obj.status = 3;
                     obj2F4->timer_0BC = (s32) (Rand_ZeroOne() * 15.0f) + 10;
                     obj2F4->timer_0BE = 0;

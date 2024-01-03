@@ -320,7 +320,7 @@ typedef struct {
     /* 0x0D8 */ Vec3f unk_0D8;
     /* 0x0E4 */ s16 unk_0E4;
     /* 0x0E6 */ s16 unk_0E6;
-    /* 0x0E8 */ Vec3f unk_0E8;
+    /* 0x0E8 */ Vec3f vel;
     /* 0x0F4 */ Vec3f unk_0F4;
     /* 0x100 */ Vec3f sfxPos;
     /* 0x10C */ f32 unk_10C;

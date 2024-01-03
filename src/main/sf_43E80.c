@@ -1427,12 +1427,12 @@ void func_800481F4(Player* player) {
                                       obj2F4->obj.pos.z, obj2F4->obj.rot.x, obj2F4->obj.rot.y, obj2F4->obj.rot.z, 0.0f,
                                       0.0f, 0.0f) != 0) {
                         if (player->pos.x < obj2F4->obj.pos.x) {
-                            player->unk_0D8.x = (obj2F4->unk_0E8.z > 5.0f) ? -5.0f : -1.5f;
+                            player->unk_0D8.x = (obj2F4->vel.z > 5.0f) ? -5.0f : -1.5f;
                             player->unk_1DC = 8;
                             player->timer_1E8 = 15;
                             player->unk_1EC = player->unk_1F0 = 20;
                         } else {
-                            player->unk_0D8.x = (obj2F4->unk_0E8.z > 5.0f) ? 5.0f : 1.5f;
+                            player->unk_0D8.x = (obj2F4->vel.z > 5.0f) ? 5.0f : 1.5f;
                             player->unk_1DC = 8;
                             player->timer_1E8 = 15;
                             player->unk_1EC = player->unk_1F0 = -20;
@@ -1453,12 +1453,12 @@ void func_800481F4(Player* player) {
                         Math_SmoothStepToF(&player->unk_0D0, 15.0f, 0.3f, 3.5f, 0.001f);
                         Math_SmoothStepToF(&player->unk_08C, 0, 0.3f, 3.5f, 0.001f);
                         if (player->pos.x < (obj2F4->unk_170 + obj2F4->obj.pos.x)) {
-                            player->unk_0D8.x = (obj2F4->unk_0E8.z > 5.0f) ? -5.0f : -1.5f;
+                            player->unk_0D8.x = (obj2F4->vel.z > 5.0f) ? -5.0f : -1.5f;
                             player->unk_1DC = 8;
                             player->timer_1E8 = 15;
                             player->unk_1EC = player->unk_1F0 = 20;
                         } else {
-                            player->unk_0D8.x = (obj2F4->unk_0E8.z > 5.0f) ? 5.0f : 1.5f;
+                            player->unk_0D8.x = (obj2F4->vel.z > 5.0f) ? 5.0f : 1.5f;
                             player->unk_1DC = 8;
                             player->timer_1E8 = 15;
                             player->unk_1EC = player->unk_1F0 = -20;

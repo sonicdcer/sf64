@@ -2015,19 +2015,19 @@ bool func_80091B90(Object_2F4* obj2F4) {
 
     Math_Vec3fFromAngles(&vec, obj2F4->obj.rot.x, obj2F4->obj.rot.y, obj2F4->unk_138 + obj2F4->unk_114);
 
-    obj2F4->unk_0E8.y = obj2F4->unk_14C + vec.y;
-    obj2F4->unk_0E8.x = obj2F4->unk_148 + vec.x;
-    obj2F4->unk_0E8.z = obj2F4->unk_144 + vec.z;
+    obj2F4->vel.y = obj2F4->unk_14C + vec.y;
+    obj2F4->vel.x = obj2F4->unk_148 + vec.x;
+    obj2F4->vel.z = obj2F4->unk_144 + vec.z;
 
     obj2F4->unk_148 -= obj2F4->unk_148 * 0.1f;
     obj2F4->unk_14C -= obj2F4->unk_14C * 0.1f;
     obj2F4->unk_144 -= obj2F4->unk_144 * 0.1f;
 
-    if ((obj2F4->obj.pos.y < D_80177940 + 40.0f) && (obj2F4->unk_0E8.y < 0.0f) && (gLevelType == LEVELTYPE_PLANET)) {
+    if ((obj2F4->obj.pos.y < D_80177940 + 40.0f) && (obj2F4->vel.y < 0.0f) && (gLevelType == LEVELTYPE_PLANET)) {
         obj2F4->obj.pos.y = D_80177940 + 40.0f;
-        obj2F4->unk_0E8.y = 0.0f;
+        obj2F4->vel.y = 0.0f;
     }
-    obj2F4->unk_0E8.z -= D_80177D08;
+    obj2F4->vel.z -= D_80177D08;
 
     return false;
 }
@@ -2190,8 +2190,8 @@ void func_800922F4(Object_2F4* obj2F4) {
             if (Rand_ZeroOne() < 0.5f) {
                 func_8007C120(obj2F4->obj.pos.x + ((Rand_ZeroOne() - 0.5f) * 30.0f),
                               obj2F4->obj.pos.y + (Rand_ZeroOne() * 10.0f),
-                              obj2F4->obj.pos.z + ((Rand_ZeroOne() - 0.5f) * 30.0f), obj2F4->unk_0E8.x,
-                              obj2F4->unk_0E8.y, obj2F4->unk_0E8.z, obj2F4->scale * 0.07f, 3);
+                              obj2F4->obj.pos.z + ((Rand_ZeroOne() - 0.5f) * 30.0f), obj2F4->vel.x,
+                              obj2F4->vel.y, obj2F4->vel.z, obj2F4->scale * 0.07f, 3);
             }
         }
     }
