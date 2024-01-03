@@ -223,7 +223,7 @@ typedef struct {
     /* 0x064 */ s16 unk_064;
     /* 0x066 */ s16 unk_066;
     /* 0x068 */ f32 unk_068;
-    /* 0x06C */ Vec3f unk_06C;     
+    /* 0x06C */ Vec3f vel;     
     /* 0x078 */ char pad78[0xC]; 
     /* 0x084 */ f32 unk_084;       
     /* 0x088 */ s16 unk_088;

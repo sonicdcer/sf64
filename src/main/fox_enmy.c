@@ -2522,10 +2522,10 @@ void func_800693E8(Object_2F4* obj2F4) {
 }
 
 void func_80069658(Object_408* obj408) {
-    obj408->obj.pos.x += obj408->unk_06C.x;
-    obj408->obj.pos.y += obj408->unk_06C.y;
-    obj408->obj.pos.z += obj408->unk_06C.z;
-    obj408->unk_06C.y -= obj408->unk_084;
+    obj408->obj.pos.x += obj408->vel.x;
+    obj408->obj.pos.y += obj408->vel.y;
+    obj408->obj.pos.z += obj408->vel.z;
+    obj408->vel.y -= obj408->unk_084;
     if ((D_80161AB8 != 0) && ((obj408->obj.pos.z + D_80177D20) > (obj408->info.unk_10 - gPlayer[0].camEye.z))) {
         if (gPlayer[0].camEye.z) {} // fake
         Object_Kill(&obj408->obj, &obj408->sfxPos);
