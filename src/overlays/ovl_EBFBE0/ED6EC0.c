@@ -361,7 +361,8 @@ void func_EBFBE0_801A9A8C(void);
 void func_EBFBE0_801A9DE8(void);
 void func_EBFBE0_801AA1CC(s32);
 void func_EBFBE0_801AA434(s32, f32, f32, s32);
-void func_EBFBE0_801AA778(s32, f32, f32, s32);
+void func_EBFBE0_801AA778(s32, f32, f32, PlanetId);
+void func_EBFBE0_801AB17C(f32 x, f32 y, f32 z);
 void func_EBFBE0_801AB284(void);
 void func_EBFBE0_801AB300(void);
 void func_EBFBE0_801AB978(s32);
@@ -4809,7 +4810,7 @@ extern s32 D_EBFBE0_801B6AE8[];
 extern s32 D_EBFBE0_801B6AF4[];
 #endif
 
-void func_EBFBE0_801AA434(s32 arg0, f32 x, f32 y, s32 pp) {
+void func_EBFBE0_801AA434(s32 arg0, f32 x, f32 y, s32 idx) {
     s32 i;
     f32 x2;
     s32 pad;
@@ -4825,8 +4826,8 @@ void func_EBFBE0_801AA434(s32 arg0, f32 x, f32 y, s32 pp) {
     RCP_SetupDL(&gMasterDisp, 0x53);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
-    Graphics_DisplaySmallText(x + 12.0f - Graphics_GetSmallTextWidth(D_EBFBE0_801AF9F4[pp]) * 0.5f, y - 8.0f, 1.0f,
-                              1.0f, D_EBFBE0_801AF9F4[pp]);
+    Graphics_DisplaySmallText(x + 12.0f - Graphics_GetSmallTextWidth(D_EBFBE0_801AF9F4[idx]) * 0.5f, y - 8.0f, 1.0f,
+                              1.0f, D_EBFBE0_801AF9F4[idx]);
 
     Graphics_DisplaySmallNumber(x + 15.0f - ((func_8008BCBC(D_80177B70[arg0]) - 1) * 8), y + 24.0f + 1.0f,
                                 D_80177B70[arg0]);
@@ -4854,7 +4855,173 @@ void func_EBFBE0_801AA434(s32 arg0, f32 x, f32 y, s32 pp) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AA778.s")
+void func_EBFBE0_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
+    s32 mask = 0xFFFFFFFF;
+
+    if (gGameState == GSTATE_MAP) {
+        if (planetId == D_EBFBE0_801CD954) {
+            mask = 0x00000010;
+        }
+    }
+
+    switch (planetId) {
+        case PLANET_SOLAR:
+            if (gFrameCount & mask) {
+                RCP_SetupDL(&gMasterDisp, 0x43);
+
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 240, 0, 0, 255);
+                gDPSetEnvColor(gMasterDisp++, 31, 0, 0, 0);
+
+                Matrix_Push(&gGfxMatrix);
+                Matrix_Translate(gGfxMatrix, x, y, 0.0f, 1);
+                Matrix_RotateZ(gGfxMatrix, M_DTOR * (planet[planetId].zAngle), 1);
+                Matrix_Scale(gGfxMatrix, 0.11f, 0.11f, 0.11f, 1);
+                Matrix_SetGfxMtx(&gMasterDisp);
+
+                gSPDisplayList(gMasterDisp++, D_EBFBE0_801B68F8[planet[planetId].id]);
+
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 128);
+                gDPSetEnvColor(gMasterDisp++, 31, 0, 0, 0);
+
+                Matrix_Scale(gGfxMatrix, 0.8f, 0.8f, 0.8f, 1);
+                Matrix_SetGfxMtx(&gMasterDisp);
+
+                gSPDisplayList(gMasterDisp++, D_EBFBE0_801B68F8[planet[planetId].id]);
+
+                Matrix_Pop(&gGfxMatrix);
+            }
+            break;
+
+        case PLANET_METEO:
+            if (gFrameCount & mask) {
+                RCP_SetupDL(&gMasterDisp, 0x3E);
+
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+
+                Matrix_Push(&gGfxMatrix);
+
+                Matrix_Translate(gGfxMatrix, x - 0.4f, y + 0.9f, 0.0f, 1);
+                Matrix_RotateZ(gGfxMatrix, M_DTOR * planet[planetId].zAngle, 1);
+                Matrix_Scale(gGfxMatrix, 0.1f, 0.1f, 0.1f, 1);
+
+                Matrix_SetGfxMtx(&gMasterDisp);
+
+                gSPDisplayList(gMasterDisp++, D_EBFBE0_801B68F8[planet[planetId].id]);
+
+                Matrix_Translate(gGfxMatrix, 18.0f, -20.0f, 0.0f, 1);
+
+                Matrix_SetGfxMtx(&gMasterDisp);
+
+                gSPDisplayList(gMasterDisp++, D_EBFBE0_801B68F8[planet[planetId].id]);
+                Matrix_Pop(&gGfxMatrix);
+            }
+            break;
+
+        case PLANET_SECTOR_X:
+        case PLANET_SECTOR_Y:
+        case PLANET_SECTOR_Z:
+            if (gFrameCount & mask) {
+                RCP_SetupDL(&gMasterDisp, 0x3E);
+
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 144);
+
+                Matrix_Push(&gGfxMatrix);
+
+                Matrix_Translate(gGfxMatrix, x, y, 0.0f, 1);
+                Matrix_RotateZ(gGfxMatrix, M_DTOR * planet[planetId].zAngle, 1);
+                Matrix_Scale(gGfxMatrix, 0.09f, 0.09f, 0.09f, 1);
+
+                Matrix_SetGfxMtx(&gMasterDisp);
+
+                gSPDisplayList(gMasterDisp++, D_EBFBE0_801B68F8[planet[planetId].id]);
+
+                Matrix_Pop(&gGfxMatrix);
+            }
+            break;
+
+        case PLANET_BOLSE:
+            if (gFrameCount & mask) {
+                RCP_SetupDL(&gMasterDisp, 0x17);
+
+                Lights_SetOneLight(&gMasterDisp, 0, 0, 100, 50, 50, 40, 100, 100, 100);
+
+                Matrix_Push(&gGfxMatrix);
+
+                Matrix_Translate(gGfxMatrix, x, y, 0.0f, 1);
+                Matrix_RotateX(gGfxMatrix, M_DTOR * 20.0f, 1);
+                Matrix_RotateY(gGfxMatrix, M_DTOR * D_EBFBE0_801AFFF4, 1);
+                Matrix_RotateZ(gGfxMatrix, M_DTOR * planet[planetId].zAngle, 1);
+                Matrix_Scale(gGfxMatrix, 0.004f, 0.004f, 0.004f, 1);
+
+                Matrix_SetGfxMtx(&gMasterDisp);
+
+                gSPDisplayList(gMasterDisp++, D_EBFBE0_801B68F8[planet[planetId].id]);
+
+                Matrix_Pop(&gGfxMatrix);
+            }
+            break;
+
+        case PLANET_AREA_6:
+            if (gFrameCount & mask) {
+                RCP_SetupDL(&gMasterDisp, 0x17);
+
+                Lights_SetOneLight(&gMasterDisp, 0, 0, 100, 50, 50, 40, 100, 100, 100);
+
+                Matrix_Push(&gGfxMatrix);
+
+                Matrix_Translate(gGfxMatrix, x, y, 0.0f, 1);
+                Matrix_RotateX(gGfxMatrix, M_DTOR * 20.0f, 1);
+                Matrix_RotateY(gGfxMatrix, M_DTOR * D_EBFBE0_801AFFFC, 1);
+                Matrix_RotateZ(gGfxMatrix, M_DTOR * planet[planetId].zAngle, 1);
+                Matrix_Scale(gGfxMatrix, 0.003f, 0.003f, 0.003f, 1);
+
+                Matrix_SetGfxMtx(&gMasterDisp);
+
+                gSPDisplayList(gMasterDisp++, D_EBFBE0_801B68F8[planet[planetId].id]);
+
+                Matrix_Pop(&gGfxMatrix);
+            }
+            break;
+
+        default:
+            if (gFrameCount & mask) {
+                RCP_SetupDL(&gMasterDisp, 0x3E);
+
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+
+                Matrix_Push(&gGfxMatrix);
+
+                Matrix_Translate(gGfxMatrix, x, y, 0.0f, 1);
+                Matrix_RotateZ(gGfxMatrix, M_DTOR * planet[planetId].zAngle, 1);
+                Matrix_Scale(gGfxMatrix, 0.1f, 0.1f, 0.1f, 1);
+
+                Matrix_SetGfxMtx(&gMasterDisp);
+
+                gSPDisplayList(gMasterDisp++, D_EBFBE0_801B68F8[planet[planetId].id]);
+
+                if (planet[planetId].unk_28 == 4) {
+                    if (planetId != PLANET_VENOM && planetId != PLANET_AQUAS) {
+                        Matrix_SetGfxMtx(&gMasterDisp);
+                        if (planetId == PLANET_MACBETH) {
+                            gDPSetPrimColor(gMasterDisp++, 0, 0, 64, 64, 64, 255);
+                        } else {
+                            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+                        }
+                        gSPDisplayList(gMasterDisp++, D_EBFBE0_801B4A40);
+                    }
+                    Matrix_Scale(gGfxMatrix, 1.6f, 1.6f, 1.6f, 1);
+                    Matrix_SetGfxMtx(&gMasterDisp);
+                    gSPDisplayList(gMasterDisp++, D_605C230);
+                }
+                Matrix_Pop(&gGfxMatrix);
+            }
+            break;
+    }
+
+    if (D_80177BB0[arg0] != 0) {
+        func_EBFBE0_801AB17C(x, y, 0.0f);
+    }
+}
 
 #ifndef IMPORT_DATA
 extern f32 D_EBFBE0_801B6B00; // likely in-function static
