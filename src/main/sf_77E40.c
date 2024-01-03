@@ -1937,11 +1937,76 @@ void func_8007D9DC(f32 posX, f32 posY, f32 posZ, f32 scale2, f32 scale1, s32 tim
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007DA58.s")
+void func_8007DA58(Object_8C* arg0) {
+    arg0->scale2 += arg0->scale1;
+    if (arg0->scale1 > 0.0f) {
+        arg0->scale1 -= 0.01f;
+    } else {
+        arg0->scale1 -= 0.001f;
+    }
+    arg0->obj.rot.y += arg0->unk_60.y;
+    if (arg0->scale2 < 0.01f) {
+        Object_Kill(&arg0->obj, &arg0->sfxPos);
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007DAE4.s")
+void func_8007DAE4(Object_8C* arg0) {
+    Graphics_SetScaleMtx(arg0->scale2);
+    RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
+    gSPDisplayList(gMasterDisp++, D_6004900);
+    RCP_SetupDL(&gMasterDisp, 0x40);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007DB70.s")
+extern Vec3f D_800D18D8;
+// Vec3f D_800D18D8 = { 0.0f, -10.0f, 0.0f };
+
+void func_8007DB70(Object_8C* arg0) {
+    Vec3f sp54 = D_800D18D8;
+
+    switch (arg0->unk_4E) {
+        case 0:
+            arg0->unk_54.y -= 0.5f;
+            if ((arg0->timer_50 == 0) &&
+                ((func_8006351C(0x3E8, &arg0->obj.pos, &sp54, 1) != 0) || (arg0->obj.pos.y < (D_80177940 + 10.0f)))) {
+                arg0->unk_54.y = 0.0f;
+                if (arg0->obj.pos.y < (D_80177940 + 10.0f)) {
+                    arg0->obj.pos.y = D_80177940;
+                }
+                arg0->unk_4E = 1;
+                arg0->timer_50 = 30;
+                arg0->unk_44 = 192;
+                arg0->scale2 = 2.5f;
+                arg0->scale1 = 2.5f;
+                Audio_PlaySfx(0x2903B009, &arg0->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                func_8007D0E0(arg0->obj.pos.x, arg0->obj.pos.y + 30.0f, arg0->obj.pos.z, 7.0f);
+                func_8007BFFC(arg0->obj.pos.x, arg0->obj.pos.y + 30.0f, arg0->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 5);
+                if ((arg0->obj.pos.y < (D_80177940 + 10.0f)) || (D_80161A88 != 2)) {
+                    func_800365E4(arg0->obj.pos.x, 3.0f, arg0->obj.pos.z, arg0->obj.pos.x, arg0->obj.pos.z, 0.0f, 0.0f,
+                                  90.0f, 5.0f, 0, 0);
+                    break;
+                }
+            }
+            break;
+        case 1:
+            arg0->scale2 += ((20.0f - arg0->scale2) * 0.1f);
+            if (arg0->scale2 > 19.0f) {
+                arg0->scale1 -= 0.3f;
+                arg0->unk_44 -= 20;
+                if (arg0->unk_44 < 0) {
+                    Object_Kill(&arg0->obj, &arg0->sfxPos);
+                }
+            }
+            arg0->obj.rot.y = 180.0f - arg0->obj.rot.y;
+            if ((fabsf(gPlayer->unk_138 - arg0->obj.pos.z) < 40.0f) &&
+                (fabsf(gPlayer->pos.x - arg0->obj.pos.x) < 80.0f)) {
+                if ((arg0->obj.pos.y < gPlayer->pos.y) &&
+                    ((gPlayer->pos.y - arg0->obj.pos.y) < (arg0->scale2 * 35.0f)) && (gPlayer->timer_498 == 0)) {
+                    Player_ApplyDamage(gPlayer, 0, (s32) arg0->info.damage);
+                }
+            }
+            break;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007DED4.s")
 

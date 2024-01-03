@@ -220,6 +220,7 @@ extern Gfx* D_800D17A4[];
 extern f32 D_800D17F8[];
 extern u8 D_800D184C[][4];
 extern Gfx* D_800D18A0[];
+extern Gfx D_6004900[];
 
 // sf_hud
 extern s16 D_800D1970;
