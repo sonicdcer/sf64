@@ -325,19 +325,19 @@ void func_8006B74C(Object_2F4* obj2F4) {
 }
 
 void func_8006B95C(Object_80* obj80) {
-    obj80->obj.pos.x += obj80->unk_64.x;
-    obj80->obj.pos.y += obj80->unk_64.y;
-    obj80->obj.pos.z += obj80->unk_64.z;
+    obj80->obj.pos.x += obj80->vel.x;
+    obj80->obj.pos.y += obj80->vel.y;
+    obj80->obj.pos.z += obj80->vel.z;
 
     switch (obj80->unk_48) {
         case 0:
-            obj80->unk_64.y -= 1.0f;
+            obj80->vel.y -= 1.0f;
 
             if (obj80->obj.pos.y < D_80177940 + 40.0f) {
                 obj80->obj.pos.y = D_80177940 + 40.0f;
                 Audio_PlaySfx(0x19130003, &obj80->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 obj80->unk_48 = 2;
-                obj80->unk_64.y = 0.0f;
+                obj80->vel.y = 0.0f;
             }
             break;
 

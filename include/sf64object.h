@@ -148,7 +148,7 @@ typedef struct {
     /* 0x54 */ s32 unk_54;
     /* 0x58 */ char pad58[8];
     /* 0x60 */ f32 unk_60;
-    /* 0x64 */ Vec3f unk_64;
+    /* 0x64 */ Vec3f vel;
     /* 0x70 */ Vec3f sfxPos;
     /* 0x7C */ char pad7C[4];
 } Object_80; // size = 0x80

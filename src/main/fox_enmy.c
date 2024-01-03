@@ -1843,8 +1843,8 @@ void func_80066D5C(Object_80* obj80) {
             Audio_PlaySfx(0x2900300F, &obj80->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             break;
         case 2:
-            obj80->unk_64.x += 0.05f;
-            obj80->obj.rot.x += obj80->unk_64.x;
+            obj80->vel.x += 0.05f;
+            obj80->obj.rot.x += obj80->vel.x;
             if (obj80->obj.rot.x >= 90.0f) {
                 obj80->obj.rot.x = 90.0f;
                 obj80->unk_44 = 40;
