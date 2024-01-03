@@ -140,7 +140,7 @@ OverlayInit sOvlEF0260_Credits[6] = {
 };
 
 OverlayInit sOvlEBFBE0_Title[1] = {
-    { OVERLAY_OFFSETS(ovl_EBFBE0),
+    { OVERLAY_OFFSETS(ovl_menu),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -159,7 +159,7 @@ OverlayInit sOvlEBFBE0_Title[1] = {
 };
 
 OverlayInit sOvlEBFBE0_Menu[1] = {
-    { OVERLAY_OFFSETS(ovl_EBFBE0),
+    { OVERLAY_OFFSETS(ovl_menu),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
         /* 0x3 */ NO_SEGMENT,
@@ -178,7 +178,7 @@ OverlayInit sOvlEBFBE0_Menu[1] = {
 };
 
 OverlayInit sOvlEBFBE0_Map[1] = {
-    { OVERLAY_OFFSETS(ovl_EBFBE0),
+    { OVERLAY_OFFSETS(ovl_menu),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -197,7 +197,7 @@ OverlayInit sOvlEBFBE0_Map[1] = {
 };
 
 OverlayInit sOvlEBFBE0_State5[1] = {
-    { OVERLAY_OFFSETS(ovl_EBFBE0),
+    { OVERLAY_OFFSETS(ovl_menu),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
         /* 0x3 */ NO_SEGMENT,

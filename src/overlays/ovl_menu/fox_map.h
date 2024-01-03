@@ -17,6 +17,7 @@ typedef enum PlanetId {
     /* 12 */ PLANET_FORTUNA,
     /* 13 */ PLANET_VENOM,
     /* 14 */ PLANET_SOLAR,
+    /* 15 */ PLANET_MAX,
 } PlanetId;
 
 #endif
