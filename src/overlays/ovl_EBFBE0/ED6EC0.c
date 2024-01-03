@@ -2695,7 +2695,7 @@ void func_EBFBE0_801A53C8(void) {
     }
 }
 
-s32 func_EBFBE0_801A5770(void) {
+bool func_EBFBE0_801A5770(void) {
     bool ret = false;
     s8 y = gControllerPress[gMainController].stick_y;
 
@@ -2925,7 +2925,7 @@ void func_EBFBE0_801A5E80(void) {
             if (D_EBFBE0_801CD9B8 == 0) {
                 D_EBFBE0_801CD9B8 = 5;
                 D_EBFBE0_801CD968 = 1;
-                D_EBFBE0_801B8280 += 1;
+                D_EBFBE0_801B8280++;
             }
             break;
 
@@ -3953,7 +3953,90 @@ void func_EBFBE0_801A8738(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A89BC.s")
+void func_EBFBE0_801A89BC(PlanetId planetId, s32 arg1) {
+    s32 i;
+    s32 temp2;
+    f32 temp;
+
+    if (!planet[planetId].alpha) {
+        return;
+    }
+
+    if (!D_EBFBE0_801CEB48[arg1]) {
+        return;
+    }
+
+    temp2 = 10;
+    if (planetId != PLANET_CORNERIA) {
+        temp2 = 5;
+    }
+
+    RCP_SetupDL(&gMasterDisp, 0x43);
+
+    gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 0);
+
+    for (i = 0; i < temp2; i++) {
+        switch (D_EBFBE0_801CEB58[arg1][i]) {
+            case 0:
+                D_EBFBE0_801CEC48[arg1][i] += 0.1f;
+                if (D_EBFBE0_801CEC48[arg1][i] >= D_EBFBE0_801CECC0[arg1][i]) {
+                    D_EBFBE0_801CEC48[arg1][i] = D_EBFBE0_801CECC0[arg1][i];
+                    D_EBFBE0_801CEB58[arg1][i] = 1;
+                }
+                break;
+
+            case 1:
+                D_EBFBE0_801CEE28[arg1][i]--;
+                if (D_EBFBE0_801CEE28[arg1][i] <= 0) {
+                    D_EBFBE0_801CEB58[arg1][i] = 2;
+                }
+                break;
+
+            case 2:
+                D_EBFBE0_801CEBD0[arg1][i] -= 48;
+                if (D_EBFBE0_801CEBD0[arg1][i] < 0) {
+                    D_EBFBE0_801CEBD0[arg1][i] = 0;
+                    D_EBFBE0_801CEB58[arg1][i] = 3;
+                }
+                break;
+
+            case 3:
+                D_EBFBE0_801CEB58[arg1][i] = Rand_ZeroOne() * 3.0f;
+                D_EBFBE0_801CEBD0[arg1][i] = 255;
+                D_EBFBE0_801CEC48[arg1][i] = 0.0f;
+                D_EBFBE0_801CECC0[arg1][i] = 0.5f + (Rand_ZeroOne() * 0.3f);
+                D_EBFBE0_801CEE28[arg1][i] = 1 + (s32) (Rand_ZeroOne() * 4.0f);
+
+                temp = 110.0f;
+                if (arg1 == 1) {
+                    temp = 50.0f;
+                }
+
+                D_EBFBE0_801CED38[arg1][i] = temp + (s32) (Rand_ZeroOne() * 30.0f);
+                D_EBFBE0_801CEDB0[arg1][i] = -10.0f + (Rand_ZeroOne() * -60.0f);
+                break;
+        }
+
+        if ((D_EBFBE0_801CECC0[arg1][i] == 0.0f) || (D_EBFBE0_801CEBD0[arg1][i] == 0)) {
+            continue;
+        }
+
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 200, 200, D_EBFBE0_801CEBD0[arg1][i]);
+
+        Matrix_Push(&gGfxMatrix);
+
+        Matrix_Mult(gGfxMatrix, &D_EBFBE0_801CDA60[planetId], 1);
+        Matrix_RotateZ(gGfxMatrix, M_DTOR * D_EBFBE0_801CEDB0[arg1][i], 1);
+        Matrix_Translate(gGfxMatrix, 0.0f, D_EBFBE0_801CED38[arg1][i], 0.0f, 1);
+        Matrix_Scale(gGfxMatrix, D_EBFBE0_801CEC48[arg1][i], D_EBFBE0_801CEC48[arg1][i], D_EBFBE0_801CEC48[arg1][i], 1);
+
+        Matrix_SetGfxMtx(&gMasterDisp);
+
+        gSPDisplayList(gMasterDisp++, D_60479D0);
+
+        Matrix_Pop(&gGfxMatrix);
+    }
+}
 
 // needs in-function static
 #ifdef IMPORT_DATA
