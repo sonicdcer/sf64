@@ -1967,7 +1967,7 @@ void func_8007DB70(Object_8C* arg0) {
         case 0:
             arg0->unk_54.y -= 0.5f;
             if ((arg0->timer_50 == 0) &&
-                ((func_8006351C(0x3E8, &arg0->obj.pos, &sp54, 1) != 0) || (arg0->obj.pos.y < (D_80177940 + 10.0f)))) {
+                ((func_8006351C(1000, &arg0->obj.pos, &sp54, 1) != 0) || (arg0->obj.pos.y < (D_80177940 + 10.0f)))) {
                 arg0->unk_54.y = 0.0f;
                 if (arg0->obj.pos.y < (D_80177940 + 10.0f)) {
                     arg0->obj.pos.y = D_80177940;
@@ -2001,14 +2001,34 @@ void func_8007DB70(Object_8C* arg0) {
                 (fabsf(gPlayer->pos.x - arg0->obj.pos.x) < 80.0f)) {
                 if ((arg0->obj.pos.y < gPlayer->pos.y) &&
                     ((gPlayer->pos.y - arg0->obj.pos.y) < (arg0->scale2 * 35.0f)) && (gPlayer->timer_498 == 0)) {
-                    Player_ApplyDamage(gPlayer, 0, (s32) arg0->info.damage);
+                    Player_ApplyDamage(gPlayer, 0, arg0->info.damage);
                 }
             }
             break;
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007DED4.s")
+extern Gfx D_4008CE0[];
+extern Gfx D_4008F70[];
+
+void func_8007DED4(Object_8C* arg0) {
+    switch (arg0->unk_4E) {
+        case 0:
+            Graphics_SetScaleMtx(arg0->scale2);
+            RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
+            gSPDisplayList(gMasterDisp++, D_4008CE0);
+            RCP_SetupDL(&gMasterDisp, 0x40);
+            return;
+        case 1:
+            Matrix_Scale(gGfxMatrix, arg0->scale1, arg0->scale2, 2.5f, 1);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            RCP_SetupDL_40();
+            gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+            gSPDisplayList(gMasterDisp++, D_4008F70);
+            RCP_SetupDL(&gMasterDisp, 0x40);
+            return;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007E014.s")
 
