@@ -1588,8 +1588,7 @@ void func_8007C9E0(Object_8C* arg0) {
         arg0->obj.rot.z += arg0->unk_48;
         arg0->unk_54.y += 0.3f;
         arg0->unk_54.x += arg0->scale1;
-    }
-    else {
+    } else {
         arg0->scale2 *= 1.03f;
         arg0->unk_4A -= 7;
         if (arg0->unk_4A < 0) {
@@ -1603,13 +1602,13 @@ void func_8007C9E0(Object_8C* arg0) {
 
 void func_8007CAF0(Object_8C* arg0) {
     Graphics_SetScaleMtx(arg0->scale2);
-    if (arg0->unk_44 == 0) {        
+    if (arg0->unk_44 == 0) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, arg0->unk_4A);
         gSPDisplayList(gMasterDisp++, D_102A010);
     } else {
         Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gDPSetPrimColor(gMasterDisp++, 0, 0, 255,255, 255, arg0->unk_4A);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, arg0->unk_4A);
         gSPDisplayList(gMasterDisp++, D_20031B0);
     }
 }
@@ -1797,9 +1796,10 @@ void func_8007D2F4(Object_8C* arg0) {
                 }
             }
         } else {
-            if ((gCurrentLevel == LEVEL_MACBETH) && (gPlayer->state_1C8 == PLAYERSTATE_1C8_7) && (arg0->unk_54.x != 0)) {
+            if ((gCurrentLevel == LEVEL_MACBETH) && (gPlayer->state_1C8 == PLAYERSTATE_1C8_7) &&
+                (arg0->unk_54.x != 0)) {
                 Math_SmoothStepToF(&arg0->unk_54.x, -1.0f, 1.0f, 1.0f, 0.0f);
-                Math_SmoothStepToF(&arg0->unk_54.z,  4.0f, 1.0f, 1.0f, 0.0f);
+                Math_SmoothStepToF(&arg0->unk_54.z, 4.0f, 1.0f, 1.0f, 0.0f);
                 arg0->unk_54.y += 1.7f;
             }
             arg0->unk_54.y += 0.3f;
@@ -1835,7 +1835,28 @@ void func_8007D2F4(Object_8C* arg0) {
     Math_SmoothStepToF(&arg0->scale1, 0.0f, 1.0f, 0.05f, 0.0f);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007D55C.s")
+void func_8007D55C(Object_8C* arg0) {
+    f32 scale;
+
+    Graphics_SetScaleMtx(arg0->scale2);
+    if (gLevelType == LEVELTYPE_PLANET) {
+        gDPSetPrimColor(gMasterDisp++, 0, 0, D_800D184C[arg0->unk_4C][0], D_800D184C[arg0->unk_4C][1],
+                        D_800D184C[arg0->unk_4C][2], D_800D184C[arg0->unk_4C][3]);
+        scale = D_800D17F8[arg0->unk_4C] - 0.5f;
+        Matrix_Scale(gGfxMatrix, scale, scale, 1.0f, 1);
+        Matrix_SetGfxMtx(&gMasterDisp);
+        gSPDisplayList(gMasterDisp++, D_800D17A4[arg0->unk_4C]);
+        return;
+    }
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 100, arg0->unk_44);
+    if (arg0->unk_4C == 0) {
+        Matrix_Scale(gGfxMatrix, 2.5f, 2.5f, 2.5f, 1);
+        Matrix_SetGfxMtx(&gMasterDisp);
+        gSPDisplayList(gMasterDisp++, D_800D18A0[arg0->unk_4C]);
+        return;
+    }
+    gSPDisplayList(gMasterDisp++, D_800D18A0[arg0->unk_4C]);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007D748.s")
 
