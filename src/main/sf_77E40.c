@@ -1858,7 +1858,41 @@ void func_8007D55C(Object_8C* arg0) {
     gSPDisplayList(gMasterDisp++, D_800D18A0[arg0->unk_4C]);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007D748.s")
+void func_8007D748(Object_8C* arg0) {
+    if (gLevelType == LEVELTYPE_PLANET) {
+        arg0->unk_54.y += 0.3f;
+        if (arg0->timer_50 == 0) {
+            if (arg0->unk_4C > 15) {
+                arg0->timer_50 = 2;
+                arg0->unk_4C = arg0->unk_4C + 1;
+            } else {
+                arg0->unk_4C = arg0->unk_4C + 2;
+            }
+            if (arg0->unk_4C > 20) {
+                Object_Kill(&arg0->obj, &arg0->sfxPos);
+            }
+        }
+    } else {
+        if (arg0->timer_50 == 0) {
+            arg0->unk_4C++;
+            arg0->timer_50 = 0;
+            if (arg0->unk_4C > 13) {
+                Object_Kill(&arg0->obj, &arg0->sfxPos);
+            }
+        }
+        arg0->unk_44 -= 15;
+    }
+    if (D_8017836C < arg0->scale1) {
+        D_8017836C = arg0->scale1;
+        D_80178370 = arg0->obj.pos.x;
+        D_80178374 = arg0->obj.pos.y;
+        D_80178378 = arg0->obj.pos.z;
+        D_80178360 = 0xFF;
+        D_80178364 = 50;
+        D_80178368 = 0;
+    }
+    Math_SmoothStepToF(&arg0->scale1, 0, 1.0f, 0.1f, 0.0f);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007D8A8.s")
 
