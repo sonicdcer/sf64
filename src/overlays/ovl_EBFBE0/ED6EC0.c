@@ -3355,15 +3355,15 @@ void func_EBFBE0_801A6A98(PlanetId planetId) {
             func_EBFBE0_801A7A84(planetId);
         }
 
-        if (planetId == PLANET_CORNERIA && D_EBFBE0_801CEB48[0]) {
+        if ((planetId == PLANET_CORNERIA) && D_EBFBE0_801CEB48[0]) {
             func_EBFBE0_801A89BC(PLANET_CORNERIA, 0);
         }
 
-        if (planetId == PLANET_KATINA && D_EBFBE0_801CEB48[1]) {
+        if ((planetId == PLANET_KATINA) && D_EBFBE0_801CEB48[1]) {
             func_EBFBE0_801A89BC(PLANET_KATINA, 1);
         }
 
-        if (planetId == PLANET_SECTOR_Y && D_EBFBE0_801CEB48[2]) {
+        if ((planetId == PLANET_SECTOR_Y) && D_EBFBE0_801CEB48[2]) {
             func_EBFBE0_801A89BC(PLANET_SECTOR_Y, 2);
         }
 
@@ -3958,11 +3958,11 @@ void func_EBFBE0_801A89BC(PlanetId planetId, s32 arg1) {
     s32 temp2;
     f32 temp;
 
-    if (!planet[planetId].alpha) {
+    if (planet[planetId].alpha == 0) {
         return;
     }
 
-    if (!D_EBFBE0_801CEB48[arg1]) {
+    if (D_EBFBE0_801CEB48[arg1] == 0) {
         return;
     }
 
