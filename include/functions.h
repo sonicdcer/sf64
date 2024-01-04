@@ -128,12 +128,13 @@ void func_80040CE4(void);
 void func_80042D38(void);
 
 // fox_43AC0
-void func_80042FAC(Object_408 *);
-void func_80042FB8(Object_408*);
-void func_80042FC4(Object_408*);
-void func_80042FD0(Object_408 *);
-void func_80042FDC(Object_408*);
-void func_80042FE8(Object_408*);
+void func_80042EC0(Object_408* obj408);
+void func_80042FAC(Object_408* obj408);
+void func_80042FB8(Object_408* obj408);
+void func_80042FC4(Object_408* obj408);
+void func_80042FD0(Object_408* obj408);
+void func_80042FDC(Object_408* obj408);
+void func_80042FE8(Object_408* obj408);
 
 // fox_43E80
 void func_80043468(Player*  player);
@@ -438,6 +439,7 @@ void func_80086110(f32, f32, s32);
 void func_80086664(f32, f32);
 void func_800869A0(f32, f32, s32, f32, s32, s32);
 void func_80087530(f32, f32, s32);
+void func_80088564(void);
 void func_8008865C(void);
 void func_8008AD94(void);
 void func_8008B5B0(f32 x, f32 y);
