@@ -2548,7 +2548,30 @@ void func_8007FBE0(Object_8C* obj8C) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007FD84.s")
+s32 func_8007FD84(Object_8C* obj8C) {
+    s32 i;
+    Object_2F4* obj2F4;
+
+    for (i = 1; i < ARRAY_COUNT(D_800CFF80); i++) {
+        obj2F4 = &gObjects2F4[D_800CFF80[i]];
+        if (obj2F4->obj.status == 2) {
+            if ((obj2F4->unk_080 > 0) && (obj2F4->unk_080 < 6) &&
+                (fabsf(obj2F4->obj.pos.z - obj8C->obj.pos.z) < 100.0f) &&
+                (fabsf(obj2F4->obj.pos.x - obj8C->obj.pos.x) < 100.0f) &&
+                (fabsf(obj2F4->obj.pos.y - obj8C->obj.pos.y) < 100.0f)) {
+                obj2F4->unk_0D0 = 1;
+                obj2F4->unk_0D2 = 0;
+                obj2F4->unk_0D6 = 10;
+                if (obj8C->obj.id == OBJ_8C_354) {
+                    obj2F4->unk_0D6 = 30;
+                }
+                obj2F4->unk_0D4 = 100;
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007FE88.s")
 
