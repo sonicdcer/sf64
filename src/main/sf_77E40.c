@@ -2607,7 +2607,7 @@ void func_8007FE88(Object_8C* obj8C) {
                 obj8C->vel.y = destVelocity.y;
                 obj8C->vel.z = destVelocity.z;
                 gPlayer->unk_2C4 += 1;
-                Audio_PlaySfx(0x09007011U, &obj8C->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x09007011, &obj8C->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
             if ((gPlayer->unk_280 == 0) && (gPlayer->timer_498 == 0)) {
                 Player_ApplyDamage(gPlayer, 0, obj8C->info.damage);
@@ -2650,15 +2650,128 @@ void func_8007FE88(Object_8C* obj8C) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_800802B8.s")
+void func_800802B8(Object_8C* obj8C) {
+    func_8007FE88(obj8C);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_800802D8.s")
+void func_800802D8(Object_8C* obj8C) {
+    func_8007FE88(obj8C);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_800802F8.s")
+void func_800802F8(Object_8C* obj8C) {
+    func_8007FE88(obj8C);
+    obj8C->obj.rot.z += 10.0f;
+    obj8C->scale2 = 3.0f;
+    if (gFrameCount & 1) {
+        obj8C->scale2 = 3.5f;
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80080360.s")
+void func_80080360(Object_8C* obj8C) {
+    obj8C->obj.rot.z += 8.0f;
+    obj8C->scale2 += 0.1f;
+    // It seems they forgot that unk_4A is s16 and not a float...
+    obj8C->unk_4A -= 3.5f;
+    if (obj8C->unk_4A < 50.0f) {
+        obj8C->unk_4A = 50;
+    }
+    func_8007A774(gPlayer, obj8C, 50.0f);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8008040C.s")
+void func_8008040C(Object_8C* obj8C) {
+    f32 rotX;
+    f32 rotY;
+    f32 temp;
+    f32 var_fa0;
+    Vec3f srcVelocity;
+    Vec3f destVelocity;
+    Vec3f sp3C;
+
+    var_fa0 = 0.0f;
+    switch (obj8C->unk_4E) {
+        case 0:
+            rotY = Math_Atan2F(gPlayer->pos.x - obj8C->obj.pos.x, gPlayer->unk_138 - obj8C->obj.pos.z);
+            temp = sqrtf(SQ(gPlayer->unk_138 - obj8C->obj.pos.z) + SQ(gPlayer->pos.x - obj8C->obj.pos.x));
+            rotX = -Math_Atan2F(gPlayer->pos.y - obj8C->obj.pos.y, temp);
+            Matrix_RotateY(gCalcMatrix, rotY, 0);
+            Matrix_RotateX(gCalcMatrix, rotX, 1);
+            srcVelocity.y = 0.0f;
+            srcVelocity.x = 0.0f;
+            srcVelocity.z = 100.0f;
+            Matrix_MultVec3f(gCalcMatrix, &srcVelocity, &destVelocity);
+            obj8C->vel.x = destVelocity.x + D_801779E4;
+            obj8C->vel.y = destVelocity.y + D_801779F4;
+            obj8C->vel.z = destVelocity.z - D_80177D08;
+            obj8C->unk_4E++;
+            break;
+        case 1:
+            obj8C->obj.rot.z = 360.0f - obj8C->obj.rot.z;
+            if (obj8C->timer_50 == 0) {
+                Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+                return;
+            }
+            if (func_8007FD84(obj8C) != 0) {
+                Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+                return;
+            }
+            if (gPlayer->unk_280 != 0) {
+                var_fa0 = 100.0f;
+            }
+            if (fabsf(gPlayer->unk_138 - obj8C->obj.pos.z) < (50.0f + var_fa0)) {
+                if ((fabsf(gPlayer->pos.x - obj8C->obj.pos.x) < (30.0f + var_fa0)) &&
+                    (fabsf(gPlayer->pos.y - obj8C->obj.pos.y) < (30.0f + var_fa0))) {
+                    if ((gPlayer->unk_280 != 0) || (gPlayer->timer_27C != 0)) {
+                        obj8C->obj.rot.y = 90.0f;
+                        obj8C->obj.rot.x = Rand_ZeroOne() * 360.0f;
+                        Matrix_RotateY(gCalcMatrix, obj8C->obj.rot.y * M_DTOR, 0);
+                        Matrix_RotateX(gCalcMatrix, obj8C->obj.rot.x * M_DTOR, 1);
+                        srcVelocity.y = 0.0f;
+                        srcVelocity.x = 0.0f;
+                        srcVelocity.z = 100.0f;
+                        Matrix_MultVec3f(gCalcMatrix, &srcVelocity, &destVelocity);
+                        obj8C->vel.x = destVelocity.x;
+                        obj8C->vel.y = destVelocity.y;
+                        obj8C->vel.z = destVelocity.z;
+                        gPlayer->unk_2C4++;
+                        Audio_PlaySfx(0x09007011, &obj8C->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    }
+                    if ((gPlayer->unk_280 == 0) && (gPlayer->timer_498 == 0)) {
+                        Player_ApplyDamage(gPlayer, 0, obj8C->info.damage);
+                        gPlayer->unk_0D8.x = 20.0f;
+                        if (obj8C->vel.x < 0.0f) {
+                            gPlayer->unk_0D8.x *= -1.0f;
+                        }
+                        gPlayer->unk_0D8.y = 20.0f;
+                        if (obj8C->vel.y < 0.0f) {
+                            gPlayer->unk_0D8.y *= -1.0f;
+                        }
+                        Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+                    }
+                }
+                if (D_801784AC == 4) {
+                    if (func_E6A810_801B6AEC(obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z + D_80177D20) != 0) {
+                        Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+                    }
+                } else if (obj8C->obj.pos.y < D_80177940) {
+                    Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+                    if (D_80161A88 != 2) {
+                        obj8C->obj.pos.y = D_80177940;
+                        func_8007D074(obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z, 2.0f);
+                    }
+                }
+                sp3C.x = obj8C->vel.x;
+                sp3C.y = obj8C->vel.y;
+                sp3C.z = obj8C->vel.z;
+                if (func_8006351C(1000, &obj8C->obj.pos, &sp3C, 2) != 0) {
+                    func_8007D10C(obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z, 2.0f);
+                    Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+                }
+            }
+            break;
+    }
+
+    func_8007A774(gPlayer, obj8C, 50.0f);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8008092C.s")
 
