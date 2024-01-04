@@ -2180,7 +2180,7 @@ void func_8007E6B8(Object_8C* obj8C, u32 objId, f32 posX, f32 posY, f32 posZ, f3
     }
     if (objId == OBJ_8C_376) {
         obj8C->obj.rot.z = Rand_ZeroOne() * 360.0f;
-        obj8C->unk_4A = 0xB4;
+        obj8C->unk_4A = 180;
         obj8C->scale2 = 5.0f;
         return;
     }
@@ -2191,7 +2191,52 @@ void func_8007E6B8(Object_8C* obj8C, u32 objId, f32 posX, f32 posY, f32 posZ, f3
     Audio_PlaySfx(0x29002002, &obj8C->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007E93C.s")
+void func_8007E93C(Object_8C* obj8C, u32 objId, f32 posX, f32 posY, f32 posZ, f32 arg5) {
+    f32 sp54;
+    f32 sp50;
+    f32 temp_ft4;
+    Vec3f sp40;
+    Vec3f sp34;
+
+    Object_8C_Initialize(obj8C);
+    obj8C->obj.status = 1;
+    obj8C->obj.id = objId;
+    obj8C->timer_50 = 100;
+    obj8C->obj.pos.x = posX;
+    obj8C->obj.pos.y = posY;
+    obj8C->obj.pos.z = posZ;
+    Object_SetInfo(&obj8C->info, objId & 0xFFFF);
+    sp50 = Math_Atan2F(gPlayer->camEye.x - posX, gPlayer->camEye.z - posZ);
+    temp_ft4 = sqrtf(SQ(gPlayer->camEye.z - posZ) + SQ(gPlayer->camEye.x - posX));
+    sp54 = -Math_Atan2F(gPlayer->camEye.y - posY, temp_ft4);
+    Matrix_RotateY(gCalcMatrix, sp50, 0);
+    Matrix_RotateX(gCalcMatrix, sp54, 1);
+    sp40.x = 0.0f;
+    sp40.y = 0.0f;
+    sp40.z = arg5;
+    Matrix_MultVec3f(gCalcMatrix, &sp40, &sp34);
+    obj8C->vel.x = sp34.x + D_801779E4;
+    obj8C->vel.y = sp34.y + D_801779F4;
+    obj8C->vel.z = sp34.z - D_80177D08;
+    if (objId == OBJ_8C_353) {
+        obj8C->obj.rot.x = (sp54 * 180.0f) / M_PI;
+        obj8C->obj.rot.y = (sp50 * 180.0f) / M_PI;
+    }
+    if (objId == OBJ_8C_356) {
+        Audio_PlaySfx(0x31000025, &obj8C->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    }
+    if (objId == OBJ_8C_376) {
+        obj8C->obj.rot.z = Rand_ZeroOne() * 360.0f;
+        obj8C->unk_4A = 180;
+        obj8C->scale2 = 5.0f;
+        return;
+    }
+    if ((objId == OBJ_8C_355) || (objId == OBJ_8C_377)) {
+        Audio_PlaySfx(0x31000025, &obj8C->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        return;
+    }
+    Audio_PlaySfx(0x29002002, &obj8C->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007EBB8.s")
 
