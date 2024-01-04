@@ -2845,7 +2845,7 @@ void func_EBFBE0_80199EA8(void) {
 }
 
 // D_EBFBE0_801B9358 needs to be static but belongs to bss section?
-#ifdef IMPORT_BSS
+#if defined(IMPORT_BSS) || defined(NON_MATCHING)
 void func_EBFBE0_80199FA8(void) {
     s32 i;
 
@@ -2876,7 +2876,7 @@ void func_EBFBE0_80199FA8(void) {
 #endif
 
 // D_EBFBE0_801B9380 needs to be static but belongs to bss section?
-#ifdef IMPORT_BSS
+#if defined(IMPORT_BSS) || defined(NON_MATCHING)
 void func_EBFBE0_8019A080(void) {
     s32 i;
 
@@ -3209,7 +3209,7 @@ void func_EBFBE0_8019AB30(void) {
 
 // extern f32 D_EBFBE0_801B9338; // in-function
 // needs in function static
-#ifdef IMPORT_BSS
+#if defined(IMPORT_BSS) || defined(NON_MATCHING)
 void func_EBFBE0_8019AD84(void) {
     static f32 D_EBFBE0_801B9324;
     static f32 D_EBFBE0_801B9328;
@@ -3276,7 +3276,7 @@ static u8* D_EBFBE0_801AF28C[] = {
 #endif
 
 // needs in-function static data & bss
-#ifdef IMPORT_BSS
+#if defined(IMPORT_BSS) || defined(NON_MATCHING)
 void func_EBFBE0_8019AFFC(void) {
     static f32 D_EBFBE0_801AF2A0 = 101.0f;
     static f32 D_EBFBE0_801AF2A4 = 86.0f;
@@ -3306,8 +3306,9 @@ void func_EBFBE0_8019AFFC(void) {
         var_v0 = 1;
         colorGB = 255;
         D_EBFBE0_801B9374--;
-        if (!D_EBFBE0_801B9374)
+        if (!D_EBFBE0_801B9374) {
             D_EBFBE0_801B91F0 = 1;
+        }
     }
 
     if (gFrameCount & var_v0) {

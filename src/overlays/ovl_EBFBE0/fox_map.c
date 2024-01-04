@@ -2,6 +2,8 @@
 #include "fox_map.h"
 #include "sf64level.h"
 
+//! TODO: IMPORT BSS
+
 typedef struct {
     /* 0x0 */ f32 angle;
     /* 0x4 */ f32 x;
@@ -42,30 +44,6 @@ typedef struct {
     /* 0x8 */ s32 height;
     /* 0xC */ f32 posX;
 } Texture; // size = 0x10
-
-// Planet textures
-extern s8 D_EBFBE0_801B9410[96 * 96];
-extern s8 D_EBFBE0_801BB810[96 * 96];
-extern s8 D_EBFBE0_801BDC10[96 * 96];
-extern s8 D_EBFBE0_801C0010[96 * 96];
-extern s8 D_EBFBE0_801C2410[96 * 96];
-extern s8 D_EBFBE0_801C4810[96 * 96];
-extern s8 D_EBFBE0_801C6C10[96 * 96];
-extern s8 D_EBFBE0_801C9010[96 * 96];
-extern s8 D_EBFBE0_801CB410[96 * 96];
-
-// extern Gfx D_EBFBE0_801B4A40[];
-// extern Gfx D_EBFBE0_801B5E78[];
-// extern Gfx D_EBFBE0_801B61E0[];
-// extern Gfx D_EBFBE0_801B6548[];
-// extern Gfx D_EBFBE0_801B4D70[];
-// extern Gfx D_EBFBE0_801B5B10[];
-// extern Gfx D_EBFBE0_801B5440[];
-// extern Gfx D_EBFBE0_801B50D8[];
-// extern Gfx D_EBFBE0_801B5E78[];
-// extern Gfx D_EBFBE0_801B57A8[];
-// #define IMPORT_DATA
-#ifdef IMPORT_DATA
 
 static s32 D_EBFBE0_801AF420[2] = { 0x0000000A, 0x00000014 };
 
@@ -140,8 +118,7 @@ static Texture D_EBFBE0_801AF914[] = {
     { (u8*) 0x06005740, 160, 19, 81.0f }, { (u8*) 0x06006E80, 176, 19, 70.0f },
 };
 
-// sPlanetNames
-static char* D_EBFBE0_801AF9F4[] = {
+static char* sPlanetNames[] = {
     "ME", "A6", "BO", "SZ", "SX", "SY", "KA", "MA", "ZO", "CO", "TI", "AQ", "FO", "VE", "SO",
 };
 
@@ -151,34 +128,27 @@ static Gfx* D_EBFBE0_801AFA30[2] = {
 };
 
 static ObjPosition D_EBFBE0_801AFA38[] = {
-    { -491.0f, 1170.000000f, 20.000000f, 0.710000f },  { -488.000000f, 1135.000000f, 15.000000f, 0.600000f },
-    { -496.0f, 1090.000000f, 0.000000f, 0.500000f },   { -489.000000f, 1200.000000f, 0.000000f, 0.600000f },
-    { -489.0f, 1150.000000f, -15.000000f, 0.800000f }, { -487.000000f, 1143.000000f, -15.000000f, 0.800000f },
-    { -493.0f, 1182.000000f, -20.000000f, 0.900000f }, { -491.000000f, 1080.000000f, -25.000000f, 0.800000f },
-    { -497.0f, 1114.000000f, -25.000000f, 0.700000f }, { -497.000000f, 1164.000000f, -20.000000f, 0.900000f },
-    { -485.0f, 1206.000000f, 15.000000f, 1.100000f },  { -488.000000f, 1213.000000f, -20.000000f, 1.100000f },
-    { -485.0f, 1257.000000f, 0.000000f, 1.100000f },   { -491.000000f, 1213.000000f, -20.000000f, 0.900000f },
-    { -484.0f, 1295.000000f, 0.000000f, 0.800000f },   { -487.000000f, 1277.000000f, 20.000000f, 0.800000f },
-    { -485.0f, 1310.000000f, 25.000000f, 0.700000f },  { -485.000000f, 1331.000000f, 0.000000f, 0.800000f },
-    { -493.0f, 1118.000000f, 15.000000f, 0.800000f },  { -494.000000f, 1068.000000f, 30.000000f, 0.600000f },
-    { -504.0f, 1018.000000f, -30.000000f, 0.500000f }, { -492.000000f, 1071.000000f, -10.000000f, 0.600000f },
-    { -494.0f, 1164.000000f, -10.000000f, 0.500000f }, { -498.000000f, 1091.000000f, 0.000000f, 0.500000f },
-    { -493.0f, 1082.000000f, 0.000000f, 0.600000f },   { -498.000000f, 1141.000000f, 15.000000f, 0.700000f },
-    { -498.0f, 1034.000000f, 15.000000f, 0.700000f },  { -504.000000f, 1041.000000f, 20.000000f, 0.800000f },
-    { -507.0f, 1076.000000f, 25.000000f, 0.700000f },  { -504.000000f, 1092.000000f, 0.000000f, 0.800000f },
-    { -499.0f, 1076.000000f, 20.000000f, 1.000000f },  { -519.000000f, 1084.000000f, -15.000000f, 1.000000f },
-    { -506.0f, 1133.000000f, 20.000000f, 1.100000f },  { -502.000000f, 1144.000000f, 0.000000f, 1.000000f },
-    { -514.0f, 1109.000000f, -10.000000f, 0.900000f }, { -521.000000f, 1136.000000f, -20.000000f, 0.800000f },
-    { -511.0f, 1052.000000f, 20.000000f, 0.800000f },  { -515.000000f, 1142.000000f, -25.000000f, 0.600000f },
-    { -518.0f, 1138.000000f, -20.000000f, 0.800000f }, { -512.000000f, 1099.000000f, -15.000000f, 0.500000f },
-    { -523.0f, 1179.000000f, -30.000000f, 0.700000f }, { -519.000000f, 1176.000000f, -30.000000f, 0.500000f },
+    { -491.0f, 1170.0f, 20.0f, 0.71f },  { -488.0f, 1135.0f, 15.0f, 0.6f },   { -496.0f, 1090.0f, 0.0f, 0.50f },
+    { -489.0f, 1200.0f, 0.0f, 0.6f },    { -489.0f, 1150.0f, -15.0f, 0.80f }, { -487.0f, 1143.0f, -15.0f, 0.8f },
+    { -493.0f, 1182.0f, -20.0f, 0.90f }, { -491.0f, 1080.0f, -25.0f, 0.8f },  { -497.0f, 1114.0f, -25.0f, 0.70f },
+    { -497.0f, 1164.0f, -20.0f, 0.9f },  { -485.0f, 1206.0f, 15.0f, 1.10f },  { -488.0f, 1213.0f, -20.0f, 1.1f },
+    { -485.0f, 1257.0f, 0.0f, 1.10f },   { -491.0f, 1213.0f, -20.0f, 0.9f },  { -484.0f, 1295.0f, 0.0f, 0.80f },
+    { -487.0f, 1277.0f, 20.0f, 0.8f },   { -485.0f, 1310.0f, 25.0f, 0.70f },  { -485.0f, 1331.0f, 0.0f, 0.8f },
+    { -493.0f, 1118.0f, 15.0f, 0.80f },  { -494.0f, 1068.0f, 30.0f, 0.6f },   { -504.0f, 1018.0f, -30.0f, 0.50f },
+    { -492.0f, 1071.0f, -10.0f, 0.6f },  { -494.0f, 1164.0f, -10.0f, 0.50f }, { -498.0f, 1091.0f, 0.0f, 0.5f },
+    { -493.0f, 1082.0f, 0.0f, 0.60f },   { -498.0f, 1141.0f, 15.0f, 0.7f },   { -498.0f, 1034.0f, 15.0f, 0.70f },
+    { -504.0f, 1041.0f, 20.0f, 0.8f },   { -507.0f, 1076.0f, 25.0f, 0.70f },  { -504.0f, 1092.0f, 0.0f, 0.8f },
+    { -499.0f, 1076.0f, 20.0f, 1.00f },  { -519.0f, 1084.0f, -15.0f, 1.0f },  { -506.0f, 1133.0f, 20.0f, 1.10f },
+    { -502.0f, 1144.0f, 0.0f, 1.0f },    { -514.0f, 1109.0f, -10.0f, 0.90f }, { -521.0f, 1136.0f, -20.0f, 0.8f },
+    { -511.0f, 1052.0f, 20.0f, 0.80f },  { -515.0f, 1142.0f, -25.0f, 0.6f },  { -518.0f, 1138.0f, -20.0f, 0.80f },
+    { -512.0f, 1099.0f, -15.0f, 0.5f },  { -523.0f, 1179.0f, -30.0f, 0.70f }, { -519.0f, 1176.0f, -30.0f, 0.5f },
 };
 
 static ObjPosition D_EBFBE0_801AFCD8[4] = {
-    { 50.000000f, 1410.000000f, 40.000000f, 0.100000f },
-    { 35.000000f, 1235.000000f, 40.000000f, 0.030000f },
-    { 42.000000f, 1270.000000f, 60.000000f, 0.050000f },
-    { 35.000000f, 1280.000000f, 20.000000f, 0.050000f },
+    { 50.0f, 1410.0f, 40.0f, 0.10f },
+    { 35.0f, 1235.0f, 40.0f, 0.03f },
+    { 42.0f, 1270.0f, 60.0f, 0.05f },
+    { 35.0f, 1280.0f, 20.0f, 0.05f },
 };
 
 static UnkStruct_D_EBFBE0_801AFD18 D_EBFBE0_801AFD18[24] = {
@@ -210,6 +180,7 @@ static s32 D_EBFBE0_801B0004[47] = {
     7,  6,  6,  6,  5,  5,  4,  4,  4,  3,  3,  3,  3,  2,  2,  2,  2,  2,  2,  2,  2, 2, 1,
 };
 
+// Looks like a quarter of a circle
 static s32 D_EBFBE0_801B00C0[47][96] = {
     {
         0,
@@ -523,9 +494,9 @@ static Vtx D_EBFBE0_801B4740[] = {
     { 0x001E, 0xFFE2, 0x0000, 0x0000, 0x0C00, 0x0100, 255, 255, 255, 255 },
 };
 
-static Gfx D_EBFBE0_801B4A40[] = {
-    gsSPVertex(0x801B4740, 16, 0),
-    gsDPLoadTextureBlock(0x801B9410, G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+Gfx D_EBFBE0_801B4A40[] = {
+    gsSPVertex(D_EBFBE0_801B4740, 16, 0),
+    gsDPLoadTextureBlock(D_EBFBE0_801B9410, G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
     gsDPLoadTextureBlock(0x801B9710, G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
@@ -568,9 +539,9 @@ static Gfx D_EBFBE0_801B4A40[] = {
     gsSPEndDisplayList(),
 };
 
-static Gfx D_EBFBE0_801B4D70[] = {
+Gfx D_EBFBE0_801B4D70[] = {
     gsDPLoadTLUT_pal256(0x06026C90),
-    gsSPVertex(0x801B4740, 16, 0),
+    gsSPVertex(D_EBFBE0_801B4740, 16, 0),
     gsDPLoadTextureBlock(0x801BB810, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsDPSetTextureLUT(G_TT_RGBA16),
@@ -615,9 +586,9 @@ static Gfx D_EBFBE0_801B4D70[] = {
     gsSPEndDisplayList(),
 };
 
-static Gfx D_EBFBE0_801B50D8[] = {
+Gfx D_EBFBE0_801B50D8[] = {
     gsDPLoadTLUT_pal256(0x06029170),
-    gsSPVertex(0x801B4740, 16, 0),
+    gsSPVertex(D_EBFBE0_801B4740, 16, 0),
     gsDPLoadTextureBlock(0x801BDC10, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsDPSetTextureLUT(G_TT_RGBA16),
@@ -662,9 +633,9 @@ static Gfx D_EBFBE0_801B50D8[] = {
     gsSPEndDisplayList(),
 };
 
-static Gfx D_EBFBE0_801B5440[] = {
+Gfx D_EBFBE0_801B5440[] = {
     gsDPLoadTLUT_pal256(0x06022340),
-    gsSPVertex(0x801B4740, 16, 0),
+    gsSPVertex(D_EBFBE0_801B4740, 16, 0),
     gsDPLoadTextureBlock(0x801C0010, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsDPSetTextureLUT(G_TT_RGBA16),
@@ -709,9 +680,9 @@ static Gfx D_EBFBE0_801B5440[] = {
     gsSPEndDisplayList(),
 };
 
-static Gfx D_EBFBE0_801B57A8[] = {
+Gfx D_EBFBE0_801B57A8[] = {
     gsDPLoadTLUT_pal256(0x060247E0),
-    gsSPVertex(0x801B4740, 16, 0),
+    gsSPVertex(D_EBFBE0_801B4740, 16, 0),
     gsDPLoadTextureBlock(0x801C2410, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsDPSetTextureLUT(G_TT_RGBA16),
@@ -756,9 +727,9 @@ static Gfx D_EBFBE0_801B57A8[] = {
     gsSPEndDisplayList(),
 };
 
-static Gfx D_EBFBE0_801B5B10[] = {
+Gfx D_EBFBE0_801B5B10[] = {
     gsDPLoadTLUT_pal256(0x0602FF60),
-    gsSPVertex(0x801B4740, 16, 0),
+    gsSPVertex(D_EBFBE0_801B4740, 16, 0),
     gsDPLoadTextureBlock(0x801C4810, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsDPSetTextureLUT(G_TT_RGBA16),
@@ -803,9 +774,9 @@ static Gfx D_EBFBE0_801B5B10[] = {
     gsSPEndDisplayList(),
 };
 
-static Gfx D_EBFBE0_801B5E78[] = {
+Gfx D_EBFBE0_801B5E78[] = {
     gsDPLoadTLUT_pal256(0x0602B620),
-    gsSPVertex(0x801B4740, 16, 0),
+    gsSPVertex(D_EBFBE0_801B4740, 16, 0),
     gsDPLoadTextureBlock(0x801C6C10, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsDPSetTextureLUT(G_TT_RGBA16),
@@ -850,9 +821,9 @@ static Gfx D_EBFBE0_801B5E78[] = {
     gsSPEndDisplayList(),
 };
 
-static Gfx D_EBFBE0_801B61E0[] = {
+Gfx D_EBFBE0_801B61E0[] = {
     gsDPLoadTLUT_pal256(0x0602DAD0),
-    gsSPVertex(0x801B4740, 16, 0),
+    gsSPVertex(D_EBFBE0_801B4740, 16, 0),
     gsDPLoadTextureBlock(0x801C9010, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsDPSetTextureLUT(G_TT_RGBA16),
@@ -897,9 +868,9 @@ static Gfx D_EBFBE0_801B61E0[] = {
     gsSPEndDisplayList(),
 };
 
-static Gfx D_EBFBE0_801B6548[] = {
+Gfx D_EBFBE0_801B6548[] = {
     gsDPLoadTLUT_pal256(0x060323D0),
-    gsSPVertex(0x801B4740, 16, 0),
+    gsSPVertex(D_EBFBE0_801B4740, 16, 0),
     gsDPLoadTextureBlock(0x801CB410, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsDPSetTextureLUT(G_TT_RGBA16),
@@ -961,47 +932,189 @@ static Gfx* D_EBFBE0_801B68F8[] = {
     (char*) D_EBFBE0_801B50D8, (char*) D_EBFBE0_801B57A8, (char*) 0x0604DB10,
 };
 
-#else
-
-extern s32 D_EBFBE0_801AF420[2];
-extern u16* D_EBFBE0_801AF428[15][2];
-extern Planet planet[15];
-extern Gfx* D_EBFBE0_801AF824[4];
-extern Texture D_EBFBE0_801AF834[14];
-extern Texture D_EBFBE0_801AF914[14];
-extern Gfx* D_EBFBE0_801AFA30[2];
-extern ObjPosition D_EBFBE0_801AFA38[];
-extern ObjPosition D_EBFBE0_801AFCD8[];
-extern UnkStruct_D_EBFBE0_801AFD18 D_EBFBE0_801AFD18[24];
-extern f32 D_EBFBE0_801AFFB8[];
-extern f32 D_EBFBE0_801AFFF4;
-extern f32 D_EBFBE0_801AFFF8;
-extern f32 D_EBFBE0_801AFFFC;
-extern f32 D_EBFBE0_801B0000;
-extern s32 D_EBFBE0_801B0004[47];
-extern s32 D_EBFBE0_801B00C0[47][96];
-
-extern Gfx D_EBFBE0_801B4A40[];
-extern void* D_EBFBE0_801B68D4[];
-extern Gfx* D_EBFBE0_801B68F8[];
-extern f32 D_EBFBE0_801B6970;
-extern f32 D_EBFBE0_801B694C;
-extern f32 D_EBFBE0_801B6950;
-extern f32 D_EBFBE0_801B69D4[8];
-extern f32 D_EBFBE0_801B69F4[8];
-extern f32 D_EBFBE0_801B6A14[8];
-extern f32* D_EBFBE0_801B6A34[2];
-extern f32* D_EBFBE0_801B6A3C[2];
-extern f32* D_EBFBE0_801B6A44[2];
-extern f32 D_EBFBE0_801B6A78; // in-func static
-extern f32 D_EBFBE0_801B6A7C;
-extern s32 D_EBFBE0_801B6A84[];
-extern s32 D_EBFBE0_801B6B24[]; // data
-extern f32 D_EBFBE0_801B6B30;
-
-#endif
-
 // BSS STARTS HERE
+
+// #define IMPORT_BSS
+
+/**
+ * Problem: fox_option uses bss symbols from this file? i can't even compile this...
+ */
+
+#ifdef IMPORT_BSS
+s32 D_EBFBE0_801CD810;
+f32 D_EBFBE0_801CD818[];
+s32 D_EBFBE0_801CD83C;
+s32 D_EBFBE0_801CD840[24];
+s32 D_EBFBE0_801CD8A0[15];
+s32 D_EBFBE0_801CD8E0[7];
+f32 D_EBFBE0_801CD9F4; // x
+f32 D_EBFBE0_801CD9F8; // y
+f32 D_EBFBE0_801CD9FC; // z
+s32 D_EBFBE0_801CD900[15];
+s32 D_EBFBE0_801CD93C;
+s32 D_EBFBE0_801CD940;
+s32 D_EBFBE0_801CD944; // mapState
+s32 D_EBFBE0_801CD948;
+s32 D_EBFBE0_801CD94C;
+s32 D_EBFBE0_801CD950;
+s32 D_EBFBE0_801CD954; // sCurrentPlanetId
+s32 D_EBFBE0_801CD958;
+s32 D_EBFBE0_801CD95C;
+s32 D_EBFBE0_801CD960;
+s32 D_EBFBE0_801CD964;
+s32 D_EBFBE0_801CD968;
+s32 D_EBFBE0_801CD96C;
+s32 D_EBFBE0_801CD970;
+s32 D_EBFBE0_801CD974;
+s32 D_EBFBE0_801CD978;
+s32 D_EBFBE0_801CD97C;
+s32 D_EBFBE0_801CD980;
+s32 D_EBFBE0_801CD984;
+s32 D_EBFBE0_801CD988;
+s32 D_EBFBE0_801CD98C;
+s32 D_EBFBE0_801CD990;
+s32 D_EBFBE0_801CD994;
+s32 D_EBFBE0_801CD998;
+f32 D_EBFBE0_801CD99C;
+s32 D_EBFBE0_801CD9A0;
+s32 D_EBFBE0_801CD9A4;
+s32 D_EBFBE0_801CD9A8;
+s32 D_EBFBE0_801CD9AC;
+f32 D_EBFBE0_801CD9B0;
+f32 D_EBFBE0_801CD9B4;
+s32 D_EBFBE0_801CD9B8;
+s32 D_EBFBE0_801CD9BC;
+s32 D_EBFBE0_801CD9C0;
+s32 D_EBFBE0_801CD9C4;
+s32 D_EBFBE0_801CD9C8;
+s32 D_EBFBE0_801CD9CC;
+s32 D_EBFBE0_801CD9D0;
+s32 D_EBFBE0_801CD9D4;
+s32 D_EBFBE0_801CD9D8;
+f32 D_EBFBE0_801CD9DC;
+f32 D_EBFBE0_801CD9E0;
+f32 D_EBFBE0_801CD9E4;
+f32 D_EBFBE0_801CD9E8;
+f32 D_EBFBE0_801CD9EC;
+s32 D_EBFBE0_801CD9F0;
+f32 D_EBFBE0_801CDA00; // x
+f32 D_EBFBE0_801CDA04; // y
+f32 D_EBFBE0_801CDA08; // z
+f32 D_EBFBE0_801CDA0C; // camera x
+f32 D_EBFBE0_801CDA10; // camera y
+f32 D_EBFBE0_801CDA14;
+f32 D_EBFBE0_801CDA18;
+f32 D_EBFBE0_801CDA1C;
+f32 D_EBFBE0_801CDA20;
+f32 D_EBFBE0_801CDA24;
+f32 D_EBFBE0_801CDA28;
+f32 D_EBFBE0_801CDA2C;
+f32 D_EBFBE0_801CDA30;
+f32 D_EBFBE0_801CDA34;
+f32 D_EBFBE0_801CDA38;
+Vec3f D_EBFBE0_801CDA40;
+Vec3f D_EBFBE0_801CDA50;
+Matrix D_EBFBE0_801CDA60[];
+Matrix D_EBFBE0_801CDE20[15]; // planet related
+Matrix D_EBFBE0_801CE060;
+Matrix D_EBFBE0_801CE1E0[15];
+Matrix D_EBFBE0_801CE5A0[];
+Vec3f D_EBFBE0_801CE960[]; // sPlanetsPositions
+f32 D_EBFBE0_801CEA54;
+f32 D_EBFBE0_801CEA64;
+f32 D_EBFBE0_801CEA68;
+f32 D_EBFBE0_801CEAA0;
+f32 D_EBFBE0_801CEAA4;
+f32 D_EBFBE0_801CEAA8;
+f32 D_EBFBE0_801CEAAC;
+f32 D_EBFBE0_801CEAB0;
+s32 D_EBFBE0_801CEAB4;
+f32 D_EBFBE0_801CEA18[];
+f32 D_EBFBE0_801CEA58;
+f32 D_EBFBE0_801CEA5C;
+f32 D_EBFBE0_801CEA60;
+f32 D_EBFBE0_801CEA6C;
+f32 D_EBFBE0_801CEA70;
+s32 D_EBFBE0_801CEA74;
+f32 D_EBFBE0_801CEA78;
+f32 D_EBFBE0_801CEA7C;
+f32 D_EBFBE0_801CEA80;
+f32 D_EBFBE0_801CEA84;
+f32 D_EBFBE0_801CEA88;
+f32 D_EBFBE0_801CEA8C;
+f32 D_EBFBE0_801CEA90;
+f32 D_EBFBE0_801CEA94;
+s32 D_EBFBE0_801CEA98;
+f32 D_EBFBE0_801CEA9C;
+f32 D_EBFBE0_801CEAB8[];
+f32 D_EBFBE0_801CEAF8[];
+s32 D_EBFBE0_801CEB34;
+s32 D_EBFBE0_801CEB38;
+f32 D_EBFBE0_801CEB3C;
+f32 D_EBFBE0_801CEB40;
+s32 D_EBFBE0_801CEB48[3];
+s32 D_EBFBE0_801CEB58[3][10];
+s32 D_EBFBE0_801CEBD0[3][10];
+f32 D_EBFBE0_801CEC48[3][10];
+f32 D_EBFBE0_801CECC0[3][10];
+f32 D_EBFBE0_801CED38[3][10];
+f32 D_EBFBE0_801CEDB0[3][10];
+f32 D_EBFBE0_801CEE28[3][10];
+s32 D_EBFBE0_801CEEA0;
+s32 D_EBFBE0_801CEEA4;
+s32 D_EBFBE0_801CEEA8;
+s32 D_EBFBE0_801CEEAC;
+Vec3f D_EBFBE0_801CEEB0;
+f32 D_EBFBE0_801CEEBC;
+f32 D_EBFBE0_801CEEC0;
+s32 D_EBFBE0_801CEEC4;
+s32 D_EBFBE0_801CEEC8;
+s32 D_EBFBE0_801CEECC;
+s32 D_EBFBE0_801CEED0;
+s32 D_EBFBE0_801CEED4;
+s32 D_EBFBE0_801CEED8;
+f32 D_EBFBE0_801CEEDC;
+f32 D_EBFBE0_801CEEE0;
+Vec3f D_EBFBE0_801CEEE8[9];
+f32 D_EBFBE0_801CEF00;
+f32 D_EBFBE0_801CEF04;
+f32 D_EBFBE0_801CEF08;
+f32 D_EBFBE0_801CEF30;
+f32 D_EBFBE0_801CEF34;
+f32 D_EBFBE0_801CEF38;
+Vec3f D_EBFBE0_801CEF58[9];
+s32 D_EBFBE0_801CEFC4;
+s32 D_EBFBE0_801CEFC8;
+s32 D_EBFBE0_801CEFCC;
+s32 D_EBFBE0_801CEFD0;
+s32 D_EBFBE0_801CEFD4;
+bool D_EBFBE0_801CEFD8;
+s32 D_EBFBE0_801CEFDC;
+f32 D_EBFBE0_801CEFE0;
+f32 D_EBFBE0_801CEFE8[3];
+f32 D_EBFBE0_801CEFF4;
+f32 D_EBFBE0_801CEFF8;
+s32 D_EBFBE0_801CF000[];
+s32 D_EBFBE0_801CF00C;
+s32 D_EBFBE0_801CF010;
+s32 D_EBFBE0_801CF014;
+s32 D_EBFBE0_801CF018;
+f32 D_EBFBE0_801CF020[8];
+f32 D_EBFBE0_801CF040[8];
+f32 D_EBFBE0_801CF060[8];
+f32 D_EBFBE0_801CF080;
+f32 D_EBFBE0_801CF088[8];
+f32 D_EBFBE0_801CF0A8[8];
+f32* D_EBFBE0_801CF0C8;
+f32* D_EBFBE0_801CF0CC;
+f32* D_EBFBE0_801CF0D0;
+s32 D_EBFBE0_801CF0D8[8];
+s32 D_EBFBE0_801CF0F8[8];
+s32 D_EBFBE0_801CF118;
+s32 D_EBFBE0_801CF11C;
+s32 D_EBFBE0_801CF120;
+f32 D_EBFBE0_801CF124;
+#else
 extern s32 D_EBFBE0_801CD810;
 extern f32 D_EBFBE0_801CD818[];
 extern s32 D_EBFBE0_801CD83C;
@@ -1175,6 +1288,8 @@ extern s32 D_EBFBE0_801CF118;
 extern s32 D_EBFBE0_801CF11C;
 extern s32 D_EBFBE0_801CF120;
 extern f32 D_EBFBE0_801CF124;
+
+#endif
 
 extern u8 D_5000500[];
 
@@ -2148,17 +2263,11 @@ void func_EBFBE0_801A07E8(u8* arg0, u8* arg1, f32* arg2) {
     }
 }
 
-#ifndef IMPORT_DATA
-extern f32 D_EBFBE0_801B6934[];
-#endif
-
 void func_EBFBE0_801A0954(void) {
     PlanetId planetId;
-#ifdef IMPORT_DATA
     static f32 D_EBFBE0_801B6934[] = {
         99.0f, 24, -90.0f, -150.0f, -208.0f, -276.0f,
     };
-#endif
 
     switch (D_EBFBE0_801CD948) {
         case 100:
@@ -2255,20 +2364,14 @@ void func_EBFBE0_801A0954(void) {
     }
 }
 
-#ifndef IMPORT_DATA
-extern u16* D_EBFBE0_801B6954[7];
-#endif
-
 void func_EBFBE0_801A0D14(void) {
     s32 i;
-#ifdef IMPORT_DATA
     static f32 D_EBFBE0_801B694C = 71.0f;
     static f32 D_EBFBE0_801B6950 = 205.0f;
     static u16* D_EBFBE0_801B6954[] = {
         (u16*) 0x06041A80, (u16*) 0x06035780, (u16*) 0x06033080, (u16*) 0x0603A580,
         (u16*) 0x0603F380, (u16*) 0x06037E80, (u16*) 0x0603CC80,
     };
-#endif
 
     func_EBFBE0_801A116C();
 
@@ -2314,9 +2417,7 @@ void func_EBFBE0_801A0D14(void) {
 }
 
 void func_EBFBE0_801A116C(void) {
-#ifdef IMPORT_DATA
     static f32 D_EBFBE0_801B6970 = 35.0f;
-#endif
     WingInfo wings;
     Vec3f dest;
     Vec3f src;
@@ -2391,7 +2492,6 @@ void func_EBFBE0_801A116C(void) {
     D_EBFBE0_801B6970 += 0.6f;
 }
 
-#ifdef IMPORT_DATA
 static f32 D_EBFBE0_801B6974[8] = { -248.0f, -76.0f, 84.0f, 248.0f, -242.0f, -79.0f, 82.0f, 245.0f };
 static f32 D_EBFBE0_801B6994[8] = { 80.0f, 80.0f, 80.0f, 80.0f, -30.0f, -30.0f, -30.0f, -30.0f };
 static f32 D_EBFBE0_801B69B4[8] = { -455.0f, -455.0f, -455.0f, -455.0f, -455.0f, -455.0f, -455.0f, -455.0f };
@@ -2403,7 +2503,6 @@ static f32 D_EBFBE0_801B6A14[8] = { 1000.0f, 1000.0f, 1000.0f, 1000.0f, 1000.0f,
 static f32* D_EBFBE0_801B6A34[2] = { D_EBFBE0_801B69D4, D_EBFBE0_801B6974 };
 static f32* D_EBFBE0_801B6A3C[2] = { D_EBFBE0_801B69F4, D_EBFBE0_801B6994 };
 static f32* D_EBFBE0_801B6A44[2] = { D_EBFBE0_801B6A14, D_EBFBE0_801B69B4 };
-#endif
 
 void func_EBFBE0_801A1528(void) {
     PlanetId planetId;
@@ -2525,7 +2624,7 @@ void func_EBFBE0_801A1AE8(void) {
 }
 
 // needs D_EBFBE0_801CD900 to be static
-#ifdef IMPORT_DATA
+#if defined(IMPORT_BSS) || defined(NON_MATCHING)
 void func_EBFBE0_801A1C14(void) {
     s32 i;
 
@@ -2671,7 +2770,7 @@ void func_EBFBE0_801A1C14(void) {
     D_EBFBE0_801CD9C4++;
 }
 #else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A1C14.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_map/func_EBFBE0_801A1C14.s")
 #endif
 
 bool func_EBFBE0_801A2304(void) {
@@ -3023,7 +3122,7 @@ void func_EBFBE0_801A2B8C(void) {
     D_EBFBE0_801CD9C4++;
 }
 #else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A2B8C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_map/func_EBFBE0_801A2B8C.s")
 #endif
 
 void func_EBFBE0_801A2EB8(void) {
@@ -3526,18 +3625,12 @@ void func_EBFBE0_801A4394(void) {
     }
 }
 
-#ifndef IMPORT_DATA
-extern Gfx* D_EBFBE0_801B6A4C[]; // likely in-function static
-#endif
-
 void func_EBFBE0_801A4650(void) {
     s32 i;
-#ifdef IMPORT_DATA
     static Gfx* D_EBFBE0_801B6A4C[] = {
         (Gfx*) 0x09006AE0, (Gfx*) 0x090086F0, (Gfx*) 0x09005380, (Gfx*) 0x090075A0,
         (Gfx*) 0x09000570, (Gfx*) 0x09002EA0, (Gfx*) 0x090075A0, (Gfx*) 0x09004230,
     };
-#endif
 
     Lights_SetOneLight(&gMasterDisp, 0, 0, 127, 28, 58, 105, 65, 70, 48);
 
@@ -3921,10 +4014,6 @@ bool func_EBFBE0_801A5770(void) {
     return ret;
 }
 
-#ifndef IMPORT_DATA
-extern f32 D_EBFBE0_801B6A6C[2];
-#endif
-
 void func_EBFBE0_801A5834(void) {
     s32 i;
     f32 x;
@@ -3937,9 +4026,7 @@ void func_EBFBE0_801A5834(void) {
     s32 r[3];
     s32 g[3];
     s32 b[3];
-#ifdef IMPORT_DATA
     static f32 D_EBFBE0_801B6A6C[] = { 3.05f, 4.15f };
-#endif
 
     x = 101.0f;
     y = 92.0f;
@@ -4746,13 +4833,13 @@ void func_EBFBE0_801A7230(PlanetId planetId) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-#ifdef IMPORT_DATA
 void func_EBFBE0_801A74F4(PlanetId planetId) {
     static f32 D_EBFBE0_801B6A74 = 0.0f;
     s32 alpha = planet[13].alpha;
 
-    if (planet[planetId].alpha > 128)
+    if (planet[planetId].alpha > 128) {
         alpha = 128;
+    }
 
     RCP_SetupDL(&gMasterDisp, 0x43);
 
@@ -4773,9 +4860,6 @@ void func_EBFBE0_801A74F4(PlanetId planetId) {
 
     D_EBFBE0_801B6A74 -= 0.2f;
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A74F4.s")
-#endif
 
 void func_EBFBE0_801A7684(PlanetId planetId) {
     s32 r;
@@ -4960,9 +5044,7 @@ void func_EBFBE0_801A7F1C(PlanetId planetId) {
 }
 
 void func_EBFBE0_801A809C(PlanetId planetId) {
-#ifdef IMPORT_DATA
     static f32 D_EBFBE0_801B6A78 = 0.0f;
-#endif
     s32 i;
     s32 alpha;
     f32 scale;
@@ -5240,8 +5322,6 @@ void func_EBFBE0_801A89BC(PlanetId planetId, s32 arg1) {
     }
 }
 
-// needs in-function static
-#ifdef IMPORT_DATA
 void func_EBFBE0_801A8F40(void) {
     static f32 D_EBFBE0_801B6A7C = 0.0f;
     s32 temp;
@@ -5275,9 +5355,6 @@ void func_EBFBE0_801A8F40(void) {
         D_EBFBE0_801B6A7C += 6.0f;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A8F40.s")
-#endif
 
 void func_EBFBE0_801A914C(void) {
     D_EBFBE0_801CEAA8 = 140.0f;
@@ -5355,8 +5432,6 @@ void func_EBFBE0_801A9224(void) {
     }
 }
 
-// needs in-function static
-#ifdef IMPORT_DATA
 void func_EBFBE0_801A9448(void) {
     Vec3f src;
     Vec3f dest;
@@ -5431,9 +5506,6 @@ void func_EBFBE0_801A9448(void) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801A9448.s")
-#endif
 
 void func_EBFBE0_801A9814(void) {
     if (D_EBFBE0_801B8280 != 0) {
@@ -5448,12 +5520,9 @@ void func_EBFBE0_801A9814(void) {
 }
 
 void func_EBFBE0_801A9910(void) {
-    s32 i;
-    s32 var_s0;
-#ifdef IMPORT_DATA
     static s32 D_EBFBE0_801B6A84[] = { 1, 13, 12, 11, 6, 2, 4, 10, 8, 0, 9, 5, 3, 7, 7 };
-#endif
-    var_s0 = D_EBFBE0_801B6A84[D_EBFBE0_801CD954];
+    s32 i;
+    s32 var_s0 = D_EBFBE0_801B6A84[D_EBFBE0_801CD954];
 
     RCP_SetupDL(&gMasterDisp, 0x53);
 
@@ -5470,19 +5539,12 @@ void func_EBFBE0_801A9910(void) {
     D_EBFBE0_801CEA70 *= 1.08;
 }
 
-#ifndef IMPORT_DATA
-extern f32 D_EBFBE0_801B6AC0[2];
-extern f32 D_EBFBE0_801B6AC8[2];
-#endif
-
 void func_EBFBE0_801A9A8C(void) {
     s32 i;
     s32 sp58;
     u8* sp54;
-#ifdef IMPORT_DATA
     static f32 D_EBFBE0_801B6AC0[2] = { 91.0f, 207.0f };
     static f32 D_EBFBE0_801B6AC8[2] = { 61.0f, 61.0f };
-#endif
 
     switch (gCurrentLevel) {
         case LEVEL_CORNERIA:
@@ -5602,40 +5664,6 @@ void func_EBFBE0_801A9DE8(void) {
     }
 }
 
-#ifndef IMPORT_DATA
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B74C0.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B74C4.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B74C8.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B74CC.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B74D0.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B74D4.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B74D8.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B74DC.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B74E0.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B74E4.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B74E8.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B74EC.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B74F0.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B74F4.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B74F8.s")
-
-#endif
-
 void func_EBFBE0_801A9EE4(void) {
     RCP_SetupDL(&gMasterDisp, 0x53);
 
@@ -5739,32 +5767,22 @@ void func_EBFBE0_801AA1CC(s32 arg0) {
     }
 }
 
-#ifndef IMPORT_DATA
-extern char* D_EBFBE0_801AF9F4[15];
-extern char* D_EBFBE0_801B6AD0[];
-extern s32 D_EBFBE0_801B6ADC[];
-extern s32 D_EBFBE0_801B6AE8[];
-extern s32 D_EBFBE0_801B6AF4[];
-#endif
-
 void func_EBFBE0_801AA434(s32 arg0, f32 x, f32 y, s32 idx) {
     s32 i;
     f32 x2;
     s32 pad;
     s32 mask;
     s32 temp;
-#ifdef IMPORT_DATA
     static char* D_EBFBE0_801B6AD0[] = { "P", "S", "F" };
     static s32 D_EBFBE0_801B6ADC[] = { 255, 0, 30 };
     static s32 D_EBFBE0_801B6AE8[] = { 30, 179, 30 };
     static s32 D_EBFBE0_801B6AF4[] = { 0, 67, 255 };
-#endif
 
     RCP_SetupDL(&gMasterDisp, 0x53);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
-    Graphics_DisplaySmallText(x + 12.0f - Graphics_GetSmallTextWidth(D_EBFBE0_801AF9F4[idx]) * 0.5f, y - 8.0f, 1.0f,
-                              1.0f, D_EBFBE0_801AF9F4[idx]);
+    Graphics_DisplaySmallText(x + 12.0f - Graphics_GetSmallTextWidth(sPlanetNames[idx]) * 0.5f, y - 8.0f, 1.0f, 1.0f,
+                              sPlanetNames[idx]);
 
     Graphics_DisplaySmallNumber(x + 15.0f - ((func_8008BCBC(D_80177B70[arg0]) - 1) * 8), y + 24.0f + 1.0f,
                                 D_80177B70[arg0]);
@@ -5960,26 +5978,18 @@ void func_EBFBE0_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
     }
 }
 
-#ifndef IMPORT_DATA
-extern f32 D_EBFBE0_801B6B00; // likely in-function static
-extern f32 D_EBFBE0_801B6B04; // likely in-function static
-extern f32 D_EBFBE0_801B6B08; // likely in-function static
-#endif
-
 void func_EBFBE0_801AB17C(f32 x, f32 y, f32 z) {
-#ifdef IMPORT_DATA
-    static f32 D_EBFBE0_801B6B00 = 0.23f; // scale
-    static f32 D_EBFBE0_801B6B04 = 4.4f;  // posX
-    static f32 D_EBFBE0_801B6B08 = 1.0f;  // posY
-#endif
+    static f32 scale = 0.23f;
+    static f32 posX = 4.4f;
+    static f32 posY = 1.0f;
 
     RCP_SetupDL(&gMasterDisp, 0x35);
     gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
 
     Matrix_Push(&gGfxMatrix);
 
-    Matrix_Translate(gGfxMatrix, x - D_EBFBE0_801B6B04, y + D_EBFBE0_801B6B08, z, 1);
-    Matrix_Scale(gGfxMatrix, D_EBFBE0_801B6B00, D_EBFBE0_801B6B00, D_EBFBE0_801B6B00, 1);
+    Matrix_Translate(gGfxMatrix, x - posX, y + posY, z, 1);
+    Matrix_Scale(gGfxMatrix, scale, scale, scale, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
 
     gSPDisplayList(gMasterDisp++, D_601D1F0);
@@ -6153,34 +6163,17 @@ void func_EBFBE0_801AB300(void) {
     }
 }
 
-#ifndef IMPORT_DATA
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B750C.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B7510.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/D_EBFBE0_801B7514.s")
-
-#endif
-
-#ifndef IMPORT_DATA
-extern f32 D_EBFBE0_801B6B0C[];
-extern u16* D_EBFBE0_801B6B18[];
-#endif
-
 void func_EBFBE0_801AB978(s32 arg0) {
     s32 i;
     f32 xPos;
     f32 yPos;
     s32 sp90[3];
-#ifdef IMPORT_DATA
     static f32 D_EBFBE0_801B6B0C[3] = { 205.0f, 237.0f, 269.0f };
     static u16* D_EBFBE0_801B6B18[3] = {
         (u16*) 0x06032A60,
         (u16*) 0x06044180,
         (u16*) 0x06032440,
     };
-#endif
 
     switch (arg0) {
         case 10:
@@ -6245,9 +6238,7 @@ void func_EBFBE0_801AB978(s32 arg0) {
 }
 
 void func_EBFBE0_801ABCDC(s32 arg0, s32 alpha) {
-#ifdef IMPORT_DATA
     static s32 D_EBFBE0_801B6B24[] = { 81.0f, 125.0f, 170.0f };
-#endif
 
     Matrix_Push(&gGfxMatrix);
 
@@ -6491,8 +6482,6 @@ void func_EBFBE0_801AC530(s32 index) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-// needs in-function static
-#ifdef IMPORT_DATA
 void func_EBFBE0_801AC80C(s32 arg0) {
     static f32 D_EBFBE0_801B6B30 = 0.0f;
     s32 r;
@@ -6531,9 +6520,190 @@ void func_EBFBE0_801AC80C(s32 arg0) {
 
     D_EBFBE0_801B6B30 -= 45.0f;
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/ED6EC0/func_EBFBE0_801AC80C.s")
-#endif
+
+static u32 padding_801B6B34[3] = { 0, 0, 0 };
+
+UnkStruct_D_EBFBE0_801B8294 D_EBFBE0_801B6B40[] = {
+    {
+        0.0,
+        260.4722595214844,
+        1477.2115478515625,
+        0.0,
+        -17.364818572998047,
+        -98.48077392578125,
+    },
+    {
+        0.0,
+        20.159666061401367,
+        759.7326049804688,
+        0.0,
+        -2.652587890625,
+        -99.96481323242188,
+    },
+    {
+        -45.79036331176758,
+        0.7120879888534546,
+        336.9016418457031,
+        13.467754364013672,
+        -0.2094379961490631,
+        -99.0887222290039,
+    },
+    {
+        -59.033607482910156,
+        -7.9528679847717285,
+        104.17190551757812,
+        49.194671630859375,
+        6.627389907836914,
+        -86.80992126464844,
+    },
+    {
+        -39.37468719482422,
+        50.698238372802734,
+        40.26434326171875,
+        65.62447357177734,
+        -4.497063159942627,
+        -67.10723876953125,
+    },
+    {
+        -57.282569885253906,
+        48.52915573120117,
+        -34.80637741088867,
+        95.47095489501953,
+        7.118072986602783,
+        -11.322705268859863,
+    },
+    {
+        -64.80924987792969,
+        53.131526947021484,
+        -77.35162353515625,
+        81.01156616210938,
+        3.335592031478882,
+        15.689521789550781,
+    },
+    {
+        -32.061317443847656,
+        30.244365692138672,
+        -127.72071075439453,
+        32.061317443847656,
+        29.755634307861328,
+        61.72071075439453,
+    },
+    {
+        -62.320308685302734,
+        25.741756439208984,
+        -222.99485778808594,
+        31.160154342651367,
+        32.129119873046875,
+        61.99742889404297,
+    },
+    {
+        -105.85608673095703,
+        14.339532852172852,
+        -355.72161865234375,
+        31.134143829345703,
+        34.60601806640625,
+        61.918128967285156,
+    },
+    {
+        -136.990234375,
+        9.733512878417969,
+        -450.6397399902344,
+        31.134143829345703,
+        34.60601806640625,
+        61.918128967285156,
+    },
+    {
+        -189.91827392578125,
+        1.9032800197601318,
+        -612.0005493164062,
+        31.134143829345703,
+        34.60601806640625,
+        61.918128967285156,
+    },
+};
+
+UnkStruct_D_EBFBE0_801B8294 D_EBFBE0_801B6C60[] = {
+    {
+        230.0,
+        -20.0,
+        -3.999999989900971e-06,
+        90.0,
+        -20.0,
+        1.9999999949504854e-06,
+    },
+    {
+        217.92657470703125,
+        45.027198791503906,
+        -0.0069610001519322395,
+        96.70745849609375,
+        -25.01511001586914,
+        0.0038670001085847616,
+    },
+    {
+        161.75991821289062,
+        66.46260070800781,
+        50.40374755859375,
+        73.11239624023438,
+        -6.1025848388671875,
+        -28.31671142578125,
+    },
+    {
+        117.36236572265625,
+        2.6198840141296387,
+        27.208602905273438,
+        84.39605712890625,
+        -4.366471767425537,
+        -45.34767150878906,
+    },
+    {
+        19.168537139892578,
+        2.4452030658721924,
+        27.57978057861328,
+        7.556180953979492,
+        -4.366434097290039,
+        -49.24960708618164,
+    },
+    {
+        -116.45977783203125,
+        1.2701389789581299,
+        27.862812042236328,
+        -109.60753631591797,
+        -2.268105983734131,
+        -49.75502014160156,
+    },
+    {
+        -117.43788146972656,
+        1.2725709676742554,
+        27.8646240234375,
+        -110.64664459228516,
+        -2.272449016571045,
+        -49.75825500488281,
+    },
+    {
+        -118.43771362304688,
+        1.3140660524368286,
+        27.862712860107422,
+        -111.64693450927734,
+        -2.346545934677124,
+        -49.754844665527344,
+    },
+    {
+        -118.44500732421875,
+        1.3140660524368286,
+        27.86207389831543,
+        -111.6339111328125,
+        -2.346545934677124,
+        -49.75370407104492,
+    },
+    {
+        -118.46446228027344,
+        1.3140660524368286,
+        27.860361099243164,
+        -111.59918212890625,
+        -2.346545934677124,
+        -49.75064468383789,
+    },
+};
 
 void func_EBFBE0_801AC9A0(s32 index) {
     Vec3f srcPos;

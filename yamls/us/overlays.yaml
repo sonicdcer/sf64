@@ -140,18 +140,18 @@
     - [0xEBFBE0, c, EBFBE0]
     - [0xEBFCA0, c, fox_title]
     - [0xECA1E0, c, fox_option]
-    - [0xED6EC0, c, ED6EC0]
+    - [0xED6EC0, c, fox_map]
     - [0xEE60B0, .data, fox_title]
     - [0xEE6C30, .data, fox_option]
-    - [0xEE7AE0, data, ED6EC0]
+    - [0xEE7AE0, .data, fox_map]
     - [0xEEF410, .rodata, EBFBE0]
     - [0xEEF430, .rodata, fox_title]
     - [0xEEF7D0, .rodata, fox_option]
-    - [0xEEFB80, .rodata, ED6EC0]
+    - [0xEEFB80, .rodata, fox_map]
     # - { start: 0xEF0260, type: bss, vram: 0x801B7BA0, name: ovl_EBFBE0 }
     - { start: 0xEF0260, type: bss, vram: 0x801B7BA0, name: fox_title }
     - { start: 0xEF0260, type: bss, vram: 0x801B9090, name: fox_option }
-    - { start: 0xEF0260, type: bss, vram: 0x801B9410, name: ED6EC0 }
+    - { start: 0xEF0260, type: bss, vram: 0x801B9410, name: fox_map }
 
   - name: ovl_EF0260
     type: code
