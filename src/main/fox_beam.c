@@ -9,7 +9,7 @@ void func_80035D30(Object_8C* obj8C, f32 xPos, f32 yPos, f32 zPos) {
     obj8C->obj.pos.x = xPos;
     obj8C->obj.pos.y = yPos;
     obj8C->obj.pos.z = zPos;
-    obj8C->unk_54.z = 0.0f;
+    obj8C->vel.z = 0.0f;
     obj8C->scale2 = 0.3f;
     obj8C->unk_4A = 100;
     obj8C->unk_48 = 3;
@@ -1892,9 +1892,9 @@ void func_8003C4D0(PlayerShot* shot, s32 unkD6) {
                     }
                 } else if ((obj2F4->obj.id == OBJ_2F4_200) && (obj2F4->scale >= 0.5f) && (unkD6 >= 31)) {
                     obj2F4->unk_0D4 = shot->playerNum + 1;
-                    obj2F4->unk_0E8.x = sp68 * 0.03f;
-                    obj2F4->unk_0E8.y = sp64 * 0.03f;
-                    obj2F4->unk_0E8.z = sp60 * 0.03f;
+                    obj2F4->vel.x = sp68 * 0.03f;
+                    obj2F4->vel.y = sp64 * 0.03f;
+                    obj2F4->vel.z = sp60 * 0.03f;
                     obj2F4->obj.status = 3;
                     obj2F4->timer_0BC = (s32) (Rand_ZeroOne() * 15.0f) + 10;
                     obj2F4->timer_0BE = 0;
@@ -1942,7 +1942,7 @@ void func_8003C4D0(PlayerShot* shot, s32 unkD6) {
                         obj8C->unk_4E = 1;
                         obj8C->unk_44 = 176;
                         obj8C->unk_4C = 0;
-                        obj8C->unk_54.x = obj8C->unk_54.y = obj8C->unk_54.z = 0.0f;
+                        obj8C->vel.x = obj8C->vel.y = obj8C->vel.z = 0.0f;
                         obj8C->scale2 = 20.0f;
                     }
                 }

@@ -1967,15 +1967,15 @@ void func_800319AC(Object_2F4* this) {
     sp9C.x = spBC * sp9C.z;
     sp9C.z = spB4 * sp9C.z;
 
-    this->unk_0E8.x = this->unk_148 + sp9C.x;
-    this->unk_0E8.y = this->unk_14C + sp9C.y;
-    this->unk_0E8.z = this->unk_144 + sp9C.z;
+    this->vel.x = this->unk_148 + sp9C.x;
+    this->vel.y = this->unk_14C + sp9C.y;
+    this->vel.z = this->unk_144 + sp9C.z;
     this->unk_148 -= (this->unk_148 * 0.1f);
     this->unk_14C -= (this->unk_14C * 0.1f);
     this->unk_144 -= (this->unk_144 * 0.1f);
-    if ((this->obj.pos.y < D_80177940 + 40.0f) && (this->unk_0E8.y < 0.0f)) {
+    if ((this->obj.pos.y < D_80177940 + 40.0f) && (this->vel.y < 0.0f)) {
         this->obj.pos.y = D_80177940 + 40.0f;
-        this->unk_0E8.y = 0.0f;
+        this->vel.y = 0.0f;
     }
     if (this->unk_050 != 0) {
         this->unk_050 = 0;
@@ -2054,14 +2054,14 @@ void func_800319AC(Object_2F4* this) {
             if (((gCurrentLevel == LEVEL_BOLSE) || (gCurrentLevel == LEVEL_SECTOR_Z)) && (this->timer_0C6 == 0)) {
                 var_a3 = 3;
             }
-            sp90.x = this->unk_0E8.x;
-            sp90.y = this->unk_0E8.y;
-            sp90.z = this->unk_0E8.z;
+            sp90.x = this->vel.x;
+            sp90.y = this->vel.y;
+            sp90.z = this->vel.z;
             temp_v0_27 = func_8006351C(this->index, &this->obj.pos, &sp90, var_a3);
             if (temp_v0_27 != 0) {
-                this->obj.pos.x -= this->unk_0E8.x;
-                this->obj.pos.y -= this->unk_0E8.y;
-                this->obj.pos.z -= this->unk_0E8.z;
+                this->obj.pos.x -= this->vel.x;
+                this->obj.pos.y -= this->vel.y;
+                this->obj.pos.z -= this->vel.z;
                 if ((temp_v0_27 >= 2) && (this->unk_0E4 >= 0xB)) {
                     this->timer_0BE = 2;
                     this->obj.status = 3;
