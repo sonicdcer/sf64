@@ -3009,7 +3009,7 @@ void func_EBFBE0_801A281C(void) {
 }
 
 // needs D_EBFBE0_801CD900 to be static bss
-#ifdef IMPORT_BSS
+#if defined(IMPORT_BSS) || defined(NON_MATCHING)
 void func_EBFBE0_801A2B8C(void) {
     s32 i;
 
