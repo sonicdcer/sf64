@@ -2909,8 +2909,8 @@ void func_EBFBE0_801A281C(void) {
     }
 }
 
-// needs D_EBFBE0_801CD900 to be static
-#ifdef IMPORT_DATA
+// needs D_EBFBE0_801CD900 to be static bss
+#ifdef IMPORT_BSS
 void func_EBFBE0_801A2B8C(void) {
     s32 i;
 
