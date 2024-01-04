@@ -920,16 +920,16 @@ void* D_EBFBE0_801B68B0[] = {
     D_EBFBE0_801C0010, D_EBFBE0_801BDC10, D_EBFBE0_801C2410, D_EBFBE0_801B9410,
 };
 
-void* D_EBFBE0_801B68D4[] = {
+char* D_EBFBE0_801B68D4[] = {
     (char*) 0x06029220, (char*) 0x0602B6D0, (char*) 0x0602FFD0, (char*) 0x06024890, (char*) 0x0602DB60,
     (char*) 0x0601FF40, (char*) 0x06026D70, (char*) 0x060223E0, (char*) 0x060190B0,
 };
 
 static Gfx* D_EBFBE0_801B68F8[] = {
-    (char*) 0x06060610,        (char*) 0x0601DE80,        (char*) 0x0604B750,        (char*) 0x0601F6B0,
-    (char*) 0x0601C0D0,        (char*) 0x0601C960,        (char*) D_EBFBE0_801B5E78, (char*) D_EBFBE0_801B61E0,
-    (char*) D_EBFBE0_801B6548, (char*) D_EBFBE0_801B4D70, (char*) D_EBFBE0_801B5B10, (char*) D_EBFBE0_801B5440,
-    (char*) D_EBFBE0_801B50D8, (char*) D_EBFBE0_801B57A8, (char*) 0x0604DB10,
+    (Gfx*) 0x06060610,        (Gfx*) 0x0601DE80,        (Gfx*) 0x0604B750,        (Gfx*) 0x0601F6B0,
+    (Gfx*) 0x0601C0D0,        (Gfx*) 0x0601C960,        (Gfx*) D_EBFBE0_801B5E78, (Gfx*) D_EBFBE0_801B61E0,
+    (Gfx*) D_EBFBE0_801B6548, (Gfx*) D_EBFBE0_801B4D70, (Gfx*) D_EBFBE0_801B5B10, (Gfx*) D_EBFBE0_801B5440,
+    (Gfx*) D_EBFBE0_801B50D8, (Gfx*) D_EBFBE0_801B57A8, (Gfx*) 0x0604DB10,
 };
 
 // BSS STARTS HERE
