@@ -32,11 +32,12 @@ extern f32 D_800CA1D4[];
 extern s32 D_800C9E90[];
 extern f32 D_800CA080[];
 extern f32 D_800CA08C[];
+extern s32 D_80177DA8;
 extern Gfx* D_E000000;
 extern Gfx* D_E003AB0;
 
 extern void func_80187520(s32, void*);
-extern void func_800AB334();
+extern void func_800AB334(void);
 extern void func_800ADF58(Player*);
 extern void func_8004D440(Player*);
 extern void func_80046358(Player*);
@@ -1098,7 +1099,71 @@ void func_8004D3D4(Player* player, s32 arg1, Item* arg2) {
     Object_SetInfo(&arg2->info, itemId);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004D440.s")
+void func_8004D440(Player* arg0) {
+    s32 teamId;
+
+    func_8001CA24(arg0->num);
+    func_8001A55C(&arg0->unk_460, 0x0900C010U);
+    func_800A5FA0(&arg0->unk_460, 0x0903F004U, arg0->num);
+    arg0->state_1C8 = PLAYERSTATE_1C8_6;
+    arg0->timer_1F8 = 0x46;
+    arg0->timer_224 = 0x14;
+    D_8017837C = 7;
+
+    if (arg0->unk_1D4 != 0) {
+        arg0->unk_284 = 0;
+    }
+
+    if (!gVersusMode) {
+        if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
+            func_800BA808(gMsg_ID_20318, 0);
+        } else {
+            if ((gCurrentLevel != LEVEL_TRAINING) &&
+                ((gTeamShields[1] > 0) || (gTeamShields[2] > 0) || (gTeamShields[3] > 0))) {
+                do {
+                    teamId = (s32) (Rand_ZeroOne() * 2.9f) + 1;
+                } while (gTeamShields[teamId] <= 0);
+
+                switch (teamId) {
+                    case 1:
+                        func_800BA808(gMsg_ID_20090, RCID_FALCO);
+                        break;
+
+                    case 2:
+                        func_800BA808(gMsg_ID_20092, RCID_SLIPPY);
+                        break;
+
+                    case 3:
+                        func_800BA808(gMsg_ID_20091, RCID_PEPPY);
+                        break;
+                }
+            }
+        }
+
+        if (gCurrentLevel != LEVEL_TRAINING) {
+            gLifeCount[gPlayerNum] -= 1;
+        }
+    } else {
+        if (arg0->unk_288 > 0) {
+            D_80177DD0[arg0->unk_288 - 1][D_80177DB8[arg0->unk_288 - 1]] = arg0->num;
+            D_80177DB8[arg0->unk_288 - 1] += 1;
+            if (D_801778A4 == D_80177DB8[arg0->unk_288 - 1]) {
+                arg0->unk_288 = -1;
+                if (arg0->unk_284 == 0) {
+                    func_8007C688(arg0->pos.x, arg0->pos.y, arg0->unk_138, 3.0f, 0x3E8);
+                }
+            }
+        }
+        if (gBombCount[gPlayerNum] != 0) {
+            gBombCount[gPlayerNum] = 0;
+            func_8004D3D4(arg0, 0x147, &gItems[1]);
+        }
+        if (gLaserStrength[gPlayerNum] != 0) {
+            gLaserStrength[gPlayerNum] = 0;
+            func_8004D3D4(arg0, 0x142, &gItems[0]);
+        }
+    }
+}
 
 void func_8004D738(Player* arg0) {
     arg0->pos.y += 30.0f;
@@ -1996,7 +2061,7 @@ void func_800515C4(void) {
     if (gGameState == GSTATE_TITLE) {
         var_fp = D_60320E0;
     } else if (gGameState == GSTATE_CREDITS) {
-        var_fp = D_7010970;
+        var_fp = &D_7010970[0];
     } else {
         var_fp = D_1024AC0;
     }
