@@ -835,7 +835,7 @@ extern f32 D_E9F1D0_801A7F68;
 extern f32 D_E9F1D0_801A7F70;
 extern f32 D_E9F1D0_801A7F78;
 
-// ovl_EBFBE0
+// ovl_menu
 extern s32 D_EBFBE0_801B8220[]; // total hits ranking? see func_EBFBE0_80197DE4
 extern s32 D_EBFBE0_801B8280;
 extern s32 D_EBFBE0_801B8284;

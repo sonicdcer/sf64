@@ -2872,7 +2872,7 @@ void func_EBFBE0_80199FA8(void) {
     func_EBFBE0_8019A080();
 }
 #else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_80199FA8.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_menu/fox_option/func_EBFBE0_80199FA8.s")
 #endif
 
 // D_EBFBE0_801B9380 needs to be static but belongs to bss section?
@@ -2886,7 +2886,7 @@ void func_EBFBE0_8019A080(void) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019A080.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_menu/fox_option/func_EBFBE0_8019A080.s")
 #endif
 
 void func_EBFBE0_8019A0B8(void) {
@@ -3272,7 +3272,7 @@ static f32 D_EBFBE0_801AF274[6] = { 46.0f, 43.0f, 43.0f, 43.0f, 43.0f, 43.0f };
 static u8* D_EBFBE0_801AF28C[] = {
     (u8*) 0x070024D0, (u8*) 0x07002730, (u8*) 0x07002990, (u8*) 0x07002BF0, (u8*) 0x07002E50,
 };
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019AD84.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_menu/fox_option/func_EBFBE0_8019AD84.s")
 #endif
 
 // needs in-function static data & bss
@@ -3328,7 +3328,7 @@ void func_EBFBE0_8019AFFC(void) {
 #else
 static f32 D_EBFBE0_801AF2A0 = 101.0f;
 static f32 D_EBFBE0_801AF2A4 = 86.0f;
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_option/func_EBFBE0_8019AFFC.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_menu/fox_option/func_EBFBE0_8019AFFC.s")
 #endif
 
 void func_EBFBE0_8019B1F8(void) {

@@ -128,9 +128,9 @@
     - [0xEBFB80, .rodata, EBD210]
     - { start: 0xEBFBE0, type: bss, vram: 0x801A7F30, name: ovl_E9F1D0 }
     
-  - name: ovl_EBFBE0
+  - name: ovl_menu
     type: code
-    dir: overlays/ovl_EBFBE0
+    dir: overlays/ovl_menu
     start: 0xEBFBE0
     vram: 0x80187520
     bss_size: 0x17590
@@ -148,7 +148,7 @@
     - [0xEEF430, .rodata, fox_title]
     - [0xEEF7D0, .rodata, fox_option]
     - [0xEEFB80, .rodata, fox_map]
-    # - { start: 0xEF0260, type: bss, vram: 0x801B7BA0, name: ovl_EBFBE0 }
+    # - { start: 0xEF0260, type: bss, vram: 0x801B7BA0, name: ovl_menu }
     - { start: 0xEF0260, type: bss, vram: 0x801B7BA0, name: fox_title }
     - { start: 0xEF0260, type: bss, vram: 0x801B9090, name: fox_option }
     - { start: 0xEF0260, type: bss, vram: 0x801B9410, name: fox_map }

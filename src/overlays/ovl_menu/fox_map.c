@@ -2770,7 +2770,7 @@ void func_EBFBE0_801A1C14(void) {
     D_EBFBE0_801CD9C4++;
 }
 #else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_map/func_EBFBE0_801A1C14.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_menu/fox_map/func_EBFBE0_801A1C14.s")
 #endif
 
 bool func_EBFBE0_801A2304(void) {
@@ -3122,7 +3122,7 @@ void func_EBFBE0_801A2B8C(void) {
     D_EBFBE0_801CD9C4++;
 }
 #else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_EBFBE0/fox_map/func_EBFBE0_801A2B8C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_menu/fox_map/func_EBFBE0_801A2B8C.s")
 #endif
 
 void func_EBFBE0_801A2EB8(void) {
