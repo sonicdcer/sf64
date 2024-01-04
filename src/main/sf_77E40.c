@@ -2478,7 +2478,46 @@ void func_8007F6B0(Object_8C* obj8C) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007F958.s")
+void func_8007F958(Object_8C* obj8C) {
+    s32 i;
+    f32 x;
+    f32 z;
+    f32 y;
+    f32 temp;
+    f32 cos;
+    f32 sin;
+    f32 randFloat;
+    f32 posY;
+
+    obj8C->scale2 += obj8C->scale1;
+    obj8C->scale1 -= 0.08f;
+    if (obj8C->scale1 < 0.1f) {
+        obj8C->scale1 = 0.1f;
+    }
+    obj8C->unk_44 -= 9;
+    if (obj8C->unk_44 < 0) {
+        Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+        return;
+    }
+    if (!(gFrameCount & 1)) {
+        randFloat = Rand_ZeroOne() * 144.0f;
+        for (i = 0; i < 5; i++) {
+            temp = (i * 72.0f * M_DTOR) + randFloat;
+            sin = __sinf(temp) * obj8C->scale2 * 16.0f;
+            cos = __cosf(temp) * obj8C->scale2 * 16.0f;
+            posY = D_80177940 + 10.0f;
+            if (D_801784AC == 4) {
+                func_E6A810_801B6E20(obj8C->obj.pos.x + sin, obj8C->obj.pos.z + cos + D_80177D20, &x, &y, &z);
+                posY = y + 10.0f;
+            }
+            if (gCurrentLevel == LEVEL_FORTUNA) {
+                func_8007BC7C(obj8C->obj.pos.x + sin, posY, obj8C->obj.pos.z + cos, 8.0f);
+            } else if (gCurrentLevel == LEVEL_TITANIA) {
+                func_8007A900(obj8C->obj.pos.x + sin, posY, obj8C->obj.pos.z + cos, 8.0f, (u8) 0xFF, (u8) 0xF, (u16) 0);
+            }
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007FBE0.s")
 
