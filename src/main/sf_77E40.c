@@ -2258,9 +2258,45 @@ void func_8007EBB8(Object_8C* obj8C, s32 objId, f32 posX, f32 posY, f32 posZ, f3
     Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007ECB4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007ED54.s")
+
+void func_8007ECB4(s32 objId, f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2) {
+    s32 i;
+
+    for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
+        if (gObjects8C[i].obj.status == 0) {
+            func_8007EBB8(&gObjects8C[i], objId, posX, posY, posZ, velX, velY, velZ, scale2);
+            break;
+        }
+    }
+}
+
+void func_8007ED54(Object_8C* obj8C, s32 objId, f32 posX, f32 posY, f32 posZ, f32 rotX, f32 rotY, f32 rotZ, f32 arg8, f32 arg9, f32 argA, f32 velX, f32 velY, f32 velZ, f32 scale2) {
+    Object_8C_Initialize(obj8C);
+    obj8C->obj.status = 1;
+    obj8C->obj.id = objId;
+    obj8C->obj.pos.x = posX;
+    obj8C->obj.pos.y = posY;
+    obj8C->obj.pos.z = posZ;
+    obj8C->timer_50 = 100;
+    if (gCurrentLevel == LEVEL_AQUAS) {
+        obj8C->timer_50 = 75;
+    }
+    obj8C->vel.x = velX;
+    obj8C->vel.y = velY;
+    obj8C->vel.z = velZ;
+    obj8C->obj.rot.x = rotX;
+    obj8C->obj.rot.y = rotY;
+    obj8C->obj.rot.z = rotZ;
+    obj8C->unk_60.x = arg8;
+    obj8C->unk_60.y = arg9;
+    obj8C->unk_60.z = argA;
+    obj8C->scale2 = scale2;
+    if (obj8C->obj.id != OBJ_8C_380) {
+        Audio_PlaySfx(0x29002002, &obj8C->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    }
+    Object_SetInfo(&obj8C->info, obj8C->obj.id);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007EE68.s")
 
