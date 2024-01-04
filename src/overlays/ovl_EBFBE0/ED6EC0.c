@@ -2256,7 +2256,7 @@ void func_EBFBE0_801A0954(void) {
 }
 
 #ifndef IMPORT_DATA
-u16* D_EBFBE0_801B6954[];
+extern u16* D_EBFBE0_801B6954[7];
 #endif
 
 void func_EBFBE0_801A0D14(void) {
@@ -3966,7 +3966,7 @@ void func_EBFBE0_801A5834(void) {
     if (gLifeCount[gPlayerNum]) {
         texture = D_6001080;
     } else {
-        texture = D_6000000;
+        texture = (u8*) D_6000000;
     }
 
     RCP_SetupDL(&gMasterDisp, 0x4C);
