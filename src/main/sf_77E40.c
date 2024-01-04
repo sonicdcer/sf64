@@ -2363,9 +2363,59 @@ void func_8007F20C(s32 objId, f32 posX, f32 posY, f32 posZ, f32 arg4) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007F2FC.s")
+void func_8007F2FC(Object_8C* obj8C) {
+    if (obj8C->timer_50 == 0) {
+        Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+    }
+    if ((obj8C->obj.pos.y < D_80177940) && (gLevelType == LEVELTYPE_PLANET)) {
+        Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+    }
+    if (gLevelType == LEVELTYPE_PLANET) {
+        obj8C->vel.y -= 0.3f;
+    }
+    if (obj8C->obj.pos.y < D_80177CC0) {
+        obj8C->vel.y += 0.2f;
+        obj8C->obj.pos.y -= obj8C->vel.y * 0.5f;
+        obj8C->obj.pos.x -= obj8C->vel.x * 0.5f;
+        obj8C->obj.pos.z -= obj8C->vel.z * 0.5f;
+    }
+    if ((obj8C->unk_44 == 1) && !(gFrameCount & 1)) {
+        func_8007D0E0(obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z, 1.5f);
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007F438.s")
+void func_8007F438(Object_8C* obj8C) {
+    if (gCurrentLevel == LEVEL_AQUAS) {
+        obj8C->obj.rot.z += 3.5f;
+        obj8C->vel.z = 5.0f;
+        if (obj8C->unk_44 != 0) {
+            Math_SmoothStepToF(&obj8C->scale1, 100.0f, 1.0f, 20.0f, 0.0001f);
+        } else {
+            Math_SmoothStepToF(&obj8C->scale1, 0.0f, 1.0f, 20.0f, 0.0001f);
+        }
+        if (obj8C->unk_46 == 0) {
+            obj8C->unk_46 = 0x1E;
+            obj8C->unk_44 += 1;
+            obj8C->unk_44 &= 1;
+        } else {
+            obj8C->unk_46--;
+        }
+        if (D_80177D08 < 0.0f) {
+            obj8C->vel.z = -10.0f;
+        }
+        if (obj8C->timer_50 == 0) {
+            Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+        }
+    } else {
+        obj8C->obj.rot.z += 3.5f;
+        if (gLevelType == LEVELTYPE_PLANET) {
+            obj8C->vel.y += 0.2f;
+        }
+        if (obj8C->timer_50 == 0) {
+            Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007F5AC.s")
 
