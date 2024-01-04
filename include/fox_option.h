@@ -172,7 +172,7 @@ extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9400;
 extern UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9408;
 
 extern void* D_EBFBE0_801B68B0[];
-extern void* D_EBFBE0_801B68D4[];
+extern char* D_EBFBE0_801B68D4[];
 
 extern s32 D_EBFBE0_801B81A8[][3];
 
