@@ -2238,7 +2238,8 @@ void func_8007E93C(Object_8C* obj8C, u32 objId, f32 posX, f32 posY, f32 posZ, f3
     Audio_PlaySfx(0x29002002, &obj8C->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-void func_8007EBB8(Object_8C* obj8C, s32 objId, f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2) {
+void func_8007EBB8(Object_8C* obj8C, s32 objId, f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ,
+                   f32 scale2) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
     obj8C->obj.id = objId;
@@ -2258,8 +2259,6 @@ void func_8007EBB8(Object_8C* obj8C, s32 objId, f32 posX, f32 posY, f32 posZ, f3
     Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
-
-
 void func_8007ECB4(s32 objId, f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2) {
     s32 i;
 
@@ -2271,7 +2270,8 @@ void func_8007ECB4(s32 objId, f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, 
     }
 }
 
-void func_8007ED54(Object_8C* obj8C, s32 objId, f32 posX, f32 posY, f32 posZ, f32 rotX, f32 rotY, f32 rotZ, f32 arg8, f32 arg9, f32 argA, f32 velX, f32 velY, f32 velZ, f32 scale2) {
+void func_8007ED54(Object_8C* obj8C, s32 objId, f32 posX, f32 posY, f32 posZ, f32 rotX, f32 rotY, f32 rotZ, f32 arg8,
+                   f32 arg9, f32 argA, f32 velX, f32 velY, f32 velZ, f32 scale2) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
     obj8C->obj.id = objId;
@@ -2312,8 +2312,9 @@ void func_8007EE68(s32 objId, Vec3f* pos, Vec3f* rot, Vec3f* arg3, Vec3f* arg4, 
 
     for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
         if (gObjects8C[i].obj.status == 0) {
-            func_8007ED54(&gObjects8C[i], objId, pos->x + sp68.x, pos->y + sp68.y, pos->z + sp68.z, rot->x, 
-            rot->y, rot->z, arg3->x, arg3->y, arg3->z, sp68.x + D_801779E4, sp68.y + D_801779F4, sp68.z - D_80177D08, scale2);
+            func_8007ED54(&gObjects8C[i], objId, pos->x + sp68.x, pos->y + sp68.y, pos->z + sp68.z, rot->x, rot->y,
+                          rot->z, arg3->x, arg3->y, arg3->z, sp68.x + D_801779E4, sp68.y + D_801779F4,
+                          sp68.z - D_80177D08, scale2);
             break;
         }
     }
