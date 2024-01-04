@@ -2085,15 +2085,110 @@ void func_8007E330(Object_8C* obj8C) {
     gSPDisplayList(gMasterDisp++, D_2010A30);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007E3E4.s")
+void func_8007E3E4(Object_8C* obj8C) {
+    obj8C->scale2 += 0.02f;
+    obj8C->unk_4A -= 4;
+    if (obj8C->unk_4A < 0) {
+        Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+    }
+    obj8C->obj.rot.z += obj8C->unk_48;
+    obj8C->vel.y += 0.05f;
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007E45C.s")
+void func_8007E45C(Object_8C* obj8C) {
+    switch (obj8C->unk_4E) {
+        case 0:
+            if (obj8C->unk_4C != 0) {
+                Math_SmoothStepToF(&obj8C->scale2, 5.0f, 0.05f, 0.5f, 0.0f);
+                obj8C->unk_44 -= 10;
+                obj8C->obj.rot.z += obj8C->scale1;
+                if (obj8C->unk_44 < 0) {
+                    Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+                }
+                return;
+            }
+            obj8C->scale2 += 0.02f;
+            obj8C->unk_44 -= 1;
+            if (obj8C->unk_44 < 0) {
+                Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+            }
+            obj8C->obj.rot.z += obj8C->scale1;
+            Math_SmoothStepToF(&obj8C->vel.y, 0.5f, 0.05f, 0.2f, 0.00001f);
+            break;
+        case 1:
+            obj8C->vel.y = 3.0f;
+            Math_SmoothStepToF(&obj8C->scale2, 5.0f, 0.05f, 0.5f, 0.0f);
+            obj8C->unk_44 -= 10;
+            obj8C->obj.rot.z += obj8C->scale1;
+            if (obj8C->unk_44 < 0) {
+                Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+            }
+            break;
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007E5CC.s")
+void func_8007E5CC(Object_8C* obj8C) {
+    Graphics_SetScaleMtx(obj8C->scale2);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, obj8C->unk_44);
+    gSPDisplayList(gMasterDisp++, D_2010A30);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007E648.s")
+void func_8007E648(Object_8C* obj8C) {
+    if (obj8C->timer_50 == 0) {
+        Math_SmoothStepToF(&obj8C->scale2, obj8C->scale1, 0.05f, 100.0f, 0.0f);
+        obj8C->unk_44 -= 2;
+        if (obj8C->unk_44 < 0) {
+            Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007E6B8.s")
+void func_8007E6B8(Object_8C* obj8C, u32 objId, f32 posX, f32 posY, f32 posZ, f32 arg5) {
+    f32 sp54;
+    f32 sp50;
+    f32 temp_ft4;
+    Vec3f sp40;
+    Vec3f sp34;
+
+    Object_8C_Initialize(obj8C);
+    obj8C->obj.status = 1;
+    obj8C->obj.id = objId;
+    obj8C->timer_50 = 100;
+    obj8C->obj.pos.x = posX;
+    obj8C->obj.pos.y = posY;
+    obj8C->obj.pos.z = posZ;
+    Object_SetInfo(&obj8C->info, objId & 0xFFFF);
+    sp50 = Math_Atan2F(gPlayer->pos.x - posX, gPlayer->unk_138 - posZ);
+    temp_ft4 = sqrtf(SQ(gPlayer->unk_138 - posZ) + SQ(gPlayer->pos.x - posX));
+    sp54 = -Math_Atan2F(gPlayer->pos.y - posY, temp_ft4);
+    Matrix_RotateY(gCalcMatrix, sp50, 0);
+    Matrix_RotateX(gCalcMatrix, sp54, 1);
+    sp40.x = 0.0f;
+    sp40.y = 0.0f;
+    sp40.z = arg5;
+    Matrix_MultVec3f(gCalcMatrix, &sp40, &sp34);
+    obj8C->vel.x = sp34.x + D_801779E4;
+    obj8C->vel.y = sp34.y + D_801779F4;
+    obj8C->vel.z = sp34.z - D_80177D08;
+    if ((objId == OBJ_8C_353) || (objId == OBJ_8C_354)) {
+        obj8C->obj.rot.x = (sp54 * 180.0f) / M_PI;
+        obj8C->obj.rot.y = (sp50 * 180.0f) / M_PI;
+    }
+    if (objId == OBJ_8C_356) {
+        Audio_PlaySfx(0x31000025, &obj8C->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    }
+    if (objId == OBJ_8C_376) {
+        obj8C->obj.rot.z = Rand_ZeroOne() * 360.0f;
+        obj8C->unk_4A = 0xB4;
+        obj8C->scale2 = 5.0f;
+        return;
+    }
+    if ((objId == OBJ_8C_355) || (objId == OBJ_8C_377)) {
+        Audio_PlaySfx(0x31000025, &obj8C->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        return;
+    }
+    Audio_PlaySfx(0x29002002, &obj8C->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007E93C.s")
 

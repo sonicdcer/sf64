@@ -208,7 +208,7 @@ void func_80060D94(s32);
 void func_80060F30(Vec3f* , u32 , s32 );
 void Object_Kill(Object*, Vec3f*);
 s32 func_80060FE4(Vec3f*, f32);
-void Object_SetInfo(ObjectInfo*, u32);
+void Object_SetInfo(ObjectInfo* info, u32 objId);
 void Object_80_Initialize(Object_80*);
 void Object_4C_Initialize(Object_4C*);
 void Object_2F4_Initialize(Object_2F4*);
