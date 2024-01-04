@@ -2573,7 +2573,82 @@ s32 func_8007FD84(Object_8C* obj8C) {
     return 0;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007FE88.s")
+void func_8007FE88(Object_8C* obj8C) {
+    Vec3f srcVelocity;
+    Vec3f destVelocity;
+    Vec3f velocity;
+    f32 var_fa0;
+
+    var_fa0 = 0.0f;
+    if (obj8C->timer_50 == 0) {
+        Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+        return;
+    }
+    if (func_8007FD84(obj8C) != 0) {
+        Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+        return;
+    }
+    if (gPlayer->unk_280 != 0) {
+        var_fa0 = 100.0f;
+    }
+    if (fabsf(gPlayer->unk_138 - obj8C->obj.pos.z) < (50.0f + var_fa0)) {
+        if ((fabsf(gPlayer->pos.x - obj8C->obj.pos.x) < (30.0f + var_fa0)) &&
+            (fabsf(gPlayer->pos.y - obj8C->obj.pos.y) < (30.0f + var_fa0))) {
+            if ((gPlayer->unk_280 != 0) || (gPlayer->timer_27C != 0)) {
+                obj8C->obj.rot.y = 90.0f;
+                obj8C->obj.rot.x = Rand_ZeroOne() * 360.0f;
+                Matrix_RotateY(gCalcMatrix, obj8C->obj.rot.y * M_DTOR, 0);
+                Matrix_RotateX(gCalcMatrix, obj8C->obj.rot.x * M_DTOR, 1);
+                srcVelocity.x = 0.0f;
+                srcVelocity.y = 0.0f;
+                srcVelocity.z = 100.0f;
+                Matrix_MultVec3f(gCalcMatrix, &srcVelocity, &destVelocity);
+                obj8C->vel.x = destVelocity.x;
+                obj8C->vel.y = destVelocity.y;
+                obj8C->vel.z = destVelocity.z;
+                gPlayer->unk_2C4 += 1;
+                Audio_PlaySfx(0x09007011U, &obj8C->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            }
+            if ((gPlayer->unk_280 == 0) && (gPlayer->timer_498 == 0)) {
+                Player_ApplyDamage(gPlayer, 0, obj8C->info.damage);
+                gPlayer->unk_0D8.x = 20.0f;
+                if (obj8C->vel.x < 0.0f) {
+                    gPlayer->unk_0D8.x *= -1.0f;
+                }
+                if (gCurrentLevel != LEVEL_MACBETH) {
+                    gPlayer->unk_0D8.y = 20.0f;
+                    if (obj8C->vel.y < 0.0f) {
+                        gPlayer->unk_0D8.y *= -1.0f;
+                    }
+                }
+                Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+            }
+        }
+    }
+    if (D_801784AC == 4) {
+        if (func_E6A810_801B6AEC(obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z + D_80177D20) != 0) {
+            Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+        }
+    } else if (obj8C->obj.pos.y < D_80177940) {
+        Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+        if (D_80161A88 != 2) {
+            obj8C->obj.pos.y = D_80177940;
+            func_8007D074(obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z, 2.0f);
+        }
+    }
+    velocity.x = obj8C->vel.x;
+    velocity.y = obj8C->vel.y;
+    velocity.z = obj8C->vel.z;
+    if (gCurrentLevel != LEVEL_MACBETH) {
+        if (func_8006351C(1000, &obj8C->obj.pos, &velocity, 2) != 0) {
+            func_8007D10C(obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z, 2.0f);
+            Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+        }
+    } else if (func_801A55D4(1000, &obj8C->obj.pos, &velocity, 0) != 0) {
+        func_8007D10C(obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z, 2.0f);
+        Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_800802B8.s")
 

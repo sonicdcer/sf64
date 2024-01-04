@@ -232,6 +232,7 @@ void func_80062C38(f32, f32);
 s32 func_800631A8(Vec3f*, f32*, Vec3f*);
 s32 func_8006326C(Vec3f* , Vec3f* , ObjectId , Object* );
 s32 func_8006351C(s32 , Vec3f* , Vec3f* , s32 );
+s32 func_801A55D4(s32 , Vec3f* , Vec3f* , s32 );
 void func_800652CC(Object_80*);
 void func_800654E4(Object *);
 void func_800656D4(Object_2F4*);
