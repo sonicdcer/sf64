@@ -2223,7 +2223,7 @@ void func_8007E93C(Object_8C* obj8C, u32 objId, f32 posX, f32 posY, f32 posZ, f3
         obj8C->obj.rot.y = (sp50 * 180.0f) / M_PI;
     }
     if (objId == OBJ_8C_356) {
-        Audio_PlaySfx(0x31000025, &obj8C->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(0x31000025, &obj8C->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
     if (objId == OBJ_8C_376) {
         obj8C->obj.rot.z = Rand_ZeroOne() * 360.0f;
@@ -2298,7 +2298,26 @@ void func_8007ED54(Object_8C* obj8C, s32 objId, f32 posX, f32 posY, f32 posZ, f3
     Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007EE68.s")
+void func_8007EE68(s32 objId, Vec3f* pos, Vec3f* rot, Vec3f* arg3, Vec3f* arg4, f32 scale2) {
+    s32 i;
+    Vec3f sp68;
+
+    Matrix_RotateY(gCalcMatrix, arg3->y * M_DTOR, 0);
+    Matrix_RotateX(gCalcMatrix, arg3->x * M_DTOR, 1);
+    Matrix_RotateZ(gCalcMatrix, arg3->z * M_DTOR, 1);
+    Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, 1);
+    Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, 1);
+    Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, 1);
+    Matrix_MultVec3f(gCalcMatrix, arg4, &sp68);
+
+    for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
+        if (gObjects8C[i].obj.status == 0) {
+            func_8007ED54(&gObjects8C[i], objId, pos->x + sp68.x, pos->y + sp68.y, pos->z + sp68.z, rot->x, 
+            rot->y, rot->z, arg3->x, arg3->y, arg3->z, sp68.x + D_801779E4, sp68.y + D_801779F4, sp68.z - D_80177D08, scale2);
+            break;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007F04C.s")
 
