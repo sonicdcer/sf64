@@ -1,8 +1,6 @@
 #include "global.h"
 #include "sf64dma.h"
 
-extern void func_80187520(s32, void*);
-
 f32 D_80161A10;
 f32 D_80161A14;
 s32 gPlayerInactive[4];
@@ -247,15 +245,15 @@ void func_800A24DC(s32 arg0) {
             break;
         case DRAWMODE_1:
             func_8003DAF0();
-            func_80187520(0x68, NULL);
+            func_EBFBE0_80187520(104, NULL);
             break;
         case DRAWMODE_2:
             func_8003DAF0();
-            func_80187520(0x6C, NULL);
+            func_EBFBE0_80187520(108, NULL);
             break;
         case DRAW_MAP:
             func_8003DAF0();
-            func_80187520(0x6A, NULL);
+            func_EBFBE0_80187520(106, NULL);
             break;
         case DRAWMODE_4:
             gPlayerNum = arg0;
@@ -263,7 +261,7 @@ void func_800A24DC(s32 arg0) {
             break;
         case DRAWMODE_5:
             func_8003DAF0();
-            func_80187520(0x6E, NULL);
+            func_EBFBE0_80187520(110, NULL);
             break;
         case DRAWMODE_6:
             func_800C2190();
@@ -443,10 +441,10 @@ void func_800A26C0(void) {
                 func_8001D8A8(2, gVolumeSettings[2]);
                 break;
             case GSTATE_TITLE:
-                func_80187520(0x67, NULL);
+                func_EBFBE0_80187520(103, NULL);
                 break;
             case GSTATE_MENU:
-                func_80187520(0x6B, NULL);
+                func_EBFBE0_80187520(107, NULL);
                 break;
             case GSTATE_MAP:
                 func_EBFBE0_8019E8D0();
@@ -458,7 +456,7 @@ void func_800A26C0(void) {
                 func_800B86CC();
                 break;
             case GSTATE_GAME_OVER:
-                func_80187520(0x6D, NULL);
+                func_EBFBE0_80187520(109, NULL);
                 break;
             case GSTATE_CREDITS:
                 gDrawMode = DRAWMODE_8;

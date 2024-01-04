@@ -234,7 +234,7 @@ typedef struct Player {
     /* 0x224 */ s32 timer_224;
     /* 0x228 */ s32 unk_228;
     /* 0x22C */ s32 unk_22C;
-    /* 0x230 */ char pad230[4];
+    /* 0x230 */ s32 unk_230;
     /* 0x234 */ s32 unk_234;
     /* 0x238 */ s32 unk_238;
     /* 0x23C */ s32 unk_23C;

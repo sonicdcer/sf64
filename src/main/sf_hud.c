@@ -1598,43 +1598,43 @@ void func_8008F96C(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80090200.s")
 
-void func_800907C4(Object_408* obj408) {
-    switch (obj408->unk_04E) {
+void func_800907C4(Boss* boss) {
+    switch (boss->unk_04E) {
         case 0:
-            if ((obj408->unk_0DC == 255.0f) && (obj408->unk_0E0 == 212.0f)) {
-                obj408->unk_04E = 1;
+            if ((boss->fwork[1] == 255.0f) && (boss->fwork[2] == 212.0f)) {
+                boss->unk_04E = 1;
 
             } else {
-                Math_SmoothStepToF(&obj408->unk_0DC, 255.0f, 0.3f, 6.0f, 6.0f);
-                Math_SmoothStepToF(&obj408->unk_0E0, 212.0f, 0.3f, 4.98f, 4.98f);
+                Math_SmoothStepToF(&boss->fwork[1], 255.0f, 0.3f, 6.0f, 6.0f);
+                Math_SmoothStepToF(&boss->fwork[2], 212.0f, 0.3f, 4.98f, 4.98f);
             }
             break;
 
         case 1:
-            if ((obj408->unk_0DC == 28.0f) && (obj408->unk_0E0 == 23.0f)) {
-                obj408->unk_04E = 0;
+            if ((boss->fwork[1] == 28.0f) && (boss->fwork[2] == 23.0f)) {
+                boss->unk_04E = 0;
             } else {
-                Math_SmoothStepToF(&obj408->unk_0DC, 28.0f, 0.3f, 6.0f, 6.0f);
-                Math_SmoothStepToF(&obj408->unk_0E0, 23.0f, 0.3f, 4.98f, 4.98f);
+                Math_SmoothStepToF(&boss->fwork[1], 28.0f, 0.3f, 6.0f, 6.0f);
+                Math_SmoothStepToF(&boss->fwork[2], 23.0f, 0.3f, 4.98f, 4.98f);
             }
             break;
     }
-    func_8008FFF0(obj408, D_8015F928);
+    func_8008FFF0(boss, D_8015F928);
 }
 
 bool func_8009092C(Object_2F4* obj2F4) {
     bool var_s5 = false;
-    Object_408* obj408;
+    Boss* boss;
     s32 i = 0;
 
     if (obj2F4->unk_0E6 != 0) {
         return true;
     }
 
-    obj408 = &gObjects408[1];
+    boss = &gBosses[1];
 
-    for (i = 1; i < 4; i++, obj408++) {
-        if (obj408->obj.status == 2) {
+    for (i = 1; i < 4; i++, boss++) {
+        if (boss->obj.status == 2) {
             var_s5 = true;
             if (obj2F4->unk_0E6 == 0) {
                 obj2F4->unk_0E6 = i;
@@ -1672,7 +1672,7 @@ bool func_80090A00(Object_2F4* obj2F4) {
             }
 
         case 2:
-            obj2F4->unk_124.x = gObjects408[0].obj.pos.x + 1000.0f;
+            obj2F4->unk_124.x = gBosses[0].obj.pos.x + 1000.0f;
             obj2F4->unk_124.y = 300.0f;
             obj2F4->unk_124.z = obj2F4->obj.pos.z - 10000.0f;
             obj2F4->unk_058++;
@@ -1686,9 +1686,9 @@ bool func_80090A00(Object_2F4* obj2F4) {
             break;
 
         case 3:
-            obj2F4->unk_124.x = gObjects408[0].obj.pos.x - 1000.0f;
+            obj2F4->unk_124.x = gBosses[0].obj.pos.x - 1000.0f;
             obj2F4->unk_124.y = 400.0f;
-            obj2F4->unk_124.z = gObjects408[0].obj.pos.z;
+            obj2F4->unk_124.z = gBosses[0].obj.pos.z;
             obj2F4->unk_058++;
             if (obj2F4->unk_05C == obj2F4->unk_058) {
                 obj2F4->unk_064 = 4;
@@ -1726,13 +1726,13 @@ bool func_80090CCC(Object_2F4* obj2F4) {
     bool ret = false;
 
     if (func_8009092C(obj2F4)) {
-        obj2F4->unk_124.z = gObjects408[obj2F4->unk_0E6].obj.pos.z;
-        obj2F4->unk_124.y = gObjects408[obj2F4->unk_0E6].obj.pos.y;
-        obj2F4->unk_124.x = gObjects408[obj2F4->unk_0E6].obj.pos.x;
+        obj2F4->unk_124.z = gBosses[obj2F4->unk_0E6].obj.pos.z;
+        obj2F4->unk_124.y = gBosses[obj2F4->unk_0E6].obj.pos.y;
+        obj2F4->unk_124.x = gBosses[obj2F4->unk_0E6].obj.pos.x;
     } else {
-        obj2F4->unk_124.z = gObjects408[0].obj.pos.z;
-        obj2F4->unk_124.y = gObjects408[0].obj.pos.y;
-        obj2F4->unk_124.x = gObjects408[0].obj.pos.x;
+        obj2F4->unk_124.z = gBosses[0].obj.pos.z;
+        obj2F4->unk_124.y = gBosses[0].obj.pos.y;
+        obj2F4->unk_124.x = gBosses[0].obj.pos.x;
     }
 
     if ((fabsf(obj2F4->obj.pos.x - obj2F4->unk_124.x) < 2000.0f) &&
@@ -1756,7 +1756,7 @@ bool func_80090CCC(Object_2F4* obj2F4) {
         obj2F4->unk_13C = 30.0f;
     }
 
-    if (gObjects408[obj2F4->unk_0E6].obj.status == 0) {
+    if (gBosses[obj2F4->unk_0E6].obj.status == 0) {
         obj2F4->unk_0B8 = 1;
         obj2F4->unk_0E6 = 0;
         obj2F4->unk_068 = 0;
@@ -1797,8 +1797,8 @@ s32 func_80090E8C(Object_2F4* obj2F4) {
         var_fv1_2 = 5000.0f;
     }
 
-    if ((var_fv1_2 < fabsf(obj2F4->obj.pos.x - gObjects408->obj.pos.x)) &&
-        (var_fv1_2 < fabsf(obj2F4->obj.pos.z - gObjects408->obj.pos.z))) {
+    if ((var_fv1_2 < fabsf(obj2F4->obj.pos.x - gBosses[0].obj.pos.x)) &&
+        (var_fv1_2 < fabsf(obj2F4->obj.pos.z - gBosses[0].obj.pos.z))) {
         obj2F4->unk_0B8 = 0;
     }
 
@@ -1819,9 +1819,9 @@ bool func_800910C0(Object_2F4* obj2F4) {
         obj2F4->timer_0BC = (s32) (Rand_ZeroOne() * 20.0f) + 10;
     }
 
-    obj2F4->unk_124.x = obj2F4->unk_2DC.x + gObjects408->obj.pos.x;
-    obj2F4->unk_124.y = obj2F4->unk_2DC.y;
-    obj2F4->unk_124.z = obj2F4->unk_2DC.z + gObjects408->obj.pos.z;
+    obj2F4->unk_124.x = gBosses[0].obj.pos.x + (*obj2F4).unk_2DC.x;
+    obj2F4->unk_124.y = (*obj2F4).unk_2DC.y;
+    obj2F4->unk_124.z = gBosses[0].obj.pos.z + (*obj2F4).unk_2DC.z;
 
     if (obj2F4->unk_0E4 == 1) {
         var_fv1 = 1500.0f;
