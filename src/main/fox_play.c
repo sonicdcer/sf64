@@ -4283,7 +4283,7 @@ void func_800B0F50(Player* playerx) {
             D_80177CD0[j] = D_80177CF0[j] = 1;
         }
         gLaserStrength[gPlayerNum] = LASERS_SINGLE;
-        gGoldRingCount[0] = D_80161A94[0] = D_80161714 = 0;
+        gGoldRingCount[0] = D_80161A94[0] = gTotalHits = 0;
         gLifeCount[gPlayerNum] = 2;
         gBombCount[gPlayerNum] = 3;
         D_80177B8C = 1;
