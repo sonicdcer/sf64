@@ -2417,9 +2417,66 @@ void func_8007F438(Object_8C* obj8C) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007F5AC.s")
+void func_8007F5AC(Object_8C* obj8C) {
+    if (obj8C->unk_4C == 0) {
+        obj8C->unk_46++;
+        if (!(obj8C->unk_46 & 0x20)) {
+            obj8C->vel.x += 0.5f;
+        } else {
+            obj8C->vel.x -= 0.5f;
+        }
+        if (!(gFrameCount & 1)) {
+            obj8C->unk_44--;
+            if (obj8C->unk_44 < 20) {
+                Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+            }
+        }
+        obj8C->scale2 += 0.02f;
+        if (!(gFrameCount & 0x10)) {
+            obj8C->scale2 += 0.01f;
+        } else {
+            obj8C->scale2 -= 0.01f;
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007F6B0.s")
+void func_8007F6B0(Object_8C* obj8C) {
+    s32 i;
+    f32 temp;
+    f32 cos;
+    f32 sin;
+    f32 randfloat;
+    f32 x;
+    f32 z;
+    f32 y;
+    f32 posY;
+
+    Math_SmoothStepToF(&obj8C->scale2, obj8C->scale1, 0.1f, 12.0f, 0.1f);
+    obj8C->unk_44 -= 2;
+    if (obj8C->unk_44 < 0) {
+        Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+    }
+    if (!(gFrameCount & 3) && (obj8C->unk_4E == 0)) {
+        randfloat = Rand_ZeroOne() * 30.0f;
+        for (i = 0; i < 36; i += 2) {
+            temp = (i * 10.0f * M_DTOR) + randfloat;
+            sin = __sinf(temp) * obj8C->scale2 * 8.0f;
+            cos = __cosf(temp) * obj8C->scale2 * 8.0f;
+            posY = D_80177940 + 40.0f;
+            if (D_801784AC == 4) {
+                func_E6A810_801B6E20(obj8C->obj.pos.x + sin, obj8C->obj.pos.z + cos + D_80177D20, &x, &y, &z);
+                posY = y + 30.0f;
+            }
+            if (gCurrentLevel == LEVEL_AQUAS) {
+                func_8007B8F8(obj8C->obj.pos.x + sin, posY, obj8C->obj.pos.z + cos, 20.0f);
+            } else if (gCurrentLevel == LEVEL_FORTUNA) {
+                func_8007BC7C(obj8C->obj.pos.x + sin, posY, obj8C->obj.pos.z + cos, 20.0f);
+            } else if (gCurrentLevel == LEVEL_TITANIA) {
+                func_8007A900(obj8C->obj.pos.x + sin, posY, obj8C->obj.pos.z + cos, 10.0f, 0xFF, 0xF, 0);
+            }
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007F958.s")
 
