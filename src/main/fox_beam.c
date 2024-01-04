@@ -2132,8 +2132,8 @@ void func_8003CF90(PlayerShot* shot) {
 
             shot->obj.rot.y = shot->unk_30;
             shot->obj.rot.x = shot->unk_2C;
-            Matrix_RotateY(gCalcMatrix, shot->obj.rot.y * 0.017453292f, 0);
-            Matrix_RotateX(gCalcMatrix, shot->obj.rot.x * 0.017453292f, 1);
+            Matrix_RotateY(gCalcMatrix, shot->obj.rot.y * M_DTOR, 0);
+            Matrix_RotateX(gCalcMatrix, shot->obj.rot.x * M_DTOR, 1);
             sp44.x = sp44.y = 0.0f;
             sp44.z = -(shot->unk_54 + 40.0f);
             Matrix_MultVec3f(gCalcMatrix, &sp44, &sp38);

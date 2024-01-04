@@ -1392,9 +1392,9 @@ void func_E16C50_8018BCD4(Vec3f* arg0, f32 arg1, f32 arg2, Vec3f* arg3, s32 arg4
         Matrix_Push(&gGfxMatrix);
         Matrix_Push(&gCalcMatrix);
         Matrix_Copy(gCalcMatrix, &gIdentityMatrix);
-        Matrix_RotateZ(gCalcMatrix, 0.017453292f * arg1, 1);
+        Matrix_RotateZ(gCalcMatrix, M_DTOR * arg1, 1);
         Matrix_Translate(gCalcMatrix, 0.0f, 100.0f, -223.0f, 1);
-        Matrix_RotateX(gCalcMatrix, 0.017453292f * arg2, 1);
+        Matrix_RotateX(gCalcMatrix, M_DTOR * arg2, 1);
         for (i = 0; i < arg6; i++) {
             Matrix_Push(&gGfxMatrix);
             Matrix_Push(&gCalcMatrix);
@@ -1417,8 +1417,8 @@ void func_E16C50_8018BCD4(Vec3f* arg0, f32 arg1, f32 arg2, Vec3f* arg3, s32 arg4
             }
             Matrix_Pop(&gGfxMatrix);
             Matrix_Pop(&gCalcMatrix);
-            Matrix_RotateY(gCalcMatrix, arg0[i].y * 0.017453292f, 1);
-            Matrix_RotateX(gCalcMatrix, arg0[i].x * 0.017453292f, 1);
+            Matrix_RotateY(gCalcMatrix, arg0[i].y * M_DTOR, 1);
+            Matrix_RotateX(gCalcMatrix, arg0[i].x * M_DTOR, 1);
             Matrix_Translate(gCalcMatrix, 0.0f, 0.0f, arg5, 1);
         }
         Matrix_Pop(&gGfxMatrix);
@@ -1441,9 +1441,9 @@ void func_E16C50_8018C0D0(f32* arg0, f32 arg1, Vec3f* arg2, f32 arg3, s32 arg4) 
     Matrix_Push(&gCalcMatrix);
     Matrix_Copy(gCalcMatrix, &gIdentityMatrix);
     GCGM_BACK();
-    Matrix_RotateZ(gCalcMatrix, (D_E16C50_801C22F0.unk_34 + arg1) * 0.017453292f, 1);
+    Matrix_RotateZ(gCalcMatrix, (D_E16C50_801C22F0.unk_34 + arg1) * M_DTOR, 1);
     Matrix_Translate(gCalcMatrix, 0.0f, -360.0f, 120.0f, 1);
-    Matrix_RotateX(gCalcMatrix, -(90.0f - arg3) * 0.017453292f, 1);
+    Matrix_RotateX(gCalcMatrix, -(90.0f - arg3) * M_DTOR, 1);
     Matrix_Scale(gCalcMatrix, 0.7f, 0.7f, 0.7f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
     for (i = 0; i < 5; i++) {
@@ -1451,7 +1451,7 @@ void func_E16C50_8018C0D0(f32* arg0, f32 arg1, Vec3f* arg2, f32 arg3, s32 arg4) 
         Matrix_Push(&gCalcMatrix);
         if (i == 4) {
             Matrix_RotateX(gCalcMatrix, 1.3962634f, 1);
-            Matrix_RotateX(gCalcMatrix, (90.0f - arg3) * 0.017453292f, 1);
+            Matrix_RotateX(gCalcMatrix, (90.0f - arg3) * M_DTOR, 1);
             Matrix_Scale(gCalcMatrix, var_fs3, var_fs3, 1.0f, 1);
             Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
@@ -1466,7 +1466,7 @@ void func_E16C50_8018C0D0(f32* arg0, f32 arg1, Vec3f* arg2, f32 arg3, s32 arg4) 
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 64, 64, 192);
             Matrix_Translate(gCalcMatrix, 0.0f, -60.0f, 0.0f, 1);
             Matrix_Scale(gCalcMatrix, 2.0f, 3.0f, 1.0f, 1);
-            Matrix_RotateY(gCalcMatrix, 0.017453292f * spAC, 1);
+            Matrix_RotateY(gCalcMatrix, M_DTOR * spAC, 1);
             Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_102F5E0);
@@ -1475,7 +1475,7 @@ void func_E16C50_8018C0D0(f32* arg0, f32 arg1, Vec3f* arg2, f32 arg3, s32 arg4) 
         Matrix_Pop(&gGfxMatrix);
         Matrix_Translate(gCalcMatrix, 0.0f, -120.0f, 0.0f, 1);
         Matrix_RotateX(gCalcMatrix, -0.34906584f, 1);
-        Matrix_RotateZ(gCalcMatrix, arg0[i] * 0.017453292f, 1);
+        Matrix_RotateZ(gCalcMatrix, arg0[i] * M_DTOR, 1);
     }
     Matrix_Pop(&gCalcMatrix);
     Matrix_Pop(&gGfxMatrix);
@@ -1495,7 +1495,7 @@ void func_E16C50_8018C54C(Boss* bossA6) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) D_E16C50_801C22F0.unk_24);
         gDPSetEnvColor(gMasterDisp++, 255, 255, 0, 255);
         Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 10.0f, 1);
-        Matrix_RotateZ(gGfxMatrix, bossA6->fwork[0x21] * 0.017453292f, 1);
+        Matrix_RotateZ(gGfxMatrix, bossA6->fwork[0x21] * M_DTOR, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_101C2E0);
     } else if (D_E16C50_801C22F0.unk_24 != 0.0f) {
@@ -1508,13 +1508,13 @@ void func_E16C50_8018C54C(Boss* bossA6) {
                 spAC.x = 0.0f;
             }
             spAC.y = spAC.z = 0.0f;
-            Matrix_RotateZ(gCalcMatrix, gFrameCount * 6.0f * 0.017453292f, 0);
+            Matrix_RotateZ(gCalcMatrix, gFrameCount * 6.0f * M_DTOR, 0);
             Matrix_MultVec3f(gCalcMatrix, &spAC, &spB8);
             Matrix_Translate(gGfxMatrix, spB8.x, spB8.y, 0.0f, 1);
             Matrix_Scale(gGfxMatrix, bossA6->unk_3F8, bossA6->unk_3F8, bossA6->unk_3F8, 1);
-            Matrix_RotateZ(gGfxMatrix, gFrameCount * 10.0f * 0.017453292f, 1);
+            Matrix_RotateZ(gGfxMatrix, gFrameCount * 10.0f * M_DTOR, 1);
             Matrix_Scale(gGfxMatrix, bossA6->fwork[0x22], bossA6->fwork[0x23], 1.0f, 1);
-            Matrix_RotateZ(gGfxMatrix, -(f32) gFrameCount * 10.0f * 0.017453292f, 1);
+            Matrix_RotateZ(gGfxMatrix, -(f32) gFrameCount * 10.0f * M_DTOR, 1);
             Matrix_Scale(gGfxMatrix, bossA6->fwork[0x22], bossA6->fwork[0x23], 1.0f, 1);
         } else {
             RCP_SetupDL(&gMasterDisp, 0x1B);
@@ -1533,9 +1533,9 @@ void func_E16C50_8018C54C(Boss* bossA6) {
             for (i = 0; i < 3; i++) {
                 if ((bossA6->swork[33 + i] == 0) && (bossA6->unk_04E != 3) && (D_E16C50_801C2250.unk_00[2 + i] == 0) &&
                     !(gFrameCount & 3) && (bossA6->swork[0x1B + i] != 0) && (D_80177854 != 0x64)) {
-                    Matrix_RotateY(gCalcMatrix, bossA6->obj.rot.y * 0.017453292f, 0);
-                    Matrix_RotateX(gCalcMatrix, bossA6->obj.rot.x * 0.017453292f, 1);
-                    Matrix_RotateZ(gCalcMatrix, bossA6->obj.rot.z * 0.017453292f, 1);
+                    Matrix_RotateY(gCalcMatrix, bossA6->obj.rot.y * M_DTOR, 0);
+                    Matrix_RotateX(gCalcMatrix, bossA6->obj.rot.x * M_DTOR, 1);
+                    Matrix_RotateZ(gCalcMatrix, bossA6->obj.rot.z * M_DTOR, 1);
                     Matrix_MultVec3f(gCalcMatrix, &bossA6->vwork[1 + i], &spC4);
                     func_8007D0E0(bossA6->obj.pos.x + spC4.x, bossA6->obj.pos.y + spC4.y, bossA6->obj.pos.z + spC4.z,
                                   20.0f);
@@ -1789,8 +1789,8 @@ void func_E16C50_8018D920(Vec3f* arg0) {
     Vec3f sp50;
     Vec3f sp44;
 
-    Matrix_RotateY(gCalcMatrix, 0.017453292f * sp60, 0);
-    Matrix_RotateX(gCalcMatrix, 0.017453292f * sp5C, 1);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * sp60, 0);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * sp5C, 1);
     sp50.x = 0.0f;
     sp50.y = 0.0f;
     sp50.z = 100.0f;
@@ -1811,11 +1811,11 @@ void func_E16C50_8018DA58(Object_2F4* obj2F4) {
     switch (obj2F4->unk_0B8) { /* irregular */
         case 1:
             obj2F4->unk_130 += 2.5f;
-            obj2F4->unk_0F4.z = __sinf(obj2F4->unk_130 * 0.017453292f) * 10.0f;
+            obj2F4->unk_0F4.z = __sinf(obj2F4->unk_130 * M_DTOR) * 10.0f;
             obj2F4->unk_134 += 1.0f;
-            obj2F4->obj.pos.y += __sinf(obj2F4->unk_134 * 0.017453292f) * 1.5f;
+            obj2F4->obj.pos.y += __sinf(obj2F4->unk_134 * M_DTOR) * 1.5f;
             obj2F4->unk_138 += 1.0f;
-            obj2F4->obj.pos.z += __cosf(obj2F4->unk_138 * 0.017453292f) * 1.5f;
+            obj2F4->obj.pos.z += __cosf(obj2F4->unk_138 * M_DTOR) * 1.5f;
             break;
         case 2:
             Math_SmoothStepToF(&obj2F4->unk_0F4.z, -180.0f, 0.1f, 3.0f, 0.0f);
@@ -1874,8 +1874,8 @@ void func_E16C50_8018DA58(Object_2F4* obj2F4) {
         case 90:
             break;
     }
-    Matrix_RotateY(gCalcMatrix, (obj2F4->unk_0F4.y + 180.0f) * 0.017453292f, 0);
-    Matrix_RotateX(gCalcMatrix, -(obj2F4->unk_0F4.x * 0.017453292f), 1);
+    Matrix_RotateY(gCalcMatrix, (obj2F4->unk_0F4.y + 180.0f) * M_DTOR, 0);
+    Matrix_RotateX(gCalcMatrix, -(obj2F4->unk_0F4.x * M_DTOR), 1);
     sp5C.x = 0.0f;
     sp5C.y = 0.0f;
     sp5C.z = obj2F4->unk_114;
@@ -1937,7 +1937,7 @@ void func_E16C50_8018DF74(Player* player) {
                 sp74.y = 0.0f;
                 sp74.z = D_80177A48[5];
                 Matrix_Translate(gCalcMatrix, 0.0f, 350.0f, D_80177A48[6], 0);
-                Matrix_RotateY(gCalcMatrix, -(D_80177A48[4] * 0.017453292f), 1);
+                Matrix_RotateY(gCalcMatrix, -(D_80177A48[4] * M_DTOR), 1);
                 Matrix_MultVec3f(gCalcMatrix, &sp74, &sp68);
                 D_80177978 = sp68.x;
                 D_80177980 = sp68.y;
@@ -2063,8 +2063,8 @@ void func_E16C50_8018DF74(Player* player) {
             func_800A6148();
             break;
     }
-    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114 + 180.0f) * 0.017453292f, 0);
-    Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * 0.017453292f), 1);
+    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114 + 180.0f) * M_DTOR, 0);
+    Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * M_DTOR), 1);
     if (player->state_1C8 != PLAYERSTATE_1C8_3) {
         sp74.x = 0.0f;
         sp74.y = 0.0f;
@@ -2326,7 +2326,7 @@ void func_E16C50_8018ED78(Player* player) {
             sp78.y = 0.0f;
             sp78.z = D_80177A48[5];
             Matrix_Translate(gCalcMatrix, D_80177A48[1], 0.0f, D_80177A48[3] + D_80177D20, 0);
-            Matrix_RotateY(gCalcMatrix, -(D_80177A48[4] * 0.017453292f), 1);
+            Matrix_RotateY(gCalcMatrix, -(D_80177A48[4] * M_DTOR), 1);
             Matrix_MultVec3f(gCalcMatrix, &sp78, &sp6C);
             player->camEye.x = D_80177978 = sp6C.x;
             player->camEye.y = D_80177980 = sp6C.y;
@@ -2410,8 +2410,8 @@ void func_E16C50_8018ED78(Player* player) {
     if (D_80177A80 >= 1076) {
         Math_SmoothStepToF(&player->unk_0D0, 50.0f, 0.1f, 1000.0f, 0.001f);
     }
-    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114 + 180.0f) * 0.017453292f, 0);
-    Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * 0.017453292f), 1);
+    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114 + 180.0f) * M_DTOR, 0);
+    Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * M_DTOR), 1);
     sp78.x = 0.0f;
     sp78.y = 0.0f;
     sp78.z = player->unk_0D0;
