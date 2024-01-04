@@ -2270,8 +2270,8 @@ void func_8007ECB4(s32 objId, f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, 
     }
 }
 
-void func_8007ED54(Object_8C* obj8C, s32 objId, f32 posX, f32 posY, f32 posZ, f32 rotX, f32 rotY, f32 rotZ, f32 arg8,
-                   f32 arg9, f32 argA, f32 velX, f32 velY, f32 velZ, f32 scale2) {
+void func_8007ED54(Object_8C* obj8C, s32 objId, f32 posX, f32 posY, f32 posZ, f32 rotX, f32 rotY, f32 rotZ, f32 unkX,
+                   f32 unkY, f32 unkZ, f32 velX, f32 velY, f32 velZ, f32 scale2) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
     obj8C->obj.id = objId;
@@ -2288,9 +2288,9 @@ void func_8007ED54(Object_8C* obj8C, s32 objId, f32 posX, f32 posY, f32 posZ, f3
     obj8C->obj.rot.x = rotX;
     obj8C->obj.rot.y = rotY;
     obj8C->obj.rot.z = rotZ;
-    obj8C->unk_60.x = arg8;
-    obj8C->unk_60.y = arg9;
-    obj8C->unk_60.z = argA;
+    obj8C->unk_60.x = unkX;
+    obj8C->unk_60.y = unkY;
+    obj8C->unk_60.z = unkZ;
     obj8C->scale2 = scale2;
     if (obj8C->obj.id != OBJ_8C_380) {
         Audio_PlaySfx(0x29002002, &obj8C->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -2320,11 +2320,48 @@ void func_8007EE68(s32 objId, Vec3f* pos, Vec3f* rot, Vec3f* arg3, Vec3f* arg4, 
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007F04C.s")
+void func_8007F04C(s32 objId, f32 posX, f32 posY, f32 posZ, f32 rotX, f32 rotY, f32 rotZ, f32 unkX, f32 unkY, f32 unkZ,
+                   f32 velX, f32 velY, f32 velZ, f32 scale2) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007F11C.s")
+    for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
+        if (gObjects8C[i].obj.status == 0) {
+            func_8007ED54(&gObjects8C[i], objId, posX, posY, posZ, rotX, rotY, rotZ, unkX, unkY, unkZ, velX, velY, velZ,
+                          scale2);
+            break;
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007F20C.s")
+void func_8007F11C(s32 objId, f32 posX, f32 posY, f32 posZ, f32 arg4) {
+    s32 i;
+
+    if ((fabsf(posZ - gPlayer->unk_138) > 300.0f) || (fabsf(posX - gPlayer->pos.x) > 300.0f)) {
+        for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
+            if (gObjects8C[i].obj.status == 0) {
+                Matrix_Push(&gCalcMatrix);
+                func_8007E6B8(&gObjects8C[i], objId, posX, posY, posZ, arg4);
+                Matrix_Pop(&gCalcMatrix);
+                break;
+            }
+        }
+    }
+}
+
+void func_8007F20C(s32 objId, f32 posX, f32 posY, f32 posZ, f32 arg4) {
+    s32 i;
+
+    if ((fabsf(posZ - gPlayer->camEye.z) > 300.0f) || (fabsf(posX - gPlayer->camEye.x) > 300.0f)) {
+        for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
+            if (gObjects8C[i].obj.status == 0) {
+                Matrix_Push(&gCalcMatrix);
+                func_8007E93C(&gObjects8C[i], objId, posX, posY, posZ, arg4);
+                Matrix_Pop(&gCalcMatrix);
+                break;
+            }
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8007F2FC.s")
 

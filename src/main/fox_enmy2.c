@@ -4,7 +4,6 @@ s32 D_800CFF80[4] = { 0, 0, 0, 0 };
 s32 D_800CFF90 = 0;
 s32 D_80161690;
 
-void func_8007F11C(s32, f32, f32, f32, f32);
 void func_80187530(Object_2F4*); // figure out which one later
 
 void func_8006A7B0(u16* msg, s32 character) {
