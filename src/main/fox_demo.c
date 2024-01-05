@@ -1,7 +1,5 @@
 #include "global.h"
 
-#include "variables.h"
-
 extern Gfx D_1024AC0[];
 extern Gfx D_60320E0[];
 extern Gfx* D_7010970[];
@@ -36,49 +34,53 @@ extern AnimationHeader D_6020A40[];
 extern AnimationHeader D_6020C6C[];
 extern AnimationHeader D_602D140[];
 
-Vec3f D_800C9F60[] = { {
-                           2000.0f,
-                           2000.0f,
-                           2000.0f,
-                       },
-                       {
-                           -2000.0f,
-                           2000.0f,
-                           2000.0f,
-                       },
-                       {
-                           0.0f,
-                           -3000.0f,
-                           3000.0f,
-                       },
-                       {
-                           5000.0f,
-                           -3000.0f,
-                           -3000.0f,
-                       } };
+Vec3f D_800C9F60[] = {
+    {
+        2000.0f,
+        2000.0f,
+        2000.0f,
+    },
+    {
+        -2000.0f,
+        2000.0f,
+        2000.0f,
+    },
+    {
+        0.0f,
+        -3000.0f,
+        3000.0f,
+    },
+    {
+        5000.0f,
+        -3000.0f,
+        -3000.0f,
+    },
+};
 
 f32 D_800C9F90[] = { 75.0f, -80.0f, 85.0f, 0.0f };
 
-Vec3f D_800C9FA0[] = { {
-                           200.0f,
-                           -10.0f,
-                           200.0f,
-                       },
-                       {
-                           -200.0f,
-                           20.0f,
-                           200.0f,
-                       },
-                       {
-                           0.0f,
-                           50.0f,
-                           400.0f,
-                       },
-                       {
-                           -2000.0f,
-                           -1000.0f,
-                           0.0f,
-                       } };
+Vec3f D_800C9FA0[] = {
+    {
+        200.0f,
+        -10.0f,
+        200.0f,
+    },
+    {
+        -200.0f,
+        20.0f,
+        200.0f,
+    },
+    {
+        0.0f,
+        50.0f,
+        400.0f,
+    },
+    {
+        -2000.0f,
+        -1000.0f,
+        0.0f,
+    },
+};
 
 f32 D_800C9FD0[] = { -1200.0f, 1200.0f, 0.0f, 0.0f };
 
@@ -111,10 +113,10 @@ f32 D_800CA010[] = {
 };
 
 f32 D_800CA020[] = {
-    45,
-    -45,
-    10,
-    0,
+    45.0f,
+    -45.0f,
+    10.0f,
+    0.0f,
 };
 
 s32 D_800CA030[] = { 0, 0, 0, 1 };
@@ -577,11 +579,13 @@ void func_80049630(Object_2F4* obj2F4) {
             Math_SmoothStepToF(&obj2F4->unk_0F4.y, gPlayer->unk_0E8, 0.1f, 2.0f, 0.0001f);
             Math_SmoothStepToF(&obj2F4->unk_0F4.z, 0.0f, 0.05f, 0.2f, 0.0001f);
             break;
+
         case 1:
             obj2F4->unk_0B8 = 2;
             Audio_PlaySfx(0x09000002U, &obj2F4->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             obj2F4->timer_0BC = 0x96;
             obj2F4->unk_188 = 5.0f;
+
         case 2:
             obj2F4->unk_07C = 2;
             obj2F4->unk_114 += 2.0f;
@@ -664,7 +668,7 @@ void func_80049B44(void) {
 
 void func_80049C0C(Player* arg0) {
     s32 var_v0;
-    char pad[0x10];
+    s32 pad[4];
 
     arg0->pos.x += arg0->vel.x;
     arg0->unk_228 = 0;
@@ -709,7 +713,8 @@ void func_80049C0C(Player* arg0) {
             }
             func_80049968(&gObjects2F4[3], 3);
             arg0->timer_1F8 = 0x32;
-            return;
+            break;
+
         case 1:
             Math_SmoothStepToF(&D_801779A8[arg0->num], 100.0f, 1.0f, 4.0f, 0.0f);
             Math_SmoothStepToF(&arg0->unk_034, 0.0f, 0.1f, 3.0f, 0.0f);
@@ -721,7 +726,8 @@ void func_80049C0C(Player* arg0) {
             arg0->unk_190 = 2.0f;
             arg0->unk_08C -= 2.0f;
             gBlurAlpha = 0x80;
-            return;
+            break;
+
         case 2:
             Math_SmoothStepToF(&D_801779A8[arg0->num], 100.0f, 1.0f, 3.0f, 0.0f);
             if (D_80178414 < 20000.0f) {
@@ -766,6 +772,7 @@ void func_80049C0C(Player* arg0) {
                 arg0->timer_1F8 = 0;
             }
             break;
+
         case 4:
             Math_SmoothStepToF(&D_801779A8[arg0->num], 100.0f, 1.0f, 3.0f, 0.0f);
             arg0->unk_034 -= 0.5f;
@@ -792,6 +799,7 @@ void func_80049C0C(Player* arg0) {
                 }
             }
             break;
+
         case 5:
             Math_SmoothStepToF(&D_801779A8[arg0->num], 100.0f, 1.0f, 3.0f, 0.0f);
             if (arg0->timer_1F8 == 0) {
@@ -804,6 +812,7 @@ void func_80049C0C(Player* arg0) {
                 }
             }
             break;
+
         case 6:
             Math_SmoothStepToF(&D_80178414, 0.0f, 0.2f, 1000.0f, 0.1f);
             Math_SmoothStepToF(&arg0->unk_08C, 0.0f, 0.2f, 500.0f, 0.1f);
@@ -829,6 +838,7 @@ void func_80049C0C(Player* arg0) {
             Math_SmoothStepToF(&arg0->camEye.y, (arg0->pos.y * arg0->unk_148) + 50.0f, 0.2f, 15.0f, 0.01f);
             Math_SmoothStepToF(&arg0->camAt.y, (arg0->pos.y * arg0->unk_14C) + 20.0f, 0.2f, 15.0f, 0.01f);
             break;
+
         default:
             return;
     }
