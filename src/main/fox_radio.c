@@ -36,7 +36,7 @@ s32 func_800BA7BC(u16* msg, s32 priority) {
     }
 }
 
-void func_800BA808(u16* msg, s32 character) {
+void func_800BA808(u16* msg, RadioCharacterId character) {
     s32 var_v1;
     s32 temp_v0;
     s32 priority;

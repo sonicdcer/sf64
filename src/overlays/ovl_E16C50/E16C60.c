@@ -153,6 +153,9 @@ f32 D_E16C50_801BF494[12] = {
 
 void func_E16C50_80187530(Object_2F4* obj2F4, f32 xPos, f32 yPos, f32 zPos, f32 unk124y, f32 xRot, f32 yRot,
                           s32 timer0BC, s32 unk0B4) {
+    
+    (void)"おん\n";
+    (void)"おふ\n";
     Object_2F4_Initialize(obj2F4);
     obj2F4->obj.status = 1;
     obj2F4->obj.id = OBJ_2F4_191;
@@ -2134,6 +2137,7 @@ void func_E16C50_8018EC38(Object_2F4 *obj2F4, s32 arg1) {
     }
 }
 
+#ifdef NON_MATCHING
 void func_E16C50_8018ED78(Player *player) {
     s32 i;
     Vec3f spf90;
@@ -2160,7 +2164,7 @@ void func_E16C50_8018ED78(Player *player) {
             Math_SmoothStepToAngle(&player->unk_12C, 0.0f, 0.05f, 1.2f, 0.0001f);
             Math_SmoothStepToF(&player->unk_034, 0.0f, 0.1f, 3.0f, 0.0f);
             Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 20.0f, 0.0f);
-            if (D_80177A80 < 0x3C) {
+            if (D_80177A80 < 60) {
                 spf90.x = -100.0f;
                 spf90.y = -100.0f;
                 spf90.z = -1000.0f;
@@ -2177,7 +2181,7 @@ void func_E16C50_8018ED78(Player *player) {
                 Math_SmoothStepToAngle(&player->unk_0E4, sp88, 0.1f, 5.0f, 0.0001f);
                 Math_SmoothStepToAngle(&player->unk_0EC, sp84, 0.1f, 5.0f, 0.0001f);
             }
-            if (D_80177A80 == 0x3C) {
+            if (D_80177A80 == 60) {
                 player->unk_234 = 0;
                 player->unk_0D0 = 0.0f;
             }
@@ -2192,31 +2196,31 @@ void func_E16C50_8018ED78(Player *player) {
             D_801779B8 = gObjects408[0].obj.pos.y;
             D_801779C0 = gObjects408[0].obj.pos.z + D_80177D20;
             D_80177A48[0] = 0.04f;
-            if (D_80177A80 == 0x8C) {
+            if (D_80177A80 == 140) {
                 func_E16C50_8018EA88(&gObjects2F4[4]);
                 func_E16C50_8018EA88(&gObjects2F4[5]);
                 func_E16C50_8018EA88(&gObjects2F4[6]);
                 gObjects2F4[4].unk_124.x = 0.5f;
             }
-            if (D_80177A80 >= 0xC8) {
-                if (D_80178340 == 0xFF) {
+            if (D_80177A80 >= 200) {
+                if (D_80178340 == 255) {
                     player->unk_1D0 = 2;
                     func_800A6148();
                 } else {
-                    D_80178348 = D_80178350 = D_80178354 = 0xFF;
-                    D_80178358 = 0xFF;
-                    D_8017835C = 0x10;
+                    D_80178348 = D_80178350 = D_80178354 = 255;
+                    D_80178358 = 255;
+                    D_8017835C = 16;
                 }
-            } else if ((D_80177A80 == 0x83) || (D_80177A80 == 0x86) || (D_80177A80 == 0x89)) {
-                D_80178348 = D_80178350 = D_80178354 = 0xFF;
-                D_80178340 = 0xC0;
+            } else if ((D_80177A80 == 131) || (D_80177A80 == 134) || (D_80177A80 == 137)) {
+                D_80178348 = D_80178350 = D_80178354 = 255;
+                D_80178340 = 192;
             } else {
                 D_80178348 = D_80178350 = D_80178354 = D_80178340 = 0;
             }
-            if ((D_80177A80 == 0x92) || (D_80177A80 == 0x96)) {
+            if ((D_80177A80 == 146) || (D_80177A80 == 150)) {
                 Audio_PlaySfx(0x2940F026, &gObjects2F4[5].sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
-            if (D_80177A80 >= 0x93) {
+            if (D_80177A80 >= 147) {
                 gObjects2F4[4].unk_05C -= 4;
                 if (gObjects2F4[4].unk_05C < 0) {
                     gObjects2F4[4].unk_05C = 0;
@@ -2225,16 +2229,16 @@ void func_E16C50_8018ED78(Player *player) {
                 if (gObjects2F4[4].unk_06C < 0) {
                     gObjects2F4[4].unk_06C = 0;
                 }
-                Math_SmoothStepToF(&gObjects2F4[5].unk_124, 450.0f, 0.03f, 1000.0f, 1.0f);
+                Math_SmoothStepToF(&gObjects2F4[5].unk_124.x, 450.0f, 0.03f, 1000.0f, 1.0f);
                 Math_SmoothStepToF(&gObjects2F4[5].scale, 450.0f, 0.03f, 1000.0f, 1.0f);
                 
             }
-            if (D_80177A80 >= 0xA1) {
-                Math_SmoothStepToF(&gObjects2F4[6].unk_124, 350.0f, 0.03f, 1000.0f, 1.0f);
+            if (D_80177A80 >= 161) {
+                Math_SmoothStepToF(&gObjects2F4[6].unk_124.x, 350.0f, 0.03f, 1000.0f, 1.0f);
                 Math_SmoothStepToF(&gObjects2F4[6].scale, 350.0f, 0.03f, 1000.0f, 1.0f);
                 
             }
-            if (D_80177A80 >= 0x8D) {
+            if (D_80177A80 >= 141) {
                 gObjects2F4[4].obj.pos.x = gObjects2F4[5].obj.pos.x = gObjects2F4[6].obj.pos.x = gObjects408[0].obj.pos.x;
                 gObjects2F4[4].obj.pos.y = gObjects2F4[5].obj.pos.y = gObjects2F4[6].obj.pos.y = gObjects408[0].obj.pos.y;
                 gObjects2F4[4].obj.pos.z = gObjects2F4[5].obj.pos.z = gObjects2F4[6].obj.pos.z = gObjects408[0].obj.pos.z;
@@ -2242,10 +2246,10 @@ void func_E16C50_8018ED78(Player *player) {
             }
             break;
         case 2:
-            if (D_80177A80 < 0x12C) {
+            if (D_80177A80 < 300) {
                 break;
             }
-            if (D_80177A80 == 0x12C) {
+            if (D_80177A80 == 300) {
                 player->unk_234 = 1;
                 player->pos.x = 0.0f;
                 player->pos.y = 200.0f;
@@ -2276,14 +2280,14 @@ void func_E16C50_8018ED78(Player *player) {
             Math_SmoothStepToF(&gObjects2F4[2].obj.pos.y, 40.0f, 0.01f, 10.0f, 0.001f);
             Math_SmoothStepToF(&gObjects2F4[3].obj.pos.y, 88.0f, 0.01f, 10.0f, 0.001f);
             Math_SmoothStepToF(&gObjects2F4[0].obj.pos.y, 60.0f, 0.01f, 2.0f, 0.001f);
-            if (D_80177A80 < 0x435) {
+            if (D_80177A80 < 1077) {
                 D_80177A48[1] = player->pos.x;
                 D_80177A48[3] = player->pos.z;
             }
-            if (D_80177A80 >= 0x3AC) {
+            if (D_80177A80 >= 940) {
                 Math_SmoothStepToF(&D_80177A48[9], 0.0f, 0.01f, 1000.0f, 0.001f);
             }
-            if (D_80177A80 < 0x435) {
+            if (D_80177A80 < 1077) {
                 D_80177A48[4] = D_80177A48[4] + 0.3f;
                 if (D_80177A48[4] >= 360.0f) {
                     D_80177A48[4] = D_80177A48[4] - 360.0f;
@@ -2314,14 +2318,14 @@ void func_E16C50_8018ED78(Player *player) {
             player->camEye.y = D_80177980 = sp6C.y;
             player->camEye.z = D_80177988 = sp6C.z;
             
-            if (D_80177A80 == 0x434) {
+            if (D_80177A80 == 1076) {
                 Object_Kill(&gObjects2F4[0].obj, &gObjects2F4[0].sfxPos);
                 player->unk_190 = 2.0f;
                 player->unk_194 = 5.0f;
                 Audio_PlaySfx(0x09000002, &player->unk_460, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 
             }
-            if (D_80177A80 >= 0x442) {
+            if (D_80177A80 >= 1090) {
                 D_80178348 = D_80178350 = D_80178354 = 0;
                 D_80178358 = 255;
                 D_8017835C = 8;
@@ -2346,37 +2350,37 @@ void func_E16C50_8018ED78(Player *player) {
                     func_80088564();
                 }
             }
-            if (D_80177A80 == 0x410) {
+            if (D_80177A80 == 1040) {
                 func_800182F4(0x105000FF);
                 func_800182F4(0x115000FF);
             }
             break;
     }
     switch (D_80177A80) {                               /* switch 1; irregular */
-        case 0x17C:                                 /* switch 1 */
-            func_8001D444(0, 0x26, 0, 0xFF);
+        case 380:                                 /* switch 1 */
+            func_8001D444(0, 38, 0, 255);
             break;
-        case 0x226:                                 /* switch 1 */
-            D_80177840 = 0x64;
+        case 550:                                 /* switch 1 */
+            D_80177840 = 100;
             break;
-        case 0x2BC:                                 /* switch 1 */
+        case 700:                                 /* switch 1 */
             D_80177830 = 1;
             break;
-        case 0x384:                                 /* switch 1 */
+        case 900:                                 /* switch 1 */
             D_80177830 = 0;
             break;
-        case 0x3AC:                                 /* switch 1 */
+        case 940:                                 /* switch 1 */
             func_800BA808(gMsg_ID_7093, RCID_FOX);
             break;
-        case 0x42E:                                 /* switch 1 */
+        case 1070:                                 /* switch 1 */
             gObjects2F4[1].unk_188 = 5.0f;
             Audio_PlaySfx(0x09000002, &gObjects2F4[1].sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             break;
-        case 0x430:                                 /* switch 1 */
+        case 1072:                                 /* switch 1 */
             gObjects2F4[2].unk_188 = 5.0f;
             Audio_PlaySfx(0x09000002, &gObjects2F4[2].sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             break;
-        case 0x432:                                 /* switch 1 */
+        case 1074:                                 /* switch 1 */
             gObjects2F4[3].unk_188 = 5.0f;
             Audio_PlaySfx(0x09000002, &gObjects2F4[3].sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             break;
@@ -2417,8 +2421,7 @@ void func_E16C50_8018ED78(Player *player) {
     Math_SmoothStepToF(&player->camAt.y, D_801779B8, D_80177A48[0], 50000.0f, 0.0001f);
     Math_SmoothStepToF(&player->camAt.z, D_801779C0, D_80177A48[0], 50000.0f, 0.0001f);
 }
-
-// void func_E16C50_8018ED78(Player* player);
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E16C60/func_E16C50_8018ED78.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E16C60/D_E16C50_801C0900.s")
+#else
+void func_E16C50_8018ED78(Player* player);
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E16C60/func_E16C50_8018ED78.s")
+#endif

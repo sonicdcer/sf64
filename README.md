@@ -78,7 +78,7 @@ make toolchain
 
 #### 5. Prepare a base ROM
 
-Copy your ROM to inside the root of this new project directory, and rename the file of the baserom to reflect the version of ROM you are using. ex: `baserom.us.z64`
+Copy your ROM to the root of this new project directory, and rename the file of the baserom to reflect the version of ROM you are using. ex: `baserom.us.z64`
 
 #### 6. Make and Build the ROM
 
@@ -87,7 +87,7 @@ To start the extraction/build process, run the following command:
 ```bash
 make init
 ```
-This will create the build folders as well as a new folder with the assembly as well as containing the disassemblies of nearly all the files containing code.
+This will create the build folders, a new folder with the assembly as well as containing the disassembly of nearly all the files containing code.
 
 this make target will also build the ROM. If all goes well, a new ROM called "starfox64.us.z64" should be built and the following text should be printed:
 

@@ -63,7 +63,7 @@ void Matrix_Push(Matrix** mtxStack);
 void Matrix_Pop(Matrix** mtxStack);
 void Matrix_Mult(Matrix*, Matrix*, u8);
 void Matrix_Translate(Matrix*, f32, f32, f32, u8);
-void Matrix_Scale(Matrix*, f32, f32, f32, u8);
+void Matrix_Scale(Matrix* mtx, f32 xScale, f32 yScale, f32 zScale, u8 mode);
 void Matrix_RotateX(Matrix*, f32, u8);
 void Matrix_RotateY(Matrix*, f32, u8);
 void Matrix_RotateZ(Matrix*, f32, u8);

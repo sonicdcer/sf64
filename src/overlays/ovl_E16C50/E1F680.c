@@ -92,56 +92,6 @@ Vec3f D_E16C50_801BF8B8 = { 230.0f, -250.0f, 0.0f };
 f32 D_E16C50_801BF8C4[2] = { 46.0f, 314.0f };
 f32 D_E16C50_801BF8CC[2] = { 23.0f, 337.0f };
 
-// extern Vec3f D_E16C50_801BF560;
-// extern s16 D_E16C50_801BF56C[20];
-// extern u8 D_E16C50_801BF594[20];
-// extern Gfx* D_E16C50_801BF5A8[3];
-// extern Vec3f D_E16C50_801BF5B4;
-// extern Vec3f D_E16C50_801BF5C0;
-// extern Vec3f D_E16C50_801BF5CC;
-// extern Vec3f D_E16C50_801BF5D8;
-// extern Vec3f D_E16C50_801BF5E4;
-// extern s32 D_E16C50_801BF5F0[6];
-// extern f32 D_E16C50_801BF608[6];
-// extern Vec3f D_E16C50_801BF620;
-// extern Vec3f D_E16C50_801BF62C;
-// extern Vec3f D_E16C50_801BF638;
-// extern Vec3f D_E16C50_801BF644;
-// extern Vec3f D_E16C50_801BF650;
-// extern Vec3f D_E16C50_801BF65C;
-// extern Vec3f D_E16C50_801BF668;
-// extern Vec3f D_E16C50_801BF674;
-// extern Vec3f D_E16C50_801BF680;
-// extern Vec3f D_E16C50_801BF68C;
-// extern Vec3f D_E16C50_801BF698;
-// extern Vec3f D_E16C50_801BF6A4;
-// extern Vec3f D_E16C50_801BF6B0;
-// extern f32 D_E16C50_801BF6BC[2];
-// extern f32 D_E16C50_801BF6C4[2];
-// extern f32 D_E16C50_801BF6CC[2];
-// extern f32 D_E16C50_801BF6D4[2];
-// extern Vec3f D_E16C50_801BF6DC;
-// extern Vec3f D_E16C50_801BF6E8;
-// extern Vec3f D_E16C50_801BF6F4;
-// extern Vec3f D_E16C50_801BF700;
-// extern Vec3f D_E16C50_801BF70C;
-// extern Vec3f D_E16C50_801BF718;
-// extern Vec3f D_E16C50_801BF724;
-// extern Vec3f D_E16C50_801BF730;
-// extern f32 D_E16C50_801BF73C[2];
-// extern Vec3f D_E16C50_801BF744[3];
-// extern Vec3f D_E16C50_801BF768[3];
-// extern s32 D_E16C50_801BF78C[30];
-// extern f32 D_E16C50_801BF804[8];
-// extern s32 D_E16C50_801BF824[10];
-// extern Vec3f D_E16C50_801BF84C[6];
-// extern Vec3f D_E16C50_801BF894;
-// extern Vec3f D_E16C50_801BF8A0;
-// extern Vec3f D_E16C50_801BF8AC;
-// extern Vec3f D_E16C50_801BF8B8;
-// extern f32 D_E16C50_801BF8C4[2];
-// extern f32 D_E16C50_801BF8CC[2];
-
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E1F680/func_E16C50_8018FF50.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E1F680/func_E16C50_80190028.s")
@@ -219,7 +169,7 @@ f32 D_E16C50_801BF8CC[2] = { 23.0f, 337.0f };
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E1F680/func_E16C50_80193240.s")
 
 // OBJ_408_307 init
-void func_E16C50_801932AC(Object_408_307* boss307);
+void func_E16C50_801932AC(Object_408_302* boss307);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E1F680/func_E16C50_801932AC.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E1F680/func_E16C50_80193628.s")
@@ -243,11 +193,11 @@ void func_E16C50_801932AC(Object_408_307* boss307);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E1F680/func_E16C50_80194394.s")
 
 // OBJ_408_307 draw
-void func_E16C50_801949DC(Object_408_307* boss307);
+void func_E16C50_801949DC(Object_408_302* boss307);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E1F680/func_E16C50_801949DC.s")
 
 // OBJ_408_307 action
-void func_E16C50_80194A84(Object_408_307* boss307);
+void func_E16C50_80194A84(Object_408_302* boss307);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E1F680/func_E16C50_80194A84.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E1F680/func_E16C50_801986FC.s")
