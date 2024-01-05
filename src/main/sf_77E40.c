@@ -3096,24 +3096,26 @@ void func_80081A8C(f32 posX, f32 posY, f32 posZ, f32 scale2, s32 arg4) {
     }
 }
 
-#if 0
 s32 func_80081B24(f32 posX, f32 posY, f32 posZ, f32 scale2) {
     s32 i;
-    
+    Object_8C* obj8C;
+
     func_800815DC();
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
-            Object_8C_Initialize(&gObjects8C[i]);
-            gObjects8C[i].obj.status = 2;
-            gObjects8C[i].obj.id = OBJ_8C_395;
-            gObjects8C[i].obj.pos.x = posX;
-            gObjects8C[i].obj.pos.y = posY;
-            gObjects8C[i].obj.pos.z = posZ;
-            gObjects8C[i].scale2 = scale2;
-            gObjects8C[i].timer_50 = 80;
-            gObjects8C[i].unk_4E = 2;
-            Object_SetInfo(&gObjects8C[i].info, gObjects8C[i].obj.id);
+    for (i = 0, obj8C = gObjects8C; i < ARRAY_COUNT(gObjects8C); i++, obj8C++) {
+        if (obj8C->obj.status == 0) {
+            Object_8C_Initialize(obj8C);
+            obj8C->obj.status = 2;
+            obj8C->obj.id = OBJ_8C_395;
+
+            obj8C->obj.pos.x = posX;
+            obj8C->obj.pos.y = posY;
+            obj8C->obj.pos.z = posZ;
+
+            obj8C->scale2 = scale2;
+            obj8C->timer_50 = 80;
+            obj8C->unk_4E = 2;
+            Object_SetInfo(&obj8C->info, obj8C->obj.id);
             break;
         }
     }
@@ -3122,9 +3124,6 @@ s32 func_80081B24(f32 posX, f32 posY, f32 posZ, f32 scale2) {
     }
     return i;
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80081B24.s")
-#endif
 
 void func_80081BEC(f32 posX, f32 posY, f32 posZ, f32 scale2, s32 arg4) {
     s32 i;
