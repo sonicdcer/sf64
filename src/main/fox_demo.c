@@ -2,7 +2,7 @@
 
 extern Gfx D_1024AC0[];
 extern Gfx D_60320E0[];
-extern Gfx* D_7010970[];
+extern Gfx D_7010970[];
 extern Gfx* D_E000000;
 extern Gfx* D_E003AB0;
 
@@ -30,9 +30,9 @@ extern Gfx D_60132B0[];
 extern Gfx D_6014A40[];
 extern Gfx D_6020810[];
 
-extern AnimationHeader D_6020A40[];
-extern AnimationHeader D_6020C6C[];
-extern AnimationHeader D_602D140[];
+extern AnimationHeader D_6020A40;
+extern Limb* D_6020C6C;
+extern Limb* D_602D140;
 
 Vec3f D_800C9F60[] = {
     { 2000.0f, 2000.0f, 2000.0f },
@@ -121,7 +121,7 @@ f32 D_800CA1D4[] = {
     1.5f, 0.8700000048f, 0.8299999833f, 0.75f, 0.6999999881f, 0.6000000238f, 0.400000006f, 0.1000000015f,
 };
 
-extern AnimationHeader* D_800CA1F4[] = {
+AnimationHeader* D_800CA1F4[] = {
     D_60265B4, D_602B8DC, D_60034C4, D_602A2CC, D_602CEB4, D_602B778, (AnimationHeader*) 0x0601F3B8,
 };
 
@@ -179,6 +179,7 @@ extern void func_8019E5F0(Object_2F4*);
 extern void func_8019FF00(Object_2F4*);
 extern void func_801A8BE8(Object_2F4*);
 extern void func_801B28BC(Object_2F4*);
+extern void func_801BE0F0(Object_2F4*);
 
 void func_80048AC0(s32 teamId) {
     s32 teamShield;
