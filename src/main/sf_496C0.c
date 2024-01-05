@@ -2,48 +2,283 @@
 
 #include "variables.h"
 
-extern Vec3f D_800C9F60[];
-extern f32 D_800C9F90[];
-extern f32 D_800C9F9C;
-extern Vec3f D_800C9FA0[];
-extern f32 D_800C9FD0[];
-extern f32 D_800C9FE0[];
-extern f32 D_800C9FF0[];
-extern f32 D_800CA000[];
-extern f32 D_800CA010[];
-extern f32 D_800CA020[];
-extern s32 D_800CA030[];
-extern s32 D_800CA040[];
-extern f32 D_800CA050[];
-extern f32 D_800CA05C[];
-extern f32 D_800CA068[];
-extern f32 D_800CA074[];
-extern f32 D_800CA098[];
-extern f32 D_800CA0A4[];
-extern f32 D_800CA0B0[];
-extern Vec3f D_800CA110[];
 extern Gfx D_1024AC0[];
 extern Gfx D_60320E0[];
 extern Gfx* D_7010970[];
-extern Vec3f D_800CA0BC[];
-extern Vec3f D_800CA0EC[];
-extern f32 D_800CA170[];
-extern f32 D_800CA190[];
-extern f32 D_800CA198[];
-extern f32 D_800CA1B4[];
-extern f32 D_800CA1D4[];
+extern Gfx* D_E000000;
+extern Gfx* D_E003AB0;
+
 extern s32 D_800C9E90[];
-extern f32 D_800CA080[];
-extern f32 D_800CA08C[];
+
+extern AnimationHeader D_60265B4[];
+extern AnimationHeader D_602B8DC[];
+extern AnimationHeader D_60034C4[];
+extern AnimationHeader D_602A2CC[];
+extern AnimationHeader D_602CEB4[];
+extern AnimationHeader D_602B778[];
+
 extern f32 D_80178454;
 extern f32 D_80178458;
 extern f32 D_80178464;
 extern f32 D_80178468;
 extern f32 D_80178474;
 extern f32 D_80178478;
-extern s32 D_80177DA8;
-extern Gfx* D_E000000;
-extern Gfx* D_E003AB0;
+
+extern Gfx D_400AAE0[];
+extern Gfx D_6000D80[];
+extern Gfx D_600BAA0[];
+extern Gfx D_60132A0[];
+extern Gfx D_60132B0[];
+extern Gfx D_6014A40[];
+extern Gfx D_6020810[];
+
+extern AnimationHeader D_6020A40[];
+extern AnimationHeader D_6020C6C[];
+extern AnimationHeader D_602D140[];
+
+Vec3f D_800C9F60[] = { {
+                           2000.0f,
+                           2000.0f,
+                           2000.0f,
+                       },
+                       {
+                           -2000.0f,
+                           2000.0f,
+                           2000.0f,
+                       },
+                       {
+                           0.0f,
+                           -3000.0f,
+                           3000.0f,
+                       },
+                       {
+                           5000.0f,
+                           -3000.0f,
+                           -3000.0f,
+                       } };
+
+f32 D_800C9F90[] = { 75.0f, -80.0f, 85.0f, 0.0f };
+
+Vec3f D_800C9FA0[] = { {
+                           200.0f,
+                           -10.0f,
+                           200.0f,
+                       },
+                       {
+                           -200.0f,
+                           20.0f,
+                           200.0f,
+                       },
+                       {
+                           0.0f,
+                           50.0f,
+                           400.0f,
+                       },
+                       {
+                           -2000.0f,
+                           -1000.0f,
+                           0.0f,
+                       } };
+
+f32 D_800C9FD0[] = { -1200.0f, 1200.0f, 0.0f, 0.0f };
+
+f32 D_800C9FE0[] = {
+    0.0f,
+    0.0f,
+    600.0f,
+    2000.0f,
+};
+
+f32 D_800C9FF0[] = {
+    -100.0f,
+    0.0f,
+    100.0f,
+    500.0f,
+};
+
+f32 D_800CA000[] = {
+    -150.0f,
+    150.0f,
+    0.0f,
+    0.0f,
+};
+
+f32 D_800CA010[] = {
+    0.0f,
+    0.0f,
+    80.0f,
+    1000.0f,
+};
+
+f32 D_800CA020[] = {
+    45,
+    -45,
+    10,
+    0,
+};
+
+s32 D_800CA030[] = { 0, 0, 0, 1 };
+
+s32 D_800CA040[] = { 0, 0, 0, 0 };
+
+f32 D_800CA050[] = { 210.0f, -210.0f, 0.0f };
+
+f32 D_800CA05C[] = {
+    -60.0f,
+    -60.0f,
+    -120.0f,
+};
+
+f32 D_800CA068[] = {
+    -150.0f,
+    -150.0f,
+    -300.0f,
+};
+
+f32 D_800CA074[] = {
+    360.0f,
+    -360.0f,
+    0.0f,
+};
+
+f32 D_800CA080[] = {
+    -400.0f,
+    0.0f,
+    400.0f,
+};
+
+f32 D_800CA08C[] = {
+    0.0f,
+    200.0f,
+    0.0f,
+};
+
+f32 D_800CA098[] = {
+    1.0f,
+    -0.8999999762f,
+    0.6999999881f,
+};
+
+f32 D_800CA0A4[] = {
+    150.0f,
+    100.0f,
+    200.0f,
+};
+
+f32 D_800CA0B0[] = {
+    200.0f,
+    300.0f,
+    500.0f,
+};
+
+Vec3f D_800CA0BC[] = {
+    {
+        -1373.0,
+        484.0,
+        -374.0,
+    },
+    {
+        1373.0,
+        484.0,
+        -374.0,
+    },
+    {
+        -1373.0,
+        -704.0,
+        -374.0,
+    },
+    {
+        1373.0,
+        -704.0,
+        -374.0,
+    },
+};
+
+Vec3f D_800CA0EC[] = {
+    {
+        0.0,
+        40.0,
+        -2278.0,
+    },
+    {
+        295.0,
+        -92.0,
+        -1301.0,
+    },
+    {
+        -295.0,
+        -92.0,
+        -1301.0,
+    },
+};
+
+Vec3f D_800CA110[8] = {
+    {
+        170.0f,
+        -35.0f,
+        -380.0f,
+    },
+    {
+        -170.0f,
+        -40.0f,
+        -380.0f,
+    },
+    {
+        170.0f,
+        -130.0f,
+        -380.0f,
+    },
+    {
+        -170.0f,
+        -140.0f,
+        -380.0f,
+    },
+    {
+        140.0f,
+        40.0f,
+        -250.0f,
+    },
+    {
+        -150.0f,
+        40.0f,
+        -250.0f,
+    },
+    {
+        140.0f,
+        0.0f,
+        -250.0f,
+    },
+    {
+        -150.0f,
+        0.0f,
+        -250.0f,
+    },
+};
+
+f32 D_800CA170[] = {
+    0.150000006f, 0.4499999881f, 0.75f, 1.299999952f, 0.75f, 0.4499999881f, 0.150000006f, 0.0f,
+};
+
+f32 D_800CA190[] = {
+    5.0f,
+    5.199999809f,
+};
+
+f32 D_800CA198[] = {
+    0.5f, 1.5f, 2.5f, 1.5f, 0.5f, 0.200000003f, 0.200000003f,
+};
+
+f32 D_800CA1B4[] = {
+    -30.0f, -60.0f, -90.0f, -120.0f, -150.0f, -180.0f, -200.0, -210.0,
+};
+
+f32 D_800CA1D4[] = {
+    1.5f, 0.8700000048f, 0.8299999833f, 0.75f, 0.6999999881f, 0.6000000238f, 0.400000006f, 0.1000000015f,
+};
+
+extern AnimationHeader* D_800CA1F4[] = {
+    D_60265B4, D_602B8DC, D_60034C4, D_602A2CC, D_602CEB4, D_602B778, (AnimationHeader*) 0x0601F3B8,
+};
 
 extern void func_80187520(s32, void*);
 extern void func_800AB334(void);
@@ -88,17 +323,17 @@ extern void func_800A46A0(Player*);
 extern void func_800AD7F0(Player*);
 extern void func_800B2574(Player*);
 extern void func_800AE278(Player*);
-extern void func_80093164(Object_2F4*, enum LevelId);
+extern void func_80093164(Object_2F4*);
 extern void func_800A6028(Vec3f*, u32);
 extern void func_8018DA58(Object_2F4*);
-extern void func_8018ED9C(Object_2F4*, enum LevelId);
-extern void func_80195E44(Object_2F4*, enum LevelId);
-extern void func_80197F10(Object_2F4*, enum LevelId);
-extern void func_8019DD20(Object_2F4*, enum LevelId);
-extern void func_8019E5F0(Object_2F4*, enum LevelId);
+extern void func_8018ED9C(Object_2F4*);
+extern void func_80195E44(Object_2F4*);
+extern void func_80197F10(Object_2F4*);
+extern void func_8019DD20(Object_2F4*);
+extern void func_8019E5F0(Object_2F4*);
 extern void func_8019FF00(Object_2F4*);
-extern void func_801A8BE8(Object_2F4*, enum LevelId);
-extern void func_801B28BC(Object_2F4*, enum LevelId);
+extern void func_801A8BE8(Object_2F4*);
+extern void func_801B28BC(Object_2F4*);
 
 void func_80048AC0(s32 arg0) {
     s32 teamShield;
@@ -2144,7 +2379,7 @@ void func_8004F798(Object_2F4* arg0) {
 void func_8004F8AC(Object_2F4* arg0) {
 
     if (gCurrentLevel == LEVEL_AQUAS) {
-        func_80093164(arg0, gCurrentLevel);
+        func_80093164(arg0);
         return;
     }
 
@@ -2158,30 +2393,30 @@ void func_8004F8AC(Object_2F4* arg0) {
                     break;
                 case LEVEL_SOLAR:
                     if (gPlayer->unk_1D0 >= 3) {
-                        func_801A8BE8(arg0, gCurrentLevel);
+                        func_801A8BE8(arg0);
                     }
                     break;
                 case LEVEL_ZONESS:
                     if (gPlayer->unk_1D0 >= 3) {
-                        func_8019E5F0(arg0, gCurrentLevel);
+                        func_8019E5F0(arg0);
                     }
                     break;
                 case LEVEL_VENOM_ANDROSS:
                 case LEVEL_VENOM_2:
-                    func_80195E44(arg0, gCurrentLevel);
+                    func_80195E44(arg0);
                     break;
                 case LEVEL_KATINA:
-                    func_80197F10(arg0, gCurrentLevel);
+                    func_80197F10(arg0);
                     break;
                 case LEVEL_SECTOR_Z:
-                    func_8019DD20(arg0, gCurrentLevel);
+                    func_8019DD20(arg0);
                     break;
                 case LEVEL_AREA_6:
                     func_8018DA58(arg0);
                     break;
                 case LEVEL_METEO:
                     if (D_8017827C == 0) {
-                        func_8018ED9C(arg0, gCurrentLevel);
+                        func_8018ED9C(arg0);
                         break;
                     }
                     func_80049630(arg0);
@@ -2239,7 +2474,7 @@ void func_8004F8AC(Object_2F4* arg0) {
                     func_8004E4D4(arg0);
                     break;
                 case LEVEL_MACBETH:
-                    func_801B28BC(arg0, gCurrentLevel);
+                    func_801B28BC(arg0);
                     break;
                 case LEVEL_BOLSE:
                     func_8004F05C(arg0);
@@ -2294,13 +2529,10 @@ void func_8004FCB8(Object_2F4* arg0, s32 arg1) {
     }
 }
 
-#ifdef IMPORT_BSS
-extern AnimationHeader* D_800CA1F4[];
-
 void func_8004FEC0(Object_2F4* arg0) {
-    static f32 D_800CA210;
-    static f32 D_800CA214;
-    static f32 D_800CA218;
+    static f32 D_800CA210 = 0;
+    static f32 D_800CA214 = 0;
+    static f32 D_800CA218 = 0;
     f32 sp2DC;
     f32 sp2D8;
     f32 sp2D4;
@@ -2674,9 +2906,6 @@ void func_8004FEC0(Object_2F4* arg0) {
             break;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004FEC0.s")
-#endif
 
 void func_800515C4(void) {
 
@@ -2685,6 +2914,10 @@ void func_800515C4(void) {
     s32 j;
     f32 sp9C[4];
     Gfx* var_fp;
+
+    (void) "Demo_Time=%d\n";
+    (void) "Demo_Time=%d\n";
+    (void) "d Enm->wrk0 %d\n";
 
     if (gGameState == GSTATE_TITLE) {
         var_fp = D_60320E0;
@@ -2760,5 +2993,3 @@ void func_800515C4(void) {
         }
     }
 }
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/D_800D5750.s")
