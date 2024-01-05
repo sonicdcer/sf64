@@ -442,9 +442,9 @@ void func_80049630(Object_2F4* obj2F4) {
     sp3C.y = 0.0f;
     sp3C.z = obj2F4->unk_114;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp3C, &sp30);
-    obj2F4->unk_0E8.x = sp30.x;
-    obj2F4->unk_0E8.y = sp30.y;
-    obj2F4->unk_0E8.z = sp30.z;
+    obj2F4->vel.x = sp30.x;
+    obj2F4->vel.y = sp30.y;
+    obj2F4->vel.z = sp30.z;
     obj2F4->obj.rot.x = -obj2F4->unk_0F4.x;
     obj2F4->obj.rot.y = obj2F4->unk_0F4.y + 180.0f;
     obj2F4->obj.rot.z = -obj2F4->unk_0F4.z;
@@ -471,7 +471,7 @@ void func_80049968(Object_2F4* obj2F4, s32 arg1) {
     obj2F4->unk_0B8 = D_800CA040[arg1];
     obj2F4->obj.rot.z = D_800CA020[arg1];
     obj2F4->obj.rot.y = 180.0f;
-    obj2F4->unk_0E8.z = gPlayer[0].vel.z;
+    obj2F4->vel.z = gPlayer[0].vel.z;
     Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
     obj2F4->unk_07C = 1;
     Audio_PlaySfx(0x3100000CU, &obj2F4->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -486,7 +486,7 @@ void func_80049A9C(Object_8C* obj8c, f32 x, f32 y, f32 z) {
     obj8c->obj.pos.x = x;
     obj8c->obj.pos.y = y;
     obj8c->obj.pos.z = z;
-    obj8c->unk_54.z = 40.0f;
+    obj8c->vel.z = 40.0f;
     obj8c->obj.rot.z = Rand_ZeroOne() * 360.0f;
     Object_SetInfo(&obj8c->info, obj8c->obj.id);
 }
@@ -797,9 +797,9 @@ void func_8004A888(Object_8C* obj8C) {
     sp2C.y = 0.0f;
     sp2C.z = -80.0f;
     Matrix_MultVec3f(gCalcMatrix, &sp2C, &sp20);
-    obj8C->unk_54.x = sp20.x;
-    obj8C->unk_54.y = sp20.y;
-    obj8C->unk_54.z = sp20.z;
+    obj8C->vel.x = sp20.x;
+    obj8C->vel.y = sp20.y;
+    obj8C->vel.z = sp20.z;
     obj8C->obj.id = OBJ_8C_352;
     obj8C->timer_50 = 0x28;
     obj8C->unk_46 = 0x90;
@@ -1969,9 +1969,9 @@ void func_8004E4D4(Object_2F4* obj2F4) {
     sp54.y = 0.0f;
     sp54.z = obj2F4->unk_138;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
-    obj2F4->unk_0E8.x = sp48.x;
-    obj2F4->unk_0E8.y = sp48.y;
-    obj2F4->unk_0E8.z = sp48.z;
+    obj2F4->vel.x = sp48.x;
+    obj2F4->vel.y = sp48.y;
+    obj2F4->vel.z = sp48.z;
 }
 
 void func_8004EBD0(Object_2F4* obj2F4) {
@@ -2059,9 +2059,9 @@ void func_8004EBD0(Object_2F4* obj2F4) {
             src.y = 0.0f;
             src.z = obj2F4->unk_124.z * obj2F4->unk_124.z;
             Matrix_MultVec3f(gCalcMatrix, &src, &dest);
-            obj2F4->unk_0E8.x = dest.x;
-            obj2F4->unk_0E8.y = dest.y;
-            obj2F4->unk_0E8.z = dest.z;
+            obj2F4->vel.x = dest.x;
+            obj2F4->vel.y = dest.y;
+            obj2F4->vel.z = dest.z;
             if (obj2F4->timer_0BC == 0) {
                 func_80078E50(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, 30.0f);
                 Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
@@ -2087,7 +2087,7 @@ void func_8004F05C(Object_2F4* obj2F4) {
                 case 0:
                     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2) {
                         obj2F4->unk_0F4.z += obj2F4->unk_0F4.y;
-                        obj2F4->unk_0E8.x = __sinf(obj2F4->unk_0F4.z * M_DTOR) * 10.0f;
+                        obj2F4->vel.x = __sinf(obj2F4->unk_0F4.z * M_DTOR) * 10.0f;
                         obj2F4->obj.rot.z = __sinf(obj2F4->unk_0F4.z * M_DTOR) * 40.0f;
                         break;
                     }
@@ -2104,7 +2104,7 @@ void func_8004F05C(Object_2F4* obj2F4) {
 
                         case 2:
                             obj2F4->unk_07C = 2;
-                            obj2F4->unk_0E8.z -= 5.0f;
+                            obj2F4->vel.z -= 5.0f;
                             if (obj2F4->timer_0BC == 0) {
                                 Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
                             }
@@ -2161,7 +2161,7 @@ void func_8004F05C(Object_2F4* obj2F4) {
 
         case LEVEL_SECTOR_X:
             if ((obj2F4->unk_0B8 != 0) && (obj2F4->unk_0B8 == 1)) {
-                obj2F4->unk_0E8.y += 0.1f;
+                obj2F4->vel.y += 0.1f;
                 Math_SmoothStepToF(&obj2F4->obj.rot.x, -20.0f, 0.1f, 0.5f, 0.0f);
             }
             break;
@@ -2187,44 +2187,44 @@ void func_8004F05C(Object_2F4* obj2F4) {
                     break;
 
                 case 0x1:
-                    obj2F4->unk_0E8.y += 0.8f;
-                    obj2F4->unk_0E8.x += 0.8f;
+                    obj2F4->vel.y += 0.8f;
+                    obj2F4->vel.x += 0.8f;
                     Math_SmoothStepToF(&obj2F4->obj.rot.z, 420.0f, 0.1f, 15.0f, 0.001f);
                     break;
 
                 case 0x2:
-                    obj2F4->unk_0E8.y += 0.8f;
-                    obj2F4->unk_0E8.x -= 0.8f;
+                    obj2F4->vel.y += 0.8f;
+                    obj2F4->vel.x -= 0.8f;
                     Math_SmoothStepToF(&obj2F4->obj.rot.z, -420.0f, 0.1f, 15.0f, 0.001f);
                     break;
 
                 case 0x3:
-                    obj2F4->unk_0E8.y += 1.2f;
-                    obj2F4->unk_0E8.z += 0.1f;
+                    obj2F4->vel.y += 1.2f;
+                    obj2F4->vel.z += 0.1f;
                     Math_SmoothStepToF(&obj2F4->obj.rot.x, -45.0f, 0.1f, 15.0f, 0.001f);
                     break;
 
                 case 0xA:
-                    obj2F4->unk_0E8.x -= 1.0f;
+                    obj2F4->vel.x -= 1.0f;
                     Math_SmoothStepToF(&obj2F4->obj.rot.z, -45.0f, 0.05f, 0.5f, 0.0f);
                     break;
 
                 case 0xB:
-                    obj2F4->unk_0E8.x -= 2.0f;
+                    obj2F4->vel.x -= 2.0f;
                     Math_SmoothStepToF(&obj2F4->obj.rot.z, -70.0f, 0.1f, 6.0f, 0.0f);
                     Math_SmoothStepToF(&obj2F4->obj.rot.y, 225.0f, 0.05f, 2.0f, 0.0f);
                     break;
 
                 case 0xC:
-                    obj2F4->unk_0E8.x += 2.0f;
-                    obj2F4->unk_0E8.y += 1.0f;
+                    obj2F4->vel.x += 2.0f;
+                    obj2F4->vel.y += 1.0f;
                     Math_SmoothStepToF(&obj2F4->obj.rot.z, 80.0f, 0.1f, 6.0f, 0.0f);
                     Math_SmoothStepToF(&obj2F4->obj.rot.x, -15.0f, 0.05f, 4.0f, 0.0f);
                     Math_SmoothStepToF(&obj2F4->obj.rot.y, 135.0f, 0.05f, 2.0f, 0.0f);
                     break;
 
                 case 0xD:
-                    obj2F4->unk_0E8.y += 2.0f;
+                    obj2F4->vel.y += 2.0f;
                     Math_SmoothStepToF(&obj2F4->obj.rot.z, -400.0f, 0.2f, 14.0f, 0.0f);
                     Math_SmoothStepToF(&obj2F4->obj.rot.x, -45.0f, 0.05f, 4.0f, 0.0f);
                     break;
@@ -2246,7 +2246,7 @@ void func_8004F798(Object_2F4* obj2F4) {
 
         case 1:
             obj2F4->unk_188 = 10.0f;
-            obj2F4->unk_0E8.z -= 100.0f;
+            obj2F4->vel.z -= 100.0f;
             if ((obj2F4->obj.pos.z + D_80177D20) < -15000.0f) {
                 Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
             }
