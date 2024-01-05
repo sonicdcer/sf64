@@ -525,7 +525,7 @@ void func_8007905C(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 
         obj8C->vel.z = (Rand_ZeroOne() - 0.5f) * 10.0f;
     }
     obj8C->scale2 = ((Rand_ZeroOne() * 0.8f) + 0.3f) * arg4;
-    obj8C->timer_50 = (s32) (Rand_ZeroOne() * 50.0f) + 0x46;
+    obj8C->timer_50 = (s32) (Rand_ZeroOne() * 50.0f) + 70;
     obj8C->obj.rot.x = Rand_ZeroOne() * 360.0f;
     obj8C->unk_60.x = (Rand_ZeroOne() - 0.5f) * 30.0f;
     obj8C->unk_60.y = (Rand_ZeroOne() - 0.5f) * 30.0f;

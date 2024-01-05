@@ -71,7 +71,7 @@ void Matrix_RotateAxis(Matrix*, f32, f32, f32, f32, u8);
 void Matrix_ToMtx(Mtx *dest);
 void Matrix_FromMtx(Mtx *src, Matrix *dest);
 void Matrix_MultVec3f(Matrix* mtx, Vec3f* src, Vec3f* dest);
-void Matrix_MultVec3fNoTranslate(Matrix*, Vec3f*, Vec3f*);
+void Matrix_MultVec3fNoTranslate(Matrix* mtx, Vec3f* src, Vec3f* dest);
 void Matrix_GetYRPAngles(Matrix*, Vec3f*);
 void Matrix_GetXYZAngles(Matrix*, Vec3f*);
 void Matrix_LookAt(Matrix*, f32, f32, f32, f32, f32, f32, f32, f32, f32, u8);
