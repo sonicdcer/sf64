@@ -3171,7 +3171,58 @@ void func_8008377C(f32 posX, f32 posY, f32 posZ, f32 arg3, f32 scale) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_800837EC.s")
+void func_800837EC(Object_8C* obj8C) {
+    s32 pad[2];
+    f32 var_fv1;
+    s32 var_s2;
+    s32 i;
+
+    switch (obj8C->unk_4E) {
+        case 0:
+            if (obj8C->unk_60.y == 1.2f) {
+                Math_SmoothStepToF(&obj8C->scale2, obj8C->scale1, 0.5f, obj8C->scale1, 0.01f);
+            } else {
+                Math_SmoothStepToF(&obj8C->scale2, obj8C->scale1, 1.0f, obj8C->scale1 * 0.1f, 0.01f);
+            }
+            if (obj8C->scale2 > (obj8C->scale1 * 0.7f)) {
+                Math_SmoothStepToF(&obj8C->unk_60.x, obj8C->scale2 * 1.3f, 0.1f, 0.5f, 0.0001f);
+            }
+            if (obj8C->scale2 == obj8C->scale1) {
+                var_s2 = obj8C->scale2 * 5.0f;
+                if (var_s2 < 5) {
+                    var_s2 = 5;
+                }
+                if (var_s2 > 10) {
+                    var_s2 = 10;
+                }
+                var_fv1 = obj8C->unk_60.y * 300.0f;
+                if (obj8C->unk_60.y == 1.2f) {
+                    var_fv1 = obj8C->unk_60.y * 100.0f;
+                }
+                for (i = 0; i < var_s2; i++) {
+                    func_80081BEC(((Rand_ZeroOne() - 0.5f) * (obj8C->scale2 * 200.0f)) + obj8C->obj.pos.x,
+                                  ((Rand_ZeroOne() - 0.5f) * (obj8C->scale2 * 100.0f)) + (obj8C->obj.pos.y + var_fv1),
+                                  ((Rand_ZeroOne() - 0.5f) * (obj8C->scale2 * 200.0f)) + obj8C->obj.pos.z,
+                                  0.3f - ((Rand_ZeroOne() - 0.5f) * 0.2f), 0xB);
+                }
+                obj8C->unk_4E += 1;
+            }
+            break;
+        case 1:
+            obj8C->vel.y -= 4.0f;
+            Math_SmoothStepToF(&obj8C->scale2, 0.0f, 0.01f, 0.1f, 0.0001f);
+            Math_SmoothStepToF(&obj8C->unk_60.x, obj8C->scale2 * 1.3f, 0.1f, 0.5f, 0.0001f);
+            obj8C->unk_44 -= 35;
+            if (obj8C->unk_44 < 0) {
+                Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+            }
+            break;
+    }
+    obj8C->obj.rot.y =
+        (Math_Atan2F(gPlayer->camEye.x - obj8C->obj.pos.x, gPlayer->camEye.z - (obj8C->obj.pos.z + D_80177D20)) *
+         180.0f) /
+        M_PI;
+}
 
 void func_80083B8C(Object_8C* obj8C) {
     RCP_SetupDL_49();
