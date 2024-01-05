@@ -3203,7 +3203,54 @@ void func_80083C70(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 velX, f32
     Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80083D2C.s")
+void func_80083D2C(f32 posX, f32 posY, f32 posZ, f32 srcZ) {
+    s32 i;
+    s32 j;
+    s32 pad1;
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 rotX;
+    f32 rotY;
+    f32 xSway;
+    s32 pad2;
+    Vec3f src;
+    Vec3f dest;
+
+    if (gCurrentLevel != LEVEL_AQUAS) {
+        xSway = 175.0f;
+        if (Rand_ZeroOne() < 0.5f) {
+            xSway = -175.0f;
+        }
+    } else {
+        xSway = 350.0f;
+        if (Rand_ZeroOne() < 0.5f) {
+            xSway = -350.0f;
+        }
+    }
+    x = gPlayer->pos.x + xSway - posX;
+    y = gPlayer->pos.y - posY;
+    z = gPlayer->unk_138 - posZ;
+    rotY = Math_Atan2F(x, z);
+    rotX = -Math_Atan2F(y, sqrtf(SQ(x) + SQ(z)));
+    Matrix_RotateY(gCalcMatrix, rotY, 0);
+    Matrix_RotateX(gCalcMatrix, rotX, 1);
+    src.x = src.y = 0.0f;
+    src.z = srcZ;
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+    dest.z -= D_80177D08;
+    for (i = 0; i < 6; i++) {
+        for (j = 0; j < ARRAY_COUNT(gObjects8C); j++) {
+            if (gObjects8C[j].obj.status == 0) {
+                func_80083C70(&gObjects8C[j], posX, posY, posZ, dest.x, dest.y, dest.z, i * 60.0f, i);
+                if (i == 0) {
+                    Audio_PlaySfx(0x3103109B, &gObjects8C[j].sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                }
+                break;
+            }
+        }
+    }
+}
 
 void func_80083FA8(Object_8C* obj8C) {
     Vec3f src;
