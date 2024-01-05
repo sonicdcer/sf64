@@ -18,6 +18,9 @@ extern f32 D_800CA050[];
 extern f32 D_800CA05C[];
 extern f32 D_800CA068[];
 extern f32 D_800CA074[];
+extern f32 D_800CA098[];
+extern f32 D_800CA0A4[];
+extern f32 D_800CA0B0[];
 extern Vec3f D_800CA110[];
 extern Gfx D_1024AC0[];
 extern Gfx D_60320E0[];
@@ -85,7 +88,6 @@ extern void func_800A46A0(Player*);
 extern void func_800AD7F0(Player*);
 extern void func_800B2574(Player*);
 extern void func_800AE278(Player*);
-extern void func_8004E4D4(Object_2F4*, enum LevelId);
 extern void func_8004F05C(Object_2F4*, enum LevelId);
 extern void func_80093164(Object_2F4*, enum LevelId);
 extern void func_800A6028(Vec3f*, u32);
@@ -162,8 +164,8 @@ void func_80048CC4(Object_2F4* arg0, s32 arg1) {
     arg0->unk_0F4.z = D_800C9F90[arg1];
     Object_SetInfo(&arg0->info, arg0->obj.id);
     if (arg1 == 3) {
-        Audio_PlaySfx(0x11030010U, &arg0->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-        Audio_PlaySfx(0x31024059U, &arg0->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(0x11030010U, &arg0->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(0x31024059U, &arg0->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         arg0->unk_0B6 = 1;
     } else {
         arg0->unk_07C = 1;
@@ -194,7 +196,7 @@ void func_80048E40(Player* arg0) {
     switch (arg0->unk_1D0) {
         case 0:
             arg0->unk_4DC = 0;
-            func_8001A38C(1U, &arg0->unk_460);
+            func_8001A38C(1, &arg0->unk_460);
             arg0->unk_1D0 += 1;
             D_80177A48[0] = 0.0f;
             D_80177A48[1] = 0.0f;
@@ -207,8 +209,8 @@ void func_80048E40(Player* arg0) {
             Math_SmoothStepToF(&D_80177A48[2], 1.2f, 0.1f, 0.01f, 0.0f);
             Math_SmoothStepToF(D_80177A48, 0.1f, 0.1f, 0.002f, 0.0f);
             Math_SmoothStepToF(&arg0->unk_0D0, 0.0f, 1.0f, 0.5f, 0.0f);
-            Matrix_RotateX(gCalcMatrix, -0.08726646f, 0U);
-            Matrix_RotateY(gCalcMatrix, D_80177A48[1] * M_DTOR, 1U);
+            Matrix_RotateX(gCalcMatrix, -0.08726646f, 0);
+            Matrix_RotateY(gCalcMatrix, D_80177A48[1] * M_DTOR, 1);
             sp5C.x = 0.0f;
             sp5C.y = 0.0f;
             sp5C.z = 300.0f;
@@ -255,7 +257,7 @@ void func_80048E40(Player* arg0) {
                     break;
 
                 case 0x1C2:
-                    Audio_PlaySfx(0x09000002U, &arg0->unk_460, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    Audio_PlaySfx(0x09000002U, &arg0->unk_460, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                     arg0->unk_194 = 5.0f;
                     arg0->unk_190 = 5.0f;
 
@@ -343,7 +345,7 @@ void func_80049630(Object_2F4* obj2F4) {
             break;
         case 1:
             obj2F4->unk_0B8 = 2;
-            Audio_PlaySfx(0x09000002U, &obj2F4->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x09000002U, &obj2F4->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             obj2F4->timer_0BC = 0x96;
             obj2F4->unk_188 = 5.0f;
         case 2:
@@ -354,8 +356,8 @@ void func_80049630(Object_2F4* obj2F4) {
             }
             break;
     }
-    Matrix_RotateY(gCalcMatrix, (obj2F4->unk_0F4.y + 180.0f) * M_DTOR, 0U);
-    Matrix_RotateX(gCalcMatrix, -(obj2F4->unk_0F4.x * M_DTOR), 1U);
+    Matrix_RotateY(gCalcMatrix, (obj2F4->unk_0F4.y + 180.0f) * M_DTOR, 0);
+    Matrix_RotateX(gCalcMatrix, -(obj2F4->unk_0F4.x * M_DTOR), 1);
     sp3C.x = 0.0f;
     sp3C.y = 0.0f;
     sp3C.z = obj2F4->unk_114;
@@ -509,19 +511,19 @@ void func_80049C0C(Player* arg0) {
             arg0->unk_190 = 2.0f;
             if (arg0->timer_1F8 == 0x5F && gTeamShields[1] > 0) {
                 gObjects2F4[0].unk_0B8 = var_v0;
-                Audio_PlaySfx(0x0940802AU, &gObjects2F4[0].sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x0940802AU, &gObjects2F4[0].sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
             if (arg0->timer_1F8 == 0x5A && gTeamShields[3] > 0) {
                 gObjects2F4[2].unk_0B8 = var_v0;
-                Audio_PlaySfx(0x0940802AU, &gObjects2F4[2].sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x0940802AU, &gObjects2F4[2].sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
             if (arg0->timer_1F8 == 0x55 && gTeamShields[2] > 0) {
                 gObjects2F4[1].unk_0B8 = var_v0;
-                Audio_PlaySfx(0x0940802AU, &gObjects2F4[1].sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x0940802AU, &gObjects2F4[1].sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
             if (arg0->timer_1F8 == 0x3C) {
                 gObjects2F4[3].unk_0B8 = var_v0;
-                Audio_PlaySfx(0x0940802AU, &gObjects2F4[3].sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x0940802AU, &gObjects2F4[3].sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 func_800182F4(0x103200FF);
                 func_800182F4(0x113200FF);
             }
@@ -551,7 +553,7 @@ void func_80049C0C(Player* arg0) {
                     arg0->unk_234 = 1;
                     D_8017827C = 1;
                     D_800CA230 = 0.15f;
-                    Audio_PlaySfx(0x11407079U, &D_800C5D28, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    Audio_PlaySfx(0x11407079U, &D_800C5D28, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                     func_800AB334();
                 }
             }
@@ -578,7 +580,7 @@ void func_80049C0C(Player* arg0) {
             }
             if (arg0->timer_1F8 == 0x1E) {
                 D_80178410 = 0x12C;
-                func_8001D444(0U, 0x803AU, 0U, 0xFFU);
+                func_8001D444(0, 0x803AU, 0, 0xFFU);
             }
             if (arg0->timer_1F8 == 0) {
                 D_8015F960 = 0.0f;
@@ -693,8 +695,8 @@ void func_8004A888(Object_8C* arg0) {
     Vec3f sp2C;
     Vec3f sp20;
 
-    Matrix_RotateY(gCalcMatrix, (gPlayer->unk_0E8 + 180.0f) * M_DTOR, 0U);
-    Matrix_RotateX(gCalcMatrix, -(gPlayer->unk_0E4 * M_DTOR), 1U);
+    Matrix_RotateY(gCalcMatrix, (gPlayer->unk_0E8 + 180.0f) * M_DTOR, 0);
+    Matrix_RotateX(gCalcMatrix, -(gPlayer->unk_0E4 * M_DTOR), 1);
     Object_8C_Initialize(arg0);
     arg0->obj.status = 1;
     sp2C.x = (Rand_ZeroOne() - 0.5f) * 1500.0f;
@@ -752,13 +754,13 @@ void func_8004AAF4(Player* arg0) {
         D_80177E84 = 1;
         if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
             func_800BA808(gMsg_ID_19466, 0);
-            func_8001D444(0U, 0x803DU, 0U, 0xFFU);
+            func_8001D444(0, 0x803DU, 0, 0xFFU);
         } else if (gCurrentLevel != LEVEL_TRAINING) {
             func_800BA808(gMsg_ID_20180, 0);
             if (gCurrentLevel == 5) {
-                func_8001D444(0U, D_800C9E90[gCurrentLevel], 0U, 2U);
+                func_8001D444(0, D_800C9E90[gCurrentLevel], 0, 2U);
             } else {
-                func_8001D444(0U, D_800C9E90[gCurrentLevel], 0U, 0xFFU);
+                func_8001D444(0, D_800C9E90[gCurrentLevel], 0, 0xFFU);
             }
         }
     }
@@ -797,10 +799,10 @@ void func_8004AAF4(Player* arg0) {
                 Math_SmoothStepToF(&D_801779A8[arg0->num], 30.0f, 1.0f, 10.0f, 0.0f);
             }
             if (D_80177A80 == 0x8A) {
-                Audio_PlaySfx(0x09000007U, &arg0->unk_460, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x09000007U, &arg0->unk_460, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
             if (D_80177A80 == 0xBE) {
-                Audio_PlaySfx(0x09000013U, &arg0->unk_460, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x09000013U, &arg0->unk_460, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
             if (D_80177A48[1] > 350.0f) {
                 arg0->state_1C8 = PLAYERSTATE_1C8_3;
@@ -808,7 +810,7 @@ void func_8004AAF4(Player* arg0) {
                 arg0->unk_018 = 0.1f;
                 arg0->unk_194 = 10.0f;
                 arg0->unk_190 = 10.0f;
-                Audio_PlaySfx(0x09000002U, &arg0->unk_460, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x09000002U, &arg0->unk_460, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 D_801779A8[arg0->num] = 70.0f;
                 if ((gCurrentLevel != 9) && (gCurrentLevel != 0xA)) {
                     D_800D1970 = 0;
@@ -824,8 +826,8 @@ void func_8004AAF4(Player* arg0) {
                     }
                 }
             }
-            Matrix_RotateY(gCalcMatrix, D_80177A48[1] * M_DTOR, 0U);
-            Matrix_RotateX(gCalcMatrix, D_80177A48[2] * M_DTOR, 1U);
+            Matrix_RotateY(gCalcMatrix, D_80177A48[1] * M_DTOR, 0);
+            Matrix_RotateX(gCalcMatrix, D_80177A48[2] * M_DTOR, 1);
             sp70.x = 0.0f;
             sp70.y = 0.0f;
             sp70.z = 200.0f;
@@ -842,8 +844,8 @@ void func_8004AAF4(Player* arg0) {
             Math_SmoothStepToF(&arg0->camAt.z, arg0->unk_138 + D_80177D20, *D_80177A48, 500.0f, 0.0f);
             break;
     }
-    Matrix_RotateY(gCalcMatrix, (arg0->unk_0E8 + 180.0f) * M_DTOR, 0U);
-    Matrix_RotateX(gCalcMatrix, -(arg0->unk_0E4 * M_DTOR), 1U);
+    Matrix_RotateY(gCalcMatrix, (arg0->unk_0E8 + 180.0f) * M_DTOR, 0);
+    Matrix_RotateX(gCalcMatrix, -(arg0->unk_0E4 * M_DTOR), 1);
 
     sp70.x = 0.0f;
     sp70.y = 0.0f;
@@ -1066,9 +1068,9 @@ void func_8004B368(Player* arg0) {
                 }
                 D_80161A88 = 0;
             }
-            Matrix_RotateY(gCalcMatrix, (arg0->unk_0E8 + 180.0f) * M_DTOR, 0U);
-            Matrix_RotateX(gCalcMatrix, -(arg0->unk_0E4 * M_DTOR), 1U);
-            Matrix_RotateZ(gCalcMatrix, -((arg0->unk_0F8 + arg0->unk_0F0) * M_DTOR), 1U);
+            Matrix_RotateY(gCalcMatrix, (arg0->unk_0E8 + 180.0f) * M_DTOR, 0);
+            Matrix_RotateX(gCalcMatrix, -(arg0->unk_0E4 * M_DTOR), 1);
+            Matrix_RotateZ(gCalcMatrix, -((arg0->unk_0F8 + arg0->unk_0F0) * M_DTOR), 1);
             if ((D_80178418 > 70.0f) && (D_80178418 < 280.0f)) {
                 func_8004AA84();
             }
@@ -1198,8 +1200,8 @@ void func_8004B368(Player* arg0) {
             break;
     }
 
-    Matrix_RotateY(gCalcMatrix, ((arg0->unk_114 + arg0->unk_0E8) + 180.0f) * M_DTOR, 0U);
-    Matrix_RotateX(gCalcMatrix, -((arg0->unk_120 + arg0->unk_0E4) * M_DTOR), 1U);
+    Matrix_RotateY(gCalcMatrix, ((arg0->unk_114 + arg0->unk_0E8) + 180.0f) * M_DTOR, 0);
+    Matrix_RotateX(gCalcMatrix, -((arg0->unk_120 + arg0->unk_0E4) * M_DTOR), 1);
     sp60.x = 0.0f;
     sp60.y = 0.0f;
     sp60.z = arg0->unk_0D0;
@@ -1281,7 +1283,7 @@ void func_8004C930(Player* arg0) {
                 func_800AA800(arg0);
             } else {
                 if (D_80177A80 == 0xAA) {
-                    func_8001D444(0U, 0x26U, 0U, 0xFFU);
+                    func_8001D444(0, 0x26U, 0, 0xFFU);
                 }
                 func_8004B368(arg0);
                 func_800AA800(arg0);
@@ -1420,8 +1422,8 @@ void func_8004CCC0(Player* arg0) {
     arg0->pos.y += arg0->unk_004;
     arg0->camAt.y += arg0->unk_004;
     arg0->unk_0F8 = arg0->unk_0EC + arg0->unk_12C + arg0->unk_130;
-    Matrix_RotateY(gCalcMatrix, (arg0->unk_114 + arg0->unk_0E8 + 180.0f) * M_DTOR, 0U);
-    Matrix_RotateX(gCalcMatrix, -((arg0->unk_120 + arg0->unk_0E4 + arg0->unk_4D8) * M_DTOR), 1U);
+    Matrix_RotateY(gCalcMatrix, (arg0->unk_114 + arg0->unk_0E8 + 180.0f) * M_DTOR, 0);
+    Matrix_RotateX(gCalcMatrix, -((arg0->unk_120 + arg0->unk_0E4 + arg0->unk_4D8) * M_DTOR), 1);
     sp50.rot.x = 0.0f;
     sp50.rot.y = 0.0f;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp50.rot, &sp50.pos);
@@ -1614,7 +1616,7 @@ void func_8004D828(Player* arg0) {
         func_8004D440(arg0);
     }
     Math_SmoothStepToF(&arg0->unk_034, 0.0f, 0.05f, 5.0f, 0.00001f);
-    Matrix_RotateY(gCalcMatrix, (arg0->unk_114 + (arg0->unk_134 * 0.2f)) * M_DTOR, 0U);
+    Matrix_RotateY(gCalcMatrix, (arg0->unk_114 + (arg0->unk_134 * 0.2f)) * M_DTOR, 0);
     Math_SmoothStepToF(&arg0->unk_000, 700.0f, 0.05f, 10.0f, 0.00001f);
     src.x = arg0->unk_004 * (arg0->unk_000 * 0.7f);
     src.y = arg0->unk_000 * 0.5f;
@@ -1751,7 +1753,121 @@ void func_8004E3D8(Player* arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004E4D4.s")
+void func_8004E4D4(Object_2F4* arg0) {
+    Vec3f sp54;
+    Vec3f sp48;
+    Vec3f sp3C;
+    Player* sp38 = gPlayer;
+    f32 sp34;
+
+    arg0->unk_130 += 3.0f;
+    arg0->unk_0F4.z = __sinf(arg0->unk_130 * M_DTOR) * 1.5f;
+    arg0->unk_134 += 2.0f;
+    sp34 = __sinf(arg0->unk_134 * M_DTOR) * 10.0f;
+
+    switch (arg0->unk_0B8) {
+        case 0:
+            Math_SmoothStepToF(&arg0->obj.rot.z, 0.0f, 0.05f, 1.0f, 0.0f);
+            Math_SmoothStepToF(&arg0->obj.pos.x, arg0->unk_114 + sp38->pos.x, 0.03f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&arg0->obj.pos.y, arg0->unk_118 + sp38->pos.y + sp34, 0.03f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&arg0->obj.pos.z, arg0->unk_11C + sp38->unk_138, 0.03f, 10.0f, 0.0f);
+            arg0->obj.rot.x = -sp38->unk_0E4;
+            arg0->obj.rot.y = sp38->unk_0E8 + 180.0f;
+            break;
+
+        case 1:
+            arg0->unk_0B8 = 2;
+            arg0->timer_0BC = 0x32;
+            arg0->unk_138 = 2.0f;
+            Audio_PlaySfx(0x09000002U, &arg0->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            arg0->unk_188 = 5.0f;
+
+        case 2:
+            if (gLevelType == 0) {
+                arg0->unk_168 += 0.4f;
+                if (arg0->unk_168 > 0.6f) {
+                    arg0->unk_168 = 0.6f;
+                }
+            }
+            arg0->unk_07C = 2;
+            arg0->unk_138 *= 1.2f;
+            if (arg0->timer_0BC == 0) {
+                Object_Kill(&arg0->obj, &arg0->sfxPos);
+            }
+            break;
+
+        case 10:
+            arg0->unk_0B8 = 0xB;
+            arg0->timer_0BC = 0x96;
+            arg0->timer_0BE = 0x28;
+            Audio_PlaySfx(0x09000002U, &arg0->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            arg0->unk_188 = 5.0f;
+
+        case 11:
+            arg0->unk_07C = 2;
+            arg0->unk_138 += 2.0f;
+            if (arg0->unk_138 > 50.0f) {
+                arg0->unk_138 = 50.0f;
+            }
+            if (arg0->timer_0BE == 0) {
+                switch (arg0->index) {
+                    case 1:
+                        arg0->obj.rot.y += 0.3f;
+                        Math_SmoothStepToF(&arg0->obj.rot.z, -70.0f, 0.05f, 4.0f, 0.0f);
+                        break;
+                    case 2:
+                        arg0->obj.rot.y -= 0.3f;
+                        Math_SmoothStepToF(&arg0->obj.rot.z, 70.0f, 0.05f, 4.0f, 0.0f);
+                        break;
+                    case 3:
+                        arg0->obj.rot.x -= 0.4f;
+                        Math_SmoothStepToF(&arg0->obj.rot.z, 1000.0f, 0.05f, 6.0f, 0.0f);
+                        break;
+                }
+            }
+            if (arg0->timer_0BC == 0) {
+                Object_Kill(&arg0->obj, &arg0->sfxPos);
+            }
+            break;
+
+        case 30:
+            arg0->unk_120 += D_800CA098[arg0->index];
+            Matrix_RotateY(gCalcMatrix, arg0->unk_120 * M_DTOR, 0);
+            sp54.x = 0.0f;
+            sp54.y = D_800CA0A4[arg0->index];
+            sp54.z = D_800CA0B0[arg0->index];
+            Matrix_MultVec3f(gCalcMatrix, &sp54, &sp3C);
+            arg0->unk_114 = sp3C.x;
+            arg0->unk_118 = sp3C.y;
+            arg0->unk_11C = sp3C.z - 100.0f;
+            Math_SmoothStepToF(&arg0->obj.rot.z, __sinf(arg0->unk_120 * M_DTOR) * -30.0f, 0.1f, 2.0f, 0.0f);
+            Math_SmoothStepToF(&arg0->obj.pos.x, arg0->unk_114 + sp38->pos.x, 0.03f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&arg0->obj.pos.y, arg0->unk_118 + sp38->pos.y + sp34, 0.03f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&arg0->obj.pos.z, arg0->unk_11C + sp38->unk_138, 0.03f, 10.0f, 0.0f);
+            break;
+
+        case 31:
+            Audio_PlaySfx(0x09000002U, &arg0->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            arg0->unk_0B8 += 1;
+            arg0->unk_188 = 5.0f;
+
+        case 32:
+            arg0->unk_07C = 2;
+            Math_SmoothStepToF(&arg0->obj.rot.x, -20.0f, 0.1f, 0.5f, 0.0f);
+            Math_SmoothStepToF(&arg0->unk_138, 25.0f, 0.1f, 2.0f, 0.0f);
+            Math_SmoothStepToF(&arg0->obj.rot.z, 0.0f, 0.1f, 0.5f, 0.0f);
+            break;
+    }
+    Matrix_RotateY(gCalcMatrix, arg0->obj.rot.y * M_DTOR, 0);
+    Matrix_RotateX(gCalcMatrix, arg0->obj.rot.x * M_DTOR, 1);
+    sp54.x = 0.0f;
+    sp54.y = 0.0f;
+    sp54.z = arg0->unk_138;
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
+    arg0->unk_0E8.x = sp48.x;
+    arg0->unk_0E8.y = sp48.y;
+    arg0->unk_0E8.z = sp48.z;
+}
 
 void func_8004EBD0(Object_2F4* arg0) {
     Vec3f src;
@@ -1926,8 +2042,7 @@ void func_8004F8AC(Object_2F4* arg0) {
                                     arg0->unk_0B8 = 1;
                                     arg0->timer_0BC = 0x32;
                                     arg0->unk_050 = 0xFF;
-                                    Audio_PlaySfx(0x2902F026U, &arg0->sfxPos, 0U, &D_800C5D34, &D_800C5D34,
-                                                  &D_800C5D3C);
+                                    Audio_PlaySfx(0x2902F026U, &arg0->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                                 }
                                 break;
                             case 1:
@@ -1956,7 +2071,7 @@ void func_8004F8AC(Object_2F4* arg0) {
                     break;
                 case LEVEL_CORNERIA:
                     if (gLevelMode == 1) {
-                        func_8004E4D4(arg0, gCurrentLevel);
+                        func_8004E4D4(arg0);
                         break;
                     }
                     func_8004EBD0(arg0);
@@ -1966,10 +2081,10 @@ void func_8004F8AC(Object_2F4* arg0) {
                         func_80049630(arg0);
                         break;
                     }
-                    func_8004E4D4(arg0, gCurrentLevel);
+                    func_8004E4D4(arg0);
                     break;
                 case LEVEL_TITANIA:
-                    func_8004E4D4(arg0, gCurrentLevel);
+                    func_8004E4D4(arg0);
                     break;
                 case LEVEL_MACBETH:
                     func_801B28BC(arg0, gCurrentLevel);
