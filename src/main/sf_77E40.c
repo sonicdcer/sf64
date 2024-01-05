@@ -128,17 +128,17 @@ Object_8C* func_8007783C(ObjectId objId) {
     return obj8C;
 }
 
-void func_800778C4(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
+void func_800778C4(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
     obj8C->obj.id = OBJ_8C_339;
     obj8C->obj.pos.x = posX;
     obj8C->obj.pos.y = posY;
     obj8C->obj.pos.z = posZ;
-    obj8C->vel.x = arg4;
-    obj8C->vel.y = arg5;
-    obj8C->vel.z = arg6;
-    obj8C->scale2 = arg7;
+    obj8C->vel.x = velX;
+    obj8C->vel.y = velY;
+    obj8C->vel.z = velZ;
+    obj8C->scale2 = scale2;
     obj8C->unk_4C = 0;
     obj8C->scale1 = 0.5f;
     obj8C->obj.rot.z = Rand_ZeroOne() * 360.0f;
@@ -146,12 +146,12 @@ void func_800778C4(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4, f32
     obj8C->unk_44 = 0xFF;
 }
 
-void func_8007797C(f32 posX, f32 posY, f32 posZ, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
+void func_8007797C(f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
         if (gObjects8C[i].obj.status == 0) {
-            func_800778C4(&gObjects8C[i], posX, posY, posZ, arg3, arg4, arg5, arg6);
+            func_800778C4(&gObjects8C[i], posX, posY, posZ, velX, velY, velZ, scale2);
             break;
         }
     }
@@ -413,35 +413,35 @@ void func_80078CE8(Object_8C* obj8C) {
     gSPDisplayList(gMasterDisp++, D_6033000);
 }
 
-void func_80078D60(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4) {
+void func_80078D60(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 scale2) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
     obj8C->obj.id = OBJ_8C_393;
     obj8C->obj.pos.x = posX;
     obj8C->obj.pos.y = posY;
     obj8C->obj.pos.z = posZ;
-    obj8C->scale2 = arg4;
-    if (arg4 == 3.1f) {
+    obj8C->scale2 = scale2;
+    if (scale2 == 3.1f) {
         obj8C->vel.x = gObjects2F4[8].vel.x;
         obj8C->vel.y = gObjects2F4[8].vel.y;
         obj8C->vel.z = gObjects2F4[8].vel.z;
     }
-    if (arg4 != 30.0f) {
+    if (scale2 != 30.0f) {
         obj8C->unk_4E = 1;
     }
-    if (arg4 == 3.5f) {
+    if (scale2 == 3.5f) {
         obj8C->unk_4E = 2;
     }
     obj8C->timer_50 = 0xE;
     Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
-void func_80078E50(f32 posX, f32 posY, f32 posZ, f32 arg3) {
+void func_80078E50(f32 posX, f32 posY, f32 posZ, f32 scale2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
         if (gObjects8C[i].obj.status == 0) {
-            func_80078D60(&gObjects8C[i], posX, posY, posZ, arg3);
+            func_80078D60(&gObjects8C[i], posX, posY, posZ, scale2);
             break;
         }
     }
@@ -477,7 +477,7 @@ void func_80078F78(Object_8C* obj8C) {
     RCP_SetupDL(&gMasterDisp, 0x40);
 }
 
-void func_8007905C(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 arg5) {
+void func_8007905C(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 scale2, u8 arg5) {
     Vec3f sp54;
     Vec3f sp48;
     Vec3f sp3C;
@@ -492,17 +492,17 @@ void func_8007905C(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 
     obj8C->obj.pos.y = posY;
     obj8C->obj.pos.z = posZ;
     obj8C->unk_4C = arg5;
-    if (arg4 == 1.6f) {
+    if (scale2 == 1.6f) {
         obj8C->vel.x = (posX - gBosses[1].obj.pos.x) * 0.1f;
         obj8C->vel.z = (posZ - gBosses[1].obj.pos.z) * 0.1f;
-    } else if (arg4 == 1.3f) {
+    } else if (scale2 == 1.3f) {
         obj8C->vel.x = ((Rand_ZeroOne() * 0.05f) + 0.03f) * posX;
         obj8C->vel.z = ((Rand_ZeroOne() * 0.05f) + 0.03f) * posZ;
         obj8C->vel.y = 5.0f;
-    } else if (arg4 == 1.55f) {
+    } else if (scale2 == 1.55f) {
         obj8C->vel.x = (Rand_ZeroOne() - 0.5f) * 10.0f;
         obj8C->vel.z = (Rand_ZeroOne() - 0.5f) * 10.0f;
-    } else if ((gCurrentLevel == LEVEL_BOLSE) && ((arg4 == 5.11f) || (arg4 == 7.22f))) {
+    } else if ((gCurrentLevel == LEVEL_BOLSE) && ((scale2 == 5.11f) || (scale2 == 7.22f))) {
         sp3C.x = gPlayer[0].pos.x;
         sp3C.y = gPlayer[0].pos.y;
         sp3C.z = gPlayer[0].pos.z;
@@ -524,7 +524,7 @@ void func_8007905C(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 
         obj8C->vel.x = (Rand_ZeroOne() - 0.5f) * 10.0f;
         obj8C->vel.z = (Rand_ZeroOne() - 0.5f) * 10.0f;
     }
-    obj8C->scale2 = ((Rand_ZeroOne() * 0.8f) + 0.3f) * arg4;
+    obj8C->scale2 = ((Rand_ZeroOne() * 0.8f) + 0.3f) * scale2;
     obj8C->timer_50 = (s32) (Rand_ZeroOne() * 50.0f) + 70;
     obj8C->obj.rot.x = Rand_ZeroOne() * 360.0f;
     obj8C->unk_60.x = (Rand_ZeroOne() - 0.5f) * 30.0f;
@@ -533,45 +533,45 @@ void func_8007905C(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 
     Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
-void func_800794CC(f32 posX, f32 posY, f32 posZ, f32 arg3) {
+void func_800794CC(f32 posX, f32 posY, f32 posZ, f32 scale2) {
     s32 i;
 
     for (i = 50; i >= 0; i--) {
         if (gObjects8C[i].obj.status == 0) {
-            func_8007905C(&gObjects8C[i], posX, posY, posZ, arg3, 0);
+            func_8007905C(&gObjects8C[i], posX, posY, posZ, scale2, 0);
             break;
         }
     }
 }
 
-void func_8007953C(f32 posX, f32 posY, f32 posZ, f32 arg3) {
+void func_8007953C(f32 posX, f32 posY, f32 posZ, f32 scale2) {
     s32 i;
 
     for (i = 79; i >= 0; i--) {
         if (gObjects8C[i].obj.status == 0) {
-            func_8007905C(&gObjects8C[i], posX, posY, posZ, arg3, 0);
+            func_8007905C(&gObjects8C[i], posX, posY, posZ, scale2, 0);
             break;
         }
     }
 }
 
-void func_800795AC(f32 posX, f32 posY, f32 posZ, f32 arg3) {
+void func_800795AC(f32 posX, f32 posY, f32 posZ, f32 scale2) {
     s32 i;
 
     for (i = 0; i < 95; i++) {
         if (gObjects8C[i].obj.status == 0) {
-            func_8007905C(&gObjects8C[i], posX, posY, posZ, arg3, 0);
+            func_8007905C(&gObjects8C[i], posX, posY, posZ, scale2, 0);
             break;
         }
     }
 }
 
-void func_80079618(f32 posX, f32 posY, f32 posZ, f32 arg3) {
+void func_80079618(f32 posX, f32 posY, f32 posZ, f32 scale2) {
     s32 i;
 
     for (i = 50; i >= 0; i--) {
         if (gObjects8C[i].obj.status == 0) {
-            func_8007905C(&gObjects8C[i], posX, posY, posZ, arg3, 1);
+            func_8007905C(&gObjects8C[i], posX, posY, posZ, scale2, 1);
             break;
         }
     }
@@ -797,11 +797,11 @@ void func_8007A3C0(Object_8C* obj8C) {
     }
 }
 
-void func_8007A4B8(Object_8C* obj8C, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
+void func_8007A4B8(Object_8C* obj8C, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
     obj8C->obj.id = OBJ_8C_383;
-    obj8C->scale1 = arg4;
+    obj8C->scale1 = scale1;
     obj8C->timer_50 = 50;
     obj8C->unk_44 = 200;
     obj8C->obj.pos.x = xPos;
@@ -811,43 +811,43 @@ void func_8007A4B8(Object_8C* obj8C, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
-void func_8007A568(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
+void func_8007A568(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     s32 i;
 
     for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
         if (gObjects8C[i].obj.status == 0) {
-            func_8007A4B8(&gObjects8C[i], xPos, yPos, zPos, arg3);
+            func_8007A4B8(&gObjects8C[i], xPos, yPos, zPos, scale1);
             break;
         }
     }
     func_8007B344(xPos, yPos, zPos, 80.0f, 4);
 }
 
-void func_8007A5F8(Object_8C* obj8C, Vec3f* arg1, u32 arg2) {
+void func_8007A5F8(Object_8C* obj8C, Vec3f* pos, u32 sfxId) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 2;
     obj8C->obj.id = OBJ_8C_373;
-    obj8C->obj.pos.x = arg1->x;
-    obj8C->obj.pos.y = arg1->y;
-    obj8C->obj.pos.z = arg1->z;
+    obj8C->obj.pos.x = pos->x;
+    obj8C->obj.pos.y = pos->y;
+    obj8C->obj.pos.z = pos->z;
     obj8C->timer_50 = 50;
-    if ((arg2 == 0x1903400F) || (arg2 == 0x11000055)) {
-        Audio_PlaySfx(arg2, &obj8C->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-        if (arg2 == 0x11000055) {
+    if ((sfxId == 0x1903400F) || (sfxId == 0x11000055)) {
+        Audio_PlaySfx(sfxId, &obj8C->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        if (sfxId == 0x11000055) {
             obj8C->timer_50 = 300;
         }
     } else {
-        Audio_PlaySfx(arg2, &obj8C->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(sfxId, &obj8C->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
     Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
-void func_8007A6F0(Vec3f* arg0, s32 arg1) {
+void func_8007A6F0(Vec3f* pos, s32 sfxId) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
         if (gObjects8C[i].obj.status == 0) {
-            func_8007A5F8(&gObjects8C[i], arg0, arg1);
+            func_8007A5F8(&gObjects8C[i], pos, sfxId);
             break;
         }
     }
@@ -869,31 +869,31 @@ bool func_8007A774(Player* player, Object_8C* obj8C, f32 arg2) {
     }
 }
 
-void func_8007A818(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 arg5, u8 arg6, u16 arg7) {
+void func_8007A818(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 scale1, u8 arg5, u8 arg6, u16 arg7) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
     obj8C->obj.id = OBJ_8C_359;
     obj8C->obj.pos.x = posX;
     obj8C->obj.pos.y = posY;
     obj8C->obj.pos.z = posZ;
-    obj8C->scale1 = arg4;
+    obj8C->scale1 = scale1;
     obj8C->unk_44 = arg5;
     obj8C->unk_46 = arg6;
     obj8C->unk_60.z = (Rand_ZeroOne() - 0.5f) * 10.0f;
-    obj8C->unk_60.y = arg4 * 0.1f;
+    obj8C->unk_60.y = scale1 * 0.1f;
     if (arg7 != 0) {
         obj8C->vel.x = (Rand_ZeroOne() - 0.5f) * 30.0f;
     }
     Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
-void func_8007A900(f32 posX, f32 posY, f32 posZ, f32 arg3, u8 arg4, u8 arg5, u16 arg6) {
+void func_8007A900(f32 posX, f32 posY, f32 posZ, f32 scale1, u8 arg4, u8 arg5, u16 arg6) {
     s32 i;
 
     if (gCurrentLevel == LEVEL_TITANIA) {
         for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
             if (gObjects8C[i].obj.status == 0) {
-                func_8007A818(&gObjects8C[i], posX, posY, posZ, arg3, arg4, arg5, arg6);
+                func_8007A818(&gObjects8C[i], posX, posY, posZ, scale1, arg4, arg5, arg6);
                 break;
             }
         }
@@ -949,7 +949,7 @@ void func_8007AB50(Object_8C* obj8C) {
     }
 }
 
-void func_8007AC0C(Object_8C* obj8C, f32 posX, f32 unused_posY, f32 posZ, f32 arg4, f32 arg5, f32 arg6) {
+void func_8007AC0C(Object_8C* obj8C, f32 posX, f32 unused_posY, f32 posZ, f32 scale2, f32 scale1, f32 rotY) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
     obj8C->obj.id = OBJ_8C_372;
@@ -957,26 +957,26 @@ void func_8007AC0C(Object_8C* obj8C, f32 posX, f32 unused_posY, f32 posZ, f32 ar
     obj8C->obj.pos.y = D_80177940;
     obj8C->obj.pos.z = posZ;
     obj8C->unk_44 = 0xB4;
-    obj8C->scale2 = arg4;
-    obj8C->scale1 = arg5;
-    obj8C->obj.rot.y = arg6;
+    obj8C->scale2 = scale2;
+    obj8C->scale1 = scale1;
+    obj8C->obj.rot.y = rotY;
     obj8C->vel.x = gPlayer[0].vel.x * 0.6f;
     obj8C->vel.z = gPlayer[0].vel.z * 0.6; // Forgotten f means bad codegen
     Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
-void func_8007ACE0(f32 posX, f32 posY, f32 posZ, f32 arg3, f32 arg4, f32 arg5) {
+void func_8007ACE0(f32 posX, f32 posY, f32 posZ, f32 scale2, f32 scale1, f32 rotY) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
         if (gObjects8C[i].obj.status == 0) {
-            func_8007AC0C(&gObjects8C[i], posX, posY, posZ, arg3, arg4, arg5);
+            func_8007AC0C(&gObjects8C[i], posX, posY, posZ, scale2, scale1, rotY);
             break;
         }
     }
 }
 
-void func_8007AD58(Object_8C* obj8C, f32 posX, f32 unused_posY, f32 posZ, f32 arg4, f32 arg5, f32 arg6) {
+void func_8007AD58(Object_8C* obj8C, f32 posX, f32 unused_posY, f32 posZ, f32 scale2, f32 scale1, f32 rotY) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
     obj8C->obj.id = OBJ_8C_372;
@@ -985,51 +985,51 @@ void func_8007AD58(Object_8C* obj8C, f32 posX, f32 unused_posY, f32 posZ, f32 ar
     obj8C->obj.pos.y = D_80177940;
     obj8C->obj.pos.z = posZ;
     obj8C->unk_44 = 0xB4;
-    obj8C->scale2 = arg4;
-    obj8C->scale1 = arg5;
-    obj8C->obj.rot.y = arg6;
+    obj8C->scale2 = scale2;
+    obj8C->scale1 = scale1;
+    obj8C->obj.rot.y = rotY;
     Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
-void func_8007ADF4(f32 posX, f32 posY, f32 posZ, f32 arg3, f32 arg4) {
-    f32 temp_fs0;
-    f32 temp_fs2;
-    f32 var_fs1;
-    s32 var_s2;
+void func_8007ADF4(f32 posX, f32 posY, f32 posZ, f32 scale2, f32 scale1) {
+    f32 cosf;
+    f32 sinf;
+    f32 rotY;
     s32 i;
+    s32 j;
 
-    for (var_fs1 = 11.25f, var_s2 = 0; var_s2 < 16; var_s2++, var_fs1 += 22.5f) {
-        for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-            if (gObjects8C[i].obj.status == 0) {
-                temp_fs2 = __sinf(M_DTOR * var_fs1) * arg4 * 20.0f;
-                temp_fs0 = __cosf(M_DTOR * var_fs1) * arg4 * 20.0f;
-                func_8007AD58(&gObjects8C[i], posX + temp_fs2, posY, posZ + temp_fs0, arg3, arg4, var_fs1);
+    for (rotY = 11.25f, i = 0; i < 16; i++, rotY += 22.5f) {
+        for (j = 0; j < ARRAY_COUNT(gObjects8C); j++) {
+            if (gObjects8C[j].obj.status == 0) {
+                sinf = __sinf(M_DTOR * rotY) * scale1 * 20.0f;
+                cosf = __cosf(M_DTOR * rotY) * scale1 * 20.0f;
+                func_8007AD58(&gObjects8C[j], posX + sinf, posY, posZ + cosf, scale2, scale1, rotY);
                 break;
             }
         }
     }
 }
 
-void func_8007AF30(Object_8C* obj8C, f32 posX, f32 posZ, f32 arg3, f32 arg4, f32 arg5) {
+void func_8007AF30(Object_8C* obj8C, f32 posX, f32 posZ, f32 velX, f32 velZ, f32 scale1) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
     obj8C->obj.id = OBJ_8C_382;
     obj8C->obj.pos.x = posX;
     obj8C->obj.pos.y = -10.0f;
     obj8C->obj.pos.z = posZ;
-    obj8C->vel.x = arg3;
-    obj8C->vel.z = arg4 - D_80177D08;
-    obj8C->scale1 = arg5;
-    obj8C->timer_50 = 0x64;
+    obj8C->vel.x = velX;
+    obj8C->vel.z = velZ - D_80177D08;
+    obj8C->scale1 = scale1;
+    obj8C->timer_50 = 100;
     Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
-void func_8007AFD0(f32 posX, f32 posZ, f32 arg2, f32 arg3, f32 arg4) {
+void func_8007AFD0(f32 posX, f32 posZ, f32 velX, f32 velZ, f32 scale1) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
         if (gObjects8C[i].obj.status == 0) {
-            func_8007AF30(&gObjects8C[i], posX, posZ, arg2, arg3, arg4);
+            func_8007AF30(&gObjects8C[i], posX, posZ, velX, velZ, scale1);
             break;
         }
     }
@@ -1058,7 +1058,7 @@ void func_8007B0F4(Object_8C* obj8C) {
     }
 }
 
-void func_8007B180(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4) {
+void func_8007B180(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 scale1) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
     obj8C->obj.id = OBJ_8C_381;
@@ -1066,41 +1066,41 @@ void func_8007B180(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4) {
     obj8C->obj.pos.y = posY;
     obj8C->obj.pos.z = posZ;
     obj8C->unk_44 = 0xFF;
-    obj8C->scale1 = arg4;
+    obj8C->scale1 = scale1;
     Object_SetInfo(&obj8C->info, obj8C->obj.id);
     Audio_PlaySfx(0x1100000C, &obj8C->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-void func_8007B228(f32 posX, f32 posY, f32 posZ, f32 arg3) {
+void func_8007B228(f32 posX, f32 posY, f32 posZ, f32 scale1) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gObjects8C) && gCurrentLevel == LEVEL_ZONESS; i++) {
         if (gObjects8C[i].obj.status == 0) {
-            func_8007B180(&gObjects8C[i], posX, posY, posZ, arg3);
+            func_8007B180(&gObjects8C[i], posX, posY, posZ, scale1);
             break;
         }
     }
 }
 
-void func_8007B2BC(Object_8C* obj8C, f32 xPos, f32 yPos, f32 zPos, f32 arg4, s32 arg5) {
+void func_8007B2BC(Object_8C* obj8C, f32 xPos, f32 yPos, f32 zPos, f32 scale1, s32 arg5) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
     obj8C->obj.id = OBJ_8C_384;
     obj8C->obj.pos.x = xPos;
     obj8C->obj.pos.y = yPos;
     obj8C->obj.pos.z = zPos;
-    obj8C->scale1 = arg4;
+    obj8C->scale1 = scale1;
     obj8C->unk_44 = 0xFF;
     obj8C->unk_4C = arg5;
     Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
-void func_8007B344(f32 xPos, f32 yPos, f32 zPos, f32 arg3, s32 arg4) {
+void func_8007B344(f32 xPos, f32 yPos, f32 zPos, f32 scale1, s32 arg4) {
     s32 i;
 
     for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
         if (gObjects8C[i].obj.status == 0) {
-            func_8007B2BC(&gObjects8C[i], xPos, yPos, zPos, arg3, arg4);
+            func_8007B2BC(&gObjects8C[i], xPos, yPos, zPos, scale1, arg4);
             break;
         }
     }
@@ -1131,7 +1131,7 @@ void func_8007B3B8(Object_8C* obj8C) {
     }
 }
 
-void func_8007B494(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4, s32 arg5) {
+void func_8007B494(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 scale1, s32 arg5) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
     obj8C->obj.id = OBJ_8C_385;
@@ -1139,7 +1139,7 @@ void func_8007B494(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4, s32
     obj8C->obj.pos.y = posY;
     obj8C->obj.pos.z = posZ;
     obj8C->obj.rot.x = 90.0f;
-    obj8C->scale1 = arg4;
+    obj8C->scale1 = scale1;
     obj8C->unk_44 = arg5;
     if (arg5 < 60) {
         obj8C->unk_46 = 1;
@@ -1151,12 +1151,12 @@ void func_8007B494(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4, s32
     Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
-void func_8007B550(f32 posX, f32 posY, f32 posZ, f32 arg3, s32 arg4) {
+void func_8007B550(f32 posX, f32 posY, f32 posZ, f32 scale1, s32 arg4) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
         if (gObjects8C[i].obj.status == 0) {
-            func_8007B494(&gObjects8C[i], posX, posY, posZ, arg3, arg4);
+            func_8007B494(&gObjects8C[i], posX, posY, posZ, scale1, arg4);
             break;
         }
     }
@@ -1215,7 +1215,7 @@ void func_8007B758(Object_8C* obj8C) {
     func_8007A774(gPlayer, obj8C, obj8C->scale2 * 20.0f);
 }
 
-void func_8007B7E8(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4) {
+void func_8007B7E8(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 scale2) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
     obj8C->obj.id = OBJ_8C_364;
@@ -1230,17 +1230,17 @@ void func_8007B7E8(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4) {
     }
     obj8C->unk_4A = 50;
     obj8C->unk_46 = 1;
-    obj8C->scale2 = arg4 * 0.2f;
+    obj8C->scale2 = scale2 * 0.2f;
     obj8C->obj.rot.z = Rand_ZeroOne() * 360.0f;
     Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
-void func_8007B8F8(f32 posX, f32 posY, f32 posZ, f32 arg3) {
+void func_8007B8F8(f32 posX, f32 posY, f32 posZ, f32 scale2) {
     s32 i, j;
 
     for (i = ARRAY_COUNT(gObjects8C) - 1, j = 0; j < ARRAY_COUNT(gObjects8C); i--, j++) {
         if (gObjects8C[i].obj.status == 0) {
-            func_8007B7E8(&gObjects8C[i], posX, posY, posZ, arg3);
+            func_8007B7E8(&gObjects8C[i], posX, posY, posZ, scale2);
             break;
         }
     }
@@ -1277,7 +1277,7 @@ void func_8007B9DC(Object_8C* obj8C) {
     }
 }
 
-void func_8007BB14(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4) {
+void func_8007BB14(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 scale2) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
     obj8C->obj.id = OBJ_8C_362;
@@ -1292,24 +1292,24 @@ void func_8007BB14(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4) {
     }
     obj8C->unk_4A = 0xB4;
     obj8C->unk_46 = 8;
-    if (arg4 > 15.0f) {
+    if (scale2 > 15.0f) {
         obj8C->unk_46 = 5;
         obj8C->unk_4A = 0x50;
     }
-    obj8C->scale2 = arg4 * 0.25f;
+    obj8C->scale2 = scale2 * 0.25f;
     obj8C->obj.rot.z = Rand_ZeroOne() * 360.0f;
-    if (arg4 == 6.0f) {
+    if (scale2 == 6.0f) {
         obj8C->vel.z = gPlayer[0].vel.z * 0.6f;
     }
     Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
-void func_8007BC7C(f32 posX, f32 posY, f32 posZ, f32 arg3) {
+void func_8007BC7C(f32 posX, f32 posY, f32 posZ, f32 scale2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gObjects8C) - 20; i >= 0; i--) {
         if (gObjects8C[i].obj.status == 0) {
-            func_8007BB14(&gObjects8C[i], posX, posY, posZ, arg3);
+            func_8007BB14(&gObjects8C[i], posX, posY, posZ, scale2);
             break;
         }
     }
@@ -1360,64 +1360,64 @@ void func_8007BEE8(Object_8C* obj8C) {
     gSPDisplayList(gMasterDisp++, D_2010A30);
 }
 
-void func_8007BF64(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg7, s32 arg8) {
+void func_8007BF64(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2, s32 timer50) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
     obj8C->obj.id = OBJ_8C_386;
     obj8C->obj.pos.x = posX;
     obj8C->obj.pos.y = posY;
     obj8C->obj.pos.z = posZ;
-    obj8C->vel.x = x;
-    obj8C->vel.y = y;
-    obj8C->vel.z = z;
-    obj8C->scale2 = arg7;
-    obj8C->timer_50 = arg8;
+    obj8C->vel.x = velX;
+    obj8C->vel.y = velY;
+    obj8C->vel.z = velZ;
+    obj8C->scale2 = scale2;
+    obj8C->timer_50 = timer50;
     Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
-void func_8007BFFC(f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg6, s32 arg7) {
+void func_8007BFFC(f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2, s32 timer50) {
     s32 i;
 
     for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
         if (gObjects8C[i].obj.status == 0) {
-            func_8007BF64(&gObjects8C[i], posX, posY, posZ, x, y, z, arg6, arg7);
+            func_8007BF64(&gObjects8C[i], posX, posY, posZ, velX, velY, velZ, scale2, timer50);
             break;
         }
     }
 }
 
-void func_8007C088(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg7, s32 arg8) {
+void func_8007C088(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2, s32 timer50) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
     obj8C->obj.id = OBJ_8C_390;
     obj8C->obj.pos.x = posX;
     obj8C->obj.pos.y = posY;
     obj8C->obj.pos.z = posZ;
-    obj8C->vel.x = x;
-    obj8C->vel.y = y;
-    obj8C->vel.z = z;
-    obj8C->scale2 = arg7;
-    obj8C->timer_50 = arg8;
+    obj8C->vel.x = velX;
+    obj8C->vel.y = velY;
+    obj8C->vel.z = velZ;
+    obj8C->scale2 = scale2;
+    obj8C->timer_50 = timer50;
     Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
-void func_8007C120(f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg6, s32 arg7) {
+void func_8007C120(f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2, s32 timer50) {
     s32 i;
 
     for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
         if (gObjects8C[i].obj.status == 0) {
-            func_8007C088(&gObjects8C[i], posX, posY, posZ, x, y, z, arg6, arg7);
+            func_8007C088(&gObjects8C[i], posX, posY, posZ, velX, velY, velZ, scale2, timer50);
             break;
         }
     }
 }
 
-void func_8007C1AC(f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg6, s32 arg7) {
+void func_8007C1AC(f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2, s32 timer50) {
     s32 i;
 
     for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
         if (gObjects8C[i].obj.status == 0) {
-            func_8007BF64(&gObjects8C[i], posX, posY, posZ, x, y, z, arg6, arg7);
+            func_8007BF64(&gObjects8C[i], posX, posY, posZ, velX, velY, velZ, scale2, timer50);
             func_800A6070(&gObjects8C[i].sfxPos, 0x29000000);
             break;
         }
@@ -1448,17 +1448,17 @@ void func_8007C250(Object_8C* obj8C) {
     }
 }
 
-void func_8007C3B4(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg7, s32 arg8) {
+void func_8007C3B4(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2, s32 arg8) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
     obj8C->obj.id = OBJ_8C_389;
     obj8C->obj.pos.x = posX;
     obj8C->obj.pos.y = posY;
     obj8C->obj.pos.z = posZ;
-    obj8C->vel.x = x;
-    obj8C->vel.y = y;
-    obj8C->vel.z = z;
-    obj8C->scale2 = arg7;
+    obj8C->vel.x = velX;
+    obj8C->vel.y = velY;
+    obj8C->vel.z = velZ;
+    obj8C->scale2 = scale2;
     obj8C->unk_4A = arg8;
     obj8C->unk_4C = (s32) (Rand_ZeroOne() * 12.0f);
     obj8C->obj.rot.z = Rand_ZeroOne() * 360.0f;
@@ -1466,12 +1466,12 @@ void func_8007C3B4(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 x, f32 y,
     obj8C->unk_44 = 0xFF;
 }
 
-void func_8007C484(f32 posX, f32 posY, f32 posZ, f32 x, f32 y, f32 z, f32 arg6, s32 arg7) {
+void func_8007C484(f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2, s32 arg7) {
     s32 i;
 
     for (i = ARRAY_COUNT(gObjects8C) - 1; i > 32; i--) {
         if (gObjects8C[i].obj.status == 0) {
-            func_8007C3B4(&gObjects8C[i], posX, posY, posZ, x, y, z, arg6, arg7);
+            func_8007C3B4(&gObjects8C[i], posX, posY, posZ, velX, velY, velZ, scale2, arg7);
             break;
         }
     }
@@ -1494,30 +1494,30 @@ void func_8007C50C(Object_8C* obj8C) {
     }
 }
 
-void func_8007C608(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4, s32 arg5) {
+void func_8007C608(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 scale2, s32 timer50) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
     obj8C->obj.id = OBJ_8C_387;
     obj8C->obj.pos.x = posX;
     obj8C->obj.pos.y = posY;
     obj8C->obj.pos.z = posZ;
-    obj8C->scale2 = arg4;
-    obj8C->timer_50 = arg5;
+    obj8C->scale2 = scale2;
+    obj8C->timer_50 = timer50;
     Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
-void func_8007C688(f32 posX, f32 posY, f32 posZ, f32 arg3, s32 arg4) {
+void func_8007C688(f32 posX, f32 posY, f32 posZ, f32 scale2, s32 timer50) {
     s32 i;
 
     for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
         if (gObjects8C[i].obj.status == 0) {
-            func_8007C608(&gObjects8C[i], posX, posY, posZ, arg3, arg4);
+            func_8007C608(&gObjects8C[i], posX, posY, posZ, scale2, timer50);
             break;
         }
     }
 }
 
-void func_8007C6FC(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4) {
+void func_8007C6FC(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 scale2) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
     obj8C->obj.id = OBJ_8C_343;
@@ -1534,24 +1534,24 @@ void func_8007C6FC(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4) {
     } else {
         obj8C->unk_4A = 255;
     }
-    obj8C->scale2 = arg4 * 0.25f;
+    obj8C->scale2 = scale2 * 0.25f;
     obj8C->obj.rot.z = Rand_ZeroOne() * 360.0f;
     obj8C->unk_44 = 0;
     if (Rand_ZeroOne() < 0.3f) {
         obj8C->unk_44 = 1;
         obj8C->unk_4A = 255;
-        obj8C->scale2 = arg4 * 0.3f;
+        obj8C->scale2 = scale2 * 0.3f;
     }
     obj8C->scale1 = Rand_ZeroOne() * 0.2f;
     Object_SetInfo(&obj8C->info, obj8C->obj.id);
 }
 
-void func_8007C85C(f32 posX, f32 posY, f32 posZ, f32 arg3) {
+void func_8007C85C(f32 posX, f32 posY, f32 posZ, f32 scale2) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gObjects8C) - 20; i++) {
         if (gObjects8C[i].obj.status == 0) {
-            func_8007C6FC(&gObjects8C[i], posX, posY, posZ, arg3);
+            func_8007C6FC(&gObjects8C[i], posX, posY, posZ, scale2);
             break;
         }
     }
