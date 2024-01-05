@@ -1,3 +1,9 @@
+/*
+ * File: fox_demo.c
+ * System: Game Engine
+ * Description: Starfox Cutscene Handler
+ */
+
 #include "global.h"
 
 extern Gfx D_1024AC0[];
