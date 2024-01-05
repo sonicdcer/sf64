@@ -2054,8 +2054,9 @@ void func_8004F05C(Object_2F4* arg0) {
                 Math_SmoothStepToF(&arg0->obj.rot.x, -20.0f, 0.1f, 0.5f, 0.0f);
             }
             break;
-
         case LEVEL_SECTOR_Z:
+        case LEVEL_KATINA:
+            break;
         default:
             switch (arg0->unk_0B8) {
                 case 0x64:
@@ -2115,6 +2116,7 @@ void func_8004F05C(Object_2F4* arg0) {
                     Math_SmoothStepToF(&arg0->obj.rot.x, -45.0f, 0.05f, 4.0f, 0.0f);
                     break;
             }
+            break;
     }
 }
 
