@@ -3081,11 +3081,61 @@ void func_8008165C(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 scale2, s
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80081A8C.s")
+void func_80081A8C(f32 posX, f32 posY, f32 posZ, f32 scale2, s32 arg4) {
+    s32 i;
 
+    if (arg4 == 6 || arg4 == 7) {
+        func_800815DC();
+    }
+
+    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
+        if (gObjects8C[i].obj.status == 0) {
+            func_8008165C(&gObjects8C[i], posX, posY, posZ, scale2, arg4);
+            break;
+        }
+    }
+}
+
+#if 0
+s32 func_80081B24(f32 posX, f32 posY, f32 posZ, f32 scale2) {
+    s32 i;
+    
+    func_800815DC();
+
+    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
+        if (gObjects8C[i].obj.status == 0) {
+            Object_8C_Initialize(&gObjects8C[i]);
+            gObjects8C[i].obj.status = 2;
+            gObjects8C[i].obj.id = OBJ_8C_395;
+            gObjects8C[i].obj.pos.x = posX;
+            gObjects8C[i].obj.pos.y = posY;
+            gObjects8C[i].obj.pos.z = posZ;
+            gObjects8C[i].scale2 = scale2;
+            gObjects8C[i].timer_50 = 80;
+            gObjects8C[i].unk_4E = 2;
+            Object_SetInfo(&gObjects8C[i].info, gObjects8C[i].obj.id);
+            break;
+        }
+    }
+    if (i == ARRAY_COUNT(gObjects8C)) {
+        i = 0;
+    }
+    return i;
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80081B24.s")
+#endif
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80081BEC.s")
+void func_80081BEC(f32 posX, f32 posY, f32 posZ, f32 scale2, s32 arg4) {
+    s32 i;
+
+    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
+        if (gObjects8C[i].obj.status == 0) {
+            func_8008165C(&gObjects8C[i], posX, posY, posZ, scale2, arg4);
+            break;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80081C5C.s")
 
