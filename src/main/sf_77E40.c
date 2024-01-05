@@ -3814,4 +3814,14 @@ void func_80084194(Object_8C* obj8C) {
     RCP_SetupDL(&gMasterDisp, 0x40);
 }
 
+#ifdef MIGRATE_RODATA
+const char D_800D7230[] = "Enm->wrk3=<%d>";
+const char D_800D7240[] = "a=<%d>";
+const char D_800D7248[] = "a=<%d>";
+const char D_800D7250[] = "ＺＯ＿ＭＯＶＥ ＨＥＬＰ %d";
+const char D_800D726C[] = "ＡＣ＿ＭＯＶＥ ＨＥＬＰ %d";
+const char D_800D7288[] = "ＺＯ＿ＤＩＳＰ ＨＥＬＰ %d";
+const char D_800D72A4[] = "ＡＣ＿ＤＩＳＰ ＨＥＬＰ %d";
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/D_800D7230.s")
+#endif
