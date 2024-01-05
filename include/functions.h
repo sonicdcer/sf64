@@ -435,6 +435,7 @@ void func_80081C5C(Object_8C*);
 void func_80082F78(Object_8C*);
 void func_800837EC(Object_8C*);
 void func_80083B8C(Object_8C*);
+void func_80083C70(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 arg7, s32 arg8);
 void func_80083D2C(f32 , f32 , f32 , f32 );
 void func_80083FA8(Object_8C*);
 void func_80084194(Object_8C*);

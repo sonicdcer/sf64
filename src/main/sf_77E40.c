@@ -3171,13 +3171,70 @@ void func_8008377C(f32 posX, f32 posY, f32 posZ, f32 arg3, f32 scale) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_800837EC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80083B8C.s")
+void func_80083B8C(Object_8C* obj8C) {
+    RCP_SetupDL_49();
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, obj8C->unk_44);
+    gDPSetEnvColor(gMasterDisp++, 36, 45, 28, 255);
+    Matrix_Scale(gGfxMatrix, obj8C->unk_60.x, obj8C->scale2 * obj8C->unk_60.y, obj8C->scale2, 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
+    gSPDisplayList(gMasterDisp++, D_601BAD0);
+    RCP_SetupDL(&gMasterDisp, 0x40);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80083C70.s")
+void func_80083C70(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 arg7, s32 arg8) {
+    Object_8C_Initialize(obj8C);
+    obj8C->obj.status = 1;
+    obj8C->obj.id = 0x18F;
+    obj8C->obj.pos.x = posX;
+    obj8C->unk_60.x = posX;
+    obj8C->unk_60.y = posY;
+    obj8C->obj.pos.y = posY;
+    obj8C->obj.pos.z = posZ;
+    obj8C->vel.x = velX;
+    obj8C->vel.y = velY;
+    obj8C->vel.z = velZ;
+    obj8C->unk_60.z = arg7;
+    obj8C->scale2 = 1.6f;
+    obj8C->scale1 = 0.0f;
+    obj8C->timer_50 = 100;
+    obj8C->unk_44 = arg8;
+    Object_SetInfo(&obj8C->info, obj8C->obj.id);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80083D2C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80083FA8.s")
+void func_80083FA8(Object_8C* obj8C) {
+    Vec3f src;
+    Vec3f dest;
+
+    if (obj8C->timer_50 == 0) {
+        Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+        return;
+    }
+    obj8C->obj.rot.y = (-gPlayer->unk_058 * 180.0f) / M_PI;
+    obj8C->obj.rot.x = (gPlayer->unk_05C * 180.0f) / M_PI;
+    obj8C->obj.rot.z += 20.0f;
+    Matrix_RotateZ(gCalcMatrix, obj8C->unk_60.z * M_DTOR, 0);
+    Matrix_RotateZ(gCalcMatrix, obj8C->unk_46 * M_DTOR, 1);
+    src.x = 0.0f;
+    src.y = obj8C->scale1;
+    src.z = 0.0f;
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+    obj8C->unk_60.x += obj8C->vel.x;
+    obj8C->unk_60.y += obj8C->vel.y;
+    obj8C->obj.pos.x = obj8C->unk_60.x + dest.x;
+    obj8C->obj.pos.y = obj8C->unk_60.y + dest.y;
+    obj8C->unk_48 += 2;
+    if (obj8C->unk_48 > 20) {
+        obj8C->unk_48 = 20;
+    }
+    obj8C->unk_46 += obj8C->unk_48;
+    Math_SmoothStepToF(&obj8C->scale1, 350.0f, 1.0f, 20.0f, 0.00001f);
+    if ((obj8C->scale1 >= 349.0f) && (obj8C->timer_50 > 50)) {
+        obj8C->timer_50 = 50;
+    }
+    func_8007A774(gPlayer, obj8C, 100.0f);
+}
 
 void func_80084194(Object_8C* obj8C) {
     s32 tmp;
