@@ -2773,11 +2773,226 @@ void func_8008040C(Object_8C* obj8C) {
     func_8007A774(gPlayer, obj8C, 50.0f);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8008092C.s")
+void func_8008092C(Object_8C* obj8C) {
+    switch (obj8C->unk_44) {
+        case 0:
+            RCP_SetupDL(&gMasterDisp, 0x31);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
+            gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
+            Matrix_Scale(gGfxMatrix, 4.0f, 2.0f, 4.0f, 1);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_6018AF0);
+            break;
+        case 1:
+            RCP_SetupDL(&gMasterDisp, 0x31);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
+            gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
+            Matrix_RotateZ(gGfxMatrix, 0.5235988f, 1);
+            Matrix_Scale(gGfxMatrix, 3.0f, 1.5f, 3.0f, 1);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            break;
+    }
+}
 
+#if 0
+void func_80080ACC(Object_8C* obj8C) {
+    s16 temp_ft2;
+
+    switch (obj8C->unk_78) {
+        case 0x1:
+            obj8C->unk_46 -= 1;
+            break;
+        case 0xA:
+            obj8C->unk_44 -= 1;
+            if (obj8C->unk_44 <= 0) {
+                obj8C->unk_44 = obj8C->unk_46;
+            }
+            temp_ft2 = (((f32) obj8C->unk_44 / (f32) obj8C->unk_46) * 255.0f);
+            obj8C->unk_48 = temp_ft2;
+            if (temp_ft2 >= 256) {
+                obj8C->unk_48 = 0xFF;
+            }
+            if (obj8C->unk_48 < 0x20) {
+                Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+            }
+            break;
+        case 0xB:
+            obj8C->obj.rot.z += obj8C->unk_60.z;
+            obj8C->scale2 += 0.07f;
+            obj8C->vel.y += 0.2f;
+            obj8C->unk_44 += obj8C->unk_46;
+            if (obj8C->unk_44 < 10) {
+                Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+            }
+            break;
+        case 0xC:
+            obj8C->obj.rot.x += obj8C->unk_60.x;
+            obj8C->obj.rot.y += obj8C->unk_60.y;
+            obj8C->obj.rot.z += obj8C->unk_60.z;
+            if ((obj8C->unk_44 == 0) && (obj8C->obj.pos.y < D_80177940)) {
+                Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+            }
+            if (obj8C->unk_44 != 0) {
+                obj8C->unk_44--;
+            }
+            obj8C->vel.y -= 4.0f;
+            break;
+        case 0x64:
+            func_8007E45C(obj8C);
+            return;
+        case break:
+            func_8007BCE8(obj8C);
+            break;
+        case 0x66:
+            func_8007B758(obj8C);
+            break;
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80080ACC.s")
+#endif
 
+#ifdef IMPORT_DATA
+void func_80080D04(Object_8C* obj8C) {
+    static s32 D_800D18E4 = 0;
+    s32 i;
+    s32 alpha;
+
+    switch (obj8C->unk_7A) {
+        case 0:
+            if (obj8C->unk_44 != 0x40) {
+                RCP_SetupDL(&gMasterDisp, obj8C->unk_44);
+            }
+            gSPDisplayList(gMasterDisp++, obj8C->unk_74);
+            if (obj8C->unk_44 != 0x40) {
+                RCP_SetupDL(&gMasterDisp, 0x40);
+            }
+            break;
+        case 1:
+            if (obj8C->unk_48 == 0) {
+                obj8C->unk_48 = obj8C->unk_46;
+            }
+            if (obj8C->unk_44 != 0x40) {
+                RCP_SetupDL(&gMasterDisp, obj8C->unk_44);
+            }
+            alpha = (((f32) obj8C->unk_46 / (f32) obj8C->unk_48) * 255.0f);
+            if (alpha > 0xFF) {
+                alpha = 0xFF;
+            }
+            if (alpha < 0x20) {
+                Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+            } else {
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha);
+                gSPDisplayList(gMasterDisp++, obj8C->unk_74);
+            }
+            if (obj8C->unk_44 != 0x40) {
+                RCP_SetupDL(&gMasterDisp, 0x40);
+            }
+            break;
+        case 10:
+            RCP_SetupDL(&gMasterDisp, 0x41);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, obj8C->unk_48);
+            Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, obj8C->scale2, 1);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_A000000);
+            RCP_SetupDL(&gMasterDisp, 0x40);
+            break;
+        case 11:
+            RCP_SetupDL(&gMasterDisp, 0x44);
+            Graphics_SetScaleMtx(obj8C->scale2);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 120, 60, 0, obj8C->unk_44);
+            gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
+            gSPDisplayList(gMasterDisp++, D_1023750);
+            RCP_SetupDL(&gMasterDisp, 0x40);
+            break;
+        case 12:
+            Graphics_SetScaleMtx(obj8C->scale2);
+            RCP_SetupDL(&gMasterDisp, 0x17);
+            gSPDisplayList(gMasterDisp++, D_9013C20);
+            RCP_SetupDL(&gMasterDisp, 0x40);
+            break;
+        case 13:
+            Graphics_SetScaleMtx(obj8C->scale2);
+            RCP_SetupDL(&gMasterDisp, 0x44);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, obj8C->unk_44);
+            gDPSetEnvColor(gMasterDisp++, 36, 45, 28, 0);
+            gSPDisplayList(gMasterDisp++, D_1023750);
+            RCP_SetupDL(&gMasterDisp, 0x40);
+            break;
+        case 14:
+            Graphics_SetScaleMtx(obj8C->scale2);
+            RCP_SetupDL(&gMasterDisp, 0x44);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, obj8C->unk_44);
+            gDPSetEnvColor(gMasterDisp++, 255, 255, 255, 0);
+            gSPDisplayList(gMasterDisp++, D_1023750);
+            RCP_SetupDL(&gMasterDisp, 0x40);
+            break;
+        case 15:
+            Graphics_SetScaleMtx(obj8C->scale2);
+            RCP_SetupDL(&gMasterDisp, 0x44);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, obj8C->unk_4A);
+            gDPSetEnvColor(gMasterDisp++, 36, 45, 28, 0);
+            gSPDisplayList(gMasterDisp++, D_1023750);
+            RCP_SetupDL(&gMasterDisp, 0x40);
+            break;
+        case 16:
+            Graphics_SetScaleMtx(obj8C->scale2);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 96, 96, 255, 255);
+            Matrix_Translate(gGfxMatrix, 34.14f, 0.0f, 0.0f, 1);
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Scale(gGfxMatrix, 0.25f, 1.0f, 1.0f, 1);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_102F5E0);
+            Matrix_Pop(&gGfxMatrix);
+            for (i = 0; i < 7; i++) {
+                Matrix_Translate(gGfxMatrix, 0.0f, 10.0f, 0.0f, 1);
+                Matrix_RotateZ(gGfxMatrix, (M_PI / 4), 1);
+                Matrix_Translate(gGfxMatrix, 1.0f, 20.0f, 0.0f, 1);
+                Matrix_Push(&gGfxMatrix);
+                Matrix_Scale(gGfxMatrix, 0.25f, 1.0f, 1.0f, 1);
+                Matrix_SetGfxMtx(&gMasterDisp);
+                gSPDisplayList(gMasterDisp++, D_102F5E0);
+                Matrix_Pop(&gGfxMatrix);
+            }
+            obj8C->obj.rot.z += 1.0f;
+            break;
+        case 17:
+            if ((gControllerPress[3].button & U_JPAD) && (D_800D18E4 > 0)) {
+                D_800D18E4--;
+            }
+            if ((gControllerPress[3].button & D_JPAD) && (D_800D18E4 < 12)) {
+                D_800D18E4++;
+            }
+            if (!((obj8C->index + gFrameCount) & 1)) {
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+            } else {
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 96, 96, 255, 255);
+            }
+            Graphics_SetScaleMtx(obj8C->scale2);
+            for (i = 0; i < 10; i++) {
+                Matrix_Push(&gGfxMatrix);
+                Matrix_Translate(gGfxMatrix, 0.0f, -60.0f, 0.0f, 1);
+                Matrix_Scale(gGfxMatrix, 0.8f, 3.0f, 1.0f, 1);
+                Matrix_SetGfxMtx(&gMasterDisp);
+                gSPDisplayList(gMasterDisp++, D_102F5E0);
+                Matrix_Pop(&gGfxMatrix);
+                Matrix_Translate(gGfxMatrix, 0.0f, -120.0f, 0.0f, 1);
+                Matrix_RotateZ(gGfxMatrix, D_800D1534[D_800D18E4][i] * M_DTOR, 1);
+            }
+            break;
+        case 18:
+            RCP_SetupDL(&gMasterDisp, 0x30);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 190, 255);
+            gDPSetEnvColor(gMasterDisp++, 239, 15, 0, 255);
+            Graphics_SetScaleMtx(obj8C->scale2);
+            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            break;
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80080D04.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_800815DC.s")
 
