@@ -1360,7 +1360,8 @@ void func_8007BEE8(Object_8C* obj8C) {
     gSPDisplayList(gMasterDisp++, D_2010A30);
 }
 
-void func_8007BF64(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2, s32 timer50) {
+void func_8007BF64(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2,
+                   s32 timer50) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
     obj8C->obj.id = OBJ_8C_386;
@@ -1386,7 +1387,8 @@ void func_8007BFFC(f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f
     }
 }
 
-void func_8007C088(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2, s32 timer50) {
+void func_8007C088(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2,
+                   s32 timer50) {
     Object_8C_Initialize(obj8C);
     obj8C->obj.status = 1;
     obj8C->obj.id = OBJ_8C_390;
@@ -2795,11 +2797,12 @@ void func_8008092C(Object_8C* obj8C) {
     }
 }
 
-#if 0
 void func_80080ACC(Object_8C* obj8C) {
     s16 temp_ft2;
 
     switch (obj8C->unk_78) {
+        case 0:
+            break;
         case 0x1:
             obj8C->unk_46 -= 1;
             break;
@@ -2838,10 +2841,12 @@ void func_80080ACC(Object_8C* obj8C) {
             }
             obj8C->vel.y -= 4.0f;
             break;
+        case 0x10:
+            break;
         case 0x64:
             func_8007E45C(obj8C);
-            return;
-        case break:
+            break;
+        case 0x65:
             func_8007BCE8(obj8C);
             break;
         case 0x66:
@@ -2849,9 +2854,6 @@ void func_80080ACC(Object_8C* obj8C) {
             break;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80080ACC.s")
-#endif
 
 #ifdef IMPORT_DATA
 void func_80080D04(Object_8C* obj8C) {
