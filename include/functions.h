@@ -427,6 +427,7 @@ void func_8008040C(Object_8C*);
 void func_8008092C(Object_8C*);
 void func_80080ACC(Object_8C*);
 void func_80080D04(Object_8C*);
+void func_800815DC(void);
 void func_80081C5C(Object_8C*);
 void func_80082F78(Object_8C*);
 void func_800837EC(Object_8C*);

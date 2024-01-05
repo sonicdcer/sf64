@@ -1257,7 +1257,7 @@ void func_8007B960(Object_8C* obj8C) {
 }
 
 void func_8007B9DC(Object_8C* obj8C) {
-    //! DEBUG
+    //! DEBUG: Hold Z on controller 4 to set up a display list.
     if (gControllerHold[3].button & Z_TRIG) {
         RCP_SetupDL(&gMasterDisp, 4);
     }
@@ -1267,11 +1267,11 @@ void func_8007B9DC(Object_8C* obj8C) {
     } else {
         gDPSetPrimColor(gMasterDisp++, 0, 0, (gFrameCount & 3) + 5, (gFrameCount & 3) + 3, (gFrameCount & 3) + 3, 220);
     }
-    //! DEBUG
+    //! DEBUG: Hold Z on controller 4 to set up a display list.
     if (!(gControllerHold[3].button & A_BUTTON)) {
         gSPDisplayList(gMasterDisp++, D_2010A30);
     }
-    //! DEBUG
+    //! DEBUG: Hold Z on controller 4 to set up a display list.
     if (gControllerHold[3].button & Z_TRIG) {
         RCP_SetupDL(&gMasterDisp, 0x40);
     }
@@ -2958,6 +2958,7 @@ void func_80080D04(Object_8C* obj8C) {
             obj8C->obj.rot.z += 1.0f;
             break;
         case 17:
+            //! DEBUG: some code used for debugging with the 4th controller
             if ((gControllerPress[3].button & U_JPAD) && (D_800D18E4 > 0)) {
                 D_800D18E4--;
             }
@@ -2994,9 +2995,91 @@ void func_80080D04(Object_8C* obj8C) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80080D04.s")
 #endif
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_800815DC.s")
+void func_800815DC(void) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8008165C.s")
+    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
+        if ((gObjects8C[i].obj.id == OBJ_8C_366 || (gObjects8C[i].obj.id == OBJ_8C_395 && gObjects8C[i].unk_4E == 1) ||
+             gObjects8C[i].obj.id == OBJ_8C_364 || gObjects8C[i].obj.id == OBJ_8C_346) &&
+            gObjects8C[i].obj.status == 2) {
+            gObjects8C[i].obj.status = 0;
+            break;
+        }
+    }
+}
+
+void func_8008165C(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 scale2, s32 arg5) {
+    Object_8C_Initialize(obj8C);
+    obj8C->obj.status = 1;
+    obj8C->obj.id = OBJ_8C_395;
+    obj8C->obj.pos.x = posX;
+    obj8C->obj.pos.y = posY;
+    obj8C->obj.pos.z = posZ;
+    obj8C->scale2 = scale2;
+    obj8C->unk_4E = arg5;
+    Object_SetInfo(&obj8C->info, obj8C->obj.id);
+    obj8C->timer_50 = 300;
+    switch (obj8C->unk_4E) {
+        case 4:
+            obj8C->unk_4A = 0xFF;
+            obj8C->unk_46 = 1;
+            break;
+        case 5:
+            obj8C->vel.x = (Rand_ZeroOne() - 0.5f) * 20.0f;
+            obj8C->vel.y = (Rand_ZeroOne() * 20.0f) + 30.0f;
+            obj8C->vel.z = Rand_ZeroOne() * 30.0f;
+            obj8C->unk_46 = 5;
+            obj8C->unk_44 = ((Rand_ZeroOne() - 0.5f) * 20.0f) * 1.5f;
+            obj8C->info.unk_14 = 0;
+            obj8C->unk_4A = 0xFF;
+            break;
+        case 6:
+            obj8C->unk_4A = 0xFF;
+            obj8C->unk_46 = 0xA;
+            break;
+        case 7:
+            obj8C->vel.y = (Rand_ZeroOne() * 7.0f) + 7.0f;
+            obj8C->vel.x = (Rand_ZeroOne() - 0.5f) * 10.0f;
+            obj8C->vel.z = (Rand_ZeroOne() - 0.5f) * 10.0f;
+            obj8C->scale2 = ((Rand_ZeroOne() * 0.8f) + 0.3f) * scale2;
+            obj8C->timer_50 = (s32) (Rand_ZeroOne() * 50.0f) + 70;
+            obj8C->obj.rot.x = Rand_ZeroOne() * 360.0f;
+            obj8C->unk_60.x = (Rand_ZeroOne() - 0.5f) * 30.0f;
+            obj8C->unk_60.y = (Rand_ZeroOne() - 0.5f) * 30.0f;
+            obj8C->unk_60.z = (Rand_ZeroOne() - 0.5f) * 30.0f;
+            obj8C->info.unk_14 = 0;
+            break;
+        case 9:
+            obj8C->obj.pos.x += (Rand_ZeroOne() - 0.5f) * 600.0f;
+            obj8C->obj.pos.y += (Rand_ZeroOne() - 0.5f) * 600.0f;
+            obj8C->obj.pos.z += ((Rand_ZeroOne() - 0.5f) * 300.0f) + 300.0f;
+            obj8C->scale1 = 0.0f;
+            obj8C->scale2 = Rand_ZeroOne() + 1.0f;
+            break;
+        case 10:
+            obj8C->timer_50 = 10;
+            Audio_PlaySfx(0x31405094, &obj8C->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            break;
+        case 11:
+            obj8C->scale1 = 255.0f;
+            obj8C->vel.y = 20.0f;
+            if (obj8C->scale2 > 10.0f) {
+                obj8C->scale2 = 10.0f;
+            }
+            break;
+        case 12:
+            obj8C->scale1 = scale2;
+            obj8C->scale2 = 1.0f;
+            obj8C->timer_50 = 50;
+            obj8C->unk_44 = 100;
+            obj8C->obj.pos.x = posX;
+            obj8C->obj.pos.y = posY;
+            obj8C->obj.pos.z = posZ;
+            Audio_PlaySfx(0x2940F026, &obj8C->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            D_Timer_80177BD0[0] = 60;
+            break;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80081A8C.s")
 
