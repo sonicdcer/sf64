@@ -7,6 +7,7 @@
 #include "sf64object.h"
 #include "sf64thread.h"
 #include "sf64player.h"
+#include "sf64mesg.h"
 
 s32 Lib_vsPrintf(char* dst, const char* fmt, va_list args);
 void Lib_Perspective(Gfx** dList);
@@ -34,9 +35,9 @@ s32 func_8001AE78(void);
 s32 func_8001AED4(void);
 void func_8001AF40(s32);
 u8* func_8001C3EC(void);
-void func_8001C8B8(u8);      
-void func_8001CA24(u8);      
-void func_8001CB80(u8, u8);  
+void func_8001C8B8(u8);
+void func_8001CA24(u8);
+void func_8001CB80(u8, u8);
 void func_8001CCDC(u8, Vec3f *);
 void func_8001CE28(u8, Vec3f *);
 void func_8001D10C(Vec3f*, u32);
@@ -204,7 +205,7 @@ s32 func_8005F9DC(Vec3f*);
 void func_80060714(s32 );
 void func_8006089C(u8 );
 void func_80060968(void);
-void func_80060D94(s32);  
+void func_80060D94(s32);
 void func_80060F30(Vec3f* , u32 , s32 );
 void Object_Kill(Object*, Vec3f*);
 s32 func_80060FE4(Vec3f*, f32);
@@ -222,7 +223,7 @@ void func_80061F0C(Object_2F4* , ObjectInit* , s32 );
 void Object_Load(ObjectInit* , f32 , f32 , f32 , f32 );
 void func_80062568(void);
 void func_80062B60(f32 xPos, f32 zPos, s32 arg2, f32 arg3);
-void func_80062C38(f32, f32); 
+void func_80062C38(f32, f32);
 s32 func_800631A8(Vec3f*, f32*, Vec3f*);
 s32 func_8006326C(Vec3f* , Vec3f* , ObjectId , Object* );
 s32 func_8006351C(s32 , Vec3f* , Vec3f* , s32 );
@@ -507,7 +508,7 @@ s32 func_800A78C4(Hitbox* hitbox, f32 , f32 , f32 , f32 , f32 , f32 );
 void func_800A8BA4(Player* player);
 void func_800AA800(Player *player);
 void func_800ACDC0(Player *, PlayerShot *, PlayerShotId );
-void func_800B0F50(Player *); 
+void func_800B0F50(Player *);
 void func_800B44C4(Player *);
 void func_800B5FBC(Player *, s32 , s32 );
 void func_800B63BC(Player *, s32);
@@ -533,7 +534,7 @@ bool func_800A8054(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 a
 
 // fox_radio
 s32 func_800BA7BC(u16*, s32);
-void func_800BA808(u16*, s32);
+void func_800BA808(u16*, RadioCharacterId);
 void func_800BB388(void);
 void func_800BB5D0(void);
 
@@ -541,7 +542,7 @@ void func_800BB5D0(void);
 void Graphics_NMIWipe(void);
 
 // sf_versus
-s32 func_800C1E9C(void); 
+s32 func_800C1E9C(void);
 void func_800C1ED4(void);
 void func_800C20B0(void);
 void func_800C2190(void);
@@ -549,7 +550,7 @@ void func_800C26C8(void);
 
 // fox_save
 s32 Save_Write(void);
-s32 Save_Read(void); 
+s32 Save_Read(void);
 
 void func_EFFA40_80187520(s32, void*);
 
@@ -557,13 +558,13 @@ void func_DF4260_80187530(Object_80*);
 void func_DF4260_8018753C(Object_80*);
 void func_DF4260_801878D8(Object_408 *);
 void func_DF4260_8018B0B4(Object_2F4 *);
-void func_DF4260_8018BE7C(Object_408 *);    
+void func_DF4260_8018BE7C(Object_408 *);
 void func_DF4260_8018ED78(Object_408*);
 void func_DF4260_801924A8(Object_80* );
-void func_DF4260_8019250C(Object_2F4 *);    
-void func_DF4260_80192CB0(Object_2F4 *);    
+void func_DF4260_8019250C(Object_2F4 *);
+void func_DF4260_80192CB0(Object_2F4 *);
 void func_DF4260_80192EA4(Object_2F4 *);
-void func_DF4260_801933B4(Object_2F4 *);    
+void func_DF4260_801933B4(Object_2F4 *);
 void func_DF4260_801935CC(Object_408 *);
 void func_DF4260_80198310(Object_408 *);
 void func_DF4260_80198594(Object_408 *);
@@ -636,8 +637,8 @@ void func_E6A810_8018BFB0(Object_2F4 *);
 void func_E6A810_8018E3B0(Object_2F4 *);
 void func_E6A810_8018E3CC(Object_2F4 *);
 void func_E6A810_8018E5E8(Object_2F4 *);
-void func_E6A810_8018EFF0(Object_4C *); 
-void func_E6A810_8018F0D8(Object_80 *); 
+void func_E6A810_8018EFF0(Object_4C *);
+void func_E6A810_8018F0D8(Object_80 *);
 void func_E6A810_8018FA48(Object_408 *);
 void func_E6A810_801990DC(Object_408 *);
 void func_E6A810_80199920(void);
@@ -647,7 +648,7 @@ void func_E6A810_801A4660(Object_2F4 *);
 void func_E6A810_801A4AF8(Object_2F4 *);
 void func_E6A810_801A5E2C(Object_2F4 *);
 void func_E6A810_801A6134(Object_2F4 *);
-void func_E6A810_801A65E0(Object_80 *); 
+void func_E6A810_801A65E0(Object_80 *);
 void func_E6A810_801A7D98(Object_2F4 *);
 void func_E6A810_801ACFBC(ObjectInit*);
 void func_E6A810_801AD080(void);

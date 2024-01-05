@@ -5,7 +5,7 @@
       - {start: 0x0, type: header, name: header}
       - {start: 0x40, type: bin, name: ipl3}
       - {start: 0x1000, type: asm, vram: 0x80000400, name: entry}
- 
+
   - name: main
     type: code
     dir: main
@@ -175,7 +175,7 @@
       - [0x3E6F0, c, fox_bg]
       - [0x43AC0, c, fox_43AC0]
       - [0x43E80, c, sf_43E80]
-      - [0x496C0, c, sf_496C0]
+      - [0x496C0, c, fox_demo]
       - [0x52730, c, fox_display]
       - [0x59780, c, fox_load]
       - [0x5A0F0, c, fox_edata]
@@ -268,7 +268,7 @@
       - [0xCA830, .data, fox_bg]
       - [0xCAA90, .data, fox_43AC0]
       - [0xCAB00, .data, sf_43E80]
-      - [0xCAB60, data, sf_496C0]
+      - [0xCAB60, .data, fox_demo]
       - [0xCAE20, .data, fox_display]
       - [0xCAFB0, .data, fox_load]
       - [0xCCA70, .data, fox_edata]
@@ -293,7 +293,7 @@
       - [0xD5F90, .rodata, fox_bg]
       - [0xD61D0, .rodata, fox_43AC0]
       - [0xD61F0, .rodata, sf_43E80]
-      - [0xD6350, .rodata, sf_496C0]
+      - [0xD6350, .rodata, fox_demo]
       - [0xD69A0, .rodata, fox_display]
       - [0xD6BA0, .rodata, fox_load]
       - [0xD6C20, .rodata, fox_edisplay]
