@@ -3140,9 +3140,34 @@ void func_80081BEC(f32 posX, f32 posY, f32 posZ, f32 scale2, s32 arg4) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80082F78.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_800836C0.s")
+void func_800836C0(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4, f32 scale) {
+    Object_8C_Initialize(obj8C);
+    obj8C->obj.status = 1;
+    obj8C->obj.id = OBJ_8C_391;
+    obj8C->obj.pos.x = posX;
+    obj8C->obj.pos.y = posY;
+    obj8C->obj.pos.z = posZ;
+    obj8C->unk_60.x = scale * 0.8f;
+    obj8C->unk_60.y = 1.2f;
+    if (arg4 != 0.0f) {
+        obj8C->unk_60.y = arg4;
+    }
+    obj8C->unk_44 = 230;
+    obj8C->scale1 = scale;
+    obj8C->scale2 = 0.1f;
+    Object_SetInfo(&obj8C->info, obj8C->obj.id);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_8008377C.s")
+void func_8008377C(f32 posX, f32 posY, f32 posZ, f32 arg3, f32 scale) {
+    s32 i;
+
+    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
+        if (gObjects8C[i].obj.status == 0) {
+            func_800836C0(&gObjects8C[i], posX, posY, posZ, arg3, scale);
+            break;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_800837EC.s")
 

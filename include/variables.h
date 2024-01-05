@@ -225,6 +225,9 @@ extern Gfx D_6018AF0[];
 extern Gfx D_9013C20[];
 extern f32 D_800D18E8;
 extern f32 D_800D18EC;
+extern Gfx D_6012550[];
+extern u16 D_6012840[];
+extern Gfx D_6016880[];
 
 // sf_hud
 extern s16 D_800D1970;
