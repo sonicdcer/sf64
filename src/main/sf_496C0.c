@@ -32,6 +32,12 @@ extern f32 D_800CA1D4[];
 extern s32 D_800C9E90[];
 extern f32 D_800CA080[];
 extern f32 D_800CA08C[];
+extern f32 D_80178454;
+extern f32 D_80178458;
+extern f32 D_80178464;
+extern f32 D_80178468;
+extern f32 D_80178474;
+extern f32 D_80178478;
 extern s32 D_80177DA8;
 extern Gfx* D_E000000;
 extern Gfx* D_E003AB0;
@@ -862,7 +868,362 @@ void func_8004AAF4(Player* arg0) {
     func_800AA800(arg0);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004B368.s")
+void func_8004B368(Player* arg0) {
+    s32 pad[5];
+    Vec3f sp78;
+    Vec3f sp6C;
+    Vec3f sp60;
+    Vec3f sp54;
+    s32 pad2[2];
+    f32 var_fa1;
+    arg0->unk_228 = 0;
+    Math_SmoothStepToF(&arg0->unk_034, 0.0f, 0.1f, 5.0f, 0.01f);
+    switch (arg0->unk_1D0) {
+        case 10:
+            D_80177A48[2] = 0.0f;
+            arg0->unk_1D0 += 1;
+            arg0->wings.unk_04 = 0.0f;
+            arg0->wings.unk_0C = 0.0f;
+            arg0->wings.unk_08 = 0.0f;
+            arg0->wings.unk_10 = 0.0f;
+            arg0->unk_130 = 0.0f;
+            arg0->unk_12C = 0.0f;
+            arg0->unk_110 = 0.0f;
+            arg0->wings.unk_2C = 1;
+            arg0->unk_0D0 = 40.0f;
+
+        case 11:
+            D_80177A48[0] = 0.0f;
+            Math_SmoothStepToAngle(&arg0->unk_4D8, 0.0f, 1.0f, 5.0f, 0.0f);
+            arg0->camAt.x += (D_80178440 - arg0->camAt.x) * 0.01f;
+            arg0->camAt.y += (D_80178444 - arg0->camAt.y) * 0.01f;
+            arg0->camAt.z += (D_80178448 - arg0->camAt.z) * 0.01f;
+            arg0->camEye.x += ((arg0->camAt.x + (500.0f * arg0->unk_004)) - arg0->camEye.x) * 0.01f;
+            arg0->camEye.y += ((arg0->camAt.y + 500.0f) - arg0->camEye.y) * 0.01f;
+            arg0->camEye.z += ((D_80178448 + (2000.0f * D_80177950)) - arg0->camEye.z) * 0.01f;
+            if (arg0->timer_1FC >= 0x1A) {
+                D_80177A48[2] += 1.5f * arg0->unk_004;
+                Math_SmoothStepToF(&arg0->unk_0EC, (arg0->unk_004 * (-450.0f)) * D_80177950, 0.2f, 20.0f, 0.1f);
+            } else {
+                D_80177A48[2] += 0.25f * arg0->unk_004;
+                if (arg0->unk_0EC < (-360.0f)) {
+                    arg0->unk_0EC += 360.0f;
+                }
+                if (arg0->unk_0EC > 360.0f) {
+                    arg0->unk_0EC -= 360.0f;
+                }
+                Math_SmoothStepToF(&arg0->unk_0EC, (arg0->unk_004 * 20.0f) * D_80177950, 0.1f, 3.0f, 0.1f);
+            }
+            if (D_80177950 > 0.0f) {
+                Math_SmoothStepToF(&arg0->unk_0E8, 0.0f, 0.1f, 3.0f, 0.1f);
+            } else {
+                Math_SmoothStepToF(&arg0->unk_0E8, 180.0f, 0.1f, 3.0f, 0.1f);
+                Math_SmoothStepToF(&arg0->pos.x, arg0->camEye.x, 1.0f, 30.0f, 0.0f);
+                D_80177A48[2] = 0.0f;
+            }
+            arg0->pos.x += D_80177A48[2];
+            Math_SmoothStepToF(&arg0->unk_0E4, 0.0f, 0.1f, 3.0f, 0.1f);
+            Math_SmoothStepToF(&arg0->pos.y, arg0->camEye.y + 5.0f, 0.1f, 1.0f, 0.0f);
+            if (arg0->timer_1F8 == 0) {
+                arg0->unk_1D0 = 0;
+                arg0->timer_1F8 = 0x78;
+                arg0->timer_1FC = 0x14;
+                D_80177A48[0] = 0.001f;
+                D_80177978 = arg0->camEye.x;
+                D_80177980 = arg0->camEye.y;
+                D_80177988 = arg0->camEye.z;
+                D_801779A0 = arg0->camAt.x;
+                D_801779B8 = arg0->camAt.y;
+                D_801779C0 = arg0->camAt.z;
+            }
+            break;
+
+        case 0:
+            if (arg0->timer_1F8 >= 0x3D) {
+                Math_SmoothStepToF(&arg0->unk_0EC, (arg0->unk_004 * 60.0f) * D_80177950, 0.1f, 4.0f, 0.1f);
+            }
+            if (arg0->timer_1F8 < 0x50) {
+                D_801779A0 = arg0->pos.x;
+                D_801779B8 = arg0->pos.y;
+                D_801779C0 = (arg0->unk_138 + D_80177D20) + 30.0f;
+                Math_SmoothStepToF(D_80177A48, 0.05f, 0.1f, 0.0005f, 0.0f);
+            }
+            Math_SmoothStepToF(&arg0->pos.x, arg0->camEye.x, 0.1f, 10.0f, 0.0f);
+            D_80177980 += ((arg0->camAt.y + 500.0f) - arg0->camEye.y) * 0.01f;
+            arg0->camEye.y = D_80177980;
+            var_fa1 = arg0->unk_004 * 190.0f;
+            if ((D_80177950 > 0.0f) && (arg0->unk_004 > 0.0f)) {
+                var_fa1 = 181.0f;
+            }
+            if ((D_80177950 > 0.0f) && (arg0->unk_004 < 0.0f)) {
+                var_fa1 = -181.0f;
+            }
+            if ((D_80177950 < 0.0f) && (arg0->unk_004 > 0.0f)) {
+                var_fa1 = 0.0f;
+            }
+            if ((D_80177950 < 0.0f) && (arg0->unk_004 < 0.0f)) {
+                var_fa1 = 360.0f;
+            }
+            if (arg0->timer_1FC == 0) {
+                Math_SmoothStepToF(&arg0->unk_0E8, var_fa1, 0.1f, 4.0f, 0.0f);
+            }
+            arg0->vel.y = 0.0f;
+            Math_SmoothStepToF(&arg0->pos.y, arg0->camEye.y + 5.0f, 0.1f, 4.0f, 0.0f);
+            if (arg0->timer_1F8 < 0x28) {
+                Math_SmoothStepToF(&arg0->unk_0EC, arg0->unk_004 * 180.0f, 0.1f, 1.5f, 0.0f);
+            }
+            if (arg0->timer_1F8 == 0) {
+                arg0->unk_1D0 = 1;
+                arg0->timer_1F8 = 0x96;
+                arg0->wings.unk_10 = 0.0f;
+                arg0->wings.unk_08 = 0.0f;
+                arg0->wings.unk_0C = 0.0f;
+                arg0->wings.unk_04 = 0.0f;
+            }
+            break;
+
+        case 1:
+            Math_SmoothStepToF(D_80177A48, 1.0f, 0.1f, 0.05f, 0.0f);
+            arg0->unk_25C += 0.04f;
+            if (arg0->unk_25C > 0.6f) {
+                arg0->unk_25C = 0.6f;
+            }
+            arg0->unk_000 += 0.005f;
+            if (arg0->unk_000 > 0.3f) {
+                arg0->unk_000 = 0.3f;
+            }
+            Math_SmoothStepToF(&D_801779A0, arg0->pos.x, D_80177A48[0], 50000.0f, 0.0f);
+            Math_SmoothStepToF(&D_801779B8, arg0->pos.y, D_80177A48[0], 50000.0f, 0.0f);
+            Math_SmoothStepToF(&D_801779C0, (arg0->unk_138 + D_80177D20) + 30.0f, D_80177A48[0], 50000.0f, 0.0f);
+            Math_SmoothStepToF(&arg0->pos.y, arg0->camEye.y + 5.0f, 0.1f, 4.0f, 0.0f);
+            Math_SmoothStepToF(&arg0->unk_0E4, 20.0f, 0.1f, 0.2f, 0.01f);
+            Math_SmoothStepToF(&arg0->pos.x, arg0->camEye.x, 0.1f, 2.0f, 0.0f);
+            if (arg0->timer_1F8 < 0x6F) {
+                Math_SmoothStepToF(&arg0->unk_0EC, arg0->unk_004 * 360.0f, 0.1f, 2.5f, 0.0f);
+            } else {
+                Math_SmoothStepToF(&arg0->unk_0EC, arg0->unk_004 * 180.0f, 0.1f, 2.5f, 0.0f);
+            }
+            if ((180.0f - fabsf(arg0->unk_0EC)) <= 3.0f) {
+                D_80161A88 = 1;
+            }
+            if (arg0->timer_1F8 == 0) {
+                arg0->timer_1F8 = 0xC8;
+                arg0->timer_1FC = 0x1F4;
+                arg0->unk_1D0 = 2;
+                arg0->unk_000 = (arg0->unk_004 = (arg0->unk_008 = (D_80178418 = 0.0f)));
+                arg0->unk_0D0 = 0.0f;
+                D_80177A48[6] = 0.0f;
+            }
+            break;
+
+        case 2:
+            arg0->pos.y += 5.0f;
+            Matrix_RotateY(gCalcMatrix, ((arg0->unk_0E8 + 180.0f) + D_80178418) * M_DTOR, 0);
+            Matrix_RotateX(gCalcMatrix, -(arg0->unk_0E4 * M_DTOR), 1);
+            Matrix_RotateZ(gCalcMatrix, -((arg0->unk_0F8 + arg0->unk_0F0) * M_DTOR), 1);
+            sp78.x = 0;
+            sp78.y = 70.0f;
+            sp78.z = -800.0f;
+            Matrix_MultVec3f(gCalcMatrix, &sp78, &sp6C);
+            Math_SmoothStepToF(&D_801779A0, arg0->pos.x, D_80177A48[0], 50000.0f, 0.0f);
+            Math_SmoothStepToF(&D_801779B8, arg0->pos.y - D_80177A48[6], D_80177A48[0], 50000.0f, 0.0f);
+            Math_SmoothStepToF(&D_801779C0, (arg0->unk_138 + D_80177D20) - D_80177A48[6], D_80177A48[0], 50000.0f,
+                               0.0f);
+            Math_SmoothStepToF(&D_80177A48[6], 130.0f, 0.1f, 0.25f, 0.0f);
+            arg0->unk_000 += 0.002f;
+            if (arg0->unk_000 > 0.3f) {
+                arg0->unk_000 = 0.3f;
+            }
+            D_80177978 += ((arg0->pos.x + sp6C.x) - D_80177978) * arg0->unk_000;
+            D_80177980 += ((arg0->pos.y + sp6C.y) - D_80177980) * arg0->unk_000;
+            D_80177988 += (((arg0->unk_138 + D_80177D20) + sp6C.z) - D_80177988) * arg0->unk_000;
+            D_80178430 += 0.2f;
+            D_8017842C += 0.2f;
+            D_80178418 += arg0->unk_008;
+            Math_SmoothStepToAngle(&arg0->unk_0EC, 0.0f, 0.1f, 2.0f, 0.0f);
+            if (arg0->timer_1F8 == 0) {
+                arg0->unk_008 += 0.01f;
+                if (arg0->unk_008 > 0.63f) {
+                    arg0->unk_008 = 0.63f;
+                }
+            } else {
+                arg0->unk_008 -= 0.0005f;
+                if (arg0->unk_008 < 0.0f) {
+                    arg0->unk_008 = 0.0f;
+                }
+            }
+            arg0->vel.y = 5.0f;
+            if ((arg0->timer_1F8 == 0x32) && (gTeamShields[1] > 0)) {
+                func_8004A840(0);
+            }
+            if ((arg0->timer_1F8 == 0x46) && (gTeamShields[2] > 0)) {
+                func_8004A840(1);
+            }
+            if (arg0->timer_1F8 == 0x5A) {
+                func_800A6148();
+                if (gTeamShields[3] > 0) {
+                    func_8004A840(2);
+                }
+                D_80161A88 = 0;
+            }
+            Matrix_RotateY(gCalcMatrix, (arg0->unk_0E8 + 180.0f) * M_DTOR, 0U);
+            Matrix_RotateX(gCalcMatrix, -(arg0->unk_0E4 * M_DTOR), 1U);
+            Matrix_RotateZ(gCalcMatrix, -((arg0->unk_0F8 + arg0->unk_0F0) * M_DTOR), 1U);
+            if ((D_80178418 > 70.0f) && (D_80178418 < 280.0f)) {
+                func_8004AA84();
+            }
+            sp78.x = gObjects2F4[0].unk_114 * gObjects2F4[0].unk_120;
+            sp78.y = gObjects2F4[0].unk_118 * gObjects2F4[0].unk_120;
+            sp78.z = gObjects2F4[0].unk_11C * gObjects2F4[0].unk_120;
+            Matrix_MultVec3f(gCalcMatrix, &sp78, &sp6C);
+            *D_80178450 = arg0->pos.x + sp6C.x;
+            *D_80178460 = arg0->pos.y + sp6C.y;
+            *D_80178470 = arg0->unk_138 + sp6C.z;
+            sp78.x = gObjects2F4[1].unk_114 * gObjects2F4[1].unk_120;
+            sp78.y = gObjects2F4[1].unk_118 * gObjects2F4[1].unk_120;
+            sp78.z = gObjects2F4[1].unk_11C * gObjects2F4[1].unk_120;
+            Matrix_MultVec3f(gCalcMatrix, &sp78, &sp6C);
+            D_80178454 = arg0->pos.x + sp6C.x;
+            D_80178464 = arg0->pos.y + sp6C.y;
+            D_80178474 = arg0->unk_138 + sp6C.z;
+            sp78.x = gObjects2F4[2].unk_114 * gObjects2F4[2].unk_120;
+            sp78.y = gObjects2F4[2].unk_118 * gObjects2F4[2].unk_120;
+            sp78.z = gObjects2F4[2].unk_11C * gObjects2F4[2].unk_120;
+            Matrix_MultVec3f(gCalcMatrix, &sp78, &sp6C);
+            D_80178458 = arg0->pos.x + sp6C.x;
+            D_80178468 = arg0->pos.y + sp6C.y;
+            D_80178478 = arg0->unk_138 + sp6C.z;
+            switch (D_80177A80) {
+                case 0x14A:
+                    D_80177840 = 0x64;
+                    break;
+
+                case 0x19A:
+                    func_800BA808(gMsg_ID_2335, 0);
+                    break;
+
+                case 0x226:
+                    if ((gTeamShields[2] == (-1)) || (gTeamShields[2] == 0)) {
+                        func_800BA808(gMsg_ID_20333, 0x5A);
+                    } else {
+                        func_800BA808(gMsg_ID_2300, 0x14);
+                    }
+                    break;
+
+                case 0x2AA:
+                    if ((gTeamShields[3] == (-1)) || (gTeamShields[3] == 0)) {
+                        func_800BA808(gMsg_ID_20332, 0x5A);
+                    } else {
+                        func_800BA808(gMsg_ID_2310, 0x1E);
+                    }
+                    break;
+
+                case 0x330:
+                    if ((gTeamShields[1] == (-1)) || (gTeamShields[1] == 0)) {
+                        func_800BA808(gMsg_ID_20331, 0x5A);
+                    } else {
+                        func_800BA808(gMsg_ID_2320, 0xA);
+                    }
+                    break;
+            }
+
+            break;
+
+        case 3:
+            D_80178430 += 0.2f;
+            D_8017842C += 0.2f;
+            if (arg0->timer_1F8 == 0) {
+                arg0->unk_1D0 = 4;
+                arg0->timer_1F8 = 0x1E;
+                arg0->unk_000 = 0.0f;
+                arg0->unk_194 = 5.0f;
+                arg0->unk_190 = 5.0f;
+            }
+            break;
+
+        case 4:
+            D_80178430 += 0.2f;
+            D_8017842C += 0.2f;
+            arg0->unk_190 = 2.0f;
+            arg0->unk_25C += 0.1f;
+            if (arg0->unk_25C > 0.6f) {
+                arg0->unk_25C = 0.6f;
+            }
+            arg0->unk_000 += 1.0f;
+            arg0->unk_0D0 = arg0->unk_000 * arg0->unk_000;
+            if (arg0->timer_1F8 == 0) {
+                D_80177A48[7] = arg0->vel.x;
+                D_80177A48[8] = arg0->vel.y;
+                D_80177A48[9] = arg0->vel.z;
+                arg0->unk_1D0 = 5;
+                arg0->unk_0D0 = 0.0f;
+                arg0->timer_1F8 = 0xA;
+                func_80078E50(arg0->pos.x, arg0->pos.y, arg0->unk_138, 30.0f);
+            }
+            D_801779A0 = arg0->pos.x;
+            D_801779B8 = arg0->pos.y - D_80177A48[6];
+            D_801779C0 = (arg0->unk_138 + D_80177D20) - D_80177A48[6];
+            break;
+
+        case 5:
+            D_801779A0 += D_80177A48[7];
+            D_801779B8 += D_80177A48[8];
+            D_801779C0 += D_80177A48[9];
+            arg0->unk_234 = 0;
+            if (arg0->timer_1F8 == 0) {
+                arg0->state_1C8 = PLAYERSTATE_1C8_6;
+                arg0->timer_1F8 = 0;
+                D_8017837C = 4;
+                func_8001DBD0(0xA);
+                D_800D3180[gCurrentLevel] = Play_CheckMedalStatus(0x96U) + 1;
+            }
+            break;
+    }
+
+    switch (D_80177A80) {
+        case 0x3C1:
+            D_80177830 = 1;
+            break;
+
+        case 0x489:
+            D_80177830 = 0;
+            break;
+
+        case 0x4E7:
+            arg0->unk_1D0 = 3;
+            arg0->timer_1F8 = 0xA;
+            func_800A6028(&arg0->unk_460, 0x09000002U);
+            func_800182F4(0x103200FF);
+            func_800182F4(0x113200FF);
+            break;
+    }
+
+    Matrix_RotateY(gCalcMatrix, ((arg0->unk_114 + arg0->unk_0E8) + 180.0f) * M_DTOR, 0U);
+    Matrix_RotateX(gCalcMatrix, -((arg0->unk_120 + arg0->unk_0E4) * M_DTOR), 1U);
+    sp60.x = 0.0f;
+    sp60.y = 0.0f;
+    sp60.z = arg0->unk_0D0;
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp60, &sp54);
+    arg0->vel.x = sp54.x;
+    arg0->vel.z = sp54.z;
+    arg0->vel.y = sp54.y;
+    arg0->pos.x += arg0->vel.x;
+    arg0->pos.y += arg0->vel.y;
+    arg0->pos.z += arg0->vel.z;
+    arg0->unk_0F8 = arg0->unk_0EC;
+    arg0->unk_138 = arg0->pos.z;
+
+    Math_SmoothStepToF(&arg0->camEye.x, D_80177978, D_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&arg0->camEye.y, D_80177980, D_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&arg0->camEye.z, D_80177988, D_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&arg0->camAt.x, D_801779A0, D_80177A48[0], 50000.0f, 0.f);
+    Math_SmoothStepToF(&arg0->camAt.y, D_801779B8, D_80177A48[0], 50000.0f, 0.f);
+    Math_SmoothStepToF(&arg0->camAt.z, D_801779C0, D_80177A48[0], 50000.0f, 0.f);
+    arg0->unk_088 += 10.0f;
+    arg0->unk_080 = (-__sinf(arg0->unk_088 * M_DTOR)) * 0.3f;
+    arg0->unk_0F4 += 8.0f;
+    arg0->unk_0F0 = __sinf(arg0->unk_0F4 * M_DTOR);
+}
 
 void func_8004C90C(s32 arg0) {
     func_80187520(0x5A, arg0);
