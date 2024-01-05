@@ -1,3 +1,7 @@
+# Discord Server
+
+https://discord.gg/FU6tzym9
+
 # Starfox 64 (US) REV 1.1
 
 This is a WIP **matching decompilation** of ***Starfox 64***. The purpose of the project is to recreate a source code base for the game from scratch, using information found inside the game along with static and/or dynamic analysis.
