@@ -67,15 +67,15 @@ void func_80042FF4(Object_2F4* obj2F4, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f
     obj2F4->obj.rot.x = arg4;
     obj2F4->obj.rot.y = arg5;
     obj2F4->obj.rot.z = arg6;
-    obj2F4->unk_0E8.x = arg7;
-    obj2F4->unk_0E8.y = arg8;
-    obj2F4->unk_0E8.z = arg9;
+    obj2F4->vel.x = arg7;
+    obj2F4->vel.y = arg8;
+    obj2F4->vel.z = arg9;
     obj2F4->scale = argA;
     obj2F4->timer_0BC = argC;
     obj2F4->timer_0BE = 20;
     Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
     if (gLevelType == LEVELTYPE_PLANET) {
-        obj2F4->unk_10C = 0.5f;
+        obj2F4->gravity = 0.5f;
     }
 }
 

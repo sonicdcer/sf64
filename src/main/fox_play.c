@@ -694,30 +694,30 @@ void func_800A670C(Object_2F4* obj2F4, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     obj2F4->obj.pos.x = arg2;
     obj2F4->obj.pos.y = arg3;
     obj2F4->obj.pos.z = arg4;
-    obj2F4->unk_10C = 0.5f;
+    obj2F4->gravity = 0.5f;
     if ((arg1 == 0) || (arg1 == 1)) {
-        obj2F4->unk_0E8.y = (Rand_ZeroOne() * 5.0f) + 10.0f;
-        obj2F4->unk_0E8.x = 10.0f;
+        obj2F4->vel.y = (Rand_ZeroOne() * 5.0f) + 10.0f;
+        obj2F4->vel.x = 10.0f;
 
         if (arg1 == 0) {
-            obj2F4->unk_0E8.x = -10.0f;
+            obj2F4->vel.x = -10.0f;
         }
         obj2F4->timer_0BC = 15;
     } else {
         if (gLevelType == LEVELTYPE_PLANET) {
-            obj2F4->unk_0E8.y = (Rand_ZeroOne() * 7.0f) + 7.0f;
-            obj2F4->unk_0E8.x = (Rand_ZeroOne() - 0.5f) * 10.0f;
-            obj2F4->unk_0E8.z = (Rand_ZeroOne() * 5.0f) + 5.0f;
+            obj2F4->vel.y = (Rand_ZeroOne() * 7.0f) + 7.0f;
+            obj2F4->vel.x = (Rand_ZeroOne() - 0.5f) * 10.0f;
+            obj2F4->vel.z = (Rand_ZeroOne() * 5.0f) + 5.0f;
             if (gLevelMode == LEVELMODE_ALL_RANGE) {
-                obj2F4->unk_0E8.z = (Rand_ZeroOne() - 0.5f) * 10.0f;
+                obj2F4->vel.z = (Rand_ZeroOne() - 0.5f) * 10.0f;
             }
             obj2F4->timer_0BC = (s32) (Rand_ZeroOne() * 10.0f) + 10;
         } else {
-            obj2F4->unk_0E8.x = (Rand_ZeroOne() - 0.5f) * 10.0f;
-            obj2F4->unk_0E8.y = (Rand_ZeroOne() - 0.5f) * 10.0f;
-            obj2F4->unk_0E8.z = (Rand_ZeroOne() - 0.5f) * 10.0f;
+            obj2F4->vel.x = (Rand_ZeroOne() - 0.5f) * 10.0f;
+            obj2F4->vel.y = (Rand_ZeroOne() - 0.5f) * 10.0f;
+            obj2F4->vel.z = (Rand_ZeroOne() - 0.5f) * 10.0f;
             obj2F4->timer_0BC = (s32) (Rand_ZeroOne() * 25.0f) + 25;
-            obj2F4->unk_10C = 0.0f;
+            obj2F4->gravity = 0.0f;
         }
         if (arg1 == 2) {
             obj2F4->scale = (Rand_ZeroOne() * 1.5f) + 0.75f;

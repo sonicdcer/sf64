@@ -148,7 +148,7 @@ typedef struct {
     /* 0x54 */ s32 unk_54;
     /* 0x58 */ char pad58[8];
     /* 0x60 */ f32 unk_60;
-    /* 0x64 */ Vec3f unk_64;
+    /* 0x64 */ Vec3f vel;
     /* 0x70 */ Vec3f sfxPos;
     /* 0x7C */ char pad7C[4];
 } Object_80; // size = 0x80
@@ -192,7 +192,7 @@ typedef struct {
     /* 0x4E */ s16 unk_4E;
     /* 0x50 */ u16 timer_50;
     /* 0x52 */ char pad52[0x2];
-    /* 0x54 */ Vec3f unk_54;
+    /* 0x54 */ Vec3f vel;
     /* 0x60 */ Vec3f unk_60;
     /* 0x6C */ f32 scale1;
     /* 0x70 */ f32 scale2;
@@ -223,9 +223,9 @@ typedef struct {
     /* 0x064 */ s16 unk_064;
     /* 0x066 */ s16 unk_066;
     /* 0x068 */ f32 unk_068;
-    /* 0x06C */ Vec3f unk_06C;     
+    /* 0x06C */ Vec3f vel;     
     /* 0x078 */ char pad78[0xC]; 
-    /* 0x084 */ f32 unk_084;       
+    /* 0x084 */ f32 gravity;       
     /* 0x088 */ s16 unk_088;
     /* 0x08A */ s16 unk_08A;
     /* 0x08C */ char pad8C[6];
@@ -320,10 +320,10 @@ typedef struct {
     /* 0x0D8 */ Vec3f unk_0D8;
     /* 0x0E4 */ s16 unk_0E4;
     /* 0x0E6 */ s16 unk_0E6;
-    /* 0x0E8 */ Vec3f unk_0E8;
+    /* 0x0E8 */ Vec3f vel;
     /* 0x0F4 */ Vec3f unk_0F4;
     /* 0x100 */ Vec3f sfxPos;
-    /* 0x10C */ f32 unk_10C;
+    /* 0x10C */ f32 gravity;
     /* 0x110 */ f32 scale;
     /* 0x114 */ f32 unk_114;
     /* 0x118 */ f32 unk_118;

@@ -216,6 +216,11 @@ extern s32 D_800D173C[];
 extern Gfx* D_800D178C[6];
 extern s32 D_800D18F0[]; //[6][4]?
 extern s32 D_800D1950[];
+extern Gfx* D_800D17A4[];
+extern f32 D_800D17F8[];
+extern u8 D_800D184C[][4];
+extern Gfx* D_800D18A0[];
+extern Gfx D_6004900[];
 
 // sf_hud
 extern s16 D_800D1970;

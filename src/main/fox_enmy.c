@@ -355,7 +355,7 @@ void func_80061E48(Object_2F4* obj2F4, f32 xPos, f32 yPos, f32 zPos) {
     obj2F4->obj.pos.x = xPos;
     obj2F4->obj.pos.y = yPos;
     obj2F4->obj.pos.z = zPos;
-    obj2F4->unk_0E8.z = 10.0f;
+    obj2F4->vel.z = 10.0f;
     Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
 }
 
@@ -1343,9 +1343,9 @@ void func_80065380(Object_2F4* obj2F4, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f
     obj2F4->obj.id = OBJ_2F4_182;
     obj2F4->timer_0BC = (s32) (Rand_ZeroOne() * 10.0f) + 10;
     obj2F4->timer_0C2 = 30;
-    obj2F4->unk_0E8.x = arg4;
-    obj2F4->unk_0E8.y = arg5;
-    obj2F4->unk_0E8.z = arg6;
+    obj2F4->vel.x = arg4;
+    obj2F4->vel.y = arg5;
+    obj2F4->vel.z = arg6;
     obj2F4->obj.pos.x = xPos;
     obj2F4->obj.pos.y = yPos;
     obj2F4->obj.pos.z = zPos;
@@ -1695,13 +1695,13 @@ void func_80066254(Object_2F4* obj2F4) {
 }
 
 void func_8006654C(Object_2F4* obj2F4) {
-    obj2F4->unk_10C = 0.4f;
+    obj2F4->gravity = 0.4f;
     if (obj2F4->obj.pos.y <= D_80177940 + 130.0f) {
         obj2F4->obj.pos.y = D_80177940 + 130.0f;
-        obj2F4->unk_0E8.y = 0.0f;
+        obj2F4->vel.y = 0.0f;
     }
-    obj2F4->unk_0E8.x = __sinf(obj2F4->obj.rot.y * M_DTOR) * (*obj2F4).unk_114;
-    obj2F4->unk_0E8.z = __cosf(obj2F4->obj.rot.y * M_DTOR) * (*obj2F4).unk_114;
+    obj2F4->vel.x = __sinf(obj2F4->obj.rot.y * M_DTOR) * (*obj2F4).unk_114;
+    obj2F4->vel.z = __cosf(obj2F4->obj.rot.y * M_DTOR) * (*obj2F4).unk_114;
     switch (obj2F4->unk_0B8) {
         case 0:
             if (obj2F4->unk_114 < 20.0f) {
@@ -1740,12 +1740,12 @@ void func_8006654C(Object_2F4* obj2F4) {
     obj2F4->scale = 0.8f;
     if (obj2F4->unk_0D0 != 0) {
         obj2F4->obj.status = 3;
-        obj2F4->unk_0E8.y = (Rand_ZeroOne() * 5.0f) + 6.0f;
+        obj2F4->vel.y = (Rand_ZeroOne() * 5.0f) + 6.0f;
         if (obj2F4->unk_0D0 == 2) {
-            obj2F4->unk_0E8.y = -2.0f;
+            obj2F4->vel.y = -2.0f;
         }
-        obj2F4->unk_0E8.z = -15.0f;
-        obj2F4->unk_10C = 0.5f;
+        obj2F4->vel.z = -15.0f;
+        obj2F4->gravity = 0.5f;
         func_8007D2C8(obj2F4->obj.pos.x, obj2F4->obj.pos.y + 30.0f, obj2F4->obj.pos.z, 13.0f);
         Audio_PlaySfx(0x2903A008, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
@@ -1755,9 +1755,9 @@ void func_8006684C(Object_2F4* obj2F4) {
     s32 pad;
 
     if (obj2F4->timer_0BE != 0) {
-        obj2F4->unk_0E8.z = 0.0f;
-        obj2F4->unk_0E8.x = 0.0f;
-        obj2F4->unk_0E8.y = 0.0f;
+        obj2F4->vel.z = 0.0f;
+        obj2F4->vel.x = 0.0f;
+        obj2F4->vel.y = 0.0f;
         if (obj2F4->timer_0BE == 1) {
             Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
             obj2F4->unk_044 = 1;
@@ -1770,7 +1770,7 @@ void func_8006684C(Object_2F4* obj2F4) {
     } else {
         obj2F4->obj.rot.x += 11.0f;
         obj2F4->obj.rot.y += 7.0f;
-        if (obj2F4->unk_0E8.y < -3.0f) {
+        if (obj2F4->vel.y < -3.0f) {
             func_8007BFFC(obj2F4->obj.pos.x, obj2F4->obj.pos.y + 30.0f, obj2F4->obj.pos.z, 0.0f, 0.0f, 0.0f, 7.0f, 5);
             obj2F4->timer_0BE = 3;
         }
@@ -1843,8 +1843,8 @@ void func_80066D5C(Object_80* obj80) {
             Audio_PlaySfx(0x2900300F, &obj80->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             break;
         case 2:
-            obj80->unk_64.x += 0.05f;
-            obj80->obj.rot.x += obj80->unk_64.x;
+            obj80->vel.x += 0.05f;
+            obj80->obj.rot.x += obj80->vel.x;
             if (obj80->obj.rot.x >= 90.0f) {
                 obj80->obj.rot.x = 90.0f;
                 obj80->unk_44 = 40;
@@ -1954,11 +1954,11 @@ void func_80067348(Object_2F4* obj2F4, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f
     obj2F4->obj.pos.z = zPos;
     obj2F4->obj.rot.x = xRot;
     obj2F4->obj.rot.y = yRot;
-    obj2F4->unk_0E8.x = arg6;
-    obj2F4->unk_0E8.y = arg7;
-    obj2F4->unk_0E8.z = arg8;
+    obj2F4->vel.x = arg6;
+    obj2F4->vel.y = arg7;
+    obj2F4->vel.z = arg8;
     obj2F4->timer_0BC = (s32) (Rand_ZeroOne() * 15.0f) + 25.0f;
-    obj2F4->unk_10C = 0.5f;
+    obj2F4->gravity = 0.5f;
     Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
 }
 
@@ -2475,10 +2475,10 @@ void func_800690D0(s32 index, ObjectId objId) {
 }
 
 void func_800693E8(Object_2F4* obj2F4) {
-    obj2F4->obj.pos.x += obj2F4->unk_0E8.x;
-    obj2F4->obj.pos.z += obj2F4->unk_0E8.z;
-    obj2F4->obj.pos.y += obj2F4->unk_0E8.y;
-    obj2F4->unk_0E8.y -= obj2F4->unk_10C;
+    obj2F4->obj.pos.x += obj2F4->vel.x;
+    obj2F4->obj.pos.z += obj2F4->vel.z;
+    obj2F4->obj.pos.y += obj2F4->vel.y;
+    obj2F4->vel.y -= obj2F4->gravity;
 
     if ((D_80161AB8 != 0) && (obj2F4->obj.id != OBJ_2F4_198) &&
         ((gCurrentLevel != LEVEL_MACBETH) || (obj2F4->obj.id == OBJ_2F4_200))) {
@@ -2522,10 +2522,10 @@ void func_800693E8(Object_2F4* obj2F4) {
 }
 
 void func_80069658(Object_408* obj408) {
-    obj408->obj.pos.x += obj408->unk_06C.x;
-    obj408->obj.pos.y += obj408->unk_06C.y;
-    obj408->obj.pos.z += obj408->unk_06C.z;
-    obj408->unk_06C.y -= obj408->unk_084;
+    obj408->obj.pos.x += obj408->vel.x;
+    obj408->obj.pos.y += obj408->vel.y;
+    obj408->obj.pos.z += obj408->vel.z;
+    obj408->vel.y -= obj408->gravity;
     if ((D_80161AB8 != 0) && ((obj408->obj.pos.z + D_80177D20) > (obj408->info.unk_10 - gPlayer[0].camEye.z))) {
         if (gPlayer[0].camEye.z) {} // fake
         Object_Kill(&obj408->obj, &obj408->sfxPos);
@@ -2574,9 +2574,9 @@ void func_80069858(Object_4C* obj4C) {
 }
 
 void func_80069924(Object_8C* obj8C) {
-    obj8C->obj.pos.x += obj8C->unk_54.x;
-    obj8C->obj.pos.y += obj8C->unk_54.y;
-    obj8C->obj.pos.z += obj8C->unk_54.z;
+    obj8C->obj.pos.x += obj8C->vel.x;
+    obj8C->obj.pos.y += obj8C->vel.y;
+    obj8C->obj.pos.z += obj8C->vel.z;
     if (D_80161AB8 != 0) {
         if ((gPlayer[0].camEye.z + obj8C->info.unk_10) < (obj8C->obj.pos.z + D_80177D20)) {
             Object_Kill(&obj8C->obj, &obj8C->sfxPos);
