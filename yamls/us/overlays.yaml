@@ -52,8 +52,8 @@
     - [0xE2DF20, c, E2DF20]
     - [0xE38560, c, E38560]
     - [0xE4E3D0, .data, E16C50]
-    - [0xE4E3E0, data, E16C60]
-    - [0xE4EC90, data, E1F680]
+    - [0xE4E3E0, .data, E16C60]
+    - [0xE4EC90, .data, E1F680]
     - [0xE4F010, data, E2DF20]
     - [0xE4F290, data, E38560]
     - [0xE50030, .rodata, E16C60]
@@ -61,7 +61,7 @@
     - [0xE50C00, .rodata, E2DF20]
     - [0xE51160, .rodata, E38560]
     - { start: 0xE51970, type: .bss, vram: 0x801C2240, name: E16C50 }
-    - { start: 0xE51970, type: bss, vram: 0x801C2250, name: E16C60 }
+    - { start: 0xE51970, type: .bss, vram: 0x801C2250, name: E16C60 }
     - { start: 0xE51970, type: bss, vram: 0x801C2330, name: E1F680 }
     - { start: 0xE51970, type: bss, vram: 0x801C2740, name: E2DF20 }
     - { start: 0xE51970, type: bss, vram: 0x801C27C0, name: E38560 }

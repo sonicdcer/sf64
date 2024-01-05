@@ -279,7 +279,7 @@ void func_E16C50_801BEC50(Object_408_301* boss301) {
 }
 
 // OBJ_408_301 draw
-void func_E16C50_801BEC5C(Object_408_301 *boss301) {
+void func_E16C50_801BEC5C(Object_408_301* boss301) {
 }
 
 // OBJ_2F4_188 action
