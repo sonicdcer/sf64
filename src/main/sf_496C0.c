@@ -88,16 +88,15 @@ extern void func_800A46A0(Player*);
 extern void func_800AD7F0(Player*);
 extern void func_800B2574(Player*);
 extern void func_800AE278(Player*);
-extern void func_8004F05C(Object_2F4*, enum LevelId);
 extern void func_80093164(Object_2F4*, enum LevelId);
 extern void func_800A6028(Vec3f*, u32);
-extern void func_8018DA58(Object_2F4*, enum LevelId);
+extern void func_8018DA58(Object_2F4*);
 extern void func_8018ED9C(Object_2F4*, enum LevelId);
 extern void func_80195E44(Object_2F4*, enum LevelId);
 extern void func_80197F10(Object_2F4*, enum LevelId);
 extern void func_8019DD20(Object_2F4*, enum LevelId);
 extern void func_8019E5F0(Object_2F4*, enum LevelId);
-extern void func_8019FF00(Object_2F4*, enum LevelId);
+extern void func_8019FF00(Object_2F4*);
 extern void func_801A8BE8(Object_2F4*, enum LevelId);
 extern void func_801B28BC(Object_2F4*, enum LevelId);
 
@@ -1966,7 +1965,158 @@ void func_8004EBD0(Object_2F4* arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_496C0/func_8004F05C.s")
+void func_8004F05C(Object_2F4* arg0) {
+    if (((gLevelType == 0) && (arg0->unk_0B6 == 0)) || (gCurrentLevel == LEVEL_BOLSE)) {
+        arg0->unk_114 += 3.0f;
+        arg0->unk_118 = __sinf(arg0->unk_114 * M_DTOR) * 1.5f;
+    }
+
+    switch (gCurrentLevel) {
+        case LEVEL_BOLSE:
+            switch (arg0->unk_0B6) {
+                case 0:
+                    if (gPlayer->state_1C8 == PLAYERSTATE_1C8_2) {
+                        arg0->unk_0F4.z += arg0->unk_0F4.y;
+                        arg0->unk_0E8.x = __sinf(arg0->unk_0F4.z * M_DTOR) * 10.0f;
+                        arg0->obj.rot.z = __sinf(arg0->unk_0F4.z * M_DTOR) * 40.0f;
+                        break;
+                    }
+                    Math_SmoothStepToF(&arg0->obj.rot.z, arg0->unk_118, 0.05f, 0.3f, 0.0f);
+                    switch (arg0->unk_0B8) {
+                        case 0:
+                            break;
+
+                        case 1:
+                            arg0->unk_0B8 = 2;
+                            arg0->timer_0BC = 0x64;
+                            Audio_PlaySfx(0x09000002U, &arg0->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                            arg0->unk_188 = 5.0f;
+
+                        case 2:
+                            arg0->unk_07C = 2;
+                            arg0->unk_0E8.z -= 5.0f;
+                            if (arg0->timer_0BC == 0) {
+                                Object_Kill(&arg0->obj, &arg0->sfxPos);
+                            }
+                            break;
+                    }
+                    break;
+                case 31:
+                    if (arg0->timer_0BC == 0) {
+                        Object_Kill(&arg0->obj, &arg0->sfxPos);
+                    }
+                    break;
+
+                case 32:
+                    arg0->obj.rot.z += arg0->unk_0F4.z;
+                    if (arg0->timer_0BC == 0) {
+                        Object_Kill(&arg0->obj, &arg0->sfxPos);
+                    }
+                    break;
+
+                case 30:
+                    break;
+            }
+            break;
+        case LEVEL_AREA_6:
+            func_8018DA58(arg0);
+            break;
+
+        case LEVEL_SECTOR_Y:
+            switch (arg0->unk_0B6) {
+                case 0:
+                    func_8019FF00(arg0);
+                    break;
+
+                case 42:
+                    if (arg0->timer_0BC == 0) {
+                        if (arg0->obj.pos.x >= -3500.0f) {
+                            if (arg0->obj.pos.z <= 3000.0f) {
+                                if ((fabsf(arg0->obj.pos.y) <= 400.0f) && (D_80177A80 < 0x12D)) {
+                                    func_8007D2C8(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 8.0f);
+                                }
+                            }
+                        }
+                        Object_Kill(&arg0->obj, &arg0->sfxPos);
+                    }
+                    break;
+
+                case 43:
+                    if (arg0->timer_0BC == 0) {
+                        Object_Kill(&arg0->obj, &arg0->sfxPos);
+                    }
+                    break;
+            }
+            break;
+        case LEVEL_SECTOR_X:
+            if ((arg0->unk_0B8 != 0) && (arg0->unk_0B8 == 1)) {
+                arg0->unk_0E8.y += 0.1f;
+                Math_SmoothStepToF(&arg0->obj.rot.x, -20.0f, 0.1f, 0.5f, 0.0f);
+            }
+            break;
+
+        case LEVEL_SECTOR_Z:
+        default:
+            switch (arg0->unk_0B8) {
+                case 0x64:
+                    Math_SmoothStepToF(&arg0->obj.pos.x, arg0->unk_18C[0x14].x, 0.03f, 3.0f, 0.0f);
+                    Math_SmoothStepToF(&arg0->obj.pos.y, arg0->unk_18C[0x14].y, 0.03f, 2.0f, 0.0f);
+                    Math_SmoothStepToF(&arg0->obj.pos.z, arg0->unk_18C[0x14].z, 0.03f, 2.0f, 0.0f);
+                    Math_SmoothStepToF(&arg0->obj.rot.z, 0.0f, 0.02f, 0.3f, 0);
+                    break;
+
+                case 0x0:
+                    arg0->obj.rot.z = arg0->unk_0F4.z;
+                    if (arg0->unk_0B6 == 0xA) {
+                        arg0->obj.pos.z = gPlayer->camEye.z + 12000.0f;
+                    }
+                    break;
+
+                case 0x1:
+                    arg0->unk_0E8.y += 0.8f;
+                    arg0->unk_0E8.x += 0.8f;
+                    Math_SmoothStepToF(&arg0->obj.rot.z, 420.0f, 0.1f, 15.0f, 0.001f);
+                    break;
+
+                case 0x2:
+                    arg0->unk_0E8.y += 0.8f;
+                    arg0->unk_0E8.x -= 0.8f;
+                    Math_SmoothStepToF(&arg0->obj.rot.z, -420.0f, 0.1f, 15.0f, 0.001f);
+                    break;
+
+                case 0x3:
+                    arg0->unk_0E8.y += 1.2f;
+                    arg0->unk_0E8.z += 0.1f;
+                    Math_SmoothStepToF(&arg0->obj.rot.x, -45.0f, 0.1f, 15.0f, 0.001f);
+                    break;
+
+                case 0xA:
+                    arg0->unk_0E8.x -= 1.0f;
+                    Math_SmoothStepToF(&arg0->obj.rot.z, -45.0f, 0.05f, 0.5f, 0.0f);
+                    break;
+
+                case 0xB:
+                    arg0->unk_0E8.x -= 2.0f;
+                    Math_SmoothStepToF(&arg0->obj.rot.z, -70.0f, 0.1f, 6.0f, 0.0f);
+                    Math_SmoothStepToF(&arg0->obj.rot.y, 225.0f, 0.05f, 2.0f, 0.0f);
+                    break;
+
+                case 0xC:
+                    arg0->unk_0E8.x += 2.0f;
+                    arg0->unk_0E8.y += 1.0f;
+                    Math_SmoothStepToF(&arg0->obj.rot.z, 80.0f, 0.1f, 6.0f, 0.0f);
+                    Math_SmoothStepToF(&arg0->obj.rot.x, -15.0f, 0.05f, 4.0f, 0.0f);
+                    Math_SmoothStepToF(&arg0->obj.rot.y, 135.0f, 0.05f, 2.0f, 0.0f);
+                    break;
+
+                case 0xD:
+                    arg0->unk_0E8.y += 2.0f;
+                    Math_SmoothStepToF(&arg0->obj.rot.z, -400.0f, 0.2f, 14.0f, 0.0f);
+                    Math_SmoothStepToF(&arg0->obj.rot.x, -45.0f, 0.05f, 4.0f, 0.0f);
+                    break;
+            }
+    }
+}
 
 void func_8004F798(Object_2F4* arg0) {
     arg0->unk_07C = 2;
@@ -2001,7 +2151,7 @@ void func_8004F8AC(Object_2F4* arg0) {
             switch (gCurrentLevel) {
                 case LEVEL_SECTOR_Y:
                     if (gPlayer->unk_1D0 >= 3) {
-                        func_8019FF00(arg0, gCurrentLevel);
+                        func_8019FF00(arg0);
                     }
                     break;
                 case LEVEL_SOLAR:
@@ -2025,7 +2175,7 @@ void func_8004F8AC(Object_2F4* arg0) {
                     func_8019DD20(arg0, gCurrentLevel);
                     break;
                 case LEVEL_AREA_6:
-                    func_8018DA58(arg0, gCurrentLevel);
+                    func_8018DA58(arg0);
                     break;
                 case LEVEL_METEO:
                     if (D_8017827C == 0) {
@@ -2090,7 +2240,7 @@ void func_8004F8AC(Object_2F4* arg0) {
                     func_801B28BC(arg0, gCurrentLevel);
                     break;
                 case LEVEL_BOLSE:
-                    func_8004F05C(arg0, gCurrentLevel);
+                    func_8004F05C(arg0);
                     break;
                 default:
                     func_8004EBD0(arg0);
@@ -2098,14 +2248,14 @@ void func_8004F8AC(Object_2F4* arg0) {
             }
             break;
         case PLAYERSTATE_1C8_2:
-            func_8004F05C(arg0, gCurrentLevel);
+            func_8004F05C(arg0);
             break;
         case PLAYERSTATE_1C8_8:
             func_8004F798(arg0);
             break;
         case PLAYERSTATE_1C8_0:
             if (gCurrentLevel == LEVEL_SECTOR_Y) {
-                func_8019FF00(arg0, gCurrentLevel);
+                func_8019FF00(arg0);
             }
             break;
     }
