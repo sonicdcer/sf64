@@ -107,20 +107,20 @@ void func_8002E548(void) {
     }
 }
 
-void func_8002E5E0(Object_408* obj408) {
-    func_E51970_80187520(91, obj408);
+void func_8002E5E0(Boss* boss) {
+    func_E51970_80187520(91, boss);
 }
 
-void func_8002E604(Object_408* obj408) {
-    func_E51970_80187520(92, obj408);
+void func_8002E604(Boss* boss) {
+    func_E51970_80187520(92, boss);
 }
 
-void func_8002E628(Object_408* obj408) {
-    func_E51970_80187520(93, obj408);
+void func_8002E628(Boss* boss) {
+    func_E51970_80187520(93, boss);
 }
 
-void func_8002E64C(Object_408* obj408) {
-    func_E51970_80187520(94, obj408);
+void func_8002E64C(Boss* boss) {
+    func_E51970_80187520(94, boss);
 }
 
 void func_8002E670(Object_2F4* obj2F4) {
@@ -608,9 +608,9 @@ bool func_8002FE74(void) {
         case LEVEL_FORTUNA:
             return D_8015F928 == D_800C9B4C + 2400;
         case LEVEL_BOLSE:
-            return gObjects408[2].unk_0D0 == 4;
+            return gBosses[2].swork[36] == 4;
         case LEVEL_KATINA:
-            return gObjects408[1].unk_0A6 == 2;
+            return gBosses[1].swork[15] == 2;
     }
     return false;
 }
@@ -690,7 +690,7 @@ void func_8003010C(Object_2F4* obj2F4) {
 }
 
 s32 func_800301F4(Object_2F4* obj2F4) {
-    Object_408* obj408;
+    Boss* boss;
     f32 temp_ft4;
     f32 temp_ft5;
     s32 i;
@@ -717,11 +717,11 @@ s32 func_800301F4(Object_2F4* obj2F4) {
             }
         }
     }
-    obj408 = gObjects408;
-    if ((gCurrentLevel == LEVEL_SECTOR_Z) && (fabsf(obj408->obj.pos.x - (obj2F4->obj.pos.x + temp_ft4)) < 2000.0f) &&
-        (fabsf(obj408->obj.pos.z - (obj2F4->obj.pos.z + temp_ft5)) < 2000.0f)) {
-        if (fabsf(obj408->obj.pos.y - obj2F4->obj.pos.y) < 1500.0f) {
-            if (obj408->obj.pos.y < obj2F4->obj.pos.y) {
+    boss = &gBosses[0];
+    if ((gCurrentLevel == LEVEL_SECTOR_Z) && (fabsf(boss->obj.pos.x - (obj2F4->obj.pos.x + temp_ft4)) < 2000.0f) &&
+        (fabsf(boss->obj.pos.z - (obj2F4->obj.pos.z + temp_ft5)) < 2000.0f)) {
+        if (fabsf(boss->obj.pos.y - obj2F4->obj.pos.y) < 1500.0f) {
+            if (boss->obj.pos.y < obj2F4->obj.pos.y) {
                 return 1;
             } else {
                 return -1;
@@ -740,7 +740,7 @@ s32 func_8003049C(Object_2F4* arg0) {
     f32 temp_fa0;
     f32 temp_ft4;
     f32 var_ft5;
-    Object_408* obj408 = &gObjects408[0];
+    Boss* boss = &gBosses[0];
     s32 pad[4];
 
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2) {
@@ -767,18 +767,18 @@ s32 func_8003049C(Object_2F4* arg0) {
         var_ft5 = 720.0f;
     }
 
-    if (obj408->obj.id == OBJ_408_293) {
+    if (boss->obj.id == OBJ_BOSS_293) {
         var_ft5 = 350.0f;
-    } else if (obj408->obj.id == OBJ_408_309) {
+    } else if (boss->obj.id == OBJ_BOSS_309) {
         sp44 = 2000.0f;
         var_ft5 = 750.0f;
-    } else if (obj408->obj.id == OBJ_408_317) {
+    } else if (boss->obj.id == OBJ_BOSS_317) {
         sp44 = 1500.0f;
         var_ft5 = 700.0f;
     }
-    if ((fabsf(obj408->obj.pos.x - (arg0->obj.pos.x + temp_fa0)) < sp44) &&
-        (fabsf(obj408->obj.pos.z - (arg0->obj.pos.z + temp_ft4)) < sp44) &&
-        (fabsf(obj408->obj.pos.y - arg0->obj.pos.y) < var_ft5)) {
+    if ((fabsf(boss->obj.pos.x - (arg0->obj.pos.x + temp_fa0)) < sp44) &&
+        (fabsf(boss->obj.pos.z - (arg0->obj.pos.z + temp_ft4)) < sp44) &&
+        (fabsf(boss->obj.pos.y - arg0->obj.pos.y) < var_ft5)) {
         return 1;
     }
     return 0;
@@ -809,7 +809,7 @@ void func_8003088C(Object_2F4* arg0) {
         if (arg0->unk_0D0 != 0) {
             var_a1 = false;
             if ((arg0->unk_0B6 == 3) ||
-                ((gCurrentLevel == LEVEL_BOLSE) && (gObjects408[1].obj.status != 0) && (arg0->unk_0E4 >= 4)) ||
+                ((gCurrentLevel == LEVEL_BOLSE) && (gBosses[1].obj.status != 0) && (arg0->unk_0E4 >= 4)) ||
                 ((gCurrentLevel == LEVEL_VENOM_2) && (arg0->unk_0E4 >= 4) && (arg0->unk_0E4 < 10) &&
                  (arg0->unk_0D0 == 2))) {
                 arg0->unk_0D6 = 0;
@@ -1503,9 +1503,9 @@ void func_800319AC(Object_2F4* this) {
                         this->unk_120 = 1.4f;
                     }
                 } else {
-                    this->unk_124.x = gObjects408->obj.pos.x;
-                    this->unk_124.y = gObjects408->obj.pos.y + 400.0f;
-                    this->unk_124.z = gObjects408->obj.pos.z;
+                    this->unk_124.x = gBosses[0].obj.pos.x;
+                    this->unk_124.y = gBosses[0].obj.pos.y + 400.0f;
+                    this->unk_124.z = gBosses[0].obj.pos.z;
                     this->unk_118 = 40.0f;
                 }
                 if ((this->unk_0E6 >= 0) && (this->unk_0E6 != 100) && (gObjects2F4->unk_0B8 != 6)) {

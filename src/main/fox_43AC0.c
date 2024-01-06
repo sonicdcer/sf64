@@ -9,7 +9,7 @@ s32 D_800C9E90[28] = {
 
 const f32 D_800D55D0[] = { 6000.0f, 18000.0f, -6000.0f, -18000.0f };
 
-void func_80042EC0(Object_408* obj408) {
+void func_80042EC0(Boss* boss) {
     s32 var_a3;
     f32 var_fv0;
 
@@ -26,33 +26,33 @@ void func_80042EC0(Object_408* obj408) {
     }
     if (var_a3 != 0) {
         var_fv0 = 0.0f;
-        if (obj408->obj.id == OBJ_408_292) {
+        if (boss->obj.id == OBJ_BOSS_292) {
             var_fv0 = 300.0f;
-        } else if (obj408->obj.id == OBJ_408_306) {
+        } else if (boss->obj.id == OBJ_BOSS_306) {
             var_fv0 = 200.0f;
         }
-        func_80077240(obj408->obj.pos.x, obj408->obj.pos.y + var_fv0, obj408->obj.pos.z, var_a3);
+        func_80077240(boss->obj.pos.x, boss->obj.pos.y + var_fv0, boss->obj.pos.z, var_a3);
     }
     gHitCount += var_a3 + 1;
     D_80177850 = 15;
 }
 
-void func_80042FAC(Object_408* obj408) {
+void func_80042FAC(Boss* boss) {
 }
 
-void func_80042FB8(Object_408* obj408) {
+void func_80042FB8(Boss* boss) {
 }
 
-void func_80042FC4(Object_408* obj408) {
+void func_80042FC4(Boss* boss) {
 }
 
-void func_80042FD0(Object_408* obj408) {
+void func_80042FD0(Boss* boss) {
 }
 
-void func_80042FDC(Object_408* obj408) {
+void func_80042FDC(Boss* boss) {
 }
 
-void func_80042FE8(Object_408* obj408) {
+void func_80042FE8(Boss* boss) {
 }
 
 void func_80042FF4(Object_2F4* obj2F4, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,

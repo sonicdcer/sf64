@@ -119,9 +119,9 @@ void func_8006AC08(Object_2F4* obj2F4) {
     }
     sp2C = obj2F4->obj.pos.z + D_80177D20;
     obj2F4->obj.rot.y = Math_RadToDeg(Math_Atan2F(gPlayer[0].camEye.x - obj2F4->obj.pos.x, gPlayer[0].camEye.z - sp2C));
-    obj2F4->obj.rot.x =
-        -Math_RadToDeg(Math_Atan2F(gPlayer[0].camEye.y - obj2F4->obj.pos.y,
-                                   sqrtf(SQ(gPlayer[0].camEye.z - sp2C) + SQ(gPlayer[0].camEye.x - obj2F4->obj.pos.x))));
+    obj2F4->obj.rot.x = -Math_RadToDeg(
+        Math_Atan2F(gPlayer[0].camEye.y - obj2F4->obj.pos.y,
+                    sqrtf(SQ(gPlayer[0].camEye.z - sp2C) + SQ(gPlayer[0].camEye.x - obj2F4->obj.pos.x))));
 }
 
 void func_8006AD18(Object_2F4* obj2F4) {
@@ -3033,8 +3033,8 @@ void func_80072594(Object_2F4* obj2F4) {
                     Matrix_RotateY(gCalcMatrix, -obj2F4->unk_2E8.y * M_DTOR, 1);
 
                     if ((obj2F4->unk_0B8 == 0xE) || (obj2F4->unk_0B8 == 0xF)) {
-                        spB8.x =  gPlayer[0].camEye.x - spF0;
-                        spB8.y =  gPlayer[0].camEye.y - (spEC + 25.0f);
+                        spB8.x = gPlayer[0].camEye.x - spF0;
+                        spB8.y = gPlayer[0].camEye.y - (spEC + 25.0f);
                         spB8.z = (gPlayer[0].camEye.z * 15.0f) - spE8;
                     } else {
                         spB8.x = gPlayer[0].pos.x - spF0;

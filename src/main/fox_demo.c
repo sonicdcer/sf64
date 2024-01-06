@@ -240,7 +240,7 @@ void func_80048E40(Player* player) {
     f32 temp_ret;
     s32 temp_v1;
 
-    gObjects408[1].obj.status = 0;
+    gBosses[1].obj.status = 0;
     Math_SmoothStepToF(&player->unk_130, 0.0f, 0.1f, 15.0f, 0.0f);
     Math_SmoothStepToF(&player->unk_12C, 0.0f, 0.1f, 15.0f, 0.0f);
     Math_SmoothStepToF(&player->unk_0E4, 0.0f, 0.1f, 3.0f, 0.0f);
@@ -391,9 +391,9 @@ void func_80049630(Object_2F4* obj2F4) {
 
     switch (obj2F4->unk_0B8) {
         case 0:
-            obj2F4->unk_18C[0].x = gPlayer[0].pos.x + D_800C9FA0[obj2F4->index].x ;
-            obj2F4->unk_18C[0].y = gPlayer[0].pos.y + D_800C9FA0[obj2F4->index].y ;
-            obj2F4->unk_18C[0].z = gPlayer[0].pos.z + D_800C9FA0[obj2F4->index].z ;
+            obj2F4->unk_18C[0].x = gPlayer[0].pos.x + D_800C9FA0[obj2F4->index].x;
+            obj2F4->unk_18C[0].y = gPlayer[0].pos.y + D_800C9FA0[obj2F4->index].y;
+            obj2F4->unk_18C[0].z = gPlayer[0].pos.z + D_800C9FA0[obj2F4->index].z;
             Math_SmoothStepToF(&obj2F4->obj.pos.x, obj2F4->unk_18C[0].x, 0.05f, 50.0f, 0.0001f);
             Math_SmoothStepToF(&obj2F4->obj.pos.y, obj2F4->unk_18C[0].y, 0.05f, 50.0f, 0.0001f);
             Math_SmoothStepToF(&obj2F4->obj.pos.z, obj2F4->unk_18C[0].z, 0.05f, 50.0f, 0.0001f);
@@ -2032,8 +2032,8 @@ void func_8004EBD0(Object_2F4* obj2F4) {
                 obj2F4->unk_168 = 0.6f;
             }
             obj2F4->unk_124.z += 1.0f;
-            Matrix_RotateY(gCalcMatrix,   (gPlayer[0].unk_0E8 + 180.0f) * M_DTOR, 0);
-            Matrix_RotateX(gCalcMatrix,  -(gPlayer[0].unk_0E4 * M_DTOR), 1);
+            Matrix_RotateY(gCalcMatrix, (gPlayer[0].unk_0E8 + 180.0f) * M_DTOR, 0);
+            Matrix_RotateX(gCalcMatrix, -(gPlayer[0].unk_0E4 * M_DTOR), 1);
             Matrix_RotateZ(gCalcMatrix, -((gPlayer[0].unk_0F8 + gPlayer[0].unk_0F0) * M_DTOR), 1);
             src.x = 0.0f;
             src.y = 0.0f;

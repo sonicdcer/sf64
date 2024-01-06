@@ -401,7 +401,7 @@ extern s32 D_80161AB8;
 extern Object_80 gObjects80[50];
 extern Object_4C gObjects4C[40];
 extern Object_2F4 gObjects2F4[60];
-extern Object_408 gObjects408[4];
+extern Boss gBosses[4];
 extern Object_8C gObjects8C[100];
 extern Item gItems[20];
 extern PlayerShot gPlayerShots[16];

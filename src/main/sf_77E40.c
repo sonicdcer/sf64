@@ -493,8 +493,8 @@ void func_8007905C(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4, u8 
     obj8C->obj.pos.z = posZ;
     obj8C->unk_4C = arg5;
     if (arg4 == 1.6f) {
-        obj8C->vel.x = (posX - gObjects408[1].obj.pos.x) * 0.1f;
-        obj8C->vel.z = (posZ - gObjects408[1].obj.pos.z) * 0.1f;
+        obj8C->vel.x = (posX - gBosses[1].obj.pos.x) * 0.1f;
+        obj8C->vel.z = (posZ - gBosses[1].obj.pos.z) * 0.1f;
     } else if (arg4 == 1.3f) {
         obj8C->vel.x = ((Rand_ZeroOne() * 0.05f) + 0.03f) * posX;
         obj8C->vel.z = ((Rand_ZeroOne() * 0.05f) + 0.03f) * posZ;
@@ -1796,7 +1796,8 @@ void func_8007D2F4(Object_8C* obj8C) {
                 }
             }
         } else {
-            if ((gCurrentLevel == LEVEL_MACBETH) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) && (obj8C->vel.x != 0)) {
+            if ((gCurrentLevel == LEVEL_MACBETH) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) &&
+                (obj8C->vel.x != 0)) {
                 Math_SmoothStepToF(&obj8C->vel.x, -1.0f, 1.0f, 1.0f, 0.0f);
                 Math_SmoothStepToF(&obj8C->vel.z, 4.0f, 1.0f, 1.0f, 0.0f);
                 obj8C->vel.y += 1.7f;

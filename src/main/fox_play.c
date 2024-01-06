@@ -125,7 +125,7 @@ void func_800A3FEC(void) {
 }
 
 void func_800A4460(Player* player) {
-    if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (gObjects408[0].obj.status == 2) && (gObjects408[0].unk_04E == 17)) {
+    if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (gBosses[0].obj.status == 2) && (gBosses[0].unk_04E == 17)) {
         player->unk_060 = __sinf(player->unk_0F4 * 0.7f * M_DTOR) * 0.5f;
         player->unk_088 += 13.0f;
         player->unk_0F4 += 20.0f;
@@ -358,13 +358,13 @@ void func_800A5338(void) {
         }
     }
     i = 0; // fake?
-    Object_408_Initialize(&gObjects408[i]);
-    gObjects408[i].obj.status = 1;
-    gObjects408[i].obj.pos.x = 0.0f;
-    gObjects408[i].obj.pos.y = 0.0f;
-    gObjects408[i].obj.pos.z = 0.0f;
-    gObjects408[i].obj.id = OBJ_408_292;
-    Object_SetInfo(&gObjects408[i].info, gObjects408[i].obj.id);
+    Boss_Initialize(&gBosses[i]);
+    gBosses[i].obj.status = 1;
+    gBosses[i].obj.pos.x = 0.0f;
+    gBosses[i].obj.pos.y = 0.0f;
+    gBosses[i].obj.pos.z = 0.0f;
+    gBosses[i].obj.id = OBJ_BOSS_292;
+    Object_SetInfo(&gBosses[i].info, gBosses[i].obj.id);
 }
 
 void func_800A55B0(void) {
@@ -391,41 +391,41 @@ void func_800A55B0(void) {
         }
     }
     i = 0; // fake?
-    Object_408_Initialize(&gObjects408[i]);
-    gObjects408[i].obj.status = 1;
-    gObjects408[i].obj.pos.x = 0.0f;
-    gObjects408[i].obj.pos.y = 0.0f;
-    gObjects408[i].obj.pos.z = 0.0f;
-    gObjects408[i].obj.id = OBJ_408_314;
-    Object_SetInfo(&gObjects408[i].info, gObjects408[i].obj.id);
+    Boss_Initialize(&gBosses[i]);
+    gBosses[i].obj.status = 1;
+    gBosses[i].obj.pos.x = 0.0f;
+    gBosses[i].obj.pos.y = 0.0f;
+    gBosses[i].obj.pos.z = 0.0f;
+    gBosses[i].obj.id = OBJ_BOSS_314;
+    Object_SetInfo(&gBosses[i].info, gBosses[i].obj.id);
     i = 1;
-    Object_408_Initialize(&gObjects408[i]);
-    gObjects408[i].obj.status = 1;
-    gObjects408[i].obj.pos.x = 0.0f;
-    gObjects408[i].obj.pos.y = 0.0f;
-    gObjects408[i].obj.pos.z = 0.0f;
-    gObjects408[i].obj.id = OBJ_408_314;
-    Object_SetInfo(&gObjects408[i].info, gObjects408[i].obj.id);
+    Boss_Initialize(&gBosses[i]);
+    gBosses[i].obj.status = 1;
+    gBosses[i].obj.pos.x = 0.0f;
+    gBosses[i].obj.pos.y = 0.0f;
+    gBosses[i].obj.pos.z = 0.0f;
+    gBosses[i].obj.id = OBJ_BOSS_314;
+    Object_SetInfo(&gBosses[i].info, gBosses[i].obj.id);
     i = 2;
-    Object_408_Initialize(&gObjects408[i]);
-    gObjects408[i].obj.status = 1;
-    gObjects408[i].obj.pos.x = 0.0f;
-    gObjects408[i].obj.pos.y = 0.0f;
-    gObjects408[i].obj.pos.z = 0.0f;
-    gObjects408[i].obj.id = OBJ_408_314;
-    Object_SetInfo(&gObjects408[i].info, gObjects408[i].obj.id);
+    Boss_Initialize(&gBosses[i]);
+    gBosses[i].obj.status = 1;
+    gBosses[i].obj.pos.x = 0.0f;
+    gBosses[i].obj.pos.y = 0.0f;
+    gBosses[i].obj.pos.z = 0.0f;
+    gBosses[i].obj.id = OBJ_BOSS_314;
+    Object_SetInfo(&gBosses[i].info, gBosses[i].obj.id);
 }
 
 void func_800A57E0(void) {
     s32 i = 0; // fake?
 
-    Object_408_Initialize(&gObjects408[i]);
-    gObjects408[i].obj.status = 1;
-    gObjects408[i].obj.pos.x = 0.0f;
-    gObjects408[i].obj.pos.y = 0.0f;
-    gObjects408[i].obj.pos.z = 0.0f;
-    gObjects408[i].obj.id = OBJ_408_321;
-    Object_SetInfo(&gObjects408[i].info, gObjects408[i].obj.id);
+    Boss_Initialize(&gBosses[i]);
+    gBosses[i].obj.status = 1;
+    gBosses[i].obj.pos.x = 0.0f;
+    gBosses[i].obj.pos.y = 0.0f;
+    gBosses[i].obj.pos.z = 0.0f;
+    gBosses[i].obj.id = OBJ_BOSS_321;
+    Object_SetInfo(&gBosses[i].info, gBosses[i].obj.id);
 }
 
 void func_800A5844(void) {
@@ -613,9 +613,9 @@ void func_800A6148(void) {
         Object_Kill(&gObjects2F4[i].obj, &gObjects2F4[i].sfxPos);
         Object_2F4_Initialize(&gObjects2F4[i]);
     }
-    for (i = 0; i < ARRAY_COUNT(gObjects408); i++) {
-        Object_Kill(&gObjects408[i].obj, &gObjects408[i].sfxPos);
-        Object_408_Initialize(&gObjects408[i]);
+    for (i = 0; i < ARRAY_COUNT(gBosses); i++) {
+        Object_Kill(&gBosses[i].obj, &gBosses[i].sfxPos);
+        Boss_Initialize(&gBosses[i]);
     }
     for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
         Object_Kill(&gObjects8C[i].obj, &gObjects8C[i].sfxPos);
@@ -1191,19 +1191,19 @@ bool func_800A8054(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 a
         case OBJ_80_150:
             colId = COL1_6;
             break;
-        case OBJ_408_308:
+        case OBJ_BOSS_308:
             colId = COL1_4;
             break;
-        case OBJ_408_312:
+        case OBJ_BOSS_312:
             colId = COL1_9;
             break;
-        case OBJ_408_309:
+        case OBJ_BOSS_309:
             colId = COL1_7;
             break;
         case OBJ_UNK_1000:
             colId = COL1_3;
             break;
-        case OBJ_408_313:
+        case OBJ_BOSS_313:
             colId = COL1_8;
             break;
         case OBJ_80_39:
@@ -1515,7 +1515,7 @@ void func_800A8BA4(Player* player) {
     f32 padB8;          // B8
     Object_2F4* obj2F4; // B4
     f32 padB0;          // B0
-    Object_408* obj408; // AC
+    Boss* boss;         // AC
     Object_4C* obj4C;   // A8
     s32 pad;            // A4
     Object_80* obj80;   // A0
@@ -1769,27 +1769,27 @@ void func_800A8BA4(Player* player) {
                 }
             }
         }
-        for (i = 0, obj408 = gObjects408; i < ARRAY_COUNT(gObjects408); i++, obj408++) {
-            if (obj408->obj.status == 2) {
-                if ((obj408->obj.id == OBJ_408_312) || (obj408->obj.id == OBJ_408_308) ||
-                    (obj408->obj.id == OBJ_408_313) || (obj408->obj.id == OBJ_408_309)) {
-                    temp_v0 = func_800A8304(player, obj408->obj.id, obj408->obj.pos.x, obj408->obj.pos.y,
-                                            obj408->obj.pos.z, obj408->obj.rot.x, obj408->obj.rot.y, obj408->obj.rot.z);
+        for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {
+            if (boss->obj.status == 2) {
+                if ((boss->obj.id == OBJ_BOSS_312) || (boss->obj.id == OBJ_BOSS_308) ||
+                    (boss->obj.id == OBJ_BOSS_313) || (boss->obj.id == OBJ_BOSS_309)) {
+                    temp_v0 = func_800A8304(player, boss->obj.id, boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z,
+                                            boss->obj.rot.x, boss->obj.rot.y, boss->obj.rot.z);
                     if (temp_v0 != 0) {
-                        Player_ApplyDamage(player, temp_v0, obj408->info.damage);
+                        Player_ApplyDamage(player, temp_v0, boss->info.damage);
                         break;
                     }
                 }
-                if (obj408->obj.id == OBJ_408_310) {
-                    spfD4.x = fabsf(obj408->obj.pos.x - player->pos.x) * .8333333f;
-                    spfD4.y = fabsf(obj408->obj.pos.y - player->pos.y) * 2;
-                    spfD4.z = fabsf(obj408->obj.pos.z - player->unk_138) * 0.8333333f;
+                if (boss->obj.id == OBJ_BOSS_310) {
+                    spfD4.x = fabsf(boss->obj.pos.x - player->pos.x) * .8333333f;
+                    spfD4.y = fabsf(boss->obj.pos.y - player->pos.y) * 2;
+                    spfD4.z = fabsf(boss->obj.pos.z - player->unk_138) * 0.8333333f;
                     if (sqrtf(VEC3F_SQ(spfD4)) < 1500.0f) {
-                        Player_ApplyDamage(player, 0, obj408->info.damage);
+                        Player_ApplyDamage(player, 0, boss->info.damage);
                         player->unk_110 = 0.0f;
                         player->timer_498 = 5;
                         player->unk_0D8.y = 30.0f;
-                        obj408->unk_062 = 1;
+                        boss->unk_062 = 1;
                         func_8007BFFC(player->pos.x + (10.0f * (Rand_ZeroOne() - 0.5f)),
                                       player->pos.y + (10.0f * Rand_ZeroOne()),
                                       player->unk_138 + (10.0f * (Rand_ZeroOne() - 0.5f)), 0.0f, 15.0f, 0.0f, 2.0f, 5);
@@ -1803,38 +1803,38 @@ void func_800A8BA4(Player* player) {
                         break;
                     }
                 } else {
-                    if (obj408->obj.id == OBJ_408_316) {
-                        spfD4.x = fabsf(obj408->obj.pos.x - player->pos.x);
-                        spfD4.y = fabsf(obj408->obj.pos.y - 300.0f - player->pos.y) * 7.42f;
-                        spfD4.z = fabsf(obj408->obj.pos.z - player->unk_138);
+                    if (boss->obj.id == OBJ_BOSS_316) {
+                        spfD4.x = fabsf(boss->obj.pos.x - player->pos.x);
+                        spfD4.y = fabsf(boss->obj.pos.y - 300.0f - player->pos.y) * 7.42f;
+                        spfD4.z = fabsf(boss->obj.pos.z - player->unk_138);
                         if (sqrtf(VEC3F_SQ(spfD4)) < 2700.0f) {
-                            Player_ApplyDamage(player, 3, obj408->info.damage);
+                            Player_ApplyDamage(player, 3, boss->info.damage);
                         }
                     }
-                    temp_v0 = func_800A7974(player, obj408->info.hitbox, &sp98, obj408->obj.pos.x, obj408->obj.pos.y,
-                                            obj408->obj.pos.z, obj408->obj.rot.x, obj408->obj.rot.y, obj408->obj.rot.z,
-                                            0.0f, 0.0f, 0.0f);
+                    temp_v0 = func_800A7974(player, boss->info.hitbox, &sp98, boss->obj.pos.x, boss->obj.pos.y,
+                                            boss->obj.pos.z, boss->obj.rot.x, boss->obj.rot.y, boss->obj.rot.z, 0.0f,
+                                            0.0f, 0.0f);
                     if (temp_v0 != 0) {
                         if (temp_v0 < 0) {
                             if (player->unk_22C == 0) {
-                                Audio_PlaySfx(0x19000001, &obj408->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                                Audio_PlaySfx(0x19000001, &boss->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                             }
                             player->unk_22C += 2;
                             if (player->unk_22C >= 4) {
                                 player->unk_22C = 4;
                             }
                         } else {
-                            if ((obj408->obj.id == OBJ_408_320) && (obj408->timer_056 != 0) && (sp98 == 5)) {
+                            if ((boss->obj.id == OBJ_BOSS_320) && (boss->timer_056 != 0) && (sp98 == 5)) {
                                 break;
                             }
-                            Player_ApplyDamage(player, temp_v0, obj408->info.damage);
-                            if ((obj408->obj.id == OBJ_408_303) && ((obj408->unk_04E == 2) || (obj408->unk_04E == 3)) &&
+                            Player_ApplyDamage(player, temp_v0, boss->info.damage);
+                            if ((boss->obj.id == OBJ_BOSS_303) && ((boss->unk_04E == 2) || (boss->unk_04E == 3)) &&
                                 (sp98 >= 9)) {
                                 player->unk_0D8.y = -100.0f;
                             }
-                            if ((obj408->obj.id == OBJ_408_320) && (sp98 < 5)) {
-                                player->unk_0D8.x = obj408->unk_110;
-                                player->unk_0D8.y = obj408->unk_114;
+                            if ((boss->obj.id == OBJ_BOSS_320) && (sp98 < 5)) {
+                                player->unk_0D8.x = boss->fwork[14];
+                                player->unk_0D8.y = boss->fwork[15];
                             }
                         }
                     }
@@ -6171,7 +6171,8 @@ void func_800B79B0(void) {
                 Texture_Scroll(D_602C2CC, 32, 32, 1);
             }
             func_8008C104(D_602C2CC, D_600D990);
-            if (func_800A73E4(&sp3C, &sp40, gPlayer[0].camEye.x, gPlayer[0].camEye.y, gPlayer[0].camEye.z - D_80177D20)) {
+            if (func_800A73E4(&sp3C, &sp40, gPlayer[0].camEye.x, gPlayer[0].camEye.y,
+                              gPlayer[0].camEye.z - D_80177D20)) {
                 gLight1R = 0;
                 gLight1G = 7;
                 gLight1B = 10;

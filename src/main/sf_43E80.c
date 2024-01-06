@@ -199,7 +199,7 @@ void func_80043B18(Player* player) {
         } else {
             if (!(gFrameCount & 1)) {
                 func_E6A810_80189120(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->unk_138 + sp3C.z,
-                              player->unk_0E8 + sp38, 1.3f);
+                                     player->unk_0E8 + sp38, 1.3f);
             }
             if (!(gFrameCount & 3)) {
                 func_8007A900(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f, player->unk_138 + sp3C.z, 2.0f,
@@ -218,7 +218,7 @@ void func_80043B18(Player* player) {
             } else {
                 if (!(gFrameCount & 1)) {
                     func_E6A810_80189120(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->unk_138 + sp3C.z,
-                                  player->unk_0E8 + sp38, 1.0f);
+                                         player->unk_0E8 + sp38, 1.0f);
                 }
                 if (!(gFrameCount & 3) && (player->unk_0D0 >= 5.0f)) {
                     func_8007A900(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f, player->unk_138 + sp3C.z,
@@ -236,7 +236,7 @@ void func_80043B18(Player* player) {
             } else {
                 if (!(gFrameCount & 1)) {
                     func_E6A810_80189120(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->unk_138 + sp3C.z,
-                                  player->unk_0E8 + sp38, 1.0f);
+                                         player->unk_0E8 + sp38, 1.0f);
                 }
                 if (!(gFrameCount & 3) && (player->unk_0D0 >= 5.0f)) {
                     func_8007A900(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f, player->unk_138 + sp3C.z,
@@ -1345,7 +1345,7 @@ void func_800481F4(Player* player) {
     s32 i;
     s32 temp_v0;
     Object_2F4* obj2F4;
-    Object_408* obj408;
+    Boss* boss;
     Object_4C* obj4C;
     Object_80* obj80;
     s32 sp98;
@@ -1394,13 +1394,13 @@ void func_800481F4(Player* player) {
             }
         }
 
-        for (i = 0, obj408 = gObjects408; i < ARRAY_COUNT(gObjects408); i++, obj408++) {
-            if (obj408->obj.status == 2) {
-                temp_v0 = func_800A7974(player, obj408->info.hitbox, &sp98, obj408->obj.pos.x, obj408->obj.pos.y,
-                                        obj408->obj.pos.z, obj408->obj.rot.x, obj408->obj.rot.y, obj408->obj.rot.z,
-                                        0.0f, 0.0f, 0.0f);
+        for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {
+            if (boss->obj.status == 2) {
+                temp_v0 =
+                    func_800A7974(player, boss->info.hitbox, &sp98, boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z,
+                                  boss->obj.rot.x, boss->obj.rot.y, boss->obj.rot.z, 0.0f, 0.0f, 0.0f);
                 if (temp_v0 != 0) {
-                    Player_ApplyDamage(player, temp_v0, obj408->info.damage);
+                    Player_ApplyDamage(player, temp_v0, boss->info.damage);
                 }
             }
         }
