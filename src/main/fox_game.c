@@ -1,8 +1,6 @@
 #include "global.h"
 #include "sf64dma.h"
 
-extern void func_80187520(s32, void*);
-
 f32 D_80161A10;
 f32 D_80161A14;
 s32 gPlayerInactive[4];

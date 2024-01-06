@@ -313,7 +313,7 @@ void func_E16C50_8019EA7C(Object_2F4 *arg0) {
     } else {
         arg0->vel.z = arg0->unk_118 - D_80177D08;
         if (temp_v0 == 2) {
-            Math_SmoothStepToF(&arg0->obj.pos.x, gPlayer->pos.x, 1.0f, 100.0f, 10.0f);
+            Math_SmoothStepToF(&arg0->obj.pos.x, gPlayer[0].pos.x, 1.0f, 100.0f, 10.0f);
         } else {
             arg0->unk_114 = 14.0f;
         }
@@ -555,8 +555,8 @@ void func_E16C50_8019F20C(Object_2F4 *arg0) {
         }
         break;
     }
-    arg0->obj.rot.y = (-gPlayer->unk_058 * 180.0f) / 3.1415927f;
-    arg0->obj.rot.x = (gPlayer->unk_05C * 180.0f) / 3.1415927f;
+    arg0->obj.rot.y = (-gPlayer[0].unk_058 * 180.0f) / 3.1415927f;
+    arg0->obj.rot.x = (gPlayer[0].unk_05C * 180.0f) / 3.1415927f;
     if (!(gFrameCount & 1)) {
         arg0->unk_0B6 += 1;
         if (arg0->unk_0B6 >= 3) {
@@ -677,7 +677,7 @@ void func_E16C50_8019FAA4(Object_408_302 *arg0, Object_8C *arg1, f32 arg2, f32 a
                 sp44 = gObjects408->unk154 * 5.0f;
                 Matrix_MultVec3f(gCalcMatrix, (Vec3f *) &sp44, &sp38);
                 arg1->vel.x = (bitwise f32) sp38 * arg6;
-                arg1->vel.z = gPlayer->vel.z + (sp38.z * arg6);
+                arg1->vel.z = gPlayer[0].vel.z + (sp38.z * arg6);
             } else {
                 Matrix_RotateZ(gCalcMatrix, arg0->obj.rot.z * 0.017453292f, 0U);
                 Matrix_RotateX(gCalcMatrix, gObjects408->obj.rot.x * 0.017453292f, 1U);
@@ -689,14 +689,14 @@ void func_E16C50_8019FAA4(Object_408_302 *arg0, Object_8C *arg1, f32 arg2, f32 a
                 arg1->obj.pos.x = arg0->obj.pos.x + (bitwise f32) sp38;
                 arg1->obj.pos.y = arg0->obj.pos.y + sp38.y;
                 arg1->obj.pos.z = arg0->obj.pos.z + sp38.z;
-                arg1->vel.z = gPlayer->vel.z;
+                arg1->vel.z = gPlayer[0].vel.z;
                 arg1->vel.y = arg5;
                 if (gObjects408->unk_04E >= 2) {
                     arg1->scale2 = 15.0f;
                 }
             }
         } else {
-            arg1->vel.z = gPlayer->vel.z;
+            arg1->vel.z = gPlayer[0].vel.z;
         }
     } else {
         arg1->vel.x = (Rand_ZeroOne() - 0.5f) * 30.0f;
@@ -723,9 +723,9 @@ void func_E16C50_8019FDE0(Object_408_302 *arg0, Object_8C *arg1, f32 arg2, f32 a
     arg1->obj.pos.y = arg3;
     arg1->obj.pos.z = arg4;
     if (arg6 != 0) {
-        arg1->vel.z = gPlayer->vel.z + 80.0f;
+        arg1->vel.z = gPlayer[0].vel.z + 80.0f;
     } else {
-        arg1->vel.z = gPlayer->vel.z + 15.0f;
+        arg1->vel.z = gPlayer[0].vel.z + 15.0f;
     }
     arg1->scale2 = arg5;
     arg1->unk_60.x = 0.0f;
@@ -868,7 +868,7 @@ void func_E16C50_801A0120(Object_8C *arg0) {
                 arg0->unk_4C = 0;
             }
         }
-        if (gPlayer->state_1C8 != PLAYERSTATE_1C8_7) {
+        if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7) {
             func_8007A774(gPlayer, arg0, arg0->scale2 * 12.0f);
         }
         if (arg0->unk_60.x > 190.0f) {
@@ -943,10 +943,10 @@ void func_E16C50_801A0120(Object_8C *arg0) {
         if (gObjects408->unk_088 != 7) {
             Math_SmoothStepToF(&arg0->vel.y, -40.0f, 1.0f, 1.0f, 1.0f);
         } else {
-            arg0->vel.z = gPlayer->vel.z;
+            arg0->vel.z = gPlayer[0].vel.z;
             Math_SmoothStepToF(&arg0->vel.y, -65.0f, 2.0f, 1.0f, 0.5f);
         }
-        if (gPlayer->state_1C8 != PLAYERSTATE_1C8_7) {
+        if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7) {
             func_8007A774(gPlayer, arg0, arg0->scale2 * 12.0f);
         }
         if (arg0->obj.pos.y < -20.0f) {
@@ -991,8 +991,8 @@ void func_E16C50_801A0120(Object_8C *arg0) {
         arg0->unk_60.z += 10.0f;
         arg0->vel.x = __sinf(arg0->unk_60.z * 0.017453292f) * (arg0->unk_60.x * 10.0f);
         arg0->vel.y = __cosf(arg0->unk_60.z * 0.017453292f) * (arg0->unk_60.x * 10.0f);
-        arg0->vel.z = gPlayer->vel.z + 15.0f;
-        if (gPlayer->state_1C8 != PLAYERSTATE_1C8_7) {
+        arg0->vel.z = gPlayer[0].vel.z + 15.0f;
+        if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7) {
             func_8007A774(gPlayer, arg0, arg0->scale2 * 18.0f);
             if ((arg0->unk_4C == 0) && ((temp_fv0_3 = arg0->scale2, (temp_fv0_3 >= 9.8f)) || (temp_fv0_3 <= 4.4f))) {
                 Audio_PlaySfx(0x31033078U, &arg0->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -1019,8 +1019,8 @@ void func_E16C50_801A0120(Object_8C *arg0) {
         sp50 = var_fa1;
         arg0->vel.x = __sinf(arg0->unk_60.z * 0.017453292f) * var_fa1 * 50.0f;
         arg0->vel.y = __cosf(arg0->unk_60.z * 0.017453292f) * var_fa1 * 50.0f;
-        arg0->vel.z = gPlayer->vel.z + 80.0f;
-        if (gPlayer->state_1C8 != PLAYERSTATE_1C8_7) {
+        arg0->vel.z = gPlayer[0].vel.z + 80.0f;
+        if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7) {
             func_8007A774(gPlayer, arg0, arg0->scale2 * 18.0f);
             if ((arg0->unk_4C == 0) && ((temp_fv0_4 = arg0->scale2, (temp_fv0_4 >= 9.8f)) || (temp_fv0_4 <= 4.4f))) {
                 Audio_PlaySfx(0x31033078U, &arg0->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -1192,14 +1192,14 @@ void func_E16C50_801A0FD4(Object_2F4 *arg0, s32 arg1) {
         arg0->obj.status = 2;
         arg0->obj.id = 0xC3;
         temp_v0 = &D_E16C50_801BF95C[arg1];
-        arg0->obj.pos.x = gPlayer->pos.x + temp_v0->x;
-        arg0->obj.pos.y = gPlayer->pos.y + temp_v0->y;
+        arg0->obj.pos.x = gPlayer[0].pos.x + temp_v0->x;
+        arg0->obj.pos.y = gPlayer[0].pos.y + temp_v0->y;
         arg0->unk_0B8 = 0;
         arg0->unk_07C = 1;
         arg0->vel.z = 0.0f;
         arg0->vel.y = 0.0f;
         arg0->obj.rot.x = 0.0f;
-        arg0->obj.pos.z = gPlayer->pos.z + temp_v0->z;
+        arg0->obj.pos.z = gPlayer[0].pos.z + temp_v0->z;
         arg0->obj.rot.y = 180.0f;
         Object_SetInfo(&arg0->info, 0xC3U & 0xFFFF);
         Audio_PlaySfx(0x3100000CU, &arg0->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -1412,7 +1412,7 @@ void func_E16C50_801A10F4(Player *player) {
             D_80178488 = 1;
             D_80178358 = 0;
             player->timer_1F8 = 0xF;
-            gPlayer->shields = 0xFF;
+            gPlayer[0].shields = 0xFF;
         }
         break;
     case 10:
@@ -1852,7 +1852,7 @@ void func_E16C50_801A2C98(Object_408_302 *bossSO) {
                 bossSO->unk_0D8[3] = 4800.0f;
                 bossSO->obj.pos.y = -500.0f;
                 bossSO->obj.rot.y = -bossSO->obj.rot.y;
-                bossSO->obj.pos.z = gPlayer->unk_138 - 4800.0f;
+                bossSO->obj.pos.z = gPlayer[0].unk_138 - 4800.0f;
             }
         } else {
             bossSO->unk4C = Animation_GetFrameCount(&D_601388C) - 2;
@@ -1916,7 +1916,7 @@ void func_E16C50_801A3128(Object_408_302 *bossSO) {
                 bossSO->unk_088[0xB] = 0x64;
                 bossSO->obj.pos.y = -500.0f;
                 bossSO->unk_0D8[3] = 2400.0f;
-                bossSO->obj.pos.z = gPlayer->unk_138 - 2100.0f;
+                bossSO->obj.pos.z = gPlayer[0].unk_138 - 2100.0f;
             }
         } else {
             bossSO->unk4C = Animation_GetFrameCount(&D_601388C) - 2;
@@ -2100,7 +2100,7 @@ void func_E16C50_801A3510(Object_408_302 *bossSO) {
         Object_Kill(&(gObjects2F4 + 0x11B8)->obj, gObjects2F4 + 0x12B8);
         return;
     }
-    Math_SmoothStepToF(gObjects2F4 + 0x11BC, gPlayer->pos.x, 0.1f, 10.0f, 0.1f);
+    Math_SmoothStepToF(gObjects2F4 + 0x11BC, gPlayer[0].pos.x, 0.1f, 10.0f, 0.1f);
 }
 
 void func_E16C50_801A3C4C(Object_408_302 *arg0) {
@@ -2255,20 +2255,20 @@ void func_E16C50_801A3C4C(Object_408_302 *arg0) {
         func_800182F4(0x110100FF);
         func_8001A838(0x4100C023U);
         Audio_PlaySfx(0x2940D09AU, sp2C, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-        if (gPlayer->state_1C8 == PLAYERSTATE_1C8_3) {
-            gPlayer->state_1C8 = PLAYERSTATE_1C8_7;
-            gPlayer->timer_1F8 = 0;
-            gPlayer->unk_1D0 = gPlayer->timer_1F8;
-            gPlayer->unk_0E8 += gPlayer->unk_114;
-            var_fv0 = gPlayer->unk_0E8;
+        if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) {
+            gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
+            gPlayer[0].timer_1F8 = 0;
+            gPlayer[0].unk_1D0 = gPlayer[0].timer_1F8;
+            gPlayer[0].unk_0E8 += gPlayer[0].unk_114;
+            var_fv0 = gPlayer[0].unk_0E8;
             if (var_fv0 > 360.0f) {
-                gPlayer->unk_0E8 = var_fv0 - 360.0f;
-                var_fv0 = gPlayer->unk_0E8;
+                gPlayer[0].unk_0E8 = var_fv0 - 360.0f;
+                var_fv0 = gPlayer[0].unk_0E8;
             }
             if (var_fv0 < 0.0f) {
-                gPlayer->unk_0E8 = var_fv0 + 360.0f;
+                gPlayer[0].unk_0E8 = var_fv0 + 360.0f;
             }
-            gPlayer->unk_114 = 0.0f;
+            gPlayer[0].unk_114 = 0.0f;
         }
         arg0->unk_0D8[0x1F] = 0.0f;
         arg0->unk_0D8[3] = 2400.0f;
@@ -2608,7 +2608,7 @@ void func_E16C50_801A4EF8(Object_408_302 *bossSO) {
             bossSO->obj.rot.y = 0.0f;
             bossSO->vel.y = 0.0f;
             bossSO->obj.rot.x = 0.0f;
-            bossSO->obj.pos.z = gPlayer->unk_138 - 4800.0f;
+            bossSO->obj.pos.z = gPlayer[0].unk_138 - 4800.0f;
         }
         bossSO->unk_07C = bossSO->obj.rot.y;
         return;
@@ -2632,7 +2632,7 @@ void func_E16C50_801A4EF8(Object_408_302 *bossSO) {
             }
             if (bossSO->unk_088[0xB] < 0xAB) {
                 bossSO->vel.y = __cosf(bossSO->obj.rot.x * 0.017453292f) * 80.0f;
-                bossSO->vel.z = gPlayer->vel.z + (__sinf(bossSO->obj.rot.x * 0.017453292f) * 30.0f);
+                bossSO->vel.z = gPlayer[0].vel.z + (__sinf(bossSO->obj.rot.x * 0.017453292f) * 30.0f);
             }
             temp_fv0 = bossSO->obj.rot.x;
             if (temp_fv0 < 190.0f) {
@@ -2653,7 +2653,7 @@ void func_E16C50_801A4EF8(Object_408_302 *bossSO) {
                 bossSO->obj.rot.x = 0.0f;
                 bossSO->unk_0D8[0x1F] = 0.0f;
                 bossSO->vel.y = 0.0f;
-                bossSO->obj.pos.z = gPlayer->unk_138 - 4800.0f;
+                bossSO->obj.pos.z = gPlayer[0].unk_138 - 4800.0f;
                 bossSO->vel.z = 0.0f;
                 bossSO->obj.rot.y = 330.0f;
                 return;
@@ -2829,7 +2829,7 @@ void func_E16C50_801A5B3C(Object_408_302 *bossSO) {
         func_800BA808(gMsg_ID_10320, RCID_PEPPY);
     }
     if (bossSO->unk_060 != 0) {
-        Math_SmoothStepToF(&bossSO->obj.pos.z, gPlayer->unk_138 - bossSO->unk_0D8[3], 1.0f, 60.0f, 1.0f);
+        Math_SmoothStepToF(&bossSO->obj.pos.z, gPlayer[0].unk_138 - bossSO->unk_0D8[3], 1.0f, 60.0f, 1.0f);
     } else {
         Math_SmoothStepToF(&bossSO->obj.pos.z, -(D_80177D20 + 2600.0f), 1.0f, 40.0f, 1.0f);
     }
@@ -2968,9 +2968,9 @@ block_82:
     Matrix_RotateX(gCalcMatrix, -bossSO->obj.rot.x * 0.017453292f, 1U);
     Matrix_RotateY(gCalcMatrix, -bossSO->obj.rot.y * 0.017453292f, 1U);
     if ((bossSO->unk_060 > 0) && (bossSO->unk_088[0] == 1)) {
-        sp44 = gPlayer->pos.x - bossSO->obj.pos.x;
-        sp48 = gPlayer->pos.y - bossSO->obj.pos.y;
-        sp4C = gPlayer->pos.z - bossSO->obj.pos.z;
+        sp44 = gPlayer[0].pos.x - bossSO->obj.pos.x;
+        sp48 = gPlayer[0].pos.y - bossSO->obj.pos.y;
+        sp4C = gPlayer[0].pos.z - bossSO->obj.pos.z;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, (Vec3f *) &sp44, &sp38);
         temp_fv0 = Math_RadToDeg(Math_Atan2F((bitwise f32) sp38, sp38.z));
         sp1C4 = temp_fv0;
@@ -3409,10 +3409,10 @@ void func_E16C50_801A7750(void) {
             Object_2F4_Initialize(var_s0);
             var_s0->obj.status = 1;
             var_s0->obj.id = 0xC3;
-            var_s0->obj.pos.x = gPlayer->pos.x + (temp_s1->x * 0.5f);
-            var_s0->obj.pos.y = gPlayer->pos.y + temp_s1->y;
+            var_s0->obj.pos.x = gPlayer[0].pos.x + (temp_s1->x * 0.5f);
+            var_s0->obj.pos.y = gPlayer[0].pos.y + temp_s1->y;
             var_s0->unk_0B8 = 1;
-            var_s0->obj.pos.z = gPlayer->pos.z + temp_s1->z;
+            var_s0->obj.pos.z = gPlayer[0].pos.z + temp_s1->z;
             Object_SetInfo(&var_s0->info, 0xC3U & 0xFFFF);
             var_s0->unk_07C = (s32) 1;
             Audio_PlaySfx(0x3100000CU, &var_s0->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);

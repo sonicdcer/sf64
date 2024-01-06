@@ -125,7 +125,7 @@ AnimationHeader* D_800CA1F4[] = {
     D_60265B4, D_602B8DC, D_60034C4, D_602A2CC, D_602CEB4, D_602B778, (AnimationHeader*) 0x0601F3B8,
 };
 
-extern void func_8018769C(Player*);
+extern void func_E6A810_8018769C(Player*);
 extern void func_801882CC(Player*, OSContPad**, OSContPad**);
 extern void func_8018CD8C(Player*);
 extern void func_8018DA58(Object_2F4*);
@@ -151,10 +151,10 @@ extern void func_8019DD20(Object_2F4*);
 extern void func_8019E5F0(Object_2F4*);
 extern void func_8019EE60(Player*);
 extern void func_8019FF00(Object_2F4*);
-extern void func_801A0AC0(Player*);
+extern void func_E9F1D0_801A0AC0(Player*);
 extern void func_801A8BE8(Object_2F4*);
 extern void func_801AB9B0(Player*);
-extern void func_801AC754(Player*);
+extern void func_E6A810_801AC754(Player*);
 extern void func_801AF8F4(Player*, OSContPad**, OSContPad**);
 extern void func_801B28BC(Object_2F4*);
 extern void func_801B3D04(Player*, OSContPad**, OSContPad**);
@@ -391,9 +391,9 @@ void func_80049630(Object_2F4* obj2F4) {
 
     switch (obj2F4->unk_0B8) {
         case 0:
-            obj2F4->unk_18C[0].x = D_800C9FA0[obj2F4->index].x + gPlayer->pos.x;
-            obj2F4->unk_18C[0].y = D_800C9FA0[obj2F4->index].y + gPlayer->pos.y;
-            obj2F4->unk_18C[0].z = D_800C9FA0[obj2F4->index].z + gPlayer->pos.z;
+            obj2F4->unk_18C[0].x = gPlayer[0].pos.x + D_800C9FA0[obj2F4->index].x ;
+            obj2F4->unk_18C[0].y = gPlayer[0].pos.y + D_800C9FA0[obj2F4->index].y ;
+            obj2F4->unk_18C[0].z = gPlayer[0].pos.z + D_800C9FA0[obj2F4->index].z ;
             Math_SmoothStepToF(&obj2F4->obj.pos.x, obj2F4->unk_18C[0].x, 0.05f, 50.0f, 0.0001f);
             Math_SmoothStepToF(&obj2F4->obj.pos.y, obj2F4->unk_18C[0].y, 0.05f, 50.0f, 0.0001f);
             Math_SmoothStepToF(&obj2F4->obj.pos.z, obj2F4->unk_18C[0].z, 0.05f, 50.0f, 0.0001f);
@@ -682,17 +682,17 @@ void func_8004A52C(Player* player) {
                 func_80193A30(player);
                 break;
             case LEVEL_TITANIA:
-                func_8018769C(player);
+                func_E6A810_8018769C(player);
                 func_800AA800(player);
                 break;
             case LEVEL_ZONESS:
                 func_E16C50_8019D428(player);
                 break;
             case LEVEL_MACBETH:
-                func_801AC754(player);
+                func_E6A810_801AC754(player);
                 break;
             case LEVEL_SECTOR_Y:
-                func_801A0AC0(player);
+                func_E9F1D0_801A0AC0(player);
                 break;
             case LEVEL_SOLAR:
                 func_E16C50_801A10F4(player);
@@ -2032,9 +2032,9 @@ void func_8004EBD0(Object_2F4* obj2F4) {
                 obj2F4->unk_168 = 0.6f;
             }
             obj2F4->unk_124.z += 1.0f;
-            Matrix_RotateY(gCalcMatrix, (gPlayer[0].unk_0E8 + 180.0f) * M_DTOR, 0);
-            Matrix_RotateX(gCalcMatrix, -(gPlayer[0].unk_0E4 * M_DTOR), 1);
-            Matrix_RotateZ(gCalcMatrix, -((gPlayer[0].unk_0F0 + gPlayer->unk_0F8) * M_DTOR), 1);
+            Matrix_RotateY(gCalcMatrix,   (gPlayer[0].unk_0E8 + 180.0f) * M_DTOR, 0);
+            Matrix_RotateX(gCalcMatrix,  -(gPlayer[0].unk_0E4 * M_DTOR), 1);
+            Matrix_RotateZ(gCalcMatrix, -((gPlayer[0].unk_0F8 + gPlayer[0].unk_0F0) * M_DTOR), 1);
             src.x = 0.0f;
             src.y = 0.0f;
             src.z = obj2F4->unk_124.z * obj2F4->unk_124.z;

@@ -1974,7 +1974,7 @@ void func_800674B4(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 arg5, f
 }
 
 void func_8006753C(Object_2F4* obj2F4) {
-    Player* player = gPlayer; // fake?
+    Player* player = &gPlayer[0];
     s32 i;
 
     obj2F4->obj.rot.y += 1.0f;

@@ -1879,7 +1879,7 @@ void func_800A8BA4(Player* player) {
                                     if (D_80177E80 == 3) {
                                         func_800BA808(gMsg_ID_5504, RCID_FALCO);
                                     }
-                                    Audio_PlaySfx(D_800CFF54[D_80177E80], &gPlayer->unk_460, 0, &D_800C5D34,
+                                    Audio_PlaySfx(D_800CFF54[D_80177E80], &gPlayer[0].unk_460, 0, &D_800C5D34,
                                                   &D_800C5D34, &D_800C5D3C);
                                     Audio_PlaySfx(0x49008025, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                                 }
@@ -5402,7 +5402,7 @@ void func_800B48BC(Player* player) {
                 }
                 if (D_80178340 == 0xFF) {
                     func_800A6148();
-                    D_80177D20 = gPlayer->unk_144 = 0.0f;
+                    D_80177D20 = gPlayer[0].unk_144 = 0.0f;
                     D_80178380[0] = 0;
                     D_8015F93C = gRadioState = 0;
                     func_8001AE58();
@@ -5468,7 +5468,7 @@ void func_800B48BC(Player* player) {
     Math_SmoothStepToF(&player->unk_09C, sp1C8, 1.0f, 10.0f, 0.0f);
     if (player->form == FORM_ARWING) {
         Math_SmoothStepToF(&player->unk_194, player->unk_190, 0.5f, 5.0f, 0.0f);
-        if (player->unk_2B4 && (gPlayer->state_1C8 == PLAYERSTATE_1C8_3)) {
+        if (player->unk_2B4 && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3)) {
             player->unk_190 = 0.5f;
         } else {
             player->unk_190 = 1.0f;
@@ -5853,14 +5853,14 @@ void func_800B6F50(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
     }
     var_ft5 = 0.0f;
     if (gCurrentLevel == LEVEL_UNK_15) {
-        var_ft5 = gPlayer->camEye.y * 0.03f;
+        var_ft5 = gPlayer[0].camEye.y * 0.03f;
     }
     sp30 = (2.0f * (-sp2C * (-8.0f / 3.0f * M_RTOD))) + 3000.0f + D_80178430 + var_ft5;
     sp34 = (2.0f * (sp28 * (-8.0f / 3.0f * M_RTOD))) + 3000.0f + D_8017842C;
     sp20 = D_80178420;
     D_80178420 = Math_ModF(sp34, 480.0f);
     D_80178424 = Math_ModF(sp30, 360.0f);
-    if ((gGameState == GSTATE_PLAY) && (gPlayer->state_1C8 == PLAYERSTATE_1C8_2) && (gCurrentLevel == LEVEL_METEO)) {
+    if ((gGameState == GSTATE_PLAY) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2) && (gCurrentLevel == LEVEL_METEO)) {
         if (fabsf(D_80178420 - sp20) < 50.0f) {
             D_8015F96C = 0.0f;
             if (fabsf(D_80178420 - sp20) > 3.0f) {
@@ -5937,7 +5937,7 @@ void func_800B73E0(Player* player) {
     Vec3f sp38;
     f32 pad;
 
-    if ((gCurrentLevel == LEVEL_AQUAS) && (gPlayer->state_1C8 != PLAYERSTATE_1C8_2)) {
+    if ((gCurrentLevel == LEVEL_AQUAS) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_2)) {
         D_801784D4 = D_801784C8 = D_801784C8 = D_801784FC = D_801784C8 = 110.0f;
         if (gFrameCount & 0x20) {
             D_801784D4 = D_801784C8 = D_801784C8 = D_801784FC = D_801784C8 = 90.0f;
@@ -6048,11 +6048,11 @@ void func_800B79B0(void) {
             }
             break;
         case LEVEL_VENOM_2:
-            if ((gPlayer->state_1C8 != PLAYERSTATE_1C8_7) && (D_8017827C == 2)) {
-                gPlayer->state_1C8 = PLAYERSTATE_1C8_7;
-                gPlayer->unk_1D0 = 0;
-                gPlayer->unk_234 = 1;
-                gPlayer->pos.z = 15000.0f;
+            if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7) && (D_8017827C == 2)) {
+                gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
+                gPlayer[0].unk_1D0 = 0;
+                gPlayer[0].unk_234 = 1;
+                gPlayer[0].pos.z = 15000.0f;
                 func_800B7184(gPlayer, 1);
                 D_80178340 = 255;
                 D_8017835C = 255;
@@ -6064,8 +6064,8 @@ void func_800B79B0(void) {
         case LEVEL_VENOM_ANDROSS:
             func_E9F1D0_8018BDD8();
             D_80177940 = -25000.0f;
-            gPlayer->unk_0A0 = 612.0f;
-            gPlayer->unk_0A4 = -544.0f;
+            gPlayer[0].unk_0A0 = 612.0f;
+            gPlayer[0].unk_0A4 = -544.0f;
             if (D_Timer_80177B44 != 0) {
                 D_Timer_80177B44--;
                 if (D_Timer_80177B44 == 0) {
@@ -6079,7 +6079,7 @@ void func_800B79B0(void) {
         case LEVEL_SECTOR_X:
             if (D_8017827C == 1) {
                 gBlurAlpha = 128;
-                if (gPlayer->state_1C8 == PLAYERSTATE_1C8_7) {
+                if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) {
                     Math_SmoothStepToF(&D_8015F960, 0.0f, 1.0f, 1.0f, 0.0f);
                 } else {
                     Math_SmoothStepToF(&D_8015F960, 128.0f, 1.0f, 1.0f, 0.0f);
@@ -6087,8 +6087,8 @@ void func_800B79B0(void) {
             }
             if ((gCurrentLevel == LEVEL_SECTOR_X) && (D_8017827C == 0) && (D_80177E80 == 4)) {
                 D_80177E80++;
-                gPlayer->state_1C8 = PLAYERSTATE_1C8_8;
-                gPlayer->unk_1D0 = 0;
+                gPlayer[0].state_1C8 = PLAYERSTATE_1C8_8;
+                gPlayer[0].unk_1D0 = 0;
                 gOverlayStage = 1;
                 Audio_PlaySfx(0x1900602A, &D_800C5D28, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 D_80177930 = 2;
@@ -6110,7 +6110,7 @@ void func_800B79B0(void) {
             for (D_80177CE8; D_80177CE8 >= 10.0f; D_80177CE8 -= 10.0f) {
                 Texture_Scroll(D_6005710, 32, 32, 1);
             }
-            if (gPlayer->state_1C8 == PLAYERSTATE_1C8_6) {
+            if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_6) {
                 Texture_Scroll(D_6005710, 32, 32, 1);
             }
             Texture_Mottle(D_601E1E8, D_6020F60, 3);
@@ -6152,13 +6152,13 @@ void func_800B79B0(void) {
             }
             var_a0 = MIN(gPlayer[0].shields, 0xFF);
             func_8001D1C8(var_a0, sp3A);
-            if (!(gFrameCount & 7) && (gPlayer->state_1C8 != PLAYERSTATE_1C8_7)) {
+            if (!(gFrameCount & 7) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7)) {
                 func_E16C50_8019E8B8((Rand_ZeroOne() - 0.5f) * 6000.0f, -80.0f,
-                                     (Rand_ZeroOne() * 2000.0f) + -6000.0f + gPlayer->unk_138,
+                                     gPlayer[0].unk_138 + ((Rand_ZeroOne() * 2000.0f) + -6000.0f),
                                      (Rand_ZeroOne() * 10.0f) + 20.0f);
             }
             func_8008C104(D_60229A4, D_6010198);
-            if (gPlayer->shields == 0) {
+            if (gPlayer[0].shields == 0) {
                 D_80177B4C = 1;
             }
             break;
@@ -6167,11 +6167,11 @@ void func_800B79B0(void) {
             for (D_80177CE8; D_80177CE8 >= 20.0f; D_80177CE8 -= 20.0f) {
                 Texture_Scroll(D_602C2CC, 32, 32, 1);
             }
-            if (gPlayer->state_1C8 == PLAYERSTATE_1C8_6) {
+            if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_6) {
                 Texture_Scroll(D_602C2CC, 32, 32, 1);
             }
             func_8008C104(D_602C2CC, D_600D990);
-            if (func_800A73E4(&sp3C, &sp40, gPlayer->camEye.x, gPlayer->camEye.y, gPlayer->camEye.z - D_80177D20)) {
+            if (func_800A73E4(&sp3C, &sp40, gPlayer[0].camEye.x, gPlayer[0].camEye.y, gPlayer[0].camEye.z - D_80177D20)) {
                 gLight1R = 0;
                 gLight1G = 7;
                 gLight1B = 10;
@@ -6293,11 +6293,11 @@ void func_800B86CC(void) {
         } else if (gCurrentLevel == LEVEL_TRAINING) {
             func_DF4260_80198C50();
         }
-        func_800B86A4(&gPlayer->pos.z);
-        func_800B86A4(&gPlayer->unk_138);
-        gPlayer->camEye.z += 15000.0f;
-        gPlayer->camAt.z += 15000.0f;
-        gPlayer->unk_144 = gPlayer->unk_140 = D_80177D08 = D_80177D20 = 0.0f;
+        func_800B86A4(&gPlayer[0].pos.z);
+        func_800B86A4(&gPlayer[0].unk_138);
+        gPlayer[0].camEye.z += 15000.0f;
+        gPlayer[0].camAt.z += 15000.0f;
+        gPlayer[0].unk_144 = gPlayer[0].unk_140 = D_80177D08 = D_80177D20 = 0.0f;
     }
     if (D_80177854 != 100) {
         (void) "play_time = %d\n";
@@ -6325,7 +6325,7 @@ void func_800B86CC(void) {
             gDrawMode = DRAWMODE_4;
             func_800B832C();
             if ((gControllerPress[gMainController].button & START_BUTTON) &&
-                (gPlayer->state_1C8 == PLAYERSTATE_1C8_2) &&
+                (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2) &&
                 gSaveFile.save.data.planet[D_800D2F6C[gCurrentLevel]].normalClear) {
                 func_8001AE58();
                 func_8001D400(0);

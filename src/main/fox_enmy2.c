@@ -110,7 +110,6 @@ bool func_8006ABA4(Object_2F4* obj2F4) {
     return false;
 }
 
-// fake? gPlayer[0]. doesn't match
 void func_8006AC08(Object_2F4* obj2F4) {
     f32 sp2C;
 
@@ -119,10 +118,10 @@ void func_8006AC08(Object_2F4* obj2F4) {
         obj2F4->timer_0BC = 20;
     }
     sp2C = obj2F4->obj.pos.z + D_80177D20;
-    obj2F4->obj.rot.y = Math_RadToDeg(Math_Atan2F(gPlayer->camEye.x - obj2F4->obj.pos.x, gPlayer->camEye.z - sp2C));
+    obj2F4->obj.rot.y = Math_RadToDeg(Math_Atan2F(gPlayer[0].camEye.x - obj2F4->obj.pos.x, gPlayer[0].camEye.z - sp2C));
     obj2F4->obj.rot.x =
-        -Math_RadToDeg(Math_Atan2F(gPlayer->camEye.y - obj2F4->obj.pos.y,
-                                   sqrtf(SQ(gPlayer->camEye.x - obj2F4->obj.pos.x) + SQ(gPlayer->camEye.z - sp2C))));
+        -Math_RadToDeg(Math_Atan2F(gPlayer[0].camEye.y - obj2F4->obj.pos.y,
+                                   sqrtf(SQ(gPlayer[0].camEye.z - sp2C) + SQ(gPlayer[0].camEye.x - obj2F4->obj.pos.x))));
 }
 
 void func_8006AD18(Object_2F4* obj2F4) {
@@ -478,7 +477,6 @@ void func_8006BF7C(f32 xPos, f32 yPos, f32 zPos) {
     }
 }
 
-// fake? gPlayer[0]. doesn't match
 Vec3f D_800D0030 = { 0.0f, -10.0f, 0.0f }; // could be in-function
 void func_8006C008(Object_2F4* obj2F4) {
     f32 sp4C;
@@ -489,8 +487,8 @@ void func_8006C008(Object_2F4* obj2F4) {
     switch (obj2F4->unk_0B8) {
         case 40:
             if (obj2F4->unk_04A & 4) {
-                obj2F4->obj.pos.x = obj2F4->unk_120 + gPlayer->pos.x;
-                obj2F4->obj.pos.z = obj2F4->unk_124.x + gPlayer->unk_138;
+                obj2F4->obj.pos.x = gPlayer[0].pos.x + (*obj2F4).unk_120;
+                obj2F4->obj.pos.z = gPlayer[0].unk_138 + (*obj2F4).unk_124.x;
             }
 
             obj2F4->obj.rot.x += obj2F4->unk_114;
@@ -2953,7 +2951,7 @@ void func_80072594(Object_2F4* obj2F4) {
     spD8 = 0.0f;
     spD4 = 0.0f;
 
-    if ((gPlayer->state_1C8 == PLAYERSTATE_1C8_7) || (D_8017828C != 0)) {
+    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) || (D_8017828C != 0)) {
         Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
         return;
     }
@@ -2972,7 +2970,7 @@ void func_80072594(Object_2F4* obj2F4) {
             return;
         }
         if (obj2F4->unk_0B4 == 300) {
-            gPlayer->unk_1A4 = obj2F4->index;
+            gPlayer[0].unk_1A4 = obj2F4->index;
             obj2F4->timer_0C2 = 100;
         } else if (obj2F4->unk_0B4 >= 200) {
             obj2F4->unk_04E++;
@@ -3035,13 +3033,13 @@ void func_80072594(Object_2F4* obj2F4) {
                     Matrix_RotateY(gCalcMatrix, -obj2F4->unk_2E8.y * M_DTOR, 1);
 
                     if ((obj2F4->unk_0B8 == 0xE) || (obj2F4->unk_0B8 == 0xF)) {
-                        spB8.x = gPlayer->camEye.x - spF0;
-                        spB8.y = gPlayer->camEye.y - (spEC + 25.0f);
-                        spB8.z = (gPlayer->camEye.z * 15.0f) - spE8;
+                        spB8.x =  gPlayer[0].camEye.x - spF0;
+                        spB8.y =  gPlayer[0].camEye.y - (spEC + 25.0f);
+                        spB8.z = (gPlayer[0].camEye.z * 15.0f) - spE8;
                     } else {
-                        spB8.x = gPlayer->pos.x - spF0;
-                        spB8.y = gPlayer->pos.y - (spEC + 25.0f);
-                        spB8.z = (gPlayer->vel.z * 15.0f) + gPlayer->pos.z - spE8;
+                        spB8.x = gPlayer[0].pos.x - spF0;
+                        spB8.y = gPlayer[0].pos.y - (spEC + 25.0f);
+                        spB8.z = gPlayer[0].pos.z + (gPlayer[0].vel.z * 15.0f) - spE8;
                     }
 
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &spB8, &spAC);
@@ -3099,13 +3097,13 @@ void func_80072594(Object_2F4* obj2F4) {
                     }
                 } else {
                     if ((obj2F4->unk_0B8 == 0xE) || (obj2F4->unk_0B8 == 0xF)) {
-                        spCC = gPlayer->camEye.x;
-                        spC8 = gPlayer->camEye.y;
-                        spC4 = gPlayer->camEye.z;
+                        spCC = gPlayer[0].camEye.x;
+                        spC8 = gPlayer[0].camEye.y;
+                        spC4 = gPlayer[0].camEye.z;
                     } else {
-                        spCC = gPlayer->pos.x;
-                        spC8 = gPlayer->pos.y;
-                        spC4 = gPlayer->pos.z;
+                        spCC = gPlayer[0].pos.x;
+                        spC8 = gPlayer[0].pos.y;
+                        spC4 = gPlayer[0].pos.z;
                     }
 
                     Math_SmoothStepToAngle(&obj2F4->unk_2E8.z, 0.0f, 0.1f, 5.0f, 0.0001f);
@@ -3366,7 +3364,7 @@ void func_80072594(Object_2F4* obj2F4) {
             obj2F4->vel.z -= D_80177D08;
         }
 
-        if (gPlayer->state_1C8 == PLAYERSTATE_1C8_8) {
+        if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_8) {
             obj2F4->vel.z = 100.0f;
         }
 
@@ -4082,7 +4080,7 @@ void func_80074FF0(Object_2F4* obj2F4) {
 
                 case 103:
                 case 104:
-                    func_E6A810_8018769C(obj2F4);
+                    func_E9F1D0_8018769C(obj2F4);
                     break;
 
                 case 105:

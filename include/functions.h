@@ -745,7 +745,7 @@ void func_E51970_8019EA68(Object_58**);
 
 
 void func_E6A810_80187520(s32, void*);
-void func_E6A810_8018769C(Object_2F4 *);
+void func_E6A810_8018769C(Player *);
 void func_E6A810_80188F30(void);
 void func_E6A810_80189B80(Object_2F4 *);
 void func_E6A810_8018ADC4(Object_2F4 *);
@@ -775,8 +775,12 @@ void func_E6A810_801B58AC(Gfx **, f32);
 bool func_E6A810_801B6AEC(f32, f32, f32);
 void func_E6A810_801B6E20(f32, f32, f32 *, f32 *, f32 *);
 void func_E6A810_801AD144(PlayerShot*);
+void func_E6A810_80189120(f32 x, f32 y, f32 z, f32, f32);
+bool func_E6A810_801A3C20(f32);
+s32 func_E6A810_801A3300(Player*, f32, f32);
+s32 func_E6A810_801A3790(Player*, f32, f32);
 
-
+void func_E9F1D0_8018769C(Object_2F4*);
 void func_E9F1D0_80187520(s32, void*);
 void func_E9F1D0_801878A8(Object_58**);
 void func_E9F1D0_801888F4(Object_2F4 *);
