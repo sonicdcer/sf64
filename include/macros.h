@@ -16,4 +16,7 @@
 #define USEC_TO_CYCLES(n) (((u64)(n)*(osClockRate/15625LL))/(1000000LL/15625LL))
 #define MSEC_TO_CYCLES(n) (USEC_TO_CYCLES((n) * 1000LL))
 
+#define CYCLES_TO_USEC(c)    (((u64)(c)*(1000000LL/15625LL))/(osClockRate/15625LL))
+#define CYCLES_TO_MSEC(c) ((s32)CYCLES_TO_USEC(c)/1000)
+
 #endif // MACROS_H

@@ -778,7 +778,22 @@ extern s32 D_8017874C;
 extern s32 D_80178750;
 extern s32 D_80178754;
 extern s32 D_80178758;
+extern s32 D_8017875C;
+extern s32 D_80178760;
 extern s32 D_80178768[];
+extern s32 D_80178768[];
+extern s32 D_80178780[4];
+extern s32 D_80178790;
+extern s32 D_80178794;
+extern s32 D_801787B4;
+extern f32 D_801787D8[4];
+extern f32 D_801787E8[4];
+extern s32 D_801787F8[4];
+extern s32 D_80178820[4];
+extern s32 D_80178838[5];
+
+
+
 
 // fox_save
 extern SaveFile gSaveFile;
