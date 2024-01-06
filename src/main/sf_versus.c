@@ -1,26 +1,145 @@
-#include "common.h"
+#include "global.h"
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BC760.s")
+extern u8 D_30003A0[];
+extern u16 D_30004E0[];
+extern u8 D_3000510[];
+extern u16 D_30006A0[];
+extern u8 D_3001420[];
+extern u16 D_3003E20[];
+extern u8 D_3004010[];
+extern u16 D_3004D58[];
+extern u8 D_3006C60[];
+extern u16 D_3007500[];
+extern u8 D_300A470[];
+extern u16 D_300B218[];
+extern Gfx D_7003830[];
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BC88C.s")
+void func_800BC760(void) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BC8D8.s")
+    Memory_FreeAll();
+    func_800A6148();
 
+    for (i = 0; i < gCamCount; i++) {
+        Audio_KillSfx(gPlayer[i].unk_460_arr);
+        func_8001CA24(i);
+    }
+
+    gGameState = GSTATE_INIT;
+    D_Timer_8017783C = 2;
+    gCamCount = GSTATE_INIT;
+    D_80177854 = 0;
+    gDrawMode = DRAWMODE_0;
+    D_80177AE0 = 0;
+    D_8017784C = 0;
+    D_80177B40 = 0;
+    gBgColor = 0;
+    D_80178380[0] = 0;
+    D_80178380[1] = 0;
+    D_80178380[2] = 0;
+    D_80178380[3] = 0;
+    gOverlayStage = 0;
+    gRadioState = 0;
+    gVersusMode = 0;
+    D_80178358 = 0;
+    D_80178340 = 0xFF;
+    D_80177824 = GSTATE_INIT;
+}
+
+void func_800BC88C(f32 xPos, f32 yPos, f32 scale) {
+    TextureRect_8bIA(&gMasterDisp, &D_7003830, 64, 17, xPos, yPos, scale, scale);
+}
+
+void func_800BC8D8(f32 xPos, f32 yPos, f32 scale) {
+    s32 i;
+
+    for (i = 0; i < 2; i++) {
+        TextureRect_8bCI(&gMasterDisp, D_300A470 + (i * 152 * 8), D_300B218, 152, 8, xPos, yPos + (8 * i * scale),
+                         scale, scale);
+    }
+
+    TextureRect_8bCI(&gMasterDisp, D_300A470 + (152 * 8 * i), D_300B218, 152, 7, xPos, yPos + (8 * i * scale), scale,
+                     scale);
+}
+
+// needs in-function data
+#ifdef IMPORT_DATA
+void func_800BC9DC(f32 xPos, f32 yPos, f32 scale, s32 yScale) {
+    u16* D_800D4AA4[] = { (u16*) 0x03008DE0, (u16*) 0x03008DE0, (u16*) 0x03008DE0 };
+    u8* D_800D4ABC[] = { (u8*) 0x030087A0, (u8*) 0x03008EC0, (u8*) 0x03009990 };
+    s32 D_800D4AB0[] = { 40, 64, 64 };
+    s32 i;
+
+    for (i = 0; i < 5; i++) {
+        TextureRect_8bCI(&gMasterDisp, D_800D4ABC[yScale] + (D_800D4AB0[yScale] * 8 * i), D_800D4AA4[yScale],
+                         D_800D4AB0[yScale], 8, xPos, yPos + (8 * i * scale), scale, scale);
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BC9DC.s")
+#endif
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BCB44.s")
+void func_800BCB44(f32 xPos, f32 yPos, f32 scale) {
+    s32 i;
 
+    for (i = 0; i < 2; i++) {
+        TextureRect_8bCI(&gMasterDisp, D_3006C60 + (96 * 8 * i), D_3007500, 96, 8, xPos, yPos + (8 * i * scale), scale,
+                         scale);
+    }
+    TextureRect_8bCI(&gMasterDisp, D_3006C60 + (96 * 8 * i), D_3007500, 96, 7, xPos, yPos + (8 * i * scale), scale,
+                     scale);
+}
+
+// needs in-function data
+#ifdef IMPORT_DATA
+void func_800BCC48(f32 xPos, f32 yPos, f32 xScale, f32 yScale, s32 arg4) {
+    u16* D_800D4AC8[] = { (u16*) 0x03006A68, (u16*) 0x03008598, (u16*) 0x0300C458, (u16*) 0x03005E38 };
+    u8* D_800D4AD8[] = { (u8*) 0x03006040, (u8*) 0x030076C0, (u8*) 0x0300B3F0, (u8*) 0x03004F60 };
+    s32 D_800D4AE8[] = { 104, 152, 168, 152 };
+    s32 i;
+
+    for (i = 0; i < 3; i++) {
+        TextureRect_8bCI(&gMasterDisp, D_800D4AD8[arg4] + (D_800D4AE8[arg4] * 8 * i), D_800D4AC8[arg4],
+                         D_800D4AE8[arg4], 8, xPos, yPos + (8 * i * yScale), xScale, yScale);
+    }
+    TextureRect_8bCI(&gMasterDisp, D_800D4AD8[arg4] + (D_800D4AE8[arg4] * 8 * i), D_800D4AC8[arg4], D_800D4AE8[arg4], 1,
+                     xPos, yPos + (8 * i * yScale), xScale, yScale);
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BCC48.s")
+#endif
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BCE24.s")
+void func_800BCE24(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BCEF8.s")
+    for (i = 0; i < 6; i++) {
+        TextureRect_8bCI(&gMasterDisp, D_3001420 + (256 * 7 * i), D_3003E20, 256, 7, xPos, yPos + (7 * i * yScale),
+                         xScale, yScale);
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BCFFC.s")
+void func_800BCEF8(f32 xPos, f32 yPos, f32 scale) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BD05C.s")
+    for (i = 0; i < 12; i++) {
+        TextureRect_8bCI(&gMasterDisp, D_3004010 + (136 * 2 * i), D_3004D58, 136, 2, xPos, yPos + (2 * i * scale),
+                         scale, scale);
+    }
+    TextureRect_8bCI(&gMasterDisp, D_3004010 + (136 * 2 * i), D_3004D58, 136, 1, xPos, yPos + (2 * i * scale), scale,
+                     scale);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BD0B4.s")
+void func_800BCFFC(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
+    TextureRect_8bCI(&gMasterDisp, D_1013170, D_1013570, 24, 17, xPos, yPos, xScale, yScale);
+}
+
+void func_800BD05C(f32 xPos, f32 yPos, f32 scale) {
+    TextureRect_4bCI(&gMasterDisp, &D_30003A0, &D_30004E0, 64, 10, xPos, yPos, scale, scale);
+}
+
+void func_800BD0B4(f32 xPos, f32 yPos, f32 scale) {
+    TextureRect_4bCI(&gMasterDisp, &D_3000510, &D_30006A0, 80, 10, xPos, yPos, scale, scale);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BD10C.s")
 
