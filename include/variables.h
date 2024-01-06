@@ -785,15 +785,25 @@ extern s32 D_80178768[];
 extern s32 D_80178780[4];
 extern s32 D_80178790;
 extern s32 D_80178794;
+extern s32 D_80178798;
+extern s32 D_8017879C;
+extern s32 D_801787A0;
+extern s32 D_801787A8;
 extern s32 D_801787B4;
+extern s32 D_801787BC;
+extern f32 D_801787C0;
+extern f32 D_801787C4;
+extern f32 D_801787C8;
+extern f32 D_801787CC;
+extern f32 D_801787D0;
 extern f32 D_801787D8[4];
 extern f32 D_801787E8[4];
 extern s32 D_801787F8[4];
 extern s32 D_80178820[4];
 extern s32 D_80178838[5];
-
-
-
+extern s32 D_80178850[4];
+extern OSTime D_80178860;
+extern OSTime D_80178868;
 
 // fox_save
 extern SaveFile gSaveFile;
@@ -825,6 +835,9 @@ extern u16 gHaasEffectDelaySizes[64];
 // extern EnvelopePoint gDefaultEnvelope[];
 // extern NoteUnkStruct gZeroNoteSub;
 // extern NoteUnkStruct gDefaultNoteSub;
+extern s32 D_800D4A94;
+extern s32 D_800D4A98;
+extern s32 D_800D4A9C;
 extern s16 D_800DD200[];
 extern f32 gHeadsetPanVolume[];
 extern f32 gStereoPanVolume[];
