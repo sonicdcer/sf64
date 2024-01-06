@@ -32,8 +32,6 @@ typedef struct {
 UnkStruct_1C2250 D_E16C50_801C2250;
 UnkStruct_1C22F0 D_E16C50_801C22F0;
 
-extern f32 D_6028578[];
-
 f32 D_E16C50_801BECB0[4][3] = {
     { 255.0f, 0.0f, 0.0f },
     { 255.0f, 63.0f, 63.0f },
@@ -1373,13 +1371,6 @@ void func_E16C50_8018B9BC(Boss* bossA6) {
         }
     }
 }
-
-extern Gfx D_600F1F0[];
-extern Gfx D_6015EE0[];
-extern Gfx D_6011910[];
-extern AnimationHeader D_6018994;
-extern Limb* D_6018BA0[];
-extern Gfx D_601B2B0[];
 
 void func_E16C50_8018BCD4(Vec3f* arg0, f32 arg1, f32 arg2, Vec3f* arg3, s32 arg4, f32 arg5, s32 arg6, f32 arg7) {
     s32 i;

@@ -1707,6 +1707,13 @@ extern u16 D_60447A0[];
 extern u16 D_6047550[];
 extern Gfx D_604A9F0[];
 extern Gfx D_605C230[];
+extern f32 D_6028578[];
+extern Gfx D_600F1F0[];
+extern Gfx D_6015EE0[];
+extern Gfx D_6011910[];
+extern AnimationHeader D_6018994;
+extern Limb* D_6018BA0[];
+extern Gfx D_601B2B0[];
 
 // ast_9DD390, ast_A0E340, ast_BFA740, ast_CBFE70, ast_D27600
 extern Gfx D_7000000[];
