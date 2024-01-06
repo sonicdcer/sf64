@@ -1,9 +1,14 @@
 #include "global.h"
 
+extern u16 D_3000380[];
+extern u8 D_30001E0[];
 extern u8 D_30003A0[];
 extern u16 D_30004E0[];
 extern u8 D_3000510[];
 extern u16 D_30006A0[];
+extern u8 D_30006D0[];
+extern u16 D_3000810[];
+extern u8 D_30013E0[];
 extern u8 D_3001420[];
 extern u16 D_3003E20[];
 extern u8 D_3004010[];
@@ -13,6 +18,19 @@ extern u16 D_3007500[];
 extern u8 D_300A470[];
 extern u16 D_300B218[];
 extern Gfx D_7003830[];
+extern u8 D_7003C70[];
+extern u8 D_7003E10[];
+extern u8 D_7003F10[];
+extern u8 D_7004050[];
+extern u16 D_7004150[];
+extern u8 D_70041F0[];
+extern u16 D_70042F0[];
+extern u8 D_7004360[];
+extern u16 D_7004460[];
+extern u8 D_70044D0[];
+extern u16 D_7004990[];
+extern u8 D_70118E0[];
+extern u16 D_70123F8[];
 
 void func_800BC760(void) {
     s32 i;
@@ -134,36 +152,89 @@ void func_800BCFFC(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
 }
 
 void func_800BD05C(f32 xPos, f32 yPos, f32 scale) {
-    TextureRect_4bCI(&gMasterDisp, &D_30003A0, &D_30004E0, 64, 10, xPos, yPos, scale, scale);
+    TextureRect_4bCI(&gMasterDisp, D_30003A0, D_30004E0, 64, 10, xPos, yPos, scale, scale);
 }
 
 void func_800BD0B4(f32 xPos, f32 yPos, f32 scale) {
-    TextureRect_4bCI(&gMasterDisp, &D_3000510, &D_30006A0, 80, 10, xPos, yPos, scale, scale);
+    TextureRect_4bCI(&gMasterDisp, D_3000510, D_30006A0, 80, 10, xPos, yPos, scale, scale);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BD10C.s")
+void func_800BD10C(f32 xPos, f32 yPos, f32 scale) {
+    TextureRect_4bCI(&gMasterDisp, D_30006D0, D_3000810, 64, 10, xPos, yPos, scale, scale);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BD164.s")
+void func_800BD164(f32 xPos, f32 yPos) {
+    TextureRect_8bIA(&gMasterDisp, D_7003C70, 16, 16, xPos, yPos, 1.0f, 1.0f);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BD1B0.s")
+void func_800BD1B0(f32 xPos, f32 yPos) {
+    TextureRect_8bIA(&gMasterDisp, D_7003F10, 16, 16, xPos, yPos, 1.0f, 1.0f);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BD1FC.s")
+void func_800BD1FC(f32 xPos, f32 yPos) {
+    TextureRect_8bIA(&gMasterDisp, D_7003E10, 16, 16, xPos, yPos, 1.0f, 1.0f);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BD248.s")
+void func_800BD248(f32 xPos, f32 yPos) {
+    TextureRect_8bCI(&gMasterDisp, D_7004050, D_7004150, 16, 16, xPos, yPos, 1.0f, 1.0f);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BD2A0.s")
+void func_800BD2A0(f32 xPos, f32 yPos) {
+    TextureRect_8bCI(&gMasterDisp, D_70041F0, D_70042F0, 16, 16, xPos, yPos, 1.0f, 1.0f);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BD2F8.s")
+void func_800BD2F8(f32 xPos, f32 yPos) {
+    TextureRect_8bCI(&gMasterDisp, D_7004360, D_7004460, 16, 16, xPos, yPos, 1.0f, 1.0f);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BD350.s")
+void func_800BD350(f32 xPos, f32 yPos) {
+    TextureRect_8bCI(&gMasterDisp, D_70044D0, D_7004990, 64, 19, xPos, yPos, 1.0f, 1.0f);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BD3A8.s")
+void func_800BD3A8(f32 xPos, f32 yPos) {
+    s32 i;
 
+    for (i = 0; i < 8; i++) {
+        TextureRect_4bCI(&gMasterDisp, D_70118E0 + ((80 * 8 * i) / 2), D_70123F8, 80, 8, xPos, yPos + (i * 8), 1.0f,
+                         1.0f);
+    }
+    TextureRect_4bCI(&gMasterDisp, D_70118E0 + ((80 * 8 * i) / 2), D_70123F8, 80, 7, xPos, yPos + (i * 8), 1.0f, 1.0f);
+}
+
+#ifdef IMPORT_DATA
+void func_800BD4D4(f32 xPos, f32 yPos, s32 arg2) {
+    u8* D_800D4AF8[] = {
+        (u8*) 0x05000000, (u8*) 0x05000080, (u8*) 0x05000100, (u8*) 0x05000180, (u8*) D_5000200,
+        (u8*) 0x05000280, (u8*) D_5000300,  (u8*) 0x05000380, (u8*) 0x05000400, (u8*) 0x05000480,
+    };
+    bool var_s2 = false;
+    s32 i = 1000;
+    s32 j;
+
+    arg2 %= i;
+
+    for (i /= 10; i != 1; i /= 10) {
+        j = arg2 / i;
+        if (j || (var_s2 == true)) {
+            TextureRect_8bIA(&gMasterDisp, D_800D4AF8[j / i], 16, 8, xPos, yPos, 1.0f, 1.0f);
+            xPos += 9.0f;
+            arg2 %= i;
+            var_s2 = true;
+        }
+    }
+    TextureRect_8bIA(&gMasterDisp, D_800D4AF8[arg2 / i], 16, 8, xPos, yPos, 1.0f, 1.0f);
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BD4D4.s")
+#endif
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BD720.s")
+void func_800BD720(f32 xPos, f32 yPos) {
+    TextureRect_8bIA(&gMasterDisp, D_30013E0, 8, 8, xPos, yPos, 1.0f, 1.0f);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BD76C.s")
+void func_800BD76C(f32 xPos, f32 yPos) {
+    TextureRect_4bCI(&gMasterDisp, D_30001E0, D_3000380, 64, 13, xPos, yPos, 1.0f, 1.0f);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BD7C4.s")
 
