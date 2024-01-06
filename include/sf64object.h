@@ -47,12 +47,12 @@ typedef enum {
     /*  1 */ COL1_1, // OBJ_80_39
     /*  2 */ COL1_2,
     /*  3 */ COL1_3, // OBJ_UNK_1000
-    /*  4 */ COL1_4, // OBJ_408_308
+    /*  4 */ COL1_4, // OBJ_BOSS_308
     /*  5 */ COL1_5, // OBJ_80_149
     /*  6 */ COL1_6, // OBJ_80_150
-    /*  7 */ COL1_7, // OBJ_408_309
-    /*  8 */ COL1_8, // OBJ_408_313
-    /*  9 */ COL1_9, // OBJ_408_312
+    /*  7 */ COL1_7, // OBJ_BOSS_309
+    /*  8 */ COL1_8, // OBJ_BOSS_313
+    /*  9 */ COL1_9, // OBJ_BOSS_312
 } CollisonId_1;
 
 typedef enum {
@@ -217,55 +217,22 @@ typedef struct {
     /* 0x05A */ s16 timer_05A;
     /* 0x05C */ s16 timer_05C;
     /* 0x05E */ u8 unk_05E;
-    /* 0x05F */ char pad5F[3];
+    /* 0x060 */ s16 unk_060;
     /* 0x062 */ s8 unk_062;
-    /* 0x063 */ char pad63[1];
     /* 0x064 */ s16 unk_064;
     /* 0x066 */ s16 unk_066;
     /* 0x068 */ f32 unk_068;
-    /* 0x06C */ Vec3f vel;     
-    /* 0x078 */ char pad78[0xC]; 
+    /* 0x06C */ Vec3f vel;
+    /* 0x078 */ f32 unk_078;
+    /* 0x07C */ f32 unk_07C;
+    /* 0x080 */ char pad80[4];
     /* 0x084 */ f32 gravity;       
-    /* 0x088 */ s16 unk_088;
-    /* 0x08A */ s16 unk_08A;
-    /* 0x08C */ char pad8C[6];
-    /* 0x092 */ u16 unk_092;
-    /* 0x094 */ char pad94[0x12];
-    /* 0x0A6 */ s16 unk_0A6;
-    /* 0x0A8 */ char padA8[6];
-    /* 0x0AE */ s16 unk_0AE;
-    /* 0x0B0 */ char padB0[0x16];
-    /* 0x0C6 */ u16 unk_0C6;
-    /* 0x0C8 */ char padC8[1];
-    /* 0x0C9 */ u8 unk_0C9;
-    /* 0x0CA */ char padCA[6];
-    /* 0x0D0 */ s16 unk_0D0;
-    /* 0x0D2 */ char padD2[4];
-    /* 0x0D6 */ s16 unk_0D6;
-    /* 0x0D8 */ char padD8[4];
-    /* 0x0DC */ f32 unk_0DC;
-    /* 0x0E0 */ f32 unk_0E0;
-    /* 0x0E4 */ f32 unk_0E4;
-    /* 0x0E8 */ f32 unk_0E8;
-    /* 0x0EC */ f32 unk_0EC;
-    /* 0x0F0 */ f32 unk_0F0;
-    /* 0x0F4 */ f32 unk_0F4;
-    /* 0x0F8 */ f32 unk_0F8;
-    /* 0x0FC */ f32 unk_0FC;
-    /* 0x100 */ Vec3f unk_100;
-    /* 0x10C */ char pad10C[4];
-    /* 0x110 */ f32 unk_110;
-    /* 0x114 */ f32 unk_114;
-    /* 0x118 */ char pad118[0x7C];
-    /* 0x194 */ f32 unk_194;
-    /* 0x198 */ f32 unk_198;
-    /* 0x19C */ f32 unk_19C;
-    /* 0x1A0 */ char pad1A0[0x168];
-    /* 0x308 */ Vec3f unk_308;
-    /* 0x314 */ char pad314[0xE4];
+    /* 0x088 */ s16 swork[40];
+    /* 0x0D8 */ f32 fwork[50];
+    /* 0x1A0 */ Vec3f vwork[50];
     /* 0x3F8 */ f32 unk_3F8;
     /* 0x3FC */ Vec3f sfxPos;
-} Object_408; // size = 0x408
+} Boss; // size = 0x408
 
 typedef struct {
     /* 0x000 */ Object obj;
@@ -652,36 +619,36 @@ typedef enum{
   /* 289 */  OBJ_2F4_289,
   /* 290 */  OBJ_2F4_290,
   /* 291 */  OBJ_2F4_291,
-  /* 292 */  OBJ_408_292,
-  /* 293 */  OBJ_408_293,
-  /* 294 */  OBJ_408_294,
-  /* 295 */  OBJ_408_295,
-  /* 296 */  OBJ_408_296,
-  /* 297 */  OBJ_408_297,
-  /* 298 */  OBJ_408_298,
-  /* 299 */  OBJ_408_299,
-  /* 300 */  OBJ_408_300,
-  /* 301 */  OBJ_408_301,
-  /* 302 */  OBJ_408_302,
-  /* 303 */  OBJ_408_303,
-  /* 304 */  OBJ_408_304,
-  /* 305 */  OBJ_408_305,
-  /* 306 */  OBJ_408_306,
-  /* 307 */  OBJ_408_307,
-  /* 308 */  OBJ_408_308,
-  /* 309 */  OBJ_408_309,
-  /* 310 */  OBJ_408_310,
-  /* 311 */  OBJ_408_311,
-  /* 312 */  OBJ_408_312,
-  /* 313 */  OBJ_408_313,
-  /* 314 */  OBJ_408_314,
-  /* 315 */  OBJ_408_315,
-  /* 316 */  OBJ_408_316,
-  /* 317 */  OBJ_408_317,
-  /* 318 */  OBJ_408_318,
-  /* 319 */  OBJ_408_319,
-  /* 320 */  OBJ_408_320,
-  /* 321 */  OBJ_408_321,
+  /* 292 */  OBJ_BOSS_292,
+  /* 293 */  OBJ_BOSS_293,
+  /* 294 */  OBJ_BOSS_294,
+  /* 295 */  OBJ_BOSS_295,
+  /* 296 */  OBJ_BOSS_296,
+  /* 297 */  OBJ_BOSS_297,
+  /* 298 */  OBJ_BOSS_298,
+  /* 299 */  OBJ_BOSS_299,
+  /* 300 */  OBJ_BOSS_300,
+  /* 301 */  OBJ_BOSS_301,
+  /* 302 */  OBJ_BOSS_A6,
+  /* 303 */  OBJ_BOSS_303,
+  /* 304 */  OBJ_BOSS_304,
+  /* 305 */  OBJ_BOSS_305,
+  /* 306 */  OBJ_BOSS_306,
+  /* 307 */  OBJ_BOSS_ZO,
+  /* 308 */  OBJ_BOSS_308,
+  /* 309 */  OBJ_BOSS_309,
+  /* 310 */  OBJ_BOSS_310,
+  /* 311 */  OBJ_BOSS_311,
+  /* 312 */  OBJ_BOSS_312,
+  /* 313 */  OBJ_BOSS_313,
+  /* 314 */  OBJ_BOSS_314,
+  /* 315 */  OBJ_BOSS_SO,
+  /* 316 */  OBJ_BOSS_316,
+  /* 317 */  OBJ_BOSS_317,
+  /* 318 */  OBJ_BOSS_AQ,
+  /* 319 */  OBJ_BOSS_319,
+  /* 320 */  OBJ_BOSS_320,
+  /* 321 */  OBJ_BOSS_321,
   /* 322 */  OBJ_ITEM_LASERS,
   /* 323 */  OBJ_ITEM_CHECKPOINT,
   /* 324 */  OBJ_ITEM_SILVER_RING,

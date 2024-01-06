@@ -1,25 +1,26 @@
 #include "global.h"
+#include "prevent_bss_reordering.h"
 
-static f32 __dx1;
-static f32 __dx2;
-static f32 __dy1;
-static f32 __dy2;
-static f32 __dz1;
-static f32 __dz2;
-static f32 __vtx0_x;
-static f32 __vtx0_y;
-static f32 __vtx0_z;
-static f32 __vtx1_x;
-static f32 __vtx1_y;
-static f32 __vtx1_z;
-static f32 __vtx2_x;
-static f32 __vtx2_y;
-static f32 __vtx2_z;
-static f32 __vtx3_x;
-static f32 __vtx3_y;
-static f32 __vtx3_z;
-static f32 __pos_x;
-static f32 __pos_z;
+f32 __dx1;
+f32 __dx2;
+f32 __dy1;
+f32 __dy2;
+f32 __dz1;
+f32 __dz2;
+f32 __vtx0_x;
+f32 __vtx0_y;
+f32 __vtx0_z;
+f32 __vtx1_x;
+f32 __vtx1_y;
+f32 __vtx1_z;
+f32 __vtx2_x;
+f32 __vtx2_y;
+f32 __vtx2_z;
+f32 __vtx3_x;
+f32 __vtx3_y;
+f32 __vtx3_z;
+f32 __pos_x;
+f32 __pos_z;
 
 #define TRINORM_X(A, B, C) ((B##_y - A##_y) * (C##_z - B##_z) - (B##_z - A##_z) * (C##_y - B##_y))
 #define TRINORM_Y(A, B, C) ((B##_z - A##_z) * (C##_x - B##_x) - (B##_x - A##_x) * (C##_z - B##_z))
