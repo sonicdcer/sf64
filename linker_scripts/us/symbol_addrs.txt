@@ -81,7 +81,6 @@ D_800D503C = 0x800D503C; // force_migration:True
 D_800D5248 = 0x800D5248; // force_migration:True
 D_800D525C = 0x800D525C; // force_migration:True
 D_800D8560 = 0x800D8560; // force_migration:True
-D_800D55E4_fake = 0x800D55E4; // force_migration:True
 D_800D8570 = 0x800D8570; // force_migration:True
 D_800D8594 = 0x800D8594; // force_migration:True
 D_800C93EC = 0x800C93EC; // force_migration:True

@@ -401,7 +401,7 @@ extern s32 D_80161AB8;
 extern Object_80 gObjects80[50];
 extern Object_4C gObjects4C[40];
 extern Object_2F4 gObjects2F4[60];
-extern Object_408 gObjects408[4];
+extern Boss gBosses[4];
 extern Object_8C gObjects8C[100];
 extern Item gItems[20];
 extern PlayerShot gPlayerShots[16];
@@ -848,7 +848,7 @@ extern Gfx* D_DF4260_8019A008[];
 extern f32 D_DF4260_8019A9B8[];
 
 // ovl_E16C50
-extern f32 D_E16C50_801C4188;
+// extern f32 D_E16C50_801C4188; Currently externed in relevant files for bss ordering
 
 // ovl_E51970
 extern Matrix D_E51970_8019EE80;
@@ -1735,6 +1735,13 @@ extern u16 D_60447A0[];
 extern u16 D_6047550[];
 extern Gfx D_604A9F0[];
 extern Gfx D_605C230[];
+extern f32 D_6028578[];
+extern Gfx D_600F1F0[];
+extern Gfx D_6015EE0[];
+extern Gfx D_6011910[];
+extern AnimationHeader D_6018994;
+extern Limb* D_6018BA0[];
+extern Gfx D_601B2B0[];
 
 // ast_9DD390, ast_A0E340, ast_BFA740, ast_CBFE70, ast_D27600
 extern Gfx D_7000000[];

@@ -1,7 +1,7 @@
 #include "global.h"
 #include "DF4260.h"
 
-void func_DF4260_80187520(s32 arg0, s32 arg1) {
+void func_DF4260_80187520(s32 arg0, void* arg1) {
 }
 
 void func_DF4260_80187530(Object_80* obj80) {
