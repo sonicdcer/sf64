@@ -1,8 +1,5 @@
 #include "global.h"
 
-// placeholder for ambiguous overlay function
-void func_80187520(s32, void*);
-
 typedef struct {
     s32 unk_00;
     char unk_04[0x2F0];
@@ -111,35 +108,35 @@ void func_8002E548(void) {
 }
 
 void func_8002E5E0(Object_408* obj408) {
-    func_80187520(0x5B, obj408);
+    func_E51970_80187520(91, obj408);
 }
 
 void func_8002E604(Object_408* obj408) {
-    func_80187520(0x5C, obj408);
+    func_E51970_80187520(92, obj408);
 }
 
 void func_8002E628(Object_408* obj408) {
-    func_80187520(0x5D, obj408);
+    func_E51970_80187520(93, obj408);
 }
 
 void func_8002E64C(Object_408* obj408) {
-    func_80187520(0x5E, obj408);
+    func_E51970_80187520(94, obj408);
 }
 
-void func_8002E670(Object_2F4* obj408) {
-    func_80187520(0x5F, obj408);
+void func_8002E670(Object_2F4* obj2F4) {
+    func_E51970_80187520(95, obj2F4);
 }
 
-void func_8002E694(Object_2F4* obj408) {
-    func_80187520(0x60, obj408);
+void func_8002E694(Object_2F4* obj2F4) {
+    func_E51970_80187520(96, obj2F4);
 }
 
-void func_8002E6B8(Object_2F4* obj408) {
-    func_80187520(0x61, obj408);
+void func_8002E6B8(Object_2F4* obj2F4) {
+    func_E51970_80187520(97, obj2F4);
 }
 
-void func_8002E6DC(Object_2F4* obj408) {
-    func_80187520(0x62, obj408);
+void func_8002E6DC(Object_2F4* obj2F4) {
+    func_E51970_80187520(98, obj2F4);
 }
 
 void func_8002E700(Player* player) {

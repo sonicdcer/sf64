@@ -9,7 +9,7 @@ void func_EBFBE0_8019E8C8(void);
 void func_EBFBE0_8019E8D0(void);
 void func_EBFBE0_801A01A8(void);
 
-void func_EBFBE0_80187520(s32 arg0, s32 arg1) {
+void func_EBFBE0_80187520(s32 arg0, void* arg1) {
     switch (arg0) {
         case 103:
             func_EBFBE0_80187754();

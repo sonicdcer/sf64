@@ -1,5 +1,7 @@
 #include "global.h"
 
+extern f32 D_E16C50_801C4188;
+
 f32 D_8015F960;
 u8 D_8015F964;
 f32 D_8015F968;

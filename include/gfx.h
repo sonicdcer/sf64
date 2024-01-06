@@ -16,8 +16,8 @@
 #define GDL(dl) gSPDisplayList(gMasterDisp++, dl) // 06000000 dl
 #define GPC(r, g, b, a) gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, r, g, b, a) // FA000000 RRGGBBAA
 #define GEC(r, g, b, a) gDPSetEnvColor(gMasterDisp++, r, g, b, a) // FB000000 RRGGBBAA
-#define GSGM_BACK(mode) gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK) // B7000000 00002000, most common geometry mode changed
-#define GCGM_BACK(mode) gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK) // B6000000 00002000
+#define GSGM_BACK() gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK) // B7000000 00002000, most common geometry mode changed
+#define GCGM_BACK() gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK) // B6000000 00002000
 
 #define gSPSetOtherModeHi(pkt, settings) gSPSetOtherMode(pkt, G_SETOTHERMODE_H, G_MDSFT_BLENDMASK, 24, settings)
 #define gsSPSetOtherModeHi(settings) gsSPSetOtherMode(G_SETOTHERMODE_H, G_MDSFT_BLENDMASK, 24, settings)

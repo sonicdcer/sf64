@@ -27,6 +27,8 @@ extern u8 D_800D317C;
 extern u8 D_800D3180[30];
 extern s32 D_800D31A0[4];
 
+extern f32 D_E16C50_801C4188;
+
 #define MEM_ARRAY_ALLOCATE(arr, count) ((arr) = Memory_Allocate((count) * sizeof(*(arr))))
 
 bool Play_CheckMedalStatus(u16 hitCount) {

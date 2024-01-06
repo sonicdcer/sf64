@@ -125,60 +125,39 @@ AnimationHeader* D_800CA1F4[] = {
     D_60265B4, D_602B8DC, D_60034C4, D_602A2CC, D_602CEB4, D_602B778, (AnimationHeader*) 0x0601F3B8,
 };
 
-extern void func_80187520(s32, void*);
-extern void func_800AB334(void);
-extern void func_800ADF58(Player*);
-extern void func_8004D440(Player*);
-extern void func_80046358(Player*);
-extern void func_8004B368(Player*);
-extern void func_80095604(Player*);
-extern void func_800B2130(Player*);
-extern void func_801882CC(Player*, OSContPad**, OSContPad**);
-extern void func_8018E084(Player*);
-extern void func_8018F94C(Player*);
-extern void func_80191160(Player*);
-extern void func_80193C4C(Player*);
-extern void func_80194728(Player*);
-extern void func_80196D88(Player*);
-extern void func_80197290(Player*);
-extern void func_8019C85C(Player*);
-extern void func_8019D76C(Player*);
-extern void func_8019EE60(Player*);
-extern void func_801A7930(Player*);
-extern void func_801AF8F4(Player*, OSContPad**, OSContPad**);
-extern void func_801B3D04(Player*, OSContPad**, OSContPad**);
-extern void func_8002ED60(Player*);
-extern void func_800935E8(Player*);
 extern void func_8018769C(Player*);
+extern void func_801882CC(Player*, OSContPad**, OSContPad**);
 extern void func_8018CD8C(Player*);
-extern void func_8018DF74(Player*);
+extern void func_8018DA58(Object_2F4*);
+extern void func_8018E084(Player*);
+extern void func_8018ED9C(Object_2F4*);
 extern void func_8018EF6C(Player*);
 extern void func_8018F880(Player*);
+extern void func_8018F94C(Player*);
+extern void func_80191160(Player*);
 extern void func_80192E20(Player*);
 extern void func_80193A30(Player*);
+extern void func_80193C4C(Player*);
+extern void func_80194728(Player*);
+extern void func_80195E44(Object_2F4*);
 extern void func_80196BF8(Player*);
+extern void func_80196D88(Player*);
+extern void func_80197290(Player*);
+extern void func_80197F10(Object_2F4*);
 extern void func_801988B8(Player*);
 extern void func_8019BA64(Player*);
-extern void func_8019D428(Player*);
-extern void func_801A0AC0(Player*);
-extern void func_801A10F4(Player*);
-extern void func_801AB9B0(Player*);
-extern void func_801AC754(Player*);
-extern void func_800A46A0(Player*);
-extern void func_800AD7F0(Player*);
-extern void func_800B2574(Player*);
-extern void func_800AE278(Player*);
-extern void func_80093164(Object_2F4*);
-extern void func_800A6028(Vec3f*, u32);
-extern void func_8018DA58(Object_2F4*);
-extern void func_8018ED9C(Object_2F4*);
-extern void func_80195E44(Object_2F4*);
-extern void func_80197F10(Object_2F4*);
+extern void func_8019C85C(Player*);
 extern void func_8019DD20(Object_2F4*);
 extern void func_8019E5F0(Object_2F4*);
+extern void func_8019EE60(Player*);
 extern void func_8019FF00(Object_2F4*);
+extern void func_801A0AC0(Player*);
 extern void func_801A8BE8(Object_2F4*);
+extern void func_801AB9B0(Player*);
+extern void func_801AC754(Player*);
+extern void func_801AF8F4(Player*, OSContPad**, OSContPad**);
 extern void func_801B28BC(Object_2F4*);
+extern void func_801B3D04(Player*, OSContPad**, OSContPad**);
 extern void func_801BE0F0(Object_2F4*);
 
 void func_80048AC0(s32 teamId) {
@@ -707,7 +686,7 @@ void func_8004A52C(Player* player) {
                 func_800AA800(player);
                 break;
             case LEVEL_ZONESS:
-                func_8019D428(player);
+                func_E16C50_8019D428(player);
                 break;
             case LEVEL_MACBETH:
                 func_801AC754(player);
@@ -716,7 +695,7 @@ void func_8004A52C(Player* player) {
                 func_801A0AC0(player);
                 break;
             case LEVEL_SOLAR:
-                func_801A10F4(player);
+                func_E16C50_801A10F4(player);
                 break;
             case LEVEL_VENOM_1:
                 func_801988B8(player);
@@ -726,7 +705,7 @@ void func_8004A52C(Player* player) {
                 func_800935E8(player);
                 break;
             case LEVEL_AREA_6:
-                func_8018DF74(player);
+                func_E16C50_8018DF74(player);
                 break;
         }
         func_8004990C(player);
@@ -1317,8 +1296,8 @@ void func_8004B368(Player* player) {
     player->unk_0F0 = __sinf(player->unk_0F4 * M_DTOR);
 }
 
-void func_8004C90C(s32 arg0) {
-    func_80187520(0x5A, arg0);
+void func_8004C90C(Player* player) {
+    func_E51970_80187520(90, player);
 }
 
 void func_8004C930(Player* player) {
@@ -1338,7 +1317,7 @@ void func_8004C930(Player* player) {
                     func_80048E40(player);
                 }
             } else if (gCurrentLevel == LEVEL_AREA_6) {
-                func_DF4260_8018ED78((Object_408*) player);
+                func_E16C50_8018ED78(player);
             } else if (gCurrentLevel == LEVEL_FORTUNA) {
                 func_8004C90C(player);
                 func_800AA800(player);
@@ -1354,10 +1333,10 @@ void func_8004C930(Player* player) {
                 func_8019EE60(player);
                 func_800AA800(player);
             } else if (gCurrentLevel == LEVEL_SOLAR) {
-                func_801A7930(player);
+                func_E16C50_801A7930(player);
                 func_800AA800(player);
             } else if (gCurrentLevel == LEVEL_ZONESS) {
-                func_8019D76C(player);
+                func_E16C50_8019D76C(player);
                 func_800AA800(player);
             } else if (gCurrentLevel == LEVEL_VENOM_2) {
                 func_80196D88(player);

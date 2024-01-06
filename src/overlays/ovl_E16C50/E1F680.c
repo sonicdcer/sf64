@@ -39,15 +39,21 @@ Vec3f D_E16C50_801BF560 = { 0.0f, 0.0f, 0.0f };
 s16 D_E16C50_801BF56C[20] = {
     0, 190, 180, 170, 160, 150, 140, 130, 120, 110, 100, 90, 80, 70, 60, 50, 40, 30, 20, 10,
 };
-u8 D_E16C50_801BF594[20] = { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2 };
+u8 D_E16C50_801BF594[20] = {
+    0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2,
+};
 Gfx* D_E16C50_801BF5A8[3] = { (Gfx*) 0x060012A0, (Gfx*) 0x060239E0, (Gfx*) 0x06023730 };
 Vec3f D_E16C50_801BF5B4 = { 0.0f, 0.0f, 0.0f };
 Vec3f D_E16C50_801BF5C0 = { 0.0f, 0.0f, 0.0f };
 Vec3f D_E16C50_801BF5CC = { 0.0f, 0.0f, 0.0f };
 Vec3f D_E16C50_801BF5D8 = { 0.0f, 0.0f, 0.0f };
 Vec3f D_E16C50_801BF5E4 = { 0.0f, 0.0f, 0.0f };
-s32 D_E16C50_801BF5F0[6] = { 20, 40, 20, 20, 10, 10 };
-f32 D_E16C50_801BF608[6] = { -45.0f, 0.0f, -45.0f, 0.0f, -45.0f, 0.0f };
+s32 D_E16C50_801BF5F0[6] = {
+    20, 40, 20, 20, 10, 10,
+};
+f32 D_E16C50_801BF608[6] = {
+    -45.0f, 0.0f, -45.0f, 0.0f, -45.0f, 0.0f,
+};
 Vec3f D_E16C50_801BF620 = { 0.0f, 0.0f, 40.0f };
 Vec3f D_E16C50_801BF62C = { 96.0f, 199.0f, -9.0f };
 Vec3f D_E16C50_801BF638 = { 50.0f, 150.0f, -20.0f };
@@ -74,8 +80,16 @@ Vec3f D_E16C50_801BF718 = { 0.0f, 0.0f, 50.0f };
 Vec3f D_E16C50_801BF724 = { 0.0f, 0.0f, 20.0f };
 Vec3f D_E16C50_801BF730 = { 0.0f, 0.0f, 100.0f };
 f32 D_E16C50_801BF73C[2] = { -80.0f, 80.0f };
-Vec3f D_E16C50_801BF744[3] = { { 0.0f, 50.0f, -200.0f }, { 0.0f, 50.0f, 200.0f }, { 0.0f, 50.0f, 600.0f } };
-Vec3f D_E16C50_801BF768[3] = { { 0.0f, 300.0f, 0.0f }, { 0.0f, 300.0f, -200.0f }, { 0.0f, 300.0f, 300.0f } };
+Vec3f D_E16C50_801BF744[3] = {
+    { 0.0f, 50.0f, -200.0f },
+    { 0.0f, 50.0f, 200.0f },
+    { 0.0f, 50.0f, 600.0f },
+};
+Vec3f D_E16C50_801BF768[3] = {
+    { 0.0f, 300.0f, 0.0f },
+    { 0.0f, 300.0f, -200.0f },
+    { 0.0f, 300.0f, 300.0f },
+};
 s32 D_E16C50_801BF78C[30] = {
     0, 7, 7, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 4, 7, 0, 0, 0, 0, 327, 324, 0, 322, 327, 0, 324, 324, 0, 336, 0,
 };
@@ -91,6 +105,49 @@ Vec3f D_E16C50_801BF8AC = { 230.0f, -50.0f, 0.0f };
 Vec3f D_E16C50_801BF8B8 = { 230.0f, -250.0f, 0.0f };
 f32 D_E16C50_801BF8C4[2] = { 46.0f, 314.0f };
 f32 D_E16C50_801BF8CC[2] = { 23.0f, 337.0f };
+
+typedef struct {
+    /* 0x000 */ char pad0[4];
+    /* 0x004 */ f32 unk_4;
+    /* 0x008 */ char pad8[0x24];
+    /* 0x02C */ f32 unk_2C;
+    /* 0x030 */ char pad30[0x2C];
+    /* 0x05C */ f32 unk_5C;
+    /* 0x060 */ char pad60[4];
+    /* 0x064 */ f32 unk_64;
+    /* 0x068 */ f32 unk_68;
+    /* 0x06C */ char pad6C[4];
+    /* 0x070 */ f32 unk_70;
+    /* 0x074 */ Vec3f unk_74;
+    /* 0x080 */ Vec3f unk_80;
+    /* 0x08C */ char pad8C[8];
+    /* 0x094 */ Vec3f unk_94;
+    /* 0x0A0 */ Vec3f unk_A0;
+    /* 0x0AC */ Vec3f unk_AC;
+    /* 0x0B8 */ Vec3f unk_B8;
+    /* 0x0C4 */ Vec3f unk_C4;
+    /* 0x0D0 */ Vec3f unk_D0;
+    /* 0x0DC */ Vec3f unk_DC;
+    /* 0x0E8 */ char padE8[8];
+    /* 0x0F0 */ Vec3f unk_F0;
+    /* 0x0FC */ char padFC[8];
+    /* 0x104 */ Vec3f unk_104;
+    /* 0x110 */ Vec3f unk_110;
+    /* 0x11C */ Vec3f unk_11C;
+    /* 0x128 */ char pad128[0x4C];
+    /* 0x174 */ Vec3f unk_174;
+    /* 0x180 */ Vec3f unk_180;
+    /* 0x18C */ Vec3f unk_18C;
+    /* 0x198 */ Vec3f unk_198;
+    /* 0x1A4 */ char pad1A4[4];
+    /* 0x1A8 */ Vec3f unk_1A8;
+    /* 0x1B4 */ Vec3f unk_1B4;
+    /* 0x1C0 */ char pad1C0[0x98];
+} UnkStruct_1C24E8; /* size = 0x258 */
+
+s32 D_E16C50_801C2330[40];
+s32 D_E16C50_801C23D0[70];
+UnkStruct_1C24E8 D_E16C50_801C24E8;
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E1F680/func_E16C50_8018FF50.s")
 
@@ -169,7 +226,7 @@ f32 D_E16C50_801BF8CC[2] = { 23.0f, 337.0f };
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E1F680/func_E16C50_80193240.s")
 
 // OBJ_408_307 init
-void func_E16C50_801932AC(Object_408_302* boss307);
+void func_E16C50_801932AC(Object_408_302* bossZO);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E1F680/func_E16C50_801932AC.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E1F680/func_E16C50_80193628.s")
@@ -188,16 +245,18 @@ void func_E16C50_801932AC(Object_408_302* boss307);
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E1F680/func_E16C50_80193CC8.s")
 
+bool func_E16C50_80193D08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, Object_408_302* thisx);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E1F680/func_E16C50_80193D08.s")
 
+void func_E16C50_80194394(s32 limbIndex, Vec3f* rot, Object_408_302* thisx);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E1F680/func_E16C50_80194394.s")
 
 // OBJ_408_307 draw
-void func_E16C50_801949DC(Object_408_302* boss307);
+void func_E16C50_801949DC(Object_408_302* bossZO);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E1F680/func_E16C50_801949DC.s")
 
 // OBJ_408_307 action
-void func_E16C50_80194A84(Object_408_302* boss307);
+void func_E16C50_80194A84(Object_408_302* bossZO);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E1F680/func_E16C50_80194A84.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E1F680/func_E16C50_801986FC.s")
@@ -302,8 +361,10 @@ void func_E16C50_80194A84(Object_408_302* boss307);
 // OBJ_2F4_247 draw
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E1F680/func_E16C50_8019D3C4.s")
 
+void func_E16C50_8019D428(Player* player);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E1F680/func_E16C50_8019D428.s")
 
+void func_E16C50_8019D76C(Player* player);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E1F680/func_E16C50_8019D76C.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/E1F680/func_E16C50_8019E5F0.s")
