@@ -1,43 +1,56 @@
 #include "global.h"
 #include "fox_map.h"
 
-extern u16 D_3000380[];
-extern u8 D_30001E0[];
-extern u8 D_30003A0[];
-extern u16 D_30004E0[];
-extern u8 D_3000510[];
-extern u16 D_30006A0[];
-extern u8 D_30006D0[];
-extern u16 D_3000810[];
-extern u8 D_30013E0[];
-extern u8 D_3001420[];
-extern u16 D_3003E20[];
-extern u8 D_3004010[];
-extern u16 D_3004D58[];
-extern u8 D_3006C60[];
-extern u16 D_3007500[];
-extern u8 D_300A470[];
-extern u16 D_300B218[];
+// #define IMPORT_BSS
 
-extern u8 D_5007F60[];
+// BSS START HERE
 
-extern Gfx D_7003830[];
-extern u8 D_7003C70[];
-extern u8 D_7003E10[];
-extern u8 D_7003F10[];
-extern u8 D_7004050[];
-extern u16 D_7004150[];
-extern u8 D_70041F0[];
-extern u16 D_70042F0[];
-extern u8 D_7004360[];
-extern u16 D_7004460[];
-extern u8 D_70044D0[];
-extern u16 D_7004990[];
-extern u8 D_70118E0[];
-extern u16 D_70123F8[];
+#ifdef IMPORT_BSS
 
-extern u16 D_80178808[4];
-extern s32 D_80178810[4];
+s32 D_80178750;
+s32 D_80178754;
+s32 D_80178758;
+s32 D_8017875C; // sUnlockLandmaster
+s32 D_80178760; // sUnlockOnFoot
+// s32 GAP_FILLER_D_80178764; // gap
+s32 D_80178768[4];
+s32 D_80178778;
+// s32 GAP_FILLER_D_8017877C; // gap
+s32 D_80178780[4];
+s32 D_80178790;
+s32 D_80178794;
+s32 D_80178798;
+s32 D_8017879C;
+s32 D_801787A0;
+s32 D_801787A4;
+s32 D_801787A8;
+f32 D_801787AC;
+f32 D_801787B0;
+s32 D_801787B4;
+s32 D_801787B8;
+s32 D_801787BC;
+f32 D_801787C0;
+f32 D_801787C4;
+f32 D_801787C8;
+f32 D_801787CC;
+f32 D_801787D0;
+// s32 GAP_FILLER_D_801787D4; // gap
+f32 D_801787D8[4];
+f32 D_801787E8[4];
+s32 D_801787F8[4];
+u16 D_80178808[4];
+s32 D_80178810[4];
+// bss gets reordered here, these symbols appear at the top
+s32 D_80178820[4];
+s32 D_80178830;
+// s32 GAP_FILLER_D_80178834; // gap
+s32 D_80178838[5];
+// s32 GAP_FILLER_D_8017884C; // gap
+s32 D_80178850[4];
+OSTime D_80178860;
+OSTime D_80178868;
+
+#endif
 
 s32 D_800D4A90 = 0;
 s32 D_800D4A94 = 0;
@@ -1347,7 +1360,7 @@ s32 func_800C1138(s32 max, s32 arg1) {
 }
 
 // https://decomp.me/scratch/yhFof
-#ifdef IMPORT_BSS
+#if defined(IMPORT_BSS) || defined(NON_MATCHING)
 void func_800C1368(void) {
     s32 i;
 
@@ -1751,7 +1764,7 @@ s32 func_800C1E9C(void) {
 }
 
 // needs static bss for D_80178868 and D_80178860
-#ifdef IMPORT_BSS
+#if defined(IMPORT_BSS) || defined(NON_MATCHING)
 void func_800C1ED4(void) {
     s32 var_a1;
 
