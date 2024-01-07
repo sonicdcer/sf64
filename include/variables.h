@@ -778,8 +778,8 @@ extern s32 D_8017874C;
 extern s32 D_80178750;
 extern s32 D_80178754;
 extern s32 D_80178758;
-extern s32 D_8017875C; // sUnlockLandmaster
-extern s32 D_80178760; // sUnlockOnFoot
+extern s32 sUnlockLandmaster; // sUnlockLandmaster
+extern s32 sUnlockOnFoot; // sUnlockOnFoot
 extern s32 D_80178768[];
 extern s32 D_80178768[];
 extern s32 D_80178778;

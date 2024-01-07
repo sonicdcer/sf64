@@ -5,8 +5,8 @@
 s32 D_80178750;
 s32 D_80178754;
 s32 D_80178758;
-s32 D_8017875C; // sUnlockLandmaster
-s32 D_80178760; // sUnlockOnFoot
+s32 sUnlockLandmaster; // sUnlockLandmaster
+s32 sUnlockOnFoot;     // sUnlockOnFoot
 s32 D_80178768[4];
 s32 D_80178778;
 s32 D_80178780[4];
@@ -437,7 +437,7 @@ s32 func_800BE564(void) {
     s32 i;
     s32 ret = 0;
 
-    if ((D_8017875C == 0) && (D_80178760 == 0) || (gVersusStage == VS_STAGE_SECTOR_Z)) {
+    if ((sUnlockLandmaster == 0) && (sUnlockOnFoot == 0) || (gVersusStage == VS_STAGE_SECTOR_Z)) {
         for (i = 0; i < 4; i++) {
             if (gPlayerInactive[i]) {
                 continue;
@@ -455,10 +455,10 @@ s32 func_800BE564(void) {
         }
 
         if ((D_80178780[i] == 0) && (D_801787F8[i] == 0)) {
-            if ((D_8017875C != 0) && (D_80178760 != 0)) {
+            if ((sUnlockLandmaster != 0) && (sUnlockOnFoot != 0)) {
                 D_80178780[i] = (s32) (Rand_ZeroOne() * 3.0f) + 1;
             }
-            if ((D_8017875C != 0) && (D_80178760 == 0)) {
+            if ((sUnlockLandmaster != 0) && (sUnlockOnFoot == 0)) {
                 D_80178780[i] = (s32) (Rand_ZeroOne() * 2.0f) + 1;
             }
         }
@@ -467,12 +467,12 @@ s32 func_800BE564(void) {
             D_801787F8[i]--;
         }
 
-        if ((D_8017875C) && (D_80178780[i] == 0) && (gControllerPress[i].button & B_BUTTON)) {
+        if ((sUnlockLandmaster) && (D_80178780[i] == 0) && (gControllerPress[i].button & B_BUTTON)) {
             Audio_PlaySfx(0x49000003U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             D_80178780[i] = 2;
         }
 
-        if ((D_80178760) && (D_80178780[i] == 0) &&
+        if ((sUnlockOnFoot) && (D_80178780[i] == 0) &&
             ((gControllerPress[i].button & L_CBUTTONS) || (gControllerPress[i].button & D_CBUTTONS) ||
              (gControllerPress[i].button & U_CBUTTONS) || (gControllerPress[i].button & R_CBUTTONS))) {
             Audio_PlaySfx(0x49000003U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -516,7 +516,7 @@ void func_800BE924(s32 index) {
     func_800BD3A8(D_800D4B90[index] + 0.0f, D_800D4BA0[index] + 10.0f);
     func_800BD350(D_800D4B90[index] + 5.0f, D_800D4BA0[index] + 0.0f);
 
-    if ((D_8017875C != 0) && (D_80178760 != 0)) {
+    if ((sUnlockLandmaster != 0) && (sUnlockOnFoot != 0)) {
         RCP_SetupDL(&gMasterDisp, 0x4E);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
         func_800BD248(D_800D4B90[index] + 15.0f, D_800D4BA0[index] + 22.0f);
@@ -529,7 +529,7 @@ void func_800BE924(s32 index) {
         func_800BD1FC(D_800D4B90[index] + 43.0f, D_800D4BA0[index] + 58.0f);
     }
 
-    if ((D_8017875C != 0) && (D_80178760 == 0)) {
+    if ((sUnlockLandmaster != 0) && (sUnlockOnFoot == 0)) {
         RCP_SetupDL(&gMasterDisp, 0x4E);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
         func_800BD248(D_800D4B90[index] + 15.0f, D_800D4BA0[index] + 29.0f);
@@ -563,7 +563,7 @@ s32 func_800BEDDC(void) {
     s32 i;
     s32 var_s4 = 0;
 
-    if ((D_8017875C == 0) && (D_80178760 == 0) || (gVersusStage == VS_STAGE_SECTOR_Z)) {
+    if ((sUnlockLandmaster == 0) && (sUnlockOnFoot == 0) || (gVersusStage == VS_STAGE_SECTOR_Z)) {
         func_800BED78();
         return 0;
     }
@@ -666,10 +666,10 @@ s32 func_800BF17C(void) {
             D_80178780[i] = 0;
             gPlayer[i].unk_1D0 = 0;
             if ((!D_80178780[i]) && (D_801787F8[i] == 0)) {
-                if ((D_8017875C != 0) && (D_80178760 != 0)) {
+                if ((sUnlockLandmaster != 0) && (sUnlockOnFoot != 0)) {
                     D_80178780[i] = (s32) (Rand_ZeroOne() * 3.0f) + 1;
                 }
-                if ((D_8017875C != 0) && (D_80178760 == 0)) {
+                if ((sUnlockLandmaster != 0) && (sUnlockOnFoot == 0)) {
                     D_80178780[i] = (s32) (Rand_ZeroOne() * 2.0f) + 1;
                 }
             }
@@ -678,11 +678,11 @@ s32 func_800BF17C(void) {
                 D_801787F8[i] -= 1;
             }
 
-            if ((D_8017875C != 0) && (D_80178780[i] == 0) && (gControllerPress[i].button & B_BUTTON)) {
+            if ((sUnlockLandmaster != 0) && (D_80178780[i] == 0) && (gControllerPress[i].button & B_BUTTON)) {
                 D_80178780[i] = 2;
             }
 
-            if ((D_80178760 != 0) && (D_80178780[i] == 0) &&
+            if ((sUnlockOnFoot != 0) && (D_80178780[i] == 0) &&
                 ((gControllerPress[i].button & L_CBUTTONS) || (gControllerPress[i].button & D_CBUTTONS) ||
                  (gControllerPress[i].button & U_CBUTTONS) || (gControllerPress[i].button & R_CBUTTONS))) {
                 D_80178780[i] = 3;
@@ -692,7 +692,7 @@ s32 func_800BF17C(void) {
                 D_80178780[i] = 1;
             }
 
-            if (((D_8017875C == 0) && (D_80178760 == 0)) || (gVersusStage == VS_STAGE_SECTOR_Z)) {
+            if (((sUnlockLandmaster == 0) && (sUnlockOnFoot == 0)) || (gVersusStage == VS_STAGE_SECTOR_Z)) {
                 D_80178850[i] = 0;
                 D_80178780[i] = 1;
             }
@@ -747,7 +747,7 @@ s32 func_800BF59C(void) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
             func_800BD76C(D_800D4BFC[i], D_800D4C0C[i]);
         } else {
-            if ((D_8017875C != 0) || (D_80178760 != 0)) {
+            if ((sUnlockLandmaster != 0) || (sUnlockOnFoot != 0)) {
                 func_800BE924(i);
             }
         }
@@ -1393,22 +1393,22 @@ void func_800C1368(void) {
     // clang-format on
 
     if (gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].normalClear == 1) {
-        D_8017875C = 1;
+        sUnlockLandmaster = 1;
     } else {
-        D_8017875C = 0;
+        sUnlockLandmaster = 0;
     }
 
     if (gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].expertClear == 1) {
-        D_80178760 = 1;
+        sUnlockOnFoot = 1;
     } else {
-        D_80178760 = 0;
+        sUnlockOnFoot = 0;
     }
 
     if (D_801778AC == 2) {
         D_801778A4 = 10000;
     }
-    if (D_8017875C == 0) {
-        D_80178760 = 0;
+    if (sUnlockLandmaster == 0) {
+        sUnlockOnFoot = 0;
     }
 
     D_80178768[0] = D_801778C8 + 1;
