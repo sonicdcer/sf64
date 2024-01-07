@@ -1,4 +1,5 @@
 #include "global.h"
+#include "fox_map.h"
 
 extern u16 D_3000380[];
 extern u8 D_30001E0[];
@@ -288,7 +289,7 @@ void func_800BDAA0(f32 xPos, f32 yPos, s32 arg2, s32 arg3, s32 arg4) {
     s32 temp1;
     s32 temp2;
     s32 temp3 = arg2;
-    s32 temp4 = arg3;
+    s32 y3 = arg3;
 
     arg2 %= i;
     arg3 %= i;
@@ -299,12 +300,12 @@ void func_800BDAA0(f32 xPos, f32 yPos, s32 arg2, s32 arg3, s32 arg4) {
         if (temp1 == temp2) {
             TextureRect_8bIA(&gMasterDisp, D_800D4B48[temp1], 16, 15, xPos, yPos, 0.7f, 0.7f);
         } else {
-            if (temp3 > temp4) {
+            if (temp3 > y3) {
                 TextureRect_8bIA(&gMasterDisp, D_800D4B48[temp2] + (16 * arg4), 16, 15 - arg4, xPos, yPos, 0.7f, 0.7f);
                 TextureRect_8bIA(&gMasterDisp, D_800D4B48[temp1], 16, arg4, xPos, yPos + (15 - arg4) * 0.7f, 0.7f,
                                  0.7f);
             }
-            if (temp3 < temp4) {
+            if (temp3 < y3) {
                 TextureRect_8bIA(&gMasterDisp, D_800D4B48[temp2], 16, 15 - arg4, xPos, yPos + (arg4 * 0.7f), 0.7f,
                                  0.7f);
                 TextureRect_8bIA(&gMasterDisp, D_800D4B48[temp1] + (16 * (15 - arg4)), 16, arg4, xPos, yPos, 0.7f,
@@ -688,7 +689,7 @@ s32 func_800BF17C(void) {
 
         if (gPlayer[i].state_1C8 != 13) {
             D_80178850[i] = 0;
-            D_801787F8[i] = 5 * 30;
+            D_801787F8[i] = 150;
             continue;
         }
 
@@ -1211,50 +1212,890 @@ bool func_800C08D0(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800C0970.s")
+void func_800C0970(f32 yScale1, f32 yScale2) {
+    RCP_SetupDL(&gMasterDisp, 0x4E);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, 255);
+    func_800BCFFC(98.0f, 72.0f, 5.19f, yScale1);
+    func_800BCFFC(98.0f, 152.0f, 5.19f, yScale2);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800C0A04.s")
+s32 func_800C0A04(void) {
+    s32 ret = func_800C07C4();
+    s32 var_v1;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800C0B0C.s")
+    if (ret != 0) {
+        D_801787AC = 255.0f;
+        D_801787B0 = 255.0f;
+        D_801787A4 += ret;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800C0C84.s")
+        if (D_801787A4 >= 3) {
+            D_801787A4 = 0;
+            D_801787A4 = 0;
+        }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800C0D10.s")
+        if (D_801787A4 < 0) {
+            D_801787A4 = 2;
+        }
+    }
 
+    if (Math_SmoothStepToF(&D_801787AC, D_801787B0, 0.5f, 100.0f, 1.0f) == 0.0f) {
+        if (D_801787B0 == 32.0f) {
+            D_801787B0 = 255.0f;
+        } else {
+            D_801787B0 = 32.0f;
+        }
+    }
+
+    return D_801787A4;
+}
+
+s32 func_800C0B0C(void) {
+    s32 i;
+    s32 colorGB[3];
+
+    RCP_SetupDL(&gMasterDisp, 0x4E);
+
+    for (i = 0; i < 3; i++) {
+        if (i == D_801787A4) {
+            colorGB[i] = D_801787AC;
+        } else {
+            colorGB[i] = 255;
+        }
+    }
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB[0], colorGB[0], 255);
+    func_800BD05C(140.0f, 74.0f, 1.0f);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB[1], colorGB[1], 255);
+    func_800BD0B4(124.0f, 86.0f, 1.0f);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB[2], colorGB[2], 255);
+    func_800BD10C(144.0f, 154.0f, 1.0f);
+
+    return 0;
+}
+
+bool func_800C0C84(void) {
+    s32 i;
+
+    for (i = 0; i < 4; i++) {
+        if (gControllerPlugged[i] == 1) {
+            if (gControllerPress[i].button & A_BUTTON) {
+                D_801787AC = 32.0f;
+                return true;
+            }
+        }
+    }
+
+    func_800C0A04();
+
+    return false;
+}
+
+bool func_800C0D10(void) {
+    s32 i;
+    s32 cont;
+    bool ret = false;
+
+    switch (D_800D4A90) {
+        case 0:
+            // clang-format off
+	        for( i=0; i<5; i++ ) { D_80178838[ i]= 0; }
+            // clang-format on
+            D_800D4A90 = 1;
+            D_800D4A94 = 0;
+            break;
+
+        case 1:
+            cont = 0;
+
+            for (i = 0; i < 4; i++) {
+                if (D_80177C30[i] == D_80178838[i]) {
+                    cont++;
+                    continue;
+                }
+                D_80178838[i]++;
+                D_800D4A94++;
+            }
+
+            if (cont == 4) {
+                D_800D4A90 = 2;
+            } else {
+                Audio_PlaySfx(0x49004007U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            }
+            break;
+
+        case 2:
+            if (D_80178838[4] != D_800D4A94) {
+                D_80178838[4]++;
+            } else {
+                ret = true;
+            }
+            break;
+
+        default:
+            break;
+    }
+
+    return ret;
+}
+
+#ifdef IMPORT_DATA
+s32 func_800C0E78(void) {
+    s32 i;
+    u8* D_800D4C80[] = {
+        "FOX",
+        "PEPPY",
+        "SLIPPY",
+        "FALCO",
+    };
+    f32 D_800D4C90[5] = {
+        32.0f, 168.0f, 32.0f, 168.0f, 0.0f,
+    };
+    f32 D_800D4CA4[5] = {
+        20.0f, 20.0f, 200.0f, 200.0f, 0.0f,
+    };
+
+    for (i = 0; i < 4; i++) {
+        if (gControllerPlugged[i] == 1) {
+
+            RCP_SetupDL(&gMasterDisp, 0x53);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
+            Graphics_DisplaySmallText(D_800D4C90[i], D_800D4CA4[i], 1.0f, 1.0f, D_800D4C80[i]);
+
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+            func_800869A0(D_800D4C90[i], D_800D4CA4[i] + 9.0f, D_80178838[i], 1.0f, 0, 999);
+        }
+    }
+
+    return 0;
+}
+#else
+s32 func_800C0E78(void);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800C0E78.s")
+#endif
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800C107C.s")
+bool func_800C107C(s32 arg0) {
+    D_80178798++;
+    if (D_80178798 == 10) {
+        Audio_PlaySfx(0x49004007U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        D_801787B8++;
+        D_80178798 = 0;
+    }
 
+    if (D_801787B8 < D_80177DB8[arg0]) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+#ifdef IMPORT_DATA
+s32 func_800C1138(s32 max, s32 arg1) {
+    f32 D_800D4CB8[] = { 24.0f, 248.0f, 24.0f, 248.0f };
+    f32 D_800D4CC8[] = { 104.0f, 104.0f, 216.0f, 216.0f };
+    s32 D_800D4CD8[] = { 177, 255, 0, 30 };
+    s32 D_800D4CE8[] = { 242, 30, 179, 30 };
+    s32 D_800D4CF8[] = { 12, 0, 67, 255 };
+    s32 i;
+    s32 j;
+
+    for (i = 0; i < max; i++) {
+        RCP_SetupDL(&gMasterDisp, 0x4D);
+        j = D_80177DD0[arg1][i];
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+        gDPSetEnvColor(gMasterDisp++, D_800D4CD8[j], D_800D4CE8[j], D_800D4CF8[j], 0);
+        func_800BD720(D_800D4CB8[arg1] + (i * 9.0f), D_800D4CC8[arg1]);
+    }
+
+    return 0;
+}
+#else
+s32 func_800C1138(s32 max, s32 arg1);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800C1138.s")
+#endif
 
+// https://decomp.me/scratch/yhFof
+#ifdef IMPORT_BSS
+void func_800C1368(void) {
+    s32 i;
+
+    for (i = 0, D_801787B4 = 0; i < 4; i++) {
+        if (!gPlayerInactive[i]) {
+            D_801787B4++;
+        }
+        D_80178780[i] = 0;
+        D_801787D8[i] = 0.0f;
+        D_801787E8[i] = 0.0f;
+    }
+
+    D_801787CC = 0.0f;
+    D_801787D0 = 0.0f;
+    D_801787AC = 255.0f;
+    D_801787B0 = 0.0f;
+    D_80161A10 = 0.5f;
+    D_80178778 = 0;
+    D_80178790 = 4;
+    D_80178794 = 1;
+    D_8017879C = 0;
+    D_801787A0 = 0;
+    D_801787A4 = 0;
+    D_801787A8 = 99;
+    D_801787B8 = 0;
+    D_80178750 = 0;
+    gBgColor = 0;
+    D_80178830 = 0;
+    D_800D4A90 = 0;
+    D_800D4A98 = 0;
+    D_800D4A9C = D_800D4AA0 = 0;
+    D_80178340 = 0xFF;
+    D_8017835C = 0;
+    D_80178358 = 0;
+
+    for (i = 0; i < 4; i++) {
+        D_80177C30[i] = 0;
+        D_80178808[i] = 0;
+        D_80178810[i] = 0;
+        D_80178820[i] = 0;
+    }
+
+    // clang-format off
+    for (i = 0; i < 4; i++) { D_801787F8[i] = 150; }
+    // clang-format on
+
+    if (gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].normalClear == 1) {
+        D_8017875C = 1;
+    } else {
+        D_8017875C = 0;
+    }
+
+    if (gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].expertClear == 1) {
+        D_80178760 = 1;
+    } else {
+        D_80178760 = 0;
+    }
+
+    if (D_801778AC == 2) {
+        D_801778A4 = 10000;
+    }
+    if (D_8017875C == 0) {
+        D_80178760 = 0;
+    }
+
+    D_80178768[0] = D_801778C8 + 1;
+    D_80178768[1] = 0;
+    D_80178768[2] = 0;
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800C1368.s")
+#endif
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800C15D8.s")
+bool func_800C15D8(void) {
+    bool ret = false;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800C1690.s")
+    if (D_80161A10 >= 1.5f) {
+        D_80161A10 = 1.5f;
+        switch (gVersusStage) {
+            case VS_STAGE_CORNERIA:
+                gBgColor = 0x8FBD;
+                break;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800C16A0.s")
+            case VS_STAGE_KATINA:
+                gBgColor = 0xADA7;
+                break;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800C16D0.s")
+            case VS_STAGE_SECTOR_Z:
+                gBgColor = 0x0001;
+                break;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800C1700.s")
+            default:
+                gBgColor = 0x8FBD;
+                break;
+        }
+        ret = true;
+    } else {
+        D_80161A10 += 0.05f;
+        gBgColor = 0;
+    }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800C176C.s")
+    return ret;
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800C1E9C.s")
+/* return type needs to be s32 for func_800C176C to match */
+s32 func_800C1690(void) {
+    D_80178798 = 0;
+}
 
+bool func_800C16A0(s32 arg0) {
+    if (arg0 != D_80178798) {
+        D_80178798++;
+    } else {
+        return true;
+    }
+    return false;
+}
+
+void func_800C16D0(void) {
+    func_800ABA08();
+    D_80178754 = 0;
+    D_80178778 = 0;
+}
+
+void func_800C1700(void) {
+    func_800BC760();
+    gGameState = GSTATE_MENU;
+    D_Timer_8017783C = 2;
+    D_8017784C = 0;
+    D_800D2870 = 1;
+    gBgColor = 0;
+}
+
+void func_800C175C(void) {
+}
+
+void func_800C1764(void) {
+}
+
+void dummy(void) {
+}
+
+bool func_800C176C(void) {
+    bool ret = false;
+
+    switch (D_80178754) {
+        case 0:
+            func_800C1368();
+            D_80178754 = 1;
+            func_800C1690();
+            break;
+
+        case 1:
+            if (!func_800C15D8()) {
+                break;
+            }
+            if (func_800C16A0(30)) {
+                func_8001D444(0, D_80177C90, 0, 0xFF);
+                D_80178754 = 2;
+                func_800C1690();
+            }
+            break;
+
+        case 2:
+            D_80178778 = 1;
+            if (D_801787B4 != func_800BE564()) {
+                break;
+            }
+            if (func_800C16A0(30)) {
+                func_800ABA08();
+                D_80178754 = 3;
+                func_800C1690();
+            }
+            break;
+
+        case 3:
+            D_80178778 = 2;
+            ret = func_800BEF00();
+
+            if (ret == false) {
+                break;
+            }
+
+            if (ret == true) {
+                D_80177E7C = 1;
+            }
+
+            if (func_800C16A0(30)) {
+                D_80178754 = 4;
+            }
+            break;
+
+        case 4:
+            if ((D_800D4A9C == 1) && (D_800D4AA0 == 0)) {
+                func_8001D444(0, 0x802F, 0, 0xFF);
+                D_800D4AA0 = 1;
+            }
+
+            if (D_801778AC == 2) {
+                D_80178778 = 10;
+                func_800BE078();
+                func_800BDE3C();
+            } else {
+                D_80178778 = 8;
+            }
+
+            if (func_800BF9AC()) {
+                func_800182F4(0x100100FF);
+                func_800182F4(0x110100FF);
+                if (D_801778AC == 2) {
+                    D_80178778 = 11;
+                } else {
+                    D_80178778 = 0;
+                }
+                D_80178754 = 5;
+                func_800C1690();
+            } else {
+                func_800BF17C();
+            }
+            break;
+
+        case 5:
+            if (func_800C16A0(60)) {
+                switch (D_801787A8) {
+                    case 0:
+
+                    case 1:
+
+                    case 2:
+
+                    case 3:
+                        func_8001D444(0, 0x26, 0, 0xFF);
+                        break;
+
+                    case 99:
+                        func_8001D444(0, 0x31, 0, 0xFF);
+                        break;
+
+                    default:
+                        break;
+                }
+
+                D_80178750 = 1;
+                D_80178754 = 6;
+                func_800C024C();
+            }
+            break;
+
+        case 6:
+            D_80178778 = 3;
+            if (!func_800C0294(D_801787A8)) {
+                break;
+            }
+            if (func_800C16A0(30)) {
+                func_800C1690();
+                D_80178754 = 7;
+            }
+            break;
+
+        case 7:
+            D_80178778 = 4;
+            if (func_800C16A0(15)) {
+                func_800C1690();
+                if (((D_801778AC == 0) && (D_801787B4 > 1)) || (D_801778AC == 2)) {
+                    D_80178754 = 8;
+                } else {
+                    D_80178754 = 9;
+                }
+            }
+            break;
+
+        case 8:
+            D_80178778 = 5;
+            switch (D_801778AC) {
+                case 0:
+                    if (func_800C107C(D_801787A8)) {
+                        D_80178754 = 9;
+                    }
+                    break;
+
+                case 2:
+                    if (func_800C0D10()) {
+                        D_80178754 = 9;
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+
+            break;
+
+        case 9:
+            D_80178778 = 6;
+            if (func_800C08D0()) {
+                func_800C1690();
+                D_801787AC = 0.0f;
+                D_80178830 = 0;
+                D_80178754 = 10;
+            }
+            break;
+
+        case 10:
+            D_80178778 = 7;
+            if (func_800C16A0(60)) {
+                if (func_800C0C84()) {
+                    switch (D_801787A4) {
+                        case 0:
+                            D_80178754 = 11;
+                            break;
+
+                        case 1:
+                            D_80178754 = 12;
+                            break;
+
+                        case 2:
+                            D_80178754 = 13;
+                            break;
+
+                        default:
+                            D_80178754 = 14;
+                            break;
+                    }
+
+                    func_800182F4(0x103200FF);
+                    func_800182F4(0x113200FF);
+                }
+            }
+            break;
+
+        case 11:
+            D_80178830 += 16;
+            if (D_80178830 > 480) {
+                D_80178348 = D_80178350 = D_80178354 = 0;
+                D_80178340 = D_80178358 = 255;
+                gBgColor = 0;
+                func_800C16D0();
+            }
+            break;
+
+        case 12:
+            D_80178830 += 16;
+            if (D_80178830 > 160) {
+                if (D_80178830 > 176) {
+                    gCamCount = 1;
+                }
+                D_80178348 = D_80178350 = D_80178354 = 0;
+                gBgColor = 0;
+                if (D_80178830 > 224) {
+                    func_800C1700();
+                }
+            }
+            break;
+
+        case 13:
+            D_80178830 += 16;
+            if (D_80178830 > 160) {
+                if (D_80178830 > 176) {
+                    gCamCount = 1;
+                }
+
+                D_80178348 = D_80178350 = D_80178354 = 0;
+                gBgColor = 0;
+
+                if (D_80178830 > 224) {
+                    func_800BC760();
+                    D_EBFBE0_801B827C = 1;
+                }
+            }
+            break;
+
+        case 14:
+            break;
+
+        case 20:
+            D_80178778 = 9;
+            if (gInputPress->button & B_BUTTON) {
+                D_80178754 = 13;
+            } else {
+                func_800C175C();
+            }
+            break;
+    }
+
+    if (((D_80178754 == 8) || (D_80178754 == 9)) || (D_80178754 == 10)) {
+        D_800D4A98 += 1;
+    }
+
+    if (D_80178754 >= 5) {
+        D_801779BC = 0;
+    }
+
+    return false;
+}
+
+s32 func_800C1E9C(void) {
+    if (D_80177854 != 100) {
+        func_800C176C();
+    }
+    return 0;
+}
+
+// needs static bss for D_80178868 and D_80178860
+#ifdef IMPORT_BSS
+void func_800C1ED4(void) {
+    s32 var_a1;
+
+    D_80178868 = D_80178860;
+    D_80178860 = osGetTime();
+
+    switch (D_80178778) {
+        case 1:
+            func_800BEDDC();
+            break;
+
+        case 2:
+            func_800BEFE4();
+            break;
+
+        case 7:
+        case 6:
+            func_800C0970(D_801787CC, D_801787D0);
+
+        case 5:
+            switch (D_801778AC) {
+                case 0:
+                    func_800C1138(D_801787B8, D_801787A8);
+                    break;
+
+                case 2:
+                    func_800C0E78();
+                    break;
+            }
+        case 4:
+            if ((D_801778AC != 2) || (!(D_800D4A98 & 32))) {
+                if (D_801787A8 < 4) {
+                    func_800C075C();
+                }
+            }
+
+        case 3:
+            func_800C04DC(D_801787C0, D_801787C8, D_801787A8);
+            if (D_80178778 == 7) {
+                func_800C0B0C();
+            }
+            break;
+
+        case 10:
+            func_800BDE44();
+
+        case 8:
+            func_800BF750();
+            func_800BF59C();
+
+        case 11:
+            if (D_801778AC == 2) {
+                func_800BE300(124.0f, 116.0f, D_80178768);
+            }
+            break;
+
+        case 9:
+            func_800C1764();
+            break;
+    }
+
+    var_a1 = D_80178830;
+    if (var_a1 >= 121) {
+        var_a1 = 121;
+    }
+    func_80084688(2, var_a1);
+}
+#else
+void func_800C1ED4(void);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800C1ED4.s")
+#endif
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800C20B0.s")
+void func_800C20B0(void) {
+    switch (D_8017784C) {
+        case 0:
+            if (D_Timer_8017783C == 0) {
+                D_8017784C = 1;
+                D_80178410 = 0;
+            }
+            break;
+
+        case 1:
+            D_8017784C = 2;
+            break;
+
+        case 2:
+            gDrawMode = DRAWMODE_0;
+            func_800A5844();
+
+            if (gVersusStage == VS_STAGE_SECTOR_Z) {
+                gOverlayStage = 1;
+            }
+
+            gCurrentLevel = LEVEL_VERSUS;
+            gGameState = GSTATE_PLAY;
+            D_Timer_8017783C = 2;
+            D_80177854 = 0;
+            D_80178758 = 0;
+            break;
+    }
+    gFrameCount++;
+}
 
 void func_800C2190(void) {
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800C2198.s")
+bool func_800C2198(Object_2F4* this, f32 arg1, f32 arg2) {
+    if ((fabsf(gBosses[0].obj.pos.x - (this->obj.pos.x + (arg1 * 650.0f))) < 1500.0f) &&
+        (fabsf(gBosses[0].obj.pos.z - (this->obj.pos.z + (arg2 * 650.0f))) < 1500.0f) &&
+        (fabsf(gBosses[0].obj.pos.y - this->obj.pos.y) < 700.0f)) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800C2244.s")
+void func_800C2244(Object_2F4* Enm) {
+    bool boolTemp2;
+    bool boolTemp;
+    s32 pad2[6];
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 x3;
+    s32 pad4;
+    f32 y3;
+    s32 pad3[3];
+    f32 sinX;
+    f32 sinY;
+    f32 cosX;
+    f32 cosY;
+    Vec3f vec;
+    s32 pad;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800C26C8.s")
+    boolTemp = false;
+
+    switch (Enm->unk_0B8) {
+        case 0:
+            boolTemp = true;
+
+            if (Enm->timer_0BC == 0) {
+                y = Rand_ZeroOne() * 1000.0f;
+                x = (Rand_ZeroOne() - 0.5f) * 10000.0f;
+                z = (Rand_ZeroOne() - 0.5f) * 10000.0f;
+
+                if ((fabsf(Enm->obj.pos.x - x) > 2000.0f) || (fabsf(Enm->obj.pos.z - z) > 2000.0f)) {
+                    Enm->unk_124.x = x;
+                    Enm->unk_124.y = y;
+                    Enm->unk_124.z = z;
+                    Enm->timer_0BC = (s32) (Rand_ZeroOne() * 20.0f) + 10;
+                }
+            }
+            break;
+    }
+
+    sinX = __sinf(M_DTOR * (Enm->obj.rot.x));
+    cosX = __cosf(M_DTOR * (Enm->obj.rot.x));
+    sinY = __sinf(M_DTOR * (Enm->obj.rot.y));
+    cosY = __cosf(M_DTOR * (Enm->obj.rot.y));
+
+    if (boolTemp) {
+        x = Enm->unk_124.x - Enm->obj.pos.x;
+        y = Enm->unk_124.y - Enm->obj.pos.y;
+        z = Enm->unk_124.z - Enm->obj.pos.z;
+
+        if (!((gFrameCount + Enm->index) & 7)) {
+            Enm->unk_160 = Math_RadToDeg((Math_Atan2F(x, z)));
+            z = sqrtf(SQ(x) + SQ(z));
+            Enm->unk_164 = Math_RadToDeg((Math_Atan2F(y, z)));
+        }
+
+        x3 = Enm->unk_164;
+
+        boolTemp2 = func_800C2198(Enm, sinY, cosY);
+
+        if (boolTemp2) {
+            x3 += 40.0f * boolTemp2;
+
+            if (x3 >= 360.0f) {
+                x3 -= 360.0f;
+            }
+            if (x3 < 0.0f) {
+                x3 += 360.0f;
+            }
+
+        } else if (Enm->obj.pos.y < D_80177940 + 50.0f) {
+            if (x3 > 180.0f) {
+                x3 = 0.0f;
+                Enm->unk_0F4.x = 0.0f;
+            }
+        }
+
+        Math_SmoothStepToAngle(&Enm->unk_0F4.x, x3, 0.5f, 1.0f, 0.0001f);
+        y3 = Math_SmoothStepToAngle(&Enm->unk_0F4.y, Enm->unk_160, 0.5f, 1.0f, 0.0001f) * 30.0f;
+
+        if (y3 < 0.0f) {
+            y3 *= -1.0f;
+        } else {
+            y3 = 360.0f - y3;
+        }
+
+        Math_SmoothStepToAngle(&Enm->obj.rot.z, y3, 0.1f, 3.0f, 0.01f);
+    }
+
+    Enm->obj.rot.x = -Enm->unk_0F4.x;
+    Enm->obj.rot.y = Enm->unk_0F4.y;
+
+    vec.z = +cosX * 38.0f;
+    vec.y = -sinX * 38.0f;
+
+    vec.x = sinY * vec.z;
+    vec.z = cosY * vec.z;
+
+    Enm->vel.x = vec.x + Enm->unk_148;
+    Enm->vel.y = vec.y + Enm->unk_14C;
+    Enm->vel.z = vec.z + Enm->unk_144;
+
+    Enm->unk_148 -= Enm->unk_148 * 0.1f;
+    Enm->unk_14C -= Enm->unk_14C * 0.1f;
+    Enm->unk_144 -= Enm->unk_144 * 0.1f;
+
+    if ((Enm->obj.pos.y < D_80177940 + 40.0f) && (Enm->vel.y < 0.0f)) {
+        Enm->obj.pos.y = D_80177940 + 40.0f;
+        Enm->vel.y = 0.0f;
+    }
+
+    func_8003088C(Enm);
+
+    if (Enm->unk_070) {
+        Enm->unk_070--;
+    }
+}
+
+void func_800C26C8(void) {
+    s32 i;
+    Vec3f src;
+    Vec3f dest;
+    Object_2F4* obj;
+
+    if ((D_801778AC != 2) || (D_80177E7C == 0)) {
+        return;
+    }
+
+    if (D_80178758 != 0) {
+        D_80178758--;
+    }
+
+    if (D_80178758 == 0) {
+        D_80178758 = 2;
+
+        src.x = 0.0f;
+        src.y = 500.0f;
+        src.z = -10000.0f;
+
+        for (i = 0, obj = &gObjects2F4[10]; i < 5; i++, obj++) {
+            if (obj->obj.status == 0) {
+                Object_2F4_Initialize(obj);
+                obj->obj.status = 2;
+                obj->obj.id = 197;
+                Matrix_RotateY(gCalcMatrix, M_DTOR * (Rand_ZeroOne() * 360.0f), 0);
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+                obj->obj.pos.x = dest.x;
+                obj->obj.pos.y = dest.y;
+                obj->obj.pos.z = dest.z;
+                obj->unk_0E4 = i + 10;
+                obj->unk_0CE = 24;
+                obj->timer_0C2 = 30;
+
+                Object_SetInfo(&obj->info, obj->obj.id);
+                obj->info.action = (ObjectFunc) func_800C2244;
+                break;
+            }
+        }
+    }
+}
+
+#ifndef IMPORT_DATA
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/D_800D9260.s")
 
@@ -1263,3 +2104,5 @@ void func_800C2190(void) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/D_800D926C.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/D_800D9274.s")
+
+#endif
