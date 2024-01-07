@@ -148,7 +148,8 @@ typedef struct {
     /* 0x05A */ s16 timer_05A;
     /* 0x05C */ s16 timer_05C;
     /* 0x05E */ u8 unk_05E;
-    /* 0x05F */ char pad5F[3];
+    /* 0x05F */ char pad5F[1];
+    /* 0x060 */ s16 unk_060;
     /* 0x062 */ s8 unk_062;
     /* 0x063 */ char pad63[1];
     /* 0x064 */ s16 unk_064;
@@ -161,7 +162,11 @@ typedef struct {
     /* 0x08A */ s16 unk_08A;
     /* 0x08C */ char pad8C[6];
     /* 0x092 */ u16 unk_092;
-    /* 0x094 */ char pad94[0x12];
+    /* 0x094 */ char pad94[0x4];
+    /* 0x098 */ s16 unk_098;
+    /* 0x09A */ char pad9A[0x2];
+    /* 0x09C */ s16 unk_09C;
+    /* 0x09E */ char pad9E[0x8];
     /* 0x0A6 */ s16 unk_0A6;
     /* 0x0A8 */ char padA8[6];
     /* 0x0AE */ s16 unk_0AE;
@@ -173,7 +178,7 @@ typedef struct {
     /* 0x0D0 */ s16 unk_0D0;
     /* 0x0D2 */ char padD2[4];
     /* 0x0D6 */ s16 unk_0D6;
-    /* 0x0D8 */ char padD8[4];
+    /* 0x0D8 */ f32 unk_0D8;
     /* 0x0DC */ f32 unk_0DC;
     /* 0x0E0 */ f32 unk_0E0;
     /* 0x0E4 */ f32 unk_0E4;
