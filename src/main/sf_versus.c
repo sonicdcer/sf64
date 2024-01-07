@@ -1548,13 +1548,13 @@ void func_800C1700(void) {
     gBgColor = 0;
 }
 
+void dummy(void) {
+}
+
 void func_800C175C(void) {
 }
 
 void func_800C1764(void) {
-}
-
-void dummy(void) {
 }
 
 bool func_800C176C(void) {
