@@ -348,9 +348,9 @@ void func_80048E40(Player* player) {
                         player->timer_1F8 = 0;
                         D_8017837C = 4;
                         if (gCurrentLevel == LEVEL_METEO) {
-                            D_800D3180[1] = Play_CheckMedalStatus(0xC8U) + 1;
+                            D_800D3180[1] = Play_CheckMedalStatus(200) + 1;
                         } else {
-                            D_800D3180[2] = Play_CheckMedalStatus(0x96U) + 1;
+                            D_800D3180[2] = Play_CheckMedalStatus(150) + 1;
                         }
                         D_80177930 = 2;
                     }
