@@ -3213,11 +3213,11 @@ extern f32 D_EBFBE0_801B9328;
 extern f32 D_EBFBE0_801B9338;
 #endif
 void func_EBFBE0_8019AD84(void) {
-    #ifdef IMPORT_BSS
+#ifdef IMPORT_BSS
     static f32 D_EBFBE0_801B9324;
     static f32 D_EBFBE0_801B9328;
     static f32 D_EBFBE0_801B9338;
-    #endif
+#endif
     s32 pad[2];
     s32 colorGB;
     s32 var_v0;
@@ -3289,11 +3289,11 @@ extern f32 D_EBFBE0_801B93CC;
 void func_EBFBE0_8019AFFC(void) {
     static f32 D_EBFBE0_801AF2A0 = 101.0f;
     static f32 D_EBFBE0_801AF2A4 = 86.0f;
-    #ifdef IMPORT_BSS
+#ifdef IMPORT_BSS
     static f32 D_EBFBE0_801B93C0;
     static f32 D_EBFBE0_801B93C8;
     static f32 D_EBFBE0_801B93CC;
-    #endif
+#endif
     s32 var_v0;
     s32 colorGB;
 
