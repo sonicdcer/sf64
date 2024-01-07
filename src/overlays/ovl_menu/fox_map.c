@@ -45,16 +45,16 @@ typedef struct {
     /* 0xC */ f32 posX;
 } Texture; // size = 0x10
 
-static s32 D_EBFBE0_801AF420[2] = { 0x0000000A, 0x00000014 };
+s32 D_EBFBE0_801AF420[2] = { 10, 20 };
 
-static u16* D_EBFBE0_801AF428[15][2] = {
+u16* D_EBFBE0_801AF428[15][2] = {
     gMsg_ID_1220, gMsg_ID_1230, gMsg_ID_1320, gMsg_ID_1330, gMsg_ID_1300, gMsg_ID_1310, gMsg_ID_1420, gMsg_ID_1430,
     gMsg_ID_1260, gMsg_ID_1270, gMsg_ID_1440, gMsg_ID_1450, gMsg_ID_1360, gMsg_ID_1370, gMsg_ID_1340, gMsg_ID_1350,
     gMsg_ID_1400, gMsg_ID_1410, gMsg_ID_1200, gMsg_ID_1210, gMsg_ID_1240, gMsg_ID_1250, gMsg_ID_1380, gMsg_ID_1390,
     gMsg_ID_1280, gMsg_ID_1290, NULL,         NULL,         gMsg_ID_1460, gMsg_ID_1470,
 };
 
-static Planet planet[PLANET_MAX] = {
+Planet planet[PLANET_MAX] = {
     /* PLANET_METEO */
     { 0, 1150.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -130.0f, 1.0f, 0, 0, PLANET_FORTUNA, -1, PLANET_KATINA },
     /* PLANET_AREA_6 */
@@ -89,20 +89,20 @@ static Planet planet[PLANET_MAX] = {
 };
 
 // unused
-static PlanetId D_EBFBE0_801AF7E8[] = {
+PlanetId D_EBFBE0_801AF7E8[] = {
     PLANET_CORNERIA, PLANET_METEO,  PLANET_TITANIA, PLANET_SECTOR_X, PLANET_AQUAS,
     PLANET_BOLSE,    PLANET_VENOM,  PLANET_FORTUNA, PLANET_AREA_6,   PLANET_MACBETH,
     PLANET_SECTOR_Z, PLANET_ZONESS, PLANET_KATINA,  PLANET_SECTOR_Y, PLANET_SOLAR,
 };
 
-static Gfx* D_EBFBE0_801AF824[4] = {
+Gfx* D_EBFBE0_801AF824[4] = {
     (Gfx*) 0x0604A710,
     (Gfx*) 0x0604A400,
     (Gfx*) 0x0604A190,
     (Gfx*) 0x06049F80,
 };
 
-static Texture D_EBFBE0_801AF834[14] = {
+Texture D_EBFBE0_801AF834[14] = {
     { (u8*) 0x06007B90, 128, 28, 95.0f }, { (u8*) 0x060030D0, 96, 28, 110.0f },  { (u8*) 0x060131A0, 176, 12, 73.0f },
     { (u8*) 0x06009AD0, 168, 28, 77.0f }, { (u8*) 0x0600B9B0, 168, 28, 74.0f },  { (u8*) 0x06001C80, 96, 13, 106.0f },
     { (u8*) 0x06011660, 176, 12, 75.0f }, { (u8*) 0x06010010, 112, 13, 109.0f }, { (u8*) 0x06017640, 112, 28, 101.0f },
@@ -110,7 +110,7 @@ static Texture D_EBFBE0_801AF834[14] = {
     { (u8*) 0x06004AC0, 168, 19, 72.0f }, { (u8*) 0x06006320, 104, 28, 105.0f },
 };
 
-static Texture D_EBFBE0_801AF914[] = {
+Texture D_EBFBE0_801AF914[] = {
     { (u8*) 0x06008990, 232, 19, 46.0f }, { (u8*) 0x06003B50, 208, 19, 56.0f }, { (u8*) 0x060139E0, 128, 19, 98.0f },
     { (u8*) 0x0600AD30, 168, 19, 77.0f }, { (u8*) 0x0600CC10, 128, 19, 95.0f }, { (u8*) 0x06002160, 208, 19, 57.0f },
     { (u8*) 0x06011EA0, 256, 19, 40.0f }, { (u8*) 0x060105C0, 224, 19, 49.0f }, { (u8*) 0x06018280, 184, 19, 70.0f },
@@ -118,16 +118,16 @@ static Texture D_EBFBE0_801AF914[] = {
     { (u8*) 0x06005740, 160, 19, 81.0f }, { (u8*) 0x06006E80, 176, 19, 70.0f },
 };
 
-static char* sPlanetNames[] = {
+char* sPlanetNames[] = {
     "ME", "A6", "BO", "SZ", "SX", "SY", "KA", "MA", "ZO", "CO", "TI", "AQ", "FO", "VE", "SO",
 };
 
-static Gfx* D_EBFBE0_801AFA30[2] = {
+Gfx* D_EBFBE0_801AFA30[2] = {
     (Gfx*) 0x06055F20,
     (Gfx*) 0x06051D20,
 };
 
-static ObjPosition D_EBFBE0_801AFA38[] = {
+ObjPosition D_EBFBE0_801AFA38[] = {
     { -491.0f, 1170.0f, 20.0f, 0.71f },  { -488.0f, 1135.0f, 15.0f, 0.6f },   { -496.0f, 1090.0f, 0.0f, 0.50f },
     { -489.0f, 1200.0f, 0.0f, 0.6f },    { -489.0f, 1150.0f, -15.0f, 0.80f }, { -487.0f, 1143.0f, -15.0f, 0.8f },
     { -493.0f, 1182.0f, -20.0f, 0.90f }, { -491.0f, 1080.0f, -25.0f, 0.8f },  { -497.0f, 1114.0f, -25.0f, 0.70f },
@@ -144,14 +144,14 @@ static ObjPosition D_EBFBE0_801AFA38[] = {
     { -512.0f, 1099.0f, -15.0f, 0.5f },  { -523.0f, 1179.0f, -30.0f, 0.70f }, { -519.0f, 1176.0f, -30.0f, 0.5f },
 };
 
-static ObjPosition D_EBFBE0_801AFCD8[4] = {
+ObjPosition D_EBFBE0_801AFCD8[4] = {
     { 50.0f, 1410.0f, 40.0f, 0.10f },
     { 35.0f, 1235.0f, 40.0f, 0.03f },
     { 42.0f, 1270.0f, 60.0f, 0.05f },
     { 35.0f, 1280.0f, 20.0f, 0.05f },
 };
 
-static UnkStruct_D_EBFBE0_801AFD18 D_EBFBE0_801AFD18[24] = {
+UnkStruct_D_EBFBE0_801AFD18 D_EBFBE0_801AFD18[24] = {
     { 0, PLANET_CORNERIA, PLANET_METEO, 5, 0, 0, 0 },   { 0, PLANET_METEO, PLANET_FORTUNA, 5, 0, 0, 0 },
     { 0, PLANET_FORTUNA, PLANET_SECTOR_X, 5, 0, 0, 0 }, { 0, PLANET_SECTOR_X, PLANET_TITANIA, 5, 0, 0, 0 },
     { 0, PLANET_TITANIA, PLANET_BOLSE, 5, 0, 0, 0 },    { 0, PLANET_KATINA, PLANET_SECTOR_X, 5, 0, 0, 0 },
@@ -166,22 +166,22 @@ static UnkStruct_D_EBFBE0_801AFD18 D_EBFBE0_801AFD18[24] = {
     { 3, PLANET_METEO, PLANET_KATINA, 5, 0, 0, 0 },     { 4, PLANET_SECTOR_X, PLANET_SECTOR_Z, 10, 0, 0, 0 },
 };
 
-static f32 D_EBFBE0_801AFFB8[] = {
+f32 D_EBFBE0_801AFFB8[] = {
     90.0f, 170.0f, 130.0f, 100.0f, 100.0f, 100.0f, 80.0f, 80.0f, 80.0f, 150.0f, 80.0f, 80.0f, 80.0f, 270.0f, 250.0f,
 };
 
-static f32 D_EBFBE0_801AFFF4 = 0.0f; // yRot of something
-static f32 D_EBFBE0_801AFFF8 = 0.0f; // xRot of something
-static f32 D_EBFBE0_801AFFFC = 0.0f; // yRot of something
-static f32 D_EBFBE0_801B0000 = 0.0f; // xRot of something
+f32 D_EBFBE0_801AFFF4 = 0.0f; // yRot of something
+f32 D_EBFBE0_801AFFF8 = 0.0f; // xRot of something
+f32 D_EBFBE0_801AFFFC = 0.0f; // yRot of something
+f32 D_EBFBE0_801B0000 = 0.0f; // xRot of something
 
-static s32 D_EBFBE0_801B0004[47] = {
+s32 D_EBFBE0_801B0004[47] = {
     39, 35, 32, 30, 27, 26, 24, 22, 21, 20, 18, 17, 16, 15, 14, 13, 12, 12, 11, 10, 9, 9, 8, 8,
     7,  6,  6,  6,  5,  5,  4,  4,  4,  3,  3,  3,  3,  2,  2,  2,  2,  2,  2,  2,  2, 2, 1,
 };
 
 // Looks like a quarter of a circle
-static s32 D_EBFBE0_801B00C0[47][96] = {
+s32 D_EBFBE0_801B00C0[47][96] = {
     {
         0,
         2,
@@ -443,7 +443,7 @@ static s32 D_EBFBE0_801B00C0[47][96] = {
     },
 };
 
-static Vtx D_EBFBE0_801B4740[] = {
+Vtx D_EBFBE0_801B4740[] = {
     { 0x001E, 0x001E, 0x0000, 0x0000, 0x0C00, 0x0000, 255, 255, 255, 255 },
     { 0xFFE2, 0x001E, 0x0000, 0x0000, 0x0000, 0x0000, 255, 255, 255, 255 },
     { 0xFFE2, 0x0019, 0x0000, 0x0000, 0x0000, 0x0100, 255, 255, 255, 255 },
@@ -925,7 +925,7 @@ char* D_EBFBE0_801B68D4[] = {
     (char*) 0x0601FF40, (char*) 0x06026D70, (char*) 0x060223E0, (char*) 0x060190B0,
 };
 
-static Gfx* D_EBFBE0_801B68F8[] = {
+Gfx* D_EBFBE0_801B68F8[] = {
     (Gfx*) 0x06060610,        (Gfx*) 0x0601DE80,        (Gfx*) 0x0604B750,        (Gfx*) 0x0601F6B0,
     (Gfx*) 0x0601C0D0,        (Gfx*) 0x0601C960,        (Gfx*) D_EBFBE0_801B5E78, (Gfx*) D_EBFBE0_801B61E0,
     (Gfx*) D_EBFBE0_801B6548, (Gfx*) D_EBFBE0_801B4D70, (Gfx*) D_EBFBE0_801B5B10, (Gfx*) D_EBFBE0_801B5440,
