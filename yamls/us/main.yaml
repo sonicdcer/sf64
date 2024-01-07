@@ -284,7 +284,7 @@
       - [0xD3DB0, .data, fox_rcp]
       - [0xD5670, .data, fox_radio]
       - [0xD5680, .data, fox_reset]
-      - [0xD5690, data, sf_versus]
+      - [0xD5690, .data, sf_versus]
       - [0xD5910, .data, fox_save]
 
       # RODATA - game engine

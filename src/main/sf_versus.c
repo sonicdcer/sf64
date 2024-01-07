@@ -39,6 +39,12 @@ extern u16 D_70123F8[];
 extern u16 D_80178808[4];
 extern s32 D_80178810[4];
 
+s32 D_800D4A90 = 0;
+s32 D_800D4A94 = 0;
+s32 D_800D4A98 = 0;
+s32 D_800D4A9C = 0;
+s32 D_800D4AA0 = 0;
+
 void func_800BC760(void) {
     s32 i;
 
@@ -87,10 +93,8 @@ void func_800BC8D8(f32 xPos, f32 yPos, f32 scale) {
                      scale);
 }
 
-// needs in-function data
-#ifdef IMPORT_DATA
 void func_800BC9DC(f32 xPos, f32 yPos, f32 scale, s32 yScale) {
-    u16* D_800D4AA4[] = { (u16*) 0x03008DE0, (u16*) 0x03008DE0, (u16*) 0x03008DE0 };
+    u16* D_800D4AA4[] = { (u16*) 0x03008DE0, (u16*) 0x030098C0, (u16*) 0x0300A390 };
     u8* D_800D4ABC[] = { (u8*) 0x030087A0, (u8*) 0x03008EC0, (u8*) 0x03009990 };
     s32 D_800D4AB0[] = { 40, 64, 64 };
     s32 i;
@@ -100,10 +104,6 @@ void func_800BC9DC(f32 xPos, f32 yPos, f32 scale, s32 yScale) {
                          D_800D4AB0[yScale], 8, xPos, yPos + (8 * i * scale), scale, scale);
     }
 }
-#else
-void func_800BC9DC(f32 xPos, f32 yPos, f32 scale, s32 yScale);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BC9DC.s")
-#endif
 
 void func_800BCB44(f32 xPos, f32 yPos, f32 scale) {
     s32 i;
@@ -116,8 +116,6 @@ void func_800BCB44(f32 xPos, f32 yPos, f32 scale) {
                      scale);
 }
 
-// needs in-function data
-#ifdef IMPORT_DATA
 void func_800BCC48(f32 xPos, f32 yPos, f32 xScale, f32 yScale, s32 arg4) {
     u16* D_800D4AC8[] = { (u16*) 0x03006A68, (u16*) 0x03008598, (u16*) 0x0300C458, (u16*) 0x03005E38 };
     u8* D_800D4AD8[] = { (u8*) 0x03006040, (u8*) 0x030076C0, (u8*) 0x0300B3F0, (u8*) 0x03004F60 };
@@ -131,10 +129,6 @@ void func_800BCC48(f32 xPos, f32 yPos, f32 xScale, f32 yScale, s32 arg4) {
     TextureRect_8bCI(&gMasterDisp, D_800D4AD8[arg4] + (D_800D4AE8[arg4] * 8 * i), D_800D4AC8[arg4], D_800D4AE8[arg4], 1,
                      xPos, yPos + (8 * i * yScale), xScale, yScale);
 }
-#else
-void func_800BCC48(f32 xPos, f32 yPos, f32 xScale, f32 yScale, s32 arg4);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BCC48.s")
-#endif
 
 void func_800BCE24(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
     s32 i;
@@ -210,7 +204,6 @@ void func_800BD3A8(f32 xPos, f32 yPos) {
     TextureRect_4bCI(&gMasterDisp, D_70118E0 + ((80 * 8 * i) / 2), D_70123F8, 80, 7, xPos, yPos + (i * 8), 1.0f, 1.0f);
 }
 
-#ifdef IMPORT_DATA
 void func_800BD4D4(f32 xPos, f32 yPos, s32 arg2) {
     u8* D_800D4AF8[] = {
         (u8*) 0x05000000, (u8*) 0x05000080, (u8*) 0x05000100, (u8*) 0x05000180, (u8*) D_5000200,
@@ -233,10 +226,6 @@ void func_800BD4D4(f32 xPos, f32 yPos, s32 arg2) {
     }
     TextureRect_8bIA(&gMasterDisp, D_800D4AF8[arg2 / i], 16, 8, xPos, yPos, 1.0f, 1.0f);
 }
-#else
-void func_800BD4D4(f32 xPos, f32 yPos, s32 arg2);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BD4D4.s")
-#endif
 
 void func_800BD720(f32 xPos, f32 yPos) {
     TextureRect_8bIA(&gMasterDisp, D_30013E0, 8, 8, xPos, yPos, 1.0f, 1.0f);
@@ -246,7 +235,6 @@ void func_800BD76C(f32 xPos, f32 yPos) {
     TextureRect_4bCI(&gMasterDisp, D_30001E0, D_3000380, 64, 13, xPos, yPos, 1.0f, 1.0f);
 }
 
-#ifdef IMPORT_DATA
 void func_800BD7C4(f32 xPos, f32 yPos, s32 arg2) {
     u8* D_800D4B20[] = {
         (u8*) 0x05000000, (u8*) 0x05000080, (u8*) 0x05000100, (u8*) 0x05000180, (u8*) D_5000200,
@@ -266,10 +254,6 @@ void func_800BD7C4(f32 xPos, f32 yPos, s32 arg2) {
         TextureRect_8bIA(&gMasterDisp, D_800D4B20[arg2 / i], 16, 8, xPos, yPos, 1.0f, 1.0f);
     }
 }
-#else
-void func_800BD7C4(f32 xPos, f32 yPos, s32 arg2);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BD7C4.s")
-#endif
 
 void func_800BD9FC(f32 xPos, f32 yPos) {
     TextureRect_4bCI(&gMasterDisp, D_1011E80, D_1011EC0, 16, 8, xPos, yPos, 1.0f, 1.0f);
@@ -279,7 +263,6 @@ void func_800BDA54(f32 xPos, f32 yPos) {
     TextureRect_8bIA(&gMasterDisp, D_5007F60, 8, 8, xPos, yPos, 1.0f, 1.0f);
 }
 
-#ifdef IMPORT_DATA
 void func_800BDAA0(f32 xPos, f32 yPos, s32 arg2, s32 arg3, s32 arg4) {
     u8* D_800D4B48[] = {
         (u8*) D_5009F60, (u8*) D_500A050, (u8*) D_500A140,  (u8*) D_500A230,  (u8*) D_500A320,
@@ -317,15 +300,10 @@ void func_800BDAA0(f32 xPos, f32 yPos, s32 arg2, s32 arg3, s32 arg4) {
         arg3 %= i;
     }
 }
-#else
-void func_800BDAA0(f32 xPos, f32 yPos, s32 arg2, s32 arg3, s32 arg4);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BDAA0.s")
-#endif
 
 void func_800BDE3C(void) {
 }
 
-#ifdef IMPORT_DATA
 void func_800BDE44(void) {
     s32 i;
     f32 D_800D4B70[] = {
@@ -372,10 +350,6 @@ void func_800BDE44(void) {
         }
     }
 }
-#else
-void func_800BDE44(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BDE44.s")
-#endif
 
 s32 func_800BE078(void) {
     s32 temp;
@@ -532,7 +506,6 @@ s32 func_800BE564(void) {
     return ret;
 }
 
-#ifdef IMPORT_DATA
 void func_800BE924(s32 index) {
     f32 D_800D4B90[] = { 40.0f, 200.0f, 40.0f, 200.0f };
     f32 D_800D4BA0[] = { 20.0f, 20.0f, 140.0f, 140.0f };
@@ -571,12 +544,6 @@ void func_800BE924(s32 index) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
     func_800BD4D4(D_800D4B90[index] + 32.0f, D_800D4BA0[index] + 84.0f, (D_801787F8[index] / 30) + 1);
 }
-#else
-void func_800BE924(s32 index);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BE924.s")
-#endif
-
-#ifdef IMPORT_DATA
 void func_800BECA8(s32 index) {
     f32 D_800D4BB0[] = { 40.0f, 200.0f, 40.0f, 200.0f };
     f32 D_800D4BC0[] = { 40.0f, 40.0f, 160.0f, 160.0f };
@@ -585,10 +552,6 @@ void func_800BECA8(s32 index) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 30, 0, 255);
     func_800BC88C(D_800D4BB0[index], D_800D4BC0[index], 1.0f);
 }
-#else
-void func_800BECA8(s32 index);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BECA8.s")
-#endif
 
 void func_800BED78(void) {
     RCP_SetupDL(&gMasterDisp, 0x4E);
@@ -652,7 +615,6 @@ s32 func_800BEF00(void) {
     return ret;
 }
 
-#ifdef IMPORT_DATA
 s32 func_800BEFE4(void) {
     f32 D_800D4BD0[] = { 46.0f, 206.0f, 46.0f, 206.0f };
     f32 D_800D4BE0[] = { 40.0f, 40.0f, 160.0f, 160.0f };
@@ -675,10 +637,6 @@ s32 func_800BEFE4(void) {
     }
     return 0;
 }
-#else
-s32 func_800BEFE4(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BEFE4.s")
-#endif
 
 s32 func_800BF17C(void) {
     s32 i;
@@ -771,7 +729,6 @@ s32 func_800BF17C(void) {
     return 0;
 }
 
-#ifdef IMPORT_DATA
 s32 func_800BF59C(void) {
     s32 i;
     f32 D_800D4BFC[] = { 83.0f, 226.0f, 83.0f, 226.0f };
@@ -797,12 +754,7 @@ s32 func_800BF59C(void) {
     }
     return 0;
 }
-#else
-s32 func_800BF59C(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BF59C.s")
-#endif
 
-#ifdef IMPORT_DATA
 void func_800BF750(void) {
     s32 i;
     s32 j;
@@ -828,10 +780,6 @@ void func_800BF750(void) {
         }
     }
 }
-#else
-void func_800BF750(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800BF750.s")
-#endif
 
 s32 func_800BF9AC(void) {
     s32 i;
@@ -1067,7 +1015,6 @@ void func_800C024C(void) {
     D_801787C0 = 400.0f;
 }
 
-#ifdef IMPORT_DATA
 bool func_800C0294(s32 index) {
     f32 D_800D4C6C[] = { 108.0f, 84.0f, 79.0f, 84.0f, 36.0f };
     s32 ret = false;
@@ -1115,10 +1062,6 @@ bool func_800C0294(s32 index) {
 
     return ret;
 }
-#else
-bool func_800C0294(s32 index);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800C0294.s")
-#endif
 
 s32 func_800C04DC(f32 xPos, f32 scale, s32 arg2) {
     f32 x;
@@ -1338,7 +1281,6 @@ bool func_800C0D10(void) {
     return ret;
 }
 
-#ifdef IMPORT_DATA
 s32 func_800C0E78(void) {
     s32 i;
     u8* D_800D4C80[] = {
@@ -1368,10 +1310,6 @@ s32 func_800C0E78(void) {
 
     return 0;
 }
-#else
-s32 func_800C0E78(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800C0E78.s")
-#endif
 
 bool func_800C107C(s32 arg0) {
     D_80178798++;
@@ -1388,7 +1326,6 @@ bool func_800C107C(s32 arg0) {
     }
 }
 
-#ifdef IMPORT_DATA
 s32 func_800C1138(s32 max, s32 arg1) {
     f32 D_800D4CB8[] = { 24.0f, 248.0f, 24.0f, 248.0f };
     f32 D_800D4CC8[] = { 104.0f, 104.0f, 216.0f, 216.0f };
@@ -1408,10 +1345,6 @@ s32 func_800C1138(s32 max, s32 arg1) {
 
     return 0;
 }
-#else
-s32 func_800C1138(s32 max, s32 arg1);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800C1138.s")
-#endif
 
 // https://decomp.me/scratch/yhFof
 #ifdef IMPORT_BSS
@@ -2094,15 +2027,3 @@ void func_800C26C8(void) {
         }
     }
 }
-
-#ifndef IMPORT_DATA
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/D_800D9260.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/D_800D9264.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/D_800D926C.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/D_800D9274.s")
-
-#endif
