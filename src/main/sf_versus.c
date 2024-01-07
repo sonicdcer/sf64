@@ -1,21 +1,14 @@
+#include "prevent_bss_reordering.h"
 #include "global.h"
 #include "fox_map.h"
-
-// #define IMPORT_BSS
-
-// BSS START HERE
-
-#ifdef IMPORT_BSS
 
 s32 D_80178750;
 s32 D_80178754;
 s32 D_80178758;
 s32 D_8017875C; // sUnlockLandmaster
 s32 D_80178760; // sUnlockOnFoot
-// s32 GAP_FILLER_D_80178764; // gap
 s32 D_80178768[4];
 s32 D_80178778;
-// s32 GAP_FILLER_D_8017877C; // gap
 s32 D_80178780[4];
 s32 D_80178790;
 s32 D_80178794;
@@ -34,23 +27,17 @@ f32 D_801787C4;
 f32 D_801787C8;
 f32 D_801787CC;
 f32 D_801787D0;
-// s32 GAP_FILLER_D_801787D4; // gap
 f32 D_801787D8[4];
 f32 D_801787E8[4];
 s32 D_801787F8[4];
 u16 D_80178808[4];
 s32 D_80178810[4];
-// bss gets reordered here, these symbols appear at the top
 s32 D_80178820[4];
 s32 D_80178830;
-// s32 GAP_FILLER_D_80178834; // gap
 s32 D_80178838[5];
-// s32 GAP_FILLER_D_8017884C; // gap
 s32 D_80178850[4];
 OSTime D_80178860;
 OSTime D_80178868;
-
-#endif
 
 s32 D_800D4A90 = 0;
 s32 D_800D4A94 = 0;
@@ -1359,8 +1346,6 @@ s32 func_800C1138(s32 max, s32 arg1) {
     return 0;
 }
 
-// https://decomp.me/scratch/yhFof
-#if defined(IMPORT_BSS) || defined(NON_MATCHING)
 void func_800C1368(void) {
     s32 i;
 
@@ -1430,9 +1415,6 @@ void func_800C1368(void) {
     D_80178768[1] = 0;
     D_80178768[2] = 0;
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800C1368.s")
-#endif
 
 bool func_800C15D8(void) {
     bool ret = false;
@@ -1763,8 +1745,6 @@ s32 func_800C1E9C(void) {
     return 0;
 }
 
-// needs static bss for D_80178868 and D_80178860
-#if defined(IMPORT_BSS) || defined(NON_MATCHING)
 void func_800C1ED4(void) {
     s32 var_a1;
 
@@ -1832,10 +1812,6 @@ void func_800C1ED4(void) {
     }
     func_80084688(2, var_a1);
 }
-#else
-void func_800C1ED4(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_versus/func_800C1ED4.s")
-#endif
 
 void func_800C20B0(void) {
     switch (D_8017784C) {

@@ -371,7 +371,7 @@
       - { start: 0xDE480, type: bss, vram: 0x80161A50, name: fox_play }
       - { start: 0xDE480, type: .bss, vram: 0x80178580, name: fox_rcp }
       - { start: 0xDE480, type: .bss, vram: 0x80178720, name: fox_radio }
-      - { start: 0xDE480, type: bss, vram: 0x80178750, name: sf_versus }
+      - { start: 0xDE480, type: .bss, vram: 0x80178750, name: sf_versus }
       - { start: 0xDE480, type: .bss, vram: 0x80178870, name: fox_save }
 
   - name: dma_table
