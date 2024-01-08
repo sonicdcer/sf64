@@ -6076,11 +6076,7 @@ void func_EBFBE0_801AB978(s32 arg0) {
     f32 yPos;
     s32 sp90[3];
     static f32 D_EBFBE0_801B6B0C[3] = { 205.0f, 237.0f, 269.0f };
-    static u16* D_EBFBE0_801B6B18[3] = {
-        (u16*) 0x06032A60,
-        (u16*) 0x06044180,
-        (u16*) 0x06032440,
-    };
+    static u16* D_EBFBE0_801B6B18[3] = { D_6032A60, D_6044180, D_6032440 };
 
     switch (arg0) {
         case 10:

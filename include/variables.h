@@ -2010,5 +2010,9 @@ extern u16 D_6037E80[];
 extern u16 D_6033080[];
 extern u16 D_603CC80[];
 extern u16 D_603A580[];
+extern u16 D_603A580[];
+extern u16 D_6032A60[];
+extern u16 D_6044180[];
+extern u16 D_6032440[];
 
 #endif // VARIABLES_H
