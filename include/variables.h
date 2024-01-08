@@ -1989,5 +1989,26 @@ extern u8 D_6014BA0[];
 extern Gfx D_6055F20[];
 extern Gfx D_6051D20[];
 extern u8 D_601FF40[];
+extern u8 D_602B6D0[];
+extern u8 D_6026D70[];
+extern u8 D_602FFD0[];
+extern u8 D_60223E0[];
+extern u8 D_6024890[];
+extern u8 D_60190B0[];
+extern u8 D_602DB60[];
+extern Gfx D_6060610[];
+extern Gfx D_601C0D0[];
+extern Gfx D_601DE80[];
+extern Gfx D_601C960[];
+extern Gfx D_604B750[];
+extern Gfx D_604DB10[];
+extern Gfx D_601F6B0[];
+extern u16 D_6041A80[];
+extern u16 D_603F380[];
+extern u16 D_6035780[];
+extern u16 D_6037E80[];
+extern u16 D_6033080[];
+extern u16 D_603CC80[];
+extern u16 D_603A580[];
 
 #endif // VARIABLES_H
