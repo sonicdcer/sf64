@@ -2399,17 +2399,17 @@ void func_EBFBE0_801A116C(void) {
     D_EBFBE0_801B6970 += 0.6f;
 }
 
-static f32 D_EBFBE0_801B6974[8] = { -248.0f, -76.0f, 84.0f, 248.0f, -242.0f, -79.0f, 82.0f, 245.0f };
-static f32 D_EBFBE0_801B6994[8] = { 80.0f, 80.0f, 80.0f, 80.0f, -30.0f, -30.0f, -30.0f, -30.0f };
-static f32 D_EBFBE0_801B69B4[8] = { -455.0f, -455.0f, -455.0f, -455.0f, -455.0f, -455.0f, -455.0f, -455.0f };
+f32 D_EBFBE0_801B6974[8] = { -248.0f, -76.0f, 84.0f, 248.0f, -242.0f, -79.0f, 82.0f, 245.0f };
+f32 D_EBFBE0_801B6994[8] = { 80.0f, 80.0f, 80.0f, 80.0f, -30.0f, -30.0f, -30.0f, -30.0f };
+f32 D_EBFBE0_801B69B4[8] = { -455.0f, -455.0f, -455.0f, -455.0f, -455.0f, -455.0f, -455.0f, -455.0f };
 
-static f32 D_EBFBE0_801B69D4[8] = { -248.0f, -76.0f, 84.0f, 248.0f, -242.0f, -79.0f, 82.0f, 245.0f };
-static f32 D_EBFBE0_801B69F4[8] = { 80.0f, 80.0f, 80.0f, 80.0f, -30.0f, -30.0f, -30.0f, -30.0f };
-static f32 D_EBFBE0_801B6A14[8] = { 1000.0f, 1000.0f, 1000.0f, 1000.0f, 1000.0f, 1000.0f, 1000.0f, 1000.0f };
+f32 D_EBFBE0_801B69D4[8] = { -248.0f, -76.0f, 84.0f, 248.0f, -242.0f, -79.0f, 82.0f, 245.0f };
+f32 D_EBFBE0_801B69F4[8] = { 80.0f, 80.0f, 80.0f, 80.0f, -30.0f, -30.0f, -30.0f, -30.0f };
+f32 D_EBFBE0_801B6A14[8] = { 1000.0f, 1000.0f, 1000.0f, 1000.0f, 1000.0f, 1000.0f, 1000.0f, 1000.0f };
 
-static f32* D_EBFBE0_801B6A34[2] = { D_EBFBE0_801B69D4, D_EBFBE0_801B6974 };
-static f32* D_EBFBE0_801B6A3C[2] = { D_EBFBE0_801B69F4, D_EBFBE0_801B6994 };
-static f32* D_EBFBE0_801B6A44[2] = { D_EBFBE0_801B6A14, D_EBFBE0_801B69B4 };
+f32* D_EBFBE0_801B6A34[2] = { D_EBFBE0_801B69D4, D_EBFBE0_801B6974 };
+f32* D_EBFBE0_801B6A3C[2] = { D_EBFBE0_801B69F4, D_EBFBE0_801B6994 };
+f32* D_EBFBE0_801B6A44[2] = { D_EBFBE0_801B6A14, D_EBFBE0_801B69B4 };
 
 void func_EBFBE0_801A1528(void) {
     PlanetId planetId;
@@ -3535,8 +3535,7 @@ void func_EBFBE0_801A4394(void) {
 void func_EBFBE0_801A4650(void) {
     s32 i;
     static Gfx* D_EBFBE0_801B6A4C[] = {
-        (Gfx*) 0x09006AE0, (Gfx*) 0x090086F0, (Gfx*) 0x09005380, (Gfx*) 0x090075A0,
-        (Gfx*) 0x09000570, (Gfx*) 0x09002EA0, (Gfx*) 0x090075A0, (Gfx*) 0x09004230,
+        D_9006AE0, D_90086F0, D_9005380, D_90075A0, D_9000570, D_9002EA0, D_90075A0, D_9004230,
     };
 
     Lights_SetOneLight(&gMasterDisp, 0, 0, 127, 28, 58, 105, 65, 70, 48);
@@ -6424,7 +6423,7 @@ void func_EBFBE0_801AC80C(s32 arg0) {
     D_EBFBE0_801B6B30 -= 45.0f;
 }
 
-static u32 padding_801B6B34[3] = { 0, 0, 0 };
+u32 padding_801B6B34[3] = { 0, 0, 0 };
 
 UnkStruct_D_EBFBE0_801B8294 D_EBFBE0_801B6B40[] = {
     {

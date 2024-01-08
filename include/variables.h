@@ -2015,4 +2015,12 @@ extern u16 D_6032A60[];
 extern u16 D_6044180[];
 extern u16 D_6032440[];
 
+extern Gfx D_9006AE0[];
+extern Gfx D_9000570[];
+extern Gfx D_90086F0[];
+extern Gfx D_9002EA0[];
+extern Gfx D_9005380[];
+extern Gfx D_90075A0[];
+extern Gfx D_9004230[];
+
 #endif // VARIABLES_H
