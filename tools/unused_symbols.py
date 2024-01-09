@@ -113,9 +113,5 @@ if __name__ == '__main__':
     scan_code()
     print_results()
 
-    # for file in files:
-    #     if len(files[file]) > 0:
-    #         print(f'{file}: {files[file]}')
-
     if fail:
         print_error()
