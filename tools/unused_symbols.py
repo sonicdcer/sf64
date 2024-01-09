@@ -18,6 +18,8 @@ def clean_symbol(s):
         s = ' '.join(s.split(' ')[3:])
     if(s.startswith('const')):
         s = ' '.join(s.split(' ')[1:])
+    if('[' in s):
+        s = s.split('[')[0]
 
     return re.sub(r'[\[\];]', '', s).split(' ')[1]
 
