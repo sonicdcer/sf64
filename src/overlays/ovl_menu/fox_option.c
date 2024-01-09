@@ -1,3 +1,9 @@
+/*
+ * File: fox_option.c
+ * System: Option
+ * Description: Starfox Option Menu Handler
+ */
+
 #include "global.h"
 #include "fox_option.h"
 

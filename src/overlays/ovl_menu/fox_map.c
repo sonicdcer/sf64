@@ -1,3 +1,9 @@
+/*
+ * File: fox_map.c
+ * System: Map
+ * Description: Starfox Map Handler
+ */
+
 //#include "prevent_bss_reordering2.h"
 #include "global.h"
 #include "fox_map.h"
