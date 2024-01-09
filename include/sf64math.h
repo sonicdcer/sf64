@@ -10,14 +10,18 @@ typedef struct {
 } Vec3f; // size = 0xC
 
 typedef struct {
-    Vec3f pos;
-    Vec3f rot;
-} PosRot;
+    /* 0x00 */ Vec3f pos;
+    /* 0x0C */ Vec3f rot;
+} PosRot; // size = 0x18
 
 typedef struct {
-    Vec3f normal;
-    f32 dist;
-} Plane;
+    /* 0x0 */ s16 vtx[3];
+} Triangle; // size = 0x6
+
+typedef struct {
+    /* 0x0 */ Vec3f normal;
+    /* 0xC */ f32 dist;
+} Plane; // size = 0x10
 
 typedef struct {
     /* 0x0 */ s16 x;
@@ -59,7 +63,7 @@ void Matrix_Push(Matrix** mtxStack);
 void Matrix_Pop(Matrix** mtxStack);
 void Matrix_Mult(Matrix*, Matrix*, u8);
 void Matrix_Translate(Matrix*, f32, f32, f32, u8);
-void Matrix_Scale(Matrix*, f32, f32, f32, u8);
+void Matrix_Scale(Matrix* mtx, f32 xScale, f32 yScale, f32 zScale, u8 mode);
 void Matrix_RotateX(Matrix*, f32, u8);
 void Matrix_RotateY(Matrix*, f32, u8);
 void Matrix_RotateZ(Matrix*, f32, u8);

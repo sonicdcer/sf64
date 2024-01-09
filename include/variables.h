@@ -132,7 +132,7 @@ extern OSMesg D_8015661C[1];
 // fox_360
 extern s32 D_800C9B4C;
 
-// sf_beam
+// fox_bg
 extern u16 D_800C9C3C[16];
 
 // sf_43E80
@@ -216,6 +216,11 @@ extern s32 D_800D173C[];
 extern Gfx* D_800D178C[6];
 extern s32 D_800D18F0[]; //[6][4]?
 extern s32 D_800D1950[];
+extern Gfx* D_800D17A4[];
+extern f32 D_800D17F8[];
+extern u8 D_800D184C[][4];
+extern Gfx* D_800D18A0[];
+extern Gfx D_6004900[];
 
 // sf_hud
 extern s16 D_800D1970;
@@ -275,8 +280,8 @@ extern s32 D_8015F93C;
 extern s32 D_8015F940;
 extern f32 D_8015F944;
 
-// sf_beam
-extern Vec3f D_8015F950;
+// fox_beam
+// extern Vec3f D_8015F950;
 
 // fox_bg
 extern f32 D_8015F960;
@@ -325,7 +330,7 @@ extern f32 D_801616C8;
 extern s32 D_80161704;
 extern s32 D_80161708;
 extern s32 D_8016170C;
-extern s32 D_80161714;
+extern s32 gTotalHits; // gTotalGameScore
 extern f32 D_80161720;
 extern f32 D_80161724;
 extern f32 D_80161728;
@@ -389,14 +394,14 @@ extern u8 D_80161A94[4];
 extern s32 gHitCount;
 extern s32 gSavedHitCount;
 extern s16 gLifeCount[4];
-extern s32 gLaserStrength[4];
+extern LaserStrength gLaserStrength[4];
 //
 extern s32 D_80161AB8;
 // 0x44
 extern Object_80 gObjects80[50];
 extern Object_4C gObjects4C[40];
 extern Object_2F4 gObjects2F4[60];
-extern Object_408 gObjects408[4];
+extern Boss gBosses[4];
 extern Object_8C gObjects8C[100];
 extern Item gItems[20];
 extern PlayerShot gPlayerShots[16];
@@ -418,7 +423,7 @@ extern s32 D_80177824;
 extern u16 D_80177828;
 extern s32 D_8017782C;
 extern u8 D_80177830;
-extern s32 gGameState;
+extern GameState gGameState;
 extern s32 D_80177838;
 extern s32 D_Timer_8017783C;
 extern s32 D_80177840;
@@ -434,8 +439,8 @@ extern s32 D_80177870[4];
 extern s32 gLevelMode;
 //
 extern s32 gHandicap[4];
-extern s32 gDrawMode;
-extern s32 gVersusStage;
+extern DrawMode gDrawMode;
+extern VsStage gVersusStage;
 extern s32 gPlayerNum;
 extern s32 D_801778A4;
 extern s32 gCamCount;
@@ -815,7 +820,7 @@ extern Gfx* D_DF4260_8019A008[];
 extern f32 D_DF4260_8019A9B8[];
 
 // ovl_E16C50
-extern f32 D_E16C50_801C4188;
+// extern f32 D_E16C50_801C4188; Currently externed in relevant files for bss ordering
 
 // ovl_E51970
 extern Matrix D_E51970_8019EE80;
@@ -835,7 +840,7 @@ extern f32 D_E9F1D0_801A7F68;
 extern f32 D_E9F1D0_801A7F70;
 extern f32 D_E9F1D0_801A7F78;
 
-// ovl_EBFBE0
+// ovl_menu
 extern s32 D_EBFBE0_801B8220[]; // total hits ranking? see func_EBFBE0_80197DE4
 extern s32 D_EBFBE0_801B8280;
 extern s32 D_EBFBE0_801B8284;
@@ -872,8 +877,8 @@ extern u8 D_1011A40[];
 extern u16 D_1011AB0[];
 extern u8 D_1011E80[];
 extern u16 D_1011EC0[];
-extern s32 D_1011ED0[];
-extern s32 D_1011F08[];
+extern u8 D_1011ED0[];
+extern u16 D_1011F08[];
 extern Gfx D_1011F20[];
 extern u8 D_10127D0[];
 extern u16 D_1012898[];
@@ -896,6 +901,8 @@ extern Gfx D_1019CA0[];
 extern Gfx D_101A570[];
 extern Gfx D_101A8E0[];
 extern Gfx D_101ABD0[];
+extern Gfx D_101AD20[];
+extern Gfx D_101AED0[];
 extern Gfx D_101C2E0[];
 extern Gfx D_101C2E0[];
 extern Gfx D_101CAE0[];
@@ -918,6 +925,8 @@ extern Gfx D_1024830[];
 extern u8 D_1024A58[];
 extern Gfx D_1024AC0[];
 extern Gfx D_1024F60[];
+extern Gfx D_1025800[];
+extern Gfx D_1026090[];
 extern Gfx D_1028230[];
 extern Gfx D_1029780[];
 extern Gfx D_102A010[];
@@ -927,6 +936,7 @@ extern Gfx D_102F5E0[];
 extern Gfx D_102FE80[];
 extern u16 D_102FF08[];
 extern Gfx D_1031630[];
+extern Gfx D_1031EC0[];
 extern Gfx D_1032780[];
 
 // ast_8A68C0, ast_8AE0A0
@@ -963,6 +973,10 @@ extern Gfx D_20101A0[];
 extern Gfx D_20112C0[];
 
 // ast_8BFC00, ast_8D99F0, ast_8E1F80, ast_8E92D0
+extern Gfx D_3006940[];
+extern Gfx D_301AD60[];
+extern Gfx D_301AEF0[];
+extern Gfx D_302D120[];
 extern u8 D_3000000[];
 extern u16 D_3000080[];
 extern Gfx D_3000090[];
@@ -1054,6 +1068,14 @@ extern f32 D_302EE00[];
 extern f32 D_302EE64[];
 extern f32 D_302EE80[];
 extern f32 D_302EE9C[];
+extern Triangle D_302EEE8[];
+extern Vec3f D_302EF00[];
+extern Triangle D_302EF6C[];
+extern Vec3f D_302EF84[];
+extern Triangle D_302EFF0[];
+extern Vec3f D_302F008[];
+extern Triangle D_302F044[];
+extern Vec3f D_302F098[];
 
 // ast_918430, ast_922730
 extern AnimationHeader D_4000080;
@@ -1101,6 +1123,52 @@ extern Gfx D_500B600[];
  * ast_B0AA00, ast_B1CA50, ast_B2CA50, ast_B612E0, ast_B84560,
  * ast_BB11D0, ast_BC23D0, ast_BFC510, ast_C48F40, ast_DDC010
  */
+extern CollisionPoly D_602FA9C[];
+extern Vec3s D_60300C8[];
+extern CollisionPoly D_60305DC[];
+extern Vec3s D_603184C[];
+extern CollisionPoly D_6030208[];
+extern Vec3s D_6030550[];
+extern CollisionPoly D_6033070[];
+extern Vec3s D_6033E08[];
+extern CollisionPoly D_600F60C[];
+extern Vec3s D_600FD50[];
+extern CollisionPoly D_600F3F4[];
+extern Vec3s D_600F5AC[];
+extern CollisionPoly D_600F1DC[];
+extern Vec3s D_600F394[];
+extern CollisionPoly D_6010294[];
+extern Vec3s D_601170C[];
+extern CollisionPoly D_6007558[];
+extern Vec3s D_6008E08[];
+extern CollisionPoly D_6014FEC[];
+extern Vec3s D_6016374[];
+extern Triangle D_603F338[];
+extern Vec3f D_603F388[];
+extern Triangle D_603F40C[];
+extern Vec3f D_603F4E4[];
+extern Triangle D_602CACC[];
+extern Vec3f D_602CB80[];
+extern Triangle D_6030E74[];
+extern Vec3f D_6030E80[];
+extern Triangle D_6030EB0[];
+extern Vec3f D_6030EBC[];
+extern Triangle D_6030EEC[];
+extern Vec3f D_6030EF8[];
+extern Triangle D_6030F28[];
+extern Vec3f D_6030F34[];
+extern Triangle D_6030F64[];
+extern Vec3f D_6030F7C[];
+extern Triangle D_6030FC4[];
+extern Vec3f D_6030FD0[];
+extern Triangle D_60320B8[];
+extern Vec3f D_603216C[];
+extern Triangle D_6031FB0[];
+extern Vec3f D_6031FE0[];
+extern Triangle D_6031FB0[];
+extern Vec3f D_603204C[];
+extern Triangle D_6032388[];
+extern Vec3f D_6032430[];
 extern u16 D_6000000[];
 extern Gfx D_60005B0[];
 extern u16 D_6000900[];
@@ -1243,6 +1311,7 @@ extern Gfx D_600D730[];
 extern u16 D_600D990[];
 extern Gfx D_600D9F0[];
 extern Gfx D_600DA10[];
+extern Gfx D_600DB80[];
 extern Gfx D_600DBC0[];
 extern u8 D_600DDC0[];
 extern Gfx D_600DDF0[];
@@ -1638,6 +1707,13 @@ extern u16 D_60447A0[];
 extern u16 D_6047550[];
 extern Gfx D_604A9F0[];
 extern Gfx D_605C230[];
+extern f32 D_6028578[];
+extern Gfx D_600F1F0[];
+extern Gfx D_6015EE0[];
+extern Gfx D_6011910[];
+extern AnimationHeader D_6018994;
+extern Limb* D_6018BA0[];
+extern Gfx D_601B2B0[];
 
 // ast_9DD390, ast_A0E340, ast_BFA740, ast_CBFE70, ast_D27600
 extern Gfx D_7000000[];
@@ -1761,6 +1837,7 @@ extern Gfx D_D00B720[];
 extern Gfx D_D00B880[];
 
 // ast_92EC40
+extern Gfx D_E00DFB0[];
 extern u16 D_E00E100[];
 extern u16 D_E00F020[];
 extern u16 D_E00FF40[];

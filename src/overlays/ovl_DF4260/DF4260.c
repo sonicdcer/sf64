@@ -1,7 +1,7 @@
 #include "global.h"
 #include "DF4260.h"
 
-void func_DF4260_80187520(s32 arg0, s32 arg1) {
+void func_DF4260_80187520(s32 arg0, void* arg1) {
 }
 
 void func_DF4260_80187530(Object_80* obj80) {
@@ -1035,9 +1035,9 @@ void func_DF4260_8018BBF8(Object_2F4_Test* arg0) {
 
 s32 func_DF4260_8018BC50(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, UnkStruct_func_DF4260_8018BC50* arg4) {
     if ((arg4->unkB8 == 0x65) && (arg0 != 8)) {
-        *arg1 = 0;
+        *arg1 = NULL;
     }
-    return 0;
+    return false;
 }
 
 extern Vec3f D_DF4260_801998C0;

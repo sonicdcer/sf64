@@ -20,7 +20,7 @@ typedef enum {
     /* 103 */ GSTATE_CHECK_SAVE,
     /* 104 */ GSTATE_LOGO_WAIT,
     /* 105 */ GSTATE_START,
-} GameStates;
+} GameState;
 
 typedef void (*TimerAction)(s32*, s32);
 

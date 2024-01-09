@@ -73,37 +73,44 @@ typedef struct {
 } WingInfo; // size = 0x3C
 
 typedef enum {
-    /* 0 */ PLAYERSHOT_0,
-    /* 1 */ PLAYERSHOT_1,
+    /* 0 */ PLAYERSHOT_0, // single laser?
+    /* 1 */ PLAYERSHOT_1, // twin laser?
     /* 2 */ PLAYERSHOT_2,
-    /* 3 */ PLAYERSHOT_3,
+    /* 3 */ PLAYERSHOT_3, // bomb?
     /* 4 */ PLAYERSHOT_4,
-    /* 5 */ PLAYERSHOT_5,
-    /* 6 */ PLAYERSHOT_6,
-    /* 7 */ PLAYERSHOT_7,
-    /* 8 */ PLAYERSHOT_8,
+    /* 5 */ PLAYERSHOT_5, // landmaster shot
+    /* 6 */ PLAYERSHOT_6, // on-foot shot
+    /* 7 */ PLAYERSHOT_7, // unused? related to on-foot shot somehow
+    /* 8 */ PLAYERSHOT_8, // charge shot
     /* 9 */ PLAYERSHOT_9,
 } PlayerShotId;
+
+typedef enum {
+    /* 0 */ LASERS_SINGLE,
+    /* 1 */ LASERS_TWIN,
+    /* 2 */ LASERS_HYPER,
+    /* 3 */ LASERS_UNK_3,
+} LaserStrength;
 
 typedef struct {
     /* 0x00 */ Object obj;
     /* 0x1C */ s32 index;
-    /* 0x20 */ Vec3f unk_20;
+    /* 0x20 */ Vec3f vel;
     /* 0x2C */ f32 unk_2C;
     /* 0x30 */ f32 unk_30;
     /* 0x34 */ f32 unk_34; 
     /* 0x38 */ Vec3f sfxPos;
     /* 0x44 */ f32 unk_44;
-    /* 0x44 */ f32 unk_48;
-    /* 0x44 */ f32 unk_4C;
-    /* 0x44 */ f32 unk_50;
-    /* 0x44 */ f32 unk_54;
+    /* 0x48 */ f32 unk_48;
+    /* 0x4C */ f32 unk_4C;
+    /* 0x50 */ f32 unk_50;
+    /* 0x54 */ f32 unk_54;
     /* 0x58 */ s32 unk_58;
     /* 0x5C */ s32 unk_5C;
     /* 0x60 */ s32 unk_60;
     /* 0x64 */ s32 unk_64;
     /* 0x68 */ s32 playerNum;
-    /* 0x6C */ char pad6C[4];
+    /* 0x6C */ u8 bonus;
 } PlayerShot; // size = 0x70
 
 typedef struct Player {
@@ -201,8 +208,8 @@ typedef struct Player {
     /* 0x1A4 */ s32 unk_1A4;
     /* 0x1A8 */ char pad1A8[0x1C];
     /* 0x1C4 */ s32 num;
-    /* 0x1C8 */ s32 state_1C8;
-    /* 0x1CC */ s32 form;
+    /* 0x1C8 */ PlayerState1C8 state_1C8;
+    /* 0x1CC */ PlayerForm form;
     /* 0x1D0 */ s32 unk_1D0;
     /* 0x1D4 */ s32 unk_1D4;
     /* 0x1D8 */ char pad1D8[4];
@@ -227,7 +234,7 @@ typedef struct Player {
     /* 0x224 */ s32 timer_224;
     /* 0x228 */ s32 unk_228;
     /* 0x22C */ s32 unk_22C;
-    /* 0x230 */ char pad230[4];
+    /* 0x230 */ s32 unk_230;
     /* 0x234 */ s32 unk_234;
     /* 0x238 */ s32 unk_238;
     /* 0x23C */ s32 unk_23C;
@@ -251,8 +258,8 @@ typedef struct Player {
     /* 0x284 */ s32 unk_284;
     /* 0x288 */ s32 unk_288;
     /* 0x28C */ char pad28C[0x28];
-    /* 0x2B4 */ s32 unk_2B4;
-    /* 0x2B8 */ s32 unk_2B8;
+    /* 0x2B4 */ bool unk_2B4;
+    /* 0x2B8 */ bool unk_2B8;
     /* 0x2BC */ f32 unk_2BC;
     /* 0x2C0 */ f32 unk_2C0;
     /* 0x2C4 */ s32 unk_2C4;

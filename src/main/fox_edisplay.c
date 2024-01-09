@@ -285,7 +285,7 @@ void func_8005A094(Object_2F4* obj2F4) {
             if (gCurrentLevel != LEVEL_SOLAR) {
                 gSPDisplayList(gMasterDisp++, D_E6A810_801B769C[obj2F4->unk_046]);
             } else {
-                if (gObjects408[0].unk_0E4 < 4800.0f) {
+                if (gBosses[0].fwork[3] < 4800.0f) {
                     RCP_SetupDL(&gMasterDisp, 0x1E);
                     gDPSetFogColor(gMasterDisp++, 0x40, 0x20, 0x20, gFogAlpha);
                     gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
@@ -614,7 +614,7 @@ f32 D_800CFCCC[] = {
     0.0f, 0.05f, 0.03f, 0.02f, 0.01f, 0.05f, 0.0f, 0.02f,
 };
 
-void func_8005BAB4(s32 objId, s32 index) {
+void func_8005BAB4(ObjectId objId, s32 index) {
     f32 temp_fv0;
     f32 temp1;
     f32 temp2;
@@ -661,10 +661,10 @@ void func_8005BAB4(s32 objId, s32 index) {
                     break;
             }
             break;
-        case OBJ_408_292:
+        case OBJ_BOSS_292:
             gSPDisplayList(gMasterDisp++, D_6034B90);
             break;
-        case OBJ_408_316:
+        case OBJ_BOSS_316:
             if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_0) {
                 RCP_SetupDL(&gMasterDisp, 0x40);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 200);
@@ -673,25 +673,25 @@ void func_8005BAB4(s32 objId, s32 index) {
             Graphics_SetScaleMtx(150.0f);
             gSPDisplayList(gMasterDisp++, D_102A8A0);
             break;
-        case OBJ_408_293:
-        case OBJ_408_294:
-        case OBJ_408_295:
-        case OBJ_408_296:
-            __cosf(gObjects408[index].obj.rot.z * M_DTOR);
+        case OBJ_BOSS_293:
+        case OBJ_BOSS_294:
+        case OBJ_BOSS_295:
+        case OBJ_BOSS_296:
+            __cosf(gBosses[index].obj.rot.z * M_DTOR);
             if (D_80161A88 == 2) {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 90);
             } else {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 150);
             }
             switch (objId) {
-                case OBJ_408_293:
+                case OBJ_BOSS_293:
                     gSPDisplayList(gMasterDisp++, D_6036840);
                     break;
-                case OBJ_408_294:
+                case OBJ_BOSS_294:
                     gSPDisplayList(gMasterDisp++, D_6036CD0);
                     break;
-                case OBJ_408_295:
-                case OBJ_408_296:
+                case OBJ_BOSS_295:
+                case OBJ_BOSS_296:
                     gSPDisplayList(gMasterDisp++, D_60363B0);
                     break;
             }
@@ -749,8 +749,8 @@ void func_8005BAB4(s32 objId, s32 index) {
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             break;
-        case OBJ_408_319:
-            func_DF4260_80198310(&gObjects408[index]);
+        case OBJ_BOSS_319:
+            func_DF4260_80198310(&gBosses[index]);
             break;
     }
 }
@@ -1123,7 +1123,7 @@ void Object_2F4_Draw1(Object_2F4* obj2F4) {
     obj2F4->unk_0B0 = D_801615EC;
 }
 
-void Object_408_Draw(Object_408* obj408, s32 arg1) {
+void Boss_Draw(Boss* boss, s32 arg1) {
     f32 var_fa1;
     f32 var_ft5;
     f32 var_fv0;
@@ -1131,21 +1131,21 @@ void Object_408_Draw(Object_408* obj408, s32 arg1) {
     f32 sp3C;
     Vec3f sp30 = { 0.0f, 0.0f, 0.0f };
 
-    if (obj408->info.unk_19 != 0) {
-        obj408->obj.pos.y += obj408->unk_068 + D_8017847C;
-        func_8005D1F0(&obj408->obj, obj408->info.drawType);
-        obj408->obj.pos.y -= obj408->unk_068 + D_8017847C;
+    if (boss->info.unk_19 != 0) {
+        boss->obj.pos.y += boss->unk_068 + D_8017847C;
+        func_8005D1F0(&boss->obj, boss->info.drawType);
+        boss->obj.pos.y -= boss->unk_068 + D_8017847C;
     } else {
-        func_8005D1F0(&obj408->obj, obj408->info.drawType);
+        func_8005D1F0(&boss->obj, boss->info.drawType);
     }
     Matrix_MultVec3f(&D_801615F0, &sp30, &D_801615D0);
-    func_8005F290(&obj408->sfxPos, &D_801615D0);
-    if ((obj408->obj.id == OBJ_408_316) || (obj408->obj.id == OBJ_408_317)) {
+    func_8005F290(&boss->sfxPos, &D_801615D0);
+    if ((boss->obj.id == OBJ_BOSS_316) || (boss->obj.id == OBJ_BOSS_317)) {
         var_fa1 = 6000.0f;
         var_fv0 = 6000.0f;
         var_ft5 = 0.9f;
         var_fv1 = -20000.0f;
-    } else if (obj408->obj.id == OBJ_408_313) {
+    } else if (boss->obj.id == OBJ_BOSS_313) {
         var_fv1 = -25000.0f;
         var_ft5 = 0.7f;
         var_fa1 = 3000.0f;
@@ -1161,27 +1161,27 @@ void Object_408_Draw(Object_408* obj408, s32 arg1) {
         if (fabsf(D_801615D0.x) < (fabsf(D_801615D0.z * var_ft5) + var_fa1)) {
             if (fabsf(D_801615D0.y) < (fabsf(D_801615D0.z * var_ft5) + var_fa1)) {
                 sp3C = 1.0f;
-                if (obj408->obj.id != OBJ_408_309) {
-                    if (obj408->obj.id != OBJ_408_316) {
-                        func_8005F670(&obj408->obj.pos);
+                if (boss->obj.id != OBJ_BOSS_309) {
+                    if (boss->obj.id != OBJ_BOSS_316) {
+                        func_8005F670(&boss->obj.pos);
                     }
-                    if (obj408->info.drawType != 2) {
+                    if (boss->info.drawType != 2) {
                         Matrix_SetGfxMtx(&gMasterDisp);
                     }
                     if (arg1 < 0) {
                         func_800596C0();
                     }
-                    obj408->info.draw(&obj408->obj);
+                    boss->info.draw(&boss->obj);
                 }
             }
         }
     }
     D_801615D0.y = sp3C;
-    if (obj408->obj.id == OBJ_408_309) {
-        obj408->unk_308 = D_801615D0;
-        func_8005F670(&obj408->obj.pos);
+    if (boss->obj.id == OBJ_BOSS_309) {
+        boss->vwork[30] = D_801615D0;
+        func_8005F670(&boss->obj.pos);
         Matrix_SetGfxMtx(&gMasterDisp);
-        obj408->info.draw(&obj408->obj);
+        boss->info.draw(&boss->obj);
     }
 }
 
@@ -1320,7 +1320,7 @@ void func_8005ECD8(s32 index, Object* obj) {
                 Matrix_Translate(gGfxMatrix, obj->pos.x, D_80177940 + 2.0f + gObjects2F4[index].unk_114,
                                  obj->pos.z + D_80177D20, 1);
                 break;
-            case OBJ_408_316:
+            case OBJ_BOSS_316:
                 Matrix_Translate(gGfxMatrix, obj->pos.x, D_80177940 + 2.0f + D_8017847C, obj->pos.z, 1);
                 break;
             default:
@@ -1331,7 +1331,7 @@ void func_8005ECD8(s32 index, Object* obj) {
             Matrix_Scale(gGfxMatrix, 1.0f, 0.0f, 1.0f, 1);
             Matrix_RotateY(gGfxMatrix, obj->rot.y * M_DTOR, 1);
         }
-        if ((obj->id < OBJ_408_292) && (obj->id != OBJ_2F4_230) && (obj->id != OBJ_2F4_229) &&
+        if ((obj->id < OBJ_BOSS_292) && (obj->id != OBJ_2F4_230) && (obj->id != OBJ_2F4_229) &&
             (obj->id != OBJ_2F4_231)) {
             Matrix_RotateX(gGfxMatrix, obj->rot.x * M_DTOR, 1);
             Matrix_RotateZ(gGfxMatrix, obj->rot.z * M_DTOR, 1);
@@ -1536,7 +1536,7 @@ void Object_DrawAll(s32 arg0) {
     s32 i;
     s32 pad[5]; // probably separate iterators for each loop
     Object_2F4* obj2F4;
-    Object_408* obj408;
+    Boss* boss;
     Object_4C* obj4C;
     Object_58* obj58;
     Item* item;
@@ -1554,7 +1554,7 @@ void Object_DrawAll(s32 arg0) {
                     spAC.y = obj58->sfxPos.y;
                     spAC.z = obj58->sfxPos.z;
                     Matrix_MultVec3fNoTranslate(&D_E51970_8019EE80, &spAC, &obj58->obj.pos);
-                    obj58->obj.rot.y = obj58->unk_54 + gObjects408->obj.rot.y;
+                    obj58->obj.rot.y = gBosses[0].obj.rot.y + (*obj58).unk_54;
                 }
                 Matrix_Push(&gGfxMatrix);
                 Object_58_Draw(obj58);
@@ -1575,9 +1575,9 @@ void Object_DrawAll(s32 arg0) {
             }
         }
     }
-    for (i = 0, obj408 = gObjects408; i < ARRAY_COUNT(gObjects408); i++, obj408++) {
-        if ((obj408->obj.status >= 2) && (obj408->obj.id != OBJ_408_310)) {
-            if (!(obj408->timer_05C & 1)) {
+    for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {
+        if ((boss->obj.status >= 2) && (boss->obj.id != OBJ_BOSS_310)) {
+            if (!(boss->timer_05C & 1)) {
                 RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             } else {
                 RCP_SetupDL_27();
@@ -1585,11 +1585,11 @@ void Object_DrawAll(s32 arg0) {
             }
             func_800597C0(arg0);
             Matrix_Push(&gGfxMatrix);
-            Object_408_Draw(obj408, arg0);
+            Boss_Draw(boss, arg0);
             Matrix_Pop(&gGfxMatrix);
-            if ((obj408->unk_05E != 0) && (D_801615D0.y > 0.0f)) {
+            if ((boss->unk_05E != 0) && (D_801615D0.y > 0.0f)) {
                 Matrix_Push(&gGfxMatrix);
-                func_8005ECD8(i, &obj408->obj);
+                func_8005ECD8(i, &boss->obj);
                 Matrix_Pop(&gGfxMatrix);
             }
         }
@@ -1597,7 +1597,7 @@ void Object_DrawAll(s32 arg0) {
     Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR, gAmbientG,
                        gAmbientB);
     for (i = 0, obj4C = gObjects4C; i < ARRAY_COUNT(gObjects4C); i++, obj4C++) {
-        if ((obj4C->obj.status >= 2) && (func_80060FE4(&obj4C->obj.pos, -12000.0f) != 0)) {
+        if ((obj4C->obj.status >= 2) && func_80060FE4(&obj4C->obj.pos, -12000.0f)) {
             Matrix_Push(&gGfxMatrix);
             if ((obj4C->obj.id == OBJ_4C_165) || (obj4C->obj.id == OBJ_4C_166)) {
                 RCP_SetupDL_57(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
@@ -1673,7 +1673,7 @@ void Object_DrawAll(s32 arg0) {
 
 void func_8006046C(s32 arg0) {
     s32 i;
-    Object_408* obj408;
+    Boss* boss;
     Object_8C* obj8C;
 
     RCP_SetupDL(&gMasterDisp, 0x40);
@@ -1700,16 +1700,16 @@ void func_8006046C(s32 arg0) {
             }
         }
     }
-    for (i = 0, obj408 = gObjects408; i < ARRAY_COUNT(gObjects408); i++, obj408++) {
-        if ((obj408->obj.status >= 2) && (obj408->obj.id == OBJ_408_310)) {
-            if (!(obj408->timer_05C & 1)) {
+    for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {
+        if ((boss->obj.status >= 2) && (boss->obj.id == OBJ_BOSS_310)) {
+            if (!(boss->timer_05C & 1)) {
                 RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             } else {
                 RCP_SetupDL_27();
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 64, 64, 255, 255);
             }
             Matrix_Push(&gGfxMatrix);
-            Object_408_Draw(obj408, arg0);
+            Boss_Draw(boss, arg0);
             Matrix_Pop(&gGfxMatrix);
         }
     }

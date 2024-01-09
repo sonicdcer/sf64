@@ -71,7 +71,7 @@ void Object_Kill(Object* obj, Vec3f* arg1) {
     Audio_KillSfx(arg1);
 }
 
-s32 func_80060FE4(Vec3f* arg0, f32 arg1) {
+bool func_80060FE4(Vec3f* arg0, f32 arg1) {
     Vec3f sp2C;
     Vec3f sp20;
 
@@ -90,7 +90,7 @@ s32 func_80060FE4(Vec3f* arg0, f32 arg1) {
     return false;
 }
 
-s32 func_80061148(Vec3f* arg0, f32 arg1) {
+bool func_80061148(Vec3f* arg0, f32 arg1) {
     Vec3f sp2C;
     Vec3f sp20;
 
@@ -148,14 +148,14 @@ void Object_2F4_Initialize(Object_2F4* obj2F4) {
     obj2F4->scale = 1.0f;
 }
 
-void Object_408_Initialize(Object_408* obj408) {
+void Boss_Initialize(Boss* boss) {
     s32 i;
-    u8* ptr = (u8*) obj408;
+    u8* ptr = (u8*) boss;
 
-    for (i = 0; i < sizeof(Object_408); i++, ptr++) {
+    for (i = 0; i < sizeof(Boss); i++, ptr++) {
         *ptr = 0;
     }
-    obj408->unk_3F8 = 1.0f;
+    boss->unk_3F8 = 1.0f;
 }
 
 void Item_Initialize(Item* item) {
@@ -219,18 +219,18 @@ void Object_2F4_Load(Object_2F4* obj2F4, ObjectInit* objInit) {
     Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
 }
 
-void Object_408_Load(Object_408* obj408, ObjectInit* objInit) {
-    Object_408_Initialize(obj408);
-    obj408->obj.status = 1;
-    obj408->obj.pos.z = -objInit->zPos1;
-    obj408->obj.pos.z += -3000.0f + objInit->zPos2;
-    obj408->obj.pos.x = objInit->xPos;
-    obj408->obj.pos.y = objInit->yPos;
-    obj408->obj.rot.y = objInit->unk_C;
-    obj408->obj.rot.x = objInit->unk_A;
-    obj408->obj.rot.z = objInit->unk_E;
-    obj408->obj.id = objInit->id;
-    Object_SetInfo(&obj408->info, obj408->obj.id);
+void Boss_Load(Boss* boss, ObjectInit* objInit) {
+    Boss_Initialize(boss);
+    boss->obj.status = 1;
+    boss->obj.pos.z = -objInit->zPos1;
+    boss->obj.pos.z += -3000.0f + objInit->zPos2;
+    boss->obj.pos.x = objInit->xPos;
+    boss->obj.pos.y = objInit->yPos;
+    boss->obj.rot.y = objInit->unk_C;
+    boss->obj.rot.x = objInit->unk_A;
+    boss->obj.rot.z = objInit->unk_E;
+    boss->obj.id = objInit->id;
+    Object_SetInfo(&boss->info, boss->obj.id);
 }
 
 void Item_Load(Item* item, ObjectInit* objInit) {
@@ -355,7 +355,7 @@ void func_80061E48(Object_2F4* obj2F4, f32 xPos, f32 yPos, f32 zPos) {
     obj2F4->obj.pos.x = xPos;
     obj2F4->obj.pos.y = yPos;
     obj2F4->obj.pos.z = zPos;
-    obj2F4->unk_0E8.z = 10.0f;
+    obj2F4->vel.z = 10.0f;
     Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
 }
 
@@ -416,7 +416,7 @@ void Object_Load(ObjectInit* objInit, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
                 }
             }
         }
-        if ((objInit->id >= OBJ_2F4_176) && (objInit->id < OBJ_408_292)) {
+        if ((objInit->id >= OBJ_2F4_176) && (objInit->id < OBJ_BOSS_292)) {
             if ((objInit->id == OBJ_2F4_267) || (objInit->id == OBJ_2F4_254)) {
                 for (i = ARRAY_COUNT(gObjects2F4) - 1; i >= 0; i--) {
                     if (gObjects2F4[i].obj.status == 0) {
@@ -440,10 +440,10 @@ void Object_Load(ObjectInit* objInit, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
                 }
             }
         }
-        if ((objInit->id >= OBJ_408_292) && (objInit->id < OBJ_ITEM_LASERS)) {
-            for (i = 0; i < ARRAY_COUNT(gObjects408); i++) {
-                if (gObjects408[i].obj.status == 0) {
-                    Object_408_Load(&gObjects408[i], objInit);
+        if ((objInit->id >= OBJ_BOSS_292) && (objInit->id < OBJ_ITEM_LASERS)) {
+            for (i = 0; i < ARRAY_COUNT(gBosses); i++) {
+                if (gBosses[i].obj.status == 0) {
+                    Boss_Load(&gBosses[i], objInit);
                     break;
                 }
             }
@@ -639,7 +639,7 @@ void func_80062D04(f32 xPos, f32 yPos) {
     }
 }
 
-s32 func_80062DBC(Vec3f* pos, f32* hitboxData, Object* obj, f32 xRot, f32 yRot, f32 zRot) {
+bool func_80062DBC(Vec3f* pos, f32* hitboxData, Object* obj, f32 xRot, f32 yRot, f32 zRot) {
     s32 i;
     Vec3f hitRot;
     Vec3f hitPos;
@@ -656,7 +656,7 @@ s32 func_80062DBC(Vec3f* pos, f32* hitboxData, Object* obj, f32 xRot, f32 yRot, 
             rotate = 0.0f;
             hitRot.x = hitRot.y = hitRot.z = 0.0f;
             if (*hitboxData >= HITBOX_UNK_3) {
-                return 0;
+                return false;
             }
             if (*hitboxData == HITBOX_UNK_2) {
                 rotate = 1.0f;
@@ -700,7 +700,7 @@ s32 func_80062DBC(Vec3f* pos, f32* hitboxData, Object* obj, f32 xRot, f32 yRot, 
     return false;
 }
 
-s32 func_800631A8(Vec3f* posD, f32* hitboxData, Vec3f* posA) {
+bool func_800631A8(Vec3f* posD, f32* hitboxData, Vec3f* posA) {
     if ((s32) hitboxData[0] != 0) {
         if ((fabsf(hitboxData[1] + posA->z - posD->z) < (hitboxData[2] + 20.0f)) &&
             (fabsf(hitboxData[5] + posA->x - posD->x) < (hitboxData[6] + 20.0f)) &&
@@ -711,13 +711,13 @@ s32 func_800631A8(Vec3f* posD, f32* hitboxData, Vec3f* posA) {
     return false;
 }
 
-s32 func_8006326C(Vec3f* arg0, Vec3f* arg1, s32 objId, Object* obj) {
+bool func_8006326C(Vec3f* arg0, Vec3f* arg1, ObjectId objId, Object* obj) {
     Vec3f sp74;
     Vec3f sp68;
     Vec3f sp5C;
     Vec3f sp50;
     Vec3f sp44;
-    s32 var_s1;
+    s32 colId;
     s32 pad1[3];
     f32 sp30;
     s32 pad2;
@@ -734,48 +734,48 @@ s32 func_8006326C(Vec3f* arg0, Vec3f* arg1, s32 objId, Object* obj) {
         sp50.x = obj->pos.x;
         sp50.y = obj->pos.y;
         sp50.z = obj->pos.z;
-        if ((objId == OBJ_2F4_180) || (objId == OBJ_80_149) || (objId == OBJ_80_150) || (objId == OBJ_408_308) ||
-            (objId == OBJ_408_313) || (objId == OBJ_408_312) || (objId == OBJ_408_309) || (objId == OBJ_80_39)) {
-            var_s1 = 0;
-            if (objId == OBJ_408_312) {
-                var_s1 = 9;
+        if ((objId == OBJ_2F4_180) || (objId == OBJ_80_149) || (objId == OBJ_80_150) || (objId == OBJ_BOSS_308) ||
+            (objId == OBJ_BOSS_313) || (objId == OBJ_BOSS_312) || (objId == OBJ_BOSS_309) || (objId == OBJ_80_39)) {
+            colId = COL1_0;
+            if (objId == OBJ_BOSS_312) {
+                colId = COL1_9;
             }
             if (objId == OBJ_80_39) {
-                var_s1 = 1;
-            } else if (objId == OBJ_408_308) {
-                var_s1 = 4;
-            } else if (objId == OBJ_408_309) {
-                var_s1 = 7;
+                colId = COL1_1;
+            } else if (objId == OBJ_BOSS_308) {
+                colId = COL1_4;
+            } else if (objId == OBJ_BOSS_309) {
+                colId = COL1_7;
             } else if (objId == OBJ_80_149) {
-                var_s1 = 5;
+                colId = COL1_5;
             } else if (objId == OBJ_80_150) {
-                var_s1 = 6;
-            } else if (objId == OBJ_408_313) {
-                var_s1 = 8;
+                colId = COL1_6;
+            } else if (objId == OBJ_BOSS_313) {
+                colId = COL1_8;
             }
-            if (func_800998FC(&sp5C, &sp50, arg1, var_s1, &sp44, &sp30) > 0) {
+            if (func_800998FC(&sp5C, &sp50, arg1, colId, &sp44, &sp30) > 0) {
                 return true;
             }
         } else {
-            var_s1 = 0;
+            colId = COL2_0;
             if (objId == OBJ_80_2) {
-                var_s1 = 2;
+                colId = COL2_2;
             }
             if (objId == OBJ_80_3) {
-                var_s1 = 3;
+                colId = COL2_3;
             }
             if (objId == OBJ_80_140) {
-                var_s1 = 4;
+                colId = COL2_4;
             }
             if (objId == OBJ_80_141) {
-                var_s1 = 6;
+                colId = COL2_6;
             }
             if (objId == OBJ_80_117) {
-                var_s1 = 14;
+                colId = COL2_14;
             } else if ((objId == OBJ_80_4) || (objId == OBJ_80_5)) {
-                var_s1 = 1;
+                colId = COL2_1;
             }
-            if (func_800A3690(&sp5C, &sp50, var_s1, &sp44)) {
+            if (func_800A3690(&sp5C, &sp50, colId, &sp44)) {
                 return true;
             }
         }
@@ -787,7 +787,7 @@ s32 func_8006351C(s32 index, Vec3f* pos, Vec3f* arg2, s32 arg3) {
     Object_58* obj58;
     Object_80* obj80;
     Object_4C* obj4C;
-    Object_408* obj408;
+    Boss* boss;
     Object_2F4* obj2F4;
     Vec3f temp;
     s32 i;
@@ -838,34 +838,34 @@ s32 func_8006351C(s32 index, Vec3f* pos, Vec3f* arg2, s32 arg3) {
     }
     if ((arg3 == 0) || (arg3 == 2) || (arg3 == 3)) {
         if (arg3 != 2) {
-            obj408 = gObjects408;
-            for (i = 0; i < ARRAY_COUNT(gObjects408); i++, obj408++) {
-                if (obj408->obj.status == 2) {
-                    if ((obj408->obj.id == OBJ_408_308) || (obj408->obj.id == OBJ_408_312) ||
-                        (obj408->obj.id == OBJ_408_313) || (obj408->obj.id == OBJ_408_309)) {
-                        if (func_8006326C(pos, arg2, obj408->obj.id, &obj408->obj)) {
+            boss = gBosses;
+            for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
+                if (boss->obj.status == 2) {
+                    if ((boss->obj.id == OBJ_BOSS_308) || (boss->obj.id == OBJ_BOSS_312) ||
+                        (boss->obj.id == OBJ_BOSS_313) || (boss->obj.id == OBJ_BOSS_309)) {
+                        if (func_8006326C(pos, arg2, boss->obj.id, &boss->obj)) {
                             return 2;
                         }
-                    } else if (obj408->obj.id == OBJ_408_310) {
-                        temp.x = fabsf(obj408->obj.pos.x - pos->x) * (5.0f / 6.0f);
-                        temp.y = fabsf(obj408->obj.pos.y - pos->y) * 2;
-                        temp.z = fabsf(obj408->obj.pos.z - pos->z) * (5.0f / 6.0f);
+                    } else if (boss->obj.id == OBJ_BOSS_310) {
+                        temp.x = fabsf(boss->obj.pos.x - pos->x) * (5.0f / 6.0f);
+                        temp.y = fabsf(boss->obj.pos.y - pos->y) * 2;
+                        temp.z = fabsf(boss->obj.pos.z - pos->z) * (5.0f / 6.0f);
                         if (sqrtf(VEC3F_SQ(temp)) < 1500.0f) {
-                            obj408->unk_062 = 1;
+                            boss->unk_062 = 1;
                             return 2;
                         }
                     } else {
-                        if (obj408->obj.id == OBJ_408_316) {
-                            temp.x = fabsf(obj408->obj.pos.x - pos->x);
-                            temp.y = fabsf(obj408->obj.pos.y - 300.0f - pos->y) * 7.42f;
-                            temp.z = fabsf(obj408->obj.pos.z - pos->z);
+                        if (boss->obj.id == OBJ_BOSS_316) {
+                            temp.x = fabsf(boss->obj.pos.x - pos->x);
+                            temp.y = fabsf(boss->obj.pos.y - 300.0f - pos->y) * 7.42f;
+                            temp.z = fabsf(boss->obj.pos.z - pos->z);
                             if (sqrtf(VEC3F_SQ(temp)) < 2700.0f) {
                                 return 2;
                             }
                         }
-                        if ((fabsf(pos->x - obj408->obj.pos.x) < 2000.0f) &&
-                            (fabsf(pos->z - obj408->obj.pos.z) < 2000.0f)) {
-                            if (func_80062DBC(pos, obj408->info.hitbox, &obj408->obj, 0.0f, 0.0f, 0.0f)) {
+                        if ((fabsf(pos->x - boss->obj.pos.x) < 2000.0f) &&
+                            (fabsf(pos->z - boss->obj.pos.z) < 2000.0f)) {
+                            if (func_80062DBC(pos, boss->info.hitbox, &boss->obj, 0.0f, 0.0f, 0.0f)) {
                                 return 2;
                             }
                         }
@@ -879,7 +879,7 @@ s32 func_8006351C(s32 index, Vec3f* pos, Vec3f* arg2, s32 arg3) {
                 (fabsf(pos->z - obj2F4->obj.pos.z) < 1500.0f) && (index != i) && (obj2F4->info.unk_16 != 2) &&
                 ((obj2F4->obj.id != OBJ_2F4_197) || (obj2F4->unk_0E4 >= 4)) && (obj2F4->timer_0C2 == 0)) {
                 if (obj2F4->obj.id == OBJ_2F4_180) {
-                    if (func_8006326C(pos, arg2, obj2F4->obj.id, &obj2F4->obj) != 0) {
+                    if (func_8006326C(pos, arg2, obj2F4->obj.id, &obj2F4->obj)) {
                         return 2;
                     }
                 } else if (obj2F4->scale < 0.0f) {
@@ -989,7 +989,7 @@ void func_80063F74(Item* item) {
     item->scale = item->obj.rot.z * 100.0f;
 }
 
-void Object_Init(s32 index, s32 objId) {
+void Object_Init(s32 index, ObjectId objId) {
     s32 var_a0;
     s32 var_a2;
     f32 sp54;
@@ -1165,14 +1165,14 @@ void Object_Init(s32 index, s32 objId) {
         case OBJ_2F4_192:
             gObjects2F4[index].unk_0C9 = 1;
             break;
-        case OBJ_408_320:
-            func_E9F1D0_8018D16C(&gObjects408[index]);
+        case OBJ_BOSS_320:
+            func_E9F1D0_8018D16C(&gBosses[index]);
             break;
-        case OBJ_408_316:
-            func_E51970_80193CA4(&gObjects408[index]);
+        case OBJ_BOSS_316:
+            func_E51970_80193CA4(&gBosses[index]);
             break;
-        case OBJ_408_314:
-            func_E9F1D0_80197CC4(&gObjects408[index]);
+        case OBJ_BOSS_314:
+            func_E9F1D0_80197CC4(&gBosses[index]);
             break;
         case OBJ_2F4_205:
         case OBJ_2F4_206:
@@ -1214,23 +1214,23 @@ void Object_Init(s32 index, s32 objId) {
             gObjects2F4[index].unk_0CE = 24;
             Audio_PlaySfx(0x31000016, &gObjects2F4[index].sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             break;
-        case OBJ_408_297:
-            func_E08400_80188A40(&gObjects408[index]);
+        case OBJ_BOSS_297:
+            func_E08400_80188A40(&gBosses[index]);
             break;
-        case OBJ_408_299:
-            func_80042FAC(&gObjects408[index]);
+        case OBJ_BOSS_299:
+            func_80042FAC(&gBosses[index]);
             break;
-        case OBJ_408_300:
-            func_80042FD0(&gObjects408[index]);
+        case OBJ_BOSS_300:
+            func_80042FD0(&gBosses[index]);
             break;
-        case OBJ_408_292:
-            func_DF4260_801878D8(&gObjects408[index]);
+        case OBJ_BOSS_292:
+            func_DF4260_801878D8(&gBosses[index]);
             break;
-        case OBJ_408_293:
-            func_DF4260_8018BE7C(&gObjects408[index]);
+        case OBJ_BOSS_293:
+            func_DF4260_8018BE7C(&gBosses[index]);
             break;
-        case OBJ_408_302:
-            func_E16C50_80187754(&gObjects408[index]);
+        case OBJ_BOSS_A6:
+            func_E16C50_80187754(&gBosses[index]);
             break;
         case OBJ_2F4_231:
             func_E6A810_8018B96C(&gObjects2F4[index]);
@@ -1253,8 +1253,8 @@ void Object_Init(s32 index, s32 objId) {
         case OBJ_4C_169:
             func_E6A810_8018EFF0(&gObjects4C[index]);
             break;
-        case OBJ_408_306:
-            func_E6A810_8018FA48(&gObjects408[index]);
+        case OBJ_BOSS_306:
+            func_E6A810_8018FA48(&gBosses[index]);
             break;
         case OBJ_2F4_240:
             func_E16C50_801915A4(&gObjects2F4[index]);
@@ -1262,8 +1262,8 @@ void Object_Init(s32 index, s32 objId) {
         case OBJ_2F4_241:
             func_E16C50_80191BB8(&gObjects2F4[index]);
             break;
-        case OBJ_408_307:
-            func_E16C50_801932AC(&gObjects408[index]);
+        case OBJ_BOSS_ZO:
+            func_E16C50_801932AC(&gBosses[index]);
             break;
         case OBJ_2F4_250:
             func_E16C50_8019B1F0(&gObjects2F4[index]);
@@ -1283,8 +1283,8 @@ void Object_Init(s32 index, s32 objId) {
         case OBJ_2F4_257:
             func_E16C50_801AF9FC(&gObjects2F4[index]);
             break;
-        case OBJ_408_318:
-            func_E16C50_801B10F8(&gObjects408[index]);
+        case OBJ_BOSS_AQ:
+            func_E16C50_801B10F8(&gBosses[index]);
             break;
         case OBJ_2F4_259:
             func_E16C50_801B6344(&gObjects2F4[index]);
@@ -1298,8 +1298,8 @@ void Object_Init(s32 index, s32 objId) {
         case OBJ_80_57:
             func_E6A810_8018F0D8(&gObjects80[index]);
             break;
-        case OBJ_408_319:
-            func_DF4260_801935CC(&gObjects408[index]);
+        case OBJ_BOSS_319:
+            func_DF4260_801935CC(&gBosses[index]);
             break;
         case OBJ_2F4_280:
             func_DF4260_8019250C(&gObjects2F4[index]);
@@ -1343,9 +1343,9 @@ void func_80065380(Object_2F4* obj2F4, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f
     obj2F4->obj.id = OBJ_2F4_182;
     obj2F4->timer_0BC = (s32) (Rand_ZeroOne() * 10.0f) + 10;
     obj2F4->timer_0C2 = 30;
-    obj2F4->unk_0E8.x = arg4;
-    obj2F4->unk_0E8.y = arg5;
-    obj2F4->unk_0E8.z = arg6;
+    obj2F4->vel.x = arg4;
+    obj2F4->vel.y = arg5;
+    obj2F4->vel.z = arg6;
     obj2F4->obj.pos.x = xPos;
     obj2F4->obj.pos.y = yPos;
     obj2F4->obj.pos.z = zPos;
@@ -1539,9 +1539,9 @@ void func_800656D4(Object_2F4* obj2F4) {
         }
     }
     Math_Vec3fFromAngles(&sp98, obj2F4->obj.rot.x, obj2F4->obj.rot.y, obj2F4->unk_124.y);
-    obj2F4->unk_0E8.x = sp98.x;
-    obj2F4->unk_0E8.y = sp98.y;
-    obj2F4->unk_0E8.z = sp98.z - D_80177D08;
+    obj2F4->vel.x = sp98.x;
+    obj2F4->vel.y = sp98.y;
+    obj2F4->vel.z = sp98.z - D_80177D08;
     if (obj2F4->unk_0B4 == 0) {
         obj2F4->obj.rot.z += 5.0f;
     }
@@ -1560,13 +1560,13 @@ void func_800656D4(Object_2F4* obj2F4) {
         Math_SmoothStepToAngle(&obj2F4->obj.rot.z, var_fv0, 0.1f, 3.0f, 0.01f);
     }
     if ((D_801784AC == 4) &&
-        (func_E6A810_801B6AEC(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z + D_80177D20) != 0)) {
+        func_E6A810_801B6AEC(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z + D_80177D20)) {
         func_8007D2C8(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, 5.0f);
         Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
     }
-    sp8C.x = obj2F4->unk_0E8.x;
-    sp8C.y = obj2F4->unk_0E8.y;
-    sp8C.z = obj2F4->unk_0E8.z;
+    sp8C.x = obj2F4->vel.x;
+    sp8C.y = obj2F4->vel.y;
+    sp8C.z = obj2F4->vel.z;
     if ((func_8006351C(obj2F4->index, &obj2F4->obj.pos, &sp8C, 1) != 0) || (obj2F4->unk_0D0 != 0) ||
         (obj2F4->obj.pos.y < (D_80177940 + 10.0f)) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7)) {
         func_8007D2C8(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, 3.0f);
@@ -1643,7 +1643,7 @@ void func_80066254(Object_2F4* obj2F4) {
     } else if ((obj2F4->obj.id != OBJ_2F4_197) || (obj2F4->unk_0B6 != 1)) {
         if ((obj2F4->unk_0D4 == 1) && (obj2F4->info.bonus != 0)) {
             gHitCount += obj2F4->info.bonus;
-            D_80177850 = 0xF;
+            D_80177850 = 15;
             if ((gLevelMode == LEVELMODE_ALL_RANGE) && (D_80161A62 != 0)) {
                 switch (D_80161A62) {
                     case 9:
@@ -1695,13 +1695,13 @@ void func_80066254(Object_2F4* obj2F4) {
 }
 
 void func_8006654C(Object_2F4* obj2F4) {
-    obj2F4->unk_10C = 0.4f;
+    obj2F4->gravity = 0.4f;
     if (obj2F4->obj.pos.y <= D_80177940 + 130.0f) {
         obj2F4->obj.pos.y = D_80177940 + 130.0f;
-        obj2F4->unk_0E8.y = 0.0f;
+        obj2F4->vel.y = 0.0f;
     }
-    obj2F4->unk_0E8.x = __sinf(obj2F4->obj.rot.y * M_DTOR) * (*obj2F4).unk_114;
-    obj2F4->unk_0E8.z = __cosf(obj2F4->obj.rot.y * M_DTOR) * (*obj2F4).unk_114;
+    obj2F4->vel.x = __sinf(obj2F4->obj.rot.y * M_DTOR) * (*obj2F4).unk_114;
+    obj2F4->vel.z = __cosf(obj2F4->obj.rot.y * M_DTOR) * (*obj2F4).unk_114;
     switch (obj2F4->unk_0B8) {
         case 0:
             if (obj2F4->unk_114 < 20.0f) {
@@ -1740,12 +1740,12 @@ void func_8006654C(Object_2F4* obj2F4) {
     obj2F4->scale = 0.8f;
     if (obj2F4->unk_0D0 != 0) {
         obj2F4->obj.status = 3;
-        obj2F4->unk_0E8.y = (Rand_ZeroOne() * 5.0f) + 6.0f;
+        obj2F4->vel.y = (Rand_ZeroOne() * 5.0f) + 6.0f;
         if (obj2F4->unk_0D0 == 2) {
-            obj2F4->unk_0E8.y = -2.0f;
+            obj2F4->vel.y = -2.0f;
         }
-        obj2F4->unk_0E8.z = -15.0f;
-        obj2F4->unk_10C = 0.5f;
+        obj2F4->vel.z = -15.0f;
+        obj2F4->gravity = 0.5f;
         func_8007D2C8(obj2F4->obj.pos.x, obj2F4->obj.pos.y + 30.0f, obj2F4->obj.pos.z, 13.0f);
         Audio_PlaySfx(0x2903A008, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
@@ -1755,9 +1755,9 @@ void func_8006684C(Object_2F4* obj2F4) {
     s32 pad;
 
     if (obj2F4->timer_0BE != 0) {
-        obj2F4->unk_0E8.z = 0.0f;
-        obj2F4->unk_0E8.x = 0.0f;
-        obj2F4->unk_0E8.y = 0.0f;
+        obj2F4->vel.z = 0.0f;
+        obj2F4->vel.x = 0.0f;
+        obj2F4->vel.y = 0.0f;
         if (obj2F4->timer_0BE == 1) {
             Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
             obj2F4->unk_044 = 1;
@@ -1765,12 +1765,12 @@ void func_8006684C(Object_2F4* obj2F4) {
             Audio_PlaySfx(0x2903B009, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             func_80077240(obj2F4->obj.pos.x, obj2F4->obj.pos.y + 250.0f, obj2F4->obj.pos.z, 3);
             gHitCount += 3;
-            D_80177850 = 0xF;
+            D_80177850 = 15;
         }
     } else {
         obj2F4->obj.rot.x += 11.0f;
         obj2F4->obj.rot.y += 7.0f;
-        if (obj2F4->unk_0E8.y < -3.0f) {
+        if (obj2F4->vel.y < -3.0f) {
             func_8007BFFC(obj2F4->obj.pos.x, obj2F4->obj.pos.y + 30.0f, obj2F4->obj.pos.z, 0.0f, 0.0f, 0.0f, 7.0f, 5);
             obj2F4->timer_0BE = 3;
         }
@@ -1843,8 +1843,8 @@ void func_80066D5C(Object_80* obj80) {
             Audio_PlaySfx(0x2900300F, &obj80->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             break;
         case 2:
-            obj80->unk_64.x += 0.05f;
-            obj80->obj.rot.x += obj80->unk_64.x;
+            obj80->vel.x += 0.05f;
+            obj80->obj.rot.x += obj80->vel.x;
             if (obj80->obj.rot.x >= 90.0f) {
                 obj80->obj.rot.x = 90.0f;
                 obj80->unk_44 = 40;
@@ -1907,7 +1907,7 @@ void func_80066EF0(Item* item) {
     } else if (item->obj.pos.y < -500.0f) {
         Math_SmoothStepToF(&item->obj.pos.y, -500.0f, 0.1f, 5.0f, 0.01f);
     }
-    if ((gVersusMode) && (item->index == 0) && (gItems[1].obj.status == 2)) {
+    if (gVersusMode && (item->index == 0) && (gItems[1].obj.status == 2)) {
         if (fabsf(item->obj.pos.x - gItems[1].obj.pos.x) < 200.0f) {
             if (fabsf(item->obj.pos.z - gItems[1].obj.pos.z) < 200.0f) {
                 item->obj.pos.x = item->obj.pos.x - 5.0f;
@@ -1954,11 +1954,11 @@ void func_80067348(Object_2F4* obj2F4, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f
     obj2F4->obj.pos.z = zPos;
     obj2F4->obj.rot.x = xRot;
     obj2F4->obj.rot.y = yRot;
-    obj2F4->unk_0E8.x = arg6;
-    obj2F4->unk_0E8.y = arg7;
-    obj2F4->unk_0E8.z = arg8;
+    obj2F4->vel.x = arg6;
+    obj2F4->vel.y = arg7;
+    obj2F4->vel.z = arg8;
     obj2F4->timer_0BC = (s32) (Rand_ZeroOne() * 15.0f) + 25.0f;
-    obj2F4->unk_10C = 0.5f;
+    obj2F4->gravity = 0.5f;
     Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
 }
 
@@ -1974,7 +1974,7 @@ void func_800674B4(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 arg5, f
 }
 
 void func_8006753C(Object_2F4* obj2F4) {
-    Player* player = gPlayer; // fake?
+    Player* player = &gPlayer[0];
     s32 i;
 
     obj2F4->obj.rot.y += 1.0f;
@@ -1996,9 +1996,9 @@ void func_8006753C(Object_2F4* obj2F4) {
             if (((player[0].wings.rightState <= WINGSTATE_BROKEN) || (player[0].wings.leftState <= WINGSTATE_BROKEN)) &&
                 (player[0].form != FORM_LANDMASTER)) {
                 obj2F4->unk_044 = 23;
-            } else if (gPlayer[0].shields < 0x80) {
+            } else if (gPlayer[0].shields < 128) {
                 obj2F4->unk_044 = 25;
-            } else if ((gLaserStrength[0] == 0) && (player[0].form != FORM_LANDMASTER)) {
+            } else if ((gLaserStrength[0] == LASERS_SINGLE) && (player[0].form != FORM_LANDMASTER)) {
                 obj2F4->unk_044 = 9;
             } else {
                 obj2F4->unk_044 = 5;
@@ -2099,8 +2099,8 @@ void func_80067BEC(Item* item) {
                     item->timer_48 = 20;
                     item->unk_50 = 60.0f;
                     gLaserStrength[item->unk_4E]++;
-                    if (gLaserStrength[item->unk_4E] > 2) {
-                        gLaserStrength[item->unk_4E] = 2;
+                    if (gLaserStrength[item->unk_4E] > LASERS_HYPER) {
+                        gLaserStrength[item->unk_4E] = LASERS_HYPER;
                     }
                     func_80060F30(gPlayer[item->unk_4E].unk_460_arr, 0x49002004, item->unk_4E);
                     if (gExpertMode) {
@@ -2129,7 +2129,7 @@ void func_80067BEC(Item* item) {
 }
 
 void func_80067F6C(Item* item) {
-    if ((!gVersusMode) &&
+    if (!gVersusMode &&
         ((gPlayer[0].wings.leftState <= WINGSTATE_BROKEN) || (gPlayer[0].wings.rightState <= WINGSTATE_BROKEN))) {
         item->obj.id = OBJ_ITEM_WING_REPAIR;
         Object_SetInfo(&item->info, item->obj.id);
@@ -2427,7 +2427,7 @@ void func_80068FE0(Object_4C* obj4C) {
     }
 }
 
-void func_800690D0(s32 index, s32 objId) {
+void func_800690D0(s32 index, ObjectId objId) {
     switch (objId) {
         case OBJ_2F4_200:
             func_8007717C(&gObjects2F4[index]);
@@ -2462,23 +2462,23 @@ void func_800690D0(s32 index, s32 objId) {
         case OBJ_2F4_192:
             func_8006684C(&gObjects2F4[index]);
             break;
-        case OBJ_408_306:
-            func_E6A810_801990DC(&gObjects408[index]);
+        case OBJ_BOSS_306:
+            func_E6A810_801990DC(&gBosses[index]);
             break;
         case OBJ_2F4_232:
             func_E6A810_8018B720(&gObjects2F4[index]);
             break;
-        case OBJ_408_319:
-            func_DF4260_80198594(&gObjects408[index]);
+        case OBJ_BOSS_319:
+            func_DF4260_80198594(&gBosses[index]);
             break;
     }
 }
 
 void func_800693E8(Object_2F4* obj2F4) {
-    obj2F4->obj.pos.x += obj2F4->unk_0E8.x;
-    obj2F4->obj.pos.z += obj2F4->unk_0E8.z;
-    obj2F4->obj.pos.y += obj2F4->unk_0E8.y;
-    obj2F4->unk_0E8.y -= obj2F4->unk_10C;
+    obj2F4->obj.pos.x += obj2F4->vel.x;
+    obj2F4->obj.pos.z += obj2F4->vel.z;
+    obj2F4->obj.pos.y += obj2F4->vel.y;
+    obj2F4->vel.y -= obj2F4->gravity;
 
     if ((D_80161AB8 != 0) && (obj2F4->obj.id != OBJ_2F4_198) &&
         ((gCurrentLevel != LEVEL_MACBETH) || (obj2F4->obj.id == OBJ_2F4_200))) {
@@ -2521,14 +2521,14 @@ void func_800693E8(Object_2F4* obj2F4) {
     }
 }
 
-void func_80069658(Object_408* obj408) {
-    obj408->obj.pos.x += obj408->unk_06C.x;
-    obj408->obj.pos.y += obj408->unk_06C.y;
-    obj408->obj.pos.z += obj408->unk_06C.z;
-    obj408->unk_06C.y -= obj408->unk_084;
-    if ((D_80161AB8 != 0) && ((obj408->obj.pos.z + D_80177D20) > (obj408->info.unk_10 - gPlayer[0].camEye.z))) {
+void func_80069658(Boss* boss) {
+    boss->obj.pos.x += boss->vel.x;
+    boss->obj.pos.y += boss->vel.y;
+    boss->obj.pos.z += boss->vel.z;
+    boss->vel.y -= boss->gravity;
+    if ((D_80161AB8 != 0) && ((boss->obj.pos.z + D_80177D20) > (boss->info.unk_10 - gPlayer[0].camEye.z))) {
         if (gPlayer[0].camEye.z) {} // fake
-        Object_Kill(&obj408->obj, &obj408->sfxPos);
+        Object_Kill(&boss->obj, &boss->sfxPos);
     }
 }
 
@@ -2574,9 +2574,9 @@ void func_80069858(Object_4C* obj4C) {
 }
 
 void func_80069924(Object_8C* obj8C) {
-    obj8C->obj.pos.x += obj8C->unk_54.x;
-    obj8C->obj.pos.y += obj8C->unk_54.y;
-    obj8C->obj.pos.z += obj8C->unk_54.z;
+    obj8C->obj.pos.x += obj8C->vel.x;
+    obj8C->obj.pos.y += obj8C->vel.y;
+    obj8C->obj.pos.z += obj8C->vel.z;
     if (D_80161AB8 != 0) {
         if ((gPlayer[0].camEye.z + obj8C->info.unk_10) < (obj8C->obj.pos.z + D_80177D20)) {
             Object_Kill(&obj8C->obj, &obj8C->sfxPos);
@@ -2659,44 +2659,44 @@ void Object_2F4_Update(Object_2F4* obj2F4) {
     }
 }
 
-void Object_408_Update(Object_408* obj408) {
-    if (obj408->timer_050 != 0) {
-        obj408->timer_050--;
+void Boss_Update(Boss* boss) {
+    if (boss->timer_050 != 0) {
+        boss->timer_050--;
     }
-    if (obj408->timer_052 != 0) {
-        obj408->timer_052--;
+    if (boss->timer_052 != 0) {
+        boss->timer_052--;
     }
-    if (obj408->timer_054 != 0) {
-        obj408->timer_054--;
+    if (boss->timer_054 != 0) {
+        boss->timer_054--;
     }
-    if (obj408->timer_056 != 0) {
-        obj408->timer_056--;
+    if (boss->timer_056 != 0) {
+        boss->timer_056--;
     }
-    if (obj408->timer_058 != 0) {
-        obj408->timer_058--;
+    if (boss->timer_058 != 0) {
+        boss->timer_058--;
     }
-    if (obj408->timer_05A != 0) {
-        obj408->timer_05A--;
+    if (boss->timer_05A != 0) {
+        boss->timer_05A--;
     }
-    if (obj408->timer_05C != 0) {
-        obj408->timer_05C--;
+    if (boss->timer_05C != 0) {
+        boss->timer_05C--;
     }
-    switch (obj408->obj.status) {
+    switch (boss->obj.status) {
         case 1:
-            obj408->obj.status = 2;
-            Object_Init(obj408->index, obj408->obj.id);
-            func_80069658(obj408);
+            boss->obj.status = 2;
+            Object_Init(boss->index, boss->obj.id);
+            func_80069658(boss);
             break;
         case 2:
-            func_80069658(obj408);
-            if ((obj408->obj.status != 0) && (obj408->info.action != NULL)) {
-                obj408->info.action(&obj408->obj);
+            func_80069658(boss);
+            if ((boss->obj.status != 0) && (boss->info.action != NULL)) {
+                boss->info.action(&boss->obj);
             }
             break;
         case 3:
-            func_80069658(obj408);
-            if (obj408->obj.status != 0) {
-                func_800690D0(obj408->index, obj408->obj.id);
+            func_80069658(boss);
+            if (boss->obj.status != 0) {
+                func_800690D0(boss->index, boss->obj.id);
             }
             break;
     }
@@ -2848,7 +2848,7 @@ void Object_UpdateAll(void) {
     s32 pad;
     Object_58* obj58;
     Object_2F4* obj2F4;
-    Object_408* obj408;
+    Boss* boss;
     Object_4C* obj4C;
     Object_80* obj80;
     Item* item;
@@ -2888,10 +2888,10 @@ void Object_UpdateAll(void) {
             Object_4C_Update(obj4C);
         }
     }
-    for (i = 0, obj408 = gObjects408; i < ARRAY_COUNT(gObjects408); i++, obj408++) {
-        if (obj408->obj.status != 0) {
-            obj408->index = i;
-            Object_408_Update(obj408);
+    for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {
+        if (boss->obj.status != 0) {
+            boss->index = i;
+            Boss_Update(boss);
         }
     }
     for (i = 0, obj2F4 = gObjects2F4; i < ARRAY_COUNT(gObjects2F4); i++, obj2F4++) {

@@ -47,18 +47,24 @@
     symbol_name_format: E16C50_$VRAM
     subsegments:
     - [0xE16C50, c, E16C50]
-    - [0xE1F680, c, E1F680]
-    - [0xE2DF20, c, E2DF20]
-    - [0xE38560, c, E38560]
-    - [0xE4E3D0, data, E16C50]
-    - [0xE4EC90, data, E1F680]
-    - [0xE4F010, data, E2DF20]
-    - [0xE4F290, data, E38560]
-    - [0xE50030, .rodata, E16C50]
-    - [0xE504E0, .rodata, E1F680]
-    - [0xE50C00, .rodata, E2DF20]
-    - [0xE51160, .rodata, E38560]
-    - { start: 0xE51970, type: bss, vram: 0x801C2240, name: ovl_E16C50 }
+    - [0xE16C60, c, fox_a6]
+    - [0xE1F680, c, sf_zo]
+    - [0xE2DF20, c, sf_so]
+    - [0xE38560, c, sf_aq]
+    - [0xE4E3D0, .data, E16C50]
+    - [0xE4E3E0, .data, fox_a6]
+    - [0xE4EC90, .data, sf_zo]
+    - [0xE4F010, .data, sf_so]
+    - [0xE4F290, .data, sf_aq]
+    - [0xE50030, .rodata, fox_a6]
+    - [0xE504E0, .rodata, sf_zo]
+    - [0xE50C00, .rodata, sf_so]
+    - [0xE51160, .rodata, sf_aq]
+    - { start: 0xE51970, type: .bss, vram: 0x801C2240, name: E16C50 }
+    - { start: 0xE51970, type: .bss, vram: 0x801C2250, name: fox_a6 }
+    - { start: 0xE51970, type: .bss, vram: 0x801C2330, name: sf_zo }
+    - { start: 0xE51970, type: .bss, vram: 0x801C2740, name: sf_so }
+    - { start: 0xE51970, type: .bss, vram: 0x801C27C0, name: sf_aq }
 
   - name: ovl_E51970
     type: code
@@ -128,9 +134,9 @@
     - [0xEBFB80, .rodata, EBD210]
     - { start: 0xEBFBE0, type: bss, vram: 0x801A7F30, name: ovl_E9F1D0 }
     
-  - name: ovl_EBFBE0
+  - name: ovl_menu
     type: code
-    dir: overlays/ovl_EBFBE0
+    dir: overlays/ovl_menu
     start: 0xEBFBE0
     vram: 0x80187520
     bss_size: 0x17590
@@ -140,18 +146,18 @@
     - [0xEBFBE0, c, EBFBE0]
     - [0xEBFCA0, c, fox_title]
     - [0xECA1E0, c, fox_option]
-    - [0xED6EC0, c, ED6EC0]
+    - [0xED6EC0, c, fox_map]
     - [0xEE60B0, .data, fox_title]
     - [0xEE6C30, .data, fox_option]
-    - [0xEE7AE0, data, ED6EC0]
+    - [0xEE7AE0, .data, fox_map]
     - [0xEEF410, .rodata, EBFBE0]
     - [0xEEF430, .rodata, fox_title]
     - [0xEEF7D0, .rodata, fox_option]
-    - [0xEEFB80, .rodata, ED6EC0]
-    # - { start: 0xEF0260, type: bss, vram: 0x801B7BA0, name: ovl_EBFBE0 }
+    - [0xEEFB80, .rodata, fox_map]
+    # - { start: 0xEF0260, type: bss, vram: 0x801B7BA0, name: ovl_menu }
     - { start: 0xEF0260, type: bss, vram: 0x801B7BA0, name: fox_title }
     - { start: 0xEF0260, type: bss, vram: 0x801B9090, name: fox_option }
-    - { start: 0xEF0260, type: bss, vram: 0x801B9410, name: ED6EC0 }
+    - { start: 0xEF0260, type: bss, vram: 0x801B9410, name: fox_map }
 
   - name: ovl_EF0260
     type: code
