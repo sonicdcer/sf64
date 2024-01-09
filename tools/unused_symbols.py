@@ -60,22 +60,6 @@ def parse_symbols():
             continue
         search_asm(file, path)
 
-def search_externs():
-    global fail
-    for path in Path('src').rglob('*.c'):
-        with open(path, 'r') as f:
-            current = str(path).split('/')[-1].split('.')[0]
-            lines = f.readlines()
-            for line in lines:
-                if line.endswith(';'):
-                    symbol = clean_symbol(line.split(' ')[2].strip())
-
-                    for file in files:
-                        if symbol in files[file] and file != current:
-                            fail = True
-                            print(f' - Symbol {colorama.Fore.RED}{symbol} {colorama.Fore.LIGHTWHITE_EX}found on {colorama.Fore.YELLOW}{current} {colorama.Fore.LIGHTWHITE_EX}but is defined on {colorama.Fore.YELLOW}{file}.bss.s')
-                            print(colorama.Style.RESET_ALL, end='')
-
 def scan_code():
     for path in Path('src').rglob('*.c'):
         with open(path, 'r') as f:
@@ -91,15 +75,17 @@ def scan_code():
                                 symbol['used'] = True
 
 def print_results():
+    global fail
     for file in files:
         for symbol in files[file]:
             if symbol['extern'] and not symbol['used']:
+                fail = True
                 print(f' - Symbol {colorama.Fore.RED}{symbol["name"]} {colorama.Fore.LIGHTWHITE_EX}is extern but not used on')
                 print(colorama.Style.RESET_ALL, end='')
 
 def print_error():
     print(colorama.Fore.LIGHTWHITE_EX +
-            "\n BSS is REORDERED!!\n"
+            "\n BSS could be REORDERED!!\n"
             " Oh! MY GOD!!"
             + colorama.Style.RESET_ALL, file=os.sys.stderr)
     print("", file=os.sys.stderr)
