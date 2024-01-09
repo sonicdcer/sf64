@@ -10,8 +10,6 @@
         "build/**": true,
         "expected/**": true,
         "tools/**": true,
-        "tools/aspatch/**": false,
-        "tools/gfxsotn/**": false,
     },
     "defines": [
         "_LANGUAGE_C", // For gbi.h

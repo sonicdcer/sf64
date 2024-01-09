@@ -57,7 +57,7 @@ extern s32 D_1013700[];
 extern Gfx D_20031B0[];
 extern Gfx D_2010A30[];
 extern u16 D_3000B20[];
-extern u16 D_30013E0[];
+extern u8 D_30013E0[];
 
 extern s32 D_80161690;
 extern s32 D_80161718;

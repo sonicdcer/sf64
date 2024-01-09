@@ -1,3 +1,9 @@
+/*
+ * File: fox_title.c
+ * System: Title
+ * Description: Starfox Title Handler
+ */
+
 #include "global.h"
 #include "fox_title.h"
 

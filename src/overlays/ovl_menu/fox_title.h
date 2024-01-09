@@ -73,8 +73,6 @@ typedef struct {
     /* 0x10 */ f32 scale;
 } UnkStruct_D_EBFBE0_801B8688; // size = 0x14
 
-extern char D_EBFBE0_801ADA44[];
-extern s32 D_EBFBE0_801ADA84[];
 extern UnkStruct_D_EBFBE0_801B8294 D_EBFBE0_801B6B40[];
 extern UnkStruct_D_EBFBE0_801B8294 D_EBFBE0_801B6C60[];
 extern f32 D_EBFBE0_801B7BB0;
