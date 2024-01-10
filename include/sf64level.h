@@ -88,7 +88,7 @@ typedef enum LevelId {
     /* 77 */ LEVEL_WARP_ZONE = 77,
 } LevelId;
 
-typedef enum {
+typedef enum VsStage {
     /* 0 */ VS_STAGE_CORNERIA,
     /* 1 */ VS_STAGE_KATINA,
     /* 2 */ VS_STAGE_SECTOR_Z,
