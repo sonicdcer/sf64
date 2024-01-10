@@ -67,7 +67,7 @@ def parse_symbols():
 def scan_code():
     for path in Path('src').rglob('*.c'):
         with open(path, 'r') as f:
-            print(f' - Scanning symbols on {colorama.Fore.YELLOW}{str(path).split("/")[-1]} {colorama.Fore.LIGHTWHITE_EX}...')
+            print(f' - Scanning symbols on {colorama.Fore.YELLOW}{str(path).split("/")[-1]}{colorama.Fore.LIGHTWHITE_EX}')
             buffer = f.readlines()
             for line in buffer:
                 for file in files:
@@ -98,9 +98,13 @@ def print_results():
                 if used != file and symbol['global']:
                     if used not in output:
                         output[used] = []
-                    print(f' - Symbol {colorama.Fore.LIGHTBLUE_EX}{symbol["name"]} {colorama.Fore.LIGHTWHITE_EX}is used on {colorama.Fore.LIGHTMAGENTA_EX}{used} ' + f'{colorama.Fore.LIGHTWHITE_EX}and is global' if symbol['global'] else '')
-                    output[used].append(symbol["name"])
+                    print(f' - Symbol {colorama.Fore.LIGHTBLUE_EX}{symbol["name"]} {colorama.Fore.LIGHTWHITE_EX}is used on {colorama.Fore.LIGHTMAGENTA_EX}{used} {colorama.Fore.LIGHTWHITE_EX}is used on {colorama.Fore.LIGHTWHITE_EX}defined on {colorama.Fore.LIGHTGREEN_EX}{file}' + f'{colorama.Fore.LIGHTWHITE_EX} and is global' if symbol['global'] else '')
+                    output[used].append({
+                        'name': symbol['name'],
+                        'file': file,
+                    })
                     fail = True
+
     print(f'{colorama.Fore.LIGHTWHITE_EX} - Writing to file...')
     # Write to file
     with open('symbols.csv', 'w') as f:
@@ -114,7 +118,7 @@ def print_results():
         for i in range(0, max):
             for key in keys:
                 if len(output[key]) > i:
-                    f.write(f'{output[key][i]},')
+                    f.write(f'{output[key][i]["file"]}: {output[key][i]["name"]},')
                 else:
                     f.write(',')
             f.write('\n')
