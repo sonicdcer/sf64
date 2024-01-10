@@ -305,7 +305,7 @@ void func_80061B68(void) {
             sp1C = (Rand_ZeroOne() - 0.5f);
             x = gPlayer[0].pos.x + (sp1C * 2000.0f) + (5.0f * gPlayer[0].vel.x);
             y = 0;
-            while (y <= D_80177940) {
+            while (y <= gGroundLevel) {
                 sp1C = (Rand_ZeroOne() - 0.5f);
                 y = gPlayer[0].pos.y + (sp1C * 2000.0f) + (5.0f * gPlayer[0].vel.y);
             }
@@ -584,7 +584,7 @@ void func_80062B60(f32 xPos, f32 zPos, s32 arg2, f32 arg3) {
                 gObjects8C[i].obj.status = 1;
                 gObjects8C[i].obj.id = OBJ_8C_348;
                 gObjects8C[i].obj.pos.x = xPos;
-                gObjects8C[i].obj.pos.y = D_80177940 + 3.0f;
+                gObjects8C[i].obj.pos.y = gGroundLevel + 3.0f;
                 gObjects8C[i].obj.pos.z = zPos;
                 gObjects8C[i].scale2 = 10.0f;
                 gObjects8C[i].scale1 = arg3;
@@ -607,7 +607,7 @@ void func_80062C38(f32 xPos, f32 yPos) {
                 gObjects8C[i].obj.status = 1;
                 gObjects8C[i].obj.id = OBJ_8C_349;
                 gObjects8C[i].obj.pos.x = xPos;
-                gObjects8C[i].obj.pos.y = D_80177940 + 3.0f;
+                gObjects8C[i].obj.pos.y = gGroundLevel + 3.0f;
                 gObjects8C[i].obj.pos.z = yPos;
                 gObjects8C[i].scale2 = 1.0f;
                 gObjects8C[i].scale1 = 1.3f;
@@ -628,7 +628,7 @@ void func_80062D04(f32 xPos, f32 yPos) {
             gObjects8C[i].obj.status = 1;
             gObjects8C[i].obj.id = OBJ_8C_350;
             gObjects8C[i].obj.pos.x = xPos;
-            gObjects8C[i].obj.pos.y = D_80177940 + 3.0f;
+            gObjects8C[i].obj.pos.y = gGroundLevel + 3.0f;
             gObjects8C[i].obj.pos.z = yPos;
             gObjects8C[i].scale2 = 3.0f;
             gObjects8C[i].scale1 = 2.0f;
@@ -935,7 +935,7 @@ void func_80063CAC(Object_80* obj80) {
 void func_80063D58(Object_80* obj80) {
     s32 i;
 
-    obj80->obj.pos.y = D_80177940;
+    obj80->obj.pos.y = gGroundLevel;
     for (i = 0; i < ARRAY_COUNT(gObjects4C); i++) {
         if (gObjects4C[i].obj.status == 0) {
             Object_4C_Initialize(&gObjects4C[i]);
@@ -1568,7 +1568,7 @@ void func_800656D4(Object_2F4* obj2F4) {
     sp8C.y = obj2F4->vel.y;
     sp8C.z = obj2F4->vel.z;
     if ((func_8006351C(obj2F4->index, &obj2F4->obj.pos, &sp8C, 1) != 0) || (obj2F4->unk_0D0 != 0) ||
-        (obj2F4->obj.pos.y < (D_80177940 + 10.0f)) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7)) {
+        (obj2F4->obj.pos.y < (gGroundLevel + 10.0f)) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7)) {
         func_8007D2C8(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, 3.0f);
         Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
         if (obj2F4->unk_0D0 != 0) {
@@ -1696,8 +1696,8 @@ void func_80066254(Object_2F4* obj2F4) {
 
 void func_8006654C(Object_2F4* obj2F4) {
     obj2F4->gravity = 0.4f;
-    if (obj2F4->obj.pos.y <= D_80177940 + 130.0f) {
-        obj2F4->obj.pos.y = D_80177940 + 130.0f;
+    if (obj2F4->obj.pos.y <= gGroundLevel + 130.0f) {
+        obj2F4->obj.pos.y = gGroundLevel + 130.0f;
         obj2F4->vel.y = 0.0f;
     }
     obj2F4->vel.x = __sinf(obj2F4->obj.rot.y * M_DTOR) * (*obj2F4).unk_114;
@@ -1898,8 +1898,8 @@ void func_80066EF0(Item* item) {
         Math_SmoothStepToF(&item->obj.pos.y, 650.0f, 0.1f, 10.0f, 0.01f);
     }
     if (gLevelType == LEVELTYPE_PLANET) {
-        if (item->obj.pos.y < D_80177940 + 70.0f) {
-            Math_SmoothStepToF(&item->obj.pos.y, D_80177940 + 70.0f, 0.1f, 5.0f, 0.01f);
+        if (item->obj.pos.y < gGroundLevel + 70.0f) {
+            Math_SmoothStepToF(&item->obj.pos.y, gGroundLevel + 70.0f, 0.1f, 5.0f, 0.01f);
         }
         if ((gCurrentLevel == LEVEL_AQUAS) && (D_80178284 != 0)) {
             item->obj.pos.z += 20.0f;

@@ -458,7 +458,7 @@ extern u16 gBrakeButton[4];
 extern u8 D_80177930;
 //
 extern u16 gShootButton[4];
-extern f32 D_80177940;
+extern f32 gGroundLevel;
 //
 extern u16 gBombButton[4];
 extern f32 D_80177950;

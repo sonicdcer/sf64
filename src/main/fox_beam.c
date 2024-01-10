@@ -54,16 +54,16 @@ void func_80035E78(PlayerShot* shot) {
         shot->unk_58 = 150;
         func_8001CE28(shot->playerNum, &shot->sfxPos);
         D_Timer_80161A60 = 4;
-        if (shot->obj.pos.y < (D_80177940 + 450.0f)) {
+        if (shot->obj.pos.y < (gGroundLevel + 450.0f)) {
             D_80178480 = 15;
             if (D_80161A88 == 2) {
-                func_8007D9DC(shot->obj.pos.x, D_80177940 + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
+                func_8007D9DC(shot->obj.pos.x, gGroundLevel + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
                               shot->unk_48 * 3.0f, 0);
-                func_8007D9DC(shot->obj.pos.x, D_80177940 + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
+                func_8007D9DC(shot->obj.pos.x, gGroundLevel + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
                               shot->unk_48 * 3.0f, 5);
-                func_8007D9DC(shot->obj.pos.x, D_80177940 + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
+                func_8007D9DC(shot->obj.pos.x, gGroundLevel + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
                               shot->unk_48 * 3.0f, 10);
-                func_8007ADF4(shot->obj.pos.x, D_80177940, shot->obj.pos.z, shot->unk_48 * 0.05f, shot->unk_48 * 0.5f);
+                func_8007ADF4(shot->obj.pos.x, gGroundLevel, shot->obj.pos.z, shot->unk_48 * 0.05f, shot->unk_48 * 0.5f);
                 func_8007A6F0(&shot->obj.pos, 0x19000014);
             } else {
                 func_80062B60(shot->obj.pos.x, shot->obj.pos.z, 0, shot->unk_48 * 3.0f);
@@ -78,7 +78,7 @@ void func_80035E78(PlayerShot* shot) {
             if (var_fv1 > 2.0f) {
                 var_fv1 = 2.0f;
             }
-            func_8007B550(shot->obj.pos.x, D_80177940 + 6.0f, shot->obj.pos.z, shot->unk_48 * (1.5f + var_fv1),
+            func_8007B550(shot->obj.pos.x, gGroundLevel + 6.0f, shot->obj.pos.z, shot->unk_48 * (1.5f + var_fv1),
                           var_fv0);
         }
 
@@ -1385,7 +1385,7 @@ void func_80039A50(PlayerShot* shot) {
                     gSPDisplayList(gMasterDisp++, D_600DB80);
                     Matrix_Pop(&gGfxMatrix);
                     Matrix_Push(&gGfxMatrix);
-                    Matrix_Translate(gGfxMatrix, shot->obj.pos.x, D_80177940, shot->obj.pos.z + D_80177D20, 1);
+                    Matrix_Translate(gGfxMatrix, shot->obj.pos.x, gGroundLevel, shot->obj.pos.z + D_80177D20, 1);
                     Matrix_Scale(gGfxMatrix, shot->unk_2C, shot->unk_30, shot->unk_34, 1);
                     RCP_SetupDL(&gMasterDisp, 0x31);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 32, 32, 0, shot->unk_58);
@@ -1525,9 +1525,9 @@ void func_8003B00C(PlayerShot* shot, Player* player) {
                 Matrix_Push(&gCalcMatrix);
                 func_80038140(shot);
                 Matrix_Pop(&gCalcMatrix);
-                if (shot->obj.pos.y < D_80177940) {
+                if (shot->obj.pos.y < gGroundLevel) {
                     shot->unk_5C = 0;
-                    func_80036770(shot->obj.pos.x, D_80177940 + 2.0f, shot->obj.pos.z, shot->obj.rot.y, 2.0f);
+                    func_80036770(shot->obj.pos.x, gGroundLevel + 2.0f, shot->obj.pos.z, shot->obj.rot.y, 2.0f);
                     break;
                 } else if (shot->unk_5C == 2) {
                     shot->unk_5C = 0;
@@ -1566,9 +1566,9 @@ void func_8003B00C(PlayerShot* shot, Player* player) {
         Object_Kill(&shot->obj, &shot->sfxPos);
     }
     if (shot->unk_5C == 1) {
-        if (shot->obj.pos.y < D_80177940) {
+        if (shot->obj.pos.y < gGroundLevel) {
             func_80036318(shot);
-            func_80036770(shot->obj.pos.x, D_80177940 + 2.0f, shot->obj.pos.z, shot->obj.rot.y, 2.0f);
+            func_80036770(shot->obj.pos.x, gGroundLevel + 2.0f, shot->obj.pos.z, shot->obj.rot.y, 2.0f);
             if (gCurrentLevel == LEVEL_FORTUNA) {
                 func_8007BC7C(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
                 func_8007BC7C(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
@@ -1583,13 +1583,13 @@ void func_8003B55C(PlayerShot* shot, s32 index) {
     Vec3f sp44;
     Vec3f sp38;
 
-    if ((D_80161A88 == 2) && (shot->obj.pos.y < (D_80177940 + 50.0f)) && (index == 0)) {
-        func_8007ACE0(shot->obj.pos.x, D_80177940, shot->obj.pos.z, 0.1f, 1.5f, shot->obj.rot.y + 20.0f);
-        func_8007ACE0(shot->obj.pos.x, D_80177940, shot->obj.pos.z, 0.1f, 1.5f, shot->obj.rot.y - 20.0f);
+    if ((D_80161A88 == 2) && (shot->obj.pos.y < (gGroundLevel + 50.0f)) && (index == 0)) {
+        func_8007ACE0(shot->obj.pos.x, gGroundLevel, shot->obj.pos.z, 0.1f, 1.5f, shot->obj.rot.y + 20.0f);
+        func_8007ACE0(shot->obj.pos.x, gGroundLevel, shot->obj.pos.z, 0.1f, 1.5f, shot->obj.rot.y - 20.0f);
     }
-    if ((shot->obj.pos.y < D_80177940) && (D_801784AC != 4)) {
+    if ((shot->obj.pos.y < gGroundLevel) && (D_801784AC != 4)) {
         func_80036318(shot);
-        shot->obj.pos.y = D_80177940 + 2;
+        shot->obj.pos.y = gGroundLevel + 2;
         if (gCurrentLevel == LEVEL_BOLSE) {
             func_8007A6F0(&shot->obj.pos, 0x29121007);
         }
@@ -1602,14 +1602,14 @@ void func_8003B55C(PlayerShot* shot, s32 index) {
                 sp44.y = sp44.z = 0.0f;
                 sp44.x = 40.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
-                func_80036770(shot->obj.pos.x + sp38.x, D_80177940 + 2.0f, shot->obj.pos.z + sp38.z, shot->obj.rot.y,
+                func_80036770(shot->obj.pos.x + sp38.x, gGroundLevel + 2.0f, shot->obj.pos.z + sp38.z, shot->obj.rot.y,
                               2.0f);
                 sp44.x = -40.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
-                func_80036770(shot->obj.pos.x + sp38.x, D_80177940 + 2.0f, shot->obj.pos.z + sp38.z, shot->obj.rot.y,
+                func_80036770(shot->obj.pos.x + sp38.x, gGroundLevel + 2.0f, shot->obj.pos.z + sp38.z, shot->obj.rot.y,
                               2.0f);
             } else {
-                func_80036770(shot->obj.pos.x, D_80177940 + 2.0f, shot->obj.pos.z, shot->obj.rot.y, 2.0f);
+                func_80036770(shot->obj.pos.x, gGroundLevel + 2.0f, shot->obj.pos.z, shot->obj.rot.y, 2.0f);
             }
         }
         if (D_80161A88 == 2) {
@@ -1724,12 +1724,12 @@ bool func_8003BB4C(PlayerShot* shot) {
 
 void func_8003BEF4(PlayerShot* shot) {
     if (gVersusMode) {
-        if ((shot->obj.pos.y < D_80177940) || func_8003BB4C(shot) ||
+        if ((shot->obj.pos.y < gGroundLevel) || func_8003BB4C(shot) ||
             !(gControllerHold[shot->playerNum].button & A_BUTTON) || (shot->unk_64 == 0)) {
             Object_Kill(&shot->obj, &shot->sfxPos);
         }
     } else {
-        if ((shot->obj.pos.y < D_80177940) || func_8003BB4C(shot) ||
+        if ((shot->obj.pos.y < gGroundLevel) || func_8003BB4C(shot) ||
             !(gControllerHold[gMainController].button & A_BUTTON) || (shot->unk_64 == 0)) {
             Object_Kill(&shot->obj, &shot->sfxPos);
         }
@@ -1986,7 +1986,7 @@ void func_8003CC08(PlayerShot* shot) {
                 func_80035E78(shot);
                 break;
             }
-            if ((shot->obj.pos.y < D_80177940) && (D_801784AC != 4)) {
+            if ((shot->obj.pos.y < gGroundLevel) && (D_801784AC != 4)) {
                 func_80035E78(shot);
                 break;
             }
@@ -2058,14 +2058,14 @@ void func_8003CF90(PlayerShot* shot) {
     Object_2F4* obj2F4;
     Player* player;
 
-    if ((shot->obj.pos.y < D_80177940) || (shot->unk_64 == 1)) {
-        if ((D_80161A88 == 2) && (shot->obj.pos.y < D_80177940)) {
+    if ((shot->obj.pos.y < gGroundLevel) || (shot->unk_64 == 1)) {
+        if ((D_80161A88 == 2) && (shot->obj.pos.y < gGroundLevel)) {
             shot->unk_48 = 10.0f;
-            func_8007D9DC(shot->obj.pos.x, D_80177940 + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f, shot->unk_48 * 3.0f,
+            func_8007D9DC(shot->obj.pos.x, gGroundLevel + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f, shot->unk_48 * 3.0f,
                           0);
-            func_8007D9DC(shot->obj.pos.x, D_80177940 + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f, shot->unk_48 * 3.0f,
+            func_8007D9DC(shot->obj.pos.x, gGroundLevel + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f, shot->unk_48 * 3.0f,
                           5);
-            func_8007ADF4(shot->obj.pos.x, D_80177940, shot->obj.pos.z, shot->unk_48 * 0.05f, shot->unk_48 * 0.5f);
+            func_8007ADF4(shot->obj.pos.x, gGroundLevel, shot->obj.pos.z, shot->unk_48 * 0.05f, shot->unk_48 * 0.5f);
             func_8007A6F0(&shot->obj.pos, 0x19000014);
         }
         func_80036318(shot);

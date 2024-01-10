@@ -1312,19 +1312,19 @@ void func_8005ECD8(s32 index, Object* obj) {
     } else {
         switch (obj->id) {
             case OBJ_2F4_230:
-                Matrix_Translate(gGfxMatrix, obj->pos.x, D_80177940 + 2.0f + gObjects2F4[index].unk_118,
+                Matrix_Translate(gGfxMatrix, obj->pos.x, gGroundLevel + 2.0f + gObjects2F4[index].unk_118,
                                  obj->pos.z + D_80177D20, 1);
                 break;
             case OBJ_2F4_229:
             case OBJ_2F4_231:
-                Matrix_Translate(gGfxMatrix, obj->pos.x, D_80177940 + 2.0f + gObjects2F4[index].unk_114,
+                Matrix_Translate(gGfxMatrix, obj->pos.x, gGroundLevel + 2.0f + gObjects2F4[index].unk_114,
                                  obj->pos.z + D_80177D20, 1);
                 break;
             case OBJ_BOSS_316:
-                Matrix_Translate(gGfxMatrix, obj->pos.x, D_80177940 + 2.0f + D_8017847C, obj->pos.z, 1);
+                Matrix_Translate(gGfxMatrix, obj->pos.x, gGroundLevel + 2.0f + D_8017847C, obj->pos.z, 1);
                 break;
             default:
-                Matrix_Translate(gGfxMatrix, obj->pos.x, D_80177940 + 2.0f, obj->pos.z + D_80177D20, 1);
+                Matrix_Translate(gGfxMatrix, obj->pos.x, gGroundLevel + 2.0f, obj->pos.z + D_80177D20, 1);
                 break;
         }
         if ((D_801784AC != 4) || (obj->id == OBJ_2F4_200) || (obj->id == OBJ_2F4_195) || (obj->id == OBJ_2F4_198)) {

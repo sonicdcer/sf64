@@ -1908,7 +1908,7 @@ void func_800319AC(Object_2F4* this) {
                 if (spD8 < 0.0f) {
                     spD8 += 360.0f;
                 }
-            } else if ((this->obj.pos.y < (D_80177940 + 50.0f)) && (spD8 > 180.0f)) {
+            } else if ((this->obj.pos.y < (gGroundLevel + 50.0f)) && (spD8 > 180.0f)) {
                 spD8 = 0.0f;
                 this->unk_0F4.x = 0.0f;
             }
@@ -1970,8 +1970,8 @@ void func_800319AC(Object_2F4* this) {
     this->unk_148 -= (this->unk_148 * 0.1f);
     this->unk_14C -= (this->unk_14C * 0.1f);
     this->unk_144 -= (this->unk_144 * 0.1f);
-    if ((this->obj.pos.y < D_80177940 + 40.0f) && (this->vel.y < 0.0f)) {
-        this->obj.pos.y = D_80177940 + 40.0f;
+    if ((this->obj.pos.y < gGroundLevel + 40.0f) && (this->vel.y < 0.0f)) {
+        this->obj.pos.y = gGroundLevel + 40.0f;
         this->vel.y = 0.0f;
     }
     if (this->unk_050 != 0) {

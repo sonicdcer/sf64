@@ -1917,7 +1917,7 @@ void func_8004DEF8(Player* player) {
     } else if ((((player->timer_220 > 0) || (player->pos.y < player->unk_0A4)) || (player->timer_1FC == 0)) &&
                (player->timer_1F8 == 0)) {
         if (player->pos.y < player->unk_0A4) {
-            func_8007C688(player->pos.x, D_80177940 + 20.0f, player->unk_138 - (2.0f * player->vel.z), 3.0f, 0x320);
+            func_8007C688(player->pos.x, gGroundLevel + 20.0f, player->unk_138 - (2.0f * player->vel.z), 3.0f, 0x320);
             func_80062C38(player->pos.x, player->pos.z);
         }
         func_8007D0E0(player->pos.x, player->pos.y - (2.0f * player->vel.y), player->unk_138 - (2.0f * player->vel.z),
@@ -1943,8 +1943,8 @@ void func_8004DEF8(Player* player) {
     }
 
     if ((D_80161A88 == 2) && (player->pos.y <= player->unk_0A4)) {
-        func_8007D9DC(player->pos.x, D_80177940 + 2.0f, player->unk_138, 3.0f, 20.0f, 0);
-        func_8007ADF4(player->pos.x, D_80177940, player->unk_138, 0.1f, 2.0f);
+        func_8007D9DC(player->pos.x, gGroundLevel + 2.0f, player->unk_138, 3.0f, 20.0f, 0);
+        func_8007ADF4(player->pos.x, gGroundLevel, player->unk_138, 0.1f, 2.0f);
     }
 }
 

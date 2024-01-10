@@ -1966,7 +1966,7 @@ bool func_80091864(Object_2F4* obj2F4) {
         sp44 += 40.0f;
         if (sp44 >= 360.0f) {
             sp44 -= 360.0f;
-        } else if ((obj2F4->obj.pos.y < (D_80177940 + 50.0f)) && (gLevelType == LEVELTYPE_PLANET) && (sp44 > 180.0f)) {
+        } else if ((obj2F4->obj.pos.y < (gGroundLevel + 50.0f)) && (gLevelType == LEVELTYPE_PLANET) && (sp44 > 180.0f)) {
             sp44 = 0.0f;
         }
         obj2F4->unk_050 = 0;
@@ -2023,8 +2023,8 @@ bool func_80091B90(Object_2F4* obj2F4) {
     obj2F4->unk_14C -= obj2F4->unk_14C * 0.1f;
     obj2F4->unk_144 -= obj2F4->unk_144 * 0.1f;
 
-    if ((obj2F4->obj.pos.y < D_80177940 + 40.0f) && (obj2F4->vel.y < 0.0f) && (gLevelType == LEVELTYPE_PLANET)) {
-        obj2F4->obj.pos.y = D_80177940 + 40.0f;
+    if ((obj2F4->obj.pos.y < gGroundLevel + 40.0f) && (obj2F4->vel.y < 0.0f) && (gLevelType == LEVELTYPE_PLANET)) {
+        obj2F4->obj.pos.y = gGroundLevel + 40.0f;
         obj2F4->vel.y = 0.0f;
     }
     obj2F4->vel.z -= D_80177D08;

@@ -326,12 +326,12 @@ void func_800444BC(Player* player) {
         sp30 = 0.0f;
     }
     sp40 = sp3C = 0.0f;
-    sp38 = D_80177940;
+    sp38 = gGroundLevel;
     if (D_801784AC == 4) {
         func_E6A810_801B6E20(player->pos.x, player->unk_138 + player->unk_144, &sp40, &sp38, &sp3C);
     }
     if (gCurrentLevel == LEVEL_MACBETH) {
-        D_E6A810_801BE250.unk_6C = D_80177940;
+        D_E6A810_801BE250.unk_6C = gGroundLevel;
         D_E6A810_801BE250.unk_70 = D_E6A810_801BE250.unk_74 = 0.0f;
         D_800C9F10 = 0.0f;
         func_80047754(player);
@@ -828,7 +828,7 @@ void func_80046358(Player* player) {
 
     player->unk_064 = player->pos.x;
     player->unk_06C = player->unk_138 + -20.0f;
-    player->unk_068 = D_80177940 + 3.0f;
+    player->unk_068 = gGroundLevel + 3.0f;
     player->unk_248 = 0.0f;
     player->unk_24C = 0.0f;
     player->unk_070 = 0.0f;
@@ -1164,7 +1164,7 @@ void func_80047504(Player* player) {
     } else {
         player->unk_064 = player->pos.x;
         player->unk_06C = player->unk_138 + -10.0f;
-        player->unk_068 = D_80177940 - 4.0f;
+        player->unk_068 = gGroundLevel - 4.0f;
         player->unk_248 = 0.0f;
         player->unk_24C = 0.0f;
         player->unk_070 = 0.0f;

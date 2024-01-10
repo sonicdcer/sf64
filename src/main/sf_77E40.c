@@ -579,14 +579,14 @@ void func_80079618(f32 posX, f32 posY, f32 posZ, f32 arg3) {
 
 void func_8007968C(Object_8C* obj8C) {
     if ((gCurrentLevel != LEVEL_MACBETH) || (obj8C->unk_44 != 7)) {
-        if ((obj8C->timer_50 == 0) || (obj8C->obj.pos.y < D_80177940)) {
+        if ((obj8C->timer_50 == 0) || (obj8C->obj.pos.y < gGroundLevel)) {
             Object_Kill(&obj8C->obj, &obj8C->sfxPos);
         }
     } else {
         if (!(gFrameCount & 3)) {
             func_8007D2C8(obj8C->obj.pos.x, obj8C->obj.pos.y + 550.0f, obj8C->obj.pos.z, 10.0f);
         }
-        if ((obj8C->timer_50 == 0) || (obj8C->obj.pos.y < (D_80177940 - 100.0f))) {
+        if ((obj8C->timer_50 == 0) || (obj8C->obj.pos.y < (gGroundLevel - 100.0f))) {
             Object_Kill(&obj8C->obj, &obj8C->sfxPos);
         }
     }
@@ -954,7 +954,7 @@ void func_8007AC0C(Object_8C* obj8C, f32 posX, f32 unused_posY, f32 posZ, f32 ar
     obj8C->obj.status = 1;
     obj8C->obj.id = OBJ_8C_372;
     obj8C->obj.pos.x = posX;
-    obj8C->obj.pos.y = D_80177940;
+    obj8C->obj.pos.y = gGroundLevel;
     obj8C->obj.pos.z = posZ;
     obj8C->unk_44 = 0xB4;
     obj8C->scale2 = arg4;
@@ -982,7 +982,7 @@ void func_8007AD58(Object_8C* obj8C, f32 posX, f32 unused_posY, f32 posZ, f32 ar
     obj8C->obj.id = OBJ_8C_372;
     obj8C->unk_4E = 1;
     obj8C->obj.pos.x = posX;
-    obj8C->obj.pos.y = D_80177940;
+    obj8C->obj.pos.y = gGroundLevel;
     obj8C->obj.pos.z = posZ;
     obj8C->unk_44 = 0xB4;
     obj8C->scale2 = arg4;
@@ -1967,10 +1967,10 @@ void func_8007DB70(Object_8C* obj8C) {
         case 0:
             obj8C->vel.y -= 0.5f;
             if ((obj8C->timer_50 == 0) &&
-                ((func_8006351C(1000, &obj8C->obj.pos, &sp54, 1) != 0) || (obj8C->obj.pos.y < (D_80177940 + 10.0f)))) {
+                ((func_8006351C(1000, &obj8C->obj.pos, &sp54, 1) != 0) || (obj8C->obj.pos.y < (gGroundLevel + 10.0f)))) {
                 obj8C->vel.y = 0.0f;
-                if (obj8C->obj.pos.y < (D_80177940 + 10.0f)) {
-                    obj8C->obj.pos.y = D_80177940;
+                if (obj8C->obj.pos.y < (gGroundLevel + 10.0f)) {
+                    obj8C->obj.pos.y = gGroundLevel;
                 }
                 obj8C->unk_4E = 1;
                 obj8C->timer_50 = 30;
@@ -1980,7 +1980,7 @@ void func_8007DB70(Object_8C* obj8C) {
                 Audio_PlaySfx(0x2903B009, &obj8C->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 func_8007D0E0(obj8C->obj.pos.x, obj8C->obj.pos.y + 30.0f, obj8C->obj.pos.z, 7.0f);
                 func_8007BFFC(obj8C->obj.pos.x, obj8C->obj.pos.y + 30.0f, obj8C->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 5);
-                if ((obj8C->obj.pos.y < (D_80177940 + 10.0f)) || (D_80161A88 != 2)) {
+                if ((obj8C->obj.pos.y < (gGroundLevel + 10.0f)) || (D_80161A88 != 2)) {
                     func_800365E4(obj8C->obj.pos.x, 3.0f, obj8C->obj.pos.z, obj8C->obj.pos.x, obj8C->obj.pos.z, 0.0f,
                                   0.0f, 90.0f, 5.0f, 0, 0);
                     break;
