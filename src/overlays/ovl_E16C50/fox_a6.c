@@ -149,7 +149,7 @@ f32 D_E16C50_801BF494[12] = {
     -90.0f, 30.0f, 26.0f, 22.0f, 18.0f, 11.0f, 8.0f, 5.0f, 3.0f, 2.0f, 1.0f, 0.0f,
 };
 
-void func_E16C50_80187530(Object_2F4* obj2F4, f32 xPos, f32 yPos, f32 zPos, f32 unk124y, f32 xRot, f32 yRot,
+void func_E16C50_80187530(Object_2F4* obj2F4, f32 xPos, f32 yPos, f32 zPos, f32 fwork6, f32 xRot, f32 yRot,
                           s32 timer0BC, s32 unk0B4) {
 
     (void) "おん\n";
@@ -165,18 +165,18 @@ void func_E16C50_80187530(Object_2F4* obj2F4, f32 xPos, f32 yPos, f32 zPos, f32 
     obj2F4->timer_0BC = timer0BC;
     obj2F4->timer_0BE = 20;
     obj2F4->unk_0B4 = unk0B4;
-    obj2F4->unk_124.y = unk124y;
+    obj2F4->fwork[5] = fwork6;
     Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
     func_8007A6F0(&obj2F4->obj.pos, 0x2903201B);
 }
 
-void func_E16C50_801875E4(f32 xPos, f32 yPos, f32 zPos, f32 unk124y, f32 xRot, f32 yRot, s32 timer0BC, s32 unk0B4) {
+void func_E16C50_801875E4(f32 xPos, f32 yPos, f32 zPos, f32 fwork6, f32 xRot, f32 yRot, s32 timer0BC, s32 unk0B4) {
     s32 i;
     Object_2F4* obj2F4;
 
     for (i = 0, obj2F4 = gObjects2F4; i < ARRAY_COUNT(gObjects2F4); i++, obj2F4++) {
         if (obj2F4->obj.status == 0) {
-            func_E16C50_80187530(obj2F4, xPos, yPos, zPos, unk124y, xRot, yRot, timer0BC, unk0B4);
+            func_E16C50_80187530(obj2F4, xPos, yPos, zPos, fwork6, xRot, yRot, timer0BC, unk0B4);
             D_E16C50_801C2250.unk_00[11] = i + 1;
             break;
         }
@@ -1729,7 +1729,7 @@ void func_E16C50_8018D5C8(void) {
     gObjects2F4[i].obj.pos.z = 13000.0f;
     gObjects2F4[i].unk_0B6 = 1;
     gObjects2F4[i].unk_0B8 = 90;
-    gObjects2F4[i].unk_114 = 0.0f;
+    gObjects2F4[i].fwork[0] = 0.0f;
     gObjects2F4[i].obj.id = OBJ_2F4_195;
     Object_SetInfo(&gObjects2F4[i].info, gObjects2F4[i].obj.id);
     Audio_PlaySfx(0x11030010, &gObjects2F4[i].sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -1749,12 +1749,12 @@ void func_E16C50_8018D694(Object_2F4* obj2F4, s32 arg1) {
     obj2F4->obj.pos.z = sp2C[arg1].z + 1000.0f;
     obj2F4->unk_0B8 = 1;
     obj2F4->unk_0B6 = 28;
-    obj2F4->unk_07C = 1;
+    obj2F4->iwork[11] = 1;
     obj2F4->unk_0F4.y = 90.0f;
-    obj2F4->unk_114 = 1.5f;
-    obj2F4->unk_130 = Rand_ZeroOneSeeded() * 360.0f;
-    obj2F4->unk_134 = Rand_ZeroOneSeeded() * 360.0f;
-    obj2F4->unk_138 = Rand_ZeroOneSeeded() * 360.0f;
+    obj2F4->fwork[0] = 1.5f;
+    obj2F4->fwork[7] = Rand_ZeroOneSeeded() * 360.0f;
+    obj2F4->fwork[8] = Rand_ZeroOneSeeded() * 360.0f;
+    obj2F4->fwork[9] = Rand_ZeroOneSeeded() * 360.0f;
     Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
     Audio_PlaySfx(0x31000011, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
@@ -1774,8 +1774,8 @@ void func_E16C50_8018D804(Object_2F4* obj2F4, s32 arg1) {
     obj2F4->obj.pos.y = sp2C[arg1].y + player->pos.y;
     obj2F4->obj.pos.z = sp2C[arg1].z + player->pos.z;
     obj2F4->unk_0B8 = 5;
-    obj2F4->unk_07C = 1;
-    obj2F4->unk_114 = 0.0f;
+    obj2F4->iwork[11] = 1;
+    obj2F4->fwork[0] = 0.0f;
     Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
     Audio_PlaySfx(0x3100000C, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
@@ -1810,12 +1810,12 @@ void func_E16C50_8018DA58(Object_2F4* obj2F4) {
 
     switch (obj2F4->unk_0B8) { /* irregular */
         case 1:
-            obj2F4->unk_130 += 2.5f;
-            obj2F4->unk_0F4.z = __sinf(obj2F4->unk_130 * 0.017453292f) * 10.0f;
-            obj2F4->unk_134 += 1.0f;
-            obj2F4->obj.pos.y += __sinf(obj2F4->unk_134 * 0.017453292f) * 1.5f;
-            obj2F4->unk_138 += 1.0f;
-            obj2F4->obj.pos.z += __cosf(obj2F4->unk_138 * 0.017453292f) * 1.5f;
+            obj2F4->fwork[7] += 2.5f;
+            obj2F4->unk_0F4.z = __sinf(obj2F4->fwork[7] * 0.017453292f) * 10.0f;
+            obj2F4->fwork[8] += 1.0f;
+            obj2F4->obj.pos.y += __sinf(obj2F4->fwork[8] * 0.017453292f) * 1.5f;
+            obj2F4->fwork[9] += 1.0f;
+            obj2F4->obj.pos.z += __cosf(obj2F4->fwork[9] * 0.017453292f) * 1.5f;
             break;
         case 2:
             Math_SmoothStepToF(&obj2F4->unk_0F4.z, -180.0f, 0.1f, 3.0f, 0.0f);
@@ -1824,20 +1824,20 @@ void func_E16C50_8018DA58(Object_2F4* obj2F4) {
             Math_SmoothStepToF(&obj2F4->unk_0F4.z, -45.0f, 0.05f, 2.0f, 0.0f);
             Math_SmoothStepToAngle(&obj2F4->unk_0F4.y, 340.0f, 0.05f, 2.4f, 0.0f);
             Math_SmoothStepToF(&obj2F4->unk_0F4.x, 3.0f, 0.05f, 1.0f, 0.0f);
-            Math_SmoothStepToF(&obj2F4->unk_114, 30.0f, 0.1f, 3.0f, 0.0f);
+            Math_SmoothStepToF(&obj2F4->fwork[0], 30.0f, 0.1f, 3.0f, 0.0f);
             break;
         case 6:
         case 11:
         case 16:
             obj2F4->unk_0B8++;
             Audio_PlaySfx(0x09000002, &obj2F4->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-            obj2F4->unk_188 = 5.0f;
+            obj2F4->fwork[29] = 5.0f;
             /* fallthrough */
         case 7:
         case 12:
         case 17:
-            obj2F4->unk_07C = 2;
-            Math_SmoothStepToF(&obj2F4->unk_114, 50.0f, 0.1f, 3.0f, 0.01f);
+            obj2F4->iwork[11] = 2;
+            Math_SmoothStepToF(&obj2F4->fwork[0], 50.0f, 0.1f, 3.0f, 0.01f);
             switch (obj2F4->unk_0B8) {
                 case 7:
                     sp48 = -100.0f;
@@ -1878,7 +1878,7 @@ void func_E16C50_8018DA58(Object_2F4* obj2F4) {
     Matrix_RotateX(gCalcMatrix, -(obj2F4->unk_0F4.x * 0.017453292f), 1);
     sp5C.x = 0.0f;
     sp5C.y = 0.0f;
-    sp5C.z = obj2F4->unk_114;
+    sp5C.z = obj2F4->fwork[0];
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp5C, &sp50);
     obj2F4->vel.x = sp50.x;
     obj2F4->vel.y = sp50.y;
@@ -1921,10 +1921,10 @@ void func_E16C50_8018DF74(Player* player) {
             if (gTeamShields[3] > 0) {
                 func_E16C50_8018D804(&gObjects2F4[5], 2);
             }
-            gObjects2F4[0].unk_114 = 20.0f;
-            gObjects2F4[3].unk_114 = 30.0f;
-            gObjects2F4[4].unk_114 = 30.0f;
-            gObjects2F4[5].unk_114 = 30.0f;
+            gObjects2F4[0].fwork[0] = 20.0f;
+            gObjects2F4[3].fwork[0] = 30.0f;
+            gObjects2F4[4].fwork[0] = 30.0f;
+            gObjects2F4[5].fwork[0] = 30.0f;
             D_80177A48[4] = 270.0f;
             D_80177A48[5] = 1000.0f;
             D_80177A48[6] = 1100.0f;
@@ -2096,15 +2096,15 @@ void func_E16C50_8018EA88(Object_2F4* obj2F4) {
     obj2F4->obj.pos.z = gBosses[0].obj.pos.z + 500.0f;
     obj2F4->unk_0B6 = 37;
     obj2F4->unk_0B8 = 100;
-    obj2F4->unk_050 = 255;
-    obj2F4->unk_054 = 255;
-    obj2F4->unk_058 = 255;
-    obj2F4->unk_05C = 240;
-    obj2F4->unk_060 = 0;
-    obj2F4->unk_064 = 0;
-    obj2F4->unk_068 = 255;
-    obj2F4->unk_06C = 100;
-    obj2F4->unk_124.x = 1.0f;
+    obj2F4->iwork[0] = 255;
+    obj2F4->iwork[1] = 255;
+    obj2F4->iwork[2] = 255;
+    obj2F4->iwork[3] = 240;
+    obj2F4->iwork[4] = 0;
+    obj2F4->iwork[5] = 0;
+    obj2F4->iwork[6] = 255;
+    obj2F4->iwork[7] = 100;
+    obj2F4->fwork[4] = 1.0f;
     obj2F4->scale = 1.0f;
     Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
 }
@@ -2120,7 +2120,7 @@ void func_E16C50_8018EB3C(Object_2F4* obj2F4) {
     obj2F4->obj.pos.z = player->pos.z + 2800.0f;
     obj2F4->unk_0B6 = 1;
     obj2F4->unk_0B8 = 100;
-    obj2F4->unk_114 = 0.0f;
+    obj2F4->fwork[0] = 0.0f;
     Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
     Audio_PlaySfx(0x11030010, &obj2F4->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     Audio_PlaySfx(0x31024059, &obj2F4->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -2142,10 +2142,10 @@ void func_E16C50_8018EC38(Object_2F4* obj2F4, s32 arg1) {
         obj2F4->obj.pos.y = sp2C[arg1].y + player->pos.y;
         obj2F4->obj.pos.z = sp2C[arg1].z + player->pos.z;
         obj2F4->unk_0B8 = 0x64;
-        obj2F4->unk_07C = 1;
-        obj2F4->unk_114 = 0.0f;
+        obj2F4->iwork[11] = 1;
+        obj2F4->fwork[0] = 0.0f;
         if (arg1 + 1 != 3) {
-            obj2F4->unk_088 = arg1 + 2;
+            obj2F4->iwork[14] = arg1 + 2;
         }
         Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
         Audio_PlaySfx(0x3100000C, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -2215,7 +2215,7 @@ void func_E16C50_8018ED78(Player* player) {
                 func_E16C50_8018EA88(&gObjects2F4[4]);
                 func_E16C50_8018EA88(&gObjects2F4[5]);
                 func_E16C50_8018EA88(&gObjects2F4[6]);
-                gObjects2F4[4].unk_124.x = 0.5f;
+                gObjects2F4[4].fwork[4] = 0.5f;
             }
             if (D_80177A80 >= 200) {
                 if (D_80178340 == 255) {
@@ -2236,19 +2236,19 @@ void func_E16C50_8018ED78(Player* player) {
                 Audio_PlaySfx(0x2940F026, &gObjects2F4[5].sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
             if (D_80177A80 >= 147) {
-                gObjects2F4[4].unk_05C -= 4;
-                if (gObjects2F4[4].unk_05C < 0) {
-                    gObjects2F4[4].unk_05C = 0;
+                gObjects2F4[4].iwork[3] -= 4;
+                if (gObjects2F4[4].iwork[3] < 0) {
+                    gObjects2F4[4].iwork[3] = 0;
                 }
-                gObjects2F4[4].unk_06C -= 4;
-                if (gObjects2F4[4].unk_06C < 0) {
-                    gObjects2F4[4].unk_06C = 0;
+                gObjects2F4[4].iwork[7] -= 4;
+                if (gObjects2F4[4].iwork[7] < 0) {
+                    gObjects2F4[4].iwork[7] = 0;
                 }
-                Math_SmoothStepToF(&gObjects2F4[5].unk_124.x, 450.0f, 0.03f, 1000.0f, 1.0f);
+                Math_SmoothStepToF(&gObjects2F4[5].fwork[4], 450.0f, 0.03f, 1000.0f, 1.0f);
                 Math_SmoothStepToF(&gObjects2F4[5].scale, 450.0f, 0.03f, 1000.0f, 1.0f);
             }
             if (D_80177A80 >= 161) {
-                Math_SmoothStepToF(&gObjects2F4[6].unk_124.x, 350.0f, 0.03f, 1000.0f, 1.0f);
+                Math_SmoothStepToF(&gObjects2F4[6].fwork[4], 350.0f, 0.03f, 1000.0f, 1.0f);
                 Math_SmoothStepToF(&gObjects2F4[6].scale, 350.0f, 0.03f, 1000.0f, 1.0f);
             }
             if (D_80177A80 >= 141) {
@@ -2386,26 +2386,26 @@ void func_E16C50_8018ED78(Player* player) {
             func_800BA808(gMsg_ID_7093, RCID_FOX);
             break;
         case 1070: /* switch 1 */
-            gObjects2F4[1].unk_188 = 5.0f;
+            gObjects2F4[1].fwork[29] = 5.0f;
             Audio_PlaySfx(0x09000002, &gObjects2F4[1].sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             break;
         case 1072: /* switch 1 */
-            gObjects2F4[2].unk_188 = 5.0f;
+            gObjects2F4[2].fwork[29] = 5.0f;
             Audio_PlaySfx(0x09000002, &gObjects2F4[2].sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             break;
         case 1074: /* switch 1 */
-            gObjects2F4[3].unk_188 = 5.0f;
+            gObjects2F4[3].fwork[29] = 5.0f;
             Audio_PlaySfx(0x09000002, &gObjects2F4[3].sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             break;
     }
     if (D_80177A80 >= 1070) {
-        Math_SmoothStepToF(&gObjects2F4[1].unk_144, 50.0f, 0.1f, 1000.0f, 0.001f);
+        Math_SmoothStepToF(&gObjects2F4[1].fwork[12], 50.0f, 0.1f, 1000.0f, 0.001f);
     }
     if (D_80177A80 >= 1072) {
-        Math_SmoothStepToF(&gObjects2F4[2].unk_144, 50.0f, 0.1f, 1000.0f, 0.001f);
+        Math_SmoothStepToF(&gObjects2F4[2].fwork[12], 50.0f, 0.1f, 1000.0f, 0.001f);
     }
     if (D_80177A80 >= 1074) {
-        Math_SmoothStepToF(&gObjects2F4[3].unk_144, 50.0f, 0.1f, 1000.0f, 0.001f);
+        Math_SmoothStepToF(&gObjects2F4[3].fwork[12], 50.0f, 0.1f, 1000.0f, 0.001f);
     }
     if (D_80177A80 >= 1076) {
         Math_SmoothStepToF(&player->unk_0D0, 50.0f, 0.1f, 1000.0f, 0.001f);

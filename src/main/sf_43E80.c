@@ -1411,7 +1411,7 @@ void func_800481F4(Player* player) {
                     temp_v0 =
                         func_800A7974(player, obj2F4->info.hitbox, &sp98, obj2F4->obj.pos.x, obj2F4->obj.pos.y,
                                       obj2F4->obj.pos.z, obj2F4->obj.rot.x, obj2F4->obj.rot.y, obj2F4->obj.rot.z,
-                                      obj2F4->unk_2E8.x, obj2F4->unk_2E8.y, obj2F4->unk_2E8.z + obj2F4->unk_0F4.z);
+                                      obj2F4->vwork[29].x, obj2F4->vwork[29].y, obj2F4->vwork[29].z + obj2F4->unk_0F4.z);
                     if (temp_v0 != 0) {
                         Player_ApplyDamage(player, temp_v0, obj2F4->info.damage);
                         obj2F4->unk_0D0 = 3;
@@ -1442,12 +1442,12 @@ void func_800481F4(Player* player) {
                         player->timer_498 = 1;
                     }
                 } else if ((obj2F4->obj.id >= 205) && (obj2F4->obj.id < 214)) {
-                    if (func_80046E40(player, obj2F4->info.hitbox, &sp98, obj2F4->unk_178 + obj2F4->obj.pos.x,
-                                      obj2F4->unk_134 + obj2F4->obj.pos.y + 25.0f, obj2F4->obj.pos.z, obj2F4->unk_188,
-                                      obj2F4->unk_17C, obj2F4->obj.rot.z, 0.0f, 0.0f, 0.0f) != 0) {
+                    if (func_80046E40(player, obj2F4->info.hitbox, &sp98, obj2F4->fwork[25] + obj2F4->obj.pos.x,
+                                      obj2F4->fwork[8] + obj2F4->obj.pos.y + 25.0f, obj2F4->obj.pos.z, obj2F4->fwork[29],
+                                      obj2F4->fwork[26], obj2F4->obj.rot.z, 0.0f, 0.0f, 0.0f) != 0) {
                         Math_SmoothStepToF(&player->unk_0D0, 15.0f, 0.3f, 3.5f, 0.001f);
                         Math_SmoothStepToF(&player->unk_08C, 0, 0.3f, 3.5f, 0.001f);
-                        if (player->pos.x < (obj2F4->unk_170 + obj2F4->obj.pos.x)) {
+                        if (player->pos.x < (obj2F4->fwork[23] + obj2F4->obj.pos.x)) {
                             player->unk_0D8.x = (obj2F4->vel.z > 5.0f) ? -5.0f : -1.5f;
                             player->unk_1DC = 8;
                             player->timer_1E8 = 15;

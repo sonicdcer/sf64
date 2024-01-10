@@ -1869,7 +1869,7 @@ void func_800A8BA4(Player* player) {
                         temp_v0 =
                             func_800A7974(player, obj2F4->info.hitbox, &sp98, obj2F4->obj.pos.x, obj2F4->obj.pos.y,
                                           obj2F4->obj.pos.z, obj2F4->obj.rot.x, obj2F4->obj.rot.y, obj2F4->obj.rot.z,
-                                          obj2F4->unk_2E8.x, obj2F4->unk_2E8.y, obj2F4->unk_2E8.z + obj2F4->unk_0F4.z);
+                                          obj2F4->vwork[29].x, obj2F4->vwork[29].y, obj2F4->vwork[29].z + obj2F4->unk_0F4.z);
                         if (temp_v0 != 0) {
                             if ((temp_v0 < 0) && (obj2F4->unk_0B4 == 38)) {
                                 obj2F4->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6032328);
@@ -1900,9 +1900,9 @@ void func_800A8BA4(Player* player) {
                         }
                     }
                 } else if ((obj2F4->obj.id >= OBJ_2F4_205) && (obj2F4->obj.id < OBJ_2F4_214)) {
-                    temp_v0 = func_800A7974(player, obj2F4->info.hitbox, &sp98, obj2F4->unk_178 + obj2F4->obj.pos.x,
-                                            obj2F4->unk_134 + obj2F4->obj.pos.y + 25.0f, obj2F4->obj.pos.z,
-                                            obj2F4->unk_188, obj2F4->unk_17C, obj2F4->obj.rot.z, 0.0f, 0.0f, 0.0f);
+                    temp_v0 = func_800A7974(player, obj2F4->info.hitbox, &sp98, obj2F4->fwork[25] + obj2F4->obj.pos.x,
+                                            obj2F4->fwork[8] + obj2F4->obj.pos.y + 25.0f, obj2F4->obj.pos.z,
+                                            obj2F4->fwork[29], obj2F4->fwork[26], obj2F4->obj.rot.z, 0.0f, 0.0f, 0.0f);
                     if (temp_v0 != 0) {
                         obj2F4->unk_0D0 = 3;
                         if (obj2F4->info.damage) {

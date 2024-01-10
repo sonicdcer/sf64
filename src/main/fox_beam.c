@@ -384,12 +384,12 @@ s32 func_80036F88(PlayerShot* shot, Object_2F4* obj2F4) {
                         Matrix_RotateX(gCalcMatrix, -obj2F4->obj.rot.x * M_DTOR, 1);
                         Matrix_RotateY(gCalcMatrix, -obj2F4->obj.rot.y * M_DTOR, 1);
                     }
-                    if (((obj2F4->unk_2E8.z != 0.0f) || (obj2F4->unk_2E8.x != 0.0f) || (obj2F4->unk_0F4.z != 0.0f) ||
-                         (obj2F4->unk_2E8.y != 0.0f)) &&
+                    if (((obj2F4->vwork[29].z != 0.0f) || (obj2F4->vwork[29].x != 0.0f) || (obj2F4->unk_0F4.z != 0.0f) ||
+                         (obj2F4->vwork[29].y != 0.0f)) &&
                         (obj2F4->unk_0B4 != 31)) {
-                        Matrix_RotateZ(gCalcMatrix, -(obj2F4->unk_2E8.z + obj2F4->unk_0F4.z) * M_DTOR, 1);
-                        Matrix_RotateX(gCalcMatrix, -obj2F4->unk_2E8.x * M_DTOR, 1);
-                        Matrix_RotateY(gCalcMatrix, -obj2F4->unk_2E8.y * M_DTOR, 1);
+                        Matrix_RotateZ(gCalcMatrix, -(obj2F4->vwork[29].z + obj2F4->unk_0F4.z) * M_DTOR, 1);
+                        Matrix_RotateX(gCalcMatrix, -obj2F4->vwork[29].x * M_DTOR, 1);
+                        Matrix_RotateY(gCalcMatrix, -obj2F4->vwork[29].y * M_DTOR, 1);
                     }
                     sp7C.x = shot->obj.pos.x - obj2F4->obj.pos.x;
                     sp7C.y = shot->obj.pos.y - obj2F4->obj.pos.y;
@@ -658,7 +658,7 @@ void func_80037CF4(PlayerShot* shot, Object_2F4* obj2F4, s32 hitIndex) {
                 break;
         }
     } else if ((shot->playerNum >= 100) && (gCurrentLevel == LEVEL_SECTOR_X)) {
-        if ((gObjects2F4[shot->playerNum - 100].obj.id == 200) && (gObjects2F4[shot->playerNum - 100].unk_080 == 5)) {
+        if ((gObjects2F4[shot->playerNum - 100].obj.id == 200) && (gObjects2F4[shot->playerNum - 100].iwork[12] == 5)) {
             obj2F4->unk_0D6 = 30;
         }
     }
@@ -679,7 +679,7 @@ void func_80037CF4(PlayerShot* shot, Object_2F4* obj2F4, s32 hitIndex) {
     obj2F4->unk_0D8.z = shot->obj.pos.z;
     if (((obj2F4->obj.id == OBJ_2F4_200) && (obj2F4->unk_0D2 == 0) &&
          ((obj2F4->unk_0B4 == 48) || (obj2F4->unk_0B4 == 49) || (obj2F4->unk_0B4 == 50))) ||
-        ((obj2F4->obj.id == OBJ_2F4_197) && (obj2F4->unk_170 > 1.0f)) ||
+        ((obj2F4->obj.id == OBJ_2F4_197) && (obj2F4->fwork[23] > 1.0f)) ||
         ((obj2F4->obj.id == OBJ_2F4_200) && (obj2F4->unk_0D2 == 0) && (obj2F4->unk_0B4 == 67)) ||
         ((obj2F4->obj.id == OBJ_2F4_261) && (shot->obj.id != PLAYERSHOT_8) &&
          ((obj2F4->unk_0B8 < 3) || (obj2F4->unk_0B8 >= 5))) ||
@@ -791,9 +791,9 @@ void func_80038140(PlayerShot* shot) {
                                     (fabsf(obj2F4->obj.pos.y - shot->obj.pos.y) < 300.0f) &&
                                     (fabsf(obj2F4->obj.pos.z - shot->obj.pos.z) < 500.0f)) {
                                     if (gCurrentLevel == LEVEL_VENOM_2) {
-                                        obj2F4->unk_094 = 1;
+                                        obj2F4->iwork[17] = 1;
                                     } else if (Rand_ZeroOne() < 0.1f) {
-                                        obj2F4->unk_094 = 1;
+                                        obj2F4->iwork[17] = 1;
                                     }
                                 }
                             }
@@ -1104,7 +1104,7 @@ void func_80039210(PlayerShot* shot) {
             if ((gCurrentLevel != LEVEL_KATINA) && (shot->playerNum >= 104) && (shot->playerNum != 108)) {
                 if (gObjects2F4[shot->playerNum - 100].obj.id != 200) {
                     var_a1 = 1;
-                } else if (gObjects2F4[shot->playerNum - 100].unk_080 == 5) {
+                } else if (gObjects2F4[shot->playerNum - 100].iwork[12] == 5) {
                     var_a1 = 2;
                 }
             } else if (gCurrentLevel == LEVEL_KATINA) {
@@ -1865,7 +1865,7 @@ void func_8003C4D0(PlayerShot* shot, s32 unkD6) {
     for (i = 0; i < 60; i++, obj2F4++) {
         if ((obj2F4->obj.status == 2) && (obj2F4->timer_0C2 == 0) &&
             !((gCurrentLevel == LEVEL_MACBETH) && (OBJ_2F4_205 <= obj2F4->obj.id) && (obj2F4->obj.id < OBJ_2F4_214)) &&
-            !((obj2F4->obj.id == OBJ_2F4_200) && (obj2F4->unk_080 != 0)) &&
+            !((obj2F4->obj.id == OBJ_2F4_200) && (obj2F4->iwork[12] != 0)) &&
             ((obj2F4->scale >= 0.0f) || (obj2F4->obj.id == OBJ_2F4_271))) {
             sp68 = obj2F4->obj.pos.x - shot->obj.pos.x;
             sp64 = obj2F4->obj.pos.y - shot->obj.pos.y;

@@ -1884,9 +1884,9 @@ void func_800C2244(Object_2F4* obj2F4) {
                 z = (Rand_ZeroOne() - 0.5f) * 10000.0f;
 
                 if ((fabsf(obj2F4->obj.pos.x - x) > 2000.0f) || (fabsf(obj2F4->obj.pos.z - z) > 2000.0f)) {
-                    obj2F4->unk_124.x = x;
-                    obj2F4->unk_124.y = y;
-                    obj2F4->unk_124.z = z;
+                    obj2F4->fwork[4] = x;
+                    obj2F4->fwork[5] = y;
+                    obj2F4->fwork[6] = z;
                     obj2F4->timer_0BC = (s32) (Rand_ZeroOne() * 20.0f) + 10;
                 }
             }
@@ -1899,17 +1899,17 @@ void func_800C2244(Object_2F4* obj2F4) {
     cosY = __cosf(M_DTOR * (obj2F4->obj.rot.y));
 
     if (boolTemp) {
-        x = obj2F4->unk_124.x - obj2F4->obj.pos.x;
-        y = obj2F4->unk_124.y - obj2F4->obj.pos.y;
-        z = obj2F4->unk_124.z - obj2F4->obj.pos.z;
+        x = obj2F4->fwork[4] - obj2F4->obj.pos.x;
+        y = obj2F4->fwork[5] - obj2F4->obj.pos.y;
+        z = obj2F4->fwork[6] - obj2F4->obj.pos.z;
 
         if (!((gFrameCount + obj2F4->index) & 7)) {
-            obj2F4->unk_160 = Math_RadToDeg((Math_Atan2F(x, z)));
+            obj2F4->fwork[19] = Math_RadToDeg((Math_Atan2F(x, z)));
             z = sqrtf(SQ(x) + SQ(z));
-            obj2F4->unk_164 = Math_RadToDeg((Math_Atan2F(y, z)));
+            obj2F4->fwork[20] = Math_RadToDeg((Math_Atan2F(y, z)));
         }
 
-        x3 = obj2F4->unk_164;
+        x3 = obj2F4->fwork[20];
 
         boolTemp2 = func_800C2198(obj2F4, sinY, cosY);
 
@@ -1931,7 +1931,7 @@ void func_800C2244(Object_2F4* obj2F4) {
         }
 
         Math_SmoothStepToAngle(&obj2F4->unk_0F4.x, x3, 0.5f, 1.0f, 0.0001f);
-        y3 = Math_SmoothStepToAngle(&obj2F4->unk_0F4.y, obj2F4->unk_160, 0.5f, 1.0f, 0.0001f) * 30.0f;
+        y3 = Math_SmoothStepToAngle(&obj2F4->unk_0F4.y, obj2F4->fwork[19], 0.5f, 1.0f, 0.0001f) * 30.0f;
 
         if (y3 < 0.0f) {
             y3 *= -1.0f;
@@ -1951,13 +1951,13 @@ void func_800C2244(Object_2F4* obj2F4) {
     vec.x = sinY * vec.z;
     vec.z = cosY * vec.z;
 
-    obj2F4->vel.x = vec.x + obj2F4->unk_148;
-    obj2F4->vel.y = vec.y + obj2F4->unk_14C;
-    obj2F4->vel.z = vec.z + obj2F4->unk_144;
+    obj2F4->vel.x = vec.x + obj2F4->fwork[13];
+    obj2F4->vel.y = vec.y + obj2F4->fwork[14];
+    obj2F4->vel.z = vec.z + obj2F4->fwork[12];
 
-    obj2F4->unk_148 -= obj2F4->unk_148 * 0.1f;
-    obj2F4->unk_14C -= obj2F4->unk_14C * 0.1f;
-    obj2F4->unk_144 -= obj2F4->unk_144 * 0.1f;
+    obj2F4->fwork[13] -= obj2F4->fwork[13] * 0.1f;
+    obj2F4->fwork[14] -= obj2F4->fwork[14] * 0.1f;
+    obj2F4->fwork[12] -= obj2F4->fwork[12] * 0.1f;
 
     if ((obj2F4->obj.pos.y < D_80177940 + 40.0f) && (obj2F4->vel.y < 0.0f)) {
         obj2F4->obj.pos.y = D_80177940 + 40.0f;
@@ -1966,8 +1966,8 @@ void func_800C2244(Object_2F4* obj2F4) {
 
     func_8003088C(obj2F4);
 
-    if (obj2F4->unk_070) {
-        obj2F4->unk_070--;
+    if (obj2F4->iwork[8]) {
+        obj2F4->iwork[8]--;
     }
 }
 
