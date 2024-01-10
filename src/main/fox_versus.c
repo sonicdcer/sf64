@@ -366,7 +366,7 @@ s32 func_800BE078(void) {
         D_80178768[2] = (100 - D_80178768[2]) % 100;
 
         if ((D_80178768[1] -= temp) >= 0) {
-            if (D_80178768[0] == 0 && D_80178768[1] < 15 && D_80178768[1] >= 0) {
+            if ((D_80178768[0] == 0) && (D_80178768[1] < 15) && (D_80178768[1] >= 0)) {
                 Audio_PlaySfx(0x4900C02AU, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
             break;
@@ -437,7 +437,7 @@ s32 func_800BE564(void) {
     s32 i;
     s32 ret = 0;
 
-    if ((sUnlockLandmaster == 0) && (sUnlockOnFoot == 0) || (gVersusStage == VS_STAGE_SECTOR_Z)) {
+    if ((!sUnlockLandmaster && !sUnlockOnFoot) || (gVersusStage == VS_STAGE_SECTOR_Z)) {
         for (i = 0; i < 4; i++) {
             if (gPlayerInactive[i]) {
                 continue;
@@ -455,10 +455,10 @@ s32 func_800BE564(void) {
         }
 
         if ((D_80178780[i] == 0) && (D_801787F8[i] == 0)) {
-            if ((sUnlockLandmaster != 0) && (sUnlockOnFoot != 0)) {
+            if (sUnlockLandmaster && sUnlockOnFoot) {
                 D_80178780[i] = (s32) (Rand_ZeroOne() * 3.0f) + 1;
             }
-            if ((sUnlockLandmaster != 0) && (sUnlockOnFoot == 0)) {
+            if (sUnlockLandmaster && !sUnlockOnFoot) {
                 D_80178780[i] = (s32) (Rand_ZeroOne() * 2.0f) + 1;
             }
         }
@@ -516,7 +516,7 @@ void func_800BE924(s32 index) {
     func_800BD3A8(D_800D4B90[index] + 0.0f, D_800D4BA0[index] + 10.0f);
     func_800BD350(D_800D4B90[index] + 5.0f, D_800D4BA0[index] + 0.0f);
 
-    if ((sUnlockLandmaster != 0) && (sUnlockOnFoot != 0)) {
+    if (sUnlockLandmaster && sUnlockOnFoot) {
         RCP_SetupDL(&gMasterDisp, 0x4E);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
         func_800BD248(D_800D4B90[index] + 15.0f, D_800D4BA0[index] + 22.0f);
@@ -529,7 +529,7 @@ void func_800BE924(s32 index) {
         func_800BD1FC(D_800D4B90[index] + 43.0f, D_800D4BA0[index] + 58.0f);
     }
 
-    if ((sUnlockLandmaster != 0) && (sUnlockOnFoot == 0)) {
+    if (sUnlockLandmaster && !sUnlockOnFoot) {
         RCP_SetupDL(&gMasterDisp, 0x4E);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
         func_800BD248(D_800D4B90[index] + 15.0f, D_800D4BA0[index] + 29.0f);
@@ -563,7 +563,7 @@ s32 func_800BEDDC(void) {
     s32 i;
     s32 var_s4 = 0;
 
-    if ((sUnlockLandmaster == 0) && (sUnlockOnFoot == 0) || (gVersusStage == VS_STAGE_SECTOR_Z)) {
+    if (!sUnlockLandmaster && !sUnlockOnFoot || (gVersusStage == VS_STAGE_SECTOR_Z)) {
         func_800BED78();
         return 0;
     }
@@ -666,10 +666,10 @@ s32 func_800BF17C(void) {
             D_80178780[i] = 0;
             gPlayer[i].unk_1D0 = 0;
             if ((!D_80178780[i]) && (D_801787F8[i] == 0)) {
-                if ((sUnlockLandmaster != 0) && (sUnlockOnFoot != 0)) {
+                if (sUnlockLandmaster && sUnlockOnFoot) {
                     D_80178780[i] = (s32) (Rand_ZeroOne() * 3.0f) + 1;
                 }
-                if ((sUnlockLandmaster != 0) && (sUnlockOnFoot == 0)) {
+                if (sUnlockLandmaster && !sUnlockOnFoot) {
                     D_80178780[i] = (s32) (Rand_ZeroOne() * 2.0f) + 1;
                 }
             }
@@ -678,11 +678,11 @@ s32 func_800BF17C(void) {
                 D_801787F8[i] -= 1;
             }
 
-            if ((sUnlockLandmaster != 0) && (D_80178780[i] == 0) && (gControllerPress[i].button & B_BUTTON)) {
+            if (sUnlockLandmaster && (D_80178780[i] == 0) && (gControllerPress[i].button & B_BUTTON)) {
                 D_80178780[i] = 2;
             }
 
-            if ((sUnlockOnFoot != 0) && (D_80178780[i] == 0) &&
+            if (sUnlockOnFoot && (D_80178780[i] == 0) &&
                 ((gControllerPress[i].button & L_CBUTTONS) || (gControllerPress[i].button & D_CBUTTONS) ||
                  (gControllerPress[i].button & U_CBUTTONS) || (gControllerPress[i].button & R_CBUTTONS))) {
                 D_80178780[i] = 3;
@@ -692,7 +692,7 @@ s32 func_800BF17C(void) {
                 D_80178780[i] = 1;
             }
 
-            if (((sUnlockLandmaster == 0) && (sUnlockOnFoot == 0)) || (gVersusStage == VS_STAGE_SECTOR_Z)) {
+            if ((!sUnlockLandmaster && !sUnlockOnFoot) || (gVersusStage == VS_STAGE_SECTOR_Z)) {
                 D_80178850[i] = 0;
                 D_80178780[i] = 1;
             }
@@ -747,7 +747,7 @@ s32 func_800BF59C(void) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
             func_800BD76C(D_800D4BFC[i], D_800D4C0C[i]);
         } else {
-            if ((sUnlockLandmaster != 0) || (sUnlockOnFoot != 0)) {
+            if (sUnlockLandmaster || sUnlockOnFoot) {
                 func_800BE924(i);
             }
         }
@@ -898,7 +898,7 @@ s32 func_800BF9AC(void) {
                     continue;
                 }
                 for (j = 0, temp = 0; j < 4; j++) {
-                    if (gControllerPlugged[j] == 0) {
+                    if (!gControllerPlugged[j]) {
                         continue;
                     }
                     if (temp2[j]) {
@@ -963,7 +963,7 @@ s32 func_800BF9AC(void) {
                         }
 
                         for (j = 0, temp = 0; j < 4; j++) {
-                            if (gControllerPlugged[j] == 0) {
+                            if (!gControllerPlugged[j]) {
                                 continue;
                             }
                             if (temp2[j]) {
@@ -1111,10 +1111,8 @@ s32 func_800C07C4(void) {
     s32 ret = 0;
 
     for (i = 0; i < 4; i++) {
-        if (gControllerPlugged[i] == 1) {
-            if (stick_y = gControllerPress[i].stick_y) {
-                break;
-            }
+        if ((gControllerPlugged[i] == true) && (stick_y = gControllerPress[i].stick_y)) {
+            break;
         }
     }
 
@@ -1220,7 +1218,7 @@ bool func_800C0C84(void) {
     s32 i;
 
     for (i = 0; i < 4; i++) {
-        if (gControllerPlugged[i] == 1) {
+        if (gControllerPlugged[i] == true) {
             if (gControllerPress[i].button & A_BUTTON) {
                 D_801787AC = 32.0f;
                 return true;
@@ -1297,8 +1295,7 @@ s32 func_800C0E78(void) {
     };
 
     for (i = 0; i < 4; i++) {
-        if (gControllerPlugged[i] == 1) {
-
+        if (gControllerPlugged[i] == true) {
             RCP_SetupDL(&gMasterDisp, 0x53);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
             Graphics_DisplaySmallText(D_800D4C90[i], D_800D4CA4[i], 1.0f, 1.0f, D_800D4C80[i]);
@@ -1393,22 +1390,22 @@ void func_800C1368(void) {
     // clang-format on
 
     if (gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].normalClear == 1) {
-        sUnlockLandmaster = 1;
+        sUnlockLandmaster = true;
     } else {
-        sUnlockLandmaster = 0;
+        sUnlockLandmaster = false;
     }
 
     if (gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].expertClear == 1) {
-        sUnlockOnFoot = 1;
+        sUnlockOnFoot = true;
     } else {
-        sUnlockOnFoot = 0;
+        sUnlockOnFoot = false;
     }
 
     if (D_801778AC == 2) {
         D_801778A4 = 10000;
     }
-    if (sUnlockLandmaster == 0) {
-        sUnlockOnFoot = 0;
+    if (!sUnlockLandmaster) {
+        sUnlockOnFoot = false;
     }
 
     D_80178768[0] = D_801778C8 + 1;
@@ -1728,7 +1725,7 @@ bool func_800C176C(void) {
     }
 
     if (((D_80178754 == 8) || (D_80178754 == 9)) || (D_80178754 == 10)) {
-        D_800D4A98 += 1;
+        D_800D4A98++;
     }
 
     if (D_80178754 >= 5) {
@@ -1847,17 +1844,17 @@ void func_800C20B0(void) {
 void func_800C2190(void) {
 }
 
-bool func_800C2198(Object_2F4* this, f32 arg1, f32 arg2) {
-    if ((fabsf(gBosses[0].obj.pos.x - (this->obj.pos.x + (arg1 * 650.0f))) < 1500.0f) &&
-        (fabsf(gBosses[0].obj.pos.z - (this->obj.pos.z + (arg2 * 650.0f))) < 1500.0f) &&
-        (fabsf(gBosses[0].obj.pos.y - this->obj.pos.y) < 700.0f)) {
+bool func_800C2198(Object_2F4* obj2F4, f32 arg1, f32 arg2) {
+    if ((fabsf(gBosses[0].obj.pos.x - (obj2F4->obj.pos.x + (arg1 * 650.0f))) < 1500.0f) &&
+        (fabsf(gBosses[0].obj.pos.z - (obj2F4->obj.pos.z + (arg2 * 650.0f))) < 1500.0f) &&
+        (fabsf(gBosses[0].obj.pos.y - obj2F4->obj.pos.y) < 700.0f)) {
         return true;
     } else {
         return false;
     }
 }
 
-void func_800C2244(Object_2F4* Enm) {
+void func_800C2244(Object_2F4* obj2F4) {
     bool boolTemp2;
     bool boolTemp;
     s32 pad2[6];
@@ -1877,44 +1874,44 @@ void func_800C2244(Object_2F4* Enm) {
 
     boolTemp = false;
 
-    switch (Enm->unk_0B8) {
+    switch (obj2F4->unk_0B8) {
         case 0:
             boolTemp = true;
 
-            if (Enm->timer_0BC == 0) {
+            if (obj2F4->timer_0BC == 0) {
                 y = Rand_ZeroOne() * 1000.0f;
                 x = (Rand_ZeroOne() - 0.5f) * 10000.0f;
                 z = (Rand_ZeroOne() - 0.5f) * 10000.0f;
 
-                if ((fabsf(Enm->obj.pos.x - x) > 2000.0f) || (fabsf(Enm->obj.pos.z - z) > 2000.0f)) {
-                    Enm->unk_124.x = x;
-                    Enm->unk_124.y = y;
-                    Enm->unk_124.z = z;
-                    Enm->timer_0BC = (s32) (Rand_ZeroOne() * 20.0f) + 10;
+                if ((fabsf(obj2F4->obj.pos.x - x) > 2000.0f) || (fabsf(obj2F4->obj.pos.z - z) > 2000.0f)) {
+                    obj2F4->unk_124.x = x;
+                    obj2F4->unk_124.y = y;
+                    obj2F4->unk_124.z = z;
+                    obj2F4->timer_0BC = (s32) (Rand_ZeroOne() * 20.0f) + 10;
                 }
             }
             break;
     }
 
-    sinX = __sinf(M_DTOR * (Enm->obj.rot.x));
-    cosX = __cosf(M_DTOR * (Enm->obj.rot.x));
-    sinY = __sinf(M_DTOR * (Enm->obj.rot.y));
-    cosY = __cosf(M_DTOR * (Enm->obj.rot.y));
+    sinX = __sinf(M_DTOR * (obj2F4->obj.rot.x));
+    cosX = __cosf(M_DTOR * (obj2F4->obj.rot.x));
+    sinY = __sinf(M_DTOR * (obj2F4->obj.rot.y));
+    cosY = __cosf(M_DTOR * (obj2F4->obj.rot.y));
 
     if (boolTemp) {
-        x = Enm->unk_124.x - Enm->obj.pos.x;
-        y = Enm->unk_124.y - Enm->obj.pos.y;
-        z = Enm->unk_124.z - Enm->obj.pos.z;
+        x = obj2F4->unk_124.x - obj2F4->obj.pos.x;
+        y = obj2F4->unk_124.y - obj2F4->obj.pos.y;
+        z = obj2F4->unk_124.z - obj2F4->obj.pos.z;
 
-        if (!((gFrameCount + Enm->index) & 7)) {
-            Enm->unk_160 = Math_RadToDeg((Math_Atan2F(x, z)));
+        if (!((gFrameCount + obj2F4->index) & 7)) {
+            obj2F4->unk_160 = Math_RadToDeg((Math_Atan2F(x, z)));
             z = sqrtf(SQ(x) + SQ(z));
-            Enm->unk_164 = Math_RadToDeg((Math_Atan2F(y, z)));
+            obj2F4->unk_164 = Math_RadToDeg((Math_Atan2F(y, z)));
         }
 
-        x3 = Enm->unk_164;
+        x3 = obj2F4->unk_164;
 
-        boolTemp2 = func_800C2198(Enm, sinY, cosY);
+        boolTemp2 = func_800C2198(obj2F4, sinY, cosY);
 
         if (boolTemp2) {
             x3 += 40.0f * boolTemp2;
@@ -1926,15 +1923,15 @@ void func_800C2244(Object_2F4* Enm) {
                 x3 += 360.0f;
             }
 
-        } else if (Enm->obj.pos.y < D_80177940 + 50.0f) {
+        } else if (obj2F4->obj.pos.y < D_80177940 + 50.0f) {
             if (x3 > 180.0f) {
                 x3 = 0.0f;
-                Enm->unk_0F4.x = 0.0f;
+                obj2F4->unk_0F4.x = 0.0f;
             }
         }
 
-        Math_SmoothStepToAngle(&Enm->unk_0F4.x, x3, 0.5f, 1.0f, 0.0001f);
-        y3 = Math_SmoothStepToAngle(&Enm->unk_0F4.y, Enm->unk_160, 0.5f, 1.0f, 0.0001f) * 30.0f;
+        Math_SmoothStepToAngle(&obj2F4->unk_0F4.x, x3, 0.5f, 1.0f, 0.0001f);
+        y3 = Math_SmoothStepToAngle(&obj2F4->unk_0F4.y, obj2F4->unk_160, 0.5f, 1.0f, 0.0001f) * 30.0f;
 
         if (y3 < 0.0f) {
             y3 *= -1.0f;
@@ -1942,11 +1939,11 @@ void func_800C2244(Object_2F4* Enm) {
             y3 = 360.0f - y3;
         }
 
-        Math_SmoothStepToAngle(&Enm->obj.rot.z, y3, 0.1f, 3.0f, 0.01f);
+        Math_SmoothStepToAngle(&obj2F4->obj.rot.z, y3, 0.1f, 3.0f, 0.01f);
     }
 
-    Enm->obj.rot.x = -Enm->unk_0F4.x;
-    Enm->obj.rot.y = Enm->unk_0F4.y;
+    obj2F4->obj.rot.x = -obj2F4->unk_0F4.x;
+    obj2F4->obj.rot.y = obj2F4->unk_0F4.y;
 
     vec.z = +cosX * 38.0f;
     vec.y = -sinX * 38.0f;
@@ -1954,23 +1951,23 @@ void func_800C2244(Object_2F4* Enm) {
     vec.x = sinY * vec.z;
     vec.z = cosY * vec.z;
 
-    Enm->vel.x = vec.x + Enm->unk_148;
-    Enm->vel.y = vec.y + Enm->unk_14C;
-    Enm->vel.z = vec.z + Enm->unk_144;
+    obj2F4->vel.x = vec.x + obj2F4->unk_148;
+    obj2F4->vel.y = vec.y + obj2F4->unk_14C;
+    obj2F4->vel.z = vec.z + obj2F4->unk_144;
 
-    Enm->unk_148 -= Enm->unk_148 * 0.1f;
-    Enm->unk_14C -= Enm->unk_14C * 0.1f;
-    Enm->unk_144 -= Enm->unk_144 * 0.1f;
+    obj2F4->unk_148 -= obj2F4->unk_148 * 0.1f;
+    obj2F4->unk_14C -= obj2F4->unk_14C * 0.1f;
+    obj2F4->unk_144 -= obj2F4->unk_144 * 0.1f;
 
-    if ((Enm->obj.pos.y < D_80177940 + 40.0f) && (Enm->vel.y < 0.0f)) {
-        Enm->obj.pos.y = D_80177940 + 40.0f;
-        Enm->vel.y = 0.0f;
+    if ((obj2F4->obj.pos.y < D_80177940 + 40.0f) && (obj2F4->vel.y < 0.0f)) {
+        obj2F4->obj.pos.y = D_80177940 + 40.0f;
+        obj2F4->vel.y = 0.0f;
     }
 
-    func_8003088C(Enm);
+    func_8003088C(obj2F4);
 
-    if (Enm->unk_070) {
-        Enm->unk_070--;
+    if (obj2F4->unk_070) {
+        obj2F4->unk_070--;
     }
 }
 
@@ -1978,7 +1975,7 @@ void func_800C26C8(void) {
     s32 i;
     Vec3f src;
     Vec3f dest;
-    Object_2F4* obj;
+    Object_2F4* obj2F4;
 
     if ((D_801778AC != 2) || (D_80177E7C == 0)) {
         return;
@@ -1995,22 +1992,22 @@ void func_800C26C8(void) {
         src.y = 500.0f;
         src.z = -10000.0f;
 
-        for (i = 0, obj = &gObjects2F4[10]; i < 5; i++, obj++) {
-            if (obj->obj.status == 0) {
-                Object_2F4_Initialize(obj);
-                obj->obj.status = 2;
-                obj->obj.id = 197;
+        for (i = 0, obj2F4 = &gObjects2F4[10]; i < 5; i++, obj2F4++) {
+            if (obj2F4->obj.status == 0) {
+                Object_2F4_Initialize(obj2F4);
+                obj2F4->obj.status = 2;
+                obj2F4->obj.id = 197;
                 Matrix_RotateY(gCalcMatrix, M_DTOR * (Rand_ZeroOne() * 360.0f), 0);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-                obj->obj.pos.x = dest.x;
-                obj->obj.pos.y = dest.y;
-                obj->obj.pos.z = dest.z;
-                obj->unk_0E4 = i + 10;
-                obj->unk_0CE = 24;
-                obj->timer_0C2 = 30;
+                obj2F4->obj.pos.x = dest.x;
+                obj2F4->obj.pos.y = dest.y;
+                obj2F4->obj.pos.z = dest.z;
+                obj2F4->unk_0E4 = i + 10;
+                obj2F4->unk_0CE = 24;
+                obj2F4->timer_0C2 = 30;
 
-                Object_SetInfo(&obj->info, obj->obj.id);
-                obj->info.action = (ObjectFunc) func_800C2244;
+                Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
+                obj2F4->info.action = (ObjectFunc) func_800C2244;
                 break;
             }
         }
