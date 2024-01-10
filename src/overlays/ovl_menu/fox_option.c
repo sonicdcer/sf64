@@ -1,3 +1,9 @@
+/*
+ * File: fox_option.c
+ * System: Option
+ * Description: Starfox Option Menu Handler
+ */
+
 #include "global.h"
 #include "fox_option.h"
 
@@ -21,14 +27,11 @@ static f32 D_EBFBE0_801AE588[] = { 124.0f, 118.0f, 145.0f, 125.0f, 133.0f, 118.0
 static f32 D_EBFBE0_801AE5A0[] = { 54.0f, 78.0f, 103.0f, 126.0f, 151.0f, 175.0f };
 static f32 D_EBFBE0_801AE5B8[] = { 124.0f, 118.0f, 145.0f, 125.0f, 133.0f, 118.0f };
 static f32 D_EBFBE0_801AE5D0[] = { 54.0f, 78.0f, 103.0f, 126.0f, 151.0f, 175.0f };
-
 static f32 D_EBFBE0_801AE5E8[] = { 124.0f, 125.0f };
 static f32 D_EBFBE0_801AE5F0[] = { 54.0f, 55.0f };
 static f32 D_EBFBE0_801AE5F8[] = { 133.0f, 125.0f };
 static f32 D_EBFBE0_801AE600[] = { 151.0f, 151.0f };
-
 static f32 D_EBFBE0_801AE608[] = { 8.0f, 8.0f, 8.0f, 8.0f, 8.0f, 8.0f };
-
 static f32 D_EBFBE0_801AE620[] = { 1.9f, 2.4f, 0.9f, 1.9f, 1.8f, 2.4f };
 
 static MenuContext D_EBFBE0_801AE638[6] = {
@@ -3210,10 +3213,17 @@ void func_EBFBE0_8019AB30(void) {
 // extern f32 D_EBFBE0_801B9338; // in-function
 // needs in function static
 #if defined(IMPORT_BSS) || defined(NON_MATCHING)
+#ifndef IMPORT_BSS
+extern f32 D_EBFBE0_801B9324;
+extern f32 D_EBFBE0_801B9328;
+extern f32 D_EBFBE0_801B9338;
+#endif
 void func_EBFBE0_8019AD84(void) {
+#ifdef IMPORT_BSS
     static f32 D_EBFBE0_801B9324;
     static f32 D_EBFBE0_801B9328;
     static f32 D_EBFBE0_801B9338;
+#endif
     s32 pad[2];
     s32 colorGB;
     s32 var_v0;
@@ -3277,12 +3287,19 @@ static u8* D_EBFBE0_801AF28C[] = {
 
 // needs in-function static data & bss
 #if defined(IMPORT_BSS) || defined(NON_MATCHING)
+#ifndef IMPORT_BSS
+extern f32 D_EBFBE0_801B93C0;
+extern f32 D_EBFBE0_801B93C8;
+extern f32 D_EBFBE0_801B93CC;
+#endif
 void func_EBFBE0_8019AFFC(void) {
     static f32 D_EBFBE0_801AF2A0 = 101.0f;
     static f32 D_EBFBE0_801AF2A4 = 86.0f;
+#ifdef IMPORT_BSS
     static f32 D_EBFBE0_801B93C0;
     static f32 D_EBFBE0_801B93C8;
     static f32 D_EBFBE0_801B93CC;
+#endif
     s32 var_v0;
     s32 colorGB;
 
