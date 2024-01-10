@@ -98,7 +98,7 @@ def print_results():
                 if used != file and symbol['global']:
                     if used not in output:
                         output[used] = []
-                    print(f' - Symbol {colorama.Fore.LIGHTBLUE_EX}{symbol["name"]} {colorama.Fore.LIGHTWHITE_EX}is used on {colorama.Fore.LIGHTMAGENTA_EX}{used} {colorama.Fore.LIGHTWHITE_EX}is used on {colorama.Fore.LIGHTWHITE_EX}defined on {colorama.Fore.LIGHTGREEN_EX}{file}' + f'{colorama.Fore.LIGHTWHITE_EX} and is global' if symbol['global'] else '')
+                    print(f' - Symbol {colorama.Fore.LIGHTBLUE_EX}{symbol["name"]} {colorama.Fore.LIGHTWHITE_EX}from {colorama.Fore.LIGHTGREEN_EX}{file} {colorama.Fore.LIGHTWHITE_EX}is used on {colorama.Fore.LIGHTMAGENTA_EX}{used} {colorama.Fore.LIGHTWHITE_EX}' + f'{colorama.Fore.LIGHTWHITE_EX}and its global' if symbol['global'] else '')
                     output[used].append({
                         'name': symbol['name'],
                         'file': file,
