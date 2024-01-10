@@ -149,6 +149,7 @@ void func_80046358(Player*);
 void func_80048AC0(s32 teamId);
 void func_80049C0C(Player *);
 void func_8004A52C(Player *);
+void func_8004AA84(void);
 void func_8004AAF4(Player *);
 void func_8004C930(Player *);
 void func_8004CCC0(Player *);
