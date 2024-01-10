@@ -22,19 +22,19 @@ extern Gfx D_EBFBE0_801B57A8[];
 
 // #define IMPORT_BSS
 
-f32 D_EBFBE0_801AE570[] = { 60.0f, 36.0f, 12.0f, -12.0f, -36.0f, -60.0f };
-f32 D_EBFBE0_801AE588[] = { 124.0f, 118.0f, 145.0f, 125.0f, 133.0f, 118.0f };
-f32 D_EBFBE0_801AE5A0[] = { 54.0f, 78.0f, 103.0f, 126.0f, 151.0f, 175.0f };
-f32 D_EBFBE0_801AE5B8[] = { 124.0f, 118.0f, 145.0f, 125.0f, 133.0f, 118.0f };
-f32 D_EBFBE0_801AE5D0[] = { 54.0f, 78.0f, 103.0f, 126.0f, 151.0f, 175.0f };
-f32 D_EBFBE0_801AE5E8[] = { 124.0f, 125.0f };
-f32 D_EBFBE0_801AE5F0[] = { 54.0f, 55.0f };
-f32 D_EBFBE0_801AE5F8[] = { 133.0f, 125.0f };
-f32 D_EBFBE0_801AE600[] = { 151.0f, 151.0f };
-f32 D_EBFBE0_801AE608[] = { 8.0f, 8.0f, 8.0f, 8.0f, 8.0f, 8.0f };
-f32 D_EBFBE0_801AE620[] = { 1.9f, 2.4f, 0.9f, 1.9f, 1.8f, 2.4f };
+static f32 D_EBFBE0_801AE570[] = { 60.0f, 36.0f, 12.0f, -12.0f, -36.0f, -60.0f };
+static f32 D_EBFBE0_801AE588[] = { 124.0f, 118.0f, 145.0f, 125.0f, 133.0f, 118.0f };
+static f32 D_EBFBE0_801AE5A0[] = { 54.0f, 78.0f, 103.0f, 126.0f, 151.0f, 175.0f };
+static f32 D_EBFBE0_801AE5B8[] = { 124.0f, 118.0f, 145.0f, 125.0f, 133.0f, 118.0f };
+static f32 D_EBFBE0_801AE5D0[] = { 54.0f, 78.0f, 103.0f, 126.0f, 151.0f, 175.0f };
+static f32 D_EBFBE0_801AE5E8[] = { 124.0f, 125.0f };
+static f32 D_EBFBE0_801AE5F0[] = { 54.0f, 55.0f };
+static f32 D_EBFBE0_801AE5F8[] = { 133.0f, 125.0f };
+static f32 D_EBFBE0_801AE600[] = { 151.0f, 151.0f };
+static f32 D_EBFBE0_801AE608[] = { 8.0f, 8.0f, 8.0f, 8.0f, 8.0f, 8.0f };
+static f32 D_EBFBE0_801AE620[] = { 1.9f, 2.4f, 0.9f, 1.9f, 1.8f, 2.4f };
 
-MenuContext D_EBFBE0_801AE638[6] = {
+static MenuContext D_EBFBE0_801AE638[6] = {
     {
         { 0, 0, (void*) 0x08003B50, 0, 72, 12, 126.0f, 46.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
         { 0.0f, 30.0f, -130.0f, 0.2f, 0.11f },
@@ -79,7 +79,7 @@ MenuContext D_EBFBE0_801AE638[6] = {
     },
 };
 
-MenuContext D_EBFBE0_801AE878[] = {
+static MenuContext D_EBFBE0_801AE878[] = {
     {
         { 0, 0, (void*) 0x08005010, 0, 96, 13, 110.0f, 91.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
         { 0.0f, 11.0f, -130.0f, 0.2f, 0.11f },
@@ -102,77 +102,77 @@ MenuContext D_EBFBE0_801AE878[] = {
         1,
     },
 };
-u8 D_EBFBE0_801AE998[] = { 0, 3, 1 };
+static u8 D_EBFBE0_801AE998[] = { 0, 3, 1 };
 
-u8 D_EBFBE0_801AE99C[] = { 0, 1, 2 };
+static u8 D_EBFBE0_801AE99C[] = { 0, 1, 2 };
 
-f32 D_EBFBE0_801AE9A0[4] = { 62.0f, 222.0f, 75.0f, 235.0f };
+static f32 D_EBFBE0_801AE9A0[4] = { 62.0f, 222.0f, 75.0f, 235.0f };
 
-f32 D_EBFBE0_801AE9B0[4] = { 43.0f, 43.0f, 46.0f, 46.0f };
+static f32 D_EBFBE0_801AE9B0[4] = { 43.0f, 43.0f, 46.0f, 46.0f };
 
-MenuContext_00 D_EBFBE0_801AE9C0[4] = {
+static MenuContext_00 D_EBFBE0_801AE9C0[4] = {
     { 2, 0, (void*) 0x080143B0, 0x080147B0, 32, 32, 56.0f, 175.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
     { 2, 0, (void*) 0x080143B0, 0x080147B0, 32, 32, 216.0f, 175.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
     { 1, 0, (void*) 0x080039D0, 0x08003A50, 16, 16, 69.0f, 178.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
     { 1, 0, (void*) 0x080039D0, 0x08003A50, 16, 16, 229.0f, 178.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
 };
 
-MenuContext_00 D_EBFBE0_801AEAA0[3] = {
+static MenuContext_00 D_EBFBE0_801AEAA0[3] = {
     { 3, 0, (void*) 0x08013990, 0, 104, 10, 151.0f, 135.0f, 1.05f, 1.0f, 255, 255, 255, 255 },
     { 3, 0, (void*) 0x08013990, 0, 104, 10, 151.0f, 161.0f, 1.05f, 1.0f, 255, 255, 255, 255 },
     { 3, 0, (void*) 0x08013990, 0, 104, 10, 151.0f, 188.0f, 1.05f, 1.0f, 255, 255, 255, 255 },
 };
 
-MenuContext_00 D_EBFBE0_801AEB48[3] = {
+static MenuContext_00 D_EBFBE0_801AEB48[3] = {
     { 3, 0, (void*) 0x080141B0, 0, 16, 16, 245.0f, 132.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
     { 3, 0, (void*) 0x080141B0, 0, 16, 16, 245.0f, 158.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
     { 3, 0, (void*) 0x080141B0, 0, 16, 16, 245.0f, 185.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
 };
 
 // Something inside D_EBFBE0_801AEC30 display list
-u32 D_EBFBE0_801AEBF0[] = {
+static u32 D_EBFBE0_801AEBF0[] = {
     0x00010001, 0x00000000, 0x00000000, 0xFFFFFFFF, 0xFFFF0001, 0x00000000, 0x00000000, 0xFFFFFFFF,
     0xFFFF0000, 0x00000000, 0x00000000, 0xFFFFFFFF, 0x00010000, 0x00000000, 0x00000000, 0xFFFFFFFF,
 };
 
-Gfx D_EBFBE0_801AEC30[] = {
+static Gfx D_EBFBE0_801AEC30[] = {
     gsSPVertex(D_EBFBE0_801AEBF0, 4, 0),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
     gsSPEndDisplayList(),
 };
 
 // Something inside D_EBFBE0_801AEC88 display list
-u32 D_EBFBE0_801AEC48[] = {
+static u32 D_EBFBE0_801AEC48[] = {
     0x00010000, 0x00000000, 0x00000000, 0xFFFFFFFF, 0xFFFF0000, 0x00000000, 0x00000000, 0xFFFFFFFF,
     0xFFFFFFFF, 0x00000000, 0x00000000, 0xFFFFFFFF, 0x0001FFFF, 0x00000000, 0x00000000, 0xFFFFFFFF,
 };
 
-Gfx D_EBFBE0_801AEC88[] = {
+static Gfx D_EBFBE0_801AEC88[] = {
     gsSPVertex(D_EBFBE0_801AEC48, 4, 0),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
     gsSPEndDisplayList(),
 };
 
 // Something inside D_EBFBE0_801AECE0 display list
-u32 D_EBFBE0_801AECA0[] = {
+static u32 D_EBFBE0_801AECA0[] = {
     0x00010001, 0x00000000, 0x00000000, 0xFFFFFFFF, 0xFFFF0001, 0x00000000, 0x00000000, 0xFFFFFFFF,
     0xFFFFFFFF, 0x00000000, 0x00000000, 0xFFFFFFFF, 0x0001FFFF, 0x00000000, 0x00000000, 0xFFFFFFFF,
 };
 
-Gfx D_EBFBE0_801AECE0[] = {
+static Gfx D_EBFBE0_801AECE0[] = {
     gsSPVertex(D_EBFBE0_801AECA0, 4, 0),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
     gsSPEndDisplayList(),
 };
 
-u8* D_EBFBE0_801AECF8[10] = {
+static u8* D_EBFBE0_801AECF8[10] = {
     (u8*) 0x05009F60, (u8*) 0x0500A050, (u8*) 0x0500A140, (u8*) 0x0500A230, (u8*) 0x0500A320,
     (u8*) 0x0500A410, (u8*) 0x0500A500, (u8*) 0x0500A5F0, (u8*) 0x0500A6E0, (u8*) 0x0500A7D0,
 };
-f32 D_EBFBE0_801AED20[2] = { 255.0f, 255.0f };
+static f32 D_EBFBE0_801AED20[2] = { 255.0f, 255.0f };
 
 // TF is this? seems unused
-s32 D_EBFBE0_801AED28[] = {
+static s32 D_EBFBE0_801AED28[] = {
     /* EE73E8 801AED28 00000038 */ 56,
     /* EE73EC 801AED2C 00000043 */ 67,
     /* EE73F0 801AED30 0000004E */ 78,
@@ -180,46 +180,46 @@ s32 D_EBFBE0_801AED28[] = {
     /* EE73F8 801AED38 0000005B */ 91,
 };
 
-s32 D_EBFBE0_801AED3C[4] = { 0, 0, 0, 0 };
+static s32 D_EBFBE0_801AED3C[4] = { 0, 0, 0, 0 };
 
-UnkStruct_D_EBFBE0_801AED4C D_EBFBE0_801AED4C[24] = {
+static UnkStruct_D_EBFBE0_801AED4C D_EBFBE0_801AED4C[24] = {
     { 9, 0, 0 },  { 0, 12, 0 }, { 12, 4, 0 }, { 4, 10, 0 }, { 10, 2, 0 }, { 6, 4, 0 },   { 7, 2, 0 }, { 3, 2, 0 },
     { 2, 14, 0 }, { 5, 6, 1 },  { 6, 13, 1 }, { 13, 7, 1 }, { 4, 7, 1 },  { 12, 13, 1 }, { 8, 7, 1 }, { 9, 5, 2 },
     { 5, 11, 2 }, { 11, 8, 2 }, { 8, 3, 2 },  { 3, 1, 2 },  { 7, 1, 2 },  { 1, 14, 2 },  { 0, 6, 3 }, { 4, 3, 4 },
 };
 
-Gfx* D_EBFBE0_801AEE6C[16] = {
+static Gfx* D_EBFBE0_801AEE6C[16] = {
     (Gfx*) 0x06060610, (Gfx*) 0x0601DE80, (Gfx*) 0x0604B750, (Gfx*) 0x0601F6B0, (Gfx*) 0x0601C0D0, (Gfx*) 0x0601C960,
     D_EBFBE0_801B5E78, D_EBFBE0_801B61E0, D_EBFBE0_801B6548, D_EBFBE0_801B4D70, D_EBFBE0_801B5B10, D_EBFBE0_801B5440,
     D_EBFBE0_801B50D8, (Gfx*) 0x0604DB10, D_EBFBE0_801B57A8, D_EBFBE0_801B57A8,
 };
 
-char* D_EBFBE0_801AEEAC[] = {
+static char* D_EBFBE0_801AEEAC[] = {
     "ME", "A6", "BO", "SZ", "SX", "SY", "KA", "MA", "ZO", "CO", "TI", "AQ", "FO", "SO", "VE", "VE",
 };
 
-s32 PAD_EBFBE0_801AEEEC = 0;
+static s32 PAD_EBFBE0_801AEEEC = 0;
 
 // Something inside D_EBFBE0_801AEF30 display list
-u32 D_EBFBE0_801AEEF0[] = {
+static u32 D_EBFBE0_801AEEF0[] = {
     0xFFF5FFF5, 0x00000000, 0x000000FF, 0x00000000, 0x000BFFF5, 0x00000000, 0x00FF00FF, 0x00000000,
     0x000B000B, 0x00000000, 0x00FF0000, 0x00000000, 0xFFF5000B, 0x00000000, 0x00000000, 0x00000000,
 };
 
-Gfx D_EBFBE0_801AEF30[] = {
+static Gfx D_EBFBE0_801AEF30[] = {
     gsSPVertex(D_EBFBE0_801AEEF0, 4, 0),
     gsSP1Triangle(0, 1, 2, 0),
     gsSP1Triangle(0, 2, 3, 0),
     gsSPEndDisplayList(),
 };
 
-s32 PAD_EBFBE0_801AEF50[] = { 0x00000000, 0x00000000, 0x00000000 };
+static s32 PAD_EBFBE0_801AEF50[] = { 0x00000000, 0x00000000, 0x00000000 };
 
-char D_EBFBE0_801AEF5C[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.";
+static char D_EBFBE0_801AEF5C[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.";
 
-f32 D_EBFBE0_801AEF84[] = { 24.0f, 0.0f, -24.0f };
-f32 D_EBFBE0_801AEF90[] = { 111.0f, 112.0f, 121.0f };
-f32 D_EBFBE0_801AEF9C[] = { 89.0f, 115.0f, 139.0f };
+static f32 D_EBFBE0_801AEF84[] = { 24.0f, 0.0f, -24.0f };
+static f32 D_EBFBE0_801AEF90[] = { 111.0f, 112.0f, 121.0f };
+static f32 D_EBFBE0_801AEF9C[] = { 89.0f, 115.0f, 139.0f };
 
 #ifdef IMPORT_BSS
 s32 D_EBFBE0_801B9090;
