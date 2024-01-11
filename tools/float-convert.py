@@ -62,8 +62,7 @@ def main(argv):
             outputfile = arg
             toFile = True
         elif opt in ("-p", "--print"):
-            if arg == "true":
-                toPrint = True
+            toPrint = True
     out += "[" + str(count) + "] {\n    " + labelArr + "\n}"
     if toPrint:
         print(out)
