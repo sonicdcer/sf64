@@ -27,11 +27,10 @@ def main(argv):
                             out += "[" + str(count) + "] = {\n    " + labelArr + "\n};\n"
                         else:
                             out += " = " + labelArr + ";\n"
-                        out += "\n"
                         labelArr = ""
                         count = 0
                     label = line.split("dlabel ", 1)[1]
-                    out += "f32 "
+                    out += "\nf32 "
                     out += label.split("\n",1)[0]
                     # out += "\n"
                 elif " .float " in line:
@@ -52,15 +51,16 @@ def main(argv):
                 elif " .asciz \"" in line:
                     if count != 0:
                         labelArr += ", "
-                    seg = line.split(" .asciz \"", 1)[1]
-                    length = len(seg) - 1
+                    seg = line.split(" .asciz \"", 1)[1].rsplit("\"",1)[0]
+                    length = len(seg)
                     if length <= 4:
                         segStr = ""
                         for letter in seg:
-                            if letter == '\"':
-                                break
+                            if letter == '\\':
+                                length -= 1
+                                continue
                             segStr += format(ord(letter), "x")
-                        for a in range (4 - length + 1):
+                        for a in range(4 - length):
                             segStr += "00"
                         labelArr += str(struct.unpack('!f', bytes.fromhex(segStr))[0]) + "f"
                         count += 1
