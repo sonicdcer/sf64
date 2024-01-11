@@ -25,7 +25,7 @@ def main(argv):
             for line in f:
                 if "dlabel " in line:
                     if count != 0:
-                        out += "[" + str(count) + "] {\n    " + labelArr + "\n}\n"
+                        out += "[" + str(count) + "] {\n    " + labelArr + "\n};\n"
                         out += "\n"
                         labelArr = ""
                         count = 0
@@ -70,7 +70,7 @@ def main(argv):
             toFile = True
         elif opt in ("-p", "--print"):
             toPrint = True
-    out += "[" + str(count) + "] {\n    " + labelArr + "\n}"
+    out += "[" + str(count) + "] {\n    " + labelArr + "\n};"
     if toPrint:
         print(out)
     if toFile:
