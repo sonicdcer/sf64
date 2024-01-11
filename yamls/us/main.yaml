@@ -195,7 +195,7 @@
       - [0xB99D0, c, fox_rcp]
       - [0xBB360, c, fox_radio]
       - [0xBD0B0, c, fox_reset]
-      - [0xBD360, c, sf_versus]
+      - [0xBD360, c, fox_versus]
       - [0xC3430, c, fox_message]
       - [0xC3BB0, c, fox_save]
 
@@ -284,7 +284,7 @@
       - [0xD3DB0, .data, fox_rcp]
       - [0xD5670, .data, fox_radio]
       - [0xD5680, .data, fox_reset]
-      - [0xD5690, data, sf_versus]
+      - [0xD5690, .data, fox_versus]
       - [0xD5910, .data, fox_save]
 
       # RODATA - game engine
@@ -309,7 +309,7 @@
       - [0xD8EE0, .rodata, fox_A48A0]
       - [0xD8EF0, .rodata, fox_play]
       - [0xD97F0, .rodata, fox_radio]
-      - [0xD9E50, .rodata, sf_versus]
+      - [0xD9E50, .rodata, fox_versus]
       - [0xD9F60, .rodata, fox_message]
       - [0xDA030, .rodata, fox_save]
 
@@ -371,7 +371,7 @@
       - { start: 0xDE480, type: bss, vram: 0x80161A50, name: fox_play }
       - { start: 0xDE480, type: .bss, vram: 0x80178580, name: fox_rcp }
       - { start: 0xDE480, type: .bss, vram: 0x80178720, name: fox_radio }
-      - { start: 0xDE480, type: bss, vram: 0x80178750, name: sf_versus }
+      - { start: 0xDE480, type: .bss, vram: 0x80178750, name: fox_versus }
       - { start: 0xDE480, type: .bss, vram: 0x80178870, name: fox_save }
 
   - name: dma_table

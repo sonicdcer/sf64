@@ -110,6 +110,7 @@ void func_8002E700(Player *);
 void func_8002EE64(Object_2F4 * obj2F4);
 void func_8002F180(void);
 void func_8002F5F4(u16* msg, s32 character);
+void func_8003088C(Object_2F4*);
 void func_800319AC(Object_2F4* this);
 void func_80035448(Object_2F4* obj2F4);
 
@@ -523,6 +524,7 @@ void func_800ACDC0(Player *, PlayerShot *, PlayerShotId );
 void func_800B0F50(Player *);
 void func_800B44C4(Player *);
 void func_800AB334(void);
+void func_800ABA08(void);
 void func_800AE278(Player*);
 void func_800B2130(Player*);
 void func_800B2574(Player*);

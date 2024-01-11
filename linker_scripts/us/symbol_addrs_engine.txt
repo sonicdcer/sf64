@@ -120,6 +120,11 @@ D_8017873C = 0x8017873C;
 D_80178740 = 0x80178740;
 D_80178744 = 0x80178744;
 D_80178748 = 0x80178748;
+
+// fox_versus
+sUnlockLandmaster = 0x8017875C;
+sUnlockOnFoot = 0x80178760;
+
 gCurrentMsgPri = 0x800D4A70;
 
 func_800BA760 = 0x800BA760;
