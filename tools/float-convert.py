@@ -6,14 +6,21 @@ import struct
 
 def main(argv):
     outputfile = ""
-    opts, args = getopt.getopt(argv,"pf:o:",["print","file=","output="])
+    opts, args = getopt.getopt(argv,"hpf:o:",["help","print","file=","output="])
     out = ""
     toFile = False
     toPrint = False
     labelArr = ""
     count = 0
     for opt, arg in opts:
-        if opt in ("-f", "--file"):
+        if opt in ("-h", "--help"):
+            # only print help if no output is generated yet
+            if out == "":
+                print("\nThis is an initial tool to quickly parse the data .s files and convert anything which could potentially be float\n")
+                print("-f / --file : file name of data .s file to parse")
+                print("-o / --output : output file if you want to output to a file")
+                print("-p / --print : if used then it will output to terminal\n")
+        elif opt in ("-f", "--file"):
             f = open(arg, "r")
             for line in f:
                 if "dlabel " in line:
