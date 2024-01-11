@@ -3298,7 +3298,8 @@ void func_80081C5C(Object_8C* obj8C) {
                     obj8C->obj.rot.y += obj8C->unk_60.y;
                     obj8C->obj.rot.z += obj8C->unk_60.z;
                     obj8C->vel.y -= 1.0f;
-                    if ((func_800A73E4(&posYOut, &unusedOut, obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z) != 0) ||
+                    if ((func_800A73E4(&posYOut, &unusedOut, obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z) !=
+                         0) ||
                         (obj8C->timer_50 == 0)) {
                         func_8007B228(obj8C->obj.pos.x, posYOut, obj8C->obj.pos.z, obj8C->scale2);
                         Object_Kill(&obj8C->obj, &obj8C->sfxPos);
