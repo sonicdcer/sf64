@@ -53,6 +53,7 @@ void func_DF4260_80187710(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
     
     for(i = 0; i < ARRAY_COUNT(gObjects2F4); i++) {
         if (gObjects2F4[i].obj.status == 0) {
+            (void) "Enms[1].obj.mode %d\n";
             func_DF4260_80187670(&gObjects2F4[i], arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
             return;
         }
@@ -461,7 +462,7 @@ void func_DF4260_80188D50(Boss* arg0) {
     Vec3f sp3C;
     s32 temp_ft3;
 
-    if (arg0->swork[38] == 0) {
+    if (arg0->swork[36] == 0) {
         if (gPlayer[0].unk_1F4 != 0) {
             D_DF4260_801997E0 = 80;
         }
@@ -469,7 +470,7 @@ void func_DF4260_80188D50(Boss* arg0) {
         if (D_DF4260_801997E0 != 0) {
             D_DF4260_801997E0--;
         } else if ((gPlayer[0].pos.y < 200.0f) && (arg0->unk_04E < 5) && (fabsf(arg0->obj.pos.x - gPlayer[0].pos.x) < 200.0f) && (fabsf(arg0->obj.pos.z - gPlayer[0].unk_138) < 200.0f) && (gPlayer[0].unk_4D8 > 180.0f)) {
-            arg0->swork[38]++;
+            arg0->swork[36]++;
             D_DF4260_801997E0 = 20;
             Audio_PlaySfx(0x49008025, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             if ((gTeamShields[1] > 0) || (gTeamShields[2] > 0) || (gTeamShields[3] > 0)) {
@@ -491,7 +492,7 @@ void func_DF4260_80188D50(Boss* arg0) {
                         break;
                 }
             }
-            Matrix_RotateY(gCalcMatrix, (gPlayer[0].unk_0E8 + gPlayer[0].unk_114) * 0.017453292f, 0);
+            Matrix_RotateY(gCalcMatrix, (gPlayer[0].unk_114 + gPlayer[0].unk_0E8) * 0.017453292f, 0);
             sp48.x = 0.0f;
             sp48.y = 0.0f;
             sp48.z = -2500.0f;
@@ -2915,7 +2916,5 @@ void func_DF4260_80191160(Player* player) {
     player->unk_0F4 += 8.0f;
     player->unk_0F0 = __sinf(player->unk_0F4 * 0.017453292f);
 }
-
-// char D_DF4260_8019AEF0[] = "Enms[1].obj.mode %d\n";
 
 // #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_DF4260/DF4260/D_DF4260_8019AEF0.s")
