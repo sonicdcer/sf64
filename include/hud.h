@@ -71,7 +71,6 @@ extern s32 gLevelMode;
 extern s32 gTeamShields[];
 extern s32 D_801778BC;
 extern s32 gVersusMode;
-extern s32 D_80177B48;
 extern s32 D_80177B50[];
 extern s32 D_80177B70[];
 extern s32 D_80177E7C;
