@@ -9,7 +9,7 @@ def main(argv):
     opts, args = getopt.getopt(argv,"p:f:o:",["print=","file=","output="])
     out = ""
     toFile = False
-    toPrint = True
+    toPrint = False
     labelArr = ""
     count = 0
     for opt, arg in opts:
