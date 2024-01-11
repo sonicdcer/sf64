@@ -14,12 +14,10 @@ def main(argv):
     count = 0
     for opt, arg in opts:
         if opt in ("-h", "--help"):
-            # only print help if no output is generated yet
-            if out == "":
-                print("\nThis is an initial tool to quickly parse the data .s files and convert anything which could potentially be float\n")
-                print("-f / --file : file name of data .s file to parse")
-                print("-o / --output : output file if you want to output to a file")
-                print("-p / --print : if used then it will output to terminal\n")
+            print("\nThis is an initial tool to quickly parse the data .s files and convert anything which could potentially be float\n")
+            print("-f / --file : file name of data .s file to parse")
+            print("-o / --output : output file if you want to output to a file")
+            print("-p / --print : if used then it will output to terminal\n")
         elif opt in ("-f", "--file"):
             f = open(arg, "r")
             for line in f:
