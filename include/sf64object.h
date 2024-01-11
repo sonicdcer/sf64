@@ -208,7 +208,8 @@ typedef struct {
     /* 0x01C */ ObjectInfo info;
     /* 0x040 */ s32 index;
     /* 0x044 */ s16 unk_044;
-    /* 0x046 */ char unk_46[0x8];
+    /* 0x046 */ char unk_46[0x6];
+    /* 0x04C */ s16 unk_04C;
     /* 0x04E */ s16 unk_04E;
     /* 0x050 */ s16 timer_050;
     /* 0x052 */ s16 timer_052;

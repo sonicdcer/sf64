@@ -154,7 +154,7 @@ void func_DF4260_80187AC8(Boss* arg0) {
             func_800BA808(gMsg_ID_2270, RCID_BOSS_CORNERIA);
             if (arg0->swork[29] <= 0) {
                 arg0->swork[10] = 1000;
-                ((Hitbox*)(arg0->info.hitbox))[0].z.size = 100000.0f;
+                arg0->info.hitbox[1 + 0] = 100000.0f;
                 func_DF4260_8018798C(arg0, D_DF4260_8019B6D8[62], D_DF4260_8019B6D8[63], D_DF4260_8019B6D8[64], 10.0f);
                 Audio_PlaySfx(0x2940D09A, &arg0->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 D_Timer_80161A60 = 8;
@@ -192,7 +192,7 @@ void func_DF4260_80187AC8(Boss* arg0) {
             func_DF4260_80187A38(arg0, D_DF4260_8019B6D8[12], D_DF4260_8019B6D8[13], D_DF4260_8019B6D8[14], 0.1f, 20);
             if (arg0->swork[28] <= 0) {
                 arg0->swork[3] = 1000;
-                ((Hitbox*)(arg0->info.hitbox))[3].z.size = 100000.0f;
+                arg0->info.hitbox[1 + 18] = 100000.0f;
                 func_DF4260_8018798C(arg0, D_DF4260_8019B6D8[12], D_DF4260_8019B6D8[13], D_DF4260_8019B6D8[14], 10.0f);
             }
         }
@@ -206,7 +206,7 @@ void func_DF4260_80187AC8(Boss* arg0) {
             func_DF4260_80187A38(arg0, D_DF4260_8019B6D8[6], D_DF4260_8019B6D8[7], D_DF4260_8019B6D8[8], 0.1f, 20);
             if (arg0->swork[26] <= 0) {
                 arg0->swork[2] = 1000;
-                 ((Hitbox*)(arg0->info.hitbox))[1].z.size = 100000.0f;
+                 arg0->info.hitbox[1 + 6] = 100000.0f;
                 func_DF4260_8018798C(arg0, D_DF4260_8019B6D8[6], D_DF4260_8019B6D8[7], D_DF4260_8019B6D8[8], 7.0f);
             }
         } else if (arg0->unk_066 == 2) {
@@ -217,7 +217,7 @@ void func_DF4260_80187AC8(Boss* arg0) {
             func_DF4260_80187A38(arg0, D_DF4260_8019B6D8[0], D_DF4260_8019B6D8[1], D_DF4260_8019B6D8[2], 0.1f, 20);
             if (arg0->swork[27] <= 0) {
                 arg0->swork[1] = 1000;
-                ((Hitbox*)(arg0->info.hitbox))[2].z.size = 100000.0f;
+                arg0->info.hitbox[1 + 12] = 100000.0f;
                 func_DF4260_8018798C(arg0, D_DF4260_8019B6D8[0], D_DF4260_8019B6D8[1], D_DF4260_8019B6D8[2], 7.0f);
             }
         } else if ((arg0->unk_066 == 4) || (arg0->unk_066 == 5)) {
@@ -229,7 +229,7 @@ void func_DF4260_80187AC8(Boss* arg0) {
                 arg0->swork[18] = 30;
                 if (arg0->swork[24] <= 0) {
                     arg0->swork[7] = arg0->swork[8] = arg0->swork[9] = 1000;
-                    ((Hitbox*)(arg0->info.hitbox))[4].z.size = 100000.0f;
+                    arg0->info.hitbox[1 + 24] = 100000.0f;
                     for (var_s1 = 3; var_s1 < 6; var_s1++) {
                         func_800430DC(D_DF4260_8019B6D8[18 + var_s1 + 2], D_DF4260_8019B6D8[24 + var_s1 + 2], D_DF4260_8019B6D8[30 + var_s1 + 2],D_DF4260_8019B6D8[36 + var_s1 + 2], D_DF4260_8019B6D8[42 + var_s1 + 2], D_DF4260_8019B6D8[48 + var_s1 + 2], 0.0f, (Rand_ZeroOne() * 20.0f), 0.0f, 5.5f, var_s1 + 0x1C, ((s32) (Rand_ZeroOne() * 30.0f)) + 60.0f);
                     }
@@ -244,7 +244,7 @@ void func_DF4260_80187AC8(Boss* arg0) {
                 arg0->swork[19] = 30;
                 if (arg0->swork[25] <= 0) {
                     arg0->swork[4] = arg0->swork[5] = arg0->swork[6] = 1000;
-                    ((Hitbox*)(arg0->info.hitbox))[5].z.size = 100000.0f;
+                    arg0->info.hitbox[1 + 30] = 100000.0f;
 
                     for (var_s1 = 0; var_s1 < 3; var_s1++) {
                         func_800430DC(D_DF4260_8019B6D8[18 + var_s1 + 2], D_DF4260_8019B6D8[24 + var_s1 + 2], D_DF4260_8019B6D8[30 + var_s1 + 2],D_DF4260_8019B6D8[36 + var_s1 + 2], D_DF4260_8019B6D8[42 + var_s1 + 2], D_DF4260_8019B6D8[48 + var_s1 + 2], 0.0f, (Rand_ZeroOne() * 20.0f), 0.0f, 5.5f, var_s1 + 0x1C, ((s32) (Rand_ZeroOne() * 30.0f)) + 60.0f);
@@ -454,7 +454,6 @@ void func_DF4260_80188C7C(Boss* arg0) {
     }
 }
 
-// Matching - Requires Data Import
 void func_DF4260_80188D50(Boss* arg0) {
     static s32 D_DF4260_801997E0 = 0;
     s32 i;
@@ -492,7 +491,7 @@ void func_DF4260_80188D50(Boss* arg0) {
                         break;
                 }
             }
-            Matrix_RotateY(gCalcMatrix, (gPlayer[0].unk_114 + gPlayer[0].unk_0E8) * 0.017453292f, 0);
+            Matrix_RotateY(gCalcMatrix, (gPlayer[0].unk_114 + gPlayer[0].unk_0E8) * M_DTOR, 0);
             sp48.x = 0.0f;
             sp48.y = 0.0f;
             sp48.z = -2500.0f;
@@ -526,7 +525,435 @@ static Vec3f D_DF4260_80199808 = { 0.0f, 0.0f, -30.0f };
 extern f32 D_DF4260_8019B714; // bss
 extern f32 D_DF4260_8019B718; // bss
 
+#ifdef NON_MATCHING
+// Stack issues https://decomp.me/scratch/PeD7P
+void func_DF4260_80189058(Boss* arg0) {
+    Vec3f sp21C;
+    s32 sp218;
+
+    f32 sp214;
+    f32 sp210;
+    f32 sp20C;
+    s32 var_v0;
+    s32 pad_sp204;
+    f32 sp200;
+    f32 sp1FC;
+    s32 pad_sp1F8;
+
+    Vec3f sp1EC;
+    Vec3f sp84[30];
+    Vec3f sp78;
+    Vec3f sp6C;
+    f32 sp5C;
+
+    sp21C = D_DF4260_801997E4;
+    sp1EC = D_DF4260_801997F0;
+    sp78 = D_DF4260_801997FC;
+    sp6C = D_DF4260_80199808;
+    
+    if (gPlayer->state_1C8 != 9) {
+        if (arg0->swork[33] == 0) {
+            arg0->swork[33]++;
+            D_80178284 = 2;
+
+            arg0->unk_05E = 1;
+            arg0->swork[24] = 0x96;
+            arg0->swork[25] = 0x96;
+            arg0->swork[26] = 0x28;
+            arg0->swork[27] = 0x28;
+            arg0->swork[28] = 0x28;
+            arg0->swork[29] = 0x82;
+            arg0->info.hitbox[1 + 0] = -241.0f;
+            arg0->info.hitbox[1 + 6] = 0.0f;
+            arg0->info.hitbox[1 + 12] = 0.0f;
+            arg0->info.hitbox[1 + 18] = 0.0f;
+            arg0->info.hitbox[1 + 24] = 0.0f;
+            arg0->info.hitbox[1 + 30] = 0.0f;
+            arg0->timer_052 = 0x64;
+            arg0->unk_04E = 0;
+            arg0->swork[31] = 1;
+            D_DF4260_8019B6D8[0x42] = 0.0f;
+            D_DF4260_8019B6D8[0x43] = 10000.0f;
+            arg0->timer_050 = 0x1E;
+            Animation_GetFrameData(D_602C0D0, 0, arg0->vwork);
+            D_801613A0 = 0;
+        }
+        D_801613A0++;
+        gUnkEntities28[59].unk_00 = 1;
+        gUnkEntities28[59].unk_02 = 0x66;
+        gUnkEntities28[59].pos.x = arg0->obj.pos.x;
+        gUnkEntities28[59].pos.y = arg0->obj.pos.y;
+        gUnkEntities28[59].pos.z = arg0->obj.pos.z;
+
+        gUnkEntities28[59].unk_10 = arg0->obj.rot.y + 180.0f;
+        func_DF4260_80188D50(arg0);
+        if (D_801615D0.z > 0.0f) {
+            if (D_801615D0.x > 0.0f) {
+                gPlayer->unk_228 = 0x10;
+            } else {
+                gPlayer->unk_228 = 0x20;
+            }
+        }
+
+        switch (D_801613A0) {
+            case 0x14:
+                func_800BA808(gMsg_ID_2240, 0x50);
+                break;
+            case 0xA0:
+                func_800BA808(gMsg_ID_2250, 0x50);
+                break;
+            case 0x14A:
+                func_800BA808(gMsg_ID_2225, 0x14);
+                break;
+            case 0x1E6:
+                D_80161734 = 1;
+                break;
+            case 0x1F4:
+                func_800BA808(gMsg_ID_2260, 0x50);
+                break;
+            case 0x384:
+                func_800BA808(gMsg_ID_2230, 0x1E);
+                break;
+            case 0xF00:
+                if (arg0->unk_04E < 5) {
+                    func_800BA808(gMsg_ID_2230, 0x1E);
+                }
+                break;
+        }
+
+        if (D_801613A0 >= 0x1E7) {
+            D_80177848 = arg0->swork[29] * 2;
+        }
+
+        for (sp218 = 0; sp218 < 0x18; sp218++) {
+
+            if ((arg0->swork[sp218] != 0) && (arg0->swork[sp218] < 0x3E8)) {
+                arg0->swork[sp218]--;
+            }
+        }
+        
+        func_DF4260_80187AC8(arg0);
+        arg0->fwork[0] = __sinf(arg0->swork[0x12] * 50.0f * 0.017453292f) * func_DF4260_80187A88(arg0->swork[0x12]);
+        arg0->fwork[1] = __sinf(arg0->swork[0x13] * 50.0f * 0.017453292f) * func_DF4260_80187A88(arg0->swork[0x13]);
+        arg0->fwork[2] = __sinf(arg0->swork[0x14] * 50.0f * 0.017453292f) * func_DF4260_80187A88(arg0->swork[0x14]);
+        arg0->fwork[3] = __sinf(arg0->swork[0x15] * 50.0f * 0.017453292f) * func_DF4260_80187A88(arg0->swork[0x15]);
+        arg0->fwork[4] = __sinf(arg0->swork[0x16] * 50.0f * 0.017453292f) * func_DF4260_80187A88(arg0->swork[0x16]);
+        
+        if (arg0->unk_04E < 5) {
+            sp5C = __sinf(arg0->swork[0x17] * 12.0f * 0.017453292f) * func_DF4260_80187A88(arg0->swork[0x17]) * 0.3f;
+            Math_SmoothStepToF(&arg0->obj.rot.z, sp5C, 0.2f, 100.0f, 0.001f);
+        }
+        if (arg0->obj.pos.y <= 10.0f) {
+            arg0->obj.pos.y = 10.0f;
+        }
+        sp214 = D_DF4260_8019B6D8[0x11] - arg0->obj.pos.x;
+        sp210 = D_DF4260_8019B6D8[0x12] - (arg0->obj.pos.y + 300.0f);
+        sp20C = D_DF4260_8019B6D8[0x13] - arg0->obj.pos.z;
+        sp1FC = Math_RadToDeg(Math_Atan2F(sp214, sp20C));
+        sp200 = Math_RadToDeg(-Math_Atan2F(sp210, sqrtf((sp214 * sp214) + (sp20C * sp20C))));
+
+
+        if ((sp200 > 50.0f) && (sp200 < 180.0f)) {
+            sp200 = 50.0f;
+        }
+        if ((sp200 < 310.0f) && (sp200 > 180.0f)) {
+            sp200 = 310.0f;
+        }
+        sp1FC -= arg0->obj.rot.y;
+        if (sp1FC > 360.0f) {
+            sp1FC -= 360.0f;
+        }
+        if (sp1FC < 0.0f) {
+            sp1FC += 360.0f;
+        }
+        if ((sp1FC > 50.0f) && (sp1FC < 180.0f)) {
+            sp1FC = 50.0f;
+        }
+        if ((sp1FC < 310.0f) && (sp1FC > 180.0f)) {
+            sp1FC = 310.0f;
+        }
+
+        Math_SmoothStepToAngle(&D_DF4260_8019B718, sp1FC, 0.1f, 3.0f, 0.0f);
+        Math_SmoothStepToAngle(&D_DF4260_8019B714, sp200, 0.1f, 3.0f, 0.0f);
+        if (arg0->unk_04E != 0) {
+            Math_SmoothStepToAngle(&arg0->obj.rot.y, Math_RadToDeg(Math_Atan2F(D_DF4260_8019B6D8[0x42] - arg0->obj.pos.x, D_DF4260_8019B6D8[0x43] - arg0->obj.pos.z)), 0.1f, 3.0f, 0.0f);
+        }
+        Matrix_RotateY(gCalcMatrix, arg0->obj.rot.y * 0.017453292f, 0U);
+
+        switch (arg0->unk_04E) {
+            case 0:
+                arg0->unk_04C = 0;
+                D_DF4260_8019B6D8[0x11] = gPlayer->pos.x;
+                D_DF4260_8019B6D8[0x12] = gPlayer->pos.y;
+                D_DF4260_8019B6D8[0x13] = gPlayer->unk_138;
+                if (arg0->timer_050 == 0) {
+                    switch (arg0->swork[31]) {
+                        case 1:
+                            arg0->unk_04E = 1;
+                            arg0->timer_050 = (s32)(Rand_ZeroOne() * 50.0f) + 0x32;
+                            arg0->fwork[14] = 0.0f;
+                            break;
+                        case 2:
+                            arg0->unk_04E = 2;
+                            arg0->timer_050 = (s32)(Rand_ZeroOne() * 100.0f) + 0x96;
+                            arg0->timer_052 = 0x28;
+                            arg0->timer_054 = 0x28;
+                            arg0->fwork[14] = 0.07f;
+                            break;
+                        case 4:
+                            arg0->unk_04E = 4;
+                            arg0->timer_050 = (s32) (Rand_ZeroOne() * 70.0f) + 0x64;
+                            arg0->fwork[14] = 0.1f;
+                            D_DF4260_8019B6D8[0x42] = (Rand_ZeroOne() - 0.5f) * 6000.0f;
+                            D_DF4260_8019B6D8[0x43] = (Rand_ZeroOne() - 0.5f) * 6000.0f;
+                            arg0->fwork[14] = 0.07f;
+                            break;
+                        case 3:
+                            arg0->unk_04E = 3;
+                            arg0->timer_050 = (s32) (Rand_ZeroOne() * 100.0f) + 0x96;
+                            arg0->fwork[14] = 0.07f;
+                            break;
+                    }
+                }
+                Animation_GetFrameData(D_602C0D0, arg0->unk_04C, sp84);
+                if (arg0->timer_052 == 0) {
+                    arg0->timer_052 = 0x96;
+                    arg0->swork[30] = 1;
+                }
+                break;
+            case 1:
+                D_DF4260_8019B6D8[0x11] = D_DF4260_8019B6D8[0x42] = gPlayer->pos.x;
+                D_DF4260_8019B6D8[0x12] = gPlayer->pos.y;
+                D_DF4260_8019B6D8[0x13] = D_DF4260_8019B6D8[0x43] = gPlayer->unk_138;
+
+                arg0->unk_04C += 2;
+                if (arg0->unk_04C >= Animation_GetFrameCount(D_602BC18)) {
+                    arg0->unk_04C = 0;
+                }
+                Animation_GetFrameData(D_602BC18, arg0->unk_04C, sp84);
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp1EC, &sp21C);
+                if (arg0->timer_052 == 0) {
+                    arg0->timer_052 = 0x96;
+                    arg0->swork[30] = 1;
+                }
+                func_DF4260_80188A18(arg0);
+                break;
+            case 2:
+                D_DF4260_8019B6D8[0x11] = D_DF4260_8019B6D8[0x42] = gPlayer->pos.x;
+                D_DF4260_8019B6D8[0x12] = gPlayer->pos.y;
+                D_DF4260_8019B6D8[0x13] = D_DF4260_8019B6D8[0x43] = gPlayer->unk_138;
+
+                arg0->unk_04C -= 4;
+                if (arg0->unk_04C < 0) {
+                    arg0->unk_04C = 0x64;
+                }
+                Animation_GetFrameData(D_602BC18, arg0->unk_04C, sp84);
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp6C, &sp21C);
+                if (arg0->timer_052 == 0) {
+                    arg0->timer_052 = 0x1E;
+                    arg0->swork[30] = 2;
+                }
+                if (arg0->timer_054 == 0) {
+                    arg0->timer_054 = 9;
+                    arg0->swork[30] = 3;
+                }
+                func_DF4260_80188A18(arg0);
+                break;
+            case 3:
+                D_DF4260_8019B6D8[0x11] = D_DF4260_8019B6D8[0x42] = gPlayer->pos.x;
+                D_DF4260_8019B6D8[0x12] = gPlayer->pos.y;
+                D_DF4260_8019B6D8[0x13] = D_DF4260_8019B6D8[0x43] = gPlayer->unk_138;
+                
+                arg0->unk_04C += 4;
+                if (arg0->unk_04C >= 0x65) {
+                    arg0->unk_04C = 0;
+                }
+                Animation_GetFrameData(D_602BC18, arg0->unk_04C, sp84);
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp21C);
+                if (arg0->timer_052 == 0) {
+                    arg0->timer_052 = 0x1E;
+                    arg0->swork[30] = 2;
+                }
+                if (arg0->timer_054 == 0) {
+                    arg0->timer_054 = 9;
+                    arg0->swork[30] = 3;
+                }
+                func_DF4260_80188A18(arg0);
+                break;
+            case 4:
+                D_DF4260_8019B6D8[0x11] = gPlayer->pos.x;
+                D_DF4260_8019B6D8[0x12] = gPlayer->pos.y;
+                D_DF4260_8019B6D8[0x13] = gPlayer->unk_138;
+                
+                arg0->unk_04C += 4;
+                if (arg0->unk_04C >= 0x65) {
+                    arg0->unk_04C = 0;
+                }
+                Animation_GetFrameData(D_602BC18, arg0->unk_04C, sp84);
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp21C);
+                func_DF4260_80188A18(arg0);
+                break;
+            case 5:
+            case 6:
+                arg0->unk_05E = 0;
+                D_8017812C = 1;
+                if (!(gFrameCount & 7)) {
+                    D_DF4260_8019B6D8[0x11] = ((Rand_ZeroOne() - 0.5f) * 2000.0f) + gPlayer->pos.x;
+                    D_DF4260_8019B6D8[0x12] = gPlayer->pos.y;
+                    D_DF4260_8019B6D8[0x13] = ((Rand_ZeroOne() - 0.5f) * 2000.0f) + gPlayer->unk_138;
+                }
+                arg0->fwork[12] += 0.05f;
+                if (arg0->unk_04E == 6) {
+                    arg0->obj.rot.z += arg0->fwork[12];
+                    if (arg0->obj.rot.z > 60.0f) {
+                        arg0->obj.rot.z = 60.0f;
+                        func_DF4260_80188C7C(arg0);
+                        var_v0 = gFrameCount & 0x1FF;
+
+                        if (var_v0 == 0) {
+                            func_800BA808(gMsg_ID_2275, 0x50);
+                            var_v0 = gFrameCount & 0x1FF;
+                        }
+
+                        if (var_v0 == 0x100) {
+                            func_800BA808(gMsg_ID_2220, 0x50);
+                        }
+                    }
+                    arg0->obj.rot.x = arg0->obj.rot.z;
+                } else {
+                    arg0->obj.rot.z -= arg0->fwork[12];
+                    if (arg0->obj.rot.z < -60.0f) {
+                        arg0->obj.rot.z = -60.0f;
+                        func_DF4260_80188C7C(arg0);
+                        var_v0 = gFrameCount & 0x1FF;
+
+                        if (var_v0 == 0) {
+                            func_800BA808(gMsg_ID_2275, 0x50);
+                            var_v0 = gFrameCount & 0x1FF;
+                        }
+                        if (var_v0 == 0x100) {
+                            func_800BA808(gMsg_ID_2220, 0x50);
+                        }
+                    }
+                    arg0->obj.rot.x = -arg0->obj.rot.z;
+                }
+                if (arg0->timer_050 == 0) {
+                    s32 temp_v0_3;
+                    
+                    arg0->timer_050 = 0x3C;
+                    temp_v0_3 = func_DF4260_80188750(arg0);
+
+                    if (temp_v0_3 != 0) {
+                        func_DF4260_80187710(D_DF4260_8019B6D8[0x3E], D_DF4260_8019B6D8[0x3F], D_DF4260_8019B6D8[0x40], 65.0f, 270.0f, 0.0f, 0, 0, temp_v0_3);
+                    }
+                }
+
+                arg0->unk_068 = __sinf(arg0->obj.rot.z * 0.017453292f) * 30.0f;
+                if (!(gFrameCount & 0xF)) {
+                    arg0->unk_04C = (s32) (Rand_ZeroOne() * 100.0f);
+                }
+                Animation_GetFrameData(D_602BC18, arg0->unk_04C, sp84);
+                arg0->fwork[14] = 0.03f;
+                break;
+            case 7:
+                if (arg0->swork[32] != 0) {
+                    arg0->fwork[12] += 0.05f;
+                    arg0->obj.rot.x += arg0->fwork[12];
+                    if (arg0->obj.rot.x > 60.0f) {
+                        arg0->obj.rot.x = 60.0f;
+                        func_DF4260_80188C7C(arg0);
+                    }
+                }
+                
+                arg0->swork[24] = arg0->swork[25] = arg0->swork[26] = arg0->swork[27] = arg0->swork[28] = 0;
+                
+                if (arg0->timer_050 == 0xC) {
+                    Object_Kill(&gObjects8C[0].obj, &gObjects8C[0].sfxPos);
+                    func_8007D0E0(D_DF4260_8019B6D8[0x3E], D_DF4260_8019B6D8[0x3F] - 100.0f, D_DF4260_8019B6D8[0x40], 25.0f);
+                }
+                if (arg0->timer_050 == 0xA) {
+                    for (sp218 = 0; sp218 < 50; sp218++) {
+                        if (gObjects8C[sp218].obj.status != 0) {
+                            Object_Kill(&gObjects8C[sp218].obj, &gObjects8C[sp218].sfxPos);
+                        }
+                    }
+                    func_8007A568(D_DF4260_8019B6D8[0x3E], D_DF4260_8019B6D8[0x3F] - 100.0f, D_DF4260_8019B6D8[0x40], 40.0f);
+                    func_8007D0E0(D_DF4260_8019B6D8[0x3E], D_DF4260_8019B6D8[0x3F] - 100.0f, D_DF4260_8019B6D8[0x40], 30.0f);
+                    func_80062B60(D_DF4260_8019B6D8[0x3E], D_DF4260_8019B6D8[0x40], 0, 120.0f);
+                    D_80178480 = 0x19;
+                    D_80161734 = 0;
+                    
+                    for (sp218 = 0; sp218 < 100; sp218++) {
+                        func_80079618(D_DF4260_8019B6D8[0x3E] + ((Rand_ZeroOne() - 0.5f) * 600.0f), (D_DF4260_8019B6D8[0x3F] + ((Rand_ZeroOne() - 0.5f) * 500.0f)) - 100.0f, D_DF4260_8019B6D8[0x40] + ((Rand_ZeroOne() - 0.5f) * 600.0f), 2.0f);
+                    }
+                }
+                if (arg0->timer_050 < 0x32) {
+                    arg0->unk_066 = arg0->timer_050 & 7;
+
+                    switch (arg0->unk_066) {
+                        case 1:
+                            if (arg0->swork[2] != 0x3E8) {
+                                arg0->unk_062 = 1;
+                            }
+                            break;
+                        case 2:
+                            if (arg0->swork[1] != 0x3E8) {
+                                arg0->unk_062 = 1;
+                            }
+                        case 3:
+                            if (arg0->swork[3] != 0x3E8) {
+                                arg0->unk_062 = 1;
+                            }
+                            break;
+                        case 4:
+                            if (arg0->swork[7] != 0x3E8) {
+                                arg0->unk_062 = 1;
+                            }
+                        case 5:
+                            if (arg0->swork[4] != 0x3E8) {
+                                arg0->unk_062 = 1;
+                            }
+                            break;
+                    }
+                }
+                if (arg0->timer_050 == 0) {
+                    Object_Kill(&arg0->obj, &arg0->sfxPos);
+                }
+                Animation_GetFrameData(D_602BC18, 0, sp84);
+                break;
+            default:
+                Animation_GetFrameData(D_602C0D0, arg0->unk_04C, sp84);
+                break;
+        }
+        Math_SmoothStepToF(&arg0->vel.x, sp21C.x, 0.3f, 5.0f, 0.0f);
+        Math_SmoothStepToF(&arg0->vel.z, sp21C.z, 0.3f, 5.0f, 0.0f);
+        func_DF4260_801887AC(arg0);
+        Math_SmoothStepToVec3fArray(sp84, arg0->vwork, 1, 0x13, arg0->fwork[14], 100.0f, 0.0f);
+        Math_SmoothStepToF(&arg0->fwork[14], 1.0f, 1.0f, 0.01f, 0.0f);
+
+        if (arg0->unk_04E < 5) {
+            if (((fabsf(arg0->obj.pos.x) > 4000.0f) || (fabsf(arg0->obj.pos.z) > 4000.0f)) && (arg0->unk_04E != 4)) {
+                arg0->unk_04E = 4;
+                arg0->timer_050 = 0x96;
+                D_DF4260_8019B6D8[0x42] = 0.0f;
+                D_DF4260_8019B6D8[0x43] = 0.0f;
+                arg0->swork[31] = 0;
+            }
+            if ((arg0->unk_04E != 0) && ((arg0->unk_04C == 0) || (arg0->unk_04C == 0x34))) {
+                Audio_PlaySfx(0x29022019U, &arg0->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            }
+            if ((gPlayer->unk_4DC != 0) && (arg0->unk_04E != 0)) {
+                arg0->unk_04E = 0;
+                arg0->swork[31] = 1;
+                arg0->timer_050 = 0x64;
+                arg0->fwork[14] = 0.0f;
+            }
+        }
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_DF4260/DF4260/func_DF4260_80189058.s")
+#endif
 
 s32 func_DF4260_8018A434(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
     Boss* arg4_4 = (Boss*)arg4;
@@ -678,11 +1105,11 @@ void func_DF4260_8018A730(s32 arg0, Vec3f* arg1, void* arg2) {
     }
 }
 
-extern Limb* D_602BE64;
+extern Limb* D_602BE64[];
 
 void func_DF4260_8018AA74(Boss* arg0) {
     Matrix_Translate(gCalcMatrix, 0.0f, 700.0f, 0.0f, (u8) 1);
-    Animation_DrawSkeleton(2, &D_602BE64, arg0->vwork, func_DF4260_8018A434, func_DF4260_8018A730, arg0, gCalcMatrix);
+    Animation_DrawSkeleton(2, D_602BE64, arg0->vwork, func_DF4260_8018A434, func_DF4260_8018A730, arg0, gCalcMatrix);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
 }
@@ -700,8 +1127,6 @@ s32 func_DF4260_8018AB08(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* a
 }
 
 static Vec3f D_DF4260_80199868 = { 0.0f, -10.0f, 0.0f };
-// extern Temp_f32Arr4 D_DF4260_80199874;
-// extern Temp_f32Arr4 D_DF4260_80199884;
 
 s32 func_DF4260_8018AB64(Object_2F4* arg0) {
     s32 pad[2];
@@ -753,8 +1178,8 @@ void func_DF4260_8018ACE0(Object_2F4* arg0) {
     }
 }
 
-extern AnimationHeader D_602991C;
-extern Gfx* D_60329C0;
+extern AnimationHeader D_602991C[];
+extern Gfx D_60329C0[];
 
 void func_DF4260_8018AED0(Object_2F4* arg0) {
     Vec3f sp40[20];
@@ -762,10 +1187,10 @@ void func_DF4260_8018AED0(Object_2F4* arg0) {
     f32 temp_cos;
 
     func_DF4260_8018ACE0(arg0);
-    Math_SmoothStepToVec3fArray(sp40, arg0->vwork, 0, Animation_GetFrameData(&D_602991C, arg0->unk_0B6, sp40), 1.0f, 1.0f, 1.0f);
-    temp_sin = __sinf(arg0->obj.rot.y * 0.017453292f);
+    Math_SmoothStepToVec3fArray(sp40, arg0->vwork, 0, Animation_GetFrameData(D_602991C, arg0->unk_0B6, sp40), 1.0f, 1.0f, 1.0f);
+    temp_sin = __sinf(arg0->obj.rot.y * M_DTOR);
     arg0->vel.x = arg0->fwork[0] * temp_sin;
-    temp_cos = __cosf(arg0->obj.rot.y * 0.017453292f);
+    temp_cos = __cosf(arg0->obj.rot.y * M_DTOR);
     arg0->vel.z = arg0->fwork[0] * temp_cos;
     switch (arg0->unk_0B8) {
         case 0:
@@ -790,7 +1215,7 @@ void func_DF4260_8018AED0(Object_2F4* arg0) {
             if (arg0->unk_0B6 == 50) {
                 gObjects80[arg0->iwork[0] - 1].unk_48 = 1;
             }
-            if (arg0->unk_0B6 >= Animation_GetFrameCount(&D_602991C)) {
+            if (arg0->unk_0B6 >= Animation_GetFrameCount(D_602991C)) {
                 arg0->unk_0B8++;
                 return;
             }
@@ -822,7 +1247,7 @@ void func_DF4260_8018B0B4(Object_2F4* arg0) {
 }
 
 
-extern AnimationHeader D_602AA04;
+extern AnimationHeader D_602AA04[];
 
 void func_DF4260_8018B15C(Object_2F4* arg0) {
     Vec3f sp60[20];
@@ -834,11 +1259,11 @@ void func_DF4260_8018B15C(Object_2F4* arg0) {
 
     func_DF4260_8018ACE0(arg0);
     temp_s1 = &gObjects80[arg0->iwork[0]];
-    temp_sin = __sinf(arg0->obj.rot.y * 0.017453292f);
+    temp_sin = __sinf(arg0->obj.rot.y * M_DTOR);
     arg0->vel.x = arg0->fwork[0] * temp_sin;
-    temp_cos = __cosf(arg0->obj.rot.y * 0.017453292f);
+    temp_cos = __cosf(arg0->obj.rot.y * M_DTOR);
     arg0->vel.z = arg0->fwork[0] * temp_cos;
-    Matrix_RotateY(gCalcMatrix, arg0->obj.rot.y * 0.017453292f, 0);
+    Matrix_RotateY(gCalcMatrix, arg0->obj.rot.y * M_DTOR, 0);
 
     switch (arg0->unk_0B8) {
         case 3:
@@ -860,10 +1285,10 @@ void func_DF4260_8018B15C(Object_2F4* arg0) {
             arg0->fwork[0] = -10.0f;
             Texture_Scroll(&D_60329C0, 16, 16, 1);
             arg0->unk_0B6++;
-            if (arg0->unk_0B6 >= Animation_GetFrameCount(&D_602AA04)) {
+            if (arg0->unk_0B6 >= Animation_GetFrameCount(D_602AA04)) {
                 arg0->unk_0B8 = 3;
             }
-            if (arg0->unk_0B6 == (Animation_GetFrameCount(&D_602AA04) - arg0->iwork[2])) {
+            if (arg0->unk_0B6 == (Animation_GetFrameCount(D_602AA04) - arg0->iwork[2])) {
                 arg0->iwork[1] = 1;
                 temp_s1->unk_48 = 1;
                 sp54.x = 0.0f;
@@ -884,10 +1309,10 @@ void func_DF4260_8018B15C(Object_2F4* arg0) {
         temp_s1->obj.rot.y = arg0->obj.rot.y;
         temp_s1->vel.y = 0.0f;
     }
-    Math_SmoothStepToVec3fArray(sp60, arg0->vwork, 0, Animation_GetFrameData(&D_602AA04, arg0->unk_0B6, sp60), 1.0f, 1.0f, 1.0f);
+    Math_SmoothStepToVec3fArray(sp60, arg0->vwork, 0, Animation_GetFrameData(D_602AA04, arg0->unk_0B6, sp60), 1.0f, 1.0f, 1.0f);
 }
 
-extern AnimationHeader D_602A520;
+extern AnimationHeader D_602A520[];
 
 void func_DF4260_8018B418(Object_2F4* arg0) {
     s32 pad;
@@ -898,9 +1323,9 @@ void func_DF4260_8018B418(Object_2F4* arg0) {
     s32 pad2[4];
 
     func_DF4260_8018ACE0(arg0);
-    temp_sin = __sinf(arg0->obj.rot.y * 0.017453292f);
+    temp_sin = __sinf(arg0->obj.rot.y * M_DTOR);
     arg0->vel.x = arg0->fwork[0] * temp_sin;
-    temp_cos = __cosf(arg0->obj.rot.y * 0.017453292f);
+    temp_cos = __cosf(arg0->obj.rot.y * M_DTOR);
     arg0->vel.z = arg0->fwork[0] * temp_cos;
     switch (arg0->unk_0B8) {
         case 0:
@@ -911,7 +1336,7 @@ void func_DF4260_8018B418(Object_2F4* arg0) {
             arg0->fwork[1] += 5.0f;
             Texture_Scroll(&D_60329C0, 16, 16, 1);
             arg0->unk_0B6++;
-            if (arg0->unk_0B6 >= Animation_GetFrameCount(&D_602A520)) {
+            if (arg0->unk_0B6 >= Animation_GetFrameCount(D_602A520)) {
                 arg0->unk_0B6 = 0;
             }
             break;
@@ -924,12 +1349,8 @@ void func_DF4260_8018B418(Object_2F4* arg0) {
         temp_v0_2->obj.rot.y = arg0->fwork[1];
         temp_v0_2->vel.y = 0.0f;
     }
-    Math_SmoothStepToVec3fArray(sp54, arg0->vwork, 0, Animation_GetFrameData(&D_602A520, arg0->unk_0B6, sp54), 1.0f, 1.0f, 1.0f);
+    Math_SmoothStepToVec3fArray(sp54, arg0->vwork, 0, Animation_GetFrameData(D_602A520, arg0->unk_0B6, sp54), 1.0f, 1.0f, 1.0f);
 }
-
-
-// extern Temp_f32Arr4 D_DF4260_80199894;
-// extern Temp_f32Arr4 D_DF4260_801998A4;
 
 void func_DF4260_8018B58C(Object_2F4* arg0) {
     s32 i;
@@ -979,10 +1400,10 @@ void func_DF4260_8018B58C(Object_2F4* arg0) {
     }
 }
 
-extern Limb* D_6029A48;
+extern Limb* D_6029A48[];
 
 void func_DF4260_8018BAAC(Object_2F4* arg0) {
-    Animation_DrawSkeleton(3, &D_6029A48, arg0->vwork, func_DF4260_8018AB08, NULL, arg0, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_6029A48, arg0->vwork, func_DF4260_8018AB08, NULL, arg0, gCalcMatrix);
 }
 
 static Vec3f D_DF4260_801998B4 = { 120.0f, 0.0f, 0.0f };
@@ -1006,11 +1427,11 @@ void func_DF4260_8018BAFC(s32 arg0, Vec3f* arg1, void* arg2) {
 }
 
 void func_DF4260_8018BBA4(Object_2F4* arg0) {
-    Animation_DrawSkeleton(3, &D_6029A48, arg0->vwork, NULL, func_DF4260_8018BAFC, arg0, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_6029A48, arg0->vwork, NULL, func_DF4260_8018BAFC, arg0, gCalcMatrix);
 }
 
 void func_DF4260_8018BBF8(Object_2F4* arg0) {
-    Animation_DrawSkeleton(3, &D_6029A48, arg0->vwork, func_DF4260_8018AB08, func_DF4260_8018BAFC, arg0, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_6029A48, arg0->vwork, func_DF4260_8018AB08, func_DF4260_8018BAFC, arg0, gCalcMatrix);
 }
 
 s32 func_DF4260_8018BC50(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
@@ -1057,7 +1478,7 @@ void func_DF4260_8018BC84(s32 arg0, Vec3f* arg1, void* arg2) {
 }
 
 void func_DF4260_8018BD7C(Object_2F4* arg0) {
-    Animation_DrawSkeleton(3, &D_6029A48, arg0->vwork, func_DF4260_8018BC50, func_DF4260_8018BC84, arg0, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_6029A48, arg0->vwork, func_DF4260_8018BC50, func_DF4260_8018BC84, arg0, gCalcMatrix);
 }
 
 void func_DF4260_8018BDD4(Boss* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5, s32 arg6) {
@@ -1193,9 +1614,9 @@ void func_DF4260_8018C19C(Boss* arg0) {
     f32* temp_a1;
 
     D_801613A0++;
-    Matrix_RotateY(gCalcMatrix, arg0->obj.rot.y * 0.017453292f, 0);
-    Matrix_RotateX(gCalcMatrix, arg0->obj.rot.x * 0.017453292f, 1);
-    Matrix_RotateZ(gCalcMatrix, arg0->obj.rot.z * 0.017453292f, 1);
+    Matrix_RotateY(gCalcMatrix, arg0->obj.rot.y * M_DTOR, 0);
+    Matrix_RotateX(gCalcMatrix, arg0->obj.rot.x * M_DTOR, 1);
+    Matrix_RotateZ(gCalcMatrix, arg0->obj.rot.z * M_DTOR, 1);
     if (D_DF4260_8019B6D0 == 0) {
         if (arg0->obj.pos.x > 6000.0f) {
             Object_Kill(&arg0->obj, &arg0->sfxPos);
@@ -1712,9 +2133,9 @@ void func_DF4260_8018DDAC(Boss* arg0) {
             arg0->obj.rot.x = gBosses[0].obj.rot.x;
             arg0->obj.rot.y = gBosses[0].obj.rot.y;
             arg0->obj.rot.z = gBosses[0].obj.rot.z;
-            Matrix_RotateY(gCalcMatrix, arg0->obj.rot.y * 0.017453292f, 0);
-            Matrix_RotateX(gCalcMatrix, arg0->obj.rot.x * 0.017453292f, 1);
-            Matrix_RotateZ(gCalcMatrix, arg0->obj.rot.z * 0.017453292f, 1);
+            Matrix_RotateY(gCalcMatrix, arg0->obj.rot.y * M_DTOR, 0);
+            Matrix_RotateX(gCalcMatrix, arg0->obj.rot.x * M_DTOR, 1);
+            Matrix_RotateZ(gCalcMatrix, arg0->obj.rot.z * M_DTOR, 1);
             Matrix_MultVec3f(gCalcMatrix, &D_DF4260_80199A78, &sp40);
             arg0->obj.pos.x = gBosses[0].obj.pos.x + sp40.x;
             arg0->obj.pos.y = gBosses[0].obj.pos.y + sp40.y;
@@ -1722,7 +2143,7 @@ void func_DF4260_8018DDAC(Boss* arg0) {
             arg0->fwork[2] = gBosses[0].fwork[2];
             break;
         case 1:
-            Matrix_RotateZ(gCalcMatrix, arg0->obj.rot.z * 0.017453292f, 0);
+            Matrix_RotateZ(gCalcMatrix, arg0->obj.rot.z * M_DTOR, 0);
             gBosses[0].fwork[15] += 0.5f;
             
             if (!(gFrameCount & 7) && (Rand_ZeroOne() < 0.5f)) {
@@ -1803,9 +2224,9 @@ void func_DF4260_8018E290(Boss* arg0) {
             arg0->obj.rot.x = gBosses[0].obj.rot.x;
             arg0->obj.rot.y = gBosses[0].obj.rot.y;
             arg0->obj.rot.z = gBosses[0].obj.rot.z;
-            Matrix_RotateY(gCalcMatrix, arg0->obj.rot.y * 0.017453292f, 0);
-            Matrix_RotateX(gCalcMatrix, arg0->obj.rot.x * 0.017453292f, 1);
-            Matrix_RotateZ(gCalcMatrix, arg0->obj.rot.z * 0.017453292f, 1);
+            Matrix_RotateY(gCalcMatrix, arg0->obj.rot.y * M_DTOR, 0);
+            Matrix_RotateX(gCalcMatrix, arg0->obj.rot.x * M_DTOR, 1);
+            Matrix_RotateZ(gCalcMatrix, arg0->obj.rot.z * M_DTOR, 1);
             Matrix_MultVec3f(gCalcMatrix, &D_DF4260_80199A90, &sp40);
             arg0->obj.pos.x = gBosses[0].obj.pos.x + sp40.x;
             arg0->obj.pos.y = gBosses[0].obj.pos.y + sp40.y;
@@ -1813,7 +2234,7 @@ void func_DF4260_8018E290(Boss* arg0) {
             arg0->fwork[0] = gBosses[0].fwork[0];
             break;
         case 1:
-            Matrix_RotateZ(gCalcMatrix, arg0->obj.rot.z * 0.017453292f, 0);
+            Matrix_RotateZ(gCalcMatrix, arg0->obj.rot.z * M_DTOR, 0);
             gBosses[0].fwork[15] += 0.5f;
             
             if (!(gFrameCount & 7) && (Rand_ZeroOne() < 0.5f)) {
@@ -1897,9 +2318,9 @@ void func_DF4260_8018E76C(Boss* arg0) {
             arg0->obj.rot.x = gBosses[0].obj.rot.x;
             arg0->obj.rot.y = gBosses[0].obj.rot.y;
             arg0->obj.rot.z = gBosses[0].obj.rot.z;
-            Matrix_RotateY(gCalcMatrix, arg0->obj.rot.y * 0.017453292f, 0);
-            Matrix_RotateX(gCalcMatrix, arg0->obj.rot.x * 0.017453292f, 1);
-            Matrix_RotateZ(gCalcMatrix, arg0->obj.rot.z * 0.017453292f, 1);
+            Matrix_RotateY(gCalcMatrix, arg0->obj.rot.y * M_DTOR, 0);
+            Matrix_RotateX(gCalcMatrix, arg0->obj.rot.x * M_DTOR, 1);
+            Matrix_RotateZ(gCalcMatrix, arg0->obj.rot.z * M_DTOR, 1);
             Matrix_MultVec3f(gCalcMatrix, &D_DF4260_80199AA8, &sp40);
             arg0->obj.pos.x = gBosses[0].obj.pos.x + sp40.x;
             arg0->obj.pos.y = gBosses[0].obj.pos.y + sp40.y;
@@ -1907,7 +2328,7 @@ void func_DF4260_8018E76C(Boss* arg0) {
             arg0->fwork[1] = gBosses[0].fwork[1];
             break;
         case 1:
-            Matrix_RotateZ(gCalcMatrix, arg0->obj.rot.z * 0.017453292f, 0);
+            Matrix_RotateZ(gCalcMatrix, arg0->obj.rot.z * M_DTOR, 0);
             gBosses[0].fwork[15] += 0.5f;
             if (!(gFrameCount & 7) && (Rand_ZeroOne() < 0.5f)) {
                 arg0->timer_05C = 4;
@@ -1942,13 +2363,13 @@ s32 func_DF4260_8018EC54(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* a
     return 0;
 }
 
-extern AnimationHeader D_602D400;
-extern Limb* D_602D5AC;
+extern AnimationHeader D_602D400[];
+extern Limb* D_602D5AC[];
 
 void func_DF4260_8018ECAC(Boss* arg0) {
 
-    Animation_GetFrameData(&D_602D400, 0, arg0->vwork);
-    Animation_DrawSkeleton(1, &D_602D5AC, arg0->vwork, func_DF4260_8018EC54, NULL, &arg0->index, &gIdentityMatrix);
+    Animation_GetFrameData(D_602D400, 0, arg0->vwork);
+    Animation_DrawSkeleton(1, D_602D5AC, arg0->vwork, func_DF4260_8018EC54, NULL, &arg0->index, &gIdentityMatrix);
 }
 
 s32 func_DF4260_8018ED1C(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
@@ -1965,8 +2386,8 @@ void func_DF4260_8018ED78(Boss* arg0) {
 
     Matrix_Translate(gGfxMatrix, -D_DF4260_80199A78.x, -D_DF4260_80199A78.y, 0.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    Animation_GetFrameData(&D_602D400, 0, arg0->vwork);
-    Animation_DrawSkeleton(1, &D_602D5AC, arg0->vwork, func_DF4260_8018ED1C, NULL, &arg0->index, &gIdentityMatrix);
+    Animation_GetFrameData(D_602D400, 0, arg0->vwork);
+    Animation_DrawSkeleton(1, D_602D5AC, arg0->vwork, func_DF4260_8018ED1C, NULL, &arg0->index, &gIdentityMatrix);
 }
 
 s32 func_DF4260_8018EE2C(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
@@ -1983,8 +2404,8 @@ void func_DF4260_8018EE84(Boss* arg0) {
 
     Matrix_Translate(gGfxMatrix, -D_DF4260_80199A90.x, -D_DF4260_80199A90.y, 0.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    Animation_GetFrameData(&D_602D400, 0, arg0->vwork);
-    Animation_DrawSkeleton(1, &D_602D5AC, arg0->vwork, func_DF4260_8018EE2C, NULL, &arg0->index, &gIdentityMatrix);
+    Animation_GetFrameData(D_602D400, 0, arg0->vwork);
+    Animation_DrawSkeleton(1, D_602D5AC, arg0->vwork, func_DF4260_8018EE2C, NULL, &arg0->index, &gIdentityMatrix);
 }
 
 s32 func_DF4260_8018EF38(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
@@ -2001,8 +2422,8 @@ void func_DF4260_8018EF90(Boss* arg0) {
 
     Matrix_Translate(gGfxMatrix, -D_DF4260_80199AA8.x, -D_DF4260_80199AA8.y, 0.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    Animation_GetFrameData(&D_602D400, 0, arg0->vwork);
-    Animation_DrawSkeleton(1, &D_602D5AC, arg0->vwork, func_DF4260_8018EF38, NULL, &arg0->index, &gIdentityMatrix);
+    Animation_GetFrameData(D_602D400, 0, arg0->vwork);
+    Animation_DrawSkeleton(1, D_602D5AC, arg0->vwork, func_DF4260_8018EF38, NULL, &arg0->index, &gIdentityMatrix);
 }
 
 extern UNK_TYPE D_603E924;
@@ -2056,14 +2477,14 @@ s32 func_DF4260_8018F1C8(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* a
     return 0;
 }
 
-extern AnimationHeader D_602AA7C;
-extern Limb* D_602AB48;
+extern AnimationHeader D_602AA7C[];
+extern Limb* D_602AB48[];
 
 void func_DF4260_8018F31C(Object_80* arg0) {
     Vec3f sp28[10];
 
-    Animation_GetFrameData(&D_602AA7C, 0, sp28);
-    Animation_DrawSkeleton(3, &D_602AB48, sp28, func_DF4260_8018F1C8, NULL, arg0, gCalcMatrix);
+    Animation_GetFrameData(D_602AA7C, 0, sp28);
+    Animation_DrawSkeleton(3, D_602AB48, sp28, func_DF4260_8018F1C8, NULL, arg0, gCalcMatrix);
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
 
@@ -2266,9 +2687,9 @@ void func_DF4260_8018F880(Player* player) {
     player->pos.z = player->pos.z;
     player->unk_138 = player->pos.z + player->unk_08C;
     player->unk_088 += 10.0f;
-    player->unk_080 = -__sinf(player->unk_088 * 0.017453292f) * 0.5f;
+    player->unk_080 = -__sinf(player->unk_088 * M_DTOR) * 0.5f;
     player->unk_0F4 += 3.0f;
-    player->unk_0F0 = __sinf(player->unk_0F4 * 0.017453292f) * 1.5f;
+    player->unk_0F0 = __sinf(player->unk_0F4 * M_DTOR) * 1.5f;
     func_DF4260_8018F678();
     player->wings.unk_30 = 0;
 
@@ -2628,7 +3049,7 @@ void func_DF4260_80190F74(Object_2F4* arg0, s32 arg1) {
     Vec3f sp38;
     Player* player = &gPlayer[0];
 
-    Matrix_RotateY(gCalcMatrix, player->unk_0E8 * 0.017453292f, 0);
+    Matrix_RotateY(gCalcMatrix, player->unk_0E8 * M_DTOR, 0);
     sp5C.x = D_DF4260_80199AE4[arg1];
     sp5C.y = D_DF4260_80199AF0[arg1];
     sp5C.z = D_DF4260_80199AFC[arg1];
@@ -2713,7 +3134,7 @@ void func_DF4260_80191160(Player* player) {
             } else {
                 D_80177A48[0]-= 0.5f;
             }
-            Matrix_RotateY(gCalcMatrix, D_80177A48[0]* 0.017453292f, 0);
+            Matrix_RotateY(gCalcMatrix, D_80177A48[0]* M_DTOR, 0);
             sp64.x = 0.0f;
             sp64.y = 0.0f;
             sp64.z = D_80177A48[1];
@@ -2758,9 +3179,9 @@ void func_DF4260_80191160(Player* player) {
             Math_SmoothStepToF(&player->unk_0D0, 0.0f, 0.1f, 2.0f, 0.0f);
             Math_SmoothStepToF(&D_80177A48[2], 0.1f, 1.0f, 0.002f, 0);
             Math_SmoothStepToF(&D_80177A48[3], 0.1f, 1.0f, 0.002f, 0);
-            Matrix_RotateY(gCalcMatrix, player->unk_0E8 * 0.017453292f, 0);
+            Matrix_RotateY(gCalcMatrix, player->unk_0E8 * M_DTOR, 0);
             Matrix_Push(&gCalcMatrix);
-            Matrix_RotateY(gCalcMatrix, D_80177A48[5] * 0.017453292f, 1);
+            Matrix_RotateY(gCalcMatrix, D_80177A48[5] * M_DTOR, 1);
             sp64.x = 0.0f;
             sp64.y = -200.0f;
             sp64.z = 800.0f;
@@ -2897,8 +3318,8 @@ void func_DF4260_80191160(Player* player) {
             }
             break;
     }
-    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + 180.0f) * 0.017453292f, 0);
-    Matrix_RotateX(gCalcMatrix, -((player->unk_0E4 + player->unk_4D8) * 0.017453292f), 1);
+    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + 180.0f) * M_DTOR, 0);
+    Matrix_RotateX(gCalcMatrix, -((player->unk_0E4 + player->unk_4D8) * M_DTOR), 1);
     sp64.x = 0.0f;
     sp64.y = 0.0f;
     sp64.z = player->unk_0D0 + player->unk_110;
@@ -2912,9 +3333,8 @@ void func_DF4260_80191160(Player* player) {
     player->unk_138 = player->pos.z;
     player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
     player->unk_088 += 10.0f;
-    player->unk_080 = -__sinf(player->unk_088 * 0.017453292f) * 0.3f;
+    player->unk_080 = -__sinf(player->unk_088 * M_DTOR) * 0.3f;
     player->unk_0F4 += 8.0f;
-    player->unk_0F0 = __sinf(player->unk_0F4 * 0.017453292f);
+    player->unk_0F0 = __sinf(player->unk_0F4 * M_DTOR);
 }
 
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_DF4260/DF4260/D_DF4260_8019AEF0.s")
