@@ -6,7 +6,7 @@ import struct
 
 def main(argv):
     outputfile = ""
-    opts, args = getopt.getopt(argv,"p:f:o:",["print=","file=","output="])
+    opts, args = getopt.getopt(argv,"pf:o:",["print","file=","output="])
     out = ""
     toFile = False
     toPrint = False
