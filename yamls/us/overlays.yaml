@@ -11,7 +11,7 @@
     - [0xDFEE30, c, DFEE30]
     - [0xE05620, c, E05620]
     - [0xE05990, c, E05990]
-    - [0xE06510, data, DF4260]
+    - [0xE06510, .data, DF4260]
     - [0xE06880, data, DFEE30]
     - [0xE07B90, data, E05990]
     - [0xE07C30, .rodata, DF4260]

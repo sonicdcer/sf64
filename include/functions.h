@@ -106,6 +106,7 @@ void func_8002E670(Object_2F4*);
 void func_8002E694(Object_2F4*);
 void func_8002E6B8(Object_2F4*);
 void func_8002E6DC(Object_2F4*);
+bool func_8002E4F8(u16*, s32);
 void func_8002E700(Player *);
 void func_8002EE64(Object_2F4 * obj2F4);
 void func_8002F180(void);
@@ -131,7 +132,6 @@ void func_80040CE4(void);
 void func_80042D38(void);
 
 // fox_43AC0
-void func_8004319C(Player* player, f32 arg1, f32 arg2, f32 arg3);
 void func_80042EC0(Boss* boss);
 void func_80042FAC(Boss* boss);
 void func_80042FB8(Boss* boss);
@@ -139,6 +139,8 @@ void func_80042FC4(Boss* boss);
 void func_80042FD0(Boss* boss);
 void func_80042FDC(Boss* boss);
 void func_80042FE8(Boss* boss);
+void func_800430DC(f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, s32, s32);
+void func_8004319C(Player* player, f32 arg1, f32 arg2, f32 arg3);
 
 // fox_43E80
 void func_80043468(Player*  player);
@@ -411,6 +413,7 @@ void func_8007E5CC(Object_8C*);
 void func_8007E648(Object_8C*);
 void func_8007E93C(Object_8C *, u16 , f32 , f32 , f32 , f32 );
 void func_8007F04C(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
+void func_8007F11C(s32, f32, f32, f32, f32);
 void func_8007F20C(s32 , f32 , f32 , f32 , f32 );
 void func_8007F438(Object_8C*);
 void func_8007F6B0(Object_8C*);
@@ -425,6 +428,7 @@ void func_8008040C(Object_8C*);
 void func_8008092C(Object_8C*);
 void func_80080ACC(Object_8C*);
 void func_80080D04(Object_8C*);
+void func_80081A8C(f32, f32, f32, f32, s32);
 void func_80081C5C(Object_8C*);
 void func_80082F78(Object_8C*);
 void func_800837EC(Object_8C*);
@@ -450,6 +454,7 @@ void func_800869A0(f32, f32, s32, f32, s32, s32);
 void func_80087530(f32, f32, s32);
 void func_80088564(void);
 void func_8008865C(void);
+s32 func_8008AC54(s32);
 void func_8008AD94(void);
 void func_8008B5B0(f32 x, f32 y);
 s32 func_8008B774(void);

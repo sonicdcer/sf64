@@ -1,13 +1,15 @@
 #include "global.h"
 #include "DF4260.h"
 
+static s32 D_DF4260_801997D0[4] = { 0, 0, 0, 0 };
+
 void func_DF4260_80187520(s32 arg0, void* arg1) {
 }
 
 void func_DF4260_80187530(Object_80* obj80) {
 }
 
-extern Gfx* D_60199D0;
+extern Gfx D_60199D0[];
 
 void func_DF4260_8018753C(Object_80* arg0) {
 
@@ -57,8 +59,6 @@ void func_DF4260_80187710(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
     }
 }
 
-extern void func_8007F11C(s32, f32, f32, f32, f32);
-
 void func_DF4260_801877A0(Boss* arg0, f32 arg1, f32 arg2, f32 arg3) {
     Vec3f sp2C;
     Vec3f sp20;
@@ -88,7 +88,7 @@ void func_DF4260_80187838(s32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4) {
     }
 }
 
-extern f32 D_DF4260_8019B6D8[68];
+extern f32 D_DF4260_8019B6D8[68]; // bss
 
 void func_DF4260_801878D8(Boss* arg0) {
     s32 i;
@@ -132,8 +132,6 @@ f32 func_DF4260_80187A88(s32 arg0) {
     }
     return ret;
 }
-
-extern void func_800430DC(f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, s32, s32); /* extern */
 
 void func_DF4260_80187AC8(Boss* arg0) {
     Object_4C* var_v0_2;
@@ -323,8 +321,6 @@ void func_DF4260_80187AC8(Boss* arg0) {
     }
 }
 
-extern s32 func_8008AC54(s32);
-
 s32 func_DF4260_80188750(Boss* arg0) {
 
     arg0->swork[35]++;
@@ -390,8 +386,6 @@ void func_DF4260_801887AC(Boss* arg0) {
     }
 }
 
-extern void func_8002E4F8(u16*, s32);
-
 void func_DF4260_80188A18(Boss* arg0) {
 
     if (arg0->timer_050 == 0) {
@@ -441,8 +435,6 @@ void func_DF4260_80188A18(Boss* arg0) {
     }
 }
 
-extern void func_80062B60(f32, f32, s32, f32);
-
 void func_DF4260_80188C7C(Boss* arg0) {
 
     if (arg0->unk_044 == 0) {
@@ -461,8 +453,6 @@ void func_DF4260_80188C7C(Boss* arg0) {
     }
 }
 
-void func_DF4260_80188D50(Boss*);
-#ifdef IMPORT_DATA
 // Matching - Requires Data Import
 void func_DF4260_80188D50(Boss* arg0) {
     static s32 D_DF4260_801997E0 = 0;
@@ -471,7 +461,7 @@ void func_DF4260_80188D50(Boss* arg0) {
     Vec3f sp3C;
     s32 temp_ft3;
 
-    if (arg0->unk_0D0 == 0) {
+    if (arg0->swork[38] == 0) {
         if (gPlayer[0].unk_1F4 != 0) {
             D_DF4260_801997E0 = 80;
         }
@@ -479,7 +469,7 @@ void func_DF4260_80188D50(Boss* arg0) {
         if (D_DF4260_801997E0 != 0) {
             D_DF4260_801997E0--;
         } else if ((gPlayer[0].pos.y < 200.0f) && (arg0->unk_04E < 5) && (fabsf(arg0->obj.pos.x - gPlayer[0].pos.x) < 200.0f) && (fabsf(arg0->obj.pos.z - gPlayer[0].unk_138) < 200.0f) && (gPlayer[0].unk_4D8 > 180.0f)) {
-            arg0->unk_0D0++;
+            arg0->swork[38]++;
             D_DF4260_801997E0 = 20;
             Audio_PlaySfx(0x49008025, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             if ((gTeamShields[1] > 0) || (gTeamShields[2] > 0) || (gTeamShields[3] > 0)) {
@@ -523,24 +513,19 @@ void func_DF4260_80188D50(Boss* arg0) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_DF4260/DF4260/func_DF4260_80188D50.s")
-#endif
 
-extern AnimationHeader D_602BC18;
-extern AnimationHeader D_602C0D0;
-extern Vec3f D_DF4260_801997E4;
-extern Vec3f D_DF4260_801997F0;
-extern Vec3f D_DF4260_801997FC;
-extern Vec3f D_DF4260_80199808;
+extern AnimationHeader D_602BC18[];
+extern AnimationHeader D_602C0D0[];
 
-extern f32 D_DF4260_8019B714;
-extern f32 D_DF4260_8019B718;
+static Vec3f D_DF4260_801997E4 = { 0.0f, 0.0f, 0.0f };
+static Vec3f D_DF4260_801997F0 = { 0.0f, 0.0f, 5.0f };
+static Vec3f D_DF4260_801997FC = { 0.0f, 0.0f, 40.0f };
+static Vec3f D_DF4260_80199808 = { 0.0f, 0.0f, -30.0f };
+
+extern f32 D_DF4260_8019B714; // bss
+extern f32 D_DF4260_8019B718; // bss
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_DF4260/DF4260/func_DF4260_80189058.s")
-
-extern f32 D_DF4260_8019B714;
-extern f32 D_DF4260_8019B718;
 
 s32 func_DF4260_8018A434(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
     Boss* arg4_4 = (Boss*)arg4;
@@ -605,13 +590,13 @@ s32 func_DF4260_8018A434(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* a
     return 0;
 }
 
-extern Vec3f D_DF4260_80199814;
-extern Vec3f D_DF4260_80199820;
-extern Vec3f D_DF4260_8019982C;
-extern Vec3f D_DF4260_80199838;
-extern Vec3f D_DF4260_80199844;
-extern Vec3f D_DF4260_80199850;
-extern Vec3f D_DF4260_8019985C;
+static Vec3f D_DF4260_80199814 = { 0.0f, 0.0f, 0.0f };
+static Vec3f D_DF4260_80199820 = { 75.0f, 0.0f, 0.0f };
+static Vec3f D_DF4260_8019982C = { 190.0f, 0.0f, 0.0f };
+static Vec3f D_DF4260_80199838 = { 96.0f, 34.0f, 0.0f };
+static Vec3f D_DF4260_80199844 = { 70.0f, 170.0f, 11.0f };
+static Vec3f D_DF4260_80199850 = { 70.0f, -170.0f, 11.0f };
+static Vec3f D_DF4260_8019985C = { 64.0f, 0.0f, -236.0f };
 
 void func_DF4260_8018A730(s32 arg0, Vec3f* arg1, void* arg2) {
     s32 pad;
@@ -696,7 +681,7 @@ extern Limb* D_602BE64;
 
 void func_DF4260_8018AA74(Boss* arg0) {
     Matrix_Translate(gCalcMatrix, 0.0f, 700.0f, 0.0f, (u8) 1);
-    Animation_DrawSkeleton(2, &D_602BE64, arg0->vwork, func_DF4260_8018A434, func_DF4260_8018A730, &arg0->obj, gCalcMatrix);
+    Animation_DrawSkeleton(2, &D_602BE64, arg0->vwork, func_DF4260_8018A434, func_DF4260_8018A730, arg0, gCalcMatrix);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
 }
@@ -713,27 +698,23 @@ s32 func_DF4260_8018AB08(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* a
     return 0;
 }
 
-extern Vec3f D_DF4260_80199868;
-extern Temp_f32Arr4 D_DF4260_80199874;
-extern Temp_f32Arr4 D_DF4260_80199884;
+static Vec3f D_DF4260_80199868 = { 0.0f, -10.0f, 0.0f };
+// extern Temp_f32Arr4 D_DF4260_80199874;
+// extern Temp_f32Arr4 D_DF4260_80199884;
 
 s32 func_DF4260_8018AB64(Object_2F4* arg0) {
     s32 pad[2];
     s32 i;
     s32 temp_v0;
     Vec3f sp7C;
-    Vec3f sp70;
-    Temp_f32Arr4 sp60;
-    Temp_f32Arr4 sp50;
-
-    sp70 = D_DF4260_80199868;
-    sp60 = D_DF4260_80199874;
-    sp50 = D_DF4260_80199884;
+    Vec3f sp70 = D_DF4260_80199868;
+    f32 sp60[4] = { 130.0f, -130.0f, 0.0f, 0.0f };
+    f32 sp50[4] = { 0.0f, 0.0f, 130.0f, -130.0f };
 
     for (i = 0; i < 4; i++) {
-        sp7C.x = sp60.arr[i] + arg0->obj.pos.x;
+        sp7C.x = sp60[i] + arg0->obj.pos.x;
         sp7C.y = arg0->obj.pos.y;
-        sp7C.z = sp50.arr[i] + arg0->obj.pos.z;
+        sp7C.z = sp50[i] + arg0->obj.pos.z;
         temp_v0 = func_8006351C(arg0->index, &sp7C, &sp70, 1);
         if ((temp_v0 != 0) && (temp_v0 >= 10)) {
             if ((gObjects80[temp_v0 - 10].obj.status == 2) && (gObjects80[temp_v0 - 10].obj.id == OBJ_80_40)) {
@@ -946,16 +927,13 @@ void func_DF4260_8018B418(Object_2F4* arg0) {
 }
 
 
-extern Temp_f32Arr4 D_DF4260_80199894;
-extern Temp_f32Arr4 D_DF4260_801998A4;
+// extern Temp_f32Arr4 D_DF4260_80199894;
+// extern Temp_f32Arr4 D_DF4260_801998A4;
 
 void func_DF4260_8018B58C(Object_2F4* arg0) {
     s32 i;
-    Temp_f32Arr4 spB4;
-    Temp_f32Arr4 spA4;
-
-    spB4 = D_DF4260_80199894;
-    spA4 = D_DF4260_801998A4;
+    f32 spB4[4] = { -10.0f, -5.0f, 10.0f, 5.0f };
+    f32 spA4[4] = { 10.0f, 15.0f, 10.0f, 15.0f };
     
     Math_SmoothStepToF(&arg0->vel.x, 0.0f, 0.05f, 1.0f, 0.0001f);
     Math_SmoothStepToF(&arg0->vel.y, 0.0f, 0.05f, 1.0f, 0.0001f);
@@ -974,7 +952,7 @@ void func_DF4260_8018B58C(Object_2F4* arg0) {
 
                 for (i = 0; i < 4; i++) {
 
-                    func_800430DC(arg0->fwork[2 + i], arg0->fwork[6 + i], arg0->fwork[10 + i], 0.0f, 0.0f, 0.0f, spB4.arr[i] * ((Rand_ZeroOne() * 0.75f) + 0.5f), spA4.arr[i] * ((Rand_ZeroOne() * 0.75f) + 0.5f), (Rand_ZeroOne() - 0.5f) * 20.0f, 3.0f, i + 0x18, ((s32) (Rand_ZeroOne() * 30.0f) + 60.0f));
+                    func_800430DC(arg0->fwork[2 + i], arg0->fwork[6 + i], arg0->fwork[10 + i], 0.0f, 0.0f, 0.0f, spB4[i] * ((Rand_ZeroOne() * 0.75f) + 0.5f), spA4[i] * ((Rand_ZeroOne() * 0.75f) + 0.5f), (Rand_ZeroOne() - 0.5f) * 20.0f, 3.0f, i + 0x18, ((s32) (Rand_ZeroOne() * 30.0f) + 60.0f));
 
                 }
                 
@@ -1006,7 +984,7 @@ void func_DF4260_8018BAAC(Object_2F4* arg0) {
     Animation_DrawSkeleton(3, &D_6029A48, arg0->vwork, func_DF4260_8018AB08, NULL, arg0, gCalcMatrix);
 }
 
-extern Vec3f D_DF4260_801998B4;
+static Vec3f D_DF4260_801998B4 = { 120.0f, 0.0f, 0.0f };
 
 void func_DF4260_8018BAFC(s32 arg0, Vec3f* arg1, void* arg2) {
     Object_2F4* arg2_2 = (Object_2F4*) arg2;
@@ -1043,7 +1021,7 @@ s32 func_DF4260_8018BC50(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* a
     return false;
 }
 
-extern Vec3f D_DF4260_801998C0;
+static Vec3f D_DF4260_801998C0 = { 0.0f, 0.0f, 0.0f };
 
 void func_DF4260_8018BC84(s32 arg0, Vec3f* arg1, void* arg2) {
     Object_2F4* arg2_2 = (Object_2F4*)arg2;
@@ -1093,7 +1071,7 @@ void func_DF4260_8018BDD4(Boss* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s3
     func_DF4260_80187710(arg0->obj.pos.x + arg1, arg0->obj.pos.y + arg2, arg0->obj.pos.z + arg3, arg4, arg0->obj.rot.x, arg0->obj.rot.y, arg5, arg6, var_v1);
 }
 
-extern u8 D_DF4260_8019B6D0;
+extern u8 D_DF4260_8019B6D0; // bss
 
 void func_DF4260_8018BE7C(Boss* arg0_2) {
     s32 i;
@@ -1148,25 +1126,54 @@ void func_DF4260_8018C0B0(Boss* arg0) {
     func_8007ADF4(arg0->obj.pos.x, D_80177940, arg0->obj.pos.z, 1.0f, 10.0f);
 }
 
-extern void func_8004319C(Player*, f32, f32, f32);
-extern void func_80081A8C(f32, f32, f32, f32, s32);
+static Vec3f D_DF4260_801998CC = { 442.0f, 5.0f, 360.0f };
+static Vec3f D_DF4260_801998D8 = { -439.0f, 180.0f, 323.0f };
+static Vec3f D_DF4260_801998E4 = { -439.0f, -180.0f, 323.0f };
+static Vec3f D_DF4260_801998F0[2] = {
+    { 0.0f, 50.0f, 473.0f },
+    { 300.0f, 70.0f, 200.0f },
+};
+static Vec3f D_DF4260_80199908 = { 230.0f, 30.0f, -200.0f };
+static Vec3f D_DF4260_80199914[2] = {
+    { 434.0f, -74.0f, -580.0f },
+    { -438.0f, -277.0f, -750.0f },
+};
+static Vec3f D_DF4260_8019992C = { -438.0f, 275.0f, -750.0f };
+static Vec3f D_DF4260_80199938 = { -426.0f, 147.0f, 2.0f };
+static Vec3f D_DF4260_80199944 = { -437.0f, -135.0f, 2.0f };
+static Vec3f D_DF4260_80199950 = { -250.0f, 30.0f, -200.0f };
+static Vec3f D_DF4260_8019995C[20] = {
+    { 67.0f, 44.0f, 377.0f },
+    { -146.0f, 24.0f, 376.0f },
+    { -88.0f, 85.0f, -15.0f },
+    { 105.0f, 89.0f, -169.0f },
+    { -107.0f, -36.0f, 367.0f },
+    { 110.0f, -39.0f, 286.0f },
+    { -126.0f, -93.0f, 221.0f },
+    { 88.0f, -94.0f, 155.0f },
+    { 126.0f, -179.0f, -101.0f },
+    { -94.0f, -151.0f, 29.0f },
+    { 105.0f, -140.0f, 2.0f },
+    { -18.0f, -101.0f, 77.0f },
+    { -60.0f, -151.0f, 29.0f },
+    { -132.0f, 9.0f, 430.0f },
+    { 52.0f, 29.0f, 431.0f },
+    { -23.0f, 68.0f, 325.0f },
+    { 116.0f, 34.0f, 368.0f },
+    { -49.0f, -53.0f, 366.0f },
+    { 113.0f, -62.0f, 255.0f },
+    { -114.0f, -88.0f, 182.0f }
+};
 
-extern s32 D_80000024;//UNK_TYPE
-extern Vec3f D_DF4260_801998CC;
-extern Vec3f D_DF4260_801998D8;
-extern Vec3f D_DF4260_801998E4;
-extern Vec3f D_DF4260_801998F0;
-extern Vec3f D_DF4260_80199908;
-extern Vec3f D_DF4260_80199914;
-extern Vec3f D_DF4260_8019992C;
-extern Vec3f D_DF4260_80199938;
-extern Vec3f D_DF4260_80199944;
-extern Vec3f D_DF4260_80199950;
-extern Vec3f D_DF4260_8019995C[20];
-extern s32 D_DF4260_80199A4C[];
-extern f32 D_DF4260_80199A5C[];
-extern u8 D_DF4260_8019B6D0;
-extern Vec3f func_80199920;
+static s32 D_DF4260_80199A4C[4] = {
+    150, 200, 150, 200
+};
+
+static f32 D_DF4260_80199A5C[4] = {
+    -225.0f, 0.0f, 225.0f, 0.0f
+};
+
+extern u8 D_DF4260_8019B6D0; // bss
 
 void func_DF4260_8018C19C(Boss* arg0) {
     // todo: figure out vec3f stack
@@ -1205,8 +1212,8 @@ void func_DF4260_8018C19C(Boss* arg0) {
         arg0->vel.z = sp6C.z - D_80177D08;
         arg0->fwork[16] = 4.0f;
         if (!(gFrameCount & 1)) {
-            Matrix_MultVec3f(gCalcMatrix, &D_DF4260_80199914, &sp84[6]);
-            Matrix_MultVec3f(gCalcMatrix, &func_80199920, &sp84[7]);
+            Matrix_MultVec3f(gCalcMatrix, &D_DF4260_80199914[0], &sp84[6]);
+            Matrix_MultVec3f(gCalcMatrix, &D_DF4260_80199914[1], &sp84[7]);
             Matrix_MultVec3f(gCalcMatrix, &D_DF4260_8019992C, &sp84[8]);
             func_8007BC7C(sp84[6].x + arg0->obj.pos.x, sp84[6].y + arg0->obj.pos.y, sp84[6].z + arg0->obj.pos.z, 20.0f);
             func_8007BC7C(sp84[7].x + arg0->obj.pos.x, sp84[7].y + arg0->obj.pos.y, sp84[7].z + arg0->obj.pos.z, 10.0f);
@@ -1304,8 +1311,8 @@ void func_DF4260_8018C19C(Boss* arg0) {
         }
 
         if (((arg0->unk_04E == 1) || (arg0->unk_04E == 2)) && !(gFrameCount & 7)) {
-            Matrix_MultVec3f(gCalcMatrix, &D_DF4260_80199914, &sp84[6]);
-            Matrix_MultVec3f(gCalcMatrix, &func_80199920, &sp84[7]);
+            Matrix_MultVec3f(gCalcMatrix, &D_DF4260_80199914[0], &sp84[6]);
+            Matrix_MultVec3f(gCalcMatrix, &D_DF4260_80199914[1], &sp84[7]);
             Matrix_MultVec3f(gCalcMatrix, &D_DF4260_8019992C, &sp84[8]);
             func_8007BC7C(sp84[6].x + arg0->obj.pos.x, sp84[6].y + arg0->obj.pos.y, sp84[6].z + arg0->obj.pos.z, 20.0f);
             func_8007BC7C(sp84[7].x + arg0->obj.pos.x, sp84[7].y + arg0->obj.pos.y, sp84[7].z + arg0->obj.pos.z, 10.0f);
@@ -1389,7 +1396,7 @@ void func_DF4260_8018C19C(Boss* arg0) {
                     arg0->swork[5] &= 3;
                 } else if ((arg0->fwork[2] > 60.0f) && (arg0->timer_054 == 0)) {
                     arg0->timer_054 = 20;
-                    func_DF4260_8018BDD4(&arg0->obj, sp84[0].x, sp84[0].y, sp84[0].z, 30.0f, 0, 1);
+                    func_DF4260_8018BDD4(arg0, sp84[0].x, sp84[0].y, sp84[0].z, 30.0f, 0, 1);
                 }
                 break;
             case 5:
@@ -1397,15 +1404,15 @@ void func_DF4260_8018C19C(Boss* arg0) {
                 arg0->fwork[10] = 120.0f;
                 arg0->fwork[13] = 20.0f;
                 if ((arg0->fwork[0] > 60.0f) && (gBosses[2].unk_04E == 0) && (arg0->swork[1] == 0)) {
-                    func_DF4260_8018BDD4(&arg0->obj, sp84[1].x, sp84[1].y + 50.0f, sp84[1].z, 45.0f, 0, 0);
+                    func_DF4260_8018BDD4(arg0, sp84[1].x, sp84[1].y + 50.0f, sp84[1].z, 45.0f, 0, 0);
                     Audio_PlaySfx(0x2903201B, &arg0->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-                    func_DF4260_8018BDD4(&arg0->obj, sp84[1].x, sp84[1].y - 50.0f, sp84[1].z, 40.0f, 0, 0);
+                    func_DF4260_8018BDD4(arg0, sp84[1].x, sp84[1].y - 50.0f, sp84[1].z, 40.0f, 0, 0);
                     arg0->swork[1] = 1;
                 }
                 if ((arg0->fwork[1] > 60.0f) && (gBosses[3].unk_04E == 0) && (arg0->swork[2] == 0)) {
-                    func_DF4260_8018BDD4(&arg0->obj, sp84[2].x, sp84[2].y + 50.0f, sp84[2].z, 35.0f, 0, 0);
+                    func_DF4260_8018BDD4(arg0, sp84[2].x, sp84[2].y + 50.0f, sp84[2].z, 35.0f, 0, 0);
                     Audio_PlaySfx(0x2903201B, &arg0->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-                    func_DF4260_8018BDD4(&arg0->obj, sp84[2].x, sp84[2].y - 50.0f, sp84[2].z, 30.0f, 0, 0);
+                    func_DF4260_8018BDD4(arg0, sp84[2].x, sp84[2].y - 50.0f, sp84[2].z, 30.0f, 0, 0);
                     arg0->swork[2] = 1;
                 }
                 if ((arg0->timer_050 == 0) || ((gBosses[3].unk_04E != 0) && (gBosses[2].unk_04E != 0))) {
@@ -1471,7 +1478,7 @@ void func_DF4260_8018C19C(Boss* arg0) {
                         if (!(gFrameCount & 7)) {
                             if (fabsf(arg0->obj.pos.z - gPlayer[0].unk_138) > 700.0f) {
                                 
-                                Matrix_MultVec3f(gCalcMatrix, &D_DF4260_801998F0, &sp84[3]);
+                                Matrix_MultVec3f(gCalcMatrix, &D_DF4260_801998F0[0], &sp84[3]);
                                 obj_8c = gObjects8C;
                                 for (i = 0; i < 100; i++, obj_8c++) {
                                     if (obj_8c->obj.status == 0) {
@@ -1596,7 +1603,7 @@ void func_DF4260_8018C19C(Boss* arg0) {
                     arg0->vel.y = -10.0f;
                     arg0->gravity = 0.0f;
                     arg0->fwork[17] = 20.0f;
-                    func_DF4260_8018C0B0(&arg0->obj);
+                    func_DF4260_8018C0B0(arg0);
                     arg0->unk_04E = 10;
                 }
                 break;
@@ -1650,8 +1657,9 @@ void func_DF4260_8018C19C(Boss* arg0) {
     }
 }
 
-extern Vec3f D_DF4260_80199A6C;
-extern Vec3f D_DF4260_80199A78;
+static Vec3f D_DF4260_80199A6C = { -270.0f, 0.0f, 200.0f };
+static Vec3f D_DF4260_80199A78 = { 440.0f, 0.0f, 0.0f };
+
 
 void func_DF4260_8018DDAC(Boss* arg0) {
     Vec3f sp4C;
@@ -1730,7 +1738,7 @@ void func_DF4260_8018DDAC(Boss* arg0) {
                     arg0->vel.y = -5.0f;
                     arg0->swork[0] = 1;
                     arg0->gravity = 0.0f;
-                    func_DF4260_8018C0B0(&arg0->obj);
+                    func_DF4260_8018C0B0(arg0);
                     Audio_PlaySfx(0x19000014, &arg0->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 }
             } else {
@@ -1741,8 +1749,9 @@ void func_DF4260_8018DDAC(Boss* arg0) {
     }
 }
 
-extern Vec3f D_DF4260_80199A84;
-extern Vec3f D_DF4260_80199A90;
+static Vec3f D_DF4260_80199A84 = { 20.0f, -90.0f, 0.0f };
+
+static Vec3f D_DF4260_80199A90 = { -440.0f, 210.0f, 0.0f };
 
 void func_DF4260_8018E290(Boss* arg0) {
     Vec3f sp4C;
@@ -1820,7 +1829,7 @@ void func_DF4260_8018E290(Boss* arg0) {
                     arg0->vel.y = -5.0f;
                     arg0->swork[0] = 1;
                     arg0->gravity = 0.0f;
-                    func_DF4260_8018C0B0(&arg0->obj);
+                    func_DF4260_8018C0B0(arg0);
                     Audio_PlaySfx(0x19000014, &arg0->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 }
             } else {
@@ -1831,8 +1840,9 @@ void func_DF4260_8018E290(Boss* arg0) {
     }
 }
 
-extern Vec3f D_DF4260_80199A9C;
-extern Vec3f D_DF4260_80199AA8;
+static Vec3f D_DF4260_80199A9C = { 20.0f, 90.0f, 0.0f };
+
+static Vec3f D_DF4260_80199AA8 = { -440.0f, -210.0f, 0.0f };
 
 void func_DF4260_8018E76C(Boss* arg0) {
     Vec3f sp4C;
@@ -1910,7 +1920,7 @@ void func_DF4260_8018E76C(Boss* arg0) {
                     arg0->vel.y = -5.0f;
                     arg0->swork[0] = 1;
                     arg0->gravity = 0.0f;
-                    func_DF4260_8018C0B0(&arg0->obj);
+                    func_DF4260_8018C0B0(arg0);
                     Audio_PlaySfx(0x19000014, &arg0->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 }
             } else {
@@ -2124,10 +2134,21 @@ void func_DF4260_8018F678(void) {
     }
 }
 
-extern f32 D_DF4260_80199AB4[3];
-extern f32 D_DF4260_80199AC0[3];
-extern f32 D_DF4260_80199ACC[3];
-extern f32 D_DF4260_80199AD8[3];
+static f32 D_DF4260_80199AB4[3] = {
+    180.0f, -180.0f, 0.0f
+};
+
+static f32 D_DF4260_80199AC0[3] = {
+    200.0f, 140.0f, 200.0f
+};
+
+static f32 D_DF4260_80199ACC[3] = {
+    160.0f, 160.0f, 320.0f
+};
+
+static f32 D_DF4260_80199AD8[3] = {
+    -60.0f, 60.0f, -45.0f
+};
 
 void func_DF4260_8018F6F8(Object_2F4* arg0, s32 arg1) {
 
@@ -2571,13 +2592,33 @@ void func_DF4260_8018F880(Player* player) {
     obj_2f4_1->obj.pos.y -= 3.0f;
 }
 
-extern f32 D_DF4260_80199AE4[3];
-extern f32 D_DF4260_80199AF0[3];
-extern f32 D_DF4260_80199AFC[3];
-extern f32 D_DF4260_80199B08[3];
-extern f32 D_DF4260_80199B14[3];
-extern f32 D_DF4260_80199B20[3];
-extern f32 D_DF4260_80199B2C[3];
+static f32 D_DF4260_80199AE4[3] = {
+    -1500.0f, 700.0f, 0.0f
+};
+
+static f32 D_DF4260_80199AF0[3] = {
+    -300.0f, 400.0f, 500.0f
+};
+
+static f32 D_DF4260_80199AFC[3] = {
+    500.0f, 800.0f, 1200.0f
+};
+
+static f32 D_DF4260_80199B08[3] = {
+    -150.0f, 150.0f, 0.0f
+};
+
+static f32 D_DF4260_80199B14[3] = {
+    0.0f, 0.0f, 0.0f
+};
+
+static f32 D_DF4260_80199B20[3] = {
+    200.0f, 200.0f, 400.0f
+};
+
+static f32 D_DF4260_80199B2C[3] = {
+    180.0f, -120.0f, 180.0f
+};
 
 void func_DF4260_80190F74(Object_2F4* arg0, s32 arg1) {
     Vec3f sp5C;
@@ -2595,7 +2636,7 @@ void func_DF4260_80190F74(Object_2F4* arg0, s32 arg1) {
     sp44.z = D_DF4260_80199B20[arg1];
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp5C, &sp50);
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
-    Object_2F4_Initialize((Object_2F4* ) arg0);
+    Object_2F4_Initialize(arg0);
     arg0->obj.pos.x = player->pos.x + sp50.x;
     arg0->obj.pos.y = player->pos.y + sp50.y;
     arg0->obj.pos.z = player->pos.z + sp50.z;
@@ -2615,9 +2656,9 @@ void func_DF4260_80190F74(Object_2F4* arg0, s32 arg1) {
     Audio_PlaySfx(0x3100000C, &arg0->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-extern f32 D_DF4260_8019B7D0;
-extern f32 D_DF4260_8019B7D4;
-extern f32 D_DF4260_8019B7D8;
+extern f32 D_DF4260_8019B7D0; // bss
+extern f32 D_DF4260_8019B7D4; // bss
+extern f32 D_DF4260_8019B7D8; // bss
 
 void func_DF4260_80191160(Player* player) {
     Vec3f sp64;
@@ -2875,4 +2916,6 @@ void func_DF4260_80191160(Player* player) {
     player->unk_0F0 = __sinf(player->unk_0F4 * 0.017453292f);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_DF4260/DF4260/D_DF4260_8019AEF0.s")
+// char D_DF4260_8019AEF0[] = "Enms[1].obj.mode %d\n";
+
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_DF4260/DF4260/D_DF4260_8019AEF0.s")
