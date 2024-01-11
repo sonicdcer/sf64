@@ -3138,119 +3138,113 @@ void func_80081BEC(f32 posX, f32 posY, f32 posZ, f32 scale2, s32 arg4) {
     }
 }
 
-#ifdef NON_EQUIVALENT
-// Scratch: https://decomp.me/scratch/e9ulx
 void func_80081C5C(Object_8C* obj8C) {
     f32 sp84;
     f32 posXDiff;
     f32 posYDiff;
     f32 posZDiff;
-    f32 sp74;
-    f32 sp70;
-    f32 sp6C;
-    s32 sp68;
-    f32 sp64;
+    f32 xRotDeg;
+    f32 yRotDeg;
+    f32 posYOut;
+    s32 unusedOut;
     Vec3f velocity;
-    Vec3f sp50;
-    f32 temp_ft4;
-    f32 temp_fv1_3;
+    Vec3f velocityDest;
 
     velocity.x = obj8C->vel.x;
     velocity.y = obj8C->vel.y;
     velocity.z = obj8C->vel.z;
 
-    //! FAKE: Probably used to print out some debug information based on the value of unk_4E.
-    if ((obj8C->unk_4E != 0) && (obj8C->unk_4E != 6) && (obj8C->unk_4E != 7) && (obj8C->unk_4E != 11)) {
-        if (obj8C->unk_4A && obj8C->unk_4A) {}
+    //! FAKE: Probably some debug stuff printing different messages depending on what unk_4E is.
+    if ((((obj8C->unk_4E != 0) && (obj8C->unk_4E != 6)) && (obj8C->unk_4E != 7)) && (obj8C->unk_4E != 11)) {
+        if (gCurrentLevel) {}
     }
-    if ((obj8C->unk_4E != 1) && (obj8C->unk_4E != 2) && (obj8C->unk_4E != 4) && (obj8C->unk_4E != 5) &&
-        (obj8C->unk_4E != 7)) {
-        if (obj8C->unk_4A && !obj8C->scale2) {}
+    if (((((obj8C->unk_4E != 1) && (obj8C->unk_4E != 2)) && (obj8C->unk_4E != 4)) && (obj8C->unk_4E != 5) &&
+         (obj8C->unk_4E != 8) && (obj8C->unk_4E != 9))) {
+        if (gCurrentLevel) {}
     }
 
     switch (obj8C->unk_4E) {
         case 0:
             if (obj8C->timer_50 == 0) {
                 Object_Kill(&obj8C->obj, &obj8C->sfxPos);
-            } else {
-                if (!(gFrameCount & 1)) {
-                    func_8007C484(((Rand_ZeroOne() - 0.5f) * 50.0f) + obj8C->obj.pos.x,
-                                  ((Rand_ZeroOne() - 0.5f) * 50.0f) + obj8C->obj.pos.y,
-                                  ((Rand_ZeroOne() - 0.5f) * 50.0f) + obj8C->obj.pos.z, obj8C->vel.x, obj8C->vel.y,
-                                  obj8C->vel.z, (Rand_ZeroOne() * 0.05f) + 0.05f, 0);
-                }
-                if (func_8006351C(obj8C->index, &obj8C->obj.pos, &velocity, 1) != 0) {
-                    func_8007B344(obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z, 3.0f, 7);
-                    Object_Kill(&obj8C->obj, &obj8C->sfxPos);
-                }
-                sp84 = 50.0f;
+                break;
             }
+            if (!(gFrameCount & 1)) {
+                func_8007C484(((Rand_ZeroOne() - 0.5f) * 50.0f) + obj8C->obj.pos.x,
+                              ((Rand_ZeroOne() - 0.5f) * 50.0f) + obj8C->obj.pos.y,
+                              ((Rand_ZeroOne() - 0.5f) * 50.0f) + obj8C->obj.pos.z, obj8C->vel.x, obj8C->vel.y,
+                              obj8C->vel.z, (Rand_ZeroOne() * 0.05f) + 0.05f, 0);
+            }
+            if (func_8006351C(obj8C->index, &obj8C->obj.pos, &velocity, 1) != 0) {
+                func_8007B344(obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z, 3.0f, 7);
+                Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+            }
+            sp84 = 50.0f;
             break;
         case 1:
             if (obj8C->timer_50 == 0) {
                 Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+                break;
+            }
+            obj8C->unk_60.z += 10.0f;
+            obj8C->vel.z = 5.0f;
+            if (!(gFrameCount & 7)) {
+                obj8C->unk_44 += 1;
+                obj8C->unk_44 &= 1;
+            }
+            if (obj8C->unk_44 == 0) {
+                Math_SmoothStepToF(&obj8C->scale2, 0.2f, 0.01f, 0.02f, 0.0f);
             } else {
-                obj8C->unk_60.z += 10.0f;
-                obj8C->vel.z = 5.0f;
-                if (!(gFrameCount & 7)) {
-                    obj8C->unk_44 += 1;
-                    obj8C->unk_44 &= 1;
-                }
-                if (obj8C->unk_44 == 0) {
-                    Math_SmoothStepToF(&obj8C->scale2, 0.2f, 0.01f, 0.02f, 0.0f);
-                } else {
-                    Math_SmoothStepToF(&obj8C->scale2, 0.5f, 0.01f, 0.02f, 0.0f);
-                }
-                if (func_8006351C(obj8C->index, &obj8C->obj.pos, &velocity, 1) != 0) {
-                    Object_Kill(&obj8C->obj, &obj8C->sfxPos);
-                    func_8007D0E0(obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z, 1.0f);
-                }
+                Math_SmoothStepToF(&obj8C->scale2, 0.5f, 0.01f, 0.02f, 0.0f);
+            }
+            if (func_8006351C(obj8C->index, &obj8C->obj.pos, &velocity, 1) != 0) {
+                Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+                func_8007D0E0(obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z, 1.0f);
             }
             break;
         case 2:
             if (obj8C->timer_50 == 0) {
                 Object_Kill(&obj8C->obj, &obj8C->sfxPos);
-            } else {
-                switch (obj8C->unk_44) {
-                    case 1:
-                    case 2:
-                        break;
-                    case 0:
-                        Math_SmoothStepToF(&obj8C->scale2, 1.0f, 0.1f, 5.0f, 0.0001f);
-                        if (obj8C->scale2 >= 1.0f) {
-                            obj8C->unk_44 += 1;
-                        }
-                        break;
-                    case 3:
-                        Math_SmoothStepToF(&obj8C->scale2, 0.0f, 0.1f, 10.0f, 0.0001f);
-                        if (obj8C->scale2 < 0.3f) {
-                            Object_Kill(&obj8C->obj, &obj8C->sfxPos);
-                        }
-                        break;
-                }
-                if (!(gFrameCount & 3)) {
-                    func_8007C120(((Rand_ZeroOne() - 0.5f) * obj8C->scale2 * 50.0f) + obj8C->obj.pos.x,
-                                  ((Rand_ZeroOne() - 0.5f) * obj8C->scale2 * 50.0f) + obj8C->obj.pos.y,
-                                  ((Rand_ZeroOne() - 0.5f) * obj8C->scale2 * 50.0f) + obj8C->obj.pos.z, obj8C->vel.x,
-                                  obj8C->vel.y, obj8C->vel.z, (Rand_ZeroOne() * 0.03f) + 0.05f, 0xA);
-                }
-                if (func_8006351C(obj8C->index, &obj8C->obj.pos, &velocity, 1) != 0) {
-                    func_8007B344(obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z, 3.0f, 7);
-                    Object_Kill(&obj8C->obj, &obj8C->sfxPos);
-                }
-                sp84 = 50.0f;
+                break;
             }
+            switch (obj8C->unk_44) {
+                case 1:
+                case 2:
+                    break;
+                case 0:
+                    Math_SmoothStepToF(&obj8C->scale2, 1.0f, 0.1f, 5.0f, 0.0001f);
+                    if (obj8C->scale2 >= 1.0f) {
+                        obj8C->unk_44 += 1;
+                    }
+                    break;
+                case 3:
+                    Math_SmoothStepToF(&obj8C->scale2, 0.0f, 0.1f, 10.0f, 0.0001f);
+                    if (obj8C->scale2 < 0.3f) {
+                        Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+                    }
+                    break;
+            }
+
+            if (!(gFrameCount & 3)) {
+                func_8007C120((((Rand_ZeroOne() - 0.5f) * obj8C->scale2) * 50.0f) + obj8C->obj.pos.x,
+                              (((Rand_ZeroOne() - 0.5f) * obj8C->scale2) * 50.0f) + obj8C->obj.pos.y,
+                              (((Rand_ZeroOne() - 0.5f) * obj8C->scale2) * 50.0f) + obj8C->obj.pos.z, obj8C->vel.x,
+                              obj8C->vel.y, obj8C->vel.z, (Rand_ZeroOne() * 0.03f) + 0.05f, 10);
+            }
+            if (func_8006351C(obj8C->index, &obj8C->obj.pos, &velocity, 1) != 0) {
+                func_8007B344(obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z, 3.0f, 7);
+                Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+            }
+            sp84 = 50.0f;
             break;
         case 3:
             obj8C->info.unk_19 = 2;
             if (obj8C->unk_44 != 0) {
                 Object_Kill(&obj8C->obj, &obj8C->sfxPos);
                 func_8007D0E0(obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z, 5.0f);
-            } else {
-                if (fabsf(gPlayer->unk_138 - obj8C->obj.pos.z) < 1000.0f) {
-                    func_8006F0D8(obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z, 15.0f);
-                    Object_Kill(&obj8C->obj, &obj8C->sfxPos);
-                }
+            } else if (fabsf(gPlayer->unk_138 - obj8C->obj.pos.z) < 1000.0f) {
+                func_8006F0D8(obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z, 15.0f);
+                Object_Kill(&obj8C->obj, &obj8C->sfxPos);
             }
             sp84 = 50.0f;
             break;
@@ -3282,8 +3276,8 @@ void func_80081C5C(Object_8C* obj8C) {
             }
             break;
         case 7:
-            if (gCurrentLevel != LEVEL_ZONESS) {
-                if (gCurrentLevel == LEVEL_AQUAS) {
+            switch (gCurrentLevel) {
+                case LEVEL_AQUAS:
                     if (!(gFrameCount & 3)) {
                         func_80081A8C(obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z, obj8C->scale2, 6);
                     }
@@ -3294,72 +3288,70 @@ void func_80081C5C(Object_8C* obj8C) {
                     if ((obj8C->timer_50 == 0) || (obj8C->obj.pos.y < D_80177940)) {
                         Object_Kill(&obj8C->obj, &obj8C->sfxPos);
                     }
-                }
-            } else {
-                if (!(gFrameCount & 3)) {
-                    func_80081A8C(obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z, obj8C->scale2 * 3.0f, 6);
-                }
-                obj8C->obj.rot.x += obj8C->unk_60.x;
-                obj8C->obj.rot.y += obj8C->unk_60.y;
-                obj8C->obj.rot.z += obj8C->unk_60.z;
-                obj8C->vel.y -= 1.0f;
-                if ((func_800A73E4(&sp6C, &sp68, obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z) != 0) ||
-                    (obj8C->timer_50 == 0)) {
-                    func_8007B228(obj8C->obj.pos.x, sp6C, obj8C->obj.pos.z, obj8C->scale2);
-                    Object_Kill(&obj8C->obj, &obj8C->sfxPos);
-                }
+                    break;
+
+                case LEVEL_ZONESS:
+                    if (!(gFrameCount & 3)) {
+                        func_80081A8C(obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z, obj8C->scale2 * 3.0f, 6);
+                    }
+                    obj8C->obj.rot.x += obj8C->unk_60.x;
+                    obj8C->obj.rot.y += obj8C->unk_60.y;
+                    obj8C->obj.rot.z += obj8C->unk_60.z;
+                    obj8C->vel.y -= 1.0f;
+                    if ((func_800A73E4(&posYOut, &unusedOut, obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z) != 0) ||
+                        (obj8C->timer_50 == 0)) {
+                        func_8007B228(obj8C->obj.pos.x, posYOut, obj8C->obj.pos.z, obj8C->scale2);
+                        Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+                    }
+                    break;
             }
             break;
         case 8:
             Math_SmoothStepToF(D_801779A8, 30.0f, 1.0f, 5.0f, 0.0f);
             Matrix_RotateY(gCalcMatrix, gBosses->obj.rot.y * M_DTOR, 0);
             Matrix_RotateX(gCalcMatrix, gBosses->obj.rot.x * M_DTOR, 1);
-            velocity.x = velocity.y = 0.0f;
+            velocity.y = 0.0f;
+            velocity.x = 0;
             velocity.z = 250.0f;
             if (obj8C->unk_44 > 0) {
-                sp64 = 2000.0f;
+                velocity.z = 2000.0f;
             }
-            Matrix_MultVec3fNoTranslate(gCalcMatrix, &velocity, &sp50);
-            obj8C->obj.pos.x = gBosses->obj.pos.x + sp50.x;
-            obj8C->obj.pos.y = gBosses->obj.pos.y + sp50.y;
-            obj8C->obj.pos.z = gBosses->obj.pos.z + sp50.z;
+            Matrix_MultVec3fNoTranslate(gCalcMatrix, &velocity, &velocityDest);
+            obj8C->obj.pos.x = gBosses[0].obj.pos.x + velocityDest.x;
+            obj8C->obj.pos.y = gBosses[0].obj.pos.y + velocityDest.y;
+            obj8C->obj.pos.z = gBosses[0].obj.pos.z + velocityDest.z;
             switch (obj8C->unk_44) {
                 case 0:
                     func_80081BEC(obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z, 1.0f, 9);
                     Math_SmoothStepToF(&obj8C->scale2, 6.0f, 0.01f, 0.05f, 0.00001f);
                     if (obj8C->scale2 >= 5.0f) {
-                        gObjects8C[ARRAY_COUNT(gObjects8C) - 2].obj.status = 0;
-                        gObjects8C[ARRAY_COUNT(gObjects8C) - 1].obj.status = 0;
+                        gObjects8C[ARRAY_COUNT(gObjects8C) - 1].obj.status =
+                            (gObjects8C[ARRAY_COUNT(gObjects8C) - 2].obj.status = 0);
                         func_80081BEC(obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z, 1.0f, 10);
-                        D_80178354 = 0xFF;
-                        D_80178350 = 0xFF;
-                        D_80178348 = 0xFF;
-                        D_80178358 = 0xFF;
-                        D_80178340 = 0xFF;
+                        D_80178348 = (D_80178350 = (D_80178354 = 0xFF));
+                        D_80178340 = (D_80178358 = 0xFF);
                         D_80178358 = 0;
                         D_8017835C = 25;
                         obj8C->timer_50 = 10;
                         D_800D18EC = 0.0f;
-                        D_800D18E8 = 0.0f;
-                        gBosses->timer_050 = 150;
-                        gBosses->unk_04E = 6;
+                        D_800D18E8 = 0.f;
+                        gBosses[0].timer_050 = 150;
+                        gBosses[0].unk_04E = 6;
                         obj8C->unk_44++;
                     }
                     break;
+
                 case 1:
                     Math_SmoothStepToF(&obj8C->scale2, 8.0f, 0.1f, 1.0f, 0.00001f);
                     if (obj8C->timer_50 == 0) {
                         if (D_80178340 != 0) {
-                            D_80178348 = D_80178350 = D_80178354 = D_80178340 = 0;
-                            // D_80178350 = 0;
-                            // D_80178340 = 0;
-                            // D_80178354 = 0;
-                            // D_80178348 = 0;
+                            D_80178348 = (D_80178350 = (D_80178354 = (D_80178340 = 0)));
                         }
                         obj8C->timer_50 = gBosses->timer_050;
                         obj8C->unk_44++;
                     }
                     break;
+
                 case 2:
                     if (obj8C->timer_50 == 0) {
                         Math_SmoothStepToF(&obj8C->scale2, 0.0f, 1.0f, 10.0f, 0.00001f);
@@ -3373,18 +3365,18 @@ void func_80081C5C(Object_8C* obj8C) {
             }
             break;
         case 9:
-            posXDiff = gBosses->obj.pos.x - obj8C->obj.pos.x;
-            posYDiff = gBosses->obj.pos.y - obj8C->obj.pos.y;
-            posZDiff = gBosses->obj.pos.z - obj8C->obj.pos.z;
-            sp70 = Math_RadToDeg(Math_Atan2F(posXDiff, posZDiff));
-            sp74 = Math_RadToDeg(-Math_Atan2F(posYDiff, sqrtf(SQ(posXDiff) + SQ(posZDiff))));
-            Matrix_RotateY(gCalcMatrix, sp70 * M_DTOR, 0);
-            Matrix_RotateX(gCalcMatrix, sp74 * M_DTOR, 1);
+            posXDiff = gBosses[0].obj.pos.x - obj8C->obj.pos.x;
+            posYDiff = gBosses[0].obj.pos.y - obj8C->obj.pos.y;
+            posZDiff = gBosses[0].obj.pos.z - obj8C->obj.pos.z;
+            yRotDeg = Math_RadToDeg(Math_Atan2F(posXDiff, posZDiff));
+            xRotDeg = Math_RadToDeg(-Math_Atan2F(posYDiff, sqrtf((posXDiff * posXDiff) + (posZDiff * posZDiff))));
+            Matrix_RotateY(gCalcMatrix, M_DTOR * yRotDeg, 0);
+            Matrix_RotateX(gCalcMatrix, M_DTOR * xRotDeg, 1);
             velocity.x = velocity.y = 0.0f;
             velocity.z = 20.0f;
-            Matrix_MultVec3fNoTranslate(gCalcMatrix, &velocity, &sp50);
-            obj8C->vel.x = sp50.x;
-            obj8C->vel.y = sp50.y;
+            Matrix_MultVec3fNoTranslate(gCalcMatrix, &velocity, &velocityDest);
+            obj8C->vel.x = velocityDest.x;
+            obj8C->vel.y = velocityDest.y;
             obj8C->vel.z = -50.0f;
             obj8C->unk_44++;
             Math_SmoothStepToF(&obj8C->scale1, 255.0f, 1.0f, 20.0f, 0.0f);
@@ -3399,34 +3391,29 @@ void func_80081C5C(Object_8C* obj8C) {
                 case 0:
                     D_801779A8[0] = 50.0f;
                     if (obj8C->unk_46 == 10) {
-                        D_80178350 = 0xFF;
-                        D_80178354 = 0xFF;
-                        D_80178348 = 0xFF;
-                        D_80178358 = 0xFF;
-                        D_80178340 = 0xFF;
+                        D_80178348 = D_80178350 = D_80178354 = 0xFF;
+                        D_80178340 = D_80178358 = 0xFF;
                         D_80178358 = 0;
                         D_8017835C = 25;
                         D_80178480 = 50;
                     }
                     if (obj8C->unk_46 == 0) {
-                        D_80178340 = 0;
-                        D_80178354 = 0;
-                        D_80178350 = 0;
-                        D_80178348 = 0;
+                        D_80178348 = (D_80178350 = (D_80178354 = (D_80178340 = 0)));
                         obj8C->unk_46 = 50;
                     }
                     if (obj8C->unk_46 != 0) {
                         obj8C->unk_46 -= 1;
                     }
-                    if (!(gFrameCount & 0xF) && (obj8C->timer_50 == 0)) {
+                    if ((!(gFrameCount & 0xF)) && (obj8C->timer_50 == 0)) {
                         D_800D18EC = (Math_Atan2F(gPlayer->camEye.x - gBosses->obj.pos.x,
                                                   gPlayer->camEye.z - (gBosses->obj.pos.z + D_80177D20)) *
                                       180.0f) /
                                      M_PI;
-                        temp_fv1_3 = gPlayer->camEye.x - gBosses->obj.pos.x;
-                        temp_ft4 = gPlayer->camEye.z - (gBosses->obj.pos.z + D_80177D20);
-                        D_800D18E8 = (-Math_Atan2F(gPlayer->camEye.y - gBosses->obj.pos.y,
-                                                   sqrtf(SQ(temp_fv1_3) + SQ(temp_ft4))) *
+                        D_800D18E8 = ((-Math_Atan2F(gPlayer->camEye.y - gBosses->obj.pos.y,
+                                                    sqrtf(((gPlayer->camEye.x - gBosses->obj.pos.x) *
+                                                           (gPlayer->camEye.x - gBosses->obj.pos.x)) +
+                                                          ((gPlayer->camEye.z - (gBosses->obj.pos.z + D_80177D20)) *
+                                                           (gPlayer->camEye.z - (gBosses->obj.pos.z + D_80177D20)))))) *
                                       180.0f) /
                                      M_PI;
                     }
@@ -3439,6 +3426,7 @@ void func_80081C5C(Object_8C* obj8C) {
                     Math_SmoothStepToF(D_801779A8, 20.0f, 1.0f, 5.0f, 0.0f);
                     break;
             }
+
             obj8C->info.unk_14 = 0;
             Math_SmoothStepToAngle(&gBosses->obj.rot.x, D_800D18E8, 0.1f, 1.0f, 0.00001f);
             Math_SmoothStepToAngle(&gBosses->obj.rot.y, D_800D18EC, 0.1f, 1.0f, 0.00001f);
@@ -3449,10 +3437,10 @@ void func_80081C5C(Object_8C* obj8C) {
             Matrix_RotateX(gCalcMatrix, gBosses->obj.rot.x * M_DTOR, 1);
             velocity.x = velocity.y = 0.0f;
             velocity.z = 250.0f;
-            Matrix_MultVec3fNoTranslate(gCalcMatrix, &velocity, &sp50);
-            obj8C->obj.pos.x = gBosses->obj.pos.x + sp50.x;
-            obj8C->obj.pos.y = gBosses->obj.pos.y + sp50.y;
-            obj8C->obj.pos.z = gBosses->obj.pos.z + sp50.z;
+            Matrix_MultVec3fNoTranslate(gCalcMatrix, &velocity, &velocityDest);
+            obj8C->obj.pos.x = gBosses->obj.pos.x + velocityDest.x;
+            obj8C->obj.pos.y = gBosses->obj.pos.y + velocityDest.y;
+            obj8C->obj.pos.z = gBosses->obj.pos.z + velocityDest.z;
             if (obj8C->unk_44 == 0) {
                 Math_SmoothStepToF(&obj8C->unk_60.x, 5.0f, 0.1f, 1.0f, 0.00001f);
                 Math_SmoothStepToF(&obj8C->unk_60.y, 5.0f, 0.1f, 1.0f, 0.00001f);
@@ -3460,10 +3448,10 @@ void func_80081C5C(Object_8C* obj8C) {
             }
             velocity.x = velocity.y = 0.0f;
             velocity.z = fabsf(gPlayer->unk_138 - obj8C->obj.pos.z);
-            Matrix_MultVec3fNoTranslate(gCalcMatrix, &velocity, &sp50);
-            if ((obj8C->timer_50 == 0) &&
-                (fabsf(gPlayer->pos.x - (obj8C->obj.pos.x + sp50.x)) <= (obj8C->unk_60.x * 50.0f)) &&
-                (fabsf(gPlayer->pos.y - (obj8C->obj.pos.y + sp50.y)) <= (obj8C->unk_60.y * 50.0f)) &&
+            Matrix_MultVec3fNoTranslate(gCalcMatrix, &velocity, &velocityDest);
+            if ((((obj8C->timer_50 == 0) &&
+                  (fabsf(gPlayer->pos.x - (obj8C->obj.pos.x + velocityDest.x)) <= (obj8C->unk_60.x * 50.0f))) &&
+                 (fabsf(gPlayer->pos.y - (obj8C->obj.pos.y + velocityDest.y)) <= (obj8C->unk_60.y * 50.0f))) &&
                 (gPlayer->timer_498 == 0)) {
                 Player_ApplyDamage(gPlayer, 0, 40);
             }
@@ -3471,7 +3459,7 @@ void func_80081C5C(Object_8C* obj8C) {
         case 11:
             obj8C->obj.rot.z += 20.0f;
             obj8C->vel.y -= 2.0f;
-            if (obj8C->vel.y < -20.0f) {
+            if (obj8C->vel.y < (-20.0f)) {
                 obj8C->vel.y = -20.0f;
             }
             Math_SmoothStepToF(&obj8C->scale1, 0.0f, 0.1f, 100.0f, 0.00001f);
@@ -3483,6 +3471,7 @@ void func_80081C5C(Object_8C* obj8C) {
             func_8007A28C(obj8C);
             break;
     }
+
     if ((obj8C->unk_4E == 2) && (obj8C->unk_44 == 2)) {
         func_8007FE88(obj8C);
     }
@@ -3490,9 +3479,6 @@ void func_80081C5C(Object_8C* obj8C) {
         func_8007A774(gPlayer, obj8C, sp84);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80081C5C.s")
-#endif
 
 void func_80082F78(Object_8C* obj8C) {
     //! FAKE: Probably some debug stuff printing different messages depending on what unk_4E is.
