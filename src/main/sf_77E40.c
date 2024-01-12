@@ -5,10 +5,6 @@
 const char D_800D7230[] = "Enm->wrk3=<%d>\n";
 const char D_800D7240[] = "a=<%d>\n";
 const char D_800D7248[] = "a=<%d>\n";
-const char D_800D7250[] = "ＺＯ＿ＭＯＶＥ ＨＥＬＰ %d\n";
-const char D_800D726C[] = "ＡＣ＿ＭＯＶＥ ＨＥＬＰ %d\n";
-const char D_800D7288[] = "ＺＯ＿ＤＩＳＰ ＨＥＬＰ %d\n";
-const char D_800D72A4[] = "ＡＣ＿ＤＩＳＰ ＨＥＬＰ %d\n";
 
 extern Gfx D_1003130[];
 extern Gfx D_1015320[];
@@ -3272,12 +3268,14 @@ void func_80081C5C(Object_8C* obj8C) {
     velocity.z = obj8C->vel.z;
 
     //! FAKE: Probably some debug stuff printing different messages depending on what unk_4E is.
-    if ((((obj8C->unk_4E != 0) && (obj8C->unk_4E != 6)) && (obj8C->unk_4E != 7)) && (obj8C->unk_4E != 11)) {
+    if (obj8C->unk_4E != 0 && obj8C->unk_4E != 6 && obj8C->unk_4E != 7 && obj8C->unk_4E != 11) {
         if (gCurrentLevel) {}
+        PRINTF("ＺＯ＿ＭＯＶＥ ＨＥＬＰ %d\n");
     }
-    if (((((obj8C->unk_4E != 1) && (obj8C->unk_4E != 2)) && (obj8C->unk_4E != 4)) && (obj8C->unk_4E != 5) &&
-         (obj8C->unk_4E != 8) && (obj8C->unk_4E != 9))) {
+    if (obj8C->unk_4E != 1 && obj8C->unk_4E != 2 && obj8C->unk_4E != 4 && obj8C->unk_4E != 5 && obj8C->unk_4E != 8 &&
+        obj8C->unk_4E != 9) {
         if (gCurrentLevel) {}
+        PRINTF("ＡＣ＿ＭＯＶＥ ＨＥＬＰ %d\n");
     }
 
     switch (obj8C->unk_4E) {
@@ -3600,12 +3598,13 @@ void func_80081C5C(Object_8C* obj8C) {
 
 void func_80082F78(Object_8C* obj8C) {
     //! FAKE: Probably some debug stuff printing different messages depending on what unk_4E is.
-    if ((obj8C->unk_4E != 0) && (obj8C->unk_4E != 6)) {
+    if (obj8C->unk_4E != 0 && obj8C->unk_4E != 6) {
         if (obj8C->unk_4A && obj8C->unk_4A) {}
+        PRINTF("ＺＯ＿ＤＩＳＰ ＨＥＬＰ %d\n");
     }
-    if ((obj8C->unk_4E != 1) && (obj8C->unk_4E != 2) && (obj8C->unk_4E != 4) && (obj8C->unk_4E != 5) &&
-        (obj8C->unk_4E != 7)) {
+    if (obj8C->unk_4E != 1 && obj8C->unk_4E != 2 && obj8C->unk_4E != 4 && obj8C->unk_4E != 5 && obj8C->unk_4E != 7) {
         if (obj8C->unk_4A && !obj8C->scale2) {}
+        PRINTF("ＡＣ＿ＤＩＳＰ ＨＥＬＰ %d\n");
     }
 
     switch (obj8C->unk_4E) {
