@@ -4,7 +4,9 @@
  * Description: Starfox Map Handler
  */
 
-//#include "prevent_bss_reordering2.h"
+#include "mods.h"
+
+// #include "prevent_bss_reordering2.h"
 #include "global.h"
 #include "fox_map.h"
 #include "sf64level.h"
@@ -41,7 +43,7 @@ s32 D_EBFBE0_801CD944; // mapState
 s32 D_EBFBE0_801CD948;
 s32 D_EBFBE0_801CD94C;
 s32 D_EBFBE0_801CD950;
-s32 D_EBFBE0_801CD954; // sCurrentPlanetId
+s32 sCurrentPlanetId; // sCurrentPlanetId
 s32 D_EBFBE0_801CD958;
 s32 D_EBFBE0_801CD95C;
 s32 D_EBFBE0_801CD960;
@@ -215,7 +217,7 @@ extern s32 D_EBFBE0_801CD944; // mapState
 extern s32 D_EBFBE0_801CD948;
 extern s32 D_EBFBE0_801CD94C;
 extern s32 D_EBFBE0_801CD950;
-extern s32 D_EBFBE0_801CD954; // sCurrentPlanetId
+extern s32 sCurrentPlanetId; // sCurrentPlanetId
 extern s32 D_EBFBE0_801CD958;
 extern s32 D_EBFBE0_801CD95C;
 extern s32 D_EBFBE0_801CD960;
@@ -419,7 +421,7 @@ Planet planet[PLANET_MAX] = {
 };
 
 // unused
-PlanetId D_EBFBE0_801AF7E8[] = {
+PlanetId sPlanetList[] = {
     PLANET_CORNERIA, PLANET_METEO,  PLANET_TITANIA, PLANET_SECTOR_X, PLANET_AQUAS,
     PLANET_BOLSE,    PLANET_VENOM,  PLANET_FORTUNA, PLANET_AREA_6,   PLANET_MACBETH,
     PLANET_SECTOR_Z, PLANET_ZONESS, PLANET_KATINA,  PLANET_SECTOR_Y, PLANET_SOLAR,
@@ -1533,9 +1535,9 @@ void func_EBFBE0_8019F164(void) {
 
     D_EBFBE0_801CD93C = D_80177930;
 
-    D_EBFBE0_801CD954 = GetPlanetId(gCurrentLevel);
+    sCurrentPlanetId = GetPlanetId(gCurrentLevel);
 
-    D_EBFBE0_801CD950 = D_EBFBE0_801CD954;
+    D_EBFBE0_801CD950 = sCurrentPlanetId;
 
     D_EBFBE0_801CD980 = func_EBFBE0_8019FD1C(gCurrentLevel, 0);
 
@@ -1543,7 +1545,7 @@ void func_EBFBE0_8019F164(void) {
 
     if (D_800D3180[gCurrentLevel] == 2) {
         D_EBFBE0_801CD98C = 1;
-        D_80177BB0[D_80177B48] = 1;
+        D_80177BB0[gCurrentPlanet] = 1;
         func_EBFBE0_8019FD1C(gCurrentLevel, 1);
     }
 
@@ -1557,19 +1559,19 @@ void func_EBFBE0_8019F164(void) {
 
     switch (D_EBFBE0_801CD93C) {
         case 0:
-            D_EBFBE0_801CD958 = planet[D_EBFBE0_801CD954].unk_2C;
+            D_EBFBE0_801CD958 = planet[sCurrentPlanetId].unk_2C;
             break;
 
         case 1:
-            D_EBFBE0_801CD958 = planet[D_EBFBE0_801CD954].unk_30;
+            D_EBFBE0_801CD958 = planet[sCurrentPlanetId].unk_30;
             break;
 
         case 2:
-            D_EBFBE0_801CD958 = planet[D_EBFBE0_801CD954].unk_34;
+            D_EBFBE0_801CD958 = planet[sCurrentPlanetId].unk_34;
             break;
     }
 
-    D_80177B48++;
+    gCurrentPlanet++;
 
     func_EBFBE0_8019FC04();
 
@@ -1600,9 +1602,9 @@ void func_EBFBE0_8019F42C(void) {
     gLifeCount[gPlayerNum] = 0;
 
     D_EBFBE0_801CD974 = 1;
-    D_EBFBE0_801CD954 = GetPlanetId(gCurrentLevel);
+    sCurrentPlanetId = GetPlanetId(gCurrentLevel);
 
-    D_80177B70[D_80177B48] = gHitCount;
+    D_80177B70[gCurrentPlanet] = gHitCount;
 
     func_EBFBE0_8019F910();
     func_EBFBE0_8019FD1C(gCurrentLevel, 0);
@@ -1613,8 +1615,8 @@ void func_EBFBE0_8019F42C(void) {
         D_EBFBE0_801CD8E0[i] = 0;
     }
 
-    if (D_80177B48 != 0) {
-        for (i = 0; i < D_80177B48; i++) {
+    if (gCurrentPlanet != 0) {
+        for (i = 0; i < gCurrentPlanet; i++) {
             D_EBFBE0_801CD8E0[i] = func_EBFBE0_801A655C(D_80177B90[i], D_80177B90[i + 1]);
         }
     }
@@ -1688,17 +1690,17 @@ void func_EBFBE0_8019F600(void) {
         D_EBFBE0_801AFD18[i].unk_18 = 255;
     }
 
-    D_80177B48 = 0;
+    gCurrentPlanet = 0;
     gCurrentLevel = 0;
 
-    D_EBFBE0_801CD954 = 9;
+    sCurrentPlanetId = 9;
     D_EBFBE0_801CEA9C = 0.0f;
     D_EBFBE0_801CD9B0 = 0.002f;
     D_EBFBE0_801CD9B4 = 0.01f;
     D_EBFBE0_801CD944 = 0;
 
-    sp18 = func_EBFBE0_801A655C(D_EBFBE0_801CD954, planet[D_EBFBE0_801CD954].unk_2C);
-    temp_t4 = func_EBFBE0_801A655C(D_EBFBE0_801CD954, planet[D_EBFBE0_801CD954].unk_30);
+    sp18 = func_EBFBE0_801A655C(sCurrentPlanetId, planet[sCurrentPlanetId].unk_2C);
+    temp_t4 = func_EBFBE0_801A655C(sCurrentPlanetId, planet[sCurrentPlanetId].unk_30);
     D_80177BD8[sp18] = 1;
     D_80177BD8[temp_t4] = 1;
 }
@@ -1728,28 +1730,28 @@ void func_EBFBE0_8019F910(void) {
 
     for (i = 0; i < 3; i++) {
         if (gTeamShields[3 - i] <= 0) {
-            D_80177B50[D_80177B48] ^= mask;
+            D_80177B50[gCurrentPlanet] ^= mask;
         } else {
-            D_80177B50[D_80177B48] |= mask;
+            D_80177B50[gCurrentPlanet] |= mask;
         }
         mask >>= 8;
     }
 }
 
 void func_EBFBE0_8019F97C(void) {
-    D_EBFBE0_801CEA54 = func_EBFBE0_801A25C8(D_EBFBE0_801CD954);
+    D_EBFBE0_801CEA54 = func_EBFBE0_801A25C8(sCurrentPlanetId);
 
-    D_EBFBE0_801CD9F4 = D_EBFBE0_801CDA00 = planet[D_EBFBE0_801CD954].posX;
-    D_EBFBE0_801CD9F8 = D_EBFBE0_801CDA04 = planet[D_EBFBE0_801CD954].posY;
-    D_EBFBE0_801CDA08 = planet[D_EBFBE0_801CD954].posZ;
-    D_EBFBE0_801CD9FC = planet[D_EBFBE0_801CD954].posZ + D_EBFBE0_801CEA54;
+    D_EBFBE0_801CD9F4 = D_EBFBE0_801CDA00 = planet[sCurrentPlanetId].posX;
+    D_EBFBE0_801CD9F8 = D_EBFBE0_801CDA04 = planet[sCurrentPlanetId].posY;
+    D_EBFBE0_801CDA08 = planet[sCurrentPlanetId].posZ;
+    D_EBFBE0_801CD9FC = planet[sCurrentPlanetId].posZ + D_EBFBE0_801CEA54;
 }
 
 void func_EBFBE0_8019FA1C(void) {
     PlanetId planetId;
 
     for (planetId = 0; planetId < PLANET_MAX; planetId++) {
-        if (planetId == D_EBFBE0_801CD954) {
+        if (planetId == sCurrentPlanetId) {
             if ((planetId == PLANET_SECTOR_Z) || (planetId == PLANET_SECTOR_X) || (planetId == PLANET_SECTOR_Y)) {
                 planet[planetId].alpha = 144;
             } else {
@@ -1764,7 +1766,7 @@ void func_EBFBE0_8019FA1C(void) {
 void func_EBFBE0_8019FC04(void) {
     s32 i;
 
-    if (D_80177B48 != 0) {
+    if (gCurrentPlanet != 0) {
         D_EBFBE0_801CEB48[1] = 1;
         D_EBFBE0_801CEB48[2] = 1;
     }
@@ -1952,6 +1954,9 @@ void func_EBFBE0_8019FF48(void) {
                       D_EBFBE0_801CDA08);
     }
     gFrameCount++;
+#if MODS_LEVEL_SELECT == true
+    Map_LevelSelect();
+#endif
 }
 
 void func_EBFBE0_801A01A8(void) {
@@ -2469,14 +2474,14 @@ void func_EBFBE0_801A1AE8(void) {
 
     D_EBFBE0_801CEA64 = 0.04f;
 
-    D_EBFBE0_801CEA54 = func_EBFBE0_801A25C8(D_EBFBE0_801CD954);
+    D_EBFBE0_801CEA54 = func_EBFBE0_801A25C8(sCurrentPlanetId);
 
-    D_EBFBE0_801CDA40.x = planet[D_EBFBE0_801CD954].posX;
-    D_EBFBE0_801CDA40.y = planet[D_EBFBE0_801CD954].posY;
-    D_EBFBE0_801CDA40.z = planet[D_EBFBE0_801CD954].posZ;
+    D_EBFBE0_801CDA40.x = planet[sCurrentPlanetId].posX;
+    D_EBFBE0_801CDA40.y = planet[sCurrentPlanetId].posY;
+    D_EBFBE0_801CDA40.z = planet[sCurrentPlanetId].posZ;
 
-    D_EBFBE0_801CDA50.x = planet[D_EBFBE0_801CD954].posX;
-    D_EBFBE0_801CDA50.y = planet[D_EBFBE0_801CD954].posY;
+    D_EBFBE0_801CDA50.x = planet[sCurrentPlanetId].posX;
+    D_EBFBE0_801CDA50.y = planet[sCurrentPlanetId].posY;
     D_EBFBE0_801CDA50.z = D_EBFBE0_801CDA40.z + D_EBFBE0_801CEA54;
 
     D_EBFBE0_801CDA2C = D_EBFBE0_801CDA00;
@@ -2516,7 +2521,7 @@ void func_EBFBE0_801A1C14(void) {
             D_EBFBE0_801CD95C = 10;
             D_EBFBE0_801CD97C = 0;
 
-            if (D_EBFBE0_801CD954 == PLANET_CORNERIA) {
+            if (sCurrentPlanetId == PLANET_CORNERIA) {
                 D_EBFBE0_801CD95C = 5;
             }
 
@@ -2540,7 +2545,7 @@ void func_EBFBE0_801A1C14(void) {
 
         case 1:
             if (D_EBFBE0_801CD95C == 0) {
-                if (D_EBFBE0_801CD954 == PLANET_CORNERIA) {
+                if (sCurrentPlanetId == PLANET_CORNERIA) {
                     D_80178340 = 0;
                     D_EBFBE0_801CD948 = 10;
                     Audio_PlaySfx(0x0940A00BU, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -2549,7 +2554,7 @@ void func_EBFBE0_801A1C14(void) {
                     D_EBFBE0_801CD948++;
                 }
             } else {
-                if (D_EBFBE0_801CD954 == PLANET_CORNERIA) {
+                if (sCurrentPlanetId == PLANET_CORNERIA) {
                     D_80178340 ^= 0xFF;
                     if (D_EBFBE0_801CD95C == 2) {
                         D_EBFBE0_801CEB34 = 0;
@@ -2571,7 +2576,7 @@ void func_EBFBE0_801A1C14(void) {
             if ((D_EBFBE0_801CD9FC == D_EBFBE0_801CDA50.z) && (D_EBFBE0_801CD9D8 == 0)) {
                 Audio_PlaySfx(0x19004013U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 D_EBFBE0_801CD9D8 = 1;
-                if (D_EBFBE0_801CD954 == PLANET_CORNERIA) {
+                if (sCurrentPlanetId == PLANET_CORNERIA) {
                     D_EBFBE0_801CEB48[0] = 1;
                     for (i = 0; i < 10; i++) {
                         D_EBFBE0_801CEB58[0][i] = Rand_ZeroOne() * 3.0f;
@@ -2772,7 +2777,7 @@ void func_EBFBE0_801A2674(void) {
             D_EBFBE0_801CD900[i] = 0;
         }
 
-        if (i == D_EBFBE0_801CD954) {
+        if (i == sCurrentPlanetId) {
             continue;
         }
 
@@ -2795,11 +2800,11 @@ void func_EBFBE0_801A2674(void) {
         }
     }
 
-    if (D_EBFBE0_801CD954 == 2) {
+    if (sCurrentPlanetId == 2) {
         Math_SmoothStepToF(&D_EBFBE0_801AFFF8, 20.0f, 0.05f, 100.0f, 0.1f);
     }
 
-    if (D_EBFBE0_801CD954 == 1) {
+    if (sCurrentPlanetId == 1) {
         Math_SmoothStepToF(&D_EBFBE0_801B0000, 15.0f, 0.05f, 100.0f, 0.1f);
     }
 
@@ -2866,7 +2871,7 @@ void func_EBFBE0_801A281C(void) {
     D_EBFBE0_801CEEE8[7].y = D_EBFBE0_801CEEE8[6].y;
     D_EBFBE0_801CEEE8[7].z = D_EBFBE0_801CEEE8[6].z;
 
-    D_EBFBE0_801CEECC = func_EBFBE0_801A655C(D_EBFBE0_801CD954, D_EBFBE0_801CD958);
+    D_EBFBE0_801CEECC = func_EBFBE0_801A655C(sCurrentPlanetId, D_EBFBE0_801CD958);
 
     if (D_EBFBE0_801CD93C == 2) {
         D_80177BD8[D_EBFBE0_801CEECC] = 5;
@@ -3010,8 +3015,8 @@ void func_EBFBE0_801A2EB8(void) {
     func_EBFBE0_801A3440(D_EBFBE0_801CEEE0);
 
     if (D_EBFBE0_801CD9C4 == 80) {
-        D_EBFBE0_801CD954 = D_EBFBE0_801CD958;
-        D_80177B90[D_80177B48] = D_EBFBE0_801CD954;
+        sCurrentPlanetId = D_EBFBE0_801CD958;
+        D_80177B90[gCurrentPlanet] = sCurrentPlanetId;
         func_EBFBE0_801A6368();
     }
 
@@ -3050,7 +3055,7 @@ void func_EBFBE0_801A2EB8(void) {
 #define PLANET_ID i
 
         for (PLANET_ID = 0; PLANET_ID < PLANET_MAX; PLANET_ID++) {
-            if ((PLANET_ID == D_EBFBE0_801CD954) || (PLANET_ID == D_EBFBE0_801CD958)) {
+            if ((PLANET_ID == sCurrentPlanetId) || (PLANET_ID == D_EBFBE0_801CD958)) {
                 continue;
             }
 
@@ -3429,7 +3434,7 @@ void func_EBFBE0_801A4394(void) {
 
     switch (D_EBFBE0_801CD94C) {
         case 0:
-            if (D_80177B48 == 0) {
+            if (gCurrentPlanet == 0) {
                 D_EBFBE0_801CD9C0 = 45;
                 D_EBFBE0_801CD94C = 3;
             } else {
@@ -3438,7 +3443,7 @@ void func_EBFBE0_801A4394(void) {
             break;
 
         case 1:
-            if (D_80177B48 == D_EBFBE0_801CD9AC) {
+            if (gCurrentPlanet == D_EBFBE0_801CD9AC) {
                 D_EBFBE0_801CD94C = 3;
                 D_EBFBE0_801CD9C0 = 45;
                 break;
@@ -3726,20 +3731,20 @@ void func_EBFBE0_801A4FC4(void) {
     gLaserStrength[gPlayerNum] = 0;
     gBombCount[gPlayerNum] = 3;
 
-    if (planet[D_EBFBE0_801CD954].unk_2C != -1) {
-        temp2 = func_EBFBE0_801A655C(D_EBFBE0_801CD954, planet[D_EBFBE0_801CD954].unk_2C);
+    if (planet[sCurrentPlanetId].unk_2C != -1) {
+        temp2 = func_EBFBE0_801A655C(sCurrentPlanetId, planet[sCurrentPlanetId].unk_2C);
         D_80177BD8[temp2] = 0;
         D_EBFBE0_801AFD18[temp2].unk_18 = 0;
     }
 
-    if (planet[D_EBFBE0_801CD954].unk_30 != -1) {
-        temp = func_EBFBE0_801A655C(D_EBFBE0_801CD954, planet[D_EBFBE0_801CD954].unk_30);
+    if (planet[sCurrentPlanetId].unk_30 != -1) {
+        temp = func_EBFBE0_801A655C(sCurrentPlanetId, planet[sCurrentPlanetId].unk_30);
         D_80177BD8[temp] = 0;
         D_EBFBE0_801AFD18[temp].unk_18 = 0;
     }
 
-    if (planet[D_EBFBE0_801CD954].unk_34 != -1) {
-        temp = func_EBFBE0_801A655C(D_EBFBE0_801CD954, planet[D_EBFBE0_801CD954].unk_34);
+    if (planet[sCurrentPlanetId].unk_34 != -1) {
+        temp = func_EBFBE0_801A655C(sCurrentPlanetId, planet[sCurrentPlanetId].unk_34);
         D_80177BD8[temp] = 0;
         D_EBFBE0_801AFD18[temp].unk_18 = 0;
     }
@@ -3750,32 +3755,32 @@ void func_EBFBE0_801A4FC4(void) {
     D_EBFBE0_801CEEA8 = 255;
     D_EBFBE0_801CEEAC = 255;
 
-    gTotalHits -= D_80177B70[D_80177B48 - 1];
-    D_80177B90[D_80177B48] = -1;
-    D_80177B70[D_80177B48 - 1] = 0;
-    D_80177BB0[D_80177B48 - 1] = 0;
-    D_80177B50[D_80177B48 - 1] = 0x00FFFFFF;
+    gTotalHits -= D_80177B70[gCurrentPlanet - 1];
+    D_80177B90[gCurrentPlanet] = -1;
+    D_80177B70[gCurrentPlanet - 1] = 0;
+    D_80177BB0[gCurrentPlanet - 1] = 0;
+    D_80177B50[gCurrentPlanet - 1] = 0x00FFFFFF;
     gHitCount = 0;
-    D_80177B48--;
+    gCurrentPlanet--;
 
     D_EBFBE0_801CD83C = func_EBFBE0_801A05B4();
 
-    D_EBFBE0_801CD954 = D_EBFBE0_801CD950;
+    sCurrentPlanetId = D_EBFBE0_801CD950;
 
-    if (planet[D_EBFBE0_801CD954].unk_2C != -1) {
-        temp2 = func_EBFBE0_801A655C(D_EBFBE0_801CD954, planet[D_EBFBE0_801CD954].unk_2C);
+    if (planet[sCurrentPlanetId].unk_2C != -1) {
+        temp2 = func_EBFBE0_801A655C(sCurrentPlanetId, planet[sCurrentPlanetId].unk_2C);
         D_80177BD8[temp2] = 1;
         D_EBFBE0_801AFD18[temp2].unk_18 = 255;
     }
 
-    if (planet[D_EBFBE0_801CD954].unk_30 != -1) {
-        temp = func_EBFBE0_801A655C(D_EBFBE0_801CD954, planet[D_EBFBE0_801CD954].unk_30);
+    if (planet[sCurrentPlanetId].unk_30 != -1) {
+        temp = func_EBFBE0_801A655C(sCurrentPlanetId, planet[sCurrentPlanetId].unk_30);
         D_80177BD8[temp] = 1;
         D_EBFBE0_801AFD18[temp].unk_18 = 255;
     }
 
-    if (planet[D_EBFBE0_801CD954].unk_34 != -1) {
-        temp = func_EBFBE0_801A655C(D_EBFBE0_801CD954, planet[D_EBFBE0_801CD954].unk_34);
+    if (planet[sCurrentPlanetId].unk_34 != -1) {
+        temp = func_EBFBE0_801A655C(sCurrentPlanetId, planet[sCurrentPlanetId].unk_34);
         D_80177BD8[temp] = 0;
         D_EBFBE0_801AFD18[temp].unk_18 = 0;
     }
@@ -3789,14 +3794,14 @@ void func_EBFBE0_801A53C8(void) {
 
     D_EBFBE0_801CEFD8 ^= 1;
 
-    if (planet[D_EBFBE0_801CD954].unk_2C != -1) {
-        temp2 = func_EBFBE0_801A655C(D_EBFBE0_801CD954, planet[D_EBFBE0_801CD954].unk_2C);
+    if (planet[sCurrentPlanetId].unk_2C != -1) {
+        temp2 = func_EBFBE0_801A655C(sCurrentPlanetId, planet[sCurrentPlanetId].unk_2C);
         D_80177BD8[temp2] = 0;
         D_EBFBE0_801AFD18[temp2].unk_18 = 0;
     }
 
-    if (planet[D_EBFBE0_801CD954].unk_30 != -1) {
-        temp = func_EBFBE0_801A655C(D_EBFBE0_801CD954, planet[D_EBFBE0_801CD954].unk_30);
+    if (planet[sCurrentPlanetId].unk_30 != -1) {
+        temp = func_EBFBE0_801A655C(sCurrentPlanetId, planet[sCurrentPlanetId].unk_30);
         D_80177BD8[temp] = 0;
         D_EBFBE0_801AFD18[temp].unk_18 = 0;
     }
@@ -3806,23 +3811,23 @@ void func_EBFBE0_801A53C8(void) {
     D_EBFBE0_801AFD18[D_EBFBE0_801CEECC].unk_18 = 0;
     D_EBFBE0_801AFD18[D_EBFBE0_801CEECC].unk_14 = 0;
 
-    D_EBFBE0_801CD954 = D_EBFBE0_801CD950;
+    sCurrentPlanetId = D_EBFBE0_801CD950;
 
     if (!D_EBFBE0_801CEFD8) {
-        D_EBFBE0_801CD958 = planet[D_EBFBE0_801CD954].unk_2C;
+        D_EBFBE0_801CD958 = planet[sCurrentPlanetId].unk_2C;
     } else if (D_EBFBE0_801CD93C != 2) {
-        if (planet[D_EBFBE0_801CD954].unk_30 != -1) {
-            D_EBFBE0_801CD958 = planet[D_EBFBE0_801CD954].unk_30;
+        if (planet[sCurrentPlanetId].unk_30 != -1) {
+            D_EBFBE0_801CD958 = planet[sCurrentPlanetId].unk_30;
         } else {
-            D_EBFBE0_801CD958 = planet[D_EBFBE0_801CD954].unk_2C;
+            D_EBFBE0_801CD958 = planet[sCurrentPlanetId].unk_2C;
         }
-    } else if (planet[D_EBFBE0_801CD954].unk_34 != -1) {
-        D_EBFBE0_801CD958 = planet[D_EBFBE0_801CD954].unk_34;
+    } else if (planet[sCurrentPlanetId].unk_34 != -1) {
+        D_EBFBE0_801CD958 = planet[sCurrentPlanetId].unk_34;
     } else {
-        D_EBFBE0_801CD958 = planet[D_EBFBE0_801CD954].unk_2C;
+        D_EBFBE0_801CD958 = planet[sCurrentPlanetId].unk_2C;
     }
 
-    D_EBFBE0_801CEECC = func_EBFBE0_801A655C(D_EBFBE0_801CD954, D_EBFBE0_801CD958);
+    D_EBFBE0_801CEECC = func_EBFBE0_801A655C(sCurrentPlanetId, D_EBFBE0_801CD958);
 
     D_EBFBE0_801AFD18[D_EBFBE0_801CEECC].unk_18 = 255;
 
@@ -3840,8 +3845,8 @@ void func_EBFBE0_801A53C8(void) {
     D_EBFBE0_801CEEA8 = 255;
     D_EBFBE0_801CEEAC = 255;
 
-    D_EBFBE0_801CD954 = D_EBFBE0_801CD958;
-    D_80177B90[D_80177B48] = D_EBFBE0_801CD954;
+    sCurrentPlanetId = D_EBFBE0_801CD958;
+    D_80177B90[gCurrentPlanet] = sCurrentPlanetId;
 
     func_EBFBE0_801A6368();
 
@@ -4030,7 +4035,7 @@ void func_EBFBE0_801A5E80(void) {
             D_EBFBE0_801B8284 = 0;
             D_EBFBE0_801CD9A0 = 1;
             func_EBFBE0_801A6368();
-            D_EBFBE0_801CD9A8 = func_EBFBE0_801A62FC(D_EBFBE0_801CD954);
+            D_EBFBE0_801CD9A8 = func_EBFBE0_801A62FC(sCurrentPlanetId);
             func_EBFBE0_801AB284();
             D_EBFBE0_801B8280++;
             break;
@@ -4068,7 +4073,7 @@ void func_EBFBE0_801A5E80(void) {
 
             if (D_EBFBE0_801B8284 < 120) {
                 D_EBFBE0_801B8284 += 15;
-                if (D_EBFBE0_801CD954 == PLANET_CORNERIA) {
+                if (sCurrentPlanetId == PLANET_CORNERIA) {
                     *D_EBFBE0_801CEB48 = 0;
                 }
             } else {
@@ -4201,7 +4206,7 @@ bool func_EBFBE0_801A62FC(PlanetId planet) {
 }
 
 void func_EBFBE0_801A6368(void) {
-    switch (D_EBFBE0_801CD954) {
+    switch (sCurrentPlanetId) {
         case PLANET_CORNERIA:
             gCurrentLevel = LEVEL_CORNERIA;
             break;
@@ -4351,7 +4356,7 @@ void func_EBFBE0_801A659C(void) {
     func_8001A838(0x1100004C);
     func_8001A838(0x1100204C);
 
-    if (D_EBFBE0_801CD954 != 9) {
+    if (sCurrentPlanetId != 9) {
         Audio_PlaySfx(0x49000003, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
 
@@ -4460,11 +4465,11 @@ void func_EBFBE0_801A6A98(PlanetId planetId) {
     s32 mask;
     s32 temp;
 
-    if ((planet[planetId].alpha == 0) && (planetId != D_EBFBE0_801CD954)) {
+    if ((planet[planetId].alpha == 0) && (planetId != sCurrentPlanetId)) {
         return;
     }
 
-    if ((planetId == D_EBFBE0_801CD954) && (D_EBFBE0_801CD944 == 2) && (D_EBFBE0_801CD95C != 0)) {
+    if ((planetId == sCurrentPlanetId) && (D_EBFBE0_801CD944 == 2) && (D_EBFBE0_801CD95C != 0)) {
         mask = 0x00000001;
     } else {
         mask = 0xFFFFFFFF;
@@ -4655,7 +4660,7 @@ void func_EBFBE0_801A6EC0(PlanetId planetId) {
 void func_EBFBE0_801A7230(PlanetId planetId) {
     switch (planet[planetId].unk_28) {
         case 0:
-            if ((D_EBFBE0_801CD944 == 3 || planetId == D_EBFBE0_801CD954 || planetId == D_EBFBE0_801CD958) &&
+            if ((D_EBFBE0_801CD944 == 3 || planetId == sCurrentPlanetId || planetId == D_EBFBE0_801CD958) &&
                 D_EBFBE0_801CD944 != 1 && D_EBFBE0_801CD944 != 7) {
                 RCP_SetupDL(&gMasterDisp, 0x35);
             } else {
@@ -4665,7 +4670,7 @@ void func_EBFBE0_801A7230(PlanetId planetId) {
             break;
 
         case 2:
-            if ((D_EBFBE0_801CD944 == 3 || planetId == D_EBFBE0_801CD954 || planetId == D_EBFBE0_801CD958) &&
+            if ((D_EBFBE0_801CD944 == 3 || planetId == sCurrentPlanetId || planetId == D_EBFBE0_801CD958) &&
                 D_EBFBE0_801CD944 != 1 && D_EBFBE0_801CD944 != 7) {
                 RCP_SetupDL(&gMasterDisp, 0x17);
             } else {
@@ -5209,7 +5214,7 @@ void func_EBFBE0_801A8F40(void) {
 
         Matrix_Push(&gGfxMatrix);
 
-        Matrix_Mult(gGfxMatrix, &D_EBFBE0_801CDA60[D_EBFBE0_801CD954], 1);
+        Matrix_Mult(gGfxMatrix, &D_EBFBE0_801CDA60[sCurrentPlanetId], 1);
         Matrix_Translate(gGfxMatrix, 0.0f, D_EBFBE0_801CEAA8, 0.0f, 1);
         Matrix_RotateY(gGfxMatrix, M_DTOR * D_EBFBE0_801B6A7C, 1);
         Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, 1);
@@ -5227,31 +5232,31 @@ void func_EBFBE0_801A8F40(void) {
 void func_EBFBE0_801A914C(void) {
     D_EBFBE0_801CEAA8 = 140.0f;
 
-    if (D_EBFBE0_801CD954 == 9) {
+    if (sCurrentPlanetId == 9) {
         D_EBFBE0_801CEAA8 = 230.0f;
     }
 
-    if (D_EBFBE0_801CD954 == 1) {
+    if (sCurrentPlanetId == 1) {
         D_EBFBE0_801CEAA8 = 210.0f;
     }
 
-    if (D_EBFBE0_801CD954 == 0xE) {
+    if (sCurrentPlanetId == 0xE) {
         D_EBFBE0_801CEAA8 = 250.0f;
     }
 
-    if (D_EBFBE0_801CD954 == 4) {
+    if (sCurrentPlanetId == 4) {
         D_EBFBE0_801CEAA8 = 150.0f;
     }
 
-    if (D_EBFBE0_801CD954 == 5) {
+    if (sCurrentPlanetId == 5) {
         D_EBFBE0_801CEAA8 = 150.0f;
     }
 
-    if (D_EBFBE0_801CD954 == 3) {
+    if (sCurrentPlanetId == 3) {
         D_EBFBE0_801CEAA8 = 150.0f;
     }
 
-    if (D_EBFBE0_801CD954 == 0xD) {
+    if (sCurrentPlanetId == 0xD) {
         D_EBFBE0_801CEAA8 = 300.0f;
     }
 
@@ -5263,14 +5268,14 @@ void func_EBFBE0_801A9224(void) {
     s32 i;
     s32 mask;
 
-    if ((planet[PLANET_METEO].alpha != 0) || (D_EBFBE0_801CD954 == 0)) {
-        if ((D_EBFBE0_801CD954 == 0) && (D_EBFBE0_801CD944 == 2) && (D_EBFBE0_801CD95C != 0)) {
+    if ((planet[PLANET_METEO].alpha != 0) || (sCurrentPlanetId == 0)) {
+        if ((sCurrentPlanetId == 0) && (D_EBFBE0_801CD944 == 2) && (D_EBFBE0_801CD95C != 0)) {
             mask = 0x00000001;
         } else {
             mask = 0xFFFFFFFF;
         }
 
-        if ((D_EBFBE0_801CD944 == 3) || ((D_EBFBE0_801CD954 == 0) && (D_EBFBE0_801CD944 != 7))) {
+        if ((D_EBFBE0_801CD944 == 3) || ((sCurrentPlanetId == 0) && (D_EBFBE0_801CD944 != 7))) {
             RCP_SetupDL(&gMasterDisp, 0x35);
         } else {
             RCP_SetupDL(&gMasterDisp, 0x40);
@@ -5312,17 +5317,17 @@ void func_EBFBE0_801A9448(void) {
     s32 mask;
     static f32 D_EBFBE0_801B6A80 = -22.0f;
 
-    if ((planet[PLANET_AREA_6].alpha == 0) && (D_EBFBE0_801CD954 != PLANET_AREA_6)) {
+    if ((planet[PLANET_AREA_6].alpha == 0) && (sCurrentPlanetId != PLANET_AREA_6)) {
         return;
     }
 
-    if ((D_EBFBE0_801CD954 == PLANET_AREA_6) && (D_EBFBE0_801CD944 == 2) && (D_EBFBE0_801CD95C != 0)) {
+    if ((sCurrentPlanetId == PLANET_AREA_6) && (D_EBFBE0_801CD944 == 2) && (D_EBFBE0_801CD95C != 0)) {
         mask = 0x00000001;
     } else {
         mask = 0xFFFFFFFF;
     }
 
-    if ((D_EBFBE0_801CD944 == 3) || (D_EBFBE0_801CD954 == PLANET_AREA_6)) {
+    if ((D_EBFBE0_801CD944 == 3) || (sCurrentPlanetId == PLANET_AREA_6)) {
         RCP_SetupDL(&gMasterDisp, 0x17);
     } else {
         RCP_SetupDL(&gMasterDisp, 0x2E);
@@ -5390,7 +5395,7 @@ void func_EBFBE0_801A9814(void) {
 void func_EBFBE0_801A9910(void) {
     static s32 D_EBFBE0_801B6A84[] = { 1, 13, 12, 11, 6, 2, 4, 10, 8, 0, 9, 5, 3, 7, 7 };
     s32 i;
-    s32 var_s0 = D_EBFBE0_801B6A84[D_EBFBE0_801CD954];
+    s32 var_s0 = D_EBFBE0_801B6A84[sCurrentPlanetId];
 
     RCP_SetupDL(&gMasterDisp, 0x53);
 
@@ -5551,10 +5556,10 @@ void func_EBFBE0_801A9FD4(s32 arg0) {
     f32 temp = 16.0f;
 
     if (arg0) {
-        var_s3 = D_80177B48;
+        var_s3 = gCurrentPlanet;
     } else {
         if ((D_80161A34 == 7) || (D_80161A34 == 8)) {
-            var_s3 = D_80177B48;
+            var_s3 = gCurrentPlanet;
         }
         if (D_80161A34 == 5) {
             var_s3 = D_EBFBE0_801CD9AC;
@@ -5656,10 +5661,10 @@ void func_EBFBE0_801AA434(s32 arg0, f32 x, f32 y, s32 idx) {
                                 D_80177B70[arg0]);
 
     if (D_80161A34 == 7) {
-        temp = D_80177B48;
+        temp = gCurrentPlanet;
     }
     if ((D_80161A34 == 5) || (D_80161A34 == 8)) {
-        temp = D_80177B48 + 1;
+        temp = gCurrentPlanet + 1;
     }
 
     if (arg0 < temp) {
@@ -5682,7 +5687,7 @@ void func_EBFBE0_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
     s32 mask = 0xFFFFFFFF;
 
     if (gGameState == GSTATE_MAP) {
-        if (planetId == D_EBFBE0_801CD954) {
+        if (planetId == sCurrentPlanetId) {
             mask = 0x00000010;
         }
     }
@@ -5867,7 +5872,7 @@ void func_EBFBE0_801AB17C(f32 x, f32 y, f32 z) {
 
 void func_EBFBE0_801AB284(void) {
     D_EBFBE0_801CD940 = 0;
-    D_80178308 = D_EBFBE0_801AF428[D_EBFBE0_801CD954][D_EBFBE0_801CD940];
+    D_80178308 = D_EBFBE0_801AF428[sCurrentPlanetId][D_EBFBE0_801CD940];
     D_80177D68 = D_EBFBE0_801AF420[D_EBFBE0_801CD940];
     D_EBFBE0_801CF018 = 100;
     D_80178728 = 78;
@@ -5907,7 +5912,7 @@ void func_EBFBE0_801AB300(void) {
             }
 
             D_EBFBE0_801CD940 = 1;
-            D_80178308 = D_EBFBE0_801AF428[D_EBFBE0_801CD954][D_EBFBE0_801CD940];
+            D_80178308 = D_EBFBE0_801AF428[sCurrentPlanetId][D_EBFBE0_801CD940];
 
             func_8001ACDC(Message_IdFromPtr(D_80178308));
 
@@ -5985,7 +5990,7 @@ void func_EBFBE0_801AB300(void) {
                 break;
             } else {
                 D_EBFBE0_801CD940 = 1;
-                D_80178308 = D_EBFBE0_801AF428[D_EBFBE0_801CD954][D_EBFBE0_801CD940];
+                D_80178308 = D_EBFBE0_801AF428[sCurrentPlanetId][D_EBFBE0_801CD940];
                 func_8001ACDC(Message_IdFromPtr(D_80178308));
                 D_80177D68 = D_EBFBE0_801AF420[D_EBFBE0_801CD940];
                 D_801782A4 = D_80177D68;
@@ -6982,3 +6987,7 @@ void func_EBFBE0_801AD7EC(s32 xPos, s32 yPos, s32 number) {
         Graphics_DisplaySmallNumber(xPos + 33.0f, yPos + 8.0f, number);
     }
 }
+
+#if MODS_LEVEL_SELECT == 1
+#include "../../mods/levelselect.c"
+#endif

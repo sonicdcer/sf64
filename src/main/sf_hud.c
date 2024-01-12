@@ -399,14 +399,14 @@ void func_800884E4(void) {
     s32 var_v1;
     s32 i;
 
-    D_80177B70[D_80177B48] = gHitCount;
+    D_80177B70[gCurrentPlanet] = gHitCount;
     var_v1 = 0xFF0000;
 
     for (i = 0; i < 3; i++) {
         if (gTeamShields[3 - i] <= 0) {
-            D_80177B50[D_80177B48] ^= var_v1;
+            D_80177B50[gCurrentPlanet] ^= var_v1;
         } else {
-            D_80177B50[D_80177B48] |= var_v1;
+            D_80177B50[gCurrentPlanet] |= var_v1;
         }
         var_v1 >>= 8;
     }
