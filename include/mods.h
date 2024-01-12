@@ -8,4 +8,8 @@
 */
 #define MODS_LEVEL_SELECT 0
 
+#if MODS_LEVEL_SELECT == true
+void Map_LevelSelect(void);
+#endif
+
 #endif

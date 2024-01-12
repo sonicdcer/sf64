@@ -1285,10 +1285,6 @@ void func_EBFBE0_801AC9A0(s32);
 void func_EBFBE0_801ACD90(s32 index, Vec3f* src, Vec3f* dest);
 void func_EBFBE0_801AD048(void);
 
-#if MODS_LEVEL_SELECT == true
-void Map_LevelSelect(void);
-#endif
-
 void func_EBFBE0_8019E800(void) {
     Memory_FreeAll();
     func_800A5D6C();
@@ -6993,34 +6989,5 @@ void func_EBFBE0_801AD7EC(s32 xPos, s32 yPos, s32 number) {
 }
 
 #if MODS_LEVEL_SELECT == 1
-void Map_LevelSelect(void) {
-    static char* sLevelSelectPlanetNames[] = {
-        "CORNERIA", "METEO",   "TITANIA",  "SECTOR X", "AQUAS",  "BOLSE",    "VENOM", "FORTUNA",
-        "AREA 6",   "MACBETH", "SECTOR Z", "ZONESS",   "KATINA", "SECTOR Y", "SOLAR",
-    };
-
-    if (gControllerPress[0].button & L_JPAD) {
-        gCurrentPlanet--;
-        if (gCurrentPlanet < 0) {
-            gCurrentPlanet = 14;
-        }
-        sCurrentPlanetId = sPlanetList[gCurrentPlanet];
-    }
-
-    if (gControllerPress[0].button & R_JPAD) {
-        gCurrentPlanet++;
-        if (gCurrentPlanet > 14) {
-            gCurrentPlanet = 0;
-        }
-        sCurrentPlanetId = sPlanetList[gCurrentPlanet];
-    }
-
-    /* Draw */
-
-    RCP_SetupDL(&gMasterDisp, 0x53);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-
-    Graphics_DisplaySmallText(20, 200, 1.0f, 1.0f, "PLANET:");
-    Graphics_DisplaySmallText(80, 200, 1.0f, 1.0f, sLevelSelectPlanetNames[gCurrentPlanet]);
-}
+#include "../../mods/levelselect.c"
 #endif
