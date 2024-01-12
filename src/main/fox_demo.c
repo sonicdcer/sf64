@@ -490,12 +490,12 @@ void func_80049B44(void) {
     f32 y;
     f32 z;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (!gObjects8C[i].obj.status) {
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (!gEffects[i].obj.status) {
             x = (Rand_ZeroOne() - 0.5f) * 400.0f;
             y = (Rand_ZeroOne() - 0.5f) * 400.0f;
             z = (-D_80177D20 - 500.0f) - Rand_ZeroOne() * 500.0f;
-            func_80049A9C(&gObjects8C[i], x, y, z);
+            func_80049A9C(&gEffects[i], x, y, z);
             break;
         }
     }
@@ -842,9 +842,9 @@ void func_8004AA84(void) {
     s32 i;
 
     if (!(gFrameCount & 7) && (gLevelType == LEVEL_CORNERIA)) {
-        for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-            if (!gObjects8C[i].obj.status) {
-                func_8004A888(&gObjects8C[i]);
+        for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+            if (!gEffects[i].obj.status) {
+                func_8004A888(&gEffects[i]);
                 break;
             }
         }

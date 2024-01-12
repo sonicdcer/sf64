@@ -23,9 +23,9 @@ void func_80035D30(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
 void func_80035DEC(f32 xPos, f32 yPos, f32 zPos) {
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
-            func_80035D30(&gObjects8C[i], xPos, yPos, zPos);
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
+            func_80035D30(&gEffects[i], xPos, yPos, zPos);
             break;
         }
     }
@@ -181,8 +181,8 @@ void func_800365E4(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 arg4, f32 arg5, f
     if ((D_801784AC != 4) && (gLevelType == LEVELTYPE_PLANET) && (D_80161A88 != 2) && (gCurrentLevel != LEVEL_SOLAR) &&
         (gCurrentLevel != LEVEL_BOLSE) && (gCurrentLevel != LEVEL_TRAINING) && (gCurrentLevel != LEVEL_ZONESS)) {
         for (i = 0; i < 50; i++) {
-            if (gObjects8C[i].obj.status == 0) {
-                func_80036528(&gObjects8C[i], xPos, yPos, zPos, yRot, xRot, scale, unk44, time);
+            if (gEffects[i].obj.status == 0) {
+                func_80036528(&gEffects[i], xPos, yPos, zPos, yRot, xRot, scale, unk44, time);
                 break;
             }
         }
@@ -209,8 +209,8 @@ void func_80036770(f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 scale) {
     if ((D_801784AC != 4) && (gLevelType == LEVELTYPE_PLANET) && (D_80161A88 <= 0) &&
         (gCurrentLevel != LEVEL_TRAINING) && (gCurrentLevel != LEVEL_SOLAR) && (gCurrentLevel != LEVEL_ZONESS)) {
         for (i = 0; i < 50; i++) {
-            if (gObjects8C[i].obj.status == 0) {
-                func_800366CC(&gObjects8C[i], xPos, yPos, zPos, yRot, scale);
+            if (gEffects[i].obj.status == 0) {
+                func_800366CC(&gEffects[i], xPos, yPos, zPos, yRot, scale);
                 func_8007D10C(xPos, yPos, zPos, 2.0f);
                 break;
             }
@@ -736,7 +736,7 @@ void func_80038140(PlayerShot* shot) {
         sp60 = false;
     }
     if (sp60) {
-        for (i = 0, effect = gObjects8C; i < 100; i++, effect++) {
+        for (i = 0, effect = gEffects; i < 100; i++, effect++) {
             if ((effect->obj.status >= 2) && (effect->info.unk_19 != 0) &&
                 (fabsf(shot->obj.pos.z - effect->obj.pos.z) < 200.0f) &&
                 (fabsf(shot->obj.pos.x - effect->obj.pos.x) < 100.0f) &&
@@ -1922,7 +1922,7 @@ void func_8003C4D0(PlayerShot* shot, s32 unkD6) {
     } else {
         func_8003C008(shot);
     }
-    effect = gObjects8C;
+    effect = gEffects;
     for (i = 0; i < 100; i++, effect++) {
         if (effect->obj.status == 2) {
             sp68 = effect->obj.pos.x - shot->obj.pos.x;

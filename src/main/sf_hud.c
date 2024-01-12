@@ -2224,7 +2224,7 @@ void func_80093310(void) {
 
 void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
     s32 i;
-    Effect* effect = &gObjects8C[ARRAY_COUNT(gObjects8C) - 1];
+    Effect* effect = &gEffects[ARRAY_COUNT(gEffects) - 1];
     Player* player = gPlayer;
 
     for (i = 0; i < 100; i++) {

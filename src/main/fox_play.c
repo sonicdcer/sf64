@@ -617,9 +617,9 @@ void func_800A6148(void) {
         Object_Kill(&gBosses[i].obj, &gBosses[i].sfxPos);
         Boss_Initialize(&gBosses[i]);
     }
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        Object_Kill(&gObjects8C[i].obj, &gObjects8C[i].sfxPos);
-        Effect_Initialize(&gObjects8C[i]);
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        Object_Kill(&gEffects[i].obj, &gEffects[i].sfxPos);
+        Effect_Initialize(&gEffects[i]);
     }
     for (i = 0; i < ARRAY_COUNT(gItems); i++) {
         Object_Kill(&gItems[i].obj, &gItems[i].sfxPos);

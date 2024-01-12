@@ -42,9 +42,9 @@ void func_8006A800(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
 void func_8006A900(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
     s32 i;
 
-    for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
-        if (gObjects8C[i].obj.status == 0) {
-            func_8006A800(&gObjects8C[i], xPos, yPos, zPos, arg3);
+    for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
+        if (gEffects[i].obj.status == 0) {
+            func_8006A800(&gEffects[i], xPos, yPos, zPos, arg3);
             break;
         }
     }
@@ -76,9 +76,9 @@ void func_8006A984(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
 void func_8006AA3C(f32 xPos, f32 yPos, f32 zPos) {
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
-            func_8006A984(&gObjects8C[i], xPos, yPos, zPos);
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
+            func_8006A984(&gEffects[i], xPos, yPos, zPos);
             break;
         }
     }
@@ -367,9 +367,9 @@ void func_8006BA64(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
 void func_8006BB1C(f32 xPos, f32 yPos, f32 zPos) {
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
-            func_8006BA64(&gObjects8C[i], xPos, yPos, zPos);
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
+            func_8006BA64(&gEffects[i], xPos, yPos, zPos);
             break;
         }
     }
@@ -1561,9 +1561,9 @@ void func_8006EAC4(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
 void func_8006EB64(f32 xPos, f32 yPos, f32 zPos) {
     s32 i;
 
-    for (i = 50; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
-            func_8006EAC4(&gObjects8C[i], xPos, yPos, zPos);
+    for (i = 50; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
+            func_8006EAC4(&gEffects[i], xPos, yPos, zPos);
             break;
         }
     }
@@ -1680,9 +1680,9 @@ void func_8006F044(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
 void func_8006F0D8(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
-            func_8006F044(&gObjects8C[i], xPos, yPos, zPos, arg3);
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
+            func_8006F044(&gEffects[i], xPos, yPos, zPos, arg3);
             break;
         }
     }
@@ -1709,9 +1709,9 @@ void func_8006F140(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
 void func_8006F1EC(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
-            func_8006F140(&gObjects8C[i], xPos, yPos, zPos, arg3);
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
+            func_8006F140(&gEffects[i], xPos, yPos, zPos, arg3);
             break;
         }
     }
@@ -2885,9 +2885,9 @@ void func_800722EC(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
 void func_8007240C(f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
-            func_800722EC(&gObjects8C[i], xPos, yPos, zPos, yRot);
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
+            func_800722EC(&gEffects[i], xPos, yPos, zPos, yRot);
             break;
         }
     }

@@ -276,8 +276,8 @@ void func_80061A4C(void) {
     f32 z;
     f32 sp1C;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
             sp1C = (Rand_ZeroOne() - 0.5f);
             x = gPlayer[0].pos.x + (sp1C * 400.0f) + (5.0f * gPlayer[0].vel.x);
             sp1C = (Rand_ZeroOne() - 0.5f);
@@ -286,7 +286,7 @@ void func_80061A4C(void) {
             if (D_80177D08 < 0.0f) {
                 z = -D_80177D20 + 500.0f;
             }
-            func_80061958(&gObjects8C[i], x, y, z);
+            func_80061958(&gEffects[i], x, y, z);
             break;
         }
     }
@@ -299,8 +299,8 @@ void func_80061B68(void) {
     f32 z;
     f32 sp1C;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
 
             sp1C = (Rand_ZeroOne() - 0.5f);
             x = gPlayer[0].pos.x + (sp1C * 2000.0f) + (5.0f * gPlayer[0].vel.x);
@@ -313,7 +313,7 @@ void func_80061B68(void) {
             if (D_80177D08 < 0.0f) {
                 z = -D_80177D20 + 1000.0f;
             }
-            func_80061958(&gObjects8C[i], x, y, z);
+            func_80061958(&gEffects[i], x, y, z);
             break;
         }
     }
@@ -326,8 +326,8 @@ void func_80061CD0(void) {
     f32 z;
     f32 sp1C;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
             sp1C = (Rand_ZeroOne() - 0.5f);
             x = gPlayer[gPlayerNum].pos.x + (sp1C * 3000.0f) + (5.0f * gPlayer[gPlayerNum].vel.x);
             sp1C = (Rand_ZeroOne() - 0.5f);
@@ -336,7 +336,7 @@ void func_80061CD0(void) {
             if (D_80177D08 < 0.0f) {
                 z = -D_80177D20 + 1000.0f;
             }
-            func_80061958(&gObjects8C[i], x, y, z);
+            func_80061958(&gEffects[i], x, y, z);
             break;
         }
     }
@@ -578,19 +578,19 @@ void func_80062B60(f32 xPos, f32 zPos, s32 arg2, f32 arg3) {
     s32 i;
 
     if (gLevelType == LEVELTYPE_PLANET) {
-        for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-            if (gObjects8C[i].obj.status == 0) {
-                Effect_Initialize(&gObjects8C[i]);
-                gObjects8C[i].obj.status = 1;
-                gObjects8C[i].obj.id = OBJ_EFFECT_348;
-                gObjects8C[i].obj.pos.x = xPos;
-                gObjects8C[i].obj.pos.y = D_80177940 + 3.0f;
-                gObjects8C[i].obj.pos.z = zPos;
-                gObjects8C[i].scale2 = 10.0f;
-                gObjects8C[i].scale1 = arg3;
-                gObjects8C[i].unk_44 = 80;
-                gObjects8C[i].unk_4E = arg2;
-                Object_SetInfo(&gObjects8C[i].info, gObjects8C[i].obj.id);
+        for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+            if (gEffects[i].obj.status == 0) {
+                Effect_Initialize(&gEffects[i]);
+                gEffects[i].obj.status = 1;
+                gEffects[i].obj.id = OBJ_EFFECT_348;
+                gEffects[i].obj.pos.x = xPos;
+                gEffects[i].obj.pos.y = D_80177940 + 3.0f;
+                gEffects[i].obj.pos.z = zPos;
+                gEffects[i].scale2 = 10.0f;
+                gEffects[i].scale1 = arg3;
+                gEffects[i].unk_44 = 80;
+                gEffects[i].unk_4E = arg2;
+                Object_SetInfo(&gEffects[i].info, gEffects[i].obj.id);
                 break;
             }
         }
@@ -601,18 +601,18 @@ void func_80062C38(f32 xPos, f32 yPos) {
     s32 i;
 
     if (gLevelType == LEVELTYPE_PLANET) {
-        for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-            if (gObjects8C[i].obj.status == 0) {
-                Effect_Initialize(&gObjects8C[i]);
-                gObjects8C[i].obj.status = 1;
-                gObjects8C[i].obj.id = OBJ_EFFECT_349;
-                gObjects8C[i].obj.pos.x = xPos;
-                gObjects8C[i].obj.pos.y = D_80177940 + 3.0f;
-                gObjects8C[i].obj.pos.z = yPos;
-                gObjects8C[i].scale2 = 1.0f;
-                gObjects8C[i].scale1 = 1.3f;
-                gObjects8C[i].unk_44 = 120;
-                Object_SetInfo(&gObjects8C[i].info, gObjects8C[i].obj.id);
+        for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+            if (gEffects[i].obj.status == 0) {
+                Effect_Initialize(&gEffects[i]);
+                gEffects[i].obj.status = 1;
+                gEffects[i].obj.id = OBJ_EFFECT_349;
+                gEffects[i].obj.pos.x = xPos;
+                gEffects[i].obj.pos.y = D_80177940 + 3.0f;
+                gEffects[i].obj.pos.z = yPos;
+                gEffects[i].scale2 = 1.0f;
+                gEffects[i].scale1 = 1.3f;
+                gEffects[i].unk_44 = 120;
+                Object_SetInfo(&gEffects[i].info, gEffects[i].obj.id);
                 break;
             }
         }
@@ -622,18 +622,18 @@ void func_80062C38(f32 xPos, f32 yPos) {
 void func_80062D04(f32 xPos, f32 yPos) {
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
-            Effect_Initialize(&gObjects8C[i]);
-            gObjects8C[i].obj.status = 1;
-            gObjects8C[i].obj.id = OBJ_EFFECT_350;
-            gObjects8C[i].obj.pos.x = xPos;
-            gObjects8C[i].obj.pos.y = D_80177940 + 3.0f;
-            gObjects8C[i].obj.pos.z = yPos;
-            gObjects8C[i].scale2 = 3.0f;
-            gObjects8C[i].scale1 = 2.0f;
-            gObjects8C[i].unk_44 = 120;
-            Object_SetInfo(&gObjects8C[i].info, gObjects8C[i].obj.id);
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
+            Effect_Initialize(&gEffects[i]);
+            gEffects[i].obj.status = 1;
+            gEffects[i].obj.id = OBJ_EFFECT_350;
+            gEffects[i].obj.pos.x = xPos;
+            gEffects[i].obj.pos.y = D_80177940 + 3.0f;
+            gEffects[i].obj.pos.z = yPos;
+            gEffects[i].scale2 = 3.0f;
+            gEffects[i].scale1 = 2.0f;
+            gEffects[i].unk_44 = 120;
+            Object_SetInfo(&gEffects[i].info, gEffects[i].obj.id);
             break;
         }
     }
@@ -1018,13 +1018,13 @@ void Object_Init(s32 index, ObjectId objId) {
             break;
         case OBJ_EFFECT_368:
             if (gCurrentLevel == LEVEL_TITANIA) {
-                func_E6A810_801B6E20(gObjects8C[index].obj.pos.x, gObjects8C[index].obj.pos.z + D_80177D20, &sp54,
-                                     &sp4C, &sp50);
-                gObjects8C[index].obj.pos.y = sp4C + 3.0f;
-                gObjects8C[index].obj.rot.x = (sp54 * 180.0f) / M_PI;
-                gObjects8C[index].obj.rot.z = (sp50 * 180.0f) / M_PI;
+                func_E6A810_801B6E20(gEffects[index].obj.pos.x, gEffects[index].obj.pos.z + D_80177D20, &sp54, &sp4C,
+                                     &sp50);
+                gEffects[index].obj.pos.y = sp4C + 3.0f;
+                gEffects[index].obj.rot.x = (sp54 * 180.0f) / M_PI;
+                gEffects[index].obj.rot.z = (sp50 * 180.0f) / M_PI;
             } else if (gCurrentLevel == LEVEL_MACBETH) {
-                gObjects8C[index].obj.status = 0;
+                gEffects[index].obj.status = 0;
             }
             break;
         case OBJ_80_30:
@@ -2906,7 +2906,7 @@ void Object_UpdateAll(void) {
             Item_Update(item);
         }
     }
-    for (i = 0, effect = gObjects8C; i < ARRAY_COUNT(gObjects8C); i++, effect++) {
+    for (i = 0, effect = gEffects; i < ARRAY_COUNT(gEffects); i++, effect++) {
         if (effect->obj.status != 0) {
             effect->index = i;
             Effect_Update(effect);

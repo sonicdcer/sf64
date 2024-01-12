@@ -198,9 +198,9 @@ void func_E16C50_8018767C(Effect* effect) {
 void func_E16C50_80187704(void) {
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
-            func_E16C50_8018767C(&gObjects8C[i]);
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
+            func_E16C50_8018767C(&gEffects[i]);
             break;
         }
     }
@@ -744,7 +744,7 @@ void func_E16C50_80187944(Boss* bossA6) {
             }
             break;
         case 7:
-            temp_s0_3 = &gObjects8C[bossA6->swork[39]];
+            temp_s0_3 = &gEffects[bossA6->swork[39]];
             Math_SmoothStepToF(&D_E16C50_801C22F0.unk_28[0], 255.0f, 1.0f, 100.0f, 0.00001f);
             Math_SmoothStepToF(&D_E16C50_801C22F0.unk_28[2], 255.0f, 1.0f, 100.0f, 0.00001f);
             Math_SmoothStepToF(&D_E16C50_801C22F0.unk_28[1], 255.0f, 1.0f, 100.0f, 0.00001f);

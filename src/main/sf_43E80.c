@@ -158,8 +158,8 @@ void func_80043AA0(f32 xPos, f32 yPos, f32 zPos, f32 scale) {
     s32 i;
 
     for (i = 50; i >= 0; i--) {
-        if (gObjects8C[i].obj.status == 0) {
-            func_800438E0(&gObjects8C[i], xPos, yPos, zPos, scale);
+        if (gEffects[i].obj.status == 0) {
+            func_800438E0(&gEffects[i], xPos, yPos, zPos, scale);
             break;
         }
     }

@@ -621,7 +621,7 @@ void func_8005BAB4(ObjectId objId, s32 index) {
 
     switch (objId) {
         case OBJ_EFFECT_374:
-            if (gObjects8C[index].unk_4E == 0) {
+            if (gEffects[index].unk_4E == 0) {
                 Matrix_Scale(gGfxMatrix, 1.2f, 0.0f, 1.2f, 1);
                 Matrix_RotateX(gGfxMatrix, M_PI / 2.0f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
@@ -1678,7 +1678,7 @@ void func_8006046C(s32 arg0) {
     Effect* effect;
 
     RCP_SetupDL(&gMasterDisp, 0x40);
-    for (i = 0, effect = gObjects8C; i < ARRAY_COUNT(gObjects8C); i++, effect++) {
+    for (i = 0, effect = gEffects; i < ARRAY_COUNT(gEffects); i++, effect++) {
         if (effect->obj.status >= 2) {
             if (effect->info.unk_14 == 1) {
                 effect->obj.rot.y = (-gPlayer[gPlayerNum].unk_058 * 180.0f) / M_PI;
