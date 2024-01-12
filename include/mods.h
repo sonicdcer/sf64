@@ -8,7 +8,16 @@
 */
 #define MODS_LEVEL_SELECT 0
 
-#if MODS_LEVEL_SELECT == true
+
+/**
+ * Sound Effects Jukebox:
+ * Ability to play sound effects inside the expert sound menu
+*/
+#define MODS_SFX_JUKEBOX 0
+
+/* ************************* */
+
+#if MODS_LEVEL_SELECT == 1
 void Map_LevelSelect(void);
 #endif
 

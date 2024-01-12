@@ -1,3 +1,4 @@
+Option_ExpertSoundUpdate = 0x80195944;
 planet = 0x801AF4A0; // type:Planet segment:ovl_menu size:0x38
 sPlanetNames = 0x801AF9F4; // type:s32 segment:ovl_menu size:0xF
 GetPlanetId = 0x801A6480; // force_migration:True segment:ovl_menu

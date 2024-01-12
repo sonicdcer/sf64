@@ -4,6 +4,8 @@
  * Description: Starfox Option Menu Handler
  */
 
+#include "mods.h"
+
 #include "global.h"
 #include "fox_option.h"
 
@@ -577,7 +579,7 @@ void func_EBFBE0_80192190(void) {
 
         case 6:
             // Expert Sound Options
-            func_EBFBE0_80195944();
+            Option_ExpertSoundUpdate();
             break;
 
         case 2000:
@@ -1627,7 +1629,10 @@ void func_EBFBE0_801958DC(void) {
 }
 
 // Expert Sound Options
-void func_EBFBE0_80195944(void) {
+#if MODS_SFX_JUKEBOX == 1
+#include "../../mods/sfxjukebox.c"
+#else
+void Option_ExpertSoundUpdate(void) {
     s32 pad;
     f32 sp28 = D_EBFBE0_801B931C;
 
@@ -1665,6 +1670,7 @@ void func_EBFBE0_80195944(void) {
         }
     }
 }
+#endif
 
 void func_EBFBE0_80195B74(void) {
     u8* temp_v0_4;
