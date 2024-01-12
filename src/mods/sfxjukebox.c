@@ -1,6 +1,7 @@
 #include "global.h"
 #include "fox_map.h"
 
+u32 prevSfx = 0;
 u32 sfx = 0x09000000;
 s32 sfxId = 0;
 s32 sfxBank = 0;
@@ -69,6 +70,11 @@ void Option_ExpertSoundUpdate(void) {
     }
     sfx &= 0xFFFFFF00;
     sfx |= sfxId & 0xFF;
+
+    if (prevSfx != sfx) {
+        Audio_PlaySfx(0x49000002, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        prevSfx = sfx;
+    }
 
     decimalToHex(sfx, hexString, sizeof(hexString));
 
