@@ -38,22 +38,28 @@ void Option_ExpertSoundUpdate(void) {
             sfxBank = 4;
         }
         sfx += (sfxBank << 28);
+        sfx &= 0xFFFFFF00;
     }
 
     if (gControllerPress[gMainController].button & D_JPAD) {
         sfx &= 0x0FFFFFFF;
         sfxBank--;
-        if (sfxBank < 0) {
+        if (sfxBank == 0xFF) {
             sfxBank = 0;
         }
         sfx += (sfxBank << 28);
+        sfx &= 0xFFFFFF00;
     }
 
     if (gControllerPress[gMainController].button & R_JPAD) {
         sfx &= 0xFFFFFF00;
         sfxId++;
-        if (sfxId > 0xFF) {
-            sfxId = 0xFF;
+        if (((sfxBank == 0) || (sfxBank == 4)) && (sfxId > 0x3F)) {
+            sfxId = 0x3F;
+        } else if (((sfxBank == 2) || (sfxBank == 3)) && (sfxId > 0xAB)) {
+            sfxId = 0xAB;
+        } else if ((sfxBank == 1) && (sfxId > 0x8F)) {
+            sfxId = 0x8F;
         }
         sfx += sfxId;
     }
@@ -61,7 +67,7 @@ void Option_ExpertSoundUpdate(void) {
     if (gControllerPress[gMainController].button & L_JPAD) {
         sfx &= 0xFFFFFF00;
         sfxId--;
-        if (sfxId < 0) {
+        if (sfxId == 0xFF) {
             sfxId = 0;
         }
         sfx += sfxId;
