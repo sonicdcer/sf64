@@ -746,7 +746,8 @@ void func_800798F0(Effect* effect) {
                     break;
                 case 7:
                     Animation_GetFrameData(&D_6027320, 0, frameJointTable);
-                    Animation_DrawSkeleton(1, D_602742C, frameJointTable, func_800798C4, NULL, effect, &gIdentityMatrix);
+                    Animation_DrawSkeleton(1, D_602742C, frameJointTable, func_800798C4, NULL, effect,
+                                           &gIdentityMatrix);
                     break;
                 case 8:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -1535,7 +1536,8 @@ void func_8007C250(Effect* effect) {
         randX = (Rand_ZeroOne() - 0.5f) * 40.0f;
         randY = (Rand_ZeroOne() - 0.5f) * 40.0f;
         randOther = ((Rand_ZeroOne() * 0.5f) + 1.0f);
-        func_8007D0E0(effect->obj.pos.x + randX, effect->obj.pos.y + randY, effect->obj.pos.z, effect->scale2 * randOther);
+        func_8007D0E0(effect->obj.pos.x + randX, effect->obj.pos.y + randY, effect->obj.pos.z,
+                      effect->scale2 * randOther);
         if (effect->timer_50 == 0) {
             Object_Kill(&effect->obj, &effect->sfxPos);
         }
@@ -1580,8 +1582,8 @@ void func_8007C50C(Effect* effect) {
         randX = (Rand_ZeroOne() - 0.5f) * 40.0f * effect->scale2;
         randY = (Rand_ZeroOne() - 0.5f) * 40.0f * effect->scale2;
         randOther = (Rand_ZeroOne() + 1.0f);
-        func_8007C484(effect->obj.pos.x + randX, effect->obj.pos.y + randY, effect->obj.pos.z, effect->vel.x, effect->vel.y,
-                      effect->vel.z, effect->scale2 * randOther, 0);
+        func_8007C484(effect->obj.pos.x + randX, effect->obj.pos.y + randY, effect->obj.pos.z, effect->vel.x,
+                      effect->vel.y, effect->vel.z, effect->scale2 * randOther, 0);
         if (effect->timer_50 == 0) {
             Object_Kill(&effect->obj, &effect->sfxPos);
         }
@@ -1665,7 +1667,8 @@ void func_8007C8C4(Effect* effect) {
         randX = (Rand_ZeroOne() - 0.5f) * 10.0f;
         randY = (Rand_ZeroOne() - 0.5f) * 10.0f;
         randOther = ((Rand_ZeroOne() * 0.5f) + 1.0f);
-        func_8007C85C(effect->obj.pos.x + randX, effect->obj.pos.y + randY, effect->obj.pos.z, effect->scale2 * randOther);
+        func_8007C85C(effect->obj.pos.x + randX, effect->obj.pos.y + randY, effect->obj.pos.z,
+                      effect->scale2 * randOther);
         if (effect->timer_50 == 0) {
             Object_Kill(&effect->obj, &effect->sfxPos);
         }
@@ -2085,8 +2088,8 @@ void func_8007DB70(Effect* effect) {
     switch (effect->unk_4E) {
         case 0:
             effect->vel.y -= 0.5f;
-            if ((effect->timer_50 == 0) &&
-                ((func_8006351C(1000, &effect->obj.pos, &sp54, 1) != 0) || (effect->obj.pos.y < (D_80177940 + 10.0f)))) {
+            if ((effect->timer_50 == 0) && ((func_8006351C(1000, &effect->obj.pos, &sp54, 1) != 0) ||
+                                            (effect->obj.pos.y < (D_80177940 + 10.0f)))) {
                 effect->vel.y = 0.0f;
                 if (effect->obj.pos.y < (D_80177940 + 10.0f)) {
                     effect->obj.pos.y = D_80177940;
@@ -2098,10 +2101,11 @@ void func_8007DB70(Effect* effect) {
                 effect->scale1 = 2.5f;
                 Audio_PlaySfx(0x2903B009, &effect->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 func_8007D0E0(effect->obj.pos.x, effect->obj.pos.y + 30.0f, effect->obj.pos.z, 7.0f);
-                func_8007BFFC(effect->obj.pos.x, effect->obj.pos.y + 30.0f, effect->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 5);
+                func_8007BFFC(effect->obj.pos.x, effect->obj.pos.y + 30.0f, effect->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f,
+                              5);
                 if ((effect->obj.pos.y < (D_80177940 + 10.0f)) || (D_80161A88 != 2)) {
-                    func_800365E4(effect->obj.pos.x, 3.0f, effect->obj.pos.z, effect->obj.pos.x, effect->obj.pos.z, 0.0f,
-                                  0.0f, 90.0f, 5.0f, 0, 0);
+                    func_800365E4(effect->obj.pos.x, 3.0f, effect->obj.pos.z, effect->obj.pos.x, effect->obj.pos.z,
+                                  0.0f, 0.0f, 90.0f, 5.0f, 0, 0);
                     break;
                 }
             }
@@ -2119,7 +2123,8 @@ void func_8007DB70(Effect* effect) {
             if ((fabsf(gPlayer[0].unk_138 - effect->obj.pos.z) < 40.0f) &&
                 (fabsf(gPlayer[0].pos.x - effect->obj.pos.x) < 80.0f)) {
                 if ((effect->obj.pos.y < gPlayer[0].pos.y) &&
-                    ((gPlayer[0].pos.y - effect->obj.pos.y) < (effect->scale2 * 35.0f)) && (gPlayer[0].timer_498 == 0)) {
+                    ((gPlayer[0].pos.y - effect->obj.pos.y) < (effect->scale2 * 35.0f)) &&
+                    (gPlayer[0].timer_498 == 0)) {
                     Player_ApplyDamage(gPlayer, 0, effect->info.damage);
                 }
             }
@@ -2354,8 +2359,7 @@ void func_8007E93C(Effect* effect, u32 objId, f32 posX, f32 posY, f32 posZ, f32 
     Audio_PlaySfx(0x29002002, &effect->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-void func_8007EBB8(Effect* effect, s32 objId, f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ,
-                   f32 scale2) {
+void func_8007EBB8(Effect* effect, s32 objId, f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2) {
     Effect_Initialize(effect);
     effect->obj.status = 1;
     effect->obj.id = objId;
@@ -2865,7 +2869,8 @@ void func_8008040C(Effect* effect) {
                     }
                 }
                 if (D_801784AC == 4) {
-                    if (func_E6A810_801B6AEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z + D_80177D20) != 0) {
+                    if (func_E6A810_801B6AEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z + D_80177D20) !=
+                        0) {
                         Object_Kill(&effect->obj, &effect->sfxPos);
                     }
                 } else if (effect->obj.pos.y < D_80177940) {
@@ -3111,7 +3116,8 @@ void func_800815DC(void) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if ((gObjects8C[i].obj.id == OBJ_EFFECT_366 || (gObjects8C[i].obj.id == OBJ_EFFECT_395 && gObjects8C[i].unk_4E == 1) ||
+        if ((gObjects8C[i].obj.id == OBJ_EFFECT_366 ||
+             (gObjects8C[i].obj.id == OBJ_EFFECT_395 && gObjects8C[i].unk_4E == 1) ||
              gObjects8C[i].obj.id == OBJ_EFFECT_364 || gObjects8C[i].obj.id == OBJ_EFFECT_346) &&
             gObjects8C[i].obj.status == 2) {
             gObjects8C[i].obj.status = 0;
@@ -3272,8 +3278,8 @@ void func_80081C5C(Effect* effect) {
         if (gCurrentLevel) {}
         PRINTF("ＺＯ＿ＭＯＶＥ ＨＥＬＰ %d\n");
     }
-    if (effect->unk_4E != 1 && effect->unk_4E != 2 && effect->unk_4E != 4 && effect->unk_4E != 5 && effect->unk_4E != 8 &&
-        effect->unk_4E != 9) {
+    if (effect->unk_4E != 1 && effect->unk_4E != 2 && effect->unk_4E != 4 && effect->unk_4E != 5 &&
+        effect->unk_4E != 8 && effect->unk_4E != 9) {
         if (gCurrentLevel) {}
         PRINTF("ＡＣ＿ＭＯＶＥ ＨＥＬＰ %d\n");
     }
@@ -3407,7 +3413,8 @@ void func_80081C5C(Effect* effect) {
 
                 case LEVEL_ZONESS:
                     if (!(gFrameCount & 3)) {
-                        func_80081A8C(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, effect->scale2 * 3.0f, 6);
+                        func_80081A8C(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, effect->scale2 * 3.0f,
+                                      6);
                     }
                     effect->obj.rot.x += effect->unk_60.x;
                     effect->obj.rot.y += effect->unk_60.y;
@@ -3602,7 +3609,8 @@ void func_80082F78(Effect* effect) {
         if (effect->unk_4A && effect->unk_4A) {}
         PRINTF("ＺＯ＿ＤＩＳＰ ＨＥＬＰ %d\n");
     }
-    if (effect->unk_4E != 1 && effect->unk_4E != 2 && effect->unk_4E != 4 && effect->unk_4E != 5 && effect->unk_4E != 7) {
+    if (effect->unk_4E != 1 && effect->unk_4E != 2 && effect->unk_4E != 4 && effect->unk_4E != 5 &&
+        effect->unk_4E != 7) {
         if (effect->unk_4A && !effect->scale2) {}
         PRINTF("ＡＣ＿ＤＩＳＰ ＨＥＬＰ %d\n");
     }

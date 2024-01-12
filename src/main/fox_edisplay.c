@@ -1210,7 +1210,8 @@ void Effect_Draw2(Effect* effect) {
     u8 sp3B = 0;
 
     if (effect->info.unk_14 == -1) {
-        Matrix_Translate(gGfxMatrix, effect->obj.pos.x, effect->obj.pos.y + D_8017847C, effect->obj.pos.z + D_80177D20, 1);
+        Matrix_Translate(gGfxMatrix, effect->obj.pos.x, effect->obj.pos.y + D_8017847C, effect->obj.pos.z + D_80177D20,
+                         1);
     } else {
         Matrix_Translate(gGfxMatrix, effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z + D_80177D20, 1);
     }
