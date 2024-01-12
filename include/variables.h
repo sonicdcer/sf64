@@ -211,10 +211,10 @@ extern f32 D_800CFFC4[];
 extern Gfx* D_800D14E0[][2];
 extern Gfx* D_800D14FC[];
 extern Vec3f D_800D1528;
-extern f32 D_800D1534[10][10];
+extern f32 D_800D1534[13][10];
 extern s32 D_800D173C[];
 extern Gfx* D_800D178C[6];
-extern s32 D_800D18F0[]; //[6][4]?
+extern s32 D_800D18F0[];
 extern s32 D_800D1950[];
 extern Gfx* D_800D17A4[];
 extern f32 D_800D17F8[];
