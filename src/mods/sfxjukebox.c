@@ -1,9 +1,10 @@
 #include "global.h"
 #include "fox_map.h"
 
-unsigned int sfx = 0x49000000;
-unsigned char sfxId = 0;
-unsigned char sfxBank = 4;
+u32 sfx = 0x09000000;
+s32 sfxId = 0;
+s32 sfxBank = 0;
+int holdTimer = 0;
 
 void decimalToHex(int num, char* hexString, size_t hexStringLength) {
     int i;
@@ -31,75 +32,43 @@ void decimalToHex(int num, char* hexString, size_t hexStringLength) {
 void Option_ExpertSoundUpdate(void) {
     char hexString[9]; // Buffer to store the hexadecimal string
 
-    /* Bank Switching */
-
-    if (gControllerPress[gMainController].button & R_TRIG) {
-        sfx &= 0x0FFFFFFF;
+    if ((gControllerPress[gMainController].button & R_TRIG) && (sfxBank < 4)) {
         sfxBank++;
-        if (sfxBank > 4) {
-            sfxBank = 4;
-        }
-        sfx += (sfxBank << 28);
-        sfx &= 0xFFFFFF00;
-    }
-
-    if (gControllerPress[gMainController].button & L_TRIG) {
-        sfx &= 0x0FFFFFFF;
+    } else if ((gControllerPress[gMainController].button & L_TRIG) && (sfxBank > 0)) {
         sfxBank--;
-        if (sfxBank == 0xFF) {
-            sfxBank = 0;
-        }
-        sfx += (sfxBank << 28);
-        sfx &= 0xFFFFFF00;
+    }
+    sfx &= 0x0FFFFFFF;
+    sfx |= (sfxBank << 28);
+
+    if (gControllerHold[gMainController].button & (U_JPAD | D_JPAD)) {
+        holdTimer++;
+    } else {
+        holdTimer = 0;
     }
 
-    /* Sfx ID Switching */
-
-    /* Precision selection */
-    if (gControllerPress[gMainController].button & U_JPAD) {
-        sfx &= 0xFFFFFF00;
+    if (((gControllerHold[gMainController].button & U_JPAD) && (holdTimer > 15)) ||
+        (gControllerPress[gMainController].button & U_JPAD)) {
         sfxId++;
-        if (((sfxBank == 0) || (sfxBank == 4)) && (sfxId > 0x3F)) {
-            sfxId = 0x3F;
-        } else if (((sfxBank == 2) || (sfxBank == 3)) && (sfxId > 0xA7)) {
-            sfxId = 0xAB;
-        } else if ((sfxBank == 1) && (sfxId > 0x8F)) {
-            sfxId = 0x8F;
-        }
-        sfx += sfxId;
-    }
-
-    if (gControllerPress[gMainController].button & D_JPAD) {
-        sfx &= 0xFFFFFF00;
+    } else if (((gControllerHold[gMainController].button & D_JPAD) && (holdTimer > 15)) ||
+               (gControllerPress[gMainController].button & D_JPAD)) {
         sfxId--;
-        if (sfxId == 0xFF) {
-            sfxId = 0;
-        }
-        sfx += sfxId;
+    } else if (gControllerPress[gMainController].button & L_JPAD) {
+        sfxId -= 0x10;
+    } else if (gControllerPress[gMainController].button & R_JPAD) {
+        sfxId += 0x10;
     }
 
-    /* Fast selection*/
-    if (gControllerHold[gMainController].button & R_JPAD) {
-        sfx &= 0xFFFFFF00;
-        sfxId++;
-        if (((sfxBank == 0) || (sfxBank == 4)) && (sfxId > 0x3F)) {
-            sfxId = 0x3F;
-        } else if (((sfxBank == 2) || (sfxBank == 3)) && (sfxId > 0xA7)) {
-            sfxId = 0xAB;
-        } else if ((sfxBank == 1) && (sfxId > 0x8F)) {
-            sfxId = 0x8F;
-        }
-        sfx += sfxId;
+    if (((sfxBank == 0) || (sfxBank == 4)) && (sfxId > 0x3F)) {
+        sfxId = 0x3F;
+    } else if (((sfxBank == 2) || (sfxBank == 3)) && (sfxId > 0xA7)) {
+        sfxId = 0xA7;
+    } else if ((sfxBank == 1) && (sfxId > 0x8F)) {
+        sfxId = 0x8F;
+    } else if (sfxId < 0) {
+        sfxId = 0;
     }
-
-    if (gControllerHold[gMainController].button & L_JPAD) {
-        sfx &= 0xFFFFFF00;
-        sfxId--;
-        if (sfxId == 0xFF) {
-            sfxId = 0;
-        }
-        sfx += sfxId;
-    }
+    sfx &= 0xFFFFFF00;
+    sfx |= sfxId & 0xFF;
 
     decimalToHex(sfx, hexString, sizeof(hexString));
 
