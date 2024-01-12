@@ -31,7 +31,9 @@ void decimalToHex(int num, char* hexString, size_t hexStringLength) {
 void Option_ExpertSoundUpdate(void) {
     char hexString[9]; // Buffer to store the hexadecimal string
 
-    if (gControllerPress[gMainController].button & U_JPAD) {
+    /* Bank Switching */
+
+    if (gControllerPress[gMainController].button & R_TRIG) {
         sfx &= 0x0FFFFFFF;
         sfxBank++;
         if (sfxBank > 4) {
@@ -41,7 +43,7 @@ void Option_ExpertSoundUpdate(void) {
         sfx &= 0xFFFFFF00;
     }
 
-    if (gControllerPress[gMainController].button & D_JPAD) {
+    if (gControllerPress[gMainController].button & L_TRIG) {
         sfx &= 0x0FFFFFFF;
         sfxBank--;
         if (sfxBank == 0xFF) {
@@ -51,12 +53,15 @@ void Option_ExpertSoundUpdate(void) {
         sfx &= 0xFFFFFF00;
     }
 
-    if (gControllerPress[gMainController].button & R_JPAD) {
+    /* Sfx ID Switching */
+
+    /* Precision selection */
+    if (gControllerPress[gMainController].button & U_JPAD) {
         sfx &= 0xFFFFFF00;
         sfxId++;
         if (((sfxBank == 0) || (sfxBank == 4)) && (sfxId > 0x3F)) {
             sfxId = 0x3F;
-        } else if (((sfxBank == 2) || (sfxBank == 3)) && (sfxId > 0xAB)) {
+        } else if (((sfxBank == 2) || (sfxBank == 3)) && (sfxId > 0xA7)) {
             sfxId = 0xAB;
         } else if ((sfxBank == 1) && (sfxId > 0x8F)) {
             sfxId = 0x8F;
@@ -64,7 +69,30 @@ void Option_ExpertSoundUpdate(void) {
         sfx += sfxId;
     }
 
-    if (gControllerPress[gMainController].button & L_JPAD) {
+    if (gControllerPress[gMainController].button & D_JPAD) {
+        sfx &= 0xFFFFFF00;
+        sfxId--;
+        if (sfxId == 0xFF) {
+            sfxId = 0;
+        }
+        sfx += sfxId;
+    }
+
+    /* Fast selection*/
+    if (gControllerHold[gMainController].button & R_JPAD) {
+        sfx &= 0xFFFFFF00;
+        sfxId++;
+        if (((sfxBank == 0) || (sfxBank == 4)) && (sfxId > 0x3F)) {
+            sfxId = 0x3F;
+        } else if (((sfxBank == 2) || (sfxBank == 3)) && (sfxId > 0xA7)) {
+            sfxId = 0xAB;
+        } else if ((sfxBank == 1) && (sfxId > 0x8F)) {
+            sfxId = 0x8F;
+        }
+        sfx += sfxId;
+    }
+
+    if (gControllerHold[gMainController].button & L_JPAD) {
         sfx &= 0xFFFFFF00;
         sfxId--;
         if (sfxId == 0xFF) {

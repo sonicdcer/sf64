@@ -341,7 +341,7 @@ UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9408;
 #endif
 
 void func_EBFBE0_80191B20(void) {
-    s32 var_a1_2;
+    bool enableExpertModes;
     bool var_v0_2;
     s32 i;
 
@@ -359,18 +359,24 @@ void func_EBFBE0_80191B20(void) {
         D_EBFBE0_801AE5D0[i] = D_EBFBE0_801AE5A0[i];
     }
 
-    var_a1_2 = 1;
+    enableExpertModes = true;
     for (i = 0; i < 16; i++) {
         if (i == SAVE_SLOT_VENOM_1) {
             continue;
         }
         if (!(gSaveFile.save.data.planet[i].normalMedal & 1)) {
-            var_a1_2 = 0;
+#if MODS_LEVEL_SELECT == 1
+            enableExpertModes = true;
+#elif MODS_SFX_JUKEBOX == 1
+            enableExpertModes = true;
+#else
+            enableExpertModes = false;
+#endif
             break;
         }
     }
 
-    D_EBFBE0_801B91C8 = var_a1_2;
+    D_EBFBE0_801B91C8 = enableExpertModes;
     D_80178348 = 0;
     D_80178350 = 0;
     D_80178354 = 0;
