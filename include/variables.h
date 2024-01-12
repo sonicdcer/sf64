@@ -207,7 +207,7 @@ extern s16 D_800CFF94[];
 extern u8 D_800CFFB4[];
 extern f32 D_800CFFC4[];
 
-// sf_77E40
+// fox_effect
 
 // sf_hud
 extern s16 D_800D1970;

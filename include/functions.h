@@ -305,7 +305,7 @@ void func_8007717C(Object_2F4 *);
 void func_800771CC(Object_2F4*);
 void func_80077218(Object_2F4*);
 
-// sf_77E40
+// fox_effect
 void func_80077240(f32 posX, f32 posY, f32 posZ, s32 hits);
 void func_8007729C(void);
 void func_80077790(void);
