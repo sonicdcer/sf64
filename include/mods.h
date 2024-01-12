@@ -13,7 +13,7 @@
  * Sound Effects Jukebox:
  * Ability to play sound effects inside the expert sound menu
 */
-#define MODS_SFX_JUKEBOX 1
+#define MODS_SFX_JUKEBOX 0
 
 /* ************************* */
 
