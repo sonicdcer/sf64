@@ -133,25 +133,25 @@ void func_80043468(Player* player) {
     Math_SmoothStepToF(&player->unk_014, 1.0f, 1.0f, 0.1f, 0.0f);
 }
 
-void func_800438E0(Object_8C* obj8C, f32 xPos, f32 yPos, f32 zPos, f32 scale) {
+void func_800438E0(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale) {
     f32 pad[12];
 
-    Object_8C_Initialize(obj8C);
-    obj8C->obj.status = 2;
-    obj8C->obj.id = OBJ_8C_357;
-    obj8C->obj.pos.x = xPos;
-    obj8C->obj.pos.y = yPos;
-    obj8C->obj.pos.z = zPos;
-    obj8C->vel.x = Rand_ZeroOne() - (2.0f * Rand_ZeroOne());
-    obj8C->vel.y = ((Rand_ZeroOne() * 3.0f) - (gPlayer[0].vel.z / 5.0f)) + 3.0f;
-    obj8C->vel.z = ((Rand_ZeroOne() * 3.0f) - (gPlayer[0].vel.z / 5.0f)) + 2.0f;
-    obj8C->scale2 = ((Rand_ZeroOne() * 0.8f) + 0.3f) * scale;
-    obj8C->timer_50 = (s32) (Rand_ZeroOne() * 5.0f) + 8;
-    obj8C->obj.rot.x = Rand_ZeroOne() * 360.0f;
-    obj8C->unk_60.x = (Rand_ZeroOne() - 0.5f) * 30.0f;
-    obj8C->unk_60.y = (Rand_ZeroOne() - 0.5f) * 30.0f;
-    obj8C->unk_60.z = (Rand_ZeroOne() - 0.5f) * 30.0f;
-    Object_SetInfo(&obj8C->info, obj8C->obj.id);
+    Effect_Initialize(effect);
+    effect->obj.status = 2;
+    effect->obj.id = OBJ_EFFECT_357;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
+    effect->vel.x = Rand_ZeroOne() - (2.0f * Rand_ZeroOne());
+    effect->vel.y = ((Rand_ZeroOne() * 3.0f) - (gPlayer[0].vel.z / 5.0f)) + 3.0f;
+    effect->vel.z = ((Rand_ZeroOne() * 3.0f) - (gPlayer[0].vel.z / 5.0f)) + 2.0f;
+    effect->scale2 = ((Rand_ZeroOne() * 0.8f) + 0.3f) * scale;
+    effect->timer_50 = (s32) (Rand_ZeroOne() * 5.0f) + 8;
+    effect->obj.rot.x = Rand_ZeroOne() * 360.0f;
+    effect->unk_60.x = (Rand_ZeroOne() - 0.5f) * 30.0f;
+    effect->unk_60.y = (Rand_ZeroOne() - 0.5f) * 30.0f;
+    effect->unk_60.z = (Rand_ZeroOne() - 0.5f) * 30.0f;
+    Object_SetInfo(&effect->info, effect->obj.id);
 }
 
 void func_80043AA0(f32 xPos, f32 yPos, f32 zPos, f32 scale) {

@@ -470,18 +470,18 @@ void func_80049968(Object_2F4* obj2F4, s32 arg1) {
     Audio_PlaySfx(0x3100000CU, &obj2F4->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-void func_80049A9C(Object_8C* obj8c, f32 x, f32 y, f32 z) {
-    Object_8C_Initialize(obj8c);
-    obj8c->obj.status = 1;
-    obj8c->obj.id = OBJ_8C_346;
-    obj8c->timer_50 = 100;
-    obj8c->scale2 = 0.2f;
-    obj8c->obj.pos.x = x;
-    obj8c->obj.pos.y = y;
-    obj8c->obj.pos.z = z;
-    obj8c->vel.z = 40.0f;
-    obj8c->obj.rot.z = Rand_ZeroOne() * 360.0f;
-    Object_SetInfo(&obj8c->info, obj8c->obj.id);
+void func_80049A9C(Effect* effect, f32 x, f32 y, f32 z) {
+    Effect_Initialize(effect);
+    effect->obj.status = 1;
+    effect->obj.id = OBJ_EFFECT_346;
+    effect->timer_50 = 100;
+    effect->scale2 = 0.2f;
+    effect->obj.pos.x = x;
+    effect->obj.pos.y = y;
+    effect->obj.pos.z = z;
+    effect->vel.z = 40.0f;
+    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    Object_SetInfo(&effect->info, effect->obj.id);
 }
 
 void func_80049B44(void) {
@@ -800,42 +800,42 @@ void func_8004A840(s32 obj2F4) {
     func_8004A700(&gObjects2F4[obj2F4], obj2F4);
 }
 
-void func_8004A888(Object_8C* obj8C) {
+void func_8004A888(Effect* effect) {
     Vec3f sp2C;
     Vec3f sp20;
 
     Matrix_RotateY(gCalcMatrix, (gPlayer[0].unk_0E8 + 180.0f) * M_DTOR, 0);
     Matrix_RotateX(gCalcMatrix, -(gPlayer[0].unk_0E4 * M_DTOR), 1);
-    Object_8C_Initialize(obj8C);
+    Effect_Initialize(effect);
 
-    obj8C->obj.status = 1;
+    effect->obj.status = 1;
     sp2C.x = (Rand_ZeroOne() - 0.5f) * 1500.0f;
     sp2C.y = (Rand_ZeroOne() - 0.5f) * 800.0f;
     sp2C.z = 3000.0f;
 
     Matrix_MultVec3f(gCalcMatrix, &sp2C, &sp20);
 
-    obj8C->obj.pos.x = gPlayer[0].pos.x + sp20.x;
-    obj8C->obj.pos.y = gPlayer[0].pos.y + sp20.y;
-    obj8C->obj.pos.z = gPlayer[0].pos.z + sp20.z;
+    effect->obj.pos.x = gPlayer[0].pos.x + sp20.x;
+    effect->obj.pos.y = gPlayer[0].pos.y + sp20.y;
+    effect->obj.pos.z = gPlayer[0].pos.z + sp20.z;
     sp2C.x = 0.0f;
     sp2C.y = 0.0f;
     sp2C.z = -80.0f;
 
     Matrix_MultVec3f(gCalcMatrix, &sp2C, &sp20);
 
-    obj8C->vel.x = sp20.x;
-    obj8C->vel.y = sp20.y;
-    obj8C->vel.z = sp20.z;
-    obj8C->obj.id = OBJ_8C_352;
-    obj8C->timer_50 = 0x28;
-    obj8C->unk_46 = 0x90;
-    obj8C->scale2 = (Rand_ZeroOne() * 30.0f) + 10.0f;
+    effect->vel.x = sp20.x;
+    effect->vel.y = sp20.y;
+    effect->vel.z = sp20.z;
+    effect->obj.id = OBJ_EFFECT_352;
+    effect->timer_50 = 0x28;
+    effect->unk_46 = 0x90;
+    effect->scale2 = (Rand_ZeroOne() * 30.0f) + 10.0f;
 
     if (Rand_ZeroOne() < 0.5f) {
-        obj8C->obj.rot.z = 180.0f;
+        effect->obj.rot.z = 180.0f;
     }
-    Object_SetInfo(&obj8C->info, obj8C->obj.id);
+    Object_SetInfo(&effect->info, effect->obj.id);
 }
 
 void func_8004AA84(void) {

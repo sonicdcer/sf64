@@ -619,7 +619,7 @@ void func_800A6148(void) {
     }
     for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
         Object_Kill(&gObjects8C[i].obj, &gObjects8C[i].sfxPos);
-        Object_8C_Initialize(&gObjects8C[i]);
+        Effect_Initialize(&gObjects8C[i]);
     }
     for (i = 0; i < ARRAY_COUNT(gItems); i++) {
         Object_Kill(&gItems[i].obj, &gItems[i].sfxPos);
