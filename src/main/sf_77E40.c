@@ -10,16 +10,15 @@ const char D_800D726C[] = "ＡＣ＿ＭＯＶＥ ＨＥＬＰ %d\n";
 const char D_800D7288[] = "ＺＯ＿ＤＩＳＰ ＨＥＬＰ %d\n";
 const char D_800D72A4[] = "ＡＣ＿ＤＩＳＰ ＨＥＬＰ %d\n";
 
-#ifdef IMPORT_DATA
 extern Gfx D_1003130[];
-extern Gfx D_1016410[];
-extern Gfx D_10162A0[];
-extern Gfx D_1016130[];
-extern Gfx D_1015FC0[];
 extern Gfx D_1015810[];
-extern Gfx D_1015E50[];
-extern Gfx D_10156A0[];
 extern Gfx D_1015CE0[];
+extern Gfx D_1015E50[];
+extern Gfx D_1015FC0[];
+extern Gfx D_1016130[];
+extern Gfx D_10162A0[];
+extern Gfx D_1016410[];
+extern Gfx D_10156A0[];
 extern Gfx D_1015B70[];
 extern Gfx D_1015320[];
 extern Gfx D_6003440[];
@@ -45,13 +44,22 @@ extern Gfx D_20101A0[];
 extern Gfx D_200F910[];
 extern Gfx D_200F080[];
 extern Gfx D_200E7F0[];
+extern Gfx D_601BAD0[];
+extern Gfx D_6004900[];
+extern Gfx D_6018AF0[];
+extern Gfx D_9013C20[];
+extern Gfx D_6016880[];
+extern u16 D_6012840[];
+extern Gfx D_6012550[];
 
 Gfx* D_800D14E0[][2] = {
     { D_1016410, D_1003130 },
     { D_10162A0, D_1003130 },
     { D_1016130, D_1003130 },
-    { D_1015FC0, D_1003130 },
 };
+ 
+// Unused
+Gfx *D_800D14F8 = { D_1015FC0 };
 
 Gfx* D_800D14FC[] = { D_1003130, D_1015810, D_1016410, D_10162A0, D_1016130, D_1015FC0,
                       D_1015E50, D_10156A0, D_1015CE0, D_1015B70, D_1015320 };
@@ -119,9 +127,6 @@ Gfx* D_800D18A0[] = {
 };
 
 Vec3f D_800D18D8 = { 0.0f, -10.0f, 0.0f };
-#else
-extern Vec3f D_800D18D8;
-#endif
 
 void func_80077240(f32 posX, f32 posY, f32 posZ, s32 hits) {
     s32 i;
@@ -2969,7 +2974,6 @@ void func_80080ACC(Object_8C* obj8C) {
     }
 }
 
-#ifdef IMPORT_DATA
 void func_80080D04(Object_8C* obj8C) {
     static s32 D_800D18E4 = 0;
     s32 i;
@@ -3107,11 +3111,7 @@ void func_80080D04(Object_8C* obj8C) {
             break;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_77E40/func_80080D04.s")
-#endif
 
-#ifdef IMPORT_DATA
 f32 D_800D18E8 = 0.0f;
 f32 D_800D18EC = 0.0f;
 
@@ -3120,7 +3120,6 @@ s32 D_800D18F0[24] = { 32, 32, 255, 0, 255, 0, 0, 0, 0, 255, 0, 0, 0, 0, 0, 0, 0
 
 // Alpha values
 s32 D_800D1950[] = { 255, 210, 180, 120, 70, 30, 0, 0 };
-#endif
 
 void func_800815DC(void) {
     s32 i;

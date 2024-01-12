@@ -208,27 +208,6 @@ extern u8 D_800CFFB4[];
 extern f32 D_800CFFC4[];
 
 // sf_77E40
-extern Gfx* D_800D14E0[][2];
-extern Gfx* D_800D14FC[];
-extern Vec3f D_800D1528;
-extern f32 D_800D1534[13][10];
-extern s32 D_800D173C[];
-extern Gfx* D_800D178C[6];
-extern s32 D_800D18F0[];
-extern s32 D_800D1950[];
-extern Gfx* D_800D17A4[];
-extern f32 D_800D17F8[];
-extern u8 D_800D184C[][4];
-extern Gfx* D_800D18A0[];
-extern Gfx D_6004900[];
-extern Gfx D_6018AF0[];
-extern Gfx D_9013C20[];
-extern f32 D_800D18E8;
-extern f32 D_800D18EC;
-extern Gfx D_6012550[];
-extern u16 D_6012840[];
-extern Gfx D_6016880[];
-extern Gfx D_601BAD0[];
 
 // sf_hud
 extern s16 D_800D1970;
