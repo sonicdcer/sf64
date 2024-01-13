@@ -469,24 +469,24 @@ void func_E16C50_801875E4(f32 xPos, f32 yPos, f32 zPos, f32 unk124y, f32 xRot, f
     }
 }
 
-void func_E16C50_8018767C(Object_8C* obj8C) {
-    Object_8C_Initialize(obj8C);
-    obj8C->obj.status = 1;
-    obj8C->obj.id = OBJ_8C_395;
-    obj8C->obj.pos.x = gBosses[0].obj.pos.x;
-    obj8C->obj.pos.y = gBosses[0].obj.pos.y;
-    obj8C->obj.pos.z = gBosses[0].obj.pos.z + 250.0f;
-    obj8C->unk_4E = 8;
-    obj8C->scale2 = 1.0f;
-    Object_SetInfo(&obj8C->info, obj8C->obj.id);
+void func_E16C50_8018767C(Effect* effect) {
+    Effect_Initialize(effect);
+    effect->obj.status = 1;
+    effect->obj.id = OBJ_EFFECT_395;
+    effect->obj.pos.x = gBosses[0].obj.pos.x;
+    effect->obj.pos.y = gBosses[0].obj.pos.y;
+    effect->obj.pos.z = gBosses[0].obj.pos.z + 250.0f;
+    effect->unk_4E = 8;
+    effect->scale2 = 1.0f;
+    Object_SetInfo(&effect->info, effect->obj.id);
 }
 
 void func_E16C50_80187704(void) {
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
-            func_E16C50_8018767C(&gObjects8C[i]);
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
+            func_E16C50_8018767C(&gEffects[i]);
             break;
         }
     }
@@ -542,7 +542,7 @@ void func_E16C50_80187944(Boss* bossA6) {
     f32 sp114;
     f32 sp110;
     f32 sp10C;
-    Object_8C* temp_s0_3;
+    Effect* temp_s0_3;
     f32 sp104;
     Vec3f spC8[5];
     Vec3f spA4[3];
@@ -1037,7 +1037,7 @@ void func_E16C50_80187944(Boss* bossA6) {
             }
             break;
         case 7:
-            temp_s0_3 = &gObjects8C[bossA6->swork[A6_SWK_39]];
+            temp_s0_3 = &gEffects[bossA6->swork[A6_SWK_39]];
             Math_SmoothStepToF(&D_E16C50_801C22F0.unk_28[0], 255.0f, 1.0f, 100.0f, 0.00001f);
             Math_SmoothStepToF(&D_E16C50_801C22F0.unk_28[2], 255.0f, 1.0f, 100.0f, 0.00001f);
             Math_SmoothStepToF(&D_E16C50_801C22F0.unk_28[1], 255.0f, 1.0f, 100.0f, 0.00001f);

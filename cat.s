@@ -4104,7 +4104,7 @@ glabel func_E16C50_801937D8
 /* E22F18 801937E8 AFA5003C */  sw          $a1, 0x3C($sp)
 /* E22F1C 801937EC AFA60040 */  sw          $a2, 0x40($sp)
 /* E22F20 801937F0 AFA70044 */  sw          $a3, 0x44($sp)
-/* E22F24 801937F4 0C01851D */  jal         Object_8C_Initialize
+/* E22F24 801937F4 0C01851D */  jal         Effect_Initialize
 /* E22F28 801937F8 02002025 */   or         $a0, $s0, $zero
 /* E22F2C 801937FC 3C01801C */  lui         $at, %hi(D_E16C50_801C0F38)
 /* E22F30 80193800 C4240F38 */  lwc1        $ft0, %lo(D_E16C50_801C0F38)($at)
@@ -4178,10 +4178,10 @@ glabel func_E16C50_80193908
 /* E2303C 8019390C AFBF001C */  sw          $ra, 0x1C($sp)
 /* E23040 80193910 AFA60028 */  sw          $a2, 0x28($sp)
 /* E23044 80193914 AFA7002C */  sw          $a3, 0x2C($sp)
-/* E23048 80193918 3C048017 */  lui         $a0, %hi(gObjects8C)
+/* E23048 80193918 3C048017 */  lui         $a0, %hi(gEffects)
 /* E2304C 8019391C 3C028017 */  lui         $v0, %hi(gItems)
 /* E23050 80193920 244237E0 */  addiu       $v0, $v0, %lo(gItems)
-/* E23054 80193924 24840130 */  addiu       $a0, $a0, %lo(gObjects8C)
+/* E23054 80193924 24840130 */  addiu       $a0, $a0, %lo(gEffects)
 /* E23058 80193928 908E0000 */  lbu         $t6, 0x0($a0)
 .LE16C50_8019392C:
 /* E2305C 8019392C 55C0000A */  bnel        $t6, $zero, .LE16C50_80193958
@@ -4219,7 +4219,7 @@ glabel func_E16C50_80193970
 /* E230B0 80193980 AFA5003C */  sw          $a1, 0x3C($sp)
 /* E230B4 80193984 AFA60040 */  sw          $a2, 0x40($sp)
 /* E230B8 80193988 AFA70044 */  sw          $a3, 0x44($sp)
-/* E230BC 8019398C 0C01851D */  jal         Object_8C_Initialize
+/* E230BC 8019398C 0C01851D */  jal         Effect_Initialize
 /* E230C0 80193990 02002025 */   or         $a0, $s0, $zero
 /* E230C4 80193994 3C01801C */  lui         $at, %hi(D_E16C50_801C0F3C)
 /* E230C8 80193998 C4240F3C */  lwc1        $ft0, %lo(D_E16C50_801C0F3C)($at)
@@ -4291,10 +4291,10 @@ glabel func_E16C50_80193A98
 /* E231CC 80193A9C AFBF001C */  sw          $ra, 0x1C($sp)
 /* E231D0 80193AA0 AFA60028 */  sw          $a2, 0x28($sp)
 /* E231D4 80193AA4 AFA7002C */  sw          $a3, 0x2C($sp)
-/* E231D8 80193AA8 3C048017 */  lui         $a0, %hi(gObjects8C)
+/* E231D8 80193AA8 3C048017 */  lui         $a0, %hi(gEffects)
 /* E231DC 80193AAC 3C028017 */  lui         $v0, %hi(gItems)
 /* E231E0 80193AB0 244237E0 */  addiu       $v0, $v0, %lo(gItems)
-/* E231E4 80193AB4 24840130 */  addiu       $a0, $a0, %lo(gObjects8C)
+/* E231E4 80193AB4 24840130 */  addiu       $a0, $a0, %lo(gEffects)
 /* E231E8 80193AB8 908E0000 */  lbu         $t6, 0x0($a0)
 .LE16C50_80193ABC:
 /* E231EC 80193ABC 55C0000C */  bnel        $t6, $zero, .LE16C50_80193AF0
@@ -4334,7 +4334,7 @@ glabel func_E16C50_80193B08
 /* E23248 80193B18 AFA50024 */  sw          $a1, 0x24($sp)
 /* E2324C 80193B1C AFA60028 */  sw          $a2, 0x28($sp)
 /* E23250 80193B20 AFA7002C */  sw          $a3, 0x2C($sp)
-/* E23254 80193B24 0C01851D */  jal         Object_8C_Initialize
+/* E23254 80193B24 0C01851D */  jal         Effect_Initialize
 /* E23258 80193B28 02002025 */   or         $a0, $s0, $zero
 /* E2325C 80193B2C 240E0001 */  addiu       $t6, $zero, 0x1
 /* E23260 80193B30 240F018A */  addiu       $t7, $zero, 0x18A
@@ -4419,10 +4419,10 @@ glabel func_E16C50_80193C5C
 /* E23390 80193C60 AFBF001C */  sw          $ra, 0x1C($sp)
 /* E23394 80193C64 AFA60028 */  sw          $a2, 0x28($sp)
 /* E23398 80193C68 AFA7002C */  sw          $a3, 0x2C($sp)
-/* E2339C 80193C6C 3C048017 */  lui         $a0, %hi(gObjects8C + 0x2BC0)
-/* E233A0 80193C70 3C028017 */  lui         $v0, %hi(gObjects8C)
-/* E233A4 80193C74 24420130 */  addiu       $v0, $v0, %lo(gObjects8C)
-/* E233A8 80193C78 24842CF0 */  addiu       $a0, $a0, %lo(gObjects8C + 0x2BC0)
+/* E2339C 80193C6C 3C048017 */  lui         $a0, %hi(gEffects + 0x2BC0)
+/* E233A0 80193C70 3C028017 */  lui         $v0, %hi(gEffects)
+/* E233A4 80193C74 24420130 */  addiu       $v0, $v0, %lo(gEffects)
+/* E233A8 80193C78 24842CF0 */  addiu       $a0, $a0, %lo(gEffects + 0x2BC0)
 /* E233AC 80193C7C 908E0000 */  lbu         $t6, 0x0($a0)
 .LE16C50_80193C80:
 /* E233B0 80193C80 55C0000A */  bnel        $t6, $zero, .LE16C50_80193CAC
@@ -7564,8 +7564,8 @@ glabel func_E16C50_80194A84
 /* E25D7C 8019664C 44812000 */  mtc1        $at, $ft0
 /* E25D80 80196650 3C014120 */  lui         $at, (0x41200000 >> 16)
 /* E25D84 80196654 44815000 */  mtc1        $at, $ft3
-/* E25D88 80196658 3C028017 */  lui         $v0, %hi(gObjects8C)
-/* E25D8C 8019665C 24420130 */  addiu       $v0, $v0, %lo(gObjects8C)
+/* E25D88 80196658 3C028017 */  lui         $v0, %hi(gEffects)
+/* E25D8C 8019665C 24420130 */  addiu       $v0, $v0, %lo(gEffects)
 /* E25D90 80196660 A0403598 */  sb          $zero, 0x3598($v0)
 /* E25D94 80196664 A0403624 */  sb          $zero, 0x3624($v0)
 /* E25D98 80196668 3C018016 */  lui         $at, %hi(D_80161734)
@@ -10187,15 +10187,15 @@ glabel func_E16C50_80198BE8
 /* E28400 80198CD0 0C006957 */  jal         func_8001A55C
 /* E28404 80198CD4 248403FC */   addiu      $a0, $a0, 0x3FC
 .LE16C50_80198CD8:
-/* E28408 80198CD8 3C108017 */  lui         $s0, %hi(gObjects8C)
-/* E2840C 80198CDC 26100130 */  addiu       $s0, $s0, %lo(gObjects8C)
+/* E28408 80198CD8 3C108017 */  lui         $s0, %hi(gEffects)
+/* E2840C 80198CDC 26100130 */  addiu       $s0, $s0, %lo(gEffects)
 /* E28410 80198CE0 00008825 */  or          $s1, $zero, $zero
 /* E28414 80198CE4 24020064 */  addiu       $v0, $zero, 0x64
 .LE16C50_80198CE8:
 /* E28418 80198CE8 920C0000 */  lbu         $t4, 0x0($s0)
 /* E2841C 80198CEC 5580006C */  bnel        $t4, $zero, .LE16C50_80198EA0
 /* E28420 80198CF0 26310001 */   addiu      $s1, $s1, 0x1
-/* E28424 80198CF4 0C01851D */  jal         Object_8C_Initialize
+/* E28424 80198CF4 0C01851D */  jal         Effect_Initialize
 /* E28428 80198CF8 02002025 */   or         $a0, $s0, $zero
 /* E2842C 80198CFC 3C013F80 */  lui         $at, (0x3F800000 >> 16)
 /* E28430 80198D00 44812000 */  mtc1        $at, $ft0
@@ -11099,7 +11099,7 @@ glabel func_E16C50_801998E0
 /* E29020 801998F0 AFA50034 */  sw          $a1, 0x34($sp)
 /* E29024 801998F4 AFA60038 */  sw          $a2, 0x38($sp)
 /* E29028 801998F8 AFA7003C */  sw          $a3, 0x3C($sp)
-/* E2902C 801998FC 0C01851D */  jal         Object_8C_Initialize
+/* E2902C 801998FC 0C01851D */  jal         Effect_Initialize
 /* E29030 80199900 02002025 */   or         $a0, $s0, $zero
 /* E29034 80199904 C7A20038 */  lwc1        $fv1, 0x38($sp)
 /* E29038 80199908 C7B0003C */  lwc1        $ft4, 0x3C($sp)
@@ -11155,10 +11155,10 @@ glabel func_E16C50_801999CC
 /* E290FC 801999CC 27BDFFE8 */  addiu       $sp, $sp, -0x18
 /* E29100 801999D0 AFBF0014 */  sw          $ra, 0x14($sp)
 /* E29104 801999D4 AFA60020 */  sw          $a2, 0x20($sp)
-/* E29108 801999D8 3C048017 */  lui         $a0, %hi(gObjects8C)
+/* E29108 801999D8 3C048017 */  lui         $a0, %hi(gEffects)
 /* E2910C 801999DC 3C028017 */  lui         $v0, %hi(gItems)
 /* E29110 801999E0 244237E0 */  addiu       $v0, $v0, %lo(gItems)
-/* E29114 801999E4 24840130 */  addiu       $a0, $a0, %lo(gObjects8C)
+/* E29114 801999E4 24840130 */  addiu       $a0, $a0, %lo(gEffects)
 /* E29118 801999E8 908E0000 */  lbu         $t6, 0x0($a0)
 .LE16C50_801999EC:
 /* E2911C 801999EC 55C00008 */  bnel        $t6, $zero, .LE16C50_80199A10

@@ -61,8 +61,8 @@ static f32 D_E16C50_801C1728[2] = { M_DTOR, 0.1f }; /* const */
 static f32 D_E16C50_801C1730[2] = { M_DTOR, 0.1f }; /* const */
 static f32 D_E16C50_801C1758[4] = { 0.05f, 0.1f, 0.1f, 0.1f }; /* const */
 
-void func_E16C50_8019E7F0(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
-    Object_8C_Initialize(arg0);
+void func_E16C50_8019E7F0(Effect *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+    Effect_Initialize(arg0);
     arg0->obj.status = 2;
     arg0->obj.id = 0x188;
     arg0->unk_4E = 3;
@@ -81,9 +81,9 @@ void func_E16C50_8019E7F0(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg
 }
 
 void func_E16C50_8019E8B8(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
-    Object_8C *var_a0;
+    Effect *var_a0;
 
-    var_a0 = gObjects8C;
+    var_a0 = gEffects;
 loop_1:
     if (var_a0->obj.status == 0) {
         func_E16C50_8019E7F0(var_a0, arg0, arg1, arg2, arg3);
@@ -96,10 +96,10 @@ loop_1:
     goto loop_1;
 }
 
-void func_E16C50_8019E920(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, s32 arg8) {
+void func_E16C50_8019E920(Effect *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, s32 arg8) {
     f32 temp_ft1;
 
-    Object_8C_Initialize(arg0);
+    Effect_Initialize(arg0);
     arg0->obj.status = 2;
     arg0->obj.id = 0x188;
     arg0->unk_4E = (s16) arg8;
@@ -121,16 +121,16 @@ void func_E16C50_8019E920(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg
 }
 
 void func_E16C50_8019E9F4(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, s32 arg7) {
-    Object_8C *var_a0;
+    Effect *var_a0;
 
-    var_a0 = gObjects8C + 0x3624;
+    var_a0 = gEffects + 0x3624;
 loop_1:
     if (var_a0->obj.status == 0) {
         func_E16C50_8019E920(var_a0, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
         return;
     }
     var_a0 -= 0x8C;
-    if (var_a0 == (gObjects8C + 0x120C)) {
+    if (var_a0 == (gEffects + 0x120C)) {
         return;
     }
     goto loop_1;
@@ -460,11 +460,11 @@ void func_E16C50_8019F7AC(Object_2F4 *arg0) {
     }
 }
 
-void func_E16C50_8019F99C(Object_2F4 *arg0, Object_8C *arg1, f32 arg2) {
+void func_E16C50_8019F99C(Object_2F4 *arg0, Effect *arg1, f32 arg2) {
     f32 temp_fv0;
     f32 temp_fv0_2;
 
-    Object_8C_Initialize(arg1);
+    Effect_Initialize(arg1);
     arg1->obj.status = 2;
     arg1->obj.id = 0x188;
     temp_fv0 = arg0->obj.pos.x;
@@ -487,7 +487,7 @@ void func_E16C50_8019F99C(Object_2F4 *arg0, Object_8C *arg1, f32 arg2) {
     Object_SetInfo(&arg1->info, (u32) arg1->obj.id);
 }
 
-void func_E16C50_8019FAA4(Boss *arg0, Object_8C *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
+void func_E16C50_8019FAA4(Boss *arg0, Effect *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     f32 sp4C;
     f32 sp48;
     f32 sp44;
@@ -498,7 +498,7 @@ void func_E16C50_8019FAA4(Boss *arg0, Object_8C *arg1, f32 arg2, f32 arg3, f32 a
     sp2C.unk0 = (f32) D_E16C50_801BF920.x;
     sp2C.unk4 = (f32) D_E16C50_801BF920.y;
     sp2C.unk8 = (f32) D_E16C50_801BF920.z;
-    Object_8C_Initialize(arg1);
+    Effect_Initialize(arg1);
     arg1->obj.status = 2;
     arg1->obj.id = 0x188;
     arg1->obj.pos.x = arg2;
@@ -552,10 +552,10 @@ void func_E16C50_8019FAA4(Boss *arg0, Object_8C *arg1, f32 arg2, f32 arg3, f32 a
     Object_SetInfo(&arg1->info, (u32) arg1->obj.id);
 }
 
-void func_E16C50_8019FDE0(Boss *arg0, Object_8C *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, s32 arg6) {
+void func_E16C50_8019FDE0(Boss *arg0, Effect *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, s32 arg6) {
     f32 temp_ft1;
 
-    Object_8C_Initialize(arg1);
+    Effect_Initialize(arg1);
     arg1->obj.status = 2;
     arg1->obj.id = 0x188;
     arg1->obj.pos.x = arg2;
@@ -579,48 +579,48 @@ void func_E16C50_8019FDE0(Boss *arg0, Object_8C *arg1, f32 arg2, f32 arg3, f32 a
 }
 
 void func_E16C50_8019FEE8(Object_2F4 *arg1) {
-    Object_8C *var_a1;
+    Effect *var_a1;
 
-    var_a1 = gObjects8C + 0x2648;
+    var_a1 = gEffects + 0x2648;
 loop_1:
     if (var_a1->obj.status == 0) {
         func_E16C50_8019F99C(arg1, var_a1, (bitwise f32) arg1);
         return;
     }
     var_a1 -= 0x8C;
-    if ((u32) var_a1 < (u32) gObjects8C) {
+    if ((u32) var_a1 < (u32) gEffects) {
         return;
     }
     goto loop_1;
 }
 
-void func_E16C50_8019FF44(Boss *arg1, Object_8C *arg2, f32 arg3, f32 arg4, f32 arg5) {
-    Object_8C *var_a1;
+void func_E16C50_8019FF44(Boss *arg1, Effect *arg2, f32 arg3, f32 arg4, f32 arg5) {
+    Effect *var_a1;
 
-    var_a1 = gObjects8C + 0x2648;
+    var_a1 = gEffects + 0x2648;
 loop_1:
     if (var_a1->obj.status == 0) {
         func_E16C50_8019FAA4(arg1, arg2, (bitwise f32) var_a1, (bitwise f32) arg1, (bitwise f32) arg2, arg3, arg4, arg5);
         return;
     }
     var_a1 -= 0x8C;
-    if ((u32) var_a1 < (u32) gObjects8C) {
+    if ((u32) var_a1 < (u32) gEffects) {
         return;
     }
     goto loop_1;
 }
 
-void func_E16C50_8019FFC0(Boss *arg1, Object_8C *arg2, f32 arg3, s32 arg4, f32 arg5) {
-    Object_8C *var_a1;
+void func_E16C50_8019FFC0(Boss *arg1, Effect *arg2, f32 arg3, s32 arg4, f32 arg5) {
+    Effect *var_a1;
 
-    var_a1 = gObjects8C + 0x2648;
+    var_a1 = gEffects + 0x2648;
 loop_1:
     if (var_a1->obj.status == 0) {
         func_E16C50_8019FDE0(arg1, arg2, (bitwise f32) var_a1, (bitwise f32) arg1, (bitwise f32) arg2, arg3, arg4, arg5);
         return;
     }
     var_a1 -= 0x8C;
-    if ((u32) var_a1 < (u32) gObjects8C) {
+    if ((u32) var_a1 < (u32) gEffects) {
         return;
     }
     goto loop_1;
@@ -660,7 +660,7 @@ void func_E16C50_801A003C(Object_2F4 *arg0) {
     }
 }
 
-void func_E16C50_801A0120(Object_8C *arg0) {
+void func_E16C50_801A0120(Effect *arg0) {
     f32 sp5C;
     f32 sp58;
     f32 sp54;
@@ -872,7 +872,7 @@ void func_E16C50_801A0120(Object_8C *arg0) {
     }
 }
 
-void func_E16C50_801A0AF0(Object_8C *arg0) {
+void func_E16C50_801A0AF0(Effect *arg0) {
     Gfx *temp_v0;
     Gfx *temp_v0_2;
     Gfx *temp_v0_3;
@@ -1055,7 +1055,7 @@ void func_E16C50_801A10F4(Player *player) {
     f32 sp34;
     Object *sp30;
     Vec3f *sp2C;
-    Object_8C *var_a0;
+    Effect *var_a0;
     Vec3f *var_a1;
     f32 temp_fv0;
     f32 temp_fv1;
@@ -1130,14 +1130,14 @@ void func_E16C50_801A10F4(Player *player) {
             func_E16C50_8019E8B8((sp34 - 0.5f) * 6000.0f, ((sp38 - 0.5f) * 5.0f) - 90.0f, ((sp3C * 2000.0f) - 6000.0f) + D_80177D20, (Rand_ZeroOne() * 20.0f) + 20.0f);
         }
         if (temp_v0 == 0x17C) {
-            var_a1 = &gObjects8C->sfxPos;
-            var_a0 = gObjects8C;
+            var_a1 = &gEffects->sfxPos;
+            var_a0 = gEffects;
             do {
                 sp30 = &var_a0->obj;
                 sp2C = var_a1;
                 Object_Kill(&var_a0->obj, var_a1);
                 var_a1 += 0x8C;
-                var_a0 = (Object_8C *) (&var_a0->obj + 0x8C);
+                var_a0 = (Effect *) (&var_a0->obj + 0x8C);
             } while (var_a1 != (gItems + 0x80));
             func_E16C50_801A0DF8(400.0f, -2800.0f, (bitwise f32) var_a0, (u32) var_a1, 340.0f, 1, 1.0f);
         }
@@ -1902,7 +1902,7 @@ void func_E16C50_801A3510(Boss *bossSO) {
             bossSO->unk4C = 0x41;
         }
         if ((bossSO->unk4C == 0x41) && !(gFrameCount & 1)) {
-            func_E16C50_8019FFC0(bossSO, (bitwise Object_8C *) bossSO->fwork[4], bossSO->fwork[5] - 100.0f, (bitwise s32) (bossSO->fwork[6] + 600.0f), ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 0);
+            func_E16C50_8019FFC0(bossSO, (bitwise Effect *) bossSO->fwork[4], bossSO->fwork[5] - 100.0f, (bitwise s32) (bossSO->fwork[6] + 600.0f), ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 0);
             func_E16C50_801A1EB0(bossSO, bossSO->fwork[4], 25.0f, bossSO->fwork[5] - 100.0f, bossSO->fwork[6] + 300.0f);
         }
         if (bossSO->unk4C == 0x4B) {
@@ -1923,8 +1923,8 @@ void func_E16C50_801A3510(Boss *bossSO) {
             bossSO->unk4C = 0x42;
         }
         if ((bossSO->unk4C == 0x42) && !(gFrameCount & 1)) {
-            func_E16C50_8019FFC0(bossSO, (bitwise Object_8C *) (bossSO->fwork[4] + 125.0f), bossSO->fwork[5] - 100.0f, (bitwise s32) (bossSO->fwork[6] + 600.0f), ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 1);
-            func_E16C50_8019FFC0(bossSO, (bitwise Object_8C *) (bossSO->fwork[4] - 125.0f), bossSO->fwork[5] - 100.0f, (bitwise s32) (bossSO->fwork[6] + 600.0f), ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 2);
+            func_E16C50_8019FFC0(bossSO, (bitwise Effect *) (bossSO->fwork[4] + 125.0f), bossSO->fwork[5] - 100.0f, (bitwise s32) (bossSO->fwork[6] + 600.0f), ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 1);
+            func_E16C50_8019FFC0(bossSO, (bitwise Effect *) (bossSO->fwork[4] - 125.0f), bossSO->fwork[5] - 100.0f, (bitwise s32) (bossSO->fwork[6] + 600.0f), ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 2);
             func_E16C50_801A1EB0(bossSO, bossSO->fwork[4], 25.0f, bossSO->fwork[5] - 100.0f, bossSO->fwork[6] + 300.0f);
         }
         if (bossSO->unk4C == 0x4C) {
@@ -2121,7 +2121,7 @@ void func_E16C50_801A4214(Boss *bossSO) {
     f32 sp50;
     Vec3f sp44;
     Object *sp3C;
-    Object_8C *var_a0;
+    Effect *var_a0;
     s32 temp_v0;
 
     if (bossSO->unk_060 <= 0) {
@@ -2226,16 +2226,16 @@ void func_E16C50_801A4214(Boss *bossSO) {
             }
             if (temp_v0 == 0xFA) {
                 bossSO->unk_04E += 1;
-                var_a0 = gObjects8C;
+                var_a0 = gEffects;
                 bossSO->obj.pos.y = -1600.0f;
                 do {
                     if (var_a0->obj.status != 0) {
                         sp3C = &var_a0->obj;
                         Object_Kill(&var_a0->obj, &var_a0->sfxPos);
-                        var_a0 = (Object_8C *) &var_a0->obj;
+                        var_a0 = (Effect *) &var_a0->obj;
                     }
                     var_a0 += 0x8C;
-                } while (var_a0 != (gObjects8C + 0x118));
+                } while (var_a0 != (gEffects + 0x118));
                 bossSO->timer_058 = 0x64;
                 return;
             }
@@ -2587,8 +2587,8 @@ void func_E16C50_801A56B8(Boss *bossSO) {
             bossSO->unk4C = 0x41;
         }
         if ((bossSO->unk4C == 0x41) && !(gFrameCount & 3)) {
-            func_E16C50_8019FFC0(bossSO, (bitwise Object_8C *) (bossSO->fwork[4] + 125.0f), bossSO->fwork[5] - 100.0f, (bitwise s32) (bossSO->fwork[6] + 600.0f), ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 1);
-            func_E16C50_8019FFC0(bossSO, (bitwise Object_8C *) (bossSO->fwork[4] - 125.0f), bossSO->fwork[5] - 100.0f, (bitwise s32) (bossSO->fwork[6] + 600.0f), ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 2);
+            func_E16C50_8019FFC0(bossSO, (bitwise Effect *) (bossSO->fwork[4] + 125.0f), bossSO->fwork[5] - 100.0f, (bitwise s32) (bossSO->fwork[6] + 600.0f), ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 1);
+            func_E16C50_8019FFC0(bossSO, (bitwise Effect *) (bossSO->fwork[4] - 125.0f), bossSO->fwork[5] - 100.0f, (bitwise s32) (bossSO->fwork[6] + 600.0f), ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 2);
             func_E16C50_801A1EB0(bossSO, bossSO->fwork[4], 25.0f, bossSO->fwork[5] - 100.0f, bossSO->fwork[6] + 300.0f);
             return;
         }
@@ -2712,10 +2712,10 @@ void func_E16C50_801A5B3C(Boss *bossSO) {
     }
     if ((!(gFrameCount & 3) || (bossSO->fwork[0x1F] != 0.0f)) && ((bossSO->swork[0] != 7) || !(gFrameCount & 1))) {
         if ((bossSO->swork[2] == 0) && ((bossSO->unk_060 > 0) || (bossSO->unk_04E < 2))) {
-            func_E16C50_8019FF44(bossSO, (bitwise Object_8C *) bossSO->fwork[0xA], bossSO->fwork[0xB], bossSO->fwork[0xC], bossSO->fwork[0x1F] - 20.0f, -1.0f);
+            func_E16C50_8019FF44(bossSO, (bitwise Effect *) bossSO->fwork[0xA], bossSO->fwork[0xB], bossSO->fwork[0xC], bossSO->fwork[0x1F] - 20.0f, -1.0f);
         }
         if ((bossSO->swork[3] == 0) && ((bossSO->unk_060 > 0) || (bossSO->unk_04E < 2))) {
-            func_E16C50_8019FF44(bossSO, (bitwise Object_8C *) bossSO->fwork[7], bossSO->fwork[8], bossSO->fwork[9], bossSO->fwork[0x1F] - 20.0f, 1.0f);
+            func_E16C50_8019FF44(bossSO, (bitwise Effect *) bossSO->fwork[7], bossSO->fwork[8], bossSO->fwork[9], bossSO->fwork[0x1F] - 20.0f, 1.0f);
         }
     }
     Math_SmoothStepToF(bossSO->fwork, 1.0f, 0.01f, 0.01f, 0.0f);
@@ -3674,10 +3674,10 @@ void func_E16C50_801A8BE8(Player *player) {
 }
 
 void func_E16C50_801A8DB8(Vec3f *arg0, u32 arg1, f32 arg2) {
-    Object_8C *sp18;
-    Object_8C *var_a3;
+    Effect *sp18;
+    Effect *var_a3;
 
-    var_a3 = gObjects8C;
+    var_a3 = gEffects;
 loop_1:
     if (var_a3->obj.status == 0) {
         sp18 = var_a3;

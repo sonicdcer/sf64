@@ -1244,7 +1244,7 @@ void func_E16C50_80192094(Object_2F4* obj2F4) {
                 sp70.y = 0.0f;
                 sp70.z = 100.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp70, &sp88);
-                func_8007EE68(OBJ_8C_355, &sp94, &sp7C, &sp7C, &sp88, 1.0f);
+                func_8007EE68(OBJ_EFFECT_355, &sp94, &sp7C, &sp7C, &sp88, 1.0f);
                 obj2F4->unk_11C += 40.0f;
                 obj2F4->unk_11C = Math_ModF(obj2F4->unk_11C, 360.0f);
                 Math_SmoothStepToF(&obj2F4->unk_120, 0.0f, 1.0f, 5.0f, 0.0001f);
@@ -1613,118 +1613,118 @@ void func_E16C50_80193628(Object* obj, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f
     Matrix_RotateY(gCalcMatrix, M_DTOR * arg5, 1);
     Matrix_RotateX(gCalcMatrix, M_DTOR * arg4, 1);
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
-    func_8007F04C(OBJ_8C_353, arg1 + sp48.x + arg6, arg2 + sp48.y, arg3 + sp48.z, arg4, arg5, 0.0f, obj->rot.x,
+    func_8007F04C(OBJ_EFFECT_353, arg1 + sp48.x + arg6, arg2 + sp48.y, arg3 + sp48.z, arg4, arg5, 0.0f, obj->rot.x,
                   obj->rot.y, obj->rot.z, sp48.x + arg6, sp48.y, sp48.z, 1.0f);
 }
 
-void func_E16C50_801937D8(Object_8C* obj8C, f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
+void func_E16C50_801937D8(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
     Vec3f sp2C;
     Vec3f sp20;
 
-    Object_8C_Initialize(obj8C);
+    Effect_Initialize(effect);
     Matrix_RotateY(gCalcMatrix, M_DTOR * yRot, 0);
     sp2C.x = 0.0f;
     sp2C.y = 0.0f;
     sp2C.z = 10.0f;
     Matrix_MultVec3f(gCalcMatrix, &sp2C, &sp20);
-    obj8C->vel.x = sp20.x;
-    obj8C->vel.y = sp20.y;
-    obj8C->vel.z = sp20.z;
-    obj8C->obj.status = 1;
-    obj8C->obj.id = OBJ_8C_394;
-    obj8C->obj.pos.x = xPos;
-    obj8C->obj.pos.y = yPos;
-    obj8C->obj.pos.z = zPos;
-    obj8C->unk_44 = 100;
-    obj8C->scale2 = 3.0f;
-    obj8C->scale1 = (Rand_ZeroOne() - 0.5f) * 20.0f;
-    obj8C->unk_78 = 100;
-    obj8C->unk_7A = 14;
-    obj8C->obj.rot.z = Rand_ZeroOne() * 360.0f;
-    Object_SetInfo(&obj8C->info, obj8C->obj.id);
+    effect->vel.x = sp20.x;
+    effect->vel.y = sp20.y;
+    effect->vel.z = sp20.z;
+    effect->obj.status = 1;
+    effect->obj.id = OBJ_EFFECT_394;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
+    effect->unk_44 = 100;
+    effect->scale2 = 3.0f;
+    effect->scale1 = (Rand_ZeroOne() - 0.5f) * 20.0f;
+    effect->unk_78 = 100;
+    effect->unk_7A = 14;
+    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    Object_SetInfo(&effect->info, effect->obj.id);
 }
 
 void func_E16C50_80193908(f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
-            func_E16C50_801937D8(&gObjects8C[i], xPos, yPos, zPos, yRot);
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
+            func_E16C50_801937D8(&gEffects[i], xPos, yPos, zPos, yRot);
             break;
         }
     }
 }
 
-void func_E16C50_80193970(Object_8C* obj8C, f32 xPos, f32 yPos, f32 zPos, f32 yRot, s32 arg5) {
+void func_E16C50_80193970(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot, s32 arg5) {
     Vec3f sp2C;
     Vec3f sp20;
 
-    Object_8C_Initialize(obj8C);
+    Effect_Initialize(effect);
     Matrix_RotateY(gCalcMatrix, M_DTOR * yRot, 0);
     sp2C.x = 0.0f;
     sp2C.y = 0.0f;
     sp2C.z = 20.0f;
     Matrix_MultVec3f(gCalcMatrix, &sp2C, &sp20);
-    obj8C->vel.x = sp20.x;
-    obj8C->obj.status = 1;
-    obj8C->obj.id = OBJ_8C_394;
-    obj8C->obj.pos.x = xPos;
-    obj8C->obj.pos.y = yPos;
-    obj8C->obj.pos.z = zPos;
-    obj8C->scale2 = 8.0f;
-    obj8C->unk_44 = arg5;
-    obj8C->scale1 = (Rand_ZeroOne() - 0.5f) * 200.0f;
-    obj8C->obj.rot.z = Rand_ZeroOne() * 360.0f;
-    obj8C->unk_4E = 1;
-    obj8C->unk_78 = 100;
-    obj8C->unk_7A = 13;
-    Object_SetInfo(&obj8C->info, obj8C->obj.id);
+    effect->vel.x = sp20.x;
+    effect->obj.status = 1;
+    effect->obj.id = OBJ_EFFECT_394;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
+    effect->scale2 = 8.0f;
+    effect->unk_44 = arg5;
+    effect->scale1 = (Rand_ZeroOne() - 0.5f) * 200.0f;
+    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    effect->unk_4E = 1;
+    effect->unk_78 = 100;
+    effect->unk_7A = 13;
+    Object_SetInfo(&effect->info, effect->obj.id);
 }
 
 void func_E16C50_80193A98(f32 xPos, f32 yPos, f32 zPos, f32 yRot, s32 arg5) {
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
-            func_E16C50_80193970(&gObjects8C[i], xPos, yPos, zPos, yRot, arg5);
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
+            func_E16C50_80193970(&gEffects[i], xPos, yPos, zPos, yRot, arg5);
             break;
         }
     }
 }
 
-void func_E16C50_80193B08(Object_8C* obj8C, f32 xPos, f32 yPos, f32 zPos, f32 scale) {
+void func_E16C50_80193B08(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale) {
     f32 temp_ft2;
 
-    Object_8C_Initialize(obj8C);
-    obj8C->obj.status = 1;
-    obj8C->obj.id = OBJ_8C_394;
-    obj8C->obj.pos.x = xPos;
-    obj8C->obj.pos.y = yPos;
-    obj8C->obj.pos.z = zPos;
-    obj8C->vel.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
-    obj8C->vel.y = (Rand_ZeroOne() - 0.5f) * 3.0f;
-    obj8C->unk_48 = 3;
+    Effect_Initialize(effect);
+    effect->obj.status = 1;
+    effect->obj.id = OBJ_EFFECT_394;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
+    effect->vel.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
+    effect->vel.y = (Rand_ZeroOne() - 0.5f) * 3.0f;
+    effect->unk_48 = 3;
     if (Rand_ZeroOne() < 0.5f) {
-        obj8C->unk_48 = -obj8C->unk_48;
+        effect->unk_48 = -effect->unk_48;
     }
-    obj8C->unk_4A = 180;
-    obj8C->unk_46 = 8;
-    obj8C->unk_78 = 101;
-    obj8C->unk_7A = 15;
-    obj8C->scale2 = scale * 0.25f;
-    obj8C->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    effect->unk_4A = 180;
+    effect->unk_46 = 8;
+    effect->unk_78 = 101;
+    effect->unk_7A = 15;
+    effect->scale2 = scale * 0.25f;
+    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
     if (scale == 6.0f) {
-        obj8C->vel.z = gPlayer->vel.z * 0.6f;
+        effect->vel.z = gPlayer->vel.z * 0.6f;
     }
-    Object_SetInfo(&obj8C->info, obj8C->obj.id);
+    Object_SetInfo(&effect->info, effect->obj.id);
 }
 
 void func_E16C50_80193C5C(f32 xPos, f32 yPos, f32 zPos, f32 scale) {
     s32 i;
 
     for (i = 80; i >= 0; i--) {
-        if (gObjects8C[i].obj.status == 0) {
-            func_E16C50_80193B08(&gObjects8C[i], xPos, yPos, zPos, scale);
+        if (gEffects[i].obj.status == 0) {
+            func_E16C50_80193B08(&gEffects[i], xPos, yPos, zPos, scale);
             break;
         }
     }
@@ -2518,7 +2518,7 @@ void func_E16C50_80194A84(Boss* bossZO) {
                 func_800BA808(gMsg_ID_6079, RCID_BOSS_ZONESS);
             }
             if (bossZO->timer_050 == 0) {
-                gObjects8C[98].obj.status = gObjects8C[99].obj.status = 0;
+                gEffects[98].obj.status = gEffects[99].obj.status = 0;
                 sZoFwork[ZO_BSF_25] = -1000.0f;
                 sZoFwork[ZO_BSF_23] = 10.0f;
                 D_80161734 = 0;
@@ -3098,7 +3098,7 @@ Vec3f D_E16C50_801BF6F4 = { 0.0f, 0.0f, 0.0f };
 Vec3f D_E16C50_801BF700 = { 0.0f, 0.0f, 0.0f };
 Vec3f D_E16C50_801BF70C = { 0.0f, 0.0f, 40.0f };
 // OBJ_BOSS_ZO action
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80194A84.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/fox_zo/func_E16C50_80194A84.s")
 #endif
 
 void func_E16C50_801986FC(Boss* bossZO, s32 arg1, f32 xOff, f32 yOff, f32 zOff, f32 yRot) {
@@ -3188,7 +3188,7 @@ void func_E16C50_801989FC(Boss* bossZO) {
 
 void func_E16C50_80198BE8(Boss* bossZO, s32 arg1) {
     s32 var_s1;
-    Object_8C* var_s0;
+    Effect* var_s0;
     Vec3f sp3C = { 0.0f, 0.0f, 100.0f };
     Vec3f sp30;
 
@@ -3205,11 +3205,11 @@ void func_E16C50_80198BE8(Boss* bossZO, s32 arg1) {
                 func_8001A55C(&bossZO->sfxPos, 0x31034025);
             }
         }
-        for (var_s1 = 0, var_s0 = gObjects8C; var_s1 < 100; var_s1++, var_s0++) {
+        for (var_s1 = 0, var_s0 = gEffects; var_s1 < 100; var_s1++, var_s0++) {
             if (var_s0->obj.status == 0) {
-                Object_8C_Initialize(var_s0);
+                Effect_Initialize(var_s0);
                 var_s0->obj.status = 1;
-                var_s0->obj.id = OBJ_8C_398;
+                var_s0->obj.id = OBJ_EFFECT_398;
                 var_s0->timer_50 = 100;
                 var_s0->unk_4E = 1;
                 var_s0->scale2 = 1.0f;
@@ -3408,28 +3408,28 @@ void func_E16C50_8019983C(Object_2F4* obj2F4) {
     gSPDisplayList(gMasterDisp++, D_6017950);
 }
 
-void func_E16C50_801998E0(Object_8C* obj8C, f32 xPos, f32 yPos, f32 zPos) {
-    Object_8C_Initialize(obj8C);
-    obj8C->obj.status = 1;
-    obj8C->obj.id = OBJ_8C_374;
-    obj8C->unk_4E = 1;
-    obj8C->timer_50 = 30;
-    obj8C->unk_44 = 192;
-    obj8C->obj.pos.y = yPos;
-    obj8C->obj.pos.z = zPos;
-    obj8C->obj.pos.x = xPos;
-    obj8C->scale1 = obj8C->scale2 = 2.5f;
+void func_E16C50_801998E0(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
+    Effect_Initialize(effect);
+    effect->obj.status = 1;
+    effect->obj.id = OBJ_EFFECT_374;
+    effect->unk_4E = 1;
+    effect->timer_50 = 30;
+    effect->unk_44 = 192;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
+    effect->obj.pos.x = xPos;
+    effect->scale1 = effect->scale2 = 2.5f;
     func_8007D0E0(xPos, yPos + 30.0f, zPos, 7.0f);
-    func_8007BFFC(obj8C->obj.pos.x, obj8C->obj.pos.y + 30.0f, obj8C->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 5);
-    Object_SetInfo(&obj8C->info, obj8C->obj.id);
+    func_8007BFFC(effect->obj.pos.x, effect->obj.pos.y + 30.0f, effect->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 5);
+    Object_SetInfo(&effect->info, effect->obj.id);
 }
 
 void func_E16C50_801999CC(f32 xPos, f32 yPos, f32 zPos) {
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
-            func_E16C50_801998E0(&gObjects8C[i], xPos, yPos, zPos);
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
+            func_E16C50_801998E0(&gEffects[i], xPos, yPos, zPos);
             break;
         }
     }
@@ -4447,7 +4447,7 @@ void func_E16C50_8019D060(Object_2F4* obj2F4) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019D060.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/fox_zo/func_E16C50_8019D060.s")
 #endif
 
 void func_E16C50_8019D15C(Object_2F4* obj2F4) {
@@ -4854,7 +4854,7 @@ void func_E16C50_8019D76C(Player* player) {
 }
 #else
 // zoness outro
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019D76C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/fox_zo/func_E16C50_8019D76C.s")
 #endif
 
 void func_E16C50_8019E5F0(Object_2F4* obj2F4) {

@@ -1,6 +1,6 @@
 #include "global.h"
 
-void func_E16C50_801AC918(Object_8C*);
+void func_E16C50_801AC918(Effect*);
 void func_E16C50_801AD6C0(Object_2F4*);
 void func_E16C50_801AE168(Object_2F4*);
 void func_E16C50_801AE3D8(Object_2F4*);
@@ -440,7 +440,7 @@ f32 D_E16C50_801C445C;
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_aq/func_E16C50_801AC8A8.s")
 
-// OBJ_8C_366 action
+// OBJ_EFFECT_366 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_aq/func_E16C50_801AC918.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_aq/func_E16C50_801ACBB4.s")

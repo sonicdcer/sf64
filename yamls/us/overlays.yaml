@@ -48,21 +48,21 @@
     subsegments:
     - [0xE16C50, c, E16C50]
     - [0xE16C60, c, fox_a6]
-    - [0xE1F680, c, sf_zo]
+    - [0xE1F680, c, fox_zo]
     - [0xE2DF20, c, sf_so]
     - [0xE38560, c, sf_aq]
     - [0xE4E3D0, .data, E16C50]
     - [0xE4E3E0, .data, fox_a6]
-    - [0xE4EC90, .data, sf_zo]
+    - [0xE4EC90, .data, fox_zo]
     - [0xE4F010, .data, sf_so]
     - [0xE4F290, .data, sf_aq]
     - [0xE50030, .rodata, fox_a6]
-    - [0xE504E0, .rodata, sf_zo]
+    - [0xE504E0, .rodata, fox_zo]
     - [0xE50C00, .rodata, sf_so]
     - [0xE51160, .rodata, sf_aq]
     - { start: 0xE51970, type: .bss, vram: 0x801C2240, name: E16C50 }
     - { start: 0xE51970, type: .bss, vram: 0x801C2250, name: fox_a6 }
-    - { start: 0xE51970, type: .bss, vram: 0x801C2330, name: sf_zo }
+    - { start: 0xE51970, type: .bss, vram: 0x801C2330, name: fox_zo }
     - { start: 0xE51970, type: .bss, vram: 0x801C2740, name: sf_so }
     - { start: 0xE51970, type: .bss, vram: 0x801C27C0, name: sf_aq }
 
@@ -102,12 +102,14 @@
     subsegments:
     - [0xE6A810, c, E6A810]
     - [0xE6C220, c, E6C220]
+    - [0xE7CC10, c, E7CC10]
     - [0xE97CC0, c, E97CC0]
     - [0xE9A580, data, E6A810]
     - [0xE9A650, data, E6C220]
     - [0xE9DC00, data, E97CC0]
     - [0xE9DCD0, .rodata, E6A810]
     - [0xE9DD40, .rodata, E6C220]
+    - [0xE9E5A0, .rodata, E7CC10]
     - [0xE9F0E0, .rodata, E97CC0]
     - { start: 0xE9F1D0, type: bss, vram: 0x801BBEE0, name: ovl_E6A810 }
 

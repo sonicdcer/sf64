@@ -621,8 +621,8 @@ void func_8005BAB4(ObjectId objId, s32 index) {
     f32 temp2;
 
     switch (objId) {
-        case OBJ_8C_374:
-            if (gObjects8C[index].unk_4E == 0) {
+        case OBJ_EFFECT_374:
+            if (gEffects[index].unk_4E == 0) {
                 Matrix_Scale(gGfxMatrix, 1.2f, 0.0f, 1.2f, 1);
                 Matrix_RotateX(gGfxMatrix, M_PI / 2.0f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
@@ -1186,34 +1186,35 @@ void Boss_Draw(Boss* boss, s32 arg1) {
     }
 }
 
-void Object_8C_Draw1(Object_8C* obj8C, s32 arg1) {
-    if ((arg1 < 0) && (obj8C->obj.pos.y < 7.0f)) {
+void Effect_Draw1(Effect* effect, s32 arg1) {
+    if ((arg1 < 0) && (effect->obj.pos.y < 7.0f)) {
         return;
     }
-    if ((obj8C->obj.id == OBJ_8C_353) || (obj8C->obj.id == OBJ_8C_369)) {
-        func_8005D3CC(&obj8C->obj, obj8C->unk_60.x, obj8C->unk_60.y, obj8C->unk_60.z, 0);
-    } else if (obj8C->info.unk_14 == -1) {
-        obj8C->obj.pos.y += D_8017847C;
-        func_8005D008(&obj8C->obj, 0);
-        obj8C->obj.pos.y -= D_8017847C;
+    if ((effect->obj.id == OBJ_EFFECT_353) || (effect->obj.id == OBJ_EFFECT_369)) {
+        func_8005D3CC(&effect->obj, effect->unk_60.x, effect->unk_60.y, effect->unk_60.z, 0);
+    } else if (effect->info.unk_14 == -1) {
+        effect->obj.pos.y += D_8017847C;
+        func_8005D008(&effect->obj, 0);
+        effect->obj.pos.y -= D_8017847C;
     } else {
-        func_8005D008(&obj8C->obj, 0);
+        func_8005D008(&effect->obj, 0);
     }
-    if (obj8C->info.draw != NULL) {
-        obj8C->info.draw(&obj8C->obj);
+    if (effect->info.draw != NULL) {
+        effect->info.draw(&effect->obj);
     }
 }
 
-void Object_8C_Draw2(Object_8C* obj8C) {
+void Effect_Draw2(Effect* effect) {
     Vec3f sp4C = { 0.0f, 0.0f, 0.0f };
     Vec3f sp40;
     f32 var_fv0;
     u8 sp3B = 0;
 
-    if (obj8C->info.unk_14 == -1) {
-        Matrix_Translate(gGfxMatrix, obj8C->obj.pos.x, obj8C->obj.pos.y + D_8017847C, obj8C->obj.pos.z + D_80177D20, 1);
+    if (effect->info.unk_14 == -1) {
+        Matrix_Translate(gGfxMatrix, effect->obj.pos.x, effect->obj.pos.y + D_8017847C, effect->obj.pos.z + D_80177D20,
+                         1);
     } else {
-        Matrix_Translate(gGfxMatrix, obj8C->obj.pos.x, obj8C->obj.pos.y, obj8C->obj.pos.z + D_80177D20, 1);
+        Matrix_Translate(gGfxMatrix, effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z + D_80177D20, 1);
     }
     Matrix_MultVec3f(gGfxMatrix, &sp4C, &sp40);
     if ((gCurrentLevel == LEVEL_SECTOR_Z) || (gCurrentLevel == LEVEL_BOLSE)) {
@@ -1224,20 +1225,20 @@ void Object_8C_Draw2(Object_8C* obj8C) {
     if ((sp40.z < 0.0f) && (var_fv0 < sp40.z)) {
         if (fabsf(sp40.x) < (fabsf(sp40.z * 0.5f) + 500.0f)) {
             if (fabsf(sp40.y) < (fabsf(sp40.z * 0.5f) + 500.0f)) {
-                if (obj8C->info.draw != NULL) {
-                    Matrix_RotateY(gGfxMatrix, obj8C->obj.rot.y * M_DTOR, 1);
-                    Matrix_RotateX(gGfxMatrix, obj8C->obj.rot.x * M_DTOR, 1);
-                    Matrix_RotateZ(gGfxMatrix, obj8C->obj.rot.z * M_DTOR, 1);
+                if (effect->info.draw != NULL) {
+                    Matrix_RotateY(gGfxMatrix, effect->obj.rot.y * M_DTOR, 1);
+                    Matrix_RotateX(gGfxMatrix, effect->obj.rot.x * M_DTOR, 1);
+                    Matrix_RotateZ(gGfxMatrix, effect->obj.rot.z * M_DTOR, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    obj8C->info.draw(&obj8C->obj);
+                    effect->info.draw(&effect->obj);
                 }
                 sp3B = 1;
             }
         }
     }
-    func_8005F290(&obj8C->sfxPos, &sp40);
-    if ((sp3B == 0) && (obj8C->obj.id != OBJ_8C_352) && (obj8C->obj.id != OBJ_8C_373) && (!gVersusMode)) {
-        Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+    func_8005F290(&effect->sfxPos, &sp40);
+    if ((sp3B == 0) && (effect->obj.id != OBJ_EFFECT_352) && (effect->obj.id != OBJ_EFFECT_373) && (!gVersusMode)) {
+        Object_Kill(&effect->obj, &effect->sfxPos);
     }
 }
 
@@ -1675,27 +1676,27 @@ void Object_DrawAll(s32 arg0) {
 void func_8006046C(s32 arg0) {
     s32 i;
     Boss* boss;
-    Object_8C* obj8C;
+    Effect* effect;
 
     RCP_SetupDL(&gMasterDisp, 0x40);
-    for (i = 0, obj8C = gObjects8C; i < ARRAY_COUNT(gObjects8C); i++, obj8C++) {
-        if (obj8C->obj.status >= 2) {
-            if (obj8C->info.unk_14 == 1) {
-                obj8C->obj.rot.y = (-gPlayer[gPlayerNum].unk_058 * 180.0f) / M_PI;
-                obj8C->obj.rot.x = (gPlayer[gPlayerNum].unk_05C * 180.0f) / M_PI;
+    for (i = 0, effect = gEffects; i < ARRAY_COUNT(gEffects); i++, effect++) {
+        if (effect->obj.status >= 2) {
+            if (effect->info.unk_14 == 1) {
+                effect->obj.rot.y = (-gPlayer[gPlayerNum].unk_058 * 180.0f) / M_PI;
+                effect->obj.rot.x = (gPlayer[gPlayerNum].unk_05C * 180.0f) / M_PI;
             }
             if (gLevelMode == LEVELMODE_ALL_RANGE) {
                 Matrix_Push(&gGfxMatrix);
-                Object_8C_Draw2(obj8C);
+                Effect_Draw2(effect);
                 Matrix_Pop(&gGfxMatrix);
             } else {
                 Matrix_Push(&gGfxMatrix);
-                Object_8C_Draw1(obj8C, arg0);
+                Effect_Draw1(effect, arg0);
                 Matrix_Pop(&gGfxMatrix);
-                func_8005F1EC(&obj8C->sfxPos);
-                if (obj8C->obj.id == OBJ_8C_374) {
+                func_8005F1EC(&effect->sfxPos);
+                if (effect->obj.id == OBJ_EFFECT_374) {
                     Matrix_Push(&gGfxMatrix);
-                    func_8005ECD8(i, &obj8C->obj);
+                    func_8005ECD8(i, &effect->obj);
                     Matrix_Pop(&gGfxMatrix);
                 }
             }

@@ -235,7 +235,7 @@ void func_EBFBE0_80194BD0(void);
 void func_EBFBE0_80194CE4(void);
 void func_EBFBE0_801952B4(void);
 void func_EBFBE0_801958DC(void);
-void func_EBFBE0_80195944(void);
+void Option_ExpertSoundUpdate(void);
 void func_EBFBE0_80195B74(void);
 void func_EBFBE0_80196260(void);
 void func_EBFBE0_801962A4(void);

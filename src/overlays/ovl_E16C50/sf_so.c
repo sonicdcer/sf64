@@ -223,7 +223,7 @@ Vec3f D_E16C50_801BF920 = { 0.0f, 0.0f, 0.0f };
 // OBJ_2F4_279 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_so/func_E16C50_801A003C.s")
 
-// OBJ_8C_392 action
+// OBJ_EFFECT_392 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_so/func_E16C50_801A0120.s")
 
 u32 D_E16C50_801BF92C[6] = {
@@ -237,7 +237,7 @@ Vec3f D_E16C50_801BF95C[3] = {
     { -180.0f, 0.0f, 240.0f },
     { 180.0f, 0.0f, 240.0f },
 };
-// OBJ_8C_392 draw
+// OBJ_EFFECT_392 draw
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_so/func_E16C50_801A0AF0.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_so/func_E16C50_801A0CEC.s")
@@ -990,10 +990,10 @@ void func_E16C50_801A8BE8(Object_2F4* obj2F4) {
 void func_E16C50_801A8DB8(Vec3f* arg0, u32 arg1, f32 arg2) {
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
-            func_8007A5F8(&gObjects8C[i], arg0, arg1);
-            gObjects8C[i].vel.z = arg2;
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
+            func_8007A5F8(&gEffects[i], arg0, arg1);
+            gEffects[i].vel.z = arg2;
             break;
         }
     }

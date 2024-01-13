@@ -16,3 +16,4 @@ ctx.c.m2c
 tools/mio0
 tools/ido-recomp
 .venv/
+m2cfiles/

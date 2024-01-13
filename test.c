@@ -1466,14 +1466,14 @@ void func_E16C50_80193628(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f3
     func_8007F04C(0x161, arg1 + (bitwise f32) sp48 + arg6, arg2 + sp48.y, arg3 + sp48.z, arg4, arg5, 0.0f, arg0->unk10, arg0->unk14, arg0->unk18, (bitwise f32) sp48 + arg6, sp48.y, sp48.z, 1.0f);
 }
 
-void func_E16C50_801937D8(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+void func_E16C50_801937D8(Effect *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     f32 sp34;
     f32 sp30;
     f32 sp2C;
     Vec3f sp20;
     f32 temp_ft0;
 
-    Object_8C_Initialize(arg0);
+    Effect_Initialize(arg0);
     Matrix_RotateY(gCalcMatrix, M_DTOR * arg4, 0U);
     sp2C = 0.0f;
     sp30 = 0.0f;
@@ -1498,9 +1498,9 @@ void func_E16C50_801937D8(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg
 }
 
 void func_E16C50_80193908(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
-    Object_8C *var_a0;
+    Effect *var_a0;
 
-    var_a0 = gObjects8C;
+    var_a0 = gEffects;
 loop_1:
     if (var_a0->obj.status == 0) {
         func_E16C50_801937D8(var_a0, arg0, arg1, arg2, arg3);
@@ -1513,14 +1513,14 @@ loop_1:
     goto loop_1;
 }
 
-void func_E16C50_80193970(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5) {
+void func_E16C50_80193970(Effect *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5) {
     f32 sp34;
     f32 sp30;
     f32 sp2C;
     Vec3f sp20;
     f32 temp_ft2;
 
-    Object_8C_Initialize(arg0);
+    Effect_Initialize(arg0);
     Matrix_RotateY(gCalcMatrix, M_DTOR * arg4, 0U);
     sp2C = 0.0f;
     sp30 = 0.0f;
@@ -1544,9 +1544,9 @@ void func_E16C50_80193970(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg
 }
 
 void func_E16C50_80193A98(f32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4) {
-    Object_8C *var_a0;
+    Effect *var_a0;
 
-    var_a0 = gObjects8C;
+    var_a0 = gEffects;
 loop_1:
     if (var_a0->obj.status == 0) {
         func_E16C50_80193970(var_a0, arg0, arg1, arg2, arg3, arg4);
@@ -1559,10 +1559,10 @@ loop_1:
     goto loop_1;
 }
 
-void func_E16C50_80193B08(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+void func_E16C50_80193B08(Effect *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     f32 temp_ft2;
 
-    Object_8C_Initialize(arg0);
+    Effect_Initialize(arg0);
     arg0->obj.status = 1;
     arg0->obj.id = 0x18A;
     arg0->obj.pos.x = arg1;
@@ -1588,16 +1588,16 @@ void func_E16C50_80193B08(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg
 }
 
 void func_E16C50_80193C5C(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
-    Object_8C *var_a0;
+    Effect *var_a0;
 
-    var_a0 = gObjects8C + 0x2BC0;
+    var_a0 = gEffects + 0x2BC0;
 loop_1:
     if (var_a0->obj.status == 0) {
         func_E16C50_80193B08(var_a0, arg0, arg1, arg2, arg3);
         return;
     }
     var_a0 -= 0x8C;
-    if ((u32) var_a0 < (u32) gObjects8C) {
+    if ((u32) var_a0 < (u32) gEffects) {
         return;
     }
     goto loop_1;
@@ -2540,8 +2540,8 @@ void func_E16C50_80194A84(Boss *arg0) {
             func_800BA808(gMsg_ID_6079, RCID_BOSS_ZONESS);
         }
         if (arg0->timer_050 == 0) {
-            gObjects8C->unk3598 = 0;
-            gObjects8C->unk3624 = 0;
+            gEffects->unk3598 = 0;
+            gEffects->unk3624 = 0;
             sZoFwork.unk_64 = -1000.0f;
             sZoFwork.unk_5C = 10.0f;
             D_80161734 = 0;
@@ -3275,7 +3275,7 @@ void func_E16C50_80198BE8(Boss *arg0, s32 arg1) {
     Vec3f sp3C;
     Vec3f sp30;
     void *sp2C;
-    Object_8C *var_s0;
+    Effect *var_s0;
     s32 *temp_s0;
     s32 temp_t7;
     s32 var_s1;
@@ -3300,11 +3300,11 @@ void func_E16C50_80198BE8(Boss *arg0, s32 arg1) {
                 func_8001A55C(arg0 + 0x3FC, 0x31034025U);
             }
         }
-        var_s0 = gObjects8C;
+        var_s0 = gEffects;
         var_s1 = 0;
 loop_9:
         if (var_s0->obj.status == 0) {
-            Object_8C_Initialize(var_s0);
+            Effect_Initialize(var_s0);
             var_s0->obj.status = 1;
             var_s0->obj.id = 0x18E;
             var_s0->timer_50 = 0x64;
@@ -3560,8 +3560,8 @@ void func_E16C50_8019983C(Object_2F4 *arg0) {
     temp_v1_2->words.w1 = (u32) &D_6017950;
 }
 
-void func_E16C50_801998E0(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3) {
-    Object_8C_Initialize(arg0);
+void func_E16C50_801998E0(Effect *arg0, f32 arg1, f32 arg2, f32 arg3) {
+    Effect_Initialize(arg0);
     arg0->obj.status = 1;
     arg0->obj.id = 0x176;
     arg0->unk_4E = 1;
@@ -3578,9 +3578,9 @@ void func_E16C50_801998E0(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3) {
 }
 
 void func_E16C50_801999CC(f32 arg0, f32 arg1, f32 arg2) {
-    Object_8C *var_a0;
+    Effect *var_a0;
 
-    var_a0 = gObjects8C;
+    var_a0 = gEffects;
 loop_1:
     if (var_a0->obj.status == 0) {
         func_E16C50_801998E0(var_a0, arg0, arg1, arg2);

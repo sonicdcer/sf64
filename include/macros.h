@@ -19,4 +19,10 @@
 #define CYCLES_TO_USEC(c)    (((u64)(c)*(1000000LL/15625LL))/(osClockRate/15625LL))
 #define CYCLES_TO_MSEC(c) ((s32)CYCLES_TO_USEC(c)/1000)
 
+#if defined(__sgi)
+#define PRINTF
+#else
+#define PRINTF(...)
+#endif
+
 #endif // MACROS_H

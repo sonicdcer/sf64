@@ -4,6 +4,8 @@
  * Description: Starfox Option Menu Handler
  */
 
+#include "mods.h"
+
 #include "global.h"
 #include "fox_option.h"
 
@@ -339,7 +341,7 @@ UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9408;
 #endif
 
 void func_EBFBE0_80191B20(void) {
-    s32 var_a1_2;
+    bool enableExpertModes;
     bool var_v0_2;
     s32 i;
 
@@ -357,18 +359,24 @@ void func_EBFBE0_80191B20(void) {
         D_EBFBE0_801AE5D0[i] = D_EBFBE0_801AE5A0[i];
     }
 
-    var_a1_2 = 1;
+    enableExpertModes = true;
     for (i = 0; i < 16; i++) {
         if (i == SAVE_SLOT_VENOM_1) {
             continue;
         }
         if (!(gSaveFile.save.data.planet[i].normalMedal & 1)) {
-            var_a1_2 = 0;
+#if MODS_LEVEL_SELECT == 1
+            enableExpertModes = true;
+#elif MODS_SFX_JUKEBOX == 1
+            enableExpertModes = true;
+#else
+            enableExpertModes = false;
+#endif
             break;
         }
     }
 
-    D_EBFBE0_801B91C8 = var_a1_2;
+    D_EBFBE0_801B91C8 = enableExpertModes;
     D_80178348 = 0;
     D_80178350 = 0;
     D_80178354 = 0;
@@ -399,7 +407,7 @@ void func_EBFBE0_80191B20(void) {
 
     if ((D_80161A34 == 5) || (D_80161A34 == 8)) {
         if (D_80161A34 == 8) {
-            D_80177B90[D_80177B48] = 13;
+            D_80177B90[gCurrentPlanet] = 13;
             if (D_800D3180[9] == 1) {
                 gSaveFile.save.data.planet[SAVE_SLOT_VENOM_1].played = 1;
                 if (var_v0_2 != 0) {
@@ -409,7 +417,7 @@ void func_EBFBE0_80191B20(void) {
                 }
                 Save_Write();
             } else if (D_800D3180[9] == 2) {
-                D_80177BB0[D_80177B48] = 1;
+                D_80177BB0[gCurrentPlanet] = 1;
                 gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].played = 1;
                 if (var_v0_2) {
                     gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].expertClear = 1;
@@ -577,7 +585,7 @@ void func_EBFBE0_80192190(void) {
 
         case 6:
             // Expert Sound Options
-            func_EBFBE0_80195944();
+            Option_ExpertSoundUpdate();
             break;
 
         case 2000:
@@ -1627,7 +1635,10 @@ void func_EBFBE0_801958DC(void) {
 }
 
 // Expert Sound Options
-void func_EBFBE0_80195944(void) {
+#if MODS_SFX_JUKEBOX == 1
+#include "../../mods/sfxjukebox.c"
+#else
+void Option_ExpertSoundUpdate(void) {
     s32 pad;
     f32 sp28 = D_EBFBE0_801B931C;
 
@@ -1665,6 +1676,7 @@ void func_EBFBE0_80195944(void) {
         }
     }
 }
+#endif
 
 void func_EBFBE0_80195B74(void) {
     u8* temp_v0_4;
@@ -3851,7 +3863,7 @@ s32 func_EBFBE0_8019C8C4(void) {
     s32 var_a0 = 0;
     s32 temp[10];
 
-    for (i = 0; i < D_80177B48 + 1; i++) {
+    for (i = 0; i < gCurrentPlanet + 1; i++) {
         var_v0 += ((D_80177B50[i] & 0x00FF0000) >> 16) & 1;
         var_v0 += ((D_80177B50[i] & 0x0000FF00) >> 8) & 1;
         var_v0 += (D_80177B50[i] & 0x000000FF) & 1;
@@ -4165,7 +4177,7 @@ void func_EBFBE0_8019D624(void) {
     sp142[10][1] = D_EBFBE0_801B9150[1][0];
     sp142[10][2] = D_EBFBE0_801B9150[2][0];
 
-    sp122[10] = D_80177B48 + 1;
+    sp122[10] = gCurrentPlanet + 1;
 
     sp116[10] = gLifeCount[0];
 

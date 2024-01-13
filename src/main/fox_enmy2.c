@@ -4,7 +4,6 @@ s32 D_800CFF80[4] = { 0, 0, 0, 0 };
 s32 D_800CFF90 = 0;
 s32 D_80161690;
 
-void func_8007F11C(s32, f32, f32, f32, f32);
 void func_80187530(Object_2F4*); // figure out which one later
 
 void func_8006A7B0(u16* msg, s32 character) {
@@ -14,38 +13,38 @@ void func_8006A7B0(u16* msg, s32 character) {
     }
 }
 
-void func_8006A800(Object_8C* obj8C, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
-    Object_8C_Initialize(obj8C);
+void func_8006A800(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
+    Effect_Initialize(effect);
 
-    obj8C->obj.status = 1;
-    obj8C->obj.id = OBJ_8C_361;
-    obj8C->obj.pos.x = xPos;
-    obj8C->obj.pos.y = yPos;
-    obj8C->obj.pos.z = zPos;
-    obj8C->unk_48 = 3;
+    effect->obj.status = 1;
+    effect->obj.id = OBJ_EFFECT_361;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
+    effect->unk_48 = 3;
 
     if (Rand_ZeroOne() < 0.5f) {
-        obj8C->unk_48 = -obj8C->unk_48;
+        effect->unk_48 = -effect->unk_48;
     }
 
-    obj8C->unk_4A = 100;
-    obj8C->scale2 = arg4 * 0.25f;
-    obj8C->scale1 = 0.3f;
+    effect->unk_4A = 100;
+    effect->scale2 = arg4 * 0.25f;
+    effect->scale1 = 0.3f;
 
     if (arg4 < 10.0f) {
-        obj8C->scale1 = 0.1f;
+        effect->scale1 = 0.1f;
     }
 
-    obj8C->obj.rot.z = Rand_ZeroOne() * 360.0f;
-    Object_SetInfo(&obj8C->info, obj8C->obj.id);
+    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    Object_SetInfo(&effect->info, effect->obj.id);
 }
 
 void func_8006A900(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
     s32 i;
 
-    for (i = ARRAY_COUNT(gObjects8C) - 1; i >= 0; i--) {
-        if (gObjects8C[i].obj.status == 0) {
-            func_8006A800(&gObjects8C[i], xPos, yPos, zPos, arg3);
+    for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
+        if (gEffects[i].obj.status == 0) {
+            func_8006A800(&gEffects[i], xPos, yPos, zPos, arg3);
             break;
         }
     }
@@ -57,29 +56,29 @@ void func_8006A96C(Object_2F4* obj2F4) {
 void func_8006A978(Object_2F4* obj2F4) {
 }
 
-void func_8006A984(Object_8C* obj8C, f32 xPos, f32 yPos, f32 zPos) {
-    Object_8C_Initialize(obj8C);
-    obj8C->obj.status = 1;
-    obj8C->obj.id = OBJ_8C_365;
+void func_8006A984(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
+    Effect_Initialize(effect);
+    effect->obj.status = 1;
+    effect->obj.id = OBJ_EFFECT_365;
 
-    obj8C->obj.pos.x = xPos;
-    obj8C->obj.pos.y = yPos;
-    obj8C->obj.pos.z = zPos;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
-    obj8C->unk_44 = 40;
-    obj8C->scale2 = 5.0f;
-    obj8C->scale1 = 2.0f * (Rand_ZeroOne() - 0.5f);
-    obj8C->vel.y = 10.0f;
-    obj8C->obj.rot.z = Rand_ZeroOne() * 360.0f;
-    Object_SetInfo(&obj8C->info, obj8C->obj.id);
+    effect->unk_44 = 40;
+    effect->scale2 = 5.0f;
+    effect->scale1 = 2.0f * (Rand_ZeroOne() - 0.5f);
+    effect->vel.y = 10.0f;
+    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    Object_SetInfo(&effect->info, effect->obj.id);
 }
 
 void func_8006AA3C(f32 xPos, f32 yPos, f32 zPos) {
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
-            func_8006A984(&gObjects8C[i], xPos, yPos, zPos);
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
+            func_8006A984(&gEffects[i], xPos, yPos, zPos);
             break;
         }
     }
@@ -114,7 +113,7 @@ void func_8006AC08(Object_2F4* obj2F4) {
     f32 sp2C;
 
     if (func_8006ABA4(obj2F4) && (obj2F4->timer_0BC == 0)) {
-        func_8007F11C(OBJ_8C_353, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, D_80177828);
+        func_8007F11C(OBJ_EFFECT_353, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, D_80177828);
         obj2F4->timer_0BC = 20;
     }
     sp2C = obj2F4->obj.pos.z + D_80177D20;
@@ -141,7 +140,7 @@ void func_8006AD18(Object_2F4* obj2F4) {
     }
 
     if (!(gFrameCount & 0x1F)) {
-        func_8007F11C(OBJ_8C_353, obj2F4->obj.pos.x, obj2F4->obj.pos.y + 180.0f, obj2F4->obj.pos.z, D_80177828);
+        func_8007F11C(OBJ_EFFECT_353, obj2F4->obj.pos.x, obj2F4->obj.pos.y + 180.0f, obj2F4->obj.pos.z, D_80177828);
     }
 
     switch (obj2F4->unk_0B8) {
@@ -349,28 +348,28 @@ void func_8006B95C(Object_80* obj80) {
     }
 }
 
-void func_8006BA64(Object_8C* obj8C, f32 xPos, f32 yPos, f32 zPos) {
-    Object_8C_Initialize(obj8C);
-    obj8C->obj.status = 1;
-    obj8C->obj.id = OBJ_8C_375;
+void func_8006BA64(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
+    Effect_Initialize(effect);
+    effect->obj.status = 1;
+    effect->obj.id = OBJ_EFFECT_375;
 
-    obj8C->obj.pos.x = xPos;
-    obj8C->obj.pos.y = yPos;
-    obj8C->obj.pos.z = zPos;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
-    obj8C->scale2 = 0.0f;
-    obj8C->scale1 = 0.12f;
-    obj8C->obj.rot.y = Rand_ZeroOne() * 360.0f;
-    obj8C->unk_60.y = (Rand_ZeroOne() - 0.5f) * 3.0f;
-    Object_SetInfo(&obj8C->info, obj8C->obj.id);
+    effect->scale2 = 0.0f;
+    effect->scale1 = 0.12f;
+    effect->obj.rot.y = Rand_ZeroOne() * 360.0f;
+    effect->unk_60.y = (Rand_ZeroOne() - 0.5f) * 3.0f;
+    Object_SetInfo(&effect->info, effect->obj.id);
 }
 
 void func_8006BB1C(f32 xPos, f32 yPos, f32 zPos) {
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
-            func_8006BA64(&gObjects8C[i], xPos, yPos, zPos);
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
+            func_8006BA64(&gEffects[i], xPos, yPos, zPos);
             break;
         }
     }
@@ -427,7 +426,7 @@ void func_8006BB78(Object_2F4* obj2F4) {
 
         case 3:
             if (obj2F4->timer_0BC == 1) {
-                func_8007F11C(OBJ_8C_353, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, D_80177828);
+                func_8007F11C(OBJ_EFFECT_353, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, D_80177828);
             }
             if (obj2F4->vel.y < 12.0f) {
                 Math_SmoothStepToF(&obj2F4->obj.rot.x, 180.0f, 0.1f, 7.0f, 0.01f);
@@ -1545,26 +1544,26 @@ void func_8006EA50(Object_2F4* obj2F4) {
     }
 }
 
-void func_8006EAC4(Object_8C* obj8C, f32 xPos, f32 yPos, f32 zPos) {
-    Object_8C_Initialize(obj8C);
-    obj8C->obj.status = 1;
-    obj8C->obj.id = OBJ_8C_374;
+void func_8006EAC4(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
+    Effect_Initialize(effect);
+    effect->obj.status = 1;
+    effect->obj.id = OBJ_EFFECT_374;
 
-    obj8C->obj.pos.x = xPos;
-    obj8C->obj.pos.y = yPos;
-    obj8C->obj.pos.z = zPos;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
-    obj8C->timer_50 = 20;
-    Object_SetInfo(&obj8C->info, obj8C->obj.id);
-    Audio_PlaySfx(0x2900201D, &obj8C->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    effect->timer_50 = 20;
+    Object_SetInfo(&effect->info, effect->obj.id);
+    Audio_PlaySfx(0x2900201D, &effect->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
 void func_8006EB64(f32 xPos, f32 yPos, f32 zPos) {
     s32 i;
 
-    for (i = 50; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
-            func_8006EAC4(&gObjects8C[i], xPos, yPos, zPos);
+    for (i = 50; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
+            func_8006EAC4(&gEffects[i], xPos, yPos, zPos);
             break;
         }
     }
@@ -1663,56 +1662,56 @@ void func_8006EFA0(s32 unk0E4, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 arg5,
     }
 }
 
-void func_8006F044(Object_8C* obj8C, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
-    Object_8C_Initialize(obj8C);
-    obj8C->obj.status = 1;
-    obj8C->obj.id = OBJ_8C_347;
+void func_8006F044(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
+    Effect_Initialize(effect);
+    effect->obj.status = 1;
+    effect->obj.id = OBJ_EFFECT_347;
 
-    obj8C->obj.pos.x = xPos;
-    obj8C->obj.pos.y = yPos;
-    obj8C->obj.pos.z = zPos;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
-    obj8C->scale1 = arg4;
-    obj8C->unk_44 = 100;
-    Object_SetInfo(&obj8C->info, obj8C->obj.id);
-    func_8007A6F0(&obj8C->obj.pos, 0x2903B009);
+    effect->scale1 = arg4;
+    effect->unk_44 = 100;
+    Object_SetInfo(&effect->info, effect->obj.id);
+    func_8007A6F0(&effect->obj.pos, 0x2903B009);
 }
 
 void func_8006F0D8(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
-            func_8006F044(&gObjects8C[i], xPos, yPos, zPos, arg3);
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
+            func_8006F044(&gEffects[i], xPos, yPos, zPos, arg3);
             break;
         }
     }
 }
 
-void func_8006F140(Object_8C* obj8C, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
-    Object_8C_Initialize(obj8C);
-    obj8C->obj.status = 1;
-    obj8C->obj.id = OBJ_8C_394;
+void func_8006F140(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
+    Effect_Initialize(effect);
+    effect->obj.status = 1;
+    effect->obj.id = OBJ_EFFECT_394;
 
-    obj8C->obj.pos.x = xPos;
-    obj8C->obj.pos.y = yPos;
-    obj8C->obj.pos.z = zPos;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
-    obj8C->scale1 = arg4;
-    obj8C->unk_44 = 100;
-    obj8C->unk_78 = 102;
-    obj8C->unk_7A = 18;
-    Object_SetInfo(&obj8C->info, obj8C->obj.id);
-    obj8C->info.damage = 40;
-    func_8007A6F0(&obj8C->obj.pos, 0x2903B009);
+    effect->scale1 = arg4;
+    effect->unk_44 = 100;
+    effect->unk_78 = 102;
+    effect->unk_7A = 18;
+    Object_SetInfo(&effect->info, effect->obj.id);
+    effect->info.damage = 40;
+    func_8007A6F0(&effect->obj.pos, 0x2903B009);
 }
 
 void func_8006F1EC(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
-            func_8006F140(&gObjects8C[i], xPos, yPos, zPos, arg3);
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
+            func_8006F140(&gEffects[i], xPos, yPos, zPos, arg3);
             break;
         }
     }
@@ -1733,7 +1732,7 @@ void func_8006F254(Object_2F4* obj2F4) {
     sp54.z = D_80177828;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
-    func_8007F04C(OBJ_8C_353, obj2F4->obj.pos.x + sp48.x, obj2F4->obj.pos.y + sp48.y, obj2F4->obj.pos.z + sp48.z,
+    func_8007F04C(OBJ_EFFECT_353, obj2F4->obj.pos.x + sp48.x, obj2F4->obj.pos.y + sp48.y, obj2F4->obj.pos.z + sp48.z,
                   obj2F4->obj.rot.x, obj2F4->obj.rot.y, obj2F4->obj.rot.z, obj2F4->unk_2E8.x, obj2F4->unk_2E8.y,
                   obj2F4->unk_2E8.z + obj2F4->unk_0F4.z, sp48.x, sp48.y, sp48.z, 1.0f);
 }
@@ -1758,7 +1757,7 @@ void func_8006F40C(Object_2F4* obj2F4) {
 
             case 2:
                 if (obj2F4->obj.pos.z < (gPlayer[0].unk_138 - 600.0f)) {
-                    func_8007F11C(OBJ_8C_353, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, D_80177828);
+                    func_8007F11C(OBJ_EFFECT_353, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, D_80177828);
                 }
                 obj2F4->unk_048 = 0;
                 break;
@@ -1798,7 +1797,7 @@ void func_8006F40C(Object_2F4* obj2F4) {
                 sp78.z = D_80177828;
 
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
-                func_8007F04C(OBJ_8C_355, obj2F4->obj.pos.x + sp6C.x, obj2F4->obj.pos.y + sp6C.y,
+                func_8007F04C(OBJ_EFFECT_355, obj2F4->obj.pos.x + sp6C.x, obj2F4->obj.pos.y + sp6C.y,
                               obj2F4->obj.pos.z + sp6C.z, obj2F4->obj.rot.x, obj2F4->obj.rot.y, obj2F4->obj.rot.z,
                               obj2F4->unk_2E8.x, obj2F4->unk_2E8.y, obj2F4->unk_2E8.z + obj2F4->unk_0F4.z, sp6C.x,
                               sp6C.y, sp6C.z, 1.0f);
@@ -1807,14 +1806,14 @@ void func_8006F40C(Object_2F4* obj2F4) {
 
             case 6:
                 if (obj2F4->obj.pos.z < (gPlayer[0].unk_138 - 600.0f)) {
-                    func_8007F11C(OBJ_8C_355, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, D_80177828);
+                    func_8007F11C(OBJ_EFFECT_355, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, D_80177828);
                 }
                 obj2F4->unk_048 = 0;
                 break;
 
             case 7:
                 if (obj2F4->obj.pos.z < (gPlayer[0].unk_138 - 600.0f)) {
-                    func_8007F11C(OBJ_8C_356, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, 60.0f);
+                    func_8007F11C(OBJ_EFFECT_356, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, 60.0f);
                 }
                 obj2F4->unk_048 = 0;
                 break;
@@ -1824,7 +1823,7 @@ void func_8006F40C(Object_2F4* obj2F4) {
                 sp6C.y = gPlayer[0].pos.y;
                 gPlayer[0].pos.x += (Rand_ZeroOne() - 0.5f) * 300.0f;
                 gPlayer[0].pos.y += (Rand_ZeroOne() - 0.5f) * 300.0f;
-                func_8007F11C(OBJ_8C_353, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, D_80177828);
+                func_8007F11C(OBJ_EFFECT_353, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, D_80177828);
                 gPlayer[0].pos.x = sp6C.x;
                 gPlayer[0].pos.y = sp6C.y;
                 obj2F4->unk_048 = 0;
@@ -1877,16 +1876,16 @@ void func_8006F40C(Object_2F4* obj2F4) {
                 break;
 
             case 16:
-                func_8007F11C(OBJ_8C_353, obj2F4->obj.pos.x + 190.0f, obj2F4->obj.pos.y + 90.0f,
+                func_8007F11C(OBJ_EFFECT_353, obj2F4->obj.pos.x + 190.0f, obj2F4->obj.pos.y + 90.0f,
                               obj2F4->obj.pos.z + 220.0f, D_80177828);
-                func_8007F11C(OBJ_8C_353, obj2F4->obj.pos.x - 190.0f, obj2F4->obj.pos.y + 90.0f,
+                func_8007F11C(OBJ_EFFECT_353, obj2F4->obj.pos.x - 190.0f, obj2F4->obj.pos.y + 90.0f,
                               obj2F4->obj.pos.z + 220.0f, D_80177828);
                 obj2F4->unk_048 = 0;
                 break;
 
             case 17:
                 if (obj2F4->obj.pos.z < (gPlayer[0].camEye.z - 600.0f)) {
-                    func_8007F20C(OBJ_8C_353, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, D_80177828);
+                    func_8007F20C(OBJ_EFFECT_353, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, D_80177828);
                 }
                 obj2F4->unk_048 = 0;
                 break;
@@ -2859,36 +2858,36 @@ void func_800720E8(Object_2F4* obj2F4) {
     }
 }
 
-void func_800722EC(Object_8C* obj8C, f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
+void func_800722EC(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
     Vec3f sp2C;
     Vec3f sp20;
 
-    Object_8C_Initialize(obj8C);
+    Effect_Initialize(effect);
     Matrix_RotateY(gCalcMatrix, M_DTOR * yRot, 0);
     sp2C.x = 0.0f;
     sp2C.y = 0.0f;
     sp2C.z = 20.0f;
     Matrix_MultVec3f(gCalcMatrix, &sp2C, &sp20);
-    obj8C->vel.x = sp20.x;
-    obj8C->obj.status = 1;
-    obj8C->obj.id = OBJ_8C_365;
-    obj8C->obj.pos.x = xPos;
-    obj8C->obj.pos.y = yPos;
-    obj8C->obj.pos.z = zPos;
-    obj8C->unk_44 = 250;
-    obj8C->scale2 = 2.0f;
-    obj8C->scale1 = (Rand_ZeroOne() - 0.5f) * 200.0f;
-    obj8C->obj.rot.z = Rand_ZeroOne() * 360.0f;
-    obj8C->unk_4C = obj8C->unk_4E = 1;
-    Object_SetInfo(&obj8C->info, obj8C->obj.id);
+    effect->vel.x = sp20.x;
+    effect->obj.status = 1;
+    effect->obj.id = OBJ_EFFECT_365;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
+    effect->unk_44 = 250;
+    effect->scale2 = 2.0f;
+    effect->scale1 = (Rand_ZeroOne() - 0.5f) * 200.0f;
+    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    effect->unk_4C = effect->unk_4E = 1;
+    Object_SetInfo(&effect->info, effect->obj.id);
 }
 
 void func_8007240C(f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
-            func_800722EC(&gObjects8C[i], xPos, yPos, zPos, yRot);
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
+            func_800722EC(&gEffects[i], xPos, yPos, zPos, yRot);
             break;
         }
     }
@@ -3088,7 +3087,7 @@ void func_80072594(Object_2F4* obj2F4) {
                             var_fv0 = 0.0f;
                         }
 
-                        func_8007F04C(OBJ_8C_353, obj2F4->obj.pos.x + spAC.x + spA0.x,
+                        func_8007F04C(OBJ_EFFECT_353, obj2F4->obj.pos.x + spAC.x + spA0.x,
                                       obj2F4->obj.pos.y + spAC.y + spA0.y + var_fv0,
                                       obj2F4->obj.pos.z + spAC.z + spA0.z, obj2F4->unk_150, obj2F4->obj.rot.y,
                                       obj2F4->obj.rot.z, obj2F4->unk_2E8.x, obj2F4->unk_2E8.y,
@@ -3507,7 +3506,7 @@ void func_80072594(Object_2F4* obj2F4) {
                 break;
 
             case 80: {
-                Object_8C* obj8C;
+                Effect* effect;
                 Vec3f sp90;
                 Vec3f sp84;
                 Vec3f sp78;
@@ -3523,30 +3522,30 @@ void func_80072594(Object_2F4* obj2F4) {
 
                         if ((obj2F4->obj.pos.y + sp90.y) > -30.0f) {
                             for (sp74 = 0; sp74 < 7; sp74++) {
-                                obj8C = func_8007783C(OBJ_8C_394);
+                                effect = func_8007783C(OBJ_EFFECT_394);
 
-                                if (obj8C != NULL) {
-                                    obj8C->unk_78 = obj8C->unk_7A = 12;
-                                    obj8C->obj.status = 2;
-                                    obj8C->obj.pos.x = obj2F4->obj.pos.x + sp90.x;
-                                    obj8C->obj.pos.y = obj2F4->obj.pos.y + sp90.y;
-                                    obj8C->obj.pos.z = obj2F4->obj.pos.z;
-                                    obj8C->obj.rot.x = Rand_ZeroOne() * 360.0f;
-                                    obj8C->obj.rot.y = Rand_ZeroOne() * 360.0f;
-                                    obj8C->obj.rot.z = Rand_ZeroOne() * 360.0f;
+                                if (effect != NULL) {
+                                    effect->unk_78 = effect->unk_7A = 12;
+                                    effect->obj.status = 2;
+                                    effect->obj.pos.x = obj2F4->obj.pos.x + sp90.x;
+                                    effect->obj.pos.y = obj2F4->obj.pos.y + sp90.y;
+                                    effect->obj.pos.z = obj2F4->obj.pos.z;
+                                    effect->obj.rot.x = Rand_ZeroOne() * 360.0f;
+                                    effect->obj.rot.y = Rand_ZeroOne() * 360.0f;
+                                    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
                                     sp84.x = (Rand_ZeroOne() * 25.0f) + 30.0f;
                                     sp84.y = (Rand_ZeroOne() * 25.0f) + 20.0f;
                                     sp84.z = 0.0f;
-                                    obj8C->unk_44 = 10;
-                                    obj8C->scale2 = 1.0f;
+                                    effect->unk_44 = 10;
+                                    effect->scale2 = 1.0f;
                                     Matrix_RotateY(gCalcMatrix, ((Rand_ZeroOne() * 180.0f) + 180.0f) * M_DTOR, 0);
                                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp84, &sp78);
-                                    obj8C->vel.x = sp78.x;
-                                    obj8C->vel.y = sp78.y;
-                                    obj8C->vel.z = sp78.z;
-                                    obj8C->unk_60.x = (Rand_ZeroOne() - 0.5f) + 5.0f;
-                                    obj8C->unk_60.y = (Rand_ZeroOne() - 0.5f) + 5.0f;
-                                    obj8C->unk_60.z = (Rand_ZeroOne() - 0.5f) + 5.0f;
+                                    effect->vel.x = sp78.x;
+                                    effect->vel.y = sp78.y;
+                                    effect->vel.z = sp78.z;
+                                    effect->unk_60.x = (Rand_ZeroOne() - 0.5f) + 5.0f;
+                                    effect->unk_60.y = (Rand_ZeroOne() - 0.5f) + 5.0f;
+                                    effect->unk_60.z = (Rand_ZeroOne() - 0.5f) + 5.0f;
                                 }
                             }
                             obj2F4->unk_046++;
@@ -3555,58 +3554,58 @@ void func_80072594(Object_2F4* obj2F4) {
                 }
 
                 if ((fabsf(obj2F4->unk_114) > 10.0f) && !(gFrameCount & 1)) {
-                    obj8C = func_8007783C(OBJ_8C_394);
-                    if (obj8C != NULL) {
+                    effect = func_8007783C(OBJ_EFFECT_394);
+                    if (effect != NULL) {
                         Matrix_RotateZ(gCalcMatrix, obj2F4->unk_0F4.z * M_DTOR, 0);
                         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D1290, &sp90);
 
-                        obj8C->unk_78 = obj8C->unk_7A = 0xB;
+                        effect->unk_78 = effect->unk_7A = 0xB;
 
-                        obj8C->obj.status = 2;
+                        effect->obj.status = 2;
 
-                        obj8C->obj.pos.x = ((Rand_ZeroOne() - 0.5f) * 3.0f) + obj2F4->obj.pos.x + sp90.x;
-                        obj8C->obj.pos.y = ((Rand_ZeroOne() - 0.5f) * 3.0f) + obj2F4->obj.pos.y + sp90.y;
-                        obj8C->obj.pos.z = ((Rand_ZeroOne() - 0.5f) * 3.0f) + obj2F4->obj.pos.z + 180.0f;
+                        effect->obj.pos.x = ((Rand_ZeroOne() - 0.5f) * 3.0f) + obj2F4->obj.pos.x + sp90.x;
+                        effect->obj.pos.y = ((Rand_ZeroOne() - 0.5f) * 3.0f) + obj2F4->obj.pos.y + sp90.y;
+                        effect->obj.pos.z = ((Rand_ZeroOne() - 0.5f) * 3.0f) + obj2F4->obj.pos.z + 180.0f;
 
-                        obj8C->scale2 = 9.0f;
-                        obj8C->obj.rot.z = Rand_ZeroOne() * 360.0f;
-                        obj8C->vel.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
-                        obj8C->vel.y = (Rand_ZeroOne() - 0.5f) * 3.0f + 30.0f;
-                        obj8C->unk_44 = 100;
-                        obj8C->unk_46 = -8;
-                        obj8C->unk_60.z = 3;
+                        effect->scale2 = 9.0f;
+                        effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+                        effect->vel.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
+                        effect->vel.y = (Rand_ZeroOne() - 0.5f) * 3.0f + 30.0f;
+                        effect->unk_44 = 100;
+                        effect->unk_46 = -8;
+                        effect->unk_60.z = 3;
 
                         if (Rand_ZeroOne() < 0.5f) {
-                            obj8C->unk_60.z = -obj8C->unk_60.z;
+                            effect->unk_60.z = -effect->unk_60.z;
                         }
 
                         if (gFrameCount & 2) {
-                            obj8C->vel.y = -obj8C->vel.y;
+                            effect->vel.y = -effect->vel.y;
                         }
                     }
 
                     if (!(gFrameCount & 3)) {
-                        obj8C = func_8007783C(OBJ_8C_394);
-                        if (obj8C != NULL) {
-                            obj8C->unk_78 = obj8C->unk_7A = 0xB;
-                            obj8C->obj.status = 2;
-                            obj8C->obj.pos.x = ((Rand_ZeroOne() - 0.5f) * 3.0f) + obj2F4->obj.pos.x;
-                            obj8C->obj.pos.y = ((Rand_ZeroOne() - 0.5f) * 5.0f) + obj2F4->obj.pos.y + 50.0f;
-                            obj8C->obj.pos.z = ((Rand_ZeroOne() - 0.5f) * 3.0f) + obj2F4->obj.pos.z + 200.0f;
-                            obj8C->scale2 = 9.0f;
-                            obj8C->obj.rot.z = Rand_ZeroOne() * 360.0f;
-                            obj8C->vel.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
-                            obj8C->vel.y = (Rand_ZeroOne() - 0.5f) * 3.0f + 10.0f;
-                            obj8C->unk_44 = 100;
-                            obj8C->unk_46 = -8;
-                            obj8C->unk_60.z = 3;
+                        effect = func_8007783C(OBJ_EFFECT_394);
+                        if (effect != NULL) {
+                            effect->unk_78 = effect->unk_7A = 0xB;
+                            effect->obj.status = 2;
+                            effect->obj.pos.x = ((Rand_ZeroOne() - 0.5f) * 3.0f) + obj2F4->obj.pos.x;
+                            effect->obj.pos.y = ((Rand_ZeroOne() - 0.5f) * 5.0f) + obj2F4->obj.pos.y + 50.0f;
+                            effect->obj.pos.z = ((Rand_ZeroOne() - 0.5f) * 3.0f) + obj2F4->obj.pos.z + 200.0f;
+                            effect->scale2 = 9.0f;
+                            effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+                            effect->vel.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
+                            effect->vel.y = (Rand_ZeroOne() - 0.5f) * 3.0f + 10.0f;
+                            effect->unk_44 = 100;
+                            effect->unk_46 = -8;
+                            effect->unk_60.z = 3;
 
                             if (Rand_ZeroOne() < 0.5f) {
-                                obj8C->unk_60.z = -obj8C->unk_60.z;
+                                effect->unk_60.z = -effect->unk_60.z;
                             }
 
                             if (gFrameCount & 4) {
-                                obj8C->vel.y = -obj8C->vel.y;
+                                effect->vel.y = -effect->vel.y;
                             }
                         }
                     }
