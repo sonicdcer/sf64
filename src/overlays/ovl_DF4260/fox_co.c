@@ -520,7 +520,7 @@ static Vec3f D_DF4260_801997FC = { 0.0f, 0.0f, 40.0f };
 static Vec3f D_DF4260_80199808 = { 0.0f, 0.0f, -30.0f };
 
 #ifdef NON_MATCHING
-// Stack issues https://decomp.me/scratch/PeD7P
+// Stack issues https://decomp.me/scratch/ZsX2L
 void func_DF4260_80189058(Boss* boss) {
     Vec3f sp21C;
     s32 sp218;
@@ -551,24 +551,24 @@ void func_DF4260_80189058(Boss* boss) {
             D_80178284 = 2;
 
             boss->unk_05E = 1;
-            boss->swork[24] = 0x96;
-            boss->swork[25] = 0x96;
-            boss->swork[26] = 0x28;
-            boss->swork[27] = 0x28;
-            boss->swork[28] = 0x28;
-            boss->swork[29] = 0x82;
+            boss->swork[24] = 150;
+            boss->swork[25] = 150;
+            boss->swork[26] = 40;
+            boss->swork[27] = 40;
+            boss->swork[28] = 40;
+            boss->swork[29] = 130;
             boss->info.hitbox[1 + 0] = -241.0f;
             boss->info.hitbox[1 + 6] = 0.0f;
             boss->info.hitbox[1 + 12] = 0.0f;
             boss->info.hitbox[1 + 18] = 0.0f;
             boss->info.hitbox[1 + 24] = 0.0f;
             boss->info.hitbox[1 + 30] = 0.0f;
-            boss->timer_052 = 0x64;
+            boss->timer_052 = 100;
             boss->unk_04E = 0;
             boss->swork[31] = 1;
-            D_DF4260_8019B6D8[0x42] = 0.0f;
-            D_DF4260_8019B6D8[0x43] = 10000.0f;
-            boss->timer_050 = 0x1E;
+            D_DF4260_8019B6D8[66] = 0.0f;
+            D_DF4260_8019B6D8[67] = 10000.0f;
+            boss->timer_050 = 30;
             Animation_GetFrameData(D_602C0D0, 0, boss->vwork);
             D_801613A0 = 0;
         }
@@ -590,59 +590,59 @@ void func_DF4260_80189058(Boss* boss) {
         }
 
         switch (D_801613A0) {
-            case 0x14:
-                func_800BA808(gMsg_ID_2240, 0x50);
+            case 20:
+                func_800BA808(gMsg_ID_2240, RCID_BOSS_CORNERIA);
                 break;
-            case 0xA0:
-                func_800BA808(gMsg_ID_2250, 0x50);
+            case 160:
+                func_800BA808(gMsg_ID_2250, RCID_BOSS_CORNERIA);
                 break;
-            case 0x14A:
-                func_800BA808(gMsg_ID_2225, 0x14);
+            case 330:
+                func_800BA808(gMsg_ID_2225, RCID_SLIPPY);
                 break;
-            case 0x1E6:
+            case 486:
                 D_80161734 = 1;
                 break;
-            case 0x1F4:
-                func_800BA808(gMsg_ID_2260, 0x50);
+            case 500:
+                func_800BA808(gMsg_ID_2260, RCID_BOSS_CORNERIA);
                 break;
-            case 0x384:
-                func_800BA808(gMsg_ID_2230, 0x1E);
+            case 900:
+                func_800BA808(gMsg_ID_2230, RCID_PEPPY);
                 break;
-            case 0xF00:
+            case 3840:
                 if (boss->unk_04E < 5) {
-                    func_800BA808(gMsg_ID_2230, 0x1E);
+                    func_800BA808(gMsg_ID_2230, RCID_PEPPY);
                 }
                 break;
         }
 
-        if (D_801613A0 >= 0x1E7) {
+        if (D_801613A0 >= 487) {
             D_80177848 = boss->swork[29] * 2;
         }
 
-        for (sp218 = 0; sp218 < 0x18; sp218++) {
+        for (sp218 = 0; sp218 < 24; sp218++) {
 
-            if ((boss->swork[sp218] != 0) && (boss->swork[sp218] < 0x3E8)) {
+            if ((boss->swork[sp218] != 0) && (boss->swork[sp218] < 1000)) {
                 boss->swork[sp218]--;
             }
         }
         
         func_DF4260_80187AC8(boss);
-        boss->fwork[0] = __sinf(boss->swork[0x12] * 50.0f * 0.017453292f) * func_DF4260_80187A88(boss->swork[0x12]);
-        boss->fwork[1] = __sinf(boss->swork[0x13] * 50.0f * 0.017453292f) * func_DF4260_80187A88(boss->swork[0x13]);
-        boss->fwork[2] = __sinf(boss->swork[0x14] * 50.0f * 0.017453292f) * func_DF4260_80187A88(boss->swork[0x14]);
-        boss->fwork[3] = __sinf(boss->swork[0x15] * 50.0f * 0.017453292f) * func_DF4260_80187A88(boss->swork[0x15]);
-        boss->fwork[4] = __sinf(boss->swork[0x16] * 50.0f * 0.017453292f) * func_DF4260_80187A88(boss->swork[0x16]);
+        boss->fwork[0] = __sinf(boss->swork[18] * 50.0f * M_DTOR) * func_DF4260_80187A88(boss->swork[18]);
+        boss->fwork[1] = __sinf(boss->swork[19] * 50.0f * M_DTOR) * func_DF4260_80187A88(boss->swork[19]);
+        boss->fwork[2] = __sinf(boss->swork[20] * 50.0f * M_DTOR) * func_DF4260_80187A88(boss->swork[20]);
+        boss->fwork[3] = __sinf(boss->swork[21] * 50.0f * M_DTOR) * func_DF4260_80187A88(boss->swork[21]);
+        boss->fwork[4] = __sinf(boss->swork[22] * 50.0f * M_DTOR) * func_DF4260_80187A88(boss->swork[22]);
         
         if (boss->unk_04E < 5) {
-            sp5C = __sinf(boss->swork[0x17] * 12.0f * 0.017453292f) * func_DF4260_80187A88(boss->swork[0x17]) * 0.3f;
+            sp5C = __sinf(boss->swork[23] * 12.0f * M_DTOR) * func_DF4260_80187A88(boss->swork[23]) * 0.3f;
             Math_SmoothStepToF(&boss->obj.rot.z, sp5C, 0.2f, 100.0f, 0.001f);
         }
         if (boss->obj.pos.y <= 10.0f) {
             boss->obj.pos.y = 10.0f;
         }
-        sp214 = D_DF4260_8019B6D8[0x11] - boss->obj.pos.x;
-        sp210 = D_DF4260_8019B6D8[0x12] - (boss->obj.pos.y + 300.0f);
-        sp20C = D_DF4260_8019B6D8[0x13] - boss->obj.pos.z;
+        sp214 = D_DF4260_8019B6D8[17] - boss->obj.pos.x;
+        sp210 = D_DF4260_8019B6D8[18] - (boss->obj.pos.y + 300.0f);
+        sp20C = D_DF4260_8019B6D8[19] - boss->obj.pos.z;
         sp1FC = Math_RadToDeg(Math_Atan2F(sp214, sp20C));
         sp200 = Math_RadToDeg(-Math_Atan2F(sp210, sqrtf((sp214 * sp214) + (sp20C * sp20C))));
 
@@ -670,55 +670,55 @@ void func_DF4260_80189058(Boss* boss) {
         Math_SmoothStepToAngle(&D_DF4260_8019B6D8[16], sp1FC, 0.1f, 3.0f, 0.0f);
         Math_SmoothStepToAngle(&D_DF4260_8019B6D8[15], sp200, 0.1f, 3.0f, 0.0f);
         if (boss->unk_04E != 0) {
-            Math_SmoothStepToAngle(&boss->obj.rot.y, Math_RadToDeg(Math_Atan2F(D_DF4260_8019B6D8[0x42] - boss->obj.pos.x, D_DF4260_8019B6D8[0x43] - boss->obj.pos.z)), 0.1f, 3.0f, 0.0f);
+            Math_SmoothStepToAngle(&boss->obj.rot.y, Math_RadToDeg(Math_Atan2F(D_DF4260_8019B6D8[66] - boss->obj.pos.x, D_DF4260_8019B6D8[67] - boss->obj.pos.z)), 0.1f, 3.0f, 0.0f);
         }
-        Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * 0.017453292f, 0U);
+        Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, 0U);
 
         switch (boss->unk_04E) {
             case 0:
                 boss->unk_04C = 0;
-                D_DF4260_8019B6D8[0x11] = gPlayer->pos.x;
-                D_DF4260_8019B6D8[0x12] = gPlayer->pos.y;
-                D_DF4260_8019B6D8[0x13] = gPlayer->unk_138;
+                D_DF4260_8019B6D8[17] = gPlayer->pos.x;
+                D_DF4260_8019B6D8[18] = gPlayer->pos.y;
+                D_DF4260_8019B6D8[19] = gPlayer->unk_138;
                 if (boss->timer_050 == 0) {
                     switch (boss->swork[31]) {
                         case 1:
                             boss->unk_04E = 1;
-                            boss->timer_050 = (s32)(Rand_ZeroOne() * 50.0f) + 0x32;
+                            boss->timer_050 = (s32)(Rand_ZeroOne() * 50.0f) + 50;
                             boss->fwork[14] = 0.0f;
                             break;
                         case 2:
                             boss->unk_04E = 2;
-                            boss->timer_050 = (s32)(Rand_ZeroOne() * 100.0f) + 0x96;
-                            boss->timer_052 = 0x28;
-                            boss->timer_054 = 0x28;
+                            boss->timer_050 = (s32)(Rand_ZeroOne() * 100.0f) + 150;
+                            boss->timer_052 = 40;
+                            boss->timer_054 = 40;
                             boss->fwork[14] = 0.07f;
                             break;
                         case 4:
                             boss->unk_04E = 4;
-                            boss->timer_050 = (s32) (Rand_ZeroOne() * 70.0f) + 0x64;
+                            boss->timer_050 = (s32) (Rand_ZeroOne() * 70.0f) + 100;
                             boss->fwork[14] = 0.1f;
-                            D_DF4260_8019B6D8[0x42] = (Rand_ZeroOne() - 0.5f) * 6000.0f;
-                            D_DF4260_8019B6D8[0x43] = (Rand_ZeroOne() - 0.5f) * 6000.0f;
+                            D_DF4260_8019B6D8[66] = (Rand_ZeroOne() - 0.5f) * 6000.0f;
+                            D_DF4260_8019B6D8[67] = (Rand_ZeroOne() - 0.5f) * 6000.0f;
                             boss->fwork[14] = 0.07f;
                             break;
                         case 3:
                             boss->unk_04E = 3;
-                            boss->timer_050 = (s32) (Rand_ZeroOne() * 100.0f) + 0x96;
+                            boss->timer_050 = (s32) (Rand_ZeroOne() * 100.0f) + 150;
                             boss->fwork[14] = 0.07f;
                             break;
                     }
                 }
                 Animation_GetFrameData(D_602C0D0, boss->unk_04C, sp84);
                 if (boss->timer_052 == 0) {
-                    boss->timer_052 = 0x96;
+                    boss->timer_052 = 150;
                     boss->swork[30] = 1;
                 }
                 break;
             case 1:
-                D_DF4260_8019B6D8[0x11] = D_DF4260_8019B6D8[0x42] = gPlayer->pos.x;
-                D_DF4260_8019B6D8[0x12] = gPlayer->pos.y;
-                D_DF4260_8019B6D8[0x13] = D_DF4260_8019B6D8[0x43] = gPlayer->unk_138;
+                D_DF4260_8019B6D8[17] = D_DF4260_8019B6D8[66] = gPlayer->pos.x;
+                D_DF4260_8019B6D8[18] = gPlayer->pos.y;
+                D_DF4260_8019B6D8[19] = D_DF4260_8019B6D8[67] = gPlayer->unk_138;
 
                 boss->unk_04C += 2;
                 if (boss->unk_04C >= Animation_GetFrameCount(D_602BC18)) {
@@ -727,24 +727,24 @@ void func_DF4260_80189058(Boss* boss) {
                 Animation_GetFrameData(D_602BC18, boss->unk_04C, sp84);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp1EC, &sp21C);
                 if (boss->timer_052 == 0) {
-                    boss->timer_052 = 0x96;
+                    boss->timer_052 = 150;
                     boss->swork[30] = 1;
                 }
                 func_DF4260_80188A18(boss);
                 break;
             case 2:
-                D_DF4260_8019B6D8[0x11] = D_DF4260_8019B6D8[0x42] = gPlayer->pos.x;
-                D_DF4260_8019B6D8[0x12] = gPlayer->pos.y;
-                D_DF4260_8019B6D8[0x13] = D_DF4260_8019B6D8[0x43] = gPlayer->unk_138;
+                D_DF4260_8019B6D8[17] = D_DF4260_8019B6D8[66] = gPlayer->pos.x;
+                D_DF4260_8019B6D8[18] = gPlayer->pos.y;
+                D_DF4260_8019B6D8[19] = D_DF4260_8019B6D8[67] = gPlayer->unk_138;
 
                 boss->unk_04C -= 4;
                 if (boss->unk_04C < 0) {
-                    boss->unk_04C = 0x64;
+                    boss->unk_04C = 100;
                 }
                 Animation_GetFrameData(D_602BC18, boss->unk_04C, sp84);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp6C, &sp21C);
                 if (boss->timer_052 == 0) {
-                    boss->timer_052 = 0x1E;
+                    boss->timer_052 = 30;
                     boss->swork[30] = 2;
                 }
                 if (boss->timer_054 == 0) {
@@ -754,18 +754,18 @@ void func_DF4260_80189058(Boss* boss) {
                 func_DF4260_80188A18(boss);
                 break;
             case 3:
-                D_DF4260_8019B6D8[0x11] = D_DF4260_8019B6D8[0x42] = gPlayer->pos.x;
-                D_DF4260_8019B6D8[0x12] = gPlayer->pos.y;
-                D_DF4260_8019B6D8[0x13] = D_DF4260_8019B6D8[0x43] = gPlayer->unk_138;
+                D_DF4260_8019B6D8[17] = D_DF4260_8019B6D8[66] = gPlayer->pos.x;
+                D_DF4260_8019B6D8[18] = gPlayer->pos.y;
+                D_DF4260_8019B6D8[19] = D_DF4260_8019B6D8[67] = gPlayer->unk_138;
                 
                 boss->unk_04C += 4;
-                if (boss->unk_04C >= 0x65) {
+                if (boss->unk_04C >= 101) {
                     boss->unk_04C = 0;
                 }
                 Animation_GetFrameData(D_602BC18, boss->unk_04C, sp84);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp21C);
                 if (boss->timer_052 == 0) {
-                    boss->timer_052 = 0x1E;
+                    boss->timer_052 = 30;
                     boss->swork[30] = 2;
                 }
                 if (boss->timer_054 == 0) {
@@ -775,12 +775,12 @@ void func_DF4260_80189058(Boss* boss) {
                 func_DF4260_80188A18(boss);
                 break;
             case 4:
-                D_DF4260_8019B6D8[0x11] = gPlayer->pos.x;
-                D_DF4260_8019B6D8[0x12] = gPlayer->pos.y;
-                D_DF4260_8019B6D8[0x13] = gPlayer->unk_138;
+                D_DF4260_8019B6D8[17] = gPlayer->pos.x;
+                D_DF4260_8019B6D8[18] = gPlayer->pos.y;
+                D_DF4260_8019B6D8[19] = gPlayer->unk_138;
                 
                 boss->unk_04C += 4;
-                if (boss->unk_04C >= 0x65) {
+                if (boss->unk_04C >= 101) {
                     boss->unk_04C = 0;
                 }
                 Animation_GetFrameData(D_602BC18, boss->unk_04C, sp84);
@@ -792,9 +792,9 @@ void func_DF4260_80189058(Boss* boss) {
                 boss->unk_05E = 0;
                 D_8017812C = 1;
                 if (!(gFrameCount & 7)) {
-                    D_DF4260_8019B6D8[0x11] = ((Rand_ZeroOne() - 0.5f) * 2000.0f) + gPlayer->pos.x;
-                    D_DF4260_8019B6D8[0x12] = gPlayer->pos.y;
-                    D_DF4260_8019B6D8[0x13] = ((Rand_ZeroOne() - 0.5f) * 2000.0f) + gPlayer->unk_138;
+                    D_DF4260_8019B6D8[17] = ((Rand_ZeroOne() - 0.5f) * 2000.0f) + gPlayer->pos.x;
+                    D_DF4260_8019B6D8[18] = gPlayer->pos.y;
+                    D_DF4260_8019B6D8[19] = ((Rand_ZeroOne() - 0.5f) * 2000.0f) + gPlayer->unk_138;
                 }
                 boss->fwork[12] += 0.05f;
                 if (boss->unk_04E == 6) {
@@ -802,15 +802,13 @@ void func_DF4260_80189058(Boss* boss) {
                     if (boss->obj.rot.z > 60.0f) {
                         boss->obj.rot.z = 60.0f;
                         func_DF4260_80188C7C(boss);
-                        var_v0 = gFrameCount & 0x1FF;
 
-                        if (var_v0 == 0) {
-                            func_800BA808(gMsg_ID_2275, 0x50);
-                            var_v0 = gFrameCount & 0x1FF;
+                        if ((gFrameCount & 0x1FF) == 0) {
+                            func_800BA808(gMsg_ID_2275, RCID_BOSS_CORNERIA);
                         }
 
-                        if (var_v0 == 0x100) {
-                            func_800BA808(gMsg_ID_2220, 0x50);
+                        if ((gFrameCount & 0x1FF) == 0x100) {
+                            func_800BA808(gMsg_ID_2220, RCID_BOSS_CORNERIA);
                         }
                     }
                     boss->obj.rot.x = boss->obj.rot.z;
@@ -819,14 +817,12 @@ void func_DF4260_80189058(Boss* boss) {
                     if (boss->obj.rot.z < -60.0f) {
                         boss->obj.rot.z = -60.0f;
                         func_DF4260_80188C7C(boss);
-                        var_v0 = gFrameCount & 0x1FF;
 
-                        if (var_v0 == 0) {
-                            func_800BA808(gMsg_ID_2275, 0x50);
-                            var_v0 = gFrameCount & 0x1FF;
+                        if ((gFrameCount & 0x1FF) == 0) {
+                            func_800BA808(gMsg_ID_2275, RCID_BOSS_CORNERIA);
                         }
-                        if (var_v0 == 0x100) {
-                            func_800BA808(gMsg_ID_2220, 0x50);
+                        if ((gFrameCount & 0x1FF) == 0x100) {
+                            func_800BA808(gMsg_ID_2220, RCID_BOSS_CORNERIA);
                         }
                     }
                     boss->obj.rot.x = -boss->obj.rot.z;
@@ -834,15 +830,15 @@ void func_DF4260_80189058(Boss* boss) {
                 if (boss->timer_050 == 0) {
                     s32 temp_v0_3;
                     
-                    boss->timer_050 = 0x3C;
+                    boss->timer_050 = 60;
                     temp_v0_3 = func_DF4260_80188750(boss);
 
                     if (temp_v0_3 != 0) {
-                        func_DF4260_80187710(D_DF4260_8019B6D8[0x3E], D_DF4260_8019B6D8[0x3F], D_DF4260_8019B6D8[0x40], 65.0f, 270.0f, 0.0f, 0, 0, temp_v0_3);
+                        func_DF4260_80187710(D_DF4260_8019B6D8[62], D_DF4260_8019B6D8[63], D_DF4260_8019B6D8[64], 65.0f, 270.0f, 0.0f, 0, 0, temp_v0_3);
                     }
                 }
 
-                boss->unk_068 = __sinf(boss->obj.rot.z * 0.017453292f) * 30.0f;
+                boss->unk_068 = __sinf(boss->obj.rot.z * M_DTOR) * 30.0f;
                 if (!(gFrameCount & 0xF)) {
                     boss->unk_04C = (s32) (Rand_ZeroOne() * 100.0f);
                 }
@@ -861,50 +857,50 @@ void func_DF4260_80189058(Boss* boss) {
                 
                 boss->swork[24] = boss->swork[25] = boss->swork[26] = boss->swork[27] = boss->swork[28] = 0;
                 
-                if (boss->timer_050 == 0xC) {
+                if (boss->timer_050 == 12) {
                     Object_Kill(&gEffects[0].obj, &gEffects[0].sfxPos);
-                    func_8007D0E0(D_DF4260_8019B6D8[0x3E], D_DF4260_8019B6D8[0x3F] - 100.0f, D_DF4260_8019B6D8[0x40], 25.0f);
+                    func_8007D0E0(D_DF4260_8019B6D8[62], D_DF4260_8019B6D8[63] - 100.0f, D_DF4260_8019B6D8[64], 25.0f);
                 }
-                if (boss->timer_050 == 0xA) {
+                if (boss->timer_050 == 10) {
                     for (sp218 = 0; sp218 < 50; sp218++) {
                         if (gEffects[sp218].obj.status != 0) {
                             Object_Kill(&gEffects[sp218].obj, &gEffects[sp218].sfxPos);
                         }
                     }
-                    func_8007A568(D_DF4260_8019B6D8[0x3E], D_DF4260_8019B6D8[0x3F] - 100.0f, D_DF4260_8019B6D8[0x40], 40.0f);
-                    func_8007D0E0(D_DF4260_8019B6D8[0x3E], D_DF4260_8019B6D8[0x3F] - 100.0f, D_DF4260_8019B6D8[0x40], 30.0f);
-                    func_80062B60(D_DF4260_8019B6D8[0x3E], D_DF4260_8019B6D8[0x40], 0, 120.0f);
-                    D_80178480 = 0x19;
+                    func_8007A568(D_DF4260_8019B6D8[62], D_DF4260_8019B6D8[63] - 100.0f, D_DF4260_8019B6D8[64], 40.0f);
+                    func_8007D0E0(D_DF4260_8019B6D8[62], D_DF4260_8019B6D8[63] - 100.0f, D_DF4260_8019B6D8[64], 30.0f);
+                    func_80062B60(D_DF4260_8019B6D8[62], D_DF4260_8019B6D8[64], 0, 120.0f);
+                    D_80178480 = 25;
                     D_80161734 = 0;
                     
                     for (sp218 = 0; sp218 < 100; sp218++) {
-                        func_80079618(D_DF4260_8019B6D8[0x3E] + ((Rand_ZeroOne() - 0.5f) * 600.0f), (D_DF4260_8019B6D8[0x3F] + ((Rand_ZeroOne() - 0.5f) * 500.0f)) - 100.0f, D_DF4260_8019B6D8[0x40] + ((Rand_ZeroOne() - 0.5f) * 600.0f), 2.0f);
+                        func_80079618(D_DF4260_8019B6D8[62] + ((Rand_ZeroOne() - 0.5f) * 600.0f), (D_DF4260_8019B6D8[63] + ((Rand_ZeroOne() - 0.5f) * 500.0f)) - 100.0f, D_DF4260_8019B6D8[64] + ((Rand_ZeroOne() - 0.5f) * 600.0f), 2.0f);
                     }
                 }
-                if (boss->timer_050 < 0x32) {
+                if (boss->timer_050 < 50) {
                     boss->unk_066 = boss->timer_050 & 7;
 
                     switch (boss->unk_066) {
                         case 1:
-                            if (boss->swork[2] != 0x3E8) {
+                            if (boss->swork[2] != 1000) {
                                 boss->unk_062 = 1;
                             }
                             break;
                         case 2:
-                            if (boss->swork[1] != 0x3E8) {
+                            if (boss->swork[1] != 1000) {
                                 boss->unk_062 = 1;
                             }
                         case 3:
-                            if (boss->swork[3] != 0x3E8) {
+                            if (boss->swork[3] != 1000) {
                                 boss->unk_062 = 1;
                             }
                             break;
                         case 4:
-                            if (boss->swork[7] != 0x3E8) {
+                            if (boss->swork[7] != 1000) {
                                 boss->unk_062 = 1;
                             }
                         case 5:
-                            if (boss->swork[4] != 0x3E8) {
+                            if (boss->swork[4] != 1000) {
                                 boss->unk_062 = 1;
                             }
                             break;
@@ -922,31 +918,31 @@ void func_DF4260_80189058(Boss* boss) {
         Math_SmoothStepToF(&boss->vel.x, sp21C.x, 0.3f, 5.0f, 0.0f);
         Math_SmoothStepToF(&boss->vel.z, sp21C.z, 0.3f, 5.0f, 0.0f);
         func_DF4260_801887AC(boss);
-        Math_SmoothStepToVec3fArray(sp84, boss->vwork, 1, 0x13, boss->fwork[14], 100.0f, 0.0f);
+        Math_SmoothStepToVec3fArray(sp84, boss->vwork, 1, 19, boss->fwork[14], 100.0f, 0.0f);
         Math_SmoothStepToF(&boss->fwork[14], 1.0f, 1.0f, 0.01f, 0.0f);
 
         if (boss->unk_04E < 5) {
             if (((fabsf(boss->obj.pos.x) > 4000.0f) || (fabsf(boss->obj.pos.z) > 4000.0f)) && (boss->unk_04E != 4)) {
                 boss->unk_04E = 4;
-                boss->timer_050 = 0x96;
-                D_DF4260_8019B6D8[0x42] = 0.0f;
-                D_DF4260_8019B6D8[0x43] = 0.0f;
+                boss->timer_050 = 150;
+                D_DF4260_8019B6D8[66] = 0.0f;
+                D_DF4260_8019B6D8[67] = 0.0f;
                 boss->swork[31] = 0;
             }
-            if ((boss->unk_04E != 0) && ((boss->unk_04C == 0) || (boss->unk_04C == 0x34))) {
+            if ((boss->unk_04E != 0) && ((boss->unk_04C == 0) || (boss->unk_04C == 52))) {
                 Audio_PlaySfx(0x29022019U, &boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
             if ((gPlayer->unk_4DC != 0) && (boss->unk_04E != 0)) {
                 boss->unk_04E = 0;
                 boss->swork[31] = 1;
-                boss->timer_050 = 0x64;
+                boss->timer_050 = 100;
                 boss->fwork[14] = 0.0f;
             }
         }
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_DF4260/sf_co/func_DF4260_80189058.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_DF4260/fox_co/func_DF4260_80189058.s")
 #endif
 
 s32 func_DF4260_8018A434(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
