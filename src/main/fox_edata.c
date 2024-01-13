@@ -20,5 +20,5 @@ void func_800595D0(Object_80* obj80) {
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
 
-void func_800596B0(Object_2F4* obj2F4) {
+void func_800596B0(Actor* actor) {
 }

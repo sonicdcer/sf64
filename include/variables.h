@@ -141,7 +141,7 @@ extern Vec3f D_800C9F2C;
 // fox_display
 extern s32 D_800CA220;
 extern f32 D_800CA230;
-extern Object_2F4* D_800CA234;
+extern Actor* D_800CA234;
 extern s32 D_Timer_800CA238;
 
 // fox_edata
@@ -400,7 +400,7 @@ extern s32 D_80161AB8;
 // 0x44
 extern Object_80 gObjects80[50];
 extern Object_4C gObjects4C[40];
-extern Object_2F4 gObjects2F4[60];
+extern Actor gActors[60];
 extern Boss gBosses[4];
 extern Object_8C gObjects8C[100];
 extern Item gItems[20];

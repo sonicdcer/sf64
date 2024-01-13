@@ -2,10 +2,10 @@
 
 typedef void (*BossSOfunc)(Boss*);
 
-void func_E16C50_8019EA7C(Object_2F4*);
-void func_E16C50_8019F20C(Object_2F4*);
-void func_E16C50_8019F7AC(Object_2F4*);
-void func_E16C50_801A003C(Object_2F4*);
+void func_E16C50_8019EA7C(Actor*);
+void func_E16C50_8019F20C(Actor*);
+void func_E16C50_8019F7AC(Actor*);
+void func_E16C50_801A003C(Actor*);
 void func_E16C50_801A0120(Object_8C*);
 void func_E16C50_801A0AF0(Object_8C*);
 
@@ -93,7 +93,7 @@ s32 D_E16C50_801C27A0[8]; // unused? part of previous?
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_so/func_E16C50_8019E9F4.s")
 
-// OBJ_2F4_278 action
+// OBJ_ACTOR_278 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_so/func_E16C50_8019EA7C.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_so/func_E16C50_8019EF30.s")
@@ -104,10 +104,10 @@ s32 D_E16C50_801C27A0[8]; // unused? part of previous?
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_so/func_E16C50_8019F194.s")
 
-// OBJ_2F4_275, 276, 277 action
+// OBJ_ACTOR_275, 276, 277 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_so/func_E16C50_8019F20C.s")
 
-// OBJ_2F4_275, 276, 277 draw
+// OBJ_ACTOR_275, 276, 277 draw
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_so/func_E16C50_8019F7AC.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_so/func_E16C50_8019F99C.s")
@@ -122,7 +122,7 @@ s32 D_E16C50_801C27A0[8]; // unused? part of previous?
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_so/func_E16C50_8019FFC0.s")
 
-// OBJ_2F4_279 action
+// OBJ_ACTOR_279 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_so/func_E16C50_801A003C.s")
 
 // OBJ_8C_392 action

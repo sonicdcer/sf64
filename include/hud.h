@@ -33,8 +33,8 @@ void func_8008D7F4(void);
 void func_8008D984(void);
 void func_8008DC34(void);
 void func_8008E5E8(void);
-s32 func_80090E8C(Object_2F4*);
-s32 func_800910C0(Object_2F4*);
+s32 func_80090E8C(Actor*);
+s32 func_800910C0(Actor*);
 
 // Weird addresses, assets maybe?
 extern u16 D_1000E80[];

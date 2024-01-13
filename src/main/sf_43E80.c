@@ -1344,7 +1344,7 @@ void func_800481F4(Player* player) {
     s32 pad[17];
     s32 i;
     s32 temp_v0;
-    Object_2F4* obj2F4;
+    Actor* actor;
     Boss* boss;
     Object_4C* obj4C;
     Object_80* obj80;
@@ -1405,29 +1405,29 @@ void func_800481F4(Player* player) {
             }
         }
 
-        for (i = 0, obj2F4 = gObjects2F4; i < ARRAY_COUNT(gObjects2F4); i++, obj2F4++) {
-            if ((obj2F4->obj.status == 2) && (obj2F4->timer_0C2 == 0)) {
-                if (obj2F4->obj.id == OBJ_2F4_200) {
+        for (i = 0, actor = gActors; i < ARRAY_COUNT(gActors); i++, actor++) {
+            if ((actor->obj.status == 2) && (actor->timer_0C2 == 0)) {
+                if (actor->obj.id == OBJ_ACTOR_200) {
                     temp_v0 =
-                        func_800A7974(player, obj2F4->info.hitbox, &sp98, obj2F4->obj.pos.x, obj2F4->obj.pos.y,
-                                      obj2F4->obj.pos.z, obj2F4->obj.rot.x, obj2F4->obj.rot.y, obj2F4->obj.rot.z,
-                                      obj2F4->vwork[29].x, obj2F4->vwork[29].y, obj2F4->vwork[29].z + obj2F4->unk_0F4.z);
+                        func_800A7974(player, actor->info.hitbox, &sp98, actor->obj.pos.x, actor->obj.pos.y,
+                                      actor->obj.pos.z, actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z,
+                                      actor->vwork[29].x, actor->vwork[29].y, actor->vwork[29].z + actor->unk_0F4.z);
                     if (temp_v0 != 0) {
-                        Player_ApplyDamage(player, temp_v0, obj2F4->info.damage);
-                        obj2F4->unk_0D0 = 3;
-                        obj2F4->unk_0D4 = player->num + 1;
+                        Player_ApplyDamage(player, temp_v0, actor->info.damage);
+                        actor->unk_0D0 = 3;
+                        actor->unk_0D4 = player->num + 1;
                     }
-                } else if (obj2F4->obj.id == OBJ_2F4_207) {
-                    if (func_80046E40(player, obj2F4->info.hitbox, &sp98, obj2F4->obj.pos.x, obj2F4->obj.pos.y,
-                                      obj2F4->obj.pos.z, obj2F4->obj.rot.x, obj2F4->obj.rot.y, obj2F4->obj.rot.z, 0.0f,
+                } else if (actor->obj.id == OBJ_ACTOR_207) {
+                    if (func_80046E40(player, actor->info.hitbox, &sp98, actor->obj.pos.x, actor->obj.pos.y,
+                                      actor->obj.pos.z, actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z, 0.0f,
                                       0.0f, 0.0f) != 0) {
-                        if (player->pos.x < obj2F4->obj.pos.x) {
-                            player->unk_0D8.x = (obj2F4->vel.z > 5.0f) ? -5.0f : -1.5f;
+                        if (player->pos.x < actor->obj.pos.x) {
+                            player->unk_0D8.x = (actor->vel.z > 5.0f) ? -5.0f : -1.5f;
                             player->unk_1DC = 8;
                             player->timer_1E8 = 15;
                             player->unk_1EC = player->unk_1F0 = 20;
                         } else {
-                            player->unk_0D8.x = (obj2F4->vel.z > 5.0f) ? 5.0f : 1.5f;
+                            player->unk_0D8.x = (actor->vel.z > 5.0f) ? 5.0f : 1.5f;
                             player->unk_1DC = 8;
                             player->timer_1E8 = 15;
                             player->unk_1EC = player->unk_1F0 = -20;
@@ -1437,23 +1437,23 @@ void func_800481F4(Player* player) {
                         player->vel.x = 0.0f;
                         player->vel.y = 30.0f;
                         player->pos.x = player->unk_090.x;
-                        obj2F4->unk_0D0 = 3;
+                        actor->unk_0D0 = 3;
                         Player_ApplyDamage(player, 0, 5);
                         player->timer_498 = 1;
                     }
-                } else if ((obj2F4->obj.id >= 205) && (obj2F4->obj.id < 214)) {
-                    if (func_80046E40(player, obj2F4->info.hitbox, &sp98, obj2F4->fwork[25] + obj2F4->obj.pos.x,
-                                      obj2F4->fwork[8] + obj2F4->obj.pos.y + 25.0f, obj2F4->obj.pos.z, obj2F4->fwork[29],
-                                      obj2F4->fwork[26], obj2F4->obj.rot.z, 0.0f, 0.0f, 0.0f) != 0) {
+                } else if ((actor->obj.id >= 205) && (actor->obj.id < 214)) {
+                    if (func_80046E40(player, actor->info.hitbox, &sp98, actor->fwork[25] + actor->obj.pos.x,
+                                      actor->fwork[8] + actor->obj.pos.y + 25.0f, actor->obj.pos.z, actor->fwork[29],
+                                      actor->fwork[26], actor->obj.rot.z, 0.0f, 0.0f, 0.0f) != 0) {
                         Math_SmoothStepToF(&player->unk_0D0, 15.0f, 0.3f, 3.5f, 0.001f);
                         Math_SmoothStepToF(&player->unk_08C, 0, 0.3f, 3.5f, 0.001f);
-                        if (player->pos.x < (obj2F4->fwork[23] + obj2F4->obj.pos.x)) {
-                            player->unk_0D8.x = (obj2F4->vel.z > 5.0f) ? -5.0f : -1.5f;
+                        if (player->pos.x < (actor->fwork[23] + actor->obj.pos.x)) {
+                            player->unk_0D8.x = (actor->vel.z > 5.0f) ? -5.0f : -1.5f;
                             player->unk_1DC = 8;
                             player->timer_1E8 = 15;
                             player->unk_1EC = player->unk_1F0 = 20;
                         } else {
-                            player->unk_0D8.x = (obj2F4->vel.z > 5.0f) ? 5.0f : 1.5f;
+                            player->unk_0D8.x = (actor->vel.z > 5.0f) ? 5.0f : 1.5f;
                             player->unk_1DC = 8;
                             player->timer_1E8 = 15;
                             player->unk_1EC = player->unk_1F0 = -20;
@@ -1461,29 +1461,29 @@ void func_800481F4(Player* player) {
                         player->vel.x = 0.0f;
                         player->vel.y = 30.0f;
                         player->pos.x = player->unk_090.x;
-                        obj2F4->unk_0D0 = 3;
-                        if (obj2F4->info.damage != 0) {
+                        actor->unk_0D0 = 3;
+                        if (actor->info.damage != 0) {
                             Player_ApplyDamage(player, 0, 20);
                         } else {
-                            obj2F4->unk_0D0 = -1;
+                            actor->unk_0D0 = -1;
                         }
                     }
                 } else {
-                    temp_v0 = func_800A7974(player, obj2F4->info.hitbox, &sp98, obj2F4->obj.pos.x, obj2F4->obj.pos.y,
-                                            obj2F4->obj.pos.z, obj2F4->obj.rot.x, obj2F4->obj.rot.y, obj2F4->obj.rot.z,
+                    temp_v0 = func_800A7974(player, actor->info.hitbox, &sp98, actor->obj.pos.x, actor->obj.pos.y,
+                                            actor->obj.pos.z, actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z,
                                             0.0f, 0.0f, 0.0f);
                     if (temp_v0 != 0) {
-                        obj2F4->unk_0D0 = 3;
-                        if ((obj2F4->obj.id == OBJ_2F4_225) || (obj2F4->obj.id == OBJ_2F4_190)) {
-                            obj2F4->unk_0D0 = -1;
+                        actor->unk_0D0 = 3;
+                        if ((actor->obj.id == OBJ_ACTOR_225) || (actor->obj.id == OBJ_ACTOR_190)) {
+                            actor->unk_0D0 = -1;
                         }
-                        if (obj2F4->info.damage) {
-                            Player_ApplyDamage(player, temp_v0, obj2F4->info.damage);
-                            if (obj2F4->obj.id == OBJ_2F4_225) {
+                        if (actor->info.damage) {
+                            Player_ApplyDamage(player, temp_v0, actor->info.damage);
+                            if (actor->obj.id == OBJ_ACTOR_225) {
                                 player->unk_0D8.y = 0.0f;
                             }
                         } else {
-                            obj2F4->unk_0D0 = -1;
+                            actor->unk_0D0 = -1;
                         }
                     }
                 }

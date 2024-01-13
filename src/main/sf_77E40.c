@@ -422,9 +422,9 @@ void func_80078D60(Object_8C* obj8C, f32 posX, f32 posY, f32 posZ, f32 arg4) {
     obj8C->obj.pos.z = posZ;
     obj8C->scale2 = arg4;
     if (arg4 == 3.1f) {
-        obj8C->vel.x = gObjects2F4[8].vel.x;
-        obj8C->vel.y = gObjects2F4[8].vel.y;
-        obj8C->vel.z = gObjects2F4[8].vel.z;
+        obj8C->vel.x = gActors[8].vel.x;
+        obj8C->vel.y = gActors[8].vel.y;
+        obj8C->vel.z = gActors[8].vel.z;
     }
     if (arg4 != 30.0f) {
         obj8C->unk_4E = 1;

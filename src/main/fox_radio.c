@@ -718,7 +718,7 @@ void func_800BB5D0(void) {
                     break;
             }
 
-            if ((gObjects2F4[var_v1].obj.status != 2) && (gFrameCount & 4) &&
+            if ((gActors[var_v1].obj.status != 2) && (gFrameCount & 4) &&
                 (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && (D_801782A4 != 2) && (D_801782A4 != 3) &&
                 (D_801782A4 != 1000)) {
                 RCP_SetupDL(&gMasterDisp, 0x4C);
@@ -726,7 +726,7 @@ void func_800BB5D0(void) {
                 Graphics_DisplaySmallText(31, 167, 1.0f, 1.0f, "DOWN");
             }
             if (((D_801782A4 != 2) && (D_801782A4 != 3)) && (D_801782A4 != 1000)) {
-                func_80086110(22.0f, 165.0f, gObjects2F4[var_v1].unk_0CE * 2.55f);
+                func_80086110(22.0f, 165.0f, gActors[var_v1].unk_0CE * 2.55f);
             }
         }
         if (((D_801782A4 != 2) && (D_801782A4 != 3)) && (D_801782A4 != 1000)) {
