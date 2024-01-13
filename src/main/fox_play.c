@@ -2492,7 +2492,7 @@ void func_800ABAB4(void) {
     func_8001A838(0x11403076);
     func_8001A838(0x49000014);
     Memory_FreeAll();
-    D_80177C78 = D_80177C8C = D_80161734 = D_8015F908 = D_8015F90C = D_8015F910 = 0;
+    D_80177C78 = D_80177C8C = gShowBossHealth = D_8015F908 = D_8015F90C = D_8015F910 = 0;
     D_800CA220 = 0;
     D_80177830 = 0;
     if (gCurrentLevel != LEVEL_VERSUS) {
@@ -2518,7 +2518,7 @@ void func_800ABAB4(void) {
     D_80177E7C = 0;
     func_800A594C();
     D_80161A62 = D_8017796C = D_Timer_80177B44 = D_80177B4C = D_8015F928 = D_8015F940 = D_80178284 = gFrameCount =
-        D_80178480 = D_801782FC = D_801613A0 = D_80161690 = D_8015F900 = D_80177930 = 0;
+        D_80178480 = D_801782FC = gBossFrameCount = D_80161690 = D_8015F900 = D_80177930 = 0;
 
     if (gCurrentLevel == LEVEL_SECTOR_X) {
         D_80177930 = 1;
@@ -4272,7 +4272,7 @@ void func_800B0F50(Player* playerx) {
     } else if (!gVersusMode && (D_80177C90 != 0xFFFF) && ((gLevelMode != LEVELMODE_ALL_RANGE) || (D_8015F924 == 0))) {
         func_8001D444(0, D_80177C90, 0, 0xFF);
     }
-    D_80177840 = D_80177848 = D_80177850 = 0;
+    D_80177840 = gBossHealthBar = D_80177850 = 0;
 
     if ((gCurrentLevel == LEVEL_TRAINING)) {
         D_80177824 = 1;

@@ -498,7 +498,7 @@ void func_i3_80187754(Boss* bossA6) {
 
     D_80178284 = 1;
     D_80161A44 = 25000.0f;
-    D_801613A0 = 0;
+    gBossFrameCount = 0;
     bossA6->health = 780;
     bossA6->fwork[A6_FWK_2] = bossA6->fwork[A6_FWK_34] = 2.0f;
     bossA6->fwork[A6_FWK_35] = 1.2f;
@@ -550,7 +550,7 @@ void func_i3_80187944(Boss* bossA6) {
     s32 temp_1;
     f32 temp2;
 
-    D_801613A0++;
+    gBossFrameCount++;
     if ((bossA6->actionState < 6) || ((bossA6->actionState >= 8) && (bossA6->actionState < 12))) {
         bossA6->obj.rot.y = Math_Atan2F(gPlayer[0].camEye.x - bossA6->obj.pos.x,
                                         gPlayer[0].camEye.z - (bossA6->obj.pos.z + D_80177D20)) *
@@ -581,7 +581,7 @@ void func_i3_80187944(Boss* bossA6) {
                     D_8017796C = -1;
                     D_8015F984 = (D_80177D20 * 0.00004f) + 0.5f;
                     Audio_PlaySfx(0x2940D09A, &bossA6->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-                    D_80161734 = 0;
+                    gShowBossHealth = 0;
                     func_800182F4(0x102800FF);
                     func_800182F4(0x112800FF);
                     bossA6->fwork[A6_FWK_5] = 5.0f;
@@ -1147,7 +1147,7 @@ void func_i3_80187944(Boss* bossA6) {
                 D_801779A8[0] = 20.0f;
             }
             if (bossA6->timer_052 == 0) {
-                D_80161734 = 0;
+                gShowBossHealth = 0;
                 Object_Kill(&bossA6->obj, &bossA6->sfxPos);
             }
             break;
@@ -1174,14 +1174,14 @@ void func_i3_80187944(Boss* bossA6) {
     A6_HIT_4(bossA6, 2)->z.offset = bossA6->vwork[A6_VWK_6].z;
     A6_HIT_4(bossA6, 2)->y.offset = bossA6->vwork[A6_VWK_6].y;
     A6_HIT_4(bossA6, 2)->x.offset = bossA6->vwork[A6_VWK_6].x;
-    if (D_801613A0 == 600) {
+    if (gBossFrameCount == 600) {
         func_800BA808(gMsg_ID_2225, RCID_SLIPPY);
     }
-    if (D_801613A0 == 756) {
-        D_80161734 = 1;
+    if (gBossFrameCount == 756) {
+        gShowBossHealth = 1;
     }
-    if (D_801613A0 > 756) {
-        D_80177848 = (bossA6->health / 780.0f) * 255.0f;
+    if (gBossFrameCount > 756) {
+        gBossHealthBar = (bossA6->health / 780.0f) * 255.0f;
     }
     for (i = 0; i < 15; i++) {
         if (bossA6->swork[A6_SWK_0 + i] != 0) {

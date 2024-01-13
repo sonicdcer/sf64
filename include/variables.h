@@ -284,7 +284,7 @@ extern f32 D_8015F984;
 // extern f32 D_80161394;
 
 // fox_43AC0
-extern s32 D_801613A0;
+extern s32 gBossFrameCount;
 
 // fox_display
 extern Vec3f D_801613B0[];
@@ -323,7 +323,7 @@ extern f32 D_80161724;
 extern f32 D_80161728;
 extern s32 D_8016172C;
 extern s32 D_80161730;
-extern s32 D_80161734;
+extern s32 gShowBossHealth;
 extern s32 D_80161788;
 extern s32 D_8016178C;
 extern s32 D_80161790;
@@ -414,7 +414,7 @@ extern GameState gGameState;
 extern s32 D_80177838;
 extern s32 D_Timer_8017783C;
 extern s32 D_80177840;
-extern s32 D_80177848;
+extern s32 gBossHealthBar;
 extern s32 D_80177844;
 extern s32 D_8017784C;
 extern s32 D_80177850;

@@ -507,7 +507,7 @@ void func_i3_8019FAA4(Boss *arg0, Effect *arg1, f32 arg2, f32 arg3, f32 arg4, f3
     arg1->vel.x = 0.0f;
     arg1->scale2 = 10.0f;
     arg1->vel.y = arg5;
-    if (D_80177848 != 0) {
+    if (gBossHealthBar != 0) {
         if (gBosses->fwork[0x1F] > 0.0f) {
             if (gBosses->swork[0] != 7) {
                 Matrix_RotateY(gCalcMatrix, gBosses->obj.rot.y * M_DTOR, 0U);
@@ -1346,7 +1346,7 @@ void func_i3_801A1F80(Boss *bossSO) {
         func_800182F4(0x101400FF);
         func_800182F4(0x111400FF);
         D_80178284 = 1;
-        D_801613A0 = 0;
+        gBossFrameCount = 0;
         bossSO->unk_060 = 0x258;
         bossSO->swork[3] = 0x190;
         bossSO->unk_3F8 = 0.1f;
@@ -1410,7 +1410,7 @@ void func_i3_801A1F80(Boss *bossSO) {
     if (gFogBlue >= 0x41) {
         gFogBlue -= 1;
     }
-    temp_v0 = D_801613A0;
+    temp_v0 = gBossFrameCount;
     if (temp_v0 == 0x1E) {
         func_8001D444(0U, 0x801BU, 0U, 0xFFU);
     }
@@ -1425,7 +1425,7 @@ void func_i3_801A1F80(Boss *bossSO) {
         bossSO->unk4C = 0;
         bossSO->swork[1] = 1;
     }
-    temp_v0_2 = D_801613A0;
+    temp_v0_2 = gBossFrameCount;
     if (temp_v0_2 == 0x96) {
         func_i3_801A239C(bossSO);
         bossSO->fwork[0] = 0.01f;
@@ -2157,7 +2157,7 @@ void func_i3_801A4214(Boss *bossSO) {
             if (bossSO->unk4C == 0x33) {
                 bossSO->unk4C = 0x32;
                 bossSO->unk_04E = (u32) bossSO->unk_04E + 1;
-                D_80161734 = 0;
+                gShowBossHealth = 0;
                 Audio_PlaySfx(0x39439076U, &bossSO->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 func_i3_801A1E14(bossSO->fwork[4], bossSO->fwork[5] + 300.0f, bossSO->fwork[6], bossSO->fwork[1], bossSO->fwork[2], 73.0f, (Rand_ZeroOne() - 0.5f) * 50.0f, 80.0f, 40.0f, 8);
                 D_i3_801C2768->unkC = 6.0f;
@@ -2644,7 +2644,7 @@ void func_i3_801A5B3C(Boss *bossSO) {
     s32 temp_v0_4;
     u16 temp_t4;
 
-    D_801613A0 += 1;
+    gBossFrameCount += 1;
     temp_v0 = bossSO->swork[9];
     if (temp_v0 != 0) {
         bossSO->swork[9] = temp_v0 - 1;
@@ -2657,7 +2657,7 @@ void func_i3_801A5B3C(Boss *bossSO) {
     if (temp_v0_3 != 0) {
         bossSO->swork[0xA] = temp_v0_3 - 1;
     }
-    temp_v0_4 = D_801613A0;
+    temp_v0_4 = gBossFrameCount;
     if ((temp_v0_4 == 0xC8) && (*(gTeamShields + 4) != 0)) {
         func_800BA808(gMsg_ID_10310, RCID_FALCO);
     }
@@ -2844,11 +2844,11 @@ block_82:
             func_i3_801A3C4C(bossSO);
         }
     }
-    if (D_801613A0 == 0x190) {
-        D_80161734 = 1;
+    if (gBossFrameCount == 0x190) {
+        gShowBossHealth = 1;
     }
-    if (D_801613A0 >= 0x190) {
-        D_80177848 = (s32) ((f32) (bossSO->swork[3] + bossSO->unk_060 + bossSO->swork[2]) * 0.18214285f);
+    if (gBossFrameCount >= 0x190) {
+        gBossHealthBar = (s32) ((f32) (bossSO->swork[3] + bossSO->unk_060 + bossSO->swork[2]) * 0.18214285f);
     }
 }
 

@@ -1529,7 +1529,7 @@ void func_i3_801932AC(Boss* bossZO) {
     s32 i;
 
     D_80178284 = 1;
-    D_801613A0 = 0;
+    gBossFrameCount = 0;
     bossZO->vel.z = -40.0f;
     for (i = 0; i < ZO_LIMB_MAX; i++) {
         sZoLimbTimers[i] = 0;
@@ -2058,7 +2058,7 @@ void func_i3_80194A84(Boss* bossZO) {
     Vec3f sp6C;
     Vec3f sp60 = { 0.0f, 0.0f, 40.0f };
 
-    D_801613A0++;
+    gBossFrameCount++;
     if ((bossZO->actionState != 0) || ((bossZO->actionState == 0) && (bossZO->timer_050 < 50))) {
         Math_SmoothStepToF(&sZoFwork[ZO_BSF_24], sZoFwork[ZO_BSF_23], 0.1f, 2.0f, 0.00001f);
         Math_SmoothStepToF(&bossZO->obj.pos.y, sZoFwork[ZO_BSF_25], 0.1f, sZoFwork[ZO_BSF_24], 0.00001f);
@@ -2520,7 +2520,7 @@ void func_i3_80194A84(Boss* bossZO) {
                 gEffects[98].obj.status = gEffects[99].obj.status = 0;
                 sZoFwork[ZO_BSF_25] = -1000.0f;
                 sZoFwork[ZO_BSF_23] = 10.0f;
-                D_80161734 = 0;
+                gShowBossHealth = 0;
                 func_8007A568(bossZO->obj.pos.x, bossZO->obj.pos.y, bossZO->obj.pos.z, 80.0f);
                 if ((gPlayer->state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer->state_1C8 == PLAYERSTATE_1C8_5)) {
                     D_80177A80 = 0;
@@ -3055,19 +3055,19 @@ void func_i3_80194A84(Boss* bossZO) {
             sZoSwork[ZO_BSS_5]++;
         }
     }
-    if (D_801613A0 == 530) {
+    if (gBossFrameCount == 530) {
         func_800BA808(gMsg_ID_2225, RCID_SLIPPY);
     }
-    if (D_801613A0 == 686) {
-        D_80161734 = 1;
+    if (gBossFrameCount == 686) {
+        gShowBossHealth = 1;
     }
-    if (D_801613A0 > 686) {
-        D_80177848 = bossZO->health / 300.0f * 64.0f;
-        D_80177848 += (s32) ((sZoSwork[ZO_BSS_11] / 20.0f) * 64.0f);
-        D_80177848 += (s32) ((sZoSwork[ZO_BSS_12] / 20.0f) * 64.0f);
-        D_80177848 += (s32) ((sZoSwork[ZO_BSS_9] / 40.0f) * 16.0f);
-        D_80177848 += (s32) ((sZoSwork[ZO_BSS_10] / 40.0f) * 16.0f);
-        D_80177848 += (s32) ((sZoSwork[ZO_BSS_13] / 61.0f) * 31.0f);
+    if (gBossFrameCount > 686) {
+        gBossHealthBar = bossZO->health / 300.0f * 64.0f;
+        gBossHealthBar += (s32) ((sZoSwork[ZO_BSS_11] / 20.0f) * 64.0f);
+        gBossHealthBar += (s32) ((sZoSwork[ZO_BSS_12] / 20.0f) * 64.0f);
+        gBossHealthBar += (s32) ((sZoSwork[ZO_BSS_9] / 40.0f) * 16.0f);
+        gBossHealthBar += (s32) ((sZoSwork[ZO_BSS_10] / 40.0f) * 16.0f);
+        gBossHealthBar += (s32) ((sZoSwork[ZO_BSS_13] / 61.0f) * 31.0f);
     }
     ZO_HIT_0(bossZO)->z.offset = sZoFwork[ZO_BSF_43_Z] - bossZO->obj.pos.z;
     ZO_HIT_0(bossZO)->x.offset = sZoFwork[ZO_BSF_43_X] - bossZO->obj.pos.x;

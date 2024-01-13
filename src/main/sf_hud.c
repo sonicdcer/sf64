@@ -1321,8 +1321,8 @@ void func_8008DE68(void) {
     f32 temp7;
     f32 var_fv0;
 
-    if ((D_80161734 == 1) && (gTeamShields[2] > 0)) {
-        if ((D_80177848 >= 0) && (D_801616BC == -1.0f)) {
+    if ((gShowBossHealth == 1) && (gTeamShields[2] > 0)) {
+        if ((gBossHealthBar >= 0) && (D_801616BC == -1.0f)) {
             Audio_PlaySfx(0x4900C028, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             D_801616BC = 255.0f;
         }
@@ -1357,7 +1357,7 @@ void func_8008DE68(void) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, 255);
 
         if (D_801616BC > 0.0f) {
-            var_fv0 = (D_801616BC - D_80177848) * (2.76f / D_801616BC);
+            var_fv0 = (D_801616BC - gBossHealthBar) * (2.76f / D_801616BC);
             if (var_fv0 > 2.76f) {
                 var_fv0 = 2.76f;
             }
@@ -2056,7 +2056,7 @@ bool func_80091DF4(Object_2F4* obj2F4) {
     Vec3f sp44;
     Vec3f sp38;
 
-    if ((obj2F4->unk_050 != 0) && (D_80177848 > 70)) {
+    if ((obj2F4->unk_050 != 0) && (gBossHealthBar > 70)) {
         obj2F4->unk_050 = 0;
         sp44.x = 0.0f;
         sp44.y = 0.0f;

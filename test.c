@@ -1324,7 +1324,7 @@ void func_i3_801932AC(Boss *arg0) {
     u16 temp_t1;
 
     D_80178284 = 1;
-    D_801613A0 = 0;
+    gBossFrameCount = 0;
     var_v0 = sZoLimbTimers;
     arg0->vel.z = -40.0f;
     do {
@@ -2053,7 +2053,7 @@ void func_i3_80194A84(Boss *arg0) {
     sp60.unk0 = (f32) D_i3_801BF70C.x;
     sp60.unk4 = (f32) D_i3_801BF70C.y;
     sp60.unk8 = (f32) D_i3_801BF70C.z;
-    D_801613A0 += 1;
+    gBossFrameCount += 1;
     temp_v0 = arg0->unk_04E;
     if ((temp_v0 != 0) || ((temp_v0 == 0) && (arg0->timer_050 < 0x32))) {
         Math_SmoothStepToF(&sZoFwork.unk60, sZoFwork.unk_5C, 0.1f, 2.0f, 0.00001f);
@@ -2544,7 +2544,7 @@ void func_i3_80194A84(Boss *arg0) {
             gEffects->unk3624 = 0;
             sZoFwork.unk_64 = -1000.0f;
             sZoFwork.unk_5C = 10.0f;
-            D_80161734 = 0;
+            gShowBossHealth = 0;
             func_8007A568(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 80.0f);
             temp_v1 = gPlayer->state_1C8;
             if ((temp_v1 == PLAYERSTATE_1C8_3) || (temp_v1 == PLAYERSTATE_1C8_5)) {
@@ -3091,25 +3091,25 @@ void func_i3_80194A84(Boss *arg0) {
             sZoSwork->unk14 = (s32) (sZoSwork->unk14 + 1);
         }
     }
-    temp_v0_19 = D_801613A0;
+    temp_v0_19 = gBossFrameCount;
     if (temp_v0_19 == 0x212) {
         func_800BA808(gMsg_ID_2225, RCID_SLIPPY);
     }
     if (temp_v0_19 == 0x2AE) {
-        D_80161734 = 1;
+        gShowBossHealth = 1;
     }
     if (temp_v0_19 >= 0x2AF) {
         temp_ft0 = (s32) (((f32) arg0->unk_060 / 300.0f) * 64.0f);
-        D_80177848 = temp_ft0;
+        gBossHealthBar = temp_ft0;
         temp_t1_4 = temp_ft0 + (s32) (((f32) sZoSwork->unk2C / 20.0f) * 64.0f);
-        D_80177848 = temp_t1_4;
+        gBossHealthBar = temp_t1_4;
         temp_t0 = temp_t1_4 + (s32) (((f32) sZoSwork->unk30 / 20.0f) * 64.0f);
-        D_80177848 = temp_t0;
+        gBossHealthBar = temp_t0;
         temp_t1_5 = temp_t0 + (s32) (((f32) sZoSwork->unk24 / 40.0f) * 16.0f);
-        D_80177848 = temp_t1_5;
+        gBossHealthBar = temp_t1_5;
         temp_t0_2 = temp_t1_5 + (s32) (((f32) sZoSwork->unk28 / 40.0f) * 16.0f);
-        D_80177848 = temp_t0_2;
-        D_80177848 = temp_t0_2 + (s32) (((f32) sZoSwork->unk34 / 61.0f) * 31.0f);
+        gBossHealthBar = temp_t0_2;
+        gBossHealthBar = temp_t0_2 + (s32) (((f32) sZoSwork->unk34 / 61.0f) * 31.0f);
     }
     arg0->info.hitbox->unk4 = (f32) (sZoFwork.unk_AC.z - arg0->obj.pos.z);
     arg0->info.hitbox->unk14 = (f32) (sZoFwork.unk_AC.x - arg0->obj.pos.x);
