@@ -539,21 +539,21 @@ void func_800A26C0(void) {
     }
 }
 
-Object_2F4* func_800A3608(s32 arg0) {
-    Object_2F4* obj2F4 = gObjects2F4;
+Actor* func_800A3608(s32 arg0) {
+    Actor* actor = gActors;
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects2F4); i++, obj2F4++) {
-        if (obj2F4->obj.status == 0) {
-            Object_2F4_Initialize(obj2F4);
-            obj2F4->obj.status = 1;
-            obj2F4->obj.id = arg0;
-            Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
+    for (i = 0; i < ARRAY_COUNT(gActors); i++, actor++) {
+        if (actor->obj.status == 0) {
+            Actor_Initialize(actor);
+            actor->obj.status = 1;
+            actor->obj.id = arg0;
+            Object_SetInfo(&actor->info, actor->obj.id);
             break;
         }
     }
-    if (i == ARRAY_COUNT(gObjects2F4)) {
-        obj2F4 = NULL;
+    if (i == ARRAY_COUNT(gActors)) {
+        actor = NULL;
     }
-    return obj2F4;
+    return actor;
 }

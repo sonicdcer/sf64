@@ -1844,17 +1844,17 @@ void func_800C20B0(void) {
 void func_800C2190(void) {
 }
 
-bool func_800C2198(Object_2F4* obj2F4, f32 arg1, f32 arg2) {
-    if ((fabsf(gBosses[0].obj.pos.x - (obj2F4->obj.pos.x + (arg1 * 650.0f))) < 1500.0f) &&
-        (fabsf(gBosses[0].obj.pos.z - (obj2F4->obj.pos.z + (arg2 * 650.0f))) < 1500.0f) &&
-        (fabsf(gBosses[0].obj.pos.y - obj2F4->obj.pos.y) < 700.0f)) {
+bool func_800C2198(Actor* actor, f32 arg1, f32 arg2) {
+    if ((fabsf(gBosses[0].obj.pos.x - (actor->obj.pos.x + (arg1 * 650.0f))) < 1500.0f) &&
+        (fabsf(gBosses[0].obj.pos.z - (actor->obj.pos.z + (arg2 * 650.0f))) < 1500.0f) &&
+        (fabsf(gBosses[0].obj.pos.y - actor->obj.pos.y) < 700.0f)) {
         return true;
     } else {
         return false;
     }
 }
 
-void func_800C2244(Object_2F4* obj2F4) {
+void func_800C2244(Actor* actor) {
     bool boolTemp2;
     bool boolTemp;
     s32 pad2[6];
@@ -1874,44 +1874,44 @@ void func_800C2244(Object_2F4* obj2F4) {
 
     boolTemp = false;
 
-    switch (obj2F4->unk_0B8) {
+    switch (actor->unk_0B8) {
         case 0:
             boolTemp = true;
 
-            if (obj2F4->timer_0BC == 0) {
+            if (actor->timer_0BC == 0) {
                 y = Rand_ZeroOne() * 1000.0f;
                 x = (Rand_ZeroOne() - 0.5f) * 10000.0f;
                 z = (Rand_ZeroOne() - 0.5f) * 10000.0f;
 
-                if ((fabsf(obj2F4->obj.pos.x - x) > 2000.0f) || (fabsf(obj2F4->obj.pos.z - z) > 2000.0f)) {
-                    obj2F4->unk_124.x = x;
-                    obj2F4->unk_124.y = y;
-                    obj2F4->unk_124.z = z;
-                    obj2F4->timer_0BC = (s32) (Rand_ZeroOne() * 20.0f) + 10;
+                if ((fabsf(actor->obj.pos.x - x) > 2000.0f) || (fabsf(actor->obj.pos.z - z) > 2000.0f)) {
+                    actor->fwork[4] = x;
+                    actor->fwork[5] = y;
+                    actor->fwork[6] = z;
+                    actor->timer_0BC = (s32) (Rand_ZeroOne() * 20.0f) + 10;
                 }
             }
             break;
     }
 
-    sinX = __sinf(M_DTOR * (obj2F4->obj.rot.x));
-    cosX = __cosf(M_DTOR * (obj2F4->obj.rot.x));
-    sinY = __sinf(M_DTOR * (obj2F4->obj.rot.y));
-    cosY = __cosf(M_DTOR * (obj2F4->obj.rot.y));
+    sinX = __sinf(M_DTOR * (actor->obj.rot.x));
+    cosX = __cosf(M_DTOR * (actor->obj.rot.x));
+    sinY = __sinf(M_DTOR * (actor->obj.rot.y));
+    cosY = __cosf(M_DTOR * (actor->obj.rot.y));
 
     if (boolTemp) {
-        x = obj2F4->unk_124.x - obj2F4->obj.pos.x;
-        y = obj2F4->unk_124.y - obj2F4->obj.pos.y;
-        z = obj2F4->unk_124.z - obj2F4->obj.pos.z;
+        x = actor->fwork[4] - actor->obj.pos.x;
+        y = actor->fwork[5] - actor->obj.pos.y;
+        z = actor->fwork[6] - actor->obj.pos.z;
 
-        if (!((gFrameCount + obj2F4->index) & 7)) {
-            obj2F4->unk_160 = Math_RadToDeg((Math_Atan2F(x, z)));
+        if (!((gFrameCount + actor->index) & 7)) {
+            actor->fwork[19] = Math_RadToDeg((Math_Atan2F(x, z)));
             z = sqrtf(SQ(x) + SQ(z));
-            obj2F4->unk_164 = Math_RadToDeg((Math_Atan2F(y, z)));
+            actor->fwork[20] = Math_RadToDeg((Math_Atan2F(y, z)));
         }
 
-        x3 = obj2F4->unk_164;
+        x3 = actor->fwork[20];
 
-        boolTemp2 = func_800C2198(obj2F4, sinY, cosY);
+        boolTemp2 = func_800C2198(actor, sinY, cosY);
 
         if (boolTemp2) {
             x3 += 40.0f * boolTemp2;
@@ -1923,15 +1923,15 @@ void func_800C2244(Object_2F4* obj2F4) {
                 x3 += 360.0f;
             }
 
-        } else if (obj2F4->obj.pos.y < D_80177940 + 50.0f) {
+        } else if (actor->obj.pos.y < D_80177940 + 50.0f) {
             if (x3 > 180.0f) {
                 x3 = 0.0f;
-                obj2F4->unk_0F4.x = 0.0f;
+                actor->unk_0F4.x = 0.0f;
             }
         }
 
-        Math_SmoothStepToAngle(&obj2F4->unk_0F4.x, x3, 0.5f, 1.0f, 0.0001f);
-        y3 = Math_SmoothStepToAngle(&obj2F4->unk_0F4.y, obj2F4->unk_160, 0.5f, 1.0f, 0.0001f) * 30.0f;
+        Math_SmoothStepToAngle(&actor->unk_0F4.x, x3, 0.5f, 1.0f, 0.0001f);
+        y3 = Math_SmoothStepToAngle(&actor->unk_0F4.y, actor->fwork[19], 0.5f, 1.0f, 0.0001f) * 30.0f;
 
         if (y3 < 0.0f) {
             y3 *= -1.0f;
@@ -1939,11 +1939,11 @@ void func_800C2244(Object_2F4* obj2F4) {
             y3 = 360.0f - y3;
         }
 
-        Math_SmoothStepToAngle(&obj2F4->obj.rot.z, y3, 0.1f, 3.0f, 0.01f);
+        Math_SmoothStepToAngle(&actor->obj.rot.z, y3, 0.1f, 3.0f, 0.01f);
     }
 
-    obj2F4->obj.rot.x = -obj2F4->unk_0F4.x;
-    obj2F4->obj.rot.y = obj2F4->unk_0F4.y;
+    actor->obj.rot.x = -actor->unk_0F4.x;
+    actor->obj.rot.y = actor->unk_0F4.y;
 
     vec.z = +cosX * 38.0f;
     vec.y = -sinX * 38.0f;
@@ -1951,23 +1951,23 @@ void func_800C2244(Object_2F4* obj2F4) {
     vec.x = sinY * vec.z;
     vec.z = cosY * vec.z;
 
-    obj2F4->vel.x = vec.x + obj2F4->unk_148;
-    obj2F4->vel.y = vec.y + obj2F4->unk_14C;
-    obj2F4->vel.z = vec.z + obj2F4->unk_144;
+    actor->vel.x = vec.x + actor->fwork[13];
+    actor->vel.y = vec.y + actor->fwork[14];
+    actor->vel.z = vec.z + actor->fwork[12];
 
-    obj2F4->unk_148 -= obj2F4->unk_148 * 0.1f;
-    obj2F4->unk_14C -= obj2F4->unk_14C * 0.1f;
-    obj2F4->unk_144 -= obj2F4->unk_144 * 0.1f;
+    actor->fwork[13] -= actor->fwork[13] * 0.1f;
+    actor->fwork[14] -= actor->fwork[14] * 0.1f;
+    actor->fwork[12] -= actor->fwork[12] * 0.1f;
 
-    if ((obj2F4->obj.pos.y < D_80177940 + 40.0f) && (obj2F4->vel.y < 0.0f)) {
-        obj2F4->obj.pos.y = D_80177940 + 40.0f;
-        obj2F4->vel.y = 0.0f;
+    if ((actor->obj.pos.y < D_80177940 + 40.0f) && (actor->vel.y < 0.0f)) {
+        actor->obj.pos.y = D_80177940 + 40.0f;
+        actor->vel.y = 0.0f;
     }
 
-    func_8003088C(obj2F4);
+    func_8003088C(actor);
 
-    if (obj2F4->unk_070) {
-        obj2F4->unk_070--;
+    if (actor->iwork[8]) {
+        actor->iwork[8]--;
     }
 }
 
@@ -1975,7 +1975,7 @@ void func_800C26C8(void) {
     s32 i;
     Vec3f src;
     Vec3f dest;
-    Object_2F4* obj2F4;
+    Actor* actor;
 
     if ((D_801778AC != 2) || (D_80177E7C == 0)) {
         return;
@@ -1992,22 +1992,22 @@ void func_800C26C8(void) {
         src.y = 500.0f;
         src.z = -10000.0f;
 
-        for (i = 0, obj2F4 = &gObjects2F4[10]; i < 5; i++, obj2F4++) {
-            if (obj2F4->obj.status == 0) {
-                Object_2F4_Initialize(obj2F4);
-                obj2F4->obj.status = 2;
-                obj2F4->obj.id = 197;
+        for (i = 0, actor = &gActors[10]; i < 5; i++, actor++) {
+            if (actor->obj.status == 0) {
+                Actor_Initialize(actor);
+                actor->obj.status = 2;
+                actor->obj.id = 197;
                 Matrix_RotateY(gCalcMatrix, M_DTOR * (Rand_ZeroOne() * 360.0f), 0);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-                obj2F4->obj.pos.x = dest.x;
-                obj2F4->obj.pos.y = dest.y;
-                obj2F4->obj.pos.z = dest.z;
-                obj2F4->unk_0E4 = i + 10;
-                obj2F4->unk_0CE = 24;
-                obj2F4->timer_0C2 = 30;
+                actor->obj.pos.x = dest.x;
+                actor->obj.pos.y = dest.y;
+                actor->obj.pos.z = dest.z;
+                actor->unk_0E4 = i + 10;
+                actor->unk_0CE = 24;
+                actor->timer_0C2 = 30;
 
-                Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
-                obj2F4->info.action = (ObjectFunc) func_800C2244;
+                Object_SetInfo(&actor->info, actor->obj.id);
+                actor->info.action = (ObjectFunc) func_800C2244;
                 break;
             }
         }
