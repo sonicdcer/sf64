@@ -3532,13 +3532,12 @@ void func_80081C5C(Effect* effect) {
                                                   gPlayer->camEye.z - (gBosses->obj.pos.z + D_80177D20)) *
                                       180.0f) /
                                      M_PI;
-                        D_800D18E8 = ((-Math_Atan2F(gPlayer->camEye.y - gBosses->obj.pos.y,
-                                                    sqrtf(((gPlayer->camEye.x - gBosses->obj.pos.x) *
-                                                           (gPlayer->camEye.x - gBosses->obj.pos.x)) +
-                                                          ((gPlayer->camEye.z - (gBosses->obj.pos.z + D_80177D20)) *
-                                                           (gPlayer->camEye.z - (gBosses->obj.pos.z + D_80177D20)))))) *
-                                      180.0f) /
-                                     M_PI;
+                        D_800D18E8 =
+                            ((-Math_Atan2F(gPlayer->camEye.y - gBosses->obj.pos.y,
+                                           sqrtf(SQ(gPlayer->camEye.x - gBosses->obj.pos.x) +
+                                                 SQ((gPlayer->camEye.z - (gBosses->obj.pos.z + D_80177D20)))))) *
+                             180.0f) /
+                            M_PI;
                     }
                     if (gBosses->timer_050 == 0) {
                         gBosses->swork[39] = effect->index;
