@@ -390,8 +390,8 @@ void func_DF4260_801887AC(Boss* boss) {
                         gPlayer[0].pos.x += (Rand_ZeroOne() - 0.5f) * 300.0f;
                         gPlayer[0].pos.y += (Rand_ZeroOne() - 0.5f) * 300.0f;
                         gPlayer[0].unk_138 += (Rand_ZeroOne() - 0.5f) * 300.0f;
-                        func_8007F11C(OBJ_EFFECT_376, D_DF4260_8019B6D8[12], D_DF4260_8019B6D8[13], D_DF4260_8019B6D8[14],
-                                      60.0f);
+                        func_8007F11C(OBJ_EFFECT_376, D_DF4260_8019B6D8[12], D_DF4260_8019B6D8[13],
+                                      D_DF4260_8019B6D8[14], 60.0f);
                         gPlayer[0].pos.x = sp3C.x;
                         gPlayer[0].pos.y = sp3C.y;
                         gPlayer[0].unk_138 = sp3C.z;
@@ -3132,14 +3132,10 @@ void func_DF4260_80191160(Player* player) {
             temp_fa1 = player->pos.z - D_DF4260_8019B6D8[64];
             if (D_80177A80 < 30) {
                 temp_deg = Math_RadToDeg(-Math_Atan2F(temp_fa0, temp_fa1));
-                var_fv1 = Math_SmoothStepToAngle(&player->unk_0E8, temp_deg,
-                                                 0.5f, 4.0f, 0.0001f) *
-                          20.0f;
+                var_fv1 = Math_SmoothStepToAngle(&player->unk_0E8, temp_deg, 0.5f, 4.0f, 0.0001f) * 20.0f;
             } else {
                 temp_deg = Math_RadToDeg(Math_Atan2F(temp_fa0, temp_fa1));
-                var_fv1 = Math_SmoothStepToAngle(&player->unk_0E8, temp_deg, 0.5f,
-                                                 2.0f, 0.0001f) *
-                          30.0f;
+                var_fv1 = Math_SmoothStepToAngle(&player->unk_0E8, temp_deg, 0.5f, 2.0f, 0.0001f) * 30.0f;
             }
             Math_SmoothStepToAngle(&player->unk_0EC, var_fv1, 0.1f, 5.0f, 0.0001f);
             if (D_80177A80 == 220) {
@@ -3326,4 +3322,3 @@ void func_DF4260_80191160(Player* player) {
     player->unk_0F4 += 8.0f;
     player->unk_0F0 = __sinf(player->unk_0F4 * M_DTOR);
 }
-
