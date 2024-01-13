@@ -1205,7 +1205,7 @@ void func_E16C50_80187944(Boss* bossA6) {
 }
 #else
 void func_E16C50_80187944(Boss* bossA6);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/fox_a6/func_E16C50_80187944.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_a6/func_E16C50_80187944.s")
 #endif
 
 void func_E16C50_8018A1B0(Boss* bossA6, s32 arg1) {
@@ -1972,7 +1972,7 @@ void func_E16C50_8018C54C(Boss* bossA6) {
 }
 #else
 void func_E16C50_8018C54C(Boss* bossA6);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/fox_a6/func_E16C50_8018C54C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_a6/func_E16C50_8018C54C.s")
 #endif
 
 void func_E16C50_8018D3CC(s32 arg0, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot, f32 yRot,
@@ -2731,5 +2731,5 @@ void func_E16C50_8018ED78(Player* player) {
 }
 #else
 void func_E16C50_8018ED78(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/fox_a6/func_E16C50_8018ED78.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_a6/func_E16C50_8018ED78.s")
 #endif

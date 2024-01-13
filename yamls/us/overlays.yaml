@@ -37,9 +37,9 @@
     - [0xE16930, .rodata, E0FF10]
     - { start: 0xE16C50, type: bss, vram: 0x80195D70, name: ovl_E08400 }
 
-  - name: ovl_E16C50
+  - name: ovl_i3
     type: code
-    dir: overlays/ovl_E16C50
+    dir: overlays/ovl_i3
     start: 0xE16C50
     vram: 0x80187520
     bss_size: 0x2220

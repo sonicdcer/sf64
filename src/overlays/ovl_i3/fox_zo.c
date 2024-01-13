@@ -3098,7 +3098,7 @@ Vec3f D_E16C50_801BF6F4 = { 0.0f, 0.0f, 0.0f };
 Vec3f D_E16C50_801BF700 = { 0.0f, 0.0f, 0.0f };
 Vec3f D_E16C50_801BF70C = { 0.0f, 0.0f, 40.0f };
 // OBJ_BOSS_ZO action
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/fox_zo/func_E16C50_80194A84.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_zo/func_E16C50_80194A84.s")
 #endif
 
 void func_E16C50_801986FC(Boss* bossZO, s32 arg1, f32 xOff, f32 yOff, f32 zOff, f32 yRot) {
@@ -4447,7 +4447,7 @@ void func_E16C50_8019D060(Object_2F4* obj2F4) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/fox_zo/func_E16C50_8019D060.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_zo/func_E16C50_8019D060.s")
 #endif
 
 void func_E16C50_8019D15C(Object_2F4* obj2F4) {
@@ -4854,7 +4854,7 @@ void func_E16C50_8019D76C(Player* player) {
 }
 #else
 // zoness outro
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/fox_zo/func_E16C50_8019D76C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_zo/func_E16C50_8019D76C.s")
 #endif
 
 void func_E16C50_8019E5F0(Object_2F4* obj2F4) {
