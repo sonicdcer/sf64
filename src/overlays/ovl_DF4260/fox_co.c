@@ -355,9 +355,7 @@ s32 func_DF4260_80188750(Boss* boss) {
 }
 
 void func_DF4260_801887AC(Boss* boss) {
-    f32 sp44;
-    f32 sp40;
-    f32 sp3C;
+    Vec3f sp3C;
     s32 sp38;
     s32 temp_v0;
 
@@ -386,17 +384,17 @@ void func_DF4260_801887AC(Boss* boss) {
                     break;
                 case 3:
                     if (boss->swork[3] != 1000) {
-                        sp3C = gPlayer[0].pos.x;
-                        sp40 = gPlayer[0].pos.y;
-                        sp44 = gPlayer[0].unk_138;
+                        sp3C.x = gPlayer[0].pos.x;
+                        sp3C.y = gPlayer[0].pos.y;
+                        sp3C.z = gPlayer[0].unk_138;
                         gPlayer[0].pos.x += (Rand_ZeroOne() - 0.5f) * 300.0f;
                         gPlayer[0].pos.y += (Rand_ZeroOne() - 0.5f) * 300.0f;
                         gPlayer[0].unk_138 += (Rand_ZeroOne() - 0.5f) * 300.0f;
-                        func_8007F11C(0x178, D_DF4260_8019B6D8[12], D_DF4260_8019B6D8[13], D_DF4260_8019B6D8[14],
+                        func_8007F11C(OBJ_EFFECT_376, D_DF4260_8019B6D8[12], D_DF4260_8019B6D8[13], D_DF4260_8019B6D8[14],
                                       60.0f);
-                        gPlayer[0].pos.x = sp3C;
-                        gPlayer[0].pos.y = sp40;
-                        gPlayer[0].unk_138 = sp44;
+                        gPlayer[0].pos.x = sp3C.x;
+                        gPlayer[0].pos.y = sp3C.y;
+                        gPlayer[0].unk_138 = sp3C.z;
                     }
                     boss->swork[30] = 0;
                     break;
@@ -527,15 +525,15 @@ void func_DF4260_80188D50(Boss* boss) {
                     gItems[i].timer_4A = 8;
                     Object_SetInfo(&gItems[i].info, gItems[i].obj.id);
                     func_8007B344(gItems[i].obj.pos.x, gItems[i].obj.pos.y, gItems[i].obj.pos.z, 5.0f, 0);
-                    return;
+                    break;
                 }
             }
         }
     }
 }
 
-extern AnimationHeader D_602BC18[];
-extern AnimationHeader D_602C0D0[];
+extern AnimationHeader D_602BC18;
+extern AnimationHeader D_602C0D0;
 
 static Vec3f D_DF4260_801997E4 = { 0.0f, 0.0f, 0.0f };
 static Vec3f D_DF4260_801997F0 = { 0.0f, 0.0f, 5.0f };
@@ -592,7 +590,7 @@ void func_DF4260_80189058(Boss* boss) {
             D_DF4260_8019B6D8[66] = 0.0f;
             D_DF4260_8019B6D8[67] = 10000.0f;
             boss->timer_050 = 30;
-            Animation_GetFrameData(D_602C0D0, 0, boss->vwork);
+            Animation_GetFrameData(&D_602C0D0, 0, boss->vwork);
             D_801613A0 = 0;
         }
         D_801613A0++;
@@ -667,7 +665,7 @@ void func_DF4260_80189058(Boss* boss) {
         sp210 = D_DF4260_8019B6D8[18] - (boss->obj.pos.y + 300.0f);
         sp20C = D_DF4260_8019B6D8[19] - boss->obj.pos.z;
         sp1FC = Math_RadToDeg(Math_Atan2F(sp214, sp20C));
-        sp200 = Math_RadToDeg(-Math_Atan2F(sp210, sqrtf((sp214 * sp214) + (sp20C * sp20C))));
+        sp200 = Math_RadToDeg(-Math_Atan2F(sp210, sqrtf(SQ(sp214) + SQ(sp20C))));
 
         if ((sp200 > 50.0f) && (sp200 < 180.0f)) {
             sp200 = 50.0f;
@@ -734,7 +732,7 @@ void func_DF4260_80189058(Boss* boss) {
                             break;
                     }
                 }
-                Animation_GetFrameData(D_602C0D0, boss->unk_04C, sp84);
+                Animation_GetFrameData(&D_602C0D0, boss->unk_04C, sp84);
                 if (boss->timer_052 == 0) {
                     boss->timer_052 = 150;
                     boss->swork[30] = 1;
@@ -746,10 +744,10 @@ void func_DF4260_80189058(Boss* boss) {
                 D_DF4260_8019B6D8[19] = D_DF4260_8019B6D8[67] = gPlayer->unk_138;
 
                 boss->unk_04C += 2;
-                if (boss->unk_04C >= Animation_GetFrameCount(D_602BC18)) {
+                if (boss->unk_04C >= Animation_GetFrameCount(&D_602BC18)) {
                     boss->unk_04C = 0;
                 }
-                Animation_GetFrameData(D_602BC18, boss->unk_04C, sp84);
+                Animation_GetFrameData(&D_602BC18, boss->unk_04C, sp84);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp1EC, &sp21C);
                 if (boss->timer_052 == 0) {
                     boss->timer_052 = 150;
@@ -766,7 +764,7 @@ void func_DF4260_80189058(Boss* boss) {
                 if (boss->unk_04C < 0) {
                     boss->unk_04C = 100;
                 }
-                Animation_GetFrameData(D_602BC18, boss->unk_04C, sp84);
+                Animation_GetFrameData(&D_602BC18, boss->unk_04C, sp84);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp6C, &sp21C);
                 if (boss->timer_052 == 0) {
                     boss->timer_052 = 30;
@@ -787,7 +785,7 @@ void func_DF4260_80189058(Boss* boss) {
                 if (boss->unk_04C >= 101) {
                     boss->unk_04C = 0;
                 }
-                Animation_GetFrameData(D_602BC18, boss->unk_04C, sp84);
+                Animation_GetFrameData(&D_602BC18, boss->unk_04C, sp84);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp21C);
                 if (boss->timer_052 == 0) {
                     boss->timer_052 = 30;
@@ -808,7 +806,7 @@ void func_DF4260_80189058(Boss* boss) {
                 if (boss->unk_04C >= 101) {
                     boss->unk_04C = 0;
                 }
-                Animation_GetFrameData(D_602BC18, boss->unk_04C, sp84);
+                Animation_GetFrameData(&D_602BC18, boss->unk_04C, sp84);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp21C);
                 func_DF4260_80188A18(boss);
                 break;
@@ -868,7 +866,7 @@ void func_DF4260_80189058(Boss* boss) {
                 if (!(gFrameCount & 0xF)) {
                     boss->unk_04C = (s32) (Rand_ZeroOne() * 100.0f);
                 }
-                Animation_GetFrameData(D_602BC18, boss->unk_04C, sp84);
+                Animation_GetFrameData(&D_602BC18, boss->unk_04C, sp84);
                 boss->fwork[14] = 0.03f;
                 break;
             case 7:
@@ -937,10 +935,10 @@ void func_DF4260_80189058(Boss* boss) {
                 if (boss->timer_050 == 0) {
                     Object_Kill(&boss->obj, &boss->sfxPos);
                 }
-                Animation_GetFrameData(D_602BC18, 0, sp84);
+                Animation_GetFrameData(&D_602BC18, 0, sp84);
                 break;
             default:
-                Animation_GetFrameData(D_602C0D0, boss->unk_04C, sp84);
+                Animation_GetFrameData(&D_602C0D0, boss->unk_04C, sp84);
                 break;
         }
         Math_SmoothStepToF(&boss->vel.x, sp21C.x, 0.3f, 5.0f, 0.0f);
@@ -1033,7 +1031,7 @@ s32 func_DF4260_8018A434(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* a
         RCP_SetupDL_64();
         GPC(64, 64, 255, 255);
     }
-    return 0;
+    return false;
 }
 
 static Vec3f D_DF4260_80199814 = { 0.0f, 0.0f, 0.0f };
@@ -1084,7 +1082,7 @@ void func_DF4260_8018A730(s32 arg0, Vec3f* arg1, void* arg2) {
             D_DF4260_8019B6D8[0] = sp74.x;
             D_DF4260_8019B6D8[1] = sp74.y;
             D_DF4260_8019B6D8[2] = sp74.z;
-            return;
+            break;
         case 2:
             Matrix_MultVec3f(gCalcMatrix, &sp68, &sp74);
             D_DF4260_8019B6D8[9] = sp74.x;
@@ -1094,13 +1092,13 @@ void func_DF4260_8018A730(s32 arg0, Vec3f* arg1, void* arg2) {
             D_DF4260_8019B6D8[6] = sp74.x;
             D_DF4260_8019B6D8[7] = sp74.y;
             D_DF4260_8019B6D8[8] = sp74.z;
-            return;
+            break;
         case 3:
             Matrix_MultVec3f(gCalcMatrix, &sp50, &sp74);
             D_DF4260_8019B6D8[12] = sp74.x;
             D_DF4260_8019B6D8[13] = sp74.y;
             D_DF4260_8019B6D8[14] = sp74.z;
-            return;
+            break;
         case 17:
             Matrix_MultVec3f(gCalcMatrix, &sp44, &sp74);
             D_DF4260_8019B6D8[56] = sp74.x;
@@ -1110,15 +1108,15 @@ void func_DF4260_8018A730(s32 arg0, Vec3f* arg1, void* arg2) {
             D_DF4260_8019B6D8[59] = sp74.x;
             D_DF4260_8019B6D8[60] = sp74.y;
             D_DF4260_8019B6D8[61] = sp74.z;
-            return;
+            break;
         case 10:
             Matrix_MultVec3f(gCalcMatrix, &sp2C, &sp74);
             D_DF4260_8019B6D8[62] = sp74.x;
             D_DF4260_8019B6D8[63] = sp74.y;
             D_DF4260_8019B6D8[64] = sp74.z;
-            /* fallthrough */
+            break;
         default:
-            return;
+            break;
     }
 }
 
@@ -1140,7 +1138,7 @@ s32 func_DF4260_8018AB08(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* a
     if ((arg0 == 3) && (actor->obj.id == OBJ_ACTOR_176)) {
         arg3->x += actor->fwork[1];
     }
-    return 0;
+    return false;
 }
 
 static Vec3f D_DF4260_80199868 = { 0.0f, -10.0f, 0.0f };
@@ -1184,9 +1182,7 @@ void func_DF4260_8018ACE0(Actor* actor) {
                 actor->unk_0B8 = 100;
                 actor->timer_0BC = 10;
                 actor->timer_0CA[0] = 0;
-                actor->vel.z = 0.0f;
-                actor->vel.y = 0.0f;
-                actor->vel.x = 0.0f;
+                actor->vel.x = actor->vel.y = actor->vel.z = 0.0f;
             }
         }
     }
@@ -1199,7 +1195,7 @@ void func_DF4260_8018ACE0(Actor* actor) {
     }
 }
 
-extern AnimationHeader D_602991C[];
+extern AnimationHeader D_602991C;
 extern Gfx D_60329C0[];
 
 void func_DF4260_8018AED0(Actor* actor) {
@@ -1208,7 +1204,7 @@ void func_DF4260_8018AED0(Actor* actor) {
     f32 temp_cos;
 
     func_DF4260_8018ACE0(actor);
-    Math_SmoothStepToVec3fArray(sp40, actor->vwork, 0, Animation_GetFrameData(D_602991C, actor->unk_0B6, sp40), 1.0f,
+    Math_SmoothStepToVec3fArray(sp40, actor->vwork, 0, Animation_GetFrameData(&D_602991C, actor->unk_0B6, sp40), 1.0f,
                                 1.0f, 1.0f);
     temp_sin = __sinf(actor->obj.rot.y * M_DTOR);
     actor->vel.x = actor->fwork[0] * temp_sin;
@@ -1237,9 +1233,8 @@ void func_DF4260_8018AED0(Actor* actor) {
             if (actor->unk_0B6 == 50) {
                 gObjects80[actor->iwork[0] - 1].unk_48 = 1;
             }
-            if (actor->unk_0B6 >= Animation_GetFrameCount(D_602991C)) {
+            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_602991C)) {
                 actor->unk_0B8++;
-                return;
             }
             break;
         case 2:
@@ -1268,7 +1263,7 @@ void func_DF4260_8018B0B4(Actor* actor) {
     }
 }
 
-extern AnimationHeader D_602AA04[];
+extern AnimationHeader D_602AA04;
 
 void func_DF4260_8018B15C(Actor* actor) {
     Vec3f sp60[20];
@@ -1306,10 +1301,10 @@ void func_DF4260_8018B15C(Actor* actor) {
             actor->fwork[0] = -10.0f;
             Texture_Scroll(&D_60329C0, 16, 16, 1);
             actor->unk_0B6++;
-            if (actor->unk_0B6 >= Animation_GetFrameCount(D_602AA04)) {
+            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_602AA04)) {
                 actor->unk_0B8 = 3;
             }
-            if (actor->unk_0B6 == (Animation_GetFrameCount(D_602AA04) - actor->iwork[2])) {
+            if (actor->unk_0B6 == (Animation_GetFrameCount(&D_602AA04) - actor->iwork[2])) {
                 actor->iwork[1] = 1;
                 temp_s1->unk_48 = 1;
                 sp54.x = 0.0f;
@@ -1330,11 +1325,11 @@ void func_DF4260_8018B15C(Actor* actor) {
         temp_s1->obj.rot.y = actor->obj.rot.y;
         temp_s1->vel.y = 0.0f;
     }
-    Math_SmoothStepToVec3fArray(sp60, actor->vwork, 0, Animation_GetFrameData(D_602AA04, actor->unk_0B6, sp60), 1.0f,
+    Math_SmoothStepToVec3fArray(sp60, actor->vwork, 0, Animation_GetFrameData(&D_602AA04, actor->unk_0B6, sp60), 1.0f,
                                 1.0f, 1.0f);
 }
 
-extern AnimationHeader D_602A520[];
+extern AnimationHeader D_602A520;
 
 void func_DF4260_8018B418(Actor* actor) {
     s32 pad;
@@ -1358,7 +1353,7 @@ void func_DF4260_8018B418(Actor* actor) {
             actor->fwork[1] += 5.0f;
             Texture_Scroll(&D_60329C0, 16, 16, 1);
             actor->unk_0B6++;
-            if (actor->unk_0B6 >= Animation_GetFrameCount(D_602A520)) {
+            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_602A520)) {
                 actor->unk_0B6 = 0;
             }
             break;
@@ -1371,7 +1366,7 @@ void func_DF4260_8018B418(Actor* actor) {
         temp_v0_2->obj.rot.y = actor->fwork[1];
         temp_v0_2->vel.y = 0.0f;
     }
-    Math_SmoothStepToVec3fArray(sp54, actor->vwork, 0, Animation_GetFrameData(D_602A520, actor->unk_0B6, sp54), 1.0f,
+    Math_SmoothStepToVec3fArray(sp54, actor->vwork, 0, Animation_GetFrameData(&D_602A520, actor->unk_0B6, sp54), 1.0f,
                                 1.0f, 1.0f);
 }
 
@@ -1752,7 +1747,7 @@ void func_DF4260_8018C19C(Boss* boss) {
             func_8007BC7C(sp84[8].x + boss->obj.pos.x, sp84[8].y + boss->obj.pos.y, sp84[8].z + boss->obj.pos.z, 10.0f);
         }
         if (boss->timer_052 != 0) {
-            Math_SmoothStepToF(D_801779A8, 50.0f, 1.0f, 1.6f, 0.0001f);
+            Math_SmoothStepToF(&D_801779A8[0], 50.0f, 1.0f, 1.6f, 0.0001f);
         }
 
         switch (boss->unk_04E) {
@@ -1773,7 +1768,7 @@ void func_DF4260_8018C19C(Boss* boss) {
                     boss->fwork[13] = 180.0f;
                     boss->fwork[12] = 1.5f;
                     boss->fwork[6] = 800.0f;
-                    boss->fwork[3] = (gPlayer[0].camEye.z - D_80177D20) - 2500.0f;
+                    boss->fwork[3] = gPlayer[0].camEye.z - D_80177D20 - 2500.0f;
                     boss->fwork[18] = -D_80161A54;
                     func_8001D444(0, 0x8030, 0, 0xFF);
                     boss->timer_050 = 40;
@@ -1972,7 +1967,7 @@ void func_DF4260_8018C19C(Boss* boss) {
                 }
                 break;
             case 8:
-                *D_801779A8 = 20.0f;
+                D_801779A8[0] = 20.0f;
                 if (!(gFrameCount & 0x1F)) {
                     for (i = 0; i < 10; i++) {
                         func_80079618(((Rand_ZeroOne() - 0.5f) * 300.0f) + boss->obj.pos.x, boss->obj.pos.y,
@@ -2380,15 +2375,15 @@ s32 func_DF4260_8018EC54(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* a
     if ((arg0 != 12) && (arg0 != 10)) {
         *arg1 = NULL;
     }
-    return 0;
+    return false;
 }
 
-extern AnimationHeader D_602D400[];
+extern AnimationHeader D_602D400;
 extern Limb* D_602D5AC[];
 
 void func_DF4260_8018ECAC(Boss* boss) {
 
-    Animation_GetFrameData(D_602D400, 0, boss->vwork);
+    Animation_GetFrameData(&D_602D400, 0, boss->vwork);
     Animation_DrawSkeleton(1, D_602D5AC, boss->vwork, func_DF4260_8018EC54, NULL, &boss->index, &gIdentityMatrix);
 }
 
@@ -2406,7 +2401,7 @@ void func_DF4260_8018ED78(Boss* boss) {
 
     Matrix_Translate(gGfxMatrix, -D_DF4260_80199A78.x, -D_DF4260_80199A78.y, 0.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    Animation_GetFrameData(D_602D400, 0, boss->vwork);
+    Animation_GetFrameData(&D_602D400, 0, boss->vwork);
     Animation_DrawSkeleton(1, D_602D5AC, boss->vwork, func_DF4260_8018ED1C, NULL, &boss->index, &gIdentityMatrix);
 }
 
@@ -2424,7 +2419,7 @@ void func_DF4260_8018EE84(Boss* boss) {
 
     Matrix_Translate(gGfxMatrix, -D_DF4260_80199A90.x, -D_DF4260_80199A90.y, 0.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    Animation_GetFrameData(D_602D400, 0, boss->vwork);
+    Animation_GetFrameData(&D_602D400, 0, boss->vwork);
     Animation_DrawSkeleton(1, D_602D5AC, boss->vwork, func_DF4260_8018EE2C, NULL, &boss->index, &gIdentityMatrix);
 }
 
@@ -2442,11 +2437,11 @@ void func_DF4260_8018EF90(Boss* boss) {
 
     Matrix_Translate(gGfxMatrix, -D_DF4260_80199AA8.x, -D_DF4260_80199AA8.y, 0.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    Animation_GetFrameData(D_602D400, 0, boss->vwork);
+    Animation_GetFrameData(&D_602D400, 0, boss->vwork);
     Animation_DrawSkeleton(1, D_602D5AC, boss->vwork, func_DF4260_8018EF38, NULL, &boss->index, &gIdentityMatrix);
 }
 
-extern UNK_TYPE D_603E924;
+extern f32 D_603E924[];
 
 void func_DF4260_8018F044(Object_80* obj80) {
 
@@ -2497,13 +2492,13 @@ s32 func_DF4260_8018F1C8(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* a
     return 0;
 }
 
-extern AnimationHeader D_602AA7C[];
+extern AnimationHeader D_602AA7C;
 extern Limb* D_602AB48[];
 
 void func_DF4260_8018F31C(Object_80* obj80) {
     Vec3f sp28[10];
 
-    Animation_GetFrameData(D_602AA7C, 0, sp28);
+    Animation_GetFrameData(&D_602AA7C, 0, sp28);
     Animation_DrawSkeleton(3, D_602AB48, sp28, func_DF4260_8018F1C8, NULL, obj80, gCalcMatrix);
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
@@ -3081,11 +3076,9 @@ void func_DF4260_80191160(Player* player) {
     f32 sp4C;
     f32 temp_fa0;
     f32 temp_fa1;
+    f32 temp_deg;
 
-    player->wings.unk_10 = 0.0f;
-    player->wings.unk_08 = 0.0f;
-    player->wings.unk_0C = 0.0f;
-    player->wings.unk_04 = 0.0f;
+    player->wings.unk_04 = player->wings.unk_0C = player->wings.unk_08 = player->wings.unk_10 = 0.0f;
     Math_SmoothStepToF(&player->unk_130, 0.0f, 0.1f, 15.0f, 0.0f);
     Math_SmoothStepToF(&player->unk_12C, 0.0f, 0.1f, 15.0f, 0.0f);
     Math_SmoothStepToF(&player->unk_034, 0.0f, 0.1f, 3.0f, 0.0f);
@@ -3138,11 +3131,13 @@ void func_DF4260_80191160(Player* player) {
             temp_fa0 = player->pos.x - D_DF4260_8019B6D8[62];
             temp_fa1 = player->pos.z - D_DF4260_8019B6D8[64];
             if (D_80177A80 < 30) {
-                var_fv1 = Math_SmoothStepToAngle(&player->unk_0E8, Math_RadToDeg(-Math_Atan2F(temp_fa0, temp_fa1)),
+                temp_deg = Math_RadToDeg(-Math_Atan2F(temp_fa0, temp_fa1));
+                var_fv1 = Math_SmoothStepToAngle(&player->unk_0E8, temp_deg,
                                                  0.5f, 4.0f, 0.0001f) *
                           20.0f;
             } else {
-                var_fv1 = Math_SmoothStepToAngle(&player->unk_0E8, Math_RadToDeg(Math_Atan2F(temp_fa0, temp_fa1)), 0.5f,
+                temp_deg = Math_RadToDeg(Math_Atan2F(temp_fa0, temp_fa1));
+                var_fv1 = Math_SmoothStepToAngle(&player->unk_0E8, temp_deg, 0.5f,
                                                  2.0f, 0.0001f) *
                           30.0f;
             }
@@ -3331,3 +3326,4 @@ void func_DF4260_80191160(Player* player) {
     player->unk_0F4 += 8.0f;
     player->unk_0F0 = __sinf(player->unk_0F4 * M_DTOR);
 }
+
