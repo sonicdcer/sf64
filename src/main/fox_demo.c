@@ -717,7 +717,7 @@ void func_8004A52C(Player* player) {
                 break;
 
             case LEVEL_ZONESS:
-                func_E16C50_8019D428(player);
+                func_i3_8019D428(player);
                 break;
 
             case LEVEL_MACBETH:
@@ -729,7 +729,7 @@ void func_8004A52C(Player* player) {
                 break;
 
             case LEVEL_SOLAR:
-                func_E16C50_801A10F4(player);
+                func_i3_801A10F4(player);
                 break;
 
             case LEVEL_VENOM_1:
@@ -742,7 +742,7 @@ void func_8004A52C(Player* player) {
                 break;
 
             case LEVEL_AREA_6:
-                func_E16C50_8018DF74(player);
+                func_i3_8018DF74(player);
                 break;
         }
         func_8004990C(player);
@@ -1423,7 +1423,7 @@ void func_8004C930(Player* player) {
                     func_80048E40(player);
                 }
             } else if (gCurrentLevel == LEVEL_AREA_6) {
-                func_E16C50_8018ED78(player);
+                func_i3_8018ED78(player);
             } else if (gCurrentLevel == LEVEL_FORTUNA) {
                 func_8004C90C(player);
                 func_800AA800(player);
@@ -1439,10 +1439,10 @@ void func_8004C930(Player* player) {
                 func_8019EE60(player);
                 func_800AA800(player);
             } else if (gCurrentLevel == LEVEL_SOLAR) {
-                func_E16C50_801A7930(player);
+                func_i3_801A7930(player);
                 func_800AA800(player);
             } else if (gCurrentLevel == LEVEL_ZONESS) {
-                func_E16C50_8019D76C(player);
+                func_i3_8019D76C(player);
                 func_800AA800(player);
             } else if (gCurrentLevel == LEVEL_VENOM_2) {
                 func_80196D88(player);

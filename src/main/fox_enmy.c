@@ -1014,7 +1014,7 @@ void Object_Init(s32 index, ObjectId objId) {
             gObjects2F4[index].unk_13C = fabsf(Math_ModF(gObjects2F4[index].obj.pos.x, 100.0f));
             break;
         case OBJ_2F4_247:
-            func_E16C50_8019D060(&gObjects2F4[index]);
+            func_i3_8019D060(&gObjects2F4[index]);
             break;
         case OBJ_EFFECT_368:
             if (gCurrentLevel == LEVEL_TITANIA) {
@@ -1230,7 +1230,7 @@ void Object_Init(s32 index, ObjectId objId) {
             func_DF4260_8018BE7C(&gBosses[index]);
             break;
         case OBJ_BOSS_A6:
-            func_E16C50_80187754(&gBosses[index]);
+            func_i3_80187754(&gBosses[index]);
             break;
         case OBJ_2F4_231:
             func_E6A810_8018B96C(&gObjects2F4[index]);
@@ -1257,43 +1257,43 @@ void Object_Init(s32 index, ObjectId objId) {
             func_E6A810_8018FA48(&gBosses[index]);
             break;
         case OBJ_2F4_240:
-            func_E16C50_801915A4(&gObjects2F4[index]);
+            func_i3_801915A4(&gObjects2F4[index]);
             break;
         case OBJ_2F4_241:
-            func_E16C50_80191BB8(&gObjects2F4[index]);
+            func_i3_80191BB8(&gObjects2F4[index]);
             break;
         case OBJ_BOSS_ZO:
-            func_E16C50_801932AC(&gBosses[index]);
+            func_i3_801932AC(&gBosses[index]);
             break;
         case OBJ_2F4_250:
-            func_E16C50_8019B1F0(&gObjects2F4[index]);
+            func_i3_8019B1F0(&gObjects2F4[index]);
             break;
         case OBJ_2F4_251:
-            func_E16C50_8019B810(&gObjects2F4[index]);
+            func_i3_8019B810(&gObjects2F4[index]);
             break;
         case OBJ_2F4_253:
-            func_E16C50_8019C200(&gObjects2F4[index]);
+            func_i3_8019C200(&gObjects2F4[index]);
             break;
         case OBJ_2F4_255:
-            func_E16C50_801AD688(&gObjects2F4[index]);
+            func_i3_801AD688(&gObjects2F4[index]);
             break;
         case OBJ_2F4_256:
-            func_E16C50_801AE3AC(&gObjects2F4[index]);
+            func_i3_801AE3AC(&gObjects2F4[index]);
             break;
         case OBJ_2F4_257:
-            func_E16C50_801AF9FC(&gObjects2F4[index]);
+            func_i3_801AF9FC(&gObjects2F4[index]);
             break;
         case OBJ_BOSS_AQ:
-            func_E16C50_801B10F8(&gBosses[index]);
+            func_i3_801B10F8(&gBosses[index]);
             break;
         case OBJ_2F4_259:
-            func_E16C50_801B6344(&gObjects2F4[index]);
+            func_i3_801B6344(&gObjects2F4[index]);
             break;
         case OBJ_2F4_262:
-            func_E16C50_801B6E54(&gObjects2F4[index]);
+            func_i3_801B6E54(&gObjects2F4[index]);
             break;
         case OBJ_2F4_260:
-            func_E16C50_801B7AF0(&gObjects2F4[index]);
+            func_i3_801B7AF0(&gObjects2F4[index]);
             break;
         case OBJ_80_57:
             func_E6A810_8018F0D8(&gObjects80[index]);
@@ -1315,10 +1315,10 @@ void Object_Init(s32 index, ObjectId objId) {
             func_DF4260_801933B4(&gObjects2F4[index]);
             break;
         case OBJ_2F4_265:
-            func_E16C50_801BA57C(&gObjects2F4[index]);
+            func_i3_801BA57C(&gObjects2F4[index]);
             break;
         case OBJ_2F4_267:
-            func_E16C50_801BB26C(&gObjects2F4[index]);
+            func_i3_801BB26C(&gObjects2F4[index]);
             break;
     }
 }

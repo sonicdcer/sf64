@@ -994,7 +994,7 @@ void Object_2F4_Draw2(Object_2F4* obj2F4) {
                 func_8006B74C(obj2F4);
                 return;
             case OBJ_2F4_236:
-                func_E16C50_80190F08(obj2F4);
+                func_i3_80190F08(obj2F4);
                 return;
         }
         if ((obj2F4->obj.id == OBJ_2F4_200) && (obj2F4->unk_0B4 == 200)) {

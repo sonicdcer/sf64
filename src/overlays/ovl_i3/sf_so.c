@@ -154,158 +154,158 @@ typedef enum {
     /* 50 */ SO_VWK_MAX,
 } BossSOvwork;
 
-void func_E16C50_801A1F80(Boss* bossSO);
-void func_E16C50_801A23F4(Boss* bossSO);
-void func_E16C50_801A2C98(Boss* bossSO);
-void func_E16C50_801A3128(Boss* bossSO);
-void func_E16C50_801A3510(Boss* bossSO);
-void func_E16C50_801A4214(Boss* bossSO);
-void func_E16C50_801A4A34(Boss* bossSO);
-void func_E16C50_801A4EF8(Boss* bossSO);
-void func_E16C50_801A56B8(Boss* bossSO);
+void func_i3_801A1F80(Boss* bossSO);
+void func_i3_801A23F4(Boss* bossSO);
+void func_i3_801A2C98(Boss* bossSO);
+void func_i3_801A3128(Boss* bossSO);
+void func_i3_801A3510(Boss* bossSO);
+void func_i3_801A4214(Boss* bossSO);
+void func_i3_801A4A34(Boss* bossSO);
+void func_i3_801A4EF8(Boss* bossSO);
+void func_i3_801A56B8(Boss* bossSO);
 
-void func_E16C50_801A239C(Boss* bossSO);
-void func_E16C50_801A2C3C(Boss* bossSO);
-void func_E16C50_801A3468(Boss* bossSO);
-void func_E16C50_801A48B8(Boss* bossSO);
-void func_E16C50_801A4EC0(Boss* bossSO);
-void func_E16C50_801A8DB8(Vec3f* arg0, u32 arg1, f32 arg2);
+void func_i3_801A239C(Boss* bossSO);
+void func_i3_801A2C3C(Boss* bossSO);
+void func_i3_801A3468(Boss* bossSO);
+void func_i3_801A48B8(Boss* bossSO);
+void func_i3_801A4EC0(Boss* bossSO);
+void func_i3_801A8DB8(Vec3f* arg0, u32 arg1, f32 arg2);
 
-s32 D_E16C50_801C2740[10];
-f32 D_E16C50_801C2768[14];
-s32 D_E16C50_801C27A0[8]; // unused? part of previous?
+s32 D_i3_801C2740[10];
+f32 D_i3_801C2768[14];
+s32 D_i3_801C27A0[8]; // unused? part of previous?
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_8019E7F0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_8019E7F0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_8019E8B8.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_8019E8B8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_8019E920.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_8019E920.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_8019E9F4.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_8019E9F4.s")
 
 // OBJ_2F4_278 action
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_8019EA7C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_8019EA7C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_8019EF30.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_8019EF30.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_8019F038.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_8019F038.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_8019F0B0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_8019F0B0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_8019F194.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_8019F194.s")
 
-f32 D_E16C50_801BF8E0[4] = { 10.0f, 6.0f, -6.0f, -10.0f };
-Vec3f D_E16C50_801BF8F0[4] = {
+f32 D_i3_801BF8E0[4] = { 10.0f, 6.0f, -6.0f, -10.0f };
+Vec3f D_i3_801BF8F0[4] = {
     { 10.0f, 7.0f, 0.0f },
     { -10.0f, 7.0f, 0.0f },
     { 7.0f, 10.0f, 0.0f },
     { -7.0f, 10.0f, 0.0f },
 };
 // OBJ_2F4_275, 276, 277 action
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_8019F20C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_8019F20C.s")
 
 // OBJ_2F4_275, 276, 277 draw
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_8019F7AC.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_8019F7AC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_8019F99C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_8019F99C.s")
 
-Vec3f D_E16C50_801BF920 = { 0.0f, 0.0f, 0.0f };
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_8019FAA4.s")
+Vec3f D_i3_801BF920 = { 0.0f, 0.0f, 0.0f };
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_8019FAA4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_8019FDE0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_8019FDE0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_8019FEE8.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_8019FEE8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_8019FF44.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_8019FF44.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_8019FFC0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_8019FFC0.s")
 
 // OBJ_2F4_279 action
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A003C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A003C.s")
 
 // OBJ_EFFECT_392 action
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A0120.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A0120.s")
 
-u32 D_E16C50_801BF92C[6] = {
+u32 D_i3_801BF92C[6] = {
     0x0200B630, 0x0200A5A0, 0x02009510, 0x060084C0, 0x06008D40, 0x06007C40,
 };
-u32 D_E16C50_801BF944[6] = {
+u32 D_i3_801BF944[6] = {
     0x0601B790, 0x0601B790, 0x0601A700, 0x06019670, 0x060185E0, 0x06017550,
 };
-Vec3f D_E16C50_801BF95C[3] = {
+Vec3f D_i3_801BF95C[3] = {
     { 0.0f, 30.0f, 480.0f },
     { -180.0f, 0.0f, 240.0f },
     { 180.0f, 0.0f, 240.0f },
 };
 // OBJ_EFFECT_392 draw
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A0AF0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A0AF0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A0CEC.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A0CEC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A0D90.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A0D90.s")
 
-void func_E16C50_801A0DF8(f32, f32, f32, s32, f32);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A0DF8.s")
+void func_i3_801A0DF8(f32, f32, f32, s32, f32);
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A0DF8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A0FD4.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A0FD4.s")
 
-void func_E16C50_801A10F4(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A10F4.s")
+void func_i3_801A10F4(Player* player);
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A10F4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A1CD8.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A1CD8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A1E14.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A1E14.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A1EB0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A1EB0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A1F80.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A1F80.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A239C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A239C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A23F4.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A23F4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A2C3C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A2C3C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A2C98.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A2C98.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A30CC.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A30CC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A3128.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A3128.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A3468.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A3468.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A3510.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A3510.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A3C4C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A3C4C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A4214.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A4214.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A48B8.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A48B8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A4A34.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A4A34.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A4EC0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A4EC0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A4EF8.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A4EF8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A56B8.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A56B8.s")
 
-BossSOfunc D_E16C50_801BF980[9] = {
-    func_E16C50_801A1F80, func_E16C50_801A23F4, func_E16C50_801A2C98, func_E16C50_801A3128, func_E16C50_801A3510,
-    func_E16C50_801A4214, func_E16C50_801A4A34, func_E16C50_801A4EF8, func_E16C50_801A56B8,
+BossSOfunc D_i3_801BF980[9] = {
+    func_i3_801A1F80, func_i3_801A23F4, func_i3_801A2C98, func_i3_801A3128, func_i3_801A3510,
+    func_i3_801A4214, func_i3_801A4A34, func_i3_801A4EF8, func_i3_801A56B8,
 };
 
 // OBJ_BOSS_SO action
-void func_E16C50_801A5B3C(Boss* bossSO);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A5B3C.s")
+void func_i3_801A5B3C(Boss* bossSO);
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A5B3C.s")
 
-s32 func_E16C50_801A68A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+s32 func_i3_801A68A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     Boss* this = thisx;
     Vec3f sp58 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp4C = { 10.0f, 0.0f, 0.0f };
     Vec3f sp40 = { -10.0f, 0.0f, 0.0f };
 
-    GPC(D_E16C50_801C2740[1], D_E16C50_801C2740[0], D_E16C50_801C2740[0], 255);
+    GPC(D_i3_801C2740[1], D_i3_801C2740[0], D_i3_801C2740[0], 255);
     if (this->fwork[3] < 4800.0f) {
         RCP_SetupDL_30(0x40, 0x20, 0x20, gFogAlpha, gFogNear, gFogFar);
     } else {
@@ -313,8 +313,8 @@ s32 func_E16C50_801A68A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, voi
     }
     switch (limbIndex) {
         case 11:
-            rot->y -= D_E16C50_801C2768[1];
-            rot->z += D_E16C50_801C2768[0];
+            rot->y -= D_i3_801C2768[1];
+            rot->z += D_i3_801C2768[0];
             /* fallthrough */
         case 1:
             if (this->swork[4] != 0) {
@@ -364,13 +364,13 @@ s32 func_E16C50_801A68A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, voi
     return false;
 }
 
-// bool func_E16C50_801A68A8(s32 limbIndex, Gfx ** dList, Vec3f *pos, Vec3f *rot, Boss *this);
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A68A8.s")
+// bool func_i3_801A68A8(s32 limbIndex, Gfx ** dList, Vec3f *pos, Vec3f *rot, Boss *this);
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A68A8.s")
 
-// void func_E16C50_801A6BDC(s32 limbIndex, Vec3f *rot, Boss *this);
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_E16C50_801A6BDC.s")
+// void func_i3_801A6BDC(s32 limbIndex, Vec3f *rot, Boss *this);
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A6BDC.s")
 
-void func_E16C50_801A6BDC(s32 limbIndex, Vec3f* rot, void* thisx) {
+void func_i3_801A6BDC(s32 limbIndex, Vec3f* rot, void* thisx) {
     Boss* this = thisx;
     Vec3f spA0 = { 90.0f, 0.0f, -10.0f };
     Vec3f sp94 = { 135.0f, 0.0f, -40.0f };
@@ -412,7 +412,7 @@ void func_E16C50_801A6BDC(s32 limbIndex, Vec3f* rot, void* thisx) {
                 this->fwork[28] = sp28.x;
                 this->fwork[29] = sp28.y;
                 this->fwork[30] = sp28.z;
-                Matrix_GetYRPAngles(gCalcMatrix, &this->fwork[41]);
+                Matrix_GetYRPAngles(gCalcMatrix, (Vec3f*) &this->fwork[41]);
             }
             break;
         default:
@@ -429,7 +429,7 @@ void func_E16C50_801A6BDC(s32 limbIndex, Vec3f* rot, void* thisx) {
                 this->fwork[22] = sp28.x;
                 this->fwork[23] = sp28.y;
                 this->fwork[24] = sp28.z;
-                Matrix_GetYRPAngles(gCalcMatrix, &this->fwork[47]);
+                Matrix_GetYRPAngles(gCalcMatrix, (Vec3f*) &this->fwork[47]);
             }
             break;
         case 4:
@@ -438,7 +438,7 @@ void func_E16C50_801A6BDC(s32 limbIndex, Vec3f* rot, void* thisx) {
                 this->fwork[10] = sp28.x;
                 this->fwork[11] = sp28.y;
                 this->fwork[12] = sp28.z;
-                Matrix_GetYRPAngles(gCalcMatrix, &this->fwork[35]);
+                Matrix_GetYRPAngles(gCalcMatrix, (Vec3f*) &this->fwork[35]);
             } else {
                 if (gBosses->swork[0] != 7) {
                     Matrix_MultVec3f(gCalcMatrix, &sp64, &sp28);
@@ -462,7 +462,7 @@ void func_E16C50_801A6BDC(s32 limbIndex, Vec3f* rot, void* thisx) {
                 this->fwork[13] = sp28.x;
                 this->fwork[14] = sp28.y;
                 this->fwork[15] = sp28.z;
-                Matrix_GetYRPAngles(gCalcMatrix, &this->fwork[38]);
+                Matrix_GetYRPAngles(gCalcMatrix, (Vec3f*) &this->fwork[38]);
             }
             if (this->swork[3] < 0) {
                 Matrix_MultVec3f(gCalcMatrix, &sp34, &sp28);
@@ -483,7 +483,7 @@ void func_E16C50_801A6BDC(s32 limbIndex, Vec3f* rot, void* thisx) {
                 this->fwork[19] = sp28.x;
                 this->fwork[20] = sp28.y;
                 this->fwork[21] = sp28.z;
-                Matrix_GetYRPAngles(gCalcMatrix, &this->fwork[44]);
+                Matrix_GetYRPAngles(gCalcMatrix, (Vec3f*) &this->fwork[44]);
             }
             break;
         case 7:
@@ -492,7 +492,7 @@ void func_E16C50_801A6BDC(s32 limbIndex, Vec3f* rot, void* thisx) {
                 this->fwork[7] = sp28.x;
                 this->fwork[8] = sp28.y;
                 this->fwork[9] = sp28.z;
-                Matrix_GetYRPAngles(gCalcMatrix, &this->fwork[32]);
+                Matrix_GetYRPAngles(gCalcMatrix, (Vec3f*) &this->fwork[32]);
             } else {
                 if (gBosses->swork[0] != 7) {
                     Matrix_MultVec3f(gCalcMatrix, &sp58, &sp28);
@@ -507,7 +507,7 @@ void func_E16C50_801A6BDC(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-void func_E16C50_801A71B8(Boss* bossSO) {
+void func_i3_801A71B8(Boss* bossSO) {
     s32 i;
     Vec3f spE8[9] = {
         { 150.0f, 300.0f, 100.0f },  { -100.0f, 200.0f, 100.0f }, { 50.0f, 100.0f, 100.0f },
@@ -523,8 +523,7 @@ void func_E16C50_801A71B8(Boss* bossSO) {
 
     Matrix_Scale(gCalcMatrix, bossSO->unk_3F8, bossSO->unk_3F8, bossSO->unk_3F8, 1);
     if (D_80178284 != 0) {
-        Animation_DrawSkeleton(2, D_600E470, bossSO->vwork, func_E16C50_801A68A8, func_E16C50_801A6BDC, bossSO,
-                               gCalcMatrix);
+        Animation_DrawSkeleton(2, D_600E470, bossSO->vwork, func_i3_801A68A8, func_i3_801A6BDC, bossSO, gCalcMatrix);
     }
     if (bossSO->health <= 0) {
         RCP_SetupDL_49();
@@ -533,7 +532,7 @@ void func_E16C50_801A71B8(Boss* bossSO) {
         Matrix_Pop(&gGfxMatrix);
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, bossSO->obj.pos.x, bossSO->obj.pos.y, bossSO->obj.pos.z - 500.0f + D_80177D20, 1);
-        Matrix_Scale(gGfxMatrix, D_E16C50_801C2768[3], D_E16C50_801C2768[2], 1.0f, 1);
+        Matrix_Scale(gGfxMatrix, D_i3_801C2768[3], D_i3_801C2768[2], 1.0f, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         GDL(D_1024AC0);
         for (i = 0; i < 9; i++) {
@@ -543,18 +542,18 @@ void func_E16C50_801A71B8(Boss* bossSO) {
                              bossSO->obj.pos.z + D_80177D20 + spE8[i].z, 1);
             Matrix_RotateY(gGfxMatrix, spC4[i] * M_DTOR, 1);
             Matrix_RotateX(gGfxMatrix, spA0[i] * M_DTOR, 1);
-            Matrix_Scale(gGfxMatrix, D_E16C50_801C2768[i + 4], 100.0f, 1.0f, 1);
+            Matrix_Scale(gGfxMatrix, D_i3_801C2768[i + 4], 100.0f, 1.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             GDL(D_1024AC0);
         }
-        if (D_E16C50_801C2768[13] > 0.0f) {
+        if (D_i3_801C2768[13] > 0.0f) {
             GPC(255, 192, 64, 255);
             Matrix_Pop(&gGfxMatrix);
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, bossSO->obj.pos.x, bossSO->obj.pos.y + 230.0f,
                              (bossSO->obj.pos.z - 300.0f) + D_80177D20, 1);
             Matrix_RotateX(gGfxMatrix, 0.08726646f, 1);
-            Matrix_Scale(gGfxMatrix, D_E16C50_801C2768[13], 1.0f, D_E16C50_801C2768[13], 1);
+            Matrix_Scale(gGfxMatrix, D_i3_801C2768[13], 1.0f, D_i3_801C2768[13], 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             GDL(D_20112C0);
             Matrix_Scale(gGfxMatrix, 0.6f, 1.0f, 0.6f, 1);
@@ -565,7 +564,7 @@ void func_E16C50_801A71B8(Boss* bossSO) {
             Matrix_Translate(gGfxMatrix, bossSO->obj.pos.x, bossSO->obj.pos.y + 270.0f,
                              (bossSO->obj.pos.z - 300.0f) + D_80177D20, 1);
             Matrix_RotateX(gGfxMatrix, -0.05235988f, 1);
-            Matrix_Scale(gGfxMatrix, D_E16C50_801C2768[13], 1.0f, D_E16C50_801C2768[13], 1);
+            Matrix_Scale(gGfxMatrix, D_i3_801C2768[13], 1.0f, D_i3_801C2768[13], 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             GDL(D_20112C0);
             Matrix_Scale(gGfxMatrix, 0.6f, 1.0f, 0.6f, 1);
@@ -575,18 +574,18 @@ void func_E16C50_801A71B8(Boss* bossSO) {
     }
 }
 
-Vec3f D_E16C50_801BFAF4[5] = {
+Vec3f D_i3_801BFAF4[5] = {
     { 0.0f, 10.0f, 20.0f },   { 300.0f, 100.0f, 200.0f }, { 100.0f, 60.0f, -260.0f },
     { 80.0f, 100.0f, 80.0f }, { 262.0f, 285.0f, 252.0f },
 };
 
-Vec3f D_E16C50_801BFB30[3] = {
+Vec3f D_i3_801BFB30[3] = {
     { 0.0f, 50.0f, 500.0f },
     { -500.0f, 0.0f, 250.0f },
     { 500.0f, 0.0f, 250.0f },
 };
 
-void func_E16C50_801A7750(void) {
+void func_i3_801A7750(void) {
     Object_2F4* var_s0 = gObjects2F4;
     s32 i;
     Vec3f* temp;
@@ -594,7 +593,7 @@ void func_E16C50_801A7750(void) {
     Rand_SetSeed(1, 29100, 9786);
 
     for (i = 0; i < 3; i++, var_s0++) {
-        temp = &D_E16C50_801BFB30[i];
+        temp = &D_i3_801BFB30[i];
         if ((i == 0) && (gTeamShields[3] <= 0.0f)) {
             continue;
         }
@@ -619,7 +618,7 @@ void func_E16C50_801A7750(void) {
     }
 }
 
-void func_E16C50_801A7930(Player* player) {
+void func_i3_801A7930(Player* player) {
     s32 i;
     f32 sp78;
     f32 temp_fv1;
@@ -740,10 +739,10 @@ void func_E16C50_801A7930(Player* player) {
             }
             switch (D_80177A80) {
                 case 0x1C2:
-                    func_E16C50_801A0DF8(-1200.0f, -(D_80177D20 + 2500.0f), 90.0f, 2, 1.0f);
+                    func_i3_801A0DF8(-1200.0f, -(D_80177D20 + 2500.0f), 90.0f, 2, 1.0f);
                     break;
                 case 0x221:
-                    func_E16C50_801A0DF8(1400.0f, -(D_80177D20 + 3250.0f), -90.0f, 3, 1.0f);
+                    func_i3_801A0DF8(1400.0f, -(D_80177D20 + 3250.0f), -90.0f, 3, 1.0f);
                     break;
                 case 0x226:
                     Object_Kill(&gObjects2F4[4].obj, &gObjects2F4[4].sfxPos);
@@ -753,8 +752,8 @@ void func_E16C50_801A7930(Player* player) {
                     break;
                 case 0x2BC:
                     player->unk_1D0++;
-                    func_E16C50_801A7750();
-                    D_E16C50_801C2768[3] = 1000.0f;
+                    func_i3_801A7750();
+                    D_i3_801C2768[3] = 1000.0f;
                     break;
             }
             if ((D_80177A80 >= 0x208) && (D_80177A80 < 0x25D)) {
@@ -803,11 +802,11 @@ void func_E16C50_801A7930(Player* player) {
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp60, &sp54);
             if (D_80177A80 < 0x5A0) {
                 D_80177978 = sp54.x;
-                D_80177980 = D_E16C50_801C2768[3] + sp54.y;
+                D_80177980 = D_i3_801C2768[3] + sp54.y;
                 D_80177988 = player->pos.z + D_80177D20 + sp54.z;
                 D_801779A0 = 0.0f;
                 D_801779B8 = player->pos.y + 75.0f;
-                Math_SmoothStepToF(&D_E16C50_801C2768[3], 500.0f, 0.1f, 1.0f, 0.0001f);
+                Math_SmoothStepToF(&D_i3_801C2768[3], 500.0f, 0.1f, 1.0f, 0.0001f);
                 D_801779C0 = player->pos.z + D_80177D20 + 200.0f;
                 if (D_80177A80 >= 0x578) {
                     D_801779C0 -= (D_80177A80 * 8) - 11200;
@@ -949,7 +948,7 @@ void func_E16C50_801A7930(Player* player) {
     player->unk_0F0 = __sinf(player->unk_0F4 * M_DTOR);
 }
 
-void func_E16C50_801A8BE8(Object_2F4* obj2F4) {
+void func_i3_801A8BE8(Object_2F4* obj2F4) {
     Vec3f sp3C;
     Vec3f sp30;
 
@@ -987,7 +986,7 @@ void func_E16C50_801A8BE8(Object_2F4* obj2F4) {
     obj2F4->obj.rot.z = -obj2F4->unk_0F4.z;
 }
 
-void func_E16C50_801A8DB8(Vec3f* arg0, u32 arg1, f32 arg2) {
+void func_i3_801A8DB8(Vec3f* arg0, u32 arg1, f32 arg2) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {

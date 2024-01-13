@@ -845,7 +845,7 @@ extern Gfx* D_DF4260_8019A008[];
 extern f32 D_DF4260_8019A9B8[];
 
 // ovl_i3
-// extern f32 D_E16C50_801C4188; Currently externed in relevant files for bss ordering
+// extern f32 D_i3_801C4188; Currently externed in relevant files for bss ordering
 
 // ovl_E51970
 extern Matrix D_E51970_8019EE80;

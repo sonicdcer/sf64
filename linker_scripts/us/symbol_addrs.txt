@@ -91,10 +91,10 @@ D_800D8594 = 0x800D8594; // force_migration:True
 D_800C93EC = 0x800C93EC; // force_migration:True
 
 D_DF4260_8019B1EC = 0x8019B1EC; // force_migration:True segment:ovl_DF4260
-D_E16C50_801C171C = 0x801C171C; // force_migration:True segment:ovl_i3
-D_E16C50_801C1728 = 0x801C1728; // force_migration:True segment:ovl_i3
-D_E16C50_801C1730 = 0x801C1730; // force_migration:True segment:ovl_i3
-D_E16C50_801C1758 = 0x801C1758; // force_migration:True segment:ovl_i3
+D_i3_801C171C = 0x801C171C; // force_migration:True segment:ovl_i3
+D_i3_801C1728 = 0x801C1728; // force_migration:True segment:ovl_i3
+D_i3_801C1730 = 0x801C1730; // force_migration:True segment:ovl_i3
+D_i3_801C1758 = 0x801C1758; // force_migration:True segment:ovl_i3
 D_E6A810_801BB83C = 0x801BB83C; // force_migration:True segment:ovl_E6A810
 D_E6A810_801BB808 = 0x801BB808; // force_migration:True segment:ovl_E6A810
 D_E6A810_801BBAD0 = 0x801BBAD0; // force_migration:True segment:ovl_E6A810

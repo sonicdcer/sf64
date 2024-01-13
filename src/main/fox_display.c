@@ -689,7 +689,7 @@ void func_80054280(Player* player, s32 arg1) {
             func_80052884(player);
             return;
         case FORM_BLUE_MARINE:
-            func_E16C50_801ACBB4();
+            func_i3_801ACBB4();
             return;
         case FORM_ON_FOOT:
             func_800526B8(player);
@@ -1672,7 +1672,7 @@ void func_80057D00(void) {
         }
     }
     if ((gCurrentLevel == LEVEL_AQUAS) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3)) {
-        func_E16C50_801AA20C();
+        func_i3_801AA20C();
     }
     if (((gCurrentLevel == LEVEL_CORNERIA) || (gCurrentLevel == LEVEL_VENOM_ANDROSS)) &&
         ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2))) {

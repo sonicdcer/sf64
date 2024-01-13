@@ -422,7 +422,7 @@ OverlayInit sOvlE51970_SectorZ[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlE16C50_Aquas[1] = {
+OverlayInit sOvli3_Aquas[1] = {
     { OVERLAY_OFFSETS(ovl_i3),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -441,7 +441,7 @@ OverlayInit sOvlE16C50_Aquas[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlE16C50_Area6[1] = {
+OverlayInit sOvli3_Area6[1] = {
     { OVERLAY_OFFSETS(ovl_i3),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
@@ -495,7 +495,7 @@ OverlayInit sOvlE51970_Fortuna[2] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlE16C50_Unk4[1] = {
+OverlayInit sOvli3_Unk4[1] = {
     { OVERLAY_OFFSETS(ovl_i3),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
@@ -533,7 +533,7 @@ OverlayInit sOvlE9F1D0_SectorY[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlE16C50_Solar[1] = {
+OverlayInit sOvli3_Solar[1] = {
     { OVERLAY_OFFSETS(ovl_i3),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -552,7 +552,7 @@ OverlayInit sOvlE16C50_Solar[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlE16C50_Zoness[1] = {
+OverlayInit sOvli3_Zoness[1] = {
     { OVERLAY_OFFSETS(ovl_i3),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),

@@ -84,18 +84,18 @@ s32 func_80062DBC(Vec3f *, f32 *, Boss *, f32, f32, f32); /* extern */
 ? func_8007EE68(?, Vec3f *, ? *, ? *, Vec3f *, f32); /* extern */
 ? func_80081BEC(f32, f32, f32, ?, s32);             /* extern */
 ? func_8008377C(f32, f32, f32, f32, f32);           /* extern */
-? func_E16C50_801A7750();                           /* extern */
-void func_E16C50_801986FC(Boss *arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5); /* static */
-void func_E16C50_801989FC(Boss *arg0);              /* static */
-void func_E16C50_80198BE8(Boss *arg0, s32 arg1);    /* static */
-void func_E16C50_80198ECC(Boss *arg0);              /* static */
-void func_E16C50_80198F3C(Boss *arg0, s32 arg1, s32 arg2); /* static */
-void func_E16C50_8019907C(Boss *arg0);              /* static */
-void func_E16C50_8019914C(Boss *arg0, s32 arg1);    /* static */
-void func_E16C50_801991D0(Boss *arg0, s32 arg1);    /* static */
-void func_E16C50_80199394(Boss *arg0, s32 arg1);    /* static */
-void func_E16C50_80199470(Boss *arg0, s32 arg1);    /* static */
-void func_E16C50_8019962C(Boss *arg0, f32 arg1);    /* static */
+? func_i3_801A7750();                           /* extern */
+void func_i3_801986FC(Boss *arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5); /* static */
+void func_i3_801989FC(Boss *arg0);              /* static */
+void func_i3_80198BE8(Boss *arg0, s32 arg1);    /* static */
+void func_i3_80198ECC(Boss *arg0);              /* static */
+void func_i3_80198F3C(Boss *arg0, s32 arg1, s32 arg2); /* static */
+void func_i3_8019907C(Boss *arg0);              /* static */
+void func_i3_8019914C(Boss *arg0, s32 arg1);    /* static */
+void func_i3_801991D0(Boss *arg0, s32 arg1);    /* static */
+void func_i3_80199394(Boss *arg0, s32 arg1);    /* static */
+void func_i3_80199470(Boss *arg0, s32 arg1);    /* static */
+void func_i3_8019962C(Boss *arg0, f32 arg1);    /* static */
 extern ? D_6002E10;
 extern ? D_6004380;
 extern ? D_6006360;
@@ -126,9 +126,9 @@ extern Limb *D_6021B88;
 extern ? D_6023D50;
 extern ? D_6025E60;
 extern ? D_602C028;
-extern ? D_E16C50_801C2740;
+extern ? D_i3_801C2740;
 
-void func_E16C50_8018FF50(Object_2F4 *arg0) {
+void func_i3_8018FF50(Object_2F4 *arg0) {
     f32 temp_ft4;
     f32 temp_fv1;
 
@@ -138,7 +138,7 @@ void func_E16C50_8018FF50(Object_2F4 *arg0) {
     arg0->obj.rot.x = (-Math_Atan2F(gPlayer->camEye.y - arg0->obj.pos.y, sqrtf((temp_fv1 * temp_fv1) + (temp_ft4 * temp_ft4))) * 180.0f) / M_PI;
 }
 
-void func_E16C50_80190028(Object_2F4 *arg0, void *arg1, Object_2F4 *arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, s32 arg8, f32 arg9) {
+void func_i3_80190028(Object_2F4 *arg0, void *arg1, Object_2F4 *arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, s32 arg8, f32 arg9) {
     Object_2F4_Initialize(arg0);
     arg0->obj.status = 2;
     arg0->obj.id = 0xBD;
@@ -159,13 +159,13 @@ void func_E16C50_80190028(Object_2F4 *arg0, void *arg1, Object_2F4 *arg2, f32 ar
     Object_SetInfo(&arg0->info, 0xBDU & 0xFFFF);
 }
 
-void func_E16C50_801900FC(Vec3f *arg0, Vec3f *arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5, f32 arg6, s32 arg7, s32 arg8) {
+void func_i3_801900FC(Vec3f *arg0, Vec3f *arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5, f32 arg6, s32 arg7, s32 arg8) {
     Object_2F4 *var_s0;
 
     var_s0 = gObjects2F4 + 0xAE3C;
 loop_1:
     if (var_s0->obj.status == 0) {
-        func_E16C50_80190028((bitwise Object_2F4 *) arg2, (bitwise void *) arg3, var_s0, (bitwise f32) arg0, (bitwise f32) arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+        func_i3_80190028((bitwise Object_2F4 *) arg2, (bitwise void *) arg3, var_s0, (bitwise f32) arg0, (bitwise f32) arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
         return;
     }
     var_s0 -= 0x2F4;
@@ -175,7 +175,7 @@ loop_1:
     goto loop_1;
 }
 
-s32 func_E16C50_8019019C(s32 arg0, Gfx **arg1, Vec3f *arg2, Vec3f *arg3, void *arg4) {
+s32 func_i3_8019019C(s32 arg0, Gfx **arg1, Vec3f *arg2, Vec3f *arg3, void *arg4) {
     Gfx *temp_v1;
     Gfx *temp_v1_2;
 
@@ -192,12 +192,12 @@ s32 func_E16C50_8019019C(s32 arg0, Gfx **arg1, Vec3f *arg2, Vec3f *arg3, void *a
     return 0;
 }
 
-void func_E16C50_80190204(u32 arg0, Vec3f *arg1, void *arg2) {
+void func_i3_80190204(u32 arg0, Vec3f *arg1, void *arg2) {
     Vec3f sp24;
 
-    sp24.x = D_E16C50_801BF560.x;
-    sp24.y = D_E16C50_801BF560.y;
-    sp24.z = D_E16C50_801BF560.z;
+    sp24.x = D_i3_801BF560.x;
+    sp24.y = D_i3_801BF560.y;
+    sp24.z = D_i3_801BF560.z;
     if (arg2->unkB8 == 1) {
         switch (arg0) {
         case 0:
@@ -250,17 +250,17 @@ void func_E16C50_80190204(u32 arg0, Vec3f *arg1, void *arg2) {
     }
 }
 
-void func_E16C50_80190430(Object_2F4 *arg0) {
+void func_i3_80190430(Object_2F4 *arg0) {
     Vec3f sp30;
     f32 temp_fv0;
 
     temp_fv0 = arg0->scale;
     Matrix_Scale(gCalcMatrix, temp_fv0, temp_fv0, temp_fv0, (u8) 1);
     Animation_GetFrameData(&D_600E5EC, (s32) arg0->unk_0B6, &sp30);
-    Animation_DrawSkeleton(3, &D_600E7D8, &sp30, func_E16C50_8019019C, (void (*)(s32, Vec3f *, void *)) func_E16C50_80190204, arg0, gCalcMatrix);
+    Animation_DrawSkeleton(3, &D_600E7D8, &sp30, func_i3_8019019C, (void (*)(s32, Vec3f *, void *)) func_i3_80190204, arg0, gCalcMatrix);
 }
 
-void func_E16C50_801904CC(Object_2F4 *arg0) {
+void func_i3_801904CC(Object_2F4 *arg0) {
     f32 spAC;
     f32 spA8;
     f32 spA4;
@@ -283,7 +283,7 @@ void func_E16C50_801904CC(Object_2F4 *arg0) {
             do {
                 temp_fs0 = Rand_ZeroOne();
                 temp_fs1 = Rand_ZeroOne();
-                func_E16C50_801900FC(var_s1, var_s2, (temp_fs0 - 0.5f) * 20.0f, temp_fs1 * -10.0f, Rand_ZeroOne() * 10.0f, 0x29, arg0->scale, 0xC8, var_s0);
+                func_i3_801900FC(var_s1, var_s2, (temp_fs0 - 0.5f) * 20.0f, temp_fs1 * -10.0f, Rand_ZeroOne() * 10.0f, 0x29, arg0->scale, 0xC8, var_s0);
                 var_s0 += 1;
                 var_s1 += 0xC;
                 var_s2 += 0xC;
@@ -326,7 +326,7 @@ void func_E16C50_801904CC(Object_2F4 *arg0) {
     }
 }
 
-void func_E16C50_80190790(Object_2F4 *arg0) {
+void func_i3_80190790(Object_2F4 *arg0) {
     f32 sp4C;
     f32 sp48;
     f32 sp44;
@@ -380,7 +380,7 @@ loop_3:
     temp_v0->rot.z = arg0->unk_0F4.z;
 }
 
-void func_E16C50_80190A00(Object_2F4 *arg0) {
+void func_i3_80190A00(Object_2F4 *arg0) {
     f32 sp2C;
     s32 sp28;
 
@@ -393,14 +393,14 @@ void func_E16C50_80190A00(Object_2F4 *arg0) {
         }
         arg0->timer_0C0 = 0x1E;
     }
-    func_E16C50_80190790(arg0);
+    func_i3_80190790(arg0);
     if (arg0->unk_0D0 != 0) {
         arg0->unk_0D0 = 0;
         Audio_PlaySfx(0x29121007U, &arg0->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
 }
 
-void func_E16C50_80190B4C(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, u8 arg6, s32 arg7) {
+void func_i3_80190B4C(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, u8 arg6, s32 arg7) {
     Gfx *temp_v1;
     Gfx *temp_v1_2;
 
@@ -422,11 +422,11 @@ void func_E16C50_80190B4C(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
     temp_v1_2 = gMasterDisp;
     gMasterDisp = temp_v1_2 + 8;
     temp_v1_2->words.w0 = 0x06000000;
-    temp_v1_2->words.w1 = (u32) D_E16C50_801BF5A8[arg6];
+    temp_v1_2->words.w1 = (u32) D_i3_801BF5A8[arg6];
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_E16C50_80190D0C(void *arg0) {
+void func_i3_80190D0C(void *arg0) {
     PosRot *temp_s0;
     s16 *var_s4;
     s16 temp_v1;
@@ -437,34 +437,34 @@ void func_E16C50_80190D0C(void *arg0) {
     temp_v1 = arg0->unk4A;
     var_s2 = gSegments[(u32) ((s32) D_602BC58 * 0x10) >> 0x1C] + ((s32) D_602BC58 & 0xFFFFFF) + 0x80000004;
     if (temp_v1 < 0x14) {
-        var_s4 = &D_E16C50_801BF56C[temp_v1];
-        var_s3 = &D_E16C50_801BF594[temp_v1];
+        var_s4 = &D_i3_801BF56C[temp_v1];
+        var_s3 = &D_i3_801BF594[temp_v1];
         do {
             temp_s0 = &D_801782C4[(s32) (*var_s4 + arg0->unk4E) % 200];
             var_s2->unk0 = (f32) (temp_s0->pos.z - arg0->unkC);
             var_s2->unk8 = (f32) (temp_s0->pos.y - arg0->unk8);
             var_s2->unk10 = (f32) (temp_s0->pos.x - arg0->unk4);
-            func_E16C50_80190B4C(temp_s0->pos.x, temp_s0->pos.y, temp_s0->pos.z, temp_s0->rot.x, temp_s0->rot.y, temp_s0->rot.z, (u8) (s32) *var_s3, arg0->unkC6 & 1);
+            func_i3_80190B4C(temp_s0->pos.x, temp_s0->pos.y, temp_s0->pos.z, temp_s0->rot.x, temp_s0->rot.y, temp_s0->rot.z, (u8) (s32) *var_s3, arg0->unkC6 & 1);
             if (D_80177854 != 0x64) {
                 Math_SmoothStepToF(&temp_s0->pos.y, arg0->unk11C, 1.0f, 10.0f, 0.0f);
             }
             var_s3 += 1;
             var_s4 += 2;
             var_s2 += 0x18;
-        } while ((u32) var_s3 < (u32) D_E16C50_801BF5A8);
+        } while ((u32) var_s3 < (u32) D_i3_801BF5A8);
     }
 }
 
-void func_E16C50_80190F08(Object_2F4 *arg0) {
-    func_E16C50_80190D0C();
+void func_i3_80190F08(Object_2F4 *arg0) {
+    func_i3_80190D0C();
 }
 
-void func_E16C50_80190F28(s32 arg0, Vec3f *arg1, void *arg2) {
+void func_i3_80190F28(s32 arg0, Vec3f *arg1, void *arg2) {
     Vec3f sp2C;
 
-    sp2C.x = D_E16C50_801BF5B4.x;
-    sp2C.y = D_E16C50_801BF5B4.y;
-    sp2C.z = D_E16C50_801BF5B4.z;
+    sp2C.x = D_i3_801BF5B4.x;
+    sp2C.y = D_i3_801BF5B4.y;
+    sp2C.z = D_i3_801BF5B4.z;
     if (arg2->unkB8 == 3) {
         switch (arg0) {                             /* irregular */
         case 0:
@@ -483,7 +483,7 @@ void func_E16C50_80190F28(s32 arg0, Vec3f *arg1, void *arg2) {
     }
 }
 
-void func_E16C50_80191010(Object_2F4 *arg0) {
+void func_i3_80191010(Object_2F4 *arg0) {
     f32 sp94;
     f32 sp90;
     f32 sp8C;
@@ -516,7 +516,7 @@ void func_E16C50_80191010(Object_2F4 *arg0) {
             do {
                 temp_fs0 = Rand_ZeroOne();
                 temp_fs1 = Rand_ZeroOne();
-                func_E16C50_801900FC(var_s1, var_s2, (temp_fs0 - 0.5f) * 20.0f, temp_fs1 * -10.0f, Rand_ZeroOne() * 10.0f, 0x2A, arg0->scale, 0xC8, var_s0);
+                func_i3_801900FC(var_s1, var_s2, (temp_fs0 - 0.5f) * 20.0f, temp_fs1 * -10.0f, Rand_ZeroOne() * 10.0f, 0x2A, arg0->scale, 0xC8, var_s0);
                 var_s0 += 1;
                 var_s1 += 0xC;
                 var_s2 += 0xC;
@@ -604,7 +604,7 @@ void func_E16C50_80191010(Object_2F4 *arg0) {
     }
 }
 
-void func_E16C50_801914C4(Object_2F4 *arg0) {
+void func_i3_801914C4(Object_2F4 *arg0) {
     Vec3f sp38;
     Gfx *temp_v1;
     Gfx *temp_v1_2;
@@ -617,14 +617,14 @@ void func_E16C50_801914C4(Object_2F4 *arg0) {
     temp_v1->words.w1 = 0x2000;
     temp_v1->words.w0 = 0xB6000000;
     Animation_GetFrameData(&D_601AA48, (s32) arg0->unk_0B6, &sp38);
-    Animation_DrawSkeleton(3, &D_601AB14, &sp38, NULL, func_E16C50_80190F28, arg0, gCalcMatrix);
+    Animation_DrawSkeleton(3, &D_601AB14, &sp38, NULL, func_i3_80190F28, arg0, gCalcMatrix);
     temp_v1_2 = gMasterDisp;
     gMasterDisp = temp_v1_2 + 8;
     temp_v1_2->words.w1 = 0x2000;
     temp_v1_2->words.w0 = 0xB7000000;
 }
 
-void func_E16C50_801915A4(Object_2F4 *arg0) {
+void func_i3_801915A4(Object_2F4 *arg0) {
     s32 sp1C;
     Object_2F4 *sp18;
     Object_2F4 *var_a2;
@@ -659,7 +659,7 @@ loop_1:
     }
 }
 
-void func_E16C50_80191680(Object_2F4 *arg0) {
+void func_i3_80191680(Object_2F4 *arg0) {
     f32 sp64;
     f32 sp60;
     f32 sp5C;
@@ -768,7 +768,7 @@ void func_E16C50_80191680(Object_2F4 *arg0) {
     }
 }
 
-void func_E16C50_80191B4C(Object_2F4 *arg0) {
+void func_i3_80191B4C(Object_2F4 *arg0) {
     Vec3f *sp2C;
     Vec3f *temp_a2;
 
@@ -778,11 +778,11 @@ void func_E16C50_80191B4C(Object_2F4 *arg0) {
     Animation_DrawSkeleton(1, D_40058B8, temp_a2, NULL, NULL, &arg0->index, &gIdentityMatrix);
 }
 
-void func_E16C50_80191BB8(Object_2F4 *arg0) {
+void func_i3_80191BB8(Object_2F4 *arg0) {
 
 }
 
-void func_E16C50_80191BC4(Object_2F4 *arg0) {
+void func_i3_80191BC4(Object_2F4 *arg0) {
     f32 sp4C;
     s32 sp48;
     f32 sp40;
@@ -803,7 +803,7 @@ void func_E16C50_80191BC4(Object_2F4 *arg0) {
         func_8007A6F0(&arg0->obj.pos, 0x1903001D);
     }
     arg0->unk_114 += 10.0f;
-    func_E16C50_8018FF50(arg0);
+    func_i3_8018FF50(arg0);
     if (!(gFrameCount & 1)) {
         sp38 = Rand_ZeroOne();
         sp3C = Rand_ZeroOne();
@@ -812,7 +812,7 @@ void func_E16C50_80191BC4(Object_2F4 *arg0) {
     }
 }
 
-void func_E16C50_80191DB0(Object_2F4 *arg0) {
+void func_i3_80191DB0(Object_2F4 *arg0) {
     Gfx *temp_v1;
     Gfx *temp_v1_2;
 
@@ -830,12 +830,12 @@ void func_E16C50_80191DB0(Object_2F4 *arg0) {
     temp_v1_2->words.w1 = (u32) &D_6023D50;
 }
 
-void func_E16C50_80191E94(s32 arg0, Vec3f *arg1, void *arg2) {
+void func_i3_80191E94(s32 arg0, Vec3f *arg1, void *arg2) {
     Vec3f sp24;
 
-    sp24.x = D_E16C50_801BF5C0.x;
-    sp24.y = D_E16C50_801BF5C0.y;
-    sp24.z = D_E16C50_801BF5C0.z;
+    sp24.x = D_i3_801BF5C0.x;
+    sp24.y = D_i3_801BF5C0.y;
+    sp24.z = D_i3_801BF5C0.z;
     if (arg2->unkB8 == 4) {
         switch (arg0) {
         case 1:
@@ -868,17 +868,17 @@ void func_E16C50_80191E94(s32 arg0, Vec3f *arg1, void *arg2) {
     }
 }
 
-void func_E16C50_80191FFC(Object_2F4 *arg0) {
+void func_i3_80191FFC(Object_2F4 *arg0) {
     Vec3f sp30;
     f32 temp_fv0;
 
     temp_fv0 = arg0->scale;
     Matrix_Scale(gCalcMatrix, temp_fv0, temp_fv0, temp_fv0, (u8) 1);
     Animation_GetFrameData(&D_60195EC, (s32) arg0->unk_0B6, &sp30);
-    Animation_DrawSkeleton(3, &D_6019738, &sp30, NULL, func_E16C50_80191E94, arg0, gCalcMatrix);
+    Animation_DrawSkeleton(3, &D_6019738, &sp30, NULL, func_i3_80191E94, arg0, gCalcMatrix);
 }
 
-void func_E16C50_80192094(Object_2F4 *arg0) {
+void func_i3_80192094(Object_2F4 *arg0) {
     f32 spB8;
     f32 spB0;
     f32 spA4;
@@ -900,9 +900,9 @@ void func_E16C50_80192094(Object_2F4 *arg0) {
     s32 var_s0;
     s8 temp_v0_2;
 
-    sp7C.unk0 = (f32) D_E16C50_801BF5CC.x;
-    sp7C.unk4 = (f32) D_E16C50_801BF5CC.y;
-    sp7C.unk8 = (f32) D_E16C50_801BF5CC.z;
+    sp7C.unk0 = (f32) D_i3_801BF5CC.x;
+    sp7C.unk4 = (f32) D_i3_801BF5CC.y;
+    sp7C.unk8 = (f32) D_i3_801BF5CC.z;
     temp_fs0 = gPlayer->pos.x - arg0->obj.pos.x;
     spB0 = gPlayer->pos.y - arg0->obj.pos.y;
     temp_fs1 = gPlayer->unk_138 - arg0->obj.pos.z;
@@ -994,7 +994,7 @@ void func_E16C50_80192094(Object_2F4 *arg0) {
         do {
             temp_fs0_2 = Rand_ZeroOne();
             temp_fs1_2 = Rand_ZeroOne();
-            func_E16C50_801900FC(var_s1, var_s2, (temp_fs0_2 - 0.5f) * 40.0f, temp_fs1_2 * -10.0f, Rand_ZeroOne() * 20.0f, 0x2C, arg0->scale, 0xC8, var_s0);
+            func_i3_801900FC(var_s1, var_s2, (temp_fs0_2 - 0.5f) * 40.0f, temp_fs1_2 * -10.0f, Rand_ZeroOne() * 20.0f, 0x2C, arg0->scale, 0xC8, var_s0);
             var_s0 += 1;
             var_s1 += 0xC;
             var_s2 += 0xC;
@@ -1017,12 +1017,12 @@ void func_E16C50_80192094(Object_2F4 *arg0) {
     }
 }
 
-void func_E16C50_801926F4(s32 arg0, Vec3f *arg1, void *arg2) {
+void func_i3_801926F4(s32 arg0, Vec3f *arg1, void *arg2) {
     Vec3f sp24;
 
-    sp24.x = D_E16C50_801BF5D8.x;
-    sp24.y = D_E16C50_801BF5D8.y;
-    sp24.z = D_E16C50_801BF5D8.z;
+    sp24.x = D_i3_801BF5D8.x;
+    sp24.y = D_i3_801BF5D8.y;
+    sp24.z = D_i3_801BF5D8.z;
     if (arg2->unkB8 == 2) {
         switch (arg0) {
         case 1:
@@ -1051,7 +1051,7 @@ void func_E16C50_801926F4(s32 arg0, Vec3f *arg1, void *arg2) {
     }
 }
 
-void func_E16C50_80192834(Object_2F4 *arg0) {
+void func_i3_80192834(Object_2F4 *arg0) {
     f32 sp8C;
     f32 sp88;
     f32 sp84;
@@ -1081,7 +1081,7 @@ void func_E16C50_80192834(Object_2F4 *arg0) {
                 do {
                     temp_fs0 = Rand_ZeroOne();
                     temp_fs1 = Rand_ZeroOne();
-                    func_E16C50_801900FC(var_s1, var_s2, (temp_fs0 - 0.5f) * 20.0f, temp_fs1 * -10.0f, Rand_ZeroOne() * 10.0f, 0x2B, arg0->scale, 0xC8, var_s0);
+                    func_i3_801900FC(var_s1, var_s2, (temp_fs0 - 0.5f) * 20.0f, temp_fs1 * -10.0f, Rand_ZeroOne() * 10.0f, 0x2B, arg0->scale, 0xC8, var_s0);
                     var_s0 += 1;
                     var_s1 += 0xC;
                     var_s2 += 0xC;
@@ -1150,19 +1150,19 @@ void func_E16C50_80192834(Object_2F4 *arg0) {
     }
 }
 
-void func_E16C50_80192C18(Object_2F4 *arg0) {
+void func_i3_80192C18(Object_2F4 *arg0) {
     Vec3f sp28;
 
     Animation_GetFrameData(&D_6021ABC, (s32) arg0->unk_0B6, &sp28);
-    Animation_DrawSkeleton(3, &D_6021B88, &sp28, NULL, func_E16C50_801926F4, arg0, gCalcMatrix);
+    Animation_DrawSkeleton(3, &D_6021B88, &sp28, NULL, func_i3_801926F4, arg0, gCalcMatrix);
 }
 
-void func_E16C50_80192C84(s32 arg0, Vec3f *arg1, void *arg2) {
+void func_i3_80192C84(s32 arg0, Vec3f *arg1, void *arg2) {
     Vec3f sp24;
 
-    sp24.x = D_E16C50_801BF5E4.x;
-    sp24.y = D_E16C50_801BF5E4.y;
-    sp24.z = D_E16C50_801BF5E4.z;
+    sp24.x = D_i3_801BF5E4.x;
+    sp24.y = D_i3_801BF5E4.y;
+    sp24.z = D_i3_801BF5E4.z;
     if (arg2->unkB8 == 3) {
         switch (arg0) {
         case 1:
@@ -1207,7 +1207,7 @@ void func_E16C50_80192C84(s32 arg0, Vec3f *arg1, void *arg2) {
     }
 }
 
-void func_E16C50_80192E64(Object_2F4 *arg0) {
+void func_i3_80192E64(Object_2F4 *arg0) {
     f32 sp88;
     f32 sp84;
     f32 sp80;
@@ -1236,7 +1236,7 @@ void func_E16C50_80192E64(Object_2F4 *arg0) {
             do {
                 temp_fs0 = Rand_ZeroOne();
                 temp_fs1 = Rand_ZeroOne();
-                func_E16C50_801900FC(var_s1, var_s2, (temp_fs0 - 0.5f) * 40.0f, temp_fs1 * -10.0f, Rand_ZeroOne() * 20.0f, 0x3B, arg0->scale, 0xC8, var_s0);
+                func_i3_801900FC(var_s1, var_s2, (temp_fs0 - 0.5f) * 40.0f, temp_fs1 * -10.0f, Rand_ZeroOne() * 20.0f, 0x3B, arg0->scale, 0xC8, var_s0);
                 var_s0 += 1;
                 var_s1 += 0xC;
                 var_s2 += 0xC;
@@ -1301,14 +1301,14 @@ void func_E16C50_80192E64(Object_2F4 *arg0) {
     }
 }
 
-void func_E16C50_80193240(Object_2F4 *arg0) {
+void func_i3_80193240(Object_2F4 *arg0) {
     Vec3f sp28;
 
     Animation_GetFrameData(&D_601AFB8, (s32) arg0->unk_0B6, &sp28);
-    Animation_DrawSkeleton(2, &D_601B184, &sp28, NULL, func_E16C50_80192C84, arg0, gCalcMatrix);
+    Animation_DrawSkeleton(2, &D_601B184, &sp28, NULL, func_i3_80192C84, arg0, gCalcMatrix);
 }
 
-void func_E16C50_801932AC(Boss *arg0) {
+void func_i3_801932AC(Boss *arg0) {
     ObjectInfo *var_s1;
     Object_2F4 *var_s0;
     UnkStruct_1C24E8 *var_v0_3;
@@ -1340,7 +1340,7 @@ void func_E16C50_801932AC(Boss *arg0) {
     do {
         var_v0_3 += 4;
         var_v0_3->unk-4 = 0.0f;
-    } while ((u32) var_v0_3 < (u32) &D_E16C50_801C2740);
+    } while ((u32) var_v0_3 < (u32) &D_i3_801C2740);
     temp_fv0 = arg0->obj.pos.x;
     sZoFwork.unk_DC.x = temp_fv0;
     sZoFwork.unk_104.x = temp_fv0;
@@ -1450,13 +1450,13 @@ void func_E16C50_801932AC(Boss *arg0) {
     arg0->info.hitbox->unk158 = 93.6f;
 }
 
-void func_E16C50_80193628(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
+void func_i3_80193628(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     Vec3f sp54;
     Vec3f sp48;
 
-    sp54.x = D_E16C50_801BF620.x;
-    sp54.y = D_E16C50_801BF620.y;
-    sp54.z = D_E16C50_801BF620.z;
+    sp54.x = D_i3_801BF620.x;
+    sp54.y = D_i3_801BF620.y;
+    sp54.z = D_i3_801BF620.z;
     Matrix_RotateY(gCalcMatrix, arg0->unk14 * M_DTOR, 0U);
     Matrix_RotateX(gCalcMatrix, arg0->unk10 * M_DTOR, 1U);
     Matrix_RotateZ(gCalcMatrix, arg0->unk18 * M_DTOR, 1U);
@@ -1466,7 +1466,7 @@ void func_E16C50_80193628(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f3
     func_8007F04C(0x161, arg1 + (bitwise f32) sp48 + arg6, arg2 + sp48.y, arg3 + sp48.z, arg4, arg5, 0.0f, arg0->unk10, arg0->unk14, arg0->unk18, (bitwise f32) sp48 + arg6, sp48.y, sp48.z, 1.0f);
 }
 
-void func_E16C50_801937D8(Effect *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+void func_i3_801937D8(Effect *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     f32 sp34;
     f32 sp30;
     f32 sp2C;
@@ -1497,13 +1497,13 @@ void func_E16C50_801937D8(Effect *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) 
     Object_SetInfo(&arg0->info, (u32) arg0->obj.id);
 }
 
-void func_E16C50_80193908(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
+void func_i3_80193908(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     Effect *var_a0;
 
     var_a0 = gEffects;
 loop_1:
     if (var_a0->obj.status == 0) {
-        func_E16C50_801937D8(var_a0, arg0, arg1, arg2, arg3);
+        func_i3_801937D8(var_a0, arg0, arg1, arg2, arg3);
         return;
     }
     var_a0 += 0x8C;
@@ -1513,7 +1513,7 @@ loop_1:
     goto loop_1;
 }
 
-void func_E16C50_80193970(Effect *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5) {
+void func_i3_80193970(Effect *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5) {
     f32 sp34;
     f32 sp30;
     f32 sp2C;
@@ -1543,13 +1543,13 @@ void func_E16C50_80193970(Effect *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, 
     Object_SetInfo(&arg0->info, (u32) arg0->obj.id);
 }
 
-void func_E16C50_80193A98(f32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4) {
+void func_i3_80193A98(f32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4) {
     Effect *var_a0;
 
     var_a0 = gEffects;
 loop_1:
     if (var_a0->obj.status == 0) {
-        func_E16C50_80193970(var_a0, arg0, arg1, arg2, arg3, arg4);
+        func_i3_80193970(var_a0, arg0, arg1, arg2, arg3, arg4);
         return;
     }
     var_a0 += 0x8C;
@@ -1559,7 +1559,7 @@ loop_1:
     goto loop_1;
 }
 
-void func_E16C50_80193B08(Effect *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+void func_i3_80193B08(Effect *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     f32 temp_ft2;
 
     Effect_Initialize(arg0);
@@ -1587,13 +1587,13 @@ void func_E16C50_80193B08(Effect *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) 
     Object_SetInfo(&arg0->info, (u32) arg0->obj.id);
 }
 
-void func_E16C50_80193C5C(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
+void func_i3_80193C5C(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     Effect *var_a0;
 
     var_a0 = gEffects + 0x2BC0;
 loop_1:
     if (var_a0->obj.status == 0) {
-        func_E16C50_80193B08(var_a0, arg0, arg1, arg2, arg3);
+        func_i3_80193B08(var_a0, arg0, arg1, arg2, arg3);
         return;
     }
     var_a0 -= 0x8C;
@@ -1603,7 +1603,7 @@ loop_1:
     goto loop_1;
 }
 
-f32 func_E16C50_80193CC8(s32 arg0) {
+f32 func_i3_80193CC8(s32 arg0) {
     f32 var_fv1;
 
     var_fv1 = (f32) arg0 * 0.5f;
@@ -1613,7 +1613,7 @@ f32 func_E16C50_80193CC8(s32 arg0) {
     return var_fv1;
 }
 
-s32 func_E16C50_80193D08(s32 limbIndex, Gfx **dList, Vec3f *pos, Vec3f *rot, Boss *thisx) {
+s32 func_i3_80193D08(s32 limbIndex, Gfx **dList, Vec3f *pos, Vec3f *rot, Boss *thisx) {
     Gfx *temp_v0;
     Gfx *temp_v0_2;
     Gfx *temp_v0_3;
@@ -1751,7 +1751,7 @@ s32 func_E16C50_80193D08(s32 limbIndex, Gfx **dList, Vec3f *pos, Vec3f *rot, Bos
     return 0;
 }
 
-void func_E16C50_80194394(s32 limbIndex, Vec3f *rot, Boss *thisx) {
+void func_i3_80194394(s32 limbIndex, Vec3f *rot, Boss *thisx) {
     Vec3f spB4;
     Vec3f spA4;
     Vec3f sp98;
@@ -1767,42 +1767,42 @@ void func_E16C50_80194394(s32 limbIndex, Vec3f *rot, Boss *thisx) {
     Vec3f sp20;
     f32 var_fv1;
 
-    spA4.x = D_E16C50_801BF62C.x;
-    spA4.y = D_E16C50_801BF62C.y;
-    spA4.z = D_E16C50_801BF62C.z;
-    sp98.x = D_E16C50_801BF638.x;
-    sp98.y = D_E16C50_801BF638.y;
-    sp98.z = D_E16C50_801BF638.z;
-    sp8C.x = D_E16C50_801BF644.x;
-    sp8C.y = D_E16C50_801BF644.y;
-    sp8C.z = D_E16C50_801BF644.z;
-    sp80.x = D_E16C50_801BF650.x;
-    sp80.y = D_E16C50_801BF650.y;
-    sp80.z = D_E16C50_801BF650.z;
-    sp74.x = D_E16C50_801BF65C.x;
-    sp74.y = D_E16C50_801BF65C.y;
-    sp74.z = D_E16C50_801BF65C.z;
-    sp68.x = D_E16C50_801BF668.x;
-    sp68.y = D_E16C50_801BF668.y;
-    sp68.z = D_E16C50_801BF668.z;
-    sp5C.x = D_E16C50_801BF674.x;
-    sp5C.y = D_E16C50_801BF674.y;
-    sp5C.z = D_E16C50_801BF674.z;
-    sp50.x = D_E16C50_801BF680.x;
-    sp50.y = D_E16C50_801BF680.y;
-    sp50.z = D_E16C50_801BF680.z;
-    sp44.x = D_E16C50_801BF68C.x;
-    sp44.y = D_E16C50_801BF68C.y;
-    sp44.z = D_E16C50_801BF68C.z;
-    sp38.x = D_E16C50_801BF698.x;
-    sp38.y = D_E16C50_801BF698.y;
-    sp38.z = D_E16C50_801BF698.z;
-    sp2C.x = D_E16C50_801BF6A4.x;
-    sp2C.y = D_E16C50_801BF6A4.y;
-    sp2C.z = D_E16C50_801BF6A4.z;
-    sp20.x = D_E16C50_801BF6B0.x;
-    sp20.y = D_E16C50_801BF6B0.y;
-    sp20.z = D_E16C50_801BF6B0.z;
+    spA4.x = D_i3_801BF62C.x;
+    spA4.y = D_i3_801BF62C.y;
+    spA4.z = D_i3_801BF62C.z;
+    sp98.x = D_i3_801BF638.x;
+    sp98.y = D_i3_801BF638.y;
+    sp98.z = D_i3_801BF638.z;
+    sp8C.x = D_i3_801BF644.x;
+    sp8C.y = D_i3_801BF644.y;
+    sp8C.z = D_i3_801BF644.z;
+    sp80.x = D_i3_801BF650.x;
+    sp80.y = D_i3_801BF650.y;
+    sp80.z = D_i3_801BF650.z;
+    sp74.x = D_i3_801BF65C.x;
+    sp74.y = D_i3_801BF65C.y;
+    sp74.z = D_i3_801BF65C.z;
+    sp68.x = D_i3_801BF668.x;
+    sp68.y = D_i3_801BF668.y;
+    sp68.z = D_i3_801BF668.z;
+    sp5C.x = D_i3_801BF674.x;
+    sp5C.y = D_i3_801BF674.y;
+    sp5C.z = D_i3_801BF674.z;
+    sp50.x = D_i3_801BF680.x;
+    sp50.y = D_i3_801BF680.y;
+    sp50.z = D_i3_801BF680.z;
+    sp44.x = D_i3_801BF68C.x;
+    sp44.y = D_i3_801BF68C.y;
+    sp44.z = D_i3_801BF68C.z;
+    sp38.x = D_i3_801BF698.x;
+    sp38.y = D_i3_801BF698.y;
+    sp38.z = D_i3_801BF698.z;
+    sp2C.x = D_i3_801BF6A4.x;
+    sp2C.y = D_i3_801BF6A4.y;
+    sp2C.z = D_i3_801BF6A4.z;
+    sp20.x = D_i3_801BF6B0.x;
+    sp20.y = D_i3_801BF6B0.y;
+    sp20.z = D_i3_801BF6B0.z;
     switch (limbIndex) {
     case 2:
         Matrix_MultVec3f(gCalcMatrix, &spA4, &spB4);
@@ -1920,13 +1920,13 @@ void func_E16C50_80194394(s32 limbIndex, Vec3f *rot, Boss *thisx) {
     }
 }
 
-void func_E16C50_801949DC(Boss *arg0) {
+void func_i3_801949DC(Boss *arg0) {
     Matrix_Translate(gCalcMatrix, 0.0f, arg0->fwork[3], 0.0f, (u8) 1);
     Matrix_Scale(gCalcMatrix, 2.6f, 2.6f, 2.6f, (u8) 1);
-    Animation_DrawSkeleton(3, &D_6019E18, arg0->vwork, (s32 (*)(s32, Gfx **, Vec3f *, Vec3f *, void *)) func_E16C50_80193D08, (void (*)(s32, Vec3f *, void *)) func_E16C50_80194394, arg0, gCalcMatrix);
+    Animation_DrawSkeleton(3, &D_6019E18, arg0->vwork, (s32 (*)(s32, Gfx **, Vec3f *, Vec3f *, void *)) func_i3_80193D08, (void (*)(s32, Vec3f *, void *)) func_i3_80194394, arg0, gCalcMatrix);
 }
 
-void func_E16C50_80194A84(Boss *arg0) {
+void func_i3_80194A84(Boss *arg0) {
     f32 sp134;
     s32 sp130;
     s32 sp124;
@@ -2038,21 +2038,21 @@ void func_E16C50_80194A84(Boss *arg0) {
     u16 temp_t3;
     u16 temp_t9;
 
-    spA8.x = D_E16C50_801BF6DC.x;
-    spA8.y = D_E16C50_801BF6DC.y;
-    spA8.z = D_E16C50_801BF6DC.z;
-    sp9C.x = D_E16C50_801BF6E8.x;
-    sp9C.y = D_E16C50_801BF6E8.y;
-    sp9C.z = D_E16C50_801BF6E8.z;
-    sp90.unk0 = (f32) D_E16C50_801BF6F4.x;
-    sp90.unk4 = (f32) D_E16C50_801BF6F4.y;
-    sp90.unk8 = (f32) D_E16C50_801BF6F4.z;
-    sp84.unk0 = (f32) D_E16C50_801BF700.x;
-    sp84.unk4 = (f32) D_E16C50_801BF700.y;
-    sp84.unk8 = (f32) D_E16C50_801BF700.z;
-    sp60.unk0 = (f32) D_E16C50_801BF70C.x;
-    sp60.unk4 = (f32) D_E16C50_801BF70C.y;
-    sp60.unk8 = (f32) D_E16C50_801BF70C.z;
+    spA8.x = D_i3_801BF6DC.x;
+    spA8.y = D_i3_801BF6DC.y;
+    spA8.z = D_i3_801BF6DC.z;
+    sp9C.x = D_i3_801BF6E8.x;
+    sp9C.y = D_i3_801BF6E8.y;
+    sp9C.z = D_i3_801BF6E8.z;
+    sp90.unk0 = (f32) D_i3_801BF6F4.x;
+    sp90.unk4 = (f32) D_i3_801BF6F4.y;
+    sp90.unk8 = (f32) D_i3_801BF6F4.z;
+    sp84.unk0 = (f32) D_i3_801BF700.x;
+    sp84.unk4 = (f32) D_i3_801BF700.y;
+    sp84.unk8 = (f32) D_i3_801BF700.z;
+    sp60.unk0 = (f32) D_i3_801BF70C.x;
+    sp60.unk4 = (f32) D_i3_801BF70C.y;
+    sp60.unk8 = (f32) D_i3_801BF70C.z;
     D_801613A0 += 1;
     temp_v0 = arg0->unk_04E;
     if ((temp_v0 != 0) || ((temp_v0 == 0) && (arg0->timer_050 < 0x32))) {
@@ -2081,7 +2081,7 @@ void func_E16C50_80194A84(Boss *arg0) {
                 sZoSwork->unkAC = 0;
                 var_v0_2 = 0;
             }
-            func_E16C50_80193A98(sZoFwork.unk_198.x, sZoFwork.unk_198.y, sZoFwork.unk_198.z, arg0->obj.rot.y, var_v0_2);
+            func_i3_80193A98(sZoFwork.unk_198.x, sZoFwork.unk_198.y, sZoFwork.unk_198.z, arg0->obj.rot.y, var_v0_2);
             sZoSwork->unkB0 = 0xFF;
         } else {
             temp_ft2 = (s32) ((f32) (s32) temp_fv1 - 180.0f);
@@ -2099,7 +2099,7 @@ void func_E16C50_80194A84(Boss *arg0) {
                 sZoSwork->unkB0 = 0;
                 var_v0_4 = 0;
             }
-            func_E16C50_80193A98(sZoFwork.unk_18C.x, sZoFwork.unk_18C.y, sZoFwork.unk_18C.z, arg0->obj.rot.y, var_v0_4);
+            func_i3_80193A98(sZoFwork.unk_18C.x, sZoFwork.unk_18C.y, sZoFwork.unk_18C.z, arg0->obj.rot.y, var_v0_4);
             sZoSwork->unkAC = 0xFF;
         }
     }
@@ -2189,15 +2189,15 @@ void func_E16C50_80194A84(Boss *arg0) {
         break;
     case 1:                                         /* switch 1 */
         Math_SmoothStepToF(&arg0->fwork[4], 100.0f, 0.1f, 1.0f, 0.0f);
-        func_E16C50_8019962C(arg0, 0.0f);
+        func_i3_8019962C(arg0, 0.0f);
         Math_SmoothStepToF(&sZoFwork.unk_4, sZoFwork.unk128, 0.1f, 2.0f, 0.00001f);
         Math_SmoothStepToF(&sZoFwork.unk_2C, sZoFwork.unk12C, 0.1f, 2.0f, 0.00001f);
         if ((arg0->timer_050 == 0) && !(gFrameCount & 3)) {
             if (sZoSwork->unk24 != 0) {
-                func_E16C50_80193908(sZoFwork.unk_74.x, sZoFwork.unk_74.y, sZoFwork.unk_74.z, arg0->obj.rot.y);
+                func_i3_80193908(sZoFwork.unk_74.x, sZoFwork.unk_74.y, sZoFwork.unk_74.z, arg0->obj.rot.y);
             }
             if (sZoSwork->unk28 != 0) {
-                func_E16C50_80193908(sZoFwork.unk_80.x, sZoFwork.unk_80.y, sZoFwork.unk_80.z, arg0->obj.rot.y);
+                func_i3_80193908(sZoFwork.unk_80.x, sZoFwork.unk_80.y, sZoFwork.unk_80.z, arg0->obj.rot.y);
             }
             temp_t8 = sZoSwork->unk18 + 1;
             sZoSwork->unk18 = temp_t8;
@@ -2264,11 +2264,11 @@ void func_E16C50_80194A84(Boss *arg0) {
         if (arg0->timer_058 != 0) {
             if ((sZoSwork->unk2C != 0) || (sZoSwork->unk30 != 0)) {
                 Math_SmoothStepToF(&sZoFwork.unk54, sZoFwork.unk50, 0.1f, 2.0f, 0.00001f);
-                Math_SmoothStepToF(&arg0->obj.pos.x, D_E16C50_801BF6CC[sZoSwork->unk54], 0.1f, sZoFwork.unk54, 0.00001f);
+                Math_SmoothStepToF(&arg0->obj.pos.x, D_i3_801BF6CC[sZoSwork->unk54], 0.1f, sZoFwork.unk54, 0.00001f);
             }
             if (sZoSwork->unk60 == 0) {
                 Math_SmoothStepToAngle(&sZoFwork.unk13C, sZoFwork.unk138, 0.1f, 2.0f, 0.0001f);
-                Math_SmoothStepToAngle(&arg0->obj.rot.y, D_E16C50_801BF6D4[sZoSwork->unk54], 0.1f, sZoFwork.unk13C, 0.00001f);
+                Math_SmoothStepToAngle(&arg0->obj.rot.y, D_i3_801BF6D4[sZoSwork->unk54], 0.1f, sZoFwork.unk13C, 0.00001f);
             }
         } else {
             arg0->timer_058 = 0x64;
@@ -2283,7 +2283,7 @@ void func_E16C50_80194A84(Boss *arg0) {
             }
         }
         if ((arg0->swork[4] == 0) && ((sZoSwork->unk24 != 0) || (sZoSwork->unk28 != 0))) {
-            func_E16C50_80198ECC(arg0);
+            func_i3_80198ECC(arg0);
         }
         if ((sZoSwork->unk80 == 0) && (sZoSwork->unk88 == 1) && (sZoSwork->unk60 == 0)) {
             func_800BA808(gMsg_ID_6080, RCID_PEPPY);
@@ -2291,7 +2291,7 @@ void func_E16C50_80194A84(Boss *arg0) {
         }
         if (sZoSwork->unk10 == 0) {
             sZoSwork->unk10 = 0x64;
-            func_E16C50_801989FC(arg0);
+            func_i3_801989FC(arg0);
         }
         if (sZoSwork->unk60 != 0) {
             sZoSwork->unk50 = 1;
@@ -2309,7 +2309,7 @@ void func_E16C50_80194A84(Boss *arg0) {
             }
             arg0->fwork[5] += 4.0f;
             arg0->vel.x = __cosf(arg0->fwork[5] * M_DTOR) * 40.0f;
-            Math_SmoothStepToAngle(&arg0->fwork[7], Math_RadToDeg(Math_Atan2F(arg0->fwork[6] - arg0->obj.pos.x, (D_E16C50_801BF6BC[arg0->swork[1]] + (gPlayer->camEye.z - D_80177D20)) - arg0->obj.pos.z)), 0.1f, 100.0f, 0.001f);
+            Math_SmoothStepToAngle(&arg0->fwork[7], Math_RadToDeg(Math_Atan2F(arg0->fwork[6] - arg0->obj.pos.x, (D_i3_801BF6BC[arg0->swork[1]] + (gPlayer->camEye.z - D_80177D20)) - arg0->obj.pos.z)), 0.1f, 100.0f, 0.001f);
             Matrix_RotateY(gCalcMatrix, arg0->fwork[7] * M_DTOR, 0U);
             spE8 = 0.0f;
             spE4 = 0.0f;
@@ -2326,8 +2326,8 @@ void func_E16C50_80194A84(Boss *arg0) {
             }
             Math_SmoothStepToF(&arg0->fwork[8], 10.0f, 0.01f, 0.1f, 0.0f);
             sp40 = var_s0 * 4;
-            Math_SmoothStepToAngle(&arg0->obj.rot.z, D_E16C50_801BF6C4[var_s0], 0.1f, arg0->fwork[8], 0.00001f);
-            Math_SmoothStepToAngle(sp44, D_E16C50_801BF6D4[var_s0], 0.1f, arg0->fwork[8], 0.00001f);
+            Math_SmoothStepToAngle(&arg0->obj.rot.z, D_i3_801BF6C4[var_s0], 0.1f, arg0->fwork[8], 0.00001f);
+            Math_SmoothStepToAngle(sp44, D_i3_801BF6D4[var_s0], 0.1f, arg0->fwork[8], 0.00001f);
             Matrix_RotateX(gCalcMatrix, -arg0->obj.rot.x * M_DTOR, 0U);
             Matrix_RotateY(gCalcMatrix, -arg0->obj.rot.y * M_DTOR, 1U);
             spE4 = gPlayer->pos.x - sZoFwork.unk_174.x;
@@ -2380,8 +2380,8 @@ void func_E16C50_80194A84(Boss *arg0) {
             Math_SmoothStepToAngle(&sZoFwork.unk1C, sp110, 0.2f, 2.0f, 0.0f);
             Math_SmoothStepToAngle(&sZoFwork.unk28, var_fv1_2, 0.2f, 2.0f, 0.0f);
             Math_SmoothStepToAngle(&sZoFwork.unk24, var_fa0, 0.2f, 2.0f, 0.0f);
-            func_E16C50_80198BE8(arg0, 0);
-            func_E16C50_80198BE8(arg0, 1);
+            func_i3_80198BE8(arg0, 0);
+            func_i3_80198BE8(arg0, 1);
         }
         break;
     case 4:                                         /* switch 1 */
@@ -2394,31 +2394,31 @@ void func_E16C50_80194A84(Boss *arg0) {
         Math_SmoothStepToAngle(&arg0->obj.rot.z, arg0->fwork[9], 0.1f, 100.0f, 0.00001f);
         Math_SmoothStepToAngle(&arg0->fwork[9], 0.0f, 0.1f, 100.0f, 0.00001f);
         if ((sZoSwork->unk2C == 0) && (*(sZoLimbTimers + 0x1C) != 0x3E8)) {
-            func_E16C50_80198F3C(arg0, 0, 0x2E);
+            func_i3_80198F3C(arg0, 0, 0x2E);
             if (sZoFwork.unk44 > -400.0f) {
                 sZoFwork.unk44 -= 10.0f;
             } else {
                 Audio_KillSfx(&arg0->sfxPos);
                 if (arg0->obj.rot.z > 359.0f) {
                     if (sZoSwork->unk34 != 0) {
-                        func_E16C50_8019907C(arg0);
+                        func_i3_8019907C(arg0);
                     } else {
-                        func_E16C50_8019914C(arg0, 0);
+                        func_i3_8019914C(arg0, 0);
                     }
                 }
             }
         }
         if ((sZoSwork->unk30 == 0) && (*(sZoLimbTimers + 0x2C) != 0x3E8)) {
-            func_E16C50_80198F3C(arg0, 1, 0x31);
+            func_i3_80198F3C(arg0, 1, 0x31);
             if (sZoFwork.unk48 > -400.0f) {
                 sZoFwork.unk48 -= 10.0f;
             } else {
                 Audio_KillSfx(&arg0->sfxPos);
                 if (arg0->obj.rot.z < 1.0f) {
                     if (sZoSwork->unk34 != 0) {
-                        func_E16C50_8019907C(arg0);
+                        func_i3_8019907C(arg0);
                     } else {
-                        func_E16C50_8019914C(arg0, 1);
+                        func_i3_8019914C(arg0, 1);
                     }
                 }
             }
@@ -2430,12 +2430,12 @@ void func_E16C50_80194A84(Boss *arg0) {
         switch (sZoSwork->unk40) {         /* switch 3; irregular */
         case 0:                                     /* switch 3 */
             if (sZoSwork->unk34 != 0) {
-                func_E16C50_8019962C(arg0, 180.0f);
+                func_i3_8019962C(arg0, 180.0f);
                 if (arg0->obj.rot.y == 180.0f) {
                     if ((sZoSwork->unk2C == 0) && (*(sZoLimbTimers + 0x1C) != 0x3E8)) {
-                        func_E16C50_801991D0(arg0, 0);
+                        func_i3_801991D0(arg0, 0);
                     } else {
-                        func_E16C50_801991D0(arg0, 1);
+                        func_i3_801991D0(arg0, 1);
                     }
                 }
             } else {
@@ -2443,22 +2443,22 @@ void func_E16C50_80194A84(Boss *arg0) {
                     sZoSwork->unk90 = (s32) (sZoSwork->unk90 + 1);
                     sZoFwork.unk134 = 0.0f;
                 }
-                func_E16C50_8019962C(arg0, 0.0f);
+                func_i3_8019962C(arg0, 0.0f);
                 if (arg0->obj.rot.y == 0.0f) {
                     if (sZoSwork->unk2C == 0) {
-                        func_E16C50_8019914C(arg0, 0);
+                        func_i3_8019914C(arg0, 0);
                     }
                     if (sZoSwork->unk30 == 0) {
-                        func_E16C50_8019914C(arg0, 1);
+                        func_i3_8019914C(arg0, 1);
                     }
                 }
             }
             break;
         case 1:                                     /* switch 3 */
-            func_E16C50_80199470(arg0, 0);
+            func_i3_80199470(arg0, 0);
             break;
         case 2:                                     /* switch 3 */
-            func_E16C50_80199470(arg0, 1);
+            func_i3_80199470(arg0, 1);
             break;
         case 3:                                     /* switch 3 */
             if (sZoSwork->unk34 != 0) {
@@ -2466,7 +2466,7 @@ void func_E16C50_80194A84(Boss *arg0) {
                     Math_SmoothStepToF(&sZoFwork.unk10, 0.0f, 1.0f, 5.0f, 0.001f);
                     Math_SmoothStepToF(&sZoFwork.unkC, 0.0f, 1.0f, 3.0f, 0.001f);
                     if (sZoFwork.unkC == 0.0f) {
-                        func_E16C50_8019962C(arg0, 0.0f);
+                        func_i3_8019962C(arg0, 0.0f);
                         if (arg0->obj.rot.y == 0.0f) {
                             sZoSwork->unk40 = 0;
                             arg0->swork[4] = 0x3E8;
@@ -2479,7 +2479,7 @@ void func_E16C50_80194A84(Boss *arg0) {
                     sZoSwork->unk90 = (s32) (sZoSwork->unk90 + 1);
                     sZoFwork.unk134 = 0.0f;
                 }
-                func_E16C50_8019962C(arg0, 0.0f);
+                func_i3_8019962C(arg0, 0.0f);
                 if (arg0->obj.rot.y == 0.0f) {
                     sZoSwork->unk40 = 0;
                     sZoSwork->unk90 = 0;
@@ -2523,7 +2523,7 @@ void func_E16C50_80194A84(Boss *arg0) {
                 sp4C = Rand_ZeroOne();
                 sp50 = Rand_ZeroOne();
                 sp54 = Rand_ZeroOne();
-                func_E16C50_801900FC((Vec3f *) &spE4, (Vec3f *) &spD8, (sp4C - 0.5f) * 30.0f, (sp50 - 0.5f) * 20.0f, (sp54 - 0.5f) * 30.0f, 4, 1.0f, (s32) ((Rand_ZeroOne() * 15.0f) + (arg0->unk_3F8 * 10.0f)), 0);
+                func_i3_801900FC((Vec3f *) &spE4, (Vec3f *) &spD8, (sp4C - 0.5f) * 30.0f, (sp50 - 0.5f) * 20.0f, (sp54 - 0.5f) * 30.0f, 4, 1.0f, (s32) ((Rand_ZeroOne() * 15.0f) + (arg0->unk_3F8 * 10.0f)), 0);
                 var_s0_2 += 1;
             } while (var_s0_2 != 5);
         }
@@ -2589,7 +2589,7 @@ void func_E16C50_80194A84(Boss *arg0) {
             if ((sZoSwork->unk6C != 2) && (arg0->swork[5] == 0) && (arg0->swork[6] < 2) && ((sZoSwork->unk84 == 0) || (sZoSwork->unk84 >= 0x1E))) {
                 sZoSwork->unk48 = (s32) (sZoSwork->unk48 - 1);
             }
-            func_E16C50_8019962C(arg0, 0.0f);
+            func_i3_8019962C(arg0, 0.0f);
             Math_SmoothStepToF(&sZoFwork.unk_4, -130.0f, 0.1f, 2.0f, 0.00001f);
             Math_SmoothStepToF(&sZoFwork.unk_2C, 130.0f, 0.1f, 2.0f, 0.00001f);
             if (sZoSwork->unk48 < 0x14B) {
@@ -2632,7 +2632,7 @@ void func_E16C50_80194A84(Boss *arg0) {
                 arg0->timer_050 = 0x32;
                 sZoFwork.unk_94.x = (Rand_ZeroOne() - 0.3f) * 1100.0f;
                 sZoFwork.unk_A0.x = (Rand_ZeroOne() - 0.7f) * 800.0f;
-                func_E16C50_801989FC(arg0);
+                func_i3_801989FC(arg0);
             }
         } else {
             if (sZoSwork->unk70 == 0) {
@@ -2649,7 +2649,7 @@ void func_E16C50_80194A84(Boss *arg0) {
             sZoFwork.unk_70 = -2600.0f;
             sZoFwork.unk3C = sZoFwork.unk40;
             do {
-                func_E16C50_80199394(arg0, var_s0_3);
+                func_i3_80199394(arg0, var_s0_3);
                 var_s0_3 += 1;
             } while (var_s0_3 != 2);
             arg0->timer_050 = 0x64;
@@ -2663,8 +2663,8 @@ void func_E16C50_80194A84(Boss *arg0) {
     Math_SmoothStepToAngle(&sZoFwork.unk38, Math_RadToDeg(Math_Atan2F(spE4, spEC)), 0.5f, 100.0f, 0.001f);
     Math_SmoothStepToAngle(&sZoFwork.unk0, sZoFwork.unk130, 0.2f, 4.0f, 0.0001f);
     if ((!(gFrameCount & 0x3F) || (sZoSwork->unk58 != 0)) && ((Rand_ZeroOne() < 0.5f) || (sZoSwork->unk58 != 0)) && (sZoSwork->unk5C == 0)) {
-        sZoSwork->unk5C = (s32) D_E16C50_801BF5F0[sZoSwork->unk58];
-        sZoFwork.unk130 = D_E16C50_801BF608[sZoSwork->unk58];
+        sZoSwork->unk5C = (s32) D_i3_801BF5F0[sZoSwork->unk58];
+        sZoFwork.unk130 = D_i3_801BF608[sZoSwork->unk58];
         if ((sZoSwork->unk58 == 0) && (Rand_ZeroOne() < 0.3f)) {
             sZoSwork->unk5C = 0x64;
         }
@@ -2680,10 +2680,10 @@ void func_E16C50_80194A84(Boss *arg0) {
     temp_v0_9 = arg0->unk_04E;
     if ((temp_v0_9 >= 3) && (temp_v0_9 < 6) && ((Matrix_RotateY(gCalcMatrix, arg0->obj.rot.y * M_DTOR, 0U), Matrix_RotateX(gCalcMatrix, arg0->obj.rot.x * M_DTOR, 1U), Matrix_MultVec3f(gCalcMatrix, &spA8, (Vec3f *) &spD8), Matrix_MultVec3f(gCalcMatrix, &sp9C, &spCC), sp78.unk0 = spD8.unk0, sp78.unk4 = (s32) spD8.unk4, sp78.unk8 = (s32) spD8.unk8, sp6C.unk0 = spCC.x, sp6C.unk4 = (f32) spCC.y, sp6C.unk8 = (f32) spCC.z, Matrix_RotateX(gCalcMatrix, -arg0->obj.rot.x * M_DTOR, 0U), Matrix_RotateY(gCalcMatrix, -arg0->obj.rot.y * M_DTOR, 1U), spE4 = gPlayer->pos.x - (arg0->obj.pos.x + spD8), spE8 = gPlayer->pos.y - (arg0->obj.pos.y + spDC), spEC = gPlayer->unk_138 - (arg0->obj.pos.z + spE0), Matrix_MultVec3f(gCalcMatrix, (Vec3f *) &spE4, (Vec3f *) &spD8), sp11C = Math_RadToDeg(Math_Atan2F(spD8, spE0)), sp120 = Math_RadToDeg(-Math_Atan2F(spDC, sqrtf((spD8 * spD8) + (spE0 * spE0)))), spE4 = gPlayer->pos.x - (arg0->obj.pos.x + (bitwise f32) spCC), spE8 = gPlayer->pos.y - (arg0->obj.pos.y + spCC.y), spEC = gPlayer->unk_138 - (arg0->obj.pos.z + spCC.z), Matrix_MultVec3f(gCalcMatrix, (Vec3f *) &spE4, &spCC), sp114 = Math_RadToDeg(Math_Atan2F((bitwise f32) spCC, spCC.z)), sp118 = Math_RadToDeg(-Math_Atan2F(spCC.y, sqrtf(((bitwise f32) spCC * (bitwise f32) spCC) + (spCC.z * spCC.z)))), Math_SmoothStepToAngle(&sZoFwork.unk3C, sp11C, 0.2f, 2.0f, 0.0f), Math_SmoothStepToAngle(&sZoFwork.unk14, sp120, 0.2f, 2.0f, 0.0f), Math_SmoothStepToAngle(&sZoFwork.unk40, sp114, 0.2f, 2.0f, 0.0f), Math_SmoothStepToAngle(&sZoFwork.unk30, sp118, 0.2f, 2.0f, 0.0f), temp_fv1_2 = arg0->obj.rot.y, (temp_fv1_2 >= 330.0f)) || (temp_fv1_2 <= 30.0f) || ((temp_fv1_2 <= 200.0f) && (temp_fv1_2 >= 160.0f)))) {
         if ((sZoFwork.unk3C > 315.0f) || (sZoFwork.unk3C < 215.0f)) {
-            func_E16C50_801986FC(arg0, 0, sp78, sp7C, sp80, sZoFwork.unk14);
+            func_i3_801986FC(arg0, 0, sp78, sp7C, sp80, sZoFwork.unk14);
         }
         if ((sZoFwork.unk40 < 45.0f) || (sZoFwork.unk40 > 145.0f)) {
-            func_E16C50_801986FC(arg0, 1, sp6C, sp70, sp74, sZoFwork.unk30);
+            func_i3_801986FC(arg0, 1, sp6C, sp70, sp74, sZoFwork.unk30);
         }
         Math_SmoothStepToF(&sZoFwork.unk8C, 0.0f, 1.0f, 2.0f, 0.00001f);
         Math_SmoothStepToF(&sZoFwork.unk90, 0.0f, 1.0f, 2.0f, 0.00001f);
@@ -3137,7 +3137,7 @@ void func_E16C50_80194A84(Boss *arg0) {
         sp124 = var_v1_2;
         sp40 = var_a1;
         sp5C = __sinf((f32) *var_v0_8 * 50.0f * M_DTOR);
-        temp_ft1 = func_E16C50_80193CC8(*var_v0_8) * sp5C;
+        temp_ft1 = func_i3_80193CC8(*var_v0_8) * sp5C;
         var_v1_2 += 1;
         var_a1 += 4;
         var_v0_8 += 4;
@@ -3145,7 +3145,7 @@ void func_E16C50_80194A84(Boss *arg0) {
     } while (var_v1_2 != 6);
 }
 
-void func_E16C50_801986FC(Boss *arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
+void func_i3_801986FC(Boss *arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
     Object_2F4 *sp6C;
     Vec3f sp60;
     Vec3f sp54;
@@ -3158,10 +3158,10 @@ void func_E16C50_801986FC(Boss *arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4, f3
     s32 var_s1_2;
     void *temp_v0_2;
 
-    sp60.x = D_E16C50_801BF718.x;
+    sp60.x = D_i3_801BF718.x;
     temp_v0 = &sZoSwork[arg1];
-    sp60.y = D_E16C50_801BF718.y;
-    sp60.z = D_E16C50_801BF718.z;
+    sp60.y = D_i3_801BF718.y;
+    sp60.z = D_i3_801BF718.z;
     if (temp_v0->unk0 == 0) {
         var_s1 = arg1;
         if (temp_v0->unk2C != 0) {
@@ -3201,7 +3201,7 @@ loop_6:
                 sp48->unk8C = 40.0f;
                 Audio_PlaySfx(0x2903203BU, arg0 + 0x3FC, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 do {
-                    func_E16C50_80193C5C(var_s0->obj.pos.x + ((bitwise f32) sp54 * 4.3f), var_s0->obj.pos.y + (sp54.y * 4.3f), var_s0->obj.pos.z + (sp54.z * 4.3f) + 100.0f, 30.0f);
+                    func_i3_80193C5C(var_s0->obj.pos.x + ((bitwise f32) sp54 * 4.3f), var_s0->obj.pos.y + (sp54.y * 4.3f), var_s0->obj.pos.z + (sp54.z * 4.3f) + 100.0f, 30.0f);
                     var_s1_2 += 1;
                 } while (var_s1_2 != 4);
                 sp6C = var_s0;
@@ -3221,7 +3221,7 @@ loop_6:
     }
 }
 
-void func_E16C50_801989FC(Boss *arg0) {
+void func_i3_801989FC(Boss *arg0) {
     Vec3f sp70;
     Vec3f sp64;
     Object_2F4 *var_s0;
@@ -3230,9 +3230,9 @@ void func_E16C50_801989FC(Boss *arg0) {
     s32 var_v0;
     void *temp_s2;
 
-    sp70.x = D_E16C50_801BF724.x;
-    sp70.z = D_E16C50_801BF724.z;
-    sp70.y = D_E16C50_801BF724.y;
+    sp70.x = D_i3_801BF724.x;
+    sp70.z = D_i3_801BF724.z;
+    sp70.y = D_i3_801BF724.y;
     var_s7 = sZoSwork;
     var_s4 = 0;
     do {
@@ -3271,7 +3271,7 @@ loop_2:
     } while (var_s4 != 2);
 }
 
-void func_E16C50_80198BE8(Boss *arg0, s32 arg1) {
+void func_i3_80198BE8(Boss *arg0, s32 arg1) {
     Vec3f sp3C;
     Vec3f sp30;
     void *sp2C;
@@ -3282,9 +3282,9 @@ void func_E16C50_80198BE8(Boss *arg0, s32 arg1) {
     void *temp_v0;
     void *temp_v1;
 
-    sp3C.x = D_E16C50_801BF730.x;
-    sp3C.y = D_E16C50_801BF730.y;
-    sp3C.z = D_E16C50_801BF730.z;
+    sp3C.x = D_i3_801BF730.x;
+    sp3C.y = D_i3_801BF730.y;
+    sp3C.z = D_i3_801BF730.z;
     temp_s0 = &sZoSwork[arg1];
     if ((temp_s0->unk8 == 0) && (temp_s0->unk9C == 0)) {
         if ((arg1 == 0) && (sZoSwork->unkA4 == 0)) {
@@ -3340,7 +3340,7 @@ loop_9:
     }
 }
 
-void func_E16C50_80198ECC(Boss *arg0) {
+void func_i3_80198ECC(Boss *arg0) {
     sZoSwork->unk48 = 0x1F4;
     arg0->timer_050 = 0x64;
     arg0->timer_054 = 0;
@@ -3353,7 +3353,7 @@ void func_E16C50_80198ECC(Boss *arg0) {
     arg0->fwork[4] = 1.0f;
 }
 
-void func_E16C50_80198F3C(Boss *arg0, s32 arg1, s32 arg2) {
+void func_i3_80198F3C(Boss *arg0, s32 arg1, s32 arg2) {
     f32 sp2C;
     void *sp28;
     f32 temp_ft4;
@@ -3378,7 +3378,7 @@ void func_E16C50_80198F3C(Boss *arg0, s32 arg1, s32 arg2) {
     }
 }
 
-void func_E16C50_8019907C(Boss *arg0) {
+void func_i3_8019907C(Boss *arg0) {
     if ((sZoSwork->unk24 == 0) && (sZoSwork->unk28 == 0)) {
         if ((sZoSwork->unk7C == 0) && (sZoSwork->unk78 != 0)) {
             func_800BA808(gMsg_ID_6082, RCID_PEPPY);
@@ -3393,10 +3393,10 @@ void func_E16C50_8019907C(Boss *arg0) {
         arg0->unk_04E = 5;
         return;
     }
-    func_E16C50_80198ECC(arg0);
+    func_i3_80198ECC(arg0);
 }
 
-void func_E16C50_8019914C(Boss *arg0, s32 arg1) {
+void func_i3_8019914C(Boss *arg0, s32 arg1) {
     void *temp_v0;
 
     temp_v0 = sZoLimbTimers + (arg1 * 8);
@@ -3415,11 +3415,11 @@ void func_E16C50_8019914C(Boss *arg0, s32 arg1) {
     }
 }
 
-void func_E16C50_801991D0(Boss *arg0, s32 arg1) {
+void func_i3_801991D0(Boss *arg0, s32 arg1) {
     f32 *sp2C;
     f32 *temp_v0;
 
-    temp_v0 = &D_E16C50_801BF73C[arg1];
+    temp_v0 = &D_i3_801BF73C[arg1];
     sp2C = temp_v0;
     Math_SmoothStepToF(&sZoFwork.unk10, *temp_v0, 1.0f, 5.0f, 0.001f);
     if (sZoFwork.unk10 == *temp_v0) {
@@ -3432,7 +3432,7 @@ void func_E16C50_801991D0(Boss *arg0, s32 arg1) {
             sZoFwork.unk134 = 0.0f;
         }
     }
-    if (temp_v0 == D_E16C50_801BF73C) {
+    if (temp_v0 == D_i3_801BF73C) {
         arg0->info.hitbox->unk144 = -556.39996f;
         arg0->info.hitbox->unk148 = 130.0f;
         arg0->info.hitbox->unk14C = 663.0f;
@@ -3449,7 +3449,7 @@ void func_E16C50_801991D0(Boss *arg0, s32 arg1) {
     arg0->info.hitbox->unk158 = 241.79999f;
 }
 
-void func_E16C50_80199394(Boss *arg0, s32 arg1) {
+void func_i3_80199394(Boss *arg0, s32 arg1) {
     s32 temp_t9;
 
     sZoSwork[arg1].unk2C = 0x14;
@@ -3463,7 +3463,7 @@ void func_E16C50_80199394(Boss *arg0, s32 arg1) {
     Audio_PlaySfx(0x29433022U, arg0 + 0x3FC, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-void func_E16C50_80199470(Boss *arg0, s32 arg1) {
+void func_i3_80199470(Boss *arg0, s32 arg1) {
     void *sp2C;
     f32 temp_fv0;
     void *temp_v1;
@@ -3480,7 +3480,7 @@ void func_E16C50_80199470(Boss *arg0, s32 arg1) {
             sZoSwork->unk90 = (s32) (sZoSwork->unk90 + 1);
             sZoFwork.unk134 = 0.0f;
         }
-        func_E16C50_8019962C(arg0, 0.0f);
+        func_i3_8019962C(arg0, 0.0f);
         if (arg0->obj.rot.y == 0.0f) {
             sZoSwork->unk40 = 0;
             sZoSwork->unk90 = 0;
@@ -3491,7 +3491,7 @@ void func_E16C50_80199470(Boss *arg0, s32 arg1) {
                 sZoSwork->unk60 = 1;
                 sZoSwork->unk50 = 1;
             }
-            func_E16C50_8019914C(arg0, arg1);
+            func_i3_8019914C(arg0, arg1);
         }
     } else if ((sZoSwork->unk34 != 1) && (arg0->timer_052 == 0)) {
         temp_v1_2 = &sZoFwork + (arg1 * 4);
@@ -3499,17 +3499,17 @@ void func_E16C50_80199470(Boss *arg0, s32 arg1) {
         Math_SmoothStepToF(temp_v1_2 + 0x44, 0.0f, 1.0f, 5.0f, 0.001f);
         Math_SmoothStepToF(&sZoFwork.unkC, -30.0f, 1.0f, 3.0f, 0.001f);
         if (temp_v1_2->unk44 == 0.0f) {
-            func_E16C50_80199394(arg0, arg1);
+            func_i3_80199394(arg0, arg1);
         }
     }
 }
 
-void func_E16C50_8019962C(Boss *arg0, f32 arg1) {
+void func_i3_8019962C(Boss *arg0, f32 arg1) {
     Math_SmoothStepToF(&sZoFwork.unk134, 2.0f, 0.1f, 0.5f, 0.0001f);
     Math_SmoothStepToAngle(arg0 + 0x14, arg1, 1.0f, sZoFwork.unk134, 0.0001f);
 }
 
-void func_E16C50_8019969C(Object_2F4 *arg0) {
+void func_i3_8019969C(Object_2F4 *arg0) {
     f32 temp_fs2;
     f32 temp_fs3;
     s16 temp_v0;
@@ -3540,10 +3540,10 @@ void func_E16C50_8019969C(Object_2F4 *arg0) {
         }
     }
     arg0->unk_114 += 10.0f;
-    func_E16C50_8018FF50(arg0);
+    func_i3_8018FF50(arg0);
 }
 
-void func_E16C50_8019983C(Object_2F4 *arg0) {
+void func_i3_8019983C(Object_2F4 *arg0) {
     Gfx *temp_v1;
     Gfx *temp_v1_2;
 
@@ -3560,7 +3560,7 @@ void func_E16C50_8019983C(Object_2F4 *arg0) {
     temp_v1_2->words.w1 = (u32) &D_6017950;
 }
 
-void func_E16C50_801998E0(Effect *arg0, f32 arg1, f32 arg2, f32 arg3) {
+void func_i3_801998E0(Effect *arg0, f32 arg1, f32 arg2, f32 arg3) {
     Effect_Initialize(arg0);
     arg0->obj.status = 1;
     arg0->obj.id = 0x176;
@@ -3577,13 +3577,13 @@ void func_E16C50_801998E0(Effect *arg0, f32 arg1, f32 arg2, f32 arg3) {
     Object_SetInfo(&arg0->info, (u32) arg0->obj.id);
 }
 
-void func_E16C50_801999CC(f32 arg0, f32 arg1, f32 arg2) {
+void func_i3_801999CC(f32 arg0, f32 arg1, f32 arg2) {
     Effect *var_a0;
 
     var_a0 = gEffects;
 loop_1:
     if (var_a0->obj.status == 0) {
-        func_E16C50_801998E0(var_a0, arg0, arg1, arg2);
+        func_i3_801998E0(var_a0, arg0, arg1, arg2);
         return;
     }
     var_a0 += 0x8C;
@@ -3593,7 +3593,7 @@ loop_1:
     goto loop_1;
 }
 
-void func_E16C50_80199A28(Object_2F4 *arg0) {
+void func_i3_80199A28(Object_2F4 *arg0) {
     f32 sp3C;
     f32 sp38;
     s32 sp34;
@@ -3661,7 +3661,7 @@ void func_E16C50_80199A28(Object_2F4 *arg0) {
         } else {
             temp_fv1 = arg0->obj.pos.z;
             if ((fabsf(temp_fv1 - gPlayer->unk_138) < 800.0f) || (temp_v0_2 != 0)) {
-                func_E16C50_801999CC(arg0->obj.pos.x, arg0->obj.pos.y, temp_fv1);
+                func_i3_801999CC(arg0->obj.pos.x, arg0->obj.pos.y, temp_fv1);
                 Object_Kill(&arg0->obj, &arg0->sfxPos);
                 func_8007A6F0(&arg0->obj.pos, 0x2903B009);
             }
@@ -3679,7 +3679,7 @@ void func_E16C50_80199A28(Object_2F4 *arg0) {
     }
 }
 
-void func_E16C50_80199E24(Object_2F4 *arg0) {
+void func_i3_80199E24(Object_2F4 *arg0) {
     Gfx *temp_v1;
 
     Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, (u8) 1);
@@ -3690,14 +3690,14 @@ void func_E16C50_80199E24(Object_2F4 *arg0) {
     temp_v1->words.w1 = (u32) &D_6025E60;
 }
 
-void func_E16C50_80199E9C(Object_2F4 *arg0, f32 arg1, f32 arg2) {
+void func_i3_80199E9C(Object_2F4 *arg0, f32 arg1, f32 arg2) {
     arg0->obj.pos.x = sZoFwork.unk_F0.x;
     Math_SmoothStepToF(arg0 + 0x114, arg1, 1.0f, arg2, 0.001f);
     arg0->obj.pos.y = arg0->unk_114 + sZoFwork.unk_F0.y;
     arg0->obj.pos.z = sZoFwork.unk_F0.z;
 }
 
-void func_E16C50_80199F10(Object_2F4 *arg0) {
+void func_i3_80199F10(Object_2F4 *arg0) {
     s16 temp_v0;
     s32 temp_v0_2;
     s32 temp_v0_3;
@@ -3717,7 +3717,7 @@ void func_E16C50_80199F10(Object_2F4 *arg0) {
     switch (temp_v0) {                              /* irregular */
     case 0:
         arg0->obj.rot.y += 2.0f;
-        func_E16C50_80199E9C(arg0, 0.0f, 20.0f);
+        func_i3_80199E9C(arg0, 0.0f, 20.0f);
         temp_v0_2 = *(sZoSwork + 0x40);
         switch (temp_v0_2) {                        /* switch 1; irregular */
         case 1:                                     /* switch 1 */
@@ -3735,22 +3735,22 @@ void func_E16C50_80199F10(Object_2F4 *arg0) {
     case 1:
         if (gBosses->timer_052 != 0) {
             arg0->obj.rot.y += 2.0f;
-            func_E16C50_80199E9C(arg0, arg0->unk_118, 20.0f);
+            func_i3_80199E9C(arg0, arg0->unk_118, 20.0f);
         } else {
             temp_v0_3 = *(sZoSwork + 0x40);
             switch (temp_v0_3) {                    /* switch 2; irregular */
             case 1:                                 /* switch 2 */
                 arg0->unk_118 = sZoFwork.unk_110.y - sZoFwork.unk_F0.y;
-                func_E16C50_80199E9C(arg0, arg0->unk_118, 20.0f);
+                func_i3_80199E9C(arg0, arg0->unk_118, 20.0f);
                 break;
             case 2:                                 /* switch 2 */
                 arg0->unk_118 = sZoFwork.unk_11C.y - sZoFwork.unk_F0.y;
-                func_E16C50_80199E9C(arg0, arg0->unk_118, 20.0f);
+                func_i3_80199E9C(arg0, arg0->unk_118, 20.0f);
                 break;
             case 3:                                 /* switch 2 */
                 arg0->obj.rot.y += 2.0f;
                 if (gBosses->timer_050 != 0) {
-                    func_E16C50_80199E9C(arg0, 0.0f, 10.0f);
+                    func_i3_80199E9C(arg0, 0.0f, 10.0f);
                 } else {
                     arg0->unk_0B8 = 0;
                     Audio_KillSfx(&arg0->sfxPos);
@@ -3769,7 +3769,7 @@ void func_E16C50_80199F10(Object_2F4 *arg0) {
     }
 }
 
-void func_E16C50_8019A1FC(Object_2F4 *arg0) {
+void func_i3_8019A1FC(Object_2F4 *arg0) {
     Gfx *temp_v1;
     Gfx *temp_v1_2;
     Gfx *temp_v1_3;
@@ -3828,7 +3828,7 @@ void func_E16C50_8019A1FC(Object_2F4 *arg0) {
     }
 }
 
-void func_E16C50_8019A4E0(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+void func_i3_8019A4E0(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     f32 sp4C;
     f32 sp48;
     f32 sp44;
@@ -3859,7 +3859,7 @@ void func_E16C50_8019A4E0(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     arg0->unkF0 = sp24.z;
 }
 
-void func_E16C50_8019A5D4(Object_2F4 *arg0) {
+void func_i3_8019A5D4(Object_2F4 *arg0) {
     f32 sp4C;
     f32 sp48;
     f32 sp44;
@@ -3901,11 +3901,11 @@ void func_E16C50_8019A5D4(Object_2F4 *arg0) {
                 var_fv1 = 0.0f;
                 var_fa0 = 100.0f;
             }
-            func_E16C50_8019A4E0((bitwise void *) var_fa0, (bitwise f32) arg0, gPlayer->pos.x + var_fv1, gPlayer->pos.y + var_fa0, gPlayer->pos.z, 80.0f);
+            func_i3_8019A4E0((bitwise void *) var_fa0, (bitwise f32) arg0, gPlayer->pos.x + var_fv1, gPlayer->pos.y + var_fa0, gPlayer->pos.z, 80.0f);
             arg0->vel.z -= D_80177D08;
-            func_E16C50_80193C5C(sZoFwork.unk_104.x, sZoFwork.unk_104.y, sZoFwork.unk_104.z, 30.0f);
-            func_E16C50_80193C5C(sZoFwork.unk_104.x, sZoFwork.unk_104.y, sZoFwork.unk_104.z, 30.0f);
-            func_E16C50_80193C5C(sZoFwork.unk_104.x, sZoFwork.unk_104.y, sZoFwork.unk_104.z, 30.0f);
+            func_i3_80193C5C(sZoFwork.unk_104.x, sZoFwork.unk_104.y, sZoFwork.unk_104.z, 30.0f);
+            func_i3_80193C5C(sZoFwork.unk_104.x, sZoFwork.unk_104.y, sZoFwork.unk_104.z, 30.0f);
+            func_i3_80193C5C(sZoFwork.unk_104.x, sZoFwork.unk_104.y, sZoFwork.unk_104.z, 30.0f);
             temp_fv0 = fabsf(sZoFwork.unk_70 - -2600.0f);
             arg0->timer_0C0 = 3;
             arg0->timer_0BC = (u16) (s32) ((temp_fv0 / 100.0f) + 30.0f);
@@ -3945,7 +3945,7 @@ void func_E16C50_8019A5D4(Object_2F4 *arg0) {
             temp_fv0_2 = fabsf(arg0->obj.pos.z - sZoFwork.unk_104.z);
             sp48 = temp_fv0_2;
             sp4C = temp_fa1;
-            func_E16C50_8019A4E0((bitwise void *) sZoFwork.unk_104.z, temp_fa1, (bitwise f32) arg0, sZoFwork.unk_104.x, sZoFwork.unk_104.y - (sqrtf(temp_ft2 + (temp_fv0_2 * temp_fv0_2)) * 0.5f), sZoFwork.unk_104.z, 30.0f);
+            func_i3_8019A4E0((bitwise void *) sZoFwork.unk_104.z, temp_fa1, (bitwise f32) arg0, sZoFwork.unk_104.x, sZoFwork.unk_104.y - (sqrtf(temp_ft2 + (temp_fv0_2 * temp_fv0_2)) * 0.5f), sZoFwork.unk_104.z, 30.0f);
             var_fa1 = temp_fa1;
             arg0->vel.z -= D_80177D08;
         }
@@ -3980,7 +3980,7 @@ void func_E16C50_8019A5D4(Object_2F4 *arg0) {
         }
         break;
     }
-    func_E16C50_8018FF50(arg0);
+    func_i3_8018FF50(arg0);
     temp_v0_3 = arg0->unk_0D0;
     if (temp_v0_3 != 0) {
         if (temp_v0_3 == 1) {
@@ -4000,7 +4000,7 @@ void func_E16C50_8019A5D4(Object_2F4 *arg0) {
     }
 }
 
-void func_E16C50_8019ACCC(Object_2F4 *arg0) {
+void func_i3_8019ACCC(Object_2F4 *arg0) {
     f32 sp94;
     ? *sp6C;
     Gfx *temp_v1;
@@ -4113,7 +4113,7 @@ void func_E16C50_8019ACCC(Object_2F4 *arg0) {
     temp_v1_6->words.w1 = (u32) &D_601BCC0;
 }
 
-void func_E16C50_8019B1F0(Object_2F4 *arg0) {
+void func_i3_8019B1F0(Object_2F4 *arg0) {
     Vec3f sp84;
     f32 sp80;
     f32 sp7C;
@@ -4151,9 +4151,9 @@ loop_3:
     if (var_s0->obj.status == 0) {
         temp_s2 = arg0 + (var_s3 * 4);
         if (arg0->unk_0B8 == 0) {
-            Matrix_MultVec3f(gCalcMatrix, &D_E16C50_801BF744[var_s3], &sp84);
+            Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF744[var_s3], &sp84);
         } else {
-            Matrix_MultVec3f(gCalcMatrix, &D_E16C50_801BF768[var_s3], &sp84);
+            Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF768[var_s3], &sp84);
         }
         Object_2F4_Initialize(var_s0);
         var_s0->obj.status = 1;
@@ -4168,7 +4168,7 @@ loop_3:
         var_s0->obj.pos.z = arg0->obj.pos.z + sp84.z;
         temp_s2->unk6C = (s32) ((s32) (arg0->obj.rot.x * 3.0f) + var_s3);
         var_s0->obj.rot.y = arg0->obj.rot.y;
-        var_s0->unk_050 = D_E16C50_801BF78C[temp_s2->unk6C];
+        var_s0->unk_050 = D_i3_801BF78C[temp_s2->unk6C];
         var_s0->unk_058 = var_s3;
         var_s0->unk_054 = arg0->index;
         Object_SetInfo(var_s0 + 0x1C, (u32) var_s0->obj.id);
@@ -4176,10 +4176,10 @@ loop_3:
         if (arg0->unk_0B8 != 0) {
             var_s0->unk_0B8 = 3;
             temp_v1 = arg0->unk_05C;
-            if (D_E16C50_801BF804[temp_v1] >= 361.0f) {
+            if (D_i3_801BF804[temp_v1] >= 361.0f) {
                 var_s0->obj.rot.x = arg0->obj.rot.y;
             } else {
-                var_s0->obj.rot.x = D_E16C50_801BF804[(temp_v1 * 2) + var_s6];
+                var_s0->obj.rot.x = D_i3_801BF804[(temp_v1 * 2) + var_s6];
             }
             var_s6 += 1;
         }
@@ -4194,7 +4194,7 @@ loop_3:
     Audio_PlaySfx(0x3100203AU, &arg0->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-void func_E16C50_8019B548(Object_2F4 *arg0) {
+void func_i3_8019B548(Object_2F4 *arg0) {
     f32 sp6C;
     s32 sp68;
     Vec3f sp58;
@@ -4220,7 +4220,7 @@ void func_E16C50_8019B548(Object_2F4 *arg0) {
             do {
                 temp_s0 = &gObjects2F4[var_s2_2->unk50];
                 if ((temp_s0->obj.status != 0) && (temp_s0->obj.id == 0xFD) && (arg0->index == temp_s0->unk_054)) {
-                    Matrix_MultVec3f(gCalcMatrix, &D_E16C50_801BF768[var_s1_2], &sp58);
+                    Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF768[var_s1_2], &sp58);
                     temp_s0->obj.pos.x = arg0->obj.pos.x + (bitwise f32) sp58;
                     temp_s0->obj.pos.y = arg0->obj.pos.y + sp58.y;
                     temp_s0->obj.pos.z = arg0->obj.pos.z + sp58.z;
@@ -4233,7 +4233,7 @@ void func_E16C50_8019B548(Object_2F4 *arg0) {
         do {
             temp_s0_2 = &gObjects2F4[var_s2->unk50];
             if ((temp_s0_2->obj.status != 0) && (arg0->index == temp_s0_2->unk_054) && (temp_s0_2->obj.id == 0xFB)) {
-                Matrix_MultVec3f(gCalcMatrix, &D_E16C50_801BF744[var_s1], &sp58);
+                Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF744[var_s1], &sp58);
                 temp_s0_2->obj.pos.x = arg0->obj.pos.x + (bitwise f32) sp58;
                 temp_s0_2->obj.pos.y = arg0->obj.pos.y + sp58.y;
                 temp_s0_2->obj.pos.z = arg0->obj.pos.z + sp58.z;
@@ -4248,7 +4248,7 @@ void func_E16C50_8019B548(Object_2F4 *arg0) {
     }
 }
 
-void func_E16C50_8019B7DC(Object_2F4 *arg0) {
+void func_i3_8019B7DC(Object_2F4 *arg0) {
     Gfx *temp_v1;
 
     temp_v1 = gMasterDisp;
@@ -4257,7 +4257,7 @@ void func_E16C50_8019B7DC(Object_2F4 *arg0) {
     temp_v1->words.w1 = (u32) &D_6006360;
 }
 
-void func_E16C50_8019B810(Object_2F4 *arg0) {
+void func_i3_8019B810(Object_2F4 *arg0) {
     f32 temp_ft2;
 
     if (arg0->unk_05C == 0) {
@@ -4268,7 +4268,7 @@ void func_E16C50_8019B810(Object_2F4 *arg0) {
     arg0->unk_0CE = 0x1E;
 }
 
-void func_E16C50_8019B854(Object_2F4 *arg0) {
+void func_i3_8019B854(Object_2F4 *arg0) {
     f32 spBC;
     f32 spB8;
     f32 spB4;
@@ -4298,9 +4298,9 @@ void func_E16C50_8019B854(Object_2F4 *arg0) {
     s32 var_s1_2;
     s32 var_s1_3;
 
-    spA8.unk0 = (f32) D_E16C50_801BF894.x;
-    spA8.unk4 = (f32) D_E16C50_801BF894.y;
-    spA8.unk8 = (f32) D_E16C50_801BF894.z;
+    spA8.unk0 = (f32) D_i3_801BF894.x;
+    spA8.unk4 = (f32) D_i3_801BF894.y;
+    spA8.unk8 = (f32) D_i3_801BF894.z;
     if (arg0->unk_0D0 != 0) {
         temp_v0 = arg0->unk_0CE;
         if (temp_v0 != 0) {
@@ -4324,7 +4324,7 @@ void func_E16C50_8019B854(Object_2F4 *arg0) {
             temp_fs0 = Rand_ZeroOne();
             temp_fs1 = Rand_ZeroOne();
             temp_fv1 = arg0->scale;
-            func_E16C50_801900FC(var_s1, var_s2, (temp_fs3 - 0.5f) * 50.0f, (temp_fs0 * 10.0f) + 20.0f, (temp_fs1 - 0.5f) * 50.0f, 0x27, temp_fv1, (s32) ((Rand_ZeroOne() * 15.0f) + (temp_fv1 * 10.0f)), var_s0);
+            func_i3_801900FC(var_s1, var_s2, (temp_fs3 - 0.5f) * 50.0f, (temp_fs0 * 10.0f) + 20.0f, (temp_fs1 - 0.5f) * 50.0f, 0x27, temp_fv1, (s32) ((Rand_ZeroOne() * 15.0f) + (temp_fv1 * 10.0f)), var_s0);
             var_s0 += 1;
             var_s1 += 0xC;
             var_s2 += 0xC;
@@ -4344,7 +4344,7 @@ void func_E16C50_8019B854(Object_2F4 *arg0) {
             var_s1_2 += 2;
         } while (var_s1_2 < 6);
         arg0->obj.pos.y += 100.0f;
-        temp_v0_2 = D_E16C50_801BF824[arg0->unk_050];
+        temp_v0_2 = D_i3_801BF824[arg0->unk_050];
         if (temp_v0_2 < 0x3E8) {
             arg0->unk_044 = (u8) temp_v0_2;
             func_80066254(arg0);
@@ -4356,7 +4356,7 @@ void func_E16C50_8019B854(Object_2F4 *arg0) {
                     if (var_s1_3 >= 6) {
                         var_s1_3 = 0;
                     }
-                    temp_v0_3 = &D_E16C50_801BF84C[var_s1_3];
+                    temp_v0_3 = &D_i3_801BF84C[var_s1_3];
                     spB4 = temp_v0_3->x + arg0->obj.pos.x;
                     spB8 = temp_v0_3->y + arg0->obj.pos.y;
                     spBC = temp_v0_3->z + arg0->obj.pos.z;
@@ -4380,12 +4380,12 @@ void func_E16C50_8019B854(Object_2F4 *arg0) {
     }
 }
 
-void func_E16C50_8019BC78(s32 arg0, Vec3f *arg1, void *arg2) {
+void func_i3_8019BC78(s32 arg0, Vec3f *arg1, void *arg2) {
     Vec3f sp24;
 
-    sp24.x = D_E16C50_801BF8A0.x;
-    sp24.y = D_E16C50_801BF8A0.y;
-    sp24.z = D_E16C50_801BF8A0.z;
+    sp24.x = D_i3_801BF8A0.x;
+    sp24.y = D_i3_801BF8A0.y;
+    sp24.z = D_i3_801BF8A0.z;
     if (arg2->unkB8 != 0) {
         switch (arg0) {
         case 1:
@@ -4418,14 +4418,14 @@ void func_E16C50_8019BC78(s32 arg0, Vec3f *arg1, void *arg2) {
     }
 }
 
-void func_E16C50_8019BDE0(Object_2F4 *arg0) {
+void func_i3_8019BDE0(Object_2F4 *arg0) {
     Vec3f sp28;
 
     Animation_GetFrameData(&D_6018550, 0, &sp28);
-    Animation_DrawSkeleton(3, &D_601863C, &sp28, NULL, func_E16C50_8019BC78, arg0, gCalcMatrix);
+    Animation_DrawSkeleton(3, &D_601863C, &sp28, NULL, func_i3_8019BC78, arg0, gCalcMatrix);
 }
 
-void func_E16C50_8019BE48(Object_2F4 *arg0) {
+void func_i3_8019BE48(Object_2F4 *arg0) {
     f32 sp40;
     f32 sp3C;
     s32 sp38;
@@ -4512,7 +4512,7 @@ loop_5:
     }
 }
 
-void func_E16C50_8019C1CC(Object_2F4 *arg0) {
+void func_i3_8019C1CC(Object_2F4 *arg0) {
     Gfx *temp_v1;
 
     temp_v1 = gMasterDisp;
@@ -4521,7 +4521,7 @@ void func_E16C50_8019C1CC(Object_2F4 *arg0) {
     temp_v1->words.w1 = (u32) &D_6002E10;
 }
 
-void func_E16C50_8019C200(Object_2F4 *arg0) {
+void func_i3_8019C200(Object_2F4 *arg0) {
     s32 sp3C;
     s32 sp38;
     Vec3f sp2C;
@@ -4549,11 +4549,11 @@ void func_E16C50_8019C200(Object_2F4 *arg0) {
         arg0->unk_114 = 30.0f;
     }
     Matrix_RotateZ(gCalcMatrix, arg0->unk_114 * M_DTOR, 0U);
-    Matrix_MultVec3f(gCalcMatrix, &D_E16C50_801BF8AC, &sp2C);
+    Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF8AC, &sp2C);
     arg0->unk_118 = (bitwise f32) sp2C;
     arg0->unk_11C = arg0->unk_120 + sp2C.y;
     Matrix_RotateY(gCalcMatrix, arg0->obj.rot.y * M_DTOR, 0U);
-    Matrix_MultVec3f(gCalcMatrix, &D_E16C50_801BF8B8, &sp2C);
+    Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF8B8, &sp2C);
     var_a2 = gObjects2F4;
     var_v0 = 0;
 loop_7:
@@ -4583,7 +4583,7 @@ loop_7:
     }
 }
 
-void func_E16C50_8019C454(Object_2F4 *arg0) {
+void func_i3_8019C454(Object_2F4 *arg0) {
     Vec3f sp34;
     Object_2F4 *sp30;
     s16 temp_v0;
@@ -4597,7 +4597,7 @@ void func_E16C50_8019C454(Object_2F4 *arg0) {
         }
     }
     Matrix_RotateZ(gCalcMatrix, arg0->unk_114 * M_DTOR, 0U);
-    Matrix_MultVec3f(gCalcMatrix, &D_E16C50_801BF8AC, &sp34);
+    Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF8AC, &sp34);
     arg0->unk_118 = (bitwise f32) sp34;
     temp_v0 = arg0->unk_0B8;
     arg0->unk_11C = arg0->unk_120 + sp34.y;
@@ -4605,7 +4605,7 @@ void func_E16C50_8019C454(Object_2F4 *arg0) {
     case 0:
         sp30 = &gObjects2F4[arg0->unk_05C];
         Matrix_RotateY(gCalcMatrix, arg0->obj.rot.y * M_DTOR, 0U);
-        Matrix_MultVec3f(gCalcMatrix, &D_E16C50_801BF8B8, &sp34);
+        Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF8B8, &sp34);
         if ((sp30->obj.status != 0) && (sp30->obj.id == 0xFB)) {
             sp30->obj.pos.x = arg0->obj.pos.x + (bitwise f32) sp34;
             sp30->obj.pos.y = arg0->unk_11C + (arg0->obj.pos.y + sp34.y);
@@ -4653,7 +4653,7 @@ void func_E16C50_8019C454(Object_2F4 *arg0) {
     }
 }
 
-void func_E16C50_8019C83C(Object_2F4 *arg0) {
+void func_i3_8019C83C(Object_2F4 *arg0) {
     Gfx *temp_v1;
     Gfx *temp_v1_2;
     Gfx *temp_v1_3;
@@ -4731,17 +4731,17 @@ void func_E16C50_8019C83C(Object_2F4 *arg0) {
     }
 }
 
-void func_E16C50_8019CBEC(Object_2F4 *arg0) {
+void func_i3_8019CBEC(Object_2F4 *arg0) {
     s16 temp_v0;
 
     temp_v0 = arg0->unk_0B8;
     arg0->timer_0C2 = 0x7530;
     switch (temp_v0) {                              /* irregular */
     case 0:
-        arg0->unk_124.y = D_E16C50_801BF8CC[gFrameCount & 1];
+        arg0->unk_124.y = D_i3_801BF8CC[gFrameCount & 1];
         if (D_80161684 != 0) {
             arg0->unk_054 = 1;
-            arg0->unk_124.y = D_E16C50_801BF8C4[gFrameCount & 1];
+            arg0->unk_124.y = D_i3_801BF8C4[gFrameCount & 1];
         }
         arg0->unk_0B8 += 1;
         break;
@@ -4754,9 +4754,9 @@ void func_E16C50_8019CBEC(Object_2F4 *arg0) {
         }
         if ((D_80161684 != 0) && (arg0->unk_054 == 0)) {
             if (arg0->unk_124.y < 300.0f) {
-                arg0->unk_124.y = *D_E16C50_801BF8C4;
+                arg0->unk_124.y = *D_i3_801BF8C4;
             } else {
-                arg0->unk_124.y = *(D_E16C50_801BF8C4 + 4);
+                arg0->unk_124.y = *(D_i3_801BF8C4 + 4);
             }
             arg0->unk_054 = 1;
         }
@@ -4779,11 +4779,11 @@ void func_E16C50_8019CBEC(Object_2F4 *arg0) {
         }
         break;
     }
-    func_E16C50_8018FF50(arg0);
+    func_i3_8018FF50(arg0);
     arg0->obj.rot.x = 0.0f;
 }
 
-void func_E16C50_8019CE58(Object_2F4 *arg0) {
+void func_i3_8019CE58(Object_2F4 *arg0) {
     Gfx *temp_v0;
     Gfx *temp_v0_2;
     Gfx *temp_v0_3;
@@ -4844,7 +4844,7 @@ void func_E16C50_8019CE58(Object_2F4 *arg0) {
     temp_v0_9->words.w1 = (u32) &D_60181E0;
 }
 
-void func_E16C50_8019D060(Object_2F4 *arg0) {
+void func_i3_8019D060(Object_2F4 *arg0) {
     s32 sp1C;
     Object_2F4 *sp18;
     Object_2F4 *var_a2;
@@ -4877,7 +4877,7 @@ loop_1:
     goto loop_1;
 }
 
-void func_E16C50_8019D15C(Object_2F4 *arg0) {
+void func_i3_8019D15C(Object_2F4 *arg0) {
     Vec3f *sp28;
     ? *temp_v0;
     Vec3f *temp_a1;
@@ -4918,7 +4918,7 @@ void func_E16C50_8019D15C(Object_2F4 *arg0) {
     }
 }
 
-s32 func_E16C50_8019D340(s32 arg0, Gfx **arg1, Vec3f *arg2, Vec3f *arg3, void *arg4) {
+s32 func_i3_8019D340(s32 arg0, Gfx **arg1, Vec3f *arg2, Vec3f *arg3, void *arg4) {
     s16 temp_v0;
 
     temp_v0 = arg4->unkB8;
@@ -4942,14 +4942,14 @@ block_8:
     return 0;
 }
 
-void func_E16C50_8019D3C4(Object_2F4 *arg0) {
+void func_i3_8019D3C4(Object_2F4 *arg0) {
     Vec3f sp28;
 
     Animation_GetFrameData(&D_601FBC4, 0, &sp28);
-    Animation_DrawSkeleton(1, &D_601FC90, &sp28, func_E16C50_8019D340, NULL, arg0, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, &D_601FC90, &sp28, func_i3_8019D340, NULL, arg0, &gIdentityMatrix);
 }
 
-void func_E16C50_8019D428(Player *player) {
+void func_i3_8019D428(Player *player) {
     s32 sp2C;
     OSContPad *temp_v1;
     f32 temp_ft1;
@@ -5011,7 +5011,7 @@ void func_E16C50_8019D428(Player *player) {
     D_80177CE8 += 40.0f;
 }
 
-void func_E16C50_8019D76C(Player *player) {
+void func_i3_8019D76C(Player *player) {
     f32 sp60;
     f32 sp5C;
     f32 sp58;
@@ -5117,7 +5117,7 @@ void func_E16C50_8019D76C(Player *player) {
             func_8001D444(0U, 0x26U, 0U, 0xFFU);
             D_80177A98 = 1;
             func_800A6148();
-            func_E16C50_801A7750();
+            func_i3_801A7750();
             *(D_80177A48 + 4) = 0.0f;
             *(D_80177A48 + 8) = 0.0f;
             if (D_80161684 == 0) {
@@ -5320,7 +5320,7 @@ void func_E16C50_8019D76C(Player *player) {
     player->unk_0F0 = __sinf(player->unk_0F4 * M_DTOR);
 }
 
-void func_E16C50_8019E5F0(void *arg0) {
+void func_i3_8019E5F0(void *arg0) {
     f32 sp3C;
     f32 sp38;
     f32 sp34;

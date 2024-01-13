@@ -36,12 +36,12 @@ typedef struct {
     /* 0x3FC */ Vec3f sfxPos;
 } Boss;                                             /* size = 0x408 */
 
-void func_E16C50_801A239C(Boss *arg0);              /* static */
-void func_E16C50_801A2C3C(Boss *arg0);              /* static */
-void func_E16C50_801A3468(Boss *arg0);              /* static */
-void func_E16C50_801A48B8(Boss *arg0);              /* static */
-void func_E16C50_801A4EC0(Boss *arg0);              /* static */
-void func_E16C50_801A8DB8(Vec3f *arg0, u32 arg1, f32 arg2); /* static */
+void func_i3_801A239C(Boss *arg0);              /* static */
+void func_i3_801A2C3C(Boss *arg0);              /* static */
+void func_i3_801A3468(Boss *arg0);              /* static */
+void func_i3_801A48B8(Boss *arg0);              /* static */
+void func_i3_801A4EC0(Boss *arg0);              /* static */
+void func_i3_801A8DB8(Vec3f *arg0, u32 arg1, f32 arg2); /* static */
 extern AnimationHeader D_6009D30;
 extern AnimationHeader D_600B1B4;
 extern AnimationHeader D_600C15C;
@@ -56,12 +56,12 @@ extern ? D_6017370;
 extern ? D_601C820;
 extern ? D_60231A4;
 extern u8 D_801778A3;
-static f32 D_E16C50_801C171C[2] = { 0.1f, 0.1f };   /* const */
-static f32 D_E16C50_801C1728[2] = { M_DTOR, 0.1f }; /* const */
-static f32 D_E16C50_801C1730[2] = { M_DTOR, 0.1f }; /* const */
-static f32 D_E16C50_801C1758[4] = { 0.05f, 0.1f, 0.1f, 0.1f }; /* const */
+static f32 D_i3_801C171C[2] = { 0.1f, 0.1f };   /* const */
+static f32 D_i3_801C1728[2] = { M_DTOR, 0.1f }; /* const */
+static f32 D_i3_801C1730[2] = { M_DTOR, 0.1f }; /* const */
+static f32 D_i3_801C1758[4] = { 0.05f, 0.1f, 0.1f, 0.1f }; /* const */
 
-void func_E16C50_8019E7F0(Effect *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+void func_i3_8019E7F0(Effect *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     Effect_Initialize(arg0);
     arg0->obj.status = 2;
     arg0->obj.id = 0x188;
@@ -80,13 +80,13 @@ void func_E16C50_8019E7F0(Effect *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) 
     arg0->info.unk_14 = 0;
 }
 
-void func_E16C50_8019E8B8(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
+void func_i3_8019E8B8(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     Effect *var_a0;
 
     var_a0 = gEffects;
 loop_1:
     if (var_a0->obj.status == 0) {
-        func_E16C50_8019E7F0(var_a0, arg0, arg1, arg2, arg3);
+        func_i3_8019E7F0(var_a0, arg0, arg1, arg2, arg3);
         return;
     }
     var_a0 += 0x8C;
@@ -96,7 +96,7 @@ loop_1:
     goto loop_1;
 }
 
-void func_E16C50_8019E920(Effect *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, s32 arg8) {
+void func_i3_8019E920(Effect *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, s32 arg8) {
     f32 temp_ft1;
 
     Effect_Initialize(arg0);
@@ -120,13 +120,13 @@ void func_E16C50_8019E920(Effect *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, 
     Object_SetInfo(&arg0->info, (u32) arg0->obj.id);
 }
 
-void func_E16C50_8019E9F4(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, s32 arg7) {
+void func_i3_8019E9F4(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, s32 arg7) {
     Effect *var_a0;
 
     var_a0 = gEffects + 0x3624;
 loop_1:
     if (var_a0->obj.status == 0) {
-        func_E16C50_8019E920(var_a0, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+        func_i3_8019E920(var_a0, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
         return;
     }
     var_a0 -= 0x8C;
@@ -136,7 +136,7 @@ loop_1:
     goto loop_1;
 }
 
-void func_E16C50_8019EA7C(Object_2F4 *arg0) {
+void func_i3_8019EA7C(Object_2F4 *arg0) {
     f32 sp34;
     s32 sp30;
     Vec3f *sp28;
@@ -206,7 +206,7 @@ void func_E16C50_8019EA7C(Object_2F4 *arg0) {
     temp_v0_3 = arg0->unk_0D0;
     if (temp_v0_3 != 2) {
         if (temp_v0_3 == 3) {
-            func_E16C50_801A8DB8(&arg0->obj.pos, 0x11002052U, arg0->vel.z);
+            func_i3_801A8DB8(&arg0->obj.pos, 0x11002052U, arg0->vel.z);
             goto block_15;
         }
     } else {
@@ -215,7 +215,7 @@ block_15:
     }
 }
 
-void func_E16C50_8019EF30(Object_2F4 *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
+void func_i3_8019EF30(Object_2F4 *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     Object_2F4_Initialize(arg0);
     arg0->obj.status = 2;
     arg0->obj.id = 0x113;
@@ -238,13 +238,13 @@ void func_E16C50_8019EF30(Object_2F4 *arg0, f32 arg1, f32 arg2, f32 arg3, f32 ar
     Audio_PlaySfx(0x29000071U, &arg0->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-void func_E16C50_8019F038(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
+void func_i3_8019F038(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
     Object_2F4 *var_a0;
 
     var_a0 = gObjects2F4 + 0xBD0;
 loop_1:
     if (var_a0->obj.status == 0) {
-        func_E16C50_8019EF30(var_a0, arg0, arg1, arg2, arg3, arg4, arg5);
+        func_i3_8019EF30(var_a0, arg0, arg1, arg2, arg3, arg4, arg5);
         return;
     }
     var_a0 += 0x2F4;
@@ -254,7 +254,7 @@ loop_1:
     goto loop_1;
 }
 
-void func_E16C50_8019F0B0(Object_2F4 *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
+void func_i3_8019F0B0(Object_2F4 *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     Object_2F4_Initialize(arg0);
     arg0->obj.status = 2;
     arg0->obj.id = 0x115;
@@ -274,13 +274,13 @@ void func_E16C50_8019F0B0(Object_2F4 *arg0, f32 arg1, f32 arg2, f32 arg3, f32 ar
     Audio_PlaySfx(0x29000071U, &arg0->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-void func_E16C50_8019F194(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
+void func_i3_8019F194(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
     Object_2F4 *var_a0;
 
     var_a0 = gObjects2F4 + 0xBD0;
 loop_1:
     if (var_a0->obj.status == 0) {
-        func_E16C50_8019F0B0(var_a0, arg0, arg1, arg2, arg3, arg4, arg5);
+        func_i3_8019F0B0(var_a0, arg0, arg1, arg2, arg3, arg4, arg5);
         return;
     }
     var_a0 += 0x2F4;
@@ -290,7 +290,7 @@ loop_1:
     goto loop_1;
 }
 
-void func_E16C50_8019F20C(Object_2F4 *arg0) {
+void func_i3_8019F20C(Object_2F4 *arg0) {
     f32 sp8C;
     s32 sp88;
     Vec3f *sp6C;
@@ -331,12 +331,12 @@ void func_E16C50_8019F20C(Object_2F4 *arg0) {
         arg0->unk_0B8 = 2;
         arg0->vel.y = arg0->unk_114;
         func_800A73E4(&sp8C, &sp88, arg0->obj.pos.x, arg0->obj.pos.y - 100.0f, arg0->obj.pos.z);
-        var_s0 = D_E16C50_801BF8E0;
+        var_s0 = D_i3_801BF8E0;
         arg0->obj.pos.y = sp8C;
         do {
-            func_E16C50_8019E9F4(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, *var_s0, (Rand_ZeroOne() * 10.0f) + 10.0f, 0.0f, arg0->scale * 5.0f, 1);
+            func_i3_8019E9F4(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, *var_s0, (Rand_ZeroOne() * 10.0f) + 10.0f, 0.0f, arg0->scale * 5.0f, 1);
             var_s0 += 4;
-        } while (var_s0 != D_E16C50_801BF8F0);
+        } while (var_s0 != D_i3_801BF8F0);
         arg0->timer_0C2 = 5;
         Audio_PlaySfx(0x29000071U, &arg0->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         break;
@@ -345,29 +345,29 @@ void func_E16C50_8019F20C(Object_2F4 *arg0) {
         if (func_800A73E4(&sp8C, &sp88, arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z) != 0) {
             Object_Kill(&arg0->obj, &arg0->sfxPos);
             func_8007A6F0(&arg0->obj.pos, 0x29000072);
-            var_s0_2 = D_E16C50_801BF8E0;
+            var_s0_2 = D_i3_801BF8E0;
             do {
-                func_E16C50_8019E9F4(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, *var_s0_2, (Rand_ZeroOne() * 10.0f) + 10.0f, 0.0f, arg0->scale * 5.0f, 1);
+                func_i3_8019E9F4(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, *var_s0_2, (Rand_ZeroOne() * 10.0f) + 10.0f, 0.0f, arg0->scale * 5.0f, 1);
                 var_s0_2 += 4;
-            } while (var_s0_2 != D_E16C50_801BF8F0);
+            } while (var_s0_2 != D_i3_801BF8F0);
         }
         if (arg0->timer_0BC == 0) {
             arg0->timer_0BC = 5;
-            func_E16C50_8019E9F4(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 0.0f, 0.0f, 0.0f, arg0->scale * 6.5f, 2);
+            func_i3_8019E9F4(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 0.0f, 0.0f, 0.0f, arg0->scale * 6.5f, 2);
         }
         if ((arg0->unk_0D0 != 0) || ((arg0->obj.id == 0x115) && (arg0->vel.y < 0.0f))) {
             sp6C = &arg0->obj.pos;
             func_8007D2C8(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, arg0->scale * 4.0f);
             Object_Kill(&arg0->obj, &arg0->sfxPos);
             temp_v0_2 = arg0->obj.id;
-            var_s0_3 = D_E16C50_801BF8F0;
+            var_s0_3 = D_i3_801BF8F0;
             if (temp_v0_2 == 0x115) {
                 do {
                     temp_fs1 = Rand_ZeroOne();
                     temp_fs0 = Rand_ZeroOne();
-                    func_E16C50_8019F038(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, ((temp_fs1 - 0.5f) * 3.0f) + var_s0_3->x, ((temp_fs0 - 0.5f) * 3.0f) + var_s0_3->y, (Rand_ZeroOne() * -10.0f) - 10.0f);
+                    func_i3_8019F038(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, ((temp_fs1 - 0.5f) * 3.0f) + var_s0_3->x, ((temp_fs0 - 0.5f) * 3.0f) + var_s0_3->y, (Rand_ZeroOne() * -10.0f) - 10.0f);
                     var_s0_3 += 0xC;
-                } while (var_s0_3 != &D_E16C50_801BF920);
+                } while (var_s0_3 != &D_i3_801BF920);
             } else if (temp_v0_2 == 0x113) {
                 arg0->unk_044 = 1;
             } else if (temp_v0_2 == 0x114) {
@@ -387,7 +387,7 @@ void func_E16C50_8019F20C(Object_2F4 *arg0) {
             do {
                 temp_fs1_2 = Rand_ZeroOne();
                 temp_fs0_2 = Rand_ZeroOne();
-                func_E16C50_8019E9F4(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, (temp_fs1_2 - 0.5f) * 30.0f, (temp_fs0_2 - 0.5f) * 30.0f, 0.0f, ((2.0f * Rand_ZeroOne()) + 2.0f) * arg0->scale, 1);
+                func_i3_8019E9F4(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, (temp_fs1_2 - 0.5f) * 30.0f, (temp_fs0_2 - 0.5f) * 30.0f, 0.0f, ((2.0f * Rand_ZeroOne()) + 2.0f) * arg0->scale, 1);
                 var_s1_2 += 1;
             } while (var_s1_2 != 7);
             func_8007A6F0(sp6C, 0x2903A008);
@@ -404,7 +404,7 @@ void func_E16C50_8019F20C(Object_2F4 *arg0) {
     }
 }
 
-void func_E16C50_8019F7AC(Object_2F4 *arg0) {
+void func_i3_8019F7AC(Object_2F4 *arg0) {
     Gfx *temp_v0_2;
     Gfx *temp_v0_3;
     Gfx *temp_v0_4;
@@ -456,11 +456,11 @@ void func_E16C50_8019F7AC(Object_2F4 *arg0) {
         temp_v0_7 = gMasterDisp;
         gMasterDisp = temp_v0_7 + 8;
         temp_v0_7->words.w0 = 0x06000000;
-        temp_v0_7->words.w1 = D_E16C50_801BF92C[arg0->unk_0B6];
+        temp_v0_7->words.w1 = D_i3_801BF92C[arg0->unk_0B6];
     }
 }
 
-void func_E16C50_8019F99C(Object_2F4 *arg0, Effect *arg1, f32 arg2) {
+void func_i3_8019F99C(Object_2F4 *arg0, Effect *arg1, f32 arg2) {
     f32 temp_fv0;
     f32 temp_fv0_2;
 
@@ -487,7 +487,7 @@ void func_E16C50_8019F99C(Object_2F4 *arg0, Effect *arg1, f32 arg2) {
     Object_SetInfo(&arg1->info, (u32) arg1->obj.id);
 }
 
-void func_E16C50_8019FAA4(Boss *arg0, Effect *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
+void func_i3_8019FAA4(Boss *arg0, Effect *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     f32 sp4C;
     f32 sp48;
     f32 sp44;
@@ -495,9 +495,9 @@ void func_E16C50_8019FAA4(Boss *arg0, Effect *arg1, f32 arg2, f32 arg3, f32 arg4
     ? sp2C;
     f32 temp_ft0;
 
-    sp2C.unk0 = (f32) D_E16C50_801BF920.x;
-    sp2C.unk4 = (f32) D_E16C50_801BF920.y;
-    sp2C.unk8 = (f32) D_E16C50_801BF920.z;
+    sp2C.unk0 = (f32) D_i3_801BF920.x;
+    sp2C.unk4 = (f32) D_i3_801BF920.y;
+    sp2C.unk8 = (f32) D_i3_801BF920.z;
     Effect_Initialize(arg1);
     arg1->obj.status = 2;
     arg1->obj.id = 0x188;
@@ -552,7 +552,7 @@ void func_E16C50_8019FAA4(Boss *arg0, Effect *arg1, f32 arg2, f32 arg3, f32 arg4
     Object_SetInfo(&arg1->info, (u32) arg1->obj.id);
 }
 
-void func_E16C50_8019FDE0(Boss *arg0, Effect *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, s32 arg6) {
+void func_i3_8019FDE0(Boss *arg0, Effect *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, s32 arg6) {
     f32 temp_ft1;
 
     Effect_Initialize(arg1);
@@ -578,13 +578,13 @@ void func_E16C50_8019FDE0(Boss *arg0, Effect *arg1, f32 arg2, f32 arg3, f32 arg4
     arg1->info.damage = 0x28;
 }
 
-void func_E16C50_8019FEE8(Object_2F4 *arg1) {
+void func_i3_8019FEE8(Object_2F4 *arg1) {
     Effect *var_a1;
 
     var_a1 = gEffects + 0x2648;
 loop_1:
     if (var_a1->obj.status == 0) {
-        func_E16C50_8019F99C(arg1, var_a1, (bitwise f32) arg1);
+        func_i3_8019F99C(arg1, var_a1, (bitwise f32) arg1);
         return;
     }
     var_a1 -= 0x8C;
@@ -594,13 +594,13 @@ loop_1:
     goto loop_1;
 }
 
-void func_E16C50_8019FF44(Boss *arg1, Effect *arg2, f32 arg3, f32 arg4, f32 arg5) {
+void func_i3_8019FF44(Boss *arg1, Effect *arg2, f32 arg3, f32 arg4, f32 arg5) {
     Effect *var_a1;
 
     var_a1 = gEffects + 0x2648;
 loop_1:
     if (var_a1->obj.status == 0) {
-        func_E16C50_8019FAA4(arg1, arg2, (bitwise f32) var_a1, (bitwise f32) arg1, (bitwise f32) arg2, arg3, arg4, arg5);
+        func_i3_8019FAA4(arg1, arg2, (bitwise f32) var_a1, (bitwise f32) arg1, (bitwise f32) arg2, arg3, arg4, arg5);
         return;
     }
     var_a1 -= 0x8C;
@@ -610,13 +610,13 @@ loop_1:
     goto loop_1;
 }
 
-void func_E16C50_8019FFC0(Boss *arg1, Effect *arg2, f32 arg3, s32 arg4, f32 arg5) {
+void func_i3_8019FFC0(Boss *arg1, Effect *arg2, f32 arg3, s32 arg4, f32 arg5) {
     Effect *var_a1;
 
     var_a1 = gEffects + 0x2648;
 loop_1:
     if (var_a1->obj.status == 0) {
-        func_E16C50_8019FDE0(arg1, arg2, (bitwise f32) var_a1, (bitwise f32) arg1, (bitwise f32) arg2, arg3, arg4, arg5);
+        func_i3_8019FDE0(arg1, arg2, (bitwise f32) var_a1, (bitwise f32) arg1, (bitwise f32) arg2, arg3, arg4, arg5);
         return;
     }
     var_a1 -= 0x8C;
@@ -626,7 +626,7 @@ loop_1:
     goto loop_1;
 }
 
-void func_E16C50_801A003C(Object_2F4 *arg0) {
+void func_i3_801A003C(Object_2F4 *arg0) {
     Vec3f *sp20;
     Vec3f *temp_a0;
     s16 temp_v0;
@@ -641,7 +641,7 @@ void func_E16C50_801A003C(Object_2F4 *arg0) {
         }
         if (arg0->timer_0BC == 0) {
             arg0->timer_0BC = 2;
-            func_E16C50_8019FEE8(arg0, 0x447A0000, arg0);
+            func_i3_8019FEE8(arg0, 0x447A0000, arg0);
             arg0->unk_04E += 1;
             return;
         }
@@ -660,7 +660,7 @@ void func_E16C50_801A003C(Object_2F4 *arg0) {
     }
 }
 
-void func_E16C50_801A0120(Effect *arg0) {
+void func_i3_801A0120(Effect *arg0) {
     f32 sp5C;
     f32 sp58;
     f32 sp54;
@@ -737,7 +737,7 @@ void func_E16C50_801A0120(Effect *arg0) {
             sp58 = var_ft4;
             sp54 = var_ft5;
             temp_fv1 = var_ft4 * 0.25f;
-            func_E16C50_8019E9F4(arg0->obj.pos.x + var_ft4, arg0->obj.pos.y + var_ft5, arg0->obj.pos.z, temp_fv1, (Rand_ZeroOne() * 10.0f) + 20.0f, temp_fv1, 20.0f, 1);
+            func_i3_8019E9F4(arg0->obj.pos.x + var_ft4, arg0->obj.pos.y + var_ft5, arg0->obj.pos.z, temp_fv1, (Rand_ZeroOne() * 10.0f) + 20.0f, temp_fv1, 20.0f, 1);
             return;
         }
     default:
@@ -813,7 +813,7 @@ void func_E16C50_801A0120(Effect *arg0) {
             }
             sp58 = var_ft4_2;
             temp_fv1_2 = var_ft4_2 * 0.25f;
-            func_E16C50_8019E9F4(arg0->obj.pos.x + var_ft4_2, arg0->obj.pos.y + -50.0f, arg0->obj.pos.z, temp_fv1_2, (Rand_ZeroOne() * 10.0f) + 20.0f, temp_fv1_2, 20.0f, 1);
+            func_i3_8019E9F4(arg0->obj.pos.x + var_ft4_2, arg0->obj.pos.y + -50.0f, arg0->obj.pos.z, temp_fv1_2, (Rand_ZeroOne() * 10.0f) + 20.0f, temp_fv1_2, 20.0f, 1);
             return;
         }
         break;
@@ -872,7 +872,7 @@ void func_E16C50_801A0120(Effect *arg0) {
     }
 }
 
-void func_E16C50_801A0AF0(Effect *arg0) {
+void func_i3_801A0AF0(Effect *arg0) {
     Gfx *temp_v0;
     Gfx *temp_v0_2;
     Gfx *temp_v0_3;
@@ -894,7 +894,7 @@ void func_E16C50_801A0AF0(Effect *arg0) {
         temp_v0_2 = gMasterDisp;
         gMasterDisp = temp_v0_2 + 8;
         temp_v0_2->words.w0 = 0x06000000;
-        temp_v0_2->words.w1 = D_E16C50_801BF92C[arg0->unk_4C];
+        temp_v0_2->words.w1 = D_i3_801BF92C[arg0->unk_4C];
         return;
     case 1:
     case 2:
@@ -905,7 +905,7 @@ void func_E16C50_801A0AF0(Effect *arg0) {
         temp_v0_4 = gMasterDisp;
         gMasterDisp = temp_v0_4 + 8;
         temp_v0_4->words.w0 = 0x06000000;
-        temp_v0_4->words.w1 = D_E16C50_801BF944[arg0->unk_4C];
+        temp_v0_4->words.w1 = D_i3_801BF944[arg0->unk_4C];
         return;
     case 3:
         temp_v0_5 = gMasterDisp;
@@ -929,7 +929,7 @@ void func_E16C50_801A0AF0(Effect *arg0) {
         temp_v0_8 = gMasterDisp;
         gMasterDisp = temp_v0_8 + 8;
         temp_v0_8->words.w0 = 0x06000000;
-        temp_v0_8->words.w1 = D_E16C50_801BF92C[arg0->unk_4C];
+        temp_v0_8->words.w1 = D_i3_801BF92C[arg0->unk_4C];
         RCP_SetupDL(&gMasterDisp, 0x40);
         /* fallthrough */
     default:
@@ -937,7 +937,7 @@ void func_E16C50_801A0AF0(Effect *arg0) {
     }
 }
 
-void func_E16C50_801A0CEC(Object_2F4 *arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4) {
+void func_i3_801A0CEC(Object_2F4 *arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4) {
     Object_2F4_Initialize(arg0);
     arg0->obj.status = 2;
     arg0->obj.id = 0x116;
@@ -954,13 +954,13 @@ void func_E16C50_801A0CEC(Object_2F4 *arg0, f32 arg1, f32 arg2, f32 arg3, s32 ar
     arg0->info.bonus = 0;
 }
 
-void func_E16C50_801A0D90(f32 arg0, f32 arg1, f32 arg2, s32 arg3) {
+void func_i3_801A0D90(f32 arg0, f32 arg1, f32 arg2, s32 arg3) {
     Object_2F4 *var_a0;
 
     var_a0 = gObjects2F4 + 0xBD0;
 loop_1:
     if (var_a0->obj.status == 0) {
-        func_E16C50_801A0CEC(var_a0, arg0, arg1, arg2, arg3);
+        func_i3_801A0CEC(var_a0, arg0, arg1, arg2, arg3);
         return;
     }
     var_a0 += 0x2F4;
@@ -970,7 +970,7 @@ loop_1:
     goto loop_1;
 }
 
-void func_E16C50_801A0DF8(f32 arg0, f32 arg1, f32 arg2, u32 arg3, f32 arg4) {
+void func_i3_801A0DF8(f32 arg0, f32 arg1, f32 arg2, u32 arg3, f32 arg4) {
     s32 sp2C;
     u32 sp28;                                       /* compiler-managed */
     Object_2F4 *sp24;
@@ -1023,14 +1023,14 @@ void func_E16C50_801A0DF8(f32 arg0, f32 arg1, f32 arg2, u32 arg3, f32 arg4) {
     Audio_PlaySfx(0x19035053U, sp28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-void func_E16C50_801A0FD4(Object_2F4 *arg0, s32 arg1) {
+void func_i3_801A0FD4(Object_2F4 *arg0, s32 arg1) {
     Vec3f *temp_v0;
 
     if (*(gTeamShields + 0xC + -(arg1 * 4)) > 0) {
         Object_2F4_Initialize(arg0);
         arg0->obj.status = 2;
         arg0->obj.id = 0xC3;
-        temp_v0 = &D_E16C50_801BF95C[arg1];
+        temp_v0 = &D_i3_801BF95C[arg1];
         arg0->obj.pos.x = gPlayer->pos.x + temp_v0->x;
         arg0->obj.pos.y = gPlayer->pos.y + temp_v0->y;
         arg0->unk_0B8 = 0;
@@ -1045,7 +1045,7 @@ void func_E16C50_801A0FD4(Object_2F4 *arg0, s32 arg1) {
     }
 }
 
-void func_E16C50_801A10F4(Player *player) {
+void func_i3_801A10F4(Player *player) {
     f32 sp58;
     f32 sp54;
     f32 sp50;
@@ -1092,17 +1092,17 @@ void func_E16C50_801A10F4(Player *player) {
         player->unk_0D0 = 0.0f;
         D_80178340 = 0xFF;
         D_80178358 = 0;
-        func_E16C50_801A0DF8(-750.0f, -2600.0f, 300.0f, 2U, 1.0f);
+        func_i3_801A0DF8(-750.0f, -2600.0f, 300.0f, 2U, 1.0f);
         Audio_PlaySfx(0x3140807EU, &player->unk_460, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         break;
     case 1:
         D_80177CE8 += 30.0f;
         temp_v0 = D_80177A80;
         if (temp_v0 == 0x8C) {
-            func_E16C50_801A0DF8(-400.0f, -2000.0f, 45.0f, 3U, 1.0f);
+            func_i3_801A0DF8(-400.0f, -2000.0f, 45.0f, 3U, 1.0f);
         }
         if (temp_v0 == 0x118) {
-            func_E16C50_801A0DF8(-1730.0f, -2300.0f, 250.0f, 1U, 1.0f);
+            func_i3_801A0DF8(-1730.0f, -2300.0f, 250.0f, 1U, 1.0f);
         }
         if (temp_v0 == 0x64) {
             Object_Kill(&(gObjects2F4 + 0xBD0)->obj, gObjects2F4 + 0xCD0);
@@ -1127,7 +1127,7 @@ void func_E16C50_801A10F4(Player *player) {
             sp34 = Rand_ZeroOne();
             sp38 = Rand_ZeroOne();
             sp3C = Rand_ZeroOne();
-            func_E16C50_8019E8B8((sp34 - 0.5f) * 6000.0f, ((sp38 - 0.5f) * 5.0f) - 90.0f, ((sp3C * 2000.0f) - 6000.0f) + D_80177D20, (Rand_ZeroOne() * 20.0f) + 20.0f);
+            func_i3_8019E8B8((sp34 - 0.5f) * 6000.0f, ((sp38 - 0.5f) * 5.0f) - 90.0f, ((sp3C * 2000.0f) - 6000.0f) + D_80177D20, (Rand_ZeroOne() * 20.0f) + 20.0f);
         }
         if (temp_v0 == 0x17C) {
             var_a1 = &gEffects->sfxPos;
@@ -1139,7 +1139,7 @@ void func_E16C50_801A10F4(Player *player) {
                 var_a1 += 0x8C;
                 var_a0 = (Effect *) (&var_a0->obj + 0x8C);
             } while (var_a1 != (gItems + 0x80));
-            func_E16C50_801A0DF8(400.0f, -2800.0f, (bitwise f32) var_a0, (u32) var_a1, 340.0f, 1, 1.0f);
+            func_i3_801A0DF8(400.0f, -2800.0f, (bitwise f32) var_a0, (u32) var_a1, 340.0f, 1, 1.0f);
         }
         if (temp_v0 == 0x19A) {
             player->unk_1D0 += 1;
@@ -1156,9 +1156,9 @@ void func_E16C50_801A10F4(Player *player) {
             player->pos.y = 1200.0f;
             player->camAt.z = -500.0f;
             player->pos.z = -2500.0f;
-            func_E16C50_801A0FD4((bitwise Object_2F4 *) 1200.0f, (s32) gObjects2F4, 0);
-            func_E16C50_801A0FD4(gObjects2F4 + 0x2F4, 1);
-            func_E16C50_801A0FD4(gObjects2F4 + 0x5E8, 2);
+            func_i3_801A0FD4((bitwise Object_2F4 *) 1200.0f, (s32) gObjects2F4, 0);
+            func_i3_801A0FD4(gObjects2F4 + 0x2F4, 1);
+            func_i3_801A0FD4(gObjects2F4 + 0x5E8, 2);
             D_801779C0 = -3000.0f;
             D_80177988 = -3400.0f;
             func_8001A55C(&player->unk_460, 0x3140807EU);
@@ -1179,7 +1179,7 @@ void func_E16C50_801A10F4(Player *player) {
         }
         if (temp_v0_2 == 0x226) {
             Object_Kill(&(gObjects2F4 + 0xEC4)->obj, gObjects2F4 + 0xFC4);
-            func_E16C50_801A0DF8(30.0f, -1500.0f, 160.0f, 3U, 2.0f);
+            func_i3_801A0DF8(30.0f, -1500.0f, 160.0f, 3U, 2.0f);
         }
         if (player->camEye.z <= -2465.0f) {
             player->unk_1D0 += 1;
@@ -1195,7 +1195,7 @@ void func_E16C50_801A10F4(Player *player) {
         if (!(gFrameCount & 3)) {
             sp38 = Rand_ZeroOne();
             sp3C = Rand_ZeroOne();
-            func_E16C50_8019E8B8((sp38 - 0.5f) * 6000.0f, -400.0f - ((player->camEye.y - 1380.0f) * 0.3f), ((sp3C - 0.5f) * 2000.0f) + 500.0f + D_80177D20, (Rand_ZeroOne() * 20.0f) + 20.0f);
+            func_i3_8019E8B8((sp38 - 0.5f) * 6000.0f, -400.0f - ((player->camEye.y - 1380.0f) * 0.3f), ((sp3C - 0.5f) * 2000.0f) + 500.0f + D_80177D20, (Rand_ZeroOne() * 20.0f) + 20.0f);
         }
         if (D_80177A80 == 0x267) {
             func_800A6028(&player->unk_460, 0x09000002U);
@@ -1279,7 +1279,7 @@ void func_E16C50_801A10F4(Player *player) {
     player->unk_138 = player->pos.z + player->unk_08C;
 }
 
-void func_E16C50_801A1CD8(Object_2F4 *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9, s32 argA) {
+void func_i3_801A1CD8(Object_2F4 *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9, s32 argA) {
     f32 temp_ft2;
 
     Object_2F4_Initialize(arg0);
@@ -1308,13 +1308,13 @@ void func_E16C50_801A1CD8(Object_2F4 *arg0, f32 arg1, f32 arg2, f32 arg3, f32 ar
     Object_SetInfo(&arg0->info, (u32) arg0->obj.id);
 }
 
-void func_E16C50_801A1E14(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, s32 arg9) {
+void func_i3_801A1E14(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, s32 arg9) {
     Object_2F4 *var_a0;
 
     var_a0 = gObjects2F4 + 0xAE3C;
 loop_1:
     if (var_a0->obj.status == 0) {
-        func_E16C50_801A1CD8(var_a0, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+        func_i3_801A1CD8(var_a0, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
         return;
     }
     var_a0 -= 0x2F4;
@@ -1324,12 +1324,12 @@ loop_1:
     goto loop_1;
 }
 
-void func_E16C50_801A1EB0(Boss *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
-    func_E16C50_8019E9F4(arg1 + arg2, arg3, arg4, 20.0f, (Rand_ZeroOne() * 10.0f) + 20.0f, 0.0f, 20.0f, 1);
-    func_E16C50_8019E9F4(arg1 - arg2, arg3, arg4, -20.0f, (Rand_ZeroOne() * 10.0f) + 20.0f, 0.0f, 20.0f, 1);
+void func_i3_801A1EB0(Boss *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+    func_i3_8019E9F4(arg1 + arg2, arg3, arg4, 20.0f, (Rand_ZeroOne() * 10.0f) + 20.0f, 0.0f, 20.0f, 1);
+    func_i3_8019E9F4(arg1 - arg2, arg3, arg4, -20.0f, (Rand_ZeroOne() * 10.0f) + 20.0f, 0.0f, 20.0f, 1);
 }
 
-void func_E16C50_801A1F80(Boss *bossSO) {
+void func_i3_801A1F80(Boss *bossSO) {
     f32 *temp_t2;
     f32 *temp_v1;
     f32 *temp_v1_2;
@@ -1353,7 +1353,7 @@ void func_E16C50_801A1F80(Boss *bossSO) {
         bossSO->fwork[0] = 1.0f;
         bossSO->swork[2] = bossSO->swork[3];
         bossSO->obj.pos.y = -3000.0f;
-        func_E16C50_801A0CEC(gObjects2F4 + 0x1D88, bossSO->obj.pos.x, bossSO->obj.pos.z + 2000.0f, 20.0f, 1);
+        func_i3_801A0CEC(gObjects2F4 + 0x1D88, bossSO->obj.pos.x, bossSO->obj.pos.z + 2000.0f, 20.0f, 1);
         D_801779A8[gMainController] = 10.0f;
         D_80178480 = 0x78;
         bossSO->fwork[3] = 2400.0f;
@@ -1384,20 +1384,20 @@ void func_E16C50_801A1F80(Boss *bossSO) {
         bossSO->info.hitbox->unkA0 = 715.0f;
         temp_v1_4 = bossSO->info.hitbox;
         temp_v1_4->unk58 = (f32) temp_v1_4->unkA0;
-        D_E16C50_801C2768->unk34 = 0.0f;
-        D_E16C50_801C2740->unk0 = 0xFF;
-        D_E16C50_801C2740->unk4 = 0xFF;
-        D_E16C50_801C2768->unk30 = (f32) D_E16C50_801C2768->unk34;
-        D_E16C50_801C2768->unk2C = (f32) D_E16C50_801C2768->unk34;
-        D_E16C50_801C2768->unk28 = (f32) D_E16C50_801C2768->unk34;
-        D_E16C50_801C2768->unk24 = (f32) D_E16C50_801C2768->unk34;
-        D_E16C50_801C2768->unk20 = (f32) D_E16C50_801C2768->unk34;
-        D_E16C50_801C2768->unk1C = (f32) D_E16C50_801C2768->unk34;
-        D_E16C50_801C2768->unk18 = (f32) D_E16C50_801C2768->unk34;
-        D_E16C50_801C2768->unk14 = (f32) D_E16C50_801C2768->unk34;
-        D_E16C50_801C2768->unk10 = (f32) D_E16C50_801C2768->unk34;
-        D_E16C50_801C2768->unk8 = (f32) D_E16C50_801C2768->unk34;
-        D_E16C50_801C2768->unkC = (f32) D_E16C50_801C2768->unk34;
+        D_i3_801C2768->unk34 = 0.0f;
+        D_i3_801C2740->unk0 = 0xFF;
+        D_i3_801C2740->unk4 = 0xFF;
+        D_i3_801C2768->unk30 = (f32) D_i3_801C2768->unk34;
+        D_i3_801C2768->unk2C = (f32) D_i3_801C2768->unk34;
+        D_i3_801C2768->unk28 = (f32) D_i3_801C2768->unk34;
+        D_i3_801C2768->unk24 = (f32) D_i3_801C2768->unk34;
+        D_i3_801C2768->unk20 = (f32) D_i3_801C2768->unk34;
+        D_i3_801C2768->unk1C = (f32) D_i3_801C2768->unk34;
+        D_i3_801C2768->unk18 = (f32) D_i3_801C2768->unk34;
+        D_i3_801C2768->unk14 = (f32) D_i3_801C2768->unk34;
+        D_i3_801C2768->unk10 = (f32) D_i3_801C2768->unk34;
+        D_i3_801C2768->unk8 = (f32) D_i3_801C2768->unk34;
+        D_i3_801C2768->unkC = (f32) D_i3_801C2768->unk34;
     }
     *(gObjects2F4 + 0x1D94) = bossSO->obj.pos.z + 2000.0f;
     Math_SmoothStepToF(&bossSO->obj.pos.y, 180.0f, 0.1f, 30.0f, 0.1f);
@@ -1427,7 +1427,7 @@ void func_E16C50_801A1F80(Boss *bossSO) {
     }
     temp_v0_2 = D_801613A0;
     if (temp_v0_2 == 0x96) {
-        func_E16C50_801A239C(bossSO);
+        func_i3_801A239C(bossSO);
         bossSO->fwork[0] = 0.01f;
     }
     if ((temp_v0_2 == 0x64) && (*(gTeamShields + 0xC) != 0)) {
@@ -1435,7 +1435,7 @@ void func_E16C50_801A1F80(Boss *bossSO) {
     }
 }
 
-void func_E16C50_801A239C(Boss *arg0) {
+void func_i3_801A239C(Boss *arg0) {
     arg0->swork[0] = 1;
     if ((arg0->swork[2] != 0) || (arg0->swork[3] != 0)) {
         if (arg0->swork[3] != 0) {
@@ -1449,7 +1449,7 @@ void func_E16C50_801A239C(Boss *arg0) {
     arg0->unk4C = 0;
 }
 
-void func_E16C50_801A23F4(Boss *bossSO) {
+void func_i3_801A23F4(Boss *bossSO) {
     f32 sp60;
     f32 sp5C;
     f32 sp58;
@@ -1540,28 +1540,28 @@ void func_E16C50_801A23F4(Boss *bossSO) {
         bossSO->fwork[3] = 2600.0f;
         Math_SmoothStepToAngle(&bossSO->obj.rot.y, 0.0f, 1.0f, 1.5f, 1.0f);
         if (bossSO->unk4C == 0x41) {
-            Matrix_RotateX(gCalcMatrix, D_E16C50_801C2768->unk0 * M_DTOR, 0U);
-            Matrix_RotateY(gCalcMatrix, D_E16C50_801C2768->unk4 * M_DTOR, 1U);
+            Matrix_RotateX(gCalcMatrix, D_i3_801C2768->unk0 * M_DTOR, 0U);
+            Matrix_RotateY(gCalcMatrix, D_i3_801C2768->unk4 * M_DTOR, 1U);
             sp44 = -200.0f;
             sp40 = 0.0f;
             sp48 = 1100.0f;
             Matrix_MultVec3f(gCalcMatrix, (Vec3f *) &sp40, &sp34);
-            var_s0 = D_E16C50_801BF8F0;
+            var_s0 = D_i3_801BF8F0;
             do {
                 sp58 = (2.0f * (Rand_ZeroOne() - 0.5f)) + var_s0->x;
                 sp5C = 2.0f * (Rand_ZeroOne() - 0.5f);
                 sp60 = (Rand_ZeroOne() * 10.0f) + 2.5f;
                 Matrix_MultVec3f(gCalcMatrix, (Vec3f *) &sp58, &sp4C);
-                func_E16C50_8019F038(bossSO->fwork[4] + (bitwise f32) sp34, bossSO->fwork[5] + sp34.y, bossSO->fwork[6] + sp34.z, (bitwise f32) sp4C, sp4C.y, sp4C.z);
+                func_i3_8019F038(bossSO->fwork[4] + (bitwise f32) sp34, bossSO->fwork[5] + sp34.y, bossSO->fwork[6] + sp34.z, (bitwise f32) sp4C, sp4C.y, sp4C.z);
                 var_s0 += 0xC;
-            } while (var_s0 != &D_E16C50_801BF920);
+            } while (var_s0 != &D_i3_801BF920);
         }
         if (bossSO->unk4C == 0x63) {
             if ((bossSO->swork[2] != 0) || (bossSO->swork[3] != 0)) {
-                func_E16C50_801A2C3C(bossSO);
+                func_i3_801A2C3C(bossSO);
                 return;
             }
-            func_E16C50_801A4EC0(bossSO);
+            func_i3_801A4EC0(bossSO);
             return;
         }
         break;
@@ -1638,7 +1638,7 @@ void func_E16C50_801A23F4(Boss *bossSO) {
     }
 }
 
-void func_E16C50_801A2C3C(Boss *arg0) {
+void func_i3_801A2C3C(Boss *arg0) {
     arg0->swork[0] = 2;
     arg0->swork[1] = 0;
     arg0->fwork[0] = 0.05f;
@@ -1647,7 +1647,7 @@ void func_E16C50_801A2C3C(Boss *arg0) {
     arg0->swork[0xB] = 0xF;
 }
 
-void func_E16C50_801A2C98(Boss *bossSO) {
+void func_i3_801A2C98(Boss *bossSO) {
     Vec3f *var_s0;
     f32 temp_fs0;
     f32 temp_fs0_2;
@@ -1665,21 +1665,21 @@ void func_E16C50_801A2C98(Boss *bossSO) {
             Math_SmoothStepToF(&bossSO->obj.pos.y, -1000.0f, 0.1f, 10.0f, 0.1f);
             Math_SmoothStepToAngle(&bossSO->obj.rot.y, 181.0f, 1.0f, 3.0f, 1.0f);
             if (bossSO->unk4C == 0x32) {
-                func_E16C50_801A0CEC(gObjects2F4 + 0x1D88, bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
+                func_i3_801A0CEC(gObjects2F4 + 0x1D88, bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
                 D_80137E84[gMainController] = 1;
                 D_Timer_80177BD0[gMainController] = 0x46;
             }
             if (bossSO->unk4C == 0x3C) {
-                var_s0 = D_E16C50_801BF8F0;
+                var_s0 = D_i3_801BF8F0;
                 do {
                     temp_fs1 = Rand_ZeroOne();
                     temp_fs0 = Rand_ZeroOne();
-                    func_E16C50_8019F038(bossSO->obj.pos.x + 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f, (2.0f * (temp_fs1 - 0.5f)) + var_s0->x, (2.0f * (temp_fs0 - 0.5f)) + (var_s0->y + 10.0f), (Rand_ZeroOne() * -10.0f) - 10.0f);
+                    func_i3_8019F038(bossSO->obj.pos.x + 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f, (2.0f * (temp_fs1 - 0.5f)) + var_s0->x, (2.0f * (temp_fs0 - 0.5f)) + (var_s0->y + 10.0f), (Rand_ZeroOne() * -10.0f) - 10.0f);
                     temp_fs1_2 = Rand_ZeroOne();
                     temp_fs0_2 = Rand_ZeroOne();
-                    func_E16C50_8019F038(bossSO->obj.pos.x - 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f, (2.0f * (temp_fs1_2 - 0.5f)) + var_s0->x, (2.0f * (temp_fs0_2 - 0.5f)) + (var_s0->y + 10.0f), (Rand_ZeroOne() * -10.0f) - 10.0f);
+                    func_i3_8019F038(bossSO->obj.pos.x - 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f, (2.0f * (temp_fs1_2 - 0.5f)) + var_s0->x, (2.0f * (temp_fs0_2 - 0.5f)) + (var_s0->y + 10.0f), (Rand_ZeroOne() * -10.0f) - 10.0f);
                     var_s0 += 0xC;
-                } while (var_s0 != &D_E16C50_801BF920);
+                } while (var_s0 != &D_i3_801BF920);
             }
             if (bossSO->unk4C == 0x14) {
                 *(gObjects2F4 + 0x1E58) = 3;
@@ -1699,7 +1699,7 @@ void func_E16C50_801A2C98(Boss *bossSO) {
     } else {
         Math_SmoothStepToAngle(&bossSO->obj.rot.y, 0.0f, 1.0f, 1.5f, 1.0f);
         if (bossSO->swork[0xB] == 0x50) {
-            func_E16C50_801A0CEC(gObjects2F4 + 0x1A94, bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
+            func_i3_801A0CEC(gObjects2F4 + 0x1A94, bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
         }
         if (bossSO->swork[0xB] == 0) {
             bossSO->swork[0xB] = 0xDC;
@@ -1713,7 +1713,7 @@ void func_E16C50_801A2C98(Boss *bossSO) {
             Math_SmoothStepToF(&bossSO->obj.pos.y, 180.0f, 0.1f, 10.0f, 0.1f);
         }
         if (bossSO->swork[0xB] == 0x96) {
-            func_E16C50_801A3468(bossSO);
+            func_i3_801A3468(bossSO);
         }
         if (bossSO->swork[0xB] == 0x32) {
             *(gObjects2F4 + 0x1B64) = 3;
@@ -1722,7 +1722,7 @@ void func_E16C50_801A2C98(Boss *bossSO) {
     }
 }
 
-void func_E16C50_801A30CC(Boss *arg0) {
+void func_i3_801A30CC(Boss *arg0) {
     arg0->swork[0] = 3;
     arg0->swork[1] = 0;
     arg0->fwork[0] = 0.1f;
@@ -1731,7 +1731,7 @@ void func_E16C50_801A30CC(Boss *arg0) {
     arg0->swork[0xB] = 0xF;
 }
 
-void func_E16C50_801A3128(Boss *bossSO) {
+void func_i3_801A3128(Boss *bossSO) {
     s16 temp_v0;
     s32 temp_t3;
 
@@ -1744,7 +1744,7 @@ void func_E16C50_801A3128(Boss *bossSO) {
             bossSO->unk4C -= 2;
             Math_SmoothStepToF(&bossSO->obj.pos.y, -1000.0f, 0.1f, 10.0f, 0.1f);
             if (bossSO->unk4C == 0x32) {
-                func_E16C50_801A0CEC(gObjects2F4 + 0x1D88, bossSO->obj.pos.x, bossSO->obj.pos.z + 2000.0f, 10.0f, 1);
+                func_i3_801A0CEC(gObjects2F4 + 0x1D88, bossSO->obj.pos.x, bossSO->obj.pos.z + 2000.0f, 10.0f, 1);
             }
             if (bossSO->unk4C == 0x28) {
                 *(gObjects2F4 + 0x1E58) = 3;
@@ -1762,11 +1762,11 @@ void func_E16C50_801A3128(Boss *bossSO) {
         }
     } else {
         if (bossSO->swork[0xB] == 0x50) {
-            func_E16C50_801A0CEC(gObjects2F4 + 0x1A94, bossSO->obj.pos.x, bossSO->obj.pos.z + 850.0f, 20.0f, 1);
+            func_i3_801A0CEC(gObjects2F4 + 0x1A94, bossSO->obj.pos.x, bossSO->obj.pos.z + 850.0f, 20.0f, 1);
             D_80137E84[gMainController] = 1;
             D_Timer_80177BD0[gMainController] = 0x46;
-            temp_t3 = D_E16C50_801C2740->unk8 + 1;
-            D_E16C50_801C2740->unk8 = temp_t3;
+            temp_t3 = D_i3_801C2740->unk8 + 1;
+            D_i3_801C2740->unk8 = temp_t3;
             if (temp_t3 & 1) {
                 if (temp_t3 & 2) {
                     if (*(gTeamShields + 0xC) > 0) {
@@ -1788,7 +1788,7 @@ void func_E16C50_801A3128(Boss *bossSO) {
             Math_SmoothStepToF(&bossSO->obj.pos.y, 180.0f, 0.1f, 20.0f, 0.1f);
         }
         if (bossSO->swork[0xB] == 0x96) {
-            func_E16C50_801A239C(bossSO);
+            func_i3_801A239C(bossSO);
             bossSO->fwork[0] = 0.01f;
             if ((Rand_ZeroOne() >= 0.4f) && (*(gTeamShields + 0xC) > 0) && (bossSO->swork[2] != 0) && (bossSO->swork[3] != 0)) {
                 func_800BA808(gMsg_ID_10320, RCID_PEPPY);
@@ -1801,7 +1801,7 @@ void func_E16C50_801A3128(Boss *bossSO) {
     }
 }
 
-void func_E16C50_801A3468(Boss *arg0) {
+void func_i3_801A3468(Boss *arg0) {
     arg0->swork[0] = 4;
     arg0->unk48 = 0;
     if ((arg0->swork[2] != 0) || (arg0->swork[3] != 0)) {
@@ -1821,7 +1821,7 @@ void func_E16C50_801A3468(Boss *arg0) {
     arg0->fwork[0] = 0.01f;
 }
 
-void func_E16C50_801A3510(Boss *bossSO) {
+void func_i3_801A3510(Boss *bossSO) {
     f32 sp2C;
     f32 sp28;
     Vec3f *temp_s0;
@@ -1849,7 +1849,7 @@ void func_E16C50_801A3510(Boss *bossSO) {
             Audio_PlaySfx(0x29432077U, &bossSO->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         }
         if (bossSO->unk4C == 0x5E) {
-            func_E16C50_801A0DF8(bossSO->fwork[0xD], bossSO->fwork[0xF], (Rand_ZeroOne() - 0.5f) * 60.0f, 4U, 2.0f);
+            func_i3_801A0DF8(bossSO->fwork[0xD], bossSO->fwork[0xF], (Rand_ZeroOne() - 0.5f) * 60.0f, 4U, 2.0f);
             bossSO->timer_050 = 0x5A;
         }
         break;
@@ -1868,7 +1868,7 @@ void func_E16C50_801A3510(Boss *bossSO) {
             Audio_PlaySfx(0x29432077U, &bossSO->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         }
         if (bossSO->unk4C == 0x3C) {
-            func_E16C50_801A0D90(bossSO->obj.pos.x, bossSO->obj.pos.z + 1600.0f, 80.0f, 2);
+            func_i3_801A0D90(bossSO->obj.pos.x, bossSO->obj.pos.z + 1600.0f, 80.0f, 2);
             D_80137E84[gMainController] = 1;
             D_Timer_80177BD0[gMainController] = 0x64;
         }
@@ -1876,13 +1876,13 @@ void func_E16C50_801A3510(Boss *bossSO) {
     case 5:
         Math_SmoothStepToAngle(&bossSO->obj.rot.x, 0.0f, 0.1f, 10.0f, 0.1f);
         if (bossSO->unk4C == 0x41) {
-            var_s0 = D_E16C50_801BF8F0;
+            var_s0 = D_i3_801BF8F0;
             do {
                 sp28 = Rand_ZeroOne();
                 sp2C = Rand_ZeroOne();
-                func_E16C50_8019F194(bossSO->obj.pos.x, bossSO->obj.pos.y + 300.0f, bossSO->obj.pos.z + 1000.0f, ((sp28 - 0.5f) * 0.25f) + var_s0->x, ((sp2C - 0.5f) * 0.25f) + var_s0->y, (Rand_ZeroOne() * 10.0f) + 100.0f);
+                func_i3_8019F194(bossSO->obj.pos.x, bossSO->obj.pos.y + 300.0f, bossSO->obj.pos.z + 1000.0f, ((sp28 - 0.5f) * 0.25f) + var_s0->x, ((sp2C - 0.5f) * 0.25f) + var_s0->y, (Rand_ZeroOne() * 10.0f) + 100.0f);
                 var_s0 += 0xC;
-            } while (var_s0 != &D_E16C50_801BF920);
+            } while (var_s0 != &D_i3_801BF920);
         }
         if ((bossSO->unk48 != 0) && (bossSO->unk4C == 0x44)) {
             bossSO->swork[1] = 9;
@@ -1890,7 +1890,7 @@ void func_E16C50_801A3510(Boss *bossSO) {
             bossSO->fwork[0] = 0.01f;
         }
         if (bossSO->unk4C == 0x63) {
-            func_E16C50_801A30CC(bossSO);
+            func_i3_801A30CC(bossSO);
         }
         break;
     case 8:
@@ -1902,8 +1902,8 @@ void func_E16C50_801A3510(Boss *bossSO) {
             bossSO->unk4C = 0x41;
         }
         if ((bossSO->unk4C == 0x41) && !(gFrameCount & 1)) {
-            func_E16C50_8019FFC0(bossSO, (bitwise Effect *) bossSO->fwork[4], bossSO->fwork[5] - 100.0f, (bitwise s32) (bossSO->fwork[6] + 600.0f), ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 0);
-            func_E16C50_801A1EB0(bossSO, bossSO->fwork[4], 25.0f, bossSO->fwork[5] - 100.0f, bossSO->fwork[6] + 300.0f);
+            func_i3_8019FFC0(bossSO, (bitwise Effect *) bossSO->fwork[4], bossSO->fwork[5] - 100.0f, (bitwise s32) (bossSO->fwork[6] + 600.0f), ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 0);
+            func_i3_801A1EB0(bossSO, bossSO->fwork[4], 25.0f, bossSO->fwork[5] - 100.0f, bossSO->fwork[6] + 300.0f);
         }
         if (bossSO->unk4C == 0x4B) {
             func_8001A55C(&bossSO->sfxPos, 0x31033078U);
@@ -1923,15 +1923,15 @@ void func_E16C50_801A3510(Boss *bossSO) {
             bossSO->unk4C = 0x42;
         }
         if ((bossSO->unk4C == 0x42) && !(gFrameCount & 1)) {
-            func_E16C50_8019FFC0(bossSO, (bitwise Effect *) (bossSO->fwork[4] + 125.0f), bossSO->fwork[5] - 100.0f, (bitwise s32) (bossSO->fwork[6] + 600.0f), ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 1);
-            func_E16C50_8019FFC0(bossSO, (bitwise Effect *) (bossSO->fwork[4] - 125.0f), bossSO->fwork[5] - 100.0f, (bitwise s32) (bossSO->fwork[6] + 600.0f), ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 2);
-            func_E16C50_801A1EB0(bossSO, bossSO->fwork[4], 25.0f, bossSO->fwork[5] - 100.0f, bossSO->fwork[6] + 300.0f);
+            func_i3_8019FFC0(bossSO, (bitwise Effect *) (bossSO->fwork[4] + 125.0f), bossSO->fwork[5] - 100.0f, (bitwise s32) (bossSO->fwork[6] + 600.0f), ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 1);
+            func_i3_8019FFC0(bossSO, (bitwise Effect *) (bossSO->fwork[4] - 125.0f), bossSO->fwork[5] - 100.0f, (bitwise s32) (bossSO->fwork[6] + 600.0f), ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 2);
+            func_i3_801A1EB0(bossSO, bossSO->fwork[4], 25.0f, bossSO->fwork[5] - 100.0f, bossSO->fwork[6] + 300.0f);
         }
         if (bossSO->unk4C == 0x4C) {
             func_8001A55C(&bossSO->sfxPos, 0x31033078U);
         }
         if (bossSO->unk4C >= 0x63) {
-            func_E16C50_801A30CC(bossSO);
+            func_i3_801A30CC(bossSO);
         }
         break;
     }
@@ -1942,7 +1942,7 @@ void func_E16C50_801A3510(Boss *bossSO) {
     Math_SmoothStepToF(gObjects2F4 + 0x11BC, gPlayer->pos.x, 0.1f, 10.0f, 0.1f);
 }
 
-void func_E16C50_801A3C4C(Boss *arg0) {
+void func_i3_801A3C4C(Boss *arg0) {
     Vec3f *sp2C;
     f32 *temp_v0_3;
     f32 *temp_v0_4;
@@ -2024,7 +2024,7 @@ void func_E16C50_801A3C4C(Boss *arg0) {
             temp_v1_4->unk40 = temp_fv0_6;
             (arg0->info.hitbox + temp_v0_5)->unk28 = temp_fv0_6;
             arg0->swork[2] = -1;
-            func_E16C50_801A48B8(arg0);
+            func_i3_801A48B8(arg0);
         } else {
             arg0->swork[8] = 0x14;
         }
@@ -2067,7 +2067,7 @@ void func_E16C50_801A3C4C(Boss *arg0) {
             temp_v1_8->unk88 = temp_fv0_12;
             arg0->info.hitbox[2].unk70 = temp_fv0_12;
             arg0->swork[3] = -1;
-            func_E16C50_801A48B8(arg0);
+            func_i3_801A48B8(arg0);
         } else {
             arg0->swork[9] = 0x14;
         }
@@ -2115,7 +2115,7 @@ void func_E16C50_801A3C4C(Boss *arg0) {
     }
 }
 
-void func_E16C50_801A4214(Boss *bossSO) {
+void func_i3_801A4214(Boss *bossSO) {
     f32 sp58;
     f32 sp54;
     f32 sp50;
@@ -2126,13 +2126,13 @@ void func_E16C50_801A4214(Boss *bossSO) {
 
     if (bossSO->unk_060 <= 0) {
         Math_SmoothStepToAngle(&bossSO->obj.rot.y, 0.0f, 0.1f, 3.0f, 0.0f);
-        Math_SmoothStepToAngle(&bossSO->obj.rot.x, 0.0f, *D_E16C50_801C171C, 3.0f, 0.0f);
+        Math_SmoothStepToAngle(&bossSO->obj.rot.x, 0.0f, *D_i3_801C171C, 3.0f, 0.0f);
         if ((bossSO->unk4C == 0x34) && (bossSO->swork[1] == 5)) {
             bossSO->unk4C = 0x26;
             bossSO->fwork[0] = 0.05f;
         }
-        Matrix_RotateX(gCalcMatrix, bossSO->fwork[1] * *D_E16C50_801C1728, 0U);
-        Matrix_RotateY(gCalcMatrix, -bossSO->fwork[2] * *D_E16C50_801C1730, 1U);
+        Matrix_RotateX(gCalcMatrix, bossSO->fwork[1] * *D_i3_801C1728, 0U);
+        Matrix_RotateY(gCalcMatrix, -bossSO->fwork[2] * *D_i3_801C1730, 1U);
         sp54 = 200.0f;
         sp50 = 0.0f;
         sp58 = 1100.0f;
@@ -2142,14 +2142,14 @@ void func_E16C50_801A4214(Boss *bossSO) {
         }
         switch ((u32) bossSO->unk_04E) {
         case 0:
-            if (D_E16C50_801C2740->unk0 >= 0x21) {
-                D_E16C50_801C2740->unk0 -= 3;
+            if (D_i3_801C2740->unk0 >= 0x21) {
+                D_i3_801C2740->unk0 -= 3;
             }
             if (bossSO->timer_058 == 0x4DC6) {
                 bossSO->swork[1] = 5;
                 bossSO->unk4C = 0;
                 bossSO->unk_04E += 1;
-                bossSO->fwork[0] = *D_E16C50_801C1758;
+                bossSO->fwork[0] = *D_i3_801C1758;
             }
             Math_SmoothStepToF(&bossSO->obj.pos.y, 180.0f, 0.1f, 10.0f, 0.1f);
             return;
@@ -2159,9 +2159,9 @@ void func_E16C50_801A4214(Boss *bossSO) {
                 bossSO->unk_04E = (u32) bossSO->unk_04E + 1;
                 D_80161734 = 0;
                 Audio_PlaySfx(0x39439076U, &bossSO->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-                func_E16C50_801A1E14(bossSO->fwork[4], bossSO->fwork[5] + 300.0f, bossSO->fwork[6], bossSO->fwork[1], bossSO->fwork[2], 73.0f, (Rand_ZeroOne() - 0.5f) * 50.0f, 80.0f, 40.0f, 8);
-                D_E16C50_801C2768->unkC = 6.0f;
-                D_E16C50_801C2768->unk8 = 100.0f;
+                func_i3_801A1E14(bossSO->fwork[4], bossSO->fwork[5] + 300.0f, bossSO->fwork[6], bossSO->fwork[1], bossSO->fwork[2], 73.0f, (Rand_ZeroOne() - 0.5f) * 50.0f, 80.0f, 40.0f, 8);
+                D_i3_801C2768->unkC = 6.0f;
+                D_i3_801C2768->unk8 = 100.0f;
                 D_80178340 = 0xFF;
                 D_80178348 = 0xFF;
                 D_80178350 = 0xFF;
@@ -2175,50 +2175,50 @@ void func_E16C50_801A4214(Boss *bossSO) {
             }
             break;
         case 2:
-            if (D_E16C50_801C2740->unk0 >= 0x21) {
-                D_E16C50_801C2740->unk0 -= 3;
+            if (D_i3_801C2740->unk0 >= 0x21) {
+                D_i3_801C2740->unk0 -= 3;
             }
-            if (D_E16C50_801C2740->unk4 >= 0x21) {
+            if (D_i3_801C2740->unk4 >= 0x21) {
                 Math_SmoothStepToF(&bossSO->obj.pos.y, 180.0f, 0.1f, 10.0f, 0.1f);
-                D_E16C50_801C2740->unk4 = (s32) (D_E16C50_801C2740->unk4 - 4);
+                D_i3_801C2740->unk4 = (s32) (D_i3_801C2740->unk4 - 4);
                 return;
             }
             bossSO->unk_04E += 1;
             return;
         case 3:
             temp_v0 = D_80177A80;
-            if ((temp_v0 >= 0xCD) && (D_E16C50_801C2768->unk14 < 1.0f)) {
-                D_E16C50_801C2768->unk14 = (f32) (D_E16C50_801C2768->unk14 + 0.1f);
+            if ((temp_v0 >= 0xCD) && (D_i3_801C2768->unk14 < 1.0f)) {
+                D_i3_801C2768->unk14 = (f32) (D_i3_801C2768->unk14 + 0.1f);
             }
-            if ((temp_v0 >= 0xCF) && (D_E16C50_801C2768->unk24 < 1.0f)) {
-                D_E16C50_801C2768->unk24 = (f32) (D_E16C50_801C2768->unk24 + 0.1f);
+            if ((temp_v0 >= 0xCF) && (D_i3_801C2768->unk24 < 1.0f)) {
+                D_i3_801C2768->unk24 = (f32) (D_i3_801C2768->unk24 + 0.1f);
             }
-            if ((temp_v0 >= 0xD1) && (D_E16C50_801C2768->unk28 < 1.0f)) {
-                D_E16C50_801C2768->unk28 = (f32) (D_E16C50_801C2768->unk28 + 0.1f);
+            if ((temp_v0 >= 0xD1) && (D_i3_801C2768->unk28 < 1.0f)) {
+                D_i3_801C2768->unk28 = (f32) (D_i3_801C2768->unk28 + 0.1f);
             }
-            if ((temp_v0 >= 0xD3) && (D_E16C50_801C2768->unk1C < 1.0f)) {
-                D_E16C50_801C2768->unk1C = (f32) (D_E16C50_801C2768->unk1C + 0.1f);
+            if ((temp_v0 >= 0xD3) && (D_i3_801C2768->unk1C < 1.0f)) {
+                D_i3_801C2768->unk1C = (f32) (D_i3_801C2768->unk1C + 0.1f);
             }
-            if ((temp_v0 >= 0xD5) && (D_E16C50_801C2768->unk20 < 1.0f)) {
-                D_E16C50_801C2768->unk20 = (f32) (D_E16C50_801C2768->unk20 + 0.1f);
+            if ((temp_v0 >= 0xD5) && (D_i3_801C2768->unk20 < 1.0f)) {
+                D_i3_801C2768->unk20 = (f32) (D_i3_801C2768->unk20 + 0.1f);
             }
-            if ((temp_v0 >= 0xD7) && (D_E16C50_801C2768->unk2C < 1.0f)) {
-                D_E16C50_801C2768->unk2C = (f32) (D_E16C50_801C2768->unk2C + 0.1f);
+            if ((temp_v0 >= 0xD7) && (D_i3_801C2768->unk2C < 1.0f)) {
+                D_i3_801C2768->unk2C = (f32) (D_i3_801C2768->unk2C + 0.1f);
             }
-            if ((temp_v0 >= 0xD9) && (D_E16C50_801C2768->unk30 < 1.0f)) {
-                D_E16C50_801C2768->unk30 = (f32) (D_E16C50_801C2768->unk30 + 0.1f);
+            if ((temp_v0 >= 0xD9) && (D_i3_801C2768->unk30 < 1.0f)) {
+                D_i3_801C2768->unk30 = (f32) (D_i3_801C2768->unk30 + 0.1f);
             }
-            if ((temp_v0 >= 0xDB) && (D_E16C50_801C2768->unk10 < 1.0f)) {
-                D_E16C50_801C2768->unk10 = (f32) (D_E16C50_801C2768->unk10 + 0.1f);
+            if ((temp_v0 >= 0xDB) && (D_i3_801C2768->unk10 < 1.0f)) {
+                D_i3_801C2768->unk10 = (f32) (D_i3_801C2768->unk10 + 0.1f);
             }
-            if ((temp_v0 >= 0xDD) && (D_E16C50_801C2768->unk18 < 1.0f)) {
-                D_E16C50_801C2768->unk18 = (f32) (D_E16C50_801C2768->unk18 + 0.2f);
+            if ((temp_v0 >= 0xDD) && (D_i3_801C2768->unk18 < 1.0f)) {
+                D_i3_801C2768->unk18 = (f32) (D_i3_801C2768->unk18 + 0.2f);
             }
-            if ((temp_v0 >= 0xE2) && (D_E16C50_801C2768->unk34 < 380.0f)) {
-                D_E16C50_801C2768->unk34 = (f32) (D_E16C50_801C2768->unk34 + 30.0f);
+            if ((temp_v0 >= 0xE2) && (D_i3_801C2768->unk34 < 380.0f)) {
+                D_i3_801C2768->unk34 = (f32) (D_i3_801C2768->unk34 + 30.0f);
             }
             if (temp_v0 >= 0xEE) {
-                D_E16C50_801C2768->unk34 = 0.0f;
+                D_i3_801C2768->unk34 = 0.0f;
             }
             if (temp_v0 == 0xE6) {
                 Audio_PlaySfx(0x2940F026U, gObjects2F4 + 0xFC4, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -2253,7 +2253,7 @@ void func_E16C50_801A4214(Boss *bossSO) {
     }
 }
 
-void func_E16C50_801A48B8(Boss *arg0) {
+void func_i3_801A48B8(Boss *arg0) {
     Object_2F4 *var_v0;
     s16 temp_v0;
     s16 temp_v1;
@@ -2297,7 +2297,7 @@ loop_6:
     }
 }
 
-void func_E16C50_801A4A34(Boss *bossSO) {
+void func_i3_801A4A34(Boss *bossSO) {
     f32 temp_fs0;
     f32 temp_fs0_2;
     f32 temp_fs0_3;
@@ -2317,25 +2317,25 @@ void func_E16C50_801A4A34(Boss *bossSO) {
         bossSO->swork[2] = 0;
         temp_fs1 = Rand_ZeroOne();
         temp_fs0 = Rand_ZeroOne();
-        func_E16C50_801A1E14(bossSO->fwork[0x1C], bossSO->fwork[0x1D], bossSO->fwork[0x1E], bossSO->fwork[0x29], bossSO->fwork[0x2A], bossSO->fwork[0x2B], (temp_fs1 * -25.0f) - 10.0f, (temp_fs0 * 25.0f) + 30.0f, ((Rand_ZeroOne() - 0.5f) * 25.0f) - 50.0f, 0);
+        func_i3_801A1E14(bossSO->fwork[0x1C], bossSO->fwork[0x1D], bossSO->fwork[0x1E], bossSO->fwork[0x29], bossSO->fwork[0x2A], bossSO->fwork[0x2B], (temp_fs1 * -25.0f) - 10.0f, (temp_fs0 * 25.0f) + 30.0f, ((Rand_ZeroOne() - 0.5f) * 25.0f) - 50.0f, 0);
         temp_fs1_2 = Rand_ZeroOne();
         temp_fs0_2 = Rand_ZeroOne();
-        func_E16C50_801A1E14(bossSO->fwork[0x16], bossSO->fwork[0x17], bossSO->fwork[0x18], bossSO->fwork[0x2F], bossSO->fwork[0x30], bossSO->fwork[0x31], (temp_fs1_2 * -25.0f) - 10.0f, (temp_fs0_2 * 25.0f) + 30.0f, ((Rand_ZeroOne() - 0.5f) * 25.0f) - 50.0f, 1);
+        func_i3_801A1E14(bossSO->fwork[0x16], bossSO->fwork[0x17], bossSO->fwork[0x18], bossSO->fwork[0x2F], bossSO->fwork[0x30], bossSO->fwork[0x31], (temp_fs1_2 * -25.0f) - 10.0f, (temp_fs0_2 * 25.0f) + 30.0f, ((Rand_ZeroOne() - 0.5f) * 25.0f) - 50.0f, 1);
         temp_fs1_3 = Rand_ZeroOne();
         temp_fs0_3 = Rand_ZeroOne();
-        func_E16C50_801A1E14(bossSO->fwork[0xA], bossSO->fwork[0xB], bossSO->fwork[0xC], bossSO->fwork[0x23], bossSO->fwork[0x24], bossSO->fwork[0x25], (temp_fs1_3 * -25.0f) - 10.0f, (temp_fs0_3 * 25.0f) + 30.0f, ((Rand_ZeroOne() - 0.5f) * 25.0f) - 50.0f, 2);
+        func_i3_801A1E14(bossSO->fwork[0xA], bossSO->fwork[0xB], bossSO->fwork[0xC], bossSO->fwork[0x23], bossSO->fwork[0x24], bossSO->fwork[0x25], (temp_fs1_3 * -25.0f) - 10.0f, (temp_fs0_3 * 25.0f) + 30.0f, ((Rand_ZeroOne() - 0.5f) * 25.0f) - 50.0f, 2);
     }
     if (bossSO->swork[3] < 0) {
         bossSO->swork[3] = 0;
         temp_fs1_4 = Rand_ZeroOne();
         temp_fs0_4 = Rand_ZeroOne();
-        func_E16C50_801A1E14(bossSO->fwork[0x19], bossSO->fwork[0x1A], bossSO->fwork[0x1B], bossSO->fwork[0x26], bossSO->fwork[0x27], bossSO->fwork[0x28], (temp_fs1_4 * 25.0f) + 10.0f, (temp_fs0_4 * 25.0f) + 30.0f, ((Rand_ZeroOne() - 0.5f) * 25.0f) - 50.0f, 5);
+        func_i3_801A1E14(bossSO->fwork[0x19], bossSO->fwork[0x1A], bossSO->fwork[0x1B], bossSO->fwork[0x26], bossSO->fwork[0x27], bossSO->fwork[0x28], (temp_fs1_4 * 25.0f) + 10.0f, (temp_fs0_4 * 25.0f) + 30.0f, ((Rand_ZeroOne() - 0.5f) * 25.0f) - 50.0f, 5);
         temp_fs1_5 = Rand_ZeroOne();
         temp_fs0_5 = Rand_ZeroOne();
-        func_E16C50_801A1E14(bossSO->fwork[0x13], bossSO->fwork[0x14], bossSO->fwork[0x15], bossSO->fwork[0x2C], bossSO->fwork[0x2D], bossSO->fwork[0x2E], (temp_fs1_5 * 25.0f) + 10.0f, (temp_fs0_5 * 25.0f) + 30.0f, ((Rand_ZeroOne() - 0.5f) * 25.0f) - 50.0f, 4);
+        func_i3_801A1E14(bossSO->fwork[0x13], bossSO->fwork[0x14], bossSO->fwork[0x15], bossSO->fwork[0x2C], bossSO->fwork[0x2D], bossSO->fwork[0x2E], (temp_fs1_5 * 25.0f) + 10.0f, (temp_fs0_5 * 25.0f) + 30.0f, ((Rand_ZeroOne() - 0.5f) * 25.0f) - 50.0f, 4);
         temp_fs1_6 = Rand_ZeroOne();
         temp_fs0_6 = Rand_ZeroOne();
-        func_E16C50_801A1E14(bossSO->fwork[7], bossSO->fwork[8], bossSO->fwork[9], bossSO->fwork[0x20], bossSO->fwork[0x21], bossSO->fwork[0x22], (temp_fs1_6 * 25.0f) + 10.0f, (temp_fs0_6 * 25.0f) + 30.0f, ((Rand_ZeroOne() - 0.5f) * 25.0f) - 50.0f, 3);
+        func_i3_801A1E14(bossSO->fwork[7], bossSO->fwork[8], bossSO->fwork[9], bossSO->fwork[0x20], bossSO->fwork[0x21], bossSO->fwork[0x22], (temp_fs1_6 * 25.0f) + 10.0f, (temp_fs0_6 * 25.0f) + 30.0f, ((Rand_ZeroOne() - 0.5f) * 25.0f) - 50.0f, 3);
     }
     temp_v1 = bossSO->unk4C;
     switch (temp_v1) {                              /* irregular */
@@ -2360,7 +2360,7 @@ void func_E16C50_801A4A34(Boss *bossSO) {
     }
 }
 
-void func_E16C50_801A4EC0(Boss *arg0) {
+void func_i3_801A4EC0(Boss *arg0) {
     arg0->swork[0] = 7;
     arg0->swork[1] = 5;
     arg0->unk4C = 0;
@@ -2370,7 +2370,7 @@ void func_E16C50_801A4EC0(Boss *arg0) {
     arg0->fwork[0] = 0.01f;
 }
 
-void func_E16C50_801A4EF8(Boss *bossSO) {
+void func_i3_801A4EF8(Boss *bossSO) {
     Vec3f *var_s0;
     f32 temp_fs0;
     f32 temp_fs0_2;
@@ -2420,19 +2420,19 @@ void func_E16C50_801A4EF8(Boss *bossSO) {
             Math_SmoothStepToF(&bossSO->obj.pos.y, -1000.0f, 0.1f, 20.0f, 0.1f);
         }
         if (bossSO->swork[0xB] == 0x1E) {
-            func_E16C50_801A0CEC(gObjects2F4 + 0x1D88, bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
+            func_i3_801A0CEC(gObjects2F4 + 0x1D88, bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
             D_80137E84[gMainController] = 1;
             D_Timer_80177BD0[gMainController] = 0x46;
-            var_s0 = D_E16C50_801BF8F0;
+            var_s0 = D_i3_801BF8F0;
             do {
                 temp_fs1 = Rand_ZeroOne();
                 temp_fs0_3 = Rand_ZeroOne();
-                func_E16C50_8019F038(bossSO->obj.pos.x + 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f, (2.0f * (temp_fs1 - 0.5f)) + var_s0->x, (2.0f * (temp_fs0_3 - 0.5f)) + (var_s0->y + 10.0f), (Rand_ZeroOne() * -10.0f) - 10.0f);
+                func_i3_8019F038(bossSO->obj.pos.x + 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f, (2.0f * (temp_fs1 - 0.5f)) + var_s0->x, (2.0f * (temp_fs0_3 - 0.5f)) + (var_s0->y + 10.0f), (Rand_ZeroOne() * -10.0f) - 10.0f);
                 temp_fs1_2 = Rand_ZeroOne();
                 temp_fs0_4 = Rand_ZeroOne();
-                func_E16C50_8019F038(bossSO->obj.pos.x - 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f, (2.0f * (temp_fs1_2 - 0.5f)) + var_s0->x, (2.0f * (temp_fs0_4 - 0.5f)) + (var_s0->y + 10.0f), (Rand_ZeroOne() * -10.0f) - 10.0f);
+                func_i3_8019F038(bossSO->obj.pos.x - 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f, (2.0f * (temp_fs1_2 - 0.5f)) + var_s0->x, (2.0f * (temp_fs0_4 - 0.5f)) + (var_s0->y + 10.0f), (Rand_ZeroOne() * -10.0f) - 10.0f);
                 var_s0 += 0xC;
-            } while (var_s0 != &D_E16C50_801BF920);
+            } while (var_s0 != &D_i3_801BF920);
         }
         if (bossSO->swork[0xB] == 0x10) {
             *(gObjects2F4 + 0x1E58) = 2;
@@ -2459,7 +2459,7 @@ void func_E16C50_801A4EF8(Boss *bossSO) {
             D_80178480 = 0x82;
         }
         if (bossSO->swork[0xB] == 0xC8) {
-            func_E16C50_801A0CEC(gObjects2F4 + 0x1A94, bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
+            func_i3_801A0CEC(gObjects2F4 + 0x1A94, bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
         }
         if (bossSO->swork[0xB] < 0xC8) {
             bossSO->unk4C = 0x62;
@@ -2478,7 +2478,7 @@ void func_E16C50_801A4EF8(Boss *bossSO) {
                 bossSO->obj.rot.x = temp_fv0 + 1.0f;
             }
             if (bossSO->swork[0xB] == 0x32) {
-                func_E16C50_801A0CEC(gObjects2F4 + 0x1D88, bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 80.0f, 2);
+                func_i3_801A0CEC(gObjects2F4 + 0x1D88, bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 80.0f, 2);
                 D_80137E84[gMainController] = 1;
                 D_Timer_80177BD0[gMainController] = 0x64;
                 D_80178480 = 0xA;
@@ -2504,7 +2504,7 @@ void func_E16C50_801A4EF8(Boss *bossSO) {
     case 3:
         Math_SmoothStepToAngle(&bossSO->obj.rot.y, 0.0f, 1.0f, 1.5f, 1.0f);
         if (bossSO->swork[0xB] == 0x41) {
-            func_E16C50_801A0CEC(gObjects2F4 + 0x1A94, bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
+            func_i3_801A0CEC(gObjects2F4 + 0x1A94, bossSO->obj.pos.x, bossSO->obj.pos.z + 1000.0f, 20.0f, 1);
         }
         if (bossSO->swork[0xB] == 0) {
             bossSO->swork[0xB] = 0xDC;
@@ -2517,7 +2517,7 @@ void func_E16C50_801A4EF8(Boss *bossSO) {
             Math_SmoothStepToF(&bossSO->obj.pos.y, 180.0f, 0.1f, 10.0f, 0.1f);
         }
         if (bossSO->swork[0xB] == 0x96) {
-            func_E16C50_801A3468(bossSO);
+            func_i3_801A3468(bossSO);
             bossSO->fwork[0] = 0.01f;
         }
         if (bossSO->swork[0xB] == 0x32) {
@@ -2527,7 +2527,7 @@ void func_E16C50_801A4EF8(Boss *bossSO) {
     }
 }
 
-void func_E16C50_801A56B8(Boss *bossSO) {
+void func_i3_801A56B8(Boss *bossSO) {
     f32 temp_fv0;
     f32 temp_fv0_2;
     s16 temp_v0;
@@ -2587,9 +2587,9 @@ void func_E16C50_801A56B8(Boss *bossSO) {
             bossSO->unk4C = 0x41;
         }
         if ((bossSO->unk4C == 0x41) && !(gFrameCount & 3)) {
-            func_E16C50_8019FFC0(bossSO, (bitwise Effect *) (bossSO->fwork[4] + 125.0f), bossSO->fwork[5] - 100.0f, (bitwise s32) (bossSO->fwork[6] + 600.0f), ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 1);
-            func_E16C50_8019FFC0(bossSO, (bitwise Effect *) (bossSO->fwork[4] - 125.0f), bossSO->fwork[5] - 100.0f, (bitwise s32) (bossSO->fwork[6] + 600.0f), ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 2);
-            func_E16C50_801A1EB0(bossSO, bossSO->fwork[4], 25.0f, bossSO->fwork[5] - 100.0f, bossSO->fwork[6] + 300.0f);
+            func_i3_8019FFC0(bossSO, (bitwise Effect *) (bossSO->fwork[4] + 125.0f), bossSO->fwork[5] - 100.0f, (bitwise s32) (bossSO->fwork[6] + 600.0f), ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 1);
+            func_i3_8019FFC0(bossSO, (bitwise Effect *) (bossSO->fwork[4] - 125.0f), bossSO->fwork[5] - 100.0f, (bitwise s32) (bossSO->fwork[6] + 600.0f), ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 2);
+            func_i3_801A1EB0(bossSO, bossSO->fwork[4], 25.0f, bossSO->fwork[5] - 100.0f, bossSO->fwork[6] + 300.0f);
             return;
         }
         break;
@@ -2621,7 +2621,7 @@ void func_E16C50_801A56B8(Boss *bossSO) {
     }
 }
 
-void func_E16C50_801A5B3C(Boss *bossSO) {
+void func_i3_801A5B3C(Boss *bossSO) {
     f32 sp1C8;
     f32 sp1C4;
     f32 sp1C0;
@@ -2701,29 +2701,29 @@ void func_E16C50_801A5B3C(Boss *bossSO) {
     }
     if (!(gFrameCount & 7) && (bossSO->fwork[3] < 4800.0f)) {
         if (func_800A73E4(&sp1C0, &sp1B8, bossSO->obj.pos.x, bossSO->obj.pos.y - 160.0f, bossSO->obj.pos.z) != 0) {
-            func_E16C50_801A1EB0(bossSO, bossSO->obj.pos.x, 50.0f, sp1C0 - 170.0f, bossSO->obj.pos.z + 100.0f);
+            func_i3_801A1EB0(bossSO, bossSO->obj.pos.x, 50.0f, sp1C0 - 170.0f, bossSO->obj.pos.z + 100.0f);
         }
         if ((bossSO->swork[2] != 0) && (func_800A73E4(&sp1C0, &sp1B8, bossSO->fwork[0x10], bossSO->fwork[0x11], bossSO->fwork[0x12]) != 0)) {
-            func_E16C50_801A1EB0(bossSO, bossSO->fwork[0x10], 50.0f, sp1C0 - 150.0f, bossSO->fwork[0x12] + 150.0f);
+            func_i3_801A1EB0(bossSO, bossSO->fwork[0x10], 50.0f, sp1C0 - 150.0f, bossSO->fwork[0x12] + 150.0f);
         }
         if ((bossSO->swork[3] != 0) && (func_800A73E4(&sp1C0, &sp1B8, bossSO->fwork[0xD], bossSO->fwork[0xE], bossSO->fwork[0xF]) != 0)) {
-            func_E16C50_801A1EB0(bossSO, bossSO->fwork[0xD], 50.0f, sp1C0 - 150.0f, bossSO->fwork[0xF] + 150.0f);
+            func_i3_801A1EB0(bossSO, bossSO->fwork[0xD], 50.0f, sp1C0 - 150.0f, bossSO->fwork[0xF] + 150.0f);
         }
     }
     if ((!(gFrameCount & 3) || (bossSO->fwork[0x1F] != 0.0f)) && ((bossSO->swork[0] != 7) || !(gFrameCount & 1))) {
         if ((bossSO->swork[2] == 0) && ((bossSO->unk_060 > 0) || (bossSO->unk_04E < 2))) {
-            func_E16C50_8019FF44(bossSO, (bitwise Effect *) bossSO->fwork[0xA], bossSO->fwork[0xB], bossSO->fwork[0xC], bossSO->fwork[0x1F] - 20.0f, -1.0f);
+            func_i3_8019FF44(bossSO, (bitwise Effect *) bossSO->fwork[0xA], bossSO->fwork[0xB], bossSO->fwork[0xC], bossSO->fwork[0x1F] - 20.0f, -1.0f);
         }
         if ((bossSO->swork[3] == 0) && ((bossSO->unk_060 > 0) || (bossSO->unk_04E < 2))) {
-            func_E16C50_8019FF44(bossSO, (bitwise Effect *) bossSO->fwork[7], bossSO->fwork[8], bossSO->fwork[9], bossSO->fwork[0x1F] - 20.0f, 1.0f);
+            func_i3_8019FF44(bossSO, (bitwise Effect *) bossSO->fwork[7], bossSO->fwork[8], bossSO->fwork[9], bossSO->fwork[0x1F] - 20.0f, 1.0f);
         }
     }
     Math_SmoothStepToF(bossSO->fwork, 1.0f, 0.01f, 0.01f, 0.0f);
     if ((bossSO->unk_060 > 0) || (bossSO->swork[0] == 0)) {
-        D_E16C50_801BF980[bossSO->swork[0]](bossSO);
+        D_i3_801BF980[bossSO->swork[0]](bossSO);
     }
     if (bossSO->timer_058 != 0) {
-        func_E16C50_801A4214(bossSO);
+        func_i3_801A4214(bossSO);
     }
     temp_t4 = (u16) bossSO->swork[1];
     switch (temp_t4) {
@@ -2829,11 +2829,11 @@ block_82:
             var_fv1 = 320.0f;
         }
         sp1C8 = var_fa0;
-        Math_SmoothStepToAngle(D_E16C50_801C2768 + 4, var_fv1, 0.2f, 4.0f, 0.1f);
-        Math_SmoothStepToAngle(D_E16C50_801C2768, var_fa0, 0.2f, 4.0f, 0.1f);
+        Math_SmoothStepToAngle(D_i3_801C2768 + 4, var_fv1, 0.2f, 4.0f, 0.1f);
+        Math_SmoothStepToAngle(D_i3_801C2768, var_fa0, 0.2f, 4.0f, 0.1f);
     } else {
-        Math_SmoothStepToAngle(D_E16C50_801C2768 + 4, 0.0f, 0.2f, 4.0f, 0.1f);
-        Math_SmoothStepToAngle(D_E16C50_801C2768, 0.0f, 0.2f, 4.0f, 0.1f);
+        Math_SmoothStepToAngle(D_i3_801C2768 + 4, 0.0f, 0.2f, 4.0f, 0.1f);
+        Math_SmoothStepToAngle(D_i3_801C2768, 0.0f, 0.2f, 4.0f, 0.1f);
     }
     Math_SmoothStepToVec3fArray(&sp50, bossSO->vwork, 1, sp1BC, bossSO->fwork[0], 100.0f, 0.0f);
     if ((bossSO->unk_062 != 0) && (bossSO->unk_060 > 0)) {
@@ -2841,7 +2841,7 @@ block_82:
         Audio_PlaySfx(0x29121007U, &bossSO->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         temp_v0_5 = bossSO->swork[0];
         if ((temp_v0_5 != 0) && (temp_v0_5 != 2) && (temp_v0_5 != 3) && (temp_v0_5 != 6) && ((temp_v0_5 != 7) || (bossSO->unk_04E != 2))) {
-            func_E16C50_801A3C4C(bossSO);
+            func_i3_801A3C4C(bossSO);
         }
     }
     if (D_801613A0 == 0x190) {
@@ -2852,7 +2852,7 @@ block_82:
     }
 }
 
-s32 func_E16C50_801A68A8(s32 arg0, Gfx **arg1, Vec3f *arg2, Vec3f *arg3, void *arg4) {
+s32 func_i3_801A68A8(s32 arg0, Gfx **arg1, Vec3f *arg2, Vec3f *arg3, void *arg4) {
     ? sp58;
     ? sp4C;
     ? sp40;
@@ -2866,20 +2866,20 @@ s32 func_E16C50_801A68A8(s32 arg0, Gfx **arg1, Vec3f *arg2, Vec3f *arg3, void *a
     s32 temp_t6;
     s32 temp_t9;
 
-    sp58.unk0 = (f32) D_E16C50_801BF9A4.x;
-    sp58.unk4 = (f32) D_E16C50_801BF9A4.y;
-    sp58.unk8 = (f32) D_E16C50_801BF9A4.z;
-    sp4C.unk0 = (f32) D_E16C50_801BF9B0.x;
-    sp4C.unk4 = (f32) D_E16C50_801BF9B0.y;
-    sp4C.unk8 = (f32) D_E16C50_801BF9B0.z;
-    sp40.unk0 = (f32) D_E16C50_801BF9BC.x;
-    sp40.unk4 = (f32) D_E16C50_801BF9BC.y;
-    sp40.unk8 = (f32) D_E16C50_801BF9BC.z;
+    sp58.unk0 = (f32) D_i3_801BF9A4.x;
+    sp58.unk4 = (f32) D_i3_801BF9A4.y;
+    sp58.unk8 = (f32) D_i3_801BF9A4.z;
+    sp4C.unk0 = (f32) D_i3_801BF9B0.x;
+    sp4C.unk4 = (f32) D_i3_801BF9B0.y;
+    sp4C.unk8 = (f32) D_i3_801BF9B0.z;
+    sp40.unk0 = (f32) D_i3_801BF9BC.x;
+    sp40.unk4 = (f32) D_i3_801BF9BC.y;
+    sp40.unk8 = (f32) D_i3_801BF9BC.z;
     temp_v0 = gMasterDisp;
     gMasterDisp = temp_v0 + 8;
     temp_v0->words.w0 = 0xFA000000;
-    temp_t6 = D_E16C50_801C2740->unk0 & 0xFF;
-    temp_v0->words.w1 = (temp_t6 << 8) | (D_E16C50_801C2740->unk4 << 0x18) | (temp_t6 << 0x10) | 0xFF;
+    temp_t6 = D_i3_801C2740->unk0 & 0xFF;
+    temp_v0->words.w1 = (temp_t6 << 8) | (D_i3_801C2740->unk4 << 0x18) | (temp_t6 << 0x10) | 0xFF;
     if (arg4->unkE4 < 4800.0f) {
         RCP_SetupDL_30(0x40, 0x20, 0x20, gFogAlpha, gFogNear, gFogFar);
     } else {
@@ -2887,8 +2887,8 @@ s32 func_E16C50_801A68A8(s32 arg0, Gfx **arg1, Vec3f *arg2, Vec3f *arg3, void *a
     }
     switch (arg0) {
     case 11:
-        arg3->y -= D_E16C50_801C2768->unk4;
-        arg3->z += D_E16C50_801C2768->unk0;
+        arg3->y -= D_i3_801C2768->unk4;
+        arg3->z += D_i3_801C2768->unk0;
         /* fallthrough */
     case 1:
         if (arg4->unk90 != 0) {
@@ -2953,7 +2953,7 @@ block_24:
     return 0;
 }
 
-void func_E16C50_801A6BDC(s32 arg0, Vec3f *arg1, void *arg2) {
+void func_i3_801A6BDC(s32 arg0, Vec3f *arg1, void *arg2) {
     Vec3f spA0;
     ? sp94;
     Vec3f sp88;
@@ -2966,36 +2966,36 @@ void func_E16C50_801A6BDC(s32 arg0, Vec3f *arg1, void *arg2) {
     Vec3f sp34;
     Vec3f sp28;
 
-    spA0.x = D_E16C50_801BF9C8.x;
-    spA0.y = D_E16C50_801BF9C8.y;
-    spA0.z = D_E16C50_801BF9C8.z;
-    sp94.unk0 = (f32) D_E16C50_801BF9D4.x;
-    sp94.unk4 = (f32) D_E16C50_801BF9D4.y;
-    sp94.unk8 = (f32) D_E16C50_801BF9D4.z;
-    sp88.x = D_E16C50_801BF9E0.x;
-    sp88.y = D_E16C50_801BF9E0.y;
-    sp88.z = D_E16C50_801BF9E0.z;
-    sp7C.x = D_E16C50_801BF9EC.x;
-    sp7C.y = D_E16C50_801BF9EC.y;
-    sp7C.z = D_E16C50_801BF9EC.z;
-    sp70.x = D_E16C50_801BF9F8.x;
-    sp70.y = D_E16C50_801BF9F8.y;
-    sp70.z = D_E16C50_801BF9F8.z;
-    sp64.x = D_E16C50_801BFA04.x;
-    sp64.y = D_E16C50_801BFA04.y;
-    sp64.z = D_E16C50_801BFA04.z;
-    sp58.x = D_E16C50_801BFA10.x;
-    sp58.y = D_E16C50_801BFA10.y;
-    sp58.z = D_E16C50_801BFA10.z;
-    sp4C.x = D_E16C50_801BFA1C.x;
-    sp4C.y = D_E16C50_801BFA1C.y;
-    sp4C.z = D_E16C50_801BFA1C.z;
-    sp40.x = D_E16C50_801BFA28.x;
-    sp40.y = D_E16C50_801BFA28.y;
-    sp40.z = D_E16C50_801BFA28.z;
-    sp34.x = D_E16C50_801BFA34.x;
-    sp34.y = D_E16C50_801BFA34.y;
-    sp34.z = D_E16C50_801BFA34.z;
+    spA0.x = D_i3_801BF9C8.x;
+    spA0.y = D_i3_801BF9C8.y;
+    spA0.z = D_i3_801BF9C8.z;
+    sp94.unk0 = (f32) D_i3_801BF9D4.x;
+    sp94.unk4 = (f32) D_i3_801BF9D4.y;
+    sp94.unk8 = (f32) D_i3_801BF9D4.z;
+    sp88.x = D_i3_801BF9E0.x;
+    sp88.y = D_i3_801BF9E0.y;
+    sp88.z = D_i3_801BF9E0.z;
+    sp7C.x = D_i3_801BF9EC.x;
+    sp7C.y = D_i3_801BF9EC.y;
+    sp7C.z = D_i3_801BF9EC.z;
+    sp70.x = D_i3_801BF9F8.x;
+    sp70.y = D_i3_801BF9F8.y;
+    sp70.z = D_i3_801BF9F8.z;
+    sp64.x = D_i3_801BFA04.x;
+    sp64.y = D_i3_801BFA04.y;
+    sp64.z = D_i3_801BFA04.z;
+    sp58.x = D_i3_801BFA10.x;
+    sp58.y = D_i3_801BFA10.y;
+    sp58.z = D_i3_801BFA10.z;
+    sp4C.x = D_i3_801BFA1C.x;
+    sp4C.y = D_i3_801BFA1C.y;
+    sp4C.z = D_i3_801BFA1C.z;
+    sp40.x = D_i3_801BFA28.x;
+    sp40.y = D_i3_801BFA28.y;
+    sp40.z = D_i3_801BFA28.z;
+    sp34.x = D_i3_801BFA34.x;
+    sp34.y = D_i3_801BFA34.y;
+    sp34.z = D_i3_801BFA34.z;
     switch (arg0) {
     case 11:
         Matrix_MultVec3f(gCalcMatrix, &sp34, &sp28);
@@ -3122,7 +3122,7 @@ void func_E16C50_801A6BDC(s32 arg0, Vec3f *arg1, void *arg2) {
     }
 }
 
-void func_E16C50_801A71B8(Boss *bossSO) {
+void func_i3_801A71B8(Boss *bossSO) {
     ? spE8;
     f32 spC4;
     f32 spA0;
@@ -3143,13 +3143,13 @@ void func_E16C50_801A71B8(Boss *bossSO) {
     f32 temp_fv0_2;
     f32 temp_fv0_3;
 
-    M2C_MEMCPY_ALIGNED(&spE8, D_E16C50_801BFA40, 0x6C);
-    M2C_MEMCPY_ALIGNED(&spC4, D_E16C50_801BFAAC, 0x24);
-    M2C_MEMCPY_ALIGNED(&spA0, D_E16C50_801BFAD0, 0x24);
+    M2C_MEMCPY_ALIGNED(&spE8, D_i3_801BFA40, 0x6C);
+    M2C_MEMCPY_ALIGNED(&spC4, D_i3_801BFAAC, 0x24);
+    M2C_MEMCPY_ALIGNED(&spA0, D_i3_801BFAD0, 0x24);
     temp_fv0 = bossSO->unk_3F8;
     Matrix_Scale(gCalcMatrix, temp_fv0, temp_fv0, temp_fv0, (u8) 1);
     if (D_80178284 != 0) {
-        Animation_DrawSkeleton(2, &D_600E470, bossSO->vwork, func_E16C50_801A68A8, func_E16C50_801A6BDC, bossSO, gCalcMatrix);
+        Animation_DrawSkeleton(2, &D_600E470, bossSO->vwork, func_i3_801A68A8, func_i3_801A6BDC, bossSO, gCalcMatrix);
     }
     if (bossSO->unk_060 <= 0) {
         RCP_SetupDL_49();
@@ -3164,13 +3164,13 @@ void func_E16C50_801A71B8(Boss *bossSO) {
         Matrix_Pop(&gGfxMatrix);
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, bossSO->obj.pos.x, bossSO->obj.pos.y, (bossSO->obj.pos.z - 500.0f) + D_80177D20, (u8) 1);
-        Matrix_Scale(gGfxMatrix, D_E16C50_801C2768->unkC, D_E16C50_801C2768->unk8, 1.0f, (u8) 1);
+        Matrix_Scale(gGfxMatrix, D_i3_801C2768->unkC, D_i3_801C2768->unk8, 1.0f, (u8) 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         temp_v1_3 = gMasterDisp;
         gMasterDisp = temp_v1_3 + 8;
         temp_v1_3->words.w1 = (u32) D_1024AC0;
         temp_v1_3->words.w0 = 0x06000000;
-        var_s1 = D_E16C50_801C2768;
+        var_s1 = D_i3_801C2768;
         var_s0 = &spE8;
         var_s2 = &spC4;
         var_s3 = &spA0;
@@ -3190,8 +3190,8 @@ void func_E16C50_801A71B8(Boss *bossSO) {
             temp_v1_4->words.w0 = 0x06000000;
             var_s1 += 4;
             var_s3 += 4;
-        } while (var_s1 != (D_E16C50_801C2768 + 0x24));
-        if (*(D_E16C50_801C2768 + 0x34) > 0.0f) {
+        } while (var_s1 != (D_i3_801C2768 + 0x24));
+        if (*(D_i3_801C2768 + 0x34) > 0.0f) {
             temp_v1_5 = gMasterDisp;
             gMasterDisp = temp_v1_5 + 8;
             temp_v1_5->words.w1 = 0xFFC040FF;
@@ -3200,7 +3200,7 @@ void func_E16C50_801A71B8(Boss *bossSO) {
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, bossSO->obj.pos.x, bossSO->obj.pos.y + 230.0f, (bossSO->obj.pos.z - 300.0f) + D_80177D20, (u8) 1);
             Matrix_RotateX(gGfxMatrix, 0.08726646f, 1U);
-            temp_fv0_2 = *(D_E16C50_801C2768 + 0x34);
+            temp_fv0_2 = *(D_i3_801C2768 + 0x34);
             Matrix_Scale(gGfxMatrix, temp_fv0_2, 1.0f, temp_fv0_2, (u8) 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             temp_v1_6 = gMasterDisp;
@@ -3217,7 +3217,7 @@ void func_E16C50_801A71B8(Boss *bossSO) {
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, bossSO->obj.pos.x, bossSO->obj.pos.y + 270.0f, (bossSO->obj.pos.z - 300.0f) + D_80177D20, (u8) 1);
             Matrix_RotateX(gGfxMatrix, -0.05235988f, 1U);
-            temp_fv0_3 = *(D_E16C50_801C2768 + 0x34);
+            temp_fv0_3 = *(D_i3_801C2768 + 0x34);
             Matrix_Scale(gGfxMatrix, temp_fv0_3, 1.0f, temp_fv0_3, (u8) 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             temp_v1_8 = gMasterDisp;
@@ -3234,7 +3234,7 @@ void func_E16C50_801A71B8(Boss *bossSO) {
     }
 }
 
-void func_E16C50_801A7750(void) {
+void func_i3_801A7750(void) {
     Object_2F4 *var_s0;
     Vec3f *temp_s1;
     s16 var_s2;
@@ -3244,7 +3244,7 @@ void func_E16C50_801A7750(void) {
     var_s2 = 0;
     do {
         if (((var_s2 != 0) || !((f32) gTeamShields->unkC <= 0.0f)) && ((var_s2 != 1) || !((f32) gTeamShields->unk8 <= 0.0f)) && ((var_s2 != 2) || !((f32) gTeamShields->unk4 <= 0.0f))) {
-            temp_s1 = &D_E16C50_801BFB30[var_s2];
+            temp_s1 = &D_i3_801BFB30[var_s2];
             Object_2F4_Initialize(var_s0);
             var_s0->obj.status = 1;
             var_s0->obj.id = 0xC3;
@@ -3261,7 +3261,7 @@ void func_E16C50_801A7750(void) {
     } while (var_s2 != 3);
 }
 
-void func_E16C50_801A7930(Player *player) {
+void func_i3_801A7930(Player *player) {
     f32 sp78;
     f32 sp68;
     f32 sp64;
@@ -3419,16 +3419,16 @@ void func_E16C50_801A7930(Player *player) {
                 break;
             case 0x2BC:                             /* switch 4 */
                 player->unk_1D0 += 1;
-                func_E16C50_801A7750(temp_a0);
-                *(D_E16C50_801C2768 + 0xC) = 1000.0f;
+                func_i3_801A7750(temp_a0);
+                *(D_i3_801C2768 + 0xC) = 1000.0f;
                 break;
             }
             break;
         case 0x1C2:                                 /* switch 3 */
-            func_E16C50_801A0DF8(-1200.0f, -(D_80177D20 + 2500.0f), 90.0f, 2U, 1.0f);
+            func_i3_801A0DF8(-1200.0f, -(D_80177D20 + 2500.0f), 90.0f, 2U, 1.0f);
             break;
         case 0x221:                                 /* switch 3 */
-            func_E16C50_801A0DF8(1400.0f, -(D_80177D20 + 3250.0f), -90.0f, 3U, 1.0f);
+            func_i3_801A0DF8(1400.0f, -(D_80177D20 + 3250.0f), -90.0f, 3U, 1.0f);
             break;
         case 0x226:                                 /* switch 3 */
             Object_Kill(&(gObjects2F4 + 0xBD0)->obj, gObjects2F4 + 0xCD0);
@@ -3483,11 +3483,11 @@ void func_E16C50_801A7930(Player *player) {
         Matrix_MultVec3fNoTranslate(gCalcMatrix, (Vec3f *) &sp60, &sp54);
         if (D_80177A80 < 0x5A0) {
             D_80177978 = (bitwise f32) sp54;
-            D_80177980 = *(D_E16C50_801C2768 + 0xC) + sp54.y;
+            D_80177980 = *(D_i3_801C2768 + 0xC) + sp54.y;
             D_80177988 = player->pos.z + D_80177D20 + sp54.z;
             D_801779A0 = 0.0f;
             D_801779B8 = player->pos.y + 75.0f;
-            Math_SmoothStepToF(D_E16C50_801C2768 + 0xC, 500.0f, 0.1f, 1.0f, 0.0001f);
+            Math_SmoothStepToF(D_i3_801C2768 + 0xC, 500.0f, 0.1f, 1.0f, 0.0001f);
             D_801779C0 = player->pos.z + D_80177D20 + 200.0f;
             if (D_80177A80 >= 0x578) {
                 D_801779C0 -= (f32) ((D_80177A80 * 8) - 0x2BC0);
@@ -3632,7 +3632,7 @@ void func_E16C50_801A7930(Player *player) {
     player->unk_0F0 = __sinf(player->unk_0F4 * M_DTOR);
 }
 
-void func_E16C50_801A8BE8(Player *player) {
+void func_i3_801A8BE8(Player *player) {
     f32 sp44;
     f32 sp40;
     f32 sp3C;
@@ -3673,7 +3673,7 @@ void func_E16C50_801A8BE8(Player *player) {
     player->unk_018 = -player->unk_0FC;
 }
 
-void func_E16C50_801A8DB8(Vec3f *arg0, u32 arg1, f32 arg2) {
+void func_i3_801A8DB8(Vec3f *arg0, u32 arg1, f32 arg2) {
     Effect *sp18;
     Effect *var_a3;
 

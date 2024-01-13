@@ -128,25 +128,25 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
             changeOvl = Overlay_Init(&sOvlE51970_SectorZ[ovlStage]);
             break;
         case OVL_SETUP_AQUAS:
-            changeOvl = Overlay_Init(&sOvlE16C50_Aquas[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli3_Aquas[ovlStage]);
             break;
         case OVL_SETUP_AREA_6:
-            changeOvl = Overlay_Init(&sOvlE16C50_Area6[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli3_Area6[ovlStage]);
             break;
         case OVL_SETUP_FORTUNA:
             changeOvl = Overlay_Init(&sOvlE51970_Fortuna[ovlStage]);
             break;
         case OVL_SETUP_UNK_4:
-            changeOvl = Overlay_Init(&sOvlE16C50_Unk4[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli3_Unk4[ovlStage]);
             break;
         case OVL_SETUP_SECTOR_Y:
             changeOvl = Overlay_Init(&sOvlE9F1D0_SectorY[ovlStage]);
             break;
         case OVL_SETUP_SOLAR:
-            changeOvl = Overlay_Init(&sOvlE16C50_Solar[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli3_Solar[ovlStage]);
             break;
         case OVL_SETUP_ZONESS:
-            changeOvl = Overlay_Init(&sOvlE16C50_Zoness[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli3_Zoness[ovlStage]);
             break;
         case OVL_SETUP_VENOM_ANDROSS:
             changeOvl = Overlay_Init(&sOvlE9F1D0_Venom2[ovlStage]);

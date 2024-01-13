@@ -27,7 +27,7 @@ extern u8 D_800D317C;
 extern u8 D_800D3180[30];
 extern s32 D_800D31A0[4];
 
-extern f32 D_E16C50_801C4188;
+extern f32 D_i3_801C4188;
 
 #define MEM_ARRAY_ALLOCATE(arr, count) ((arr) = Memory_Allocate((count) * sizeof(*(arr))))
 
@@ -1828,8 +1828,8 @@ void func_800A8BA4(Player* player) {
                                 break;
                             }
                             Player_ApplyDamage(player, temp_v0, boss->info.damage);
-                            if ((boss->obj.id == OBJ_BOSS_303) && ((boss->actionState == 2) || (boss->actionState == 3)) &&
-                                (sp98 >= 9)) {
+                            if ((boss->obj.id == OBJ_BOSS_303) &&
+                                ((boss->actionState == 2) || (boss->actionState == 3)) && (sp98 >= 9)) {
                                 player->unk_0D8.y = -100.0f;
                             }
                             if ((boss->obj.id == OBJ_BOSS_320) && (sp98 < 5)) {
@@ -2356,8 +2356,8 @@ void func_800AB334(void) {
         case LEVEL_AQUAS:
             D_80137E78 = 3;
             D_8015F970 = 1600.0f;
-            D_E16C50_801C4188 = 128.0f;
-            func_E16C50_801A9824();
+            D_i3_801C4188 = 128.0f;
+            func_i3_801A9824();
             break;
         case LEVEL_TITANIA:
             func_E6A810_80188F30();
@@ -5047,12 +5047,12 @@ void func_800B42B0(Player* player) {
             func_80047504(player);
             break;
         case FORM_BLUE_MARINE:
-            func_E16C50_801ACE50(player);
-            func_E16C50_801AD328(player);
+            func_i3_801ACE50(player);
+            func_i3_801AD328(player);
             func_800B41E0(player);
-            func_E16C50_801AACF8(player);
+            func_i3_801AACF8(player);
             func_800ADF58(player);
-            func_E16C50_801AC274(player);
+            func_i3_801AC274(player);
             func_800A8BA4(player);
             func_800AA800(player);
             func_800B415C(player);
@@ -5114,7 +5114,7 @@ void func_800B44C4(Player* player) {
             }
             break;
         case FORM_BLUE_MARINE:
-            func_E16C50_801BEC80(player);
+            func_i3_801BEC80(player);
             return;
         case FORM_ON_FOOT:
             func_800B00C0(player);
@@ -5898,7 +5898,7 @@ void func_800B71E4(Player* player) {
                     } else if (player->form == FORM_LANDMASTER) {
                         func_80043468(player);
                     } else if (player->form == FORM_BLUE_MARINE) {
-                        func_E16C50_801AA8E8(player);
+                        func_i3_801AA8E8(player);
                     }
                     break;
                 case LEVELMODE_ALL_RANGE:
@@ -6153,9 +6153,9 @@ void func_800B79B0(void) {
             var_a0 = MIN(gPlayer[0].shields, 0xFF);
             func_8001D1C8(var_a0, sp3A);
             if (!(gFrameCount & 7) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7)) {
-                func_E16C50_8019E8B8((Rand_ZeroOne() - 0.5f) * 6000.0f, -80.0f,
-                                     gPlayer[0].unk_138 + ((Rand_ZeroOne() * 2000.0f) + -6000.0f),
-                                     (Rand_ZeroOne() * 10.0f) + 20.0f);
+                func_i3_8019E8B8((Rand_ZeroOne() - 0.5f) * 6000.0f, -80.0f,
+                                 gPlayer[0].unk_138 + ((Rand_ZeroOne() * 2000.0f) + -6000.0f),
+                                 (Rand_ZeroOne() * 10.0f) + 20.0f);
             }
             func_8008C104(D_60229A4, D_6010198);
             if (gPlayer[0].shields == 0) {

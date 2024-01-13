@@ -1626,12 +1626,12 @@ void func_8003B55C(PlayerShot* shot, s32 index) {
             func_8007B8F8(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
             func_8007B8F8(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
             func_8007B8F8(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
-            func_E16C50_801AC8A8(((Rand_ZeroOne() - 0.5f) * 10.0f) + shot->obj.pos.x,
-                                 ((Rand_ZeroOne() - 0.5f) * 10.0f) + shot->obj.pos.y, shot->obj.pos.z, 0.8f, 0);
-            func_E16C50_801AC8A8(((Rand_ZeroOne() - 0.5f) * 10.0f) + shot->obj.pos.x,
-                                 ((Rand_ZeroOne() - 0.5f) * 10.0f) + shot->obj.pos.y, shot->obj.pos.z, 0.8f, 0);
-            func_E16C50_801AC8A8(((Rand_ZeroOne() - 0.5f) * 10.0f) + shot->obj.pos.x,
-                                 ((Rand_ZeroOne() - 0.5f) * 10.0f) + shot->obj.pos.y, shot->obj.pos.z, 0.8f, 0);
+            func_i3_801AC8A8(((Rand_ZeroOne() - 0.5f) * 10.0f) + shot->obj.pos.x,
+                             ((Rand_ZeroOne() - 0.5f) * 10.0f) + shot->obj.pos.y, shot->obj.pos.z, 0.8f, 0);
+            func_i3_801AC8A8(((Rand_ZeroOne() - 0.5f) * 10.0f) + shot->obj.pos.x,
+                             ((Rand_ZeroOne() - 0.5f) * 10.0f) + shot->obj.pos.y, shot->obj.pos.z, 0.8f, 0);
+            func_i3_801AC8A8(((Rand_ZeroOne() - 0.5f) * 10.0f) + shot->obj.pos.x,
+                             ((Rand_ZeroOne() - 0.5f) * 10.0f) + shot->obj.pos.y, shot->obj.pos.z, 0.8f, 0);
         }
     }
     if (shot->unk_64 == 0) {
@@ -2221,7 +2221,7 @@ void func_8003D54C(PlayerShot* shot, s32 index) {
                 Object_Kill(&shot->obj, &shot->sfxPos);
                 func_8007A6F0(&shot->obj.pos, 0x0903502E);
             } else if (gCurrentLevel == LEVEL_AQUAS) {
-                func_E16C50_801ABA40(shot);
+                func_i3_801ABA40(shot);
             } else {
                 func_8003CF90(shot);
             }

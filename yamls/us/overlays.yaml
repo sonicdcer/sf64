@@ -44,14 +44,14 @@
     vram: 0x80187520
     bss_size: 0x2220
     exclusive_ram_id: overlay
-    symbol_name_format: E16C50_$VRAM
+    symbol_name_format: i3_$VRAM
     subsegments:
-    - [0xE16C50, c, E16C50]
+    - [0xE16C50, c, fox_i3]
     - [0xE16C60, c, fox_a6]
     - [0xE1F680, c, fox_zo]
     - [0xE2DF20, c, sf_so]
     - [0xE38560, c, sf_aq]
-    - [0xE4E3D0, .data, E16C50]
+    - [0xE4E3D0, .data, fox_i3]
     - [0xE4E3E0, .data, fox_a6]
     - [0xE4EC90, .data, fox_zo]
     - [0xE4F010, .data, sf_so]
@@ -60,7 +60,7 @@
     - [0xE504E0, .rodata, fox_zo]
     - [0xE50C00, .rodata, sf_so]
     - [0xE51160, .rodata, sf_aq]
-    - { start: 0xE51970, type: .bss, vram: 0x801C2240, name: E16C50 }
+    - { start: 0xE51970, type: .bss, vram: 0x801C2240, name: fox_i3 }
     - { start: 0xE51970, type: .bss, vram: 0x801C2250, name: fox_a6 }
     - { start: 0xE51970, type: .bss, vram: 0x801C2330, name: fox_zo }
     - { start: 0xE51970, type: .bss, vram: 0x801C2740, name: sf_so }

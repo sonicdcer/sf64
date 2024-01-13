@@ -1951,8 +1951,8 @@ void func_8006FEEC(Object_2F4* obj2F4) {
 
         if (obj2F4->unk_0CE <= 0) {
             for (i = 3; i < 11; i++) {
-                func_E16C50_801900FC(&obj2F4->unk_18C[i], &obj2F4->unk_18C[i + 11], (Rand_ZeroOne() - 0.5f) * 20.0f,
-                                     Rand_ZeroOne() * -10.0f, Rand_ZeroOne() * 10.0f, 41, obj2F4->scale, 200, i);
+                func_i3_801900FC(&obj2F4->unk_18C[i], &obj2F4->unk_18C[i + 11], (Rand_ZeroOne() - 0.5f) * 20.0f,
+                                 Rand_ZeroOne() * -10.0f, Rand_ZeroOne() * 10.0f, 41, obj2F4->scale, 200, i);
             }
             obj2F4->unk_044 = 0;
             func_80066254(obj2F4);
@@ -3464,8 +3464,8 @@ void func_80072594(Object_2F4* obj2F4) {
                         obj2F4->unk_0B6 = 0;
                     }
                     if (((s32) gFrameCount % 3) == 0) {
-                        func_E16C50_8019E9F4(obj2F4->obj.pos.x, obj2F4->obj.pos.y - 20, obj2F4->obj.pos.z - 180.0f,
-                                             0.0f, Rand_ZeroOne() * 20.0f * -1.0f, 0.0f, 4.0f, 2);
+                        func_i3_8019E9F4(obj2F4->obj.pos.x, obj2F4->obj.pos.y - 20, obj2F4->obj.pos.z - 180.0f, 0.0f,
+                                         Rand_ZeroOne() * 20.0f * -1.0f, 0.0f, 4.0f, 2);
                     }
                 } else if (obj2F4->unk_0B6 >= Animation_GetFrameCount(&D_40057AC)) {
                     obj2F4->unk_0B6 = 0;
@@ -3657,9 +3657,9 @@ void func_80072594(Object_2F4* obj2F4) {
                             obj2F4->unk_0B6 = 49;
                         }
                         if (gFrameCount & 1) {
-                            func_E16C50_801AC8A8(((Rand_ZeroOne() - 0.5f) * 100.0f) + obj2F4->obj.pos.x,
-                                                 (Rand_ZeroOne() * 50.0f) + obj2F4->obj.pos.y,
-                                                 ((Rand_ZeroOne() - 0.5f) * 100.0f) + obj2F4->obj.pos.z, 1.0f, 0);
+                            func_i3_801AC8A8(((Rand_ZeroOne() - 0.5f) * 100.0f) + obj2F4->obj.pos.x,
+                                             (Rand_ZeroOne() * 50.0f) + obj2F4->obj.pos.y,
+                                             ((Rand_ZeroOne() - 0.5f) * 100.0f) + obj2F4->obj.pos.z, 1.0f, 0);
                         }
                     }
                     obj2F4->timer_0C2 = 10000;
@@ -4025,7 +4025,7 @@ void func_80074FF0(Object_2F4* obj2F4) {
                 case 79:
                     temp_s0 = obj2F4->unk_0B8;
                     obj2F4->unk_0B8 = 2;
-                    func_E16C50_80190430(obj2F4);
+                    func_i3_80190430(obj2F4);
                     obj2F4->unk_0B8 = temp_s0;
                     break;
 
