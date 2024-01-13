@@ -1,4 +1,8 @@
-#include "common.h"
+#include "global.h"
+
+UNK_TYPE D_E08400_80195D80;
+f32 D_E08400_80195D88[3];
+f32 D_E08400_80195D98[3];
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E08400/E0FF10/func_E08400_8018F030.s")
 
