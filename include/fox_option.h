@@ -69,6 +69,9 @@ typedef enum OptionId {
     OPTION_POINT_MATCH = 10,
     OPTION_BR_MATCH = 20,
     OPTION_TT_MATCH = 30,
+    OPTION_NAME = 200,
+    OPTION_SCORE = 300,
+    OPTION_INVOICE = 400,
     OPTION_MAX,
 } OptionId;
 
@@ -263,7 +266,7 @@ void Option_RankingDraw(void);
 void func_EBFBE0_80196FC4(void);
 void func_EBFBE0_80197074(void);
 void func_EBFBE0_8019715C(void);
-void func_EBFBE0_801973C0(void);
+void Option_RankingMenuDraw(void);
 void func_EBFBE0_8019752C(void);
 void func_EBFBE0_80197914(void);
 void func_EBFBE0_80197A3C(s32, s32, s32);
@@ -305,7 +308,7 @@ void func_EBFBE0_8019B5AC(void);
 void func_EBFBE0_8019B7D4(void);
 void func_EBFBE0_8019B8A0(s32 arg0);
 void func_EBFBE0_8019B8C8(void);
-void func_EBFBE0_8019B9C0(void);
+void Option_DrawMenuLabel(void);
 void func_EBFBE0_8019BDF0(void);
 void Option_DrawMenuCard(MenuContext_38 arg0);
 void Option_DrawMenuArwing(ArwingPosition arg0);
@@ -328,8 +331,8 @@ s32 func_EBFBE0_8019DCE8(s32 arg0);
 void func_EBFBE0_8019DD44(void);
 void func_EBFBE0_8019DE74(void);
 void func_EBFBE0_8019DF64(void);
-void func_EBFBE0_8019E030(void);
-void func_EBFBE0_8019E284(void);
+void Option_InvoiceUpdate(void);
+void Option_InvoiceDraw(void);
 void func_EBFBE0_801906A0(void);
 void func_EBFBE0_80190C9C(void);
 void func_EBFBE0_80190E64(void);

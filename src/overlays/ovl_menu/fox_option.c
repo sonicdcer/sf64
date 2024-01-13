@@ -593,16 +593,16 @@ void Option_UpdateEntry(void) {
             Option_VersusMenuUpdate();
             break;
 
-        case 200:
+        case OPTION_NAME:
             func_EBFBE0_8019CAE0();
             break;
 
-        case 300:
+        case OPTION_SCORE:
             func_EBFBE0_8019DD44();
             break;
 
-        case 400:
-            func_EBFBE0_8019E030();
+        case OPTION_INVOICE:
+            Option_InvoiceUpdate();
             break;
     }
 
@@ -648,16 +648,16 @@ void Option_DrawEntry(void) {
             Option_VersusMenuDraw();
             break;
 
-        case 200:
+        case OPTION_NAME:
             func_EBFBE0_8019D118();
             break;
 
-        case 300:
+        case OPTION_SCORE:
             func_EBFBE0_8019DF64();
             break;
 
-        case 400:
-            func_EBFBE0_8019E284();
+        case OPTION_INVOICE:
+            Option_InvoiceDraw();
             break;
     }
 
@@ -1253,7 +1253,7 @@ void Option_VersusUpdate(void) {
 void Option_VersusDraw(void) {
     s32 i;
 
-    func_EBFBE0_8019B9C0();
+    Option_DrawMenuLabel();
     func_EBFBE0_8019BDF0();
 
     for (i = 0; i < 3; i++) {
@@ -1436,7 +1436,7 @@ void Option_SoundDraw(void) {
                                          102.0f, 102.0f, 98.0f, 99.0f,  98.0f };
     static f32 D_EBFBE0_801AF000 = 27.5f;
 
-    func_EBFBE0_8019B9C0();
+    Option_DrawMenuLabel();
 
     func_EBFBE0_801952B4();
 
@@ -1700,7 +1700,7 @@ void Option_ExpertSoundDraw(void) {
     };
     static f32 D_EBFBE0_801AF078[] = { -73.0f, -13.0f, -43.0f };
 
-    func_EBFBE0_8019B9C0();
+    Option_DrawMenuLabel();
 
     RCP_SetupDL(&gMasterDisp, 0x53);
 
@@ -1923,7 +1923,7 @@ void Option_DataDraw(void) {
     static f32 D_EBFBE0_801AF094[6] = { 72.0f, 88.0f, 185.0f, 80.0f, 84.0f, 88.0f };
     static f32 D_EBFBE0_801AF0AC[6] = { 53.0f, 137.0f, 137.0f, 90.0f, 80.0f, 97.0f };
 
-    func_EBFBE0_8019B9C0();
+    Option_DrawMenuLabel();
 
     RCP_SetupDL(&gMasterDisp, 0x53);
 
@@ -2045,8 +2045,8 @@ void Option_RankingUpdate(void) {
 }
 
 void Option_RankingDraw(void) {
-    func_EBFBE0_801973C0();
-    func_EBFBE0_8019B9C0();
+    Option_RankingMenuDraw();
+    Option_DrawMenuLabel();
 }
 
 void func_EBFBE0_80196FC4(void) {
@@ -2115,7 +2115,7 @@ void func_EBFBE0_8019715C(void) {
     }
 }
 
-void func_EBFBE0_801973C0(void) {
+void Option_RankingMenuDraw(void) {
     s32 temp_t0;
 
     if (D_EBFBE0_801B93E0 != 0) {
@@ -3491,7 +3491,7 @@ void func_EBFBE0_8019B8C8(void) {
     Option_DrawCardLabel(sOptionVSCardList[D_EBFBE0_801B91A8].unk_00);
 }
 
-void func_EBFBE0_8019B9C0(void) {
+void Option_DrawMenuLabel(void) {
     func_EBFBE0_8019BDF0();
     Option_DrawMenuCard(sOptionCardList[D_EBFBE0_801B91A4].unk_38);
     Matrix_Pop(&gGfxMatrix);
@@ -4389,7 +4389,7 @@ void func_EBFBE0_8019DF64(void) {
     Option_DrawCardLabel(sOptionCardList[3].unk_00);
 }
 
-void func_EBFBE0_8019E030(void) {
+void Option_InvoiceUpdate(void) {
     switch (D_EBFBE0_801B912C) {
         case 0:
             D_80178410 = 0;
@@ -4437,7 +4437,7 @@ void func_EBFBE0_8019E030(void) {
     }
 }
 
-void func_EBFBE0_8019E284(void) {
+void Option_InvoiceDraw(void) {
     s32 i;
     s32 temp_a0;
     static f32 D_EBFBE0_801AF3D0[8] = { 96.0f, 31.0f, 32.0f, 80.0f, 86.0f, 213.0f, 275.0f, 276.0f };
