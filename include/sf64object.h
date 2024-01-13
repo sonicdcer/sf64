@@ -208,7 +208,7 @@ typedef struct {
     /* 0x01C */ ObjectInfo info;
     /* 0x040 */ s32 index;
     /* 0x044 */ s16 unk_044;
-    /* 0x044 */ char unk_46[6];
+    /* 0x046 */ char unk_46[6];
     /* 0x04C */ s16 unk_04C;
     /* 0x04E */ s16 actionState;
     /* 0x050 */ s16 timer_050;
@@ -264,7 +264,6 @@ typedef struct {
     /* 0x0CA */ u8 timer_0CA[4];
     /* 0x0CE */ s16 unk_0CE;
     /* 0x0D0 */ s8 unk_0D0;
-    /* 0x0D1 */ char pad0D1[0x1];
     /* 0x0D2 */ s16 unk_0D2;
     /* 0x0D4 */ s16 unk_0D4;
     /* 0x0D6 */ u16 unk_0D6;

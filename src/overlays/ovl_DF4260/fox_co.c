@@ -137,8 +137,8 @@ void func_DF4260_80187AC8(Boss* boss) {
     s32 var_s1;
     s32 var_s1_2;
 
-    if (boss->dmgType != 0) {
-        boss->dmgType = 0;
+    if (boss->dmgType != DMG_NONE) {
+        boss->dmgType = DMG_NONE;
         if (boss->dmgPart == 0) {
             boss->swork[10] = 15;
             boss->swork[29] -= boss->damage;
@@ -909,25 +909,25 @@ void func_DF4260_80189058(Boss* boss) {
                     switch (boss->dmgPart) {
                         case 1:
                             if (boss->swork[2] != 1000) {
-                                boss->dmgType = 1;
+                                boss->dmgType = DMG_BEAM;
                             }
                             break;
                         case 2:
                             if (boss->swork[1] != 1000) {
-                                boss->dmgType = 1;
+                                boss->dmgType = DMG_BEAM;
                             }
                         case 3:
                             if (boss->swork[3] != 1000) {
-                                boss->dmgType = 1;
+                                boss->dmgType = DMG_BEAM;
                             }
                             break;
                         case 4:
                             if (boss->swork[7] != 1000) {
-                                boss->dmgType = 1;
+                                boss->dmgType = DMG_BEAM;
                             }
                         case 5:
                             if (boss->swork[4] != 1000) {
-                                boss->dmgType = 1;
+                                boss->dmgType = DMG_BEAM;
                             }
                             break;
                     }
@@ -1676,8 +1676,8 @@ void func_DF4260_8018C19C(Boss* boss) {
                 }
             }
         }
-        if (boss->dmgType != 0) {
-            boss->dmgType = 0;
+        if (boss->dmgType != DMG_NONE) {
+            boss->dmgType = DMG_NONE;
             if ((gBosses[1].actionState != 0) && (gBosses[2].actionState != 0) && (gBosses[3].actionState != 0)) {
                 if (boss->health >= 2) {
                     boss->timer_05C = 15;
@@ -2101,8 +2101,8 @@ void func_DF4260_8018DDAC(Boss* boss) {
 
     switch (boss->actionState) {
         case 0:
-            if (boss->dmgType != 0) {
-                boss->dmgType = 0;
+            if (boss->dmgType != DMG_NONE) {
+                boss->dmgType = DMG_NONE;
                 if (boss->dmgPart == 0) {
                     if (boss->fwork[2] > 60.0f) {
                         if (boss->health != 0) {
@@ -2195,8 +2195,8 @@ void func_DF4260_8018E290(Boss* boss) {
 
     switch (boss->actionState) {
         case 0:
-            if (boss->dmgType != 0) {
-                boss->dmgType = 0;
+            if (boss->dmgType != DMG_NONE) {
+                boss->dmgType = DMG_NONE;
                 if (boss->dmgPart == 2) {
                     if (boss->fwork[0] > 60.0f) {
                         if (boss->health != 0) {
@@ -2288,8 +2288,8 @@ void func_DF4260_8018E76C(Boss* boss) {
 
     switch (boss->actionState) {
         case 0:
-            if (boss->dmgType != 0) {
-                boss->dmgType = 0;
+            if (boss->dmgType != DMG_NONE) {
+                boss->dmgType = DMG_NONE;
                 if (boss->dmgPart == 2) {
                     if (boss->fwork[1] > 60.0f) {
                         if (boss->health != 0) {
