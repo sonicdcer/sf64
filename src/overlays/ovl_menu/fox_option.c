@@ -37,7 +37,7 @@ static f32 D_EBFBE0_801AE608[] = { 8.0f, 8.0f, 8.0f, 8.0f, 8.0f, 8.0f };
 static f32 D_EBFBE0_801AE620[] = { 1.9f, 2.4f, 0.9f, 1.9f, 1.8f, 2.4f };
 
 // D_EBFBE0_801AE638
-static OptionEntry sOptionCardList[6] = {
+static OptionEntry sOptionCardList[] = {
     {
         { 0, 0, (void*) 0x08003B50, 0, 72, 12, 126.0f, 46.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
         { 0.0f, 30.0f, -130.0f, 0.2f, 0.11f },
@@ -893,7 +893,7 @@ void Option_MainMenuUpdate(void) {
             break;
 
         case 1:
-            temp1 = func_EBFBE0_8019C418(&D_EBFBE0_801B91A4, 5, 1, 0, 20, 5, 4, gMainController, &D_EBFBE0_801B9180);
+            temp1 = func_EBFBE0_8019C418(&D_EBFBE0_801B91A4, OPTION_COUNT - 1, 1, 0, 20, 5, 4, gMainController, &D_EBFBE0_801B9180);
             // clang-format off
             if (temp1 != 0) { Audio_PlaySfx(0x49000022, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C); }
             // clang-format on
@@ -3758,7 +3758,7 @@ s32 func_EBFBE0_8019C5A0(s32* arg0) {
                 *arg0 = 1;
                 ret = -1;
             }
-            D_EBFBE0_801B91A0 = 6;
+            D_EBFBE0_801B91A0 = OPTION_COUNT;
         }
     }
 
