@@ -3226,7 +3226,7 @@ void func_EBFBE0_801A36A8(void) {
             break;
 
         case 4:
-            gGameState = 3;
+            gGameState = GSTATE_MENU;
             D_Timer_8017783C = 2;
             D_8017784C = 0;
             gDrawMode = 0;
@@ -3703,7 +3703,7 @@ void func_EBFBE0_801A4D7C(void) {
 
 void func_EBFBE0_801A4F8C(void) {
     D_80178410 = 0;
-    gGameState = 5;
+    gGameState = GSTATE_GAME_OVER;
     D_80177868 = 0;
     D_Timer_8017783C = 2;
     gDrawMode = DRAWMODE_0;
@@ -4366,7 +4366,7 @@ void func_EBFBE0_801A659C(void) {
 }
 
 void func_EBFBE0_801A6628(void) {
-    gGameState = 7;
+    gGameState = GSTATE_PLAY;
     D_Timer_8017783C = 2;
     D_80177854 = 0;
     gDrawMode = DRAWMODE_0;

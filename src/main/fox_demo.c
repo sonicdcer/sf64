@@ -872,10 +872,10 @@ void func_8004AAF4(Player* player) {
             func_8001D444(0, 0x803DU, 0, 0xFFU);
         } else if (gCurrentLevel != LEVEL_TRAINING) {
             func_800BA808(gMsg_ID_20180, RCID_FOX);
-            if (gCurrentLevel == 5) {
-                func_8001D444(0, D_800C9E90[gCurrentLevel], 0, 2U);
+            if (gCurrentLevel == LEVEL_SECTOR_Y) {
+                func_8001D444(0, D_800C9E90[gCurrentLevel], 0, 2);
             } else {
-                func_8001D444(0, D_800C9E90[gCurrentLevel], 0, 0xFFU);
+                func_8001D444(0, D_800C9E90[gCurrentLevel], 0, 0xFF);
             }
         }
     }
@@ -939,7 +939,7 @@ void func_8004AAF4(Player* player) {
 
                 D_801779A8[player->num] = 70.0f;
 
-                if ((gCurrentLevel != 9) && (gCurrentLevel != 0xA)) {
+                if ((gCurrentLevel != LEVEL_VENOM_ANDROSS) && (gCurrentLevel != LEVEL_TRAINING)) {
                     D_800D1970 = 0;
                     for (i = 0, var_s0 = &gObjects2F4[2]; i < 3; i++, var_s0++) {
                         Object_2F4_Initialize(var_s0);
@@ -1345,7 +1345,7 @@ void func_8004B368(Player* player) {
                 player->timer_1F8 = 0;
                 D_8017837C = 4;
                 func_8001DBD0(0xA);
-                D_800D3180[gCurrentLevel] = Play_CheckMedalStatus(0x96U) + 1;
+                D_800D3180[gCurrentLevel] = Play_CheckMedalStatus(150) + 1;
             }
             break;
     }
@@ -1753,7 +1753,8 @@ void func_8004D828(Player* player) {
     player->pos.x += player->vel.x;
     player->pos.y += player->vel.y;
 
-    if ((gCurrentLevel != 6 || D_80178284 == 0) && (gLevelType == LEVELTYPE_PLANET || gCurrentLevel == LEVEL_BOLSE)) {
+    if ((gCurrentLevel != LEVEL_VENOM_1 || D_80178284 == 0) &&
+        (gLevelType == LEVELTYPE_PLANET || gCurrentLevel == LEVEL_BOLSE)) {
         player->vel.y -= 0.5f;
         player->unk_0E4 -= 2.0f;
     }

@@ -2654,7 +2654,7 @@ void func_i3_8018ED78(Player* player) {
                     func_8001CA24(0);
                     Audio_KillSfx(&player->unk_460);
                     func_800A6148();
-                    gNextGameState = 7;
+                    gNextGameState = GSTATE_PLAY;
                     gNextLevel = LEVEL_VENOM_2;
                     func_80088564();
                 }

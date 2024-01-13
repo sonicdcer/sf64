@@ -115,7 +115,7 @@ void func_8003DAF0(void) {
         sp5C = D_80178290;
         sp58 = D_80178298;
 
-        if (gGameState != 7) {
+        if (gGameState != GSTATE_PLAY) {
             var_s2 = 1000;
         }
         sp70 = __cosf(D_80178428);
