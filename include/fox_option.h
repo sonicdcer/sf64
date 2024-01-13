@@ -3,7 +3,7 @@
 
 #include "global.h"
 
-//! TODO: RENAME. Member names inferred by func_EBFBE0_8019C120.
+//! TODO: RENAME. Member names inferred by Option_DrawCardLabel.
 typedef struct {
     /* 0x00 */ s32 unk_00; // type
     /* 0x04 */ s32 unk_04;
@@ -19,9 +19,9 @@ typedef struct {
     /* 0x2C */ s32 unk_2C; // green
     /* 0x30 */ s32 unk_30; // blue
     /* 0x34 */ s32 unk_34; // alpha
-} MenuContext_00; // size = 0x38
+} OptionLabel; // size = 0x38
 
-//! TODO: RENAME. Member names inferred by func_EBFBE0_8019BAB8
+//! TODO: RENAME. Member names inferred by Option_DrawMenuCard
 typedef struct {
     /* 0x00 */ f32 unk_00; // x
     /* 0x04 */ f32 unk_04; // y
@@ -30,20 +30,20 @@ typedef struct {
     /* 0x10 */ f32 unk_10; // yScale
 } MenuContext_38; // size = 0x14
 
-//! TODO: RENAME. Member names inferred by func_EBFBE0_8019BBA4
+//! TODO: RENAME. Member names inferred by Option_DrawMenuArwing
 typedef struct {
     /* 0x0 */ f32 unk_0; // x
     /* 0x4 */ f32 unk_4; // y
     /* 0x8 */ f32 unk_8; // range
-} MenuContext_4C; // size = 0xC
+} ArwingPosition; // size = 0xC
 
 typedef struct {
-    /* 0x00 */ MenuContext_00 unk_00;
+    /* 0x00 */ OptionLabel unk_00;
     /* 0x38 */ MenuContext_38 unk_38;
-    /* 0x4C */ MenuContext_4C unk_4C;
+    /* 0x4C */ ArwingPosition unk_4C;
     /* 0x58 */ s32 unk_58;
     /* 0x5C */ s32 unk_5C;
-} MenuContext; // size = 0x60
+} OptionEntry; // size = 0x60
 
 typedef struct {
     s32 unk_0;
@@ -220,7 +220,7 @@ void func_EBFBE0_8018D2B8(s32);
 void func_EBFBE0_8018EA78(s32);
 
 void func_EBFBE0_80191B20(void);
-void func_EBFBE0_80192190(void);
+void Option_UpdateEntry(void);
 void func_EBFBE0_801928BC(void);
 void func_EBFBE0_80192D58(void);
 void func_EBFBE0_80192938(void);
@@ -245,9 +245,9 @@ void func_EBFBE0_80196E54(void);
 void func_EBFBE0_80196EFC(void);
 void func_EBFBE0_80196F9C(void);
 void func_EBFBE0_80196FC4(void);
-void func_EBFBE0_80197074(void);  
-void func_EBFBE0_8019715C(void);      
-void func_EBFBE0_801973C0(void); 
+void func_EBFBE0_80197074(void);
+void func_EBFBE0_8019715C(void);
+void func_EBFBE0_801973C0(void);
 void func_EBFBE0_8019752C(void);
 void func_EBFBE0_80197914(void);
 void func_EBFBE0_80197A3C(s32, s32, s32);
@@ -289,16 +289,16 @@ void func_EBFBE0_8019B5AC(void);
 void func_EBFBE0_8019B7D4(void);
 void func_EBFBE0_8019B8A0(s32 arg0);
 void func_EBFBE0_8019B8C8(void);
-void func_EBFBE0_8019B9C0(void); 
+void func_EBFBE0_8019B9C0(void);
 void func_EBFBE0_8019BDF0(void);
-void func_EBFBE0_8019BAB8(MenuContext_38 arg0);
-void func_EBFBE0_8019BBA4(MenuContext_4C arg0);
+void Option_DrawMenuCard(MenuContext_38 arg0);
+void Option_DrawMenuArwing(ArwingPosition arg0);
 void func_EBFBE0_8019BC44(f32, f32, f32, f32, f32, f32);
 void func_EBFBE0_8019BE7C(f32, f32, f32, f32 *, f32 *, f32 *);
 void func_EBFBE0_8019BF34(void);
 void func_EBFBE0_8019B6D8(f32 xPos, f32 yPos, f32 offset, s32 r, s32 g, s32 b);
 void func_EBFBE0_8019C04C(void);
-void func_EBFBE0_8019C120(MenuContext_00 arg0);
+void Option_DrawCardLabel(OptionLabel arg0);
 s32 func_EBFBE0_8019C418(s32* arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, UnkStruct_D_EBFBE0_801B9250* arg8);
 void func_EBFBE0_8019C824(f32* );
 s32 func_EBFBE0_8019C8C4(void);
