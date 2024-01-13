@@ -1966,8 +1966,8 @@ void func_8007DB70(Object_8C* obj8C) {
     switch (obj8C->unk_4E) {
         case 0:
             obj8C->vel.y -= 0.5f;
-            if ((obj8C->timer_50 == 0) &&
-                ((func_8006351C(1000, &obj8C->obj.pos, &sp54, 1) != 0) || (obj8C->obj.pos.y < (gGroundLevel + 10.0f)))) {
+            if ((obj8C->timer_50 == 0) && ((func_8006351C(1000, &obj8C->obj.pos, &sp54, 1) != 0) ||
+                                           (obj8C->obj.pos.y < (gGroundLevel + 10.0f)))) {
                 obj8C->vel.y = 0.0f;
                 if (obj8C->obj.pos.y < (gGroundLevel + 10.0f)) {
                     obj8C->obj.pos.y = gGroundLevel;

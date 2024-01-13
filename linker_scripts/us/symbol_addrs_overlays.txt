@@ -70,9 +70,9 @@ D_E16C50_801BF070 = 0x801BF070;//size:0x90 type:Vec3f segment:ovl_E16C50
 D_E16C50_801BF100 = 0x801BF100;//size:0x90 type:Vec3f segment:ovl_E16C50
 D_E16C50_801BF190 = 0x801BF190;//size:0x30 type:f32 segment:ovl_E16C50
 
-D_E16C50_801C2330 = 0x801C2330;//segment:ovl_E16C50 type:s32 size:0xA0
-D_E16C50_801C23D0 = 0x801C23D0;//segment:ovl_E16C50 type:s32 size:0x118
-D_E16C50_801C24E8 = 0x801C24E8;//segment:ovl_E16C50 type:f32 size:0x258
+sZoLimbTimers = 0x801C2330;//segment:ovl_E16C50 type:s32 size:0xA0
+sZoSwork = 0x801C23D0;//segment:ovl_E16C50 type:s32 size:0x118
+sZoFwork = 0x801C24E8;//segment:ovl_E16C50 type:f32 size:0x258
 
 D_E16C50_801C27C8 = 0x801C27C8; //segment:ovl_E16C50 size:0x12C0
 D_E16C50_801C3A88 = 0x801C3A88; //segment:ovl_E16C50 size:0x700

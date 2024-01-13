@@ -2683,9 +2683,9 @@ void func_8004FEC0(Object_2F4* obj2F4) {
                     Matrix_Translate(gGfxMatrix, ((Rand_ZeroOneSeeded() - 0.5f) * 3000.0f) * (*obj2F4).unk_164,
                                      ((Rand_ZeroOneSeeded() - 0.5f) * 3000.0f) * (*obj2F4).unk_164,
                                      ((Rand_ZeroOneSeeded() - 0.5f) * 3000.0f) * (*obj2F4).unk_164, 1);
-                    Matrix_RotateY(gGfxMatrix, 2.0f * (Rand_ZeroOneSeeded() * 3.1415927f), 1);
+                    Matrix_RotateY(gGfxMatrix, 2.0f * (Rand_ZeroOneSeeded() * M_PI), 1);
                     Matrix_RotateZ(gGfxMatrix, (2.0f * gFrameCount) * M_DTOR, 1);
-                    Matrix_RotateX(gGfxMatrix, 2.0f * (Rand_ZeroOneSeeded() * 3.1415927f), 1);
+                    Matrix_RotateX(gGfxMatrix, 2.0f * (Rand_ZeroOneSeeded() * M_PI), 1);
 
                     switch (sp2D0 & 3) {
                         case 0:

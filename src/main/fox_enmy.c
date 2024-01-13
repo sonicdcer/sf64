@@ -851,7 +851,7 @@ s32 func_8006351C(s32 index, Vec3f* pos, Vec3f* arg2, s32 arg3) {
                         temp.y = fabsf(boss->obj.pos.y - pos->y) * 2;
                         temp.z = fabsf(boss->obj.pos.z - pos->z) * (5.0f / 6.0f);
                         if (sqrtf(VEC3F_SQ(temp)) < 1500.0f) {
-                            boss->unk_062 = 1;
+                            boss->dmgType = DMG_BEAM;
                             return 2;
                         }
                     } else {

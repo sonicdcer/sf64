@@ -57,8 +57,8 @@ extern ? D_601C820;
 extern ? D_60231A4;
 extern u8 D_801778A3;
 static f32 D_E16C50_801C171C[2] = { 0.1f, 0.1f };   /* const */
-static f32 D_E16C50_801C1728[2] = { 0.017453292f, 0.1f }; /* const */
-static f32 D_E16C50_801C1730[2] = { 0.017453292f, 0.1f }; /* const */
+static f32 D_E16C50_801C1728[2] = { M_DTOR, 0.1f }; /* const */
+static f32 D_E16C50_801C1730[2] = { M_DTOR, 0.1f }; /* const */
 static f32 D_E16C50_801C1758[4] = { 0.05f, 0.1f, 0.1f, 0.1f }; /* const */
 
 void func_E16C50_8019E7F0(Object_8C *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
@@ -394,8 +394,8 @@ void func_E16C50_8019F20C(Object_2F4 *arg0) {
         }
         break;
     }
-    arg0->obj.rot.y = (-gPlayer->unk_058 * 180.0f) / 3.1415927f;
-    arg0->obj.rot.x = (gPlayer->unk_05C * 180.0f) / 3.1415927f;
+    arg0->obj.rot.y = (-gPlayer->unk_058 * 180.0f) / M_PI;
+    arg0->obj.rot.x = (gPlayer->unk_05C * 180.0f) / M_PI;
     if (!(gFrameCount & 1)) {
         arg0->unk_0B6 += 1;
         if (arg0->unk_0B6 >= 3) {
@@ -415,8 +415,8 @@ void func_E16C50_8019F7AC(Object_2F4 *arg0) {
 
     if (arg0->unk_0B8 != 0) {
         Matrix_Push(&gGfxMatrix);
-        Matrix_RotateY(gGfxMatrix, arg0->unk_0F4.y * 0.017453292f, 1U);
-        Matrix_RotateX(gGfxMatrix, arg0->unk_0F4.x * 0.017453292f, 1U);
+        Matrix_RotateY(gGfxMatrix, arg0->unk_0F4.y * M_DTOR, 1U);
+        Matrix_RotateX(gGfxMatrix, arg0->unk_0F4.x * M_DTOR, 1U);
         Matrix_SetGfxMtx(&gMasterDisp);
         temp_v0 = arg0->obj.id;
         switch (temp_v0) {                          /* irregular */
@@ -510,7 +510,7 @@ void func_E16C50_8019FAA4(Boss *arg0, Object_8C *arg1, f32 arg2, f32 arg3, f32 a
     if (D_80177848 != 0) {
         if (gBosses->fwork[0x1F] > 0.0f) {
             if (gBosses->swork[0] != 7) {
-                Matrix_RotateY(gCalcMatrix, gBosses->obj.rot.y * 0.017453292f, 0U);
+                Matrix_RotateY(gCalcMatrix, gBosses->obj.rot.y * M_DTOR, 0U);
                 sp48 = 0.0f;
                 sp4C = 0.0f;
                 sp44 = gBosses->fwork[0x1F] * 5.0f;
@@ -518,9 +518,9 @@ void func_E16C50_8019FAA4(Boss *arg0, Object_8C *arg1, f32 arg2, f32 arg3, f32 a
                 arg1->vel.x = (bitwise f32) sp38 * arg6;
                 arg1->vel.z = gPlayer->vel.z + (sp38.z * arg6);
             } else {
-                Matrix_RotateZ(gCalcMatrix, arg0->obj.rot.z * 0.017453292f, 0U);
-                Matrix_RotateX(gCalcMatrix, gBosses->obj.rot.x * 0.017453292f, 1U);
-                Matrix_RotateY(gCalcMatrix, gBosses->unk_07C * 0.017453292f, 1U);
+                Matrix_RotateZ(gCalcMatrix, arg0->obj.rot.z * M_DTOR, 0U);
+                Matrix_RotateX(gCalcMatrix, gBosses->obj.rot.x * M_DTOR, 1U);
+                Matrix_RotateY(gCalcMatrix, gBosses->unk_07C * M_DTOR, 1U);
                 sp44 = arg1->obj.pos.x - arg0->obj.pos.x;
                 sp48 = arg1->obj.pos.y - arg0->obj.pos.y;
                 sp4C = arg1->obj.pos.z - arg0->obj.pos.z;
@@ -693,8 +693,8 @@ void func_E16C50_801A0120(Object_8C *arg0) {
     switch (temp_t6) {
     case 0:
         Matrix_Translate(gCalcMatrix, arg0->vel.x, arg0->vel.y, arg0->vel.z, (u8) 0);
-        Matrix_RotateY(gCalcMatrix, arg0->unk_60.y * 0.017453292f, 1U);
-        Matrix_RotateX(gCalcMatrix, arg0->unk_60.x * 0.017453292f, 1U);
+        Matrix_RotateY(gCalcMatrix, arg0->unk_60.y * M_DTOR, 1U);
+        Matrix_RotateX(gCalcMatrix, arg0->unk_60.x * M_DTOR, 1U);
         sp3C = 0.0f;
         sp40 = 0.0f;
         sp44 = -arg0->scale1;
@@ -828,8 +828,8 @@ void func_E16C50_801A0120(Object_8C *arg0) {
             arg0->unk_60.x = temp_fv0_2 + 0.25f;
         }
         arg0->unk_60.z += 10.0f;
-        arg0->vel.x = __sinf(arg0->unk_60.z * 0.017453292f) * (arg0->unk_60.x * 10.0f);
-        arg0->vel.y = __cosf(arg0->unk_60.z * 0.017453292f) * (arg0->unk_60.x * 10.0f);
+        arg0->vel.x = __sinf(arg0->unk_60.z * M_DTOR) * (arg0->unk_60.x * 10.0f);
+        arg0->vel.y = __cosf(arg0->unk_60.z * M_DTOR) * (arg0->unk_60.x * 10.0f);
         arg0->vel.z = gPlayer->vel.z + 15.0f;
         if (gPlayer->state_1C8 != PLAYERSTATE_1C8_7) {
             func_8007A774(gPlayer, arg0, arg0->scale2 * 18.0f);
@@ -856,8 +856,8 @@ void func_E16C50_801A0120(Object_8C *arg0) {
         }
         arg0->unk_60.z += 20.0f;
         sp50 = var_fa1;
-        arg0->vel.x = __sinf(arg0->unk_60.z * 0.017453292f) * var_fa1 * 50.0f;
-        arg0->vel.y = __cosf(arg0->unk_60.z * 0.017453292f) * var_fa1 * 50.0f;
+        arg0->vel.x = __sinf(arg0->unk_60.z * M_DTOR) * var_fa1 * 50.0f;
+        arg0->vel.y = __cosf(arg0->unk_60.z * M_DTOR) * var_fa1 * 50.0f;
         arg0->vel.z = gPlayer->vel.z + 80.0f;
         if (gPlayer->state_1C8 != PLAYERSTATE_1C8_7) {
             func_8007A774(gPlayer, arg0, arg0->scale2 * 18.0f);
@@ -1264,8 +1264,8 @@ void func_E16C50_801A10F4(Player *player) {
     Math_SmoothStepToF(&player->camAt.x, D_801779A0, *D_80177A48, 20000.0f, 0.0f);
     Math_SmoothStepToF(&player->camAt.y, D_801779B8, *D_80177A48, 20000.0f, 0.0f);
     Math_SmoothStepToF(&player->camAt.z, D_801779C0, *D_80177A48, 20000.0f, 0.0f);
-    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + 180.0f) * 0.017453292f, 0U);
-    Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * 0.017453292f), 1U);
+    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + 180.0f) * M_DTOR, 0U);
+    Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * M_DTOR), 1U);
     sp50 = 0.0f;
     sp54 = 0.0f;
     sp58 = player->unk_0D0;
@@ -1540,8 +1540,8 @@ void func_E16C50_801A23F4(Boss *bossSO) {
         bossSO->fwork[3] = 2600.0f;
         Math_SmoothStepToAngle(&bossSO->obj.rot.y, 0.0f, 1.0f, 1.5f, 1.0f);
         if (bossSO->unk4C == 0x41) {
-            Matrix_RotateX(gCalcMatrix, D_E16C50_801C2768->unk0 * 0.017453292f, 0U);
-            Matrix_RotateY(gCalcMatrix, D_E16C50_801C2768->unk4 * 0.017453292f, 1U);
+            Matrix_RotateX(gCalcMatrix, D_E16C50_801C2768->unk0 * M_DTOR, 0U);
+            Matrix_RotateY(gCalcMatrix, D_E16C50_801C2768->unk4 * M_DTOR, 1U);
             sp44 = -200.0f;
             sp40 = 0.0f;
             sp48 = 1100.0f;
@@ -2470,8 +2470,8 @@ void func_E16C50_801A4EF8(Boss *bossSO) {
                 *(gObjects2F4 + 0x1B64) = 2;
             }
             if (bossSO->swork[0xB] < 0xAB) {
-                bossSO->vel.y = __cosf(bossSO->obj.rot.x * 0.017453292f) * 80.0f;
-                bossSO->vel.z = gPlayer->vel.z + (__sinf(bossSO->obj.rot.x * 0.017453292f) * 30.0f);
+                bossSO->vel.y = __cosf(bossSO->obj.rot.x * M_DTOR) * 80.0f;
+                bossSO->vel.z = gPlayer->vel.z + (__sinf(bossSO->obj.rot.x * M_DTOR) * 30.0f);
             }
             temp_fv0 = bossSO->obj.rot.x;
             if (temp_fv0 < 190.0f) {
@@ -2679,7 +2679,7 @@ void func_E16C50_801A5B3C(Boss *bossSO) {
         bossSO->info.hitbox->unk34 = (f32) (bossSO->fwork[0x18] - bossSO->obj.pos.z);
         bossSO->info.hitbox->unk3C = (f32) (bossSO->fwork[0x17] - bossSO->obj.pos.y);
         bossSO->info.hitbox->unk44 = (f32) (bossSO->fwork[0x16] - bossSO->obj.pos.x);
-        Matrix_RotateY(gCalcMatrix, -bossSO->obj.rot.y * 0.017453292f, 0U);
+        Matrix_RotateY(gCalcMatrix, -bossSO->obj.rot.y * M_DTOR, 0U);
         sp44 = bossSO->fwork[0x1C] - bossSO->obj.pos.x;
         sp48 = bossSO->fwork[0x1D] - bossSO->obj.pos.y;
         sp4C = bossSO->fwork[0x1E] - bossSO->obj.pos.z;
@@ -2800,12 +2800,12 @@ block_82:
         var_v0 = Animation_GetFrameData(&D_6009D30, (s32) bossSO->unk4C, &sp50);
         goto block_82;
     }
-    Matrix_RotateZ(gCalcMatrix, -bossSO->vwork[0x1D].z * 0.017453292f, 0U);
-    Matrix_RotateX(gCalcMatrix, -bossSO->vwork[0x1D].x * 0.017453292f, 1U);
-    Matrix_RotateY(gCalcMatrix, -bossSO->vwork[0x1D].y * 0.017453292f, 1U);
-    Matrix_RotateZ(gCalcMatrix, -bossSO->obj.rot.z * 0.017453292f, 1U);
-    Matrix_RotateX(gCalcMatrix, -bossSO->obj.rot.x * 0.017453292f, 1U);
-    Matrix_RotateY(gCalcMatrix, -bossSO->obj.rot.y * 0.017453292f, 1U);
+    Matrix_RotateZ(gCalcMatrix, -bossSO->vwork[0x1D].z * M_DTOR, 0U);
+    Matrix_RotateX(gCalcMatrix, -bossSO->vwork[0x1D].x * M_DTOR, 1U);
+    Matrix_RotateY(gCalcMatrix, -bossSO->vwork[0x1D].y * M_DTOR, 1U);
+    Matrix_RotateZ(gCalcMatrix, -bossSO->obj.rot.z * M_DTOR, 1U);
+    Matrix_RotateX(gCalcMatrix, -bossSO->obj.rot.x * M_DTOR, 1U);
+    Matrix_RotateY(gCalcMatrix, -bossSO->obj.rot.y * M_DTOR, 1U);
     if ((bossSO->unk_060 > 0) && (bossSO->swork[0] == 1)) {
         sp44 = gPlayer->pos.x - bossSO->obj.pos.x;
         sp48 = gPlayer->pos.y - bossSO->obj.pos.y;
@@ -3178,8 +3178,8 @@ void func_E16C50_801A71B8(Boss *bossSO) {
             Matrix_Pop(&gGfxMatrix);
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, var_s0->unk0 + bossSO->obj.pos.x, var_s0->unk4 + bossSO->obj.pos.y, var_s0->unk8 + (bossSO->obj.pos.z + D_80177D20), (u8) 1);
-            Matrix_RotateY(gGfxMatrix, *var_s2 * 0.017453292f, 1U);
-            Matrix_RotateX(gGfxMatrix, *var_s3 * 0.017453292f, 1U);
+            Matrix_RotateY(gGfxMatrix, *var_s2 * M_DTOR, 1U);
+            Matrix_RotateX(gGfxMatrix, *var_s3 * M_DTOR, 1U);
             Matrix_Scale(gGfxMatrix, var_s1->unk10, 100.0f, 1.0f, (u8) 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             temp_v1_4 = gMasterDisp;
@@ -3476,7 +3476,7 @@ void func_E16C50_801A7930(Player *player) {
         D_80178358 = 0;
         D_8017835C = 4;
         D_80177A48->unk4 = (f32) (D_80177A48->unk4 + (D_80177A48->unk8 * 0.8f));
-        Matrix_RotateY(gCalcMatrix, D_80177A48->unk4 * 0.017453292f, 0U);
+        Matrix_RotateY(gCalcMatrix, D_80177A48->unk4 * M_DTOR, 0U);
         sp60 = 0.0f;
         sp64 = 0.0f;
         sp68 = -700.0f;
@@ -3605,8 +3605,8 @@ void func_E16C50_801A7930(Player *player) {
         }
         break;
     }
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * 0.017453292f, 0U);
-    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4) * 0.017453292f), 1U);
+    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, 0U);
+    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4) * M_DTOR), 1U);
     sp60 = 0.0f;
     sp64 = 0.0f;
     sp68 = player->unk_0D0;
@@ -3626,10 +3626,10 @@ void func_E16C50_801A7930(Player *player) {
     Math_SmoothStepToF(&player->camAt.y, D_801779B8, D_80177A48->unk0, 50000.0f, 0.0f);
     Math_SmoothStepToF(&player->camAt.z, D_801779C0, D_80177A48->unk0, 50000.0f, 0.0f);
     player->unk_088 += 10.0f;
-    temp_ft0 = -__sinf(player->unk_088 * 0.017453292f) * 0.3f;
+    temp_ft0 = -__sinf(player->unk_088 * M_DTOR) * 0.3f;
     player->unk_0F4 += 8.0f;
     player->unk_080 = temp_ft0;
-    player->unk_0F0 = __sinf(player->unk_0F4 * 0.017453292f);
+    player->unk_0F0 = __sinf(player->unk_0F4 * M_DTOR);
 }
 
 void func_E16C50_801A8BE8(Player *player) {
@@ -3659,8 +3659,8 @@ void func_E16C50_801A8BE8(Player *player) {
         player->unk_0F4 += 0.2f;
         break;
     }
-    Matrix_RotateY(gCalcMatrix, (player->unk_0F8 + 180.0f) * 0.017453292f, 0U);
-    Matrix_RotateX(gCalcMatrix, -(player->unk_0F4 * 0.017453292f), 1U);
+    Matrix_RotateY(gCalcMatrix, (player->unk_0F8 + 180.0f) * M_DTOR, 0U);
+    Matrix_RotateX(gCalcMatrix, -(player->unk_0F4 * M_DTOR), 1U);
     sp3C = 0.0f;
     sp40 = 0.0f;
     sp44 = player->unk_114;

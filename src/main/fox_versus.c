@@ -1923,7 +1923,7 @@ void func_800C2244(Object_2F4* obj2F4) {
                 x3 += 360.0f;
             }
 
-        } else if (obj2F4->obj.pos.y < D_80177940 + 50.0f) {
+        } else if (obj2F4->obj.pos.y < gGroundLevel + 50.0f) {
             if (x3 > 180.0f) {
                 x3 = 0.0f;
                 obj2F4->unk_0F4.x = 0.0f;
@@ -1959,8 +1959,8 @@ void func_800C2244(Object_2F4* obj2F4) {
     obj2F4->unk_14C -= obj2F4->unk_14C * 0.1f;
     obj2F4->unk_144 -= obj2F4->unk_144 * 0.1f;
 
-    if ((obj2F4->obj.pos.y < D_80177940 + 40.0f) && (obj2F4->vel.y < 0.0f)) {
-        obj2F4->obj.pos.y = D_80177940 + 40.0f;
+    if ((obj2F4->obj.pos.y < gGroundLevel + 40.0f) && (obj2F4->vel.y < 0.0f)) {
+        obj2F4->obj.pos.y = gGroundLevel + 40.0f;
         obj2F4->vel.y = 0.0f;
     }
 

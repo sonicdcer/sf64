@@ -666,7 +666,7 @@ void func_E16C50_801A0AF0(Object_8C*);
 void func_E16C50_801A10F4(Player* player);
 void func_E16C50_801A5B3C(Boss*);
 void func_E16C50_801A71B8(Boss*);
-void func_E16C50_801A8BE8(Player* player);
+void func_E16C50_801A8BE8(Object_2F4*);
 void func_E16C50_801A7930(Player* player);
 
 void func_E16C50_801A9824(void);

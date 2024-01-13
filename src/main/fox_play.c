@@ -125,7 +125,7 @@ void func_800A3FEC(void) {
 }
 
 void func_800A4460(Player* player) {
-    if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (gBosses[0].obj.status == 2) && (gBosses[0].unk_04E == 17)) {
+    if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (gBosses[0].obj.status == 2) && (gBosses[0].actionState == 17)) {
         player->unk_060 = __sinf(player->unk_0F4 * 0.7f * M_DTOR) * 0.5f;
         player->unk_088 += 13.0f;
         player->unk_0F4 += 20.0f;
@@ -1789,7 +1789,7 @@ void func_800A8BA4(Player* player) {
                         player->unk_110 = 0.0f;
                         player->timer_498 = 5;
                         player->unk_0D8.y = 30.0f;
-                        boss->unk_062 = 1;
+                        boss->dmgType = DMG_BEAM;
                         func_8007BFFC(player->pos.x + (10.0f * (Rand_ZeroOne() - 0.5f)),
                                       player->pos.y + (10.0f * Rand_ZeroOne()),
                                       player->unk_138 + (10.0f * (Rand_ZeroOne() - 0.5f)), 0.0f, 15.0f, 0.0f, 2.0f, 5);
@@ -1828,7 +1828,7 @@ void func_800A8BA4(Player* player) {
                                 break;
                             }
                             Player_ApplyDamage(player, temp_v0, boss->info.damage);
-                            if ((boss->obj.id == OBJ_BOSS_303) && ((boss->unk_04E == 2) || (boss->unk_04E == 3)) &&
+                            if ((boss->obj.id == OBJ_BOSS_303) && ((boss->actionState == 2) || (boss->actionState == 3)) &&
                                 (sp98 >= 9)) {
                                 player->unk_0D8.y = -100.0f;
                             }
@@ -3480,10 +3480,10 @@ void func_800AF07C(Player* player) {
     D_80177968 = 2.3f;
     D_80177970 = 0.68f;
 
-    if ((gInputPress->stick_x == 0) && (gInputPress->stick_y == 0)) {
-        // wut
-    } else {
-    }
+    // if ((gInputPress->stick_x == 0) && (gInputPress->stick_y == 0)) {
+    //     // wut
+    // } else {
+    // }
     sp9C = -gInputPress->stick_x;
     sp98 = gInputPress->stick_y;
     Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 5.0f, 0.01f);

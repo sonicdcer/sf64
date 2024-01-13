@@ -1,5 +1,5 @@
+// #include "prevent_bss_reordering.h"
 #include "global.h"
-#include "prevent_bss_reordering.h"
 
 extern f32 D_E16C50_801C4188;
 

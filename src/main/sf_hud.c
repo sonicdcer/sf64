@@ -1599,10 +1599,10 @@ void func_8008F96C(void) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80090200.s")
 
 void func_800907C4(Boss* boss) {
-    switch (boss->unk_04E) {
+    switch (boss->actionState) {
         case 0:
             if ((boss->fwork[1] == 255.0f) && (boss->fwork[2] == 212.0f)) {
-                boss->unk_04E = 1;
+                boss->actionState = 1;
 
             } else {
                 Math_SmoothStepToF(&boss->fwork[1], 255.0f, 0.3f, 6.0f, 6.0f);
@@ -1612,7 +1612,7 @@ void func_800907C4(Boss* boss) {
 
         case 1:
             if ((boss->fwork[1] == 28.0f) && (boss->fwork[2] == 23.0f)) {
-                boss->unk_04E = 0;
+                boss->actionState = 0;
             } else {
                 Math_SmoothStepToF(&boss->fwork[1], 28.0f, 0.3f, 6.0f, 6.0f);
                 Math_SmoothStepToF(&boss->fwork[2], 23.0f, 0.3f, 4.98f, 4.98f);
@@ -1966,7 +1966,8 @@ bool func_80091864(Object_2F4* obj2F4) {
         sp44 += 40.0f;
         if (sp44 >= 360.0f) {
             sp44 -= 360.0f;
-        } else if ((obj2F4->obj.pos.y < (gGroundLevel + 50.0f)) && (gLevelType == LEVELTYPE_PLANET) && (sp44 > 180.0f)) {
+        } else if ((obj2F4->obj.pos.y < (gGroundLevel + 50.0f)) && (gLevelType == LEVELTYPE_PLANET) &&
+                   (sp44 > 180.0f)) {
             sp44 = 0.0f;
         }
         obj2F4->unk_050 = 0;

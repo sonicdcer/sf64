@@ -3,6 +3,7 @@ __libm_qnan_f = 0x800C9570;
 D_1 = 0x1; //ignore:true
 D_80120000 = 0x80120000;//ignore:true
 D_80130001 = 0x80130001;//ignore:true
+D_80150000 = 0x80150000;//ignore:true
 D_80000000 = 0x80000000;//ignore:true
 D_80000001 = 0x80000001;//ignore:true
 D_80000002 = 0x80000002;//ignore:true
@@ -19,6 +20,10 @@ D_8000000C = 0x8000000C;//ignore:true
 D_8000000D = 0x8000000D;//ignore:true
 D_8000000E = 0x8000000E;//ignore:true
 D_8000000F = 0x8000000F;//ignore:true
+D_80000014 = 0x80000014;//ignore:true
+D_80000018 = 0x80000018;//ignore:true
+D_8000001C = 0x8000001C;//ignore:true
+D_80000024 = 0x80000024;//ignore:true
 
 D_800C45E0 = 0x800C45E0;
 

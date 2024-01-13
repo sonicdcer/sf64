@@ -63,7 +63,8 @@ void func_80035E78(PlayerShot* shot) {
                               shot->unk_48 * 3.0f, 5);
                 func_8007D9DC(shot->obj.pos.x, gGroundLevel + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
                               shot->unk_48 * 3.0f, 10);
-                func_8007ADF4(shot->obj.pos.x, gGroundLevel, shot->obj.pos.z, shot->unk_48 * 0.05f, shot->unk_48 * 0.5f);
+                func_8007ADF4(shot->obj.pos.x, gGroundLevel, shot->obj.pos.z, shot->unk_48 * 0.05f,
+                              shot->unk_48 * 0.5f);
                 func_8007A6F0(&shot->obj.pos, 0x19000014);
             } else {
                 func_80062B60(shot->obj.pos.x, shot->obj.pos.z, 0, shot->unk_48 * 3.0f);
@@ -950,7 +951,7 @@ void func_80038140(PlayerShot* shot) {
                     if (shot->obj.id == PLAYERSHOT_4) {
                         Object_Kill(&shot->obj, &shot->sfxPos);
                     } else {
-                        boss->unk_062 = 1;
+                        boss->dmgType = DMG_BEAM;
                         func_80036318(shot);
                         Audio_PlaySfx(0x29001062, &shot->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                     }
@@ -964,8 +965,8 @@ void func_80038140(PlayerShot* shot) {
                         if (shot->obj.id == PLAYERSHOT_4) {
                             Object_Kill(&shot->obj, &shot->sfxPos);
                         } else {
-                            boss->unk_062 = 1;
-                            boss->unk_066 = 100;
+                            boss->dmgType = DMG_BEAM;
+                            boss->dmgPart = 100;
                             Audio_PlaySfx(0x29121007, &shot->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                             func_80036318(shot);
                         }
@@ -976,25 +977,25 @@ void func_80038140(PlayerShot* shot) {
                     if (shot->obj.id == PLAYERSHOT_4) {
                         Object_Kill(&shot->obj, &shot->sfxPos);
                     } else if (!((boss->obj.id == OBJ_BOSS_316) && (shot->playerNum != 0))) {
-                        boss->unk_062 = 1;
+                        boss->dmgType = DMG_BEAM;
                         if (shot->obj.id == PLAYERSHOT_3) {
-                            boss->unk_062 = -1;
-                            boss->unk_064 = 20;
+                            boss->dmgType = DMG_BOMB;
+                            boss->damage = 20;
                         } else if (shot->obj.id == PLAYERSHOT_8) {
                             if (gCurrentLevel == LEVEL_AQUAS) {
-                                boss->unk_064 = 31;
+                                boss->damage = 31;
                             } else {
-                                boss->unk_064 = 30;
+                                boss->damage = 30;
                             }
                         } else {
-                            boss->unk_064 = 10;
+                            boss->damage = 10;
                             if (shot->playerNum < 4) {
                                 switch (gLaserStrength[shot->playerNum]) {
                                     case LASERS_SINGLE:
                                     case LASERS_TWIN:
                                         break;
                                     case LASERS_HYPER:
-                                        boss->unk_064 = 15;
+                                        boss->damage = 15;
                                         break;
                                 }
                             }
@@ -1002,7 +1003,7 @@ void func_80038140(PlayerShot* shot) {
                         if (boss->obj.id == OBJ_BOSS_314) {
                             boss->swork[19] = shot->playerNum;
                         }
-                        boss->unk_066 = temp_v0 - 1;
+                        boss->dmgPart = temp_v0 - 1;
                         if (boss->obj.id == OBJ_BOSS_301) {
                             boss->swork[5] = shot->obj.id;
                         } else if (boss->obj.id == OBJ_BOSS_319) {
@@ -1790,9 +1791,9 @@ void func_8003C008(PlayerShot* shot) {
                             var_fa1 *= 0.6f;
                         }
                         if (sqrtf(SQ(temp_ft4) + SQ(temp_ft5) + SQ(var_fa1)) < var_fs2) {
-                            boss->unk_066 = j;
-                            boss->unk_062 = -1;
-                            boss->unk_064 = 20;
+                            boss->dmgPart = j;
+                            boss->dmgType = DMG_BOMB;
+                            boss->damage = 20;
                         }
                     }
                 }
@@ -2008,7 +2009,7 @@ void func_8003CC08(PlayerShot* shot) {
                 }
             }
             if (!((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (gBosses[0].obj.status == 2) &&
-                  (gBosses[0].unk_04E == 17))) {
+                  (gBosses[0].actionState == 17))) {
                 func_80038140(shot);
             }
             func_8003C3D8(shot);
@@ -2061,10 +2062,10 @@ void func_8003CF90(PlayerShot* shot) {
     if ((shot->obj.pos.y < gGroundLevel) || (shot->unk_64 == 1)) {
         if ((D_80161A88 == 2) && (shot->obj.pos.y < gGroundLevel)) {
             shot->unk_48 = 10.0f;
-            func_8007D9DC(shot->obj.pos.x, gGroundLevel + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f, shot->unk_48 * 3.0f,
-                          0);
-            func_8007D9DC(shot->obj.pos.x, gGroundLevel + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f, shot->unk_48 * 3.0f,
-                          5);
+            func_8007D9DC(shot->obj.pos.x, gGroundLevel + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
+                          shot->unk_48 * 3.0f, 0);
+            func_8007D9DC(shot->obj.pos.x, gGroundLevel + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
+                          shot->unk_48 * 3.0f, 5);
             func_8007ADF4(shot->obj.pos.x, gGroundLevel, shot->obj.pos.z, shot->unk_48 * 0.05f, shot->unk_48 * 0.5f);
             func_8007A6F0(&shot->obj.pos, 0x19000014);
         }
@@ -2132,8 +2133,8 @@ void func_8003CF90(PlayerShot* shot) {
 
             shot->obj.rot.y = shot->unk_30;
             shot->obj.rot.x = shot->unk_2C;
-            Matrix_RotateY(gCalcMatrix, shot->obj.rot.y * 0.017453292f, 0);
-            Matrix_RotateX(gCalcMatrix, shot->obj.rot.x * 0.017453292f, 1);
+            Matrix_RotateY(gCalcMatrix, shot->obj.rot.y * M_DTOR, 0);
+            Matrix_RotateX(gCalcMatrix, shot->obj.rot.x * M_DTOR, 1);
             sp44.x = sp44.y = 0.0f;
             sp44.z = -(shot->unk_54 + 40.0f);
             Matrix_MultVec3f(gCalcMatrix, &sp44, &sp38);
