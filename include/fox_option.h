@@ -75,6 +75,8 @@ typedef enum OptionId {
     OPTION_MAX,
 } OptionId;
 
+#define OPTION_COUNT ARRAY_COUNT(sOptionCardList)
+
 extern s32 D_EBFBE0_801B9090;
 extern s32 D_EBFBE0_801B9094;
 extern s32 D_EBFBE0_801B9098; //gap

@@ -356,7 +356,7 @@ void Option_Setup(void) {
     sOptionCardList[4].unk_00.unk_10 = 64;
     sOptionCardList[4].unk_00.unk_14 = 10;
 
-    for (i = 0; i < 6; i++) {
+    for (i = 0; i < OPTION_COUNT; i++) {
         D_EBFBE0_801AE5B8[i] = sOptionCardTextPosX[i];
         D_EBFBE0_801AE5D0[i] = sOptionCardTextPosY[i];
     }
@@ -444,7 +444,7 @@ void Option_Setup(void) {
         if (D_800D2870 != 0) {
             D_EBFBE0_801B91A4 = 2;
             D_EBFBE0_801B91A8 = D_801778AC;
-            for (i = 0; i < 6; i++) {
+            for (i = 0; i < OPTION_COUNT; i++) {
                 if (i == 2) {
                     continue;
                 }
@@ -801,7 +801,7 @@ void func_EBFBE0_801929F0(void) {
 
     if (D_EBFBE0_801B9244 == 0) {
         D_EBFBE0_801B91BC = 1;
-        for (i = 0; i < 6; i++) {
+        for (i = 0; i < OPTION_COUNT; i++) {
             sOptionCardList[i].unk_00.unk_18 = D_EBFBE0_801AE5B8[i];
             sOptionCardList[i].unk_00.unk_1C = D_EBFBE0_801AE5D0[i];
             sOptionCardList[i].unk_00.unk_20 = 1.0f;
@@ -816,7 +816,7 @@ void func_EBFBE0_801929F0(void) {
         }
     } else {
         D_EBFBE0_801B91BC = 0;
-        for (i = 0; i < 6; i++) {
+        for (i = 0; i < OPTION_COUNT; i++) {
             sOptionCardList[i].unk_00.unk_24 = 1.0f;
             sOptionCardList[i].unk_38.unk_10 = 0.21f;
             sOptionCardList[i].unk_38.unk_08 = 0.0f;
@@ -858,7 +858,7 @@ void Option_MainMenuUpdate(void) {
             break;
 
         case 1000:
-            for (i = 0; i < 6; i++) {
+            for (i = 0; i < OPTION_COUNT; i++) {
                 if (sOptionCardList[i].unk_38.unk_0C < 0.4f) {
                     sOptionCardList[i].unk_38.unk_0C += 0.04f;
                     if (sOptionCardList[i].unk_38.unk_0C > 0.4f) {
@@ -881,7 +881,7 @@ void Option_MainMenuUpdate(void) {
             gBlurAlpha += 4;
 
             if (sOptionCardList[D_EBFBE0_801B91A4].unk_38.unk_04 == sOptionCardPosY[D_EBFBE0_801B91A4]) {
-                for (i = 0; i < 6; i++) {
+                for (i = 0; i < OPTION_COUNT; i++) {
                     sOptionCardList[i].unk_00.unk_20 = 1.0f;
                     sOptionCardList[i].unk_00.unk_18 = D_EBFBE0_801AE5B8[i];
                     sOptionCardList[i].unk_00.unk_1C = D_EBFBE0_801AE5D0[i];
@@ -976,7 +976,7 @@ void Option_MainMenuUpdate(void) {
                 D_EBFBE0_801B9214 = 1;
             }
 
-            for (i = 0; i < 6; i++) {
+            for (i = 0; i < OPTION_COUNT; i++) {
                 if (i == D_EBFBE0_801B91A4) {
                     continue;
                 }
@@ -1044,7 +1044,7 @@ void Option_MainMenuDraw(void) {
 
     func_EBFBE0_8019BDF0();
 
-    for (i = 0; i < 6; i++) {
+    for (i = 0; i < OPTION_COUNT; i++) {
         if (sOptionCardList[i].unk_5C) {
             Option_DrawMenuCard(sOptionCardList[i].unk_38);
         }
@@ -1053,7 +1053,7 @@ void Option_MainMenuDraw(void) {
     Option_DrawMenuArwing(sOptionCardList[D_EBFBE0_801B91A4].unk_4C);
     Matrix_Pop(&gGfxMatrix);
 
-    for (i = 0; i < 6; i++) {
+    for (i = 0; i < OPTION_COUNT; i++) {
         if (!(sOptionCardList[i].unk_58) || (sOptionCardList[i].unk_00.unk_20) <= 0.0f) {
             continue;
         }
@@ -1859,7 +1859,7 @@ void Option_DataUpdate(void) {
                         sOptionCardList[4].unk_00.unk_10 = 64;
                         sOptionCardList[4].unk_00.unk_14 = 10;
 
-                        for (i = 0; i < 6; i++) {
+                        for (i = 0; i < OPTION_COUNT; i++) {
                             D_EBFBE0_801AE5B8[i] = sOptionCardTextPosX[i];
                             D_EBFBE0_801AE5D0[i] = sOptionCardTextPosY[i];
                         }
