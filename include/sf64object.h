@@ -207,7 +207,9 @@ typedef struct {
     /* 0x000 */ Object obj;
     /* 0x01C */ ObjectInfo info;
     /* 0x040 */ s32 index;
-    /* 0x044 */ char unk_44[0xA];
+    /* 0x044 */ s16 unk_044;
+    /* 0x044 */ char unk_46[6];
+    /* 0x04C */ s16 unk_04C;
     /* 0x04E */ s16 actionState;
     /* 0x050 */ s16 timer_050;
     /* 0x052 */ s16 timer_052;
