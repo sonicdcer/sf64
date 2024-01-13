@@ -106,12 +106,14 @@
     subsegments:
     - [0xE6A810, c, E6A810]
     - [0xE6C220, c, E6C220]
+    - [0xE7CC10, c, E7CC10]
     - [0xE97CC0, c, E97CC0]
     - [0xE9A580, data, E6A810]
     - [0xE9A650, data, E6C220]
     - [0xE9DC00, data, E97CC0]
     - [0xE9DCD0, .rodata, E6A810]
     - [0xE9DD40, .rodata, E6C220]
+    - [0xE9E5A0, .rodata, E7CC10]
     - [0xE9F0E0, .rodata, E97CC0]
     - { start: 0xE9F1D0, type: bss, vram: 0x801BBEE0, name: ovl_E6A810 }
 

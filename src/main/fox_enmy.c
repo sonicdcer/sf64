@@ -167,14 +167,14 @@ void Item_Initialize(Item* item) {
     }
 }
 
-void Object_8C_Initialize(Object_8C* obj8C) {
+void Effect_Initialize(Effect* effect) {
     s32 i;
-    u8* ptr = (u8*) obj8C;
+    u8* ptr = (u8*) effect;
 
-    for (i = 0; i < sizeof(Object_8C); i++, ptr++) {
+    for (i = 0; i < sizeof(Effect); i++, ptr++) {
         *ptr = 0;
     }
-    obj8C->scale2 = 1.0f;
+    effect->scale2 = 1.0f;
 }
 
 void Object_80_Load(Object_80* obj80, ObjectInit* objInit) {
@@ -248,24 +248,24 @@ void Item_Load(Item* item, ObjectInit* objInit) {
     Object_SetInfo(&item->info, item->obj.id);
 }
 
-void func_80061958(Object_8C* obj8C, f32 xPos, f32 yPos, f32 zPos) {
-    Object_8C_Initialize(obj8C);
-    obj8C->obj.status = 1;
-    obj8C->obj.id = OBJ_8C_346;
-    obj8C->timer_50 = 50;
-    obj8C->scale2 = 0.2f;
+void func_80061958(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
+    Effect_Initialize(effect);
+    effect->obj.status = 1;
+    effect->obj.id = OBJ_EFFECT_346;
+    effect->timer_50 = 50;
+    effect->scale2 = 0.2f;
     if (gCurrentLevel == LEVEL_AQUAS) {
-        obj8C->timer_50 = 200;
-        obj8C->scale2 = 0.3f;
-        obj8C->scale1 = Rand_ZeroOne() * 255.0f;
+        effect->timer_50 = 200;
+        effect->scale2 = 0.3f;
+        effect->scale1 = Rand_ZeroOne() * 255.0f;
     }
-    obj8C->obj.pos.x = xPos;
-    obj8C->obj.pos.y = yPos;
-    obj8C->obj.pos.z = zPos;
-    obj8C->obj.rot.z = Rand_ZeroOne() * 360.0f;
-    Object_SetInfo(&obj8C->info, obj8C->obj.id);
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
+    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    Object_SetInfo(&effect->info, effect->obj.id);
     if (gLevelType == LEVELTYPE_PLANET) {
-        obj8C->info.unk_10 = 100.0f;
+        effect->info.unk_10 = 100.0f;
     }
 }
 
@@ -276,8 +276,8 @@ void func_80061A4C(void) {
     f32 z;
     f32 sp1C;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
             sp1C = (Rand_ZeroOne() - 0.5f);
             x = gPlayer[0].pos.x + (sp1C * 400.0f) + (5.0f * gPlayer[0].vel.x);
             sp1C = (Rand_ZeroOne() - 0.5f);
@@ -286,7 +286,7 @@ void func_80061A4C(void) {
             if (D_80177D08 < 0.0f) {
                 z = -D_80177D20 + 500.0f;
             }
-            func_80061958(&gObjects8C[i], x, y, z);
+            func_80061958(&gEffects[i], x, y, z);
             break;
         }
     }
@@ -299,8 +299,8 @@ void func_80061B68(void) {
     f32 z;
     f32 sp1C;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
 
             sp1C = (Rand_ZeroOne() - 0.5f);
             x = gPlayer[0].pos.x + (sp1C * 2000.0f) + (5.0f * gPlayer[0].vel.x);
@@ -313,7 +313,7 @@ void func_80061B68(void) {
             if (D_80177D08 < 0.0f) {
                 z = -D_80177D20 + 1000.0f;
             }
-            func_80061958(&gObjects8C[i], x, y, z);
+            func_80061958(&gEffects[i], x, y, z);
             break;
         }
     }
@@ -326,8 +326,8 @@ void func_80061CD0(void) {
     f32 z;
     f32 sp1C;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
             sp1C = (Rand_ZeroOne() - 0.5f);
             x = gPlayer[gPlayerNum].pos.x + (sp1C * 3000.0f) + (5.0f * gPlayer[gPlayerNum].vel.x);
             sp1C = (Rand_ZeroOne() - 0.5f);
@@ -336,7 +336,7 @@ void func_80061CD0(void) {
             if (D_80177D08 < 0.0f) {
                 z = -D_80177D20 + 1000.0f;
             }
-            func_80061958(&gObjects8C[i], x, y, z);
+            func_80061958(&gEffects[i], x, y, z);
             break;
         }
     }
@@ -448,7 +448,7 @@ void Object_Load(ObjectInit* objInit, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
                 }
             }
         }
-        if ((objInit->id >= OBJ_ITEM_LASERS) && (objInit->id < OBJ_8C_339)) {
+        if ((objInit->id >= OBJ_ITEM_LASERS) && (objInit->id < OBJ_EFFECT_339)) {
             for (i = 0; i < ARRAY_COUNT(gItems); i++) {
                 if (gItems[i].obj.status == 0) {
                     Item_Load(&gItems[i], objInit);
@@ -456,7 +456,7 @@ void Object_Load(ObjectInit* objInit, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
                 }
             }
         }
-        if (objInit->id >= OBJ_8C_339 && objInit->id <= OBJ_UNK_406) {
+        if (objInit->id >= OBJ_EFFECT_339 && objInit->id <= OBJ_UNK_406) {
             switch (objInit->id) {
                 case OBJ_UNK_403:
                     D_E6A810_801BA1E8 = 99;
@@ -578,19 +578,19 @@ void func_80062B60(f32 xPos, f32 zPos, s32 arg2, f32 arg3) {
     s32 i;
 
     if (gLevelType == LEVELTYPE_PLANET) {
-        for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-            if (gObjects8C[i].obj.status == 0) {
-                Object_8C_Initialize(&gObjects8C[i]);
-                gObjects8C[i].obj.status = 1;
-                gObjects8C[i].obj.id = OBJ_8C_348;
-                gObjects8C[i].obj.pos.x = xPos;
-                gObjects8C[i].obj.pos.y = D_80177940 + 3.0f;
-                gObjects8C[i].obj.pos.z = zPos;
-                gObjects8C[i].scale2 = 10.0f;
-                gObjects8C[i].scale1 = arg3;
-                gObjects8C[i].unk_44 = 80;
-                gObjects8C[i].unk_4E = arg2;
-                Object_SetInfo(&gObjects8C[i].info, gObjects8C[i].obj.id);
+        for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+            if (gEffects[i].obj.status == 0) {
+                Effect_Initialize(&gEffects[i]);
+                gEffects[i].obj.status = 1;
+                gEffects[i].obj.id = OBJ_EFFECT_348;
+                gEffects[i].obj.pos.x = xPos;
+                gEffects[i].obj.pos.y = D_80177940 + 3.0f;
+                gEffects[i].obj.pos.z = zPos;
+                gEffects[i].scale2 = 10.0f;
+                gEffects[i].scale1 = arg3;
+                gEffects[i].unk_44 = 80;
+                gEffects[i].unk_4E = arg2;
+                Object_SetInfo(&gEffects[i].info, gEffects[i].obj.id);
                 break;
             }
         }
@@ -601,18 +601,18 @@ void func_80062C38(f32 xPos, f32 yPos) {
     s32 i;
 
     if (gLevelType == LEVELTYPE_PLANET) {
-        for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-            if (gObjects8C[i].obj.status == 0) {
-                Object_8C_Initialize(&gObjects8C[i]);
-                gObjects8C[i].obj.status = 1;
-                gObjects8C[i].obj.id = OBJ_8C_349;
-                gObjects8C[i].obj.pos.x = xPos;
-                gObjects8C[i].obj.pos.y = D_80177940 + 3.0f;
-                gObjects8C[i].obj.pos.z = yPos;
-                gObjects8C[i].scale2 = 1.0f;
-                gObjects8C[i].scale1 = 1.3f;
-                gObjects8C[i].unk_44 = 120;
-                Object_SetInfo(&gObjects8C[i].info, gObjects8C[i].obj.id);
+        for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+            if (gEffects[i].obj.status == 0) {
+                Effect_Initialize(&gEffects[i]);
+                gEffects[i].obj.status = 1;
+                gEffects[i].obj.id = OBJ_EFFECT_349;
+                gEffects[i].obj.pos.x = xPos;
+                gEffects[i].obj.pos.y = D_80177940 + 3.0f;
+                gEffects[i].obj.pos.z = yPos;
+                gEffects[i].scale2 = 1.0f;
+                gEffects[i].scale1 = 1.3f;
+                gEffects[i].unk_44 = 120;
+                Object_SetInfo(&gEffects[i].info, gEffects[i].obj.id);
                 break;
             }
         }
@@ -622,18 +622,18 @@ void func_80062C38(f32 xPos, f32 yPos) {
 void func_80062D04(f32 xPos, f32 yPos) {
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-        if (gObjects8C[i].obj.status == 0) {
-            Object_8C_Initialize(&gObjects8C[i]);
-            gObjects8C[i].obj.status = 1;
-            gObjects8C[i].obj.id = OBJ_8C_350;
-            gObjects8C[i].obj.pos.x = xPos;
-            gObjects8C[i].obj.pos.y = D_80177940 + 3.0f;
-            gObjects8C[i].obj.pos.z = yPos;
-            gObjects8C[i].scale2 = 3.0f;
-            gObjects8C[i].scale1 = 2.0f;
-            gObjects8C[i].unk_44 = 120;
-            Object_SetInfo(&gObjects8C[i].info, gObjects8C[i].obj.id);
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
+            Effect_Initialize(&gEffects[i]);
+            gEffects[i].obj.status = 1;
+            gEffects[i].obj.id = OBJ_EFFECT_350;
+            gEffects[i].obj.pos.x = xPos;
+            gEffects[i].obj.pos.y = D_80177940 + 3.0f;
+            gEffects[i].obj.pos.z = yPos;
+            gEffects[i].scale2 = 3.0f;
+            gEffects[i].scale1 = 2.0f;
+            gEffects[i].unk_44 = 120;
+            Object_SetInfo(&gEffects[i].info, gEffects[i].obj.id);
             break;
         }
     }
@@ -1016,15 +1016,15 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_ACTOR_247:
             func_E16C50_8019D060(&gActors[index]);
             break;
-        case OBJ_8C_368:
+        case OBJ_EFFECT_368:
             if (gCurrentLevel == LEVEL_TITANIA) {
-                func_E6A810_801B6E20(gObjects8C[index].obj.pos.x, gObjects8C[index].obj.pos.z + D_80177D20, &sp54,
-                                     &sp4C, &sp50);
-                gObjects8C[index].obj.pos.y = sp4C + 3.0f;
-                gObjects8C[index].obj.rot.x = (sp54 * 180.0f) / M_PI;
-                gObjects8C[index].obj.rot.z = (sp50 * 180.0f) / M_PI;
+                func_E6A810_801B6E20(gEffects[index].obj.pos.x, gEffects[index].obj.pos.z + D_80177D20, &sp54, &sp4C,
+                                     &sp50);
+                gEffects[index].obj.pos.y = sp4C + 3.0f;
+                gEffects[index].obj.rot.x = (sp54 * 180.0f) / M_PI;
+                gEffects[index].obj.rot.z = (sp50 * 180.0f) / M_PI;
             } else if (gCurrentLevel == LEVEL_MACBETH) {
-                gObjects8C[index].obj.status = 0;
+                gEffects[index].obj.status = 0;
             }
             break;
         case OBJ_80_30:
@@ -2573,16 +2573,16 @@ void func_80069858(Object_4C* obj4C) {
     }
 }
 
-void func_80069924(Object_8C* obj8C) {
-    obj8C->obj.pos.x += obj8C->vel.x;
-    obj8C->obj.pos.y += obj8C->vel.y;
-    obj8C->obj.pos.z += obj8C->vel.z;
+void func_80069924(Effect* effect) {
+    effect->obj.pos.x += effect->vel.x;
+    effect->obj.pos.y += effect->vel.y;
+    effect->obj.pos.z += effect->vel.z;
     if (D_80161AB8 != 0) {
-        if ((gPlayer[0].camEye.z + obj8C->info.unk_10) < (obj8C->obj.pos.z + D_80177D20)) {
-            Object_Kill(&obj8C->obj, &obj8C->sfxPos);
-        } else if ((fabsf(obj8C->obj.pos.y - gPlayer[0].camEye.y) > 25000.0f) ||
-                   (fabsf(obj8C->obj.pos.x - gPlayer[0].camEye.x) > 25000.0f)) {
-            Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+        if ((gPlayer[0].camEye.z + effect->info.unk_10) < (effect->obj.pos.z + D_80177D20)) {
+            Object_Kill(&effect->obj, &effect->sfxPos);
+        } else if ((fabsf(effect->obj.pos.y - gPlayer[0].camEye.y) > 25000.0f) ||
+                   (fabsf(effect->obj.pos.x - gPlayer[0].camEye.x) > 25000.0f)) {
+            Object_Kill(&effect->obj, &effect->sfxPos);
         }
     }
 }
@@ -2763,19 +2763,19 @@ void Item_Update(Item* item) {
     }
 }
 
-void Object_8C_Update(Object_8C* obj8C) {
-    if (obj8C->timer_50 != 0) {
-        obj8C->timer_50--;
+void Effect_Update(Effect* effect) {
+    if (effect->timer_50 != 0) {
+        effect->timer_50--;
     }
-    switch (obj8C->obj.status) {
+    switch (effect->obj.status) {
         case 1:
-            obj8C->obj.status = 2;
-            Object_Init(obj8C->index, obj8C->obj.id);
+            effect->obj.status = 2;
+            Object_Init(effect->index, effect->obj.id);
             /* fallthrough */
         case 2:
-            func_80069924(obj8C);
-            if ((obj8C->obj.status != 0) && (obj8C->info.action != NULL)) {
-                obj8C->info.action(&obj8C->obj);
+            func_80069924(effect);
+            if ((effect->obj.status != 0) && (effect->info.action != NULL)) {
+                effect->info.action(&effect->obj);
             }
             break;
     }
@@ -2852,7 +2852,7 @@ void Object_UpdateAll(void) {
     Object_4C* obj4C;
     Object_80* obj80;
     Item* item;
-    Object_8C* obj8C;
+    Effect* effect;
 
     D_80161AB8 = 0;
     if ((gLevelMode == LEVELMODE_ON_RAILS) &&
@@ -2906,10 +2906,10 @@ void Object_UpdateAll(void) {
             Item_Update(item);
         }
     }
-    for (i = 0, obj8C = gObjects8C; i < ARRAY_COUNT(gObjects8C); i++, obj8C++) {
-        if (obj8C->obj.status != 0) {
-            obj8C->index = i;
-            Object_8C_Update(obj8C);
+    for (i = 0, effect = gEffects; i < ARRAY_COUNT(gEffects); i++, effect++) {
+        if (effect->obj.status != 0) {
+            effect->index = i;
+            Effect_Update(effect);
         }
     }
     func_8006A38C();

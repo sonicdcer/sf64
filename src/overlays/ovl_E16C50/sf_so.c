@@ -6,8 +6,8 @@ void func_E16C50_8019EA7C(Actor*);
 void func_E16C50_8019F20C(Actor*);
 void func_E16C50_8019F7AC(Actor*);
 void func_E16C50_801A003C(Actor*);
-void func_E16C50_801A0120(Object_8C*);
-void func_E16C50_801A0AF0(Object_8C*);
+void func_E16C50_801A0120(Effect*);
+void func_E16C50_801A0AF0(Effect*);
 
 void func_E16C50_801A1F80(Boss* bossSO);
 void func_E16C50_801A23F4(Boss* bossSO);
@@ -125,10 +125,10 @@ s32 D_E16C50_801C27A0[8]; // unused? part of previous?
 // OBJ_ACTOR_279 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_so/func_E16C50_801A003C.s")
 
-// OBJ_8C_392 action
+// OBJ_EFFECT_392 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_so/func_E16C50_801A0120.s")
 
-// OBJ_8C_392 draw
+// OBJ_EFFECT_392 draw
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_so/func_E16C50_801A0AF0.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_so/func_E16C50_801A0CEC.s")
