@@ -55,27 +55,27 @@ void func_80042FDC(Boss* boss) {
 void func_80042FE8(Boss* boss) {
 }
 
-void func_80042FF4(Object_2F4* obj2F4, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,
+void func_80042FF4(Actor* actor, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,
                    f32 arg9, f32 argA, s32 argB, s32 argC) {
-    Object_2F4_Initialize(obj2F4);
-    obj2F4->obj.status = 1;
-    obj2F4->obj.id = OBJ_2F4_189;
-    obj2F4->unk_0B8 = argB;
-    obj2F4->obj.pos.x = arg1;
-    obj2F4->obj.pos.y = arg2;
-    obj2F4->obj.pos.z = arg3;
-    obj2F4->obj.rot.x = arg4;
-    obj2F4->obj.rot.y = arg5;
-    obj2F4->obj.rot.z = arg6;
-    obj2F4->vel.x = arg7;
-    obj2F4->vel.y = arg8;
-    obj2F4->vel.z = arg9;
-    obj2F4->scale = argA;
-    obj2F4->timer_0BC = argC;
-    obj2F4->timer_0BE = 20;
-    Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
+    Actor_Initialize(actor);
+    actor->obj.status = 1;
+    actor->obj.id = OBJ_ACTOR_189;
+    actor->unk_0B8 = argB;
+    actor->obj.pos.x = arg1;
+    actor->obj.pos.y = arg2;
+    actor->obj.pos.z = arg3;
+    actor->obj.rot.x = arg4;
+    actor->obj.rot.y = arg5;
+    actor->obj.rot.z = arg6;
+    actor->vel.x = arg7;
+    actor->vel.y = arg8;
+    actor->vel.z = arg9;
+    actor->scale = argA;
+    actor->timer_0BC = argC;
+    actor->timer_0BE = 20;
+    Object_SetInfo(&actor->info, actor->obj.id);
     if (gLevelType == LEVELTYPE_PLANET) {
-        obj2F4->gravity = 0.5f;
+        actor->gravity = 0.5f;
     }
 }
 
@@ -84,15 +84,15 @@ void func_800430DC(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
     s32 i;
 
     for (i = 59; i >= 0; i--) {
-        if (gObjects2F4[i].obj.status == 0) {
-            func_80042FF4(&gObjects2F4[i], arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB);
+        if (gActors[i].obj.status == 0) {
+            func_80042FF4(&gActors[i], arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB);
             return;
         }
     }
 }
 
-void func_80043188(Object_2F4* obj2F4) {
-    obj2F4->info.unk_10 = 30000.0f;
+void func_80043188(Actor* actor) {
+    actor->info.unk_10 = 30000.0f;
 }
 
 void func_8004319C(Player* player, f32 arg1, f32 arg2, f32 arg3) {

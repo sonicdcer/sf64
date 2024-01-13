@@ -1,39 +1,39 @@
 #include "global.h"
 
-void func_E16C50_801904CC(Object_2F4*);
-void func_E16C50_80190A00(Object_2F4*);
-void func_E16C50_80191010(Object_2F4*);
-void func_E16C50_801914C4(Object_2F4*);
-void func_E16C50_80191680(Object_2F4*);
-void func_E16C50_80191B4C(Object_2F4*);
-void func_E16C50_80191BC4(Object_2F4*);
-void func_E16C50_80191DB0(Object_2F4*);
-void func_E16C50_80191FFC(Object_2F4*);
-void func_E16C50_80192094(Object_2F4*);
-void func_E16C50_80192834(Object_2F4*);
-void func_E16C50_80192C18(Object_2F4*);
-void func_E16C50_80192E64(Object_2F4*);
-void func_E16C50_80193240(Object_2F4*);
-void func_E16C50_8019969C(Object_2F4*);
-void func_E16C50_8019983C(Object_2F4*);
-void func_E16C50_80199A28(Object_2F4*);
-void func_E16C50_80199E24(Object_2F4*);
-void func_E16C50_80199F10(Object_2F4*);
-void func_E16C50_8019A1FC(Object_2F4*);
-void func_E16C50_8019A5D4(Object_2F4*);
-void func_E16C50_8019ACCC(Object_2F4*);
-void func_E16C50_8019B548(Object_2F4*);
-void func_E16C50_8019B7DC(Object_2F4*);
-void func_E16C50_8019B854(Object_2F4*);
-void func_E16C50_8019BDE0(Object_2F4*);
-void func_E16C50_8019BE48(Object_2F4*);
-void func_E16C50_8019C1CC(Object_2F4*);
-void func_E16C50_8019C454(Object_2F4*);
-void func_E16C50_8019C83C(Object_2F4*);
-void func_E16C50_8019CBEC(Object_2F4*);
-void func_E16C50_8019CE58(Object_2F4*);
-void func_E16C50_8019D15C(Object_2F4*);
-void func_E16C50_8019D3C4(Object_2F4*);
+void func_E16C50_801904CC(Actor*);
+void func_E16C50_80190A00(Actor*);
+void func_E16C50_80191010(Actor*);
+void func_E16C50_801914C4(Actor*);
+void func_E16C50_80191680(Actor*);
+void func_E16C50_80191B4C(Actor*);
+void func_E16C50_80191BC4(Actor*);
+void func_E16C50_80191DB0(Actor*);
+void func_E16C50_80191FFC(Actor*);
+void func_E16C50_80192094(Actor*);
+void func_E16C50_80192834(Actor*);
+void func_E16C50_80192C18(Actor*);
+void func_E16C50_80192E64(Actor*);
+void func_E16C50_80193240(Actor*);
+void func_E16C50_8019969C(Actor*);
+void func_E16C50_8019983C(Actor*);
+void func_E16C50_80199A28(Actor*);
+void func_E16C50_80199E24(Actor*);
+void func_E16C50_80199F10(Actor*);
+void func_E16C50_8019A1FC(Actor*);
+void func_E16C50_8019A5D4(Actor*);
+void func_E16C50_8019ACCC(Actor*);
+void func_E16C50_8019B548(Actor*);
+void func_E16C50_8019B7DC(Actor*);
+void func_E16C50_8019B854(Actor*);
+void func_E16C50_8019BDE0(Actor*);
+void func_E16C50_8019BE48(Actor*);
+void func_E16C50_8019C1CC(Actor*);
+void func_E16C50_8019C454(Actor*);
+void func_E16C50_8019C83C(Actor*);
+void func_E16C50_8019CBEC(Actor*);
+void func_E16C50_8019CE58(Actor*);
+void func_E16C50_8019D15C(Actor*);
+void func_E16C50_8019D3C4(Actor*);
 
 Vec3f D_E16C50_801BF560 = { 0.0f, 0.0f, 0.0f };
 s16 D_E16C50_801BF56C[20] = {
@@ -159,70 +159,70 @@ UnkStruct_1C24E8 D_E16C50_801C24E8;
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80190204.s")
 
-// OBJ_2F4_235 draw
+// OBJ_ACTOR_235 draw
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80190430.s")
 
-// OBJ_2F4_235 action
+// OBJ_ACTOR_235 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_801904CC.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80190790.s")
 
-// OBJ_2F4_236 action
+// OBJ_ACTOR_236 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80190A00.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80190B4C.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80190D0C.s")
 
-// OBJ_2F4_236 draw
+// OBJ_ACTOR_236 draw
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80190F08.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80190F28.s")
 
-// OBJ_2F4_238 action
+// OBJ_ACTOR_238 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80191010.s")
 
-// OBJ_2F4_238 draw
+// OBJ_ACTOR_238 draw
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_801914C4.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_801915A4.s")
 
-// OBJ_2F4_240 action
+// OBJ_ACTOR_240 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80191680.s")
 
-// OBJ_2F4_240 draw
+// OBJ_ACTOR_240 draw
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80191B4C.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80191BB8.s")
 
-// OBJ_2F4_241 action
+// OBJ_ACTOR_241 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80191BC4.s")
 
-// OBJ_2F4_241 draw
+// OBJ_ACTOR_241 draw
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80191DB0.s")
 
-// OBJ_2F4_242 action
+// OBJ_ACTOR_242 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80191E94.s")
 
-// OBJ_2F4_242 draw
+// OBJ_ACTOR_242 draw
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80191FFC.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80192094.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_801926F4.s")
 
-// OBJ_2F4_243 action
+// OBJ_ACTOR_243 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80192834.s")
 
-// OBJ_2F4_243 draw
+// OBJ_ACTOR_243 draw
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80192C18.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80192C84.s")
 
-// OBJ_2F4_244 action
+// OBJ_ACTOR_244 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80192E64.s")
 
-// OBJ_2F4_244 draw
+// OBJ_ACTOR_244 draw
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80193240.s")
 
 // OBJ_BOSS_ZO init
@@ -281,84 +281,84 @@ void func_E16C50_80194A84(Boss* bossZO);
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019962C.s")
 
-// OBJ_2F4_245 action
+// OBJ_ACTOR_245 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019969C.s")
 
-// OBJ_2F4_245 draw
+// OBJ_ACTOR_245 draw
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019983C.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_801998E0.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_801999CC.s")
 
-// OBJ_2F4_246 action
+// OBJ_ACTOR_246 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80199A28.s")
 
-// OBJ_2F4_246 draw
+// OBJ_ACTOR_246 draw
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80199E24.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80199E9C.s")
 
-// OBJ_2F4_248 action
+// OBJ_ACTOR_248 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_80199F10.s")
 
-// OBJ_2F4_248 draw
+// OBJ_ACTOR_248 draw
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019A1FC.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019A4E0.s")
 
-// OBJ_2F4_249 action
+// OBJ_ACTOR_249 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019A5D4.s")
 
-// OBJ_2F4_249 draw
+// OBJ_ACTOR_249 draw
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019ACCC.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019B1F0.s")
 
-// OBJ_2F4_250 action
+// OBJ_ACTOR_250 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019B548.s")
 
-// OBJ_2F4_250 draw
+// OBJ_ACTOR_250 draw
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019B7DC.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019B810.s")
 
-// OBJ_2F4_251 action
+// OBJ_ACTOR_251 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019B854.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019BC78.s")
 
-// OBJ_2F4_251 draw
+// OBJ_ACTOR_251 draw
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019BDE0.s")
 
-// OBJ_2F4_252 action
+// OBJ_ACTOR_252 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019BE48.s")
 
-// OBJ_2F4_252 draw
+// OBJ_ACTOR_252 draw
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019C1CC.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019C200.s")
 
-// OBJ_2F4_253 action
+// OBJ_ACTOR_253 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019C454.s")
 
-// OBJ_2F4_253 draw
+// OBJ_ACTOR_253 draw
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019C83C.s")
 
-// OBJ_2F4_254 action
+// OBJ_ACTOR_254 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019CBEC.s")
 
-// OBJ_2F4_254 draw
+// OBJ_ACTOR_254 draw
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019CE58.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019D060.s")
 
-// OBJ_2F4_247 action
+// OBJ_ACTOR_247 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019D15C.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019D340.s")
 
-// OBJ_2F4_247 draw
+// OBJ_ACTOR_247 draw
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_E16C50/sf_zo/func_E16C50_8019D3C4.s")
 
 void func_E16C50_8019D428(Player* player);
