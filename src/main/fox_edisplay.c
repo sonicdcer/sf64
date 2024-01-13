@@ -1004,8 +1004,8 @@ void Actor_Draw2(Actor* actor) {
                 func_8005D008(&actor->obj, actor->info.drawType);
                 actor->obj.pos.y -= D_8017847C;
             } else if ((actor->obj.id == OBJ_ACTOR_200) && (actor->unk_0B4 != 31)) {
-                func_8005D3CC(&actor->obj, actor->vwork[29].x, actor->vwork[29].y, actor->vwork[29].z + actor->unk_0F4.z,
-                              actor->info.drawType);
+                func_8005D3CC(&actor->obj, actor->vwork[29].x, actor->vwork[29].y,
+                              actor->vwork[29].z + actor->unk_0F4.z, actor->info.drawType);
             } else {
                 func_8005D008(&actor->obj, actor->info.drawType);
             }
@@ -1328,7 +1328,8 @@ void func_8005ECD8(s32 index, Object* obj) {
                 Matrix_Translate(gGfxMatrix, obj->pos.x, D_80177940 + 2.0f, obj->pos.z + D_80177D20, 1);
                 break;
         }
-        if ((D_801784AC != 4) || (obj->id == OBJ_ACTOR_200) || (obj->id == OBJ_ACTOR_195) || (obj->id == OBJ_ACTOR_198)) {
+        if ((D_801784AC != 4) || (obj->id == OBJ_ACTOR_200) || (obj->id == OBJ_ACTOR_195) ||
+            (obj->id == OBJ_ACTOR_198)) {
             Matrix_Scale(gGfxMatrix, 1.0f, 0.0f, 1.0f, 1);
             Matrix_RotateY(gGfxMatrix, obj->rot.y * M_DTOR, 1);
         }

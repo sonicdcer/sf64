@@ -1566,8 +1566,7 @@ void func_800319AC(Actor* this) {
                                     case 1:
                                         if ((gCurrentLevel == LEVEL_VENOM_2) && (Rand_ZeroOne() < 0.5f)) {
                                             func_8002F5F4(gMsg_ID_19462, RCID_FALCO);
-                                        } else if ((gActors[this->unk_0E6].iwork[6] >= 3) &&
-                                                   (Rand_ZeroOne() < 0.5f)) {
+                                        } else if ((gActors[this->unk_0E6].iwork[6] >= 3) && (Rand_ZeroOne() < 0.5f)) {
                                             func_8002F5F4(gMsg_ID_20310, RCID_FALCO);
                                         } else {
                                             func_8002F5F4(gMsg_ID_9100, RCID_FALCO);
@@ -1581,8 +1580,7 @@ void func_800319AC(Actor* this) {
                                     case 2:
                                         if ((gCurrentLevel == LEVEL_VENOM_2) && (Rand_ZeroOne() < 0.5f)) {
                                             func_8002F5F4(gMsg_ID_19463, RCID_SLIPPY);
-                                        } else if ((gActors[this->unk_0E6].iwork[6] >= 3) &&
-                                                   (Rand_ZeroOne() < 0.5f)) {
+                                        } else if ((gActors[this->unk_0E6].iwork[6] >= 3) && (Rand_ZeroOne() < 0.5f)) {
                                             func_8002F5F4(gMsg_ID_20311, RCID_SLIPPY);
                                         } else {
                                             func_8002F5F4(gMsg_ID_9110, RCID_SLIPPY);
@@ -1596,8 +1594,7 @@ void func_800319AC(Actor* this) {
                                     case 3:
                                         if ((gCurrentLevel == LEVEL_VENOM_2) && (Rand_ZeroOne() < 0.5f)) {
                                             func_8002F5F4(gMsg_ID_19464, 0x1E);
-                                        } else if ((gActors[this->unk_0E6].iwork[6] >= 3) &&
-                                                   (Rand_ZeroOne() < 0.5f)) {
+                                        } else if ((gActors[this->unk_0E6].iwork[6] >= 3) && (Rand_ZeroOne() < 0.5f)) {
                                             func_8002F5F4(gMsg_ID_20312, 0x1E);
                                         } else {
                                             func_8002F5F4(gMsg_ID_9120, 0x1E);

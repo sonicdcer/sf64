@@ -1508,7 +1508,7 @@ void func_800656D4(Actor* actor) {
         Math_SmoothStepToAngle(&actor->obj.rot.x, 0.0f, 0.3f, 4.0f, 0.001f);
     } else {
         if ((actor->iwork[10] == 0) && ((fabsf(actor->unk_180 - actor->obj.pos.x) > 300.0f) ||
-                                       (fabsf(actor->unk_188 - actor->obj.pos.z) > 300.0f))) {
+                                        (fabsf(actor->unk_188 - actor->obj.pos.z) > 300.0f))) {
             actor->fwork[0] += 5.0f;
             actor->fwork[1] += 8.0f;
             sp80 = sqrtf(SQ(actor->unk_180 - actor->obj.pos.x) + SQ(actor->unk_188 - actor->obj.pos.z)) * 0.2f;
@@ -1527,8 +1527,7 @@ void func_800656D4(Actor* actor) {
             sp84 = Math_SmoothStepToAngle(&actor->obj.rot.y, sp78, 0.3f, 4.0f, 0.001f);
             Math_SmoothStepToAngle(&actor->obj.rot.x, sp7C, 0.3f, 4.0f, 0.001f);
         }
-        if ((fabsf(actor->unk_180 - actor->obj.pos.x) < 60.0f) &&
-            (fabsf(actor->unk_184 - actor->obj.pos.y) < 60.0f) &&
+        if ((fabsf(actor->unk_180 - actor->obj.pos.x) < 60.0f) && (fabsf(actor->unk_184 - actor->obj.pos.y) < 60.0f) &&
             (fabsf(actor->unk_188 - actor->obj.pos.z) < 60.0f) && ((spC4 == 2) || (spC4 == 3) || (spC4 == 4))) {
             gActors[spC4].unk_0D0 = 1;
             gActors[spC4].unk_0D6 = 20;
@@ -1559,8 +1558,7 @@ void func_800656D4(Actor* actor) {
         }
         Math_SmoothStepToAngle(&actor->obj.rot.z, var_fv0, 0.1f, 3.0f, 0.01f);
     }
-    if ((D_801784AC == 4) &&
-        func_E6A810_801B6AEC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + D_80177D20)) {
+    if ((D_801784AC == 4) && func_E6A810_801B6AEC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + D_80177D20)) {
         func_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5.0f);
         Object_Kill(&actor->obj, &actor->sfxPos);
     }
@@ -2450,13 +2448,11 @@ void func_800690D0(s32 index, ObjectId objId) {
             break;
         case OBJ_ACTOR_181:
             Object_Kill(&gActors[index].obj, &gActors[index].sfxPos);
-            func_8007D2C8(gActors[index].obj.pos.x, gActors[index].obj.pos.y, gActors[index].obj.pos.z,
-                          20.0f);
+            func_8007D2C8(gActors[index].obj.pos.x, gActors[index].obj.pos.y, gActors[index].obj.pos.z, 20.0f);
             break;
         case OBJ_ACTOR_182:
             Object_Kill(&gActors[index].obj, &gActors[index].sfxPos);
-            func_8007D2C8(gActors[index].obj.pos.x, gActors[index].obj.pos.y, gActors[index].obj.pos.z,
-                          10.0f);
+            func_8007D2C8(gActors[index].obj.pos.x, gActors[index].obj.pos.y, gActors[index].obj.pos.z, 10.0f);
             func_80066254(&gActors[index]);
             break;
         case OBJ_ACTOR_192:

@@ -1864,7 +1864,8 @@ void func_8003C4D0(PlayerShot* shot, s32 unkD6) {
     actor = gActors;
     for (i = 0; i < 60; i++, actor++) {
         if ((actor->obj.status == 2) && (actor->timer_0C2 == 0) &&
-            !((gCurrentLevel == LEVEL_MACBETH) && (OBJ_ACTOR_205 <= actor->obj.id) && (actor->obj.id < OBJ_ACTOR_214)) &&
+            !((gCurrentLevel == LEVEL_MACBETH) && (OBJ_ACTOR_205 <= actor->obj.id) &&
+              (actor->obj.id < OBJ_ACTOR_214)) &&
             !((actor->obj.id == OBJ_ACTOR_200) && (actor->iwork[12] != 0)) &&
             ((actor->scale >= 0.0f) || (actor->obj.id == OBJ_ACTOR_271))) {
             sp68 = actor->obj.pos.x - shot->obj.pos.x;

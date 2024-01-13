@@ -724,7 +724,8 @@ s32 func_8008AC54(s32 arg0) {
                 break;
 
             case 2:
-                if (((actor->obj.id == OBJ_ACTOR_190) || (actor->obj.id == OBJ_ACTOR_191)) && (actor->obj.status == 2)) {
+                if (((actor->obj.id == OBJ_ACTOR_190) || (actor->obj.id == OBJ_ACTOR_191)) &&
+                    (actor->obj.status == 2)) {
                     ret++;
                 }
                 break;
@@ -1744,8 +1745,7 @@ bool func_80090CCC(Actor* actor) {
         }
     }
 
-    if ((fabsf(actor->obj.pos.x - actor->fwork[4]) < 700.0f) &&
-        (fabsf(actor->obj.pos.x - actor->fwork[4]) < 700.0f)) {
+    if ((fabsf(actor->obj.pos.x - actor->fwork[4]) < 700.0f) && (fabsf(actor->obj.pos.x - actor->fwork[4]) < 700.0f)) {
         actor->unk_0B8 = 1;
         actor->iwork[6] = 0;
         ret = true;
@@ -1856,8 +1856,7 @@ bool func_80091298(Actor* actor) {
     actor->fwork[5] = gPlayer[0].pos.y;
     actor->fwork[6] = gPlayer[0].unk_138;
 
-    if ((fabsf(actor->obj.pos.x - actor->fwork[4]) < 700.0f) ||
-        (fabsf(actor->obj.pos.z - actor->fwork[6]) < 700.0f)) {
+    if ((fabsf(actor->obj.pos.x - actor->fwork[4]) < 700.0f) || (fabsf(actor->obj.pos.z - actor->fwork[6]) < 700.0f)) {
         actor->fwork[1] = gPlayer[0].unk_0D0 - 10.0f;
         actor->fwork[3] = 1.2f;
     }

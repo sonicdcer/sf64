@@ -149,8 +149,8 @@ f32 D_E16C50_801BF494[12] = {
     -90.0f, 30.0f, 26.0f, 22.0f, 18.0f, 11.0f, 8.0f, 5.0f, 3.0f, 2.0f, 1.0f, 0.0f,
 };
 
-void func_E16C50_80187530(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 fwork6, f32 xRot, f32 yRot,
-                          s32 timer0BC, s32 unk0B4) {
+void func_E16C50_80187530(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 fwork6, f32 xRot, f32 yRot, s32 timer0BC,
+                          s32 unk0B4) {
 
     (void) "おん\n";
     (void) "おふ\n";

@@ -1512,14 +1512,14 @@ void func_800A8BA4(Player* player) {
     Vec3f spfD4;
     Vec3f spC8;
     Vec3f spBC;
-    f32 padB8;          // B8
-    Actor* actor; // B4
-    f32 padB0;          // B0
-    Boss* boss;         // AC
-    Object_4C* obj4C;   // A8
-    s32 pad;            // A4
-    Object_80* obj80;   // A0
-    Player* opponent;   // 9C
+    f32 padB8;        // B8
+    Actor* actor;     // B4
+    f32 padB0;        // B0
+    Boss* boss;       // AC
+    Object_4C* obj4C; // A8
+    s32 pad;          // A4
+    Object_80* obj80; // A0
+    Player* opponent; // 9C
     s32 sp98;
     f32 sp94;
     s32 sp90;
@@ -1844,16 +1844,15 @@ void func_800A8BA4(Player* player) {
         for (i = 0, actor = gActors; i < ARRAY_COUNT(gActors); i++, actor++) {
             if ((actor->obj.status == 2) && (actor->timer_0C2 == 0)) {
                 if (actor->obj.id == OBJ_ACTOR_180) {
-                    temp_v0 = func_800A8304(player, actor->obj.id, actor->obj.pos.x, actor->obj.pos.y,
-                                            actor->obj.pos.z, actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z);
+                    temp_v0 = func_800A8304(player, actor->obj.id, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z,
+                                            actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z);
                     if (temp_v0 != 0) {
                         Player_ApplyDamage(player, temp_v0, actor->info.damage);
                     }
                 } else if (actor->obj.id == OBJ_ACTOR_200) {
                     if (actor->unk_0B4 == 42) {
-                        temp_v0 =
-                            func_800A8304(player, OBJ_UNK_1000, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z,
-                                          actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z);
+                        temp_v0 = func_800A8304(player, OBJ_UNK_1000, actor->obj.pos.x, actor->obj.pos.y,
+                                                actor->obj.pos.z, actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z);
                         if (temp_v0 != 0) {
                             Player_ApplyDamage(player, temp_v0, actor->info.damage);
                         }
@@ -1866,10 +1865,10 @@ void func_800A8BA4(Player* player) {
                             actor->unk_0D0 = 3;
                         }
                     } else {
-                        temp_v0 =
-                            func_800A7974(player, actor->info.hitbox, &sp98, actor->obj.pos.x, actor->obj.pos.y,
-                                          actor->obj.pos.z, actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z,
-                                          actor->vwork[29].x, actor->vwork[29].y, actor->vwork[29].z + actor->unk_0F4.z);
+                        temp_v0 = func_800A7974(player, actor->info.hitbox, &sp98, actor->obj.pos.x, actor->obj.pos.y,
+                                                actor->obj.pos.z, actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z,
+                                                actor->vwork[29].x, actor->vwork[29].y,
+                                                actor->vwork[29].z + actor->unk_0F4.z);
                         if (temp_v0 != 0) {
                             if ((temp_v0 < 0) && (actor->unk_0B4 == 38)) {
                                 actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6032328);
@@ -1885,8 +1884,7 @@ void func_800A8BA4(Player* player) {
                                 }
                             } else if (temp_v0 < 0) {
                                 if (player->unk_22C == 0) {
-                                    Audio_PlaySfx(0x19000001, &actor->sfxPos, 0, &D_800C5D34, &D_800C5D34,
-                                                  &D_800C5D3C);
+                                    Audio_PlaySfx(0x19000001, &actor->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                                 }
                                 player->unk_22C += 2;
                                 if (player->unk_22C >= 4) {
