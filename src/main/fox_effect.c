@@ -532,9 +532,9 @@ void func_80078D60(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2) {
     effect->scale2 = scale2;
 
     if (scale2 == 3.1f) {
-        effect->vel.x = gObjects2F4[8].vel.x;
-        effect->vel.y = gObjects2F4[8].vel.y;
-        effect->vel.z = gObjects2F4[8].vel.z;
+        effect->vel.x = gActors[8].vel.x;
+        effect->vel.y = gActors[8].vel.y;
+        effect->vel.z = gActors[8].vel.z;
     }
     if (scale2 != 30.0f) {
         effect->unk_4E = 1;
@@ -2842,22 +2842,22 @@ void func_8007FBE0(Effect* effect) {
 
 bool func_8007FD84(Effect* effect) {
     s32 i;
-    Object_2F4* obj2F4;
+    Actor* actor;
 
     for (i = 1; i < ARRAY_COUNT(D_800CFF80); i++) {
-        obj2F4 = &gObjects2F4[D_800CFF80[i]];
-        if (obj2F4->obj.status == 2) {
-            if ((obj2F4->unk_080 > 0) && (obj2F4->unk_080 < 6) &&
-                (fabsf(obj2F4->obj.pos.z - effect->obj.pos.z) < 100.0f) &&
-                (fabsf(obj2F4->obj.pos.x - effect->obj.pos.x) < 100.0f) &&
-                (fabsf(obj2F4->obj.pos.y - effect->obj.pos.y) < 100.0f)) {
-                obj2F4->unk_0D0 = 1;
-                obj2F4->unk_0D2 = 0;
-                obj2F4->unk_0D6 = 10;
+        actor = &gActors[D_800CFF80[i]];
+        if (actor->obj.status == 2) {
+            if ((actor->iwork[12] > 0) && (actor->iwork[12] < 6) &&
+                (fabsf(actor->obj.pos.z - effect->obj.pos.z) < 100.0f) &&
+                (fabsf(actor->obj.pos.x - effect->obj.pos.x) < 100.0f) &&
+                (fabsf(actor->obj.pos.y - effect->obj.pos.y) < 100.0f)) {
+                actor->unk_0D0 = 1;
+                actor->unk_0D2 = 0;
+                actor->unk_0D6 = 10;
                 if (effect->obj.id == OBJ_EFFECT_354) {
-                    obj2F4->unk_0D6 = 30;
+                    actor->unk_0D6 = 30;
                 }
-                obj2F4->unk_0D4 = 100;
+                actor->unk_0D4 = 100;
                 return true;
             }
         }

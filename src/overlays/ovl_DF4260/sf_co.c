@@ -67,7 +67,7 @@ void func_DF4260_801877A0(Boss* arg0, f32 arg1, f32 arg2, f32 arg3) {
     sp2C.y = arg2;
     sp2C.z = arg3;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp2C, &sp20);
-    func_8007F11C(OBJ_8C_353, arg0->obj.pos.x + sp20.x, arg0->obj.pos.y + sp20.y, arg0->obj.pos.z + sp20.z, 100.0f);
+    func_8007F11C(OBJ_EFFECT_353, arg0->obj.pos.x + sp20.x, arg0->obj.pos.y + sp20.y, arg0->obj.pos.z + sp20.z, 100.0f);
 }
 
 void func_DF4260_80187838(s32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4) {
@@ -862,13 +862,13 @@ void func_DF4260_80189058(Boss* arg0) {
                 arg0->swork[24] = arg0->swork[25] = arg0->swork[26] = arg0->swork[27] = arg0->swork[28] = 0;
                 
                 if (arg0->timer_050 == 0xC) {
-                    Object_Kill(&gObjects8C[0].obj, &gObjects8C[0].sfxPos);
+                    Object_Kill(&gEffects[0].obj, &gEffects[0].sfxPos);
                     func_8007D0E0(D_DF4260_8019B6D8[0x3E], D_DF4260_8019B6D8[0x3F] - 100.0f, D_DF4260_8019B6D8[0x40], 25.0f);
                 }
                 if (arg0->timer_050 == 0xA) {
                     for (sp218 = 0; sp218 < 50; sp218++) {
-                        if (gObjects8C[sp218].obj.status != 0) {
-                            Object_Kill(&gObjects8C[sp218].obj, &gObjects8C[sp218].sfxPos);
+                        if (gEffects[sp218].obj.status != 0) {
+                            Object_Kill(&gEffects[sp218].obj, &gEffects[sp218].sfxPos);
                         }
                     }
                     func_8007A568(D_DF4260_8019B6D8[0x3E], D_DF4260_8019B6D8[0x3F] - 100.0f, D_DF4260_8019B6D8[0x40], 40.0f);
@@ -1593,7 +1593,7 @@ void func_DF4260_8018C19C(Boss* arg0) {
     Vec3f sp84[30];
     Vec3f sp78;
     Vec3f sp6C;
-    Object_8C* obj_8c;
+    Effect* obj_8c;
     f32 temp_fv0_2;
     s32 pad2;
     s32 var_v1;
@@ -1891,12 +1891,12 @@ void func_DF4260_8018C19C(Boss* arg0) {
                             if (fabsf(arg0->obj.pos.z - gPlayer[0].unk_138) > 700.0f) {
                                 
                                 Matrix_MultVec3f(gCalcMatrix, &D_DF4260_801998F0[0], &sp84[3]);
-                                obj_8c = gObjects8C;
+                                obj_8c = gEffects;
                                 for (i = 0; i < 100; i++, obj_8c++) {
                                     if (obj_8c->obj.status == 0) {
-                                        Object_8C_Initialize(obj_8c);
+                                        Effect_Initialize(obj_8c);
                                         obj_8c->obj.status = 1;
-                                        obj_8c->obj.id = OBJ_8C_398;
+                                        obj_8c->obj.id = OBJ_EFFECT_398;
                                         obj_8c->timer_50 = 100;
                                         obj_8c->unk_44 = 1;
                                         obj_8c->scale2 = 1.0f;
@@ -2514,13 +2514,13 @@ void func_DF4260_8018F4A4(void) {
     }
 }
 
-void func_DF4260_8018F55C(Object_8C* arg0) {
+void func_DF4260_8018F55C(Effect* arg0) {
 
-    Object_8C_Initialize(arg0);
+    Effect_Initialize(arg0);
     arg0->obj.status = 1;
     arg0->obj.pos.x = gPlayer[0].camEye.x + ((Rand_ZeroOne() - 0.5f) * 500.0f);
     arg0->obj.pos.y = gPlayer[0].camEye.y + ((Rand_ZeroOne() - 0.8f) * 350.0f);
-    arg0->obj.id = OBJ_8C_352;
+    arg0->obj.id = OBJ_EFFECT_352;
     arg0->timer_50 = 80;
     arg0->unk_46 = 0x90;
     arg0->obj.pos.z = -4000.0f;
@@ -2537,9 +2537,9 @@ void func_DF4260_8018F678(void) {
 
     if (!(gFrameCount & 0x1F) && gPlayer[0].pos.x == 0.0f) {
 
-        for (i = 0; i < ARRAY_COUNT(gObjects8C); i++) {
-            if (gObjects8C[i].obj.status == 0) {
-                func_DF4260_8018F55C(&gObjects8C[i]);
+        for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+            if (gEffects[i].obj.status == 0) {
+                func_DF4260_8018F55C(&gEffects[i]);
                 return;
             }
         }
