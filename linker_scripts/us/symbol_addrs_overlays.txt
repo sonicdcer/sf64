@@ -17,8 +17,8 @@ D_E08400_80195D70 = 0x80195D70;
 sOptionCardPosY = 0x801AE570; // type:f32 size:0x18 force_migration:True segment:ovl_menu
 sOptionCardTextPosX = 0x801AE588; // type:f32 size:0x18 force_migration:True segment:ovl_menu
 sOptionCardTextPosY = 0x801AE5A0; // type:f32 size:0x18 force_migration:True segment:ovl_menu
-D_EBFBE0_801AE5B8 = 0x801AE5B8; // type:f32 size:0x18 force_migration:True segment:ovl_menu
-D_EBFBE0_801AE5D0 = 0x801AE5D0; // type:f32 size:0x18 force_migration:True segment:ovl_menu
+sOptionCardCurTextPosX = 0x801AE5B8; // type:f32 size:0x18 force_migration:True segment:ovl_menu
+sOptionCardCurTextPosY = 0x801AE5D0; // type:f32 size:0x18 force_migration:True segment:ovl_menu
 
 D_EBFBE0_801AE9A0 = 0x801AE9A0; // type:f32 size:0x10 force_migration:True segment:ovl_menu
 D_EBFBE0_801AE9B0 = 0x801AE9B0; // type:f32 size:0x10 force_migration:True segment:ovl_menu
