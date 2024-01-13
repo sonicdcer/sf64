@@ -207,20 +207,7 @@ extern s16 D_800CFF94[];
 extern u8 D_800CFFB4[];
 extern f32 D_800CFFC4[];
 
-// sf_77E40
-extern Gfx* D_800D14E0[][2];
-extern Gfx* D_800D14FC[];
-extern Vec3f D_800D1528;
-extern f32 D_800D1534[10][10];
-extern s32 D_800D173C[];
-extern Gfx* D_800D178C[6];
-extern s32 D_800D18F0[]; //[6][4]?
-extern s32 D_800D1950[];
-extern Gfx* D_800D17A4[];
-extern f32 D_800D17F8[];
-extern u8 D_800D184C[][4];
-extern Gfx* D_800D18A0[];
-extern Gfx D_6004900[];
+// fox_effect
 
 // sf_hud
 extern s16 D_800D1970;
@@ -402,7 +389,7 @@ extern Object_80 gObjects80[50];
 extern Object_4C gObjects4C[40];
 extern Object_2F4 gObjects2F4[60];
 extern Boss gBosses[4];
-extern Object_8C gObjects8C[100];
+extern Effect gEffects[100];
 extern Item gItems[20];
 extern PlayerShot gPlayerShots[16];
 extern UnkEntity30 gUnkEntities30[100];

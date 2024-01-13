@@ -2224,123 +2224,123 @@ void func_80093310(void) {
 
 void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
     s32 i;
-    Object_8C* obj8C = &gObjects8C[ARRAY_COUNT(gObjects8C) - 1];
+    Effect* effect = &gEffects[ARRAY_COUNT(gEffects) - 1];
     Player* player = gPlayer;
 
     for (i = 0; i < 100; i++) {
-        if (obj8C->obj.status == 0) {
-            Object_8C_Initialize(obj8C);
-            obj8C->obj.status = 1;
-            obj8C->obj.id = OBJ_8C_363;
-            obj8C->obj.pos.x = x;
-            obj8C->obj.pos.y = y;
-            obj8C->obj.pos.z = z;
+        if (effect->obj.status == 0) {
+            Effect_Initialize(effect);
+            effect->obj.status = 1;
+            effect->obj.id = OBJ_EFFECT_363;
+            effect->obj.pos.x = x;
+            effect->obj.pos.y = y;
+            effect->obj.pos.z = z;
 
             if ((player->state_1C8 == PLAYERSTATE_1C8_2) && (gCurrentLevel == LEVEL_AQUAS) && (player->unk_1D0 < 2)) {
-                obj8C->scale1 = 0.4f;
-                obj8C->unk_44 = 0;
-                obj8C->unk_46 = 24;
-                obj8C->unk_48 = Rand_ZeroOne() * 4.0f;
+                effect->scale1 = 0.4f;
+                effect->unk_44 = 0;
+                effect->unk_46 = 24;
+                effect->unk_48 = Rand_ZeroOne() * 4.0f;
                 if (Rand_ZeroOne() < 0.5f) {
-                    obj8C->unk_48 = -obj8C->unk_48;
+                    effect->unk_48 = -effect->unk_48;
                 }
             } else {
-                obj8C->vel.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
-                obj8C->vel.y = (Rand_ZeroOne() - 0.5f) * 3.0f;
-                obj8C->unk_48 = 0;
+                effect->vel.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
+                effect->vel.y = (Rand_ZeroOne() - 0.5f) * 3.0f;
+                effect->unk_48 = 0;
 
                 if (Rand_ZeroOne() < 0.5f) {
-                    obj8C->unk_48 = -obj8C->unk_48;
+                    effect->unk_48 = -effect->unk_48;
                 }
 
                 if (player->unk_1D0 >= 5) {
-                    obj8C->unk_4A = 0x60;
-                    obj8C->unk_46 = 4;
+                    effect->unk_4A = 0x60;
+                    effect->unk_46 = 4;
                 } else {
-                    obj8C->unk_4A = 0x80;
-                    obj8C->unk_46 = 2;
+                    effect->unk_4A = 0x80;
+                    effect->unk_46 = 2;
                 }
             }
 
-            obj8C->scale2 = arg3 * 0.2f;
-            obj8C->obj.rot.z = Rand_ZeroOne() * 360.0f;
-            Object_SetInfo(&obj8C->info, obj8C->obj.id);
+            effect->scale2 = arg3 * 0.2f;
+            effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+            Object_SetInfo(&effect->info, effect->obj.id);
             break;
         }
-        obj8C--;
+        effect--;
     }
 }
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800935E8.s")
 
-void func_80094954(Object_8C* obj8C) {
+void func_80094954(Effect* effect) {
     Player* player = gPlayer;
 
     if ((player->state_1C8 == PLAYERSTATE_1C8_2) && (gCurrentLevel == LEVEL_AQUAS) && (player->unk_1D0 < 2)) {
-        switch (obj8C->unk_4E) {
+        switch (effect->unk_4E) {
             case 0:
-                obj8C->unk_44 += obj8C->unk_46;
-                obj8C->unk_4A = obj8C->unk_44;
-                obj8C->scale2 += 0.01f;
+                effect->unk_44 += effect->unk_46;
+                effect->unk_4A = effect->unk_44;
+                effect->scale2 += 0.01f;
 
-                if (obj8C->unk_4A >= 200) {
-                    obj8C->unk_4E = 1;
-                    obj8C->unk_4A = 200;
+                if (effect->unk_4A >= 200) {
+                    effect->unk_4E = 1;
+                    effect->unk_4A = 200;
                 }
                 break;
 
             case 1:
-                obj8C->unk_4A -= obj8C->unk_46;
-                obj8C->scale2 -= 0.1f;
+                effect->unk_4A -= effect->unk_46;
+                effect->scale2 -= 0.1f;
                 break;
         }
 
-        if ((obj8C->unk_4E == 1) && (obj8C->unk_4A <= 0)) {
-            Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+        if ((effect->unk_4E == 1) && (effect->unk_4A <= 0)) {
+            Object_Kill(&effect->obj, &effect->sfxPos);
         }
 
-        obj8C->vel.y += obj8C->scale1;
-        obj8C->scale1 -= 0.05f;
+        effect->vel.y += effect->scale1;
+        effect->scale1 -= 0.05f;
 
-        if (obj8C->scale1 < -1.0f) {
-            obj8C->scale1 = -1.0f;
+        if (effect->scale1 < -1.0f) {
+            effect->scale1 = -1.0f;
         }
-        obj8C->obj.rot.z += obj8C->unk_48;
+        effect->obj.rot.z += effect->unk_48;
         return;
     }
 
     if (player->state_1C8 == PLAYERSTATE_1C8_7) {
-        obj8C->obj.rot.x = player->unk_05C * 180.0f / M_PI;
-        obj8C->obj.rot.y = -player->unk_058 * 180.0f / M_PI;
+        effect->obj.rot.x = player->unk_05C * 180.0f / M_PI;
+        effect->obj.rot.y = -player->unk_058 * 180.0f / M_PI;
     }
 
     if (player->state_1C8 == PLAYERSTATE_1C8_6) {
-        obj8C->unk_46 = 2;
+        effect->unk_46 = 2;
         if (player->unk_1D0 >= 4) {
-            obj8C->vel.y -= 0.13f;
+            effect->vel.y -= 0.13f;
         }
     }
 
-    obj8C->scale2 += 0.8f;
-    obj8C->unk_4A -= obj8C->unk_46;
+    effect->scale2 += 0.8f;
+    effect->unk_4A -= effect->unk_46;
 
-    if ((obj8C->unk_4A < 0) ||
+    if ((effect->unk_4A < 0) ||
         ((player->state_1C8 == PLAYERSTATE_1C8_2) && (gCurrentLevel == LEVEL_AQUAS) && (player->unk_1D0 == 5))) {
-        Object_Kill(&obj8C->obj, &obj8C->sfxPos);
+        Object_Kill(&effect->obj, &effect->sfxPos);
     }
-    obj8C->obj.rot.z += obj8C->unk_48;
+    effect->obj.rot.z += effect->unk_48;
 }
 
-void func_80094BBC(Object_8C* obj8C) {
+void func_80094BBC(Effect* effect) {
     if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2) && (gCurrentLevel == LEVEL_AQUAS) && (gPlayer[0].unk_1D0 < 2)) {
         RCP_SetupDL(&gMasterDisp, 0x44);
-        gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 21, 34, obj8C->unk_4A);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 21, 34, effect->unk_4A);
         gDPSetEnvColor(gMasterDisp++, 255, 255, 251, 0);
-        Graphics_SetScaleMtx(obj8C->scale2);
+        Graphics_SetScaleMtx(effect->scale2);
         gSPDisplayList(gMasterDisp++, D_1023750);
     } else {
-        Graphics_SetScaleMtx(obj8C->scale2);
-        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, obj8C->unk_4A);
+        Graphics_SetScaleMtx(effect->scale2);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_4A);
         gSPDisplayList(gMasterDisp++, D_1023750);
     }
 }
