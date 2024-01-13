@@ -893,7 +893,8 @@ void Option_MainMenuUpdate(void) {
             break;
 
         case 1:
-            temp1 = func_EBFBE0_8019C418(&D_EBFBE0_801B91A4, OPTION_COUNT - 1, 1, 0, 20, 5, 4, gMainController, &D_EBFBE0_801B9180);
+            temp1 = func_EBFBE0_8019C418(&D_EBFBE0_801B91A4, OPTION_COUNT - 1, 1, 0, 20, 5, 4, gMainController,
+                                         &D_EBFBE0_801B9180);
             // clang-format off
             if (temp1 != 0) { Audio_PlaySfx(0x49000022, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C); }
             // clang-format on
