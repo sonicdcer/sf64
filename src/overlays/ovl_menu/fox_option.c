@@ -82,8 +82,8 @@ static OptionEntry sOptionCardList[6] = {
     },
 };
 
+// D_EBFBE0_801AE878
 static OptionEntry sOptionVSCardList[] = {
-    // D_EBFBE0_801AE878
     {
         { 0, 0, (void*) 0x08005010, 0, 96, 13, 110.0f, 91.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
         { 0.0f, 11.0f, -130.0f, 0.2f, 0.11f },
@@ -239,7 +239,7 @@ f32 D_EBFBE0_801B9100[3]; // gap
 f32 D_EBFBE0_801B9110[3];
 f32 D_EBFBE0_801B911C;
 f32 D_EBFBE0_801B9120;
-s32 D_EBFBE0_801B9124;
+OptionEntryId D_EBFBE0_801B9124;
 s32 D_EBFBE0_801B9128;
 s32 D_EBFBE0_801B912C;
 s32 D_EBFBE0_801B9130;
@@ -342,7 +342,7 @@ UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9400;
 UnkStruct_D_EBFBE0_801B9250 D_EBFBE0_801B9408;
 #endif
 
-void func_EBFBE0_80191B20(void) {
+void Option_Setup(void) {
     bool enableExpertModes;
     bool var_v0_2;
     s32 i;
@@ -405,7 +405,7 @@ void func_EBFBE0_80191B20(void) {
     D_EBFBE0_801B9178 = 0;
     D_EBFBE0_801B917C = 0;
 
-    D_EBFBE0_801B9124 = 1000;
+    D_EBFBE0_801B9124 = OPTION_ENTRY_MAIN;
 
     if ((D_80161A34 == 5) || (D_80161A34 == 8)) {
         if (D_80161A34 == 8) {
@@ -473,9 +473,9 @@ void func_EBFBE0_80191B20(void) {
             sOptionCardList[2].unk_00.unk_1C = 25.0f;
             sOptionCardList[2].unk_58 = 1;
 
-            D_EBFBE0_801B9124 = 2;
+            D_EBFBE0_801B9124 = OPTION_ENTRY_VERSUS;
         } else {
-            D_EBFBE0_801B9124 = 1000;
+            D_EBFBE0_801B9124 = OPTION_ENTRY_MAIN;
         }
     }
 
@@ -483,7 +483,7 @@ void func_EBFBE0_80191B20(void) {
     D_EBFBE0_801B9134 = 0;
     D_EBFBE0_801B913C = 0;
 
-    D_8017784C = 2;
+    gOptionMenuStatus = OPTION_UPDATE;
 
     Memory_FreeAll();
 
@@ -520,7 +520,7 @@ void func_EBFBE0_80191B20(void) {
     func_8001D444(0, 36, 0, 255);
 }
 
-void func_EBFBE0_801920C4(void) {
+void Option_Init(void) {
     if (D_EBFBE0_801B9178 > 0) {
         D_EBFBE0_801B9178--;
     }
@@ -528,20 +528,20 @@ void func_EBFBE0_801920C4(void) {
         D_EBFBE0_801B917C--;
     }
 
-    switch (D_8017784C) {
-        case 0:
+    switch (gOptionMenuStatus) {
+        case OPTION_LOAD:
             if (D_Timer_8017783C == 0) {
-                D_8017784C = 1;
+                gOptionMenuStatus = OPTION_SETUP;
                 func_8001DC6C(0, 23);
             }
             break;
 
-        case 1:
+        case OPTION_SETUP:
             gDrawMode = DRAWMODE_0;
-            func_EBFBE0_80191B20();
+            Option_Setup();
             break;
 
-        case 2:
+        case OPTION_UPDATE:
             gDrawMode = DRAWMODE_2;
             Option_UpdateEntry();
             break;
@@ -551,54 +551,46 @@ void func_EBFBE0_801920C4(void) {
 
 void Option_UpdateEntry(void) {
     switch (D_EBFBE0_801B9124) {
-        case 1000:
-            func_EBFBE0_80192D58();
+        case OPTION_ENTRY_MAIN:
+            Option_MainMenuUpdate();
             break;
 
-        case 0:
-            // goes to map
-            func_EBFBE0_801928BC();
+        case OPTION_ENTRY_MAP:
+            Option_MapUpdate();
             break;
 
-        case 1:
-            // goes to training
-            func_EBFBE0_80192938();
+        case OPTION_ENTRY_TRAINING:
+            Option_TrainingUpdate();
             break;
 
-        case 2:
-            // goes to versus
-            func_EBFBE0_80193C4C();
+        case OPTION_ENTRY_VERSUS:
+            Option_VersusUpdate();
             break;
 
-        case 3:
-            // goes to ranking
-            func_EBFBE0_80196EFC();
+        case OPTION_ENTRY_RANKING:
+            Option_RankingUpdate();
             break;
 
-        case 4:
-            // goes to Sound Settings
-            func_EBFBE0_801948A8();
+        case OPTION_ENTRY_SOUND:
+            Option_SoundUpdate();
             break;
 
-        case 5:
-            // goes to Data
-            func_EBFBE0_801962A4();
+        case OPTION_ENTRY_DATA:
+            Option_DataUpdate();
             break;
 
-        case 6:
-            // Expert Sound Options
+        case OPTION_ENTRY_EXPERT_SOUND:
             Option_ExpertSoundUpdate();
             break;
 
-        case 2000:
-            // Versus stage select
-            func_EBFBE0_8019A0B8();
+        case OPTION_ENTRY_VERSUS_STAGE:
+            Option_VersusStageUpdate();
             break;
 
-        case 10:
-        case 20:
-        case 30:
-            func_EBFBE0_80199424();
+        case OPTION_ENTRY_POINT_MATCH:
+        case OPTION_ENTRY_BR_MATCH:
+        case OPTION_ENTRY_TT_MATCH:
+            Option_VersusMenuUpdate();
             break;
 
         case 200:
@@ -622,39 +614,38 @@ void Option_UpdateEntry(void) {
 
 void Option_DrawEntry(void) {
     switch (D_EBFBE0_801B9124) {
-        case 1000:
-            func_EBFBE0_80193864();
+        case OPTION_ENTRY_MAIN:
+            Option_MainMenuDraw();
             break;
 
-        case 2:
-            func_EBFBE0_801944F0();
+        case OPTION_ENTRY_VERSUS:
+            Option_VersusDraw();
             break;
 
-        case 3:
-            func_EBFBE0_80196F9C();
+        case OPTION_ENTRY_RANKING:
+            Option_RankingDraw();
             break;
 
-        case 4:
-            func_EBFBE0_80194CE4();
+        case OPTION_ENTRY_SOUND:
+            Option_SoundDraw();
             break;
 
-        case 6:
-            // Expert Sound Options
-            func_EBFBE0_80195B74();
+        case OPTION_ENTRY_EXPERT_SOUND:
+            Option_ExpertSoundDraw();
             break;
 
-        case 5:
-            func_EBFBE0_80196894();
+        case OPTION_ENTRY_DATA:
+            Option_DataDraw();
             break;
 
-        case 2000:
-            func_EBFBE0_8019AAB4();
+        case OPTION_ENTRY_VERSUS_STAGE:
+            Option_VersusStageDraw();
             break;
 
-        case 10:
-        case 20:
-        case 30:
-            func_EBFBE0_8019978C();
+        case OPTION_ENTRY_POINT_MATCH:
+        case OPTION_ENTRY_BR_MATCH:
+        case OPTION_ENTRY_TT_MATCH:
+            Option_VersusMenuDraw();
             break;
 
         case 200:
@@ -682,34 +673,34 @@ void Option_InitEntry(void) {
     D_EBFBE0_801B912C = 0;
 
     switch (D_EBFBE0_801B9124) {
-        case 0:
+        case OPTION_ENTRY_MAP:
             gDrawMode = DRAWMODE_0;
             break;
 
-        case 10:
-        case 20:
-        case 30:
-            func_EBFBE0_801992C4();
+        case OPTION_ENTRY_POINT_MATCH:
+        case OPTION_ENTRY_BR_MATCH:
+        case OPTION_ENTRY_TT_MATCH:
+            Option_VersusMenuInit();
             break;
 
-        case 2000:
-            func_EBFBE0_80199FA8();
+        case OPTION_ENTRY_VERSUS_STAGE:
+            Option_VersusStageInit();
             break;
 
-        case 3:
-            func_EBFBE0_80196E54();
+        case OPTION_ENTRY_RANKING:
+            Option_RankingInit();
             break;
 
-        case 4:
-            func_EBFBE0_80194678();
+        case OPTION_ENTRY_SOUND:
+            Option_SoundInit();
             break;
 
-        case 6:
-            func_EBFBE0_801958DC();
+        case OPTION_ENTRY_EXPERT_SOUND:
+            Option_ExpertSoundInit();
             break;
 
-        case 5:
-            func_EBFBE0_80196260();
+        case OPTION_ENTRY_DATA:
+            Option_DataInit();
             break;
     }
 }
@@ -761,7 +752,7 @@ void func_EBFBE0_80192738(void) {
     }
 }
 
-void func_EBFBE0_801928BC(void) {
+void Option_MapUpdate(void) {
     if (D_80178340 == 0xFF) {
         D_80178410 = 0;
         D_EBFBE0_801B9124 = 100;
@@ -778,7 +769,7 @@ void func_EBFBE0_801928BC(void) {
     }
 }
 
-void func_EBFBE0_80192938(void) {
+void Option_TrainingUpdate(void) {
     if (D_80178340 == 0xFF) {
         gCurrentLevel = LEVEL_TRAINING;
         gGameState = GSTATE_PLAY;
@@ -845,7 +836,7 @@ void func_EBFBE0_801929F0(void) {
     D_EBFBE0_801B9198.unk_4 = 0;
 }
 
-void func_EBFBE0_80192D58(void) {
+void Option_MainMenuUpdate(void) {
     s32 i;
     f32 var_fs0;
     f32 var_fs1;
@@ -1048,7 +1039,7 @@ void func_EBFBE0_80192D58(void) {
     }
 }
 
-void func_EBFBE0_80193864(void) {
+void Option_MainMenuDraw(void) {
     s32 i;
 
     func_EBFBE0_8019BDF0();
@@ -1118,7 +1109,7 @@ void func_EBFBE0_80193B04(void) {
     D_EBFBE0_801B9188.unk_4 = 0;
 }
 
-void func_EBFBE0_80193C4C(void) {
+void Option_VersusUpdate(void) {
     f32 var_fs0;
     s32 i;
 
@@ -1259,7 +1250,7 @@ void func_EBFBE0_80193C4C(void) {
     }
 }
 
-void func_EBFBE0_801944F0(void) {
+void Option_VersusDraw(void) {
     s32 i;
 
     func_EBFBE0_8019B9C0();
@@ -1283,7 +1274,7 @@ void func_EBFBE0_801944F0(void) {
     func_EBFBE0_8019BF34();
 }
 
-void func_EBFBE0_80194678(void) {
+void Option_SoundInit(void) {
     s32 i;
 
     D_80178410 = 800;
@@ -1347,7 +1338,7 @@ void func_EBFBE0_80194678(void) {
     D_EBFBE0_801B9268.unk_4 = 0;
 }
 
-void func_EBFBE0_801948A8(void) {
+void Option_SoundUpdate(void) {
     s32 sp34;
     s32 temp;
 
@@ -1435,7 +1426,7 @@ void func_EBFBE0_80194BD0(void) {
     }
 }
 
-void func_EBFBE0_80194CE4(void) {
+void Option_SoundDraw(void) {
     s32 i;
     s32 colorGB;
 
@@ -1619,7 +1610,7 @@ void func_EBFBE0_801952B4(void) {
     }
 }
 
-void func_EBFBE0_801958DC(void) {
+void Option_ExpertSoundInit(void) {
     s32 i;
 
     D_80178410 = 800;
@@ -1680,7 +1671,7 @@ void Option_ExpertSoundUpdate(void) {
 }
 #endif
 
-void func_EBFBE0_80195B74(void) {
+void Option_ExpertSoundDraw(void) {
     u8* temp_v0_4;
     f32 var_fs0;
     f32 var_fv1;
@@ -1783,7 +1774,7 @@ void func_EBFBE0_80195B74(void) {
     Lib_Perspective(&gMasterDisp);
 }
 
-void func_EBFBE0_80196260(void) {
+void Option_DataInit(void) {
     D_80178410 = 800;
     D_EBFBE0_801B91E4 = 255.0f;
     D_EBFBE0_801B9330[0] = 0;
@@ -1792,7 +1783,7 @@ void func_EBFBE0_80196260(void) {
     D_EBFBE0_801B91CC = 0;
 }
 
-void func_EBFBE0_801962A4(void) {
+void Option_DataUpdate(void) {
     f32 temp_fv0;
     s32 i;
 
@@ -1922,7 +1913,7 @@ void func_EBFBE0_8019669C(void) {
     }
 }
 
-void func_EBFBE0_80196894(void) {
+void Option_DataDraw(void) {
     s32 i;
     s32 sp7C[2];
     s32 sp74[2];
@@ -2016,7 +2007,7 @@ static s32 D_EBFBE0_801AF0D0[3] = { 255, 0, 30 };
 static s32 D_EBFBE0_801AF0DC[3] = { 30, 179, 30 };
 static s32 D_EBFBE0_801AF0E8[3] = { 0, 67, 255 };
 
-void func_EBFBE0_80196E54(void) {
+void Option_RankingInit(void) {
     func_EBFBE0_80188010();
 
     D_80178410 = 800;
@@ -2041,7 +2032,7 @@ void func_EBFBE0_80196E54(void) {
     func_EBFBE0_80192598();
 }
 
-void func_EBFBE0_80196EFC(void) {
+void Option_RankingUpdate(void) {
     func_EBFBE0_80196FC4();
 
     if (gControllerPress[gMainController].button & B_BUTTON) {
@@ -2053,7 +2044,7 @@ void func_EBFBE0_80196EFC(void) {
     }
 }
 
-void func_EBFBE0_80196F9C(void) {
+void Option_RankingDraw(void) {
     func_EBFBE0_801973C0();
     func_EBFBE0_8019B9C0();
 }
@@ -2600,7 +2591,7 @@ s32 func_EBFBE0_80199284(s32 arg0, s32 arg1) {
     return D_EBFBE0_801AED4C[i].unk_8;
 }
 
-void func_EBFBE0_801992C4(void) {
+void Option_VersusMenuInit(void) {
     s32 i;
 
     if (D_EBFBE0_801B91C4) {
@@ -2637,7 +2628,7 @@ void func_EBFBE0_801992C4(void) {
     D_EBFBE0_801B91E8 = 255.0f;
 }
 
-void func_EBFBE0_80199424(void) {
+void Option_VersusMenuUpdate(void) {
     switch (D_EBFBE0_801B912C) {
         case 0:
             func_EBFBE0_8019949C();
@@ -2695,7 +2686,7 @@ void func_EBFBE0_8019949C(void) {
     }
 }
 
-void func_EBFBE0_8019978C(void) {
+void Option_VersusMenuDraw(void) {
     s32 i;
 
     func_EBFBE0_8019B8C8();
@@ -2863,7 +2854,7 @@ void func_EBFBE0_80199EA8(void) {
 
 // D_EBFBE0_801B9358 needs to be static but belongs to bss section?
 #if defined(IMPORT_BSS) || defined(NON_MATCHING)
-void func_EBFBE0_80199FA8(void) {
+void Option_VersusStageInit(void) {
     s32 i;
 
     D_80178410 = 0;
@@ -2889,7 +2880,7 @@ void func_EBFBE0_80199FA8(void) {
     func_EBFBE0_8019A080();
 }
 #else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_menu/fox_option/func_EBFBE0_80199FA8.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_menu/fox_option/Option_VersusStageInit.s")
 #endif
 
 // D_EBFBE0_801B9380 needs to be static but belongs to bss section?
@@ -2906,17 +2897,17 @@ void func_EBFBE0_8019A080(void) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_menu/fox_option/func_EBFBE0_8019A080.s")
 #endif
 
-void func_EBFBE0_8019A0B8(void) {
+void Option_VersusStageUpdate(void) {
     switch (D_EBFBE0_801B93D0) {
-        case 10:
+        case OPTION_ENTRY_POINT_MATCH:
             func_EBFBE0_8019A124();
             break;
 
-        case 20:
+        case OPTION_ENTRY_BR_MATCH:
             func_EBFBE0_8019A1A8();
             break;
 
-        case 30:
+        case OPTION_ENTRY_TT_MATCH:
             func_EBFBE0_8019A214();
             break;
     }
@@ -2979,7 +2970,7 @@ void func_EBFBE0_8019A298(void) {
     if (D_EBFBE0_801B91EC == 0.0f) {
         gGameState = GSTATE_VS_INIT;
         D_Timer_8017783C = 2;
-        D_8017784C = 0;
+        gOptionMenuStatus = OPTION_LOAD;
         gDrawMode = DRAWMODE_0;
     }
 }
@@ -3156,16 +3147,16 @@ void func_EBFBE0_8019A954(void) {
     }
 }
 
-void func_EBFBE0_8019AAB4(void) {
+void Option_VersusStageDraw(void) {
     switch (D_EBFBE0_801B93D0) {
-        case 20:
+        case OPTION_ENTRY_BR_MATCH:
             break;
 
-        case 10:
+        case OPTION_ENTRY_POINT_MATCH:
             func_EBFBE0_8019AB30();
             break;
 
-        case 30:
+        case OPTION_ENTRY_TT_MATCH:
             func_EBFBE0_8019AD84();
             break;
     }
@@ -4340,7 +4331,7 @@ s32 func_EBFBE0_8019DCE8(s32 arg0) {
 void func_EBFBE0_8019DD44(void) {
     switch (D_EBFBE0_801B912C) {
         case 0:
-            func_EBFBE0_80196E54();
+            Option_RankingInit();
 
             D_EBFBE0_801B93E4 = D_EBFBE0_801B9094;
 

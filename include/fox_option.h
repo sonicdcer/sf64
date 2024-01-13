@@ -56,6 +56,22 @@ typedef struct {
     /* 0x8 */ s32 unk_8;
 } UnkStruct_D_EBFBE0_801AED4C; // size = 0xC
 
+typedef enum OptionEntryId {
+    OPTION_ENTRY_MAIN = 1000,
+    OPTION_ENTRY_VERSUS_STAGE = 2000,
+    OPTION_ENTRY_MAP = 0,
+    OPTION_ENTRY_TRAINING = 1,
+    OPTION_ENTRY_VERSUS = 2,
+    OPTION_ENTRY_RANKING = 3,
+    OPTION_ENTRY_SOUND = 4,
+    OPTION_ENTRY_DATA = 5,
+    OPTION_ENTRY_EXPERT_SOUND = 6,
+    OPTION_ENTRY_POINT_MATCH = 10,
+    OPTION_ENTRY_BR_MATCH = 20,
+    OPTION_ENTRY_TT_MATCH = 30,
+    OPTION_ENTRY_MAX,
+} OptionEntryId;
+
 extern s32 D_EBFBE0_801B9090;
 extern s32 D_EBFBE0_801B9094;
 extern s32 D_EBFBE0_801B9098; //gap
@@ -69,7 +85,7 @@ extern f32 D_EBFBE0_801B9100[3]; //gap
 extern f32 D_EBFBE0_801B9110[3];
 extern f32 D_EBFBE0_801B911C;
 extern f32 D_EBFBE0_801B9120;
-extern s32 D_EBFBE0_801B9124;
+extern OptionEntryId D_EBFBE0_801B9124;
 extern s32 D_EBFBE0_801B9128;
 extern s32 D_EBFBE0_801B912C;
 extern s32 D_EBFBE0_801B9130;
@@ -219,31 +235,31 @@ void func_EBFBE0_8018FF74(void);
 void func_EBFBE0_8018D2B8(s32);
 void func_EBFBE0_8018EA78(s32);
 
-void func_EBFBE0_80191B20(void);
+void Option_Setup(void);
 void Option_UpdateEntry(void);
-void func_EBFBE0_801928BC(void);
-void func_EBFBE0_80192D58(void);
-void func_EBFBE0_80192938(void);
+void Option_MapUpdate(void);
+void Option_MainMenuUpdate(void);
+void Option_TrainingUpdate(void);
 void func_EBFBE0_801929F0(void);
-void func_EBFBE0_80193864(void);
-void func_EBFBE0_80193C4C(void);
-void func_EBFBE0_801944F0(void);
-void func_EBFBE0_80194678(void);
-void func_EBFBE0_801948A8(void);
+void Option_MainMenuDraw(void);
+void Option_VersusUpdate(void);
+void Option_VersusDraw(void);
+void Option_SoundInit(void);
+void Option_SoundUpdate(void);
 void func_EBFBE0_80194AEC(void);
 void func_EBFBE0_80194BD0(void);
-void func_EBFBE0_80194CE4(void);
+void Option_SoundDraw(void);
 void func_EBFBE0_801952B4(void);
-void func_EBFBE0_801958DC(void);
+void Option_ExpertSoundInit(void);
 void Option_ExpertSoundUpdate(void);
-void func_EBFBE0_80195B74(void);
-void func_EBFBE0_80196260(void);
-void func_EBFBE0_801962A4(void);
+void Option_ExpertSoundDraw(void);
+void Option_DataInit(void);
+void Option_DataUpdate(void);
 void func_EBFBE0_8019669C(void);
-void func_EBFBE0_80196894(void);
-void func_EBFBE0_80196E54(void);
-void func_EBFBE0_80196EFC(void);
-void func_EBFBE0_80196F9C(void);
+void Option_DataDraw(void);
+void Option_RankingInit(void);
+void Option_RankingUpdate(void);
+void Option_RankingDraw(void);
 void func_EBFBE0_80196FC4(void);
 void func_EBFBE0_80197074(void);
 void func_EBFBE0_8019715C(void);
@@ -262,15 +278,15 @@ void func_EBFBE0_8019882C(s32, s32, f32, f32);
 void func_EBFBE0_8019896C(s32, f32, s32);
 void func_EBFBE0_80199198(f32 arg0, f32 arg1, f32 arg2);
 s32 func_EBFBE0_80199284(s32 arg0, s32 arg1);
-void func_EBFBE0_801992C4(void);
-void func_EBFBE0_80199424(void);
+void Option_VersusMenuInit(void);
+void Option_VersusMenuUpdate(void);
 void func_EBFBE0_8019949C(void);
-void func_EBFBE0_8019978C(void);
+void Option_VersusMenuDraw(void);
 void func_EBFBE0_80199820(s32);
 void func_EBFBE0_80199EA8(void);
-void func_EBFBE0_80199FA8(void);
+void Option_VersusStageInit(void);
 void func_EBFBE0_8019A080(void);
-void func_EBFBE0_8019A0B8(void);
+void Option_VersusStageUpdate(void);
 void func_EBFBE0_8019A124(void);
 void func_EBFBE0_8019A1A8(void);
 void func_EBFBE0_8019A214(void);
@@ -279,7 +295,7 @@ void func_EBFBE0_8019A2E0(void);
 void func_EBFBE0_8019A4DC(void);
 void func_EBFBE0_8019A6DC(void);
 void func_EBFBE0_8019A954(void);
-void func_EBFBE0_8019AAB4(void);
+void Option_VersusStageDraw(void);
 void func_EBFBE0_8019AB30(void);
 void func_EBFBE0_8019AD84(void);
 void func_EBFBE0_8019AFFC(void);

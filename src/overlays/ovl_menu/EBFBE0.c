@@ -2,7 +2,7 @@
 
 void func_EBFBE0_80187754(void);
 void func_EBFBE0_801878D8(void);
-void func_EBFBE0_801920C4(void);
+void Option_Init(void);
 void Option_DrawEntry(void);
 void func_EBFBE0_8019E85C(void);
 void func_EBFBE0_8019E8C8(void);
@@ -28,7 +28,7 @@ void func_EBFBE0_80187520(s32 arg0, void* arg1) {
             break;
 
         case 107:
-            func_EBFBE0_801920C4();
+            Option_Init();
             break;
 
         case 108:

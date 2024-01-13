@@ -5422,7 +5422,7 @@ void func_800B48BC(Player* player) {
                         } else if (gCurrentLevel == LEVEL_TRAINING) {
                             gGameState = GSTATE_MENU;
                             D_Timer_8017783C = 2;
-                            D_8017784C = 0;
+                            gOptionMenuStatus = 0;
                             gDrawMode = DRAWMODE_0;
                             D_80161A34 = 7;
                             D_80178410 = 0;

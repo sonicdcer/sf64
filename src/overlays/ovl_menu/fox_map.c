@@ -2348,7 +2348,7 @@ void func_EBFBE0_801A116C(void) {
 
         wings.rightState = wings.leftState = 2;
         // clang-format off
-        wings.unk_18 = wings.unk_1C = wings.unk_20 = wings.unk_24 = wings.unk_04 = 
+        wings.unk_18 = wings.unk_1C = wings.unk_20 = wings.unk_24 = wings.unk_04 =
         wings.unk_08 = wings.unk_0C = wings.unk_10 = wings.unk_28 = 0.0f;
         // clang-format on
 
@@ -3228,7 +3228,7 @@ void func_EBFBE0_801A36A8(void) {
         case 4:
             gGameState = 3;
             D_Timer_8017783C = 2;
-            D_8017784C = 0;
+            gOptionMenuStatus = 0;
             gDrawMode = 0;
             D_80178410 = 0;
             break;
