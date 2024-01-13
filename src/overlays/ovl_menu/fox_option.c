@@ -239,7 +239,7 @@ f32 D_EBFBE0_801B9100[3]; // gap
 f32 D_EBFBE0_801B9110[3];
 f32 D_EBFBE0_801B911C;
 f32 D_EBFBE0_801B9120;
-OptionEntryId D_EBFBE0_801B9124;
+OptionId D_EBFBE0_801B9124;
 s32 D_EBFBE0_801B9128;
 s32 D_EBFBE0_801B912C;
 s32 D_EBFBE0_801B9130;
@@ -405,7 +405,7 @@ void Option_Setup(void) {
     D_EBFBE0_801B9178 = 0;
     D_EBFBE0_801B917C = 0;
 
-    D_EBFBE0_801B9124 = OPTION_ENTRY_MAIN;
+    D_EBFBE0_801B9124 = OPTION_MAIN;
 
     if ((D_80161A34 == 5) || (D_80161A34 == 8)) {
         if (D_80161A34 == 8) {
@@ -473,9 +473,9 @@ void Option_Setup(void) {
             sOptionCardList[2].unk_00.unk_1C = 25.0f;
             sOptionCardList[2].unk_58 = 1;
 
-            D_EBFBE0_801B9124 = OPTION_ENTRY_VERSUS;
+            D_EBFBE0_801B9124 = OPTION_VERSUS;
         } else {
-            D_EBFBE0_801B9124 = OPTION_ENTRY_MAIN;
+            D_EBFBE0_801B9124 = OPTION_MAIN;
         }
     }
 
@@ -551,45 +551,45 @@ void Option_Init(void) {
 
 void Option_UpdateEntry(void) {
     switch (D_EBFBE0_801B9124) {
-        case OPTION_ENTRY_MAIN:
+        case OPTION_MAIN:
             Option_MainMenuUpdate();
             break;
 
-        case OPTION_ENTRY_MAP:
+        case OPTION_MAP:
             Option_MapUpdate();
             break;
 
-        case OPTION_ENTRY_TRAINING:
+        case OPTION_TRAINING:
             Option_TrainingUpdate();
             break;
 
-        case OPTION_ENTRY_VERSUS:
+        case OPTION_VERSUS:
             Option_VersusUpdate();
             break;
 
-        case OPTION_ENTRY_RANKING:
+        case OPTION_RANKING:
             Option_RankingUpdate();
             break;
 
-        case OPTION_ENTRY_SOUND:
+        case OPTION_SOUND:
             Option_SoundUpdate();
             break;
 
-        case OPTION_ENTRY_DATA:
+        case OPTION_DATA:
             Option_DataUpdate();
             break;
 
-        case OPTION_ENTRY_EXPERT_SOUND:
+        case OPTION_EXPERT_SOUND:
             Option_ExpertSoundUpdate();
             break;
 
-        case OPTION_ENTRY_VERSUS_STAGE:
+        case OPTION_VERSUS_STAGE:
             Option_VersusStageUpdate();
             break;
 
-        case OPTION_ENTRY_POINT_MATCH:
-        case OPTION_ENTRY_BR_MATCH:
-        case OPTION_ENTRY_TT_MATCH:
+        case OPTION_POINT_MATCH:
+        case OPTION_BR_MATCH:
+        case OPTION_TT_MATCH:
             Option_VersusMenuUpdate();
             break;
 
@@ -614,37 +614,37 @@ void Option_UpdateEntry(void) {
 
 void Option_DrawEntry(void) {
     switch (D_EBFBE0_801B9124) {
-        case OPTION_ENTRY_MAIN:
+        case OPTION_MAIN:
             Option_MainMenuDraw();
             break;
 
-        case OPTION_ENTRY_VERSUS:
+        case OPTION_VERSUS:
             Option_VersusDraw();
             break;
 
-        case OPTION_ENTRY_RANKING:
+        case OPTION_RANKING:
             Option_RankingDraw();
             break;
 
-        case OPTION_ENTRY_SOUND:
+        case OPTION_SOUND:
             Option_SoundDraw();
             break;
 
-        case OPTION_ENTRY_EXPERT_SOUND:
+        case OPTION_EXPERT_SOUND:
             Option_ExpertSoundDraw();
             break;
 
-        case OPTION_ENTRY_DATA:
+        case OPTION_DATA:
             Option_DataDraw();
             break;
 
-        case OPTION_ENTRY_VERSUS_STAGE:
+        case OPTION_VERSUS_STAGE:
             Option_VersusStageDraw();
             break;
 
-        case OPTION_ENTRY_POINT_MATCH:
-        case OPTION_ENTRY_BR_MATCH:
-        case OPTION_ENTRY_TT_MATCH:
+        case OPTION_POINT_MATCH:
+        case OPTION_BR_MATCH:
+        case OPTION_TT_MATCH:
             Option_VersusMenuDraw();
             break;
 
@@ -673,33 +673,33 @@ void Option_InitEntry(void) {
     D_EBFBE0_801B912C = 0;
 
     switch (D_EBFBE0_801B9124) {
-        case OPTION_ENTRY_MAP:
+        case OPTION_MAP:
             gDrawMode = DRAWMODE_0;
             break;
 
-        case OPTION_ENTRY_POINT_MATCH:
-        case OPTION_ENTRY_BR_MATCH:
-        case OPTION_ENTRY_TT_MATCH:
+        case OPTION_POINT_MATCH:
+        case OPTION_BR_MATCH:
+        case OPTION_TT_MATCH:
             Option_VersusMenuInit();
             break;
 
-        case OPTION_ENTRY_VERSUS_STAGE:
+        case OPTION_VERSUS_STAGE:
             Option_VersusStageInit();
             break;
 
-        case OPTION_ENTRY_RANKING:
+        case OPTION_RANKING:
             Option_RankingInit();
             break;
 
-        case OPTION_ENTRY_SOUND:
+        case OPTION_SOUND:
             Option_SoundInit();
             break;
 
-        case OPTION_ENTRY_EXPERT_SOUND:
+        case OPTION_EXPERT_SOUND:
             Option_ExpertSoundInit();
             break;
 
-        case OPTION_ENTRY_DATA:
+        case OPTION_DATA:
             Option_DataInit();
             break;
     }
@@ -2899,15 +2899,15 @@ void func_EBFBE0_8019A080(void) {
 
 void Option_VersusStageUpdate(void) {
     switch (D_EBFBE0_801B93D0) {
-        case OPTION_ENTRY_POINT_MATCH:
+        case OPTION_POINT_MATCH:
             func_EBFBE0_8019A124();
             break;
 
-        case OPTION_ENTRY_BR_MATCH:
+        case OPTION_BR_MATCH:
             func_EBFBE0_8019A1A8();
             break;
 
-        case OPTION_ENTRY_TT_MATCH:
+        case OPTION_TT_MATCH:
             func_EBFBE0_8019A214();
             break;
     }
@@ -3149,14 +3149,14 @@ void func_EBFBE0_8019A954(void) {
 
 void Option_VersusStageDraw(void) {
     switch (D_EBFBE0_801B93D0) {
-        case OPTION_ENTRY_BR_MATCH:
+        case OPTION_BR_MATCH:
             break;
 
-        case OPTION_ENTRY_POINT_MATCH:
+        case OPTION_POINT_MATCH:
             func_EBFBE0_8019AB30();
             break;
 
-        case OPTION_ENTRY_TT_MATCH:
+        case OPTION_TT_MATCH:
             func_EBFBE0_8019AD84();
             break;
     }
