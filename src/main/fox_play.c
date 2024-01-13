@@ -2586,23 +2586,23 @@ void func_800ABAB4(void) {
         switch (gCurrentLevel) {
             case LEVEL_SECTOR_Z:
                 if (D_8017782C == 0) {
-                    func_E51970_8019EA68(&gObjects58);
+                    func_i4_8019EA68(&gObjects58);
                     func_8002F180();
                 }
                 break;
             case LEVEL_FORTUNA:
-                func_E51970_8018BA2C(&gObjects58);
+                func_i4_8018BA2C(&gObjects58);
                 func_8002F180();
                 break;
             case LEVEL_KATINA:
-                func_E51970_80198930(&gObjects58);
+                func_i4_80198930(&gObjects58);
                 if (D_8017782C == 0) {
                     func_8002F180();
                 }
                 break;
             case LEVEL_BOLSE:
                 if (D_8017782C == 0) {
-                    func_E51970_80191ED8(&gObjects58);
+                    func_i4_80191ED8(&gObjects58);
                     func_8002F180();
                 }
                 break;

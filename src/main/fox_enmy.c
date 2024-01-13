@@ -1169,7 +1169,7 @@ void Object_Init(s32 index, ObjectId objId) {
             func_E9F1D0_8018D16C(&gBosses[index]);
             break;
         case OBJ_BOSS_316:
-            func_E51970_80193CA4(&gBosses[index]);
+            func_i4_80193CA4(&gBosses[index]);
             break;
         case OBJ_BOSS_314:
             func_E9F1D0_80197CC4(&gBosses[index]);

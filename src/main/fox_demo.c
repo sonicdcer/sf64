@@ -1402,7 +1402,7 @@ void func_8004B368(Player* player) {
 }
 
 void func_8004C90C(Player* player) {
-    func_E51970_80187520(90, player);
+    func_i4_80187520(90, player);
 }
 
 void func_8004C930(Player* player) {

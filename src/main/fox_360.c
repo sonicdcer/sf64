@@ -108,35 +108,35 @@ void func_8002E548(void) {
 }
 
 void func_8002E5E0(Boss* boss) {
-    func_E51970_80187520(91, boss);
+    func_i4_80187520(91, boss);
 }
 
 void func_8002E604(Boss* boss) {
-    func_E51970_80187520(92, boss);
+    func_i4_80187520(92, boss);
 }
 
 void func_8002E628(Boss* boss) {
-    func_E51970_80187520(93, boss);
+    func_i4_80187520(93, boss);
 }
 
 void func_8002E64C(Boss* boss) {
-    func_E51970_80187520(94, boss);
+    func_i4_80187520(94, boss);
 }
 
 void func_8002E670(Object_2F4* obj2F4) {
-    func_E51970_80187520(95, obj2F4);
+    func_i4_80187520(95, obj2F4);
 }
 
 void func_8002E694(Object_2F4* obj2F4) {
-    func_E51970_80187520(96, obj2F4);
+    func_i4_80187520(96, obj2F4);
 }
 
 void func_8002E6B8(Object_2F4* obj2F4) {
-    func_E51970_80187520(97, obj2F4);
+    func_i4_80187520(97, obj2F4);
 }
 
 void func_8002E6DC(Object_2F4* obj2F4) {
-    func_E51970_80187520(98, obj2F4);
+    func_i4_80187520(98, obj2F4);
 }
 
 void func_8002E700(Player* player) {
@@ -671,16 +671,16 @@ void func_8003010C(Object_2F4* obj2F4) {
     D_8015F928++;
     switch (gCurrentLevel) {
         case LEVEL_FORTUNA:
-            func_E51970_80187960(obj2F4);
+            func_i4_80187960(obj2F4);
             break;
         case LEVEL_KATINA:
-            func_E51970_80198594(obj2F4);
+            func_i4_80198594(obj2F4);
             break;
         case LEVEL_BOLSE:
-            func_E51970_8018C158(obj2F4);
+            func_i4_8018C158(obj2F4);
             break;
         case LEVEL_SECTOR_Z:
-            func_E51970_8019AB8C(obj2F4);
+            func_i4_8019AB8C(obj2F4);
             break;
         case LEVEL_VENOM_2:
             func_E9F1D0_80196314(obj2F4);
@@ -833,7 +833,7 @@ void func_8003088C(Object_2F4* arg0) {
             if (arg0->unk_0CE <= 0) {
                 arg0->unk_0CE = 0;
                 if (arg0->unk_0E4 == 200) {
-                    func_E51970_80199900(arg0, 1);
+                    func_i4_80199900(arg0, 1);
                     if (arg0->unk_0D4 == 1) {
                         if (gObjects2F4[8].obj.status == 2) {
                             func_800BA808(gMsg_ID_16140, RCID_KATT);
@@ -1369,7 +1369,7 @@ void func_800319AC(Object_2F4* this) {
             sp104 = 2;
             break;
         case 5:
-            func_E51970_80199C60(this);
+            func_i4_80199C60(this);
             sp104 = 1;
             break;
         case 0:

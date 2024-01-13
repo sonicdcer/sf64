@@ -69,30 +69,32 @@
     - { start: 0xE51970, type: .bss, vram: 0x801C2740, name: sf_so }
     - { start: 0xE51970, type: .bss, vram: 0x801C27C0, name: sf_aq }
 
-  - name: ovl_E51970
+  - name: ovl_i4
     type: code
-    dir: overlays/ovl_E51970
+    dir: overlays/ovl_i4
     start: 0xE51970
     vram: 0x80187520
     bss_size: 0x1B0
     exclusive_ram_id: overlay
-    symbol_name_format: E51970_$VRAM
+    symbol_name_format: i4_$VRAM
     subsegments:
-    - [0xE51970, c, E51970]
+    - [0xE51970, c, fox_i4]
     - [0xE51A40, c, E51A40]
     - [0xE561B0, c, E561B0]
     - [0xE5CC30, c, E5CC30]
     - [0xE63D50, c, E63D50]
-    - [0xE69220, data, E51A40]
+    - [0xE69220, .data, fox_i4]
+    - [0xE69230, data, E51A40]
     - [0xE69310, data, E561B0]
     - [0xE69540, data, E5CC30]
     - [0xE69910, data, E63D50]
-    - [0xE69B30, .rodata, E51970]
+    - [0xE69B30, .rodata, fox_i4]
     - [0xE69B70, .rodata, E51A40]
     - [0xE69D70, .rodata, E561B0]
     - [0xE6A170, .rodata, E5CC30]
     - [0xE6A510, .rodata, E63D50]
-    - { start: 0xE6A810, type: bss, vram: 0x801A03C0, name: ovl_E51970 }
+    - { start: 0xE6A810, type: .bss, vram: 0x801A03C0, name: fox_i4 }
+    - { start: 0xE6A810, type: bss, vram: 0x801A03D0, name: E561B0 }
 
   - name: ovl_E6A810
     type: code
