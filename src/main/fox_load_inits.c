@@ -235,7 +235,7 @@ OverlayInit sOvlDF4260_Corneria[1] = {
 };
 
 OverlayInit sOvlE08400_Meteo[2] = {
-    { OVERLAY_OFFSETS(ovl_E08400),
+    { OVERLAY_OFFSETS(ovl_i2),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -251,7 +251,7 @@ OverlayInit sOvlE08400_Meteo[2] = {
         /* 0xD */ NO_SEGMENT,
         /* 0xE */ ROM_SEGMENT(ast_92EC40),
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_E08400),
+    { OVERLAY_OFFSETS(ovl_i2),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -369,7 +369,7 @@ OverlayInit sOvlE6A810_Titania[6] = {
 };
 
 OverlayInit sOvlE08400_SectorX[2] = {
-    { OVERLAY_OFFSETS(ovl_E08400),
+    { OVERLAY_OFFSETS(ovl_i2),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -385,7 +385,7 @@ OverlayInit sOvlE08400_SectorX[2] = {
         /* 0xD */ ROM_SEGMENT(ast_955270),
         /* 0xE */ NO_SEGMENT,
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_E08400),
+    { OVERLAY_OFFSETS(ovl_i2),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -645,7 +645,7 @@ OverlayInit sOvlE9F1D0_VenomSW[2] = {
 };
 
 OverlayInit sOvlE08400_Setup20[1] = {
-    { OVERLAY_OFFSETS(ovl_E08400),
+    { OVERLAY_OFFSETS(ovl_i2),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -756,7 +756,7 @@ OverlayInit sOvlDF4260_Training[1] = {
 };
 
 OverlayInit sOvlE08400_Versus[2] = {
-    { OVERLAY_OFFSETS(ovl_E08400),
+    { OVERLAY_OFFSETS(ovl_i2),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8E92D0),
@@ -772,7 +772,7 @@ OverlayInit sOvlE08400_Versus[2] = {
         /* 0xD */ NO_SEGMENT,
         /* 0xE */ NO_SEGMENT,
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_E08400),
+    { OVERLAY_OFFSETS(ovl_i2),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
         /* 0x3 */ ROM_SEGMENT(ast_8E92D0),

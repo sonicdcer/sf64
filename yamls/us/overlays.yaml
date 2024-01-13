@@ -20,9 +20,9 @@
     - [0xE083C0, .rodata, E05990]
     - { start: 0xE08400, type: bss, vram: 0x8019B6C0, name: ovl_DF4260 }
 
-  - name: ovl_E08400
+  - name: ovl_i2
     type: code
-    dir: overlays/ovl_E08400
+    dir: overlays/ovl_i2
     start: 0xE08400
     vram: 0x80187520
     bss_size: 0x40
