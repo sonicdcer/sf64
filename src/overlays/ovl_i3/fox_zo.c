@@ -563,41 +563,42 @@ s32 sZoLimbTimers[ZO_LIMB_MAX];
 s32 sZoSwork[ZO_BSS_MAX];
 f32 sZoFwork[ZO_BSF_MAX];
 
-void func_i3_8018FF50(Object_2F4* obj2F4) {
+void func_i3_8018FF50(Actor* actor) {
     f32 temp;
     (void) " Enm->hitNO %d\n"; // Unclear where this goes. hitNO can't be info.bonus. Damage related?
-    obj2F4->obj.rot.y =
-        Math_Atan2F(gPlayer->camEye.x - obj2F4->obj.pos.x, gPlayer->camEye.z - (obj2F4->obj.pos.z + D_80177D20)) *
+    actor->obj.rot.y =
+        Math_Atan2F(gPlayer[0].camEye.x - actor->obj.pos.x, gPlayer[0].camEye.z - (actor->obj.pos.z + D_80177D20)) *
         180.0f / M_PI;
-    temp = sqrtf(SQ(gPlayer->camEye.x - obj2F4->obj.pos.x) + SQ(gPlayer->camEye.z - (obj2F4->obj.pos.z + D_80177D20)));
-    obj2F4->obj.rot.x = -Math_Atan2F(gPlayer->camEye.y - obj2F4->obj.pos.y, temp) * 180.0f / M_PI;
+    temp =
+        sqrtf(SQ(gPlayer[0].camEye.z - (actor->obj.pos.z + D_80177D20)) + SQ(gPlayer[0].camEye.x - actor->obj.pos.x));
+    actor->obj.rot.x = -Math_Atan2F(gPlayer[0].camEye.y - actor->obj.pos.y, temp) * 180.0f / M_PI;
 }
 
-void func_i3_80190028(Object_2F4* obj2F4, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 arg6, f32 scale,
-                      s32 arg8, s32 arg9) {
-    Object_2F4_Initialize(obj2F4);
-    obj2F4->obj.status = 2;
-    obj2F4->obj.id = OBJ_2F4_189;
-    obj2F4->unk_0B8 = arg6;
-    obj2F4->scale = scale;
-    obj2F4->unk_048 = arg9;
-    obj2F4->obj.pos = *pos;
-    obj2F4->obj.rot = *rot;
-    obj2F4->vel.x = xVel;
-    obj2F4->vel.y = yVel;
-    obj2F4->vel.z = zVel;
-    obj2F4->timer_0BC = arg8;
-    obj2F4->gravity = 0.5f;
+void func_i3_80190028(Actor* actor, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 arg6, f32 scale, s32 arg8,
+                      s32 arg9) {
+    Actor_Initialize(actor);
+    actor->obj.status = 2;
+    actor->obj.id = OBJ_ACTOR_189;
+    actor->unk_0B8 = arg6;
+    actor->scale = scale;
+    actor->unk_048 = arg9;
+    actor->obj.pos = *pos;
+    actor->obj.rot = *rot;
+    actor->vel.x = xVel;
+    actor->vel.y = yVel;
+    actor->vel.z = zVel;
+    actor->timer_0BC = arg8;
+    actor->gravity = 0.5f;
 
-    Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
+    Object_SetInfo(&actor->info, actor->obj.id);
 }
 
 void func_i3_801900FC(Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 arg6, f32 scale, s32 arg8, s32 arg9) {
     s32 i;
 
     for (i = 59; i > 0; i--) {
-        if (gObjects2F4[i].obj.status == 0) {
-            func_i3_80190028(&gObjects2F4[i], pos, rot, xVel, yVel, zVel, arg6, scale, arg8, arg9);
+        if (gActors[i].obj.status == 0) {
+            func_i3_80190028(&gActors[i], pos, rot, xVel, yVel, zVel, arg6, scale, arg8, arg9);
             break;
         }
     }
@@ -613,180 +614,179 @@ s32 func_i3_8019019C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
 
 void func_i3_80190204(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp24 = { 0.0f, 0.0f, 0.0f };
-    Object_2F4* this = thisx;
+    Actor* this = thisx;
 
     if (this->unk_0B8 == 1) {
         switch (limbIndex) {
             case 0:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[0]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[11]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[0]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[11]);
                 break;
             case 1:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[1]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[12]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[1]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[12]);
                 break;
             case 2:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[2]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[13]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[2]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[13]);
                 break;
             case 3:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[3]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[14]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[3]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[14]);
                 break;
             case 4:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[4]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[15]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[4]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[15]);
                 break;
             case 5:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[5]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[16]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[5]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[16]);
                 break;
             case 6:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[6]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[17]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[6]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[17]);
                 break;
             case 7:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[7]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[18]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[7]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[18]);
                 break;
             case 8:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[8]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[19]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[8]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[19]);
                 break;
             case 9:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[9]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[20]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[9]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[20]);
                 break;
             case 10:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[10]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[21]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[10]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[21]);
                 break;
         }
     }
 }
 
-void func_i3_80190430(Object_2F4* obj2F4) {
+void func_i3_80190430(Actor* actor) {
     Vec3f sp30[30];
 
-    Matrix_Scale(gCalcMatrix, obj2F4->scale, obj2F4->scale, obj2F4->scale, 1);
-    Animation_GetFrameData(&D_600E5EC, obj2F4->unk_0B6, sp30);
-    Animation_DrawSkeleton(3, D_600E7D8, sp30, func_i3_8019019C, func_i3_80190204, obj2F4, gCalcMatrix);
+    Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, 1);
+    Animation_GetFrameData(&D_600E5EC, actor->unk_0B6, sp30);
+    Animation_DrawSkeleton(3, D_600E7D8, sp30, func_i3_8019019C, func_i3_80190204, actor, gCalcMatrix);
 }
 
-void func_i3_801904CC(Object_2F4* obj2F4) {
+void func_i3_801904CC(Actor* actor) {
     Vec3f spA4;
     Vec3f sp98;
     s32 i;
 
-    switch (obj2F4->unk_0B8) {
+    switch (actor->unk_0B8) {
         case 0:
-            obj2F4->unk_0CE = 20;
-            Matrix_RotateY(gCalcMatrix, obj2F4->obj.rot.y * M_DTOR, 0);
-            Matrix_RotateX(gCalcMatrix, obj2F4->obj.rot.x * M_DTOR, 1);
-            Matrix_RotateZ(gCalcMatrix, obj2F4->obj.rot.z * M_DTOR, 1);
+            actor->unk_0CE = 20;
+            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
+            Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
+            Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 1);
             spA4.x = spA4.y = 0.0f;
-            spA4.z = obj2F4->unk_13C;
+            spA4.z = actor->fwork[10];
             Matrix_MultVec3f(gCalcMatrix, &spA4, &sp98);
-            obj2F4->vel.x = sp98.x;
-            obj2F4->vel.y = sp98.y;
-            obj2F4->vel.z = sp98.z;
-            obj2F4->unk_0B8 = 5;
+            actor->vel.x = sp98.x;
+            actor->vel.y = sp98.y;
+            actor->vel.z = sp98.z;
+            actor->unk_0B8 = 5;
             break;
         case 1:
             for (i = 0; i < 11; i++) {
-                func_i3_801900FC(&obj2F4->unk_18C[i], &obj2F4->unk_18C[i + 11], (Rand_ZeroOne() - 0.5f) * 20.0f,
-                                 Rand_ZeroOne() * -10.0f, Rand_ZeroOne() * 10.0f, 41, obj2F4->scale, 200, i);
+                func_i3_801900FC(&actor->vwork[i], &actor->vwork[i + 11], (Rand_ZeroOne() - 0.5f) * 20.0f,
+                                 Rand_ZeroOne() * -10.0f, Rand_ZeroOne() * 10.0f, 41, actor->scale, 200, i);
             }
-            obj2F4->unk_044 = 0;
-            func_80066254(obj2F4);
-            Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
-            func_8007D0E0(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, 4.0f);
-            func_8007A6F0(&obj2F4->obj.pos, 0x29018036);
+            actor->unk_044 = 0;
+            func_80066254(actor);
+            Object_Kill(&actor->obj, &actor->sfxPos);
+            func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 4.0f);
+            func_8007A6F0(&actor->obj.pos, 0x29018036);
             break;
     }
-    obj2F4->unk_0B6++;
-    if (Animation_GetFrameCount(&D_600E5EC) < obj2F4->unk_0B6) {
-        obj2F4->unk_0B6 = 0;
+    actor->unk_0B6++;
+    if (Animation_GetFrameCount(&D_600E5EC) < actor->unk_0B6) {
+        actor->unk_0B6 = 0;
     }
-    if ((obj2F4->unk_0D0 != 0) && (obj2F4->unk_0CE != 0)) {
-        obj2F4->unk_0D0 = 0;
-        if (obj2F4->unk_0B8 > 0) {
-            obj2F4->timer_0C6 = 15;
-            obj2F4->unk_0CE -= obj2F4->unk_0D6;
-            Audio_PlaySfx(0x29033037, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-            if (obj2F4->unk_0CE <= 0) {
-                obj2F4->unk_0CE = 0;
-                obj2F4->unk_0B8 = 1;
+    if ((actor->unk_0D0 != 0) && (actor->unk_0CE != 0)) {
+        actor->unk_0D0 = 0;
+        if (actor->unk_0B8 > 0) {
+            actor->timer_0C6 = 15;
+            actor->unk_0CE -= actor->unk_0D6;
+            Audio_PlaySfx(0x29033037, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            if (actor->unk_0CE <= 0) {
+                actor->unk_0CE = 0;
+                actor->unk_0B8 = 1;
             }
         }
     }
 }
 
-void func_i3_80190790(Object_2F4* obj2F4) {
+void func_i3_80190790(Actor* actor) {
     s32 pad[2];
     f32 temp1;
     PosRot* temp2;
     Vec3f sp44;
     Vec3f sp38;
     s32 i;
-    Object_2F4* sp30;
+    Actor* sp30;
 
-    obj2F4->unk_04E++;
-    if (obj2F4->unk_04E >= 200) {
-        obj2F4->unk_04E = 0;
+    actor->unk_04E++;
+    if (actor->unk_04E >= 200) {
+        actor->unk_04E = 0;
     }
-    obj2F4->unk_114 += 4.0f;
-    obj2F4->vel.y = __sinf(obj2F4->unk_114 * M_DTOR) * 20.0f;
-    obj2F4->unk_0F4.x = -obj2F4->vel.y * 2.5f;
-    obj2F4->unk_118 += 5.0f;
-    obj2F4->unk_0F4.z = __sinf(obj2F4->unk_118 * M_DTOR) * 30.0f;
-    for (i = 0, sp30 = gObjects2F4; i < 60; i++, sp30++) {
-        if ((sp30->obj.status == 2) && (sp30->obj.id == OBJ_2F4_239) && (obj2F4->unk_050 == sp30->unk_050)) {
-            temp1 =
-                Math_RadToDeg(Math_Atan2F(sp30->obj.pos.x - obj2F4->obj.pos.x, sp30->obj.pos.z - obj2F4->obj.pos.z));
-            Math_SmoothStepToAngle(&obj2F4->unk_0F4.y, temp1, 0.2f, 3.0f, 0.0f);
-            if ((fabsf(obj2F4->obj.pos.x - sp30->obj.pos.x) < 500.0f) &&
-                (fabsf(obj2F4->obj.pos.z - sp30->obj.pos.z) < 500.0f)) {
+    actor->fwork[0] += 4.0f;
+    actor->vel.y = __sinf(actor->fwork[0] * M_DTOR) * 20.0f;
+    actor->unk_0F4.x = -actor->vel.y * 2.5f;
+    actor->fwork[1] += 5.0f;
+    actor->unk_0F4.z = __sinf(actor->fwork[1] * M_DTOR) * 30.0f;
+    for (i = 0, sp30 = gActors; i < 60; i++, sp30++) {
+        if ((sp30->obj.status == 2) && (sp30->obj.id == OBJ_ACTOR_239) && (sp30->iwork[0] == actor->iwork[0])) {
+            temp1 = Math_RadToDeg(Math_Atan2F(sp30->obj.pos.x - actor->obj.pos.x, sp30->obj.pos.z - actor->obj.pos.z));
+            Math_SmoothStepToAngle(&actor->unk_0F4.y, temp1, 0.2f, 3.0f, 0.0f);
+            if ((fabsf(actor->obj.pos.x - sp30->obj.pos.x) < 500.0f) &&
+                (fabsf(actor->obj.pos.z - sp30->obj.pos.z) < 500.0f)) {
                 sp30->obj.status = 0;
-                obj2F4->unk_050++;
+                actor->iwork[0]++;
             }
             break;
         }
     }
-    Matrix_RotateY(gCalcMatrix, obj2F4->unk_0F4.y * M_DTOR, 0);
+    Matrix_RotateY(gCalcMatrix, actor->unk_0F4.y * M_DTOR, 0);
     sp44.x = 0.f;
     sp44.y = 0.f;
     sp44.z = 20.0f;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
-    obj2F4->vel.x = sp38.x;
-    obj2F4->vel.z = sp38.z;
-    temp2 = &D_801782C4[obj2F4->unk_04E];
-    temp2->pos.x = obj2F4->obj.pos.x;
-    temp2->pos.y = obj2F4->obj.pos.y;
-    temp2->pos.z = obj2F4->obj.pos.z;
-    temp2->rot.x = obj2F4->unk_0F4.x;
-    temp2->rot.y = obj2F4->unk_0F4.y;
-    temp2->rot.z = obj2F4->unk_0F4.z;
+    actor->vel.x = sp38.x;
+    actor->vel.z = sp38.z;
+    temp2 = &D_801782C4[actor->unk_04E];
+    temp2->pos.x = actor->obj.pos.x;
+    temp2->pos.y = actor->obj.pos.y;
+    temp2->pos.z = actor->obj.pos.z;
+    temp2->rot.x = actor->unk_0F4.x;
+    temp2->rot.y = actor->unk_0F4.y;
+    temp2->rot.z = actor->unk_0F4.z;
 }
 
-void func_i3_80190A00(Object_2F4* obj2F4) {
+void func_i3_80190A00(Actor* actor) {
     f32 sp2C;
     s32 sp28;
 
-    if ((obj2F4->timer_0C0 == 0) &&
-        func_800A73E4(&sp2C, &sp28, obj2F4->obj.pos.x, obj2F4->obj.pos.y - 50.0f, obj2F4->obj.pos.z)) {
-        func_8008377C(obj2F4->obj.pos.x, sp2C, obj2F4->obj.pos.z + 150.0f, 0.0f, 1.7f);
-        if (obj2F4->vel.y >= 0.0f) {
-            Audio_PlaySfx(0x1983201A, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    if ((actor->timer_0C0 == 0) &&
+        func_800A73E4(&sp2C, &sp28, actor->obj.pos.x, actor->obj.pos.y - 50.0f, actor->obj.pos.z)) {
+        func_8008377C(actor->obj.pos.x, sp2C, actor->obj.pos.z + 150.0f, 0.0f, 1.7f);
+        if (actor->vel.y >= 0.0f) {
+            Audio_PlaySfx(0x1983201A, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         } else {
-            Audio_PlaySfx(0x19832019, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x19832019, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         }
-        obj2F4->timer_0C0 = 30;
+        actor->timer_0C0 = 30;
     }
-    func_i3_80190790(obj2F4);
-    if (obj2F4->unk_0D0 != 0) {
-        obj2F4->unk_0D0 = 0;
-        Audio_PlaySfx(0x29121007, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    func_i3_80190790(actor);
+    if (actor->unk_0D0 != 0) {
+        actor->unk_0D0 = 0;
+        Audio_PlaySfx(0x29121007, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
 }
 
@@ -820,55 +820,55 @@ typedef struct {
     Hitbox boxes[1];
 } JntHitbox;
 
-void func_i3_80190D0C(Object_2F4* obj2F4) {
+void func_i3_80190D0C(Actor* actor) {
     Hitbox* var_s2 = (((JntHitbox*) SEGMENTED_TO_VIRTUAL(D_602BC58))->boxes);
     s32 i;
     s32 k;
     PosRot* temp_s0;
 
-    obj2F4->unk_04A = 0;
-    for (i = obj2F4->unk_04A; i < 20; i++, var_s2++) {
-        k = (D_i3_801BF56C[i] + obj2F4->unk_04E) % 200;
+    actor->unk_04A = 0;
+    for (i = actor->unk_04A; i < 20; i++, var_s2++) {
+        k = (D_i3_801BF56C[i] + actor->unk_04E) % 200;
         temp_s0 = &D_801782C4[k];
 
-        var_s2->z.offset = temp_s0->pos.z - obj2F4->obj.pos.z;
-        var_s2->y.offset = temp_s0->pos.y - obj2F4->obj.pos.y;
-        var_s2->x.offset = temp_s0->pos.x - obj2F4->obj.pos.x;
+        var_s2->z.offset = temp_s0->pos.z - actor->obj.pos.z;
+        var_s2->y.offset = temp_s0->pos.y - actor->obj.pos.y;
+        var_s2->x.offset = temp_s0->pos.x - actor->obj.pos.x;
         func_i3_80190B4C(temp_s0->pos.x, temp_s0->pos.y, temp_s0->pos.z, temp_s0->rot.x, temp_s0->rot.y, temp_s0->rot.z,
-                         D_i3_801BF594[i], obj2F4->timer_0C6 & 1);
+                         D_i3_801BF594[i], actor->timer_0C6 & 1);
         if (D_80177854 != 100) {
-            Math_SmoothStepToF(&temp_s0->pos.y, obj2F4->unk_11C, 1.0f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&temp_s0->pos.y, actor->fwork[2], 1.0f, 10.0f, 0.0f);
         }
     }
 }
 
-void func_i3_80190F08(Object_2F4* obj2F4) {
-    func_i3_80190D0C(obj2F4);
+void func_i3_80190F08(Actor* actor) {
+    func_i3_80190D0C(actor);
 }
 
 void func_i3_80190F28(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp2C = { 0.0f, 0.0f, 0.0f };
-    Object_2F4* this = thisx;
+    Actor* this = thisx;
 
     if (this->unk_0B8 == 3) {
         switch (limbIndex) {
             case 0:
-                Matrix_MultVec3f(gCalcMatrix, &sp2C, this->unk_18C);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[3]);
+                Matrix_MultVec3f(gCalcMatrix, &sp2C, this->vwork);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[3]);
                 return;
             case 1:
-                Matrix_MultVec3f(gCalcMatrix, &sp2C, &this->unk_18C[1]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[4]);
+                Matrix_MultVec3f(gCalcMatrix, &sp2C, &this->vwork[1]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[4]);
                 return;
             case 2:
-                Matrix_MultVec3f(gCalcMatrix, &sp2C, &this->unk_18C[2]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[5]);
+                Matrix_MultVec3f(gCalcMatrix, &sp2C, &this->vwork[2]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[5]);
                 break;
         }
     }
 }
 
-void func_i3_80191010(Object_2F4* obj2F4) {
+void func_i3_80191010(Actor* actor) {
     Vec3f sp8C;
     Vec3f sp80;
     f32 sp7C;
@@ -876,114 +876,114 @@ void func_i3_80191010(Object_2F4* obj2F4) {
     f32 var_fs0;
     s32 sp70;
 
-    switch (obj2F4->unk_0B8) {
+    switch (actor->unk_0B8) {
         case 0:
-            obj2F4->unk_120 = obj2F4->obj.rot.x;
-            obj2F4->unk_118 = (Rand_ZeroOne() - 0.5f) * 1000.0f;
-            obj2F4->unk_0CE = 10;
-            obj2F4->timer_0BC = 30;
-            obj2F4->scale = 5.0f;
-            obj2F4->gravity = 1.0f;
-            obj2F4->obj.rot.x = 315.0f;
-            obj2F4->unk_0B8++;
+            actor->fwork[3] = actor->obj.rot.x;
+            actor->fwork[1] = (Rand_ZeroOne() - 0.5f) * 1000.0f;
+            actor->unk_0CE = 10;
+            actor->timer_0BC = 30;
+            actor->scale = 5.0f;
+            actor->gravity = 1.0f;
+            actor->obj.rot.x = 315.0f;
+            actor->unk_0B8++;
             break;
         case 1:
-            Matrix_RotateY(gCalcMatrix, obj2F4->obj.rot.y * M_DTOR, 0);
-            Matrix_RotateX(gCalcMatrix, obj2F4->obj.rot.x * M_DTOR, 1);
+            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
+            Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
             sp8C.x = 0.0f;
             sp8C.y = 0.0f;
-            sp8C.z = (obj2F4->unk_120 * 10.0f) + 30.0f;
+            sp8C.z = (actor->fwork[3] * 10.0f) + 30.0f;
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp8C, &sp80);
-            obj2F4->vel.x = sp80.x;
-            obj2F4->vel.y = sp80.y;
-            obj2F4->vel.z = sp80.z;
-            obj2F4->unk_0B8++;
+            actor->vel.x = sp80.x;
+            actor->vel.y = sp80.y;
+            actor->vel.z = sp80.z;
+            actor->unk_0B8++;
             break;
         case 2:
-            if (obj2F4->timer_0BC == 0) {
-                obj2F4->obj.rot.z += 30.0f;
-                if (obj2F4->unk_0B6 > 0) {
-                    obj2F4->unk_0B6--;
+            if (actor->timer_0BC == 0) {
+                actor->obj.rot.z += 30.0f;
+                if (actor->unk_0B6 > 0) {
+                    actor->unk_0B6--;
                 }
             } else {
-                if (obj2F4->unk_0B6 < Animation_GetFrameCount(&D_601AA48)) {
-                    obj2F4->unk_0B6++;
+                if (actor->unk_0B6 < Animation_GetFrameCount(&D_601AA48)) {
+                    actor->unk_0B6++;
                 }
             }
             var_fs0 = 5.0f;
-            if (obj2F4->obj.rot.x < 90.0f) {
+            if (actor->obj.rot.x < 90.0f) {
                 var_fs0 = 1.0f;
             }
-            Math_SmoothStepToAngle(&obj2F4->obj.rot.x, 45.0f, 0.1f, var_fs0, 0.01f);
-            if (obj2F4->obj.pos.y < -500.0f) {
-                obj2F4->obj.rot.x = 0.0f;
-                obj2F4->gravity = 0.0f;
-                obj2F4->vel.y = 0.0f;
-                Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
+            Math_SmoothStepToAngle(&actor->obj.rot.x, 45.0f, 0.1f, var_fs0, 0.01f);
+            if (actor->obj.pos.y < -500.0f) {
+                actor->obj.rot.x = 0.0f;
+                actor->gravity = 0.0f;
+                actor->vel.y = 0.0f;
+                Object_Kill(&actor->obj, &actor->sfxPos);
             }
-            if (func_800A73E4(&sp7C, &sp70, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z) &&
-                (obj2F4->unk_050 < 2) && (obj2F4->timer_0C0 == 0)) {
+            if (func_800A73E4(&sp7C, &sp70, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z) &&
+                (actor->iwork[0] < 2) && (actor->timer_0C0 == 0)) {
                 if (var_fs0 == 5.0f) {
-                    Audio_PlaySfx(0x1983201A, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    Audio_PlaySfx(0x1983201A, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 } else {
-                    Audio_PlaySfx(0x19832019, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    Audio_PlaySfx(0x19832019, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 }
-                obj2F4->timer_0C0 = 10;
-                obj2F4->unk_050 += 1;
-                func_8008377C(obj2F4->obj.pos.x, sp7C, obj2F4->obj.pos.z, 0.0f, 0.7f);
+                actor->timer_0C0 = 10;
+                actor->iwork[0] += 1;
+                func_8008377C(actor->obj.pos.x, sp7C, actor->obj.pos.z, 0.0f, 0.7f);
             }
             break;
         case 3:
             for (i = 0; i < 3; i++) {
-                func_i3_801900FC(&obj2F4->unk_18C[i], &obj2F4->unk_18C[3 + i], (Rand_ZeroOne() - 0.5f) * 20.0f,
-                                 Rand_ZeroOne() * -10.0f, Rand_ZeroOne() * 10.0f, 42, obj2F4->scale, 200, i);
+                func_i3_801900FC(&actor->vwork[i], &actor->vwork[3 + i], (Rand_ZeroOne() - 0.5f) * 20.0f,
+                                 Rand_ZeroOne() * -10.0f, Rand_ZeroOne() * 10.0f, 42, actor->scale, 200, i);
             }
-            obj2F4->unk_044 = 4;
-            func_80066254(obj2F4);
-            func_8007D0E0(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, 3.0f);
-            Audio_PlaySfx(0x2903A008, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-            Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
-            func_8007A6F0(&obj2F4->obj.pos, 0x29018036);
+            actor->unk_044 = 4;
+            func_80066254(actor);
+            func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 3.0f);
+            Audio_PlaySfx(0x2903A008, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Object_Kill(&actor->obj, &actor->sfxPos);
+            func_8007A6F0(&actor->obj.pos, 0x29018036);
             break;
     }
-    if ((obj2F4->unk_0D0 != 0) && (obj2F4->unk_0CE != 0)) {
-        obj2F4->unk_0D0 = 0;
-        obj2F4->timer_0C6 = 15;
-        obj2F4->unk_0CE -= obj2F4->unk_0D6;
-        if (obj2F4->unk_0CE <= 0) {
-            obj2F4->unk_0CE = 0;
-            obj2F4->unk_0B8 = 3;
+    if ((actor->unk_0D0 != 0) && (actor->unk_0CE != 0)) {
+        actor->unk_0D0 = 0;
+        actor->timer_0C6 = 15;
+        actor->unk_0CE -= actor->unk_0D6;
+        if (actor->unk_0CE <= 0) {
+            actor->unk_0CE = 0;
+            actor->unk_0B8 = 3;
         }
     }
 }
 
-void func_i3_801914C4(Object_2F4* obj2F4) {
+void func_i3_801914C4(Actor* actor) {
     Vec3f sp38[20];
 
-    Matrix_Scale(gCalcMatrix, obj2F4->scale, obj2F4->scale, obj2F4->scale, 1);
+    Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, 1);
     GCGM_BACK();
-    Animation_GetFrameData(&D_601AA48, obj2F4->unk_0B6, sp38);
-    Animation_DrawSkeleton(3, D_601AB14, sp38, NULL, func_i3_80190F28, obj2F4, gCalcMatrix);
+    Animation_GetFrameData(&D_601AA48, actor->unk_0B6, sp38);
+    Animation_DrawSkeleton(3, D_601AB14, sp38, NULL, func_i3_80190F28, actor, gCalcMatrix);
     GSGM_BACK();
 }
 
-void func_i3_801915A4(Object_2F4* obj2F4) {
+void func_i3_801915A4(Actor* actor) {
     s32 i;
-    Object_2F4* var_a2;
+    Actor* var_a2;
 
-    obj2F4->unk_0CE = 50;
-    obj2F4->unk_114 = obj2F4->obj.pos.z - 10000.0f;
-    for (i = 0, var_a2 = gObjects2F4; i < 60; i++, var_a2++) {
+    actor->unk_0CE = 50;
+    actor->fwork[0] = actor->obj.pos.z - 10000.0f;
+    for (i = 0, var_a2 = gActors; i < 60; i++, var_a2++) {
         if (var_a2->obj.status == 0) {
-            Object_2F4_Initialize(var_a2);
+            Actor_Initialize(var_a2);
             var_a2->obj.status = 1;
-            var_a2->obj.id = OBJ_2F4_241;
-            var_a2->obj.pos.x = obj2F4->obj.pos.x;
-            var_a2->obj.pos.y = obj2F4->obj.pos.y;
-            var_a2->obj.pos.z = obj2F4->obj.pos.z;
-            var_a2->unk_050 = obj2F4->index + 1;
+            var_a2->obj.id = OBJ_ACTOR_241;
+            var_a2->obj.pos.x = actor->obj.pos.x;
+            var_a2->obj.pos.y = actor->obj.pos.y;
+            var_a2->obj.pos.z = actor->obj.pos.z;
+            var_a2->iwork[0] = actor->index + 1;
             Object_SetInfo(&var_a2->info, var_a2->obj.id);
-            obj2F4->unk_050 = i;
+            actor->iwork[0] = i;
             break;
         }
     }
@@ -992,7 +992,7 @@ void func_i3_801915A4(Object_2F4* obj2F4) {
     }
 }
 
-void func_i3_80191680(Object_2F4* obj2F4) {
+void func_i3_80191680(Actor* actor) {
     f32 sp64;
     f32 sp60;
     f32 sp5C;
@@ -1000,77 +1000,77 @@ void func_i3_80191680(Object_2F4* obj2F4) {
     f32 sp54;
     Vec3f sp48;
     Vec3f sp3C;
-    Object_2F4* sp38;
+    Actor* sp38;
 
-    if (obj2F4->obj.pos.z < obj2F4->unk_114) {
-        obj2F4->unk_0B8 = 1;
+    if (actor->obj.pos.z < actor->fwork[0]) {
+        actor->unk_0B8 = 1;
     }
-    if ((obj2F4->unk_0D0 != 0) && (obj2F4->unk_0CE != 0)) {
-        obj2F4->unk_0D0 = 0;
-        obj2F4->timer_0C6 = 15;
-        obj2F4->unk_0CE -= obj2F4->unk_0D6;
-        Audio_PlaySfx(0x29033037, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-        if (obj2F4->unk_0CE <= 0) {
-            obj2F4->unk_0CE = obj2F4->unk_044 = 0;
-            func_80066254(obj2F4);
-            obj2F4->unk_0B8 = 1;
-            Audio_PlaySfx(0x29018036, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    if ((actor->unk_0D0 != 0) && (actor->unk_0CE != 0)) {
+        actor->unk_0D0 = 0;
+        actor->timer_0C6 = 15;
+        actor->unk_0CE -= actor->unk_0D6;
+        Audio_PlaySfx(0x29033037, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        if (actor->unk_0CE <= 0) {
+            actor->unk_0CE = actor->unk_044 = 0;
+            func_80066254(actor);
+            actor->unk_0B8 = 1;
+            Audio_PlaySfx(0x29018036, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         }
     }
-    obj2F4->unk_0B6++;
-    if (obj2F4->unk_0B6 >= Animation_GetFrameCount(&D_40057AC)) {
-        obj2F4->unk_0B6 = 0;
+    actor->unk_0B6++;
+    if (actor->unk_0B6 >= Animation_GetFrameCount(&D_40057AC)) {
+        actor->unk_0B6 = 0;
     }
-    if (obj2F4->timer_0BC == 0) {
-        obj2F4->timer_0BC = 30;
-        obj2F4->unk_118 = gPlayer->pos.x + ((Rand_ZeroOne() - 0.5f) * 1000.0f);
-        obj2F4->unk_11C = gPlayer->pos.y + 50.0f + (Rand_ZeroOne() * 200.0f);
-        obj2F4->unk_120 = gPlayer->unk_138 - 1500.0f;
+    if (actor->timer_0BC == 0) {
+        actor->timer_0BC = 30;
+        actor->fwork[1] = gPlayer[0].pos.x + ((Rand_ZeroOne() - 0.5f) * 1000.0f);
+        actor->fwork[2] = gPlayer[0].pos.y + 50.0f + (Rand_ZeroOne() * 200.0f);
+        actor->fwork[3] = gPlayer[0].unk_138 - 1500.0f;
     }
-    obj2F4->unk_120 += gPlayer->vel.z;
-    sp64 = obj2F4->unk_118 - obj2F4->obj.pos.x;
-    sp60 = obj2F4->unk_11C - obj2F4->obj.pos.y;
-    sp5C = obj2F4->unk_120 - obj2F4->obj.pos.z;
+    actor->fwork[3] += gPlayer[0].vel.z;
+    sp64 = actor->fwork[1] - actor->obj.pos.x;
+    sp60 = actor->fwork[2] - actor->obj.pos.y;
+    sp5C = actor->fwork[3] - actor->obj.pos.z;
     sp54 = Math_RadToDeg(Math_Atan2F(sp64, sp5C));
-    sp38 = &gObjects2F4[obj2F4->unk_050];
-    if ((obj2F4->unk_0B8 != 0) || (sp38->obj.status == 0)) {
-        obj2F4->timer_0CA[0] = 0;
-        obj2F4->info.unk_1C = 0.0f;
+    sp38 = &gActors[actor->iwork[0]];
+    if ((actor->unk_0B8 != 0) || (sp38->obj.status == 0)) {
+        actor->timer_0CA[0] = 0;
+        actor->info.unk_1C = 0.0f;
         sp54 += 180.0f;
         if (sp54 > 360.0f) {
             sp54 -= 360.0f;
         }
-        if (obj2F4->timer_0C6 == 0) {
-            obj2F4->timer_0C6 = 15;
+        if (actor->timer_0C6 == 0) {
+            actor->timer_0C6 = 15;
         }
     }
     sp58 = sqrtf(SQ(sp64) + SQ(sp5C));
     sp58 = Math_RadToDeg(-Math_Atan2F(sp60, sp58));
-    sp60 = Math_SmoothStepToAngle(&obj2F4->obj.rot.y, sp54, 0.2f, 4.0f, 0.0f);
-    Math_SmoothStepToAngle(&obj2F4->obj.rot.x, sp58, 0.2f, 4.0f, 0.0f);
+    sp60 = Math_SmoothStepToAngle(&actor->obj.rot.y, sp54, 0.2f, 4.0f, 0.0f);
+    Math_SmoothStepToAngle(&actor->obj.rot.x, sp58, 0.2f, 4.0f, 0.0f);
     sp5C = 330.0f;
     if (sp60 < 0.0f) {
         sp5C = 30.0f;
     }
-    Math_SmoothStepToAngle(&obj2F4->obj.rot.z, sp5C, 0.2f, 4.0f, 0.0f);
-    Matrix_RotateY(gCalcMatrix, obj2F4->obj.rot.y * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, obj2F4->obj.rot.x * M_DTOR, 1);
+    Math_SmoothStepToAngle(&actor->obj.rot.z, sp5C, 0.2f, 4.0f, 0.0f);
+    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
+    Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
     sp48.x = sp48.y = 0.0f;
     sp48.z = 30.0f;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp48, &sp3C);
-    obj2F4->vel.x = sp3C.x;
-    obj2F4->vel.y = sp3C.y;
-    obj2F4->vel.z = sp3C.z - 20.0f;
-    if (sp38->unk_050 == (obj2F4->index + 1)) {
-        if (obj2F4->unk_0B8 == 0) {
-            sp38->obj.pos.x = obj2F4->obj.pos.x;
-            sp38->obj.pos.y = obj2F4->obj.pos.y - 50.0f;
-            sp38->obj.pos.z = obj2F4->obj.pos.z;
-            obj2F4->unk_124.x = sp38->obj.pos.x;
-            obj2F4->unk_124.y = sp38->obj.pos.y;
-            obj2F4->unk_124.z = sp38->obj.pos.z;
-            if (!(gFrameCount & 0xF) && (fabsf(gPlayer->pos.x - obj2F4->obj.pos.x) < 100.0f)) {
-                func_80081BEC(obj2F4->unk_124.x, obj2F4->unk_124.y, obj2F4->unk_124.z, 1.0f, 0);
+    actor->vel.x = sp3C.x;
+    actor->vel.y = sp3C.y;
+    actor->vel.z = sp3C.z - 20.0f;
+    if (sp38->iwork[0] == (actor->index + 1)) {
+        if (actor->unk_0B8 == 0) {
+            sp38->obj.pos.x = actor->obj.pos.x;
+            sp38->obj.pos.y = actor->obj.pos.y - 50.0f;
+            sp38->obj.pos.z = actor->obj.pos.z;
+            actor->fwork[4] = sp38->obj.pos.x;
+            actor->fwork[5] = sp38->obj.pos.y;
+            actor->fwork[6] = sp38->obj.pos.z;
+            if (!(gFrameCount & 0xF) && (fabsf(gPlayer[0].pos.x - actor->obj.pos.x) < 100.0f)) {
+                func_80081BEC(actor->fwork[4], actor->fwork[5], actor->fwork[6], 1.0f, 0);
             }
         } else {
             sp38->vel.y -= 1.0f;
@@ -1078,92 +1078,91 @@ void func_i3_80191680(Object_2F4* obj2F4) {
     }
 }
 
-void func_i3_80191B4C(Object_2F4* obj2F4) {
-    Animation_GetFrameData(&D_40057AC, obj2F4->unk_0B6, obj2F4->unk_18C);
-    Animation_DrawSkeleton(1, D_40058B8, obj2F4->unk_18C, NULL, NULL, &obj2F4->index, &gIdentityMatrix);
+void func_i3_80191B4C(Actor* actor) {
+    Animation_GetFrameData(&D_40057AC, actor->unk_0B6, actor->vwork);
+    Animation_DrawSkeleton(1, D_40058B8, actor->vwork, NULL, NULL, &actor->index, &gIdentityMatrix);
 }
 
-void func_i3_80191BB8(Object_2F4* obj2F4) {
+void func_i3_80191BB8(Actor* actor) {
 }
 
-void func_i3_80191BC4(Object_2F4* obj2F4) {
+void func_i3_80191BC4(Actor* actor) {
     f32 sp4C;
     s32 sp48;
 
-    if ((obj2F4->vel.y != 0.0f) && (obj2F4->unk_054 == 0)) {
-        obj2F4->unk_054 = 1;
-        Audio_PlaySfx(0x2900201D, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    if ((actor->vel.y != 0.0f) && (actor->iwork[1] == 0)) {
+        actor->iwork[1] = 1;
+        Audio_PlaySfx(0x2900201D, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
-    if (func_800A73E4(&sp4C, &sp48, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z) &&
-        (obj2F4->unk_0B8 == 0)) {
-        func_8007B344(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, 20.0f, 7);
-        func_8007C120(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.5f, 50);
-        Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
-        obj2F4->unk_050 = 0;
-        func_8007A6F0(&obj2F4->obj.pos, 0x1903001D);
+    if (func_800A73E4(&sp4C, &sp48, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z) && (actor->unk_0B8 == 0)) {
+        func_8007B344(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 20.0f, 7);
+        func_8007C120(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.5f, 50);
+        Object_Kill(&actor->obj, &actor->sfxPos);
+        actor->iwork[0] = 0;
+        func_8007A6F0(&actor->obj.pos, 0x1903001D);
     }
-    obj2F4->unk_114 += 10.0f;
-    func_i3_8018FF50(obj2F4);
+    actor->fwork[0] += 10.0f;
+    func_i3_8018FF50(actor);
     if (!(gFrameCount & 1)) {
-        func_8007C484(((Rand_ZeroOne() - 0.5f) * 50.0f) + obj2F4->obj.pos.x,
-                      ((Rand_ZeroOne() - 0.5f) * 50.0f) + obj2F4->obj.pos.y,
-                      ((Rand_ZeroOne() - 0.5f) * 50.0f) + obj2F4->obj.pos.z, obj2F4->vel.x, obj2F4->vel.y,
-                      obj2F4->vel.z, (Rand_ZeroOne() * 0.05f) + 0.05f, 0);
+        func_8007C484(((Rand_ZeroOne() - 0.5f) * 50.0f) + actor->obj.pos.x,
+                      ((Rand_ZeroOne() - 0.5f) * 50.0f) + actor->obj.pos.y,
+                      ((Rand_ZeroOne() - 0.5f) * 50.0f) + actor->obj.pos.z, actor->vel.x, actor->vel.y, actor->vel.z,
+                      (Rand_ZeroOne() * 0.05f) + 0.05f, 0);
     }
 }
 
-void func_i3_80191DB0(Object_2F4* obj2F4) {
+void func_i3_80191DB0(Actor* actor) {
     RCP_SetupDL_40();
     GDL(D_6019EB0);
-    Matrix_RotateY(gGfxMatrix, obj2F4->unk_114 * 0.7f * M_DTOR, 1);
-    Matrix_RotateX(gGfxMatrix, obj2F4->unk_114 * M_DTOR, 1);
+    Matrix_RotateY(gGfxMatrix, actor->fwork[0] * 0.7f * M_DTOR, 1);
+    Matrix_RotateX(gGfxMatrix, actor->fwork[0] * M_DTOR, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
     GDL(D_6023D50);
 }
 
 void func_i3_80191E94(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp24 = { 0.0f, 0.0f, 0.0f };
-    Object_2F4* this = thisx;
+    Actor* this = thisx;
 
     if (this->unk_0B8 == 4) {
         switch (limbIndex) {
             case 1:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[0]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[6]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[0]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[6]);
                 return;
             case 2:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[1]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[7]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[1]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[7]);
                 return;
             case 3:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[2]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[8]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[2]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[8]);
                 return;
             case 4:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[3]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[9]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[3]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[9]);
                 return;
             case 8:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[4]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[10]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[4]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[10]);
                 return;
             case 9:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[5]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[11]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[5]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[11]);
                 break;
         }
     }
 }
 
-void func_i3_80191FFC(Object_2F4* obj2F4) {
+void func_i3_80191FFC(Actor* actor) {
     Vec3f sp30[20];
 
-    Matrix_Scale(gCalcMatrix, obj2F4->scale, obj2F4->scale, obj2F4->scale, 1);
-    Animation_GetFrameData(&D_60195EC, obj2F4->unk_0B6, sp30);
-    Animation_DrawSkeleton(3, D_6019738, sp30, NULL, func_i3_80191E94, obj2F4, gCalcMatrix);
+    Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, 1);
+    Animation_GetFrameData(&D_60195EC, actor->unk_0B6, sp30);
+    Animation_DrawSkeleton(3, D_6019738, sp30, NULL, func_i3_80191E94, actor, gCalcMatrix);
 }
 
-void func_i3_80192094(Object_2F4* obj2F4) {
+void func_i3_80192094(Actor* actor) {
     s32 i;
     f32 spB8;
     f32 temp_fs0;
@@ -1177,345 +1176,345 @@ void func_i3_80192094(Object_2F4* obj2F4) {
     Vec3f sp7C = { 0.0f, 0.0f, 0.0f };
     Vec3f sp70;
 
-    temp_fs0 = gPlayer->pos.x - obj2F4->obj.pos.x;
-    spB0 = gPlayer->pos.y - obj2F4->obj.pos.y;
-    temp_fs1 = gPlayer->unk_138 - obj2F4->obj.pos.z;
+    temp_fs0 = gPlayer[0].pos.x - actor->obj.pos.x;
+    spB0 = gPlayer[0].pos.y - actor->obj.pos.y;
+    temp_fs1 = gPlayer[0].unk_138 - actor->obj.pos.z;
     spA4 = Math_RadToDeg(Math_Atan2F(temp_fs0, temp_fs1));
     temp_fs0_2 = sqrtf(SQ(temp_fs0) + SQ(temp_fs1));
     temp_fs0_2 = Math_RadToDeg(-Math_Atan2F(spB0, temp_fs0_2));
-    Math_SmoothStepToAngle(&obj2F4->obj.rot.x, temp_fs0_2, 0.1f, 10.0f, 0.00001f);
-    Math_SmoothStepToAngle(&obj2F4->obj.rot.y, spA4, 0.1f, 10.0f, 0.00001f);
-    if ((obj2F4->unk_050 == 0) &&
-        (func_800A73E4(&spB8, &spA0, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z) != 0)) {
-        func_8008377C(obj2F4->obj.pos.x, spB8, obj2F4->obj.pos.z + 100.0f, 0.0f, 1.5f);
-        obj2F4->unk_050 += 1;
-        if (obj2F4->vel.y >= 0.0f) {
-            Audio_PlaySfx(0x1983201A, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    Math_SmoothStepToAngle(&actor->obj.rot.x, temp_fs0_2, 0.1f, 10.0f, 0.00001f);
+    Math_SmoothStepToAngle(&actor->obj.rot.y, spA4, 0.1f, 10.0f, 0.00001f);
+    if ((actor->iwork[0] == 0) &&
+        (func_800A73E4(&spB8, &spA0, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z) != 0)) {
+        func_8008377C(actor->obj.pos.x, spB8, actor->obj.pos.z + 100.0f, 0.0f, 1.5f);
+        actor->iwork[0] += 1;
+        if (actor->vel.y >= 0.0f) {
+            Audio_PlaySfx(0x1983201A, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         } else {
-            Audio_PlaySfx(0x19832019, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x19832019, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         }
     }
-    switch (obj2F4->unk_0B8) {
+    switch (actor->unk_0B8) {
         case 0:
-            obj2F4->unk_0B8++;
-            obj2F4->vel.y = 20.0f;
-            obj2F4->scale = 2.0f;
+            actor->unk_0B8++;
+            actor->vel.y = 20.0f;
+            actor->scale = 2.0f;
             break;
         case 1:
-            obj2F4->unk_0B6++;
-            if (obj2F4->unk_0B6 >= Animation_GetFrameCount(&D_60195EC)) {
-                obj2F4->unk_0B6 = 64;
-                Math_SmoothStepToF(&obj2F4->vel.z, 0.0f, 1.0f, 100.0f, 0.00001f);
-                if (obj2F4->obj.pos.y < -500.0f) {
-                    Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
+            actor->unk_0B6++;
+            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_60195EC)) {
+                actor->unk_0B6 = 64;
+                Math_SmoothStepToF(&actor->vel.z, 0.0f, 1.0f, 100.0f, 0.00001f);
+                if (actor->obj.pos.y < -500.0f) {
+                    Object_Kill(&actor->obj, &actor->sfxPos);
                 }
             }
-            if (obj2F4->unk_0B6 == 25) {
-                obj2F4->unk_11C = 0.0f;
-                obj2F4->vel.y = 0.0f;
-                obj2F4->unk_054 = 0;
-                obj2F4->unk_120 = 150.0f;
-                obj2F4->unk_0B8++;
+            if (actor->unk_0B6 == 25) {
+                actor->fwork[2] = 0.0f;
+                actor->vel.y = 0.0f;
+                actor->iwork[1] = 0;
+                actor->fwork[3] = 150.0f;
+                actor->unk_0B8++;
             }
             break;
         case 2:
-            if (obj2F4->unk_054 >= 21) {
-                obj2F4->unk_050 = 0;
-                obj2F4->unk_0B8 = 3;
-                obj2F4->vel.y = 50.0f;
-                if (obj2F4->unk_0B6 == 51) {
-                    obj2F4->unk_0B8 = 1;
-                    obj2F4->vel.y = -20.0f;
+            if (actor->iwork[1] >= 21) {
+                actor->iwork[0] = 0;
+                actor->unk_0B8 = 3;
+                actor->vel.y = 50.0f;
+                if (actor->unk_0B6 == 51) {
+                    actor->unk_0B8 = 1;
+                    actor->vel.y = -20.0f;
                 }
             } else {
-                Math_SmoothStepToF(&obj2F4->vel.z, -40.0f, 0.1f, 1.0f, 0.00001f);
-                Matrix_RotateY(gCalcMatrix, obj2F4->obj.rot.y * M_DTOR, 0);
-                Matrix_RotateX(gCalcMatrix, obj2F4->obj.rot.x * M_DTOR, 1);
-                Matrix_RotateZ(gCalcMatrix, obj2F4->unk_11C * M_DTOR, 1);
+                Math_SmoothStepToF(&actor->vel.z, -40.0f, 0.1f, 1.0f, 0.00001f);
+                Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
+                Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
+                Matrix_RotateZ(gCalcMatrix, actor->fwork[2] * M_DTOR, 1);
                 sp70.x = 0.0f;
-                sp70.y = obj2F4->unk_120;
+                sp70.y = actor->fwork[3];
                 sp70.z = 0.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp70, &sp94);
-                sp94.x += obj2F4->obj.pos.x;
-                sp94.y += obj2F4->obj.pos.y;
-                sp94.z = obj2F4->obj.pos.z - 200.0f;
+                sp94.x += actor->obj.pos.x;
+                sp94.y += actor->obj.pos.y;
+                sp94.z = actor->obj.pos.z - 200.0f;
                 sp70.x = 0.0f;
                 sp70.y = 0.0f;
                 sp70.z = 100.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp70, &sp88);
                 func_8007EE68(OBJ_EFFECT_355, &sp94, &sp7C, &sp7C, &sp88, 1.0f);
-                obj2F4->unk_11C += 40.0f;
-                obj2F4->unk_11C = Math_ModF(obj2F4->unk_11C, 360.0f);
-                Math_SmoothStepToF(&obj2F4->unk_120, 0.0f, 1.0f, 5.0f, 0.0001f);
-                obj2F4->unk_054++;
+                actor->fwork[2] += 40.0f;
+                actor->fwork[2] = Math_ModF(actor->fwork[2], 360.0f);
+                Math_SmoothStepToF(&actor->fwork[3], 0.0f, 1.0f, 5.0f, 0.0001f);
+                actor->iwork[1]++;
             }
             break;
         case 3:
-            Math_SmoothStepToF(&obj2F4->vel.z, -60.0f, 0.1f, 100.0f, 0.00001f);
-            Math_SmoothStepToF(&obj2F4->vel.y, -30.0f, 0.1f, 100.0f, 0.00001f);
-            obj2F4->unk_0B6++;
-            if (obj2F4->unk_0B6 == 51) {
-                obj2F4->unk_11C = 0.0f;
-                obj2F4->vel.y = 0.0f;
-                obj2F4->unk_054 = 0;
-                obj2F4->unk_0B8 = 2;
-                obj2F4->unk_120 = 150.0f;
+            Math_SmoothStepToF(&actor->vel.z, -60.0f, 0.1f, 100.0f, 0.00001f);
+            Math_SmoothStepToF(&actor->vel.y, -30.0f, 0.1f, 100.0f, 0.00001f);
+            actor->unk_0B6++;
+            if (actor->unk_0B6 == 51) {
+                actor->fwork[2] = 0.0f;
+                actor->vel.y = 0.0f;
+                actor->iwork[1] = 0;
+                actor->unk_0B8 = 2;
+                actor->fwork[3] = 150.0f;
             }
             break;
         case 4:
             for (i = 0; i < 6; i++) {
-                func_i3_801900FC(&obj2F4->unk_18C[i], &obj2F4->unk_18C[i + 6], (Rand_ZeroOne() - 0.5f) * 40.0f,
-                                 Rand_ZeroOne() * -10.0f, Rand_ZeroOne() * 20.0f, 44, obj2F4->scale, 200, i);
+                func_i3_801900FC(&actor->vwork[i], &actor->vwork[i + 6], (Rand_ZeroOne() - 0.5f) * 40.0f,
+                                 Rand_ZeroOne() * -10.0f, Rand_ZeroOne() * 20.0f, 44, actor->scale, 200, i);
             }
-            obj2F4->unk_044 = 5;
-            func_80066254(obj2F4);
-            Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
-            func_8007D0E0(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, 10.0f);
+            actor->unk_044 = 5;
+            func_80066254(actor);
+            Object_Kill(&actor->obj, &actor->sfxPos);
+            func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
             break;
     }
-    if ((obj2F4->unk_0D0 != 0) && (obj2F4->unk_0B8 < 3)) {
-        if (obj2F4->unk_0D0 != 1) {
-            func_80077240(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z + 200.0f, 5);
+    if ((actor->unk_0D0 != 0) && (actor->unk_0B8 < 3)) {
+        if (actor->unk_0D0 != 1) {
+            func_80077240(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 5);
             gHitCount += 6;
             D_80177850 = 15;
-            if (obj2F4->unk_0D0 && obj2F4->unk_0D0) {}
-            obj2F4->unk_0B8 = 4;
+            if (actor->unk_0D0 && actor->unk_0D0) {}
+            actor->unk_0B8 = 4;
         }
-        obj2F4->unk_0D0 = 0;
+        actor->unk_0D0 = 0;
     }
 }
 
 void func_i3_801926F4(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp24 = { 0.0f, 0.0f, 0.0f };
-    Object_2F4* this = thisx;
+    Actor* this = thisx;
 
     if (this->unk_0B8 == 2) {
         switch (limbIndex) {
             case 1:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, this->unk_18C);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[5]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, this->vwork);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[5]);
                 return;
             case 2:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[1]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[6]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[1]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[6]);
                 return;
             case 3:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[2]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[7]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[2]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[7]);
                 return;
             case 4:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[3]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[8]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[3]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[8]);
                 return;
             case 5:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[4]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[9]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[4]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[9]);
                 break;
         }
     }
 }
 
-void func_i3_80192834(Object_2F4* obj2F4) {
+void func_i3_80192834(Actor* actor) {
     Vec3f sp84;
     Vec3f sp78;
     f32 sp74;
     s32 sp70;
     s32 i;
 
-    switch (obj2F4->unk_0B8) {
+    switch (actor->unk_0B8) {
         case 0:
-            Matrix_RotateY(gCalcMatrix, obj2F4->obj.rot.y * M_DTOR, 0);
+            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
             Matrix_RotateX(gCalcMatrix, 5.497787f, 1);
             sp84.y = 0.0f;
             sp84.x = 0.0f;
-            sp84.z = (obj2F4->obj.rot.x * 10.0f) + 15.0f;
+            sp84.z = (actor->obj.rot.x * 10.0f) + 15.0f;
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp84, &sp78);
-            obj2F4->vel.x = sp78.x;
-            obj2F4->vel.y = sp78.y;
-            obj2F4->vel.z = sp78.z;
-            obj2F4->unk_0CE = 10;
-            obj2F4->unk_0B8++;
+            actor->vel.x = sp78.x;
+            actor->vel.y = sp78.y;
+            actor->vel.z = sp78.z;
+            actor->unk_0CE = 10;
+            actor->unk_0B8++;
             break;
         case 1:
-            Math_SmoothStepToF(&obj2F4->vel.y, -30.0f, 0.1f, 1.0f, 0.01f);
-            if (obj2F4->obj.pos.y < 0.0f) {
-                obj2F4->unk_050 = 0;
+            Math_SmoothStepToF(&actor->vel.y, -30.0f, 0.1f, 1.0f, 0.01f);
+            if (actor->obj.pos.y < 0.0f) {
+                actor->iwork[0] = 0;
             }
-            if (obj2F4->obj.pos.y < -50.0f) {
-                Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
+            if (actor->obj.pos.y < -50.0f) {
+                Object_Kill(&actor->obj, &actor->sfxPos);
             }
-            if (obj2F4->vel.y > 0.0f) {
-                if (obj2F4->unk_0B6 < 17) {
-                    obj2F4->unk_0B6++;
+            if (actor->vel.y > 0.0f) {
+                if (actor->unk_0B6 < 17) {
+                    actor->unk_0B6++;
                 }
             } else {
-                if (obj2F4->unk_0B6 < Animation_GetFrameCount(&D_6021ABC)) {
-                    obj2F4->unk_0B6++;
+                if (actor->unk_0B6 < Animation_GetFrameCount(&D_6021ABC)) {
+                    actor->unk_0B6++;
                 }
             }
-            obj2F4->obj.rot.x += 20.0f;
-            obj2F4->obj.rot.x = Math_ModF(obj2F4->obj.rot.x, 360.0f);
-            if ((obj2F4->unk_0D0 != 0) && (obj2F4->unk_0CE != 0)) {
-                obj2F4->unk_0D0 = 0;
-                obj2F4->unk_0CE -= obj2F4->unk_0D6;
-                if (obj2F4->unk_0CE <= 0) {
-                    obj2F4->unk_0CE = 0;
-                    obj2F4->unk_0B8++;
+            actor->obj.rot.x += 20.0f;
+            actor->obj.rot.x = Math_ModF(actor->obj.rot.x, 360.0f);
+            if ((actor->unk_0D0 != 0) && (actor->unk_0CE != 0)) {
+                actor->unk_0D0 = 0;
+                actor->unk_0CE -= actor->unk_0D6;
+                if (actor->unk_0CE <= 0) {
+                    actor->unk_0CE = 0;
+                    actor->unk_0B8++;
                 }
             }
             break;
         case 2:
             for (i = 0; i < 5; i++) {
-                func_i3_801900FC(&obj2F4->unk_18C[i], &obj2F4->unk_18C[5 + i], (Rand_ZeroOne() - 0.5f) * 20.0f,
-                                 Rand_ZeroOne() * -10.0f, Rand_ZeroOne() * 10.0f, 43, obj2F4->scale, 200, i);
+                func_i3_801900FC(&actor->vwork[i], &actor->vwork[5 + i], (Rand_ZeroOne() - 0.5f) * 20.0f,
+                                 Rand_ZeroOne() * -10.0f, Rand_ZeroOne() * 10.0f, 43, actor->scale, 200, i);
             }
-            obj2F4->unk_044 = 0;
-            func_80066254(obj2F4);
-            Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
-            func_8007D0E0(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, 3.0f);
-            func_8007A6F0(&obj2F4->obj.pos, 0x29018036);
+            actor->unk_044 = 0;
+            func_80066254(actor);
+            Object_Kill(&actor->obj, &actor->sfxPos);
+            func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 3.0f);
+            func_8007A6F0(&actor->obj.pos, 0x29018036);
             break;
     }
-    if ((obj2F4->unk_050 == 0) &&
-        (func_800A73E4(&sp74, &sp70, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z) != 0)) {
-        obj2F4->unk_050++;
-        func_8008377C(obj2F4->obj.pos.x, sp74, obj2F4->obj.pos.z, 0.0f, 0.7f);
-        if (obj2F4->vel.y >= 0.0f) {
-            Audio_PlaySfx(0x1983201A, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    if ((actor->iwork[0] == 0) &&
+        (func_800A73E4(&sp74, &sp70, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z) != 0)) {
+        actor->iwork[0]++;
+        func_8008377C(actor->obj.pos.x, sp74, actor->obj.pos.z, 0.0f, 0.7f);
+        if (actor->vel.y >= 0.0f) {
+            Audio_PlaySfx(0x1983201A, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         } else {
-            Audio_PlaySfx(0x19832019, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x19832019, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         }
     }
 }
 
-void func_i3_80192C18(Object_2F4* obj2F4) {
+void func_i3_80192C18(Actor* actor) {
     Vec3f sp28[20];
 
-    Animation_GetFrameData(&D_6021ABC, obj2F4->unk_0B6, sp28);
-    Animation_DrawSkeleton(3, D_6021B88, sp28, NULL, func_i3_801926F4, obj2F4, gCalcMatrix);
+    Animation_GetFrameData(&D_6021ABC, actor->unk_0B6, sp28);
+    Animation_DrawSkeleton(3, D_6021B88, sp28, NULL, func_i3_801926F4, actor, gCalcMatrix);
 }
 
 void func_i3_80192C84(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp24 = { 0.0f, 0.0f, 0.0f };
-    Object_2F4* this = thisx;
+    Actor* this = thisx;
 
     if (this->unk_0B8 == 3) {
         switch (limbIndex) {
             case 1:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[0]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[9]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[0]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[9]);
                 return;
             case 2:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[1]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[10]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[1]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[10]);
                 return;
             case 3:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[2]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[11]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[2]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[11]);
                 return;
             case 4:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[3]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[12]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[3]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[12]);
                 return;
             case 5:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[4]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[13]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[4]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[13]);
                 return;
             case 6:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[5]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[14]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[5]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[14]);
                 return;
             case 7:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[6]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[15]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[6]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[15]);
                 return;
             case 8:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[7]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[16]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[7]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[16]);
                 return;
             case 13:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[8]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[17]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[8]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[17]);
                 break;
         }
     }
 }
 
-void func_i3_80192E64(Object_2F4* obj2F4) {
+void func_i3_80192E64(Actor* actor) {
     s32 i;
     Vec3f sp80;
     Vec3f sp74;
     f32 sp70;
     s32 sp6C;
 
-    switch (obj2F4->unk_0B8) {
+    switch (actor->unk_0B8) {
         case 0:
-            obj2F4->obj.pos.y = 380.0f;
-            obj2F4->unk_0B8 = 1;
+            actor->obj.pos.y = 380.0f;
+            actor->unk_0B8 = 1;
             break;
         case 1:
-            Math_SmoothStepToF(&obj2F4->vel.x, 0.0f, 0.1f, 1.0f, 0.0001);
-            Math_SmoothStepToF(&obj2F4->vel.z, 0.0f, 0.1f, 1.0f, 0.0001f);
-            if (obj2F4->timer_0BC == 0) {
-                obj2F4->unk_0B6++;
-                if (obj2F4->unk_0B6 == 5) {
-                    Matrix_RotateY(gCalcMatrix, obj2F4->obj.rot.y * M_DTOR, 0);
+            Math_SmoothStepToF(&actor->vel.x, 0.0f, 0.1f, 1.0f, 0.0001);
+            Math_SmoothStepToF(&actor->vel.z, 0.0f, 0.1f, 1.0f, 0.0001f);
+            if (actor->timer_0BC == 0) {
+                actor->unk_0B6++;
+                if (actor->unk_0B6 == 5) {
+                    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
                     sp80.x = 0.0f;
                     sp80.y = 0.0f;
                     sp80.z = 50.0f;
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp80, &sp74);
-                    obj2F4->vel.x = sp74.x;
-                    obj2F4->vel.z = sp74.z;
-                    obj2F4->unk_0B8 = 2;
+                    actor->vel.x = sp74.x;
+                    actor->vel.z = sp74.z;
+                    actor->unk_0B8 = 2;
                 }
             }
             break;
         case 2:
-            Math_SmoothStepToF(&obj2F4->vel.x, 0.0f, 0.1f, 1.0f, 0.0001f);
-            Math_SmoothStepToF(&obj2F4->vel.z, 0.0f, 0.1f, 1.0f, 0.0001f);
-            if (obj2F4->unk_0B6 < Animation_GetFrameCount(&D_601AFB8)) {
-                obj2F4->unk_0B6++;
+            Math_SmoothStepToF(&actor->vel.x, 0.0f, 0.1f, 1.0f, 0.0001f);
+            Math_SmoothStepToF(&actor->vel.z, 0.0f, 0.1f, 1.0f, 0.0001f);
+            if (actor->unk_0B6 < Animation_GetFrameCount(&D_601AFB8)) {
+                actor->unk_0B6++;
             } else {
-                obj2F4->unk_0B6 = 0;
-                obj2F4->timer_0BC = 30;
-                obj2F4->unk_0B8 = 1;
+                actor->unk_0B6 = 0;
+                actor->timer_0BC = 30;
+                actor->unk_0B8 = 1;
             }
             break;
         case 3:
             for (i = 0; i < 9; i++) {
-                func_i3_801900FC(&obj2F4->unk_18C[i], &obj2F4->unk_18C[9 + i], (Rand_ZeroOne() - 0.5f) * 40.0f,
-                                 Rand_ZeroOne() * -10.0f, Rand_ZeroOne() * 20.0f, 59, obj2F4->scale, 200, i);
+                func_i3_801900FC(&actor->vwork[i], &actor->vwork[9 + i], (Rand_ZeroOne() - 0.5f) * 40.0f,
+                                 Rand_ZeroOne() * -10.0f, Rand_ZeroOne() * 20.0f, 59, actor->scale, 200, i);
             }
-            obj2F4->unk_044 = 7;
-            func_80066254(obj2F4);
-            Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
-            func_8007D0E0(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, 10.0f);
+            actor->unk_044 = 7;
+            func_80066254(actor);
+            Object_Kill(&actor->obj, &actor->sfxPos);
+            func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
             break;
     }
-    if (obj2F4->unk_0D0 != 0) {
-        if (obj2F4->unk_0D0 != 1) {
-            if ((obj2F4->unk_0B8 != 0) && (obj2F4->unk_0B8 != 3)) {
-                func_80077240(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z + 200.0f, 2);
+    if (actor->unk_0D0 != 0) {
+        if (actor->unk_0D0 != 1) {
+            if ((actor->unk_0B8 != 0) && (actor->unk_0B8 != 3)) {
+                func_80077240(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 2);
                 gHitCount += 3;
                 D_80177850 = 15;
-                if ((obj2F4->unk_0D0) && (obj2F4->unk_0D0)) {} // fake
-                obj2F4->unk_0B8 = 3;
+                if ((actor->unk_0D0) && (actor->unk_0D0)) {} // fake
+                actor->unk_0B8 = 3;
             }
         } else {
-            Audio_PlaySfx(0x29121007, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x29121007, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         }
-        obj2F4->unk_0D0 = 0;
+        actor->unk_0D0 = 0;
     }
-    if (func_800A73E4(&sp70, &sp6C, obj2F4->obj.pos.x, obj2F4->obj.pos.y - 1000.0f, obj2F4->obj.pos.z)) {
-        Math_SmoothStepToF(&obj2F4->obj.pos.y, sp70 + 300.0f, 0.1f, 20.0f, 0);
+    if (func_800A73E4(&sp70, &sp6C, actor->obj.pos.x, actor->obj.pos.y - 1000.0f, actor->obj.pos.z)) {
+        Math_SmoothStepToF(&actor->obj.pos.y, sp70 + 300.0f, 0.1f, 20.0f, 0);
     }
 }
 
-void func_i3_80193240(Object_2F4* obj2F4) {
+void func_i3_80193240(Actor* actor) {
     Vec3f sp28[30];
 
-    Animation_GetFrameData(&D_601AFB8, obj2F4->unk_0B6, sp28);
-    Animation_DrawSkeleton(2, D_601B184, sp28, NULL, func_i3_80192C84, obj2F4, gCalcMatrix);
+    Animation_GetFrameData(&D_601AFB8, actor->unk_0B6, sp28);
+    Animation_DrawSkeleton(2, D_601B184, sp28, NULL, func_i3_80192C84, actor, gCalcMatrix);
 }
 
 s32 D_i3_801BF5F0[6] = {
@@ -1580,13 +1579,13 @@ void func_i3_801932AC(Boss* bossZO) {
     bossZO->timer_052 = 280;
     sZoSwork[ZO_BSS_37] = 255;
     for (i = 0; i < 2; i++) {
-        Object_2F4_Initialize(&gObjects2F4[i]);
-        gObjects2F4[i].obj.status = 1;
-        gObjects2F4[i].obj.id = OBJ_2F4_248 + i;
-        gObjects2F4[i].obj.pos.x = bossZO->obj.pos.x;
-        gObjects2F4[i].obj.pos.y = bossZO->obj.pos.y;
-        gObjects2F4[i].obj.pos.z = bossZO->obj.pos.z;
-        Object_SetInfo(&gObjects2F4[i].info, gObjects2F4[i].obj.id);
+        Actor_Initialize(&gActors[i]);
+        gActors[i].obj.status = 1;
+        gActors[i].obj.id = OBJ_ACTOR_248 + i;
+        gActors[i].obj.pos.x = bossZO->obj.pos.x;
+        gActors[i].obj.pos.y = bossZO->obj.pos.y;
+        gActors[i].obj.pos.z = bossZO->obj.pos.z;
+        Object_SetInfo(&gActors[i].info, gActors[i].obj.id);
     }
     func_800182F4(0x102800FF);
     func_800182F4(0x112800FF);
@@ -1713,7 +1712,7 @@ void func_i3_80193B08(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale) {
     effect->scale2 = scale * 0.25f;
     effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
     if (scale == 6.0f) {
-        effect->vel.z = gPlayer->vel.z * 0.6f;
+        effect->vel.z = gPlayer[0].vel.z * 0.6f;
     }
     Object_SetInfo(&effect->info, effect->obj.id);
 }
@@ -2065,7 +2064,7 @@ void func_i3_80194A84(Boss* bossZO) {
     }
     if (sZoSwork[ZO_BSS_24] == 0) {
         Math_SmoothStepToF(&sZoFwork[ZO_BSF_27], sZoFwork[ZO_BSF_26], 0.1f, 2.0f, 0.00001f);
-        Math_SmoothStepToF(&bossZO->obj.pos.z, sZoFwork[ZO_BSF_28] + (gPlayer->camEye.z - D_80177D20), 0.1f,
+        Math_SmoothStepToF(&bossZO->obj.pos.z, sZoFwork[ZO_BSF_28] + (gPlayer[0].camEye.z - D_80177D20), 0.1f,
                            sZoFwork[ZO_BSF_27], 0.00001f);
     }
     if (!(gFrameCount & 3)) {
@@ -2302,10 +2301,10 @@ void func_i3_80194A84(Boss* bossZO) {
                 bossZO->fwork[ZO_FWK_5] += 4.0f;
                 bossZO->vel.x = __cosf(bossZO->fwork[ZO_FWK_5] * M_DTOR) * 40.0f;
                 Math_SmoothStepToAngle(&bossZO->fwork[ZO_FWK_7],
-                                       Math_RadToDeg(Math_Atan2F(
-                                           bossZO->fwork[ZO_FWK_6] - bossZO->obj.pos.x,
-                                           (D_i3_801BF6BC[bossZO->swork[ZO_SWK_1]] + (gPlayer->camEye.z - D_80177D20)) -
-                                               bossZO->obj.pos.z)),
+                                       Math_RadToDeg(Math_Atan2F(bossZO->fwork[ZO_FWK_6] - bossZO->obj.pos.x,
+                                                                 (D_i3_801BF6BC[bossZO->swork[ZO_SWK_1]] +
+                                                                  (gPlayer[0].camEye.z - D_80177D20)) -
+                                                                     bossZO->obj.pos.z)),
                                        0.1f, 100.0f, 0.001f);
                 Matrix_RotateY(gCalcMatrix, bossZO->fwork[ZO_FWK_7] * M_DTOR, 0);
                 spE4.x = spE4.y = 0.0f;
@@ -2327,9 +2326,9 @@ void func_i3_80194A84(Boss* bossZO) {
                                        0.00001f);
                 Matrix_RotateX(gCalcMatrix, -bossZO->obj.rot.x * M_DTOR, 0);
                 Matrix_RotateY(gCalcMatrix, -bossZO->obj.rot.y * M_DTOR, 1);
-                spE4.x = gPlayer->pos.x - sZoFwork[ZO_BSF_93_X];
-                spE4.y = gPlayer->pos.y - sZoFwork[ZO_BSF_93_Y];
-                spE4.z = gPlayer->unk_138 - sZoFwork[ZO_BSF_93_Z];
+                spE4.x = gPlayer[0].pos.x - sZoFwork[ZO_BSF_93_X];
+                spE4.y = gPlayer[0].pos.y - sZoFwork[ZO_BSF_93_Y];
+                spE4.z = gPlayer[0].unk_138 - sZoFwork[ZO_BSF_93_Z];
                 Matrix_MultVec3f(gCalcMatrix, &spE4, &spC0);
                 sp10C = Math_RadToDeg(Math_Atan2F(spC0.x, spC0.z));
                 sp110 = Math_RadToDeg(-Math_Atan2F(spC0.y, sqrtf((spC0.x * spC0.x) + (spC0.z * spC0.z))));
@@ -2345,9 +2344,9 @@ void func_i3_80194A84(Boss* bossZO) {
                 if ((sp10C < 320.0f) && (sp10C > 180.0f)) {
                     sp110 = 320.0f;
                 }
-                spE4.x = gPlayer->pos.x - sZoFwork[ZO_BSF_96_X];
-                spE4.y = gPlayer->pos.y - sZoFwork[ZO_BSF_96_Y];
-                spE4.z = gPlayer->unk_138 - sZoFwork[ZO_BSF_96_Z];
+                spE4.x = gPlayer[0].pos.x - sZoFwork[ZO_BSF_96_X];
+                spE4.y = gPlayer[0].pos.y - sZoFwork[ZO_BSF_96_Y];
+                spE4.z = gPlayer[0].unk_138 - sZoFwork[ZO_BSF_96_Z];
                 Matrix_MultVec3f(gCalcMatrix, &spE4, &spB4);
                 sp104 = Math_RadToDeg(Math_Atan2F(spB4.x, spB4.z));
                 sp108 = Math_RadToDeg(-Math_Atan2F(spB4.y, sqrtf(SQ(spB4.x) + SQ(spB4.z))));
@@ -2522,18 +2521,18 @@ void func_i3_80194A84(Boss* bossZO) {
                 sZoFwork[ZO_BSF_23] = 10.0f;
                 gShowBossHealth = 0;
                 func_8007A568(bossZO->obj.pos.x, bossZO->obj.pos.y, bossZO->obj.pos.z, 80.0f);
-                if ((gPlayer->state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer->state_1C8 == PLAYERSTATE_1C8_5)) {
+                if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5)) {
                     D_80177A80 = 0;
-                    gPlayer->state_1C8 = PLAYERSTATE_1C8_7;
-                    gPlayer->unk_1D0 = gPlayer->timer_1F8 = 0;
-                    gPlayer->unk_0E8 += gPlayer->unk_114;
-                    if (gPlayer->unk_0E8 > 360.0f) {
-                        gPlayer->unk_0E8 -= 360.0f;
+                    gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
+                    gPlayer[0].unk_1D0 = gPlayer[0].timer_1F8 = 0;
+                    gPlayer[0].unk_0E8 += gPlayer[0].unk_114;
+                    if (gPlayer[0].unk_0E8 > 360.0f) {
+                        gPlayer[0].unk_0E8 -= 360.0f;
                     }
-                    if (gPlayer->unk_0E8 < 0.0f) {
-                        gPlayer->unk_0E8 += 360.0f;
+                    if (gPlayer[0].unk_0E8 < 0.0f) {
+                        gPlayer[0].unk_0E8 += 360.0f;
                     }
-                    gPlayer->unk_114 = 0.0f;
+                    gPlayer[0].unk_114 = 0.0f;
                     func_8004319C(gPlayer, bossZO->obj.pos.x, 0.0f, bossZO->obj.pos.z);
                 }
                 bossZO->timer_050 = 70;
@@ -2625,8 +2624,8 @@ void func_i3_80194A84(Boss* bossZO) {
             break;
     }
     sZoFwork[ZO_BSF_2] += 20.0f;
-    spE4.x = gPlayer->pos.x - bossZO->obj.pos.x;
-    spE4.z = gPlayer->unk_138 - bossZO->obj.pos.z;
+    spE4.x = gPlayer[0].pos.x - bossZO->obj.pos.x;
+    spE4.z = gPlayer[0].unk_138 - bossZO->obj.pos.z;
     Math_SmoothStepToAngle(&sZoFwork[ZO_BSF_14], Math_RadToDeg(Math_Atan2F(spE4.x, spE4.z)), 0.5f, 100.0f, 0.001f);
     Math_SmoothStepToAngle(&sZoFwork[ZO_BSF_0], sZoFwork[ZO_BSF_76], 0.2f, 4.0f, 0.0001f);
     if ((!(gFrameCount & 0x3F) || (sZoSwork[ZO_BSS_22] != 0)) &&
@@ -2641,8 +2640,8 @@ void func_i3_80194A84(Boss* bossZO) {
             sZoSwork[ZO_BSS_22] = 0;
         }
     }
-    spE4.x = gPlayer->pos.x - sZoFwork[ZO_BSF_65_X];
-    spE4.z = gPlayer->unk_138 - sZoFwork[ZO_BSF_65_Z];
+    spE4.x = gPlayer[0].pos.x - sZoFwork[ZO_BSF_65_X];
+    spE4.z = gPlayer[0].unk_138 - sZoFwork[ZO_BSF_65_Z];
     Math_SmoothStepToAngle(&sZoFwork[ZO_BSF_19], Math_RadToDeg(Math_Atan2F(spE4.x, spE4.z)), 0.1f, 5.0f, 0.0f);
     if ((bossZO->actionState >= 3) && (bossZO->actionState < 6)) {
         Matrix_RotateY(gCalcMatrix, bossZO->obj.rot.y * M_DTOR, 0);
@@ -2653,15 +2652,15 @@ void func_i3_80194A84(Boss* bossZO) {
         sp6C = spCC;
         Matrix_RotateX(gCalcMatrix, -bossZO->obj.rot.x * M_DTOR, 0);
         Matrix_RotateY(gCalcMatrix, -bossZO->obj.rot.y * M_DTOR, 1);
-        spE4.x = gPlayer->pos.x - (bossZO->obj.pos.x + spD8.x);
-        spE4.y = gPlayer->pos.y - (bossZO->obj.pos.y + spD8.y);
-        spE4.z = gPlayer->unk_138 - (bossZO->obj.pos.z + spD8.z);
+        spE4.x = gPlayer[0].pos.x - (bossZO->obj.pos.x + spD8.x);
+        spE4.y = gPlayer[0].pos.y - (bossZO->obj.pos.y + spD8.y);
+        spE4.z = gPlayer[0].unk_138 - (bossZO->obj.pos.z + spD8.z);
         Matrix_MultVec3f(gCalcMatrix, &spE4, &spD8);
         sp11C = Math_RadToDeg(Math_Atan2F(spD8.x, spD8.z));
         sp120 = Math_RadToDeg(-Math_Atan2F(spD8.y, sqrtf(SQ(spD8.x) + SQ(spD8.z))));
-        spE4.x = gPlayer->pos.x - (bossZO->obj.pos.x + spCC.x);
-        spE4.y = gPlayer->pos.y - (bossZO->obj.pos.y + spCC.y);
-        spE4.z = gPlayer->unk_138 - (bossZO->obj.pos.z + spCC.z);
+        spE4.x = gPlayer[0].pos.x - (bossZO->obj.pos.x + spCC.x);
+        spE4.y = gPlayer[0].pos.y - (bossZO->obj.pos.y + spCC.y);
+        spE4.z = gPlayer[0].unk_138 - (bossZO->obj.pos.z + spCC.z);
         Matrix_MultVec3f(gCalcMatrix, &spE4, &spCC);
         sp114 = Math_RadToDeg(Math_Atan2F(spCC.x, spCC.z));
         sp118 = Math_RadToDeg(-Math_Atan2F(spCC.y, sqrtf(SQ(spCC.x) + SQ(spCC.z))));
@@ -3087,7 +3086,7 @@ void func_i3_80194A84(Boss* bossZO) {
     }
 
     for (sp124 = 0, temp2 = &sZoSwork[ZO_BSS_49], temp3 = &sZoFwork[ZO_BSF_112]; sp124 < 6; sp124++, temp2++, temp3++) {
-        if ((!(&gPlayer->pos)) && (!(&gPlayer->pos))) {}
+        if ((!(&gPlayer[0].pos)) && (!(&gPlayer[0].pos))) {}
         *temp3 = __sinf(*temp2 * 50.0f * M_DTOR) * func_i3_80193CC8(*temp2);
     }
 }
@@ -3102,7 +3101,7 @@ Vec3f D_i3_801BF70C = { 0.0f, 0.0f, 40.0f };
 #endif
 
 void func_i3_801986FC(Boss* bossZO, s32 arg1, f32 xOff, f32 yOff, f32 zOff, f32 yRot) {
-    Object_2F4* sp6C;
+    Actor* sp6C;
     Vec3f sp60 = { 0.0f, 0.0f, 50.0f };
     Vec3f sp54;
     s32 sp50;
@@ -3116,12 +3115,12 @@ void func_i3_801986FC(Boss* bossZO, s32 arg1, f32 xOff, f32 yOff, f32 zOff, f32 
         if (sZoSwork[ZO_BSS_12 + sp50] == 0) {
             sZoSwork[ZO_BSS_0 + arg1] = 40;
         }
-        for (sp50 = 0, sp6C = gObjects2F4; sp50 < 60; sp50++, sp6C++) {
+        for (sp50 = 0, sp6C = gActors; sp50 < 60; sp50++, sp6C++) {
             if (sp6C->obj.status == 0) {
                 D_801779A8[0] = 20.0f;
-                Object_2F4_Initialize(sp6C);
+                Actor_Initialize(sp6C);
                 sp6C->obj.status = 1;
-                sp6C->obj.id = OBJ_2F4_245;
+                sp6C->obj.id = OBJ_ACTOR_245;
                 sp6C->obj.pos.x = bossZO->obj.pos.x + xOff;
                 sp6C->obj.pos.y = bossZO->obj.pos.y + yOff;
                 sp6C->obj.pos.z = bossZO->obj.pos.z + zOff;
@@ -3155,16 +3154,16 @@ void func_i3_801989FC(Boss* bossZO) {
     s32 i;
     Vec3f sp70 = { 0.0f, 0.0f, 20.0f };
     Vec3f sp64;
-    Object_2F4* var_s0;
+    Actor* var_s0;
     s32 j;
 
     for (i = 0; i < 2; i++) {
         if (sZoSwork[ZO_BSS_11 + i] != 0) {
-            for (j = 0, var_s0 = gObjects2F4; j < 60; j++, var_s0++) {
+            for (j = 0, var_s0 = gActors; j < 60; j++, var_s0++) {
                 if (var_s0->obj.status == 0) {
-                    Object_2F4_Initialize(var_s0);
+                    Actor_Initialize(var_s0);
                     var_s0->obj.status = 1;
-                    var_s0->obj.id = OBJ_2F4_246;
+                    var_s0->obj.id = OBJ_ACTOR_246;
                     var_s0->obj.pos.x = sZoFwork[ZO_BSF_37_X + 3 * i];
                     var_s0->obj.pos.y = sZoFwork[ZO_BSF_37_Y + 3 * i];
                     var_s0->obj.pos.z = sZoFwork[ZO_BSF_37_Z + 3 * i];
@@ -3374,33 +3373,33 @@ void func_i3_8019962C(Boss* bossZO, f32 arg1) {
     Math_SmoothStepToAngle(&bossZO->obj.rot.y, arg1, 1.0f, sZoFwork[ZO_BSF_77], 0.0001f);
 }
 
-void func_i3_8019969C(Object_2F4* obj2F4) {
+void func_i3_8019969C(Actor* actor) {
     s32 i;
 
-    if ((obj2F4->unk_0D0 != 0) && (obj2F4->unk_0CE != 0)) {
-        obj2F4->unk_0CE -= obj2F4->unk_0D6;
-        if (obj2F4->unk_0CE <= 0) {
-            obj2F4->unk_0CE = 0;
+    if ((actor->unk_0D0 != 0) && (actor->unk_0CE != 0)) {
+        actor->unk_0CE -= actor->unk_0D6;
+        if (actor->unk_0CE <= 0) {
+            actor->unk_0CE = 0;
             for (i = 0; i < 5; i++) {
-                func_80079618(((Rand_ZeroOne() - 0.5f) * 50.0f) + obj2F4->obj.pos.x,
-                              ((Rand_ZeroOne() - 0.5f) * 50.0f) + obj2F4->obj.pos.y,
-                              ((Rand_ZeroOne() - 0.5f) * 50.0f) + obj2F4->obj.pos.z, 1.0f);
+                func_80079618(((Rand_ZeroOne() - 0.5f) * 50.0f) + actor->obj.pos.x,
+                              ((Rand_ZeroOne() - 0.5f) * 50.0f) + actor->obj.pos.y,
+                              ((Rand_ZeroOne() - 0.5f) * 50.0f) + actor->obj.pos.z, 1.0f);
             }
-            func_8007D0E0(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z + 200.0f, 5.0f);
-            obj2F4->unk_044 = 5;
-            obj2F4->unk_0D4 = 2;
-            obj2F4->obj.pos.z -= 100.0f;
-            func_80066254(obj2F4);
-            Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
-            func_8007A6F0(&obj2F4->obj.pos, 0x2903A008);
+            func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 5.0f);
+            actor->unk_044 = 5;
+            actor->unk_0D4 = 2;
+            actor->obj.pos.z -= 100.0f;
+            func_80066254(actor);
+            Object_Kill(&actor->obj, &actor->sfxPos);
+            func_8007A6F0(&actor->obj.pos, 0x2903A008);
         }
-        obj2F4->unk_0D0 = 0;
+        actor->unk_0D0 = 0;
     }
-    obj2F4->unk_114 += 10.0f;
-    func_i3_8018FF50(obj2F4);
+    actor->fwork[0] += 10.0f;
+    func_i3_8018FF50(actor);
 }
 
-void func_i3_8019983C(Object_2F4* obj2F4) {
+void func_i3_8019983C(Actor* actor) {
     RCP_SetupDL(&gMasterDisp, 70);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     Matrix_Scale(gGfxMatrix, 2.6f, 2.6f, 2.6f, 1);
@@ -3435,161 +3434,161 @@ void func_i3_801999CC(f32 xPos, f32 yPos, f32 zPos) {
     }
 }
 
-void func_i3_80199A28(Object_2F4* obj2F4) {
+void func_i3_80199A28(Actor* actor) {
     f32 sp3C;
     f32 sp38;
     s32 sp34;
 
-    obj2F4->obj.rot.x += 5.0f;
-    switch (obj2F4->unk_0B8) { /* irregular */
+    actor->obj.rot.x += 5.0f;
+    switch (actor->unk_0B8) { /* irregular */
         case 0:
-            if (obj2F4->unk_0CE == 0) {
-                obj2F4->unk_050++;
-                obj2F4->unk_0CE = 10;
-                obj2F4->unk_054 = 1;
-                obj2F4->unk_0B8 = 2;
-                obj2F4->unk_114 = -50.0f;
+            if (actor->unk_0CE == 0) {
+                actor->iwork[0]++;
+                actor->unk_0CE = 10;
+                actor->iwork[1] = 1;
+                actor->unk_0B8 = 2;
+                actor->fwork[0] = -50.0f;
             } else {
-                obj2F4->vel.y = 60.0f;
-                obj2F4->gravity = 1.0f;
-                if (gBosses->obj.pos.y < 0.0f) {
-                    obj2F4->obj.pos.y = -100.0f;
+                actor->vel.y = 60.0f;
+                actor->gravity = 1.0f;
+                if (gBosses[0].obj.pos.y < 0.0f) {
+                    actor->obj.pos.y = -100.0f;
                 }
-                obj2F4->unk_0B8++;
+                actor->unk_0B8++;
             }
             break;
         case 1:
-            if ((func_800A73E4(&sp3C, &sp34, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z) != 0) &&
-                (obj2F4->unk_054 == 0)) {
-                func_8008377C(obj2F4->obj.pos.x, sp3C, obj2F4->obj.pos.z, 0.0f, 0.5f);
-                obj2F4->unk_054++;
-                Audio_PlaySfx(0x19000020, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            if ((func_800A73E4(&sp3C, &sp34, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z) != 0) &&
+                (actor->iwork[1] == 0)) {
+                func_8008377C(actor->obj.pos.x, sp3C, actor->obj.pos.z, 0.0f, 0.5f);
+                actor->iwork[1]++;
+                Audio_PlaySfx(0x19000020, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
-            Math_SmoothStepToF(&obj2F4->vel.y, -60.0f, 0.5f, 5.0f, 0.00001f);
-            if (obj2F4->obj.pos.y < -30.0f) {
-                obj2F4->unk_0B8++;
-                obj2F4->vel.y = 0.0f;
-                obj2F4->gravity = 0.0f;
-                obj2F4->unk_114 = 0.0f;
+            Math_SmoothStepToF(&actor->vel.y, -60.0f, 0.5f, 5.0f, 0.00001f);
+            if (actor->obj.pos.y < -30.0f) {
+                actor->unk_0B8++;
+                actor->vel.y = 0.0f;
+                actor->gravity = 0.0f;
+                actor->fwork[0] = 0.0f;
             }
             break;
         case 2:
-            obj2F4->gravity = 1.0f;
-            if (func_800A73E4(&sp3C, &sp34, obj2F4->obj.pos.x, obj2F4->unk_114 + obj2F4->obj.pos.y,
-                              obj2F4->obj.pos.z) != 0) {
-                obj2F4->gravity = 0.0f;
-                Math_SmoothStepToF(&obj2F4->unk_114, -50.0f, 0.1f, 2.0f, 0.001f);
+            actor->gravity = 1.0f;
+            if (func_800A73E4(&sp3C, &sp34, actor->obj.pos.x, actor->fwork[0] + actor->obj.pos.y, actor->obj.pos.z) !=
+                0) {
+                actor->gravity = 0.0f;
+                Math_SmoothStepToF(&actor->fwork[0], -50.0f, 0.1f, 2.0f, 0.001f);
                 sp38 = 10.0f;
-                if (Math_SmoothStepToF(&obj2F4->obj.pos.y, sp3C, 0.1f, 5.0f, 0) >= 0.0f) {
+                if (Math_SmoothStepToF(&actor->obj.pos.y, sp3C, 0.1f, 5.0f, 0) >= 0.0f) {
                     sp38 = 350.0f;
                 }
-                Math_SmoothStepToAngle(&obj2F4->obj.rot.z, sp38, 0.1f, 1.0f, 0);
+                Math_SmoothStepToAngle(&actor->obj.rot.z, sp38, 0.1f, 1.0f, 0);
             }
-            if ((obj2F4->unk_0D0 != 0) && (obj2F4->unk_0CE != 0)) {
-                obj2F4->unk_0D0 = 0;
-                obj2F4->unk_044 = 2;
-                func_8007D0E0(obj2F4->obj.pos.x, obj2F4->obj.pos.y + 100.0f, obj2F4->obj.pos.z, 7.0f);
-                obj2F4->unk_0D4 = 2;
-                obj2F4->obj.pos.y += 200.0f;
-                func_80066254(obj2F4);
-                Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
-                func_8007A6F0(&obj2F4->obj.pos, 0x1903400F);
+            if ((actor->unk_0D0 != 0) && (actor->unk_0CE != 0)) {
+                actor->unk_0D0 = 0;
+                actor->unk_044 = 2;
+                func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 100.0f, actor->obj.pos.z, 7.0f);
+                actor->unk_0D4 = 2;
+                actor->obj.pos.y += 200.0f;
+                func_80066254(actor);
+                Object_Kill(&actor->obj, &actor->sfxPos);
+                func_8007A6F0(&actor->obj.pos, 0x1903400F);
             } else {
-                if ((fabsf(obj2F4->obj.pos.z - gPlayer->unk_138) < 800.0f) || (obj2F4->unk_0D0 != 0)) {
-                    func_i3_801999CC(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z);
-                    Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
-                    func_8007A6F0(&obj2F4->obj.pos, 0x2903B009);
+                if ((fabsf(actor->obj.pos.z - gPlayer[0].unk_138) < 800.0f) || (actor->unk_0D0 != 0)) {
+                    func_i3_801999CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z);
+                    Object_Kill(&actor->obj, &actor->sfxPos);
+                    func_8007A6F0(&actor->obj.pos, 0x2903B009);
                 }
             }
             break;
     }
-    if ((obj2F4->timer_0BC == 0) && (obj2F4->unk_050 == 0)) {
-        func_8007D0E0(obj2F4->obj.pos.x, obj2F4->obj.pos.y + 100.0f, obj2F4->obj.pos.z, 7.0f);
-        obj2F4->unk_044 = 2;
-        obj2F4->unk_0D4 = 2;
-        obj2F4->obj.pos.y += 200.0f;
-        func_80066254(obj2F4);
-        Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
+    if ((actor->timer_0BC == 0) && (actor->iwork[0] == 0)) {
+        func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 100.0f, actor->obj.pos.z, 7.0f);
+        actor->unk_044 = 2;
+        actor->unk_0D4 = 2;
+        actor->obj.pos.y += 200.0f;
+        func_80066254(actor);
+        Object_Kill(&actor->obj, &actor->sfxPos);
     }
 }
 
-void func_i3_80199E24(Object_2F4* obj2F4) {
+void func_i3_80199E24(Actor* actor) {
     Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
     GDL(D_6025E60);
 }
 
-void func_i3_80199E9C(Object_2F4* obj2F4, f32 arg1, f32 arg2) {
-    obj2F4->obj.pos.x = sZoFwork[ZO_BSF_60_X];
-    Math_SmoothStepToF(&obj2F4->unk_114, arg1, 1.0f, arg2, 0.001f);
-    obj2F4->obj.pos.y = sZoFwork[ZO_BSF_60_Y] + obj2F4[0].unk_114;
-    obj2F4->obj.pos.z = sZoFwork[ZO_BSF_60_Z];
+void func_i3_80199E9C(Actor* actor, f32 arg1, f32 arg2) {
+    actor->obj.pos.x = sZoFwork[ZO_BSF_60_X];
+    Math_SmoothStepToF(&actor->fwork[0], arg1, 1.0f, arg2, 0.001f);
+    actor->obj.pos.y = sZoFwork[ZO_BSF_60_Y] + actor[0].fwork[0];
+    actor->obj.pos.z = sZoFwork[ZO_BSF_60_Z];
 }
 
-void func_i3_80199F10(Object_2F4* obj2F4) {
+void func_i3_80199F10(Actor* actor) {
     if (sZoSwork[ZO_BSS_13] == 0) {
-        obj2F4->unk_0B8 = 3;
-        obj2F4->vel.y = -50.0f;
-        obj2F4->obj.pos.x = sZoFwork[ZO_BSF_60_X];
-        Math_SmoothStepToF(&obj2F4->unk_114, -500.0f, 1.0f, 100.0f, 0.00001f);
-        obj2F4->obj.pos.z = sZoFwork[ZO_BSF_60_Z];
-        if (obj2F4->obj.pos.y < -400.0f) {
-            Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
+        actor->unk_0B8 = 3;
+        actor->vel.y = -50.0f;
+        actor->obj.pos.x = sZoFwork[ZO_BSF_60_X];
+        Math_SmoothStepToF(&actor->fwork[0], -500.0f, 1.0f, 100.0f, 0.00001f);
+        actor->obj.pos.z = sZoFwork[ZO_BSF_60_Z];
+        if (actor->obj.pos.y < -400.0f) {
+            Object_Kill(&actor->obj, &actor->sfxPos);
         }
     }
-    switch (obj2F4->unk_0B8) { /* irregular */
+    switch (actor->unk_0B8) { /* irregular */
         case 0:
-            obj2F4->obj.rot.y += 2.0f;
-            func_i3_80199E9C(obj2F4, 0.0f, 20.0f);
+            actor->obj.rot.y += 2.0f;
+            func_i3_80199E9C(actor, 0.0f, 20.0f);
             switch (sZoSwork[ZO_BSS_16]) { /* switch 1; irregular */
                 case 1:                    /* switch 1 */
-                    obj2F4->unk_118 = sZoFwork[ZO_BSF_68_Y] - sZoFwork[ZO_BSF_60_Y];
-                    Audio_PlaySfx(0x3100503E, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-                    obj2F4->unk_0B8++;
+                    actor->fwork[1] = sZoFwork[ZO_BSF_68_Y] - sZoFwork[ZO_BSF_60_Y];
+                    Audio_PlaySfx(0x3100503E, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    actor->unk_0B8++;
                     break;
                 case 2: /* switch 1 */
-                    obj2F4->unk_118 = sZoFwork[ZO_BSF_71_Y] - sZoFwork[ZO_BSF_60_Y];
-                    Audio_PlaySfx(0x3100503E, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-                    obj2F4->unk_0B8++;
+                    actor->fwork[1] = sZoFwork[ZO_BSF_71_Y] - sZoFwork[ZO_BSF_60_Y];
+                    Audio_PlaySfx(0x3100503E, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    actor->unk_0B8++;
                     break;
             }
             break;
         case 1:
-            if (gBosses->timer_052 != 0) {
-                obj2F4->obj.rot.y += 2.0f;
-                func_i3_80199E9C(obj2F4, obj2F4->unk_118, 20.0f);
+            if (gBosses[0].timer_052 != 0) {
+                actor->obj.rot.y += 2.0f;
+                func_i3_80199E9C(actor, actor->fwork[1], 20.0f);
             } else {
                 switch (sZoSwork[ZO_BSS_16]) {
                     case 1: /* switch 2 */
-                        obj2F4->unk_118 = sZoFwork[ZO_BSF_68_Y] - sZoFwork[ZO_BSF_60_Y];
-                        func_i3_80199E9C(obj2F4, obj2F4->unk_118, 20.0f);
+                        actor->fwork[1] = sZoFwork[ZO_BSF_68_Y] - sZoFwork[ZO_BSF_60_Y];
+                        func_i3_80199E9C(actor, actor->fwork[1], 20.0f);
                         break;
                     case 2: /* switch 2 */
-                        obj2F4->unk_118 = sZoFwork[ZO_BSF_71_Y] - sZoFwork[ZO_BSF_60_Y];
-                        func_i3_80199E9C(obj2F4, obj2F4->unk_118, 20.0f);
+                        actor->fwork[1] = sZoFwork[ZO_BSF_71_Y] - sZoFwork[ZO_BSF_60_Y];
+                        func_i3_80199E9C(actor, actor->fwork[1], 20.0f);
                         break;
                     case 3: /* switch 2 */
-                        obj2F4->obj.rot.y += 2.0f;
-                        if (gBosses->timer_050 != 0) {
-                            func_i3_80199E9C(obj2F4, 0.0f, 10.0f);
+                        actor->obj.rot.y += 2.0f;
+                        if (gBosses[0].timer_050 != 0) {
+                            func_i3_80199E9C(actor, 0.0f, 10.0f);
                         } else {
-                            obj2F4->unk_0B8 = 0;
-                            Audio_KillSfx(&obj2F4->sfxPos);
+                            actor->unk_0B8 = 0;
+                            Audio_KillSfx(&actor->sfxPos);
                         }
                         break;
                 }
             }
             break;
     }
-    if (obj2F4->unk_0D0 != 0) {
-        if (obj2F4->unk_0D0 == 1) {
-            Audio_PlaySfx(0x29121007, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    if (actor->unk_0D0 != 0) {
+        if (actor->unk_0D0 == 1) {
+            Audio_PlaySfx(0x29121007, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         }
-        obj2F4->unk_0D0 = 0;
+        actor->unk_0D0 = 0;
     }
 }
 
-void func_i3_8019A1FC(Object_2F4* obj2F4) {
+void func_i3_8019A1FC(Actor* actor) {
     f32 var_fv0;
     s32 var_s0;
     s32 var_s1;
@@ -3600,11 +3599,11 @@ void func_i3_8019A1FC(Object_2F4* obj2F4) {
     GDL(D_601C590);
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     GCGM_BACK();
-    if (((obj2F4->unk_0B8 == 1) && (gBosses->timer_052 != 0)) || (obj2F4->unk_0B8 == 0)) {
+    if (((actor->unk_0B8 == 1) && (gBosses[0].timer_052 != 0)) || (actor->unk_0B8 == 0)) {
         Matrix_RotateY(gGfxMatrix, gFrameCount * M_DTOR, 1);
     }
     // var_s1 = 1;
-    var_fv0 = sZoFwork[ZO_BSF_60_Y] + -1.0f * (*obj2F4).unk_114 - obj2F4->obj.pos.y;
+    var_fv0 = sZoFwork[ZO_BSF_60_Y] + -1.0f * actor->fwork[0] - actor->obj.pos.y;
 
     for (var_s1 = 1; var_fv0 >= 0.0f; var_s1++) {
         var_fv0 -= 117.0f;
@@ -3612,7 +3611,7 @@ void func_i3_8019A1FC(Object_2F4* obj2F4) {
     if (var_s1 > 30) {
         var_s1 = 30;
     }
-    if ((var_s1 <= 0) || ((*obj2F4).unk_114 == 0)) {
+    if ((var_s1 <= 0) || (actor->fwork[0] == 0)) {
         var_s1 = 1;
     }
     for (var_s0 = 0; var_s0 < var_s1; var_s0++) {
@@ -3626,10 +3625,10 @@ void func_i3_8019A1FC(Object_2F4* obj2F4) {
     }
 }
 
-void func_i3_8019A4E0(Object_2F4* obj2F4, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
-    f32 sp4C = xPos - obj2F4->obj.pos.x;
-    f32 sp48 = yPos - obj2F4->obj.pos.y;
-    f32 sp44 = zPos - obj2F4->obj.pos.z;
+void func_i3_8019A4E0(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
+    f32 sp4C = xPos - actor->obj.pos.x;
+    f32 sp48 = yPos - actor->obj.pos.y;
+    f32 sp44 = zPos - actor->obj.pos.z;
     f32 sp40;
     f32 sp3C;
     Vec3f sp30;
@@ -3643,12 +3642,12 @@ void func_i3_8019A4E0(Object_2F4* obj2F4, f32 xPos, f32 yPos, f32 zPos, f32 arg4
     sp30.y = 0.0f;
     sp30.z = arg4;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp30, &sp24);
-    obj2F4->vel.x = sp24.x;
-    obj2F4->vel.y = sp24.y;
-    obj2F4->vel.z = sp24.z;
+    actor->vel.x = sp24.x;
+    actor->vel.y = sp24.y;
+    actor->vel.z = sp24.z;
 }
 
-void func_i3_8019A5D4(Object_2F4* obj2F4) {
+void func_i3_8019A5D4(Actor* actor) {
     f32 sp4C;
     f32 sp48;
     f32 sp44;
@@ -3657,18 +3656,18 @@ void func_i3_8019A5D4(Object_2F4* obj2F4) {
     f32 var_fv1;
 
     if ((gBosses[0].actionState == 6) || (gBosses[0].actionState == 7)) {
-        Audio_KillSfx(&obj2F4->sfxPos);
-        obj2F4->unk_0B8 = 10;
-        obj2F4->vel.z = 40.0f;
+        Audio_KillSfx(&actor->sfxPos);
+        actor->unk_0B8 = 10;
+        actor->vel.z = 40.0f;
     }
-    obj2F4->unk_120 += 10.0f;
-    obj2F4->unk_118 = 70.0f;
-    switch (obj2F4->unk_0B8) {
+    actor->fwork[3] += 10.0f;
+    actor->fwork[1] = 70.0f;
+    switch (actor->unk_0B8) {
         case 0:
-            obj2F4->obj.pos.x = sZoFwork[ZO_BSF_65_X];
-            obj2F4->obj.pos.y = sZoFwork[ZO_BSF_65_Y];
-            obj2F4->obj.pos.z = sZoFwork[ZO_BSF_65_Z];
-            if ((sZoSwork[ZO_BSS_20] != 0) && (obj2F4->timer_0BC == 0)) {
+            actor->obj.pos.x = sZoFwork[ZO_BSF_65_X];
+            actor->obj.pos.y = sZoFwork[ZO_BSF_65_Y];
+            actor->obj.pos.z = sZoFwork[ZO_BSF_65_Z];
+            if ((sZoSwork[ZO_BSS_20] != 0) && (actor->timer_0BC == 0)) {
                 if ((sZoSwork[ZO_BSS_8] == 0) && (gBosses[0].actionState == 8)) {
                     var_fv1 = (Rand_ZeroOne() - 0.5f) * 3000.0f;
                     var_fa0 = 0.0f;
@@ -3676,92 +3675,93 @@ void func_i3_8019A5D4(Object_2F4* obj2F4) {
                     var_fv1 = 0.0f;
                     var_fa0 = 100.0f;
                 }
-                func_i3_8019A4E0(obj2F4, gPlayer->pos.x + var_fv1, gPlayer->pos.y + var_fa0, gPlayer->pos.z, 80.0f);
-                obj2F4->vel.z -= D_80177D08;
+                func_i3_8019A4E0(actor, gPlayer[0].pos.x + var_fv1, gPlayer[0].pos.y + var_fa0, gPlayer[0].pos.z,
+                                 80.0f);
+                actor->vel.z -= D_80177D08;
                 func_i3_80193C5C(sZoFwork[ZO_BSF_65_X], sZoFwork[ZO_BSF_65_Y], sZoFwork[ZO_BSF_65_Z], 30.0f);
                 func_i3_80193C5C(sZoFwork[ZO_BSF_65_X], sZoFwork[ZO_BSF_65_Y], sZoFwork[ZO_BSF_65_Z], 30.0f);
                 func_i3_80193C5C(sZoFwork[ZO_BSF_65_X], sZoFwork[ZO_BSF_65_Y], sZoFwork[ZO_BSF_65_Z], 30.0f);
 
-                obj2F4->timer_0BC = (s32) ((fabsf(sZoFwork[ZO_BSF_28] - -2600.0f) / 100.0f) + 30.0f);
-                obj2F4->timer_0C0 = 3;
-                Audio_PlaySfx(0x2900403D, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-                obj2F4->unk_0B8++;
+                actor->timer_0BC = (s32) ((fabsf(sZoFwork[ZO_BSF_28] - -2600.0f) / 100.0f) + 30.0f);
+                actor->timer_0C0 = 3;
+                Audio_PlaySfx(0x2900403D, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                actor->unk_0B8++;
             }
             break;
         case 1:
-            if (obj2F4->timer_0C0 != 0) {
+            if (actor->timer_0C0 != 0) {
                 D_801779A8[0] = 40.0f;
             }
-            obj2F4->unk_050 = 0;
-            if (obj2F4->timer_0BC == 0) {
-                obj2F4->vel.x = 0.0f;
-                obj2F4->vel.z = -D_80177D08;
-                obj2F4->gravity = 5.0f;
-                obj2F4->unk_124.y = obj2F4->vel.y * -3.0f;
-                if (obj2F4->obj.pos.y < -150.0f) {
-                    obj2F4->gravity = 0.0f;
-                    Audio_PlaySfx(0x19003021, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-                    obj2F4->unk_0B8++;
+            actor->iwork[0] = 0;
+            if (actor->timer_0BC == 0) {
+                actor->vel.x = 0.0f;
+                actor->vel.z = -D_80177D08;
+                actor->gravity = 5.0f;
+                actor->fwork[5] = actor->vel.y * -3.0f;
+                if (actor->obj.pos.y < -150.0f) {
+                    actor->gravity = 0.0f;
+                    Audio_PlaySfx(0x19003021, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    actor->unk_0B8++;
                 }
             }
             break;
         case 2:
             if ((sZoSwork[ZO_BSS_8] == 0) && (gBosses[0].actionState == 8)) {
-                obj2F4->unk_124.y = 0.0f;
-                obj2F4->obj.pos.x = sZoFwork[ZO_BSF_65_X];
-                obj2F4->obj.pos.y = sZoFwork[ZO_BSF_65_Y];
-                obj2F4->obj.pos.z = sZoFwork[ZO_BSF_65_Z];
+                actor->fwork[5] = 0.0f;
+                actor->obj.pos.x = sZoFwork[ZO_BSF_65_X];
+                actor->obj.pos.y = sZoFwork[ZO_BSF_65_Y];
+                actor->obj.pos.z = sZoFwork[ZO_BSF_65_Z];
                 sp48 = sp4C = 30.0f;
             } else {
-                Math_SmoothStepToF(&obj2F4->unk_124.y, 0.0f, 1.0f, 30.0f, 0.0f);
-                sp4C = fabsf(obj2F4->obj.pos.x - sZoFwork[ZO_BSF_65_X]);
-                sp48 = fabsf(obj2F4->obj.pos.z - sZoFwork[ZO_BSF_65_Z]);
+                Math_SmoothStepToF(&actor->fwork[5], 0.0f, 1.0f, 30.0f, 0.0f);
+                sp4C = fabsf(actor->obj.pos.x - sZoFwork[ZO_BSF_65_X]);
+                sp48 = fabsf(actor->obj.pos.z - sZoFwork[ZO_BSF_65_Z]);
                 var_fa0 = sqrtf(SQ(sp4C) + SQ(sp48)) * 0.5f;
-                func_i3_8019A4E0(obj2F4, sZoFwork[ZO_BSF_65_X], sZoFwork[ZO_BSF_65_Y] - var_fa0, sZoFwork[ZO_BSF_65_Z],
+                func_i3_8019A4E0(actor, sZoFwork[ZO_BSF_65_X], sZoFwork[ZO_BSF_65_Y] - var_fa0, sZoFwork[ZO_BSF_65_Z],
                                  30.0f);
-                obj2F4->vel.z -= D_80177D08;
+                actor->vel.z -= D_80177D08;
             }
-            if (func_80062DBC(&obj2F4->obj.pos, gBosses[0].info.hitbox, &gBosses[0].obj, 0.0f, 0.0f, 0.0f) != 0) {
-                obj2F4->unk_124.z = 50.0f;
-                Audio_PlaySfx(0x19030003, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            if (func_80062DBC(&actor->obj.pos, gBosses[0].info.hitbox, &gBosses[0].obj, 0.0f, 0.0f, 0.0f) != 0) {
+                actor->fwork[6] = 50.0f;
+                Audio_PlaySfx(0x19030003, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
-            obj2F4->vel.z += obj2F4->unk_124.z * 0.8f;
-            obj2F4->vel.y += obj2F4->unk_124.z * 1.4f;
-            obj2F4->unk_124.z -= 8.0f;
-            if (obj2F4->unk_124.z < 0.0f) {
-                obj2F4->unk_124.z = 0.0f;
+            actor->vel.z += actor->fwork[6] * 0.8f;
+            actor->vel.y += actor->fwork[6] * 1.4f;
+            actor->fwork[6] -= 8.0f;
+            if (actor->fwork[6] < 0.0f) {
+                actor->fwork[6] = 0.0f;
             }
             if ((sp4C <= 30.0f) && (sp48 <= 30.0f)) {
-                obj2F4->unk_0B8 = 0;
-                Audio_KillSfx(&obj2F4->sfxPos);
-                Audio_PlaySfx(0x29433022, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-                obj2F4->timer_0BC = 40;
+                actor->unk_0B8 = 0;
+                Audio_KillSfx(&actor->sfxPos);
+                Audio_PlaySfx(0x29433022, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                actor->timer_0BC = 40;
                 sZoFwork[ZO_BSF_74] = sZoFwork[ZO_BSF_75] = 0.0f;
                 sZoSwork[ZO_BSS_19] = 1;
-                sZoSwork[ZO_BSS_20] = obj2F4->unk_050 = sZoSwork[ZO_BSS_20] = 0;
+                sZoSwork[ZO_BSS_20] = actor->iwork[0] = sZoSwork[ZO_BSS_20] = 0;
             }
             break;
     }
-    func_i3_8018FF50(obj2F4);
-    if (obj2F4->unk_0D0 != 0) {
-        if (obj2F4->unk_0D0 == 1) {
-            Audio_PlaySfx(0x29121007, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    func_i3_8018FF50(actor);
+    if (actor->unk_0D0 != 0) {
+        if (actor->unk_0D0 == 1) {
+            Audio_PlaySfx(0x29121007, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         }
-        obj2F4->unk_0D0 = 0;
+        actor->unk_0D0 = 0;
     }
-    if (!(gFrameCount & 7) && (obj2F4->unk_0B8 != 0) && (obj2F4->unk_050 < 8) &&
-        (func_800A73E4(&sp44, &sp40, obj2F4->obj.pos.x, obj2F4->obj.pos.y - 100.0f, obj2F4->obj.pos.z) != 0)) {
-        func_8008377C(obj2F4->obj.pos.x, sp44, obj2F4->obj.pos.z, 0.0f, 0.7f);
-        obj2F4->unk_050++;
-        if (obj2F4->vel.y >= 0.0f) {
-            Audio_PlaySfx(0x1983201A, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    if (!(gFrameCount & 7) && (actor->unk_0B8 != 0) && (actor->iwork[0] < 8) &&
+        (func_800A73E4(&sp44, &sp40, actor->obj.pos.x, actor->obj.pos.y - 100.0f, actor->obj.pos.z) != 0)) {
+        func_8008377C(actor->obj.pos.x, sp44, actor->obj.pos.z, 0.0f, 0.7f);
+        actor->iwork[0]++;
+        if (actor->vel.y >= 0.0f) {
+            Audio_PlaySfx(0x1983201A, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         } else {
-            Audio_PlaySfx(0x19832019, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x19832019, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         }
     }
 }
 
-void func_i3_8019ACCC(Object_2F4* obj2F4) {
+void func_i3_8019ACCC(Actor* actor) {
     f32 temp_fa0;
     f32 temp_fa1;
     f32 temp_fs0;
@@ -3782,9 +3782,9 @@ void func_i3_8019ACCC(Object_2F4* obj2F4) {
     if ((gBosses[0].actionState != 6) && (gBosses[0].actionState != 7)) {
         RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
         GCGM_BACK();
-        temp_fa0 = sZoFwork[ZO_BSF_65_X] - obj2F4->obj.pos.x;
-        temp_fs0 = sZoFwork[ZO_BSF_65_Y] - obj2F4->obj.pos.y;
-        temp_fa1 = sZoFwork[ZO_BSF_65_Z] - obj2F4->obj.pos.z;
+        temp_fa0 = sZoFwork[ZO_BSF_65_X] - actor->obj.pos.x;
+        temp_fs0 = sZoFwork[ZO_BSF_65_Y] - actor->obj.pos.y;
+        temp_fa1 = sZoFwork[ZO_BSF_65_Z] - actor->obj.pos.z;
 
         temp_fs3 = sqrtf(SQ(temp_fa0) + SQ(temp_fs0) + SQ(temp_fa1));
         temp_fs4 = Math_Atan2F(temp_fa0, temp_fa1);
@@ -3796,15 +3796,15 @@ void func_i3_8019ACCC(Object_2F4* obj2F4) {
         if (var_s4 < 0) {
             var_s4 = 0;
         }
-        Matrix_Translate(gGfxMatrix, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z + D_80177D20, 1);
+        Matrix_Translate(gGfxMatrix, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + D_80177D20, 1);
         Matrix_RotateY(gGfxMatrix, temp_fs4, 1);
         Matrix_RotateX(gGfxMatrix, temp_fs0_2, 1);
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, 1);
         sp94 = (180.0f / var_s4) + 1.0f;
         for (i = 0; i < var_s4; i++) {
-            temp_fs1_2 = __sinf(i * sp94 * M_DTOR) * (*obj2F4).unk_124.y;
-            temp_fs0_4 = __cosf(i * sp94 * M_DTOR) * (*obj2F4).unk_124.y * -0.25f;
-            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, obj2F4->unk_118, 1);
+            temp_fs1_2 = __sinf(i * sp94 * M_DTOR) * actor->fwork[5];
+            temp_fs0_4 = __cosf(i * sp94 * M_DTOR) * actor->fwork[5] * -0.25f;
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, actor->fwork[1], 1);
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, 0.0f, temp_fs1_2, 0.0f, 1);
             Matrix_RotateX(gGfxMatrix, M_DTOR * temp_fs0_4, 1);
@@ -3821,17 +3821,17 @@ void func_i3_8019ACCC(Object_2F4* obj2F4) {
     }
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z + D_80177D20, 1);
-    Matrix_RotateY(gGfxMatrix, obj2F4->obj.rot.y * M_DTOR, 1);
-    Matrix_RotateX(gGfxMatrix, obj2F4->obj.rot.x * M_DTOR, 1);
+    Matrix_Translate(gGfxMatrix, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + D_80177D20, 1);
+    Matrix_RotateY(gGfxMatrix, actor->obj.rot.y * M_DTOR, 1);
+    Matrix_RotateX(gGfxMatrix, actor->obj.rot.x * M_DTOR, 1);
     Matrix_Scale(gGfxMatrix, 2.6f, 2.6f, 2.6f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
     RCP_SetupDL(&gMasterDisp, 70);
     GPC(255, 255, 255, 255);
     GDL(D_6004380);
     Matrix_RotateY(gGfxMatrix, sZoFwork[ZO_BSF_19] * M_DTOR, 1);
-    Matrix_RotateX(gGfxMatrix, obj2F4->unk_11C * M_DTOR, 1);
-    Matrix_RotateZ(gGfxMatrix, obj2F4->unk_120 * M_DTOR, 1);
+    Matrix_RotateX(gGfxMatrix, actor->fwork[2] * M_DTOR, 1);
+    Matrix_RotateZ(gGfxMatrix, actor->fwork[3] * M_DTOR, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
     RCP_SetupDL_55();
     GDL(D_601BCC0);
@@ -3852,7 +3852,7 @@ s32 D_i3_801BF78C[30] = {
 };
 f32 D_i3_801BF804[8] = { 0.0f, 0.0f, 270.0f, 90.0f, 0.0f, 180.0f, 400.0f, 400.0f };
 
-void func_i3_8019B1F0(Object_2F4* obj2F4) {
+void func_i3_8019B1F0(Actor* actor) {
     s32 temp_v1;
     s32 var_s3;
     s32 i;
@@ -3861,115 +3861,115 @@ void func_i3_8019B1F0(Object_2F4* obj2F4) {
     Vec3f sp78;
     Vec3f sp6C;
 
-    obj2F4->obj.pos.y = 120.0f;
-    obj2F4->scale = -1.0f;
-    Matrix_RotateY(gCalcMatrix, obj2F4->obj.rot.y * M_DTOR, 0);
+    actor->obj.pos.y = 120.0f;
+    actor->scale = -1.0f;
+    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
     sp78.x = sp78.y = 0.0f;
-    sp78.z = obj2F4->obj.rot.z;
+    sp78.z = actor->obj.rot.z;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
-    obj2F4->vel.x = sp6C.x;
-    obj2F4->vel.z = sp6C.z;
-    obj2F4->obj.rot.z = 0.0f;
+    actor->vel.x = sp6C.x;
+    actor->vel.z = sp6C.z;
+    actor->obj.rot.z = 0.0f;
 
     var_s3 = 1;
-    if (obj2F4->obj.rot.x >= 100.0f) {
-        obj2F4->unk_0B8 = 1;
-        obj2F4->unk_05C = obj2F4->obj.rot.x / 100.0f;
-        obj2F4->obj.rot.x = (s32) fabsf(Math_ModF(obj2F4->obj.rot.x, 100.0f));
+    if (actor->obj.rot.x >= 100.0f) {
+        actor->unk_0B8 = 1;
+        actor->iwork[3] = actor->obj.rot.x / 100.0f;
+        actor->obj.rot.x = (s32) fabsf(Math_ModF(actor->obj.rot.x, 100.0f));
     }
 
     for (i = 0, var_s6 = 0; var_s3 < 3 && i < 60; i++) {
-        if (gObjects2F4[i].obj.status == 0) {
-            if (obj2F4->unk_0B8 == 0) {
+        if (gActors[i].obj.status == 0) {
+            if (actor->unk_0B8 == 0) {
                 Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF744[var_s3], &sp84);
             } else {
                 Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF768[var_s3], &sp84);
             }
-            Object_2F4_Initialize(&gObjects2F4[i]);
-            gObjects2F4[i].obj.status = 1;
-            if (obj2F4->unk_0B8 == 0) {
-                gObjects2F4[i].obj.id = OBJ_2F4_251;
-                gObjects2F4[i].unk_05C = 777;
+            Actor_Initialize(&gActors[i]);
+            gActors[i].obj.status = 1;
+            if (actor->unk_0B8 == 0) {
+                gActors[i].obj.id = OBJ_ACTOR_251;
+                gActors[i].iwork[3] = 777;
             } else {
-                gObjects2F4[i].obj.id = OBJ_2F4_253;
+                gActors[i].obj.id = OBJ_ACTOR_253;
             }
-            gObjects2F4[i].obj.pos.x = obj2F4->obj.pos.x + sp84.x;
-            gObjects2F4[i].obj.pos.y = obj2F4->obj.pos.y + sp84.y;
-            gObjects2F4[i].obj.pos.z = obj2F4->obj.pos.z + sp84.z;
-            ((s32*) &obj2F4->unk_06C)[var_s3] = (s32) (obj2F4->obj.rot.x * 3.0f) + var_s3;
-            gObjects2F4[i].obj.rot.y = obj2F4->obj.rot.y;
-            gObjects2F4[i].unk_050 = D_i3_801BF78C[((s32*) &obj2F4->unk_06C)[var_s3]];
-            gObjects2F4[i].unk_054 = obj2F4->index;
-            gObjects2F4[i].unk_058 = var_s3;
-            Object_SetInfo(&gObjects2F4[i].info, gObjects2F4[i].obj.id);
-            if (obj2F4->unk_0B8 != 0) {
-                gObjects2F4[i].unk_0B8 = 3;
-                if (D_i3_801BF804[obj2F4->unk_05C] >= 361.0f) {
-                    gObjects2F4[i].obj.rot.x = obj2F4->obj.rot.y;
+            gActors[i].obj.pos.x = actor->obj.pos.x + sp84.x;
+            gActors[i].obj.pos.y = actor->obj.pos.y + sp84.y;
+            gActors[i].obj.pos.z = actor->obj.pos.z + sp84.z;
+            ((s32*) &actor->iwork[7])[var_s3] = (s32) (actor->obj.rot.x * 3.0f) + var_s3;
+            gActors[i].obj.rot.y = actor->obj.rot.y;
+            gActors[i].iwork[0] = D_i3_801BF78C[((s32*) &actor->iwork[7])[var_s3]];
+            gActors[i].iwork[1] = actor->index;
+            gActors[i].iwork[2] = var_s3;
+            Object_SetInfo(&gActors[i].info, gActors[i].obj.id);
+            if (actor->unk_0B8 != 0) {
+                gActors[i].unk_0B8 = 3;
+                if (D_i3_801BF804[actor->iwork[3]] >= 361.0f) {
+                    gActors[i].obj.rot.x = actor->obj.rot.y;
                 } else {
-                    temp_v1 = (obj2F4->unk_05C * 2) + var_s6;
-                    gObjects2F4[i].obj.rot.x = D_i3_801BF804[temp_v1];
+                    temp_v1 = (actor->iwork[3] * 2) + var_s6;
+                    gActors[i].obj.rot.x = D_i3_801BF804[temp_v1];
                 }
                 var_s6++;
             }
-            ((s32*) &obj2F4->unk_050)[var_s3] = i;
+            ((s32*) &actor->iwork[0])[var_s3] = i;
             var_s3++;
         }
     }
-    obj2F4->obj.rot.x = 0.0f;
-    Audio_PlaySfx(0x3100203A, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    actor->obj.rot.x = 0.0f;
+    Audio_PlaySfx(0x3100203A, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-void func_i3_8019B548(Object_2F4* obj2F4) {
+void func_i3_8019B548(Actor* actor) {
     f32 sp6C;
     s32 sp68;
     s32 i;
     Vec3f sp58;
-    Object_2F4* temp_s0;
+    Actor* temp_s0;
 
-    Matrix_RotateY(gCalcMatrix, obj2F4->obj.rot.y * M_DTOR, 0);
-    switch (obj2F4->unk_0B8) {
+    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
+    switch (actor->unk_0B8) {
         case 0:
             for (i = 1; i < 3; i++) {
-                temp_s0 = &gObjects2F4[((s32*) &obj2F4->unk_050)[i]];
-                if ((temp_s0->obj.status != 0) && (temp_s0->unk_054 == obj2F4->index) &&
-                    (temp_s0->obj.id == OBJ_2F4_251)) {
+                temp_s0 = &gActors[((s32*) &actor->iwork[0])[i]];
+                if ((temp_s0->obj.status != 0) && (temp_s0->iwork[1] == actor->index) &&
+                    (temp_s0->obj.id == OBJ_ACTOR_251)) {
                     Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF744[i], &sp58);
-                    temp_s0->obj.pos.x = obj2F4->obj.pos.x + sp58.x;
-                    temp_s0->obj.pos.y = obj2F4->obj.pos.y + sp58.y;
-                    temp_s0->obj.pos.z = obj2F4->obj.pos.z + sp58.z;
+                    temp_s0->obj.pos.x = actor->obj.pos.x + sp58.x;
+                    temp_s0->obj.pos.y = actor->obj.pos.y + sp58.y;
+                    temp_s0->obj.pos.z = actor->obj.pos.z + sp58.z;
                 }
             }
             break;
         case 1:
             for (i = 1; i < 3; i++) {
-                temp_s0 = &gObjects2F4[((s32*) &obj2F4->unk_050)[i]];
-                if ((temp_s0->obj.status != 0) && (temp_s0->obj.id == OBJ_2F4_253) &&
-                    (temp_s0->unk_054 == obj2F4->index)) {
+                temp_s0 = &gActors[((s32*) &actor->iwork[0])[i]];
+                if ((temp_s0->obj.status != 0) && (temp_s0->obj.id == OBJ_ACTOR_253) &&
+                    (temp_s0->iwork[1] == actor->index)) {
                     Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF768[i], &sp58);
-                    temp_s0->obj.pos.x = obj2F4->obj.pos.x + sp58.x;
-                    temp_s0->obj.pos.y = obj2F4->obj.pos.y + sp58.y;
-                    temp_s0->obj.pos.z = obj2F4->obj.pos.z + sp58.z;
+                    temp_s0->obj.pos.x = actor->obj.pos.x + sp58.x;
+                    temp_s0->obj.pos.y = actor->obj.pos.y + sp58.y;
+                    temp_s0->obj.pos.z = actor->obj.pos.z + sp58.z;
                 }
             }
             break;
     }
-    if ((fabsf(obj2F4->obj.pos.z - gPlayer->unk_138) < 1000.0f) &&
-        func_800A73E4(&sp6C, &sp68, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z)) {
-        Math_SmoothStepToF(&obj2F4->obj.pos.y, sp6C, 0.1f, 4.0f, 0.0f);
+    if ((fabsf(actor->obj.pos.z - gPlayer[0].unk_138) < 1000.0f) &&
+        func_800A73E4(&sp6C, &sp68, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z)) {
+        Math_SmoothStepToF(&actor->obj.pos.y, sp6C, 0.1f, 4.0f, 0.0f);
     }
 }
 
-void func_i3_8019B7DC(Object_2F4* obj2F4) {
+void func_i3_8019B7DC(Actor* actor) {
     GDL(D_6006360);
 }
 
-void func_i3_8019B810(Object_2F4* obj2F4) {
-    if (obj2F4->unk_05C == 0) {
-        obj2F4->unk_050 = obj2F4->obj.rot.z / 10.0f;
-        obj2F4->obj.rot.z = 0.0f;
+void func_i3_8019B810(Actor* actor) {
+    if (actor->iwork[3] == 0) {
+        actor->iwork[0] = actor->obj.rot.z / 10.0f;
+        actor->obj.rot.z = 0.0f;
     }
-    obj2F4->unk_0CE = 30;
+    actor->unk_0CE = 30;
 }
 
 s32 D_i3_801BF824[10] = { 1, 5, 9, 14, 15, 16, 17, 0, 13, 1000 };
@@ -3978,236 +3978,236 @@ Vec3f D_i3_801BF84C[6] = {
     { -5.0f, -10.0f, 0.0f }, { -10.0f, 0.0f, 0.0f }, { -5.0f, 10.0f, 0.0f },
 };
 
-void func_i3_8019B854(Object_2F4* obj2F4) {
+void func_i3_8019B854(Actor* actor) {
     s32 i;
     s32 j;
     Vec3f spB4;
     Vec3f spA8 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp9C;
 
-    if ((obj2F4->unk_0D0 != 0) && (obj2F4->unk_0CE != 0)) {
-        obj2F4->unk_0D0 = 0;
-        obj2F4->timer_0C6 = 15;
-        obj2F4->unk_0CE -= obj2F4->unk_0D6;
-        Audio_PlaySfx(0x2903300E, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    if ((actor->unk_0D0 != 0) && (actor->unk_0CE != 0)) {
+        actor->unk_0D0 = 0;
+        actor->timer_0C6 = 15;
+        actor->unk_0CE -= actor->unk_0D6;
+        Audio_PlaySfx(0x2903300E, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
-    switch (obj2F4->unk_0B8) {
+    switch (actor->unk_0B8) {
         case 0:
-            if (obj2F4->unk_0CE <= 0) {
-                obj2F4->unk_0CE = 0;
-                obj2F4->unk_0B8++;
+            if (actor->unk_0CE <= 0) {
+                actor->unk_0CE = 0;
+                actor->unk_0B8++;
             }
             break;
         case 1:
             for (i = 0; i < 6; i++) {
-                func_i3_801900FC(&obj2F4->unk_18C[i], &obj2F4->unk_18C[6 + i], (Rand_ZeroOne() - 0.5f) * 50.0f,
-                                 (Rand_ZeroOne() * 10.0f) + 20.0f, (Rand_ZeroOne() - 0.5f) * 50.0f, 39, obj2F4->scale,
-                                 (Rand_ZeroOne() * 15.0f) + (obj2F4->scale * 10.0f), i);
+                func_i3_801900FC(&actor->vwork[i], &actor->vwork[6 + i], (Rand_ZeroOne() - 0.5f) * 50.0f,
+                                 (Rand_ZeroOne() * 10.0f) + 20.0f, (Rand_ZeroOne() - 0.5f) * 50.0f, 39, actor->scale,
+                                 (Rand_ZeroOne() * 15.0f) + (actor->scale * 10.0f), i);
             }
             for (i = 0; i < 10; i++) {
-                func_80079618(((Rand_ZeroOne() - 0.5f) * 50.0f) + obj2F4->obj.pos.x,
-                              ((Rand_ZeroOne() - 0.5f) * 50.0f) + obj2F4->obj.pos.y,
-                              ((Rand_ZeroOne() - 0.5f) * 50.0f) + obj2F4->obj.pos.z, 2.0f);
+                func_80079618(((Rand_ZeroOne() - 0.5f) * 50.0f) + actor->obj.pos.x,
+                              ((Rand_ZeroOne() - 0.5f) * 50.0f) + actor->obj.pos.y,
+                              ((Rand_ZeroOne() - 0.5f) * 50.0f) + actor->obj.pos.z, 2.0f);
             }
             for (i = 0; i < 3; i++) {
-                func_8007D0E0(obj2F4->obj.pos.x + ((Rand_ZeroOne() - 0.5f) * 50.0f),
-                              obj2F4->obj.pos.y + ((Rand_ZeroOne() - 0.5f) * 50.0f) + 20.0f,
-                              obj2F4->obj.pos.z + ((Rand_ZeroOne() - 0.5f) * 30.0f), 10.0f + 2 * i);
+                func_8007D0E0(actor->obj.pos.x + ((Rand_ZeroOne() - 0.5f) * 50.0f),
+                              actor->obj.pos.y + ((Rand_ZeroOne() - 0.5f) * 50.0f) + 20.0f,
+                              actor->obj.pos.z + ((Rand_ZeroOne() - 0.5f) * 30.0f), 10.0f + 2 * i);
             }
-            obj2F4->obj.pos.y += 100.0f;
-            if (D_i3_801BF824[obj2F4->unk_050] < 1000) {
-                obj2F4->unk_044 = D_i3_801BF824[obj2F4->unk_050];
-                func_80066254(obj2F4);
+            actor->obj.pos.y += 100.0f;
+            if (D_i3_801BF824[actor->iwork[0]] < 1000) {
+                actor->unk_044 = D_i3_801BF824[actor->iwork[0]];
+                func_80066254(actor);
             } else {
-                if (D_i3_801BF824[obj2F4->unk_050] == 1000) {
+                if (D_i3_801BF824[actor->iwork[0]] == 1000) {
                     for (i = 0, j = 0; i < 10; i++, j++) {
                         if (j > 5) {
                             j = 0;
                         }
-                        spB4.x = D_i3_801BF84C[j].x + obj2F4->obj.pos.x;
-                        spB4.y = D_i3_801BF84C[j].y + obj2F4->obj.pos.y;
-                        spB4.z = D_i3_801BF84C[j].z + obj2F4->obj.pos.z;
+                        spB4.x = D_i3_801BF84C[j].x + actor->obj.pos.x;
+                        spB4.y = D_i3_801BF84C[j].y + actor->obj.pos.y;
+                        spB4.z = D_i3_801BF84C[j].z + actor->obj.pos.z;
                         sp9C.x = (Rand_ZeroOne() - 0.5f) * 10.0f;
                         sp9C.y = (Rand_ZeroOne() - 0.5f) * 10.0f;
                         sp9C.z = 50.0f;
                         func_8007EE68(353, &spB4, &spA8, &spA8, &sp9C, 1.0f);
                     }
                 }
-                obj2F4->unk_044 = 0;
-                func_80066254(obj2F4);
+                actor->unk_044 = 0;
+                func_80066254(actor);
             }
-            Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
-            func_8007A6F0(&obj2F4->obj.pos, 0x1903901C);
+            Object_Kill(&actor->obj, &actor->sfxPos);
+            func_8007A6F0(&actor->obj.pos, 0x1903901C);
             break;
     }
 }
 
 void func_i3_8019BC78(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp24 = { 0.0f, 0.0f, 0.0f };
-    Object_2F4* this = thisx;
+    Actor* this = thisx;
 
     if (this->unk_0B8 != 0) {
         switch (limbIndex) {
             case 1:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[0]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[6]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[0]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[6]);
                 break;
             case 2:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[1]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[7]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[1]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[7]);
                 break;
             case 3:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[2]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[8]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[2]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[8]);
                 break;
             case 4:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[3]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[9]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[3]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[9]);
                 break;
             case 5:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[4]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[10]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[4]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[10]);
                 break;
             case 6:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->unk_18C[5]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->unk_18C[11]);
+                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[5]);
+                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[11]);
                 break;
         }
     }
 }
 
-void func_i3_8019BDE0(Object_2F4* obj2F4) {
+void func_i3_8019BDE0(Actor* actor) {
     Vec3f sp28[20];
 
     Animation_GetFrameData(&D_6018550, 0, sp28);
-    Animation_DrawSkeleton(3, D_601863C, sp28, NULL, func_i3_8019BC78, obj2F4, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_601863C, sp28, NULL, func_i3_8019BC78, actor, gCalcMatrix);
 }
 
-void func_i3_8019BE48(Object_2F4* obj2F4) {
-    Object_2F4* pad;
+void func_i3_8019BE48(Actor* actor) {
+    Actor* pad;
     f32 sp40;
     f32 sp3C;
     s32 sp38;
     s32 i;
-    Object_2F4* var_s0;
+    Actor* var_s0;
 
-    switch (obj2F4->unk_0B8) { /* irregular */
+    switch (actor->unk_0B8) { /* irregular */
         case 0:
-            for (i = 0, var_s0 = gObjects2F4; i < 60; i++, var_s0++) {
+            for (i = 0, var_s0 = gActors; i < 60; i++, var_s0++) {
                 if (var_s0->obj.status == 0) {
-                    Object_2F4_Initialize(var_s0);
+                    Actor_Initialize(var_s0);
                     var_s0->obj.status = 1;
-                    var_s0->obj.id = OBJ_2F4_254;
-                    var_s0->obj.pos.x = obj2F4->obj.pos.x;
-                    var_s0->obj.pos.y = obj2F4->obj.pos.y;
-                    var_s0->obj.pos.z = obj2F4->obj.pos.z + 30.0f;
-                    var_s0->unk_114 = 230.0f;
-                    var_s0->unk_118 = 0.8f;
-                    var_s0->unk_11C = 1.0f;
-                    var_s0->unk_120 = 1.0f;
-                    var_s0->unk_050 = obj2F4->index + 1;
+                    var_s0->obj.id = OBJ_ACTOR_254;
+                    var_s0->obj.pos.x = actor->obj.pos.x;
+                    var_s0->obj.pos.y = actor->obj.pos.y;
+                    var_s0->obj.pos.z = actor->obj.pos.z + 30.0f;
+                    var_s0->fwork[0] = 230.0f;
+                    var_s0->fwork[1] = 0.8f;
+                    var_s0->fwork[2] = 1.0f;
+                    var_s0->fwork[3] = 1.0f;
+                    var_s0->iwork[0] = actor->index + 1;
                     Object_SetInfo(&var_s0->info, var_s0->obj.id);
-                    obj2F4->unk_050 = i;
+                    actor->iwork[0] = i;
                     break;
                 }
             }
             if (i >= 60) {
                 var_s0->obj.status = 0;
             }
-            obj2F4->unk_0CE = 10;
-            obj2F4->unk_0B8++;
+            actor->unk_0CE = 10;
+            actor->unk_0B8++;
             break;
         case 1:
-            if ((obj2F4->unk_0D0 != 0) && (obj2F4->unk_0CE != 0)) {
-                obj2F4->unk_0D0 = 0;
-                obj2F4->timer_0C6 = 15;
-                obj2F4->unk_0CE -= obj2F4->unk_0D6;
-                if (obj2F4->unk_0CE <= 0) {
+            if ((actor->unk_0D0 != 0) && (actor->unk_0CE != 0)) {
+                actor->unk_0D0 = 0;
+                actor->timer_0C6 = 15;
+                actor->unk_0CE -= actor->unk_0D6;
+                if (actor->unk_0CE <= 0) {
                     if (D_80161684 == 0) {
-                        func_80077240(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z + 200.0f, 2);
+                        func_80077240(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 2);
                         gHitCount += 2;
-                        if (obj2F4->unk_0D0 && obj2F4->unk_0D0) {}
+                        if (actor->unk_0D0 && actor->unk_0D0) {}
                     }
-                    obj2F4->unk_0CE = obj2F4->unk_044 = 0;
-                    func_80066254(obj2F4);
-                    obj2F4->unk_0B8++;
+                    actor->unk_0CE = actor->unk_044 = 0;
+                    func_80066254(actor);
+                    actor->unk_0B8++;
                 }
             }
             break;
         case 2:
-            obj2F4->timer_0C2 = 30000;
-            var_s0 = &gObjects2F4[obj2F4->unk_050];
+            actor->timer_0C2 = 30000;
+            var_s0 = &gActors[actor->iwork[0]];
 
-            var_s0->unk_050 = 777;
-            func_8008377C(obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z, 5.0f, 0.7f);
-            func_8007D0E0(obj2F4->obj.pos.x, obj2F4->obj.pos.y + 50.0f, obj2F4->obj.pos.z, 5.0f);
-            Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
-            func_8007A6F0(&obj2F4->obj.pos, 0x29038033);
+            var_s0->iwork[0] = 777;
+            func_8008377C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5.0f, 0.7f);
+            func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 50.0f, actor->obj.pos.z, 5.0f);
+            Object_Kill(&actor->obj, &actor->sfxPos);
+            func_8007A6F0(&actor->obj.pos, 0x29038033);
             break;
     }
-    if ((obj2F4->unk_0B8 < 2) &&
-        (func_800A73E4(&sp40, &sp38, obj2F4->obj.pos.x, obj2F4->obj.pos.y - 60.0f, obj2F4->obj.pos.z) != 0)) {
-        obj2F4->gravity = 0.0f;
+    if ((actor->unk_0B8 < 2) &&
+        (func_800A73E4(&sp40, &sp38, actor->obj.pos.x, actor->obj.pos.y - 60.0f, actor->obj.pos.z) != 0)) {
+        actor->gravity = 0.0f;
         sp3C = 10.0f;
-        if (Math_SmoothStepToF(&obj2F4->obj.pos.y, sp40 - 20.0f, 0.1f, 5.0f, 0) >= 0.0f) {
+        if (Math_SmoothStepToF(&actor->obj.pos.y, sp40 - 20.0f, 0.1f, 5.0f, 0) >= 0.0f) {
             sp3C = 350.0f;
         }
-        Math_SmoothStepToAngle(&obj2F4->obj.rot.z, sp3C, 0.1f, 1.0f, 0);
-        var_s0 = &gObjects2F4[(*obj2F4).unk_050];
+        Math_SmoothStepToAngle(&actor->obj.rot.z, sp3C, 0.1f, 1.0f, 0);
+        var_s0 = &gActors[actor->iwork[0]];
         Math_SmoothStepToAngle(&var_s0->obj.rot.z, sp3C, 0.1f, 1.0f, 0);
-        var_s0->obj.pos.y = obj2F4->obj.pos.y;
+        var_s0->obj.pos.y = actor->obj.pos.y;
     }
 }
 
-void func_i3_8019C1CC(Object_2F4* obj2F4) {
+void func_i3_8019C1CC(Actor* actor) {
     GDL(D_6002E10);
 }
 
 Vec3f D_i3_801BF8AC = { 230.0f, -50.0f, 0.0f };
 Vec3f D_i3_801BF8B8 = { 230.0f, -250.0f, 0.0f };
 
-void func_i3_8019C200(Object_2F4* obj2F4) {
+void func_i3_8019C200(Actor* actor) {
     s32 i;
     s32 sp38;
     Vec3f sp2C;
-    Object_2F4* var_a2;
+    Actor* var_a2;
 
-    obj2F4->scale = -1.0f;
-    if (obj2F4->unk_0B8 != 3) {
-        obj2F4->unk_060 = fabsf(Math_ModF(obj2F4->obj.rot.z, 10.0f));
-        sp38 = fabsf(obj2F4->obj.rot.z / 10.0f);
+    actor->scale = -1.0f;
+    if (actor->unk_0B8 != 3) {
+        actor->iwork[4] = fabsf(Math_ModF(actor->obj.rot.z, 10.0f));
+        sp38 = fabsf(actor->obj.rot.z / 10.0f);
     } else {
-        sp38 = obj2F4->unk_050;
-        obj2F4->unk_0B8 = 0;
+        sp38 = actor->iwork[0];
+        actor->unk_0B8 = 0;
     }
-    obj2F4->unk_124.y = obj2F4->obj.rot.x;
-    obj2F4->obj.rot.x = 0.0f;
-    obj2F4->obj.rot.z = 0.0f;
-    if (obj2F4->unk_060 == 2) {
-        obj2F4->unk_114 = -20.0f;
-        obj2F4->unk_120 = obj2F4->obj.pos.y * 0.5f * -1.0f;
+    actor->fwork[5] = actor->obj.rot.x;
+    actor->obj.rot.x = 0.0f;
+    actor->obj.rot.z = 0.0f;
+    if (actor->iwork[4] == 2) {
+        actor->fwork[0] = -20.0f;
+        actor->fwork[3] = actor->obj.pos.y * 0.5f * -1.0f;
     } else {
-        obj2F4->unk_114 = 30.0f;
+        actor->fwork[0] = 30.0f;
     }
-    Matrix_RotateZ(gCalcMatrix, obj2F4->unk_114 * M_DTOR, 0);
+    Matrix_RotateZ(gCalcMatrix, actor->fwork[0] * M_DTOR, 0);
     Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF8AC, &sp2C);
-    obj2F4->unk_118 = sp2C.x;
-    obj2F4->unk_11C = obj2F4->unk_120 + sp2C.y;
-    Matrix_RotateY(gCalcMatrix, obj2F4->obj.rot.y * M_DTOR, 0);
+    actor->fwork[1] = sp2C.x;
+    actor->fwork[2] = actor->fwork[3] + sp2C.y;
+    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
     Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF8B8, &sp2C);
-    for (i = 0, var_a2 = gObjects2F4; i < 60; i++, var_a2++) {
+    for (i = 0, var_a2 = gActors; i < 60; i++, var_a2++) {
         if (var_a2->obj.status == 0) {
-            Object_2F4_Initialize(var_a2);
+            Actor_Initialize(var_a2);
             var_a2->obj.status = 1;
-            var_a2->obj.id = OBJ_2F4_251;
-            var_a2->obj.pos.x = obj2F4->obj.pos.x + sp2C.x;
-            var_a2->obj.pos.y = obj2F4->obj.pos.y + sp2C.y + (*obj2F4).unk_11C;
-            var_a2->obj.pos.z = obj2F4->obj.pos.z + sp2C.z + (*obj2F4).unk_114;
-            var_a2->obj.rot.y = obj2F4->obj.rot.y;
-            var_a2->unk_050 = sp38;
-            var_a2->unk_05C = 777;
+            var_a2->obj.id = OBJ_ACTOR_251;
+            var_a2->obj.pos.x = actor->obj.pos.x + sp2C.x;
+            var_a2->obj.pos.y = actor->obj.pos.y + sp2C.y + actor->fwork[2];
+            var_a2->obj.pos.z = actor->obj.pos.z + sp2C.z + actor->fwork[0];
+            var_a2->obj.rot.y = actor->obj.rot.y;
+            var_a2->iwork[0] = sp38;
+            var_a2->iwork[3] = 777;
             Object_SetInfo(&var_a2->info, var_a2->obj.id);
-            obj2F4->unk_05C = i;
+            actor->iwork[3] = i;
             break;
         }
     }
@@ -4216,81 +4216,81 @@ void func_i3_8019C200(Object_2F4* obj2F4) {
     }
 }
 
-void func_i3_8019C454(Object_2F4* obj2F4) {
+void func_i3_8019C454(Actor* actor) {
     Vec3f sp34;
-    Object_2F4* sp30;
+    Actor* sp30;
 
-    if ((obj2F4->unk_114 == 30.0f) && (fabsf(obj2F4->obj.pos.z - gPlayer->unk_138) < 2500.0f)) {
-        Math_SmoothStepToAngle(&obj2F4->unk_124.z, 10.0f, 0.1f, 1.0f, 0.01f);
-        Math_SmoothStepToAngle(&obj2F4->obj.rot.y, obj2F4->unk_124.y, 1.0f, obj2F4->unk_124.z, 0.01f);
-        if (obj2F4->unk_124.y != obj2F4->obj.rot.y) {
-            Audio_PlaySfx(0x1900001B, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    if ((actor->fwork[0] == 30.0f) && (fabsf(actor->obj.pos.z - gPlayer[0].unk_138) < 2500.0f)) {
+        Math_SmoothStepToAngle(&actor->fwork[6], 10.0f, 0.1f, 1.0f, 0.01f);
+        Math_SmoothStepToAngle(&actor->obj.rot.y, actor->fwork[5], 1.0f, actor->fwork[6], 0.01f);
+        if (actor->fwork[5] != actor->obj.rot.y) {
+            Audio_PlaySfx(0x1900001B, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         }
         if (1) {}
     }
-    Matrix_RotateZ(gCalcMatrix, obj2F4->unk_114 * M_DTOR, 0);
+    Matrix_RotateZ(gCalcMatrix, actor->fwork[0] * M_DTOR, 0);
     Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF8AC, &sp34);
-    obj2F4->unk_118 = sp34.x;
-    obj2F4->unk_11C = obj2F4->unk_120 + sp34.y;
-    sp30 = &gObjects2F4[obj2F4->unk_05C];
-    switch (obj2F4->unk_0B8) {
+    actor->fwork[1] = sp34.x;
+    actor->fwork[2] = actor->fwork[3] + sp34.y;
+    sp30 = &gActors[actor->iwork[3]];
+    switch (actor->unk_0B8) {
         case 0:
-            Matrix_RotateY(gCalcMatrix, obj2F4->obj.rot.y * M_DTOR, 0);
+            Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
             Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF8B8, &sp34);
-            if ((sp30->obj.status != 0) && (sp30->obj.id == OBJ_2F4_251)) {
-                sp30->obj.pos.x = obj2F4->obj.pos.x + sp34.x;
-                sp30->obj.pos.y = obj2F4->obj.pos.y + sp34.y + (*obj2F4).unk_11C;
-                sp30->obj.pos.z = obj2F4->obj.pos.z + sp34.z;
+            if ((sp30->obj.status != 0) && (sp30->obj.id == OBJ_ACTOR_251)) {
+                sp30->obj.pos.x = actor->obj.pos.x + sp34.x;
+                sp30->obj.pos.y = actor->obj.pos.y + sp34.y + actor->fwork[2];
+                sp30->obj.pos.z = actor->obj.pos.z + sp34.z;
             } else {
-                obj2F4->unk_0B8 = 1;
+                actor->unk_0B8 = 1;
             }
-            switch (obj2F4->unk_060) {
+            switch (actor->iwork[4]) {
                 case 1:
-                    if ((obj2F4->unk_124.y == obj2F4->obj.rot.y) &&
-                        (fabsf(obj2F4->obj.pos.z - gPlayer->unk_138) < 1000.0f)) {
-                        if (sp30->obj.id == OBJ_2F4_251) {
+                    if ((actor->fwork[5] == actor->obj.rot.y) &&
+                        (fabsf(actor->obj.pos.z - gPlayer[0].unk_138) < 1000.0f)) {
+                        if (sp30->obj.id == OBJ_ACTOR_251) {
                             sp30->gravity = 1.0f;
                         }
-                        obj2F4->unk_0B8 = 1;
+                        actor->unk_0B8 = 1;
                     }
                     break;
                 case 2:
-                    Math_SmoothStepToF(&obj2F4->unk_120, 0.0f, 1.0f, 5.0f, 0.01f);
-                    if (obj2F4->unk_120 == 0.0f) {
-                        Math_SmoothStepToF(&obj2F4->unk_114, 30.0f, 1.0f, 5.0f, 0.01f);
-                        if (obj2F4->unk_114 == 30.0f) {
-                            obj2F4->unk_060 = 0;
+                    Math_SmoothStepToF(&actor->fwork[3], 0.0f, 1.0f, 5.0f, 0.01f);
+                    if (actor->fwork[3] == 0.0f) {
+                        Math_SmoothStepToF(&actor->fwork[0], 30.0f, 1.0f, 5.0f, 0.01f);
+                        if (actor->fwork[0] == 30.0f) {
+                            actor->iwork[4] = 0;
                         }
                     }
                     break;
             }
             break;
         case 1:
-            obj2F4->unk_124.x += 10.0f;
-            obj2F4->unk_124.x = Math_ModF(obj2F4->unk_124.x, 360.0f);
+            actor->fwork[4] += 10.0f;
+            actor->fwork[4] = Math_ModF(actor->fwork[4], 360.0f);
             break;
     }
-    if (obj2F4->unk_114 >= 30.0f) {
-        obj2F4->unk_114 = 30.0f;
+    if (actor->fwork[0] >= 30.0f) {
+        actor->fwork[0] = 30.0f;
     }
-    if (obj2F4->unk_114 <= -20.0f) {
-        obj2F4->unk_114 = -20.0f;
+    if (actor->fwork[0] <= -20.0f) {
+        actor->fwork[0] = -20.0f;
     }
-    if (obj2F4->unk_120 >= 0) {
-        obj2F4->unk_120 = 0.0f;
+    if (actor->fwork[3] >= 0) {
+        actor->fwork[3] = 0.0f;
     }
-    if (obj2F4->unk_120 <= -450.0f) {
-        obj2F4->unk_120 = -450.0f;
+    if (actor->fwork[3] <= -450.0f) {
+        actor->fwork[3] = -450.0f;
     }
 }
 
-void func_i3_8019C83C(Object_2F4* obj2F4) {
+void func_i3_8019C83C(Actor* actor) {
     f32 var_fv1;
     s32 i;
     s32 var_s1;
 
     Matrix_Push(&gGfxMatrix);
-    Matrix_RotateZ(gGfxMatrix, obj2F4->unk_114 * M_DTOR, 1);
+    Matrix_RotateZ(gGfxMatrix, actor->fwork[0] * M_DTOR, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
     GDL(D_601A340);
     Matrix_Pop(&gGfxMatrix);
@@ -4306,15 +4306,15 @@ void func_i3_8019C83C(Object_2F4* obj2F4) {
     Matrix_SetGfxMtx(&gMasterDisp);
     GDL(D_601D680);
     Matrix_Pop(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, obj2F4->unk_118, obj2F4->unk_11C, 0.0f, 1);
-    Matrix_RotateY(gGfxMatrix, obj2F4->unk_124.x * M_DTOR, 1);
+    Matrix_Translate(gGfxMatrix, actor->fwork[1], actor->fwork[2], 0.0f, 1);
+    Matrix_RotateY(gGfxMatrix, actor->fwork[4] * M_DTOR, 1);
     Matrix_Scale(gGfxMatrix, 0.75f, 0.75f, 0.75f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
     GDL(D_601C590);
     RCP_SetupDL_57(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     Matrix_RotateY(gGfxMatrix, gFrameCount * M_DTOR, 1);
 
-    var_fv1 = (fabsf(obj2F4->unk_120) * 1.3f) + 50.0f;
+    var_fv1 = (fabsf(actor->fwork[3]) * 1.3f) + 50.0f;
     for (var_s1 = 0; var_fv1 > 0.0f; var_s1++) {
         var_fv1 -= 9.3f;
     }
@@ -4339,56 +4339,56 @@ void func_i3_8019C83C(Object_2F4* obj2F4) {
 f32 D_i3_801BF8C4[2] = { 46.0f, 314.0f };
 f32 D_i3_801BF8CC[2] = { 23.0f, 337.0f };
 
-void func_i3_8019CBEC(Object_2F4* obj2F4) {
-    obj2F4->timer_0C2 = 30000;
-    switch (obj2F4->unk_0B8) {
+void func_i3_8019CBEC(Actor* actor) {
+    actor->timer_0C2 = 30000;
+    switch (actor->unk_0B8) {
         case 0:
-            obj2F4->unk_124.y = D_i3_801BF8CC[gFrameCount & 1];
+            actor->fwork[5] = D_i3_801BF8CC[gFrameCount & 1];
             if (D_80161684 != 0) {
-                obj2F4->unk_124.y = D_i3_801BF8C4[gFrameCount & 1];
-                obj2F4->unk_054 = 1;
+                actor->fwork[5] = D_i3_801BF8C4[gFrameCount & 1];
+                actor->iwork[1] = 1;
             }
-            obj2F4->unk_0B8++;
+            actor->unk_0B8++;
             break;
         case 1:
-            Math_SmoothStepToF(&obj2F4->unk_124.z, 10.0f, 0.1f, 1.0f, 0.001f);
-            if (obj2F4->unk_050 == 0) {
-                Math_SmoothStepToAngle(&obj2F4->obj.rot.z, obj2F4->unk_124.y, 0.1f, obj2F4->unk_124.z, 0.0001f);
+            Math_SmoothStepToF(&actor->fwork[6], 10.0f, 0.1f, 1.0f, 0.001f);
+            if (actor->iwork[0] == 0) {
+                Math_SmoothStepToAngle(&actor->obj.rot.z, actor->fwork[5], 0.1f, actor->fwork[6], 0.0001f);
             } else {
-                Math_SmoothStepToAngle(&obj2F4->unk_124.x, obj2F4->unk_124.y, 0.1f, obj2F4->unk_124.z, 0.0001f);
+                Math_SmoothStepToAngle(&actor->fwork[4], actor->fwork[5], 0.1f, actor->fwork[6], 0.0001f);
             }
-            if ((D_80161684 != 0) && (obj2F4->unk_054 == 0)) {
-                if (obj2F4->unk_124.y < 300.0f) {
-                    obj2F4->unk_124.y = D_i3_801BF8C4[0];
+            if ((D_80161684 != 0) && (actor->iwork[1] == 0)) {
+                if (actor->fwork[5] < 300.0f) {
+                    actor->fwork[5] = D_i3_801BF8C4[0];
                 } else {
-                    obj2F4->unk_124.y = D_i3_801BF8C4[1];
+                    actor->fwork[5] = D_i3_801BF8C4[1];
                 }
-                obj2F4->unk_054 = 1;
+                actor->iwork[1] = 1;
             }
-            if (obj2F4->timer_0BC == 0) {
-                obj2F4->timer_0BC = 45;
-                obj2F4->unk_124.y = 360.0f - obj2F4->unk_124.y;
-                obj2F4->unk_124.z = 0.0f;
+            if (actor->timer_0BC == 0) {
+                actor->timer_0BC = 45;
+                actor->fwork[5] = 360.0f - actor->fwork[5];
+                actor->fwork[6] = 0.0f;
             }
-            if (obj2F4->unk_050 == 777) {
-                obj2F4->unk_0B8++;
+            if (actor->iwork[0] == 777) {
+                actor->unk_0B8++;
             }
             break;
         case 2:
-            Math_SmoothStepToF(&obj2F4->unk_118, 0.0f, 0.2f, 1.0f, 0.01f);
-            if (obj2F4->unk_118 < 0.6f) {
-                Math_SmoothStepToF(&obj2F4->unk_11C, 0.0f, 0.5f, 5.0f, 0.01f);
-                if (obj2F4->unk_11C == 0.0f) {
-                    Object_Kill(&obj2F4->obj, &obj2F4->sfxPos);
+            Math_SmoothStepToF(&actor->fwork[1], 0.0f, 0.2f, 1.0f, 0.01f);
+            if (actor->fwork[1] < 0.6f) {
+                Math_SmoothStepToF(&actor->fwork[2], 0.0f, 0.5f, 5.0f, 0.01f);
+                if (actor->fwork[2] == 0.0f) {
+                    Object_Kill(&actor->obj, &actor->sfxPos);
                 }
             }
             break;
     }
-    func_i3_8018FF50(obj2F4);
-    obj2F4->obj.rot.x = 0.0f;
+    func_i3_8018FF50(actor);
+    actor->obj.rot.x = 0.0f;
 }
 
-void func_i3_8019CE58(Object_2F4* obj2F4) {
+void func_i3_8019CE58(Actor* actor) {
     Gfx* temp_v0;
     Gfx* temp_v0_2;
     Gfx* temp_v0_3;
@@ -4400,10 +4400,10 @@ void func_i3_8019CE58(Object_2F4* obj2F4) {
     Gfx* temp_v0_9;
 
     RCP_SetupDL(&gMasterDisp, 72);
-    if (obj2F4->unk_050 != 0) {
-        Matrix_Translate(gGfxMatrix, 0.0f, obj2F4->unk_114, 0.0f, 1);
-        Matrix_RotateZ(gGfxMatrix, (obj2F4->unk_124.x + obj2F4->obj.rot.z) * M_DTOR, 1);
-        Matrix_Scale(gGfxMatrix, obj2F4->unk_118, obj2F4->unk_11C, obj2F4->unk_120, 1);
+    if (actor->iwork[0] != 0) {
+        Matrix_Translate(gGfxMatrix, 0.0f, actor->fwork[0], 0.0f, 1);
+        Matrix_RotateZ(gGfxMatrix, (actor->fwork[4] + actor->obj.rot.z) * M_DTOR, 1);
+        Matrix_Scale(gGfxMatrix, actor->fwork[1], actor->fwork[2], actor->fwork[3], 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         if (D_80161684 != 0) {
             GPC(255, 191, 43, 255);
@@ -4423,23 +4423,23 @@ void func_i3_8019CE58(Object_2F4* obj2F4) {
 }
 
 #ifdef NON_MATCHING
-void func_i3_8019D060(Object_2F4* obj2F4) {
+void func_i3_8019D060(Actor* actor) {
     s32 i;
-    Object_2F4* sp18;
+    Actor* sp18;
 
-    for (i = 0, sp18 = gObjects2F4; i < 60; i++, sp18++) {
+    for (i = 0, sp18 = gActors; i < 60; i++, sp18++) {
         if (sp18->obj.status == 0) {
-            Object_2F4_Initialize(sp18);
+            Actor_Initialize(sp18);
             sp18->obj.status = 2;
-            sp18->obj.id = OBJ_2F4_247;
-            sp18->obj.pos.x = obj2F4->obj.pos.x;
-            sp18->obj.pos.y = obj2F4->obj.pos.y - 60.0f;
-            sp18->unk_11C = sp18->obj.pos.y;
-            sp18->obj.pos.z = obj2F4->obj.pos.z;
+            sp18->obj.id = OBJ_ACTOR_247;
+            sp18->obj.pos.x = actor->obj.pos.x;
+            sp18->obj.pos.y = actor->obj.pos.y - 60.0f;
+            sp18->fwork[2] = sp18->obj.pos.y;
+            sp18->obj.pos.z = actor->obj.pos.z;
 
             sp18->unk_0B8 = 1;
 
-            obj2F4->unk_046 = i + 1;
+            actor->unk_046 = i + 1;
             Object_SetInfo(&sp18->info, sp18->obj.id);
             sp18->info.hitbox = SEGMENTED_TO_VIRTUAL(D_602C028);
             break;
@@ -4450,47 +4450,47 @@ void func_i3_8019D060(Object_2F4* obj2F4) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_zo/func_i3_8019D060.s")
 #endif
 
-void func_i3_8019D15C(Object_2F4* obj2F4) {
-    Object_2F4* temp_v0;
+void func_i3_8019D15C(Actor* actor) {
+    Actor* temp_v0;
 
-    if (obj2F4->unk_0B8 == 0) {
-        if (obj2F4->unk_0D0 != 0) {
-            obj2F4->unk_0D0 = 0;
-            if (obj2F4->unk_0D2 < 2) {
-                Audio_PlaySfx(0x1903001E, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-                if ((obj2F4->obj.pos.y + 268.0f) < obj2F4->unk_0D8.y) {
-                    obj2F4->unk_118 = 20.0f;
+    if (actor->unk_0B8 == 0) {
+        if (actor->unk_0D0 != 0) {
+            actor->unk_0D0 = 0;
+            if (actor->unk_0D2 < 2) {
+                Audio_PlaySfx(0x1903001E, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                if ((actor->obj.pos.y + 268.0f) < actor->unk_0D8.y) {
+                    actor->fwork[1] = 20.0f;
                 } else {
-                    obj2F4->unk_118 = -20.0f;
+                    actor->fwork[1] = -20.0f;
                 }
-                Audio_PlaySfx(0x1903001F, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x1903001F, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             } else {
-                Audio_PlaySfx(0x29121007, &obj2F4->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x29121007, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
         }
-        if (obj2F4->unk_046 != 0) {
-            temp_v0 = &gObjects2F4[obj2F4->unk_046 - 1];
-            temp_v0->obj.pos.y += obj2F4->unk_118 * 0.3f;
-            if (temp_v0->obj.pos.y > obj2F4->unk_11C + 370.0f) {
-                temp_v0->obj.pos.y = obj2F4->unk_11C + 370.0f;
+        if (actor->unk_046 != 0) {
+            temp_v0 = &gActors[actor->unk_046 - 1];
+            temp_v0->obj.pos.y += actor->fwork[1] * 0.3f;
+            if (temp_v0->obj.pos.y > actor->fwork[2] + 370.0f) {
+                temp_v0->obj.pos.y = actor->fwork[2] + 370.0f;
             }
         }
-        obj2F4->unk_114 += obj2F4->unk_118;
-        Math_SmoothStepToF(&obj2F4->unk_118, 0.0f, 1.0f, 1.0f, 0.0f);
-        if (obj2F4->unk_118 == 0.0f) {
-            Audio_KillSfx(&obj2F4->sfxPos);
+        actor->fwork[0] += actor->fwork[1];
+        Math_SmoothStepToF(&actor->fwork[1], 0.0f, 1.0f, 1.0f, 0.0f);
+        if (actor->fwork[1] == 0.0f) {
+            Audio_KillSfx(&actor->sfxPos);
         }
     }
 }
 
 s32 func_i3_8019D340(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
-    Object_2F4* this = thisx;
+    Actor* this = thisx;
 
     switch (this->unk_0B8) {
         case 0:
             if (limbIndex == 1) {
                 pos->y -= 60.0f;
-                rot->z -= this->unk_114;
+                rot->z -= this->fwork[0];
             }
             if (limbIndex == 3) {
                 *dList = NULL;
@@ -4505,11 +4505,11 @@ s32 func_i3_8019D340(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
     return false;
 }
 
-void func_i3_8019D3C4(Object_2F4* obj2F4) {
+void func_i3_8019D3C4(Actor* actor) {
     Vec3f sp28[10];
 
     Animation_GetFrameData(&D_601FBC4, 0, sp28);
-    Animation_DrawSkeleton(1, D_601FC90, sp28, func_i3_8019D340, NULL, obj2F4, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, D_601FC90, sp28, func_i3_8019D340, NULL, actor, &gIdentityMatrix);
 }
 
 void func_i3_8019D428(Player* player) {
@@ -4569,7 +4569,7 @@ void func_i3_8019D76C(Player* player) {
     s32 i;
     Vec3f sp58;
     Vec3f sp4C;
-    Object_2F4* var_a0;
+    Actor* var_a0;
     f32 temp_fa0;
     f32 temp_ft5;
     f32 pa2[2];
@@ -4596,13 +4596,13 @@ void func_i3_8019D76C(Player* player) {
             D_801779B8 = player->camAt.y;
             D_801779C0 = player->camAt.z;
             for (i = 10; i < 60; i++) {
-                if (gObjects2F4[i].unk_0B6 == 0) {
-                    Object_Kill(&gObjects2F4[i].obj, &gObjects2F4[i].sfxPos);
+                if (gActors[i].unk_0B6 == 0) {
+                    Object_Kill(&gActors[i].obj, &gActors[i].sfxPos);
                 }
             }
-            Object_Kill(&gObjects2F4[2].obj, &gObjects2F4[2].sfxPos);
-            Object_Kill(&gObjects2F4[3].obj, &gObjects2F4[3].sfxPos);
-            Object_Kill(&gObjects2F4[4].obj, &gObjects2F4[4].sfxPos);
+            Object_Kill(&gActors[2].obj, &gActors[2].sfxPos);
+            Object_Kill(&gActors[3].obj, &gActors[3].sfxPos);
+            Object_Kill(&gActors[4].obj, &gActors[4].sfxPos);
             player->unk_1D0 = 1;
             D_80177A48[0] = 0.05f;
             if (Rand_ZeroOne() > 0.5f) {
@@ -4733,7 +4733,7 @@ void func_i3_8019D76C(Player* player) {
                     player->state_1C8 = PLAYERSTATE_1C8_6;
                     player->timer_1F8 = 0;
                     D_8017837C = 4;
-                    D_800D3180[8] = Play_CheckMedalStatus(250) + 1;
+                    D_800D3180[LEVEL_ZONESS] = Play_CheckMedalStatus(250) + 1;
                 }
             }
             break;
@@ -4808,17 +4808,17 @@ void func_i3_8019D76C(Player* player) {
             break;
         case 1120: /* switch 2 */
             if (gTeamShields[3] > 0) {
-                gObjects2F4[0].unk_0B8 = 2;
+                gActors[0].unk_0B8 = 2;
             }
             break;
         case 1140: /* switch 2 */
             if (gTeamShields[2] > 0) {
-                gObjects2F4[1].unk_0B8 = 2;
+                gActors[1].unk_0B8 = 2;
             }
             break;
         case 1160: /* switch 2 */
             if (gTeamShields[1] > 0) {
-                gObjects2F4[2].unk_0B8 = 2;
+                gActors[2].unk_0B8 = 2;
             }
             break;
     }
@@ -4857,12 +4857,12 @@ void func_i3_8019D76C(Player* player) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_zo/func_i3_8019D76C.s")
 #endif
 
-void func_i3_8019E5F0(Object_2F4* obj2F4) {
+void func_i3_8019E5F0(Actor* actor) {
     Vec3f sp34;
     Vec3f sp28;
 
     (void) "Demo_Time %d\n"; // goes in above function, probably
-    switch (obj2F4->unk_0B8) {
+    switch (actor->unk_0B8) {
         case 4:
         case 5:
         case 6:
@@ -4872,36 +4872,36 @@ void func_i3_8019E5F0(Object_2F4* obj2F4) {
         case 10:
             break;
         case 1:
-            if ((obj2F4->unk_0B6 != 0) && ((((obj2F4->index & 7) * 10) + 1030) < D_80177A80)) {
-                obj2F4->unk_0B8 = 4;
+            if ((actor->unk_0B6 != 0) && ((((actor->index & 7) * 10) + 1030) < D_80177A80)) {
+                actor->unk_0B8 = 4;
             }
             break;
         case 2:
-            obj2F4->unk_0B8 = 3;
-            Audio_PlaySfx(0x09000002, &obj2F4->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-            obj2F4->unk_188 = 5.0f;
+            actor->unk_0B8 = 3;
+            Audio_PlaySfx(0x09000002, &actor->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            actor->fwork[29] = 5.0f;
             /* fallthrough */
         case 3:
-            obj2F4->unk_07C = 2;
-            obj2F4->unk_114 += 2.0f;
-            obj2F4->unk_0F4.x += 0.1f;
-            obj2F4->unk_168 += 0.2f;
-            if (obj2F4->unk_168 > 0.6f) {
-                obj2F4->unk_168 = 0.6f;
+            actor->iwork[11] = 2;
+            actor->fwork[0] += 2.0f;
+            actor->unk_0F4.x += 0.1f;
+            actor->fwork[21] += 0.2f;
+            if (actor->fwork[21] > 0.6f) {
+                actor->fwork[21] = 0.6f;
             }
             break;
     }
-    Matrix_RotateY(gCalcMatrix, (obj2F4->unk_0F4.y + 180.0f) * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, -(obj2F4->unk_0F4.x * M_DTOR), 1);
+    Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * M_DTOR, 0);
+    Matrix_RotateX(gCalcMatrix, -(actor->unk_0F4.x * M_DTOR), 1);
     sp34.x = 0.0f;
     sp34.y = 0.0f;
-    sp34.z = obj2F4->unk_114;
+    sp34.z = actor->fwork[0];
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp34, &sp28);
-    obj2F4->vel.x = sp28.x;
-    obj2F4->vel.y = sp28.y;
-    obj2F4->vel.z = sp28.z;
+    actor->vel.x = sp28.x;
+    actor->vel.y = sp28.y;
+    actor->vel.z = sp28.z;
 
-    obj2F4->obj.rot.x = -obj2F4->unk_0F4.x;
-    obj2F4->obj.rot.y = obj2F4->unk_0F4.y + 180.0f;
-    obj2F4->obj.rot.z = -obj2F4->unk_0F4.z;
+    actor->obj.rot.x = -actor->unk_0F4.x;
+    actor->obj.rot.y = actor->unk_0F4.y + 180.0f;
+    actor->obj.rot.z = -actor->unk_0F4.z;
 }

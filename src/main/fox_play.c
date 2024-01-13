@@ -1,31 +1,72 @@
 #include "global.h"
+#include "fox_map.h"
 
-extern UNK_TYPE D_800D2F50; // type unclear. unused?
-extern s32 D_800D2F54;      // only gets set to 0. unused?
-extern f32 D_800D2F58;
-extern f32 D_800D2F5C; // holds float versions of gVolumeSettings. Unused?
-extern f32 D_800D2F60;
-extern f32 D_800D2F64;
-extern u8 D_800D2F68;
-extern u8 D_800D2F6C[20];
-extern Vec3f D_800D2F80;
-extern Vec3f D_800D2F8C;
-extern EnvSettings* D_800D2F98[21];
-extern f32 D_800D2FEC[5];
-extern s32 D_800D3000[4][4];
-extern Vec3f D_800D3040[6];
-extern Vec3f D_800D3088[4];
-extern Vec3f D_800D30B8[4];
-extern Vec3f D_800D30E8;
-extern f32 D_800D30F4[4];
-extern f32 D_800D3104[4];
-extern f32 D_800D3114[4];
-extern f32 D_800D3124[12];
-extern f32 D_800D3154[4];
-extern s32 D_800D3164[4];
-extern u8 D_800D317C;
-extern u8 D_800D3180[30];
-extern s32 D_800D31A0[4];
+UNK_TYPE D_800D2F50 = 0;
+s32 D_800D2F54 = 0;
+f32 D_800D2F58 = 0.0f;
+f32 D_800D2F5C = 0.0f;
+f32 D_800D2F60 = 0.0f;
+f32 D_800D2F64 = 0.0f;
+u8 D_800D2F68 = 0;
+u8 D_800D2F6C[20] = {
+    PLANET_CORNERIA, PLANET_METEO,      PLANET_SECTOR_X, PLANET_AREA_6,   PLANET_AREA_6,
+    PLANET_SECTOR_Y, SAVE_SLOT_VENOM_1, SAVE_SLOT_SOLAR, PLANET_ZONESS,   SAVE_SLOT_VENOM_1,
+    PLANET_CORNERIA, PLANET_MACBETH,    PLANET_TITANIA,  PLANET_AQUAS,    PLANET_FORTUNA,
+    PLANET_METEO,    PLANET_KATINA,     PLANET_BOLSE,    PLANET_SECTOR_Z, SAVE_SLOT_VENOM_2,
+};
+Vec3f D_800D2F80 = { -65.0f, -22.0f, -65.0f };
+Vec3f D_800D2F8C = { 65.0f, -22.0f, -65.0f };
+EnvSettings* D_800D2F98[21] = {
+    &D_6037160, &D_6026C80, &D_602A120, &D_6023F20,     &D_6028760,     &D_602E4B0, &D_6007E30,
+    &D_601F1F0, &D_60266D0, &D_C035110, &D_6006A60,     &D_6030E30_Env, &D_6005000, &D_602E540,
+    &D_600EA90, NULL,       &D_6011000, &D_600FF30_Env, &D_6006E70,     &D_6014D50, &D_302DD70,
+};
+f32 D_800D2FEC[5] = {
+    0.0f, 0.5f, -0.5f, 0.5f, -0.5f,
+};
+s32 D_800D3000[4][4] = {
+    { 20, 40, 0, 0 },
+    { 20, 20, 0, 0 },
+    { 0, 0, 0, 0 },
+    { 80, 120, 0, 0 },
+};
+Vec3f D_800D3040[6] = {
+    { 0.0f, -20.0f, 0.0f }, { -17.5f, -17.5f, 0.0f }, { -17.5f, 17.5f, 0.0f },
+    { 0.0f, 20.0f, 0.0f },  { 17.5f, 17.5f, 0.0f },   { 17.5f, -17.5f, 0.0f },
+};
+Vec3f D_800D3088[4] = {
+    { 0.0f, -20.0f, 0.0f },
+    { 0.0f, 20.0f, 0.0f },
+    { 20.0f, 0.0f, 0.0f },
+    { -20.0f, 0.0f, 0.0f },
+};
+Vec3f D_800D30B8[4] = {
+    { 0.0f, -20.0f, 0.0f },
+    { 0.0f, 20.0f, 0.0f },
+    { -20.0f, 0.0f, 0.0f },
+    { 20.0f, 0.0f, 0.0f },
+};
+Vec3f D_800D30E8 = { 0.0f, -10.0f, 0.0f };
+f32 D_800D30F4[4] = { 3.0f, 4.0f, 5.0f, 3.0f };
+f32 D_800D3104[4] = { 0.2f, 0.25f, 0.3f, 0.2f };
+f32 D_800D3114[4] = { 10000.0f, -10000.0f, 10000.0f, -10000.0f };
+f32 D_800D3124[12] = {
+    10000.0f, -10000.0f, -10000.0f, 10000.0f, 500.0f, -500.0f, 500.0f, -500.0f, 500.0f, -500.0f, -500.0f, 500.0f,
+};
+f32 D_800D3154[4] = {
+    45.0f,
+    -135.0f,
+    135.0f,
+    -45.0f,
+};
+s32 D_800D3164[6] = {
+    1, 1, -1, 1, -1, 1,
+};
+u8 D_800D317C = 255;
+u8 D_800D3180[30] = {
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+};
+UNK_TYPE D_800D31A0[4] = { 0 };
 
 extern f32 D_i3_801C4188;
 
@@ -458,13 +499,13 @@ void func_800A594C(void) {
     if (gVersusMode) {
         switch (gVersusStage) {
             case 0:
-                sEnvSettings = SEGMENTED_TO_VIRTUAL(D_302DD70);
+                sEnvSettings = SEGMENTED_TO_VIRTUAL(&D_302DD70);
                 break;
             case 1:
-                sEnvSettings = SEGMENTED_TO_VIRTUAL(D_302DDB4);
+                sEnvSettings = SEGMENTED_TO_VIRTUAL(&D_302DDB4);
                 break;
             case 2:
-                sEnvSettings = SEGMENTED_TO_VIRTUAL(D_302DDF8);
+                sEnvSettings = SEGMENTED_TO_VIRTUAL(&D_302DDF8);
                 break;
         }
     } else {
@@ -609,9 +650,9 @@ void func_800A6148(void) {
     for (i = 0; i < ARRAY_COUNT(gObjects4C); i++) {
         Object_4C_Initialize(&gObjects4C[i]);
     }
-    for (i = 0; i < ARRAY_COUNT(gObjects2F4); i++) {
-        Object_Kill(&gObjects2F4[i].obj, &gObjects2F4[i].sfxPos);
-        Object_2F4_Initialize(&gObjects2F4[i]);
+    for (i = 0; i < ARRAY_COUNT(gActors); i++) {
+        Object_Kill(&gActors[i].obj, &gActors[i].sfxPos);
+        Actor_Initialize(&gActors[i]);
     }
     for (i = 0; i < ARRAY_COUNT(gBosses); i++) {
         Object_Kill(&gBosses[i].obj, &gBosses[i].sfxPos);
@@ -688,57 +729,57 @@ void func_800A668C(f32 xPos, f32 yPos, f32 zPos) {
     }
 }
 
-void func_800A670C(Object_2F4* obj2F4, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
-    Object_2F4_Initialize(obj2F4);
-    obj2F4->obj.status = 1;
-    obj2F4->obj.id = OBJ_2F4_189;
-    obj2F4->unk_0B8 = arg1;
-    obj2F4->obj.pos.x = arg2;
-    obj2F4->obj.pos.y = arg3;
-    obj2F4->obj.pos.z = arg4;
-    obj2F4->gravity = 0.5f;
+void func_800A670C(Actor* actor, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+    Actor_Initialize(actor);
+    actor->obj.status = 1;
+    actor->obj.id = OBJ_ACTOR_189;
+    actor->unk_0B8 = arg1;
+    actor->obj.pos.x = arg2;
+    actor->obj.pos.y = arg3;
+    actor->obj.pos.z = arg4;
+    actor->gravity = 0.5f;
     if ((arg1 == 0) || (arg1 == 1)) {
-        obj2F4->vel.y = (Rand_ZeroOne() * 5.0f) + 10.0f;
-        obj2F4->vel.x = 10.0f;
+        actor->vel.y = (Rand_ZeroOne() * 5.0f) + 10.0f;
+        actor->vel.x = 10.0f;
 
         if (arg1 == 0) {
-            obj2F4->vel.x = -10.0f;
+            actor->vel.x = -10.0f;
         }
-        obj2F4->timer_0BC = 15;
+        actor->timer_0BC = 15;
     } else {
         if (gLevelType == LEVELTYPE_PLANET) {
-            obj2F4->vel.y = (Rand_ZeroOne() * 7.0f) + 7.0f;
-            obj2F4->vel.x = (Rand_ZeroOne() - 0.5f) * 10.0f;
-            obj2F4->vel.z = (Rand_ZeroOne() * 5.0f) + 5.0f;
+            actor->vel.y = (Rand_ZeroOne() * 7.0f) + 7.0f;
+            actor->vel.x = (Rand_ZeroOne() - 0.5f) * 10.0f;
+            actor->vel.z = (Rand_ZeroOne() * 5.0f) + 5.0f;
             if (gLevelMode == LEVELMODE_ALL_RANGE) {
-                obj2F4->vel.z = (Rand_ZeroOne() - 0.5f) * 10.0f;
+                actor->vel.z = (Rand_ZeroOne() - 0.5f) * 10.0f;
             }
-            obj2F4->timer_0BC = (s32) (Rand_ZeroOne() * 10.0f) + 10;
+            actor->timer_0BC = (s32) (Rand_ZeroOne() * 10.0f) + 10;
         } else {
-            obj2F4->vel.x = (Rand_ZeroOne() - 0.5f) * 10.0f;
-            obj2F4->vel.y = (Rand_ZeroOne() - 0.5f) * 10.0f;
-            obj2F4->vel.z = (Rand_ZeroOne() - 0.5f) * 10.0f;
-            obj2F4->timer_0BC = (s32) (Rand_ZeroOne() * 25.0f) + 25;
-            obj2F4->gravity = 0.0f;
+            actor->vel.x = (Rand_ZeroOne() - 0.5f) * 10.0f;
+            actor->vel.y = (Rand_ZeroOne() - 0.5f) * 10.0f;
+            actor->vel.z = (Rand_ZeroOne() - 0.5f) * 10.0f;
+            actor->timer_0BC = (s32) (Rand_ZeroOne() * 25.0f) + 25;
+            actor->gravity = 0.0f;
         }
         if (arg1 == 2) {
-            obj2F4->scale = (Rand_ZeroOne() * 1.5f) + 0.75f;
+            actor->scale = (Rand_ZeroOne() * 1.5f) + 0.75f;
         } else if (arg1 == 4) {
-            obj2F4->scale = (Rand_ZeroOne() * 0.8f) + 0.3f;
-            obj2F4->timer_0BC = (s32) (Rand_ZeroOne() * 50.0f) + 70;
+            actor->scale = (Rand_ZeroOne() * 0.8f) + 0.3f;
+            actor->timer_0BC = (s32) (Rand_ZeroOne() * 50.0f) + 70;
         }
-        obj2F4->obj.rot.x = Rand_ZeroOne() * 360.0f;
+        actor->obj.rot.x = Rand_ZeroOne() * 360.0f;
     }
-    Object_SetInfo(&obj2F4->info, obj2F4->obj.id);
+    Object_SetInfo(&actor->info, actor->obj.id);
 }
 
 void func_800A69F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     s32 i;
 
     if (!gVersusMode) {
-        for (i = ARRAY_COUNT(gObjects2F4) - 1; i >= 10; i--) {
-            if (gObjects2F4[i].obj.status == 0) {
-                func_800A670C(&gObjects2F4[i], arg0, arg1, arg2, arg3);
+        for (i = ARRAY_COUNT(gActors) - 1; i >= 10; i--) {
+            if (gActors[i].obj.status == 0) {
+                func_800A670C(&gActors[i], arg0, arg1, arg2, arg3);
                 break;
             }
         }
@@ -1177,7 +1218,7 @@ bool func_800A8054(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 a
 
     useCol2 = false;
     switch (objId) {
-        case OBJ_2F4_180:
+        case OBJ_ACTOR_180:
             colId = COL1_0;
             break;
         case OBJ_80_4:
@@ -1512,14 +1553,14 @@ void func_800A8BA4(Player* player) {
     Vec3f spfD4;
     Vec3f spC8;
     Vec3f spBC;
-    f32 padB8;          // B8
-    Object_2F4* obj2F4; // B4
-    f32 padB0;          // B0
-    Boss* boss;         // AC
-    Object_4C* obj4C;   // A8
-    s32 pad;            // A4
-    Object_80* obj80;   // A0
-    Player* opponent;   // 9C
+    f32 padB8;        // B8
+    Actor* actor;     // B4
+    f32 padB0;        // B0
+    Boss* boss;       // AC
+    Object_4C* obj4C; // A8
+    s32 pad;          // A4
+    Object_80* obj80; // A0
+    Player* opponent; // 9C
     s32 sp98;
     f32 sp94;
     s32 sp90;
@@ -1841,40 +1882,39 @@ void func_800A8BA4(Player* player) {
                 }
             }
         }
-        for (i = 0, obj2F4 = gObjects2F4; i < ARRAY_COUNT(gObjects2F4); i++, obj2F4++) {
-            if ((obj2F4->obj.status == 2) && (obj2F4->timer_0C2 == 0)) {
-                if (obj2F4->obj.id == OBJ_2F4_180) {
-                    temp_v0 = func_800A8304(player, obj2F4->obj.id, obj2F4->obj.pos.x, obj2F4->obj.pos.y,
-                                            obj2F4->obj.pos.z, obj2F4->obj.rot.x, obj2F4->obj.rot.y, obj2F4->obj.rot.z);
+        for (i = 0, actor = gActors; i < ARRAY_COUNT(gActors); i++, actor++) {
+            if ((actor->obj.status == 2) && (actor->timer_0C2 == 0)) {
+                if (actor->obj.id == OBJ_ACTOR_180) {
+                    temp_v0 = func_800A8304(player, actor->obj.id, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z,
+                                            actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z);
                     if (temp_v0 != 0) {
-                        Player_ApplyDamage(player, temp_v0, obj2F4->info.damage);
+                        Player_ApplyDamage(player, temp_v0, actor->info.damage);
                     }
-                } else if (obj2F4->obj.id == OBJ_2F4_200) {
-                    if (obj2F4->unk_0B4 == 42) {
-                        temp_v0 =
-                            func_800A8304(player, OBJ_UNK_1000, obj2F4->obj.pos.x, obj2F4->obj.pos.y, obj2F4->obj.pos.z,
-                                          obj2F4->obj.rot.x, obj2F4->obj.rot.y, obj2F4->obj.rot.z);
+                } else if (actor->obj.id == OBJ_ACTOR_200) {
+                    if (actor->unk_0B4 == 42) {
+                        temp_v0 = func_800A8304(player, OBJ_UNK_1000, actor->obj.pos.x, actor->obj.pos.y,
+                                                actor->obj.pos.z, actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z);
                         if (temp_v0 != 0) {
-                            Player_ApplyDamage(player, temp_v0, obj2F4->info.damage);
+                            Player_ApplyDamage(player, temp_v0, actor->info.damage);
                         }
-                    } else if (obj2F4->unk_0B4 == 63) {
-                        spfD4.x = fabsf(obj2F4->obj.pos.x - player->pos.x);
-                        spfD4.y = fabsf(obj2F4->obj.pos.y - player->pos.y);
-                        spfD4.z = fabsf(obj2F4->obj.pos.z - player->unk_138);
+                    } else if (actor->unk_0B4 == 63) {
+                        spfD4.x = fabsf(actor->obj.pos.x - player->pos.x);
+                        spfD4.y = fabsf(actor->obj.pos.y - player->pos.y);
+                        spfD4.z = fabsf(actor->obj.pos.z - player->unk_138);
                         if (sqrtf(VEC3F_SQ(spfD4)) < 900.0f) {
-                            Player_ApplyDamage(player, 0, obj2F4->info.damage);
-                            obj2F4->unk_0D0 = 3;
+                            Player_ApplyDamage(player, 0, actor->info.damage);
+                            actor->unk_0D0 = 3;
                         }
                     } else {
-                        temp_v0 =
-                            func_800A7974(player, obj2F4->info.hitbox, &sp98, obj2F4->obj.pos.x, obj2F4->obj.pos.y,
-                                          obj2F4->obj.pos.z, obj2F4->obj.rot.x, obj2F4->obj.rot.y, obj2F4->obj.rot.z,
-                                          obj2F4->unk_2E8.x, obj2F4->unk_2E8.y, obj2F4->unk_2E8.z + obj2F4->unk_0F4.z);
+                        temp_v0 = func_800A7974(player, actor->info.hitbox, &sp98, actor->obj.pos.x, actor->obj.pos.y,
+                                                actor->obj.pos.z, actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z,
+                                                actor->vwork[29].x, actor->vwork[29].y,
+                                                actor->vwork[29].z + actor->unk_0F4.z);
                         if (temp_v0 != 0) {
-                            if ((temp_v0 < 0) && (obj2F4->unk_0B4 == 38)) {
-                                obj2F4->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6032328);
+                            if ((temp_v0 < 0) && (actor->unk_0B4 == 38)) {
+                                actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6032328);
                                 if (D_80177E80 >= 0) {
-                                    obj2F4->unk_046 = 2;
+                                    actor->unk_046 = 2;
                                     D_80177E80++;
                                     if (D_80177E80 == 3) {
                                         func_800BA808(gMsg_ID_5504, RCID_FALCO);
@@ -1885,57 +1925,56 @@ void func_800A8BA4(Player* player) {
                                 }
                             } else if (temp_v0 < 0) {
                                 if (player->unk_22C == 0) {
-                                    Audio_PlaySfx(0x19000001, &obj2F4->sfxPos, 0, &D_800C5D34, &D_800C5D34,
-                                                  &D_800C5D3C);
+                                    Audio_PlaySfx(0x19000001, &actor->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                                 }
                                 player->unk_22C += 2;
                                 if (player->unk_22C >= 4) {
                                     player->unk_22C = 4;
                                 }
                             } else {
-                                Player_ApplyDamage(player, temp_v0, obj2F4->info.damage);
-                                obj2F4->unk_0D0 = 3;
-                                obj2F4->unk_0D4 = player->num + 1;
+                                Player_ApplyDamage(player, temp_v0, actor->info.damage);
+                                actor->unk_0D0 = 3;
+                                actor->unk_0D4 = player->num + 1;
                             }
                         }
                     }
-                } else if ((obj2F4->obj.id >= OBJ_2F4_205) && (obj2F4->obj.id < OBJ_2F4_214)) {
-                    temp_v0 = func_800A7974(player, obj2F4->info.hitbox, &sp98, obj2F4->unk_178 + obj2F4->obj.pos.x,
-                                            obj2F4->unk_134 + obj2F4->obj.pos.y + 25.0f, obj2F4->obj.pos.z,
-                                            obj2F4->unk_188, obj2F4->unk_17C, obj2F4->obj.rot.z, 0.0f, 0.0f, 0.0f);
+                } else if ((actor->obj.id >= OBJ_ACTOR_205) && (actor->obj.id < OBJ_ACTOR_214)) {
+                    temp_v0 = func_800A7974(player, actor->info.hitbox, &sp98, actor->fwork[25] + actor->obj.pos.x,
+                                            actor->fwork[8] + actor->obj.pos.y + 25.0f, actor->obj.pos.z,
+                                            actor->fwork[29], actor->fwork[26], actor->obj.rot.z, 0.0f, 0.0f, 0.0f);
                     if (temp_v0 != 0) {
-                        obj2F4->unk_0D0 = 3;
-                        if (obj2F4->info.damage) {
-                            Player_ApplyDamage(player, temp_v0, obj2F4->info.damage);
+                        actor->unk_0D0 = 3;
+                        if (actor->info.damage) {
+                            Player_ApplyDamage(player, temp_v0, actor->info.damage);
                         } else {
-                            obj2F4->unk_0D0 = -1;
+                            actor->unk_0D0 = -1;
                         }
                     }
                 } else {
-                    temp_v0 = func_800A7974(player, obj2F4->info.hitbox, &sp98, obj2F4->obj.pos.x, obj2F4->obj.pos.y,
-                                            obj2F4->obj.pos.z, obj2F4->obj.rot.x, obj2F4->obj.rot.y, obj2F4->obj.rot.z,
+                    temp_v0 = func_800A7974(player, actor->info.hitbox, &sp98, actor->obj.pos.x, actor->obj.pos.y,
+                                            actor->obj.pos.z, actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z,
                                             0.0f, 0.0f, 0.0f);
                     if (temp_v0 != 0) {
                         if (temp_v0 < 0) {
                             if (player->unk_22C == 0) {
-                                Audio_PlaySfx(0x19000001, &obj2F4->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                                Audio_PlaySfx(0x19000001, &actor->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                             }
                             player->unk_22C += 2;
                             if (player->unk_22C >= 4) {
                                 player->unk_22C = 4;
                             }
                         } else {
-                            obj2F4->unk_0D0 = 3;
-                            if (obj2F4->obj.id == OBJ_2F4_190) {
-                                obj2F4->unk_0D0 = -1;
+                            actor->unk_0D0 = 3;
+                            if (actor->obj.id == OBJ_ACTOR_190) {
+                                actor->unk_0D0 = -1;
                             }
-                            if (obj2F4->info.damage) {
-                                Player_ApplyDamage(player, temp_v0, obj2F4->info.damage);
-                                if (obj2F4->obj.id == OBJ_2F4_225) {
+                            if (actor->info.damage) {
+                                Player_ApplyDamage(player, temp_v0, actor->info.damage);
+                                if (actor->obj.id == OBJ_ACTOR_225) {
                                     player->unk_0D8.y = 0.0f;
                                 }
                             } else {
-                                obj2F4->unk_0D0 = -1;
+                                actor->unk_0D0 = -1;
                             }
                         }
                     }
@@ -2886,11 +2925,11 @@ void func_800AD094(Player* player) {
 }
 
 bool func_800AD118(s32 playerNum) {
-    Object_2F4* obj2F4;
+    Actor* actor;
     s32 i;
 
-    for (i = 0, obj2F4 = gObjects2F4; i < ARRAY_COUNT(gObjects2F4); i++, obj2F4++) {
-        if ((obj2F4->obj.status == 2) && (obj2F4->timer_0CA[playerNum] != 0)) {
+    for (i = 0, actor = gActors; i < ARRAY_COUNT(gActors); i++, actor++) {
+        if ((actor->obj.status == 2) && (actor->timer_0CA[playerNum] != 0)) {
             return false;
         }
     }
@@ -2941,8 +2980,8 @@ bool func_800AD1F4(Player* player) {
     }
 
     if (gInputPress->button & A_BUTTON) {
-        for (i = 0; i < ARRAY_COUNT(gObjects2F4); i++) {
-            if ((gObjects2F4[i].obj.status == 2) && (gObjects2F4[i].timer_0CA[player->num] != 0)) {
+        for (i = 0; i < ARRAY_COUNT(gActors); i++) {
+            if ((gActors[i].obj.status == 2) && (gActors[i].timer_0CA[player->num] != 0)) {
                 if ((gPlayerShots[14 - player->num].obj.status == 0) ||
                     (gPlayerShots[14 - player->num].obj.id != PLAYERSHOT_8) ||
                     ((gPlayerShots[14 - player->num].obj.id == PLAYERSHOT_8) &&
@@ -2979,8 +3018,8 @@ bool func_800AD1F4(Player* player) {
     }
     if (gInputPress->button & B_BUTTON) {
         var_a2 = false;
-        for (i = 0; i < ARRAY_COUNT(gObjects2F4); i++) {
-            if ((gObjects2F4[i].obj.status == 2) && (gObjects2F4[i].timer_0CA[player->num] != 0)) {
+        for (i = 0; i < ARRAY_COUNT(gActors); i++) {
+            if ((gActors[i].obj.status == 2) && (gActors[i].timer_0CA[player->num] != 0)) {
                 var_a2 = true;
                 break;
             }

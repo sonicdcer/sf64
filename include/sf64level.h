@@ -88,6 +88,25 @@ typedef enum LevelId {
     /* 77 */ LEVEL_WARP_ZONE = 77,
 } LevelId;
 
+typedef enum PlanetId {
+    /* 0 */ PLANET_METEO,
+    /* 1 */ PLANET_AREA_6,
+    /* 2 */ PLANET_BOLSE,
+    /* 3 */ PLANET_SECTOR_Z,
+    /* 4 */ PLANET_SECTOR_X,
+    /* 5 */ PLANET_SECTOR_Y,
+    /* 6 */ PLANET_KATINA,
+    /* 7 */ PLANET_MACBETH,
+    /* 8 */ PLANET_ZONESS,
+    /* 9 */ PLANET_CORNERIA,
+    /* 10 */ PLANET_TITANIA,
+    /* 11 */ PLANET_AQUAS,
+    /* 12 */ PLANET_FORTUNA,
+    /* 13 */ PLANET_VENOM,
+    /* 14 */ PLANET_SOLAR,
+    /* 15 */ PLANET_MAX,
+} PlanetId;
+
 typedef enum VsStage {
     /* 0 */ VS_STAGE_CORNERIA,
     /* 1 */ VS_STAGE_KATINA,

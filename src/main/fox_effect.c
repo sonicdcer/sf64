@@ -532,9 +532,9 @@ void func_80078D60(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2) {
     effect->scale2 = scale2;
 
     if (scale2 == 3.1f) {
-        effect->vel.x = gObjects2F4[8].vel.x;
-        effect->vel.y = gObjects2F4[8].vel.y;
-        effect->vel.z = gObjects2F4[8].vel.z;
+        effect->vel.x = gActors[8].vel.x;
+        effect->vel.y = gActors[8].vel.y;
+        effect->vel.z = gActors[8].vel.z;
     }
     if (scale2 != 30.0f) {
         effect->unk_4E = 1;
@@ -2404,9 +2404,9 @@ void func_8007E6B8(Effect* effect, u32 objId, f32 posX, f32 posY, f32 posZ, f32 
     effect->obj.pos.z = posZ;
 
     Object_SetInfo(&effect->info, objId & 0xFFFF);
-    sp50 = Math_Atan2F(gPlayer->pos.x - posX, gPlayer->unk_138 - posZ);
-    temp_ft4 = sqrtf(SQ(gPlayer->unk_138 - posZ) + SQ(gPlayer->pos.x - posX));
-    sp54 = -Math_Atan2F(gPlayer->pos.y - posY, temp_ft4);
+    sp50 = Math_Atan2F(gPlayer[0].pos.x - posX, gPlayer[0].unk_138 - posZ);
+    temp_ft4 = sqrtf(SQ(gPlayer[0].pos.x - posX) + SQ(gPlayer[0].unk_138 - posZ));
+    sp54 = -Math_Atan2F(gPlayer[0].pos.y - posY, temp_ft4);
 
     Matrix_RotateY(gCalcMatrix, sp50, 0);
     Matrix_RotateX(gCalcMatrix, sp54, 1);
@@ -2460,10 +2460,10 @@ void func_8007E93C(Effect* effect, u32 objId, f32 posX, f32 posY, f32 posZ, f32 
     effect->obj.pos.y = posY;
     effect->obj.pos.z = posZ;
 
-    Object_SetInfo(&effect->info, objId & 0xFFFF);
-    sp50 = Math_Atan2F(gPlayer->camEye.x - posX, gPlayer->camEye.z - posZ);
-    temp_ft4 = sqrtf(SQ(gPlayer->camEye.z - posZ) + SQ(gPlayer->camEye.x - posX));
-    sp54 = -Math_Atan2F(gPlayer->camEye.y - posY, temp_ft4);
+    Object_SetInfo(&effect->info, effect->obj.id);
+    sp50 = Math_Atan2F(gPlayer[0].camEye.x - posX, gPlayer[0].camEye.z - posZ);
+    temp_ft4 = sqrtf(SQ(gPlayer[0].camEye.x - posX) + SQ(gPlayer[0].camEye.z - posZ));
+    sp54 = -Math_Atan2F(gPlayer[0].camEye.y - posY, temp_ft4);
 
     Matrix_RotateY(gCalcMatrix, sp50, 0);
     Matrix_RotateX(gCalcMatrix, sp54, 1);
@@ -2608,7 +2608,7 @@ void func_8007F04C(s32 objId, f32 posX, f32 posY, f32 posZ, f32 rotX, f32 rotY, 
 void func_8007F11C(s32 objId, f32 posX, f32 posY, f32 posZ, f32 arg4) {
     s32 i;
 
-    if ((fabsf(posZ - gPlayer->unk_138) > 300.0f) || (fabsf(posX - gPlayer->pos.x) > 300.0f)) {
+    if ((fabsf(posZ - gPlayer[0].unk_138) > 300.0f) || (fabsf(posX - gPlayer[0].pos.x) > 300.0f)) {
         for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
             if (gEffects[i].obj.status == 0) {
                 Matrix_Push(&gCalcMatrix);
@@ -2623,7 +2623,7 @@ void func_8007F11C(s32 objId, f32 posX, f32 posY, f32 posZ, f32 arg4) {
 void func_8007F20C(s32 objId, f32 posX, f32 posY, f32 posZ, f32 arg4) {
     s32 i;
 
-    if ((fabsf(posZ - gPlayer->camEye.z) > 300.0f) || (fabsf(posX - gPlayer->camEye.x) > 300.0f)) {
+    if ((fabsf(posZ - gPlayer[0].camEye.z) > 300.0f) || (fabsf(posX - gPlayer[0].camEye.x) > 300.0f)) {
         for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
             if (gEffects[i].obj.status == 0) {
                 Matrix_Push(&gCalcMatrix);
@@ -2842,22 +2842,22 @@ void func_8007FBE0(Effect* effect) {
 
 bool func_8007FD84(Effect* effect) {
     s32 i;
-    Object_2F4* obj2F4;
+    Actor* actor;
 
     for (i = 1; i < ARRAY_COUNT(D_800CFF80); i++) {
-        obj2F4 = &gObjects2F4[D_800CFF80[i]];
-        if (obj2F4->obj.status == 2) {
-            if ((obj2F4->unk_080 > 0) && (obj2F4->unk_080 < 6) &&
-                (fabsf(obj2F4->obj.pos.z - effect->obj.pos.z) < 100.0f) &&
-                (fabsf(obj2F4->obj.pos.x - effect->obj.pos.x) < 100.0f) &&
-                (fabsf(obj2F4->obj.pos.y - effect->obj.pos.y) < 100.0f)) {
-                obj2F4->unk_0D0 = 1;
-                obj2F4->unk_0D2 = 0;
-                obj2F4->unk_0D6 = 10;
+        actor = &gActors[D_800CFF80[i]];
+        if (actor->obj.status == 2) {
+            if ((actor->iwork[12] > 0) && (actor->iwork[12] < 6) &&
+                (fabsf(actor->obj.pos.z - effect->obj.pos.z) < 100.0f) &&
+                (fabsf(actor->obj.pos.x - effect->obj.pos.x) < 100.0f) &&
+                (fabsf(actor->obj.pos.y - effect->obj.pos.y) < 100.0f)) {
+                actor->unk_0D0 = 1;
+                actor->unk_0D2 = 0;
+                actor->unk_0D6 = 10;
                 if (effect->obj.id == OBJ_EFFECT_354) {
-                    obj2F4->unk_0D6 = 30;
+                    actor->unk_0D6 = 30;
                 }
-                obj2F4->unk_0D4 = 100;
+                actor->unk_0D4 = 100;
                 return true;
             }
         }
@@ -2881,14 +2881,14 @@ void func_8007FE88(Effect* effect) {
         return;
     }
 
-    if (gPlayer->unk_280 != 0) {
+    if (gPlayer[0].unk_280 != 0) {
         var_fa0 = 100.0f;
     }
 
-    if (fabsf(gPlayer->unk_138 - effect->obj.pos.z) < (50.0f + var_fa0)) {
-        if ((fabsf(gPlayer->pos.x - effect->obj.pos.x) < (30.0f + var_fa0)) &&
-            (fabsf(gPlayer->pos.y - effect->obj.pos.y) < (30.0f + var_fa0))) {
-            if ((gPlayer->unk_280 != 0) || (gPlayer->timer_27C != 0)) {
+    if (fabsf(gPlayer[0].unk_138 - effect->obj.pos.z) < (50.0f + var_fa0)) {
+        if ((fabsf(gPlayer[0].pos.x - effect->obj.pos.x) < (30.0f + var_fa0)) &&
+            (fabsf(gPlayer[0].pos.y - effect->obj.pos.y) < (30.0f + var_fa0))) {
+            if ((gPlayer[0].unk_280 != 0) || (gPlayer[0].timer_27C != 0)) {
                 effect->obj.rot.y = 90.0f;
                 effect->obj.rot.x = Rand_ZeroOne() * 360.0f;
                 Matrix_RotateY(gCalcMatrix, effect->obj.rot.y * M_DTOR, 0);
@@ -2900,20 +2900,20 @@ void func_8007FE88(Effect* effect) {
                 effect->vel.x = destVelocity.x;
                 effect->vel.y = destVelocity.y;
                 effect->vel.z = destVelocity.z;
-                gPlayer->unk_2C4 += 1;
+                gPlayer[0].unk_2C4 += 1;
                 Audio_PlaySfx(0x09007011, &effect->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
 
-            if ((gPlayer->unk_280 == 0) && (gPlayer->timer_498 == 0)) {
+            if ((gPlayer[0].unk_280 == 0) && (gPlayer[0].timer_498 == 0)) {
                 Player_ApplyDamage(gPlayer, 0, effect->info.damage);
-                gPlayer->unk_0D8.x = 20.0f;
+                gPlayer[0].unk_0D8.x = 20.0f;
                 if (effect->vel.x < 0.0f) {
-                    gPlayer->unk_0D8.x *= -1.0f;
+                    gPlayer[0].unk_0D8.x *= -1.0f;
                 }
                 if (gCurrentLevel != LEVEL_MACBETH) {
-                    gPlayer->unk_0D8.y = 20.0f;
+                    gPlayer[0].unk_0D8.y = 20.0f;
                     if (effect->vel.y < 0.0f) {
-                        gPlayer->unk_0D8.y *= -1.0f;
+                        gPlayer[0].unk_0D8.y *= -1.0f;
                     }
                 }
                 Object_Kill(&effect->obj, &effect->sfxPos);
@@ -2987,9 +2987,9 @@ void func_8008040C(Effect* effect) {
 
     switch (effect->unk_4E) {
         case 0:
-            rotY = Math_Atan2F(gPlayer->pos.x - effect->obj.pos.x, gPlayer->unk_138 - effect->obj.pos.z);
-            temp = sqrtf(SQ(gPlayer->unk_138 - effect->obj.pos.z) + SQ(gPlayer->pos.x - effect->obj.pos.x));
-            rotX = -Math_Atan2F(gPlayer->pos.y - effect->obj.pos.y, temp);
+            rotY = Math_Atan2F(gPlayer[0].pos.x - effect->obj.pos.x, gPlayer[0].unk_138 - effect->obj.pos.z);
+            temp = sqrtf(SQ(gPlayer[0].pos.x - effect->obj.pos.x) + SQ(gPlayer[0].unk_138 - effect->obj.pos.z));
+            rotX = -Math_Atan2F(gPlayer[0].pos.y - effect->obj.pos.y, temp);
             Matrix_RotateY(gCalcMatrix, rotY, 0);
             Matrix_RotateX(gCalcMatrix, rotX, 1);
             srcVelocity.y = 0.0f;
@@ -3014,14 +3014,14 @@ void func_8008040C(Effect* effect) {
                 return;
             }
 
-            if (gPlayer->unk_280 != 0) {
+            if (gPlayer[0].unk_280 != 0) {
                 var_fa0 = 100.0f;
             }
 
-            if (fabsf(gPlayer->unk_138 - effect->obj.pos.z) < (50.0f + var_fa0)) {
-                if ((fabsf(gPlayer->pos.x - effect->obj.pos.x) < (30.0f + var_fa0)) &&
-                    (fabsf(gPlayer->pos.y - effect->obj.pos.y) < (30.0f + var_fa0))) {
-                    if ((gPlayer->unk_280 != 0) || (gPlayer->timer_27C != 0)) {
+            if (fabsf(gPlayer[0].unk_138 - effect->obj.pos.z) < (50.0f + var_fa0)) {
+                if ((fabsf(gPlayer[0].pos.x - effect->obj.pos.x) < (30.0f + var_fa0)) &&
+                    (fabsf(gPlayer[0].pos.y - effect->obj.pos.y) < (30.0f + var_fa0))) {
+                    if ((gPlayer[0].unk_280 != 0) || (gPlayer[0].timer_27C != 0)) {
                         effect->obj.rot.y = 90.0f;
                         effect->obj.rot.x = Rand_ZeroOne() * 360.0f;
                         Matrix_RotateY(gCalcMatrix, effect->obj.rot.y * M_DTOR, 0);
@@ -3033,19 +3033,19 @@ void func_8008040C(Effect* effect) {
                         effect->vel.x = destVelocity.x;
                         effect->vel.y = destVelocity.y;
                         effect->vel.z = destVelocity.z;
-                        gPlayer->unk_2C4++;
+                        gPlayer[0].unk_2C4++;
                         Audio_PlaySfx(0x09007011, &effect->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                     }
 
-                    if ((gPlayer->unk_280 == 0) && (gPlayer->timer_498 == 0)) {
+                    if ((gPlayer[0].unk_280 == 0) && (gPlayer[0].timer_498 == 0)) {
                         Player_ApplyDamage(gPlayer, 0, effect->info.damage);
-                        gPlayer->unk_0D8.x = 20.0f;
+                        gPlayer[0].unk_0D8.x = 20.0f;
                         if (effect->vel.x < 0.0f) {
-                            gPlayer->unk_0D8.x *= -1.0f;
+                            gPlayer[0].unk_0D8.x *= -1.0f;
                         }
-                        gPlayer->unk_0D8.y = 20.0f;
+                        gPlayer[0].unk_0D8.y = 20.0f;
                         if (effect->vel.y < 0.0f) {
-                            gPlayer->unk_0D8.y *= -1.0f;
+                            gPlayer[0].unk_0D8.y *= -1.0f;
                         }
                         Object_Kill(&effect->obj, &effect->sfxPos);
                     }
@@ -3496,6 +3496,7 @@ void func_80081C5C(Effect* effect) {
     s32 unusedOut;
     Vec3f velocity;
     Vec3f velocityDest;
+    // f32 pad;
 
     velocity.x = effect->vel.x;
     velocity.y = effect->vel.y;
@@ -3603,7 +3604,7 @@ void func_80081C5C(Effect* effect) {
             if (effect->unk_44 != 0) {
                 Object_Kill(&effect->obj, &effect->sfxPos);
                 func_8007D0E0(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 5.0f);
-            } else if (fabsf(gPlayer->unk_138 - effect->obj.pos.z) < 1000.0f) {
+            } else if (fabsf(gPlayer[0].unk_138 - effect->obj.pos.z) < 1000.0f) {
                 func_8006F0D8(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 15.0f);
                 Object_Kill(&effect->obj, &effect->sfxPos);
             }
@@ -3658,11 +3659,7 @@ void func_80081C5C(Effect* effect) {
                 case LEVEL_ZONESS:
                     if (!(gFrameCount & 3)) {
                         // clang-format off
-                        func_80081A8C(effect->obj.pos.x, 
-                                      effect->obj.pos.y,
-                                      effect->obj.pos.z,
-                                      effect->scale2 * 3.0f,
-                                      6);
+                        func_80081A8C(effect->obj.pos.x,  effect->obj.pos.y, effect->obj.pos.z, effect->scale2 * 3.0f, 6);
                         // clang-format on
                     }
 
@@ -3684,8 +3681,8 @@ void func_80081C5C(Effect* effect) {
 
         case 8:
             Math_SmoothStepToF(D_801779A8, 30.0f, 1.0f, 5.0f, 0.0f);
-            Matrix_RotateY(gCalcMatrix, gBosses->obj.rot.y * M_DTOR, 0);
-            Matrix_RotateX(gCalcMatrix, gBosses->obj.rot.x * M_DTOR, 1);
+            Matrix_RotateY(gCalcMatrix, gBosses[0].obj.rot.y * M_DTOR, 0);
+            Matrix_RotateX(gCalcMatrix, gBosses[0].obj.rot.x * M_DTOR, 1);
 
             velocity.y = 0.0f;
             velocity.x = 0;
@@ -3707,10 +3704,10 @@ void func_80081C5C(Effect* effect) {
                     Math_SmoothStepToF(&effect->scale2, 6.0f, 0.01f, 0.05f, 0.00001f);
                     if (effect->scale2 >= 5.0f) {
                         gEffects[ARRAY_COUNT(gEffects) - 1].obj.status =
-                            (gEffects[ARRAY_COUNT(gEffects) - 2].obj.status = 0);
+                            gEffects[ARRAY_COUNT(gEffects) - 2].obj.status = 0;
                         func_80081BEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 1.0f, 10);
-                        D_80178348 = (D_80178350 = (D_80178354 = 0xFF));
-                        D_80178340 = (D_80178358 = 0xFF);
+                        D_80178348 = D_80178350 = D_80178354 = 0xFF;
+                        D_80178340 = D_80178358 = 0xFF;
                         D_80178358 = 0;
                         D_8017835C = 25;
                         effect->timer_50 = 10;
@@ -3726,9 +3723,9 @@ void func_80081C5C(Effect* effect) {
                     Math_SmoothStepToF(&effect->scale2, 8.0f, 0.1f, 1.0f, 0.00001f);
                     if (effect->timer_50 == 0) {
                         if (D_80178340 != 0) {
-                            D_80178348 = (D_80178350 = (D_80178354 = (D_80178340 = 0)));
+                            D_80178348 = D_80178350 = D_80178354 = D_80178340 = 0;
                         }
-                        effect->timer_50 = gBosses->timer_050;
+                        effect->timer_50 = gBosses[0].timer_050;
                         effect->unk_44++;
                     }
                     break;
@@ -3752,7 +3749,7 @@ void func_80081C5C(Effect* effect) {
             posZDiff = gBosses[0].obj.pos.z - effect->obj.pos.z;
 
             yRotDeg = Math_RadToDeg(Math_Atan2F(posXDiff, posZDiff));
-            xRotDeg = Math_RadToDeg(-Math_Atan2F(posYDiff, sqrtf((posXDiff * posXDiff) + (posZDiff * posZDiff))));
+            xRotDeg = Math_RadToDeg(-Math_Atan2F(posYDiff, sqrtf(SQ(posXDiff) + SQ(posZDiff))));
 
             Matrix_RotateY(gCalcMatrix, M_DTOR * yRotDeg, 0);
             Matrix_RotateX(gCalcMatrix, M_DTOR * xRotDeg, 1);
@@ -3794,19 +3791,17 @@ void func_80081C5C(Effect* effect) {
                         effect->unk_46 -= 1;
                     }
                     if ((!(gFrameCount & 0xF)) && (effect->timer_50 == 0)) {
-                        D_800D18EC = (Math_Atan2F(gPlayer->camEye.x - gBosses->obj.pos.x,
-                                                  gPlayer->camEye.z - (gBosses->obj.pos.z + D_80177D20)) *
-                                      180.0f) /
-                                     M_PI;
-                        D_800D18E8 =
-                            ((-Math_Atan2F(gPlayer->camEye.y - gBosses->obj.pos.y,
-                                           sqrtf(SQ(gPlayer->camEye.x - gBosses->obj.pos.x) +
-                                                 SQ((gPlayer->camEye.z - (gBosses->obj.pos.z + D_80177D20)))))) *
-                             180.0f) /
-                            M_PI;
+                        D_800D18EC = Math_Atan2F(gPlayer[0].camEye.x - gBosses[0].obj.pos.x,
+                                                 gPlayer[0].camEye.z - (gBosses[0].obj.pos.z + D_80177D20)) *
+                                     180.0f / M_PI;
+
+                        D_800D18E8 = -Math_Atan2F(gPlayer[0].camEye.y - gBosses[0].obj.pos.y,
+                                                  sqrtf(SQ(gPlayer[0].camEye.z - (gBosses[0].obj.pos.z + D_80177D20)) +
+                                                        SQ(gPlayer[0].camEye.x - gBosses[0].obj.pos.x))) *
+                                     180.0f / M_PI;
                     }
-                    if (gBosses->timer_050 == 0) {
-                        gBosses->swork[39] = effect->index;
+                    if (gBosses[0].timer_050 == 0) {
+                        gBosses[0].swork[39] = effect->index;
                         effect->unk_44 = 1;
                     }
                     break;
@@ -3818,24 +3813,24 @@ void func_80081C5C(Effect* effect) {
 
             effect->info.unk_14 = 0;
 
-            Math_SmoothStepToAngle(&gBosses->obj.rot.x, D_800D18E8, 0.1f, 1.0f, 0.00001f);
-            Math_SmoothStepToAngle(&gBosses->obj.rot.y, D_800D18EC, 0.1f, 1.0f, 0.00001f);
+            Math_SmoothStepToAngle(&gBosses[0].obj.rot.x, D_800D18E8, 0.1f, 1.0f, 0.00001f);
+            Math_SmoothStepToAngle(&gBosses[0].obj.rot.y, D_800D18EC, 0.1f, 1.0f, 0.00001f);
 
-            effect->obj.rot.x = gBosses->obj.rot.x;
-            effect->obj.rot.y = gBosses->obj.rot.y;
+            effect->obj.rot.x = gBosses[0].obj.rot.x;
+            effect->obj.rot.y = gBosses[0].obj.rot.y;
             effect->obj.rot.z += 30.0f;
 
-            Matrix_RotateY(gCalcMatrix, gBosses->obj.rot.y * M_DTOR, 0);
-            Matrix_RotateX(gCalcMatrix, gBosses->obj.rot.x * M_DTOR, 1);
+            Matrix_RotateY(gCalcMatrix, gBosses[0].obj.rot.y * M_DTOR, 0);
+            Matrix_RotateX(gCalcMatrix, gBosses[0].obj.rot.x * M_DTOR, 1);
 
             velocity.x = velocity.y = 0.0f;
             velocity.z = 250.0f;
 
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &velocity, &velocityDest);
 
-            effect->obj.pos.x = gBosses->obj.pos.x + velocityDest.x;
-            effect->obj.pos.y = gBosses->obj.pos.y + velocityDest.y;
-            effect->obj.pos.z = gBosses->obj.pos.z + velocityDest.z;
+            effect->obj.pos.x = gBosses[0].obj.pos.x + velocityDest.x;
+            effect->obj.pos.y = gBosses[0].obj.pos.y + velocityDest.y;
+            effect->obj.pos.z = gBosses[0].obj.pos.z + velocityDest.z;
 
             if (effect->unk_44 == 0) {
                 Math_SmoothStepToF(&effect->unk_60.x, 5.0f, 0.1f, 1.0f, 0.00001f);
@@ -3844,14 +3839,14 @@ void func_80081C5C(Effect* effect) {
             }
 
             velocity.x = velocity.y = 0.0f;
-            velocity.z = fabsf(gPlayer->unk_138 - effect->obj.pos.z);
+            velocity.z = fabsf(gPlayer[0].unk_138 - effect->obj.pos.z);
 
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &velocity, &velocityDest);
 
             if ((((effect->timer_50 == 0) &&
-                  (fabsf(gPlayer->pos.x - (effect->obj.pos.x + velocityDest.x)) <= (effect->unk_60.x * 50.0f))) &&
-                 (fabsf(gPlayer->pos.y - (effect->obj.pos.y + velocityDest.y)) <= (effect->unk_60.y * 50.0f))) &&
-                (gPlayer->timer_498 == 0)) {
+                  (fabsf(gPlayer[0].pos.x - (effect->obj.pos.x + velocityDest.x)) <= (effect->unk_60.x * 50.0f))) &&
+                 (fabsf(gPlayer[0].pos.y - (effect->obj.pos.y + velocityDest.y)) <= (effect->unk_60.y * 50.0f))) &&
+                (gPlayer[0].timer_498 == 0)) {
                 Player_ApplyDamage(gPlayer, 0, 40);
             }
             break;
@@ -4085,7 +4080,7 @@ void func_800837EC(Effect* effect) {
     }
 
     effect->obj.rot.y =
-        (Math_Atan2F(gPlayer->camEye.x - effect->obj.pos.x, gPlayer->camEye.z - (effect->obj.pos.z + D_80177D20)) *
+        (Math_Atan2F(gPlayer[0].camEye.x - effect->obj.pos.x, gPlayer[0].camEye.z - (effect->obj.pos.z + D_80177D20)) *
          180.0f) /
         M_PI;
 }
@@ -4148,9 +4143,9 @@ void func_80083D2C(f32 posX, f32 posY, f32 posZ, f32 srcZ) {
         }
     }
 
-    x = gPlayer->pos.x + xSway - posX;
-    y = gPlayer->pos.y - posY;
-    z = gPlayer->unk_138 - posZ;
+    x = gPlayer[0].pos.x + xSway - posX;
+    y = gPlayer[0].pos.y - posY;
+    z = gPlayer[0].unk_138 - posZ;
 
     rotY = Math_Atan2F(x, z);
     rotX = -Math_Atan2F(y, sqrtf(SQ(x) + SQ(z)));
@@ -4193,8 +4188,8 @@ void func_80083FA8(Effect* effect) {
         return;
     }
 
-    effect->obj.rot.y = (-gPlayer->unk_058 * 180.0f) / M_PI;
-    effect->obj.rot.x = (gPlayer->unk_05C * 180.0f) / M_PI;
+    effect->obj.rot.y = (-gPlayer[0].unk_058 * 180.0f) / M_PI;
+    effect->obj.rot.x = (gPlayer[0].unk_05C * 180.0f) / M_PI;
     effect->obj.rot.z += 20.0f;
 
     Matrix_RotateZ(gCalcMatrix, effect->unk_60.z * M_DTOR, 0);

@@ -280,7 +280,7 @@
       - [0xD31D0, .data, fox_std_lib]
       - [0xD3460, .data, fox_game]
       - [0xD3520, .data, fox_A4290]
-      - [0xD3B50, data, fox_play]
+      - [0xD3B50, .data, fox_play]
       - [0xD3DB0, .data, fox_rcp]
       - [0xD5670, .data, fox_radio]
       - [0xD5680, .data, fox_reset]

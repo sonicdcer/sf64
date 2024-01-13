@@ -43,7 +43,7 @@ typedef struct {
 } CollisionHeader2; // size = 0x24
 
 typedef enum {
-    /*  0 */ COL1_0, // OBJ_2F4_180
+    /*  0 */ COL1_0, // OBJ_ACTOR_180
     /*  1 */ COL1_1, // OBJ_80_39
     /*  2 */ COL1_2,
     /*  3 */ COL1_3, // OBJ_UNK_1000
@@ -248,44 +248,24 @@ typedef struct {
     /* 0x04A */ s16 unk_04A;
     /* 0x04C */ s16 timer_04C;
     /* 0x04E */ s16 unk_04E;
-    /* 0x050 */ bool unk_050;
-    /* 0x054 */ bool unk_054;
-    /* 0x058 */ s32 unk_058;
-    /* 0x05C */ s32 unk_05C;
-    /* 0x060 */ s32 unk_060;
-    /* 0x064 */ s32 unk_064;
-    /* 0x068 */ s32 unk_068;
-    /* 0x06C */ s32 unk_06C;
-    /* 0x070 */ s32 unk_070;
-    /* 0x074 */ s32 unk_074;
-    /* 0x078 */ s32 unk_078;
-    /* 0x07C */ s32 unk_07C;
-    /* 0x080 */ s32 unk_080;
-    /* 0x084 */ s32 unk_084;
-    /* 0x088 */ s32 unk_088;
-    /* 0x08C */ s32 unk_08C;
-    /* 0x090 */ s32 unk_090;
-    /* 0x094 */ s32 unk_094;
-    /* 0x098 */ s32 unk_098;
-    /* 0x09C */ s32 unk_09C;
-    /* 0x0A0 */ char padA0[0x10];
-    /* 0x0B0 */ s32 unk_0B0;
+    /* 0x050 */ s32 iwork[25];
     /* 0x0B4 */ s16 unk_0B4;
     /* 0x0B6 */ s16 unk_0B6;
     /* 0x0B8 */ s16 unk_0B8;
     /* 0x0BA */ char pad0BA[0x2];
     /* 0x0BC */ u16 timer_0BC;
-    /* 0x0BC */ u16 timer_0BE;
+    /* 0x0BE */ u16 timer_0BE;
     /* 0x0C0 */ u16 timer_0C0;
     /* 0x0C2 */ u16 timer_0C2;
     /* 0x0C4 */ u16 timer_0C4;
     /* 0x0C6 */ u16 timer_0C6;
     /* 0x0C8 */ u8 unk_0C8;
     /* 0x0C9 */ u8 unk_0C9;
-    /* 0x0C9 */ u8 timer_0CA[4];
+    /* 0x0CA */ u8 timer_0CA[4];
     /* 0x0CE */ s16 unk_0CE;
     /* 0x0D0 */ s8 unk_0D0;
-    /* 0x0D1 */ s16 unk_0D2;
+    /* 0x0D1 */ char pad0D1[0x1];
+    /* 0x0D2 */ s16 unk_0D2;
     /* 0x0D4 */ s16 unk_0D4;
     /* 0x0D6 */ u16 unk_0D6;
     /* 0x0D8 */ Vec3f unk_0D8;
@@ -296,38 +276,9 @@ typedef struct {
     /* 0x100 */ Vec3f sfxPos;
     /* 0x10C */ f32 gravity;
     /* 0x110 */ f32 scale;
-    /* 0x114 */ f32 unk_114;
-    /* 0x118 */ f32 unk_118;
-    /* 0x11C */ f32 unk_11C;
-    /* 0x120 */ f32 unk_120;
-    /* 0x124 */ Vec3f unk_124;
-    /* 0x130 */ f32 unk_130;
-    /* 0x134 */ f32 unk_134;
-    /* 0x138 */ f32 unk_138;
-    /* 0x13C */ f32 unk_13C;
-    /* 0x140 */ f32 unk_140;
-    /* 0x144 */ f32 unk_144;
-    /* 0x148 */ f32 unk_148;
-    /* 0x14C */ f32 unk_14C;
-    /* 0x150 */ f32 unk_150;
-    /* 0x154 */ f32 unk_154;
-    /* 0x158 */ f32 unk_158;
-    /* 0x15C */ f32 unk_15C;
-    /* 0x160 */ f32 unk_160;
-    /* 0x164 */ f32 unk_164;
-    /* 0x168 */ f32 unk_168;
-    /* 0x16C */ f32 unk_16C;
-    /* 0x170 */ f32 unk_170;
-    /* 0x174 */ f32 unk_174;
-    /* 0x178 */ f32 unk_178;
-    /* 0x17C */ f32 unk_17C;
-    /* 0x180 */ f32 unk_180;
-    /* 0x184 */ f32 unk_184;
-    /* 0x188 */ f32 unk_188;
-    /* 0x18C */ Vec3f unk_18C[28]; // could be joint table
-    /* 0x2DC */ Vec3f unk_2DC;
-    /* 0x2E8 */ Vec3f unk_2E8;
-} Object_2F4; // size = 0x2F4
+    /* 0x114 */ f32 fwork[30];
+    /* 0x18C */ Vec3f vwork[30];
+} Actor; // size = 0x2F4
 
 typedef enum{
   /*  -1 */  OBJ_INVALID=-1,
@@ -507,122 +458,122 @@ typedef enum{
   /* 173 */  OBJ_4C_173,
   /* 174 */  OBJ_4C_174,
   /* 175 */  OBJ_4C_175,
-  /* 176 */  OBJ_2F4_176,
-  /* 177 */  OBJ_2F4_177,
-  /* 178 */  OBJ_2F4_178,
-  /* 179 */  OBJ_2F4_179,
-  /* 180 */  OBJ_2F4_180,
-  /* 181 */  OBJ_2F4_181,
-  /* 182 */  OBJ_2F4_182,
-  /* 183 */  OBJ_2F4_183,
-  /* 184 */  OBJ_2F4_184,
-  /* 185 */  OBJ_2F4_185,
-  /* 186 */  OBJ_2F4_186,
-  /* 187 */  OBJ_2F4_187,
-  /* 188 */  OBJ_2F4_188,
-  /* 189 */  OBJ_2F4_189,
-  /* 190 */  OBJ_2F4_190,
-  /* 191 */  OBJ_2F4_191,
-  /* 192 */  OBJ_2F4_192,
-  /* 193 */  OBJ_2F4_193,
-  /* 194 */  OBJ_2F4_194,
-  /* 195 */  OBJ_2F4_195,
-  /* 196 */  OBJ_2F4_196,
-  /* 197 */  OBJ_2F4_197,
-  /* 198 */  OBJ_2F4_198,
-  /* 199 */  OBJ_2F4_199,
-  /* 200 */  OBJ_2F4_200,
-  /* 201 */  OBJ_2F4_201,
-  /* 202 */  OBJ_2F4_202,
-  /* 203 */  OBJ_2F4_203,
-  /* 204 */  OBJ_2F4_204,
-  /* 205 */  OBJ_2F4_205,
-  /* 206 */  OBJ_2F4_206,
-  /* 207 */  OBJ_2F4_207,
-  /* 208 */  OBJ_2F4_208,
-  /* 209 */  OBJ_2F4_209,
-  /* 210 */  OBJ_2F4_210,
-  /* 211 */  OBJ_2F4_211,
-  /* 212 */  OBJ_2F4_212,
-  /* 213 */  OBJ_2F4_213,
-  /* 214 */  OBJ_2F4_214,
-  /* 215 */  OBJ_2F4_215,
-  /* 216 */  OBJ_2F4_216,
-  /* 217 */  OBJ_2F4_217,
-  /* 218 */  OBJ_2F4_218,
-  /* 219 */  OBJ_2F4_219,
-  /* 220 */  OBJ_2F4_220,
-  /* 221 */  OBJ_2F4_221,
-  /* 222 */  OBJ_2F4_222,
-  /* 223 */  OBJ_2F4_223,
-  /* 224 */  OBJ_2F4_224,
-  /* 225 */  OBJ_2F4_225,
-  /* 226 */  OBJ_2F4_226,
-  /* 227 */  OBJ_2F4_227,
-  /* 228 */  OBJ_2F4_228,
-  /* 229 */  OBJ_2F4_229,
-  /* 230 */  OBJ_2F4_230,
-  /* 231 */  OBJ_2F4_231,
-  /* 232 */  OBJ_2F4_232,
-  /* 233 */  OBJ_2F4_233,
-  /* 234 */  OBJ_2F4_234,
-  /* 235 */  OBJ_2F4_235,
-  /* 236 */  OBJ_2F4_236,
-  /* 237 */  OBJ_2F4_237,
-  /* 238 */  OBJ_2F4_238,
-  /* 239 */  OBJ_2F4_239,
-  /* 240 */  OBJ_2F4_240,
-  /* 241 */  OBJ_2F4_241,
-  /* 242 */  OBJ_2F4_242,
-  /* 243 */  OBJ_2F4_243,
-  /* 244 */  OBJ_2F4_244,
-  /* 245 */  OBJ_2F4_245,
-  /* 246 */  OBJ_2F4_246,
-  /* 247 */  OBJ_2F4_247,
-  /* 248 */  OBJ_2F4_248,
-  /* 249 */  OBJ_2F4_249,
-  /* 250 */  OBJ_2F4_250,
-  /* 251 */  OBJ_2F4_251,
-  /* 252 */  OBJ_2F4_252,
-  /* 253 */  OBJ_2F4_253,
-  /* 254 */  OBJ_2F4_254,
-  /* 255 */  OBJ_2F4_255,
-  /* 256 */  OBJ_2F4_256,
-  /* 257 */  OBJ_2F4_257,
-  /* 258 */  OBJ_2F4_258,
-  /* 259 */  OBJ_2F4_259,
-  /* 260 */  OBJ_2F4_260,
-  /* 261 */  OBJ_2F4_261,
-  /* 262 */  OBJ_2F4_262,
-  /* 263 */  OBJ_2F4_263,
-  /* 264 */  OBJ_2F4_264,
-  /* 265 */  OBJ_2F4_265,
-  /* 266 */  OBJ_2F4_266,
-  /* 267 */  OBJ_2F4_267,
-  /* 268 */  OBJ_2F4_268,
-  /* 269 */  OBJ_2F4_269,
-  /* 270 */  OBJ_2F4_270,
-  /* 271 */  OBJ_2F4_271,
-  /* 272 */  OBJ_2F4_272,
-  /* 273 */  OBJ_2F4_273,
-  /* 274 */  OBJ_2F4_274,
-  /* 275 */  OBJ_2F4_275,
-  /* 276 */  OBJ_2F4_276,
-  /* 277 */  OBJ_2F4_277,
-  /* 278 */  OBJ_2F4_278,
-  /* 279 */  OBJ_2F4_279,
-  /* 280 */  OBJ_2F4_280,
-  /* 281 */  OBJ_2F4_281,
-  /* 282 */  OBJ_2F4_282,
-  /* 283 */  OBJ_2F4_283,
-  /* 284 */  OBJ_2F4_284,
-  /* 285 */  OBJ_2F4_285,
-  /* 286 */  OBJ_2F4_286,
-  /* 287 */  OBJ_2F4_287,
-  /* 288 */  OBJ_2F4_288,
-  /* 289 */  OBJ_2F4_289,
-  /* 290 */  OBJ_2F4_290,
-  /* 291 */  OBJ_2F4_291,
+  /* 176 */  OBJ_ACTOR_176,
+  /* 177 */  OBJ_ACTOR_177,
+  /* 178 */  OBJ_ACTOR_178,
+  /* 179 */  OBJ_ACTOR_179,
+  /* 180 */  OBJ_ACTOR_180,
+  /* 181 */  OBJ_ACTOR_181,
+  /* 182 */  OBJ_ACTOR_182,
+  /* 183 */  OBJ_ACTOR_183,
+  /* 184 */  OBJ_ACTOR_184,
+  /* 185 */  OBJ_ACTOR_185,
+  /* 186 */  OBJ_ACTOR_186,
+  /* 187 */  OBJ_ACTOR_187,
+  /* 188 */  OBJ_ACTOR_188,
+  /* 189 */  OBJ_ACTOR_189,
+  /* 190 */  OBJ_ACTOR_190,
+  /* 191 */  OBJ_ACTOR_191,
+  /* 192 */  OBJ_ACTOR_192,
+  /* 193 */  OBJ_ACTOR_193,
+  /* 194 */  OBJ_ACTOR_194,
+  /* 195 */  OBJ_ACTOR_195,
+  /* 196 */  OBJ_ACTOR_196,
+  /* 197 */  OBJ_ACTOR_197,
+  /* 198 */  OBJ_ACTOR_198,
+  /* 199 */  OBJ_ACTOR_199,
+  /* 200 */  OBJ_ACTOR_200,
+  /* 201 */  OBJ_ACTOR_201,
+  /* 202 */  OBJ_ACTOR_202,
+  /* 203 */  OBJ_ACTOR_203,
+  /* 204 */  OBJ_ACTOR_204,
+  /* 205 */  OBJ_ACTOR_205,
+  /* 206 */  OBJ_ACTOR_206,
+  /* 207 */  OBJ_ACTOR_207,
+  /* 208 */  OBJ_ACTOR_208,
+  /* 209 */  OBJ_ACTOR_209,
+  /* 210 */  OBJ_ACTOR_210,
+  /* 211 */  OBJ_ACTOR_211,
+  /* 212 */  OBJ_ACTOR_212,
+  /* 213 */  OBJ_ACTOR_213,
+  /* 214 */  OBJ_ACTOR_214,
+  /* 215 */  OBJ_ACTOR_215,
+  /* 216 */  OBJ_ACTOR_216,
+  /* 217 */  OBJ_ACTOR_217,
+  /* 218 */  OBJ_ACTOR_218,
+  /* 219 */  OBJ_ACTOR_219,
+  /* 220 */  OBJ_ACTOR_220,
+  /* 221 */  OBJ_ACTOR_221,
+  /* 222 */  OBJ_ACTOR_222,
+  /* 223 */  OBJ_ACTOR_223,
+  /* 224 */  OBJ_ACTOR_224,
+  /* 225 */  OBJ_ACTOR_225,
+  /* 226 */  OBJ_ACTOR_226,
+  /* 227 */  OBJ_ACTOR_227,
+  /* 228 */  OBJ_ACTOR_228,
+  /* 229 */  OBJ_ACTOR_229,
+  /* 230 */  OBJ_ACTOR_230,
+  /* 231 */  OBJ_ACTOR_231,
+  /* 232 */  OBJ_ACTOR_232,
+  /* 233 */  OBJ_ACTOR_233,
+  /* 234 */  OBJ_ACTOR_234,
+  /* 235 */  OBJ_ACTOR_235,
+  /* 236 */  OBJ_ACTOR_236,
+  /* 237 */  OBJ_ACTOR_237,
+  /* 238 */  OBJ_ACTOR_238,
+  /* 239 */  OBJ_ACTOR_239,
+  /* 240 */  OBJ_ACTOR_240,
+  /* 241 */  OBJ_ACTOR_241,
+  /* 242 */  OBJ_ACTOR_242,
+  /* 243 */  OBJ_ACTOR_243,
+  /* 244 */  OBJ_ACTOR_244,
+  /* 245 */  OBJ_ACTOR_245,
+  /* 246 */  OBJ_ACTOR_246,
+  /* 247 */  OBJ_ACTOR_247,
+  /* 248 */  OBJ_ACTOR_248,
+  /* 249 */  OBJ_ACTOR_249,
+  /* 250 */  OBJ_ACTOR_250,
+  /* 251 */  OBJ_ACTOR_251,
+  /* 252 */  OBJ_ACTOR_252,
+  /* 253 */  OBJ_ACTOR_253,
+  /* 254 */  OBJ_ACTOR_254,
+  /* 255 */  OBJ_ACTOR_255,
+  /* 256 */  OBJ_ACTOR_256,
+  /* 257 */  OBJ_ACTOR_257,
+  /* 258 */  OBJ_ACTOR_258,
+  /* 259 */  OBJ_ACTOR_259,
+  /* 260 */  OBJ_ACTOR_260,
+  /* 261 */  OBJ_ACTOR_261,
+  /* 262 */  OBJ_ACTOR_262,
+  /* 263 */  OBJ_ACTOR_263,
+  /* 264 */  OBJ_ACTOR_264,
+  /* 265 */  OBJ_ACTOR_265,
+  /* 266 */  OBJ_ACTOR_266,
+  /* 267 */  OBJ_ACTOR_267,
+  /* 268 */  OBJ_ACTOR_268,
+  /* 269 */  OBJ_ACTOR_269,
+  /* 270 */  OBJ_ACTOR_270,
+  /* 271 */  OBJ_ACTOR_271,
+  /* 272 */  OBJ_ACTOR_272,
+  /* 273 */  OBJ_ACTOR_273,
+  /* 274 */  OBJ_ACTOR_274,
+  /* 275 */  OBJ_ACTOR_275,
+  /* 276 */  OBJ_ACTOR_276,
+  /* 277 */  OBJ_ACTOR_277,
+  /* 278 */  OBJ_ACTOR_278,
+  /* 279 */  OBJ_ACTOR_279,
+  /* 280 */  OBJ_ACTOR_280,
+  /* 281 */  OBJ_ACTOR_281,
+  /* 282 */  OBJ_ACTOR_282,
+  /* 283 */  OBJ_ACTOR_283,
+  /* 284 */  OBJ_ACTOR_284,
+  /* 285 */  OBJ_ACTOR_285,
+  /* 286 */  OBJ_ACTOR_286,
+  /* 287 */  OBJ_ACTOR_287,
+  /* 288 */  OBJ_ACTOR_288,
+  /* 289 */  OBJ_ACTOR_289,
+  /* 290 */  OBJ_ACTOR_290,
+  /* 291 */  OBJ_ACTOR_291,
   /* 292 */  OBJ_BOSS_292,
   /* 293 */  OBJ_BOSS_293,
   /* 294 */  OBJ_BOSS_294,
