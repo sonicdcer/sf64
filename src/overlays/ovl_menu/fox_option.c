@@ -24,9 +24,9 @@ extern Gfx D_EBFBE0_801B57A8[];
 
 // #define IMPORT_BSS
 
-static f32 sOptionCardPosY[] = { 60.0f, 36.0f, 12.0f, -12.0f, -36.0f, -60.0f }; // D_EBFBE0_801AE570
+static f32 sOptionCardPosY[] = { 60.0f, 36.0f, 12.0f, -12.0f, -36.0f, -60.0f };        // D_EBFBE0_801AE570
 static f32 sOptionCardTextPosX[] = { 124.0f, 118.0f, 145.0f, 125.0f, 133.0f, 118.0f }; // D_EBFBE0_801AE588
-static f32 sOptionCardTextPosY[] = { 54.0f, 78.0f, 103.0f, 126.0f, 151.0f, 175.0f }; // D_EBFBE0_801AE5A0
+static f32 sOptionCardTextPosY[] = { 54.0f, 78.0f, 103.0f, 126.0f, 151.0f, 175.0f };   // D_EBFBE0_801AE5A0
 static f32 D_EBFBE0_801AE5B8[] = { 124.0f, 118.0f, 145.0f, 125.0f, 133.0f, 118.0f };
 static f32 D_EBFBE0_801AE5D0[] = { 54.0f, 78.0f, 103.0f, 126.0f, 151.0f, 175.0f };
 static f32 D_EBFBE0_801AE5E8[] = { 124.0f, 125.0f };
@@ -36,7 +36,8 @@ static f32 D_EBFBE0_801AE600[] = { 151.0f, 151.0f };
 static f32 D_EBFBE0_801AE608[] = { 8.0f, 8.0f, 8.0f, 8.0f, 8.0f, 8.0f };
 static f32 D_EBFBE0_801AE620[] = { 1.9f, 2.4f, 0.9f, 1.9f, 1.8f, 2.4f };
 
-static OptionEntry sOptionCardList[6] = { // D_EBFBE0_801AE638
+static OptionEntry sOptionCardList[6] = {
+    // D_EBFBE0_801AE638
     {
         { 0, 0, (void*) 0x08003B50, 0, 72, 12, 126.0f, 46.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
         { 0.0f, 30.0f, -130.0f, 0.2f, 0.11f },
@@ -81,7 +82,8 @@ static OptionEntry sOptionCardList[6] = { // D_EBFBE0_801AE638
     },
 };
 
-static OptionEntry sOptionVSCardList[] = { // D_EBFBE0_801AE878
+static OptionEntry sOptionVSCardList[] = {
+    // D_EBFBE0_801AE878
     {
         { 0, 0, (void*) 0x08005010, 0, 96, 13, 110.0f, 91.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
         { 0.0f, 11.0f, -130.0f, 0.2f, 0.11f },
@@ -881,8 +883,8 @@ void func_EBFBE0_80192D58(void) {
 
                 Math_SmoothStepToF(&sOptionCardList[i].unk_00.unk_1C, D_EBFBE0_801AE5D0[i], 0.15f, 100.0f, 0.1f);
                 Math_SmoothStepToF(&sOptionCardList[i].unk_38.unk_04, sOptionCardPosY[i], 0.15f, 100.0f, 0.1f);
-                Math_SmoothStepToF(&sOptionCardList[i].unk_00.unk_18, D_EBFBE0_801AE5B8[i], 0.2f,
-                                   D_EBFBE0_801AE620[i], 0.1f);
+                Math_SmoothStepToF(&sOptionCardList[i].unk_00.unk_18, D_EBFBE0_801AE5B8[i], 0.2f, D_EBFBE0_801AE620[i],
+                                   0.1f);
             }
 
             gBlurAlpha += 4;
