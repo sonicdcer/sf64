@@ -19,7 +19,7 @@ typedef struct {
     /* 0x2C */ s32 unk_2C; // green
     /* 0x30 */ s32 unk_30; // blue
     /* 0x34 */ s32 unk_34; // alpha
-} OptionLabel; // size = 0x38
+} OptionTexture; // size = 0x38
 
 //! TODO: RENAME. Member names inferred by Option_DrawMenuCard
 typedef struct {
@@ -38,7 +38,7 @@ typedef struct {
 } ArwingPosition; // size = 0xC
 
 typedef struct {
-    /* 0x00 */ OptionLabel unk_00;
+    /* 0x00 */ OptionTexture unk_00;
     /* 0x38 */ MenuContext_38 unk_38;
     /* 0x4C */ ArwingPosition unk_4C;
     /* 0x58 */ s32 unk_58;
@@ -298,7 +298,7 @@ void func_EBFBE0_8019BE7C(f32, f32, f32, f32 *, f32 *, f32 *);
 void func_EBFBE0_8019BF34(void);
 void func_EBFBE0_8019B6D8(f32 xPos, f32 yPos, f32 offset, s32 r, s32 g, s32 b);
 void func_EBFBE0_8019C04C(void);
-void Option_DrawCardLabel(OptionLabel arg0);
+void Option_DrawCardLabel(OptionTexture arg0);
 s32 func_EBFBE0_8019C418(s32* arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, UnkStruct_D_EBFBE0_801B9250* arg8);
 void func_EBFBE0_8019C824(f32* );
 s32 func_EBFBE0_8019C8C4(void);

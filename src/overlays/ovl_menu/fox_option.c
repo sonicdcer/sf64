@@ -36,8 +36,8 @@ static f32 D_EBFBE0_801AE600[] = { 151.0f, 151.0f };
 static f32 D_EBFBE0_801AE608[] = { 8.0f, 8.0f, 8.0f, 8.0f, 8.0f, 8.0f };
 static f32 D_EBFBE0_801AE620[] = { 1.9f, 2.4f, 0.9f, 1.9f, 1.8f, 2.4f };
 
+// D_EBFBE0_801AE638
 static OptionEntry sOptionCardList[6] = {
-    // D_EBFBE0_801AE638
     {
         { 0, 0, (void*) 0x08003B50, 0, 72, 12, 126.0f, 46.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
         { 0.0f, 30.0f, -130.0f, 0.2f, 0.11f },
@@ -114,20 +114,20 @@ static f32 D_EBFBE0_801AE9A0[4] = { 62.0f, 222.0f, 75.0f, 235.0f };
 
 static f32 D_EBFBE0_801AE9B0[4] = { 43.0f, 43.0f, 46.0f, 46.0f };
 
-static OptionLabel D_EBFBE0_801AE9C0[4] = {
+static OptionTexture D_EBFBE0_801AE9C0[4] = {
     { 2, 0, (void*) 0x080143B0, 0x080147B0, 32, 32, 56.0f, 175.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
     { 2, 0, (void*) 0x080143B0, 0x080147B0, 32, 32, 216.0f, 175.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
     { 1, 0, (void*) 0x080039D0, 0x08003A50, 16, 16, 69.0f, 178.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
     { 1, 0, (void*) 0x080039D0, 0x08003A50, 16, 16, 229.0f, 178.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
 };
 
-static OptionLabel D_EBFBE0_801AEAA0[3] = {
+static OptionTexture D_EBFBE0_801AEAA0[3] = {
     { 3, 0, (void*) 0x08013990, 0, 104, 10, 151.0f, 135.0f, 1.05f, 1.0f, 255, 255, 255, 255 },
     { 3, 0, (void*) 0x08013990, 0, 104, 10, 151.0f, 161.0f, 1.05f, 1.0f, 255, 255, 255, 255 },
     { 3, 0, (void*) 0x08013990, 0, 104, 10, 151.0f, 188.0f, 1.05f, 1.0f, 255, 255, 255, 255 },
 };
 
-static OptionLabel D_EBFBE0_801AEB48[3] = {
+static OptionTexture D_EBFBE0_801AEB48[3] = {
     { 3, 0, (void*) 0x080141B0, 0, 16, 16, 245.0f, 132.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
     { 3, 0, (void*) 0x080141B0, 0, 16, 16, 245.0f, 158.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
     { 3, 0, (void*) 0x080141B0, 0, 16, 16, 245.0f, 185.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
@@ -3243,7 +3243,8 @@ void func_EBFBE0_8019AD84(void) {
     s32 var_v0;
     static f32 D_EBFBE0_801AF25C[6] = { 156.0f, 112.0f, 112.0f, 112.0f, 112.0f, 112.0f };
     static f32 D_EBFBE0_801AF274[6] = { 46.0f, 43.0f, 43.0f, 43.0f, 43.0f, 43.0f };
-    static u8* D_EBFBE0_801AF28C[] = {
+    // D_EBFBE0_801AF28C
+    static u8* sTimeTrialMinuteTextures[] = {
         (u8*) 0x070024D0, (u8*) 0x07002730, (u8*) 0x07002990, (u8*) 0x07002BF0, (u8*) 0x07002E50,
     };
 
@@ -3281,7 +3282,7 @@ void func_EBFBE0_8019AD84(void) {
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
 
-        TextureRect_8bIA(&gMasterDisp, D_EBFBE0_801AF28C[D_EBFBE0_801B9340], 40, 15,
+        TextureRect_8bIA(&gMasterDisp, sTimeTrialMinuteTextures[D_EBFBE0_801B9340], 40, 15,
                          D_EBFBE0_801AF25C[D_EBFBE0_801B9340 + 1], D_EBFBE0_801AF274[D_EBFBE0_801B9340 + 1], 1.0f,
                          1.0f);
 
@@ -3293,7 +3294,8 @@ void func_EBFBE0_8019AD84(void) {
 #else
 static f32 D_EBFBE0_801AF25C[6] = { 156.0f, 112.0f, 112.0f, 112.0f, 112.0f, 112.0f };
 static f32 D_EBFBE0_801AF274[6] = { 46.0f, 43.0f, 43.0f, 43.0f, 43.0f, 43.0f };
-static u8* D_EBFBE0_801AF28C[] = {
+// D_EBFBE0_801AF28C
+static u8* sTimeTrialMinuteTextures[] = {
     (u8*) 0x070024D0, (u8*) 0x07002730, (u8*) 0x07002990, (u8*) 0x07002BF0, (u8*) 0x07002E50,
 };
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_menu/fox_option/func_EBFBE0_8019AD84.s")
@@ -3629,7 +3631,7 @@ void func_EBFBE0_8019C04C(void) {
     Lib_Perspective(&gMasterDisp);
 }
 
-void Option_DrawCardLabel(OptionLabel arg0) {
+void Option_DrawCardLabel(OptionTexture arg0) {
     if (!(arg0.unk_20 <= 0.0f) && !(arg0.unk_24 <= 0.0f)) {
         switch (arg0.unk_00) {
             case 1:
