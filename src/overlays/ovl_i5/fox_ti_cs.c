@@ -60,12 +60,15 @@ void func_i5_8018769C(Player* player) {
             player->pos.x = actor->obj.pos.x;
             player->pos.y = actor->obj.pos.y - 530.0f;
             player->pos.z = actor->obj.pos.z;
+
             player->camEye.x = D_80177978 = 5000.0f;
             player->camEye.y = D_80177980 = 1000.0f;
             player->camEye.z = D_80177988 = -5000.0f;
+
             player->camAt.x = D_801779A0 = player->pos.x;
             player->camAt.y = D_801779B8 = player->pos.y;
             player->camAt.z = D_801779C0 = player->pos.z;
+
             player->unk_240 = 1;
             player->unk_1D0 = 1;
             gFogFar = 0x3EE;
