@@ -1019,7 +1019,7 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_EFFECT_368:
             if (gCurrentLevel == LEVEL_TITANIA) {
                 func_i5_801B6E20(gEffects[index].obj.pos.x, gEffects[index].obj.pos.z + D_80177D20, &sp54, &sp4C,
-                                     &sp50);
+                                 &sp50);
                 gEffects[index].obj.pos.y = sp4C + 3.0f;
                 gEffects[index].obj.rot.x = (sp54 * 180.0f) / M_PI;
                 gEffects[index].obj.rot.z = (sp50 * 180.0f) / M_PI;

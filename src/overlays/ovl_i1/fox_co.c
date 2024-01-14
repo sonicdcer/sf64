@@ -30,7 +30,7 @@ void func_801875A4(Object* obj) {
 }
 
 void func_i1_80187670(Actor* actor, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, s32 arg7, s32 arg8,
-                          s32 arg9) {
+                      s32 arg9) {
 
     Actor_Initialize(actor);
     actor->obj.status = 1;
@@ -186,7 +186,7 @@ void func_i1_80187AC8(Boss* boss) {
             boss->swork[20] = 30;
             boss->swork[28] -= boss->damage;
             func_i1_801879F0(boss, D_i1_8019B6D8[12] + ((Rand_ZeroOne() - 0.5f) * 60.0f), D_i1_8019B6D8[13],
-                                 D_i1_8019B6D8[14] + ((Rand_ZeroOne() - 0.5f) * 60.0f), 2.0f);
+                             D_i1_8019B6D8[14] + ((Rand_ZeroOne() - 0.5f) * 60.0f), 2.0f);
             func_i1_80187A38(boss, D_i1_8019B6D8[12], D_i1_8019B6D8[13], D_i1_8019B6D8[14], 0.1f, 20);
             if (boss->swork[28] <= 0) {
                 boss->swork[3] = 1000;
@@ -201,7 +201,7 @@ void func_i1_80187AC8(Boss* boss) {
             boss->swork[26] -= boss->damage;
 
             func_i1_801879F0(boss, D_i1_8019B6D8[6] + ((Rand_ZeroOne() - 0.5f) * 60.0f), D_i1_8019B6D8[7],
-                                 D_i1_8019B6D8[8] + ((Rand_ZeroOne() - 0.5f) * 60.0f), 2.0f);
+                             D_i1_8019B6D8[8] + ((Rand_ZeroOne() - 0.5f) * 60.0f), 2.0f);
             func_i1_80187A38(boss, D_i1_8019B6D8[6], D_i1_8019B6D8[7], D_i1_8019B6D8[8], 0.1f, 20);
             if (boss->swork[26] <= 0) {
                 boss->swork[2] = 1000;
@@ -213,7 +213,7 @@ void func_i1_80187AC8(Boss* boss) {
             boss->swork[22] = 30;
             boss->swork[27] -= boss->damage;
             func_i1_801879F0(boss, D_i1_8019B6D8[0] + ((Rand_ZeroOne() - 0.5f) * 60.0f), D_i1_8019B6D8[1],
-                                 D_i1_8019B6D8[2] + ((Rand_ZeroOne() - 0.5f) * 60.0f), 2.0f);
+                             D_i1_8019B6D8[2] + ((Rand_ZeroOne() - 0.5f) * 60.0f), 2.0f);
             func_i1_80187A38(boss, D_i1_8019B6D8[0], D_i1_8019B6D8[1], D_i1_8019B6D8[2], 0.1f, 20);
             if (boss->swork[27] <= 0) {
                 boss->swork[1] = 1000;
@@ -325,16 +325,13 @@ void func_i1_80187AC8(Boss* boss) {
                           (D_i1_8019B6D8[11] - boss->obj.pos.z) * 0.1f, 1.5f, 5);
         }
         if ((boss->swork[3] == 1000) && !(gFrameCount & 3)) {
-            func_8007BFFC(D_i1_8019B6D8[12], D_i1_8019B6D8[13], D_i1_8019B6D8[14], 0.0f, 20.0f, 0.0f, 2.0f,
-                          5);
+            func_8007BFFC(D_i1_8019B6D8[12], D_i1_8019B6D8[13], D_i1_8019B6D8[14], 0.0f, 20.0f, 0.0f, 2.0f, 5);
         }
         if ((boss->swork[4] == 1000) && !(gFrameCount & 3)) {
-            func_8007BFFC(D_i1_8019B6D8[56], D_i1_8019B6D8[57], D_i1_8019B6D8[58], 0.0f, 10.0f, 0.0f, 2.0f,
-                          5);
+            func_8007BFFC(D_i1_8019B6D8[56], D_i1_8019B6D8[57], D_i1_8019B6D8[58], 0.0f, 10.0f, 0.0f, 2.0f, 5);
         }
         if ((boss->swork[7] == 1000) && !(gFrameCount & 3)) {
-            func_8007BFFC(D_i1_8019B6D8[59], D_i1_8019B6D8[60], D_i1_8019B6D8[61], 0.0f, 10.0f, 0.0f, 2.0f,
-                          5);
+            func_8007BFFC(D_i1_8019B6D8[59], D_i1_8019B6D8[60], D_i1_8019B6D8[61], 0.0f, 10.0f, 0.0f, 2.0f, 5);
         }
     }
 }
@@ -367,12 +364,12 @@ void func_i1_801887AC(Boss* boss) {
                     sp38 = func_i1_80188750(boss);
                     if (sp38 != 0) {
                         if (boss->swork[1] != 1000) {
-                            func_i1_80187710(D_i1_8019B6D8[0], D_i1_8019B6D8[1], D_i1_8019B6D8[2],
-                                                 65.0f, 0.0f, D_i1_8019B6D8[16] + boss->obj.rot.y, 0, 0, sp38);
+                            func_i1_80187710(D_i1_8019B6D8[0], D_i1_8019B6D8[1], D_i1_8019B6D8[2], 65.0f, 0.0f,
+                                             D_i1_8019B6D8[16] + boss->obj.rot.y, 0, 0, sp38);
                         }
                         if (boss->swork[2] != 1000) {
-                            func_i1_80187710(D_i1_8019B6D8[6], D_i1_8019B6D8[7], D_i1_8019B6D8[8],
-                                                 65.0f, 0.0f, D_i1_8019B6D8[16] + boss->obj.rot.y, 0, 0, sp38);
+                            func_i1_80187710(D_i1_8019B6D8[6], D_i1_8019B6D8[7], D_i1_8019B6D8[8], 65.0f, 0.0f,
+                                             D_i1_8019B6D8[16] + boss->obj.rot.y, 0, 0, sp38);
                         }
                     }
                     boss->swork[30] = 0;
@@ -390,8 +387,7 @@ void func_i1_801887AC(Boss* boss) {
                         gPlayer[0].pos.x += (Rand_ZeroOne() - 0.5f) * 300.0f;
                         gPlayer[0].pos.y += (Rand_ZeroOne() - 0.5f) * 300.0f;
                         gPlayer[0].unk_138 += (Rand_ZeroOne() - 0.5f) * 300.0f;
-                        func_8007F11C(OBJ_EFFECT_376, D_i1_8019B6D8[12], D_i1_8019B6D8[13],
-                                      D_i1_8019B6D8[14], 60.0f);
+                        func_8007F11C(OBJ_EFFECT_376, D_i1_8019B6D8[12], D_i1_8019B6D8[13], D_i1_8019B6D8[14], 60.0f);
                         gPlayer[0].pos.x = sp3C.x;
                         gPlayer[0].pos.y = sp3C.y;
                         gPlayer[0].unk_138 = sp3C.z;
@@ -690,10 +686,10 @@ void func_i1_80189058(Boss* boss) {
         Math_SmoothStepToAngle(&D_i1_8019B6D8[16], sp1FC, 0.1f, 3.0f, 0.0f);
         Math_SmoothStepToAngle(&D_i1_8019B6D8[15], sp200, 0.1f, 3.0f, 0.0f);
         if (boss->actionState != 0) {
-            Math_SmoothStepToAngle(&boss->obj.rot.y,
-                                   Math_RadToDeg(Math_Atan2F(D_i1_8019B6D8[66] - boss->obj.pos.x,
-                                                             D_i1_8019B6D8[67] - boss->obj.pos.z)),
-                                   0.1f, 3.0f, 0.0f);
+            Math_SmoothStepToAngle(
+                &boss->obj.rot.y,
+                Math_RadToDeg(Math_Atan2F(D_i1_8019B6D8[66] - boss->obj.pos.x, D_i1_8019B6D8[67] - boss->obj.pos.z)),
+                0.1f, 3.0f, 0.0f);
         }
         Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, 0U);
 
@@ -857,8 +853,8 @@ void func_i1_80189058(Boss* boss) {
                     temp_v0_3 = func_i1_80188750(boss);
 
                     if (temp_v0_3 != 0) {
-                        func_i1_80187710(D_i1_8019B6D8[62], D_i1_8019B6D8[63], D_i1_8019B6D8[64], 65.0f,
-                                             270.0f, 0.0f, 0, 0, temp_v0_3);
+                        func_i1_80187710(D_i1_8019B6D8[62], D_i1_8019B6D8[63], D_i1_8019B6D8[64], 65.0f, 270.0f, 0.0f,
+                                         0, 0, temp_v0_3);
                     }
                 }
 
@@ -1518,7 +1514,7 @@ void func_i1_8018BDD4(Boss* boss, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 ar
     }
 
     func_i1_80187710(boss->obj.pos.x + arg1, boss->obj.pos.y + arg2, boss->obj.pos.z + arg3, arg4, boss->obj.rot.x,
-                         boss->obj.rot.y, arg5, arg6, var_v1);
+                     boss->obj.rot.y, arg5, arg6, var_v1);
 }
 
 void func_i1_8018BE7C(Boss* boss) {

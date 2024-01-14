@@ -199,7 +199,7 @@ void func_80043B18(Player* player) {
         } else {
             if (!(gFrameCount & 1)) {
                 func_i5_80189120(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->unk_138 + sp3C.z,
-                                     player->unk_0E8 + sp38, 1.3f);
+                                 player->unk_0E8 + sp38, 1.3f);
             }
             if (!(gFrameCount & 3)) {
                 func_8007A900(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f, player->unk_138 + sp3C.z, 2.0f,
@@ -218,7 +218,7 @@ void func_80043B18(Player* player) {
             } else {
                 if (!(gFrameCount & 1)) {
                     func_i5_80189120(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->unk_138 + sp3C.z,
-                                         player->unk_0E8 + sp38, 1.0f);
+                                     player->unk_0E8 + sp38, 1.0f);
                 }
                 if (!(gFrameCount & 3) && (player->unk_0D0 >= 5.0f)) {
                     func_8007A900(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f, player->unk_138 + sp3C.z,
@@ -236,7 +236,7 @@ void func_80043B18(Player* player) {
             } else {
                 if (!(gFrameCount & 1)) {
                     func_i5_80189120(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->unk_138 + sp3C.z,
-                                         player->unk_0E8 + sp38, 1.0f);
+                                     player->unk_0E8 + sp38, 1.0f);
                 }
                 if (!(gFrameCount & 3) && (player->unk_0D0 >= 5.0f)) {
                     func_8007A900(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f, player->unk_138 + sp3C.z,
@@ -1185,8 +1185,7 @@ void func_80047754(Player* player) {
 
     if ((D_i5_801BE2FA == 0) && (func_i5_801A3300(player, player->unk_138, player->unk_0E8) == 0)) {
         if (((player->pos.x - 110.0f) < D_i5_801BE274) && (D_i5_801BE274 < (player->pos.x + 110.0f)) &&
-            ((player->pos.y - 60.0f) < (D_i5_801BE258 + 30.0f)) &&
-            ((D_i5_801BE258 + 30.0f) < (player->pos.y + 60.f))) {
+            ((player->pos.y - 60.0f) < (D_i5_801BE258 + 30.0f)) && ((D_i5_801BE258 + 30.0f) < (player->pos.y + 60.f))) {
             func_80047D38(player, D_i5_801BE258 + 29.0f);
             player->unk_0E4 = D_i5_801BE25C;
             func_80047FBC(player);
@@ -1199,10 +1198,8 @@ void func_80047754(Player* player) {
     }
     if (func_i5_801A3C20(player->unk_138)) {
         player->unk_0E4 = D_i5_801BE250.unk_5C;
-        if (((player->pos.x - 200.0f) < D_i5_801BE250.unk_54) &&
-            (D_i5_801BE250.unk_54 < (player->pos.x + 200.0f))) {
-            if (((player->pos.y - 60.0f) < D_i5_801BE250.unk_58) &&
-                (D_i5_801BE250.unk_58 < (player->pos.y + 60.0f))) {
+        if (((player->pos.x - 200.0f) < D_i5_801BE250.unk_54) && (D_i5_801BE250.unk_54 < (player->pos.x + 200.0f))) {
+            if (((player->pos.y - 60.0f) < D_i5_801BE250.unk_58) && (D_i5_801BE250.unk_58 < (player->pos.y + 60.0f))) {
                 func_80047D38(player, D_i5_801BE250.unk_58);
             } else {
                 if ((100.0f < (D_i5_801BE250.unk_58 - player->pos.y)) &&

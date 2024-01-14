@@ -643,8 +643,7 @@ void func_menu_801888E8(void) {
         case 4:
             if (D_menu_801B82A8 == 0) {
                 D_menu_801B8350[D_menu_801B8340].unk_54 = 0;
-                Math_SmoothStepToF(&D_menu_801B8350[D_menu_801B8340].unk_18, 0.0f, D_menu_801B82CC, 100.0f,
-                                   0.001f);
+                Math_SmoothStepToF(&D_menu_801B8350[D_menu_801B8340].unk_18, 0.0f, D_menu_801B82CC, 100.0f, 0.001f);
                 D_menu_801B82CC *= 1.07f;
 
                 if (D_menu_801B8350[D_menu_801B8340].unk_18 == 0.0f) {
@@ -713,8 +712,8 @@ void func_menu_801888E8(void) {
 
     D_menu_801B84E8->unk_18 += 0.6f;
 
-    func_menu_80191320(1, &D_80177978, &D_80177980, &D_80177988, &D_801779A0, &D_801779B8, &D_801779C0,
-                         D_menu_801B86A8, D_menu_801B86AC, D_menu_801B86B0);
+    func_menu_80191320(1, &D_80177978, &D_80177980, &D_80177988, &D_801779A0, &D_801779B8, &D_801779C0, D_menu_801B86A8,
+                       D_menu_801B86AC, D_menu_801B86B0);
     func_800B6F50(D_80177978, D_80177980, D_80177988, D_801779A0, D_801779B8, D_801779C0);
 
     D_8017842C -= 0.5f;
@@ -754,16 +753,15 @@ void func_menu_80189208(void) {
 
     if ((D_menu_801B86A4 < 2) && (D_menu_801B9040 != 0)) {
         D_menu_801B86D8 = Math_Atan2F(-D_menu_801B9060, sqrtf((-D_menu_801B905C * -D_menu_801B905C) +
-                                                                  (-D_menu_801B9064 * -D_menu_801B9064))) *
-                            180.0f / M_PI;
+                                                              (-D_menu_801B9064 * -D_menu_801B9064))) *
+                          180.0f / M_PI;
         D_menu_801B86DC = (Math_Atan2F(D_menu_801B905C, D_menu_801B9064) * 180.0f) / M_PI;
 
         Math_SmoothStepToF(&D_menu_801B86C8, D_menu_801B86D8, 0.1f, 100.0f, 0.0001f);
         Math_SmoothStepToF(&D_menu_801B86CC, D_menu_801B86DC, 0.1f, 100.0f, 0.0001f);
     }
 
-    func_menu_80191674(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4,
-                         &D_menu_801B82E8);
+    func_menu_80191674(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
 
     for (i = 0; i < 4; i++) {
         func_menu_8018EA78(D_menu_801ADA84[i]);
@@ -778,8 +776,7 @@ void func_menu_80189208(void) {
     gAmbientG = D_menu_801B8320;
     gAmbientB = D_menu_801B8324;
 
-    func_menu_80191674(D_menu_801B86D0, D_menu_801B86D4, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4,
-                         &D_menu_801B82E8);
+    func_menu_80191674(D_menu_801B86D0, D_menu_801B86D4, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
 
     func_menu_8018D2B8(0);
 }
@@ -863,8 +860,8 @@ void func_menu_801894E8(void) {
     D_menu_801B82A4 = 0.0f;
 
     func_menu_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &D_80177978, &D_80177980, &D_80177988,
-                         D_menu_801B86B4, &D_801779A0, &D_801779B8, &D_801779C0, D_menu_801B86B8, D_menu_801B86A8,
-                         D_menu_801B86AC);
+                       D_menu_801B86B4, &D_801779A0, &D_801779B8, &D_801779C0, D_menu_801B86B8, D_menu_801B86A8,
+                       D_menu_801B86AC);
 
     D_menu_801B7BF0 = 0;
 
@@ -1068,8 +1065,7 @@ void func_menu_8018994C(void) {
     }
 
     func_menu_801912A0();
-    func_menu_80191674(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4,
-                         &D_menu_801B82E8);
+    func_menu_80191674(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
 
     if (D_menu_801B7BE8 != 0) {
         func_800B6F50(D_80177978, D_80177980, D_80177988, D_801779A0, D_801779B8, D_801779C0);
@@ -1161,8 +1157,8 @@ void func_menu_8018A338(void) {
     D_menu_801B82A4 = 0.0f;
 
     func_menu_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &D_80177978, &D_80177980, &D_80177988,
-                         D_menu_801B86B4, &D_801779A0, &D_801779B8, &D_801779C0, D_menu_801B86B8, D_menu_801B86A8,
-                         D_menu_801B86AC);
+                       D_menu_801B86B4, &D_801779A0, &D_801779B8, &D_801779C0, D_menu_801B86B8, D_menu_801B86A8,
+                       D_menu_801B86AC);
 }
 
 static UnkStruct_D_menu_801B8294 D_menu_801ADA94[50] = {
@@ -1276,8 +1272,7 @@ void func_menu_8018A644(void) {
     }
 
     func_menu_801912A0();
-    func_menu_80191674(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4,
-                         &D_menu_801B82E8);
+    func_menu_80191674(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
 
     D_menu_801B7BEC++;
 }
@@ -1407,10 +1402,9 @@ void func_menu_8018ACEC(void) {
             break;
     }
 
-    func_menu_80191320(1, &D_80177978, &D_80177980, &D_80177988, &D_801779A0, &D_801779B8, &D_801779C0,
-                         D_menu_801B86A8, D_menu_801B86AC, D_menu_801B86B0);
-    func_menu_80191674(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4,
-                         &D_menu_801B82E8);
+    func_menu_80191320(1, &D_80177978, &D_80177980, &D_80177988, &D_801779A0, &D_801779B8, &D_801779C0, D_menu_801B86A8,
+                       D_menu_801B86AC, D_menu_801B86B0);
+    func_menu_80191674(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
     func_800B6F50(D_80177978, D_80177980, D_80177988, D_801779A0, D_801779B8, D_801779C0);
 
     D_8017842C += 2.0f;
@@ -1515,8 +1509,8 @@ void func_menu_8018B058(void) {
     D_menu_801B82A4 = 0.0f;
 
     func_menu_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &D_80177978, &D_80177980, &D_80177988,
-                         D_menu_801B86B4, &D_801779A0, &D_801779B8, &D_801779C0, D_menu_801B86B8, D_menu_801B86A8,
-                         D_menu_801B86AC);
+                       D_menu_801B86B4, &D_801779A0, &D_801779B8, &D_801779C0, D_menu_801B86B8, D_menu_801B86A8,
+                       D_menu_801B86AC);
 
     D_menu_801B9044 = 25.0f;
     D_menu_801B9048 = 84.0f;
@@ -1585,8 +1579,8 @@ void func_menu_8018B5C4(void) {
 
                 if (D_menu_801B84E8[i].unk_38 == 0) {
                     Math_SmoothStepToF(&D_menu_801B84E8[i].unk_28, 0.0f, D_menu_801B84E8[i].unk_10, 100.0f, 0.01f);
-                    temp[i] = Math_SmoothStepToF(&(D_menu_801B84E8[i].unk_24), 0.0f, D_menu_801B84E8[i].unk_10,
-                                                 100.0f, 0.01f);
+                    temp[i] = Math_SmoothStepToF(&(D_menu_801B84E8[i].unk_24), 0.0f, D_menu_801B84E8[i].unk_10, 100.0f,
+                                                 0.01f);
                     D_menu_801B84E8[i].unk_10 *= 1.04f;
                     if (temp[i] == 0.0f) {
                         func_8001A55C(&D_menu_801B84E8[i].unk_50, 0x1950107A);
@@ -1626,8 +1620,8 @@ void func_menu_8018B5C4(void) {
                 D_menu_801B86B8 = -70.0f;
 
                 func_menu_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &D_80177978, &D_80177980,
-                                     &D_80177988, D_menu_801B86B4, &D_801779A0, &D_801779B8, &D_801779C0,
-                                     D_menu_801B86B8, D_menu_801B86A8, D_menu_801B86AC);
+                                   &D_80177988, D_menu_801B86B4, &D_801779A0, &D_801779B8, &D_801779C0, D_menu_801B86B8,
+                                   D_menu_801B86A8, D_menu_801B86AC);
 
                 D_menu_801B82B4 = 0;
 
@@ -1700,9 +1694,9 @@ void func_menu_8018B5C4(void) {
             Math_SmoothStepToF(&D_menu_801B86B4, 16.0f, 0.01f, 100.0f, 0.01f);
             Math_SmoothStepToF(&D_menu_801B86AC, 138.0f, 0.01f, 100.0f, 0.01f);
 
-            func_menu_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &D_80177978, &D_80177980,
-                                 &D_80177988, D_menu_801B86B4, &D_801779A0, &D_801779B8, &D_801779C0,
-                                 D_menu_801B86B8, D_menu_801B86A8, D_menu_801B86AC);
+            func_menu_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &D_80177978, &D_80177980, &D_80177988,
+                               D_menu_801B86B4, &D_801779A0, &D_801779B8, &D_801779C0, D_menu_801B86B8, D_menu_801B86A8,
+                               D_menu_801B86AC);
             D_menu_801B82B4++;
             break;
 
@@ -1739,8 +1733,8 @@ void func_menu_8018B5C4(void) {
                 Math_SmoothStepToF(&D_menu_801B86B4, 40.0f, 0.2f, 100.0f, 0.01f);
 
                 func_menu_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &D_80177978, &D_80177980,
-                                     &D_80177988, D_menu_801B86B4, &D_801779A0, &D_801779B8, &D_801779C0,
-                                     D_menu_801B86B8, D_menu_801B86A8, D_menu_801B86AC);
+                                   &D_80177988, D_menu_801B86B4, &D_801779A0, &D_801779B8, &D_801779C0, D_menu_801B86B8,
+                                   D_menu_801B86A8, D_menu_801B86AC);
 
                 if (D_menu_801B82B4 > 8) {
                     func_8001D400(0);
@@ -1751,8 +1745,7 @@ void func_menu_8018B5C4(void) {
             }
             break;
     }
-    func_menu_80191674(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4,
-                         &D_menu_801B82E8);
+    func_menu_80191674(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
     D_menu_801B7BEC++;
 }
 
@@ -1871,8 +1864,8 @@ void func_menu_8018C1C0(void) {
     D_menu_801B82A4 = 0.0f;
 
     func_menu_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &D_80177978, &D_80177980, &D_80177988,
-                         D_menu_801B86B4, &D_801779A0, &D_801779B8, &D_801779C0, D_menu_801B86B8, D_menu_801B86A8,
-                         D_menu_801B86AC);
+                       D_menu_801B86B4, &D_801779A0, &D_801779B8, &D_801779C0, D_menu_801B86B8, D_menu_801B86A8,
+                       D_menu_801B86AC);
 }
 
 static UnkStruct_D_menu_801B8294 D_menu_801ADF84[50] = {
@@ -1926,18 +1919,17 @@ void func_menu_8018C644(void) {
                     D_menu_801B84E8[i].unk_38--;
                 } else {
                     if (D_menu_801B84E8[i].unk_38 == 0) {
-                        Audio_PlaySfx(0x19000001, &D_menu_801B84E8[i].unk_50, 0, &D_800C5D34, &D_800C5D34,
-                                      &D_800C5D3C);
+                        Audio_PlaySfx(0x19000001, &D_menu_801B84E8[i].unk_50, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                         D_menu_801B84E8[i].unk_38 = -1;
                         D_menu_801B84E8[i].unk_4C = 1;
                     }
 
-                    Math_SmoothStepToF(&D_menu_801B84E8[i].unk_00.y, D_menu_801AE444[i],
-                                       D_menu_801B84E8[i].unk_10, 100.0f, 0.001f);
-                    Math_SmoothStepToF(&D_menu_801B84E8[i].unk_00.x, D_menu_801AE434[i],
-                                       D_menu_801B84E8[i].unk_10, 100.0f, 0.001f);
-                    Math_SmoothStepToF(&D_menu_801B84E8[i].unk_00.z, D_menu_801AE454[i],
-                                       D_menu_801B84E8[i].unk_10, 100.0f, 0.001f);
+                    Math_SmoothStepToF(&D_menu_801B84E8[i].unk_00.y, D_menu_801AE444[i], D_menu_801B84E8[i].unk_10,
+                                       100.0f, 0.001f);
+                    Math_SmoothStepToF(&D_menu_801B84E8[i].unk_00.x, D_menu_801AE434[i], D_menu_801B84E8[i].unk_10,
+                                       100.0f, 0.001f);
+                    Math_SmoothStepToF(&D_menu_801B84E8[i].unk_00.z, D_menu_801AE454[i], D_menu_801B84E8[i].unk_10,
+                                       100.0f, 0.001f);
 
                     D_menu_801B84E8[i].unk_10 *= 1.05f;
 
@@ -1993,8 +1985,7 @@ void func_menu_8018C644(void) {
     func_menu_80191798(&D_menu_801B86A8, &D_menu_801B86AC);
     func_menu_80191844(D_menu_801B86A8, D_menu_801B86AC);
     func_menu_8018CC30(D_menu_801B8294, 9, D_menu_801B8290);
-    func_menu_80191674(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4,
-                         &D_menu_801B82E8);
+    func_menu_80191674(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
     func_800B6F50(D_80177978, D_80177980, D_80177988, D_801779A0, D_801779B8, D_801779C0);
 
     D_menu_801B7BEC++;
@@ -2123,8 +2114,8 @@ void func_menu_8018CD9C(Vec3f* pos, UnkStruct_D_menu_801B8294* arg1, f32 arg2, s
 void func_menu_8018D2B8(s32 arg0) {
     WingInfo wings;
 
-    Lights_SetOneLight(&gMasterDisp, D_menu_801B82E0, D_menu_801B82E4, D_menu_801B82E8, gLight1R, gLight1G,
-                       gLight1B, gAmbientR, gAmbientG, gAmbientB);
+    Lights_SetOneLight(&gMasterDisp, D_menu_801B82E0, D_menu_801B82E4, D_menu_801B82E8, gLight1R, gLight1G, gLight1B,
+                       gAmbientR, gAmbientG, gAmbientB);
 
     RCP_SetupDL(&gMasterDisp, 0x17);
 
@@ -2133,8 +2124,8 @@ void func_menu_8018D2B8(s32 arg0) {
     Matrix_Translate(gGfxMatrix, D_menu_801B84E8[arg0].unk_00.x, D_menu_801B84E8[arg0].unk_00.y,
                      D_menu_801B84E8[arg0].unk_00.z, 1);
 
-    Matrix_Scale(gGfxMatrix, D_menu_801B84E8[arg0].unk_0C, D_menu_801B84E8[arg0].unk_0C,
-                 D_menu_801B84E8[arg0].unk_0C, 1);
+    Matrix_Scale(gGfxMatrix, D_menu_801B84E8[arg0].unk_0C, D_menu_801B84E8[arg0].unk_0C, D_menu_801B84E8[arg0].unk_0C,
+                 1);
 
     Matrix_RotateZ(gGfxMatrix, D_menu_801B84E8[arg0].unk_20 * M_DTOR, 1);
     Matrix_RotateX(gGfxMatrix, D_menu_801B84E8[arg0].unk_18 * M_DTOR, 1);
@@ -2298,9 +2289,9 @@ void func_menu_8018D80C(s32 arg0) {
 
 void func_menu_8018DDB8(s32 arg0) {
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(
-        gGfxMatrix, 0.0f,
-        (D_menu_801B9050 - D_menu_801B84E8[arg0].unk_00.y * 2.05f) + (D_menu_801B9048 - 84.0f) * 1.99f, 0.0f, 1);
+    Matrix_Translate(gGfxMatrix, 0.0f,
+                     (D_menu_801B9050 - D_menu_801B84E8[arg0].unk_00.y * 2.05f) + (D_menu_801B9048 - 84.0f) * 1.99f,
+                     0.0f, 1);
     Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, 1);
     Matrix_RotateY(gGfxMatrix, M_PI, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
@@ -2337,8 +2328,8 @@ void func_menu_8018DF0C(f32 arg0) {
 }
 
 void func_menu_8018E058(void) {
-    Lights_SetOneLight(&gMasterDisp, D_menu_801B82E0, D_menu_801B82E4, D_menu_801B82E8, gLight1R, gLight1G,
-                       gLight1B, gAmbientR, gAmbientG, gAmbientB);
+    Lights_SetOneLight(&gMasterDisp, D_menu_801B82E0, D_menu_801B82E4, D_menu_801B82E8, gLight1R, gLight1G, gLight1B,
+                       gAmbientR, gAmbientG, gAmbientB);
 
     Matrix_Push(&gGfxMatrix);
 
@@ -2437,8 +2428,8 @@ void func_menu_8018E67C(s32 arg0) {
     s32 sp5C;
     f32 temp_fv1;
 
-    Lights_SetOneLight(&gMasterDisp, D_menu_801B82E0, D_menu_801B82E4, D_menu_801B82E8, gLight1R, gLight1G,
-                       gLight1B, gAmbientR, gAmbientG, gAmbientB);
+    Lights_SetOneLight(&gMasterDisp, D_menu_801B82E0, D_menu_801B82E4, D_menu_801B82E8, gLight1R, gLight1G, gLight1B,
+                       gAmbientR, gAmbientG, gAmbientB);
 
     sp5C = D_menu_801B8350[arg0].unk_58 % Animation_GetFrameCount(D_menu_801ADA00[arg0].unk_0);
 
@@ -2472,8 +2463,8 @@ void func_menu_8018E67C(s32 arg0) {
     Matrix_Translate(gGfxMatrix, D_menu_801B8350[arg0].unk_00.x - 5.0f, 5.0f,
                      D_menu_801B8350[arg0].unk_00.z + 10.0f + D_menu_801B84D0, 1);
 
-    Matrix_Scale(gGfxMatrix, D_menu_801B8350[arg0].unk_10, D_menu_801B8350[arg0].unk_10,
-                 D_menu_801B8350[arg0].unk_10, 1);
+    Matrix_Scale(gGfxMatrix, D_menu_801B8350[arg0].unk_10, D_menu_801B8350[arg0].unk_10, D_menu_801B8350[arg0].unk_10,
+                 1);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -2504,8 +2495,8 @@ void func_menu_8018EA78(s32 arg0) {
 
     RCP_SetupDL(&gMasterDisp, 0x17);
 
-    Lights_SetOneLight(&gMasterDisp, D_menu_801B82E0, D_menu_801B82E4, D_menu_801B82E8, gLight1R, gLight1G,
-                       gLight1B, gAmbientR, gAmbientG, gAmbientB);
+    Lights_SetOneLight(&gMasterDisp, D_menu_801B82E0, D_menu_801B82E4, D_menu_801B82E8, gLight1R, gLight1G, gLight1B,
+                       gAmbientR, gAmbientG, gAmbientB);
 
     Matrix_Push(&gGfxMatrix);
 
@@ -2520,10 +2511,9 @@ void func_menu_8018EA78(s32 arg0) {
     Matrix_SetGfxMtx(&gMasterDisp);
 
     Math_SmoothStepToVec3fArray(sp48, D_menu_801B86E0[arg0], 1,
-                                Animation_GetFrameData(D_menu_801ADA00[arg0].unk_4, sp44, sp48), 0.2f, 100.0f,
-                                0.0001f);
-    Animation_DrawSkeleton(1, D_menu_801ADA00[arg0].skelanime, D_menu_801B86E0[arg0], func_menu_8018EDC8, NULL,
-                           &arg0, &gIdentityMatrix);
+                                Animation_GetFrameData(D_menu_801ADA00[arg0].unk_4, sp44, sp48), 0.2f, 100.0f, 0.0001f);
+    Animation_DrawSkeleton(1, D_menu_801ADA00[arg0].skelanime, D_menu_801B86E0[arg0], func_menu_8018EDC8, NULL, &arg0,
+                           &gIdentityMatrix);
 
     Matrix_Pop(&gGfxMatrix);
 }
@@ -2708,8 +2698,8 @@ void func_menu_8018F680(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     for (i = 0; i < 30; i++) {
-        TextureRect_16bRGBA(&gMasterDisp, D_6000000 + (i * 472), 236, 2, D_menu_801B9054,
-                            D_menu_801B9058 + (i * 2.0f), 1.0f, 1.0f);
+        TextureRect_16bRGBA(&gMasterDisp, D_6000000 + (i * 472), 236, 2, D_menu_801B9054, D_menu_801B9058 + (i * 2.0f),
+                            1.0f, 1.0f);
     }
 }
 
@@ -2867,8 +2857,8 @@ void func_menu_8018FF74(void) {
             gDPSetColorDither(gMasterDisp++, G_CD_NOISE);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, D_menu_801B7BD0);
 
-            TextureRect_16bRGBA(&gMasterDisp, &D_600D5C0, 32, 32, D_menu_801B9080, D_menu_801B9084,
-                                D_menu_801B7BB0, D_menu_801B7BB4);
+            TextureRect_16bRGBA(&gMasterDisp, &D_600D5C0, 32, 32, D_menu_801B9080, D_menu_801B9084, D_menu_801B7BB0,
+                                D_menu_801B7BB4);
             D_menu_801B9080 += 1.66f;
         }
 
@@ -2913,8 +2903,8 @@ void func_menu_80190144(void) {
 
         for (i = 0; i < 4; i++) {
             Matrix_Push(&gGfxMatrix);
-            Matrix_Scale(gGfxMatrix, D_menu_801AE4EC[i] * 0.5f, D_menu_801AE4EC[i] * 0.5f,
-                         D_menu_801AE4EC[i] * 0.5f, 1);
+            Matrix_Scale(gGfxMatrix, D_menu_801AE4EC[i] * 0.5f, D_menu_801AE4EC[i] * 0.5f, D_menu_801AE4EC[i] * 0.5f,
+                         1);
             Matrix_SetGfxMtx(&gMasterDisp);
 
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, D_menu_801AE51C[i], D_menu_801AE528[i]);
@@ -2956,8 +2946,8 @@ void func_menu_801903B8(void) {
         for (i = 4; i < 12; i++) {
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, D_menu_801AE4BC[i] * temp_fs3, -D_menu_801AE4BC[i] * temp_fs4, 0.0f, 1);
-            Matrix_Scale(gGfxMatrix, D_menu_801AE4EC[i] * 0.5f, D_menu_801AE4EC[i] * 0.5f,
-                         D_menu_801AE4EC[i] * 0.5f, 1);
+            Matrix_Scale(gGfxMatrix, D_menu_801AE4EC[i] * 0.5f, D_menu_801AE4EC[i] * 0.5f, D_menu_801AE4EC[i] * 0.5f,
+                         1);
 
             Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -2993,8 +2983,7 @@ void func_menu_801906A0(void) {
 
             for (i = 0; i < 5; i++) {
                 TextureRect_16bRGBA(&gMasterDisp, D_6006EA0 + (2048 * i), 128, 16, D_menu_801B9070,
-                                    D_menu_801B9074 + (16 * i * D_menu_801B907C), D_menu_801B9078,
-                                    D_menu_801B907C);
+                                    D_menu_801B9074 + (16 * i * D_menu_801B907C), D_menu_801B9078, D_menu_801B907C);
             }
             TextureRect_16bRGBA(&gMasterDisp, D_600BEA0, 128, 8, D_menu_801B9070,
                                 (80.0f * D_menu_801B907C) + D_menu_801B9074, D_menu_801B9078, D_menu_801B907C);
@@ -3005,8 +2994,8 @@ void func_menu_801906A0(void) {
 }
 
 void func_menu_80190950(void) {
-    Lights_SetOneLight(&gMasterDisp, D_menu_801B82E0, D_menu_801B82E4, D_menu_801B82E8, 0, 0, 0, gAmbientR,
-                       gAmbientG, gAmbientB);
+    Lights_SetOneLight(&gMasterDisp, D_menu_801B82E0, D_menu_801B82E4, D_menu_801B82E8, 0, 0, 0, gAmbientR, gAmbientG,
+                       gAmbientB);
     RCP_SetupDL(&gMasterDisp, 0x17);
 
     Matrix_Push(&gGfxMatrix);
@@ -3031,8 +3020,8 @@ void func_menu_80190A98(void) {
 }
 
 void func_menu_80190B30(s32 arg0) {
-    Lights_SetOneLight(&gMasterDisp, D_menu_801B82E0, D_menu_801B82E4, D_menu_801B82E8, gLight1R, gLight1G,
-                       gLight1B, gAmbientR, gAmbientG, gAmbientB);
+    Lights_SetOneLight(&gMasterDisp, D_menu_801B82E0, D_menu_801B82E4, D_menu_801B82E8, gLight1R, gLight1G, gLight1B,
+                       gAmbientR, gAmbientG, gAmbientB);
     RCP_SetupDL(&gMasterDisp, 0x17);
 
     Matrix_Push(&gGfxMatrix);
@@ -3195,8 +3184,8 @@ void func_menu_801912A0(void) {
     }
 }
 
-void func_menu_80191320(s32 arg0, f32* arg1, f32* arg2, f32* arg3, f32* arg4, f32* arg5, f32* arg6, f32 arg7,
-                          f32 arg8, f32 arg9) {
+void func_menu_80191320(s32 arg0, f32* arg1, f32* arg2, f32* arg3, f32* arg4, f32* arg5, f32* arg6, f32 arg7, f32 arg8,
+                        f32 arg9) {
     Vec3f sp54;
     Vec3f sp48;
     f32* sp44;
@@ -3250,7 +3239,7 @@ void func_menu_80191320(s32 arg0, f32* arg1, f32* arg2, f32* arg3, f32* arg4, f3
 }
 
 void func_menu_801914AC(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg5, f32 arg6, f32* arg7, f32* arg8,
-                          f32* arg9, f32 argA, f32 argB, f32 argC) {
+                        f32* arg9, f32 argA, f32 argB, f32 argC) {
     Vec3f sp44;
     Vec3f sp38;
 

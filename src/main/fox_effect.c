@@ -3052,8 +3052,7 @@ void func_8008040C(Effect* effect) {
                 }
 
                 if (D_801784AC == 4) {
-                    if (func_i5_801B6AEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z + D_80177D20) !=
-                        0) {
+                    if (func_i5_801B6AEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z + D_80177D20) != 0) {
                         Object_Kill(&effect->obj, &effect->sfxPos);
                     }
                 } else if (effect->obj.pos.y < gGroundLevel) {

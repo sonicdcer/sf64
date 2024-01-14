@@ -1097,51 +1097,40 @@ Gfx D_menu_801B6548[] = {
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsDPSetTextureLUT(G_TT_RGBA16),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 1), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0,
-                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
-                         G_TX_NOLOD),
+    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 1), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 2), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0,
-                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
-                         G_TX_NOLOD),
+    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 2), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 3), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0,
-                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
-                         G_TX_NOLOD),
+    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 3), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsSPVertex(&D_menu_801B4740[16], 16, 0),
-    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 4), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0,
-                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
-                         G_TX_NOLOD),
+    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 4), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 5), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0,
-                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
-                         G_TX_NOLOD),
+    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 5), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 6), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0,
-                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
-                         G_TX_NOLOD),
+    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 6), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 7), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0,
-                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
-                         G_TX_NOLOD),
+    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 7), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsSPVertex(&D_menu_801B4740[32], 16, 0),
-    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 8), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0,
-                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
-                         G_TX_NOLOD),
+    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 8), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 9), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0,
-                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
-                         G_TX_NOLOD),
+    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 9), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 10), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0,
-                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
-                         G_TX_NOLOD),
+    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 10), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 11), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 8, 0,
-                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
-                         G_TX_NOLOD),
+    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 11), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 8, 0, G_TX_NOMIRROR | G_TX_WRAP,
+                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsDPPipeSync(),
     gsDPSetTextureLUT(G_TT_NONE),
@@ -1158,8 +1147,8 @@ u8* D_menu_801B68D4[] = {
 };
 
 Gfx* D_menu_801B68F8[] = {
-    D_6060610,         D_601DE80,         D_604B750,         D_601F6B0,         D_601C0D0,
-    D_601C960,         D_menu_801B5E78, D_menu_801B61E0, D_menu_801B6548, D_menu_801B4D70,
+    D_6060610,       D_601DE80,       D_604B750,       D_601F6B0,       D_601C0D0,
+    D_601C960,       D_menu_801B5E78, D_menu_801B61E0, D_menu_801B6548, D_menu_801B4D70,
     D_menu_801B5B10, D_menu_801B5440, D_menu_801B50D8, D_menu_801B57A8, D_604DB10,
 };
 
@@ -1409,9 +1398,9 @@ void func_menu_8019E99C(void) {
     D_menu_801CDA18 = 0.0f;
     D_menu_801CDA1C = 0.0f;
 
-    func_menu_801AD718(D_menu_801CDA00, D_menu_801CDA04, D_menu_801CDA08, &D_menu_801CD9F4,
-                         &D_menu_801CD9F8, &D_menu_801CD9FC, D_menu_801CDA14,
-                         D_menu_801CDA0C + D_menu_801CDA18, D_menu_801CDA10 + D_menu_801CDA1C);
+    func_menu_801AD718(D_menu_801CDA00, D_menu_801CDA04, D_menu_801CDA08, &D_menu_801CD9F4, &D_menu_801CD9F8,
+                       &D_menu_801CD9FC, D_menu_801CDA14, D_menu_801CDA0C + D_menu_801CDA18,
+                       D_menu_801CDA10 + D_menu_801CDA1C);
 
     for (i = 0; i < 15; i++) {
         D_menu_801CD8A0[i] = i;
@@ -1947,9 +1936,9 @@ void func_menu_8019FF48(void) {
     }
 
     if ((D_menu_801CD944 == 0) || (D_menu_801CD944 == 1) || (D_menu_801CD944 == 7) || (D_menu_801CD944 == 3)) {
-        func_menu_801AD718(D_menu_801CDA00, D_menu_801CDA04, D_menu_801CDA08, &D_menu_801CD9F4,
-                             &D_menu_801CD9F8, &D_menu_801CD9FC, D_menu_801CDA14,
-                             D_menu_801CDA0C + D_menu_801CDA18, D_menu_801CDA10 + D_menu_801CDA1C);
+        func_menu_801AD718(D_menu_801CDA00, D_menu_801CDA04, D_menu_801CDA08, &D_menu_801CD9F4, &D_menu_801CD9F8,
+                           &D_menu_801CD9FC, D_menu_801CDA14, D_menu_801CDA0C + D_menu_801CDA18,
+                           D_menu_801CDA10 + D_menu_801CDA1C);
         func_800B6F50(D_menu_801CD9F4, D_menu_801CD9F8, D_menu_801CD9FC, D_menu_801CDA00, D_menu_801CDA04,
                       D_menu_801CDA08);
     }
@@ -1964,8 +1953,8 @@ void func_menu_801A01A8(void) {
     s32* ptr;
 
     Matrix_Push(&gGfxMatrix);
-    Matrix_LookAt(gGfxMatrix, D_menu_801CD9F4, D_menu_801CD9F8, D_menu_801CD9FC, D_menu_801CDA00,
-                  D_menu_801CDA04, D_menu_801CDA08, D_menu_801CDA20, D_menu_801CDA24, D_menu_801CDA28, 1);
+    Matrix_LookAt(gGfxMatrix, D_menu_801CD9F4, D_menu_801CD9F8, D_menu_801CD9FC, D_menu_801CDA00, D_menu_801CDA04,
+                  D_menu_801CDA08, D_menu_801CDA20, D_menu_801CDA24, D_menu_801CDA28, 1);
     Matrix_Translate(gGfxMatrix, D_menu_801CEA58, D_menu_801CEA5C, D_menu_801CEA60, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -2038,18 +2027,18 @@ void func_menu_801A01A8(void) {
 
     if (D_menu_801CEEC8 == 0) {
         func_menu_801A07E8((u8*) D_menu_801B68B0[8], (u8*) SEGMENTED_TO_VIRTUAL(D_menu_801B68D4[8]),
-                             &(D_menu_801CD818[8]));
+                           &(D_menu_801CD818[8]));
         D_menu_801CEEC8 = 5;
     } else {
         D_menu_801CEEC8--;
     }
 
     func_menu_801A07E8((u8*) D_menu_801B68B0[D_menu_801CEEC4 * 2],
-                         (u8*) SEGMENTED_TO_VIRTUAL(D_menu_801B68D4[D_menu_801CEEC4 * 2]),
-                         &(D_menu_801CD818[D_menu_801CEEC4 * 2]));
+                       (u8*) SEGMENTED_TO_VIRTUAL(D_menu_801B68D4[D_menu_801CEEC4 * 2]),
+                       &(D_menu_801CD818[D_menu_801CEEC4 * 2]));
     func_menu_801A07E8((u8*) D_menu_801B68B0[(D_menu_801CEEC4 * 2) + 1],
-                         (u8*) SEGMENTED_TO_VIRTUAL(D_menu_801B68D4[(D_menu_801CEEC4 * 2) + 1]),
-                         &(D_menu_801CD818[(D_menu_801CEEC4 * 2) + 1]));
+                       (u8*) SEGMENTED_TO_VIRTUAL(D_menu_801B68D4[(D_menu_801CEEC4 * 2) + 1]),
+                       &(D_menu_801CD818[(D_menu_801CEEC4 * 2) + 1]));
     D_menu_801CEEC4++;
     if (D_menu_801CEEC4 > 3) {
         D_menu_801CEEC4 = 0;
@@ -2847,9 +2836,8 @@ void func_menu_801A281C(void) {
     D_menu_801CDA10 = 0.0f;
     D_menu_801CDA14 = 500.0f;
 
-    func_menu_801AD718(D_menu_801CEF58[2].x, D_menu_801CEF58[2].y, D_menu_801CEF58[2].z,
-                         &D_menu_801CEEE8[2].x, &D_menu_801CEEE8[2].y, &D_menu_801CEEE8[2].z, D_menu_801CDA14,
-                         D_menu_801CDA0C, D_menu_801CDA10);
+    func_menu_801AD718(D_menu_801CEF58[2].x, D_menu_801CEF58[2].y, D_menu_801CEF58[2].z, &D_menu_801CEEE8[2].x,
+                       &D_menu_801CEEE8[2].y, &D_menu_801CEEE8[2].z, D_menu_801CDA14, D_menu_801CDA0C, D_menu_801CDA10);
 
     D_menu_801CEEE8[5].x = D_menu_801CEEE8[4].x = D_menu_801CEEE8[3].x = D_menu_801CEEE8[2].x;
     D_menu_801CEEE8[5].y = D_menu_801CEEE8[4].y = D_menu_801CEEE8[3].y = D_menu_801CEEE8[2].y;
@@ -2863,9 +2851,8 @@ void func_menu_801A281C(void) {
     D_menu_801CDA10 = -9.849999f;
     D_menu_801CDA14 = 3375.000000f;
 
-    func_menu_801AD718(D_menu_801CEF58[6].x, D_menu_801CEF58[6].y, D_menu_801CEF58[6].z,
-                         &D_menu_801CEEE8[6].x, &D_menu_801CEEE8[6].y, &D_menu_801CEEE8[6].z, D_menu_801CDA14,
-                         D_menu_801CDA0C, D_menu_801CDA10);
+    func_menu_801AD718(D_menu_801CEF58[6].x, D_menu_801CEF58[6].y, D_menu_801CEF58[6].z, &D_menu_801CEEE8[6].x,
+                       &D_menu_801CEEE8[6].y, &D_menu_801CEEE8[6].z, D_menu_801CDA14, D_menu_801CDA0C, D_menu_801CDA10);
 
     D_menu_801CEEE8[7].x = D_menu_801CEEE8[6].x;
     D_menu_801CEEE8[7].y = D_menu_801CEEE8[6].y;
@@ -2990,8 +2977,7 @@ void func_menu_801A2B8C(void) {
             break;
     }
 
-    func_800B6F50(D_menu_801CD9F4, D_menu_801CD9F8, D_menu_801CD9FC, D_menu_801CDA00, D_menu_801CDA04,
-                  D_menu_801CDA08);
+    func_800B6F50(D_menu_801CD9F4, D_menu_801CD9F8, D_menu_801CD9FC, D_menu_801CDA00, D_menu_801CDA04, D_menu_801CDA08);
 
     D_menu_801CD9C4++;
 }
@@ -3115,8 +3101,7 @@ void func_menu_801A3440(f32 arg0) {
     Vec3f vec[2];
 
     if (D_menu_801CEED8 != -1) {
-        func_menu_801A3550(vec, &D_menu_801CEEE8[D_menu_801CEED8], &D_menu_801CEF58[D_menu_801CEED8],
-                             D_menu_801CEEDC);
+        func_menu_801A3550(vec, &D_menu_801CEEE8[D_menu_801CEED8], &D_menu_801CEF58[D_menu_801CEED8], D_menu_801CEEDC);
         D_menu_801CD9F4 = vec[0].x;
         D_menu_801CD9F8 = vec[0].y;
         D_menu_801CD9FC = vec[0].z;
@@ -3692,8 +3677,7 @@ void func_menu_801A4D7C(void) {
         Audio_PlaySfx(0x49000003U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         D_menu_801CF000[D_menu_801CEFDC] = 10;
 
-        if (((D_menu_801CD93C != 0) && (D_menu_801CEFDC == 2)) ||
-            ((D_menu_801CD93C == 0) && (D_menu_801CEFDC == 1))) {
+        if (((D_menu_801CD93C != 0) && (D_menu_801CEFDC == 2)) || ((D_menu_801CD93C == 0) && (D_menu_801CEFDC == 1))) {
             D_menu_801CEFD0 = 1;
             D_menu_801CF00C = 10;
         }
@@ -4049,14 +4033,12 @@ void func_menu_801A5E80(void) {
                 D_menu_801CD9B8 = 0;
             }
 
-            if ((gControllerPress[gMainController].button & A_BUTTON) && (D_menu_801CD9A0 == 0) &&
-                !(D_menu_801CD9A8)) {
+            if ((gControllerPress[gMainController].button & A_BUTTON) && (D_menu_801CD9A0 == 0) && !(D_menu_801CD9A8)) {
                 func_8001AE58();
                 D_Timer_801782AC = 0;
             }
 
-            if ((gControllerPress[gMainController].button & A_BUTTON) && (D_menu_801CD9A0 == 1) &&
-                !(D_menu_801CD9A8)) {
+            if ((gControllerPress[gMainController].button & A_BUTTON) && (D_menu_801CD9A0 == 1) && !(D_menu_801CD9A8)) {
                 D_menu_801CD9A0 = 0;
             }
 
@@ -4412,8 +4394,8 @@ void func_menu_801A6694(void) {
 
         Matrix_Push(&gGfxMatrix);
 
-        Matrix_LookAt(gGfxMatrix, D_menu_801CD9F4, D_menu_801CD9F8, D_menu_801CD9FC, D_menu_801CDA00,
-                      D_menu_801CDA04, D_menu_801CDA08, D_menu_801CDA20, D_menu_801CDA24, D_menu_801CDA28, 1);
+        Matrix_LookAt(gGfxMatrix, D_menu_801CD9F4, D_menu_801CD9F8, D_menu_801CD9FC, D_menu_801CDA00, D_menu_801CDA04,
+                      D_menu_801CDA08, D_menu_801CDA20, D_menu_801CDA24, D_menu_801CDA28, 1);
         Matrix_Translate(gGfxMatrix, D_menu_801CEA58, D_menu_801CEA5C, D_menu_801CEA60, 1);
         Matrix_Mult(gGfxMatrix, &D_menu_801CDA60[planetId], 1);
 
@@ -4486,8 +4468,8 @@ void func_menu_801A6A98(PlanetId planetId) {
             func_menu_801A791C(planetId);
         }
 
-        if ((temp == 1) && (D_menu_801CE960[planetId].z > D_menu_801CEA18[planetId]) &&
-            (planetId != PLANET_AREA_6) && (planetId != PLANET_BOLSE)) {
+        if ((temp == 1) && (D_menu_801CE960[planetId].z > D_menu_801CEA18[planetId]) && (planetId != PLANET_AREA_6) &&
+            (planetId != PLANET_BOLSE)) {
 
             func_menu_801A7F1C(planetId);
         }
@@ -4529,8 +4511,8 @@ void func_menu_801A6A98(PlanetId planetId) {
             func_menu_801A89BC(PLANET_SECTOR_Y, 2);
         }
 
-        if ((temp == 1) && (D_menu_801CE960[planetId].z <= D_menu_801CEA18[planetId]) &&
-            (planetId != PLANET_AREA_6) && (planetId != PLANET_BOLSE)) {
+        if ((temp == 1) && (D_menu_801CE960[planetId].z <= D_menu_801CEA18[planetId]) && (planetId != PLANET_AREA_6) &&
+            (planetId != PLANET_BOLSE)) {
 
             func_menu_801A7F1C(planetId);
         }
@@ -5292,8 +5274,8 @@ void func_menu_801A9224(void) {
 
                 func_menu_801AD048();
 
-                Matrix_Scale(gGfxMatrix, D_menu_801AFA38[i].scale, D_menu_801AFA38[i].scale,
-                             D_menu_801AFA38[i].scale, 1);
+                Matrix_Scale(gGfxMatrix, D_menu_801AFA38[i].scale, D_menu_801AFA38[i].scale, D_menu_801AFA38[i].scale,
+                             1);
 
                 Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -5349,8 +5331,7 @@ void func_menu_801A9448(void) {
             func_menu_801AD048();
 
             Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801B6A80, 1);
-            Matrix_Scale(gGfxMatrix, D_menu_801AFCD8[i].scale, D_menu_801AFCD8[i].scale, D_menu_801AFCD8[i].scale,
-                         1);
+            Matrix_Scale(gGfxMatrix, D_menu_801AFCD8[i].scale, D_menu_801AFCD8[i].scale, D_menu_801AFCD8[i].scale, 1);
 
             Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -5383,8 +5364,8 @@ void func_menu_801A9448(void) {
 void func_menu_801A9814(void) {
     if (D_menu_801B8280 != 0) {
         Matrix_Push(&gGfxMatrix);
-        Matrix_LookAt(gGfxMatrix, D_menu_801CD9F4, D_menu_801CD9F8, D_menu_801CD9FC, D_menu_801CDA00,
-                      D_menu_801CDA04, D_menu_801CDA08, D_menu_801CDA20, D_menu_801CDA24, D_menu_801CDA28, 1);
+        Matrix_LookAt(gGfxMatrix, D_menu_801CD9F4, D_menu_801CD9F8, D_menu_801CD9FC, D_menu_801CDA00, D_menu_801CDA04,
+                      D_menu_801CDA08, D_menu_801CDA20, D_menu_801CDA24, D_menu_801CDA28, 1);
         Matrix_Translate(gGfxMatrix, D_menu_801CEA58, D_menu_801CEA5C, D_menu_801CEA60, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         func_80084688(2, D_menu_801B8284);
@@ -5499,14 +5480,12 @@ void func_menu_801A9A8C(void) {
 
     for (i = 0; i < D_menu_801AF834[sp58].height; i++) {
         TextureRect_8bIA(&gMasterDisp, D_menu_801AF834[sp58].addr + (D_menu_801AF834[sp58].width * i),
-                         D_menu_801AF834[sp58].width, 1, D_menu_801AF834[sp58].posX, 94.0f + (1.0f * i), 1.0f,
-                         1.0f);
+                         D_menu_801AF834[sp58].width, 1, D_menu_801AF834[sp58].posX, 94.0f + (1.0f * i), 1.0f, 1.0f);
     }
 
     for (i = 0; i < D_menu_801AF914[sp58].height; i++) {
         TextureRect_8bIA(&gMasterDisp, D_menu_801AF914[sp58].addr + (D_menu_801AF914[sp58].width * i),
-                         D_menu_801AF914[sp58].width, 1, D_menu_801AF914[sp58].posX, 140.0f + (1.0f * i), 1.0f,
-                         1.0f);
+                         D_menu_801AF914[sp58].width, 1, D_menu_801AF914[sp58].posX, 140.0f + (1.0f * i), 1.0f, 1.0f);
     }
 }
 
@@ -5673,8 +5652,7 @@ void func_menu_801AA434(s32 arg0, f32 x, f32 y, s32 idx) {
         for (i = 0; i < 3; i++, x2 += 9.0f) {
             if ((D_80177B50[arg0] & mask)) {
                 RCP_SetupDL(&gMasterDisp, 0x53);
-                gDPSetPrimColor(gMasterDisp++, 0, 0, D_menu_801B6ADC[i], D_menu_801B6AE8[i], D_menu_801B6AF4[i],
-                                255);
+                gDPSetPrimColor(gMasterDisp++, 0, 0, D_menu_801B6ADC[i], D_menu_801B6AE8[i], D_menu_801B6AF4[i], 255);
                 Graphics_DisplaySmallText((s32) x + x2 - 1.0f, (s32) y + 24.0f + 8.0f + 2.0f, 1.0f, 1.0f,
                                           D_menu_801B6AD0[i]);
             }
@@ -6771,19 +6749,13 @@ void func_menu_801ACD90(s32 index, Vec3f* src, Vec3f* dest) {
 
     r = sqrtf(SQ(x) + SQ(y) + SQ(z));
 
-    x1 = planet[D_menu_801AFD18[index].unk_04].posX +
-         (temp1 * planet[D_menu_801AFD18[index].unk_04].scale * (x / r));
-    y1 = planet[D_menu_801AFD18[index].unk_04].posY +
-         (temp1 * planet[D_menu_801AFD18[index].unk_04].scale * (y / r));
-    z1 = planet[D_menu_801AFD18[index].unk_04].posZ +
-         (temp1 * planet[D_menu_801AFD18[index].unk_04].scale * (z / r));
+    x1 = planet[D_menu_801AFD18[index].unk_04].posX + (temp1 * planet[D_menu_801AFD18[index].unk_04].scale * (x / r));
+    y1 = planet[D_menu_801AFD18[index].unk_04].posY + (temp1 * planet[D_menu_801AFD18[index].unk_04].scale * (y / r));
+    z1 = planet[D_menu_801AFD18[index].unk_04].posZ + (temp1 * planet[D_menu_801AFD18[index].unk_04].scale * (z / r));
 
-    x2 = planet[D_menu_801AFD18[index].unk_08].posX +
-         (temp2 * planet[D_menu_801AFD18[index].unk_08].scale * (-x / r));
-    y2 = planet[D_menu_801AFD18[index].unk_08].posY +
-         (temp2 * planet[D_menu_801AFD18[index].unk_08].scale * (-y / r));
-    z2 = planet[D_menu_801AFD18[index].unk_08].posZ +
-         (temp2 * planet[D_menu_801AFD18[index].unk_08].scale * (-z / r));
+    x2 = planet[D_menu_801AFD18[index].unk_08].posX + (temp2 * planet[D_menu_801AFD18[index].unk_08].scale * (-x / r));
+    y2 = planet[D_menu_801AFD18[index].unk_08].posY + (temp2 * planet[D_menu_801AFD18[index].unk_08].scale * (-y / r));
+    z2 = planet[D_menu_801AFD18[index].unk_08].posZ + (temp2 * planet[D_menu_801AFD18[index].unk_08].scale * (-z / r));
 
     src->x = x1;
     src->y = y1;
@@ -6795,8 +6767,8 @@ void func_menu_801ACD90(s32 index, Vec3f* src, Vec3f* dest) {
 }
 
 void func_menu_801AD048(void) {
-    f32 sp1C = Math_Atan2F(D_menu_801CD9F8 - D_menu_801CDA04, sqrtf(SQ(D_menu_801CD9F4 - D_menu_801CDA00) +
-                                                                        SQ(D_menu_801CD9FC - D_menu_801CDA08)));
+    f32 sp1C = Math_Atan2F(D_menu_801CD9F8 - D_menu_801CDA04,
+                           sqrtf(SQ(D_menu_801CD9F4 - D_menu_801CDA00) + SQ(D_menu_801CD9FC - D_menu_801CDA08)));
     f32 temp = -Math_Atan2F(D_menu_801CD9F4 - D_menu_801CDA00, D_menu_801CD9FC - D_menu_801CDA08);
 
     Matrix_RotateY(gGfxMatrix, -temp, 1);

@@ -1573,8 +1573,7 @@ void func_800A8BA4(Player* player) {
                 func_800444BC(player);
                 break;
             case FORM_BLUE_MARINE:
-                if (func_i5_801B6AEC(player->pos.x, player->pos.y - 12.0f, player->unk_138 + player->unk_144) !=
-                    0) {
+                if (func_i5_801B6AEC(player->pos.x, player->pos.y - 12.0f, player->unk_138 + player->unk_144) != 0) {
                     func_i5_801B6E20(player->pos.x, player->unk_138 + player->unk_144, &spE8, &spE0, &spE4);
                     player->pos.y = spE0 + 10.0f;
                 }
