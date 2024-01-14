@@ -3133,7 +3133,7 @@ void func_EBFBE0_80190FD0(void) {
                 } else {
                     gGameState = GSTATE_MENU;
                     D_Timer_8017783C = 2;
-                    D_8017784C = 0;
+                    gOptionMenuStatus = OPTION_WAIT;
                     gDrawMode = DRAWMODE_0;
                     D_80178410 = 0;
                     D_EBFBE0_801B8280 = 0;

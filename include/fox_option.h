@@ -3,7 +3,7 @@
 
 #include "global.h"
 
-//! TODO: RENAME. Member names inferred by func_EBFBE0_8019C120.
+//! TODO: RENAME. Member names inferred by Option_DrawCardLabel.
 typedef struct {
     /* 0x00 */ s32 unk_00; // type
     /* 0x04 */ s32 unk_04;
@@ -19,9 +19,9 @@ typedef struct {
     /* 0x2C */ s32 unk_2C; // green
     /* 0x30 */ s32 unk_30; // blue
     /* 0x34 */ s32 unk_34; // alpha
-} MenuContext_00; // size = 0x38
+} OptionTexture; // size = 0x38
 
-//! TODO: RENAME. Member names inferred by func_EBFBE0_8019BAB8
+//! TODO: RENAME. Member names inferred by Option_DrawMenuCard
 typedef struct {
     /* 0x00 */ f32 unk_00; // x
     /* 0x04 */ f32 unk_04; // y
@@ -30,20 +30,20 @@ typedef struct {
     /* 0x10 */ f32 unk_10; // yScale
 } MenuContext_38; // size = 0x14
 
-//! TODO: RENAME. Member names inferred by func_EBFBE0_8019BBA4
+//! TODO: RENAME. Member names inferred by Option_DrawMenuArwing
 typedef struct {
     /* 0x0 */ f32 unk_0; // x
     /* 0x4 */ f32 unk_4; // y
     /* 0x8 */ f32 unk_8; // range
-} MenuContext_4C; // size = 0xC
+} ArwingPosition; // size = 0xC
 
 typedef struct {
-    /* 0x00 */ MenuContext_00 unk_00;
+    /* 0x00 */ OptionTexture unk_00;
     /* 0x38 */ MenuContext_38 unk_38;
-    /* 0x4C */ MenuContext_4C unk_4C;
+    /* 0x4C */ ArwingPosition unk_4C;
     /* 0x58 */ s32 unk_58;
     /* 0x5C */ s32 unk_5C;
-} MenuContext; // size = 0x60
+} OptionEntry; // size = 0x60
 
 typedef struct {
     s32 unk_0;
@@ -55,6 +55,27 @@ typedef struct {
     /* 0x4 */ s32 unk_4;
     /* 0x8 */ s32 unk_8;
 } UnkStruct_D_EBFBE0_801AED4C; // size = 0xC
+
+typedef enum OptionId {
+    OPTION_MAIN = 1000,
+    OPTION_VERSUS_STAGE = 2000,
+    OPTION_MAP = 0,
+    OPTION_TRAINING = 1,
+    OPTION_VERSUS = 2,
+    OPTION_RANKING = 3,
+    OPTION_SOUND = 4,
+    OPTION_DATA = 5,
+    OPTION_EXPERT_SOUND = 6,
+    OPTION_POINT_MATCH = 10,
+    OPTION_BR_MATCH = 20,
+    OPTION_TT_MATCH = 30,
+    OPTION_NAME = 200,
+    OPTION_SCORE = 300,
+    OPTION_INVOICE = 400,
+    OPTION_MAX,
+} OptionId;
+
+#define OPTION_COUNT ARRAY_COUNT(sOptionCardList)
 
 extern s32 D_EBFBE0_801B9090;
 extern s32 D_EBFBE0_801B9094;
@@ -69,7 +90,7 @@ extern f32 D_EBFBE0_801B9100[3]; //gap
 extern f32 D_EBFBE0_801B9110[3];
 extern f32 D_EBFBE0_801B911C;
 extern f32 D_EBFBE0_801B9120;
-extern s32 D_EBFBE0_801B9124;
+extern OptionId D_EBFBE0_801B9124;
 extern s32 D_EBFBE0_801B9128;
 extern s32 D_EBFBE0_801B912C;
 extern s32 D_EBFBE0_801B9130;
@@ -219,35 +240,35 @@ void func_EBFBE0_8018FF74(void);
 void func_EBFBE0_8018D2B8(s32);
 void func_EBFBE0_8018EA78(s32);
 
-void func_EBFBE0_80191B20(void);
-void func_EBFBE0_80192190(void);
-void func_EBFBE0_801928BC(void);
-void func_EBFBE0_80192D58(void);
-void func_EBFBE0_80192938(void);
+void Option_Setup(void);
+void Option_UpdateEntry(void);
+void Option_MapUpdate(void);
+void Option_MainMenuUpdate(void);
+void Option_TrainingUpdate(void);
 void func_EBFBE0_801929F0(void);
-void func_EBFBE0_80193864(void);
-void func_EBFBE0_80193C4C(void);
-void func_EBFBE0_801944F0(void);
-void func_EBFBE0_80194678(void);
-void func_EBFBE0_801948A8(void);
+void Option_MainMenuDraw(void);
+void Option_VersusUpdate(void);
+void Option_VersusDraw(void);
+void Option_SoundInit(void);
+void Option_SoundUpdate(void);
 void func_EBFBE0_80194AEC(void);
 void func_EBFBE0_80194BD0(void);
-void func_EBFBE0_80194CE4(void);
+void Option_SoundDraw(void);
 void func_EBFBE0_801952B4(void);
-void func_EBFBE0_801958DC(void);
+void Option_ExpertSoundInit(void);
 void Option_ExpertSoundUpdate(void);
-void func_EBFBE0_80195B74(void);
-void func_EBFBE0_80196260(void);
-void func_EBFBE0_801962A4(void);
+void Option_ExpertSoundDraw(void);
+void Option_DataInit(void);
+void Option_DataUpdate(void);
 void func_EBFBE0_8019669C(void);
-void func_EBFBE0_80196894(void);
-void func_EBFBE0_80196E54(void);
-void func_EBFBE0_80196EFC(void);
-void func_EBFBE0_80196F9C(void);
+void Option_DataDraw(void);
+void Option_RankingInit(void);
+void Option_RankingUpdate(void);
+void Option_RankingDraw(void);
 void func_EBFBE0_80196FC4(void);
-void func_EBFBE0_80197074(void);  
-void func_EBFBE0_8019715C(void);      
-void func_EBFBE0_801973C0(void); 
+void func_EBFBE0_80197074(void);
+void func_EBFBE0_8019715C(void);
+void Option_RankingMenuDraw(void);
 void func_EBFBE0_8019752C(void);
 void func_EBFBE0_80197914(void);
 void func_EBFBE0_80197A3C(s32, s32, s32);
@@ -262,15 +283,15 @@ void func_EBFBE0_8019882C(s32, s32, f32, f32);
 void func_EBFBE0_8019896C(s32, f32, s32);
 void func_EBFBE0_80199198(f32 arg0, f32 arg1, f32 arg2);
 s32 func_EBFBE0_80199284(s32 arg0, s32 arg1);
-void func_EBFBE0_801992C4(void);
-void func_EBFBE0_80199424(void);
+void Option_VersusMenuInit(void);
+void Option_VersusMenuUpdate(void);
 void func_EBFBE0_8019949C(void);
-void func_EBFBE0_8019978C(void);
+void Option_VersusMenuDraw(void);
 void func_EBFBE0_80199820(s32);
 void func_EBFBE0_80199EA8(void);
-void func_EBFBE0_80199FA8(void);
+void Option_VersusStageInit(void);
 void func_EBFBE0_8019A080(void);
-void func_EBFBE0_8019A0B8(void);
+void Option_VersusStageUpdate(void);
 void func_EBFBE0_8019A124(void);
 void func_EBFBE0_8019A1A8(void);
 void func_EBFBE0_8019A214(void);
@@ -279,7 +300,7 @@ void func_EBFBE0_8019A2E0(void);
 void func_EBFBE0_8019A4DC(void);
 void func_EBFBE0_8019A6DC(void);
 void func_EBFBE0_8019A954(void);
-void func_EBFBE0_8019AAB4(void);
+void Option_VersusStageDraw(void);
 void func_EBFBE0_8019AB30(void);
 void func_EBFBE0_8019AD84(void);
 void func_EBFBE0_8019AFFC(void);
@@ -289,16 +310,16 @@ void func_EBFBE0_8019B5AC(void);
 void func_EBFBE0_8019B7D4(void);
 void func_EBFBE0_8019B8A0(s32 arg0);
 void func_EBFBE0_8019B8C8(void);
-void func_EBFBE0_8019B9C0(void); 
+void Option_DrawMenuLabel(void);
 void func_EBFBE0_8019BDF0(void);
-void func_EBFBE0_8019BAB8(MenuContext_38 arg0);
-void func_EBFBE0_8019BBA4(MenuContext_4C arg0);
+void Option_DrawMenuCard(MenuContext_38 arg0);
+void Option_DrawMenuArwing(ArwingPosition arg0);
 void func_EBFBE0_8019BC44(f32, f32, f32, f32, f32, f32);
 void func_EBFBE0_8019BE7C(f32, f32, f32, f32 *, f32 *, f32 *);
 void func_EBFBE0_8019BF34(void);
 void func_EBFBE0_8019B6D8(f32 xPos, f32 yPos, f32 offset, s32 r, s32 g, s32 b);
 void func_EBFBE0_8019C04C(void);
-void func_EBFBE0_8019C120(MenuContext_00 arg0);
+void Option_DrawCardLabel(OptionTexture arg0);
 s32 func_EBFBE0_8019C418(s32* arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, UnkStruct_D_EBFBE0_801B9250* arg8);
 void func_EBFBE0_8019C824(f32* );
 s32 func_EBFBE0_8019C8C4(void);
@@ -312,8 +333,8 @@ s32 func_EBFBE0_8019DCE8(s32 arg0);
 void func_EBFBE0_8019DD44(void);
 void func_EBFBE0_8019DE74(void);
 void func_EBFBE0_8019DF64(void);
-void func_EBFBE0_8019E030(void);
-void func_EBFBE0_8019E284(void);
+void Option_InvoiceUpdate(void);
+void Option_InvoiceDraw(void);
 void func_EBFBE0_801906A0(void);
 void func_EBFBE0_80190C9C(void);
 void func_EBFBE0_80190E64(void);

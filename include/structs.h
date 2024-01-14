@@ -7,12 +7,12 @@
 #define UNK_TYPE s32
 
 typedef struct {
-    /* bit 0 */ u8 unk_0 : 3;    
-    /* bit 3 */ u8 expertMedal : 1;    
-    /* bit 4 */ u8 expertClear : 1;    
-    /* bit 5 */ u8 played : 1;    
-    /* bit 6 */ u8 normalMedal : 1;    
-    /* bit 7 */ u8 normalClear : 1;    
+    /* bit 0 */ u8 unk_0 : 3;
+    /* bit 3 */ u8 expertMedal : 1;
+    /* bit 4 */ u8 expertClear : 1;
+    /* bit 5 */ u8 played : 1;
+    /* bit 6 */ u8 normalMedal : 1;
+    /* bit 7 */ u8 normalClear : 1;
 } PlanetData; // size = 0x1
 
 typedef struct {
@@ -94,5 +94,11 @@ typedef struct {
     /* 0x10 */ f32 unk_10;
     /* 0x14 */ f32 unk_14;
 } UnkStruct_D_EBFBE0_801B8294; // size = 0x18
+
+typedef enum OptionState {
+    OPTION_WAIT,
+    OPTION_SETUP,
+    OPTION_UPDATE
+} OptionState;
 
 #endif
