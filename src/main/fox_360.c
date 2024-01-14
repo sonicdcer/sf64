@@ -226,7 +226,7 @@ void func_8002E700(Player* player) {
                 player->unk_014 = 0;
                 player->unk_018 = 0;
                 player->unk_01C = 0;
-                gActors->unk_0B8 = 2;
+                gActors[0].unk_0B8 = 2;
             }
             break;
     }
@@ -1025,7 +1025,7 @@ void func_8003088C(Actor* arg0) {
                     arg0->fwork[14] = sp3C.y;
                     arg0->fwork[12] = sp3C.z;
                 }
-                if ((gRadioState == 0) && (gActors->obj.status == 2)) {
+                if ((gRadioState == 0) && (gActors[0].obj.status == 2)) {
                     if (arg0->unk_0D0 == 3) {
                         switch (arg0->unk_0E4) {
                             case 1:
@@ -1375,7 +1375,7 @@ void func_800319AC(Actor* this) {
         case 0:
             if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_9) {
                 this->fwork[0] = this->fwork[1] = 40.0f;
-                if (gActors->unk_0B8 == 5) {
+                if (gActors[0].unk_0B8 == 5) {
                     Math_SmoothStepToF(&this->unk_0F4.x, 30.0f, 0.1f, 0.5f, 0.0f);
                     this->fwork[1] = 200.0f;
                 }
@@ -1462,7 +1462,7 @@ void func_800319AC(Actor* this) {
                         this->fwork[6] = gPlayer[0].unk_138 + spC4;
                         this->fwork[1] = gPlayer[0].unk_0D0 + 10.0f;
                     }
-                    if ((gActors->unk_0B8 == 6) && (this->unk_0E4 < 4)) {
+                    if ((gActors[0].unk_0B8 == 6) && (this->unk_0E4 < 4)) {
                         this->fwork[3] = 3.0f;
                         this->fwork[1] = gPlayer[0].unk_0D0 - 5.0f;
                         this->iwork[11] = 2;
@@ -1508,7 +1508,7 @@ void func_800319AC(Actor* this) {
                     this->fwork[6] = gBosses[0].obj.pos.z;
                     this->fwork[1] = 40.0f;
                 }
-                if ((this->unk_0E6 >= 0) && (this->unk_0E6 != 100) && (gActors->unk_0B8 != 6)) {
+                if ((this->unk_0E6 >= 0) && (this->unk_0E6 != 100) && (gActors[0].unk_0B8 != 6)) {
                     if (spE8 < spF8) {
                         if (spEC < spF8) {
                             if (this->unk_0E6 != 0) {
@@ -1529,7 +1529,7 @@ void func_800319AC(Actor* this) {
                         this->iwork[4]++;
                         this->iwork[5] = 1;
                         if (!((this->index + gFrameCount) & sp10F) && (Rand_ZeroOne() < spF0) && func_80031900(this) &&
-                            ((gActors->unk_0B8 == 2) || (gCurrentLevel == LEVEL_TRAINING))) {
+                            ((gActors[0].unk_0B8 == 2) || (gCurrentLevel == LEVEL_TRAINING))) {
                             if ((this->unk_0E6 == 0) && (gCurrentLevel != LEVEL_TRAINING)) {
                                 if ((this->iwork[4] > 250) && (gCurrentLevel != LEVEL_VENOM_ANDROSS)) {
                                     if ((Rand_ZeroOne() < 0.5f) || (gCurrentLevel == LEVEL_VENOM_2)) {
@@ -1558,7 +1558,7 @@ void func_800319AC(Actor* this) {
                             }
                         }
                         if ((gRadioState == 0) && (this->timer_0C4 == 0) && (D_8015F928 > 700) && (D_8015F908 == 0) &&
-                            (gActors->obj.status == 2)) {
+                            (gActors[0].obj.status == 2)) {
                             this->timer_0C4 = 600;
                             if (Rand_ZeroOne() < 0.5f) {
                                 gActors[this->unk_0E6].iwork[6]++;
@@ -1745,7 +1745,7 @@ void func_800319AC(Actor* this) {
                     this->fwork[3] = 1.0f;
                     this->fwork[1] = 38.0f;
                 }
-                if ((gCurrentLevel == LEVEL_SECTOR_Z) && (gActors->unk_0B8 == 0xA)) {
+                if ((gCurrentLevel == LEVEL_SECTOR_Z) && (gActors[0].unk_0B8 == 0xA)) {
                     this->fwork[10] = 30.0f;
                 }
                 if ((gLevelType == LEVELTYPE_SPACE) && (gCurrentLevel != LEVEL_BOLSE)) {
@@ -1905,7 +1905,7 @@ void func_800319AC(Actor* this) {
                 if (spD8 < 0.0f) {
                     spD8 += 360.0f;
                 }
-            } else if ((this->obj.pos.y < (D_80177940 + 50.0f)) && (spD8 > 180.0f)) {
+            } else if ((this->obj.pos.y < (gGroundLevel + 50.0f)) && (spD8 > 180.0f)) {
                 spD8 = 0.0f;
                 this->unk_0F4.x = 0.0f;
             }
@@ -1967,8 +1967,8 @@ void func_800319AC(Actor* this) {
     this->fwork[13] -= (this->fwork[13] * 0.1f);
     this->fwork[14] -= (this->fwork[14] * 0.1f);
     this->fwork[12] -= (this->fwork[12] * 0.1f);
-    if ((this->obj.pos.y < D_80177940 + 40.0f) && (this->vel.y < 0.0f)) {
-        this->obj.pos.y = D_80177940 + 40.0f;
+    if ((this->obj.pos.y < gGroundLevel + 40.0f) && (this->vel.y < 0.0f)) {
+        this->obj.pos.y = gGroundLevel + 40.0f;
         this->vel.y = 0.0f;
     }
     if (this->iwork[0] != 0) {
@@ -2022,7 +2022,7 @@ void func_800319AC(Actor* this) {
     temp_v1->unk_10 = this->unk_0F4.y + 180.0f;
     if (this->iwork[1] != 0) {
         this->iwork[1]--;
-        if ((this->iwork[1] == 0) && (gActors->unk_0B8 == 2) && (gRadioState == 0)) {
+        if ((this->iwork[1] == 0) && (gActors[0].unk_0B8 == 2) && (gRadioState == 0)) {
             switch (this->unk_0E4) {
                 case 1:
                     func_8002F5F4(gMsg_ID_9220, RCID_FALCO);
@@ -2125,7 +2125,7 @@ void func_80035098(Actor* actor) {
         Matrix_RotateX(gGfxMatrix, -actor->obj.rot.x * M_DTOR, 1);
         Matrix_RotateY(gGfxMatrix, M_DTOR * -actor->obj.rot.y - gPlayer[0].unk_058, 1);
         Matrix_RotateX(gGfxMatrix, gPlayer[0].unk_05C, 1);
-        Matrix_RotateZ(gGfxMatrix, gFrameCount * 20.0f * (*actor).iwork[15] * M_DTOR, 1);
+        Matrix_RotateZ(gGfxMatrix, gFrameCount * 20.0f * actor->iwork[15] * M_DTOR, 1);
         if (actor->iwork[15] < 0) {
             Matrix_RotateX(gGfxMatrix, M_PI, 1);
         }

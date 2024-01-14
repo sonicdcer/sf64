@@ -1,33 +1,74 @@
 #include "global.h"
+#include "fox_map.h"
 
-extern UNK_TYPE D_800D2F50; // type unclear. unused?
-extern s32 D_800D2F54;      // only gets set to 0. unused?
-extern f32 D_800D2F58;
-extern f32 D_800D2F5C; // holds float versions of gVolumeSettings. Unused?
-extern f32 D_800D2F60;
-extern f32 D_800D2F64;
-extern u8 D_800D2F68;
-extern u8 D_800D2F6C[20];
-extern Vec3f D_800D2F80;
-extern Vec3f D_800D2F8C;
-extern EnvSettings* D_800D2F98[21];
-extern f32 D_800D2FEC[5];
-extern s32 D_800D3000[4][4];
-extern Vec3f D_800D3040[6];
-extern Vec3f D_800D3088[4];
-extern Vec3f D_800D30B8[4];
-extern Vec3f D_800D30E8;
-extern f32 D_800D30F4[4];
-extern f32 D_800D3104[4];
-extern f32 D_800D3114[4];
-extern f32 D_800D3124[12];
-extern f32 D_800D3154[4];
-extern s32 D_800D3164[4];
-extern u8 D_800D317C;
-extern u8 D_800D3180[30];
-extern s32 D_800D31A0[4];
+UNK_TYPE D_800D2F50 = 0;
+s32 D_800D2F54 = 0;
+f32 D_800D2F58 = 0.0f;
+f32 D_800D2F5C = 0.0f;
+f32 D_800D2F60 = 0.0f;
+f32 D_800D2F64 = 0.0f;
+u8 D_800D2F68 = 0;
+u8 D_800D2F6C[20] = {
+    PLANET_CORNERIA, PLANET_METEO,      PLANET_SECTOR_X, PLANET_AREA_6,   PLANET_AREA_6,
+    PLANET_SECTOR_Y, SAVE_SLOT_VENOM_1, SAVE_SLOT_SOLAR, PLANET_ZONESS,   SAVE_SLOT_VENOM_1,
+    PLANET_CORNERIA, PLANET_MACBETH,    PLANET_TITANIA,  PLANET_AQUAS,    PLANET_FORTUNA,
+    PLANET_METEO,    PLANET_KATINA,     PLANET_BOLSE,    PLANET_SECTOR_Z, SAVE_SLOT_VENOM_2,
+};
+Vec3f D_800D2F80 = { -65.0f, -22.0f, -65.0f };
+Vec3f D_800D2F8C = { 65.0f, -22.0f, -65.0f };
+EnvSettings* D_800D2F98[21] = {
+    &D_6037160, &D_6026C80, &D_602A120, &D_6023F20,     &D_6028760,     &D_602E4B0, &D_6007E30,
+    &D_601F1F0, &D_60266D0, &D_C035110, &D_6006A60,     &D_6030E30_Env, &D_6005000, &D_602E540,
+    &D_600EA90, NULL,       &D_6011000, &D_600FF30_Env, &D_6006E70,     &D_6014D50, &D_302DD70,
+};
+f32 D_800D2FEC[5] = {
+    0.0f, 0.5f, -0.5f, 0.5f, -0.5f,
+};
+s32 D_800D3000[4][4] = {
+    { 20, 40, 0, 0 },
+    { 20, 20, 0, 0 },
+    { 0, 0, 0, 0 },
+    { 80, 120, 0, 0 },
+};
+Vec3f D_800D3040[6] = {
+    { 0.0f, -20.0f, 0.0f }, { -17.5f, -17.5f, 0.0f }, { -17.5f, 17.5f, 0.0f },
+    { 0.0f, 20.0f, 0.0f },  { 17.5f, 17.5f, 0.0f },   { 17.5f, -17.5f, 0.0f },
+};
+Vec3f D_800D3088[4] = {
+    { 0.0f, -20.0f, 0.0f },
+    { 0.0f, 20.0f, 0.0f },
+    { 20.0f, 0.0f, 0.0f },
+    { -20.0f, 0.0f, 0.0f },
+};
+Vec3f D_800D30B8[4] = {
+    { 0.0f, -20.0f, 0.0f },
+    { 0.0f, 20.0f, 0.0f },
+    { -20.0f, 0.0f, 0.0f },
+    { 20.0f, 0.0f, 0.0f },
+};
+Vec3f D_800D30E8 = { 0.0f, -10.0f, 0.0f };
+f32 D_800D30F4[4] = { 3.0f, 4.0f, 5.0f, 3.0f };
+f32 D_800D3104[4] = { 0.2f, 0.25f, 0.3f, 0.2f };
+f32 D_800D3114[4] = { 10000.0f, -10000.0f, 10000.0f, -10000.0f };
+f32 D_800D3124[12] = {
+    10000.0f, -10000.0f, -10000.0f, 10000.0f, 500.0f, -500.0f, 500.0f, -500.0f, 500.0f, -500.0f, -500.0f, 500.0f,
+};
+f32 D_800D3154[4] = {
+    45.0f,
+    -135.0f,
+    135.0f,
+    -45.0f,
+};
+s32 D_800D3164[6] = {
+    1, 1, -1, 1, -1, 1,
+};
+u8 D_800D317C = 255;
+u8 D_800D3180[30] = {
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+};
+UNK_TYPE D_800D31A0[4] = { 0 };
 
-extern f32 D_E16C50_801C4188;
+extern f32 D_i3_801C4188;
 
 #define MEM_ARRAY_ALLOCATE(arr, count) ((arr) = Memory_Allocate((count) * sizeof(*(arr))))
 
@@ -125,7 +166,7 @@ void func_800A3FEC(void) {
 }
 
 void func_800A4460(Player* player) {
-    if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (gBosses[0].obj.status == 2) && (gBosses[0].unk_04E == 17)) {
+    if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (gBosses[0].obj.status == 2) && (gBosses[0].actionState == 17)) {
         player->unk_060 = __sinf(player->unk_0F4 * 0.7f * M_DTOR) * 0.5f;
         player->unk_088 += 13.0f;
         player->unk_0F4 += 20.0f;
@@ -224,16 +265,16 @@ void func_800A4C40(Player* player) {
         Matrix_RotateZ(gCalcMatrix, -(player->unk_0F8 * M_DTOR), 1);
         Matrix_MultVec3f(gCalcMatrix, &sp54, &sp3C);
         Matrix_MultVec3f(gCalcMatrix, &sp48, &sp30);
-        if (player->pos.y < (D_80177940 + 100.0f)) {
-            if ((sp3C.y < D_80177940 + 80.0f) && !(gFrameCount & 1)) {
+        if (player->pos.y < (gGroundLevel + 100.0f)) {
+            if ((sp3C.y < gGroundLevel + 80.0f) && !(gFrameCount & 1)) {
                 if (D_80161A64) {}
-                func_8007ACE0(sp3C.x, D_80177940, sp3C.z, 0.1f, 2.0f, player->unk_0E8 + player->unk_114 + 20.0f);
+                func_8007ACE0(sp3C.x, gGroundLevel, sp3C.z, 0.1f, 2.0f, player->unk_0E8 + player->unk_114 + 20.0f);
             }
-            if ((sp30.y < D_80177940 + 80.0f) && !(gFrameCount & 1)) {
-                func_8007ACE0(sp30.x, D_80177940, sp30.z, 0.1f, 2.0f, player->unk_0E8 + player->unk_114 - 20.0f);
+            if ((sp30.y < gGroundLevel + 80.0f) && !(gFrameCount & 1)) {
+                func_8007ACE0(sp30.x, gGroundLevel, sp30.z, 0.1f, 2.0f, player->unk_0E8 + player->unk_114 - 20.0f);
             }
         }
-        if ((sp30.y < D_80177940 + 80.0f) || (sp3C.y < D_80177940 + 80.0f)) {
+        if ((sp30.y < gGroundLevel + 80.0f) || (sp3C.y < gGroundLevel + 80.0f)) {
             if (D_80161A64 == 0) {
                 D_80161A64 = 1;
                 Audio_PlaySfx(0x1100000B, &player->unk_460, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -458,13 +499,13 @@ void func_800A594C(void) {
     if (gVersusMode) {
         switch (gVersusStage) {
             case 0:
-                sEnvSettings = SEGMENTED_TO_VIRTUAL(D_302DD70);
+                sEnvSettings = SEGMENTED_TO_VIRTUAL(&D_302DD70);
                 break;
             case 1:
-                sEnvSettings = SEGMENTED_TO_VIRTUAL(D_302DDB4);
+                sEnvSettings = SEGMENTED_TO_VIRTUAL(&D_302DDB4);
                 break;
             case 2:
-                sEnvSettings = SEGMENTED_TO_VIRTUAL(D_302DDF8);
+                sEnvSettings = SEGMENTED_TO_VIRTUAL(&D_302DDF8);
                 break;
         }
     } else {
@@ -519,7 +560,7 @@ void func_800A5D6C(void) {
 
 void func_800A5EBC(void) {
     func_800A5D6C();
-    D_80177940 = -25000.0f;
+    gGroundLevel = -25000.0f;
     D_80178410 = 600;
     if (gCurrentLevel == LEVEL_AREA_6) {
         D_80178410 = 300;
@@ -538,11 +579,11 @@ void func_800A5EBC(void) {
     }
     if (gCurrentLevel == LEVEL_BOLSE) {
         D_80178410 = 300;
-        D_80177940 = -0.0f;
+        gGroundLevel = -0.0f;
     }
     if (gCurrentLevel == LEVEL_TRAINING) {
         D_80178410 = 800;
-        D_80177940 = -0.0f;
+        gGroundLevel = -0.0f;
     }
 }
 
@@ -1540,7 +1581,7 @@ void func_800A8BA4(Player* player) {
                 break;
         }
     } else if (player->form == FORM_ARWING) {
-        if ((player->hit1.y < (D_80177940 + 13.0f)) && (player->state_1C8 != PLAYERSTATE_1C8_4)) {
+        if ((player->hit1.y < (gGroundLevel + 13.0f)) && (player->state_1C8 != PLAYERSTATE_1C8_4)) {
             if (D_80161A88 == 2) {
                 player->unk_1F4 = 7;
                 player->unk_0E4 = (player->unk_0D0 + player->unk_110) * 0.5f;
@@ -1553,7 +1594,7 @@ void func_800A8BA4(Player* player) {
                 func_8007BC7C(player->hit1.x, player->hit1.y, player->hit1.z, 6.0f);
             }
         }
-        if ((player->hit2.y < (D_80177940 + 13.0f)) && (player->state_1C8 != PLAYERSTATE_1C8_4)) {
+        if ((player->hit2.y < (gGroundLevel + 13.0f)) && (player->state_1C8 != PLAYERSTATE_1C8_4)) {
             if (D_80161A88 == 2) {
                 player->unk_1F4 = 7;
                 player->unk_0E4 = (player->unk_0D0 + player->unk_110) * 0.5f;
@@ -1789,7 +1830,7 @@ void func_800A8BA4(Player* player) {
                         player->unk_110 = 0.0f;
                         player->timer_498 = 5;
                         player->unk_0D8.y = 30.0f;
-                        boss->unk_062 = 1;
+                        boss->dmgType = DMG_BEAM;
                         func_8007BFFC(player->pos.x + (10.0f * (Rand_ZeroOne() - 0.5f)),
                                       player->pos.y + (10.0f * Rand_ZeroOne()),
                                       player->unk_138 + (10.0f * (Rand_ZeroOne() - 0.5f)), 0.0f, 15.0f, 0.0f, 2.0f, 5);
@@ -1828,8 +1869,8 @@ void func_800A8BA4(Player* player) {
                                 break;
                             }
                             Player_ApplyDamage(player, temp_v0, boss->info.damage);
-                            if ((boss->obj.id == OBJ_BOSS_303) && ((boss->unk_04E == 2) || (boss->unk_04E == 3)) &&
-                                (sp98 >= 9)) {
+                            if ((boss->obj.id == OBJ_BOSS_303) &&
+                                ((boss->actionState == 2) || (boss->actionState == 3)) && (sp98 >= 9)) {
                                 player->unk_0D8.y = -100.0f;
                             }
                             if ((boss->obj.id == OBJ_BOSS_320) && (sp98 < 5)) {
@@ -2086,9 +2127,9 @@ void func_800AA800(Player* player) {
         player->unk_06C = player->unk_138 - player->pos.y;
         if (D_801784AC != 4) {
             if (gCamCount == 1) {
-                player->unk_068 = D_80177940 + 3.0f;
+                player->unk_068 = gGroundLevel + 3.0f;
             } else {
-                player->unk_068 = D_80177940;
+                player->unk_068 = gGroundLevel;
                 if (player->form == FORM_ON_FOOT) {
                     player->unk_06C = player->unk_138;
                 }
@@ -2111,7 +2152,7 @@ void func_800AA800(Player* player) {
                         spC8.y = obj58->obj.pos.y;
                         spC8.z = obj58->obj.pos.z;
                         spD4.x = player->pos.x;
-                        spD4.y = D_80177940;
+                        spD4.y = gGroundLevel;
                         spD4.z = player->unk_138;
                         colId = COL2_4;
                         if (obj58->obj.id == OBJ_80_141) {
@@ -2198,7 +2239,7 @@ void func_800AA800(Player* player) {
                             spEC.y = player->pos.y + var_fs0 - tempy;
                             spEC.z = player->unk_138 + var_fs1 - tempz;
                             Matrix_MultVec3fNoTranslate(gCalcMatrix, &spEC, &spE0);
-                            if ((player->pos.y + var_fs0) <= D_80177940) {
+                            if ((player->pos.y + var_fs0) <= gGroundLevel) {
                                 break;
                             }
                             spD4.x = spE0.x + tempx;
@@ -2263,12 +2304,12 @@ void func_800AA800(Player* player) {
                                     tempx2 = spE0.x + tempx;
                                     tempy2 = spE0.y + tempy;
                                     tempz2 = spE0.z + tempz;
-                                    if (spEC.y + tempy <= D_80177940) {
+                                    if (spEC.y + tempy <= gGroundLevel) {
                                         break;
                                     }
 
                                     if (func_800A78C4(hitbox, tempx, tempy, tempz, tempx2, tempy2, tempz2)) {
-                                        if (D_80177940 < player->unk_068) {
+                                        if (gGroundLevel < player->unk_068) {
                                             player->unk_068 = spEC.y + 15.0f + tempy;
                                             player->unk_06C = spEC.z + 10.0f + tempz;
                                             player->unk_248 = (sp100 / 180.0f) * M_PI;
@@ -2354,8 +2395,8 @@ void func_800AB334(void) {
         case LEVEL_AQUAS:
             D_80137E78 = 3;
             D_8015F970 = 1600.0f;
-            D_E16C50_801C4188 = 128.0f;
-            func_E16C50_801A9824();
+            D_i3_801C4188 = 128.0f;
+            func_i3_801A9824();
             break;
         case LEVEL_TITANIA:
             func_E6A810_80188F30();
@@ -2374,7 +2415,7 @@ void func_800AB334(void) {
             /* fallthrough */
         case LEVEL_SOLAR:
             D_80178294 = 1;
-            D_80177940 = -20000.0f;
+            gGroundLevel = -20000.0f;
             fptr = MEM_ARRAY_ALLOCATE(D_801782CC, 17 * 17);
             for (i = 0; i < 17 * 17; i++, fptr++) {
                 *fptr = 0.0f;
@@ -2490,7 +2531,7 @@ void func_800ABAB4(void) {
     func_8001A838(0x11403076);
     func_8001A838(0x49000014);
     Memory_FreeAll();
-    D_80177C78 = D_80177C8C = D_80161734 = D_8015F908 = D_8015F90C = D_8015F910 = 0;
+    D_80177C78 = D_80177C8C = gShowBossHealth = D_8015F908 = D_8015F90C = D_8015F910 = 0;
     D_800CA220 = 0;
     D_80177830 = 0;
     if (gCurrentLevel != LEVEL_VERSUS) {
@@ -2516,7 +2557,7 @@ void func_800ABAB4(void) {
     D_80177E7C = 0;
     func_800A594C();
     D_80161A62 = D_8017796C = D_Timer_80177B44 = D_80177B4C = D_8015F928 = D_8015F940 = D_80178284 = gFrameCount =
-        D_80178480 = D_801782FC = D_801613A0 = D_80161690 = D_8015F900 = D_80177930 = 0;
+        D_80178480 = D_801782FC = gBossFrameCount = D_80161690 = D_8015F900 = D_80177930 = 0;
 
     if (gCurrentLevel == LEVEL_SECTOR_X) {
         D_80177930 = 1;
@@ -2537,7 +2578,7 @@ void func_800ABAB4(void) {
     D_8017835C = 16;
     D_8017836C = 0.0f;
     D_8015F960 = 0.0f;
-    D_80177940 = 0.0f;
+    gGroundLevel = 0.0f;
     D_80178414 = D_80178420 = D_80178424 = D_80178428 = D_8017842C = D_80178430 = 0.0f;
 
     if ((gLevelType == LEVELTYPE_SPACE) || (gCurrentLevel == LEVEL_TRAINING)) {
@@ -3079,7 +3120,7 @@ void func_800ADA28(Player* player) {
             Math_SmoothStepToF(&player->wings.unk_08, -70.0f, 0.3f, 100.0f, 0.f);
             Math_SmoothStepToF(&player->wings.unk_0C, 70.0f, 0.3f, 100.0f, 0.f);
             Math_SmoothStepToF(&player->wings.unk_10, 70.0f, 0.3f, 100.0f, 0.f);
-            if (player->pos.y < (D_80177940 + 70.0f)) {
+            if (player->pos.y < (gGroundLevel + 70.0f)) {
                 player->pos.y += 6.0f;
             }
         }
@@ -3093,7 +3134,7 @@ void func_800ADA28(Player* player) {
             Math_SmoothStepToF(&player->wings.unk_08, 70.0f, 0.3f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->wings.unk_0C, -70.0f, 0.3f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->wings.unk_10, -70.0f, 0.3f, 100.0f, 0.0f);
-            if (player->pos.y < (D_80177940 + 70.0f)) {
+            if (player->pos.y < (gGroundLevel + 70.0f)) {
                 player->pos.y += 6.0f;
             }
         }
@@ -3324,14 +3365,14 @@ void func_800AE4A4(Player* player) {
     D_80177968 = 2.3f;
     var_fa1 = 0.1f;
     temp = -sp78 * D_80177970;
-    if ((temp <= 0.0f) && (player->pos.y < (D_80177940 + 50.0f))) {
+    if ((temp <= 0.0f) && (player->pos.y < (gGroundLevel + 50.0f))) {
         D_80177968 *= 2.0f;
         temp = 0.0f;
         var_fa1 = 0.2f;
     }
     Math_SmoothStepToF(&player->unk_0E4, temp, var_fa1, D_80177968, 0.03f);
     var_fv1 = 1.5f;
-    if (player->pos.y < (D_80177940 + 70.0f)) {
+    if (player->pos.y < (gGroundLevel + 70.0f)) {
         var_fv1 = 0.8f;
     }
     if (!(((gInputHold->button & R_TRIG) && (gInputHold->button & Z_TRIG)) ||
@@ -3478,10 +3519,10 @@ void func_800AF07C(Player* player) {
     D_80177968 = 2.3f;
     D_80177970 = 0.68f;
 
-    if ((gInputPress->stick_x == 0) && (gInputPress->stick_y == 0)) {
-        // wut
-    } else {
-    }
+    // if ((gInputPress->stick_x == 0) && (gInputPress->stick_y == 0)) {
+    //     // wut
+    // } else {
+    // }
     sp9C = -gInputPress->stick_x;
     sp98 = gInputPress->stick_y;
     Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 5.0f, 0.01f);
@@ -3532,14 +3573,14 @@ void func_800AF07C(Player* player) {
     D_80177968 = 2.3f;
     sp84 = 0.1f;
     var_fa1 = -sp98 * D_80177970;
-    if ((var_fa1 <= 0.0f) && (player->pos.y < (D_80177940 + 50.0f))) {
+    if ((var_fa1 <= 0.0f) && (player->pos.y < (gGroundLevel + 50.0f))) {
         var_fa1 = 0.0f;
         sp84 = 0.2f;
         D_80177968 *= 2.0f;
     }
     Math_SmoothStepToF(&player->unk_0E4, var_fa1, sp84, D_80177968, 0.03f);
     var_fv1 = 1.0f;
-    if (player->pos.y < (D_80177940 + 70.0f)) {
+    if (player->pos.y < (gGroundLevel + 70.0f)) {
         var_fv1 = 0.8f;
     }
     if (!(((gInputHold->button & R_TRIG) && (gInputHold->button & Z_TRIG)) ||
@@ -3728,8 +3769,8 @@ void func_800AF928(Player* player) {
         Math_SmoothStepToF(&player->unk_000, 0.0f, 0.1f, 5.0f, 0.00001f);
     }
     player->unk_1D4 = 0;
-    if (player->pos.y <= D_80177940 - 5.0f) {
-        player->pos.y = D_80177940 - 5.0f;
+    if (player->pos.y <= gGroundLevel - 5.0f) {
+        player->pos.y = gGroundLevel - 5.0f;
         if (player->vel.y < -20.0f) {
             player->unk_1F4 = 20;
         }
@@ -3942,7 +3983,7 @@ void func_800B0194(Player* player) {
     player->unk_1D4 = 0;
     player->vel.y -= player->unk_0D4;
     player->pos.y += player->vel.y;
-    if (player->pos.y <= D_80177940) {
+    if (player->pos.y <= gGroundLevel) {
         player->unk_1D4 = 1;
         player->pos.y = 0.0f;
         player->vel.y = 0.0f;
@@ -4019,7 +4060,7 @@ void func_800B0F50(Player* playerx) {
     } else {
         player->unk_09C = 700.0f;
         player->unk_0A0 = 680.0f;
-        player->unk_0A4 = D_80177940 + 40.0f;
+        player->unk_0A4 = gGroundLevel + 40.0f;
         player->unk_0A8 = 3000.0f;
     }
     player->unk_0D0 = D_80161A54;
@@ -4048,7 +4089,7 @@ void func_800B0F50(Player* playerx) {
             player->unk_09C = 700.0f;
             player->unk_0D0 = 20.0f;
             player->unk_0A0 = 720.0f;
-            player->unk_0A4 = D_80177940 + 30.0f;
+            player->unk_0A4 = gGroundLevel + 30.0f;
             break;
         case LEVEL_SOLAR:
         case LEVEL_ZONESS:
@@ -4270,7 +4311,7 @@ void func_800B0F50(Player* playerx) {
     } else if (!gVersusMode && (D_80177C90 != 0xFFFF) && ((gLevelMode != LEVELMODE_ALL_RANGE) || (D_8015F924 == 0))) {
         func_8001D444(0, D_80177C90, 0, 0xFF);
     }
-    D_80177840 = D_80177848 = D_80177850 = 0;
+    D_80177840 = gBossHealthBar = D_80177850 = 0;
 
     if ((gCurrentLevel == LEVEL_TRAINING)) {
         D_80177824 = 1;
@@ -5045,12 +5086,12 @@ void func_800B42B0(Player* player) {
             func_80047504(player);
             break;
         case FORM_BLUE_MARINE:
-            func_E16C50_801ACE50(player);
-            func_E16C50_801AD328(player);
+            func_i3_801ACE50(player);
+            func_i3_801AD328(player);
             func_800B41E0(player);
-            func_E16C50_801AACF8(player);
+            func_i3_801AACF8(player);
             func_800ADF58(player);
-            func_E16C50_801AC274(player);
+            func_i3_801AC274(player);
             func_800A8BA4(player);
             func_800AA800(player);
             func_800B415C(player);
@@ -5112,7 +5153,7 @@ void func_800B44C4(Player* player) {
             }
             break;
         case FORM_BLUE_MARINE:
-            func_E16C50_801BEC80(player);
+            func_i3_801BEC80(player);
             return;
         case FORM_ON_FOOT:
             func_800B00C0(player);
@@ -5498,7 +5539,7 @@ void func_800B56BC(Player* player) {
     Math_SmoothStepToF(&player->unk_030, var_fv1 * 1.6f, 0.1f, 3.0f, 0.05f);
     if (gLevelType == LEVELTYPE_SPACE) {
         Math_SmoothStepToF(&player->unk_02C, var_fv0 * 0.8f, 0.1f, 3.0f, 0.05f);
-    } else if (player->pos.y < (D_80177940 + 50.0f)) {
+    } else if (player->pos.y < (gGroundLevel + 50.0f)) {
         Math_SmoothStepToF(&player->unk_02C, var_fv0 * 0.3f, 0.1f, 3.0f, 0.05f);
     } else {
         Math_SmoothStepToF(&player->unk_02C, 2.0f * var_fv0, 0.1f, 4.0f, 0.05f);
@@ -5896,7 +5937,7 @@ void func_800B71E4(Player* player) {
                     } else if (player->form == FORM_LANDMASTER) {
                         func_80043468(player);
                     } else if (player->form == FORM_BLUE_MARINE) {
-                        func_E16C50_801AA8E8(player);
+                        func_i3_801AA8E8(player);
                     }
                     break;
                 case LEVELMODE_ALL_RANGE:
@@ -6061,7 +6102,7 @@ void func_800B79B0(void) {
             break;
         case LEVEL_VENOM_ANDROSS:
             func_E9F1D0_8018BDD8();
-            D_80177940 = -25000.0f;
+            gGroundLevel = -25000.0f;
             gPlayer[0].unk_0A0 = 612.0f;
             gPlayer[0].unk_0A4 = -544.0f;
             if (D_Timer_80177B44 != 0) {
@@ -6151,9 +6192,9 @@ void func_800B79B0(void) {
             var_a0 = MIN(gPlayer[0].shields, 0xFF);
             func_8001D1C8(var_a0, sp3A);
             if (!(gFrameCount & 7) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7)) {
-                func_E16C50_8019E8B8((Rand_ZeroOne() - 0.5f) * 6000.0f, -80.0f,
-                                     gPlayer[0].unk_138 + ((Rand_ZeroOne() * 2000.0f) + -6000.0f),
-                                     (Rand_ZeroOne() * 10.0f) + 20.0f);
+                func_i3_8019E8B8((Rand_ZeroOne() - 0.5f) * 6000.0f, -80.0f,
+                                 gPlayer[0].unk_138 + ((Rand_ZeroOne() * 2000.0f) + -6000.0f),
+                                 (Rand_ZeroOne() * 10.0f) + 20.0f);
             }
             func_8008C104(D_60229A4, D_6010198);
             if (gPlayer[0].shields == 0) {

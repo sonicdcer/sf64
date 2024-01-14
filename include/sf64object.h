@@ -208,9 +208,9 @@ typedef struct {
     /* 0x01C */ ObjectInfo info;
     /* 0x040 */ s32 index;
     /* 0x044 */ s16 unk_044;
-    /* 0x046 */ char unk_46[0x6];
+    /* 0x046 */ char unk_46[6];
     /* 0x04C */ s16 unk_04C;
-    /* 0x04E */ s16 unk_04E;
+    /* 0x04E */ s16 actionState;
     /* 0x050 */ s16 timer_050;
     /* 0x052 */ s16 timer_052;
     /* 0x054 */ s16 timer_054;
@@ -219,15 +219,13 @@ typedef struct {
     /* 0x05A */ s16 timer_05A;
     /* 0x05C */ s16 timer_05C;
     /* 0x05E */ u8 unk_05E;
-    /* 0x060 */ s16 unk_060;
-    /* 0x062 */ s8 unk_062;
-    /* 0x064 */ s16 unk_064;
-    /* 0x066 */ s16 unk_066;
+    /* 0x060 */ s16 health;
+    /* 0x062 */ s8 dmgType;
+    /* 0x064 */ s16 damage;
+    /* 0x066 */ s16 dmgPart;
     /* 0x068 */ f32 unk_068;
     /* 0x06C */ Vec3f vel;
-    /* 0x078 */ f32 unk_078;
-    /* 0x07C */ f32 unk_07C;
-    /* 0x080 */ char pad80[4];
+    /* 0x078 */ Vec3f unk_078;
     /* 0x084 */ f32 gravity;       
     /* 0x088 */ s16 swork[40];
     /* 0x0D8 */ f32 fwork[50];
@@ -235,6 +233,10 @@ typedef struct {
     /* 0x3F8 */ f32 unk_3F8;
     /* 0x3FC */ Vec3f sfxPos;
 } Boss; // size = 0x408
+
+#define DMG_BEAM 1
+#define DMG_NONE 0
+#define DMG_BOMB -1
 
 typedef struct {
     /* 0x000 */ Object obj;
@@ -262,7 +264,6 @@ typedef struct {
     /* 0x0CA */ u8 timer_0CA[4];
     /* 0x0CE */ s16 unk_0CE;
     /* 0x0D0 */ s8 unk_0D0;
-    /* 0x0D1 */ char pad0D1[0x1];
     /* 0x0D2 */ s16 unk_0D2;
     /* 0x0D4 */ s16 unk_0D4;
     /* 0x0D6 */ u16 unk_0D6;
@@ -692,5 +693,159 @@ typedef enum{
 #define OBJ_UNK_406 406
 
 #define OBJ_UNK_1000 1000
+
+// template enums for boss work buffers
+
+typedef enum {
+    /*  0 */ LN_SWK_0,
+    /*  1 */ LN_SWK_1,
+    /*  2 */ LN_SWK_2,
+    /*  3 */ LN_SWK_3,
+    /*  4 */ LN_SWK_4,
+    /*  5 */ LN_SWK_5,
+    /*  6 */ LN_SWK_6,
+    /*  7 */ LN_SWK_7,
+    /*  8 */ LN_SWK_8,
+    /*  9 */ LN_SWK_9,
+    /* 10 */ LN_SWK_10,
+    /* 11 */ LN_SWK_11,
+    /* 12 */ LN_SWK_12,
+    /* 13 */ LN_SWK_13,
+    /* 14 */ LN_SWK_14,
+    /* 15 */ LN_SWK_15,
+    /* 16 */ LN_SWK_16,
+    /* 17 */ LN_SWK_17,
+    /* 18 */ LN_SWK_18,
+    /* 19 */ LN_SWK_19,
+    /* 20 */ LN_SWK_20,
+    /* 21 */ LN_SWK_21,
+    /* 22 */ LN_SWK_22,
+    /* 23 */ LN_SWK_23,
+    /* 24 */ LN_SWK_24,
+    /* 25 */ LN_SWK_25,
+    /* 26 */ LN_SWK_26,
+    /* 27 */ LN_SWK_27,
+    /* 28 */ LN_SWK_28,
+    /* 29 */ LN_SWK_29,
+    /* 30 */ LN_SWK_30,
+    /* 31 */ LN_SWK_31,
+    /* 32 */ LN_SWK_32,
+    /* 33 */ LN_SWK_33,
+    /* 34 */ LN_SWK_34,
+    /* 35 */ LN_SWK_35,
+    /* 36 */ LN_SWK_36,
+    /* 37 */ LN_SWK_37,
+    /* 38 */ LN_SWK_38,
+    /* 39 */ LN_SWK_39,
+    /* 40 */ LN_SWK_MAX,
+} BossLNswork;
+
+typedef enum {
+    /*  0 */ LN_FWK_0,
+    /*  1 */ LN_FWK_1,
+    /*  2 */ LN_FWK_2,
+    /*  3 */ LN_FWK_3,
+    /*  4 */ LN_FWK_4,
+    /*  5 */ LN_FWK_5,
+    /*  6 */ LN_FWK_6,
+    /*  7 */ LN_FWK_7,
+    /*  8 */ LN_FWK_8,
+    /*  9 */ LN_FWK_9,
+    /* 10 */ LN_FWK_10,
+    /* 11 */ LN_FWK_11,
+    /* 12 */ LN_FWK_12,
+    /* 13 */ LN_FWK_13,
+    /* 14 */ LN_FWK_14,
+    /* 15 */ LN_FWK_15,
+    /* 16 */ LN_FWK_16,
+    /* 17 */ LN_FWK_17,
+    /* 18 */ LN_FWK_18,
+    /* 19 */ LN_FWK_19,
+    /* 20 */ LN_FWK_20,
+    /* 21 */ LN_FWK_21,
+    /* 22 */ LN_FWK_22,
+    /* 23 */ LN_FWK_23,
+    /* 24 */ LN_FWK_24,
+    /* 25 */ LN_FWK_25,
+    /* 26 */ LN_FWK_26,
+    /* 27 */ LN_FWK_27,
+    /* 28 */ LN_FWK_28,
+    /* 29 */ LN_FWK_29,
+    /* 30 */ LN_FWK_30,
+    /* 31 */ LN_FWK_31,
+    /* 32 */ LN_FWK_32,
+    /* 33 */ LN_FWK_33,
+    /* 34 */ LN_FWK_34,
+    /* 35 */ LN_FWK_35,
+    /* 36 */ LN_FWK_36,
+    /* 37 */ LN_FWK_37,
+    /* 38 */ LN_FWK_38,
+    /* 39 */ LN_FWK_39,
+    /* 40 */ LN_FWK_40,
+    /* 41 */ LN_FWK_41,
+    /* 42 */ LN_FWK_42,
+    /* 43 */ LN_FWK_43,
+    /* 44 */ LN_FWK_44,
+    /* 45 */ LN_FWK_45,
+    /* 46 */ LN_FWK_46,
+    /* 47 */ LN_FWK_47,
+    /* 48 */ LN_FWK_48,
+    /* 49 */ LN_FWK_49,
+    /* 50 */ LN_FWK_MAX,
+} BossLNfwork;
+
+typedef enum {
+    /*  0 */ LN_VWK_0,
+    /*  1 */ LN_VWK_1,
+    /*  2 */ LN_VWK_2,
+    /*  3 */ LN_VWK_3,
+    /*  4 */ LN_VWK_4,
+    /*  5 */ LN_VWK_5,
+    /*  6 */ LN_VWK_6,
+    /*  7 */ LN_VWK_7,
+    /*  8 */ LN_VWK_8,
+    /*  9 */ LN_VWK_9,
+    /* 10 */ LN_VWK_10,
+    /* 11 */ LN_VWK_11,
+    /* 12 */ LN_VWK_12,
+    /* 13 */ LN_VWK_13,
+    /* 14 */ LN_VWK_14,
+    /* 15 */ LN_VWK_15,
+    /* 16 */ LN_VWK_16,
+    /* 17 */ LN_VWK_17,
+    /* 18 */ LN_VWK_18,
+    /* 19 */ LN_VWK_19,
+    /* 20 */ LN_VWK_20,
+    /* 21 */ LN_VWK_21,
+    /* 22 */ LN_VWK_22,
+    /* 23 */ LN_VWK_23,
+    /* 24 */ LN_VWK_24,
+    /* 25 */ LN_VWK_25,
+    /* 26 */ LN_VWK_26,
+    /* 27 */ LN_VWK_27,
+    /* 28 */ LN_VWK_28,
+    /* 29 */ LN_VWK_29,
+    /* 30 */ LN_VWK_30,
+    /* 31 */ LN_VWK_31,
+    /* 32 */ LN_VWK_32,
+    /* 33 */ LN_VWK_33,
+    /* 34 */ LN_VWK_34,
+    /* 35 */ LN_VWK_35,
+    /* 36 */ LN_VWK_36,
+    /* 37 */ LN_VWK_37,
+    /* 38 */ LN_VWK_38,
+    /* 39 */ LN_VWK_39,
+    /* 40 */ LN_VWK_40,
+    /* 41 */ LN_VWK_41,
+    /* 42 */ LN_VWK_42,
+    /* 43 */ LN_VWK_43,
+    /* 44 */ LN_VWK_44,
+    /* 45 */ LN_VWK_45,
+    /* 46 */ LN_VWK_46,
+    /* 47 */ LN_VWK_47,
+    /* 48 */ LN_VWK_48,
+    /* 49 */ LN_VWK_49,
+    /* 50 */ LN_VWK_MAX,
+} BossLNvwork;
 
 #endif

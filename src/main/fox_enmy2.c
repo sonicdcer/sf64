@@ -331,8 +331,8 @@ void func_8006B95C(Object_80* obj80) {
         case 0:
             obj80->vel.y -= 1.0f;
 
-            if (obj80->obj.pos.y < D_80177940 + 40.0f) {
-                obj80->obj.pos.y = D_80177940 + 40.0f;
+            if (obj80->obj.pos.y < gGroundLevel + 40.0f) {
+                obj80->obj.pos.y = gGroundLevel + 40.0f;
                 Audio_PlaySfx(0x19130003, &obj80->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 obj80->unk_48 = 2;
                 obj80->vel.y = 0.0f;
@@ -431,8 +431,8 @@ void func_8006BB78(Actor* actor) {
             if (actor->vel.y < 12.0f) {
                 Math_SmoothStepToF(&actor->obj.rot.x, 180.0f, 0.1f, 7.0f, 0.01f);
             }
-            if (actor->obj.pos.y < (D_80177940 + 10.0f)) {
-                actor->obj.pos.y = D_80177940;
+            if (actor->obj.pos.y < (gGroundLevel + 10.0f)) {
+                actor->obj.pos.y = gGroundLevel;
                 actor->unk_0B8 = 4;
                 actor->unk_0B6 = 0;
                 actor->vel.y = 0.0f;
@@ -449,7 +449,7 @@ void func_8006BB78(Actor* actor) {
             break;
     }
 
-    if ((actor->obj.pos.y <= (D_80177940 + 10.0f)) && !(gFrameCount & 7)) {
+    if ((actor->obj.pos.y <= (gGroundLevel + 10.0f)) && !(gFrameCount & 7)) {
         func_8006BB1C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z);
     }
 
@@ -486,8 +486,8 @@ void func_8006C008(Actor* actor) {
     switch (actor->unk_0B8) {
         case 40:
             if (actor->unk_04A & 4) {
-                actor->obj.pos.x = gPlayer[0].pos.x + (*actor).fwork[3];
-                actor->obj.pos.z = gPlayer[0].unk_138 + (*actor).fwork[4];
+                actor->obj.pos.x = gPlayer[0].pos.x + actor->fwork[3];
+                actor->obj.pos.z = gPlayer[0].unk_138 + actor->fwork[4];
             }
 
             actor->obj.rot.x += actor->fwork[0];
@@ -604,7 +604,7 @@ void func_8006C008(Actor* actor) {
         case 53:
         case 55:
             if (((actor->timer_0BC == 0) || (func_8006351C(actor->index, &actor->obj.pos, &D_800D0030, 1) != 0) ||
-                 (actor->obj.pos.y < (D_80177940 + 10.0f))) &&
+                 (actor->obj.pos.y < (gGroundLevel + 10.0f))) &&
                 (actor->timer_0BE == 0)) {
                 func_8007B8F8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 50.0f, actor->scale * 10.0f);
                 Object_Kill(&actor->obj, &actor->sfxPos);
@@ -615,7 +615,7 @@ void func_8006C008(Actor* actor) {
         case 56:
             Math_SmoothStepToF(&actor->scale, 0.0f, 0.1f, 2.0f, 0.0001f);
             if (((actor->timer_0BC == 0) || (func_8006351C(actor->index, &actor->obj.pos, &D_800D0030, 1) != 0) ||
-                 (actor->obj.pos.y < (D_80177940 + 10.0f))) &&
+                 (actor->obj.pos.y < (gGroundLevel + 10.0f))) &&
                 (actor->timer_0BE == 0)) {
                 func_8007B8F8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 50.0f, actor->scale * 10.0f);
                 Object_Kill(&actor->obj, &actor->sfxPos);
@@ -636,7 +636,7 @@ void func_8006C008(Actor* actor) {
             actor->obj.rot.z += actor->fwork[2];
 
             if (((actor->timer_0BC == 0) || (func_8006351C(actor->index, &actor->obj.pos, &D_800D0030, 1) != 0) ||
-                 (actor->obj.pos.y < (D_80177940 + 10.0f))) &&
+                 (actor->obj.pos.y < (gGroundLevel + 10.0f))) &&
                 (actor->timer_0BE == 0)) {
                 func_8007B8F8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 50.0f, actor->scale * 10.0f);
                 Object_Kill(&actor->obj, &actor->sfxPos);
@@ -646,7 +646,7 @@ void func_8006C008(Actor* actor) {
 
         case 54:
             if (((actor->timer_0BC == 0) || (func_8006351C(actor->index, &actor->obj.pos, &D_800D0030, 1) != 0) ||
-                 (actor->obj.pos.y < (D_80177940 + 10.0f))) &&
+                 (actor->obj.pos.y < (gGroundLevel + 10.0f))) &&
                 (actor->timer_0BE == 0)) {
                 func_8007B8F8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 70.0f, actor->scale * 20.0f);
                 func_8007B8F8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 70.0f, actor->scale * 20.0f);
@@ -666,7 +666,7 @@ void func_8006C008(Actor* actor) {
             if (func_8006351C(actor->index, &actor->obj.pos, &D_800C9F2C, 1) != 0) {
                 actor->vel.x *= -0.7f;
             }
-            if (actor->obj.pos.y < D_80177940) {
+            if (actor->obj.pos.y < gGroundLevel) {
                 Object_Kill(&actor->obj, &actor->sfxPos);
             }
             break;
@@ -680,7 +680,7 @@ void func_8006C008(Actor* actor) {
                 actor->vel.x *= -0.7f;
             }
 
-            if (actor->obj.pos.y < D_80177940) {
+            if (actor->obj.pos.y < gGroundLevel) {
                 if (actor->iwork[0] >= 3) {
                     actor->vel.y = 0.0f;
                     actor->gravity = 0.0f;
@@ -690,7 +690,7 @@ void func_8006C008(Actor* actor) {
                 } else {
                     actor->iwork[0]++;
                     actor->vel.y = -actor->vel.y * 0.7f;
-                    actor->obj.pos.y = D_80177940;
+                    actor->obj.pos.y = gGroundLevel;
                     actor->fwork[0] *= 0.5f;
                     actor->fwork[1] *= 0.5f;
                     actor->fwork[2] *= 0.5f;
@@ -712,12 +712,12 @@ void func_8006C008(Actor* actor) {
 
             if (actor->unk_0B8 == 0x46) {
                 if ((actor->timer_0BC == 0) || (func_8006351C(actor->index, &actor->obj.pos, &D_800D0030, 1) != 0) ||
-                    (actor->obj.pos.y < (D_80177940 + 10.0f))) {
+                    (actor->obj.pos.y < (gGroundLevel + 10.0f))) {
                     Object_Kill(&actor->obj, &actor->sfxPos);
                 }
             } else if (actor->unk_0B8 == 0x27) {
                 if (((actor->timer_0BC == 0) || (func_8006351C(actor->index, &actor->obj.pos, &D_800D0030, 1) != 0) ||
-                     (actor->obj.pos.y < (D_80177940 + 10.0f))) &&
+                     (actor->obj.pos.y < (gGroundLevel + 10.0f))) &&
                     (actor->timer_0BE == 0)) {
                     func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
                     Object_Kill(&actor->obj, &actor->sfxPos);
@@ -739,7 +739,7 @@ void func_8006C008(Actor* actor) {
                     func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, actor->scale);
                 }
                 if (((actor->timer_0BC == 0) || (func_8006351C(actor->index, &actor->obj.pos, &D_800D0030, 1) != 0) ||
-                     (actor->obj.pos.y < (D_80177940 + 10.0f))) &&
+                     (actor->obj.pos.y < (gGroundLevel + 10.0f))) &&
                     (actor->timer_0BE == 0)) {
                     func_8007BFFC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, actor->vel.x, actor->vel.y,
                                   actor->vel.z, actor->scale * 1.5f, 4);
@@ -751,7 +751,7 @@ void func_8006C008(Actor* actor) {
                     func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1.5f);
                 }
                 if ((func_8006351C(actor->index, &actor->obj.pos, &D_800D0030, 1) != 0) ||
-                    (actor->obj.pos.y < (D_80177940 + 10.0f))) {
+                    (actor->obj.pos.y < (gGroundLevel + 10.0f))) {
                     if (gLevelType == LEVELTYPE_SPACE) {
                         func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 2.0f);
                         Object_Kill(&actor->obj, &actor->sfxPos);
@@ -1947,8 +1947,8 @@ void func_8006FEEC(Actor* actor) {
 
         if (actor->unk_0CE <= 0) {
             for (i = 3; i < 11; i++) {
-                func_E16C50_801900FC(&actor->vwork[i], &actor->vwork[i + 11], (Rand_ZeroOne() - 0.5f) * 20.0f,
-                                     Rand_ZeroOne() * -10.0f, Rand_ZeroOne() * 10.0f, 41, actor->scale, 200, i);
+                func_i3_801900FC(&actor->vwork[i], &actor->vwork[i + 11], (Rand_ZeroOne() - 0.5f) * 20.0f,
+                                 Rand_ZeroOne() * -10.0f, Rand_ZeroOne() * 10.0f, 41, actor->scale, 200, i);
             }
             actor->unk_044 = 0;
             func_80066254(actor);
@@ -2188,7 +2188,7 @@ void func_800701E0(Actor* actor) {
             sp3C.z = actor->vel.z;
 
             if ((func_8006351C(actor->index, &actor->obj.pos, &sp3C, 0) != 0) ||
-                (actor->obj.pos.y < (D_80177940 + 20.0f))) {
+                (actor->obj.pos.y < (gGroundLevel + 20.0f))) {
                 actor->obj.status = 3;
                 actor->obj.pos.z -= actor->vel.z;
                 actor->unk_0D0 = 1;
@@ -2592,79 +2592,79 @@ void func_80070D44(Actor* actor) {
             break;
 
         case 49:
-            if (D_800D3180[1] != 0) {
+            if (D_800D3180[LEVEL_METEO] != 0) {
                 func_80070CEC(actor);
             }
             break;
 
         case 50:
-            if (D_800D3180[0xE] != 0) {
+            if (D_800D3180[LEVEL_FORTUNA] != 0) {
                 func_80070CEC(actor);
             }
             break;
 
         case 51:
-            if (D_800D3180[2] != 0) {
+            if (D_800D3180[LEVEL_SECTOR_X] != 0) {
                 func_80070CEC(actor);
             }
             break;
 
         case 52:
-            if (D_800D3180[0xC] != 0) {
+            if (D_800D3180[LEVEL_TITANIA] != 0) {
                 func_80070CEC(actor);
             }
             break;
 
         case 53:
-            if (D_800D3180[0x11] != 0) {
+            if (D_800D3180[LEVEL_BOLSE] != 0) {
                 func_80070CEC(actor);
             }
             break;
 
         case 54:
-            if (D_800D3180[5] != 0) {
+            if (D_800D3180[LEVEL_SECTOR_Y] != 0) {
                 func_80070CEC(actor);
             }
             break;
 
         case 55:
-            if (D_800D3180[0x10] != 0) {
+            if (D_800D3180[LEVEL_KATINA] != 0) {
                 func_80070CEC(actor);
             }
             break;
 
         case 56:
-            if (D_800D3180[7] != 0) {
+            if (D_800D3180[LEVEL_SOLAR] != 0) {
                 func_80070CEC(actor);
             }
             break;
 
         case 57:
-            if (D_800D3180[0xB] != 0) {
+            if (D_800D3180[LEVEL_MACBETH] != 0) {
                 func_80070CEC(actor);
             }
             break;
 
         case 58:
-            if (D_800D3180[0xD] != 0) {
+            if (D_800D3180[LEVEL_AQUAS] != 0) {
                 func_80070CEC(actor);
             }
             break;
 
         case 59:
-            if (D_800D3180[8] != 0) {
+            if (D_800D3180[LEVEL_ZONESS] != 0) {
                 func_80070CEC(actor);
             }
             break;
 
         case 60:
-            if (D_800D3180[0x12] != 0) {
+            if (D_800D3180[LEVEL_SECTOR_Z] != 0) {
                 func_80070CEC(actor);
             }
             break;
 
         case 61:
-            if (D_800D3180[3] != 0) {
+            if (D_800D3180[LEVEL_AREA_6] != 0) {
                 func_80070CEC(actor);
             }
             break;
@@ -3115,8 +3115,8 @@ void func_80072594(Actor* actor) {
                 break;
 
             case 13:
-                spDC = __sinf(((actor->index * 45) + gFrameCount) * M_DTOR) * (*actor).fwork[17];
-                spD8 = __cosf(((actor->index * 45) + (gFrameCount * 2)) * M_DTOR) * (*actor).fwork[17];
+                spDC = __sinf(((actor->index * 45) + gFrameCount) * M_DTOR) * actor->fwork[17];
+                spD8 = __cosf(((actor->index * 45) + (gFrameCount * 2)) * M_DTOR) * actor->fwork[17];
                 pad = actor->iwork[1];
                 pad = gActors[pad].iwork[12];
                 D_Timer_80161670[pad] = 5;
@@ -3442,8 +3442,8 @@ void func_80072594(Actor* actor) {
                         actor->unk_0B6 = 0;
                     }
                     if (((s32) gFrameCount % 3) == 0) {
-                        func_E16C50_8019E9F4(actor->obj.pos.x, actor->obj.pos.y - 20, actor->obj.pos.z - 180.0f, 0.0f,
-                                             Rand_ZeroOne() * 20.0f * -1.0f, 0.0f, 4.0f, 2);
+                        func_i3_8019E9F4(actor->obj.pos.x, actor->obj.pos.y - 20, actor->obj.pos.z - 180.0f, 0.0f,
+                                         Rand_ZeroOne() * 20.0f * -1.0f, 0.0f, 4.0f, 2);
                     }
                 } else if (actor->unk_0B6 >= Animation_GetFrameCount(&D_40057AC)) {
                     actor->unk_0B6 = 0;
@@ -3635,9 +3635,9 @@ void func_80072594(Actor* actor) {
                             actor->unk_0B6 = 49;
                         }
                         if (gFrameCount & 1) {
-                            func_E16C50_801AC8A8(((Rand_ZeroOne() - 0.5f) * 100.0f) + actor->obj.pos.x,
-                                                 (Rand_ZeroOne() * 50.0f) + actor->obj.pos.y,
-                                                 ((Rand_ZeroOne() - 0.5f) * 100.0f) + actor->obj.pos.z, 1.0f, 0);
+                            func_i3_801AC8A8(((Rand_ZeroOne() - 0.5f) * 100.0f) + actor->obj.pos.x,
+                                             (Rand_ZeroOne() * 50.0f) + actor->obj.pos.y,
+                                             ((Rand_ZeroOne() - 0.5f) * 100.0f) + actor->obj.pos.z, 1.0f, 0);
                         }
                     }
                     actor->timer_0C2 = 10000;
@@ -3802,8 +3802,8 @@ void func_80074FF0(Actor* actor) {
         case 96:
             RCP_SetupDL(&gMasterDisp, 0x22);
             gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, (s32) (*actor).fwork[15], (s32) (*actor).fwork[16],
-                            (s32) (*actor).fwork[17], 255);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, (s32) actor->fwork[15], (s32) actor->fwork[16],
+                            (s32) actor->fwork[17], 255);
             gSPDisplayList(gMasterDisp++, D_800D003C[actor->unk_0B4].unk_00);
             gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
             break;
@@ -3945,7 +3945,7 @@ void func_80074FF0(Actor* actor) {
                     Matrix_RotateY(gGfxMatrix, M_PI, 1);
                     Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, 1);
                     Animation_DrawSkeleton(1, D_400A398, sp114, func_80074BFC, NULL, actor, &gIdentityMatrix);
-                    Math_SmoothStepToF(&(*actor).fwork[16], 0.0f, 0.3f, 2.0f, 0.0001f);
+                    Math_SmoothStepToF(&actor->fwork[16], 0.0f, 0.3f, 2.0f, 0.0001f);
                     break;
 
                 case 36:
@@ -4002,7 +4002,7 @@ void func_80074FF0(Actor* actor) {
                 case 79:
                     temp_s0 = actor->unk_0B8;
                     actor->unk_0B8 = 2;
-                    func_E16C50_80190430(actor);
+                    func_i3_80190430(actor);
                     actor->unk_0B8 = temp_s0;
                     break;
 
@@ -4182,7 +4182,7 @@ void func_800763A4(Actor* actor) {
 
             sp60 = func_8006351C(actor->index, &actor->obj.pos, &sp4C, 0);
 
-            if ((sp60 != 0) || (actor->obj.pos.y < (D_80177940 + 30.0f))) {
+            if ((sp60 != 0) || (actor->obj.pos.y < (gGroundLevel + 30.0f))) {
                 if ((Rand_ZeroOne() < 0.5f) && (actor->timer_04C < 3) && (gLevelType == LEVELTYPE_PLANET) &&
                     (sp60 != 999) && (D_80161A88 != 2) && ((actor->vel.z < -20.0f) || (actor->vel.z > 0.0f))) {
                     if (gCurrentLevel == LEVEL_FORTUNA) {
@@ -4219,13 +4219,13 @@ void func_800763A4(Actor* actor) {
                         }
                     }
                 } else {
-                    if ((actor->obj.pos.y < (D_80177940 + 30.0f)) && (gLevelType == LEVELTYPE_PLANET)) {
+                    if ((actor->obj.pos.y < (gGroundLevel + 30.0f)) && (gLevelType == LEVELTYPE_PLANET)) {
                         actor->vel.z = 0.0f;
                         if (D_80161A88 == 2) {
-                            func_8007D9DC(actor->obj.pos.x, D_80177940 + 2.0f, actor->obj.pos.z, 3.0f, 20.0f, 0);
-                            func_8007D9DC(actor->obj.pos.x, D_80177940 + 2.0f, actor->obj.pos.z, 3.0f, 20.0f, 10);
-                            func_8007D9DC(actor->obj.pos.x, D_80177940 + 2.0f, actor->obj.pos.z, 3.0f, 20.0f, 20);
-                            func_8007ADF4(actor->obj.pos.x, D_80177940, actor->obj.pos.z, 0.1f, 3.0f);
+                            func_8007D9DC(actor->obj.pos.x, gGroundLevel + 2.0f, actor->obj.pos.z, 3.0f, 20.0f, 0);
+                            func_8007D9DC(actor->obj.pos.x, gGroundLevel + 2.0f, actor->obj.pos.z, 3.0f, 20.0f, 10);
+                            func_8007D9DC(actor->obj.pos.x, gGroundLevel + 2.0f, actor->obj.pos.z, 3.0f, 20.0f, 20);
+                            func_8007ADF4(actor->obj.pos.x, gGroundLevel, actor->obj.pos.z, 0.1f, 3.0f);
                         } else {
                             func_800365E4(actor->obj.pos.x, 3.0f, actor->obj.pos.z, actor->obj.pos.x, actor->obj.pos.z,
                                           0.0f, 0.0f, 90.0f, 6.5f, 0, 0);
@@ -4233,7 +4233,7 @@ void func_800763A4(Actor* actor) {
                         func_8007C120(actor->obj.pos.x, 20.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, actor->scale * 0.05f,
                                       0x1E);
                         if ((gCurrentLevel == LEVEL_FORTUNA) || (gCurrentLevel == LEVEL_VENOM_2)) {
-                            func_8007C688(actor->obj.pos.x, D_80177940 + 30.0f, actor->obj.pos.z, 3.0f, 60);
+                            func_8007C688(actor->obj.pos.x, gGroundLevel + 30.0f, actor->obj.pos.z, 3.0f, 60);
                             if (gCurrentLevel == LEVEL_FORTUNA) {
                                 func_80062C38(actor->obj.pos.x, actor->obj.pos.z);
                             }

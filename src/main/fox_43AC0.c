@@ -1,6 +1,6 @@
 #include "global.h"
 
-s32 D_801613A0;
+s32 gBossFrameCount;
 
 s32 D_800C9E90[28] = {
     0x8012, 0x8013, 0x8015, 0x8017, 0x8017, 0x8019, 0x8018, 0x801B, 0x8016, 0x8018, 0x8012, 0x8020, 0x8014, 0x801E,
@@ -13,13 +13,13 @@ void func_80042EC0(Boss* boss) {
     s32 var_a3;
     f32 var_fv0;
 
-    if (D_801613A0 < 0xF00) {
+    if (gBossFrameCount < 0xF00) {
         var_a3 = 10;
-    } else if (D_801613A0 < 0x1680) {
+    } else if (gBossFrameCount < 0x1680) {
         var_a3 = 5;
-    } else if (D_801613A0 < 0x1E00) {
+    } else if (gBossFrameCount < 0x1E00) {
         var_a3 = 2;
-    } else if (D_801613A0 < 0x2580) {
+    } else if (gBossFrameCount < 0x2580) {
         var_a3 = 1;
     } else {
         var_a3 = 0;
