@@ -1594,7 +1594,7 @@ void func_80057D00(void) {
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, 0.0f, D_8017847C, 0.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            func_E6A810_801B58AC(&gMasterDisp, D_80177CC8);
+            func_i5_801B58AC(&gMasterDisp, D_80177CC8);
             D_80177CC8 = 0.0f;
             Matrix_Pop(&gGfxMatrix);
         } else if (D_80161A88 != 2) {

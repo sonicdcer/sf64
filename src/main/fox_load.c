@@ -46,7 +46,7 @@ void Overlay_LoadSegment(void* vRomAddress, void* dest, ptrdiff_t size) {
 }
 
 u8 Overlay_Init(OverlayInit* ovlInit) {
-    u8* ramPtr = SEGMENT_VRAM_START(ovl_DF4260);
+    u8* ramPtr = SEGMENT_VRAM_START(ovl_i1);
     u8 segment;
     u8 changeOvl = false;
 
@@ -98,34 +98,34 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
 
     switch (ovlSetup) {
         case OVL_SETUP_TITLE:
-            changeOvl = Overlay_Init(&sOvlEBFBE0_Title[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlmenu_Title[ovlStage]);
             if (changeOvl == true) {
                 func_8001DC6C(0, 0x16);
             }
             break;
         case OVL_SETUP_MENU:
-            changeOvl = Overlay_Init(&sOvlEBFBE0_Menu[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlmenu_Menu[ovlStage]);
             break;
         case OVL_SETUP_MAP:
-            changeOvl = Overlay_Init(&sOvlEBFBE0_Map[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlmenu_Map[ovlStage]);
             break;
         case OVL_SETUP_STATE_5:
-            changeOvl = Overlay_Init(&sOvlEBFBE0_State5[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlmenu_State5[ovlStage]);
             break;
         case OVL_SETUP_CORNERIA:
-            changeOvl = Overlay_Init(&sOvlDF4260_Corneria[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli1_Corneria[ovlStage]);
             break;
         case OVL_SETUP_METEO:
-            changeOvl = Overlay_Init(&sOvlE08400_Meteo[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli2_Meteo[ovlStage]);
             break;
         case OVL_SETUP_TITANIA:
-            changeOvl = Overlay_Init(&sOvlE6A810_Titania[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli5_Titania[ovlStage]);
             break;
         case OVL_SETUP_SECTOR_X:
-            changeOvl = Overlay_Init(&sOvlE08400_SectorX[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli2_SectorX[ovlStage]);
             break;
         case OVL_SETUP_SECTOR_Z:
-            changeOvl = Overlay_Init(&sOvlE51970_SectorZ[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli4_SectorZ[ovlStage]);
             break;
         case OVL_SETUP_AQUAS:
             changeOvl = Overlay_Init(&sOvli3_Aquas[ovlStage]);
@@ -134,7 +134,7 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
             changeOvl = Overlay_Init(&sOvli3_Area6[ovlStage]);
             break;
         case OVL_SETUP_FORTUNA:
-            changeOvl = Overlay_Init(&sOvlE51970_Fortuna[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli4_Fortuna[ovlStage]);
             break;
         case OVL_SETUP_UNK_4:
             changeOvl = Overlay_Init(&sOvli3_Unk4[ovlStage]);
@@ -152,28 +152,28 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
             changeOvl = Overlay_Init(&sOvlE9F1D0_Venom2[ovlStage]);
             break;
         case OVL_SETUP_TRAINING:
-            changeOvl = Overlay_Init(&sOvlDF4260_Training[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli1_Training[ovlStage]);
             break;
         case OVL_SETUP_VENOM_1:
-            changeOvl = Overlay_Init(&sOvlDF4260_Venom1[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli1_Venom1[ovlStage]);
             break;
         case OVL_SETUP_VENOM_2:
             changeOvl = Overlay_Init(&sOvlE9F1D0_VenomSW[ovlStage]);
             break;
         case OVL_SETUP_20:
-            changeOvl = Overlay_Init(&sOvlE08400_Setup20[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli2_Setup20[ovlStage]);
             break;
         case OVL_SETUP_BOLSE:
-            changeOvl = Overlay_Init(&sOvlE51970_Bolse[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli4_Bolse[ovlStage]);
             break;
         case OVL_SETUP_KATINA:
-            changeOvl = Overlay_Init(&sOvlE51970_Katina[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli4_Katina[ovlStage]);
             break;
         case OVL_SETUP_MACBETH:
-            changeOvl = Overlay_Init(&sOvlE6A810_Macbeth[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli5_Macbeth[ovlStage]);
             break;
         case OVL_SETUP_VERSUS:
-            changeOvl = Overlay_Init(&sOvlE08400_Versus[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli2_Versus[ovlStage]);
             if (changeOvl == true) {
                 func_8001DC6C(3, 0x310);
             }

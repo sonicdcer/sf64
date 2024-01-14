@@ -1706,7 +1706,7 @@ bool func_800C176C(void) {
 
                 if (D_80178830 > 224) {
                     func_800BC760();
-                    D_EBFBE0_801B827C = 1;
+                    D_menu_801B827C = 1;
                 }
             }
             break;

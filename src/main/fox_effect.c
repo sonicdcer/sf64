@@ -2274,7 +2274,7 @@ void func_8007E014(Effect* effect) {
     f32 y;
 
     if (D_801784AC == 4) {
-        func_E6A810_801B6E20(effect->obj.pos.x, effect->obj.pos.z + D_80177D20, &x, &y, &z);
+        func_i5_801B6E20(effect->obj.pos.x, effect->obj.pos.z + D_80177D20, &x, &y, &z);
         effect->obj.pos.y = y + 3.0f;
         effect->obj.rot.x = (x * 180.0f) / M_PI;
         effect->obj.rot.z = (z * 180.0f) / M_PI;
@@ -2749,7 +2749,7 @@ void func_8007F6B0(Effect* effect) {
             posY = gGroundLevel + 40.0f;
 
             if (D_801784AC == 4) {
-                func_E6A810_801B6E20(effect->obj.pos.x + sin, effect->obj.pos.z + cos + D_80177D20, &x, &y, &z);
+                func_i5_801B6E20(effect->obj.pos.x + sin, effect->obj.pos.z + cos + D_80177D20, &x, &y, &z);
                 posY = y + 30.0f;
             }
 
@@ -2796,7 +2796,7 @@ void func_8007F958(Effect* effect) {
             posY = gGroundLevel + 10.0f;
 
             if (D_801784AC == 4) {
-                func_E6A810_801B6E20(effect->obj.pos.x + sin, effect->obj.pos.z + cos + D_80177D20, &x, &y, &z);
+                func_i5_801B6E20(effect->obj.pos.x + sin, effect->obj.pos.z + cos + D_80177D20, &x, &y, &z);
                 posY = y + 10.0f;
             }
 
@@ -2922,7 +2922,7 @@ void func_8007FE88(Effect* effect) {
     }
 
     if (D_801784AC == 4) {
-        if (func_E6A810_801B6AEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z + D_80177D20) != 0) {
+        if (func_i5_801B6AEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z + D_80177D20) != 0) {
             Object_Kill(&effect->obj, &effect->sfxPos);
         }
     } else if (effect->obj.pos.y < gGroundLevel) {
@@ -3052,8 +3052,7 @@ void func_8008040C(Effect* effect) {
                 }
 
                 if (D_801784AC == 4) {
-                    if (func_E6A810_801B6AEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z + D_80177D20) !=
-                        0) {
+                    if (func_i5_801B6AEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z + D_80177D20) != 0) {
                         Object_Kill(&effect->obj, &effect->sfxPos);
                     }
                 } else if (effect->obj.pos.y < gGroundLevel) {

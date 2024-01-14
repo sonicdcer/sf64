@@ -284,7 +284,7 @@ void func_8005A094(Actor* actor) {
                     break;
             }
             if (gCurrentLevel != LEVEL_SOLAR) {
-                gSPDisplayList(gMasterDisp++, D_E6A810_801B769C[actor->unk_046]);
+                gSPDisplayList(gMasterDisp++, D_i5_801B769C[actor->unk_046]);
             } else {
                 if (gBosses[0].fwork[3] < 4800.0f) {
                     RCP_SetupDL(&gMasterDisp, 0x1E);
@@ -323,10 +323,10 @@ void func_8005A094(Actor* actor) {
                 RCP_SetupDL(&gMasterDisp, 0x21);
             }
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-            gSPDisplayList(gMasterDisp++, D_E6A810_801B7584[actor->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_i5_801B7584[actor->unk_048]);
             break;
         case 47:
-            gSPDisplayList(gMasterDisp++, D_E6A810_801B7608[actor->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_i5_801B7608[actor->unk_048]);
             break;
         case 48:
             Graphics_SetScaleMtx(actor->scale);
@@ -406,7 +406,7 @@ void func_8005A094(Actor* actor) {
             gSPDisplayList(gMasterDisp++, D_10177C0);
             break;
         case 57:
-            gSPDisplayList(gMasterDisp++, D_DF4260_8019A008[actor->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_i1_8019A008[actor->unk_048]);
             break;
         default:
             if (actor->unk_0B8 > 9) { // part of switch tree somehow?
@@ -751,7 +751,7 @@ void func_8005BAB4(ObjectId objId, s32 index) {
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             break;
         case OBJ_BOSS_319:
-            func_DF4260_80198310(&gBosses[index]);
+            func_i1_80198310(&gBosses[index]);
             break;
     }
 }
@@ -1556,7 +1556,7 @@ void Object_DrawAll(s32 arg0) {
                     spAC.x = obj58->sfxPos.x;
                     spAC.y = obj58->sfxPos.y;
                     spAC.z = obj58->sfxPos.z;
-                    Matrix_MultVec3fNoTranslate(&D_E51970_8019EE80, &spAC, &obj58->obj.pos);
+                    Matrix_MultVec3fNoTranslate(&D_i4_8019EE80, &spAC, &obj58->obj.pos);
                     obj58->obj.rot.y = gBosses[0].obj.rot.y + (*obj58).unk_54;
                 }
                 Matrix_Push(&gGfxMatrix);

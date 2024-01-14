@@ -1587,7 +1587,7 @@ void func_8008F96C(void) {
     }
 
     if (gCurrentLevel == LEVEL_TRAINING) {
-        func_DF4260_801988E0();
+        func_i1_801988E0();
     }
 }
 

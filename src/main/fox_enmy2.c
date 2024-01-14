@@ -546,7 +546,7 @@ void func_8006C008(Actor* actor) {
             actor->obj.rot.y += actor->fwork[1];
             actor->obj.rot.z += actor->fwork[2];
 
-            func_E6A810_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_80177D20, &sp4C, &sp48, &sp4C);
+            func_i5_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_80177D20, &sp4C, &sp48, &sp4C);
 
             if (actor->obj.pos.y < sp48) {
                 actor->obj.pos.y = sp48;
@@ -566,7 +566,7 @@ void func_8006C008(Actor* actor) {
             break;
 
         case 47:
-            func_E6A810_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_80177D20, &sp4C, &sp48, &sp4C);
+            func_i5_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_80177D20, &sp4C, &sp48, &sp4C);
 
             if (actor->obj.pos.y < actor->fwork[3] + (-100.0f + sp48)) {
                 actor->obj.pos.y = actor->fwork[3] + sp48;
@@ -2090,7 +2090,7 @@ void func_800701E0(Actor* actor) {
                                 break;
 
                             case 61:
-                                func_E08400_8018CCF8(actor);
+                                func_i2_8018CCF8(actor);
                                 break;
 
                             case 27:
@@ -2198,7 +2198,7 @@ void func_800701E0(Actor* actor) {
                 }
 
                 if (actor->unk_0B4 == 61) {
-                    func_E08400_8018CCF8(actor);
+                    func_i2_8018CCF8(actor);
                 }
             }
         }
@@ -4166,7 +4166,7 @@ void func_800763A4(Actor* actor) {
         }
 
         if (D_801784AC == 4) {
-            if (func_E6A810_801B6AEC(actor->obj.pos.x, actor->obj.pos.y - 10.0f, actor->obj.pos.z + D_80177D20) != 0) {
+            if (func_i5_801B6AEC(actor->obj.pos.x, actor->obj.pos.y - 10.0f, actor->obj.pos.z + D_80177D20) != 0) {
                 func_8007D2C8(actor->obj.pos.x, actor->obj.pos.y + 20.0f, actor->obj.pos.z, actor->scale * 6.0f);
                 func_8007BFFC(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y + 30.0f,
                               actor->obj.pos.z - actor->vel.z, 0.0f, 0.0f, 0.0f, actor->scale * 4.0f, 20);

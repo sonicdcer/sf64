@@ -93,7 +93,7 @@ typedef struct {
     /* 0x0C */ f32 unk_0C;
     /* 0x10 */ f32 unk_10;
     /* 0x14 */ f32 unk_14;
-} UnkStruct_D_EBFBE0_801B8294; // size = 0x18
+} UnkStruct_D_menu_801B8294; // size = 0x18
 
 typedef enum OptionState {
     OPTION_WAIT,
