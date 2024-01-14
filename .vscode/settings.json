@@ -1,51 +1,51 @@
 {
-    "python.formatting.autopep8Args": [
-        "--ignore",
-        "E402"
-    ],
-    "search.useIgnoreFiles": false,
-    "search.exclude": {
-        "**/.git": true,
-        "**/.github": true,
-        "build/**": true,
-        "expected/**": true,
-        "tools/**": true,
-    },
-    "defines": [
-        "_LANGUAGE_C", // For gbi.h
-    ],
-    "files.associations": {
-        "hud.h": "c",
-        "global.h": "c",
-        "ultratypes.h": "c",
-        "mbi.h": "c",
-        "common.h": "c",
-        "sf64math.h": "c",
-        "ultra64.h": "c",
-        "os_internal.h": "c",
-        "structs.h": "c",
-        "stdint.h": "c",
-        "xstdio.h": "c",
-        "controller.h": "c",
-        "os_version.h": "c",
-        "stdbool.h": "c",
-        "variables.h": "c",
-        "functions.h": "c",
-        "macros.h": "c",
-        "random": "c",
-        "limits": "c",
-        "algorithm": "c",
-        "dfee30.h": "c",
-        "fox_i1.h": "c",
-        "symbol_addrs_overlays": "cpp",
-        "string.h": "c",
-        "stdarg.h": "c",
-        "fox_option.h": "c",
-        "cstdlib": "c",
-        "typeinfo": "c",
-        "sym_addrs_funcs": "c",
-        "*.txt": "c"
-        "typeinfo": "c",
-        "fox_title.h": "c"
-    },
+  "python.formatting.autopep8Args": [
+    "--ignore",
+    "E402"
+  ],
+  "search.useIgnoreFiles": false,
+  "search.exclude": {
+    "**/.git": true,
+    "**/.github": true,
+    "build/**": true,
+    "expected/**": true,
+    "tools/**": true
+  },
+  "defines": [
+    "_LANGUAGE_C"
+  ],
+  "files.associations": {
+    "hud.h": "c",
+    "global.h": "c",
+    "ultratypes.h": "c",
+    "mbi.h": "c",
+    "common.h": "c",
+    "sf64math.h": "c",
+    "ultra64.h": "c",
+    "os_internal.h": "c",
+    "structs.h": "c",
+    "stdint.h": "c",
+    "xstdio.h": "c",
+    "controller.h": "c",
+    "os_version.h": "c",
+    "stdbool.h": "c",
+    "variables.h": "c",
+    "functions.h": "c",
+    "macros.h": "c",
+    "random": "c",
+    "limits": "c",
+    "algorithm": "c",
+    "dfee30.h": "c",
+    "df4260.h": "c",
+    "symbol_addrs_overlays": "cpp",
+    "string.h": "c",
+    "stdarg.h": "c",
+    "fox_option.h": "c",
+    "cstdlib": "c",
+    "typeinfo": "c",
+    "sym_addrs_funcs": "c",
+    "*.txt": "c",
+    "fox_title.h": "c"
+  },
+  "C_Cpp_Runner.msvcBatchPath": ""
 }
