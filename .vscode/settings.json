@@ -36,7 +36,7 @@
         "limits": "c",
         "algorithm": "c",
         "dfee30.h": "c",
-        "df4260.h": "c",
+        "fox_i1.h": "c",
         "symbol_addrs_overlays": "cpp",
         "string.h": "c",
         "stdarg.h": "c",
