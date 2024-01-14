@@ -812,7 +812,7 @@ void func_E9F1D0_801A5AD4(Player*);
 void func_E9F1D0_801A5FC0(Player*);
 void func_E9F1D0_801A6164(Player *);
 
-void func_EBFBE0_80187520(s32, void*);
+void func_EBFBE0_80187520(u32, void*);
 
 void func_EF0260_8018A96C(void);
 void func_EF0260_8018AAC4(void);

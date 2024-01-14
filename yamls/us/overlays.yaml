@@ -177,7 +177,8 @@
     - [0xEEF7D0, .rodata, fox_option]
     - [0xEEFB80, .rodata, fox_map]
     # - { start: 0xEF0260, type: bss, vram: 0x801B7BA0, name: ovl_menu }
-    - { start: 0xEF0260, type: bss, vram: 0x801B7BA0, name: fox_title }
+    - { start: 0xEF0260, type: bss, vram: 0x801B7BA0, name: EBFBE0 }
+    - { start: 0xEF0260, type: bss, vram: 0x801B7BB0, name: fox_title }
     - { start: 0xEF0260, type: bss, vram: 0x801B9090, name: fox_option }
     - { start: 0xEF0260, type: bss, vram: 0x801B9410, name: fox_map }
 

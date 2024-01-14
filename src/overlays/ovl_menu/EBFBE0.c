@@ -9,8 +9,8 @@ void func_EBFBE0_8019E8C8(void);
 void func_EBFBE0_8019E8D0(void);
 void func_EBFBE0_801A01A8(void);
 
-void func_EBFBE0_80187520(s32 arg0, void* arg1) {
-    switch (arg0) {
+void func_EBFBE0_80187520(u32 mode, void* ptr) {
+    switch (mode) {
         case 103:
             func_EBFBE0_80187754();
             break;
