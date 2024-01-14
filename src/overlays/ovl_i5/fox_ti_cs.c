@@ -1,8 +1,12 @@
 #include "global.h"
 
-extern Vec3f D_i5_801B72A0[];
-
-void func_800A594C(void);
+Vec3f D_i5_801B72A0[] = { 500.0f, -700.0f, 200.0f, -500.0f, -700.0f, 200.0f };
+Vec3f D_i5_801B72B8[] = { 40.0f,  10.0f, 30.0f, 41.0f,  10.0f, 10.0f, 43.0f,  10.0f, -10.0f, 45.0f,  10.0f, -30.0f,
+                          -40.0f, 10.0f, 30.0f, -41.0f, 10.0f, 10.0f, -43.0f, 10.0f, -10.0f, -45.0f, 10.0f, -30.0f };
+f32 D_i5_801B7318[] = { 1000.0f, -1000.0f, 0.0f, 0.0f };
+f32 D_i5_801B7328[] = { 1000.0f, 1000.0f, 1000.0f, 4000.0f };
+f32 D_i5_801B7338[] = { 1000.0f, 1000.0f, 1000.0f, -4000.0f };
+f32 D_i5_801B7348[] = { 90.0f, -90.0f, 0.0f, 0.0f, 0.0f, 0.0f };
 
 void func_i5_80187530(Actor* actor) {
     Actor_Initialize(actor);
@@ -108,7 +112,7 @@ void func_i5_8018769C(Player* player) {
             }
 
             if (player->timer_1F8 == 0) {
-                if (player->unk_0D4 > (-0.3f)) {
+                if (player->unk_0D4 > -0.3f) {
                     player->unk_0D4 = player->unk_0D4 - 0.05f;
                 }
             }
@@ -132,12 +136,11 @@ void func_i5_8018769C(Player* player) {
                 player->vel.y = 0.0f;
                 player->pos.y = 2000.0f;
                 player->vel.z = 0.0f;
-                D_801779A0 = player->pos.x;
-                player->camAt.x = D_801779A0;
-                D_801779B8 = player->pos.y;
-                player->camAt.y = D_801779B8;
-                D_801779C0 = player->pos.z;
-                player->camAt.z = D_801779C0;
+
+                player->camAt.x = D_801779A0 = player->pos.x;
+                player->camAt.y = D_801779B8 = player->pos.y;
+                player->camAt.z = D_801779C0 = player->pos.z;
+
                 gPlayer->unk_19C = 1;
                 gBgColor = 0x2089;
                 player->unk_16C = 0.5f;
@@ -229,6 +232,291 @@ void func_i5_8018769C(Player* player) {
     Math_SmoothStepToF(&player->camAt.z, D_801779C0, D_80177A48[0], sp64, 0.00f);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/fox_ti_cs/func_i5_80188108.s")
+void func_i5_80188108(Actor* actor, s32 arg1) {
+    Player* player = &gPlayer[0];
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/fox_ti_cs/func_i5_801882CC.s")
+    Actor_Initialize(actor);
+    actor->obj.pos.x = D_i5_801B7318[arg1] + player->pos.x;
+    actor->obj.pos.y = D_i5_801B7328[arg1] + player->pos.y;
+    actor->obj.pos.z = D_i5_801B7338[arg1] + player->pos.z;
+
+    actor->fwork[7] = Rand_ZeroOne() * 360.0f;
+    actor->fwork[8] = Rand_ZeroOne() * 360.0f;
+
+    actor->vel.x = player->vel.x;
+    actor->vel.y = player->vel.y;
+    actor->vel.z = player->vel.z;
+
+    actor->obj.status = 1;
+    actor->obj.id = OBJ_ACTOR_195;
+    actor->obj.rot.y = 180.0f;
+
+    Object_SetInfo(&actor->info, actor->obj.id);
+
+    if (arg1 < 3) {
+        actor->iwork[11] = 1;
+        actor->unk_0C9 = 1;
+        actor->fwork[3] = D_i5_801B7348[arg1];
+        actor->unk_0B8 = 30;
+        Audio_PlaySfx(0x3100000CU, &actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        return;
+    }
+
+    actor->unk_0B6 = 1;
+    actor->unk_0B8 = 20;
+    Audio_PlaySfx(0x11030010U, &actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    actor->fwork[9] = 20.0f;
+}
+
+void func_i5_801882CC(Player* player) {
+    f32 x;
+    f32 camAtY = 0.0f;
+    Vec3f src;
+    Vec3f dest;
+    s32 i;
+
+    switch (player->unk_1D0) {
+        case 0:
+            D_80177A80 = D_80178284 = D_80178488 = 0;
+
+            func_800A6148();
+
+            player->unk_1D0 = 1;
+
+            D_80177A48[0] = 0.0f;
+            D_80177A48[1] = 0.0f;
+            D_80177A48[2] = 0.0f;
+            D_80177A48[3] = 250.0f;
+
+            player->unk_0D4 = 3.0f;
+
+            func_i5_80188108(gActors, 0);
+
+            if (gTeamShields[1] > 0) {
+                func_i5_80188108(&gActors[1], 1);
+            }
+            if (gTeamShields[3] > 0) {
+                func_i5_80188108(&gActors[2], 2);
+            }
+
+            func_8001A55C(&player->unk_460_arr[0], 0x01004024U);
+
+        case 1:
+            Math_SmoothStepToF(D_80177A48, 0.1f, 1.0f, 0.01f, 0.0f);
+            Math_SmoothStepToF(&player->unk_0D0, 4.9f, 0.1f, 1.0f, 0.0f);
+            Math_SmoothStepToF(&player->unk_08C, 0.0f, 0.1f, 1.0f, 0.0f);
+
+            if (D_80177A80 < 0x460) {
+                Math_SmoothStepToF(&D_80177A48[1], 0.65f, 0.1f, 0.01f, 0.0f);
+            } else {
+                Math_SmoothStepToF(&D_80177A48[1], 0.0f, 0.1f, 0.02f, 0.0f);
+            }
+
+            D_80177A48[2] = D_80177A48[1] + D_80177A48[2];
+
+            Matrix_RotateX(gCalcMatrix, -0.17453292f, 0);
+            Matrix_RotateY(gCalcMatrix, D_80177A48[2] * M_DTOR, 1);
+
+            src.x = 0.0f;
+            src.y = 0.0f;
+            src.z = D_80177A48[3];
+
+            Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+
+            D_80177978 = player->pos.x + dest.x;
+            D_80177980 = player->pos.y + dest.y;
+            D_80177988 = player->pos.z + player->unk_144 + dest.z + 50.0f;
+
+            if (D_80177980 < 5.0f) {
+                D_80177980 = 5.0f;
+            }
+
+            D_801779A0 = player->pos.x;
+            D_801779B8 = player->pos.y + 30.0f;
+            D_801779C0 = player->pos.z + player->unk_144;
+
+            func_80045130(player);
+            func_80044868(player);
+            func_80045678(player);
+            func_80045E7C(player);
+            func_800A8BA4(player);
+            func_800ADF58(player);
+
+            if (!(gFrameCount & 3)) {
+                f32 x;
+                f32 y;
+                f32 z;
+
+                for (i = 0; i < 8; i++) {
+                    x = D_i5_801B72B8[i].x;
+                    y = D_i5_801B72B8[i].y + (Rand_ZeroOne() - 0.5f) * 10.0f;
+                    z = D_i5_801B72B8[i].z;
+
+                    func_8007A900(player->pos.x + x, player->pos.y + y, player->unk_138 + z,
+                                  (Rand_ZeroOne() * 0.5f) + 0.5f, 255, 21, 0);
+                }
+            }
+            break;
+
+        case 2:
+            Math_SmoothStepToF(D_80177A48, 0.1f, 1.0f, 0.01f, 0.0f);
+            D_80177978 -= 2.5f;
+            D_80177988 -= 1.0f;
+
+            D_801779A0 = player->pos.x;
+            D_801779B8 = player->pos.y + 30.0f;
+            D_801779C0 = player->pos.z + player->unk_144;
+
+            if (player->pos.y < 100.0f) {
+                camAtY = __sinf((gFrameCount * 130.0f) * 0.017453292f) * 3.0f;
+            }
+
+            Math_SmoothStepToF(&player->unk_170, 2.0f, 1.0f, 0.2f, 0.0f);
+            Math_SmoothStepToF(&player->unk_16C, 2.0f, 1.0f, 0.2f, 0.0f);
+
+            if (D_80177A80 < 1470) {
+                func_8007A900(((Rand_ZeroOne() - 0.5f) * 30.0f) + (player->pos.x + 30.0f), 30.0f,
+                              ((Rand_ZeroOne() - 0.5f) * 30.0f) + player->unk_138, (2.0f * Rand_ZeroOne()) + 3.5f, 255,
+                              12, 1);
+            }
+
+            func_8007A900(((Rand_ZeroOne() - 0.5f) * 30.0f) + (player->pos.x - 30.0f), 30.0f,
+                          ((Rand_ZeroOne() - 0.5f) * 30.0f) + player->unk_138, (2.0f * Rand_ZeroOne()) + 3.5f, 255, 12,
+                          1);
+            Math_SmoothStepToF(&player->unk_0F0, __sinf((gFrameCount * 6.0f) * 0.017453292f) * 18.0f, 0.1f, 100.0f,
+                               0.0f);
+            Math_SmoothStepToF(&player->unk_080, __sinf((gFrameCount * 3.0f) * 0.017453292f) * 5.0f, 0.1f, 100.0f,
+                               0.0f);
+
+            x = __sinf((gFrameCount * 4.0f) * 0.017453292f) * -1.5f;
+
+            player->vel.x = x;
+            player->vel.y += 0.1f;
+            player->vel.z -= 0.17f;
+
+            player->pos.x += x;
+            player->pos.y += player->vel.y;
+            player->pos.z += player->vel.z;
+
+            player->unk_138 = player->pos.z;
+            break;
+    }
+
+    switch (D_80177A80) {
+        case 831:
+            D_80177830 = 1;
+            break;
+
+        case 1031:
+            D_80177830 = 0;
+            break;
+
+        case 50:
+            func_8001D444(0U, 0x26U, 0U, 0xFFU);
+            break;
+
+        case 80:
+            D_80177840 = 100;
+            break;
+
+        case 160:
+            func_800BA808(gMsg_ID_20010, RCID_FOX);
+            break;
+
+        case 248:
+            func_800BA808(gMsg_ID_4100, RCID_SLIPPY);
+            break;
+
+        case 380:
+            switch (gTeamShields[1]) {
+                case -1:
+                    func_800BA808(gMsg_ID_20331, RCID_ROB64);
+                    break;
+
+                case 0:
+                    func_800BA808(gMsg_ID_20343, RCID_ROB64);
+                    break;
+
+                default:
+                    func_800BA808(gMsg_ID_4101, RCID_FALCO);
+                    break;
+            }
+
+            break;
+
+        case 525:
+            switch (gTeamShields[3]) {
+                case -1:
+                    func_800BA808(gMsg_ID_20332, RCID_ROB64);
+                    break;
+
+                case 0:
+                    func_800BA808(gMsg_ID_20344, RCID_ROB64);
+                    break;
+
+                default:
+                    func_800BA808(gMsg_ID_4102, RCID_PEPPY);
+                    break;
+            }
+            break;
+
+        case 671:
+            func_800BA808(gMsg_ID_4103, RCID_FOX);
+            break;
+
+        case 1200:
+            gActors->unk_0B8++;
+            break;
+
+        case 1220:
+            gActors[1].unk_0B8++;
+            break;
+
+        case 1240:
+            gActors[2].unk_0B8++;
+            break;
+
+        case 1280:
+            gOverlayStage = 5;
+            break;
+
+        case 1300:
+            player->unk_1D0++;
+            D_80177A48[0] = 0.0f;
+            player->vel.z = 0.0f;
+            player->vel.y = 0.0f;
+            func_i5_80188108(&gActors[3], 3);
+            D_80161A44 = 30000.0f;
+            player->unk_240 = 1;
+            func_8001CA24(0);
+            Audio_PlaySfx(0x01008016U, &player->unk_460, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            break;
+    }
+
+    Math_SmoothStepToF(&player->camEye.x, D_80177978, D_80177A48[0], 20000.0f, 0.00f);
+    Math_SmoothStepToF(&player->camEye.y, D_80177980, D_80177A48[0], 20000.0f, 0.00f);
+    Math_SmoothStepToF(&player->camEye.z, D_80177988, D_80177A48[0], 20000.0f, 0.00f);
+    Math_SmoothStepToF(&player->camAt.x, D_801779A0, D_80177A48[0], 20000.0f, 0.00f);
+    Math_SmoothStepToF(&player->camAt.y, D_801779B8, D_80177A48[0], 20000.0f, 0.00f);
+    Math_SmoothStepToF(&player->camAt.z, D_801779C0, D_80177A48[0], 20000.0f, 0.00f);
+
+    player->camAt.y += camAtY;
+
+    if (D_80177A80 == 0x564) {
+        func_800182F4(0x103C00FF);
+        func_800182F4(0x113C00FF);
+    }
+
+    if (D_80177A80 > 1440) {
+        D_80178348 = D_80178350 = D_80178354 = 0;
+        D_80178358 = 255;
+
+        if (D_80178340 == 255) {
+            player->state_1C8 = PLAYERSTATE_1C8_6;
+            D_8017837C = 4;
+            func_800A6148();
+            func_8001DBD0(10);
+            D_800D3180[12] = Play_CheckMedalStatus(150) + 1;
+        }
+    }
+}

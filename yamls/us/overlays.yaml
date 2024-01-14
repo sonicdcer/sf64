@@ -117,7 +117,7 @@
     - [0xE7CC10, c, fox_ma]
     - [0xE97CC0, c, E97CC0]
     - [0xE9A580, .data, fox_i5]
-    - [0xE9A590, data, fox_ti_cs]
+    - [0xE9A590, .data, fox_ti_cs]
     - [0xE9A650, data, fox_ti]
     - [0xE9DC00, data, E97CC0]
     - [0xE9DCD0, .rodata, fox_i5]
