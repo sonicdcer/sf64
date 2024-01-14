@@ -858,7 +858,7 @@ extern Gfx* D_i5_801B769C[];
 extern f32 D_i5_801B83A8[];
 extern u8 D_i5_801BA1E8;
 
-// ovl_E9F1D0
+// ovl_i6
 extern f32 D_E9F1D0_801A7F58;
 extern f32 D_E9F1D0_801A7F60;
 extern f32 D_E9F1D0_801A7F68;

@@ -128,28 +128,33 @@
     - { type: bss, vram: 0x801BE240, name: E7CC10 }
     - { type: bss, vram: 0x801BE740, name: E97CC0 }
 
-  - name: ovl_E9F1D0
+  - name: ovl_i6
     type: code
-    dir: overlays/ovl_E9F1D0
+    dir: overlays/ovl_i6
     start: 0xE9F1D0
     vram: 0x80187520
     bss_size: 0x520
     exclusive_ram_id: overlay
     symbol_name_format: E9F1D0_$VRAM
     subsegments:
-    - [0xE9F1D0, c, E9F1D0]
+    - [0xE9F1D0, c, fox_i6]
+    - [0xE9F1E0, c, E9F1E0]
     - [0xEADEC0, c, EADECO]
     - [0xEAF7E0, c, EAF7E0]
     - [0xEBD210, c, EBD210]
-    - [0xEBE400, data, E9F1D0]
+    - [0xEBE400, data, fox_i6]
+    - [0xEBE410, data, E9F1E0]
     - [0xEBE560, data, EADCE0]
     - [0xEBE5C0, data, EAF7E0]
     - [0xEBE830, data, EBD210]
-    - [0xEBE840, .rodata, E9F1D0]
+    - [0xEBE840, .rodata, fox_i6]
+    - [0xEBE850, .rodata, E9F1E0]
     - [0xEBF0F0, .rodata, EADECO]
     - [0xEBF130, .rodata, EAF7E0]
     - [0xEBFB80, .rodata, EBD210]
-    - { start: 0xEBFBE0, type: bss, vram: 0x801A7F30, name: ovl_E9F1D0 }
+    - { start: 0xEBFBE0, type: bss, vram: 0x801A7F30, name: fox_i6 }
+    - { start: 0xEBFBE0, type: bss, vram: 0x801A7F40, name: E9F1E0 }
+    - { start: 0xEBFBE0, type: bss, vram: 0x801A8440, name: EAF7E0 }
     
   - name: ovl_menu
     type: code

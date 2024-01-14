@@ -515,7 +515,7 @@ OverlayInit sOvli3_Unk4[1] = {
 };
 
 OverlayInit sOvlE9F1D0_SectorY[1] = {
-    { OVERLAY_OFFSETS(ovl_E9F1D0),
+    { OVERLAY_OFFSETS(ovl_i6),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -591,7 +591,7 @@ OverlayInit sOvli1_Venom1[1] = {
 };
 
 OverlayInit sOvlE9F1D0_Venom2[1] = {
-    { OVERLAY_OFFSETS(ovl_E9F1D0),
+    { OVERLAY_OFFSETS(ovl_i6),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -610,7 +610,7 @@ OverlayInit sOvlE9F1D0_Venom2[1] = {
 };
 
 OverlayInit sOvlE9F1D0_VenomSW[2] = {
-    { OVERLAY_OFFSETS(ovl_E9F1D0),
+    { OVERLAY_OFFSETS(ovl_i6),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -626,7 +626,7 @@ OverlayInit sOvlE9F1D0_VenomSW[2] = {
         /* 0xD */ NO_SEGMENT,
         /* 0xE */ NO_SEGMENT,
         /* 0xF */ ROM_SEGMENT(ast_940AD0) } },
-    { OVERLAY_OFFSETS(ovl_E9F1D0),
+    { OVERLAY_OFFSETS(ovl_i6),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),

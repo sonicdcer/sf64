@@ -103,5 +103,5 @@ D_i5_801BBAE4 = 0x801BBAE4; // force_migration:True segment:ovl_i5
 D_EF0260_80196BF4 = 0x80196BF4; // force_migration:True segment:ovl_EF0260
 D_ovl_i4_8019FE74 = 0x8019FE74; // force_migration:True segment:ovl_i4
 D_ovl_i4_8019FEFC = 0x8019FEFC; // force_migration:True segment:ovl_i4
-D_E9F1D0_801A7560 = 0x801A7560; // force_migration:True segment:ovl_E9F1D0
-D_E9F1D0_801A792C = 0x801A792C; // force_migration:True segment:ovl_E9F1D0
+D_E9F1D0_801A7560 = 0x801A7560; // force_migration:True segment:ovl_i6
+D_E9F1D0_801A792C = 0x801A792C; // force_migration:True segment:ovl_i6

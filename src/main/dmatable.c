@@ -66,7 +66,7 @@ DmaEntry gDmaTable[90] = {
     { SEGMENT_ROM_START(ovl_i3), { SEGMENT_ROM_START(ovl_i3), SEGMENT_ROM_END(ovl_i3) }, false },
     { SEGMENT_ROM_START(ovl_i4), { SEGMENT_ROM_START(ovl_i4), SEGMENT_ROM_END(ovl_i4) }, false },
     { SEGMENT_ROM_START(ovl_i5), { SEGMENT_ROM_START(ovl_i5), SEGMENT_ROM_END(ovl_i5) }, false },
-    { SEGMENT_ROM_START(ovl_E9F1D0), { SEGMENT_ROM_START(ovl_E9F1D0), SEGMENT_ROM_END(ovl_E9F1D0) }, false },
+    { SEGMENT_ROM_START(ovl_i6), { SEGMENT_ROM_START(ovl_i6), SEGMENT_ROM_END(ovl_i6) }, false },
     { SEGMENT_ROM_START(ovl_menu), { SEGMENT_ROM_START(ovl_menu), SEGMENT_ROM_END(ovl_menu) }, false },
     { SEGMENT_ROM_START(ovl_EF0260), { SEGMENT_ROM_START(ovl_EF0260), SEGMENT_ROM_END(ovl_EF0260) }, false },
     { SEGMENT_ROM_START(ovl_EFFA40), { SEGMENT_ROM_START(ovl_EFFA40), SEGMENT_ROM_END(ovl_EFFA40) }, false },
