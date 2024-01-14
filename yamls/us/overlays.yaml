@@ -83,24 +83,24 @@
     symbol_name_format: i4_$VRAM
     subsegments:
     - [0xE51970, c, fox_i4]
-    - [0xE51A40, c, E51A40]
-    - [0xE561B0, c, E561B0]
-    - [0xE5CC30, c, E5CC30]
-    - [0xE63D50, c, E63D50]
+    - [0xE51A40, c, fox_fo]
+    - [0xE561B0, c, fox_bo]
+    - [0xE5CC30, c, fox_ka]
+    - [0xE63D50, c, fox_sz]
     - [0xE69220, .data, fox_i4]
-    - [0xE69230, data, E51A40]
-    - [0xE69310, data, E561B0]
-    - [0xE69540, data, E5CC30]
-    - [0xE69910, data, E63D50]
+    - [0xE69230, data, fox_fo]
+    - [0xE69310, data, fox_bo]
+    - [0xE69540, data, fox_ka]
+    - [0xE69910, data, fox_sz]
     - [0xE69B30, .rodata, fox_i4]
-    - [0xE69B70, .rodata, E51A40]
-    - [0xE69D70, .rodata, E561B0]
-    - [0xE6A170, .rodata, E5CC30]
-    - [0xE6A510, .rodata, E63D50]
+    - [0xE69B70, .rodata, fox_fo]
+    - [0xE69D70, .rodata, fox_bo]
+    - [0xE6A170, .rodata, fox_ka]
+    - [0xE6A510, .rodata, fox_sz]
     - { start: 0xE6A810, type: .bss, vram: 0x801A03C0, name: fox_i4 }
-    - { type: bss, vram: 0x801A03D0, name: E561B0 }
-    - { type: bss, vram: 0x801A0540, name: E5CC30 }
-    - { type: bss, vram: 0x801A0560, name: E63D50 }
+    - { type: bss, vram: 0x801A03D0, name: fox_bo }
+    - { type: bss, vram: 0x801A0540, name: fox_ka }
+    - { type: bss, vram: 0x801A0560, name: fox_sz }
 
   - name: ovl_i5
     type: code
