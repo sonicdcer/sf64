@@ -36,7 +36,7 @@ void func_i5_801875D0(Actor* actor, s32 arg1) {
 
 void func_i5_8018769C(Player* player) {
     f32 sp64;
-    Actor* act = &gActors[3];
+    Actor* actor = &gActors[3];
     Vec3f sp54;
     Vec3f sp48;
     sp64 = 20000.0f;
@@ -57,9 +57,9 @@ void func_i5_8018769C(Player* player) {
                 func_i5_801875D0(&gActors[11], 1);
             }
 
-            player->pos.x = act->obj.pos.x;
-            player->pos.y = act->obj.pos.y - 530.0f;
-            player->pos.z = act->obj.pos.z;
+            player->pos.x = actor->obj.pos.x;
+            player->pos.y = actor->obj.pos.y - 530.0f;
+            player->pos.z = actor->obj.pos.z;
             player->camEye.x = D_80177978 = 5000.0f;
             player->camEye.y = D_80177980 = 1000.0f;
             player->camEye.z = D_80177988 = -5000.0f;
@@ -75,9 +75,9 @@ void func_i5_8018769C(Player* player) {
         case 1:
             D_80177A48[0] = 0.01f;
             sp64 = 20.0f;
-            D_80177978 = act->obj.pos.x - 500.0f;
-            D_80177980 = act->obj.pos.y - 500.0f;
-            D_80177988 = act->obj.pos.z - 750.0f;
+            D_80177978 = actor->obj.pos.x - 500.0f;
+            D_80177980 = actor->obj.pos.y - 500.0f;
+            D_80177988 = actor->obj.pos.z - 750.0f;
 
             if (D_80177A80 == 330) {
                 func_800BA808(gMsg_ID_4113, RCID_FOX);
