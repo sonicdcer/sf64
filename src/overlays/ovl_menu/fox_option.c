@@ -529,7 +529,7 @@ void Option_Init(void) {
     }
 
     switch (gOptionMenuStatus) {
-        case OPTION_LOAD:
+        case OPTION_WAIT:
             if (D_Timer_8017783C == 0) {
                 gOptionMenuStatus = OPTION_SETUP;
                 func_8001DC6C(0, 23);
@@ -2971,7 +2971,7 @@ void func_EBFBE0_8019A298(void) {
     if (D_EBFBE0_801B91EC == 0.0f) {
         gGameState = GSTATE_VS_INIT;
         D_Timer_8017783C = 2;
-        gOptionMenuStatus = OPTION_LOAD;
+        gOptionMenuStatus = OPTION_WAIT;
         gDrawMode = DRAWMODE_0;
     }
 }

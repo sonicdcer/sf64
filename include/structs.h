@@ -96,9 +96,9 @@ typedef struct {
 } UnkStruct_D_EBFBE0_801B8294; // size = 0x18
 
 typedef enum OptionState {
-    OPTION_LOAD = 0,
-    OPTION_SETUP = 1,
-    OPTION_UPDATE = 2
+    OPTION_WAIT,
+    OPTION_SETUP,
+    OPTION_UPDATE
 } OptionState;
 
 #endif

@@ -3228,7 +3228,7 @@ void func_EBFBE0_801A36A8(void) {
         case 4:
             gGameState = 3;
             D_Timer_8017783C = 2;
-            gOptionMenuStatus = 0;
+            gOptionMenuStatus = OPTION_WAIT;
             gDrawMode = 0;
             D_80178410 = 0;
             break;

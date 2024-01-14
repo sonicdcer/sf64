@@ -62,7 +62,7 @@ void func_800BC760(void) {
     D_80177854 = 0;
     gDrawMode = DRAWMODE_0;
     D_80177AE0 = 0;
-    gOptionMenuStatus = 0;
+    gOptionMenuStatus = OPTION_WAIT;
     D_80177B40 = 0;
     gBgColor = 0;
     D_80178380[0] = 0;
@@ -1468,7 +1468,7 @@ void func_800C1700(void) {
     func_800BC760();
     gGameState = GSTATE_MENU;
     D_Timer_8017783C = 2;
-    gOptionMenuStatus = 0;
+    gOptionMenuStatus = OPTION_WAIT;
     D_800D2870 = 1;
     gBgColor = 0;
 }
@@ -1814,13 +1814,13 @@ void func_800C20B0(void) {
     switch (gOptionMenuStatus) {
         case 0:
             if (D_Timer_8017783C == 0) {
-                gOptionMenuStatus = 1;
+                gOptionMenuStatus = OPTION_SETUP;
                 D_80178410 = 0;
             }
             break;
 
         case 1:
-            gOptionMenuStatus = 2;
+            gOptionMenuStatus = OPTION_UPDATE;
             break;
 
         case 2:
