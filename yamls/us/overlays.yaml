@@ -34,15 +34,15 @@
     symbol_name_format: i2_$VRAM
     subsegments:    
     - [0xE08400, c, fox_i2]
-    - [0xE08410, c, E08410]
-    - [0xE0FF10, c, E0FF10]
+    - [0xE08410, c, fox_me]
+    - [0xE0FF10, c, fox_sx]
     - [0xE16300, .data, fox_i2]
-    - [0xE16310, data, E08410]
-    - [0xE16520, data, E0FF10]
-    - [0xE16670, .rodata, E08410]
-    - [0xE16930, .rodata, E0FF10]
+    - [0xE16310, data, fox_me]
+    - [0xE16520, data, fox_sx]
+    - [0xE16670, .rodata, fox_me]
+    - [0xE16930, .rodata, fox_sx]
     - { start: 0xE16C50, type: .bss, vram: 0x80195D70, name: fox_i2 }
-    - { type: .bss, vram: 0x80195D80, name: E0FF10 }
+    - { type: .bss, vram: 0x80195D80, name: fox_sx }
 
   - name: ovl_i3
     type: code
@@ -99,6 +99,8 @@
     - [0xE6A510, .rodata, E63D50]
     - { start: 0xE6A810, type: .bss, vram: 0x801A03C0, name: fox_i4 }
     - { type: bss, vram: 0x801A03D0, name: E561B0 }
+    - { type: bss, vram: 0x801A0540, name: E5CC30 }
+    - { type: bss, vram: 0x801A0560, name: E63D50 }
 
   - name: ovl_i5
     type: code
