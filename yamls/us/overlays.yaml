@@ -1,6 +1,6 @@
-  - name: ovl_DF4260
+  - name: ovl_i1
     type: code
-    dir: overlays/ovl_DF4260
+    dir: overlays/ovl_i1
     start: 0xDF4260
     vram: 0x80187520
     bss_size: 0xA10

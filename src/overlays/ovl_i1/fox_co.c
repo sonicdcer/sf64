@@ -969,7 +969,7 @@ void func_i1_80189058(Boss* boss) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_DF4260/fox_co/func_i1_80189058.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/fox_co/func_i1_80189058.s")
 #endif
 
 s32 func_i1_8018A434(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {

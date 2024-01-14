@@ -216,7 +216,7 @@ OverlayInit sOvlEBFBE0_State5[1] = {
 };
 
 OverlayInit sOvli1_Corneria[1] = {
-    { OVERLAY_OFFSETS(ovl_DF4260),
+    { OVERLAY_OFFSETS(ovl_i1),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -572,7 +572,7 @@ OverlayInit sOvli3_Zoness[1] = {
 };
 
 OverlayInit sOvli1_Venom1[1] = {
-    { OVERLAY_OFFSETS(ovl_DF4260),
+    { OVERLAY_OFFSETS(ovl_i1),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -737,7 +737,7 @@ OverlayInit sOvlE6A810_Macbeth[2] = {
 };
 
 OverlayInit sOvli1_Training[1] = {
-    { OVERLAY_OFFSETS(ovl_DF4260),
+    { OVERLAY_OFFSETS(ovl_i1),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),

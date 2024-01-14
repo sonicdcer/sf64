@@ -840,7 +840,7 @@ extern f32 gHeadsetPanVolume[];
 extern f32 gStereoPanVolume[];
 extern f32 gDefaultPanVolume[];
 
-// ovl_DF4260
+// ovl_i1
 extern Gfx* D_i1_8019A008[];
 extern f32 D_i1_8019A9B8[];
 

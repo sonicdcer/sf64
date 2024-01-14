@@ -46,7 +46,7 @@ void Overlay_LoadSegment(void* vRomAddress, void* dest, ptrdiff_t size) {
 }
 
 u8 Overlay_Init(OverlayInit* ovlInit) {
-    u8* ramPtr = SEGMENT_VRAM_START(ovl_DF4260);
+    u8* ramPtr = SEGMENT_VRAM_START(ovl_i1);
     u8 segment;
     u8 changeOvl = false;
 
