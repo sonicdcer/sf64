@@ -41,7 +41,7 @@ OverlayInit sNoOvl_Logo[1] = {
 };
 
 OverlayInit sOvlEF0260_Credits[6] = {
-    { OVERLAY_OFFSETS(ovl_EF0260),
+    { OVERLAY_OFFSETS(ovl_ending),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -57,7 +57,7 @@ OverlayInit sOvlEF0260_Credits[6] = {
         /* 0xD */ ROM_SEGMENT(ast_955270),
         /* 0xE */ ROM_SEGMENT(ast_92EC40),
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_EF0260),
+    { OVERLAY_OFFSETS(ovl_ending),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
         /* 0x3 */ NO_SEGMENT,
@@ -73,7 +73,7 @@ OverlayInit sOvlEF0260_Credits[6] = {
         /* 0xD */ NO_SEGMENT,
         /* 0xE */ NO_SEGMENT,
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_EF0260),
+    { OVERLAY_OFFSETS(ovl_ending),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
         /* 0x3 */ NO_SEGMENT,
@@ -89,7 +89,7 @@ OverlayInit sOvlEF0260_Credits[6] = {
         /* 0xD */ NO_SEGMENT,
         /* 0xE */ NO_SEGMENT,
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_EF0260),
+    { OVERLAY_OFFSETS(ovl_ending),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
         /* 0x3 */ NO_SEGMENT,
@@ -105,7 +105,7 @@ OverlayInit sOvlEF0260_Credits[6] = {
         /* 0xD */ NO_SEGMENT,
         /* 0xE */ NO_SEGMENT,
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_EF0260),
+    { OVERLAY_OFFSETS(ovl_ending),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
         /* 0x3 */ NO_SEGMENT,
@@ -121,7 +121,7 @@ OverlayInit sOvlEF0260_Credits[6] = {
         /* 0xD */ NO_SEGMENT,
         /* 0xE */ ROM_SEGMENT(ast_92EC40),
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_EF0260),
+    { OVERLAY_OFFSETS(ovl_ending),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -791,7 +791,7 @@ OverlayInit sOvli2_Versus[2] = {
 };
 
 OverlayInit sEFFA40_Overlay[1] = {
-    { OVERLAY_OFFSETS(ovl_EFFA40),
+    { OVERLAY_OFFSETS(ovl_unused),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
         /* 0x3 */ NO_SEGMENT,
