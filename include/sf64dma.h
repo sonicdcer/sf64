@@ -94,10 +94,10 @@ extern DmaEntry gDmaTable[]; // 178A70
 
 extern OverlayInit sNoOvl_Logo[1]; // sets segment 15 with no overlay
 extern OverlayInit sOvlEF0260_Credits[6]; // overlay EF0260
-extern OverlayInit sOvlEBFBE0_Title[1]; // EBFBE0
-extern OverlayInit sOvlEBFBE0_Menu[1]; // EBFBE0
-extern OverlayInit sOvlEBFBE0_Map[1]; // EBFBE0
-extern OverlayInit sOvlEBFBE0_State5[1]; // EBFBE0
+extern OverlayInit sOvlmenu_Title[1]; // EBFBE0
+extern OverlayInit sOvlmenu_Menu[1]; // EBFBE0
+extern OverlayInit sOvlmenu_Map[1]; // EBFBE0
+extern OverlayInit sOvlmenu_State5[1]; // EBFBE0
 extern OverlayInit sOvli1_Corneria[1]; // fox_i1
 extern OverlayInit sOvli2_Meteo[2]; // fox_i2
 extern OverlayInit sOvli5_Titania[6]; // E6A810

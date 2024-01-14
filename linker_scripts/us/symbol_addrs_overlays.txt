@@ -20,15 +20,15 @@ sOptionCardTextPosY = 0x801AE5A0; // type:f32 size:0x18 force_migration:True seg
 sOptionCardCurTextPosX = 0x801AE5B8; // type:f32 size:0x18 force_migration:True segment:ovl_menu
 sOptionCardCurTextPosY = 0x801AE5D0; // type:f32 size:0x18 force_migration:True segment:ovl_menu
 
-D_EBFBE0_801AE9A0 = 0x801AE9A0; // type:f32 size:0x10 force_migration:True segment:ovl_menu
-D_EBFBE0_801AE9B0 = 0x801AE9B0; // type:f32 size:0x10 force_migration:True segment:ovl_menu
-D_EBFBE0_801AE9C0 = 0x801AE9C0; // type:s32 size:0xE0 force_migration:True segment:ovl_menu
-D_EBFBE0_801AEAA0 = 0x801AEAA0; // type:s32 size:0xA8 force_migration:True segment:ovl_menu
-D_EBFBE0_801AEB48 = 0x801AEB48; // type:s32 size:0xA8 force_migration:True segment:ovl_menu
-D_EBFBE0_801AED20 = 0x801AED20; // type:f32 size:0x8 force_migration:True segment:ovl_menu
-D_EBFBE0_801AEE6C = 0x801AEE6C; // type:s32 size:0x58 force_migration:True segment:ovl_menu
-D_EBFBE0_801AF25C = 0x801AF25C; // type:f32 size:0x18 force_migration:True segment:ovl_menu
-D_EBFBE0_801AF274 = 0x801AF274; // type:f32 size:0x18 force_migration:True segment:ovl_menu
+D_menu_801AE9A0 = 0x801AE9A0; // type:f32 size:0x10 force_migration:True segment:ovl_menu
+D_menu_801AE9B0 = 0x801AE9B0; // type:f32 size:0x10 force_migration:True segment:ovl_menu
+D_menu_801AE9C0 = 0x801AE9C0; // type:s32 size:0xE0 force_migration:True segment:ovl_menu
+D_menu_801AEAA0 = 0x801AEAA0; // type:s32 size:0xA8 force_migration:True segment:ovl_menu
+D_menu_801AEB48 = 0x801AEB48; // type:s32 size:0xA8 force_migration:True segment:ovl_menu
+D_menu_801AED20 = 0x801AED20; // type:f32 size:0x8 force_migration:True segment:ovl_menu
+D_menu_801AEE6C = 0x801AEE6C; // type:s32 size:0x58 force_migration:True segment:ovl_menu
+D_menu_801AF25C = 0x801AF25C; // type:f32 size:0x18 force_migration:True segment:ovl_menu
+D_menu_801AF274 = 0x801AF274; // type:f32 size:0x18 force_migration:True segment:ovl_menu
 
 func_i3_80187754 = 0x80187754;
 func_i3_801932AC = 0x801932AC;

@@ -163,7 +163,7 @@
     vram: 0x80187520
     bss_size: 0x17590
     exclusive_ram_id: overlay
-    symbol_name_format: EBFBE0_$VRAM
+    symbol_name_format: menu_$VRAM
     subsegments:
     - [0xEBFBE0, c, fox_i_menu]
     - [0xEBFCA0, c, fox_title]

@@ -866,11 +866,11 @@ extern f32 D_E9F1D0_801A7F70;
 extern f32 D_E9F1D0_801A7F78;
 
 // ovl_menu
-extern s32 D_EBFBE0_801B8220[]; // total hits ranking? see func_EBFBE0_80197DE4
-extern s32 D_EBFBE0_801B8280;
-extern s32 D_EBFBE0_801B8284;
-extern s32 D_EBFBE0_801B827C;
-extern s32 D_EBFBE0_801B8288;
+extern s32 D_menu_801B8220[]; // total hits ranking? see func_menu_80197DE4
+extern s32 D_menu_801B8280;
+extern s32 D_menu_801B8284;
+extern s32 D_menu_801B827C;
+extern s32 D_menu_801B8288;
 
 // buffers
 extern u64 gDramStack[SP_DRAM_STACK_SIZE64];

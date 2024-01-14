@@ -98,19 +98,19 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
 
     switch (ovlSetup) {
         case OVL_SETUP_TITLE:
-            changeOvl = Overlay_Init(&sOvlEBFBE0_Title[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlmenu_Title[ovlStage]);
             if (changeOvl == true) {
                 func_8001DC6C(0, 0x16);
             }
             break;
         case OVL_SETUP_MENU:
-            changeOvl = Overlay_Init(&sOvlEBFBE0_Menu[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlmenu_Menu[ovlStage]);
             break;
         case OVL_SETUP_MAP:
-            changeOvl = Overlay_Init(&sOvlEBFBE0_Map[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlmenu_Map[ovlStage]);
             break;
         case OVL_SETUP_STATE_5:
-            changeOvl = Overlay_Init(&sOvlEBFBE0_State5[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlmenu_State5[ovlStage]);
             break;
         case OVL_SETUP_CORNERIA:
             changeOvl = Overlay_Init(&sOvli1_Corneria[ovlStage]);
