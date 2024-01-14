@@ -10,7 +10,7 @@ void func_i4_8018E870(u32);
 void func_i4_80191BAC(u32);
 void func_i4_80191DB0(u32);
 
-UNK_TYPE D_E51970_801A03C0;
+UNK_TYPE D_i4_801A03C0;
 s32 D_i4_8019EDD0 = 0;
 
 void func_i4_80187520(u32 arg0, void *arg1) {

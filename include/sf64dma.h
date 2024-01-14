@@ -102,10 +102,10 @@ extern OverlayInit sOvlDF4260_Corneria[1]; // DF4260
 extern OverlayInit sOvlE08400_Meteo[2]; // E08400
 extern OverlayInit sOvlE6A810_Titania[6]; // E6A810
 extern OverlayInit sOvlE08400_SectorX[2]; // E08400
-extern OverlayInit sOvlE51970_SectorZ[1]; // E51970
+extern OverlayInit sOvli4_SectorZ[1]; // i4
 extern OverlayInit sOvlE16C50_Aquas[1]; // E16C50
 extern OverlayInit sOvlE16C50_Area6[1]; // E16C50
-extern OverlayInit sOvlE51970_Fortuna[2]; // E51970
+extern OverlayInit sOvli4_Fortuna[2]; // i4
 extern OverlayInit sOvlE16C50_Unk4[1]; // E16C50
 extern OverlayInit sOvlE9F1D0_SectorY[1]; // E9F1D0
 extern OverlayInit sOvlE16C50_Solar[1]; // E16C50
@@ -114,8 +114,8 @@ extern OverlayInit sOvlDF4260_Venom1[1]; // DF4260
 extern OverlayInit sOvlE9F1D0_Venom2[1]; // E9F1D0
 extern OverlayInit sOvlE9F1D0_VenomSW[2]; // E9F1D0
 extern OverlayInit sOvlE08400_Setup20[1]; // E08400
-extern OverlayInit sOvlE51970_Bolse[1]; // E51970
-extern OverlayInit sOvlE51970_Katina[1]; // E51970
+extern OverlayInit sOvli4_Bolse[1]; // i4
+extern OverlayInit sOvli4_Katina[1]; // i4
 extern OverlayInit sOvlE6A810_Macbeth[2]; // E6A810
 extern OverlayInit sOvlDF4260_Training[1]; // DF4260
 extern OverlayInit sOvlE08400_Versus[2]; // E08400

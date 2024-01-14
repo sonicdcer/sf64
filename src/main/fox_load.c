@@ -125,7 +125,7 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
             changeOvl = Overlay_Init(&sOvlE08400_SectorX[ovlStage]);
             break;
         case OVL_SETUP_SECTOR_Z:
-            changeOvl = Overlay_Init(&sOvlE51970_SectorZ[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli4_SectorZ[ovlStage]);
             break;
         case OVL_SETUP_AQUAS:
             changeOvl = Overlay_Init(&sOvlE16C50_Aquas[ovlStage]);
@@ -134,7 +134,7 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
             changeOvl = Overlay_Init(&sOvlE16C50_Area6[ovlStage]);
             break;
         case OVL_SETUP_FORTUNA:
-            changeOvl = Overlay_Init(&sOvlE51970_Fortuna[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli4_Fortuna[ovlStage]);
             break;
         case OVL_SETUP_UNK_4:
             changeOvl = Overlay_Init(&sOvlE16C50_Unk4[ovlStage]);
@@ -164,10 +164,10 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
             changeOvl = Overlay_Init(&sOvlE08400_Setup20[ovlStage]);
             break;
         case OVL_SETUP_BOLSE:
-            changeOvl = Overlay_Init(&sOvlE51970_Bolse[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli4_Bolse[ovlStage]);
             break;
         case OVL_SETUP_KATINA:
-            changeOvl = Overlay_Init(&sOvlE51970_Katina[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli4_Katina[ovlStage]);
             break;
         case OVL_SETUP_MACBETH:
             changeOvl = Overlay_Init(&sOvlE6A810_Macbeth[ovlStage]);

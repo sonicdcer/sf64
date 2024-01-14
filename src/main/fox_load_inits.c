@@ -403,7 +403,7 @@ OverlayInit sOvlE08400_SectorX[2] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlE51970_SectorZ[1] = {
+OverlayInit sOvli4_SectorZ[1] = {
     { OVERLAY_OFFSETS(ovl_i4),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
@@ -460,7 +460,7 @@ OverlayInit sOvlE16C50_Area6[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlE51970_Fortuna[2] = {
+OverlayInit sOvli4_Fortuna[2] = {
     { OVERLAY_OFFSETS(ovl_i4),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -663,7 +663,7 @@ OverlayInit sOvlE08400_Setup20[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlE51970_Bolse[1] = {
+OverlayInit sOvli4_Bolse[1] = {
     { OVERLAY_OFFSETS(ovl_i4),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
@@ -682,7 +682,7 @@ OverlayInit sOvlE51970_Bolse[1] = {
         /* 0xF */ ROM_SEGMENT(ast_940AD0) } },
 };
 
-OverlayInit sOvlE51970_Katina[1] = {
+OverlayInit sOvli4_Katina[1] = {
     { OVERLAY_OFFSETS(ovl_i4),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),

@@ -1555,7 +1555,7 @@ void Object_DrawAll(s32 arg0) {
                     spAC.x = obj58->sfxPos.x;
                     spAC.y = obj58->sfxPos.y;
                     spAC.z = obj58->sfxPos.z;
-                    Matrix_MultVec3fNoTranslate(&D_E51970_8019EE80, &spAC, &obj58->obj.pos);
+                    Matrix_MultVec3fNoTranslate(&D_i4_8019EE80, &spAC, &obj58->obj.pos);
                     obj58->obj.rot.y = gBosses[0].obj.rot.y + (*obj58).unk_54;
                 }
                 Matrix_Push(&gGfxMatrix);

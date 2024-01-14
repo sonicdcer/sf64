@@ -124,19 +124,19 @@ void func_8002E64C(Boss* boss) {
 }
 
 void func_8002E670(Actor* actor) {
-    func_E51970_80187520(95, actor);
+    func_i4_80187520(95, actor);
 }
 
 void func_8002E694(Actor* actor) {
-    func_E51970_80187520(96, actor);
+    func_i4_80187520(96, actor);
 }
 
 void func_8002E6B8(Actor* actor) {
-    func_E51970_80187520(97, actor);
+    func_i4_80187520(97, actor);
 }
 
 void func_8002E6DC(Actor* actor) {
-    func_E51970_80187520(98, actor);
+    func_i4_80187520(98, actor);
 }
 
 void func_8002E700(Player* player) {
@@ -671,16 +671,16 @@ void func_8003010C(Actor* actor) {
     D_8015F928++;
     switch (gCurrentLevel) {
         case LEVEL_FORTUNA:
-            func_E51970_80187960(actor);
+            func_i4_80187960(actor);
             break;
         case LEVEL_KATINA:
-            func_E51970_80198594(actor);
+            func_i4_80198594(actor);
             break;
         case LEVEL_BOLSE:
-            func_E51970_8018C158(actor);
+            func_i4_8018C158(actor);
             break;
         case LEVEL_SECTOR_Z:
-            func_E51970_8019AB8C(actor);
+            func_i4_8019AB8C(actor);
             break;
         case LEVEL_VENOM_2:
             func_E9F1D0_80196314(actor);

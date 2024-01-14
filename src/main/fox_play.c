@@ -4187,7 +4187,7 @@ void func_800B0F50(Player* playerx) {
                 break;
             case LEVEL_BOLSE:
                 player->unk_204 = 1;
-                D_E51970_801A03DC = 6;
+                D_i4_801A03DC = 6;
                 /* fallthrough */
             case LEVEL_SECTOR_X:
             case LEVEL_AREA_6:

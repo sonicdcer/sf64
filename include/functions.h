@@ -743,18 +743,18 @@ void func_E16C50_801BEC80(Player*);
 
 
 void func_i4_80187520(u32, void*);
-void func_E51970_80187960(Object_2F4*);
-void func_E51970_8018BA2C(Object_58**);
-void func_E51970_8018C158(Object_2F4*);
-void func_E51970_80191ED8(Object_58**);
-void func_E51970_80192264(void);
-void func_E51970_80193CA4(Boss *);
-void func_E51970_80198594(Object_2F4*);
-void func_E51970_80198930(Object_58**);
-void func_E51970_80199900(Object_2F4 *, s32);
-void func_E51970_80199C60(Object_2F4*);
-void func_E51970_8019AB8C(Object_2F4*);
-void func_E51970_8019EA68(Object_58**);
+void func_i4_80187960(Actor*);
+void func_i4_8018BA2C(Object_58**);
+void func_i4_8018C158(Actor*);
+void func_i4_80191ED8(Object_58**);
+void func_i4_80192264(void);
+void func_i4_80193CA4(Boss *);
+void func_i4_80198594(Actor*);
+void func_i4_80198930(Object_58**);
+void func_i4_80199900(Actor *, s32);
+void func_i4_80199C60(Actor*);
+void func_i4_8019AB8C(Actor*);
+void func_i4_8019EA68(Object_58**);
 
 
 void func_E6A810_80187520(s32, void*);
