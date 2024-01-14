@@ -459,13 +459,13 @@ void Object_Load(ObjectInit* objInit, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
         if (objInit->id >= OBJ_EFFECT_339 && objInit->id <= OBJ_UNK_406) {
             switch (objInit->id) {
                 case OBJ_UNK_403:
-                    D_E6A810_801BA1E8 = 99;
+                    D_i5_801BA1E8 = 99;
                     break;
                 case OBJ_UNK_404:
-                    D_E6A810_801BA1E8 = 0;
+                    D_i5_801BA1E8 = 0;
                     break;
                 case OBJ_UNK_405:
-                    D_E6A810_801BA1E8 = 98;
+                    D_i5_801BA1E8 = 98;
                     break;
                 case OBJ_UNK_402:
                     D_E9F1D0_801A7F78 = objInit->unk_E * 0.1f;
@@ -1018,7 +1018,7 @@ void Object_Init(s32 index, ObjectId objId) {
             break;
         case OBJ_EFFECT_368:
             if (gCurrentLevel == LEVEL_TITANIA) {
-                func_E6A810_801B6E20(gEffects[index].obj.pos.x, gEffects[index].obj.pos.z + D_80177D20, &sp54, &sp4C,
+                func_i5_801B6E20(gEffects[index].obj.pos.x, gEffects[index].obj.pos.z + D_80177D20, &sp54, &sp4C,
                                      &sp50);
                 gEffects[index].obj.pos.y = sp4C + 3.0f;
                 gEffects[index].obj.rot.x = (sp54 * 180.0f) / M_PI;
@@ -1182,29 +1182,29 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_ACTOR_211:
         case OBJ_ACTOR_212:
         case OBJ_ACTOR_213:
-            func_E6A810_80199F8C(&gActors[index]);
+            func_i5_80199F8C(&gActors[index]);
             break;
         case OBJ_ACTOR_207:
-            func_E6A810_801A7D98(&gActors[index]);
+            func_i5_801A7D98(&gActors[index]);
             break;
         case OBJ_ACTOR_214:
-            func_E6A810_801A3E70(&gActors[index]);
+            func_i5_801A3E70(&gActors[index]);
             break;
         case OBJ_ACTOR_215:
-            func_E6A810_801A4660(&gActors[index]);
+            func_i5_801A4660(&gActors[index]);
             break;
         case OBJ_ACTOR_223:
-            func_E6A810_801A4AF8(&gActors[index]);
+            func_i5_801A4AF8(&gActors[index]);
             break;
         case OBJ_ACTOR_216:
         case OBJ_ACTOR_217:
-            func_E6A810_801A5E2C(&gActors[index]);
+            func_i5_801A5E2C(&gActors[index]);
             break;
         case OBJ_ACTOR_218:
-            func_E6A810_801A6134(&gActors[index]);
+            func_i5_801A6134(&gActors[index]);
             break;
         case OBJ_80_65:
-            func_E6A810_801A65E0(&gObjects80[index]);
+            func_i5_801A65E0(&gObjects80[index]);
             break;
         case OBJ_ACTOR_177:
         case OBJ_ACTOR_178:
@@ -1233,28 +1233,28 @@ void Object_Init(s32 index, ObjectId objId) {
             func_i3_80187754(&gBosses[index]);
             break;
         case OBJ_ACTOR_231:
-            func_E6A810_8018B96C(&gActors[index]);
+            func_i5_8018B96C(&gActors[index]);
             break;
         case OBJ_ACTOR_232:
-            func_E6A810_8018ADC4(&gActors[index]);
+            func_i5_8018ADC4(&gActors[index]);
             break;
         case OBJ_ACTOR_233:
-            func_E6A810_80189B80(&gActors[index]);
+            func_i5_80189B80(&gActors[index]);
             break;
         case OBJ_ACTOR_229:
-            func_E6A810_8018BFB0(&gActors[index]);
+            func_i5_8018BFB0(&gActors[index]);
             break;
         case OBJ_ACTOR_227:
-            func_E6A810_8018E3CC(&gActors[index]);
+            func_i5_8018E3CC(&gActors[index]);
             break;
         case OBJ_ACTOR_228:
-            func_E6A810_8018E5E8(&gActors[index]);
+            func_i5_8018E5E8(&gActors[index]);
             break;
         case OBJ_4C_169:
-            func_E6A810_8018EFF0(&gObjects4C[index]);
+            func_i5_8018EFF0(&gObjects4C[index]);
             break;
         case OBJ_BOSS_306:
-            func_E6A810_8018FA48(&gBosses[index]);
+            func_i5_8018FA48(&gBosses[index]);
             break;
         case OBJ_ACTOR_240:
             func_i3_801915A4(&gActors[index]);
@@ -1296,7 +1296,7 @@ void Object_Init(s32 index, ObjectId objId) {
             func_i3_801B7AF0(&gActors[index]);
             break;
         case OBJ_80_57:
-            func_E6A810_8018F0D8(&gObjects80[index]);
+            func_i5_8018F0D8(&gObjects80[index]);
             break;
         case OBJ_BOSS_319:
             func_i1_801935CC(&gBosses[index]);
@@ -1329,7 +1329,7 @@ void func_800652CC(Object_80* obj80) {
     f32 sp24;
 
     if ((D_801784AC == 4) && (obj80->unk_48 == 0)) {
-        func_E6A810_801B6E20(obj80->obj.pos.x, obj80->obj.pos.z + D_80177D20, &sp2C, &sp24, &sp28);
+        func_i5_801B6E20(obj80->obj.pos.x, obj80->obj.pos.z + D_80177D20, &sp2C, &sp24, &sp28);
         obj80->obj.pos.y = sp24 + 3.0f;
         obj80->obj.rot.x = (sp2C * 180.0f) / M_PI;
         obj80->obj.rot.z = (sp28 * 180.0f) / M_PI;
@@ -1558,7 +1558,7 @@ void func_800656D4(Actor* actor) {
         }
         Math_SmoothStepToAngle(&actor->obj.rot.z, var_fv0, 0.1f, 3.0f, 0.01f);
     }
-    if ((D_801784AC == 4) && func_E6A810_801B6AEC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + D_80177D20)) {
+    if ((D_801784AC == 4) && func_i5_801B6AEC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + D_80177D20)) {
         func_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5.0f);
         Object_Kill(&actor->obj, &actor->sfxPos);
     }
@@ -2459,10 +2459,10 @@ void func_800690D0(s32 index, ObjectId objId) {
             func_8006684C(&gActors[index]);
             break;
         case OBJ_BOSS_306:
-            func_E6A810_801990DC(&gBosses[index]);
+            func_i5_801990DC(&gBosses[index]);
             break;
         case OBJ_ACTOR_232:
-            func_E6A810_8018B720(&gActors[index]);
+            func_i5_8018B720(&gActors[index]);
             break;
         case OBJ_BOSS_319:
             func_i1_80198594(&gBosses[index]);
@@ -2497,7 +2497,7 @@ void func_800693E8(Actor* actor) {
                     D_801784A4 = 0;
                     break;
                 case OBJ_ACTOR_229:
-                    func_E6A810_8018E3B0(actor);
+                    func_i5_8018E3B0(actor);
                     break;
                 case OBJ_ACTOR_194:
                     D_80176550[actor->unk_046] = 0;

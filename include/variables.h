@@ -851,12 +851,12 @@ extern f32 D_i1_8019A9B8[];
 extern Matrix D_i4_8019EE80;
 extern s32 D_i4_801A03DC;
 
-// ovl_E6A810
-extern Gfx* D_E6A810_801B7584[];
-extern Gfx* D_E6A810_801B7608[];
-extern Gfx* D_E6A810_801B769C[];
-extern f32 D_E6A810_801B83A8[];
-extern u8 D_E6A810_801BA1E8;
+// ovl_i5
+extern Gfx* D_i5_801B7584[];
+extern Gfx* D_i5_801B7608[];
+extern Gfx* D_i5_801B769C[];
+extern f32 D_i5_801B83A8[];
+extern u8 D_i5_801BA1E8;
 
 // ovl_E9F1D0
 extern f32 D_E9F1D0_801A7F58;

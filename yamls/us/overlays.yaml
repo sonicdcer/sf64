@@ -100,30 +100,30 @@
     - { start: 0xE6A810, type: .bss, vram: 0x801A03C0, name: fox_i4 }
     - { start: 0xE6A810, type: bss, vram: 0x801A03D0, name: E561B0 }
 
-  - name: ovl_E6A810
+  - name: ovl_i5
     type: code
-    dir: overlays/ovl_E6A810
+    dir: overlays/ovl_i5
     start: 0xE6A810
     vram: 0x80187520
     bss_size: 0xAF80
     exclusive_ram_id: overlay
-    symbol_name_format: E6A810_$VRAM
+    symbol_name_format: i5_$VRAM
     subsegments:
-    - [0xE6A810, c, E6A810]
+    - [0xE6A810, c, fox_i5]
     - [0xE6A820, c, E6A820]
     - [0xE6C220, c, E6C220]
     - [0xE7CC10, c, E7CC10]
     - [0xE97CC0, c, E97CC0]
-    - [0xE9A580, data, E6A810]
+    - [0xE9A580, data, fox_i5]
     - [0xE9A590, data, E6A820]
     - [0xE9A650, data, E6C220]
     - [0xE9DC00, data, E97CC0]
-    - [0xE9DCD0, .rodata, E6A810]
+    - [0xE9DCD0, .rodata, fox_i5]
     - [0xE9DCE0, .rodata, E6A820]
     - [0xE9DD40, .rodata, E6C220]
     - [0xE9E5A0, .rodata, E7CC10]
     - [0xE9F0E0, .rodata, E97CC0]
-    - { start: 0xE9F1D0, type: bss, vram: 0x801BBEE0, name: E6A810 }
+    - { start: 0xE9F1D0, type: bss, vram: 0x801BBEE0, name: fox_i5 }
     - { type: bss, vram: 0x801BBEF0, name: E6C220 }
     - { type: bss, vram: 0x801BE240, name: E7CC10 }
     - { type: bss, vram: 0x801BE740, name: E97CC0 }

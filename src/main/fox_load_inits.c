@@ -269,8 +269,8 @@ OverlayInit sOvli2_Meteo[2] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlE6A810_Titania[6] = {
-    { OVERLAY_OFFSETS(ovl_E6A810),
+OverlayInit sOvli5_Titania[6] = {
+    { OVERLAY_OFFSETS(ovl_i5),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8D99F0),
@@ -286,7 +286,7 @@ OverlayInit sOvlE6A810_Titania[6] = {
         /* 0xD */ NO_SEGMENT,
         /* 0xE */ ROM_SEGMENT(ast_92EC40),
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_E6A810),
+    { OVERLAY_OFFSETS(ovl_i5),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8D99F0),
@@ -302,7 +302,7 @@ OverlayInit sOvlE6A810_Titania[6] = {
         /* 0xD */ NO_SEGMENT,
         /* 0xE */ NO_SEGMENT,
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_E6A810),
+    { OVERLAY_OFFSETS(ovl_i5),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8D99F0),
@@ -318,7 +318,7 @@ OverlayInit sOvlE6A810_Titania[6] = {
         /* 0xD */ NO_SEGMENT,
         /* 0xE */ NO_SEGMENT,
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_E6A810),
+    { OVERLAY_OFFSETS(ovl_i5),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8D99F0),
@@ -334,7 +334,7 @@ OverlayInit sOvlE6A810_Titania[6] = {
         /* 0xD */ NO_SEGMENT,
         /* 0xE */ NO_SEGMENT,
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_E6A810),
+    { OVERLAY_OFFSETS(ovl_i5),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8D99F0),
@@ -350,7 +350,7 @@ OverlayInit sOvlE6A810_Titania[6] = {
         /* 0xD */ NO_SEGMENT,
         /* 0xE */ NO_SEGMENT,
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_E6A810),
+    { OVERLAY_OFFSETS(ovl_i5),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8D99F0),
@@ -701,8 +701,8 @@ OverlayInit sOvli4_Katina[1] = {
         /* 0xF */ ROM_SEGMENT(ast_940AD0) } },
 };
 
-OverlayInit sOvlE6A810_Macbeth[2] = {
-    { OVERLAY_OFFSETS(ovl_E6A810),
+OverlayInit sOvli5_Macbeth[2] = {
+    { OVERLAY_OFFSETS(ovl_i5),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8D99F0),
@@ -718,7 +718,7 @@ OverlayInit sOvlE6A810_Macbeth[2] = {
         /* 0xD */ ROM_SEGMENT(ast_955270),
         /* 0xE */ NO_SEGMENT,
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_E6A810),
+    { OVERLAY_OFFSETS(ovl_i5),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8D99F0),

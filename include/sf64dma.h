@@ -100,7 +100,7 @@ extern OverlayInit sOvlEBFBE0_Map[1]; // EBFBE0
 extern OverlayInit sOvlEBFBE0_State5[1]; // EBFBE0
 extern OverlayInit sOvli1_Corneria[1]; // fox_i1
 extern OverlayInit sOvli2_Meteo[2]; // fox_i2
-extern OverlayInit sOvlE6A810_Titania[6]; // E6A810
+extern OverlayInit sOvli5_Titania[6]; // E6A810
 extern OverlayInit sOvli2_SectorX[2]; // fox_i2
 extern OverlayInit sOvli4_SectorZ[1]; // i4
 extern OverlayInit sOvli3_Aquas[1]; // i3
@@ -116,7 +116,7 @@ extern OverlayInit sOvlE9F1D0_VenomSW[2]; // E9F1D0
 extern OverlayInit sOvli2_Setup20[1]; // fox_i2
 extern OverlayInit sOvli4_Bolse[1]; // i4
 extern OverlayInit sOvli4_Katina[1]; // i4
-extern OverlayInit sOvlE6A810_Macbeth[2]; // E6A810
+extern OverlayInit sOvli5_Macbeth[2]; // E6A810
 extern OverlayInit sOvli1_Training[1]; // fox_i1
 extern OverlayInit sOvli2_Versus[2]; // fox_i2
 extern OverlayInit sEFFA40_Overlay[1]; // EFFA40
@@ -180,7 +180,7 @@ DECLARE_SEGMENT(ovl_i1);
 DECLARE_SEGMENT(ovl_i2);
 DECLARE_SEGMENT(ovl_i3);
 DECLARE_SEGMENT(ovl_i4);
-DECLARE_SEGMENT(ovl_E6A810);
+DECLARE_SEGMENT(ovl_i5);
 DECLARE_SEGMENT(ovl_E9F1D0);
 DECLARE_SEGMENT(ovl_menu);
 DECLARE_SEGMENT(ovl_EF0260);

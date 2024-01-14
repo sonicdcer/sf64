@@ -284,7 +284,7 @@ void func_8005A094(Actor* actor) {
                     break;
             }
             if (gCurrentLevel != LEVEL_SOLAR) {
-                gSPDisplayList(gMasterDisp++, D_E6A810_801B769C[actor->unk_046]);
+                gSPDisplayList(gMasterDisp++, D_i5_801B769C[actor->unk_046]);
             } else {
                 if (gBosses[0].fwork[3] < 4800.0f) {
                     RCP_SetupDL(&gMasterDisp, 0x1E);
@@ -323,10 +323,10 @@ void func_8005A094(Actor* actor) {
                 RCP_SetupDL(&gMasterDisp, 0x21);
             }
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-            gSPDisplayList(gMasterDisp++, D_E6A810_801B7584[actor->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_i5_801B7584[actor->unk_048]);
             break;
         case 47:
-            gSPDisplayList(gMasterDisp++, D_E6A810_801B7608[actor->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_i5_801B7608[actor->unk_048]);
             break;
         case 48:
             Graphics_SetScaleMtx(actor->scale);

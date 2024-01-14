@@ -119,7 +119,7 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
             changeOvl = Overlay_Init(&sOvli2_Meteo[ovlStage]);
             break;
         case OVL_SETUP_TITANIA:
-            changeOvl = Overlay_Init(&sOvlE6A810_Titania[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli5_Titania[ovlStage]);
             break;
         case OVL_SETUP_SECTOR_X:
             changeOvl = Overlay_Init(&sOvli2_SectorX[ovlStage]);
@@ -170,7 +170,7 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
             changeOvl = Overlay_Init(&sOvli4_Katina[ovlStage]);
             break;
         case OVL_SETUP_MACBETH:
-            changeOvl = Overlay_Init(&sOvlE6A810_Macbeth[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli5_Macbeth[ovlStage]);
             break;
         case OVL_SETUP_VERSUS:
             changeOvl = Overlay_Init(&sOvli2_Versus[ovlStage]);
