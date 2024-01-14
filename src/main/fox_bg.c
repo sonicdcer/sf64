@@ -1,7 +1,7 @@
+// #include "prevent_bss_reordering.h"
 #include "global.h"
-#include "prevent_bss_reordering.h"
 
-extern f32 D_E16C50_801C4188;
+extern f32 D_i3_801C4188;
 
 f32 D_8015F960;
 u8 D_8015F964;
@@ -115,7 +115,7 @@ void func_8003DAF0(void) {
         sp5C = D_80178290;
         sp58 = D_80178298;
 
-        if (gGameState != 7) {
+        if (gGameState != GSTATE_PLAY) {
             var_s2 = 1000;
         }
         sp70 = __cosf(D_80178428);
@@ -1051,7 +1051,7 @@ void func_80040CE4(void) {
                 } else if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, D_8015F974, D_8015F978, D_8015F97C, D_8015F980);
                 } else {
-                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) D_E16C50_801C4188);
+                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) D_i3_801C4188);
                 }
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, 0.0f, D_8015F970, -3000.0f, 1);

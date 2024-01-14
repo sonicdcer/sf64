@@ -305,7 +305,7 @@ void func_80061B68(void) {
             sp1C = (Rand_ZeroOne() - 0.5f);
             x = gPlayer[0].pos.x + (sp1C * 2000.0f) + (5.0f * gPlayer[0].vel.x);
             y = 0;
-            while (y <= D_80177940) {
+            while (y <= gGroundLevel) {
                 sp1C = (Rand_ZeroOne() - 0.5f);
                 y = gPlayer[0].pos.y + (sp1C * 2000.0f) + (5.0f * gPlayer[0].vel.y);
             }
@@ -584,7 +584,7 @@ void func_80062B60(f32 xPos, f32 zPos, s32 arg2, f32 arg3) {
                 gEffects[i].obj.status = 1;
                 gEffects[i].obj.id = OBJ_EFFECT_348;
                 gEffects[i].obj.pos.x = xPos;
-                gEffects[i].obj.pos.y = D_80177940 + 3.0f;
+                gEffects[i].obj.pos.y = gGroundLevel + 3.0f;
                 gEffects[i].obj.pos.z = zPos;
                 gEffects[i].scale2 = 10.0f;
                 gEffects[i].scale1 = arg3;
@@ -607,7 +607,7 @@ void func_80062C38(f32 xPos, f32 yPos) {
                 gEffects[i].obj.status = 1;
                 gEffects[i].obj.id = OBJ_EFFECT_349;
                 gEffects[i].obj.pos.x = xPos;
-                gEffects[i].obj.pos.y = D_80177940 + 3.0f;
+                gEffects[i].obj.pos.y = gGroundLevel + 3.0f;
                 gEffects[i].obj.pos.z = yPos;
                 gEffects[i].scale2 = 1.0f;
                 gEffects[i].scale1 = 1.3f;
@@ -628,7 +628,7 @@ void func_80062D04(f32 xPos, f32 yPos) {
             gEffects[i].obj.status = 1;
             gEffects[i].obj.id = OBJ_EFFECT_350;
             gEffects[i].obj.pos.x = xPos;
-            gEffects[i].obj.pos.y = D_80177940 + 3.0f;
+            gEffects[i].obj.pos.y = gGroundLevel + 3.0f;
             gEffects[i].obj.pos.z = yPos;
             gEffects[i].scale2 = 3.0f;
             gEffects[i].scale1 = 2.0f;
@@ -851,7 +851,7 @@ s32 func_8006351C(s32 index, Vec3f* pos, Vec3f* arg2, s32 arg3) {
                         temp.y = fabsf(boss->obj.pos.y - pos->y) * 2;
                         temp.z = fabsf(boss->obj.pos.z - pos->z) * (5.0f / 6.0f);
                         if (sqrtf(VEC3F_SQ(temp)) < 1500.0f) {
-                            boss->unk_062 = 1;
+                            boss->dmgType = DMG_BEAM;
                             return 2;
                         }
                     } else {
@@ -935,7 +935,7 @@ void func_80063CAC(Object_80* obj80) {
 void func_80063D58(Object_80* obj80) {
     s32 i;
 
-    obj80->obj.pos.y = D_80177940;
+    obj80->obj.pos.y = gGroundLevel;
     for (i = 0; i < ARRAY_COUNT(gObjects4C); i++) {
         if (gObjects4C[i].obj.status == 0) {
             Object_4C_Initialize(&gObjects4C[i]);
@@ -1014,7 +1014,7 @@ void Object_Init(s32 index, ObjectId objId) {
             gActors[index].fwork[10] = fabsf(Math_ModF(gActors[index].obj.pos.x, 100.0f));
             break;
         case OBJ_ACTOR_247:
-            func_E16C50_8019D060(&gActors[index]);
+            func_i3_8019D060(&gActors[index]);
             break;
         case OBJ_EFFECT_368:
             if (gCurrentLevel == LEVEL_TITANIA) {
@@ -1230,7 +1230,7 @@ void Object_Init(s32 index, ObjectId objId) {
             func_DF4260_8018BE7C(&gBosses[index]);
             break;
         case OBJ_BOSS_A6:
-            func_E16C50_80187754(&gBosses[index]);
+            func_i3_80187754(&gBosses[index]);
             break;
         case OBJ_ACTOR_231:
             func_E6A810_8018B96C(&gActors[index]);
@@ -1257,43 +1257,43 @@ void Object_Init(s32 index, ObjectId objId) {
             func_E6A810_8018FA48(&gBosses[index]);
             break;
         case OBJ_ACTOR_240:
-            func_E16C50_801915A4(&gActors[index]);
+            func_i3_801915A4(&gActors[index]);
             break;
         case OBJ_ACTOR_241:
-            func_E16C50_80191BB8(&gActors[index]);
+            func_i3_80191BB8(&gActors[index]);
             break;
         case OBJ_BOSS_ZO:
-            func_E16C50_801932AC(&gBosses[index]);
+            func_i3_801932AC(&gBosses[index]);
             break;
         case OBJ_ACTOR_250:
-            func_E16C50_8019B1F0(&gActors[index]);
+            func_i3_8019B1F0(&gActors[index]);
             break;
         case OBJ_ACTOR_251:
-            func_E16C50_8019B810(&gActors[index]);
+            func_i3_8019B810(&gActors[index]);
             break;
         case OBJ_ACTOR_253:
-            func_E16C50_8019C200(&gActors[index]);
+            func_i3_8019C200(&gActors[index]);
             break;
         case OBJ_ACTOR_255:
-            func_E16C50_801AD688(&gActors[index]);
+            func_i3_801AD688(&gActors[index]);
             break;
         case OBJ_ACTOR_256:
-            func_E16C50_801AE3AC(&gActors[index]);
+            func_i3_801AE3AC(&gActors[index]);
             break;
         case OBJ_ACTOR_257:
-            func_E16C50_801AF9FC(&gActors[index]);
+            func_i3_801AF9FC(&gActors[index]);
             break;
         case OBJ_BOSS_AQ:
-            func_E16C50_801B10F8(&gBosses[index]);
+            func_i3_801B10F8(&gBosses[index]);
             break;
         case OBJ_ACTOR_259:
-            func_E16C50_801B6344(&gActors[index]);
+            func_i3_801B6344(&gActors[index]);
             break;
         case OBJ_ACTOR_262:
-            func_E16C50_801B6E54(&gActors[index]);
+            func_i3_801B6E54(&gActors[index]);
             break;
         case OBJ_ACTOR_260:
-            func_E16C50_801B7AF0(&gActors[index]);
+            func_i3_801B7AF0(&gActors[index]);
             break;
         case OBJ_80_57:
             func_E6A810_8018F0D8(&gObjects80[index]);
@@ -1315,10 +1315,10 @@ void Object_Init(s32 index, ObjectId objId) {
             func_DF4260_801933B4(&gActors[index]);
             break;
         case OBJ_ACTOR_265:
-            func_E16C50_801BA57C(&gActors[index]);
+            func_i3_801BA57C(&gActors[index]);
             break;
         case OBJ_ACTOR_267:
-            func_E16C50_801BB26C(&gActors[index]);
+            func_i3_801BB26C(&gActors[index]);
             break;
     }
 }
@@ -1566,7 +1566,7 @@ void func_800656D4(Actor* actor) {
     sp8C.y = actor->vel.y;
     sp8C.z = actor->vel.z;
     if ((func_8006351C(actor->index, &actor->obj.pos, &sp8C, 1) != 0) || (actor->unk_0D0 != 0) ||
-        (actor->obj.pos.y < (D_80177940 + 10.0f)) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7)) {
+        (actor->obj.pos.y < (gGroundLevel + 10.0f)) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7)) {
         func_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 3.0f);
         Object_Kill(&actor->obj, &actor->sfxPos);
         if (actor->unk_0D0 != 0) {
@@ -1694,12 +1694,12 @@ void func_80066254(Actor* actor) {
 
 void func_8006654C(Actor* actor) {
     actor->gravity = 0.4f;
-    if (actor->obj.pos.y <= D_80177940 + 130.0f) {
-        actor->obj.pos.y = D_80177940 + 130.0f;
+    if (actor->obj.pos.y <= gGroundLevel + 130.0f) {
+        actor->obj.pos.y = gGroundLevel + 130.0f;
         actor->vel.y = 0.0f;
     }
-    actor->vel.x = __sinf(actor->obj.rot.y * M_DTOR) * (*actor).fwork[0];
-    actor->vel.z = __cosf(actor->obj.rot.y * M_DTOR) * (*actor).fwork[0];
+    actor->vel.x = __sinf(actor->obj.rot.y * M_DTOR) * actor->fwork[0];
+    actor->vel.z = __cosf(actor->obj.rot.y * M_DTOR) * actor->fwork[0];
     switch (actor->unk_0B8) {
         case 0:
             if (actor->fwork[0] < 20.0f) {
@@ -1896,8 +1896,8 @@ void func_80066EF0(Item* item) {
         Math_SmoothStepToF(&item->obj.pos.y, 650.0f, 0.1f, 10.0f, 0.01f);
     }
     if (gLevelType == LEVELTYPE_PLANET) {
-        if (item->obj.pos.y < D_80177940 + 70.0f) {
-            Math_SmoothStepToF(&item->obj.pos.y, D_80177940 + 70.0f, 0.1f, 5.0f, 0.01f);
+        if (item->obj.pos.y < gGroundLevel + 70.0f) {
+            Math_SmoothStepToF(&item->obj.pos.y, gGroundLevel + 70.0f, 0.1f, 5.0f, 0.01f);
         }
         if ((gCurrentLevel == LEVEL_AQUAS) && (D_80178284 != 0)) {
             item->obj.pos.z += 20.0f;

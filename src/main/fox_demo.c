@@ -348,9 +348,9 @@ void func_80048E40(Player* player) {
                         player->timer_1F8 = 0;
                         D_8017837C = 4;
                         if (gCurrentLevel == LEVEL_METEO) {
-                            D_800D3180[1] = Play_CheckMedalStatus(0xC8U) + 1;
+                            D_800D3180[LEVEL_METEO] = Play_CheckMedalStatus(200) + 1;
                         } else {
-                            D_800D3180[2] = Play_CheckMedalStatus(0x96U) + 1;
+                            D_800D3180[LEVEL_SECTOR_X] = Play_CheckMedalStatus(150) + 1;
                         }
                         D_80177930 = 2;
                     }
@@ -717,7 +717,7 @@ void func_8004A52C(Player* player) {
                 break;
 
             case LEVEL_ZONESS:
-                func_E16C50_8019D428(player);
+                func_i3_8019D428(player);
                 break;
 
             case LEVEL_MACBETH:
@@ -729,7 +729,7 @@ void func_8004A52C(Player* player) {
                 break;
 
             case LEVEL_SOLAR:
-                func_E16C50_801A10F4(player);
+                func_i3_801A10F4(player);
                 break;
 
             case LEVEL_VENOM_1:
@@ -742,7 +742,7 @@ void func_8004A52C(Player* player) {
                 break;
 
             case LEVEL_AREA_6:
-                func_E16C50_8018DF74(player);
+                func_i3_8018DF74(player);
                 break;
         }
         func_8004990C(player);
@@ -872,10 +872,10 @@ void func_8004AAF4(Player* player) {
             func_8001D444(0, 0x803DU, 0, 0xFFU);
         } else if (gCurrentLevel != LEVEL_TRAINING) {
             func_800BA808(gMsg_ID_20180, RCID_FOX);
-            if (gCurrentLevel == 5) {
-                func_8001D444(0, D_800C9E90[gCurrentLevel], 0, 2U);
+            if (gCurrentLevel == LEVEL_SECTOR_Y) {
+                func_8001D444(0, D_800C9E90[gCurrentLevel], 0, 2);
             } else {
-                func_8001D444(0, D_800C9E90[gCurrentLevel], 0, 0xFFU);
+                func_8001D444(0, D_800C9E90[gCurrentLevel], 0, 0xFF);
             }
         }
     }
@@ -939,7 +939,7 @@ void func_8004AAF4(Player* player) {
 
                 D_801779A8[player->num] = 70.0f;
 
-                if ((gCurrentLevel != 9) && (gCurrentLevel != 0xA)) {
+                if ((gCurrentLevel != LEVEL_VENOM_ANDROSS) && (gCurrentLevel != LEVEL_TRAINING)) {
                     D_800D1970 = 0;
                     for (i = 0, var_s0 = &gActors[2]; i < 3; i++, var_s0++) {
                         Actor_Initialize(var_s0);
@@ -1345,7 +1345,7 @@ void func_8004B368(Player* player) {
                 player->timer_1F8 = 0;
                 D_8017837C = 4;
                 func_8001DBD0(0xA);
-                D_800D3180[gCurrentLevel] = Play_CheckMedalStatus(0x96U) + 1;
+                D_800D3180[gCurrentLevel] = Play_CheckMedalStatus(150) + 1;
             }
             break;
     }
@@ -1423,7 +1423,7 @@ void func_8004C930(Player* player) {
                     func_80048E40(player);
                 }
             } else if (gCurrentLevel == LEVEL_AREA_6) {
-                func_E16C50_8018ED78(player);
+                func_i3_8018ED78(player);
             } else if (gCurrentLevel == LEVEL_FORTUNA) {
                 func_8004C90C(player);
                 func_800AA800(player);
@@ -1439,10 +1439,10 @@ void func_8004C930(Player* player) {
                 func_8019EE60(player);
                 func_800AA800(player);
             } else if (gCurrentLevel == LEVEL_SOLAR) {
-                func_E16C50_801A7930(player);
+                func_i3_801A7930(player);
                 func_800AA800(player);
             } else if (gCurrentLevel == LEVEL_ZONESS) {
-                func_E16C50_8019D76C(player);
+                func_i3_8019D76C(player);
                 func_800AA800(player);
             } else if (gCurrentLevel == LEVEL_VENOM_2) {
                 func_80196D88(player);
@@ -1753,7 +1753,8 @@ void func_8004D828(Player* player) {
     player->pos.x += player->vel.x;
     player->pos.y += player->vel.y;
 
-    if ((gCurrentLevel != 6 || D_80178284 == 0) && (gLevelType == LEVELTYPE_PLANET || gCurrentLevel == LEVEL_BOLSE)) {
+    if ((gCurrentLevel != LEVEL_VENOM_1 || D_80178284 == 0) &&
+        (gLevelType == LEVELTYPE_PLANET || gCurrentLevel == LEVEL_BOLSE)) {
         player->vel.y -= 0.5f;
         player->unk_0E4 -= 2.0f;
     }
@@ -1917,7 +1918,7 @@ void func_8004DEF8(Player* player) {
     } else if ((((player->timer_220 > 0) || (player->pos.y < player->unk_0A4)) || (player->timer_1FC == 0)) &&
                (player->timer_1F8 == 0)) {
         if (player->pos.y < player->unk_0A4) {
-            func_8007C688(player->pos.x, D_80177940 + 20.0f, player->unk_138 - (2.0f * player->vel.z), 3.0f, 0x320);
+            func_8007C688(player->pos.x, gGroundLevel + 20.0f, player->unk_138 - (2.0f * player->vel.z), 3.0f, 0x320);
             func_80062C38(player->pos.x, player->pos.z);
         }
         func_8007D0E0(player->pos.x, player->pos.y - (2.0f * player->vel.y), player->unk_138 - (2.0f * player->vel.z),
@@ -1943,8 +1944,8 @@ void func_8004DEF8(Player* player) {
     }
 
     if ((D_80161A88 == 2) && (player->pos.y <= player->unk_0A4)) {
-        func_8007D9DC(player->pos.x, D_80177940 + 2.0f, player->unk_138, 3.0f, 20.0f, 0);
-        func_8007ADF4(player->pos.x, D_80177940, player->unk_138, 0.1f, 2.0f);
+        func_8007D9DC(player->pos.x, gGroundLevel + 2.0f, player->unk_138, 3.0f, 20.0f, 0);
+        func_8007ADF4(player->pos.x, gGroundLevel, player->unk_138, 0.1f, 2.0f);
     }
 }
 
@@ -2483,9 +2484,9 @@ void func_8004F8AC(Actor* actor) {
                                 }
 
                                 D_8017836C = actor->iwork[0] / 255.0f;
-                                D_80178370 = gActors->obj.pos.x + 10.0f;
-                                D_80178374 = gActors->obj.pos.y - 40.0f;
-                                D_80178378 = gActors->obj.pos.z - 70.0f;
+                                D_80178370 = gActors[0].obj.pos.x + 10.0f;
+                                D_80178374 = gActors[0].obj.pos.y - 40.0f;
+                                D_80178378 = gActors[0].obj.pos.z - 70.0f;
                                 D_80178360 = 255;
                                 D_80178364 = 255;
                                 D_80178368 = 0x50;
@@ -2680,12 +2681,12 @@ void func_8004FEC0(Actor* actor) {
 
                 for (sp2D0 = 0; sp2D0 < 30; sp2D0++) {
                     Matrix_Push(&gGfxMatrix);
-                    Matrix_Translate(gGfxMatrix, ((Rand_ZeroOneSeeded() - 0.5f) * 3000.0f) * (*actor).fwork[20],
-                                     ((Rand_ZeroOneSeeded() - 0.5f) * 3000.0f) * (*actor).fwork[20],
-                                     ((Rand_ZeroOneSeeded() - 0.5f) * 3000.0f) * (*actor).fwork[20], 1);
-                    Matrix_RotateY(gGfxMatrix, 2.0f * (Rand_ZeroOneSeeded() * 3.1415927f), 1);
+                    Matrix_Translate(gGfxMatrix, ((Rand_ZeroOneSeeded() - 0.5f) * 3000.0f) * actor->fwork[20],
+                                     ((Rand_ZeroOneSeeded() - 0.5f) * 3000.0f) * actor->fwork[20],
+                                     ((Rand_ZeroOneSeeded() - 0.5f) * 3000.0f) * actor->fwork[20], 1);
+                    Matrix_RotateY(gGfxMatrix, 2.0f * (Rand_ZeroOneSeeded() * M_PI), 1);
                     Matrix_RotateZ(gGfxMatrix, (2.0f * gFrameCount) * M_DTOR, 1);
-                    Matrix_RotateX(gGfxMatrix, 2.0f * (Rand_ZeroOneSeeded() * 3.1415927f), 1);
+                    Matrix_RotateX(gGfxMatrix, 2.0f * (Rand_ZeroOneSeeded() * M_PI), 1);
 
                     switch (sp2D0 & 3) {
                         case 0:
@@ -2833,9 +2834,8 @@ void func_8004FEC0(Actor* actor) {
 
         case 37:
             RCP_SetupDL_49();
-            gDPSetPrimColor(gMasterDisp++, 0, 0, (*actor).iwork[0], (*actor).iwork[1], (*actor).iwork[2],
-                            (*actor).iwork[3]);
-            gDPSetEnvColor(gMasterDisp++, (*actor).iwork[4], (*actor).iwork[5], (*actor).iwork[6], (*actor).iwork[7]);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, actor->iwork[0], actor->iwork[1], actor->iwork[2], actor->iwork[3]);
+            gDPSetEnvColor(gMasterDisp++, actor->iwork[4], actor->iwork[5], actor->iwork[6], actor->iwork[7]);
             Matrix_Scale(gGfxMatrix, actor->scale, actor->fwork[4], 1.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
