@@ -1322,8 +1322,8 @@ void func_8008DE68(void) {
     f32 temp7;
     f32 var_fv0;
 
-    if ((D_80161734 == 1) && (gTeamShields[2] > 0)) {
-        if ((D_80177848 >= 0) && (D_801616BC == -1.0f)) {
+    if ((gShowBossHealth == 1) && (gTeamShields[2] > 0)) {
+        if ((gBossHealthBar >= 0) && (D_801616BC == -1.0f)) {
             Audio_PlaySfx(0x4900C028, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             D_801616BC = 255.0f;
         }
@@ -1358,7 +1358,7 @@ void func_8008DE68(void) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, 255);
 
         if (D_801616BC > 0.0f) {
-            var_fv0 = (D_801616BC - D_80177848) * (2.76f / D_801616BC);
+            var_fv0 = (D_801616BC - gBossHealthBar) * (2.76f / D_801616BC);
             if (var_fv0 > 2.76f) {
                 var_fv0 = 2.76f;
             }
@@ -1600,10 +1600,10 @@ void func_8008F96C(void) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80090200.s")
 
 void func_800907C4(Boss* boss) {
-    switch (boss->unk_04E) {
+    switch (boss->actionState) {
         case 0:
             if ((boss->fwork[1] == 255.0f) && (boss->fwork[2] == 212.0f)) {
-                boss->unk_04E = 1;
+                boss->actionState = 1;
 
             } else {
                 Math_SmoothStepToF(&boss->fwork[1], 255.0f, 0.3f, 6.0f, 6.0f);
@@ -1613,7 +1613,7 @@ void func_800907C4(Boss* boss) {
 
         case 1:
             if ((boss->fwork[1] == 28.0f) && (boss->fwork[2] == 23.0f)) {
-                boss->unk_04E = 0;
+                boss->actionState = 0;
             } else {
                 Math_SmoothStepToF(&boss->fwork[1], 28.0f, 0.3f, 6.0f, 6.0f);
                 Math_SmoothStepToF(&boss->fwork[2], 23.0f, 0.3f, 4.98f, 4.98f);
@@ -1819,9 +1819,9 @@ bool func_800910C0(Actor* actor) {
         actor->timer_0BC = (s32) (Rand_ZeroOne() * 20.0f) + 10;
     }
 
-    actor->fwork[4] = gBosses[0].obj.pos.x + (*actor).vwork[28].x;
-    actor->fwork[5] = (*actor).vwork[28].y;
-    actor->fwork[6] = gBosses[0].obj.pos.z + (*actor).vwork[28].z;
+    actor->fwork[4] = gBosses[0].obj.pos.x + actor->vwork[28].x;
+    actor->fwork[5] = actor->vwork[28].y;
+    actor->fwork[6] = gBosses[0].obj.pos.z + actor->vwork[28].z;
 
     if (actor->unk_0E4 == 1) {
         var_fv1 = 1500.0f;
@@ -1965,7 +1965,7 @@ bool func_80091864(Actor* actor) {
         sp44 += 40.0f;
         if (sp44 >= 360.0f) {
             sp44 -= 360.0f;
-        } else if ((actor->obj.pos.y < (D_80177940 + 50.0f)) && (gLevelType == LEVELTYPE_PLANET) && (sp44 > 180.0f)) {
+        } else if ((actor->obj.pos.y < (gGroundLevel + 50.0f)) && (gLevelType == LEVELTYPE_PLANET) && (sp44 > 180.0f)) {
             sp44 = 0.0f;
         }
         actor->iwork[0] = 0;
@@ -2022,8 +2022,8 @@ bool func_80091B90(Actor* actor) {
     actor->fwork[14] -= actor->fwork[14] * 0.1f;
     actor->fwork[12] -= actor->fwork[12] * 0.1f;
 
-    if ((actor->obj.pos.y < D_80177940 + 40.0f) && (actor->vel.y < 0.0f) && (gLevelType == LEVELTYPE_PLANET)) {
-        actor->obj.pos.y = D_80177940 + 40.0f;
+    if ((actor->obj.pos.y < gGroundLevel + 40.0f) && (actor->vel.y < 0.0f) && (gLevelType == LEVELTYPE_PLANET)) {
+        actor->obj.pos.y = gGroundLevel + 40.0f;
         actor->vel.y = 0.0f;
     }
     actor->vel.z -= D_80177D08;
@@ -2054,7 +2054,7 @@ bool func_80091DF4(Actor* actor) {
     Vec3f sp44;
     Vec3f sp38;
 
-    if ((actor->iwork[0] != 0) && (D_80177848 > 70)) {
+    if ((actor->iwork[0] != 0) && (gBossHealthBar > 70)) {
         actor->iwork[0] = 0;
         sp44.x = 0.0f;
         sp44.y = 0.0f;
@@ -2214,7 +2214,7 @@ void func_80093310(void) {
     this->obj.pos.x = 0.0f;
     this->obj.pos.y += 1700.0f;
     this->obj.pos.z -= 5000.0f;
-    gActors->unk_0B6 = 1;
+    gActors[0].unk_0B6 = 1;
     if (1) {}
     this->obj.id = OBJ_ACTOR_195;
     Object_SetInfo(&this->info, this->obj.id);

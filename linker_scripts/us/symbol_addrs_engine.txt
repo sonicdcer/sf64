@@ -151,6 +151,9 @@ Message_IsPrintingChar = 0x800C2F30;
 D_800C9CC4 = 0x800C9CC4;
 D_800C9CF8 = 0x800C9CF8;
 
+// fox_43AC0
+gBossFrameCount = 0x801613A0;
+
 // fox_save
 gDefaultSave = 0x800D4D10;
 gSaveFile = 0x80178870; //size:0x200
@@ -355,11 +358,13 @@ func_800A25DC = 0x800A25DC;
 func_800A26C0 = 0x800A26C0;
 func_800A3608 = 0x800A3608;
 
-gTotalHits = 0x80161714;
 
 // sf_hud
-gMedalFlashTimer = 0x801617B8;
+gTotalHits = 0x80161714;
+gShowBossHealth = 0x80161734;
 gMedalStatus = 0x801617B4;
+gMedalFlashTimer = 0x801617B8;
+
 
 // fox_play
 D_80161A50 = 0x80161A50;
@@ -410,8 +415,8 @@ gGameState = 0x80177834;
 D_80177838 = 0x80177838;
 D_Timer_8017783C = 0x8017783C;
 D_80177840 = 0x80177840;
-D_80177848 = 0x80177848;
-gOptionMenuStatus = 0x8017784C; // type:OptionState
+gOptionMenuStatus = 0x8017784C; //type:OptionState
+gBossHealthBar = 0x80177848;
 D_80177850 = 0x80177850;
 D_80177854 = 0x80177854;
 D_80177858 = 0x80177858;
@@ -436,7 +441,7 @@ gTeamDamage = 0x80177910;
 gBrakeButton = 0x80177928;
 D_80177930 = 0x80177930;
 gShootButton = 0x80177938;
-D_80177940 = 0x80177940;
+gGroundLevel = 0x80177940;
 gBombButton = 0x80177948;
 D_80177950 = 0x80177950;
 D_80177958 = 0x80177958;

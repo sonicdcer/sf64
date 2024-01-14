@@ -1,4 +1,5 @@
 #include "global.h"
+// #include "prevent_bss_reordering.h"
 
 Vec3f D_801615D0;
 Vec3f D_801615E0;
@@ -993,7 +994,7 @@ void Actor_Draw2(Actor* actor) {
                 func_8006B74C(actor);
                 return;
             case OBJ_ACTOR_236:
-                func_E16C50_80190F08(actor);
+                func_i3_80190F08(actor);
                 return;
         }
         if ((actor->obj.id == OBJ_ACTOR_200) && (actor->unk_0B4 == 200)) {
@@ -1313,19 +1314,19 @@ void func_8005ECD8(s32 index, Object* obj) {
     } else {
         switch (obj->id) {
             case OBJ_ACTOR_230:
-                Matrix_Translate(gGfxMatrix, obj->pos.x, D_80177940 + 2.0f + gActors[index].fwork[1],
+                Matrix_Translate(gGfxMatrix, obj->pos.x, gGroundLevel + 2.0f + gActors[index].fwork[1],
                                  obj->pos.z + D_80177D20, 1);
                 break;
             case OBJ_ACTOR_229:
             case OBJ_ACTOR_231:
-                Matrix_Translate(gGfxMatrix, obj->pos.x, D_80177940 + 2.0f + gActors[index].fwork[0],
+                Matrix_Translate(gGfxMatrix, obj->pos.x, gGroundLevel + 2.0f + gActors[index].fwork[0],
                                  obj->pos.z + D_80177D20, 1);
                 break;
             case OBJ_BOSS_316:
-                Matrix_Translate(gGfxMatrix, obj->pos.x, D_80177940 + 2.0f + D_8017847C, obj->pos.z, 1);
+                Matrix_Translate(gGfxMatrix, obj->pos.x, gGroundLevel + 2.0f + D_8017847C, obj->pos.z, 1);
                 break;
             default:
-                Matrix_Translate(gGfxMatrix, obj->pos.x, D_80177940 + 2.0f, obj->pos.z + D_80177D20, 1);
+                Matrix_Translate(gGfxMatrix, obj->pos.x, gGroundLevel + 2.0f, obj->pos.z + D_80177D20, 1);
                 break;
         }
         if ((D_801784AC != 4) || (obj->id == OBJ_ACTOR_200) || (obj->id == OBJ_ACTOR_195) ||

@@ -410,7 +410,7 @@ void Option_Setup(void) {
     if ((D_80161A34 == 5) || (D_80161A34 == 8)) {
         if (D_80161A34 == 8) {
             D_80177B90[gCurrentPlanet] = 13;
-            if (D_800D3180[9] == 1) {
+            if (D_800D3180[LEVEL_VENOM_ANDROSS] == 1) {
                 gSaveFile.save.data.planet[SAVE_SLOT_VENOM_1].played = 1;
                 if (var_v0_2 != 0) {
                     gSaveFile.save.data.planet[SAVE_SLOT_VENOM_1].expertClear = 1;
@@ -418,7 +418,7 @@ void Option_Setup(void) {
                     gSaveFile.save.data.planet[SAVE_SLOT_VENOM_1].normalClear = 1;
                 }
                 Save_Write();
-            } else if (D_800D3180[9] == 2) {
+            } else if (D_800D3180[LEVEL_VENOM_ANDROSS] == 2) {
                 D_80177BB0[gCurrentPlanet] = 1;
                 gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].played = 1;
                 if (var_v0_2) {

@@ -1923,7 +1923,7 @@ void func_800C2244(Actor* actor) {
                 x3 += 360.0f;
             }
 
-        } else if (actor->obj.pos.y < D_80177940 + 50.0f) {
+        } else if (actor->obj.pos.y < gGroundLevel + 50.0f) {
             if (x3 > 180.0f) {
                 x3 = 0.0f;
                 actor->unk_0F4.x = 0.0f;
@@ -1959,8 +1959,8 @@ void func_800C2244(Actor* actor) {
     actor->fwork[14] -= actor->fwork[14] * 0.1f;
     actor->fwork[12] -= actor->fwork[12] * 0.1f;
 
-    if ((actor->obj.pos.y < D_80177940 + 40.0f) && (actor->vel.y < 0.0f)) {
-        actor->obj.pos.y = D_80177940 + 40.0f;
+    if ((actor->obj.pos.y < gGroundLevel + 40.0f) && (actor->vel.y < 0.0f)) {
+        actor->obj.pos.y = gGroundLevel + 40.0f;
         actor->vel.y = 0.0f;
     }
 
