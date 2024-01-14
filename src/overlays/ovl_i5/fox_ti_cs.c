@@ -43,6 +43,7 @@ void func_i5_8018769C(Player* player) {
     Actor* actor = &gActors[3];
     Vec3f sp54;
     Vec3f sp48;
+
     sp64 = 20000.0f;
 
     switch (player->unk_1D0) {
@@ -127,10 +128,13 @@ void func_i5_8018769C(Player* player) {
 
             if (D_80177A80 == 500) {
                 D_80177A80 = 480;
+
                 player->unk_1D0 = 3;
                 player->unk_144 = 200.0f;
+
                 D_80177D20 = 200.0f;
                 D_80177CC8 = D_80177D20;
+
                 player->pos.z = -(D_80177D20) -200.0f;
                 player->unk_0D4 = 0.0f;
                 player->vel.y = 0.0f;
@@ -142,42 +146,56 @@ void func_i5_8018769C(Player* player) {
                 player->camAt.z = D_801779C0 = player->pos.z;
 
                 gPlayer->unk_19C = 1;
+
                 gBgColor = 0x2089;
+
                 player->unk_16C = 0.5f;
                 player->unk_170 = 0.5f;
+
                 D_80177A48[2] = -270.0f;
                 D_80177A48[3] = 200.0f;
-                *D_80177A10 = 0;
                 D_80177A48[1] = 0.0f;
+
+                *D_80177A10 = 0;
+
                 Matrix_RotateY(gCalcMatrix, D_80177A48[2] * M_DTOR, 0);
+
                 sp54.x = 0.0f;
                 sp54.y = 30.0f;
                 sp54.z = D_80177A48[3];
+
                 Matrix_MultVec3f(gCalcMatrix, &sp54, &sp48);
+
                 D_80177978 = sp48.x;
+
                 player->camEye.x = sp48.x;
+
                 D_80177980 = sp48.y;
+
                 player->camEye.y = sp48.y;
-                player->camEye.z = D_80177988 = (player->pos.z + player->unk_144) + sp48.z;
+                player->camEye.z = D_80177988 = player->pos.z + player->unk_144 + sp48.z;
             }
             break;
 
         case 3:
             Math_SmoothStepToF(&D_80177A48[2], 0.0f, 0.1f, 4.0f, 0.0f);
             Matrix_RotateY(gCalcMatrix, D_80177A48[2] * M_DTOR, 0);
+
             sp54.x = 0.0f;
             sp54.y = 30.0f;
             sp54.z = D_80177A48[3];
+
             Matrix_MultVec3f(gCalcMatrix, &sp54, &sp48);
+
             D_80177978 = sp48.x;
             D_80177980 = sp48.y;
-            D_80177988 = (player->pos.z + player->unk_144) + sp48.z;
+            D_80177988 = player->pos.z + player->unk_144 + sp48.z;
             D_801779A0 = player->pos.x;
+
             player->camAt.x = D_801779A0;
-            D_801779B8 = player->pos.y;
-            player->camAt.y = D_801779B8;
-            D_801779C0 = player->pos.z + player->unk_144;
-            player->camAt.z = D_801779C0;
+            player->camAt.y = D_801779B8 = player->pos.y;
+            player->camAt.z = D_801779C0 = player->pos.z + player->unk_144;
+
             Math_SmoothStepToF(&player->pos.y, D_80177A48[1], 0.1f, 50.0f, 0.0f);
 
             if (player->pos.y < 200.0f) {
@@ -185,8 +203,9 @@ void func_i5_8018769C(Player* player) {
                 Math_SmoothStepToF(&player->unk_16C, 1.0f, 1.0f, 0.2f, 0.0f);
                 Math_SmoothStepToF(&D_80177A48[1], 70.0f, 0.05f, 1.0f, 0.0f);
                 Math_SmoothStepToF(&D_80177A48[3], 400.0f, 1.0f, 5.0f, 0.0f);
-                if ((*D_80177A10) == 0) {
-                    *D_80177A10 += 1;
+
+                if (D_80177A10[0] == 0) {
+                    D_80177A10[0]++;
                     Audio_PlaySfx(0x01008016U, &player->unk_460, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 }
             }
@@ -203,16 +222,13 @@ void func_i5_8018769C(Player* player) {
             if (D_80177A80 == 0x244) {
                 D_80177838 = 0x32;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
-                player->unk_1D0 = 0;
-                player->timer_1F8 = 0;
-                player->timer_1FC = 0;
-                player->unk_240 = 0;
+                player->unk_1D0 = player->timer_1F8 = player->timer_1FC = player->unk_240 = 0;
                 player->unk_0D4 = 3.0f;
                 player->unk_014 = 0.0f;
                 D_8017782C = 1;
                 func_800A594C();
                 D_8017782C = 0;
-                if ((gControllerHold[player->num].button & 0x2000) && (gControllerHold[player->num].button & 0x10)) {
+                if ((gControllerHold[player->num].button & Z_TRIG) && (gControllerHold[player->num].button & R_TRIG)) {
                     func_8001A55C(&player->unk_460, 0x01008016);
                 }
             }
