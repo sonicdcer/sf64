@@ -416,7 +416,7 @@ extern s32 D_Timer_8017783C;
 extern s32 D_80177840;
 extern s32 gBossHealthBar;
 extern s32 D_80177844;
-extern s32 D_8017784C;
+extern OptionState gOptionMenuStatus;
 extern s32 D_80177850;
 extern s32 D_80177854;
 extern s32 D_80177858[4];
@@ -705,7 +705,7 @@ extern f32 D_801784CC;
 extern f32 D_801784D0; // effective Vec3f
 extern f32 D_801784D4;
 extern f32 D_801784D8;
-extern s32 gLight1x; // Vec3i light direction 
+extern s32 gLight1x; // Vec3i light direction
 extern s32 gLight1y;
 extern s32 gLight1z;
 extern f32 D_801784E8;
@@ -740,7 +740,7 @@ extern s32 gLight2G;
 extern s32 gLight2B;
 extern s32 D_80178570; // Color32 light color 2 modifier?
 extern s32 D_80178574;
-extern s32 D_80178578; 
+extern s32 D_80178578;
 
 // fox_rcp?
 extern u8 D_80178580[];
@@ -812,7 +812,7 @@ extern Gfx D_Gfx_800DAC20[];
 extern Gfx D_Gfx_800D9688[];
 
 // wave_samples
-extern s16 gSawtoothWaveSample[]; 
+extern s16 gSawtoothWaveSample[];
 extern s16 gTriangleWaveSample[];
 extern s16 gSineWaveSample[];
 extern s16 gSquareWaveSample[];

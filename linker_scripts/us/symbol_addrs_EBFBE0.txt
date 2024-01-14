@@ -1,9 +1,11 @@
-Option_ExpertSoundUpdate = 0x80195944;
+Option_ExpertSoundUpdate = 0x80195944; // segment:ovl_menu
+Option_VersusStageInit = 0x80199FA8; // segment:ovl_menu
 planet = 0x801AF4A0; // type:Planet segment:ovl_menu size:0x38
 sPlanetNames = 0x801AF9F4; // type:s32 segment:ovl_menu size:0xF
 GetPlanetId = 0x801A6480; // force_migration:True segment:ovl_menu
-D_EBFBE0_801AE638 = 0x801AE638; // type:MenuContext segment:ovl_menu size:0x240
+sOptionCardList = 0x801AE638; // type:OptionEntry segment:ovl_menu size:0x240
 D_EBFBE0_801AE99C = 0x801AE99C; // force_migration:True segment:ovl_menu
+sTimeTrialMinuteTextures = 0x801AF28C; // force_migration:True segment:ovl_menu
 sPlanetList = 0x801AF7E8;
 spectrumAnalizerMode = 0x801B9318;
 D_EBFBE0_801B6E50 = 0x801B6E50; // force_migration:True segment:ovl_menu
