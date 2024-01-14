@@ -1920,7 +1920,7 @@ void func_8003C4D0(PlayerShot* shot, s32 unkD6) {
     if (gCurrentLevel == LEVEL_MACBETH) {
         func_E6A810_801AD144(shot);
     } else if (gCurrentLevel == LEVEL_VENOM_1) {
-        func_DF4260_8019864C(shot);
+        func_i1_8019864C(shot);
     } else {
         func_8003C008(shot);
     }

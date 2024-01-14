@@ -5,7 +5,7 @@
     vram: 0x80187520
     bss_size: 0xA10
     exclusive_ram_id: overlay
-    symbol_name_format: DF4260_$VRAM
+    symbol_name_format: i1_$VRAM
     subsegments:
     - [0xDF4260, c, DF4260]
     - [0xDF4270, c, fox_co]

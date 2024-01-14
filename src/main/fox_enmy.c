@@ -1208,7 +1208,7 @@ void Object_Init(s32 index, ObjectId objId) {
             break;
         case OBJ_ACTOR_177:
         case OBJ_ACTOR_178:
-            func_DF4260_8018B0B4(&gActors[index]);
+            func_i1_8018B0B4(&gActors[index]);
             /* fallthrough */
         case OBJ_ACTOR_176:
             gActors[index].unk_0CE = 24;
@@ -1224,10 +1224,10 @@ void Object_Init(s32 index, ObjectId objId) {
             func_80042FD0(&gBosses[index]);
             break;
         case OBJ_BOSS_292:
-            func_DF4260_801878D8(&gBosses[index]);
+            func_i1_801878D8(&gBosses[index]);
             break;
         case OBJ_BOSS_293:
-            func_DF4260_8018BE7C(&gBosses[index]);
+            func_i1_8018BE7C(&gBosses[index]);
             break;
         case OBJ_BOSS_A6:
             func_i3_80187754(&gBosses[index]);
@@ -1299,20 +1299,20 @@ void Object_Init(s32 index, ObjectId objId) {
             func_E6A810_8018F0D8(&gObjects80[index]);
             break;
         case OBJ_BOSS_319:
-            func_DF4260_801935CC(&gBosses[index]);
+            func_i1_801935CC(&gBosses[index]);
             break;
         case OBJ_ACTOR_280:
-            func_DF4260_8019250C(&gActors[index]);
+            func_i1_8019250C(&gActors[index]);
             break;
         case OBJ_ACTOR_281:
         case OBJ_ACTOR_282:
-            func_DF4260_80192CB0(&gActors[index]);
+            func_i1_80192CB0(&gActors[index]);
             break;
         case OBJ_ACTOR_283:
-            func_DF4260_80192EA4(&gActors[index]);
+            func_i1_80192EA4(&gActors[index]);
             break;
         case OBJ_ACTOR_284:
-            func_DF4260_801933B4(&gActors[index]);
+            func_i1_801933B4(&gActors[index]);
             break;
         case OBJ_ACTOR_265:
             func_i3_801BA57C(&gActors[index]);
@@ -2465,7 +2465,7 @@ void func_800690D0(s32 index, ObjectId objId) {
             func_E6A810_8018B720(&gActors[index]);
             break;
         case OBJ_BOSS_319:
-            func_DF4260_80198594(&gBosses[index]);
+            func_i1_80198594(&gBosses[index]);
             break;
     }
 }

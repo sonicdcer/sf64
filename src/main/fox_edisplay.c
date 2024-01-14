@@ -406,7 +406,7 @@ void func_8005A094(Actor* actor) {
             gSPDisplayList(gMasterDisp++, D_10177C0);
             break;
         case 57:
-            gSPDisplayList(gMasterDisp++, D_DF4260_8019A008[actor->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_i1_8019A008[actor->unk_048]);
             break;
         default:
             if (actor->unk_0B8 > 9) { // part of switch tree somehow?
@@ -751,7 +751,7 @@ void func_8005BAB4(ObjectId objId, s32 index) {
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             break;
         case OBJ_BOSS_319:
-            func_DF4260_80198310(&gBosses[index]);
+            func_i1_80198310(&gBosses[index]);
             break;
     }
 }

@@ -841,8 +841,8 @@ extern f32 gStereoPanVolume[];
 extern f32 gDefaultPanVolume[];
 
 // ovl_DF4260
-extern Gfx* D_DF4260_8019A008[];
-extern f32 D_DF4260_8019A9B8[];
+extern Gfx* D_i1_8019A008[];
+extern f32 D_i1_8019A9B8[];
 
 // ovl_i3
 // extern f32 D_i3_801C4188; Currently externed in relevant files for bss ordering

@@ -6068,7 +6068,7 @@ void func_800B79B0(void) {
     switch (gCurrentLevel) {
         case LEVEL_TRAINING:
             if (gLevelMode == LEVELMODE_ALL_RANGE) {
-                func_DF4260_8019949C();
+                func_i1_8019949C();
             }
             break;
         case LEVEL_VERSUS:
@@ -6331,7 +6331,7 @@ void func_800B86CC(void) {
         } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
             func_800A57E0();
         } else if (gCurrentLevel == LEVEL_TRAINING) {
-            func_DF4260_80198C50();
+            func_i1_80198C50();
         }
         func_800B86A4(&gPlayer[0].pos.z);
         func_800B86A4(&gPlayer[0].unk_138);

@@ -113,7 +113,7 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
             changeOvl = Overlay_Init(&sOvlEBFBE0_State5[ovlStage]);
             break;
         case OVL_SETUP_CORNERIA:
-            changeOvl = Overlay_Init(&sOvlDF4260_Corneria[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli1_Corneria[ovlStage]);
             break;
         case OVL_SETUP_METEO:
             changeOvl = Overlay_Init(&sOvli2_Meteo[ovlStage]);
@@ -152,10 +152,10 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
             changeOvl = Overlay_Init(&sOvlE9F1D0_Venom2[ovlStage]);
             break;
         case OVL_SETUP_TRAINING:
-            changeOvl = Overlay_Init(&sOvlDF4260_Training[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli1_Training[ovlStage]);
             break;
         case OVL_SETUP_VENOM_1:
-            changeOvl = Overlay_Init(&sOvlDF4260_Venom1[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli1_Venom1[ovlStage]);
             break;
         case OVL_SETUP_VENOM_2:
             changeOvl = Overlay_Init(&sOvlE9F1D0_VenomSW[ovlStage]);

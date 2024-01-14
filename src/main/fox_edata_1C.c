@@ -1,75 +1,75 @@
 #include "global.h"
 
 // these are overlay functions. They will need to be replaced with their proper overlay names given below them.
-// func_DF4260_801875A4
+// func_i1_801875A4
 void func_801875A4(Object*);
-// func_DF4260_80189058
+// func_i1_80189058
 void func_80189058(Object*);
-// func_DF4260_8018AA74
+// func_i1_8018AA74
 void func_8018AA74(Object*);
-// func_DF4260_8018AED0
+// func_i1_8018AED0
 void func_8018AED0(Object*);
-// func_DF4260_8018B15C
+// func_i1_8018B15C
 void func_8018B15C(Object*);
-// func_DF4260_8018B418
+// func_i1_8018B418
 void func_8018B418(Object*);
-// func_DF4260_8018B58C
+// func_i1_8018B58C
 void func_8018B58C(Object*);
-// func_DF4260_8018BAAC
+// func_i1_8018BAAC
 void func_8018BAAC(Object*);
-// func_DF4260_8018BBA4
+// func_i1_8018BBA4
 void func_8018BBA4(Object*);
-// func_DF4260_8018BBF8
+// func_i1_8018BBF8
 void func_8018BBF8(Object*);
-// func_DF4260_8018BD7C
+// func_i1_8018BD7C
 void func_8018BD7C(Object*);
-// func_DF4260_8018C19C
+// func_i1_8018C19C
 void func_8018C19C(Object*);
-// func_DF4260_8018DDAC
+// func_i1_8018DDAC
 void func_8018DDAC(Object*);
-// func_DF4260_8018E290
+// func_i1_8018E290
 void func_8018E290(Object*);
-// func_DF4260_8018E76C
+// func_i1_8018E76C
 void func_8018E76C(Object*);
-// func_DF4260_8018ECAC
+// func_i1_8018ECAC
 void func_8018ECAC(Object*);
-// func_DF4260_8018ED78
+// func_i1_8018ED78
 void func_8018ED78(Object*);
-// func_DF4260_8018EE84
+// func_i1_8018EE84
 void func_8018EE84(Object*);
-// func_DF4260_8018EF90
+// func_i1_8018EF90
 void func_8018EF90(Object*);
-// func_DF4260_8018F044
+// func_i1_8018F044
 void func_8018F044(Object*);
-// func_DF4260_8018F31C
+// func_i1_8018F31C
 void func_8018F31C(Object*);
-// func_DF4260_801922DC
+// func_i1_801922DC
 void func_801922DC(Object*);
-// func_DF4260_80192358
+// func_i1_80192358
 void func_80192358(Object*);
-// func_DF4260_801923C0
+// func_i1_801923C0
 void func_801923C0(Object*);
-// func_DF4260_8019243C
+// func_i1_8019243C
 void func_8019243C(Object*);
-// func_DF4260_80192518
+// func_i1_80192518
 void func_80192518(Object*);
-// func_DF4260_80192CD4
+// func_i1_80192CD4
 void func_80192CD4(Object*);
-// func_DF4260_80192E2C
+// func_i1_80192E2C
 void func_80192E2C(Object*);
-// func_DF4260_80192EB0
+// func_i1_80192EB0
 void func_80192EB0(Object*);
-// func_DF4260_801933DC
+// func_i1_801933DC
 void func_801933DC(Object*);
-// func_DF4260_801934D0
+// func_i1_801934D0
 void func_801934D0(Object*);
-// func_DF4260_80193540
+// func_i1_80193540
 void func_80193540(Object*);
-// func_DF4260_80194398
+// func_i1_80194398
 void func_80194398(Object*);
-// func_DF4260_801985E4
+// func_i1_801985E4
 void func_801985E4(Object*);
-// func_DF4260_80198968
+// func_i1_80198968
 void func_80198968(Object*);
 
 // func_i2_8018756C
@@ -442,7 +442,7 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_80_15,  */  {(void*)     D_60361F0, 0, (ObjectFunc) func_80066EA8,        D_603E014,   200.0f,  0, 0, 39, 0,   0.0f,  0 },
   /* OBJ_80_16,  */  {(void*)     D_6018E80, 0, (ObjectFunc) func_80066EA8,        D_603E030,   200.0f,  0, 0, 39, 0,   0.0f,  0 },
   /* OBJ_80_17,  */  {(void*)     D_6035F10, 0, (ObjectFunc) func_80066EA8,        D_603E09C,   200.0f,  0, 0, 39, 0,   0.0f,  0 },
-  /* OBJ_80_18,  */  {(void*) func_DF4260_8018753C, 1, (ObjectFunc) func_DF4260_80187530,        D_603E98C,   200.0f,  0, 0, 39, 0,   0.0f,  0 },
+  /* OBJ_80_18,  */  {(void*) func_i1_8018753C, 1, (ObjectFunc) func_i1_80187530,        D_603E98C,   200.0f,  0, 0, 39, 0,   0.0f,  0 },
   /* OBJ_80_19,  */  {(void*)     D_60153B0, 0, (ObjectFunc)          NULL,        D_603E118,   100.0f,  0, 0, 39, 0,   0.0f,  0 },
   /* OBJ_80_20,  */  {(void*)     D_601F5A0, 0, (ObjectFunc)          NULL,        D_603E14C,   500.0f,  0, 0, 39, 0,   0.0f,  0 },
   /* OBJ_80_21,  */  {(void*)     D_60137B0, 0, (ObjectFunc)          NULL,        D_603E1B4,   400.0f,  0, 0, 39, 0,   0.0f,  0 },
@@ -551,7 +551,7 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_80_124  */  {(void*)     D_600EEF0, 0, (ObjectFunc)          NULL,       D_800CBF34,  2000.0f,  0, 0, 41, 0,   0.0f,  0 },
   /* OBJ_80_125  */  {(void*)     D_600BF80, 0, (ObjectFunc)          NULL,        D_6030E68,  2000.0f,  0, 0, 41, 0,   0.0f,  0 },
   /* OBJ_80_126  */  {(void*) func_i3_801BE1FC, 1, (ObjectFunc)          NULL,       D_800CBF34,  2000.0f,  0, 0, 41, 0,   0.0f,  0 },
-  /* OBJ_80_127  */  {(void*)     D_9005C80, 0, (ObjectFunc) func_DF4260_801924A8,        D_601B678,  1000.0f,  0, 0, 42, 0,   0.0f,  0 },
+  /* OBJ_80_127  */  {(void*)     D_9005C80, 0, (ObjectFunc) func_i1_801924A8,        D_601B678,  1000.0f,  0, 0, 42, 0,   0.0f,  0 },
   /* OBJ_80_128  */  {(void*)     D_9003F50, 0, (ObjectFunc)          NULL,        D_601B6C4,  3200.0f,  0, 0, 42, 0,   0.0f,  0 },
   /* OBJ_80_129  */  {(void*)     D_900F060, 0, (ObjectFunc)          NULL,        D_601B710,  3200.0f,  0, 0, 42, 0,   0.0f,  0 },
   /* OBJ_80_130  */  {(void*)     D_900F1D0, 0, (ObjectFunc)          NULL,        D_601B75C,  3200.0f,  0, 0, 42, 0,   0.0f,  0 },
@@ -743,7 +743,7 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_BOSS_316 */  {(void*) func_801968F4, 1, (ObjectFunc) func_801946C4,        D_6011058,     0.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_BOSS_317 */  {(void*) func_80193B1C, 1, (ObjectFunc) func_80193718,        D_601115C,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
   /* OBJ_BOSS_AQ */  {(void*) func_i3_801B4D84, 2, (ObjectFunc) func_i3_801B134C,        D_6030F74, 10000.0f,  0, 0, 40, 0,   0.0f, 10 },
-  /* OBJ_BOSS_319 */  {(void*) func_801985E4, 1, (ObjectFunc) func_80194398,D_DF4260_8019A9B8,  3000.0f,  0, 0, 40, 1,   0.0f, 10 },
+  /* OBJ_BOSS_319 */  {(void*) func_801985E4, 1, (ObjectFunc) func_80194398,D_i1_8019A9B8,  3000.0f,  0, 0, 40, 1,   0.0f, 10 },
   /* OBJ_BOSS_320 */  {(void*) func_801928C8, 2, (ObjectFunc) func_8018DBF0,        D_C038DC0, 10000.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_BOSS_321 */  {(void*) func_8018B8C0, 1, (ObjectFunc) func_80189B70,        D_C038F24, 10000.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_ITEM_LASERS  */  {(void*) func_8005CC9C, 1, (ObjectFunc) func_80067F6C,       D_800CBFA8,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
