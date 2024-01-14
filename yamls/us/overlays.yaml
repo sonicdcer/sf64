@@ -21,8 +21,8 @@
     - [0xE08380, .rodata, E05620]
     - [0xE083C0, .rodata, E05990]
     - { start: 0xE08400, type: .bss, vram: 0x8019B6C0, name: DF4260 }
-    - { start: 0xE08410, type: .bss, vram: 0x8019B6D0, name: fox_co }
-    - { start: 0xE08530, type: bss, vram: 0x8019B7F0, name: DFEE30 }
+    - { type: .bss, vram: 0x8019B6D0, name: fox_co }
+    - { type: bss, vram: 0x8019B7F0, name: DFEE30 }
 
   - name: ovl_i2
     type: code
