@@ -112,21 +112,21 @@
     symbol_name_format: i5_$VRAM
     subsegments:
     - [0xE6A810, c, fox_i5]
-    - [0xE6A820, c, fox_ti]
-    - [0xE6C220, c, E6C220]
+    - [0xE6A820, c, fox_ti_cs]
+    - [0xE6C220, c, fox_ti]
     - [0xE7CC10, c, fox_ma]
     - [0xE97CC0, c, E97CC0]
     - [0xE9A580, .data, fox_i5]
-    - [0xE9A590, data, fox_ti]
-    - [0xE9A650, data, E6C220]
+    - [0xE9A590, data, fox_ti_cs]
+    - [0xE9A650, data, fox_ti]
     - [0xE9DC00, data, E97CC0]
     - [0xE9DCD0, .rodata, fox_i5]
-    - [0xE9DCE0, .rodata, fox_ti]
-    - [0xE9DD40, .rodata, E6C220]
+    - [0xE9DCE0, .rodata, fox_ti_cs]
+    - [0xE9DD40, .rodata, fox_ti]
     - [0xE9E5A0, .rodata, fox_ma]
     - [0xE9F0E0, .rodata, E97CC0]
     - { start: 0xE9F1D0, type: .bss, vram: 0x801BBEE0, name: fox_i5 }
-    - { type: bss, vram: 0x801BBEF0, name: E6C220 }
+    - { type: bss, vram: 0x801BBEF0, name: fox_ti }
     - { type: bss, vram: 0x801BE240, name: fox_ma }
     - { type: bss, vram: 0x801BE740, name: E97CC0 }
 
