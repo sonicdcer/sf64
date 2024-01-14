@@ -112,22 +112,22 @@
     symbol_name_format: i5_$VRAM
     subsegments:
     - [0xE6A810, c, fox_i5]
-    - [0xE6A820, c, E6A820]
+    - [0xE6A820, c, fox_ti]
     - [0xE6C220, c, E6C220]
-    - [0xE7CC10, c, E7CC10]
+    - [0xE7CC10, c, fox_ma]
     - [0xE97CC0, c, E97CC0]
     - [0xE9A580, data, fox_i5]
-    - [0xE9A590, data, E6A820]
+    - [0xE9A590, data, fox_ti]
     - [0xE9A650, data, E6C220]
     - [0xE9DC00, data, E97CC0]
     - [0xE9DCD0, .rodata, fox_i5]
-    - [0xE9DCE0, .rodata, E6A820]
+    - [0xE9DCE0, .rodata, fox_ti]
     - [0xE9DD40, .rodata, E6C220]
-    - [0xE9E5A0, .rodata, E7CC10]
+    - [0xE9E5A0, .rodata, fox_ma]
     - [0xE9F0E0, .rodata, E97CC0]
     - { start: 0xE9F1D0, type: bss, vram: 0x801BBEE0, name: fox_i5 }
     - { type: bss, vram: 0x801BBEF0, name: E6C220 }
-    - { type: bss, vram: 0x801BE240, name: E7CC10 }
+    - { type: bss, vram: 0x801BE240, name: fox_ma }
     - { type: bss, vram: 0x801BE740, name: E97CC0 }
 
   - name: ovl_i6
@@ -142,21 +142,21 @@
     - [0xE9F1D0, c, fox_i6]
     - [0xE9F1E0, c, E9F1E0]
     - [0xEADEC0, c, EADECO]
-    - [0xEAF7E0, c, EAF7E0]
+    - [0xEAF7E0, c, fox_sy]
     - [0xEBD210, c, EBD210]
     - [0xEBE400, data, fox_i6]
     - [0xEBE410, data, E9F1E0]
     - [0xEBE560, data, EADCE0]
-    - [0xEBE5C0, data, EAF7E0]
+    - [0xEBE5C0, data, fox_sy]
     - [0xEBE830, data, EBD210]
     - [0xEBE840, .rodata, fox_i6]
     - [0xEBE850, .rodata, E9F1E0]
     - [0xEBF0F0, .rodata, EADECO]
-    - [0xEBF130, .rodata, EAF7E0]
+    - [0xEBF130, .rodata, fox_sy]
     - [0xEBFB80, .rodata, EBD210]
     - { start: 0xEBFBE0, type: bss, vram: 0x801A7F30, name: fox_i6 }
     - { type: bss, vram: 0x801A7F40, name: E9F1E0 }
-    - { type: bss, vram: 0x801A8440, name: EAF7E0 }
+    - { type: bss, vram: 0x801A8440, name: fox_sy }
     
   - name: ovl_menu
     type: code
