@@ -1,5 +1,8 @@
-#include "common.h"
+#include "global.h"
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/fox_i5/func_i5_80187520.s")
+UNK_TYPE D_i5_801BBEE0;
+s32 D_i5_801B7290 = 0;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/fox_i5/D_i5_801BA9E0.s")
+void func_i5_80187520(u32 mode, void* ptr) {
+    PRINTF("i5 指定外！\n");
+}

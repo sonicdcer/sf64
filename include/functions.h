@@ -758,7 +758,7 @@ void func_i4_8019AB8C(Actor*);
 void func_i4_8019EA68(Object_58**);
 
 
-void func_i5_80187520(s32, void*);
+void func_i5_80187520(u32 mode, void* ptr);
 void func_i5_8018769C(Player *);
 void func_i5_80188F30(void);
 void func_i5_80189B80(Actor *);
@@ -795,7 +795,7 @@ s32 func_i5_801A3300(Player*, f32, f32);
 s32 func_i5_801A3790(Player*, f32, f32);
 
 void func_E9F1D0_8018769C(Actor*);
-void func_E9F1D0_80187520(s32, void*);
+void func_E9F1D0_80187520(u32 mode, void* ptr);
 void func_E9F1D0_801878A8(Object_58**);
 void func_E9F1D0_801888F4(Actor *);
 void func_E9F1D0_80189214(void);
