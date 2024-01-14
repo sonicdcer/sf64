@@ -4173,12 +4173,6 @@ void func_80083D2C(f32 posX, f32 posY, f32 posZ, f32 srcZ) {
     }
 }
 
-// RGB Values. Used like an array of [8][3], but only matches this way.
-s32 D_800D18F0[24] = { 32, 32, 255, 0, 255, 0, 0, 0, 0, 255, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 255, 0, 255, 0 };
-
-// Alpha values
-s32 D_800D1950[] = { 255, 210, 180, 120, 70, 30, 0, 0 };
-
 void func_80083FA8(Effect* effect) {
     Vec3f src;
     Vec3f dest;
@@ -4220,6 +4214,12 @@ void func_80083FA8(Effect* effect) {
     }
     func_8007A774(gPlayer, effect, 100.0f);
 }
+
+// RGB Values. Used like an array of [8][3], but only matches this way.
+s32 D_800D18F0[24] = { 32, 32, 255, 0, 255, 0, 0, 0, 0, 255, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 255, 0, 255, 0 };
+
+// Alpha values
+s32 D_800D1950[] = { 255, 210, 180, 120, 70, 30, 0, 0 };
 
 void func_80084194(Effect* effect) {
     s32 tmp;

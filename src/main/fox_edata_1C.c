@@ -70,7 +70,7 @@ void func_80194398(Object*);
 // func_DF4260_801985E4
 void func_801985E4(Object*);
 // func_DF4260_80198968
-void func_80198968(Object*);
+void func_80198968(Item*);
 
 // func_E08400_8018756C
 void func_8018756C(Object*);

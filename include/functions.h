@@ -851,7 +851,7 @@ void func_EF0260_8018AAC4(void);
 // void func_DF4260_80193540(Object*); 
 // void func_DF4260_80194398(Object*); 
 // void func_DF4260_801985E4(Object*); 
-// void func_DF4260_80198968(Object*); 
+void func_DF4260_80198968(Item*); 
 // void func_E08400_8018756C(Object*); 
 // void func_E08400_80187650(Object*); 
 // void func_E08400_801877C4(Object*); 
