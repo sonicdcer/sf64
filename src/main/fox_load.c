@@ -116,13 +116,13 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
             changeOvl = Overlay_Init(&sOvlDF4260_Corneria[ovlStage]);
             break;
         case OVL_SETUP_METEO:
-            changeOvl = Overlay_Init(&sOvlE08400_Meteo[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli2_Meteo[ovlStage]);
             break;
         case OVL_SETUP_TITANIA:
             changeOvl = Overlay_Init(&sOvlE6A810_Titania[ovlStage]);
             break;
         case OVL_SETUP_SECTOR_X:
-            changeOvl = Overlay_Init(&sOvlE08400_SectorX[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli2_SectorX[ovlStage]);
             break;
         case OVL_SETUP_SECTOR_Z:
             changeOvl = Overlay_Init(&sOvli4_SectorZ[ovlStage]);
@@ -161,7 +161,7 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
             changeOvl = Overlay_Init(&sOvlE9F1D0_VenomSW[ovlStage]);
             break;
         case OVL_SETUP_20:
-            changeOvl = Overlay_Init(&sOvlE08400_Setup20[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli2_Setup20[ovlStage]);
             break;
         case OVL_SETUP_BOLSE:
             changeOvl = Overlay_Init(&sOvli4_Bolse[ovlStage]);
@@ -173,7 +173,7 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
             changeOvl = Overlay_Init(&sOvlE6A810_Macbeth[ovlStage]);
             break;
         case OVL_SETUP_VERSUS:
-            changeOvl = Overlay_Init(&sOvlE08400_Versus[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli2_Versus[ovlStage]);
             if (changeOvl == true) {
                 func_8001DC6C(3, 0x310);
             }

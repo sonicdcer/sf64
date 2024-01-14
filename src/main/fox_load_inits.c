@@ -234,7 +234,7 @@ OverlayInit sOvlDF4260_Corneria[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlE08400_Meteo[2] = {
+OverlayInit sOvli2_Meteo[2] = {
     { OVERLAY_OFFSETS(ovl_i2),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
@@ -368,7 +368,7 @@ OverlayInit sOvlE6A810_Titania[6] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlE08400_SectorX[2] = {
+OverlayInit sOvli2_SectorX[2] = {
     { OVERLAY_OFFSETS(ovl_i2),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
@@ -644,7 +644,7 @@ OverlayInit sOvlE9F1D0_VenomSW[2] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlE08400_Setup20[1] = {
+OverlayInit sOvli2_Setup20[1] = {
     { OVERLAY_OFFSETS(ovl_i2),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -755,7 +755,7 @@ OverlayInit sOvlDF4260_Training[1] = {
         /* 0xF */ ROM_SEGMENT(ast_940AD0) } },
 };
 
-OverlayInit sOvlE08400_Versus[2] = {
+OverlayInit sOvli2_Versus[2] = {
     { OVERLAY_OFFSETS(ovl_i2),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),

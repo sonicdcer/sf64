@@ -1215,7 +1215,7 @@ void Object_Init(s32 index, ObjectId objId) {
             Audio_PlaySfx(0x31000016, &gActors[index].sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             break;
         case OBJ_BOSS_297:
-            func_E08400_80188A40(&gBosses[index]);
+            func_i2_80188A40(&gBosses[index]);
             break;
         case OBJ_BOSS_299:
             func_80042FAC(&gBosses[index]);
@@ -2444,7 +2444,7 @@ void func_800690D0(s32 index, ObjectId objId) {
             func_8006B0A0(&gActors[index]);
             break;
         case OBJ_ACTOR_186:
-            func_E08400_80187B08(&gActors[index]);
+            func_i2_80187B08(&gActors[index]);
             break;
         case OBJ_ACTOR_181:
             Object_Kill(&gActors[index].obj, &gActors[index].sfxPos);

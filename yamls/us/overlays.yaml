@@ -31,7 +31,7 @@
     vram: 0x80187520
     bss_size: 0x40
     exclusive_ram_id: overlay
-    symbol_name_format: E08400_$VRAM
+    symbol_name_format: i2_$VRAM
     subsegments:    
     - [0xE08400, c, E08400]
     - [0xE08410, c, E08410]

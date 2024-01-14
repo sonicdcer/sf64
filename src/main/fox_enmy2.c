@@ -2090,7 +2090,7 @@ void func_800701E0(Actor* actor) {
                                 break;
 
                             case 61:
-                                func_E08400_8018CCF8(actor);
+                                func_i2_8018CCF8(actor);
                                 break;
 
                             case 27:
@@ -2198,7 +2198,7 @@ void func_800701E0(Actor* actor) {
                 }
 
                 if (actor->unk_0B4 == 61) {
-                    func_E08400_8018CCF8(actor);
+                    func_i2_8018CCF8(actor);
                 }
             }
         }
