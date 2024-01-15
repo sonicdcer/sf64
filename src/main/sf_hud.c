@@ -12,12 +12,15 @@ typedef struct {
 extern UnkStruct_D_800D1AEC D_800D1AEC[];
 
 extern f32 D_800D1CFC;
-
+extern s32 D_801617C0[10];
 extern f32 D_801618C8[20];
 extern s32 D_80161860[20];
 extern Gfx D_1012110[];
 extern Gfx D_101C2E0[];
 extern u8 D_5000500[];
+extern u8 D_5001110[];
+extern u8 D_5001750[];
+extern u8 D_5001C50[];
 extern u8 D_50022F0[];
 extern u8 D_5002D40[];
 extern u8 D_5002DC0[];
@@ -631,11 +634,11 @@ void func_800869A0(f32 arg0, f32 arg1, s32 k, f32 arg3, s32 arg4, s32 arg5) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800869A0.s")
 #endif
 
-void func_80086C08(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
+void func_80086C08(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
     RCP_SetupDL(&gMasterDisp, 0x4E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 128, 96);
     gDPSetAlphaDither(gMasterDisp++, G_AD_DISABLE);
-    TextureRect_8bCI(&gMasterDisp, D_1013170, D_1013570, 24, 17, arg0, arg1, arg2, arg3);
+    TextureRect_8bCI(&gMasterDisp, D_1013170, D_1013570, 24, 17, xPos, yPos, xScale, yScale);
 }
 
 void func_80086CC8(void) {
@@ -957,7 +960,226 @@ void func_80087788(void) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80087788.s")
 #endif
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80087B5C.s")
+void func_80087B5C(void) {
+    s32 i;
+    s32 temp;
+    f32 x0;
+    f32 x1;
+    f32 x2;
+    f32 x3;
+    f32 x4;
+    f32 x5;
+    f32 x6;
+    f32 y0;
+    f32 y1;
+    f32 y2;
+    f32 y3;
+    f32 y4;
+    f32 y5;
+    f32 y6;
+
+    if (D_80177830 == 0) {
+        func_8001A838(0x41007012U);
+        D_801617C0[0] = 0;
+    }
+
+    if ((D_80177854 != 100) && (D_80177830 == 1) && (!D_801617E8[0])) {
+        switch (D_801617C0[0]) {
+            case 0:
+                D_801617C0[5] = gHitCount;
+                D_801617C0[1] = gHitCount;
+                D_801617C0[2] = gTotalHits;
+                gTotalHits += gHitCount;
+                D_801617C0[3] = gLifeCount[gPlayerNum];
+                gLifeCount[gPlayerNum] += ((D_801617C0[2] % 100) + gHitCount) / 100;
+
+                if (gLifeCount[gPlayerNum] > 99) {
+                    gLifeCount[gPlayerNum] = 99;
+                }
+
+                D_801617E8[0] = 10;
+                D_801617C0[0] = 1;
+                D_801617C0[4] = gHitCount / 2;
+                D_801617C0[6] = 0;
+
+                func_800884E4();
+                break;
+
+            case 1:
+                if (((gTeamShields[1] > 0) && (gTeamShields[1] < 255)) &&
+                    ((gTeamShields[2] > 0) && (gTeamShields[2] < 255)) &&
+                    ((gTeamShields[3] > 0) && (gTeamShields[3] < 255))) {
+                    Audio_PlaySfx(0x41007012U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                }
+                D_801617C0[0] = 2;
+
+            case 2:
+                if ((D_801617C0[5] == 0) && (D_801617C0[4] == 0)) {
+                    func_8001A838(0x41007012U);
+                    D_801617C0[0] = 3;
+                    D_801617E8[0] = 30;
+                    break;
+                }
+
+                if (D_801617C0[5] > 0) {
+                    Audio_PlaySfx(0x49004007U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+
+                    if (D_801617C0[5] >= 100) {
+                        D_801617C0[5] -= 100;
+                        D_801617C0[2] += 100;
+                    } else {
+                        D_801617C0[5]--;
+                        D_801617C0[2]++;
+                    }
+                }
+
+                if (D_801617C0[4] > 0) {
+                    for (i = 1, temp = 0; i < 4; i++) {
+                        if (gTeamShields[i] > 0) {
+                            if (D_801617C0[4] >= 4) {
+                                gTeamShields[i] += 4;
+                            } else {
+                                gTeamShields[i]++;
+                            }
+                            if (gTeamShields[i] >= 255) {
+                                gTeamShields[i] = 255;
+                            } else {
+                                temp++;
+                            }
+                        }
+                    }
+
+                    if (D_801617C0[4] >= 4) {
+                        D_801617C0[4] -= 4;
+                    } else {
+                        D_801617C0[4]--;
+                    }
+
+                    if (D_801617C0[4] <= 0) {
+                        D_801617C0[i] = 0;
+                    }
+
+                    if ((D_801617C0[i] == 0) || (temp == 0)) {
+                        D_801617C0[4] = 0;
+                        func_8001A838(0x41007012U);
+                    }
+                }
+                break;
+
+            case 3:
+            case 4:
+                if (D_801617C0[3] < gLifeCount[gPlayerNum]) {
+                    D_801617C0[6] = 30;
+                }
+                D_801617C0[0] = 5;
+
+            case 5:
+                if (D_801617C0[3] >= gLifeCount[gPlayerNum]) {
+                    gLifeCount[gPlayerNum] = D_801617C0[3];
+                    D_801617E8[0] = 10;
+                    D_801617C0[0]++;
+                } else {
+                    if (!(gFrameCount & 1)) {
+                        Audio_PlaySfx(0x4900C024U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                        D_801617C0[3]++;
+                    }
+                }
+                break;
+
+            case 6:
+            case 7:
+                D_801617C0[0]++;
+                D_801617C0[1] = gHitCount;
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    if (D_801617C0[6] > 0) {
+        D_801617C0[6]--;
+    }
+
+    if (D_80177830 == 1) {
+        x0 = 128.0f;
+        y0 = 30.0f;
+
+        x1 = x0 + 8.0f + 4.0f;
+        y1 = y0 + 19.0f + 4.0f;
+
+        x2 = x1 + 13.0f;
+        y2 = y1 + 18.0f + 6.0f;
+
+        x3 = x0 - 84.0f;
+        y3 = y2 + 19.0f;
+
+        x4 = x3 + 103.0f + 24.0f;
+        y4 = y3 - 6.0f;
+
+        x5 = x4 + 60.0f;
+        y5 = y4 + 10.0f;
+
+        x6 = x2 - 56.0f + 16.0f;
+        y6 = y3 + 18.0f;
+
+        func_80086C08(x0 - 4.0f, y0 - 4.0f, 2.9f, 3.6f);
+        func_80086C08(x3 - 4.0f, y3 - 4.0f, 10.0f, 1.0f);
+        func_80086C08(x6 - 12.0f, y6 + 8.0f, 5.2f, 1.0f);
+
+        if (D_801617C0[1] < 0) {
+            D_801617C0[1] = 0;
+        }
+        if (D_801617C0[1] > 999) {
+            D_801617C0[1] = 999;
+        }
+        if (D_801617C0[2] < 0) {
+            D_801617C0[2] = 0;
+        }
+        if (D_801617C0[2] > 9999) {
+            D_801617C0[2] = 9999;
+        }
+
+        temp = 10;
+        for (i = 1; temp <= D_801617C0[1]; i++) {
+            temp *= 10;
+        }
+        x1 += (3 - i) * 8;
+
+        temp = 10;
+        for (i = 1; temp <= D_801617C0[2]; i++) {
+            temp *= 10;
+        }
+        x4 += (4 - i) * 8;
+
+        RCP_SetupDL(&gMasterDisp, 0x4C);
+
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 90, 160, 200, 255);
+        func_800869A0(24.0f, 30.0f + 3.0f, D_801617C0[5], 1.0f, 0, 999);
+
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+        TextureRect_8bIA(&gMasterDisp, D_5001110, 64, 25, x0, y0 + 4.0f, 1.0f, 1.0f);
+
+        func_800869A0(x1, y1 + 12.0f, D_801617C0[1], 1.0f, 1, 999);
+
+        TextureRect_8bIA(&gMasterDisp, D_5001750, 128, 10, x3, y3, 1.0f, 1.0f);
+
+        func_800869A0(x4 + 4.0f, y4 + 3.0f, D_801617C0[2], 1.00f, 1, 9999);
+
+        if (!(D_801617C0[6] & 1)) {
+            func_80087530(232.0f, 90.0f, D_801617C0[3]);
+        }
+
+        RCP_SetupDL(&gMasterDisp, 0x4C);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+
+        TextureRect_8bIA(&gMasterDisp, D_5001C50, 120, 12, x6 - 8.0f, y6 + 10.0f, 1.0f, 1.0f);
+
+        func_80087788();
+        func_80084B94(0);
+        func_8008B5B0(20.0f, 18.0f);
+    }
+}
 
 void func_800884E4(void) {
     s32 var_v1;
