@@ -795,7 +795,7 @@ void func_80040CE4(void) {
         return;
     }
     if ((gCurrentLevel == LEVEL_BOLSE) && (D_800C9C34 != 0)) {
-        func_E51970_80192264();
+        func_i4_80192264();
         return;
     }
     sp1D4 = 0.0f;

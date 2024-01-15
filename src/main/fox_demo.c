@@ -131,7 +131,7 @@ AnimationHeader* D_800CA1F4[] = {
     D_60265B4, D_602B8DC, D_60034C4, D_602A2CC, D_602CEB4, D_602B778, (AnimationHeader*) 0x0601F3B8,
 };
 
-extern void func_E6A810_8018769C(Player*);
+extern void func_i5_8018769C(Player*);
 extern void func_801882CC(Player*, OSContPad**, OSContPad**);
 extern void func_8018CD8C(Player*);
 extern void func_8018DA58(Actor*);
@@ -160,7 +160,7 @@ extern void func_8019FF00(Actor*);
 extern void func_E9F1D0_801A0AC0(Player*);
 extern void func_801A8BE8(Actor*);
 extern void func_801AB9B0(Player*);
-extern void func_E6A810_801AC754(Player*);
+extern void func_i5_801AC754(Player*);
 extern void func_801AF8F4(Player*, OSContPad**, OSContPad**);
 extern void func_801B28BC(Actor*);
 extern void func_801B3D04(Player*, OSContPad**, OSContPad**);
@@ -712,7 +712,7 @@ void func_8004A52C(Player* player) {
                 break;
 
             case LEVEL_TITANIA:
-                func_E6A810_8018769C(player);
+                func_i5_8018769C(player);
                 func_800AA800(player);
                 break;
 
@@ -721,7 +721,7 @@ void func_8004A52C(Player* player) {
                 break;
 
             case LEVEL_MACBETH:
-                func_E6A810_801AC754(player);
+                func_i5_801AC754(player);
                 break;
 
             case LEVEL_SECTOR_Y:
@@ -1402,7 +1402,7 @@ void func_8004B368(Player* player) {
 }
 
 void func_8004C90C(Player* player) {
-    func_E51970_80187520(90, player);
+    func_i4_80187520(90, player);
 }
 
 void func_8004C930(Player* player) {

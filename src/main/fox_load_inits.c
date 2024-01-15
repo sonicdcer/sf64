@@ -41,7 +41,7 @@ OverlayInit sNoOvl_Logo[1] = {
 };
 
 OverlayInit sOvlEF0260_Credits[6] = {
-    { OVERLAY_OFFSETS(ovl_EF0260),
+    { OVERLAY_OFFSETS(ovl_ending),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -57,7 +57,7 @@ OverlayInit sOvlEF0260_Credits[6] = {
         /* 0xD */ ROM_SEGMENT(ast_955270),
         /* 0xE */ ROM_SEGMENT(ast_92EC40),
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_EF0260),
+    { OVERLAY_OFFSETS(ovl_ending),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
         /* 0x3 */ NO_SEGMENT,
@@ -73,7 +73,7 @@ OverlayInit sOvlEF0260_Credits[6] = {
         /* 0xD */ NO_SEGMENT,
         /* 0xE */ NO_SEGMENT,
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_EF0260),
+    { OVERLAY_OFFSETS(ovl_ending),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
         /* 0x3 */ NO_SEGMENT,
@@ -89,7 +89,7 @@ OverlayInit sOvlEF0260_Credits[6] = {
         /* 0xD */ NO_SEGMENT,
         /* 0xE */ NO_SEGMENT,
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_EF0260),
+    { OVERLAY_OFFSETS(ovl_ending),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
         /* 0x3 */ NO_SEGMENT,
@@ -105,7 +105,7 @@ OverlayInit sOvlEF0260_Credits[6] = {
         /* 0xD */ NO_SEGMENT,
         /* 0xE */ NO_SEGMENT,
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_EF0260),
+    { OVERLAY_OFFSETS(ovl_ending),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
         /* 0x3 */ NO_SEGMENT,
@@ -121,7 +121,7 @@ OverlayInit sOvlEF0260_Credits[6] = {
         /* 0xD */ NO_SEGMENT,
         /* 0xE */ ROM_SEGMENT(ast_92EC40),
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_EF0260),
+    { OVERLAY_OFFSETS(ovl_ending),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -139,7 +139,7 @@ OverlayInit sOvlEF0260_Credits[6] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlEBFBE0_Title[1] = {
+OverlayInit sOvlmenu_Title[1] = {
     { OVERLAY_OFFSETS(ovl_menu),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
@@ -158,7 +158,7 @@ OverlayInit sOvlEBFBE0_Title[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlEBFBE0_Menu[1] = {
+OverlayInit sOvlmenu_Menu[1] = {
     { OVERLAY_OFFSETS(ovl_menu),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
@@ -177,7 +177,7 @@ OverlayInit sOvlEBFBE0_Menu[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlEBFBE0_Map[1] = {
+OverlayInit sOvlmenu_Map[1] = {
     { OVERLAY_OFFSETS(ovl_menu),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
@@ -196,7 +196,7 @@ OverlayInit sOvlEBFBE0_Map[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlEBFBE0_State5[1] = {
+OverlayInit sOvlmenu_State5[1] = {
     { OVERLAY_OFFSETS(ovl_menu),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
@@ -215,8 +215,8 @@ OverlayInit sOvlEBFBE0_State5[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlDF4260_Corneria[1] = {
-    { OVERLAY_OFFSETS(ovl_DF4260),
+OverlayInit sOvli1_Corneria[1] = {
+    { OVERLAY_OFFSETS(ovl_i1),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -234,8 +234,8 @@ OverlayInit sOvlDF4260_Corneria[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlE08400_Meteo[2] = {
-    { OVERLAY_OFFSETS(ovl_E08400),
+OverlayInit sOvli2_Meteo[2] = {
+    { OVERLAY_OFFSETS(ovl_i2),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -251,7 +251,7 @@ OverlayInit sOvlE08400_Meteo[2] = {
         /* 0xD */ NO_SEGMENT,
         /* 0xE */ ROM_SEGMENT(ast_92EC40),
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_E08400),
+    { OVERLAY_OFFSETS(ovl_i2),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -269,8 +269,8 @@ OverlayInit sOvlE08400_Meteo[2] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlE6A810_Titania[6] = {
-    { OVERLAY_OFFSETS(ovl_E6A810),
+OverlayInit sOvli5_Titania[6] = {
+    { OVERLAY_OFFSETS(ovl_i5),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8D99F0),
@@ -286,7 +286,7 @@ OverlayInit sOvlE6A810_Titania[6] = {
         /* 0xD */ NO_SEGMENT,
         /* 0xE */ ROM_SEGMENT(ast_92EC40),
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_E6A810),
+    { OVERLAY_OFFSETS(ovl_i5),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8D99F0),
@@ -302,7 +302,7 @@ OverlayInit sOvlE6A810_Titania[6] = {
         /* 0xD */ NO_SEGMENT,
         /* 0xE */ NO_SEGMENT,
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_E6A810),
+    { OVERLAY_OFFSETS(ovl_i5),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8D99F0),
@@ -318,7 +318,7 @@ OverlayInit sOvlE6A810_Titania[6] = {
         /* 0xD */ NO_SEGMENT,
         /* 0xE */ NO_SEGMENT,
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_E6A810),
+    { OVERLAY_OFFSETS(ovl_i5),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8D99F0),
@@ -334,7 +334,7 @@ OverlayInit sOvlE6A810_Titania[6] = {
         /* 0xD */ NO_SEGMENT,
         /* 0xE */ NO_SEGMENT,
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_E6A810),
+    { OVERLAY_OFFSETS(ovl_i5),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8D99F0),
@@ -350,7 +350,7 @@ OverlayInit sOvlE6A810_Titania[6] = {
         /* 0xD */ NO_SEGMENT,
         /* 0xE */ NO_SEGMENT,
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_E6A810),
+    { OVERLAY_OFFSETS(ovl_i5),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8D99F0),
@@ -368,8 +368,8 @@ OverlayInit sOvlE6A810_Titania[6] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlE08400_SectorX[2] = {
-    { OVERLAY_OFFSETS(ovl_E08400),
+OverlayInit sOvli2_SectorX[2] = {
+    { OVERLAY_OFFSETS(ovl_i2),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -385,7 +385,7 @@ OverlayInit sOvlE08400_SectorX[2] = {
         /* 0xD */ ROM_SEGMENT(ast_955270),
         /* 0xE */ NO_SEGMENT,
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_E08400),
+    { OVERLAY_OFFSETS(ovl_i2),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -403,8 +403,8 @@ OverlayInit sOvlE08400_SectorX[2] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlE51970_SectorZ[1] = {
-    { OVERLAY_OFFSETS(ovl_E51970),
+OverlayInit sOvli4_SectorZ[1] = {
+    { OVERLAY_OFFSETS(ovl_i4),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -460,8 +460,8 @@ OverlayInit sOvli3_Area6[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlE51970_Fortuna[2] = {
-    { OVERLAY_OFFSETS(ovl_E51970),
+OverlayInit sOvli4_Fortuna[2] = {
+    { OVERLAY_OFFSETS(ovl_i4),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -477,7 +477,7 @@ OverlayInit sOvlE51970_Fortuna[2] = {
         /* 0xD */ NO_SEGMENT,
         /* 0xE */ NO_SEGMENT,
         /* 0xF */ ROM_SEGMENT(ast_940AD0) } },
-    { OVERLAY_OFFSETS(ovl_E51970),
+    { OVERLAY_OFFSETS(ovl_i4),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -515,7 +515,7 @@ OverlayInit sOvli3_Unk4[1] = {
 };
 
 OverlayInit sOvlE9F1D0_SectorY[1] = {
-    { OVERLAY_OFFSETS(ovl_E9F1D0),
+    { OVERLAY_OFFSETS(ovl_i6),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -571,8 +571,8 @@ OverlayInit sOvli3_Zoness[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlDF4260_Venom1[1] = {
-    { OVERLAY_OFFSETS(ovl_DF4260),
+OverlayInit sOvli1_Venom1[1] = {
+    { OVERLAY_OFFSETS(ovl_i1),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -591,7 +591,7 @@ OverlayInit sOvlDF4260_Venom1[1] = {
 };
 
 OverlayInit sOvlE9F1D0_Venom2[1] = {
-    { OVERLAY_OFFSETS(ovl_E9F1D0),
+    { OVERLAY_OFFSETS(ovl_i6),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -610,7 +610,7 @@ OverlayInit sOvlE9F1D0_Venom2[1] = {
 };
 
 OverlayInit sOvlE9F1D0_VenomSW[2] = {
-    { OVERLAY_OFFSETS(ovl_E9F1D0),
+    { OVERLAY_OFFSETS(ovl_i6),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -626,7 +626,7 @@ OverlayInit sOvlE9F1D0_VenomSW[2] = {
         /* 0xD */ NO_SEGMENT,
         /* 0xE */ NO_SEGMENT,
         /* 0xF */ ROM_SEGMENT(ast_940AD0) } },
-    { OVERLAY_OFFSETS(ovl_E9F1D0),
+    { OVERLAY_OFFSETS(ovl_i6),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -644,8 +644,8 @@ OverlayInit sOvlE9F1D0_VenomSW[2] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlE08400_Setup20[1] = {
-    { OVERLAY_OFFSETS(ovl_E08400),
+OverlayInit sOvli2_Setup20[1] = {
+    { OVERLAY_OFFSETS(ovl_i2),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -663,8 +663,8 @@ OverlayInit sOvlE08400_Setup20[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlE51970_Bolse[1] = {
-    { OVERLAY_OFFSETS(ovl_E51970),
+OverlayInit sOvli4_Bolse[1] = {
+    { OVERLAY_OFFSETS(ovl_i4),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -682,8 +682,8 @@ OverlayInit sOvlE51970_Bolse[1] = {
         /* 0xF */ ROM_SEGMENT(ast_940AD0) } },
 };
 
-OverlayInit sOvlE51970_Katina[1] = {
-    { OVERLAY_OFFSETS(ovl_E51970),
+OverlayInit sOvli4_Katina[1] = {
+    { OVERLAY_OFFSETS(ovl_i4),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -701,8 +701,8 @@ OverlayInit sOvlE51970_Katina[1] = {
         /* 0xF */ ROM_SEGMENT(ast_940AD0) } },
 };
 
-OverlayInit sOvlE6A810_Macbeth[2] = {
-    { OVERLAY_OFFSETS(ovl_E6A810),
+OverlayInit sOvli5_Macbeth[2] = {
+    { OVERLAY_OFFSETS(ovl_i5),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8D99F0),
@@ -718,7 +718,7 @@ OverlayInit sOvlE6A810_Macbeth[2] = {
         /* 0xD */ ROM_SEGMENT(ast_955270),
         /* 0xE */ NO_SEGMENT,
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_E6A810),
+    { OVERLAY_OFFSETS(ovl_i5),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8D99F0),
@@ -736,8 +736,8 @@ OverlayInit sOvlE6A810_Macbeth[2] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlDF4260_Training[1] = {
-    { OVERLAY_OFFSETS(ovl_DF4260),
+OverlayInit sOvli1_Training[1] = {
+    { OVERLAY_OFFSETS(ovl_i1),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
@@ -755,8 +755,8 @@ OverlayInit sOvlDF4260_Training[1] = {
         /* 0xF */ ROM_SEGMENT(ast_940AD0) } },
 };
 
-OverlayInit sOvlE08400_Versus[2] = {
-    { OVERLAY_OFFSETS(ovl_E08400),
+OverlayInit sOvli2_Versus[2] = {
+    { OVERLAY_OFFSETS(ovl_i2),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
         /* 0x3 */ ROM_SEGMENT(ast_8E92D0),
@@ -772,7 +772,7 @@ OverlayInit sOvlE08400_Versus[2] = {
         /* 0xD */ NO_SEGMENT,
         /* 0xE */ NO_SEGMENT,
         /* 0xF */ NO_SEGMENT } },
-    { OVERLAY_OFFSETS(ovl_E08400),
+    { OVERLAY_OFFSETS(ovl_i2),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
         /* 0x3 */ ROM_SEGMENT(ast_8E92D0),
@@ -791,7 +791,7 @@ OverlayInit sOvlE08400_Versus[2] = {
 };
 
 OverlayInit sEFFA40_Overlay[1] = {
-    { OVERLAY_OFFSETS(ovl_EFFA40),
+    { OVERLAY_OFFSETS(ovl_unused),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
         /* 0x3 */ NO_SEGMENT,

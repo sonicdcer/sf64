@@ -82,22 +82,22 @@ void Option_ExpertSoundUpdate(void) {
         func_800182F4(0x100100FF);
         func_800182F4(0x110100FF);
         Audio_PlaySfx(sfx, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-        D_EBFBE0_801B9320 = true;
+        D_menu_801B9320 = true;
     }
 
     if (gControllerPress[gMainController].button & B_BUTTON) {
-        if (!D_EBFBE0_801B9320) {
+        if (!D_menu_801B9320) {
             func_8001D444(0, 36, 0, 255);
             gDrawMode = DRAWMODE_0;
-            D_EBFBE0_801B9124 = 1000;
-            D_EBFBE0_801B912C = 0;
-            D_EBFBE0_801B9244 = 1;
+            D_menu_801B9124 = 1000;
+            D_menu_801B912C = 0;
+            D_menu_801B9244 = 1;
         } else {
             Audio_PlaySfx(0x4900101D, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             Audio_KillSfx(&D_800C5D28);
             func_800182F4(0x100100FF);
             func_800182F4(0x110100FF);
-            D_EBFBE0_801B9320 = false;
+            D_menu_801B9320 = false;
         }
     }
 

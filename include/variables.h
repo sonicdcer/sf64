@@ -840,25 +840,25 @@ extern f32 gHeadsetPanVolume[];
 extern f32 gStereoPanVolume[];
 extern f32 gDefaultPanVolume[];
 
-// ovl_DF4260
-extern Gfx* D_DF4260_8019A008[];
-extern f32 D_DF4260_8019A9B8[];
+// ovl_i1
+extern Gfx* D_i1_8019A008[];
+extern f32 D_i1_8019A9B8[];
 
 // ovl_i3
 // extern f32 D_i3_801C4188; // Currently externed in relevant files for bss ordering
 
-// ovl_E51970
-extern Matrix D_E51970_8019EE80;
-extern s32 D_E51970_801A03DC;
+// ovl_i4
+extern Matrix D_i4_8019EE80;
+extern s32 D_i4_801A03DC;
 
-// ovl_E6A810
-extern Gfx* D_E6A810_801B7584[];
-extern Gfx* D_E6A810_801B7608[];
-extern Gfx* D_E6A810_801B769C[];
-extern f32 D_E6A810_801B83A8[];
-extern u8 D_E6A810_801BA1E8;
+// ovl_i5
+extern Gfx* D_i5_801B7584[];
+extern Gfx* D_i5_801B7608[];
+extern Gfx* D_i5_801B769C[];
+extern f32 D_i5_801B83A8[];
+extern u8 D_i5_801BA1E8;
 
-// ovl_E9F1D0
+// ovl_i6
 extern f32 D_E9F1D0_801A7F58;
 extern f32 D_E9F1D0_801A7F60;
 extern f32 D_E9F1D0_801A7F68;
@@ -866,11 +866,11 @@ extern f32 D_E9F1D0_801A7F70;
 extern f32 D_E9F1D0_801A7F78;
 
 // ovl_menu
-extern s32 D_EBFBE0_801B8220[]; // total hits ranking? see func_EBFBE0_80197DE4
-extern s32 D_EBFBE0_801B8280;
-extern s32 D_EBFBE0_801B8284;
-extern s32 D_EBFBE0_801B827C;
-extern s32 D_EBFBE0_801B8288;
+extern s32 D_menu_801B8220[]; // total hits ranking? see func_menu_80197DE4
+extern s32 D_menu_801B8280;
+extern s32 D_menu_801B8284;
+extern s32 D_menu_801B827C;
+extern s32 D_menu_801B8288;
 
 // buffers
 extern u64 gDramStack[SP_DRAM_STACK_SIZE64];

@@ -18,7 +18,7 @@ typedef struct {
     /* 0x10 */ char pad10[0x4];
     /* 0x14 */ s32 unk_14;
     /* 0x18 */ s32 unk_18;
-} UnkStruct_D_EBFBE0_801AFD18; // size = 0x1C
+} UnkStruct_D_menu_801AFD18; // size = 0x1C
 
 typedef struct {
     /* 0x00 */ s32 id;

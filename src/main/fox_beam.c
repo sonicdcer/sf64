@@ -878,7 +878,7 @@ void func_80038140(PlayerShot* shot) {
             }
         }
     }
-    if ((D_801784AC == 4) && func_E6A810_801B6AEC(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z + D_80177D20)) {
+    if ((D_801784AC == 4) && func_i5_801B6AEC(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z + D_80177D20)) {
         func_80036318(shot);
         if (shot->obj.id != PLAYERSHOT_4) {
             func_8007A900(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 2.0f, 255, 15, 0);
@@ -1918,9 +1918,9 @@ void func_8003C4D0(PlayerShot* shot, s32 unkD6) {
         }
     }
     if (gCurrentLevel == LEVEL_MACBETH) {
-        func_E6A810_801AD144(shot);
+        func_i5_801AD144(shot);
     } else if (gCurrentLevel == LEVEL_VENOM_1) {
-        func_DF4260_8019864C(shot);
+        func_i1_8019864C(shot);
     } else {
         func_8003C008(shot);
     }

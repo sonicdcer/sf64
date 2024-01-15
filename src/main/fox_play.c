@@ -1573,9 +1573,8 @@ void func_800A8BA4(Player* player) {
                 func_800444BC(player);
                 break;
             case FORM_BLUE_MARINE:
-                if (func_E6A810_801B6AEC(player->pos.x, player->pos.y - 12.0f, player->unk_138 + player->unk_144) !=
-                    0) {
-                    func_E6A810_801B6E20(player->pos.x, player->unk_138 + player->unk_144, &spE8, &spE0, &spE4);
+                if (func_i5_801B6AEC(player->pos.x, player->pos.y - 12.0f, player->unk_138 + player->unk_144) != 0) {
+                    func_i5_801B6E20(player->pos.x, player->unk_138 + player->unk_144, &spE8, &spE0, &spE4);
                     player->pos.y = spE0 + 10.0f;
                 }
                 break;
@@ -2399,11 +2398,11 @@ void func_800AB334(void) {
             func_i3_801A9824();
             break;
         case LEVEL_TITANIA:
-            func_E6A810_80188F30();
+            func_i5_80188F30();
             gTeamShields[2] = -2;
             break;
         case LEVEL_MACBETH:
-            func_E6A810_80199920();
+            func_i5_80199920();
             break;
         case LEVEL_ZONESS:
             MEM_ARRAY_ALLOCATE(D_801782C4, 200);
@@ -2596,7 +2595,7 @@ void func_800ABAB4(void) {
     func_800A6148();
     D_801782C8 = 0;
     if (gCurrentLevel == LEVEL_TITANIA) {
-        func_E6A810_801B5110(0.0f, 0.0f, 200.0f);
+        func_i5_801B5110(0.0f, 0.0f, 200.0f);
     }
     if (gCurrentLevel == LEVEL_AQUAS) {
         D_80177CC0 = 1000.0f;
@@ -2625,23 +2624,23 @@ void func_800ABAB4(void) {
         switch (gCurrentLevel) {
             case LEVEL_SECTOR_Z:
                 if (D_8017782C == 0) {
-                    func_E51970_8019EA68(&gObjects58);
+                    func_i4_8019EA68(&gObjects58);
                     func_8002F180();
                 }
                 break;
             case LEVEL_FORTUNA:
-                func_E51970_8018BA2C(&gObjects58);
+                func_i4_8018BA2C(&gObjects58);
                 func_8002F180();
                 break;
             case LEVEL_KATINA:
-                func_E51970_80198930(&gObjects58);
+                func_i4_80198930(&gObjects58);
                 if (D_8017782C == 0) {
                     func_8002F180();
                 }
                 break;
             case LEVEL_BOLSE:
                 if (D_8017782C == 0) {
-                    func_E51970_80191ED8(&gObjects58);
+                    func_i4_80191ED8(&gObjects58);
                     func_8002F180();
                 }
                 break;
@@ -4137,7 +4136,7 @@ void func_800B0F50(Player* playerx) {
     if ((D_80177CA0 > 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
         if (gCurrentLevel == LEVEL_MACBETH) {
             sp2E = D_80177DC8;
-            func_E6A810_801AD080();
+            func_i5_801AD080();
             D_80177DC8 = sp2E;
         }
         func_80062568();
@@ -4228,7 +4227,7 @@ void func_800B0F50(Player* playerx) {
                 break;
             case LEVEL_BOLSE:
                 player->unk_204 = 1;
-                D_E51970_801A03DC = 6;
+                D_i4_801A03DC = 6;
                 /* fallthrough */
             case LEVEL_SECTOR_X:
             case LEVEL_AREA_6:
@@ -4267,7 +4266,7 @@ void func_800B0F50(Player* playerx) {
             for (sp34 = D_80178310, i = 0; i < D_80177DC8; i++, sp34++) {
                 Object_Load(sp34, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
             }
-            func_E6A810_801ACFBC(sp34);
+            func_i5_801ACFBC(sp34);
         }
     }
     if (player->state_1C8 == PLAYERSTATE_1C8_2) {
@@ -6068,7 +6067,7 @@ void func_800B79B0(void) {
     switch (gCurrentLevel) {
         case LEVEL_TRAINING:
             if (gLevelMode == LEVELMODE_ALL_RANGE) {
-                func_DF4260_8019949C();
+                func_i1_8019949C();
             }
             break;
         case LEVEL_VERSUS:
@@ -6331,7 +6330,7 @@ void func_800B86CC(void) {
         } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
             func_800A57E0();
         } else if (gCurrentLevel == LEVEL_TRAINING) {
-            func_DF4260_80198C50();
+            func_i1_80198C50();
         }
         func_800B86A4(&gPlayer[0].pos.z);
         func_800B86A4(&gPlayer[0].unk_138);

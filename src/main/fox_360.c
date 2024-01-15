@@ -108,35 +108,35 @@ void func_8002E548(void) {
 }
 
 void func_8002E5E0(Boss* boss) {
-    func_E51970_80187520(91, boss);
+    func_i4_80187520(91, boss);
 }
 
 void func_8002E604(Boss* boss) {
-    func_E51970_80187520(92, boss);
+    func_i4_80187520(92, boss);
 }
 
 void func_8002E628(Boss* boss) {
-    func_E51970_80187520(93, boss);
+    func_i4_80187520(93, boss);
 }
 
 void func_8002E64C(Boss* boss) {
-    func_E51970_80187520(94, boss);
+    func_i4_80187520(94, boss);
 }
 
 void func_8002E670(Actor* actor) {
-    func_E51970_80187520(95, actor);
+    func_i4_80187520(95, actor);
 }
 
 void func_8002E694(Actor* actor) {
-    func_E51970_80187520(96, actor);
+    func_i4_80187520(96, actor);
 }
 
 void func_8002E6B8(Actor* actor) {
-    func_E51970_80187520(97, actor);
+    func_i4_80187520(97, actor);
 }
 
 void func_8002E6DC(Actor* actor) {
-    func_E51970_80187520(98, actor);
+    func_i4_80187520(98, actor);
 }
 
 void func_8002E700(Player* player) {
@@ -671,16 +671,16 @@ void func_8003010C(Actor* actor) {
     D_8015F928++;
     switch (gCurrentLevel) {
         case LEVEL_FORTUNA:
-            func_E51970_80187960(actor);
+            func_i4_80187960(actor);
             break;
         case LEVEL_KATINA:
-            func_E51970_80198594(actor);
+            func_i4_80198594(actor);
             break;
         case LEVEL_BOLSE:
-            func_E51970_8018C158(actor);
+            func_i4_8018C158(actor);
             break;
         case LEVEL_SECTOR_Z:
-            func_E51970_8019AB8C(actor);
+            func_i4_8019AB8C(actor);
             break;
         case LEVEL_VENOM_2:
             func_E9F1D0_80196314(actor);
@@ -833,7 +833,7 @@ void func_8003088C(Actor* arg0) {
             if (arg0->unk_0CE <= 0) {
                 arg0->unk_0CE = 0;
                 if (arg0->unk_0E4 == 200) {
-                    func_E51970_80199900(arg0, 1);
+                    func_i4_80199900(arg0, 1);
                     if (arg0->unk_0D4 == 1) {
                         if (gActors[8].obj.status == 2) {
                             func_800BA808(gMsg_ID_16140, RCID_KATT);
@@ -1369,7 +1369,7 @@ void func_800319AC(Actor* this) {
             sp104 = 2;
             break;
         case 5:
-            func_E51970_80199C60(this);
+            func_i4_80199C60(this);
             sp104 = 1;
             break;
         case 0:
