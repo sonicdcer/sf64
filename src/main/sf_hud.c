@@ -1182,23 +1182,56 @@ void func_80087B5C(void) {
 }
 
 void func_800884E4(void) {
-    s32 var_v1;
+    s32 mask;
     s32 i;
 
     D_80177B70[gCurrentPlanet] = gHitCount;
-    var_v1 = 0xFF0000;
+    mask = 0x00FF0000;
 
     for (i = 0; i < 3; i++) {
         if (gTeamShields[3 - i] <= 0) {
-            D_80177B50[gCurrentPlanet] ^= var_v1;
+            D_80177B50[gCurrentPlanet] ^= mask;
         } else {
-            D_80177B50[gCurrentPlanet] |= var_v1;
+            D_80177B50[gCurrentPlanet] |= mask;
         }
-        var_v1 >>= 8;
+        mask >>= 8;
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80088564.s")
+void func_80088564(void) {
+    PlanetId planetId;
+
+    if ((gCurrentLevel == LEVEL_BOLSE) || (gCurrentLevel == LEVEL_AREA_6)) {
+        planetId = PLANET_BOLSE;
+
+        if (gCurrentLevel == LEVEL_AREA_6) {
+            planetId = PLANET_AREA_6;
+        }
+
+        gSaveFile.save.data.planet[planetId].played = 1;
+
+        if (gExpertMode) {
+            gSaveFile.save.data.planet[planetId].expertClear = 1;
+        } else {
+            gSaveFile.save.data.planet[planetId].normalClear = 1;
+        }
+
+        if (D_800D3180[gCurrentLevel] == 2) {
+            D_80177BB0[gCurrentPlanet] = 1;
+            
+            if (gExpertMode) {
+                gSaveFile.save.data.planet[planetId].expertMedal = 1;
+            } else {
+                gSaveFile.save.data.planet[planetId].normalMedal = 1;
+            }
+        }
+
+        gCurrentPlanet++;
+        gHitCount = 0;
+
+        Save_Write();
+    }
+}
 
 void func_8008865C(void) {
     s32 i;

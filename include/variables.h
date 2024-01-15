@@ -501,7 +501,7 @@ extern s32 gMainController;
 extern s32 D_80177B00[4][4];
 extern s32 D_80177B40;
 extern u8 D_Timer_80177B44;
-extern s32 gCurrentPlanet; // D_80177B48
+extern s32 gCurrentPlanet; // D_80177B48 // Arrow pointer?
 extern u8 D_80177B4C;
 extern s32 D_80177B50[7];
 extern u8 D_80177B6C;
