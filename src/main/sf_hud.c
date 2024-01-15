@@ -2544,8 +2544,57 @@ s32 func_8008BCBC(s32 arg0) {
     return ret;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008BD00.s")
+void func_8008BD00(u8* texturePtr, s32 xPos, s32 yPos, u8 arg3) {
+    u8* texture = SEGMENTED_TO_VIRTUAL(texturePtr);
+    u8 temp;
+    s32 x;
+    s32 y;
 
+    switch (arg3) {
+        case 0:
+            for (x = 0; x < xPos; x++) {
+                temp = texture[x];
+                for (y = 1; y < yPos; y++) {
+                    texture[(y - 1) * xPos + x] = texture[y * xPos + x];
+                }
+                texture[(yPos - 1) * xPos + x] = temp;
+            }
+            break;
+
+        case 1:
+            for (x = 0; x < xPos; x++) {
+                temp = texture[(yPos - 1) * xPos + x];
+                for (y = yPos - 2; y >= 0; y--) {
+                    texture[(y + 1) * xPos + x] = texture[y * xPos + x];
+                }
+                texture[x] = temp;
+            }
+            break;
+
+        case 2:
+            for (y = 0; y < yPos; y++) {
+                temp = texture[y * xPos + xPos - 1];
+                for (x = xPos - 2; x >= 0; x--) {
+                    texture[y * xPos + x + 1] = texture[y * xPos + x];
+                }
+                texture[y * xPos] = temp;
+            }
+            break;
+
+        case 3:
+            for (y = 0; y < yPos; y++) {
+                temp = texture[y * xPos];
+                // clang-format off
+                for (x = 1; x < xPos; x++) { texture[y * xPos + x - 1] = texture[y * xPos + x]; }
+                // clang-format on
+                texture[(y * xPos) + xPos - 1] = temp;
+            }
+            break;
+
+        default:
+            break;
+    }
+}
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008C104.s")
 
 #ifdef IMPORT_DATA
