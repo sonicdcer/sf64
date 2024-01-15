@@ -1885,7 +1885,54 @@ void func_8008A07C(f32 x, f32 y) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008A07C.s")
 #endif
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008A240.s")
+void func_8008A240(void) {
+    s32 i;
+    Item* item;
+
+    for (i = 0; i < gCamCount; i++) {
+        if (gPlayer[i].state_1C8 == PLAYERSTATE_1C8_6) {
+            continue;
+        }
+        gUnkEntities28[i].unk_00 = 1;
+        gUnkEntities28[i].unk_02 = i;
+        gUnkEntities28[i].unk_10 = gPlayer[i].unk_114 + gPlayer[i].unk_0E8;
+        gUnkEntities28[i].pos.z = gPlayer[i].unk_138;
+        gUnkEntities28[i].pos.x = gPlayer[i].pos.x;
+
+        if (gPlayerNum == i) {
+            continue;
+        }
+
+        if (gVersusMode && gVersusStage == VS_STAGE_SECTOR_Z) {
+            continue;
+        }
+
+        if (gPlayer[i].state_1C8 != 3) {
+            continue;
+        }
+
+        if (gPlayer[i].pos.y >= 150.0f) {
+            continue;
+        }
+
+        if (gFrameCount & 63) {
+            gUnkEntities28[i].unk_02 = 999;
+        }
+    }
+
+    if (gVersusMode == 1) {
+        for (i = 0, item = gItems; i < 20; i++, item++) {
+            if (item->obj.status >= 2) {
+                gUnkEntities28[item->index + 50].unk_00 = 1;
+                gUnkEntities28[item->index + 50].unk_02 = 103;
+                gUnkEntities28[item->index + 50].pos.x = item->obj.pos.x;
+                gUnkEntities28[item->index + 50].pos.y = item->obj.pos.y;
+                gUnkEntities28[item->index + 50].pos.z = item->obj.pos.z;
+                gUnkEntities28[item->index + 50].unk_10 = 0.0f;
+            }
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008A4DC.s")
 
