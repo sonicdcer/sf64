@@ -1,6 +1,27 @@
 #include "hud.h"
 
-#ifdef IMPORT_DATA_PENDING
+typedef struct {
+    /* 0x00 */ u8* unk_00;
+    /* 0x04 */ s32 width;
+    /* 0x08 */ s32 height;
+    /* 0x0C */ u8* unk_0C;
+    /* 0x10 */ s32 unk_10;
+    /* 0x14 */ s32 unk_14;
+} UnkStruct_D_800D1AEC;
+
+extern UnkStruct_D_800D1AEC D_800D1AEC[];
+
+extern f32 D_801618C8[20];
+extern s32 D_80161860[20];
+extern Gfx D_1012110[];
+extern Gfx D_101C2E0[];
+extern u8 D_5000500[];
+
+void func_80084930(f32, f32, s32);
+void func_80086444(void);
+void func_80087788(void);
+
+#ifdef IMPORT_DATA
 void func_80084930(f32 arg0, f32 arg1, s32 arg2) {
     u8* D_800D1A58[] = {
         D_3000000,
@@ -67,7 +88,7 @@ void func_80084930(f32 arg0, f32 arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80084930.s")
 #endif
 
-#ifdef IMPORT_DATA_PENDING
+#ifdef IMPORT_DATA
 void func_80084B94(s32 arg0) {
     s32 i;
     Vec3f D_800D1A70[] = {
@@ -185,7 +206,167 @@ void func_80085890(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     }
 }
 
+#ifdef IMPORT_BSS
+void func_80085944(void) {
+    Gfx* D_800D1A94[] = { (Gfx*) 0x0101C170, (Gfx*) 0x0101C000, (Gfx*) 0x0101BE90, (Gfx*) 0x0101BD20,
+                          (Gfx*) 0x0101BBB0, (Gfx*) 0x0101BA40, (Gfx*) 0x0101B8D0, (Gfx*) 0x0101B760,
+                          (Gfx*) 0x0101B5F0, (Gfx*) 0x0101B480, (Gfx*) 0x0101B310, (Gfx*) 0x0101B1A0 };
+    s32 i;
+    s32 j;
+    f32 D_800D1AC4[] = { 0.0f, -30.0f, -26.0f, -22.0f, -18.0f };
+    f32 D_800D1AD8[] = { 0.0f, 28.0f, 28.0f, 28.0f, 28.0f };
+    f32 scale;
+    f32 x;
+    f32 y;
+    s32 temp;
+
+    D_801618C8[6] += 0.7f;
+    if (D_801618C8[6] >= 12.0f) {
+        D_801618C8[6] = 0.0f;
+    }
+
+    if (D_80161900[4]) {
+        D_80161900[4]--;
+    }
+
+    for (i = 0; i < 4; i++) {
+        if (D_80161900[i]) {
+            D_80161900[i]--;
+        }
+    }
+
+    if ((D_80161900[4] == 0) && (gGoldRingCount[0] > gGoldRingCount[1])) {
+        gGoldRingCount[1] += 1; // needs to be += 1
+
+        if ((i = gGoldRingCount[1] % 3) == 0) {
+            i = 3;
+        }
+
+        i--;
+
+        D_80161860[1 + i] = 1;
+        D_80161900[0 + i] = 14;
+        D_801618C8[2 + i] = 0.0f;
+
+        if (i == 2) {
+            D_80161900[4] = 28;
+        }
+
+        if (gGoldRingCount[1] == 3) {
+            D_80161900[4] += 28;
+        }
+    }
+
+    for (i = 0; i < 3; i++) {
+        switch (D_80161860[i + 1]) {
+            case 0:
+                RCP_SetupDL(&gMasterDisp, 0x3E);
+                Matrix_Push(&gGfxMatrix);
+
+                x = D_800D1AC4[i + 1];
+                y = D_800D1AD8[i + 1];
+                scale = 0.28f;
+
+                if (D_80177C70 == 2) {
+                    x -= 7.00f;
+                    y += 7.00f;
+                    scale += 0.06f;
+                }
+
+                Matrix_Translate(gGfxMatrix, x, y, -100.0f, 0);
+                Matrix_Scale(gGfxMatrix, scale, scale, scale, 1);
+                Matrix_SetGfxMtx(&gMasterDisp);
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 180, 180, 0, 50);
+                gSPDisplayList(gMasterDisp++, D_1012110);
+                Matrix_Pop(&gGfxMatrix);
+                break;
+
+            case 1:
+            case 2:
+                if (D_80161900[i]) {
+                    if (D_80161900[i + 0] >= 7) {
+                        D_801618C8[i + 2] += 0.15f;
+                    } else {
+                        D_801618C8[i + 2] -= 0.15f;
+                    }
+
+                    RCP_SetupDL(&gMasterDisp, 0x3E);
+                    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+
+                    Matrix_Push(&gGfxMatrix);
+                    Matrix_Translate(gGfxMatrix, D_800D1AC4[i + 1], D_800D1AD8[i + 1], -100.0f, 0);
+                    Matrix_RotateZ(gGfxMatrix, (3.14159265358979323846f / 180.0f) * D_801618C8[0], 1);
+                    Matrix_Scale(gGfxMatrix, D_801618C8[i + 2], D_801618C8[i + 2], D_801618C8[i + 2], 1);
+
+                    Matrix_SetGfxMtx(&gMasterDisp);
+                    gSPDisplayList(gMasterDisp++, D_101C2E0);
+                    Matrix_Pop(&gGfxMatrix);
+                }
+
+                if (D_80161900[i] < 7) {
+                    if (D_80161860[i + 1] == 2) {
+                        RCP_SetupDL(&gMasterDisp, 0x3E);
+                    } else {
+                        RCP_SetupDL(&gMasterDisp, 0x24);
+                    }
+
+                    Matrix_Push(&gGfxMatrix);
+
+                    x = D_800D1AC4[i + 1];
+                    y = D_800D1AD8[i + 1];
+                    scale = 0.28f;
+
+                    if (D_80177C70 == 2) {
+                        x -= 7.00f;
+                        y += 7.00f;
+                        scale += 0.06f;
+                    }
+
+                    Matrix_Translate(gGfxMatrix, x, y, -100.0f, 0);
+                    Matrix_Scale(gGfxMatrix, scale, scale, scale, 1);
+                    Matrix_SetGfxMtx(&gMasterDisp);
+
+                    if (D_80161860[i + 1] == 2) {
+                        gDPSetPrimColor(gMasterDisp++, 0, 0, 180, 180, 0, 50);
+                        gSPDisplayList(gMasterDisp++, D_1012110);
+                    } else {
+                        temp = D_801618C8[6];
+                        gSPDisplayList(gMasterDisp++, D_800D1A94[temp]);
+                    }
+                    Matrix_Pop(&gGfxMatrix);
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    if ((gGoldRingCount[1] && ((gGoldRingCount[1] % 3) == 0)) && (D_80161900[4] == 1)) {
+        for (j = 0; j < 4; j++) {
+            if (D_80161860[j + 1] == 1) {
+                D_80161860[j + 1] = 2;
+                D_80161900[j + 0] = 14;
+                D_801618C8[j + 2] = 0.0f;
+                D_80161900[4] = 28;
+            } else {
+                D_80161860[j + 1] = 0;
+                D_80161900[j + 0] = 14;
+                D_801618C8[j + 2] = 0.0f;
+            }
+        }
+    }
+    D_801618C8[0] += 35.0f;
+    D_801618C8[1] += 10.0f;
+}
+#else
+#ifdef IMPORT_DATA
+Gfx* D_800D1A94[] = { (Gfx*) 0x0101C170, (Gfx*) 0x0101C000, (Gfx*) 0x0101BE90, (Gfx*) 0x0101BD20,
+                      (Gfx*) 0x0101BBB0, (Gfx*) 0x0101BA40, (Gfx*) 0x0101B8D0, (Gfx*) 0x0101B760,
+                      (Gfx*) 0x0101B5F0, (Gfx*) 0x0101B480, (Gfx*) 0x0101B310, (Gfx*) 0x0101B1A0 };
+#endif
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80085944.s")
+#endif
 
 void func_80086110(f32 arg0, f32 arg1, s32 arg2) {
     f32 temp = 0.82f;
@@ -216,67 +397,67 @@ void func_80086110(f32 arg0, f32 arg1, s32 arg2) {
 }
 
 s32 func_800863C8(void) {
-    s32 var_v1 = 0;
+    s32 ret = 0;
 
     switch (gCurrentLevel) {
         case LEVEL_TRAINING:
-            var_v1++;
+            ret++;
 
         case LEVEL_VENOM_ANDROSS:
-            var_v1++;
+            ret++;
 
         case LEVEL_VENOM_2:
-            var_v1++;
+            ret++;
 
         case LEVEL_VENOM_1:
-            var_v1++;
+            ret++;
 
         case LEVEL_AREA_6:
-            var_v1++;
+            ret++;
 
         case LEVEL_BOLSE:
-            var_v1++;
+            ret++;
 
         case LEVEL_SECTOR_Z:
-            var_v1++;
+            ret++;
 
         case LEVEL_MACBETH:
-            var_v1++;
+            ret++;
 
         case LEVEL_TITANIA:
-            var_v1++;
+            ret++;
 
         case LEVEL_ZONESS:
-            var_v1++;
+            ret++;
 
         case LEVEL_SOLAR:
-            var_v1++;
+            ret++;
 
         case LEVEL_SECTOR_X:
-            var_v1++;
+            ret++;
 
         case LEVEL_AQUAS:
-            var_v1++;
+            ret++;
 
         case LEVEL_KATINA:
-            var_v1++;
+            ret++;
 
         case LEVEL_FORTUNA:
-            var_v1++;
+            ret++;
 
         case LEVEL_SECTOR_Y:
-            var_v1++;
+            ret++;
 
         case LEVEL_METEO:
-            var_v1++;
+            ret++;
 
         case LEVEL_CORNERIA:
             break;
     }
-    return var_v1;
+    return ret;
 }
 
-#ifdef IMPORT_DATA_PENDING
+#ifdef IMPORT_DATA
 void func_80086444(void) {
     s32 i = 9;
     s32 j;
@@ -316,9 +497,97 @@ void func_80086444(void) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80086444.s")
 #endif
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80086664.s")
+void func_80086664(f32 x, f32 y) {
+    s32 i;
+    s32 j;
+    f32 x0;
+    f32 y0;
+    f32 x1;
+    f32 y1;
+    f32 x2;
+    f32 y2;
 
-#ifdef IMPORT_DATA_PENDING
+    j = func_800863C8();
+
+    x0 = x;
+    y0 = y;
+
+    x1 = x0 + 72.0f;
+    y1 = y0;
+
+    x2 = x0 - ((D_800D1AEC[j].unk_10 - 88.0f - D_800D1AEC[j].width) / 2.0f);
+
+    y2 = y0 + 19.0f + 8.0f;
+
+    if (j == 7) {
+        x2 += 4.0f;
+    }
+
+    switch (gCurrentLevel) {
+        case LEVEL_CORNERIA:
+        case LEVEL_METEO:
+        case LEVEL_AREA_6:
+        case LEVEL_FORTUNA:
+        case LEVEL_KATINA:
+        case LEVEL_ZONESS:
+        case LEVEL_MACBETH:
+        case LEVEL_TITANIA:
+        case LEVEL_TRAINING:
+        case LEVEL_VENOM_1:
+        case LEVEL_VENOM_2:
+        case LEVEL_VENOM_ANDROSS:
+            break;
+
+        case LEVEL_AQUAS:
+        case LEVEL_BOLSE:
+            y2 += 8.0f;
+            break;
+
+        case LEVEL_SECTOR_X:
+        case LEVEL_SECTOR_Y:
+        case LEVEL_SECTOR_Z:
+            x2 += 4.0f;
+            y2 += 8.0f;
+            break;
+
+        case LEVEL_SOLAR:
+            x2 += 8.0f;
+            y2 += 8.0f;
+            break;
+
+        default:
+            break;
+    }
+
+    RCP_SetupDL(&gMasterDisp, 0x4C);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+
+    if ((j != 14) && (j != 15)) {
+        TextureRect_8bIA(&gMasterDisp, D_5000500, 112, 19, x0 - 12.0f, y0 + 4.0f, 1.0f, 1.0f);
+
+        TextureRect_8bIA(&gMasterDisp, D_800D1AEC[j].unk_00, D_800D1AEC[j].width, D_800D1AEC[j].height, x1 + 28.0f,
+                         y1 + 4.0f, 1.0f, 1.0f);
+    } else {
+        func_80086444();
+    }
+
+    for (i = 0; i < D_800D1AEC[j].unk_14; i++) {
+        TextureRect_8bIA(&gMasterDisp, D_800D1AEC[j].unk_0C + (D_800D1AEC[j].unk_10 * i), D_800D1AEC[j].unk_10, 1, x2,
+                         y2 + i, 1.0f, 1.0f);
+    }
+
+    if ((D_80177CA0 == 0) && (D_8015F924 == 0) && (gCurrentLevel != LEVEL_VENOM_ANDROSS) &&
+        (gCurrentLevel != LEVEL_TRAINING)) {
+        func_80087788();
+        func_80084B94(0);
+    }
+
+    if (gCurrentLevel != LEVEL_TRAINING) {
+        func_80084930(132.0f, 124.0f, gLifeCount[gPlayerNum]);
+    }
+}
+
+#ifdef IMPORT_DATA
 void func_800869A0(f32 arg0, f32 arg1, s32 k, f32 arg3, s32 arg4, s32 arg5) {
     s32 var_s2;
     s32 i;
@@ -456,7 +725,7 @@ s32 func_800886B8(void) {
     return var_v1;
 }
 
-#ifdef IMPORT_DATA_PENDING
+#ifdef IMPORT_DATA
 void func_80088784(s32 arg0) {
     Gfx* D_800D1D4C[] = {
         D_200B630, D_200A5A0, D_2009510, D_2008480, D_20073F0, D_2006360, D_200C6C0, D_20052D0, D_2004240,
@@ -534,7 +803,7 @@ void func_800898F0(void) {
     gSPDisplayList(gMasterDisp++, D_6004570);
 }
 
-#ifdef IMPORT_DATA_PENDING
+#ifdef IMPORT_DATA
 void func_80089994(s32 arg0) {
     s32 D_800D1E14[][4] = {
         { 177, 242, 12, 255 }, { 89, 121, 6, 128 }, { 90, 90, 255, 255 }, { 45, 45, 128, 128 },
@@ -1024,7 +1293,7 @@ s32 func_8008BCBC(s32 arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008C104.s")
 
-#ifdef IMPORT_DATA_PENDING
+#ifdef IMPORT_DATA
 void func_8008C390(f32 arg0, f32 arg1, f32 arg2, s32 arg3) {
     u16* D_800D1EC0[] = {
         D_5000000, D_5000080, D_5000100, D_5000180, D_5000200, D_5000280, D_5000300, D_5000380, D_5000400, D_5000480,
@@ -1047,7 +1316,7 @@ void func_8008C390(f32 arg0, f32 arg1, f32 arg2, s32 arg3) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008C390.s")
 #endif
 
-#ifdef IMPORT_DATA_PENDING
+#ifdef IMPORT_DATA
 void func_8008C5C8(f32 arg0, f32 arg1, f32 arg2, s32 arg3) {
     u16* D_800D1EE8[] = {
         D_10050E0,
@@ -1069,7 +1338,7 @@ void func_8008C5C8(f32 arg0, f32 arg1, f32 arg2, s32 arg3) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008C6F4.s")
 
-#ifdef IMPORT_DATA_PENDING
+#ifdef IMPORT_DATA
 void func_8008CA44(void) {
     s32 D_800D2048[] = {
         0x80, 0x40, 0x20, 0x10, 0x0A, 0x09, 0x06, 0x05, 0x08, 0x04, 0x02, 0x01,
@@ -1130,7 +1399,7 @@ void func_8008D1F0(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     TextureRect_4bCI(&gMasterDisp, D_10116B0, D_1011730, 16, 16, arg0, arg1, arg2, arg3);
 }
 
-#ifdef IMPORT_DATA_PENDING
+#ifdef IMPORT_DATA
 void func_8008D250(void) {
     f32 D_800D20C8[] = { 113.0f, 273.0f, 113.0f, 273.0f };
     f32 D_800D20D8[] = { 79.0f, 79.0f, 199.0f, 199.0f };
@@ -1143,7 +1412,7 @@ void func_8008D250(void) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008D250.s")
 #endif
 
-#ifdef IMPORT_DATA_PENDING
+#ifdef IMPORT_DATA
 void func_8008D31C(void) {
     f32 D_800D20E8[] = { 60.0f, 220.0f, 60.0f, 220.0f };
     f32 D_800D20F8[] = { 78.0f, 78.0f, 198.0f, 198.0f };
@@ -1163,7 +1432,7 @@ void func_8008D31C(void) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008D31C.s")
 #endif
 
-#ifdef IMPORT_DATA_PENDING
+#ifdef IMPORT_DATA
 void func_8008D4F0(f32 arg0, f32 arg1) {
     f32 D_800D2108[] = {
         110.0f, 270.0f, 110.0f, 270.0f, 0.0f,
@@ -1225,7 +1494,7 @@ void func_8008D4F0(f32 arg0, f32 arg1) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008D4F0.s")
 #endif
 
-#ifdef IMPORT_DATA_PENDING
+#ifdef IMPORT_DATA
 void func_8008D7F4(void) {
     s32 D_800D2130[] = { 146, 165, 146, 165 };
     s32 D_800D2140[] = { 106, 106, 125, 125 };
@@ -1241,7 +1510,7 @@ void func_8008D7F4(void) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008D7F4.s")
 #endif
 
-#ifdef IMPORT_DATA_PENDING
+#ifdef IMPORT_DATA
 void func_8008D984(void) {
     s32 D_800D21A8[] = { 146, 165, 146, 165 };
     s32 D_800D21B8[] = { 94, 94, 137, 137 };
@@ -2359,7 +2628,7 @@ void func_80095350(Actor* actor) {
     Object_SetInfo(&actor->info, actor->obj.id);
 }
 
-#ifdef IMPORT_DATA_PENDING
+#ifdef IMPORT_DATA
 void func_800953A0(Actor* actor, s32 arg1) {
     Vec3f D_800D2510[] = {
         { 1800.0f, 0.0f, -4000.0f },
@@ -2380,7 +2649,7 @@ void func_800953A0(Actor* actor, s32 arg1) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800953A0.s")
 #endif
 
-#ifdef IMPORT_DATA_PENDING
+#ifdef IMPORT_DATA
 void func_8009546C(Actor* actor, s32 arg1) {
     Vec3f D_800D2540[] = {
         { 1300.0f, 0.0f, -2000.0f },  { -1000.0f, 0.0f, -3000.0f }, { 800.0f, 0.0f, 0.0f },
@@ -2399,7 +2668,7 @@ void func_8009546C(Actor* actor, s32 arg1) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8009546C.s")
 #endif
 
-#ifdef IMPORT_DATA_PENDING
+#ifdef IMPORT_DATA
 void func_80095538(Actor* actor, s32 arg1) {
     Vec3f D_800D257C[] = {
         { 0.0f, 0.0f, -200.0f },    { -300.0f, 0.0f, -700.0f },  { 400.0f, 0.0f, -900.0f },
