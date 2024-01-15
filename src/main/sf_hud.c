@@ -828,9 +828,134 @@ void func_80086DCC(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80087530.s")
+#ifdef IMPORT_DATA
+void func_80087530(f32 x, f32 y, s32 number) {
+    u8* D_800D1D00[] = { 0x03000000, 0x03000000, 0x03000000 };
+    u16* D_800D1D0C[] = { 0x03000080, 0x03000080, 0x03000080 };
+    Player* player = &gPlayer[0];
+    f32 x0;
+    f32 x1;
+    f32 x2;
+    f32 y0;
+    f32 y1;
+    f32 y2;
+    s32 var_v1;
+    s32 i;
+    s32 form;
 
+    RCP_SetupDL(&gMasterDisp, 0x4E);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+
+    form = FORM_ARWING;
+
+    switch (player->form) {
+        case FORM_ARWING:
+            form = FORM_ARWING;
+            break;
+
+        case FORM_LANDMASTER:
+            form = FORM_LANDMASTER;
+            break;
+
+        case FORM_BLUE_MARINE:
+            form = FORM_BLUE_MARINE;
+            break;
+
+        default:
+            break;
+    }
+
+    x0 = x;
+    y0 = y;
+    x1 = x0 + 16.0f;
+    y1 = y0 + 9.0f;
+    x2 = x1 + 11.0f;
+    y2 = y1 - 1.0f;
+
+    if (number < 0) {
+        number = 0;
+    }
+    if (number > 99) {
+        number = 99;
+    }
+
+    var_v1 = 10;
+    for (i = 1; var_v1 <= number; i++) {
+        var_v1 *= 10;
+    }
+    x2 += (2 - i) * 4;
+
+    TextureRect_4bCI(&gMasterDisp, D_800D1D00[form], D_800D1D0C[form], 16, 16, x0, y0, 1.0f, 1.0f);
+    TextureRect_4bCI(&gMasterDisp, D_1011ED0, D_1011F08, 16, 7, x1, y1, 1.0f, 1.0f);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
+    Graphics_DisplayHUDNumber(x2, y2, number);
+}
+#else
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80087530.s")
+#endif
+
+#ifdef IMPORT_DATA
+void func_80087788(void) {
+    u16* D_800D1D18[] = { D_10050E0, D_100BAC0, D_100D900, D_10032A0 };
+    u8* D_800D1D28[] = { 0x05006CB0, 0x05006E90, 0x05006B30 };
+    s32 shield;
+    s32 D_800D1D34[] = { 48, 56, 48 }; // width
+    s32 D_800D1D40[] = { 10, 10, 8 };  // height
+    s32 i;
+    s32 j;
+    f32 x[3][3], y[3][3];
+
+    x[1][0] = 138.0f;
+    y[1][0] = 156.0f + 4.0f;
+    x[1][1] = 136.0f;
+    y[1][1] = y[1][0] + 48.0f;
+    x[1][2] = 134.0f;
+    y[1][2] = 142.0f + 4.0f;
+
+    x[0][0] = x[1][0] - 92.0f;
+    y[0][0] = y[1][0];
+    x[0][1] = x[1][1] + 4.0f - 92.0f;
+    y[0][1] = y[1][1];
+    x[0][2] = x[1][2] - 92.0f;
+    y[0][2] = y[1][2];
+
+    x[2][0] = x[1][0] + 92.0f;
+    y[2][0] = y[1][0];
+    x[2][1] = x[1][1] + 4.0f + 92.0f;
+    y[2][1] = y[1][1] + 1.0f;
+    x[2][2] = x[1][2] + 92.0f;
+    y[2][2] = y[1][2];
+
+    for (j = 0; j < 3; j++) {
+
+        func_80086C08(x[j][0] - 6.0f, y[j][1] - 1.0f, 2.4f, 0.7f);
+
+        RCP_SetupDL(&gMasterDisp, 0x4C);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+        TextureRect_8bIA(&gMasterDisp, D_800D1D28[j], D_800D1D34[j], D_800D1D40[j], x[j][1], y[j][1], 1.0f, 1.0f);
+
+        RCP_SetupDL(&gMasterDisp, 0x4C);
+        shield = gTeamShields[3 - j];
+
+        if (shield <= 0) {
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 48, 48, 48, 255);
+        } else {
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+        }
+
+        for (i = 0; i < 2; i++) {
+            TextureRect_16bRGBA(&gMasterDisp, D_800D1D18[j + 1] + (44 * 20 * i), 44, 20, x[j][0],
+                                y[j][0] + (f32) (20 * i), 1.0f, 1.0f);
+        }
+        TextureRect_16bRGBA(&gMasterDisp, D_800D1D18[j + 1] + (44 * 40), 44, 4, x[j][0], y[j][0] + 40.0f, 1.0f, 1.0f);
+
+        func_80086110(x[j][2], y[j][2], shield);
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80087788.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80087B5C.s")
 
