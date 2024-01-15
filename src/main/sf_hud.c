@@ -13,10 +13,14 @@ extern UnkStruct_D_800D1AEC D_800D1AEC[];
 
 extern f32 D_800D1CFC;
 extern s32 D_801617C0[10];
+extern s32 D_80161838[10];
 extern f32 D_801618C8[20];
 extern s32 D_80161860[20];
 extern Gfx D_1012110[];
 extern Gfx D_101C2E0[];
+extern u8 D_1000000[];
+extern u8 D_1000280;
+extern u8 D_1000640[];
 extern u8 D_5000500[];
 extern u8 D_5001110[];
 extern u8 D_5001750[];
@@ -1218,7 +1222,7 @@ void func_80088564(void) {
 
         if (D_800D3180[gCurrentLevel] == 2) {
             D_80177BB0[gCurrentPlanet] = 1;
-            
+
             if (gExpertMode) {
                 gSaveFile.save.data.planet[planetId].expertMedal = 1;
             } else {
@@ -1308,10 +1312,336 @@ void func_80088784(s32 arg0) {
     }
 }
 #else
+void func_80088784(s32 arg0);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80088784.s")
 #endif
 
+#ifdef IMPORT_BSS
+// needs D_80161838 to be static
+void func_80088970(void) {
+    s32 i;
+    s32 j;
+    Player* player;
+    f32 x0;
+    f32 y0;
+    f32 x1;
+    f32 y1;
+    f32 x2;
+    f32 y2;
+    s32 pad[2];
+    s32 temp;
+    s32 ret;
+
+    D_80161838[0]++;
+
+    if (D_80177854 != 100) {
+        D_80161838[0] = 0;
+        D_80161838[1] = 0;
+        // clang-format off
+	for(i = 0; i < 5; i++) { D_80161810[i] = 0; }
+        // clang-format on
+        D_80161810[4] = 1;
+    }
+
+    if (D_80161810[0] >= 2) {
+        D_801779BC = 0;
+    }
+
+    player = &gPlayer[gPlayerNum];
+
+    if ((D_80177854 == 100) && (!D_80177838) && (gVersusMode == 0)) {
+        switch (D_80161810[0]) {
+            case 0:
+                D_80161838[0] = 0;
+                D_80161810[1] = 0;
+                D_80161810[0] = 1;
+                break;
+
+            case 1:
+                ret = func_800886B8();
+                if (ret != 0) {
+                    D_80161838[0] = 0;
+                    if (((ret > 0) && (D_80161810[1] == 1)) || ((ret < 0) && (D_80161810[1] == 0))) {
+                        D_80161810[1] = D_80161810[1] ^ 1;
+                        Audio_PlaySfx(0x49000002U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    }
+                }
+
+                if (gInputPress->button & B_BUTTON) {
+                    D_80161810[0] = 10;
+                }
+
+                if (gInputPress->button & A_BUTTON) {
+                    if (D_80161810[1] == 0) {
+                        D_80161810[0] = 10;
+                    } else {
+                        D_80161810[0] = 2;
+                    }
+                }
+                break;
+
+            case 2:
+                gPlayer[0].state_1C8 = PLAYERSTATE_1C8_0;
+                D_80178348 = D_80178350 = D_80178354 = 0;
+                D_80178358 = 255;
+                D_8017835C = 32;
+
+                D_80178340 += 32;
+                if (D_80178340 < 255) {
+                    break;
+                }
+
+                func_8001CA24(gPlayer[0].num);
+                func_8001AE58();
+
+                gRadioState = 0;
+
+                func_800A6148();
+
+                gShowBossHealth = 0;
+                D_80178340 = 255;
+
+                if (gLifeCount[gPlayerNum] == 0) {
+                    D_80161810[0] = 3;
+                } else {
+                    D_80161810[0] = 3;
+                }
+
+                D_80161838[1] = 0;
+                D_80161838[0] = 0;
+
+            case 3:
+                Graphics_FillRectangle(&gMasterDisp, 0, 0, 319, 239, 0, 0, 0, 255);
+
+                D_80178358 = 0;
+
+                if ((D_80178340 -= 32) <= 0) {
+                    D_80178340 = 0;
+                }
+
+                if (gCurrentLevel == LEVEL_TRAINING) {
+                    gGameState = GSTATE_MENU;
+                    D_Timer_8017783C = 2;
+                    gOptionMenuStatus = OPTION_WAIT;
+                    gDrawMode = DRAWMODE_0;
+                    D_80161A34 = 7;
+                    D_80178410 = 0;
+                    break;
+                } else {
+                    if (D_80178340 == 0) {
+                        if (gLevelType == 0) {
+                            if (D_80161838[1] == 0) {
+                                func_8001D520();
+                            }
+                            if (D_80161838[1] == 10) {
+                                gLifeCount[gPlayerNum]--;
+                            }
+
+                            D_80161838[1]++;
+                            if (D_80161838[1] > 18) {
+                                D_80161810[0] = 4;
+                                D_80161838[1] = 0;
+                            }
+                        } else {
+                            if (D_80161838[1] == 0) {
+                                func_8001D520();
+                            }
+                            if (D_80161838[1] == 6) {
+                                gLifeCount[gPlayerNum]--;
+                            }
+                            if ((D_80161838[1] += 1) > 13) {
+                                D_80161810[0] = 4;
+                                D_80161838[1] = 0;
+                            }
+                        }
+                    }
+                }
+                break;
+
+            case 4:
+                Graphics_FillRectangle(&gMasterDisp, 0, 0, 319, 239, 0, 0, 0, 255);
+                if (D_80161838[0] < 140) {
+                    break;
+                }
+
+                D_80178348 = D_80178350 = D_80178354 = 0;
+                D_80178358 = 255;
+                D_8017835C = 32;
+
+                D_80178340 += 32;
+                if (D_80178340 > 255) {
+                    D_80178340 = 255;
+                };
+                if (D_80161838[0] < 160) {
+                    break;
+                }
+
+            case 5:
+                Graphics_FillRectangle(&gMasterDisp, 0, 0, 319, 239, 0, 0, 0, 255);
+
+                for (i = 0; i < 6; i++) {
+                    if (D_80177C38[i] == -1) {
+                        gSavedTeamShields[i] = 0;
+                    } else {
+                        gSavedTeamShields[i] = D_80177C38[i];
+                    }
+                    D_80177CD0[i] = D_80177CF0[i];
+                }
+
+                if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (D_8015F924 != 0)) {
+                    D_80177CA4 = D_80161A5C;
+                }
+
+                D_80177CB0 = 0.0f;
+                D_8015F924 = 0;
+                D_80161A50 = 0;
+
+                gSavedHitCount = D_80177CA0 = 0;
+
+                func_8001CA24(0);
+                gPlayer[0].state_1C8 = PLAYERSTATE_1C8_6;
+                D_Timer_80161A60 = 0;
+                gPlayer[0].timer_1F8 = 0;
+                D_80178340 = D_80178358 = 255;
+                D_8017837C = 7;
+
+                gDrawMode = DRAWMODE_4;
+                D_80177854 = 2;
+                break;
+
+            case 10:
+                func_8001D638(0);
+                gDrawMode = DRAWMODE_4;
+                D_80177854 = 2;
+                break;
+        }
+    }
+
+    if ((D_80161810[3] == 0) && (D_80177854 == 100) && (gVersusMode == 0) && (D_80177838 == 0)) {
+        switch (D_80161810[0]) {
+            case 0:
+            case 1:
+                j = func_800863C8();
+
+                x0 = 140.0f;
+                y0 = 92.0f + 4.0f;
+
+                x1 = x0 - 28.0f;
+                y1 = y0 + 18.0f;
+
+                x2 = 160.0f - (D_800D1AEC[j].unk_10 / 2.0f);
+                y2 = y0 - 40.0f;
+
+                func_80086C08(69.0f, y2 - 4.0f, 7.6f, 2.1f);
+
+                switch (gCurrentLevel) {
+                    case LEVEL_CORNERIA:
+                    case LEVEL_METEO:
+                    case LEVEL_AREA_6:
+                    case LEVEL_FORTUNA:
+                    case LEVEL_KATINA:
+                    case LEVEL_VENOM_1:
+                    case LEVEL_ZONESS:
+                    case LEVEL_MACBETH:
+                    case LEVEL_TITANIA:
+                    case LEVEL_VENOM_2:
+                    case LEVEL_VENOM_ANDROSS:
+                        break;
+
+                    case LEVEL_AQUAS:
+                    case LEVEL_BOLSE:
+                    case LEVEL_TRAINING:
+                        y2 += 8.0f;
+                        break;
+
+                    case LEVEL_SECTOR_X:
+                    case LEVEL_SECTOR_Y:
+                    case LEVEL_SECTOR_Z:
+                        x2 += 4.0f;
+                        y2 += 8.0f;
+                        break;
+
+                    case LEVEL_SOLAR:
+                        x2 += 8.0f;
+                        y2 += 8.0f;
+                        break;
+
+                    default:
+                        break;
+                }
+
+                RCP_SetupDL(&gMasterDisp, 0x4C);
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+
+                for (i = 0; i < D_800D1AEC[j].unk_14; i++) {
+                    TextureRect_8bIA(&gMasterDisp, D_800D1AEC[j].unk_0C + (D_800D1AEC[j].unk_10 * i),
+                                     D_800D1AEC[j].unk_10, 1, x2, y2 + i, 1.0f, 1.0f);
+                }
+
+                func_80086C08(x1 - 10.0f, y0 - 4.0f, 4.7f, 2.8f);
+
+                RCP_SetupDL(&gMasterDisp, 0x4C);
+
+                if (D_80161810[1] == 0) {
+                    temp = (D_80161838[0] % 20);
+                    if (temp >= 10) {
+                        temp = 20 - temp;
+                    }
+                    if ((temp = (temp * 16) - 1) < 0) {
+                        temp = 0;
+                    }
+                    gDPSetPrimColor(gMasterDisp++, 0, 0, 160, temp, temp, 255);
+                } else {
+                    gDPSetPrimColor(gMasterDisp++, 0, 0, 64, 64, 64, 255);
+                }
+
+                TextureRect_8bIA(&gMasterDisp, D_1000000, 64, 10, x0 - 12.0f, y0, 1.0f, 1.0f);
+
+                if (D_80161810[1] == 1) {
+                    temp = (D_80161838[0] % 20);
+                    if (temp >= 10) {
+                        temp = 20 - temp;
+                    }
+                    if ((temp = (temp * 16) - 1) < 0) {
+                        temp = 0;
+                    }
+                    gDPSetPrimColor(gMasterDisp++, 0, 0, 160, temp, temp, 255);
+                } else {
+                    gDPSetPrimColor(gMasterDisp++, 0, 0, 64, 64, 64, 255);
+                }
+
+                if (gCurrentLevel == LEVEL_TRAINING) {
+                    TextureRect_8bIA(&gMasterDisp, D_6000000, 96, 12, x1, y1, 1.0f, 1.0f);
+                } else {
+                    if (gLifeCount[gPlayerNum]) {
+                        TextureRect_8bIA(&gMasterDisp, D_1000280, 96, 10, x1, y1, 1.0f, 1.0f);
+                    } else {
+                        TextureRect_8bIA(&gMasterDisp, D_1000640, 96, 22, x1, y1, 1.0f, 1.0f);
+                    }
+                }
+
+                if ((gCurrentLevel != LEVEL_VENOM_ANDROSS) && (gCurrentLevel != LEVEL_TRAINING)) {
+                    func_80087788();
+                    func_80084B94(0);
+                }
+                break;
+
+            case 3:
+            case 4:
+                if (gCurrentLevel != LEVEL_TRAINING) {
+                    func_80084930(132.0f, 124.0f, gLifeCount[gPlayerNum]);
+                    func_80088784(D_80161838[1]);
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80088970.s")
+#endif
 
 void func_80089670(void) {
     RCP_SetupDL(&gMasterDisp, 0x3E);
