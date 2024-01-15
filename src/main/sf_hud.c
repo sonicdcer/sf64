@@ -12,6 +12,8 @@ typedef struct {
 extern UnkStruct_D_800D1AEC D_800D1AEC[];
 
 extern f32 D_800D1CFC;
+extern f32 D_800D1E10;
+extern s32 D_80161710;
 extern s32 D_801617C0[10];
 extern s32 D_80161838[10];
 extern f32 D_801618C8[20];
@@ -33,6 +35,11 @@ extern u8 D_5004580[];
 extern u8 D_5004DC0[];
 extern u8 D_5004E20[];
 extern u8 D_5005460[];
+extern u16 D_6000840[];
+extern u16 D_6000C80[];
+extern u8 D_6001260[];
+extern u8 D_60012D0[];
+extern u8 D_6002890[];
 
 void func_80084930(f32, f32, s32);
 void func_80086444(void);
@@ -1882,6 +1889,7 @@ void func_8008A07C(f32 x, f32 y) {
     func_80085404(xPos, yPos, xScale1, yScale1);
 }
 #else
+void func_8008A07C(f32 x, f32 y);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008A07C.s")
 #endif
 
@@ -1934,7 +1942,177 @@ void func_8008A240(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008A4DC.s")
+s32 func_8008A4DC(void) {
+    s32 i;
+    f32 scale;
+    f32 x1;
+    f32 y1;
+    f32 z1;
+    f32 x;
+    f32 y;
+    f32 temp;
+    s32 ret = 0;
+    f32 temp2, temp3;
+
+    if (gVersusMode == 0) {
+        if (gLevelMode != LEVELMODE_ALL_RANGE) {
+            return ret;
+        }
+
+        if (D_80177AB0 >= 5) {
+            return ret;
+        }
+
+        if (D_80177838) {
+            D_800D1E10 = 60.0f;
+        } else {
+            Math_SmoothStepToF(&D_800D1E10, 0.0f, 0.3f, 10.0f, 0.1f);
+        }
+
+        if (D_800D1E10 == 60.0f) {
+            return ret;
+        }
+
+        switch (gCurrentLevel) {
+            case LEVEL_SECTOR_Z:
+                temp2 = 20000.0f;
+                y1 = -360.0f;
+                x1 = 542.0f;
+                z1 = -1584.0f;
+                temp3 = 7.5f;
+                scale = 0.02f;
+                break;
+
+            case LEVEL_CORNERIA:
+                temp2 = 8000.0f;
+                y1 = -142.0f;
+                x1 = 214.0f;
+                z1 = -626.0f;
+                temp3 = 3.0f;
+                scale = 0.008f;
+                break;
+
+            case LEVEL_BOLSE:
+                temp2 = 10000.0f;
+                y1 = -178.0f;
+                x1 = 268.0f;
+                z1 = -784.0f;
+                temp3 = 3.7f;
+                scale = 0.01f;
+                break;
+
+            default:
+                temp2 = 12500.0f;
+                y1 = -220.0f;
+                x1 = 330.0f;
+                z1 = -970.0f;
+                temp3 = 4.7f;
+                scale = 0.013f;
+                break;
+        }
+
+        x = 254.000f + D_800D1E10;
+        y = 162.000f;
+        x1 += D_800D1E10 * temp3;
+    }
+
+    else {
+        if ((D_80177E7C == 0) || (D_80178750 != 0)) {
+            return ret;
+        }
+        temp2 = 13000.00f;
+
+        scale = 0.03f;
+        z1 = -885.00f;
+        x1 = -274.00f;
+        y1 = -166.00f;
+    }
+
+    func_8008A240();
+    func_8008A07C(x, y);
+
+    if ((gVersusMode == 0) &&
+        ((gCurrentLevel == LEVEL_SECTOR_Z) || (gCurrentLevel == LEVEL_FORTUNA) || (gCurrentLevel == LEVEL_VENOM_2) ||
+         (gCurrentLevel == LEVEL_BOLSE) || (gCurrentLevel == LEVEL_SECTOR_Y) || (gCurrentLevel == LEVEL_KATINA))) {
+
+        RCP_SetupDL(&gMasterDisp, 0x4C);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 128, 128, 128, 255);
+
+        switch (gCurrentLevel) {
+            case LEVEL_SECTOR_Z:
+                TextureRect_8bIA(&gMasterDisp, D_60012D0, 16, 9, 251.0f + D_800D1E10, 181.0f, 1.00f, 1.00f);
+                break;
+
+            case LEVEL_FORTUNA:
+                TextureRect_8bIA(&gMasterDisp, D_6001260, 16, 16, 251.0f + D_800D1E10, 178.0f, 1.00f, 1.00f);
+                break;
+
+            case LEVEL_BOLSE:
+                TextureRect_8bIA(&gMasterDisp, D_6000C80, 16, 16, 251.0f + D_800D1E10, 178.0f, 1.00f, 1.00f);
+                break;
+
+            case LEVEL_SECTOR_Y:
+                if ((fabsf(gObjects58[0].obj.pos.x) < temp2 + 1000.0f) &&
+                    (fabsf(gObjects58[0].obj.pos.z) < temp2 + 1000.0f)) {
+                    temp = 150.0f + ((12500.0f + gObjects58[0].obj.pos.z) / 446.42f);
+
+                    if ((y < 150.0f) || (y > 206.0f)) {
+                        break;
+                    }
+                    TextureRect_8bIA(&gMasterDisp, D_6000840, 64, 64, 250.0f + D_800D1E10, temp, 0.25f, 0.25f);
+                }
+                break;
+
+            case LEVEL_KATINA:
+                TextureRect_8bIA(&gMasterDisp, D_6001260, 8, 8, 254.0f + D_800D1E10, 182.0f, 1.00f, 1.00f);
+                break;
+
+            case LEVEL_VENOM_2:
+                TextureRect_8bIA(&gMasterDisp, D_6002890, 16, 16, 251.0f + D_800D1E10, 178.0f, 1.00f, 1.00f);
+                break;
+        }
+    }
+
+    Matrix_Push(&gGfxMatrix);
+    Matrix_Translate(gGfxMatrix, x1, y1, z1, 1);
+
+    if ((gCurrentLevel == LEVEL_SECTOR_Z) && (D_80161710)) {
+        Matrix_Push(&gGfxMatrix);
+        func_80089D28();
+        Matrix_Pop(&gGfxMatrix);
+        D_80161710--;
+    }
+
+    for (i = 64; i >= 0; i--) {
+        if (gUnkEntities28[i].unk_00 == 0) {
+            continue;
+        }
+
+        if (fabsf(gUnkEntities28[i].pos.x) >= (temp2 + 1000.0f) ||
+            fabsf(gUnkEntities28[i].pos.z) >= (temp2 + 1000.0f)) {
+            continue;
+        }
+
+        Matrix_Push(&gGfxMatrix);
+        Matrix_Translate(gGfxMatrix, gUnkEntities28[i].pos.x * 0.008f, -gUnkEntities28[i].pos.z * 0.008f, 0.0f, 1);
+
+        if (gUnkEntities28[i].unk_02 == 103) {
+            gUnkEntities28[i].unk_10 = 45.0f;
+        }
+
+        Matrix_RotateZ(gGfxMatrix, M_DTOR * gUnkEntities28[i].unk_10, 1);
+        Matrix_Scale(gGfxMatrix, scale, scale, 1.0f, 1);
+        Matrix_SetGfxMtx(&gMasterDisp);
+
+        func_80089E98(gUnkEntities28[i].unk_02);
+        Matrix_Pop(&gGfxMatrix);
+
+        gUnkEntities28[i].unk_00 = 0;
+    }
+
+    Matrix_Pop(&gGfxMatrix);
+    return ret;
+}
 
 s32 func_8008AC54(s32 arg0) {
     Actor* actor;
