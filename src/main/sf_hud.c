@@ -2452,7 +2452,6 @@ s32 func_8008B774(void) {
             break;
 
         default:
-
             if (gActors[i].timer_0C6) {
                 ret = 1;
             }
