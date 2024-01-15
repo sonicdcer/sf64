@@ -2595,7 +2595,53 @@ void func_8008BD00(u8* texturePtr, s32 xPos, s32 yPos, u8 arg3) {
             break;
     }
 }
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008C104.s")
+
+void func_8008C104(u16* texture, u16* arg1) {
+    u16 *temp, *dst;
+    u16 src[1024];
+    f32 temp1;
+    f32 angle;
+    s32 j;
+    s32 i;
+    s32 width = 32;
+    s32 height = 32;
+    s32 temp3;
+    s32 temp2;
+
+    temp = SEGMENTED_TO_VIRTUAL(texture);
+    dst = SEGMENTED_TO_VIRTUAL(arg1);
+
+    Texture_Scroll(texture, width, height, 1);
+
+    temp3 = height / 2;
+
+    temp1 = 0.0f;
+
+    i = temp3 - 1;
+
+    while (1) {
+        if ((temp1 += 90.0f / temp3) > 90.0f) {
+            break;
+        }
+
+        angle = (height / 2) * __cosf(M_DTOR * temp1);
+        temp2 = angle;
+
+        if (temp2 >= height) {
+            temp2 = 0;
+        }
+
+        for (j = 0; j < width; j++) {
+            src[(i * width) + j] = temp[(temp2 * width) + j];
+        }
+
+        for (j = 0; j < width; j++) {
+            src[(((temp3 - i) + (temp3 - 1)) * width) + j] = temp[(((temp3 - temp2) + (temp3 - 1)) * width) + j];
+        }
+        i--;
+    }
+    Texture_Mottle(dst, src, 2);
+}
 
 #ifdef IMPORT_DATA
 void func_8008C390(f32 arg0, f32 arg1, f32 arg2, s32 arg3) {
