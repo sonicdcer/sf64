@@ -1802,7 +1802,7 @@ void func_80060968(void) {
             } else {
                 Matrix_SetGfxMtx(&gMasterDisp);
                 if (gCurrentLevel == LEVEL_MACBETH) {
-                    gSPDisplayList(gMasterDisp++, D_6012C00);
+                    gSPDisplayList(gMasterDisp++, D_6012C00_Gfx);
                 } else {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, ent30->unk_2C, ent30->unk_2D, ent30->unk_2E,
                                     ent30->unk_2F);

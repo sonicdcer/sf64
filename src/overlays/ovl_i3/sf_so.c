@@ -1450,9 +1450,214 @@ BossSOfunc D_i3_801BF980[9] = {
     func_i3_801A4214, func_i3_801A4A34, func_i3_801A4EF8, func_i3_801A56B8,
 };
 
-// OBJ_BOSS_SO action
-void func_i3_801A5B3C(Boss* bossSO);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A5B3C.s")
+void func_i3_801A5B3C(Boss *bossSO) {
+    f32 padi;
+    f32 sp1C8;
+    f32 sp1C4;
+    f32 sp1C0;
+    s32 sp1BC;
+    s32 sp1B8;
+    Vec3f sp50[30];
+    Vec3f sp44;
+    Vec3f sp38;
+    
+    gBossFrameCount++;
+
+    if (bossSO->swork[9] != 0) {
+        bossSO->swork[9]--;
+    }
+    if (bossSO->swork[8] != 0) {
+        bossSO->swork[8]--;
+    }
+    if (bossSO->swork[10] != 0) {
+        bossSO->swork[10]--;
+    }
+    if ((gBossFrameCount == 200) && (gTeamShields[1] != 0)) {
+        func_800BA808(gMsg_ID_10310, RCID_FALCO);
+    }
+    if ((gBossFrameCount == 300) && (gTeamShields[2] != 0)) {
+        func_800BA808(gMsg_ID_4092, RCID_SLIPPY);
+    }
+    if ((gBossFrameCount == 450) && (gTeamShields[3] != 0)) {
+        func_800BA808(gMsg_ID_10320, RCID_PEPPY);
+    }
+    if (bossSO->health != 0) {
+        Math_SmoothStepToF(&bossSO->obj.pos.z, gPlayer->unk_138 - bossSO->fwork[3], 1.0f, 60.0f, 1.0f);
+    } else {
+        Math_SmoothStepToF(&bossSO->obj.pos.z, -(D_80177D20 + 2600.0f), 1.0f, 40.0f, 1.0f);
+    }
+    if (bossSO->swork[2] != 0) {
+        bossSO->info.hitbox[7] = bossSO->fwork[0xC] - bossSO->obj.pos.z;
+        bossSO->info.hitbox[9] = bossSO->fwork[0xB] - bossSO->obj.pos.y;
+        bossSO->info.hitbox[11] = bossSO->fwork[0xA] - bossSO->obj.pos.x;
+        bossSO->info.hitbox[13] = bossSO->fwork[0x18] - bossSO->obj.pos.z;
+        bossSO->info.hitbox[15] = bossSO->fwork[0x17] - bossSO->obj.pos.y;
+        bossSO->info.hitbox[17] = bossSO->fwork[0x16] - bossSO->obj.pos.x;
+        Matrix_RotateY(gCalcMatrix, -bossSO->obj.rot.y * 0.017453292f, 0U);
+        sp44.x = bossSO->fwork[0x1C] - bossSO->obj.pos.x;
+        sp44.y = bossSO->fwork[0x1D] - bossSO->obj.pos.y;
+        sp44.z = bossSO->fwork[0x1E] - bossSO->obj.pos.z;
+        Matrix_MultVec3f(gCalcMatrix, &sp44, &sp38);
+        bossSO->info.hitbox[19] = sp38.z;
+        bossSO->info.hitbox[21] = sp38.y;
+        bossSO->info.hitbox[23] = sp38.x;
+    }
+    if (bossSO->swork[3] != 0) {
+        bossSO->info.hitbox[25] = bossSO->fwork[9] - bossSO->obj.pos.z;
+        bossSO->info.hitbox[27] = bossSO->fwork[8] - bossSO->obj.pos.y;
+        bossSO->info.hitbox[29] = bossSO->fwork[7] - bossSO->obj.pos.x;
+        bossSO->info.hitbox[31] = bossSO->fwork[0x15] - bossSO->obj.pos.z;
+        bossSO->info.hitbox[33] = bossSO->fwork[0x14] - bossSO->obj.pos.y;
+        bossSO->info.hitbox[35] = bossSO->fwork[0x13] - bossSO->obj.pos.x;
+        bossSO->info.hitbox[37] = bossSO->fwork[0x1B] - bossSO->obj.pos.z;
+        bossSO->info.hitbox[39] = bossSO->fwork[0x1A] - bossSO->obj.pos.y;
+        bossSO->info.hitbox[41] = bossSO->fwork[0x19] - bossSO->obj.pos.x;
+    }
+    if (!(gFrameCount & 7) && (bossSO->fwork[3] < 4800.0f)) {
+        if (func_800A73E4(&sp1C0, &sp1B8, bossSO->obj.pos.x, bossSO->obj.pos.y - 160.0f, bossSO->obj.pos.z) != 0) {
+            func_i3_801A1EB0(bossSO, bossSO->obj.pos.x, 50.0f, sp1C0 - 170.0f, bossSO->obj.pos.z + 100.0f);
+        }
+        if ((bossSO->swork[2] != 0) && (func_800A73E4(&sp1C0, &sp1B8, bossSO->fwork[0x10], bossSO->fwork[0x11], bossSO->fwork[0x12]) != 0)) {
+            func_i3_801A1EB0(bossSO, bossSO->fwork[0x10], 50.0f, sp1C0 - 150.f, bossSO->fwork[0x12] + 150.0f);
+        }
+        if ((bossSO->swork[3] != 0) && (func_800A73E4(&sp1C0, &sp1B8, bossSO->fwork[0xD], bossSO->fwork[0xE], bossSO->fwork[0xF]) != 0)) {
+            func_i3_801A1EB0(bossSO, bossSO->fwork[0xD], 50.0f, sp1C0 - 150.0f, bossSO->fwork[0xF] + 150.0f);
+        }
+    }
+    if ((!(gFrameCount & 3) || (bossSO->fwork[0x1F] != 0.0f)) && ((bossSO->swork[0] != 7) || !(gFrameCount & 1))) {
+        if ((bossSO->swork[2] == 0) && ((bossSO->health > 0) || (bossSO->actionState < 2))) {
+            func_i3_8019FF44(bossSO, bossSO->fwork[0xA], bossSO->fwork[0xB], bossSO->fwork[0xC], bossSO->fwork[0x1F] - 20.0f, -1.0f);
+        }
+        if ((bossSO->swork[3] == 0) && ((bossSO->health > 0) || (bossSO->actionState < 2))) {
+            func_i3_8019FF44(bossSO, bossSO->fwork[7], bossSO->fwork[8], bossSO->fwork[9], bossSO->fwork[0x1F] - 20.0f, 1.0f);
+        }
+    }
+    Math_SmoothStepToF(bossSO->fwork, 1.0f, 0.01f, 0.01f, 0.0f);
+    if ((bossSO->health > 0) || (bossSO->swork[0] == 0)) {
+        D_i3_801BF980[bossSO->swork[0]](bossSO);
+    }
+    if (bossSO->timer_058 != 0) {
+        func_i3_801A4214(bossSO);
+    }
+    switch (bossSO->swork[1]) {
+        case 0:
+            bossSO->unk_04C++;
+            if (bossSO->unk_04C == 75) {
+                Audio_PlaySfx(0x29432073U, &bossSO->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            }
+            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_601388C)) {
+                if (bossSO->health != 0) {
+                    bossSO->unk_04C = 0;
+                    bossSO->swork[1]++;
+                    bossSO->fwork[0] = 0.01f;
+                } else {
+                    bossSO->unk_04C = Animation_GetFrameCount(&D_601388C) - 1;
+                }
+            }
+            sp1BC = Animation_GetFrameData(&D_601388C, bossSO->unk_04C, sp50);
+            break;
+        case 1:
+            bossSO->unk_04C++;
+            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_600D3DC)) {
+                bossSO->unk_04C = 0;
+            }
+            sp1BC = Animation_GetFrameData(&D_600D3DC, bossSO->unk_04C, sp50);
+            break;
+        case 2:
+            bossSO->unk_04C++;
+            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_600E2C4)) {
+                bossSO->unk_04C = 0;
+            }
+            sp1BC = Animation_GetFrameData(&D_600E2C4, bossSO->unk_04C, sp50);
+            break;
+        case 3:
+            bossSO->unk_04C++;
+            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_600F744)) {
+                bossSO->unk_04C = 0;
+            }
+            sp1BC = Animation_GetFrameData(&D_600F744, bossSO->unk_04C, sp50);
+            break;
+        case 4:
+            bossSO->unk_04C++;
+            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_600C15C)) {
+                bossSO->unk_04C = 0;
+            }
+            sp1BC = Animation_GetFrameData(&D_600C15C, bossSO->unk_04C, sp50);
+            break;
+        case 5:
+        case 8:
+        case 9:
+            bossSO->unk_04C++;
+            if ((bossSO->unk_04C == 45) && (bossSO->health != 0)) {
+                Audio_PlaySfx(0x29432073U, &bossSO->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            }
+            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_6012C00_Anim)) {
+                bossSO->unk_04C = 0;
+            }
+            sp1BC = Animation_GetFrameData(&D_6012C00_Anim, bossSO->unk_04C, sp50);
+            break;
+        case 6:
+            bossSO->unk_04C++;
+            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_600B1B4)) {
+                bossSO->unk_04C = 0;
+            }
+            sp1BC = Animation_GetFrameData(&D_600B1B4, bossSO->unk_04C, sp50);
+            break;
+        case 7:
+            bossSO->unk_04C++;
+            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_6009D30)) {
+                bossSO->unk_04C = 0;
+            }
+            sp1BC = Animation_GetFrameData(&D_6009D30, bossSO->unk_04C, sp50);
+            break;
+    }
+    Matrix_RotateZ(gCalcMatrix, -bossSO->vwork[0x1D].z * 0.017453292f, 0U);
+    Matrix_RotateX(gCalcMatrix, -bossSO->vwork[0x1D].x * 0.017453292f, 1U);
+    Matrix_RotateY(gCalcMatrix, -bossSO->vwork[0x1D].y * 0.017453292f, 1U);
+    Matrix_RotateZ(gCalcMatrix, -bossSO->obj.rot.z * 0.017453292f, 1U);
+    Matrix_RotateX(gCalcMatrix, -bossSO->obj.rot.x * 0.017453292f, 1U);
+    Matrix_RotateY(gCalcMatrix, -bossSO->obj.rot.y * 0.017453292f, 1U);
+    if ((bossSO->health > 0) && (bossSO->swork[0] == 1)) {
+        sp44.x = gPlayer->pos.x - bossSO->obj.pos.x;
+        sp44.y = gPlayer->pos.y - bossSO->obj.pos.y;
+        sp44.z = gPlayer->pos.z - bossSO->obj.pos.z;
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
+        sp1C4 = Math_RadToDeg(Math_Atan2F(sp38.x, sp38.z));
+        padi = sqrtf(SQ(sp38.x) + SQ(sp38.z));
+        sp1C8 = Math_RadToDeg(-Math_Atan2F(sp38.y, padi));
+        if ((sp1C8 > 30.0f) && (sp1C8 <= 180.0f)) {
+            sp1C8 = 30.0f;
+        }
+        if ((sp1C8 < 330.0f) && (sp1C8 > 180.0f)) {
+            sp1C8 = 330.0f;
+        }
+        if ((sp1C4 > 40.0f) && (sp1C4 <= 180.0f)) {
+            sp1C4 = 40.0f;
+        }
+        if ((sp1C4 < 320.0f) && (sp1C4 > 180.0f)) {
+            sp1C4 = 320.0f;
+        }
+        Math_SmoothStepToAngle(&D_i3_801C2768[1], sp1C4, 0.2f, 4.0f, 0.1f);
+        Math_SmoothStepToAngle(&D_i3_801C2768[0], sp1C8, 0.2f, 4.0f, 0.1f);
+    } else {
+        Math_SmoothStepToAngle(&D_i3_801C2768[1], 0.0f, 0.2f, 4.0f, 0.1f);
+        Math_SmoothStepToAngle(&D_i3_801C2768[0], 0.0f, 0.2f, 4.0f, 0.1f);
+    }
+    Math_SmoothStepToVec3fArray(sp50, bossSO->vwork, 1, sp1BC, bossSO->fwork[0], 100.0f, 0.0f);
+    if ((bossSO->dmgType != DMG_NONE) && (bossSO->health > 0)) {
+        bossSO->dmgType = DMG_NONE;
+        Audio_PlaySfx(0x29121007U, &bossSO->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        if (!((bossSO->swork[0] == 0) || (bossSO->swork[0] == 2) || (bossSO->swork[0] == 3) || (bossSO->swork[0] == 6) || ((bossSO->swork[0] == 7) && (bossSO->actionState == 2)))) {
+            func_i3_801A3C4C(bossSO);
+        }
+    }
+    if (gBossFrameCount == 400) {
+        gShowBossHealth = 1;
+    }
+    if (gBossFrameCount >= 400) {
+        gBossHealthBar =  (bossSO->health + bossSO->swork[2] + bossSO->swork[3]) * (255.0f / 1400.0f);
+    }
+}
 
 s32 func_i3_801A68A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     Boss* this = thisx;
