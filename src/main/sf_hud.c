@@ -2344,7 +2344,122 @@ void func_8008B734(void) {
     func_80085944();
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008B774.s")
+s32 func_8008B774(void) {
+    s32 i;
+    s32 ret = 0;
+    s32 temp;
+
+    switch (D_801782A4) {
+        case 0:
+        case 1:
+            i = 0;
+            break;
+
+        case 10:
+        case 11:
+            temp = 1;
+            i = 1;
+            break;
+
+        case 20:
+        case 21:
+            temp = 2;
+            i = 2;
+            break;
+
+        case 30:
+        case 31:
+            temp = 3;
+            i = 3;
+            break;
+
+        case 240:
+        case 241:
+        case 200:
+        case 201:
+            i = 4;
+            break;
+
+        case 260:
+        case 261:
+        case 220:
+        case 221:
+            i = 5;
+            break;
+
+        case 250:
+        case 251:
+        case 210:
+        case 211:
+            i = 6;
+            break;
+
+        case 270:
+        case 271:
+        case 230:
+        case 231:
+            i = 7;
+            break;
+
+        default:
+            i = 8;
+            break;
+    }
+
+    if ((i >= 1) && (i <= 3) &&
+        ((gLevelMode != LEVELMODE_ALL_RANGE) || (gCurrentLevel == LEVEL_CORNERIA) ||
+         (gCurrentLevel == LEVEL_SECTOR_Y))) {
+        for (i = 0; i < 60; i++) {
+            if ((gActors[i].obj.status == 2) && (gActors[i].iwork[12] == temp)) {
+                if ((gActors[i].unk_0B4 == 2) || (gActors[i].unk_0B4 == 43) ||
+                    ((gActors[i].obj.id == 198) &&
+                     ((gActors[i].unk_0E4 == 1) || (gActors[i].unk_0E4 == 2) || (gActors[i].unk_0E4 == 3)))) {
+                    if (gActors[i].timer_0C6) {
+                        ret = 1;
+                    } else {
+                        ret = 0;
+                    }
+                    break;
+                }
+            }
+        }
+        i = 9;
+    }
+
+    switch (i) {
+        case 0:
+            if (gPlayer[0].timer_220) {
+                ret = 1;
+            }
+            break;
+
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+            if (gLevelMode == LEVELMODE_ALL_RANGE) {
+                if (gActors[i].timer_0C6) {
+                    ret = 1;
+                }
+                if ((ret == 1) && (gActors[i].unk_0CE <= 0)) {
+                    ret = 2;
+                }
+            }
+            break;
+
+        case 8:
+        case 9:
+            break;
+
+        default:
+
+            if (gActors[i].timer_0C6) {
+                ret = 1;
+            }
+            break;
+    }
+    return ret;
+}
 
 void func_8008B9E8(void) {
     s32 temp;

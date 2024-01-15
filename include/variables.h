@@ -423,7 +423,7 @@ extern s32 D_80177858[4];
 extern s32 D_80177868;
 //
 extern s32 D_80177870[4];
-extern s32 gLevelMode;
+extern LevelMode gLevelMode;
 //
 extern s32 gHandicap[4];
 extern DrawMode gDrawMode;
