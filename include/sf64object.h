@@ -208,7 +208,9 @@ typedef struct {
     /* 0x01C */ ObjectInfo info;
     /* 0x040 */ s32 index;
     /* 0x044 */ s16 unk_044;
-    /* 0x046 */ char unk_46[6];
+    /* 0x046 */ char pad46[2];
+    /* 0x048 */ s16 unk_048;
+    /* 0x04A */ char pad4A[2];
     /* 0x04C */ s16 unk_04C;
     /* 0x04E */ s16 actionState;
     /* 0x050 */ s16 timer_050;
@@ -231,7 +233,7 @@ typedef struct {
     /* 0x0D8 */ f32 fwork[50];
     /* 0x1A0 */ Vec3f vwork[50];
     /* 0x3F8 */ f32 unk_3F8;
-    /* 0x3FC */ Vec3f sfxPos;
+    /* 0x3FC */ union {Vec3f sfxPos; f32 sfxarr[3];};
 } Boss; // size = 0x408
 
 #define DMG_BEAM 1

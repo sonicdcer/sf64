@@ -845,7 +845,7 @@ extern Gfx* D_DF4260_8019A008[];
 extern f32 D_DF4260_8019A9B8[];
 
 // ovl_i3
-// extern f32 D_i3_801C4188; Currently externed in relevant files for bss ordering
+// extern f32 D_i3_801C4188; // Currently externed in relevant files for bss ordering
 
 // ovl_E51970
 extern Matrix D_E51970_8019EE80;
@@ -1803,7 +1803,6 @@ extern u16 D_603CC80[];
 extern u16* D_603D9E8[];
 extern f32 D_603DCA4[];
 extern f32 D_603DD40[];
-extern EnvSettings D_C035110;
 extern f32 D_603DDF0[];
 extern f32 D_603DE8C[];
 extern f32 D_603DEF4[];
@@ -1813,6 +1812,15 @@ extern f32 D_603E014[];
 extern f32 D_603E030[];
 extern f32 D_603E09C[];
 extern f32 D_603E0EC[];
+extern Gfx D_60084C0[];
+extern Gfx D_6008D40[];
+extern Gfx D_6007C40[];
+extern Gfx D_601B790[];
+extern Gfx D_601B790[];
+extern Gfx D_601A700[];
+extern Gfx D_6019670[];
+extern Gfx D_60185E0[];
+extern Gfx D_6017550[];
 
 // ast_9DD390, ast_A0E340, ast_BFA740, ast_CBFE70, ast_D27600
 extern Gfx D_7000000[];
@@ -1919,6 +1927,7 @@ extern Gfx D_A000000[];
 
 // ast_CE9E70
 extern Gfx D_C017440[];
+extern EnvSettings D_C035110;
 extern ObjectInit* D_C0356A4[];
 extern u16* D_C037E3C[];
 extern f32 D_C038A48[];
@@ -1929,6 +1938,7 @@ extern f32 D_C038BD8[];
 extern f32 D_C038DC0[];
 extern f32 D_C038F24[];
 extern Gfx D_C039208[];
+
 
 // ast_955270
 extern Gfx D_D000000[];
