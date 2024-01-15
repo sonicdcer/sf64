@@ -413,7 +413,7 @@ extern u8 D_80177830;
 extern GameState gGameState;
 extern s32 D_80177838;
 extern s32 D_Timer_8017783C;
-extern s32 D_80177840;
+extern s32 D_80177840; // Stage clear time
 extern s32 gBossHealthBar;
 extern s32 D_80177844;
 extern OptionState gOptionMenuStatus;
