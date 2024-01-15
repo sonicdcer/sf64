@@ -159,12 +159,12 @@ void func_80084E78(Gfx** gfxP, void* arg1, void* arg2, u32 arg3, u32 arg4, f32 a
                         (s32) (1 / arg8 * 0x400));
 }
 
-void func_800853A4(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
-    TextureRect_8bCI(&gMasterDisp, D_1013170, D_1013570, 24, 17, arg0, arg1, arg2, arg3);
+void func_800853A4(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
+    TextureRect_8bCI(&gMasterDisp, D_1013170, D_1013570, 24, 17, xPos, yPos, xScale, yScale);
 }
 
-void func_80085404(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
-    TextureRect_4bCI(&gMasterDisp, D_1011280, D_10116A0, 48, 44, arg0, arg1, arg2, arg3);
+void func_80085404(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
+    TextureRect_4bCI(&gMasterDisp, D_1011280, D_10116A0, 48, 44, xPos, yPos, xScale, yScale);
 }
 
 void func_80085464(f32 arg0, f32 arg1) {
@@ -1847,7 +1847,43 @@ void func_80089E98(s32 arg0) {
     }
 }
 
+#ifdef IMPORT_DATA
+void func_8008A07C(f32 x, f32 y) {
+    f32 D_800D1E94[] = { 20.0f, 180.0f, 20.0f, 180.0f };
+    f32 D_800D1EA4[] = { 72.0f, 72.0f, 192.0f, 192.0f };
+    f32 xPos;
+    f32 yPos;
+    f32 xScale;
+    f32 yScale;
+    f32 xScale1;
+    f32 yScale1;
+
+    if (gCamCount != 1) {
+        xPos = D_800D1E94[gPlayerNum];
+        yPos = D_800D1EA4[gPlayerNum];
+        xScale = 1.21f;
+        yScale = 1.69f;
+        xScale1 = 0.70f;
+        yScale1 = 0.70f;
+    } else {
+        xPos = x - 32.0f;
+        yPos = y - 14.0f;
+        xScale = 2.98f;
+        yScale = 4.24f;
+        xScale1 = 1.70f;
+        yScale1 = 1.70f;
+    }
+
+    RCP_SetupDL(&gMasterDisp, 0x4E);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 170);
+    func_800853A4(xPos + 1.0f, yPos + 1.0f, xScale, yScale);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+    func_80085404(xPos, yPos, xScale1, yScale1);
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008A07C.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008A240.s")
 
