@@ -1356,7 +1356,7 @@ void func_80088970(void) {
 
     player = &gPlayer[gPlayerNum];
 
-    if ((D_80177854 == 100) && (!D_80177838) && (gVersusMode == 0)) {
+    if ((D_80177854 == 100) && !D_80177838 && !gVersusMode) {
         switch (D_80161810[0]) {
             case 0:
                 D_80161838[0] = 0;
@@ -1405,7 +1405,7 @@ void func_80088970(void) {
 
                 func_800A6148();
 
-                gShowBossHealth = 0;
+                gShowBossHealth = false;
                 D_80178340 = 255;
 
                 if (gLifeCount[gPlayerNum] == 0) {
@@ -1436,7 +1436,7 @@ void func_80088970(void) {
                     break;
                 } else {
                     if (D_80178340 == 0) {
-                        if (gLevelType == 0) {
+                        if (gLevelType == LEVELTYPE_PLANET) {
                             if (D_80161838[1] == 0) {
                                 func_8001D520();
                             }
@@ -1524,7 +1524,7 @@ void func_80088970(void) {
         }
     }
 
-    if ((D_80161810[3] == 0) && (D_80177854 == 100) && (gVersusMode == 0) && (D_80177838 == 0)) {
+    if ((D_80161810[3] == 0) && (D_80177854 == 100) && !gVersusMode && (D_80177838 == 0)) {
         switch (D_80161810[0]) {
             case 0:
             case 1:
@@ -1954,7 +1954,7 @@ s32 func_8008A4DC(void) {
     s32 ret = 0;
     f32 temp2, temp3;
 
-    if (gVersusMode == 0) {
+    if (!gVersusMode) {
         if (gLevelMode != LEVELMODE_ALL_RANGE) {
             return ret;
         }
@@ -2031,7 +2031,7 @@ s32 func_8008A4DC(void) {
     func_8008A240();
     func_8008A07C(x, y);
 
-    if ((gVersusMode == 0) &&
+    if (!gVersusMode &&
         ((gCurrentLevel == LEVEL_SECTOR_Z) || (gCurrentLevel == LEVEL_FORTUNA) || (gCurrentLevel == LEVEL_VENOM_2) ||
          (gCurrentLevel == LEVEL_BOLSE) || (gCurrentLevel == LEVEL_SECTOR_Y) || (gCurrentLevel == LEVEL_KATINA))) {
 
