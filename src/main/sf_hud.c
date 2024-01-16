@@ -14,6 +14,10 @@ extern UnkStruct_D_800D1AEC D_800D1AEC[];
 extern f32 D_800D1CFC;
 extern f32 D_800D1E10;
 extern s32 D_80161710;
+extern s32 D_80161738[4];
+extern s32 D_80161748[4];
+extern s32 D_80161758;
+extern s32 D_80161760[4];
 extern s32 D_801617C0[10];
 extern s32 D_80161838[10];
 extern f32 D_801618C8[20];
@@ -2770,7 +2774,76 @@ void func_8008CB98(f32 arg0, f32 arg1, f32 arg2) {
     TextureRect_8bIA(&gMasterDisp, D_30013E0, 8, 8, arg0, arg1, arg2, arg2);
 }
 
+#ifdef IMPORT_DATA
+void func_8008CBE4(void) {
+    f32 D_800D2078[] = { 62.0f, 222.0f, 62.0f, 222.0f }; // X
+    f32 D_800D2088[] = { 86.0f, 86.0f, 206.0f, 206.0f }; // Y
+    s32 D_800D2098[] = { 177, 255, 0, 30 };              // R
+    s32 D_800D20A8[] = { 242, 30, 179, 30 };             // G
+    s32 D_800D20B8[] = { 12, 0, 67, 255 };               // B
+    s32 i;
+    s32 j;
+
+    if (D_801778AC != 0) {
+        return;
+    }
+
+    switch (D_80161758) {
+        case 0:
+            for (i = 0; i < 4; i++) {
+                D_80161738[i] = 0;
+                D_80161748[i] = 0;
+                D_80161760[i] = 0;
+            }
+            D_80161758 = 1;
+            break;
+
+        case 1:
+            if (D_80177E7C == 0) {
+                D_80161758 = 0;
+                break;
+            }
+
+            if (D_80161760[gPlayerNum]) {
+                D_80161760[gPlayerNum]--;
+                if (D_80161760[gPlayerNum] & 4) {
+                    break;
+                }
+            }
+
+            for (i = 0; i < D_80177DB8[gPlayerNum]; i++) {
+                if (D_80161748[gPlayerNum] < (i + 1)) {
+                    if (((i + 1) != 1) && ((i + 1) == (D_801778A4 - 1))) {
+                        D_80161760[gPlayerNum] = 50;
+                        D_80161738[gPlayerNum] = 0;
+                    } else {
+                        D_80161738[gPlayerNum] = 50;
+                    }
+                    D_80161748[gPlayerNum] = i + 1;
+                }
+
+                if ((D_80161748[gPlayerNum] == (i + 1)) && (D_80161738[gPlayerNum])) {
+                    D_80161738[gPlayerNum]--;
+                    if (D_80161738[gPlayerNum] & 4) {
+                        continue;
+                    }
+                }
+
+                j = D_80177DD0[gPlayerNum][i];
+
+                RCP_SetupDL(&gMasterDisp, 0x4D);
+
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+                gDPSetEnvColor(gMasterDisp++, D_800D2098[j], D_800D20A8[j], D_800D20B8[j], 0);
+
+                func_8008CB98(D_800D2078[gPlayerNum] + (i * 9.0f), D_800D2088[gPlayerNum], 1.0f);
+            }
+            break;
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008CBE4.s")
+#endif
 
 void func_8008CFB8(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     s32 i;
