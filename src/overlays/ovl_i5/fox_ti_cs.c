@@ -76,7 +76,7 @@ void func_i5_8018769C(Player* player) {
 
             player->unk_240 = 1;
             player->unk_1D0 = 1;
-            gFogFar = 0x3EE;
+            gFogFar = 1006;
             gPlayer->unk_19C = 0;
             gBgColor = 0x78C1;
 
@@ -275,13 +275,12 @@ void func_i5_80188108(Actor* actor, s32 arg1) {
         actor->fwork[3] = D_i5_801B7348[arg1];
         actor->unk_0B8 = 30;
         Audio_PlaySfx(0x3100000CU, &actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-        return;
+    } else {
+        actor->unk_0B6 = 1;
+        actor->unk_0B8 = 20;
+        Audio_PlaySfx(0x11030010U, &actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        actor->fwork[9] = 20.0f;
     }
-
-    actor->unk_0B6 = 1;
-    actor->unk_0B8 = 20;
-    Audio_PlaySfx(0x11030010U, &actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-    actor->fwork[9] = 20.0f;
 }
 
 void func_i5_801882CC(Player* player) {
