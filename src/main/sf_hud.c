@@ -18,11 +18,12 @@ extern s32 D_801617C0[10];
 extern s32 D_80161838[10];
 extern f32 D_801618C8[20];
 extern s32 D_80161860[20];
-extern Gfx D_1012110[];
-extern Gfx D_101C2E0[];
 extern u8 D_1000000[];
 extern u8 D_1000280;
 extern u8 D_1000640[];
+extern Gfx D_1012110[];
+extern Gfx D_101C2E0[];
+extern Gfx D_1024990[];
 extern u8 D_5000500[];
 extern u8 D_5001110[];
 extern u8 D_5001750[];
@@ -2686,7 +2687,48 @@ void func_8008C5C8(f32 arg0, f32 arg1, f32 arg2, s32 arg3) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008C5C8.s")
 #endif
 
+#ifdef IMPORT_DATA
+void func_8008C6F4(s32 idx, s32 arg1) {
+    f32 D_800D1EF8[] = { 0.0f, 0.0f, -9.0f, 9.0f, 10.0f, 10.0f, 10.0f, 10.0f, 0.0f, 0.0f, -8.0f, 8.0f };
+    f32 D_800D1F28[] = { -7.0f, 7.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 8.0f, -8.0f, 0.0f, 0.0f };
+    f32 D_800D1F58[] = {
+        -22.0f, -22.0f, -22.0f, -22.0f, -28.0f, -28.0f, -28.0f, -28.0f, -28.0f, -28.0f, -28.0f, -28.0f
+    };
+    f32 D_800D1F88[] = { 0.0f, 0.0f, 0.0f, 0.0f, 495.0f, 405.0f, 585.0f, 675.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+    f32 D_800D1FB8[] = { 180.0f, 0.0f, 270.0f, 90.0f, 270.0f, 270.0f, 270.0f, 270.0f, 0.0f, 180.0f, 90.0f, 270.0f };
+    f32 D_800D1FE8[] = { 0.0f, 0.0f, 2.0f, -2.0f, -2.0f, -2.0f, -2.0f, -2.0f, 0.0f, 0.0f, 2.0f, -2.0f };
+    f32 D_800D2018[] = { 2.0f, -2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -2.0f, 2.0f, 0.0f, 0.0f };
+
+    Matrix_Push(&gGfxMatrix);
+
+    if (gPlayer[0].unk_238) {
+        Matrix_RotateZ(gGfxMatrix, M_DTOR * gPlayer[0].unk_034, 1);
+    }
+
+    if (D_800D1F88[idx]) {
+        Matrix_RotateZ(gGfxMatrix, M_DTOR * D_800D1F88[idx], 1);
+    }
+
+    if (arg1 != 0) {
+        Matrix_Translate(gGfxMatrix, D_800D1EF8[idx] + D_800D1FE8[idx], D_800D1F28[idx] + D_800D2018[idx],
+                         D_800D1F58[idx], 1);
+    } else {
+        Matrix_Translate(gGfxMatrix, D_800D1EF8[idx], D_800D1F28[idx], D_800D1F58[idx], 1);
+    }
+
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * D_800D1FB8[idx], 1);
+    Matrix_Scale(gGfxMatrix, 0.026f, 0.026f, 0.026f, 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    RCP_SetupDL(&gMasterDisp, 0x3E);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 150);
+    gSPDisplayList(gMasterDisp++, D_1024990);
+
+    Matrix_Pop(&gGfxMatrix);
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008C6F4.s")
+#endif
 
 #ifdef IMPORT_DATA
 void func_8008CA44(void) {
