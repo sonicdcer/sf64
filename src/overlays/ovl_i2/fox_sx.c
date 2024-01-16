@@ -48,8 +48,8 @@ extern Limb* D_6020C68;
 extern Gfx D_6020D20[];
 extern f32 D_60328CC[];
 
-extern void func_i2_8018FBBC(f32*);
 extern void func_i2_80193208(s32, Vec3f*, void*);
+extern void func_800B5D30(Player*, s32);
 
 void func_i2_8018F030(void) {
     s32 i;
@@ -103,7 +103,84 @@ void func_i2_8018F1DC(Actor* actor) {
                   actor->unk_0F4.y + 180.0f, 0.0f);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_sx/func_i2_8018F330.s")
+void func_i2_8018F330(Actor* actor) {
+    f32 sp34;
+
+    switch (actor->unk_0B6) {
+        case 0:
+            actor->obj.rot.x += 7.0f;
+            actor->obj.rot.y += 5.0f;
+            break;
+
+        case 1:
+            actor->unk_0F4.z += 3.0f;
+            actor->obj.rot.z = __sinf((actor->unk_0F4.z + 90.0f) * 0.017453292f) * 60.0f;
+            sp34 = fabsf(actor->obj.pos.z - gBosses[0].obj.pos.z) * 0.1f;
+            Math_SmoothStepToF(&actor->obj.pos.x, gBosses[0].obj.pos.x + __sinf(actor->unk_0F4.z * 0.017453292f) * sp34,
+                               0.1f, 20.0f, 0.0f);
+            Math_SmoothStepToF(&actor->obj.pos.y, gBosses[0].obj.pos.y, 0.1f, 20.0f, 0.0f);
+            Math_SmoothStepToF(&actor->obj.pos.z, gBosses[0].obj.pos.z, 1.0f, 55.0f, 0);
+            if (gBosses[0].actionState == 20) {
+                actor->unk_0B6 = 10;
+                break;
+            }
+            if ((!(gFrameCount & 3)) && (Rand_ZeroOne() < 0.2f)) {
+                func_i2_8018F1DC(actor);
+            }
+            if ((gBosses[0].unk_04C == 0x4B) && (gBosses[0].actionState == 0x55)) {
+                actor->unk_0B6 = 2;
+                actor->vel.x = 10.0f;
+                actor->vel.y = -10.0f;
+                actor->vel.z = 30.0f;
+                func_800BA808(gMsg_ID_4111, RCID_SLIPPY);
+                func_8007A6F0(&actor->obj.pos, 0x2903A008);
+                gBosses[0].swork[6] = 0;
+                *(gTeamShields + 2) = -2;
+                gPlayer->state_1C8 = PLAYERSTATE_1C8_0;
+                actor->timer_0BC = 0xC8;
+                actor->iwork[14] = 3;
+                actor->fwork[0] = 0.0f;
+                actor->fwork[1] = 0.0f;
+                D_80161A44 = 30000.0f;
+                func_i2_8018F124();
+            }
+            break;
+
+        case 2:
+            if (actor->timer_0BC == 0x64) {
+                func_800BA808(gMsg_ID_20294, RCID_FOX);
+            }
+            actor->obj.rot.x += 5.5f;
+            actor->obj.rot.y += 5.0f;
+            if (!(gFrameCount & 7)) {
+                func_8007D10C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1.5f);
+            }
+            Math_SmoothStepToF(&actor->fwork[0] /*actor + 0x114*/, 0.5f, 1.0f, 0.01f, 0);
+            Math_SmoothStepToF(&actor->fwork[1] /*actor + 0x118*/, 0.1f, 1.0f, 0.01f, 0);
+            Math_SmoothStepToF(&gPlayer->camAt.x, actor->obj.pos.x, actor->fwork[0], 100.0f, 0.0f);
+            Math_SmoothStepToF(&gPlayer->camAt.y, actor->obj.pos.y, actor->fwork[0], 100.0f, 0.0f);
+            Math_SmoothStepToF(&gPlayer->camAt.z, actor->obj.pos.z + D_80177D20, actor->fwork[0], 100.0f, 0.0f);
+            Math_SmoothStepToF(&gPlayer->camEye.x, actor->obj.pos.x - 30.0f, actor->fwork[1], 20.0f, 0.0f);
+            Math_SmoothStepToF(&gPlayer->camEye.y, actor->obj.pos.y, actor->fwork[1], 20.0f, 0.0f);
+            if (actor->timer_0BC == 0) {
+                gPlayer->state_1C8 = PLAYERSTATE_1C8_3;
+                if (gPlayer->unk_238 != 0) {
+                    func_800B5D30(gPlayer, 1);
+                }
+                D_80161A44 = 12800.0f;
+                Object_Kill(&gActors[0x32].obj, &gActors[0x32].sfxPos);
+            }
+            break;
+
+        case 10:
+            Math_SmoothStepToF(&actor->obj.rot.y, 90.0f, 0.1f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&actor->obj.rot.z, 90.0f, 1.0f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&actor->obj.pos.x, gBosses[0].obj.pos.x + 10000.0f, 0.1f, 40.0f, 0.0f);
+            Math_SmoothStepToF(&actor->obj.pos.y, gBosses[0].obj.pos.y + 5000.0f, 0.1f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&actor->obj.pos.z, gBosses[0].obj.pos.z, 1.0f, 55.0f, 0.0f);
+            break;
+    }
+}
 
 void func_i2_8018F884(Actor* actor) {
     switch (actor->unk_0B6) {
@@ -164,10 +241,44 @@ void func_i2_8018FA04(f32 x, f32 y, f32 z) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_sx/func_i2_8018FBBC.s")
+void func_i2_8018FBBC(Vec3f* arg0) {
+    s32 i;
+    Actor* actor;
+    f32 xPos;
+    f32 yPos;
+    Vec3f src;
+    Vec3f dest;
+
+    for (i = 0; i < ARRAY_COUNT(gActors); i++) {
+        actor = &gActors[i];
+        if (actor->obj.status >= 2 && fabsf(arg0->x - actor->obj.pos.x) < 2500.0f &&
+            fabsf(arg0->z - actor->obj.pos.z) < 2500.0f && actor->unk_0B8 != 0x3E8 && actor->timer_0C2 == 0 &&
+            actor->scale < 0.0f &&
+            func_80062DBC(arg0, actor->info.hitbox, &actor->obj, actor->vwork[0x1D].x, actor->vwork[0x1D].y,
+                          actor->vwork[0x1D].z + actor->unk_0F4.z) != 0) {
+            func_800A6028(&actor->sfxPos, 0x09000004U);
+            actor->unk_0B8 = 0x3E8;
+            xPos = Math_Atan2F(actor->obj.pos.x - arg0->x, actor->obj.pos.z - arg0->z);
+            yPos = -Math_Atan2F(actor->obj.pos.y - arg0->y,
+                                sqrtf(SQ(actor->obj.pos.x - arg0->x) + SQ(actor->obj.pos.z - arg0->z)));
+            Matrix_RotateY(gCalcMatrix, xPos, 0);
+            Matrix_RotateX(gCalcMatrix, yPos, 1);
+            src.x = 0.0f;
+            src.y = 0.0f;
+            src.z = 20.0f;
+            Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+            actor->vel.x = dest.x;
+            actor->vel.z = 10.0f;
+            actor->vel.y = dest.y;
+            actor->fwork[0xF] = actor->vel.x * 0.2f;
+            actor->fwork[0x10] = actor->vel.y * -0.2f;
+            actor->timer_0C6 = 0xA;
+        }
+    }
+}
 
 void func_i2_8018FE38(Boss* boss) {
-    f32 sp2C[3];
+    Vec3f sp2C;
     Vec3f sp20;
 
     if (boss->actionState == 0) {
@@ -179,15 +290,15 @@ void func_i2_8018FE38(Boss* boss) {
         boss->actionState++;
     } else {
         if (boss->obj.id == 0x130) {
-            sp2C[0] = boss->fwork[11];
-            sp2C[1] = boss->fwork[12];
-            sp2C[2] = boss->fwork[13];
+            sp2C.x = boss->fwork[11];
+            sp2C.y = boss->fwork[12];
+            sp2C.z = boss->fwork[13];
         } else {
-            sp2C[0] = boss->fwork[8];
-            sp2C[1] = boss->fwork[9];
-            sp2C[2] = boss->fwork[10];
+            sp2C.x = boss->fwork[8];
+            sp2C.y = boss->fwork[9];
+            sp2C.z = boss->fwork[10];
         }
-        func_i2_8018FBBC(sp2C);
+        func_i2_8018FBBC(&sp2C);
     }
     if (boss->dmgType == 1) {
         boss->dmgType = 0;
@@ -337,9 +448,132 @@ s32 func_i2_80192AF0(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4)
     return 0;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_sx/func_i2_80193208.s")
+void func_i2_80193208(s32 arg0, Vec3f* arg1, void* ptr) {
+    Vec3f sp64 = D_i2_80195680;
+    Vec3f sp58 = D_i2_8019568C;
+    Vec3f sp4C = D_i2_80195698;
+    Vec3f sp40 = D_i2_801956A4;
+    Vec3f sp34;
+    Vec3f sp28;
+    Boss* boss = (Boss*) ptr;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_sx/func_i2_80193434.s")
+    sp34.x = 0.0f;
+    sp34.y = 0.0f;
+    sp34.z = 0.0f;
+
+    switch (arg0) {
+        case 1:
+            Matrix_MultVec3f(gCalcMatrix, &sp58, &sp28);
+            boss->fwork[20] = sp28.x;
+            boss->fwork[21] = sp28.y;
+            boss->fwork[22] = sp28.z;
+            Matrix_MultVec3f(gCalcMatrix, &sp64, &sp28);
+            boss->fwork[23] = sp28.x;
+            boss->fwork[24] = sp28.y;
+            boss->fwork[25] = sp28.z;
+            Matrix_MultVec3f(gCalcMatrix, &sp40, &boss->vwork[45]);
+            Matrix_MultVec3f(gCalcMatrix, &sp4C, &boss->vwork[46]);
+            break;
+
+        case 6:
+            Matrix_MultVec3f(gCalcMatrix, &sp34, &sp28);
+            boss->fwork[8] = sp28.x;
+            boss->fwork[9] = sp28.y;
+            boss->fwork[10] = sp28.z;
+            break;
+
+        case 16:
+            Matrix_MultVec3f(gCalcMatrix, &sp34, &sp28);
+            boss->fwork[11] = sp28.x;
+            boss->fwork[12] = sp28.y;
+            boss->fwork[13] = sp28.z;
+            break;
+
+        case 33:
+            Matrix_MultVec3f(gCalcMatrix, &sp34, &sp28);
+            boss->fwork[35] = sp28.x;
+            boss->fwork[36] = sp28.y;
+            boss->fwork[37] = sp28.z;
+            break;
+
+        case 37:
+            Matrix_MultVec3f(gCalcMatrix, &sp34, &sp28);
+            boss->fwork[38] = sp28.x;
+            boss->fwork[39] = sp28.y;
+            boss->fwork[40] = sp28.z;
+
+        default:
+            break;
+    }
+}
+void func_i2_80193434(Boss* boss) {
+    f32 fwork;
+
+    if (boss->swork[5] == 0) {
+        D_i2_80195640 = 0;
+        Animation_DrawSkeleton(3, &D_6020C68, boss->vwork, func_i2_80192AF0, 0, boss, gCalcMatrix);
+        RCP_SetupDL_64();
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 0xFF, 0xFF, 0xFF, 0x60);
+
+        if (boss->fwork[31] > 10.0f) {
+            fwork = boss->fwork[31] * 0.1f;
+            if (fwork > 50.0f) {
+                fwork = 50.0f;
+            }
+            if (gFrameCount & 1) {
+                fwork *= 1.2f;
+            }
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, boss->fwork[0x23], boss->fwork[0x24], boss->fwork[0x25], 1);
+            Matrix_Scale(gGfxMatrix, fwork, fwork, fwork, 1);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_102ED50);
+            Matrix_Pop(&gGfxMatrix);
+        }
+
+        if (boss->fwork[34] > 10.0f) {
+            fwork = boss->fwork[34] * 0.1f;
+            if (fwork > 50.0f) {
+                fwork = 50.0f;
+            }
+            if (gFrameCount & 1) {
+                fwork *= 1.2f;
+            }
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, boss->fwork[0x26], boss->fwork[0x27], boss->fwork[0x28], (u8) 1);
+            Matrix_Scale(gGfxMatrix, fwork, fwork, fwork, 1);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_102ED50);
+            Matrix_Pop(&gGfxMatrix);
+        }
+
+        RCP_SetupDL_64();
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 96);
+
+        if (boss->swork[1] != 0) {
+            fwork = boss->swork[1] * 0.1f;
+
+            if (fwork > 4.0f) {
+                fwork = 4.0f;
+            }
+            if (gFrameCount & 1) {
+                fwork *= 1.2f;
+            }
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, boss->fwork[20], boss->fwork[21], boss->fwork[0x16], 1);
+            Matrix_Scale(gGfxMatrix, fwork, fwork, fwork, 1);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_600F8A0);
+            Matrix_Pop(&gGfxMatrix);
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, boss->fwork[23], boss->fwork[24], boss->fwork[0x19], 1);
+            Matrix_Scale(gGfxMatrix, fwork, fwork, fwork, 1);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_600F8A0);
+            Matrix_Pop(&gGfxMatrix);
+        }
+    }
+}
 
 void func_i2_80193800(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
@@ -611,11 +845,11 @@ void func_i2_80194728(Player* player) {
 
     Math_SmoothStepToF(&player->unk_130, 0.0f, 0.1f, 15.0f, 0.0f);
     Math_SmoothStepToF(&player->unk_12C, 0.0f, 0.1f, 15.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_0E4, 0.0f, 0.1f, 3.0f,  0.0f);
-    Math_SmoothStepToF(&player->unk_0E8, 0.0f, 0.1f, 3.0f,  0.0f);
-    Math_SmoothStepToF(&player->unk_0EC, 0.0f, 0.1f, 3.0f,  0.0f);
-    Math_SmoothStepToF(&player->unk_08C, 0.0f, 0.1f, 3.0f,  0.0f);
-    Math_SmoothStepToF(&player->unk_034, 0.0f, 0.1f, 3.0f,  0.0f);
+    Math_SmoothStepToF(&player->unk_0E4, 0.0f, 0.1f, 3.0f, 0.0f);
+    Math_SmoothStepToF(&player->unk_0E8, 0.0f, 0.1f, 3.0f, 0.0f);
+    Math_SmoothStepToF(&player->unk_0EC, 0.0f, 0.1f, 3.0f, 0.0f);
+    Math_SmoothStepToF(&player->unk_08C, 0.0f, 0.1f, 3.0f, 0.0f);
+    Math_SmoothStepToF(&player->unk_034, 0.0f, 0.1f, 3.0f, 0.0f);
     Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 20.0f, 0.0f);
     Math_SmoothStepToF(&player->unk_110, 0.0f, 0.1f, 3.0f, 0.0f);
 
