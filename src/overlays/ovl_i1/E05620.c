@@ -45,7 +45,7 @@ void func_i1_80198968(Item* item) {
             item->obj.pos.x += ((gPlayer[item->unk_4E].pos.x - item->obj.pos.x) * 0.05f);
             item->obj.pos.y += ((gPlayer[item->unk_4E].pos.y - item->obj.pos.y) * 0.05f);
             if (gPlayer->unk_238 != 0) {
-                item->obj.pos.z += (((gPlayer[item->unk_4E].unk_138 - 300.0f) - item->obj.pos.z) * 0.05f);
+                item->obj.pos.z += (gPlayer[item->unk_4E].unk_138 - 300.0f)- item->obj.pos.z) * 0.05f;
             } else {
                 item->obj.pos.z += ((gPlayer[item->unk_4E].unk_138 - item->obj.pos.z) * 0.05f);
             }
