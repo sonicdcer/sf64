@@ -611,11 +611,11 @@ void func_i2_80194728(Player* player) {
 
     Math_SmoothStepToF(&player->unk_130, 0.0f, 0.1f, 15.0f, 0.0f);
     Math_SmoothStepToF(&player->unk_12C, 0.0f, 0.1f, 15.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_0E4, 0.0f, 0.1f, 3.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_0E8, 0.0f, 0.1f, 3.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_0EC, 0.0f, 0.1f, 3.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_08C, 0.0f, 0.1f, 3.0f, 0.0f);
-    Math_SmoothStepToF(&player->unk_034, 0.0f, 0.1f, 3.0f, 0.0f);
+    Math_SmoothStepToF(&player->unk_0E4, 0.0f, 0.1f, 3.0f,  0.0f);
+    Math_SmoothStepToF(&player->unk_0E8, 0.0f, 0.1f, 3.0f,  0.0f);
+    Math_SmoothStepToF(&player->unk_0EC, 0.0f, 0.1f, 3.0f,  0.0f);
+    Math_SmoothStepToF(&player->unk_08C, 0.0f, 0.1f, 3.0f,  0.0f);
+    Math_SmoothStepToF(&player->unk_034, 0.0f, 0.1f, 3.0f,  0.0f);
     Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 20.0f, 0.0f);
     Math_SmoothStepToF(&player->unk_110, 0.0f, 0.1f, 3.0f, 0.0f);
 
@@ -662,21 +662,19 @@ void func_i2_80194728(Player* player) {
             Math_SmoothStepToF(&player->camEye.z, player->unk_138 + D_80177D20 + sp48.z, D_80177A48[0], 500.0f, 0.0f);
             Matrix_Pop(&gCalcMatrix);
             sp54.x = 0.0f;
-            sp54.y = 0.0f;
+            sp54.y = 0;
             sp54.z = D_80177A48[5];
             Matrix_MultVec3f(gCalcMatrix, &sp54, &sp48);
             Math_SmoothStepToF(&player->camAt.x, player->pos.x + sp48.x, D_80177A48[1], 500.0f, 0.0f);
             Math_SmoothStepToF(&player->camAt.y, player->pos.y + sp48.y, D_80177A48[1], 500.0f, 0.0f);
             Math_SmoothStepToF(&player->camAt.z, player->unk_138 + D_80177D20 + sp48.z, D_80177A48[1], 500.0f, 0.0f);
-            // phi_v1 = D_80177A80;
             break;
         case 2:
             player->unk_0D0 += 2.0f;
             if (player->timer_1F8 == 0) {
                 Math_SmoothStepToAngle(&player->unk_0E4, 20.0f, 0.1f, 0.5f, 0.0f);
             }
-            // temp_v1 = D_80177A80;
-            // phi_v1 = temp_v1;
+
             if (D_80177A80 == 0x4AB) {
                 func_8001DBD0(0xA);
             }
