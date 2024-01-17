@@ -57,6 +57,7 @@ extern u16 D_6000C80[];
 extern u8 D_6001260[];
 extern u8 D_60012D0[];
 extern u8 D_6002890[];
+extern Gfx D_6003090[];
 
 void func_80084930(f32, f32, s32);
 void func_80086444(void);
@@ -3644,9 +3645,67 @@ void func_8008FA84(void) {
     func_80088970();
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008FE78.s")
+void func_8008FE78(Boss* boss) {
+    RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
+    gSPDisplayList(gMasterDisp++, D_6003090);
+    RCP_SetupDL_34(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
+    gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+    gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 0, (s32) boss->fwork[1], (s32) boss->fwork[2], 255);
+    gSPDisplayList(gMasterDisp++, D_600D5C0);
+    gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
+}
 
+#ifdef IMPORT_DATA
+void func_8008FFF0(Boss* boss, s32 arg1) {
+    Vec3s D_800D21C8[] = {
+        { -385, 54, 233 },   { -324, 148, 193 },  { -267, 186, 136 },  { -128, 430, 180 },  { -231, 584, 140 },
+        { -431, 551, -120 }, { -285, 516, -32 },  { -285, 601, 18 },   { 300, 596, 18 },    { 300, 529, -65 },
+        { 491, 529, -178 },  { 94, 457, 219 },    { 247, 457, 36 },    { 220, 611, 129 },   { 220, 427, 129 },
+        { 150, 451, 213 },   { 72, 379, 156 },    { 98, 255, 156 },    { 263, 188, 156 },   { 96, 289, 55 },
+        { 375, 43, 215 },    { 2, 43, -431 },     { 50, 154, -354 },   { -59, 231, -211 },  { 40, 272, -133 },
+        { -48, 370, -147 },  { -116, 410, -153 }, { -116, 600, -230 }, { -231, 580, -285 }, { -231, 498, -218 },
+        { -413, 450, -269 }, { -203, 450, -152 }, { 149, 450, -152 },  { 308, 450, -213 },  { 308, 552, -326 },
+        { 376, 494, -304 },  { 376, 494, -304 },
+    };
+    s32 i;
+    f32 temp;
+    s32 temp2;
+
+    while (1) {
+        if (arg1 < 7000) {
+            break;
+        }
+
+        temp2 = arg1 - 7000;
+
+        if (temp2 > 1596) {
+            temp2 = 1596;
+        }
+
+        temp = temp2 / 1596.0f;
+
+        if (boss->swork[0] != 1) {
+            temp /= 2.0f;
+        }
+
+        i = Rand_ZeroOne() * 36.0f;
+
+        if (!(gFrameCount & 2)) {
+            func_8007C120(boss->obj.pos.x + D_800D21C8[i].x, boss->obj.pos.y + D_800D21C8[i].y,
+                          boss->obj.pos.z + D_800D21C8[i].z, 0.0f, 0.0f, 0.0f, 0.3f * temp, 20);
+        }
+
+        if (!(gFrameCount & 7)) {
+            func_8007BFFC(boss->obj.pos.x + D_800D21C8[i].x, boss->obj.pos.y + D_800D21C8[i].y,
+                          boss->obj.pos.z + D_800D21C8[i].z, 0.0f, 0.0f, 0.0f, 7.0f * temp, 10);
+        }
+        break;
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008FFF0.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80090200.s")
 
