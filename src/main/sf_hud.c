@@ -4475,7 +4475,71 @@ void func_800922F4(Actor* actor) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800924E0.s")
+bool func_800924E0(Actor* actor) {
+    Vec3f src;
+    Vec3f dest;
+    f32 var_fv0;
+    bool ret = false;
+
+    if (actor->iwork[7] == 0) {
+        actor->vwork[29].x = actor->obj.rot.x;
+        actor->iwork[7] = 1;
+        actor->iwork[1] = 1;
+    }
+
+    if (actor->fwork[29] < 2.0f) {
+        actor->fwork[29] = 2.0f;
+    }
+
+    var_fv0 = 60.0f;
+
+    if (actor->fwork[19] > 240.0f) {
+        var_fv0 = -50.0f;
+    }
+
+    Math_SmoothStepToF(&actor->fwork[15], var_fv0, 0.3f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&actor->fwork[26], var_fv0, 0.3f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&actor->fwork[16], var_fv0, 0.3f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&actor->fwork[27], var_fv0, 0.3f, 100.0f, 0.0f);
+
+    if (actor->fwork[19] < 180.0f) {
+        actor->obj.pos.y += 2.0f;
+    }
+
+    if (Math_SmoothStepToF(&actor->fwork[19], 360.0f, 0.1f, 5.0f, 0.01f) == 0.0f) {
+        actor->obj.rot.x = actor->vwork[29].x;
+        actor->fwork[19] = actor->vwork[29].x = 0.0f;
+        ret = true;
+        actor->iwork[7] = 0;
+        actor->fwork[29] = 1.0f;
+    }
+
+    if (actor->iwork[7] != 0) {
+        Math_SmoothStepToAngle(&actor->vwork[29].x, 0.0f, 0.1f, 5.0f, 0.0f);
+        Math_SmoothStepToAngle(&actor->obj.rot.z, 0.0f, 0.1f, 5.0f, 0.0f);
+        actor->obj.rot.x = actor->vwork[29].x + (360.0f - actor->fwork[19]);
+
+        Matrix_RotateY(gCalcMatrix, actor->unk_0F4.y * M_DTOR, 0);
+        Matrix_RotateX(gCalcMatrix, -(M_DTOR * ((actor->unk_0F4.x + actor->vwork[29].x) + actor->fwork[19])), 1);
+
+        src.z = actor->fwork[1];
+        src.y = 0.0f;
+        src.x = 0.0f;
+
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
+        actor->vel.x = dest.x;
+        actor->vel.y = dest.y;
+        actor->vel.z = dest.z;
+
+        if (actor->obj.pos.y < gGroundLevel + 50.0f) {
+            actor->obj.pos.y = gGroundLevel + 50.0f;
+            actor->vel.y = 0.0f;
+        }
+    }
+
+    return ret;
+}
 
 bool func_800927A0(Actor* actor) {
     Vec3f src;
