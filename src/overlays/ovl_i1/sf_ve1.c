@@ -12,7 +12,7 @@ void func_i1_801922DC(Object_4C* this) {
     for (i = 0; i < 4; i++, boss++) {
         if ((boss->obj.status != 0) && (boss->obj.id == OBJ_BOSS_319)) {
             if (boss->obj.pos.z <= this->obj.pos.z) {
-                D_i1_8019C0B8 = (s32)this->obj.rot.x + 1;
+                D_i1_8019C0B8 = (s32) this->obj.rot.x + 1;
                 this->obj.status = 0;
             }
             break;
@@ -20,7 +20,21 @@ void func_i1_801922DC(Object_4C* this) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_80192358.s")
+
+void func_i1_80192358(Object_4C* this) {
+    Boss* boss = gBosses;
+    s32 i;
+
+    for (i = 0; i < 4; i++, boss++) {
+        if ((boss->obj.status != 0) && (boss->obj.id == 0x13F)) {
+            if (boss->obj.pos.z <= this->obj.pos.z) {
+                D_i1_8019C0B8 = 0;
+                this->obj.status = 0;
+            }
+            break;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_801923C0.s")
 
@@ -89,3 +103,4 @@ void func_i1_80192CB0(Actor* actor) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_801988B8.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/D_i1_8019B2B0.s")
+
