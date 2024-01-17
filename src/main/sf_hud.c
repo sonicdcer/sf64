@@ -62,6 +62,7 @@ extern Gfx D_6003090[];
 void func_80084930(f32, f32, s32);
 void func_80086444(void);
 void func_80087788(void);
+void func_801BE034(Actor*, Player*);
 
 #ifdef IMPORT_DATA
 void func_80084930(f32 arg0, f32 arg1, s32 arg2) {
@@ -4482,7 +4483,50 @@ void func_800922F4(Actor* actor) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80092EC0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80093164.s")
+void func_80093164(Actor* actor) {
+    Vec3f src;
+    Vec3f dest;
+    Player* player = &gPlayer[0];
+
+    if (actor->unk_0B8 == 0) {
+        switch (actor->unk_0B6) {
+            case 1:
+                if ((player->state_1C8 != PLAYERSTATE_1C8_2) || (actor->unk_0B6 != 1)) {
+                    if (D_80177A80 > 1588) {
+                        actor->fwork[0] = 5.0f;
+                    } else {
+                        actor->fwork[0] = 15.0f;
+                    }
+                    actor->fwork[0] = 12.0f;
+                }
+                break;
+
+            case 41:
+                func_801BE034(actor, player);
+                break;
+
+            case 44:
+                actor->iwork[0]++;
+                if (actor->iwork[0] >= 0x77) {
+                    actor->iwork[0] = 0;
+                }
+                break;
+        }
+    }
+
+    Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * M_DTOR, 0);
+    Matrix_RotateX(gCalcMatrix, -(actor->unk_0F4.x * M_DTOR), 1);
+    src.x = 0.0f;
+    src.y = 0.0f;
+    src.z = actor->fwork[0];
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+    actor->vel.x = dest.x;
+    actor->vel.y = dest.y;
+    actor->vel.z = dest.z;
+    actor->obj.rot.x = -actor->unk_0F4.x;
+    actor->obj.rot.y = actor->unk_0F4.y + 180.0f;
+    actor->obj.rot.z = -actor->unk_0F4.z;
+}
 
 void func_80093310(void) {
     Actor* this = &gActors[0];
