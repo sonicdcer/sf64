@@ -1,6 +1,6 @@
 # Discord Server
 
-https://discord.gg/FU6tzym9
+https://discord.gg/tuwdmuTTqc
 
 # Starfox 64 (US) REV 1.1
 
