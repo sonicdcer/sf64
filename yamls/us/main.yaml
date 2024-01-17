@@ -173,8 +173,8 @@
       - [0x2EFE0, c, fox_360]
       - [0x36930, c, fox_beam]
       - [0x3E6F0, c, fox_bg]
-      - [0x43AC0, c, fox_43AC0]
-      - [0x43E80, c, fox_43E80]
+      - [0x43AC0, c, fox_boss]
+      - [0x43E80, c, fox_tank]
       - [0x496C0, c, fox_demo]
       - [0x52730, c, fox_display]
       - [0x59780, c, fox_load]
@@ -266,8 +266,8 @@
       - [0xCA690, .data, fox_360]
       - [0xCA7C0, .data, fox_beam]
       - [0xCA830, .data, fox_bg]
-      - [0xCAA90, .data, fox_43AC0]
-      - [0xCAB00, .data, fox_43E80]
+      - [0xCAA90, .data, fox_boss]
+      - [0xCAB00, .data, fox_tank]
       - [0xCAB60, .data, fox_demo]
       - [0xCAE20, .data, fox_display]
       - [0xCAFB0, .data, fox_load]
@@ -291,8 +291,8 @@
       - [0xD5A10, .rodata, fox_360]
       - [0xD5CF0, .rodata, fox_beam]
       - [0xD5F90, .rodata, fox_bg]
-      - [0xD61D0, .rodata, fox_43AC0]
-      - [0xD61F0, .rodata, fox_43E80]
+      - [0xD61D0, .rodata, fox_boss]
+      - [0xD61F0, .rodata, fox_tank]
       - [0xD6350, .rodata, fox_demo]
       - [0xD69A0, .rodata, fox_display]
       - [0xD6BA0, .rodata, fox_load]
@@ -359,7 +359,7 @@
       - { start: 0xDE480, type: .bss, vram: 0x8015F900, name: fox_360 }
       - { start: 0xDE480, type: .bss, vram: 0x8015F950, name: fox_beam }
       - { start: 0xDE480, type: .bss, vram: 0x8015F960, name: fox_bg }
-      - { start: 0xDE480, type: .bss, vram: 0x801613A0, name: fox_43AC0 }
+      - { start: 0xDE480, type: .bss, vram: 0x801613A0, name: fox_boss }
       - { start: 0xDE480, type: .bss, vram: 0x801613B0, name: fox_display }
       - { start: 0xDE480, type: .bss, vram: 0x801615D0, name: fox_edisplay }
       - { start: 0xDE480, type: .bss, vram: 0x80161670, name: fox_enmy }

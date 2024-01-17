@@ -93,7 +93,7 @@ typedef struct {
 extern DmaEntry gDmaTable[]; // 178A70
 
 extern OverlayInit sNoOvl_Logo[1]; // sets segment 15 with no overlay
-extern OverlayInit sOvlEF0260_Credits[6]; // overlay EF0260
+extern OverlayInit sOvlending_Credits[6]; // overlay EF0260
 extern OverlayInit sOvlmenu_Title[1]; // EBFBE0
 extern OverlayInit sOvlmenu_Menu[1]; // EBFBE0
 extern OverlayInit sOvlmenu_Map[1]; // EBFBE0
@@ -107,19 +107,19 @@ extern OverlayInit sOvli3_Aquas[1]; // i3
 extern OverlayInit sOvli3_Area6[1]; // i3
 extern OverlayInit sOvli4_Fortuna[2]; // i4
 extern OverlayInit sOvli3_Unk4[1]; // i3
-extern OverlayInit sOvlE9F1D0_SectorY[1]; // E9F1D0
+extern OverlayInit sOvli6_SectorY[1]; // E9F1D0
 extern OverlayInit sOvli3_Solar[1]; // i3
 extern OverlayInit sOvli3_Zoness[1]; // i3
 extern OverlayInit sOvli1_Venom1[1]; // fox_i1
-extern OverlayInit sOvlE9F1D0_Venom2[1]; // E9F1D0
-extern OverlayInit sOvlE9F1D0_VenomSW[2]; // E9F1D0
+extern OverlayInit sOvli6_Venom2[1]; // E9F1D0
+extern OverlayInit sOvli6_VenomSW[2]; // E9F1D0
 extern OverlayInit sOvli2_Setup20[1]; // fox_i2
 extern OverlayInit sOvli4_Bolse[1]; // i4
 extern OverlayInit sOvli4_Katina[1]; // i4
 extern OverlayInit sOvli5_Macbeth[2]; // E6A810
 extern OverlayInit sOvli1_Training[1]; // fox_i1
 extern OverlayInit sOvli2_Versus[2]; // fox_i2
-extern OverlayInit sEFFA40_Overlay[1]; // EFFA40
+extern OverlayInit sunused_Overlay[1]; // EFFA40
 
 DECLARE_SEGMENT(makerom);
 DECLARE_SEGMENT(main);

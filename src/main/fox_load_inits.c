@@ -40,7 +40,7 @@ OverlayInit sNoOvl_Logo[1] = {
         /* 0xF */ ROM_SEGMENT(ast_D25100) } },
 };
 
-OverlayInit sOvlEF0260_Credits[6] = {
+OverlayInit sOvlending_Credits[6] = {
     { OVERLAY_OFFSETS(ovl_ending),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,
@@ -514,7 +514,7 @@ OverlayInit sOvli3_Unk4[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlE9F1D0_SectorY[1] = {
+OverlayInit sOvli6_SectorY[1] = {
     { OVERLAY_OFFSETS(ovl_i6),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8A68C0),
@@ -590,7 +590,7 @@ OverlayInit sOvli1_Venom1[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlE9F1D0_Venom2[1] = {
+OverlayInit sOvli6_Venom2[1] = {
     { OVERLAY_OFFSETS(ovl_i6),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -609,7 +609,7 @@ OverlayInit sOvlE9F1D0_Venom2[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlE9F1D0_VenomSW[2] = {
+OverlayInit sOvli6_VenomSW[2] = {
     { OVERLAY_OFFSETS(ovl_i6),
       { /* 0x1 */ ROM_SEGMENT(ast_873CB0),
         /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
@@ -790,7 +790,7 @@ OverlayInit sOvli2_Versus[2] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sEFFA40_Overlay[1] = {
+OverlayInit sunused_Overlay[1] = {
     { OVERLAY_OFFSETS(ovl_unused),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,

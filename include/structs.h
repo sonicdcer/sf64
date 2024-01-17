@@ -56,7 +56,6 @@ typedef struct {
 
 typedef struct {
     /* 0x00 */ u8 unk_00;
-    /* 0x01 */ char pad01[0x1];
     /* 0x02 */ u16 unk_02;
     /* 0x04 */ Vec3f pos;
     /* 0x10 */ f32 unk_10;

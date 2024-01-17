@@ -9,20 +9,20 @@
     subsegments:
     - [0xDF4260, c, fox_i1]
     - [0xDF4270, c, fox_co]
-    - [0xDFEE30, c, DFEE30]
-    - [0xE05620, c, E05620]
-    - [0xE05990, c, E05990]
+    - [0xDFEE30, c, sf_ve1]
+    - [0xE05620, c, fox_tr]
+    - [0xE05990, c, sf_tr360]
     - [0xE06510, .data, fox_i1]
     - [0xE06520, .data, fox_co]
-    - [0xE06880, data, DFEE30]
-    - [0xE07B90, data, E05990]
+    - [0xE06880, data, sf_ve1]
+    - [0xE07B90, data, sf_tr360]
     - [0xE07C30, .rodata, fox_co]
-    - [0xE07FF0, .rodata, DFEE30]
-    - [0xE08380, .rodata, E05620]
-    - [0xE083C0, .rodata, E05990]
+    - [0xE07FF0, .rodata, sf_ve1]
+    - [0xE08380, .rodata, fox_tr]
+    - [0xE083C0, .rodata, sf_tr360]
     - { start: 0xE08400, type: .bss, vram: 0x8019B6C0, name: fox_i1 }
     - { type: .bss, vram: 0x8019B6D0, name: fox_co }
-    - { type: bss, vram: 0x8019B7F0, name: DFEE30 }
+    - { type: bss, vram: 0x8019B7F0, name: sf_ve1 }
 
   - name: ovl_i2
     type: code
@@ -115,20 +115,20 @@
     - [0xE6A820, c, fox_ti_cs]
     - [0xE6C220, c, fox_ti]
     - [0xE7CC10, c, fox_ma]
-    - [0xE97CC0, c, E97CC0]
+    - [0xE97CC0, c, sf_i5_4]
     - [0xE9A580, .data, fox_i5]
-    - [0xE9A590, data, fox_ti_cs]
+    - [0xE9A590, .data, fox_ti_cs]
     - [0xE9A650, data, fox_ti]
-    - [0xE9DC00, data, E97CC0]
+    - [0xE9DC00, data, sf_i5_4]
     - [0xE9DCD0, .rodata, fox_i5]
     - [0xE9DCE0, .rodata, fox_ti_cs]
     - [0xE9DD40, .rodata, fox_ti]
     - [0xE9E5A0, .rodata, fox_ma]
-    - [0xE9F0E0, .rodata, E97CC0]
+    - [0xE9F0E0, .rodata, sf_i5_4]
     - { start: 0xE9F1D0, type: .bss, vram: 0x801BBEE0, name: fox_i5 }
     - { type: bss, vram: 0x801BBEF0, name: fox_ti }
     - { type: bss, vram: 0x801BE240, name: fox_ma }
-    - { type: bss, vram: 0x801BE740, name: E97CC0 }
+    - { type: bss, vram: 0x801BE740, name: sf_i5_4 }
 
   - name: ovl_i6
     type: code
@@ -137,25 +137,25 @@
     vram: 0x80187520
     bss_size: 0x520
     exclusive_ram_id: overlay
-    symbol_name_format: E9F1D0_$VRAM
+    symbol_name_format: i6_$VRAM
     subsegments:
     - [0xE9F1D0, c, fox_i6]
-    - [0xE9F1E0, c, E9F1E0]
-    - [0xEADEC0, c, EADECO]
+    - [0xE9F1E0, c, sf_i6_1]
+    - [0xEADEC0, c, sf_i6_2]
     - [0xEAF7E0, c, fox_sy]
-    - [0xEBD210, c, EBD210]
+    - [0xEBD210, c, sf_i6_4]
     - [0xEBE400, .data, fox_i6]
-    - [0xEBE410, data, E9F1E0]
-    - [0xEBE560, data, EADCE0]
+    - [0xEBE410, data, sf_i6_1]
+    - [0xEBE560, data, sf_i6_2]
     - [0xEBE5C0, data, fox_sy]
-    - [0xEBE830, data, EBD210]
+    - [0xEBE830, data, sf_i6_4]
     - [0xEBE840, .rodata, fox_i6]
-    - [0xEBE850, .rodata, E9F1E0]
-    - [0xEBF0F0, .rodata, EADECO]
+    - [0xEBE850, .rodata, sf_i6_1]
+    - [0xEBF0F0, .rodata, sf_i6_2]
     - [0xEBF130, .rodata, fox_sy]
-    - [0xEBFB80, .rodata, EBD210]
+    - [0xEBFB80, .rodata, sf_i6_4]
     - { start: 0xEBFBE0, type: .bss, vram: 0x801A7F30, name: fox_i6 }
-    - { type: bss, vram: 0x801A7F40, name: E9F1E0 }
+    - { type: bss, vram: 0x801A7F40, name: sf_i6_1 }
     - { type: bss, vram: 0x801A8440, name: fox_sy }
     
   - name: ovl_menu
@@ -190,15 +190,16 @@
     vram: 0x80187520
     bss_size: 0x2710
     exclusive_ram_id: overlay
-    symbol_name_format: EF0260_$VRAM
+    symbol_name_format: ending_$VRAM
     subsegments:
-    - [0xEF0260, c, EF0260]
-    - [0xEF5B60, c, EF5B60]
-    - [0xEFB560, data, EF0260]
-    - [0xEFBBB0, data, EF5B60]
-    - [0xEFEF80, .rodata, EF0260]
-    - [0xEFF380, .rodata, EF5B60]
-    - { start: 0xEFFA40, type: bss, vram: 0x80196D00, name: ovl_ending }
+    - [0xEF0260, c, sf_ending_1]
+    - [0xEF5B60, c, sf_ending_2]
+    - [0xEFB560, data, sf_ending_1]
+    - [0xEFBBB0, data, sf_ending_2]
+    - [0xEFEF80, .rodata, sf_ending_1]
+    - [0xEFF380, .rodata, sf_ending_2]
+    - { start: 0xEFFA40, type: bss, vram: 0x80196D00, name: sf_ending_1 }
+    - { type: bss, vram: 0x80198590, name: sf_ending_2 }
     
   - name: ovl_unused
     type: code
@@ -207,10 +208,10 @@
     vram: 0x80187520
     bss_size: 0x10
     exclusive_ram_id: overlay
-    symbol_name_format: EFFA40_$VRAM
+    symbol_name_format: unused_$VRAM
     subsegments:
-    - [0xEFFA40, c, EFFA40]
-    - [0xEFFA50, data, EFFA40]
-    - { start: 0xEFFAE0, type: bss, vram: 0x801875C0, name: ovl_unused }
+    - [0xEFFA40, c, fox_unused]
+    - [0xEFFA50, .data, fox_unused]
+    - { start: 0xEFFAE0, type: .bss, vram: 0x801875C0, name: fox_unused }
 
   - [0xEFFAE0]

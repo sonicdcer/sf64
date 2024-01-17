@@ -273,7 +273,7 @@ void func_800A24DC(s32 arg0) {
         case DRAWMODE_8:
             func_8003DAF0();
             gPlayerNum = arg0;
-            func_EF0260_8018AAC4();
+            func_ending_8018AAC4();
             break;
     }
 }
@@ -460,7 +460,7 @@ void func_800A26C0(void) {
                 break;
             case GSTATE_CREDITS:
                 gDrawMode = DRAWMODE_8;
-                func_EF0260_8018A96C();
+                func_ending_8018A96C();
                 break;
             default:
                 break;

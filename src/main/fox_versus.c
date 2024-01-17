@@ -772,7 +772,7 @@ void func_800BF750(void) {
             continue;
         }
         for (j = 0, temp = 0; j < 4; j++) {
-            if ((D_80177B00[i][j] != 0) && (gFrameCount & 4)) {
+            if ((D_80177B00[i][j] != 0) && (gGameFrameCount & 4)) {
                 gDPSetPrimColor(gMasterDisp++, 0, 0, D_800D4C3C[j], D_800D4C4C[j], D_800D4C5C[j], 255);
                 func_800BDA54(D_800D4C1C[i] + temp * 9.0f, D_800D4C2C[i]);
                 temp++;
@@ -1838,7 +1838,7 @@ void func_800C20B0(void) {
             D_80178758 = 0;
             break;
     }
-    gFrameCount++;
+    gGameFrameCount++;
 }
 
 void func_800C2190(void) {
@@ -1903,7 +1903,7 @@ void func_800C2244(Actor* actor) {
         y = actor->fwork[5] - actor->obj.pos.y;
         z = actor->fwork[6] - actor->obj.pos.z;
 
-        if (!((gFrameCount + actor->index) & 7)) {
+        if (!((gGameFrameCount + actor->index) & 7)) {
             actor->fwork[19] = Math_RadToDeg((Math_Atan2F(x, z)));
             z = sqrtf(SQ(x) + SQ(z));
             actor->fwork[20] = Math_RadToDeg((Math_Atan2F(y, z)));

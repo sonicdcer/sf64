@@ -336,6 +336,8 @@ void func_i3_8019FFC0(Boss* bossSO, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s3
 // OBJ_EFFECT_392 action
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_so/func_i3_801A0120.s")
 
+
+
 Gfx* D_i3_801BF92C[6] = {
     D_200B630, D_200A5A0, D_2009510, D_60084C0, D_6008D40, D_6007C40,
 };
@@ -877,7 +879,7 @@ void func_i3_801A3510(Boss* bossSO) {
             if (bossSO->timer_050 != 0) {
                 bossSO->unk_04C = 65;
             }
-            if ((bossSO->unk_04C == 65) && !(gFrameCount & 1)) {
+            if ((bossSO->unk_04C == 65) && !(gGameFrameCount & 1)) {
                 func_i3_8019FFC0(bossSO, bossSO->fwork[4], bossSO->fwork[5] - 100.0f, bossSO->fwork[6] + 600.0f,
                                  (bossSO->timer_050 * 0.2f) + 4.0f, 0);
                 func_i3_801A1EB0(bossSO, bossSO->fwork[4], 25.0f, bossSO->fwork[5] - 100.0f, bossSO->fwork[6] + 300.0f);
@@ -899,7 +901,7 @@ void func_i3_801A3510(Boss* bossSO) {
             if (bossSO->timer_050 != 0) {
                 bossSO->unk_04C = 66;
             }
-            if ((bossSO->unk_04C == 66) && !(gFrameCount & 1)) {
+            if ((bossSO->unk_04C == 66) && !(gGameFrameCount & 1)) {
                 func_i3_8019FFC0(bossSO, bossSO->fwork[4] + 125.0f, bossSO->fwork[5] - 100.0f,
                                  bossSO->fwork[6] + 600.0f, (bossSO->timer_050 * 0.2f) + 4.0f, 1);
                 func_i3_8019FFC0(bossSO, bossSO->fwork[4] - 125.0f, bossSO->fwork[5] - 100.0f,
@@ -1411,7 +1413,7 @@ void func_i3_801A56B8(Boss* bossSO) {
             if (bossSO->timer_050 != 0) {
                 bossSO->unk_04C = 65;
             }
-            if ((bossSO->unk_04C == 65) && !(gFrameCount & 3)) {
+            if ((bossSO->unk_04C == 65) && !(gGameFrameCount & 3)) {
                 func_i3_8019FFC0(bossSO, bossSO->fwork[4] + 125.0f, bossSO->fwork[5] - 100.0f,
                                  bossSO->fwork[6] + 600.0f, ((f32) bossSO->timer_050 * 0.2f) + 4.0f, 1);
                 func_i3_8019FFC0(bossSO, bossSO->fwork[4] - 125.0f, bossSO->fwork[5] - 100.0f,
@@ -1513,7 +1515,7 @@ void func_i3_801A5B3C(Boss *bossSO) {
         bossSO->info.hitbox[39] = bossSO->fwork[0x1A] - bossSO->obj.pos.y;
         bossSO->info.hitbox[41] = bossSO->fwork[0x19] - bossSO->obj.pos.x;
     }
-    if (!(gFrameCount & 7) && (bossSO->fwork[3] < 4800.0f)) {
+    if (!(gGameFrameCount & 7) && (bossSO->fwork[3] < 4800.0f)) {
         if (func_800A73E4(&sp1C0, &sp1B8, bossSO->obj.pos.x, bossSO->obj.pos.y - 160.0f, bossSO->obj.pos.z) != 0) {
             func_i3_801A1EB0(bossSO, bossSO->obj.pos.x, 50.0f, sp1C0 - 170.0f, bossSO->obj.pos.z + 100.0f);
         }
@@ -1524,7 +1526,7 @@ void func_i3_801A5B3C(Boss *bossSO) {
             func_i3_801A1EB0(bossSO, bossSO->fwork[0xD], 50.0f, sp1C0 - 150.0f, bossSO->fwork[0xF] + 150.0f);
         }
     }
-    if ((!(gFrameCount & 3) || (bossSO->fwork[0x1F] != 0.0f)) && ((bossSO->swork[0] != 7) || !(gFrameCount & 1))) {
+    if ((!(gGameFrameCount & 3) || (bossSO->fwork[0x1F] != 0.0f)) && ((bossSO->swork[0] != 7) || !(gGameFrameCount & 1))) {
         if ((bossSO->swork[2] == 0) && ((bossSO->health > 0) || (bossSO->actionState < 2))) {
             func_i3_8019FF44(bossSO, bossSO->fwork[0xA], bossSO->fwork[0xB], bossSO->fwork[0xC], bossSO->fwork[0x1F] - 20.0f, -1.0f);
         }
@@ -2089,7 +2091,7 @@ void func_i3_801A7930(Player* player) {
             D_80178358 = 0;
             D_8017835C = 4;
             if (D_801782F8 != 0) {
-                player->wings.unk_30 = (gFrameCount & 1) * 5.0f;
+                player->wings.unk_30 = (gGameFrameCount & 1) * 5.0f;
             }
             switch (D_80177A80) {
                 case 450:
