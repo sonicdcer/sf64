@@ -8,55 +8,33 @@ s32 D_i2_80195640 = 0;
 Vec3f D_i2_80195644 = { 73.0f, -102.0f, 80.0f };
 Vec3f D_i2_80195650 = { 90.0f, 0.0f, 0.0f };
 Vec3f D_i2_8019565C = { 73.0f, -102.0f, -80.0f };
-f32 D_i2_80195668[] = { 90.0f, 0.0f, 0.0f };
-Vec3f D_i2_80195674 = { 0.0f, 0.0f, 0.0f };
-Vec3f D_i2_80195680 = { 87.0f, -323.0f, 200.0f };
-Vec3f D_i2_8019568C = { 87.0f, -323.0f, -200.0f };
-Vec3f D_i2_80195698 = { 87.0f, -323.0f, 200.0f };
-Vec3f D_i2_801956A4 = { 87.0f, -323.0f, -200.0f };
-Vec3f D_i2_801956B0[5] = {
-    { 0.0f, 2300.0f, -5000.0f },   { -600.0f, 2200.0f, -5000.0f }, { -300.0f, 2270.0f, -5000.0f },
-    { 300.0f, 2270.0f, -5000.0f }, { 600.0f, 2200.0f, -5000.0f },
-};
-Vec3f D_i2_801956EC[3] = {
-    { 150.0f, 250.0f, 50.0f },
-    { -150.0f, -50.0f, 50.0f },
-    { 150.0f, -50.0f, 50.0f },
-};
-f32 D_i2_80195710[4] = { -1200.0f, 1000.0f, 0.0f, 0.0f };
-f32 D_i2_80195720[4] = { -300.0f, 400.0f, -400.0f, 0.0f };
-f32 D_i2_80195730[4] = { -800.0f, -800.0f, -1000.0f, -8000.0f };
-f32 D_i2_80195740[4] = { -150.0f, 150.0f, 0.0f, 0.0f };
-f32 D_i2_80195750[4] = { 20.0f, 0.0f, -70.0f, 0.0f };
-f32 D_i2_80195760[4] = { -250.0f, -200.0f, -400.0f, -8000.0f };
-f32 D_i2_80195770[3] = { 120.0f, 180.0f, -150.0f };
-s16 D_i2_8019577C[3] = { 2, 3, 4 };
+Vec3f D_i2_80195668 = { 90.0f, 0.0f, 0.0f };
 
 extern Gfx D_60010C0[];
 extern Gfx D_6006810[];
 extern Gfx D_6009C30[];
-extern AnimationHeader D_60206DC;
-extern Limb* D_6020C68;
-extern Gfx D_6020D20[];
-extern f32 D_60328CC[];
 extern AnimationHeader D_6009FF8;
 extern AnimationHeader D_600A2D4;
 extern AnimationHeader D_600F890;
 extern AnimationHeader D_60123BC;
 extern AnimationHeader D_6013798;
 extern AnimationHeader D_60158C4;
-extern AnimationHeader D_6016E28[];
+extern AnimationHeader D_6016E28;
 extern AnimationHeader D_601AA28;
 extern AnimationHeader D_601C690;
+extern AnimationHeader D_60206DC;
+extern Limb* D_6020C68;
+extern Gfx D_6020D20[];
 extern Gfx D_603265C[];
 extern Gfx D_6032768[];
+extern f32 D_60328CC[];
 extern s32 D_800C9E90[];
 
-extern s32 func_i2_80192AF0(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4);
-extern void func_i2_80193208(s32, Vec3f*, void*);
-extern void func_800B5D30(Player*, s32);
 extern void func_i2_8018F030(void);
+extern s32 func_i2_80192AF0(s32, Gfx**, Vec3f*, Vec3f*, void*);
+extern void func_i2_80193208(s32, Vec3f*, void*);
 extern void func_8001D9E0(s32, u16, s32, s32, s32);
+extern void func_800B5D30(Player*, s32);
 
 void func_i2_8018F030(void) {
     s32 i;
@@ -621,13 +599,13 @@ void func_i2_80190078(Boss* boss) {
             boss->fwork[44] = 5.0f;
             boss->fwork[43] = 5.0f;
 
-            frameData = Animation_GetFrameData(D_6016E28, boss->unk_04C, sp80);
+            frameData = Animation_GetFrameData(&D_6016E28, boss->unk_04C, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 100.0f, 0.0f);
 
             Math_SmoothStepToF(boss->fwork, 1.0f, 1.0f, 0.05f, 0);
 
             boss->unk_04C++;
-            if (boss->unk_04C >= Animation_GetFrameCount(D_6016E28)) {
+            if (boss->unk_04C >= Animation_GetFrameCount(&D_6016E28)) {
                 boss->unk_04C = 0;
                 boss->actionState = 2;
                 boss->fwork[0] = 0.0f;
@@ -732,7 +710,7 @@ void func_i2_80190078(Boss* boss) {
             Math_SmoothStepToF(&boss->fwork[43], 10.0f, 1.0f, 1.0f, 0);
             Math_SmoothStepToF(&boss->fwork[42], 50.0f, 1.0f, 3.0f, 0);
 
-            frameData = Animation_GetFrameData(D_6016E28, 0, sp80);
+            frameData = Animation_GetFrameData(&D_6016E28, 0, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 100.0f, 0.0f);
 
             Math_SmoothStepToF(boss->fwork, 1.0f, 1.0f, 0.05f, 0);
@@ -1197,7 +1175,7 @@ void func_i2_80190078(Boss* boss) {
 }
 
 s32 func_i2_80192AF0(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
-    Vec3f sp64 = D_i2_80195674;
+    Vec3f sp64 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp58;
     Boss* boss = (Boss*) arg4;
 
@@ -1257,9 +1235,9 @@ s32 func_i2_80192AF0(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4)
                     gSPDisplayList(gMasterDisp++, D_6009C30);
                     Matrix_Pop(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, D_i2_8019565C.x, D_i2_8019565C.y, D_i2_8019565C.z, (u8) 1);
-                    Matrix_RotateZ(gGfxMatrix, D_i2_80195668[2] * M_DTOR, 1);
-                    Matrix_RotateY(gGfxMatrix, D_i2_80195668[1] * M_DTOR, 1);
-                    Matrix_RotateX(gGfxMatrix, D_i2_80195668[0] * M_DTOR, 1);
+                    Matrix_RotateZ(gGfxMatrix, D_i2_80195668.z * M_DTOR, 1);
+                    Matrix_RotateY(gGfxMatrix, D_i2_80195668.y * M_DTOR, 1);
+                    Matrix_RotateX(gGfxMatrix, D_i2_80195668.x * M_DTOR, 1);
                     Matrix_RotateZ(gGfxMatrix, 2.0f * -gGameFrameCount * M_DTOR, 1);
                     Matrix_Scale(gGfxMatrix, boss->fwork[45], boss->fwork[45], boss->fwork[45], 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
@@ -1315,10 +1293,10 @@ s32 func_i2_80192AF0(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4)
 }
 
 void func_i2_80193208(s32 limbIndex, Vec3f* rot, void* data) {
-    Vec3f sp64 = D_i2_80195680;
-    Vec3f sp58 = D_i2_8019568C;
-    Vec3f sp4C = D_i2_80195698;
-    Vec3f sp40 = D_i2_801956A4;
+    Vec3f sp64 = { 87.0f, -323.0f, 200.0f };
+    Vec3f sp58 = { 87.0f, -323.0f, -200.0f };
+    Vec3f sp4C = { 87.0f, -323.0f, 200.0f };
+    Vec3f sp40 = { 87.0f, -323.0f, -200.0f };
     Vec3f sp34;
     Vec3f sp28;
     Boss* boss = (Boss*) data;
@@ -1372,6 +1350,24 @@ void func_i2_80193208(s32 limbIndex, Vec3f* rot, void* data) {
             break;
     }
 }
+
+Vec3f D_i2_801956B0[5] = {
+    { 0.0f, 2300.0f, -5000.0f },   { -600.0f, 2200.0f, -5000.0f }, { -300.0f, 2270.0f, -5000.0f },
+    { 300.0f, 2270.0f, -5000.0f }, { 600.0f, 2200.0f, -5000.0f },
+};
+Vec3f D_i2_801956EC[3] = {
+    { 150.0f, 250.0f, 50.0f },
+    { -150.0f, -50.0f, 50.0f },
+    { 150.0f, -50.0f, 50.0f },
+};
+f32 D_i2_80195710[4] = { -1200.0f, 1000.0f, 0.0f, 0.0f };
+f32 D_i2_80195720[4] = { -300.0f, 400.0f, -400.0f, 0.0f };
+f32 D_i2_80195730[4] = { -800.0f, -800.0f, -1000.0f, -8000.0f };
+f32 D_i2_80195740[4] = { -150.0f, 150.0f, 0.0f, 0.0f };
+f32 D_i2_80195750[4] = { 20.0f, 0.0f, -70.0f, 0.0f };
+f32 D_i2_80195760[4] = { -250.0f, -200.0f, -400.0f, -8000.0f };
+f32 D_i2_80195770[3] = { 120.0f, 180.0f, -150.0f };
+s16 D_i2_8019577C[3] = { 2, 3, 4 };
 
 void func_i2_80193434(Boss* boss) {
     f32 fwork;
