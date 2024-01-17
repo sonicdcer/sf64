@@ -4479,7 +4479,42 @@ void func_800922F4(Actor* actor) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800927A0.s")
 
+#ifdef IMPORT_DATA
+void func_80092D48(Actor* actor) {
+    s32 D_800D22A8[] = { 1, 2, 3 };
+
+    if (gCurrentLevel != LEVEL_TITANIA) {
+        actor->fwork[1] = 40.0f;
+        actor->fwork[3] = 1.2f;
+        actor->unk_0E4 = (D_800D1970 & 3) + 1;
+        D_800D1970++;
+    } else {
+        actor->unk_0B8 = 7;
+        actor->unk_0E4 = 2;
+        actor->iwork[5] = 0;
+        gTeamShields[2] = 255;
+    }
+
+    actor->iwork[12] = D_800D22A8[actor->unk_0E4 - 1];
+    actor->iwork[11] = 1;
+
+    if (gLevelType == LEVELTYPE_PLANET) {
+        actor->unk_0C9 = 1;
+    }
+
+    Audio_PlaySfx(0x3100000CU, &actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+
+    if (((D_800D1970 & 3) == 2) && (gCurrentLevel == LEVEL_SECTOR_X)) {
+        Object_Kill(&actor->obj, &actor->sfxPos);
+    }
+
+    if (gTeamShields[actor->unk_0E4] <= 0) {
+        Object_Kill(&actor->obj, &actor->sfxPos);
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80092D48.s")
+#endif
 
 void func_80092EC0(Actor* actor) {
     f32 var_fv1;
