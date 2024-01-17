@@ -131,7 +131,7 @@ void func_80040CDC(void);
 void func_80040CE4(void);
 void func_80042D38(void);
 
-// fox_43AC0
+// fox_boss
 void func_80042EC0(Boss* boss);
 void func_80042FAC(Boss* boss);
 void func_80042FB8(Boss* boss);
@@ -142,7 +142,7 @@ void func_80042FE8(Boss* boss);
 void func_800430DC(f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, s32, s32);
 void func_8004319C(Player* player, f32 arg1, f32 arg2, f32 arg3);
 
-// fox_43E80
+// fox_tank
 void func_80043468(Player*  player);
 void func_800444BC(Player * player);
 void func_80044868(Player*);

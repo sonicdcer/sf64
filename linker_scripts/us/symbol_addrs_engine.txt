@@ -151,7 +151,7 @@ Message_IsPrintingChar = 0x800C2F30;
 D_800C9CC4 = 0x800C9CC4;
 D_800C9CF8 = 0x800C9CF8;
 
-// fox_43AC0
+// fox_boss
 gBossFrameCount = 0x801613A0;
 
 // fox_save

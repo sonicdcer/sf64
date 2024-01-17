@@ -10,30 +10,30 @@ s32 D_800C9E90[28] = {
 const f32 D_800D55D0[] = { 6000.0f, 18000.0f, -6000.0f, -18000.0f };
 
 void func_80042EC0(Boss* boss) {
-    s32 var_a3;
-    f32 var_fv0;
+    s32 bonus;
+    f32 yOffset;
 
     if (gBossFrameCount < 3840) {
-        var_a3 = 10;
+        bonus = 10;
     } else if (gBossFrameCount < 5760) {
-        var_a3 = 5;
+        bonus = 5;
     } else if (gBossFrameCount < 7680) {
-        var_a3 = 2;
+        bonus = 2;
     } else if (gBossFrameCount < 9600) {
-        var_a3 = 1;
+        bonus = 1;
     } else {
-        var_a3 = 0;
+        bonus = 0;
     }
-    if (var_a3 != 0) {
-        var_fv0 = 0.0f;
+    if (bonus != 0) {
+        yOffset = 0.0f;
         if (boss->obj.id == OBJ_BOSS_292) {
-            var_fv0 = 300.0f;
+            yOffset = 300.0f;
         } else if (boss->obj.id == OBJ_BOSS_306) {
-            var_fv0 = 200.0f;
+            yOffset = 200.0f;
         }
-        func_80077240(boss->obj.pos.x, boss->obj.pos.y + var_fv0, boss->obj.pos.z, var_a3);
+        func_80077240(boss->obj.pos.x, boss->obj.pos.y + yOffset, boss->obj.pos.z, bonus);
     }
-    gHitCount += var_a3 + 1;
+    gHitCount += bonus + 1;
     D_80177850 = 15;
 }
 
@@ -91,8 +91,8 @@ void func_800430DC(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
     }
 }
 
-void func_80043188(Actor* actor) {
-    actor->info.unk_10 = 30000.0f;
+void func_80043188(Boss* boss) {
+    boss->info.unk_10 = 30000.0f;
 }
 
 void func_8004319C(Player* player, f32 arg1, f32 arg2, f32 arg3) {

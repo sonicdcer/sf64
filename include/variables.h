@@ -135,7 +135,7 @@ extern s32 D_800C9B4C;
 // fox_bg
 extern u16 D_800C9C3C[16];
 
-// fox_43E80
+// fox_tank
 extern Vec3f D_800C9F2C;
 
 // fox_display
@@ -283,7 +283,7 @@ extern s32 D_8015F980;
 extern f32 D_8015F984;
 // extern f32 D_80161394;
 
-// fox_43AC0
+// fox_boss
 extern s32 gBossFrameCount;
 
 // fox_display

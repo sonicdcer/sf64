@@ -1749,7 +1749,7 @@ void func_800A8BA4(Player* player) {
                                     D_80178570 = 20;
                                     D_80178574 = 20;
                                     D_80178578 = 20;
-                                    player->unk_23C = 0x50;
+                                    player->unk_23C = 80;
                                 }
                                 if (player->unk_22C == 0) {
                                     Audio_PlaySfx(0x19000001, &obj80->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
