@@ -184,9 +184,9 @@ void Object_80_Load(Object_80* obj80, ObjectInit* objInit) {
     obj80->obj.pos.z += -3000.0f + objInit->zPos2;
     obj80->obj.pos.x = objInit->xPos;
     obj80->obj.pos.y = objInit->yPos;
-    obj80->obj.rot.x = objInit->unk_A;
-    obj80->obj.rot.y = objInit->unk_C;
-    obj80->obj.rot.z = objInit->unk_E;
+    obj80->obj.rot.x = objInit->rot.x;
+    obj80->obj.rot.y = objInit->rot.y;
+    obj80->obj.rot.z = objInit->rot.z;
     obj80->obj.id = objInit->id;
     Object_SetInfo(&obj80->info, obj80->obj.id);
 }
@@ -198,9 +198,9 @@ void Object_4C_Load(Object_4C* obj4C, ObjectInit* objInit) {
     obj4C->obj.pos.z += -3000.0f + objInit->zPos2;
     obj4C->obj.pos.x = objInit->xPos;
     obj4C->obj.pos.y = objInit->yPos;
-    obj4C->obj.rot.y = objInit->unk_C;
-    obj4C->obj.rot.x = objInit->unk_A;
-    obj4C->obj.rot.z = objInit->unk_E;
+    obj4C->obj.rot.y = objInit->rot.y;
+    obj4C->obj.rot.x = objInit->rot.x;
+    obj4C->obj.rot.z = objInit->rot.z;
     obj4C->obj.id = objInit->id;
     Object_SetInfo(&obj4C->info, obj4C->obj.id);
 }
@@ -212,9 +212,9 @@ void Actor_Load(Actor* actor, ObjectInit* objInit) {
     actor->obj.pos.z += -3000.0f + objInit->zPos2;
     actor->obj.pos.x = objInit->xPos;
     actor->obj.pos.y = objInit->yPos;
-    actor->obj.rot.y = objInit->unk_C;
-    actor->obj.rot.x = objInit->unk_A;
-    actor->obj.rot.z = objInit->unk_E;
+    actor->obj.rot.y = objInit->rot.y;
+    actor->obj.rot.x = objInit->rot.x;
+    actor->obj.rot.z = objInit->rot.z;
     actor->obj.id = objInit->id;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
@@ -226,9 +226,9 @@ void Boss_Load(Boss* boss, ObjectInit* objInit) {
     boss->obj.pos.z += -3000.0f + objInit->zPos2;
     boss->obj.pos.x = objInit->xPos;
     boss->obj.pos.y = objInit->yPos;
-    boss->obj.rot.y = objInit->unk_C;
-    boss->obj.rot.x = objInit->unk_A;
-    boss->obj.rot.z = objInit->unk_E;
+    boss->obj.rot.y = objInit->rot.y;
+    boss->obj.rot.x = objInit->rot.x;
+    boss->obj.rot.z = objInit->rot.z;
     boss->obj.id = objInit->id;
     Object_SetInfo(&boss->info, boss->obj.id);
 }
@@ -240,9 +240,9 @@ void Item_Load(Item* item, ObjectInit* objInit) {
     item->obj.pos.z += -3000.0f + objInit->zPos2;
     item->obj.pos.x = objInit->xPos;
     item->obj.pos.y = objInit->yPos;
-    item->obj.rot.y = objInit->unk_C;
-    item->obj.rot.x = objInit->unk_A;
-    item->obj.rot.z = objInit->unk_E;
+    item->obj.rot.y = objInit->rot.y;
+    item->obj.rot.x = objInit->rot.x;
+    item->obj.rot.z = objInit->rot.z;
     item->obj.id = objInit->id;
     item->scale = 1.0f;
     Object_SetInfo(&item->info, item->obj.id);
@@ -369,9 +369,9 @@ void func_80061F0C(Actor* actor, ObjectInit* objInit, s32 arg2) {
     actor->obj.pos.z += -3000.0f + objInit->zPos2;
     actor->obj.pos.x = objInit->xPos;
     actor->obj.pos.y = objInit->yPos;
-    actor->obj.rot.y = actor->unk_0F4.y = objInit->unk_C;
-    actor->obj.rot.x = actor->unk_0F4.x = objInit->unk_A;
-    actor->unk_0F4.z = objInit->unk_E;
+    actor->obj.rot.y = actor->unk_0F4.y = objInit->rot.y;
+    actor->obj.rot.x = actor->unk_0F4.x = objInit->rot.x;
+    actor->unk_0F4.z = objInit->rot.z;
     actor->obj.id = OBJ_ACTOR_200;
     actor->timer_0C2 = 10;
     actor->unk_0B4 = 4095;
@@ -468,8 +468,8 @@ void Object_Load(ObjectInit* objInit, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
                     D_i5_801BA1E8 = 98;
                     break;
                 case OBJ_UNK_402:
-                    D_i6_801A7F78 = objInit->unk_E * 0.1f;
-                    D_i6_801A7F60 = -(f32) objInit->unk_A;
+                    D_i6_801A7F78 = objInit->rot.z * 0.1f;
+                    D_i6_801A7F60 = -(f32) objInit->rot.x;
                     break;
                 case OBJ_UNK_400:
                     D_801782B8++;
@@ -561,8 +561,8 @@ void func_80062664(void) {
     for (i = 0, objInit = &D_80178310[D_80177DC8]; i < 10000; i++, D_80177DC8++, objInit++) {
         if ((objInit->id > OBJ_INVALID) && D_80177D20 <= objInit->zPos1 && objInit->zPos1 <= D_80177D20 + 200.0f) {
             if ((gCurrentLevel == LEVEL_VENOM_1) && (objInit->id >= OBJ_UNK_1000)) {
-                if (((objInit->unk_C < 180.0f) && (objInit->xPos < gPlayer[0].unk_0AC)) ||
-                    ((objInit->unk_C > 180.0f) && (gPlayer[0].unk_0AC < objInit->xPos))) {
+                if (((objInit->rot.y < 180.0f) && (objInit->xPos < gPlayer[0].unk_0AC)) ||
+                    ((objInit->rot.y > 180.0f) && (gPlayer[0].unk_0AC < objInit->xPos))) {
                     Object_Load(objInit, var_fs1, var_fs2, var_fs3, var_fs4);
                 }
             } else {

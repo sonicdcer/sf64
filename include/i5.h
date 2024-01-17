@@ -16,11 +16,11 @@ extern f32 D_i5_801B83A8[];
 extern u8 D_i5_801BA1E8;
 
 void func_i5_8018769C(Player*);
-void func_i5_801882CC(Player*, OSContPad**, OSContPad**);
+void func_i5_801882CC(Player*);
 void func_i5_801AC754(Player*);
-void func_i5_801AF8F4(Player*, OSContPad**, OSContPad**);
+void func_i5_801AF8F4(Player*);
 void func_i5_801B28BC(Actor*);
-void func_i5_801B3D04(Player*, OSContPad**, OSContPad**);
+void func_i5_801B3D04(Player*);
 
 void func_i5_80187520(u32 mode, void* ptr);
 void func_i5_8018769C(Player *);

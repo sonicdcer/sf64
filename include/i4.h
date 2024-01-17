@@ -23,17 +23,17 @@ void func_i4_8019DD20(Actor*);
 
 void func_i4_80187520(u32, void*);
 void func_i4_80187960(Actor*);
-void func_i4_8018BA2C(Object_58**);
+void func_i4_8018BA2C(void);
 void func_i4_8018C158(Actor*);
-void func_i4_80191ED8(Object_58**);
+void func_i4_80191ED8(void);
 void func_i4_80192264(void);
 void func_i4_80193CA4(Boss *);
 void func_i4_80198594(Actor*);
-void func_i4_80198930(Object_58**);
+void func_i4_80198930(void);
 void func_i4_80199900(Actor *, s32);
 void func_i4_80199C60(Actor*);
 void func_i4_8019AB8C(Actor*);
-void func_i4_8019EA68(Object_58**);
+void func_i4_8019EA68(void);
 
 void func_i4_80188AD0(Actor*);
 void func_i4_80188FE4(Actor*);

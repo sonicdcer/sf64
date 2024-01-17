@@ -1442,11 +1442,11 @@ void func_8004C930(Player* player) {
             gInputPress->stick_x = btn;
 
             if (gCurrentLevel == LEVEL_TITANIA) {
-                func_i5_801882CC(player, &gInputPress, &gInputHold);
+                func_i5_801882CC(player);
             } else if (D_80177930 != 0) {
-                func_i5_801AF8F4(player, &gInputPress, &gInputHold);
+                func_i5_801AF8F4(player);
             } else {
-                func_i5_801B3D04(player, &gInputPress, &gInputHold);
+                func_i5_801B3D04(player);
             }
 
             func_80046358(player);

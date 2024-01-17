@@ -82,9 +82,7 @@ typedef struct {
     /* 0x04 */ s16 zPos2;
     /* 0x06 */ s16 xPos;
     /* 0x08 */ s16 yPos;
-    /* 0x0A */ s16 unk_A;
-    /* 0x0C */ s16 unk_C;
-    /* 0x0E */ s16 unk_E;
+    /* 0x0A */ Vec3s rot;
     /* 0x10 */ s16 id;
 } ObjectInit; // size = 0x14
 

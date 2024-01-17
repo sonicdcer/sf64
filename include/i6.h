@@ -25,15 +25,15 @@ void func_i6_801A0AC0(Player*);
 
 void func_i6_8018769C(Actor*);
 void func_i6_80187520(u32 mode, void* ptr);
-void func_i6_801878A8(Object_58**);
+void func_i6_801878A8(void);
 void func_i6_801888F4(Actor *);
 void func_i6_80189214(void);
 void func_i6_8018BDD8(void);
 void func_i6_8018C390(Player*);
 void func_i6_8018D16C(Boss *);
-void func_i6_801961AC(Object_58**);
+void func_i6_801961AC(void);
 void func_i6_80196314(Actor*);
-void func_i6_80196968(Object_58**);
+void func_i6_80196968(void);
 void func_i6_80197CC4(Boss *);
 void func_i6_801A3BD4(Actor*);
 void func_i6_801A4CB0(Actor*);

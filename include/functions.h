@@ -145,6 +145,10 @@ void func_8004319C(Player* player, f32 arg1, f32 arg2, f32 arg3);
 // fox_43E80
 void func_80043468(Player*  player);
 void func_800444BC(Player * player);
+void func_80044868(Player*);
+void func_80045130(Player*);
+void func_80045678(Player*);
+void func_80045E7C(Player*);
 void func_80047504(Player * player);
 void func_80046358(Player*);
 
@@ -457,6 +461,7 @@ void func_80086110(f32, f32, s32);
 void func_80086664(f32, f32);
 void func_800869A0(f32, f32, s32, f32, s32, s32);
 void func_80087530(f32, f32, s32);
+void func_800884E4(void);
 void func_80088564(void);
 void func_8008865C(void);
 s32 func_8008AC54(s32);
@@ -482,8 +487,10 @@ void func_8008FFF0(Boss*, s32);
 bool func_8009092C(Actor*);
 void func_800907C4(Boss*);
 s32 func_800915FC(Actor*);
+s32 func_800924E0(Actor*);
+s32 func_800927A0(Actor*);
 void func_80092D48(Actor *);
-void func_80092EC0(Actor*);
+void func_80092EC0(Actor* actor);
 void func_80093164(Actor*);
 void func_800935E8(Player*);
 void func_80095604(Player*);
@@ -520,6 +527,7 @@ s32 Play_CheckMedalStatus(u16);
 s32 Play_GetMaxShields(void);
 void func_800A6028(Vec3f*, u32);
 void func_800A5844(void);
+void func_800A594C(void);
 void func_800A5D6C(void);
 void func_800A5FA0(Vec3f* , u32 , s32 );
 void func_800A6070(Vec3f* arg0, u32 arg1);
@@ -559,6 +567,7 @@ void func_800A887C(Player* player);
 s32 func_800A7974(Player* player, f32* hitboxData, s32* index, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot,
                   f32 zRot, f32 arg9, f32 argA, f32 argB);
 bool func_800A8054(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, Vec3f* arg7, Vec3f* arg8);
+void func_800A4F4C(Object_58*);
 
 // fox_radio
 s32 func_800BA7BC(u16*, s32);
