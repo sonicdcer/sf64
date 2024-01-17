@@ -466,9 +466,9 @@ void func_i6_80188CB8(Boss* arg0) {
         arg0->swork[7]--;
         if (!(gGameFrameCount & 1)) {
             func_i6_8018887C(((Rand_ZeroOne() - 0.5f) * 100.0f) + arg0->obj.pos.x,
-                                 ((Rand_ZeroOne() - 0.5f) * 300.0f) + (arg0->obj.pos.y - 250.0f),
-                                 ((Rand_ZeroOne() - 0.5f) * 100.0f) + arg0->obj.pos.z, (Rand_ZeroOne() - 0.5f) * 50.0f,
-                                 (Rand_ZeroOne() - 0.5f) * 10.0f, (Rand_ZeroOne() - 0.5f) * 50.0f);
+                             ((Rand_ZeroOne() - 0.5f) * 300.0f) + (arg0->obj.pos.y - 250.0f),
+                             ((Rand_ZeroOne() - 0.5f) * 100.0f) + arg0->obj.pos.z, (Rand_ZeroOne() - 0.5f) * 50.0f,
+                             (Rand_ZeroOne() - 0.5f) * 10.0f, (Rand_ZeroOne() - 0.5f) * 50.0f);
         }
     }
     arg0->fwork[14] += arg0->fwork[15];
@@ -600,7 +600,8 @@ void func_i6_80189470(Actor* arg0) {
     Player* player = &gPlayer[0];
 
     if ((D_80177AB0 != 7) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) &&
-        (fabsf(arg0->obj.pos.x - gPlayer[0].pos.x) < 9000.0f) && (fabsf(arg0->obj.pos.z - gPlayer[0].unk_138) < 9000.0f)) {
+        (fabsf(arg0->obj.pos.x - gPlayer[0].pos.x) < 9000.0f) &&
+        (fabsf(arg0->obj.pos.z - gPlayer[0].unk_138) < 9000.0f)) {
         D_80177AB0 = 7;
         func_800BA808(gMsg_ID_19370, RCID_JAMES);
         func_800182F4(0x101400FF);

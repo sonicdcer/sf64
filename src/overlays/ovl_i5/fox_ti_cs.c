@@ -217,7 +217,8 @@ void func_i5_8018769C(Player* player) {
                 Object_Kill(&gActors[3].obj, &gActors[3].sfxPos);
             }
 
-            Math_SmoothStepToF(&player->unk_0F0, __sinf(((gGameFrameCount) *5.0f) * M_DTOR) * 10.0f, 0.1f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->unk_0F0, __sinf(((gGameFrameCount) *5.0f) * M_DTOR) * 10.0f, 0.1f, 100.0f,
+                               0.0f);
 
             if (D_80177A80 == 0x244) {
                 D_80177838 = 0x32;

@@ -1826,8 +1826,8 @@ void func_i3_8018C54C(Boss* bossA6) {
         if (bossA6->unk_3F8 >= 1.0f) {
             for (i = 0; i < 3; i++) {
                 if ((bossA6->swork[A6_SWK_33 + i] == 0) && (bossA6->actionState != 3) &&
-                    (D_i3_801C2250[A6_BSS_2_0 + i] == 0) && !(gGameFrameCount & 3) && (bossA6->swork[A6_SWK_27 + i] != 0) &&
-                    (D_80177854 != 0x64)) {
+                    (D_i3_801C2250[A6_BSS_2_0 + i] == 0) && !(gGameFrameCount & 3) &&
+                    (bossA6->swork[A6_SWK_27 + i] != 0) && (D_80177854 != 0x64)) {
                     Matrix_RotateY(gCalcMatrix, bossA6->obj.rot.y * M_DTOR, 0);
                     Matrix_RotateX(gCalcMatrix, bossA6->obj.rot.x * M_DTOR, 1);
                     Matrix_RotateZ(gCalcMatrix, bossA6->obj.rot.z * M_DTOR, 1);

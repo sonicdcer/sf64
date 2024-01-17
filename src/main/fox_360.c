@@ -1528,8 +1528,8 @@ void func_800319AC(Actor* this) {
                     if ((spE8 < spF4) && (spEC < spF4)) {
                         this->iwork[4]++;
                         this->iwork[5] = 1;
-                        if (!((this->index + gGameFrameCount) & sp10F) && (Rand_ZeroOne() < spF0) && func_80031900(this) &&
-                            ((gActors[0].unk_0B8 == 2) || (gCurrentLevel == LEVEL_TRAINING))) {
+                        if (!((this->index + gGameFrameCount) & sp10F) && (Rand_ZeroOne() < spF0) &&
+                            func_80031900(this) && ((gActors[0].unk_0B8 == 2) || (gCurrentLevel == LEVEL_TRAINING))) {
                             if ((this->unk_0E6 == 0) && (gCurrentLevel != LEVEL_TRAINING)) {
                                 if ((this->iwork[4] > 250) && (gCurrentLevel != LEVEL_VENOM_ANDROSS)) {
                                     if ((Rand_ZeroOne() < 0.5f) || (gCurrentLevel == LEVEL_VENOM_2)) {

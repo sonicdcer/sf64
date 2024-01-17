@@ -1440,7 +1440,8 @@ void func_8007B9DC(Effect* effect) {
     if (gCurrentLevel != LEVEL_MACBETH) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 140, 99, 58, effect->unk_4A);
     } else {
-        gDPSetPrimColor(gMasterDisp++, 0, 0, (gGameFrameCount & 3) + 5, (gGameFrameCount & 3) + 3, (gGameFrameCount & 3) + 3, 220);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, (gGameFrameCount & 3) + 5, (gGameFrameCount & 3) + 3,
+                        (gGameFrameCount & 3) + 3, 220);
     }
     //! DEBUG: Hold Z on controller 4 to set up a display list.
     if (!(gControllerHold[3].button & A_BUTTON)) {

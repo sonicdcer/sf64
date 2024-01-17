@@ -131,7 +131,6 @@ AnimationHeader* D_800CA1F4[] = {
     D_60265B4, D_602B8DC, D_60034C4, D_602A2CC, D_602CEB4, D_602B778, (AnimationHeader*) 0x0601F3B8,
 };
 
-
 void func_80048AC0(s32 teamId) {
     s32 teamShield;
 
