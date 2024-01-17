@@ -345,7 +345,7 @@ void func_800A4F7C(void) {
             gObjects58[i].obj.pos.x = D_80178310[j].xPos;
             gObjects58[i].obj.pos.z = D_80178310[j].zPos1;
             gObjects58[i].obj.pos.y = D_80178310[j].yPos;
-            gObjects58[i].obj.rot.y = D_80178310[j].unk_C;
+            gObjects58[i].obj.rot.y = D_80178310[j].rot.y;
             Object_SetInfo(&gObjects58[i].info, gObjects58[i].obj.id);
             i++;
         }
@@ -374,7 +374,7 @@ void func_800A5338(void) {
             obj58->obj.pos.x = D_80178310[j].xPos;
             obj58->obj.pos.z = D_80178310[j].zPos1;
             obj58->obj.pos.y = D_80178310[j].yPos;
-            obj58->obj.rot.y = D_80178310[j].unk_C;
+            obj58->obj.rot.y = D_80178310[j].rot.y;
             Object_SetInfo(&obj58->info, obj58->obj.id);
             if (obj58->obj.id == OBJ_80_1) {
                 obj58->info.dList = D_6020760;
@@ -426,7 +426,7 @@ void func_800A55B0(void) {
             obj58->obj.pos.x = D_80178310[j].xPos;
             obj58->obj.pos.z = D_80178310[j].zPos1;
             obj58->obj.pos.y = D_80178310[j].yPos;
-            obj58->obj.rot.y = D_80178310[j].unk_C;
+            obj58->obj.rot.y = D_80178310[j].rot.y;
             Object_SetInfo(&obj58->info, obj58->obj.id);
             obj58++;
         }
@@ -2653,7 +2653,7 @@ void func_800ABAB4(void) {
             case LEVEL_VENOM_ANDROSS:
                 if (D_8017827C == 1) {
                     if (D_8015F924 == 0) {
-                        func_E9F1D0_801878A8(&gObjects58);
+                        func_E9F1D0_801878A8();
                     } else {
                         func_E9F1D0_801961AC(&gObjects58);
                     }
