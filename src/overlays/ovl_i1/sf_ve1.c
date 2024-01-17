@@ -1,9 +1,24 @@
 #include "global.h"
 #include "sf_ve1.h"
 
+extern s32 D_i1_8019C0B8;
+
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_801920F0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_801922DC.s")
+void func_i1_801922DC(Object_4C* this) {
+    Boss* boss = gBosses;
+    s32 i;
+
+    for (i = 0; i < 4; i++, boss++) {
+        if ((boss->obj.status != 0) && (boss->obj.id == OBJ_BOSS_319)) {
+            if (boss->obj.pos.z <= this->obj.pos.z) {
+                D_i1_8019C0B8 = (s32)this->obj.rot.x + 1;
+                this->obj.status = 0;
+            }
+            break;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_80192358.s")
 
