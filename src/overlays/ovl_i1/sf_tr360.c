@@ -149,6 +149,92 @@ void func_i1_80199024(Actor* actor) {
     }
 }
 
+#if 1
 // u16* D_i1_8019AE50 = gMsg_ID_23028;
-// extern u16 D_i1_8019AE54[];
+extern u16* D_i1_8019AE50;
+extern u16 D_i1_8019AE54[];
+void func_i1_8019949C(void) {
+    Vec3f sp44;
+    Vec3f sp38;
+    Actor* actor;
+    s32 var_v0;
+    s32 var_v1;
+    u16** var_v0_3;
+
+    var_v1 = 1;
+    if (gHitCount >= 100) {
+        var_v1 = 0;
+    }
+    if (!(gGameFrameCount & 3)) {
+        if (gPlayer->state_1C8 == PLAYERSTATE_1C8_3) {
+            sp44.x = 0.0f;
+            sp44.y = 0.0f;
+            sp44.z = -15000.0f;
+            var_v0 = var_v1;
+            actor = &gActors[var_v0 + 10];
+            if (var_v0 < 16) {
+loop_6:
+                if (actor->obj.status == 0) {
+                    Actor_Initialize(actor);
+                    actor->obj.status = 2;
+                    actor->obj.id = OBJ_ACTOR_197;
+                    Matrix_RotateY(gCalcMatrix, gGameFrameCount * 6.0f * M_DTOR, 0);
+                    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
+                    actor->obj.pos.x = sp38.x;
+                    actor->obj.pos.y = 2000.0f;
+                    actor->obj.pos.z = sp38.z;
+                    actor->unk_0F4.y = gGameFrameCount * 6.0f;
+                    actor->unk_0E4 = var_v0 + 10;
+                    actor->unk_0CE = 24;
+                    actor->unk_0C9 = 1;
+                    actor->iwork[11] = 1;
+                    actor->timer_0C2 = 30;
+                    Object_SetInfo(&actor->info, actor->obj.id);
+                    Audio_PlaySfx(0x3100000C, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    if (actor->unk_0E4 == 10) {
+                        actor->unk_0E6 = 0;
+                        actor->unk_0CE = 50;
+                    } else {
+                        actor->unk_0E6 = -1;
+                        actor->info.action = (ObjectFunc) func_i1_80199024;
+                    }
+                } else {
+                    var_v0 += 1;
+                    actor += 1; //sizeof(Actor)
+                    if (var_v0 < 16) {
+                        goto loop_6;
+                    }
+                }
+            }
+        }
+    }
+    if (D_80177C78 != 0) {
+        D_80177C78--;
+    }
+    if (D_80177C78 == 0) {
+        var_v0_3 = &D_i1_8019AE50[D_80177C8C];
+        //0 == CharCode END
+        if (var_v0_3[0] == 0) {
+            var_v0_3 = &D_i1_8019AE50[1];
+            D_80177C8C = 1;
+        }
+        if (var_v0_3[2] != 0) {
+            func_800BA808(var_v0_3[0], RCID_TRAINING);
+            D_80177C78 = D_i1_8019AE54[D_80177C8C];
+        } else {
+            D_80161690 = 0x50;
+            D_80177C78 = 0x140;
+        }
+        D_80177C8C++;
+    }
+    if ((D_80161690 != 0) && (gControllerPress[gMainController].button & R_CBUTTONS)) {
+        func_8001AF40(0);
+        D_800CFF90 = 0;
+        D_80161690 = 0;
+        // This is ROB 64. Keep up the good work.
+        func_800BA808(gMsg_ID_20329, RCID_ROB64);
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_tr360/func_i1_8019949C.s")
+#endif
