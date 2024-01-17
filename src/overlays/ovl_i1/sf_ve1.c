@@ -3,7 +3,72 @@
 
 extern s32 D_i1_8019C0B8;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_801920F0.s")
+
+f32 func_i1_801920F0(f32* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32* arg5) {
+    f32 temp_ft4;
+    f32 temp_fv1_2;
+    f32 temp_fv1_3;
+    f32 var_fa1;
+
+    *arg5 = arg1 - *arg0;
+
+    if (*arg5 > 180.0f) {
+        do {
+            *arg5 -= 360.0f;
+        } while (*arg5 > 180.0f);
+    } else if (*arg5 < -180.0f) {
+        do {
+            *arg5 += 360.0f;
+        } while (*arg5 < -180.0f);
+    }
+
+    var_fa1 = *arg5;
+
+    if (var_fa1 != 0.0f) {
+        var_fa1 *= arg2;
+
+        if ((arg4 <= var_fa1) || (temp_ft4 = -arg4, (var_fa1 <= temp_ft4))) {
+            if (arg3 < var_fa1) {
+                var_fa1 = arg3;
+            } else {
+                temp_fv1_2 = -arg3;
+
+                if (temp_fv1_2 > var_fa1) {
+                    var_fa1 = temp_fv1_2;
+                }
+            }
+
+            *arg0 += var_fa1;
+        } else {
+            if (var_fa1 < arg4) {
+                var_fa1 = arg4;
+                *arg0 += arg4;
+
+                if (arg1 < *arg0) {
+                    *arg0 = arg1;
+                }
+            } else if (temp_ft4 < var_fa1) {
+                var_fa1 = temp_ft4;
+                *arg0 += temp_ft4;
+
+                if (*arg0 < arg1) {
+                    *arg0 = arg1;
+                }
+            }
+        }
+    }
+
+    temp_fv1_3 = *arg0;
+
+    if (temp_fv1_3 >= 360.0f) {
+        *arg0 = temp_fv1_3 - 360.0f;
+    } else if (temp_fv1_3 < 0.0f) {
+        *arg0 = temp_fv1_3 + 360.0f;
+    }
+
+    return var_fa1;
+}
+
 
 void func_i1_801922DC(Object_4C* this) {
     Boss* boss = gBosses;
