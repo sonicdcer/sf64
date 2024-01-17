@@ -413,7 +413,7 @@ extern u8 D_80177830;
 extern GameState gGameState;
 extern s32 D_80177838;
 extern s32 D_Timer_8017783C;
-extern s32 D_80177840;
+extern s32 D_80177840; // Stage clear time
 extern s32 gBossHealthBar;
 extern s32 D_80177844;
 extern OptionState gOptionMenuStatus;
@@ -423,7 +423,7 @@ extern s32 D_80177858[4];
 extern s32 D_80177868;
 //
 extern s32 D_80177870[4];
-extern s32 gLevelMode;
+extern LevelMode gLevelMode;
 //
 extern s32 gHandicap[4];
 extern DrawMode gDrawMode;
@@ -501,7 +501,7 @@ extern s32 gMainController;
 extern s32 D_80177B00[4][4];
 extern s32 D_80177B40;
 extern u8 D_Timer_80177B44;
-extern s32 gCurrentPlanet; // D_80177B48
+extern s32 gCurrentPlanet; // D_80177B48 // Arrow pointer?
 extern u8 D_80177B4C;
 extern s32 D_80177B50[7];
 extern u8 D_80177B6C;
@@ -515,7 +515,7 @@ extern u16 D_Timer_80177BD0[4];
 extern s32 D_80177BD8[22]; // overruns D_80177C30?
 // -0x8??
 extern u16 D_80177C30[4];
-extern UNK_TYPE D_80177C38[6];
+extern s32 D_80177C38[6];
 extern s32 D_80177C50;
 extern s32 D_80177C58[6];
 // 0x1C
