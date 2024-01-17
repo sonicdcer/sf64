@@ -52,6 +52,16 @@ extern u8 D_5004580[];
 extern u8 D_5004DC0[];
 extern u8 D_5004E20[];
 extern u8 D_5005460[];
+extern u8 D_5009F60[];
+extern u8 D_500A050[];
+extern u8 D_500A140[];
+extern u8 D_500A230[];
+extern u8 D_500A320[];
+extern u8 D_500A410[];
+extern u8 D_500A500[];
+extern u8 D_500A5F0[];
+extern u8 D_500A6E0[];
+extern u8 D_500A7D0[];
 extern u16 D_6000840[];
 extern u16 D_6000C80[];
 extern u8 D_6001260[];
@@ -4855,7 +4865,7 @@ void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
     Effect* effect = &gEffects[ARRAY_COUNT(gEffects) - 1];
     Player* player = gPlayer;
 
-    for (i = 0; i < 100; i++) {
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (effect->obj.status == 0) {
             Effect_Initialize(effect);
             effect->obj.status = 1;
@@ -4978,7 +4988,148 @@ void stub_80094D10(void) {
 void stub_80094D18(void) {
 }
 
+#ifdef IMPORT_DATA
+void func_80094D20(f32 x, f32 y) {
+    u8* D_800D24DC[] = { D_5009F60, D_500A050, D_500A140, D_500A230, D_500A320,
+                         D_500A410, D_500A500, D_500A5F0, D_500A6E0, D_500A7D0 };
+    s32 D_800D2504[] = {
+        100,
+        10,
+        1,
+    };
+    bool boolTemp;
+    s32 i;
+    s32 j;
+    s32 temp;
+    s32 temp2;
+    s32 temp3;
+    s32 temp4;
+    f32 x1;
+    f32 y1;
+    f32 xScale;
+
+    if (gHitCount > D_8016172C) {
+        temp3 = D_8016172C + 1;
+        temp4 = D_8016172C;
+    } else {
+        temp3 = gHitCount;
+        temp4 = D_8016172C;
+    }
+
+    boolTemp = 0;
+    i = 1000;
+    temp3 %= i;
+    temp4 %= i;
+
+    for (i /= 10, j = 0; i != 1; i /= 10, j++) {
+        xScale = 1.0f;
+        x1 = x;
+        y1 = y + 3.0f;
+
+        temp = temp3 / i;
+        temp2 = temp4 / i;
+
+        if ((temp != 0) || (boolTemp == 1)) {
+            if (temp != temp2) {
+                D_80161720[j] += 0.4f;
+                if (D_80161720[j] <= 0.9f) {
+                    xScale = D_80161720[j];
+                    x1 += 8.0f * xScale;
+                    xScale = 1.0f - xScale;
+                }
+
+                if ((D_80161720[j] > 0.9f) && (D_80161720[j] < 1.1f)) {
+                    xScale = 0.0f;
+                }
+
+                if (D_80161720[j] >= 2.0f) {
+                    temp2++;
+                    if (temp2 >= 10) {
+                        temp2 = 0;
+                    }
+                    D_80161720[j] = 0.0f;
+                }
+
+                if ((D_80161720[j] < 2.0f) && (D_80161720[j] >= 1.1f)) {
+                    temp2++;
+                    if (temp2 >= 10) {
+                        temp2 = 0;
+                    }
+                    xScale = 2.0f - D_80161720[j];
+                    x1 += 8.0f * xScale;
+                    xScale = 1.0f - xScale;
+                }
+                temp = temp2;
+            }
+
+            if (xScale != 0.0f) {
+                TextureRect_8bIA(&gMasterDisp, D_800D24DC[temp], 16, 15, x1, y1, xScale, 1.0f);
+            }
+            boolTemp = 1;
+        }
+
+        if (boolTemp == 0) {
+            if (xScale != 0.0f) {
+                TextureRect_8bIA(&gMasterDisp, D_800D24DC[0], 16, 15, x1, y1, xScale, 1.0f);
+            }
+        }
+
+        x += 13.0f;
+        temp3 %= i;
+        temp4 %= i;
+    }
+
+    xScale = 1.0f;
+    x1 = x;
+    y1 = y + 3.0f;
+
+    if (temp3 != temp4) {
+        D_80161720[j] += 0.4f;
+        if (D_80161720[j] <= 0.9f) {
+            xScale = D_80161720[j];
+            x1 += 8.0f * xScale;
+            xScale = 1.0f - xScale;
+        }
+
+        if ((D_80161720[j] > 0.9f) && (D_80161720[j] < 1.1f)) {
+            xScale = 0.0f;
+        }
+
+        if (D_80161720[j] >= 2.0f) {
+            if ((temp4 += 1) >= 10) {
+                temp4 = 0;
+            }
+            D_80161720[j] = 0.0f;
+        }
+
+        if ((D_80161720[j] < 2.0f) && (D_80161720[j] >= 1.1f)) {
+            temp4++;
+            if (temp4 >= 10) {
+                temp4 = 0;
+            }
+            xScale = 2.0f - D_80161720[j];
+            x1 += 8.0f * xScale;
+            xScale = 1.0f - xScale;
+        }
+        temp3 = temp4;
+    }
+
+    if (xScale != 0.0f) {
+        TextureRect_8bIA(&gMasterDisp, D_800D24DC[temp3], 16, 15, x1, y1, xScale, 1.0f);
+    }
+
+    if ((gHitCount != D_8016172C) && (D_80161720[0] == 0.0f) && (D_80161720[1] == 0.0f) && (D_80161720[2] == 0.0f)) {
+        D_8016172C++;
+
+        if ((D_8016172C == 4) || (D_8016172C == 9) || (D_8016172C == 14) || (D_8016172C == 19) || (D_8016172C == 24) ||
+            (D_8016172C == 29)) {
+            D_80161A62 = D_8016172C;
+        }
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80094D20.s")
+#endif
 
 void func_80095350(Actor* actor) {
     Actor_Initialize(actor);

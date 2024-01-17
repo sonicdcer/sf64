@@ -4123,9 +4123,9 @@ void func_800B0F50(Player* playerx) {
         }
         gHitCount = gSavedHitCount = D_80177CA4;
     }
-    D_80161720 = 0.0f;
-    D_80161724 = 0.0f;
-    D_80161728 = 0.0f;
+    D_80161720[0] = 0.0f;
+    D_80161720[1] = 0.0f;
+    D_80161720[2] = 0.0f;
     D_8016172C = gHitCount;
     D_80161730 = 0;
     D_80161684 = D_80161A50;
@@ -4328,9 +4328,9 @@ void func_800B0F50(Player* playerx) {
         gBombCount[gPlayerNum] = 3;
         D_80177B8C = 1;
         if (gCamCount == (gPlayerNum + 1)) {
-            D_80161720 = 0.0f;
-            D_80161724 = 0.0f;
-            D_80161728 = 0.0f;
+            D_80161720[0] = 0.0f;
+            D_80161720[1] = 0.0f;
+            D_80161720[2] = 0.0f;
             D_8016172C = 0;
             gHitCount = 0;
             D_80177824 = 0;

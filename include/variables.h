@@ -318,9 +318,7 @@ extern s32 D_80161704;
 extern s32 D_80161708;
 extern s32 D_8016170C;
 extern s32 gTotalHits; // gTotalGameScore
-extern f32 D_80161720;
-extern f32 D_80161724;
-extern f32 D_80161728;
+extern f32 D_80161720[3];
 extern s32 D_8016172C;
 extern s32 D_80161730;
 extern s32 gShowBossHealth;
