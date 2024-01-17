@@ -4481,7 +4481,83 @@ void func_800922F4(Actor* actor) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80092D48.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80092EC0.s")
+void func_80092EC0(Actor* actor) {
+    f32 var_fv1;
+
+    actor->unk_0CE = gTeamShields[actor->unk_0E4];
+
+    switch (actor->unk_048) {
+        case 0:
+            func_800914FC(actor);
+            func_80091864(actor);
+            func_80091B90(actor);
+            func_80091DF4(actor);
+
+            if (actor->unk_0D0 != 0) {
+                func_80091F00(actor);
+            }
+
+            if (actor->unk_0B8 == 3) {
+                break;
+            }
+
+            switch (gCurrentLevel) {
+                case LEVEL_SECTOR_Z:
+                    var_fv1 = 20000.0f;
+                    break;
+
+                case LEVEL_CORNERIA:
+                    var_fv1 = 8000.0f;
+                    break;
+
+                case LEVEL_BOLSE:
+                    var_fv1 = 10000.0f;
+                    break;
+
+                default:
+                    var_fv1 = 12500.0f;
+                    break;
+            }
+
+            if ((actor->iwork[10] != 0) && (gLevelMode == LEVELMODE_ALL_RANGE) && (actor->iwork[9] == 0) &&
+                (gPlayer->state_1C8 != PLAYERSTATE_1C8_7)) {
+                actor->unk_048 = 2;
+                actor->unk_04A = 0;
+            }
+
+            if ((gLevelMode == LEVELMODE_ALL_RANGE) &&
+                (fabsf(actor->obj.pos.x > var_fv1) || fabsf(actor->obj.pos.z > var_fv1)) &&
+                (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7)) {
+                actor->unk_048 = 2;
+                actor->unk_04A = 1;
+            }
+            break;
+
+        case 1:
+            if (func_800924E0(actor) != 0) {
+                actor->unk_048 = 0;
+                actor->iwork[9] = (s32) (Rand_ZeroOne() * 30.0f) + 90;
+            }
+            break;
+
+        case 2:
+            if (func_800927A0(actor) != 0) {
+                actor->unk_04A = 0;
+                actor->unk_048 = actor->unk_04A;
+                actor->iwork[9] = (s32) (Rand_ZeroOne() * 30.0f) + 90;
+            }
+            break;
+    }
+
+    func_80091CF8(actor);
+    func_800922F4(actor);
+    func_80092244(actor);
+
+    if (actor->iwork[9] != 0) {
+        actor->iwork[9]--;
+    }
+    actor->iwork[10] = 0;
+}
 
 void func_80093164(Actor* actor) {
     Vec3f src;
@@ -4507,7 +4583,7 @@ void func_80093164(Actor* actor) {
 
             case 44:
                 actor->iwork[0]++;
-                if (actor->iwork[0] >= 0x77) {
+                if (actor->iwork[0] > 118) {
                     actor->iwork[0] = 0;
                 }
                 break;
