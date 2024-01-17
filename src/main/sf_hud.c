@@ -32,6 +32,7 @@ extern s32 D_801617C0[10];
 extern s32 D_80161838[10];
 extern f32 D_801618C8[20];
 extern s32 D_80161860[20];
+extern f32 D_801618B0[20];
 extern u8 D_1000000[];
 extern u8 D_1000280;
 extern u8 D_1000640[];
@@ -3529,7 +3530,119 @@ void func_8008F96C(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008FA84.s")
+void func_8008FA84(void) {
+    s32 i;
+    s32 goldRings;
+    bool medalStatus;
+
+    if (D_80161730 == 0) {
+        for (i = 0; i < 10; i++) {
+            D_801617E8[i] = 0;
+            D_801617C0[i] = 0;
+            D_80161838[i] = 0;
+            D_80161810[i] = 0;
+        }
+
+        for (i = 0; i < 20; i++) {
+            D_80161900[i] = 0;
+            D_80161860[i] = 0;
+            D_801618B0[i] = 0.0f;
+        }
+
+        if (gGoldRingCount[0] != 0) {
+            goldRings = gGoldRingCount[0];
+            if (!(goldRings = gGoldRingCount[0] % 3)) {
+                goldRings = 3;
+            }
+
+            for (i = 0; i < goldRings; i++) {
+                if (goldRings != 3) {
+                    D_80161860[i + 1] = 1;
+                }
+            }
+            gGoldRingCount[1] = gGoldRingCount[0];
+        } else {
+            gGoldRingCount[1] = 0;
+        }
+
+        D_800D19F8 = 0;
+        D_80161788 = 0;
+        D_8016178C = 0;
+        gMedalStatus = 0;
+        gMedalFlashTimer = 0;
+
+        switch (gCurrentLevel) {
+            case LEVEL_CORNERIA:
+                medalStatus = Play_CheckMedalStatus(150);
+                break;
+            case LEVEL_METEO:
+                medalStatus = Play_CheckMedalStatus(200);
+                break;
+            case LEVEL_FORTUNA:
+                medalStatus = Play_CheckMedalStatus(50);
+                break;
+            case LEVEL_SECTOR_X:
+                medalStatus = Play_CheckMedalStatus(150);
+                break;
+            case LEVEL_TITANIA:
+                medalStatus = Play_CheckMedalStatus(150);
+                break;
+            case LEVEL_BOLSE:
+                medalStatus = Play_CheckMedalStatus(150);
+                break;
+            case LEVEL_SECTOR_Y:
+                medalStatus = Play_CheckMedalStatus(150);
+                break;
+            case LEVEL_KATINA:
+                medalStatus = Play_CheckMedalStatus(150);
+                break;
+            case LEVEL_SOLAR:
+                medalStatus = Play_CheckMedalStatus(100);
+                break;
+            case LEVEL_MACBETH:
+                medalStatus = Play_CheckMedalStatus(200);
+                break;
+            case LEVEL_AQUAS:
+                medalStatus = Play_CheckMedalStatus(100);
+                break;
+            case LEVEL_ZONESS:
+                medalStatus = Play_CheckMedalStatus(250);
+                break;
+            case LEVEL_SECTOR_Z:
+                medalStatus = Play_CheckMedalStatus(100);
+                break;
+            case LEVEL_AREA_6:
+                medalStatus = Play_CheckMedalStatus(300);
+                break;
+            case LEVEL_VENOM_2:
+            case LEVEL_VENOM_ANDROSS:
+                medalStatus = Play_CheckMedalStatus(200);
+                break;
+
+            default:
+                medalStatus = false;
+                break;
+        }
+        if (medalStatus != gMedalStatus) {
+            gMedalStatus = medalStatus;
+        }
+    }
+
+    if ((D_80161704 != 0) && (D_80177854 != 100)) {
+        D_80161708 += 16;
+        if (D_80161708 >= D_80161704) {
+            D_80161708 = D_80161704;
+        }
+    }
+
+    if (gCamCount != 1) {
+        func_8008F94C();
+    } else {
+        func_8008F96C();
+    }
+    func_8008BC80();
+    func_80088970();
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008FE78.s")
 
