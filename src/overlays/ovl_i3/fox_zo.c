@@ -1069,7 +1069,7 @@ void func_i3_80191680(Actor* actor) {
             actor->fwork[4] = sp38->obj.pos.x;
             actor->fwork[5] = sp38->obj.pos.y;
             actor->fwork[6] = sp38->obj.pos.z;
-            if (!(gFrameCount & 0xF) && (fabsf(gPlayer[0].pos.x - actor->obj.pos.x) < 100.0f)) {
+            if (!(gGameFrameCount & 0xF) && (fabsf(gPlayer[0].pos.x - actor->obj.pos.x) < 100.0f)) {
                 func_80081BEC(actor->fwork[4], actor->fwork[5], actor->fwork[6], 1.0f, 0);
             }
         } else {
@@ -1103,7 +1103,7 @@ void func_i3_80191BC4(Actor* actor) {
     }
     actor->fwork[0] += 10.0f;
     func_i3_8018FF50(actor);
-    if (!(gFrameCount & 1)) {
+    if (!(gGameFrameCount & 1)) {
         func_8007C484(((Rand_ZeroOne() - 0.5f) * 50.0f) + actor->obj.pos.x,
                       ((Rand_ZeroOne() - 0.5f) * 50.0f) + actor->obj.pos.y,
                       ((Rand_ZeroOne() - 0.5f) * 50.0f) + actor->obj.pos.z, actor->vel.x, actor->vel.y, actor->vel.z,
@@ -2067,7 +2067,7 @@ void func_i3_80194A84(Boss* bossZO) {
         Math_SmoothStepToF(&bossZO->obj.pos.z, sZoFwork[ZO_BSF_28] + (gPlayer[0].camEye.z - D_80177D20), 0.1f,
                            sZoFwork[ZO_BSF_27], 0.00001f);
     }
-    if (!(gFrameCount & 3)) {
+    if (!(gGameFrameCount & 3)) {
         if ((bossZO->obj.rot.y <= 90.0f) || (bossZO->obj.rot.y >= 270.0f)) {
             sZoSwork[ZO_BSS_43] = bossZO->obj.rot.y;
             if (sZoSwork[ZO_BSS_43] > 270) {
@@ -2134,7 +2134,7 @@ void func_i3_80194A84(Boss* bossZO) {
     }
     switch (bossZO->actionState) { /* switch 1 */
         case 0:                    /* switch 1 */
-            if ((!(gFrameCount & 7) || (bossZO->timer_050 == 43)) && (bossZO->swork[ZO_SWK_13] == 0) &&
+            if ((!(gGameFrameCount & 7) || (bossZO->timer_050 == 43)) && (bossZO->swork[ZO_SWK_13] == 0) &&
                 ((bossZO->swork[ZO_SWK_12] < 7) || (bossZO->timer_050 == 43))) {
                 D_801779A8[0] = 20.0f;
                 if (func_800A73E4(&sp134, &sp130, sZoFwork[ZO_BSF_43_X], sZoFwork[ZO_BSF_43_Y] - 300.0f,
@@ -2184,7 +2184,7 @@ void func_i3_80194A84(Boss* bossZO) {
             func_i3_8019962C(bossZO, 0.0f);
             Math_SmoothStepToF(&sZoFwork[ZO_BSF_1], sZoFwork[ZO_BSF_74], 0.1f, 2.0f, 0.00001f);
             Math_SmoothStepToF(&sZoFwork[ZO_BSF_11], sZoFwork[ZO_BSF_75], 0.1f, 2.0f, 0.00001f);
-            if ((bossZO->timer_050 == 0) && !(gFrameCount & 3)) {
+            if ((bossZO->timer_050 == 0) && !(gGameFrameCount & 3)) {
                 if (sZoSwork[ZO_BSS_9] != 0) {
                     func_i3_80193908(sZoFwork[ZO_BSF_29_X], sZoFwork[ZO_BSF_29_Y], sZoFwork[ZO_BSF_29_Z],
                                      bossZO->obj.rot.y);
@@ -2489,7 +2489,7 @@ void func_i3_80194A84(Boss* bossZO) {
             if (D_80178480 == 29) {
                 D_80178348 = D_80178350 = D_80178354 = D_80178340 = 0;
             }
-            if (!(gFrameCount & 3)) {
+            if (!(gGameFrameCount & 3)) {
                 spE4.x = ((Rand_ZeroOne() - 0.5f) * 300.0f) + bossZO->obj.pos.x;
                 spE4.y = ((Rand_ZeroOne() - 0.5f) * 200.0f) + (bossZO->obj.pos.y + 600.0f);
                 spE4.z = bossZO->obj.pos.z - 50.0f;
@@ -2504,7 +2504,7 @@ void func_i3_80194A84(Boss* bossZO) {
             }
             bossZO->vel.x = 0.0f;
             Math_SmoothStepToF(&bossZO->obj.pos.x, 0.0f, 0.1f, 5.0f, 0.00001f);
-            if (!(gFrameCount & 7) && (Rand_ZeroOne() < 0.5f)) {
+            if (!(gGameFrameCount & 7) && (Rand_ZeroOne() < 0.5f)) {
                 sZoLimbTimers[ZO_LIMB_36] = 15;
                 sZoLimbTimers[ZO_LIMB_25] = 15;
             }
@@ -2544,7 +2544,7 @@ void func_i3_80194A84(Boss* bossZO) {
             break;
         case 7: /* switch 1 */
             D_801779A8[0] = 20.0f;
-            if (!(gFrameCount & 7) &&
+            if (!(gGameFrameCount & 7) &&
                 (func_800A73E4(&sp134, &sp130, bossZO->obj.pos.x, -300.0f, bossZO->obj.pos.z) != 0)) {
                 func_8008377C(((Rand_ZeroOne() - 0.5f) * 500.0f) + bossZO->obj.pos.x, sp134 - 300.0f,
                               ((Rand_ZeroOne() - 0.5f) * 3000.0f) + bossZO->obj.pos.z, 5.0f, 2.0f);
@@ -2628,7 +2628,7 @@ void func_i3_80194A84(Boss* bossZO) {
     spE4.z = gPlayer[0].unk_138 - bossZO->obj.pos.z;
     Math_SmoothStepToAngle(&sZoFwork[ZO_BSF_14], Math_RadToDeg(Math_Atan2F(spE4.x, spE4.z)), 0.5f, 100.0f, 0.001f);
     Math_SmoothStepToAngle(&sZoFwork[ZO_BSF_0], sZoFwork[ZO_BSF_76], 0.2f, 4.0f, 0.0001f);
-    if ((!(gFrameCount & 0x3F) || (sZoSwork[ZO_BSS_22] != 0)) &&
+    if ((!(gGameFrameCount & 0x3F) || (sZoSwork[ZO_BSS_22] != 0)) &&
         ((Rand_ZeroOne() < 0.5f) || (sZoSwork[ZO_BSS_22] != 0)) && (sZoSwork[ZO_BSS_23] == 0)) {
         sZoSwork[ZO_BSS_23] = D_i3_801BF5F0[sZoSwork[ZO_BSS_22]];
         sZoFwork[ZO_BSF_76] = D_i3_801BF608[sZoSwork[ZO_BSS_22]];
@@ -2735,7 +2735,7 @@ void func_i3_80194A84(Boss* bossZO) {
     }
     if ((sZoSwork[ZO_BSS_13] < 2) && (sZoLimbTimers[ZO_LIMB_5] != LIMB_DESTROYED)) {
         D_801779A8[0] = 20.0f;
-        if (!(gFrameCount & 1)) {
+        if (!(gGameFrameCount & 1)) {
             func_8007D0E0(((Rand_ZeroOne() - 0.5f) * 200.0f) + sZoFwork[ZO_BSF_52_X],
                           ((Rand_ZeroOne() - 0.5f) * 200.0f) + sZoFwork[ZO_BSF_52_Y],
                           ((Rand_ZeroOne() - 0.5f) * 100.0f) + sZoFwork[ZO_BSF_52_Z], 5.0f);
@@ -3037,9 +3037,9 @@ void func_i3_80194A84(Boss* bossZO) {
     }
     if (func_800A73E4(&sp134, &sp130, bossZO->obj.pos.x, bossZO->obj.pos.y - 500.0f, bossZO->obj.pos.z) != 0) {
         Math_SmoothStepToF(&bossZO->obj.pos.y, sp134 - 20.0f, 0.1f, bossZO->fwork[ZO_FWK_4], 0.0f);
-        bossZO->fwork[ZO_FWK_1] = __sinf(gFrameCount * 7.0f * M_DTOR) * 12.0f;
-        bossZO->fwork[ZO_FWK_2] = __cosf(gFrameCount * 9.0f * M_DTOR) * 12.0f;
-        bossZO->fwork[ZO_FWK_3] = __sinf(gFrameCount * 10.0f * M_DTOR) * 30.0f;
+        bossZO->fwork[ZO_FWK_1] = __sinf(gGameFrameCount * 7.0f * M_DTOR) * 12.0f;
+        bossZO->fwork[ZO_FWK_2] = __cosf(gGameFrameCount * 9.0f * M_DTOR) * 12.0f;
+        bossZO->fwork[ZO_FWK_3] = __sinf(gGameFrameCount * 10.0f * M_DTOR) * 30.0f;
         if ((bossZO->timer_054 == 0) && (sZoSwork[ZO_BSS_5] < 2)) {
             func_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 50.0f, 0.0f, 5.0f);
             func_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 46.0f, 19.0f, 5.0f);
@@ -3249,13 +3249,13 @@ void func_i3_80198ECC(Boss* bossZO) {
 }
 
 void func_i3_80198F3C(Boss* bossZO, s32 arg1, s32 arg2) {
-    if ((!(gFrameCount & 7) && (Rand_ZeroOne() < 0.5f))) {
+    if ((!(gGameFrameCount & 7) && (Rand_ZeroOne() < 0.5f))) {
         sZoLimbTimers[ZO_LIMB_7 + 4 * arg1] = sZoLimbTimers[ZO_LIMB_21 + 2 * arg1] =
             sZoLimbTimers[ZO_LIMB_22 + 2 * arg1] = 15;
     }
     func_8007D0E0(sZoFwork[ZO_BSF_0 + arg2] + ((Rand_ZeroOne() - 0.5f) * 400.0f),
                   sZoFwork[ZO_BSF_1 + arg2] + (Rand_ZeroOne() - 0.2f) * 800.0f, sZoFwork[ZO_BSF_2 + arg2], 7.0f);
-    if (!(gFrameCount & 1)) {
+    if (!(gGameFrameCount & 1)) {
         func_8007C120(sZoFwork[ZO_BSF_0 + arg2], sZoFwork[ZO_BSF_1 + arg2], sZoFwork[ZO_BSF_2 + arg2], bossZO->vel.x,
                       bossZO->vel.y, bossZO->vel.z, 0.2f, 10);
     }
@@ -3600,7 +3600,7 @@ void func_i3_8019A1FC(Actor* actor) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     GCGM_BACK();
     if (((actor->unk_0B8 == 1) && (gBosses[0].timer_052 != 0)) || (actor->unk_0B8 == 0)) {
-        Matrix_RotateY(gGfxMatrix, gFrameCount * M_DTOR, 1);
+        Matrix_RotateY(gGfxMatrix, gGameFrameCount * M_DTOR, 1);
     }
     // var_s1 = 1;
     var_fv0 = sZoFwork[ZO_BSF_60_Y] + -1.0f * actor->fwork[0] - actor->obj.pos.y;
@@ -3749,7 +3749,7 @@ void func_i3_8019A5D4(Actor* actor) {
         }
         actor->unk_0D0 = 0;
     }
-    if (!(gFrameCount & 7) && (actor->unk_0B8 != 0) && (actor->iwork[0] < 8) &&
+    if (!(gGameFrameCount & 7) && (actor->unk_0B8 != 0) && (actor->iwork[0] < 8) &&
         (func_800A73E4(&sp44, &sp40, actor->obj.pos.x, actor->obj.pos.y - 100.0f, actor->obj.pos.z) != 0)) {
         func_8008377C(actor->obj.pos.x, sp44, actor->obj.pos.z, 0.0f, 0.7f);
         actor->iwork[0]++;
@@ -4312,7 +4312,7 @@ void func_i3_8019C83C(Actor* actor) {
     Matrix_SetGfxMtx(&gMasterDisp);
     GDL(D_601C590);
     RCP_SetupDL_57(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    Matrix_RotateY(gGfxMatrix, gFrameCount * M_DTOR, 1);
+    Matrix_RotateY(gGfxMatrix, gGameFrameCount * M_DTOR, 1);
 
     var_fv1 = (fabsf(actor->fwork[3]) * 1.3f) + 50.0f;
     for (var_s1 = 0; var_fv1 > 0.0f; var_s1++) {
@@ -4343,9 +4343,9 @@ void func_i3_8019CBEC(Actor* actor) {
     actor->timer_0C2 = 30000;
     switch (actor->unk_0B8) {
         case 0:
-            actor->fwork[5] = D_i3_801BF8CC[gFrameCount & 1];
+            actor->fwork[5] = D_i3_801BF8CC[gGameFrameCount & 1];
             if (D_80161684 != 0) {
-                actor->fwork[5] = D_i3_801BF8C4[gFrameCount & 1];
+                actor->fwork[5] = D_i3_801BF8C4[gGameFrameCount & 1];
                 actor->iwork[1] = 1;
             }
             actor->unk_0B8++;

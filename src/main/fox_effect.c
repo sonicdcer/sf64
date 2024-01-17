@@ -283,7 +283,7 @@ void func_80077B84(Effect* effect) {
             if (gCurrentLevel == LEVEL_BOLSE) {
                 RCP_SetupDL(&gMasterDisp, 0x26);
             }
-            switch ((effect->index + gFrameCount) & 3) {
+            switch ((effect->index + gGameFrameCount) & 3) {
                 case 0:
                     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 0, 0, effect->unk_44);
                     break;
@@ -364,12 +364,12 @@ void func_800780F8(Effect* effect) {
     s32 i;
 
     if (effect->unk_4A >= 0xB) {
-        if (!((effect->index + gFrameCount) & 1)) {
+        if (!((effect->index + gGameFrameCount) & 1)) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 128, 128, 32);
         } else {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 128, 128, 128);
         }
-    } else if (!((effect->index + gFrameCount) & 1)) {
+    } else if (!((effect->index + gGameFrameCount) & 1)) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     } else {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 96, 96, 255, 255);
@@ -487,7 +487,7 @@ void func_80078AE0(void* effect) {
 
 void func_80078AEC(Effect* effect) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 180);
-    Graphics_SetScaleMtx(effect->scale2 * (13.0f + ((gFrameCount & 1) * 2.5f)));
+    Graphics_SetScaleMtx(effect->scale2 * (13.0f + ((gGameFrameCount & 1) * 2.5f)));
     gSPDisplayList(gMasterDisp++, D_102ED50);
 }
 
@@ -503,7 +503,7 @@ void func_80078BE0(Effect* effect) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 160);
 
     var_fv0 = 3.0f;
-    if (gFrameCount & 1) {
+    if (gGameFrameCount & 1) {
         var_fv0 *= 1.2f;
     }
     Graphics_SetScaleMtx(effect->scale2 * var_fv0);
@@ -699,7 +699,7 @@ void func_8007968C(Effect* effect) {
             Object_Kill(&effect->obj, &effect->sfxPos);
         }
     } else {
-        if (!(gFrameCount & 3)) {
+        if (!(gGameFrameCount & 3)) {
             func_8007D2C8(effect->obj.pos.x, effect->obj.pos.y + 550.0f, effect->obj.pos.z, 10.0f);
         }
         if ((effect->timer_50 == 0) || (effect->obj.pos.y < (gGroundLevel - 100.0f))) {
@@ -1440,7 +1440,8 @@ void func_8007B9DC(Effect* effect) {
     if (gCurrentLevel != LEVEL_MACBETH) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 140, 99, 58, effect->unk_4A);
     } else {
-        gDPSetPrimColor(gMasterDisp++, 0, 0, (gFrameCount & 3) + 5, (gFrameCount & 3) + 3, (gFrameCount & 3) + 3, 220);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, (gGameFrameCount & 3) + 5, (gGameFrameCount & 3) + 3,
+                        (gGameFrameCount & 3) + 3, 220);
     }
     //! DEBUG: Hold Z on controller 4 to set up a display list.
     if (!(gControllerHold[3].button & A_BUTTON)) {
@@ -2655,7 +2656,7 @@ void func_8007F2FC(Effect* effect) {
         effect->obj.pos.z -= effect->vel.z * 0.5f;
     }
 
-    if ((effect->unk_44 == 1) && !(gFrameCount & 1)) {
+    if ((effect->unk_44 == 1) && !(gGameFrameCount & 1)) {
         func_8007D0E0(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 1.5f);
     }
 }
@@ -2706,7 +2707,7 @@ void func_8007F5AC(Effect* effect) {
             effect->vel.x -= 0.5f;
         }
 
-        if (!(gFrameCount & 1)) {
+        if (!(gGameFrameCount & 1)) {
             effect->unk_44--;
             if (effect->unk_44 < 20) {
                 Object_Kill(&effect->obj, &effect->sfxPos);
@@ -2714,7 +2715,7 @@ void func_8007F5AC(Effect* effect) {
         }
 
         effect->scale2 += 0.02f;
-        if (!(gFrameCount & 0x10)) {
+        if (!(gGameFrameCount & 0x10)) {
             effect->scale2 += 0.01f;
         } else {
             effect->scale2 -= 0.01f;
@@ -2740,7 +2741,7 @@ void func_8007F6B0(Effect* effect) {
         Object_Kill(&effect->obj, &effect->sfxPos);
     }
 
-    if (!(gFrameCount & 3) && (effect->unk_4E == 0)) {
+    if (!(gGameFrameCount & 3) && (effect->unk_4E == 0)) {
         randfloat = Rand_ZeroOne() * 30.0f;
         for (i = 0; i < 36; i += 2) {
             temp = (i * 10.0f * M_DTOR) + randfloat;
@@ -2787,7 +2788,7 @@ void func_8007F958(Effect* effect) {
         return;
     }
 
-    if (!(gFrameCount & 1)) {
+    if (!(gGameFrameCount & 1)) {
         randFloat = Rand_ZeroOne() * 144.0f;
         for (i = 0; i < 5; i++) {
             temp = (i * 72.0f * M_DTOR) + randFloat;
@@ -2828,7 +2829,7 @@ void func_8007FBE0(Effect* effect) {
         Object_Kill(&effect->obj, &effect->sfxPos);
     }
 
-    if (!(gFrameCount & 1)) {
+    if (!(gGameFrameCount & 1)) {
         randFloat = Rand_ZeroOne() * 144.0f;
         for (i = 0; i < 10; i++) {
             temp = (i * 36.0f * M_DTOR) + randFloat;
@@ -2942,7 +2943,7 @@ void func_8007FE88(Effect* effect) {
             func_8007D10C(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 2.0f);
             Object_Kill(&effect->obj, &effect->sfxPos);
         }
-    } else if (func_801A55D4(1000, &effect->obj.pos, &velocity, 0) != 0) {
+    } else if (func_i5_801A55D4(1000, &effect->obj.pos, &velocity, 0) != 0) {
         func_8007D10C(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 2.0f);
         Object_Kill(&effect->obj, &effect->sfxPos);
     }
@@ -2960,7 +2961,7 @@ void func_800802F8(Effect* effect) {
     func_8007FE88(effect);
     effect->obj.rot.z += 10.0f;
     effect->scale2 = 3.0f;
-    if (gFrameCount & 1) {
+    if (gGameFrameCount & 1) {
         effect->scale2 = 3.5f;
     }
 }
@@ -3293,7 +3294,7 @@ void func_80080D04(Effect* effect) {
                 D_800D18E4++;
             }
 
-            if (!((effect->index + gFrameCount) & 1)) {
+            if (!((effect->index + gGameFrameCount) & 1)) {
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
             } else {
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 96, 96, 255, 255);
@@ -3519,7 +3520,7 @@ void func_80081C5C(Effect* effect) {
                 break;
             }
 
-            if (!(gFrameCount & 1)) {
+            if (!(gGameFrameCount & 1)) {
                 func_8007C484(((Rand_ZeroOne() - 0.5f) * 50.0f) + effect->obj.pos.x,
                               ((Rand_ZeroOne() - 0.5f) * 50.0f) + effect->obj.pos.y,
                               ((Rand_ZeroOne() - 0.5f) * 50.0f) + effect->obj.pos.z, effect->vel.x, effect->vel.y,
@@ -3542,7 +3543,7 @@ void func_80081C5C(Effect* effect) {
             effect->unk_60.z += 10.0f;
             effect->vel.z = 5.0f;
 
-            if (!(gFrameCount & 7)) {
+            if (!(gGameFrameCount & 7)) {
                 effect->unk_44++;
                 effect->unk_44 &= 1;
             }
@@ -3585,7 +3586,7 @@ void func_80081C5C(Effect* effect) {
                     break;
             }
 
-            if (!(gFrameCount & 3)) {
+            if (!(gGameFrameCount & 3)) {
                 func_8007C120((((Rand_ZeroOne() - 0.5f) * effect->scale2) * 50.0f) + effect->obj.pos.x,
                               (((Rand_ZeroOne() - 0.5f) * effect->scale2) * 50.0f) + effect->obj.pos.y,
                               (((Rand_ZeroOne() - 0.5f) * effect->scale2) * 50.0f) + effect->obj.pos.z, effect->vel.x,
@@ -3643,7 +3644,7 @@ void func_80081C5C(Effect* effect) {
         case 7:
             switch (gCurrentLevel) {
                 case LEVEL_AQUAS:
-                    if (!(gFrameCount & 3)) {
+                    if (!(gGameFrameCount & 3)) {
                         func_80081A8C(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, effect->scale2, 6);
                     }
                     effect->obj.rot.x += effect->unk_60.x;
@@ -3656,7 +3657,7 @@ void func_80081C5C(Effect* effect) {
                     break;
 
                 case LEVEL_ZONESS:
-                    if (!(gFrameCount & 3)) {
+                    if (!(gGameFrameCount & 3)) {
                         // clang-format off
                         func_80081A8C(effect->obj.pos.x,  effect->obj.pos.y, effect->obj.pos.z, effect->scale2 * 3.0f, 6);
                         // clang-format on
@@ -3789,7 +3790,7 @@ void func_80081C5C(Effect* effect) {
                     if (effect->unk_46 != 0) {
                         effect->unk_46 -= 1;
                     }
-                    if ((!(gFrameCount & 0xF)) && (effect->timer_50 == 0)) {
+                    if ((!(gGameFrameCount & 0xF)) && (effect->timer_50 == 0)) {
                         D_800D18EC = Math_Atan2F(gPlayer[0].camEye.x - gBosses[0].obj.pos.x,
                                                  gPlayer[0].camEye.z - (gBosses[0].obj.pos.z + D_80177D20)) *
                                      180.0f / M_PI;

@@ -1,6 +1,7 @@
 #include "structs.h"
 #include "macros.h"
 #include "variables.h"
+#include "assets.h"
 
 static Vec3f D_800D2920[16] = {
     { 1075.0f, 0.0f, 0.0f },   { 746.0f, 0.0f, -746.0f },    { 202.0f, 361.0f, -202.0f }, { 0.0f, 0.0f, -1075.0f },

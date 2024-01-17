@@ -1109,7 +1109,7 @@ void func_80087B5C(void) {
                     D_801617E8[0] = 10;
                     D_801617C0[0]++;
                 } else {
-                    if (!(gFrameCount & 1)) {
+                    if (!(gGameFrameCount & 1)) {
                         Audio_PlaySfx(0x4900C024U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                         D_801617C0[3]++;
                     }
@@ -1758,7 +1758,7 @@ void func_80089C38(void) {
 
     RCP_SetupDL(&gMasterDisp, 0xC);
 
-    alpha = gFrameCount % 21;
+    alpha = gGameFrameCount % 21;
 
     if (alpha > 10) {
         alpha = 20 - alpha;
@@ -1776,7 +1776,7 @@ void func_80089D28(void) {
 
     RCP_SetupDL(&gMasterDisp, 1);
 
-    gb = gFrameCount % 21;
+    gb = gGameFrameCount % 21;
 
     if (gb > 10) {
         gb = 20 - gb;
@@ -1820,7 +1820,7 @@ void func_80089E98(s32 arg0) {
                     break;
                 }
             }
-            if ((var_a1_2 == gPlayerNum) && (gFrameCount & 2)) {
+            if ((var_a1_2 == gPlayerNum) && (gGameFrameCount & 2)) {
                 var_a1 = (var_a1 * 2) + 1;
             } else {
                 var_a1 = var_a1 * 2;
@@ -1942,7 +1942,7 @@ void func_8008A240(void) {
             continue;
         }
 
-        if (gFrameCount & 63) {
+        if (gGameFrameCount & 63) {
             gUnkEntities28[i].unk_02 = 999;
         }
     }
@@ -2323,7 +2323,7 @@ void func_8008B2F0(void) {
                 }
             }
 
-            if (((D_801617B0 != 0) || ((D_801617A4 - D_801617A8) > 0.1f)) && (gFrameCount & 2)) {
+            if (((D_801617B0 != 0) || ((D_801617A4 - D_801617A8) > 0.1f)) && (gGameFrameCount & 2)) {
                 D_800D1EB4 = 0;
                 D_800D1EB8 = 255;
                 D_800D1EBC = 0;
@@ -2766,10 +2766,10 @@ void func_8008CA44(void) {
 
             j = (D_800D2048[i] ^ 0xFF) & j;
 
-            if (gFrameCount & 4) {
+            if (gGameFrameCount & 4) {
                 func_8008C6F4(i, 0);
             }
-            if ((gFrameCount - 2) & 4) {
+            if ((gGameFrameCount - 2) & 4) {
                 func_8008C6F4(i, 1);
             }
         }
@@ -3692,12 +3692,12 @@ void func_8008FFF0(Boss* boss, s32 arg1) {
 
         i = Rand_ZeroOne() * 36.0f;
 
-        if (!(gFrameCount & 2)) {
+        if (!(gGameFrameCount & 2)) {
             func_8007C120(boss->obj.pos.x + D_800D21C8[i].x, boss->obj.pos.y + D_800D21C8[i].y,
                           boss->obj.pos.z + D_800D21C8[i].z, 0.0f, 0.0f, 0.0f, 0.3f * temp, 20);
         }
 
-        if (!(gFrameCount & 7)) {
+        if (!(gGameFrameCount & 7)) {
             func_8007BFFC(boss->obj.pos.x + D_800D21C8[i].x, boss->obj.pos.y + D_800D21C8[i].y,
                           boss->obj.pos.z + D_800D21C8[i].z, 0.0f, 0.0f, 0.0f, 7.0f * temp, 10);
         }
@@ -4458,13 +4458,13 @@ void func_800922F4(Actor* actor) {
             temp = 63;
         }
 
-        if (!(gFrameCount & temp)) {
+        if (!(gGameFrameCount & temp)) {
             func_8007D10C(actor->obj.pos.x + ((Rand_ZeroOne() - 0.5f) * 10.0f),
                           actor->obj.pos.y + (Rand_ZeroOne() * 10.0f),
                           actor->obj.pos.z + ((Rand_ZeroOne() - 0.5f) * 10.0f), 2.2f);
         }
 
-        if (!((temp >> 2) & gFrameCount)) {
+        if (!((temp >> 2) & gGameFrameCount)) {
             if (Rand_ZeroOne() < 0.5f) {
                 func_8007C120(actor->obj.pos.x + ((Rand_ZeroOne() - 0.5f) * 30.0f),
                               actor->obj.pos.y + (Rand_ZeroOne() * 10.0f),
