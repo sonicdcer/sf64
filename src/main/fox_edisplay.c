@@ -10,9 +10,9 @@ WingInfo D_80161630;
 char D_800CF970[] = "$Id: fox_edisplay.c,v 1.196 1997/05/08 08:31:50 morita Exp $";
 
 void func_800596C0(void) {
-    Matrix_RotateZ(gGfxMatrix, gFrameCount * 13.0f * M_DTOR, 1);
+    Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 13.0f * M_DTOR, 1);
     Matrix_Scale(gGfxMatrix, 1.02f, 0.98f, 1.0f, 1);
-    Matrix_RotateZ(gGfxMatrix, -(f32) gFrameCount * 13.0f * M_DTOR, 1);
+    Matrix_RotateZ(gGfxMatrix, -(f32) gGameFrameCount * 13.0f * M_DTOR, 1);
     Matrix_Scale(gGfxMatrix, 1.02f, 0.98f, 1.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
 }
@@ -432,7 +432,7 @@ void func_8005ADAC(Actor* actor) {
         }
         Math_SmoothStepToF(&actor->fwork[29], temp1, 0.3f, 5.0f, 0.0f);
         sp5C = actor->fwork[29];
-        if (gFrameCount & 1) {
+        if (gGameFrameCount & 1) {
             sp5C *= 1.111f;
         }
         Matrix_Push(&gGfxMatrix);
@@ -450,7 +450,7 @@ void func_8005ADAC(Actor* actor) {
     sp5C = actor->fwork[21];
     if ((sp5C != 0.0f) && (gLevelType == LEVELTYPE_PLANET)) {
         sp54 = 0.0f;
-        if (gFrameCount & 1) {
+        if (gGameFrameCount & 1) {
             sp54 = 180.0f;
         }
         RCP_SetupDL_64_2();
@@ -488,7 +488,7 @@ void func_8005B1E8(Actor* actor, s32 levelType) {
         if (actor->iwork[11] >= 2) {
             scale = D_800CFCA0[actor->iwork[11] - 2] * 0.45f;
         }
-        if (gFrameCount & 1) {
+        if (gGameFrameCount & 1) {
             scale *= 1.2f;
         }
         Matrix_Push(&gGfxMatrix);
@@ -585,7 +585,7 @@ void func_8005B848(Actor* actor) {
             break;
     }
     scale = 2.0f;
-    if (gFrameCount & 1) {
+    if (gGameFrameCount & 1) {
         scale = 1.7f;
     }
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
@@ -651,8 +651,8 @@ void func_8005BAB4(ObjectId objId, s32 index) {
                     gSPDisplayList(gMasterDisp++, D_1024AC0);
                     break;
                 default:
-                    temp1 = D_800CFCCC[gFrameCount % 8U];
-                    temp2 = D_800CFCCC[(gFrameCount + 4) % 8U];
+                    temp1 = D_800CFCCC[gGameFrameCount % 8U];
+                    temp2 = D_800CFCCC[(gGameFrameCount + 4) % 8U];
                     Matrix_Scale(gGfxMatrix, 1.4f + temp1, 0.0f, 1.4f + temp2, 1);
                     Matrix_RotateY(gGfxMatrix, M_PI, 1);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 30.0f, 1);
@@ -759,7 +759,7 @@ void func_8005BAB4(ObjectId objId, s32 index) {
 void func_8005C5F0(Item* item) {
     s32 i;
 
-    if ((gFrameCount & 0x18) && (item->unk_46 == 0)) {
+    if ((gGameFrameCount & 0x18) && (item->unk_46 == 0)) {
         Matrix_Push(&gGfxMatrix);
         RCP_SetupDL(&gMasterDisp, 0x40);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
@@ -779,7 +779,7 @@ void func_8005C5F0(Item* item) {
         Matrix_Push(&gGfxMatrix);
         Matrix_RotateZ(gGfxMatrix, i * 45.0f * M_DTOR, 1);
         Matrix_Translate(gGfxMatrix, 2.0f * item->scale, 0.0f, 0.0f, 1);
-        Matrix_RotateZ(gGfxMatrix, (gFrameCount + (i * 110.0f)) * M_DTOR * 7.2f * item->unk_54, 1);
+        Matrix_RotateZ(gGfxMatrix, (gGameFrameCount + (i * 110.0f)) * M_DTOR * 7.2f * item->unk_54, 1);
         Graphics_SetScaleMtx(2.0f * item->unk_50);
         gSPDisplayList(gMasterDisp++, D_101CAE0);
         Matrix_Pop(&gGfxMatrix);
@@ -1783,19 +1783,19 @@ void func_80060968(void) {
             Matrix_Scale(gGfxMatrix, ent30->unk_28, ent30->unk_28, ent30->unk_24, 1);
 
             if ((gCurrentLevel == LEVEL_AQUAS) || (gCurrentLevel == LEVEL_VENOM_ANDROSS)) {
-                s32 alpha = (gFrameCount & 1) ? 180 : 50;
+                s32 alpha = (gGameFrameCount & 1) ? 180 : 50;
 
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, alpha);
                 if (gCurrentLevel == LEVEL_AQUAS) {
                     Matrix_Scale(gGfxMatrix, 0.01f, 0.3f, 0.0025f, 1);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -200.0f, 1);
-                    Matrix_RotateZ(gGfxMatrix, gFrameCount * 5.0f * M_DTOR, 1);
+                    Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 5.0f * M_DTOR, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_60119A0);
                 } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
                     Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.0025f, 1);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -200.0f, 1);
-                    Matrix_RotateZ(gGfxMatrix, gFrameCount * 25.0f * M_DTOR, 1);
+                    Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 25.0f * M_DTOR, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_C017440);
                 }

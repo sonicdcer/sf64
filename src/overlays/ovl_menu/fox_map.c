@@ -1341,7 +1341,7 @@ void func_menu_8019E99C(void) {
     func_8001DC6C(0, 0x118);
 
     D_80137E78 = 2;
-    gFrameCount = 0;
+    gGameFrameCount = 0;
 
     func_menu_80188010();
 
@@ -1942,7 +1942,7 @@ void func_menu_8019FF48(void) {
         func_800B6F50(D_menu_801CD9F4, D_menu_801CD9F8, D_menu_801CD9FC, D_menu_801CDA00, D_menu_801CDA04,
                       D_menu_801CDA08);
     }
-    gFrameCount++;
+    gGameFrameCount++;
 #if MODS_LEVEL_SELECT == true
     Map_LevelSelect();
 #endif
@@ -3925,7 +3925,7 @@ void func_menu_801A5834(void) {
         D_menu_801CF000[colorIndex]--;
     }
 
-    if (gFrameCount & mask) {
+    if (gGameFrameCount & mask) {
         RCP_SetupDL(&gMasterDisp, 0x53);
         gDPSetPrimColor(gMasterDisp++, 0, 0, r[colorIndex], g[colorIndex], b[colorIndex], 255);
         TextureRect_8bIA(&gMasterDisp, D_6000840, 96, 22, x + 11.0f, y + 3.0f, 1.0f, 1.0f);
@@ -3940,7 +3940,7 @@ void func_menu_801A5834(void) {
             D_menu_801CF000[colorIndex]--;
         }
 
-        if (gFrameCount & mask) {
+        if (gGameFrameCount & mask) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, r[colorIndex], g[colorIndex], b[colorIndex], 255);
             TextureRect_8bIA(&gMasterDisp, D_60018C0, 96, 10, x + 10.0f, y + z + 8.0f, 1.0f, 1.0f);
         }
@@ -3954,7 +3954,7 @@ void func_menu_801A5834(void) {
         D_menu_801CF000[colorIndex]--;
     }
 
-    if (gFrameCount & mask) {
+    if (gGameFrameCount & mask) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, r[colorIndex], g[colorIndex], b[colorIndex], 255);
         TextureRect_8bIA(&gMasterDisp, texture, 96, 22, x + 9.0f, y + z + 5.0f, 1.0f, 1.0f);
     }
@@ -4463,7 +4463,7 @@ void func_menu_801A6A98(PlanetId planetId) {
     func_menu_801A7D3C(planetId);
     Matrix_Push(&gGfxMatrix);
 
-    if (gFrameCount & mask) {
+    if (gGameFrameCount & mask) {
         if (planetId == PLANET_TITANIA) {
             func_menu_801A791C(planetId);
         }
@@ -5264,7 +5264,7 @@ void func_menu_801A9224(void) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, planet[PLANET_METEO].alpha);
         }
 
-        if (gFrameCount & mask) {
+        if (gGameFrameCount & mask) {
             for (i = 0; i < 42; i++) {
                 Matrix_Push(&gGfxMatrix);
 
@@ -5320,7 +5320,7 @@ void func_menu_801A9448(void) {
     dest.y = 0.0f;
     dest.z = 0.0f;
 
-    if (gFrameCount & mask) {
+    if (gGameFrameCount & mask) {
         for (i = 0; i < 4; i++) {
             Matrix_Push(&gGfxMatrix);
 
@@ -5503,7 +5503,7 @@ void func_menu_801A9DE8(void) {
         D_menu_801CF00C--;
     }
 
-    if (gFrameCount & mask) {
+    if (gGameFrameCount & mask) {
         func_menu_801AD7EC(254, 16, gLifeCount[gPlayerNum]);
     }
 
@@ -5672,7 +5672,7 @@ void func_menu_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
 
     switch (planetId) {
         case PLANET_SOLAR:
-            if (gFrameCount & mask) {
+            if (gGameFrameCount & mask) {
                 RCP_SetupDL(&gMasterDisp, 0x43);
 
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 240, 0, 0, 255);
@@ -5699,7 +5699,7 @@ void func_menu_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
             break;
 
         case PLANET_METEO:
-            if (gFrameCount & mask) {
+            if (gGameFrameCount & mask) {
                 RCP_SetupDL(&gMasterDisp, 0x3E);
 
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
@@ -5726,7 +5726,7 @@ void func_menu_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
         case PLANET_SECTOR_X:
         case PLANET_SECTOR_Y:
         case PLANET_SECTOR_Z:
-            if (gFrameCount & mask) {
+            if (gGameFrameCount & mask) {
                 RCP_SetupDL(&gMasterDisp, 0x3E);
 
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 144);
@@ -5746,7 +5746,7 @@ void func_menu_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
             break;
 
         case PLANET_BOLSE:
-            if (gFrameCount & mask) {
+            if (gGameFrameCount & mask) {
                 RCP_SetupDL(&gMasterDisp, 0x17);
 
                 Lights_SetOneLight(&gMasterDisp, 0, 0, 100, 50, 50, 40, 100, 100, 100);
@@ -5768,7 +5768,7 @@ void func_menu_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
             break;
 
         case PLANET_AREA_6:
-            if (gFrameCount & mask) {
+            if (gGameFrameCount & mask) {
                 RCP_SetupDL(&gMasterDisp, 0x17);
 
                 Lights_SetOneLight(&gMasterDisp, 0, 0, 100, 50, 50, 40, 100, 100, 100);
@@ -5790,7 +5790,7 @@ void func_menu_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
             break;
 
         default:
-            if (gFrameCount & mask) {
+            if (gGameFrameCount & mask) {
                 RCP_SetupDL(&gMasterDisp, 0x3E);
 
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
@@ -6060,7 +6060,7 @@ void func_menu_801AB978(s32 arg0) {
                         case 0:
                             RCP_SetupDL(&gMasterDisp, 0x53);
                             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-                            if (gFrameCount & 0x10) {
+                            if (gGameFrameCount & 0x10) {
                                 Graphics_DisplaySmallText(D_menu_801B6B0C[i], 131 + 28, 1.0f, 1.0f, "OK !");
                             }
                             sp90[i] = D_menu_801CEA74;

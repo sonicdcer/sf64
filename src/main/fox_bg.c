@@ -340,7 +340,7 @@ void func_8003E1E8(void) {
                         } else if ((D_80177AB0 == 3) || (D_80177AB0 == 4)) {
                             RCP_SetupDL(&gMasterDisp, 0x3E);
                             if (D_80177AB0 == 4) {
-                                if (!(gFrameCount & 8)) {
+                                if (!(gGameFrameCount & 8)) {
                                     Math_SmoothStepToF(&D_80161394, 0.0f, 1.0f, 30.0f, 0);
                                 } else {
                                     Math_SmoothStepToF(&D_80161394, 120.0f, 1.0f, 30.0f, 0);
@@ -371,14 +371,15 @@ void func_8003E1E8(void) {
                             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -290.0f, 1);
                             Matrix_Push(&gGfxMatrix);
                             Matrix_Scale(gGfxMatrix, 11.0f, 11.0f, 1.0f, 1);
-                            Matrix_RotateZ(gGfxMatrix, (gPlayer[0].unk_034 + (gFrameCount * 1.5f)) * M_DTOR, 1);
+                            Matrix_RotateZ(gGfxMatrix, (gPlayer[0].unk_034 + (gGameFrameCount * 1.5f)) * M_DTOR, 1);
                             Matrix_SetGfxMtx(&gMasterDisp);
                             gSPDisplayList(gMasterDisp++, D_C039208);
                             Matrix_Pop(&gGfxMatrix);
                             if (D_80177AB0 != 5) {
                                 Matrix_Push(&gGfxMatrix);
                                 Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 1.0f, 1);
-                                Matrix_RotateZ(gGfxMatrix, (gPlayer[0].unk_034 + (gFrameCount * -1.3f)) * M_DTOR, 1);
+                                Matrix_RotateZ(gGfxMatrix, (gPlayer[0].unk_034 + (gGameFrameCount * -1.3f)) * M_DTOR,
+                                               1);
                                 Matrix_SetGfxMtx(&gMasterDisp);
                                 gSPDisplayList(gMasterDisp++, D_C039208);
                                 Matrix_Pop(&gGfxMatrix);
@@ -523,9 +524,9 @@ void func_8003E1E8(void) {
                                 Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, 1);
                                 Matrix_Scale(gGfxMatrix, 1.7f, 1.7f, 1.0f, 1);
                                 Matrix_Push(&gGfxMatrix);
-                                Matrix_RotateZ(gGfxMatrix, -(f32) gFrameCount * 10.0f * M_DTOR, 1);
+                                Matrix_RotateZ(gGfxMatrix, -(f32) gGameFrameCount * 10.0f * M_DTOR, 1);
                                 Matrix_Scale(gGfxMatrix, 1.07f, 0.93f, 1.0f, 1);
-                                Matrix_RotateZ(gGfxMatrix, gFrameCount * 10.0f * M_DTOR, 1);
+                                Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 10.0f * M_DTOR, 1);
                                 Matrix_Scale(gGfxMatrix, 1.07f, 0.93f, 1.0f, 1);
                                 Matrix_SetGfxMtx(&gMasterDisp);
                                 gSPDisplayList(gMasterDisp++, D_7001540);
@@ -1113,7 +1114,7 @@ void func_80040CE4(void) {
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -2000.0f, 1);
             Matrix_Scale(gGfxMatrix, 3.0f, 2.0f, 3.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            if (gFrameCount & 1) {
+            if (gGameFrameCount & 1) {
                 gSPDisplayList(gMasterDisp++, D_60005B0);
             } else {
                 gSPDisplayList(gMasterDisp++, D_6002E60);
@@ -1124,7 +1125,7 @@ void func_80040CE4(void) {
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -1500.0f, 1);
             Matrix_Scale(gGfxMatrix, 3.0f, 2.0f, 3.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            if (gFrameCount & 1) {
+            if (gGameFrameCount & 1) {
                 gSPDisplayList(gMasterDisp++, D_6008830);
             } else {
                 gSPDisplayList(gMasterDisp++, D_600B0E0);
@@ -1150,7 +1151,7 @@ void func_80042D38(void) {
     RCP_SetupDL_37(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 125);
     Matrix_SetGfxMtx(&gMasterDisp);
-    if (gFrameCount & 1) {
+    if (gGameFrameCount & 1) {
         gSPDisplayList(gMasterDisp++, D_602C030);
     } else {
         gSPDisplayList(gMasterDisp++, D_602C088);

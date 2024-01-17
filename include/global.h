@@ -22,5 +22,12 @@
 #include "sf64thread.h"
 #include "sf64player.h"
 #include "gfx.h"
+#include "i1.h"
+#include "i2.h"
+#include "i3.h"
+#include "i4.h"
+#include "i5.h"
+#include "i6.h"
+#include "assets.h"
 
 #endif // GLOBAL_H

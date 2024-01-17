@@ -82,7 +82,7 @@ void Texture_Mottle(void* dst, void* src, u8 mode) {
     switch (mode) {
         case 2:
             for (var_s3 = 0; var_s3 < 0x400; var_s3 += 0x20) {
-                temp_ft3 = 3.0f * __sinf((s32) (((var_s3 / 32) + (gFrameCount / 4)) % 0x20U) * (M_PI / 16.0f));
+                temp_ft3 = 3.0f * __sinf((s32) (((var_s3 / 32) + (gGameFrameCount / 4)) % 0x20U) * (M_PI / 16.0f));
                 for (var_v1 = 0; var_v1 < 0x20; var_v1++) {
                     ((u16*) dst)[var_s3 + (temp_ft3 + var_v1) % 0x20U] = ((u16*) src)[var_s3 + var_v1];
                 }
@@ -90,7 +90,7 @@ void Texture_Mottle(void* dst, void* src, u8 mode) {
             break;
         case 3:
             for (var_s3 = 0; var_s3 < 0x580; var_s3 += 0x40) {
-                temp_ft3 = __sinf((s32) (((var_s3 / 64) + (gFrameCount / 4)) % 0x20U) * (M_PI / 4.0f));
+                temp_ft3 = __sinf((s32) (((var_s3 / 64) + (gGameFrameCount / 4)) % 0x20U) * (M_PI / 4.0f));
                 for (var_v1 = 0; var_v1 < 0x40; var_v1++) {
                     ((u16*) dst)[var_s3 + (temp_ft3 + var_v1) % 0x40U] = ((u16*) src)[var_s3 + var_v1];
                 }
@@ -98,7 +98,7 @@ void Texture_Mottle(void* dst, void* src, u8 mode) {
             break;
         case 1:
             for (var_s3 = 0; var_s3 < 0x100; var_s3 += 0x10) {
-                temp_ft3 = 2.0f * __sinf((s32) (((var_s3 / 16) + (gFrameCount / 2)) % 0x10U) * (M_PI / 8.0f));
+                temp_ft3 = 2.0f * __sinf((s32) (((var_s3 / 16) + (gGameFrameCount / 2)) % 0x10U) * (M_PI / 8.0f));
                 for (var_v1 = 0; var_v1 < 0x10; var_v1++) {
                     ((u16*) dst)[var_s3 + (temp_ft3 + var_v1) % 0x10U] = ((u16*) src)[var_s3 + var_v1];
                 }
@@ -106,7 +106,7 @@ void Texture_Mottle(void* dst, void* src, u8 mode) {
             break;
         case 0:
             for (var_s3 = 0; var_s3 < 0x400; var_s3 += 0x20) {
-                temp_ft3 = 2.0f * __sinf((s32) (((var_s3 / 32) + (gFrameCount / 2)) % 0x20U) * (M_PI / 16.0f));
+                temp_ft3 = 2.0f * __sinf((s32) (((var_s3 / 32) + (gGameFrameCount / 2)) % 0x20U) * (M_PI / 16.0f));
                 for (var_v1 = 0; var_v1 < 0x20; var_v1++) {
                     ((u16*) dst)[var_s3 + (temp_ft3 + var_v1) % 0x20U] = ((u16*) src)[var_s3 + var_v1];
                 }
@@ -116,7 +116,7 @@ void Texture_Mottle(void* dst, void* src, u8 mode) {
             var_s0_2 = (u8*) dst;
             var_s4_2 = (u8*) src;
             for (var_s3 = 0; var_s3 < 0x1000; var_s3 += 0x40) {
-                temp_ft3 = 4.0f * __sinf((s32) (((var_s3 / 64) + (gFrameCount / 4)) % 0x20U) * (M_PI / 16.0f));
+                temp_ft3 = 4.0f * __sinf((s32) (((var_s3 / 64) + (gGameFrameCount / 4)) % 0x20U) * (M_PI / 16.0f));
                 for (var_v1 = 0; var_v1 < 0x40; var_v1++) {
                     var_s0_2[var_s3 + (temp_ft3 + var_v1) % 0x40U] = var_s4_2[var_s3 + var_v1];
                 }
