@@ -3707,7 +3707,111 @@ void func_8008FFF0(Boss* boss, s32 arg1) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008FFF0.s")
 #endif
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80090200.s")
+s32 func_80090200(Boss* boss) {
+    Vec3f dest, src;
+    Player* player;
+    s32 ret = 0;
+
+    if (boss->swork[0] == 1) {
+        func_8008FFF0(boss, 8596);
+        player = &gPlayer[0];
+        ret = 1;
+
+        switch (boss->swork[1]) {
+            case 0:
+                Audio_PlaySfx(0x11000011U, &boss->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x3140402EU, &boss->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                func_800182F4(0x103200FF);
+                func_800182F4(0x113200FF);
+
+                player->camEye.x = boss->fwork[4] = boss->obj.pos.x;
+                player->camEye.y = boss->fwork[5] = boss->obj.pos.y + 500.0f;
+                player->camEye.z = boss->fwork[6] = boss->obj.pos.z + 4000.0f;
+
+                player->camAt.x = boss->obj.pos.x;
+                player->camAt.y = boss->obj.pos.y;
+                player->camAt.z = boss->obj.pos.z;
+
+                boss->fwork[7] = 0.0f;
+                boss->fwork[8] = 0.0f;
+                boss->fwork[9] = 10.0f;
+
+                boss->timer_050 = 1000;
+
+                boss->swork[1] = 1;
+                break;
+
+            case 1:
+                if (boss->timer_050 == 930) {
+                    boss->swork[1] = 2;
+                }
+
+                boss->fwork[7] += 0.5f;
+                if (boss->fwork[7] >= 360.0f) {
+                    boss->fwork[7] = 0.0f;
+                }
+
+                Math_SmoothStepToF(&boss->fwork[9], 80.0f, 0.01f, 10000.0f, 0.0f);
+                Math_SmoothStepToF(&boss->fwork[4], boss->obj.pos.x + 0.0f, 0.02f, 10000.0f, 0.0f);
+                Math_SmoothStepToF(&boss->fwork[5], boss->obj.pos.y + 500.0f, 0.02f, 10000.0f, 0.0f);
+                Math_SmoothStepToF(&boss->fwork[6], boss->obj.pos.z + 1500.0f, 0.02f, 10000.0f, 0.0f);
+                break;
+
+            case 2:
+                if (boss->timer_050 == 870) {
+                    boss->swork[1] = 3;
+                }
+
+                boss->fwork[7] += 3.0f;
+                if (boss->fwork[7] >= 360.0f) {
+                    boss->fwork[7] = 0.0f;
+                }
+
+                Math_SmoothStepToF(&boss->fwork[4], boss->obj.pos.x + 0.0f, 0.02f, 10000.0f, 0.0f);
+                Math_SmoothStepToF(&boss->fwork[5], boss->obj.pos.y + 1500.0f, 0.02f, 10000.0f, 0.0f);
+                Math_SmoothStepToF(&boss->fwork[6], boss->obj.pos.z + 1500.0f, 0.02f, 10000.0f, 0.0f);
+                break;
+
+            case 3:
+                if (boss->timer_050 == 770) {
+                    boss->swork[1] = 4;
+                }
+
+                Math_SmoothStepToF(&boss->fwork[9], 10.0f, 0.01f, 10000.0f, 0.0f);
+                Math_SmoothStepToF(&boss->fwork[4], boss->obj.pos.x + 4000.0f, 0.02f, 10000.0f, 0.0f);
+                Math_SmoothStepToF(&boss->fwork[5], boss->obj.pos.y + 2000.0f, 0.02f, 10000.0f, 0.0f);
+                Math_SmoothStepToF(&boss->fwork[6], boss->obj.pos.z + 1500.0f, 0.02f, 10000.0f, 0.0f);
+                break;
+
+            case 4:
+                ret = 2;
+        }
+
+        if (boss->swork[1] < 4) {
+            src.x = boss->fwork[4] - boss->obj.pos.x;
+            src.y = boss->fwork[5] - boss->obj.pos.y;
+            src.z = boss->fwork[6] - boss->obj.pos.z;
+
+            Matrix_Translate(gCalcMatrix, boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 0);
+            Matrix_RotateY(gCalcMatrix, M_DTOR * boss->fwork[7], 1);
+            Matrix_RotateX(gCalcMatrix, M_DTOR * boss->fwork[8], 1);
+            Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+
+            player->camEye.x = dest.x;
+            player->camEye.y = dest.y;
+            player->camEye.z = dest.z;
+
+            player->camAt.x = boss->obj.pos.x;
+            player->camAt.y = boss->obj.pos.x;
+            player->camAt.z = boss->obj.pos.x;
+
+            player->camAt.x += __cosf(M_DTOR * ((f32) boss->timer_050 * 60)) * boss->fwork[9];
+            player->camAt.y += __sinf(M_DTOR * ((f32) boss->timer_050 * 179)) * boss->fwork[9];
+        }
+    }
+
+    return ret;
+}
 
 void func_800907C4(Boss* boss) {
     switch (boss->actionState) {
