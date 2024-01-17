@@ -4645,7 +4645,7 @@ bool func_800927A0(Actor* actor) {
                     Math_SmoothStepToAngle(&actor->unk_0F4.y, sp50, 0.1f, 2.0f, 0.0f);
                 }
 
-                if (actor->obj.pos.y < gPlayer->unk_0A0) {
+                if (actor->obj.pos.y < gPlayer[0].unk_0A0) {
                     if (actor->fwork[28] < 0.0f) {
                         actor->fwork[28] = actor->fwork[28] + 0.2f;
                     }
@@ -4761,7 +4761,7 @@ void func_80092EC0(Actor* actor) {
             }
 
             if ((actor->iwork[10] != 0) && (gLevelMode == LEVELMODE_ALL_RANGE) && (actor->iwork[9] == 0) &&
-                (gPlayer->state_1C8 != PLAYERSTATE_1C8_7)) {
+                (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7)) {
                 actor->unk_048 = 2;
                 actor->unk_04A = 0;
             }
@@ -5200,4 +5200,172 @@ void func_80095538(Actor* actor, s32 arg1) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80095604.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80096A74.s")
+void func_80096A74(Player* player) {
+    Vec3f src, dest;
+    s32 button;
+
+    switch (player->unk_1D0) {
+        case 0:
+            player->pos.y += 3400.0f;
+            player->unk_0E4 = 270.0f;
+            gPlayer[0].unk_0D0 = 0.0f;
+
+            D_80177A48[1] = 100.0f;
+            D_80177A48[2] = 0.0f;
+            D_80177A48[0] = 0.2f;
+            D_80177A80 = 0;
+            player->unk_1D0 = 1;
+            D_80178340 = D_80178358 = 255;
+
+            player->camEye.x = D_80177978 = 0.0f;
+            player->camEye.y = D_80177980 = player->pos.y + D_80177A48[1];
+            player->camEye.z = D_80177988 = 0.0f;
+
+            player->camAt.x = D_801779A0 = 0.0f;
+            player->camAt.y = D_801779B8 = 0.0f;
+            player->camAt.z = D_801779C0 = 0.0f;
+
+            D_80177A48[0] = 1.0f;
+            D_80177A48[2] = 0.0f;
+            D_80177A48[4] = 0.0f;
+
+        case 1:
+            if (D_80177A80 < 30) {
+                break;
+            }
+
+            if ((D_80177A80 >= 40) && (D_80178340 != 0)) {
+                D_80178358 = 0;
+                D_8017835C = 8;
+            }
+
+            if (D_80177A80 < 140) {
+                Math_SmoothStepToF(&D_80177A48[1], 800.0f, 0.2f, 10.0f, 0.0f);
+                if (D_80177A80 > 60) {
+                    Math_SmoothStepToF(&D_80177A48[4], 3.0f, 0.05f, 1000.0f, 0.001f);
+                }
+                player->unk_034 += D_80177A48[4];
+                if (player->unk_034 >= 360.0f) {
+                    player->unk_034 -= 360.0f;
+                }
+                if (player->unk_034 < 0.0f) {
+                    player->unk_034 += 360.0f;
+                }
+            }
+
+            if (D_80177A80 >= 140) {
+                Math_SmoothStepToAngle(&player->unk_034, 0.0f, 0.05f, 3.0f, 0.001f);
+                Math_SmoothStepToF(&D_80177A48[1], 200.0f, 0.2f, 6.0f, 0.0f);
+                Math_SmoothStepToF(&D_80177A48[2], 200.0f, 0.2f, 6.0f, 0.0f);
+                D_80177A48[0] = 0.2f;
+            }
+
+            D_80177978 = player->pos.x;
+            D_80177980 = player->pos.y + D_80177A48[1];
+            D_80177988 = player->pos.z + D_80177A48[2];
+
+            D_801779A0 = player->pos.x;
+            D_801779B8 = player->pos.y;
+            D_801779C0 = player->pos.z;
+
+            if (D_80177A80 == 270) {
+                player->unk_190 = player->unk_194 = 10.0f;
+                player->unk_1D0 = 2;
+                D_80177A48[1] = 400.0f;
+                Audio_PlaySfx(0x09004002U, &player->unk_460, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            }
+            break;
+
+        case 2:
+            D_80177A48[0] = 0.12f;
+
+            Math_SmoothStepToAngle(&player->unk_034, 0.0f, 0.05f, 3.0f, 0.001f);
+            Math_SmoothStepToF(&D_80177A48[1], (player->pos.y * player->unk_148 + 50.0f), 0.2f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&D_80177A48[2], 400.0f, 0.2f, 6.0f, 0.0f);
+            Math_SmoothStepToF(&player->pos.y, 350.0f, 0.1f, 40.0f, 0.0f);
+
+            button = gControllerHold[player->num].button;
+            gControllerHold[player->num].button = gBoostButton[player->num];
+            player->unk_2BC = 1;
+            player->timer_1F8 = 60;
+
+            func_800B2574(player);
+
+            D_80137E84[0] = 0;
+            gControllerHold[player->num].button = button;
+
+            D_80177978 = player->pos.x;
+            D_80177980 = (player->pos.y * player->unk_148 + 50.0f);
+            D_80177988 = D_80177A48[2];
+
+            D_801779A0 = player->pos.x;
+            D_801779B8 = (player->pos.y * player->unk_148 + 20.0f);
+            D_801779C0 = player->pos.z;
+
+            if (D_80177A80 == 300) {
+                D_80177CE8 = 0;
+                D_80177838 = 50;
+                player->state_1C8 = PLAYERSTATE_1C8_3;
+                player->unk_0D0 = D_80161A54;
+                player->unk_1D0 = 0;
+                player->timer_1F8 = 0;
+                player->unk_014 = 0.0f;
+                player->unk_018 = 0.0f;
+                player->unk_034 = 0.0f;
+                D_80178488 = 1;
+            }
+            break;
+    }
+
+    if (D_80177A80 >= 30) {
+        Math_SmoothStepToF(&player->unk_0D0, 30.0f, 0.05f, 1000.0f, 0.001f);
+
+        if (D_80177A80 < 110) {
+            player->unk_0EC += (D_80177A48[4] * 2.0f);
+            if (player->unk_0EC >= 360.0f) {
+                player->unk_0EC -= 360.0f;
+            }
+            if (player->unk_0EC < 0.0f) {
+                player->unk_0EC += 360.0f;
+            }
+        } else {
+            Math_SmoothStepToAngle(&player->unk_0EC, 0.0f, 0.4f, (D_80177A48[4] * 2.0f), 1.0f);
+            if (player->unk_0EC == 0.0f) {
+                if (player->unk_0E4 != 0.0f) {
+                    Math_SmoothStepToAngle(&player->unk_0E4, 0.0f, 0.1f, 2.4f, 0.001f);
+                } else {
+                    player->unk_088 += 10.0f;
+                    player->unk_080 = -__sinf(M_DTOR * (player->unk_088)) * 0.5f;
+                    player->unk_0F4 += 3.0f;
+                    player->unk_0F0 = __sinf(M_DTOR * (player->unk_0F4)) * 1.5f;
+                }
+            }
+        }
+
+        Matrix_RotateY(gCalcMatrix, M_DTOR * (player->unk_0E8 + player->unk_114 + 180.0f), 0);
+        Matrix_RotateX(gCalcMatrix, -(M_DTOR * (player->unk_0E4)), 1);
+
+        src.x = 0.0f;
+        src.y = 0.0f;
+        src.z = player->unk_0D0;
+
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
+        player->vel.x = dest.x;
+        player->vel.z = dest.z;
+        player->vel.y = dest.y;
+
+        player->pos.x += player->vel.x;
+        player->pos.y += player->vel.y;
+        D_80177CE8 += player->vel.z;
+
+        player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
+    }
+
+    Math_SmoothStepToF(&player->camEye.x, D_80177978, D_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camEye.y, D_80177980, D_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camEye.z, D_80177988, D_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camAt.x, D_801779A0, D_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camAt.y, D_801779B8, D_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camAt.z, D_801779C0, D_80177A48[0], 50000.0f, 0.0f);
+}
