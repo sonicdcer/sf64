@@ -4156,7 +4156,71 @@ void func_800914FC(Actor* actor) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800915FC.s")
+bool func_800915FC(Actor* actor) {
+    s32 i;
+    f32 y;
+    Vec3f vec;
+    Boss* boss;
+    Object_58* obj58;
+    s32 ret = false;
+
+    Math_Vec3fFromAngles(&vec, 0.0f, actor->unk_0F4.y, 650.0f + actor->fwork[9] * 10.0f);
+
+    while (true) {
+        if (gLevelMode != LEVELMODE_ALL_RANGE) {
+            break;
+        }
+
+        for (i = 0, obj58 = &gObjects58[0]; i < 200; i++, obj58++) {
+            if (obj58->obj.status != 2) {
+                continue;
+            }
+
+            if (fabsf(obj58->obj.pos.x - (actor->obj.pos.x + vec.x)) > 1200.0f) {
+                continue;
+            }
+
+            if (fabsf(obj58->obj.pos.z - (actor->obj.pos.z + vec.z)) > 1200.0f) {
+                continue;
+            }
+
+            if (actor->obj.pos.y + vec.y < 650.0f) {
+                ret = 1;
+            }
+        }
+        break;
+    }
+
+    if (ret) {
+        return true;
+    }
+
+    boss = &gBosses[0];
+
+    y = 650.0f;
+    if (actor->unk_0E4 < 8) {
+        y = 720.0f;
+    }
+
+    if (boss->obj.id == 293) {
+        y = 280.0f;
+    }
+
+    while (true) {
+        if (fabsf(boss->obj.pos.x - (actor->obj.pos.x + vec.x)) > 1000.0f) {
+            break;
+        }
+        if (fabsf(boss->obj.pos.z - (actor->obj.pos.z + vec.z)) > 1000.0f) {
+            break;
+        }
+        if (fabsf(boss->obj.pos.y - (actor->obj.pos.y)) > y) {
+            break;
+        }
+        ret = true;
+        break;
+    }
+    return ret;
+}
 
 bool func_80091864(Actor* actor) {
     f32 sp44;
