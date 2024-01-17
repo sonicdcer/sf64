@@ -132,7 +132,7 @@ void func_i2_8018F330(Actor* actor) {
                 break;
             }
 
-            if (!(gFrameCount & 3) && (Rand_ZeroOne() < 0.2f)) {
+            if (!(gGameFrameCount & 3) && (Rand_ZeroOne() < 0.2f)) {
                 func_i2_8018F1DC(actor);
             }
 
@@ -163,7 +163,7 @@ void func_i2_8018F330(Actor* actor) {
             actor->obj.rot.x += 5.5f;
             actor->obj.rot.y += 5.0f;
 
-            if (!(gFrameCount & 7)) {
+            if (!(gGameFrameCount & 7)) {
                 func_8007D10C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1.5f);
             }
 
@@ -1034,13 +1034,13 @@ void func_i2_80190078(Boss* boss) {
             } else if (boss->timer_050 > 200) {
                 boss->fwork[3] = -1000.0f;
                 boss->fwork[1] = -2500.0f;
-                if (!(gFrameCount & 15)) {
+                if (!(gGameFrameCount & 15)) {
                     Audio_PlaySfx(0x2902401C, &boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 }
             } else if (boss->timer_050 > 100) {
                 boss->fwork[3] = 0;
                 boss->fwork[1] = -500.0f;
-                if (!(gFrameCount & 0xF)) {
+                if (!(gGameFrameCount & 0xF)) {
                     Audio_PlaySfx(0x2902401C, &boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 }
             } else {
@@ -1096,7 +1096,7 @@ void func_i2_80190078(Boss* boss) {
                               (Rand_ZeroOne() * 5.0f) + 5.0f);
             }
 
-            if ((!(gFrameCount & 7)) && (Rand_ZeroOne() < 0.5f)) {
+            if ((!(gGameFrameCount & 7)) && (Rand_ZeroOne() < 0.5f)) {
                 boss->timer_05C = 4;
             }
 
@@ -1241,7 +1241,7 @@ s32 func_i2_80192AF0(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4)
                 gSPDisplayList(gMasterDisp++, *arg1);
                 if (boss->swork[4] == 0) {
                     RCP_SetupDL(&gMasterDisp, 0x29);
-                    if (!(gFrameCount & 1)) {
+                    if (!(gGameFrameCount & 1)) {
                         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
                     } else {
                         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
@@ -1251,7 +1251,7 @@ s32 func_i2_80192AF0(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4)
                     Matrix_RotateZ(gGfxMatrix, D_i2_80195650.z * M_DTOR, 1);
                     Matrix_RotateY(gGfxMatrix, D_i2_80195650.y * M_DTOR, 1);
                     Matrix_RotateX(gGfxMatrix, D_i2_80195650.x * M_DTOR, 1);
-                    Matrix_RotateZ(gGfxMatrix, 2.0f * gFrameCount * M_DTOR, 1);
+                    Matrix_RotateZ(gGfxMatrix, 2.0f * gGameFrameCount * M_DTOR, 1);
                     Matrix_Scale(gGfxMatrix, boss->fwork[45], boss->fwork[45], boss->fwork[45], 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_6009C30);
@@ -1260,7 +1260,7 @@ s32 func_i2_80192AF0(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4)
                     Matrix_RotateZ(gGfxMatrix, D_i2_80195668[2] * M_DTOR, 1);
                     Matrix_RotateY(gGfxMatrix, D_i2_80195668[1] * M_DTOR, 1);
                     Matrix_RotateX(gGfxMatrix, D_i2_80195668[0] * M_DTOR, 1);
-                    Matrix_RotateZ(gGfxMatrix, 2.0f * -gFrameCount * M_DTOR, 1);
+                    Matrix_RotateZ(gGfxMatrix, 2.0f * -gGameFrameCount * M_DTOR, 1);
                     Matrix_Scale(gGfxMatrix, boss->fwork[45], boss->fwork[45], boss->fwork[45], 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_6009C30);
@@ -1387,7 +1387,7 @@ void func_i2_80193434(Boss* boss) {
             if (fwork > 50.0f) {
                 fwork = 50.0f;
             }
-            if (gFrameCount & 1) {
+            if (gGameFrameCount & 1) {
                 fwork *= 1.2f;
             }
             Matrix_Push(&gGfxMatrix);
@@ -1403,7 +1403,7 @@ void func_i2_80193434(Boss* boss) {
             if (fwork > 50.0f) {
                 fwork = 50.0f;
             }
-            if (gFrameCount & 1) {
+            if (gGameFrameCount & 1) {
                 fwork *= 1.2f;
             }
             Matrix_Push(&gGfxMatrix);
@@ -1423,7 +1423,7 @@ void func_i2_80193434(Boss* boss) {
             if (fwork > 4.0f) {
                 fwork = 4.0f;
             }
-            if (gFrameCount & 1) {
+            if (gGameFrameCount & 1) {
                 fwork *= 1.2f;
             }
             Matrix_Push(&gGfxMatrix);
