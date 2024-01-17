@@ -468,8 +468,8 @@ void Object_Load(ObjectInit* objInit, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
                     D_i5_801BA1E8 = 98;
                     break;
                 case OBJ_UNK_402:
-                    D_E9F1D0_801A7F78 = objInit->rot.z * 0.1f;
-                    D_E9F1D0_801A7F60 = -(f32) objInit->rot.x;
+                    D_i6_801A7F78 = objInit->rot.z * 0.1f;
+                    D_i6_801A7F60 = -(f32) objInit->rot.x;
                     break;
                 case OBJ_UNK_400:
                     D_801782B8++;
@@ -1166,13 +1166,13 @@ void Object_Init(s32 index, ObjectId objId) {
             gActors[index].unk_0C9 = 1;
             break;
         case OBJ_BOSS_320:
-            func_E9F1D0_8018D16C(&gBosses[index]);
+            func_i6_8018D16C(&gBosses[index]);
             break;
         case OBJ_BOSS_316:
             func_i4_80193CA4(&gBosses[index]);
             break;
         case OBJ_BOSS_314:
-            func_E9F1D0_80197CC4(&gBosses[index]);
+            func_i6_80197CC4(&gBosses[index]);
             break;
         case OBJ_ACTOR_205:
         case OBJ_ACTOR_206:
@@ -1452,7 +1452,7 @@ void func_800656D4(Actor* actor) {
                     spA8[i] = temp_v0;
                 }
             }
-            switch (gFrameCount % 6U) {
+            switch (gGameFrameCount % 6U) {
                 case 0:
                 case 1:
                 case 2:
@@ -1930,8 +1930,8 @@ void func_800671D0(Item* item) {
     } else {
         var_v0 = 7;
     }
-    if (!(var_v0 & gFrameCount)) {
-        Matrix_RotateY(gCalcMatrix, gFrameCount * 23.0f * M_DTOR, 0);
+    if (!(var_v0 & gGameFrameCount)) {
+        Matrix_RotateY(gCalcMatrix, gGameFrameCount * 23.0f * M_DTOR, 0);
         sp40.x = 50.0f;
         sp40.y = (Rand_ZeroOne() - 0.5f) * 120.0f;
         sp40.z = 0.0f;
@@ -2202,7 +2202,7 @@ void func_80068020(Item* item) {
             }
             if (item->scale > 0.3f) {
                 Matrix_RotateY(gCalcMatrix, item->obj.rot.y * M_DTOR, 0);
-                Matrix_RotateZ(gCalcMatrix, gFrameCount * 37.0f * M_DTOR, 1);
+                Matrix_RotateZ(gCalcMatrix, gGameFrameCount * 37.0f * M_DTOR, 1);
                 sp4C.x = 0.0f;
                 sp4C.y = item->scale * 100.0f;
                 sp4C.z = 0.0f;
@@ -2432,7 +2432,7 @@ void func_800690D0(s32 index, ObjectId objId) {
             break;
         case OBJ_ACTOR_197:
             if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
-                func_E9F1D0_801888F4(&gActors[index]);
+                func_i6_801888F4(&gActors[index]);
             } else {
                 func_800763A4(&gActors[index]);
             }

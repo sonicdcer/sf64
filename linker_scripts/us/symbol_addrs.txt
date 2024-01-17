@@ -77,7 +77,7 @@ Save_Checksum = 0x800C2FB0;
 Save_Write = 0x800C3084;
 Save_Read = 0x800C3194;
 
-sEFFA40_Overlay = 0x800CBD3C;
+sunused_Overlay = 0x800CBD3C;
 
 D_800CFA54 = 0x800CFA54;
 
@@ -100,8 +100,8 @@ D_i5_801BB83C = 0x801BB83C; // force_migration:True segment:ovl_i5
 D_i5_801BB808 = 0x801BB808; // force_migration:True segment:ovl_i5
 D_i5_801BBAD0 = 0x801BBAD0; // force_migration:True segment:ovl_i5
 D_i5_801BBAE4 = 0x801BBAE4; // force_migration:True segment:ovl_i5
-D_EF0260_80196BF4 = 0x80196BF4; // force_migration:True segment:ovl_ending
+D_ending_80196BF4 = 0x80196BF4; // force_migration:True segment:ovl_ending
 D_ovl_i4_8019FE74 = 0x8019FE74; // force_migration:True segment:ovl_i4
 D_ovl_i4_8019FEFC = 0x8019FEFC; // force_migration:True segment:ovl_i4
-D_E9F1D0_801A7560 = 0x801A7560; // force_migration:True segment:ovl_i6
-D_E9F1D0_801A792C = 0x801A792C; // force_migration:True segment:ovl_i6
+D_i6_801A7560 = 0x801A7560; // force_migration:True segment:ovl_i6
+D_i6_801A792C = 0x801A792C; // force_migration:True segment:ovl_i6

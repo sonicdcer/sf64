@@ -217,7 +217,8 @@ void func_i5_8018769C(Player* player) {
                 Object_Kill(&gActors[3].obj, &gActors[3].sfxPos);
             }
 
-            Math_SmoothStepToF(&player->unk_0F0, __sinf(((gFrameCount) *5.0f) * M_DTOR) * 10.0f, 0.1f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->unk_0F0, __sinf(((gGameFrameCount) *5.0f) * M_DTOR) * 10.0f, 0.1f, 100.0f,
+                               0.0f);
 
             if (D_80177A80 == 0x244) {
                 D_80177838 = 0x32;
@@ -357,7 +358,7 @@ void func_i5_801882CC(Player* player) {
             func_800A8BA4(player);
             func_800ADF58(player);
 
-            if (!(gFrameCount & 3)) {
+            if (!(gGameFrameCount & 3)) {
                 f32 x;
                 f32 y;
                 f32 z;
@@ -383,7 +384,7 @@ void func_i5_801882CC(Player* player) {
             D_801779C0 = player->pos.z + player->unk_144;
 
             if (player->pos.y < 100.0f) {
-                camAtY = __sinf((gFrameCount * 130.0f) * 0.017453292f) * 3.0f;
+                camAtY = __sinf((gGameFrameCount * 130.0f) * 0.017453292f) * 3.0f;
             }
 
             Math_SmoothStepToF(&player->unk_170, 2.0f, 1.0f, 0.2f, 0.0f);
@@ -398,12 +399,12 @@ void func_i5_801882CC(Player* player) {
             func_8007A900(((Rand_ZeroOne() - 0.5f) * 30.0f) + (player->pos.x - 30.0f), 30.0f,
                           ((Rand_ZeroOne() - 0.5f) * 30.0f) + player->unk_138, (2.0f * Rand_ZeroOne()) + 3.5f, 255, 12,
                           1);
-            Math_SmoothStepToF(&player->unk_0F0, __sinf((gFrameCount * 6.0f) * 0.017453292f) * 18.0f, 0.1f, 100.0f,
+            Math_SmoothStepToF(&player->unk_0F0, __sinf((gGameFrameCount * 6.0f) * 0.017453292f) * 18.0f, 0.1f, 100.0f,
                                0.0f);
-            Math_SmoothStepToF(&player->unk_080, __sinf((gFrameCount * 3.0f) * 0.017453292f) * 5.0f, 0.1f, 100.0f,
+            Math_SmoothStepToF(&player->unk_080, __sinf((gGameFrameCount * 3.0f) * 0.017453292f) * 5.0f, 0.1f, 100.0f,
                                0.0f);
 
-            x = __sinf((gFrameCount * 4.0f) * 0.017453292f) * -1.5f;
+            x = __sinf((gGameFrameCount * 4.0f) * 0.017453292f) * -1.5f;
 
             player->vel.x = x;
             player->vel.y += 0.1f;

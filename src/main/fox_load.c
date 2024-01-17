@@ -140,7 +140,7 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
             changeOvl = Overlay_Init(&sOvli3_Unk4[ovlStage]);
             break;
         case OVL_SETUP_SECTOR_Y:
-            changeOvl = Overlay_Init(&sOvlE9F1D0_SectorY[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli6_SectorY[ovlStage]);
             break;
         case OVL_SETUP_SOLAR:
             changeOvl = Overlay_Init(&sOvli3_Solar[ovlStage]);
@@ -149,7 +149,7 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
             changeOvl = Overlay_Init(&sOvli3_Zoness[ovlStage]);
             break;
         case OVL_SETUP_VENOM_ANDROSS:
-            changeOvl = Overlay_Init(&sOvlE9F1D0_Venom2[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli6_Venom2[ovlStage]);
             break;
         case OVL_SETUP_TRAINING:
             changeOvl = Overlay_Init(&sOvli1_Training[ovlStage]);
@@ -158,7 +158,7 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
             changeOvl = Overlay_Init(&sOvli1_Venom1[ovlStage]);
             break;
         case OVL_SETUP_VENOM_2:
-            changeOvl = Overlay_Init(&sOvlE9F1D0_VenomSW[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli6_VenomSW[ovlStage]);
             break;
         case OVL_SETUP_20:
             changeOvl = Overlay_Init(&sOvli2_Setup20[ovlStage]);
@@ -185,7 +185,7 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
             }
             break;
         case OVL_SETUP_CREDITS:
-            changeOvl = Overlay_Init(&sOvlEF0260_Credits[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlending_Credits[ovlStage]);
             break;
         default:
             (void) "DMA MODE ERROR %d\n";

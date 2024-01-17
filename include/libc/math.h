@@ -12,6 +12,9 @@
 #define SHT_MAX 32767.0f
 #define SHT_MINV (1.0f / SHT_MAX)
 
+#define RAD_TO_DEG(radians) ((radians * 180.0f) / M_PI)
+#define DEG_TO_RAD(degrees) ((degrees * M_PI) / 180.0f)
+
 typedef union {
     struct {
         u32 hi;

@@ -38,7 +38,7 @@ u16* D_menu_801ADA30[5] = {
 void func_menu_801875E0(void) {
     D_80137E78 = 2;
 
-    gFrameCount = 0;
+    gGameFrameCount = 0;
 
     D_80177AE0 = 2;
 
@@ -108,7 +108,7 @@ void func_menu_80187754(void) {
             func_menu_801877F0();
             break;
     }
-    gFrameCount++;
+    gGameFrameCount++;
 }
 
 void func_menu_801877F0(void) {
@@ -263,7 +263,7 @@ void func_menu_80187B00(void) {
             break;
     }
 
-    if ((D_menu_801B82A8 == 0) && ((gFrameCount & 7) == 7) && (D_menu_801B8288 < 10)) {
+    if ((D_menu_801B82A8 == 0) && ((gGameFrameCount & 7) == 7) && (D_menu_801B8288 < 10)) {
         D_menu_801B8288++;
     }
 }
@@ -667,7 +667,7 @@ void func_menu_801888E8(void) {
     }
 
     if (D_menu_801B82B0 == 0) {
-        if (gFrameCount & 0x80) {
+        if (gGameFrameCount & 0x80) {
             if (D_menu_801B8350[1].unk_20 + D_menu_801B8350[1].unk_24 < -20.0f) {
                 D_menu_801B8350[1].unk_24 = 4.0f;
             }
@@ -1286,7 +1286,7 @@ void func_menu_8018A990(void) {
         { 255.0f, 255.0f, 155.0f },
     };
 
-    if ((gFrameCount & 7) == 7) {
+    if ((gGameFrameCount & 7) == 7) {
         if (D_menu_801B8338 != 0) {
             D_menu_801B8334 = (D_menu_801B8334 + 1) & 3;
             D_menu_801B8328 = D_menu_801ADF54[D_menu_801B8334].unk_0;
@@ -1300,7 +1300,7 @@ void func_menu_8018A990(void) {
         D_menu_801B8338 ^= 1;
     }
 
-    if (gFrameCount & 1) {
+    if (gGameFrameCount & 1) {
         D_menu_801B86CC += 30.0f;
         if (D_menu_801B86CC > 90.0f) {
             D_menu_801B86CC = -90.0f;
@@ -2185,7 +2185,7 @@ void func_menu_8018D510(s32 arg0) {
 
     var_fv0 = D_menu_801B84E8[arg0].unk_44;
 
-    if (gFrameCount & 1) {
+    if (gGameFrameCount & 1) {
         var_fv0 += var_fv1;
     }
 

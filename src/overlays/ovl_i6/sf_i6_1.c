@@ -1,9 +1,9 @@
 #include "global.h"
 
-extern s32 D_E9F1D0_801A6760[12];
-extern f32 D_E9F1D0_801A7F64[2];
+extern s32 D_i6_801A6760[12];
+extern f32 D_i6_801A7F64[2];
 
-void func_E9F1D0_80187530(Actor* actor) {
+void func_i6_80187530(Actor* actor) {
     s32 index;
 
     switch (actor->unk_048) {
@@ -26,11 +26,11 @@ void func_E9F1D0_80187530(Actor* actor) {
     }
 
     index = actor->unk_0B6 / 18.0f;
-    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_E9F1D0_801A6760[index]);
-    actor->obj.rot.z = D_E9F1D0_801A7F64[1];
+    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_i6_801A6760[index]);
+    actor->obj.rot.z = D_i6_801A7F64[1];
 }
 
-s32 func_E9F1D0_8018767C(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
+s32 func_i6_8018767C(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
     if (arg0 == 13) {
         *arg1 = 0;
     }
@@ -39,20 +39,19 @@ s32 func_E9F1D0_8018767C(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* a
 
 extern Limb* D_6014844[];
 
-void func_E9F1D0_8018769C(Actor* actor) {
+void func_i6_8018769C(Actor* actor) {
     Vec3f sp28[20];
 
     Animation_GetFrameData(&D_6014658, actor->unk_0B6, sp28);
-    Animation_DrawSkeleton(1, D_6014844, sp28, func_E9F1D0_8018767C, NULL, NULL, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, D_6014844, sp28, func_i6_8018767C, NULL, NULL, &gIdentityMatrix);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_801876FC.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_801876FC.s")
 
-extern void func_800A4F4C(Object_58*);
 extern ObjectInit* D_C0356CC;
 extern f32* D_C038CCC;
 
-void func_E9F1D0_801878A8() {
+void func_i6_801878A8() {
     Actor* var_s0_2;
     Item* var_s0_3;
     Object_58* var_s0;
@@ -123,7 +122,7 @@ extern ObjectInit* D_C036310;
 extern ObjectInit* D_C036B6C;
 extern ObjectInit* D_C03733C;
 
-void func_E9F1D0_80187C5C(void) {
+void func_i6_80187C5C(void) {
     Actor* var_s0_2;
     Item* var_s0_3;
     Object_58* var_s0;
@@ -204,7 +203,7 @@ void func_E9F1D0_80187C5C(void) {
     }
 }
 
-void func_E9F1D0_801880E4(Actor* arg0) {
+void func_i6_801880E4(Actor* arg0) {
     s32 i;
     Vec3f sp60;
     Object_58* var_v0;
@@ -229,7 +228,7 @@ void func_E9F1D0_801880E4(Actor* arg0) {
     if ((fabsf(sp60.z) < 300.0f) && (fabsf(sp60.y) < 300.0f) && (fabsf(sp60.x) < 300.0f)) {
         arg0->unk_04E += 1;
     }
-    if (!(gFrameCount & 0x1F)) {
+    if (!(gGameFrameCount & 0x1F)) {
         arg0->iwork[0xB] = 1;
         arg0->fwork[1] = 47.0f;
         if ((fabsf(arg0->obj.pos.x - gPlayer[0].pos.x) < 1000.0f) &&
@@ -265,11 +264,11 @@ void func_E9F1D0_801880E4(Actor* arg0) {
     arg0->vel.z = sp3C.z;
 }
 
-void func_E9F1D0_80188448(Actor* arg0) {
+void func_i6_80188448(Actor* arg0) {
     func_8005B388(arg0);
 }
 
-void func_E9F1D0_80188468(void) {
+void func_i6_80188468(void) {
     Actor* actor = &gActors[0];
 
     Actor_Initialize(actor);
@@ -284,9 +283,7 @@ void func_E9F1D0_80188468(void) {
     Audio_PlaySfx(0x3100000C, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-#define RAD_TO_DEG(radians) ((radians * 180.0f) / M_PI)
-
-void func_E9F1D0_80188528(Actor* arg0) {
+void func_i6_80188528(Actor* arg0) {
     Math_SmoothStepToF(&arg0->vel.x, 0.0f, 0.2f, 0.5f, 0.0f);
     Math_SmoothStepToF(&arg0->vel.y, 0.0f, 0.2f, 0.5f, 0.0f);
     Math_SmoothStepToF(&arg0->vel.z, 0.0f, 0.2f, 0.5f, 0.0f);
@@ -304,7 +301,7 @@ void func_E9F1D0_80188528(Actor* arg0) {
 
 extern Gfx* D_6009300;
 
-void func_E9F1D0_80188660(Actor* arg0) {
+void func_i6_80188660(Actor* arg0) {
 
     RCP_SetupDL(&gMasterDisp, 0x3D);
     GPC(255, 255, 255, 255);
@@ -317,7 +314,7 @@ void func_E9F1D0_80188660(Actor* arg0) {
     GDL(&D_6009300);
 }
 
-void func_E9F1D0_801887B0(Actor* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
+void func_i6_801887B0(Actor* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     Actor_Initialize(arg0);
     arg0->obj.status = 2;
     arg0->obj.id = 0x11E;
@@ -336,18 +333,18 @@ void func_E9F1D0_801887B0(Actor* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f
     Object_SetInfo(&arg0->info, arg0->obj.id);
 }
 
-void func_E9F1D0_8018887C(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
+void func_i6_8018887C(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gActors); i++) {
         if (gActors[i].obj.status == 0) {
-            func_E9F1D0_801887B0(&gActors[i], arg0, arg1, arg2, arg3, arg4, arg5);
+            func_i6_801887B0(&gActors[i], arg0, arg1, arg2, arg3, arg4, arg5);
             break;
         }
     }
 }
 
-void func_E9F1D0_801888F4(Actor* arg0) {
+void func_i6_801888F4(Actor* arg0) {
     s32 i;
 
     arg0->obj.rot.z -= 8.0f;
@@ -371,7 +368,7 @@ void func_E9F1D0_801888F4(Actor* arg0) {
     }
 }
 
-void func_E9F1D0_80188A4C(Boss* arg0) {
+void func_i6_80188A4C(Boss* arg0) {
 
     if (arg0->damage >= 21) {
         arg0->damage = 20;
@@ -430,7 +427,7 @@ void func_E9F1D0_80188A4C(Boss* arg0) {
 
 extern AnimationHeader D_600C038;
 
-void func_E9F1D0_80188CB8(Boss* arg0) {
+void func_i6_80188CB8(Boss* arg0) {
     s32 i;
     Vec3f sp50;
     Vec3f sp44;
@@ -467,11 +464,11 @@ void func_E9F1D0_80188CB8(Boss* arg0) {
 
     if (arg0->swork[7] != 0) {
         arg0->swork[7]--;
-        if (!(gFrameCount & 1)) {
-            func_E9F1D0_8018887C(((Rand_ZeroOne() - 0.5f) * 100.0f) + arg0->obj.pos.x,
-                                 ((Rand_ZeroOne() - 0.5f) * 300.0f) + (arg0->obj.pos.y - 250.0f),
-                                 ((Rand_ZeroOne() - 0.5f) * 100.0f) + arg0->obj.pos.z, (Rand_ZeroOne() - 0.5f) * 50.0f,
-                                 (Rand_ZeroOne() - 0.5f) * 10.0f, (Rand_ZeroOne() - 0.5f) * 50.0f);
+        if (!(gGameFrameCount & 1)) {
+            func_i6_8018887C(((Rand_ZeroOne() - 0.5f) * 100.0f) + arg0->obj.pos.x,
+                             ((Rand_ZeroOne() - 0.5f) * 300.0f) + (arg0->obj.pos.y - 250.0f),
+                             ((Rand_ZeroOne() - 0.5f) * 100.0f) + arg0->obj.pos.z, (Rand_ZeroOne() - 0.5f) * 50.0f,
+                             (Rand_ZeroOne() - 0.5f) * 10.0f, (Rand_ZeroOne() - 0.5f) * 50.0f);
         }
     }
     arg0->fwork[14] += arg0->fwork[15];
@@ -502,7 +499,7 @@ void func_E9F1D0_80188CB8(Boss* arg0) {
     }
 }
 
-void func_E9F1D0_80189098(Object* arg0) {
+void func_i6_80189098(Object* arg0) {
     Actor* actor = &gActors[10];
 
     Actor_Initialize(actor);
@@ -536,7 +533,7 @@ void func_E9F1D0_80189098(Object* arg0) {
 
 extern void func_800B56BC(Player*);
 
-void func_E9F1D0_80189214(void) {
+void func_i6_80189214(void) {
     s32 i;
     Player* player = &gPlayer[0];
 
@@ -568,14 +565,14 @@ void func_E9F1D0_80189214(void) {
     func_800B56BC(player);
 }
 
-void func_E9F1D0_8018933C(Actor* arg0) {
+void func_i6_8018933C(Actor* arg0) {
     if ((fabsf(arg0->obj.pos.x - gPlayer->pos.x) < 1000.0f) && (fabsf(arg0->obj.pos.z - gPlayer->unk_138) < 1000.0f)) {
         D_Timer_80177B44 = 0x32;
         Object_Kill(&arg0->obj, &arg0->sfxPos);
     }
 }
 
-void func_E9F1D0_801893B8(Actor* arg0) {
+void func_i6_801893B8(Actor* arg0) {
 
     if (D_8015F924 == 0) {
         arg0->unk_04E++;
@@ -596,22 +593,23 @@ void func_E9F1D0_801893B8(Actor* arg0) {
     }
 }
 
-void func_E9F1D0_80193710(void);
+void func_i6_80193710(void);
 
-void func_E9F1D0_80189470(Object* arg0) {
+void func_i6_80189470(Actor* arg0) {
     s32 i;
     Player* player = &gPlayer[0];
 
     if ((D_80177AB0 != 7) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) &&
-        (fabsf(arg0->pos.x - gPlayer[0].pos.x) < 9000.0f) && (fabsf(arg0->pos.z - gPlayer[0].unk_138) < 9000.0f)) {
+        (fabsf(arg0->obj.pos.x - gPlayer[0].pos.x) < 9000.0f) &&
+        (fabsf(arg0->obj.pos.z - gPlayer[0].unk_138) < 9000.0f)) {
         D_80177AB0 = 7;
         func_800BA808(gMsg_ID_19370, RCID_JAMES);
         func_800182F4(0x101400FF);
         func_800182F4(0x111400FF);
     }
 
-    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && (fabsf(arg0->pos.x - gPlayer[0].pos.x) < 500.0f) &&
-        (fabsf(arg0->pos.z - gPlayer[0].unk_138) < 500.0f)) {
+    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && (fabsf(arg0->obj.pos.x - gPlayer[0].pos.x) < 500.0f) &&
+        (fabsf(arg0->obj.pos.z - gPlayer[0].unk_138) < 500.0f)) {
         func_8001A838(0x11403076);
         func_8001D400(0);
         gCurrentLevel = LEVEL_VENOM_2;
@@ -636,7 +634,7 @@ void func_E9F1D0_80189470(Object* arg0) {
             gObjects58[i].obj.status = 0;
         }
 
-        func_E9F1D0_80193710();
+        func_i6_80193710();
         D_8017782C = 1;
         func_800A594C();
         D_80178348 = D_80178350 = D_80178354 = 0;
@@ -647,84 +645,84 @@ void func_E9F1D0_80189470(Object* arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_80189724.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_80189724.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_801899E4.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_801899E4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_80189B00.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_80189B00.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_80189B70.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_80189B70.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_8018B47C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_8018B47C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_8018B8C0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_8018B8C0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_8018BDD8.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_8018BDD8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_8018C390.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_8018C390.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_8018C660.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_8018C660.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_8018C734.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_8018C734.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_8018C7A0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_8018C7A0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_8018C8D4.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_8018C8D4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_8018C958.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_8018C958.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_8018CA50.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_8018CA50.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_8018CAD4.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_8018CAD4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_8018CF98.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_8018CF98.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_8018D0D8.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_8018D0D8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_8018D16C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_8018D16C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_8018D2B0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_8018D2B0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_8018D9C0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_8018D9C0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_8018DA94.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_8018DA94.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_8018DBF0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_8018DBF0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_801917F0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_801917F0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_801924B4.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_801924B4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_801928C8.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_801928C8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_80192E94.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_80192E94.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_80193244.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_80193244.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_80193380.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_80193380.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_801934EC.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_801934EC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_8019350C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_8019350C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_8019356C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_8019356C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_801935B4.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_801935B4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_801935D4.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_801935D4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_80193668.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_80193668.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_80193710.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_80193710.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_801939A0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_801939A0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_80193AE4.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_80193AE4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_80193C4C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_80193C4C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_80195E44.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_80195E44.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/func_E9F1D0_801961AC.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/func_i6_801961AC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/E9F1E0/D_E9F1D0_801A6BA0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/sf_i6_1/D_i6_801A6BA0.s")
