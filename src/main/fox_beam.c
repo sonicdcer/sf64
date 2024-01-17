@@ -1250,8 +1250,8 @@ void func_80039A50(PlayerShot* shot) {
                     Matrix_Translate(gGfxMatrix, shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z + D_80177D20, 1);
                     Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].unk_058, 1);
                     Matrix_RotateX(gGfxMatrix, gPlayer[gPlayerNum].unk_05C, 1);
-                    Matrix_RotateZ(gGfxMatrix, gFrameCount * 40.0f * M_DTOR, 1);
-                    if (!(gFrameCount & 1)) {
+                    Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 40.0f * M_DTOR, 1);
+                    if (!(gGameFrameCount & 1)) {
                         Matrix_Scale(gGfxMatrix, 1.7f, 1.7f, 1.7f, 1);
                     } else {
                         Matrix_Scale(gGfxMatrix, 1.2f, 1.2f, 1.2f, 1);
@@ -1314,21 +1314,21 @@ void func_80039A50(PlayerShot* shot) {
                                    D_800C9C08[shot->playerNum], 255);
                     RCP_SetupDL(&gMasterDisp, 0x31);
                     if (gLaserStrength[shot->playerNum] != LASERS_SINGLE) {
-                        Matrix_RotateZ(gGfxMatrix, gFrameCount * 48.0f * M_DTOR, 1);
+                        Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 48.0f * M_DTOR, 1);
                         Matrix_Push(&gGfxMatrix);
                         Matrix_Translate(gGfxMatrix, 0.f, 50.0f, 0.0f, 1);
-                        Matrix_RotateZ(gGfxMatrix, gFrameCount * 70.0f * M_DTOR, 1);
+                        Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 70.0f * M_DTOR, 1);
                         Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, 1);
                         Matrix_SetGfxMtx(&gMasterDisp);
                         gSPDisplayList(gMasterDisp++, D_301AD60);
                         Matrix_Pop(&gGfxMatrix);
                         Matrix_Translate(gGfxMatrix, 0.0f, -50.0f, 0.0f, 1);
-                        Matrix_RotateZ(gGfxMatrix, gFrameCount * 70.0f * M_DTOR, 1);
+                        Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 70.0f * M_DTOR, 1);
                         Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, 1);
                         Matrix_SetGfxMtx(&gMasterDisp);
                         gSPDisplayList(gMasterDisp++, D_301AD60);
                     } else {
-                        if (!(gFrameCount & 1)) {
+                        if (!(gGameFrameCount & 1)) {
                             var_fv1 = M_PI;
                         } else {
                             var_fv1 = 0.0f;
@@ -1340,7 +1340,7 @@ void func_80039A50(PlayerShot* shot) {
                         gSPDisplayList(gMasterDisp++, D_301AD60);
                     }
                 } else {
-                    if (!(gFrameCount & 1)) {
+                    if (!(gGameFrameCount & 1)) {
                         var_fv1 = M_PI;
                     } else {
                         var_fv1 = 0.0f;
@@ -1365,7 +1365,7 @@ void func_80039A50(PlayerShot* shot) {
                 gDPSetEnvColor(gMasterDisp++, D_800C9C00[shot->playerNum], D_800C9C04[shot->playerNum],
                                D_800C9C08[shot->playerNum], 255);
                 if (gLaserStrength[shot->playerNum] != LASERS_SINGLE) {
-                    Matrix_RotateZ(gGfxMatrix, gFrameCount * 48.0f * M_DTOR, 1);
+                    Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 48.0f * M_DTOR, 1);
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, 0.f, 40.0f, 0.0f, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
@@ -1422,14 +1422,14 @@ void func_80039A50(PlayerShot* shot) {
                         } else {
                             gDPSetEnvColor(gMasterDisp++, 0, 255, 0, 255);
                         }
-                        Matrix_RotateZ(gGfxMatrix, gFrameCount * 53.0f * M_DTOR, 1);
+                        Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 53.0f * M_DTOR, 1);
                         Matrix_SetGfxMtx(&gMasterDisp);
                         gSPDisplayList(gMasterDisp++, D_101C2E0);
-                        Matrix_RotateZ(gGfxMatrix, gFrameCount * -53.0f * 2.0f * M_DTOR, 1);
+                        Matrix_RotateZ(gGfxMatrix, gGameFrameCount * -53.0f * 2.0f * M_DTOR, 1);
                         Matrix_SetGfxMtx(&gMasterDisp);
                         gSPDisplayList(gMasterDisp++, D_101C2E0);
                         Matrix_Pop(&gGfxMatrix);
-                        if (!(gFrameCount & 1)) {
+                        if (!(gGameFrameCount & 1)) {
                             Matrix_Scale(gGfxMatrix, 1.7f, 1.7f, 1.7f, 1);
                         } else {
                             Matrix_Scale(gGfxMatrix, 1.3f, 1.3f, 1.3f, 1);
@@ -1445,7 +1445,7 @@ void func_80039A50(PlayerShot* shot) {
                     Matrix_Translate(gGfxMatrix, shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z + D_80177D20, 1);
                     Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].unk_058, 1);
                     Matrix_RotateX(gGfxMatrix, gPlayer[gPlayerNum].unk_05C, 1);
-                    if (!(gFrameCount & 1)) {
+                    if (!(gGameFrameCount & 1)) {
                         Matrix_Scale(gGfxMatrix, 1.2f, 1.2f, 1.2f, 1);
                     } else {
                         Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, 1);
@@ -1553,7 +1553,7 @@ void func_8003B00C(PlayerShot* shot, Player* player) {
             shot->unk_48 += shot->vel.x;
             shot->unk_4C += shot->vel.y;
             shot->unk_50 += shot->vel.z;
-            if (!(gFrameCount & 3)) {
+            if (!(gGameFrameCount & 3)) {
                 func_800A668C(D_8017849C, D_801784A0, D_80178498);
             }
             if ((fabsf(shot->obj.pos.x - shot->unk_48) < 200.0f) && (fabsf(shot->obj.pos.y - shot->unk_4C) < 200.0f) &&
@@ -1756,10 +1756,10 @@ void func_8003C008(PlayerShot* shot) {
     for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
         if ((boss->obj.status == 2) && (boss->timer_05A == 0)) {
             if (boss->obj.id == OBJ_BOSS_316) {
-                var_s6 = gFrameCount & 7;
+                var_s6 = gGameFrameCount & 7;
                 var_fs2 = shot->unk_44 * 40.0f;
             } else {
-                var_s6 = gFrameCount & 0xF;
+                var_s6 = gGameFrameCount & 0xF;
                 var_fs2 = shot->unk_44 * 30.0f;
             }
             hitboxData = boss->info.hitbox;

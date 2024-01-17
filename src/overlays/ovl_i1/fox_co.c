@@ -16,16 +16,16 @@ void func_i1_8018753C(Object_80* obj80) {
     GSGM_BACK();
 }
 
-void func_801875A4(Object* obj) {
+void func_i1_801875A4(Object_4C* obj4C) {
     f32 sp1C;
     f32 sp18;
     f32 var_f;
 
-    if (!(gFrameCount & 3)) {
+    if (!(gGameFrameCount & 3)) {
         sp1C = (Rand_ZeroOne() - 0.5f) * 10.0f;
         sp18 = (Rand_ZeroOne() - 0.5f) * 10.0f;
         var_f = ((Rand_ZeroOne() * 0.5f) + 1.0f);
-        func_8007C85C(obj->pos.x + sp1C, obj->pos.y + sp18, obj->pos.z, 4.0f * var_f);
+        func_8007C85C(obj4C->obj.pos.x + sp1C, obj4C->obj.pos.y + sp18, obj4C->obj.pos.z, 4.0f * var_f);
     }
 }
 
@@ -314,23 +314,23 @@ void func_i1_80187AC8(Boss* boss) {
                 }
             }
         }
-        if ((boss->swork[1] == 1000) && !(gFrameCount & 3)) {
+        if ((boss->swork[1] == 1000) && !(gGameFrameCount & 3)) {
             func_8007BFFC(D_i1_8019B6D8[3], D_i1_8019B6D8[4], D_i1_8019B6D8[5],
                           (D_i1_8019B6D8[3] - boss->obj.pos.x) * 0.1f, 0.0f,
                           (D_i1_8019B6D8[5] - boss->obj.pos.z) * 0.1f, 1.5f, 5);
         }
-        if ((boss->swork[2] == 1000) && !(gFrameCount & 3)) {
+        if ((boss->swork[2] == 1000) && !(gGameFrameCount & 3)) {
             func_8007BFFC(D_i1_8019B6D8[9], D_i1_8019B6D8[10], D_i1_8019B6D8[11],
                           (D_i1_8019B6D8[9] - boss->obj.pos.x) * 0.1f, 0.0f,
                           (D_i1_8019B6D8[11] - boss->obj.pos.z) * 0.1f, 1.5f, 5);
         }
-        if ((boss->swork[3] == 1000) && !(gFrameCount & 3)) {
+        if ((boss->swork[3] == 1000) && !(gGameFrameCount & 3)) {
             func_8007BFFC(D_i1_8019B6D8[12], D_i1_8019B6D8[13], D_i1_8019B6D8[14], 0.0f, 20.0f, 0.0f, 2.0f, 5);
         }
-        if ((boss->swork[4] == 1000) && !(gFrameCount & 3)) {
+        if ((boss->swork[4] == 1000) && !(gGameFrameCount & 3)) {
             func_8007BFFC(D_i1_8019B6D8[56], D_i1_8019B6D8[57], D_i1_8019B6D8[58], 0.0f, 10.0f, 0.0f, 2.0f, 5);
         }
-        if ((boss->swork[7] == 1000) && !(gFrameCount & 3)) {
+        if ((boss->swork[7] == 1000) && !(gGameFrameCount & 3)) {
             func_8007BFFC(D_i1_8019B6D8[59], D_i1_8019B6D8[60], D_i1_8019B6D8[61], 0.0f, 10.0f, 0.0f, 2.0f, 5);
         }
     }
@@ -810,7 +810,7 @@ void func_i1_80189058(Boss* boss) {
             case 6:
                 boss->unk_05E = 0;
                 D_8017812C = 1;
-                if (!(gFrameCount & 7)) {
+                if (!(gGameFrameCount & 7)) {
                     D_i1_8019B6D8[17] = ((Rand_ZeroOne() - 0.5f) * 2000.0f) + gPlayer[0].pos.x;
                     D_i1_8019B6D8[18] = gPlayer[0].pos.y;
                     D_i1_8019B6D8[19] = ((Rand_ZeroOne() - 0.5f) * 2000.0f) + gPlayer[0].unk_138;
@@ -822,11 +822,11 @@ void func_i1_80189058(Boss* boss) {
                         boss->obj.rot.z = 60.0f;
                         func_i1_80188C7C(boss);
 
-                        if ((gFrameCount & 0x1FF) == 0) {
+                        if ((gGameFrameCount & 0x1FF) == 0) {
                             func_800BA808(gMsg_ID_2275, RCID_BOSS_CORNERIA);
                         }
 
-                        if ((gFrameCount & 0x1FF) == 0x100) {
+                        if ((gGameFrameCount & 0x1FF) == 0x100) {
                             func_800BA808(gMsg_ID_2220, RCID_BOSS_CORNERIA);
                         }
                     }
@@ -837,10 +837,10 @@ void func_i1_80189058(Boss* boss) {
                         boss->obj.rot.z = -60.0f;
                         func_i1_80188C7C(boss);
 
-                        if ((gFrameCount & 0x1FF) == 0) {
+                        if ((gGameFrameCount & 0x1FF) == 0) {
                             func_800BA808(gMsg_ID_2275, RCID_BOSS_CORNERIA);
                         }
-                        if ((gFrameCount & 0x1FF) == 0x100) {
+                        if ((gGameFrameCount & 0x1FF) == 0x100) {
                             func_800BA808(gMsg_ID_2220, RCID_BOSS_CORNERIA);
                         }
                     }
@@ -859,7 +859,7 @@ void func_i1_80189058(Boss* boss) {
                 }
 
                 boss->unk_068 = __sinf(boss->obj.rot.z * M_DTOR) * 30.0f;
-                if (!(gFrameCount & 0xF)) {
+                if (!(gGameFrameCount & 0xF)) {
                     boss->unk_04C = (s32) (Rand_ZeroOne() * 100.0f);
                 }
                 Animation_GetFrameData(&D_602BC18, boss->unk_04C, sp84);
@@ -1183,7 +1183,7 @@ void func_i1_8018ACE0(Actor* actor) {
             }
         }
     }
-    if ((actor->unk_0CE < 11) && !(gFrameCount & 3)) {
+    if ((actor->unk_0CE < 11) && !(gGameFrameCount & 3)) {
         func_8007D2C8(((Rand_ZeroOne() - 0.5f) * 100.0f) + actor->obj.pos.x,
                       ((Rand_ZeroOne() - 0.5f) * 100.0f) + (actor->obj.pos.y + 200.0f),
                       (Rand_ZeroOne() * 50.0f) + (actor->obj.pos.z + 50.0f), 3.0f);
@@ -1416,7 +1416,7 @@ void func_i1_8018B58C(Actor* actor) {
             }
             break;
         case 101:
-            if ((actor->timer_0BE != 0) && !(gFrameCount & 1)) {
+            if ((actor->timer_0BE != 0) && !(gGameFrameCount & 1)) {
                 func_8007797C(actor->obj.pos.x, actor->obj.pos.y + 150.0f, actor->obj.pos.z, 0.0f, 10.0f, 0.0f, 3.0f);
             }
             break;
@@ -1633,7 +1633,7 @@ void func_i1_8018C19C(Boss* boss) {
         boss->vel.y = sp6C.y;
         boss->vel.z = sp6C.z - D_80177D08;
         boss->fwork[16] = 4.0f;
-        if (!(gFrameCount & 1)) {
+        if (!(gGameFrameCount & 1)) {
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199914[0], &sp84[6]);
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199914[1], &sp84[7]);
             Matrix_MultVec3f(gCalcMatrix, &D_i1_8019992C, &sp84[8]);
@@ -1663,7 +1663,7 @@ void func_i1_8018C19C(Boss* boss) {
             for (i = 0; var_v1 >= 60; i++, var_v1 -= 60) {}
 
             for (var_v0 = 0, var_v1 = 13; var_v0 < i; var_v0++, var_v1++) {
-                if ((gFrameCount & 0xF) == (var_v0 & 0xF)) {
+                if ((gGameFrameCount & 0xF) == (var_v0 & 0xF)) {
                     Matrix_MultVec3f(gCalcMatrix, &D_i1_8019995C[var_v0], &sp84[var_v1]);
                     func_8007D0E0(sp84[var_v1].x + boss->obj.pos.x, sp84[var_v1].y + boss->obj.pos.y,
                                   sp84[var_v1].z + boss->obj.pos.z, boss->fwork[17]);
@@ -1710,7 +1710,7 @@ void func_i1_8018C19C(Boss* boss) {
                 boss->fwork[15] = 0.5f;
             }
         }
-        if ((gBosses[1].actionState != 0) && !(gFrameCount & 0xF)) {
+        if ((gBosses[1].actionState != 0) && !(gGameFrameCount & 0xF)) {
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199908, &sp84[5]);
             func_8007D0E0(gBosses[0].obj.pos.x + sp84[5].x, gBosses[0].obj.pos.y + sp84[5].y,
                           gBosses[0].obj.pos.z + sp84[5].z, 5.0f);
@@ -1718,24 +1718,24 @@ void func_i1_8018C19C(Boss* boss) {
         if (gBosses[2].actionState != 0) {
             gBosses[3].unk_05E = 1;
             if (gBosses[3].actionState != 0) {
-                if (!(gFrameCount & 7)) {
+                if (!(gGameFrameCount & 7)) {
                     Matrix_MultVec3f(gCalcMatrix, &D_i1_80199950, &sp84[11]);
                     func_8007D0E0(gBosses[0].obj.pos.x + sp84[11].x, gBosses[0].obj.pos.y + sp84[11].y,
                                   gBosses[0].obj.pos.z + sp84[11].z, 7.0f);
                 }
-            } else if (!(gFrameCount & 0xF)) {
+            } else if (!(gGameFrameCount & 0xF)) {
                 Matrix_MultVec3f(gCalcMatrix, &D_i1_80199938, &sp84[9]);
                 func_8007D0E0(gBosses[0].obj.pos.x + sp84[9].x, gBosses[0].obj.pos.y + sp84[9].y,
                               gBosses[0].obj.pos.z + sp84[9].z, 5.0f);
             }
         }
-        if ((gBosses[3].actionState != 0) && (gBosses[2].actionState == 0) && !(gFrameCount & 0xF)) {
+        if ((gBosses[3].actionState != 0) && (gBosses[2].actionState == 0) && !(gGameFrameCount & 0xF)) {
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199944, &sp84[10]);
             func_8007D0E0(gBosses[0].obj.pos.x + sp84[10].x, gBosses[0].obj.pos.y + sp84[10].y,
                           gBosses[0].obj.pos.z + sp84[10].z, 5.0f);
         }
 
-        if (((boss->actionState == 1) || (boss->actionState == 2)) && !(gFrameCount & 7)) {
+        if (((boss->actionState == 1) || (boss->actionState == 2)) && !(gGameFrameCount & 7)) {
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199914[0], &sp84[6]);
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199914[1], &sp84[7]);
             Matrix_MultVec3f(gCalcMatrix, &D_i1_8019992C, &sp84[8]);
@@ -1902,7 +1902,7 @@ void func_i1_8018C19C(Boss* boss) {
                             boss->swork[6]++;
                             boss->swork[6] &= 1;
                         }
-                        if (!(gFrameCount & 7)) {
+                        if (!(gGameFrameCount & 7)) {
                             if (fabsf(boss->obj.pos.z - gPlayer[0].unk_138) > 700.0f) {
 
                                 Matrix_MultVec3f(gCalcMatrix, &D_i1_801998F0[0], &sp84[3]);
@@ -1966,7 +1966,7 @@ void func_i1_8018C19C(Boss* boss) {
                 break;
             case 8:
                 D_801779A8[0] = 20.0f;
-                if (!(gFrameCount & 0x1F)) {
+                if (!(gGameFrameCount & 0x1F)) {
                     for (i = 0; i < 10; i++) {
                         func_80079618(((Rand_ZeroOne() - 0.5f) * 300.0f) + boss->obj.pos.x, boss->obj.pos.y,
                                       boss->obj.pos.z, 1.0f);
@@ -2014,7 +2014,7 @@ void func_i1_8018C19C(Boss* boss) {
                 }
                 break;
             case 9:
-                if (!(gFrameCount & 0xF)) {
+                if (!(gGameFrameCount & 0xF)) {
                     for (i = 0; i < 10; i++) {
                         func_80079618(((Rand_ZeroOne() - 0.5f) * 300.0f) + boss->obj.pos.x, boss->obj.pos.y,
                                       boss->obj.pos.z, 1.0f);
@@ -2037,7 +2037,7 @@ void func_i1_8018C19C(Boss* boss) {
                 }
                 break;
             case 10:
-                if (!(gFrameCount & 7)) {
+                if (!(gGameFrameCount & 7)) {
                     for (i = 0; i < 10; i++) {
                         func_80079618(((Rand_ZeroOne() - 0.5f) * 300.0f) + boss->obj.pos.x, boss->obj.pos.y,
                                       boss->obj.pos.z, 1.0f);
@@ -2154,11 +2154,11 @@ void func_i1_8018DDAC(Boss* boss) {
             Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, 0);
             gBosses[0].fwork[15] += 0.5f;
 
-            if (!(gFrameCount & 7) && (Rand_ZeroOne() < 0.5f)) {
+            if (!(gGameFrameCount & 7) && (Rand_ZeroOne() < 0.5f)) {
                 boss->timer_05C = 4;
             }
 
-            if (!(gFrameCount & 1)) {
+            if (!(gGameFrameCount & 1)) {
                 Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A6C, &sp4C);
                 func_8007C120(boss->obj.pos.x + sp4C.x, boss->obj.pos.y + sp4C.y, boss->obj.pos.z + sp4C.z, boss->vel.x,
                               boss->vel.y, boss->vel.z, 0.2f, 10);
@@ -2247,11 +2247,11 @@ void func_i1_8018E290(Boss* boss) {
             Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, 0);
             gBosses[0].fwork[15] += 0.5f;
 
-            if (!(gFrameCount & 7) && (Rand_ZeroOne() < 0.5f)) {
+            if (!(gGameFrameCount & 7) && (Rand_ZeroOne() < 0.5f)) {
                 boss->timer_05C = 4;
             }
 
-            if (!(gFrameCount & 1)) {
+            if (!(gGameFrameCount & 1)) {
                 Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A84, &sp4C);
                 func_8007C120(boss->obj.pos.x + sp4C.x, boss->obj.pos.y + sp4C.y, boss->obj.pos.z + sp4C.z, boss->vel.x,
                               boss->vel.y, boss->vel.z, 0.2f, 10);
@@ -2342,10 +2342,10 @@ void func_i1_8018E76C(Boss* boss) {
         case 1:
             Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, 0);
             gBosses[0].fwork[15] += 0.5f;
-            if (!(gFrameCount & 7) && (Rand_ZeroOne() < 0.5f)) {
+            if (!(gGameFrameCount & 7) && (Rand_ZeroOne() < 0.5f)) {
                 boss->timer_05C = 4;
             }
-            if (!(gFrameCount & 1)) {
+            if (!(gGameFrameCount & 1)) {
                 Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A9C, &sp4C);
                 func_8007C120(boss->obj.pos.x + sp4C.x, boss->obj.pos.y + sp4C.y, boss->obj.pos.z + sp4C.z, boss->vel.x,
                               boss->vel.y, boss->vel.z, 0.2f, 10);
@@ -2520,7 +2520,7 @@ void func_i1_8018F3BC(Object_80* obj80, f32 arg1) {
 void func_i1_8018F4A4(void) {
     s32 i;
 
-    if (!(gFrameCount & 0xF) && !(gPlayer[0].unk_1D0 < 4)) {
+    if (!(gGameFrameCount & 0xF) && !(gPlayer[0].unk_1D0 < 4)) {
         for (i = 0; i < 50; i++) {
             if (gObjects80[i].obj.status == 0) {
                 func_i1_8018F3BC(&gObjects80[i], 4000.0f);
@@ -2558,7 +2558,7 @@ void func_i1_8018F55C(Effect* effect) {
 void func_i1_8018F678(void) {
     s32 i;
 
-    if (!(gFrameCount & 0x1F) && gPlayer[0].pos.x == 0.0f) {
+    if (!(gGameFrameCount & 0x1F) && gPlayer[0].pos.x == 0.0f) {
 
         for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
             if (gEffects[i].obj.status == 0) {
@@ -2786,7 +2786,7 @@ void func_i1_8018F880(Player* player) {
                 actor0->obj.pos.y = player->pos.y + 80.0f;
                 actor0->obj.pos.z += 100.0f;
             }
-            if ((D_801782F8 != 0) && (gFrameCount & 2)) {
+            if ((D_801782F8 != 0) && (gGameFrameCount & 2)) {
                 player->wings.unk_30 = 5.0f;
             }
             break;
@@ -2796,14 +2796,14 @@ void func_i1_8018F880(Player* player) {
                 D_80177A48[0] = 0.0f;
                 player->timer_1F8 = 190;
             }
-            if ((D_801782F8 != 0) && (gFrameCount & 2)) {
+            if ((D_801782F8 != 0) && (gGameFrameCount & 2)) {
                 player->wings.unk_30 = 5.0f;
             }
             D_80177980 = player->pos.y + 10.0f;
             D_801779B8 = player->pos.y + 10.0f;
             break;
         case 4:
-            if ((D_801782F8 != 0) && (gFrameCount & 2)) {
+            if ((D_801782F8 != 0) && (gGameFrameCount & 2)) {
                 player->wings.unk_30 = 5.0f;
             }
             Math_SmoothStepToF(&D_80177A48[0], 0.1f, 1.0f, 0.001f, 0.0f);
@@ -2824,7 +2824,7 @@ void func_i1_8018F880(Player* player) {
                 Math_SmoothStepToF(&actor0->fwork[19], 50.0f, 0.1f, 3.0f, 0.01f);
             }
             actor0->fwork[20] = 0.0f;
-            if ((D_801782F8 != 0) && (gFrameCount & 2)) {
+            if ((D_801782F8 != 0) && (gGameFrameCount & 2)) {
                 actor0->fwork[20] = 5.0f;
             }
             break;
@@ -2864,7 +2864,7 @@ void func_i1_8018F880(Player* player) {
                 func_800BA808(gMsg_ID_2030, RCID_PEPPY);
             }
             actor2->fwork[20] = 0.0f;
-            if ((D_801782F8 != 0) && (gFrameCount & 2)) {
+            if ((D_801782F8 != 0) && (gGameFrameCount & 2)) {
                 actor2->fwork[20] = 5.0f;
             }
             break;
@@ -2891,7 +2891,7 @@ void func_i1_8018F880(Player* player) {
                 Math_SmoothStepToF(&actor1->fwork[19], -20.0f, 0.1f, 3.0f, 0.01f);
             }
             actor1->fwork[20] = 0.0f;
-            if ((D_801782F8 != 0) && (gFrameCount & 2)) {
+            if ((D_801782F8 != 0) && (gGameFrameCount & 2)) {
                 actor1->fwork[20] = 5.0f;
             }
             break;
@@ -2914,7 +2914,7 @@ void func_i1_8018F880(Player* player) {
                 func_800BA808(gMsg_ID_2050, RCID_FOX);
             }
             player->wings.unk_30 = 0.0f;
-            if ((D_801782F8 != 0) && (gFrameCount & 2)) {
+            if ((D_801782F8 != 0) && (gGameFrameCount & 2)) {
                 player->wings.unk_30 = 5.0f;
             }
             if (player->timer_1F8 == 80) {

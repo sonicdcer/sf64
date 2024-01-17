@@ -400,7 +400,7 @@ void Option_Setup(void) {
     var_v0_2 = gExpertMode;
     gExpertMode = false;
 
-    gFrameCount = 0;
+    gGameFrameCount = 0;
     D_menu_801B8284 = 0;
     D_menu_801B9178 = 0;
     D_menu_801B917C = 0;
@@ -546,7 +546,7 @@ void Option_Init(void) {
             Option_UpdateEntry();
             break;
     }
-    gFrameCount++;
+    gGameFrameCount++;
 }
 
 void Option_UpdateEntry(void) {
@@ -1950,13 +1950,13 @@ void Option_DataDraw(void) {
             }
         }
 
-        if (gFrameCount & sp74[1]) {
+        if (gGameFrameCount & sp74[1]) {
             sp7C[1] = D_menu_801AED20[1];
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, sp7C[1], sp7C[1], 255);
             TextureRect_8bIA(&gMasterDisp, D_8009980, 32, 12, D_menu_801AF094[1], D_menu_801AF0AC[1], 1.0f, 1.0f);
         }
 
-        if (gFrameCount & sp74[0]) {
+        if (gGameFrameCount & sp74[0]) {
             sp7C[0] = D_menu_801AED20[0];
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, sp7C[0], sp7C[0], 255);
             TextureRect_8bIA(&gMasterDisp, D_8009B00, 40, 12, D_menu_801AF094[2], D_menu_801AF0AC[2], 1.0f, 1.0f);
@@ -2785,7 +2785,7 @@ void func_menu_80199820(s32 arg0) {
         D_menu_801B9348[arg0]--;
     }
 
-    if (gFrameCount & var_v0) {
+    if (gGameFrameCount & var_v0) {
         colorGB = D_menu_801B9358[arg0];
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
@@ -3192,7 +3192,7 @@ void func_menu_8019AB30(void) {
         }
     }
 
-    if (gFrameCount & var_v0) {
+    if (gGameFrameCount & var_v0) {
         RCP_SetupDL(&gMasterDisp, 0x53);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
@@ -3260,7 +3260,7 @@ void func_menu_8019AD84(void) {
         }
     }
 
-    if (gFrameCount & var_v0) {
+    if (gGameFrameCount & var_v0) {
         RCP_SetupDL(&gMasterDisp, 0x53);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
@@ -3326,7 +3326,7 @@ void func_menu_8019AFFC(void) {
         }
     }
 
-    if (gFrameCount & var_v0) {
+    if (gGameFrameCount & var_v0) {
         RCP_SetupDL(&gMasterDisp, 0x53);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
@@ -3447,7 +3447,7 @@ void func_menu_8019B5AC(void) {
         }
     }
 
-    if (gFrameCount & var_v0) {
+    if (gGameFrameCount & var_v0) {
         RCP_SetupDL(&gMasterDisp, 0x53);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
         TextureRect_8bIA(&gMasterDisp, D_7003650, 40, 12, 143.0f, 210.0f, 1.0f, 1.0f);
@@ -4091,7 +4091,7 @@ void func_menu_8019D118(void) {
     Graphics_DisplaySmallText(D_menu_801AF30C[2], D_menu_801AF324[2], 1.0f, 1.0f, "TOTAL HITS");
     (void) "p:%d x:%f y:%f\n";
     if (D_menu_801B9138 == 1) {
-        if (gFrameCount & 0x10) {
+        if (gGameFrameCount & 0x10) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
             TextureRect_8bIA(&gMasterDisp, D_50021F0, 32, 8, D_menu_801AF30C[5], D_menu_801AF324[5], 1.0f, 1.0f);
         }
@@ -4136,7 +4136,7 @@ void func_menu_8019D118(void) {
     Matrix_SetGfxMtx(&gMasterDisp);
 
     for (i = 0; i < 3; i++) {
-        if (gFrameCount & mask[i]) {
+        if (gGameFrameCount & mask[i]) {
             func_menu_8019DB20(D_menu_801B9150[i][0], D_menu_801AF300[i], 18.0f, -455.0f, 1.0f,
                                D_menu_801B90C0[i] + D_menu_801B90F0[i], D_menu_801B90D0[i] + D_menu_801B9100[i],
                                D_menu_801B90E0[i] + D_menu_801B9110[i]);

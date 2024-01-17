@@ -627,7 +627,7 @@ void func_i3_80187944(Boss* bossA6) {
         Math_SmoothStepToF(&D_i3_801C22F0.b[i], D_i3_801BECB0[var_s0][2], 1.0f, 10.0f, 0);
     }
     if ((bossA6->swork[A6_SWK_15 + 0] == 0) && (bossA6->swork[A6_SWK_15 + 1] == 0) &&
-        (bossA6->swork[A6_SWK_15 + 2] == 0) && (bossA6->fwork[A6_FWK_0] != 0) && !(gFrameCount & 1)) {
+        (bossA6->swork[A6_SWK_15 + 2] == 0) && (bossA6->fwork[A6_FWK_0] != 0) && !(gGameFrameCount & 1)) {
         func_8007C120(bossA6->obj.pos.x, bossA6->obj.pos.y, bossA6->obj.pos.z + 200.0f, bossA6->vel.x, bossA6->vel.y,
                       bossA6->vel.z, 0.3f, 1);
     }
@@ -650,18 +650,18 @@ void func_i3_80187944(Boss* bossA6) {
         Math_SmoothStepToAngle(&bossA6->fwork[A6_FWK_9], bossA6->fwork[A6_FWK_32], 0.05f, 0.02f, 0.00001f);
         Math_SmoothStepToAngle(&bossA6->obj.rot.z, bossA6->fwork[A6_FWK_8], 0.05f, bossA6->fwork[A6_FWK_9], 0.00001f);
         if (bossA6->swork[A6_SWK_25] >= 2) {
-            if (!(gFrameCount & 0x3F) && (Rand_ZeroOne() < 0.5f)) {
+            if (!(gGameFrameCount & 0x3F) && (Rand_ZeroOne() < 0.5f)) {
                 bossA6->fwork[A6_FWK_6] = gPlayer[0].camEye.x + ((Rand_ZeroOne() - 0.5f) * 500.0f);
             }
-            if (!(gFrameCount & 0x3F) && (Rand_ZeroOne() < 0.5f)) {
+            if (!(gGameFrameCount & 0x3F) && (Rand_ZeroOne() < 0.5f)) {
                 bossA6->fwork[A6_FWK_7] = gPlayer[0].camEye.y + ((Rand_ZeroOne() - 0.5f) * 500.0f);
             }
         } else {
-            if (!(gFrameCount & 0x1F) && (Rand_ZeroOne() < 0.7f)) {
+            if (!(gGameFrameCount & 0x1F) && (Rand_ZeroOne() < 0.7f)) {
                 bossA6->fwork[A6_FWK_6] = gPlayer[0].camEye.x + (Rand_ZeroOne() - 0.5f) * 1000.0f;
                 bossA6->fwork[A6_FWK_30] = 0.0f;
             }
-            if (!(gFrameCount & 0x1F) && (Rand_ZeroOne() < 0.7f)) {
+            if (!(gGameFrameCount & 0x1F) && (Rand_ZeroOne() < 0.7f)) {
                 bossA6->fwork[A6_FWK_7] = gPlayer[0].camEye.y + (Rand_ZeroOne() - 0.5f) * 1000.0f;
                 bossA6->fwork[A6_FWK_31] = 0.0f;
             }
@@ -705,7 +705,7 @@ void func_i3_80187944(Boss* bossA6) {
         if (bossA6->timer_05C == 0) {
             bossA6->timer_05C = 15;
         }
-        if (!(gFrameCount & 1)) {
+        if (!(gGameFrameCount & 1)) {
             Matrix_MultVec3f(gCalcMatrix, &D_i3_801BED04, &spC8[0]);
             Matrix_MultVec3f(gCalcMatrix, &D_i3_801BED10, &spC8[1]);
             Matrix_MultVec3f(gCalcMatrix, &D_i3_801BED1C, &spC8[2]);
@@ -720,12 +720,12 @@ void func_i3_80187944(Boss* bossA6) {
                               bossA6->obj.pos.z + spC8[i].z, 10.0f);
             }
         }
-        if (!(gFrameCount & 0x1F)) {
+        if (!(gGameFrameCount & 0x1F)) {
             func_8007C120(bossA6->obj.pos.x, bossA6->obj.pos.y, bossA6->obj.pos.z + 300.0f, bossA6->vel.x,
                           bossA6->vel.y, bossA6->vel.z, 0.5f, 70);
         }
     }
-    if (!(gFrameCount & 0xF)) {
+    if (!(gGameFrameCount & 0xF)) {
         sp114 = fabsf(bossA6->fwork[A6_FWK_3] / -1700.0f);
         if (sp114 < 1.0f) {
             sp114 = 1.0f;
@@ -959,7 +959,7 @@ void func_i3_80187944(Boss* bossA6) {
                 D_i3_801C2250[A6_BSS_30]++;
                 D_i3_801C2250[A6_BSS_30] &= 1;
             }
-            if (!(gFrameCount & 0x3F)) {
+            if (!(gGameFrameCount & 0x3F)) {
                 bossA6->fwork[A6_FWK_8] = Rand_ZeroOne() * 360.0f;
                 bossA6->fwork[A6_FWK_9] = 0.0f;
             }
@@ -1026,7 +1026,7 @@ void func_i3_80187944(Boss* bossA6) {
             Math_SmoothStepToF(&D_i3_801C22F0.unk_28[0], sp68->r, 0.5f, 100.0f, 0.00001f);
             Math_SmoothStepToF(&D_i3_801C22F0.unk_28[2], sp68->g, 0.5f, 100.0f, 0.00001f);
             Math_SmoothStepToF(&D_i3_801C22F0.unk_28[1], sp68->b, 0.5f, 100.0f, 0.00001f);
-            if (!(gFrameCount & 0xF)) {
+            if (!(gGameFrameCount & 0xF)) {
                 D_i3_801C2250[A6_BSS_9]++;
                 D_i3_801C2250[A6_BSS_9] &= 3;
             }
@@ -1156,7 +1156,7 @@ void func_i3_80187944(Boss* bossA6) {
     func_i3_8018A464(bossA6, 1);
     func_i3_8018A464(bossA6, 2);
     for (i = 0; i < 5; i++) {
-        if (!(gFrameCount & 3)) {
+        if (!(gGameFrameCount & 3)) {
             D_i3_801BF280[i] = (Rand_ZeroOne() - 0.5f) * 10.0f;
             D_i3_801BF2B0[i] = (Rand_ZeroOne() - 0.5f) * 10.0f;
             D_i3_801BF2E0[i] = (Rand_ZeroOne() - 0.5f) * 10.0f;
@@ -1445,7 +1445,7 @@ void func_i3_8018A464(Boss* bossA6, s32 arg1) {
                 if (bossA6->swork[A6_SWK_25] < 2) {
                     var_fs0 = 0.7f;
                 }
-                if (!(gFrameCount & 31) && (Rand_ZeroOne() < var_fs0) && (D_i3_801C2250[A6_BSS_5] == 0) &&
+                if (!(gGameFrameCount & 31) && (Rand_ZeroOne() < var_fs0) && (D_i3_801C2250[A6_BSS_5] == 0) &&
                     (bossA6->swork[A6_SWK_33 + arg1] != 0)) {
                     if ((Rand_ZeroOne() < 0.2f) || (bossA6->swork[A6_SWK_25] < 2)) {
                         if (bossA6->swork[A6_SWK_18] == 0) {
@@ -1470,7 +1470,7 @@ void func_i3_8018A464(Boss* bossA6, s32 arg1) {
                         }
                     } else {
                         for (i = 0; i < 3; i++) {
-                            if ((i == (gFrameCount & 15)) && (bossA6->swork[A6_SWK_18 + i] == 0)) {
+                            if ((i == (gGameFrameCount & 15)) && (bossA6->swork[A6_SWK_18 + i] == 0)) {
                                 bossA6->swork[A6_SWK_12 + i] = 15;
                                 bossA6->swork[A6_SWK_18 + i] = 1;
                                 i = 3;
@@ -1725,7 +1725,7 @@ void func_i3_8018C0D0(f32* arg0, f32 arg1, Vec3f* arg2, f32 arg3, s32 arg4) {
     f32 spAC;
     f32 var_fs3 = 5.0f;
 
-    if (!(gFrameCount & 1)) {
+    if (!(gGameFrameCount & 1)) {
         spAC = 0.0f;
     } else {
         spAC = 180.0f;
@@ -1798,17 +1798,17 @@ void func_i3_8018C54C(Boss* bossA6) {
             RCP_SetupDL(&gMasterDisp, 0x47);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) D_i3_801C22F0.unk_24);
             spAC.x = 0.0f;
-            if ((gFrameCounter & 1) == 0) {
+            if ((gSysFrameCount & 1) == 0) {
                 spAC.x = 0.0f;
             }
             spAC.y = spAC.z = 0.0f;
-            Matrix_RotateZ(gCalcMatrix, gFrameCount * 6.0f * M_DTOR, 0);
+            Matrix_RotateZ(gCalcMatrix, gGameFrameCount * 6.0f * M_DTOR, 0);
             Matrix_MultVec3f(gCalcMatrix, &spAC, &spB8);
             Matrix_Translate(gGfxMatrix, spB8.x, spB8.y, 0.0f, 1);
             Matrix_Scale(gGfxMatrix, bossA6->unk_3F8, bossA6->unk_3F8, bossA6->unk_3F8, 1);
-            Matrix_RotateZ(gGfxMatrix, gFrameCount * 10.0f * M_DTOR, 1);
+            Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 10.0f * M_DTOR, 1);
             Matrix_Scale(gGfxMatrix, bossA6->fwork[A6_FWK_34], bossA6->fwork[A6_FWK_35], 1.0f, 1);
-            Matrix_RotateZ(gGfxMatrix, -(f32) gFrameCount * 10.0f * M_DTOR, 1);
+            Matrix_RotateZ(gGfxMatrix, -(f32) gGameFrameCount * 10.0f * M_DTOR, 1);
             Matrix_Scale(gGfxMatrix, bossA6->fwork[A6_FWK_34], bossA6->fwork[A6_FWK_35], 1.0f, 1);
         } else {
             RCP_SetupDL(&gMasterDisp, 0x1B);
@@ -1826,7 +1826,7 @@ void func_i3_8018C54C(Boss* bossA6) {
         if (bossA6->unk_3F8 >= 1.0f) {
             for (i = 0; i < 3; i++) {
                 if ((bossA6->swork[A6_SWK_33 + i] == 0) && (bossA6->actionState != 3) &&
-                    (D_i3_801C2250[A6_BSS_2_0 + i] == 0) && !(gFrameCount & 3) && (bossA6->swork[A6_SWK_27 + i] != 0) &&
+                    (D_i3_801C2250[A6_BSS_2_0 + i] == 0) && !(gGameFrameCount & 3) && (bossA6->swork[A6_SWK_27 + i] != 0) &&
                     (D_80177854 != 0x64)) {
                     Matrix_RotateY(gCalcMatrix, bossA6->obj.rot.y * M_DTOR, 0);
                     Matrix_RotateX(gCalcMatrix, bossA6->obj.rot.x * M_DTOR, 1);

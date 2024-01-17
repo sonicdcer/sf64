@@ -13,13 +13,13 @@ void func_80042EC0(Boss* boss) {
     s32 var_a3;
     f32 var_fv0;
 
-    if (gBossFrameCount < 0xF00) {
+    if (gBossFrameCount < 3840) {
         var_a3 = 10;
-    } else if (gBossFrameCount < 0x1680) {
+    } else if (gBossFrameCount < 5760) {
         var_a3 = 5;
-    } else if (gBossFrameCount < 0x1E00) {
+    } else if (gBossFrameCount < 7680) {
         var_a3 = 2;
-    } else if (gBossFrameCount < 0x2580) {
+    } else if (gBossFrameCount < 9600) {
         var_a3 = 1;
     } else {
         var_a3 = 0;

@@ -1,359 +1,5 @@
 #include "global.h"
 
-// these are overlay functions. They will need to be replaced with their proper overlay names given below them.
-// func_i1_801875A4
-void func_801875A4(Object*);
-// func_i1_80189058
-void func_80189058(Object*);
-// func_i1_8018AA74
-void func_8018AA74(Object*);
-// func_i1_8018AED0
-void func_8018AED0(Object*);
-// func_i1_8018B15C
-void func_8018B15C(Object*);
-// func_i1_8018B418
-void func_8018B418(Object*);
-// func_i1_8018B58C
-void func_8018B58C(Object*);
-// func_i1_8018BAAC
-void func_8018BAAC(Object*);
-// func_i1_8018BBA4
-void func_8018BBA4(Object*);
-// func_i1_8018BBF8
-void func_8018BBF8(Object*);
-// func_i1_8018BD7C
-void func_8018BD7C(Object*);
-// func_i1_8018C19C
-void func_8018C19C(Object*);
-// func_i1_8018DDAC
-void func_8018DDAC(Object*);
-// func_i1_8018E290
-void func_8018E290(Object*);
-// func_i1_8018E76C
-void func_8018E76C(Object*);
-// func_i1_8018ECAC
-void func_8018ECAC(Object*);
-// func_i1_8018ED78
-void func_8018ED78(Object*);
-// func_i1_8018EE84
-void func_8018EE84(Object*);
-// func_i1_8018EF90
-void func_8018EF90(Object*);
-// func_i1_8018F044
-void func_8018F044(Object*);
-// func_i1_8018F31C
-void func_8018F31C(Object*);
-// func_i1_801922DC
-void func_801922DC(Object*);
-// func_i1_80192358
-void func_80192358(Object*);
-// func_i1_801923C0
-void func_801923C0(Object*);
-// func_i1_8019243C
-void func_8019243C(Object*);
-// func_i1_80192518
-void func_80192518(Object*);
-// func_i1_80192CD4
-void func_80192CD4(Object*);
-// func_i1_80192E2C
-void func_80192E2C(Object*);
-// func_i1_80192EB0
-void func_80192EB0(Object*);
-// func_i1_801933DC
-void func_801933DC(Object*);
-// func_i1_801934D0
-void func_801934D0(Object*);
-// func_i1_80193540
-void func_80193540(Object*);
-// func_i1_80194398
-void func_80194398(Object*);
-// func_i1_801985E4
-void func_801985E4(Object*);
-// func_i1_80198968
-void func_80198968(Object*);
-
-// func_i2_8018756C
-void func_8018756C(Object*);
-// func_i2_80187650
-void func_80187650(Object*);
-// func_i2_801877C4
-void func_801877C4(Object*);
-// func_i2_8018795C
-void func_8018795C(Object*);
-// func_i2_80188344
-void func_80188344(Object*);
-// func_i2_801887D0
-void func_801887D0(Object*);
-// func_i2_80188CAC
-void func_80188CAC(Object*);
-// func_i2_80188FAC
-void func_80188FAC(Object*);
-// func_i2_80189114
-void func_80189114(Object*);
-// func_i2_8018978C
-void func_8018978C(Object*);
-// func_i2_8018BACC
-void func_8018BACC(Object*);
-// func_i2_8018D9EC
-void func_8018D9EC(Object*);
-// func_i2_8018DA6C
-void func_8018DA6C(Object*);
-// func_i2_8018DAEC
-void func_8018DAEC(Object*);
-// func_i2_8018DB6C
-void func_8018DB6C(Object*);
-// func_i2_8018DBEC
-void func_8018DBEC(Object*);
-// func_i2_8018DCE4
-void func_8018DCE4(Object*);
-// func_i2_8018DE14
-void func_8018DE14(Object*);
-// func_i2_8018F330
-void func_8018F330(Object*);
-// func_i2_8018F884
-void func_8018F884(Object*);
-// func_i2_8018FE38
-void func_8018FE38(Object*);
-// func_i2_8018FF20
-void func_8018FF20(Object*);
-// func_i2_8018FF84
-void func_8018FF84(Object*);
-// func_i2_80190020
-void func_80190020(Object*);
-// func_i2_80190078
-void func_80190078(Object*);
-// func_i2_80193434
-void func_80193434(Object*);
-
-// func_i4_80188AD0
-void func_80188AD0(Object*);
-// func_i4_80188FE4
-void func_80188FE4(Object*);
-// func_i4_80191054
-void func_80191054(Object*);
-// func_i4_80191180
-void func_80191180(Object*);
-// func_i4_801912FC
-void func_801912FC(Object*);
-// func_i4_80191AFC
-void func_80191AFC(Object*);
-// func_i4_80192984
-void func_80192984(Object*);
-// func_i4_80192A68
-void func_80192A68(Object*);
-// func_i4_80193718
-void func_80193718(Object*);
-// func_i4_80193B1C
-void func_80193B1C(Object*);
-// func_i4_801946C4
-void func_801946C4(Object*);
-// func_i4_801968F4
-void func_801968F4(Object*);
-// func_i4_8019E234
-void func_8019E234(Object*);
-// func_i4_8019E3A8
-void func_8019E3A8(Object*);
-// func_i4_8019E454
-void func_8019E454(Object*);
-// func_i4_8019E98C
-void func_8019E98C(Object*);
-
-// func_i5_80188F60
-void func_80188F60(Object*);
-// func_i5_80188FA8
-void func_80188FA8(Object*);
-// func_i5_80189194
-void func_80189194(Object*);
-// func_i5_801895B8
-void func_801895B8(Object*);
-// func_i5_80189AFC
-void func_80189AFC(Object*);
-// func_i5_80189CC8
-void func_80189CC8(Object*);
-// func_i5_8018A1C0
-void func_8018A1C0(Object*);
-// func_i5_8018A544
-void func_8018A544(Object*);
-// func_i5_8018AABC
-void func_8018AABC(Object*);
-// func_i5_8018AB44
-void func_8018AB44(Object*);
-// func_i5_8018B268
-void func_8018B268(Object*);
-// func_i5_8018B6AC
-void func_8018B6AC(Object*);
-// func_i5_8018B9D0
-void func_8018B9D0(Object*);
-// func_i5_8018BE84
-void func_8018BE84(Object*);
-// func_i5_8018C8A8
-void func_8018C8A8(Object*);
-// func_i5_8018E2D8
-void func_8018E2D8(Object*);
-// func_i5_8018E54C
-void func_8018E54C(Object*);
-// func_i5_8018E5B4
-void func_8018E5B4(Object*);
-// func_i5_8018E5F8
-void func_8018E5F8(Object*);
-// func_i5_8018EF14
-void func_8018EF14(Object*);
-// func_i5_8018F038
-void func_8018F038(Object*);
-// func_i5_8018F4D8
-void func_8018F4D8(Object*);
-// func_i5_8018F8B8
-void func_8018F8B8(Object*);
-// func_i5_80197A94
-void func_80197A94(Object*);
-// func_i5_801982A8
-void func_801982A8(Object*);
-// func_i5_8019C778
-void func_8019C778(Object*);
-// func_i5_8019CE88
-void func_8019CE88(Object*);
-// func_i5_8019D700
-void func_8019D700(Object*);
-// func_i5_8019E410
-void func_8019E410(Object*);
-// func_i5_8019EA60
-void func_8019EA60(Object*);
-// func_i5_8019EE68
-void func_8019EE68(Object*);
-// func_i5_8019FF9C
-void func_8019FF9C(Object*);
-// func_i5_801A0BD8
-void func_801A0BD8(Object*);
-// func_i5_801A12C4
-void func_801A12C4(Object*);
-// func_i5_801A23AC
-void func_801A23AC(Object*);
-// func_i5_801A2A78
-void func_801A2A78(Object*);
-// func_i5_801A2B24
-void func_801A2B24(Object*);
-// func_i5_801A2DD8
-void func_801A2DD8(Object*);
-// func_i5_801A3240
-void func_801A3240(Object*);
-// func_i5_801A3E98
-void func_801A3E98(Object*);
-// func_i5_801A43BC
-void func_801A43BC(Object*);
-// func_i5_801A46A0
-void func_801A46A0(Object*);
-// func_i5_801A4A64
-void func_801A4A64(Object*);
-// func_i5_801A4B24
-void func_801A4B24(Object*);
-// func_i5_801A54E8
-void func_801A54E8(Object*);
-// func_i5_801A57D0
-void func_801A57D0(Object*);
-// func_i5_801A5AF0
-void func_801A5AF0(Object*);
-// func_i5_801A5B4C
-void func_801A5B4C(Object*);
-// func_i5_801A5D68
-void func_801A5D68(Object*);
-// func_i5_801A5E54
-void func_801A5E54(Object*);
-// func_i5_801A5F90
-void func_801A5F90(Object*);
-// func_i5_801A5FD0
-void func_801A5FD0(Object*);
-// func_i5_801A6100
-void func_801A6100(Object*);
-// func_i5_801A6144
-void func_801A6144(Object*);
-// func_i5_801A6540
-void func_801A6540(Object*);
-// func_i5_801A6608
-void func_801A6608(Object*);
-// func_i5_801A67C8
-void func_801A67C8(Object*);
-// func_i5_801A68EC
-void func_801A68EC(Object*);
-// func_i5_801A7E7C
-void func_801A7E7C(Object*);
-// func_i5_801AC294
-void func_801AC294(Object*);
-// func_i5_801AC438
-void func_801AC438(Object*);
-// func_i5_801AD6F0
-void func_801AD6F0(Object*);
-// func_i5_801ADAC8
-void func_801ADAC8(Object*);
-// func_i5_801ADD68
-void func_801ADD68(Object*);
-// func_i5_801AE2C0
-void func_801AE2C0(Object*);
-// func_i5_801AE87C
-void func_801AE87C(Object*);
-// func_i5_801AEAA0
-void func_801AEAA0(Object*);
-// func_i5_801AEC04
-void func_801AEC04(Object*);
-// func_i5_801AEEFC
-void func_801AEEFC(Object*);
-
-// func_E9F1D0_801880E4
-void func_801880E4(Object*);
-// func_E9F1D0_80188448
-void func_80188448(Object*);
-// func_E9F1D0_80188528
-void func_80188528(Object*);
-// func_E9F1D0_80188660
-void func_80188660(Object*);
-// func_E9F1D0_8018933C
-void func_8018933C(Object*);
-// func_E9F1D0_801893B8
-void func_801893B8(Object*);
-// func_E9F1D0_80189470
-void func_80189470(Object*);
-// func_E9F1D0_80189724
-void func_80189724(Object*);
-// func_E9F1D0_80189B70
-void func_80189B70(Object*);
-// func_E9F1D0_8018B8C0
-void func_8018B8C0(Object*);
-// func_E9F1D0_8018CAD4
-void func_8018CAD4(Object*);
-// func_E9F1D0_8018CF98
-void func_8018CF98(Object*);
-// func_E9F1D0_8018DBF0
-void func_8018DBF0(Object*);
-// func_E9F1D0_801928C8
-void func_801928C8(Object*);
-// func_E9F1D0_80192E94
-void func_80192E94(Object*);
-// func_E9F1D0_80193244
-void func_80193244(Object*);
-// func_E9F1D0_80193380
-void func_80193380(Object*);
-// func_E9F1D0_8019350C
-void func_8019350C(Object*);
-// func_E9F1D0_8019356C
-void func_8019356C(Object*);
-// func_E9F1D0_801935D4
-void func_801935D4(Object*);
-// func_E9F1D0_80196210
-void func_80196210(Object*);
-// func_E9F1D0_80196288
-void func_80196288(Object*);
-// func_E9F1D0_80197C64
-void func_80197C64(Object*);
-// func_E9F1D0_80197CB8
-void func_80197CB8(Object*);
-// func_E9F1D0_8019C888
-void func_8019C888(Object*);
-// func_E9F1D0_8019E2C4
-void func_8019E2C4(Object*);
-// func_E9F1D0_801A4E44
-void func_801A4E44(Object*);
-// func_E9F1D0_801A52B8
-void func_801A52B8(Object*);
-
 f32 D_800CBE70[] = {
     1.0f, 0.0f, 50.0f, 0.0f, 25.0f, 0.0f, 25.0f,
 };
@@ -476,20 +122,20 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_80_49,  */  {(void*) func_800595D0, 1, (ObjectFunc)          NULL,        D_601B4FC,  2500.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_50,  */  {(void*)     D_6007410, 0, (ObjectFunc)          NULL,        D_601B518,  2500.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_51,  */  {(void*)     D_6006F50, 0, (ObjectFunc)          NULL,        D_601B584,  2500.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_80_52,  */  {(void*)     D_6005780, 0, (ObjectFunc) func_80193540,        D_601B5F4,  2500.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_52,  */  {(void*)     D_6005780, 0, (ObjectFunc) func_i1_80193540,        D_601B5F4,  2500.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_53,  */  {(void*)     D_6003610, 0, (ObjectFunc)          NULL,        D_601B644,  2500.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_54,  */  {(void*)     D_6000E00, 0, (ObjectFunc) func_8006AA98,        D_603E0EC,  1000.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_55,  */  {(void*)     D_6013B50, 0, (ObjectFunc)          NULL,        D_603E88C,  1000.0f,  0, 0, 41, 0,   0.0f,  0 },
-  /* OBJ_80_56,  */  {(void*) func_8018F31C, 2, (ObjectFunc) func_8018F044,        D_603E8A8,  1000.0f,  0, 0, 39, 0,   0.0f,  0 },
-  /* OBJ_80_57,  */  {(void*) func_8018F8B8, 1, (ObjectFunc) func_8018F4D8,        D_6006BF0,   800.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_56,  */  {(void*) func_i1_8018F31C, 2, (ObjectFunc) func_i1_8018F044,        D_603E8A8,  1000.0f,  0, 0, 39, 0,   0.0f,  0 },
+  /* OBJ_80_57,  */  {(void*) func_i5_8018F8B8, 1, (ObjectFunc) func_i5_8018F4D8,        D_6006BF0,   800.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_58,  */  {(void*)     D_700BE00, 0, (ObjectFunc)          NULL,        D_6006C44,  2000.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_59,  */  {(void*)     D_6024010, 0, (ObjectFunc)          NULL,        D_603626C,   300.0f,  0, 0,  5, 0,   0.0f,  0 },
   /* OBJ_80_60,  */  {(void*)     D_6027180, 0, (ObjectFunc)          NULL,        D_6036288,   400.0f,  0, 0,  5, 0,   0.0f,  0 },
-  /* OBJ_80_61,  */  {(void*) func_801A2A78, 1, (ObjectFunc)          NULL,        D_60362A4,   200.0f,  0, 0,  5, 0,   0.0f,  0 },
+  /* OBJ_80_61,  */  {(void*) func_i5_801A2A78, 1, (ObjectFunc)          NULL,        D_60362A4,   200.0f,  0, 0,  5, 0,   0.0f,  0 },
   /* OBJ_80_62,  */  {(void*)     D_60270E0, 0, (ObjectFunc)          NULL,       D_800CBF34,  1500.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_80_63,  */  {(void*)     D_6013960, 0, (ObjectFunc)          NULL,        D_6036894,   500.0f,  0, 0,  5, 0,   0.0f,  0 },
   /* OBJ_80_64,  */  {(void*)     D_600AF40, 0, (ObjectFunc)          NULL,        D_60368E0,   100.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_80_65,  */  {(void*) func_801A6608, 1, (ObjectFunc)          NULL,        D_6036724,   400.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_65,  */  {(void*) func_i5_801A6608, 1, (ObjectFunc)          NULL,        D_6036724,   400.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_80_66,  */  {(void*)     D_601F1D0, 0, (ObjectFunc)          NULL,        D_60362D8,  2500.0f,  0, 0,  5, 0,   0.0f,  0 },
   /* OBJ_80_67,  */  {(void*)     D_60238F0, 0, (ObjectFunc)          NULL,        D_6036328,  2000.0f,  0, 0,  5, 0,   0.0f,  0 },
   /* OBJ_80_68,  */  {(void*)     D_601B7C0, 0, (ObjectFunc)          NULL,        D_60362F4,  2500.0f,  0, 0,  5, 0,   0.0f,  0 },
@@ -501,42 +147,42 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_80_74,  */  {(void*)     D_602DC20, 0, (ObjectFunc)          NULL,        D_603643C,  1000.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_80_75,  */  {(void*)     D_601B0D0, 0, (ObjectFunc)          NULL,        D_6036760,  3000.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_80_76,  */  {(void*)     D_60075D0, 0, (ObjectFunc)          NULL,       D_800CBF34,  1000.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_77,  */  {(void*) func_801A2B24, 1, (ObjectFunc)          NULL,        D_6036344,   200.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_78,  */  {(void*) func_801A2B24, 1, (ObjectFunc)          NULL,       D_800CBF34,   200.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_79,  */  {(void*) func_801A2B24, 1, (ObjectFunc)          NULL,       D_800CBF34,   200.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_80,  */  {(void*) func_801A2B24, 1, (ObjectFunc)          NULL,       D_800CBF34,   200.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_81,  */  {(void*) func_801A2B24, 1, (ObjectFunc)          NULL,       D_800CBF34,   200.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_82,  */  {(void*) func_801A2B24, 1, (ObjectFunc)          NULL,       D_800CBF34,   200.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_83,  */  {(void*) func_801A3240, 1, (ObjectFunc) func_801A2DD8,       D_800CBF34, 15000.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_84,  */  {(void*) func_801A2B24, 1, (ObjectFunc)          NULL,       D_800CBF34,   500.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_85,  */  {(void*) func_801A2B24, 1, (ObjectFunc)          NULL,       D_800CBF34,   500.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_86,  */  {(void*) func_801A2B24, 1, (ObjectFunc)          NULL,       D_800CBF34,   500.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_87,  */  {(void*) func_801A2B24, 1, (ObjectFunc)          NULL,       D_800CBF34,   500.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_88,  */  {(void*) func_801A2B24, 1, (ObjectFunc)          NULL,       D_800CBF34,   500.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_89,  */  {(void*) func_801A2B24, 1, (ObjectFunc)          NULL,       D_800CBF34,   500.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_90,  */  {(void*) func_801A2B24, 1, (ObjectFunc)          NULL,       D_800CBF34,   500.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_91,  */  {(void*) func_801A2B24, 1, (ObjectFunc)          NULL,       D_800CBF34,   500.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_92,  */  {(void*) func_801A23AC, 1, (ObjectFunc)          NULL,       D_800CBF34,   500.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_93,  */  {(void*) func_801A23AC, 1, (ObjectFunc)          NULL,       D_800CBF34,   500.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_94,  */  {(void*) func_801A23AC, 1, (ObjectFunc)          NULL,       D_800CBF34, 15000.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_95,  */  {(void*) func_801A23AC, 1, (ObjectFunc)          NULL,       D_800CBF34, 15000.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_96,  */  {(void*) func_801A23AC, 1, (ObjectFunc)          NULL,       D_800CBF34,  2500.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_97,  */  {(void*) func_801A23AC, 1, (ObjectFunc)          NULL,       D_800CBF34, 15000.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_98,  */  {(void*) func_801A23AC, 1, (ObjectFunc)          NULL,       D_800CBF34, 15000.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_99,  */  {(void*) func_801A23AC, 1, (ObjectFunc)          NULL,       D_800CBF34,  2500.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_100  */  {(void*) func_801A23AC, 1, (ObjectFunc)          NULL,       D_800CBF34,  2500.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_101  */  {(void*) func_801A23AC, 1, (ObjectFunc)          NULL,       D_800CBF34,  2500.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_102  */  {(void*) func_801A23AC, 1, (ObjectFunc)          NULL,       D_800CBF34,  2500.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_103  */  {(void*) func_801A23AC, 1, (ObjectFunc)          NULL,       D_800CBF34,  2500.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_104  */  {(void*) func_801A23AC, 1, (ObjectFunc) func_801A0BD8,        D_6036594,  2500.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_105  */  {(void*) func_801A23AC, 1, (ObjectFunc)          NULL,        D_6036204,  1300.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_77,  */  {(void*) func_i5_801A2B24, 1, (ObjectFunc)          NULL,        D_6036344,   200.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_78,  */  {(void*) func_i5_801A2B24, 1, (ObjectFunc)          NULL,       D_800CBF34,   200.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_79,  */  {(void*) func_i5_801A2B24, 1, (ObjectFunc)          NULL,       D_800CBF34,   200.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_80,  */  {(void*) func_i5_801A2B24, 1, (ObjectFunc)          NULL,       D_800CBF34,   200.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_81,  */  {(void*) func_i5_801A2B24, 1, (ObjectFunc)          NULL,       D_800CBF34,   200.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_82,  */  {(void*) func_i5_801A2B24, 1, (ObjectFunc)          NULL,       D_800CBF34,   200.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_83,  */  {(void*) func_i5_801A3240, 1, (ObjectFunc) func_i5_801A2DD8,       D_800CBF34, 15000.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_84,  */  {(void*) func_i5_801A2B24, 1, (ObjectFunc)          NULL,       D_800CBF34,   500.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_85,  */  {(void*) func_i5_801A2B24, 1, (ObjectFunc)          NULL,       D_800CBF34,   500.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_86,  */  {(void*) func_i5_801A2B24, 1, (ObjectFunc)          NULL,       D_800CBF34,   500.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_87,  */  {(void*) func_i5_801A2B24, 1, (ObjectFunc)          NULL,       D_800CBF34,   500.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_88,  */  {(void*) func_i5_801A2B24, 1, (ObjectFunc)          NULL,       D_800CBF34,   500.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_89,  */  {(void*) func_i5_801A2B24, 1, (ObjectFunc)          NULL,       D_800CBF34,   500.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_90,  */  {(void*) func_i5_801A2B24, 1, (ObjectFunc)          NULL,       D_800CBF34,   500.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_91,  */  {(void*) func_i5_801A2B24, 1, (ObjectFunc)          NULL,       D_800CBF34,   500.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_92,  */  {(void*) func_i5_801A23AC, 1, (ObjectFunc)          NULL,       D_800CBF34,   500.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_93,  */  {(void*) func_i5_801A23AC, 1, (ObjectFunc)          NULL,       D_800CBF34,   500.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_94,  */  {(void*) func_i5_801A23AC, 1, (ObjectFunc)          NULL,       D_800CBF34, 15000.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_95,  */  {(void*) func_i5_801A23AC, 1, (ObjectFunc)          NULL,       D_800CBF34, 15000.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_96,  */  {(void*) func_i5_801A23AC, 1, (ObjectFunc)          NULL,       D_800CBF34,  2500.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_97,  */  {(void*) func_i5_801A23AC, 1, (ObjectFunc)          NULL,       D_800CBF34, 15000.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_98,  */  {(void*) func_i5_801A23AC, 1, (ObjectFunc)          NULL,       D_800CBF34, 15000.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_99,  */  {(void*) func_i5_801A23AC, 1, (ObjectFunc)          NULL,       D_800CBF34,  2500.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_100  */  {(void*) func_i5_801A23AC, 1, (ObjectFunc)          NULL,       D_800CBF34,  2500.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_101  */  {(void*) func_i5_801A23AC, 1, (ObjectFunc)          NULL,       D_800CBF34,  2500.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_102  */  {(void*) func_i5_801A23AC, 1, (ObjectFunc)          NULL,       D_800CBF34,  2500.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_103  */  {(void*) func_i5_801A23AC, 1, (ObjectFunc)          NULL,       D_800CBF34,  2500.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_104  */  {(void*) func_i5_801A23AC, 1, (ObjectFunc) func_i5_801A0BD8,        D_6036594,  2500.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_80_105  */  {(void*) func_i5_801A23AC, 1, (ObjectFunc)          NULL,        D_6036204,  1300.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_80_106  */  {(void*)     D_60097E0, 0, (ObjectFunc)          NULL,        D_6034478,  4000.0f,  0, 0, 41, 0,   0.0f,  0 },
   /* OBJ_80_107  */  {(void*)     D_601D730, 0, (ObjectFunc)          NULL,        D_603450C,  4000.0f,  0, 0, 41, 0,   0.0f,  0 },
   /* OBJ_80_108  */  {(void*)     D_60102C0, 0, (ObjectFunc)          NULL,        D_6034588,  4000.0f,  0, 0, 41, 0,   0.0f,  0 },
-  /* OBJ_80_109  */  {(void*)     D_60036A0, 0, (ObjectFunc) func_801A4E44,        D_6034664,  4000.0f,  0, 0, 41, 0,   0.0f,  0 },
+  /* OBJ_80_109  */  {(void*)     D_60036A0, 0, (ObjectFunc) func_i6_801A4E44,        D_6034664,  4000.0f,  0, 0, 41, 0,   0.0f,  0 },
   /* OBJ_80_110  */  {(void*)     D_6005360, 0, (ObjectFunc)          NULL,        D_6034770,  4000.0f,  0, 0, 41, 0,   0.0f,  0 },
   /* OBJ_80_111  */  {(void*) func_80074F90, 1, (ObjectFunc)          NULL,       D_800CBF34,  2000.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_112  */  {(void*)     D_600F6C0, 0, (ObjectFunc) func_801A52B8,        D_60347F0,  4000.0f,  0, 0, 41, 0,   0.0f,  0 },
+  /* OBJ_80_112  */  {(void*)     D_600F6C0, 0, (ObjectFunc) func_i6_801A52B8,        D_60347F0,  4000.0f,  0, 0, 41, 0,   0.0f,  0 },
   /* OBJ_80_113  */  {(void*)     D_601B610, 0, (ObjectFunc)          NULL,       D_800CBF34,  2000.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_114  */  {(void*)     D_601C6A0, 0, (ObjectFunc)          NULL,       D_800CBF34,  2000.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_115  */  {(void*)     D_60188D0, 0, (ObjectFunc)          NULL,        D_603486C,  2000.0f,  0, 0, 40, 0,   0.0f,  0 },
@@ -555,8 +201,8 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_80_128  */  {(void*)     D_9003F50, 0, (ObjectFunc)          NULL,        D_601B6C4,  3200.0f,  0, 0, 42, 0,   0.0f,  0 },
   /* OBJ_80_129  */  {(void*)     D_900F060, 0, (ObjectFunc)          NULL,        D_601B710,  3200.0f,  0, 0, 42, 0,   0.0f,  0 },
   /* OBJ_80_130  */  {(void*)     D_900F1D0, 0, (ObjectFunc)          NULL,        D_601B75C,  3200.0f,  0, 0, 42, 0,   0.0f,  0 },
-  /* OBJ_80_131  */  {(void*) func_801935D4, 1, (ObjectFunc) func_8019356C,        D_C038BD8,   500.0f,  0, 0, 41, 0,   0.0f,  0 },
-  /* OBJ_80_132  */  {(void*) func_8019350C, 1, (ObjectFunc) func_80193380,        D_C038A48,   500.0f,  0, 0, 41, 0,   0.0f,  0 },
+  /* OBJ_80_131  */  {(void*) func_i6_801935D4, 1, (ObjectFunc) func_i6_8019356C,        D_C038BD8,   500.0f,  0, 0, 41, 0,   0.0f,  0 },
+  /* OBJ_80_132  */  {(void*) func_i6_8019350C, 1, (ObjectFunc) func_i6_80193380,        D_C038A48,   500.0f,  0, 0, 41, 0,   0.0f,  0 },
   /* OBJ_80_133  */  {(void*)     D_60030F0, 0, (ObjectFunc)          NULL,        D_6009CC4,  1000.0f,  0, 0, 20, 0,   0.0f,  0 },
   /* OBJ_80_134  */  {(void*)     D_6003000, 0, (ObjectFunc)          NULL,        D_C038BA4,     0.0f,  0, 0, 41, 1,   0.0f,  0 },
   /* OBJ_80_135  */  {(void*) D_6006890_Gfx, 0, (ObjectFunc)          NULL,        D_C038B40,     0.0f,  0, 0, 41, 1,   0.0f,  0 },
@@ -580,7 +226,7 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_80_153  */  {(void*)     D_600B8B0, 0, (ObjectFunc)          NULL,        D_6011C48,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_154  */  {(void*)     D_600BAF0, 0, (ObjectFunc)          NULL,        D_601115C,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_155  */  {(void*)          NULL, 0, (ObjectFunc)          NULL,       D_800CBF34,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_80_156  */  {(void*) func_80197CB8, 1, (ObjectFunc)          NULL,        D_6034368,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_156  */  {(void*) func_i6_80197CB8, 1, (ObjectFunc)          NULL,        D_6034368,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_157  */  {(void*)     D_6001DA0, 0, (ObjectFunc)          NULL,        D_600924C,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_158  */  {(void*)     D_6001360, 0, (ObjectFunc)          NULL,        D_60092E8,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_159  */  {(void*)     D_6008370, 0, (ObjectFunc)          NULL,        D_601668C,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
@@ -593,25 +239,25 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_4C_166  */  {(void*)     D_601F500, 0, (ObjectFunc)          NULL,       D_800CBF34,  -100.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_4C_167  */  {(void*) func_80059C34, 1, (ObjectFunc) func_80066E8C,       D_800CBF34,   500.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_4C_168  */  {(void*) func_80059850, 1, (ObjectFunc)          NULL,       D_800CBF34,   100.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_4C_169  */  {(void*)     D_60023B0, 0, (ObjectFunc) func_8018F038,        D_60068BC,   100.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_4C_170  */  {(void*)          NULL, 1, (ObjectFunc) func_801875A4,       D_800CBF34,     0.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_4C_171  */  {(void*)          NULL, 1, (ObjectFunc) func_801922DC,       D_800CBF34,     0.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_4C_172  */  {(void*)          NULL, 1, (ObjectFunc) func_80192358,       D_800CBF34,     0.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_4C_173  */  {(void*)          NULL, 1, (ObjectFunc) func_801923C0,       D_800CBF34,     0.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_4C_174  */  {(void*)          NULL, 1, (ObjectFunc) func_8019243C,       D_800CBF34,     0.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_4C_169  */  {(void*)     D_60023B0, 0, (ObjectFunc) func_i5_8018F038,        D_60068BC,   100.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_4C_170  */  {(void*)          NULL, 1, (ObjectFunc) func_i1_801875A4,       D_800CBF34,     0.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_4C_171  */  {(void*)          NULL, 1, (ObjectFunc) func_i1_801922DC,       D_800CBF34,     0.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_4C_172  */  {(void*)          NULL, 1, (ObjectFunc) func_i1_80192358,       D_800CBF34,     0.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_4C_173  */  {(void*)          NULL, 1, (ObjectFunc) func_i1_801923C0,       D_800CBF34,     0.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_4C_174  */  {(void*)          NULL, 1, (ObjectFunc) func_i1_8019243C,       D_800CBF34,     0.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_4C_175  */  {(void*)          NULL, 1, (ObjectFunc)          NULL,       D_800CBF34,  1000.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_ACTOR_176 */  {(void*) func_8018BAAC, 2, (ObjectFunc) func_8018AED0,        D_603E5D0,   500.0f,  0, 0, 39, 1, 200.0f,  1 },
-  /* OBJ_ACTOR_177 */  {(void*) func_8018BBA4, 2, (ObjectFunc) func_8018B15C,        D_603E5D0,   500.0f,  0, 0, 39, 1, 200.0f,  1 },
-  /* OBJ_ACTOR_178 */  {(void*) func_8018BBF8, 2, (ObjectFunc) func_8018B418,        D_603E5D0,   500.0f,  0, 0, 39, 1, 200.0f,  1 },
-  /* OBJ_ACTOR_179 */  {(void*) func_8018BD7C, 2, (ObjectFunc) func_8018B58C,        D_603E604,   500.0f,  0, 0, 39, 1,   0.0f,  1 },
+  /* OBJ_ACTOR_176 */  {(void*) func_i1_8018BAAC, 2, (ObjectFunc) func_i1_8018AED0,        D_603E5D0,   500.0f,  0, 0, 39, 1, 200.0f,  1 },
+  /* OBJ_ACTOR_177 */  {(void*) func_i1_8018BBA4, 2, (ObjectFunc) func_i1_8018B15C,        D_603E5D0,   500.0f,  0, 0, 39, 1, 200.0f,  1 },
+  /* OBJ_ACTOR_178 */  {(void*) func_i1_8018BBF8, 2, (ObjectFunc) func_i1_8018B418,        D_603E5D0,   500.0f,  0, 0, 39, 1, 200.0f,  1 },
+  /* OBJ_ACTOR_179 */  {(void*) func_i1_8018BD7C, 2, (ObjectFunc) func_i1_8018B58C,        D_603E604,   500.0f,  0, 0, 39, 1,   0.0f,  1 },
   /* OBJ_ACTOR_180 */  {(void*) func_8005B6A4, 1, (ObjectFunc) func_80066A80,       D_800CBF34,  1000.0f,  0, 0, 39, 0,   0.0f,  1 },
-  /* OBJ_ACTOR_181 */  {(void*)     D_6018C00, 0, (ObjectFunc) func_8018756C,        D_602F6EC,   200.0f,  0, 0, 39, 0,   1.0f,  1 },
-  /* OBJ_ACTOR_182 */  {(void*) func_8005B71C, 1, (ObjectFunc) func_80187650,        D_602F708,   100.0f,  0, 1, 39, 0,   1.0f,  1 },
-  /* OBJ_ACTOR_183 */  {(void*) func_8018DA6C, 1, (ObjectFunc) func_8018D9EC,       D_800CBF34,   100.0f,  0, 1, 39, 0,   0.0f,  1 },
-  /* OBJ_ACTOR_184 */  {(void*) func_8018DAEC, 1, (ObjectFunc) func_8018D9EC,       D_800CBF34,   100.0f,  0, 1, 39, 0,   0.0f,  1 },
-  /* OBJ_ACTOR_185 */  {(void*) func_8018DB6C, 1, (ObjectFunc) func_8018D9EC,       D_800CBF34,   100.0f,  0, 1, 39, 0,   0.0f,  1 },
-  /* OBJ_ACTOR_186 */  {(void*) func_8005B7CC, 1, (ObjectFunc) func_8018795C,        D_602F724,   200.0f,  0, 1, 39, 0,   1.0f,  1 },
-  /* OBJ_ACTOR_187 */  {(void*)     D_6018450, 0, (ObjectFunc) func_801877C4,        D_602F740,   200.0f,  0, 1, 39, 0,   1.0f,  1 },
+  /* OBJ_ACTOR_181 */  {(void*)     D_6018C00, 0, (ObjectFunc) func_i2_8018756C,        D_602F6EC,   200.0f,  0, 0, 39, 0,   1.0f,  1 },
+  /* OBJ_ACTOR_182 */  {(void*) func_8005B71C, 1, (ObjectFunc) func_i2_80187650,        D_602F708,   100.0f,  0, 1, 39, 0,   1.0f,  1 },
+  /* OBJ_ACTOR_183 */  {(void*) func_i2_8018DA6C, 1, (ObjectFunc) func_i2_8018D9EC,       D_800CBF34,   100.0f,  0, 1, 39, 0,   0.0f,  1 },
+  /* OBJ_ACTOR_184 */  {(void*) func_i2_8018DAEC, 1, (ObjectFunc) func_i2_8018D9EC,       D_800CBF34,   100.0f,  0, 1, 39, 0,   0.0f,  1 },
+  /* OBJ_ACTOR_185 */  {(void*) func_i2_8018DB6C, 1, (ObjectFunc) func_i2_8018D9EC,       D_800CBF34,   100.0f,  0, 1, 39, 0,   0.0f,  1 },
+  /* OBJ_ACTOR_186 */  {(void*) func_8005B7CC, 1, (ObjectFunc) func_i2_8018795C,        D_602F724,   200.0f,  0, 1, 39, 0,   1.0f,  1 },
+  /* OBJ_ACTOR_187 */  {(void*)     D_6018450, 0, (ObjectFunc) func_i2_801877C4,        D_602F740,   200.0f,  0, 1, 39, 0,   1.0f,  1 },
   /* OBJ_ACTOR_188 */  {(void*) func_i3_801BEC74, 1, (ObjectFunc) func_i3_801BEC68,        D_6030BE0,   200.0f,  0, 1, 39, 0,   1.0f,  1 },
   /* OBJ_ACTOR_189 */  {(void*) func_8005A094, 1, (ObjectFunc) func_8006C008,       D_800CBF34,     0.0f,  0, 0, 39, 0,   0.0f,  0 },
   /* OBJ_ACTOR_190 */  {(void*) func_8005B848, 1, (ObjectFunc) func_800656D4,       D_800CBFE4,   100.0f,  0, 1, 39, 0,   1.0f,  0 },
@@ -623,41 +269,41 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_ACTOR_196 */  {(void*) func_80059BF0, 1, (ObjectFunc) func_8006BB78,        D_603E5B4,   200.0f,  0, 1, 39, 0,   1.0f,  1 },
   /* OBJ_ACTOR_197 */  {(void*) func_80035448, 1, (ObjectFunc) func_800319AC,       D_800CC038, 20000.0f,  0, 1, 39, 1,   1.0f,  1 },
   /* OBJ_ACTOR_198 */  {(void*) func_80035448, 1, (ObjectFunc) func_80092EC0,       D_800CC01C, 20000.0f,  0, 0, 39, 1,   0.0f,  0 },
-  /* OBJ_ACTOR_199 */  {(void*) func_80188448, 1, (ObjectFunc) func_801880E4,       D_800CBF34, 20000.0f,  0, 0, 39, 1,   0.0f,  0 },
+  /* OBJ_ACTOR_199 */  {(void*) func_i6_80188448, 1, (ObjectFunc) func_i6_801880E4,       D_800CBF34, 20000.0f,  0, 0, 39, 1,   0.0f,  0 },
   /* OBJ_ACTOR_200 */  {(void*) func_80074FF0, 1, (ObjectFunc) func_80072594,       D_800CBF34,  2000.0f,  0, 1, 39, 0,   0.0f,  1 },
   /* OBJ_ACTOR_201 */  {(void*) func_800598E8, 1, (ObjectFunc) func_8006AC08,        D_602F684,   100.0f,  0, 1, 39, 0,   1.0f,  1 },
   /* OBJ_ACTOR_202 */  {(void*) func_80059A24, 1, (ObjectFunc) func_8006AD18,        D_602F6A0,   100.0f,  0, 1, 39, 0, 180.0f,  1 },
-  /* OBJ_ACTOR_203 */  {(void*) func_8018F884, 1, (ObjectFunc) func_8018F330,       D_800CBF34,  1000.0f,  0, 0, 39, 0,   0.0f,  0 },
-  /* OBJ_ACTOR_204 */  {(void*) func_E9F1D0_801A4CB0, 1, (ObjectFunc) func_E9F1D0_801A3BD4,        D_603405C,  1000.0f,  0, 0, 39, 0,   1.0f,  1 },
-  /* OBJ_ACTOR_205 */  {(void*) func_801A12C4, 1, (ObjectFunc) func_8019C778,        D_60359C8, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },
-  /* OBJ_ACTOR_206 */  {(void*) func_801A12C4, 1, (ObjectFunc) func_801AC438,        D_6035A48, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },
-  /* OBJ_ACTOR_207 */  {(void*) func_801AC294, 2, (ObjectFunc) func_801A7E7C,        D_603677C, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },
-  /* OBJ_ACTOR_208 */  {(void*) func_801A12C4, 1, (ObjectFunc) func_8019EA60,        D_6035A14, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },
-  /* OBJ_ACTOR_209 */  {(void*) func_801A12C4, 1, (ObjectFunc) func_8019D700,        D_6035AE0, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },
-  /* OBJ_ACTOR_210 */  {(void*) func_801A12C4, 1, (ObjectFunc) func_8019CE88,        D_6035D9C, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },
-  /* OBJ_ACTOR_211 */  {(void*) func_801A12C4, 1, (ObjectFunc) func_8019E410,        D_6035E04, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },
-  /* OBJ_ACTOR_212 */  {(void*) func_801A12C4, 1, (ObjectFunc) func_8019FF9C,        D_60360C0, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },
-  /* OBJ_ACTOR_213 */  {(void*) func_801A12C4, 1, (ObjectFunc) func_8019EE68,        D_6036154, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },
-  /* OBJ_ACTOR_214 */  {(void*) func_801A43BC, 1, (ObjectFunc) func_801A3E98,        D_6036458,   300.0f,  0, 0, 40, 1,   0.0f,  0 },
-  /* OBJ_ACTOR_215 */  {(void*) func_801A4A64, 1, (ObjectFunc) func_801A46A0,        D_60364C0,   300.0f,  0, 1, 40, 1,   0.0f,  1 },
-  /* OBJ_ACTOR_216 */  {(void*) func_801A5F90, 1, (ObjectFunc) func_801A5E54,        D_60366EC,   200.0f,  0, 0, 40, 1,   0.0f,  0 },
-  /* OBJ_ACTOR_217 */  {(void*) func_801A6100, 1, (ObjectFunc) func_801A5FD0,        D_6036708,   200.0f,  0, 0, 40, 1,   0.0f,  0 },
-  /* OBJ_ACTOR_218 */  {(void*) func_801A6540, 1, (ObjectFunc) func_801A6144,        D_6036728,   200.0f,  0, 0, 40, 1,   0.0f,  0 },
-  /* OBJ_ACTOR_219 */  {(void*) func_801A68EC, 1, (ObjectFunc) func_801A67C8,        D_6036744,   300.0f,  0, 0, 40, 1,   0.0f,  0 },
-  /* OBJ_ACTOR_220 */  {(void*) func_801ADAC8, 1, (ObjectFunc) func_801AD6F0,        D_6036930,   200.0f,  0, 0, 40, 1,   0.0f,  0 },
-  /* OBJ_ACTOR_221 */  {(void*) func_801AE2C0, 1, (ObjectFunc) func_801ADD68,        D_603694C,   300.0f,  0, 0, 40, 1,   1.0f,  0 },
-  /* OBJ_ACTOR_222 */  {(void*) func_801AEEFC, 1, (ObjectFunc) func_801AEC04,        D_6036968,   300.0f,  0, 0, 40, 1,   1.0f,  0 },
-  /* OBJ_ACTOR_223 */  {(void*) func_801A54E8, 1, (ObjectFunc) func_801A4B24,        D_60364DC,   300.0f,  0, 0, 40, 1,   0.0f,  0 },
-  /* OBJ_ACTOR_224 */  {(void*)          NULL, 1, (ObjectFunc) func_80189194,       D_800CBF34,   200.0f,  0, 0, 39, 0,   0.0f,  0 },
-  /* OBJ_ACTOR_225 */  {(void*)     D_700AB70, 0, (ObjectFunc) func_8018AB44,        D_60064AC,    50.0f,  0, 0, 39, 1,   1.0f,  0 },
-  /* OBJ_ACTOR_226 */  {(void*) func_80189AFC, 1, (ObjectFunc) func_801895B8,        D_60064C8,   300.0f,  0, 0, 39, 1,  70.0f,  1 },
-  /* OBJ_ACTOR_227 */  {(void*) func_8018E5B4, 1, (ObjectFunc) func_8018E54C,        D_60067C4,     0.0f,  0, 0, 39, 1,   0.0f,  0 },
-  /* OBJ_ACTOR_228 */  {(void*) func_8018EF14, 1, (ObjectFunc) func_8018E5F8,        D_6006808,     0.0f,  0, 0, 39, 1,   1.0f,  1 },
-  /* OBJ_ACTOR_229 */  {(void*) func_8018E2D8, 1, (ObjectFunc) func_8018C8A8,        D_6006A3C,  1000.0f,  0, 0, 20, 1,   0.0f,  1 },
-  /* OBJ_ACTOR_230 */  {(void*) func_8018AABC, 1, (ObjectFunc) func_8018A544,        D_600683C,     0.0f,  0, 1, 39, 1,   0.0f,  1 },
-  /* OBJ_ACTOR_231 */  {(void*) func_8018BE84, 1, (ObjectFunc) func_8018B9D0,        D_6006858,     0.0f,  0, 0, 39, 1,   0.0f,  1 },
-  /* OBJ_ACTOR_232 */  {(void*) func_8018B6AC, 1, (ObjectFunc) func_8018B268,    D_6006890_f32,     0.0f,  0, 0, 39, 1,  20.0f,  1 },
-  /* OBJ_ACTOR_233 */  {(void*) func_8018A1C0, 1, (ObjectFunc) func_80189CC8,        D_60068F0,   200.0f,  0, 0, 39, 1,   1.0f,  1 },
+  /* OBJ_ACTOR_203 */  {(void*) func_i2_8018F884, 1, (ObjectFunc) func_i2_8018F330,       D_800CBF34,  1000.0f,  0, 0, 39, 0,   0.0f,  0 },
+  /* OBJ_ACTOR_204 */  {(void*) func_i6_801A4CB0, 1, (ObjectFunc) func_i6_801A3BD4,        D_603405C,  1000.0f,  0, 0, 39, 0,   1.0f,  1 },
+  /* OBJ_ACTOR_205 */  {(void*) func_i5_801A12C4, 1, (ObjectFunc) func_i5_8019C778,        D_60359C8, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },
+  /* OBJ_ACTOR_206 */  {(void*) func_i5_801A12C4, 1, (ObjectFunc) func_i5_801AC438,        D_6035A48, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },
+  /* OBJ_ACTOR_207 */  {(void*) func_i5_801AC294, 2, (ObjectFunc) func_i5_801A7E7C,        D_603677C, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },
+  /* OBJ_ACTOR_208 */  {(void*) func_i5_801A12C4, 1, (ObjectFunc) func_i5_8019EA60,        D_6035A14, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },
+  /* OBJ_ACTOR_209 */  {(void*) func_i5_801A12C4, 1, (ObjectFunc) func_i5_8019D700,        D_6035AE0, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },
+  /* OBJ_ACTOR_210 */  {(void*) func_i5_801A12C4, 1, (ObjectFunc) func_i5_8019CE88,        D_6035D9C, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },
+  /* OBJ_ACTOR_211 */  {(void*) func_i5_801A12C4, 1, (ObjectFunc) func_i5_8019E410,        D_6035E04, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },
+  /* OBJ_ACTOR_212 */  {(void*) func_i5_801A12C4, 1, (ObjectFunc) func_i5_8019FF9C,        D_60360C0, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },
+  /* OBJ_ACTOR_213 */  {(void*) func_i5_801A12C4, 1, (ObjectFunc) func_i5_8019EE68,        D_6036154, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },
+  /* OBJ_ACTOR_214 */  {(void*) func_i5_801A43BC, 1, (ObjectFunc) func_i5_801A3E98,        D_6036458,   300.0f,  0, 0, 40, 1,   0.0f,  0 },
+  /* OBJ_ACTOR_215 */  {(void*) func_i5_801A4A64, 1, (ObjectFunc) func_i5_801A46A0,        D_60364C0,   300.0f,  0, 1, 40, 1,   0.0f,  1 },
+  /* OBJ_ACTOR_216 */  {(void*) func_i5_801A5F90, 1, (ObjectFunc) func_i5_801A5E54,        D_60366EC,   200.0f,  0, 0, 40, 1,   0.0f,  0 },
+  /* OBJ_ACTOR_217 */  {(void*) func_i5_801A6100, 1, (ObjectFunc) func_i5_801A5FD0,        D_6036708,   200.0f,  0, 0, 40, 1,   0.0f,  0 },
+  /* OBJ_ACTOR_218 */  {(void*) func_i5_801A6540, 1, (ObjectFunc) func_i5_801A6144,        D_6036728,   200.0f,  0, 0, 40, 1,   0.0f,  0 },
+  /* OBJ_ACTOR_219 */  {(void*) func_i5_801A68EC, 1, (ObjectFunc) func_i5_801A67C8,        D_6036744,   300.0f,  0, 0, 40, 1,   0.0f,  0 },
+  /* OBJ_ACTOR_220 */  {(void*) func_i5_801ADAC8, 1, (ObjectFunc) func_i5_801AD6F0,        D_6036930,   200.0f,  0, 0, 40, 1,   0.0f,  0 },
+  /* OBJ_ACTOR_221 */  {(void*) func_i5_801AE2C0, 1, (ObjectFunc) func_i5_801ADD68,        D_603694C,   300.0f,  0, 0, 40, 1,   1.0f,  0 },
+  /* OBJ_ACTOR_222 */  {(void*) func_i5_801AEEFC, 1, (ObjectFunc) func_i5_801AEC04,        D_6036968,   300.0f,  0, 0, 40, 1,   1.0f,  0 },
+  /* OBJ_ACTOR_223 */  {(void*) func_i5_801A54E8, 1, (ObjectFunc) func_i5_801A4B24,        D_60364DC,   300.0f,  0, 0, 40, 1,   0.0f,  0 },
+  /* OBJ_ACTOR_224 */  {(void*)          NULL, 1, (ObjectFunc) func_i5_80189194,       D_800CBF34,   200.0f,  0, 0, 39, 0,   0.0f,  0 },
+  /* OBJ_ACTOR_225 */  {(void*)     D_700AB70, 0, (ObjectFunc) func_i5_8018AB44,        D_60064AC,    50.0f,  0, 0, 39, 1,   1.0f,  0 },
+  /* OBJ_ACTOR_226 */  {(void*) func_i5_80189AFC, 1, (ObjectFunc) func_i5_801895B8,        D_60064C8,   300.0f,  0, 0, 39, 1,  70.0f,  1 },
+  /* OBJ_ACTOR_227 */  {(void*) func_i5_8018E5B4, 1, (ObjectFunc) func_i5_8018E54C,        D_60067C4,     0.0f,  0, 0, 39, 1,   0.0f,  0 },
+  /* OBJ_ACTOR_228 */  {(void*) func_i5_8018EF14, 1, (ObjectFunc) func_i5_8018E5F8,        D_6006808,     0.0f,  0, 0, 39, 1,   1.0f,  1 },
+  /* OBJ_ACTOR_229 */  {(void*) func_i5_8018E2D8, 1, (ObjectFunc) func_i5_8018C8A8,        D_6006A3C,  1000.0f,  0, 0, 20, 1,   0.0f,  1 },
+  /* OBJ_ACTOR_230 */  {(void*) func_i5_8018AABC, 1, (ObjectFunc) func_i5_8018A544,        D_600683C,     0.0f,  0, 1, 39, 1,   0.0f,  1 },
+  /* OBJ_ACTOR_231 */  {(void*) func_i5_8018BE84, 1, (ObjectFunc) func_i5_8018B9D0,        D_6006858,     0.0f,  0, 0, 39, 1,   0.0f,  1 },
+  /* OBJ_ACTOR_232 */  {(void*) func_i5_8018B6AC, 1, (ObjectFunc) func_i5_8018B268,    D_6006890_f32,     0.0f,  0, 0, 39, 1,  20.0f,  1 },
+  /* OBJ_ACTOR_233 */  {(void*) func_i5_8018A1C0, 1, (ObjectFunc) func_i5_80189CC8,        D_60068F0,   200.0f,  0, 0, 39, 1,   1.0f,  1 },
   /* OBJ_ACTOR_234 */  {(void*) func_80077218, 1, (ObjectFunc) func_800771CC,       D_800CBF34,  2000.0f,  0, 0, 39, 0,   0.0f,  5 },
   /* OBJ_ACTOR_235 */  {(void*) func_i3_80190430, 2, (ObjectFunc) func_i3_801904CC,        D_602C294,  1000.0f,  0, 1, 40, 0,   1.0f,  1 },
   /* OBJ_ACTOR_236 */  {(void*) func_i3_80190F08, 1, (ObjectFunc) func_i3_80190A00,        D_602BC58,  5000.0f,  0, 0, 40, 0,   0.0f,  0 },
@@ -697,55 +343,55 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_ACTOR_270 */  {(void*) func_i3_801BEB1C, 1, (ObjectFunc) func_i3_801BE3F8,        D_60314C8,  1000.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_ACTOR_271 */  {(void*) func_8002E694, 2, (ObjectFunc) func_8002E670,        D_6011B24,     0.0f,  0, 0, 39, 0, 730.0f,  1 },
   /* OBJ_ACTOR_272 */  {(void*) func_8002E6DC, 1, (ObjectFunc) func_8002E6B8,        D_6011BF4,     0.0f,  0, 0, 39, 0, 150.0f,  1 },
-  /* OBJ_ACTOR_273 */  {(void*) func_80188FE4, 2, (ObjectFunc) func_80188AD0,        D_600FF30_Hitbox,     0.0f,  0, 0, 39, 0, 220.0f,  1 },
-  /* OBJ_ACTOR_274 */  {(void*) func_8019E3A8, 1, (ObjectFunc) func_8019E234,       D_800CBEC4,     0.0f,  0, 0, 39, 0,   1.0f,  0 },
+  /* OBJ_ACTOR_273 */  {(void*) func_i4_80188FE4, 2, (ObjectFunc) func_i4_80188AD0,        D_600FF30_Hitbox,     0.0f,  0, 0, 39, 0, 220.0f,  1 },
+  /* OBJ_ACTOR_274 */  {(void*) func_i4_8019E3A8, 1, (ObjectFunc) func_i4_8019E234,       D_800CBEC4,     0.0f,  0, 0, 39, 0,   1.0f,  0 },
   /* OBJ_ACTOR_275 */  {(void*) func_i3_8019F7AC, 1, (ObjectFunc) func_i3_8019F20C,       D_800CBE8C,   200.0f,  0, 0, 39, 0,   1.0f,  1 },
   /* OBJ_ACTOR_276 */  {(void*) func_i3_8019F7AC, 1, (ObjectFunc) func_i3_8019F20C,       D_800CBE8C,   200.0f,  0, 0, 39, 0,   1.0f,  1 },
   /* OBJ_ACTOR_277 */  {(void*) func_i3_8019F7AC, 1, (ObjectFunc) func_i3_8019F20C,       D_800CBEC4,   200.0f,  0, 0, 39, 0,   1.0f,  1 },
   /* OBJ_ACTOR_278 */  {(void*)          NULL, 1, (ObjectFunc) func_i3_8019EA7C,       D_800CBF34,   200.0f,  0, 0,  0, 0,   0.0f,  1 },
   /* OBJ_ACTOR_279 */  {(void*)          NULL, 1, (ObjectFunc) func_i3_801A003C,       D_800CBF34,  1000.0f,  0, 0,  0, 0,   0.0f,  1 },
-  /* OBJ_ACTOR_280 */  {(void*)     D_900DD20, 0, (ObjectFunc) func_80192518,        D_601B7F8,  1000.0f,  0, 0, 40, 1,   0.0f,  0 },
-  /* OBJ_ACTOR_281 */  {(void*) func_80192E2C, 1, (ObjectFunc) func_80192CD4,        D_601B830,  1000.0f,  0, 0, 40, 1,   0.0f,  0 },
-  /* OBJ_ACTOR_282 */  {(void*)     D_901DA50, 0, (ObjectFunc) func_80192CD4,        D_601B868,  1000.0f,  0, 0, 40, 1,   0.0f,  0 },
-  /* OBJ_ACTOR_283 */  {(void*)     D_9023AD0, 0, (ObjectFunc) func_80192EB0,        D_601B8A0,  1000.0f,  0, 0, 40, 1,   0.0f,  0 },
-  /* OBJ_ACTOR_284 */  {(void*) func_801934D0, 1, (ObjectFunc) func_801933DC,        D_601B8D8,  1000.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_ACTOR_285 */  {(void*) func_80193244, 1, (ObjectFunc) func_80192E94,       D_800CBE8C,  1000.0f,  0, 0, 20, 0,   1.0f,  1 },
-  /* OBJ_ACTOR_286 */  {(void*) func_80188660, 1, (ObjectFunc) func_80188528,       D_800CBE8C,  1000.0f,  0, 0, 20, 0,   0.0f,  0 },
-  /* OBJ_ACTOR_287 */  {(void*)          NULL, 1, (ObjectFunc) func_80189724,       D_800CBF34,  1000.0f,  0, 0, 40, 1,   0.0f,  0 },
-  /* OBJ_ACTOR_288 */  {(void*)          NULL, 1, (ObjectFunc) func_801893B8,       D_800CBF34,  1000.0f,  0, 0, 20, 1,   0.0f,  0 },
-  /* OBJ_ACTOR_289 */  {(void*) func_800596B0, 1, (ObjectFunc) func_80189470,       D_800CBF34,  1000.0f,  0, 0, 20, 1,   0.0f,  0 },
-  /* OBJ_ACTOR_290 */  {(void*)          NULL, 1, (ObjectFunc) func_8018933C,       D_800CBF34,  1000.0f,  0, 0, 20, 0,   0.0f,  0 },
+  /* OBJ_ACTOR_280 */  {(void*)     D_900DD20, 0, (ObjectFunc) func_i1_80192518,        D_601B7F8,  1000.0f,  0, 0, 40, 1,   0.0f,  0 },
+  /* OBJ_ACTOR_281 */  {(void*) func_i1_80192E2C, 1, (ObjectFunc) func_i1_80192CD4,        D_601B830,  1000.0f,  0, 0, 40, 1,   0.0f,  0 },
+  /* OBJ_ACTOR_282 */  {(void*)     D_901DA50, 0, (ObjectFunc) func_i1_80192CD4,        D_601B868,  1000.0f,  0, 0, 40, 1,   0.0f,  0 },
+  /* OBJ_ACTOR_283 */  {(void*)     D_9023AD0, 0, (ObjectFunc) func_i1_80192EB0,        D_601B8A0,  1000.0f,  0, 0, 40, 1,   0.0f,  0 },
+  /* OBJ_ACTOR_284 */  {(void*) func_i1_801934D0, 1, (ObjectFunc) func_i1_801933DC,        D_601B8D8,  1000.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_ACTOR_285 */  {(void*) func_i6_80193244, 1, (ObjectFunc) func_i6_80192E94,       D_800CBE8C,  1000.0f,  0, 0, 20, 0,   1.0f,  1 },
+  /* OBJ_ACTOR_286 */  {(void*) func_i6_80188660, 1, (ObjectFunc) func_i6_80188528,       D_800CBE8C,  1000.0f,  0, 0, 20, 0,   0.0f,  0 },
+  /* OBJ_ACTOR_287 */  {(void*)          NULL, 1, (ObjectFunc) func_i6_80189724,       D_800CBF34,  1000.0f,  0, 0, 40, 1,   0.0f,  0 },
+  /* OBJ_ACTOR_288 */  {(void*)          NULL, 1, (ObjectFunc) func_i6_801893B8,       D_800CBF34,  1000.0f,  0, 0, 20, 1,   0.0f,  0 },
+  /* OBJ_ACTOR_289 */  {(void*) func_800596B0, 1, (ObjectFunc) func_i6_80189470,       D_800CBF34,  1000.0f,  0, 0, 20, 1,   0.0f,  0 },
+  /* OBJ_ACTOR_290 */  {(void*)          NULL, 1, (ObjectFunc) func_i6_8018933C,       D_800CBF34,  1000.0f,  0, 0, 20, 0,   0.0f,  0 },
   /* OBJ_ACTOR_291 */  {(void*) func_80067874, 1, (ObjectFunc) func_8006753C,       D_800CBEA8,  1000.0f,  0, 0,  0, 0,   1.0f,  0 },
-  /* OBJ_BOSS_292 */  {(void*) func_8018AA74, 2, (ObjectFunc) func_80189058,        D_603E620, 20000.0f,  0, 0, 40, 1,   0.0f, 10 },
-  /* OBJ_BOSS_293 */  {(void*) func_8018ECAC, 1, (ObjectFunc) func_8018C19C,        D_603E840, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
-  /* OBJ_BOSS_294 */  {(void*) func_8018ED78, 1, (ObjectFunc) func_8018DDAC,        D_603E714, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
-  /* OBJ_BOSS_295 */  {(void*) func_8018EE84, 1, (ObjectFunc) func_8018E290,        D_603E748, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
-  /* OBJ_BOSS_296 */  {(void*) func_8018EF90, 1, (ObjectFunc) func_8018E76C,        D_603E7C4, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
-  /* OBJ_BOSS_297 */  {(void*) func_8018BACC, 1, (ObjectFunc) func_8018978C,        D_602F75C, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
-  /* OBJ_BOSS_298 */  {(void*) func_801887D0, 1, (ObjectFunc) func_80188344,        D_602FA50, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
+  /* OBJ_BOSS_292 */  {(void*) func_i1_8018AA74, 2, (ObjectFunc) func_i1_80189058,        D_603E620, 20000.0f,  0, 0, 40, 1,   0.0f, 10 },
+  /* OBJ_BOSS_293 */  {(void*) func_i1_8018ECAC, 1, (ObjectFunc) func_i1_8018C19C,        D_603E840, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
+  /* OBJ_BOSS_294 */  {(void*) func_i1_8018ED78, 1, (ObjectFunc) func_i1_8018DDAC,        D_603E714, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
+  /* OBJ_BOSS_295 */  {(void*) func_i1_8018EE84, 1, (ObjectFunc) func_i1_8018E290,        D_603E748, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
+  /* OBJ_BOSS_296 */  {(void*) func_i1_8018EF90, 1, (ObjectFunc) func_i1_8018E76C,        D_603E7C4, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
+  /* OBJ_BOSS_297 */  {(void*) func_i2_8018BACC, 1, (ObjectFunc) func_i2_8018978C,        D_602F75C, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
+  /* OBJ_BOSS_298 */  {(void*) func_i2_801887D0, 1, (ObjectFunc) func_i2_80188344,        D_602FA50, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_BOSS_299 */  {(void*) func_80042FC4, 2, (ObjectFunc) func_80042FB8,       D_800CBF34, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_BOSS_300 */  {(void*) func_80042FE8, 1, (ObjectFunc) func_80042FDC,       D_800CBF34, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_BOSS_301 */  {(void*) func_i3_801BEC5C, 1, (ObjectFunc) func_i3_801BEC50,        D_6030B10,     0.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_BOSS_A6 */  {(void*) func_i3_8018C54C, 1, (ObjectFunc) func_i3_80187944,        D_6028454,  2000.0f,  0, 0, 40, 0,   0.0f, 10 },
-  /* OBJ_BOSS_303 */  {(void*) func_80193434, 2, (ObjectFunc) func_80190078,        D_6032550, 20000.0f,  0, 0, 20, 0,   0.0f, 10 },
-  /* OBJ_BOSS_304 */  {(void*) func_8018FF84, 2, (ObjectFunc) func_8018FE38,        D_6032488,  1000.0f,  0, 0, 20, 0,   0.0f, 10 },
-  /* OBJ_BOSS_305 */  {(void*) func_80190020, 2, (ObjectFunc) func_8018FF20,        D_60324EC,  1000.0f,  0, 0, 20, 0,   0.0f, 10 },
-  /* OBJ_BOSS_306 */  {(void*) func_801982A8, 1, (ObjectFunc) func_80197A94,D_i5_801B83A8,  1000.0f,  0, 0, 40, 1,   0.0f, 10 },
+  /* OBJ_BOSS_303 */  {(void*) func_i2_80193434, 2, (ObjectFunc) func_i2_80190078,        D_6032550, 20000.0f,  0, 0, 20, 0,   0.0f, 10 },
+  /* OBJ_BOSS_304 */  {(void*) func_i2_8018FF84, 2, (ObjectFunc) func_i2_8018FE38,        D_6032488,  1000.0f,  0, 0, 20, 0,   0.0f, 10 },
+  /* OBJ_BOSS_305 */  {(void*) func_i2_80190020, 2, (ObjectFunc) func_i2_8018FF20,        D_60324EC,  1000.0f,  0, 0, 20, 0,   0.0f, 10 },
+  /* OBJ_BOSS_306 */  {(void*) func_i5_801982A8, 1, (ObjectFunc) func_i5_80197A94,D_i5_801B83A8,  1000.0f,  0, 0, 40, 1,   0.0f, 10 },
   /* OBJ_BOSS_ZO */  {(void*) func_i3_801949DC, 2, (ObjectFunc) func_i3_80194A84,        D_602C044,  1000.0f,  0, 0, 40, 0,   1.0f, 10 },
   /* OBJ_BOSS_308 */  {(void*) func_8008FE78, 1, (ObjectFunc) func_800907C4,        D_600FFE0,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
   /* OBJ_BOSS_309 */  {(void*) func_8002E604, 1, (ObjectFunc) func_8002E5E0,       D_800CBF34,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
   /* OBJ_BOSS_310 */  {(void*) func_8002E64C, 1, (ObjectFunc) func_8002E628,       D_800CBF34,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
-  /* OBJ_BOSS_311 */  {(void*) func_80191AFC, 2, (ObjectFunc) func_801912FC,        D_6011C80,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
-  /* OBJ_BOSS_312 */  {(void*) func_80196288, 2, (ObjectFunc) func_80196210,        D_60166F4,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
-  /* OBJ_BOSS_313 */  {(void*) func_8019E98C, 1, (ObjectFunc) func_8019E454,        D_6009388,     0.0f,  0, 0, 40, 0,   0.0f, 10 },
-  /* OBJ_BOSS_314 */  {(void*) func_8019E2C4, 2, (ObjectFunc) func_8019C888,       D_800CBF34,     0.0f,  0, 0, 40, 0,   0.0f, 10 },
+  /* OBJ_BOSS_311 */  {(void*) func_i4_80191AFC, 2, (ObjectFunc) func_i4_801912FC,        D_6011C80,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
+  /* OBJ_BOSS_312 */  {(void*) func_i6_80196288, 2, (ObjectFunc) func_i6_80196210,        D_60166F4,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
+  /* OBJ_BOSS_313 */  {(void*) func_i4_8019E98C, 1, (ObjectFunc) func_i4_8019E454,        D_6009388,     0.0f,  0, 0, 40, 0,   0.0f, 10 },
+  /* OBJ_BOSS_314 */  {(void*) func_i6_8019E2C4, 2, (ObjectFunc) func_i6_8019C888,       D_800CBF34,     0.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_BOSS_SO */  {(void*) func_i3_801A71B8, 2, (ObjectFunc) func_i3_801A5B3C,       D_800CBF34,     0.0f,  0, 0, 40, 0,   0.0f, 10 },
-  /* OBJ_BOSS_316 */  {(void*) func_801968F4, 1, (ObjectFunc) func_801946C4,        D_6011058,     0.0f,  0, 0, 40, 0,   0.0f, 10 },
-  /* OBJ_BOSS_317 */  {(void*) func_80193B1C, 1, (ObjectFunc) func_80193718,        D_601115C,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
+  /* OBJ_BOSS_316 */  {(void*) func_i4_801968F4, 1, (ObjectFunc) func_i4_801946C4,        D_6011058,     0.0f,  0, 0, 40, 0,   0.0f, 10 },
+  /* OBJ_BOSS_317 */  {(void*) func_i4_80193B1C, 1, (ObjectFunc) func_i4_80193718,        D_601115C,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
   /* OBJ_BOSS_AQ */  {(void*) func_i3_801B4D84, 2, (ObjectFunc) func_i3_801B134C,        D_6030F74, 10000.0f,  0, 0, 40, 0,   0.0f, 10 },
-  /* OBJ_BOSS_319 */  {(void*) func_801985E4, 1, (ObjectFunc) func_80194398,D_i1_8019A9B8,  3000.0f,  0, 0, 40, 1,   0.0f, 10 },
-  /* OBJ_BOSS_320 */  {(void*) func_801928C8, 2, (ObjectFunc) func_8018DBF0,        D_C038DC0, 10000.0f,  0, 0, 40, 0,   0.0f, 10 },
-  /* OBJ_BOSS_321 */  {(void*) func_8018B8C0, 1, (ObjectFunc) func_80189B70,        D_C038F24, 10000.0f,  0, 0, 40, 0,   0.0f, 10 },
+  /* OBJ_BOSS_319 */  {(void*) func_i1_801985E4, 1, (ObjectFunc) func_i1_80194398,D_i1_8019A9B8,  3000.0f,  0, 0, 40, 1,   0.0f, 10 },
+  /* OBJ_BOSS_320 */  {(void*) func_i6_801928C8, 2, (ObjectFunc) func_i6_8018DBF0,        D_C038DC0, 10000.0f,  0, 0, 40, 0,   0.0f, 10 },
+  /* OBJ_BOSS_321 */  {(void*) func_i6_8018B8C0, 1, (ObjectFunc) func_i6_80189B70,        D_C038F24, 10000.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_ITEM_LASERS  */  {(void*) func_8005CC9C, 1, (ObjectFunc) func_80067F6C,       D_800CBFA8,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_ITEM_CHECKPOINT  */  {(void*) func_8005C5F0, 1, (ObjectFunc) func_80068914,       D_800CBF38,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_ITEM_SILVER_RING  */  {(void*) func_8005C900, 1, (ObjectFunc) func_80068020,       D_800CBF54,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
@@ -762,7 +408,7 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_ITEM_1UP  */  {(void*)     D_1022120, 0, (ObjectFunc) func_80067B1C,       D_800CBE8C,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_ITEM_GOLD_RING  */  {(void*) func_8005CA80, 1, (ObjectFunc) func_800685F8,       D_800CBF54,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_ITEM_WING_REPAIR  */  {(void*)     D_3007650, 0, (ObjectFunc) func_80068618,       D_800CBFA8,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_ITEM_TRAINING_RING  */  {(void*)     D_6006140, 0, (ObjectFunc) func_80198968,        D_6009CFC,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_ITEM_TRAINING_RING  */  {(void*)     D_6006140, 0, (ObjectFunc) func_i1_80198968,        D_6009CFC,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_339  */  {(void*) func_8007D55C, 1, (ObjectFunc) func_8007D2F4,             NULL,  -200.0f,  1, 2,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_340  */  {(void*) func_8007D55C, 1, (ObjectFunc) func_8007D748,             NULL,  -200.0f,  1, 2,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_341  */  {(void*) func_8007D55C, 1, (ObjectFunc) func_8007D8A8,             NULL,  -200.0f,  1, 2,  0, 0,   0.0f,  0 },
@@ -778,11 +424,11 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_EFFECT_351  */  {(void*) func_80078438, 1, (ObjectFunc) func_8007E3E4,             NULL,  -200.0f,  1, 1,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_352  */  {(void*) func_800784B4, 1, (ObjectFunc) func_8007B62C,             NULL,  -200.0f,  1, 2,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_353  */  {(void*) func_80078B8C, 1, (ObjectFunc) func_8007FE88,             NULL,   100.0f,  0, 0, 20, 0,   0.0f,  0 },
-  /* OBJ_EFFECT_354  */  {(void*) func_80197C64, 1, (ObjectFunc) func_8007FE88,             NULL,   100.0f,  0, 0, 20, 0,   0.0f,  0 },
+  /* OBJ_EFFECT_354  */  {(void*) func_i6_80197C64, 1, (ObjectFunc) func_8007FE88,             NULL,   100.0f,  0, 0, 20, 0,   0.0f,  0 },
   /* OBJ_EFFECT_355  */  {(void*) func_80078AEC, 1, (ObjectFunc) func_800802B8,             NULL,   100.0f,  1, 0, 20, 1,   0.0f,  0 },
   /* OBJ_EFFECT_356  */  {(void*) func_80078C84, 1, (ObjectFunc) func_800802F8,             NULL,   100.0f,  1, 0, 20, 0,   0.0f,  0 },
   /* OBJ_EFFECT_357  */  {(void*) func_800798F0, 1, (ObjectFunc) func_8007968C,             NULL,   100.0f,  0, 1,  0, 0,   0.0f,  0 },
-  /* OBJ_EFFECT_358  */  {(void*) func_80192A68, 1, (ObjectFunc) func_80192984,             NULL,   100.0f,  1, 1,  0, 0,   0.0f,  0 },
+  /* OBJ_EFFECT_358  */  {(void*) func_i4_80192A68, 1, (ObjectFunc) func_i4_80192984,             NULL,   100.0f,  1, 1,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_359  */  {(void*) func_8007AA60, 1, (ObjectFunc) func_8007A994,             NULL,  -100.0f,  1, 2,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_360  */  {(void*) func_8007BEE8, 1, (ObjectFunc) func_8007BE54,             NULL,  -200.0f,  1, 2,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_361  */  {(void*) func_8007BEE8, 1, (ObjectFunc) func_8007BDE0,             NULL,  -200.0f,  1, 2,  0, 0,   0.0f,  0 },
@@ -792,19 +438,19 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_EFFECT_365  */  {(void*) func_8007E5CC, 1, (ObjectFunc) func_8007E45C,             NULL,  -200.0f,  1, 1,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_366  */  {(void*) func_80078550, 1, (ObjectFunc) func_i3_801AC918,             NULL,   100.0f,  1, 2,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_367  */  {(void*) func_80078604, 1, (ObjectFunc) func_8007E648,             NULL,  -200.0f,  0, 1,  0, 0,   0.0f,  0 },
-  /* OBJ_EFFECT_368  */  {(void*) func_80188FA8, 1, (ObjectFunc) func_80188F60,             NULL,  -200.0f, -1, 1,  0, 0,   0.0f,  0 },
-  /* OBJ_EFFECT_369  */  {(void*) func_8018DCE4, 1, (ObjectFunc) func_80188CAC,             NULL,   100.0f,  0, 1, 40, 0,   0.0f,  0 },
-  /* OBJ_EFFECT_370  */  {(void*) func_8018DBEC, 1, (ObjectFunc) func_80188FAC,             NULL,   100.0f,  0, 1, 40, 0,   0.0f,  0 },
-  /* OBJ_EFFECT_371  */  {(void*) func_8018DE14, 1, (ObjectFunc) func_80189114,             NULL,   100.0f,  0, 1, 40, 0,   0.0f,  0 },
+  /* OBJ_EFFECT_368  */  {(void*) func_i5_80188FA8, 1, (ObjectFunc) func_i5_80188F60,             NULL,  -200.0f, -1, 1,  0, 0,   0.0f,  0 },
+  /* OBJ_EFFECT_369  */  {(void*) func_i2_8018DCE4, 1, (ObjectFunc) func_i2_80188CAC,             NULL,   100.0f,  0, 1, 40, 0,   0.0f,  0 },
+  /* OBJ_EFFECT_370  */  {(void*) func_i2_8018DBEC, 1, (ObjectFunc) func_i2_80188FAC,             NULL,   100.0f,  0, 1, 40, 0,   0.0f,  0 },
+  /* OBJ_EFFECT_371  */  {(void*) func_i2_8018DE14, 1, (ObjectFunc) func_i2_80189114,             NULL,   100.0f,  0, 1, 40, 0,   0.0f,  0 },
   /* OBJ_EFFECT_372  */  {(void*) func_80077A00, 1, (ObjectFunc) func_8007AB50,             NULL,  -200.0f,  0, 1,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_373  */  {(void*)          NULL, 1, (ObjectFunc) func_8007A748,             NULL,   500.0f,  0, 1,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_374  */  {(void*) func_8007DED4, 1, (ObjectFunc) func_8007DB70,             NULL,   100.0f,  0, 1, 40, 0,   0.0f,  0 },
   /* OBJ_EFFECT_375  */  {(void*) func_8007DAE4, 1, (ObjectFunc) func_8007DA58,             NULL,  -200.0f,  0, 1,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_376  */  {(void*) func_80078CE8, 1, (ObjectFunc) func_80080360,             NULL,  -200.0f,  1, 0,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_377  */  {(void*) func_80078BE0, 1, (ObjectFunc) func_800802D8,             NULL,   100.0f,  1, 0, 20, 0,   0.0f,  0 },
-  /* OBJ_EFFECT_378  */  {(void*) func_801A5AF0, 1, (ObjectFunc) func_801A57D0,             NULL,   100.0f,  0, 0, 20, 0,   0.0f,  0 },
-  /* OBJ_EFFECT_379  */  {(void*) func_801AEAA0, 1, (ObjectFunc) func_801AE87C,             NULL,   100.0f,  1, 1,  0, 0,   0.0f,  0 },
-  /* OBJ_EFFECT_380  */  {(void*) func_801A5D68, 1, (ObjectFunc) func_801A5B4C,             NULL,   100.0f,  0, 0, 20, 0,   0.0f,  0 },
+  /* OBJ_EFFECT_378  */  {(void*) func_i5_801A5AF0, 1, (ObjectFunc) func_i5_801A57D0,             NULL,   100.0f,  0, 0, 20, 0,   0.0f,  0 },
+  /* OBJ_EFFECT_379  */  {(void*) func_i5_801AEAA0, 1, (ObjectFunc) func_i5_801AE87C,             NULL,   100.0f,  1, 1,  0, 0,   0.0f,  0 },
+  /* OBJ_EFFECT_380  */  {(void*) func_i5_801A5D68, 1, (ObjectFunc) func_i5_801A5B4C,             NULL,   100.0f,  0, 0, 20, 0,   0.0f,  0 },
   /* OBJ_EFFECT_381  */  {(void*) func_80077A7C, 1, (ObjectFunc) func_8007B0F4,             NULL,   500.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_382  */  {(void*)          NULL, 1, (ObjectFunc) func_8007B040,             NULL,   200.0f,  0, 1,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_383  */  {(void*) func_8007A3C0, 1, (ObjectFunc) func_8007A28C,             NULL, 10000.0f,  0, 1,  0, 0,   0.0f,  0 },
@@ -820,8 +466,8 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_EFFECT_393  */  {(void*) func_80078F78, 1, (ObjectFunc) func_80078EBC,             NULL,   300.0f,  1, 1,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_394  */  {(void*) func_80080D04, 1, (ObjectFunc) func_80080ACC,             NULL,  -200.0f,  0, 1,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_395  */  {(void*) func_80082F78, 1, (ObjectFunc) func_80081C5C,             NULL,   300.0f,  0, 1, 40, 0,   0.0f,  0 },
-  /* OBJ_EFFECT_396  */  {(void*) func_8018CF98, 1, (ObjectFunc) func_8018CAD4,             NULL,  2000.0f,  0, 1, 40, 2,   0.0f,  0 },
-  /* OBJ_EFFECT_397  */  {(void*) func_80191180, 1, (ObjectFunc) func_80191054,             NULL,  2000.0f,  0, 1, 20, 0,   0.0f,  0 },
+  /* OBJ_EFFECT_396  */  {(void*) func_i6_8018CF98, 1, (ObjectFunc) func_i6_8018CAD4,             NULL,  2000.0f,  0, 1, 40, 2,   0.0f,  0 },
+  /* OBJ_EFFECT_397  */  {(void*) func_i4_80191180, 1, (ObjectFunc) func_i4_80191054,             NULL,  2000.0f,  0, 1, 20, 0,   0.0f,  0 },
   /* OBJ_EFFECT_398  */  {(void*) func_8008092C, 1, (ObjectFunc) func_8008040C,             NULL,   100.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_EFFECT_399  */  {(void*) func_80084194, 1, (ObjectFunc) func_80083FA8,             NULL,   100.0f,  0, 0, 40, 0,   0.0f,  0 },
 };

@@ -54,7 +54,7 @@ FrameBuffer* gFrameBuffer;
 u16* gTextureRender;
 
 u8 D_80137E78;
-u32 gFrameCounter;
+u32 gSysFrameCount;
 u8 gStartNMI;
 u8 gStopTasks;
 u8 D_80137E84[4];
@@ -135,7 +135,7 @@ extern FrameBuffer* gFrameBuffer;
 extern u16* gTextureRender;
 
 extern u8 D_80137E78;
-extern u32 gFrameCounter;
+extern u32 gSysFrameCount;
 extern u8 gStartNMI;
 extern u8 gStopTasks;
 extern u8 D_80137E84[4];
@@ -154,7 +154,7 @@ void Main_Initialize(void) {
     u8 i;
 
     D_80137E78 = 0;
-    gFrameCounter = 0;
+    gSysFrameCount = 0;
     gStartNMI = false;
     gStopTasks = false;
     gFillScreenColor = 0;
@@ -310,7 +310,7 @@ void Graphics_ThreadEntry(void* arg0) {
 
     Game_Initialize();
     osSendMesg(&gSerialThreadMsgQueue, (OSMesg) SI_READ_CONTROLLER, OS_MESG_PRI_NORMAL);
-    Graphics_InitializeTask(gFrameCounter);
+    Graphics_InitializeTask(gSysFrameCount);
     {
         gSPSegment(gUnkDisp1++, 0, 0);
         gSPDisplayList(gMasterDisp++, gGfxPool->unkDL1);
@@ -323,8 +323,8 @@ void Graphics_ThreadEntry(void* arg0) {
     }
     Graphics_SetTask();
     while (1) {
-        gFrameCounter++;
-        Graphics_InitializeTask(gFrameCounter);
+        gSysFrameCount++;
+        Graphics_InitializeTask(gSysFrameCount);
         osRecvMesg(&gControllerMsgQueue, NULL, OS_MESG_BLOCK);
         osSendMesg(&gSerialThreadMsgQueue, (OSMesg) SI_RUMBLE, OS_MESG_PRI_NORMAL);
         Controller_UpdateInput();
@@ -348,9 +348,9 @@ void Graphics_ThreadEntry(void* arg0) {
         osRecvMesg(&gGfxTaskMsgQueue, NULL, OS_MESG_BLOCK);
         Graphics_SetTask();
         if (gFillScreen == 0) {
-            osViSwapBuffer(&gFrameBuffers[(gFrameCounter - 1) % 3]);
+            osViSwapBuffer(&gFrameBuffers[(gSysFrameCount - 1) % 3]);
         }
-        func_80007FE4(&gFrameBuffers[(gFrameCounter - 1) % 3], SCREEN_WIDTH, 16);
+        func_80007FE4(&gFrameBuffers[(gSysFrameCount - 1) % 3], SCREEN_WIDTH, 16);
 
         var_v1 = MIN(D_80137E78, 4);
         var_v2 = MAX(var_v1, gGfxVImsgQueue.validCount + 1);

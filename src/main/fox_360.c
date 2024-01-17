@@ -683,7 +683,7 @@ void func_8003010C(Actor* actor) {
             func_i4_8019AB8C(actor);
             break;
         case LEVEL_VENOM_2:
-            func_E9F1D0_80196314(actor);
+            func_i6_80196314(actor);
             break;
     }
     func_8002FEF0(actor);
@@ -1212,7 +1212,7 @@ void func_800319AC(Actor* this) {
         }
     }
     if ((this->timer_0CA[0] != 0) && (gCurrentLevel != LEVEL_VENOM_2) && (this->unk_0E4 < 10) &&
-        (this->timer_0CA[0] < 5) && !(gFrameCount & 0x1F)) {
+        (this->timer_0CA[0] < 5) && !(gGameFrameCount & 0x1F)) {
         this->iwork[16] = 10;
     }
     if ((this->iwork[16] != 0) && (this->unk_0B8 < 7)) {
@@ -1452,9 +1452,9 @@ void func_800319AC(Actor* this) {
                     }
                     if ((this->unk_0E4 >= 4) && (this->unk_0E4 != 8) &&
                         ((gCurrentLevel != LEVEL_VENOM_2) || (this->unk_0E4 != 4))) {
-                        spCC = __sinf(((this->index * 45) + gFrameCount) * M_DTOR) * 100.0f;
-                        spC8 = __cosf(((this->index * 45) + (gFrameCount * 2)) * M_DTOR) * 100.0f;
-                        spC4 = __sinf(((this->index * 45) + gFrameCount) * M_DTOR) * 100.0f;
+                        spCC = __sinf(((this->index * 45) + gGameFrameCount) * M_DTOR) * 100.0f;
+                        spC8 = __cosf(((this->index * 45) + (gGameFrameCount * 2)) * M_DTOR) * 100.0f;
+                        spC4 = __sinf(((this->index * 45) + gGameFrameCount) * M_DTOR) * 100.0f;
                     }
                     if (gPlayer[0].unk_4DC == 0) {
                         this->fwork[4] = gPlayer[0].pos.x + spCC;
@@ -1482,9 +1482,9 @@ void func_800319AC(Actor* this) {
                     }
                 } else if (this->unk_0E6 != 100) {
                     if (this->unk_0E4 >= 10) {
-                        spCC = __sinf(((this->index * 45) + gFrameCount) * M_DTOR) * 200.0f;
-                        spC8 = __cosf(((this->index * 45) + (gFrameCount * 2)) * M_DTOR) * 200.0f;
-                        spC4 = __sinf(((this->index * 45) + gFrameCount) * M_DTOR) * 200.0f;
+                        spCC = __sinf(((this->index * 45) + gGameFrameCount) * M_DTOR) * 200.0f;
+                        spC8 = __cosf(((this->index * 45) + (gGameFrameCount * 2)) * M_DTOR) * 200.0f;
+                        spC4 = __sinf(((this->index * 45) + gGameFrameCount) * M_DTOR) * 200.0f;
                     }
                     this->fwork[4] = gActors[this->unk_0E6].obj.pos.x + spCC;
                     this->fwork[5] = gActors[this->unk_0E6].obj.pos.y + spC8;
@@ -1528,7 +1528,7 @@ void func_800319AC(Actor* this) {
                     if ((spE8 < spF4) && (spEC < spF4)) {
                         this->iwork[4]++;
                         this->iwork[5] = 1;
-                        if (!((this->index + gFrameCount) & sp10F) && (Rand_ZeroOne() < spF0) && func_80031900(this) &&
+                        if (!((this->index + gGameFrameCount) & sp10F) && (Rand_ZeroOne() < spF0) && func_80031900(this) &&
                             ((gActors[0].unk_0B8 == 2) || (gCurrentLevel == LEVEL_TRAINING))) {
                             if ((this->unk_0E6 == 0) && (gCurrentLevel != LEVEL_TRAINING)) {
                                 if ((this->iwork[4] > 250) && (gCurrentLevel != LEVEL_VENOM_ANDROSS)) {
@@ -1871,7 +1871,7 @@ void func_800319AC(Actor* this) {
         if (gCurrentLevel == LEVEL_VENOM_2) {
             var_v0 = 1;
         }
-        if (!((this->index + gFrameCount) & var_v0)) {
+        if (!((this->index + gGameFrameCount) & var_v0)) {
             this->fwork[19] = Math_RadToDeg(Math_Atan2F(spE4, spDC));
             this->fwork[20] = Math_RadToDeg(Math_Atan2F(spE0, sqrtf(SQ(spE4) + SQ(spDC))));
         }
@@ -1918,7 +1918,7 @@ void func_800319AC(Actor* this) {
             spD0 = 360.0f - spD0;
         }
         if ((this->fwork[7] > 0.01f) && (this->fwork[7] < 359.9f)) {
-            if (!((gFrameCount + 0xF) & 0x1F) && (gCurrentLevel != LEVEL_VENOM_2)) {
+            if (!((gGameFrameCount + 0xF) & 0x1F) && (gCurrentLevel != LEVEL_VENOM_2)) {
                 this->timer_0CA[0] = 0;
             }
         } else {
@@ -1933,7 +1933,7 @@ void func_800319AC(Actor* this) {
     }
     if ((this->fwork[7] > 0.01f) && (this->fwork[7] < 359.9f)) {
         Math_SmoothStepToAngle(&this->obj.rot.z, this->fwork[7], 0.2f, 100.0f, 0.01f);
-        if ((this->unk_0E4 == 8) && !(gFrameCount & 1)) {
+        if ((this->unk_0E4 == 8) && !(gGameFrameCount & 1)) {
             if ((this->fwork[7] > 10.0f) && (this->fwork[7] < 350.0f)) {
                 Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, 0);
                 Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, 1);
@@ -2099,7 +2099,7 @@ void func_80034E64(Actor* actor) {
         }
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, 1);
         Matrix_Scale(gGfxMatrix, sp24, sp24 * 0.5f, sp24, 1);
-        Matrix_RotateY(gGfxMatrix, gFrameCount * 3.0f * M_DTOR, 1);
+        Matrix_RotateY(gGfxMatrix, gGameFrameCount * 3.0f * M_DTOR, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         RCP_SetupDL(&gMasterDisp, 0x29);
         if (gCurrentLevel == LEVEL_KATINA) {
@@ -2125,7 +2125,7 @@ void func_80035098(Actor* actor) {
         Matrix_RotateX(gGfxMatrix, -actor->obj.rot.x * M_DTOR, 1);
         Matrix_RotateY(gGfxMatrix, M_DTOR * -actor->obj.rot.y - gPlayer[0].unk_058, 1);
         Matrix_RotateX(gGfxMatrix, gPlayer[0].unk_05C, 1);
-        Matrix_RotateZ(gGfxMatrix, gFrameCount * 20.0f * actor->iwork[15] * M_DTOR, 1);
+        Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 20.0f * actor->iwork[15] * M_DTOR, 1);
         if (actor->iwork[15] < 0) {
             Matrix_RotateX(gGfxMatrix, M_PI, 1);
         }
@@ -2149,7 +2149,7 @@ bool func_800352E0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thi
         RCP_SetupDL(&gMasterDisp, 0x1D);
     }
     if ((limbIndex == 1) || (limbIndex == 3)) {
-        rot->z += gFrameCount * 3.0f;
+        rot->z += gGameFrameCount * 3.0f;
     }
     if ((limbIndex == 1) || (limbIndex == 2)) {
         RCP_SetupDL(&gMasterDisp, 0x22);

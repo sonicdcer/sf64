@@ -8,9 +8,9 @@ void func_800846F0(FrameBuffer* arg0) {
     s32 sp4C[5];
     s32 sp38[5];
 
-    for (i = 0; i < gFrameCounter % SCREEN_HEIGHT; i++) {
+    for (i = 0; i < gSysFrameCount % SCREEN_HEIGHT; i++) {
         var_v0 = SCREEN_WIDTH * i + arg0->data;
-        for (j = 0; j < gFrameCounter % SCREEN_WIDTH; j++, var_v0++) {
+        for (j = 0; j < gSysFrameCount % SCREEN_WIDTH; j++, var_v0++) {
             sp60[1] = RGBA16_RED(var_v0[0]);
             sp4C[1] = RGBA16_GRN(var_v0[0]);
             sp38[1] = RGBA16_BLU(var_v0[0]);

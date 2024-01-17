@@ -978,7 +978,7 @@ void func_i3_801A7930(Player* player) {
             D_80178358 = 0;
             D_8017835C = 4;
             if (D_801782F8 != 0) {
-                player->wings.unk_30 = (gFrameCount & 1) * 5.0f;
+                player->wings.unk_30 = (gGameFrameCount & 1) * 5.0f;
             }
             switch (D_80177A80) {
                 case 0x1C2:

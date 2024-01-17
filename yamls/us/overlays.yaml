@@ -137,7 +137,7 @@
     vram: 0x80187520
     bss_size: 0x520
     exclusive_ram_id: overlay
-    symbol_name_format: E9F1D0_$VRAM
+    symbol_name_format: i6_$VRAM
     subsegments:
     - [0xE9F1D0, c, fox_i6]
     - [0xE9F1E0, c, E9F1E0]
@@ -190,7 +190,7 @@
     vram: 0x80187520
     bss_size: 0x2710
     exclusive_ram_id: overlay
-    symbol_name_format: EF0260_$VRAM
+    symbol_name_format: ending_$VRAM
     subsegments:
     - [0xEF0260, c, EF0260]
     - [0xEF5B60, c, EF5B60]
@@ -207,10 +207,10 @@
     vram: 0x80187520
     bss_size: 0x10
     exclusive_ram_id: overlay
-    symbol_name_format: EFFA40_$VRAM
+    symbol_name_format: unused_$VRAM
     subsegments:
-    - [0xEFFA40, c, EFFA40]
-    - [0xEFFA50, data, EFFA40]
-    - { start: 0xEFFAE0, type: bss, vram: 0x801875C0, name: ovl_unused }
+    - [0xEFFA40, c, fox_unused]
+    - [0xEFFA50, .data, fox_unused]
+    - { start: 0xEFFAE0, type: .bss, vram: 0x801875C0, name: fox_unused }
 
   - [0xEFFAE0]
