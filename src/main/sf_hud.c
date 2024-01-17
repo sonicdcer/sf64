@@ -4477,7 +4477,139 @@ void func_800922F4(Actor* actor) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800924E0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800927A0.s")
+bool func_800927A0(Actor* actor) {
+    Vec3f src;
+    Vec3f dest;
+    f32 sp54;
+    f32 sp50;
+    bool ret = false;
+
+    if (actor->iwork[11] == 0) {
+        actor->unk_046 = 0;
+        actor->iwork[11] = 1;
+        actor->iwork[1] = 1;
+        actor->vwork[29].x = actor->obj.rot.x;
+        actor->vwork[29].y = actor->obj.rot.y;
+        actor->vwork[29].z = actor->obj.rot.z;
+    } else {
+        Math_SmoothStepToAngle(&actor->vwork[29].z, 0.0f, 0.1f, 5.0f, 0.0f);
+        Math_SmoothStepToAngle(&actor->vwork[29].y, 0.0f, 0.1f, 5.0f, 0.0f);
+        Math_SmoothStepToAngle(&actor->vwork[29].x, 0.0f, 0.1f, 5.0f, 0.0f);
+        sp50 = Math_RadToDeg(Math_Atan2F(0.0f - actor->obj.pos.x, 0.0f - actor->obj.pos.z));
+
+        switch (actor->unk_046) {
+            case 0:
+                if (actor->unk_04A != 0) {
+                    actor->timer_0BC = 30;
+                } else {
+                    actor->timer_0BC = 10;
+                }
+                actor->unk_046 = 1;
+                if (actor->fwork[19] > 180.0f) {
+                    actor->fwork[19] = actor->fwork[19] - 360.0f;
+                }
+
+            case 1:
+                if (actor->timer_0BC == 0) {
+                    actor->unk_046 = 2;
+                    if (actor->unk_04A != 0) {
+                        actor->timer_0BC = 80;
+                    } else {
+                        actor->timer_0BC = 60;
+                    }
+                    Math_SmoothStepToF(&actor->fwork[20], 0.0f, 0.1f, 15.0f, 0.0f);
+                }
+                break;
+
+            case 2:
+                if (actor->fwork[19] > 140.0f) {
+                    sp54 = 0.0f;
+                } else {
+                    sp54 = 60.0f;
+                }
+
+                Math_SmoothStepToF(&actor->fwork[15], sp54, 0.3f, 100.0f, 0.0f);
+                Math_SmoothStepToF(&actor->fwork[26], sp54, 0.3f, 100.0f, 0.0f);
+                Math_SmoothStepToF(&actor->fwork[16], sp54, 0.3f, 100.0f, 0.0f);
+                Math_SmoothStepToF(&actor->fwork[27], sp54, 0.3f, 100.0f, 0.0f);
+                Math_SmoothStepToF(&actor->fwork[19], 190.0f, 0.1f, 6.0f, 0.001f);
+                Math_SmoothStepToF(&actor->fwork[20], 0.0f, 0.1f, 15.0f, 0.0f);
+
+                if (actor->fwork[19] > 180.0f) {
+                    actor->unk_0F4.y += 180.0f;
+                    if (actor->unk_0F4.y >= 360.0f) {
+                        actor->unk_0F4.y = actor->unk_0F4.y - 360.0f;
+                    }
+
+                    actor->fwork[19] -= 180.0f;
+
+                    if ((sp50 - actor->unk_0F4.y) < 180.0f) {
+                        actor->fwork[20] = 180.0f;
+                    } else {
+                        actor->fwork[20] = -180.0f;
+                    }
+                    actor->iwork[1] = 1;
+                    actor->unk_046 = 3;
+                }
+                actor->fwork[28] -= 0.2f;
+                break;
+
+            case 3:
+                if (actor->fwork[29] < 2.0f) {
+                    actor->fwork[29] = 2.0f;
+                }
+                Math_SmoothStepToF(&actor->fwork[20], 0.0f, 0.1f, 15.0f, 0.0f);
+
+                sp54 = actor->fwork[20] * 0.3f;
+
+                Math_SmoothStepToF(&actor->fwork[15], sp54, 0.3f, 100.0f, 0.0f);
+                Math_SmoothStepToF(&actor->fwork[26], sp54, 0.3f, 100.0f, 0.0f);
+                Math_SmoothStepToF(&actor->fwork[16], -sp54, 0.3f, 100.0f, 0.0f);
+                Math_SmoothStepToF(&actor->fwork[27], -sp54, 0.3f, 100.0f, 0.0f);
+
+                if (actor->unk_04A != 0) {
+                    Math_SmoothStepToAngle(&actor->unk_0F4.y, sp50, 0.1f, 2.0f, 0.0f);
+                }
+
+                if (actor->obj.pos.y < gPlayer->unk_0A0) {
+                    if (actor->fwork[28] < 0.0f) {
+                        actor->fwork[28] = actor->fwork[28] + 0.2f;
+                    }
+                } else {
+                    actor->fwork[28] -= 0.2f;
+                }
+
+                if (actor->timer_0BC == 0) {
+                    ret = true;
+                    actor->iwork[11] = 0;
+                    actor->unk_046 = 0;
+                    actor->fwork[28] = 0.0f;
+                    actor->fwork[20] = 0.0f;
+                    actor->fwork[29] = 1.0f;
+                }
+                break;
+        }
+
+        actor->obj.rot.x = actor->vwork[29].x - actor->fwork[19];
+        actor->obj.rot.y = actor->unk_0F4.y;
+        actor->obj.rot.z = actor->vwork[29].z + actor->fwork[20];
+        actor->obj.pos.y += actor->fwork[28];
+
+        Matrix_RotateY(gCalcMatrix, actor->unk_0F4.y * 0.017453292f, 0U);
+        Matrix_RotateX(gCalcMatrix, -(M_DTOR * (actor->unk_0F4.x + actor->vwork[29].x + actor->fwork[19])), 1);
+
+        src.z = actor->fwork[1];
+        src.y = 0.0f;
+        src.x = 0.0f;
+
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
+        actor->vel.x = dest.x;
+        actor->vel.y = dest.y;
+        actor->vel.z = dest.z;
+    }
+    return ret;
+}
 
 #ifdef IMPORT_DATA
 void func_80092D48(Actor* actor) {
