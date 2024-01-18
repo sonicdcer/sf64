@@ -309,7 +309,7 @@ extern u8 D_80161684;
 extern s32 D_80161690;
 
 // sf_hud?
-extern f32 D_801616A0;
+extern Vec3f D_801616A0;
 extern f32 D_801616BC;
 extern f32 D_801616C0;
 extern f32 D_801616C4;

@@ -17,6 +17,12 @@ extern UnkStruct_D_800D1AEC D_800D1AEC[];
 
 extern f32 D_800D1CFC;
 extern f32 D_800D1E10;
+extern f32 D_800D22C4;
+extern f32 D_800D22C8;
+extern f32 D_800D22CC;
+extern f32 D_801616A4;
+extern f32 D_801616A8;
+extern Vec3f D_801616B0;
 extern s32 D_80161710;
 extern s32 D_80161738[4];
 extern s32 D_80161748[4];
@@ -1485,7 +1491,8 @@ void func_80088970(void) {
                             if (D_80161838[1] == 6) {
                                 gLifeCount[gPlayerNum]--;
                             }
-                            if ((D_80161838[1] += 1) > 13) {
+                            D_80161838[1]++;
+                            if (D_80161838[1] > 13) {
                                 D_80161810[0] = 4;
                                 D_80161838[1] = 0;
                             }
@@ -4909,10 +4916,432 @@ void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
     }
 }
 
+#ifdef IMPORT_DATA
+void func_800935E8(Player* player) {
+    Vec3f D_800D22D8[] = { { -1730.0f, 1600.0f, -6690.0f },
+                           { -830.0f, 1600.0f, -7380.0f },
+                           { 0.0f, 1600.0f, -7380.0f } };
+    Vec3f D_800D22FC[] = { { 0.0f, 0.0f, 0.0f }, { 190.0f, 2570.0f, -4740.0f }, { 0.0f, 0.0f, 0.0f } };
+    Vec3f D_800D2320[] = { { 50.0f, -165.0f, -900.0f },   { -100.0f, -165.0f, -900.0f }, { -100.0f, -165.0f, -850.0f },
+                           { -200.0f, -165.0f, -800.0f }, { -200.0f, -165.0f, -750.0f }, { -240.0f, -165.0f, -700.0f },
+                           { -240.0f, -165.0f, -650.0f }, { -280.0f, -165.0f, -600.0f }, { -280.0f, -165.0f, -550.0f },
+                           { -320.0f, -165.0f, -500.0f }, { -320.0f, -165.0f, -450.0f }, { -360.0f, -165.0f, -400.0f },
+                           { -360.0f, -165.0f, -350.0f }, { -400.0f, -165.0f, -300.0f }, { -400.0f, -165.0f, -250.0f },
+                           { -440.0f, -165.0f, -200.0f }, { -440.0f, -165.0f, -150.0f }, { -480.0f, -165.0f, -100.0f },
+                           { -480.0f, -165.0f, -50.0f },  { -520.0f, -165.0f, 0.0f },    { -520.0f, -165.0f, 50.0f },
+                           { -560.0f, -165.0f, 100.0f },  { -560.0f, -165.0f, 150.0f },  { -600.0f, -165.0f, 200.0f },
+                           { -600.0f, -165.0f, 250.0f },  { -640.0f, -165.0f, 300.0f },  { -640.0f, -165.0f, 350.0f },
+                           { -680.0f, -165.0f, 400.0f },  { -680.0f, -165.0f, 450.0f },  { -720.0f, -165.0f, 500.0f },
+                           { -720.0f, -165.0f, 550.0f },  { -50.0f, -165.0f, -900.0f } };
+    Vec3f src, dest;
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 stepSize;
+    f32 temp2;
+    f32 temp;
+    s32 i;
+    s32 j;
+    Actor* actor;
+
+    actor = &gActors[0];
+
+    switch (player->unk_1D0) {
+
+        case 0:
+            func_80093310();
+            D_80177A80 = 0;
+            D_80177AB0 = 1;
+            D_80177AC8 = 1;
+            player->unk_234 = 0;
+            player->unk_1D0 = 1;
+            player->unk_208 = 0;
+            player->unk_0D0 = 0.0f;
+
+            D_80178340 = 255;
+            D_80178348 = D_80178350 = D_80178354 = 0;
+            D_80178358 = 0;
+
+            player->camEye.x = D_80177978 = -3061.2f;
+            player->camEye.y = D_80177980 = 1745.9f;
+            player->camEye.z = D_80177988 = -5786.0f;
+
+            player->camAt.x = D_801779A0 = 300.0f;
+            player->camAt.y = D_801779B8 = 2200.0f;
+            player->camAt.z = D_801779C0 = -5700.0f;
+
+            D_801616A0.x = 5.18f;
+            D_801616A0.y = 124.17f;
+            D_801616A0.z = 0.00f;
+
+            actor->unk_0F4.y = 30.0f;
+
+            D_80177A48[5] = 14.0f;
+            D_80177A48[0] = 0.2f;
+            D_80177A10[6] = 0;
+            D_80177A10[7] = 0;
+            D_801616B0.x = D_801616B0.y = D_801616B0.z = 0.0f;
+            D_80177A48[7] = 0.0f;
+
+        case 1:
+            if ((player->unk_208 == 0) && (D_80177A80 < 250)) {
+                i = Rand_ZeroOne() * 64.0f;
+                if (i < 32) {
+                    for (j = 0; j < 4; j++) {
+                        src.x = D_800D2320[i].x;
+                        src.y = D_800D2320[i].y + (Rand_ZeroOne() * 12.0f);
+                        src.z = D_800D2320[i].z;
+
+                        Matrix_Translate(gCalcMatrix, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0);
+                        Matrix_RotateY(gCalcMatrix, M_DTOR * 30.0f, 1);
+                        Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+
+                        x = dest.x;
+                        y = dest.y;
+                        z = dest.z;
+
+                        func_800933D8(x, y, z, 20.0f);
+
+                        i = (i + 1) % 32;
+                    }
+                } else {
+                    i -= 32;
+                    for (j = 0; j < 4; j++) {
+                        src.x = -D_800D2320[i].x;
+                        src.y = D_800D2320[i].y + (Rand_ZeroOne() * 12.0f);
+                        src.z = D_800D2320[i].z;
+
+                        Matrix_Translate(gCalcMatrix, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0);
+                        Matrix_RotateY(gCalcMatrix, M_DTOR * 30.0f, 1);
+                        Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+
+                        x = dest.x;
+                        y = dest.y;
+                        z = dest.z;
+
+                        func_800933D8(x, y, z, 20.0f);
+
+                        i = (i + 1) % 32;
+                    }
+                }
+                player->unk_208 = (s32) (Rand_ZeroOne() * 3.0f) + 1;
+            } else {
+                player->unk_208--;
+            }
+
+            if (D_80177A10[6] < 3) {
+                i = D_80177A10[6];
+                stepSize = D_80177A48[5];
+
+                src.x = D_80177978;
+                src.y = D_80177980;
+                src.z = D_80177988;
+
+                dest.x = D_800D22D8[i].x;
+                dest.y = D_800D22D8[i].y;
+                dest.z = D_800D22D8[i].z;
+
+                if (Math_PursueVec3f(&src, &dest, &D_801616A0, stepSize, 0.4f, 4.8f, stepSize)) {
+                    if (D_80177A10[6] == 0) {
+                        D_80177A10[7]++;
+                    }
+                    D_80177A10[6]++;
+                }
+                D_80177978 = src.x;
+                D_80177980 = src.y;
+                D_80177988 = src.z;
+            }
+
+            if (D_80177A10[7] == 1) {
+                i = D_80177A10[7];
+                stepSize = D_80177A48[5];
+
+                src.x = D_801779A0;
+                src.y = D_801779B8;
+                src.z = D_801779C0;
+
+                dest.x = D_800D22FC[i].x;
+                dest.y = D_800D22FC[i].y;
+                dest.z = D_800D22FC[i].z;
+
+                if (D_80177A10[6] <= D_80177A10[7]) {
+                    if (Math_PursueVec3f(&src, &dest, &D_801616B0, stepSize, 0.4f, 4.8f, stepSize)) {
+                        D_80177A10[7]++;
+                    }
+                }
+
+                D_801779A0 = src.x;
+                D_801779B8 = src.y;
+                D_801779C0 = src.z;
+            }
+
+            if (D_80177A80 >= 50) {
+                // clang-format off
+	        if (D_80178340 == 255) { player->unk_1D0 = 2; }
+                // clang-format on
+                D_80178348 = D_80178350 = D_80178354 = 255;
+                D_80178358 = 255;
+                Math_SmoothStepToF(&D_80177A48[7], 16.0f, 0.04f, 0.05f, 0.0f);
+                D_8017835C = D_80177A48[7];
+            }
+            break;
+
+        case 2:
+            D_80178380[0] = 0;
+
+            D_80177A10[0] = gLight1R;
+            D_80177A10[1] = gLight1G;
+            D_80177A10[2] = gLight1B;
+            D_80177A10[3] = gAmbientR;
+            D_80177A10[4] = gAmbientG;
+            D_80177A10[5] = gAmbientB;
+
+            gLight1R = 40;
+            gLight1G = 100;
+            gLight1B = 120;
+
+            gAmbientR = 20;
+            gAmbientG = 30;
+            gAmbientB = 50;
+
+            D_80177A48[2] = 0.0f;
+            D_80177A48[3] = -1600.0f;
+            D_80177A48[4] = 520.0f;
+
+            player->unk_1D0 = 3;
+
+            D_80177AB0 = 0;
+
+            player->unk_034 = 60.0f;
+            player->timer_1F8 = 1000;
+
+            player->unk_0E8 = 30.0f;
+
+            player->pos.z = -5100.0f;
+            player->pos.x = -50.0f;
+            player->pos.y = 1200.0f;
+
+            D_80178358 = 0;
+
+            func_i3_801BDF14();
+
+            func_8001D444(0U, 0x2DU, 0U, 0xFFU);
+
+        case 3:
+            D_8017835C = 16;
+
+            if (player->timer_1F8 > (1000 - 226)) {
+                if (D_80177A48[4] >= 200.0f) {
+                    Math_SmoothStepToF(&D_80177A48[4], -200.0f, 1.00f, 4.0f, 4.0f);
+                } else {
+                    Math_SmoothStepToF(&D_80177A48[4], -200.0f, 0.06f, 4.0f, 0.0f);
+                }
+
+                src.x = D_80177A48[2];
+                src.y = D_80177A48[3];
+                src.z = D_80177A48[4];
+
+                Matrix_Translate(gCalcMatrix, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0);
+                Matrix_RotateY(gCalcMatrix, M_DTOR * 30.0f, 1);
+                Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+
+                D_80177978 = dest.x;
+                D_80177980 = dest.y;
+                D_80177988 = dest.z;
+
+                player->camAt.x = D_801779A0 = D_80177978;
+                player->camAt.y = D_801779B8 = D_80177980 + 100.0f;
+                player->camAt.z = D_801779C0 = D_80177988 + 10.0f;
+
+                player->camEye.x = D_80177978;
+                player->camEye.y = D_80177980;
+                player->camEye.z = D_80177988;
+            }
+
+            if (player->timer_1F8 == 774) {
+                Audio_PlaySfx(0x01038026U, &player->unk_460, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                D_80177A10[9] = 40;
+            }
+
+            if (player->timer_1F8 <= 774) {
+                D_80177A48[0] = 0.0f;
+                temp2 = 0.0f;
+
+                if (D_80177A10[9]) {
+                    D_80177A10[9] -= 1;
+                    temp = D_80177A10[9];
+                    if (temp > 20.0f) {
+                        temp = 20.0f;
+                    }
+                    temp2 = __sinf(M_DTOR * (((f32) gGameFrameCount) * 70.0f)) * temp;
+                }
+
+                player->camEye.y = D_80177980 + temp2;
+                player->camAt.y = D_80177980 + 100.0f;
+
+                Math_SmoothStepToF(&player->unk_018, -1200.0f, 0.02f, 60.0f, 0.0f);
+
+                src.x = 0.0f;
+                src.y = 0.0f;
+                src.z = player->unk_018;
+
+                Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y, player->pos.z, 0);
+                Matrix_RotateY(gCalcMatrix, M_DTOR * (30.0f), 1);
+                Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+
+                player->pos.x = dest.x;
+                player->pos.y = dest.y;
+                player->pos.z = dest.z;
+
+                if (((player->timer_1F8 % 8) == 0) && (player->timer_1F8 > 740)) {
+                    func_8007D9DC(player->camEye.x, 1600.0f, player->camEye.z, 10.0f, 100.0f, 0);
+                }
+
+                if ((player->unk_018 > -200.0f) && (D_80177A10[8] < 6)) {
+                    if (D_80177A10[8] < 2) {
+                        func_800933D8(player->pos.x, player->pos.y - 400.0f, player->pos.z, 20.0f);
+                    }
+                    if (D_80177A10[8] >= 2) {
+                        func_800933D8(player->pos.x, player->pos.y, player->pos.z, 10.0f);
+                    }
+                    D_80177A10[8]++;
+                }
+
+                if (((gGameFrameCount % 3) == 0) && (player->timer_1F8 <= 740)) {
+                    for (i = 0; i < 8; i++) {
+                        func_i3_801AC8A8(player->camEye.x + (Rand_ZeroOne() - 0.5f) * D_800D22C4,
+                                         player->camEye.y + 260.0f + ((Rand_ZeroOne() - 0.5f) * D_800D22C8),
+                                         player->camEye.z + (Rand_ZeroOne() - 0.5f) * D_800D22CC, 1.0f, 0);
+                    }
+                }
+            }
+
+            if (player->timer_1F8 < 736) {
+                player->unk_1D0 = 4;
+                D_80177AC8 = 1;
+                D_80178348 = D_80178350 = D_80178354 = 255;
+                D_80178358 = 255;
+            }
+            break;
+
+        case 4:
+            if (D_80178340 == 255) {
+                player->unk_1D0 = 5;
+            }
+            break;
+
+        case 5:
+            player->pos.x = 0.0f;
+            player->pos.y = 350.0f;
+            player->pos.z = 0.0f;
+
+            player->camEye.x = player->pos.x * (600.0f / player->unk_09C);
+            player->camEye.y = player->pos.y * (1040.0f / player->unk_0A0);
+            player->camEye.y -= 50.0f;
+
+            player->camAt.x = player->pos.x * (600.0f / player->unk_09C);
+            player->camAt.y = player->pos.y * (1050.0f / player->unk_0A0);
+            player->camAt.y += player->unk_060 * 10.0f;
+
+            player->pos.z += 1000.0f;
+            player->unk_034 = 0.0f;
+
+            D_80177A48[0] = 0.1f;
+
+            player->unk_0E8 = 0.0f;
+            player->unk_0D0 = 20.0f;
+            player->unk_234 = 1;
+            player->unk_1D0 = 6;
+
+            player->timer_1F8 = 1000;
+
+            D_80177AC8 = 0;
+            D_80178358 = 0;
+
+            Object_Kill(&actor->obj, &actor->sfxPos);
+
+            player->camEye.z = D_80177988 = 800.0f;
+            player->camAt.z = D_801779C0 = 0.0f;
+
+        case 6:
+            player->unk_060 = __sinf(M_DTOR * (player->unk_0F4 * 0.7f)) * 0.5f;
+            player->unk_088 += 10.0f;
+            player->unk_0F4 += 8.0f;
+            player->unk_080 = -__sinf(M_DTOR * player->unk_088) * 0.5f;
+            player->unk_0F0 = __sinf(M_DTOR * player->unk_0F4) * 1.5f;
+
+            D_80177978 = player->pos.x * (600.0f / player->unk_09C);
+            D_80177980 = player->pos.y * (740.0f / player->unk_0A0);
+            D_80177980 -= -50.0f;
+
+            D_801779A0 = player->pos.x * (600.0f / player->unk_09C);
+            D_801779B8 = player->pos.y * (750.0f / player->unk_0A0);
+            D_801779B8 += player->unk_060 * 10.0f;
+
+            Math_SmoothStepToF(&player->pos.z, 0.0f, 0.1f, 40.0f, 0.1f);
+
+            D_80177A48[0] = 0.03f;
+            D_80177988 = 240.0f;
+            D_801779C0 = player->pos.z + (D_80177D20 - 1.0f);
+
+            if (((player->timer_1F8 % 2) == 0) && (player->timer_1F8 > 962)) {
+                func_800933D8(player->pos.x, player->pos.y, player->pos.z + 50.0f, 20.0f);
+            }
+
+            if (player->timer_1F8 <= 900) {
+                D_80177838 = 50;
+
+                player->state_1C8 = PLAYERSTATE_1C8_3;
+                player->unk_1D0 = 0;
+                player->timer_1F8 = 0;
+
+                D_80178488 = 1;
+                func_800182F4(0x103200FF);
+                func_800182F4(0x113200FF);
+                func_8001D444(0U, 0xEU, 0U, 0xFFU);
+            }
+
+            func_i3_801AC8A8(player->pos.x + (Rand_ZeroOne() - 0.5f) * 10.0f,
+                             player->pos.y + (Rand_ZeroOne() - 0.5f) * 10.0f,
+                             player->pos.z - 65.0f + (Rand_ZeroOne() - 0.5f) * 10.0f, 0.4f, 1);
+            break;
+
+        default:
+            break;
+    }
+
+    Matrix_RotateY(gCalcMatrix, M_DTOR * (player->unk_0E8 + player->unk_114 + 180.0f), 0);
+    Matrix_RotateX(gCalcMatrix, -(M_DTOR * player->unk_0E4), 1);
+
+    src.x = 0.0f;
+    src.y = 0.0f;
+    src.z = player->unk_0D0;
+
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
+    player->vel.x = dest.x;
+    player->vel.y = dest.y;
+    player->vel.z = dest.z;
+
+    player->pos.x += player->vel.x;
+    player->pos.y += player->vel.y;
+    D_80177CE8 -= player->vel.z;
+
+    player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
+
+    Math_SmoothStepToF(&player->camEye.x, D_80177978, D_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camEye.y, D_80177980, D_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camEye.z, D_80177988, D_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camAt.x, D_801779A0, D_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camAt.y, D_801779B8, D_80177A48[0], 50000.0f, 0.0f);
+    Math_SmoothStepToF(&player->camAt.z, D_801779C0, D_80177A48[0], 50000.0f, 0.0f);
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800935E8.s")
+#endif
 
 void func_80094954(Effect* effect) {
-    Player* player = gPlayer;
+    Player* player = &gPlayer[0];
 
     if ((player->state_1C8 == PLAYERSTATE_1C8_2) && (gCurrentLevel == LEVEL_AQUAS) && (player->unk_1D0 < 2)) {
         switch (effect->unk_4E) {
@@ -5096,7 +5525,8 @@ void func_80094D20(f32 x, f32 y) {
         }
 
         if (D_80161720[j] >= 2.0f) {
-            if ((temp4 += 1) >= 10) {
+            temp4++;
+            if (temp4 >= 10) {
                 temp4 = 0;
             }
             D_80161720[j] = 0.0f;
@@ -5234,7 +5664,6 @@ void func_80095604(Player* player) {
             D_80177A48[0] = 0.0f;
 
         case 1:
-
             if (D_80177A80 > 240) {
                 D_80178348 = D_80178350 = D_80178354 = 255;
                 D_80178358 = 255;
@@ -5567,7 +5996,7 @@ void func_80095604(Player* player) {
     player->pos.x += player->vel.x;
     player->pos.y += player->vel.y;
     player->pos.z += player->vel.z;
-    
+
     player->unk_138 = player->pos.z;
 
     player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
@@ -5584,10 +6013,10 @@ void func_80095604(Player* player) {
         src.z = -70.0f;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
         func_i3_801AC8A8(player->pos.x + dest.x + (Rand_ZeroOne() - 0.5f) * 10.0f,
-                      player->pos.y + dest.y + (Rand_ZeroOne() - 0.5f) * 10.0f,
-                      player->pos.z + dest.z + (Rand_ZeroOne() - 0.5f) * 10.0f, 0.4f, 1);
+                         player->pos.y + dest.y + (Rand_ZeroOne() - 0.5f) * 10.0f,
+                         player->pos.z + dest.z + (Rand_ZeroOne() - 0.5f) * 10.0f, 0.4f, 1);
     }
-    
+
     player->unk_178 += 20.0f;
 
     Math_SmoothStepToF(&player->camEye.x, D_80177978, D_80177A48[0], 50000.0f, 0.001f);
