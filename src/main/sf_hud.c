@@ -17,10 +17,12 @@ typedef struct UnkStruct_func_80095350 {
     /* 0xB6 */ s16 unkB6;
 } UnkStruct_func_80095350;
 
+// extern s16 D_800D1970;
+extern f32 D_800D19AC[];
+extern f32 D_800D19E0[];
 extern f32 D_800D19F0;
 extern s32 D_800D19F4;
 extern s32 D_800D19F8;
-
 extern UnkStruct_D_800D1AEC D_800D1AEC[];
 
 extern f32 D_800D1CFC;
@@ -28,15 +30,109 @@ extern f32 D_800D1E10;
 extern f32 D_800D22C4;
 extern f32 D_800D22C8;
 extern f32 D_800D22CC;
-extern f32 D_801616A4;
-extern f32 D_801616A8;
+
+// #define IMPORT_DATA
+
+#ifdef IMPORT_DATA
+// s16 D_800D1970[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
+s16 D_800D1970 = 0;
+s16 D_800D1972 = 0;
+s16 D_800D1974[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
+f32 D_800D19AC[] = { 255.0f, 255.0f, 255.0f, 255.0f, 255.0f, 255.0f, 255.0f, 255.0f, 255.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+
+f32 D_800D19E0[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+f32 D_800D19F0 = 0.0f;
+
+s32 D_800D19F4 = 0;
+
+s32 D_800D19F8 = 0;
+
+s32 D_800D1A00[] = { 0x000A000A, 0x00000000, 0x00000000, 0xFFFFFFFF, 0xFFF6000A, 0x00000000, 0x00000000, 0xFFFFFFFF,
+                     0xFFF6FFF6, 0x00000000, 0x00000000, 0xFFFFFFFF, 0x000AFFF6, 0x00000000, 0x00000000, 0xFFFFFFFF };
+
+Gfx* D_800D1A40[] = { 0x0400103F, D_800D1A00, 0xB1020406, 0x00020600, 0xB8000000, 0x00000000 };
+
+#else
+
+#endif
+
+// BSS section range:
+// D_801616A0 <==> D_80161910
+
+// BSS SECTION START
+#ifdef IMPORT_BSS
+Vec3f D_801616A0;
+Vec3f D_801616B0;
+f32 D_801616C0;
+f32 D_801616C4;
+f32 D_801616C8;
+s32 D_80161704;
+s32 D_80161708;
+s32 D_8016170C;
+s32 D_80161710;
+s32 gTotalHits; // 0x80161714
+s32 D_80161718;
+s32 D_8016171C;
+f32 D_80161720[3];
+s32 D_8016172C;
+s32 D_80161730;
+s32 gShowBossHealth; // 0x80161734
+s32 D_80161738[4];
+s32 D_80161748[4];
+s32 D_80161758;
+// gap = 0x4 bytes, probably padding
+s32 D_80161760[4];
+f32 D_80161770;
+f32 D_80161774;
+f32 D_80161778;
+f32 D_8016177C;
+f32 D_80161780;
+f32 D_80161784;
+s32 D_80161788;
+s32 D_8016178C;
+s32 D_80161790;
+s32 D_80161794;
+s32 D_80161798;
+f32 D_8016179C;
+f32 D_801617A0;
+f32 D_801617A4;
+f32 D_801617A8;
+f32 D_801617AC;
+s32 D_801617B0;
+s32 gMedalStatus;     // 0x801617B4
+s32 gMedalFlashTimer; // 0x801617B8
+// gap = 0x4 bytes, probably padding
+s32 D_801617C0[10];
+s32 D_801617E8[10];
+s32 D_80161810[10];
+s32 D_80161838[10];
+s32 D_80161860[20];
+f32 D_801618B0[20];
+s32 D_80161900[20];
+#else
+extern Vec3f D_801616A0;
 extern Vec3f D_801616B0;
+extern f32 D_801616C0;
+extern f32 D_801616C4;
+extern f32 D_801616C8;
+extern s32 D_80161704;
+extern s32 D_80161708;
+extern s32 D_8016170C;
 extern s32 D_80161710;
+extern s32 gTotalHits; // 0x80161714
 extern s32 D_80161718;
 extern s32 D_8016171C;
+extern f32 D_80161720[3];
+extern s32 D_8016172C;
+extern s32 D_80161730;
+extern s32 gShowBossHealth; // 0x80161734
 extern s32 D_80161738[4];
 extern s32 D_80161748[4];
 extern s32 D_80161758;
+// gap = 0x4 bytes, probably padding
 extern s32 D_80161760[4];
 extern f32 D_80161770;
 extern f32 D_80161774;
@@ -44,12 +140,30 @@ extern f32 D_80161778;
 extern f32 D_8016177C;
 extern f32 D_80161780;
 extern f32 D_80161784;
+extern s32 D_80161788;
+extern s32 D_8016178C;
+extern s32 D_80161790;
+extern s32 D_80161794;
+extern s32 D_80161798;
+extern f32 D_8016179C;
+extern f32 D_801617A0;
+extern f32 D_801617A4;
+extern f32 D_801617A8;
+extern f32 D_801617AC;
+extern s32 D_801617B0;
+extern s32 gMedalStatus;     // 0x801617B4
+extern s32 gMedalFlashTimer; // 0x801617B8
+// gap = 0x4 bytes, probably padding
 extern s32 D_801617C0[10];
-extern s32 D_801617E8[];
+extern s32 D_801617E8[10];
+extern s32 D_80161810[10];
 extern s32 D_80161838[10];
-extern f32 D_801618C8[20];
 extern s32 D_80161860[20];
 extern f32 D_801618B0[20];
+extern s32 D_80161900[20];
+#endif
+
+// BSS SECTION END
 
 // Segmented addresses
 
@@ -117,6 +231,7 @@ extern u8 D_500A6E0[];
 extern u8 D_500A7D0[];
 extern u16 D_6000840[];
 extern u16 D_6000C80[];
+extern u8 D_6000D80[];
 extern u8 D_6001260[];
 extern u8 D_60012D0[];
 extern u8 D_6002890[];
@@ -349,9 +464,9 @@ void func_80085944(void) {
     f32 y;
     s32 temp;
 
-    D_801618C8[6] += 0.7f;
-    if (D_801618C8[6] >= 12.0f) {
-        D_801618C8[6] = 0.0f;
+    D_801618B0[6] += 0.7f;
+    if (D_801618B0[6] >= 12.0f) {
+        D_801618B0[6] = 0.0f;
     }
 
     if (D_80161900[4]) {
@@ -375,7 +490,7 @@ void func_80085944(void) {
 
         D_80161860[1 + i] = 1;
         D_80161900[0 + i] = 14;
-        D_801618C8[2 + i] = 0.0f;
+        D_801618B0[2 + i] = 0.0f;
 
         if (i == 2) {
             D_80161900[4] = 28;
@@ -414,9 +529,9 @@ void func_80085944(void) {
             case 2:
                 if (D_80161900[i]) {
                     if (D_80161900[i + 0] >= 7) {
-                        D_801618C8[i + 2] += 0.15f;
+                        D_801618B0[i + 2] += 0.15f;
                     } else {
-                        D_801618C8[i + 2] -= 0.15f;
+                        D_801618B0[i + 2] -= 0.15f;
                     }
 
                     RCP_SetupDL(&gMasterDisp, 0x3E);
@@ -424,8 +539,8 @@ void func_80085944(void) {
 
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, D_800D1AC4[i + 1], D_800D1AD8[i + 1], -100.0f, 0);
-                    Matrix_RotateZ(gGfxMatrix, (3.14159265358979323846f / 180.0f) * D_801618C8[0], 1);
-                    Matrix_Scale(gGfxMatrix, D_801618C8[i + 2], D_801618C8[i + 2], D_801618C8[i + 2], 1);
+                    Matrix_RotateZ(gGfxMatrix, (3.14159265358979323846f / 180.0f) * D_801618B0[0], 1);
+                    Matrix_Scale(gGfxMatrix, D_801618B0[i + 2], D_801618B0[i + 2], D_801618B0[i + 2], 1);
 
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_101C2E0);
@@ -459,7 +574,7 @@ void func_80085944(void) {
                         gDPSetPrimColor(gMasterDisp++, 0, 0, 180, 180, 0, 50);
                         gSPDisplayList(gMasterDisp++, D_1012110);
                     } else {
-                        temp = D_801618C8[6];
+                        temp = D_801618B0[6];
                         gSPDisplayList(gMasterDisp++, D_800D1A94[temp]);
                     }
                     Matrix_Pop(&gGfxMatrix);
@@ -476,23 +591,25 @@ void func_80085944(void) {
             if (D_80161860[j + 1] == 1) {
                 D_80161860[j + 1] = 2;
                 D_80161900[j + 0] = 14;
-                D_801618C8[j + 2] = 0.0f;
+                D_801618B0[j + 2] = 0.0f;
                 D_80161900[4] = 28;
             } else {
                 D_80161860[j + 1] = 0;
                 D_80161900[j + 0] = 14;
-                D_801618C8[j + 2] = 0.0f;
+                D_801618B0[j + 2] = 0.0f;
             }
         }
     }
-    D_801618C8[0] += 35.0f;
-    D_801618C8[1] += 10.0f;
+    D_801618B0[0] += 35.0f;
+    D_801618B0[1] += 10.0f;
 }
 #else
 #ifdef IMPORT_DATA
 Gfx* D_800D1A94[] = { (Gfx*) 0x0101C170, (Gfx*) 0x0101C000, (Gfx*) 0x0101BE90, (Gfx*) 0x0101BD20,
                       (Gfx*) 0x0101BBB0, (Gfx*) 0x0101BA40, (Gfx*) 0x0101B8D0, (Gfx*) 0x0101B760,
                       (Gfx*) 0x0101B5F0, (Gfx*) 0x0101B480, (Gfx*) 0x0101B310, (Gfx*) 0x0101B1A0 };
+f32 D_800D1AC4[] = { 0.0f, -30.0f, -26.0f, -22.0f, -18.0f };
+f32 D_800D1AD8[] = { 0.0f, 28.0f, 28.0f, 28.0f, 28.0f };
 #endif
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80085944.s")
 #endif
@@ -624,6 +741,155 @@ void func_80086444(void) {
 }
 #else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80086444.s")
+#endif
+
+#ifdef IMPORT_DATA
+UnkStruct_D_800D1AEC D_800D1AEC[] = {
+    {
+        D_500A050,
+        16,
+        15,
+        D_6000000,
+        128,
+        28,
+    },
+    {
+        D_500A140,
+        16,
+        15,
+        D_6000000,
+        96,
+        28,
+    },
+    {
+        D_500A140,
+        16,
+        15,
+        D_6000000,
+        176,
+        12,
+    },
+    {
+        D_500A230,
+        16,
+        15,
+        D_6000000,
+        168,
+        28,
+    },
+    {
+        D_500A230,
+        16,
+        15,
+        D_6000000,
+        168,
+        28,
+    },
+    {
+        D_500A230,
+        16,
+        15,
+        D_6000000,
+        96,
+        13,
+    },
+    {
+        D_500A320,
+        16,
+        15,
+        D_6000000,
+        176,
+        12,
+    },
+    {
+        D_500A320,
+        16,
+        15,
+        D_6000000,
+        112,
+        13,
+    },
+    {
+        D_500A320,
+        16,
+        15,
+        D_6000000,
+        112,
+        28,
+    },
+    {
+        D_500A410,
+        16,
+        15,
+        D_6000000,
+        96,
+        28,
+    },
+    {
+        D_500A410,
+        16,
+        15,
+        D_6000000,
+        160,
+        28,
+    },
+    {
+        D_500A410,
+        16,
+        15,
+        D_6000000,
+        176,
+        12,
+    },
+    {
+        D_500A500,
+        16,
+        15,
+        D_6000000,
+        168,
+        19,
+    },
+    {
+        D_500A500,
+        16,
+        15,
+        D_6000000,
+        104,
+        28,
+    },
+    {
+        0x0500A5F0,
+        16,
+        15,
+        D_6000D80,
+        128,
+        28,
+    },
+    {
+        0x0500A5F0,
+        16,
+        15,
+        D_60012D0,
+        128,
+        28,
+    },
+    {
+        0x0500A5F0,
+        16,
+        15,
+        0x0C000A80,
+        128,
+        28,
+    },
+    {
+        D_5009F60,
+        16,
+        15,
+        0x05000D50,
+        80,
+        12,
+    },
+};
 #endif
 
 void func_80086664(f32 x, f32 y) {
@@ -784,6 +1050,10 @@ void func_80086CC8(void) {
         func_80086664(temp, sp18 - 24.0f);
     }
 }
+
+#ifdef IMPORT_DATA
+f32 D_800D1CFC = 0.0f;
+#endif
 
 void func_80086DCC(void) {
     s32 i;
@@ -2048,6 +2318,10 @@ void func_8008A240(void) {
     }
 }
 
+#ifdef IMPORT_DATA
+f32 D_800D1E10 = 0.0f;
+#endif
+
 s32 func_8008A4DC(void) {
     s32 i;
     f32 scale;
@@ -2370,6 +2644,12 @@ void func_8008B2A4(void) {
         func_8008B1B0();
     }
 }
+
+#ifdef IMPORT_DATA
+s32 D_800D1EB4 = 255;
+s32 D_800D1EB8 = 255;
+s32 D_800D1EBC = 255;
+#endif
 
 void func_8008B2F0(void) {
     f32 var_fv0;
@@ -2843,8 +3123,8 @@ void func_8008CA44(void) {
     s32 i;
     s32 j;
 
-    if ((gPlayer[gPlayerNum].unk228 != 0) && (gPlayer[gPlayerNum].unk210 == 0) && (D_80177854 != 100)) {
-        j = gPlayer[gPlayerNum].unk228;
+    if ((gPlayer[gPlayerNum].unk_228 != 0) && (gPlayer[gPlayerNum].timer_210 == 0) && (D_80177854 != 100)) {
+        j = gPlayer[gPlayerNum].unk_228;
 
         for (i = 0; i < 12; i++) {
             if ((j & D_800D2048[i]) != D_800D2048[i]) {
@@ -3074,6 +3354,13 @@ void func_8008D7F4(void) {
 }
 #else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008D7F4.s")
+#endif
+
+#ifdef IMPORT_DATA
+s32 D_800D2180[4] = { 0, 0, 0, 0 };
+s32 D_800D2190[4] = { 0, 0, 0, 0 };
+f32 D_800D21A0 = 255.0f;
+f32 D_800D21A4 = 0.0f;
 #endif
 
 #ifdef IMPORT_DATA
@@ -4987,6 +5274,18 @@ void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
 }
 
 #ifdef IMPORT_DATA
+f32 D_800D22B4 = -100.0f;
+f32 D_800D22B8 = 0.01f;
+f32 D_800D22BC = 0.04f;
+f32 D_800D22C0 = 0.05f;
+f32 D_800D22C4 = 260.0f;
+f32 D_800D22C8 = 260.0f;
+f32 D_800D22CC = 260.0f;
+s32 D_800D22D0 = 50;
+s32 D_800D22D4 = 2;
+#endif
+
+#ifdef IMPORT_DATA
 void func_800935E8(Player* player) {
     Vec3f D_800D22D8[] = { { -1730.0f, 1600.0f, -6690.0f },
                            { -830.0f, 1600.0f, -7380.0f },
@@ -5256,7 +5555,7 @@ void func_800935E8(Player* player) {
                 src.z = player->unk_018;
 
                 Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y, player->pos.z, 0);
-                Matrix_RotateY(gCalcMatrix, M_DTOR * (30.0f), 1);
+                Matrix_RotateY(gCalcMatrix, M_DTOR * 30.0f, 1);
                 Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
                 player->pos.x = dest.x;

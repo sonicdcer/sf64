@@ -213,7 +213,7 @@ extern f32 D_800CFFC4[];
 extern s16 D_800D1970;
 extern f32 D_800D19AC[];
 extern f32 D_800D19E0[];
-extern Gfx D_800D1A40[];
+extern Gfx* D_800D1A40[];
 extern s32 D_800D1EB4;
 extern s32 D_800D1EB8;
 extern s32 D_800D1EBC;
@@ -309,7 +309,7 @@ extern u8 D_80161684;
 extern s32 D_80161690;
 
 // sf_hud?
-extern Vec3f D_801616A0;
+
 extern f32 D_801616BC;
 extern f32 D_801616C0;
 extern f32 D_801616C4;
@@ -317,11 +317,11 @@ extern f32 D_801616C8;
 extern s32 D_80161704;
 extern s32 D_80161708;
 extern s32 D_8016170C;
-extern s32 gTotalHits; // gTotalGameScore
+extern s32 gTotalHits; // 0x80161714 gTotalGameScore
 extern f32 D_80161720[3];
 extern s32 D_8016172C;
 extern s32 D_80161730;
-extern s32 gShowBossHealth;
+extern s32 gShowBossHealth; // 0x80161734
 extern s32 D_80161788;
 extern s32 D_8016178C;
 extern s32 D_80161790;
@@ -335,7 +335,7 @@ extern f32 D_801617AC;
 extern s32 D_801617B0;
 extern s32 gMedalStatus;
 extern s32 gMedalFlashTimer;
-extern s32 D_80161810[];
+extern s32 D_80161810[10];
 extern s32 D_80161900[];
 extern s32 D_80161910[0x10]; // could be in fox_97F80
 

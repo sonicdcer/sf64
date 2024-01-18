@@ -364,7 +364,7 @@ gTotalHits = 0x80161714;
 gShowBossHealth = 0x80161734;
 gMedalStatus = 0x801617B4;
 gMedalFlashTimer = 0x801617B8;
-
+D_800D1AEC = 0x800D1AEC; //type:s32 size:0x1B0
 
 // fox_play
 D_80161A50 = 0x80161A50;
