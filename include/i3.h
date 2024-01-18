@@ -95,7 +95,6 @@ void func_i3_801AACF8(Player*);
 void func_i3_801ABA40(PlayerShot*);
 void func_i3_801AC274(Player*);
 void func_i3_801AC8A8(f32, f32, f32, f32, s32);
-void func_i3_801AC8A8(f32, f32, f32, f32, s32);
 void func_i3_801AC918(Effect*);
 void func_i3_801ACBB4(void);
 void func_i3_801ACE50(Player*);

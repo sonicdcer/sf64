@@ -5198,7 +5198,405 @@ void func_80095538(Actor* actor, s32 arg1) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80095538.s")
 #endif
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80095604.s")
+void func_80095604(Player* player) {
+    s32 i;
+    s32 j;
+    Actor* actor;
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 x1;
+    f32 y1;
+    f32 z1;
+    s32 pad;
+    Vec3f src;
+    Vec3f dest;
+    s32 shield;
+
+    actor = &gActors[0];
+
+    switch (player->unk_1D0) {
+        case 0:
+            D_80177A80 = 0;
+            player->unk_280 = 0;
+            player->unk_1D0 = 1;
+
+            D_80177A48[1] = gBosses[0].obj.pos.x;
+            D_80177A48[2] = gBosses[0].obj.pos.y;
+            D_80177A48[3] = gBosses[0].obj.pos.z;
+            D_80177A48[4] = 0.0f;
+            D_80177A48[5] = 0.0f;
+            D_80177A48[6] = 0.05f;
+
+            D_80177A48[7] = 0.0f;
+            D_80177A48[8] = 0.0f;
+            D_80177A48[9] = 0.0f;
+            D_80177A48[0] = 0.0f;
+
+        case 1:
+
+            if (D_80177A80 > 240) {
+                D_80178348 = D_80178350 = D_80178354 = 255;
+                D_80178358 = 255;
+                D_8017835C = 16;
+                if (D_80177A80 == 280) {
+                    player->unk_1D0 = 10;
+                }
+            }
+
+            if ((D_80177A80 >= 30) && (D_80177A80 < 90)) {
+                D_80177A48[5] -= 0.6f;
+                if ((D_80177A48[5]) < 0.0f) {
+                    D_80177A48[5] += 360.0f;
+                }
+                if ((D_80177A48[5]) > 360.0f) {
+                    D_80177A48[5] -= 360.0f;
+                }
+                src.x = 1000.0f;
+                src.y = 300.0f;
+                src.z = 1000.0f;
+
+                Matrix_Translate(gCalcMatrix, D_80177A48[1], D_80177A48[2], D_80177A48[3], 0);
+                Matrix_RotateY(gCalcMatrix, -(M_DTOR * D_80177A48[5]), 1);
+                Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+            }
+            if (D_80177A80 < 30) {
+                dest.x = gBosses[0].obj.pos.x;
+                dest.y = player->pos.y;
+                dest.z = gBosses[0].obj.pos.z + 1000.0f;
+            }
+            if (D_80177A80 >= 90) {
+                dest.x = player->camEye.x;
+                dest.y = player->camEye.y;
+                dest.z = player->camEye.z + 200.0f - D_80177D20;
+            }
+
+            Math_SmoothStepToAngle(&player->unk_130, 0.0f, 0.05f, 1.2f, 0.0001f);
+            Math_SmoothStepToAngle(&player->unk_12C, 0.0f, 0.05f, 1.2f, 0.0001f);
+            Math_SmoothStepToF(&player->unk_034, 0.0f, 0.1f, 3.0f, 0.0f);
+            Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 20.0f, 0.0f);
+
+            x = player->pos.x - dest.x;
+            y = player->pos.y - dest.y;
+            z = player->pos.z - dest.z;
+
+            y1 = Math_RadToDeg(Math_Atan2F(x, z));
+            z = sqrtf(x * x + z * z);
+            x1 = Math_RadToDeg(-Math_Atan2F(y, z));
+
+            if ((x1 + 40.0f) >= 360.0f) {
+                x1 -= 360.0f;
+            }
+            if (x1 > 180.0f) {
+                x1 = 0.0f;
+            }
+
+            z1 = Math_SmoothStepToAngle(&player->unk_0E8, y1, 0.5f, 2.0f, 0.0001f) * 30.0f;
+            Math_SmoothStepToAngle(&player->unk_0E4, x1, 0.5f, 2.0f, 0.0001f);
+            Math_SmoothStepToAngle(&player->unk_0EC, z1, 0.1f, 5.0f, 0.0001f);
+
+            Math_SmoothStepToAngle(&D_80177A48[4], 30.0f, 0.05f, 1.0f, 0.001f);
+            Math_SmoothStepToF(&D_80177A48[8], 600.0f, 0.05f, 1000.0f, 0.001f);
+            Math_SmoothStepToF(&D_80177A48[9], 2400.0f, 0.05f, 1000.0f, 0.001f);
+
+            src.x = 0.0f;
+            src.y = D_80177A48[8];
+            src.z = D_80177A48[9];
+
+            Matrix_Translate(gCalcMatrix, gBosses[0].obj.pos.x, gBosses[0].obj.pos.y, gBosses[0].obj.pos.z + D_80177D20,
+                             0);
+            Matrix_RotateY(gCalcMatrix, -(M_DTOR * D_80177A48[4]), 1);
+            Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+
+            Math_SmoothStepToF(&D_80177978, dest.x, 0.02f, player->unk_0D0, 0.001f);
+            Math_SmoothStepToF(&D_80177980, dest.y, 0.02f, player->unk_0D0, 0.001f);
+            Math_SmoothStepToF(&D_80177988, dest.z, 0.02f, player->unk_0D0, 0.001f);
+
+            player->camEye.x = D_80177978;
+            player->camEye.y = D_80177980;
+            player->camEye.z = D_80177988;
+
+            if (D_80177A80 < 200) {
+                Math_SmoothStepToF(&D_801779A0, gBosses[0].obj.pos.x, 0.03f, 100.0f, 0.001f);
+                Math_SmoothStepToF(&D_801779B8, gBosses[0].obj.pos.y, 0.03f, 100.0f, 0.001f);
+                Math_SmoothStepToF(&D_801779C0, gBosses[0].obj.pos.z + 600.0f + D_80177D20, 0.03f, 100.0f, 0.001f);
+            } else {
+                Math_SmoothStepToF(&D_801779A0, player->pos.x, D_80177A48[6], 1000.0f, 0.001f);
+                Math_SmoothStepToF(&D_801779B8, player->pos.y, D_80177A48[6], 1000.0f, 0.001f);
+                Math_SmoothStepToF(&D_801779C0, player->pos.z + D_80177D20, D_80177A48[6], 1000.0f, 0.001f);
+                if (D_80177A80 > 180) {
+                    D_80177A48[6] += 0.005f;
+                } else {
+                    D_80177A48[6] += 0.005f;
+                }
+            }
+
+            player->camAt.x = D_801779A0;
+            player->camAt.y = D_801779B8;
+            player->camAt.z = D_801779C0;
+
+            D_80177A48[0] = 0.0f;
+            break;
+
+        case 10:
+            player->unk_234 = 1;
+            D_80177AC8 = 2;
+            player->unk_1D0 = 11;
+
+            player->unk_0F8 = player->unk_0EC = player->unk_12C = player->unk_130 = 0.0f;
+            player->vel.x = player->vel.y = player->vel.z = 0.0f;
+            player->unk_0E4 = player->unk_0E8 = player->unk_0EC = 0.0f;
+            player->unk_110 = player->unk_114 = 0.0f;
+            player->unk_0D0 = 3.6f;
+            player->unk_138 = player->pos.z = 0.0f;
+            player->pos.y = 100.0f;
+            player->pos.x = -100.0f;
+            player->unk_280 = 0;
+            player->unk_17C = player->unk_180 = 0.0f;
+
+            D_8015F974 = D_8015F978 = D_8015F97C = 255;
+            D_8015F980 = 0;
+
+            gLight1R = 40;
+            gLight1G = 100;
+            gLight1B = 120;
+
+            gAmbientR = 20;
+            gAmbientG = 30;
+            gAmbientB = 50;
+
+            func_800A6148();
+
+            player->unk_144 = D_80177D20 = 0;
+
+            j = 0;
+            func_80095350(actor);
+            j++;
+
+            for (i = 0; i < 6; i++, j++) {
+                func_80095538(&gActors[j], i);
+            }
+
+            for (i = 0; i < 5; i++, j++) {
+                func_8009546C(&gActors[j], i);
+            }
+
+            for (i = 0; i < 4; i++, j++) {
+                func_800953A0(&gActors[j], i);
+            }
+
+            player->pos.z -= D_80177D20;
+            player->unk_138 = player->pos.z;
+
+            actor->fwork[1] = 0.0f;
+            actor->fwork[2] = 600.0f;
+            actor->fwork[3] = 2600.0f;
+            actor->fwork[7] = 0.5f;
+
+            actor->unk_0F4.y = 130.0f;
+
+            src.x = actor->fwork[1];
+            src.y = actor->fwork[2];
+            src.z = actor->fwork[3];
+
+            Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y, player->unk_138 + D_80177D20, 0);
+            Matrix_RotateY(gCalcMatrix, -(M_DTOR * actor->unk_0F4.y), 1);
+            Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+
+            player->camAt.x = D_801779A0 = player->pos.x;
+            player->camAt.y = D_801779B8 = player->pos.y;
+            player->camAt.z = D_801779C0 = player->pos.z - 50.0f + D_80177D20;
+
+            player->camEye.x = D_80177978 = dest.x;
+            player->camEye.y = D_80177980 = dest.y;
+            player->camEye.z = D_80177988 = dest.z;
+
+            D_80177A48[0] = 1.0f;
+
+        case 11:
+            D_80178348 = D_80178350 = D_80178354 = 255;
+            D_80178358 = 0;
+            D_8017835C = 8;
+
+            if (D_80178340 == 0) {
+                player->unk_1D0 = 12;
+            }
+
+        case 12:
+            if ((D_80177A80 >= 380) && (D_80177A80 < 640 + 280)) {
+                Math_SmoothStepToF(&actor->fwork[2], 0.0f, 0.02f, 1000.0f, 0.001f);
+                Math_SmoothStepToF(&actor->fwork[3], 300.0f, 0.02f, 1000.0f, 0.001f);
+            }
+            if (D_80177A80 >= 920) {
+                Math_SmoothStepToF(&actor->fwork[3], 200.0f, 0.02f, 1000.0f, 0.001f);
+            }
+            if (D_80177A80 >= 1120) {
+                Math_SmoothStepToF(&actor->fwork[7], 0.1f, 0.05f, 1000.0f, 0.001f);
+            }
+            if (D_80177A80 >= 1200) {
+                Math_SmoothStepToF(&actor->fwork[3], 800.0f, 0.02f, 1000.0f, 0.001f);
+                Math_SmoothStepToF(&player->unk_0D0, 5.0f, 0.1f, 1000.0f, 0.001f);
+            } else {
+                actor->fwork[4] = player->pos.x;
+                actor->fwork[5] = player->pos.y;
+                actor->fwork[6] = player->unk_138 + D_80177D20;
+            }
+
+            if (D_80177A80 < 1200) {
+                D_801779A0 = player->pos.x;
+                D_801779B8 = player->pos.y;
+                D_801779C0 = player->pos.z - 50.0f + D_80177D20;
+            } else {
+                D_801779A0 = player->pos.x;
+                D_801779B8 = player->pos.y + 10.0f;
+                D_801779C0 = player->pos.z - 50.0f + D_80177D20;
+            }
+            D_80177A48[0] = 0.05f;
+
+            actor->unk_0F4.y += actor->fwork[7];
+            if ((actor->unk_0F4.y) < 0.0f) {
+                actor->unk_0F4.y += 360.0f;
+            }
+            if ((actor->unk_0F4.y) > 360.0f) {
+                actor->unk_0F4.y -= 360.0f;
+            }
+
+            src.x = actor->fwork[1];
+            src.y = actor->fwork[2];
+            src.z = actor->fwork[3];
+
+            Matrix_Translate(gCalcMatrix, actor->fwork[4], actor->fwork[5], actor->fwork[6], 0);
+            Matrix_RotateY(gCalcMatrix, -(M_DTOR * actor->unk_0F4.y), 1);
+            Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+
+            D_80177978 = dest.x;
+            D_80177980 = dest.y;
+            D_80177988 = dest.z;
+
+            if (D_80177A80 >= 1360) {
+                D_80178348 = D_80178350 = D_80178354 = 0;
+                D_80178358 = 255;
+                D_8017835C = 16;
+
+                if (D_80178340 == 255) {
+                    D_800D3180[13] = Play_CheckMedalStatus(150) + 1;
+                    player->state_1C8 = PLAYERSTATE_1C8_6;
+                    player->timer_1F8 = 0;
+                    func_8001DBD0(10);
+                    D_8017837C = 4;
+                }
+            }
+
+            if (D_80177A80 == 1310) {
+                func_800182F4(0x105000FF);
+                func_800182F4(0x115000FF);
+            }
+            break;
+
+        default:
+            break;
+    }
+
+    switch (D_80177A80) {
+        case 300:
+            func_800BA808(gMsg_ID_15200, RCID_FOX);
+            break;
+
+        case 400:
+            func_8001D444(0U, 0x26U, 0U, 0xFFU);
+            break;
+
+        case 440:
+            D_80177840 = 100;
+            break;
+
+        case 520:
+            func_800BA808(gMsg_ID_15253, RCID_FOX);
+            break;
+
+        case 600:
+            shield = gTeamShields[3];
+            gTeamShields[3] = 1;
+            func_800BA808(gMsg_ID_15210, RCID_PEPPY);
+            gTeamShields[3] = shield;
+            break;
+
+        case 680:
+            shield = gTeamShields[2];
+            gTeamShields[2] = 1;
+            func_800BA808(gMsg_ID_15220, RCID_SLIPPY);
+            gTeamShields[2] = shield;
+            break;
+
+        case 760:
+            shield = gTeamShields[1];
+            gTeamShields[1] = 1;
+            func_800BA808(gMsg_ID_15230, RCID_FALCO);
+            gTeamShields[1] = shield;
+            break;
+
+        case 840:
+            shield = gTeamShields[2];
+            gTeamShields[2] = 1;
+            func_800BA808(gMsg_ID_15240, RCID_SLIPPY);
+            gTeamShields[2] = shield;
+            break;
+
+        case 1000:
+            D_80177830 = 1;
+            break;
+
+        case 1200:
+            D_80177830 = 0;
+            break;
+    }
+
+    Matrix_RotateY(gCalcMatrix, M_DTOR * (player->unk_0E8 + player->unk_114 + 180.0f), 0);
+    Matrix_RotateX(gCalcMatrix, -(M_DTOR * player->unk_0E4), 1);
+
+    src.x = 0.0f;
+    src.y = 0.0f;
+    src.z = player->unk_0D0;
+
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
+    player->vel.x = dest.x;
+    player->vel.y = dest.y;
+    player->vel.z = dest.z;
+
+    player->pos.x += player->vel.x;
+    player->pos.y += player->vel.y;
+    player->pos.z += player->vel.z;
+    
+    player->unk_138 = player->pos.z;
+
+    player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
+
+    player->unk_060 = __sinf(M_DTOR * (player->unk_0F4 * 0.7f)) * 0.5f;
+    player->unk_088 += 10.0f;
+    player->unk_0F4 += 8.0f;
+    player->unk_080 = -__sinf(M_DTOR * player->unk_088) * 0.5f;
+    player->unk_0F0 = __sinf(M_DTOR * player->unk_0F4) * 1.5f;
+
+    if (player->unk_234) {
+        src.x = 0.0f;
+        src.y = 0.0f;
+        src.z = -70.0f;
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+        func_i3_801AC8A8(player->pos.x + dest.x + (Rand_ZeroOne() - 0.5f) * 10.0f,
+                      player->pos.y + dest.y + (Rand_ZeroOne() - 0.5f) * 10.0f,
+                      player->pos.z + dest.z + (Rand_ZeroOne() - 0.5f) * 10.0f, 0.4f, 1);
+    }
+    
+    player->unk_178 += 20.0f;
+
+    Math_SmoothStepToF(&player->camEye.x, D_80177978, D_80177A48[0], 50000.0f, 0.001f);
+    Math_SmoothStepToF(&player->camEye.y, D_80177980, D_80177A48[0], 50000.0f, 0.001f);
+    Math_SmoothStepToF(&player->camEye.z, D_80177988, D_80177A48[0], 50000.0f, 0.001f);
+    Math_SmoothStepToF(&player->camAt.x, D_801779A0, D_80177A48[0], 50000.0f, 0.001f);
+    Math_SmoothStepToF(&player->camAt.y, D_801779B8, D_80177A48[0], 50000.0f, 0.001f);
+    Math_SmoothStepToF(&player->camAt.z, D_801779C0, D_80177A48[0], 50000.0f, 0.001f);
+}
 
 void func_80096A74(Player* player) {
     Vec3f src, dest;
