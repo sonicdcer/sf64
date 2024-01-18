@@ -45,6 +45,18 @@ extern u8 D_1000640[];
 extern Gfx D_1012110[];
 extern Gfx D_101C2E0[];
 extern Gfx D_1024990[];
+extern Gfx D_101C170[];
+extern Gfx D_101C000[];
+extern Gfx D_101BE90[];
+extern Gfx D_101BD20[];
+extern Gfx D_101BBB0[];
+extern Gfx D_101BA40[];
+extern Gfx D_101B8D0[];
+extern Gfx D_101B760[];
+extern Gfx D_101B5F0[];
+extern Gfx D_101B480[];
+extern Gfx D_101B310[];
+extern Gfx D_101B1A0[];
 extern u16 D_3000120[];
 extern u8 D_5000500[];
 extern u8 D_5001110[];
@@ -267,9 +279,8 @@ void func_80085890(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
 
 #ifdef IMPORT_BSS
 void func_80085944(void) {
-    Gfx* D_800D1A94[] = { (Gfx*) 0x0101C170, (Gfx*) 0x0101C000, (Gfx*) 0x0101BE90, (Gfx*) 0x0101BD20,
-                          (Gfx*) 0x0101BBB0, (Gfx*) 0x0101BA40, (Gfx*) 0x0101B8D0, (Gfx*) 0x0101B760,
-                          (Gfx*) 0x0101B5F0, (Gfx*) 0x0101B480, (Gfx*) 0x0101B310, (Gfx*) 0x0101B1A0 };
+    Gfx* D_800D1A94[] = { D_101C170, D_101C000, D_101BE90, D_101BD20, D_101BBB0, D_101BA40,
+                          D_101B8D0, D_101B760, D_101B5F0, D_101B480, D_101B310, D_101B1A0 };
     s32 i;
     s32 j;
     f32 D_800D1AC4[] = { 0.0f, -30.0f, -26.0f, -22.0f, -18.0f };
