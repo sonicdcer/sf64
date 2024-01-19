@@ -223,7 +223,7 @@ void func_i2_80187FF8(Effect* effect, f32 x, f32 y, f32 z) {
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-// find out prototype first
+// figure out prototype first
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80188088.s")
 
 void func_i2_801881A8(Effect* effect, f32 x, f32 y, f32 z, f32 zRot, s32 arg5) {
@@ -264,7 +264,117 @@ void func_i2_80188298(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80188344.s")
+void func_i2_80188344(Boss* boss) {
+    Vec3f src;
+    Vec3f dest;
+    f32 temp;
+
+    if (boss->actionState < 5) {
+        boss->obj.pos.x = gBosses->obj.pos.x;
+        boss->obj.pos.y = gBosses->obj.pos.y;
+        boss->obj.pos.z = gBosses->obj.pos.z;
+        boss->obj.rot.x = gBosses->obj.rot.x;
+        boss->obj.rot.y = gBosses->obj.rot.y;
+        boss->obj.rot.z = ((gBosses->obj.rot.z + boss->unk_078.z) + 45.0f) + 180.0f;
+    }
+
+    switch (boss->actionState) {
+        case 0:
+            boss->timer_050 = 150;
+            boss->unk_078.z += 2.5f;
+            break;
+
+        case 1:
+            temp = fabsf(90.0f - boss->unk_078.z) * 0.1f;
+            if (temp > 2.5f) {
+                temp = 2.5f;
+            }
+
+            boss->unk_078.z += temp;
+
+            if (boss->timer_050 == 0) {
+                boss->actionState = 2;
+                boss->dmgType = 0;
+            }
+            break;
+
+        case 2:
+            if (boss->dmgType == 1) {
+                boss->dmgType = 0;
+                boss->timer_054 = 5;
+                boss->swork[0] += 32;
+
+                func_8001D034(&boss->sfxPos, 0x3103605B, boss->unk_04A);
+
+                boss->unk_04A++;
+                if (boss->unk_04A >= 8) {
+                    boss->unk_04A = 7;
+                }
+
+                if (boss->swork[0] >= 0xFF) {
+                    boss->unk_04A = 0;
+                    Audio_KillSfx(&boss->sfxPos);
+                    if (boss->swork[1] == 0) {
+                        boss->swork[1]++;
+                        func_800BA808(gMsg_ID_3315, RCID_PEPPY);
+                    }
+
+                    boss->swork[0] = 0;
+
+                    Matrix_RotateZ(gCalcMatrix, (boss->obj.rot.z - 45.0f) * M_DTOR, 0);
+
+                    src.x = 0.0f;
+                    src.y = 156.0f;
+                    src.z = 930.0f;
+
+                    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
+                    func_i2_80188298(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z,
+                                     boss->obj.rot.z - 45.0f);
+                    func_i2_80188228(boss->obj.pos.x - dest.x, boss->obj.pos.y - dest.y, boss->obj.pos.z + dest.z,
+                                     boss->obj.rot.z - 45.0f);
+                    func_i2_80188228(boss->obj.pos.x + dest.y, boss->obj.pos.y - dest.x, boss->obj.pos.z + dest.z,
+                                     (boss->obj.rot.z - 45.0f) + 90.0f);
+                }
+            }
+            break;
+
+        case 3:
+            boss->timer_050 = 30;
+            boss->actionState = 4;
+            boss->timer_05C = 15;
+            boss->swork[0] = 0;
+            break;
+
+        case 4:
+            if (boss->timer_050 == 0) {
+                func_8007D2C8(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 500.0f, 30.0f);
+                func_8007BFFC(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 500.0f, 0.0f, 0.0f, 0.0f, 20.0f, 30);
+                boss->actionState = 5;
+
+                boss->info.unk_10 = 1000.0f;
+
+                func_8001A55C(&boss->sfxPos, 0x3103605B);
+                Audio_PlaySfx(0x3102405DU, &boss->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            }
+            break;
+
+        case 5:
+
+            boss->obj.rot.z -= 3.0f;
+            if (boss->vel.z < 5.0f) {
+                boss->vel.z = boss->vel.z + 1.0f;
+            }
+            break;
+    }
+
+    if (boss->unk_078.z >= 360.0f) {
+        boss->unk_078.z = boss->unk_078.z - 360.0f;
+    }
+    if (boss->unk_078.z < 0.0f) {
+        boss->unk_078.z += 360.0f;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_801887D0.s")
 

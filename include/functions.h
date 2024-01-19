@@ -40,6 +40,7 @@ void func_8001CA24(u8);
 void func_8001CB80(u8, u8);
 void func_8001CCDC(u8, Vec3f *);
 void func_8001CE28(u8, Vec3f *);
+void func_8001D034(Vec3f*, s32, u8);
 void func_8001D10C(Vec3f*, u32);
 void func_8001D15C(u8);
 void func_8001D1C8(u8, s32);
