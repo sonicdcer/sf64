@@ -467,7 +467,16 @@ void func_i2_80188B84(Effect* effect, f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80188C2C.s")
+void func_i2_80188C2C(f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg5, f32 arg6) {
+    s32 i;
+
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == 0) {
+            func_i2_80188B84(&gEffects[i], x, y, z, xRot, yRot, arg5, arg6);
+            return;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80188CAC.s")
 
