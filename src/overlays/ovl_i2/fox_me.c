@@ -82,7 +82,7 @@ void func_i2_801877C4(Actor* actor) {
 
     actor->obj.rot.z += 1.0f;
 
-    Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * 0.017453292f, 0);
+    Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 0);
 
     sp38.x = 0.0f;
     sp38.y = -1100.0f;
@@ -478,33 +478,33 @@ void func_i2_80188C2C(f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg5, f32 arg
     }
 }
 
-void func_i2_80188CAC(Effect* arg0) {
+void func_i2_80188CAC(Effect* effect) {
     Vec3f src;
     Vec3f dest;
 
-    if (arg0->unk_4E == 0) {
-        switch (arg0->unk_48) {
+    if (effect->unk_4E == 0) {
+        switch (effect->unk_48) {
             case 0:
-                arg0->obj.rot.x -= 15.0f;
-                if (arg0->obj.rot.x <= -45.0f) {
-                    arg0->unk_48 = 1;
+                effect->obj.rot.x -= 15.0f;
+                if (effect->obj.rot.x <= -45.0f) {
+                    effect->unk_48 = 1;
                 }
                 break;
 
             case 1:
-                arg0->obj.rot.x += 15.0f;
-                if (arg0->obj.rot.x >= 45.0f) {
-                    arg0->unk_48 = 0;
+                effect->obj.rot.x += 15.0f;
+                if (effect->obj.rot.x >= 45.0f) {
+                    effect->unk_48 = 0;
                 }
                 break;
         }
 
-        arg0->unk_44 = 255;
-        arg0->scale2 = 1.0f;
-        arg0->unk_60.z += 20.0f;
+        effect->unk_44 = 255;
+        effect->scale2 = 1.0f;
+        effect->unk_60.z += 20.0f;
 
-        Matrix_RotateZ(gCalcMatrix, arg0->unk_60.z * 0.017453292f, 0);
-        Matrix_RotateX(gCalcMatrix, arg0->obj.rot.x * 0.017453292f, 1);
+        Matrix_RotateZ(gCalcMatrix, effect->unk_60.z * M_DTOR, 0);
+        Matrix_RotateX(gCalcMatrix, effect->obj.rot.x * M_DTOR, 1);
 
         src.x = 0.0f;
         src.y = 0.0f;
@@ -512,16 +512,17 @@ void func_i2_80188CAC(Effect* arg0) {
 
         Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
-        arg0->vel.x = dest.x;
-        arg0->vel.y = dest.y;
-        arg0->vel.z = dest.z;
+        effect->vel.x = dest.x;
+        effect->vel.y = dest.y;
+        effect->vel.z = dest.z;
 
-        func_i2_80188C2C(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, arg0->obj.rot.x, arg0->obj.rot.y,
-                         arg0->unk_60.z, 1.0f);
-    } else if (arg0->timer_50 == 0) {
-        Object_Kill(&arg0->obj, &arg0->sfxPos);
+        func_i2_80188C2C(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, effect->obj.rot.x, effect->obj.rot.y,
+                         effect->unk_60.z, 1.0f);
+    } else if (effect->timer_50 == 0) {
+        Object_Kill(&effect->obj, &effect->sfxPos);
     }
-    func_8007A774(gPlayer, arg0, 90.0f);
+
+    func_8007A774(gPlayer, effect, 90.0f);
 }
 
 void func_i2_80188E8C(Effect* effect, f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 zRot, f32 scale) {
@@ -554,7 +555,41 @@ void func_i2_80188F2C(f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg5, f32 sca
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80188FAC.s")
+void func_i2_80188F2C(f32, f32, f32, f32, f32, f32, f32);
+
+void func_i2_80188FAC(Effect* effect) {
+    Vec3f src;
+    Vec3f dest;
+
+    if (effect->unk_4E != 1) {
+        effect->obj.rot.x = 10.0f;
+        effect->obj.rot.z += 20.0f;
+
+        Matrix_RotateZ(gCalcMatrix, effect->obj.rot.z * M_DTOR, 0);
+        Matrix_RotateX(gCalcMatrix, effect->obj.rot.x * M_DTOR, 1);
+
+        src.x = 0.0f;
+        src.y = 0.0f;
+        src.z = 80.0f;
+
+        Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+
+        effect->vel.x = dest.x;
+        effect->vel.y = dest.y;
+        effect->vel.z = dest.z;
+
+        if (!(gGameFrameCount & 1)) {
+            func_i2_80188F2C(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, effect->obj.rot.x,
+                             effect->obj.rot.y, effect->obj.rot.z, 5.0f);
+        }
+    } else {
+        effect->unk_44 -= 8;
+        if (effect->unk_44 < 0) {
+            Object_Kill(&effect->obj, &effect->sfxPos);
+        }
+    }
+    func_8007A774(gPlayer, effect, 60.0f);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80189114.s")
 
