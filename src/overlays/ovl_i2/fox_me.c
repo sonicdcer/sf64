@@ -128,7 +128,33 @@ void func_i2_8018795C(Actor* actor) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80187B08.s")
+void func_i2_80187B08(Actor* arg0) {
+    arg0->obj.rot.y += 7.0f;
+    arg0->obj.rot.x += 3.3f;
+
+    arg0->unk_046 -= 11;
+
+    if (arg0->unk_046 < 0) {
+        arg0->unk_046 = 0;
+    }
+
+    arg0->unk_048 += 4;
+    if (arg0->unk_048 > 995) {
+        arg0->unk_048 = 995;
+    }
+
+    if (!(arg0->timer_0BC & 3)) {
+        func_8007D0E0(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 6.0f);
+    }
+
+    if ((arg0->unk_0D0 != 0) || (arg0->timer_0BC == 0)) {
+        func_8007A6F0(&arg0->obj.pos, 0x2903A008);
+        Object_Kill(&arg0->obj, &arg0->sfxPos);
+        func_8007D0E0(arg0->obj.pos.x - arg0->vel.x, arg0->obj.pos.y, arg0->obj.pos.z - arg0->vel.z, 8.0f);
+        func_8007BFFC(arg0->obj.pos.x - arg0->vel.x, arg0->obj.pos.y + 30.0f, arg0->obj.pos.z - arg0->vel.z, 0.0f, 0.0f,
+                      0.0f, 4.0f, 10);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80187C68.s")
 
