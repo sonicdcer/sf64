@@ -213,7 +213,7 @@ extern f32 D_800CFFC4[];
 extern s16 D_800D1970;
 extern f32 D_800D19AC[];
 extern f32 D_800D19E0[];
-extern Gfx* D_800D1A40[];
+extern Gfx D_800D1A40[];
 extern s32 D_800D1EB4;
 extern s32 D_800D1EB8;
 extern s32 D_800D1EBC;
