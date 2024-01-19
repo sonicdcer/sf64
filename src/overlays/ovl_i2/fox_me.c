@@ -478,9 +478,70 @@ void func_i2_80188C2C(f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg5, f32 arg
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80188CAC.s")
+void func_i2_80188CAC(Effect* arg0) {
+    Vec3f src;
+    Vec3f dest;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80188E8C.s")
+    if (arg0->unk_4E == 0) {
+        switch (arg0->unk_48) {
+            case 0:
+                arg0->obj.rot.x -= 15.0f;
+                if (arg0->obj.rot.x <= -45.0f) {
+                    arg0->unk_48 = 1;
+                }
+                break;
+
+            case 1:
+                arg0->obj.rot.x += 15.0f;
+                if (arg0->obj.rot.x >= 45.0f) {
+                    arg0->unk_48 = 0;
+                }
+                break;
+        }
+
+        arg0->unk_44 = 255;
+        arg0->scale2 = 1.0f;
+        arg0->unk_60.z += 20.0f;
+
+        Matrix_RotateZ(gCalcMatrix, arg0->unk_60.z * 0.017453292f, 0);
+        Matrix_RotateX(gCalcMatrix, arg0->obj.rot.x * 0.017453292f, 1);
+
+        src.x = 0.0f;
+        src.y = 0.0f;
+        src.z = 80.0f;
+
+        Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+
+        arg0->vel.x = dest.x;
+        arg0->vel.y = dest.y;
+        arg0->vel.z = dest.z;
+
+        func_i2_80188C2C(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, arg0->obj.rot.x, arg0->obj.rot.y,
+                         arg0->unk_60.z, 1.0f);
+    } else if (arg0->timer_50 == 0) {
+        Object_Kill(&arg0->obj, &arg0->sfxPos);
+    }
+    func_8007A774(gPlayer, arg0, 90.0f);
+}
+
+void func_i2_80188E8C(Effect* effect, f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 zRot, f32 scale) {
+    Effect_Initialize(effect);
+    effect->obj.status = 1;
+    effect->obj.id = OBJ_EFFECT_370;
+
+    effect->obj.pos.x = x;
+    effect->obj.pos.y = y;
+    effect->obj.pos.z = z;
+
+    effect->obj.rot.x = xRot;
+    effect->obj.rot.y = yRot;
+    effect->obj.rot.z = zRot;
+
+    effect->scale2 = scale;
+    effect->unk_4E = 1;
+    effect->unk_44 = 0x80;
+    Object_SetInfo(&effect->info, effect->obj.id);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80188F2C.s")
 
