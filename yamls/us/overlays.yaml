@@ -145,7 +145,7 @@
     - [0xEAF7E0, c, fox_sy]
     - [0xEBD210, c, sf_i6_4]
     - [0xEBE400, .data, fox_i6]
-    - [0xEBE410, data, sf_i6_1]
+    - [0xEBE410, .data, sf_i6_1]
     - [0xEBE560, data, sf_i6_2]
     - [0xEBE5C0, data, fox_sy]
     - [0xEBE830, data, sf_i6_4]
@@ -155,7 +155,7 @@
     - [0xEBF130, .rodata, fox_sy]
     - [0xEBFB80, .rodata, sf_i6_4]
     - { start: 0xEBFBE0, type: .bss, vram: 0x801A7F30, name: fox_i6 }
-    - { type: bss, vram: 0x801A7F40, name: sf_i6_1 }
+    - { type: .bss, vram: 0x801A7F40, name: sf_i6_1 }
     - { type: bss, vram: 0x801A8440, name: fox_sy }
 
   - name: ovl_menu
