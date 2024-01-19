@@ -104,7 +104,29 @@ void func_i2_801877C4(Actor* actor) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018795C.s")
+void func_i2_8018795C(Actor* actor) {
+    Vec3f sp54;
+    s32 pad[2];
+
+    actor->obj.rot.y += 7.0f;
+    actor->obj.rot.x += 3.3f;
+
+    if (actor->unk_0D0 != 0) {
+        func_80066254(actor);
+        func_8007A6F0(&actor->obj.pos, 0x2903A008);
+        Object_Kill(&actor->obj, &actor->sfxPos);
+        func_8007D0E0(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y, actor->obj.pos.z - actor->vel.z, 8.0f);
+        func_8007BFFC(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z - actor->vel.z, 0.0f,
+                      0.0f, 0.0f, 4.0f, 10);
+    }
+
+    if (!(gGameFrameCount & 7)) {
+        Math_Vec3fFromAngles(&sp54, actor->obj.rot.x, actor->obj.rot.y, 100.0f);
+        func_8007F04C(0x161, actor->obj.pos.x + (sp54.x * 3.0f), actor->obj.pos.y + (sp54.y * 3.0f),
+                      actor->obj.pos.z + (sp54.z * 3.0f), actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z, 0.0f,
+                      0.0f, 0.0f, sp54.x, sp54.y, sp54.z, 1.0f);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80187B08.s")
 
