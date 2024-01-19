@@ -3,6 +3,7 @@
 
 extern s32 D_i1_8019C0B8;
 extern s32 D_i1_8019C0BC;
+extern s32 D_i1_8019C0C0;
 
 f32 func_i1_801920F0(f32* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32* arg5) {
     f32 temp_ft4;
@@ -102,11 +103,10 @@ void func_i1_80192358(Object_4C* this) {
 void func_i1_801923C0(Object_4C* obj4C) {
     Boss* boss;
     s32 i;
-
     for (boss = &gBosses[0], i = 0; i < 4; i++, boss++) {
         if (boss->obj.status != 0 && boss->obj.id == OBJ_BOSS_319) {
             if (boss->obj.pos.z <= obj4C->obj.pos.z) {
-                D_i1_8019C0BC = (s32)obj4C->obj.rot.x + 1;
+                D_i1_8019C0BC = (s32) obj4C->obj.rot.x + 1;
                 obj4C->obj.status = 0;
             }
             break;
@@ -114,7 +114,20 @@ void func_i1_801923C0(Object_4C* obj4C) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_8019243C.s")
+void func_i1_8019243C(Object_4C* obj4C) {
+    Boss* boss;
+    s32 i;
+
+    for (boss = &gBosses[0], i = 0; i < 4; i++, boss++) {
+        if (boss->obj.status != 0 && boss->obj.id == OBJ_BOSS_319) {
+            if (boss->obj.pos.z <= obj4C->obj.pos.z) {
+                D_i1_8019C0C0 = 1;
+                obj4C->obj.status = 0;
+            }
+            break;
+        }
+    }
+}
 
 void func_i1_801924A8(Object_80* arg0) {
     switch (arg0->unk_48) {
@@ -131,7 +144,8 @@ void func_i1_801924A8(Object_80* arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_8019250C.s")
+void func_i1_8019250C(Actor* arg0) {
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_80192518.s")
 
