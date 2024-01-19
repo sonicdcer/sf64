@@ -797,9 +797,9 @@ void func_i1_80189058(Boss* boss) {
                 boss->unk_05E = 0;
                 D_8017812C = 1;
                 if (!(gGameFrameCount & 7)) {
-                    D_i1_8019B6D8[17] = ((Rand_ZeroOne() - 0.5f) * 2000.0f) + gPlayer[0].pos.x;
+                    D_i1_8019B6D8[17] = gPlayer[0].pos.x + ((Rand_ZeroOne() - 0.5f) * 2000.0f);
                     D_i1_8019B6D8[18] = gPlayer[0].pos.y;
-                    D_i1_8019B6D8[19] = ((Rand_ZeroOne() - 0.5f) * 2000.0f) + gPlayer[0].unk_138;
+                    D_i1_8019B6D8[19] = gPlayer[0].unk_138 + ((Rand_ZeroOne() - 0.5f) * 2000.0f);
                 }
                 boss->fwork[12] += 0.05f;
                 if (boss->actionState == 6) {
