@@ -128,35 +128,49 @@ void func_i2_8018795C(Actor* actor) {
     }
 }
 
-void func_i2_80187B08(Actor* arg0) {
-    arg0->obj.rot.y += 7.0f;
-    arg0->obj.rot.x += 3.3f;
+void func_i2_80187B08(Actor* actor) {
+    actor->obj.rot.y += 7.0f;
+    actor->obj.rot.x += 3.3f;
 
-    arg0->unk_046 -= 11;
+    actor->unk_046 -= 11;
 
-    if (arg0->unk_046 < 0) {
-        arg0->unk_046 = 0;
+    if (actor->unk_046 < 0) {
+        actor->unk_046 = 0;
     }
 
-    arg0->unk_048 += 4;
-    if (arg0->unk_048 > 995) {
-        arg0->unk_048 = 995;
+    actor->unk_048 += 4;
+    if (actor->unk_048 > 995) {
+        actor->unk_048 = 995;
     }
 
-    if (!(arg0->timer_0BC & 3)) {
-        func_8007D0E0(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 6.0f);
+    if (!(actor->timer_0BC & 3)) {
+        func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 6.0f);
     }
 
-    if ((arg0->unk_0D0 != 0) || (arg0->timer_0BC == 0)) {
-        func_8007A6F0(&arg0->obj.pos, 0x2903A008);
-        Object_Kill(&arg0->obj, &arg0->sfxPos);
-        func_8007D0E0(arg0->obj.pos.x - arg0->vel.x, arg0->obj.pos.y, arg0->obj.pos.z - arg0->vel.z, 8.0f);
-        func_8007BFFC(arg0->obj.pos.x - arg0->vel.x, arg0->obj.pos.y + 30.0f, arg0->obj.pos.z - arg0->vel.z, 0.0f, 0.0f,
-                      0.0f, 4.0f, 10);
+    if ((actor->unk_0D0 != 0) || (actor->timer_0BC == 0)) {
+        func_8007A6F0(&actor->obj.pos, 0x2903A008);
+        Object_Kill(&actor->obj, &actor->sfxPos);
+        func_8007D0E0(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y, actor->obj.pos.z - actor->vel.z, 8.0f);
+        func_8007BFFC(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z - actor->vel.z, 0.0f,
+                      0.0f, 0.0f, 4.0f, 10);
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80187C68.s")
+void func_i2_80187C68(Actor* actor, f32 x, f32 y, f32 z, f32 arg4, f32 xRot, f32 yRot, s32 arg7, s32 arg8, s32 id) {
+    Actor_Initialize(actor);
+    actor->obj.status = 1;
+    actor->obj.id = (u16) id;
+    actor->obj.pos.x = x;
+    actor->obj.pos.y = y;
+    actor->obj.pos.z = z;
+    actor->obj.rot.x = xRot;
+    actor->obj.rot.y = yRot;
+    actor->timer_0BC = arg7;
+    actor->timer_0BE = 20;
+    actor->unk_0B4 = arg8;
+    actor->fwork[5] = arg4;
+    Object_SetInfo(&actor->info, actor->obj.id);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80187D08.s")
 
