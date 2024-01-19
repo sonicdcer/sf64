@@ -226,22 +226,31 @@ void func_i2_80187FF8(Effect* effect, f32 x, f32 y, f32 z) {
 // find out prototype first
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80188088.s")
 
-void func_i2_801881A8(Effect* effect, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5) {
+void func_i2_801881A8(Effect* effect, f32 x, f32 y, f32 z, f32 zRot, s32 arg5) {
     Effect_Initialize(effect);
     effect->obj.status = 1;
     effect->obj.id = OBJ_EFFECT_370;
 
-    effect->obj.pos.x = arg1;
-    effect->obj.pos.y = arg2;
-    effect->obj.pos.z = arg3;
+    effect->obj.pos.x = x;
+    effect->obj.pos.y = y;
+    effect->obj.pos.z = z;
 
-    effect->obj.rot.z = arg4;
+    effect->obj.rot.z = zRot;
 
     effect->unk_4E = arg5;
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80188228.s")
+void func_i2_80188228(f32 x, f32 y, f32 z, f32 zRot) {
+    s32 i;
+
+    for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
+        if (gEffects[i].obj.status == 0) {
+            func_i2_801881A8(&gEffects[i], x, y, z, zRot, 0);
+            break;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80188298.s")
 
