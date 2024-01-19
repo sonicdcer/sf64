@@ -7,7 +7,29 @@ void func_i2_80187530(Actor* actor) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018756C.s")
+void func_i2_8018756C(Actor* actor) {
+    Vec3f vec;
+
+    if (actor->unk_0D0 != 0) {
+        actor->unk_0D0 = 0;
+        actor->unk_0CE -= actor->unk_0D6;
+        if (actor->unk_0CE <= 0) {
+            actor->obj.status = 3;
+        }
+    }
+
+    actor->obj.rot.y += 2.0f;
+    actor->obj.rot.x += 1.3f;
+
+    vec.x = actor->vel.x;
+    vec.y = actor->vel.y;
+    vec.z = actor->vel.z;
+
+    if ((func_8006351C(actor->index, &actor->obj.pos, &vec, 0) != 0) || (actor->obj.pos.y < (gGroundLevel + 20.0f))) {
+        actor->obj.status = 3;
+    }
+    func_i2_80187530(actor);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80187650.s")
 
