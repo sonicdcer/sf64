@@ -591,7 +591,47 @@ void func_i2_80188FAC(Effect* effect) {
     func_8007A774(gPlayer, effect, 60.0f);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80189114.s")
+void func_i2_80189114(Effect* arg0) {
+    if (gPlayer->state_1C8 == PLAYERSTATE_1C8_7) {
+        Object_Kill(&arg0->obj, &arg0->sfxPos);
+    }
+
+    arg0->scale2 += 0.5f;
+    if (arg0->scale2 > 10.0f) {
+        arg0->scale2 = 10.0f;
+    }
+
+    arg0->obj.rot.z += 35.0f;
+    if (arg0->obj.pos.x < gPlayer->pos.x) {
+        arg0->obj.pos.x += 1.5f;
+        if (arg0->vel.x < 40.0f) {
+            arg0->vel.x += 2.0f;
+        }
+    }
+
+    if (gPlayer->pos.x < arg0->obj.pos.x) {
+        arg0->obj.pos.x -= 1.5f;
+        if (arg0->vel.x > -40.0f) {
+            arg0->vel.x -= 2.0f;
+        }
+    }
+
+    if (arg0->obj.pos.y < gPlayer->pos.y) {
+        arg0->obj.pos.y += 1.5f;
+        if (arg0->vel.y < 40.0f) {
+            arg0->vel.y += 2.0f;
+        }
+    }
+
+    if (gPlayer->pos.y < arg0->obj.pos.y) {
+        arg0->obj.pos.y -= 1.5f;
+        if (arg0->vel.y > -40.0f) {
+            arg0->vel.y -= 2.0f;
+        }
+    }
+
+    func_8007A774(gPlayer, arg0, 100.0f);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_801892F0.s")
 
