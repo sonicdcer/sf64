@@ -548,7 +548,7 @@ void func_i1_80189058(Boss* boss) {
     Vec3f sp6C = { 0.0f, 0.0f, -30.0f };
     f32 sp5C;
 
-    if (gPlayer->state_1C8 != 9) {
+    if (gPlayer[0].state_1C8 != 9) {
         if (boss->swork[33] == 0) {
             boss->swork[33]++;
             D_80178284 = 2;
@@ -586,9 +586,9 @@ void func_i1_80189058(Boss* boss) {
         func_i1_80188D50(boss);
         if (D_801615D0.z > 0.0f) {
             if (D_801615D0.x > 0.0f) {
-                gPlayer->unk_228 = 0x10;
+                gPlayer[0].unk_228 = 0x10;
             } else {
-                gPlayer->unk_228 = 0x20;
+                gPlayer[0].unk_228 = 0x20;
             }
         }
 
@@ -721,9 +721,9 @@ void func_i1_80189058(Boss* boss) {
                 }
                 break;
             case 1:
-                D_i1_8019B6D8[17] = D_i1_8019B6D8[66] = gPlayer->pos.x;
-                D_i1_8019B6D8[18] = gPlayer->pos.y;
-                D_i1_8019B6D8[19] = D_i1_8019B6D8[67] = gPlayer->unk_138;
+                D_i1_8019B6D8[17] = D_i1_8019B6D8[66] = gPlayer[0].pos.x;
+                D_i1_8019B6D8[18] = gPlayer[0].pos.y;
+                D_i1_8019B6D8[19] = D_i1_8019B6D8[67] = gPlayer[0].unk_138;
 
                 boss->unk_04C += 2;
                 if (boss->unk_04C >= Animation_GetFrameCount(&D_602BC18)) {
@@ -738,9 +738,9 @@ void func_i1_80189058(Boss* boss) {
                 func_i1_80188A18(boss);
                 break;
             case 2:
-                D_i1_8019B6D8[17] = D_i1_8019B6D8[66] = gPlayer->pos.x;
-                D_i1_8019B6D8[18] = gPlayer->pos.y;
-                D_i1_8019B6D8[19] = D_i1_8019B6D8[67] = gPlayer->unk_138;
+                D_i1_8019B6D8[17] = D_i1_8019B6D8[66] = gPlayer[0].pos.x;
+                D_i1_8019B6D8[18] = gPlayer[0].pos.y;
+                D_i1_8019B6D8[19] = D_i1_8019B6D8[67] = gPlayer[0].unk_138;
 
                 boss->unk_04C -= 4;
                 if (boss->unk_04C < 0) {
@@ -759,9 +759,9 @@ void func_i1_80189058(Boss* boss) {
                 func_i1_80188A18(boss);
                 break;
             case 3:
-                D_i1_8019B6D8[17] = D_i1_8019B6D8[66] = gPlayer->pos.x;
-                D_i1_8019B6D8[18] = gPlayer->pos.y;
-                D_i1_8019B6D8[19] = D_i1_8019B6D8[67] = gPlayer->unk_138;
+                D_i1_8019B6D8[17] = D_i1_8019B6D8[66] = gPlayer[0].pos.x;
+                D_i1_8019B6D8[18] = gPlayer[0].pos.y;
+                D_i1_8019B6D8[19] = D_i1_8019B6D8[67] = gPlayer[0].unk_138;
 
                 boss->unk_04C += 4;
                 if (boss->unk_04C >= 101) {
@@ -780,9 +780,9 @@ void func_i1_80189058(Boss* boss) {
                 func_i1_80188A18(boss);
                 break;
             case 4:
-                D_i1_8019B6D8[17] = gPlayer->pos.x;
-                D_i1_8019B6D8[18] = gPlayer->pos.y;
-                D_i1_8019B6D8[19] = gPlayer->unk_138;
+                D_i1_8019B6D8[17] = gPlayer[0].pos.x;
+                D_i1_8019B6D8[18] = gPlayer[0].pos.y;
+                D_i1_8019B6D8[19] = gPlayer[0].unk_138;
 
                 boss->unk_04C += 4;
                 if (boss->unk_04C >= 101) {
@@ -797,9 +797,9 @@ void func_i1_80189058(Boss* boss) {
                 boss->unk_05E = 0;
                 D_8017812C = 1;
                 if (!(gGameFrameCount & 7)) {
-                    D_i1_8019B6D8[17] = ((Rand_ZeroOne() - 0.5f) * 2000.0f) + gPlayer->pos.x;
-                    D_i1_8019B6D8[18] = gPlayer->pos.y;
-                    D_i1_8019B6D8[19] = ((Rand_ZeroOne() - 0.5f) * 2000.0f) + gPlayer->unk_138;
+                    D_i1_8019B6D8[17] = ((Rand_ZeroOne() - 0.5f) * 2000.0f) + gPlayer[0].pos.x;
+                    D_i1_8019B6D8[18] = gPlayer[0].pos.y;
+                    D_i1_8019B6D8[19] = ((Rand_ZeroOne() - 0.5f) * 2000.0f) + gPlayer[0].unk_138;
                 }
                 boss->fwork[12] += 0.05f;
                 if (boss->actionState == 6) {
@@ -941,7 +941,7 @@ void func_i1_80189058(Boss* boss) {
             if ((boss->actionState != 0) && ((boss->unk_04C == 0) || (boss->unk_04C == 52))) {
                 Audio_PlaySfx(0x29022019U, &boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
-            if ((gPlayer->unk_4DC != 0) && (boss->actionState != 0)) {
+            if ((gPlayer[0].unk_4DC != 0) && (boss->actionState != 0)) {
                 boss->actionState = 0;
                 boss->swork[31] = 1;
                 boss->timer_050 = 100;
