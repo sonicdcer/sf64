@@ -140,22 +140,22 @@
     symbol_name_format: i6_$VRAM
     subsegments:
     - [0xE9F1D0, c, fox_i6]
-    - [0xE9F1E0, c, sf_i6_1]
+    - [0xE9F1E0, c, fox_ve2]
     - [0xEADEC0, c, sf_i6_2]
     - [0xEAF7E0, c, fox_sy]
     - [0xEBD210, c, sf_i6_4]
     - [0xEBE400, .data, fox_i6]
-    - [0xEBE410, .data, sf_i6_1]
+    - [0xEBE410, .data, fox_ve2]
     - [0xEBE560, data, sf_i6_2]
     - [0xEBE5C0, data, fox_sy]
     - [0xEBE830, data, sf_i6_4]
     - [0xEBE840, .rodata, fox_i6]
-    - [0xEBE850, .rodata, sf_i6_1]
+    - [0xEBE850, .rodata, fox_ve2]
     - [0xEBF0F0, .rodata, sf_i6_2]
     - [0xEBF130, .rodata, fox_sy]
     - [0xEBFB80, .rodata, sf_i6_4]
     - { start: 0xEBFBE0, type: .bss, vram: 0x801A7F30, name: fox_i6 }
-    - { type: .bss, vram: 0x801A7F40, name: sf_i6_1 }
+    - { type: .bss, vram: 0x801A7F40, name: fox_ve2 }
     - { type: bss, vram: 0x801A8440, name: fox_sy }
 
   - name: ovl_menu
