@@ -5754,6 +5754,7 @@ void func_80095604(Player* player) {
                 Matrix_RotateY(gCalcMatrix, -(M_DTOR * D_80177A48[5]), 1);
                 Matrix_MultVec3f(gCalcMatrix, &src, &dest);
             }
+            
             if (D_80177A80 < 30) {
                 dest.x = gBosses[0].obj.pos.x;
                 dest.y = player->pos.y;
