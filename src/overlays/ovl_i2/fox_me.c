@@ -178,7 +178,7 @@ void func_i2_80187C68(Actor* actor, f32 x, f32 y, f32 z, f32 arg4, f32 xRot, f32
 void func_i2_80187D08(f32 x, f32 y, f32 z, f32 arg3, f32 xRot, f32 yRot, s32 arg6, s32 arg7, s32 id) {
     s32 i;
 
-    for (i = 0; i < (s32) (sizeof(gActors) / sizeof(gActors[0])); i++) {
+    for (i = 0; i < ARRAY_COUNT(gActors); i++) {
         if (gActors[i].obj.status == 0) {
             func_i2_80187C68(&gActors[i], x, y, z, arg3, xRot, yRot, arg6, arg7, id);
             return;
