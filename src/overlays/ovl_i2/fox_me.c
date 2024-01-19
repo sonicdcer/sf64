@@ -71,7 +71,38 @@ void func_i2_80187650(Actor* actor) {
     func_i2_80187530(actor);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_801877C4.s")
+void func_i2_801877C4(Actor* actor) {
+    Vec3f sp44;
+    Vec3f sp38;
+
+    actor->obj.rot.z += 1.0f;
+
+    Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * 0.017453292f, 0);
+
+    sp38.x = 0.0f;
+    sp38.y = -1100.0f;
+    sp38.z = 0.0f;
+
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp38, &sp44);
+
+    actor->obj.pos.x = actor->fwork[0] + sp44.x;
+    actor->obj.pos.y = actor->fwork[1] + sp44.y;
+
+    if (actor->unk_0D0 != 0) {
+        func_80066254(actor);
+        func_8007A6F0(&actor->obj.pos, 0x2903A008);
+        Object_Kill(&actor->obj, &actor->sfxPos);
+        func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 5.0f);
+        func_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 3.0f, 10);
+    }
+
+    if (actor->timer_0BC == 0) {
+        actor->timer_0BC = 40;
+        if (actor->obj.pos.z < (gPlayer->unk_138 - 1000.0f)) {
+            func_8007F11C(0x161, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 120.0f);
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018795C.s")
 
