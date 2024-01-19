@@ -1524,7 +1524,7 @@ void func_80088970(void) {
                 if (ret != 0) {
                     D_80161838[0] = 0;
                     if (((ret > 0) && (D_80161810[1] == 1)) || ((ret < 0) && (D_80161810[1] == 0))) {
-                        D_80161810[1] = D_80161810[1] ^ 1;
+                        D_80161810[1] ^= 1;
                         Audio_PlaySfx(0x49000002U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                     }
                 }
@@ -5754,7 +5754,7 @@ void func_80095604(Player* player) {
                 Matrix_RotateY(gCalcMatrix, -(M_DTOR * D_80177A48[5]), 1);
                 Matrix_MultVec3f(gCalcMatrix, &src, &dest);
             }
-            
+
             if (D_80177A80 < 30) {
                 dest.x = gBosses[0].obj.pos.x;
                 dest.y = player->pos.y;
