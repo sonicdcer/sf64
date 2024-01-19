@@ -160,11 +160,14 @@ void func_i2_80187C68(Actor* actor, f32 x, f32 y, f32 z, f32 arg4, f32 xRot, f32
     Actor_Initialize(actor);
     actor->obj.status = 1;
     actor->obj.id = (u16) id;
+
     actor->obj.pos.x = x;
     actor->obj.pos.y = y;
     actor->obj.pos.z = z;
+
     actor->obj.rot.x = xRot;
     actor->obj.rot.y = yRot;
+
     actor->timer_0BC = arg7;
     actor->timer_0BE = 20;
     actor->unk_0B4 = arg8;
@@ -172,7 +175,16 @@ void func_i2_80187C68(Actor* actor, f32 x, f32 y, f32 z, f32 arg4, f32 xRot, f32
     Object_SetInfo(&actor->info, actor->obj.id);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80187D08.s")
+void func_i2_80187D08(f32 x, f32 y, f32 z, f32 arg3, f32 xRot, f32 yRot, s32 arg6, s32 arg7, s32 id) {
+    s32 i;
+
+    for (i = 0; i < (s32) (sizeof(gActors) / sizeof(gActors[0])); i++) {
+        if (gActors[i].obj.status == 0) {
+            func_i2_80187C68(&gActors[i], x, y, z, arg3, xRot, yRot, arg6, arg7, id);
+            return;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80187D98.s")
 
