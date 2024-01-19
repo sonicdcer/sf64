@@ -1,5 +1,10 @@
 #include "global.h"
 
+extern s32 D_800C9E90[];
+
+extern Gfx D_60240B0[];
+extern Gfx D_60263F0[];
+
 void func_i2_80187530(Actor* actor) {
     if (actor->unk_0D0 == 1) {
         actor->unk_0D0 = 0;
@@ -252,12 +257,12 @@ void func_i2_80188228(f32 x, f32 y, f32 z, f32 zRot) {
     }
 }
 
-void func_i2_80188298(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
+void func_i2_80188298(f32 x, f32 y, f32 z, f32 zRot) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == 0) {
-            func_i2_801881A8(&gEffects[i], arg0, arg1, arg2, arg3, -1);
+            func_i2_801881A8(&gEffects[i], x, y, z, zRot, -1);
             Audio_PlaySfx(0x3102705CU, &gEffects[i].sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             break;
         }
@@ -360,7 +365,6 @@ void func_i2_80188344(Boss* boss) {
             break;
 
         case 5:
-
             boss->obj.rot.z -= 3.0f;
             if (boss->vel.z < 5.0f) {
                 boss->vel.z = boss->vel.z + 1.0f;
@@ -376,11 +380,92 @@ void func_i2_80188344(Boss* boss) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_801887D0.s")
+void func_i2_801887D0(Boss* boss) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80188A40.s")
+    if (boss->timer_054 & 1) {
+        RCP_SetupDL_27();
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 255, 0, 255);
+    }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80188B84.s")
+    Matrix_RotateZ(gGfxMatrix, (M_PI / 4), 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
+    gSPDisplayList(gMasterDisp++, D_60240B0);
+    RCP_SetupDL_64();
+
+    for (i = 1; i < 4; i++) {
+        if (boss->swork[0] != 0) {
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, boss->swork[0]);
+            Matrix_Push(&gGfxMatrix);
+            Matrix_RotateZ(gGfxMatrix, i * (M_PI / 2), 1);
+            Matrix_Translate(gGfxMatrix, 0.0f, 156.0f, 930.0f, 1);
+
+            if (gGameFrameCount & 1) {
+                Matrix_Scale(gGfxMatrix, 6.0f, 9.0f, 5.0f, 1);
+            } else {
+                Matrix_Scale(gGfxMatrix, 4.0f, 7.0f, 5.0f, 1);
+            }
+
+            Matrix_RotateZ(gGfxMatrix, 1.5707964f, 1);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_60263F0);
+            Matrix_Pop(&gGfxMatrix);
+        }
+    }
+}
+
+void func_i2_80188A40(Boss* boss) {
+    s32 i;
+
+    func_8001D444(0, D_800C9E90[gCurrentLevel], 0, 255);
+
+    D_80178284 = 1;
+
+    boss->swork[2] = 40;
+    boss->swork[3] = 40;
+    boss->swork[4] = 40;
+    boss->swork[5] = 40;
+    boss->swork[7] = 180;
+    boss->swork[8] = 180;
+    boss->swork[6] = 150;
+    boss->fwork[0] = -10.0f;
+    boss->fwork[9] = -3000.0f;
+    boss->fwork[15] = 8.0f;
+
+    i = boss->unk_044 = 1;
+
+    Boss_Initialize(&gBosses[i]);
+
+    gBosses[i].obj.status = 1;
+    gBosses[i].obj.id = 0x12A;
+    gBosses[i].obj.pos.x = boss->obj.pos.x;
+    gBosses[i].obj.pos.y = boss->obj.pos.y;
+    gBosses[i].obj.pos.z = boss->obj.pos.z;
+
+    Object_SetInfo(&gBosses[i].info, gBosses[i].obj.id);
+    func_800BA808(gMsg_ID_3300, RCID_BOSS_METEO);
+    Audio_PlaySfx(0x3102505AU, &boss->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+}
+
+void func_i2_80188B84(Effect* effect, f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg6, f32 arg7) {
+    Effect_Initialize(effect);
+    effect->obj.status = 1;
+    effect->obj.id = OBJ_EFFECT_369;
+
+    effect->obj.pos.x = x;
+    effect->obj.pos.y = y;
+    effect->obj.pos.z = z;
+
+    effect->obj.rot.x = xRot;
+    effect->obj.rot.y = yRot;
+    effect->unk_60.z = arg6;
+
+    effect->timer_50 = 20;
+    effect->scale2 = arg7;
+    effect->unk_4E = 1;
+    effect->unk_44 = 0x80;
+    Object_SetInfo(&effect->info, effect->obj.id);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80188C2C.s")
 
