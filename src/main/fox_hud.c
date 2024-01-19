@@ -1,19 +1,19 @@
-#include "hud.h"
-#include "prevent_bss_reordering.h"
-
-// #define IMPORT_BSS
+#include "sf64math.h"
 
 // BSS section range:
 // D_801616A0 <==> D_80161910
 
 // BSS SECTION START
-#ifdef IMPORT_BSS
+
+// placed before global.h for reordering reasons
+
 Vec3f D_801616A0;
 Vec3f D_801616B0;
 f32 D_801616BC;
 f32 D_801616C0;
 f32 D_801616C4;
 f32 D_801616C8;
+s32 D_801616D0[13];
 s32 D_80161704;
 s32 D_80161708;
 s32 D_8016170C;
@@ -57,64 +57,18 @@ s32 D_80161838[10];
 s32 D_80161860[20];
 f32 D_801618B0[20];
 s32 D_80161900[20];
-#else
-extern Vec3f D_801616A0;
-extern Vec3f D_801616B0;
-extern f32 D_801616BC;
-extern f32 D_801616C0;
-extern f32 D_801616C4;
-extern f32 D_801616C8;
-extern s32 D_80161704;
-extern s32 D_80161708;
-extern s32 D_8016170C;
-extern s32 D_80161710;
-extern s32 gTotalHits; // 0x80161714
-extern s32 D_80161718;
-extern s32 D_8016171C;
-extern f32 D_80161720[3];
-extern s32 D_8016172C;
-extern s32 D_80161730;
-extern s32 gShowBossHealth; // 0x80161734
-extern s32 D_80161738[4];
-extern s32 D_80161748[4];
-extern s32 D_80161758;
-// gap = 0x4 bytes, probably padding
-extern s32 D_80161760[4];
-extern f32 D_80161770;
-extern f32 D_80161774;
-extern f32 D_80161778;
-extern f32 D_8016177C;
-extern f32 D_80161780;
-extern f32 D_80161784;
-extern s32 D_80161788;
-extern s32 D_8016178C;
-extern s32 D_80161790;
-extern s32 D_80161794;
-extern s32 D_80161798;
-extern f32 D_8016179C;
-extern f32 D_801617A0;
-extern f32 D_801617A4;
-extern f32 D_801617A8;
-extern f32 D_801617AC;
-extern s32 D_801617B0;
-extern s32 gMedalStatus;     // 0x801617B4
-extern s32 gMedalFlashTimer; // 0x801617B8
-// gap = 0x4 bytes, probably padding
-extern s32 D_801617C0[10];
-extern s32 D_801617E8[10];
-extern s32 D_80161810[10];
-extern s32 D_80161838[10];
-extern s32 D_80161860[20];
-extern f32 D_801618B0[20];
-extern s32 D_80161900[20];
-#endif
 
 // BSS SECTION END
+
+#include "global.h"
+#include "hud.h"
+
+void func_80087788(void);
 
 // Segmented addresses
 
 extern u8 D_1000000[];
-extern u8 D_1000280;
+extern u8 D_1000280[];
 extern u8 D_1000640[];
 extern u16 D_1000E80[];
 extern u16 D_1002280[];
@@ -392,7 +346,6 @@ void func_80085890(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     }
 }
 
-#if defined(IMPORT_BSS) || defined(NON_MATCHING)
 void func_80085944(void) {
     Gfx* D_800D1A94[] = { D_101C170, D_101C000, D_101BE90, D_101BD20, D_101BBB0, D_101BA40,
                           D_101B8D0, D_101B760, D_101B5F0, D_101B480, D_101B310, D_101B1A0 };
@@ -544,14 +497,6 @@ void func_80085944(void) {
     D_801618B0[0] += 35.0f;
     D_801618B0[1] += 10.0f;
 }
-#else
-Gfx* D_800D1A94[] = { (Gfx*) 0x0101C170, (Gfx*) 0x0101C000, (Gfx*) 0x0101BE90, (Gfx*) 0x0101BD20,
-                      (Gfx*) 0x0101BBB0, (Gfx*) 0x0101BA40, (Gfx*) 0x0101B8D0, (Gfx*) 0x0101B760,
-                      (Gfx*) 0x0101B5F0, (Gfx*) 0x0101B480, (Gfx*) 0x0101B310, (Gfx*) 0x0101B1A0 };
-f32 D_800D1AC4[] = { 0.0f, -30.0f, -26.0f, -22.0f, -18.0f };
-f32 D_800D1AD8[] = { 0.0f, 28.0f, 28.0f, 28.0f, 28.0f };
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_hud/func_80085944.s")
-#endif
 
 void func_80086110(f32 arg0, f32 arg1, s32 arg2) {
     f32 temp = 0.82f;
@@ -1478,7 +1423,7 @@ void func_80088784(s32 arg0) {
     }
 }
 
-#if defined(IMPORT_BSS) || defined(NON_MATCHING)
+// #if defined(IMPORT_BSS) || defined(NON_MATCHING)
 // needs D_80161838 to be static
 void func_80088970(void) {
     s32 i;
@@ -1802,10 +1747,10 @@ void func_80088970(void) {
         }
     }
 }
-#else
-void func_80088970(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_hud/func_80088970.s")
-#endif
+// #else
+// void func_80088970(void);
+// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_hud/func_80088970.s")
+// #endif
 
 void func_80089670(void) {
     RCP_SetupDL(&gMasterDisp, 0x3E);
@@ -4902,7 +4847,7 @@ void func_80093164(Actor* actor) {
                 break;
 
             case 41:
-                func_801BE034(actor, player);
+                func_i3_801BE034(actor, player);
                 break;
 
             case 44:
@@ -5423,9 +5368,13 @@ void func_800935E8(Player* player) {
 }
 
 // unused data
-s32 D_800D24A0[] = { 0x0000003C, 0x000000C8, 0x00000000, 0x41200000, 0x41A00000, 0x40A00000, 0x40E00000, 0x41500000,
-                     0x43000000, 0x43000000, 0x437F0000, 0x43000000, 0x00000000, 0x00000384, 0x3CA3D70A };
+s32 D_800D24A0[] = { 60, 200 };
+f32 D_800D24A8[] = { 0.0f, 10.0f, 20.0f, 5.0f, 7.0f, 13.0f };
+f32 D_800D24C0[] = { 128.0f, 128.0f, 255.0f, 128.0f };
+s32 D_800D24C8[] = { 0, 900 };
+f32 D_800D24CC = 0.02f;
 
+// 60, 200, 0,
 void func_80094954(Effect* effect) {
     Player* player = &gPlayer[0];
 

@@ -11,6 +11,8 @@
 
 // extern f32 D_i3_801C4188; Currently externed in relevant files for bss ordering
 
+void func_i3_801BE034(Actor*, Player*);
+
 void func_i3_8018DA58(Actor*);
 void func_i3_8019E5F0(Actor*);
 void func_i3_801A8BE8(Actor*);

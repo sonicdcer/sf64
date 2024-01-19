@@ -364,7 +364,7 @@
       - { start: 0xDE480, type: .bss, vram: 0x801615D0, name: fox_edisplay }
       - { start: 0xDE480, type: .bss, vram: 0x80161670, name: fox_enmy }
       - { start: 0xDE480, type: .bss, vram: 0x80161690, name: fox_enmy2 }
-      - { start: 0xDE480, type: bss, vram: 0x801616A0, name: fox_hud }
+      - { start: 0xDE480, type: .bss, vram: 0x801616A0, name: fox_hud }
       - { start: 0xDE480, type: .bss, vram: 0x80161950, name: fox_97F80 }
       - { start: 0xDE480, type: .bss, vram: 0x801619A0, name: fox_std_lib }
       - { start: 0xDE480, type: .bss, vram: 0x80161A10, name: fox_game }
