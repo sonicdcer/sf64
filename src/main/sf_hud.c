@@ -9,14 +9,6 @@ typedef struct {
     /* 0x14 */ s32 unk_14;
 } UnkStruct_D_800D1AEC;
 
-typedef struct UnkStruct_func_80095350 {
-    /* 0x00 */ s8 unk0;
-    /* 0x01 */ char pad_1[0x1];
-    /* 0x02 */ s16 unk2;
-    /* 0x04 */ char pad_4[0xB2];
-    /* 0xB6 */ s16 unkB6;
-} UnkStruct_func_80095350;
-
 // extern s16 D_800D1970;
 extern f32 D_800D19AC[];
 extern f32 D_800D19E0[];
@@ -31,7 +23,8 @@ extern f32 D_800D22C4;
 extern f32 D_800D22C8;
 extern f32 D_800D22CC;
 
-// #define IMPORT_DATA
+//#define IMPORT_DATA
+//#define IMPORT_BSS
 
 #ifdef IMPORT_DATA
 // s16 D_800D1970[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -66,6 +59,7 @@ Gfx* D_800D1A40[] = { 0x0400103F, D_800D1A00, 0xB1020406, 0x00020600, 0xB8000000
 #ifdef IMPORT_BSS
 Vec3f D_801616A0;
 Vec3f D_801616B0;
+f32 D_801616BC;
 f32 D_801616C0;
 f32 D_801616C4;
 f32 D_801616C8;
