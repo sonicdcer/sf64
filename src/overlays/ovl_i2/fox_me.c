@@ -632,14 +632,75 @@ void func_i2_80189114(Effect* arg0) {
 
     func_8007A774(gPlayer, arg0, 100.0f);
 }
-
+// figure out the prototype first
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_801892F0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80189624.s")
+void func_i2_80189624(void) {
+    if (gGameFrameCount & 1) {
+        D_801784B8 = D_801784C4 = 0.0f;
+        D_801784BC = D_801784C8 = 5.0f;
+        D_801784C0 = D_801784CC = 0.0f;
+        D_801784EC = D_801784F8 = 0.0f;
+        D_801784F0 = D_801784FC = 100.0f;
+        D_801784F4 = D_80178500 = 0.0f;
+    } else {
+        D_801784B8 = D_801784C4 = 0.0f;
+        D_801784BC = D_801784C8 = -5.0f;
+        D_801784C0 = D_801784CC = 0.0f;
+        D_801784EC = D_801784F8 = 0.0f;
+        D_801784F0 = D_801784FC = 110.0f;
+        D_801784F4 = D_80178500 = 0.0f;
+    }
+}
 
+// chunker
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018978C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018B7C4.s")
+void func_i2_8018B7C4(s32 arg0) {
+    f32 temp_fv0 = arg0 * 0.83333f;
+
+    if (gGameFrameCount & 1) {
+        temp_fv0 *= 1.1f;
+    }
+
+    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+
+    RCP_SetupDL_64();
+    Matrix_Push(&gGfxMatrix);
+    Matrix_Scale(gGfxMatrix, 10.0f * temp_fv0, 10.0f * temp_fv0, 10.0f * temp_fv0, 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 70);
+    gSPDisplayList(gMasterDisp++, D_102ED50);
+
+    Matrix_Pop(&gGfxMatrix);
+    Matrix_Push(&gGfxMatrix);
+    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 20.0f, 1);
+    Matrix_Scale(gGfxMatrix, 9.0f * temp_fv0, 9.0f * temp_fv0, 9.0f * temp_fv0, 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 60);
+    gSPDisplayList(gMasterDisp++, D_102ED50);
+
+    Matrix_Pop(&gGfxMatrix);
+    Matrix_Push(&gGfxMatrix);
+    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 35.0f, 1);
+    Matrix_Scale(gGfxMatrix, 7.5f * temp_fv0, 7.5f * temp_fv0, 7.5f * temp_fv0, 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 50);
+    gSPDisplayList(gMasterDisp++, D_102ED50);
+
+    Matrix_Pop(&gGfxMatrix);
+    Matrix_Push(&gGfxMatrix);
+    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 40.0f, 1);
+    Matrix_Scale(gGfxMatrix, 5.0f * temp_fv0, 5.0f * temp_fv0, 5.0f * temp_fv0, 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 40);
+    gSPDisplayList(gMasterDisp++, D_102ED50);
+    Matrix_Pop(&gGfxMatrix);
+    gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018BACC.s")
 
