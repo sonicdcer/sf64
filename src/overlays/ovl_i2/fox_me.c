@@ -1,6 +1,11 @@
-#include "common.h"
+#include "global.h"
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80187530.s")
+void func_i2_80187530(Actor* actor) {
+    if (actor->unk_0D0 == 1) {
+        actor->unk_0D0 = 0;
+        func_8007A6F0(&actor->obj.pos, 0x2902107D);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018756C.s")
 
