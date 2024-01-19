@@ -186,7 +186,25 @@ void func_i2_80187D08(f32 x, f32 y, f32 z, f32 arg3, f32 xRot, f32 yRot, s32 arg
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80187D98.s")
+void func_i2_80187D98(Effect* effect, f32 x, f32 y, f32 z, f32 arg4, s32 arg5) {
+    Effect_Initialize(effect);
+    effect->obj.status = 1;
+    effect->obj.id = OBJ_EFFECT_369;
+
+    effect->obj.pos.x = x;
+    effect->obj.pos.y = y;
+    effect->obj.pos.z = z;
+
+    effect->unk_60.z = arg4;
+    effect->unk_48 = arg5;
+    effect->obj.rot.x = 45.0f;
+
+    if (arg5 != 0) {
+        effect->obj.rot.x = -45.0f;
+    }
+
+    Object_SetInfo(&effect->info, effect->obj.id);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80187E38.s")
 
