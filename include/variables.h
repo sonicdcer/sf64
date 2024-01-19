@@ -310,10 +310,7 @@ extern s32 D_80161690;
 
 // sf_hud?
 
-extern f32 D_801616BC;
-extern f32 D_801616C0;
-extern f32 D_801616C4;
-extern f32 D_801616C8;
+
 extern s32 D_80161704;
 extern s32 D_80161708;
 extern s32 D_8016170C;

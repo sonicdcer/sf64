@@ -360,6 +360,8 @@ func_800A3608 = 0x800A3608;
 
 
 // sf_hud
+D_801616A0 = 0x801616A0; //type:s32 size:0xC
+D_801616B0 = 0x801616B0; //type:s32 size:0xC
 gTotalHits = 0x80161714;
 gShowBossHealth = 0x80161734;
 gMedalStatus = 0x801617B4;
