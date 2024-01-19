@@ -276,7 +276,7 @@
       - [0xD09A0, .data, fox_enmy]
       - [0xD0B80, .data, fox_enmy2]
       - [0xD20E0, .data, fox_effect]
-      - [0xD2570, data, sf_hud]
+      - [0xD2570, .data, sf_hud]
       - [0xD31D0, .data, fox_std_lib]
       - [0xD3460, .data, fox_game]
       - [0xD3520, .data, fox_A4290]

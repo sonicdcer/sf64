@@ -9,28 +9,7 @@ typedef struct {
     /* 0x14 */ s32 unk_14;
 } UnkStruct_D_800D1AEC;
 
-// extern s16 D_800D1970;
-extern f32 D_800D19AC[];
-extern f32 D_800D19E0[];
-extern f32 D_800D19F0;
-extern s32 D_800D19F4;
-extern s32 D_800D19F8;
-extern UnkStruct_D_800D1AEC D_800D1AEC[];
-
-extern f32 D_800D1CFC;
-extern f32 D_800D1E10;
-extern f32 D_800D22C4;
-extern f32 D_800D22C8;
-extern f32 D_800D22CC;
-
-//#define IMPORT_DATA
-//#define IMPORT_BSS
-
-#ifdef IMPORT_DATA
-// s16 D_800D1970[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-
 s16 D_800D1970 = 0;
-s16 D_800D1972 = 0;
 s16 D_800D1974[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 f32 D_800D19AC[] = { 255.0f, 255.0f, 255.0f, 255.0f, 255.0f, 255.0f, 255.0f, 255.0f, 255.0f, 0.0f, 0.0f, 0.0f, 0.0f };
@@ -42,15 +21,14 @@ f32 D_800D19F0 = 0.0f;
 s32 D_800D19F4 = 0;
 
 s32 D_800D19F8 = 0;
+s32 D_800D19FC = 0;
 
 s32 D_800D1A00[] = { 0x000A000A, 0x00000000, 0x00000000, 0xFFFFFFFF, 0xFFF6000A, 0x00000000, 0x00000000, 0xFFFFFFFF,
                      0xFFF6FFF6, 0x00000000, 0x00000000, 0xFFFFFFFF, 0x000AFFF6, 0x00000000, 0x00000000, 0xFFFFFFFF };
 
 Gfx* D_800D1A40[] = { 0x0400103F, D_800D1A00, 0xB1020406, 0x00020600, 0xB8000000, 0x00000000 };
 
-#else
-
-#endif
+// #define IMPORT_BSS
 
 // BSS section range:
 // D_801616A0 <==> D_80161910
@@ -260,7 +238,6 @@ void func_8008E5E8(void);
 s32 func_80090E8C(Actor*);
 s32 func_800910C0(Actor*);
 
-#ifdef IMPORT_DATA
 void func_80084930(f32 arg0, f32 arg1, s32 arg2) {
     u8* D_800D1A58[] = {
         D_3000000,
@@ -323,11 +300,7 @@ void func_80084930(f32 arg0, f32 arg1, s32 arg2) {
         func_800869A0(arg0, arg1, arg2, 1.0f, 1, 99);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80084930.s")
-#endif
 
-#ifdef IMPORT_DATA
 void func_80084B94(s32 arg0) {
     s32 i;
     Vec3f D_800D1A70[] = {
@@ -366,9 +339,6 @@ void func_80084B94(s32 arg0) {
         Matrix_Pop(&gGfxMatrix);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80084B94.s")
-#endif
 
 void func_80084E78(Gfx** gfxP, void* arg1, void* arg2, u32 arg3, u32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,
                    f32 arg9, f32 argA) {
@@ -598,13 +568,11 @@ void func_80085944(void) {
     D_801618B0[1] += 10.0f;
 }
 #else
-#ifdef IMPORT_DATA
 Gfx* D_800D1A94[] = { (Gfx*) 0x0101C170, (Gfx*) 0x0101C000, (Gfx*) 0x0101BE90, (Gfx*) 0x0101BD20,
                       (Gfx*) 0x0101BBB0, (Gfx*) 0x0101BA40, (Gfx*) 0x0101B8D0, (Gfx*) 0x0101B760,
                       (Gfx*) 0x0101B5F0, (Gfx*) 0x0101B480, (Gfx*) 0x0101B310, (Gfx*) 0x0101B1A0 };
 f32 D_800D1AC4[] = { 0.0f, -30.0f, -26.0f, -22.0f, -18.0f };
 f32 D_800D1AD8[] = { 0.0f, 28.0f, 28.0f, 28.0f, 28.0f };
-#endif
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80085944.s")
 #endif
 
@@ -697,7 +665,18 @@ s32 func_800863C8(void) {
     return ret;
 }
 
-#ifdef IMPORT_DATA
+UnkStruct_D_800D1AEC D_800D1AEC[] = {
+    { D_500A050, 16, 15, D_6000000, 128, 28 },   { D_500A140, 16, 15, D_6000000, 96, 28 },
+    { D_500A140, 16, 15, D_6000000, 176, 12 },   { D_500A230, 16, 15, D_6000000, 168, 28 },
+    { D_500A230, 16, 15, D_6000000, 168, 28 },   { D_500A230, 16, 15, D_6000000, 96, 13 },
+    { D_500A320, 16, 15, D_6000000, 176, 12 },   { D_500A320, 16, 15, D_6000000, 112, 13 },
+    { D_500A320, 16, 15, D_6000000, 112, 28 },   { D_500A410, 16, 15, D_6000000, 96, 28 },
+    { D_500A410, 16, 15, D_6000000, 160, 28 },   { D_500A410, 16, 15, D_6000000, 176, 12 },
+    { D_500A500, 16, 15, D_6000000, 168, 19 },   { D_500A500, 16, 15, D_6000000, 104, 28 },
+    { 0x0500A5F0, 16, 15, D_6000D80, 128, 28 },  { 0x0500A5F0, 16, 15, D_60012D0, 128, 28 },
+    { 0x0500A5F0, 16, 15, 0x0C000A80, 128, 28 }, { D_5009F60, 16, 15, 0x05000D50, 80, 12 },
+};
+
 void func_80086444(void) {
     s32 i = 9;
     s32 j;
@@ -715,7 +694,7 @@ void func_80086444(void) {
             i = 1;
             break;
 
-        case LEVEL_VENOM_ANDROSS:
+        case LEVEL_VENOM_1:
             i = 0;
             break;
 
@@ -733,158 +712,6 @@ void func_80086444(void) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80086444.s")
-#endif
-
-#ifdef IMPORT_DATA
-UnkStruct_D_800D1AEC D_800D1AEC[] = {
-    {
-        D_500A050,
-        16,
-        15,
-        D_6000000,
-        128,
-        28,
-    },
-    {
-        D_500A140,
-        16,
-        15,
-        D_6000000,
-        96,
-        28,
-    },
-    {
-        D_500A140,
-        16,
-        15,
-        D_6000000,
-        176,
-        12,
-    },
-    {
-        D_500A230,
-        16,
-        15,
-        D_6000000,
-        168,
-        28,
-    },
-    {
-        D_500A230,
-        16,
-        15,
-        D_6000000,
-        168,
-        28,
-    },
-    {
-        D_500A230,
-        16,
-        15,
-        D_6000000,
-        96,
-        13,
-    },
-    {
-        D_500A320,
-        16,
-        15,
-        D_6000000,
-        176,
-        12,
-    },
-    {
-        D_500A320,
-        16,
-        15,
-        D_6000000,
-        112,
-        13,
-    },
-    {
-        D_500A320,
-        16,
-        15,
-        D_6000000,
-        112,
-        28,
-    },
-    {
-        D_500A410,
-        16,
-        15,
-        D_6000000,
-        96,
-        28,
-    },
-    {
-        D_500A410,
-        16,
-        15,
-        D_6000000,
-        160,
-        28,
-    },
-    {
-        D_500A410,
-        16,
-        15,
-        D_6000000,
-        176,
-        12,
-    },
-    {
-        D_500A500,
-        16,
-        15,
-        D_6000000,
-        168,
-        19,
-    },
-    {
-        D_500A500,
-        16,
-        15,
-        D_6000000,
-        104,
-        28,
-    },
-    {
-        0x0500A5F0,
-        16,
-        15,
-        D_6000D80,
-        128,
-        28,
-    },
-    {
-        0x0500A5F0,
-        16,
-        15,
-        D_60012D0,
-        128,
-        28,
-    },
-    {
-        0x0500A5F0,
-        16,
-        15,
-        0x0C000A80,
-        128,
-        28,
-    },
-    {
-        D_5009F60,
-        16,
-        15,
-        0x05000D50,
-        80,
-        12,
-    },
-};
-#endif
 
 void func_80086664(f32 x, f32 y) {
     s32 i;
@@ -976,7 +803,6 @@ void func_80086664(f32 x, f32 y) {
     }
 }
 
-#ifdef IMPORT_DATA
 void func_800869A0(f32 arg0, f32 arg1, s32 k, f32 arg3, s32 arg4, s32 arg5) {
     s32 var_s2;
     s32 i;
@@ -1006,9 +832,6 @@ void func_800869A0(f32 arg0, f32 arg1, s32 k, f32 arg3, s32 arg4, s32 arg5) {
     }
     TextureRect_8bIA(&gMasterDisp, D_800D1CD4[k], 16, 15, arg0, arg1, arg3, arg3);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800869A0.s")
-#endif
 
 void func_80086C08(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
     RCP_SetupDL(&gMasterDisp, 0x4E);
@@ -1045,9 +868,7 @@ void func_80086CC8(void) {
     }
 }
 
-#ifdef IMPORT_DATA
 f32 D_800D1CFC = 0.0f;
-#endif
 
 void func_80086DCC(void) {
     s32 i;
@@ -1211,7 +1032,6 @@ void func_80086DCC(void) {
     }
 }
 
-#ifdef IMPORT_DATA
 void func_80087530(f32 x, f32 y, s32 number) {
     u8* D_800D1D00[] = { 0x03000000, 0x03000000, 0x03000000 };
     u16* D_800D1D0C[] = { 0x03000080, 0x03000080, 0x03000080 };
@@ -1274,11 +1094,7 @@ void func_80087530(f32 x, f32 y, s32 number) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
     Graphics_DisplayHUDNumber(x2, y2, number);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80087530.s")
-#endif
 
-#ifdef IMPORT_DATA
 void func_80087788(void) {
     u16* D_800D1D18[] = { D_10050E0, D_100BAC0, D_100D900, D_10032A0 };
     u8* D_800D1D28[] = { 0x05006CB0, 0x05006E90, 0x05006B30 };
@@ -1336,9 +1152,6 @@ void func_80087788(void) {
         func_80086110(x[j][2], y[j][2], shield);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80087788.s")
-#endif
 
 void func_80087B5C(void) {
     s32 i;
@@ -1655,7 +1468,6 @@ s32 func_800886B8(void) {
     return var_v1;
 }
 
-#ifdef IMPORT_DATA
 void func_80088784(s32 arg0) {
     Gfx* D_800D1D4C[] = {
         D_200B630, D_200A5A0, D_2009510, D_2008480, D_20073F0, D_2006360, D_200C6C0, D_20052D0, D_2004240,
@@ -1687,10 +1499,6 @@ void func_80088784(s32 arg0) {
         Matrix_Pop(&gGfxMatrix);
     }
 }
-#else
-void func_80088784(s32 arg0);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80088784.s")
-#endif
 
 #ifdef IMPORT_BSS
 // needs D_80161838 to be static
@@ -2060,7 +1868,8 @@ void func_800898F0(void) {
     gSPDisplayList(gMasterDisp++, D_6004570);
 }
 
-#ifdef IMPORT_DATA
+f32 D_800D1E10 = 0.0f;
+
 void func_80089994(s32 arg0) {
     s32 D_800D1E14[][4] = {
         { 177, 242, 12, 255 }, { 89, 121, 6, 128 }, { 90, 90, 255, 255 }, { 45, 45, 128, 128 },
@@ -2084,9 +1893,6 @@ void func_80089994(s32 arg0) {
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_1015510);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80089994.s")
-#endif
 
 void func_80089AF4(void) {
     RCP_SetupDL(&gMasterDisp, 0x3E);
@@ -2224,7 +2030,6 @@ void func_80089E98(s32 arg0) {
     }
 }
 
-#ifdef IMPORT_DATA
 void func_8008A07C(f32 x, f32 y) {
     f32 D_800D1E94[] = { 20.0f, 180.0f, 20.0f, 180.0f };
     f32 D_800D1EA4[] = { 72.0f, 72.0f, 192.0f, 192.0f };
@@ -2258,10 +2063,6 @@ void func_8008A07C(f32 x, f32 y) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     func_80085404(xPos, yPos, xScale1, yScale1);
 }
-#else
-void func_8008A07C(f32 x, f32 y);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008A07C.s")
-#endif
 
 void func_8008A240(void) {
     s32 i;
@@ -2311,10 +2112,6 @@ void func_8008A240(void) {
         }
     }
 }
-
-#ifdef IMPORT_DATA
-f32 D_800D1E10 = 0.0f;
-#endif
 
 s32 func_8008A4DC(void) {
     s32 i;
@@ -2639,11 +2436,9 @@ void func_8008B2A4(void) {
     }
 }
 
-#ifdef IMPORT_DATA
 s32 D_800D1EB4 = 255;
 s32 D_800D1EB8 = 255;
 s32 D_800D1EBC = 255;
-#endif
 
 void func_8008B2F0(void) {
     f32 var_fv0;
@@ -3023,7 +2818,6 @@ void func_8008C104(u16* texture, u16* arg1) {
     Texture_Mottle(dst, src, 2);
 }
 
-#ifdef IMPORT_DATA
 void func_8008C390(f32 arg0, f32 arg1, f32 arg2, s32 arg3) {
     u16* D_800D1EC0[] = {
         D_5000000, D_5000080, D_5000100, D_5000180, D_5000200, D_5000280, D_5000300, D_5000380, D_5000400, D_5000480,
@@ -3042,11 +2836,7 @@ void func_8008C390(f32 arg0, f32 arg1, f32 arg2, s32 arg3) {
         TextureRect_8bIA(&gMasterDisp, D_800D1EC0[arg3 / i], 16, 8, arg0, arg1, arg2, arg2);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008C390.s")
-#endif
 
-#ifdef IMPORT_DATA
 void func_8008C5C8(f32 arg0, f32 arg1, f32 arg2, s32 arg3) {
     u16* D_800D1EE8[] = {
         D_10050E0,
@@ -3062,11 +2852,7 @@ void func_8008C5C8(f32 arg0, f32 arg1, f32 arg2, s32 arg3) {
     }
     TextureRect_16bRGBA(&gMasterDisp, D_800D1EE8[arg3] + 1760, 44, 4, arg0, (40.0f * arg2) + arg1, arg2, arg2);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008C5C8.s")
-#endif
 
-#ifdef IMPORT_DATA
 void func_8008C6F4(s32 idx, s32 arg1) {
     f32 D_800D1EF8[] = { 0.0f, 0.0f, -9.0f, 9.0f, 10.0f, 10.0f, 10.0f, 10.0f, 0.0f, 0.0f, -8.0f, 8.0f };
     f32 D_800D1F28[] = { -7.0f, 7.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 8.0f, -8.0f, 0.0f, 0.0f };
@@ -3105,11 +2891,7 @@ void func_8008C6F4(s32 idx, s32 arg1) {
 
     Matrix_Pop(&gGfxMatrix);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008C6F4.s")
-#endif
 
-#ifdef IMPORT_DATA
 void func_8008CA44(void) {
     s32 D_800D2048[] = {
         0x80, 0x40, 0x20, 0x10, 0x0A, 0x09, 0x06, 0x05, 0x08, 0x04, 0x02, 0x01,
@@ -3137,9 +2919,6 @@ void func_8008CA44(void) {
         func_8008BD00(D_1024A58, 8, 8, 2);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008CA44.s")
-#endif
 
 s32 func_8008CB8C(void) {
     return 0;
@@ -3149,7 +2928,6 @@ void func_8008CB98(f32 arg0, f32 arg1, f32 arg2) {
     TextureRect_8bIA(&gMasterDisp, D_30013E0, 8, 8, arg0, arg1, arg2, arg2);
 }
 
-#ifdef IMPORT_DATA
 void func_8008CBE4(void) {
     f32 D_800D2078[] = { 62.0f, 222.0f, 62.0f, 222.0f }; // X
     f32 D_800D2088[] = { 86.0f, 86.0f, 206.0f, 206.0f }; // Y
@@ -3216,9 +2994,6 @@ void func_8008CBE4(void) {
             break;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008CBE4.s")
-#endif
 
 void func_8008CFB8(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     s32 i;
@@ -3239,7 +3014,6 @@ void func_8008D1F0(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     TextureRect_4bCI(&gMasterDisp, D_10116B0, D_1011730, 16, 16, arg0, arg1, arg2, arg3);
 }
 
-#ifdef IMPORT_DATA
 void func_8008D250(void) {
     f32 D_800D20C8[] = { 113.0f, 273.0f, 113.0f, 273.0f };
     f32 D_800D20D8[] = { 79.0f, 79.0f, 199.0f, 199.0f };
@@ -3248,11 +3022,7 @@ void func_8008D250(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     func_8008C5C8(D_800D20C8[gPlayerNum], D_800D20D8[gPlayerNum], 0.54f, gPlayerNum);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008D250.s")
-#endif
 
-#ifdef IMPORT_DATA
 void func_8008D31C(void) {
     f32 D_800D20E8[] = { 60.0f, 220.0f, 60.0f, 220.0f };
     f32 D_800D20F8[] = { 78.0f, 78.0f, 198.0f, 198.0f };
@@ -3268,11 +3038,7 @@ void func_8008D31C(void) {
 
     func_8008CFB8(D_800D20E8[gPlayerNum], D_800D20F8[gPlayerNum], 1.0f, 1.0f);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008D31C.s")
-#endif
 
-#ifdef IMPORT_DATA
 void func_8008D4F0(f32 arg0, f32 arg1) {
     f32 D_800D2108[] = {
         110.0f, 270.0f, 110.0f, 270.0f, 0.0f,
@@ -3330,11 +3096,7 @@ void func_8008D4F0(f32 arg0, f32 arg1) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     func_80085740(D_800D2108[var_v1], D_800D211C[var_v1], 1.0f, 1.0f);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008D4F0.s")
-#endif
 
-#ifdef IMPORT_DATA
 void func_8008D7F4(void) {
     s32 D_800D2130[] = { 146, 165, 146, 165 };
     s32 D_800D2140[] = { 106, 106, 125, 125 };
@@ -3346,18 +3108,12 @@ void func_8008D7F4(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, D_800D2150[gPlayerNum], D_800D2160[gPlayerNum], D_800D2170[gPlayerNum], 255);
     Graphics_DisplayHUDNumber(D_800D2130[gPlayerNum], D_800D2140[gPlayerNum], gPlayerNum + 1);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008D7F4.s")
-#endif
 
-#ifdef IMPORT_DATA
 s32 D_800D2180[4] = { 0, 0, 0, 0 };
 s32 D_800D2190[4] = { 0, 0, 0, 0 };
 f32 D_800D21A0 = 255.0f;
 f32 D_800D21A4 = 0.0f;
-#endif
 
-#ifdef IMPORT_DATA
 void func_8008D984(void) {
     s32 D_800D21A8[] = { 146, 165, 146, 165 };
     s32 D_800D21B8[] = { 94, 94, 137, 137 };
@@ -3392,9 +3148,6 @@ void func_8008D984(void) {
         func_8008D1F0(D_800D21A8[gPlayerNum], D_800D21B8[gPlayerNum], 1.0f, 1.0f);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008D984.s")
-#endif
 
 void func_8008DC34(void) {
     if ((D_80177E7C != 0) && (D_80178750 == 0)) {
@@ -4025,7 +3778,6 @@ void func_8008FE78(Boss* boss) {
     gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
 }
 
-#ifdef IMPORT_DATA
 void func_8008FFF0(Boss* boss, s32 arg1) {
     Vec3s D_800D21C8[] = {
         { -385, 54, 233 },   { -324, 148, 193 },  { -267, 186, 136 },  { -128, 430, 180 },  { -231, 584, 140 },
@@ -4072,9 +3824,6 @@ void func_8008FFF0(Boss* boss, s32 arg1) {
         break;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8008FFF0.s")
-#endif
 
 s32 func_80090200(Boss* boss) {
     Vec3f dest, src;
@@ -5043,7 +4792,6 @@ bool func_800927A0(Actor* actor) {
     return ret;
 }
 
-#ifdef IMPORT_DATA
 void func_80092D48(Actor* actor) {
     s32 D_800D22A8[] = { 1, 2, 3 };
 
@@ -5076,9 +4824,6 @@ void func_80092D48(Actor* actor) {
         Object_Kill(&actor->obj, &actor->sfxPos);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80092D48.s")
-#endif
 
 void func_80092EC0(Actor* actor) {
     f32 var_fv1;
@@ -5267,7 +5012,6 @@ void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
     }
 }
 
-#ifdef IMPORT_DATA
 f32 D_800D22B4 = -100.0f;
 f32 D_800D22B8 = 0.01f;
 f32 D_800D22BC = 0.04f;
@@ -5277,25 +5021,106 @@ f32 D_800D22C8 = 260.0f;
 f32 D_800D22CC = 260.0f;
 s32 D_800D22D0 = 50;
 s32 D_800D22D4 = 2;
-#endif
 
-#ifdef IMPORT_DATA
 void func_800935E8(Player* player) {
     Vec3f D_800D22D8[] = { { -1730.0f, 1600.0f, -6690.0f },
                            { -830.0f, 1600.0f, -7380.0f },
                            { 0.0f, 1600.0f, -7380.0f } };
     Vec3f D_800D22FC[] = { { 0.0f, 0.0f, 0.0f }, { 190.0f, 2570.0f, -4740.0f }, { 0.0f, 0.0f, 0.0f } };
-    Vec3f D_800D2320[] = { { 50.0f, -165.0f, -900.0f },   { -100.0f, -165.0f, -900.0f }, { -100.0f, -165.0f, -850.0f },
-                           { -200.0f, -165.0f, -800.0f }, { -200.0f, -165.0f, -750.0f }, { -240.0f, -165.0f, -700.0f },
-                           { -240.0f, -165.0f, -650.0f }, { -280.0f, -165.0f, -600.0f }, { -280.0f, -165.0f, -550.0f },
-                           { -320.0f, -165.0f, -500.0f }, { -320.0f, -165.0f, -450.0f }, { -360.0f, -165.0f, -400.0f },
-                           { -360.0f, -165.0f, -350.0f }, { -400.0f, -165.0f, -300.0f }, { -400.0f, -165.0f, -250.0f },
-                           { -440.0f, -165.0f, -200.0f }, { -440.0f, -165.0f, -150.0f }, { -480.0f, -165.0f, -100.0f },
-                           { -480.0f, -165.0f, -50.0f },  { -520.0f, -165.0f, 0.0f },    { -520.0f, -165.0f, 50.0f },
-                           { -560.0f, -165.0f, 100.0f },  { -560.0f, -165.0f, 150.0f },  { -600.0f, -165.0f, 200.0f },
-                           { -600.0f, -165.0f, 250.0f },  { -640.0f, -165.0f, 300.0f },  { -640.0f, -165.0f, 350.0f },
-                           { -680.0f, -165.0f, 400.0f },  { -680.0f, -165.0f, 450.0f },  { -720.0f, -165.0f, 500.0f },
-                           { -720.0f, -165.0f, 550.0f },  { -50.0f, -165.0f, -900.0f } };
+    Vec3f D_800D2320[] = { { 50.0f, -165.0f, -900.0f },
+                           { -100.0f,
+
+                             -165.0f, -900.0f },
+                           { -100.0f,
+
+                             -165.0f, -850.0f },
+                           { -200.0f,
+
+                             -165.0f, -800.0f },
+                           { -200.0f,
+
+                             -165.0f, -750.0f },
+                           { -240.0f,
+
+                             -165.0f, -700.0f },
+                           { -240.0f,
+
+                             -165.0f, -650.0f },
+                           { -280.0f,
+
+                             -165.0f, -600.0f },
+                           { -280.0f,
+
+                             -165.0f, -550.0f },
+                           { -320.0f,
+
+                             -165.0f, -500.0f },
+                           { -320.0f,
+
+                             -165.0f, -450.0f },
+                           { -360.0f,
+
+                             -165.0f, -400.0f },
+                           { -360.0f,
+
+                             -165.0f, -350.0f },
+                           { -400.0f,
+
+                             -165.0f, -300.0f },
+                           { -400.0f,
+
+                             -165.0f, -250.0f },
+                           { -440.0f,
+
+                             -165.0f, -200.0f },
+                           { -440.0f,
+
+                             -165.0f, -150.0f },
+                           { -480.0f,
+
+                             -165.0f, -100.0f },
+                           { -480.0f,
+
+                             -165.0f, -50.0f },
+                           { -520.0f,
+
+                             -165.0f, 0.0f },
+                           { -520.0f,
+
+                             -165.0f, 50.0f },
+                           { -560.0f,
+
+                             -165.0f, 100.0f },
+                           { -560.0f,
+
+                             -165.0f, 150.0f },
+                           { -600.0f,
+
+                             -165.0f, 200.0f },
+                           { -600.0f,
+
+                             -165.0f, 250.0f },
+                           { -640.0f,
+
+                             -165.0f, 300.0f },
+                           { -640.0f,
+
+                             -165.0f, 350.0f },
+                           { -680.0f,
+
+                             -165.0f, 400.0f },
+                           { -680.0f,
+
+                             -165.0f, 450.0f },
+                           { -720.0f,
+
+                             -165.0f, 500.0f },
+                           { -720.0f,
+
+                             -165.0f, 550.0f },
+                           { -50.0f,
+
+                             -165.0f, -900.0f } };
     Vec3f src, dest;
     f32 x;
     f32 y;
@@ -5699,9 +5524,10 @@ void func_800935E8(Player* player) {
     Math_SmoothStepToF(&player->camAt.y, D_801779B8, D_80177A48[0], 50000.0f, 0.0f);
     Math_SmoothStepToF(&player->camAt.z, D_801779C0, D_80177A48[0], 50000.0f, 0.0f);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800935E8.s")
-#endif
+
+// unused data
+s32 D_800D24A0[] = { 0x0000003C, 0x000000C8, 0x00000000, 0x41200000, 0x41A00000, 0x40A00000, 0x40E00000, 0x41500000,
+                     0x43000000, 0x43000000, 0x437F0000, 0x43000000, 0x00000000, 0x00000384, 0x3CA3D70A };
 
 void func_80094954(Effect* effect) {
     Player* player = &gPlayer[0];
@@ -5780,7 +5606,6 @@ void stub_80094D10(void) {
 void stub_80094D18(void) {
 }
 
-#ifdef IMPORT_DATA
 void func_80094D20(f32 x, f32 y) {
     u8* D_800D24DC[] = { D_5009F60, D_500A050, D_500A140, D_500A230, D_500A320,
                          D_500A410, D_500A500, D_500A5F0, D_500A6E0, D_500A7D0 };
@@ -5920,9 +5745,6 @@ void func_80094D20(f32 x, f32 y) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80094D20.s")
-#endif
 
 void func_80095350(Actor* actor) {
     Actor_Initialize(actor);
@@ -5932,7 +5754,6 @@ void func_80095350(Actor* actor) {
     Object_SetInfo(&actor->info, actor->obj.id);
 }
 
-#ifdef IMPORT_DATA
 void func_800953A0(Actor* actor, s32 arg1) {
     Vec3f D_800D2510[] = {
         { 1800.0f, 0.0f, -4000.0f },
@@ -5949,11 +5770,7 @@ void func_800953A0(Actor* actor, s32 arg1) {
     actor->unk_0B6 = 45;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_800953A0.s")
-#endif
 
-#ifdef IMPORT_DATA
 void func_8009546C(Actor* actor, s32 arg1) {
     Vec3f D_800D2540[] = {
         { 1300.0f, 0.0f, -2000.0f },  { -1000.0f, 0.0f, -3000.0f }, { 800.0f, 0.0f, 0.0f },
@@ -5968,11 +5785,7 @@ void func_8009546C(Actor* actor, s32 arg1) {
     actor->unk_0B6 = 46;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_8009546C.s")
-#endif
 
-#ifdef IMPORT_DATA
 void func_80095538(Actor* actor, s32 arg1) {
     Vec3f D_800D257C[] = {
         { 0.0f, 0.0f, -200.0f },    { -300.0f, 0.0f, -700.0f },  { 400.0f, 0.0f, -900.0f },
@@ -5987,10 +5800,6 @@ void func_80095538(Actor* actor, s32 arg1) {
     actor->unk_0B6 = 47;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80095538.s")
-#endif
-
 void func_80095604(Player* player) {
     s32 i;
     s32 j;
