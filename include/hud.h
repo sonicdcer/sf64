@@ -15,7 +15,6 @@ typedef struct {
 void func_80084930(f32, f32, s32);
 void func_80086444(void);
 void func_80087788(void);
-void func_801BE034(Actor*, Player*);
 void func_80084E78(Gfx** gfxP, void* arg1, void* arg2, u32 arg3, u32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,
                    f32 arg9, f32 argA);
 void func_80085944(void);
