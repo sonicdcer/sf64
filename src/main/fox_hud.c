@@ -550,7 +550,7 @@ Gfx* D_800D1A94[] = { (Gfx*) 0x0101C170, (Gfx*) 0x0101C000, (Gfx*) 0x0101BE90, (
                       (Gfx*) 0x0101B5F0, (Gfx*) 0x0101B480, (Gfx*) 0x0101B310, (Gfx*) 0x0101B1A0 };
 f32 D_800D1AC4[] = { 0.0f, -30.0f, -26.0f, -22.0f, -18.0f };
 f32 D_800D1AD8[] = { 0.0f, 28.0f, 28.0f, 28.0f, 28.0f };
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80085944.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_hud/func_80085944.s")
 #endif
 
 void func_80086110(f32 arg0, f32 arg1, s32 arg2) {
@@ -1804,7 +1804,7 @@ void func_80088970(void) {
 }
 #else
 void func_80088970(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sf_hud/func_80088970.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_hud/func_80088970.s")
 #endif
 
 void func_80089670(void) {
