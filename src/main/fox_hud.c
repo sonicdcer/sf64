@@ -5215,7 +5215,7 @@ void func_800935E8(Player* player) {
         case 3:
             D_8017835C = 16;
 
-            if (player->timer_1F8 > (1000 - 226)) {
+            if (player->timer_1F8 > 774) {
                 if (D_80177A48[4] >= 200.0f) {
                     Math_SmoothStepToF(&D_80177A48[4], -200.0f, 1.00f, 4.0f, 4.0f);
                 } else {
