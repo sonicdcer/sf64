@@ -252,7 +252,17 @@ void func_i2_80188228(f32 x, f32 y, f32 z, f32 zRot) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80188298.s")
+void func_i2_80188298(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
+    s32 i;
+
+    for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
+        if (gEffects[i].obj.status == 0) {
+            func_i2_801881A8(&gEffects[i], arg0, arg1, arg2, arg3, -1);
+            Audio_PlaySfx(0x3102705CU, &gEffects[i].sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            break;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80188344.s")
 
