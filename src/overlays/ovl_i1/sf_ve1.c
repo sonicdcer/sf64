@@ -2,7 +2,7 @@
 #include "sf_ve1.h"
 
 extern s32 D_i1_8019C0B8;
-
+extern s32 func_80096A74();
 
 f32 func_i1_801920F0(f32* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32* arg5) {
     f32 temp_ft4;
@@ -169,3 +169,6 @@ void func_i1_80192CB0(Actor* actor) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/D_i1_8019B2B0.s")
 
+void func_i1_801988B8(void) {
+    func_80096A74();
+}
