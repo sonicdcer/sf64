@@ -99,22 +99,17 @@ void func_i1_80192358(Object_4C* this) {
     }
 }
 
-void func_i1_801923C0(Object_4C* arg0) {
-    Boss* var_v0 = (Boss*) ((u32) gBosses);
-    s32 var_v1 = 0;
+void func_i1_801923C0(Object_4C* obj4C) {
+    Boss* boss;
+    s32 i;
 
-loop_1:
-    var_v1++;
-    if (var_v0->obj.status != 0 && var_v0->obj.id == 0x13F) {
-        if (var_v0->obj.pos.z <= arg0->obj.pos.z) {
-            D_i1_8019C0BC = (s32) arg0->obj.rot.x + 1;
-            arg0->obj.status = 0;
-            return;
-        }
-    } else {
-        var_v0 = (Boss*) ((u32) var_v0 + 0x408);
-        if (var_v1 != 4) {
-            goto loop_1;
+    for (boss = &gBosses[0], i = 0; i < 4; i++, boss++) {
+        if (boss->obj.status != 0 && boss->obj.id == OBJ_BOSS_319) {
+            if (boss->obj.pos.z <= obj4C->obj.pos.z) {
+                D_i1_8019C0BC = (s32)obj4C->obj.rot.x + 1;
+                obj4C->obj.status = 0;
+            }
+            break;
         }
     }
 }
