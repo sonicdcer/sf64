@@ -6,10 +6,7 @@ extern s32 D_i1_8019C0BC;
 extern s32 D_i1_8019C0C0;
 
 f32 func_i1_801920F0(f32* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32* arg5) {
-    f32 temp_ft4;
-    f32 temp_fv1_2;
-    f32 temp_fv1_3;
-    f32 var_fa1;
+    f32 temp;
 
     *arg5 = arg1 - *arg0;
 
@@ -23,34 +20,32 @@ f32 func_i1_801920F0(f32* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32* arg
         } while (*arg5 < -180.0f);
     }
 
-    var_fa1 = *arg5;
+    temp = *arg5;
 
-    if (var_fa1 != 0.0f) {
-        var_fa1 *= arg2;
+    if (temp != 0.0f) {
+        temp *= arg2;
 
-        if ((arg4 <= var_fa1) || (temp_ft4 = -arg4, (var_fa1 <= temp_ft4))) {
-            if (arg3 < var_fa1) {
-                var_fa1 = arg3;
+        if ((arg4 <= temp) || ((temp <= -arg4))) {
+            if (arg3 < temp) {
+                temp = arg3;
             } else {
-                temp_fv1_2 = -arg3;
 
-                if (temp_fv1_2 > var_fa1) {
-                    var_fa1 = temp_fv1_2;
+                if (-arg3 > temp) {
+                    temp = -arg3;
                 }
             }
-
-            *arg0 += var_fa1;
+            *arg0 += temp;
         } else {
-            if (var_fa1 < arg4) {
-                var_fa1 = arg4;
+            if (temp < arg4) {
+                temp = arg4;
                 *arg0 += arg4;
 
                 if (arg1 < *arg0) {
                     *arg0 = arg1;
                 }
-            } else if (temp_ft4 < var_fa1) {
-                var_fa1 = temp_ft4;
-                *arg0 += temp_ft4;
+            } else if (-arg4 < temp) {
+                temp = -arg4;
+                *arg0 += -arg4;
 
                 if (*arg0 < arg1) {
                     *arg0 = arg1;
@@ -59,15 +54,13 @@ f32 func_i1_801920F0(f32* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32* arg
         }
     }
 
-    temp_fv1_3 = *arg0;
-
-    if (temp_fv1_3 >= 360.0f) {
-        *arg0 = temp_fv1_3 - 360.0f;
-    } else if (temp_fv1_3 < 0.0f) {
-        *arg0 = temp_fv1_3 + 360.0f;
+    if (*arg0 >= 360.0f) {
+        *arg0 = *arg0 - 360.0f;
+    } else if (*arg0 < 0.0f) {
+        *arg0 = *arg0 + 360.0f;
     }
 
-    return var_fa1;
+    return temp;
 }
 
 void func_i1_801922DC(Object_4C* this) {
