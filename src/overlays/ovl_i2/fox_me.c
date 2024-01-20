@@ -734,8 +734,6 @@ void func_i2_8018C77C(Actor* actor, s32 arg1) {
 }
 
 void func_i2_8018C8F4(Actor* actor1, Actor* actor2) {
-    f32 temp_ft5;
-
     Actor_Initialize(actor1);
     actor1->obj.status = 1;
     actor1->obj.id = OBJ_ACTOR_182;
@@ -752,7 +750,22 @@ void func_i2_8018C8F4(Actor* actor1, Actor* actor2) {
     Object_SetInfo(&actor1->info, actor1->obj.id);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018CA10.s")
+void func_i2_8018CA10(Actor* actor1, Actor* actor2, f32 x, f32 y, f32 z) {
+    Actor_Initialize(actor1);
+    actor1->obj.status = 1;
+    actor1->obj.id = OBJ_ACTOR_182;
+
+    actor1->obj.pos.x = actor2->obj.pos.x + x;
+    actor1->obj.pos.y = actor2->obj.pos.y + y;
+    actor1->obj.pos.z = actor2->obj.pos.x + z;
+
+    actor1->obj.rot.y = Rand_ZeroOneSeeded() * 360.0f;
+    actor1->obj.rot.x = Rand_ZeroOneSeeded() * 360.0f;
+
+    actor1->timer_0C2 = 0x2710;
+    actor1->vel.z = 30.0f;
+    Object_SetInfo(&actor1->info, actor1->obj.id);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018CAD8.s")
 
