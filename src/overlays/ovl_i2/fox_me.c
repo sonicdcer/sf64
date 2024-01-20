@@ -10,6 +10,7 @@ extern s32 D_i2_801955B4[];
 extern Vec3f D_i2_801955C4;
 extern Vec3f D_i2_801955D0[];
 extern f32 D_i2_80195600[];
+extern Vec3f D_i2_80195610[];
 
 extern Gfx D_6001310[];
 extern Gfx D_600CD60[];
@@ -1647,6 +1648,54 @@ void func_i2_8018E084(Player* player) {
     player->unk_0F0 = __sinf(player->unk_0F4 * M_DTOR);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018ED9C.s")
+void func_i2_8018ED9C(Actor* actor) {
+    Vec3f sp3C;
+    Vec3f sp30;
+
+    switch (actor->unk_0B8) {
+        case 0:
+            actor->vwork[0].x = D_i2_80195610[actor->index].x + gPlayer->pos.x;
+            actor->vwork[0].y = D_i2_80195610[actor->index].y + gPlayer->pos.y;
+            actor->vwork[0].z = D_i2_80195610[actor->index].z + gPlayer->pos.z;
+
+            Math_SmoothStepToF(&actor->obj.pos.x, actor->vwork[0].x, 0.02f, 50.0f, 0.0001f);
+            Math_SmoothStepToF(&actor->obj.pos.y, actor->vwork[0].y, 0.02f, 50.0f, 0.0001f);
+            Math_SmoothStepToF(&actor->obj.pos.z, actor->vwork[0].z, 0.02f, 50.0f, 0.0001f);
+            Math_SmoothStepToF(&actor->unk_0F4.z, 0.0f, 0.03f, 0.5f, 0.0001f);
+            break;
+
+        case 1:
+            actor->unk_0B8 = 2;
+            Audio_PlaySfx(0x09000002U, &actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            actor->timer_0BC = 0x96;
+            actor->fwork[29] = 5.0f;
+
+        case 2:
+            actor->iwork[11] = 2;
+            actor->fwork[0] += 2.0f;
+            actor->unk_0F4.x += 0.1f;
+            if (actor->timer_0BC == 0) {
+                Object_Kill(&actor->obj, &actor->sfxPos);
+            }
+            break;
+    }
+
+    Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * 0.017453292f, 0U);
+    Matrix_RotateX(gCalcMatrix, -(actor->unk_0F4.x * 0.017453292f), 1U);
+
+    sp3C.x = 0.0f;
+    sp3C.y = 0.0f;
+    sp3C.z = actor->fwork[0];
+
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp3C, &sp30);
+
+    actor->vel.x = sp30.x;
+    actor->vel.y = sp30.y;
+    actor->vel.z = sp30.z;
+
+    actor->obj.rot.x = -actor->unk_0F4.x;
+    actor->obj.rot.y = actor->unk_0F4.y + 180.0f;
+    actor->obj.rot.z = -actor->unk_0F4.z;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/D_i2_80195790.s")
