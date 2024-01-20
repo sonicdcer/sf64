@@ -212,7 +212,7 @@ typedef struct Player {
     /* 0x1CC */ PlayerForm form;
     /* 0x1D0 */ s32 unk_1D0;
     /* 0x1D4 */ s32 unk_1D4;
-    /* 0x1D8 */ char pad1D8[4];
+    /* 0x1D8 */ s32 unk_1D8;
     /* 0x1DC */ s32 unk_1DC;
     /* 0x1E0 */ s32 timer_1E0;
     /* 0x1E4 */ s32 timer_1E4;
