@@ -1279,7 +1279,18 @@ void func_i2_8018CD8C(Player* player) {
     Math_SmoothStepToF(&player->camAt.z, D_801779C0, D_80177A48[0], 20000.0f, 0.0f);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018D9EC.s")
+void func_i2_8018D9EC(Actor* actor) {
+    switch (actor->unk_0B8) {
+        case 0:
+            actor->fwork[0] = (Rand_ZeroOne() - 0.5f) * 10.0f;
+            actor->unk_0B8 = 1;
+
+        case 1:
+            actor->obj.rot.z += actor->fwork[0];
+            break;
+    }
+    func_i2_80187530(actor);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018DA6C.s")
 
