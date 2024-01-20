@@ -79,7 +79,7 @@ Boss* boss = &gBosses[0];
 }
 
 void func_i1_80192358(Object_4C* this) {
-    Boss* boss = gBosses;
+Boss* boss = &gBosses[0];
     s32 i;
 
     for (i = 0; i < 4; i++, boss++) {
