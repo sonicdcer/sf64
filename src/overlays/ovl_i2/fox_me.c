@@ -1010,8 +1010,25 @@ void func_i2_8018CAD8(void) {
     actor->obj.id = 0xC3;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
-void func_i2_8018CB50(Effect* effect, Actor* actor);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018CB50.s")
+
+void func_i2_8018CB50(Effect* effect, Actor* actor) {
+    Effect_Initialize(effect);
+    effect->obj.status = 2;
+    effect->obj.id = OBJ_EFFECT_346;
+    effect->timer_50 = (s32) (Rand_ZeroOne() * 20.0f) + 20.0f;
+    effect->scale2 = (Rand_ZeroOne() * 0.5f) + 0.5f;
+
+    effect->obj.pos.x = actor->obj.pos.x;
+    effect->obj.pos.y = actor->obj.pos.y;
+    effect->obj.pos.z = actor->obj.pos.z;
+
+    effect->vel.x = (Rand_ZeroOne() - 0.5f) * 30.0f;
+    effect->vel.y = (Rand_ZeroOne() - 0.5f) * 30.0f;
+    effect->vel.z = (Rand_ZeroOne() - 0.5f) * 30.0f;
+
+    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    Object_SetInfo(&effect->info, (u32) effect->obj.id);
+}
 
 void func_i2_8018CCF8(Actor* arg0) {
     s32 i;
@@ -1019,8 +1036,8 @@ void func_i2_8018CCF8(Actor* arg0) {
 
     func_8007A6F0(&arg0->obj.pos, 0x2903A008);
 
-    for (i = 0; i < 0x19; ++i) {
-        for (j = 0; j < ARRAY_COUNT(gEffects); ++j) {
+    for (i = 0; i < 25; ++i) {
+        for (j = 0; j < ARRAY_COUNT(gEffects); j++) {
             if (gEffects[j].obj.status == 0) {
                 func_i2_8018CB50(&gEffects[j], arg0);
                 break;
