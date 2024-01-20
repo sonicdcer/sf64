@@ -1337,7 +1337,19 @@ void func_i2_8018DCE4(Effect* effect) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018DE14.s")
+void func_i2_8018DE14(Effect* effect) {
+    Matrix_RotateX(gGfxMatrix, effect->obj.rot.x * M_DTOR, 1);
+    Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_44);
+
+    switch (effect->unk_4C) {
+        case 0:
+            gSPDisplayList(gMasterDisp++, D_6023810);
+        case 1:
+            break;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018DF08.s")
 
