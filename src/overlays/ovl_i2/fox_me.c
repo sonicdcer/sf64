@@ -1204,8 +1204,8 @@ void func_i2_8018CD8C(Player* player) {
                     x = sqrtf((x * x) + (z * z));
                     sp68 = Math_RadToDeg(-Math_Atan2F(y, x));
 
-                    Matrix_RotateY(gCalcMatrix, 0.017453292f * sp64, 0);
-                    Matrix_RotateX(gCalcMatrix, 0.017453292f * sp68, 1);
+                    Matrix_RotateY(gCalcMatrix, M_DTOR * sp64, 0);
+                    Matrix_RotateX(gCalcMatrix, M_DTOR * sp68, 1);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp58, &sp4C);
 
                     func_8006EFA0(100, (actor3->obj.pos.x + (D_80177A48[3] * 74.0f)) + (sp4C.x * 0.6f),
@@ -1310,7 +1310,16 @@ void func_i2_8018DB6C(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_600CD60);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018DBEC.s")
+void func_i2_8018DBEC(Effect* effect) {
+    if (effect->unk_4E == 1) {
+        Matrix_RotateX(gGfxMatrix, effect->obj.rot.x * M_DTOR, 1);
+        Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, 1);
+        Matrix_RotateZ(gGfxMatrix, 1.5707964f, 1);
+        Matrix_SetGfxMtx(&gMasterDisp);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_44);
+        gSPDisplayList(gMasterDisp++, D_60263F0);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018DCE4.s")
 
