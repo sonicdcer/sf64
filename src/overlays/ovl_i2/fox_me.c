@@ -208,7 +208,7 @@ void func_i2_80187D08(f32 x, f32 y, f32 z, f32 arg3, f32 xRot, f32 yRot, s32 arg
     }
 }
 
-void func_i2_80187D98(Effect* effect, f32 x, f32 y, f32 z, f32 arg4, s32 arg5) {
+void func_i2_80187D98(Effect* effect, f32 x, f32 y, f32 z, f32 arg4, bool arg5) {
     Effect_Initialize(effect);
     effect->obj.status = 1;
     effect->obj.id = OBJ_EFFECT_369;
@@ -221,14 +221,45 @@ void func_i2_80187D98(Effect* effect, f32 x, f32 y, f32 z, f32 arg4, s32 arg5) {
     effect->unk_48 = arg5;
     effect->obj.rot.x = 45.0f;
 
-    if (arg5 != 0) {
+    if (arg5) {
         effect->obj.rot.x = -45.0f;
     }
 
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80187E38.s")
+void func_i2_80187E38(f32 x, f32 y, f32 z, f32 arg3) {
+    s32 i;
+
+    for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
+        if (gEffects[i].obj.status == 0) {
+            func_i2_80187D98(&gEffects[i], x, y, z, arg3, 0);
+            Audio_PlaySfx(0x31037057U, &gEffects[i].sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            break;
+        }
+    }
+
+    for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
+        if (gEffects[i].obj.status == 0) {
+            func_i2_80187D98(&gEffects[i], x, y, z, arg3, 1);
+            break;
+        }
+    }
+
+    for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
+        if (gEffects[i].obj.status == 0) {
+            func_i2_80187D98(&gEffects[i], x, y, z, arg3 + 90.0f, 0);
+            break;
+        }
+    }
+
+    for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
+        if (gEffects[i].obj.status == 0) {
+            func_i2_80187D98(&gEffects[i], x, y, z, arg3 + 90.0f, 1);
+            break;
+        }
+    }
+}
 
 void func_i2_80187FF8(Effect* effect, f32 x, f32 y, f32 z) {
     Effect_Initialize(effect);
@@ -245,8 +276,24 @@ void func_i2_80187FF8(Effect* effect, f32 x, f32 y, f32 z) {
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-// figure out prototype first
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_80188088.s")
+void func_i2_80188088(Effect* effect) {
+    s32 i;
+
+    for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
+        if (gEffects[i].obj.status == 0) {
+            func_i2_80187FF8(&gEffects[i], effect->obj.pos.x + 700.0f, effect->obj.pos.y, effect->obj.pos.z + 1235.0f);
+            Audio_PlaySfx(0x19006035U, &gEffects[i].sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            break;
+        }
+    }
+
+    for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
+        if (gEffects[i].obj.status == 0) {
+            func_i2_80187FF8(&gEffects[i], effect->obj.pos.x - 700.0f, effect->obj.pos.y, effect->obj.pos.z + 1235.0f);
+            break;
+        }
+    }
+}
 
 void func_i2_801881A8(Effect* effect, f32 x, f32 y, f32 z, f32 zRot, s32 arg5) {
     Effect_Initialize(effect);
