@@ -1010,10 +1010,24 @@ void func_i2_8018CAD8(void) {
     actor->obj.id = 0xC3;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
-
+void func_i2_8018CB50(Effect* effect, Actor* actor);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018CB50.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018CCF8.s")
+void func_i2_8018CCF8(Actor* arg0) {
+    s32 i;
+    s32 j;
+
+    func_8007A6F0(&arg0->obj.pos, 0x2903A008);
+
+    for (i = 0; i < 0x19; ++i) {
+        for (j = 0; j < ARRAY_COUNT(gEffects); ++j) {
+            if (gEffects[j].obj.status == 0) {
+                func_i2_8018CB50(&gEffects[j], arg0);
+                break;
+            }
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018CD8C.s")
 
