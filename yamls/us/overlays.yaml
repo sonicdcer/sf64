@@ -15,7 +15,7 @@
     - [0xE06510, .data, fox_i1]
     - [0xE06520, .data, fox_co]
     - [0xE06880, data, sf_ve1]
-    - [0xE07B90, data, sf_tr360]
+    - [0xE07B90, .data, sf_tr360]
     - [0xE07C30, .rodata, fox_co]
     - [0xE07FF0, .rodata, sf_ve1]
     - [0xE08380, .rodata, fox_tr]
