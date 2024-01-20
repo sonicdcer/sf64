@@ -2,6 +2,11 @@
 
 extern s32 D_800C9E90[];
 
+extern f32 D_i2_80195584[];
+extern f32 D_i2_80195594[];
+extern f32 D_i2_801955A4[];
+extern s32 D_i2_801955B4[];
+
 extern Gfx D_60240B0[];
 extern Gfx D_60263F0[];
 
@@ -704,7 +709,29 @@ void func_i2_8018B7C4(s32 arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018BACC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018C77C.s")
+void func_i2_8018C77C(Actor* actor, s32 arg1) {
+    Actor_Initialize(actor);
+    actor->obj.status = 1;
+    actor->obj.id = OBJ_ACTOR_195;
+
+    actor->obj.pos.x = D_i2_80195584[arg1] + gPlayer[0].pos.x;
+    actor->obj.pos.y = D_i2_80195594[arg1] + gPlayer[0].pos.y;
+    actor->obj.pos.z = D_i2_801955A4[arg1] + gPlayer[0].unk_138;
+
+    actor->unk_0B6 = D_i2_801955B4[arg1];
+    actor->obj.rot.y = 180.0f;
+    Object_SetInfo(&actor->info, actor->obj.id);
+    actor->info.unk_10 = 200.0f;
+
+    if (actor->unk_0B6 == 0) {
+        actor->iwork[11] = 1;
+        Audio_PlaySfx(0x3100000CU, &actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        return;
+    }
+
+    Audio_PlaySfx(0x11030010U, &actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    Audio_PlaySfx(0x31024059U, &actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018C8F4.s")
 
