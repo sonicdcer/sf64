@@ -10,6 +10,7 @@ extern s32 D_i2_801955B4[];
 extern Vec3f D_i2_801955C4;
 
 extern Gfx D_6001310[];
+extern Gfx D_600CD60[];
 extern Gfx D_6016240[];
 extern Gfx D_6017AD0[];
 extern Gfx D_60236F0[];
@@ -1304,7 +1305,10 @@ void func_i2_8018DAEC(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_6016240);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018DB6C.s")
+void func_i2_8018DB6C(Actor* actor) {
+    RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
+    gSPDisplayList(gMasterDisp++, D_600CD60);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018DBEC.s")
 
