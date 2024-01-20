@@ -531,36 +531,22 @@ void func_i1_80188D50(Boss* boss) {
 extern AnimationHeader D_602BC18;
 extern AnimationHeader D_602C0D0;
 
-static Vec3f D_i1_801997E4 = { 0.0f, 0.0f, 0.0f };
-static Vec3f D_i1_801997F0 = { 0.0f, 0.0f, 5.0f };
-static Vec3f D_i1_801997FC = { 0.0f, 0.0f, 40.0f };
-static Vec3f D_i1_80199808 = { 0.0f, 0.0f, -30.0f };
-
-#ifdef NON_MATCHING
-// Stack issues https://decomp.me/scratch/ZsX2L
 void func_i1_80189058(Boss* boss) {
-    Vec3f sp21C;
+    Vec3f sp21C = { 0.0f, 0.0f, 0.0f };
     s32 sp218;
-
     f32 sp214;
     f32 sp210;
     f32 sp20C;
     s32 var_v0;
-    s32 pad_sp204;
+    f32 sp204;
     f32 sp200;
     f32 sp1FC;
-    s32 pad_sp1F8;
-
-    Vec3f sp1EC;
+    f32 sp1F8;
+    Vec3f sp1EC = { 0.0f, 0.0f, 5.0f };
     Vec3f sp84[30];
-    Vec3f sp78;
-    Vec3f sp6C;
+    Vec3f sp78 = { 0.0f, 0.0f, 40.0f };
+    Vec3f sp6C = { 0.0f, 0.0f, -30.0f };
     f32 sp5C;
-
-    sp21C = D_i1_801997E4;
-    sp1EC = D_i1_801997F0;
-    sp78 = D_i1_801997FC;
-    sp6C = D_i1_80199808;
 
     if (gPlayer[0].state_1C8 != 9) {
         if (boss->swork[33] == 0) {
@@ -661,7 +647,8 @@ void func_i1_80189058(Boss* boss) {
         sp210 = D_i1_8019B6D8[18] - (boss->obj.pos.y + 300.0f);
         sp20C = D_i1_8019B6D8[19] - boss->obj.pos.z;
         sp1FC = Math_RadToDeg(Math_Atan2F(sp214, sp20C));
-        sp200 = Math_RadToDeg(-Math_Atan2F(sp210, sqrtf(SQ(sp214) + SQ(sp20C))));
+        sp204 = sqrtf((sp214 * sp214) + (sp20C * sp20C));
+        sp200 = Math_RadToDeg(-Math_Atan2F(sp210, sp204));
 
         if ((sp200 > 50.0f) && (sp200 < 180.0f)) {
             sp200 = 50.0f;
@@ -686,10 +673,9 @@ void func_i1_80189058(Boss* boss) {
         Math_SmoothStepToAngle(&D_i1_8019B6D8[16], sp1FC, 0.1f, 3.0f, 0.0f);
         Math_SmoothStepToAngle(&D_i1_8019B6D8[15], sp200, 0.1f, 3.0f, 0.0f);
         if (boss->actionState != 0) {
-            Math_SmoothStepToAngle(
-                &boss->obj.rot.y,
-                Math_RadToDeg(Math_Atan2F(D_i1_8019B6D8[66] - boss->obj.pos.x, D_i1_8019B6D8[67] - boss->obj.pos.z)),
-                0.1f, 3.0f, 0.0f);
+            sp1F8 =
+                Math_RadToDeg(Math_Atan2F(D_i1_8019B6D8[66] - boss->obj.pos.x, D_i1_8019B6D8[67] - boss->obj.pos.z));
+            Math_SmoothStepToAngle(&boss->obj.rot.y, sp1F8, 0.1f, 3.0f, 0.0f);
         }
         Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, 0U);
 
@@ -811,9 +797,9 @@ void func_i1_80189058(Boss* boss) {
                 boss->unk_05E = 0;
                 D_8017812C = 1;
                 if (!(gGameFrameCount & 7)) {
-                    D_i1_8019B6D8[17] = ((Rand_ZeroOne() - 0.5f) * 2000.0f) + gPlayer[0].pos.x;
+                    D_i1_8019B6D8[17] = gPlayer[0].pos.x + ((Rand_ZeroOne() - 0.5f) * 2000.0f);
                     D_i1_8019B6D8[18] = gPlayer[0].pos.y;
-                    D_i1_8019B6D8[19] = ((Rand_ZeroOne() - 0.5f) * 2000.0f) + gPlayer[0].unk_138;
+                    D_i1_8019B6D8[19] = gPlayer[0].unk_138 + ((Rand_ZeroOne() - 0.5f) * 2000.0f);
                 }
                 boss->fwork[12] += 0.05f;
                 if (boss->actionState == 6) {
@@ -964,9 +950,6 @@ void func_i1_80189058(Boss* boss) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/fox_co/func_i1_80189058.s")
-#endif
 
 s32 func_i1_8018A434(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
     Boss* boss = (Boss*) arg4;
