@@ -619,8 +619,6 @@ void func_i2_80188F2C(f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg5, f32 sca
     }
 }
 
-void func_i2_80188F2C(f32, f32, f32, f32, f32, f32, f32);
-
 void func_i2_80188FAC(Effect* effect) {
     Vec3f src;
     Vec3f dest;
@@ -696,8 +694,47 @@ void func_i2_80189114(Effect* arg0) {
 
     func_8007A774(gPlayer, arg0, 100.0f);
 }
-// figure out the prototype first
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_801892F0.s")
+
+void func_i2_801892F0(Boss* boss, s32 arg1) {
+    Vec3f dest;
+    Vec3f src;
+
+    func_8007A6F0(&boss->obj.pos, 0x2903B009);
+
+    if (arg1 == 7) {
+        func_8007D2C8(boss->obj.pos.x, boss->obj.pos.y + 330.0f, boss->obj.pos.z + 1020.0f, 15.0f);
+        func_8007BFFC(boss->obj.pos.x, boss->obj.pos.y + 330.0f, boss->obj.pos.z + 1020.0f, 0.0f, 0.0f, 0.0f, 7.0f,
+                      0x14);
+    }
+
+    if (arg1 == 5) {
+        func_8007D2C8(boss->obj.pos.x, boss->obj.pos.y - 330.0f, boss->obj.pos.z + 1020.0f, 15.0f);
+        func_8007BFFC(boss->obj.pos.x, boss->obj.pos.y - 330.0f, boss->obj.pos.z + 1020.0f, 0.0f, 0.0f, 0.0f, 7.0f,
+                      0x14);
+    }
+
+    if (arg1 == 4) {
+        func_8007D2C8(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 300.0f, 20.0f);
+        func_8007BFFC(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 300.0f, 0.0f, 0.0f, 0.0f, 10.0f, 0x19);
+    }
+
+    if (arg1 < 4) {
+        Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, 0);
+        Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, 1);
+        Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, 1);
+        Matrix_RotateZ(gCalcMatrix, arg1 * (M_PI / 2), 1);
+
+        src.x = 0.0f;
+        src.y = 200.0f;
+        src.z = 500.0f;
+
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
+        func_8007D2C8(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 10.0f);
+        func_8007BFFC(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 0.0f, 0.0f, 0.0f,
+                      5.0f, 15);
+    }
+}
 
 void func_i2_80189624(void) {
     if (gGameFrameCount & 1) {
@@ -1727,8 +1764,8 @@ void func_i2_8018ED9C(Actor* actor) {
             break;
     }
 
-    Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * 0.017453292f, 0U);
-    Matrix_RotateX(gCalcMatrix, -(actor->unk_0F4.x * 0.017453292f), 1U);
+    Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * M_DTOR, 0U);
+    Matrix_RotateX(gCalcMatrix, -(actor->unk_0F4.x * M_DTOR), 1U);
 
     sp3C.x = 0.0f;
     sp3C.y = 0.0f;
