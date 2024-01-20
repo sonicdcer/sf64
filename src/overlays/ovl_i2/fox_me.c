@@ -8,6 +8,8 @@ extern f32 D_i2_80195594[];
 extern f32 D_i2_801955A4[];
 extern s32 D_i2_801955B4[];
 extern Vec3f D_i2_801955C4;
+extern Vec3f D_i2_801955D0[];
+extern f32 D_i2_80195600[];
 
 extern Gfx D_6001310[];
 extern Gfx D_600CD60[];
@@ -671,17 +673,17 @@ void func_i2_80189624(void) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018978C.s")
 
 void func_i2_8018B7C4(s32 arg0) {
-    f32 temp_fv0 = arg0 * 0.83333f;
+    f32 effect = arg0 * 0.83333f;
 
     if (gGameFrameCount & 1) {
-        temp_fv0 *= 1.1f;
+        effect *= 1.1f;
     }
 
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
 
     RCP_SetupDL_64();
     Matrix_Push(&gGfxMatrix);
-    Matrix_Scale(gGfxMatrix, 10.0f * temp_fv0, 10.0f * temp_fv0, 10.0f * temp_fv0, 1);
+    Matrix_Scale(gGfxMatrix, 10.0f * effect, 10.0f * effect, 10.0f * effect, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 70);
     gSPDisplayList(gMasterDisp++, D_102ED50);
@@ -689,7 +691,7 @@ void func_i2_8018B7C4(s32 arg0) {
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 20.0f, 1);
-    Matrix_Scale(gGfxMatrix, 9.0f * temp_fv0, 9.0f * temp_fv0, 9.0f * temp_fv0, 1);
+    Matrix_Scale(gGfxMatrix, 9.0f * effect, 9.0f * effect, 9.0f * effect, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 60);
@@ -698,7 +700,7 @@ void func_i2_8018B7C4(s32 arg0) {
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 35.0f, 1);
-    Matrix_Scale(gGfxMatrix, 7.5f * temp_fv0, 7.5f * temp_fv0, 7.5f * temp_fv0, 1);
+    Matrix_Scale(gGfxMatrix, 7.5f * effect, 7.5f * effect, 7.5f * effect, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 50);
@@ -707,7 +709,7 @@ void func_i2_8018B7C4(s32 arg0) {
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 40.0f, 1);
-    Matrix_Scale(gGfxMatrix, 5.0f * temp_fv0, 5.0f * temp_fv0, 5.0f * temp_fv0, 1);
+    Matrix_Scale(gGfxMatrix, 5.0f * effect, 5.0f * effect, 5.0f * effect, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 40);
@@ -1351,7 +1353,29 @@ void func_i2_8018DE14(Effect* effect) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018DF08.s")
+void func_i2_8018DF08(Actor* actor, s32 idx) {
+    Actor_Initialize(actor);
+    actor->obj.status = 1;
+    actor->obj.id = 0xC3;
+
+    actor->obj.pos.x = D_i2_801955D0[idx].x + gPlayer[0].pos.x;
+    actor->obj.pos.y = D_i2_801955D0[idx].y + gPlayer[0].pos.y;
+    actor->obj.pos.z = D_i2_801955D0[idx].z + gPlayer[0].unk_138;
+
+    actor->unk_0F4.y = 0.0f;
+    actor->unk_0F4.z = D_i2_80195600[idx];
+
+    Object_SetInfo(&actor->info, actor->obj.id);
+
+    if (idx == 3) {
+        Audio_PlaySfx(0x11030010U, &actor->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(0x31024059U, &actor->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        actor->unk_0B6 = 1;
+    } else {
+        actor->iwork[11] = 1;
+        Audio_PlaySfx(0x3100000CU, &actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018E084.s")
 
