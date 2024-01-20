@@ -733,7 +733,24 @@ void func_i2_8018C77C(Actor* actor, s32 arg1) {
     Audio_PlaySfx(0x31024059U, &actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018C8F4.s")
+void func_i2_8018C8F4(Actor* actor1, Actor* actor2) {
+    f32 temp_ft5;
+
+    Actor_Initialize(actor1);
+    actor1->obj.status = 1;
+    actor1->obj.id = OBJ_ACTOR_182;
+
+    actor1->obj.pos.x = ((Rand_ZeroOneSeeded() - 0.5f) * 2000.0f) + actor2->obj.pos.x;
+    actor1->obj.pos.y = ((Rand_ZeroOneSeeded() - 0.5f) * 2000.0f) + actor2->obj.pos.y;
+    actor1->obj.pos.z = (((Rand_ZeroOneSeeded() - 0.5f) * 500.0f) + actor2->obj.pos.z) - 9000.0f;
+
+    actor1->obj.rot.y = Rand_ZeroOneSeeded() * 360.0f;
+    actor1->obj.rot.x = Rand_ZeroOneSeeded() * 360.0f;
+
+    actor1->timer_0C2 = 0x2710;
+    actor1->vel.z = 30.0f;
+    Object_SetInfo(&actor1->info, actor1->obj.id);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018CA10.s")
 
