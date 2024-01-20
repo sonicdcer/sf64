@@ -77,139 +77,25 @@ typedef enum OptionId {
 
 #define OPTION_COUNT ARRAY_COUNT(sOptionCardList)
 
-extern s32 D_menu_801B9090;
-extern s32 D_menu_801B9094;
-extern s32 D_menu_801B9098; //gap
-extern s32 D_menu_801B90A0[3]; //gap
-extern s32 D_menu_801B90B0[3]; //gap
-extern f32 D_menu_801B90C0[3]; //gap
-extern f32 D_menu_801B90D0[3]; //gap
-extern f32 D_menu_801B90E0[3]; //gap
-extern f32 D_menu_801B90F0[3]; //gap
-extern f32 D_menu_801B9100[3]; //gap
-extern f32 D_menu_801B9110[3];
-extern f32 D_menu_801B911C;
-extern f32 D_menu_801B9120;
-extern OptionId D_menu_801B9124;
-extern s32 D_menu_801B9128;
-extern s32 D_menu_801B912C;
-extern s32 D_menu_801B9130;
-extern s32 D_menu_801B9134;
-extern s32 D_menu_801B9138;
-extern s32 D_menu_801B913C;
-extern s32 D_menu_801B9140[3];
-extern s32 D_menu_801B914C;
-extern  u8 D_menu_801B9150[3][2];
-extern s32 D_menu_801B9158;
-extern UnkStruct_D_menu_801B9250 D_menu_801B9160[3];
-extern s32 D_menu_801B9178;
-extern s32 D_menu_801B917C;
-extern UnkStruct_D_menu_801B9250 D_menu_801B9180; //gap
-extern UnkStruct_D_menu_801B9250 D_menu_801B9188;
-extern UnkStruct_D_menu_801B9250 D_menu_801B9190;
-extern UnkStruct_D_menu_801B9250 D_menu_801B9198;
-extern s32 D_menu_801B91A0;
-extern s32 D_menu_801B91A4;
-extern s32 D_menu_801B91A8;
-extern s32 D_menu_801B91AC;
-extern s32 D_menu_801B91B0;
-extern s32 D_menu_801B91B4;
-extern s32 D_menu_801B91B8;
-extern s32 D_menu_801B91BC;
-extern s32 D_menu_801B91C0;
-extern s32 D_menu_801B91C4;
-extern s32 D_menu_801B91C8;
-extern s32 D_menu_801B91CC;
-extern s32 D_menu_801B91D0;
-extern f32 D_menu_801B91D4;
-extern f32 D_menu_801B91D8;
-extern f32 D_menu_801B91DC;
-extern f32 D_menu_801B91E0;
-extern f32 D_menu_801B91E4;
-extern f32 D_menu_801B91E8;
-extern f32 D_menu_801B91EC;
-extern s32 D_menu_801B91F0;
-extern f32 D_menu_801B91F4;
-extern f32 D_menu_801B91F8;
-extern f32 D_menu_801B91FC;
-extern f32 D_menu_801B9200;
-extern f32 D_menu_801B9204;
-extern f32 D_menu_801B9208;
-extern f32 D_menu_801B920C;
-extern f32 D_menu_801B9210;
-extern s32 D_menu_801B9214;
-extern f32 D_menu_801B9218;
-extern f32 D_menu_801B921C;
-extern f32 D_menu_801B9220;
-extern f32 D_menu_801B9224;
-extern f32 D_menu_801B9228;
-extern s32 D_menu_801B922C;
-extern s32 D_menu_801B9230;
-extern s32 D_menu_801B9234;
-extern s32 D_menu_801B9238;
-extern s32 D_menu_801B923C;
-extern s32 D_menu_801B9240;
-extern s32 D_menu_801B9244;
-extern s32 D_menu_801B9248;
-extern  u8 D_menu_801B924C;
-extern UnkStruct_D_menu_801B9250 D_menu_801B9250;
-extern UnkStruct_D_menu_801B9250 D_menu_801B9258;
-extern UnkStruct_D_menu_801B9250 D_menu_801B9260;
-extern UnkStruct_D_menu_801B9250 D_menu_801B9268;
-extern f32 D_menu_801B9270[5];
-extern s32 D_menu_801B9284;
-extern s32 D_menu_801B9288; //gap
-extern UnkStruct_D_menu_801B9250 D_menu_801B9290;
-extern f32 D_menu_801B9298[32];
-extern s32 spectrumAnalizerMode;
-extern s32 D_menu_801B931C;
-extern bool D_menu_801B9320; // MusicPlaying status in the expert sound options
-extern s32 D_menu_801B9330[2];
-extern s32 D_menu_801B933C;
-extern s32 D_menu_801B9340; //gap
-extern s32 D_menu_801B9348[4];
-extern f32 D_menu_801B9358[4];
-extern f32 D_menu_801B9368;
-extern s32 D_menu_801B936C;
-extern f32 D_menu_801B9370;
-extern s32 D_menu_801B9374;
-extern f32 D_menu_801B9378;
-extern s32 D_menu_801B937C;
-extern UnkStruct_D_menu_801B9250 D_menu_801B9380[4];
-extern UnkStruct_D_menu_801B9250 D_menu_801B93A0[4];
-extern u8 D_menu_801B93C4;
-extern s32 D_menu_801B93D0;
-extern s32 D_menu_801B93D4;
-extern s32 D_menu_801B93D8;
-extern s32 D_menu_801B93DC;
-extern s32 D_menu_801B93E0;
-extern s32 D_menu_801B93E4;
-extern s32 D_menu_801B93E8;
-extern s32 D_menu_801B93EC;
-extern f32 D_menu_801B93F0;
-extern f32 D_menu_801B93F4;
-extern f32 D_menu_801B93F8; //gap
-extern UnkStruct_D_menu_801B9250 D_menu_801B9400;
-extern UnkStruct_D_menu_801B9250 D_menu_801B9408;
-
 extern void* D_menu_801B68B0[];
 extern u8* D_menu_801B68D4[];
 
-extern s32 D_menu_801B81A8[][3];
+extern s32 D_menu_801B8220[]; // total hits ranking? see func_menu_80197DE4
+extern s32 D_menu_801B827C;
+extern s32 D_menu_801B8280;
+extern s32 D_menu_801B8284;
+extern s32 D_menu_801B8288;
 
 // Planet textures
-extern s8 D_menu_801B9410[96 * 96];
-extern s8 D_menu_801BB810[96 * 96];
-extern s8 D_menu_801BDC10[96 * 96];
-extern s8 D_menu_801C0010[96 * 96];
-extern s8 D_menu_801C2410[96 * 96];
-extern s8 D_menu_801C4810[96 * 96];
-extern s8 D_menu_801C6C10[96 * 96];
-extern s8 D_menu_801C9010[96 * 96];
-extern s8 D_menu_801CB410[96 * 96];
-
-extern f32 D_menu_801CD818[];
-
+extern u8 D_menu_801B9410[96 * 96];
+extern u8 D_menu_801BB810[96 * 96];
+extern u8 D_menu_801BDC10[96 * 96];
+extern u8 D_menu_801C0010[96 * 96];
+extern u8 D_menu_801C2410[96 * 96];
+extern u8 D_menu_801C4810[96 * 96];
+extern u8 D_menu_801C6C10[96 * 96];
+extern u8 D_menu_801C9010[96 * 96];
+extern u8 D_menu_801CB410[96 * 96];
 
 
 void func_menu_801877F0(void);
@@ -237,8 +123,7 @@ void func_menu_8018F8E4(void);
 void func_menu_8018FC14(void);
 void func_menu_8018FD08(void);
 void func_menu_8018FF74(void);
-void func_menu_8018D2B8(s32);
-void func_menu_8018EA78(s32);
+
 
 void Option_Setup(void);
 void Option_UpdateEntry(void);
@@ -335,12 +220,7 @@ void func_menu_8019DE74(void);
 void func_menu_8019DF64(void);
 void Option_InvoiceUpdate(void);
 void Option_InvoiceDraw(void);
-void func_menu_801906A0(void);
-void func_menu_80190C9C(void);
-void func_menu_80190E64(void);
-void func_menu_801918FC(void);
-void func_menu_8019111C(void);
-void func_menu_80191674(f32, f32, f32, f32*, f32*, f32*);
+
 s32 func_menu_8019C5A0(s32*);
 s32 func_menu_8019C66C(f32* arg0, f32 arg1, f32 arg2, UnkStruct_D_menu_801B9250* arg3);
 void func_menu_8019E8D0(void);

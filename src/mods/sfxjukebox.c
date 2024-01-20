@@ -1,5 +1,12 @@
 #include "global.h"
 #include "fox_map.h"
+#include "fox_option.h"
+
+extern s32 spectrumAnalizerMode;
+extern bool D_menu_801B9320;
+extern s32 D_menu_801B9244;
+extern OptionId D_menu_801B9124;
+extern s32 D_menu_801B912C;
 
 u32 prevSfx = 0;
 u32 sfx = 0x09000000;

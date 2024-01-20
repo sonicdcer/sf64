@@ -5,37 +5,28 @@
  */
 
 #include "mods.h"
-
-// #include "prevent_bss_reordering2.h"
+// #include "prevent_bss_reordering.h"
 #include "global.h"
 #include "fox_map.h"
-#include "sf64level.h"
-
-//! TODO: IMPORT BSS
+#include "fox_option.h"
 
 // BSS STARTS HERE
 
-// #define IMPORT_BSS
-
-#ifdef IMPORT_BSS
-s8 D_menu_801B9410[96 * 96];
-s8 D_menu_801BB810[96 * 96];
-s8 D_menu_801BDC10[96 * 96];
-s8 D_menu_801C0010[96 * 96];
-s8 D_menu_801C2410[96 * 96];
-s8 D_menu_801C4810[96 * 96];
-s8 D_menu_801C6C10[96 * 96];
-s8 D_menu_801C9010[96 * 96];
-s8 D_menu_801CB410[96 * 96];
-s32 D_menu_801CD810; // PAD
+u8 D_menu_801B9410[96 * 96];
+u8 D_menu_801BB810[96 * 96];
+u8 D_menu_801BDC10[96 * 96];
+u8 D_menu_801C0010[96 * 96];
+u8 D_menu_801C2410[96 * 96];
+u8 D_menu_801C4810[96 * 96];
+u8 D_menu_801C6C10[96 * 96];
+u8 D_menu_801C9010[96 * 96];
+u8 D_menu_801CB410[96 * 96];
+s32 D_menu_801CD810;
 f32 D_menu_801CD818[9];
 s32 D_menu_801CD83C;
 s32 D_menu_801CD840[24];
 s32 D_menu_801CD8A0[15];
 s32 D_menu_801CD8E0[7];
-f32 D_menu_801CD9F4; // x
-f32 D_menu_801CD9F8; // y
-f32 D_menu_801CD9FC; // z
 s32 D_menu_801CD900[15];
 s32 D_menu_801CD93C;
 s32 D_menu_801CD940;
@@ -83,6 +74,9 @@ f32 D_menu_801CD9E4;
 f32 D_menu_801CD9E8;
 f32 D_menu_801CD9EC;
 s32 D_menu_801CD9F0;
+f32 D_menu_801CD9F4; // x
+f32 D_menu_801CD9F8; // y
+f32 D_menu_801CD9FC; // z
 f32 D_menu_801CDA00; // x
 f32 D_menu_801CDA04; // y
 f32 D_menu_801CDA08; // z
@@ -102,23 +96,16 @@ Vec3f D_menu_801CDA40;
 Vec3f D_menu_801CDA50;
 Matrix D_menu_801CDA60[15];
 Matrix D_menu_801CDE20[15]; // planet related
-Matrix D_menu_801CE060;
 Matrix D_menu_801CE1E0[15];
 Matrix D_menu_801CE5A0[15];
 Vec3f D_menu_801CE960[15]; // sPlanetsPositions
-f32 D_menu_801CEA54;
-f32 D_menu_801CEA64;
-f32 D_menu_801CEA68;
-f32 D_menu_801CEAA0;
-f32 D_menu_801CEAA4;
-f32 D_menu_801CEAA8;
-f32 D_menu_801CEAAC;
-f32 D_menu_801CEAB0;
-s32 D_menu_801CEAB4;
 f32 D_menu_801CEA18[15];
+f32 D_menu_801CEA54;
 f32 D_menu_801CEA58;
 f32 D_menu_801CEA5C;
 f32 D_menu_801CEA60;
+f32 D_menu_801CEA64;
+f32 D_menu_801CEA68;
 f32 D_menu_801CEA6C;
 f32 D_menu_801CEA70;
 s32 D_menu_801CEA74;
@@ -132,6 +119,12 @@ f32 D_menu_801CEA90;
 f32 D_menu_801CEA94;
 s32 D_menu_801CEA98;
 f32 D_menu_801CEA9C;
+f32 D_menu_801CEAA0;
+f32 D_menu_801CEAA4;
+f32 D_menu_801CEAA8;
+f32 D_menu_801CEAAC;
+f32 D_menu_801CEAB0;
+s32 D_menu_801CEAB4;
 f32 D_menu_801CEAB8[15];
 f32 D_menu_801CEAF8[15];
 s32 D_menu_801CEB34;
@@ -162,12 +155,6 @@ s32 D_menu_801CEED8;
 f32 D_menu_801CEEDC;
 f32 D_menu_801CEEE0;
 Vec3f D_menu_801CEEE8[9];
-f32 D_menu_801CEF00;
-f32 D_menu_801CEF04;
-f32 D_menu_801CEF08;
-f32 D_menu_801CEF30;
-f32 D_menu_801CEF34;
-f32 D_menu_801CEF38;
 Vec3f D_menu_801CEF58[9];
 s32 D_menu_801CEFC4;
 s32 D_menu_801CEFC8;
@@ -200,182 +187,6 @@ s32 D_menu_801CF118;
 s32 D_menu_801CF11C;
 s32 D_menu_801CF120;
 f32 D_menu_801CF124;
-#else
-extern s32 D_menu_801CD810;
-extern f32 D_menu_801CD818[];
-extern s32 D_menu_801CD83C;
-extern s32 D_menu_801CD840[24];
-extern s32 D_menu_801CD8A0[15];
-extern s32 D_menu_801CD8E0[7];
-extern f32 D_menu_801CD9F4; // x
-extern f32 D_menu_801CD9F8; // y
-extern f32 D_menu_801CD9FC; // z
-extern s32 D_menu_801CD900[15];
-extern s32 D_menu_801CD93C;
-extern s32 D_menu_801CD940;
-extern s32 D_menu_801CD944; // mapState
-extern s32 D_menu_801CD948;
-extern s32 D_menu_801CD94C;
-extern s32 D_menu_801CD950;
-extern s32 sCurrentPlanetId; // sCurrentPlanetId
-extern s32 D_menu_801CD958;
-extern s32 D_menu_801CD95C;
-extern s32 D_menu_801CD960;
-extern s32 D_menu_801CD964;
-extern s32 D_menu_801CD968;
-extern s32 D_menu_801CD96C;
-extern s32 D_menu_801CD970;
-extern s32 D_menu_801CD974;
-extern s32 D_menu_801CD978;
-extern s32 D_menu_801CD97C;
-extern s32 D_menu_801CD980;
-extern s32 D_menu_801CD984;
-extern s32 D_menu_801CD988;
-extern s32 D_menu_801CD98C;
-extern s32 D_menu_801CD990;
-extern s32 D_menu_801CD994;
-extern s32 D_menu_801CD998;
-extern f32 D_menu_801CD99C;
-extern s32 D_menu_801CD9A0;
-extern s32 D_menu_801CD9A4;
-extern s32 D_menu_801CD9A8;
-extern s32 D_menu_801CD9AC;
-extern f32 D_menu_801CD9B0;
-extern f32 D_menu_801CD9B4;
-extern s32 D_menu_801CD9B8;
-extern s32 D_menu_801CD9BC;
-extern s32 D_menu_801CD9C0;
-extern s32 D_menu_801CD9C4;
-extern s32 D_menu_801CD9C8;
-extern s32 D_menu_801CD9CC;
-extern s32 D_menu_801CD9D0;
-extern s32 D_menu_801CD9D4;
-extern s32 D_menu_801CD9D8;
-extern f32 D_menu_801CD9DC;
-extern f32 D_menu_801CD9E0;
-extern f32 D_menu_801CD9E4;
-extern f32 D_menu_801CD9E8;
-extern f32 D_menu_801CD9EC;
-extern s32 D_menu_801CD9F0;
-extern f32 D_menu_801CDA00; // x
-extern f32 D_menu_801CDA04; // y
-extern f32 D_menu_801CDA08; // z
-extern f32 D_menu_801CDA0C; // camera x
-extern f32 D_menu_801CDA10; // camera y
-extern f32 D_menu_801CDA14;
-extern f32 D_menu_801CDA18;
-extern f32 D_menu_801CDA1C;
-extern f32 D_menu_801CDA20;
-extern f32 D_menu_801CDA24;
-extern f32 D_menu_801CDA28;
-extern f32 D_menu_801CDA2C;
-extern f32 D_menu_801CDA30;
-extern f32 D_menu_801CDA34;
-extern f32 D_menu_801CDA38;
-extern Vec3f D_menu_801CDA40;
-extern Vec3f D_menu_801CDA50;
-extern Matrix D_menu_801CDA60[];
-extern Matrix D_menu_801CDE20[15]; // planet related
-extern Matrix D_menu_801CE060;
-extern Matrix D_menu_801CE1E0[15];
-extern Matrix D_menu_801CE5A0[];
-extern Vec3f D_menu_801CE960[]; // sPlanetsPositions
-extern f32 D_menu_801CEA54;
-extern f32 D_menu_801CEA64;
-extern f32 D_menu_801CEA68;
-extern f32 D_menu_801CEAA0;
-extern f32 D_menu_801CEAA4;
-extern f32 D_menu_801CEAA8;
-extern f32 D_menu_801CEAAC;
-extern f32 D_menu_801CEAB0;
-extern s32 D_menu_801CEAB4;
-extern f32 D_menu_801CEA18[];
-extern f32 D_menu_801CEA58;
-extern f32 D_menu_801CEA5C;
-extern f32 D_menu_801CEA60;
-extern f32 D_menu_801CEA6C;
-extern f32 D_menu_801CEA70;
-extern s32 D_menu_801CEA74;
-extern f32 D_menu_801CEA78;
-extern f32 D_menu_801CEA7C;
-extern f32 D_menu_801CEA80;
-extern f32 D_menu_801CEA84;
-extern f32 D_menu_801CEA88;
-extern f32 D_menu_801CEA8C;
-extern f32 D_menu_801CEA90;
-extern f32 D_menu_801CEA94;
-extern s32 D_menu_801CEA98;
-extern f32 D_menu_801CEA9C;
-extern f32 D_menu_801CEAB8[15];
-extern f32 D_menu_801CEAF8[15];
-extern s32 D_menu_801CEB34;
-extern s32 D_menu_801CEB38;
-extern f32 D_menu_801CEB3C;
-extern f32 D_menu_801CEB40;
-extern s32 D_menu_801CEB48[3];
-extern s32 D_menu_801CEB58[3][10];
-extern s32 D_menu_801CEBD0[3][10];
-extern f32 D_menu_801CEC48[3][10];
-extern f32 D_menu_801CECC0[3][10];
-extern f32 D_menu_801CED38[3][10];
-extern f32 D_menu_801CEDB0[3][10];
-extern f32 D_menu_801CEE28[3][10];
-extern s32 D_menu_801CEEA0;
-extern s32 D_menu_801CEEA4;
-extern s32 D_menu_801CEEA8;
-extern s32 D_menu_801CEEAC;
-extern Vec3f D_menu_801CEEB0;
-extern f32 D_menu_801CEEBC;
-extern f32 D_menu_801CEEC0;
-extern s32 D_menu_801CEEC4;
-extern s32 D_menu_801CEEC8;
-extern s32 D_menu_801CEECC;
-extern s32 D_menu_801CEED0;
-extern s32 D_menu_801CEED4;
-extern s32 D_menu_801CEED8;
-extern f32 D_menu_801CEEDC;
-extern f32 D_menu_801CEEE0;
-extern Vec3f D_menu_801CEEE8[9];
-extern f32 D_menu_801CEF00;
-extern f32 D_menu_801CEF04;
-extern f32 D_menu_801CEF08;
-extern f32 D_menu_801CEF30;
-extern f32 D_menu_801CEF34;
-extern f32 D_menu_801CEF38;
-extern Vec3f D_menu_801CEF58[9];
-extern s32 D_menu_801CEFC4;
-extern s32 D_menu_801CEFC8;
-extern s32 D_menu_801CEFCC;
-extern s32 D_menu_801CEFD0;
-extern s32 D_menu_801CEFD4;
-extern bool D_menu_801CEFD8;
-extern s32 D_menu_801CEFDC;
-extern f32 D_menu_801CEFE0;
-extern f32 D_menu_801CEFE8[3];
-extern f32 D_menu_801CEFF4;
-extern f32 D_menu_801CEFF8;
-extern s32 D_menu_801CF000[];
-extern s32 D_menu_801CF00C;
-extern s32 D_menu_801CF010;
-extern s32 D_menu_801CF014;
-extern s32 D_menu_801CF018;
-extern f32 D_menu_801CF020[8];
-extern f32 D_menu_801CF040[8];
-extern f32 D_menu_801CF060[8];
-extern f32 D_menu_801CF080;
-extern f32 D_menu_801CF088[8];
-extern f32 D_menu_801CF0A8[8];
-extern f32* D_menu_801CF0C8;
-extern f32* D_menu_801CF0CC;
-extern f32* D_menu_801CF0D0;
-extern s32 D_menu_801CF0D8[8];
-extern s32 D_menu_801CF0F8[8];
-extern s32 D_menu_801CF118;
-extern s32 D_menu_801CF11C;
-extern s32 D_menu_801CF120;
-extern f32 D_menu_801CF124;
-
-#endif
 
 s32 D_menu_801AF420[2] = { 10, 20 };
 
@@ -2486,8 +2297,6 @@ void func_menu_801A1AE8(void) {
     D_menu_801CEA68 = sqrtf(SQ(x) + SQ(y) + SQ(z));
 }
 
-// needs D_menu_801CD900 to be static
-#if defined(IMPORT_BSS) || defined(NON_MATCHING)
 void func_menu_801A1C14(void) {
     s32 i;
 
@@ -2584,9 +2393,8 @@ void func_menu_801A1C14(void) {
                 D_menu_801CD964 = 1;
                 D_menu_801CD96C = 1;
 
-                for (i = 0; i < 15; i++) {
-                    D_menu_801CD900[i] = 0;
-                }
+                for (i = 0; i < 15; i++) D_menu_801CD900[i] = 0;
+
                 D_menu_801CD970 = 0;
 
                 if (func_menu_801A2304()) {
@@ -2615,9 +2423,8 @@ void func_menu_801A1C14(void) {
             D_menu_801CD964 = 1;
             D_menu_801CD96C = 1;
 
-            for (i = 0; i < 15; i++) {
-                D_menu_801CD900[i] = 0;
-            }
+            for (i = 0; i < 15; i++) D_menu_801CD900[i] = 0;
+            
             D_menu_801CD970 = 0;
 
             if (func_menu_801A2304()) {
@@ -2632,9 +2439,6 @@ void func_menu_801A1C14(void) {
     }
     D_menu_801CD9C4++;
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_menu/fox_map/func_menu_801A1C14.s")
-#endif
 
 bool func_menu_801A2304(void) {
     s32 ret = false;
@@ -2869,8 +2673,6 @@ void func_menu_801A281C(void) {
     }
 }
 
-// needs D_menu_801CD900 to be static bss
-#if defined(IMPORT_BSS) || defined(NON_MATCHING)
 void func_menu_801A2B8C(void) {
     s32 i;
 
@@ -2981,9 +2783,6 @@ void func_menu_801A2B8C(void) {
 
     D_menu_801CD9C4++;
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_menu/fox_map/func_menu_801A2B8C.s")
-#endif
 
 void func_menu_801A2EB8(void) {
     s32 i;
@@ -5079,7 +4878,7 @@ void func_menu_801A8738(void) {
 
         Matrix_Push(&gGfxMatrix);
 
-        Matrix_Copy(gGfxMatrix, &D_menu_801CE060);
+        Matrix_Copy(gGfxMatrix, &D_menu_801CDE20[9]);
         Matrix_RotateZ(gGfxMatrix, M_DTOR * -50.0f, 1);
         Matrix_Translate(gGfxMatrix, 0.0f, 25.0f, 0.0f, 1);
         Matrix_Scale(gGfxMatrix, D_menu_801CEB3C, D_menu_801CEB3C, D_menu_801CEB3C, 1);
