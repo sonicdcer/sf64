@@ -420,7 +420,7 @@ void func_i2_801887D0(Boss* boss) {
                 Matrix_Scale(gGfxMatrix, 4.0f, 7.0f, 5.0f, 1);
             }
 
-            Matrix_RotateZ(gGfxMatrix, 1.5707964f, 1);
+            Matrix_RotateZ(gGfxMatrix, 1.5707964f, 1); // (M_PI / 2) does not match
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_60263F0);
             Matrix_Pop(&gGfxMatrix);
@@ -1314,14 +1314,28 @@ void func_i2_8018DBEC(Effect* effect) {
     if (effect->unk_4E == 1) {
         Matrix_RotateX(gGfxMatrix, effect->obj.rot.x * M_DTOR, 1);
         Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, 1);
-        Matrix_RotateZ(gGfxMatrix, 1.5707964f, 1);
+        Matrix_RotateZ(gGfxMatrix, (M_PI / 2), 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_44);
         gSPDisplayList(gMasterDisp++, D_60263F0);
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018DCE4.s")
+void func_i2_8018DCE4(Effect* effect) {
+    if (effect->unk_4E != 0) {
+        Matrix_RotateX(gGfxMatrix, effect->obj.rot.x * 0.017453292f, 1);
+        Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2 * 3.0f, 1);
+
+        if (gGameFrameCount & 1) {
+            Matrix_RotateZ(gGfxMatrix, M_PI, 1);
+        }
+
+        Matrix_RotateX(gGfxMatrix, -1 * (M_PI / 2), 1);
+        Matrix_SetGfxMtx(&gMasterDisp);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 160, 255, 160, effect->unk_44);
+        gSPDisplayList(gMasterDisp++, D_102F5E0);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018DE14.s")
 
