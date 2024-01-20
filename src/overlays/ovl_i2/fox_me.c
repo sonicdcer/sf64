@@ -658,7 +658,7 @@ void func_i2_80189624(void) {
     }
 }
 
-// chunker
+// chonker
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018978C.s")
 
 void func_i2_8018B7C4(s32 arg0) {
@@ -767,7 +767,18 @@ void func_i2_8018CA10(Actor* actor1, Actor* actor2, f32 x, f32 y, f32 z) {
     Object_SetInfo(&actor1->info, actor1->obj.id);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018CAD8.s")
+void func_i2_8018CAD8(void) {
+    Actor* actor = &gActors[50];
+    
+    Actor_Initialize(actor);
+    actor->obj.status = 1;
+    actor->obj.pos.x = 0.0f;
+    actor->obj.pos.y = 0.0f;
+    actor->obj.pos.z = 9000.0f;
+    actor->unk_0B6 = 10;
+    actor->obj.id = 0xC3;
+    Object_SetInfo(&actor->info, actor->obj.id);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i2/fox_me/func_i2_8018CB50.s")
 
