@@ -5,7 +5,13 @@ extern u16* D_60342A0[];
 extern u16* D_6034304[];
 
 void func_i6_80198244(Boss*);
+void func_i6_80198ABC(Boss*);
+void func_i6_8019AA08(Boss*);
 void func_i6_8019AEC0(Boss*);
+s32 func_i6_8019B528(Boss*);
+s32 func_i6_8019B5CC(Boss*);
+void func_i6_8019B6E8(Boss*);
+void func_i6_8019BC14(Boss*);
 
 void func_i6_80197B30(Actor* actor, s32 timer) {
     Actor_Initialize(actor);
@@ -99,9 +105,68 @@ void func_i6_80197CC4(Boss* boss) {
     }
 }
 
+// figure out arg0 type
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/fox_sy/func_i6_80197F18.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/fox_sy/func_i6_80197F84.s")
+void func_i6_80197F84(Boss* boss) {
+    f32 var_fv1;
+
+    Math_SmoothStepToF(&boss->obj.pos.y, 0.0f, 0.5f, 15.0f, 0.1f);
+    Math_SmoothStepToF(&boss->vel.y, 0.0f, 0.1f, 0.2f, 0.1f);
+    Math_SmoothStepToF(&boss->vel.z, 0.0f, 0.1f, 0.2f, 0.1f);
+    Math_SmoothStepToF(&boss->vel.x, 0.0f, 0.1f, 0.2f, 0.1f);
+    Math_SmoothStepToAngle(&boss->unk_078.x, 0.0f, 0.1f, 4.0f, 0.1f);
+
+    if (func_i6_8019B5CC(boss) != 0) {
+        Math_SmoothStepToF(&boss->obj.pos.y, 1000.0f, 0.1f, 30.0f, 0.1f);
+    } else {
+        Math_SmoothStepToF(&boss->obj.pos.y, 0.0f, 0.1f, 10.0f, 0.1f);
+    }
+
+    func_i6_8019B6E8(boss);
+    if (boss->timer_052 == 0) {
+        func_i6_8019BC14(boss);
+    }
+
+    Math_SmoothStepToAngle(
+        &boss->unk_078.y,
+        Math_RadToDeg(Math_Atan2F(boss->fwork[18] - boss->obj.pos.x, boss->fwork[20] - boss->obj.pos.z)), 0.1f, 8.0f,
+        0.1f);
+
+    if (boss->timer_050 == 0) {
+        func_i6_80198244(boss);
+    }
+
+    if (boss->swork[22] == 1) {
+        if (boss->vel.x >= 0) {
+            var_fv1 = boss->vel.x;
+        } else {
+            var_fv1 = -boss->vel.x;
+        }
+
+        if (var_fv1 <= 1.0f) {
+            if (boss->vel.z >= 0) {
+                var_fv1 = boss->vel.z;
+            } else {
+                var_fv1 = -boss->vel.z;
+            }
+
+            if (((var_fv1 <= 1.0f) && (fabsf(boss->fwork[18] - boss->obj.pos.x) <= 400.0f)) &&
+                (fabsf(boss->fwork[20] - boss->obj.pos.z) <= 1400.0f)) {
+                if ((Rand_ZeroOne() < 0.2f) && (boss->unk_078.x == 0.0f)) {
+                    func_i6_8019AA08(boss);
+                }
+                if (Rand_ZeroOne() < 0.2f) {
+                    func_i6_80198244(boss);
+                }
+            }
+        }
+    }
+
+    if (func_i6_8019B528(boss) != 0) {
+        func_i6_80198ABC(boss);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/fox_sy/func_i6_80198238.s")
 
