@@ -58,7 +58,7 @@ void func_80042FE8(Boss* boss) {
 void func_80042FF4(Actor* actor, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,
                    f32 arg9, f32 argA, s32 argB, s32 argC) {
     Actor_Initialize(actor);
-    actor->obj.status = 1;
+    actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_189;
     actor->unk_0B8 = argB;
     actor->obj.pos.x = arg1;
@@ -84,7 +84,7 @@ void func_800430DC(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
     s32 i;
 
     for (i = 59; i >= 0; i--) {
-        if (gActors[i].obj.status == 0) {
+        if (gActors[i].obj.status == OBJ_FREE) {
             func_80042FF4(&gActors[i], arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB);
             return;
         }
@@ -99,7 +99,7 @@ void func_8004319C(Player* player, f32 arg1, f32 arg2, f32 arg3) {
     func_800182F4(0x105000FF);
     func_800182F4(0x115000FF);
 
-    D_80177A80 = 0;
+    gCsFrameCount = 0;
     D_80178448 = arg3 + D_80177D20;
     D_80178440 = arg1;
     D_80178444 = arg2;

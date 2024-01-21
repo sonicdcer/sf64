@@ -53,7 +53,7 @@ typedef struct {
     /* 0x44 */ f32 unk_44;
     /* 0x48 */ s32 unk_48;
     /* 0x4C */ s32 unk_4C;
-    /* 0x50 */ Vec3f unk_50;
+    /* 0x50 */ f32 unk_50[3];
 } UnkStruct_D_menu_801B84E8; // size = 0x5C
 
 typedef struct {
@@ -64,7 +64,7 @@ typedef struct {
     /* 0x18 */ f32 angleZ;
     /* 0x1C */ f32 scale;
     /* 0x20 */ char pad20[0x4];
-    /* 0x24 */ Vec3f unk_24;
+    /* 0x24 */ f32 unk_24[3];
 } UnkStruct_D_menu_801B8658; // size = 0x30
 
 typedef struct {
@@ -168,7 +168,7 @@ extern s32 D_menu_801B8348;
 extern UnkStruct_D_801B8350 D_menu_801B8350[4];
 extern f32 D_menu_801B84D0;
 extern f32 D_menu_801B84D4;
-extern Vec3f D_menu_801B84D8;
+extern f32 D_menu_801B84D8[3];
 extern UnkStruct_D_menu_801B84E8 D_menu_801B84E8[4];
 extern UnkStruct_D_menu_801B8658 D_menu_801B8658;
 extern UnkStruct_D_menu_801B8688 D_menu_801B8688;

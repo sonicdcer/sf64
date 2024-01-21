@@ -2017,7 +2017,7 @@ void func_menu_801A0954(void) {
     if (gControllerPress[gMainController].button & START_BUTTON) {
         func_8001D444(0, 0x3C, 0, 0xFF);
 
-        Audio_PlaySfx(0x4900001FU, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(0x4900001FU, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 
         for (planetId = 0; planetId < PLANET_MAX; planetId++) {
             if ((planetId == PLANET_SECTOR_Z) || (planetId == PLANET_SECTOR_X) || (planetId == PLANET_SECTOR_Y)) {
@@ -2229,7 +2229,7 @@ void func_menu_801A1528(void) {
             }
 
             if (temp == 0.0f) {
-                Audio_PlaySfx(0x4900001FU, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x4900001FU, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 D_menu_801CD948 = 0;
                 D_menu_801CD97C = 1;
                 D_menu_801CD944 = 3;
@@ -2238,7 +2238,7 @@ void func_menu_801A1528(void) {
     }
 
     if (gControllerPress[gMainController].button & START_BUTTON) {
-        Audio_PlaySfx(0x4900001FU, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(0x4900001FU, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 
         for (planetId = 0; planetId < PLANET_MAX; planetId++) {
             if ((planetId == PLANET_SECTOR_Z) || (planetId == PLANET_SECTOR_X) || (planetId == PLANET_SECTOR_Y)) {
@@ -2346,9 +2346,9 @@ void func_menu_801A1C14(void) {
                 if (sCurrentPlanetId == PLANET_CORNERIA) {
                     D_80178340 = 0;
                     D_menu_801CD948 = 10;
-                    Audio_PlaySfx(0x0940A00BU, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    Audio_PlaySfx(0x0940A00BU, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 } else {
-                    Audio_PlaySfx(0x19003012U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    Audio_PlaySfx(0x19003012U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                     D_menu_801CD948++;
                 }
             } else {
@@ -2364,7 +2364,7 @@ void func_menu_801A1C14(void) {
 
         case 10:
             if (D_menu_801CEB34 == 4) {
-                Audio_PlaySfx(0x19003012U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x19003012U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 D_menu_801CD948 = 2;
             }
             break;
@@ -2372,7 +2372,7 @@ void func_menu_801A1C14(void) {
         case 2:
             func_menu_801A2674();
             if ((D_menu_801CD9FC == D_menu_801CDA50.z) && (D_menu_801CD9D8 == 0)) {
-                Audio_PlaySfx(0x19004013U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x19004013U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 D_menu_801CD9D8 = 1;
                 if (sCurrentPlanetId == PLANET_CORNERIA) {
                     D_menu_801CEB48[0] = 1;
@@ -2791,9 +2791,9 @@ void func_menu_801A2EB8(void) {
 
     if (D_menu_801CD9C4 == 30) {
         if (D_menu_801CD93C == 2) {
-            Audio_PlaySfx(0x0900802AU, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x0900802AU, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         } else {
-            Audio_PlaySfx(0x09000032U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x09000032U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         }
     }
 
@@ -2861,7 +2861,7 @@ void func_menu_801A2EB8(void) {
     }
 
     if ((D_menu_801CEED8 == 4) && (D_menu_801CEEDC == 0.0f)) {
-        Audio_PlaySfx(0x19000026U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(0x19000026U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
 
     if ((D_menu_801CEED8 == 5) && (D_menu_801CEEDC == 0.0f)) {
@@ -3019,7 +3019,7 @@ void func_menu_801A36A8(void) {
     }
 
     if (gControllerPress[gMainController].button & (A_BUTTON | START_BUTTON)) {
-        Audio_PlaySfx(0x49000003U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(0x49000003U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         D_menu_801CD948 = 3;
     }
 }
@@ -3473,7 +3473,7 @@ void func_menu_801A4D7C(void) {
 
     if (gControllerPress[gMainController].button & A_BUTTON) {
         func_8001D6DC(0);
-        Audio_PlaySfx(0x49000003U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(0x49000003U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         D_menu_801CF000[D_menu_801CEFDC] = 10;
 
         if (((D_menu_801CD93C != 0) && (D_menu_801CEFDC == 2)) || ((D_menu_801CD93C == 0) && (D_menu_801CEFDC == 1))) {
@@ -3664,7 +3664,7 @@ bool func_menu_801A5770(void) {
     }
 
     if (ret) {
-        Audio_PlaySfx(0x49000002, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(0x49000002, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
 
     return ret;
@@ -3874,7 +3874,7 @@ void func_menu_801A5E80(void) {
 
         case 4:
             if (D_menu_801CD9B8 == 0) {
-                Audio_PlaySfx(0x49002016U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x49002016U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 D_menu_801CD9B8 = 75;
                 D_menu_801B8280++;
             }
@@ -4138,7 +4138,7 @@ void func_menu_801A659C(void) {
     func_8001A838(0x1100204C);
 
     if (sCurrentPlanetId != 9) {
-        Audio_PlaySfx(0x49000003, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(0x49000003, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
 
     D_menu_801CEFC8 = 0;
@@ -4799,7 +4799,7 @@ void func_menu_801A809C(PlanetId planetId) {
                 D_menu_801CD998 += 8;
 
                 if (D_menu_801CD998 == 8) {
-                    Audio_PlaySfx(0x49008030U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    Audio_PlaySfx(0x49008030U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 }
 
                 if (D_menu_801CD998 >= 255) {
@@ -5706,7 +5706,7 @@ void func_menu_801AB300(void) {
                 D_menu_801CEA74 = 255;
                 D_80177D50 = 1.3f;
 
-                Audio_PlaySfx(0x4100001EU, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x4100001EU, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 func_8001ACDC(Message_IdFromPtr(D_80178308));
 
                 D_Timer_801782AC = Message_GetCharCount(D_80178308) * 2;
@@ -6383,7 +6383,7 @@ void func_menu_801AC9A0(s32 index) {
 
     switch (D_80177BD8[index]) {
         case 1:
-            Audio_PlaySfx(0x1900404DU, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x1900404DU, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             D_80177BD8[index] = 11;
             break;
 
@@ -6607,7 +6607,7 @@ void func_menu_801AD11C(void) {
     if (gControllerPress[gMainController].button & START_BUTTON) {
         if (D_menu_801CD944 == 3 && D_80161A34 == 7) {
             if (D_menu_801CEFD0) {
-                Audio_PlaySfx(0x4900100AU, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x4900100AU, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             } else {
                 func_8001D6DC(1);
                 D_menu_801CEFC4 = 1;
@@ -6652,7 +6652,7 @@ void func_menu_801AD11C(void) {
     }
 
     if (D_menu_801CF014 == 0 && var_a3 == 1) {
-        func_8001D10C(&D_800C5D28, 0x1100204C);
+        func_8001D10C(D_800C5D28, 0x1100204C);
         D_menu_801CF014 = 1;
     }
 
@@ -6706,7 +6706,7 @@ void func_menu_801AD11C(void) {
     }
 
     if (D_menu_801CF010 == 0 && var_t0 == 1) {
-        Audio_PlaySfx(0x1100004CU, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(0x1100004CU, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         D_menu_801CF010 = 1;
     }
 
