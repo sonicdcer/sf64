@@ -1427,8 +1427,6 @@ void func_80088784(s32 arg0) {
     }
 }
 
-// #if defined(IMPORT_BSS) || defined(NON_MATCHING)
-// needs D_80161838 to be static
 void func_80088970(void) {
     s32 i;
     s32 j;
@@ -1751,10 +1749,6 @@ void func_80088970(void) {
         }
     }
 }
-// #else
-// void func_80088970(void);
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_hud/func_80088970.s")
-// #endif
 
 void func_80089670(void) {
     RCP_SetupDL(&gMasterDisp, 0x3E);

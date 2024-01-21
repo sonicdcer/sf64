@@ -3603,7 +3603,6 @@ void func_i3_8019A1FC(Actor* actor) {
     if (((actor->unk_0B8 == 1) && (gBosses[0].timer_052 != 0)) || (actor->unk_0B8 == 0)) {
         Matrix_RotateY(gGfxMatrix, gGameFrameCount * M_DTOR, 1);
     }
-    // var_s1 = 1;
     var_fv0 = sZoFwork[ZO_BSF_60_Y] + -1.0f * actor->fwork[0] - actor->obj.pos.y;
 
     for (var_s1 = 1; var_fv0 >= 0.0f; var_s1++) {
