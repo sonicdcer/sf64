@@ -64,7 +64,7 @@ f32 func_i1_801920F0(f32* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32* arg
 }
 
 void func_i1_801922DC(Object_4C* this) {
-Boss* boss = &gBosses[0];
+    Boss* boss = &gBosses[0];
     s32 i;
 
     for (i = 0; i < 4; i++, boss++) {
@@ -79,7 +79,7 @@ Boss* boss = &gBosses[0];
 }
 
 void func_i1_80192358(Object_4C* this) {
-Boss* boss = &gBosses[0];
+    Boss* boss = &gBosses[0];
     s32 i;
 
     for (i = 0; i < 4; i++, boss++) {
@@ -96,6 +96,7 @@ Boss* boss = &gBosses[0];
 void func_i1_801923C0(Object_4C* obj4C) {
     Boss* boss;
     s32 i;
+
     for (boss = &gBosses[0], i = 0; i < 4; i++, boss++) {
         if (boss->obj.status != 0 && boss->obj.id == OBJ_BOSS_319) {
             if (boss->obj.pos.z <= obj4C->obj.pos.z) {
