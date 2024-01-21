@@ -1174,4 +1174,17 @@ extern Gfx D_9005380[];
 extern Gfx D_90075A0[];
 extern Gfx D_9004230[];
 
+extern Gfx D_C001880[];
+extern f32 D_C037FCC[];
+extern f32 D_C0380C0[];
+extern f32 D_C0381B4[];
+extern f32 D_C0382A8[];
+extern f32 D_C03839C[];
+extern f32 D_C038490[];
+extern f32 D_C038584[];
+extern f32 D_C038678[];
+extern f32 D_C03876C[];
+extern f32 D_C038860[];
+extern f32 D_C038954[];
+
 #endif // ASSETS_H
