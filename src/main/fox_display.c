@@ -689,7 +689,7 @@ void func_80054280(Player* player, s32 arg1) {
             func_80052884(player);
             return;
         case FORM_BLUE_MARINE:
-            func_i3_801ACBB4();
+            func_i3_801ACBB4(player);
             return;
         case FORM_ON_FOOT:
             func_800526B8(player);

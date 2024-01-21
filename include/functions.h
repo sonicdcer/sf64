@@ -116,6 +116,9 @@ void func_800319AC(Actor* this);
 void func_80035448(Actor* actor);
 
 //fox_beam
+void func_80038140(PlayerShot* shot);
+void func_80036318(PlayerShot* shot);
+void func_80035DEC(f32 xPos, f32 yPos, f32 zPos);
 void PlayerShot_Initialize(PlayerShot *);
 void func_800365E4(f32, f32, f32, f32, f32, f32, f32, f32, f32, s32, s32);
 void func_8003D9B8(void);
@@ -152,7 +155,7 @@ void func_80045E7C(Player*);
 void func_80047504(Player * player);
 void func_80046358(Player*);
 
-// sf_496E0
+// fox_demo
 void func_80048AC0(s32 teamId);
 void func_80049C0C(Player *);
 void func_8004A52C(Player *);
@@ -160,6 +163,7 @@ void func_8004AA84(void);
 void func_8004AAF4(Player *);
 void func_8004C930(Player *);
 void func_8004CCC0(Player *);
+void func_8004D440(Player* player);
 void func_8004E3D8(Player *);
 void func_8004F8AC(Actor*);
 void func_8004FEC0(Actor*);
@@ -313,6 +317,7 @@ void func_800771CC(Actor*);
 void func_80077218(Actor*);
 
 // fox_effect
+s32 func_80081B24(f32 posX, f32 posY, f32 posZ, f32 scale2);
 void func_80077240(f32 posX, f32 posY, f32 posZ, s32 hits);
 void func_8007729C(void);
 void func_80077790(void);
@@ -526,6 +531,7 @@ void func_800A3CA0(void);
 s32 Play_CheckMedalStatus(u16);
 s32 Play_GetMaxShields(void);
 void func_800A6028(Vec3f*, u32);
+void func_800AC290(Player* player, PlayerShot* shot, f32 arg2, f32 arg3, PlayerShotId shotId, f32 arg5);
 void func_800A5844(void);
 void func_800A594C(void);
 void func_800A5D6C(void);
