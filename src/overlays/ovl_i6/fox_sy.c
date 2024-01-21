@@ -4,14 +4,17 @@ extern Gfx D_6014A40[];
 extern u16* D_60342A0[];
 extern u16* D_6034304[];
 
+void func_i6_80197F18(Boss*);
 void func_i6_80198244(Boss*);
 void func_i6_80198ABC(Boss*);
+void func_i6_80199D64(Boss*);
 void func_i6_8019AA08(Boss*);
 void func_i6_8019AEC0(Boss*);
 s32 func_i6_8019B528(Boss*);
 s32 func_i6_8019B5CC(Boss*);
 void func_i6_8019B6E8(Boss*);
 void func_i6_8019BC14(Boss*);
+void func_i6_8019C194(Boss*, f32, f32);
 
 void func_i6_80197B30(Actor* actor, s32 timer) {
     Actor_Initialize(actor);
@@ -205,7 +208,124 @@ void func_i6_80198244(Boss* boss) {
     Audio_PlaySfx(0x2902306CU, &boss->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/fox_sy/func_i6_801983E4.s")
+void func_i6_801983E4(Boss* boss) {
+    f32 var_fv1;
+    f32 sp38;
+    f32 sp34;
+
+    func_i6_8019B6E8(boss);
+
+    if (boss->timer_052 == 0) {
+        func_i6_8019BC14(boss);
+    }
+
+    Math_SmoothStepToAngle(&boss->unk_078.z, 0.0f, 0.1f, 2.0f, 0.1f);
+    Math_SmoothStepToAngle(&boss->unk_078.x, 0.0f, 0.1f, 2.0f, 0.1f);
+    Math_SmoothStepToF(&boss->vel.x, boss->fwork[11], 0.1f, 0.5f, 0.1f);
+    Math_SmoothStepToF(&boss->vel.z, boss->fwork[13], 0.1f, 0.5f, 0.1f);
+    Math_SmoothStepToF(&boss->vel.y, 0.0f, 0.1f, 0.2f, 0.1f);
+
+    if (boss->obj.pos.x <= boss->fwork[18]) {
+        sp38 = boss->fwork[18] - boss->obj.pos.x;
+    } else {
+        sp38 = -(boss->fwork[18] - boss->obj.pos.x);
+    }
+
+    if (boss->obj.pos.z <= boss->fwork[20]) {
+        sp34 = boss->fwork[20] - boss->obj.pos.z;
+    } else {
+        sp34 = -(boss->fwork[20] - boss->obj.pos.z);
+    }
+
+    if (boss->unk_078.x != 0.0f) {
+        Math_SmoothStepToAngle(&boss->unk_078.x, boss->fwork[10], 0.1f, 6.0f, 0.1f);
+        if (boss->unk_078.x < 200.0f) {
+            boss->swork[21] = 1;
+            boss->unk_078.y -= 180.0f;
+            boss->unk_078.z -= 180.0f;
+            boss->fwork[10] = 0.0f;
+            boss->unk_078.x = 0.0f;
+
+            if (boss->unk_078.y < 0.0f) {
+                boss->unk_078.y = boss->unk_078.y + 360.0f;
+            }
+            if (boss->unk_078.z < 0.0f) {
+                boss->unk_078.z = boss->unk_078.z + 360.0f;
+            }
+
+            boss->fwork[11] = __sinf(boss->unk_078.y * M_DTOR) * boss->fwork[45];
+            boss->fwork[13] = __cosf(boss->unk_078.y * M_DTOR) * boss->fwork[45];
+            boss->fwork[34] = 2.8f;
+        }
+    }
+
+    func_i6_8019C194(boss, sp34, sp38);
+
+    if (boss->swork[0x16] == 1) {
+        var_fv1 = gPlayer->unk_114 - 180.0f;
+        if (var_fv1 < 0.0f) {
+            var_fv1 += 360.0f;
+        }
+
+        var_fv1 = boss->unk_078.y - var_fv1;
+        if (var_fv1 < 0.0f) {
+            var_fv1 += 360.0f;
+        }
+
+        if ((sp34 <= 1300.0f) && (sp38 <= 800.0f) && (var_fv1 < 260.0f) && (var_fv1 > 100.0f) &&
+            (boss->unk_078.x == 0.0f) && (boss->fwork[34] <= 2.0f)) {
+            if (Rand_ZeroOne() < 0.2f) {
+                func_i6_8019AA08(boss);
+            }
+        }
+
+        if ((sp34 < 3400.0f) || (sp38 < 2400.0f)) {
+            if (((var_fv1 >= 60.0f) && (var_fv1 <= 100.0f)) || ((var_fv1 <= 300.0f) && (var_fv1 >= 260.0f))) {
+                if (Rand_ZeroOne() < 0.3f) {
+                    if (Rand_ZeroOne() < 0.4f) {
+                        func_i6_80197F18(boss);
+                    } else {
+                        func_i6_80199D64(boss);
+                    }
+                }
+            }
+
+            if (((var_fv1 > 300.0f) || (var_fv1 < 60.0f)) && (boss->unk_078.x == 0.0f)) {
+                if (Rand_ZeroOne() < 0.3f) {
+                    if (Rand_ZeroOne() < 0.4f) {
+                        func_i6_80197F18(boss);
+                    } else {
+                        func_i6_80199D64(boss);
+                    }
+                } else if (gPlayer->state_1C8 != PLAYERSTATE_1C8_5) {
+                    Math_SmoothStepToAngle(&boss->unk_078.x, 181.0f, 0.1f, 6.0f, 0.1f);
+                    boss->swork[21] = 3;
+                    boss->fwork[11] = __sinf(boss->unk_078.y * M_DTOR) * (boss->fwork[45] + 10.0f);
+                    boss->fwork[13] = __cosf(boss->unk_078.y * M_DTOR) * (boss->fwork[45] + 10.0f);
+                    boss->fwork[34] = 2.8f;
+                }
+            }
+        }
+    }
+
+    if (func_i6_8019B5CC(boss) != 0) {
+        Math_SmoothStepToF(&boss->obj.pos.y, 1000.0f, 0.1f, 30.0f, 0.1f);
+    } else {
+        Math_SmoothStepToF(&boss->obj.pos.y, 0.0f, 0.1f, 5.0f, 0.1f);
+    }
+
+    if (boss->timer_056 == 0) {
+        if (Rand_ZeroOne() <= 0.7f) {
+            func_i6_80199D64(boss);
+        } else {
+            func_i6_80197F18(boss);
+        }
+    }
+
+    if (func_i6_8019B528(boss) != 0) {
+        func_i6_80198ABC(boss);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/fox_sy/func_i6_80198ABC.s")
 
