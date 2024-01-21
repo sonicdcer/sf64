@@ -1,5 +1,7 @@
 #include "global.h"
 
+f32 D_i6_801A8440[3];
+
 void func_i6_80197B30(Actor* actor, s32 timer) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_ACTIVE;
@@ -925,7 +927,6 @@ void func_i6_8019AEC0(Boss* boss) {
 }
 
 void func_i6_801A0510(Actor*, s32);
-extern f32 D_i6_801A8440[];
 
 void func_i6_8019AEEC(Boss* boss) {
 
