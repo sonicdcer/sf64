@@ -1,8 +1,39 @@
-#include "common.h"
+#include "global.h"
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/fox_sy/func_i6_80197B30.s")
+extern Gfx D_6014A40[];
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/fox_sy/func_i6_80197C64.s")
+void func_i6_80197B30(Actor* actor, s32 timer) {
+    Actor_Initialize(actor);
+    actor->obj.status = 2;
+    actor->obj.id = 0xC3;
+
+    actor->obj.pos.x = gPlayer->pos.x;
+    actor->obj.pos.y = gPlayer->pos.y;
+    actor->obj.pos.z = gPlayer->pos.z;
+
+    actor->fwork[0] = gPlayer->unk_0D0;
+
+    actor->vel.x = gPlayer->vel.x;
+    actor->vel.y = gPlayer->vel.y;
+    actor->vel.z = gPlayer->vel.z;
+
+    actor->obj.rot.x = gPlayer->unk_4D8 + (gPlayer->unk_120 + gPlayer->unk_0E4);
+    actor->obj.rot.y = gPlayer->unk_0E8 + gPlayer->unk_114 + 180.0f;
+    actor->obj.rot.z = gPlayer->unk_0EC;
+
+    actor->unk_0B8 = 5;
+    actor->timer_04C = timer;
+    actor->iwork[11] = 1;
+
+    Object_SetInfo(&actor->info, actor->obj.id);
+    Audio_PlaySfx(0x3100000CU, &actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+}
+
+void func_i6_80197C64(Effect* arg0) {
+    RCP_SetupDL_21();
+    gSPDisplayList(gMasterDisp++, D_6014A40);
+    RCP_SetupDL(&gMasterDisp, 0x40);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/fox_sy/func_i6_80197CB8.s")
 
