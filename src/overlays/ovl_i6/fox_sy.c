@@ -1426,8 +1426,8 @@ void func_i6_8019C888(Boss* boss) {
 
             Math_SmoothStepToAngle(&boss->fwork[15], sp1D8, 0.2f, 4.0f, 0.1f);
             Math_SmoothStepToAngle(&boss->fwork[14], sp1D4, 0.2f, 4.0f, 0.1f);
-            Matrix_RotateX(gCalcMatrix, -boss->fwork[14] * M_DTOR, 1U);
-            Matrix_RotateY(gCalcMatrix, -boss->fwork[15] * M_DTOR, 1U);
+            Matrix_RotateX(gCalcMatrix, -boss->fwork[14] * M_DTOR, 1);
+            Matrix_RotateY(gCalcMatrix, -boss->fwork[15] * M_DTOR, 1);
             sp58.x = boss->fwork[18] - boss->obj.pos.x;
             sp58.y = (boss->fwork[19] - boss->obj.pos.y) + (__cosf(boss->obj.rot.z * M_DTOR) * 40.0f);
             sp58.z = (boss->fwork[20] - boss->obj.pos.z) - (__cosf(boss->obj.rot.y * M_DTOR) * 60.0f);
@@ -2159,8 +2159,8 @@ void func_i6_8019EE60(Player* player) {
             }
             break;
     }
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, 0U);
-    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4) * M_DTOR), 1U);
+    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, 0);
+    Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4) * M_DTOR), 1);
     sp60.x = 0.0f;
     sp60.y = 0.0f;
     sp60.z = player->unk_0D0;
@@ -2364,8 +2364,8 @@ void func_i6_801A06A4(Actor* actor, s32 arg1) {
         actor->unk_0B8 = arg1 + 7;
         actor->iwork[11] = 1;
         Object_SetInfo(&actor->info, actor->obj.id);
-        Audio_PlaySfx(0x3100000CU, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-        Audio_PlaySfx(0x09000002U, actor->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(0x3100000C, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(0x09000002, actor->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
 }
 
@@ -2416,7 +2416,7 @@ void func_i6_801A0A08(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     actor->timer_0BC = 35;
     actor->iwork[0] = 255;
     actor->unk_0B6 = 43;
-    Audio_PlaySfx(0x2900306BU, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    Audio_PlaySfx(0x2900306B, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
 void func_i6_801A0AC0(Player* player) {
