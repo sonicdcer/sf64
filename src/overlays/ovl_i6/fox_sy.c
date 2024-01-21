@@ -85,9 +85,9 @@ void func_i6_80197CC4(Boss* boss) {
             boss->unk_078.y = 345.0f;
         }
 
-        boss->vel.x = __sinf(boss->unk_078.y * 0.017453292f);
+        boss->vel.x = __sinf(boss->unk_078.y * M_DTOR);
         boss->vel.x = (boss->fwork[45] * boss->vel.x) * 0.2f;
-        boss->vel.z = __cosf(boss->unk_078.y * 0.017453292f);
+        boss->vel.z = __cosf(boss->unk_078.y * M_DTOR);
         boss->vel.z = (boss->fwork[45] * boss->vel.z) * 0.2f;
 
         func_i6_80198244(boss);
@@ -168,9 +168,42 @@ void func_i6_80197F84(Boss* boss) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/fox_sy/func_i6_80198238.s")
+void func_i6_80198238(s32 arg0) {
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/fox_sy/func_i6_80198244.s")
+void func_i6_80198244(Boss* boss) {
+    f32 var_fv0;
+
+    boss->swork[20] = 3;
+    boss->swork[21] = 1;
+    boss->timer_056 = (Rand_ZeroOne() * 500.0f) + 100.0f;
+    boss->fwork[11] = __sinf(boss->unk_078.y * M_DTOR) * boss->fwork[0x2D];
+    boss->fwork[13] = __cosf(boss->unk_078.y * M_DTOR) * boss->fwork[0x2D];
+
+    if (boss->vel.x >= 0) {
+        var_fv0 = boss->vel.x;
+    } else {
+        var_fv0 = -boss->vel.x;
+    }
+
+    if (var_fv0 < 5.0f) {
+        Math_SmoothStepToF(&boss->vel.x, boss->fwork[11], 0.1f, 5.0f, 0.1f);
+    }
+
+    if (boss->vel.z >= 0) {
+        var_fv0 = boss->vel.z;
+    } else {
+        var_fv0 = -boss->vel.z;
+    }
+
+    if (var_fv0 < 5.0f) {
+        Math_SmoothStepToF(&boss->vel.z, boss->fwork[13], 0.1f, 5.0f, 0.1f);
+    }
+
+    boss->fwork[10] = 181.0f;
+    boss->fwork[34] = 2.8f;
+    Audio_PlaySfx(0x2902306CU, &boss->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/fox_sy/func_i6_801983E4.s")
 
