@@ -1224,7 +1224,20 @@ extern AnimationHeader D_602738C;
 extern AnimationHeader D_6029B48;
 extern AnimationHeader D_602B778;
 extern AnimationHeader D_602B8DC;
-extern void (*D_i6_801A6910[])(Boss*);
+static void (*D_i6_801A6910[12])(Boss*) = {
+    func_i6_80197F84,
+    func_i6_80198238,
+    func_i6_80198238,
+    func_i6_801983E4,
+    func_i6_80198CE4,
+    func_i6_80199438,
+    func_i6_80199DAC,
+    func_i6_8019A520,
+    func_i6_8019A66C,
+    func_i6_8019A898,
+    func_i6_8019AAF0,
+    func_i6_8019AEEC,
+};
 
 void func_i6_8019C888(Boss* boss) {
     s32 i;
@@ -1531,13 +1544,11 @@ void func_i6_8019C888(Boss* boss) {
 }
 
 extern Gfx D_6014BD0;
-extern Vec3f D_i6_801A6940;
 
 s32 func_i6_8019DC4C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Boss* boss = (Boss*)data;
-    Vec3f sp10;
+    Vec3f sp10 = {0.0f, 0.0f, 0.0f};
 
-    sp10 = D_i6_801A6940;
     if (!(boss->timer_05C & 1)) {
         if (boss->index == 1) {
             GPC(100, 100, 255, 255);
@@ -1575,13 +1586,11 @@ s32 func_i6_8019DC4C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
 }
 
 extern Gfx D_6013600;
-extern Vec3f D_i6_801A694C;
 
 s32 func_i6_8019DE10(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Boss* boss = (Boss*)data;
-    Vec3f sp38;
+    Vec3f sp38 = { 0.0f, 0.0f, 0.0f };
 
-    sp38 = D_i6_801A694C;
     if (boss->index != 0) {
         return func_i6_8019DC4C(limbIndex, dList, pos, rot, boss);
     }
@@ -1624,22 +1633,14 @@ s32 func_i6_8019DE10(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
     return 0;
 }
 
-extern Vec3f D_i6_801A6958;
-extern Vec3f D_i6_801A6964;
-extern Vec3f D_i6_801A6970;
-extern Vec3f D_i6_801A697C;
-extern Vec3f D_i6_801A6988;
-extern Vec3f D_i6_801A6994;
-extern Vec3f D_i6_801A69A0;
-
 void func_i6_8019E014(s32 limbIndex, Vec3f* rot, void* data) {
-    Vec3f sp7C = D_i6_801A6958;
-    Vec3f sp70 = D_i6_801A6964;
-    Vec3f sp64 = D_i6_801A6970;
-    Vec3f sp58 = D_i6_801A697C;
-    Vec3f sp4C = D_i6_801A6988;
-    Vec3f sp40 = D_i6_801A6994;
-    Vec3f sp34 = D_i6_801A69A0;
+    Vec3f sp7C = { 40.0f, -30.0f, 0.0f };
+    Vec3f sp70 = { -40.0f, -30.0f, 0.0f };
+    Vec3f sp64 = { 0.0f, 0.0f, 0.0f };
+    Vec3f sp58 = { 0.0f, 30.0f, -50.0f };
+    Vec3f sp4C = { 6.0f, -1.0f, -53.0f };
+    Vec3f sp40 = { 0.0f, 0.0f, 66.0f };
+    Vec3f sp34 = { 0.0f, 30.0f, -60.0f };
     Vec3f sp28;
     Boss* boss = (Boss*)data;
     
@@ -1696,7 +1697,28 @@ void func_i6_8019E014(s32 limbIndex, Vec3f* rot, void* data) {
 }
 
 extern Limb* D_602D140;
-extern f32 D_i6_801A69AC[];
+static f32 D_i6_801A69AC[20] = {
+    0.3f,
+    0.7f,
+    1.3f,
+    0.7f,
+    0.3f,
+    0.0f,
+    10.0f,
+    20.0f,
+    300.0f,
+    100.0f,
+    200.0f,
+    100.0f,
+    60.0f,
+    -260.0f,
+    80.0f,
+    100.0f,
+    80.0f,
+    262.0f,
+    285.0f,
+    252.0f
+};
 
 void func_i6_8019E2C4(Boss* boss) {
     f32 sp9C;
@@ -1805,7 +1827,18 @@ void func_i6_8019E2C4(Boss* boss) {
     }
 }
 
-extern Vec3f D_i6_801A69FC[];
+static Vec3f D_i6_801A69FC[10] = {
+    { 0.0f, -80.0f, 800.0f },
+    { -500.0f, -100.0f, 400.0f },
+    { 500.0f, -140.0f, 400.0f },
+    { 3250.0f, 600.0f, 3500.0f },
+    { -2000.0f, 400.0f, 5000.0f },
+    { 2500.0f, 400.0f, 5000.0f },
+    { -1000.0f, 400.0f, 6000.0f },
+    { 250.0f, 400.0f, 2500.0f },
+    { -2000.0f, 0.0f, 4000.0f },
+    { 2500.0f, 0.0f, 4000.0f },
+};
 
 void func_i6_8019EB80(void) {
     Actor* actor;
@@ -1880,7 +1913,7 @@ void func_i6_8019EE60(Player* player) {
             D_801779A0 = boss->obj.pos.x;
             D_801779B8 = boss->obj.pos.y;
             D_801779C0 = boss->obj.pos.z;
-            // var_s0 = &gActors[10];
+
             for (i = 10; i < ARRAY_COUNT(gActors); i++) {
                 if (gActors[i].unk_0B6 == 0) {
                     Object_Kill(&gActors[i].obj, gActors[i].sfxPos);
@@ -2244,7 +2277,18 @@ void func_i6_8019FF00(Actor* actor) {
     }
 }
 
-extern Vec3f D_i6_801A6A74[];
+static Vec3f D_i6_801A6A74[10] = {
+    { -10100.0f, -300.0f, -600.0f }, 
+    { -10300.0f, 1200.0f, -1070.0f }, 
+    { -10500.0f, 300.0f, 900.0f }, 
+    { 9000.0f, 0.0f, 1500.0f }, 
+    { 5000.0f, -100.0f, -100.0f }, 
+    { 1150.0f, -1100.0f, -7500.0f }, 
+    { -200.0f, -2400.0f, -12650.0f }, 
+    { 0.0f, 4000.0f, -600.0f }, 
+    { -10800.0f, 900.0f, -600.0f }, 
+    { -2750.0f, 900.0f, -9150.0f }
+};
 
 void func_i6_801A0510(Actor* actor, s32 arg1) {
 
@@ -2296,7 +2340,13 @@ void func_i6_801A0510(Actor* actor, s32 arg1) {
     }
 }
 
-extern Vec3f D_i6_801A6AEC[];
+static Vec3f D_i6_801A6AEC[5] = {
+    { 100.0f, 50.0f, -200.0f }, 
+    { 100.0f, -100.0f, 200.0f }, 
+    { 200.0f, -100.0f, 0.0f }, 
+    { 0.0f, 345.0f, 350.0f }, 
+    { 90.0f, 87.0f, 93.0f },
+};
 
 void func_i6_801A06A4(Actor* actor, s32 arg1) {
 
@@ -3134,9 +3184,9 @@ extern f32* D_603421C;
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/fox_sy/func_i6_801A3BD4.s")
 // https://decomp.me/scratch/lEVcO
 
-extern s32 D_i6_801A6B28[];
-extern s32 D_i6_801A6B34[];
-extern s32 D_i6_801A6B40[];
+static s32 D_i6_801A6B28[3] = { 255, 150, 150 };
+static s32 D_i6_801A6B34[3] = { 150, 255, 150 };
+static s32 D_i6_801A6B40[6] = { 150, 150, 255 };
 
 s32 func_i6_801A4A18(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Actor* actor = (Actor*)data;
@@ -3173,14 +3223,11 @@ s32 func_i6_801A4A18(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
     return 0;
 }
 
-extern Vec3f D_i6_801A6B58;
-
 void func_i6_801A4C34(s32 limbIndex, Vec3f* rot, void* data) {
-    Vec3f sp2C;
+    Vec3f sp2C = { 40.0f, -30.0f, 0.0f };
     Vec3f sp20;
     Actor* actor = (Actor*)data;
 
-    sp2C = D_i6_801A6B58;
     if (limbIndex == 1) {
         Matrix_MultVec3f(gCalcMatrix, &sp2C, &sp20);
         actor->fwork[16] = sp20.x;
@@ -3189,7 +3236,13 @@ void func_i6_801A4C34(s32 limbIndex, Vec3f* rot, void* data) {
     }
 }
 
-extern f32 D_i6_801A6B64[];
+static f32 D_i6_801A6B64[5] = {
+    0.3f,
+    0.7f,
+    1.3f,
+    0.7f,
+    0.3f,
+};
 
 void func_i6_801A4CB0(Actor* actor) {
     f32 scale;

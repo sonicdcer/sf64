@@ -147,7 +147,7 @@
     - [0xEBE400, .data, fox_i6]
     - [0xEBE410, .data, fox_ve2]
     - [0xEBE560, data, sf_i6_2]
-    - [0xEBE5C0, data, fox_sy]
+    - [0xEBE5C0, .data, fox_sy]
     - [0xEBE830, data, sf_i6_4]
     - [0xEBE840, .rodata, fox_i6]
     - [0xEBE850, .rodata, fox_ve2]
