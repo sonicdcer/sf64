@@ -479,25 +479,25 @@ void func_i3_8019F7AC(Actor* actor) {
         Matrix_SetGfxMtx(&gMasterDisp);
         switch (actor->obj.id) {
             case OBJ_ACTOR_275:
-                GDL(D_6017370);
+                gSPDisplayList(gMasterDisp++, D_6017370);
                 break;
             case OBJ_ACTOR_276:
                 if (!(gGameFrameCount & 1)) {
                     RCP_SetupDL(&gMasterDisp, 0x29);
-                    GPC(255, 255, 0, 255);
+                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                 }
-                GDL(D_6017090);
+                gSPDisplayList(gMasterDisp++, D_6017090);
                 break;
             case OBJ_ACTOR_277:
-                GDL(D_6016CF0);
+                gSPDisplayList(gMasterDisp++, D_6016CF0);
                 break;
         }
 
         Matrix_Pop(&gGfxMatrix);
         Graphics_SetScaleMtx(actor->scale * 3.5f);
         RCP_SetupDL(&gMasterDisp, 0x40);
-        GPC(255, 128, 128, 160);
-        GDL(D_i3_801BF92C[actor->unk_0B6]);
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, 160);
+        gSPDisplayList(gMasterDisp++, D_i3_801BF92C[actor->unk_0B6]);
     }
 }
 
@@ -833,25 +833,25 @@ void func_i3_801A0AF0(Effect* effect) {
     Graphics_SetScaleMtx(effect->scale2);
     switch (effect->unk_4E) {
         case 0:
-            GPC(255, 128, 128, effect->unk_44);
-            GDL(D_i3_801BF92C[effect->unk_4C]);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, effect->unk_44);
+            gSPDisplayList(gMasterDisp++, D_i3_801BF92C[effect->unk_4C]);
             break;
         case 1:
         case 2:
-            GPC(255, 128, 128, effect->unk_44);
-            GDL(D_i3_801BF944[effect->unk_4C]);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, effect->unk_44);
+            gSPDisplayList(gMasterDisp++, D_i3_801BF944[effect->unk_4C]);
             break;
         case 3:
-            GPC(255, 128, 128, effect->unk_44);
-            GDL(D_601C820);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, effect->unk_44);
+            gSPDisplayList(gMasterDisp++, D_601C820);
             break;
         case 4:
         case 5:
         case 6:
         case 7:
             RCP_SetupDL(&gMasterDisp, 0x35);
-            GPC(255, 128, 128, effect->unk_44);
-            GDL(D_i3_801BF92C[effect->unk_4C]);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, effect->unk_44);
+            gSPDisplayList(gMasterDisp++, D_i3_801BF92C[effect->unk_4C]);
             RCP_SetupDL(&gMasterDisp, 0x40);
             break;
     }
@@ -2505,7 +2505,7 @@ s32 func_i3_801A68A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
     Vec3f sp4C = { 10.0f, 0.0f, 0.0f };
     Vec3f sp40 = { -10.0f, 0.0f, 0.0f };
 
-    GPC(D_i3_801C2740[1], D_i3_801C2740[0], D_i3_801C2740[0], 255);
+    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, D_i3_801C2740[1], D_i3_801C2740[0], D_i3_801C2740[0], 255);
     if (this->fwork[SO_FWK_3] < 4800.0f) {
         RCP_SetupDL_30(64, 32, 32, gFogAlpha, gFogNear, gFogFar);
     } else {
@@ -2521,7 +2521,7 @@ s32 func_i3_801A68A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
                 *dList = NULL;
             } else if (this->swork[SO_SWK_10] != 0) {
                 if (this->swork[SO_SWK_10] & 1) {
-                    GPC(32, 32, 128, 255);
+                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 32, 32, 128, 255);
                     rot->z += 3.0f;
                 } else {
                     rot->z -= 3.0f;
@@ -2536,7 +2536,7 @@ s32 func_i3_801A68A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
             }
             if ((this->swork[SO_SWK_8] & 1) != 0) {
                 if ((this->swork[SO_SWK_8] & 1) != 0) {
-                    GPC(32, 32, 128, 255);
+                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 32, 32, 128, 255);
                     rot->y += 3.0f;
                 } else {
                     rot->y -= 3.0f;
@@ -2551,7 +2551,7 @@ s32 func_i3_801A68A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
             }
             if ((this->swork[SO_SWK_9] & 1) != 0) {
                 if ((this->swork[SO_SWK_9] & 1) != 0) {
-                    GPC(32, 32, 128, 255);
+                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 32, 32, 128, 255);
                     rot->y += 3.0f;
                 } else {
                     rot->y -= 3.0f;
@@ -2719,14 +2719,14 @@ void func_i3_801A71B8(Boss* bossSO) {
     }
     if (bossSO->health <= 0) {
         RCP_SetupDL_49();
-        GPC(255, 255, 255, 255);
-        GEC(255, 192, 0, 255);
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
+        gDPSetEnvColor(gMasterDisp++, 255, 192, 0, 255);
         Matrix_Pop(&gGfxMatrix);
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, bossSO->obj.pos.x, bossSO->obj.pos.y, bossSO->obj.pos.z - 500.0f + D_80177D20, 1);
         Matrix_Scale(gGfxMatrix, D_i3_801C2768[3], D_i3_801C2768[2], 1.0f, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
-        GDL(D_1024AC0);
+        gSPDisplayList(gMasterDisp++, D_1024AC0);
         for (i = 0; i < 9; i++) {
             Matrix_Pop(&gGfxMatrix);
             Matrix_Push(&gGfxMatrix);
@@ -2736,10 +2736,10 @@ void func_i3_801A71B8(Boss* bossSO) {
             Matrix_RotateX(gGfxMatrix, spA0[i] * M_DTOR, 1);
             Matrix_Scale(gGfxMatrix, D_i3_801C2768[4 + i], 100.0f, 1.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            GDL(D_1024AC0);
+            gSPDisplayList(gMasterDisp++, D_1024AC0);
         }
         if (D_i3_801C2768[13] > 0.0f) {
-            GPC(255, 192, 64, 255);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 192, 64, 255);
             Matrix_Pop(&gGfxMatrix);
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, bossSO->obj.pos.x, bossSO->obj.pos.y + 230.0f,
@@ -2747,10 +2747,10 @@ void func_i3_801A71B8(Boss* bossSO) {
             Matrix_RotateX(gGfxMatrix, M_PI * 0.027777777, 1); // 1 / 36
             Matrix_Scale(gGfxMatrix, D_i3_801C2768[13], 1.0f, D_i3_801C2768[13], 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            GDL(D_20112C0);
+            gSPDisplayList(gMasterDisp++, D_20112C0);
             Matrix_Scale(gGfxMatrix, 0.6f, 1.0f, 0.6f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            GDL(D_20112C0);
+            gSPDisplayList(gMasterDisp++, D_20112C0);
             Matrix_Pop(&gGfxMatrix);
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, bossSO->obj.pos.x, bossSO->obj.pos.y + 270.0f,
@@ -2758,10 +2758,10 @@ void func_i3_801A71B8(Boss* bossSO) {
             Matrix_RotateX(gGfxMatrix, -M_PI / 60.0f, 1);
             Matrix_Scale(gGfxMatrix, D_i3_801C2768[13], 1.0f, D_i3_801C2768[13], 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            GDL(D_20112C0);
+            gSPDisplayList(gMasterDisp++, D_20112C0);
             Matrix_Scale(gGfxMatrix, 0.6f, 1.0f, 0.6f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            GDL(D_20112C0);
+            gSPDisplayList(gMasterDisp++, D_20112C0);
         }
     }
 }

@@ -791,9 +791,91 @@ void func_i3_801A9C98(Player* player) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_aq/func_i3_801A9DE4.s")
+void func_i3_801A9DE4(Player* player) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_aq/func_i3_801A9ED0.s")
+    if (D_i3_801C4190[0] == 777) {
+        if ((gBosses[0].obj.status != OBJ_ACTIVE) || (gBosses[0].health == 0) || (fabsf(D_i3_801C4308[10]) <= 6.0f) ||
+            ((D_i3_801C4190[4] == 0x79) && (gBosses[0].swork[0xC] == 0))) {
+            D_i3_801C4190[1] = 0;
+            D_i3_801C4190[5] = 0;
+            D_i3_801C4190[3] = 0;
+            D_i3_801C4190[4] = 0;
+            D_i3_801C4190[0] = 0;
+        } else {
+            i = D_i3_801C4190[4] - 2;
+
+            D_i3_801C41B8[2] = gBosses[0].obj.pos.z + gBosses[0].info.hitbox[i + 0] + gBosses[0].info.hitbox[i + 1];
+            D_i3_801C41B8[1] = gBosses[0].obj.pos.y + gBosses[0].info.hitbox[i + 2];
+            D_i3_801C41B8[0] = gBosses[0].obj.pos.x + gBosses[0].info.hitbox[i + 4];
+        }
+    }
+}
+
+// Loop looks really fake. optimized out index?
+void func_i3_801A9ED0(Player* player) {
+    s32 j;
+    s32 i;
+    s32 sp8C;
+    f32 temp_fa0;
+    f32 temp_fa1;
+    f32 temp_fv0;
+    f32 temp_fv1;
+    Vec3f sp70;
+    Vec3f sp64;
+    f32* tempx;
+    f32* tempy;
+    f32* tempz;
+
+    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8) * M_DTOR, 0);
+    Matrix_RotateX(gCalcMatrix, player->unk_0E4 * M_DTOR, 1);
+    sp70.x = 0.0f;
+    sp70.y = 0.0f;
+    sp70.z = -1200.0f;
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp70, &sp64);
+    if (D_i3_801C4190[3] == 0) {
+        sp8C = D_i3_801C4190[4];
+
+        if ((fabsf(D_i3_801C4308[10]) >= 6.0f) && (gBosses[0].actionState >= 10) && (gBosses[0].obj.status == 2) &&
+            (gBosses[0].health != 0)) {
+            for (j = 119, i = 121; j < 199; j += 10, i += 10) {
+                if ((j == 119) || (j == 129) || (j == 139) || (j == 169)) {
+                    tempy = &gBosses[0].info.hitbox[i];
+
+                    temp_fv0 = gBosses[0].obj.pos.y + tempy[0] + tempy[1] + 200.0f;
+                    temp_fa0 = gBosses[0].obj.pos.y + tempy[0] - tempy[1] - 200.0f;
+                    temp_fv1 = gBosses[0].obj.pos.x + tempy[2] + tempy[3] + 200.0f;
+                    temp_fa1 = gBosses[0].obj.pos.x + tempy[2] - tempy[3] - 200.0f;
+                    if ((gBosses[0].actionState >= 10) && ((player->pos.y + sp64.y) <= temp_fv0) &&
+                        (temp_fa0 <= (player->pos.y + sp64.y)) && ((player->pos.x + sp64.x) <= temp_fv1) &&
+                        (temp_fa1 <= (player->pos.x + sp64.x))) {
+                        if (D_i3_801C41B8[11] >=
+                            fabsf(player->unk_138 - gBosses[0].obj.pos.z - gBosses[0].info.hitbox[j])) {
+                            D_i3_801C41B8[11] =
+                                fabsf(player->unk_138 - gBosses[0].obj.pos.z - gBosses[0].info.hitbox[j]);
+                            D_i3_801C4190[0] = 777;
+                            D_i3_801C4190[4] = i;
+                            D_i3_801C4190[1] = 318;
+                        }
+                        if (((j == 129) && (gBosses[0].swork[8] == 0)) || ((j == 139) && (gBosses[0].swork[9] == 0)) ||
+                            ((j == 119) && (gBosses[0].swork[0xC] == 0))) {
+                            D_i3_801C4190[1] = 0;
+                            D_i3_801C4190[5] = 0;
+                            D_i3_801C4190[3] = 0;
+                            D_i3_801C4190[4] = 0;
+                            D_i3_801C4190[0] = 0;
+                        }
+                    }
+                }
+            }
+            if ((sp8C != D_i3_801C4190[4]) && (D_i3_801C41B8[5] == 3.0f)) {
+                Audio_PlaySfx(0x4900001B, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                D_i3_801C41B8[5] = 20.0f;
+            }
+        }
+    }
+    func_i3_801A9DE4(player);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_aq/func_i3_801AA20C.s")
 
