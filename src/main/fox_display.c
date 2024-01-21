@@ -32,7 +32,7 @@ void func_80051B30(void) {
     if ((D_80177854 == 0x64) || (D_800CA234 == NULL)) {
         return;
     }
-    if ((D_800CA234->obj.status != 2) || (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_3)) {
+    if ((D_800CA234->obj.status != OBJ_ACTIVE) || (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_3)) {
         D_800CA234 = NULL;
         D_Timer_800CA238 = 0;
         return;
@@ -69,7 +69,7 @@ void func_80051B30(void) {
         }
         switch (sp7C) {
             case 0:
-                if (D_800CA234->sfxPos.x > 0.0f) {
+                if (D_800CA234->sfxPos[0] > 0.0f) {
                     sp78 = 20.0f;
                     sp74 = M_PI / 2.0f;
                 } else {
@@ -1440,16 +1440,16 @@ void func_80057814(Player* player) {
     sp20.x = player->pos.x;
     sp20.y = player->pos.y;
     sp20.z = player->unk_138;
-    sp2C.x = player->unk_460.x;
-    sp2C.y = player->unk_460.y;
-    sp2C.z = player->unk_460.z;
-    func_8005F0E8(&player->unk_460, &sp20);
-    player->unk_46C.x = player->unk_460.x - sp2C.x;
-    player->unk_46C.y = player->unk_460.y - sp2C.y;
-    player->unk_46C.z = player->unk_460.z - sp2C.z;
-    player->unk_480 = &player->unk_46C;
-    player->unk_47C = &player->unk_460;
-    player->unk_488 = player->vel.y;
+    sp2C.x = player->sfxPos[0];
+    sp2C.y = player->sfxPos[1];
+    sp2C.z = player->sfxPos[2];
+    func_8005F0E8(player->sfxPos, &sp20);
+    player->sfxVel[0] = player->sfxPos[0] - sp2C.x;
+    player->sfxVel[1] = player->sfxPos[1] - sp2C.y;
+    player->sfxVel[2] = player->sfxPos[2] - sp2C.z;
+    player->srcVel = player->sfxVel;
+    player->srcPos = player->sfxPos;
+    player->yVel = player->vel.y;
     player->unk_490 = player->unk_0F8;
 }
 

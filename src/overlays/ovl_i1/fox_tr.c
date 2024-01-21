@@ -24,7 +24,7 @@ void func_i1_80198968(Item* item) {
                 if (item->obj.pos.z > (gPlayer->unk_138 + var_fv0)) {
                     item->unk_44 = 1;
                     PRINTF("♪:リング未通過音\n"); // Ring not passed sound
-                    Audio_PlaySfx(0x4900402F, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    Audio_PlaySfx(0x4900402F, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                     D_80177E80 = 0;
                 }
             }
@@ -33,7 +33,7 @@ void func_i1_80198968(Item* item) {
                 item->timer_48 = 50;
                 item->info.unk_10 = 10000.0f;
                 PRINTF("♪:リング通過音\n"); // Ring passing sound
-                Audio_PlaySfx(0x49008025, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x49008025, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 D_80177E80++;
                 if ((item->obj.rot.x != 0.0f) && (D_80177E80 >= 100)) {
                     func_800BA808(gMsg_ID_20330, RCID_ROB64);
@@ -51,7 +51,7 @@ void func_i1_80198968(Item* item) {
             item->obj.rot.z += 22.0f;
             Math_SmoothStepToAngle(&item->obj.rot.y, Math_RadToDeg(-gPlayer[item->unk_4E].unk_058), 0.2f, 10.0f, 0.0f);
             if (item->timer_48 == 0) {
-                Object_Kill(&item->obj, &item->sfxPos);
+                Object_Kill(&item->obj, item->sfxPos);
             }
             break;
     }

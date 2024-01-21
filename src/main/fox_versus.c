@@ -51,7 +51,7 @@ void func_800BC760(void) {
     func_800A6148();
 
     for (i = 0; i < gCamCount; i++) {
-        Audio_KillSfx(gPlayer[i].unk_460_arr);
+        Audio_KillSfx(gPlayer[i].sfxPos);
         func_8001CA24(i);
     }
 
@@ -337,7 +337,7 @@ void func_800BDE44(void) {
                     } else {
                         D_80178810[i] = 0;
                     }
-                    Audio_PlaySfx(0x49004007U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    Audio_PlaySfx(0x49004007U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 }
             }
 
@@ -366,12 +366,12 @@ s32 func_800BE078(void) {
 
         if ((D_80178768[1] -= temp) >= 0) {
             if ((D_80178768[0] == 0) && (D_80178768[1] < 15) && (D_80178768[1] >= 0)) {
-                Audio_PlaySfx(0x4900C02AU, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x4900C02AU, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
             break;
         }
         // clang-format off
-	if (D_80178768[0] == 0)	{ Audio_PlaySfx(0x4900D036U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C); }
+	if (D_80178768[0] == 0)	{ Audio_PlaySfx(0x4900D036U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C); }
         // clang-format on
         D_80178768[1] *= -1;
         temp = (D_80178768[1] / 60) + 1;
@@ -467,19 +467,19 @@ s32 func_800BE564(void) {
         }
 
         if ((sUnlockLandmaster) && (D_80178780[i] == 0) && (gControllerPress[i].button & B_BUTTON)) {
-            Audio_PlaySfx(0x49000003U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x49000003U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             D_80178780[i] = 2;
         }
 
         if ((sUnlockOnFoot) && (D_80178780[i] == 0) &&
             ((gControllerPress[i].button & L_CBUTTONS) || (gControllerPress[i].button & D_CBUTTONS) ||
              (gControllerPress[i].button & U_CBUTTONS) || (gControllerPress[i].button & R_CBUTTONS))) {
-            Audio_PlaySfx(0x49000003U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x49000003U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             D_80178780[i] = 3;
         }
 
         if ((D_80178780[i] == 0) && (gControllerPress[i].button & A_BUTTON)) {
-            Audio_PlaySfx(0x49000003U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x49000003U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             D_80178780[i] = 1;
         }
 
@@ -602,10 +602,10 @@ s32 func_800BEF00(void) {
     if (D_80178794 == 0) {
         D_80178790--;
         if (D_80178790 != 0) {
-            Audio_PlaySfx(0x49000008U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x49000008U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             ret = 0;
         } else {
-            Audio_PlaySfx(0x49000009U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x49000009U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             ret = 1;
         }
         D_80178794 = 30;
@@ -1133,7 +1133,7 @@ s32 func_800C07C4(void) {
     }
 
     // clang-format off
-    if (ret != 0) { Audio_PlaySfx(0x49000002U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C); }
+    if (ret != 0) { Audio_PlaySfx(0x49000002U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C); }
     // clang-format on
 
     return ret;
@@ -1259,7 +1259,7 @@ bool func_800C0D10(void) {
             if (cont == 4) {
                 D_800D4A90 = 2;
             } else {
-                Audio_PlaySfx(0x49004007U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x49004007U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
             break;
 
@@ -1310,7 +1310,7 @@ s32 func_800C0E78(void) {
 bool func_800C107C(s32 arg0) {
     D_80178798++;
     if (D_80178798 == 10) {
-        Audio_PlaySfx(0x49004007U, &D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(0x49004007U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         D_801787B8++;
         D_80178798 = 0;
     }
@@ -1992,9 +1992,9 @@ void func_800C26C8(void) {
         src.z = -10000.0f;
 
         for (i = 0, actor = &gActors[10]; i < 5; i++, actor++) {
-            if (actor->obj.status == 0) {
+            if (actor->obj.status == OBJ_FREE) {
                 Actor_Initialize(actor);
-                actor->obj.status = 2;
+                actor->obj.status = OBJ_ACTIVE;
                 actor->obj.id = 197;
                 Matrix_RotateY(gCalcMatrix, M_DTOR * (Rand_ZeroOne() * 360.0f), 0);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
@@ -2002,7 +2002,7 @@ void func_800C26C8(void) {
                 actor->obj.pos.y = dest.y;
                 actor->obj.pos.z = dest.z;
                 actor->unk_0E4 = i + 10;
-                actor->unk_0CE = 24;
+                actor->health = 24;
                 actor->timer_0C2 = 30;
 
                 Object_SetInfo(&actor->info, actor->obj.id);

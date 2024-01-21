@@ -14,7 +14,7 @@ void func_i1_80198C50(void) {
         if (D_80178310[i].id >= 0) {
             if (D_80178310[i].id <= 160) {
                 func_800A4F4C(obj58);
-                obj58->obj.status = 2;
+                obj58->obj.status = OBJ_ACTIVE;
                 obj58->obj.id = D_80178310[i].id;
                 obj58->obj.pos.x = D_80178310[i].xPos;
                 obj58->obj.pos.z = -D_80178310[i].zPos1;
@@ -34,28 +34,28 @@ bool func_i1_80198DCC(Actor* actor, f32 x, f32 z) {
     s32 i;
 
     for (i = 0, obj58 = gObjects58; i < 200;) {
-        if ((obj58->obj.status == 2) &&
+        if ((obj58->obj.status == OBJ_ACTIVE) &&
             (fabsf(obj58->obj.pos.x - (actor->obj.pos.x + ((x * 650.0f) + 350.0f))) < 1200.0f) &&
             (fabsf(obj58->obj.pos.z - (actor->obj.pos.z + ((z * 650.0f) + 350.0f))) < 1200.0f) &&
             (actor->obj.pos.y < 650.0f)) {
             return true;
         }
         obj58++;
-        if ((obj58->obj.status == 2) &&
+        if ((obj58->obj.status == OBJ_ACTIVE) &&
             (fabsf(obj58->obj.pos.x - (actor->obj.pos.x + ((x * 650.0f) + 350.0f))) < 1200.0f) &&
             (fabsf(obj58->obj.pos.z - (actor->obj.pos.z + ((z * 650.0f) + 350.0f))) < 1200.0f) &&
             (actor->obj.pos.y < 650.0f)) {
             return true;
         }
         obj58++;
-        if ((obj58->obj.status == 2) &&
+        if ((obj58->obj.status == OBJ_ACTIVE) &&
             (fabsf(obj58->obj.pos.x - (actor->obj.pos.x + ((x * 650.0f) + 350.0f))) < 1200.0f) &&
             (fabsf(obj58->obj.pos.z - (actor->obj.pos.z + ((z * 650.0f) + 350.0f))) < 1200.0f) &&
             (actor->obj.pos.y < 650.0f)) {
             return true;
         }
         obj58++;
-        if ((obj58->obj.status == 2) &&
+        if ((obj58->obj.status == OBJ_ACTIVE) &&
             (fabsf(obj58->obj.pos.x - (actor->obj.pos.x + ((x * 650.0f) + 350.0f))) < 1200.0f) &&
             (fabsf(obj58->obj.pos.z - (actor->obj.pos.z + ((z * 650.0f) + 350.0f))) < 1200.0f) &&
             (actor->obj.pos.y < 650.0f)) {
@@ -185,9 +185,9 @@ void func_i1_8019949C(void) {
             sp44.y = 0.0f;
             sp44.z = -15000.0f;
             for (i = var_v1, actor = &gActors[i + 10]; i < 16; i++, actor++) {
-                if (actor->obj.status == 0) {
+                if (actor->obj.status == OBJ_FREE) {
                     Actor_Initialize(actor);
-                    actor->obj.status = 2;
+                    actor->obj.status = OBJ_ACTIVE;
                     actor->obj.id = OBJ_ACTOR_197;
                     Matrix_RotateY(gCalcMatrix, gGameFrameCount * 6.0f * M_DTOR, 0);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
@@ -196,14 +196,14 @@ void func_i1_8019949C(void) {
                     actor->obj.pos.z = sp38.z;
                     actor->unk_0F4.y = gGameFrameCount * 6.0f;
                     actor->unk_0E4 = i + 10;
-                    actor->unk_0CE = 24;
+                    actor->health = 24;
                     actor->unk_0C9 = actor->iwork[11] = 1;
                     actor->timer_0C2 = 30;
                     Object_SetInfo(&actor->info, actor->obj.id);
-                    Audio_PlaySfx(0x3100000C, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    Audio_PlaySfx(0x3100000C, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                     if ((i + 10) == 10) {
                         actor->unk_0E6 = 0;
-                        actor->unk_0CE = 50;
+                        actor->health = 50;
                     } else {
                         actor->unk_0E6 = -1;
                         actor->info.action = (ObjectFunc) func_i1_80199024;

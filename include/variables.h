@@ -22,7 +22,7 @@ extern u8 gAspMainData[];
 extern Mtx gIdentityMtx; // 800C4620
 extern Matrix gIdentityMatrix; //800C4660
 
-extern Vec3f D_800C5D28;
+extern f32 D_800C5D28[];
 extern f32 D_800C5D34;
 extern s8 D_800C5D3C;
 extern s8 D_800C7C50;
@@ -458,7 +458,7 @@ extern s32 D_80177A10[10];
 extern s32 D_Timer_80177A38[4];
 extern f32 D_80177A48[10];
 extern s32 D_Timer_80177A70[4];
-extern s32 D_80177A80;
+extern s32 gCsFrameCount;
 //
 extern s32 D_Timer_80177A88[4];
 extern u8 D_80177A98;
@@ -571,7 +571,7 @@ extern u8 D_80178238[60];
 // 0x8
 extern s32 D_8017827C;
 extern Player* gPlayer;
-extern s32 D_80178284;
+extern s32 gBossActive;
 extern f32* D_80178288;
 extern s32 D_8017828C;
 extern f32* D_80178290;

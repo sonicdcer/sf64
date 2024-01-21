@@ -593,7 +593,7 @@ void func_800BB5D0(void) {
                     if ((D_801782E8 >= 23000) && (D_801782E8 < 23033)) {
                         if (D_801782F8 != 0) {
                             D_Timer_801782B4 = 2;
-                            Audio_PlaySfx(0x49000017, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                            Audio_PlaySfx(0x49000017, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                         }
                     } else if (temp_v0 == 1) {
                         D_Timer_801782B4 = 2;
@@ -718,7 +718,7 @@ void func_800BB5D0(void) {
                     break;
             }
 
-            if ((gActors[var_v1].obj.status != 2) && (gGameFrameCount & 4) &&
+            if ((gActors[var_v1].obj.status != OBJ_ACTIVE) && (gGameFrameCount & 4) &&
                 (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && (D_801782A4 != 2) && (D_801782A4 != 3) &&
                 (D_801782A4 != 1000)) {
                 RCP_SetupDL(&gMasterDisp, 0x4C);
@@ -726,7 +726,7 @@ void func_800BB5D0(void) {
                 Graphics_DisplaySmallText(31, 167, 1.0f, 1.0f, "DOWN");
             }
             if (((D_801782A4 != 2) && (D_801782A4 != 3)) && (D_801782A4 != 1000)) {
-                func_80086110(22.0f, 165.0f, gActors[var_v1].unk_0CE * 2.55f);
+                func_80086110(22.0f, 165.0f, gActors[var_v1].health * 2.55f);
             }
         }
         if (((D_801782A4 != 2) && (D_801782A4 != 3)) && (D_801782A4 != 1000)) {

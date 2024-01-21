@@ -54,22 +54,22 @@ u32 D_800CFF54[9] = {
     0x19404038, 0x19404139, 0x1940423A, 0x1940433B, 0x1940443C, 0x1940453D, 0x1940463E, 0x1940463E, 0x1940463E,
 };
 
-void func_80060F30(Vec3f* pos, u32 sfxId, s32 arg2) {
+void func_80060F30(f32* pos, u32 sfxId, s32 arg2) {
     (void) "CHIME SET \n";
     (void) "BOMB SET 1\n";
     (void) "BOMB SET 2\n";
     (void) "center_X        %f\n";
     (void) "Enm->obj.pos.x  %f\n";
     if (!gVersusMode) {
-        Audio_PlaySfx(sfxId, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(sfxId, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     } else {
         Audio_PlaySfx(sfxId, pos, arg2, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
 }
 
-void Object_Kill(Object* obj, Vec3f* arg1) {
-    obj->status = 0;
-    Audio_KillSfx(arg1);
+void Object_Kill(Object* obj, f32* sfxSrc) {
+    obj->status = OBJ_FREE;
+    Audio_KillSfx(sfxSrc);
 }
 
 bool func_80060FE4(Vec3f* arg0, f32 arg1) {
@@ -180,7 +180,7 @@ void Effect_Initialize(Effect* effect) {
 
 void Object_80_Load(Object_80* obj80, ObjectInit* objInit) {
     Object_80_Initialize(obj80);
-    obj80->obj.status = 1;
+    obj80->obj.status = OBJ_INIT;
     obj80->obj.pos.z = -objInit->zPos1;
     obj80->obj.pos.z += -3000.0f + objInit->zPos2;
     obj80->obj.pos.x = objInit->xPos;
@@ -194,7 +194,7 @@ void Object_80_Load(Object_80* obj80, ObjectInit* objInit) {
 
 void Object_4C_Load(Object_4C* obj4C, ObjectInit* objInit) {
     Object_4C_Initialize(obj4C);
-    obj4C->obj.status = 1;
+    obj4C->obj.status = OBJ_INIT;
     obj4C->obj.pos.z = -objInit->zPos1;
     obj4C->obj.pos.z += -3000.0f + objInit->zPos2;
     obj4C->obj.pos.x = objInit->xPos;
@@ -208,7 +208,7 @@ void Object_4C_Load(Object_4C* obj4C, ObjectInit* objInit) {
 
 void Actor_Load(Actor* actor, ObjectInit* objInit) {
     Actor_Initialize(actor);
-    actor->obj.status = 1;
+    actor->obj.status = OBJ_INIT;
     actor->obj.pos.z = -objInit->zPos1;
     actor->obj.pos.z += -3000.0f + objInit->zPos2;
     actor->obj.pos.x = objInit->xPos;
@@ -222,7 +222,7 @@ void Actor_Load(Actor* actor, ObjectInit* objInit) {
 
 void Boss_Load(Boss* boss, ObjectInit* objInit) {
     Boss_Initialize(boss);
-    boss->obj.status = 1;
+    boss->obj.status = OBJ_INIT;
     boss->obj.pos.z = -objInit->zPos1;
     boss->obj.pos.z += -3000.0f + objInit->zPos2;
     boss->obj.pos.x = objInit->xPos;
@@ -236,7 +236,7 @@ void Boss_Load(Boss* boss, ObjectInit* objInit) {
 
 void Item_Load(Item* item, ObjectInit* objInit) {
     Item_Initialize(item);
-    item->obj.status = 1;
+    item->obj.status = OBJ_INIT;
     item->obj.pos.z = -objInit->zPos1;
     item->obj.pos.z += -3000.0f + objInit->zPos2;
     item->obj.pos.x = objInit->xPos;
@@ -251,7 +251,7 @@ void Item_Load(Item* item, ObjectInit* objInit) {
 
 void func_80061958(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
     Effect_Initialize(effect);
-    effect->obj.status = 1;
+    effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_346;
     effect->timer_50 = 50;
     effect->scale2 = 0.2f;
@@ -278,7 +278,7 @@ void func_80061A4C(void) {
     f32 sp1C;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
-        if (gEffects[i].obj.status == 0) {
+        if (gEffects[i].obj.status == OBJ_FREE) {
             sp1C = (Rand_ZeroOne() - 0.5f);
             x = gPlayer[0].pos.x + (sp1C * 400.0f) + (5.0f * gPlayer[0].vel.x);
             sp1C = (Rand_ZeroOne() - 0.5f);
@@ -301,7 +301,7 @@ void func_80061B68(void) {
     f32 sp1C;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
-        if (gEffects[i].obj.status == 0) {
+        if (gEffects[i].obj.status == OBJ_FREE) {
 
             sp1C = (Rand_ZeroOne() - 0.5f);
             x = gPlayer[0].pos.x + (sp1C * 2000.0f) + (5.0f * gPlayer[0].vel.x);
@@ -328,7 +328,7 @@ void func_80061CD0(void) {
     f32 sp1C;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
-        if (gEffects[i].obj.status == 0) {
+        if (gEffects[i].obj.status == OBJ_FREE) {
             sp1C = (Rand_ZeroOne() - 0.5f);
             x = gPlayer[gPlayerNum].pos.x + (sp1C * 3000.0f) + (5.0f * gPlayer[gPlayerNum].vel.x);
             sp1C = (Rand_ZeroOne() - 0.5f);
@@ -345,7 +345,7 @@ void func_80061CD0(void) {
 
 void func_80061E48(Actor* actor, f32 xPos, f32 yPos, f32 zPos) {
     Actor_Initialize(actor);
-    actor->obj.status = 1;
+    actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_181;
     if (Rand_ZeroOne() < 0.5f) {
         actor->obj.id = OBJ_ACTOR_186;
@@ -364,7 +364,7 @@ void func_80061F0C(Actor* actor, ObjectInit* objInit, s32 arg2) {
     Vec3f sp24;
 
     Actor_Initialize(actor);
-    actor->obj.status = 2;
+    actor->obj.status = OBJ_ACTIVE;
     actor->index = arg2;
     actor->obj.pos.z = -objInit->zPos1;
     actor->obj.pos.z += -3000.0f + objInit->zPos2;
@@ -403,7 +403,7 @@ void Object_Load(ObjectInit* objInit, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
         (arg3 > objInit->yPos - gPlayer[0].unk_0B0) && (objInit->yPos - gPlayer[0].unk_0B0 > arg4)) {
         if (objInit->id < OBJ_4C_161) {
             for (i = 0; i < ARRAY_COUNT(gObjects80); i++) {
-                if (gObjects80[i].obj.status == 0) {
+                if (gObjects80[i].obj.status == OBJ_FREE) {
                     Object_80_Load(&gObjects80[i], objInit);
                     break;
                 }
@@ -411,7 +411,7 @@ void Object_Load(ObjectInit* objInit, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
         }
         if ((objInit->id >= OBJ_4C_161) && (objInit->id < OBJ_ACTOR_176)) {
             for (i = 0; i < ARRAY_COUNT(gObjects4C); i++) {
-                if (gObjects4C[i].obj.status == 0) {
+                if (gObjects4C[i].obj.status == OBJ_FREE) {
                     Object_4C_Load(&gObjects4C[i], objInit);
                     break;
                 }
@@ -420,21 +420,21 @@ void Object_Load(ObjectInit* objInit, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
         if ((objInit->id >= OBJ_ACTOR_176) && (objInit->id < OBJ_BOSS_292)) {
             if ((objInit->id == OBJ_ACTOR_267) || (objInit->id == OBJ_ACTOR_254)) {
                 for (i = ARRAY_COUNT(gActors) - 1; i >= 0; i--) {
-                    if (gActors[i].obj.status == 0) {
+                    if (gActors[i].obj.status == OBJ_FREE) {
                         Actor_Load(&gActors[i], objInit);
                         break;
                     }
                 }
             } else if (objInit->id == OBJ_ACTOR_198) {
                 for (i = 0; i < 3; i++) {
-                    if (gActors[i].obj.status == 0) {
+                    if (gActors[i].obj.status == OBJ_FREE) {
                         Actor_Load(&gActors[i], objInit);
                         break;
                     }
                 }
             } else {
                 for (i = 4; i < ARRAY_COUNT(gActors); i++) {
-                    if (gActors[i].obj.status == 0) {
+                    if (gActors[i].obj.status == OBJ_FREE) {
                         Actor_Load(&gActors[i], objInit);
                         break;
                     }
@@ -443,7 +443,7 @@ void Object_Load(ObjectInit* objInit, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
         }
         if ((objInit->id >= OBJ_BOSS_292) && (objInit->id < OBJ_ITEM_LASERS)) {
             for (i = 0; i < ARRAY_COUNT(gBosses); i++) {
-                if (gBosses[i].obj.status == 0) {
+                if (gBosses[i].obj.status == OBJ_FREE) {
                     Boss_Load(&gBosses[i], objInit);
                     break;
                 }
@@ -451,7 +451,7 @@ void Object_Load(ObjectInit* objInit, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
         }
         if ((objInit->id >= OBJ_ITEM_LASERS) && (objInit->id < OBJ_EFFECT_339)) {
             for (i = 0; i < ARRAY_COUNT(gItems); i++) {
-                if (gItems[i].obj.status == 0) {
+                if (gItems[i].obj.status == OBJ_FREE) {
                     Item_Load(&gItems[i], objInit);
                     break;
                 }
@@ -485,7 +485,7 @@ void Object_Load(ObjectInit* objInit, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
         }
         if (objInit->id > OBJ_UNK_406) {
             for (i = 0; i < ARRAY_COUNT(gActors); i++) {
-                if (gActors[i].obj.status == 0) {
+                if (gActors[i].obj.status == OBJ_FREE) {
                     func_80061F0C(&gActors[i], objInit, i);
                     break;
                 }
@@ -580,9 +580,9 @@ void func_80062B60(f32 xPos, f32 zPos, s32 arg2, f32 arg3) {
 
     if (gLevelType == LEVELTYPE_PLANET) {
         for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
-            if (gEffects[i].obj.status == 0) {
+            if (gEffects[i].obj.status == OBJ_FREE) {
                 Effect_Initialize(&gEffects[i]);
-                gEffects[i].obj.status = 1;
+                gEffects[i].obj.status = OBJ_INIT;
                 gEffects[i].obj.id = OBJ_EFFECT_348;
                 gEffects[i].obj.pos.x = xPos;
                 gEffects[i].obj.pos.y = gGroundLevel + 3.0f;
@@ -603,9 +603,9 @@ void func_80062C38(f32 xPos, f32 yPos) {
 
     if (gLevelType == LEVELTYPE_PLANET) {
         for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
-            if (gEffects[i].obj.status == 0) {
+            if (gEffects[i].obj.status == OBJ_FREE) {
                 Effect_Initialize(&gEffects[i]);
-                gEffects[i].obj.status = 1;
+                gEffects[i].obj.status = OBJ_INIT;
                 gEffects[i].obj.id = OBJ_EFFECT_349;
                 gEffects[i].obj.pos.x = xPos;
                 gEffects[i].obj.pos.y = gGroundLevel + 3.0f;
@@ -624,9 +624,9 @@ void func_80062D04(f32 xPos, f32 yPos) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
-        if (gEffects[i].obj.status == 0) {
+        if (gEffects[i].obj.status == OBJ_FREE) {
             Effect_Initialize(&gEffects[i]);
-            gEffects[i].obj.status = 1;
+            gEffects[i].obj.status = OBJ_INIT;
             gEffects[i].obj.id = OBJ_EFFECT_350;
             gEffects[i].obj.pos.x = xPos;
             gEffects[i].obj.pos.y = gGroundLevel + 3.0f;
@@ -796,7 +796,7 @@ s32 func_8006351C(s32 index, Vec3f* pos, Vec3f* arg2, s32 arg3) {
     if ((gLevelMode == LEVELMODE_ALL_RANGE) && (gCurrentLevel != LEVEL_KATINA)) {
         obj58 = gObjects58;
         for (i = 0; i < 200; i++, obj58++) {
-            if (obj58->obj.status == 2) {
+            if (obj58->obj.status == OBJ_ACTIVE) {
                 if ((obj58->obj.id == OBJ_80_1) || (obj58->obj.id == OBJ_80_3) || (obj58->obj.id == OBJ_80_117) ||
                     (obj58->obj.id == OBJ_80_141) || (obj58->obj.id == OBJ_80_150) || (obj58->obj.id == OBJ_80_149) ||
                     (obj58->obj.id == OBJ_80_148) || (obj58->obj.id == OBJ_80_140)) {
@@ -814,7 +814,7 @@ s32 func_8006351C(s32 index, Vec3f* pos, Vec3f* arg2, s32 arg3) {
     }
     obj80 = gObjects80;
     for (i = 0; (i < ARRAY_COUNT(gObjects80)) && (gLevelMode == LEVELMODE_ON_RAILS); i++, obj80++) {
-        if (obj80->obj.status == 2) {
+        if (obj80->obj.status == OBJ_ACTIVE) {
             if ((obj80->obj.id == OBJ_80_1) || (obj80->obj.id == OBJ_80_4) || (obj80->obj.id == OBJ_80_5) ||
                 (obj80->obj.id == OBJ_80_2) || (obj80->obj.id == OBJ_80_39) || (obj80->obj.id == OBJ_80_3)) {
                 if (func_8006326C(pos, arg2, obj80->obj.id, &obj80->obj)) {
@@ -829,7 +829,7 @@ s32 func_8006351C(s32 index, Vec3f* pos, Vec3f* arg2, s32 arg3) {
     }
     obj4C = gObjects4C;
     for (i = 0; i < ARRAY_COUNT(gObjects4C); i++, obj4C++) {
-        if ((obj4C->obj.status == 2) && (fabsf(pos->x - obj4C->obj.pos.x) < 500.0f) &&
+        if ((obj4C->obj.status == OBJ_ACTIVE) && (fabsf(pos->x - obj4C->obj.pos.x) < 500.0f) &&
             (fabsf(pos->z - obj4C->obj.pos.z) < 500.0f) && func_800631A8(pos, obj4C->info.hitbox, &obj4C->obj.pos)) {
             if ((obj4C->obj.id == OBJ_4C_163) || (obj4C->obj.id == OBJ_4C_162) || (obj4C->obj.id == OBJ_4C_162)) {
                 obj4C->unk_46 = 1;
@@ -841,7 +841,7 @@ s32 func_8006351C(s32 index, Vec3f* pos, Vec3f* arg2, s32 arg3) {
         if (arg3 != 2) {
             boss = gBosses;
             for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
-                if (boss->obj.status == 2) {
+                if (boss->obj.status == OBJ_ACTIVE) {
                     if ((boss->obj.id == OBJ_BOSS_308) || (boss->obj.id == OBJ_BOSS_312) ||
                         (boss->obj.id == OBJ_BOSS_313) || (boss->obj.id == OBJ_BOSS_309)) {
                         if (func_8006326C(pos, arg2, boss->obj.id, &boss->obj)) {
@@ -876,7 +876,7 @@ s32 func_8006351C(s32 index, Vec3f* pos, Vec3f* arg2, s32 arg3) {
         }
         actor = gActors;
         for (i = 0; i < ARRAY_COUNT(gActors); i++, actor++) {
-            if ((actor->obj.status >= 2) && (fabsf(pos->x - actor->obj.pos.x) < 1000.0f) &&
+            if ((actor->obj.status >= OBJ_ACTIVE) && (fabsf(pos->x - actor->obj.pos.x) < 1000.0f) &&
                 (fabsf(pos->z - actor->obj.pos.z) < 1500.0f) && (index != i) && (actor->info.unk_16 != 2) &&
                 ((actor->obj.id != OBJ_ACTOR_197) || (actor->unk_0E4 >= 4)) && (actor->timer_0C2 == 0)) {
                 if (actor->obj.id == OBJ_ACTOR_180) {
@@ -887,7 +887,7 @@ s32 func_8006351C(s32 index, Vec3f* pos, Vec3f* arg2, s32 arg3) {
                     if (func_80062DBC(pos, actor->info.hitbox, &actor->obj, actor->vwork[29].x, actor->vwork[29].y,
                                       actor->vwork[29].z + actor->unk_0F4.z)) {
                         actor->unk_0D0 = 1;
-                        actor->unk_0D6 = 10;
+                        actor->damage = 10;
                         actor->unk_0D2 = -1;
                         actor->unk_0D8.x = pos->x;
                         actor->unk_0D8.y = pos->y;
@@ -897,11 +897,11 @@ s32 func_8006351C(s32 index, Vec3f* pos, Vec3f* arg2, s32 arg3) {
                 } else if ((arg3 != 2) && (arg3 != 3)) {
                     if (func_800631A8(pos, actor->info.hitbox, &actor->obj.pos)) {
                         actor->unk_0D0 = 1;
-                        actor->unk_0D6 = 10;
+                        actor->damage = 10;
                         actor->unk_0D2 = -1;
                         if (((actor->obj.id != OBJ_ACTOR_200) || (actor->iwork[12] == 0)) &&
                             ((actor->obj.id != OBJ_ACTOR_197) || ((actor->unk_0E4 >= 10) && (actor->unk_0E4 < 100)))) {
-                            actor->unk_0CE = 0;
+                            actor->health = 0;
                         }
                         actor->unk_0D8.x = pos->x;
                         actor->unk_0D8.y = pos->y;
@@ -919,9 +919,9 @@ void func_80063CAC(Object_80* obj80) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gActors); i++) {
-        if (gActors[i].obj.status == 0) {
+        if (gActors[i].obj.status == OBJ_FREE) {
             Actor_Initialize(&gActors[i]);
-            gActors[i].obj.status = 1;
+            gActors[i].obj.status = OBJ_INIT;
             gActors[i].obj.id = OBJ_ACTOR_193;
             gActors[i].obj.pos.x = obj80->obj.pos.x;
             gActors[i].obj.pos.y = obj80->obj.pos.y;
@@ -938,9 +938,9 @@ void func_80063D58(Object_80* obj80) {
 
     obj80->obj.pos.y = gGroundLevel;
     for (i = 0; i < ARRAY_COUNT(gObjects4C); i++) {
-        if (gObjects4C[i].obj.status == 0) {
+        if (gObjects4C[i].obj.status == OBJ_FREE) {
             Object_4C_Initialize(&gObjects4C[i]);
-            gObjects4C[i].obj.status = 1;
+            gObjects4C[i].obj.status = OBJ_INIT;
             gObjects4C[i].obj.id = OBJ_4C_164;
             gObjects4C[i].unk_45 = obj80->obj.id;
             gObjects4C[i].obj.pos.x = obj80->obj.pos.x;
@@ -964,9 +964,9 @@ void func_80063E5C(Object_80* obj80, f32* hitboxData) {
     Item* item;
 
     for (i = 0, item = gItems; i < ARRAY_COUNT(gItems); i++, item++) {
-        if (item->obj.status == 0) {
+        if (item->obj.status == OBJ_FREE) {
             Item_Initialize(&gItems[i]);
-            item->obj.status = 1;
+            item->obj.status = OBJ_INIT;
             item->obj.id = OBJ_ITEM_334;
             item->obj.pos.x = obj80->obj.pos.x;
             item->obj.pos.y = obj80->obj.pos.y;
@@ -1003,10 +1003,10 @@ void Object_Init(s32 index, ObjectId objId) {
             func_8007A6F0(&gObjects4C[index].obj.pos, 0x11000055);
             break;
         case OBJ_ACTOR_234:
-            Audio_PlaySfx(0x11030010, &gActors[index].sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x11030010, gActors[index].sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             break;
         case OBJ_80_54:
-            Audio_PlaySfx(0x11000000, &gObjects80[index].sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x11000000, gObjects80[index].sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             break;
         case OBJ_ACTOR_198:
             func_80092D48(&gActors[index]);
@@ -1025,7 +1025,7 @@ void Object_Init(s32 index, ObjectId objId) {
                 gEffects[index].obj.rot.x = (sp54 * 180.0f) / M_PI;
                 gEffects[index].obj.rot.z = (sp50 * 180.0f) / M_PI;
             } else if (gCurrentLevel == LEVEL_MACBETH) {
-                gEffects[index].obj.status = 0;
+                gEffects[index].obj.status = OBJ_FREE;
             }
             break;
         case OBJ_80_30:
@@ -1060,12 +1060,12 @@ void Object_Init(s32 index, ObjectId objId) {
             break;
         case OBJ_ITEM_CHECKPOINT:
             if (D_80177CA0 != 0) {
-                gItems[index].obj.status = 0;
+                gItems[index].obj.status = OBJ_FREE;
             }
             break;
         case OBJ_ITEM_METEO_WARP:
             if (D_80177E80 < 0) {
-                gItems[index].obj.status = 0;
+                gItems[index].obj.status = OBJ_FREE;
             }
             break;
         case OBJ_ITEM_331:
@@ -1082,7 +1082,7 @@ void Object_Init(s32 index, ObjectId objId) {
                 (gCurrentLevel != LEVEL_CORNERIA)) {
                 func_80063F58(&gItems[index]);
             } else {
-                gItems[index].obj.status = 0;
+                gItems[index].obj.status = OBJ_FREE;
             }
             break;
         case OBJ_80_0:
@@ -1112,14 +1112,14 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_ACTOR_181:
             gActors[index].obj.rot.x = Rand_ZeroOne() * 360.0f;
             gActors[index].obj.rot.y = Rand_ZeroOne() * 360.0f;
-            gActors[index].unk_0CE = 200;
+            gActors[index].health = 200;
             break;
         case OBJ_ACTOR_202:
-            gActors[index].unk_0CE = 30;
+            gActors[index].health = 30;
             break;
         case OBJ_ACTOR_252:
             if (gPlayer[0].pos.z < gActors[index].obj.pos.z) {
-                Object_Kill(&gActors[index].obj, &gActors[index].sfxPos);
+                Object_Kill(&gActors[index].obj, gActors[index].sfxPos);
             }
             break;
         case OBJ_ACTOR_239:
@@ -1156,12 +1156,12 @@ void Object_Init(s32 index, ObjectId objId) {
                 }
             }
             if (gActors[index].unk_046 == 100) {
-                gActors[index].obj.status = 0;
+                gActors[index].obj.status = OBJ_FREE;
             }
             break;
         case OBJ_ACTOR_190:
         case OBJ_ACTOR_191:
-            Audio_PlaySfx(0x31000012, &gActors[index].sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x31000012, gActors[index].sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             break;
         case OBJ_ACTOR_192:
             gActors[index].unk_0C9 = 1;
@@ -1212,8 +1212,8 @@ void Object_Init(s32 index, ObjectId objId) {
             func_i1_8018B0B4(&gActors[index]);
             /* fallthrough */
         case OBJ_ACTOR_176:
-            gActors[index].unk_0CE = 24;
-            Audio_PlaySfx(0x31000016, &gActors[index].sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            gActors[index].health = 24;
+            Audio_PlaySfx(0x31000016, gActors[index].sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             break;
         case OBJ_BOSS_297:
             func_i2_80188A40(&gBosses[index]);
@@ -1340,7 +1340,7 @@ void func_800652CC(Object_80* obj80) {
 
 void func_80065380(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 arg5, f32 arg6) {
     Actor_Initialize(actor);
-    actor->obj.status = 2;
+    actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = OBJ_ACTOR_182;
     actor->timer_0BC = (s32) (Rand_ZeroOne() * 10.0f) + 10;
     actor->timer_0C2 = 30;
@@ -1361,7 +1361,7 @@ void func_8006546C(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 arg4, f32 arg5) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gActors); i++) {
-        if (gActors[i].obj.status == 0) {
+        if (gActors[i].obj.status == OBJ_FREE) {
             func_80065380(&gActors[i], xPos, yPos, zPos, arg3, arg4, arg5);
             break;
         }
@@ -1382,7 +1382,7 @@ void func_800654E4(Object* obj) {
 
 void func_800655C8(Actor* actor, f32 xPos, f32 yPos, f32 zPos, s32 arg4) {
     Actor_Initialize(actor);
-    actor->obj.status = 1;
+    actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_190;
     actor->obj.pos.x = xPos;
     actor->obj.pos.y = yPos;
@@ -1400,7 +1400,7 @@ void func_8006566C(f32 xPos, f32 yPos, f32 zPos, s32 arg3) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gActors); i++) {
-        if (gActors[i].obj.status == 0) {
+        if (gActors[i].obj.status == OBJ_FREE) {
             func_800655C8(&gActors[i], xPos, yPos, zPos, arg3);
             break;
         }
@@ -1531,11 +1531,11 @@ void func_800656D4(Actor* actor) {
         if ((fabsf(actor->unk_180 - actor->obj.pos.x) < 60.0f) && (fabsf(actor->unk_184 - actor->obj.pos.y) < 60.0f) &&
             (fabsf(actor->unk_188 - actor->obj.pos.z) < 60.0f) && ((spC4 == 2) || (spC4 == 3) || (spC4 == 4))) {
             gActors[spC4].unk_0D0 = 1;
-            gActors[spC4].unk_0D6 = 20;
+            gActors[spC4].damage = 20;
             gActors[spC4].unk_0D4 = 2;
             func_8007A6F0(&actor->obj.pos, 0x2903A008);
             func_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5.0f);
-            Object_Kill(&actor->obj, &actor->sfxPos);
+            Object_Kill(&actor->obj, actor->sfxPos);
         }
     }
     Math_Vec3fFromAngles(&sp98, actor->obj.rot.x, actor->obj.rot.y, actor->fwork[5]);
@@ -1561,7 +1561,7 @@ void func_800656D4(Actor* actor) {
     }
     if ((D_801784AC == 4) && func_i5_801B6AEC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + D_80177D20)) {
         func_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5.0f);
-        Object_Kill(&actor->obj, &actor->sfxPos);
+        Object_Kill(&actor->obj, actor->sfxPos);
     }
     sp8C.x = actor->vel.x;
     sp8C.y = actor->vel.y;
@@ -1569,7 +1569,7 @@ void func_800656D4(Actor* actor) {
     if ((func_8006351C(actor->index, &actor->obj.pos, &sp8C, 1) != 0) || (actor->unk_0D0 != 0) ||
         (actor->obj.pos.y < (gGroundLevel + 10.0f)) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7)) {
         func_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 3.0f);
-        Object_Kill(&actor->obj, &actor->sfxPos);
+        Object_Kill(&actor->obj, actor->sfxPos);
         if (actor->unk_0D0 != 0) {
             actor->unk_044 = 2;
             if ((gCurrentLevel == LEVEL_CORNERIA)) {
@@ -1591,7 +1591,7 @@ void func_800656D4(Actor* actor) {
             actor->iwork[10] = 1;
         }
         if (gPlayer[0].camEye.z < (actor->obj.pos.z + D_80177D20)) {
-            Object_Kill(&actor->obj, &actor->sfxPos);
+            Object_Kill(&actor->obj, actor->sfxPos);
         }
     }
 }
@@ -1604,9 +1604,9 @@ void func_800660F0(Actor* actor) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gItems); i++, item++) {
-        if (item->obj.status == 0) {
+        if (item->obj.status == OBJ_FREE) {
             Item_Initialize(item);
-            item->obj.status = 1;
+            item->obj.status = OBJ_INIT;
             item->obj.id = D_800CFDF4[actor->unk_044];
             item->obj.pos.x = actor->obj.pos.x;
             item->obj.pos.y = actor->obj.pos.y;
@@ -1619,10 +1619,10 @@ void func_800660F0(Actor* actor) {
             }
             if ((item->obj.id >= OBJ_ITEM_GOLD_RING) || (item->obj.id == OBJ_ITEM_1UP)) {
                 item->unk_50 = 90.0f;
-                Audio_PlaySfx(0x4900000C, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x4900000C, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 item->timer_48 = 1000;
                 if (item->obj.id == OBJ_ITEM_WING_REPAIR) {
-                    Audio_PlaySfx(0x1900302B, &item->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    Audio_PlaySfx(0x1900302B, item->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 }
             }
             break;
@@ -1671,13 +1671,13 @@ void func_80066254(Actor* actor) {
             if (D_800CFE5C[actor->unk_044] < 0.0f) {
                 otherActor = gActors;
                 for (i = 0, otherActor = gActors; i < ARRAY_COUNT(gActors); i++, otherActor++) {
-                    if ((otherActor->obj.status != 0) && (otherActor->index != actor->index) &&
+                    if ((otherActor->obj.status != OBJ_FREE) && (otherActor->index != actor->index) &&
                         (otherActor->iwork[15] == actor->iwork[15])) {
                         return;
                     }
                 }
                 func_800660F0(actor);
-                Audio_PlaySfx(0x4900000C, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x4900000C, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             } else if (actor->unk_044 == 24) {
                 if (gTeamShields[3] > 0) {
                     func_800BA808(gMsg_ID_20261, RCID_PEPPY);
@@ -1738,7 +1738,7 @@ void func_8006654C(Actor* actor) {
     }
     actor->scale = 0.8f;
     if (actor->unk_0D0 != 0) {
-        actor->obj.status = 3;
+        actor->obj.status = OBJ_DYING;
         actor->vel.y = (Rand_ZeroOne() * 5.0f) + 6.0f;
         if (actor->unk_0D0 == 2) {
             actor->vel.y = -2.0f;
@@ -1746,7 +1746,7 @@ void func_8006654C(Actor* actor) {
         actor->vel.z = -15.0f;
         actor->gravity = 0.5f;
         func_8007D2C8(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 13.0f);
-        Audio_PlaySfx(0x2903A008, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(0x2903A008, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
 }
 
@@ -1758,10 +1758,10 @@ void func_8006684C(Actor* actor) {
         actor->vel.x = 0.0f;
         actor->vel.y = 0.0f;
         if (actor->timer_0BE == 1) {
-            Object_Kill(&actor->obj, &actor->sfxPos);
+            Object_Kill(&actor->obj, actor->sfxPos);
             actor->unk_044 = 1;
             func_80066254(actor);
-            Audio_PlaySfx(0x2903B009, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x2903B009, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             func_80077240(actor->obj.pos.x, actor->obj.pos.y + 250.0f, actor->obj.pos.z, 3);
             gHitCount += 3;
             D_80177850 = 15;
@@ -1779,7 +1779,7 @@ void func_8006684C(Actor* actor) {
 void func_800669A0(Actor* actor) {
     if (actor->timer_0BC != 0) {
         if (actor->timer_0BC == 1) {
-            Object_Kill(&actor->obj, &actor->sfxPos);
+            Object_Kill(&actor->obj, actor->sfxPos);
         }
     } else {
         actor->obj.rot.y += 5.0f;
@@ -1839,7 +1839,7 @@ void func_80066D5C(Object_80* obj80) {
         case 1:
             func_80066C00(obj80);
             obj80->unk_48++;
-            Audio_PlaySfx(0x2900300F, &obj80->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x2900300F, obj80->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             break;
         case 2:
             obj80->vel.x += 0.05f;
@@ -1850,7 +1850,7 @@ void func_80066D5C(Object_80* obj80) {
                 func_80066A8C(obj80);
                 obj80->unk_48 = 0;
                 D_80178480 = 25;
-                Audio_PlaySfx(0x19130003, &obj80->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x19130003, obj80->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
             break;
         case 0:
@@ -1879,7 +1879,7 @@ void func_80066EF0(Item* item) {
     f32 var_fa1;
 
     if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_0)) {
-        Object_Kill(&item->obj, &item->sfxPos);
+        Object_Kill(&item->obj, item->sfxPos);
     }
     if ((gLevelMode == LEVELMODE_ON_RAILS) && (D_80161680 == 0)) {
         var_fa1 = 900.0f;
@@ -1900,13 +1900,13 @@ void func_80066EF0(Item* item) {
         if (item->obj.pos.y < gGroundLevel + 70.0f) {
             Math_SmoothStepToF(&item->obj.pos.y, gGroundLevel + 70.0f, 0.1f, 5.0f, 0.01f);
         }
-        if ((gCurrentLevel == LEVEL_AQUAS) && (D_80178284 != 0)) {
+        if ((gCurrentLevel == LEVEL_AQUAS) && (gBossActive != 0)) {
             item->obj.pos.z += 20.0f;
         }
     } else if (item->obj.pos.y < -500.0f) {
         Math_SmoothStepToF(&item->obj.pos.y, -500.0f, 0.1f, 5.0f, 0.01f);
     }
-    if (gVersusMode && (item->index == 0) && (gItems[1].obj.status == 2)) {
+    if (gVersusMode && (item->index == 0) && (gItems[1].obj.status == OBJ_ACTIVE)) {
         if (fabsf(item->obj.pos.x - gItems[1].obj.pos.x) < 200.0f) {
             if (fabsf(item->obj.pos.z - gItems[1].obj.pos.z) < 200.0f) {
                 item->obj.pos.x = item->obj.pos.x - 5.0f;
@@ -1945,7 +1945,7 @@ void func_800671D0(Item* item) {
 
 void func_80067348(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 arg6, f32 arg7, f32 arg8) {
     Actor_Initialize(actor);
-    actor->obj.status = 2;
+    actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = OBJ_ACTOR_189;
     actor->unk_0B8 = 70;
     actor->obj.pos.x = xPos;
@@ -1965,7 +1965,7 @@ void func_800674B4(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 arg5, f
     s32 i;
 
     for (i = 59; i >= 50; i--) {
-        if (gActors[i].obj.status == 0) {
+        if (gActors[i].obj.status == OBJ_FREE) {
             func_80067348(&gActors[i], xPos, yPos, zPos, xRot, yRot, arg5, arg6, arg7);
             break;
         }
@@ -1988,8 +1988,8 @@ void func_8006753C(Actor* actor) {
     }
     if (actor->unk_0D0 != 0) {
         actor->unk_0D0 = 0;
-        actor->unk_0CE -= actor->unk_0D6;
-        if (actor->unk_0CE <= 0) {
+        actor->health -= actor->damage;
+        if (actor->health <= 0) {
             func_8007A6F0(&actor->obj.pos, 0x2903A008);
             func_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5.0f);
             if (((player[0].wings.rightState <= WINGSTATE_BROKEN) || (player[0].wings.leftState <= WINGSTATE_BROKEN)) &&
@@ -2010,7 +2010,7 @@ void func_8006753C(Actor* actor) {
                               (Rand_ZeroOne() * 10.0f) + 10.0f, (Rand_ZeroOne() - 0.5f) * 40.0f);
                 func_800794CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.6f);
             }
-            Object_Kill(&actor->obj, &actor->sfxPos);
+            Object_Kill(&actor->obj, actor->sfxPos);
         }
     }
     gUnkEntities28[63].unk_00 = 1;
@@ -2039,7 +2039,7 @@ void func_80067874(Actor* actor) {
 }
 
 void func_80067A40(void) {
-    Audio_PlaySfx(0x09008023, &gPlayer[0].unk_460, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    Audio_PlaySfx(0x09008023, gPlayer[0].sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     if (gPlayer[0].wings.rightState <= WINGSTATE_BROKEN) {
         D_80177D40[0] = 1050;
         gPlayer[0].wings.rightState = WINGSTATE_INTACT;
@@ -2059,17 +2059,14 @@ void func_80067B1C(Item* item) {
     func_80066EF0(item);
     func_800671D0(item);
     if (item->unk_4C != 0) {
-        Player** players;
-
-        Object_Kill(&item->obj, &item->sfxPos);
-        players = &gPlayer; // seems fake
-        func_80060F30(&(*players)[item->unk_4E].unk_460, 0x4900C024, item->unk_4E);
+        Object_Kill(&item->obj, item->sfxPos);
+        func_80060F30(gPlayer[item->unk_4E].sfxPos, 0x4900C024, item->unk_4E);
         if (gCurrentLevel != LEVEL_TRAINING) {
             gLifeCount[item->unk_4E]++;
         }
     }
     if (item->timer_48 == 1) {
-        Object_Kill(&item->obj, &item->sfxPos);
+        Object_Kill(&item->obj, item->sfxPos);
     }
 }
 
@@ -2086,8 +2083,8 @@ void func_80067BEC(Item* item) {
                     item->timer_48 = 20;
                     item->unk_50 = 60.0f;
                     gBombCount[item->unk_4E]++;
-                    func_80060F30(gPlayer[item->unk_4E].unk_460_arr, 0x49002005, item->unk_4E);
-                    func_80060F30(gPlayer[item->unk_4E].unk_460_arr, 0x49002006, item->unk_4E);
+                    func_80060F30(gPlayer[item->unk_4E].sfxPos, 0x49002005, item->unk_4E);
+                    func_80060F30(gPlayer[item->unk_4E].sfxPos, 0x49002006, item->unk_4E);
                 }
                 break;
             case OBJ_ITEM_LASERS:
@@ -2101,7 +2098,7 @@ void func_80067BEC(Item* item) {
                     if (gLaserStrength[item->unk_4E] > LASERS_HYPER) {
                         gLaserStrength[item->unk_4E] = LASERS_HYPER;
                     }
-                    func_80060F30(gPlayer[item->unk_4E].unk_460_arr, 0x49002004, item->unk_4E);
+                    func_80060F30(gPlayer[item->unk_4E].sfxPos, 0x49002004, item->unk_4E);
                     if (gExpertMode) {
                         gRightWingHealth[item->unk_4E] = gLeftWingHealth[item->unk_4E] = 10;
                     } else {
@@ -2122,7 +2119,7 @@ void func_80067BEC(Item* item) {
         }
         item->obj.pos.z += (gPlayer[item->unk_4E].unk_138 - item->obj.pos.z) * 0.5f;
         if (item->timer_48 == 0) {
-            Object_Kill(&item->obj, &item->sfxPos);
+            Object_Kill(&item->obj, item->sfxPos);
         }
     }
 }
@@ -2133,7 +2130,7 @@ void func_80067F6C(Item* item) {
         item->obj.id = OBJ_ITEM_WING_REPAIR;
         Object_SetInfo(&item->info, item->obj.id);
         item->timer_48 = 2000;
-        Audio_PlaySfx(0x1900302B, &item->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(0x1900302B, item->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     } else {
         func_80067BEC(item);
     }
@@ -2153,13 +2150,13 @@ void func_80068020(Item* item) {
                 item->timer_48 = 50;
                 if (item->obj.id == OBJ_ITEM_SILVER_RING) {
                     gPlayer[item->unk_4E].heal += 0x20;
-                    func_80060F30(gPlayer[item->unk_4E].unk_460_arr, 0x4900200E, item->unk_4E);
+                    func_80060F30(gPlayer[item->unk_4E].sfxPos, 0x4900200E, item->unk_4E);
                 } else if (item->obj.id == OBJ_ITEM_GOLD_RING) {
                     gGoldRingCount[0]++;
                     if (gGoldRingCount[0] == 3) {
-                        func_80060F30(gPlayer[item->unk_4E].unk_460_arr, 0x49008015, item->unk_4E);
+                        func_80060F30(gPlayer[item->unk_4E].sfxPos, 0x49008015, item->unk_4E);
                     } else if (gGoldRingCount[0] == 6) {
-                        func_80060F30(gPlayer[item->unk_4E].unk_460_arr, 0x4900C024, item->unk_4E);
+                        func_80060F30(gPlayer[item->unk_4E].sfxPos, 0x4900C024, item->unk_4E);
                         if (gCurrentLevel != LEVEL_TRAINING) {
                             gLifeCount[item->unk_4E]++;
                         }
@@ -2168,15 +2165,15 @@ void func_80068020(Item* item) {
                                       gPlayer[item->unk_4E].unk_138, 101);
                     } else {
                         gPlayer[item->unk_4E].heal += 0x20;
-                        func_80060F30(gPlayer[item->unk_4E].unk_460_arr, 0x49003013, item->unk_4E);
+                        func_80060F30(gPlayer[item->unk_4E].sfxPos, 0x49003013, item->unk_4E);
                     }
                 } else {
                     gPlayer[item->unk_4E].heal += 0x80;
-                    func_80060F30(gPlayer[item->unk_4E].unk_460_arr, 0x4900200D, item->unk_4E);
+                    func_80060F30(gPlayer[item->unk_4E].sfxPos, 0x4900200D, item->unk_4E);
                 }
             }
             if ((item->obj.id == OBJ_ITEM_GOLD_RING) && (item->timer_48 == 1)) {
-                Object_Kill(&item->obj, &item->sfxPos);
+                Object_Kill(&item->obj, item->sfxPos);
             }
             break;
         case 1:
@@ -2199,7 +2196,7 @@ void func_80068020(Item* item) {
             item->obj.rot.z += 22.0f;
             Math_SmoothStepToAngle(&item->obj.rot.y, Math_RadToDeg(-gPlayer[item->unk_4E].unk_058), 0.2f, 10.0f, 0.0f);
             if (item->timer_48 == 0) {
-                Object_Kill(&item->obj, &item->sfxPos);
+                Object_Kill(&item->obj, item->sfxPos);
             }
             if (item->scale > 0.3f) {
                 Matrix_RotateY(gCalcMatrix, item->obj.rot.y * M_DTOR, 0);
@@ -2227,10 +2224,10 @@ void func_80068618(Item* item) {
     func_800671D0(item);
     if (item->unk_4C != 0) {
         func_80067A40();
-        Object_Kill(&item->obj, &item->sfxPos);
+        Object_Kill(&item->obj, item->sfxPos);
     }
     if (item->timer_48 == 1) {
-        Object_Kill(&item->obj, &item->sfxPos);
+        Object_Kill(&item->obj, item->sfxPos);
     }
 }
 
@@ -2249,7 +2246,7 @@ void func_80068688(Item* item) {
         }
         item->unk_44 -= 10;
         if (item->unk_44 < 0) {
-            Object_Kill(&item->obj, &item->sfxPos);
+            Object_Kill(&item->obj, item->sfxPos);
         }
     } else {
         item->scale = 100.0f;
@@ -2260,7 +2257,7 @@ void func_80068688(Item* item) {
             item->unk_46 = 1;
             item->unk_44 = 0xFF;
             gPlayer[item->unk_4E].timer_27C = 100;
-            Audio_PlaySfx(D_800CFF54[D_80177E80], &gPlayer[0].unk_460, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(D_800CFF54[D_80177E80], gPlayer[0].sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             if (D_80177E80 == 0) {
                 gPlayer[0].unk_110 = 0.0f;
             }
@@ -2268,7 +2265,7 @@ void func_80068688(Item* item) {
             if (D_80177E80 >= 7) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_8;
                 gPlayer[0].unk_1D0 = 0;
-                Audio_PlaySfx(0x1900602A, &D_800C5D28, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x1900602A, D_800C5D28, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 D_80177930 = 2;
                 D_800D3180[gCurrentLevel] = 1;
             }
@@ -2300,7 +2297,7 @@ void func_80068914(Item* item) {
             Math_SmoothStepToF(&item->unk_54, 4.0f, 0.1f, 0.2f, 0.01f);
         }
         if (item->scale <= 6.5f) {
-            Object_Kill(&item->obj, &item->sfxPos);
+            Object_Kill(&item->obj, item->sfxPos);
         }
     } else {
         item->unk_44 = 2;
@@ -2320,14 +2317,14 @@ void func_80068914(Item* item) {
             for (i = 1; i < 4; i++) {
                 gSavedTeamShields[i] = gTeamShields[i];
             }
-            Audio_PlaySfx(0x4900400F, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x4900400F, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         }
     }
 }
 
 void func_80068C48(Item* item) {
     if (item->unk_4C != 0) {
-        Object_Kill(&item->obj, &item->sfxPos);
+        Object_Kill(&item->obj, item->sfxPos);
         D_80177E80++;
     }
 }
@@ -2335,15 +2332,15 @@ void func_80068C48(Item* item) {
 void func_80068C88(Item* item) {
     D_80161680 = item->obj.id;
     if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_3) {
-        Object_Kill(&item->obj, &item->sfxPos);
+        Object_Kill(&item->obj, item->sfxPos);
     } else if (((gCurrentLevel == LEVEL_METEO) || (gCurrentLevel == LEVEL_SECTOR_X)) && (D_8017827C == 1)) {
         gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
         gPlayer[0].unk_1D0 = 0;
-        Object_Kill(&item->obj, &item->sfxPos);
+        Object_Kill(&item->obj, item->sfxPos);
     } else if (gCurrentLevel == LEVEL_TRAINING) {
         gPlayer[0].state_1C8 = PLAYERSTATE_1C8_9;
         gPlayer[0].unk_1D0 = 0;
-        Object_Kill(&item->obj, &item->sfxPos);
+        Object_Kill(&item->obj, item->sfxPos);
     } else if (item->unk_46 == 0) {
         if (((item->obj.pos.z + D_80177D20) > -2700.0f) && (fabsf(item->obj.pos.x - gPlayer[0].pos.x) < 1000.0f)) {
             switch (item->obj.id) {
@@ -2363,7 +2360,7 @@ void func_80068C88(Item* item) {
             }
         }
         if (item->unk_4C != 0) {
-            Object_Kill(&item->obj, &item->sfxPos);
+            Object_Kill(&item->obj, item->sfxPos);
             gPlayer[0].unk_0B4 = 0.0f;
             gPlayer[0].timer_210 = item->scale * 0.05f;
             switch (item->obj.id) {
@@ -2412,7 +2409,7 @@ void func_80068FE0(Object_4C* obj4C) {
          180.0f) /
         M_PI;
     if (obj4C->unk_46 != 0) {
-        obj4C->obj.status = 0;
+        obj4C->obj.status = OBJ_FREE;
         func_8007A6F0(&obj4C->obj.pos, 0x1903400F);
         switch (obj4C->obj.id) {
             case OBJ_4C_161:
@@ -2448,11 +2445,11 @@ void func_800690D0(s32 index, ObjectId objId) {
             func_i2_80187B08(&gActors[index]);
             break;
         case OBJ_ACTOR_181:
-            Object_Kill(&gActors[index].obj, &gActors[index].sfxPos);
+            Object_Kill(&gActors[index].obj, gActors[index].sfxPos);
             func_8007D2C8(gActors[index].obj.pos.x, gActors[index].obj.pos.y, gActors[index].obj.pos.z, 20.0f);
             break;
         case OBJ_ACTOR_182:
-            Object_Kill(&gActors[index].obj, &gActors[index].sfxPos);
+            Object_Kill(&gActors[index].obj, gActors[index].sfxPos);
             func_8007D2C8(gActors[index].obj.pos.x, gActors[index].obj.pos.y, gActors[index].obj.pos.z, 10.0f);
             func_80066254(&gActors[index]);
             break;
@@ -2492,7 +2489,7 @@ void func_800693E8(Actor* actor) {
             ((gPlayer[0].unk_0B0 + var_fv0) < actor->obj.pos.y) ||
             ((gPlayer[0].unk_0AC + var_fv0) < actor->obj.pos.x) ||
             (actor->obj.pos.x < (gPlayer[0].unk_0AC - var_fv0))) {
-            Object_Kill(&actor->obj, &actor->sfxPos);
+            Object_Kill(&actor->obj, actor->sfxPos);
             switch (actor->obj.id) {
                 case OBJ_ACTOR_236:
                     D_801784A4 = 0;
@@ -2525,7 +2522,7 @@ void func_80069658(Boss* boss) {
     boss->vel.y -= boss->gravity;
     if ((D_80161AB8 != 0) && ((boss->obj.pos.z + D_80177D20) > (boss->info.unk_10 - gPlayer[0].camEye.z))) {
         if (gPlayer[0].camEye.z) {} // fake
-        Object_Kill(&boss->obj, &boss->sfxPos);
+        Object_Kill(&boss->obj, boss->sfxPos);
     }
 }
 
@@ -2533,9 +2530,9 @@ void func_800696F8(Object_80* obj80) {
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2) {
         obj80->obj.pos.z += obj80->unk_60;
         if (obj80->info.unk_10 < obj80->obj.pos.z) {
-            Object_Kill(&obj80->obj, &obj80->sfxPos);
+            Object_Kill(&obj80->obj, obj80->sfxPos);
         }
-    } else if ((gLevelMode == LEVELMODE_ON_RAILS) && (D_80178284 != 2)) {
+    } else if ((gLevelMode == LEVELMODE_ON_RAILS) && (gBossActive != 2)) {
         f32 temp_fv0 = fabsf(obj80->obj.pos.x - gPlayer[0].camEye.x);
         f32 var_fa0 = 500.0f;
 
@@ -2548,7 +2545,7 @@ void func_800696F8(Object_80* obj80) {
         }
         temp_fv0 -= gPlayer[0].camEye.z;
         if ((obj80->info.unk_10 - temp_fv0) < (obj80->obj.pos.z + D_80177D20)) {
-            Object_Kill(&obj80->obj, &obj80->sfxPos);
+            Object_Kill(&obj80->obj, obj80->sfxPos);
         }
     }
 }
@@ -2565,7 +2562,7 @@ void func_80069858(Object_4C* obj4C) {
         temp_fv0 = ((var_fa0 > temp_fv0) ? 0.0f : (temp_fv0 - var_fa0) * 1.7f);
         temp_fv0 -= gPlayer[0].camEye.z;
         if ((obj4C->info.unk_10 - temp_fv0) < (obj4C->obj.pos.z + D_80177D20)) {
-            obj4C->obj.status = 0;
+            obj4C->obj.status = OBJ_FREE;
         }
     }
 }
@@ -2576,10 +2573,10 @@ void func_80069924(Effect* effect) {
     effect->obj.pos.z += effect->vel.z;
     if (D_80161AB8 != 0) {
         if ((gPlayer[0].camEye.z + effect->info.unk_10) < (effect->obj.pos.z + D_80177D20)) {
-            Object_Kill(&effect->obj, &effect->sfxPos);
+            Object_Kill(&effect->obj, effect->sfxPos);
         } else if ((fabsf(effect->obj.pos.y - gPlayer[0].camEye.y) > 25000.0f) ||
                    (fabsf(effect->obj.pos.x - gPlayer[0].camEye.x) > 25000.0f)) {
-            Object_Kill(&effect->obj, &effect->sfxPos);
+            Object_Kill(&effect->obj, effect->sfxPos);
         }
     }
 }
@@ -2589,7 +2586,7 @@ void func_80069A10(Item* item) {
         f32 temp = (0.0f - gPlayer[0].camEye.z);
 
         if ((item->info.unk_10 - temp) < (item->obj.pos.z + D_80177D20)) {
-            Object_Kill(&item->obj, &item->sfxPos);
+            Object_Kill(&item->obj, item->sfxPos);
             if ((item->obj.id == OBJ_ITEM_METEO_WARP) && (item->unk_46 == 0)) {
                 D_80177E80 = -1;
             }
@@ -2634,22 +2631,22 @@ void Actor_Update(Actor* actor) {
         actor->timer_0C4--;
     }
     switch (actor->obj.status) {
-        case 1:
-            actor->obj.status = 2;
+        case OBJ_INIT:
+            actor->obj.status = OBJ_ACTIVE;
             Object_Init(actor->index, actor->obj.id);
             if (actor->obj.id != OBJ_ACTOR_252) {
                 func_800693E8(actor);
             }
             break;
-        case 2:
+        case OBJ_ACTIVE:
             func_800693E8(actor);
-            if ((actor->obj.status != 0) && (actor->info.action != NULL)) {
+            if ((actor->obj.status != OBJ_FREE) && (actor->info.action != NULL)) {
                 actor->info.action(&actor->obj);
             }
             break;
-        case 3:
+        case OBJ_DYING:
             func_800693E8(actor);
-            if (actor->obj.status != 0) {
+            if (actor->obj.status != OBJ_FREE) {
                 func_800690D0(actor->index, actor->obj.id);
             }
             break;
@@ -2679,20 +2676,20 @@ void Boss_Update(Boss* boss) {
         boss->timer_05C--;
     }
     switch (boss->obj.status) {
-        case 1:
-            boss->obj.status = 2;
+        case OBJ_INIT:
+            boss->obj.status = OBJ_ACTIVE;
             Object_Init(boss->index, boss->obj.id);
             func_80069658(boss);
             break;
-        case 2:
+        case OBJ_ACTIVE:
             func_80069658(boss);
-            if ((boss->obj.status != 0) && (boss->info.action != NULL)) {
+            if ((boss->obj.status != OBJ_FREE) && (boss->info.action != NULL)) {
                 boss->info.action(&boss->obj);
             }
             break;
-        case 3:
+        case OBJ_DYING:
             func_80069658(boss);
-            if (boss->obj.status != 0) {
+            if (boss->obj.status != OBJ_FREE) {
                 func_800690D0(boss->index, boss->obj.id);
             }
             break;
@@ -2704,12 +2701,12 @@ void Object_80_Update(Object_80* obj80) {
         obj80->timer_4C--;
     }
     switch (obj80->obj.status) {
-        case 1:
-            obj80->obj.status = 2;
+        case OBJ_INIT:
+            obj80->obj.status = OBJ_ACTIVE;
             Object_Init(obj80->index, obj80->obj.id);
             func_800696F8(obj80);
             break;
-        case 2:
+        case OBJ_ACTIVE:
             func_800696F8(obj80);
             if (obj80->info.action != NULL) {
                 obj80->info.action(&obj80->obj);
@@ -2720,18 +2717,18 @@ void Object_80_Update(Object_80* obj80) {
 
 void Object_4C_Update(Object_4C* obj4C) {
     switch (obj4C->obj.status) {
-        case 1:
-            obj4C->obj.status = 2;
+        case OBJ_INIT:
+            obj4C->obj.status = OBJ_ACTIVE;
             Object_Init(obj4C->index, obj4C->obj.id);
             func_80069858(obj4C);
             break;
-        case 2:
+        case OBJ_ACTIVE:
             func_80069858(obj4C);
             if (obj4C->info.action != NULL) {
                 obj4C->info.action(&obj4C->obj);
             }
             break;
-        case 3:
+        case OBJ_DYING:
             func_80069858(obj4C);
             func_800690D0(obj4C->index, obj4C->obj.id);
             break;
@@ -2746,12 +2743,12 @@ void Item_Update(Item* item) {
         item->timer_4A--;
     }
     switch (item->obj.status) {
-        case 1:
-            item->obj.status = 2;
+        case OBJ_INIT:
+            item->obj.status = OBJ_ACTIVE;
             Object_Init(item->index, item->obj.id);
             func_80069A10(item);
             break;
-        case 2:
+        case OBJ_ACTIVE:
             func_80069A10(item);
             if (item->info.action != NULL) {
                 item->info.action(&item->obj);
@@ -2765,13 +2762,13 @@ void Effect_Update(Effect* effect) {
         effect->timer_50--;
     }
     switch (effect->obj.status) {
-        case 1:
-            effect->obj.status = 2;
+        case OBJ_INIT:
+            effect->obj.status = OBJ_ACTIVE;
             Object_Init(effect->index, effect->obj.id);
             /* fallthrough */
-        case 2:
+        case OBJ_ACTIVE:
             func_80069924(effect);
-            if ((effect->obj.status != 0) && (effect->info.action != NULL)) {
+            if ((effect->obj.status != OBJ_FREE) && (effect->info.action != NULL)) {
                 effect->info.action(&effect->obj);
             }
             break;
@@ -2863,14 +2860,14 @@ void Object_UpdateAll(void) {
             func_80062664();
         }
         for (i = 0, obj80 = gObjects80; i < ARRAY_COUNT(gObjects80); i++, obj80++) {
-            if (obj80->obj.status != 0) {
+            if (obj80->obj.status != OBJ_FREE) {
                 obj80->index = i;
                 Object_80_Update(obj80);
             }
         }
     } else if (gVersusMode) {
         for (i = 0, obj58 = gObjects58; i < 200; i++, obj58++) {
-            if ((obj58->obj.status != 0) && (obj58->obj.id == OBJ_80_146)) {
+            if ((obj58->obj.status != OBJ_FREE) && (obj58->obj.id == OBJ_80_146)) {
                 if (i & 1) {
                     obj58->obj.rot.y += 0.5f;
                 } else {
@@ -2880,31 +2877,31 @@ void Object_UpdateAll(void) {
         }
     }
     for (i = 0, obj4C = gObjects4C; i < ARRAY_COUNT(gObjects4C); i++, obj4C++) {
-        if (obj4C->obj.status != 0) {
+        if (obj4C->obj.status != OBJ_FREE) {
             obj4C->index = i;
             Object_4C_Update(obj4C);
         }
     }
     for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {
-        if (boss->obj.status != 0) {
+        if (boss->obj.status != OBJ_FREE) {
             boss->index = i;
             Boss_Update(boss);
         }
     }
     for (i = 0, actor = gActors; i < ARRAY_COUNT(gActors); i++, actor++) {
-        if (actor->obj.status != 0) {
+        if (actor->obj.status != OBJ_FREE) {
             actor->index = i;
             Actor_Update(actor);
         }
     }
     for (i = 0, item = gItems; i < ARRAY_COUNT(gItems); i++, item++) {
-        if (item->obj.status != 0) {
+        if (item->obj.status != OBJ_FREE) {
             item->index = i;
             Item_Update(item);
         }
     }
     for (i = 0, effect = gEffects; i < ARRAY_COUNT(gEffects); i++, effect++) {
-        if (effect->obj.status != 0) {
+        if (effect->obj.status != OBJ_FREE) {
             effect->index = i;
             Effect_Update(effect);
         }

@@ -68,10 +68,10 @@ void func_i1_801922DC(Object_4C* this) {
     s32 i;
 
     for (i = 0; i < 4; i++, boss++) {
-        if ((boss->obj.status != 0) && (boss->obj.id == OBJ_BOSS_319)) {
+        if ((boss->obj.status != OBJ_FREE) && (boss->obj.id == OBJ_BOSS_319)) {
             if (boss->obj.pos.z <= this->obj.pos.z) {
                 D_i1_8019C0B8 = (s32) this->obj.rot.x + 1;
-                this->obj.status = 0;
+                this->obj.status = OBJ_FREE;
             }
             break;
         }
@@ -83,10 +83,10 @@ void func_i1_80192358(Object_4C* this) {
     s32 i;
 
     for (i = 0; i < 4; i++, boss++) {
-        if ((boss->obj.status != 0) && (boss->obj.id == 0x13F)) {
+        if ((boss->obj.status != OBJ_FREE) && (boss->obj.id == 0x13F)) {
             if (boss->obj.pos.z <= this->obj.pos.z) {
                 D_i1_8019C0B8 = 0;
-                this->obj.status = 0;
+                this->obj.status = OBJ_FREE;
             }
             break;
         }
@@ -98,10 +98,10 @@ void func_i1_801923C0(Object_4C* obj4C) {
     s32 i;
 
     for (boss = &gBosses[0], i = 0; i < 4; i++, boss++) {
-        if (boss->obj.status != 0 && boss->obj.id == OBJ_BOSS_319) {
+        if (boss->obj.status != OBJ_FREE && boss->obj.id == OBJ_BOSS_319) {
             if (boss->obj.pos.z <= obj4C->obj.pos.z) {
                 D_i1_8019C0BC = (s32) obj4C->obj.rot.x + 1;
-                obj4C->obj.status = 0;
+                obj4C->obj.status = OBJ_FREE;
             }
             break;
         }
@@ -113,24 +113,24 @@ void func_i1_8019243C(Object_4C* obj4C) {
     s32 i;
 
     for (boss = &gBosses[0], i = 0; i < 4; i++, boss++) {
-        if (boss->obj.status != 0 && boss->obj.id == OBJ_BOSS_319) {
+        if (boss->obj.status != OBJ_FREE && boss->obj.id == OBJ_BOSS_319) {
             if (boss->obj.pos.z <= obj4C->obj.pos.z) {
                 D_i1_8019C0C0 = 1;
-                obj4C->obj.status = 0;
+                obj4C->obj.status = OBJ_FREE;
             }
             break;
         }
     }
 }
 
-void func_i1_801924A8(Object_80* arg0) {
-    switch (arg0->unk_48) {
+void func_i1_801924A8(Object_80* obj80) {
+    switch (obj80->unk_48) {
         case 0:
-            if (gPlayer[0].pos.z < arg0->obj.pos.z) {
+            if (gPlayer[0].pos.z < obj80->obj.pos.z) {
                 D_80177AB0 = 0;
                 D_80177A98 = 0;
 
-                arg0->unk_48++;
+                obj80->unk_48++;
             }
 
         case 1:
@@ -138,7 +138,7 @@ void func_i1_801924A8(Object_80* arg0) {
     }
 }
 
-void func_i1_8019250C(Actor* arg0) {
+void func_i1_8019250C(Actor* actor) {
 }
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_80192518.s")

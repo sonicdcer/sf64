@@ -18,7 +18,7 @@ void func_i6_8019C194(Boss*, f32, f32);
 
 void func_i6_80197B30(Actor* actor, s32 timer) {
     Actor_Initialize(actor);
-    actor->obj.status = 2;
+    actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = 0xC3;
 
     actor->obj.pos.x = gPlayer->pos.x;
@@ -40,7 +40,7 @@ void func_i6_80197B30(Actor* actor, s32 timer) {
     actor->iwork[11] = 1;
 
     Object_SetInfo(&actor->info, actor->obj.id);
-    Audio_PlaySfx(0x3100000CU, &actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    Audio_PlaySfx(0x3100000CU, actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
 void func_i6_80197C64(Effect* effect) {
@@ -104,7 +104,7 @@ void func_i6_80197CC4(Boss* boss) {
             func_800182F4(0x103200FF);
             func_800182F4(0x113200FF);
         }
-        Object_Kill(&boss->obj, &boss->sfxPos);
+        Object_Kill(&boss->obj, boss->sfxPos);
     }
 }
 
@@ -205,7 +205,7 @@ void func_i6_80198244(Boss* boss) {
 
     boss->fwork[10] = 181.0f;
     boss->fwork[34] = 2.8f;
-    Audio_PlaySfx(0x2902306CU, &boss->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    Audio_PlaySfx(0x2902306CU, boss->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
 void func_i6_801983E4(Boss* boss) {
