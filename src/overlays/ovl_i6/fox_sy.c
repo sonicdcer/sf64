@@ -1,6 +1,11 @@
 #include "global.h"
 
 extern Gfx D_6014A40[];
+extern u16* D_60342A0[];
+extern u16* D_6034304[];
+
+void func_i6_80198244(Boss*);
+void func_i6_8019AEC0(Boss*);
 
 void func_i6_80197B30(Actor* actor, s32 timer) {
     Actor_Initialize(actor);
@@ -29,15 +34,70 @@ void func_i6_80197B30(Actor* actor, s32 timer) {
     Audio_PlaySfx(0x3100000CU, &actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-void func_i6_80197C64(Effect* arg0) {
+void func_i6_80197C64(Effect* effect) {
     RCP_SetupDL_21();
     gSPDisplayList(gMasterDisp++, D_6014A40);
     RCP_SetupDL(&gMasterDisp, 0x40);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/fox_sy/func_i6_80197CB8.s")
+void func_i6_80197CB8(Object_80* obj80) {
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/fox_sy/func_i6_80197CC4.s")
+void func_i6_80197CC4(Boss* boss) {
+    boss->fwork[9] = 0.0f;
+    boss->swork[33] = 5500;
+    boss->timer_050 = 10;
+    boss->timer_058 = 0;
+    D_80177A10[8] = 0;
+
+    if (boss->index == 0) {
+        boss->info.hitbox = SEGMENTED_TO_VIRTUAL(D_60342A0);
+        boss->health = 150;
+        boss->swork[28] = 5;
+        boss->fwork[43] = 3.5f;
+        boss->fwork[45] = 40.0f;
+
+        if (gPlayer->state_1C8 == PLAYERSTATE_1C8_9) {
+            boss->obj.pos.z = -28900.0f;
+            gObjects58->obj.pos.z = -30000.0f;
+        }
+
+        boss->unk_078.y = 0.0f;
+        func_i6_8019AEC0(boss);
+    } else {
+        boss->fwork[34] = 2.8f;
+        boss->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6034304);
+
+        boss->health = 100;
+        boss->swork[28] = 0;
+        boss->swork[25] = 1;
+        boss->fwork[45] = 35.0f;
+
+        if (boss->index == 1) {
+            boss->unk_078.y = 15.0f;
+        } else {
+            boss->unk_078.y = 345.0f;
+        }
+
+        boss->vel.x = __sinf(boss->unk_078.y * 0.017453292f);
+        boss->vel.x = (boss->fwork[45] * boss->vel.x) * 0.2f;
+        boss->vel.z = __cosf(boss->unk_078.y * 0.017453292f);
+        boss->vel.z = (boss->fwork[45] * boss->vel.z) * 0.2f;
+
+        func_i6_80198244(boss);
+        boss->timer_056 = 0xFA;
+    }
+
+    if (gLevelMode == LEVELMODE_ON_RAILS) {
+        if (gPlayer->state_1C8 == PLAYERSTATE_1C8_3) {
+            gPlayer->state_1C8 = PLAYERSTATE_1C8_9;
+            gPlayer->unk_1D0 = 0;
+            func_800182F4(0x103200FF);
+            func_800182F4(0x113200FF);
+        }
+        Object_Kill(&boss->obj, &boss->sfxPos);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/fox_sy/func_i6_80197F18.s")
 
