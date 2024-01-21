@@ -2392,9 +2392,9 @@ void func_menu_801A1C14(void) {
 
                 D_menu_801CD964 = 1;
                 D_menu_801CD96C = 1;
-
-                for (i = 0; i < 15; i++) D_menu_801CD900[i] = 0;
-
+                // clang-format off
+                for (i = 0; i < 15; i++) {D_menu_801CD900[i] = 0;}
+                // clang-format on
                 D_menu_801CD970 = 0;
 
                 if (func_menu_801A2304()) {
@@ -2422,9 +2422,9 @@ void func_menu_801A1C14(void) {
         case 21:
             D_menu_801CD964 = 1;
             D_menu_801CD96C = 1;
-
-            for (i = 0; i < 15; i++) D_menu_801CD900[i] = 0;
-            
+            // clang-format off
+            for (i = 0; i < 15; i++) {D_menu_801CD900[i] = 0;}
+            // clang-format on
             D_menu_801CD970 = 0;
 
             if (func_menu_801A2304()) {

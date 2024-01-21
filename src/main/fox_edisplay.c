@@ -1,7 +1,6 @@
 #include "prevent_bss_reordering.h"
 #include "global.h"
 
-
 Vec3f D_801615D0;
 Vec3f D_801615E0;
 s32 D_801615EC;
