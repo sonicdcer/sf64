@@ -144,7 +144,8 @@ typedef struct {
     /* 0x50 */ s8 unk_50;
     /* 0x51 */ char pad51[3];
     /* 0x54 */ s32 unk_54;
-    /* 0x58 */ char pad58[8];
+    /* 0x58 */ f32 unk_58;
+    /* 0x5C */ f32 unk_5C;
     /* 0x60 */ f32 unk_60;
     /* 0x64 */ Vec3f vel;
     /* 0x70 */ Vec3f sfxPos;
@@ -206,7 +207,8 @@ typedef struct {
     /* 0x01C */ ObjectInfo info;
     /* 0x040 */ s32 index;
     /* 0x044 */ s16 unk_044;
-    /* 0x046 */ char unk_46[6];
+    /* 0x046 */ char unk_46[4];
+    /* 0x04A */ s16 unk_04A;
     /* 0x04C */ s16 unk_04C;
     /* 0x04E */ s16 actionState;
     /* 0x050 */ s16 timer_050;
