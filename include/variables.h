@@ -840,13 +840,6 @@ extern f32 gHeadsetPanVolume[];
 extern f32 gStereoPanVolume[];
 extern f32 gDefaultPanVolume[];
 
-// ovl_menu
-extern s32 D_menu_801B8220[]; // total hits ranking? see func_menu_80197DE4
-extern s32 D_menu_801B8280;
-extern s32 D_menu_801B8284;
-extern s32 D_menu_801B827C;
-extern s32 D_menu_801B8288;
-
 // buffers
 extern u64 gDramStack[SP_DRAM_STACK_SIZE64];
 extern u8 gOSYieldData[OS_YIELD_DATA_SIZE];

@@ -45,7 +45,11 @@
     "typeinfo": "c",
     "sym_addrs_funcs": "c",
     "*.txt": "c",
-    "fox_title.h": "c"
+    "fox_title.h": "c",
+    "prevent_bss_reordering.h": "c",
+    "fox_map.h": "c",
+    "sf64level.h": "c",
+    "prevent_bss_reordering2.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }

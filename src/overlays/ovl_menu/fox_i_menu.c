@@ -9,6 +9,9 @@ void func_menu_8019E8C8(void);
 void func_menu_8019E8D0(void);
 void func_menu_801A01A8(void);
 
+s32 D_menu_801B7BA0;
+s32 D_menu_801AD9F0 = 0;
+
 void func_menu_80187520(u32 mode, void* ptr) {
     switch (mode) {
         case 103:
