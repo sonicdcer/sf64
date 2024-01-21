@@ -32,7 +32,7 @@
     bss_size: 0x40
     exclusive_ram_id: overlay
     symbol_name_format: i2_$VRAM
-    subsegments:    
+    subsegments:
     - [0xE08400, c, fox_i2]
     - [0xE08410, c, fox_me]
     - [0xE0FF10, c, fox_sx]
@@ -157,7 +157,7 @@
     - { start: 0xEBFBE0, type: .bss, vram: 0x801A7F30, name: fox_i6 }
     - { type: bss, vram: 0x801A7F40, name: sf_i6_1 }
     - { type: bss, vram: 0x801A8440, name: fox_sy }
-    
+
   - name: ovl_menu
     type: code
     dir: overlays/ovl_menu
@@ -200,7 +200,7 @@
     - [0xEFF380, .rodata, sf_ending_2]
     - { start: 0xEFFA40, type: bss, vram: 0x80196D00, name: sf_ending_1 }
     - { type: bss, vram: 0x80198590, name: sf_ending_2 }
-    
+
   - name: ovl_unused
     type: code
     dir: overlays/ovl_unused
