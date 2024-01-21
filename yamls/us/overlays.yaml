@@ -38,7 +38,7 @@
     - [0xE0FF10, c, fox_sx]
     - [0xE16300, .data, fox_i2]
     - [0xE16310, .data, fox_me]
-    - [0xE16520, data, fox_sx]
+    - [0xE16520, .data, fox_sx]
     - [0xE16670, .rodata, fox_me]
     - [0xE16930, .rodata, fox_sx]
     - { start: 0xE16C50, type: .bss, vram: 0x80195D70, name: fox_i2 }
