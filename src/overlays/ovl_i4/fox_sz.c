@@ -2,21 +2,21 @@
 
 extern s32 D_i4_801A0560;
 
-void func_i4_80199900(Actor* arg0, s32 arg1) {
+void func_i4_80199900(Actor* actor, s32 arg1) {
     s32 i;
 
     D_Timer_80161A60 = 8;
 
-    Object_Kill(&arg0->obj, arg0->sfxPos);
-    func_8007A6F0(&arg0->obj.pos, 0x2903A060);
+    Object_Kill(&actor->obj, actor->sfxPos);
+    func_8007A6F0(&actor->obj.pos, 0x2903A060);
 
     for (i = 0; i < 20; i++) {
-        func_800794CC(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 1.0f);
-        func_80079618(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 1.0f);
+        func_800794CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1.0f);
+        func_80079618(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1.0f);
     }
 
-    func_8007BFFC(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 0.0f, 0.0f, 0.0f, 20.0f, 0x1E);
-    func_8007B344(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 20.0f, 5);
+    func_8007BFFC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 20.0f, 0x1E);
+    func_8007B344(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 20.0f, 5);
 
     if (arg1 != 0) {
         D_i4_801A0560++;
@@ -38,7 +38,30 @@ void func_i4_80199900(Actor* arg0, s32 arg1) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_80199B18.s")
+void func_i4_80199B18(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
+    Effect_Initialize(effect);
+    effect->obj.status = 1;
+    effect->obj.id = OBJ_EFFECT_339;
+
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
+
+    effect->vel.x = xVel;
+    effect->vel.y = yVel;
+    effect->vel.z = zVel;
+
+    effect->scale2 = scale;
+    effect->scale1 = 0.5f;
+
+    effect->unk_4C = 2;
+    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+
+    Object_SetInfo(&effect->info, effect->obj.id);
+
+    effect->unk_44 = 255;
+    effect->unk_46 = 2;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_80199BDC.s")
 
