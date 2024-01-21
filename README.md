@@ -1,4 +1,4 @@
-![Discord Banner 2](https://discordapp.com/api/guilds/1190102597521133700/widget.png?style=banner2)
+[![Discord Invitation](https://discordapp.com/api/guilds/1190102597521133700/widget.png?style=banner2 'Starfox 64')](https://discord.gg/tuwdmuTTqc)
 
 # Starfox 64 (US) REV 1.1
 
