@@ -1,6 +1,6 @@
 #include "global.h"
 
-void func_i6_80197B30(Actor* actor, s32 arg1) {
+void func_i6_80197B30(Actor* actor, s32 timer) {
     Actor_Initialize(actor);
     actor->obj.status = 2;
     actor->obj.id = 0xC3;
@@ -15,7 +15,7 @@ void func_i6_80197B30(Actor* actor, s32 arg1) {
     actor->obj.rot.y = gPlayer[0].unk_114 + gPlayer[0].unk_0E8 + 180.0f;
     actor->obj.rot.z = gPlayer[0].unk_0EC;
     actor->unk_0B8 = 5;
-    actor->timer_04C = (s16) arg1;
+    actor->timer_04C = timer;
     actor->iwork[11] = 1;
     Object_SetInfo(&actor->info, actor->obj.id);
     Audio_PlaySfx(0x3100000C, &actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -106,7 +106,7 @@ void func_i6_8019B6E8(Boss*);
 void func_i6_8019BC14(Boss*);
 
 void func_i6_80197F84(Boss* boss) {
-    f32 temp;
+    f32 yaw;
 
     Math_SmoothStepToF(&boss->obj.pos.y, 0.0f, 0.5f, 15.0f, 0.1f);
     Math_SmoothStepToF(&boss->vel.y, 0.0f, 0.1f, 0.2f, 0.1f);
@@ -124,9 +124,9 @@ void func_i6_80197F84(Boss* boss) {
         func_i6_8019BC14(boss);
     }
     
-    temp = Math_RadToDeg(Math_Atan2F(boss->fwork[18] - boss->obj.pos.x, boss->fwork[20] - boss->obj.pos.z));
+    yaw = Math_RadToDeg(Math_Atan2F(boss->fwork[18] - boss->obj.pos.x, boss->fwork[20] - boss->obj.pos.z));
     
-    Math_SmoothStepToAngle(&boss->unk_078.y, temp, 0.1f, 8.0f, 0.1f);
+    Math_SmoothStepToAngle(&boss->unk_078.y, yaw, 0.1f, 8.0f, 0.1f);
     if (boss->timer_050 == 0) {
         func_i6_80198244(boss);
     }
@@ -150,21 +150,21 @@ void func_i6_80198238(Boss* boss) {
 }
 
 void func_i6_80198244(Boss* boss) {
-    f32 var_fv0;
+    f32 speed;
 
     boss->swork[20] = 3;
     boss->swork[21] = 1;
     boss->timer_056 = (Rand_ZeroOne() * 500.0f) + 100.0f;
     boss->fwork[11] = __sinf(boss->unk_078.y * M_DTOR) * boss->fwork[45];
     boss->fwork[13] = __cosf(boss->unk_078.y * M_DTOR) * boss->fwork[45];
-    var_fv0 = ABS(boss->vel.x);
+    speed = ABS(boss->vel.x);
 
-    if (var_fv0 < 5.0f) {
+    if (speed < 5.0f) {
         Math_SmoothStepToF(&boss->vel.x, boss->fwork[11], 0.1f, 5.0f, 0.1f);
     }
-    var_fv0 = ABS(boss->vel.z);
+    speed = ABS(boss->vel.z);
 
-    if (var_fv0 < 5.0f) {
+    if (speed < 5.0f) {
         Math_SmoothStepToF(&boss->vel.z, boss->fwork[13], 0.1f, 5.0f, 0.1f);
     }
     boss->fwork[10] = 181.0f;
@@ -176,9 +176,9 @@ void func_i6_80199D64(Boss*);
 void func_i6_8019C194(Boss*, f32, f32);
 
 void func_i6_801983E4(Boss* boss) {
-    f32 sp3C;
-    f32 sp38;
-    f32 sp34;
+    f32 yAngle;
+    f32 xSpeed;
+    f32 zSpeed;
 
     func_i6_8019B6E8(boss);
     if (boss->timer_052 == 0) {
@@ -190,8 +190,8 @@ void func_i6_801983E4(Boss* boss) {
     Math_SmoothStepToF(&boss->vel.z, boss->fwork[13], 0.1f, 0.5f, 0.1f);
     Math_SmoothStepToF(&boss->vel.y, 0.0f, 0.1f, 0.2f, 0.1f);
 
-    sp38 = ABS(boss->fwork[18] - boss->obj.pos.x);
-    sp34 = ABS(boss->fwork[20] - boss->obj.pos.z);
+    xSpeed = ABS(boss->fwork[18] - boss->obj.pos.x);
+    zSpeed = ABS(boss->fwork[20] - boss->obj.pos.z);
 
     if (boss->unk_078.x != 0.0f) {
         Math_SmoothStepToAngle(&boss->unk_078.x, boss->fwork[10], 0.1f, 6.0f, 0.1f);
@@ -213,23 +213,23 @@ void func_i6_801983E4(Boss* boss) {
             boss->fwork[0x22] = 2.8f;
         }
     }
-    func_i6_8019C194(boss, sp34, sp38);
+    func_i6_8019C194(boss, zSpeed, xSpeed);
     if (boss->swork[0x16] == 1) {
-        sp3C = gPlayer[0].unk_114 - 180.0f;
-        if (sp3C < 0.0f) {
-            sp3C += 360.0f;
+        yAngle = gPlayer[0].unk_114 - 180.0f;
+        if (yAngle < 0.0f) {
+            yAngle += 360.0f;
         }
-        sp3C = boss->unk_078.y - sp3C;
-        if (sp3C < 0.0f) {
-            sp3C += 360.0f;
+        yAngle = boss->unk_078.y - yAngle;
+        if (yAngle < 0.0f) {
+            yAngle += 360.0f;
         }
-        if ((sp34 <= 1300.0f) && (sp38 <= 800.0f) && (sp3C < 260.0f) && (sp3C > 100.0f) && (boss->unk_078.x == 0.0f) && (boss->fwork[34] <= 2.0f)) {
+        if ((zSpeed <= 1300.0f) && (xSpeed <= 800.0f) && (yAngle < 260.0f) && (yAngle > 100.0f) && (boss->unk_078.x == 0.0f) && (boss->fwork[34] <= 2.0f)) {
             if (Rand_ZeroOne() < 0.2f) {
                 func_i6_8019AA08(boss);
             }
         }
-        if ((sp34 < 3400.0f) || (sp38 < 2400.0f)) {
-            if (((sp3C >= 60.0f) && (sp3C <= 100.0f)) || ((sp3C <= 300.0f) && (sp3C >= 260.0f))) {
+        if ((zSpeed < 3400.0f) || (xSpeed < 2400.0f)) {
+            if (((yAngle >= 60.0f) && (yAngle <= 100.0f)) || ((yAngle <= 300.0f) && (yAngle >= 260.0f))) {
                 if (Rand_ZeroOne() < 0.3f) {
                     if (Rand_ZeroOne() < 0.4f) {
                         func_i6_80197F18(boss);
@@ -238,7 +238,7 @@ void func_i6_801983E4(Boss* boss) {
                     }
                 }
             }
-            if (((sp3C > 300.0f) || (sp3C < 60.0f)) && (boss->unk_078.x == 0.0f)) {
+            if (((yAngle > 300.0f) || (yAngle < 60.0f)) && (boss->unk_078.x == 0.0f)) {
                 if (Rand_ZeroOne() < 0.3f) {
                     if (Rand_ZeroOne() < 0.4f) {
                         func_i6_80197F18(boss);
@@ -273,11 +273,11 @@ void func_i6_801983E4(Boss* boss) {
 }
 
 void func_i6_80198ABC(Boss* boss) {
-    f32 sp2C;
+    f32 yAngle;
 
-    sp2C = Math_RadToDeg(Math_Atan2F(-boss->obj.pos.x, -300.0f - boss->obj.pos.z)) - boss->unk_078.y;
-    if (sp2C < 0.0f) {
-        sp2C += 360.0f;
+    yAngle = Math_RadToDeg(Math_Atan2F(-boss->obj.pos.x, -300.0f - boss->obj.pos.z)) - boss->unk_078.y;
+    if (yAngle < 0.0f) {
+        yAngle += 360.0f;
     }
     boss->swork[20] = 4;
     boss->swork[21] = 3;
@@ -285,7 +285,7 @@ void func_i6_80198ABC(Boss* boss) {
 
     boss->timer_056 = (Rand_ZeroOne() * 100.0f) + 100.0f;
     boss->timer_050 = 0;
-    if (sp2C > 180.0f) {
+    if (yAngle > 180.0f) {
         boss->fwork[27] = 40.0f;
         if (boss->index == 0) {
             boss->fwork[42] = 1.8f;
@@ -321,7 +321,7 @@ void func_i6_80198ABC(Boss* boss) {
 }
 
 void func_i6_80198CE4(Boss* boss) {
-    f32 var_fs1;
+    f32 yAngle;
 
     func_i6_8019B6E8(boss);
     if (boss->timer_052 == 0) {
@@ -329,12 +329,12 @@ void func_i6_80198CE4(Boss* boss) {
     }
     Math_SmoothStepToAngle(&boss->unk_078.z, boss->fwork[27], 0.1f, 0.5f, 0.1f);
     Math_SmoothStepToAngle(&boss->unk_078.x, 0.0f, 0.1f, 4.0f, 0.1f);
-    var_fs1 = Math_RadToDeg(Math_Atan2F(-boss->obj.pos.x, -300.0f - boss->obj.pos.z));
+    yAngle = Math_RadToDeg(Math_Atan2F(-boss->obj.pos.x, -300.0f - boss->obj.pos.z));
 
     if (boss->index != 0) {
-        Math_SmoothStepToAngle(&boss->unk_078.y, var_fs1, 0.1f, 1.0f, 0.1f);
+        Math_SmoothStepToAngle(&boss->unk_078.y, yAngle, 0.1f, 1.0f, 0.1f);
     } else {
-        Math_SmoothStepToAngle(&boss->unk_078.y, var_fs1, 0.1f, 2.0f, 0.1f);
+        Math_SmoothStepToAngle(&boss->unk_078.y, yAngle, 0.1f, 2.0f, 0.1f);
     }
     if (boss->index == 0) {
         boss->vel.x = __sinf(boss->unk_078.y * M_DTOR) * (boss->fwork[45] + 20.0f);
@@ -349,20 +349,20 @@ void func_i6_80198CE4(Boss* boss) {
         Math_SmoothStepToF(&boss->obj.pos.y, 0.0f, 0.1f, 5.0f, 0.1f);
     }
     Math_SmoothStepToF(&boss->vel.y, 0.0f, 0.1f, 0.2f, 0.1f);
-    var_fs1 -= boss->unk_078.y;
-    if (var_fs1 < 0.0f) {
-        var_fs1 += 360.0f;
+    yAngle -= boss->unk_078.y;
+    if (yAngle < 0.0f) {
+        yAngle += 360.0f;
     }
-    if ((func_i6_8019B528(boss) == 0) && ((var_fs1 <= 20.0f) || (var_fs1 >= 320.0f))) {
+    if ((func_i6_8019B528(boss) == 0) && ((yAngle <= 20.0f) || (yAngle >= 320.0f))) {
         func_i6_80198244(boss);
     }
 }
 
 void func_i6_80198F5C(Boss* boss) {
-    Vec3f sp54;
+    Vec3f vec;
     Vec3f sp48;
-    f32 temp;
-    f32 temp2;
+    f32 xDisplacement;
+    f32 zDisplacement;
     s32 i;
 
     boss->timer_05C = 20;
@@ -420,14 +420,14 @@ void func_i6_80198F5C(Boss* boss) {
             boss->timer_058 = 100;
             gPlayer[0].state_1C8 = PLAYERSTATE_1C8_0;
             D_80177A80 = 0;
-            temp = gPlayer[0].camEye.x - boss->obj.pos.x;
-            temp2 = gPlayer[0].camEye.z - boss->obj.pos.z;
-            D_80177A48[8] = Math_RadToDeg(Math_Atan2F(temp, temp2));
+            xDisplacement = gPlayer[0].camEye.x - boss->obj.pos.x;
+            zDisplacement = gPlayer[0].camEye.z - boss->obj.pos.z;
+            D_80177A48[8] = Math_RadToDeg(Math_Atan2F(xDisplacement, zDisplacement));
             Matrix_RotateY(gCalcMatrix, D_80177A48[8] * M_DTOR, 0);
-            sp54.x = 0.0f;
-            sp54.y = 0.0f;
-            sp54.z = 900.0f;
-            Matrix_MultVec3f(gCalcMatrix, &sp54, &sp48);
+            vec.x = 0.0f;
+            vec.y = 0.0f;
+            vec.z = 900.0f;
+            Matrix_MultVec3f(gCalcMatrix, &vec, &sp48);
             D_80177978 = boss->obj.pos.x + sp48.x;
             D_80177980 = boss->obj.pos.y + 400.0f;
             D_80177988 = boss->obj.pos.z + sp48.z;
@@ -455,14 +455,14 @@ void func_i6_80198F5C(Boss* boss) {
     }
 }
 
-void D_601F3D0(Object*);
+extern Gfx D_601F3D0[];
 void func_i6_801A39FC(Actor*, f32, f32, f32, f32, f32, f32, s32);
 void func_i6_801A3B50(f32, f32, f32, f32, f32, f32, s32);
 
 void func_i6_80199438(Boss* boss) {
     s32 i;
     s32 j;
-    Vec3f sp74;
+    Vec3f vec;
     Vec3f sp68;
 
     if (boss->health <= 0) {
@@ -481,10 +481,10 @@ void func_i6_80199438(Boss* boss) {
         } else {
             D_80177A48[8] += D_80177A48[9];
             Matrix_RotateY(gCalcMatrix, D_80177A48[8] * M_DTOR, 0);
-            sp74.x = 0.0f;
-            sp74.y = 0.0f;
-            sp74.z = 900.0f;
-            Matrix_MultVec3f(gCalcMatrix, &sp74, &sp68);
+            vec.x = 0.0f;
+            vec.y = 0.0f;
+            vec.z = 900.0f;
+            Matrix_MultVec3f(gCalcMatrix, &vec, &sp68);
             D_80177978 = boss->obj.pos.x + sp68.x;
             D_80177988 = boss->obj.pos.z + sp68.z;
             if ((boss->timer_058 == 40) && gBosses[1].obj.status == 0 && gBosses[2].obj.status == 0) {
@@ -555,7 +555,7 @@ void func_i6_80199438(Boss* boss) {
                 Object_Kill(&gActors[D_80177A10[9]].obj, &gActors[D_80177A10[9]].sfxPos);
                 if ((gBosses[1].obj.status == 0) || (gBosses[2].obj.status == 0)) {
                     gBosses[0].unk_04A = 1;
-                    gObjects58[0].info.draw = D_601F3D0;
+                    gObjects58[0].info.dList = D_601F3D0;
                     gObjects58[0].info.drawType = 0;
                 } else {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_3;
@@ -620,9 +620,9 @@ void func_i6_8019A82C(Boss*);
 
 void func_i6_80199DAC(Boss* boss) {
     f32 sp34;
-    f32 sp30;
-    f32 sp2C;
-    f32 var_fv1;
+    f32 zSpeed;
+    f32 xSpeed;
+    f32 yAngle;
 
     func_i6_8019B6E8(boss);
     if (boss->timer_052 == 0) {
@@ -664,31 +664,31 @@ void func_i6_80199DAC(Boss* boss) {
     } else {
         Math_SmoothStepToF(&boss->vel.x, boss->fwork[11], 0.1f, 0.5f, 0.1f);
         Math_SmoothStepToF(&boss->vel.z, boss->fwork[13], 0.1f, 0.5f, 0.1f);
-        var_fv1 = gPlayer[0].unk_114 - 180.0f;
-        if (var_fv1 < 0.0f) {
-            var_fv1 += 360.0f;
+        yAngle = gPlayer[0].unk_114 - 180.0f;
+        if (yAngle < 0.0f) {
+            yAngle += 360.0f;
         }
-        var_fv1 = boss->unk_078.y - var_fv1;
-        if (var_fv1 < 0.0f) {
-            var_fv1 += 360.0f;
+        yAngle = boss->unk_078.y - yAngle;
+        if (yAngle < 0.0f) {
+            yAngle += 360.0f;
         }
 
-        sp30 = ABS(boss->fwork[20] - boss->obj.pos.z);
-        sp2C = ABS(boss->fwork[18] - boss->obj.pos.x);
+        zSpeed = ABS(boss->fwork[20] - boss->obj.pos.z);
+        xSpeed = ABS(boss->fwork[18] - boss->obj.pos.x);
         
         if (boss->unk_078.x != 0.0f) {
-            if ((var_fv1 > 300.0f) || (var_fv1 < 60.0f)) {
+            if ((yAngle > 300.0f) || (yAngle < 60.0f)) {
                 Math_SmoothStepToAngle(&boss->unk_078.x, 181.0f, 0.1f, 6.0f, 0.1f);
             } else {
                 Math_SmoothStepToAngle(&boss->unk_078.x, 0.0f, 0.1f, 6.0f, 0.1f);
             }
-        } else if ((boss->swork[0x16] == 1) && ((var_fv1 > 300.0f) || (var_fv1 < 60.0f)) && (Rand_ZeroOne() > 0.2f)) {
+        } else if ((boss->swork[0x16] == 1) && ((yAngle > 300.0f) || (yAngle < 60.0f)) && (Rand_ZeroOne() > 0.2f)) {
             Math_SmoothStepToAngle(&boss->unk_078.x, 181.0f, 0.1f, 6.0f, 0.1f);
             boss->swork[0x15] = 3;
             boss->fwork[0x22] = 2.8f;
         }
         if (func_i6_8019B5CC(boss) == 0) {
-            func_i6_8019C194(boss, sp30, sp2C);
+            func_i6_8019C194(boss, zSpeed, xSpeed);
         }
     }
     if (boss->timer_056 == 1) {
@@ -785,24 +785,24 @@ void func_i6_8019A82C(Boss* boss) {
 }
 
 void func_i6_8019A898(Boss* boss) {
-    f32 temp_fv0;
-    f32 var_fv1;
+    f32 yAngle1;
+    f32 yAngle2;
 
     func_i6_8019B6E8(boss);
     if (boss->timer_052 == 0) {
         func_i6_8019BC14(boss);
     }
     
-    temp_fv0 = Math_RadToDeg(Math_Atan2F(boss->fwork[0x12] - boss->obj.pos.x, boss->fwork[0x14] - boss->obj.pos.z));
-    var_fv1 = temp_fv0 - boss->unk_078.y;
+    yAngle1 = Math_RadToDeg(Math_Atan2F(boss->fwork[0x12] - boss->obj.pos.x, boss->fwork[0x14] - boss->obj.pos.z));
+    yAngle2 = yAngle1 - boss->unk_078.y;
     
-    if (var_fv1 < 0.0f) {
-        var_fv1 += 360.0f;
+    if (yAngle2 < 0.0f) {
+        yAngle2 += 360.0f;
     }
     boss->swork[0x15] = 6;
-    if (((var_fv1 >= 30.0f) && (var_fv1 <= 330.0f)) || ((boss->unk_04C != 0)) && (boss->unk_04C != 27)) {
+    if (((yAngle2 >= 30.0f) && (yAngle2 <= 330.0f)) || ((boss->unk_04C != 0)) && (boss->unk_04C != 27)) {
         boss->swork[0x15] = 5;
-        Math_SmoothStepToAngle(&boss->unk_078.y, temp_fv0, 0.1f, 2.0f, 0.1f);
+        Math_SmoothStepToAngle(&boss->unk_078.y, yAngle1, 0.1f, 2.0f, 0.1f);
         boss->fwork[0] = 1.0f;
         if ((boss->unk_04C == 0) || (boss->unk_04C == 27)) {
             Audio_PlaySfx(0x29022019, &boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -849,14 +849,14 @@ void func_i6_8019BBBC(Boss*);
 
 void func_i6_8019AAF0(Boss* boss) {
     f32 var_fv1;
-    f32 sp60;
-    f32 sp5C;
+    f32 xAngle;
+    f32 yAngle;
     f32 var_ft5;
-    Vec3f sp4C;
-    Vec3f sp40;
+    Vec3f vec;
+    Vec3f vel;
 
     func_i6_8019BBBC(boss);
-    sp5C = Math_Atan2F(boss->fwork[18] - boss->obj.pos.x, boss->fwork[20] - boss->obj.pos.z);
+    yAngle = Math_Atan2F(boss->fwork[18] - boss->obj.pos.x, boss->fwork[20] - boss->obj.pos.z);
     var_fv1 = 500.0f;
     if (boss->health != 0) {
         var_fv1 += 200.0f;
@@ -881,16 +881,16 @@ void func_i6_8019AAF0(Boss* boss) {
         Math_SmoothStepToF(&boss->fwork[9], boss->fwork[45] + 10.0f, 0.1f, 2.0f, 0.1f);
 
         var_ft5 = ABS(boss->fwork[18] - boss->obj.pos.x) + ABS(boss->fwork[20] - boss->obj.pos.z);
-        sp60 = -Math_Atan2F(boss->fwork[19] - boss->obj.pos.y, var_ft5);
-        Matrix_RotateY(gCalcMatrix, sp5C, 0);
-        Matrix_RotateX(gCalcMatrix, sp60, 1);
-        sp4C.x = 0.0f;
-        sp4C.y = 0.0f;
-        sp4C.z = boss->fwork[9];
-        Matrix_MultVec3f(gCalcMatrix, &sp4C, &sp40);
-        boss->vel.z = sp40.z;
-        boss->vel.x = sp40.x;
-        Math_SmoothStepToAngle(&boss->unk_078.y, Math_RadToDeg(sp5C), 0.1f, 6.0f, 0.1f);
+        xAngle = -Math_Atan2F(boss->fwork[19] - boss->obj.pos.y, var_ft5);
+        Matrix_RotateY(gCalcMatrix, yAngle, 0);
+        Matrix_RotateX(gCalcMatrix, xAngle, 1);
+        vec.x = 0.0f;
+        vec.y = 0.0f;
+        vec.z = boss->fwork[9];
+        Matrix_MultVec3f(gCalcMatrix, &vec, &vel);
+        boss->vel.z = vel.z;
+        boss->vel.x = vel.x;
+        Math_SmoothStepToAngle(&boss->unk_078.y, Math_RadToDeg(yAngle), 0.1f, 6.0f, 0.1f);
     }
     if (boss->swork[31] != 11) {
 
@@ -1037,7 +1037,7 @@ s32 func_i6_8019B528(Boss* boss) {
 
 s32 func_i6_8019B5CC(Boss* boss) {
     f32 pad;
-    Vec3f sp28;
+    Vec3f pos;
 
     if ((gBosses[1].health != 0) || (gBosses[2].health != 0)) {
         return 0;
@@ -1046,9 +1046,9 @@ s32 func_i6_8019B5CC(Boss* boss) {
     if (gLevelMode == LEVELMODE_ON_RAILS) {
         return 0;
     }
-    Math_Vec3fFromAngles(&sp28, boss->unk_078.x, boss->unk_078.y, 700.0f);
+    Math_Vec3fFromAngles(&pos, boss->unk_078.x, boss->unk_078.y, 700.0f);
 
-    if ((fabsf(gObjects58[0].obj.pos.x - (boss->obj.pos.x + sp28.x)) < 2500.0f) && (fabsf(gObjects58[0].obj.pos.z - (boss->obj.pos.z + sp28.z)) < 5000.0f) && (fabsf(gObjects58[0].obj.pos.y - (boss->obj.pos.y + sp28.y)) < 1800.0f)) {
+    if ((fabsf(gObjects58[0].obj.pos.x - (boss->obj.pos.x + pos.x)) < 2500.0f) && (fabsf(gObjects58[0].obj.pos.z - (boss->obj.pos.z + pos.z)) < 5000.0f) && (fabsf(gObjects58[0].obj.pos.y - (boss->obj.pos.y + pos.y)) < 1800.0f)) {
         return 1;
     }
     
@@ -1056,18 +1056,18 @@ s32 func_i6_8019B5CC(Boss* boss) {
 }
 
 void func_i6_8019B6E8(Boss* boss) {
-    f32 sum4;
-    f32 sum3;
-    f32 sum2;
-    f32 sum;
+    f32 var4;
+    f32 var3;
+    f32 var2;
+    f32 var;
 
-    sum = ABS(ABS(gPlayer[0].pos.x - boss->obj.pos.x) + ABS(gPlayer[0].pos.y - boss->obj.pos.y) + ABS(gPlayer[0].pos.z - 1000.0f - boss->obj.pos.z));
+    var = ABS(ABS(gPlayer[0].pos.x - boss->obj.pos.x) + ABS(gPlayer[0].pos.y - boss->obj.pos.y) + ABS(gPlayer[0].pos.z - 1000.0f - boss->obj.pos.z));
     
-    sum2 = ABS(gActors[2].obj.pos.x - boss->obj.pos.x) + ABS(gActors[2].obj.pos.y - boss->obj.pos.y) + ABS(gActors[2].obj.pos.z - boss->obj.pos.z);
+    var2 = ABS(gActors[2].obj.pos.x - boss->obj.pos.x) + ABS(gActors[2].obj.pos.y - boss->obj.pos.y) + ABS(gActors[2].obj.pos.z - boss->obj.pos.z);
 
-    sum3 = ABS(gActors[3].obj.pos.x - boss->obj.pos.x) + ABS(gActors[3].obj.pos.y - boss->obj.pos.y) + ABS(gActors[3].obj.pos.z - boss->obj.pos.z);
+    var3 = ABS(gActors[3].obj.pos.x - boss->obj.pos.x) + ABS(gActors[3].obj.pos.y - boss->obj.pos.y) + ABS(gActors[3].obj.pos.z - boss->obj.pos.z);
 
-    sum4 = ABS(gActors[4].obj.pos.x - boss->obj.pos.x) + ABS(gActors[4].obj.pos.y - boss->obj.pos.y) + ABS(gActors[4].obj.pos.z - boss->obj.pos.z);
+    var4 = ABS(gActors[4].obj.pos.x - boss->obj.pos.x) + ABS(gActors[4].obj.pos.y - boss->obj.pos.y) + ABS(gActors[4].obj.pos.z - boss->obj.pos.z);
     
     boss->swork[22] = 1;
     boss->fwork[18] = gPlayer[0].pos.x;
@@ -1076,8 +1076,8 @@ void func_i6_8019B6E8(Boss* boss) {
     boss->fwork[24] = gPlayer[0].vel.x;
     boss->fwork[25] = gPlayer[0].vel.y;
     boss->fwork[26] = gPlayer[0].vel.z;
-    if (sum2 < sum) {
-        sum = sum2;
+    if (var2 < var) {
+        var = var2;
         boss->swork[22]++;
         boss->fwork[18] = gActors[2].obj.pos.x;
         boss->fwork[19] = gActors[2].obj.pos.y;
@@ -1086,7 +1086,7 @@ void func_i6_8019B6E8(Boss* boss) {
         boss->fwork[25] = gActors[2].vel.y;
         boss->fwork[26] = gActors[2].vel.z;
     }
-    if (sum3 < sum) {
+    if (var3 < var) {
         boss->swork[22] = 3;
         boss->fwork[18] = gActors[3].obj.pos.x;
         boss->fwork[19] = gActors[3].obj.pos.y;
@@ -1094,9 +1094,9 @@ void func_i6_8019B6E8(Boss* boss) {
         boss->fwork[24] = gActors[3].vel.x;
         boss->fwork[25] = gActors[3].vel.y;
         boss->fwork[26] = gActors[3].vel.z;
-        sum = sum3;
+        var = var3;
     }
-    if (sum4 < sum) {
+    if (var4 < var) {
         boss->fwork[18] = gActors[4].obj.pos.x;
         boss->fwork[19] = gActors[4].obj.pos.y;
         boss->fwork[20] = gActors[4].obj.pos.z;
@@ -1117,8 +1117,9 @@ void func_i6_8019BBBC(Boss* boss) {
 }
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/fox_sy/func_i6_8019BC14.s")
+// https://decomp.me/scratch/xg9Tv
 
-void func_i6_8019C194(Boss* boss, f32 arg1, f32 arg2) {
+void func_i6_8019C194(Boss* boss, f32 zSpeed, f32 xSpeed) {
     f32 sp2C;
     f32 sp28;
 
@@ -1145,7 +1146,7 @@ void func_i6_8019C194(Boss* boss, f32 arg1, f32 arg2) {
         D_80177A10[8] &= 3;
     }
     
-    if ((arg2 > 800.0f) || (arg1 > 300.0f)) {
+    if ((xSpeed > 800.0f) || (zSpeed > 300.0f)) {
         boss->fwork[44] += 8.0f;
         if (boss->fwork[44] >= 360.0f) {
             boss->fwork[44] = 0.0f;
@@ -1234,7 +1235,7 @@ void func_i6_8019C888(Boss* boss) {
     f32 sp1D8;
     f32 sp1D4;
     s32 sp1D0;
-    UnkEntity28* temp_v0_3;
+    UnkEntity28* unkEntity28;
     Vec3f sp64[30];
     Vec3f sp58;
     Vec3f sp4C;
@@ -1463,21 +1464,21 @@ void func_i6_8019C888(Boss* boss) {
         }
 
         if (boss->index == 0) {
-            temp_v0_3 = &gUnkEntities28[boss->index + 1];
-            temp_v0_3->unk_00 = 1;
-            temp_v0_3->unk_02 = 102;
-            temp_v0_3->pos.x = boss->obj.pos.x;
-            temp_v0_3->pos.y = boss->obj.pos.y;
-            temp_v0_3->pos.z = boss->obj.pos.z;
-            temp_v0_3->unk_10 = boss->unk_078.y + 180.0f;
+            unkEntity28 = &gUnkEntities28[boss->index + 1];
+            unkEntity28->unk_00 = 1;
+            unkEntity28->unk_02 = 102;
+            unkEntity28->pos.x = boss->obj.pos.x;
+            unkEntity28->pos.y = boss->obj.pos.y;
+            unkEntity28->pos.z = boss->obj.pos.z;
+            unkEntity28->unk_10 = boss->unk_078.y + 180.0f;
         } else {
-            temp_v0_3 = &gUnkEntities28[boss->index + 4];
-            temp_v0_3->unk_00 = 1;
-            temp_v0_3->unk_02 = 10;
-            temp_v0_3->pos.x = boss->obj.pos.x;
-            temp_v0_3->pos.y = boss->obj.pos.y;
-            temp_v0_3->pos.z = boss->obj.pos.z;
-            temp_v0_3->unk_10 = boss->unk_078.y + 180.0f;
+            unkEntity28 = &gUnkEntities28[boss->index + 4];
+            unkEntity28->unk_00 = 1;
+            unkEntity28->unk_02 = 10;
+            unkEntity28->pos.x = boss->obj.pos.x;
+            unkEntity28->pos.y = boss->obj.pos.y;
+            unkEntity28->pos.z = boss->obj.pos.z;
+            unkEntity28->unk_10 = boss->unk_078.y + 180.0f;
         }
 
         if (gBossFrameCount == 250) {
@@ -1532,7 +1533,7 @@ void func_i6_8019C888(Boss* boss) {
 extern Gfx D_6014BD0;
 extern Vec3f D_i6_801A6940;
 
-s32 func_i6_8019DC4C(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* data) {
+s32 func_i6_8019DC4C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Boss* boss = (Boss*)data;
     Vec3f sp10;
 
@@ -1546,28 +1547,28 @@ s32 func_i6_8019DC4C(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* data)
     } else {
         GPC(32, 32, 255, 255);
     }
-    switch (arg0) {
+    switch (limbIndex) {
         case 2:
-            arg3->z -= boss->fwork[4];
-            arg3->z += boss->fwork[0x10];
-            arg3->y -= boss->fwork[0x11];
+            rot->z -= boss->fwork[4];
+            rot->z += boss->fwork[0x10];
+            rot->y -= boss->fwork[0x11];
             break;
         case 3:
-            arg3->z -= boss->fwork[4];
-            arg3->z += boss->fwork[0xE];
-            arg3->x -= boss->fwork[0xF];
+            rot->z -= boss->fwork[4];
+            rot->z += boss->fwork[0xE];
+            rot->x -= boss->fwork[0xF];
             break;
         case 4:
-            *arg1 = NULL;
+            *dList = NULL;
             break;
         case 17:
-            arg3->x += boss->fwork[8];
-            arg3->y -= boss->fwork[7];
-            *arg1 = &D_6014BD0;
+            rot->x += boss->fwork[8];
+            rot->y -= boss->fwork[7];
+            *dList = &D_6014BD0;
             break;
         case 18:
-            arg3->x += boss->fwork[6];
-            arg3->y -= boss->fwork[5];
+            rot->x += boss->fwork[6];
+            rot->y -= boss->fwork[5];
             break;
     }
     return 0;
@@ -1576,48 +1577,48 @@ s32 func_i6_8019DC4C(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* data)
 extern Gfx D_6013600;
 extern Vec3f D_i6_801A694C;
 
-s32 func_i6_8019DE10(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* data) {
+s32 func_i6_8019DE10(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Boss* boss = (Boss*)data;
     Vec3f sp38;
 
     sp38 = D_i6_801A694C;
     if (boss->index != 0) {
-        return func_i6_8019DC4C(arg0, arg1, arg2, arg3, boss);
+        return func_i6_8019DC4C(limbIndex, dList, pos, rot, boss);
     }
     if (boss->timer_05C & 1) {
         GPC(32, 32, 255, 255);
     } else {
         GPC(255, 255, 255, 255);
     }
-    switch (arg0) {
+    switch (limbIndex) {
         case 2:
-            arg3->z -= boss->fwork[4];
-            arg3->z += boss->fwork[16];
-            arg3->y -= boss->fwork[17];
+            rot->z -= boss->fwork[4];
+            rot->z += boss->fwork[16];
+            rot->y -= boss->fwork[17];
             break;
         case 3:
-            arg3->z -= boss->fwork[4];
-            arg3->z += boss->fwork[14];
-            arg3->x -= boss->fwork[15];
+            rot->z -= boss->fwork[4];
+            rot->z += boss->fwork[14];
+            rot->x -= boss->fwork[15];
             break;
         case 4:
             if (boss->swork[25] == 0) {
-                *arg1 = &D_6013600;
+                *dList = &D_6013600;
                 if (boss->swork[24] & 1) {
                     GPC(0, 255, 0, 255);
                 }
             } else {
-                *arg1 = NULL;
+                *dList = NULL;
             }
             break;
         case 17:
-            arg3->x += boss->fwork[8];
-            arg3->y -= boss->fwork[7];
-            *arg1 = &D_6014BD0;
+            rot->x += boss->fwork[8];
+            rot->y -= boss->fwork[7];
+            *dList = &D_6014BD0;
             break;
         case 18:
-            arg3->x += boss->fwork[6];
-            arg3->y -= boss->fwork[5];
+            rot->x += boss->fwork[6];
+            rot->y -= boss->fwork[5];
             break;
     }
     return 0;
@@ -1631,7 +1632,7 @@ extern Vec3f D_i6_801A6988;
 extern Vec3f D_i6_801A6994;
 extern Vec3f D_i6_801A69A0;
 
-void func_i6_8019E014(s32 arg0, Vec3f* arg1, void* data) {
+void func_i6_8019E014(s32 limbIndex, Vec3f* rot, void* data) {
     Vec3f sp7C = D_i6_801A6958;
     Vec3f sp70 = D_i6_801A6964;
     Vec3f sp64 = D_i6_801A6970;
@@ -1642,7 +1643,7 @@ void func_i6_8019E014(s32 arg0, Vec3f* arg1, void* data) {
     Vec3f sp28;
     Boss* boss = (Boss*)data;
     
-    switch (arg0) {
+    switch (limbIndex) {
         case 0:
             if (boss->index != 0) {
                 Matrix_MultVec3f(gCalcMatrix, &sp58, &sp28);
@@ -2317,49 +2318,49 @@ void func_i6_801A06A4(Actor* actor, s32 arg1) {
     }
 }
 
-void func_i6_801A07FC(Actor* arg0, Actor* arg1) {
+void func_i6_801A07FC(Actor* actor0, Actor* actor1) {
     Vec3f sp3C;
     Vec3f sp30;
 
-    Actor_Initialize(arg1);
-    arg1->obj.status = 2;
-    arg1->obj.id = 0xC3;
-    arg0->fwork[6] = 1.8f;
+    Actor_Initialize(actor1);
+    actor1->obj.status = 2;
+    actor1->obj.id = 0xC3;
+    actor0->fwork[6] = 1.8f;
     sp3C.x = -40.0f;
     sp3C.y = 0.0f;
     sp3C.z = 80.0f;
-    Matrix_RotateY(gCalcMatrix, arg0->obj.rot.y * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, arg0->obj.rot.x * M_DTOR, 1);
-    Matrix_RotateZ(gCalcMatrix, arg0->obj.rot.z * M_DTOR, 1);
+    Matrix_RotateY(gCalcMatrix, actor0->obj.rot.y * M_DTOR, 0);
+    Matrix_RotateX(gCalcMatrix, actor0->obj.rot.x * M_DTOR, 1);
+    Matrix_RotateZ(gCalcMatrix, actor0->obj.rot.z * M_DTOR, 1);
     Matrix_MultVec3f(gCalcMatrix, &sp3C, &sp30);
-    arg1->obj.pos.x = arg0->obj.pos.x + sp30.x;
-    arg1->obj.pos.y = arg0->obj.pos.y + sp30.y;
-    arg1->obj.pos.z = arg0->obj.pos.z + sp30.z;
-    Object_SetInfo(&arg1->info, arg1->obj.id);
-    Matrix_RotateY(gCalcMatrix, arg0->obj.rot.y * M_DTOR, 0);
-    Matrix_RotateX(gCalcMatrix, arg0->obj.rot.x * M_DTOR, 1);
+    actor1->obj.pos.x = actor0->obj.pos.x + sp30.x;
+    actor1->obj.pos.y = actor0->obj.pos.y + sp30.y;
+    actor1->obj.pos.z = actor0->obj.pos.z + sp30.z;
+    Object_SetInfo(&actor1->info, actor1->obj.id);
+    Matrix_RotateY(gCalcMatrix, actor0->obj.rot.y * M_DTOR, 0);
+    Matrix_RotateX(gCalcMatrix, actor0->obj.rot.x * M_DTOR, 1);
     sp3C.x = 0.0f;
     sp3C.y = 0.0f;
     sp3C.z = 160.0f;
     Matrix_MultVec3f(gCalcMatrix, &sp3C, &sp30);
-    arg1->timer_0BC = 100;
-    arg1->vel.x = sp30.x;
-    arg1->vel.y = sp30.y;
-    arg1->vel.z = sp30.z;
-    arg1->obj.rot.x = arg0->obj.rot.x;
-    arg1->obj.rot.y = arg0->obj.rot.y;
-    arg1->unk_0B6 = 42;
-    Audio_PlaySfx(0x2900306B, &arg1->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    actor1->timer_0BC = 100;
+    actor1->vel.x = sp30.x;
+    actor1->vel.y = sp30.y;
+    actor1->vel.z = sp30.z;
+    actor1->obj.rot.x = actor0->obj.rot.x;
+    actor1->obj.rot.y = actor0->obj.rot.y;
+    actor1->unk_0B6 = 42;
+    Audio_PlaySfx(0x2900306B, &actor1->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-void func_i6_801A0A08(Actor* actor, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+void func_i6_801A0A08(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     Actor_Initialize(actor);
     actor->obj.status = 2;
     actor->obj.id = 0xC3;
     actor->fwork[0] = arg4;
-    actor->obj.pos.x = arg1;
-    actor->obj.pos.y = arg2;
-    actor->obj.pos.z = arg3;
+    actor->obj.pos.x = xPos;
+    actor->obj.pos.y = yPos;
+    actor->obj.pos.z = zPos;
     Object_SetInfo(&actor->info, actor->obj.id);
     actor->timer_0BC = 0x23;
     actor->iwork[0] = 0xFF;
@@ -3098,28 +3099,28 @@ void func_i6_801A0AC0(Player* player) {
     player->unk_138 = player->pos.z + player->unk_08C;
 }
 
-void func_i6_801A39FC(Actor* actor, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, s32 arg7) {
+void func_i6_801A39FC(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, s32 arg7) {
     Actor_Initialize(actor);
     actor->obj.status = 1;
     actor->obj.id = 0xBD;
     actor->unk_0B8 = arg7;
-    actor->obj.pos.x = arg1;
-    actor->obj.pos.y = arg2;
-    actor->obj.pos.z = arg3;
-    actor->vel.x = arg4;
-    actor->vel.y = arg5;
-    actor->vel.z = arg6;
+    actor->obj.pos.x = xPos;
+    actor->obj.pos.y = yPos;
+    actor->obj.pos.z = zPos;
+    actor->vel.x = xVel;
+    actor->vel.y = yVel;
+    actor->vel.z = zVel;
     actor->scale = 2.5f;
     actor->timer_0BC = (s32) (Rand_ZeroOne() * 15.0f) + 15.0f;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
 
-void func_i6_801A3B50(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, s32 arg6) {
+void func_i6_801A3B50(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, s32 arg6) {
     s32 i;
 
     for (i = 59; i >= 0; i--) {
         if (gActors[i].obj.status == 0) {
-            func_i6_801A39FC(&gActors[i], arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+            func_i6_801A39FC(&gActors[i], xPos, yPos, zPos, xVel, yVel, zVel, arg6);
             break;
         }
     }
@@ -3134,15 +3135,16 @@ extern f32* D_60341A8;
 extern f32* D_603421C;
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i6/fox_sy/func_i6_801A3BD4.s")
+// https://decomp.me/scratch/lEVcO
 
 extern s32 D_i6_801A6B28[];
 extern s32 D_i6_801A6B34[];
 extern s32 D_i6_801A6B40[];
 
-s32 func_i6_801A4A18(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* data) {
+s32 func_i6_801A4A18(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Actor* actor = (Actor*)data;
 
-    if (arg0 == 4) {
+    if (limbIndex == 4) {
         if (!(actor->iwork[0x12] & 1)) {
             GPC(D_i6_801A6B28[actor->iwork[14]], D_i6_801A6B34[actor->iwork[14]], D_i6_801A6B40[actor->iwork[14]], 255);
         } else {
@@ -3156,19 +3158,19 @@ s32 func_i6_801A4A18(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* data)
         }
     }
     
-    if (arg0 == 3) {
-        arg3->z -= actor->fwork[19];
-        arg3->z += actor->fwork[20];
+    if (limbIndex == 3) {
+        rot->z -= actor->fwork[19];
+        rot->z += actor->fwork[20];
     }
-    if (arg0 == 17) {
-        arg3->x += actor->fwork[28];
-        arg3->y -= actor->fwork[29];
+    if (limbIndex == 17) {
+        rot->x += actor->fwork[28];
+        rot->y -= actor->fwork[29];
         if (actor->unk_0B4 == 48) {
-            *arg1 = &D_6014BD0;
+            *dList = &D_6014BD0;
         }
     }
-    if (arg0 == 18) {
-        arg3->x += actor->fwork[21];
+    if (limbIndex == 18) {
+        rot->x += actor->fwork[21];
     }
     
     return 0;
@@ -3176,13 +3178,13 @@ s32 func_i6_801A4A18(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* data)
 
 extern Vec3f D_i6_801A6B58;
 
-void func_i6_801A4C34(s32 arg0, Vec3f* arg1, void* data) {
+void func_i6_801A4C34(s32 limbIndex, Vec3f* rot, void* data) {
     Vec3f sp2C;
     Vec3f sp20;
     Actor* actor = (Actor*)data;
 
     sp2C = D_i6_801A6B58;
-    if (arg0 == 1) {
+    if (limbIndex == 1) {
         Matrix_MultVec3f(gCalcMatrix, &sp2C, &sp20);
         actor->fwork[16] = sp20.x;
         actor->fwork[17] = sp20.y;
@@ -3194,9 +3196,6 @@ extern f32 D_i6_801A6B64[];
 
 void func_i6_801A4CB0(Actor* actor) {
     f32 scale;
-    Gfx* temp_v0_2;
-    Gfx* temp_v0_3;
-    Gfx* temp_v0_4;
 
     RCP_SetupDL_30(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     Animation_DrawSkeleton(2, &D_602D140, actor->vwork, func_i6_801A4A18, func_i6_801A4C34, actor, gCalcMatrix);
