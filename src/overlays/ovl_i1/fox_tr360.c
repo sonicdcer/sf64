@@ -38,34 +38,34 @@ bool func_i1_80198DCC(Actor* actor, f32 x, f32 z) {
             (fabsf(obj58->obj.pos.x - (actor->obj.pos.x + ((x * 650.0f) + 350.0f))) < 1200.0f) &&
             (fabsf(obj58->obj.pos.z - (actor->obj.pos.z + ((z * 650.0f) + 350.0f))) < 1200.0f) &&
             (actor->obj.pos.y < 650.0f)) {
-            return TRUE;
+            return true;
         }
         obj58++;
         if ((obj58->obj.status == 2) &&
             (fabsf(obj58->obj.pos.x - (actor->obj.pos.x + ((x * 650.0f) + 350.0f))) < 1200.0f) &&
             (fabsf(obj58->obj.pos.z - (actor->obj.pos.z + ((z * 650.0f) + 350.0f))) < 1200.0f) &&
             (actor->obj.pos.y < 650.0f)) {
-            return TRUE;
+            return true;
         }
         obj58++;
         if ((obj58->obj.status == 2) &&
             (fabsf(obj58->obj.pos.x - (actor->obj.pos.x + ((x * 650.0f) + 350.0f))) < 1200.0f) &&
             (fabsf(obj58->obj.pos.z - (actor->obj.pos.z + ((z * 650.0f) + 350.0f))) < 1200.0f) &&
             (actor->obj.pos.y < 650.0f)) {
-            return TRUE;
+            return true;
         }
         obj58++;
         if ((obj58->obj.status == 2) &&
             (fabsf(obj58->obj.pos.x - (actor->obj.pos.x + ((x * 650.0f) + 350.0f))) < 1200.0f) &&
             (fabsf(obj58->obj.pos.z - (actor->obj.pos.z + ((z * 650.0f) + 350.0f))) < 1200.0f) &&
             (actor->obj.pos.y < 650.0f)) {
-            return TRUE;
+            return true;
         }
         obj58++;
         i += 4;
     }
 
-    return FALSE;
+    return false;
 }
 
 void func_i1_80199024(Actor* actor) {
@@ -91,6 +91,7 @@ void func_i1_80199024(Actor* actor) {
         actor->fwork[6] = sp54.x;
         actor->timer_0BC = (s32) (Rand_ZeroOne() * 20.0f) + 10;
     }
+
     sinRotX = __sinf(actor->obj.rot.x * M_DTOR);
     cosRotX = __cosf(actor->obj.rot.x * M_DTOR);
     sinRotY = __sinf(actor->obj.rot.y * M_DTOR);
@@ -98,10 +99,12 @@ void func_i1_80199024(Actor* actor) {
     sp54.z = actor->fwork[4] - actor->obj.pos.x;
     sp54.y = actor->fwork[5] - actor->obj.pos.y;
     sp54.x = actor->fwork[6] - actor->obj.pos.z;
+
     if (!((actor->index + gGameFrameCount) & 7)) {
         actor->fwork[19] = Math_RadToDeg(Math_Atan2F(sp54.z, sp54.x));
         actor->fwork[20] = Math_RadToDeg(Math_Atan2F(sp54.y, sqrtf(SQ(sp54.z) + SQ(sp54.x))));
     }
+
     var_fv0 = actor->fwork[20];
     temp_v0 = func_i1_80198DCC(actor, sinRotY, cosRotY);
     if (temp_v0 != 0) {
@@ -116,13 +119,16 @@ void func_i1_80199024(Actor* actor) {
         var_fv0 = 0.0f;
         actor->unk_0F4.x = 0.0f;
     }
+
     Math_SmoothStepToAngle(&actor->unk_0F4.x, var_fv0, 0.5f, 1.0f, 0.0001f);
     temp_fv1 = Math_SmoothStepToAngle(&actor->unk_0F4.y, actor->fwork[19], 0.5f, 1.0f, 0.0001f) * 30.0f;
+
     if (temp_fv1 < 0.0f) {
         var_fv0_2 = temp_fv1 * -1.0f;
     } else {
         var_fv0_2 = 360.0f - temp_fv1;
     }
+
     Math_SmoothStepToAngle(&actor->obj.rot.z, var_fv0_2, 0.1f, 3.0f, 0.01f);
     actor->obj.rot.x = -actor->unk_0F4.x;
     actor->obj.rot.y = actor->unk_0F4.y;
@@ -159,7 +165,7 @@ UnkMsg_D_i1_8019AE50 D_i1_8019AE50[] = {
     { gMsg_ID_23016, 160 }, { gMsg_ID_23024, 160 }, { gMsg_ID_23019, 256 }, { gMsg_ID_23015, 160 },
     { gMsg_ID_23017, 160 }, { gMsg_ID_23025, 160 }, { gMsg_ID_23002, 160 }, { gMsg_ID_23004, 160 },
     { gMsg_ID_23005, 160 }, { gMsg_ID_23023, 160 }, { gMsg_ID_23006, 160 }, { gMsg_ID_23007, 256 },
-    { gMsg_ID_20330, 0 },   { gMsg_ID_23026, 256 }, { gMsg_ID_23032, 256 }, { NULL, 0xFFFF },
+    { gMsg_ID_20330, 0 },   { gMsg_ID_23026, 256 }, { gMsg_ID_23032, 256 }, { NULL, -1 },
 };
 
 void func_i1_8019949C(void) {
@@ -167,12 +173,12 @@ void func_i1_8019949C(void) {
     Actor* actor;
     Vec3f sp44;
     Vec3f sp38;
-    s32 var_v1;
+    s32 var_v1 = 1;
 
-    var_v1 = 1;
     if (gHitCount >= 100) {
         var_v1 = 0;
     }
+
     if (!(gGameFrameCount & 3)) {
         if (gPlayer->state_1C8 == PLAYERSTATE_1C8_3) {
             sp44.x = 0.0f;
@@ -207,9 +213,11 @@ void func_i1_8019949C(void) {
             }
         }
     }
+
     if (D_80177C78 != 0) {
         D_80177C78--;
     }
+
     if (D_80177C78 == 0) {
         if (D_i1_8019AE50[D_80177C8C].msg == 0) {
             D_80177C8C = 1;
@@ -223,6 +231,7 @@ void func_i1_8019949C(void) {
         }
         D_80177C8C++;
     }
+
     if ((D_80161690 != 0) && (gControllerPress[gMainController].button & R_CBUTTONS)) {
         func_8001AF40(0);
         D_800CFF90 = 0;
