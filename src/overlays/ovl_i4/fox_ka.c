@@ -1,4 +1,4 @@
-#include "common.h"
+#include "global.h"
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_ka/func_i4_801927E0.s")
 

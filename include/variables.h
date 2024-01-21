@@ -22,7 +22,7 @@ extern u8 gAspMainData[];
 extern Mtx gIdentityMtx; // 800C4620
 extern Matrix gIdentityMatrix; //800C4660
 
-extern Vec3f D_800C5D28;
+extern f32 D_800C5D28[];
 extern f32 D_800C5D34;
 extern s8 D_800C5D3C;
 extern s8 D_800C7C50;
@@ -209,7 +209,7 @@ extern f32 D_800CFFC4[];
 
 // fox_effect
 
-// sf_hud
+// fox_hud
 extern s16 D_800D1970;
 extern f32 D_800D19AC[];
 extern f32 D_800D19E0[];
@@ -308,38 +308,15 @@ extern u8 D_80161684;
 // fox_6B3B0
 extern s32 D_80161690;
 
-// sf_hud?
-extern f32 D_801616A0;
-extern f32 D_801616BC;
-extern f32 D_801616C0;
-extern f32 D_801616C4;
-extern f32 D_801616C8;
+// fox_hud
 extern s32 D_80161704;
 extern s32 D_80161708;
 extern s32 D_8016170C;
-extern s32 gTotalHits; // gTotalGameScore
-extern f32 D_80161720;
-extern f32 D_80161724;
-extern f32 D_80161728;
+extern s32 gTotalHits; // 0x80161714 gTotalGameScore
+extern f32 D_80161720[3];
 extern s32 D_8016172C;
 extern s32 D_80161730;
-extern s32 gShowBossHealth;
-extern s32 D_80161788;
-extern s32 D_8016178C;
-extern s32 D_80161790;
-extern s32 D_80161794;
-extern s32 D_80161798;
-extern f32 D_8016179C;
-extern f32 D_801617A0;
-extern f32 D_801617A4;
-extern f32 D_801617A8;
-extern f32 D_801617AC;
-extern s32 D_801617B0;
-extern s32 gMedalStatus;
-extern s32 gMedalFlashTimer;
-extern s32 D_80161810[];
-extern s32 D_80161900[];
-extern s32 D_80161910[0x10]; // could be in fox_97F80
+extern s32 gShowBossHealth; // 0x80161734
 
 // fox_game
 extern f32 D_80161A10;
@@ -481,7 +458,7 @@ extern s32 D_80177A10[10];
 extern s32 D_Timer_80177A38[4];
 extern f32 D_80177A48[10];
 extern s32 D_Timer_80177A70[4];
-extern s32 D_80177A80;
+extern s32 gCsFrameCount;
 //
 extern s32 D_Timer_80177A88[4];
 extern u8 D_80177A98;
@@ -594,7 +571,7 @@ extern u8 D_80178238[60];
 // 0x8
 extern s32 D_8017827C;
 extern Player* gPlayer;
-extern s32 D_80178284;
+extern s32 gBossActive;
 extern f32* D_80178288;
 extern s32 D_8017828C;
 extern f32* D_80178290;
@@ -839,13 +816,6 @@ extern s16 D_800DD200[];
 extern f32 gHeadsetPanVolume[];
 extern f32 gStereoPanVolume[];
 extern f32 gDefaultPanVolume[];
-
-// ovl_menu
-extern s32 D_menu_801B8220[]; // total hits ranking? see func_menu_80197DE4
-extern s32 D_menu_801B8280;
-extern s32 D_menu_801B8284;
-extern s32 D_menu_801B827C;
-extern s32 D_menu_801B8288;
 
 // buffers
 extern u64 gDramStack[SP_DRAM_STACK_SIZE64];

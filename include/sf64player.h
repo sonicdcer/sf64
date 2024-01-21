@@ -99,7 +99,7 @@ typedef struct {
     /* 0x2C */ f32 unk_2C;
     /* 0x30 */ f32 unk_30;
     /* 0x34 */ f32 unk_34; 
-    /* 0x38 */ Vec3f sfxPos;
+    /* 0x38 */ f32 sfxPos[3];
     /* 0x44 */ f32 unk_44;
     /* 0x48 */ f32 unk_48;
     /* 0x4C */ f32 unk_4C;
@@ -212,7 +212,7 @@ typedef struct Player {
     /* 0x1CC */ PlayerForm form;
     /* 0x1D0 */ s32 unk_1D0;
     /* 0x1D4 */ s32 unk_1D4;
-    /* 0x1D8 */ char pad1D8[4];
+    /* 0x1D8 */ s32 unk_1D8;
     /* 0x1DC */ s32 unk_1DC;
     /* 0x1E0 */ s32 timer_1E0;
     /* 0x1E4 */ s32 timer_1E4;
@@ -224,7 +224,7 @@ typedef struct Player {
     /* 0x1FC */ s32 timer_1FC;
     /* 0x200 */ s32 unk_200;
     /* 0x204 */ s32 unk_204;
-    /* 0x208 */ char pad208[4];
+    /* 0x208 */ s32 unk_208;
     /* 0x20C */ s32 unk_20C; 
     /* 0x210 */ s32 timer_210;
     /* 0x214 */ s32 timer_214;
@@ -268,18 +268,15 @@ typedef struct Player {
     /* 0x2E0 */ Vec3f hit4;
     /* 0x2EC */ Vec3f hit3;
     /* 0x2F8 */ Vec3f jointTable[30];
-    /* 0x460 */ union {
-                Vec3f unk_460;
-                Vec3f unk_460_arr[1]; // probably fake
-    };
-    /* 0x460 */ Vec3f unk_46C;
-    /* 0x478 */ u8 unk_478;
-    /* 0x479 */ s8 unk_479;
-    /* 0x47C */ Vec3f *unk_47C;
-    /* 0x480 */ Vec3f *unk_480;
-    /* 0x484 */ s8 unk_484;
-    /* 0x485 */ s8 unk_485;
-    /* 0x488 */ f32 unk_488;
+    /* 0x460 */ f32 sfxPos[3];
+    /* 0x460 */ f32 sfxVel[3];
+    /* 0x478 */ u8 levelType;
+    /* 0x479 */ u8 form2;
+    /* 0x47C */ f32 *srcPos;
+    /* 0x480 */ f32 *srcVel;
+    /* 0x484 */ s8 boost;
+    /* 0x485 */ s8 brake;
+    /* 0x488 */ f32 yVel;
     /* 0x48C */ u8 unk_48C;
     /* 0x490 */ f32 unk_490;
     /* 0x494 */ u8 unk_494;

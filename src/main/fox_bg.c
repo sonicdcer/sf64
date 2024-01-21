@@ -1,4 +1,4 @@
-// #include "prevent_bss_reordering.h"
+#include "prevent_bss_reordering.h"
 #include "global.h"
 
 extern f32 D_i3_801C4188;
@@ -534,7 +534,7 @@ void func_8003E1E8(void) {
                             }
                             break;
                         case LEVEL_METEO:
-                            if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) && (D_80177A80 > 260)) {
+                            if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) && (gCsFrameCount > 260)) {
                                 Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f) - 30.0f, -290.0f, 1);
                                 Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 1.0f, 1);
                                 Matrix_SetGfxMtx(&gMasterDisp);
@@ -584,7 +584,7 @@ void func_8003E1E8(void) {
                             break;
                         case LEVEL_FORTUNA:
                             sp128 = 1.5f;
-                            if ((D_80177A80 > 400) && (D_80177930 == 0)) {
+                            if ((gCsFrameCount > 400) && (D_80177930 == 0)) {
                                 sp128 = 0.75f;
                             }
                             Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, 1);
@@ -594,7 +594,7 @@ void func_8003E1E8(void) {
                             break;
                         case LEVEL_BOLSE:
                             sp128 = 1.0f;
-                            if ((D_80177A80 > 500) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7)) {
+                            if ((gCsFrameCount > 500) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7)) {
                                 sp128 = 1.3f;
                             }
                             Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, 1);

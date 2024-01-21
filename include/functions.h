@@ -3,7 +3,6 @@
 
 #include "libc/stdbool.h"
 #include "structs.h"
-#include "fox_option.h"
 #include "sf64object.h"
 #include "sf64thread.h"
 #include "sf64player.h"
@@ -22,11 +21,11 @@ void func_8000FFCC(void);
 
 void func_80016A50(void);
 void func_800182F4(s32);
-void Audio_PlaySfx(u32, Vec3f*, u8, f32*, f32*, s8*);
-void func_80019290(s32, Vec3f**);
-void func_8001A38C(u8, Vec3f*);
-void Audio_KillSfx(Vec3f*);
-void func_8001A55C(Vec3f*, u32);
+void Audio_PlaySfx(u32, f32*, u8, f32*, f32*, s8*);
+void func_80019290(s32, void*);
+void func_8001A38C(u8, f32*);
+void Audio_KillSfx(f32*);
+void func_8001A55C(f32*, u32);
 void func_8001A838(u32);
 void func_8001ACDC(s32);
 void func_8001AD00(u32);
@@ -38,13 +37,14 @@ u8* func_8001C3EC(void);
 void func_8001C8B8(u8);
 void func_8001CA24(u8);
 void func_8001CB80(u8, u8);
-void func_8001CCDC(u8, Vec3f *);
-void func_8001CE28(u8, Vec3f *);
-void func_8001D10C(Vec3f*, u32);
+void func_8001CCDC(u8, f32 *);
+void func_8001CE28(u8, f32 *);
+void func_8001D034(f32*, s32, u8);
+void func_8001D10C(f32*, u32);
 void func_8001D15C(u8);
 void func_8001D1C8(u8, u32);
-void func_8001D2FC(Vec3f *, u16);
-void func_8001D3A0(Vec3f *, u16);
+void func_8001D2FC(f32 *, u16);
+void func_8001D3A0(f32 *, u16);
 void func_8001D400(s8);
 void func_8001D444(u8, u16, u8, u8);
 void func_8001D4AC(u16, u8, u8, u8);
@@ -106,11 +106,11 @@ void func_8002E670(Actor*);
 void func_8002E694(Actor*);
 void func_8002E6B8(Actor*);
 void func_8002E6DC(Actor*);
-bool func_8002E4F8(u16*, s32);
+bool func_8002E4F8(u16*, RadioCharacterId);
 void func_8002E700(Player *);
 void func_8002EE64(Actor * actor);
 void func_8002F180(void);
-void func_8002F5F4(u16* msg, s32 character);
+void func_8002F5F4(u16* msg, RadioCharacterId character);
 void func_8003088C(Actor*);
 void func_800319AC(Actor* this);
 void func_80035448(Actor* actor);
@@ -211,10 +211,10 @@ void func_8005CA80(Item*);
 void func_8005CB44(Item*);
 void func_8005CC9C(Item*);
 void func_8005CDA8(Item*);
-void func_8005F030(Vec3f*);
-void func_8005F0E8(Vec3f*, Vec3f*);
-void func_8005F1EC(Vec3f*);
-void func_8005F290(Vec3f*, Vec3f*);
+void func_8005F030(f32*);
+void func_8005F0E8(f32*, Vec3f*);
+void func_8005F1EC(f32*);
+void func_8005F290(f32*, Vec3f*);
 void func_8005F670(Vec3f*);
 s32 func_8005F9DC(Vec3f*);
 
@@ -223,8 +223,8 @@ void func_80060714(s32 );
 void func_8006089C(u8 );
 void func_80060968(void);
 void func_80060D94(s32);
-void func_80060F30(Vec3f* , u32 , s32 );
-void Object_Kill(Object*, Vec3f*);
+void func_80060F30(f32* , u32 , s32 );
+void Object_Kill(Object*, f32*);
 s32 func_80060FE4(Vec3f*, f32);
 void Object_SetInfo(ObjectInfo* info, u32 objId);
 void Object_80_Initialize(Object_80*);
@@ -307,6 +307,8 @@ void func_8006BB78(Actor*);
 void func_8006C008(Actor*);
 void func_8006D350(Object_80*);
 void func_8006EEFC(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
+void func_8006EFA0(s32 unk0E4, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 arg5, f32 arg6, f32 xRot, f32 yRot,
+                   f32 zRot);
 void func_8006F0D8(f32 xPos, f32 yPos, f32 zPos, f32 arg3);
 void func_80072594(Actor*);
 s32 func_80074F90(Object_80*);
@@ -498,6 +500,9 @@ void func_80092D48(Actor *);
 void func_80092EC0(Actor* actor);
 void func_80093164(Actor*);
 void func_800935E8(Player*);
+void func_800953A0(Actor*, s32);
+void func_8009546C(Actor*, s32);
+void func_80095538(Actor*, s32);
 void func_80095604(Player*);
 void func_80094954(Effect*);
 void func_80094BBC(Effect*);
@@ -530,13 +535,13 @@ void func_800A3CA0(void);
 // fox_play
 s32 Play_CheckMedalStatus(u16);
 s32 Play_GetMaxShields(void);
-void func_800A6028(Vec3f*, u32);
+void func_800A6028(f32*, u32);
 void func_800AC290(Player* player, PlayerShot* shot, f32 arg2, f32 arg3, PlayerShotId shotId, f32 arg5);
 void func_800A5844(void);
 void func_800A594C(void);
 void func_800A5D6C(void);
-void func_800A5FA0(Vec3f* , u32 , s32 );
-void func_800A6070(Vec3f* arg0, u32 arg1);
+void func_800A5FA0(f32* , u32 , s32 );
+void func_800A6070(f32* , u32 );
 void func_800A6148(void);
 void func_800A69F8(s32 , f32 , f32 , f32 );
 void Player_ApplyDamage(Player* player, s32 direction, s32 damage);
@@ -596,6 +601,7 @@ s32 Save_Write(void);
 s32 Save_Read(void);
 
 void func_menu_80187520(u32, void*);
+void func_menu_8019E8D0(void);
 
 void func_ending_8018A96C(void);
 void func_ending_8018AAC4(void);

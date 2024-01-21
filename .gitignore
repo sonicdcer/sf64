@@ -17,3 +17,4 @@ tools/mio0
 tools/ido-recomp
 .venv/
 m2cfiles/
+TempComp.bin.mio0
