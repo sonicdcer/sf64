@@ -209,7 +209,7 @@ extern f32 D_800CFFC4[];
 
 // fox_effect
 
-// sf_hud
+// fox_hud
 extern s16 D_800D1970;
 extern f32 D_800D19AC[];
 extern f32 D_800D19E0[];
@@ -308,38 +308,15 @@ extern u8 D_80161684;
 // fox_6B3B0
 extern s32 D_80161690;
 
-// sf_hud?
-extern f32 D_801616A0;
-extern f32 D_801616BC;
-extern f32 D_801616C0;
-extern f32 D_801616C4;
-extern f32 D_801616C8;
+// fox_hud
 extern s32 D_80161704;
 extern s32 D_80161708;
 extern s32 D_8016170C;
-extern s32 gTotalHits; // gTotalGameScore
-extern f32 D_80161720;
-extern f32 D_80161724;
-extern f32 D_80161728;
+extern s32 gTotalHits; // 0x80161714 gTotalGameScore
+extern f32 D_80161720[3];
 extern s32 D_8016172C;
 extern s32 D_80161730;
-extern s32 gShowBossHealth;
-extern s32 D_80161788;
-extern s32 D_8016178C;
-extern s32 D_80161790;
-extern s32 D_80161794;
-extern s32 D_80161798;
-extern f32 D_8016179C;
-extern f32 D_801617A0;
-extern f32 D_801617A4;
-extern f32 D_801617A8;
-extern f32 D_801617AC;
-extern s32 D_801617B0;
-extern s32 gMedalStatus;
-extern s32 gMedalFlashTimer;
-extern s32 D_80161810[];
-extern s32 D_80161900[];
-extern s32 D_80161910[0x10]; // could be in fox_97F80
+extern s32 gShowBossHealth; // 0x80161734
 
 // fox_game
 extern f32 D_80161A10;

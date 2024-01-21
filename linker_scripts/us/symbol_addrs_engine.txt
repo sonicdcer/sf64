@@ -360,11 +360,13 @@ func_800A3608 = 0x800A3608;
 
 
 // sf_hud
+D_801616A0 = 0x801616A0; //type:s32 size:0xC
+D_801616B0 = 0x801616B0; //type:s32 size:0xC
 gTotalHits = 0x80161714;
 gShowBossHealth = 0x80161734;
 gMedalStatus = 0x801617B4;
 gMedalFlashTimer = 0x801617B8;
-
+D_800D1AEC = 0x800D1AEC; //type:s32 size:0x1B0
 
 // fox_play
 D_80161A50 = 0x80161A50;

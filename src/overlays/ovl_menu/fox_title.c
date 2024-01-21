@@ -11,15 +11,18 @@ extern AnimationHeader D_602F8E0;
 extern AnimationHeader D_60305C0;
 extern AnimationHeader D_6031DB8;
 extern AnimationHeader D_6031120;
-extern AnimationHeader D_60338DC;
 extern AnimationHeader D_6035024;
+extern AnimationHeader D_60338DC;
 extern AnimationHeader D_603531C;
 extern AnimationHeader D_6036278;
 
 extern SkelAnime D_602FBAC[];
 extern SkelAnime D_603088C[];
-extern SkelAnime D_60313AC[];
 extern SkelAnime D_6032084[];
+extern SkelAnime D_60313AC[];
+
+extern Gfx D_6036290[];
+extern Gfx D_6036B30[];
 
 f32 D_menu_801B7BB0;
 f32 D_menu_801B7BB4;
@@ -157,14 +160,14 @@ f32 D_menu_801B9084;
 
 //! TODO: Symbols for segmented addresses
 Animation D_menu_801ADA00[4] = {
-    { (AnimationHeader*) 0x0602F8E0, (AnimationHeader*) 0x06035024, (SkelAnime*) 0x0602FBAC },
-    { (AnimationHeader*) 0x060305C0, (AnimationHeader*) 0x060338DC, (SkelAnime*) 0x0603088C },
-    { (AnimationHeader*) 0x06031DB8, (AnimationHeader*) 0x0603531C, (SkelAnime*) 0x06032084 },
-    { (AnimationHeader*) 0x06031120, (AnimationHeader*) 0x06036278, (SkelAnime*) 0x060313AC },
+    { &D_602F8E0, &D_6035024, D_602FBAC },
+    { &D_60305C0, &D_60338DC, D_603088C },
+    { &D_6031DB8, &D_603531C, D_6032084 },
+    { &D_6031120, &D_6036278, D_60313AC },
 };
 
 u16* D_menu_801ADA30[5] = {
-    (u16*) 0x8017A150, (u16*) 0x8017A190, (u16*) 0x8017A1CC, (u16*) 0x8017A210, (u16*) 0x8017A260,
+    gMsg_ID_10, gMsg_ID_20, gMsg_ID_30, gMsg_ID_40, gMsg_ID_50,
 };
 
 void func_menu_801875E0(void) {
@@ -2953,8 +2956,8 @@ void func_menu_8018FD08(void) {
 }
 
 static Gfx* D_menu_801AE48C[12] = {
-    (Gfx*) 0x06036290, (Gfx*) 0x06036290, (Gfx*) 0x06036290, (Gfx*) 0x06036290, (Gfx*) 0x06036B30, (Gfx*) 0x06036290,
-    (Gfx*) 0x06036290, (Gfx*) 0x06036290, (Gfx*) 0x06036290, (Gfx*) 0x06036290, (Gfx*) 0x06036B30, (Gfx*) 0x06036290,
+    D_6036290, D_6036290, D_6036290, D_6036290, D_6036B30, D_6036290,
+    D_6036290, D_6036290, D_6036290, D_6036290, D_6036B30, D_6036290,
 };
 
 static f32 D_menu_801AE4BC[12] = {

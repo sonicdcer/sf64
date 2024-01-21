@@ -10,6 +10,8 @@
 
 // extern f32 D_i3_801C4188; Currently externed in relevant files for bss ordering
 
+void func_i3_801BE034(Actor*, Player*);
+
 void func_i3_8018DA58(Actor*);
 void func_i3_8019E5F0(Actor*);
 void func_i3_801A8BE8(Actor*);
@@ -94,7 +96,6 @@ void func_i3_801AACF8(Player*);
 void func_i3_801ABA40(PlayerShot*);
 void func_i3_801AC274(Player*);
 void func_i3_801AC8A8(f32, f32, f32, f32, s32);
-void func_i3_801AC8A8(f32, f32, f32, f32, s32);
 void func_i3_801AC918(Effect*);
 void func_i3_801ACBB4(void);
 void func_i3_801ACE50(Player*);
@@ -140,6 +141,7 @@ void func_i3_801BC9A0(Actor*);
 void func_i3_801BD264(Actor*);
 void func_i3_801BD54C(Actor*);
 void func_i3_801BDE6C(Actor*);
+void func_i3_801BDF14(void);
 void func_i3_801BE1FC(Object_80*);
 void func_i3_801BE3F8(Actor*);
 void func_i3_801BEB1C(Actor*);
