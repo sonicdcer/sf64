@@ -311,6 +311,7 @@ ifneq ($(COMPARE),0)
 	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).uncompressed.z64$(NO_COL): $(GREEN)OK$(NO_COL)\n$(YELLOW) $(SF)" || \
 	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).uncompressed.z64 $(RED)FAILED$(NO_COL)\n\
 	$(RED)CAN'T LET YOU DO THAT, STARFOX.$(NO_COL)\n"
+	@md5sum --status -c $(TARGET).$(VERSION).uncompressed.md5
 endif
 
 compressed: $(ROMC)
@@ -320,7 +321,7 @@ ifeq ($(COMPARE),1)
 	@md5sum --status -c $(TARGET).$(VERSION).md5 && \
 	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).z64$(NO_COL): $(GREEN)OK$(NO_COL)\n" || \
 	$(PRINT) "$(BLUE)$(TARGET).$(VERSION).z64 $(RED)FAILED$(NO_COL)\n"
-
+	@md5sum --status -c $(TARGET).$(VERSION).uncompressed.md5
 endif
 
 #### Main Targets ###

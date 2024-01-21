@@ -100,6 +100,13 @@ typedef struct {
     /* 0x1C */ u8 unk_1C;
 } UnkStruct_D003C; // size = 0x20
 
+typedef enum ObjectStatus {
+    /* 0 */ OBJ_FREE,
+    /* 1 */ OBJ_INIT,
+    /* 2 */ OBJ_ACTIVE,
+    /* 3 */ OBJ_DYING,
+} ObjectStatus;
+
 typedef struct {
     /* 0x00 */ u8 status;
     /* 0x02 */ u16 id;
@@ -130,7 +137,7 @@ typedef struct {
     /* 0x00 */ Object obj;
     /* 0x1C */ ObjectInfo info;
     /* 0x40 */ char unk40[0x8];
-    /* 0x48 */ Vec3f sfxPos;
+    /* 0x48 */ f32 sfxPos[3];
     /* 0x54 */ f32 unk_54;
 } Object_58; // size = 0x58
 
@@ -148,7 +155,7 @@ typedef struct {
     /* 0x5C */ f32 unk_5C;
     /* 0x60 */ f32 unk_60;
     /* 0x64 */ Vec3f vel;
-    /* 0x70 */ Vec3f sfxPos;
+    /* 0x70 */ f32 sfxPos[3];
     /* 0x7C */ char pad7C[4];
 } Object_80; // size = 0x80
 
@@ -175,7 +182,7 @@ typedef struct {
     /* 0x50 */ f32 unk_50;
     /* 0x54 */ f32 unk_54;
     /* 0x58 */ f32 unk_58;
-    /* 0x5C */ Vec3f sfxPos;
+    /* 0x5C */ f32 sfxPos[3];
     /* 0x68 */ f32 scale;
 } Item; // size 0x6C
 
@@ -199,7 +206,7 @@ typedef struct {
     /* 0x78 */ s16 unk_78;
     /* 0x7A */ s16 unk_7A;
     /* 0x7C */ char pad7C[4];
-    /* 0x80 */ Vec3f sfxPos;
+    /* 0x80 */ f32 sfxPos[3];
 } Effect; // size 0x8C
 
 typedef struct {
@@ -207,8 +214,9 @@ typedef struct {
     /* 0x01C */ ObjectInfo info;
     /* 0x040 */ s32 index;
     /* 0x044 */ s16 unk_044;
-    /* 0x046 */ char unk_46[4];
-    /* 0x04A */ s16 unk_04A;
+    /* 0x046 */ s16 unk_046; 
+    /* 0x048 */ s16 unk_048; 
+    /* 0x04A */ s16 unk_04A; 
     /* 0x04C */ s16 unk_04C;
     /* 0x04E */ s16 actionState;
     /* 0x050 */ s16 timer_050;
@@ -231,7 +239,7 @@ typedef struct {
     /* 0x0D8 */ f32 fwork[50];
     /* 0x1A0 */ Vec3f vwork[50];
     /* 0x3F8 */ f32 unk_3F8;
-    /* 0x3FC */ Vec3f sfxPos;
+    /* 0x3FC */ f32 sfxPos[3];
 } Boss; // size = 0x408
 
 #define DMG_BEAM 1
@@ -262,17 +270,17 @@ typedef struct {
     /* 0x0C8 */ u8 unk_0C8;
     /* 0x0C9 */ u8 unk_0C9;
     /* 0x0CA */ u8 timer_0CA[4];
-    /* 0x0CE */ s16 unk_0CE;
+    /* 0x0CE */ s16 health;
     /* 0x0D0 */ s8 unk_0D0;
     /* 0x0D2 */ s16 unk_0D2;
     /* 0x0D4 */ s16 unk_0D4;
-    /* 0x0D6 */ u16 unk_0D6;
+    /* 0x0D6 */ u16 damage;
     /* 0x0D8 */ Vec3f unk_0D8;
     /* 0x0E4 */ s16 unk_0E4;
     /* 0x0E6 */ s16 unk_0E6;
     /* 0x0E8 */ Vec3f vel;
     /* 0x0F4 */ Vec3f unk_0F4;
-    /* 0x100 */ Vec3f sfxPos;
+    /* 0x100 */ f32 sfxPos[3];
     /* 0x10C */ f32 gravity;
     /* 0x110 */ f32 scale;
     /* 0x114 */ f32 fwork[30];

@@ -3,17 +3,27 @@
 
 #include "libc/stdbool.h"
 #include "structs.h"
-#include "fox_option.h"
 #include "sf64object.h"
 #include "sf64thread.h"
 #include "sf64player.h"
 #include "sf64mesg.h"
 
+extern f32 D_i6_801A7F40;
+extern f32 D_i6_801A7F44;
+extern f32 D_i6_801A7F48;
+extern f32 D_i6_801A7F4C;
+extern f32 D_i6_801A7F50;
+extern f32 D_i6_801A7F54;
 extern f32 D_i6_801A7F58;
+extern f32 D_i6_801A7F5C;
 extern f32 D_i6_801A7F60;
+extern f32 D_i6_801A7F64;
 extern f32 D_i6_801A7F68;
+extern f32 D_i6_801A7F6C;
 extern f32 D_i6_801A7F70;
+extern f32 D_i6_801A7F74;
 extern f32 D_i6_801A7F78;
+extern f32 D_i6_801A7F7C;
 
 void func_i6_80193C4C(Player*);
 void func_i6_80195E44(Actor*);

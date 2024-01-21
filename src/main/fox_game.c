@@ -1,3 +1,4 @@
+#include "prevent_bss_reordering.h"
 #include "global.h"
 #include "sf64dma.h"
 
@@ -382,9 +383,9 @@ void func_800A26C0(void) {
                 gCamCount = 1;
                 gLifeCount[0] = 2;
                 D_80177D20 = 0.0f;
-                D_8016170C = D_80177A80 = D_80177830 = D_80177838 = D_80177840 = D_80178754 = gVersusMode = D_80177AE0 =
-                    D_80178410 = D_80177B40 = D_80177854 = gOptionMenuStatus = gDrawMode = gShowBossHealth =
-                        D_80161A2C = gBgColor = D_80178340 = 0;
+                D_8016170C = gCsFrameCount = D_80177830 = D_80177838 = D_80177840 = D_80178754 = gVersusMode =
+                    D_80177AE0 = D_80178410 = D_80177B40 = D_80177854 = gOptionMenuStatus = gDrawMode =
+                        gShowBossHealth = D_80161A2C = gBgColor = D_80178340 = 0;
                 gNextGameState = D_80177C94 = D_80177CAC = D_80177CB4 = D_80177CBC = D_80177CC4 = D_80177C9C =
                     D_80177CA4 = D_80161A5C = D_80161A34 = 0;
                 for (i = 0; i < 4; i++) {
@@ -544,9 +545,9 @@ Actor* func_800A3608(s32 arg0) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gActors); i++, actor++) {
-        if (actor->obj.status == 0) {
+        if (actor->obj.status == OBJ_FREE) {
             Actor_Initialize(actor);
-            actor->obj.status = 1;
+            actor->obj.status = OBJ_INIT;
             actor->obj.id = arg0;
             Object_SetInfo(&actor->info, actor->obj.id);
             break;

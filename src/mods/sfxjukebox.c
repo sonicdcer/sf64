@@ -1,5 +1,12 @@
 #include "global.h"
 #include "fox_map.h"
+#include "fox_option.h"
+
+extern s32 spectrumAnalizerMode;
+extern bool D_menu_801B9320;
+extern s32 D_menu_801B9244;
+extern OptionId D_menu_801B9124;
+extern s32 D_menu_801B912C;
 
 u32 prevSfx = 0;
 u32 sfx = 0x09000000;
@@ -72,7 +79,7 @@ void Option_ExpertSoundUpdate(void) {
     sfx |= sfxId & 0xFF;
 
     if (prevSfx != sfx) {
-        Audio_PlaySfx(0x49000002, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(0x49000002, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         prevSfx = sfx;
     }
 
@@ -81,7 +88,7 @@ void Option_ExpertSoundUpdate(void) {
     if (gControllerPress[gMainController].button & A_BUTTON) {
         func_800182F4(0x100100FF);
         func_800182F4(0x110100FF);
-        Audio_PlaySfx(sfx, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(sfx, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         D_menu_801B9320 = true;
     }
 
@@ -93,8 +100,8 @@ void Option_ExpertSoundUpdate(void) {
             D_menu_801B912C = 0;
             D_menu_801B9244 = 1;
         } else {
-            Audio_PlaySfx(0x4900101D, &D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-            Audio_KillSfx(&D_800C5D28);
+            Audio_PlaySfx(0x4900101D, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_KillSfx(D_800C5D28);
             func_800182F4(0x100100FF);
             func_800182F4(0x110100FF);
             D_menu_801B9320 = false;

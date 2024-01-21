@@ -1,24 +1,136 @@
 #include "global.h"
 #include "sf_ve1.h"
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_801920F0.s")
+extern s32 D_i1_8019C0B8;
+extern s32 D_i1_8019C0BC;
+extern s32 D_i1_8019C0C0;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_801922DC.s")
+f32 func_i1_801920F0(f32* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32* arg5) {
+    f32 temp;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_80192358.s")
+    *arg5 = arg1 - *arg0;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_801923C0.s")
+    if (*arg5 > 180.0f) {
+        do {
+            *arg5 -= 360.0f;
+        } while (*arg5 > 180.0f);
+    } else if (*arg5 < -180.0f) {
+        do {
+            *arg5 += 360.0f;
+        } while (*arg5 < -180.0f);
+    }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_8019243C.s")
+    temp = *arg5;
 
-void func_i1_801924A8(Object_80* arg0) {
-    switch (arg0->unk_48) {
+    if (temp != 0.0f) {
+        temp *= arg2;
+
+        if ((arg4 <= temp) || ((temp <= -arg4))) {
+            if (arg3 < temp) {
+                temp = arg3;
+            } else {
+
+                if (-arg3 > temp) {
+                    temp = -arg3;
+                }
+            }
+            *arg0 += temp;
+        } else {
+            if (temp < arg4) {
+                temp = arg4;
+                *arg0 += arg4;
+
+                if (arg1 < *arg0) {
+                    *arg0 = arg1;
+                }
+            } else if (-arg4 < temp) {
+                temp = -arg4;
+                *arg0 += -arg4;
+
+                if (*arg0 < arg1) {
+                    *arg0 = arg1;
+                }
+            }
+        }
+    }
+
+    if (*arg0 >= 360.0f) {
+        *arg0 = *arg0 - 360.0f;
+    } else if (*arg0 < 0.0f) {
+        *arg0 = *arg0 + 360.0f;
+    }
+
+    return temp;
+}
+
+void func_i1_801922DC(Object_4C* this) {
+    Boss* boss = &gBosses[0];
+    s32 i;
+
+    for (i = 0; i < 4; i++, boss++) {
+        if ((boss->obj.status != OBJ_FREE) && (boss->obj.id == OBJ_BOSS_319)) {
+            if (boss->obj.pos.z <= this->obj.pos.z) {
+                D_i1_8019C0B8 = (s32) this->obj.rot.x + 1;
+                this->obj.status = OBJ_FREE;
+            }
+            break;
+        }
+    }
+}
+
+void func_i1_80192358(Object_4C* this) {
+    Boss* boss = &gBosses[0];
+    s32 i;
+
+    for (i = 0; i < 4; i++, boss++) {
+        if ((boss->obj.status != OBJ_FREE) && (boss->obj.id == 0x13F)) {
+            if (boss->obj.pos.z <= this->obj.pos.z) {
+                D_i1_8019C0B8 = 0;
+                this->obj.status = OBJ_FREE;
+            }
+            break;
+        }
+    }
+}
+
+void func_i1_801923C0(Object_4C* obj4C) {
+    Boss* boss;
+    s32 i;
+
+    for (boss = &gBosses[0], i = 0; i < 4; i++, boss++) {
+        if (boss->obj.status != OBJ_FREE && boss->obj.id == OBJ_BOSS_319) {
+            if (boss->obj.pos.z <= obj4C->obj.pos.z) {
+                D_i1_8019C0BC = (s32) obj4C->obj.rot.x + 1;
+                obj4C->obj.status = OBJ_FREE;
+            }
+            break;
+        }
+    }
+}
+
+void func_i1_8019243C(Object_4C* obj4C) {
+    Boss* boss;
+    s32 i;
+
+    for (boss = &gBosses[0], i = 0; i < 4; i++, boss++) {
+        if (boss->obj.status != OBJ_FREE && boss->obj.id == OBJ_BOSS_319) {
+            if (boss->obj.pos.z <= obj4C->obj.pos.z) {
+                D_i1_8019C0C0 = 1;
+                obj4C->obj.status = OBJ_FREE;
+            }
+            break;
+        }
+    }
+}
+
+void func_i1_801924A8(Object_80* obj80) {
+    switch (obj80->unk_48) {
         case 0:
-            if (gPlayer[0].pos.z < arg0->obj.pos.z) {
+            if (gPlayer[0].pos.z < obj80->obj.pos.z) {
                 D_80177AB0 = 0;
                 D_80177A98 = 0;
 
-                arg0->unk_48++;
+                obj80->unk_48++;
             }
 
         case 1:
@@ -26,7 +138,8 @@ void func_i1_801924A8(Object_80* arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_8019250C.s")
+void func_i1_8019250C(Actor* actor) {
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_80192518.s")
 
