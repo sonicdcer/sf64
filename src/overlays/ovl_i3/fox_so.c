@@ -167,7 +167,7 @@ s32 D_i3_801C27A0[8]; // unused? part of previous?
 
 void func_i3_8019E7F0(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(effect);
-    effect->obj.status = 2;
+    effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_392;
     effect->unk_4E = 3;
     effect->obj.pos.x = xPos;
@@ -188,7 +188,7 @@ void func_i3_8019E8B8(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
-        if (gEffects[i].obj.status == 0) {
+        if (gEffects[i].obj.status == OBJ_FREE) {
             func_i3_8019E7F0(&gEffects[i], xPos, yPos, zPos, scale2);
             break;
         }
@@ -198,7 +198,7 @@ void func_i3_8019E8B8(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
 void func_i3_8019E920(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
                       s32 unk4E) {
     Effect_Initialize(effect);
-    effect->obj.status = 2;
+    effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_392;
     effect->unk_4E = unk4E;
     if (unk4E == 2) {
@@ -221,7 +221,7 @@ void func_i3_8019E9F4(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel
     s32 i;
 
     for (i = 99; i >= 34; i--) {
-        if (gEffects[i].obj.status == 0) {
+        if (gEffects[i].obj.status == OBJ_FREE) {
             func_i3_8019E920(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2, unk4E);
             break;
         }
@@ -298,7 +298,7 @@ void func_i3_8019EA7C(Actor* actor) {
 
 void func_i3_8019EF30(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
     Actor_Initialize(actor);
-    actor->obj.status = 2;
+    actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = OBJ_ACTOR_275;
     if (Rand_ZeroOne() < 0.1f) {
         actor->obj.id = OBJ_ACTOR_276;
@@ -323,7 +323,7 @@ void func_i3_8019F038(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel
     s32 i;
 
     for (i = 4; i < ARRAY_COUNT(gActors); i++) {
-        if (gActors[i].obj.status == 0) {
+        if (gActors[i].obj.status == OBJ_FREE) {
             func_i3_8019EF30(&gActors[i], xPos, yPos, zPos, xVel, yVel, zVel);
             break;
         }
@@ -332,7 +332,7 @@ void func_i3_8019F038(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel
 
 void func_i3_8019F0B0(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
     Actor_Initialize(actor);
-    actor->obj.status = 2;
+    actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = OBJ_ACTOR_277;
     actor->obj.pos.x = xPos;
     actor->obj.pos.y = yPos;
@@ -354,7 +354,7 @@ void func_i3_8019F194(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel
     s32 i;
 
     for (i = 4; i < ARRAY_COUNT(gActors); i++) {
-        if (gActors[i].obj.status == 0) {
+        if (gActors[i].obj.status == OBJ_FREE) {
             func_i3_8019F0B0(&gActors[i], xPos, yPos, zPos, xVel, yVel, zVel);
             break;
         }
@@ -503,7 +503,7 @@ void func_i3_8019F7AC(Actor* actor) {
 
 void func_i3_8019F99C(Actor* actor, Effect* effect, f32 scale1) {
     Effect_Initialize(effect);
-    effect->obj.status = 2;
+    effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_392;
     effect->obj.pos.x = effect->vel.x = actor->obj.pos.x;
     effect->obj.pos.y = -2000.0f;
@@ -527,7 +527,7 @@ void func_i3_8019FAA4(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos
     Vec3f sp2C = D_i3_801BF920;
 
     Effect_Initialize(effect);
-    effect->obj.status = 2;
+    effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_392;
     effect->obj.pos.x = xPos;
     effect->obj.pos.y = yPos;
@@ -582,7 +582,7 @@ void func_i3_8019FAA4(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos
 
 void func_i3_8019FDE0(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 unk4E) {
     Effect_Initialize(effect);
-    effect->obj.status = 2;
+    effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_392;
     effect->obj.pos.x = xPos;
     effect->obj.pos.y = yPos;
@@ -607,7 +607,7 @@ void func_i3_8019FEE8(Actor* actor, f32 scale1) {
     s32 i;
 
     for (i = 70; i >= 0; i--) {
-        if (gEffects[i].obj.status == 0) {
+        if (gEffects[i].obj.status == OBJ_FREE) {
             func_i3_8019F99C(actor, &gEffects[i], scale1);
             break;
         }
@@ -618,7 +618,7 @@ void func_i3_8019FF44(Boss* bossSO, f32 xPos, f32 yPos, f32 zPos, f32 yVel, f32 
     s32 i;
 
     for (i = 70; i >= 0; i--) {
-        if (gEffects[i].obj.status == 0) {
+        if (gEffects[i].obj.status == OBJ_FREE) {
             func_i3_8019FAA4(bossSO, &gEffects[i], xPos, yPos, zPos, yVel, hVelMod);
             break;
         }
@@ -629,7 +629,7 @@ void func_i3_8019FFC0(Boss* bossSO, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s3
     s32 i;
 
     for (i = 70; i >= 0; i--) {
-        if (gEffects[i].obj.status == 0) {
+        if (gEffects[i].obj.status == OBJ_FREE) {
             func_i3_8019FDE0(bossSO, &gEffects[i], xPos, yPos, zPos, scale2, unk4E);
             break;
         }
@@ -859,7 +859,7 @@ void func_i3_801A0AF0(Effect* effect) {
 
 void func_i3_801A0CEC(Actor* actor, f32 xPos, f32 zPos, f32 zVel, s32 unkB8) {
     Actor_Initialize(actor);
-    actor->obj.status = 2;
+    actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = OBJ_ACTOR_278;
     actor->obj.pos.x = xPos;
     actor->obj.pos.z = zPos;
@@ -878,7 +878,7 @@ void func_i3_801A0D90(f32 xPos, f32 zPos, f32 zVel, s32 unkB8) {
     s32 i;
 
     for (i = 4; i < ARRAY_COUNT(gActors); i++) {
-        if (gActors[i].obj.status == 0) {
+        if (gActors[i].obj.status == OBJ_FREE) {
             func_i3_801A0CEC(&gActors[i], xPos, zPos, zVel, unkB8);
             break;
         }
@@ -910,7 +910,7 @@ void func_i3_801A0DF8(f32 xPos, f32 zPos, f32 yRot, s32 index, f32 yPos) {
             break;
     }
     Actor_Initialize(&gActors[sp2C]);
-    gActors[sp2C].obj.status = 2;
+    gActors[sp2C].obj.status = OBJ_ACTIVE;
     gActors[sp2C].obj.id = OBJ_ACTOR_279;
     Object_SetInfo(&gActors[sp2C].info, gActors[sp2C].obj.id);
     gActors[sp2C].unk_0B8 = 0;
@@ -932,7 +932,7 @@ void func_i3_801A0DF8(f32 xPos, f32 zPos, f32 yRot, s32 index, f32 yPos) {
 void func_i3_801A0FD4(Actor* actor, s32 index) {
     if (gTeamShields[3 - index] > 0) {
         Actor_Initialize(actor);
-        actor->obj.status = 2;
+        actor->obj.status = OBJ_ACTIVE;
         actor->obj.id = OBJ_ACTOR_195;
         actor->obj.pos.x = D_i3_801BF95C[index].x + gPlayer[0].pos.x;
         actor->obj.pos.y = D_i3_801BF95C[index].y + gPlayer[0].pos.y;
@@ -1160,7 +1160,7 @@ void func_i3_801A10F4(Player* player) {
 void func_i3_801A1CD8(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, f32 xVel, f32 yVel,
                       f32 zVel, s32 unk46) {
     Actor_Initialize(actor);
-    actor->obj.status = 1;
+    actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_189;
     actor->unk_0B8 = 40;
     actor->unk_046 = unk46;
@@ -1190,7 +1190,7 @@ void func_i3_801A1E14(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot
     s32 i;
 
     for (i = 59; i >= 0; i--) {
-        if (gActors[i].obj.status == 0) {
+        if (gActors[i].obj.status == OBJ_FREE) {
             func_i3_801A1CD8(&gActors[i], xPos, yPos, zPos, xRot, yRot, zRot, xVel, yVel, zVel, unk46);
             break;
         }
@@ -1806,9 +1806,6 @@ void func_i3_801A3C4C(Boss* bossSO) {
         bossSO->timer_058 = 20000;
         D_8017796C = -1;
         D_80178348 = D_80178350 = D_80178354 = D_80178340 = 255;
-        // 255;
-
-        // 255;
         D_80178358 = 0;
         D_8017835C = 255;
         gCsFrameCount = 0;
@@ -1948,7 +1945,7 @@ void func_i3_801A4214(Boss* bossSO) {
                 bossSO->actionState++;
                 bossSO->obj.pos.y = -1600.0f;
                 for (i = 0; i < 2; i++) {
-                    if (gEffects[i].obj.status != 0) {
+                    if (gEffects[i].obj.status != OBJ_FREE) {
                         Object_Kill(&gEffects[i].obj, gEffects[i].sfxPos);
                     }
                 }
@@ -2787,7 +2784,6 @@ void func_i3_801A7750(void) {
     Rand_SetSeed(1, 29100, 9786);
 
     for (i = 0; i < 3; i++, actor++) {
-        // temp = &D_i3_801BFB30[i];
         if ((i == 0) && (gTeamShields[3] <= 0.0f)) {
             continue;
         }
@@ -2799,7 +2795,7 @@ void func_i3_801A7750(void) {
         }
 
         Actor_Initialize(actor);
-        actor->obj.status = 1;
+        actor->obj.status = OBJ_INIT;
         actor->obj.id = OBJ_ACTOR_195;
 
         actor->obj.pos.x = D_i3_801BFB30[i].x / 2.0f + gPlayer[0].pos.x;
@@ -3184,7 +3180,7 @@ void func_i3_801A8DB8(Vec3f* pos, u32 sfxId, f32 zVel) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
-        if (gEffects[i].obj.status == 0) {
+        if (gEffects[i].obj.status == OBJ_FREE) {
             func_8007A5F8(&gEffects[i], pos, sfxId);
             gEffects[i].vel.z = zVel;
             break;

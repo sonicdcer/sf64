@@ -384,7 +384,7 @@ void Animation_GetSkeletonBoundingBox(Limb** skeletonSegment, AnimationHeader* a
             boundBox[2].y = boundBox[3].y = boundBox[6].y = boundBox[7].y = min->y;
             boundBox[4].z = boundBox[5].z = boundBox[6].z = boundBox[7].z = min->z;
             for (i = 0; i < 8; i++) {
-                // Matrix_MultVec3f(gGfxMatrix, spC0[i], sp60[i]); should logically go here
+                // Matrix_MultVec3f(gGfxMatrix, boundBox[i], boundBoxRot[i]); should logically go here
             }
             *min = *max = boundBoxRot[0];
             for (i = 1; i < 8; i++) {

@@ -671,8 +671,6 @@ void func_i3_801A9728(Actor* actor, f32 radius, f32 scale, s32 spread) {
     }
 }
 
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_aq/func_i3_801A9824.s")
-
 void func_i3_801A9824(void) {
     s32 i;
     f32* var_v0;
@@ -765,10 +763,6 @@ void func_i3_801A99D4(Player* player) {
         gAmbientB = D_i3_801C41B8[17];
     }
 }
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_aq/func_i3_801A99D4.s")
-
-// #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_aq/func_i3_801A9C98.s")
 
 void func_i3_801A9C98(Player* player) {
     Actor* actor;

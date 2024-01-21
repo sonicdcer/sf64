@@ -2165,7 +2165,7 @@ void func_80035448(Actor* actor) {
     f32 sp38;
     s32 pad[3];
     Vec3f sp1E4 = { 0.0f, 0.0f, 0.0f };
-    Vec3f sp7C[30]; // larger than expected
+    Vec3f sp7C[30];
     f32 pad2;
 
     if (actor->unk_0E4 != 1000) {
