@@ -1,7 +1,6 @@
-#include "prevent_bss_reordering.h"
+// #include "prevent_bss_reordering.h"
 #include "global.h"
-#include "fox_map.h"
-
+#include "fox_option.h"
 s32 D_80178750;
 s32 D_80178754;
 s32 D_80178758;

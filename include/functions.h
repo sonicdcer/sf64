@@ -3,7 +3,6 @@
 
 #include "libc/stdbool.h"
 #include "structs.h"
-#include "fox_option.h"
 #include "sf64object.h"
 #include "sf64thread.h"
 #include "sf64player.h"
