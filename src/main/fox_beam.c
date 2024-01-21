@@ -1897,7 +1897,7 @@ void func_8003C4D0(PlayerShot* shot, s32 damage) {
                     actor->vel.x = sp68 * 0.03f;
                     actor->vel.y = sp64 * 0.03f;
                     actor->vel.z = sp60 * 0.03f;
-                    actor->obj.status = OBJ_UNK_3;
+                    actor->obj.status = OBJ_DYING;
                     actor->timer_0BC = (s32) (Rand_ZeroOne() * 15.0f) + 10;
                     actor->timer_0BE = 0;
                     actor->timer_04C = 4;

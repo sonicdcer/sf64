@@ -62,7 +62,7 @@ void func_i2_8018756C(Actor* actor) {
         actor->unk_0D0 = 0;
         actor->health -= actor->damage;
         if (actor->health <= 0) {
-            actor->obj.status = OBJ_UNK_3;
+            actor->obj.status = OBJ_DYING;
         }
     }
 
@@ -74,7 +74,7 @@ void func_i2_8018756C(Actor* actor) {
     vec.z = actor->vel.z;
 
     if ((func_8006351C(actor->index, &actor->obj.pos, &vec, 0) != 0) || (actor->obj.pos.y < (gGroundLevel + 20.0f))) {
-        actor->obj.status = OBJ_UNK_3;
+        actor->obj.status = OBJ_DYING;
     }
     func_i2_80187530(actor);
 }
@@ -112,7 +112,7 @@ void func_i2_80187650(Actor* actor) {
         if ((func_8006351C(actor->index, &actor->obj.pos, &vec, 0) != 0) ||
             (actor->obj.pos.y < (gGroundLevel + 20.0f))) {
             func_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
-            actor->obj.status = OBJ_UNK_3;
+            actor->obj.status = OBJ_DYING;
         }
     }
 

@@ -104,7 +104,7 @@ typedef enum ObjectStatus {
     /* 0 */ OBJ_FREE,
     /* 1 */ OBJ_INIT,
     /* 2 */ OBJ_ACTIVE,
-    /* 3 */ OBJ_UNK_3,
+    /* 3 */ OBJ_DYING,
 } ObjectStatus;
 
 typedef struct {

@@ -2031,7 +2031,7 @@ void func_800701E0(Actor* actor) {
                         Audio_PlaySfx(0x2903700B, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                     }
 
-                    actor->obj.status = OBJ_UNK_3;
+                    actor->obj.status = OBJ_DYING;
                     var_fv1 = 0.7f;
 
                     if (gLevelType == LEVELTYPE_SPACE) {
@@ -2188,7 +2188,7 @@ void func_800701E0(Actor* actor) {
 
             if ((func_8006351C(actor->index, &actor->obj.pos, &sp3C, 0) != 0) ||
                 (actor->obj.pos.y < (gGroundLevel + 20.0f))) {
-                actor->obj.status = OBJ_UNK_3;
+                actor->obj.status = OBJ_DYING;
                 actor->obj.pos.z -= actor->vel.z;
                 actor->unk_0D0 = 1;
                 if (actor->unk_0B4 == 13) {
@@ -2568,7 +2568,7 @@ void func_80070D44(Actor* actor) {
 
         case 46:
             for (i = 0, otherActor = gActors; i < ARRAY_COUNT(gActors); i++, otherActor++) {
-                if (((otherActor->obj.status == OBJ_UNK_3) || (otherActor->obj.status == OBJ_FREE)) &&
+                if (((otherActor->obj.status == OBJ_DYING) || (otherActor->obj.status == OBJ_FREE)) &&
                     (otherActor->iwork[15] == actor->iwork[15]) && (otherActor->iwork[16] != 0)) {
                     func_80070CEC(actor);
                 }
@@ -2971,9 +2971,9 @@ void func_80072594(Actor* actor) {
 
                 if (actor->health <= 0) {
                     actor->timer_0C6 = 200;
-                    actor->obj.status = OBJ_UNK_3;
+                    actor->obj.status = OBJ_DYING;
                     func_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 8.0f);
-                    actor->obj.status = OBJ_UNK_3;
+                    actor->obj.status = OBJ_DYING;
                     actor->timer_0BC = 20;
                     actor->obj.id = OBJ_ACTOR_194;
                 }
@@ -3777,7 +3777,7 @@ void func_80074FF0(Actor* actor) {
         }
     }
 
-    if ((actor->obj.status == OBJ_UNK_3) && (actor->timer_0BE != 0)) {
+    if ((actor->obj.status == OBJ_DYING) && (actor->timer_0BE != 0)) {
         RCP_SetupDL_27();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }

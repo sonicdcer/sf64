@@ -568,7 +568,7 @@ void func_8002FC00(Actor* actor) {
     s32 var_s5;
 
     for (var_s5 = 0, otherActor = &gActors[10]; var_s5 < 50; var_s5++, otherActor++) {
-        if ((otherActor->obj.status == OBJ_UNK_3) && (otherActor->unk_0E6 > 0) && (otherActor->unk_0E6 < 4)) {
+        if ((otherActor->obj.status == OBJ_DYING) && (otherActor->unk_0E6 > 0) && (otherActor->unk_0E6 < 4)) {
             Actor* actor2;
             s32 var_v1;
 
@@ -864,7 +864,7 @@ void func_8003088C(Actor* actor) {
                 }
                 actor->timer_0C6 = 50;
                 actor->iwork[8] = 20;
-                actor->obj.status = OBJ_UNK_3;
+                actor->obj.status = OBJ_DYING;
                 actor->fwork[23] = 0.0f;
                 func_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 4.0f);
                 Audio_PlaySfx(0x2903700B, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -1718,7 +1718,7 @@ void func_800319AC(Actor* this) {
                         this->iwork[4] = 0;
                     }
                     if ((this->unk_0E6 > 0) &&
-                        ((gActors[this->unk_0E6].obj.status == OBJ_UNK_3) || (gActors[this->unk_0E6].unk_0B8 == 6) ||
+                        ((gActors[this->unk_0E6].obj.status == OBJ_DYING) || (gActors[this->unk_0E6].unk_0B8 == 6) ||
                          (gActors[this->unk_0E6].obj.status == OBJ_FREE))) {
                         this->unk_0B8 = 3;
                         if (gCurrentLevel == LEVEL_BOLSE) {
@@ -2061,7 +2061,7 @@ void func_800319AC(Actor* this) {
                 this->obj.pos.z -= this->vel.z;
                 if ((temp_v0_27 >= 2) && (this->unk_0E4 >= 0xB)) {
                     this->timer_0BE = 2;
-                    this->obj.status = OBJ_UNK_3;
+                    this->obj.status = OBJ_DYING;
                     this->unk_044 = 0;
                     func_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 0xF);
                     func_8007A6F0(&this->obj.pos, 0x2903A008);

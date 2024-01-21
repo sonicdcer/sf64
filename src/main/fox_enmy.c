@@ -1738,7 +1738,7 @@ void func_8006654C(Actor* actor) {
     }
     actor->scale = 0.8f;
     if (actor->unk_0D0 != 0) {
-        actor->obj.status = OBJ_UNK_3;
+        actor->obj.status = OBJ_DYING;
         actor->vel.y = (Rand_ZeroOne() * 5.0f) + 6.0f;
         if (actor->unk_0D0 == 2) {
             actor->vel.y = -2.0f;
@@ -2644,7 +2644,7 @@ void Actor_Update(Actor* actor) {
                 actor->info.action(&actor->obj);
             }
             break;
-        case OBJ_UNK_3:
+        case OBJ_DYING:
             func_800693E8(actor);
             if (actor->obj.status != OBJ_FREE) {
                 func_800690D0(actor->index, actor->obj.id);
@@ -2687,7 +2687,7 @@ void Boss_Update(Boss* boss) {
                 boss->info.action(&boss->obj);
             }
             break;
-        case OBJ_UNK_3:
+        case OBJ_DYING:
             func_80069658(boss);
             if (boss->obj.status != OBJ_FREE) {
                 func_800690D0(boss->index, boss->obj.id);
@@ -2728,7 +2728,7 @@ void Object_4C_Update(Object_4C* obj4C) {
                 obj4C->info.action(&obj4C->obj);
             }
             break;
-        case OBJ_UNK_3:
+        case OBJ_DYING:
             func_80069858(obj4C);
             func_800690D0(obj4C->index, obj4C->obj.id);
             break;
