@@ -100,11 +100,11 @@ typedef struct {
     /* 0x1C */ u8 unk_1C;
 } UnkStruct_D003C; // size = 0x20
 
-typedef enum {
-    OBJ_FREE,
-    OBJ_INIT,
-    OBJ_ACTIVE,
-    OBJ_UNK_3,
+typedef enum ObjectStatus {
+    /* 0 */ OBJ_FREE,
+    /* 1 */ OBJ_INIT,
+    /* 2 */ OBJ_ACTIVE,
+    /* 3 */ OBJ_UNK_3,
 } ObjectStatus;
 
 typedef struct {
