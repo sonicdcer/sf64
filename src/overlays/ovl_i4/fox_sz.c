@@ -2,6 +2,7 @@
 
 extern Vec3f D_i4_8019F4C0[];
 extern Vec3f D_i4_8019F4E4[];
+extern Vec3f D_i4_8019F528[7];
 extern s32 D_i4_801A0560;
 
 extern f32 D_6009230[];
@@ -124,28 +125,34 @@ void func_i4_8019A0F8(Actor* actor, s32 arg1) {
 }
 
 void func_i4_8019A1D0(void) {
-    s32 index = 8;
+    Actor* actor = &gActors[8];
 
-    Actor_Initialize(&gActors[index]);
-    gActors[index].obj.status = 2;
-    gActors[index].obj.id = OBJ_ACTOR_197;
-    gActors[index].obj.pos.x = 0.0f;
-    gActors[index].obj.pos.y = 4500.0f;
-    gActors[index].obj.pos.z = 30000.0f;
-    gActors[index].unk_0E4 = 8;
-    gActors[index].unk_0E6 = 12;
-    gActors[index].health = 10000;
-    gActors[index].unk_0F4.y = 180.0f;
-    gActors[index].unk_0B8 = 0;
-    gActors[index].timer_0BC = 250;
-    gActors[index].unk_0F4.x = -20.0f;
-    gActors[index].iwork[11] = 1;
-    gActors[index].obj.rot.z = 90.0f;
-    Object_SetInfo(&gActors[index].info, gActors[index].obj.id);
-    gActors[index].info.unk_1C = 0.0f;
-    Audio_PlaySfx(0x31000011U, gActors[index].sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    Actor_Initialize(actor);
+    actor->obj.status = 2;
+    actor->obj.id = OBJ_ACTOR_197;
+
+    actor->obj.pos.x = 0.0f;
+    actor->obj.pos.y = 4500.0f;
+    actor->obj.pos.z = 30000.0f;
+
+    actor->unk_0E4 = 8;
+    actor->unk_0E6 = 12;
+    actor->health = 10000;
+    actor->unk_0F4.y = 180.0f;
+    actor->unk_0B8 = 0;
+    actor->timer_0BC = 250;
+    actor->unk_0F4.x = -20.0f;
+    actor->iwork[11] = 1;
+    actor->obj.rot.z = 90.0f;
+
+    Object_SetInfo(&actor->info, actor->obj.id);
+
+    actor->info.unk_1C = 0.0f;
+
+    Audio_PlaySfx(0x31000011U, actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
+// figure out type
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019A2F4.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019A3E8.s")
@@ -154,7 +161,23 @@ void func_i4_8019A1D0(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019AB8C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019B48C.s")
+void func_i4_8019B48C(void) {
+    Actor* actor = &gActors[1];
+    s32 i;
+
+    for (i = 0; i < ARRAY_COUNT(D_i4_8019F528); i++, actor++) {
+        Actor_Initialize(actor);
+        actor->obj.status = 1;
+        actor->obj.id = 0xC3;
+        actor->unk_0B6 = 0x19;
+        actor->obj.pos.x = D_i4_8019F528[i].x;
+        actor->obj.pos.y = D_i4_8019F528[i].y;
+        actor->obj.pos.z = D_i4_8019F528[i].z;
+        actor->obj.rot.y = Rand_ZeroOne() * 360.0f;
+        actor->vel.x = 5.0f;
+        Object_SetInfo(&actor->info, actor->obj.id);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019B568.s")
 
