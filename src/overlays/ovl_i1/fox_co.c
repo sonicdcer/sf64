@@ -11,9 +11,9 @@ extern Gfx D_60199D0[];
 
 void func_i1_8018753C(Object_80* obj80) {
 
-    GCGM_BACK();
-    GDL(&D_60199D0);
-    GSGM_BACK();
+    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+    gSPDisplayList(gMasterDisp++, D_60199D0);
+    gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
 void func_i1_801875A4(Object_4C* obj4C) {
@@ -1009,7 +1009,7 @@ s32 func_i1_8018A434(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4)
     }
     if ((boss->swork[arg0] & 1) || (boss->timer_05C & 1)) {
         RCP_SetupDL_64();
-        GPC(64, 64, 255, 255);
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 64, 64, 255, 255);
     }
     return false;
 }
