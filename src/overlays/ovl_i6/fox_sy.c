@@ -1,29 +1,27 @@
 #include "global.h"
 
-extern Gfx D_6014A40[];
-extern f32 D_60342A0[];
-extern f32 D_6034304[];
-extern Gfx D_601F3D0[];
-extern AnimationHeader D_60258A0;
-extern AnimationHeader D_602645C;
 extern AnimationHeader D_6003348;
 extern AnimationHeader D_60034C4;
+extern Gfx D_6013600[];
+extern Gfx D_6014A40[];
+extern Gfx D_6014BD0[];
+extern Gfx D_601F3D0[];
 extern AnimationHeader D_60258A0;
 extern AnimationHeader D_602645C;
 extern AnimationHeader D_60265B4;
 extern AnimationHeader D_602738C;
 extern AnimationHeader D_6029B48;
+extern AnimationHeader D_602A2CC;
 extern AnimationHeader D_602B778;
 extern AnimationHeader D_602B8DC;
-extern Gfx D_6014BD0[];
-extern Gfx D_6013600[];
-extern Limb* D_602D140[];
-extern AnimationHeader D_602A2CC;
 extern AnimationHeader D_602CEB4;
+extern Limb* D_602D140[];
 extern f32 D_60340C0[];
 extern f32 D_6034124[];
 extern f32 D_60341A8[];
 extern f32 D_603421C[];
+extern f32 D_60342A0[];
+extern f32 D_6034304[];
 
 void func_i6_80198244(Boss*);
 void func_i6_80198ABC(Boss*);
