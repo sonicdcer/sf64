@@ -320,9 +320,9 @@ void func_80077218(Actor*);
 
 // fox_effect
 s32 func_80081B24(f32 posX, f32 posY, f32 posZ, f32 scale2);
-void func_80077240(f32 posX, f32 posY, f32 posZ, s32 hits);
-void func_8007729C(void);
-void func_80077790(void);
+void BonusText_Display(f32 posX, f32 posY, f32 posZ, s32 hits);
+void BonusText_Update(void);
+void BonusText_DrawAll(void);
 Effect* func_8007783C(ObjectId objId);
 void func_8007797C(f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2);
 void func_80077A00(Effect* );
@@ -578,7 +578,7 @@ void func_800A887C(Player* player);
 s32 func_800A7974(Player* player, f32* hitboxData, s32* index, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot,
                   f32 zRot, f32 arg9, f32 argA, f32 argB);
 bool func_800A8054(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, Vec3f* arg7, Vec3f* arg8);
-void func_800A4F4C(Object_58*);
+void Object_58_Initialize(Object_58*);
 
 // fox_radio
 s32 func_800BA7BC(u16*, s32);

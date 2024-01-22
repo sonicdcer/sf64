@@ -107,7 +107,7 @@ void func_i6_801878A8() {
         }
 
         if (D_80178310[i].id <= OBJ_80_160) {
-            func_800A4F4C(obj58);
+            Object_58_Initialize(obj58);
             obj58->obj.status = OBJ_ACTIVE;
             obj58->obj.id = D_80178310[i].id;
             obj58->obj.pos.x = D_80178310[i].xPos;
@@ -189,7 +189,7 @@ void func_i6_80187C5C(void) {
         }
 
         if (D_80178310[i].id <= OBJ_80_160) {
-            func_800A4F4C(obj58);
+            Object_58_Initialize(obj58);
             obj58->obj.status = OBJ_ACTIVE;
             obj58->obj.id = D_80178310[i].id;
             obj58->obj.pos.x = D_80178310[i].xPos;
@@ -406,7 +406,7 @@ void func_i6_801888F4(Actor* actor) {
 
         func_8007A6F0(&actor->obj.pos, 0x2903B009);
         Object_Kill(&actor->obj, actor->sfxPos);
-        func_80077240(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5);
+        BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5);
         gHitCount += 6;
         D_80177850 = 15;
     }
@@ -419,7 +419,7 @@ void func_i6_80188A4C(Boss* boss) {
     }
     if (boss->dmgType != DMG_NONE) {
         boss->dmgType = DMG_NONE;
-        if (boss->actionState < 10 && !(boss->fwork[21] < 250.0f)) {
+        if (boss->state < 10 && !(boss->fwork[21] < 250.0f)) {
             switch (boss->dmgPart) {
                 case 0:
                     boss->swork[1] = 15;
@@ -437,7 +437,7 @@ void func_i6_80188A4C(Boss* boss) {
                             Audio_PlaySfx(0x2940D09AU, boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                             func_80042EC0(boss);
                             gPlayer[0].state_1C8 = PLAYERSTATE_1C8_0;
-                            boss->actionState = 20;
+                            boss->state = 20;
                             boss->swork[1] = 1000;
                             boss->swork[2] = 1000;
                             boss->swork[6] = 1;
@@ -456,7 +456,7 @@ void func_i6_80188A4C(Boss* boss) {
                         boss->swork[8]++;
                         if (boss->swork[8] >= 6) {
                             boss->swork[8] = 0;
-                            boss->actionState = 12;
+                            boss->state = 12;
                             boss->timer_050 = 50;
                             boss->fwork[3] = gPlayer[0].pos.x;
                             boss->fwork[5] = gPlayer[0].unk_138;
@@ -571,7 +571,7 @@ void func_i6_80189098(Boss* boss) {
     Object_SetInfo(&actor->info, actor->obj.id);
     actor->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_800CBEA8);
 
-    gActors[0].unk_0B8 = 2;
+    gActors[0].state = 2;
 }
 
 extern void func_800B56BC(Player*);
@@ -795,13 +795,13 @@ void func_i6_80189B70(Boss* boss) {
     }
     if ((fabsf(boss->obj.pos.x - gPlayer[0].pos.x) < 300.0f) &&
         (fabsf((boss->obj.pos.y - 300.0f) - gPlayer[0].pos.y) < 300.0f) &&
-        (fabsf(boss->obj.pos.z - gPlayer[0].unk_138) < 300.0f) && (boss->actionState < 0xB) && (boss->timer_05A == 0)) {
-        boss->actionState = 11;
+        (fabsf(boss->obj.pos.z - gPlayer[0].unk_138) < 300.0f) && (boss->state < 0xB) && (boss->timer_05A == 0)) {
+        boss->state = 11;
         boss->timer_050 = 150;
         Audio_PlaySfx(0x31408097, boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
 
-    switch (boss->actionState) {
+    switch (boss->state) {
         case 0:
             boss->health = 200;
             D_80177AB0 = 3;
@@ -809,7 +809,7 @@ void func_i6_80189B70(Boss* boss) {
             boss->fwork[10] = 8.0f;
             func_i6_80189098(boss);
             boss->swork[5] = 300;
-            boss->actionState++;
+            boss->state++;
             Audio_PlaySfx(0x11034074, boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             boss->fwork[21] = 255.0f;
             boss->fwork[22] = 255.0f;
@@ -831,7 +831,7 @@ void func_i6_80189B70(Boss* boss) {
             if (boss->timer_050 == 0) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_9;
                 gPlayer[0].unk_1D0 = 0;
-                boss->actionState = 1;
+                boss->state = 1;
                 gPlayer[0].unk_240 = 1;
             }
             break;
@@ -843,7 +843,7 @@ void func_i6_80189B70(Boss* boss) {
                 boss->fwork[4] = (Rand_ZeroOne() - 0.5f) * 1000.0f;
                 boss->fwork[5] = (Rand_ZeroOne() - 0.5f) * 10000.0f;
                 if (Rand_ZeroOne() < 0.3f) {
-                    boss->actionState = 2;
+                    boss->state = 2;
                     boss->timer_050 = (s32) Rand_ZeroOne() * 100.0f + 50;
                     boss->fwork[1] = 0.0f;
                 }
@@ -851,7 +851,7 @@ void func_i6_80189B70(Boss* boss) {
             break;
         case 2:
             if (boss->timer_050 == 0) {
-                boss->actionState = 1;
+                boss->state = 1;
                 boss->timer_050 = (s32) Rand_ZeroOne() * 50.0f + 50;
                 boss->fwork[1] = 50.0f;
             }
@@ -889,11 +889,11 @@ void func_i6_80189B70(Boss* boss) {
                 D_80178358 = 0;
                 boss->timer_05A = 50;
                 if (boss->swork[4] != 0) {
-                    boss->actionState = 1;
+                    boss->state = 1;
                     boss->timer_050 = (s32) Rand_ZeroOne() * 50.0f + 50;
                     boss->fwork[1] = 50.0f;
                 } else {
-                    boss->actionState = 3;
+                    boss->state = 3;
                 }
                 func_8001A55C(boss->sfxPos, 0x31408097);
             }
@@ -921,7 +921,7 @@ void func_i6_80189B70(Boss* boss) {
                 boss->obj.pos.x = boss->fwork[3] + sp64.x;
                 boss->obj.pos.z = boss->fwork[5] + sp64.z;
                 boss->unk_078.y = Math_RadToDeg(Math_Atan2F(xDisplacement, zDisplacement));
-                boss->actionState = 13;
+                boss->state = 13;
                 Audio_PlaySfx(0x1940306E, boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 boss->timer_054 = 90;
             }
@@ -931,7 +931,7 @@ void func_i6_80189B70(Boss* boss) {
             boss->fwork[24] = 0.0f;
             boss->fwork[22] = 255.0f;
             if (250.0f < boss->fwork[22]) {
-                boss->actionState = 3;
+                boss->state = 3;
             }
             break;
         case 20:
@@ -974,7 +974,7 @@ void func_i6_80189B70(Boss* boss) {
                 gBossActive = 0;
                 gPlayer[0].unk_0D0 = D_80161A54;
                 func_8001CA24(0);
-                boss->actionState = 21;
+                boss->state = 21;
                 func_8007B344(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 60.0f, 5);
                 func_8007A568(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 40.0f);
 
@@ -1128,7 +1128,7 @@ void func_i6_80189B70(Boss* boss) {
     boss->vel.x = sp64.x;
     boss->vel.y = sp64.y;
     boss->vel.z = sp64.z - D_80177D08;
-    if (boss->actionState < 20) {
+    if (boss->state < 20) {
         gUnkEntities28[59].unk_00 = 1;
         gUnkEntities28[59].unk_02 = 0x66;
         gUnkEntities28[59].pos.x = boss->obj.pos.x;
@@ -1149,13 +1149,13 @@ void func_i6_80189B70(Boss* boss) {
         gActors[10].obj.pos.x = boss->obj.pos.x + 200.0f;
         gActors[10].obj.pos.y = boss->obj.pos.y - 200.0f;
         gActors[10].obj.pos.z = boss->obj.pos.z + 200.0f;
-        gActors[10].unk_0B8 = 0;
+        gActors[10].state = 0;
         gActors[10].timer_0C2 = 20;
         gActors[10].info.unk_1C = 0.0f;
         gActors[11].obj.pos.x = boss->obj.pos.x - 200.0f;
         gActors[11].obj.pos.y = boss->obj.pos.y - 200.0f;
         gActors[11].obj.pos.z = boss->obj.pos.z + 200.0f;
-        gActors[11].unk_0B8 = 0;
+        gActors[11].state = 0;
         gActors[11].timer_0C2 = 20;
         gActors[11].info.unk_1C = 0.0f;
     }
@@ -1226,7 +1226,7 @@ void func_i6_8018B8C0(Boss* boss) {
     Vec3f spAC;
     Vec3f spA0;
 
-    if (boss->actionState != 21) {
+    if (boss->state != 21) {
         Matrix_RotateZ(gGfxMatrix, -(f32) gGameFrameCount * 20.0f * M_DTOR, 1);
         Matrix_Scale(gGfxMatrix, boss->fwork[23] + 1.0f, 1.0f - boss->fwork[23], 1.0f, 1);
         Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 20.0f * M_DTOR, 1);
@@ -1399,7 +1399,7 @@ void func_i6_8018C7A0(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f3
     effect->vel.x = xVel;
     effect->vel.y = yVel;
     effect->vel.z = zVel;
-    effect->unk_4E = 1;
+    effect->state = 1;
     effect->unk_4C = arg7;
     if (arg7 < 8) {
         effect->scale2 = (Rand_ZeroOne() * 2.5f) + 5.0f;
@@ -1427,7 +1427,7 @@ void func_i6_8018C958(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f3
     Effect_Initialize(effect);
     effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_396;
-    effect->unk_4E = 10;
+    effect->state = 10;
     effect->obj.pos.x = xPos;
     effect->obj.pos.y = yPos;
     effect->obj.pos.z = zPos;
@@ -1472,9 +1472,9 @@ void func_i6_8018CAD4(Effect* effect) {
 
     effect->obj.rot.x += effect->unk_60.x;
     effect->obj.rot.y += effect->unk_60.y;
-    switch (effect->unk_4E) {
+    switch (effect->state) {
         case 0:
-            if (gBosses[0].actionState == 17) {
+            if (gBosses[0].state == 17) {
                 Math_SmoothStepToF(&effect->obj.pos.x, gBosses[0].obj.pos.x, 0.03f, 10.0f, 0);
                 Math_SmoothStepToF(&effect->obj.pos.y, gBosses[0].obj.pos.y - 200.0f, 0.03f, 10.0f, 0);
                 effectXpos = effect->obj.pos.x;
@@ -1562,7 +1562,7 @@ static Gfx* D_i6_801A6790[10] = {
 
 void func_i6_8018CF98(Effect* effect) {
 
-    if (effect->unk_4E == 10) {
+    if (effect->state == 10) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, effect->unk_44);
         Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
@@ -1616,10 +1616,10 @@ void func_i6_8018D2B0(Boss* boss) {
     if ((boss->swork[5] < 0) && (boss->swork[4] < 0)) {
         if ((boss->dmgType != DMG_NONE) && (boss->dmgPart == 0 || boss->dmgPart == 1)) {
             boss->dmgType = DMG_NONE;
-            if (boss->actionState < 12) {
+            if (boss->state < 12) {
                 boss->health -= boss->damage;
                 boss->timer_05C = 20;
-                if ((boss->actionState == 9) || (boss->actionState == 10)) {
+                if ((boss->state == 9) || (boss->state == 10)) {
                     if (boss->health <= 0) {
                         D_Timer_80161A60 = 8;
                         Audio_PlaySfx(0x2940D09A, boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -1628,7 +1628,7 @@ void func_i6_8018D2B0(Boss* boss) {
                         func_8001A55C(boss->sfxPos, 0x11030073);
                         func_800182F4(0x100100FF);
                         func_800182F4(0x110100FF);
-                        boss->actionState = 31;
+                        boss->state = 31;
                         boss->timer_050 = 200;
                         gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
                         gPlayer[0].unk_1D0 = 0;
@@ -1642,9 +1642,9 @@ void func_i6_8018D2B0(Boss* boss) {
                     func_800182F4(0x100100FF);
                     func_800182F4(0x110100FF);
                     if (D_8017827C == 0) {
-                        boss->actionState = 30;
+                        boss->state = 30;
                     } else {
-                        boss->actionState = 32;
+                        boss->state = 32;
                     }
                     boss->fwork[9] = 0.0f;
                     boss->unk_04C = 0;
@@ -1658,13 +1658,13 @@ void func_i6_8018D2B0(Boss* boss) {
     } else if (boss->dmgType != DMG_NONE) {
         switch (boss->dmgPart) {
             case 0:
-                if (boss->actionState < 11) {
+                if (boss->state < 11) {
                     boss->swork[6] -= boss->damage;
                     boss->swork[0] = 30;
                     Audio_PlaySfx(0x29034003, boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                     if (boss->swork[6] <= 0) {
                         boss->swork[6] = 100;
-                        boss->actionState = 12;
+                        boss->state = 12;
                         boss->timer_050 = 120;
                         boss->unk_04C = 0;
                         boss->fwork[9] = 0.0f;
@@ -1673,13 +1673,13 @@ void func_i6_8018D2B0(Boss* boss) {
                 }
                 break;
             case 1:
-                if (boss->actionState < 12) {
+                if (boss->state < 12) {
                     boss->swork[6] -= boss->damage;
                     boss->swork[1] = 30;
                     Audio_PlaySfx(0x29034003, boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                     if (boss->swork[6] <= 0) {
                         boss->swork[6] = 100;
-                        boss->actionState = 13;
+                        boss->state = 13;
                         boss->timer_050 = 120;
                         boss->unk_04C = 0;
                         boss->fwork[9] = 0.0f;
@@ -1741,34 +1741,34 @@ void func_i6_8018D2B0(Boss* boss) {
 
 void func_i6_8018D9C0(Boss* boss) {
 
-    switch (boss->actionState) {
+    switch (boss->state) {
         case 2:
-            boss->actionState = 3;
+            boss->state = 3;
             break;
         case 3:
-            boss->actionState = 4;
+            boss->state = 4;
             break;
         case 4:
-            boss->actionState = 5;
+            boss->state = 5;
             boss->timer_050 = 30;
             break;
         case 5:
-            boss->actionState = 6;
+            boss->state = 6;
             boss->timer_050 = 40;
             break;
         case 6:
-            boss->actionState = 17;
+            boss->state = 17;
             boss->timer_050 = 180;
             boss->fwork[16] = 0.0f;
             break;
         case 12:
         case 13:
         case 14:
-            boss->actionState = 7;
+            boss->state = 7;
             boss->timer_050 = 150;
             break;
         default:
-            boss->actionState = 2;
+            boss->state = 2;
             break;
     }
     boss->fwork[9] = 0.0f;
@@ -1825,13 +1825,13 @@ void func_i6_8018DBF0(Boss* boss) {
     f32 yaw;
     f32 pitch;
     s16 limbCount;
-    s32 initialActionState;
+    s32 initialstate;
     s32 pad;
 
     player = &gPlayer[0];
     gBossFrameCount++;
 
-    initialActionState = boss->actionState;
+    initialstate = boss->state;
 
     func_i6_801876FC();
     gAmbientR = 10;
@@ -1870,7 +1870,7 @@ void func_i6_8018DBF0(Boss* boss) {
     func_i6_8018D2B0(boss);
     boss->swork[7] = 0;
     boss->fwork[14] = boss->fwork[15] = 0.0f;
-    if (boss->actionState >= 2) {
+    if (boss->state >= 2) {
         gBlurAlpha = 0x80;
     }
 
@@ -1934,11 +1934,11 @@ void func_i6_8018DBF0(Boss* boss) {
     }
     Math_SmoothStepToAngle(&boss->vwork[5].x, pitch, 0.5f, 5.0f, 0);
     Math_SmoothStepToAngle(&boss->vwork[5].y, yaw, 0.5f, 5.0f, 0);
-    switch (boss->actionState) {
+    switch (boss->state) {
         case 0:
             boss->fwork[8] = 0.1f;
             boss->fwork[7] = 50.0f;
-            boss->actionState = 1;
+            boss->state = 1;
             boss->timer_050 = 60;
             boss->timer_052 = 80;
             boss->timer_054 = 150;
@@ -1986,7 +1986,7 @@ void func_i6_8018DBF0(Boss* boss) {
             }
             Math_SmoothStepToF(&boss->fwork[9], 0.2f, 1.0f, 0.01f, 0);
             if (boss->timer_054 == 0) {
-                boss->actionState = 2;
+                boss->state = 2;
                 boss->unk_04C = 0;
                 boss->fwork[7] = boss->fwork[9] = 0.0f;
                 boss->vel.z = -20.0f;
@@ -2226,7 +2226,7 @@ void func_i6_8018DBF0(Boss* boss) {
             break;
         case 12:
             if ((boss->swork[4] < 0) || (boss->swork[5] < 0)) {
-                boss->actionState = 14;
+                boss->state = 14;
                 boss->unk_04C = 0;
                 boss->fwork[9] = 0.0f;
             } else {
@@ -2253,7 +2253,7 @@ void func_i6_8018DBF0(Boss* boss) {
             break;
         case 13:
             if ((boss->swork[4] < 0) || (boss->swork[5] < 0)) {
-                boss->actionState = 14;
+                boss->state = 14;
                 boss->unk_04C = 0;
                 boss->fwork[9] = 0.0f;
             } else {
@@ -2335,7 +2335,7 @@ void func_i6_8018DBF0(Boss* boss) {
             if (boss->unk_04C >= Animation_GetFrameCount(&D_C00DE48)) {
                 boss->unk_04C = Animation_GetFrameCount(&D_C00DE48) - 1;
                 if (boss->timer_050 == 0) {
-                    boss->actionState = 16;
+                    boss->state = 16;
                     boss->unk_04C = 0;
                     boss->timer_050 = 30;
                     boss->fwork[9] = 0.0f;
@@ -2344,7 +2344,7 @@ void func_i6_8018DBF0(Boss* boss) {
             limbCount = Animation_GetFrameData(&D_C00DE48, boss->unk_04C, spD0);
             Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, boss->fwork[9], 100.0f, 0.0f);
             if ((boss->unk_04C == 45) && (boss->swork[8] == 2)) {
-                boss->actionState = 18;
+                boss->state = 18;
                 boss->unk_04C = 0;
                 boss->unk_044 = 0;
                 boss->timer_050 = 40;
@@ -2434,7 +2434,7 @@ void func_i6_8018DBF0(Boss* boss) {
                         (fabsf(playerShot->obj.pos.y - (boss->obj.pos.y - 100.0f)) < 200.0f) &&
                         (fabsf(playerShot->obj.pos.z - (boss->obj.pos.z - 200.0f)) < 100.0f)) {
                         Object_Kill(&playerShot->obj, playerShot->sfxPos);
-                        boss->actionState = 15;
+                        boss->state = 15;
                         boss->fwork[9] = 0.2f;
                         boss->unk_04C = 0;
                         boss->swork[8] = 2;
@@ -2461,7 +2461,7 @@ void func_i6_8018DBF0(Boss* boss) {
                 Math_SmoothStepToF(&player->pos.y, boss->obj.pos.y - 150.0f, 0.1f, boss->fwork[16], 0);
                 Math_SmoothStepToF(&boss->fwork[16], 35.0f, 1.0f, 0.5f, 0);
                 if (fabsf(player->unk_138 - boss->obj.pos.z) < 200.0f) {
-                    boss->actionState = 15;
+                    boss->state = 15;
                     boss->swork[8] = 1;
                     boss->fwork[9] = 0.2f;
                     boss->unk_04C = 0;
@@ -2489,7 +2489,7 @@ void func_i6_8018DBF0(Boss* boss) {
             if (boss->unk_04C >= Animation_GetFrameCount(&D_C0240D0)) {
                 boss->unk_04C = 0;
                 if (boss->timer_050 == 0) {
-                    boss->actionState = 15;
+                    boss->state = 15;
                     boss->swork[8] = 0;
                     boss->fwork[9] = 0.0f;
                 }
@@ -2624,7 +2624,7 @@ void func_i6_8018DBF0(Boss* boss) {
                 case 120:
                     boss->swork[18] = 1;
                     func_i6_8018DA94(boss, &boss->vwork[19]);
-                    boss->actionState = 9;
+                    boss->state = 9;
                     boss->health = 100;
                     boss->timer_050 = 50;
                     boss->fwork[9] = 0.0f;
@@ -2636,7 +2636,7 @@ void func_i6_8018DBF0(Boss* boss) {
         case 9:
             boss->fwork[6] = -3000.0f;
             if (boss->timer_050 == 0) {
-                boss->actionState = 10;
+                boss->state = 10;
                 boss->timer_050 = 100;
             }
             boss->fwork[8] = 0.05f;
@@ -2671,7 +2671,7 @@ void func_i6_8018DBF0(Boss* boss) {
                           boss->obj.pos.y + ((Rand_ZeroOne() - 0.5f) * 700.0f), boss->obj.pos.z, 0.0f, 0.0f,
                           gPlayer[0].vel.z, (Rand_ZeroOne() * 0.15f) + 0.15f, 0);
             if (boss->timer_050 == 0) {
-                boss->actionState = 9;
+                boss->state = 9;
                 boss->timer_050 = 130;
             }
             break;
@@ -2788,7 +2788,7 @@ void func_i6_8018DBF0(Boss* boss) {
                     boss1->obj.pos.y = boss->obj.pos.y;
                     boss1->obj.pos.z = boss->obj.pos.z;
                     boss1->swork[1] = 100;
-                    boss1->actionState = 10;
+                    boss1->state = 10;
                     boss1->timer_050 = 180;
                     boss1->unk_3F8 = 5.0f;
                     Object_SetInfo(&boss1->info, boss1->obj.id);
@@ -2839,10 +2839,10 @@ void func_i6_8018DBF0(Boss* boss) {
     boss->info.hitbox[7] = boss->vwork[3].z - boss->obj.pos.z;
     boss->info.hitbox[9] = boss->vwork[3].y - boss->obj.pos.y;
     boss->info.hitbox[11] = boss->vwork[3].x - boss->obj.pos.x;
-    if ((initialActionState == 17) && (boss->actionState != 17)) {
+    if ((initialstate == 17) && (boss->state != 17)) {
         func_8001A55C(boss->sfxPos, 0x31022087);
     }
-    if ((initialActionState == 7) && (boss->actionState != 7)) {
+    if ((initialstate == 7) && (boss->state != 7)) {
         func_8001A55C(boss->sfxPos, 0x3103108B);
     }
 }
@@ -2873,7 +2873,7 @@ s32 func_i6_801917F0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
     sp94 = D_i6_801A67F4;
     scale = 1.0f;
     if ((limbIndex >= 13) && (limbIndex <= 50)) {
-        if (boss->actionState < 2) {
+        if (boss->state < 2) {
             *dList = NULL;
         } else {
             RCP_SetupDL(&gMasterDisp, 0x1D);
@@ -3136,7 +3136,7 @@ void func_i6_801924B4(s32 limbIndex, Vec3f* rot, void* data) {
             Matrix_MultVec3f(gCalcMatrix, &sp88, &boss->vwork[10]);
             break;
     }
-    if (boss->actionState >= 30) {
+    if (boss->state >= 30) {
         switch (limbIndex) {
             case 1:
                 Matrix_MultVec3f(gCalcMatrix, &sp94, &boss->vwork[16]);
@@ -3186,7 +3186,7 @@ void func_i6_801928C8(Boss* boss) {
         // FAKE
         if (1) {}
         PRINTF("Enm->count %d\n");
-        if (boss->actionState < 2) {
+        if (boss->state < 2) {
             Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, D_i6_801A7F5C, D_i6_801A7F64, D_i6_801A7F6C,
                                D_i6_801A7F74, D_i6_801A7F7C, D_i6_801A8430);
         }
@@ -3251,12 +3251,12 @@ void func_i6_80192E94(Actor* actor) {
     Actor* otherActor;
     s32 i;
 
-    switch (actor->unk_0B8) {
+    switch (actor->state) {
         case 0:
             if (actor->obj.pos.x >= 0.0f) {
-                actor->unk_0B8 = 1;
+                actor->state = 1;
             } else {
-                actor->unk_0B8 = 2;
+                actor->state = 2;
             }
             actor->vwork[0].x = actor->obj.pos.x;
             actor->vwork[0].y = actor->obj.pos.y - 300.0f;
@@ -3339,10 +3339,10 @@ extern Gfx* D_C038AC4;
 
 void func_i6_80193380(Object_80* obj80) {
 
-    switch (obj80->unk_48) {
+    switch (obj80->state) {
         case 0:
             if (fabsf(obj80->obj.pos.z - gPlayer[0].unk_138) < 1800.0f) {
-                obj80->unk_48 = 1;
+                obj80->state = 1;
                 obj80->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_C038AC4);
             }
             break;
@@ -3425,7 +3425,7 @@ void func_i6_80193710(void) {
         }
 
         if (D_80178310[i].id <= OBJ_80_160) {
-            func_800A4F4C(obj58);
+            Object_58_Initialize(obj58);
             obj58->obj.status = OBJ_ACTIVE;
             obj58->obj.id = D_80178310[i].id;
             obj58->sfxPos[0] = obj58->obj.pos.x = D_80178310[i].xPos;
@@ -3479,7 +3479,7 @@ void func_i6_801939A0(s32 actorIndex) {
         actor->iwork[14] = 1;
     }
     if (actorIndex == 1) {
-        actor->unk_0B8 = 1;
+        actor->state = 1;
         actor->unk_046 = 0xFF;
         actor->unk_0B6 = 1000;
     }
@@ -3506,7 +3506,7 @@ void func_i6_80193AE4(s32 actorIndex) {
     actor->obj.pos.z = D_i6_801A6878[actorIndex].z;
     Object_SetInfo(&actor->info, actor->obj.id);
     if (actorIndex == 0) {
-        actor->unk_0B8 = 200;
+        actor->state = 200;
         actor->unk_0B6 = 1;
         Audio_PlaySfx(0x11030010, actor->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         return;
@@ -3514,7 +3514,7 @@ void func_i6_80193AE4(s32 actorIndex) {
     actor->iwork[11] = 1;
     actor->fwork[7] = Rand_ZeroOne() * 360.0f;
     actor->fwork[8] = Rand_ZeroOne() * 360.0f;
-    actor->unk_0B8 = 100;
+    actor->state = 100;
     Audio_PlaySfx(0x3100000C, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
@@ -3844,7 +3844,7 @@ void func_i6_80193C4C(Player* player) {
                 D_801779B8 = 15000.0f;
                 D_801779C0 = 0;
                 player->unk_034 = 0.0f;
-                gActors[10].unk_0B8 = 101;
+                gActors[10].state = 101;
                 gActors[10].fwork[0] = 0.0f;
                 gActors[10].obj.pos.y = 14500.0f;
                 gActors[10].unk_0F4.z = 70.0f;
@@ -4056,7 +4056,7 @@ void func_i6_80195E44(Actor* actor) {
 
     sp34 = 0.0f;
 
-    switch (actor->unk_0B8) {
+    switch (actor->state) {
         case 0:
             actor->unk_0F4.z += actor->fwork[1];
             if (gCsFrameCount > 250) {
@@ -4069,7 +4069,7 @@ void func_i6_80195E44(Actor* actor) {
             actor->unk_0F4.z += actor->fwork[1];
             Math_SmoothStepToF(&actor->fwork[1], -2.0f, 0.1f, 0.04f, 0.0f);
             if (gCsFrameCount == 55) {
-                actor->unk_0B8++;
+                actor->state++;
             }
             break;
         case 2:
@@ -4115,7 +4115,7 @@ void func_i6_801961AC(void) {
 
     Boss_Initialize(boss);
     boss->obj.status = OBJ_ACTIVE;
-    boss->actionState = 21;
+    boss->state = 21;
     boss->obj.id = OBJ_BOSS_321;
     Object_SetInfo(&boss->info, boss->obj.id);
     gCsFrameCount = 599;

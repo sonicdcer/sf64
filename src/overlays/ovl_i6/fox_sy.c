@@ -35,7 +35,7 @@ void func_i6_80197B30(Actor* actor, s32 timer) {
     actor->obj.rot.y = gPlayer->unk_0E8 + gPlayer->unk_114 + 180.0f;
     actor->obj.rot.z = gPlayer->unk_0EC;
 
-    actor->unk_0B8 = 5;
+    actor->state = 5;
     actor->timer_04C = timer;
     actor->iwork[11] = 1;
 

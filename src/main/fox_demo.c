@@ -275,15 +275,15 @@ void func_80048E40(Player* player) {
                     break;
 
                 case 420:
-                    gActors[0].unk_0B8 = 1;
+                    gActors[0].state = 1;
                     break;
 
                 case 430:
-                    gActors[1].unk_0B8 = 1;
+                    gActors[1].state = 1;
                     break;
 
                 case 440:
-                    gActors[2].unk_0B8 = 1;
+                    gActors[2].state = 1;
                     break;
 
                 case 450:
@@ -363,7 +363,7 @@ void func_80049630(Actor* actor) {
     Vec3f sp3C;
     Vec3f sp30;
 
-    switch (actor->unk_0B8) {
+    switch (actor->state) {
         case 0:
             actor->vwork[0].x = gPlayer[0].pos.x + D_800C9FA0[actor->index].x;
             actor->vwork[0].y = gPlayer[0].pos.y + D_800C9FA0[actor->index].y;
@@ -377,7 +377,7 @@ void func_80049630(Actor* actor) {
             break;
 
         case 1:
-            actor->unk_0B8 = 2;
+            actor->state = 2;
             Audio_PlaySfx(0x09000002U, actor->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             actor->timer_0BC = 0x96;
             actor->fwork[29] = 5.0f;
@@ -426,7 +426,7 @@ void func_80049968(Actor* actor, s32 arg1) {
     actor->fwork[0] = D_800CA000[arg1];
     actor->fwork[1] = D_800CA010[arg1];
     actor->unk_0B6 = D_800CA030[arg1];
-    actor->unk_0B8 = D_800CA040[arg1];
+    actor->state = D_800CA040[arg1];
     actor->obj.rot.z = D_800CA020[arg1];
     actor->obj.rot.y = 180.0f;
     actor->vel.z = gPlayer[0].vel.z;
@@ -560,22 +560,22 @@ void func_80049C0C(Player* player) {
             player->unk_190 = 2.0f;
 
             if ((player->timer_1F8 == 0x5F) && (gTeamShields[1] > 0)) {
-                gActors[0].unk_0B8 = var_v0;
+                gActors[0].state = var_v0;
                 Audio_PlaySfx(0x0940802AU, gActors[0].sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
 
             if ((player->timer_1F8 == 0x5A) && (gTeamShields[3] > 0)) {
-                gActors[2].unk_0B8 = var_v0;
+                gActors[2].state = var_v0;
                 Audio_PlaySfx(0x0940802AU, gActors[2].sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
 
             if ((player->timer_1F8 == 85) && (gTeamShields[2] > 0)) {
-                gActors[1].unk_0B8 = var_v0;
+                gActors[1].state = var_v0;
                 Audio_PlaySfx(0x0940802AU, gActors[1].sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
 
             if (player->timer_1F8 == 60) {
-                gActors[3].unk_0B8 = var_v0;
+                gActors[3].state = var_v0;
                 Audio_PlaySfx(0x0940802AU, gActors[3].sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 func_800182F4(0x103200FF);
                 func_800182F4(0x113200FF);
@@ -1956,7 +1956,7 @@ void func_8004E4D4(Actor* actor) {
     actor->fwork[8] += 2.0f;
     sp34 = __sinf(actor->fwork[8] * M_DTOR) * 10.0f;
 
-    switch (actor->unk_0B8) {
+    switch (actor->state) {
         case 0:
             Math_SmoothStepToF(&actor->obj.rot.z, 0.0f, 0.05f, 1.0f, 0.0f);
             Math_SmoothStepToF(&actor->obj.pos.x, actor->fwork[0] + sp38->pos.x, 0.03f, 10.0f, 0.0f);
@@ -1967,7 +1967,7 @@ void func_8004E4D4(Actor* actor) {
             break;
 
         case 1:
-            actor->unk_0B8 = 2;
+            actor->state = 2;
             actor->timer_0BC = 0x32;
             actor->fwork[9] = 2.0f;
             Audio_PlaySfx(0x09000002U, actor->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -1989,7 +1989,7 @@ void func_8004E4D4(Actor* actor) {
             break;
 
         case 10:
-            actor->unk_0B8 = 0xB;
+            actor->state = 0xB;
             actor->timer_0BC = 0x96;
             actor->timer_0BE = 0x28;
             Audio_PlaySfx(0x09000002U, actor->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -2048,7 +2048,7 @@ void func_8004E4D4(Actor* actor) {
 
         case 31:
             Audio_PlaySfx(0x09000002U, actor->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-            actor->unk_0B8 += 1;
+            actor->state += 1;
             actor->fwork[29] = 5.0f;
             /* fallthrough */
 
@@ -2077,7 +2077,7 @@ void func_8004EBD0(Actor* actor) {
     Vec3f src;
     Vec3f dest;
 
-    if (actor->unk_0B8 < 4) {
+    if (actor->state < 4) {
         actor->fwork[9] = 0.4f;
 
         actor->obj.pos.x += (D_80178450[actor->index] - actor->obj.pos.x) * 0.4f;
@@ -2105,11 +2105,11 @@ void func_8004EBD0(Actor* actor) {
         }
     }
 
-    switch (actor->unk_0B8) {
+    switch (actor->state) {
         case 0:
             actor->fwork[3] *= 0.992f;
             if (actor->fwork[3] < 1.2f) {
-                actor->unk_0B8 += 1;
+                actor->state += 1;
             }
             break;
 
@@ -2117,7 +2117,7 @@ void func_8004EBD0(Actor* actor) {
             actor->fwork[3] *= 0.997f;
             if (actor->fwork[3] < 1.0f) {
                 actor->fwork[3] = 1.0f;
-                actor->unk_0B8 += 1;
+                actor->state += 1;
             }
             actor->timer_0BC = 560;
             break;
@@ -2130,7 +2130,7 @@ void func_8004EBD0(Actor* actor) {
                 gPlayer[0].timer_1FC = 0x2710;
             }
             if (actor->timer_0BC == 0) {
-                actor->unk_0B8++;
+                actor->state++;
                 actor->timer_0BC = 10;
                 func_800A6028(actor->sfxPos, 0x09000002);
                 actor->fwork[29] = 5.0f;
@@ -2140,7 +2140,7 @@ void func_8004EBD0(Actor* actor) {
         case 3:
             actor->iwork[11] = 2;
             if (actor->timer_0BC == 0) {
-                actor->unk_0B8++;
+                actor->state++;
                 actor->timer_0BC = 30;
             }
             break;
@@ -2197,12 +2197,12 @@ void func_8004F05C(Actor* actor) {
 
                     Math_SmoothStepToF(&actor->obj.rot.z, actor->fwork[1], 0.05f, 0.3f, 0.0f);
 
-                    switch (actor->unk_0B8) {
+                    switch (actor->state) {
                         case 0:
                             break;
 
                         case 1:
-                            actor->unk_0B8 = 2;
+                            actor->state = 2;
                             actor->timer_0BC = 0x64;
                             Audio_PlaySfx(0x09000002U, actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                             actor->fwork[29] = 5.0f;
@@ -2267,7 +2267,7 @@ void func_8004F05C(Actor* actor) {
             break;
 
         case LEVEL_SECTOR_X:
-            if ((actor->unk_0B8 != 0) && (actor->unk_0B8 == 1)) {
+            if ((actor->state != 0) && (actor->state == 1)) {
                 actor->vel.y += 0.1f;
                 Math_SmoothStepToF(&actor->obj.rot.x, -20.0f, 0.1f, 0.5f, 0.0f);
             }
@@ -2278,7 +2278,7 @@ void func_8004F05C(Actor* actor) {
             break;
 
         default:
-            switch (actor->unk_0B8) {
+            switch (actor->state) {
                 case 100:
                     Math_SmoothStepToF(&actor->obj.pos.x, actor->vwork[0x14].x, 0.03f, 3.0f, 0.0f);
                     Math_SmoothStepToF(&actor->obj.pos.y, actor->vwork[0x14].y, 0.03f, 2.0f, 0.0f);
@@ -2343,7 +2343,7 @@ void func_8004F05C(Actor* actor) {
 void func_8004F798(Actor* actor) {
     actor->iwork[11] = 2;
 
-    switch (actor->unk_0B8) {
+    switch (actor->state) {
         case 0:
             Math_SmoothStepToF(&actor->obj.pos.x, actor->fwork[0], 0.05f, 50.0f, 0.0f);
             Math_SmoothStepToF(&actor->obj.pos.y, actor->fwork[1], 0.05f, 50.0f, 0.0f);
@@ -2417,10 +2417,10 @@ void func_8004F8AC(Actor* actor) {
 
                 case LEVEL_FORTUNA:
                     if (actor->unk_0B6 == 0xB) {
-                        switch (actor->unk_0B8) {
+                        switch (actor->state) {
                             case 0:
                                 if (gCsFrameCount == 0x64) {
-                                    actor->unk_0B8 = 1;
+                                    actor->state = 1;
                                     actor->timer_0BC = 0x32;
                                     actor->iwork[0] = 255;
                                     Audio_PlaySfx(0x2902F026U, actor->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
