@@ -381,7 +381,31 @@ void func_i4_8019DD20(Actor* actor) {
     actor->obj.rot.z = -actor->unk_0F4.z;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019E234.s")
+void func_i4_8019E234(Actor* actor) {
+    s32 i;
+
+    actor->obj.rot.x += actor->unk_0F4.x;
+    actor->obj.rot.y += actor->unk_0F4.y;
+
+    if (actor->unk_0D0 != 0) {
+        actor->timer_0C6 = 20;
+        actor->unk_0D0 = 0;
+        actor->health -= actor->damage;
+        Audio_PlaySfx(0x2903300EU, actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        if (actor->health <= 0) {
+            func_8007BFFC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 10);
+            func_80066254(actor);
+            func_80077240(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 2);
+            gHitCount += 3;
+            D_80177850 = 15;
+            for (i = 0; i < 6; i++) {
+                func_800794CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1.0f);
+            }
+            Object_Kill(&actor->obj, actor->sfxPos);
+            func_8007A6F0(&actor->obj.pos, 0x1903400F);
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019E3A8.s")
 
