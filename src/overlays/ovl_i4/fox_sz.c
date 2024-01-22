@@ -283,7 +283,103 @@ void func_i4_8019B888(void) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019C85C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019DD20.s")
+void func_i4_8019DD20(Actor* actor) {
+    Vec3f src;
+    Vec3f dest;
+
+    switch (actor->unk_0B8) {
+        case 1:
+            actor->unk_0B8 = 2;
+            Audio_PlaySfx(0x09000002U, actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            actor->fwork[29] = 5.0f;
+
+        case 2:
+            actor->iwork[11] = 2;
+            actor->fwork[0] += 2.0f;
+            actor->unk_0F4.x += actor->fwork[1];
+            Math_SmoothStepToF(&actor->fwork[1], 0.1f, 1.0f, 0.01f, 0.0f);
+            break;
+
+        case 10:
+            if (actor->timer_0BC == 0) {
+                actor->unk_0B8 = 11;
+            }
+            break;
+
+        case 11:
+            Math_SmoothStepToF(&actor->unk_0F4.x, 215.0f, 0.1f, 7.0f, 0.0f);
+            Math_SmoothStepToF(actor->fwork, 10.0f, 0.1f, 1.5f, 0.0f);
+            Math_SmoothStepToAngle(&actor->unk_0F4.y, 140.0f, 0.1f, 1.0f, 0.0f);
+            if (actor->unk_0F4.x > 180.0f) {
+                actor->unk_0B8 = 12;
+            }
+            break;
+
+        case 12:
+            Math_SmoothStepToAngle(&actor->unk_0F4.x, 218.0f, 0.1f, 7.0f, 0.0f);
+            Math_SmoothStepToAngle(&actor->unk_0F4.y, 147.0f, 0.1f, 1.0f, 0.0f);
+            Math_SmoothStepToF(&actor->unk_0F4.z, 170.0f, 0.03f, 3.0f, 0.0f);
+            Math_SmoothStepToF(actor->fwork, 20.0f, 0.1f, 1.0f, 0.0f);
+            break;
+    }
+
+    if (actor->unk_0B6 == 24) {
+        switch (gCsFrameCount) {
+            case 290:
+                if (gTeamShields[1] > 0) {
+                    func_800BA808(gMsg_ID_16150, RCID_KATT);
+                }
+                break;
+
+            case 430:
+                Audio_PlaySfx(0x09000002U, actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                actor->fwork[29] = 8.0f;
+                break;
+
+            case 400:
+                if (D_80177B8C != 0) {
+                    func_800BA808(gMsg_ID_16160, RCID_KATT);
+                } else {
+                    func_800BA808(gMsg_ID_16165, RCID_KATT);
+                }
+                break;
+        }
+
+        if (gCsFrameCount > 430) {
+            actor->fwork[29] = 3.0f;
+            Math_SmoothStepToF(&actor->unk_0F4.z, 500.0f, 0.1f, 20.0f, 0.0f);
+            Math_SmoothStepToF(actor->fwork, 40.0f, 0.1f, 3.0f, 0.0f);
+
+            if ((gCsFrameCount < 460) && !(gCsFrameCount & 3)) {
+                Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
+                Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
+                Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 1);
+                src.x = 0.0f;
+                src.y = 70.0f;
+                src.z = -70.0f;
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+                func_80078E50(actor->obj.pos.x + dest.x, actor->obj.pos.y + dest.y, actor->obj.pos.z + dest.z, 3.1f);
+            }
+        }
+    }
+
+    Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * M_DTOR, 0);
+    Matrix_RotateX(gCalcMatrix, -(actor->unk_0F4.x * M_DTOR), 1);
+
+    src.x = 0.0f;
+    src.y = 0.0f;
+    src.z = actor->fwork[0];
+
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
+    actor->vel.x = dest.x;
+    actor->vel.y = dest.y;
+    actor->vel.z = dest.z;
+
+    actor->obj.rot.x = -actor->unk_0F4.x;
+    actor->obj.rot.y = actor->unk_0F4.y + 180.0f;
+    actor->obj.rot.z = -actor->unk_0F4.z;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019E234.s")
 
