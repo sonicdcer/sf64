@@ -133,7 +133,7 @@ void func_i6_80196314(Actor* actor) {
             Math_SmoothStepToF(&player->camAt.y, actor4->obj.pos.y, 1.0f, 20000.0f, 0.0f);
             Math_SmoothStepToF(&player->camAt.z, actor4->obj.pos.z, 1.0f, 20000.0f, 0.0f);
             Math_SmoothStepToF(&player->unk_034, 0, 0.1f, 0.2f, 0.0f);
-            if ((gControllerPress->button & 0x1000) || (D_8015F928 == (D_800C9B4C + 300))) {
+            if ((gControllerPress->button & START_BUTTON) || (D_8015F928 == (D_800C9B4C + 300))) {
                 actor->unk_0B8 = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 func_800B7184(player, 1);
