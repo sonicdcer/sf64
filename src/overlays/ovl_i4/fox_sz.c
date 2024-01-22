@@ -84,7 +84,79 @@ void func_i4_80199BDC(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel
     }
 }
 
+// https://decomp.me/scratch/FVgio
+#ifdef NON_MATCHING
+void func_i4_80199C60(Actor* actor) {
+    s32 pad[2];
+    f32 var_fa0;
+    f32 var_fv1;
+
+    switch (++actor->iwork[9]) {
+        case 600:
+            func_800BA808(gMsg_ID_16080, RCID_ROB64);
+            break;
+
+        case 1000:
+            func_800BA808(gMsg_ID_16085, RCID_ROB64);
+            break;
+
+        case 1200:
+            func_800BA808(gMsg_ID_16090, RCID_ROB64);
+            break;
+    }
+
+    var_fv1 = gBosses->obj.pos.x - actor->obj.pos.x;
+    var_fa0 = gBosses->obj.pos.z - actor->obj.pos.z;
+    __sinf((gGameFrameCount * 0.017453292f));
+    if (0) {
+        ;
+}
+    if (var_fv1) {
+        ;
+}
+    if (var_fa0) {
+        ;
+}
+    if (actor->unk_0E4 < 0x64) {
+        var_fv1 = __sinf(((f32) ((actor->index * 45) + gGameFrameCount)) * 0.017453292f) * 5000.0f;
+        var_fa0 = __cosf(((f32) ((actor->index * 45) + (gGameFrameCount * 2))) * 0.017453292f) * 5000.0f;
+    } else {
+        var_fa0 = 0.0f;
+        var_fv1 = 0.0f;
+    }
+
+    actor->fwork[4] = (gBosses->obj.pos.x + var_fv1) + 400.0f;
+    actor->fwork[5] = (gBosses->obj.pos.y + var_fa0) + 100.0f;
+    // temp_fv0 = fabsf(actor->fwork[4] - actor->obj.pos.x);
+    actor->fwork[6] = gBosses->obj.pos.z;
+    actor->fwork[3] = 1.4f;
+
+    if (((fabsf(actor->fwork[4] - actor->obj.pos.x) < 800.0f) &&
+         (fabsf(actor->fwork[5] - actor->obj.pos.y) < 800.0f)) &&
+        (fabsf(actor->fwork[6] - actor->obj.pos.z) < 800.0f)) {
+        func_i4_80199900(actor, 0);
+        D_80178480 = 0x19;
+        gBosses->dmgType = 0x64;
+        if ((gPlayer->state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer->state_1C8 == PLAYERSTATE_1C8_5)) {
+            gPlayer->state_1C8 = PLAYERSTATE_1C8_7;
+            gPlayer->unk_1D0 = 0;
+            gActors->unk_0B8 = -0x7960;
+            return;
+        }
+    }
+
+    if (((fabsf(actor->fwork[6] - actor->obj.pos.z) < 2000.0f) &&
+         (((gPlayer->camEye.z < 0.0f) || (D_801615D0.y < 0.0f)) || (gPlayer->state_1C8 == PLAYERSTATE_1C8_10))) &&
+        (((gPlayer->state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer->state_1C8 == PLAYERSTATE_1C8_10)) ||
+         (gPlayer->state_1C8 == PLAYERSTATE_1C8_5))) {
+        gPlayer->state_1C8 = PLAYERSTATE_1C8_7;
+        gPlayer->unk_1D0 = 0x64;
+        gActors->unk_0B8 = -0x7960;
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_80199C60.s")
+#endif
 
 void func_i4_80199FCC(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
