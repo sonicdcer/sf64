@@ -565,7 +565,10 @@ void func_i4_8019E454(Boss* boss) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019E98C.s")
+void func_i4_8019E98C(Boss* boss) {
+    gSPFogPosition(gMasterDisp++, gFogNear, 1005);
+    func_800515C4();
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019EA68.s")
 
