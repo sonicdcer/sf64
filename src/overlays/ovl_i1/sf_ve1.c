@@ -141,7 +141,148 @@ void func_i1_801924A8(Object_80* obj80) {
 void func_i1_8019250C(Actor* actor) {
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_80192518.s")
+void func_i1_80192518(Actor* actor) {
+    Object_80* obj80;
+    f32 temp_fv0;
+    f32 var_ft5;
+    s32 i;
+    Vec3f src;
+    Vec3f dest;
+    f32 temp_fv1_2;
+    Effect* effect;
+    f32 var_ft4;
+
+    if (actor->unk_0D0 == 1) {
+        actor->unk_0D0 = 0;
+        func_8007A6F0(&actor->obj.pos, 0x29121007);
+    }
+
+    if ((actor->unk_0B8 == 1) || (actor->unk_0B8 == 2) || (actor->unk_0B8 == 3)) {
+        Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
+        Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
+        Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 1);
+    }
+
+    switch (actor->unk_0B8) {
+        case 0:
+        case 4:
+            break;
+
+        case 1:
+            var_ft5 = 450.0f;
+            var_ft4 = 0.0f;
+
+            obj80 = &gObjects80[0];
+
+            for (i = 0; i < 50; i++, obj80++) {
+                if ((obj80->obj.id == 128) || (obj80->obj.id == 129) || (obj80->obj.id == 130)) {
+                    temp_fv0 = actor->obj.pos.z + 1100.0f;
+                    if ((temp_fv0 - obj80->obj.pos.z) < 2200.0f) {
+                        if (obj80->obj.pos.z < temp_fv0) {
+                            switch (obj80->obj.id) {
+                                case 128:
+                                case 130:
+                                    break;
+
+                                case 129:
+                                    var_ft5 = 600.0f;
+                                    break;
+                            }
+
+                            var_ft4 = obj80->obj.pos.x;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            temp_fv1_2 = actor->obj.pos.x;
+            actor->fwork[0] = 0.0f;
+
+            if ((temp_fv1_2 + var_ft4) < 0.0f) {
+                actor->obj.pos.x = var_ft4 - var_ft5;
+                actor->fwork[1] = 896.0f - (actor->obj.pos.x - temp_fv1_2);
+            } else {
+                actor->obj.pos.x = var_ft4 + var_ft5;
+                actor->fwork[1] = actor->obj.pos.x - temp_fv1_2 + 896.0f;
+            }
+
+            actor->timer_0BC = actor->iwork[2];
+            Audio_PlaySfx(0x1903205BU, actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            actor->unk_0B8 = 2;
+
+        case 2:
+            if (actor->timer_0BC == 0) {
+                src.x = temp_fv1_2 = Math_SmoothStepToF(actor->fwork, actor->fwork[1], 0.7f, 80.0f, 0.01f);
+                src.y = 0.0f;
+                src.z = 0.0f;
+
+                Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+
+                actor->obj.pos.x += dest.x;
+                actor->obj.pos.y += dest.y;
+                actor->obj.pos.z += dest.z;
+
+                effect = func_8007783C(OBJ_EFFECT_394);
+
+                if (effect != NULL) {
+                    effect->unk_7A = 11;
+                    effect->unk_78 = effect->unk_7A;
+                    effect->obj.status = 2;
+
+                    effect->obj.pos.x = (Rand_ZeroOne() - 0.5f) * 3.0f + actor->obj.pos.x;
+                    effect->obj.pos.y = (Rand_ZeroOne() - 0.5f) * 3.0f + actor->obj.pos.y;
+                    effect->obj.pos.z = (Rand_ZeroOne() - 0.5f) * 3.0f + actor->obj.pos.z + 80.0f;
+
+                    effect->scale2 = 8.0f;
+
+                    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+
+                    effect->vel.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
+                    effect->vel.y = (Rand_ZeroOne() - 0.5f) * 3.0f + 10.0f;
+
+                    effect->unk_44 = 100;
+                    effect->unk_46 = -5;
+                    effect->unk_60.z = 3;
+
+                    if (Rand_ZeroOne() < 0.5f) {
+                        effect->unk_60.z = -effect->unk_60.z;
+                    }
+
+                    if (actor->iwork[0] & 1) {
+                        effect->vel.y = -effect->vel.y;
+                    }
+                }
+
+                if (fabs(temp_fv1_2) <= 5.0) {
+                    actor->timer_0BE = 30;
+                    actor->unk_0B8++;
+                    actor->fwork[2] = actor->obj.pos.x;
+                    actor->fwork[3] = actor->obj.pos.y;
+                    actor->fwork[4] = actor->obj.pos.z;
+                }
+            }
+            break;
+
+        case 3:
+            src.x = __sinf(((((30 - actor->timer_0BE) % 10) / 10.0f) * M_PI) * 2) * 5.0f;
+            src.y = 0.0f;
+            src.z = 0.0f;
+
+            Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+
+            actor->obj.pos.x = actor->fwork[2] + dest.x;
+            actor->obj.pos.y = actor->fwork[3] + dest.y;
+            actor->obj.pos.z = actor->fwork[4] + dest.z;
+
+            if (actor->timer_0BE == 0) {
+                actor->unk_0B8++;
+            }
+            break;
+    }
+
+    actor->iwork[0]++;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_80192AA4.s")
 
