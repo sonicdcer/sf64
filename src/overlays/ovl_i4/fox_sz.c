@@ -4,6 +4,7 @@ extern Vec3f D_i4_8019F4C0[];
 extern Vec3f D_i4_8019F4E4[];
 extern Vec3f D_i4_8019F528[7];
 extern Vec3f D_i4_8019F57C[];
+extern Vec3f D_i4_8019F5BC[];
 extern f32 D_i4_8019F5AC[];
 extern s32 D_i4_801A0560;
 
@@ -222,7 +223,26 @@ void func_i4_8019B630(Actor* actor, s32 index) {
     Audio_PlaySfx(0x31000011U, actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019B75C.s")
+void func_i4_8019B75C(Actor* actor, s32 arg1) {
+    Actor* newActor = &gActors[0];
+    
+    Actor_Initialize(actor);
+    actor->obj.status = 2;
+    actor->obj.id = OBJ_ACTOR_195;
+
+    actor->obj.pos.x = D_i4_8019F5BC[arg1].x + newActor->obj.pos.x;
+    actor->obj.pos.y = newActor->obj.pos.y - 500.0f;
+    actor->obj.pos.z = D_i4_8019F5BC[arg1].z + newActor->obj.pos.z;
+
+    actor->vel.x = -D_80161A54;
+    actor->obj.rot.y = 270.0f;
+
+    Object_SetInfo(&actor->info, actor->obj.id);
+
+    Audio_PlaySfx(0x3100000CU, actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    Audio_PlaySfx(0x09000002U, actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    actor->fwork[29] = 5.0f;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019B888.s")
 
