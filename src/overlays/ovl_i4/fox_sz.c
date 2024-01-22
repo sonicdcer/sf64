@@ -1,6 +1,10 @@
 #include "global.h"
 
+extern Vec3f D_i4_8019F4C0[];
+extern Vec3f D_i4_8019F4E4[];
 extern s32 D_i4_801A0560;
+
+extern f32 D_6009230[];
 
 void func_i4_80199900(Actor* actor, s32 arg1) {
     s32 i;
@@ -76,11 +80,71 @@ void func_i4_80199BDC(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_80199C60.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_80199FCC.s")
+void func_i4_80199FCC(Actor* actor, s32 arg1) {
+    Actor_Initialize(actor);
+    actor->obj.status = 1;
+    actor->obj.id = OBJ_ACTOR_197;
+    actor->unk_0E4 = 200;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019A0F8.s")
+    actor->obj.pos.x = D_i4_8019F4C0[arg1].x;
+    actor->obj.pos.y = D_i4_8019F4C0[arg1].y;
+    actor->obj.pos.z = D_i4_8019F4C0[arg1].z;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019A1D0.s")
+    actor->unk_0B8 = 5;
+    actor->unk_0F4.y = 180.0f;
+
+    Object_SetInfo(&actor->info, actor->obj.id);
+
+    actor->health = 250;
+    actor->info.drawType = 2;
+    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6009230);
+    actor->fwork[1] = 25.0f;
+    actor->fwork[0x1D] = 2.0f;
+
+    Audio_PlaySfx(0x3103A061U, actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+}
+
+void func_i4_8019A0F8(Actor* actor, s32 arg1) {
+    Actor_Initialize(actor);
+    actor->obj.status = 1;
+    actor->obj.id = OBJ_ACTOR_197;
+    actor->unk_0E4 = arg1 + 13;
+
+    actor->obj.pos.x = gActors[10].obj.pos.x + D_i4_8019F4E4[arg1].x;
+    actor->obj.pos.y = gActors[10].obj.pos.y + D_i4_8019F4E4[arg1].y;
+    actor->obj.pos.z = gActors[10].obj.pos.z + D_i4_8019F4E4[arg1].z;
+
+    actor->unk_0B8 = 5;
+    actor->unk_0F4.y = 180.0f;
+
+    Object_SetInfo(&actor->info, actor->obj.id);
+
+    actor->fwork[1] = gActors[10].fwork[1];
+    actor->iwork[11] = 1;
+}
+
+void func_i4_8019A1D0(void) {
+    s32 index = 8;
+
+    Actor_Initialize(&gActors[index]);
+    gActors[index].obj.status = 2;
+    gActors[index].obj.id = OBJ_ACTOR_197;
+    gActors[index].obj.pos.x = 0.0f;
+    gActors[index].obj.pos.y = 4500.0f;
+    gActors[index].obj.pos.z = 30000.0f;
+    gActors[index].unk_0E4 = 8;
+    gActors[index].unk_0E6 = 12;
+    gActors[index].health = 10000;
+    gActors[index].unk_0F4.y = 180.0f;
+    gActors[index].unk_0B8 = 0;
+    gActors[index].timer_0BC = 250;
+    gActors[index].unk_0F4.x = -20.0f;
+    gActors[index].iwork[11] = 1;
+    gActors[index].obj.rot.z = 90.0f;
+    Object_SetInfo(&gActors[index].info, gActors[index].obj.id);
+    gActors[index].info.unk_1C = 0.0f;
+    Audio_PlaySfx(0x31000011U, gActors[index].sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019A2F4.s")
 
