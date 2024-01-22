@@ -1797,7 +1797,8 @@ void func_i6_8019E2C4(Boss* boss) {
         }
         if (boss->fwork[46] != 0.0f) {
             RCP_SetupDL_49();
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, (s32) boss->fwork[46], (s32) boss->fwork[46], 0, (s32) boss->fwork[46]);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, (s32) boss->fwork[46], (s32) boss->fwork[46], 0,
+                            (s32) boss->fwork[46]);
             gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
             Matrix_Pop(&gGfxMatrix);
             Matrix_Push(&gGfxMatrix);
@@ -3177,13 +3178,15 @@ s32 func_i6_801A4A18(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
 
     if (limbIndex == 4) {
         if (!(actor->iwork[18] & 1)) {
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, D_i6_801A6B28[actor->iwork[14]], D_i6_801A6B34[actor->iwork[14]], D_i6_801A6B40[actor->iwork[14]], 255);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, D_i6_801A6B28[actor->iwork[14]], D_i6_801A6B34[actor->iwork[14]],
+                            D_i6_801A6B40[actor->iwork[14]], 255);
         } else {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 255, 0, 255);
         }
     } else {
         if (!(actor->timer_0C6 & 1)) {
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, D_i6_801A6B28[actor->iwork[14]], D_i6_801A6B34[actor->iwork[14]], D_i6_801A6B40[actor->iwork[14]], 255);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, D_i6_801A6B28[actor->iwork[14]], D_i6_801A6B34[actor->iwork[14]],
+                            D_i6_801A6B40[actor->iwork[14]], 255);
         } else {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 64, 64, 255, 255);
         }
