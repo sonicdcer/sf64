@@ -6,9 +6,12 @@ extern Vec3f D_i4_8019F528[7];
 extern Vec3f D_i4_8019F57C[];
 extern Vec3f D_i4_8019F5BC[];
 extern Vec3f D_i4_8019F5EC[];
+extern Vec3f D_i4_8019F64C[];
 extern f32 D_i4_8019F5AC[];
 extern s32 D_i4_801A0560;
 
+extern Gfx D_6001A10[];
+extern Gfx D_60045E0[];
 extern f32 D_6009230[];
 
 void func_i4_80199900(Actor* actor, s32 arg1) {
@@ -110,13 +113,13 @@ void func_i4_80199C60(Actor* actor) {
     __sinf((gGameFrameCount * 0.017453292f));
     if (0) {
         ;
-}
+    }
     if (var_fv1) {
         ;
-}
+    }
     if (var_fa0) {
         ;
-}
+    }
     if (actor->unk_0E4 < 0x64) {
         var_fv1 = __sinf(((f32) ((actor->index * 45) + gGameFrameCount)) * 0.017453292f) * 5000.0f;
         var_fa0 = __cosf(((f32) ((actor->index * 45) + (gGameFrameCount * 2))) * 0.017453292f) * 5000.0f;
@@ -479,9 +482,88 @@ void func_i4_8019E234(Actor* actor) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019E3A8.s")
+void func_i4_8019E3A8(Actor* actor) {
+    gSPDisplayList(gMasterDisp++, D_6001A10);
+    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+    RCP_SetupDL(&gMasterDisp, 0x39);
+    gSPDisplayList(gMasterDisp++, D_60045E0);
+    gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019E454.s")
+void func_i4_8019E454(Boss* boss) {
+    s32 i;
+    s32 j;
+    f32 temp_fs5;
+    f32 sp98;
+    f32 sp94;
+    Vec3f src;
+    Vec3f dest;
+
+    if (boss->dmgType == 100) {
+        boss->dmgType = 0;
+        boss->timer_050 = 10;
+        boss->timer_052 = 60;
+        boss->actionState = 1;
+        Audio_PlaySfx(0x1900404FU, boss->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    }
+
+    if (boss->timer_050 == 1) {
+        D_80177B8C = 0;
+    }
+
+    if (boss->timer_050 == 5) {
+        temp_fs5 = boss->obj.pos.x + 400.0f;
+        sp98 = boss->obj.pos.y + 200.0f;
+        sp94 = boss->obj.pos.z + 1000.0f;
+
+        for (i = 0; i < 25; i++) {
+            func_800794CC(temp_fs5 + ((Rand_ZeroOne() - 0.5f) * 300.0f), sp98 + ((Rand_ZeroOne() - 0.5f) * 100.0f),
+                          sp94, 2.0f);
+            func_80079618(temp_fs5 + ((Rand_ZeroOne() - 0.5f) * 300.0f), sp98 + ((Rand_ZeroOne() - 0.5f) * 100.0f),
+                          sp94, 2.0f);
+        }
+        func_8007BFFC(temp_fs5, sp98, sp94, 0.0f, 0.0f, 0.0f, 20.0f, 0x1E);
+    }
+
+    if (boss->timer_052 != 0) {
+        for (j = 0; j < 1; j++) {
+            i = Rand_ZeroOne() * 11.99f;
+            func_i4_80199BDC(D_i4_8019F64C[i].x + boss->obj.pos.x, D_i4_8019F64C[i].y + boss->obj.pos.y,
+                             D_i4_8019F64C[i].z + boss->obj.pos.z, (Rand_ZeroOne() - 0.5f) * 5.0f,
+                             (Rand_ZeroOne() - 0.5f) * 5.0f, 10.0f, (Rand_ZeroOne() * 2.0f) + 4.0f);
+        }
+    }
+
+    Matrix_RotateY(gCalcMatrix, (boss->unk_078.y + 180.0f) * 0.017453292f, 0);
+    Matrix_RotateX(gCalcMatrix, -(boss->unk_078.x * 0.017453292f), 1);
+
+    src.x = 0.0f;
+    src.y = 0.0f;
+    src.z = boss->fwork[0];
+
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
+    boss->vel.x = dest.x;
+    boss->vel.y = dest.y;
+    boss->vel.z = dest.z;
+
+    boss->obj.rot.x = -boss->unk_078.x;
+    boss->obj.rot.y = boss->unk_078.y + 180.0f;
+    boss->obj.rot.z = -boss->unk_078.z;
+
+    if (D_80177B8C == 0) {
+        Matrix_RotateY(gCalcMatrix, (boss->obj.rot.y - 270.0f) * 0.017453292f, 0U);
+        Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * 0.017453292f, 1U);
+        Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * 0.017453292f, 1U);
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i4_8019F64C[(s32) (Rand_ZeroOne() * 11.99f)], &dest);
+        func_8007C484(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, boss->vel.x,
+                      boss->vel.y, boss->vel.z, (Rand_ZeroOne() * 0.1f) + 0.15f, 0);
+        if (((((s32) gGameFrameCount) % 7) == 0) && (Rand_ZeroOne() < 0.5f)) {
+            func_i4_80199BDC(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, boss->vel.x,
+                             boss->vel.y, boss->vel.z + 5.0f, (2.0f * Rand_ZeroOne()) + 4.0f);
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019E98C.s")
 
