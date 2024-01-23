@@ -1,9 +1,12 @@
 #include "global.h"
 #include "sf_ve1.h"
 
+//! TODO: IMPORT BSS
+
 extern s32 D_i1_8019C0B8;
 extern s32 D_i1_8019C0BC;
 extern s32 D_i1_8019C0C0;
+extern Vec3f D_i1_80199FFC;
 
 f32 func_i1_801920F0(f32* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32* arg5) {
     f32 temp;
@@ -284,7 +287,40 @@ void func_i1_80192518(Actor* actor) {
     actor->iwork[0]++;
 }
 
+#if defined(IMPORT_BSS)
+void func_i1_80192AA4(Actor* actor) {
+    static Vec3f temp;
+    Vec3f src;
+    Vec3f dest;
+    f32 var_fs0;
+
+    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * 0.017453292f, 0U);
+    Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * 0.017453292f, 1U);
+
+    if ((actor->obj.rot.y <= 30.0f) || (actor->obj.rot.y >= 330.0f)) {
+        temp.x = D_i1_80199FFC.x;
+        for (temp.x = -80.0f; temp.x <= 80.0f; temp.x += 40.0f) {
+            Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i1_80199FFC, &dest);
+        }
+    } else {
+        src.z = 0.0f;
+        src.x = -80.0f;
+        if (actor->obj.rot.y > 90.0f) {
+            src.x = 80.0f;
+        }
+        if (0.0f <= 450.0f) {
+            for (var_fs0 = 0.0f; var_fs0 <= 450.0f; var_fs0 += 50.0f) {
+                Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * 0.017453292f, 0U);
+                Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * 0.017453292f, 1U);
+                src.y = var_fs0;
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+            }
+        }
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_80192AA4.s")
+#endif
 
 void func_i1_80192CB0(Actor* actor) {
     actor->iwork[0] = actor->obj.rot.x;
