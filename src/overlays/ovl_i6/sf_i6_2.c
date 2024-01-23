@@ -403,7 +403,7 @@ void func_i6_80196D88(Player* player) {
                 D_80178358 = 255;
                 D_8017835C = 8;
                 D_80178348 = D_80178350 = D_80178354 = 0;
-                if (D_80178340 == 0xFF) {
+                if (D_80178340 == 255) {
 
                     for (i = 1; i < ARRAY_COUNT(gTeamShields); i++) {
                         D_80177C38[i] = gSavedTeamShields[i];
