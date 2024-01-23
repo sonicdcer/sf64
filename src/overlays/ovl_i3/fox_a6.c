@@ -1696,14 +1696,14 @@ void func_i3_8018BCD4(Vec3f* arg0, f32 arg1, f32 arg2, Vec3f* arg3, s32 arg4, f3
                 Matrix_Scale(gCalcMatrix, 1.5f, 1.5f, 1.5f, 1);
                 Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                GSGM_BACK();
+                gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                 gSPDisplayList(gMasterDisp++, D_600F1F0);
                 Matrix_MultVec3f(gCalcMatrix, &sp90, arg3);
             } else {
                 Matrix_Scale(gCalcMatrix, 2.0f, 2.0f, 2.0f, 1);
                 Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                GCGM_BACK();
+                gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                 gSPDisplayList(gMasterDisp++, D_6015EE0);
                 if (arg6 != 12) {
                     Matrix_MultVec3f(gCalcMatrix, &sp90, arg3);
@@ -1734,7 +1734,7 @@ void func_i3_8018C0D0(f32* arg0, f32 arg1, Vec3f* arg2, f32 arg3, s32 arg4) {
     Matrix_Push(&gGfxMatrix);
     Matrix_Push(&gCalcMatrix);
     Matrix_Copy(gCalcMatrix, &gIdentityMatrix);
-    GCGM_BACK();
+    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     Matrix_RotateZ(gCalcMatrix, (D_i3_801C22F0.unk_34 + arg1) * M_DTOR, 1);
     Matrix_Translate(gCalcMatrix, 0.0f, -360.0f, 120.0f, 1);
     Matrix_RotateX(gCalcMatrix, -(90.0f - arg3) * M_DTOR, 1);

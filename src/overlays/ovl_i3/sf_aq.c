@@ -373,10 +373,6 @@ f32 D_i3_801C0828[51] = {
 };
 Vec3f D_i3_801C08F4 = { 0.0f, 0.0f, 0.0f };
 
-typedef struct {
-    char unk_00[0x148];
-} UnkStruct_1C4308;
-
 PosRot* D_i3_801C27C0;
 PosRot D_i3_801C27C8[4][50];
 Vtx D_i3_801C3A88[2][2][28];
@@ -385,39 +381,501 @@ s32 D_i3_801C4190[10];
 f32 D_i3_801C41B8[30];
 s32 D_i3_801C4230[28];
 s32 D_i3_801C42A0[25];
-UnkStruct_1C4308 D_i3_801C4308;
+f32 D_i3_801C4308[82];
 s32 D_i3_801C4450;
 s32 D_i3_801C4454;
 f32 D_i3_801C4458;
 f32 D_i3_801C445C;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_aq/func_i3_801A8E30.s")
+extern Gfx D_3000130[];
+extern Gfx D_3000470[];
+extern Gfx D_3000AF0[];
+extern Gfx D_3000C70[];
+extern Gfx D_3006AF0[];
+extern Gfx D_3006C70[];
+extern Gfx D_3006DE0[];
+extern AnimationHeader D_6000AE4;
+extern Limb* D_6000DB0[];
+extern AnimationHeader D_6002628;
+extern Limb* D_6002874[];
+extern Gfx D_6002C10[];
+extern AnimationHeader D_6005954;
+extern Limb* D_6005A80[];
+extern u8 D_6008EC8[];
+extern u8 D_6008FC8[];
+extern Vtx D_6011A78[];
+extern AnimationHeader D_60135E0;
+extern Limb* D_60136CC;
+extern Limb* D_60137CC;
+extern Gfx D_60137F0[];
+extern Gfx D_6014030[];
+extern AnimationHeader D_6014438;
+extern Limb* D_6014504[];
+extern Gfx D_6014520[];
+extern Gfx D_6014FD0[];
+extern Vtx D_6018878[];
+extern Vtx D_6018C78[];
+extern Vtx D_6019078[];
+extern u8 D_6019238[];
+extern u8 D_6019338[];
+extern Gfx D_60194D0[];
+extern Gfx D_6019880[];
+extern Gfx D_6019E80[];
+extern AnimationHeader D_601DE50;
+extern AnimationHeader D_601EC68;
+extern Limb* D_601EDB4[];
+extern AnimationHeader D_6020A40;
+extern Limb* D_6020C6C[];
+extern AnimationHeader D_6023780;
+extern Limb* D_602390C[];
+extern Gfx D_6024A50[];
+extern AnimationHeader D_6024F80;
+extern Limb* D_602512C;
+extern AnimationHeader D_60260EC;
+extern Limb* D_60263F8[];
+extern AnimationHeader D_602AC28;
+extern Limb* D_602BD60[];
+extern f32 D_6030D3C[];
+extern f32 D_6030D58[];
+extern f32 D_60314AC[];
+extern f32 D_60314E4[];
+extern f32 D_603151C[];
+extern Vtx D_6031D90[];
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_aq/func_i3_801A92EC.s")
+void func_i3_801A8E30(void);
+void func_i3_801A92EC(Actor* actor, f32 xUnk, f32 yUnk, f32 zUnk, s32 index, s32 mode);
+void func_i3_801A9374(Actor* actor, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 unkB8, f32 scale,
+                      s32 timerBC, s32 unk48);
+void func_i3_801A9448(Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 unkB8, f32 scale, s32 timerBC,
+                      s32 unk48);
+void func_i3_801A94EC(Vec3f* pos, ObjectId objId);
+f32 func_i3_801A958C(s32 arg0, f32 arg1);
+void func_i3_801A95C8(void);
+void func_i3_801A96DC(Actor* actor);
+void func_i3_801A9728(Actor* actor, f32 radius, f32 scale, s32 spread);
+void func_i3_801A9824(void);
+void func_i3_801A99D4(Player* player);
+void func_i3_801A9C98(Player* player);
+void func_i3_801A9DE4(Player* player);
+void func_i3_801A9ED0(Player* player);
+void func_i3_801AA20C(void);
+void func_i3_801AA4BC(Player* player);
+void func_i3_801AA8E8(Player* player);
+void func_i3_801AACF8(Player* player);
+void func_i3_801AB9B0(Player* player);
+void func_i3_801ABA40(PlayerShot* shot);
+void func_i3_801AC09C(Player* player);
+void func_i3_801AC18C(Player* player);
+void func_i3_801AC274(Player* player);
+void func_i3_801AC7C8(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 unk4E);
+void func_i3_801AC8A8(f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 unk4E);
+void func_i3_801AC918(Effect* effect);
+void func_i3_801ACBB4(Player* player);
+void func_i3_801ACE50(Player* player);
+void func_i3_801AD328(Player* player);
+void func_i3_801AD598(Actor* actor);
+void func_i3_801AD688(Actor* actor);
+void func_i3_801AD6C0(Actor* actor);
+void func_i3_801AE168(Actor* actor);
+void func_i3_801AE3AC(Actor* actor);
+void func_i3_801AE3D8(Actor* actor);
+void func_i3_801AEB44(Actor* actor);
+void func_i3_801AF9FC(Actor* actor);
+void func_i3_801AFA5C(Actor* actor);
+void func_i3_801B099C(Actor* actor);
+void func_i3_801B0B60(Actor* actor);
+void func_i3_801B0EC0(Actor* actor);
+void func_i3_801B0F88(Boss* bossAQ);
+void func_i3_801B0FCC(Boss* bossAQ);
+void func_i3_801B1008(Boss* bossAQ, s16 timer);
+void func_i3_801B10F8(Boss* bossAQ);
+void func_i3_801B134C(Boss* bossAQ);
+bool func_i3_801B42AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx);
+void func_i3_801B49DC(s32 limbIndex, Vec3f* rot, void* thisx);
+void func_i3_801B4D84(Boss* bossAQ);
+bool func_i3_801B4DDC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx);
+void func_i3_801B4E94(s32 limbIndex, Vec3f* rot, void* thisx);
+void func_i3_801B504C(Actor* actor);
+void func_i3_801B50E8(Actor* actor);
+bool func_i3_801B5C18(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx);
+void func_i3_801B5F68(s32 limbIndex, Vec3f* rot, void* thisx);
+void func_i3_801B619C(Actor* actor);
+void func_i3_801B6344(Actor* actor);
+void func_i3_801B638C(Actor* actor);
+void func_i3_801B6E54(Actor* actor);
+void func_i3_801B6FF8(Actor* actor);
+bool func_i3_801B76EC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx);
+void func_i3_801B7754(s32 limbIndex, Vec3f* rot, void* thisx);
+void func_i3_801B7A24(Actor* actor);
+void func_i3_801B7AF0(Actor* actor);
+void func_i3_801B7C78(Actor* actor);
+bool func_i3_801B8C50(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx);
+void func_i3_801B8D7C(s32 limbIndex, Vec3f* rot, void* thisx);
+void func_i3_801B90DC(Actor* actor);
+void func_i3_801B91A4(Actor* actor);
+void func_i3_801B9DB0(s32 limbIndex, Vec3f* rot, void* thisx);
+void func_i3_801BA108(Actor* actor);
+void func_i3_801BA26C(Actor* actor);
+void func_i3_801BA4E4(Actor* actor);
+void func_i3_801BA57C(Actor* actor);
+void func_i3_801BA6A4(Actor* actor);
+void func_i3_801BAD7C(Actor* actor);
+void func_i3_801BADF8(Actor* actor);
+void func_i3_801BB0C4(s32 limbIndex, Vec3f* rot, void* thisx);
+void func_i3_801BB204(Actor* actor);
+void func_i3_801BB26C(Actor* actor);
+void func_i3_801BB79C(Actor* actor);
+bool func_i3_801BC530(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx);
+void func_i3_801BC91C(s32 limbIndex, Vec3f* rot, void* thisx);
+void func_i3_801BC930(Actor* actor);
+void func_i3_801BC9A0(Actor* actor);
+void func_i3_801BD17C(s32 limbIndex, Vec3f* rot, void* thisx);
+void func_i3_801BD264(Actor* actor);
+void func_i3_801BD3B0(Actor* actor, f32 x, f32 y, f32 z);
+void func_i3_801BD54C(Actor* actor);
+bool func_i3_801BDDFC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx);
+void func_i3_801BDE6C(Actor* actor);
+void func_i3_801BDF14(void);
+void func_i3_801BE034(Actor* actor);
+void func_i3_801BE0F0(Actor* actor);
+void func_i3_801BE1FC(Object_80* obj80);
+void func_i3_801BE274(Actor* actor, f32 yRot, f32 xRot);
+void func_i3_801BE3F8(Actor* actor);
+void func_i3_801BEB1C(Actor* actor);
+void func_i3_801BEC68(Actor* actor);
+void func_i3_801BEC74(Actor* actor);
+void func_i3_801BEC80(Player* player);
+void func_i3_801BEC8C(UNK_TYPE arg0);
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_aq/func_i3_801A9374.s")
+void func_i3_801A8E30(void) {
+    s32 i;
+    f32 spA8[17];
+    f32 sp64[17];
+    s32 j;
+    Vtx* sp5C = SEGMENTED_TO_VIRTUAL(D_6031D90);
+    Vtx* sp58 = SEGMENTED_TO_VIRTUAL(D_6011A78);
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_aq/func_i3_801A9448.s")
+    for (i = 0; i < 17; i++) {
+        if ((i == 0) || (i == 16)) {
+            spA8[i] = 0.0f;
+            sp64[i] = 0.0f;
+        } else {
+            spA8[i] = (Rand_ZeroOne() - 0.5f) * 70.0f;
+            sp64[i] = (Rand_ZeroOne() - 0.5f) * 70.0f;
+        }
+    }
+    for (i = 0; i < 34; i++) {
+        j = (sp5C[i].v.ob[2] + 200) / 25;
+        sp58[i].v.ob[0] = sp5C[i].v.ob[0] + spA8[j];
+        sp58[i].v.ob[1] = sp5C[i].v.ob[1] + sp64[j];
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_aq/func_i3_801A94EC.s")
+void func_i3_801A92EC(Actor* actor, f32 xUnk, f32 yUnk, f32 zUnk, s32 index, s32 mode) {
+    gUnkEntities30[index].mode = mode;
+    gUnkEntities30[index].unk_28 = 10.0f;
+    gUnkEntities30[index].unk_04.x = actor->obj.pos.x;
+    gUnkEntities30[index].unk_04.y = actor->obj.pos.y;
+    gUnkEntities30[index].unk_04.z = actor->obj.pos.z;
+    gUnkEntities30[index].unk_10.x = xUnk;
+    gUnkEntities30[index].unk_10.y = yUnk;
+    gUnkEntities30[index].unk_10.z = zUnk;
+    gUnkEntities30[index].unk_2C = gUnkEntities30[index].unk_2D = gUnkEntities30[index].unk_2E =
+        gUnkEntities30[index].unk_2F = 255;
+    gUnkEntities30[index].timer = 3;
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_aq/func_i3_801A958C.s")
+void func_i3_801A9374(Actor* actor, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 unkB8, f32 scale,
+                      s32 timerBC, s32 unk48) {
+    Actor_Initialize(actor);
+    actor->obj.status = 2;
+    actor->obj.id = 189;
+    actor->unk_0B8 = unkB8;
+    actor->scale = scale;
+    actor->unk_048 = unk48;
+    actor->obj.pos = *pos;
+    actor->obj.rot = *rot;
+    actor->vel.x = xVel;
+    actor->vel.y = yVel;
+    actor->vel.z = zVel;
+    actor->timer_0BC = timerBC;
+    actor->gravity = 0.5f;
+    Object_SetInfo(&actor->info, actor->obj.id);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_aq/func_i3_801A95C8.s")
+void func_i3_801A9448(Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 unkB8, f32 scale, s32 timerBC,
+                      s32 unk48) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_aq/func_i3_801A96DC.s")
+    for (i = 59; i >= 0; i--) {
+        if (gActors[i].obj.status == 0) {
+            func_i3_801A9374(&gActors[i], pos, rot, xVel, yVel, zVel, unkB8, scale, timerBC, unk48);
+            break;
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_aq/func_i3_801A9728.s")
+void func_i3_801A94EC(Vec3f* pos, ObjectId objId) {
+    Item* sp18;
+    Item* item;
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_aq/func_i3_801A9824.s")
+    for (i = 0, item = gItems; i < ARRAY_COUNT(gItems); i++, item++) {
+        if (item->obj.status == 0) {
+            Item_Initialize(item);
+            item->obj.status = 1;
+            item->obj.id = objId;
+            item->obj.pos.x = pos->x;
+            item->obj.pos.y = pos->y;
+            item->obj.pos.z = pos->z;
+            item->timer_4A = 2;
+            Object_SetInfo(&item->info, item->obj.id);
+            break;
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_aq/func_i3_801A99D4.s")
+f32 func_i3_801A958C(s32 arg0, f32 arg1) {
+    f32 var_fv1 = arg0 / 2.0f;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_aq/func_i3_801A9C98.s")
+    var_fv1 = MIN(arg1, var_fv1);
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_aq/func_i3_801A9DE4.s")
+    return var_fv1;
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_aq/func_i3_801A9ED0.s")
+void func_i3_801A95C8(void) {
+    Math_SmoothStepToF(&gPlayer[0].camEye.x, D_80177978, 0.1f, 50.0f, 0.0001f);
+    Math_SmoothStepToF(&gPlayer[0].camEye.y, D_80177980, 0.1f, 50.0f, 0.0001f);
+    Math_SmoothStepToF(&gPlayer[0].camEye.z, D_80177988, 0.1f, 50.0f, 0.0001f);
+    Math_SmoothStepToF(&gPlayer[0].camAt.x, D_801779A0, 0.1f, 50.0f, 0.0001f);
+    Math_SmoothStepToF(&gPlayer[0].camAt.y, D_801779B8, 0.1f, 50.0f, 0.0001f);
+    Math_SmoothStepToF(&gPlayer[0].camAt.z, D_801779C0, 0.1f, 50.0f, 0.0001f);
+}
+
+void func_i3_801A96DC(Actor* actor) {
+    actor->obj.rot.y = RAD_TO_DEG(-gPlayer->unk_058);
+    actor->obj.rot.x = RAD_TO_DEG(gPlayer->unk_05C);
+}
+
+void func_i3_801A9728(Actor* actor, f32 radius, f32 scale, s32 spread) {
+    f32 temp_fs0;
+    f32 temp_fs1;
+    f32 temp;
+    s32 i;
+
+    for (i = 0; i < 36; i += spread) {
+        temp_fs1 = __sinf(i * 10.0f * M_DTOR) * radius;
+        temp_fs0 = __cosf(i * 10.0f * M_DTOR) * radius;
+        temp = gGroundLevel + 30.0f;
+        func_8007B8F8(actor->obj.pos.x + temp_fs1, temp, actor->obj.pos.z + temp_fs0, scale);
+    }
+}
+
+void func_i3_801A9824(void) {
+    s32 i;
+    f32* var_v0;
+    f32* var_v0_4;
+    s32* var_a0;
+    s32* var_v0_2;
+    s32* var_v0_3;
+
+    gTeamShields[1] = gTeamShields[2] = gTeamShields[3] = 0xFF;
+    for (i = 0; i < ARRAY_COUNT(D_i3_801C4190); i++) {
+        D_i3_801C4190[i] = 0;
+    }
+    for (i = 0; i < ARRAY_COUNT(D_i3_801C41B8); i++) {
+        D_i3_801C41B8[i] = 0.0f;
+    }
+    for (i = 0; i < ARRAY_COUNT(D_i3_801C4230); i++) {
+        D_i3_801C4230[i] = 0;
+    }
+    for (i = 0; i < ARRAY_COUNT(D_i3_801C42A0); i++) {
+        D_i3_801C42A0[i] = 0;
+    }
+    for (i = 0; i < ARRAY_COUNT(D_i3_801C4308); i++) {
+        D_i3_801C4308[i] = 0;
+    }
+    D_i3_801C4458 = D_i3_801C445C = 0.0f;
+    D_i3_801C4450 = D_i3_801C4454 = 0;
+    D_i3_801C41B8[12] = 40.0f;
+    D_i3_801C41B8[13] = 100.0f;
+    D_i3_801C41B8[14] = 120.0f;
+    D_i3_801C41B8[15] = 20.0f;
+    D_i3_801C41B8[16] = 30.0f;
+    D_i3_801C41B8[17] = 50.0f;
+    if (D_80177CA0 != 0) {
+        D_i3_801C41B8[12] = 0.0f;
+        D_i3_801C41B8[13] = 3.0f;
+        D_i3_801C41B8[14] = 5.0f;
+        D_i3_801C41B8[15] = 0.0f;
+        D_i3_801C41B8[16] = 0.0f;
+        D_i3_801C41B8[17] = 0.0f;
+    }
+    D_i3_801C4190[5] = 0;
+    D_i3_801C41B8[25] = D_8015F970;
+    D_i3_801C41B8[26] = 128.0f;
+}
+
+void func_i3_801A99D4(Player* player) {
+    s32 sp24 = fabsf(player->unk_138 / 1000.0f);
+
+    Math_SmoothStepToF(&D_8015F970, D_i3_801C41B8[25], 1.0f, 10.0f, 0.00001f);
+    Math_SmoothStepToF(&D_i3_801C4188, D_i3_801C41B8[26], 0.1f, 10.0f, 0.00001f);
+    if ((D_i3_801C4190[8] < sp24) && (D_i3_801C41B8[25] < 4600.0f)) {
+        D_i3_801C4190[8] = sp24;
+        D_i3_801C41B8[25] += 150.0f;
+        D_i3_801C41B8[26] = D_i3_801C4188 - 6.0f;
+        if (D_i3_801C41B8[26] < 0.0f) {
+            D_i3_801C41B8[26] = 0.0f;
+        }
+        if (D_i3_801C41B8[25] > 4600.0f) {
+            D_i3_801C41B8[25] = 4600.0f;
+        }
+        D_i3_801C41B8[12] -= 2.0f;
+        if (D_i3_801C41B8[12] < 0.0f) {
+            D_i3_801C41B8[12] = 0.0f;
+        }
+        D_i3_801C41B8[13] -= 6.0f;
+        if (D_i3_801C41B8[13] < 3.0f) {
+            D_i3_801C41B8[13] = 3.0f;
+        }
+        D_i3_801C41B8[14] -= 6.0f;
+        if (D_i3_801C41B8[14] < 5.0f) {
+            D_i3_801C41B8[14] = 5.0f;
+        }
+        D_i3_801C41B8[15] -= 1.0f;
+        if (D_i3_801C41B8[15] < 0.0f) {
+            D_i3_801C41B8[15] = 0.0f;
+        }
+        D_i3_801C41B8[16] -= 1.5f;
+        if (D_i3_801C41B8[16] < 0.0f) {
+            D_i3_801C41B8[16] = 0.0f;
+        }
+        D_i3_801C41B8[17] -= 2.5f;
+        if (D_i3_801C41B8[17] < 0.0f) {
+            D_i3_801C41B8[17] = 0.0f;
+        }
+        gLight1R = D_i3_801C41B8[12];
+        gLight1G = D_i3_801C41B8[13];
+        gLight1B = D_i3_801C41B8[14];
+        gAmbientR = D_i3_801C41B8[15];
+        gAmbientG = D_i3_801C41B8[16];
+        gAmbientB = D_i3_801C41B8[17];
+    }
+}
+
+void func_i3_801A9C98(Player* player) {
+    Actor* actor;
+    s32 i;
+    s32 var_v0;
+
+    if ((D_i3_801C4190[0] != 777) && (D_i3_801C4190[0] > 0)) {
+        i = D_i3_801C4190[0] - 1;
+        actor = &gActors[i];
+        if ((actor->obj.status != 2) || ((player->unk_138 - 300.0f) <= actor->obj.pos.z) ||
+            (actor->obj.pos.z <= (player->unk_138 - 7000.0f)) || (actor->obj.id != D_i3_801C4190[1]) ||
+            (actor->health == 0)) {
+            D_i3_801C4190[1] = 0;
+            D_i3_801C4190[5] = 0;
+            D_i3_801C4190[3] = 0;
+            D_i3_801C4190[0] = 0;
+        } else {
+            var_v0 = 1;
+            if (actor->info.hitbox[1] == 200000.0f) {
+                var_v0 = 5;
+            }
+            D_i3_801C41B8[2] = actor->obj.pos.z + actor->info.hitbox[var_v0 + 0] + actor->info.hitbox[var_v0 + 1];
+            D_i3_801C41B8[1] = actor->obj.pos.y + actor->info.hitbox[var_v0 + 2];
+            D_i3_801C41B8[0] = actor->obj.pos.x + actor->info.hitbox[var_v0 + 4];
+        }
+    }
+}
+
+void func_i3_801A9DE4(Player* player) {
+    s32 i;
+
+    if (D_i3_801C4190[0] == 777) {
+        if ((gBosses[0].obj.status != OBJ_ACTIVE) || (gBosses[0].health == 0) || (fabsf(D_i3_801C4308[10]) <= 6.0f) ||
+            ((D_i3_801C4190[4] == 0x79) && (gBosses[0].swork[0xC] == 0))) {
+            D_i3_801C4190[1] = 0;
+            D_i3_801C4190[5] = 0;
+            D_i3_801C4190[3] = 0;
+            D_i3_801C4190[4] = 0;
+            D_i3_801C4190[0] = 0;
+        } else {
+            i = D_i3_801C4190[4] - 2;
+
+            D_i3_801C41B8[2] = gBosses[0].obj.pos.z + gBosses[0].info.hitbox[i + 0] + gBosses[0].info.hitbox[i + 1];
+            D_i3_801C41B8[1] = gBosses[0].obj.pos.y + gBosses[0].info.hitbox[i + 2];
+            D_i3_801C41B8[0] = gBosses[0].obj.pos.x + gBosses[0].info.hitbox[i + 4];
+        }
+    }
+}
+
+// Loop looks really fake. optimized out index?
+void func_i3_801A9ED0(Player* player) {
+    s32 j;
+    s32 i;
+    s32 sp8C;
+    f32 temp_fa0;
+    f32 temp_fa1;
+    f32 temp_fv0;
+    f32 temp_fv1;
+    Vec3f sp70;
+    Vec3f sp64;
+    f32* tempx;
+    f32* tempy;
+    f32* tempz;
+
+    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8) * M_DTOR, 0);
+    Matrix_RotateX(gCalcMatrix, player->unk_0E4 * M_DTOR, 1);
+    sp70.x = 0.0f;
+    sp70.y = 0.0f;
+    sp70.z = -1200.0f;
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp70, &sp64);
+    if (D_i3_801C4190[3] == 0) {
+        sp8C = D_i3_801C4190[4];
+
+        if ((fabsf(D_i3_801C4308[10]) >= 6.0f) && (gBosses[0].actionState >= 10) && (gBosses[0].obj.status == 2) &&
+            (gBosses[0].health != 0)) {
+            for (j = 119, i = 121; j < 199; j += 10, i += 10) {
+                if ((j == 119) || (j == 129) || (j == 139) || (j == 169)) {
+                    tempy = &gBosses[0].info.hitbox[i];
+
+                    temp_fv0 = gBosses[0].obj.pos.y + tempy[0] + tempy[1] + 200.0f;
+                    temp_fa0 = gBosses[0].obj.pos.y + tempy[0] - tempy[1] - 200.0f;
+                    temp_fv1 = gBosses[0].obj.pos.x + tempy[2] + tempy[3] + 200.0f;
+                    temp_fa1 = gBosses[0].obj.pos.x + tempy[2] - tempy[3] - 200.0f;
+                    if ((gBosses[0].actionState >= 10) && ((player->pos.y + sp64.y) <= temp_fv0) &&
+                        (temp_fa0 <= (player->pos.y + sp64.y)) && ((player->pos.x + sp64.x) <= temp_fv1) &&
+                        (temp_fa1 <= (player->pos.x + sp64.x))) {
+                        if (D_i3_801C41B8[11] >=
+                            fabsf(player->unk_138 - gBosses[0].obj.pos.z - gBosses[0].info.hitbox[j])) {
+                            D_i3_801C41B8[11] =
+                                fabsf(player->unk_138 - gBosses[0].obj.pos.z - gBosses[0].info.hitbox[j]);
+                            D_i3_801C4190[0] = 777;
+                            D_i3_801C4190[4] = i;
+                            D_i3_801C4190[1] = 318;
+                        }
+                        if (((j == 129) && (gBosses[0].swork[8] == 0)) || ((j == 139) && (gBosses[0].swork[9] == 0)) ||
+                            ((j == 119) && (gBosses[0].swork[0xC] == 0))) {
+                            D_i3_801C4190[1] = 0;
+                            D_i3_801C4190[5] = 0;
+                            D_i3_801C4190[3] = 0;
+                            D_i3_801C4190[4] = 0;
+                            D_i3_801C4190[0] = 0;
+                        }
+                    }
+                }
+            }
+            if ((sp8C != D_i3_801C4190[4]) && (D_i3_801C41B8[5] == 3.0f)) {
+                Audio_PlaySfx(0x4900001B, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                D_i3_801C41B8[5] = 20.0f;
+            }
+        }
+    }
+    func_i3_801A9DE4(player);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/sf_aq/func_i3_801AA20C.s")
 
