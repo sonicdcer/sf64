@@ -490,6 +490,7 @@ void func_i4_8019C85C(Player* player) {
 
         case 0:
             gCsFrameCount = 0;
+
             player->unk_234 = 0;
 
             D_80177978 = boss0->obj.pos.x;
@@ -497,13 +498,18 @@ void func_i4_8019C85C(Player* player) {
             D_80177988 = boss0->obj.pos.z + 4000.0f;
 
             D_80177A48[0] = 1.0f;
+
             player->unk_1D0 = 1;
+
             D_80161A44 = 30000.0f;
+
             player->timer_1F8 = 550;
             player->unk_0D0 = 0.0f;
             player->unk_034 = 0.0f;
+
             D_80178358 = 255;
             D_80178340 = D_80178358;
+
             for (i = 0; i < ARRAY_COUNT(gActors); i++) {
                 Object_Kill(&gActors[i].obj, gActors[i].sfxPos);
             }
@@ -513,6 +519,7 @@ void func_i4_8019C85C(Player* player) {
         case 1:
             D_80178358 = 0;
             D_80178340 = 0;
+
             Math_SmoothStepToAngle(&boss0->unk_078.x, 20.0f, 0.03f, boss0->fwork[1], 0.0f);
             Math_SmoothStepToAngle(&boss0->unk_078.y, 180.0f, 0.03f, boss0->fwork[2], 0.0f);
             Math_SmoothStepToAngle(&boss0->unk_078.z, 30.0f, 0.03f, boss0->fwork[3], 0.0f);
@@ -530,12 +537,14 @@ void func_i4_8019C85C(Player* player) {
                 D_80177930 = 1;
             }
 
-            if ((gCsFrameCount == 0xE6) && (D_i4_801A0564 != 0)) {
+            if ((gCsFrameCount == 230) && (D_i4_801A0564 != 0)) {
                 func_i4_8019C70C();
             }
+
             D_801779A0 = boss0->obj.pos.x;
             D_801779B8 = boss0->obj.pos.y + (2.0f * D_8017847C);
             D_801779C0 = boss0->obj.pos.z;
+
             if (player->timer_1F8 == 0) {
                 player->unk_1D0 = 2;
             }
@@ -550,9 +559,12 @@ void func_i4_8019C85C(Player* player) {
                     func_800182F4(0x103200FF);
                     func_800182F4(0x113200FF);
                 }
+
                 gCsFrameCount = 0x500;
+
                 player->unk_1D0 = 10;
                 player->timer_1F8 = 1000;
+
                 func_8001CA24(0U);
                 Audio_KillSfx(player->sfxPos);
                 func_800A6148();
