@@ -49,7 +49,8 @@ void func_i1_80198968(Item* item) {
                 item->obj.pos.z += ((gPlayer[item->playerNum].unk_138 - item->obj.pos.z) * 0.05f);
             }
             item->obj.rot.z += 22.0f;
-            Math_SmoothStepToAngle(&item->obj.rot.y, Math_RadToDeg(-gPlayer[item->playerNum].unk_058), 0.2f, 10.0f, 0.0f);
+            Math_SmoothStepToAngle(&item->obj.rot.y, Math_RadToDeg(-gPlayer[item->playerNum].unk_058), 0.2f, 10.0f,
+                                   0.0f);
             if (item->timer_48 == 0) {
                 Object_Kill(&item->obj, item->sfxPos);
             }

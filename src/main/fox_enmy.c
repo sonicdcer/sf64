@@ -2162,7 +2162,7 @@ void func_80068020(Item* item) {
                         }
                         gPlayer[item->playerNum].heal += 0x20;
                         BonusText_Display(gPlayer[item->playerNum].pos.x, gPlayer[item->playerNum].pos.y,
-                                      gPlayer[item->playerNum].unk_138, BONUS_TEXT_1UP);
+                                          gPlayer[item->playerNum].unk_138, BONUS_TEXT_1UP);
                     } else {
                         gPlayer[item->playerNum].heal += 0x20;
                         func_80060F30(gPlayer[item->playerNum].sfxPos, 0x49003013, item->playerNum);
@@ -2194,7 +2194,8 @@ void func_80068020(Item* item) {
                 item->obj.pos.z += (gPlayer[item->playerNum].unk_138 - item->obj.pos.z) * 0.5f;
             }
             item->obj.rot.z += 22.0f;
-            Math_SmoothStepToAngle(&item->obj.rot.y, Math_RadToDeg(-gPlayer[item->playerNum].unk_058), 0.2f, 10.0f, 0.0f);
+            Math_SmoothStepToAngle(&item->obj.rot.y, Math_RadToDeg(-gPlayer[item->playerNum].unk_058), 0.2f, 10.0f,
+                                   0.0f);
             if (item->timer_48 == 0) {
                 Object_Kill(&item->obj, item->sfxPos);
             }

@@ -2097,8 +2097,7 @@ void func_i3_80194A84(Boss* bossZO) {
             sZoSwork[ZO_BSS_43] = 255;
         }
     }
-    if (((bossZO->state == 2) || (bossZO->state == 3) || (bossZO->state == 8)) &&
-        (gPlayer[0].timer_220 == 2)) {
+    if (((bossZO->state == 2) || (bossZO->state == 3) || (bossZO->state == 8)) && (gPlayer[0].timer_220 == 2)) {
         if (bossZO->swork[ZO_SWK_8] == 0) {
             func_800BA808(gMsg_ID_6068, RCID_BOSS_ZONESS);
         }
@@ -2134,7 +2133,7 @@ void func_i3_80194A84(Boss* bossZO) {
         bossZO->swork[ZO_SWK_9]--;
     }
     switch (bossZO->state) { /* switch 1 */
-        case 0:                    /* switch 1 */
+        case 0:              /* switch 1 */
             if ((!(gGameFrameCount & 7) || (bossZO->timer_050 == 43)) && (bossZO->swork[ZO_SWK_13] == 0) &&
                 ((bossZO->swork[ZO_SWK_12] < 7) || (bossZO->timer_050 == 43))) {
                 D_801779A8[0] = 20.0f;

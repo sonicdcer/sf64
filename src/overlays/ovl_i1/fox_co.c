@@ -930,8 +930,7 @@ void func_i1_80189058(Boss* boss) {
         Math_SmoothStepToF(&boss->fwork[14], 1.0f, 1.0f, 0.01f, 0.0f);
 
         if (boss->state < 5) {
-            if (((fabsf(boss->obj.pos.x) > 4000.0f) || (fabsf(boss->obj.pos.z) > 4000.0f)) &&
-                (boss->state != 4)) {
+            if (((fabsf(boss->obj.pos.x) > 4000.0f) || (fabsf(boss->obj.pos.z) > 4000.0f)) && (boss->state != 4)) {
                 boss->state = 4;
                 boss->timer_050 = 150;
                 D_i1_8019B6D8[66] = 0.0f;
@@ -1018,12 +1017,12 @@ void func_i1_8018A730(s32 limbIndex, Vec3f* rot, void* data) {
     s32 pad;
     Vec3f sp80 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp74;
-    Vec3f sp68= { 75.0f, 0.0f, 0.0f };
-    Vec3f sp5C= { 190.0f, 0.0f, 0.0f };
-    Vec3f sp50= { 96.0f, 34.0f, 0.0f };
-    Vec3f sp44= { 70.0f, 170.0f, 11.0f };
-    Vec3f sp38= { 70.0f, -170.0f, 11.0f };
-    Vec3f sp2C= { 64.0f, 0.0f, -236.0f };
+    Vec3f sp68 = { 75.0f, 0.0f, 0.0f };
+    Vec3f sp5C = { 190.0f, 0.0f, 0.0f };
+    Vec3f sp50 = { 96.0f, 34.0f, 0.0f };
+    Vec3f sp44 = { 70.0f, 170.0f, 11.0f };
+    Vec3f sp38 = { 70.0f, -170.0f, 11.0f };
+    Vec3f sp2C = { 64.0f, 0.0f, -236.0f };
 
     if ((limbIndex >= 4) && (limbIndex < 10)) {
         Matrix_MultVec3f(gCalcMatrix, &sp80, &sp74);
@@ -1396,7 +1395,7 @@ void func_i1_8018BAAC(Actor* actor) {
 
 void func_i1_8018BAFC(s32 limbIndex, Vec3f* rot, void* data) {
     Actor* actor = (Actor*) data;
-    Vec3f sp28= { 120.0f, 0.0f, 0.0f };
+    Vec3f sp28 = { 120.0f, 0.0f, 0.0f };
     Vec3f sp1C;
 
     if (limbIndex == 1) {
@@ -1808,8 +1807,7 @@ void func_i1_8018C19C(Boss* boss) {
                         func_800BA808(gMsg_ID_2291, RCID_BOSS_CORNERIA2);
                     }
                     if ((boss->swork[4] == 2) && (boss->swork[7] == 0) &&
-                        ((gBosses[3].state == 0) || (gBosses[2].state == 0) ||
-                         (gBosses[1].state == 0))) {
+                        ((gBosses[3].state == 0) || (gBosses[2].state == 0) || (gBosses[1].state == 0))) {
                         func_800BA808(gMsg_ID_2299, RCID_PEPPY);
                         boss->swork[7]++;
                     }
