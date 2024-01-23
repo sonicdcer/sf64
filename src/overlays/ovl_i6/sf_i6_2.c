@@ -411,8 +411,8 @@ void func_i6_80196D88(Player* player) {
                         gSavedTeamShields[i] = gTeamShields[i];
                     }
 
-                    gNextGameState = 7;
-                    gNextLevel = 9;
+                    gNextGameState = GSTATE_PLAY;
+                    gNextLevel = LEVEL_VENOM_ANDROSS;
                     if (D_800D3180[gCurrentLevel] != 0) {
                         D_80161A2E = 1;
                     }
