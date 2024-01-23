@@ -149,9 +149,11 @@ typedef struct {
     /* 0x48 */ s32 state;
     /* 0x4C */ s32 timer_4C;
     /* 0x50 */ s8 dmgType;
+    /* 0x51 */ char pad51[3];
     /* 0x54 */ s32 dmgPart;
-    /* 0x58 */ char pad58[8];
-    /* 0x60 */ f32 unk_60; // some sort of z velocity. pad58 is Vec3f?
+    /* 0x58 */ f32 unk_58;
+    /* 0x5C */ f32 unk_5C;
+    /* 0x60 */ f32 unk_60;
     /* 0x64 */ Vec3f vel;
     /* 0x70 */ f32 sfxPos[3];
     /* 0x7C */ char pad7C[4];

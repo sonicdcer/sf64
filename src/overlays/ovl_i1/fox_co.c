@@ -951,108 +951,92 @@ void func_i1_80189058(Boss* boss) {
     }
 }
 
-s32 func_i1_8018A434(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
-    Boss* boss = (Boss*) arg4;
+s32 func_i1_8018A434(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+    Boss* boss = (Boss*) data;
 
-    if (boss->swork[arg0] == 1000) {
-        *arg1 = 0;
+    if (boss->swork[limbIndex] == 1000) {
+        *dList = 0;
     }
 
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, 1001);
-    switch (arg0) {
+    switch (limbIndex) {
         case 6:
-            arg3->x += boss->fwork[1];
-            arg3->y += boss->fwork[1];
-            arg3->y -= boss->fwork[13] * 0.6f;
+            rot->x += boss->fwork[1];
+            rot->y += boss->fwork[1];
+            rot->y -= boss->fwork[13] * 0.6f;
             break;
         case 5:
-            arg3->x -= boss->fwork[1];
-            arg3->y -= boss->fwork[1];
-            arg3->z += boss->fwork[1];
+            rot->x -= boss->fwork[1];
+            rot->y -= boss->fwork[1];
+            rot->z += boss->fwork[1];
             break;
         case 4:
-            arg3->x += boss->fwork[1];
-            arg3->y += boss->fwork[1];
-            arg3->z -= boss->fwork[1];
+            rot->x += boss->fwork[1];
+            rot->y += boss->fwork[1];
+            rot->z -= boss->fwork[1];
             break;
         case 9:
-            arg3->x -= boss->fwork[0];
-            arg3->y -= boss->fwork[0];
-            arg3->y += boss->fwork[13];
+            rot->x -= boss->fwork[0];
+            rot->y -= boss->fwork[0];
+            rot->y += boss->fwork[13];
             break;
         case 8:
-            arg3->x += boss->fwork[0];
-            arg3->y += boss->fwork[0];
-            arg3->z -= boss->fwork[0];
+            rot->x += boss->fwork[0];
+            rot->y += boss->fwork[0];
+            rot->z -= boss->fwork[0];
             break;
         case 7:
-            arg3->x -= boss->fwork[0];
-            arg3->y -= boss->fwork[0];
-            arg3->z += boss->fwork[0];
+            rot->x -= boss->fwork[0];
+            rot->y -= boss->fwork[0];
+            rot->z += boss->fwork[0];
             break;
         case 3:
-            arg3->x += boss->fwork[2];
-            arg3->y += boss->fwork[2];
-            arg3->z += D_i1_8019B6D8[15];
+            rot->x += boss->fwork[2];
+            rot->y += boss->fwork[2];
+            rot->z += D_i1_8019B6D8[15];
             break;
         case 1:
-            arg3->x += boss->fwork[4] - D_i1_8019B6D8[15];
-            arg3->y += boss->fwork[4];
+            rot->x += boss->fwork[4] - D_i1_8019B6D8[15];
+            rot->y += boss->fwork[4];
             break;
         case 2:
-            arg3->x += boss->fwork[3] + D_i1_8019B6D8[15];
-            arg3->y += boss->fwork[3];
+            rot->x += boss->fwork[3] + D_i1_8019B6D8[15];
+            rot->y += boss->fwork[3];
             break;
         case 16:
-            arg3->x += D_i1_8019B6D8[16];
+            rot->x += D_i1_8019B6D8[16];
             break;
     }
-    if ((boss->swork[arg0] & 1) || (boss->timer_05C & 1)) {
+    if ((boss->swork[limbIndex] & 1) || (boss->timer_05C & 1)) {
         RCP_SetupDL_64();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 64, 64, 255, 255);
     }
     return false;
 }
 
-static Vec3f D_i1_80199814 = { 0.0f, 0.0f, 0.0f };
-static Vec3f D_i1_80199820 = { 75.0f, 0.0f, 0.0f };
-static Vec3f D_i1_8019982C = { 190.0f, 0.0f, 0.0f };
-static Vec3f D_i1_80199838 = { 96.0f, 34.0f, 0.0f };
-static Vec3f D_i1_80199844 = { 70.0f, 170.0f, 11.0f };
-static Vec3f D_i1_80199850 = { 70.0f, -170.0f, 11.0f };
-static Vec3f D_i1_8019985C = { 64.0f, 0.0f, -236.0f };
-
-void func_i1_8018A730(s32 arg0, Vec3f* arg1, void* arg2) {
+void func_i1_8018A730(s32 limbIndex, Vec3f* rot, void* data) {
     s32 pad;
-    Vec3f sp80;
+    Vec3f sp80 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp74;
-    Vec3f sp68;
-    Vec3f sp5C;
-    Vec3f sp50;
-    Vec3f sp44;
-    Vec3f sp38;
-    Vec3f sp2C;
+    Vec3f sp68= { 75.0f, 0.0f, 0.0f };
+    Vec3f sp5C= { 190.0f, 0.0f, 0.0f };
+    Vec3f sp50= { 96.0f, 34.0f, 0.0f };
+    Vec3f sp44= { 70.0f, 170.0f, 11.0f };
+    Vec3f sp38= { 70.0f, -170.0f, 11.0f };
+    Vec3f sp2C= { 64.0f, 0.0f, -236.0f };
 
-    sp80 = D_i1_80199814;
-    sp68 = D_i1_80199820;
-    sp5C = D_i1_8019982C;
-    sp50 = D_i1_80199838;
-    sp44 = D_i1_80199844;
-    sp38 = D_i1_80199850;
-    sp2C = D_i1_8019985C;
-
-    if ((arg0 >= 4) && (arg0 < 10)) {
+    if ((limbIndex >= 4) && (limbIndex < 10)) {
         Matrix_MultVec3f(gCalcMatrix, &sp80, &sp74);
 
-        D_i1_8019B6D8[arg0 + 16] = sp74.x;
-        D_i1_8019B6D8[arg0 + 22] = sp74.y;
-        D_i1_8019B6D8[arg0 + 28] = sp74.z;
+        D_i1_8019B6D8[limbIndex + 16] = sp74.x;
+        D_i1_8019B6D8[limbIndex + 22] = sp74.y;
+        D_i1_8019B6D8[limbIndex + 28] = sp74.z;
         Matrix_GetYRPAngles(gCalcMatrix, &sp74);
-        D_i1_8019B6D8[arg0 + 34] = sp74.x;
-        D_i1_8019B6D8[arg0 + 40] = sp74.y;
-        D_i1_8019B6D8[arg0 + 46] = sp74.z;
+        D_i1_8019B6D8[limbIndex + 34] = sp74.x;
+        D_i1_8019B6D8[limbIndex + 40] = sp74.y;
+        D_i1_8019B6D8[limbIndex + 46] = sp74.z;
     }
-    switch (arg0) {
+    switch (limbIndex) {
         case 1:
             Matrix_MultVec3f(gCalcMatrix, &sp68, &sp74);
             D_i1_8019B6D8[3] = sp74.x;
@@ -1109,26 +1093,24 @@ void func_i1_8018AA74(Boss* boss) {
     Matrix_Push(&gGfxMatrix);
 }
 
-s32 func_i1_8018AB08(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
-    Actor* actor = (Actor*) arg4;
+s32 func_i1_8018AB08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+    Actor* actor = (Actor*) data;
 
-    if (arg0 == 1) {
-        arg3->x += actor->fwork[1];
+    if (limbIndex == 1) {
+        rot->x += actor->fwork[1];
     }
-    if ((arg0 == 3) && (actor->obj.id == OBJ_ACTOR_176)) {
-        arg3->x += actor->fwork[1];
+    if ((limbIndex == 3) && (actor->obj.id == OBJ_ACTOR_176)) {
+        rot->x += actor->fwork[1];
     }
     return false;
 }
-
-static Vec3f D_i1_80199868 = { 0.0f, -10.0f, 0.0f };
 
 s32 func_i1_8018AB64(Actor* actor) {
     s32 pad[2];
     s32 i;
     s32 temp_v0;
     Vec3f sp7C;
-    Vec3f sp70 = D_i1_80199868;
+    Vec3f sp70 = { 0.0f, -10.0f, 0.0f };
     f32 sp60[4] = { 130.0f, -130.0f, 0.0f, 0.0f };
     f32 sp50[4] = { 0.0f, 0.0f, 130.0f, -130.0f };
 
@@ -1412,22 +1394,18 @@ void func_i1_8018BAAC(Actor* actor) {
     Animation_DrawSkeleton(3, D_6029A48, actor->vwork, func_i1_8018AB08, NULL, actor, gCalcMatrix);
 }
 
-static Vec3f D_i1_801998B4 = { 120.0f, 0.0f, 0.0f };
-
-void func_i1_8018BAFC(s32 arg0, Vec3f* arg1, void* arg2) {
-    Actor* actor = (Actor*) arg2;
-    Vec3f sp28;
+void func_i1_8018BAFC(s32 limbIndex, Vec3f* rot, void* data) {
+    Actor* actor = (Actor*) data;
+    Vec3f sp28= { 120.0f, 0.0f, 0.0f };
     Vec3f sp1C;
 
-    sp28 = D_i1_801998B4;
-
-    if (arg0 == 1) {
+    if (limbIndex == 1) {
         Matrix_MultVec3f(gCalcMatrix, &sp28, &sp1C);
         actor->fwork[2] = sp1C.x;
         actor->fwork[6] = sp1C.y;
         actor->fwork[10] = sp1C.z;
         if (actor->iwork[1] == 0) {
-            gObjects80[actor->iwork[0]].obj.rot.x = -arg1->y;
+            gObjects80[actor->iwork[0]].obj.rot.x = -rot->y;
         }
     }
 }
@@ -1440,26 +1418,22 @@ void func_i1_8018BBF8(Actor* actor) {
     Animation_DrawSkeleton(3, D_6029A48, actor->vwork, func_i1_8018AB08, func_i1_8018BAFC, actor, gCalcMatrix);
 }
 
-s32 func_i1_8018BC50(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
-    Actor* actor = (Actor*) arg4;
+s32 func_i1_8018BC50(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+    Actor* actor = (Actor*) data;
 
-    if ((actor->state == 101) && (arg0 != 8)) {
-        *arg1 = NULL;
+    if ((actor->state == 101) && (limbIndex != 8)) {
+        *dList = NULL;
     }
     return false;
 }
 
-static Vec3f D_i1_801998C0 = { 0.0f, 0.0f, 0.0f };
-
-void func_i1_8018BC84(s32 arg0, Vec3f* arg1, void* arg2) {
-    Actor* actor = (Actor*) arg2;
-    Vec3f sp28;
+void func_i1_8018BC84(s32 limbIndex, Vec3f* rot, void* data) {
+    Actor* actor = (Actor*) data;
+    Vec3f sp28 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp1C;
 
-    sp28 = D_i1_801998C0;
-
     Matrix_MultVec3f(gCalcMatrix, &sp28, &sp1C);
-    switch (arg0) {
+    switch (limbIndex) {
         case 1:
             actor->fwork[2] = sp1C.x;
             actor->fwork[6] = sp1C.y;
@@ -2349,12 +2323,12 @@ void func_i1_8018E76C(Boss* boss) {
     }
 }
 
-s32 func_i1_8018EC54(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
-    if ((arg0 == 10) && (gBosses[2].state != 0) && (gBosses[3].state != 0)) {
-        *arg1 = NULL;
+s32 func_i1_8018EC54(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+    if ((limbIndex == 10) && (gBosses[2].state != 0) && (gBosses[3].state != 0)) {
+        *dList = NULL;
     }
-    if ((arg0 != 12) && (arg0 != 10)) {
-        *arg1 = NULL;
+    if ((limbIndex != 12) && (limbIndex != 10)) {
+        *dList = NULL;
     }
     return false;
 }
@@ -2368,14 +2342,14 @@ void func_i1_8018ECAC(Boss* boss) {
     Animation_DrawSkeleton(1, D_602D5AC, boss->vwork, func_i1_8018EC54, NULL, &boss->index, &gIdentityMatrix);
 }
 
-s32 func_i1_8018ED1C(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
-    if (arg0 == 5) {
-        arg3->y -= gBosses[*(s32*) arg4].fwork[2];
+s32 func_i1_8018ED1C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+    if (limbIndex == 5) {
+        rot->y -= gBosses[*(s32*) data].fwork[2];
     }
-    if ((arg0 != 6) && (arg0 != 5)) {
-        *arg1 = NULL;
+    if ((limbIndex != 6) && (limbIndex != 5)) {
+        *dList = NULL;
     }
-    return 0;
+    return false;
 }
 
 void func_i1_8018ED78(Boss* boss) {
@@ -2386,14 +2360,14 @@ void func_i1_8018ED78(Boss* boss) {
     Animation_DrawSkeleton(1, D_602D5AC, boss->vwork, func_i1_8018ED1C, NULL, &boss->index, &gIdentityMatrix);
 }
 
-s32 func_i1_8018EE2C(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
-    if (arg0 == 1) {
-        arg3->z -= gBosses[*(s32*) arg4].fwork[0];
+s32 func_i1_8018EE2C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+    if (limbIndex == 1) {
+        rot->z -= gBosses[*(s32*) data].fwork[0];
     }
-    if ((arg0 != 1) && (arg0 != 2)) {
-        *arg1 = NULL;
+    if ((limbIndex != 1) && (limbIndex != 2)) {
+        *dList = NULL;
     }
-    return 0;
+    return false;
 }
 
 void func_i1_8018EE84(Boss* boss) {
@@ -2404,14 +2378,14 @@ void func_i1_8018EE84(Boss* boss) {
     Animation_DrawSkeleton(1, D_602D5AC, boss->vwork, func_i1_8018EE2C, NULL, &boss->index, &gIdentityMatrix);
 }
 
-s32 func_i1_8018EF38(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
-    if (arg0 == 3) {
-        arg3->z -= gBosses[*(s32*) arg4].fwork[1];
+s32 func_i1_8018EF38(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+    if (limbIndex == 3) {
+        rot->z -= gBosses[*(s32*) data].fwork[1];
     }
-    if ((arg0 != 3) && (arg0 != 4)) {
-        *arg1 = NULL;
+    if ((limbIndex != 3) && (limbIndex != 4)) {
+        *dList = NULL;
     }
-    return 0;
+    return false;
 }
 
 void func_i1_8018EF90(Boss* boss) {
@@ -2452,19 +2426,19 @@ void func_i1_8018F044(Object_80* obj80) {
     }
 }
 
-s32 func_i1_8018F1C8(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
-    Object_80* obj80 = (Object_80*) arg4;
+s32 func_i1_8018F1C8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+    Object_80* obj80 = (Object_80*) data;
 
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    switch (arg0) {
+    switch (limbIndex) {
         case 1:
-            arg3->y -= obj80->vel.x;
+            rot->y -= obj80->vel.x;
             if (obj80->timer_4C & 1) {
                 RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             }
             break;
         case 2:
-            arg3->y += obj80->vel.y;
+            rot->y += obj80->vel.y;
             if (obj80->timer_4C & 1) {
                 RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             }
@@ -2561,7 +2535,6 @@ static f32 D_i1_80199ACC[3] = { 160.0f, 160.0f, 320.0f };
 static f32 D_i1_80199AD8[3] = { -60.0f, 60.0f, -45.0f };
 
 void func_i1_8018F6F8(Actor* actor, s32 arg1) {
-
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_195;

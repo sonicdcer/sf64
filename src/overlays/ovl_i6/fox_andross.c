@@ -795,7 +795,7 @@ void func_i6_80189B70(Boss* boss) {
     }
     if ((fabsf(boss->obj.pos.x - gPlayer[0].pos.x) < 300.0f) &&
         (fabsf((boss->obj.pos.y - 300.0f) - gPlayer[0].pos.y) < 300.0f) &&
-        (fabsf(boss->obj.pos.z - gPlayer[0].unk_138) < 300.0f) && (boss->state < 0xB) && (boss->timer_05A == 0)) {
+        (fabsf(boss->obj.pos.z - gPlayer[0].unk_138) < 300.0f) && (boss->state < 11) && (boss->timer_05A == 0)) {
         boss->state = 11;
         boss->timer_050 = 150;
         Audio_PlaySfx(0x31408097, boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -1871,7 +1871,7 @@ void func_i6_8018DBF0(Boss* boss) {
     boss->swork[7] = 0;
     boss->fwork[14] = boss->fwork[15] = 0.0f;
     if (boss->state >= 2) {
-        gBlurAlpha = 0x80;
+        gBlurAlpha = 128;
     }
 
     for (i = 0; i < 4; i++) {
