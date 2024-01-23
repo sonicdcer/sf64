@@ -409,7 +409,7 @@ void func_8005A094(Actor* actor) {
             gSPDisplayList(gMasterDisp++, D_i1_8019A008[actor->unk_048]);
             break;
         default:
-            if (actor->unk_0B8 > 9) { // part of switch tree somehow?
+            if (actor->unk_0B8 > 9) {
                 if (actor->unk_0B8 == 0x24) {
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                 }
@@ -856,7 +856,7 @@ void func_8005CDA8(Item* item) {
     } else {
         RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     }
-    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK | G_LIGHTING); // wrong order?
+    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK | G_LIGHTING);
     for (i = 0; i < 7; i++) {
         Matrix_Push(&gGfxMatrix);
         Matrix_RotateZ(gGfxMatrix, (i * 360.0f / 7.0f) * M_DTOR, 1);
@@ -1384,7 +1384,7 @@ void func_8005F0E8(f32* sfxSrc, Vec3f* pos) {
     }
     func_8005F030(sfxSrc);
 }
-// check
+
 void func_8005F1EC(f32* sfxSrc) {
     Vec3f sp2C = { 0.0f, 0.0f, 0.0f };
     Vec3f sp20;
@@ -1798,7 +1798,7 @@ void func_80060968(void) {
             } else {
                 Matrix_SetGfxMtx(&gMasterDisp);
                 if (gCurrentLevel == LEVEL_MACBETH) {
-                    gSPDisplayList(gMasterDisp++, D_6012C00);
+                    gSPDisplayList(gMasterDisp++, D_6012C00_Gfx);
                 } else {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, ent30->unk_2C, ent30->unk_2D, ent30->unk_2E,
                                     ent30->unk_2F);

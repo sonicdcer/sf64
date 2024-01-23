@@ -3496,7 +3496,6 @@ void func_80081C5C(Effect* effect) {
     s32 unusedOut;
     Vec3f velocity;
     Vec3f velocityDest;
-    // f32 pad;
 
     velocity.x = effect->vel.x;
     velocity.y = effect->vel.y;
@@ -3659,7 +3658,7 @@ void func_80081C5C(Effect* effect) {
                 case LEVEL_ZONESS:
                     if (!(gGameFrameCount & 3)) {
                         // clang-format off
-                        func_80081A8C(effect->obj.pos.x,  effect->obj.pos.y, effect->obj.pos.z, effect->scale2 * 3.0f, 6);
+                        func_80081A8C(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, effect->scale2 * 3.0f, 6);
                         // clang-format on
                     }
 

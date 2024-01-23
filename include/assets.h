@@ -543,7 +543,8 @@ extern Gfx D_6011EE0[];
 extern Gfx D_60120F0[];
 extern u8 D_6012310[];
 extern u8 D_60123F0[];
-extern Gfx D_6012C00[];
+extern Gfx D_6012C00_Gfx[];
+extern AnimationHeader D_6012C00_Anim;
 extern u8 D_60131A0[];
 extern Gfx D_60132B0[];
 extern u8 D_6013470[];
@@ -941,6 +942,16 @@ extern f32 D_603E014[];
 extern f32 D_603E030[];
 extern f32 D_603E09C[];
 extern f32 D_603E0EC[];
+
+extern Gfx D_60084C0[];
+extern Gfx D_6008D40[];
+extern Gfx D_6007C40[];
+extern Gfx D_601B790[];
+extern Gfx D_601B790[];
+extern Gfx D_601A700[];
+extern Gfx D_6019670[];
+extern Gfx D_60185E0[];
+extern Gfx D_6017550[];
 
 // ast_9DD390, ast_A0E340, ast_BFA740, ast_CBFE70, ast_D27600
 extern Gfx D_7000000[];
