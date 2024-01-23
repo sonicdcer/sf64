@@ -560,7 +560,7 @@ void func_i4_8019C85C(Player* player) {
                     func_800182F4(0x113200FF);
                 }
 
-                gCsFrameCount = 0x500;
+                gCsFrameCount = 1280;
 
                 player->unk_1D0 = 10;
                 player->timer_1F8 = 1000;
@@ -607,7 +607,7 @@ void func_i4_8019C85C(Player* player) {
             D_801779A0 = player->pos.x;
             D_801779B8 = player->pos.y;
             D_801779C0 = player->pos.z;
-            if (gCsFrameCount == 0x654) {
+            if (gCsFrameCount == 1620) {
                 player->unk_1D0 += 1;
                 D_80177A48[0] = 0.0f;
                 D_80177A48[1] = 0.0f;
@@ -666,7 +666,7 @@ void func_i4_8019C85C(Player* player) {
             D_801779C0 = (actor0->obj.pos.z + 2430.0f) - 250.0f;
 
             if (gCsFrameCount == 2660) {
-                func_8001DBD0(0x32);
+                func_8001DBD0(50);
             }
 
             if (gCsFrameCount > 2710) {
