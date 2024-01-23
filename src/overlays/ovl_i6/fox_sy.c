@@ -1470,8 +1470,8 @@ void func_i6_8019C888(Boss* boss) {
         Math_SmoothStepToF(&boss->fwork[41], 0.0f, 0.1f, 0.05f, 0.05f);
         Math_SmoothStepToF(&boss->fwork[42], 0.0f, 0.1f, 0.05f, 0.05f);
         Math_SmoothStepToVec3fArray(sp64, boss->vwork, 1, sp1D0, boss->fwork[0], 100.0f, 0.0f);
-        if ((boss->dmgType != 0) && (boss->health > 0)) {
-            boss->dmgType = 0;
+        if ((boss->dmgType != DMG_NONE) && (boss->health > 0)) {
+            boss->dmgType = DMG_NONE;
             if (boss->dmgPart == 0) {
                 if (boss->swork[25] == 0) {
                     boss->swork[24] = 15;
@@ -1524,13 +1524,11 @@ void func_i6_8019C888(Boss* boss) {
         }
         if (D_801615D0.z > 0.0f) {
             boss->swork[30]++;
-            if (boss->swork[30] > 300) {
-                if (((ABS(D_801615D0.z) + ABS(D_801615D0.x)) < 3500.0f) && (gRadioState == 0)) {
-                    if (gTeamShields[3] > 0) {
-                        func_800BA808(gMsg_ID_2282, RCID_PEPPY);
-                    }
-                    boss->swork[30] = 150;
+            if (boss->swork[30] > 300 && ((ABS(D_801615D0.z) + ABS(D_801615D0.x)) < 3500.0f) && (gRadioState == 0)) {
+                if (gTeamShields[3] > 0) {
+                    func_800BA808(gMsg_ID_2282, RCID_PEPPY);
                 }
+                boss->swork[30] = 150;
             }
 
             if (boss->swork[30] > 100) {
@@ -1832,32 +1830,33 @@ void func_i6_8019EB80(void) {
     Rand_SetSeed(1, 0x71AC, 0x263A);
 
     for (i = 0; i <= (var_s1); i++, actor++) {
-        if (((i != 0) || !(gTeamShields[3] <= 0.0f)) && ((i != 1) || !(gTeamShields[2] <= 0.0f)) &&
-            ((i != 2) || !(gTeamShields[1] <= 0.0f))) {
-            Actor_Initialize(actor);
-            actor->obj.status = OBJ_INIT;
-            actor->obj.id = OBJ_ACTOR_195;
-            actor->obj.pos.x =
-                (D_i6_801A69FC[i].x * 0.5f) + gPlayer[0].pos.x + ((Rand_ZeroOneSeeded() - 0.5f) * 2000.0f);
-            actor->obj.pos.y = D_i6_801A69FC[i].y + gPlayer[0].pos.y + (Rand_ZeroOneSeeded() * 1000.0f);
-            actor->obj.pos.z = D_i6_801A69FC[i].z + gPlayer[0].pos.z + (Rand_ZeroOneSeeded() * 1000.0f);
-            actor->unk_0F4.z = (Rand_ZeroOneSeeded() - 0.5f) * 200.0f;
-            actor->vwork[0].x = (D_i6_801A69FC[i].x * 0.5f) + gPlayer[0].pos.x;
-            actor->vwork[0].y = D_i6_801A69FC[i].y + gPlayer[0].pos.y;
-            actor->vwork[0].z = D_i6_801A69FC[i].z + gPlayer[0].pos.z;
-            actor->unk_0B8 = 1;
-            Object_SetInfo(&actor->info, actor->obj.id);
-            if (i >= 3) {
-                actor->unk_0B6 = 35;
-                actor->unk_0F4.z = 0.0f;
-            }
-            if (i >= 7) {
-                actor->unk_0B6 = 36;
-                actor->scale = 0.125f;
-            }
-            actor->iwork[11] = 1;
-            Audio_PlaySfx(0x3100000C, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        if (((i == 0) && (gTeamShields[3] <= 0.0f)) || ((i == 1) && (gTeamShields[2] <= 0.0f)) ||
+            ((i == 2) && (gTeamShields[1] <= 0.0f))) {
+            continue;
         }
+        Actor_Initialize(actor);
+        actor->obj.status = OBJ_INIT;
+        actor->obj.id = OBJ_ACTOR_195;
+        actor->obj.pos.x =
+            (D_i6_801A69FC[i].x * 0.5f) + gPlayer[0].pos.x + ((Rand_ZeroOneSeeded() - 0.5f) * 2000.0f);
+        actor->obj.pos.y = D_i6_801A69FC[i].y + gPlayer[0].pos.y + (Rand_ZeroOneSeeded() * 1000.0f);
+        actor->obj.pos.z = D_i6_801A69FC[i].z + gPlayer[0].pos.z + (Rand_ZeroOneSeeded() * 1000.0f);
+        actor->unk_0F4.z = (Rand_ZeroOneSeeded() - 0.5f) * 200.0f;
+        actor->vwork[0].x = (D_i6_801A69FC[i].x * 0.5f) + gPlayer[0].pos.x;
+        actor->vwork[0].y = D_i6_801A69FC[i].y + gPlayer[0].pos.y;
+        actor->vwork[0].z = D_i6_801A69FC[i].z + gPlayer[0].pos.z;
+        actor->unk_0B8 = 1;
+        Object_SetInfo(&actor->info, actor->obj.id);
+        if (i >= 3) {
+            actor->unk_0B6 = 35;
+            actor->unk_0F4.z = 0.0f;
+        }
+        if (i >= 7) {
+            actor->unk_0B6 = 36;
+            actor->scale = 0.125f;
+        }
+        actor->iwork[11] = 1;
+        Audio_PlaySfx(0x3100000C, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
 }
 
