@@ -308,10 +308,12 @@ void func_8006B95C(Object_80*);
 void func_8006BB78(Actor*);
 void func_8006C008(Actor*);
 void func_8006D350(Object_80*);
+void func_8006ECBC(PlayerShotId, PlayerShot*, s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 void func_8006EEFC(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 void func_8006EFA0(s32 unk0E4, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 arg5, f32 arg6, f32 xRot, f32 yRot,
                    f32 zRot);
 void func_8006F0D8(f32 xPos, f32 yPos, f32 zPos, f32 arg3);
+void func_8006F254(Actor*);
 void func_80072594(Actor*);
 s32 func_80074F90(Object_80*);
 void func_80074FF0(Actor*);
