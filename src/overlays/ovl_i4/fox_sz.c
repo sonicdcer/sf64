@@ -388,7 +388,34 @@ void func_i4_8019C574(Actor* actor, s32 index) {
     Audio_PlaySfx(0x31024059U, actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019C70C.s")
+void func_i4_8019C70C(void) {
+    Actor* actor = &gActors[8];
+
+    Actor_Initialize(actor);
+    actor->obj.status = 1;
+    actor->obj.id = 0xC3;
+
+    actor->obj.pos.x = gBosses[0].obj.pos.x + 700.0f;
+    actor->obj.pos.y = gBosses[0].obj.pos.y - 1000.0f;
+    actor->obj.pos.z = gBosses[0].obj.pos.z - 1000.0f;
+
+    actor->unk_0F4.y = 180.0f;
+    actor->unk_0F4.x = 20.0f;
+
+    actor->obj.rot.x = -20.0f;
+    actor->obj.rot.y = 180.0f;
+    actor->obj.rot.y = 2.0f * actor->obj.rot.y;
+    actor->obj.rot.z = -actor->unk_0F4.z;
+
+    actor->fwork[0] = 30.0f;
+    actor->unk_0B6 = 24;
+    actor->iwork[11] = 1;
+    actor->unk_0B8 = 10;
+    actor->timer_0BC = 130;
+
+    Object_SetInfo(&actor->info, actor->obj.id);
+    Audio_PlaySfx(0x3100000CU, actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019C85C.s")
 
@@ -586,13 +613,13 @@ void func_i4_8019E454(Boss* boss) {
     boss->obj.rot.z = -boss->unk_078.z;
 
     if (D_80177B8C == 0) {
-        Matrix_RotateY(gCalcMatrix, (boss->obj.rot.y - 270.0f) * 0.017453292f, 0U);
-        Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * 0.017453292f, 1U);
-        Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * 0.017453292f, 1U);
+        Matrix_RotateY(gCalcMatrix, (boss->obj.rot.y - 270.0f) * 0.017453292f, 0);
+        Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * 0.017453292f, 1);
+        Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * 0.017453292f, 1);
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i4_8019F64C[(s32) (Rand_ZeroOne() * 11.99f)], &dest);
         func_8007C484(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, boss->vel.x,
                       boss->vel.y, boss->vel.z, (Rand_ZeroOne() * 0.1f) + 0.15f, 0);
-        if (((((s32) gGameFrameCount) % 7) == 0) && (Rand_ZeroOne() < 0.5f)) {
+        if (((gGameFrameCount % 7) == 0) && (Rand_ZeroOne() < 0.5f)) {
             func_i4_80199BDC(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, boss->vel.x,
                              boss->vel.y, boss->vel.z + 5.0f, (2.0f * Rand_ZeroOne()) + 4.0f);
         }
