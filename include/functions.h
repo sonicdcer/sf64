@@ -610,4 +610,7 @@ void func_menu_8019E8D0(void);
 void func_ending_8018A96C(void);
 void func_ending_8018AAC4(void);
 
+// sf_i5_5
+bool func_i5_801B49D0(Actor* actor);
+
 #endif
