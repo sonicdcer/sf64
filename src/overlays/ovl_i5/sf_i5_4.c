@@ -108,7 +108,7 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
                         temp_fs0 = (j * 220.0f * D_i5_801BE740) - 1760.0f - unk_08;
                         if (fabsf(temp_fs0) <= unk_10) {
                             temp_fs1 = __sinf((var_s2->unk_20 / unk_18) * M_PI);
-                            var_fv0 = __cosf((temp_fs0 / unk_10) * (M_PI / 2));
+                            var_fv0 = __cosf((temp_fs0 / unk_10) * (M_PI / 2.0f));
                             *var_s1 = *var_s1 + (var_fv0 * unk_14 * temp_fs1);
                         }
                     }
@@ -120,12 +120,12 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
                 case 2:
                     var_fv1 = unk_14;
                     j = 0;
-                    temp_fa0 = unk_14 / 1.2217305f;
+                    temp_fa0 = unk_14 / (70.0f * M_DTOR);
                     unk_08 += (1760.0f - (unk_10 * 0.5f));
                     if (var_s2->unk_20 <= temp_fa0) {
-                        var_fv1 = var_s2->unk_20 * 1.2217305f;
+                        var_fv1 = var_s2->unk_20 * (70.0f * M_DTOR);
                     } else if (temp_fa0 >= (unk_18 - var_s2->unk_20)) {
-                        var_fv1 = (unk_18 - var_s2->unk_20) * 1.2217305f;
+                        var_fv1 = (unk_18 - var_s2->unk_20) * (70.0f * M_DTOR);
                     }
                     var_fv0 = 0.0f;
                     do {
