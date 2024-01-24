@@ -333,7 +333,7 @@ void func_i1_80192CB0(Actor* actor) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_80192E2C.s")
 
-void func_i1_80192EA4(Actor* arg0) {
+void func_i1_80192EA4(Actor* actor) {
 }
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_80192EB0.s")
