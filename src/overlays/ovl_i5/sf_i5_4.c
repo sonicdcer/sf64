@@ -8,7 +8,8 @@ typedef struct {
     /* 0x10 */ f32 unk_10;
     /* 0x14 */ f32 unk_14;
     /* 0x18 */ f32 unk_18;
-    /* 0x1C */ char pad1C[8];
+    /* 0x1C */ s16 unk_1C;
+    /* 0x20 */ f32 unk_20;
 } UnkStruct_801C62E8; // size = 0x24
 extern UnkStruct_801C62E8* D_i5_801C62E8[20];
 
@@ -36,7 +37,11 @@ bool func_i5_801B49D0(Actor* actor) {
     return found;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/sf_i5_4/func_i5_801B4A54.s")
+void func_i5_801B4A54(UnkStruct_801C62E8* arg0) {
+    // Lots of conversions between floats, and ints unnecessarily here because of this chain assignment.
+    arg0->unk_00 = arg0->unk_04 = arg0->unk_08 = arg0->unk_0C = arg0->unk_10 = arg0->unk_14 = arg0->unk_18 =
+        arg0->unk_1C = arg0->unk_20 = 0;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/sf_i5_4/func_i5_801B4AA8.s")
 
