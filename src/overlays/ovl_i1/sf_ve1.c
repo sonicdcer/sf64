@@ -345,7 +345,7 @@ void func_i1_801933B4(Actor* arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_801933DC.s")
 
-void func_i1_801934D0(Actor* arg0) {
+void func_i1_801934D0(Actor* actor) {
     Matrix_Translate(gGfxMatrix, 0.0f, -488.0f, 0.0f, 1U);
     Animation_DrawSkeleton(0, &D_900D164, arg0->vwork, NULL, NULL, arg0, &gIdentityMatrix);
 }
