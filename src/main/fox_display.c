@@ -1679,7 +1679,7 @@ void func_80057D00(void) {
         ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2))) {
         func_8006089C(0);
     }
-    func_80077790();
+    BonusText_DrawAll();
     Matrix_Pop(&gGfxMatrix);
     func_80057248();
     func_80057504();

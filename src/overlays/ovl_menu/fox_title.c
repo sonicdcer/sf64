@@ -2653,11 +2653,11 @@ void func_menu_8018EA78(s32 arg0) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-bool func_menu_8018EDC8(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4) {
+bool func_menu_8018EDC8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     f32 x;
     f32 y;
     f32 z;
-    s32 i = *(s32*) arg4;
+    s32 i = *(s32*) data;
 
     if ((D_menu_801B86A4 < 2) && D_menu_801B9040) {
         x = D_menu_801B905C - D_menu_801B8350[i].unk_00.x;
@@ -2718,70 +2718,70 @@ bool func_menu_8018EDC8(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* ar
 
     switch (i) {
         case 0:
-            if (arg0 == 1) {
-                arg3->z += D_menu_801B8350[i].unk_18;
+            if (limbIndex == 1) {
+                rot->z += D_menu_801B8350[i].unk_18;
             }
-            if (arg0 == 19) {
-                arg3->x += D_menu_801B8350[i].unk_30;
-                arg3->y += D_menu_801B8350[i].unk_34;
+            if (limbIndex == 19) {
+                rot->x += D_menu_801B8350[i].unk_30;
+                rot->y += D_menu_801B8350[i].unk_34;
             }
-            if (arg0 == 20) {
-                arg3->x += D_menu_801B8350[i].unk_40;
-                arg3->y += D_menu_801B8350[i].unk_44;
+            if (limbIndex == 20) {
+                rot->x += D_menu_801B8350[i].unk_40;
+                rot->y += D_menu_801B8350[i].unk_44;
             }
             break;
 
         case 1:
-            if (arg0 == 1) {
-                arg3->z += D_menu_801B8350[i].unk_18;
+            if (limbIndex == 1) {
+                rot->z += D_menu_801B8350[i].unk_18;
             }
-            if (arg0 == 11) {
-                arg3->z += D_menu_801B8350[i].unk_20;
+            if (limbIndex == 11) {
+                rot->z += D_menu_801B8350[i].unk_20;
             }
-            if (arg0 == 19) {
-                arg3->x += D_menu_801B8350[i].unk_30;
-                arg3->y += D_menu_801B8350[i].unk_34;
+            if (limbIndex == 19) {
+                rot->x += D_menu_801B8350[i].unk_30;
+                rot->y += D_menu_801B8350[i].unk_34;
             }
-            if (arg0 == 20) {
-                arg3->x += D_menu_801B8350[i].unk_40;
-                arg3->y += D_menu_801B8350[i].unk_44;
+            if (limbIndex == 20) {
+                rot->x += D_menu_801B8350[i].unk_40;
+                rot->y += D_menu_801B8350[i].unk_44;
             }
-            if (arg0 == 21) {
-                arg3->x += -5.0f;
+            if (limbIndex == 21) {
+                rot->x += -5.0f;
             }
             break;
 
         case 2:
-            if (arg0 == 1) {
-                arg3->z += D_menu_801B8350[i].unk_18;
+            if (limbIndex == 1) {
+                rot->z += D_menu_801B8350[i].unk_18;
             }
-            if (arg0 == 19) {
-                arg3->x += D_menu_801B8350[i].unk_30;
-                arg3->y += D_menu_801B8350[i].unk_34;
+            if (limbIndex == 19) {
+                rot->x += D_menu_801B8350[i].unk_30;
+                rot->y += D_menu_801B8350[i].unk_34;
             }
-            if (arg0 == 20) {
-                arg3->x += D_menu_801B8350[i].unk_40;
-                arg3->y += D_menu_801B8350[i].unk_44;
+            if (limbIndex == 20) {
+                rot->x += D_menu_801B8350[i].unk_40;
+                rot->y += D_menu_801B8350[i].unk_44;
             }
-            if (arg0 == 21) {
-                arg3->x += 10.0f;
+            if (limbIndex == 21) {
+                rot->x += 10.0f;
             }
             break;
 
         case 3:
-            if (arg0 == 1) {
-                arg3->z += D_menu_801B8350[i].unk_18;
+            if (limbIndex == 1) {
+                rot->z += D_menu_801B8350[i].unk_18;
             }
-            if (arg0 == 17) {
-                arg3->x += D_menu_801B8350[i].unk_30;
-                arg3->y += D_menu_801B8350[i].unk_34;
+            if (limbIndex == 17) {
+                rot->x += D_menu_801B8350[i].unk_30;
+                rot->y += D_menu_801B8350[i].unk_34;
             }
-            if (arg0 == 18) {
-                arg3->x += D_menu_801B8350[i].unk_40;
-                arg3->y += D_menu_801B8350[i].unk_44;
+            if (limbIndex == 18) {
+                rot->x += D_menu_801B8350[i].unk_40;
+                rot->y += D_menu_801B8350[i].unk_44;
             }
-            if (arg0 == 19) {
-                arg3->x += 4.0f;
+            if (limbIndex == 19) {
+                rot->x += 4.0f;
             }
             break;
     }

@@ -31,7 +31,7 @@ void func_80042EC0(Boss* boss) {
         } else if (boss->obj.id == OBJ_BOSS_306) {
             yOffset = 200.0f;
         }
-        func_80077240(boss->obj.pos.x, boss->obj.pos.y + yOffset, boss->obj.pos.z, bonus);
+        BonusText_Display(boss->obj.pos.x, boss->obj.pos.y + yOffset, boss->obj.pos.z, bonus);
     }
     gHitCount += bonus + 1;
     D_80177850 = 15;
@@ -60,7 +60,7 @@ void func_80042FF4(Actor* actor, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_189;
-    actor->unk_0B8 = argB;
+    actor->state = argB;
     actor->obj.pos.x = arg1;
     actor->obj.pos.y = arg2;
     actor->obj.pos.z = arg3;

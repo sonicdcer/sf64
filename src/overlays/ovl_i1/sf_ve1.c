@@ -124,13 +124,13 @@ void func_i1_8019243C(Object_4C* obj4C) {
 }
 
 void func_i1_801924A8(Object_80* obj80) {
-    switch (obj80->unk_48) {
+    switch (obj80->state) {
         case 0:
             if (gPlayer[0].pos.z < obj80->obj.pos.z) {
                 D_80177AB0 = 0;
                 D_80177A98 = 0;
 
-                obj80->unk_48++;
+                obj80->state++;
             }
 
         case 1:

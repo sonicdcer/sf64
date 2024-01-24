@@ -169,7 +169,7 @@ void func_i3_8019E7F0(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) 
     Effect_Initialize(effect);
     effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_392;
-    effect->unk_4E = 3;
+    effect->state = 3;
     effect->obj.pos.x = xPos;
     effect->obj.pos.y = yPos;
     effect->obj.pos.z = zPos;
@@ -196,12 +196,12 @@ void func_i3_8019E8B8(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
 }
 
 void func_i3_8019E920(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
-                      s32 unk4E) {
+                      s32 state) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_392;
-    effect->unk_4E = unk4E;
-    if (unk4E == 2) {
+    effect->state = state;
+    if (state == 2) {
         effect->timer_50 = 30;
         effect->unk_4C = 3;
     }
@@ -232,12 +232,12 @@ void func_i3_8019EA7C(Actor* actor) {
     f32 sp34;
     s32 sp30;
 
-    if (actor->unk_0B8 == 0) {
+    if (actor->state == 0) {
         actor->vel.z = 20.0f - D_80177D08;
         actor->fwork[0] = 12.0f;
     } else {
         actor->vel.z = actor->fwork[1] - D_80177D08;
-        if (actor->unk_0B8 == 2) {
+        if (actor->state == 2) {
             Math_SmoothStepToF(&actor->obj.pos.x, gPlayer[0].pos.x, 1.0f, 100.0f, 10.0f);
         } else {
             actor->fwork[0] = 14.0f;
@@ -256,7 +256,7 @@ void func_i3_8019EA7C(Actor* actor) {
         D_801782EC[sp30 - 2] = actor->fwork[0] * 0.9f;
         D_801782EC[sp30 + 3] = actor->fwork[0] * 0.8f;
         D_801782EC[sp30 - 3] = actor->fwork[0] * 0.8f;
-        if (actor->unk_0B8 != 2) {
+        if (actor->state != 2) {
             D_801782EC[sp30 + 4] = actor->fwork[0] * 0.65f;
             D_801782EC[sp30 - 4] = actor->fwork[0] * 0.65f;
             D_801782EC[sp30 + 5] = actor->fwork[0] * 0.45f;
@@ -310,7 +310,7 @@ void func_i3_8019EF30(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 
     actor->vel.x = xVel;
     actor->vel.y = yVel;
     actor->vel.z = zVel;
-    actor->unk_0B8 = 2;
+    actor->state = 2;
     actor->timer_0C2 = 8;
     Object_SetInfo(&actor->info, actor->obj.id);
     if (gBossActive != 0) {
@@ -341,7 +341,7 @@ void func_i3_8019F0B0(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 
     actor->vel.x = xVel;
     actor->vel.y = yVel;
     actor->vel.z = zVel;
-    actor->unk_0B8 = 2;
+    actor->state = 2;
     actor->timer_0C2 = 8;
     Object_SetInfo(&actor->info, actor->obj.id);
     if (gBossActive != 0) {
@@ -397,13 +397,13 @@ void func_i3_8019F20C(Actor* actor) {
         actor->unk_0F4.x += 3.3f;
         actor->unk_0F4.y += 2.0f;
     }
-    switch (actor->unk_0B8) {
+    switch (actor->state) {
         case 0:
             actor->fwork[0] = actor->obj.pos.y * 0.05f;
             actor->obj.pos.y = -100.0f;
             /* fallthrough */
         case 1:
-            actor->unk_0B8 = 2;
+            actor->state = 2;
             actor->vel.y = actor->fwork[0];
             func_800A73E4(&sp8C, &sp88, actor->obj.pos.x, actor->obj.pos.y - 100.0f, actor->obj.pos.z);
             actor->obj.pos.y = sp8C;
@@ -472,7 +472,7 @@ void func_i3_8019F20C(Actor* actor) {
 }
 
 void func_i3_8019F7AC(Actor* actor) {
-    if (actor->unk_0B8 != 0) {
+    if (actor->state != 0) {
         Matrix_Push(&gGfxMatrix);
         Matrix_RotateY(gGfxMatrix, actor->unk_0F4.y * M_DTOR, 1);
         Matrix_RotateX(gGfxMatrix, actor->unk_0F4.x * M_DTOR, 1);
@@ -559,7 +559,7 @@ void func_i3_8019FAA4(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos
                 effect->obj.pos.z = bossSO->obj.pos.z + sp38.z;
                 effect->vel.z = gPlayer[0].vel.z;
                 effect->vel.y = yVel;
-                if (gBosses[0].actionState >= 2) {
+                if (gBosses[0].state >= 2) {
                     effect->scale2 = 15.0f;
                 }
             }
@@ -575,19 +575,19 @@ void func_i3_8019FAA4(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos
     effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
     effect->unk_44 = 255;
     effect->unk_48 = 1;
-    effect->unk_4E = 4;
+    effect->state = 4;
     effect->unk_4C = 5;
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_i3_8019FDE0(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 unk4E) {
+void func_i3_8019FDE0(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 state) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_392;
     effect->obj.pos.x = xPos;
     effect->obj.pos.y = yPos;
     effect->obj.pos.z = zPos;
-    if (unk4E != 0) {
+    if (state != 0) {
         effect->vel.z = gPlayer[0].vel.z + 80.0f;
     } else {
         effect->vel.z = gPlayer[0].vel.z + 15.0f;
@@ -598,7 +598,7 @@ void func_i3_8019FDE0(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos
     effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
     effect->unk_44 = 255;
     effect->unk_48 = 1;
-    effect->unk_4E = unk4E + 5;
+    effect->state = state + 5;
     Object_SetInfo(&effect->info, effect->obj.id);
     effect->info.damage = 40;
 }
@@ -637,10 +637,10 @@ void func_i3_8019FFC0(Boss* bossSO, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s3
 }
 
 void func_i3_801A003C(Actor* actor) {
-    switch (actor->unk_0B8) {
+    switch (actor->state) {
         case 0:
             if (actor->timer_0BE == 0) {
-                actor->unk_0B8 = 1;
+                actor->state = 1;
                 actor->timer_0BE = 50;
             } else if (actor->timer_0BC == 0) {
                 actor->timer_0BC = 2;
@@ -650,7 +650,7 @@ void func_i3_801A003C(Actor* actor) {
             break;
         case 1:
             if (actor->timer_0BE == 0) {
-                actor->unk_0B8 = 0;
+                actor->state = 0;
                 actor->timer_0BE = 50;
                 actor->unk_04E = 0;
                 func_8005F0E8(actor->sfxPos, &actor->obj.pos);
@@ -669,7 +669,7 @@ void func_i3_801A0120(Effect* effect) {
     s32 sp48;
     Vec3f sp3C;
 
-    switch (effect->unk_4E) {
+    switch (effect->state) {
         case 0:
             Matrix_Translate(gCalcMatrix, effect->vel.x, effect->vel.y, effect->vel.z, 0);
             Matrix_RotateY(gCalcMatrix, effect->unk_60.y * M_DTOR, 1);
@@ -831,7 +831,7 @@ void func_i3_801A0120(Effect* effect) {
 
 void func_i3_801A0AF0(Effect* effect) {
     Graphics_SetScaleMtx(effect->scale2);
-    switch (effect->unk_4E) {
+    switch (effect->state) {
         case 0:
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, effect->unk_44);
             gSPDisplayList(gMasterDisp++, D_i3_801BF92C[effect->unk_4C]);
@@ -864,7 +864,7 @@ void func_i3_801A0CEC(Actor* actor, f32 xPos, f32 zPos, f32 zVel, s32 unkB8) {
     actor->obj.pos.x = xPos;
     actor->obj.pos.z = zPos;
     actor->unk_046 = 1;
-    actor->unk_0B8 = unkB8;
+    actor->state = unkB8;
     actor->vel.z = zVel;
     actor->fwork[1] = zVel;
     if (unkB8 == 2) {
@@ -913,7 +913,7 @@ void func_i3_801A0DF8(f32 xPos, f32 zPos, f32 yRot, s32 index, f32 yPos) {
     gActors[sp2C].obj.status = OBJ_ACTIVE;
     gActors[sp2C].obj.id = OBJ_ACTOR_279;
     Object_SetInfo(&gActors[sp2C].info, gActors[sp2C].obj.id);
-    gActors[sp2C].unk_0B8 = 0;
+    gActors[sp2C].state = 0;
     gActors[sp2C].obj.pos.x = xPos;
     gActors[sp2C].obj.pos.z = zPos;
     gActors[sp2C].obj.rot.y = yRot;
@@ -937,7 +937,7 @@ void func_i3_801A0FD4(Actor* actor, s32 index) {
         actor->obj.pos.x = D_i3_801BF95C[index].x + gPlayer[0].pos.x;
         actor->obj.pos.y = D_i3_801BF95C[index].y + gPlayer[0].pos.y;
         actor->obj.pos.z = D_i3_801BF95C[index].z + gPlayer[0].pos.z;
-        actor->unk_0B8 = 0;
+        actor->state = 0;
         actor->iwork[11] = 1;
         actor->vel.z = 0.0f;
         actor->vel.y = 0.0f;
@@ -1081,9 +1081,9 @@ void func_i3_801A10F4(Player* player) {
             if (gCsFrameCount == 615) {
                 func_800A6028(player->sfxPos, 0x09000002);
                 gActors[0].fwork[29] = gActors[1].fwork[29] = gActors[2].fwork[29] = 5.0f;
-                gActors[0].unk_0B8 = 3;
-                gActors[1].unk_0B8 = 2;
-                gActors[2].unk_0B8 = 1;
+                gActors[0].state = 3;
+                gActors[1].state = 2;
+                gActors[2].state = 1;
                 player->timer_1F8 = 3;
                 player->unk_190 = 5.0f;
                 player->unk_1D0++;
@@ -1162,7 +1162,7 @@ void func_i3_801A1CD8(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_189;
-    actor->unk_0B8 = 40;
+    actor->state = 40;
     actor->unk_046 = unk46;
     actor->unk_04A = 3;
     actor->obj.pos.x = xPos;
@@ -1304,7 +1304,7 @@ void func_i3_801A23F4(Boss* bossSO) {
                         bossSO->swork[SO_SWK_1] = 4;
                     } else {
                         bossSO->swork[SO_SWK_1] = 2;
-                        bossSO->actionState = 0;
+                        bossSO->state = 0;
                         bossSO->unk_078.y = 0.0f;
                     }
                 } else if (bossSO->swork[SO_SWK_3] == 0) {
@@ -1416,7 +1416,7 @@ void func_i3_801A23F4(Boss* bossSO) {
             }
             break;
         case 2:
-            if (((bossSO->unk_04C == 89) && (bossSO->actionState == 2)) || (bossSO->swork[SO_SWK_2] == 0)) {
+            if (((bossSO->unk_04C == 89) && (bossSO->state == 2)) || (bossSO->swork[SO_SWK_2] == 0)) {
                 bossSO->unk_04C = 0;
                 if ((bossSO->swork[SO_SWK_3] != 0) || (bossSO->swork[SO_SWK_2] != 0)) {
                     bossSO->swork[SO_SWK_1] = 5;
@@ -1426,7 +1426,7 @@ void func_i3_801A23F4(Boss* bossSO) {
             }
             if (bossSO->unk_04C == 80) {
                 bossSO->unk_078.y += 15.0f;
-                bossSO->actionState++;
+                bossSO->state++;
                 if (bossSO->unk_078.y >= 30.0f) {
                     bossSO->unk_078.y = 0.0f;
                 }
@@ -1458,7 +1458,7 @@ void func_i3_801A2C3C(Boss* bossSO) {
     bossSO->swork[SO_SWK_1] = 0;
     bossSO->fwork[SO_FWK_0] = 0.05f;
     bossSO->unk_04C = Animation_GetFrameCount(&D_601388C) - 2;
-    bossSO->actionState = 0;
+    bossSO->state = 0;
     bossSO->swork[SO_SWK_11] = 15;
 }
 
@@ -1468,7 +1468,7 @@ void func_i3_801A2C98(Boss* bossSO) {
     if (bossSO->swork[SO_SWK_11] != 0) {
         bossSO->swork[SO_SWK_11]--;
     }
-    if (bossSO->actionState == 0) {
+    if (bossSO->state == 0) {
         if (bossSO->swork[SO_SWK_11] == 0) {
             bossSO->unk_04C -= 2;
             Math_SmoothStepToF(&bossSO->obj.pos.y, -1000.0f, 0.1f, 10.0f, 0.1f);
@@ -1495,7 +1495,7 @@ void func_i3_801A2C98(Boss* bossSO) {
                 Audio_PlaySfx(0x19036054, bossSO->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
             if (bossSO->unk_04C == 0) {
-                bossSO->actionState++;
+                bossSO->state++;
                 bossSO->swork[SO_SWK_11] = 100;
                 bossSO->obj.pos.y = -500.0f;
                 bossSO->fwork[SO_FWK_3] = 4800.0f;
@@ -1536,7 +1536,7 @@ void func_i3_801A30CC(Boss* bossSO) {
     bossSO->swork[SO_SWK_1] = 0;
     bossSO->fwork[SO_FWK_0] = 0.1f;
     bossSO->unk_04C = Animation_GetFrameCount(&D_601388C) - 2;
-    bossSO->actionState = 0;
+    bossSO->state = 0;
     bossSO->swork[SO_SWK_11] = 15;
 }
 
@@ -1544,7 +1544,7 @@ void func_i3_801A3128(Boss* bossSO) {
     if (bossSO->swork[SO_SWK_11] != 0) {
         bossSO->swork[SO_SWK_11]--;
     }
-    if (bossSO->actionState == 0) {
+    if (bossSO->state == 0) {
         if (bossSO->swork[SO_SWK_11] == 0) {
             bossSO->unk_04C -= 2;
             Math_SmoothStepToF(&bossSO->obj.pos.y, -1000.0f, 0.1f, 10.0f, 0.1f);
@@ -1556,7 +1556,7 @@ void func_i3_801A3128(Boss* bossSO) {
                 Audio_PlaySfx(0x19036054, bossSO->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
             if (bossSO->unk_04C == 0) {
-                bossSO->actionState++;
+                bossSO->state++;
                 bossSO->swork[SO_SWK_11] = 100;
                 bossSO->obj.pos.y = -500.0f;
                 bossSO->fwork[SO_FWK_3] = 2400.0f;
@@ -1799,7 +1799,7 @@ void func_i3_801A3C4C(Boss* bossSO) {
     }
     if (bossSO->health <= 0) {
         bossSO->unk_04C = 21;
-        bossSO->actionState = 0;
+        bossSO->state = 0;
         bossSO->swork[SO_SWK_1] = 1;
         bossSO->fwork[SO_FWK_0] = 0.01f;
         bossSO->info.hitbox = SEGMENTED_TO_VIRTUAL(D_800CBF34);
@@ -1854,16 +1854,16 @@ void func_i3_801A4214(Boss* bossSO) {
     sp50.y = 200.0f;
     sp50.z = 1100.0f;
     Matrix_MultVec3f(gCalcMatrix, &sp50, &sp44);
-    if (bossSO->actionState >= 2) {
+    if (bossSO->state >= 2) {
         Math_SmoothStepToF(&D_801779A8[gMainController], 30.0f, 1.0f, 2.5f, 0.0f);
     }
-    switch (bossSO->actionState) {
+    switch (bossSO->state) {
         case 0:
             if (D_i3_801C2740[0] >= 33) {
                 D_i3_801C2740[0] -= 3;
             }
             if (bossSO->timer_058 == 19910) {
-                bossSO->actionState++;
+                bossSO->state++;
                 bossSO->swork[SO_SWK_1] = 5;
                 bossSO->unk_04C = 0;
                 bossSO->fwork[SO_FWK_0] = 0.05f;
@@ -1873,7 +1873,7 @@ void func_i3_801A4214(Boss* bossSO) {
         case 1:
             if (bossSO->unk_04C == 51) {
                 bossSO->unk_04C = 50;
-                bossSO->actionState++;
+                bossSO->state++;
                 gShowBossHealth = false;
                 Audio_PlaySfx(0x39439076, bossSO->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 func_i3_801A1E14(bossSO->fwork[SO_FWK_4], bossSO->fwork[SO_FWK_5] + 300.0f, bossSO->fwork[SO_FWK_6],
@@ -1900,7 +1900,7 @@ void func_i3_801A4214(Boss* bossSO) {
                 Math_SmoothStepToF(&bossSO->obj.pos.y, 180.0f, 0.1f, 10.0f, 0.1f);
                 D_i3_801C2740[1] -= 4;
             } else {
-                bossSO->actionState++;
+                bossSO->state++;
             }
             break;
         case 3:
@@ -1942,7 +1942,7 @@ void func_i3_801A4214(Boss* bossSO) {
                 D_801779A8[gMainController] = 120.0f;
             }
             if (gCsFrameCount == 250) {
-                bossSO->actionState++;
+                bossSO->state++;
                 bossSO->obj.pos.y = -1600.0f;
                 for (i = 0; i < 2; i++) {
                     if (gEffects[i].obj.status != OBJ_FREE) {
@@ -2050,7 +2050,7 @@ void func_i3_801A4EC0(Boss* bossSO) {
     bossSO->swork[SO_SWK_1] = 5;
     bossSO->fwork[SO_FWK_0] = 0.01f;
     bossSO->unk_04C = 0;
-    bossSO->actionState = 0;
+    bossSO->state = 0;
     bossSO->fwork[SO_FWK_31] = bossSO->obj.rot.y = 0.0f;
 }
 
@@ -2060,11 +2060,11 @@ void func_i3_801A4EF8(Boss* bossSO) {
     if (bossSO->swork[SO_SWK_11] != 0) {
         bossSO->swork[SO_SWK_11]--;
     }
-    switch (bossSO->actionState) {
+    switch (bossSO->state) {
         case 0:
             bossSO->unk_04C = 0;
             if (bossSO->fwork[SO_FWK_31] > 20.0f) {
-                bossSO->actionState++;
+                bossSO->state++;
                 bossSO->swork[SO_SWK_11] = 108;
                 bossSO->fwork[SO_FWK_0] = 0.01f;
                 bossSO->unk_04C = 56;
@@ -2109,7 +2109,7 @@ void func_i3_801A4EF8(Boss* bossSO) {
                 gActors[10].unk_0D0 = 2;
             }
             if (bossSO->obj.pos.y <= -900.0f) {
-                bossSO->actionState++;
+                bossSO->state++;
                 bossSO->swork[SO_SWK_11] = 500;
                 bossSO->obj.pos.y = -1500.0f;
                 bossSO->fwork[SO_FWK_3] = 4800.0f;
@@ -2153,7 +2153,7 @@ void func_i3_801A4EF8(Boss* bossSO) {
                     D_80178480 = 10;
                 }
                 if (bossSO->obj.pos.y < -1500.0f) {
-                    bossSO->actionState++;
+                    bossSO->state++;
                     bossSO->swork[SO_SWK_11] = 100;
                     bossSO->obj.pos.y = -500.0f;
                     bossSO->fwork[SO_FWK_3] = 4800.0f;
@@ -2194,13 +2194,13 @@ void func_i3_801A4EF8(Boss* bossSO) {
 void func_i3_801A56B8(Boss* bossSO) {
     switch (bossSO->swork[SO_SWK_1]) {
         case 2:
-            if (((bossSO->unk_04C == 89) && (bossSO->actionState == 2)) || (bossSO->swork[SO_SWK_2] == 0)) {
+            if (((bossSO->unk_04C == 89) && (bossSO->state == 2)) || (bossSO->swork[SO_SWK_2] == 0)) {
                 bossSO->unk_04C = 0;
-                bossSO->actionState = 0;
+                bossSO->state = 0;
                 bossSO->unk_078.y = 0.0f;
             }
             if (bossSO->unk_04C == 89) {
-                bossSO->actionState++;
+                bossSO->state++;
                 bossSO->unk_078.y += 15.0f;
             }
             Math_SmoothStepToAngle(&bossSO->obj.rot.y, bossSO->unk_078.y, 1.0f, 3.0f, 1.0f);
@@ -2362,11 +2362,11 @@ void func_i3_801A5B3C(Boss* bossSO) {
     }
     if ((!(gGameFrameCount & 3) || (bossSO->fwork[SO_FWK_31] != 0.0f)) &&
         ((bossSO->swork[SO_SWK_0] != 7) || !(gGameFrameCount & 1))) {
-        if ((bossSO->swork[SO_SWK_2] == 0) && ((bossSO->health > 0) || (bossSO->actionState < 2))) {
+        if ((bossSO->swork[SO_SWK_2] == 0) && ((bossSO->health > 0) || (bossSO->state < 2))) {
             func_i3_8019FF44(bossSO, bossSO->fwork[SO_FWK_10], bossSO->fwork[SO_FWK_11], bossSO->fwork[SO_FWK_12],
                              bossSO->fwork[SO_FWK_31] - 20.0f, -1.0f);
         }
-        if ((bossSO->swork[SO_SWK_3] == 0) && ((bossSO->health > 0) || (bossSO->actionState < 2))) {
+        if ((bossSO->swork[SO_SWK_3] == 0) && ((bossSO->health > 0) || (bossSO->state < 2))) {
             func_i3_8019FF44(bossSO, bossSO->fwork[SO_FWK_7], bossSO->fwork[SO_FWK_8], bossSO->fwork[SO_FWK_9],
                              bossSO->fwork[SO_FWK_31] - 20.0f, 1.0f);
         }
@@ -2487,7 +2487,7 @@ void func_i3_801A5B3C(Boss* bossSO) {
         bossSO->dmgType = DMG_NONE;
         Audio_PlaySfx(0x29121007, bossSO->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         if (!((bossSO->swork[SO_SWK_0] == 0) || (bossSO->swork[SO_SWK_0] == 2) || (bossSO->swork[SO_SWK_0] == 3) ||
-              (bossSO->swork[SO_SWK_0] == 6) || ((bossSO->swork[SO_SWK_0] == 7) && (bossSO->actionState == 2)))) {
+              (bossSO->swork[SO_SWK_0] == 6) || ((bossSO->swork[SO_SWK_0] == 7) && (bossSO->state == 2)))) {
             func_i3_801A3C4C(bossSO);
         }
     }
@@ -2801,7 +2801,7 @@ void func_i3_801A7750(void) {
         actor->obj.pos.x = D_i3_801BFB30[i].x / 2.0f + gPlayer[0].pos.x;
         actor->obj.pos.y = D_i3_801BFB30[i].y + gPlayer[0].pos.y;
         actor->obj.pos.z = D_i3_801BFB30[i].z + gPlayer[0].pos.z;
-        actor->unk_0B8 = 1;
+        actor->state = 1;
         Object_SetInfo(&actor->info, actor->obj.id);
         actor->iwork[11] = 1;
         Audio_PlaySfx(0x3100000C, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -3092,7 +3092,7 @@ void func_i3_801A7930(Player* player) {
             break;
         case 1400:
             if (gTeamShields[3] > 0) {
-                gActors[0].unk_0B8 = 2;
+                gActors[0].state = 2;
             }
             break;
         case 1500:
@@ -3101,12 +3101,12 @@ void func_i3_801A7930(Player* player) {
             break;
         case 1420:
             if (gTeamShields[2] > 0) {
-                gActors[1].unk_0B8 = 2;
+                gActors[1].state = 2;
             }
             break;
         case 1440:
             if (gTeamShields[1] > 0) {
-                gActors[2].unk_0B8 = 2;
+                gActors[2].state = 2;
             }
             break;
     }
@@ -3142,16 +3142,16 @@ void func_i3_801A8BE8(Actor* actor) {
     Vec3f sp3C;
     Vec3f sp30;
 
-    switch (actor->unk_0B8) {
+    switch (actor->state) {
         case 4:
             break;
         case 1:
             if ((actor->unk_0B6 != 0) && ((((actor->index & 7) * 10) + 1030) < gCsFrameCount)) {
-                actor->unk_0B8 = 4;
+                actor->state = 4;
             }
             break;
         case 2:
-            actor->unk_0B8 = 3;
+            actor->state = 3;
             Audio_PlaySfx(0x09000002, actor->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             actor->fwork[29] = 5.0f;
             /* fallthrough */

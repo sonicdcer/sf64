@@ -57,7 +57,7 @@ void func_i6_80197B30(Actor* actor, s32 timer) {
     actor->obj.rot.x = gPlayer[0].unk_120 + gPlayer[0].unk_0E4 + gPlayer[0].unk_4D8;
     actor->obj.rot.y = gPlayer[0].unk_114 + gPlayer[0].unk_0E8 + 180.0f;
     actor->obj.rot.z = gPlayer[0].unk_0EC;
-    actor->unk_0B8 = 5;
+    actor->state = 5;
     actor->timer_04C = timer;
     actor->iwork[11] = 1;
     Object_SetInfo(&actor->info, actor->obj.id);
@@ -518,7 +518,7 @@ void func_i6_80199438(Boss* boss) {
                 boss->fwork[0] = 1.0f;
             }
             if ((boss->timer_058 == 60) && (boss->swork[19] == 0)) {
-                func_80077240(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 3);
+                BonusText_Display(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 3);
                 gHitCount += 4;
             }
             if (boss->timer_058 == 50) {
@@ -964,7 +964,7 @@ void func_i6_8019AEEC(Boss* boss) {
                 gActors[59].obj.pos.y = boss->obj.pos.y - 202.0f;
                 gActors[59].obj.pos.x = boss->obj.pos.x;
                 gActors[59].obj.pos.z = boss->obj.pos.z - 30.0f;
-                gActors[59].unk_0B8 = 6;
+                gActors[59].state = 6;
             }
             if (boss->obj.pos.y == 0.0f) {
                 Audio_PlaySfx(0x0100001D, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -1844,7 +1844,7 @@ void func_i6_8019EB80(void) {
         actor->vwork[0].x = (D_i6_801A69FC[i].x * 0.5f) + gPlayer[0].pos.x;
         actor->vwork[0].y = D_i6_801A69FC[i].y + gPlayer[0].pos.y;
         actor->vwork[0].z = D_i6_801A69FC[i].z + gPlayer[0].pos.z;
-        actor->unk_0B8 = 1;
+        actor->state = 1;
         Object_SetInfo(&actor->info, actor->obj.id);
         if (i >= 3) {
             actor->unk_0B6 = 35;
@@ -2123,17 +2123,17 @@ void func_i6_8019EE60(Player* player) {
             break;
         case 1380:
             if (gTeamShields[3] > 0) {
-                gActors[0].unk_0B8 = 2;
+                gActors[0].state = 2;
             }
             break;
         case 1400:
             if (gTeamShields[2] > 0) {
-                gActors[1].unk_0B8 = 2;
+                gActors[1].state = 2;
             }
             break;
         case 1420:
             if (gTeamShields[1] > 0) {
-                gActors[2].unk_0B8 = 2;
+                gActors[2].state = 2;
             }
             break;
     }
@@ -2169,18 +2169,18 @@ void func_i6_8019FF00(Actor* actor) {
     f32 temp1;
     f32 temp2;
 
-    switch (actor->unk_0B8) {
+    switch (actor->state) {
         case 1:
             Math_SmoothStepToF(&actor->obj.pos.x, actor->vwork[0].x, 0.02f, 2.0f, 0.0001f);
             Math_SmoothStepToF(&actor->obj.pos.y, actor->vwork[0].y, 0.02f, 2.0f, 0.0001f);
             Math_SmoothStepToF(&actor->obj.pos.z, actor->vwork[0].z, 0.02f, 2.0f, 0.0001f);
             Math_SmoothStepToF(&actor->unk_0F4.z, 0.0f, 0.02f, 0.2f, 0.0001f);
             if ((actor->unk_0B6 != 0) && ((((actor->index & 7) * 10) + 1030) < gCsFrameCount)) {
-                actor->unk_0B8 = 4;
+                actor->state = 4;
             }
             break;
         case 2:
-            actor->unk_0B8 = 3;
+            actor->state = 3;
             Audio_PlaySfx(0x09000002, actor->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             actor->fwork[29] = 5.0f;
             /* fallthrough */
@@ -2244,7 +2244,7 @@ void func_i6_8019FF00(Actor* actor) {
             }
             break;
     }
-    if (actor->unk_0B8 != 6) {
+    if (actor->state != 6) {
         Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + 180.0f) * M_DTOR, 0);
         Matrix_RotateX(gCalcMatrix, -(actor->unk_0F4.x * M_DTOR), 1);
         sp4C.x = 0.0f;
@@ -2333,7 +2333,7 @@ void func_i6_801A06A4(Actor* actor, s32 arg1) {
         actor->fwork[0] = gPlayer[0].unk_0D0;
         actor->unk_0F4.y = gPlayer[0].unk_0E8;
         actor->unk_0F4.z = gPlayer[0].unk_0EC;
-        actor->unk_0B8 = arg1 + 7;
+        actor->state = arg1 + 7;
         actor->iwork[11] = 1;
         Object_SetInfo(&actor->info, actor->obj.id);
         Audio_PlaySfx(0x3100000C, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -3139,7 +3139,7 @@ void func_i6_801A39FC(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_189;
-    actor->unk_0B8 = arg7;
+    actor->state = arg7;
     actor->obj.pos.x = xPos;
     actor->obj.pos.y = yPos;
     actor->obj.pos.z = zPos;
@@ -3248,9 +3248,9 @@ void func_i6_801A4E44(Object_80* obj80) {
     Vec3f sp3C;
     Vec3f sp30;
 
-    if (obj80->unk_48 == 0) {
+    if (obj80->state == 0) {
         Audio_PlaySfx(0x1900404F, obj80->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-        obj80->unk_48++;
+        obj80->state++;
     }
     if (!(gGameFrameCount & 3)) {
         Matrix_RotateY(gCalcMatrix, obj80->obj.rot.y * M_DTOR, 0);
@@ -3287,9 +3287,9 @@ void func_i6_801A52B8(Object_80* obj80) {
     Vec3f sp44;
     Vec3f sp38;
 
-    if (obj80->unk_48 == 0) {
+    if (obj80->state == 0) {
         Audio_PlaySfx(0x1900404F, obj80->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-        obj80->unk_48++;
+        obj80->state++;
     }
     if (!(gGameFrameCount & 3)) {
         Matrix_RotateY(gCalcMatrix, obj80->obj.rot.y * M_DTOR, 0);
