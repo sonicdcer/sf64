@@ -26,6 +26,11 @@ void func_8002FC00(Actor*);
 void func_i4_80199900(Actor* actor, s32 arg1) {
     s32 i;
 
+    PRINTF("MISS_MOVE_TIME %d\n");
+    PRINTF("Enm->time0 %d\n");
+    PRINTF("time0 %d\n");
+    PRINTF("Demo_Time=%d\n");
+
     D_Timer_80161A60 = 8;
 
     Object_Kill(&actor->obj, actor->sfxPos);
@@ -1830,5 +1835,3 @@ void func_i4_8019EA68(void) {
     Object_SetInfo(&boss->info, boss->obj.id);
     Audio_PlaySfx(0x11030010U, boss->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/D_i4_801A00C0.s")
