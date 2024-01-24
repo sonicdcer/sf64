@@ -11,7 +11,7 @@ void func_i1_801988E0(void) {
 void func_i1_80198968(Item* item) {
     f32 var_fv0;
 
-    switch (item->unk_46) {
+    switch (item->state) {
         case 0:
             item->obj.rot.z += 1.0f;
             Math_SmoothStepToF(&item->scale, 1.0f, 1.0f, 0.05f, 0.0f);
@@ -28,8 +28,8 @@ void func_i1_80198968(Item* item) {
                     D_80177E80 = 0;
                 }
             }
-            if (item->unk_4C != 0) {
-                item->unk_46 = 1;
+            if (item->collected) {
+                item->state = 1;
                 item->timer_48 = 50;
                 item->info.unk_10 = 10000.0f;
                 PRINTF("♪:リング通過音\n"); // Ring passing sound
@@ -41,15 +41,16 @@ void func_i1_80198968(Item* item) {
             }
             break;
         case 1:
-            item->obj.pos.x += ((gPlayer[item->unk_4E].pos.x - item->obj.pos.x) * 0.05f);
-            item->obj.pos.y += ((gPlayer[item->unk_4E].pos.y - item->obj.pos.y) * 0.05f);
+            item->obj.pos.x += ((gPlayer[item->playerNum].pos.x - item->obj.pos.x) * 0.05f);
+            item->obj.pos.y += ((gPlayer[item->playerNum].pos.y - item->obj.pos.y) * 0.05f);
             if (gPlayer->unk_238 != 0) {
-                item->obj.pos.z += ((gPlayer[item->unk_4E].unk_138 - 300.0f) - item->obj.pos.z) * 0.05f;
+                item->obj.pos.z += ((gPlayer[item->playerNum].unk_138 - 300.0f) - item->obj.pos.z) * 0.05f;
             } else {
-                item->obj.pos.z += ((gPlayer[item->unk_4E].unk_138 - item->obj.pos.z) * 0.05f);
+                item->obj.pos.z += ((gPlayer[item->playerNum].unk_138 - item->obj.pos.z) * 0.05f);
             }
             item->obj.rot.z += 22.0f;
-            Math_SmoothStepToAngle(&item->obj.rot.y, Math_RadToDeg(-gPlayer[item->unk_4E].unk_058), 0.2f, 10.0f, 0.0f);
+            Math_SmoothStepToAngle(&item->obj.rot.y, Math_RadToDeg(-gPlayer[item->playerNum].unk_058), 0.2f, 10.0f,
+                                   0.0f);
             if (item->timer_48 == 0) {
                 Object_Kill(&item->obj, item->sfxPos);
             }

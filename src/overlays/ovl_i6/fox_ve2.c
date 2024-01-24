@@ -40,7 +40,7 @@ void func_i6_80196314(Actor* actor) {
     Player* player = &gPlayer[0];
     s32 i;
 
-    switch (actor->unk_0B8) {
+    switch (actor->state) {
         case 0:
             D_8015F928 = 0;
             D_8015F908 = 0;
@@ -51,7 +51,7 @@ void func_i6_80196314(Actor* actor) {
             }
 
             if (player->state_1C8 == PLAYERSTATE_1C8_3) {
-                actor->unk_0B8 = 2;
+                actor->state = 2;
                 player->pos.x = 0.0f;
                 player->pos.z = 8000.0f;
                 player->pos.y = 670.0f;
@@ -60,7 +60,7 @@ void func_i6_80196314(Actor* actor) {
             } else {
                 D_800C9B4C = 320;
                 D_8015F908 = 1200;
-                actor->unk_0B8 = 1;
+                actor->state = 1;
                 player->pos.x = 0.0f;
                 player->pos.z = 16000.0f;
                 player->pos.y = 4350.0f;
@@ -82,11 +82,11 @@ void func_i6_80196314(Actor* actor) {
         case 1:
 
             for (otherActor = &gActors[1], i = 1; i < 4; i++, otherActor++) {
-                otherActor->unk_0B8 = 0;
+                otherActor->state = 0;
                 otherActor->timer_0BC = 3;
                 if (actor->timer_0BC == 0) {
-                    otherActor->unk_0B8 = 2;
-                    actor->unk_0B8 = 2;
+                    otherActor->state = 2;
+                    actor->state = 2;
                     player->state_1C8 = PLAYERSTATE_1C8_3;
                     player->unk_014 = 0.0001f;
                     D_80177838 = 80;
@@ -135,7 +135,7 @@ void func_i6_80196314(Actor* actor) {
             Math_SmoothStepToF(&player->camAt.z, actor4->obj.pos.z, 1.0f, 20000.0f, 0.0f);
             Math_SmoothStepToF(&player->unk_034, 0, 0.1f, 0.2f, 0.0f);
             if ((gControllerPress->button & START_BUTTON) || (D_8015F928 == (D_800C9B4C + 300))) {
-                actor->unk_0B8 = 2;
+                actor->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 func_800B7184(player, 1);
                 player->unk_014 = 0.0f;
@@ -183,7 +183,7 @@ void func_i6_80196968(void) {
         }
 
         if (D_80178310[i].id <= OBJ_80_160) {
-            func_800A4F4C(obj58);
+            Object_58_Initialize(obj58);
             obj58->obj.status = OBJ_ACTIVE;
             obj58->obj.id = D_80178310[i].id;
             obj58->sfxPos[0] = obj58->obj.pos.x = D_80178310[i].xPos;

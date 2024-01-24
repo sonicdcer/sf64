@@ -371,7 +371,7 @@ extern Item gItems[20];
 extern PlayerShot gPlayerShots[16];
 extern UnkEntity30 gUnkEntities30[100];
 extern UnkEntity28 gUnkEntities28[65];
-extern UnkEntity1C gUnkEntities1C[10];
+extern BonusText gBonusText[10];
 // 0x100
 extern s32 D_80176550[2];
 extern f32 D_80176558[2][100];
