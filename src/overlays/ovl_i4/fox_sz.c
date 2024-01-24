@@ -239,11 +239,199 @@ void func_i4_8019A1D0(void) {
 // figure out type
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019A2F4.s")
 
+void func_i4_8019A3E8(Actor*);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019A3E8.s")
 
+s32 func_i4_8019AA9C(Player*);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019AA9C.s")
 
+#ifdef IMPORT_DATA
+void func_i4_8019AB8C(Actor* actor) {
+    s32 i;
+    Player* player;
+    Actor* actor8;
+    s32 pad;
+    f32 D_i4_8019F514[5] = { -200.0f, -100.0f, 0.0f, 100.0f, 200.0f };
+
+    player = &gPlayer[0];
+
+    switch (actor->unk_0B8) {
+        case 0:
+            D_i4_801A0564 = D_i4_801A0560 = 0;
+            D_8015F914 = 63.0f;
+            D_8015F918 = 255.0f;
+            D_8015F91C = 158.0f;
+            D_80161A44 = 30000.0f;
+            D_8015F928 = 0;
+            actor->unk_0B8 = 2;
+            if (D_8015F924 != 0) {
+                gHitCount = gSavedHitCount;
+            }
+            D_800C9B4C = 1000000;
+
+        case 2:
+            if (func_i4_8019AA9C(player) == 0) {
+                func_i4_8019A3E8(actor);
+                switch (actor->timer_0BE) {
+                    case 548:
+                        func_800BA808(gMsg_ID_16050, RCID_ROB64);
+                        break;
+
+                    case 385:
+                        func_800BA808(gMsg_ID_16055, RCID_ROB64);
+                        break;
+
+                    case 235:
+                        func_800BA808(gMsg_ID_16060, RCID_FOX);
+                        break;
+
+                    case 130:
+                        break;
+                }
+            }
+            break;
+
+        case 20:
+            D_8015F928--;
+            break;
+
+        case 3:
+            actor8 = &gActors[8];
+            gCsFrameCount++;
+            if (gCsFrameCount == 3) {
+                func_80078E50(actor8->obj.pos.x, actor8->obj.pos.y, actor8->obj.pos.z, 30.0f);
+            }
+            player->camEye.x += actor8->vel.x * 0.23f;
+            player->camEye.y += actor8->vel.y * 0.23f;
+            player->camEye.z += actor8->vel.z * 0.23f;
+
+            Math_SmoothStepToF(&player->camAt.x, actor8->obj.pos.x, 1.0f, 20000.0f, 0);
+            Math_SmoothStepToF(&player->camAt.y, actor8->obj.pos.y, 1.0f, 20000.0f, 0);
+            Math_SmoothStepToF(&player->camAt.z, actor8->obj.pos.z, 1.0f, 20000.0f, 0);
+            Math_SmoothStepToF(&player->unk_034, 0, 1.0f, 1000.0f, 0);
+
+            switch (actor->timer_0BC) {
+                case 370:
+                    func_800BA808(gMsg_ID_16120, RCID_KATT);
+                    break;
+
+                case 261:
+                    func_800BA808(gMsg_ID_16125, RCID_FALCO);
+                    break;
+
+                case 140:
+                    gRadioState = 0;
+                    func_800BA808(gMsg_ID_16130, RCID_KATT);
+                    break;
+
+                case 260:
+                    actor8->fwork[7] = 360.0f;
+                    actor8->fwork[8] = 0.0f;
+                    break;
+
+                case 230:
+                    actor8->fwork[7] = 0.0f;
+                    actor8->fwork[8] = 359.999f;
+                    break;
+            }
+
+            if (actor->timer_0BC == 70) {
+                actor->unk_0B8 = 2;
+                player->state_1C8 = PLAYERSTATE_1C8_3;
+                func_800B7184(player, 1);
+                player->unk_014 = 0.0f;
+            }
+            break;
+
+        case 6:
+            gActors[1].unk_0E6 = 0;
+            gActors[1].unk_0B8 = 2;
+            gActors[2].unk_0E6 = 0;
+            gActors[2].unk_0B8 = 2;
+            gActors[3].unk_0E6 = 0;
+            gActors[3].unk_0B8 = 2;
+
+            for (i = 10; i < ARRAY_COUNT(gActors); i++) {
+                gActors[i].unk_0E6 = -1;
+                gActors[i].unk_0B8 = 3;
+            }
+            break;
+
+        case 10:
+            D_80178340 = D_80178358 = 0;
+            switch (actor->timer_0BC) {
+                case 9800:
+                    Audio_PlaySfx(0x09000002U, gActors[10].sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    gActors[10].fwork[29] = 12.0f;
+                    break;
+
+                case 9780:
+                    gActors[13].unk_0E6 = -1;
+                    gActors[13].unk_0B8 = 3;
+                    break;
+
+                case 9740:
+                    gActors[14].unk_0E6 = -1;
+                    gActors[14].unk_0B8 = 3;
+                    break;
+
+                case 9730:
+                    gActors[15].unk_0E6 = -1;
+                    gActors[15].unk_0B8 = 3;
+                    break;
+
+                case 9710:
+                    gActors[16].unk_0E6 = -1;
+                    gActors[16].unk_0B8 = 3;
+                    break;
+            }
+
+            Math_SmoothStepToF(&player->camAt.x, gActors[10].obj.pos.x, 0.2, 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->camAt.y, gActors[10].obj.pos.y, 0.2, 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->camAt.z, gActors[10].obj.pos.z, 0.2, 500.0f, 0.0f);
+
+            if (actor->timer_0BC < 9800) {
+                Math_SmoothStepToF(&gActors[10].fwork[1], 80.0f, 0.1, 10.0f, 0);
+                Math_SmoothStepToF(&gActors[10].fwork[29], 3.0f, 0.1, 1.0f, 0);
+            } else {
+                Math_SmoothStepToF(&actor->fwork[10], 700.0f, 1, 5.0f, 0.0f);
+                Math_SmoothStepToF(&player->camEye.x, gActors[10].obj.pos.x - 300.0f, 0.07f, actor->fwork[10], 0);
+                Math_SmoothStepToF(&player->camEye.y, gActors[10].obj.pos.y, 0.07f, actor->fwork[10], 0);
+                Math_SmoothStepToF(&player->camEye.z, gActors[10].obj.pos.z + 500.0f, 0.05f, 50.0f, 0);
+                Math_SmoothStepToF(&gActors[10].fwork[29], 2.0f, 0.1f, 1.0f, 0);
+            }
+
+            if (actor->timer_0BC < 9680) {
+                actor->unk_0B8 = 2;
+                player->state_1C8 = PLAYERSTATE_1C8_3;
+                func_800B7184(player, 1);
+                player->unk_014 = 0.0f;
+                gActors[10].fwork[1] = 25.0f;
+                gActors[10].fwork[29] = 5.0f;
+                gActors[10].obj.pos.z = 35000.0f;
+                gActors[10].iwork[9] = 0;
+                gPlayer->unk_034 = 0.0f;
+                actor->timer_0BE = 550;
+            }
+            break;
+
+        case 100000:
+            break;
+    }
+
+    if (!(gGameFrameCount & 24)) {
+        Math_SmoothStepToF(&D_8015F914, 63.0f, 1.0f, 9.450001f, 0);
+        Math_SmoothStepToF(&D_8015F918, 255.0f, 1.0f, 35.25f, 0);
+        Math_SmoothStepToF(&D_8015F91C, 158.0f, 1.0f, 21.6f, 0);
+    } else {
+        Math_SmoothStepToF(&D_8015F914, 0.0f, 1.0f, 3.15f, 0);
+        Math_SmoothStepToF(&D_8015F918, 20.0f, 1.0f, 11.75f, 0);
+        Math_SmoothStepToF(&D_8015F91C, 14.0f, 1.0f, 7.2000003f, 0);
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019AB8C.s")
+#endif
 
 void func_i4_8019B48C(void) {
     Actor* actor = &gActors[1];
