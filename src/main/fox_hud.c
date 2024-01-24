@@ -3855,10 +3855,10 @@ s32 func_80090200(Boss* boss) {
 }
 
 void func_800907C4(Boss* boss) {
-    switch (boss->actionState) {
+    switch (boss->state) {
         case 0:
             if ((boss->fwork[1] == 255.0f) && (boss->fwork[2] == 212.0f)) {
-                boss->actionState = 1;
+                boss->state = 1;
 
             } else {
                 Math_SmoothStepToF(&boss->fwork[1], 255.0f, 0.3f, 6.0f, 6.0f);
@@ -3868,7 +3868,7 @@ void func_800907C4(Boss* boss) {
 
         case 1:
             if ((boss->fwork[1] == 28.0f) && (boss->fwork[2] == 23.0f)) {
-                boss->actionState = 0;
+                boss->state = 0;
             } else {
                 Math_SmoothStepToF(&boss->fwork[1], 28.0f, 0.3f, 6.0f, 6.0f);
                 Math_SmoothStepToF(&boss->fwork[2], 23.0f, 0.3f, 4.98f, 4.98f);
@@ -3897,7 +3897,7 @@ bool func_8009092C(Actor* actor) {
             } else if (Rand_ZeroOne() > 0.4f) {
                 actor->unk_0E6 = i;
             }
-            actor->unk_0B8 = 0;
+            actor->state = 0;
         }
     }
 
@@ -4001,7 +4001,7 @@ bool func_80090CCC(Actor* actor) {
     }
 
     if ((fabsf(actor->obj.pos.x - actor->fwork[4]) < 700.0f) && (fabsf(actor->obj.pos.x - actor->fwork[4]) < 700.0f)) {
-        actor->unk_0B8 = 1;
+        actor->state = 1;
         actor->iwork[6] = 0;
         ret = true;
     }
@@ -4012,7 +4012,7 @@ bool func_80090CCC(Actor* actor) {
     }
 
     if (gBosses[actor->unk_0E6].obj.status == OBJ_FREE) {
-        actor->unk_0B8 = 1;
+        actor->state = 1;
         actor->unk_0E6 = 0;
         actor->iwork[6] = 0;
         ret = true;
@@ -4054,7 +4054,7 @@ s32 func_80090E8C(Actor* actor) {
 
     if ((var_fv1_2 < fabsf(actor->obj.pos.x - gBosses[0].obj.pos.x)) &&
         (var_fv1_2 < fabsf(actor->obj.pos.z - gBosses[0].obj.pos.z))) {
-        actor->unk_0B8 = 0;
+        actor->state = 0;
     }
 
     if (actor->timer_0BE == 0) {
@@ -4086,7 +4086,7 @@ bool func_800910C0(Actor* actor) {
 
     if ((var_fv1 < fabsf(actor->obj.pos.x - actor->fwork[4])) &&
         (var_fv1 < fabsf(actor->obj.pos.z - actor->fwork[6]))) {
-        actor->unk_0B8 = 0;
+        actor->state = 0;
     }
 
     if (actor->timer_0BE == 0) {
@@ -4162,7 +4162,7 @@ bool func_80091368(Actor* actor) {
 }
 
 void func_800914FC(Actor* actor) {
-    switch (actor->unk_0B8) {
+    switch (actor->state) {
         case 0:
             if (!func_80090CCC(actor)) {
                 break;
@@ -4184,15 +4184,15 @@ void func_800914FC(Actor* actor) {
             break;
     }
 
-    if ((gTeamShields[actor->unk_0E4] <= 0) && (actor->unk_0B8 != 3)) {
+    if ((gTeamShields[actor->unk_0E4] <= 0) && (actor->state != 3)) {
         actor->iwork[5] = 0;
-        actor->unk_0B8 = 3;
+        actor->state = 3;
     }
 
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) {
-        if ((actor->unk_0B8 != 2) && (actor->unk_0B8 != 3)) {
+        if ((actor->state != 2) && (actor->state != 3)) {
             actor->iwork[4] = 1;
-            actor->unk_0B8 = 2;
+            actor->state = 2;
         }
     }
 }
@@ -4393,7 +4393,7 @@ bool func_80091F00(Actor* actor) {
 
     actor->unk_0D0 = 0;
 
-    if ((actor->unk_0B8 == 3) || (temp_v0 == 2)) {
+    if ((actor->state == 3) || (temp_v0 == 2)) {
         return false;
     }
 
@@ -4724,7 +4724,7 @@ void func_80092D48(Actor* actor) {
         actor->unk_0E4 = (D_800D1970 & 3) + 1;
         D_800D1970++;
     } else {
-        actor->unk_0B8 = 7;
+        actor->state = 7;
         actor->unk_0E4 = 2;
         actor->iwork[5] = 0;
         gTeamShields[2] = 255;
@@ -4764,7 +4764,7 @@ void func_80092EC0(Actor* actor) {
                 func_80091F00(actor);
             }
 
-            if (actor->unk_0B8 == 3) {
+            if (actor->state == 3) {
                 break;
             }
 
@@ -4831,7 +4831,7 @@ void func_80093164(Actor* actor) {
     Vec3f dest;
     Player* player = &gPlayer[0];
 
-    if (actor->unk_0B8 == 0) {
+    if (actor->state == 0) {
         switch (actor->unk_0B6) {
             case 1:
                 if ((player->state_1C8 != PLAYERSTATE_1C8_2) || (actor->unk_0B6 != 1)) {
@@ -5376,14 +5376,14 @@ void func_80094954(Effect* effect) {
     Player* player = &gPlayer[0];
 
     if ((player->state_1C8 == PLAYERSTATE_1C8_2) && (gCurrentLevel == LEVEL_AQUAS) && (player->unk_1D0 < 2)) {
-        switch (effect->unk_4E) {
+        switch (effect->state) {
             case 0:
                 effect->unk_44 += effect->unk_46;
                 effect->unk_4A = effect->unk_44;
                 effect->scale2 += 0.01f;
 
                 if (effect->unk_4A >= 200) {
-                    effect->unk_4E = 1;
+                    effect->state = 1;
                     effect->unk_4A = 200;
                 }
                 break;
@@ -5394,7 +5394,7 @@ void func_80094954(Effect* effect) {
                 break;
         }
 
-        if ((effect->unk_4E == 1) && (effect->unk_4A <= 0)) {
+        if ((effect->state == 1) && (effect->unk_4A <= 0)) {
             Object_Kill(&effect->obj, effect->sfxPos);
         }
 

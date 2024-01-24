@@ -234,7 +234,7 @@ Gfx* D_800CFC7C[] = {
 };
 
 void func_8005A094(Actor* actor) {
-    switch (actor->unk_0B8) {
+    switch (actor->state) {
         case 0:
             Matrix_Translate(gGfxMatrix, 18.0f, 15.0f, -15.0f, 1);
             Matrix_RotateY(gGfxMatrix, M_PI, 1);
@@ -409,11 +409,11 @@ void func_8005A094(Actor* actor) {
             gSPDisplayList(gMasterDisp++, D_i1_8019A008[actor->unk_048]);
             break;
         default:
-            if (actor->unk_0B8 > 9) {
-                if (actor->unk_0B8 == 0x24) {
+            if (actor->state > 9) {
+                if (actor->state == 0x24) {
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                 }
-                gSPDisplayList(gMasterDisp++, D_800CFA54[actor->unk_0B8 - 10]);
+                gSPDisplayList(gMasterDisp++, D_800CFA54[actor->state - 10]);
             }
             break;
     }
@@ -518,7 +518,7 @@ void func_8005B388(Actor* actor) {
                 ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) && (gPlayer[0].unk_1D0 >= 100) &&
                  (gCurrentLevel == LEVEL_KATINA) && (actor->index == 1)) ||
                 ((gCurrentLevel == LEVEL_SECTOR_Y) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_0) &&
-                 (actor->unk_0B8 == 5))) {
+                 (actor->state == 5))) {
                 D_80161630.rightState = gPlayer[0].wings.rightState;
                 D_80161630.leftState = gPlayer[0].wings.leftState;
             } else {
@@ -622,7 +622,7 @@ void func_8005BAB4(ObjectId objId, s32 index) {
 
     switch (objId) {
         case OBJ_EFFECT_374:
-            if (gEffects[index].unk_4E == 0) {
+            if (gEffects[index].state == 0) {
                 Matrix_Scale(gGfxMatrix, 1.2f, 0.0f, 1.2f, 1);
                 Matrix_RotateX(gGfxMatrix, M_PI / 2.0f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
@@ -759,7 +759,7 @@ void func_8005BAB4(ObjectId objId, s32 index) {
 void func_8005C5F0(Item* item) {
     s32 i;
 
-    if ((gGameFrameCount & 0x18) && (item->unk_46 == 0)) {
+    if ((gGameFrameCount & 0x18) && (item->state == 0)) {
         Matrix_Push(&gGfxMatrix);
         RCP_SetupDL(&gMasterDisp, 0x40);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
@@ -850,7 +850,7 @@ void func_8005CDA8(Item* item) {
                                    gPlayer[gPlayerNum].camEye.z - (item->obj.pos.z + D_80177D20)) *
                        180.0f) /
                       M_PI;
-    if (item->unk_46 != 0) {
+    if (item->state != 0) {
         RCP_SetupDL(&gMasterDisp, 0x29);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, item->unk_44);
     } else {

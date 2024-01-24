@@ -50,71 +50,68 @@ extern Gfx D_6018AF0[];
 extern Gfx D_601BAD0[];
 extern Gfx D_9013C20[];
 
-void func_80077240(f32 posX, f32 posY, f32 posZ, s32 hits) {
+void BonusText_Display(f32 xPos, f32 yPos, f32 zPos, s32 hits) {
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gUnkEntities1C); i++) {
-        if (gUnkEntities1C[i].hits == 0) {
-            gUnkEntities1C[i].hits = hits;
-            gUnkEntities1C[i].pos.x = posX;
-            gUnkEntities1C[i].pos.y = posY;
-            gUnkEntities1C[i].pos.z = posZ;
-            gUnkEntities1C[i].unk_10 = 0.0f;
-            gUnkEntities1C[i].timer = 65;
+    for (i = 0; i < ARRAY_COUNT(gBonusText); i++) {
+        if (gBonusText[i].hits == BONUS_TEXT_FREE) {
+            gBonusText[i].hits = hits;
+            gBonusText[i].pos.x = xPos;
+            gBonusText[i].pos.y = yPos;
+            gBonusText[i].pos.z = zPos;
+            gBonusText[i].unk_10 = 0.0f;
+            gBonusText[i].timer = 65;
             break;
         }
     }
 }
 
-void func_8007729C(void) {
-    UnkEntity1C* ent1C;
+void BonusText_Update(void) {
+    BonusText* bonus;
     s32 i;
 
-    for (i = 0, ent1C = gUnkEntities1C; i < ARRAY_COUNT(gUnkEntities1C); i++, ent1C++) {
-        if (ent1C->hits != 0) {
-            if (ent1C->timer != 0) {
-                ent1C->timer -= 1; // can't be --
+    for (i = 0, bonus = gBonusText; i < ARRAY_COUNT(gBonusText); i++, bonus++) {
+        if (bonus->hits != BONUS_TEXT_FREE) {
+            if (bonus->timer != 0) {
+                bonus->timer -= 1; // can't be --
             }
-            if (ent1C->timer == 0) {
-                ent1C->hits = 0;
+            if (bonus->timer == 0) {
+                bonus->hits = BONUS_TEXT_FREE;
             }
 
             if (gLevelMode == LEVELMODE_ON_RAILS) {
-                ent1C->pos.z -= D_80177D08;
+                bonus->pos.z -= D_80177D08;
             } else if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) {
-                ent1C->pos.x += gPlayer[0].vel.x;
-                ent1C->pos.z += gPlayer[0].vel.z;
+                bonus->pos.x += gPlayer[0].vel.x;
+                bonus->pos.z += gPlayer[0].vel.z;
             }
 
-            if (ent1C->timer < 45) {
-                Math_SmoothStepToF(&ent1C->unk_10, 300.0f, 0.1f, 20.0f, 0.0f);
+            if (bonus->timer < 45) {
+                Math_SmoothStepToF(&bonus->unk_10, 300.0f, 0.1f, 20.0f, 0.0f);
             }
         }
     }
 }
 
-Gfx* D_800D14E0[][2] = {
+Gfx* sLargeBonusDLs[4][2] = {
     { D_1016410, D_1003130 },
     { D_10162A0, D_1003130 },
     { D_1016130, D_1003130 },
+    { D_1015FC0, D_1003130 },
 };
 
-// Unused
-Gfx* D_800D14F8 = { D_1015FC0 };
+Gfx* sSmallBonusDLs[10] = {
+    D_1015810, D_1016410, D_10162A0, D_1016130, D_1015FC0, D_1015E50, D_10156A0, D_1015CE0, D_1015B70, D_1015320,
+};
 
-Gfx* D_800D14FC[] = { D_1003130, D_1015810, D_1016410, D_10162A0, D_1016130, D_1015FC0,
-                      D_1015E50, D_10156A0, D_1015CE0, D_1015B70, D_1015320 };
-
-Vec3f D_800D1528 = { 0.0f, 0.0f, 0.0f };
-
-void func_80077404(UnkEntity1C* ent1C) {
-    s32 var_a2;
-    Vec3f sp60 = D_800D1528;
+void BonusText_Draw(BonusText* bonus) {
+    s32 dlIndex;
+    Vec3f sp60 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp54;
     f32 sp50;
 
-    if (ent1C->timer <= 45) {
-        Matrix_Translate(gGfxMatrix, ent1C->pos.x, ent1C->pos.y, ent1C->pos.z + D_80177D20, 1);
+    if (bonus->timer <= 45) {
+        Matrix_Translate(gGfxMatrix, bonus->pos.x, bonus->pos.y, bonus->pos.z + D_80177D20, 1);
         Matrix_MultVec3f(gGfxMatrix, &sp60, &sp54);
 
         if ((fabsf(sp54.x) < 20000.0f) && (fabsf(sp54.y) < 20000.0f)) {
@@ -123,54 +120,54 @@ void func_80077404(UnkEntity1C* ent1C) {
                 Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].unk_058, 1);
                 Matrix_RotateX(gGfxMatrix, gPlayer[gPlayerNum].unk_05C, 1);
                 Matrix_Scale(gGfxMatrix, sp50, sp50, 1.0f, 1);
-                Matrix_Translate(gGfxMatrix, 0.0f, ent1C->unk_10, 0.0f, 1);
+                Matrix_Translate(gGfxMatrix, 0.0f, bonus->unk_10, 0.0f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
 
-                if (ent1C->hits <= 10) {
+                if (bonus->hits <= 10) {
                     gSPDisplayList(gMasterDisp++, D_1015980);
-                    gSPDisplayList(gMasterDisp++, D_800D14FC[ent1C->hits]);
-                } else if (ent1C->hits == 101) {
+                    gSPDisplayList(gMasterDisp++, sSmallBonusDLs[bonus->hits - 1]);
+                } else if (bonus->hits == BONUS_TEXT_1UP) {
                     gSPDisplayList(gMasterDisp++, D_1011F20);
-                } else if (ent1C->hits == 100) {
+                } else if (bonus->hits == BONUS_TEXT_GREAT) {
                     gSPDisplayList(gMasterDisp++, D_1016580);
                 } else {
                     gSPDisplayList(gMasterDisp++, D_1015980);
-                    switch (ent1C->hits) {
+                    switch (bonus->hits) {
                         case 20:
-                            var_a2 = 0;
+                            dlIndex = 0;
                             break;
                         case 30:
-                            var_a2 = 1;
+                            dlIndex = 1;
                             break;
                         case 40:
-                            var_a2 = 2;
+                            dlIndex = 2;
                             break;
                         case 50:
                         default:
-                            var_a2 = 3;
+                            dlIndex = 3;
                             break;
                     }
-                    gSPDisplayList(gMasterDisp++, D_800D14E0[var_a2][0]);
-                    gSPDisplayList(gMasterDisp++, D_800D14E0[var_a2][1]);
+                    gSPDisplayList(gMasterDisp++, sLargeBonusDLs[dlIndex][0]);
+                    gSPDisplayList(gMasterDisp++, sLargeBonusDLs[dlIndex][1]);
                 }
             } else {
-                ent1C->hits = 0;
+                bonus->hits = BONUS_TEXT_FREE;
             }
         }
     }
 }
 
-void func_80077790(void) {
-    UnkEntity1C* ent1C;
+void BonusText_DrawAll(void) {
+    BonusText* bonus;
     s32 i;
 
     RCP_SetupDL(&gMasterDisp, 0x3E);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    for (i = 0, ent1C = gUnkEntities1C; i < ARRAY_COUNT(gUnkEntities1C); i++, ent1C++) {
-        if (ent1C->hits != 0) {
+    for (i = 0, bonus = gBonusText; i < ARRAY_COUNT(gBonusText); i++, bonus++) {
+        if (bonus->hits != 0) {
             Matrix_Push(&gGfxMatrix);
-            func_80077404(ent1C);
+            BonusText_Draw(bonus);
             Matrix_Pop(&gGfxMatrix);
         }
     }
@@ -195,18 +192,18 @@ Effect* func_8007783C(ObjectId objId) {
     return effect;
 }
 
-void func_800778C4(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2) {
+void func_800778C4(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_339;
 
-    effect->obj.pos.x = posX;
-    effect->obj.pos.y = posY;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
-    effect->vel.x = velX;
-    effect->vel.y = velY;
-    effect->vel.z = velZ;
+    effect->vel.x = xVel;
+    effect->vel.y = yVel;
+    effect->vel.z = zVel;
 
     effect->scale2 = scale2;
     effect->unk_4C = 0;
@@ -216,12 +213,12 @@ void func_800778C4(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 velX, f32 v
     effect->unk_44 = 255;
 }
 
-void func_8007797C(f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2) {
+void func_8007797C(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_800778C4(&gEffects[i], posX, posY, posZ, velX, velY, velZ, scale2);
+            func_800778C4(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2);
             break;
         }
     }
@@ -522,13 +519,13 @@ void func_80078CE8(Effect* effect) {
     gSPDisplayList(gMasterDisp++, D_6033000);
 }
 
-void func_80078D60(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2) {
+void func_80078D60(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_393;
-    effect->obj.pos.x = posX;
-    effect->obj.pos.y = posY;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
     effect->scale2 = scale2;
 
     if (scale2 == 3.1f) {
@@ -537,29 +534,29 @@ void func_80078D60(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2) {
         effect->vel.z = gActors[8].vel.z;
     }
     if (scale2 != 30.0f) {
-        effect->unk_4E = 1;
+        effect->state = 1;
     }
     if (scale2 == 3.5f) {
-        effect->unk_4E = 2;
+        effect->state = 2;
     }
 
     effect->timer_50 = 0xE;
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_80078E50(f32 posX, f32 posY, f32 posZ, f32 scale2) {
+void func_80078E50(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_80078D60(&gEffects[i], posX, posY, posZ, scale2);
+            func_80078D60(&gEffects[i], xPos, yPos, zPos, scale2);
             break;
         }
     }
 }
 
 void func_80078EBC(Effect* effect) {
-    if (effect->unk_4E == 2) {
+    if (effect->state == 2) {
         effect->vel.x = gPlayer[0].vel.x;
         effect->vel.y = gPlayer[0].vel.y;
         effect->vel.z = gPlayer[0].vel.z;
@@ -578,7 +575,7 @@ void func_80078EBC(Effect* effect) {
 }
 
 void func_80078F78(Effect* effect) {
-    if (effect->unk_4E != 0) {
+    if (effect->state != 0) {
         RCP_SetupDL(&gMasterDisp, 0x43);
     } else {
         RCP_SetupDL(&gMasterDisp, 0x3F);
@@ -590,7 +587,7 @@ void func_80078F78(Effect* effect) {
     RCP_SetupDL(&gMasterDisp, 0x40);
 }
 
-void func_8007905C(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2, u8 arg5) {
+void func_8007905C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, u8 arg5) {
     Vec3f sp54;
     Vec3f sp48;
     Vec3f sp3C;
@@ -602,18 +599,18 @@ void func_8007905C(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2, u8 
     effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_357;
 
-    effect->obj.pos.x = posX;
-    effect->obj.pos.y = posY;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
     effect->unk_4C = arg5;
 
     if (scale2 == 1.6f) {
-        effect->vel.x = (posX - gBosses[1].obj.pos.x) * 0.1f;
-        effect->vel.z = (posZ - gBosses[1].obj.pos.z) * 0.1f;
+        effect->vel.x = (xPos - gBosses[1].obj.pos.x) * 0.1f;
+        effect->vel.z = (zPos - gBosses[1].obj.pos.z) * 0.1f;
     } else if (scale2 == 1.3f) {
-        effect->vel.x = ((Rand_ZeroOne() * 0.05f) + 0.03f) * posX;
-        effect->vel.z = ((Rand_ZeroOne() * 0.05f) + 0.03f) * posZ;
+        effect->vel.x = ((Rand_ZeroOne() * 0.05f) + 0.03f) * xPos;
+        effect->vel.z = ((Rand_ZeroOne() * 0.05f) + 0.03f) * zPos;
         effect->vel.y = 5.0f;
     } else if (scale2 == 1.55f) {
         effect->vel.x = (Rand_ZeroOne() - 0.5f) * 10.0f;
@@ -622,9 +619,9 @@ void func_8007905C(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2, u8 
         sp3C.x = gPlayer[0].pos.x;
         sp3C.y = gPlayer[0].pos.y;
         sp3C.z = gPlayer[0].pos.z;
-        yAng = Math_Atan2F(sp3C.x - posX, sp3C.z - posZ);
-        sp38 = sqrtf(SQ(sp3C.x - posX) + SQ(sp3C.z - posZ));
-        xAng = -Math_Atan2F(sp3C.y - posY, sp38);
+        yAng = Math_Atan2F(sp3C.x - xPos, sp3C.z - zPos);
+        sp38 = sqrtf(SQ(sp3C.x - xPos) + SQ(sp3C.z - zPos));
+        xAng = -Math_Atan2F(sp3C.y - yPos, sp38);
         Matrix_RotateY(gCalcMatrix, yAng, 0);
         Matrix_RotateX(gCalcMatrix, xAng, 1);
         sp54.x = (Rand_ZeroOne() - 0.5f) * 50.0f;
@@ -649,45 +646,45 @@ void func_8007905C(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2, u8 
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_800794CC(f32 posX, f32 posY, f32 posZ, f32 scale2) {
+void func_800794CC(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = 50; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8007905C(&gEffects[i], posX, posY, posZ, scale2, 0);
+            func_8007905C(&gEffects[i], xPos, yPos, zPos, scale2, 0);
             break;
         }
     }
 }
 
-void func_8007953C(f32 posX, f32 posY, f32 posZ, f32 scale2) {
+void func_8007953C(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = 79; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8007905C(&gEffects[i], posX, posY, posZ, scale2, 0);
+            func_8007905C(&gEffects[i], xPos, yPos, zPos, scale2, 0);
             break;
         }
     }
 }
 
-void func_800795AC(f32 posX, f32 posY, f32 posZ, f32 scale2) {
+void func_800795AC(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = 0; i < 95; i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8007905C(&gEffects[i], posX, posY, posZ, scale2, 0);
+            func_8007905C(&gEffects[i], xPos, yPos, zPos, scale2, 0);
             break;
         }
     }
 }
 
-void func_80079618(f32 posX, f32 posY, f32 posZ, f32 scale2) {
+void func_80079618(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = 50; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8007905C(&gEffects[i], posX, posY, posZ, scale2, 1);
+            func_8007905C(&gEffects[i], xPos, yPos, zPos, scale2, 1);
             break;
         }
     }
@@ -1020,14 +1017,14 @@ bool func_8007A774(Player* player, Effect* effect, f32 arg2) {
     }
 }
 
-void func_8007A818(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale1, u8 arg5, u8 arg6, u16 arg7) {
+void func_8007A818(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1, u8 arg5, u8 arg6, u16 arg7) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_359;
 
-    effect->obj.pos.x = posX;
-    effect->obj.pos.y = posY;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
     effect->scale1 = scale1;
     effect->unk_44 = arg5;
@@ -1040,13 +1037,13 @@ void func_8007A818(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale1, u8 
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_8007A900(f32 posX, f32 posY, f32 posZ, f32 scale1, u8 arg4, u8 arg5, u16 arg6) {
+void func_8007A900(f32 xPos, f32 yPos, f32 zPos, f32 scale1, u8 arg4, u8 arg5, u16 arg6) {
     s32 i;
 
     if (gCurrentLevel == LEVEL_TITANIA) {
         for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
             if (gEffects[i].obj.status == OBJ_FREE) {
-                func_8007A818(&gEffects[i], posX, posY, posZ, scale1, arg4, arg5, arg6);
+                func_8007A818(&gEffects[i], xPos, yPos, zPos, scale1, arg4, arg5, arg6);
                 break;
             }
         }
@@ -1086,7 +1083,7 @@ void func_8007AA60(Effect* effect) {
 }
 
 void func_8007AB50(Effect* effect) {
-    if (effect->unk_4E == 0) {
+    if (effect->state == 0) {
         Math_SmoothStepToF(&effect->scale2, effect->scale1, 0.1f, 10.0f, 0.0f);
         effect->unk_44 -= 20;
         if (effect->unk_44 < 0) {
@@ -1101,93 +1098,93 @@ void func_8007AB50(Effect* effect) {
     }
 }
 
-void func_8007AC0C(Effect* effect, f32 posX, f32 unused_posY, f32 posZ, f32 scale2, f32 scale1, f32 rotY) {
+void func_8007AC0C(Effect* effect, f32 xPos, f32 unused_posY, f32 zPos, f32 scale2, f32 scale1, f32 yRot) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_372;
 
-    effect->obj.pos.x = posX;
+    effect->obj.pos.x = xPos;
     effect->obj.pos.y = gGroundLevel;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.z = zPos;
 
     effect->unk_44 = 0xB4;
     effect->scale2 = scale2;
     effect->scale1 = scale1;
-    effect->obj.rot.y = rotY;
+    effect->obj.rot.y = yRot;
     effect->vel.x = gPlayer[0].vel.x * 0.6f;
     effect->vel.z = gPlayer[0].vel.z * 0.6; // Forgotten f means bad codegen
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_8007ACE0(f32 posX, f32 posY, f32 posZ, f32 scale2, f32 scale1, f32 rotY) {
+void func_8007ACE0(f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32 scale1, f32 yRot) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8007AC0C(&gEffects[i], posX, posY, posZ, scale2, scale1, rotY);
+            func_8007AC0C(&gEffects[i], xPos, yPos, zPos, scale2, scale1, yRot);
             break;
         }
     }
 }
 
-void func_8007AD58(Effect* effect, f32 posX, f32 unused_posY, f32 posZ, f32 scale2, f32 scale1, f32 rotY) {
+void func_8007AD58(Effect* effect, f32 xPos, f32 unused_posY, f32 zPos, f32 scale2, f32 scale1, f32 yRot) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_372;
-    effect->unk_4E = 1;
+    effect->state = 1;
 
-    effect->obj.pos.x = posX;
+    effect->obj.pos.x = xPos;
     effect->obj.pos.y = gGroundLevel;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.z = zPos;
 
     effect->unk_44 = 0xB4;
     effect->scale2 = scale2;
     effect->scale1 = scale1;
-    effect->obj.rot.y = rotY;
+    effect->obj.rot.y = yRot;
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_8007ADF4(f32 posX, f32 posY, f32 posZ, f32 scale2, f32 scale1) {
+void func_8007ADF4(f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32 scale1) {
     f32 cosf;
     f32 sinf;
-    f32 rotY;
+    f32 yRot;
     s32 i;
     s32 j;
 
-    for (rotY = 11.25f, i = 0; i < 16; i++, rotY += 22.5f) {
+    for (yRot = 11.25f, i = 0; i < 16; i++, yRot += 22.5f) {
         for (j = 0; j < ARRAY_COUNT(gEffects); j++) {
             if (gEffects[j].obj.status == OBJ_FREE) {
-                sinf = __sinf(M_DTOR * rotY) * scale1 * 20.0f;
-                cosf = __cosf(M_DTOR * rotY) * scale1 * 20.0f;
-                func_8007AD58(&gEffects[j], posX + sinf, posY, posZ + cosf, scale2, scale1, rotY);
+                sinf = __sinf(M_DTOR * yRot) * scale1 * 20.0f;
+                cosf = __cosf(M_DTOR * yRot) * scale1 * 20.0f;
+                func_8007AD58(&gEffects[j], xPos + sinf, yPos, zPos + cosf, scale2, scale1, yRot);
                 break;
             }
         }
     }
 }
 
-void func_8007AF30(Effect* effect, f32 posX, f32 posZ, f32 velX, f32 velZ, f32 scale1) {
+void func_8007AF30(Effect* effect, f32 xPos, f32 zPos, f32 xVel, f32 zVel, f32 scale1) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_382;
 
-    effect->obj.pos.x = posX;
+    effect->obj.pos.x = xPos;
     effect->obj.pos.y = -10.0f;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.z = zPos;
 
-    effect->vel.x = velX;
-    effect->vel.z = velZ - D_80177D08;
+    effect->vel.x = xVel;
+    effect->vel.z = zVel - D_80177D08;
     effect->scale1 = scale1;
     effect->timer_50 = 100;
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_8007AFD0(f32 posX, f32 posZ, f32 velX, f32 velZ, f32 scale1) {
+void func_8007AFD0(f32 xPos, f32 zPos, f32 xVel, f32 zVel, f32 scale1) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8007AF30(&gEffects[i], posX, posZ, velX, velZ, scale1);
+            func_8007AF30(&gEffects[i], xPos, zPos, xVel, zVel, scale1);
             break;
         }
     }
@@ -1216,14 +1213,14 @@ void func_8007B0F4(Effect* effect) {
     }
 }
 
-void func_8007B180(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale1) {
+void func_8007B180(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_381;
 
-    effect->obj.pos.x = posX;
-    effect->obj.pos.y = posY;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
     effect->unk_44 = 0xFF;
     effect->scale1 = scale1;
@@ -1231,12 +1228,12 @@ void func_8007B180(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale1) {
     Audio_PlaySfx(0x1100000C, effect->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-void func_8007B228(f32 posX, f32 posY, f32 posZ, f32 scale1) {
+void func_8007B228(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects) && gCurrentLevel == LEVEL_ZONESS; i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8007B180(&gEffects[i], posX, posY, posZ, scale1);
+            func_8007B180(&gEffects[i], xPos, yPos, zPos, scale1);
             break;
         }
     }
@@ -1252,7 +1249,7 @@ void func_8007B2BC(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1, s32
     effect->obj.pos.z = zPos;
 
     effect->scale1 = scale1;
-    effect->unk_44 = 0xFF;
+    effect->unk_44 = 255;
     effect->unk_4C = arg5;
     Object_SetInfo(&effect->info, effect->obj.id);
 }
@@ -1295,14 +1292,14 @@ void func_8007B3B8(Effect* effect) {
     }
 }
 
-void func_8007B494(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale1, s32 arg5) {
+void func_8007B494(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1, s32 arg5) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_385;
 
-    effect->obj.pos.x = posX;
-    effect->obj.pos.y = posY;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
     effect->obj.rot.x = 90.0f;
     effect->scale1 = scale1;
@@ -1318,12 +1315,12 @@ void func_8007B494(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale1, s32
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_8007B550(f32 posX, f32 posY, f32 posZ, f32 scale1, s32 arg4) {
+void func_8007B550(f32 xPos, f32 yPos, f32 zPos, f32 scale1, s32 arg4) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8007B494(&gEffects[i], posX, posY, posZ, scale1, arg4);
+            func_8007B494(&gEffects[i], xPos, yPos, zPos, scale1, arg4);
             break;
         }
     }
@@ -1385,14 +1382,14 @@ void func_8007B758(Effect* effect) {
     func_8007A774(gPlayer, effect, effect->scale2 * 20.0f);
 }
 
-void func_8007B7E8(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2) {
+void func_8007B7E8(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_364;
 
-    effect->obj.pos.x = posX;
-    effect->obj.pos.y = posY;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
     effect->vel.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
     effect->vel.y = (Rand_ZeroOne() - 0.5f) * 3.0f;
@@ -1408,12 +1405,12 @@ void func_8007B7E8(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2) {
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_8007B8F8(f32 posX, f32 posY, f32 posZ, f32 scale2) {
+void func_8007B8F8(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i, j;
 
     for (i = ARRAY_COUNT(gEffects) - 1, j = 0; j < ARRAY_COUNT(gEffects); i--, j++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8007B7E8(&gEffects[i], posX, posY, posZ, scale2);
+            func_8007B7E8(&gEffects[i], xPos, yPos, zPos, scale2);
             break;
         }
     }
@@ -1453,14 +1450,14 @@ void func_8007B9DC(Effect* effect) {
     }
 }
 
-void func_8007BB14(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2) {
+void func_8007BB14(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_362;
 
-    effect->obj.pos.x = posX;
-    effect->obj.pos.y = posY;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
     effect->vel.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
     effect->vel.y = (Rand_ZeroOne() - 0.5f) * 3.0f;
@@ -1487,12 +1484,12 @@ void func_8007BB14(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2) {
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_8007BC7C(f32 posX, f32 posY, f32 posZ, f32 scale2) {
+void func_8007BC7C(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 20; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8007BB14(&gEffects[i], posX, posY, posZ, scale2);
+            func_8007BB14(&gEffects[i], xPos, yPos, zPos, scale2);
             break;
         }
     }
@@ -1545,70 +1542,70 @@ void func_8007BEE8(Effect* effect) {
     gSPDisplayList(gMasterDisp++, D_2010A30);
 }
 
-void func_8007BF64(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2,
+void func_8007BF64(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
                    s32 timer50) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_386;
 
-    effect->obj.pos.x = posX;
-    effect->obj.pos.y = posY;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
-    effect->vel.x = velX;
-    effect->vel.y = velY;
-    effect->vel.z = velZ;
+    effect->vel.x = xVel;
+    effect->vel.y = yVel;
+    effect->vel.z = zVel;
     effect->scale2 = scale2;
     effect->timer_50 = timer50;
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_8007BFFC(f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2, s32 timer50) {
+void func_8007BFFC(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2, s32 timer50) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8007BF64(&gEffects[i], posX, posY, posZ, velX, velY, velZ, scale2, timer50);
+            func_8007BF64(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2, timer50);
             break;
         }
     }
 }
 
-void func_8007C088(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2,
+void func_8007C088(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
                    s32 timer50) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_390;
 
-    effect->obj.pos.x = posX;
-    effect->obj.pos.y = posY;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
-    effect->vel.x = velX;
-    effect->vel.y = velY;
-    effect->vel.z = velZ;
+    effect->vel.x = xVel;
+    effect->vel.y = yVel;
+    effect->vel.z = zVel;
     effect->scale2 = scale2;
     effect->timer_50 = timer50;
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_8007C120(f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2, s32 timer50) {
+void func_8007C120(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2, s32 timer50) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8007C088(&gEffects[i], posX, posY, posZ, velX, velY, velZ, scale2, timer50);
+            func_8007C088(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2, timer50);
             break;
         }
     }
 }
 
-void func_8007C1AC(f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2, s32 timer50) {
+void func_8007C1AC(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2, s32 timer50) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8007BF64(&gEffects[i], posX, posY, posZ, velX, velY, velZ, scale2, timer50);
+            func_8007BF64(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2, timer50);
             func_800A6070(gEffects[i].sfxPos, 0x29000000);
             break;
         }
@@ -1642,18 +1639,18 @@ void func_8007C250(Effect* effect) {
     }
 }
 
-void func_8007C3B4(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2, s32 arg8) {
+void func_8007C3B4(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2, s32 arg8) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_389;
 
-    effect->obj.pos.x = posX;
-    effect->obj.pos.y = posY;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
-    effect->vel.x = velX;
-    effect->vel.y = velY;
-    effect->vel.z = velZ;
+    effect->vel.x = xVel;
+    effect->vel.y = yVel;
+    effect->vel.z = zVel;
 
     effect->scale2 = scale2;
     effect->unk_4A = arg8;
@@ -1663,12 +1660,12 @@ void func_8007C3B4(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 velX, f32 v
     effect->unk_44 = 0xFF;
 }
 
-void func_8007C484(f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2, s32 arg7) {
+void func_8007C484(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2, s32 arg7) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i > 32; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8007C3B4(&gEffects[i], posX, posY, posZ, velX, velY, velZ, scale2, arg7);
+            func_8007C3B4(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2, arg7);
             break;
         }
     }
@@ -1691,39 +1688,39 @@ void func_8007C50C(Effect* effect) {
     }
 }
 
-void func_8007C608(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2, s32 timer50) {
+void func_8007C608(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 timer50) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_387;
 
-    effect->obj.pos.x = posX;
-    effect->obj.pos.y = posY;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
     effect->scale2 = scale2;
     effect->timer_50 = timer50;
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_8007C688(f32 posX, f32 posY, f32 posZ, f32 scale2, s32 timer50) {
+void func_8007C688(f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 timer50) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8007C608(&gEffects[i], posX, posY, posZ, scale2, timer50);
+            func_8007C608(&gEffects[i], xPos, yPos, zPos, scale2, timer50);
             break;
         }
     }
 }
 
-void func_8007C6FC(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2) {
+void func_8007C6FC(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_343;
 
-    effect->obj.pos.x = posX;
-    effect->obj.pos.y = posY;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
     effect->unk_48 = 3;
     effect->vel.y = 5.0f;
@@ -1749,12 +1746,12 @@ void func_8007C6FC(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2) {
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_8007C85C(f32 posX, f32 posY, f32 posZ, f32 scale2) {
+void func_8007C85C(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects) - 20; i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8007C6FC(&gEffects[i], posX, posY, posZ, scale2);
+            func_8007C6FC(&gEffects[i], xPos, yPos, zPos, scale2);
             break;
         }
     }
@@ -1818,13 +1815,13 @@ void func_8007CAF0(Effect* effect) {
     }
 }
 
-void func_8007CC00(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2) {
+void func_8007CC00(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_339;
-    effect->obj.pos.x = posX;
-    effect->obj.pos.y = posY;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
     effect->scale2 = scale2;
     effect->scale1 = 0.5f;
     effect->unk_4C = 0;
@@ -1837,14 +1834,14 @@ void func_8007CC00(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2) {
     }
 }
 
-void func_8007CCBC(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2) {
+void func_8007CCBC(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_340;
 
-    effect->obj.pos.x = posX;
-    effect->obj.pos.y = posY;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
     effect->scale2 = scale2;
     effect->unk_4C = 3;
@@ -1858,15 +1855,15 @@ void func_8007CCBC(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2) {
     }
 }
 
-void func_8007CD7C(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2, s32 timer50) {
+void func_8007CD7C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 timer50) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_342;
     effect->timer_50 = timer50;
 
-    effect->obj.pos.x = posX;
-    effect->obj.pos.y = posY;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
     effect->unk_48 = 3;
     if (Rand_ZeroOne() < 0.5f) {
@@ -1888,77 +1885,77 @@ void func_8007CD7C(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2, s32
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_8007CEBC(f32 posX, f32 posY, f32 posZ, f32 scale2, s32 timer50) {
+void func_8007CEBC(f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 timer50) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8007CD7C(&gEffects[i], posX, posY, posZ, scale2, timer50);
+            func_8007CD7C(&gEffects[i], xPos, yPos, zPos, scale2, timer50);
             break;
         }
     }
 }
 
-void func_8007CF30(f32 posX, f32 posY, f32 posZ, f32 scale2) {
+void func_8007CF30(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8007CC00(&gEffects[i], posX, posY, posZ, scale2);
+            func_8007CC00(&gEffects[i], xPos, yPos, zPos, scale2);
             break;
         }
     }
 }
 
-void func_8007CF9C(f32 posX, f32 posY, f32 posZ, f32 scale2) {
+void func_8007CF9C(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8007CCBC(&gEffects[i], posX, posY, posZ, scale2);
+            func_8007CCBC(&gEffects[i], xPos, yPos, zPos, scale2);
             break;
         }
     }
 }
 
-void func_8007D008(f32 posX, f32 posY, f32 posZ, f32 scale2) {
+void func_8007D008(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8007CC00(&gEffects[i], posX, posY, posZ, scale2);
+            func_8007CC00(&gEffects[i], xPos, yPos, zPos, scale2);
             break;
         }
     }
 }
 
-void func_8007D074(f32 posX, f32 posY, f32 posZ, f32 scale2) {
+void func_8007D074(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8007CCBC(&gEffects[i], posX, posY, posZ, scale2);
+            func_8007CCBC(&gEffects[i], xPos, yPos, zPos, scale2);
             break;
         }
     }
 }
 
-void func_8007D0E0(f32 posX, f32 posY, f32 posZ, f32 scale2) {
-    func_8007CF30(posX, posY, posZ, scale2);
+void func_8007D0E0(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+    func_8007CF30(xPos, yPos, zPos, scale2);
 }
 
-void func_8007D10C(f32 posX, f32 posY, f32 posZ, f32 scale2) {
-    func_8007CF9C(posX, posY, posZ, scale2);
+void func_8007D10C(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+    func_8007CF9C(xPos, yPos, zPos, scale2);
 }
 
-void func_8007D138(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2) {
+void func_8007D138(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_341;
 
-    effect->obj.pos.x = posX;
-    effect->obj.pos.y = posY;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
     effect->scale2 = scale2;
     effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
@@ -1969,28 +1966,28 @@ void func_8007D138(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2) {
     effect->unk_44 = 180;
 }
 
-void func_8007D1E0(f32 posX, f32 posY, f32 posZ, f32 scale2) {
+void func_8007D1E0(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8007D138(&gEffects[i], posX, posY, posZ, scale2);
+            func_8007D138(&gEffects[i], xPos, yPos, zPos, scale2);
             break;
         }
     }
 }
 
-void func_8007D24C(f32 posX, f32 posY, f32 posZ, f32 scale2) {
+void func_8007D24C(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     if (gLevelType == LEVELTYPE_PLANET) {
-        func_8007D1E0(posX, posY, posZ, scale2);
-        func_8007CEBC(posX, scale2 + posY, posZ, scale2, 9);
+        func_8007D1E0(xPos, yPos, zPos, scale2);
+        func_8007CEBC(xPos, scale2 + yPos, zPos, scale2, 9);
     } else {
-        func_8007D0E0(posX, posY, posZ, scale2);
+        func_8007D0E0(xPos, yPos, zPos, scale2);
     }
 }
 
-void func_8007D2C8(f32 posX, f32 posY, f32 posZ, f32 scale2) {
-    func_8007D008(posX, posY, posZ, scale2);
+void func_8007D2C8(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+    func_8007D008(xPos, yPos, zPos, scale2);
 }
 
 void func_8007D2F4(Effect* effect) {
@@ -2150,13 +2147,13 @@ void func_8007D8A8(Effect* effect) {
     }
 }
 
-void func_8007D94C(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2, f32 scale1, s32 timer50) {
+void func_8007D94C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32 scale1, s32 timer50) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_367;
-    effect->obj.pos.x = posX;
-    effect->obj.pos.y = posY;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
     effect->unk_44 = 80;
     effect->scale2 = scale2;
     effect->scale1 = scale1;
@@ -2164,12 +2161,12 @@ void func_8007D94C(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2, f32
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_8007D9DC(f32 posX, f32 posY, f32 posZ, f32 scale2, f32 scale1, s32 timer50) {
+void func_8007D9DC(f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32 scale1, s32 timer50) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8007D94C(&gEffects[i], posX, posY, posZ, scale2, scale1, timer50);
+            func_8007D94C(&gEffects[i], xPos, yPos, zPos, scale2, scale1, timer50);
             break;
         }
     }
@@ -2195,12 +2192,10 @@ void func_8007DAE4(Effect* effect) {
     RCP_SetupDL(&gMasterDisp, 0x40);
 }
 
-Vec3f D_800D18D8 = { 0.0f, -10.0f, 0.0f };
-
 void func_8007DB70(Effect* effect) {
-    Vec3f sp54 = D_800D18D8;
+    Vec3f sp54 = { 0.0f, -10.0f, 0.0f };
 
-    switch (effect->unk_4E) {
+    switch (effect->state) {
         case 0:
             effect->vel.y -= 0.5f;
             if ((effect->timer_50 == 0) && ((func_8006351C(1000, &effect->obj.pos, &sp54, 1) != 0) ||
@@ -2209,7 +2204,7 @@ void func_8007DB70(Effect* effect) {
                 if (effect->obj.pos.y < (gGroundLevel + 10.0f)) {
                     effect->obj.pos.y = gGroundLevel;
                 }
-                effect->unk_4E = 1;
+                effect->state = 1;
                 effect->timer_50 = 30;
                 effect->unk_44 = 192;
                 effect->scale2 = 2.5f;
@@ -2249,7 +2244,7 @@ void func_8007DB70(Effect* effect) {
 }
 
 void func_8007DED4(Effect* effect) {
-    switch (effect->unk_4E) {
+    switch (effect->state) {
         case 0:
             Graphics_SetScaleMtx(effect->scale2);
             RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
@@ -2337,7 +2332,7 @@ void func_8007E3E4(Effect* effect) {
 }
 
 void func_8007E45C(Effect* effect) {
-    switch (effect->unk_4E) {
+    switch (effect->state) {
         case 0:
             if (effect->unk_4C != 0) {
                 Math_SmoothStepToF(&effect->scale2, 5.0f, 0.05f, 0.5f, 0.0f);
@@ -2388,7 +2383,7 @@ void func_8007E648(Effect* effect) {
     }
 }
 
-void func_8007E6B8(Effect* effect, u32 objId, f32 posX, f32 posY, f32 posZ, f32 arg5) {
+void func_8007E6B8(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPos, f32 arg5) {
     f32 sp54;
     f32 sp50;
     f32 temp_ft4;
@@ -2400,14 +2395,14 @@ void func_8007E6B8(Effect* effect, u32 objId, f32 posX, f32 posY, f32 posZ, f32 
     effect->obj.id = objId;
     effect->timer_50 = 100;
 
-    effect->obj.pos.x = posX;
-    effect->obj.pos.y = posY;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
     Object_SetInfo(&effect->info, objId & 0xFFFF);
-    sp50 = Math_Atan2F(gPlayer[0].pos.x - posX, gPlayer[0].unk_138 - posZ);
-    temp_ft4 = sqrtf(SQ(gPlayer[0].pos.x - posX) + SQ(gPlayer[0].unk_138 - posZ));
-    sp54 = -Math_Atan2F(gPlayer[0].pos.y - posY, temp_ft4);
+    sp50 = Math_Atan2F(gPlayer[0].pos.x - xPos, gPlayer[0].unk_138 - zPos);
+    temp_ft4 = sqrtf(SQ(gPlayer[0].pos.x - xPos) + SQ(gPlayer[0].unk_138 - zPos));
+    sp54 = -Math_Atan2F(gPlayer[0].pos.y - yPos, temp_ft4);
 
     Matrix_RotateY(gCalcMatrix, sp50, 0);
     Matrix_RotateX(gCalcMatrix, sp54, 1);
@@ -2445,7 +2440,7 @@ void func_8007E6B8(Effect* effect, u32 objId, f32 posX, f32 posY, f32 posZ, f32 
     Audio_PlaySfx(0x29002002, effect->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-void func_8007E93C(Effect* effect, u32 objId, f32 posX, f32 posY, f32 posZ, f32 arg5) {
+void func_8007E93C(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPos, f32 arg5) {
     f32 sp54;
     f32 sp50;
     f32 temp_ft4;
@@ -2457,14 +2452,14 @@ void func_8007E93C(Effect* effect, u32 objId, f32 posX, f32 posY, f32 posZ, f32 
     effect->obj.id = objId;
     effect->timer_50 = 100;
 
-    effect->obj.pos.x = posX;
-    effect->obj.pos.y = posY;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
     Object_SetInfo(&effect->info, effect->obj.id);
-    sp50 = Math_Atan2F(gPlayer[0].camEye.x - posX, gPlayer[0].camEye.z - posZ);
-    temp_ft4 = sqrtf(SQ(gPlayer[0].camEye.x - posX) + SQ(gPlayer[0].camEye.z - posZ));
-    sp54 = -Math_Atan2F(gPlayer[0].camEye.y - posY, temp_ft4);
+    sp50 = Math_Atan2F(gPlayer[0].camEye.x - xPos, gPlayer[0].camEye.z - zPos);
+    temp_ft4 = sqrtf(SQ(gPlayer[0].camEye.x - xPos) + SQ(gPlayer[0].camEye.z - zPos));
+    sp54 = -Math_Atan2F(gPlayer[0].camEye.y - yPos, temp_ft4);
 
     Matrix_RotateY(gCalcMatrix, sp50, 0);
     Matrix_RotateX(gCalcMatrix, sp54, 1);
@@ -2502,20 +2497,20 @@ void func_8007E93C(Effect* effect, u32 objId, f32 posX, f32 posY, f32 posZ, f32 
     Audio_PlaySfx(0x29002002, effect->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-void func_8007EBB8(Effect* effect, s32 objId, f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2) {
+void func_8007EBB8(Effect* effect, s32 objId, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = objId;
 
-    effect->obj.pos.x = posX;
-    effect->obj.pos.y = posY;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
     effect->timer_50 = 100;
 
-    effect->vel.x = velX;
-    effect->vel.y = velY;
-    effect->vel.z = velZ;
+    effect->vel.x = xVel;
+    effect->vel.y = yVel;
+    effect->vel.z = zVel;
 
     effect->scale2 = scale2;
     if (objId == OBJ_EFFECT_355) {
@@ -2526,39 +2521,39 @@ void func_8007EBB8(Effect* effect, s32 objId, f32 posX, f32 posY, f32 posZ, f32 
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_8007ECB4(s32 objId, f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 scale2) {
+void func_8007ECB4(s32 objId, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8007EBB8(&gEffects[i], objId, posX, posY, posZ, velX, velY, velZ, scale2);
+            func_8007EBB8(&gEffects[i], objId, xPos, yPos, zPos, xVel, yVel, zVel, scale2);
             break;
         }
     }
 }
 
-void func_8007ED54(Effect* effect, s32 objId, f32 posX, f32 posY, f32 posZ, f32 rotX, f32 rotY, f32 rotZ, f32 unkX,
-                   f32 unkY, f32 unkZ, f32 velX, f32 velY, f32 velZ, f32 scale2) {
+void func_8007ED54(Effect* effect, s32 objId, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, f32 unkX,
+                   f32 unkY, f32 unkZ, f32 xVel, f32 yVel, f32 zVel, f32 scale2) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = objId;
 
-    effect->obj.pos.x = posX;
-    effect->obj.pos.y = posY;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
     effect->timer_50 = 100;
     if (gCurrentLevel == LEVEL_AQUAS) {
         effect->timer_50 = 75;
     }
 
-    effect->vel.x = velX;
-    effect->vel.y = velY;
-    effect->vel.z = velZ;
+    effect->vel.x = xVel;
+    effect->vel.y = yVel;
+    effect->vel.z = zVel;
 
-    effect->obj.rot.x = rotX;
-    effect->obj.rot.y = rotY;
-    effect->obj.rot.z = rotZ;
+    effect->obj.rot.x = xRot;
+    effect->obj.rot.y = yRot;
+    effect->obj.rot.z = zRot;
 
     effect->unk_60.x = unkX;
     effect->unk_60.y = unkY;
@@ -2593,27 +2588,27 @@ void func_8007EE68(s32 objId, Vec3f* pos, Vec3f* rot, Vec3f* arg3, Vec3f* arg4, 
     }
 }
 
-void func_8007F04C(s32 objId, f32 posX, f32 posY, f32 posZ, f32 rotX, f32 rotY, f32 rotZ, f32 unkX, f32 unkY, f32 unkZ,
-                   f32 velX, f32 velY, f32 velZ, f32 scale2) {
+void func_8007F04C(s32 objId, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, f32 unkX, f32 unkY, f32 unkZ,
+                   f32 xVel, f32 yVel, f32 zVel, f32 scale2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8007ED54(&gEffects[i], objId, posX, posY, posZ, rotX, rotY, rotZ, unkX, unkY, unkZ, velX, velY, velZ,
+            func_8007ED54(&gEffects[i], objId, xPos, yPos, zPos, xRot, yRot, zRot, unkX, unkY, unkZ, xVel, yVel, zVel,
                           scale2);
             break;
         }
     }
 }
 
-void func_8007F11C(s32 objId, f32 posX, f32 posY, f32 posZ, f32 arg4) {
+void func_8007F11C(s32 objId, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     s32 i;
 
-    if ((fabsf(posZ - gPlayer[0].unk_138) > 300.0f) || (fabsf(posX - gPlayer[0].pos.x) > 300.0f)) {
+    if ((fabsf(zPos - gPlayer[0].unk_138) > 300.0f) || (fabsf(xPos - gPlayer[0].pos.x) > 300.0f)) {
         for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
             if (gEffects[i].obj.status == OBJ_FREE) {
                 Matrix_Push(&gCalcMatrix);
-                func_8007E6B8(&gEffects[i], objId, posX, posY, posZ, arg4);
+                func_8007E6B8(&gEffects[i], objId, xPos, yPos, zPos, arg4);
                 Matrix_Pop(&gCalcMatrix);
                 break;
             }
@@ -2621,14 +2616,14 @@ void func_8007F11C(s32 objId, f32 posX, f32 posY, f32 posZ, f32 arg4) {
     }
 }
 
-void func_8007F20C(s32 objId, f32 posX, f32 posY, f32 posZ, f32 arg4) {
+void func_8007F20C(s32 objId, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     s32 i;
 
-    if ((fabsf(posZ - gPlayer[0].camEye.z) > 300.0f) || (fabsf(posX - gPlayer[0].camEye.x) > 300.0f)) {
+    if ((fabsf(zPos - gPlayer[0].camEye.z) > 300.0f) || (fabsf(xPos - gPlayer[0].camEye.x) > 300.0f)) {
         for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
             if (gEffects[i].obj.status == OBJ_FREE) {
                 Matrix_Push(&gCalcMatrix);
-                func_8007E93C(&gEffects[i], objId, posX, posY, posZ, arg4);
+                func_8007E93C(&gEffects[i], objId, xPos, yPos, zPos, arg4);
                 Matrix_Pop(&gCalcMatrix);
                 break;
             }
@@ -2732,7 +2727,7 @@ void func_8007F6B0(Effect* effect) {
     f32 x;
     f32 z;
     f32 y;
-    f32 posY;
+    f32 yPos;
 
     Math_SmoothStepToF(&effect->scale2, effect->scale1, 0.1f, 12.0f, 0.1f);
 
@@ -2741,25 +2736,25 @@ void func_8007F6B0(Effect* effect) {
         Object_Kill(&effect->obj, effect->sfxPos);
     }
 
-    if (!(gGameFrameCount & 3) && (effect->unk_4E == 0)) {
+    if (!(gGameFrameCount & 3) && (effect->state == 0)) {
         randfloat = Rand_ZeroOne() * 30.0f;
         for (i = 0; i < 36; i += 2) {
             temp = (i * 10.0f * M_DTOR) + randfloat;
             sin = __sinf(temp) * effect->scale2 * 8.0f;
             cos = __cosf(temp) * effect->scale2 * 8.0f;
-            posY = gGroundLevel + 40.0f;
+            yPos = gGroundLevel + 40.0f;
 
             if (D_801784AC == 4) {
                 func_i5_801B6E20(effect->obj.pos.x + sin, effect->obj.pos.z + cos + D_80177D20, &x, &y, &z);
-                posY = y + 30.0f;
+                yPos = y + 30.0f;
             }
 
             if (gCurrentLevel == LEVEL_AQUAS) {
-                func_8007B8F8(effect->obj.pos.x + sin, posY, effect->obj.pos.z + cos, 20.0f);
+                func_8007B8F8(effect->obj.pos.x + sin, yPos, effect->obj.pos.z + cos, 20.0f);
             } else if (gCurrentLevel == LEVEL_FORTUNA) {
-                func_8007BC7C(effect->obj.pos.x + sin, posY, effect->obj.pos.z + cos, 20.0f);
+                func_8007BC7C(effect->obj.pos.x + sin, yPos, effect->obj.pos.z + cos, 20.0f);
             } else if (gCurrentLevel == LEVEL_TITANIA) {
-                func_8007A900(effect->obj.pos.x + sin, posY, effect->obj.pos.z + cos, 10.0f, 0xFF, 0xF, 0);
+                func_8007A900(effect->obj.pos.x + sin, yPos, effect->obj.pos.z + cos, 10.0f, 0xFF, 0xF, 0);
             }
         }
     }
@@ -2774,7 +2769,7 @@ void func_8007F958(Effect* effect) {
     f32 cos;
     f32 sin;
     f32 randFloat;
-    f32 posY;
+    f32 yPos;
 
     effect->scale2 += effect->scale1;
     effect->scale1 -= 0.08f;
@@ -2794,17 +2789,17 @@ void func_8007F958(Effect* effect) {
             temp = (i * 72.0f * M_DTOR) + randFloat;
             sin = __sinf(temp) * effect->scale2 * 16.0f;
             cos = __cosf(temp) * effect->scale2 * 16.0f;
-            posY = gGroundLevel + 10.0f;
+            yPos = gGroundLevel + 10.0f;
 
             if (D_801784AC == 4) {
                 func_i5_801B6E20(effect->obj.pos.x + sin, effect->obj.pos.z + cos + D_80177D20, &x, &y, &z);
-                posY = y + 10.0f;
+                yPos = y + 10.0f;
             }
 
             if (gCurrentLevel == LEVEL_FORTUNA) {
-                func_8007BC7C(effect->obj.pos.x + sin, posY, effect->obj.pos.z + cos, 8.0f);
+                func_8007BC7C(effect->obj.pos.x + sin, yPos, effect->obj.pos.z + cos, 8.0f);
             } else if (gCurrentLevel == LEVEL_TITANIA) {
-                func_8007A900(effect->obj.pos.x + sin, posY, effect->obj.pos.z + cos, 8.0f, 0xFF, 0xF, 0);
+                func_8007A900(effect->obj.pos.x + sin, yPos, effect->obj.pos.z + cos, 8.0f, 0xFF, 0xF, 0);
             }
         }
     }
@@ -2816,7 +2811,7 @@ void func_8007FBE0(Effect* effect) {
     f32 sin;
     f32 cos;
     f32 randFloat;
-    f32 posY;
+    f32 yPos;
 
     effect->scale2 += effect->scale1;
     effect->scale1 -= .1f;
@@ -2835,8 +2830,8 @@ void func_8007FBE0(Effect* effect) {
             temp = (i * 36.0f * M_DTOR) + randFloat;
             sin = __sinf(temp) * effect->scale2 * 16.0f;
             cos = __cosf(temp) * effect->scale2 * 16.0f;
-            posY = gGroundLevel + 10.0f;
-            func_8007BC7C(effect->obj.pos.x + sin, posY, effect->obj.pos.z + cos, 12.0f);
+            yPos = gGroundLevel + 10.0f;
+            func_8007BC7C(effect->obj.pos.x + sin, yPos, effect->obj.pos.z + cos, 12.0f);
         }
     }
 }
@@ -2978,21 +2973,21 @@ void func_80080360(Effect* effect) {
 }
 
 void func_8008040C(Effect* effect) {
-    f32 rotX;
-    f32 rotY;
+    f32 xRot;
+    f32 yRot;
     f32 temp;
     f32 var_fa0 = 0.0f;
     Vec3f srcVelocity;
     Vec3f destVelocity;
     Vec3f sp3C;
 
-    switch (effect->unk_4E) {
+    switch (effect->state) {
         case 0:
-            rotY = Math_Atan2F(gPlayer[0].pos.x - effect->obj.pos.x, gPlayer[0].unk_138 - effect->obj.pos.z);
+            yRot = Math_Atan2F(gPlayer[0].pos.x - effect->obj.pos.x, gPlayer[0].unk_138 - effect->obj.pos.z);
             temp = sqrtf(SQ(gPlayer[0].pos.x - effect->obj.pos.x) + SQ(gPlayer[0].unk_138 - effect->obj.pos.z));
-            rotX = -Math_Atan2F(gPlayer[0].pos.y - effect->obj.pos.y, temp);
-            Matrix_RotateY(gCalcMatrix, rotY, 0);
-            Matrix_RotateX(gCalcMatrix, rotX, 1);
+            xRot = -Math_Atan2F(gPlayer[0].pos.y - effect->obj.pos.y, temp);
+            Matrix_RotateY(gCalcMatrix, yRot, 0);
+            Matrix_RotateX(gCalcMatrix, xRot, 1);
             srcVelocity.y = 0.0f;
             srcVelocity.x = 0.0f;
             srcVelocity.z = 100.0f;
@@ -3000,7 +2995,7 @@ void func_8008040C(Effect* effect) {
             effect->vel.x = destVelocity.x + D_801779E4;
             effect->vel.y = destVelocity.y + D_801779F4;
             effect->vel.z = destVelocity.z - D_80177D08;
-            effect->unk_4E++;
+            effect->state++;
             break;
 
         case 1:
@@ -3109,11 +3104,11 @@ void func_80080ACC(Effect* effect) {
         case 0:
             break;
 
-        case 0x1:
+        case 1:
             effect->unk_46 -= 1;
             break;
 
-        case 0xA:
+        case 10:
             effect->unk_44 -= 1;
             if (effect->unk_44 <= 0) {
                 effect->unk_44 = effect->unk_46;
@@ -3128,7 +3123,7 @@ void func_80080ACC(Effect* effect) {
             }
             break;
 
-        case 0xB:
+        case 11:
             effect->obj.rot.z += effect->unk_60.z;
             effect->scale2 += 0.07f;
             effect->vel.y += 0.2f;
@@ -3138,7 +3133,7 @@ void func_80080ACC(Effect* effect) {
             }
             break;
 
-        case 0xC:
+        case 12:
             effect->obj.rot.x += effect->unk_60.x;
             effect->obj.rot.y += effect->unk_60.y;
             effect->obj.rot.z += effect->unk_60.z;
@@ -3151,18 +3146,18 @@ void func_80080ACC(Effect* effect) {
             effect->vel.y -= 4.0f;
             break;
 
-        case 0x10:
+        case 16:
             break;
 
-        case 0x64:
+        case 100:
             func_8007E45C(effect);
             break;
 
-        case 0x65:
+        case 101:
             func_8007BCE8(effect);
             break;
 
-        case 0x66:
+        case 102:
             func_8007B758(effect);
             break;
     }
@@ -3194,11 +3189,11 @@ void func_80080D04(Effect* effect) {
             }
 
             alpha = (((f32) effect->unk_46 / (f32) effect->unk_48) * 255.0f);
-            if (alpha > 0xFF) {
-                alpha = 0xFF;
+            if (alpha > 255) {
+                alpha = 255;
             }
 
-            if (alpha < 0x20) {
+            if (alpha < 32) {
                 Object_Kill(&effect->obj, effect->sfxPos);
             } else {
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha);
@@ -3328,8 +3323,7 @@ void func_800815DC(void) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
-        if ((gEffects[i].obj.id == OBJ_EFFECT_366 ||
-             (gEffects[i].obj.id == OBJ_EFFECT_395 && gEffects[i].unk_4E == 1) ||
+        if ((gEffects[i].obj.id == OBJ_EFFECT_366 || (gEffects[i].obj.id == OBJ_EFFECT_395 && gEffects[i].state == 1) ||
              gEffects[i].obj.id == OBJ_EFFECT_364 || gEffects[i].obj.id == OBJ_EFFECT_346) &&
             gEffects[i].obj.status == OBJ_ACTIVE) {
             gEffects[i].obj.status = OBJ_FREE;
@@ -3338,21 +3332,21 @@ void func_800815DC(void) {
     }
 }
 
-void func_8008165C(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2, s32 arg5) {
+void func_8008165C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 arg5) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_395;
 
-    effect->obj.pos.x = posX;
-    effect->obj.pos.y = posY;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
     effect->scale2 = scale2;
-    effect->unk_4E = arg5;
+    effect->state = arg5;
     Object_SetInfo(&effect->info, effect->obj.id);
     effect->timer_50 = 300;
 
-    switch (effect->unk_4E) {
+    switch (effect->state) {
         case 4:
             effect->unk_4A = 0xFF;
             effect->unk_46 = 1;
@@ -3417,9 +3411,9 @@ void func_8008165C(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2, s32
             effect->timer_50 = 50;
             effect->unk_44 = 100;
 
-            effect->obj.pos.x = posX;
-            effect->obj.pos.y = posY;
-            effect->obj.pos.z = posZ;
+            effect->obj.pos.x = xPos;
+            effect->obj.pos.y = yPos;
+            effect->obj.pos.z = zPos;
 
             Audio_PlaySfx(0x2940F026, effect->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             D_Timer_80177BD0[0] = 60;
@@ -3427,7 +3421,7 @@ void func_8008165C(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 scale2, s32
     }
 }
 
-void func_80081A8C(f32 posX, f32 posY, f32 posZ, f32 scale2, s32 arg4) {
+void func_80081A8C(f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 arg4) {
     s32 i;
 
     if (arg4 == 6 || arg4 == 7) {
@@ -3436,13 +3430,13 @@ void func_80081A8C(f32 posX, f32 posY, f32 posZ, f32 scale2, s32 arg4) {
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8008165C(&gEffects[i], posX, posY, posZ, scale2, arg4);
+            func_8008165C(&gEffects[i], xPos, yPos, zPos, scale2, arg4);
             break;
         }
     }
 }
 
-s32 func_80081B24(f32 posX, f32 posY, f32 posZ, f32 scale2) {
+s32 func_80081B24(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
     Effect* effect;
 
@@ -3454,13 +3448,13 @@ s32 func_80081B24(f32 posX, f32 posY, f32 posZ, f32 scale2) {
             effect->obj.status = OBJ_ACTIVE;
             effect->obj.id = OBJ_EFFECT_395;
 
-            effect->obj.pos.x = posX;
-            effect->obj.pos.y = posY;
-            effect->obj.pos.z = posZ;
+            effect->obj.pos.x = xPos;
+            effect->obj.pos.y = yPos;
+            effect->obj.pos.z = zPos;
 
             effect->scale2 = scale2;
             effect->timer_50 = 80;
-            effect->unk_4E = 2;
+            effect->state = 2;
             Object_SetInfo(&effect->info, effect->obj.id);
             break;
         }
@@ -3471,12 +3465,12 @@ s32 func_80081B24(f32 posX, f32 posY, f32 posZ, f32 scale2) {
     return i;
 }
 
-void func_80081BEC(f32 posX, f32 posY, f32 posZ, f32 scale2, s32 arg4) {
+void func_80081BEC(f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 arg4) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_8008165C(&gEffects[i], posX, posY, posZ, scale2, arg4);
+            func_8008165C(&gEffects[i], xPos, yPos, zPos, scale2, arg4);
             break;
         }
     }
@@ -3502,17 +3496,17 @@ void func_80081C5C(Effect* effect) {
     velocity.z = effect->vel.z;
 
     //! FAKE: Probably some debug stuff printing different messages depending on what unk_4E is.
-    if (effect->unk_4E != 0 && effect->unk_4E != 6 && effect->unk_4E != 7 && effect->unk_4E != 11) {
+    if (effect->state != 0 && effect->state != 6 && effect->state != 7 && effect->state != 11) {
         if (gCurrentLevel) {}
         PRINTF("ＺＯ＿ＭＯＶＥ ＨＥＬＰ %d\n");
     }
-    if (effect->unk_4E != 1 && effect->unk_4E != 2 && effect->unk_4E != 4 && effect->unk_4E != 5 &&
-        effect->unk_4E != 8 && effect->unk_4E != 9) {
+    if (effect->state != 1 && effect->state != 2 && effect->state != 4 && effect->state != 5 && effect->state != 8 &&
+        effect->state != 9) {
         if (gCurrentLevel) {}
         PRINTF("ＡＣ＿ＭＯＶＥ ＨＥＬＰ %d\n");
     }
 
-    switch (effect->unk_4E) {
+    switch (effect->state) {
         case 0:
             if (effect->timer_50 == 0) {
                 Object_Kill(&effect->obj, effect->sfxPos);
@@ -3713,7 +3707,7 @@ void func_80081C5C(Effect* effect) {
                         D_800D18EC = 0.0f;
                         D_800D18E8 = 0.0f;
                         gBosses[0].timer_050 = 150;
-                        gBosses[0].actionState = 6;
+                        gBosses[0].state = 6;
                         effect->unk_44++;
                     }
                     break;
@@ -3869,27 +3863,26 @@ void func_80081C5C(Effect* effect) {
             break;
     }
 
-    if ((effect->unk_4E == 2) && (effect->unk_44 == 2)) {
+    if ((effect->state == 2) && (effect->unk_44 == 2)) {
         func_8007FE88(effect);
     }
-    if ((effect->unk_4E < 4) && (effect->unk_4E != 1)) {
+    if ((effect->state < 4) && (effect->state != 1)) {
         func_8007A774(gPlayer, effect, sp84);
     }
 }
 
 void func_80082F78(Effect* effect) {
     //! FAKE: Probably some debug stuff printing different messages depending on what unk_4E is.
-    if (effect->unk_4E != 0 && effect->unk_4E != 6) {
+    if (effect->state != 0 && effect->state != 6) {
         if (effect->unk_4A && effect->unk_4A) {}
         PRINTF("ＺＯ＿ＤＩＳＰ ＨＥＬＰ %d\n");
     }
-    if (effect->unk_4E != 1 && effect->unk_4E != 2 && effect->unk_4E != 4 && effect->unk_4E != 5 &&
-        effect->unk_4E != 7) {
+    if (effect->state != 1 && effect->state != 2 && effect->state != 4 && effect->state != 5 && effect->state != 7) {
         if (effect->unk_4A && !effect->scale2) {}
         PRINTF("ＡＣ＿ＤＩＳＰ ＨＥＬＰ %d\n");
     }
 
-    switch (effect->unk_4E) {
+    switch (effect->state) {
         case 0:
             RCP_SetupDL(&gMasterDisp, 0x31);
             Matrix_Scale(gGfxMatrix, 0.7f, 0.7f, 1.0f, 1);
@@ -3995,14 +3988,14 @@ void func_80082F78(Effect* effect) {
     RCP_SetupDL(&gMasterDisp, 0x40);
 }
 
-void func_800836C0(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 arg4, f32 scale) {
+void func_800836C0(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 scale) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_391;
 
-    effect->obj.pos.x = posX;
-    effect->obj.pos.y = posY;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
     effect->unk_60.x = scale * 0.8f;
     effect->unk_60.y = 1.2f;
@@ -4016,12 +4009,12 @@ void func_800836C0(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 arg4, f32 s
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_8008377C(f32 posX, f32 posY, f32 posZ, f32 arg3, f32 scale) {
+void func_8008377C(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 scale) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_800836C0(&gEffects[i], posX, posY, posZ, arg3, scale);
+            func_800836C0(&gEffects[i], xPos, yPos, zPos, arg3, scale);
             break;
         }
     }
@@ -4033,7 +4026,7 @@ void func_800837EC(Effect* effect) {
     s32 var_s2;
     s32 i;
 
-    switch (effect->unk_4E) {
+    switch (effect->state) {
         case 0:
             if (effect->unk_60.y == 1.2f) {
                 Math_SmoothStepToF(&effect->scale2, effect->scale1, 0.5f, effect->scale1, 0.01f);
@@ -4063,7 +4056,7 @@ void func_800837EC(Effect* effect) {
                                   ((Rand_ZeroOne() - 0.5f) * (effect->scale2 * 200.0f)) + effect->obj.pos.z,
                                   0.3f - ((Rand_ZeroOne() - 0.5f) * 0.2f), 0xB);
                 }
-                effect->unk_4E++;
+                effect->state++;
             }
             break;
 
@@ -4094,19 +4087,19 @@ void func_80083B8C(Effect* effect) {
     RCP_SetupDL(&gMasterDisp, 0x40);
 }
 
-void func_80083C70(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 velX, f32 velY, f32 velZ, f32 arg7, s32 arg8) {
+void func_80083C70(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 arg7, s32 arg8) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = 0x18F;
-    effect->obj.pos.x = posX;
-    effect->unk_60.x = posX;
-    effect->unk_60.y = posY;
-    effect->obj.pos.y = posY;
-    effect->obj.pos.z = posZ;
+    effect->obj.pos.x = xPos;
+    effect->unk_60.x = xPos;
+    effect->unk_60.y = yPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
 
-    effect->vel.x = velX;
-    effect->vel.y = velY;
-    effect->vel.z = velZ;
+    effect->vel.x = xVel;
+    effect->vel.y = yVel;
+    effect->vel.z = zVel;
 
     effect->unk_60.z = arg7;
     effect->scale2 = 1.6f;
@@ -4116,15 +4109,15 @@ void func_80083C70(Effect* effect, f32 posX, f32 posY, f32 posZ, f32 velX, f32 v
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_80083D2C(f32 posX, f32 posY, f32 posZ, f32 srcZ) {
+void func_80083D2C(f32 xPos, f32 yPos, f32 zPos, f32 srcZ) {
     s32 i;
     s32 j;
     s32 pad1;
     f32 x;
     f32 y;
     f32 z;
-    f32 rotX;
-    f32 rotY;
+    f32 xRot;
+    f32 yRot;
     f32 xSway;
     s32 pad2;
     Vec3f src;
@@ -4142,15 +4135,15 @@ void func_80083D2C(f32 posX, f32 posY, f32 posZ, f32 srcZ) {
         }
     }
 
-    x = gPlayer[0].pos.x + xSway - posX;
-    y = gPlayer[0].pos.y - posY;
-    z = gPlayer[0].unk_138 - posZ;
+    x = gPlayer[0].pos.x + xSway - xPos;
+    y = gPlayer[0].pos.y - yPos;
+    z = gPlayer[0].unk_138 - zPos;
 
-    rotY = Math_Atan2F(x, z);
-    rotX = -Math_Atan2F(y, sqrtf(SQ(x) + SQ(z)));
+    yRot = Math_Atan2F(x, z);
+    xRot = -Math_Atan2F(y, sqrtf(SQ(x) + SQ(z)));
 
-    Matrix_RotateY(gCalcMatrix, rotY, 0);
-    Matrix_RotateX(gCalcMatrix, rotX, 1);
+    Matrix_RotateY(gCalcMatrix, yRot, 0);
+    Matrix_RotateX(gCalcMatrix, xRot, 1);
 
     src.x = src.y = 0.0f;
     src.z = srcZ;
@@ -4162,7 +4155,7 @@ void func_80083D2C(f32 posX, f32 posY, f32 posZ, f32 srcZ) {
     for (i = 0; i < 6; i++) {
         for (j = 0; j < ARRAY_COUNT(gEffects); j++) {
             if (gEffects[j].obj.status == OBJ_FREE) {
-                func_80083C70(&gEffects[j], posX, posY, posZ, dest.x, dest.y, dest.z, i * 60.0f, i);
+                func_80083C70(&gEffects[j], xPos, yPos, zPos, dest.x, dest.y, dest.z, i * 60.0f, i);
                 if (i == 0) {
                     Audio_PlaySfx(0x3103109B, gEffects[j].sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 }

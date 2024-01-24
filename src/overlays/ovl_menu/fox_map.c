@@ -1541,10 +1541,10 @@ void func_menu_8019F910(void) {
 void func_menu_8019F97C(void) {
     D_menu_801CEA54 = func_menu_801A25C8(sCurrentPlanetId);
 
-    D_menu_801CD9F4 = D_menu_801CDA00 = planet[sCurrentPlanetId].posX;
-    D_menu_801CD9F8 = D_menu_801CDA04 = planet[sCurrentPlanetId].posY;
-    D_menu_801CDA08 = planet[sCurrentPlanetId].posZ;
-    D_menu_801CD9FC = planet[sCurrentPlanetId].posZ + D_menu_801CEA54;
+    D_menu_801CD9F4 = D_menu_801CDA00 = planet[sCurrentPlanetId].pos.x;
+    D_menu_801CD9F8 = D_menu_801CDA04 = planet[sCurrentPlanetId].pos.y;
+    D_menu_801CDA08 = planet[sCurrentPlanetId].pos.z;
+    D_menu_801CD9FC = planet[sCurrentPlanetId].pos.z + D_menu_801CEA54;
 }
 
 void func_menu_8019FA1C(void) {
@@ -2276,12 +2276,12 @@ void func_menu_801A1AE8(void) {
 
     D_menu_801CEA54 = func_menu_801A25C8(sCurrentPlanetId);
 
-    D_menu_801CDA40.x = planet[sCurrentPlanetId].posX;
-    D_menu_801CDA40.y = planet[sCurrentPlanetId].posY;
-    D_menu_801CDA40.z = planet[sCurrentPlanetId].posZ;
+    D_menu_801CDA40.x = planet[sCurrentPlanetId].pos.x;
+    D_menu_801CDA40.y = planet[sCurrentPlanetId].pos.y;
+    D_menu_801CDA40.z = planet[sCurrentPlanetId].pos.z;
 
-    D_menu_801CDA50.x = planet[sCurrentPlanetId].posX;
-    D_menu_801CDA50.y = planet[sCurrentPlanetId].posY;
+    D_menu_801CDA50.x = planet[sCurrentPlanetId].pos.x;
+    D_menu_801CDA50.y = planet[sCurrentPlanetId].pos.y;
     D_menu_801CDA50.z = D_menu_801CDA40.z + D_menu_801CEA54;
 
     D_menu_801CDA2C = D_menu_801CDA00;
@@ -2630,11 +2630,11 @@ void func_menu_801A281C(void) {
     D_menu_801CEF58[0].z = D_menu_801CEF58[1].z = D_menu_801CDA08;
 
     D_menu_801CEF58[5].x = D_menu_801CEF58[4].x = D_menu_801CEF58[3].x = D_menu_801CEF58[2].x =
-        planet[D_menu_801CD958].posX;
+        planet[D_menu_801CD958].pos.x;
     D_menu_801CEF58[5].y = D_menu_801CEF58[4].y = D_menu_801CEF58[3].y = D_menu_801CEF58[2].y =
-        planet[D_menu_801CD958].posY;
+        planet[D_menu_801CD958].pos.y;
     D_menu_801CEF58[5].z = D_menu_801CEF58[4].z = D_menu_801CEF58[3].z = D_menu_801CEF58[2].z =
-        planet[D_menu_801CD958].posZ;
+        planet[D_menu_801CD958].pos.z;
 
     D_menu_801CDA0C = -46.5f;
     D_menu_801CDA10 = 0.0f;
@@ -4185,9 +4185,9 @@ void func_menu_801A6694(void) {
 
         Matrix_MultVec3f(gGfxMatrix, &src, &dest);
 
-        planet[planetId].posX = dest.x;
-        planet[planetId].posY = dest.y;
-        planet[planetId].posZ = dest.z;
+        planet[planetId].pos.x = dest.x;
+        planet[planetId].pos.y = dest.y;
+        planet[planetId].pos.z = dest.z;
 
         Matrix_Pop(&gGfxMatrix);
 
@@ -5183,7 +5183,7 @@ void func_menu_801A9910(void) {
 
     for (i = 0; i < D_menu_801AF834[var_s0].height; i++) {
         TextureRect_8bIA(&gMasterDisp, D_menu_801AF834[var_s0].addr + (D_menu_801AF834[var_s0].width * i),
-                         D_menu_801AF834[var_s0].width, 1, D_menu_801AF834[var_s0].posX, 20.0f + (1.0f * i), 1.0f,
+                         D_menu_801AF834[var_s0].width, 1, D_menu_801AF834[var_s0].xPos, 20.0f + (1.0f * i), 1.0f,
                          1.0f);
     }
 
@@ -5279,12 +5279,12 @@ void func_menu_801A9A8C(void) {
 
     for (i = 0; i < D_menu_801AF834[sp58].height; i++) {
         TextureRect_8bIA(&gMasterDisp, D_menu_801AF834[sp58].addr + (D_menu_801AF834[sp58].width * i),
-                         D_menu_801AF834[sp58].width, 1, D_menu_801AF834[sp58].posX, 94.0f + (1.0f * i), 1.0f, 1.0f);
+                         D_menu_801AF834[sp58].width, 1, D_menu_801AF834[sp58].xPos, 94.0f + (1.0f * i), 1.0f, 1.0f);
     }
 
     for (i = 0; i < D_menu_801AF914[sp58].height; i++) {
         TextureRect_8bIA(&gMasterDisp, D_menu_801AF914[sp58].addr + (D_menu_801AF914[sp58].width * i),
-                         D_menu_801AF914[sp58].width, 1, D_menu_801AF914[sp58].posX, 140.0f + (1.0f * i), 1.0f, 1.0f);
+                         D_menu_801AF914[sp58].width, 1, D_menu_801AF914[sp58].xPos, 140.0f + (1.0f * i), 1.0f, 1.0f);
     }
 }
 
@@ -5630,15 +5630,15 @@ void func_menu_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
 
 void func_menu_801AB17C(f32 x, f32 y, f32 z) {
     static f32 scale = 0.23f;
-    static f32 posX = 4.4f;
-    static f32 posY = 1.0f;
+    static f32 xPos = 4.4f;
+    static f32 yPos = 1.0f;
 
     RCP_SetupDL(&gMasterDisp, 0x35);
     gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
 
     Matrix_Push(&gGfxMatrix);
 
-    Matrix_Translate(gGfxMatrix, x - posX, y + posY, z, 1);
+    Matrix_Translate(gGfxMatrix, x - xPos, y + yPos, z, 1);
     Matrix_Scale(gGfxMatrix, scale, scale, scale, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -6542,19 +6542,19 @@ void func_menu_801ACD90(s32 index, Vec3f* src, Vec3f* dest) {
         temp2 = 30.0f;
     }
 
-    x = planet[D_menu_801AFD18[index].unk_08].posX - planet[D_menu_801AFD18[index].unk_04].posX;
-    y = planet[D_menu_801AFD18[index].unk_08].posY - planet[D_menu_801AFD18[index].unk_04].posY;
-    z = planet[D_menu_801AFD18[index].unk_08].posZ - planet[D_menu_801AFD18[index].unk_04].posZ;
+    x = planet[D_menu_801AFD18[index].unk_08].pos.x - planet[D_menu_801AFD18[index].unk_04].pos.x;
+    y = planet[D_menu_801AFD18[index].unk_08].pos.y - planet[D_menu_801AFD18[index].unk_04].pos.y;
+    z = planet[D_menu_801AFD18[index].unk_08].pos.z - planet[D_menu_801AFD18[index].unk_04].pos.z;
 
     r = sqrtf(SQ(x) + SQ(y) + SQ(z));
 
-    x1 = planet[D_menu_801AFD18[index].unk_04].posX + (temp1 * planet[D_menu_801AFD18[index].unk_04].scale * (x / r));
-    y1 = planet[D_menu_801AFD18[index].unk_04].posY + (temp1 * planet[D_menu_801AFD18[index].unk_04].scale * (y / r));
-    z1 = planet[D_menu_801AFD18[index].unk_04].posZ + (temp1 * planet[D_menu_801AFD18[index].unk_04].scale * (z / r));
+    x1 = planet[D_menu_801AFD18[index].unk_04].pos.x + (temp1 * planet[D_menu_801AFD18[index].unk_04].scale * (x / r));
+    y1 = planet[D_menu_801AFD18[index].unk_04].pos.y + (temp1 * planet[D_menu_801AFD18[index].unk_04].scale * (y / r));
+    z1 = planet[D_menu_801AFD18[index].unk_04].pos.z + (temp1 * planet[D_menu_801AFD18[index].unk_04].scale * (z / r));
 
-    x2 = planet[D_menu_801AFD18[index].unk_08].posX + (temp2 * planet[D_menu_801AFD18[index].unk_08].scale * (-x / r));
-    y2 = planet[D_menu_801AFD18[index].unk_08].posY + (temp2 * planet[D_menu_801AFD18[index].unk_08].scale * (-y / r));
-    z2 = planet[D_menu_801AFD18[index].unk_08].posZ + (temp2 * planet[D_menu_801AFD18[index].unk_08].scale * (-z / r));
+    x2 = planet[D_menu_801AFD18[index].unk_08].pos.x + (temp2 * planet[D_menu_801AFD18[index].unk_08].scale * (-x / r));
+    y2 = planet[D_menu_801AFD18[index].unk_08].pos.y + (temp2 * planet[D_menu_801AFD18[index].unk_08].scale * (-y / r));
+    z2 = planet[D_menu_801AFD18[index].unk_08].pos.z + (temp2 * planet[D_menu_801AFD18[index].unk_08].scale * (-z / r));
 
     src->x = x1;
     src->y = y1;
