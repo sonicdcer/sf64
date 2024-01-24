@@ -151,7 +151,8 @@ typedef struct {
     /* 0x50 */ s8 unk_50;
     /* 0x51 */ char pad51[3];
     /* 0x54 */ s32 unk_54;
-    /* 0x58 */ char pad58[8];
+    /* 0x58 */ f32 unk_58;
+    /* 0x5C */ f32 unk_5C;
     /* 0x60 */ f32 unk_60;
     /* 0x64 */ Vec3f vel;
     /* 0x70 */ f32 sfxPos[3];
