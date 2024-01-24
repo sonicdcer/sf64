@@ -11,7 +11,7 @@ typedef struct {
     /* 0x1C */ s16 unk_1C;
     /* 0x20 */ f32 unk_20;
 } UnkStruct_801C62E8; // size = 0x24
-extern UnkStruct_801C62E8* D_i5_801C62E8[20];
+extern UnkStruct_801C62E8 D_i5_801C62E8[20];
 
 bool func_i5_801B49D0(Actor* actor) {
     UnkStruct_801C62E8* var_v0;
@@ -19,7 +19,7 @@ bool func_i5_801B49D0(Actor* actor) {
     bool found;
 
     found = false;
-    var_v0 = &D_i5_801C62E8;
+    var_v0 = D_i5_801C62E8;
     for (i = 0; i < ARRAY_COUNT(D_i5_801C62E8); i++, var_v0++) {
         if (var_v0->unk_00 == 0) {
             found = true;
