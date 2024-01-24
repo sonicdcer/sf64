@@ -10,9 +10,6 @@ extern Vec3f D_i1_80199FFC;
 extern Limb* D_900D164;
 extern Limb* D_901C0F4;
 
-s32 func_i1_801937F4(s32, Gfx**, Vec3f*, Vec3f*, void*);
-void func_i1_80193D64(s32, Vec3f*, void*);
-
 f32 func_i1_801920F0(f32* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32* arg5) {
     f32 temp;
 

@@ -604,6 +604,8 @@ void func_menu_80187520(u32, void*);
 void func_menu_8019E8D0(void);
 
 void func_i1_80198414(void);
+s32 func_i1_801937F4(s32, Gfx**, Vec3f*, Vec3f*, void*);
+void func_i1_80193D64(s32, Vec3f*, void*);
 
 void func_ending_8018A96C(void);
 void func_ending_8018AAC4(void);
