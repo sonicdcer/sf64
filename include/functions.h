@@ -586,7 +586,7 @@ void Object_58_Initialize(Object_58*);
 
 // fox_radio
 s32 func_800BA7BC(u16*, s32);
-void func_800BA808(u16*, RadioCharacterId);
+void Radio_PlayMessage(u16*, RadioCharacterId);
 void func_800BB388(void);
 void func_800BB5D0(void);
 

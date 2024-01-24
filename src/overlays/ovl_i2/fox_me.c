@@ -411,7 +411,7 @@ void func_i2_80188344(Boss* boss) {
                     Audio_KillSfx(boss->sfxPos);
                     if (boss->swork[1] == 0) {
                         boss->swork[1]++;
-                        func_800BA808(gMsg_ID_3315, RCID_PEPPY);
+                        Radio_PlayMessage(gMsg_ID_3315, RCID_PEPPY);
                     }
 
                     boss->swork[0] = 0;
@@ -533,7 +533,7 @@ void func_i2_80188A40(Boss* boss) {
     gBosses[i].obj.pos.z = boss->obj.pos.z;
 
     Object_SetInfo(&gBosses[i].info, gBosses[i].obj.id);
-    func_800BA808(gMsg_ID_3300, RCID_BOSS_METEO);
+    Radio_PlayMessage(gMsg_ID_3300, RCID_BOSS_METEO);
     Audio_PlaySfx(0x3102505AU, boss->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
@@ -878,13 +878,13 @@ void func_i2_8018978C(Boss* boss) {
                         func_i2_801892F0(boss, boss->dmgPart);
                         boss->swork[20] += 1;
                         if (boss->swork[20] == 2) {
-                            func_800BA808(gMsg_ID_17160, RCID_PEPPY);
+                            Radio_PlayMessage(gMsg_ID_17160, RCID_PEPPY);
                         }
                         if (boss->swork[20] == 3) {
-                            func_800BA808(gMsg_ID_3371, RCID_BOSS_METEO);
+                            Radio_PlayMessage(gMsg_ID_3371, RCID_BOSS_METEO);
                         }
                         if (boss->swork[20] == 4) {
-                            func_800BA808(gMsg_ID_3320, RCID_BOSS_METEO);
+                            Radio_PlayMessage(gMsg_ID_3320, RCID_BOSS_METEO);
                         }
                     }
                 } else {
@@ -1130,7 +1130,7 @@ void func_i2_8018978C(Boss* boss) {
                 boss->state = 3;
                 boss->timer_050 = 50;
                 boss->timer_058 = 100;
-                func_800BA808(gMsg_ID_3310, RCID_BOSS_METEO);
+                Radio_PlayMessage(gMsg_ID_3310, RCID_BOSS_METEO);
             }
             break;
 
@@ -1216,7 +1216,7 @@ void func_i2_8018978C(Boss* boss) {
             }
             boss->obj.rot.z += ((0.0f - boss->obj.rot.z) * boss->fwork[10]);
             if (boss->timer_050 == 100) {
-                func_800BA808(gMsg_ID_3321, RCID_BOSS_METEO);
+                Radio_PlayMessage(gMsg_ID_3321, RCID_BOSS_METEO);
             }
             if (boss->timer_050 == 0) {
                 boss->state = 5;
@@ -1305,7 +1305,7 @@ void func_i2_8018978C(Boss* boss) {
                         boss->fwork[22] = 0.0f;
                         boss->fwork[23] = 0.0f;
                         gCsFrameCount = 0;
-                        func_800BA808(gMsg_ID_3322, RCID_BOSS_METEO);
+                        Radio_PlayMessage(gMsg_ID_3322, RCID_BOSS_METEO);
                         func_800182F4(0x100100FF);
                         func_800182F4(0x110100FF);
                     } else {
@@ -1319,19 +1319,19 @@ void func_i2_8018978C(Boss* boss) {
         case 8:
             gCsFrameCount++;
             if (gCsFrameCount == 130) {
-                func_800BA808(gMsg_ID_3330, RCID_BOSS_METEO);
+                Radio_PlayMessage(gMsg_ID_3330, RCID_BOSS_METEO);
             }
             if (gCsFrameCount == 300) {
                 PRINTF("msg_03340\n");
-                func_800BA808(gMsg_ID_3340, RCID_FALCO);
+                Radio_PlayMessage(gMsg_ID_3340, RCID_FALCO);
             }
 
             if (gCsFrameCount == 400) {
                 func_8001D444(0U, 0x8041U, 0U, 0xFFU);
                 if (gTeamShields[1] > 0) {
-                    func_800BA808(gMsg_ID_3345, RCID_BOSS_METEO);
+                    Radio_PlayMessage(gMsg_ID_3345, RCID_BOSS_METEO);
                 } else {
-                    func_800BA808(gMsg_ID_3350, RCID_BOSS_METEO);
+                    Radio_PlayMessage(gMsg_ID_3350, RCID_BOSS_METEO);
                 }
             }
 
@@ -1413,10 +1413,10 @@ void func_i2_8018978C(Boss* boss) {
 
         case 20:
             if (boss->timer_052 == 230) {
-                func_800BA808(gMsg_ID_3370, RCID_BOSS_METEO);
+                Radio_PlayMessage(gMsg_ID_3370, RCID_BOSS_METEO);
             }
             if (boss->timer_052 == 90) {
-                func_800BA808(gMsg_ID_3360, RCID_FOX);
+                Radio_PlayMessage(gMsg_ID_3360, RCID_FOX);
             }
 
             if (!(gGameFrameCount & 7) && (Rand_ZeroOne() < 0.5f)) {
@@ -1481,7 +1481,7 @@ void func_i2_8018978C(Boss* boss) {
     }
 
     if (gBossFrameCount == 250) {
-        func_800BA808(gMsg_ID_2225, RCID_SLIPPY);
+        Radio_PlayMessage(gMsg_ID_2225, RCID_SLIPPY);
     }
     if (gBossFrameCount == 406) {
         gShowBossHealth = true;
@@ -2090,18 +2090,18 @@ void func_i2_8018CD8C(Player* player) {
     switch (gCsFrameCount) {
         case 500:
             if ((gTeamShields[2] > 0) && (gTeamShields[3] > 0)) {
-                func_800BA808(gMsg_ID_3005, RCID_SLIPPY);
+                Radio_PlayMessage(gMsg_ID_3005, RCID_SLIPPY);
             }
             break;
 
         case 600:
             if ((gTeamShields[2] > 0) && (gTeamShields[3] > 0)) {
-                func_800BA808(gMsg_ID_3010, RCID_PEPPY);
+                Radio_PlayMessage(gMsg_ID_3010, RCID_PEPPY);
             }
             break;
 
         case 700:
-            func_800BA808(gMsg_ID_3015, RCID_FOX);
+            Radio_PlayMessage(gMsg_ID_3015, RCID_FOX);
             break;
     }
 
@@ -2365,16 +2365,16 @@ void func_i2_8018E084(Player* player) {
             break;
 
         case 450:
-            func_800BA808(gMsg_ID_20010, RCID_FOX);
+            Radio_PlayMessage(gMsg_ID_20010, RCID_FOX);
             break;
 
         case 538:
             switch (gTeamShields[2]) {
                 case -1:
-                    func_800BA808(gMsg_ID_20333, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20333, RCID_ROB64);
                     break;
                 case 0:
-                    func_800BA808(gMsg_ID_20345, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20345, RCID_ROB64);
                     break;
                 default:
                     func_80048AC0(2);
@@ -2385,10 +2385,10 @@ void func_i2_8018E084(Player* player) {
         case 685:
             switch (gTeamShields[3]) {
                 case -1:
-                    func_800BA808(gMsg_ID_20332, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20332, RCID_ROB64);
                     break;
                 case 0:
-                    func_800BA808(gMsg_ID_20344, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20344, RCID_ROB64);
                     break;
                 default:
                     func_80048AC0(3);
@@ -2399,10 +2399,10 @@ void func_i2_8018E084(Player* player) {
         case 831:
             switch (gTeamShields[1]) {
                 case -1:
-                    func_800BA808(gMsg_ID_20331, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20331, RCID_ROB64);
                     break;
                 case 0:
-                    func_800BA808(gMsg_ID_20340, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20340, RCID_ROB64);
                     break;
                 default:
                     func_80048AC0(1);

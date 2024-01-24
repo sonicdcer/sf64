@@ -89,7 +89,7 @@ void func_8002E3E0(Actor* actor) {
 
 bool func_8002E4F8(u16* msg, RadioCharacterId rcid) {
     if ((gRadioState == 0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_0)) {
-        func_800BA808(msg, rcid);
+        Radio_PlayMessage(msg, rcid);
         return true;
     } else {
         return false;
@@ -437,7 +437,7 @@ void func_8002F3E0(void) {
 
 void func_8002F5F4(u16* msg, RadioCharacterId character) {
     if ((D_80178300 == 0) && (gActors[0].state == 2) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_0)) {
-        func_800BA808(msg, character);
+        Radio_PlayMessage(msg, character);
     }
 }
 
@@ -456,7 +456,7 @@ void func_8002F69C(Actor* actor) {
         D_8015F904--;
         if ((D_8015F904 == 0) && (gCurrentLevel != LEVEL_BOLSE) &&
             ((D_80177CD0[0] + D_80177CD0[1] + D_80177CD0[2] + D_80177CD0[3]) == 1)) {
-            func_800BA808(gMsg_ID_19465, RCID_FOX);
+            Radio_PlayMessage(gMsg_ID_19465, RCID_FOX);
         }
     }
     if (((D_8015F928 + 100) == (0, D_800C9B4C)) && (gCurrentLevel != LEVEL_VENOM_2)) {
@@ -625,7 +625,7 @@ void func_8002FEF0(Actor* actor) {
         func_8001AF40(0);
         D_800CFF90 = 0;
         D_80161690 = 0;
-        func_800BA808(gMsg_ID_20230, RCID_ROB64);
+        Radio_PlayMessage(gMsg_ID_20230, RCID_ROB64);
         D_8015F900 = 160;
     }
     if (D_8015F900 != 0) {
@@ -839,7 +839,7 @@ void func_8003088C(Actor* actor) {
                     func_i4_80199900(actor, 1);
                     if (actor->unk_0D4 == 1) {
                         if (gActors[8].obj.status == OBJ_ACTIVE) {
-                            func_800BA808(gMsg_ID_16140, RCID_KATT);
+                            Radio_PlayMessage(gMsg_ID_16140, RCID_KATT);
                         }
                         BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10);
                         gHitCount += 11;
@@ -847,16 +847,16 @@ void func_8003088C(Actor* actor) {
                     } else {
                         switch (actor->unk_0D4) {
                             case 102:
-                                func_800BA808(gMsg_ID_16170, RCID_FALCO);
+                                Radio_PlayMessage(gMsg_ID_16170, RCID_FALCO);
                                 break;
                             case 103:
-                                func_800BA808(gMsg_ID_16180, RCID_SLIPPY);
+                                Radio_PlayMessage(gMsg_ID_16180, RCID_SLIPPY);
                                 break;
                             case 104:
-                                func_800BA808(gMsg_ID_16175, RCID_PEPPY);
+                                Radio_PlayMessage(gMsg_ID_16175, RCID_PEPPY);
                                 break;
                             case 109:
-                                func_800BA808(gMsg_ID_16185, RCID_KATT);
+                                Radio_PlayMessage(gMsg_ID_16185, RCID_KATT);
                                 break;
                         }
                     }
@@ -967,13 +967,13 @@ void func_8003088C(Actor* actor) {
                             if ((D_80177CD0[0] + D_80177CD0[1] + D_80177CD0[2] + D_80177CD0[3]) == 0) {
                                 switch (actor->unk_0D4) {
                                     case 102:
-                                        func_800BA808(gMsg_ID_9438, RCID_FALCO);
+                                        Radio_PlayMessage(gMsg_ID_9438, RCID_FALCO);
                                         break;
                                     case 103:
-                                        func_800BA808(gMsg_ID_9436, RCID_SLIPPY);
+                                        Radio_PlayMessage(gMsg_ID_9436, RCID_SLIPPY);
                                         break;
                                     case 104:
-                                        func_800BA808(gMsg_ID_9437, RCID_PEPPY);
+                                        Radio_PlayMessage(gMsg_ID_9437, RCID_PEPPY);
                                         break;
                                 }
                             } else {
@@ -1049,7 +1049,7 @@ void func_8003088C(Actor* actor) {
                             if (actor->unk_0D4 == 1) {
                                 if ((gCurrentLevel == LEVEL_KATINA) && (actor->unk_0B6 == 1) && (D_8015F920 == 0)) {
                                     D_8015F920 = 1;
-                                    func_800BA808(gMsg_ID_18015, RCID_BILL);
+                                    Radio_PlayMessage(gMsg_ID_18015, RCID_BILL);
                                 } else if (actor->unk_0E4 == 8) {
                                     func_8002F5F4(gMsg_ID_20084, RCID_KATT);
                                 } else if (actor->unk_0E4 == 9) {
@@ -1090,7 +1090,7 @@ void func_8003088C(Actor* actor) {
                                 if (gTeamShields[1] >= 90) {
                                     func_8002F5F4(gMsg_ID_9130, RCID_FALCO);
                                 } else {
-                                    func_800BA808(gMsg_ID_9151, RCID_FALCO);
+                                    Radio_PlayMessage(gMsg_ID_9151, RCID_FALCO);
                                 }
                                 if ((D_800CA234 == NULL) || (gTeamShields[actor->unk_0E4] <= 50)) {
                                     D_800CA234 = actor;
@@ -1101,7 +1101,7 @@ void func_8003088C(Actor* actor) {
                                 if (gTeamShields[2] >= 90) {
                                     func_8002F5F4(gMsg_ID_9140, RCID_SLIPPY);
                                 } else {
-                                    func_800BA808(gMsg_ID_9152, RCID_SLIPPY);
+                                    Radio_PlayMessage(gMsg_ID_9152, RCID_SLIPPY);
                                 }
                                 if ((D_800CA234 == NULL) || (gTeamShields[actor->unk_0E4] <= 50)) {
                                     D_800CA234 = actor;
@@ -1112,7 +1112,7 @@ void func_8003088C(Actor* actor) {
                                 if (gTeamShields[3] >= 90) {
                                     func_8002F5F4(gMsg_ID_9150, RCID_PEPPY);
                                 } else {
-                                    func_800BA808(gMsg_ID_9153, RCID_PEPPY);
+                                    Radio_PlayMessage(gMsg_ID_9153, RCID_PEPPY);
                                 }
                                 if ((D_800CA234 == NULL) || (gTeamShields[actor->unk_0E4] <= 50)) {
                                     D_800CA234 = actor;
@@ -1285,33 +1285,33 @@ void func_800319AC(Actor* this) {
                     break;
                 case 1:
                     if (gPlayer[0].shields < (Play_GetMaxShields() / 2)) {
-                        func_800BA808(gMsg_ID_20298, RCID_FALCO);
+                        Radio_PlayMessage(gMsg_ID_20298, RCID_FALCO);
                     } else if (Rand_ZeroOne() < 0.5f) {
-                        func_800BA808(gMsg_ID_20280, RCID_FALCO);
+                        Radio_PlayMessage(gMsg_ID_20280, RCID_FALCO);
                     } else {
-                        func_800BA808(gMsg_ID_20301, RCID_FALCO);
+                        Radio_PlayMessage(gMsg_ID_20301, RCID_FALCO);
                     }
                     break;
                 case 2:
                     if (gPlayer[0].shields < (Play_GetMaxShields() / 2)) {
-                        func_800BA808(gMsg_ID_20297, RCID_SLIPPY);
+                        Radio_PlayMessage(gMsg_ID_20297, RCID_SLIPPY);
                     } else if (Rand_ZeroOne() < 0.5f) {
-                        func_800BA808(gMsg_ID_20282, RCID_SLIPPY);
+                        Radio_PlayMessage(gMsg_ID_20282, RCID_SLIPPY);
                     } else {
-                        func_800BA808(gMsg_ID_20300, RCID_SLIPPY);
+                        Radio_PlayMessage(gMsg_ID_20300, RCID_SLIPPY);
                     }
                     break;
                 case 3:
                     if (gPlayer[0].shields < (Play_GetMaxShields() / 2)) {
-                        func_800BA808(gMsg_ID_20296, RCID_PEPPY);
+                        Radio_PlayMessage(gMsg_ID_20296, RCID_PEPPY);
                     } else if (Rand_ZeroOne() < 0.5f) {
-                        func_800BA808(gMsg_ID_20281, RCID_PEPPY);
+                        Radio_PlayMessage(gMsg_ID_20281, RCID_PEPPY);
                     } else {
-                        func_800BA808(gMsg_ID_20299, RCID_PEPPY);
+                        Radio_PlayMessage(gMsg_ID_20299, RCID_PEPPY);
                     }
                     break;
                 case 9:
-                    func_800BA808(gMsg_ID_18120, RCID_BILL);
+                    Radio_PlayMessage(gMsg_ID_18120, RCID_BILL);
                     break;
             }
         }
@@ -1324,13 +1324,13 @@ void func_800319AC(Actor* this) {
             gTeamShields[this->unk_0E4] = 1;
             switch (this->unk_0E4) {
                 case 1:
-                    func_800BA808(gMsg_ID_20220, RCID_FALCO);
+                    Radio_PlayMessage(gMsg_ID_20220, RCID_FALCO);
                     break;
                 case 2:
-                    func_800BA808(gMsg_ID_20222, RCID_SLIPPY);
+                    Radio_PlayMessage(gMsg_ID_20222, RCID_SLIPPY);
                     break;
                 case 3:
-                    func_800BA808(gMsg_ID_20221, RCID_PEPPY);
+                    Radio_PlayMessage(gMsg_ID_20221, RCID_PEPPY);
                     break;
             }
             this->fwork[29] = 5.0f;
