@@ -45,9 +45,8 @@ void func_i5_801B4A54(UnkStruct_801C62E8* arg0) {
         arg0->unk_1C = arg0->unk_20 = 0;
 }
 
-#if 1
 void func_i5_801B4AA8(s32* arg0, s32* arg1) {
-    Actor spB4;
+    Actor actor;
     UnkStruct_801C62E8* var_s2;
     s32* var_s1;
     f32 temp_fa0;
@@ -81,7 +80,7 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
                         break;
                     case 1:
                     case 3:
-                        var_s2->unk_20 = unk_18;
+                        var_s2->unk_20 = var_s2->unk_18;
                         break;
                     case 4:
                         *arg1 |= 2;
@@ -106,10 +105,11 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
                     break;
                 case 1:
                     for (j = 0; j < 16; j++, var_s1++) {
-                        temp_fs0 = ((j * 220.0f * D_i5_801BE740) - 1760.0f) - unk_08;
+                        temp_fs0 = (j * 220.0f * D_i5_801BE740) - 1760.0f - unk_08;
                         if (fabsf(temp_fs0) <= unk_10) {
                             temp_fs1 = __sinf((var_s2->unk_20 / unk_18) * M_PI);
-                            *var_s1 = (*var_s1 + (__cosf((temp_fs0 / unk_10) * (M_PI / 2)) * unk_14 * temp_fs1));
+                            var_fv0 = __cosf((temp_fs0 / unk_10) * (M_PI / 2));
+                            *var_s1 = *var_s1 + (var_fv0 * unk_14 * temp_fs1);
                         }
                     }
                     var_s2->unk_20 -= 220.0f;
@@ -127,15 +127,6 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
                     } else if (temp_fa0 >= (unk_18 - var_s2->unk_20)) {
                         var_fv1 = (unk_18 - var_s2->unk_20) * 1.2217305f;
                     }
-                    // } else {
-                    //     temp_fa1 = temp_fv0 - var_s2->unk_20;
-                    //     if (temp_fa1 <= temp_fa0) {
-                    //         var_fv1 = temp_fa1 * 1.2217305f;
-                    //     }
-                    //     // if (temp_fa0 >= (temp_fv0 - var_s2->unk_20)) {
-                    //     //     var_fv1 = (temp_fv0 - var_s2->unk_20) * 1.2217305f;
-                    //     // }
-                    // }
                     var_fv0 = 0.0f;
                     do {
                         if (unk_08 <= var_fv0 && var_fv0 <= (unk_08 + unk_10) && *var_s1 < var_fv1) {
@@ -145,6 +136,7 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
                         var_s1++;
                         j++;
                     } while (j != 16);
+                    if (0) {} // fake
                     var_s2->unk_20 += 220.0f;
                     if (unk_18 <= var_s2->unk_20) {
                         func_i5_801B4A54(var_s2);
@@ -159,8 +151,8 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
                             if (temp_fa0 >= 0.7) {
                                 temp_fa0 = 0.7f;
                             }
-                            *var_s1 -= temp_fa0 * var_s2->unk_14 * 4.0f *
-                                       ((var_s2->unk_18 - var_s2->unk_20) / var_s2->unk_18);
+                            *var_s1 -=
+                                temp_fa0 * var_s2->unk_14 * 4.0f * ((var_s2->unk_18 - var_s2->unk_20) / var_s2->unk_18);
                         }
                         *var_s1 +=
                             (var_s2->unk_14 - ((var_s2->unk_20 / var_s2->unk_18) * var_s2->unk_14)) * 4.0f * 0.7f;
@@ -175,13 +167,13 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
                     if (var_s2->unk_1C <= 0) {
                         for (j = 0; j < (s32) var_s2->unk_18; j++) {
                             var_s2->unk_1C = 1;
-                            spB4.obj.pos.x = (Rand_ZeroOne() * 3300.0f) - 1650.0f;
-                            spB4.obj.pos.z = 0.0f;
-                            spB4.obj.pos.y = 1.0f;
-                            spB4.obj.rot.x = (Rand_ZeroOne() * var_s2->unk_10 * 0.25f) + var_s2->unk_10;
-                            spB4.obj.rot.z = 2.0f * spB4.obj.rot.x; // Should this have been obj.rot.y?
-                            spB4.obj.rot.z = (Rand_ZeroOne() * var_s2->unk_14 * 0.25f) + var_s2->unk_14;
-                            func_i5_801B49D0(&spB4);
+                            actor.obj.pos.x = (Rand_ZeroOne() * 3300.0f) - 1650.0f;
+                            actor.obj.pos.z = 0.0f;
+                            actor.obj.pos.y = 1.0f;
+                            actor.obj.rot.x = (Rand_ZeroOne() * var_s2->unk_10 * 0.25f) + var_s2->unk_10;
+                            actor.obj.rot.z = 2.0f * actor.obj.rot.x; // Should this have been obj.rot.y?
+                            actor.obj.rot.z = (Rand_ZeroOne() * var_s2->unk_14 * 0.25f) + var_s2->unk_14;
+                            func_i5_801B49D0(&actor);
                         }
                         var_s2->unk_20 -= 220.0f;
                         if (var_s2->unk_20 <= 0.0f) {
@@ -198,9 +190,6 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/sf_i5_4/func_i5_801B4AA8.s")
-#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/sf_i5_4/func_i5_801B5110.s")
 
