@@ -378,7 +378,7 @@ void func_i1_80198594(Boss* arg0) {
     }
 }
 
-void func_i1_801985E4(Boss* arg0) {
+void func_i1_801985E4(Boss* boss) {
     if (arg0->swork[0x1A] == 0) {
         Animation_DrawSkeleton(0, &D_901C0F4, arg0->vwork, func_i1_801937F4, func_i1_80193D64, arg0, &gIdentityMatrix);
     }
