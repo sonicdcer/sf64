@@ -1,18 +1,11 @@
 #include "global.h"
 
-extern Vec3f D_i4_8019F4C0[];
-extern Vec3f D_i4_8019F4E4[];
-extern Vec3f D_i4_8019F528[7];
-extern Vec3f D_i4_8019F57C[];
-extern Vec3f D_i4_8019F5BC[];
-extern Vec3f D_i4_8019F5EC[];
-extern f32 D_i4_8019F61C[4];
-extern f32 D_i4_8019F62C[4];
-extern f32 D_i4_8019F63C[4];
-extern Vec3f D_i4_8019F64C[];
-extern f32 D_i4_8019F5AC[];
-extern s32 D_i4_801A0560;
-extern s32 D_i4_801A0564;
+s32 D_i4_801A0560;
+s32 D_i4_801A0564;
+
+Vec3f D_i4_8019F4C0[] = { 0.0f, 0.0f, 35000.0f, -2000.0f, 0.0f, 35000.0f, 2000.0f, 0.0f, 35000.0f };
+Vec3f D_i4_8019F4E4[] = { -700.0f, -200.0f, 200.0f,  500.0f, 200.0f, -300.0f,
+                          300.0f,  -300.0f, -200.0f, 200.0f, 400.0f, 500.0f };
 
 extern Gfx D_6001A10[];
 extern Gfx D_60045E0[];
@@ -466,17 +459,16 @@ bool func_i4_8019AA9C(Player* player) {
     return false;
 }
 
-#ifdef IMPORT_DATA
 void func_i4_8019AB8C(Actor* actor) {
     s32 i;
     Player* player;
     Actor* actor8;
     s32 pad;
-    f32 D_i4_8019F514[5] = { -200.0f, -100.0f, 0.0f, 100.0f, 200.0f };
+    f32 D_i4_8019F514[5] = { -200.0f, -100.0f, -0.0f, 100.0f, 200.0f };
 
     player = &gPlayer[0];
 
-    switch (actor->state) {
+    switch ((s32) actor->state) {
         case 0:
             D_i4_801A0564 = D_i4_801A0560 = 0;
             D_8015F914 = 63.0f;
@@ -568,13 +560,13 @@ void func_i4_8019AB8C(Actor* actor) {
             gActors[1].unk_0E6 = 0;
             gActors[1].state = 2;
             gActors[2].unk_0E6 = 0;
-            gActors[2].unk_0B8 = 2;
+            gActors[2].state = 2;
             gActors[3].unk_0E6 = 0;
-            gActors[3].unk_0B8 = 2;
+            gActors[3].state = 2;
 
             for (i = 10; i < ARRAY_COUNT(gActors); i++) {
                 gActors[i].unk_0E6 = -1;
-                gActors[i].unk_0B8 = 3;
+                gActors[i].state = 3;
             }
             break;
 
@@ -588,22 +580,22 @@ void func_i4_8019AB8C(Actor* actor) {
 
                 case 9780:
                     gActors[13].unk_0E6 = -1;
-                    gActors[13].unk_0B8 = 3;
+                    gActors[13].state = 3;
                     break;
 
                 case 9740:
                     gActors[14].unk_0E6 = -1;
-                    gActors[14].unk_0B8 = 3;
+                    gActors[14].state = 3;
                     break;
 
                 case 9730:
                     gActors[15].unk_0E6 = -1;
-                    gActors[15].unk_0B8 = 3;
+                    gActors[15].state = 3;
                     break;
 
                 case 9710:
                     gActors[16].unk_0E6 = -1;
-                    gActors[16].unk_0B8 = 3;
+                    gActors[16].state = 3;
                     break;
             }
 
@@ -650,8 +642,33 @@ void func_i4_8019AB8C(Actor* actor) {
         Math_SmoothStepToF(&D_8015F91C, 14.0f, 1.0f, 7.2000003f, 0);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019AB8C.s")
+
+Vec3f D_i4_8019F528[] = {
+    { 1000.0f, 1000.0f, 1000.0f },  { 0.0f, -700.0f, 1500.0f },       { 2000.0f, -500.0f, 2500.0f },
+    { -500.0f, 500.0f, -3000.0f },  { -2000.0f, -1000.0f, -1000.0f }, { -1000.0f, 1700.0f, -1500.0f },
+    { 2000.0f, 2500.0f, -2500.0f },
+};
+Vec3f D_i4_8019F57C[] = {
+    { 150.0f, 150.0f, 50.0f }, { -150.0f, -150.0f, 50.0f }, { -150.0f, 150.0f, 50.0f }, { 150.0f, -150.0f, 50.0f }
+};
+f32 D_i4_8019F5AC[] = { -30.0f, 20.0f, 30.0f, -40.0f };
+Vec3f D_i4_8019F5BC[] = {
+    { 200.0f, 0.0f, 0.0f }, { 200.0f, 0.0f, 0.0f }, { 200.0f, 0.0f, 0.0f }, { 200.0f, 0.0f, 0.0f }
+};
+Vec3f D_i4_8019F5EC[] = {
+    { 0.0f, 20000.0f, 0.0f }, { -1000.0f, 100.0f, 500.0f }, { -1300.0f, -50.0f, 0.0f }, { -1600.0f, 50.0f, -500.0f }
+};
+f32 D_i4_8019F61C[] = { -300.0f, 350.0f, -50.0f, 800.0f };
+f32 D_i4_8019F62C[] = { 0.0f, -30.0f, -90.0f, -550.0f };
+f32 D_i4_8019F63C[] = { -200.0f, -250.0f, -500.0f, 5000.0f };
+Vec3f D_i4_8019F64C[] = { { 612.0f, 409.0f, 386.0f }, { 1027.0f, 141.0f, 383.0f }, { 375.0f, 292.0f, 380.0f },
+                          { -4.0f, 80.0f, 380.0f },   { 314.0f, 80.0f, 385.0f },   { 565.0f, 300.0f, 385.0f },
+                          { 600.0f, 385.0f, 380.0f }, { 776.0f, 245.0f, 384.0f },  { 376.0f, 123.0f, 384.0f },
+                          { 428.0f, 174.0f, 383.0f }, { 722.0f, 306.0f, 383.0f },  { 530.0f, 380.0f, 385.0f } };
+
+#ifdef IMPORT_BSS
+s32 D_i4_801A0560;
+s32 D_i4_801A0564;
 #endif
 
 void func_i4_8019B48C(void) {
