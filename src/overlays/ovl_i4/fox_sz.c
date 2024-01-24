@@ -242,8 +242,19 @@ void func_i4_8019A1D0(void) {
 void func_i4_8019A3E8(Actor*);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019A3E8.s")
 
-s32 func_i4_8019AA9C(Player*);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019AA9C.s")
+bool func_i4_8019AA9C(Player* player) {
+    if (player->state_1C8 == PLAYERSTATE_1C8_3) {
+        if ((player->unk_114 > 30.0f) && (player->unk_114 < 150.0f) && (fabsf(player->pos.x - 1270.0f) < 450.0f) &&
+            (fabsf(player->pos.y - 265.0f) < 100.0f) && (fabsf(player->unk_138) < 172.0f)) {
+            player->state_1C8 = PLAYERSTATE_1C8_10;
+            player->unk_1D0 = 0;
+            gActors->unk_0B8 = 20;
+            D_8015F928--;
+            return true;
+        }
+    }
+    return false;
+}
 
 #ifdef IMPORT_DATA
 void func_i4_8019AB8C(Actor* actor) {
