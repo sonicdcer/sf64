@@ -20,6 +20,7 @@ extern f32 D_6009230[];
 
 extern s32 D_80161710;
 
+void func_8002EE34(void);
 void func_8002FC00(Actor*);
 
 void func_i4_80199900(Actor* actor, s32 arg1) {
@@ -240,9 +241,27 @@ void func_i4_8019A1D0(void) {
     Audio_PlaySfx(0x31000011U, actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-// figure out type
-void func_i4_8019A2F4(Actor*);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019A2F4.s")
+void func_i4_8019A2F4(Actor* actor) {
+    if (D_8015F928 == D_800C9B4C) {
+        func_i4_8019A1D0();
+        gCsFrameCount = 0;
+        actor->timer_0BC = 400;
+        actor->unk_0B8 = 3;
+        gPlayer->state_1C8 = PLAYERSTATE_1C8_0;
+
+        func_8001D4AC(0x36U, 0x14U, 0xAU, 0xAU);
+        func_8002EE34();
+
+        gPlayer->camEye.x = 250.0f;
+        gPlayer->camEye.y = 2500.0f;
+        gPlayer->camEye.z = 25000.0f;
+
+        gPlayer->camAt.x = gActors[8].obj.pos.x;
+        gPlayer->camAt.y = gActors[8].obj.pos.y;
+        gPlayer->camAt.z = gActors[8].obj.pos.z;
+        D_i4_801A0564 = 1;
+    }
+}
 
 void func_i4_8019A3E8(Actor* actor) {
     s32 i;
@@ -322,7 +341,7 @@ void func_i4_8019A3E8(Actor* actor) {
         if (actorPtr->obj.status == 0) {
             Actor_Initialize(actorPtr);
             actorPtr->obj.status = 2;
-            actorPtr->obj.id = 0xC5;
+            actorPtr->obj.id = OBJ_ACTOR_197;
             Matrix_RotateY(gCalcMatrix, (actor->unk_04E * 18.0f) * 0.017453292f, 0);
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp40, &sp34);
 
@@ -1742,6 +1761,74 @@ void func_i4_8019E98C(Boss* boss) {
     func_800515C4();
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/func_i4_8019EA68.s")
+void func_i4_8019EA68(void) {
+    s32 i;
+    s32 j;
+    Actor* actor;
+    Object_58* obj58;
+    Boss* boss;
+
+    D_80178310 = SEGMENTED_TO_VIRTUAL(D_800CFDA0[gCurrentLevel]);
+
+    Rand_SetSeed(1, 0x7148, 0x2694);
+
+    for (obj58 = gObjects58, i = 0; i < 1000; i++) {
+        if (D_80178310[i].id < 0) {
+            break;
+        }
+
+        if (D_80178310[i].id < 161) {
+            func_800A4F4C(obj58);
+            obj58->obj.status = 2;
+            obj58->obj.id = D_80178310[i].id;
+            obj58->obj.pos.x = D_80178310[i].xPos;
+            obj58->obj.pos.y = D_80178310[i].yPos;
+            obj58->obj.pos.z = -D_80178310[i].zPos1;
+            obj58->obj.rot.y = D_80178310[i].rot.y;
+            Object_SetInfo(&obj58->info, obj58->obj.id);
+            obj58++;
+        }
+    }
+
+    for (j = 50, actor = &gActors[j], i = 0; i < 1000; i++) {
+        if (D_80178310[i].id < 0) {
+            break;
+        }
+
+        if ((D_80178310[i].id >= 176) && (D_80178310[i].id < 292)) {
+            Actor_Initialize(actor);
+            actor->obj.status = 1;
+            actor->obj.id = D_80178310[i].id;
+            actor->obj.pos.x = D_80178310[i].xPos;
+            actor->obj.pos.y = D_80178310[i].yPos;
+            actor->obj.pos.z = -D_80178310[i].zPos1;
+            actor->health = 24;
+            actor->unk_0F4.x = (Rand_ZeroOne() - 0.5f) * 4.0f;
+            actor->unk_0F4.y = (Rand_ZeroOne() - 0.5f) * 4.0f;
+            Object_SetInfo(&actor->info, actor->obj.id);
+            actor->unk_044 = 1;
+
+            if (j++ >= 60) {
+                break;
+            }
+            actor++;
+        }
+    }
+
+    boss = &gBosses[0];
+
+    Boss_Initialize(boss);
+    boss->obj.status = 1;
+    boss->obj.pos.x = 0.0f;
+    boss->obj.pos.y = 0.0f;
+    boss->obj.pos.z = 0.0f;
+    boss->unk_078.y = 90.0f;
+    boss->obj.rot.x = -boss->unk_078.x;
+    boss->obj.rot.y = boss->unk_078.y + 180.0f;
+    boss->obj.rot.z = -boss->unk_078.z;
+    boss->obj.id = 0x139;
+    Object_SetInfo(&boss->info, boss->obj.id);
+    Audio_PlaySfx(0x11030010U, boss->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_sz/D_i4_801A00C0.s")
