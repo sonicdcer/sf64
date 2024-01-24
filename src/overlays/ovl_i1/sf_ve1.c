@@ -371,7 +371,7 @@ void func_i1_80193540(Object_80* arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_80198414.s")
 
-void func_i1_80198594(Boss* arg0) {
+void func_i1_80198594(Boss* boss) {
     arg0->obj.pos.z = gPlayer->pos.z;
     if ((arg0->timer_052 <= 0) && (gPlayer->state_1C8 == PLAYERSTATE_1C8_3)) {
         func_i1_80198414();
