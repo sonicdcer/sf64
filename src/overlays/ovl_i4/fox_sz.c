@@ -648,28 +648,6 @@ Vec3f D_i4_8019F528[] = {
     { -500.0f, 500.0f, -3000.0f },  { -2000.0f, -1000.0f, -1000.0f }, { -1000.0f, 1700.0f, -1500.0f },
     { 2000.0f, 2500.0f, -2500.0f },
 };
-Vec3f D_i4_8019F57C[] = {
-    { 150.0f, 150.0f, 50.0f }, { -150.0f, -150.0f, 50.0f }, { -150.0f, 150.0f, 50.0f }, { 150.0f, -150.0f, 50.0f }
-};
-f32 D_i4_8019F5AC[] = { -30.0f, 20.0f, 30.0f, -40.0f };
-Vec3f D_i4_8019F5BC[] = {
-    { 200.0f, 0.0f, 0.0f }, { 200.0f, 0.0f, 0.0f }, { 200.0f, 0.0f, 0.0f }, { 200.0f, 0.0f, 0.0f }
-};
-Vec3f D_i4_8019F5EC[] = {
-    { 0.0f, 20000.0f, 0.0f }, { -1000.0f, 100.0f, 500.0f }, { -1300.0f, -50.0f, 0.0f }, { -1600.0f, 50.0f, -500.0f }
-};
-f32 D_i4_8019F61C[] = { -300.0f, 350.0f, -50.0f, 800.0f };
-f32 D_i4_8019F62C[] = { 0.0f, -30.0f, -90.0f, -550.0f };
-f32 D_i4_8019F63C[] = { -200.0f, -250.0f, -500.0f, 5000.0f };
-Vec3f D_i4_8019F64C[] = { { 612.0f, 409.0f, 386.0f }, { 1027.0f, 141.0f, 383.0f }, { 375.0f, 292.0f, 380.0f },
-                          { -4.0f, 80.0f, 380.0f },   { 314.0f, 80.0f, 385.0f },   { 565.0f, 300.0f, 385.0f },
-                          { 600.0f, 385.0f, 380.0f }, { 776.0f, 245.0f, 384.0f },  { 376.0f, 123.0f, 384.0f },
-                          { 428.0f, 174.0f, 383.0f }, { 722.0f, 306.0f, 383.0f },  { 530.0f, 380.0f, 385.0f } };
-
-#ifdef IMPORT_BSS
-s32 D_i4_801A0560;
-s32 D_i4_801A0564;
-#endif
 
 void func_i4_8019B48C(void) {
     Actor* actor = &gActors[1];
@@ -706,6 +684,11 @@ void func_i4_8019B568(void) {
     Object_SetInfo(&actor->info, actor->obj.id);
     Audio_PlaySfx(0x11030010U, actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
+Vec3f D_i4_8019F57C[] = {
+    { 150.0f, 150.0f, 50.0f }, { -150.0f, -150.0f, 50.0f }, { -150.0f, 150.0f, 50.0f }, { 150.0f, -150.0f, 50.0f }
+};
+
+f32 D_i4_8019F5AC[] = { -30.0f, 20.0f, 30.0f, -40.0f };
 
 void func_i4_8019B630(Actor* actor, s32 index) {
     Actor_Initialize(actor);
@@ -729,6 +712,10 @@ void func_i4_8019B630(Actor* actor, s32 index) {
     Audio_PlaySfx(0x31000011U, actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
+Vec3f D_i4_8019F5BC[] = {
+    { 200.0f, 0.0f, 0.0f }, { 200.0f, 0.0f, 0.0f }, { 200.0f, 0.0f, 0.0f }, { 200.0f, 0.0f, 0.0f }
+};
+
 void func_i4_8019B75C(Actor* actor, s32 arg1) {
     Actor* newActor = &gActors[0];
 
@@ -749,6 +736,10 @@ void func_i4_8019B75C(Actor* actor, s32 arg1) {
     Audio_PlaySfx(0x09000002U, actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     actor->fwork[29] = 5.0f;
 }
+
+Vec3f D_i4_8019F5EC[] = {
+    { 0.0f, 20000.0f, 0.0f }, { -1000.0f, 100.0f, 500.0f }, { -1300.0f, -50.0f, 0.0f }, { -1600.0f, 50.0f, -500.0f }
+};
 
 void func_i4_8019B888(void) {
     s32 i;
@@ -1028,6 +1019,12 @@ void func_i4_8019BA64(Player* player) {
     Math_SmoothStepToF(&player->camAt.y, D_801779B8, D_80177A48[0], 50000.0f, 0);
     Math_SmoothStepToF(&player->camAt.z, D_801779C0, D_80177A48[0], 50000.0f, 0);
 }
+
+f32 D_i4_8019F61C[] = { -300.0f, 350.0f, -50.0f, 800.0f };
+
+f32 D_i4_8019F62C[] = { 0.0f, -30.0f, -90.0f, -550.0f };
+
+f32 D_i4_8019F63C[] = { -200.0f, -250.0f, -500.0f, 5000.0f };
 
 void func_i4_8019C574(Actor* actor, s32 index) {
     f32 var_fv0 = 1.0f;
@@ -1702,6 +1699,11 @@ void func_i4_8019E3A8(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_60045E0);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
+
+Vec3f D_i4_8019F64C[] = { { 612.0f, 409.0f, 386.0f }, { 1027.0f, 141.0f, 383.0f }, { 375.0f, 292.0f, 380.0f },
+                          { -4.0f, 80.0f, 380.0f },   { 314.0f, 80.0f, 385.0f },   { 565.0f, 300.0f, 385.0f },
+                          { 600.0f, 385.0f, 380.0f }, { 776.0f, 245.0f, 384.0f },  { 376.0f, 123.0f, 384.0f },
+                          { 428.0f, 174.0f, 383.0f }, { 722.0f, 306.0f, 383.0f },  { 530.0f, 380.0f, 385.0f } };
 
 void func_i4_8019E454(Boss* boss) {
     s32 i;
