@@ -683,10 +683,10 @@ void func_80037CF4(PlayerShot* shot, Actor* actor, s32 hitIndex) {
         ((actor->obj.id == OBJ_ACTOR_197) && (actor->fwork[23] > 1.0f)) ||
         ((actor->obj.id == OBJ_ACTOR_200) && (actor->unk_0D2 == 0) && (actor->unk_0B4 == 67)) ||
         ((actor->obj.id == OBJ_ACTOR_261) && (shot->obj.id != PLAYERSHOT_8) &&
-         ((actor->unk_0B8 < 3) || (actor->unk_0B8 >= 5))) ||
+         ((actor->state < 3) || (actor->state >= 5))) ||
         ((actor->obj.id == OBJ_ACTOR_260) && (shot->obj.id != PLAYERSHOT_8) && (actor->timer_0BC != 0))) {
-        if ((actor->obj.id == OBJ_ACTOR_261) && (actor->unk_0B8 < 2)) {
-            actor->unk_0B8 = 2;
+        if ((actor->obj.id == OBJ_ACTOR_261) && (actor->state < 2)) {
+            actor->state = 2;
         }
         if ((shot->obj.id == PLAYERSHOT_8) || (shot->obj.id == PLAYERSHOT_3)) {
             func_80036318(shot);
@@ -916,8 +916,8 @@ void func_80038140(PlayerShot* shot) {
                 } else {
                     temp_v0 = func_80036874(shot, obj80->info.hitbox, &obj80->obj);
                     if (temp_v0 != 0) {
-                        obj80->unk_50 = 1;
-                        obj80->unk_54 = temp_v0 - 1;
+                        obj80->dmgType = 1;
+                        obj80->dmgPart = temp_v0 - 1;
                     }
                 }
             }
@@ -1846,9 +1846,9 @@ void func_8003C4D0(PlayerShot* shot, s32 damage) {
             sp64 = obj80->obj.pos.y - shot->obj.pos.y;
             sp60 = obj80->obj.pos.z - shot->obj.pos.z;
             if (sqrtf(SQ(sp68) + SQ(sp64) + SQ(sp60)) < temp_fs2) {
-                obj80->unk_50 = 2;
+                obj80->dmgType = 2;
             }
-            obj80->unk_54 = 0;
+            obj80->dmgPart = 0;
         }
     }
     for (i = 0, obj4C = gObjects4C; i < 40; i++, obj4C++) {
@@ -1940,8 +1940,8 @@ void func_8003C4D0(PlayerShot* shot, s32 damage) {
                         effect->obj.pos.y += sp64 * 0.03f;
                     }
                     effect->obj.pos.z += sp60 * 0.03f;
-                    if ((effect->obj.id == OBJ_EFFECT_392) && (effect->unk_4E == 0)) {
-                        effect->unk_4E = 1;
+                    if ((effect->obj.id == OBJ_EFFECT_392) && (effect->state == 0)) {
+                        effect->state = 1;
                         effect->unk_44 = 176;
                         effect->unk_4C = 0;
                         effect->vel.x = effect->vel.y = effect->vel.z = 0.0f;
@@ -2010,7 +2010,7 @@ void func_8003CC08(PlayerShot* shot) {
                 }
             }
             if (!((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (gBosses[0].obj.status == OBJ_ACTIVE) &&
-                  (gBosses[0].actionState == 17))) {
+                  (gBosses[0].state == 17))) {
                 func_80038140(shot);
             }
             func_8003C3D8(shot);
@@ -2196,9 +2196,9 @@ void func_8003D54C(PlayerShot* shot, s32 index) {
                     } else {
                         bonus = shot->bonus;
                         if (shot->bonus > 10) {
-                            bonus = 100;
+                            bonus = BONUS_TEXT_GREAT;
                         }
-                        func_80077240(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, bonus);
+                        BonusText_Display(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, bonus);
                         gHitCount += shot->bonus;
                     }
                     if ((shot->bonus >= 7) && (gBossActive == 0) && (gLevelMode == LEVELMODE_ON_RAILS) &&

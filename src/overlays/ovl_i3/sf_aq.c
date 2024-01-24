@@ -590,7 +590,7 @@ void func_i3_801A9374(Actor* actor, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, 
     Actor_Initialize(actor);
     actor->obj.status = 2;
     actor->obj.id = 189;
-    actor->unk_0B8 = unkB8;
+    actor->state = unkB8;
     actor->scale = scale;
     actor->unk_048 = unk48;
     actor->obj.pos = *pos;
@@ -836,7 +836,7 @@ void func_i3_801A9ED0(Player* player) {
     if (D_i3_801C4190[3] == 0) {
         sp8C = D_i3_801C4190[4];
 
-        if ((fabsf(D_i3_801C4308[10]) >= 6.0f) && (gBosses[0].actionState >= 10) && (gBosses[0].obj.status == 2) &&
+        if ((fabsf(D_i3_801C4308[10]) >= 6.0f) && (gBosses[0].state >= 10) && (gBosses[0].obj.status == 2) &&
             (gBosses[0].health != 0)) {
             for (j = 119, i = 121; j < 199; j += 10, i += 10) {
                 if ((j == 119) || (j == 129) || (j == 139) || (j == 169)) {
@@ -846,7 +846,7 @@ void func_i3_801A9ED0(Player* player) {
                     temp_fa0 = gBosses[0].obj.pos.y + tempy[0] - tempy[1] - 200.0f;
                     temp_fv1 = gBosses[0].obj.pos.x + tempy[2] + tempy[3] + 200.0f;
                     temp_fa1 = gBosses[0].obj.pos.x + tempy[2] - tempy[3] - 200.0f;
-                    if ((gBosses[0].actionState >= 10) && ((player->pos.y + sp64.y) <= temp_fv0) &&
+                    if ((gBosses[0].state >= 10) && ((player->pos.y + sp64.y) <= temp_fv0) &&
                         (temp_fa0 <= (player->pos.y + sp64.y)) && ((player->pos.x + sp64.x) <= temp_fv1) &&
                         (temp_fa1 <= (player->pos.x + sp64.x))) {
                         if (D_i3_801C41B8[11] >=

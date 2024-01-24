@@ -166,8 +166,7 @@ void func_800A3FEC(void) {
 }
 
 void func_800A4460(Player* player) {
-    if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (gBosses[0].obj.status == OBJ_ACTIVE) &&
-        (gBosses[0].actionState == 17)) {
+    if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (gBosses[0].obj.status == OBJ_ACTIVE) && (gBosses[0].state == 17)) {
         player->unk_060 = __sinf(player->unk_0F4 * 0.7f * M_DTOR) * 0.5f;
         player->unk_088 += 13.0f;
         player->unk_0F4 += 20.0f;
@@ -287,7 +286,7 @@ void func_800A4C40(Player* player) {
     }
 }
 
-void func_800A4F4C(Object_58* obj58) {
+void Object_58_Initialize(Object_58* obj58) {
     s32 i;
     u8* ptr = (u8*) obj58;
 
@@ -325,7 +324,7 @@ void func_800A4F7C(void) {
             break;
         }
         if (D_80178310[j].id == OBJ_80_147) {
-            func_800A4F4C(&gObjects58[i]);
+            Object_58_Initialize(&gObjects58[i]);
             gObjects58[i].obj.status = OBJ_ACTIVE;
             gObjects58[i].obj.id = D_80178310[j].id;
             gObjects58[i].obj.pos.x = D_80178310[j].xPos;
@@ -340,7 +339,7 @@ void func_800A4F7C(void) {
             break;
         }
         if (D_80178310[j].id != OBJ_80_147) {
-            func_800A4F4C(&gObjects58[i]);
+            Object_58_Initialize(&gObjects58[i]);
             gObjects58[i].obj.status = OBJ_ACTIVE;
             gObjects58[i].obj.id = D_80178310[j].id;
             gObjects58[i].obj.pos.x = D_80178310[j].xPos;
@@ -369,7 +368,7 @@ void func_800A5338(void) {
             break;
         }
         if (D_80178310[j].id < OBJ_4C_161) {
-            func_800A4F4C(obj58);
+            Object_58_Initialize(obj58);
             obj58->obj.status = OBJ_ACTIVE;
             obj58->obj.id = D_80178310[j].id;
             obj58->obj.pos.x = D_80178310[j].xPos;
@@ -421,7 +420,7 @@ void func_800A55B0(void) {
             break;
         }
         if (D_80178310[j].id < OBJ_4C_161) {
-            func_800A4F4C(obj58);
+            Object_58_Initialize(obj58);
             obj58->obj.status = OBJ_ACTIVE;
             obj58->obj.id = D_80178310[j].id;
             obj58->obj.pos.x = D_80178310[j].xPos;
@@ -491,7 +490,7 @@ void func_800A5844(void) {
                 gSavedTeamShields[i] = 0;
             }
         } else if (gSavedTeamShields[i] == 0) {
-            gSavedTeamShields[i] = 0xFF;
+            gSavedTeamShields[i] = 255;
         }
     }
 }
@@ -604,18 +603,18 @@ void func_800A6070(f32* sfxSrc, u32 sfxId) {
     Audio_PlaySfx(sfxId, sfxSrc, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-void func_800A60B8(UnkEntity1C* unkEnt1C) {
+void BonusText_Initialize(BonusText* bonus) {
     s32 i;
-    u8* ptr = (u8*) unkEnt1C;
+    u8* ptr = (u8*) bonus;
 
-    for (i = 0; i < sizeof(UnkEntity1C); i++, ptr++) {
+    for (i = 0; i < sizeof(BonusText); i++, ptr++) {
         *ptr = 0;
     }
 }
 
-void func_800A60E8(UnkEntity30* unkEnt30) {
+void func_800A60E8(UnkEntity30* ent30) {
     s32 i;
-    u8* ptr = (u8*) unkEnt30;
+    u8* ptr = (u8*) ent30;
 
     for (i = 0; i < sizeof(UnkEntity30); i++, ptr++) {
         *ptr = 0;
@@ -635,8 +634,8 @@ void func_800A6148(void) {
     s16 i;
     s16 j;
 
-    for (i = 0; i < ARRAY_COUNT(gUnkEntities1C); i++) {
-        func_800A60B8(&gUnkEntities1C[i]);
+    for (i = 0; i < ARRAY_COUNT(gBonusText); i++) {
+        BonusText_Initialize(&gBonusText[i]);
     }
     for (i = 0; i < ARRAY_COUNT(gUnkEntities28); i++) {
         func_800A6118(&gUnkEntities28[i]);
@@ -730,20 +729,20 @@ void func_800A668C(f32 xPos, f32 yPos, f32 zPos) {
     }
 }
 
-void func_800A670C(Actor* actor, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+void func_800A670C(Actor* actor, s32 state, f32 xPos, f32 yPos, f32 zPos) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_189;
-    actor->unk_0B8 = arg1;
-    actor->obj.pos.x = arg2;
-    actor->obj.pos.y = arg3;
-    actor->obj.pos.z = arg4;
+    actor->state = state;
+    actor->obj.pos.x = xPos;
+    actor->obj.pos.y = yPos;
+    actor->obj.pos.z = zPos;
     actor->gravity = 0.5f;
-    if ((arg1 == 0) || (arg1 == 1)) {
+    if ((state == 0) || (state == 1)) {
         actor->vel.y = (Rand_ZeroOne() * 5.0f) + 10.0f;
         actor->vel.x = 10.0f;
 
-        if (arg1 == 0) {
+        if (state == 0) {
             actor->vel.x = -10.0f;
         }
         actor->timer_0BC = 15;
@@ -763,9 +762,9 @@ void func_800A670C(Actor* actor, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
             actor->timer_0BC = (s32) (Rand_ZeroOne() * 25.0f) + 25;
             actor->gravity = 0.0f;
         }
-        if (arg1 == 2) {
+        if (state == 2) {
             actor->scale = (Rand_ZeroOne() * 1.5f) + 0.75f;
-        } else if (arg1 == 4) {
+        } else if (state == 4) {
             actor->scale = (Rand_ZeroOne() * 0.8f) + 0.3f;
             actor->timer_0BC = (s32) (Rand_ZeroOne() * 50.0f) + 70;
         }
@@ -774,13 +773,13 @@ void func_800A670C(Actor* actor, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     Object_SetInfo(&actor->info, actor->obj.id);
 }
 
-void func_800A69F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
+void func_800A69F8(s32 state, f32 xPos, f32 yPos, f32 zPos) {
     s32 i;
 
     if (!gVersusMode) {
         for (i = ARRAY_COUNT(gActors) - 1; i >= 10; i--) {
             if (gActors[i].obj.status == OBJ_FREE) {
-                func_800A670C(&gActors[i], arg0, arg1, arg2, arg3);
+                func_800A670C(&gActors[i], state, xPos, yPos, zPos);
                 break;
             }
         }
@@ -982,7 +981,7 @@ void func_800A729C(Player* player, u32 arg1, f32 arg2, f32 arg3) {
     }
 }
 
-bool func_800A73E4(f32* arg0, s32* arg1, f32 posX, f32 posY, f32 posZ) {
+bool func_800A73E4(f32* arg0, s32* arg1, f32 xPos, f32 yPos, f32 zPos) {
     Vtx* spA4;
     u16* spA0;
     s32 sp9C;
@@ -1024,13 +1023,13 @@ bool func_800A73E4(f32* arg0, s32* arg1, f32 posX, f32 posY, f32 posZ) {
             return false;
     }
 
-    sp9C = (s32) ((posX + 2400.0f) / 300.0f);
-    sp98 = (s32) ((posZ + D_80177D20 + 1500.0f + 2400.0f) / 300.0f);
+    sp9C = (s32) ((xPos + 2400.0f) / 300.0f);
+    sp98 = (s32) ((zPos + D_80177D20 + 1500.0f + 2400.0f) / 300.0f);
     if ((sp9C < 0) || (sp9C >= 16) || (sp98 < 0) || (sp98 >= 16)) {
         return false;
     }
-    sp90 = Math_ModF(posX + 2400.0f, 300.0f);
-    sp94 = Math_ModF(posZ + D_80177D20 + 1500.0f + 2400.0f, 300.0f);
+    sp90 = Math_ModF(xPos + 2400.0f, 300.0f);
+    sp94 = Math_ModF(zPos + D_80177D20 + 1500.0f + 2400.0f, 300.0f);
     sp8C = (sp98 * 17) + sp9C;
     x0 = spA4[spA0[sp8C]].n.ob[0] * 3.0f;
     y0 = spA4[spA0[sp8C]].n.ob[1] * 2.0f;
@@ -1063,8 +1062,8 @@ bool func_800A73E4(f32* arg0, s32* arg1, f32 posX, f32 posY, f32 posZ) {
     crz = (dx10 * dy21) - (dy10 * dx21);
 
     temp1 = -crx * x0 - cry * y0 - crz * z0;
-    sp48 = (-temp1 - crx * posX - crz * (posZ + D_80177D20 + 1500.0f)) / cry;
-    if (posY < sp48) {
+    sp48 = (-temp1 - crx * xPos - crz * (zPos + D_80177D20 + 1500.0f)) / cry;
+    if (yPos < sp48) {
         *arg0 = sp48;
         *arg1 = sp8C;
         return true;
@@ -1463,8 +1462,8 @@ void func_800A86E4(Player* player) {
             (item->timer_4A == 0) &&
             func_800A7974(player, item->info.hitbox, &sp6C, item->obj.pos.x, item->obj.pos.y, item->obj.pos.z, 0.0f,
                           0.0f, 0.0f, 0.0f, 0.0f, 0.0f)) {
-            item->unk_4C = 1;
-            item->unk_4E = gPlayerNum;
+            item->collected = true;
+            item->playerNum = gPlayerNum;
         }
     }
 }
@@ -1869,8 +1868,8 @@ void func_800A8BA4(Player* player) {
                                 break;
                             }
                             Player_ApplyDamage(player, temp_v0, boss->info.damage);
-                            if ((boss->obj.id == OBJ_BOSS_303) &&
-                                ((boss->actionState == 2) || (boss->actionState == 3)) && (sp98 >= 9)) {
+                            if ((boss->obj.id == OBJ_BOSS_303) && ((boss->state == 2) || (boss->state == 3)) &&
+                                (sp98 >= 9)) {
                                 player->unk_0D8.y = -100.0f;
                             }
                             if ((boss->obj.id == OBJ_BOSS_320) && (sp98 < 5)) {
@@ -6251,7 +6250,7 @@ void func_800B832C(void) {
     }
     Object_UpdateAll();
     func_8003D9B8();
-    func_8007729C();
+    BonusText_Update();
     for (i = 0; i < gCamCount; i++) {
         gPlayer[i].num = gPlayerNum = i;
         func_800B71E4(&gPlayer[i]);

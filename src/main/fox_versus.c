@@ -1873,7 +1873,7 @@ void func_800C2244(Actor* actor) {
 
     boolTemp = false;
 
-    switch (actor->unk_0B8) {
+    switch (actor->state) {
         case 0:
             boolTemp = true;
 

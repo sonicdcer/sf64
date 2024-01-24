@@ -274,11 +274,11 @@ void func_i5_80188108(Actor* actor, s32 arg1) {
         actor->iwork[11] = 1;
         actor->unk_0C9 = 1;
         actor->fwork[3] = D_i5_801B7348[arg1];
-        actor->unk_0B8 = 30;
+        actor->state = 30;
         Audio_PlaySfx(0x3100000CU, actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     } else {
         actor->unk_0B6 = 1;
-        actor->unk_0B8 = 20;
+        actor->state = 20;
         Audio_PlaySfx(0x11030010U, actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         actor->fwork[9] = 20.0f;
     }
@@ -481,15 +481,15 @@ void func_i5_801882CC(Player* player) {
             break;
 
         case 1200:
-            gActors->unk_0B8++;
+            gActors->state++;
             break;
 
         case 1220:
-            gActors[1].unk_0B8++;
+            gActors[1].state++;
             break;
 
         case 1240:
-            gActors[2].unk_0B8++;
+            gActors[2].state++;
             break;
 
         case 1280:

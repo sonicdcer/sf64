@@ -226,6 +226,9 @@ func_8006089C = 0x8006089C;
 func_80060968 = 0x80060968;
 func_80060D94 = 0x80060D94;
 
+// fox_effect
+BonusText_Display = 0x80077240;
+
 // fox_enmy
 func_80060F30 = 0x80060F30;
 Object_Kill = 0x80060FBC;
@@ -399,7 +402,7 @@ gItems = 0x801737E0; //size:0x870
 gPlayerShots = 0x80174050; //size:0x700
 gUnkEntities30 = 0x80174750; //size:0x12C0
 gUnkEntities28 = 0x80175A10; //size:0xA28
-gUnkEntities1C = 0x80176438; //size:0x18
+gBonusText = 0x80176438; //size:0x18
 D_80176550 = 0x80176550;
 D_80176558 = 0x80176558;
 D_80176878 = 0x80176878;
@@ -639,7 +642,7 @@ func_800A3FEC = 0x800A3FEC;
 func_800A4460 = 0x800A4460;
 func_800A46A0 = 0x800A46A0;
 func_800A4C40 = 0x800A4C40;
-func_800A4F4C = 0x800A4F4C;
+Object_58_Initialize = 0x800A4F4C;
 func_800A4F7C = 0x800A4F7C;
 func_800A5330 = 0x800A5330;
 func_800A5338 = 0x800A5338;
@@ -652,7 +655,7 @@ func_800A5EBC = 0x800A5EBC;
 func_800A5FA0 = 0x800A5FA0;
 func_800A6028 = 0x800A6028;
 func_800A6070 = 0x800A6070;
-func_800A60B8 = 0x800A60B8;
+BonusText_Initialize = 0x800A60B8;
 func_800A60E8 = 0x800A60E8;
 func_800A6118 = 0x800A6118;
 func_800A6148 = 0x800A6148;
