@@ -46,7 +46,7 @@ void func_i4_80199900(Actor* actor, s32 arg1) {
             gCsFrameCount = 0;
             gPlayer->state_1C8 = PLAYERSTATE_1C8_7;
             gPlayer->unk_1D0 = 1000;
-            gActors->unk_0B8 = 6;
+            gActors->state = 6;
             gPlayer->timer_1F8 = 30;
             Audio_PlaySfx(0x11030010U, gActors->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             Audio_PlaySfx(0x31024059U, gActors->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -152,7 +152,7 @@ void func_i4_80199C60(Actor* actor) {
         if ((gPlayer->state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer->state_1C8 == PLAYERSTATE_1C8_5)) {
             gPlayer->state_1C8 = PLAYERSTATE_1C8_7;
             gPlayer->unk_1D0 = 0;
-            gActors->unk_0B8 = -0x7960;
+            gActors->state = -0x7960;
             return;
         }
     }
@@ -163,7 +163,7 @@ void func_i4_80199C60(Actor* actor) {
          (gPlayer->state_1C8 == PLAYERSTATE_1C8_5))) {
         gPlayer->state_1C8 = PLAYERSTATE_1C8_7;
         gPlayer->unk_1D0 = 0x64;
-        gActors->unk_0B8 = -0x7960;
+        gActors->state = -0x7960;
     }
 }
 #else
@@ -180,7 +180,7 @@ void func_i4_80199FCC(Actor* actor, s32 arg1) {
     actor->obj.pos.y = D_i4_8019F4C0[arg1].y;
     actor->obj.pos.z = D_i4_8019F4C0[arg1].z;
 
-    actor->unk_0B8 = 5;
+    actor->state = 5;
     actor->unk_0F4.y = 180.0f;
 
     Object_SetInfo(&actor->info, actor->obj.id);
@@ -204,7 +204,7 @@ void func_i4_8019A0F8(Actor* actor, s32 arg1) {
     actor->obj.pos.y = gActors[10].obj.pos.y + D_i4_8019F4E4[arg1].y;
     actor->obj.pos.z = gActors[10].obj.pos.z + D_i4_8019F4E4[arg1].z;
 
-    actor->unk_0B8 = 5;
+    actor->state = 5;
     actor->unk_0F4.y = 180.0f;
 
     Object_SetInfo(&actor->info, actor->obj.id);
@@ -228,7 +228,7 @@ void func_i4_8019A1D0(void) {
     actor->unk_0E6 = 12;
     actor->health = 10000;
     actor->unk_0F4.y = 180.0f;
-    actor->unk_0B8 = 0;
+    actor->state = 0;
     actor->timer_0BC = 250;
     actor->unk_0F4.x = -20.0f;
     actor->iwork[11] = 1;
@@ -246,7 +246,7 @@ void func_i4_8019A2F4(Actor* actor) {
         func_i4_8019A1D0();
         gCsFrameCount = 0;
         actor->timer_0BC = 400;
-        actor->unk_0B8 = 3;
+        actor->state = 3;
         gPlayer->state_1C8 = PLAYERSTATE_1C8_0;
 
         func_8001D4AC(0x36U, 0x14U, 0xAU, 0xAU);
@@ -350,26 +350,26 @@ void func_i4_8019A3E8(Actor* actor) {
             actorPtr->obj.pos.z = sp34.z;
 
             actorPtr->unk_0F4.y = actor->unk_04E * 18.0f;
-            actorPtr->unk_0B8 = 3;
+            actorPtr->state = 3;
             actorPtr->unk_0E4 = i + 13;
             actorPtr->unk_0E6 = -1;
 
             if (D_8015F928 >= 0) {
                 if (((i + 13) == 23) || ((i + 13) == 24)) {
                     actorPtr->unk_0E6 = 2;
-                    actorPtr->unk_0B8 = 2;
+                    actorPtr->state = 2;
                 }
                 if ((i + 13) == 25) {
                     actorPtr->unk_0E6 = 0;
-                    actorPtr->unk_0B8 = 2;
+                    actorPtr->state = 2;
                 }
                 if (((i + 13) == 26) || ((i + 13) == 27)) {
                     actorPtr->unk_0E6 = 3;
-                    actorPtr->unk_0B8 = 2;
+                    actorPtr->state = 2;
                 }
                 if ((i + 13) == 28) {
                     actorPtr->unk_0E6 = 1;
-                    actorPtr->unk_0B8 = 2;
+                    actorPtr->state = 2;
                 }
             }
             actorPtr->health = 24;
@@ -424,7 +424,7 @@ void func_i4_8019A3E8(Actor* actor) {
             func_i4_8019A0F8(&gActors[16], 3);
 
             gPlayer->state_1C8 = PLAYERSTATE_1C8_0;
-            actor->unk_0B8 = 10;
+            actor->state = 10;
             actor->fwork[10] = 0.0f;
             gPlayer->unk_034 = 15.0f;
 
@@ -453,7 +453,7 @@ bool func_i4_8019AA9C(Player* player) {
             (fabsf(player->pos.y - 265.0f) < 100.0f) && (fabsf(player->unk_138) < 172.0f)) {
             player->state_1C8 = PLAYERSTATE_1C8_10;
             player->unk_1D0 = 0;
-            gActors->unk_0B8 = 20;
+            gActors->state = 20;
             D_8015F928--;
             return true;
         }
@@ -471,7 +471,7 @@ void func_i4_8019AB8C(Actor* actor) {
 
     player = &gPlayer[0];
 
-    switch (actor->unk_0B8) {
+    switch (actor->state) {
         case 0:
             D_i4_801A0564 = D_i4_801A0560 = 0;
             D_8015F914 = 63.0f;
@@ -479,7 +479,7 @@ void func_i4_8019AB8C(Actor* actor) {
             D_8015F91C = 158.0f;
             D_80161A44 = 30000.0f;
             D_8015F928 = 0;
-            actor->unk_0B8 = 2;
+            actor->state = 2;
             if (D_8015F924 != 0) {
                 gHitCount = gSavedHitCount;
             }
@@ -552,7 +552,7 @@ void func_i4_8019AB8C(Actor* actor) {
             }
 
             if (actor->timer_0BC == 70) {
-                actor->unk_0B8 = 2;
+                actor->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 func_800B7184(player, 1);
                 player->unk_014 = 0.0f;
@@ -561,7 +561,7 @@ void func_i4_8019AB8C(Actor* actor) {
 
         case 6:
             gActors[1].unk_0E6 = 0;
-            gActors[1].unk_0B8 = 2;
+            gActors[1].state = 2;
             gActors[2].unk_0E6 = 0;
             gActors[2].unk_0B8 = 2;
             gActors[3].unk_0E6 = 0;
@@ -618,7 +618,7 @@ void func_i4_8019AB8C(Actor* actor) {
             }
 
             if (actor->timer_0BC < 9680) {
-                actor->unk_0B8 = 2;
+                actor->state = 2;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 func_800B7184(player, 1);
                 player->unk_014 = 0.0f;
@@ -745,7 +745,7 @@ void func_i4_8019B888(void) {
                 actor->obj.pos.y = D_i4_8019F5EC[i].y + gPlayer->pos.y;
                 actor->obj.pos.z = D_i4_8019F5EC[i].z + gPlayer->pos.z;
                 actor->unk_0E4 = i;
-                actor->unk_0B8 = 2;
+                actor->state = 2;
                 actor->unk_0F4.y = 270.0f;
                 actor->health = 255;
                 actor->iwork[11] = 1;
@@ -1062,7 +1062,7 @@ void func_i4_8019C70C(void) {
     actor->fwork[0] = 30.0f;
     actor->unk_0B6 = 24;
     actor->iwork[11] = 1;
-    actor->unk_0B8 = 10;
+    actor->state = 10;
     actor->timer_0BC = 130;
 
     Object_SetInfo(&actor->info, actor->obj.id);
@@ -1134,7 +1134,7 @@ void func_i4_8019C85C(Player* player) {
             player->unk_0D0 = 0.0f;
             player->unk_034 = 0.0f;
 
-            if (boss0->actionState != 0) {
+            if (boss0->state != 0) {
                 player->unk_1D0 = 0;
             }
             break;
@@ -1479,15 +1479,15 @@ void func_i4_8019C85C(Player* player) {
             break;
 
         case 2450:
-            actor2->unk_0B8 = 1;
+            actor2->state = 1;
             break;
 
         case 2470:
-            actor3->unk_0B8 = 1;
+            actor3->state = 1;
             break;
 
         case 2490:
-            gActors[1].unk_0B8 = 1;
+            gActors[1].state = 1;
             break;
 
         case 2510:
@@ -1497,7 +1497,7 @@ void func_i4_8019C85C(Player* player) {
             break;
 
         case 2550:
-            gActors->unk_0B8 = 1;
+            gActors->state = 1;
             break;
     }
 
@@ -1553,9 +1553,9 @@ void func_i4_8019DD20(Actor* actor) {
     Vec3f src;
     Vec3f dest;
 
-    switch (actor->unk_0B8) {
+    switch (actor->state) {
         case 1:
-            actor->unk_0B8 = 2;
+            actor->state = 2;
             Audio_PlaySfx(0x09000002U, actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             actor->fwork[29] = 5.0f;
 
@@ -1568,7 +1568,7 @@ void func_i4_8019DD20(Actor* actor) {
 
         case 10:
             if (actor->timer_0BC == 0) {
-                actor->unk_0B8 = 11;
+                actor->state = 11;
             }
             break;
 
@@ -1577,7 +1577,7 @@ void func_i4_8019DD20(Actor* actor) {
             Math_SmoothStepToF(actor->fwork, 10.0f, 0.1f, 1.5f, 0.0f);
             Math_SmoothStepToAngle(&actor->unk_0F4.y, 140.0f, 0.1f, 1.0f, 0.0f);
             if (actor->unk_0F4.x > 180.0f) {
-                actor->unk_0B8 = 12;
+                actor->state = 12;
             }
             break;
 
@@ -1661,7 +1661,7 @@ void func_i4_8019E234(Actor* actor) {
         if (actor->health <= 0) {
             func_8007BFFC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 10);
             func_80066254(actor);
-            func_80077240(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 2);
+            BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 2);
             gHitCount += 3;
             D_80177850 = 15;
             for (i = 0; i < 6; i++) {
@@ -1694,7 +1694,7 @@ void func_i4_8019E454(Boss* boss) {
         boss->dmgType = 0;
         boss->timer_050 = 10;
         boss->timer_052 = 60;
-        boss->actionState = 1;
+        boss->state = 1;
         Audio_PlaySfx(0x1900404FU, boss->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
 
@@ -1778,7 +1778,7 @@ void func_i4_8019EA68(void) {
         }
 
         if (D_80178310[i].id < 161) {
-            func_800A4F4C(obj58);
+            Object_58_Initialize(obj58);
             obj58->obj.status = 2;
             obj58->obj.id = D_80178310[i].id;
             obj58->obj.pos.x = D_80178310[i].xPos;
