@@ -7,6 +7,11 @@ extern s32 D_i1_8019C0B8;
 extern s32 D_i1_8019C0BC;
 extern s32 D_i1_8019C0C0;
 extern Vec3f D_i1_80199FFC;
+extern Limb* D_900D164;
+extern Limb* D_901C0F4;
+
+s32 func_i1_801937F4(s32, Gfx**, Vec3f*, Vec3f*, void*);
+void func_i1_80193D64(s32, Vec3f*, void*);
 
 f32 func_i1_801920F0(f32* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32* arg5) {
     f32 temp;
@@ -331,17 +336,31 @@ void func_i1_80192CB0(Actor* actor) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_80192E2C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_80192EA4.s")
+void func_i1_80192EA4(Actor* arg0) {
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_80192EB0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_801933B4.s")
+void func_i1_801933B4(Actor* arg0) {
+    arg0->scale = -1.0f;
+    arg0->obj.pos.y += 488.0f;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_801933DC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_801934D0.s")
+void func_i1_801934D0(Actor* arg0) {
+    Matrix_Translate(gGfxMatrix, 0.0f, -488.0f, 0.0f, 1U);
+    Animation_DrawSkeleton(0, &D_900D164, arg0->vwork, NULL, NULL, arg0, &gIdentityMatrix);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_80193540.s")
+void func_i1_80193540(Object_80* arg0) {
+    f32 temp_fv1;
+
+    temp_fv1 = arg0->obj.pos.z;
+    if (((gPlayer->unk_138 - temp_fv1) <= 3500.0f) && !(gGameFrameCount & 3)) {
+        func_8007C120(arg0->obj.pos.x, arg0->obj.pos.y, temp_fv1, 0.0f, 0.0f, 0.0f, 0.2f, 0xA);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_801935CC.s")
 
@@ -355,9 +374,19 @@ void func_i1_80192CB0(Actor* actor) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_80198414.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_80198594.s")
+void func_i1_80198594(Boss* arg0) {
+    arg0->obj.pos.z = gPlayer->pos.z;
+    if ((arg0->timer_052 <= 0) && (gPlayer->state_1C8 == PLAYERSTATE_1C8_3)) {
+        func_i1_80198414();
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_801985E4.s")
+void func_i1_801985E4(Boss* arg0) {
+    if (arg0->swork[0x1A] == 0) {
+        Animation_DrawSkeleton(0, &D_901C0F4, arg0->vwork, func_i1_801937F4, func_i1_80193D64, arg0, &gIdentityMatrix);
+    }
+    arg0->actionState = arg0->swork[9];
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_8019864C.s")
 

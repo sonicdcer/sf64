@@ -603,6 +603,8 @@ s32 Save_Read(void);
 void func_menu_80187520(u32, void*);
 void func_menu_8019E8D0(void);
 
+void func_i1_80198414(void);
+
 void func_ending_8018A96C(void);
 void func_ending_8018AAC4(void);
 
