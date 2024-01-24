@@ -45,24 +45,23 @@ void func_i5_801B4A54(UnkStruct_801C62E8* arg0) {
         arg0->unk_1C = arg0->unk_20 = 0;
 }
 
-#if 0
+#if 1
 void func_i5_801B4AA8(s32* arg0, s32* arg1) {
     Actor spB4;
     UnkStruct_801C62E8* var_s2;
+    s32* var_s1;
     f32 temp_fa0;
     f32 temp_fs0;
     f32 temp_fs1;
+    f32 var_fv0;
+    f32 var_fv1;
+    s32 unk_04;
     f32 unk_08;
     f32 unk_10;
     f32 unk_14;
     f32 unk_18;
-    f32 var_fv0;
-    f32 var_fv1;
-    s32 temp_t7;
     s32 i;
     s32 j;
-    s32 unk_04;
-    s32* var_s1;
 
     var_s2 = D_i5_801C62E8;
     for (i = 0; i < ARRAY_COUNT(D_i5_801C62E8); i++, var_s2++) {
@@ -177,8 +176,8 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
                         for (j = 0; j < (s32) var_s2->unk_18; j++) {
                             var_s2->unk_1C = 1;
                             spB4.obj.pos.x = (Rand_ZeroOne() * 3300.0f) - 1650.0f;
-                            spB4.obj.pos.y = 1.0f;
                             spB4.obj.pos.z = 0.0f;
+                            spB4.obj.pos.y = 1.0f;
                             spB4.obj.rot.x = (Rand_ZeroOne() * var_s2->unk_10 * 0.25f) + var_s2->unk_10;
                             spB4.obj.rot.z = 2.0f * spB4.obj.rot.x; // Should this have been obj.rot.y?
                             spB4.obj.rot.z = (Rand_ZeroOne() * var_s2->unk_14 * 0.25f) + var_s2->unk_14;
