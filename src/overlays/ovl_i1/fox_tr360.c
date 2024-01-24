@@ -13,7 +13,7 @@ void func_i1_80198C50(void) {
     for (i = 0; i < 1000; i++) {
         if (D_80178310[i].id >= 0) {
             if (D_80178310[i].id <= 160) {
-                func_800A4F4C(obj58);
+                Object_58_Initialize(obj58);
                 obj58->obj.status = OBJ_ACTIVE;
                 obj58->obj.id = D_80178310[i].id;
                 obj58->obj.pos.x = D_80178310[i].xPos;
@@ -72,7 +72,7 @@ void func_i1_80199024(Actor* actor) {
     s32 pad[8];
     Vec3f sp54;
     f32 var_fv0;
-    UnkEntity28* unkEntity28;
+    UnkEntity28* ent28;
     f32 temp_fv0;
     f32 temp_fv1;
     f32 var_fv0_2;
@@ -143,13 +143,13 @@ void func_i1_80199024(Actor* actor) {
         actor->vel.y = 0.0f;
     }
     func_8003088C(actor);
-    unkEntity28 = &gUnkEntities28[actor->index];
-    unkEntity28->unk_00 = 1;
-    unkEntity28->unk_02 = actor->unk_0E4;
-    unkEntity28->pos.x = actor->obj.pos.x;
-    unkEntity28->pos.y = actor->obj.pos.y;
-    unkEntity28->pos.z = actor->obj.pos.z;
-    unkEntity28->unk_10 = actor->unk_0F4.y + 180.0f;
+    ent28 = &gUnkEntities28[actor->index];
+    ent28->unk_00 = 1;
+    ent28->unk_02 = actor->unk_0E4;
+    ent28->pos.x = actor->obj.pos.x;
+    ent28->pos.y = actor->obj.pos.y;
+    ent28->pos.z = actor->obj.pos.z;
+    ent28->unk_10 = actor->unk_0F4.y + 180.0f;
     if (actor->iwork[8] != 0) {
         actor->iwork[8]--;
     }

@@ -332,7 +332,7 @@ void func_i2_801881A8(Effect* effect, f32 x, f32 y, f32 z, f32 zRot, s32 arg5) {
 
     effect->obj.rot.z = zRot;
 
-    effect->unk_4E = arg5;
+    effect->state = arg5;
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
@@ -364,7 +364,7 @@ void func_i2_80188344(Boss* boss) {
     Vec3f dest;
     f32 temp;
 
-    if (boss->actionState < 5) {
+    if (boss->state < 5) {
         boss->obj.pos.x = gBosses[0].obj.pos.x;
         boss->obj.pos.y = gBosses[0].obj.pos.y;
         boss->obj.pos.z = gBosses[0].obj.pos.z;
@@ -373,7 +373,7 @@ void func_i2_80188344(Boss* boss) {
         boss->obj.rot.z = (gBosses[0].obj.rot.z + boss->unk_078.z) + 45.0f + 180.0f;
     }
 
-    switch (boss->actionState) {
+    switch (boss->state) {
         case 0:
             boss->timer_050 = 150;
             boss->unk_078.z += 2.5f;
@@ -388,7 +388,7 @@ void func_i2_80188344(Boss* boss) {
             boss->unk_078.z += temp;
 
             if (boss->timer_050 == 0) {
-                boss->actionState = 2;
+                boss->state = 2;
                 boss->dmgType = 0;
             }
             break;
@@ -436,7 +436,7 @@ void func_i2_80188344(Boss* boss) {
 
         case 3:
             boss->timer_050 = 30;
-            boss->actionState = 4;
+            boss->state = 4;
             boss->timer_05C = 15;
             boss->swork[0] = 0;
             break;
@@ -445,7 +445,7 @@ void func_i2_80188344(Boss* boss) {
             if (boss->timer_050 == 0) {
                 func_8007D2C8(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 500.0f, 30.0f);
                 func_8007BFFC(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 500.0f, 0.0f, 0.0f, 0.0f, 20.0f, 30);
-                boss->actionState = 5;
+                boss->state = 5;
 
                 boss->info.unk_10 = 1000.0f;
 
@@ -552,7 +552,7 @@ void func_i2_80188B84(Effect* effect, f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f
 
     effect->timer_50 = 20;
     effect->scale2 = arg7;
-    effect->unk_4E = 1;
+    effect->state = 1;
     effect->unk_44 = 128;
     Object_SetInfo(&effect->info, effect->obj.id);
 }
@@ -572,7 +572,7 @@ void func_i2_80188CAC(Effect* effect) {
     Vec3f src;
     Vec3f dest;
 
-    if (effect->unk_4E == 0) {
+    if (effect->state == 0) {
         switch (effect->unk_48) {
             case 0:
                 effect->obj.rot.x -= 15.0f;
@@ -629,7 +629,7 @@ void func_i2_80188E8C(Effect* effect, f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f
     effect->obj.rot.z = zRot;
 
     effect->scale2 = scale;
-    effect->unk_4E = 1;
+    effect->state = 1;
     effect->unk_44 = 128;
     Object_SetInfo(&effect->info, effect->obj.id);
 }
@@ -649,7 +649,7 @@ void func_i2_80188FAC(Effect* effect) {
     Vec3f src;
     Vec3f dest;
 
-    if (effect->unk_4E != 1) {
+    if (effect->state != 1) {
         effect->obj.rot.x = 10.0f;
         effect->obj.rot.z += 20.0f;
 
@@ -865,7 +865,7 @@ void func_i2_8018978C(Boss* boss) {
             Audio_PlaySfx(0x29121007U, boss->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         }
 
-        if ((boss->actionState >= 2) && (boss->actionState < 20)) {
+        if ((boss->state >= 2) && (boss->state < 20)) {
             if ((boss->dmgPart < 5) && (boss[0].fwork[17 + boss->dmgPart] > 0.5f)) {
                 if (boss[0].swork[boss->dmgPart + 2] != 0) {
                     Audio_PlaySfx(0x29034003U, boss->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -892,7 +892,7 @@ void func_i2_8018978C(Boss* boss) {
                 }
             }
 
-            if (boss->actionState >= 9) {
+            if (boss->state >= 9) {
                 if (boss->dmgPart == 5) {
                     if ((boss->swork[7] != 0) && (boss->fwork[22] > 0.8f)) {
                         Audio_PlaySfx(0x2943500FU, boss->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -925,7 +925,7 @@ void func_i2_8018978C(Boss* boss) {
                     if (boss->swork[8] <= 0) {
                         func_80042EC0(boss);
 
-                        boss->actionState = 20;
+                        boss->state = 20;
                         boss->timer_050 = 300;
                         boss->timer_052 = 260;
                         boss->vel.x = 0.0f;
@@ -950,8 +950,8 @@ void func_i2_8018978C(Boss* boss) {
 
     sp7C = boss->obj.pos.z + D_80177D20;
 
-    if (boss->actionState >= 3) {
-        if (boss->actionState < 20) {
+    if (boss->state >= 3) {
+        if (boss->state < 20) {
             Math_SmoothStepToF(&boss->vel.z, -D_80161A54, 0.1f, 2.0f, 0.0f);
             if ((boss->fwork[9] + 200.0f) < sp7C) {
                 Math_SmoothStepToF(&boss->vel.z, -60.0f, 0.1f, 4.0f, 0.0f);
@@ -962,7 +962,7 @@ void func_i2_8018978C(Boss* boss) {
         }
     }
 
-    if ((boss->actionState >= 3) && (boss->actionState < 20)) {
+    if ((boss->state >= 3) && (boss->state < 20)) {
         switch (boss->swork[16]) {
             case 0:
                 if (boss->vel.y > 0.0f) {
@@ -1080,7 +1080,7 @@ void func_i2_8018978C(Boss* boss) {
         D_80178500 = 0.0f;
     }
 
-    switch (boss->actionState) {
+    switch (boss->state) {
         case 0:
             boss->swork[0] = 10;
             boss->swork[1] = 10;
@@ -1089,7 +1089,7 @@ void func_i2_8018978C(Boss* boss) {
             boss->vel.z = boss->fwork[0] - D_80177D08;
 
             if (sp7C < boss->fwork[9]) {
-                boss->actionState = 1;
+                boss->state = 1;
                 boss->fwork[1] = 0.0f;
             }
 
@@ -1107,9 +1107,9 @@ void func_i2_8018978C(Boss* boss) {
             if (boss->fwork[0] < 0.0f) {
                 boss->fwork[0] += 0.5f;
                 if (boss->fwork[0] >= 0.0f) {
-                    boss->actionState = 2;
+                    boss->state = 2;
                     boss->timer_050 = 50;
-                    gBosses[boss->unk_044].actionState = 1;
+                    gBosses[boss->unk_044].state = 1;
                 }
             }
 
@@ -1127,7 +1127,7 @@ void func_i2_8018978C(Boss* boss) {
             }
 
             if (boss->timer_050 == 0) {
-                boss->actionState = 3;
+                boss->state = 3;
                 boss->timer_050 = 50;
                 boss->timer_058 = 100;
                 func_800BA808(gMsg_ID_3310, RCID_BOSS_METEO);
@@ -1165,7 +1165,7 @@ void func_i2_8018978C(Boss* boss) {
                 }
             }
 
-            if (gBosses[boss->unk_044].actionState < 3) {
+            if (gBosses[boss->unk_044].state < 3) {
                 var_v0 = 0;
                 if (boss->swork[2] == 0) {
                     var_v0 = 1;
@@ -1184,14 +1184,14 @@ void func_i2_8018978C(Boss* boss) {
                     boss->obj.rot.z += 0.1f;
                 }
                 if (var_v0 == 4) {
-                    gBosses[boss->unk_044].actionState = 3;
-                    boss->actionState = 4;
+                    gBosses[boss->unk_044].state = 3;
+                    boss->state = 4;
                     boss->timer_050 = 250;
                     boss->timer_05A = 30;
                     boss->fwork[10] = 0;
                 }
 
-                if ((boss->timer_050 == 0) && (gBosses[boss->unk_044].actionState == 2)) {
+                if ((boss->timer_050 == 0) && (gBosses[boss->unk_044].state == 2)) {
                     boss->fwork[2] = 90.0f;
                     boss->timer_050 = D_i2_80195520[var_v0] + 45;
                     Audio_PlaySfx(0x19030036U, boss->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -1219,7 +1219,7 @@ void func_i2_8018978C(Boss* boss) {
                 func_800BA808(gMsg_ID_3321, RCID_BOSS_METEO);
             }
             if (boss->timer_050 == 0) {
-                boss->actionState = 5;
+                boss->state = 5;
                 boss->timer_050 = 70;
             }
             break;
@@ -1247,7 +1247,7 @@ void func_i2_8018978C(Boss* boss) {
                         boss->fwork[11] += 1.0f;
                     }
                 } else {
-                    boss->actionState = 6;
+                    boss->state = 6;
                     boss->timer_050 = 75;
                 }
 
@@ -1278,7 +1278,7 @@ void func_i2_8018978C(Boss* boss) {
                     D_80178348 = D_80178350 = D_80178354 = 255;
                 }
                 if (boss->timer_050 == 0) {
-                    boss->actionState = 7;
+                    boss->state = 7;
                     Audio_PlaySfx(0x29038058U, boss->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 }
                 func_i2_80189624();
@@ -1296,7 +1296,7 @@ void func_i2_8018978C(Boss* boss) {
                     boss->fwork[11] = 0.0f;
                     Audio_KillSfx(boss->sfxPos);
                     if (boss->swork[6] == 0) {
-                        boss->actionState = 8;
+                        boss->state = 8;
 
                         boss->timer_050 = 190;
                         boss->timer_052 = 230;
@@ -1309,7 +1309,7 @@ void func_i2_8018978C(Boss* boss) {
                         func_800182F4(0x100100FF);
                         func_800182F4(0x110100FF);
                     } else {
-                        boss->actionState = 5;
+                        boss->state = 5;
                         boss->timer_050 = 70;
                     }
                 }
@@ -1355,7 +1355,7 @@ void func_i2_8018978C(Boss* boss) {
                 }
 
                 if (boss->obj.rot.x < -178.0f) {
-                    boss->actionState = 9;
+                    boss->state = 9;
                     boss->timer_050 = 0;
                     boss->fwork[15] = 8.0f;
                     Audio_PlaySfx(0x11015034U, boss->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -1395,14 +1395,14 @@ void func_i2_8018978C(Boss* boss) {
                 boss->fwork[15] -= 0.1f;
                 if (boss->fwork[15] < -1.0f) {
                     boss->timer_050 = 40;
-                    boss->actionState = 10;
+                    boss->state = 10;
                 }
             }
             break;
 
         case 10:
             if (boss->timer_050 == 0) {
-                boss->actionState = 9;
+                boss->state = 9;
                 boss->timer_050 = 70;
                 boss->fwork[15] = 8.0f;
                 Audio_PlaySfx(0x11015034U, boss->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -1714,7 +1714,7 @@ void func_i2_8018BACC(Boss* boss) {
         Matrix_Pop(&gGfxMatrix);
     }
 
-    if ((boss->actionState == 9) || (boss->actionState == 0xA)) {
+    if ((boss->state == 9) || (boss->state == 0xA)) {
         var_fs1 = boss->fwork[15];
         for (i = 0; i < 10; i++) {
             var_fs1 += 0.3f;
@@ -1950,16 +1950,16 @@ void func_i2_8018CD8C(Player* player) {
 
             D_80177A48[0] = 0.1f;
             if (gCsFrameCount == 680) {
-                actor3->unk_0B8 = 10;
+                actor3->state = 10;
             }
             if (gCsFrameCount == 720) {
-                actor0->unk_0B8 = 11;
+                actor0->state = 11;
             }
             if (gCsFrameCount == 750) {
-                actor2->unk_0B8 = 12;
+                actor2->state = 12;
             }
             if (gCsFrameCount == 780) {
-                actor1->unk_0B8 = 13;
+                actor1->state = 13;
             }
             if (gCsFrameCount > 810) {
                 player->unk_1D0 = 2;
@@ -2114,10 +2114,10 @@ void func_i2_8018CD8C(Player* player) {
 }
 
 void func_i2_8018D9EC(Actor* actor) {
-    switch (actor->unk_0B8) {
+    switch (actor->state) {
         case 0:
             actor->fwork[0] = (Rand_ZeroOne() - 0.5f) * 10.0f;
-            actor->unk_0B8 = 1;
+            actor->state = 1;
 
         case 1:
             actor->obj.rot.z += actor->fwork[0];
@@ -2142,7 +2142,7 @@ void func_i2_8018DB6C(Actor* actor) {
 }
 
 void func_i2_8018DBEC(Effect* effect) {
-    if (effect->unk_4E == 1) {
+    if (effect->state == 1) {
         Matrix_RotateX(gGfxMatrix, effect->obj.rot.x * M_DTOR, 1);
         Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, 1);
         Matrix_RotateZ(gGfxMatrix, (M_PI / 2), 1);
@@ -2153,7 +2153,7 @@ void func_i2_8018DBEC(Effect* effect) {
 }
 
 void func_i2_8018DCE4(Effect* effect) {
-    if (effect->unk_4E != 0) {
+    if (effect->state != 0) {
         Matrix_RotateX(gGfxMatrix, effect->obj.rot.x * M_DTOR, 1);
         Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2 * 3.0f, 1);
 
@@ -2419,15 +2419,15 @@ void func_i2_8018E084(Player* player) {
             break;
 
         case 1300:
-            gActors->unk_0B8 = 1;
+            gActors[0].state = 1;
             break;
 
         case 1330:
-            gActors[1].unk_0B8 = 1;
+            gActors[1].state = 1;
             break;
 
         case 1360:
-            gActors[2].unk_0B8 = 1;
+            gActors[2].state = 1;
             break;
 
         case 1390:
@@ -2437,7 +2437,7 @@ void func_i2_8018E084(Player* player) {
             break;
 
         case 1400:
-            gActors[3].unk_0B8 = 1;
+            gActors[3].state = 1;
             gActors[3].obj.pos.x = player->camEye.x - 700.0f;
             gActors[3].obj.pos.y = player->camEye.y;
             gActors[3].obj.pos.z = player->camEye.z - D_80177D20 + 1000.0f;
@@ -2480,7 +2480,7 @@ void func_i2_8018ED9C(Actor* actor) {
     Vec3f sp3C;
     Vec3f sp30;
 
-    switch (actor->unk_0B8) {
+    switch (actor->state) {
         case 0:
             actor->vwork[0].x = D_i2_80195610[actor->index].x + gPlayer->pos.x;
             actor->vwork[0].y = D_i2_80195610[actor->index].y + gPlayer->pos.y;
@@ -2493,7 +2493,7 @@ void func_i2_8018ED9C(Actor* actor) {
             break;
 
         case 1:
-            actor->unk_0B8 = 2;
+            actor->state = 2;
             Audio_PlaySfx(0x09000002U, actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             actor->timer_0BC = 0x96;
             actor->fwork[29] = 5.0f;
