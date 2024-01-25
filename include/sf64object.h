@@ -245,6 +245,7 @@ typedef struct {
 #define DMG_BEAM 1
 #define DMG_NONE 0
 #define DMG_BOMB -1
+#define DMG_UNK_100 100
 
 typedef struct {
     /* 0x000 */ Object obj;
