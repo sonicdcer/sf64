@@ -13,6 +13,8 @@ extern u8 D_600FF64[];
 
 void func_i4_80187884(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     s32 health = actor->health;
+    PRINTF("Enm->work[0]=%d\n");
+    PRINTF("tim %d\n");
 
     Actor_Initialize(actor);
     actor->health = health;
@@ -215,8 +217,9 @@ void func_i4_801890EC(Actor* actor, s32 arg1) {
     Audio_PlaySfx(0x31024059U, actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
+// Chonker
+void func_i4_8018927C(Player* player);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_fo/func_i4_8018927C.s")
 
+// loops
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_fo/func_i4_8018BA2C.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_fo/D_i4_8019F720.s")
