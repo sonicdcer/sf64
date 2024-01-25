@@ -2,6 +2,8 @@
 
 extern Vec3f D_i4_8019EE40;
 
+extern AnimationHeader D_6007854;
+extern Limb* D_6007980;
 extern u8 D_600FF64[];
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_fo/func_i4_801875F0.s")
@@ -160,7 +162,16 @@ s32 func_i4_80188F08(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* ptr) 
     return 0;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_fo/func_i4_80188FE4.s")
+void func_i4_80188FE4(Actor* actor) {
+    Vec3f vec[20];
+
+    Animation_GetFrameData(&D_6007854, 0, &vec);
+    Animation_DrawSkeleton(3, &D_6007980, &vec, func_i4_80188F08, func_i4_80188DA0, actor, gCalcMatrix);
+
+    if (actor->state == 1) {
+        actor->state = 2;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_fo/func_i4_8018906C.s")
 
