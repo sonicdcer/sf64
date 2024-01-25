@@ -1,5 +1,9 @@
 #include "global.h"
 
+extern Vec3f D_i4_8019EE40;
+
+extern u8 D_600FF64[];
+
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_fo/func_i4_801875F0.s")
 
 void func_i4_80187884(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
@@ -51,16 +55,110 @@ void func_i4_80188A48(Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 
     for (i = ARRAY_COUNT(gActors) - 1; i >= 30; i--) {
         if (gActors[i].obj.status == 0) {
             func_i4_801888C0(&gActors[i], pos, rot, xVel, yVel, zVel, state);
-            return;
+            break;
         }
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_fo/func_i4_80188AD0.s")
+void func_i4_80188AD0(Actor* actor) {
+    actor->fwork[0] += 2.0f;
+    if (actor->state == 2) {
+        actor->state = 3;
+        func_i4_80188A48(actor->vwork, &actor->vwork[6], (Rand_ZeroOne() - 0.5f) * 50.0f,
+                         (Rand_ZeroOne() * 10.0f) + 10.0f, (Rand_ZeroOne() - 0.5f) * 50.0f, 36);
+        func_i4_80188A48(&actor->vwork[1], &actor->vwork[7], (Rand_ZeroOne() - 0.5f) * 50.0f,
+                         (Rand_ZeroOne() * 10.0f) + 10.0f, (Rand_ZeroOne() - 0.5f) * 50.0f, 36);
+        func_i4_80188A48(&actor->vwork[2], &actor->vwork[8], (Rand_ZeroOne() - 0.5f) * 50.0f,
+                         (Rand_ZeroOne() * 10.0f) + 10.0f, (Rand_ZeroOne() - 0.5f) * 50.0f, 35);
+        func_i4_80188A48(&actor->vwork[3], &actor->vwork[9], (Rand_ZeroOne() - 0.5f) * 50.0f,
+                         (Rand_ZeroOne() * 10.0f) + 10.0f, (Rand_ZeroOne() - 0.5f) * 50.0f, 35);
+        func_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 180.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 10);
+        actor->unk_044 = 1;
+        actor->obj.pos.y += 230.0f;
+        func_80066254(actor);
+        actor->obj.pos.y -= 230.0f;
+    }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_fo/func_i4_80188DA0.s")
+    if ((actor->unk_0D0 != 0) && (actor->state == 0)) {
+        actor->unk_0D0 = 0;
+        actor->state = 1;
+        actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_600FF64);
+        actor->info.unk_1C = 0.0f;
+        actor->timer_0CA[0] = 0;
+        actor->info.bonus = 0;
+        Audio_PlaySfx(0x2903B009U, actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_fo/func_i4_80188F08.s")
+void func_i4_80188DA0(s32 arg0, Vec3f* arg1, void* ptr) {
+    Vec3f vec = D_i4_8019EE40;
+    Actor* actor = (Actor*) ptr;
+
+    if (actor->state == 1) {
+        switch (arg0) {
+            case 1:
+                Matrix_MultVec3f(gCalcMatrix, &vec, actor->vwork);
+                Matrix_GetYRPAngles(gCalcMatrix, &actor->vwork[6]);
+                break;
+
+            case 2:
+                Matrix_MultVec3f(gCalcMatrix, &vec, &actor->vwork[1]);
+                Matrix_GetYRPAngles(gCalcMatrix, &actor->vwork[7]);
+                break;
+
+            case 3:
+                Matrix_MultVec3f(gCalcMatrix, &vec, &actor->vwork[2]);
+                Matrix_GetYRPAngles(gCalcMatrix, &actor->vwork[8]);
+                break;
+
+            case 4:
+                Matrix_MultVec3f(gCalcMatrix, &vec, &actor->vwork[3]);
+                Matrix_GetYRPAngles(gCalcMatrix, &actor->vwork[9]);
+                break;
+
+            case 7:
+                Matrix_MultVec3f(gCalcMatrix, &vec, &actor->vwork[4]);
+                Matrix_GetYRPAngles(gCalcMatrix, &actor->vwork[10]);
+                break;
+
+            case 8:
+                Matrix_MultVec3f(gCalcMatrix, &vec, &actor->vwork[5]);
+                Matrix_GetYRPAngles(gCalcMatrix, &actor->vwork[11]);
+                break;
+        }
+    }
+}
+
+s32 func_i4_80188F08(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* ptr) {
+    Actor* actor = (Actor*) ptr;
+
+    gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+
+    if ((actor->state != 0) && (arg0 != 8)) {
+        *arg1 = NULL;
+    }
+
+    switch (arg0) {
+        case 1:
+        case 2:
+            gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+            break;
+
+        case 5:
+            arg3->x += actor->fwork[0];
+            break;
+
+        case 6:
+            arg3->x += actor->fwork[0];
+            break;
+
+        case 7:
+            arg3->x += actor->fwork[0] * 0.7f;
+            break;
+    }
+
+    return 0;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_fo/func_i4_80188FE4.s")
 
