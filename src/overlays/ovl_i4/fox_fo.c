@@ -173,7 +173,19 @@ void func_i4_80188FE4(Actor* actor) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_fo/func_i4_8018906C.s")
+void func_i4_8018906C(void) {
+    Actor* actor = &gActors[50];
+
+    Actor_Initialize(actor);
+    actor->obj.status = 1;
+    actor->obj.id = OBJ_ACTOR_195;
+    actor->obj.pos.x = 0.0f;
+    actor->obj.pos.y = 0.0f;
+    actor->obj.pos.z = -9000.0f;
+    actor->unk_0B6 = 11;
+    actor->scale = 0.0f;
+    Object_SetInfo(&actor->info, actor->obj.id);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_fo/func_i4_801890EC.s")
 
