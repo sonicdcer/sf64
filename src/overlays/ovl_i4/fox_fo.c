@@ -38,14 +38,23 @@ void func_i4_801888C0(Actor* actor, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, 
     actor->vel.x = xVel;
     actor->vel.y = yVel;
     actor->vel.z = zVel;
-    
+
     actor->scale = 2.5f;
     actor->timer_0BC = (s32) (Rand_ZeroOne() * 15.0f) + 25.0f;
     actor->gravity = 0.5f;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_fo/func_i4_80188A48.s")
+void func_i4_80188A48(Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state) {
+    s32 i;
+
+    for (i = ARRAY_COUNT(gActors) - 1; i >= 30; i--) {
+        if (gActors[i].obj.status == 0) {
+            func_i4_801888C0(&gActors[i], pos, rot, xVel, yVel, zVel, state);
+            return;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_fo/func_i4_80188AD0.s")
 
