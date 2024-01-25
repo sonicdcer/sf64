@@ -36,7 +36,7 @@ void func_i1_80198968(Item* item) {
                 Audio_PlaySfx(0x49008025, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 D_80177E80++;
                 if ((item->obj.rot.x != 0.0f) && (D_80177E80 >= 100)) {
-                    func_800BA808(gMsg_ID_20330, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20330, RCID_ROB64);
                 }
             }
             break;

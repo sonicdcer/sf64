@@ -88,7 +88,7 @@ void func_i5_8018769C(Player* player) {
             D_80177988 = actor->obj.pos.z - 750.0f;
 
             if (gCsFrameCount == 330) {
-                func_800BA808(gMsg_ID_4113, RCID_FOX);
+                Radio_PlayMessage(gMsg_ID_4113, RCID_FOX);
             }
 
             if (gCsFrameCount == 430) {
@@ -436,25 +436,25 @@ void func_i5_801882CC(Player* player) {
             break;
 
         case 160:
-            func_800BA808(gMsg_ID_20010, RCID_FOX);
+            Radio_PlayMessage(gMsg_ID_20010, RCID_FOX);
             break;
 
         case 248:
-            func_800BA808(gMsg_ID_4100, RCID_SLIPPY);
+            Radio_PlayMessage(gMsg_ID_4100, RCID_SLIPPY);
             break;
 
         case 380:
             switch (gTeamShields[1]) {
                 case -1:
-                    func_800BA808(gMsg_ID_20331, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20331, RCID_ROB64);
                     break;
 
                 case 0:
-                    func_800BA808(gMsg_ID_20343, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20343, RCID_ROB64);
                     break;
 
                 default:
-                    func_800BA808(gMsg_ID_4101, RCID_FALCO);
+                    Radio_PlayMessage(gMsg_ID_4101, RCID_FALCO);
                     break;
             }
 
@@ -463,21 +463,21 @@ void func_i5_801882CC(Player* player) {
         case 525:
             switch (gTeamShields[3]) {
                 case -1:
-                    func_800BA808(gMsg_ID_20332, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20332, RCID_ROB64);
                     break;
 
                 case 0:
-                    func_800BA808(gMsg_ID_20344, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20344, RCID_ROB64);
                     break;
 
                 default:
-                    func_800BA808(gMsg_ID_4102, RCID_PEPPY);
+                    Radio_PlayMessage(gMsg_ID_4102, RCID_PEPPY);
                     break;
             }
             break;
 
         case 671:
-            func_800BA808(gMsg_ID_4103, RCID_FOX);
+            Radio_PlayMessage(gMsg_ID_4103, RCID_FOX);
             break;
 
         case 1200:

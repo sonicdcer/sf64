@@ -136,18 +136,18 @@ void func_80048AC0(s32 teamId) {
 
     if (teamId == 1) {
         if (gTeamShields[1] < 0x40) {
-            func_800BA808(gMsg_ID_20303, RCID_FALCO);
+            Radio_PlayMessage(gMsg_ID_20303, RCID_FALCO);
             return;
         }
         if ((s32) (Play_GetMaxShields() * 0.8f) < gPlayer[0].shields) {
-            func_800BA808(gMsg_ID_20017, RCID_FALCO);
+            Radio_PlayMessage(gMsg_ID_20017, RCID_FALCO);
             return;
         }
         if ((s32) (Play_GetMaxShields() * 0.3f) < gPlayer[0].shields) {
-            func_800BA808(gMsg_ID_20019, RCID_FALCO);
+            Radio_PlayMessage(gMsg_ID_20019, RCID_FALCO);
             return;
         }
-        func_800BA808(gMsg_ID_20018, RCID_FALCO);
+        Radio_PlayMessage(gMsg_ID_20018, RCID_FALCO);
         return;
     }
 
@@ -156,28 +156,28 @@ void func_80048AC0(s32 teamId) {
     if (teamShield > 160) {
         switch (teamId) {
             case 2:
-                func_800BA808(gMsg_ID_20011, RCID_SLIPPY);
+                Radio_PlayMessage(gMsg_ID_20011, RCID_SLIPPY);
                 break;
             case 3:
-                func_800BA808(gMsg_ID_20012, RCID_PEPPY);
+                Radio_PlayMessage(gMsg_ID_20012, RCID_PEPPY);
                 break;
         }
     } else if (teamShield > 64) {
         switch (teamId) {
             case 2:
-                func_800BA808(gMsg_ID_20013, RCID_SLIPPY);
+                Radio_PlayMessage(gMsg_ID_20013, RCID_SLIPPY);
                 break;
             case 3:
-                func_800BA808(gMsg_ID_20014, RCID_PEPPY);
+                Radio_PlayMessage(gMsg_ID_20014, RCID_PEPPY);
                 break;
         }
     } else {
         switch (teamId) {
             case 2:
-                func_800BA808(gMsg_ID_20015, RCID_SLIPPY);
+                Radio_PlayMessage(gMsg_ID_20015, RCID_SLIPPY);
                 break;
             case 3:
-                func_800BA808(gMsg_ID_20016, RCID_PEPPY);
+                Radio_PlayMessage(gMsg_ID_20016, RCID_PEPPY);
                 break;
         }
     }
@@ -833,10 +833,10 @@ void func_8004AAF4(Player* player) {
     if (gCsFrameCount == 37) {
         D_80177E84 = 1;
         if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
-            func_800BA808(gMsg_ID_19466, RCID_FOX);
+            Radio_PlayMessage(gMsg_ID_19466, RCID_FOX);
             func_8001D444(0, 0x803DU, 0, 0xFFU);
         } else if (gCurrentLevel != LEVEL_TRAINING) {
-            func_800BA808(gMsg_ID_20180, RCID_FOX);
+            Radio_PlayMessage(gMsg_ID_20180, RCID_FOX);
             if (gCurrentLevel == LEVEL_SECTOR_Y) {
                 func_8001D444(0, D_800C9E90[gCurrentLevel], 0, 2);
             } else {
@@ -1235,30 +1235,30 @@ void func_8004B368(Player* player) {
                     break;
 
                 case 410:
-                    func_800BA808(gMsg_ID_2335, RCID_FOX);
+                    Radio_PlayMessage(gMsg_ID_2335, RCID_FOX);
                     break;
 
                 case 550:
                     if ((gTeamShields[2] == (-1)) || (gTeamShields[2] == 0)) {
-                        func_800BA808(gMsg_ID_20333, RCID_ROB64);
+                        Radio_PlayMessage(gMsg_ID_20333, RCID_ROB64);
                     } else {
-                        func_800BA808(gMsg_ID_2300, RCID_SLIPPY);
+                        Radio_PlayMessage(gMsg_ID_2300, RCID_SLIPPY);
                     }
                     break;
 
                 case 682:
                     if ((gTeamShields[3] == -1) || (gTeamShields[3] == 0)) {
-                        func_800BA808(gMsg_ID_20332, RCID_ROB64);
+                        Radio_PlayMessage(gMsg_ID_20332, RCID_ROB64);
                     } else {
-                        func_800BA808(gMsg_ID_2310, RCID_PEPPY);
+                        Radio_PlayMessage(gMsg_ID_2310, RCID_PEPPY);
                     }
                     break;
 
                 case 816:
                     if ((gTeamShields[1] == (-1)) || (gTeamShields[1] == 0)) {
-                        func_800BA808(gMsg_ID_20331, RCID_ROB64);
+                        Radio_PlayMessage(gMsg_ID_20331, RCID_ROB64);
                     } else {
-                        func_800BA808(gMsg_ID_2320, RCID_FALCO);
+                        Radio_PlayMessage(gMsg_ID_2320, RCID_FALCO);
                     }
                     break;
             }
@@ -1644,7 +1644,7 @@ void func_8004D440(Player* player) {
 
     if (!gVersusMode) {
         if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
-            func_800BA808(gMsg_ID_20318, RCID_FOX);
+            Radio_PlayMessage(gMsg_ID_20318, RCID_FOX);
         } else {
             if ((gCurrentLevel != LEVEL_TRAINING) &&
                 ((gTeamShields[1] > 0) || (gTeamShields[2] > 0) || (gTeamShields[3] > 0))) {
@@ -1654,15 +1654,15 @@ void func_8004D440(Player* player) {
 
                 switch (teamId) {
                     case 1:
-                        func_800BA808(gMsg_ID_20090, RCID_FALCO);
+                        Radio_PlayMessage(gMsg_ID_20090, RCID_FALCO);
                         break;
 
                     case 2:
-                        func_800BA808(gMsg_ID_20092, RCID_SLIPPY);
+                        Radio_PlayMessage(gMsg_ID_20092, RCID_SLIPPY);
                         break;
 
                     case 3:
-                        func_800BA808(gMsg_ID_20091, RCID_PEPPY);
+                        Radio_PlayMessage(gMsg_ID_20091, RCID_PEPPY);
                         break;
                 }
             }

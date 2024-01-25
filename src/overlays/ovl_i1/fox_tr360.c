@@ -223,7 +223,7 @@ void func_i1_8019949C(void) {
             D_80177C8C = 1;
         }
         if (D_i1_8019AE50[D_80177C8C].unk != 0) {
-            func_800BA808(D_i1_8019AE50[D_80177C8C].msg, RCID_TRAINING);
+            Radio_PlayMessage(D_i1_8019AE50[D_80177C8C].msg, RCID_TRAINING);
             D_80177C78 = D_i1_8019AE50[D_80177C8C].unk;
         } else {
             D_80161690 = 80;
@@ -237,6 +237,6 @@ void func_i1_8019949C(void) {
         D_800CFF90 = 0;
         D_80161690 = 0;
         // This is ROB 64. Keep up the good work.
-        func_800BA808(gMsg_ID_20329, RCID_ROB64);
+        Radio_PlayMessage(gMsg_ID_20329, RCID_ROB64);
     }
 }

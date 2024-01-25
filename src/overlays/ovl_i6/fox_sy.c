@@ -494,7 +494,7 @@ void func_i6_80199438(Boss* boss) {
                 boss->fwork[0] = 0.0f;
             }
             if (gCsFrameCount == 61) {
-                func_800BA808(gMsg_ID_14360, RCID_BOSS_SECTORY);
+                Radio_PlayMessage(gMsg_ID_14360, RCID_BOSS_SECTORY);
             }
             if (gCsFrameCount >= 80) {
                 boss->fwork[0] = 1.0f;
@@ -509,7 +509,7 @@ void func_i6_80199438(Boss* boss) {
             D_80177978 = boss->obj.pos.x + sp68.x;
             D_80177988 = boss->obj.pos.z + sp68.z;
             if ((boss->timer_058 == 40) && gBosses[1].obj.status == OBJ_FREE && gBosses[2].obj.status == OBJ_FREE) {
-                func_800BA808(gMsg_ID_14360, RCID_BOSS_SECTORY);
+                Radio_PlayMessage(gMsg_ID_14360, RCID_BOSS_SECTORY);
             }
             if (boss->timer_058 > 85) {
                 boss->fwork[0] = 0.0f;
@@ -959,7 +959,7 @@ void func_i6_8019AEEC(Boss* boss) {
                 gPlayer[0].camAt.y = 300.0f;
                 gPlayer[0].camAt.z = boss->obj.pos.z;
                 gPlayer[0].unk_034 = 0.0f;
-                func_800BA808(gMsg_ID_14300, RCID_BOSS_SECTORY);
+                Radio_PlayMessage(gMsg_ID_14300, RCID_BOSS_SECTORY);
                 func_i6_801A0510(&gActors[59], 7);
                 gActors[59].obj.pos.y = boss->obj.pos.y - 202.0f;
                 gActors[59].obj.pos.x = boss->obj.pos.x;
@@ -1032,7 +1032,7 @@ void func_i6_8019AEEC(Boss* boss) {
             func_800B63BC(&gPlayer[0], 1);
             gPlayer[0].unk_014 = 0.0f;
             boss->swork[34]++;
-            func_800BA808(gMsg_ID_14310, RCID_BOSS_SECTORY);
+            Radio_PlayMessage(gMsg_ID_14310, RCID_BOSS_SECTORY);
             gBossFrameCount = 0;
         }
     }
@@ -1510,7 +1510,7 @@ void func_i6_8019C888(Boss* boss) {
             }
         }
         if ((gBossFrameCount == 250) && (gTeamShields[2] != 0) && (boss->swork[34] == 0)) {
-            func_800BA808(gMsg_ID_2225, RCID_SLIPPY);
+            Radio_PlayMessage(gMsg_ID_2225, RCID_SLIPPY);
         }
         if ((gBossFrameCount == 620) && (boss->swork[34] == 0)) {
             gShowBossHealth = 1;
@@ -1526,7 +1526,7 @@ void func_i6_8019C888(Boss* boss) {
             boss->swork[30]++;
             if (boss->swork[30] > 300 && ((ABS(D_801615D0.z) + ABS(D_801615D0.x)) < 3500.0f) && (gRadioState == 0)) {
                 if (gTeamShields[3] > 0) {
-                    func_800BA808(gMsg_ID_2282, RCID_PEPPY);
+                    Radio_PlayMessage(gMsg_ID_2282, RCID_PEPPY);
                 }
                 boss->swork[30] = 150;
             }
@@ -1534,7 +1534,7 @@ void func_i6_8019C888(Boss* boss) {
             if (boss->swork[30] > 100) {
 
                 if ((((ABS(D_801615D0.z) + ABS(D_801615D0.x)) < 500.0f) && gTeamShields[1] > 0)) {
-                    func_800BA808(gMsg_ID_2233, RCID_FALCO);
+                    Radio_PlayMessage(gMsg_ID_2233, RCID_FALCO);
                 }
             }
             if (D_801615D0.x > 0.0f) {
@@ -2054,23 +2054,23 @@ void func_i6_8019EE60(Player* player) {
             break;
         case 580:
             if (gHitCount >= 100) {
-                func_800BA808(gMsg_ID_14370, RCID_FOX);
+                Radio_PlayMessage(gMsg_ID_14370, RCID_FOX);
             } else {
-                func_800BA808(gMsg_ID_20010, RCID_FOX);
+                Radio_PlayMessage(gMsg_ID_20010, RCID_FOX);
             }
             break;
         case 725:
             if (gTeamShields[2] != -1) {
                 if (gTeamShields[2] == 0) {
-                    func_800BA808(gMsg_ID_20345, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20345, RCID_ROB64);
                     break;
                 }
             } else {
-                func_800BA808(gMsg_ID_20333, RCID_ROB64);
+                Radio_PlayMessage(gMsg_ID_20333, RCID_ROB64);
                 break;
             }
             if (gHitCount >= 100) {
-                func_800BA808(gMsg_ID_2305, RCID_SLIPPY);
+                Radio_PlayMessage(gMsg_ID_2305, RCID_SLIPPY);
             } else {
                 func_80048AC0(2);
             }
@@ -2079,15 +2079,15 @@ void func_i6_8019EE60(Player* player) {
         case 872:
             if (gTeamShields[3] != -1) {
                 if (gTeamShields[3] == 0) {
-                    func_800BA808(gMsg_ID_20344, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20344, RCID_ROB64);
                     break;
                 }
             } else {
-                func_800BA808(gMsg_ID_20332, RCID_ROB64);
+                Radio_PlayMessage(gMsg_ID_20332, RCID_ROB64);
                 break;
             }
             if (gHitCount >= 100) {
-                func_800BA808(gMsg_ID_20261, RCID_PEPPY);
+                Radio_PlayMessage(gMsg_ID_20261, RCID_PEPPY);
             } else {
                 func_80048AC0(3);
             }
@@ -2095,15 +2095,15 @@ void func_i6_8019EE60(Player* player) {
         case 1018:
             if (gTeamShields[1] != -1) {
                 if (gTeamShields[1] == 0) {
-                    func_800BA808(gMsg_ID_20340, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20340, RCID_ROB64);
                     break;
                 }
             } else {
-                func_800BA808(gMsg_ID_20331, RCID_ROB64);
+                Radio_PlayMessage(gMsg_ID_20331, RCID_ROB64);
                 break;
             }
             if (gHitCount >= 100) {
-                func_800BA808(gMsg_ID_20262, RCID_FALCO);
+                Radio_PlayMessage(gMsg_ID_20262, RCID_FALCO);
             } else {
                 func_80048AC0(1);
             }

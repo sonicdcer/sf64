@@ -4128,15 +4128,15 @@ bool func_80091368(Actor* actor) {
 
             switch (actor->unk_0E4) {
                 case 1:
-                    func_800BA808(gMsg_ID_20220, RCID_FALCO);
+                    Radio_PlayMessage(gMsg_ID_20220, RCID_FALCO);
                     break;
 
                 case 3:
-                    func_800BA808(gMsg_ID_20221, RCID_PEPPY);
+                    Radio_PlayMessage(gMsg_ID_20221, RCID_PEPPY);
                     break;
 
                 case 2:
-                    func_800BA808(gMsg_ID_20222, RCID_SLIPPY);
+                    Radio_PlayMessage(gMsg_ID_20222, RCID_SLIPPY);
                     break;
             }
             gTeamShields[actor->unk_0E4] = -1;
@@ -4431,13 +4431,13 @@ bool func_80091F00(Actor* actor) {
     if ((actor->unk_0D0 == 3) && (actor->unk_0D4 == 1)) {
         switch (actor->unk_0E4) {
             case 1:
-                func_800BA808(gMsg_ID_20210, RCID_FALCO);
+                Radio_PlayMessage(gMsg_ID_20210, RCID_FALCO);
                 break;
             case 3:
-                func_800BA808(gMsg_ID_20200, RCID_PEPPY);
+                Radio_PlayMessage(gMsg_ID_20200, RCID_PEPPY);
                 break;
             case 2:
-                func_800BA808(gMsg_ID_20190, RCID_SLIPPY);
+                Radio_PlayMessage(gMsg_ID_20190, RCID_SLIPPY);
                 break;
         }
     }
@@ -4445,13 +4445,13 @@ bool func_80091F00(Actor* actor) {
     if ((actor->unk_0D0 != 3) && (actor->unk_0D4 == 1)) {
         switch (actor->unk_0E4) {
             case 1:
-                func_800BA808(gMsg_ID_20060, RCID_FALCO);
+                Radio_PlayMessage(gMsg_ID_20060, RCID_FALCO);
                 break;
             case 3:
-                func_800BA808(gMsg_ID_20070, RCID_PEPPY);
+                Radio_PlayMessage(gMsg_ID_20070, RCID_PEPPY);
                 break;
             case 2:
-                func_800BA808(gMsg_ID_20080, RCID_SLIPPY);
+                Radio_PlayMessage(gMsg_ID_20080, RCID_SLIPPY);
                 break;
         }
     }
@@ -4459,13 +4459,13 @@ bool func_80091F00(Actor* actor) {
     if ((actor->unk_0D4 == 2) || (actor->unk_0D4 == 100)) {
         switch (actor->unk_0E4) {
             case 1:
-                func_800BA808(gMsg_ID_20030, RCID_FALCO);
+                Radio_PlayMessage(gMsg_ID_20030, RCID_FALCO);
                 break;
             case 3:
-                func_800BA808(gMsg_ID_20040, RCID_PEPPY);
+                Radio_PlayMessage(gMsg_ID_20040, RCID_PEPPY);
                 break;
             case 2:
-                func_800BA808(gMsg_ID_20050, RCID_SLIPPY);
+                Radio_PlayMessage(gMsg_ID_20050, RCID_SLIPPY);
                 break;
         }
     }
@@ -5937,7 +5937,7 @@ void func_80095604(Player* player) {
 
     switch (gCsFrameCount) {
         case 300:
-            func_800BA808(gMsg_ID_15200, RCID_FOX);
+            Radio_PlayMessage(gMsg_ID_15200, RCID_FOX);
             break;
 
         case 400:
@@ -5949,34 +5949,34 @@ void func_80095604(Player* player) {
             break;
 
         case 520:
-            func_800BA808(gMsg_ID_15253, RCID_FOX);
+            Radio_PlayMessage(gMsg_ID_15253, RCID_FOX);
             break;
 
         case 600:
             shield = gTeamShields[3];
             gTeamShields[3] = 1;
-            func_800BA808(gMsg_ID_15210, RCID_PEPPY);
+            Radio_PlayMessage(gMsg_ID_15210, RCID_PEPPY);
             gTeamShields[3] = shield;
             break;
 
         case 680:
             shield = gTeamShields[2];
             gTeamShields[2] = 1;
-            func_800BA808(gMsg_ID_15220, RCID_SLIPPY);
+            Radio_PlayMessage(gMsg_ID_15220, RCID_SLIPPY);
             gTeamShields[2] = shield;
             break;
 
         case 760:
             shield = gTeamShields[1];
             gTeamShields[1] = 1;
-            func_800BA808(gMsg_ID_15230, RCID_FALCO);
+            Radio_PlayMessage(gMsg_ID_15230, RCID_FALCO);
             gTeamShields[1] = shield;
             break;
 
         case 840:
             shield = gTeamShields[2];
             gTeamShields[2] = 1;
-            func_800BA808(gMsg_ID_15240, RCID_SLIPPY);
+            Radio_PlayMessage(gMsg_ID_15240, RCID_SLIPPY);
             gTeamShields[2] = shield;
             break;
 

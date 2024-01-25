@@ -622,16 +622,16 @@ void func_i6_801893B8(Actor* actor) {
         actor->unk_04E++;
         switch (actor->unk_04E) {
             case 200:
-                func_800BA808(gMsg_ID_8250, RCID_ANDROSS_RED);
+                Radio_PlayMessage(gMsg_ID_8250, RCID_ANDROSS_RED);
                 return;
             case 400:
-                func_800BA808(gMsg_ID_8255, RCID_ANDROSS_RED);
+                Radio_PlayMessage(gMsg_ID_8255, RCID_ANDROSS_RED);
                 return;
             case 600:
-                func_800BA808(gMsg_ID_8260, RCID_ANDROSS_RED);
+                Radio_PlayMessage(gMsg_ID_8260, RCID_ANDROSS_RED);
                 return;
             case 800:
-                func_800BA808(gMsg_ID_19325, RCID_ANDROSS_RED);
+                Radio_PlayMessage(gMsg_ID_19325, RCID_ANDROSS_RED);
                 break;
         }
     }
@@ -647,7 +647,7 @@ void func_i6_80189470(Actor* actor) {
         (fabsf(actor->obj.pos.x - gPlayer[0].pos.x) < 9000.0f) &&
         (fabsf(actor->obj.pos.z - gPlayer[0].unk_138) < 9000.0f)) {
         D_80177AB0 = 7;
-        func_800BA808(gMsg_ID_19370, RCID_JAMES);
+        Radio_PlayMessage(gMsg_ID_19370, RCID_JAMES);
         func_800182F4(0x101400FF);
         func_800182F4(0x111400FF);
     }
@@ -968,7 +968,7 @@ void func_i6_80189B70(Boss* boss) {
             Math_SmoothStepToF(&gPlayer[0].unk_034, 0.0f, 0.5f, 0.5f, 0.0f);
 
             if (gCsFrameCount == 50) {
-                func_800BA808(gMsg_ID_19335, RCID_ANDROSS_RED);
+                Radio_PlayMessage(gMsg_ID_19335, RCID_ANDROSS_RED);
             }
             if (gCsFrameCount == 200) {
                 gBossActive = 0;
@@ -1003,14 +1003,14 @@ void func_i6_80189B70(Boss* boss) {
             switch (gCsFrameCount) {
                 case 30:
                     gRadioState = 0;
-                    func_800BA808(gMsg_ID_20318, RCID_FOX);
+                    Radio_PlayMessage(gMsg_ID_20318, RCID_FOX);
                     gPlayer[0].timer_220 = 200;
                     break;
                 case 350:
-                    func_800BA808(gMsg_ID_19468, RCID_JAMES);
+                    Radio_PlayMessage(gMsg_ID_19468, RCID_JAMES);
                     break;
                 case 500:
-                    func_800BA808(gMsg_ID_19350, RCID_FOX);
+                    Radio_PlayMessage(gMsg_ID_19350, RCID_FOX);
                     D_8015F924 = 1;
                     break;
                 case 600:
@@ -1049,16 +1049,16 @@ void func_i6_80189B70(Boss* boss) {
                     D_80177CA4 = gHitCount;
                     break;
                 case 800:
-                    func_800BA808(gMsg_ID_19340, RCID_JAMES);
+                    Radio_PlayMessage(gMsg_ID_19340, RCID_JAMES);
                     break;
                 case 1000:
                     func_8001D400(0);
                     break;
                 case 1300:
-                    func_800BA808(gMsg_ID_19355, RCID_JAMES);
+                    Radio_PlayMessage(gMsg_ID_19355, RCID_JAMES);
                     break;
                 case 1800:
-                    func_800BA808(gMsg_ID_19360, RCID_JAMES);
+                    Radio_PlayMessage(gMsg_ID_19360, RCID_JAMES);
                     break;
             }
             if (gCsFrameCount > 600) {
@@ -2795,7 +2795,7 @@ void func_i6_8018DBF0(Boss* boss) {
                     Object_Kill(&boss->obj, boss->sfxPos);
                     D_80177AB0 = 3;
                     func_i6_80189098(boss);
-                    func_800BA808(gMsg_ID_19330, RCID_ANDROSS_RED);
+                    Radio_PlayMessage(gMsg_ID_19330, RCID_ANDROSS_RED);
                     break;
             }
             Math_SmoothStepToF(&D_800C9C30, 0.0f, 1.0f, 0.3f, 0.0f);
@@ -3932,20 +3932,20 @@ void func_i6_80193C4C(Player* player) {
             if (D_800D2F68 != 0) {
                 switch (gCsFrameCount) {
                     case 400:
-                        func_800BA808(gMsg_ID_19400, RCID_PEPPY);
+                        Radio_PlayMessage(gMsg_ID_19400, RCID_PEPPY);
                         break;
                     case 500:
-                        func_800BA808(gMsg_ID_19410, RCID_SLIPPY);
+                        Radio_PlayMessage(gMsg_ID_19410, RCID_SLIPPY);
                         break;
                     case 600:
-                        func_800BA808(gMsg_ID_19420, RCID_FALCO);
+                        Radio_PlayMessage(gMsg_ID_19420, RCID_FALCO);
                         break;
                     case 800:
-                        func_800BA808(gMsg_ID_19430, RCID_PEPPY);
+                        Radio_PlayMessage(gMsg_ID_19430, RCID_PEPPY);
                         break;
                     case 900:
                         if (gTeamShields[3] > 0) {
-                            func_800BA808(gMsg_ID_19440, RCID_FOX);
+                            Radio_PlayMessage(gMsg_ID_19440, RCID_FOX);
                         }
                         break;
                     case 1050:
@@ -3964,13 +3964,13 @@ void func_i6_80193C4C(Player* player) {
             } else {
                 switch (gCsFrameCount) {
                     case 400:
-                        func_800BA808(gMsg_ID_8300, RCID_PEPPY);
+                        Radio_PlayMessage(gMsg_ID_8300, RCID_PEPPY);
                         break;
                     case 500:
-                        func_800BA808(gMsg_ID_8310, RCID_SLIPPY);
+                        Radio_PlayMessage(gMsg_ID_8310, RCID_SLIPPY);
                         break;
                     case 600:
-                        func_800BA808(gMsg_ID_8320, RCID_FALCO);
+                        Radio_PlayMessage(gMsg_ID_8320, RCID_FALCO);
                         gCsFrameCount += 230;
                         break;
                     case 1050:
