@@ -1,6 +1,9 @@
 #include "global.h"
 
 extern Vec3f D_i4_8019EE40;
+extern f32 D_i4_8019EE4C[4];
+extern f32 D_i4_8019EE5C[4];
+extern f32 D_i4_8019EE6C[4];
 
 extern AnimationHeader D_6007854;
 extern Limb* D_6007980;
@@ -187,7 +190,30 @@ void func_i4_8018906C(void) {
     Object_SetInfo(&actor->info, actor->obj.id);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_fo/func_i4_801890EC.s")
+void func_i4_801890EC(Actor* actor, s32 arg1) {
+    Actor_Initialize(actor);
+    actor->obj.status = 1;
+    actor->obj.id = OBJ_ACTOR_195;
+    actor->obj.pos.x = D_i4_8019EE4C[arg1] + gPlayer[0].pos.x;
+    actor->obj.pos.y = D_i4_8019EE5C[arg1] + gPlayer[0].pos.y;
+    actor->obj.pos.z = D_i4_8019EE6C[arg1] + gPlayer[0].unk_138;
+    actor->vel.z = gPlayer[0].unk_0D0;
+
+    Object_SetInfo(&actor->info, actor->obj.id);
+
+    if (arg1 < 3) {
+        actor->iwork[11] = 1;
+        Audio_PlaySfx(0x3100000CU, actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        return;
+    }
+
+    actor->obj.pos.z = -9500.0f;
+    actor->unk_0B6 = 1;
+    actor->vel.z = 22.0f;
+
+    Audio_PlaySfx(0x11030010U, actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    Audio_PlaySfx(0x31024059U, actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_fo/func_i4_8018927C.s")
 
