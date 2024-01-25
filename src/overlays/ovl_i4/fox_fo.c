@@ -23,9 +23,27 @@ void func_i4_80187884(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     Audio_PlaySfx(0x31004005U, actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
+void func_i4_80187960(Actor* actor);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_fo/func_i4_80187960.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_fo/func_i4_801888C0.s")
+void func_i4_801888C0(Actor* actor, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state) {
+    Actor_Initialize(actor);
+    actor->obj.status = 2;
+    actor->obj.id = OBJ_ACTOR_189;
+    actor->state = state;
+
+    actor->obj.pos = *pos;
+    actor->obj.rot = *rot;
+
+    actor->vel.x = xVel;
+    actor->vel.y = yVel;
+    actor->vel.z = zVel;
+    
+    actor->scale = 2.5f;
+    actor->timer_0BC = (s32) (Rand_ZeroOne() * 15.0f) + 25.0f;
+    actor->gravity = 0.5f;
+    Object_SetInfo(&actor->info, actor->obj.id);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_fo/func_i4_80188A48.s")
 
