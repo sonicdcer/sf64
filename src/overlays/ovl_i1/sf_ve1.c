@@ -162,13 +162,13 @@ void func_i1_80192518(Actor* actor) {
         func_8007A6F0(&actor->obj.pos, 0x29121007);
     }
 
-    if ((actor->unk_0B8 == 1) || (actor->unk_0B8 == 2) || (actor->unk_0B8 == 3)) {
+    if ((actor->state == 1) || (actor->state == 2) || (actor->state == 3)) {
         Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
         Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
         Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 1);
     }
 
-    switch (actor->unk_0B8) {
+    switch (actor->state) {
         case 0:
         case 4:
             break;
@@ -214,7 +214,7 @@ void func_i1_80192518(Actor* actor) {
 
             actor->timer_0BC = actor->iwork[2];
             Audio_PlaySfx(0x1903205BU, actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-            actor->unk_0B8 = 2;
+            actor->state = 2;
 
         case 2:
             if (actor->timer_0BC == 0) {
@@ -261,7 +261,7 @@ void func_i1_80192518(Actor* actor) {
 
                 if (fabs(temp_fv1_2) <= 5.0) {
                     actor->timer_0BE = 30;
-                    actor->unk_0B8++;
+                    actor->state++;
                     actor->fwork[2] = actor->obj.pos.x;
                     actor->fwork[3] = actor->obj.pos.y;
                     actor->fwork[4] = actor->obj.pos.z;
@@ -281,7 +281,7 @@ void func_i1_80192518(Actor* actor) {
             actor->obj.pos.z = actor->fwork[4] + dest.z;
 
             if (actor->timer_0BE == 0) {
-                actor->unk_0B8++;
+                actor->state++;
             }
             break;
     }
@@ -347,7 +347,7 @@ void func_i1_801933B4(Actor* arg0) {
 
 void func_i1_801934D0(Actor* actor) {
     Matrix_Translate(gGfxMatrix, 0.0f, -488.0f, 0.0f, 1U);
-    Animation_DrawSkeleton(0, &D_900D164, arg0->vwork, NULL, NULL, arg0, &gIdentityMatrix);
+    Animation_DrawSkeleton(0, &D_900D164, actor->vwork, NULL, NULL, actor, &gIdentityMatrix);
 }
 
 void func_i1_80193540(Object_80* arg0) {
@@ -372,17 +372,17 @@ void func_i1_80193540(Object_80* arg0) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_80198414.s")
 
 void func_i1_80198594(Boss* boss) {
-    arg0->obj.pos.z = gPlayer->pos.z;
-    if ((arg0->timer_052 <= 0) && (gPlayer->state_1C8 == PLAYERSTATE_1C8_3)) {
+    boss->obj.pos.z = gPlayer->pos.z;
+    if ((boss->timer_052 <= 0) && (gPlayer->state_1C8 == PLAYERSTATE_1C8_3)) {
         func_i1_80198414();
     }
 }
 
 void func_i1_801985E4(Boss* boss) {
-    if (arg0->swork[0x1A] == 0) {
-        Animation_DrawSkeleton(0, &D_901C0F4, arg0->vwork, func_i1_801937F4, func_i1_80193D64, arg0, &gIdentityMatrix);
+    if (boss->swork[26] == 0) {
+        Animation_DrawSkeleton(0, &D_901C0F4, boss->vwork, func_i1_801937F4, func_i1_80193D64, boss, &gIdentityMatrix);
     }
-    arg0->actionState = arg0->swork[9];
+    boss->state = boss->swork[9];
 }
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_8019864C.s")
