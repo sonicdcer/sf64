@@ -9,7 +9,68 @@ extern AnimationHeader D_6007854;
 extern Limb* D_6007980;
 extern u8 D_600FF64[];
 
+#ifdef IMPORT_DATA
+void func_i4_801875F0(Actor* actor) {
+    s32 i;
+    s32 counter;
+    Actor* actorPtr = &gActors[10];
+    f32 D_i4_8019EDE0[] = { 180.0f, 60.0f, 300.0f };
+
+    for (counter = 0, i = 0; i < 10; i++, actorPtr++) {
+        if (actorPtr->obj.status != 0) {
+            counter++;
+        }
+    }
+
+    if ((counter < 10) && (actor->timer_0C0 == 0)) {
+        if (D_8015F928 < (D_800C9B4C - 500)) {
+            actor->timer_0C0 = 40;
+
+            actor->unk_04E++;
+            if (actor->unk_04E >= 3) {
+                actor->unk_04E = 0;
+            }
+
+            for (i = 0, actorPtr = &gActors[10]; i < 10; i++, actorPtr++) {
+                if (actorPtr->obj.status == 0) {
+                    Actor_Initialize(actorPtr);
+                    actorPtr->obj.status = 2;
+                    actorPtr->obj.id = 197;
+                    actorPtr->obj.pos.x = gBosses->obj.pos.x;
+                    actorPtr->obj.pos.y = gBosses->obj.pos.y + 20.0f;
+                    actorPtr->obj.pos.z = gBosses->obj.pos.z;
+                    actorPtr->state = 1;
+                    actorPtr->timer_0BC = 100;
+                    actorPtr->unk_0E4 = i + 10;
+                    actorPtr->unk_0E6 = -1;
+
+                    if ((i == 3) && (Rand_ZeroOne() < 0.3f)) {
+                        actorPtr->unk_0E6 = 2;
+                    }
+                    if ((i == 4) && (Rand_ZeroOne() < 0.3f)) {
+                        actorPtr->unk_0E6 = 3;
+                    }
+                    if ((i == 5) && (Rand_ZeroOne() < 0.3f)) {
+                        actorPtr->unk_0E6 = 1;
+                    }
+
+                    actorPtr->unk_0F4.x = 3.0f;
+                    actorPtr->unk_0F4.y = D_i4_8019EDE0[actor->unk_04E];
+                    actorPtr->health = 24;
+                    actorPtr->unk_0C9 = actorPtr->iwork[11] = 1;
+                    actorPtr->unk_044 = 2;
+                    Object_SetInfo(&actorPtr->info, actorPtr->obj.id);
+                    Audio_PlaySfx(0x31000011U, actorPtr->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    break;
+                }
+            }
+        }
+    }
+    func_8002F69C(actor);
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_fo/func_i4_801875F0.s")
+#endif
 
 void func_i4_80187884(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     s32 health = actor->health;
