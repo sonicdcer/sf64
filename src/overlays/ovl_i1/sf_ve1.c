@@ -10,6 +10,10 @@ extern Vec3f D_i1_80199FFC;
 extern Limb* D_900D164;
 extern Limb* D_901C0F4;
 
+const char D_i1_8019B2B0[] = "--アタックオフ!!\n";
+const char D_i1_8019B2C4[] = "--レベルアップ!!\n";
+const char D_i1_8019B2D8[] = "wk_f00=<%10.3f>\n";
+
 f32 func_i1_801920F0(f32* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32* arg5) {
     f32 temp;
 
@@ -351,11 +355,10 @@ void func_i1_801934D0(Actor* actor) {
 }
 
 void func_i1_80193540(Object_80* arg0) {
-    f32 temp_fv1;
 
-    temp_fv1 = arg0->obj.pos.z;
-    if (((gPlayer->unk_138 - temp_fv1) <= 3500.0f) && !(gGameFrameCount & 3)) {
-        func_8007C120(arg0->obj.pos.x, arg0->obj.pos.y, temp_fv1, 0.0f, 0.0f, 0.0f, 0.2f, 0xA);
+    arg0->obj.pos.z;
+    if (((gPlayer->unk_138 - arg0->obj.pos.z) <= 3500.0f) && !(gGameFrameCount & 3)) {
+        func_8007C120(arg0->obj.pos.x, arg0->obj.pos.y, arg0->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.2f, 0xA);
     }
 }
 
@@ -388,5 +391,3 @@ void func_i1_801985E4(Boss* boss) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_8019864C.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_801988B8.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/D_i1_8019B2B0.s")
