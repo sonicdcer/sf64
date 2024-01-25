@@ -40,14 +40,14 @@ void func_i4_80199900(Actor* actor, s32 arg1) {
     if (arg1 != 0) {
         D_i4_801A0560++;
         if ((D_i4_801A0560 >= 6) &&
-            ((gPlayer->state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer->state_1C8 == PLAYERSTATE_1C8_5))) {
+            ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5))) {
             gCsFrameCount = 0;
-            gPlayer->state_1C8 = PLAYERSTATE_1C8_7;
-            gPlayer->unk_1D0 = 1000;
-            gActors->state = 6;
-            gPlayer->timer_1F8 = 30;
-            Audio_PlaySfx(0x11030010U, gActors->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-            Audio_PlaySfx(0x31024059U, gActors->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
+            gPlayer[0].unk_1D0 = 1000;
+            gActors[0].state = 6;
+            gPlayer[0].timer_1F8 = 30;
+            Audio_PlaySfx(0x11030010U, gActors[0].sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x31024059U, gActors[0].sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             func_800182F4(0x100100FF);
             func_800182F4(0x110100FF);
         }
@@ -149,21 +149,21 @@ void func_i4_80199C60(Actor* actor) {
         func_i4_80199900(actor, 0);
         D_80178480 = 0x19;
         gBosses[0].dmgType = DMG_UNK_100;
-        if ((gPlayer->state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer->state_1C8 == PLAYERSTATE_1C8_5)) {
-            gPlayer->state_1C8 = PLAYERSTATE_1C8_7;
-            gPlayer->unk_1D0 = 0;
-            gActors->state = -31072;
+        if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5)) {
+            gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
+            gPlayer[0].unk_1D0 = 0;
+            gActors[0].state = -31072;
             return;
         }
     }
 
     if (((fabsf(actor->fwork[6] - actor->obj.pos.z) < 2000.0f) &&
-         (((gPlayer->camEye.z < 0.0f) || (D_801615D0.y < 0.0f)) || (gPlayer->state_1C8 == PLAYERSTATE_1C8_10))) &&
-        (((gPlayer->state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer->state_1C8 == PLAYERSTATE_1C8_10)) ||
-         (gPlayer->state_1C8 == PLAYERSTATE_1C8_5))) {
-        gPlayer->state_1C8 = PLAYERSTATE_1C8_7;
-        gPlayer->unk_1D0 = 100;
-        gActors->state = -31072;
+         (((gPlayer[0].camEye.z < 0.0f) || (D_801615D0.y < 0.0f)) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_10))) &&
+        (((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_10)) ||
+         (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5))) {
+        gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
+        gPlayer[0].unk_1D0 = 100;
+        gActors[0].state = -31072;
     }
 }
 #else
@@ -247,18 +247,18 @@ void func_i4_8019A2F4(Actor* actor) {
         gCsFrameCount = 0;
         actor->timer_0BC = 400;
         actor->state = 3;
-        gPlayer->state_1C8 = PLAYERSTATE_1C8_0;
+        gPlayer[0].state_1C8 = PLAYERSTATE_1C8_0;
 
         func_8001D4AC(0x36U, 0x14U, 0xAU, 0xAU);
         func_8002EE34();
 
-        gPlayer->camEye.x = 250.0f;
-        gPlayer->camEye.y = 2500.0f;
-        gPlayer->camEye.z = 25000.0f;
+        gPlayer[0].camEye.x = 250.0f;
+        gPlayer[0].camEye.y = 2500.0f;
+        gPlayer[0].camEye.z = 25000.0f;
 
-        gPlayer->camAt.x = gActors[8].obj.pos.x;
-        gPlayer->camAt.y = gActors[8].obj.pos.y;
-        gPlayer->camAt.z = gActors[8].obj.pos.z;
+        gPlayer[0].camAt.x = gActors[8].obj.pos.x;
+        gPlayer[0].camAt.y = gActors[8].obj.pos.y;
+        gPlayer[0].camAt.z = gActors[8].obj.pos.z;
         D_i4_801A0564 = 1;
     }
 }
@@ -329,7 +329,7 @@ void func_i4_8019A3E8(Actor* actor) {
         Radio_PlayMessage(gMsg_ID_16030, RCID_FALCO);
     }
 
-    if (((actor->timer_0C0 == 0) && (gPlayer->state_1C8 != PLAYERSTATE_1C8_0)) &&
+    if (((actor->timer_0C0 == 0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_0)) &&
         ((D_8015F928 < 200) || ((D_8015F928 > 4000) && (D_8015F928 < 4200)))) {
         actor->timer_0C0 = 5;
         actorPtr = &gActors[13];
@@ -418,18 +418,18 @@ void func_i4_8019A3E8(Actor* actor) {
             func_i4_8019A0F8(&gActors[15], 2);
             func_i4_8019A0F8(&gActors[16], 3);
 
-            gPlayer->state_1C8 = PLAYERSTATE_1C8_0;
+            gPlayer[0].state_1C8 = PLAYERSTATE_1C8_0;
             actor->state = 10;
             actor->fwork[10] = 0.0f;
-            gPlayer->unk_034 = 15.0f;
+            gPlayer[0].unk_034 = 15.0f;
 
-            gPlayer->camEye.x = gActors[10].obj.pos.x - 25000.0f;
-            gPlayer->camEye.y = gActors[10].obj.pos.y;
-            gPlayer->camEye.z = gActors[10].obj.pos.z;
+            gPlayer[0].camEye.x = gActors[10].obj.pos.x - 25000.0f;
+            gPlayer[0].camEye.y = gActors[10].obj.pos.y;
+            gPlayer[0].camEye.z = gActors[10].obj.pos.z;
 
-            gPlayer->camAt.x = gActors[10].obj.pos.x;
-            gPlayer->camAt.y = gActors[10].obj.pos.y;
-            gPlayer->camAt.z = gActors[10].obj.pos.z;
+            gPlayer[0].camAt.x = gActors[10].obj.pos.x;
+            gPlayer[0].camAt.y = gActors[10].obj.pos.y;
+            gPlayer[0].camAt.z = gActors[10].obj.pos.z;
 
             actor->timer_0BC = 10000;
             D_80178340 = D_80178358 = 255;
@@ -448,7 +448,7 @@ bool func_i4_8019AA9C(Player* player) {
             (fabsf(player->pos.y - 265.0f) < 100.0f) && (fabsf(player->unk_138) < 172.0f)) {
             player->state_1C8 = PLAYERSTATE_1C8_10;
             player->unk_1D0 = 0;
-            gActors->state = 20;
+            gActors[0].state = 20;
             D_8015F928--;
             return true;
         }
@@ -620,7 +620,7 @@ void func_i4_8019AB8C(Actor* actor) {
                 gActors[10].fwork[29] = 5.0f;
                 gActors[10].obj.pos.z = 35000.0f;
                 gActors[10].iwork[9] = 0;
-                gPlayer->unk_034 = 0.0f;
+                gPlayer[0].unk_034 = 0.0f;
                 actor->timer_0BE = 550;
             }
             break;
@@ -692,9 +692,9 @@ void func_i4_8019B630(Actor* actor, s32 index) {
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = OBJ_ACTOR_195;
 
-    actor->obj.pos.x = D_i4_8019F57C[index].x + gPlayer->camEye.x;
-    actor->obj.pos.y = D_i4_8019F57C[index].y + gPlayer->camEye.y;
-    actor->obj.pos.z = D_i4_8019F57C[index].z + gPlayer->camEye.z;
+    actor->obj.pos.x = gPlayer[0].camEye.x + D_i4_8019F57C[index].x;
+    actor->obj.pos.y = gPlayer[0].camEye.y + D_i4_8019F57C[index].y;
+    actor->obj.pos.z = gPlayer[0].camEye.z + D_i4_8019F57C[index].z;
 
     actor->vel.z = -30.0f;
     actor->vel.y = -10.0f;
@@ -751,9 +751,9 @@ void func_i4_8019B888(void) {
             if (i == 0) {
                 actor->unk_0E4 = 1000;
             } else {
-                actor->obj.pos.x = D_i4_8019F5EC[i].x + gPlayer->pos.x;
-                actor->obj.pos.y = D_i4_8019F5EC[i].y + gPlayer->pos.y;
-                actor->obj.pos.z = D_i4_8019F5EC[i].z + gPlayer->pos.z;
+                actor->obj.pos.x = gPlayer[0].pos.x + D_i4_8019F5EC[i].x;
+                actor->obj.pos.y = gPlayer[0].pos.y + D_i4_8019F5EC[i].y;
+                actor->obj.pos.z = gPlayer[0].pos.z + D_i4_8019F5EC[i].z;
                 actor->unk_0E4 = i;
                 actor->state = 2;
                 actor->unk_0F4.y = 270.0f;
@@ -1038,8 +1038,8 @@ void func_i4_8019C574(Actor* actor, s32 index) {
     actor->obj.pos.y = D_i4_8019F62C[index];
     actor->obj.pos.z = D_i4_8019F63C[index];
 
-    actor->fwork[0] = gPlayer->unk_0D0;
-    actor->unk_0F4.y = gPlayer->unk_0E8;
+    actor->fwork[0] = gPlayer[0].unk_0D0;
+    actor->unk_0F4.y = gPlayer[0].unk_0E8;
 
     Object_SetInfo(&actor->info, actor->obj.id);
 
@@ -1129,7 +1129,7 @@ void func_i4_8019C85C(Player* player) {
             }
 
             if (player->timer_1F8 == 0) {
-                gPlayer->unk_1D0 = 0;
+                gPlayer[0].unk_1D0 = 0;
             }
             break;
 
@@ -1511,7 +1511,7 @@ void func_i4_8019C85C(Player* player) {
             break;
 
         case 2550:
-            gActors->state = 1;
+            gActors[0].state = 1;
             break;
     }
 
