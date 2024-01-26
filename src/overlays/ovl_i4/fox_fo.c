@@ -5,9 +5,16 @@ extern f32 D_i4_8019EE4C[4];
 extern f32 D_i4_8019EE5C[4];
 extern f32 D_i4_8019EE6C[4];
 
+extern Vec3f D_i4_8019EDF8[];
+extern Vec3f D_i4_8019EE1C[];
+extern Vec3f D_i4_8019EE34;
+
 extern AnimationHeader D_6007854;
 extern Limb* D_6007980;
 extern u8 D_600FF64[];
+
+void func_i4_801875F0(Actor* actor);
+void func_i4_80187960(Actor* actor);
 
 #ifdef IMPORT_DATA
 void func_i4_801875F0(Actor* actor) {
@@ -95,8 +102,355 @@ void func_i4_80187884(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     Audio_PlaySfx(0x31004005U, actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-void func_i4_80187960(Actor* actor);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_fo/func_i4_80187960.s")
+void func_i4_80187960(Actor* actor) {
+    s32 i;
+    Player* player = &gPlayer[0];
+    Actor* actorPtr;
+    Actor* actor0 = &gActors[0];
+    Actor* actor1 = &gActors[1];
+    Actor* actor2 = &gActors[2];
+    Actor* actor3 = &gActors[3];
+    Actor* actor4 = &gActors[4];
+    s32 pad[3];
+
+    if ((player->state_1C8 == PLAYERSTATE_1C8_4) || (player->state_1C8 == PLAYERSTATE_1C8_6)) {
+        D_8015F928 = 20000;
+        return;
+    }
+
+    if (D_8015F928 == 50) {
+        Radio_PlayMessage(gMsg_ID_9000, RCID_FOX);
+    }
+
+    if ((D_8015F928 + 400) == (0, D_800C9B4C)) {
+        Radio_PlayMessage(gMsg_ID_9010, RCID_SLIPPY);
+    }
+
+    if ((D_8015F928 + 240) == (0, D_800C9B4C)) {
+        Radio_PlayMessage(gMsg_ID_9375, RCID_ROB64);
+        func_800182F4(0x100100FF);
+        func_800182F4(0x110100FF);
+    }
+
+    if ((D_8015F928 + 100) == (0, D_800C9B4C)) {
+        Radio_PlayMessage(gMsg_ID_9380, RCID_FOX);
+    }
+
+    if (D_8015F928 == 7160) {
+        Radio_PlayMessage(gMsg_ID_9385, RCID_FOX);
+    }
+
+    if (D_8015F928 == 7000) {
+        Audio_PlaySfx(0x11030016U, gBosses->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        func_8002EE34();
+        Radio_PlayMessage(gMsg_ID_9390, RCID_ROB64);
+        D_8015F944 = 1.0f;
+        D_8015F93C = 1;
+        D_8015F930[0] = 1;
+        D_8015F930[1] = PLAYERSTATE_1C8_4;
+        D_8015F930[2] = 99;
+    }
+
+    if (D_8015F928 == 8036) {
+        Radio_PlayMessage(gMsg_ID_9395, RCID_ROB64);
+    }
+
+    if (D_8015F928 == 8540) {
+        Radio_PlayMessage(gMsg_ID_9400, RCID_ROB64);
+        func_8001D444(0U, 0x800AU, 0U, 0U);
+        gActors[7].unk_0E6 = -1;
+        gActors[6].unk_0E6 = gActors[7].unk_0E6;
+        gActors[5].unk_0E6 = gActors[7].unk_0E6;
+        gActors[4].unk_0E6 = gActors[7].unk_0E6;
+        gActors[3].unk_0E6 = gActors[7].unk_0E6;
+        gActors[2].unk_0E6 = gActors[7].unk_0E6;
+        gActors[1].unk_0E6 = gActors[7].unk_0E6;
+    }
+
+    if ((D_800C9B4C < D_8015F928) && (D_8015F928 < 9970) && (D_80177CD0[0] == 0) && (D_80177CD0[1] == 0) &&
+        (D_80177CD0[2] == 0) && (D_80177CD0[3] == 0)) {
+        D_8015F928 = 9970;
+    }
+
+    if (D_8015F928 == 9056) {
+        if ((D_80177CD0[0] != 0) || (D_80177CD0[1] != 0) || (D_80177CD0[2] != 0) || ((D_80177CD0[3] != 0))) {
+            Radio_PlayMessage(gMsg_ID_9405, RCID_ROB64);
+        } else {
+            D_8015F928 = 9995;
+        }
+    }
+
+    if (D_8015F928 == 9206) {
+        D_8015F93C = 0;
+        actor->state = 5;
+        gPlayer[0].state_1C8 = PLAYERSTATE_1C8_0;
+        actor->iwork[0] = 0;
+        actor->fwork[0] = 0.0f;
+        func_8002EE34();
+        for (i = 4; i < 8; i++) {
+            Object_Kill(&gActors[i].obj, gActors[i].sfxPos);
+        }
+    }
+
+    if ((D_8015F928 == 10000) &&
+        ((D_80177CD0[0] != 0) || (D_80177CD0[1] != 0) || (D_80177CD0[2] != 0) || (D_80177CD0[3] != 0))) {
+        Radio_PlayMessage(gMsg_ID_9420, RCID_FOX);
+    }
+
+    if (D_8015F928 == 10100) {
+        D_8015F93C = 0;
+        actor->iwork[0] = 0;
+        actor->state = 6;
+        gPlayer->state_1C8 = PLAYERSTATE_1C8_7;
+        gPlayer->unk_1D0 = 0;
+        gPlayer->unk_000 = 0.0f;
+
+        func_8002EE34();
+
+        for (i = 4; i < 8; i++) {
+            Object_Kill(&gActors[i].obj, gActors[i].sfxPos);
+        }
+
+        if ((D_80177CD0[0] == 0) && (D_80177CD0[1] == 0) && (D_80177CD0[2] == 0) && (D_80177CD0[3] == 0)) {
+            Radio_PlayMessage(gMsg_ID_9411, RCID_FOX);
+            D_80177930 = 1;
+            gPlayer->timer_1F8 = 50;
+            player->unk_190 = 5.0f;
+            player->unk_194 = 5.0f;
+            Audio_PlaySfx(0x09000002U, player->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            func_800182F4(0x101E00FF);
+            func_800182F4(0x111E00FF);
+        } else {
+            D_80177930 = 0;
+            gPlayer->timer_1F8 = 30;
+        }
+    }
+
+    switch (actor->state) {
+        case 0:
+            D_800C9B4C = 2880;
+            for (i = 0; i < 6; i++) {
+                D_80177CF0[i] = 1;
+                D_80177CD0[i] = 1;
+            }
+            D_8015F928 = 0;
+            D_8015F908 = 0;
+            if (player->state_1C8 == PLAYERSTATE_1C8_3) {
+                actor->state = 2;
+                player->pos.x = 0.0f;
+                player->pos.z = 8000.0f;
+                player->pos.y = 670.0f;
+                D_8015F928 = 200;
+                if (D_8015F924 != 0) {
+                    D_8015F928 = D_800C9B4C - 1;
+                    gHitCount = gSavedHitCount;
+                }
+            } else {
+                actor->state = 1;
+                player->pos.x = 0.0f;
+                player->pos.z = 15000.0f;
+                player->pos.y = 670.0f;
+                player->unk_114 = 0.0f;
+
+                for (actorPtr = &gActors[1], i = 0; i < 3; i++, actorPtr++) {
+                    actorPtr->obj.pos.x = D_i4_8019EDF8[i - 1].x;
+                    actorPtr->obj.pos.y = D_i4_8019EDF8[i - 1].y;
+                    actorPtr->obj.pos.z = D_i4_8019EDF8[i - 1].z;
+                }
+            }
+            func_800B63BC(player, 1);
+            break;
+
+        case 1:
+            for (actorPtr = actor0 + 1, i = 0; i < 3; i++, actorPtr++) {
+                actorPtr->fwork[4] = D_i4_8019EE1C[i - 1].x;
+                actorPtr->fwork[5] = D_i4_8019EE1C[i - 1].y;
+                actorPtr->fwork[6] = D_i4_8019EE1C[i - 1].z;
+                actorPtr->state = 3;
+                actorPtr->timer_0BC = 3;
+                if (gCsFrameCount == 264) {
+                    actorPtr->state = 2;
+                    actor->state = 2;
+                    player->state_1C8 = 3;
+                    player->unk_014 = 0.0001f;
+                    func_8001D444(0U, D_80177C90, 0U, 0xFFU);
+                    D_80177838 = 80;
+                }
+            };
+            break;
+
+        case 2:
+            func_i4_801875F0(actor);
+            break;
+
+        case 3:
+            player->camEye.x += actor4->vel.x * 0.23f;
+            player->camEye.y += actor4->vel.y * 0.23f;
+            player->camEye.z += actor4->vel.z * 0.23f;
+            Math_SmoothStepToF(&player->camAt.x, actor4->obj.pos.x, 1.0f, 20000.0f, 0.0f);
+            Math_SmoothStepToF(&player->camAt.y, actor4->obj.pos.y, 1.0f, 20000.0f, 0.0f);
+            Math_SmoothStepToF(&player->camAt.z, actor4->obj.pos.z, 1.0f, 20000.0f, 0.0f);
+            Math_SmoothStepToF(&player->unk_034, 0.0f, 1.0f, 1000.0f, 0.0f);
+            if (D_8015F928 == (D_800C9B4C + 2)) {
+                D_8015F908 = 883;
+                D_8015F924 = 1;
+
+                gSavedHitCount = gHitCount;
+
+                for (i = 1; i < 4; i++) {
+                    gSavedTeamShields[i] = gTeamShields[i];
+                };
+            }
+
+            if ((gControllerPress->button & 0x1000) || (D_8015F928 == (D_800C9B4C + 0x1B8))) {
+                actor->state = 2;
+                player->state_1C8 = PLAYERSTATE_1C8_3;
+                func_800B7184(player, 1);
+                player->unk_014 = 0.0f;
+                D_80161708 = 0;
+            }
+            D_801779BC = 0;
+            break;
+
+        case 5:
+            D_8015F928 = 9207;
+            actor->iwork[0] += 1;
+            actor->fwork[0] += 10.0f;
+            player->camEye.x = 300.0f;
+            player->camEye.y = 300.0f;
+            player->camEye.z = -1000.0f;
+            player->camAt.x = actor->fwork[0] + 300.0f;
+            player->camAt.y = actor->fwork[0] + 500.0f;
+            player->camAt.z = -15000.0f;
+            player->unk_034 = 0.0f;
+
+            if ((actor->iwork[0] == 50) && (D_80177CD0[0] != 0)) {
+                if (gRadioState == 0) {
+                    Radio_PlayMessage(gMsg_ID_9431, RCID_WOLF);
+                }
+                func_i4_80187884(&gActors[4], player->camEye.x - 200.0f, player->camEye.y, player->camEye.z, 160.0f);
+            }
+
+            if ((actor->iwork[0] == 70) && (D_80177CD0[1] != 0)) {
+                if (gRadioState == 0) {
+                    Radio_PlayMessage(gMsg_ID_9432, RCID_LEON);
+                }
+                func_i4_80187884(&gActors[5], player->camEye.x, player->camEye.y + 50.0f, player->camEye.z, 160.0f);
+            }
+
+            if ((actor->iwork[0] == 90) && (D_80177CD0[2] != 0)) {
+                if (gRadioState == 0) {
+                    Radio_PlayMessage(gMsg_ID_9433, RCID_PIGMA);
+                }
+                func_i4_80187884(gActors + 6, player->camEye.x - 200.0f, player->camEye.y + 200.0f, player->camEye.z,
+                                 160.0f);
+            }
+
+            if ((actor->iwork[0] == 110) && (D_80177CD0[3] != 0)) {
+                if (gRadioState == 0) {
+                    Radio_PlayMessage(gMsg_ID_9434, RCID_ANDREW);
+                }
+                func_i4_80187884(gActors + 7, player->camEye.x - 300.0f, player->camEye.y, player->camEye.z, 160.0f);
+            }
+
+            if (actor->iwork[0] == 250) {
+                actor->state = 2;
+                player->state_1C8 = PLAYERSTATE_1C8_3;
+
+                func_800B7184(player, 1);
+
+                player->unk_014 = 0.0f;
+                D_80161708 = 0;
+
+                for (i = 4; i < 8; i++) {
+                    Object_Kill(&gActors[i].obj, gActors[i].sfxPos);
+                }
+
+                D_8015F93C = 1;
+                D_8015F928 = 9970;
+            }
+            break;
+
+        case 6:
+            actor->iwork[0] += 1;
+            if (D_80177930 == 0) {
+                actor1->unk_0E6 = 0;
+                actor1->state = 2;
+                actor2->unk_0E6 = 0;
+                actor2->state = 2;
+                actor3->unk_0E6 = 0;
+                actor3->state = 2;
+                if (actor->iwork[0] == 130) {
+                    Vec3f sp50 = D_i4_8019EE34;
+                    Actor* actor19 = &gActors[19];
+                    s32 pad2;
+
+                    Actor_Initialize(actor19);
+                    Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y, player->unk_138, 0);
+                    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114) * 0.017453292f, 1);
+                    Matrix_RotateX(gCalcMatrix, player->unk_0E4 * 0.017453292f, 1);
+                    Matrix_MultVec3f(gCalcMatrix, &sp50, &actor19->obj.pos);
+
+                    actor19->obj.status = 2;
+                    actor19->obj.id = OBJ_ACTOR_197;
+                    actor19->state = 4;
+                    actor19->unk_0F4.y = player->unk_0E8 + player->unk_114 + 180.0f;
+                    actor19->unk_0F4.x = 15.0f;
+                    actor19->unk_0E4 = 0x64;
+                    actor19->fwork[1] = 90.0f;
+                    actor19->fwork[0] = 90.0f;
+                    Object_SetInfo(&actor19->info, actor19->obj.id);
+                }
+            }
+            gOverlayStage = 1;
+            D_80161A44 = 30000.0f;
+            break;
+
+        default:
+            break;
+    }
+
+    if (D_8015F908 != 0) {
+        D_8015F908--;
+        switch (D_8015F908) {
+            case 860:
+                if (D_80177CD0[0] != 0) {
+                    Radio_PlayMessage(gMsg_ID_9250, RCID_WOLF);
+                }
+                break;
+
+            case 760:
+                if (D_80177CD0[1] != 0) {
+                    Radio_PlayMessage(gMsg_ID_9260, RCID_LEON);
+                }
+                break;
+
+            case 660:
+                if (D_80177CD0[2] != 0) {
+                    if (gTeamShields[3] > 0) {
+                        Radio_PlayMessage(gMsg_ID_9275, RCID_PIGMA);
+                    } else {
+                        Radio_PlayMessage(gMsg_ID_9270, RCID_PIGMA);
+                    }
+                }
+                break;
+
+            case 540:
+                if (D_80177CD0[3] != 0) {
+                    Radio_PlayMessage(gMsg_ID_9280, RCID_ANDREW);
+                }
+                break;
+
+            case 380:
+                Radio_PlayMessage(gMsg_ID_9285, RCID_FOX);
+                break;
+
+            case 240:
+                Radio_PlayMessage(gMsg_ID_9385, RCID_FOX);
+                break;
+        }
+    }
+}
 
 void func_i4_801888C0(Actor* actor, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state) {
     Actor_Initialize(actor);
@@ -231,8 +585,8 @@ s32 func_i4_80188F08(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* ptr) 
 void func_i4_80188FE4(Actor* actor) {
     Vec3f vec[20];
 
-    Animation_GetFrameData(&D_6007854, 0, &vec);
-    Animation_DrawSkeleton(3, &D_6007980, &vec, func_i4_80188F08, func_i4_80188DA0, actor, gCalcMatrix);
+    Animation_GetFrameData(&D_6007854, 0, vec);
+    Animation_DrawSkeleton(3, &D_6007980, vec, func_i4_80188F08, func_i4_80188DA0, actor, gCalcMatrix);
 
     if (actor->state == 1) {
         actor->state = 2;
