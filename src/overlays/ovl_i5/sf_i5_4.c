@@ -2,6 +2,7 @@
 
 void func_i5_801B5244(s32 arg0, s32 arg1);
 void func_i5_801B5FE0(s32 arg0, s32 arg1, s32 arg2);
+void func_i5_801B68A8(Gfx** dlist, s32 arg1, s32 arg2);
 
 typedef struct {
     /* 0x00 */ s32 unk_00;
@@ -53,6 +54,9 @@ extern f32 D_i5_801C24B8[28]; // size = 0x40
 extern f32 D_i5_801C2448[28]; // size = 0x40
 extern UnkStruct_801C62D8 D_i5_801C62D8;
 extern f32 D_i5_801C62E0;
+extern Gfx D_i5_801C2528[27][65];
+extern Gfx* D_i5_801C5C00[];
+extern u16 D_6001BA8[];
 
 // typedef struct {
 //     /* 0x00 */ s16 unk_00;
@@ -288,7 +292,32 @@ void func_i5_801B5110(f32 arg0, f32 arg1, f32 arg2) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/sf_i5_4/func_i5_801B5FE0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/sf_i5_4/func_i5_801B68A8.s")
+void func_i5_801B68A8(Gfx** dlist, s32 arg1, s32 arg2) {
+    s32 var_a0;
+    s32 var_a1;
+    s32 var;
+
+    gDPTileSync((*dlist)++);
+    gDPSetTile((*dlist)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0, G_TX_MIRROR | G_TX_WRAP, 5,
+               G_TX_NOLOD, G_TX_MIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+    gDPSetTileSize((*dlist)++, G_TX_RENDERTILE, 0, 0, 124, 124);
+    gDPSetTextureImage((*dlist)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_6001BA8);
+    gDPTileSync((*dlist)++);
+    gDPSetTile((*dlist)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP,
+               G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+    gDPLoadSync((*dlist)++);
+    gDPLoadBlock((*dlist)++, G_TX_LOADTILE, 0, 0, 1023, 256);
+    Matrix_Translate(gGfxMatrix, D_i5_801C62D8.unk_00, D_i5_801C62D8.unk_04, D_i5_801C62D8.unk_08 + D_i5_801C5C10, 0);
+    Matrix_ToMtx(gGfxMtx);
+    gSPMatrix((*dlist)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+
+    var = 1;
+    var_a0 = (arg1 + 25) % 27;
+    for (var_a1 = 26; var_a1 >= var; var_a1--) {
+        gSPDisplayList((*dlist)++, &D_i5_801C2528[var_a0]);
+        var_a0 = (var_a0 + 26) % 27;
+    }
+}
 
 bool func_i5_801B6AEC(f32 arg0, f32 arg1, f32 arg2) {
     f32 sp2C;
