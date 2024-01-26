@@ -1,6 +1,7 @@
 #include "global.h"
 
 void func_i5_801B5244(s32 arg0, s32 arg1);
+void func_i5_801B5FE0(s32 arg0, s32 arg1, s32 arg2);
 
 typedef struct {
     /* 0x00 */ s32 unk_00;
@@ -14,11 +15,12 @@ typedef struct {
     /* 0x20 */ f32 unk_20;
 } UnkStruct_801C62E8; // size = 0x24
 
+// Quite likely just Vec3f.
 typedef struct {
     /* 0x00 */ f32 unk_00;
     /* 0x04 */ f32 unk_04;
     /* 0x08 */ f32 unk_08;
-} UnkStruct_801C62D8; // size = unknown
+} UnkStruct_801C62D8; // size = 0xC
 
 extern u8 D_i5_801BA970[12];
 extern f32 D_i5_801BE740;
@@ -47,9 +49,24 @@ extern Vec3f D_i5_801BCDC8;
 extern Vec3f D_i5_801BCE28;
 extern Vec3f D_i5_801BCE88;
 extern s32 D_i5_801C1D48[28][16];
-extern f32 D_i5_801C24B8[28]; // size: 0x40
-extern f32 D_i5_801C2448[28]; // size: 0x40
+extern f32 D_i5_801C24B8[28]; // size = 0x40
+extern f32 D_i5_801C2448[28]; // size = 0x40
 extern UnkStruct_801C62D8 D_i5_801C62D8;
+extern f32 D_i5_801C62E0;
+
+// typedef struct {
+//     /* 0x00 */ s16 unk_00;
+//     /* 0x02 */ s16 unk_02;
+//     /* 0x04 */ s16 unk_04;
+//     /* 0x06 */ s16 unk_06;
+//     /* 0x08 */ s16 unk_08;
+//     /* 0x0A */ s16 unk_0A;
+//     /* 0x0C */ s16 unk_0C;
+//     /* 0x0E */ s16 unk_0E;
+// } UnkStruct_801BE748; // size = 0x10
+// extern UnkStruct_801BE748 D_i5_801BE748[191]; // size = 0x1910
+extern s16 D_i5_801BE748[3208]; // size = 0x1910
+// Accessed with an array D_i5_801BE748[i * 512]
 
 bool func_i5_801B49D0(Actor* actor) {
     UnkStruct_801C62E8* var_v0;
@@ -273,10 +290,29 @@ void func_i5_801B5110(f32 arg0, f32 arg1, f32 arg2) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/sf_i5_4/func_i5_801B68A8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/sf_i5_4/func_i5_801B6AEC.s")
+bool func_i5_801B6AEC(f32 arg0, f32 arg1, f32 arg2) {
+    f32 sp2C;
+    f32 sp28;
+    f32 sp24;
+
+    func_i5_801B6E20(arg0, arg2, &sp2C, &sp28, &sp24);
+    if (arg1 < sp28) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/sf_i5_4/func_i5_801B6B40.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/sf_i5_4/func_i5_801B6E20.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/sf_i5_4/func_i5_801B7240.s")
+void func_i5_801B7240(f32 arg0, f32 arg1, f32* arg2, f32* arg3, f32* arg4) {
+    s32 pad;
+    f32 sp28;
+    f32 sp24;
+
+    func_i5_801B6E20(arg0, arg1, &sp28, arg3, &sp24);
+    *arg2 = sp28 * M_RTOD;
+    *arg4 = sp24 * M_RTOD;
+}
