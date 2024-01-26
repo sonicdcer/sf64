@@ -518,7 +518,7 @@ void func_i5_801882CC(Player* player) {
 
     player->camAt.y += camAtY;
 
-    if (gCsFrameCount == 0x564) {
+    if (gCsFrameCount == 1380) {
         func_800182F4(0x103C00FF);
         func_800182F4(0x113C00FF);
     }

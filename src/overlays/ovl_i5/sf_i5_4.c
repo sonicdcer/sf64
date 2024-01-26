@@ -119,18 +119,23 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
                         var_s2->unk_20 = var_s2->unk_18;
                         break;
                     case 4:
+                        PRINTF("ICHIMAI POLYGON ON\n");  // ONE SHEET POLYGON ON
                         *arg1 |= 2;
                         break;
                     case 5:
+                        PRINTF("CHIKEI POLYGON OFF\n");  // TERRAIN POLYGON OFF
                         *arg1 &= ~1;
                         break;
                     case 6:
+                        PRINTF("CHIKEI POLYGON ON\n");   // TERRAIN POLYGON ON
                         *arg1 |= 1;
                         break;
                     case 7:
+                        PRINTF("ICHIMAI POLYGON OFF\n"); // ONE SHEET POLYGON OFF
                         *arg1 &= ~2;
                         break;
                     case 8:
+                        PRINTF("RANDAMU YAMA\n");        // RANDOM MOUNTAIN
                         var_s2->unk_20 = 5000.0f;
                         break;
                 }
@@ -275,5 +280,3 @@ void func_i5_801B5110(f32 arg0, f32 arg1, f32 arg2) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/sf_i5_4/func_i5_801B6E20.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/sf_i5_4/func_i5_801B7240.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/sf_i5_4/D_i5_801BBDF0.s")
