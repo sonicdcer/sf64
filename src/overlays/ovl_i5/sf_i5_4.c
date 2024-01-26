@@ -119,15 +119,15 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
                         var_s2->unk_20 = var_s2->unk_18;
                         break;
                     case 4:
-                        PRINTF("ICHIMAI POLYGON ON\n");  // ONE SHEET POLYGON ON
+                        PRINTF("ICHIMAI POLYGON ON\n"); // ONE SHEET POLYGON ON
                         *arg1 |= 2;
                         break;
                     case 5:
-                        PRINTF("CHIKEI POLYGON OFF\n");  // TERRAIN POLYGON OFF
+                        PRINTF("CHIKEI POLYGON OFF\n"); // TERRAIN POLYGON OFF
                         *arg1 &= ~1;
                         break;
                     case 6:
-                        PRINTF("CHIKEI POLYGON ON\n");   // TERRAIN POLYGON ON
+                        PRINTF("CHIKEI POLYGON ON\n"); // TERRAIN POLYGON ON
                         *arg1 |= 1;
                         break;
                     case 7:
@@ -135,7 +135,7 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
                         *arg1 &= ~2;
                         break;
                     case 8:
-                        PRINTF("RANDAMU YAMA\n");        // RANDOM MOUNTAIN
+                        PRINTF("RANDAMU YAMA\n"); // RANDOM MOUNTAIN
                         var_s2->unk_20 = 5000.0f;
                         break;
                 }
