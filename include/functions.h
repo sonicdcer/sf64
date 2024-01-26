@@ -586,7 +586,7 @@ void Object_58_Initialize(Object_58*);
 
 // fox_radio
 s32 func_800BA7BC(u16*, s32);
-void func_800BA808(u16*, RadioCharacterId);
+void Radio_PlayMessage(u16*, RadioCharacterId);
 void func_800BB388(void);
 void func_800BB5D0(void);
 
@@ -606,6 +606,10 @@ s32 Save_Read(void);
 
 void func_menu_80187520(u32, void*);
 void func_menu_8019E8D0(void);
+
+void func_i1_80198414(void);
+s32 func_i1_801937F4(s32, Gfx**, Vec3f*, Vec3f*, void*);
+void func_i1_80193D64(s32, Vec3f*, void*);
 
 void func_ending_8018A96C(void);
 void func_ending_8018AAC4(void);

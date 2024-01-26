@@ -9,7 +9,7 @@ void func_80187530(Actor*); // figure out which one later
 void func_8006A7B0(u16* msg, s32 character) {
     (void) "Enm->obj.pos.y + tmp_xyz.y=<%10.3f>\n";
     if ((gRadioState == 0) || (D_80177D68 != character)) {
-        func_800BA808(msg, character);
+        Radio_PlayMessage(msg, character);
     }
 }
 
@@ -1235,7 +1235,7 @@ void func_8006D36C(Actor* actor) {
         case 0xF000:
             temp_v0_4 = Message_PtrFromId(temp_s1[actor->unk_0E6 + 1]);
             if ((temp_v0_4 != NULL) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3)) {
-                func_800BA808(temp_v0_4, temp_s1[actor->unk_0E6] & 0x1FF);
+                Radio_PlayMessage(temp_v0_4, temp_s1[actor->unk_0E6] & 0x1FF);
             }
             actor->unk_0E6 += 2;
             func_8006D36C(actor);
@@ -1972,13 +1972,13 @@ bool func_800700A4(Actor* actor) {
 
         switch (actor->iwork[12]) {
             case 1:
-                func_800BA808(gMsg_ID_20220, RCID_FALCO);
+                Radio_PlayMessage(gMsg_ID_20220, RCID_FALCO);
                 break;
             case 2:
-                func_800BA808(gMsg_ID_20222, RCID_SLIPPY);
+                Radio_PlayMessage(gMsg_ID_20222, RCID_SLIPPY);
                 break;
             case 3:
-                func_800BA808(gMsg_ID_20221, RCID_PEPPY);
+                Radio_PlayMessage(gMsg_ID_20221, RCID_PEPPY);
                 break;
         }
         gTeamShields[actor->iwork[12]] = -1;

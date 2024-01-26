@@ -1647,7 +1647,7 @@ void func_80066254(Actor* actor) {
                 switch (D_80161A62) {
                     case 9:
                         if (gCurrentLevel == LEVEL_KATINA) {
-                            func_800BA808(gMsg_ID_18031, RCID_BILL);
+                            Radio_PlayMessage(gMsg_ID_18031, RCID_BILL);
                         }
                         /* fallthrough */
                     case 4:
@@ -1680,11 +1680,11 @@ void func_80066254(Actor* actor) {
                 Audio_PlaySfx(0x4900000C, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             } else if (actor->unk_044 == 24) {
                 if (gTeamShields[3] > 0) {
-                    func_800BA808(gMsg_ID_20261, RCID_PEPPY);
+                    Radio_PlayMessage(gMsg_ID_20261, RCID_PEPPY);
                 } else if (gTeamShields[2] > 0) {
-                    func_800BA808(gMsg_ID_20263, RCID_SLIPPY);
+                    Radio_PlayMessage(gMsg_ID_20263, RCID_SLIPPY);
                 } else if (gTeamShields[1] > 0) {
-                    func_800BA808(gMsg_ID_20262, RCID_FALCO);
+                    Radio_PlayMessage(gMsg_ID_20262, RCID_FALCO);
                 }
             } else if (Rand_ZeroOne() <= D_800CFE5C[actor->unk_044]) {
                 func_800660F0(actor);

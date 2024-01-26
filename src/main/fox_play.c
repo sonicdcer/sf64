@@ -1916,7 +1916,7 @@ void func_800A8BA4(Player* player) {
                                     actor->unk_046 = 2;
                                     D_80177E80++;
                                     if (D_80177E80 == 3) {
-                                        func_800BA808(gMsg_ID_5504, RCID_FALCO);
+                                        Radio_PlayMessage(gMsg_ID_5504, RCID_FALCO);
                                     }
                                     Audio_PlaySfx(D_800CFF54[D_80177E80], gPlayer[0].sfxPos, 0, &D_800C5D34,
                                                   &D_800C5D34, &D_800C5D3C);
@@ -5185,23 +5185,23 @@ void func_800B46F8(Player* player) {
                 switch (teamId) {
                     case 1:
                         if (Rand_ZeroOne() < 0.5f) {
-                            func_800BA808(gMsg_ID_20306, RCID_FALCO);
+                            Radio_PlayMessage(gMsg_ID_20306, RCID_FALCO);
                         } else {
-                            func_800BA808(gMsg_ID_20309, RCID_FALCO);
+                            Radio_PlayMessage(gMsg_ID_20309, RCID_FALCO);
                         }
                         break;
                     case 2:
                         if (Rand_ZeroOne() < 0.5f) {
-                            func_800BA808(gMsg_ID_20305, RCID_SLIPPY);
+                            Radio_PlayMessage(gMsg_ID_20305, RCID_SLIPPY);
                         } else {
-                            func_800BA808(gMsg_ID_20308, RCID_SLIPPY);
+                            Radio_PlayMessage(gMsg_ID_20308, RCID_SLIPPY);
                         }
                         break;
                     case 3:
                         if (Rand_ZeroOne() < 0.5f) {
-                            func_800BA808(gMsg_ID_20304, RCID_PEPPY);
+                            Radio_PlayMessage(gMsg_ID_20304, RCID_PEPPY);
                         } else {
-                            func_800BA808(gMsg_ID_20307, RCID_PEPPY);
+                            Radio_PlayMessage(gMsg_ID_20307, RCID_PEPPY);
                         }
                         break;
                 }

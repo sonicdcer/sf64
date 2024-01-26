@@ -1056,7 +1056,7 @@ void func_i3_801A10F4(Player* player) {
             D_8017835C = 8;
             Math_SmoothStepToF(D_80177A48, 0.02f, 1.0f, 0.0000003f, 0.0f);
             if (gCsFrameCount == 525) {
-                func_800BA808(gMsg_ID_10010, RCID_FOX);
+                Radio_PlayMessage(gMsg_ID_10010, RCID_FOX);
             }
             if (gCsFrameCount == 550) {
                 Object_Kill(&gActors[5].obj, gActors[5].sfxPos);
@@ -1270,7 +1270,7 @@ void func_i3_801A1F80(Boss* bossSO) {
         bossSO->fwork[SO_FWK_0] = 0.01f;
     }
     if ((gBossFrameCount == 100) && (gTeamShields[3] != 0)) {
-        func_800BA808(gMsg_ID_10300, RCID_PEPPY);
+        Radio_PlayMessage(gMsg_ID_10300, RCID_PEPPY);
     }
 }
 
@@ -1574,11 +1574,11 @@ void func_i3_801A3128(Boss* bossSO) {
             if (D_i3_801C2740[2] & 1) {
                 if (D_i3_801C2740[2] & 2) {
                     if (gTeamShields[3] > 0) {
-                        func_800BA808(gMsg_ID_20317, RCID_PEPPY);
+                        Radio_PlayMessage(gMsg_ID_20317, RCID_PEPPY);
                     }
                 } else {
                     if (gTeamShields[1] > 0) {
-                        func_800BA808(gMsg_ID_20271, RCID_FALCO);
+                        Radio_PlayMessage(gMsg_ID_20271, RCID_FALCO);
                     }
                 }
             }
@@ -1598,7 +1598,7 @@ void func_i3_801A3128(Boss* bossSO) {
             bossSO->fwork[SO_FWK_0] = 0.01f;
             if ((Rand_ZeroOne() >= 0.4f) && (gTeamShields[3] > 0) && (bossSO->swork[SO_SWK_2] != 0) &&
                 (bossSO->swork[SO_SWK_3] != 0)) {
-                func_800BA808(gMsg_ID_10320, RCID_PEPPY);
+                Radio_PlayMessage(gMsg_ID_10320, RCID_PEPPY);
             }
         }
         if (bossSO->swork[SO_SWK_11] == 50) {
@@ -1830,7 +1830,7 @@ void func_i3_801A3C4C(Boss* bossSO) {
         }
         bossSO->fwork[SO_FWK_31] = 0.0f;
         bossSO->fwork[SO_FWK_3] = 2400.0f;
-        func_800BA808(gMsg_ID_15252, RCID_SLIPPY);
+        Radio_PlayMessage(gMsg_ID_15252, RCID_SLIPPY);
     }
 }
 
@@ -1989,7 +1989,7 @@ void func_i3_801A48B8(Boss* bossSO) {
     bossSO->unk_04C = 0;
     bossSO->fwork[SO_FWK_0] = 0.01f;
     if (((bossSO->swork[SO_SWK_2] > 0) || (bossSO->swork[SO_SWK_3] > 0)) && (gTeamShields[2] > 0)) {
-        func_800BA808(gMsg_ID_7086, RCID_SLIPPY);
+        Radio_PlayMessage(gMsg_ID_7086, RCID_SLIPPY);
     }
 }
 
@@ -2306,13 +2306,13 @@ void func_i3_801A5B3C(Boss* bossSO) {
         bossSO->swork[SO_SWK_10]--;
     }
     if ((gBossFrameCount == 200) && (gTeamShields[1] != 0)) {
-        func_800BA808(gMsg_ID_10310, RCID_FALCO);
+        Radio_PlayMessage(gMsg_ID_10310, RCID_FALCO);
     }
     if ((gBossFrameCount == 300) && (gTeamShields[2] != 0)) {
-        func_800BA808(gMsg_ID_4092, RCID_SLIPPY);
+        Radio_PlayMessage(gMsg_ID_4092, RCID_SLIPPY);
     }
     if ((gBossFrameCount == 450) && (gTeamShields[3] != 0)) {
-        func_800BA808(gMsg_ID_10320, RCID_PEPPY);
+        Radio_PlayMessage(gMsg_ID_10320, RCID_PEPPY);
     }
     if (bossSO->health != 0) {
         Math_SmoothStepToF(&bossSO->obj.pos.z, gPlayer[0].unk_138 - bossSO->fwork[SO_FWK_3], 1.0f, 60.0f, 1.0f);
@@ -3039,15 +3039,15 @@ void func_i3_801A7930(Player* player) {
             D_80177840 = 100;
             break;
         case 640:
-            func_800BA808(gMsg_ID_20010, RCID_FOX);
+            Radio_PlayMessage(gMsg_ID_20010, RCID_FOX);
             break;
         case 728:
             switch (gTeamShields[2]) {
                 case 0:
-                    func_800BA808(gMsg_ID_20345, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20345, RCID_ROB64);
                     break;
                 case -1:
-                    func_800BA808(gMsg_ID_20339, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20339, RCID_ROB64);
                     break;
                 default:
                     func_80048AC0(2);
@@ -3057,10 +3057,10 @@ void func_i3_801A7930(Player* player) {
         case 875:
             switch (gTeamShields[3]) {
                 case 0:
-                    func_800BA808(gMsg_ID_20344, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20344, RCID_ROB64);
                     break;
                 case -1:
-                    func_800BA808(gMsg_ID_20338, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20338, RCID_ROB64);
                     break;
                 default:
                     func_80048AC0(3);
@@ -3070,10 +3070,10 @@ void func_i3_801A7930(Player* player) {
         case 1021:
             switch (gTeamShields[1]) {
                 case 0:
-                    func_800BA808(gMsg_ID_20343, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20343, RCID_ROB64);
                     break;
                 case -1:
-                    func_800BA808(gMsg_ID_20337, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20337, RCID_ROB64);
                     break;
                 default:
                     func_80048AC0(1);
