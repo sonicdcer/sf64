@@ -636,5 +636,68 @@ void func_i4_801890EC(Actor* actor, s32 arg1) {
 void func_i4_8018927C(Player* player);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_fo/func_i4_8018927C.s")
 
-// loops
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_fo/func_i4_8018BA2C.s")
+void func_i4_8018BA2C(void) {
+    s32 i;
+    Actor* actor;
+    Object_4C* obj4C;
+    Object_58* obj58;
+    Boss* boss = &gBosses[0];
+
+    D_80178310 = SEGMENTED_TO_VIRTUAL(D_800CFDA0[gCurrentLevel]);
+
+    for (obj58 = &gObjects58[0], i = 0; i < 1000; i++) {
+        if (D_80178310[i].id < 0) {
+            break;
+        }
+        if (D_80178310[i].id < 161) {
+            Object_58_Initialize(obj58);
+            obj58->obj.status = 2;
+            obj58->obj.id = D_80178310[i].id;
+            obj58->obj.pos.x = D_80178310[i].xPos;
+            obj58->obj.pos.z = D_80178310[i].zPos1;
+            obj58->obj.pos.y = D_80178310[i].yPos;
+            obj58->obj.rot.y = D_80178310[i].rot.y;
+            Object_SetInfo(&obj58->info, obj58->obj.id);
+            obj58++;
+        }
+    }
+
+    for (actor = &gActors[20], i = 0; i < 1000; i++) {
+        if (D_80178310[i].id < 0) {
+            break;
+        }
+        if ((D_80178310[i].id >= 176) && (D_80178310[i].id < 292)) {
+            Actor_Initialize(actor);
+            actor->obj.status = 1;
+            actor->obj.id = D_80178310[i].id;
+            actor->obj.pos.x = D_80178310[i].xPos;
+            actor->obj.pos.z = D_80178310[i].zPos1;
+            actor->obj.pos.y = D_80178310[i].yPos;
+            Object_SetInfo(&actor->info, actor->obj.id);
+            actor++;
+        }
+    }
+
+    for (obj4C = &gObjects4C[0], i = 0; i < 1000; i++) {
+        if (D_80178310[i].id < 0) {
+            break;
+        }
+        if (D_80178310[i].id == 163) {
+            Object_4C_Initialize(obj4C);
+            obj4C->obj.status = 1;
+            obj4C->obj.id = D_80178310[i].id;
+            obj4C->obj.pos.x = D_80178310[i].xPos;
+            obj4C->obj.pos.z = D_80178310[i].zPos1;
+            obj4C->obj.pos.y = D_80178310[i].yPos;
+            Object_SetInfo(&obj4C->info, obj4C->obj.id);
+            obj4C++;
+        }
+    }
+    Boss_Initialize(boss);
+    boss->obj.status = 1;
+    boss->obj.pos.x = 0.0f;
+    boss->obj.pos.y = 0.0f;
+    boss->obj.pos.z = 0.0f;
+    boss->obj.id = OBJ_BOSS_308;
+    Object_SetInfo(&boss->info, boss->obj.id);
+}
