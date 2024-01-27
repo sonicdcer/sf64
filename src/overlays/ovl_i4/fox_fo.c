@@ -153,7 +153,7 @@ void func_i4_80187960(Actor* actor) {
 
     if (D_8015F928 == 8540) {
         Radio_PlayMessage(gMsg_ID_9400, RCID_ROB64);
-        func_8001D444(0U, 0x800AU, 0U, 0U);
+        func_8001D444(0, 0x800A, 0, 0);
         gActors[7].unk_0E6 = -1;
         gActors[6].unk_0E6 = gActors[7].unk_0E6;
         gActors[5].unk_0E6 = gActors[7].unk_0E6;
@@ -269,7 +269,7 @@ void func_i4_80187960(Actor* actor) {
                     actor->state = 2;
                     player->state_1C8 = 3;
                     player->unk_014 = 0.0001f;
-                    func_8001D444(0U, D_80177C90, 0U, 0xFFU);
+                    func_8001D444(0, D_80177C90, 0, 0xFF);
                     D_80177838 = 80;
                 }
             };
@@ -755,7 +755,7 @@ void func_i4_8018927C(Player* player) {
                 //! FAKE:
                 if (((&dest) && (&dest)) && (&dest)) {}
 
-                func_8001CA24(0U);
+                func_8001CA24(0);
                 Audio_KillSfx(player->sfxPos);
                 player->unk_234 = 0;
                 D_80178340 = 255;
@@ -1195,7 +1195,7 @@ void func_i4_8018927C(Player* player) {
 
             switch (gCsFrameCount) {
                 case 0x8C:
-                    func_8001D444(0U, 0x26U, 0U, 0xFFU);
+                    func_8001D444(0, 0x26, 0, 0xFF);
                     break;
                 case 0x1C2:
                     D_80177840 = 0x64;
@@ -1417,7 +1417,7 @@ void func_i4_8018927C(Player* player) {
         }
     }
 
-    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, 0U);
+    Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, 0);
     Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_4D8) * M_DTOR), 1);
 
     src.x = 0.0f;
