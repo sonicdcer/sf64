@@ -1194,11 +1194,11 @@ void func_i4_8018927C(Player* player) {
             }
 
             switch (gCsFrameCount) {
-                case 0x8C:
+                case 140:
                     func_8001D444(0, 0x26, 0, 0xFF);
                     break;
-                case 0x1C2:
-                    D_80177840 = 0x64;
+                case 450:
+                    D_80177840 = 100;
                     break;
             }
             src.x = 0.0f;
