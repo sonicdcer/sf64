@@ -1,14 +1,5 @@
 #include "global.h"
 
-extern Vec3f D_i4_8019EE40;
-extern f32 D_i4_8019EE4C[4];
-extern f32 D_i4_8019EE5C[4];
-extern f32 D_i4_8019EE6C[4];
-
-extern Vec3f D_i4_8019EDF8[];
-extern Vec3f D_i4_8019EE1C[];
-extern Vec3f D_i4_8019EE34;
-
 extern AnimationHeader D_6007854;
 extern Limb* D_6007980;
 extern u8 D_600FF64[];
