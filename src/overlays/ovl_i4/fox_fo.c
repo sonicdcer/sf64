@@ -716,7 +716,7 @@ void func_i4_8018927C(Player* player) {
 
             if (player->timer_1F8 == 0) {
                 if (D_80177930 != 0) {
-                    player->timer_1F8 = 0x96;
+                    player->timer_1F8 = 150;
                     player->unk_1D0 = -1;
                     player->pos.x = 0.0f;
                     player->unk_110 = 0.0f;
@@ -724,7 +724,7 @@ void func_i4_8018927C(Player* player) {
                     player->pos.y = 350.0f;
                     player->pos.z = -2800.0f;
                 } else {
-                    player->timer_1F8 = 0x118;
+                    player->timer_1F8 = 280;
                     player->unk_1D0 = 1;
                 }
                 player->unk_194 = 5.0f;
