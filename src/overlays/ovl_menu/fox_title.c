@@ -1116,7 +1116,7 @@ void func_menu_8018994C(void) {
             if (D_menu_801B82B8 == 638) {
                 Audio_PlaySfx(0x11030010, D_menu_801B8658.unk_24, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 Audio_PlaySfx(0x31024059, D_menu_801B8658.unk_24, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-                func_800BA808(gMsg_ID_60, RCID_ROB64_TITLE);
+                Radio_PlayMessage(gMsg_ID_60, RCID_ROB64_TITLE);
             }
 
             if (D_menu_801B82B8 == 838) {

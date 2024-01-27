@@ -2208,13 +2208,13 @@ void func_8003D54C(PlayerShot* shot, s32 index) {
                         } while (gTeamShields[teamId] <= 0);
                         switch (teamId) {
                             case 1:
-                                func_800BA808(gMsg_ID_7100, RCID_FALCO);
+                                Radio_PlayMessage(gMsg_ID_7100, RCID_FALCO);
                                 break;
                             case 2:
-                                func_800BA808(gMsg_ID_15252, RCID_SLIPPY);
+                                Radio_PlayMessage(gMsg_ID_15252, RCID_SLIPPY);
                                 break;
                             case 3:
-                                func_800BA808(gMsg_ID_17160, RCID_PEPPY);
+                                Radio_PlayMessage(gMsg_ID_17160, RCID_PEPPY);
                                 break;
                         }
                     }

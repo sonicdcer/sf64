@@ -93,7 +93,7 @@ void func_i6_80196314(Actor* actor) {
                 }
             }
             if (D_8015F928 == 80) {
-                func_800BA808(gMsg_ID_19010, RCID_FOX);
+                Radio_PlayMessage(gMsg_ID_19010, RCID_FOX);
             }
             break;
         case 2:
@@ -148,22 +148,22 @@ void func_i6_80196314(Actor* actor) {
 
         switch (D_8015F908) {
             case 860:
-                func_800BA808(gMsg_ID_19200, RCID_WOLF);
+                Radio_PlayMessage(gMsg_ID_19200, RCID_WOLF);
                 break;
             case 760:
-                func_800BA808(gMsg_ID_19210, RCID_LEON);
+                Radio_PlayMessage(gMsg_ID_19210, RCID_LEON);
                 break;
             case 620:
-                func_800BA808(gMsg_ID_19220, RCID_PIGMA);
+                Radio_PlayMessage(gMsg_ID_19220, RCID_PIGMA);
                 break;
             case 480:
-                func_800BA808(gMsg_ID_19230, RCID_ANDREW);
+                Radio_PlayMessage(gMsg_ID_19230, RCID_ANDREW);
                 break;
             case 350:
-                func_800BA808(gMsg_ID_19240, RCID_FOX);
+                Radio_PlayMessage(gMsg_ID_19240, RCID_FOX);
                 break;
             case 220:
-                func_800BA808(gMsg_ID_19250, RCID_FALCO);
+                Radio_PlayMessage(gMsg_ID_19250, RCID_FALCO);
                 break;
         }
     }
@@ -431,16 +431,16 @@ void func_i6_80196D88(Player* player) {
             break;
     }
     if (player->timer_1FC == 150) {
-        func_800BA808(gMsg_ID_8215, RCID_FOX);
+        Radio_PlayMessage(gMsg_ID_8215, RCID_FOX);
         func_8001D444(0, 0x803E, 0, 0xFF);
     }
     if (player->timer_1FC == 1) {
         if ((gTeamShields[2] > 0) || (gTeamShields[1] > 0) || (gTeamShields[3] > 0)) {
-            func_800BA808(gMsg_ID_8230, RCID_FALCO);
-            func_800BA808(gMsg_ID_8220, RCID_PEPPY);
-            func_800BA808(gMsg_ID_8240, RCID_SLIPPY);
+            Radio_PlayMessage(gMsg_ID_8230, RCID_FALCO);
+            Radio_PlayMessage(gMsg_ID_8220, RCID_PEPPY);
+            Radio_PlayMessage(gMsg_ID_8240, RCID_SLIPPY);
         } else {
-            func_800BA808(gMsg_ID_8205, RCID_FOX);
+            Radio_PlayMessage(gMsg_ID_8205, RCID_FOX);
         }
     }
     D_801779A0 = player->pos.x;

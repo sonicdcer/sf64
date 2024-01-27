@@ -577,7 +577,7 @@ void func_i3_80187944(Boss* bossA6) {
                 if (bossA6->health <= 0) {
                     bossA6->health = 0;
                     func_80042EC0(bossA6);
-                    func_800BA808(gMsg_ID_15252, RCID_SLIPPY);
+                    Radio_PlayMessage(gMsg_ID_15252, RCID_SLIPPY);
                     D_8017796C = -1;
                     D_8015F984 = (D_80177D20 * 0.00004f) + 0.5f;
                     Audio_PlaySfx(0x2940D09A, bossA6->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -914,7 +914,7 @@ void func_i3_80187944(Boss* bossA6) {
                 }
             } else {
                 if ((bossA6->swork[A6_SWK_36] == 3) && (D_i3_801C2250[A6_BSS_29] == 0)) {
-                    func_800BA808(gMsg_ID_7084, RCID_PEPPY);
+                    Radio_PlayMessage(gMsg_ID_7084, RCID_PEPPY);
                     bossA6->swork[A6_SWK_36] = 4;
                     D_i3_801C2250[A6_BSS_29]++;
                     D_i3_801C2250[A6_BSS_29] &= 1;
@@ -954,7 +954,7 @@ void func_i3_80187944(Boss* bossA6) {
             Math_SmoothStepToF(&bossA6->fwork[A6_FWK_29], 255.0f, 1.0f, 10.0f, 0.0001f);
             if ((bossA6->swork[A6_SWK_36] == 2) && (bossA6->fwork[A6_FWK_0] == 0.0f) &&
                 (D_i3_801C2250[A6_BSS_30] == 0)) {
-                func_800BA808(gMsg_ID_7083, RCID_PEPPY);
+                Radio_PlayMessage(gMsg_ID_7083, RCID_PEPPY);
                 bossA6->swork[A6_SWK_36] = 3;
                 D_i3_801C2250[A6_BSS_30]++;
                 D_i3_801C2250[A6_BSS_30] &= 1;
@@ -1007,11 +1007,11 @@ void func_i3_80187944(Boss* bossA6) {
             if (D_i3_801C2250[A6_BSS_33] == 15) {
                 if (D_i3_801C2250[A6_BSS_32] == 0) {
                     if (gTeamShields[1] > 0) {
-                        func_800BA808(gMsg_ID_20315, RCID_FALCO);
+                        Radio_PlayMessage(gMsg_ID_20315, RCID_FALCO);
                     } else if (gTeamShields[2] > 0) {
-                        func_800BA808(gMsg_ID_20316, RCID_SLIPPY);
+                        Radio_PlayMessage(gMsg_ID_20316, RCID_SLIPPY);
                     } else if (gTeamShields[3] > 0) {
-                        func_800BA808(gMsg_ID_20317, RCID_PEPPY);
+                        Radio_PlayMessage(gMsg_ID_20317, RCID_PEPPY);
                     }
                 }
                 D_i3_801C2250[A6_BSS_32]++;
@@ -1175,7 +1175,7 @@ void func_i3_80187944(Boss* bossA6) {
     A6_HIT_4(bossA6, 2)->y.offset = bossA6->vwork[A6_VWK_6].y;
     A6_HIT_4(bossA6, 2)->x.offset = bossA6->vwork[A6_VWK_6].x;
     if (gBossFrameCount == 600) {
-        func_800BA808(gMsg_ID_2225, RCID_SLIPPY);
+        Radio_PlayMessage(gMsg_ID_2225, RCID_SLIPPY);
     }
     if (gBossFrameCount == 756) {
         gShowBossHealth = 1;
@@ -1906,9 +1906,9 @@ void func_i3_8018C54C(Boss* bossA6) {
                 }
                 if (bossA6->timer_058 == 1) {
                     if (bossA6->swork[A6_SWK_25] == 2) {
-                        func_800BA808(gMsg_ID_7085, RCID_FALCO);
+                        Radio_PlayMessage(gMsg_ID_7085, RCID_FALCO);
                     } else if (bossA6->swork[A6_SWK_25] == 1) {
-                        func_800BA808(gMsg_ID_7086, RCID_SLIPPY);
+                        Radio_PlayMessage(gMsg_ID_7086, RCID_SLIPPY);
                     }
                 }
                 if (bossA6->swork[A6_SWK_22] != D_i3_801BF310[j]) {
@@ -1935,7 +1935,7 @@ void func_i3_8018C54C(Boss* bossA6) {
             } else {
                 Math_SmoothStepToF(&bossA6->fwork[A6_FWK_29], 0.0f, 1.0f, 10.0f, 0.0001f);
                 if ((bossA6->timer_054 == 0) && (bossA6->swork[A6_SWK_36] == 4) && (D_i3_801C2250[A6_BSS_31] == 0)) {
-                    func_800BA808(gMsg_ID_7087, 0x1E);
+                    Radio_PlayMessage(gMsg_ID_7087, 0x1E);
                     bossA6->swork[A6_SWK_36] = 5;
                     D_i3_801C2250[A6_BSS_31]++;
                     D_i3_801C2250[A6_BSS_31] &= 1;
@@ -2302,7 +2302,7 @@ void func_i3_8018DF74(Player* player) {
             func_8001D444(0, 0x33, 0, 0xFF);
             break;
         case 40:
-            func_800BA808(gMsg_ID_7005, RCID_CAIMAN_AREA6);
+            Radio_PlayMessage(gMsg_ID_7005, RCID_CAIMAN_AREA6);
             break;
         case 155:
             sp5C.x = player->pos.x;
@@ -2329,7 +2329,7 @@ void func_i3_8018DF74(Player* player) {
             func_i3_8018D4E0(&gActors[1]);
             break;
         case 210:
-            func_800BA808(gMsg_ID_7006, RCID_CAIMAN_AREA6);
+            Radio_PlayMessage(gMsg_ID_7006, RCID_CAIMAN_AREA6);
             break;
         case 240:
             gActors[2].state = 3;
@@ -2344,7 +2344,7 @@ void func_i3_8018DF74(Player* player) {
             gActors[8].state = 3;
             break;
         case 360:
-            func_800BA808(gMsg_ID_7011, RCID_FALCO);
+            Radio_PlayMessage(gMsg_ID_7011, RCID_FALCO);
             break;
         case 430:
             gActors[5].state = 16;
@@ -2679,7 +2679,7 @@ void func_i3_8018ED78(Player* player) {
             D_80177830 = 0;
             break;
         case 940: /* switch 1 */
-            func_800BA808(gMsg_ID_7093, RCID_FOX);
+            Radio_PlayMessage(gMsg_ID_7093, RCID_FOX);
             break;
         case 1070: /* switch 1 */
             gActors[1].fwork[29] = 5.0f;

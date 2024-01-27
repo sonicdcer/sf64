@@ -2099,7 +2099,7 @@ void func_i3_80194A84(Boss* bossZO) {
     }
     if (((bossZO->state == 2) || (bossZO->state == 3) || (bossZO->state == 8)) && (gPlayer[0].timer_220 == 2)) {
         if (bossZO->swork[ZO_SWK_8] == 0) {
-            func_800BA808(gMsg_ID_6068, RCID_BOSS_ZONESS);
+            Radio_PlayMessage(gMsg_ID_6068, RCID_BOSS_ZONESS);
         }
         bossZO->swork[ZO_SWK_8]++;
         if (bossZO->swork[ZO_SWK_8] >= 5) {
@@ -2166,7 +2166,7 @@ void func_i3_80194A84(Boss* bossZO) {
             Math_SmoothStepToF(&bossZO->fwork[ZO_FWK_4], 1.0f, 0.1f, 10.0f, 0.0f);
             if (bossZO->timer_050 == 0) {
                 if (bossZO->swork[ZO_SWK_3] == 0) {
-                    func_800BA808(gMsg_ID_6069, RCID_BOSS_ZONESS);
+                    Radio_PlayMessage(gMsg_ID_6069, RCID_BOSS_ZONESS);
                     bossZO->swork[ZO_SWK_3]++;
                 }
                 Math_SmoothStepToF(&sZoFwork[ZO_BSF_1], sZoFwork[ZO_BSF_74], 0.1f, 2.0f, 0.00001f);
@@ -2201,15 +2201,15 @@ void func_i3_80194A84(Boss* bossZO) {
                     if ((sZoSwork[ZO_BSS_7] == 1) && (sZoSwork[ZO_BSS_19] == 0)) {
                         sZoFwork[ZO_BSF_74] = 230.0f;
                         sZoFwork[ZO_BSF_75] = -230.0f;
-                        func_800BA808(gMsg_ID_6071, RCID_BOSS_ZONESS);
+                        Radio_PlayMessage(gMsg_ID_6071, RCID_BOSS_ZONESS);
                     }
                     if ((sZoSwork[ZO_BSS_7] == 1) && (sZoSwork[ZO_BSS_25] != 0) && (sZoSwork[ZO_BSS_29] == 0) &&
                         (sZoSwork[ZO_BSS_19] != 0)) {
-                        func_800BA808(gMsg_ID_6081, RCID_PEPPY);
+                        Radio_PlayMessage(gMsg_ID_6081, RCID_PEPPY);
                         sZoSwork[ZO_BSS_34] = 333;
                     }
                     if ((sZoSwork[ZO_BSS_7] == 1) && (sZoSwork[ZO_BSS_25] == 0) && (sZoSwork[ZO_BSS_19] != 0)) {
-                        func_800BA808(gMsg_ID_6072, RCID_BOSS_ZONESS);
+                        Radio_PlayMessage(gMsg_ID_6072, RCID_BOSS_ZONESS);
                         sZoSwork[ZO_BSS_34] = 333;
                         sZoSwork[ZO_BSS_25]++;
                     }
@@ -2279,7 +2279,7 @@ void func_i3_80194A84(Boss* bossZO) {
                 func_i3_80198ECC(bossZO);
             }
             if ((sZoSwork[ZO_BSS_32] == 0) && (sZoSwork[ZO_BSS_34] == 1) && (sZoSwork[ZO_BSS_24] == 0)) {
-                func_800BA808(gMsg_ID_6080, RCID_PEPPY);
+                Radio_PlayMessage(gMsg_ID_6080, RCID_PEPPY);
                 sZoSwork[ZO_BSS_34] = 500;
             }
             if (sZoSwork[ZO_BSS_4] == 0) {
@@ -2291,7 +2291,7 @@ void func_i3_80194A84(Boss* bossZO) {
                 if (bossZO->swork[ZO_SWK_7] == 0) {
                     bossZO->swork[ZO_SWK_7]++;
                     bossZO->swork[ZO_SWK_7] &= 1;
-                    func_800BA808(gMsg_ID_6078, RCID_BOSS_ZONESS);
+                    Radio_PlayMessage(gMsg_ID_6078, RCID_BOSS_ZONESS);
                 }
                 if (bossZO->timer_056 == 0) {
                     bossZO->timer_056 = 100;
@@ -2513,7 +2513,7 @@ void func_i3_80194A84(Boss* bossZO) {
             func_8007D0E0(((Rand_ZeroOne() - 0.5f) * 200.0f) + sZoFwork[ZO_BSF_55_X],
                           ((Rand_ZeroOne() - 0.2f) * 800.0f) + sZoFwork[ZO_BSF_55_Y], sZoFwork[ZO_BSF_55_Z], 10.0f);
             if (bossZO->timer_050 == 30) {
-                func_800BA808(gMsg_ID_6079, RCID_BOSS_ZONESS);
+                Radio_PlayMessage(gMsg_ID_6079, RCID_BOSS_ZONESS);
             }
             if (bossZO->timer_050 == 0) {
                 gEffects[98].obj.status = gEffects[99].obj.status = OBJ_FREE;
@@ -2573,7 +2573,7 @@ void func_i3_80194A84(Boss* bossZO) {
                         }
                     } else if ((bossZO->swork[ZO_SWK_5] == 0) && (bossZO->swork[ZO_SWK_6] < 2)) {
                         if (sZoSwork[ZO_BSS_33] == 0) {
-                            func_800BA808(gMsg_ID_6077, RCID_BOSS_ZONESS);
+                            Radio_PlayMessage(gMsg_ID_6077, RCID_BOSS_ZONESS);
                             sZoSwork[ZO_BSS_27] = 3;
                         }
                         sZoSwork[ZO_BSS_33]++;
@@ -2586,12 +2586,12 @@ void func_i3_80194A84(Boss* bossZO) {
                     }
                 }
                 if ((sZoSwork[ZO_BSS_27] == 0) && (sZoSwork[ZO_BSS_18] == 400) && (sZoSwork[ZO_BSS_8] != 0)) {
-                    func_800BA808(gMsg_ID_6074, RCID_BOSS_ZONESS);
+                    Radio_PlayMessage(gMsg_ID_6074, RCID_BOSS_ZONESS);
                     sZoSwork[ZO_BSS_27] = 1;
                     bossZO->swork[ZO_SWK_6] = 30;
                 }
                 if ((sZoSwork[ZO_BSS_26] == 0) && (sZoSwork[ZO_BSS_18] == 200) && (sZoSwork[ZO_BSS_27] == 3)) {
-                    func_800BA808(gMsg_ID_6075, RCID_BOSS_ZONESS);
+                    Radio_PlayMessage(gMsg_ID_6075, RCID_BOSS_ZONESS);
                     sZoSwork[ZO_BSS_26]++;
                     bossZO->timer_050 = 100;
                 }
@@ -2603,7 +2603,7 @@ void func_i3_80194A84(Boss* bossZO) {
                 }
             } else {
                 if (sZoSwork[ZO_BSS_28] == 0) {
-                    func_800BA808(gMsg_ID_6073, RCID_BOSS_ZONESS);
+                    Radio_PlayMessage(gMsg_ID_6073, RCID_BOSS_ZONESS);
                     sZoSwork[ZO_BSS_28]++;
                 }
                 sZoFwork[ZO_BSF_25] = 0.0f;
@@ -2885,7 +2885,7 @@ void func_i3_80194A84(Boss* bossZO) {
                     if (sZoSwork[ZO_BSS_13] < 2) {
                         bossZO->swork[ZO_SWK_14] = 30;
                         sZoSwork[ZO_BSS_13] = 1;
-                        func_800BA808(gMsg_ID_6090, RCID_BOSS_ZONESS);
+                        Radio_PlayMessage(gMsg_ID_6090, RCID_BOSS_ZONESS);
                         spD8.x = sZoFwork[ZO_BSF_52_X];
                         spD8.y = sZoFwork[ZO_BSF_52_Y];
                         spD8.z = sZoFwork[ZO_BSF_52_Z];
@@ -3055,7 +3055,7 @@ void func_i3_80194A84(Boss* bossZO) {
         }
     }
     if (gBossFrameCount == 530) {
-        func_800BA808(gMsg_ID_2225, RCID_SLIPPY);
+        Radio_PlayMessage(gMsg_ID_2225, RCID_SLIPPY);
     }
     if (gBossFrameCount == 686) {
         gShowBossHealth = 1;
@@ -3264,11 +3264,11 @@ void func_i3_80198F3C(Boss* bossZO, s32 arg1, s32 arg2) {
 void func_i3_8019907C(Boss* bossZO) {
     if ((sZoSwork[ZO_BSS_9] == 0) && (sZoSwork[ZO_BSS_10] == 0)) {
         if ((sZoSwork[ZO_BSS_31] == 0) && (sZoSwork[ZO_BSS_30] != 0)) {
-            func_800BA808(gMsg_ID_6082, RCID_PEPPY);
+            Radio_PlayMessage(gMsg_ID_6082, RCID_PEPPY);
             sZoSwork[ZO_BSS_34] = 333;
         }
         if (sZoSwork[ZO_BSS_30] == 0) {
-            func_800BA808(gMsg_ID_6076, RCID_BOSS_ZONESS);
+            Radio_PlayMessage(gMsg_ID_6076, RCID_BOSS_ZONESS);
             sZoSwork[ZO_BSS_34] = 333;
             sZoSwork[ZO_BSS_30]++;
         }
@@ -4746,15 +4746,15 @@ void func_i3_8019D76C(Player* player) {
             D_80177840 = 100;
             break;
         case 380:
-            func_800BA808(gMsg_ID_20010, RCID_FOX);
+            Radio_PlayMessage(gMsg_ID_20010, RCID_FOX);
             break;
         case 468:
             switch (gTeamShields[2]) {
                 case 0:
-                    func_800BA808(gMsg_ID_20345, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20345, RCID_ROB64);
                     break;
                 case -1:
-                    func_800BA808(gMsg_ID_20339, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20339, RCID_ROB64);
                     break;
                 default:
                     func_80048AC0(2);
@@ -4764,16 +4764,16 @@ void func_i3_8019D76C(Player* player) {
         case 603:
             switch (gTeamShields[3]) {
                 case 0:
-                    func_800BA808(gMsg_ID_20344, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20344, RCID_ROB64);
                     break;
                 case -1:
-                    func_800BA808(gMsg_ID_20338, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20338, RCID_ROB64);
                     break;
                 default:
                     if (D_80161684 == 0) {
                         func_80048AC0(3);
                     } else {
-                        func_800BA808(gMsg_ID_6100, RCID_PEPPY);
+                        Radio_PlayMessage(gMsg_ID_6100, RCID_PEPPY);
                     }
                     break;
             }
@@ -4781,13 +4781,13 @@ void func_i3_8019D76C(Player* player) {
         case 738:
             switch (gTeamShields[1]) {
                 case 0:
-                    func_800BA808(gMsg_ID_20343, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20343, RCID_ROB64);
                     break;
                 case -1:
-                    func_800BA808(gMsg_ID_20337, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20337, RCID_ROB64);
                     break;
                 default:
-                    func_800BA808(gMsg_ID_6101, RCID_FALCO);
+                    Radio_PlayMessage(gMsg_ID_6101, RCID_FALCO);
                     break;
             }
             break;
