@@ -36,9 +36,9 @@ void func_i4_801875F0(Actor* actor) {
                     Actor_Initialize(actorPtr);
                     actorPtr->obj.status = 2;
                     actorPtr->obj.id = 197;
-                    actorPtr->obj.pos.x = gBosses->obj.pos.x;
-                    actorPtr->obj.pos.y = gBosses->obj.pos.y + 20.0f;
-                    actorPtr->obj.pos.z = gBosses->obj.pos.z;
+                    actorPtr->obj.pos.x = gBosses[0].obj.pos.x;
+                    actorPtr->obj.pos.y = gBosses[0].obj.pos.y + 20.0f;
+                    actorPtr->obj.pos.z = gBosses[0].obj.pos.z;
                     actorPtr->state = 1;
                     actorPtr->timer_0BC = 100;
                     actorPtr->unk_0E4 = i + 10;
@@ -137,7 +137,7 @@ void func_i4_80187960(Actor* actor) {
     }
 
     if (D_8015F928 == 7000) {
-        Audio_PlaySfx(0x11030016U, gBosses->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(0x11030016U, gBosses[0].sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         func_8002EE34();
         Radio_PlayMessage(gMsg_ID_9390, RCID_ROB64);
         D_8015F944 = 1.0f;
@@ -197,9 +197,9 @@ void func_i4_80187960(Actor* actor) {
         D_8015F93C = 0;
         actor->iwork[0] = 0;
         actor->state = 6;
-        gPlayer->state_1C8 = PLAYERSTATE_1C8_7;
-        gPlayer->unk_1D0 = 0;
-        gPlayer->unk_000 = 0.0f;
+        gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
+        gPlayer[0].unk_1D0 = 0;
+        gPlayer[0].unk_000 = 0.0f;
 
         func_8002EE34();
 
@@ -210,7 +210,7 @@ void func_i4_80187960(Actor* actor) {
         if ((D_80177CD0[0] == 0) && (D_80177CD0[1] == 0) && (D_80177CD0[2] == 0) && (D_80177CD0[3] == 0)) {
             Radio_PlayMessage(gMsg_ID_9411, RCID_FOX);
             D_80177930 = 1;
-            gPlayer->timer_1F8 = 50;
+            gPlayer[0].timer_1F8 = 50;
             player->unk_190 = 5.0f;
             player->unk_194 = 5.0f;
             Audio_PlaySfx(0x09000002U, player->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -218,7 +218,7 @@ void func_i4_80187960(Actor* actor) {
             func_800182F4(0x111E00FF);
         } else {
             D_80177930 = 0;
-            gPlayer->timer_1F8 = 30;
+            gPlayer[0].timer_1F8 = 30;
         }
     }
 
