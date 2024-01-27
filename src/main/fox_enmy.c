@@ -1366,8 +1366,8 @@ void func_800654E4(Object* obj) {
 
     func_8007D2C8(obj->pos.x, obj->pos.y, obj->pos.z, 12.0f);
     for (var_s1 = 0; var_s1 < 4; var_s1++) {
-        func_8006546C(obj->pos.x, obj->pos.y, obj->pos.z, (Rand_ZeroOne() - 0.5f) * 40.0f,
-                      (Rand_ZeroOne() - 0.5f) * 40.0f, Rand_ZeroOne() * -20.0f);
+        func_8006546C(obj->pos.x, obj->pos.y, obj->pos.z, RAND_CENTEREDFLOAT(40.0f),
+                      RAND_CENTEREDFLOAT(40.0f), Rand_ZeroOne() * -20.0f);
     }
 }
 
@@ -1925,7 +1925,7 @@ void func_800671D0(Item* item) {
     if (!(var_v0 & gGameFrameCount)) {
         Matrix_RotateY(gCalcMatrix, gGameFrameCount * 23.0f * M_DTOR, 0);
         sp40.x = 50.0f;
-        sp40.y = (Rand_ZeroOne() - 0.5f) * 120.0f;
+        sp40.y = RAND_CENTEREDFLOAT(120.0f);
         sp40.z = 0.0f;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp40, &sp34);
         func_80078E50(item->obj.pos.x + sp34.x, item->obj.pos.y + sp34.y, item->obj.pos.z + sp34.z, 3.0f);
@@ -1997,8 +1997,8 @@ void func_8006753C(Actor* actor) {
             for (i = 0; i < 6; i++) {
                 func_800674B4(D_800CFEC4[i].x + actor->obj.pos.x, D_800CFEC4[i].y + actor->obj.pos.y,
                               D_800CFEC4[i].z + actor->obj.pos.z, D_800CFF0C[i].y + actor->obj.rot.y,
-                              D_800CFF0C[i].x + actor->obj.rot.x, (Rand_ZeroOne() - 0.5f) * 40.0f,
-                              (Rand_ZeroOne() * 10.0f) + 10.0f, (Rand_ZeroOne() - 0.5f) * 40.0f);
+                              D_800CFF0C[i].x + actor->obj.rot.x, RAND_CENTEREDFLOAT(40.0f),
+                              (Rand_ZeroOne() * 10.0f) + 10.0f, RAND_CENTEREDFLOAT(40.0f));
                 func_800794CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.6f);
             }
             Object_Kill(&actor->obj, actor->sfxPos);

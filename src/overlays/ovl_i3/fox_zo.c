@@ -695,7 +695,7 @@ void func_i3_801904CC(Actor* actor) {
             break;
         case 1:
             for (i = 0; i < 11; i++) {
-                func_i3_801900FC(&actor->vwork[i], &actor->vwork[i + 11], (Rand_ZeroOne() - 0.5f) * 20.0f,
+                func_i3_801900FC(&actor->vwork[i], &actor->vwork[i + 11], RAND_CENTEREDFLOAT(20.0f),
                                  Rand_ZeroOne() * -10.0f, Rand_ZeroOne() * 10.0f, 41, actor->scale, 200, i);
             }
             actor->unk_044 = 0;
@@ -880,7 +880,7 @@ void func_i3_80191010(Actor* actor) {
     switch (actor->state) {
         case 0:
             actor->fwork[3] = actor->obj.rot.x;
-            actor->fwork[1] = (Rand_ZeroOne() - 0.5f) * 1000.0f;
+            actor->fwork[1] = RAND_CENTEREDFLOAT(1000.0f);
             actor->health = 10;
             actor->timer_0BC = 30;
             actor->scale = 5.0f;
@@ -936,7 +936,7 @@ void func_i3_80191010(Actor* actor) {
             break;
         case 3:
             for (i = 0; i < 3; i++) {
-                func_i3_801900FC(&actor->vwork[i], &actor->vwork[3 + i], (Rand_ZeroOne() - 0.5f) * 20.0f,
+                func_i3_801900FC(&actor->vwork[i], &actor->vwork[3 + i], RAND_CENTEREDFLOAT(20.0f),
                                  Rand_ZeroOne() * -10.0f, Rand_ZeroOne() * 10.0f, 42, actor->scale, 200, i);
             }
             actor->unk_044 = 4;
@@ -1264,7 +1264,7 @@ void func_i3_80192094(Actor* actor) {
             break;
         case 4:
             for (i = 0; i < 6; i++) {
-                func_i3_801900FC(&actor->vwork[i], &actor->vwork[i + 6], (Rand_ZeroOne() - 0.5f) * 40.0f,
+                func_i3_801900FC(&actor->vwork[i], &actor->vwork[i + 6], RAND_CENTEREDFLOAT(40.0f),
                                  Rand_ZeroOne() * -10.0f, Rand_ZeroOne() * 20.0f, 44, actor->scale, 200, i);
             }
             actor->unk_044 = 5;
@@ -1366,7 +1366,7 @@ void func_i3_80192834(Actor* actor) {
             break;
         case 2:
             for (i = 0; i < 5; i++) {
-                func_i3_801900FC(&actor->vwork[i], &actor->vwork[5 + i], (Rand_ZeroOne() - 0.5f) * 20.0f,
+                func_i3_801900FC(&actor->vwork[i], &actor->vwork[5 + i], RAND_CENTEREDFLOAT(20.0f),
                                  Rand_ZeroOne() * -10.0f, Rand_ZeroOne() * 10.0f, 43, actor->scale, 200, i);
             }
             actor->unk_044 = 0;
@@ -1483,7 +1483,7 @@ void func_i3_80192E64(Actor* actor) {
             break;
         case 3:
             for (i = 0; i < 9; i++) {
-                func_i3_801900FC(&actor->vwork[i], &actor->vwork[9 + i], (Rand_ZeroOne() - 0.5f) * 40.0f,
+                func_i3_801900FC(&actor->vwork[i], &actor->vwork[9 + i], RAND_CENTEREDFLOAT(40.0f),
                                  Rand_ZeroOne() * -10.0f, Rand_ZeroOne() * 20.0f, 59, actor->scale, 200, i);
             }
             actor->unk_044 = 7;
@@ -1636,7 +1636,7 @@ void func_i3_801937D8(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
     effect->obj.pos.z = zPos;
     effect->unk_44 = 100;
     effect->scale2 = 3.0f;
-    effect->scale1 = (Rand_ZeroOne() - 0.5f) * 20.0f;
+    effect->scale1 = RAND_CENTEREDFLOAT(20.0f);
     effect->unk_78 = 100;
     effect->unk_7A = 14;
     effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
@@ -1672,7 +1672,7 @@ void func_i3_80193970(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot, s3
     effect->obj.pos.z = zPos;
     effect->scale2 = 8.0f;
     effect->unk_44 = arg5;
-    effect->scale1 = (Rand_ZeroOne() - 0.5f) * 200.0f;
+    effect->scale1 = RAND_CENTEREDFLOAT(200.0f);
     effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
     effect->state = 1;
     effect->unk_78 = 100;
@@ -1700,8 +1700,8 @@ void func_i3_80193B08(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale) {
     effect->obj.pos.x = xPos;
     effect->obj.pos.y = yPos;
     effect->obj.pos.z = zPos;
-    effect->vel.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
-    effect->vel.y = (Rand_ZeroOne() - 0.5f) * 3.0f;
+    effect->vel.x = RAND_CENTEREDFLOAT(5.0f);
+    effect->vel.y = RAND_CENTEREDFLOAT(3.0f);
     effect->unk_48 = 3;
     if (Rand_ZeroOne() < 0.5f) {
         effect->unk_48 = -effect->unk_48;
@@ -2497,8 +2497,8 @@ void func_i3_80194A84(Boss* bossZO) {
                 spD8.y = Math_ModF(RAND_CENTEREDFLOAT(60.0f) + 360.0f, 360.0f);
                 spD8.z = bossZO->obj.rot.z;
                 for (i = 0; i < 5; i++) {
-                    func_i3_801900FC(&spE4, &spD8, (Rand_ZeroOne() - 0.5f) * 30.0f, (Rand_ZeroOne() - 0.5f) * 20.0f,
-                                     (Rand_ZeroOne() - 0.5f) * 30.0f, 4, 1.0f,
+                    func_i3_801900FC(&spE4, &spD8, RAND_CENTEREDFLOAT(30.0f), RAND_CENTEREDFLOAT(20.0f),
+                                     RAND_CENTEREDFLOAT(30.0f), 4, 1.0f,
                                      (Rand_ZeroOne() * 15.0f) + (bossZO->unk_3F8 * 10.0f), 0);
                 }
             }
@@ -3668,7 +3668,7 @@ void func_i3_8019A5D4(Actor* actor) {
             actor->obj.pos.z = sZoFwork[ZO_BSF_65_Z];
             if ((sZoSwork[ZO_BSS_20] != 0) && (actor->timer_0BC == 0)) {
                 if ((sZoSwork[ZO_BSS_8] == 0) && (gBosses[0].state == 8)) {
-                    var_fv1 = (Rand_ZeroOne() - 0.5f) * 3000.0f;
+                    var_fv1 = RAND_CENTEREDFLOAT(3000.0f);
                     var_fa0 = 0.0f;
                 } else {
                     var_fv1 = 0.0f;
@@ -3999,8 +3999,8 @@ void func_i3_8019B854(Actor* actor) {
             break;
         case 1:
             for (i = 0; i < 6; i++) {
-                func_i3_801900FC(&actor->vwork[i], &actor->vwork[6 + i], (Rand_ZeroOne() - 0.5f) * 50.0f,
-                                 (Rand_ZeroOne() * 10.0f) + 20.0f, (Rand_ZeroOne() - 0.5f) * 50.0f, 39, actor->scale,
+                func_i3_801900FC(&actor->vwork[i], &actor->vwork[6 + i], RAND_CENTEREDFLOAT(50.0f),
+                                 (Rand_ZeroOne() * 10.0f) + 20.0f, RAND_CENTEREDFLOAT(50.0f), 39, actor->scale,
                                  (Rand_ZeroOne() * 15.0f) + (actor->scale * 10.0f), i);
             }
             for (i = 0; i < 10; i++) {
@@ -4026,8 +4026,8 @@ void func_i3_8019B854(Actor* actor) {
                         spB4.x = D_i3_801BF84C[j].x + actor->obj.pos.x;
                         spB4.y = D_i3_801BF84C[j].y + actor->obj.pos.y;
                         spB4.z = D_i3_801BF84C[j].z + actor->obj.pos.z;
-                        sp9C.x = (Rand_ZeroOne() - 0.5f) * 10.0f;
-                        sp9C.y = (Rand_ZeroOne() - 0.5f) * 10.0f;
+                        sp9C.x = RAND_CENTEREDFLOAT(10.0f);
+                        sp9C.y = RAND_CENTEREDFLOAT(10.0f);
                         sp9C.z = 50.0f;
                         func_8007EE68(353, &spB4, &spA8, &spA8, &sp9C, 1.0f);
                     }

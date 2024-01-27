@@ -67,7 +67,7 @@ void func_8006A984(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
 
     effect->unk_44 = 40;
     effect->scale2 = 5.0f;
-    effect->scale1 = (Rand_ZeroOne() - 0.5f) * 2.0f ;
+    effect->scale1 = RAND_CENTEREDFLOAT(2.0f) ;
     effect->vel.y = 10.0f;
     effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
     Object_SetInfo(&effect->info, effect->obj.id);
@@ -92,7 +92,7 @@ void func_8006AA98(Object_80* obj80) {
     if ((gGameFrameCount % 4) == 0) {
         Matrix_RotateY(gCalcMatrix, obj80->obj.rot.y * M_DTOR, 0);
 
-        sp18.x = (Rand_ZeroOne() - 0.5f) * 700.0f;
+        sp18.x = RAND_CENTEREDFLOAT(700.0f);
         sp18.y = Rand_ZeroOne() * 50.0f;
         sp18.z = 700.0f;
 
@@ -360,7 +360,7 @@ void func_8006BA64(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
     effect->scale2 = 0.0f;
     effect->scale1 = 0.12f;
     effect->obj.rot.y = Rand_ZeroOne() * 360.0f;
-    effect->unk_60.y = (Rand_ZeroOne() - 0.5f) * 3.0f;
+    effect->unk_60.y = RAND_CENTEREDFLOAT(3.0f);
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
@@ -380,7 +380,7 @@ void func_8006BB78(Actor* actor) {
 
     switch (actor->state) {
         case 0:
-            actor->fwork[10] = (Rand_ZeroOne() - 0.5f) * 1000.0f;
+            actor->fwork[10] = RAND_CENTEREDFLOAT(1000.0f);
             actor->state = 1;
             break;
 
@@ -626,9 +626,9 @@ void func_8006C008(Actor* actor) {
         case 58:
             if (actor->unk_046 == 0) {
                 actor->unk_046++;
-                actor->fwork[0] = (Rand_ZeroOne() - 0.5f) * 30.0f;
-                actor->fwork[1] = (Rand_ZeroOne() - 0.5f) * 30.0f;
-                actor->fwork[2] = (Rand_ZeroOne() - 0.5f) * 30.0f;
+                actor->fwork[0] = RAND_CENTEREDFLOAT(30.0f);
+                actor->fwork[1] = RAND_CENTEREDFLOAT(30.0f);
+                actor->fwork[2] = RAND_CENTEREDFLOAT(30.0f);
             }
 
             actor->obj.rot.x += actor->fwork[0];
@@ -701,9 +701,9 @@ void func_8006C008(Actor* actor) {
         default:
             if (actor->unk_046 == 0) {
                 actor->unk_046++;
-                actor->fwork[10] = (Rand_ZeroOne() - 0.5f) * 30.0f;
-                actor->fwork[11] = (Rand_ZeroOne() - 0.5f) * 30.0f;
-                actor->fwork[12] = (Rand_ZeroOne() - 0.5f) * 30.0f;
+                actor->fwork[10] = RAND_CENTEREDFLOAT(30.0f);
+                actor->fwork[11] = RAND_CENTEREDFLOAT(30.0f);
+                actor->fwork[12] = RAND_CENTEREDFLOAT(30.0f);
             }
 
             actor->obj.rot.x += actor->fwork[10];
@@ -1817,8 +1817,8 @@ void func_8006F40C(Actor* actor) {
             case 8:
                 sp6C.x = gPlayer[0].pos.x;
                 sp6C.y = gPlayer[0].pos.y;
-                gPlayer[0].pos.x += (Rand_ZeroOne() - 0.5f) * 300.0f;
-                gPlayer[0].pos.y += (Rand_ZeroOne() - 0.5f) * 300.0f;
+                gPlayer[0].pos.x += RAND_CENTEREDFLOAT(300.0f);
+                gPlayer[0].pos.y += RAND_CENTEREDFLOAT(300.0f);
                 func_8007F11C(OBJ_EFFECT_353, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, D_80177828);
                 gPlayer[0].pos.x = sp6C.x;
                 gPlayer[0].pos.y = sp6C.y;
@@ -1947,7 +1947,7 @@ void func_8006FEEC(Actor* actor) {
 
         if (actor->health <= 0) {
             for (i = 3; i < 11; i++) {
-                func_i3_801900FC(&actor->vwork[i], &actor->vwork[i + 11], (Rand_ZeroOne() - 0.5f) * 20.0f,
+                func_i3_801900FC(&actor->vwork[i], &actor->vwork[i + 11], RAND_CENTEREDFLOAT(20.0f),
                                  Rand_ZeroOne() * -10.0f, Rand_ZeroOne() * 10.0f, 41, actor->scale, 200, i);
             }
             actor->unk_044 = 0;
@@ -2107,8 +2107,8 @@ void func_800701E0(Actor* actor) {
                             default:
                                 actor->timer_0BC = 35;
                                 actor->timer_04C = 2;
-                                actor->vel.y = (Rand_ZeroOne() - 0.5f) * 20.0f;
-                                actor->vel.x = (Rand_ZeroOne() - 0.5f) * 20.0f;
+                                actor->vel.y = RAND_CENTEREDFLOAT(20.0f);
+                                actor->vel.x = RAND_CENTEREDFLOAT(20.0f);
                                 actor->vel.z = 0.0f;
                                 break;
                         }
@@ -2853,7 +2853,7 @@ void func_800722EC(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
     effect->obj.pos.z = zPos;
     effect->unk_44 = 250;
     effect->scale2 = 2.0f;
-    effect->scale1 = (Rand_ZeroOne() - 0.5f) * 200.0f;
+    effect->scale1 = RAND_CENTEREDFLOAT(200.0f);
     effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
     effect->unk_4C = effect->state = 1;
     Object_SetInfo(&effect->info, effect->obj.id);
@@ -3516,9 +3516,9 @@ void func_80072594(Actor* actor) {
                                     effect->vel.x = sp78.x;
                                     effect->vel.y = sp78.y;
                                     effect->vel.z = sp78.z;
-                                    effect->unk_60.x = (Rand_ZeroOne() - 0.5f) + 5.0f;
-                                    effect->unk_60.y = (Rand_ZeroOne() - 0.5f) + 5.0f;
-                                    effect->unk_60.z = (Rand_ZeroOne() - 0.5f) + 5.0f;
+                                    effect->unk_60.x = RAND_CENTEREDFLOAT( 1.0f) + 5.0f;
+                                    effect->unk_60.y = RAND_CENTEREDFLOAT( 1.0f) + 5.0f;
+                                    effect->unk_60.z = RAND_CENTEREDFLOAT( 1.0f) + 5.0f;
                                 }
                             }
                             actor->unk_046++;
@@ -3542,8 +3542,8 @@ void func_80072594(Actor* actor) {
 
                         effect->scale2 = 9.0f;
                         effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
-                        effect->vel.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
-                        effect->vel.y = (Rand_ZeroOne() - 0.5f) * 3.0f + 30.0f;
+                        effect->vel.x = RAND_CENTEREDFLOAT(5.0f);
+                        effect->vel.y = RAND_CENTEREDFLOAT(3.0f) + 30.0f;
                         effect->unk_44 = 100;
                         effect->unk_46 = -8;
                         effect->unk_60.z = 3;
@@ -3567,8 +3567,8 @@ void func_80072594(Actor* actor) {
                             effect->obj.pos.z = RAND_CENTEREDFLOAT(3.0f) + actor->obj.pos.z + 200.0f;
                             effect->scale2 = 9.0f;
                             effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
-                            effect->vel.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
-                            effect->vel.y = (Rand_ZeroOne() - 0.5f) * 3.0f + 10.0f;
+                            effect->vel.x = RAND_CENTEREDFLOAT(5.0f);
+                            effect->vel.y = RAND_CENTEREDFLOAT(3.0f) + 10.0f;
                             effect->unk_44 = 100;
                             effect->unk_46 = -8;
                             effect->unk_60.z = 3;

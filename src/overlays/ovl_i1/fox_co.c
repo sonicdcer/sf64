@@ -22,8 +22,8 @@ void func_i1_801875A4(Object_4C* obj4C) {
     f32 var_f;
 
     if (!(gGameFrameCount & 3)) {
-        sp1C = (Rand_ZeroOne() - 0.5f) * 10.0f;
-        sp18 = (Rand_ZeroOne() - 0.5f) * 10.0f;
+        sp1C = RAND_CENTEREDFLOAT(10.0f);
+        sp18 = RAND_CENTEREDFLOAT(10.0f);
         var_f = ((Rand_ZeroOne() * 0.5f) + 1.0f);
         func_8007C85C(obj4C->obj.pos.x + sp1C, obj4C->obj.pos.y + sp18, obj4C->obj.pos.z, 4.0f * var_f);
     }
@@ -384,9 +384,9 @@ void func_i1_801887AC(Boss* boss) {
                         sp3C.x = gPlayer[0].pos.x;
                         sp3C.y = gPlayer[0].pos.y;
                         sp3C.z = gPlayer[0].unk_138;
-                        gPlayer[0].pos.x += (Rand_ZeroOne() - 0.5f) * 300.0f;
-                        gPlayer[0].pos.y += (Rand_ZeroOne() - 0.5f) * 300.0f;
-                        gPlayer[0].unk_138 += (Rand_ZeroOne() - 0.5f) * 300.0f;
+                        gPlayer[0].pos.x += RAND_CENTEREDFLOAT(300.0f);
+                        gPlayer[0].pos.y += RAND_CENTEREDFLOAT(300.0f);
+                        gPlayer[0].unk_138 += RAND_CENTEREDFLOAT(300.0f);
                         func_8007F11C(OBJ_EFFECT_376, D_i1_8019B6D8[12], D_i1_8019B6D8[13], D_i1_8019B6D8[14], 60.0f);
                         gPlayer[0].pos.x = sp3C.x;
                         gPlayer[0].pos.y = sp3C.y;
@@ -703,8 +703,8 @@ void func_i1_80189058(Boss* boss) {
                             boss->state = 4;
                             boss->timer_050 = (s32) (Rand_ZeroOne() * 70.0f) + 100;
                             boss->fwork[14] = 0.1f;
-                            D_i1_8019B6D8[66] = (Rand_ZeroOne() - 0.5f) * 6000.0f;
-                            D_i1_8019B6D8[67] = (Rand_ZeroOne() - 0.5f) * 6000.0f;
+                            D_i1_8019B6D8[66] = RAND_CENTEREDFLOAT(6000.0f);
+                            D_i1_8019B6D8[67] = RAND_CENTEREDFLOAT(6000.0f);
                             boss->fwork[14] = 0.07f;
                             break;
                         case 3:
@@ -1358,7 +1358,7 @@ void func_i1_8018B58C(Actor* actor) {
 
                     func_800430DC(actor->fwork[2 + i], actor->fwork[6 + i], actor->fwork[10 + i], 0.0f, 0.0f, 0.0f,
                                   spB4[i] * ((Rand_ZeroOne() * 0.75f) + 0.5f),
-                                  spA4[i] * ((Rand_ZeroOne() * 0.75f) + 0.5f), (Rand_ZeroOne() - 0.5f) * 20.0f, 3.0f,
+                                  spA4[i] * ((Rand_ZeroOne() * 0.75f) + 0.5f), RAND_CENTEREDFLOAT(20.0f), 3.0f,
                                   i + 0x18, ((s32) (Rand_ZeroOne() * 30.0f) + 60.0f));
                 }
 

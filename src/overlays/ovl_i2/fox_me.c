@@ -1855,9 +1855,9 @@ void func_i2_8018CB50(Effect* effect, Actor* actor) {
     effect->obj.pos.y = actor->obj.pos.y;
     effect->obj.pos.z = actor->obj.pos.z;
 
-    effect->vel.x = (Rand_ZeroOne() - 0.5f) * 30.0f;
-    effect->vel.y = (Rand_ZeroOne() - 0.5f) * 30.0f;
-    effect->vel.z = (Rand_ZeroOne() - 0.5f) * 30.0f;
+    effect->vel.x = RAND_CENTEREDFLOAT(30.0f);
+    effect->vel.y = RAND_CENTEREDFLOAT(30.0f);
+    effect->vel.z = RAND_CENTEREDFLOAT(30.0f);
 
     effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
     Object_SetInfo(&effect->info, effect->obj.id);
@@ -2116,7 +2116,7 @@ void func_i2_8018CD8C(Player* player) {
 void func_i2_8018D9EC(Actor* actor) {
     switch (actor->state) {
         case 0:
-            actor->fwork[0] = (Rand_ZeroOne() - 0.5f) * 10.0f;
+            actor->fwork[0] = RAND_CENTEREDFLOAT(10.0f);
             actor->state = 1;
 
         case 1:

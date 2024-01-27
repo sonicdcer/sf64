@@ -1737,8 +1737,8 @@ void func_i4_8019E454(Boss* boss) {
         for (j = 0; j < 1; j++) {
             i = Rand_ZeroOne() * 11.99f;
             func_i4_80199BDC(D_i4_8019F64C[i].x + boss->obj.pos.x, D_i4_8019F64C[i].y + boss->obj.pos.y,
-                             D_i4_8019F64C[i].z + boss->obj.pos.z, (Rand_ZeroOne() - 0.5f) * 5.0f,
-                             (Rand_ZeroOne() - 0.5f) * 5.0f, 10.0f, (Rand_ZeroOne() * 2.0f) + 4.0f);
+                             D_i4_8019F64C[i].z + boss->obj.pos.z, RAND_CENTEREDFLOAT(5.0f),
+                             RAND_CENTEREDFLOAT(5.0f), 10.0f, (Rand_ZeroOne() * 2.0f) + 4.0f);
         }
     }
 
@@ -1820,8 +1820,8 @@ void func_i4_8019EA68(void) {
             actor->obj.pos.y = D_80178310[i].yPos;
             actor->obj.pos.z = -D_80178310[i].zPos1;
             actor->health = 24;
-            actor->unk_0F4.x = (Rand_ZeroOne() - 0.5f) * 4.0f;
-            actor->unk_0F4.y = (Rand_ZeroOne() - 0.5f) * 4.0f;
+            actor->unk_0F4.x = RAND_CENTEREDFLOAT(4.0f);
+            actor->unk_0F4.y = RAND_CENTEREDFLOAT(4.0f);
             Object_SetInfo(&actor->info, actor->obj.id);
             actor->unk_044 = 1;
 

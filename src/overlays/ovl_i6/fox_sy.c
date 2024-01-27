@@ -533,7 +533,7 @@ void func_i6_80199438(Boss* boss) {
                 for (i = 10; i < 24; i++) {
                     if (i != 15) {
                         func_i6_801A3B50(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z,
-                                         (Rand_ZeroOne() - 0.5f) * 50.0f, (Rand_ZeroOne() - 0.5f) * 50.0f,
+                                         RAND_CENTEREDFLOAT(50.0f), RAND_CENTEREDFLOAT(50.0f),
                                          RAND_CENTEREDFLOAT(50.0f) + boss->vel.z, i);
                     }
                 }
@@ -569,8 +569,8 @@ void func_i6_80199438(Boss* boss) {
 
             for (i = 10; i < 24; i++) {
                 if (i != 15) {
-                    func_i6_801A3B50(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, (Rand_ZeroOne() - 0.5f) * 50.0f,
-                                     (Rand_ZeroOne() - 0.5f) * 50.0f, RAND_CENTEREDFLOAT(50.0f) + boss->vel.z,
+                    func_i6_801A3B50(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, RAND_CENTEREDFLOAT(50.0f),
+                                     RAND_CENTEREDFLOAT(50.0f), RAND_CENTEREDFLOAT(50.0f) + boss->vel.z,
                                      i);
                 }
             }
@@ -603,7 +603,7 @@ void func_i6_80199438(Boss* boss) {
                 for (j = 59; j >= 0; j--) {
                     if (gActors[j].obj.status == OBJ_FREE) {
                         func_i6_801A39FC(&gActors[j], boss->fwork[28], boss->fwork[29], boss->fwork[30],
-                                         (Rand_ZeroOne() - 0.5f) * 50.0f, (Rand_ZeroOne() - 0.5f) * 50.0f,
+                                         RAND_CENTEREDFLOAT(50.0f), RAND_CENTEREDFLOAT(50.0f),
                                          RAND_CENTEREDFLOAT(50.0f) + boss->vel.z, 15);
                         break;
                     }
@@ -2532,8 +2532,8 @@ void func_i6_801A0AC0(Player* player) {
                 func_8007C120(gActors[8].obj.pos.x + sp98.x, gActors[8].obj.pos.y + sp98.y,
                               gActors[8].obj.pos.z + sp98.z, gActors[8].vel.x, gActors[8].vel.y, gActors[8].vel.z, 0.8f,
                               5);
-                func_8007D2C8(((gActors[8].obj.pos.x - 2000.0f) + (Rand_ZeroOne() - 0.5f) * 500.0f),
-                              (gActors[8].obj.pos.y - 500.0f) + RAND_CENTEREDFLOAT(1000.0f),
+                func_8007D2C8(gActors[8].obj.pos.x - 2000.0f + RAND_CENTEREDFLOAT(500.0f),
+                              gActors[8].obj.pos.y - 500.0f + RAND_CENTEREDFLOAT(1000.0f),
                               gActors[8].obj.pos.z + RAND_CENTEREDFLOAT(3000.0f), 8);
             }
             if (gGameFrameCount & 0x14) {
@@ -2609,8 +2609,8 @@ void func_i6_801A0AC0(Player* player) {
                     Object_Kill(&gActors[11].obj, gActors[11].sfxPos);
                     for (i = 10; i < 24; i++) {
                         func_i6_801A3B50(gActors[11].obj.pos.x, gActors[11].obj.pos.y, gActors[11].obj.pos.z,
-                                         (Rand_ZeroOne() - 0.5f) * 50.0f, (Rand_ZeroOne() - 0.5f) * 50.0f,
-                                         (Rand_ZeroOne() - 0.5f) * 50.0f, i);
+                                         RAND_CENTEREDFLOAT(50.0f), RAND_CENTEREDFLOAT(50.0f),
+                                         RAND_CENTEREDFLOAT(50.0f), i);
                     }
                     break;
                 case 155:
@@ -3263,7 +3263,7 @@ void func_i6_801A4E44(Object_80* obj80) {
         func_8007C120(obj80->obj.pos.x + sp30.x, obj80->obj.pos.y + sp30.y, obj80->obj.pos.z + sp30.z, obj80->unk_58,
                       obj80->unk_5C, obj80->unk_60, 0.2f, 5);
         sp3C.x = RAND_CENTEREDFLOAT(100.0f) + -500.0f;
-        sp3C.y = (Rand_ZeroOne() - 0.5f) * 900.0f;
+        sp3C.y = RAND_CENTEREDFLOAT(900.0f);
         sp3C.z = 80.0f - (Rand_ZeroOne() * 50.0f);
         Matrix_MultVec3f(gCalcMatrix, &sp3C, &sp30);
         func_8007C120(obj80->obj.pos.x + sp30.x, obj80->obj.pos.y + sp30.y, obj80->obj.pos.z + sp30.z, obj80->unk_58,

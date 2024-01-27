@@ -148,9 +148,9 @@ void func_800438E0(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale) {
     effect->scale2 = ((Rand_ZeroOne() * 0.8f) + 0.3f) * scale;
     effect->timer_50 = (s32) (Rand_ZeroOne() * 5.0f) + 8;
     effect->obj.rot.x = Rand_ZeroOne() * 360.0f;
-    effect->unk_60.x = (Rand_ZeroOne() - 0.5f) * 30.0f;
-    effect->unk_60.y = (Rand_ZeroOne() - 0.5f) * 30.0f;
-    effect->unk_60.z = (Rand_ZeroOne() - 0.5f) * 30.0f;
+    effect->unk_60.x = RAND_CENTEREDFLOAT(30.0f);
+    effect->unk_60.y = RAND_CENTEREDFLOAT(30.0f);
+    effect->unk_60.z = RAND_CENTEREDFLOAT(30.0f);
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 

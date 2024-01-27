@@ -5,6 +5,7 @@
 #define SCREEN_HEIGHT 240
 
 #define RAND_CENTEREDFLOAT(width) ((Rand_ZeroOne() - 0.5f) * (width))
+#define RAND_PLUSMINUS(val) ((Rand_ZeroOne() - 0.5f) * (2.0f*(width)))
 
 #define SEGMENTED_TO_VIRTUAL(segment) ((void*)OS_PHYSICAL_TO_K0(gSegments[((uintptr_t)(segment)<<4)>>0x1C]+(((uintptr_t)(segment))&0xFFFFFF))) 
 

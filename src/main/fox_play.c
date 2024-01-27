@@ -749,16 +749,16 @@ void func_800A670C(Actor* actor, s32 state, f32 xPos, f32 yPos, f32 zPos) {
     } else {
         if (gLevelType == LEVELTYPE_PLANET) {
             actor->vel.y = (Rand_ZeroOne() * 7.0f) + 7.0f;
-            actor->vel.x = (Rand_ZeroOne() - 0.5f) * 10.0f;
+            actor->vel.x = RAND_CENTEREDFLOAT(10.0f);
             actor->vel.z = (Rand_ZeroOne() * 5.0f) + 5.0f;
             if (gLevelMode == LEVELMODE_ALL_RANGE) {
-                actor->vel.z = (Rand_ZeroOne() - 0.5f) * 10.0f;
+                actor->vel.z = RAND_CENTEREDFLOAT(10.0f);
             }
             actor->timer_0BC = (s32) (Rand_ZeroOne() * 10.0f) + 10;
         } else {
-            actor->vel.x = (Rand_ZeroOne() - 0.5f) * 10.0f;
-            actor->vel.y = (Rand_ZeroOne() - 0.5f) * 10.0f;
-            actor->vel.z = (Rand_ZeroOne() - 0.5f) * 10.0f;
+            actor->vel.x = RAND_CENTEREDFLOAT(10.0f);
+            actor->vel.y = RAND_CENTEREDFLOAT(10.0f);
+            actor->vel.z = RAND_CENTEREDFLOAT(10.0f);
             actor->timer_0BC = (s32) (Rand_ZeroOne() * 25.0f) + 25;
             actor->gravity = 0.0f;
         }
@@ -3851,7 +3851,7 @@ void func_800B0194(Player* player) {
         Math_SmoothStepToF(&player->unk_168, -sp74 * 0.3f, 0.1f, 10.0f, 0.00001f);
     } else {
         if (((gGameFrameCount & 0xF) == 0) && (Rand_ZeroOne() < 0.5f)) {
-            player->unk_17C = (Rand_ZeroOne() - 0.5f) * 100.0f;
+            player->unk_17C = RAND_CENTEREDFLOAT(100.0f);
         }
         if (((gGameFrameCount & 0xF) == 3) && (Rand_ZeroOne() < 0.5f)) {
             player->unk_174 = (Rand_ZeroOne() - 0.2f) * 50.0f;

@@ -1879,8 +1879,8 @@ void func_800C2244(Actor* actor) {
 
             if (actor->timer_0BC == 0) {
                 y = Rand_ZeroOne() * 1000.0f;
-                x = (Rand_ZeroOne() - 0.5f) * 10000.0f;
-                z = (Rand_ZeroOne() - 0.5f) * 10000.0f;
+                x = RAND_CENTEREDFLOAT(10000.0f);
+                z = RAND_CENTEREDFLOAT(10000.0f);
 
                 if ((fabsf(actor->obj.pos.x - x) > 2000.0f) || (fabsf(actor->obj.pos.z - z) > 2000.0f)) {
                     actor->fwork[4] = x;

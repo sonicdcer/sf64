@@ -457,8 +457,8 @@ void func_80049B44(void) {
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            x = (Rand_ZeroOne() - 0.5f) * 400.0f;
-            y = (Rand_ZeroOne() - 0.5f) * 400.0f;
+            x = RAND_CENTEREDFLOAT(400.0f);
+            y = RAND_CENTEREDFLOAT(400.0f);
             z = (-D_80177D20 - 500.0f) - Rand_ZeroOne() * 500.0f;
             func_80049A9C(&gEffects[i], x, y, z);
             break;
@@ -774,8 +774,8 @@ void func_8004A888(Effect* effect) {
     Effect_Initialize(effect);
 
     effect->obj.status = OBJ_INIT;
-    sp2C.x = (Rand_ZeroOne() - 0.5f) * 1500.0f;
-    sp2C.y = (Rand_ZeroOne() - 0.5f) * 800.0f;
+    sp2C.x = RAND_CENTEREDFLOAT(1500.0f);
+    sp2C.y = RAND_CENTEREDFLOAT(800.0f);
     sp2C.z = 3000.0f;
 
     Matrix_MultVec3f(gCalcMatrix, &sp2C, &sp20);

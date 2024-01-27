@@ -4029,13 +4029,13 @@ s32 func_80090E8C(Actor* actor) {
 
     if (actor->timer_0BC == 0) {
         if (gLevelType == LEVELTYPE_SPACE) {
-            x = (Rand_ZeroOne() - 0.5f) * 20000.0f;
-            y = (Rand_ZeroOne() - 0.5f) * 5000.0f;
-            z = (Rand_ZeroOne() - 0.5f) * 20000.0f;
+            x = RAND_CENTEREDFLOAT(20000.0f);
+            y = RAND_CENTEREDFLOAT(5000.0f);
+            z = RAND_CENTEREDFLOAT(20000.0f);
         } else {
-            x = (Rand_ZeroOne() - 0.5f) * 10000.0f;
+            x = RAND_CENTEREDFLOAT(10000.0f);
             y = Rand_ZeroOne() * 1000.0f;
-            z = (Rand_ZeroOne() - 0.5f) * 10000.0f;
+            z = RAND_CENTEREDFLOAT(10000.0f);
         }
 
         if ((fabsf(actor->obj.pos.x - x) > 2000.0f) && (fabsf(actor->obj.pos.z - z) > 2000.0f)) {
@@ -4068,9 +4068,9 @@ bool func_800910C0(Actor* actor) {
     f32 var_fv1;
 
     if (actor->timer_0BC == 0) {
-        actor->vwork[28].x = (Rand_ZeroOne() - 0.5f) * 2000.0f;
+        actor->vwork[28].x = RAND_CENTEREDFLOAT(2000.0f);
         actor->vwork[28].y = (Rand_ZeroOne() * 1000.0f) + 200.0f;
-        actor->vwork[28].z = (Rand_ZeroOne() - 0.5f) * 2000.0f;
+        actor->vwork[28].z = RAND_CENTEREDFLOAT(2000.0f);
         actor->timer_0BC = (s32) (Rand_ZeroOne() * 20.0f) + 10;
     }
 
@@ -4413,7 +4413,7 @@ bool func_80091F00(Actor* actor) {
         sp40.x = 20.0f;
     }
 
-    sp40.y = (Rand_ZeroOne() - 0.5f) * 20.0f;
+    sp40.y = RAND_CENTEREDFLOAT(20.0f);
     sp40.z = 0.0f;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp40, &sp34);
@@ -4909,8 +4909,8 @@ void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
                     effect->unk_48 = -effect->unk_48;
                 }
             } else {
-                effect->vel.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
-                effect->vel.y = (Rand_ZeroOne() - 0.5f) * 3.0f;
+                effect->vel.x = RAND_CENTEREDFLOAT(5.0f);
+                effect->vel.y = RAND_CENTEREDFLOAT(3.0f);
                 effect->unk_48 = 0;
 
                 if (Rand_ZeroOne() < 0.5f) {
@@ -5237,9 +5237,9 @@ void func_800935E8(Player* player) {
 
                 if (((gGameFrameCount % 3) == 0) && (player->timer_1F8 <= 740)) {
                     for (i = 0; i < 8; i++) {
-                        func_i3_801AC8A8(player->camEye.x + (Rand_ZeroOne() - 0.5f) * D_800D22C4,
+                        func_i3_801AC8A8(player->camEye.x + RAND_CENTEREDFLOAT(D_800D22C4),
                                          player->camEye.y + 260.0f + RAND_CENTEREDFLOAT(D_800D22C8),
-                                         player->camEye.z + (Rand_ZeroOne() - 0.5f) * D_800D22CC, 1.0f, 0);
+                                         player->camEye.z + RAND_CENTEREDFLOAT(D_800D22CC), 1.0f, 0);
                     }
                 }
             }
@@ -5329,9 +5329,9 @@ void func_800935E8(Player* player) {
                 func_8001D444(0U, 0xEU, 0U, 0xFFU);
             }
 
-            func_i3_801AC8A8(player->pos.x + (Rand_ZeroOne() - 0.5f) * 10.0f,
-                             player->pos.y + (Rand_ZeroOne() - 0.5f) * 10.0f,
-                             player->pos.z - 65.0f + (Rand_ZeroOne() - 0.5f) * 10.0f, 0.4f, 1);
+            func_i3_801AC8A8(player->pos.x + RAND_CENTEREDFLOAT(10.0f),
+                             player->pos.y + RAND_CENTEREDFLOAT(10.0f),
+                             player->pos.z - 65.0f + RAND_CENTEREDFLOAT(10.0f), 0.4f, 1);
             break;
 
         default:
@@ -6021,9 +6021,9 @@ void func_80095604(Player* player) {
         src.y = 0.0f;
         src.z = -70.0f;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-        func_i3_801AC8A8(player->pos.x + dest.x + (Rand_ZeroOne() - 0.5f) * 10.0f,
-                         player->pos.y + dest.y + (Rand_ZeroOne() - 0.5f) * 10.0f,
-                         player->pos.z + dest.z + (Rand_ZeroOne() - 0.5f) * 10.0f, 0.4f, 1);
+        func_i3_801AC8A8(player->pos.x + dest.x + RAND_CENTEREDFLOAT(10.0f),
+                         player->pos.y + dest.y + RAND_CENTEREDFLOAT(10.0f),
+                         player->pos.z + dest.z + RAND_CENTEREDFLOAT(10.0f), 0.4f, 1);
     }
 
     player->unk_178 += 20.0f;

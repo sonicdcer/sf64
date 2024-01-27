@@ -365,7 +365,7 @@ void func_i5_801882CC(Player* player) {
 
                 for (i = 0; i < 8; i++) {
                     x = D_i5_801B72B8[i].x;
-                    y = D_i5_801B72B8[i].y + (Rand_ZeroOne() - 0.5f) * 10.0f;
+                    y = D_i5_801B72B8[i].y + RAND_CENTEREDFLOAT(10.0f);
                     z = D_i5_801B72B8[i].z;
 
                     func_8007A900(player->pos.x + x, player->pos.y + y, player->unk_138 + z,
