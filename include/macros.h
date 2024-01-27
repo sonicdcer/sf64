@@ -4,6 +4,8 @@
 #define SCREEN_WIDTH  320
 #define SCREEN_HEIGHT 240
 
+#define RAND_CENTEREDFLOAT(width) ((Rand_ZeroOne() - 0.5f) * (width))
+
 #define SEGMENTED_TO_VIRTUAL(segment) ((void*)OS_PHYSICAL_TO_K0(gSegments[((uintptr_t)(segment)<<4)>>0x1C]+(((uintptr_t)(segment))&0xFFFFFF))) 
 
 #define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))

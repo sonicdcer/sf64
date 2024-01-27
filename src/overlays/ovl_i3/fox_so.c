@@ -435,8 +435,8 @@ void func_i3_8019F20C(Actor* actor) {
                 if (actor->obj.id == OBJ_ACTOR_277) {
                     for (i = 0; i < 4; i++) {
                         func_i3_8019F038(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z,
-                                         D_i3_801BF8F0[i].x + ((Rand_ZeroOne() - 0.5f) * 3.0f),
-                                         D_i3_801BF8F0[i].y + ((Rand_ZeroOne() - 0.5f) * 3.0f),
+                                         D_i3_801BF8F0[i].x + RAND_CENTEREDFLOAT(3.0f),
+                                         D_i3_801BF8F0[i].y + RAND_CENTEREDFLOAT(3.0f),
                                          (Rand_ZeroOne() * -10.0f) - 10.0f);
                     }
                 } else if (actor->obj.id == OBJ_ACTOR_275) {
@@ -1013,7 +1013,7 @@ void func_i3_801A10F4(Player* player) {
                 D_8017835C = 8;
             }
             if (!(gGameFrameCount & 7)) {
-                func_i3_8019E8B8((Rand_ZeroOne() - 0.5f) * 6000.0f, ((Rand_ZeroOne() - 0.5f) * 5.0f) - 90.0f,
+                func_i3_8019E8B8(RAND_CENTEREDFLOAT(6000.0f), RAND_CENTEREDFLOAT(5.0f) - 90.0f,
                                  (Rand_ZeroOne() * 2000.0f) - 6000.0f + D_80177D20, (Rand_ZeroOne() * 20.0f) + 20.0f);
             }
             if (gCsFrameCount == 380) {
@@ -1074,8 +1074,8 @@ void func_i3_801A10F4(Player* player) {
         case 3:
             D_80177CE8 += 60.0f;
             if (!(gGameFrameCount & 3)) {
-                func_i3_8019E8B8((Rand_ZeroOne() - 0.5f) * 6000.0f, -400.0f - ((player->camEye.y - 1380.0f) * 0.3f),
-                                 ((Rand_ZeroOne() - 0.5f) * 2000.0f) + 500.0f + D_80177D20,
+                func_i3_8019E8B8(RAND_CENTEREDFLOAT(6000.0f), -400.0f - ((player->camEye.y - 1380.0f) * 0.3f),
+                                 RAND_CENTEREDFLOAT(2000.0f) + 500.0f + D_80177D20,
                                  (Rand_ZeroOne() * 20.0f) + 20.0f);
             }
             if (gCsFrameCount == 615) {
@@ -1369,8 +1369,8 @@ void func_i3_801A23F4(Boss* bossSO) {
                 sp40.z = 1100.0f;
                 Matrix_MultVec3f(gCalcMatrix, &sp40, &sp34);
                 for (i = 0; i < 4; i++) {
-                    sp58.x = D_i3_801BF8F0[i].x + (2.0f * (Rand_ZeroOne() - 0.5f));
-                    sp58.y = 2.0f * (Rand_ZeroOne() - 0.5f);
+                    sp58.x = D_i3_801BF8F0[i].x + RAND_CENTEREDFLOAT(2.0f );
+                    sp58.y = (Rand_ZeroOne() - 0.5f) * 2.0f ;
                     sp58.z = (Rand_ZeroOne() * 10.0f) + 2.5f;
                     Matrix_MultVec3f(gCalcMatrix, &sp58, &sp4C);
                     func_i3_8019F038(bossSO->fwork[SO_FWK_4] + sp34.x, bossSO->fwork[SO_FWK_5] + sp34.y,
@@ -1481,12 +1481,12 @@ void func_i3_801A2C98(Boss* bossSO) {
             if (bossSO->unk_04C == 60) {
                 for (i = 0; i < 4; i++) {
                     func_i3_8019F038(bossSO->obj.pos.x + 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
-                                     D_i3_801BF8F0[i].x + (2.0f * (Rand_ZeroOne() - 0.5f)),
-                                     D_i3_801BF8F0[i].y + 10.0f + (2.0f * (Rand_ZeroOne() - 0.5f)),
+                                     D_i3_801BF8F0[i].x + RAND_CENTEREDFLOAT(2.0f ),
+                                     D_i3_801BF8F0[i].y + 10.0f + RAND_CENTEREDFLOAT(2.0f ),
                                      (Rand_ZeroOne() * -10.0f) - 10.0f);
                     func_i3_8019F038(bossSO->obj.pos.x - 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
-                                     D_i3_801BF8F0[i].x + (2.0f * (Rand_ZeroOne() - 0.5f)),
-                                     D_i3_801BF8F0[i].y + 10.0f + (2.0f * (Rand_ZeroOne() - 0.5f)),
+                                     D_i3_801BF8F0[i].x + RAND_CENTEREDFLOAT(2.0f ),
+                                     D_i3_801BF8F0[i].y + 10.0f + RAND_CENTEREDFLOAT(2.0f ),
                                      (Rand_ZeroOne() * -10.0f) - 10.0f);
                 }
             }
@@ -1680,8 +1680,8 @@ void func_i3_801A3510(Boss* bossSO) {
             if (bossSO->unk_04C == 65) {
                 for (i = 0; i < 4; i++) {
                     func_i3_8019F194(bossSO->obj.pos.x, bossSO->obj.pos.y + 300.0f, bossSO->obj.pos.z + 1000.0f,
-                                     D_i3_801BF8F0[i].x + ((Rand_ZeroOne() - 0.5f) * 0.25f),
-                                     D_i3_801BF8F0[i].y + ((Rand_ZeroOne() - 0.5f) * 0.25f),
+                                     D_i3_801BF8F0[i].x + RAND_CENTEREDFLOAT(0.25f),
+                                     D_i3_801BF8F0[i].y + RAND_CENTEREDFLOAT(0.25f),
                                      (Rand_ZeroOne() * 10.0f) + 100.0f);
                 }
             }
@@ -1999,30 +1999,30 @@ void func_i3_801A4A34(Boss* bossSO) {
         func_i3_801A1E14(bossSO->fwork[SO_FWK_28], bossSO->fwork[SO_FWK_29], bossSO->fwork[SO_FWK_30],
                          bossSO->fwork[SO_FWK_41], bossSO->fwork[SO_FWK_42], bossSO->fwork[SO_FWK_43],
                          (Rand_ZeroOne() * -25.0f) - 10.0f, (Rand_ZeroOne() * 25.0f) + 30.0f,
-                         ((Rand_ZeroOne() - 0.5f) * 25.0f) - 50.0f, 0);
+                         RAND_CENTEREDFLOAT(25.0f) - 50.0f, 0);
         func_i3_801A1E14(bossSO->fwork[SO_FWK_22], bossSO->fwork[SO_FWK_23], bossSO->fwork[SO_FWK_24],
                          bossSO->fwork[SO_FWK_47], bossSO->fwork[SO_FWK_48], bossSO->fwork[SO_FWK_49],
                          (Rand_ZeroOne() * -25.0f) - 10.0f, (Rand_ZeroOne() * 25.0f) + 30.0f,
-                         ((Rand_ZeroOne() - 0.5f) * 25.0f) - 50.0f, 1);
+                         RAND_CENTEREDFLOAT(25.0f) - 50.0f, 1);
         func_i3_801A1E14(bossSO->fwork[SO_FWK_10], bossSO->fwork[SO_FWK_11], bossSO->fwork[SO_FWK_12],
                          bossSO->fwork[SO_FWK_35], bossSO->fwork[SO_FWK_36], bossSO->fwork[SO_FWK_37],
                          (Rand_ZeroOne() * -25.0f) - 10.0f, (Rand_ZeroOne() * 25.0f) + 30.0f,
-                         ((Rand_ZeroOne() - 0.5f) * 25.0f) - 50.0f, 2);
+                         RAND_CENTEREDFLOAT(25.0f) - 50.0f, 2);
     }
     if (bossSO->swork[SO_SWK_3] < 0) {
         bossSO->swork[SO_SWK_3] = 0;
         func_i3_801A1E14(bossSO->fwork[SO_FWK_25], bossSO->fwork[SO_FWK_26], bossSO->fwork[SO_FWK_27],
                          bossSO->fwork[SO_FWK_38], bossSO->fwork[SO_FWK_39], bossSO->fwork[SO_FWK_40],
                          (Rand_ZeroOne() * 25.0f) + 10.0f, (Rand_ZeroOne() * 25.0f) + 30.0f,
-                         ((Rand_ZeroOne() - 0.5f) * 25.0f) - 50.0f, 5);
+                         RAND_CENTEREDFLOAT(25.0f) - 50.0f, 5);
         func_i3_801A1E14(bossSO->fwork[SO_FWK_19], bossSO->fwork[SO_FWK_20], bossSO->fwork[SO_FWK_21],
                          bossSO->fwork[SO_FWK_44], bossSO->fwork[SO_FWK_45], bossSO->fwork[SO_FWK_46],
                          (Rand_ZeroOne() * 25.0f) + 10.0f, (Rand_ZeroOne() * 25.0f) + 30.0f,
-                         ((Rand_ZeroOne() - 0.5f) * 25.0f) - 50.0f, 4);
+                         RAND_CENTEREDFLOAT(25.0f) - 50.0f, 4);
         func_i3_801A1E14(bossSO->fwork[SO_FWK_7], bossSO->fwork[SO_FWK_8], bossSO->fwork[SO_FWK_9],
                          bossSO->fwork[SO_FWK_32], bossSO->fwork[SO_FWK_33], bossSO->fwork[SO_FWK_34],
                          (Rand_ZeroOne() * 25.0f) + 10.0f, (Rand_ZeroOne() * 25.0f) + 30.0f,
-                         ((Rand_ZeroOne() - 0.5f) * 25.0f) - 50.0f, 3);
+                         RAND_CENTEREDFLOAT(25.0f) - 50.0f, 3);
     }
     switch (bossSO->unk_04C) {
         case 30:
@@ -2096,12 +2096,12 @@ void func_i3_801A4EF8(Boss* bossSO) {
                 D_Timer_80177BD0[gMainController] = 70;
                 for (i = 0; i < 4; i++) {
                     func_i3_8019F038(bossSO->obj.pos.x + 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
-                                     D_i3_801BF8F0[i].x + (2.0f * (Rand_ZeroOne() - 0.5f)),
-                                     D_i3_801BF8F0[i].y + 10.0f + (2.0f * (Rand_ZeroOne() - 0.5f)),
+                                     D_i3_801BF8F0[i].x + RAND_CENTEREDFLOAT(2.0f ),
+                                     D_i3_801BF8F0[i].y + 10.0f + RAND_CENTEREDFLOAT(2.0f ),
                                      (Rand_ZeroOne() * -10.0f) - 10.0f);
                     func_i3_8019F038(bossSO->obj.pos.x - 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
-                                     D_i3_801BF8F0[i].x + (2.0f * (Rand_ZeroOne() - 0.5f)),
-                                     D_i3_801BF8F0[i].y + 10.0f + (2.0f * (Rand_ZeroOne() - 0.5f)),
+                                     D_i3_801BF8F0[i].x + RAND_CENTEREDFLOAT(2.0f ),
+                                     D_i3_801BF8F0[i].y + 10.0f + RAND_CENTEREDFLOAT(2.0f ),
                                      (Rand_ZeroOne() * -10.0f) - 10.0f);
                 }
             }

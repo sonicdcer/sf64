@@ -1727,8 +1727,8 @@ void func_i4_8019E454(Boss* boss) {
         z = boss->obj.pos.z + 1000.0f;
 
         for (i = 0; i < 25; i++) {
-            func_800794CC(x + ((Rand_ZeroOne() - 0.5f) * 300.0f), y + ((Rand_ZeroOne() - 0.5f) * 100.0f), z, 2.0f);
-            func_80079618(x + ((Rand_ZeroOne() - 0.5f) * 300.0f), y + ((Rand_ZeroOne() - 0.5f) * 100.0f), z, 2.0f);
+            func_800794CC(x + RAND_CENTEREDFLOAT(300.0f), y + RAND_CENTEREDFLOAT(100.0f), z, 2.0f);
+            func_80079618(x + RAND_CENTEREDFLOAT(300.0f), y + RAND_CENTEREDFLOAT(100.0f), z, 2.0f);
         }
         func_8007BFFC(x, y, z, 0.0f, 0.0f, 0.0f, 20.0f, 30);
     }

@@ -3358,7 +3358,7 @@ void func_8008165C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32
             effect->vel.z = Rand_ZeroOne() * 30.0f;
 
             effect->unk_46 = 5;
-            effect->unk_44 = ((Rand_ZeroOne() - 0.5f) * 20.0f) * 1.5f;
+            effect->unk_44 = RAND_CENTEREDFLOAT(20.0f) * 1.5f;
             effect->info.unk_14 = 0;
             effect->unk_4A = 0xFF;
             break;
@@ -3387,7 +3387,7 @@ void func_8008165C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32
         case 9:
             effect->obj.pos.x += (Rand_ZeroOne() - 0.5f) * 600.0f;
             effect->obj.pos.y += (Rand_ZeroOne() - 0.5f) * 600.0f;
-            effect->obj.pos.z += ((Rand_ZeroOne() - 0.5f) * 300.0f) + 300.0f;
+            effect->obj.pos.z += RAND_CENTEREDFLOAT(300.0f) + 300.0f;
             effect->scale1 = 0.0f;
             effect->scale2 = Rand_ZeroOne() + 1.0f;
             break;
@@ -3514,9 +3514,9 @@ void func_80081C5C(Effect* effect) {
             }
 
             if (!(gGameFrameCount & 1)) {
-                func_8007C484(((Rand_ZeroOne() - 0.5f) * 50.0f) + effect->obj.pos.x,
-                              ((Rand_ZeroOne() - 0.5f) * 50.0f) + effect->obj.pos.y,
-                              ((Rand_ZeroOne() - 0.5f) * 50.0f) + effect->obj.pos.z, effect->vel.x, effect->vel.y,
+                func_8007C484(RAND_CENTEREDFLOAT(50.0f) + effect->obj.pos.x,
+                              RAND_CENTEREDFLOAT(50.0f) + effect->obj.pos.y,
+                              RAND_CENTEREDFLOAT(50.0f) + effect->obj.pos.z, effect->vel.x, effect->vel.y,
                               effect->vel.z, (Rand_ZeroOne() * 0.05f) + 0.05f, 0);
             }
 
@@ -3580,9 +3580,9 @@ void func_80081C5C(Effect* effect) {
             }
 
             if (!(gGameFrameCount & 3)) {
-                func_8007C120((((Rand_ZeroOne() - 0.5f) * effect->scale2) * 50.0f) + effect->obj.pos.x,
-                              (((Rand_ZeroOne() - 0.5f) * effect->scale2) * 50.0f) + effect->obj.pos.y,
-                              (((Rand_ZeroOne() - 0.5f) * effect->scale2) * 50.0f) + effect->obj.pos.z, effect->vel.x,
+                func_8007C120((((Rand_ZeroOne() - 0.5f)* effect->scale2) * 50.0f) + effect->obj.pos.x,
+                              (((Rand_ZeroOne() - 0.5f)* effect->scale2) * 50.0f) + effect->obj.pos.y,
+                              (((Rand_ZeroOne() - 0.5f)* effect->scale2) * 50.0f) + effect->obj.pos.z, effect->vel.x,
                               effect->vel.y, effect->vel.z, (Rand_ZeroOne() * 0.03f) + 0.05f, 10);
             }
             if (func_8006351C(effect->index, &effect->obj.pos, &velocity, 1) != 0) {
@@ -4051,10 +4051,10 @@ void func_800837EC(Effect* effect) {
                     var_fv1 = effect->unk_60.y * 100.0f;
                 }
                 for (i = 0; i < var_s2; i++) {
-                    func_80081BEC(((Rand_ZeroOne() - 0.5f) * (effect->scale2 * 200.0f)) + effect->obj.pos.x,
-                                  ((Rand_ZeroOne() - 0.5f) * (effect->scale2 * 100.0f)) + (effect->obj.pos.y + var_fv1),
-                                  ((Rand_ZeroOne() - 0.5f) * (effect->scale2 * 200.0f)) + effect->obj.pos.z,
-                                  0.3f - ((Rand_ZeroOne() - 0.5f) * 0.2f), 0xB);
+                    func_80081BEC(RAND_CENTEREDFLOAT((effect->scale2 * 200.0f)) + effect->obj.pos.x,
+                                  RAND_CENTEREDFLOAT((effect->scale2 * 100.0f)) + (effect->obj.pos.y + var_fv1),
+                                  RAND_CENTEREDFLOAT((effect->scale2 * 200.0f)) + effect->obj.pos.z,
+                                  0.3f - RAND_CENTEREDFLOAT(0.2f), 0xB);
                 }
                 effect->state++;
             }

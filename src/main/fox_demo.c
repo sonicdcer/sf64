@@ -1732,13 +1732,13 @@ void func_8004D828(Player* player) {
 
     if (gCamCount == 1) {
         if (!(gGameFrameCount & 1)) {
-            func_8007D24C((Rand_ZeroOne() - 0.5f) * 20.0 + player->pos.x,
-                          (Rand_ZeroOne() - 0.5f) * 20.0 + player->pos.y, player->unk_138, 2.2f);
+            func_8007D24C(RAND_CENTEREDFLOAT(20.0) + player->pos.x,
+                          RAND_CENTEREDFLOAT(20.0) + player->pos.y, player->unk_138, 2.2f);
         }
     } else if (!(gGameFrameCount & 3)) {
-        func_8007D10C(((Rand_ZeroOne() - 0.5f) * 10.0f) + player->pos.x,
-                      (Rand_ZeroOne() - 0.5f) * 10.0f + player->pos.y,
-                      ((Rand_ZeroOne() - 0.5f) * 10.0f) + player->unk_138, 2.2f);
+        func_8007D10C(RAND_CENTEREDFLOAT(10.0f) + player->pos.x,
+                      RAND_CENTEREDFLOAT(10.0f) + player->pos.y,
+                      RAND_CENTEREDFLOAT(10.0f) + player->unk_138, 2.2f);
     }
 
     if ((player->pos.y < player->unk_0A4) && (player->unk_1D0 == 0)) {
@@ -1851,7 +1851,7 @@ void func_8004DEF8(Player* player) {
 
     if (!(gGameFrameCount & 1)) {
         sp34 = Rand_ZeroOne();
-        func_8007D24C(((sp34 - 0.5f) * 20.0) + player->pos.x, ((Rand_ZeroOne() - 0.5f) * 20.0) + player->pos.y,
+        func_8007D24C(((sp34 - 0.5f) * 20.0) + player->pos.x, RAND_CENTEREDFLOAT(20.0) + player->pos.y,
                       player->unk_138, 2.2f);
     }
 

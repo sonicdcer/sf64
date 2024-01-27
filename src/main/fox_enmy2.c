@@ -67,7 +67,7 @@ void func_8006A984(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
 
     effect->unk_44 = 40;
     effect->scale2 = 5.0f;
-    effect->scale1 = 2.0f * (Rand_ZeroOne() - 0.5f);
+    effect->scale1 = (Rand_ZeroOne() - 0.5f) * 2.0f ;
     effect->vel.y = 10.0f;
     effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
     Object_SetInfo(&effect->info, effect->obj.id);
@@ -454,8 +454,8 @@ void func_8006BB78(Actor* actor) {
     }
 
     if (!(gGameFrameCount & 7)) {
-        func_8006A900(((Rand_ZeroOne() - 0.5f) * 50.0f) + actor->obj.pos.x, actor->obj.pos.y + 10.0f,
-                      ((Rand_ZeroOne() - 0.5f) * 50.0f) + actor->obj.pos.z, 0.5f);
+        func_8006A900(RAND_CENTEREDFLOAT(50.0f) + actor->obj.pos.x, actor->obj.pos.y + 10.0f,
+                      RAND_CENTEREDFLOAT(50.0f) + actor->obj.pos.z, 0.5f);
     }
 
     if ((actor->unk_0D0 != 0) && (actor->unk_0B6 != 0)) {
@@ -769,11 +769,11 @@ void func_8006C008(Actor* actor) {
                     if ((actor->state != 2) && (actor->state != 4)) {
                         func_8006BF7C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z);
                     } else if (gCurrentLevel == LEVEL_FORTUNA) {
-                        func_8007BC7C(((Rand_ZeroOne() - 0.5f) * 10.0f) + actor->obj.pos.x, actor->obj.pos.y,
+                        func_8007BC7C(RAND_CENTEREDFLOAT(10.0f) + actor->obj.pos.x, actor->obj.pos.y,
                                       actor->obj.pos.z, 1.0f);
-                        func_8007BC7C(((Rand_ZeroOne() - 0.5f) * 10.0f) + actor->obj.pos.x, actor->obj.pos.y,
+                        func_8007BC7C(RAND_CENTEREDFLOAT(10.0f) + actor->obj.pos.x, actor->obj.pos.y,
                                       actor->obj.pos.z, 1.0f);
-                        func_8007BC7C(((Rand_ZeroOne() - 0.5f) * 10.0f) + actor->obj.pos.x, actor->obj.pos.y,
+                        func_8007BC7C(RAND_CENTEREDFLOAT(10.0f) + actor->obj.pos.x, actor->obj.pos.y,
                                       actor->obj.pos.z, 1.0f);
                     }
                 }
@@ -2912,9 +2912,9 @@ void func_80072594(Actor* actor) {
     f32 spE8;
     f32 spE4;
     f32 spE0;
-    f32 spDC;
-    f32 spD8;
-    f32 spD4;
+    f32 spDC= 0.0f;
+    f32 spD8= 0.0f;
+    f32 spD4= 0.0f;
     s32 pad;
     f32 spCC;
     f32 spC8;
@@ -2922,10 +2922,6 @@ void func_80072594(Actor* actor) {
     Vec3f spB8;
     Vec3f spAC;
     Vec3f spA0;
-
-    spDC = 0.0f;
-    spD8 = 0.0f;
-    spD4 = 0.0f;
 
     if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) || (D_8017828C != 0)) {
         Object_Kill(&actor->obj, actor->sfxPos);
@@ -3540,9 +3536,9 @@ void func_80072594(Actor* actor) {
 
                         effect->obj.status = OBJ_ACTIVE;
 
-                        effect->obj.pos.x = ((Rand_ZeroOne() - 0.5f) * 3.0f) + actor->obj.pos.x + sp90.x;
-                        effect->obj.pos.y = ((Rand_ZeroOne() - 0.5f) * 3.0f) + actor->obj.pos.y + sp90.y;
-                        effect->obj.pos.z = ((Rand_ZeroOne() - 0.5f) * 3.0f) + actor->obj.pos.z + 180.0f;
+                        effect->obj.pos.x = RAND_CENTEREDFLOAT(3.0f) + actor->obj.pos.x + sp90.x;
+                        effect->obj.pos.y = RAND_CENTEREDFLOAT(3.0f) + actor->obj.pos.y + sp90.y;
+                        effect->obj.pos.z = RAND_CENTEREDFLOAT(3.0f) + actor->obj.pos.z + 180.0f;
 
                         effect->scale2 = 9.0f;
                         effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
@@ -3566,9 +3562,9 @@ void func_80072594(Actor* actor) {
                         if (effect != NULL) {
                             effect->unk_78 = effect->unk_7A = 11;
                             effect->obj.status = OBJ_ACTIVE;
-                            effect->obj.pos.x = ((Rand_ZeroOne() - 0.5f) * 3.0f) + actor->obj.pos.x;
-                            effect->obj.pos.y = ((Rand_ZeroOne() - 0.5f) * 5.0f) + actor->obj.pos.y + 50.0f;
-                            effect->obj.pos.z = ((Rand_ZeroOne() - 0.5f) * 3.0f) + actor->obj.pos.z + 200.0f;
+                            effect->obj.pos.x = RAND_CENTEREDFLOAT(3.0f) + actor->obj.pos.x;
+                            effect->obj.pos.y = RAND_CENTEREDFLOAT(5.0f) + actor->obj.pos.y + 50.0f;
+                            effect->obj.pos.z = RAND_CENTEREDFLOAT(3.0f) + actor->obj.pos.z + 200.0f;
                             effect->scale2 = 9.0f;
                             effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
                             effect->vel.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
@@ -3634,9 +3630,9 @@ void func_80072594(Actor* actor) {
                             actor->unk_0B6 = 49;
                         }
                         if (gGameFrameCount & 1) {
-                            func_i3_801AC8A8(((Rand_ZeroOne() - 0.5f) * 100.0f) + actor->obj.pos.x,
+                            func_i3_801AC8A8(RAND_CENTEREDFLOAT(100.0f) + actor->obj.pos.x,
                                              (Rand_ZeroOne() * 50.0f) + actor->obj.pos.y,
-                                             ((Rand_ZeroOne() - 0.5f) * 100.0f) + actor->obj.pos.z, 1.0f, 0);
+                                             RAND_CENTEREDFLOAT(100.0f) + actor->obj.pos.z, 1.0f, 0);
                         }
                     }
                     actor->timer_0C2 = 10000;
@@ -3920,9 +3916,9 @@ void func_80074FF0(Actor* actor) {
                 case 27:
                     if (actor->timer_0C2 != 0) {
                         if (!(actor->timer_0C2 & 3) && (D_80177854 != 0x64)) {
-                            func_8007D0E0(((Rand_ZeroOne() - 0.5f) * 200.0f) + actor->obj.pos.x,
-                                          ((Rand_ZeroOne() - 0.5f) * 200.0f) + actor->obj.pos.y,
-                                          ((Rand_ZeroOne() - 0.5f) * 200.0f) + actor->obj.pos.z,
+                            func_8007D0E0(RAND_CENTEREDFLOAT(200.0f) + actor->obj.pos.x,
+                                          RAND_CENTEREDFLOAT(200.0f) + actor->obj.pos.y,
+                                          RAND_CENTEREDFLOAT(200.0f) + actor->obj.pos.z,
                                           (Rand_ZeroOne() * 1.5f) + 2.5f);
                         }
                         RCP_SetupDL(&gMasterDisp, 0x39);

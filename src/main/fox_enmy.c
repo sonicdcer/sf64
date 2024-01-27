@@ -275,14 +275,11 @@ void func_80061A4C(void) {
     f32 x;
     f32 y;
     f32 z;
-    f32 sp1C;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            sp1C = (Rand_ZeroOne() - 0.5f);
-            x = gPlayer[0].pos.x + (sp1C * 400.0f) + (5.0f * gPlayer[0].vel.x);
-            sp1C = (Rand_ZeroOne() - 0.5f);
-            y = gPlayer[0].pos.y + (sp1C * 400.0f) + (5.0f * gPlayer[0].vel.y);
+            x = gPlayer[0].pos.x + RAND_CENTEREDFLOAT(400.0f) + (5.0f * gPlayer[0].vel.x);
+            y = gPlayer[0].pos.y + RAND_CENTEREDFLOAT(400.0f) + (5.0f * gPlayer[0].vel.y);
             z = -D_80177D20 - 500.0f;
             if (D_80177D08 < 0.0f) {
                 z = -D_80177D20 + 500.0f;
@@ -298,17 +295,14 @@ void func_80061B68(void) {
     f32 x;
     f32 y;
     f32 z;
-    f32 sp1C;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
 
-            sp1C = (Rand_ZeroOne() - 0.5f);
-            x = gPlayer[0].pos.x + (sp1C * 2000.0f) + (5.0f * gPlayer[0].vel.x);
+            x = gPlayer[0].pos.x + RAND_CENTEREDFLOAT(2000.0f) + (5.0f * gPlayer[0].vel.x);
             y = 0;
             while (y <= gGroundLevel) {
-                sp1C = (Rand_ZeroOne() - 0.5f);
-                y = gPlayer[0].pos.y + (sp1C * 2000.0f) + (5.0f * gPlayer[0].vel.y);
+                y = gPlayer[0].pos.y + RAND_CENTEREDFLOAT(2000.0f) + (5.0f * gPlayer[0].vel.y);
             }
             z = -D_80177D20 - 3000.0f;
             if (D_80177D08 < 0.0f) {
@@ -325,14 +319,11 @@ void func_80061CD0(void) {
     f32 x;
     f32 y;
     f32 z;
-    f32 sp1C;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            sp1C = (Rand_ZeroOne() - 0.5f);
-            x = gPlayer[gPlayerNum].pos.x + (sp1C * 3000.0f) + (5.0f * gPlayer[gPlayerNum].vel.x);
-            sp1C = (Rand_ZeroOne() - 0.5f);
-            y = gPlayer[gPlayerNum].pos.y + 1000.0f + (sp1C * 500.0f) + (5.0f * gPlayer[gPlayerNum].vel.y);
+            x = gPlayer[gPlayerNum].pos.x + RAND_CENTEREDFLOAT(3000.0f) + (5.0f * gPlayer[gPlayerNum].vel.x);
+            y = gPlayer[gPlayerNum].pos.y + 1000.0f + RAND_CENTEREDFLOAT(500.0f) + (5.0f * gPlayer[gPlayerNum].vel.y);
             z = -D_80177D20 - 2000.0f * Rand_ZeroOne();
             if (D_80177D08 < 0.0f) {
                 z = -D_80177D20 + 1000.0f;

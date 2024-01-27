@@ -211,8 +211,8 @@ void func_i5_8018769C(Player* player) {
             }
 
             if (player->pos.y < 100.0f) {
-                func_8007A900(((Rand_ZeroOne() - 0.5f) * 30.0f) + player->pos.x, 30.0f,
-                              ((Rand_ZeroOne() - 0.5f) * 30.0f) + player->unk_138, (2.0f * Rand_ZeroOne()) + 3.5f, 255,
+                func_8007A900(RAND_CENTEREDFLOAT(30.0f) + player->pos.x, 30.0f,
+                              RAND_CENTEREDFLOAT(30.0f) + player->unk_138, (2.0f * Rand_ZeroOne()) + 3.5f, 255,
                               12, 1);
                 Object_Kill(&gActors[3].obj, gActors[3].sfxPos);
             }
@@ -391,13 +391,13 @@ void func_i5_801882CC(Player* player) {
             Math_SmoothStepToF(&player->unk_16C, 2.0f, 1.0f, 0.2f, 0.0f);
 
             if (gCsFrameCount < 1470) {
-                func_8007A900(((Rand_ZeroOne() - 0.5f) * 30.0f) + (player->pos.x + 30.0f), 30.0f,
-                              ((Rand_ZeroOne() - 0.5f) * 30.0f) + player->unk_138, (2.0f * Rand_ZeroOne()) + 3.5f, 255,
+                func_8007A900(RAND_CENTEREDFLOAT(30.0f) + (player->pos.x + 30.0f), 30.0f,
+                              RAND_CENTEREDFLOAT(30.0f) + player->unk_138, (2.0f * Rand_ZeroOne()) + 3.5f, 255,
                               12, 1);
             }
 
-            func_8007A900(((Rand_ZeroOne() - 0.5f) * 30.0f) + (player->pos.x - 30.0f), 30.0f,
-                          ((Rand_ZeroOne() - 0.5f) * 30.0f) + player->unk_138, (2.0f * Rand_ZeroOne()) + 3.5f, 255, 12,
+            func_8007A900(RAND_CENTEREDFLOAT(30.0f) + (player->pos.x - 30.0f), 30.0f,
+                          RAND_CENTEREDFLOAT(30.0f) + player->unk_138, (2.0f * Rand_ZeroOne()) + 3.5f, 255, 12,
                           1);
             Math_SmoothStepToF(&player->unk_0F0, __sinf((gGameFrameCount * 6.0f) * 0.017453292f) * 18.0f, 0.1f, 100.0f,
                                0.0f);

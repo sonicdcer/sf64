@@ -187,7 +187,7 @@ void func_80043B18(Player* player) {
     if (player->unk_1DC != 0) {
 
         sp48.x = 0.0f;
-        sp48.z = ((Rand_ZeroOne() - 0.5f) * 50.0f) + -20.0f;
+        sp48.z = RAND_CENTEREDFLOAT(50.0f) + -20.0f;
         if (player->unk_1EC < 0) {
             sp38 -= 65.0f;
         } else {
@@ -693,18 +693,18 @@ void func_80045678(Player* player) {
             Math_SmoothStepToF(&player->vel.y, 0.0f, 0.1f, 2.0f, 0);
         }
         if ((gCamCount == 1) && !(gGameFrameCount & 1)) {
-            func_8007A900(((Rand_ZeroOne() - 0.5f) * 20.0f) + player->pos.x, player->unk_068 + 10.0f,
+            func_8007A900(RAND_CENTEREDFLOAT(20.0f) + player->pos.x, player->unk_068 + 10.0f,
                           player->unk_138 - 10.0f, (2.0f * Rand_ZeroOne()) + 3.5f, 0xFF, 0x10, 1);
         }
     } else {
         D_800C9F3C = 0;
         if ((gCamCount == 1) && !(gGameFrameCount & 3) && (player->unk_1DC == 0)) {
             if ((player->unk_16C > 0.2f) && (player->timer_220 == 0)) {
-                func_8007A900(((Rand_ZeroOne() - 0.5f) * 10.0f) + (player->pos.x - 57.0f), player->unk_068 + 10.0f,
+                func_8007A900(RAND_CENTEREDFLOAT(10.0f) + (player->pos.x - 57.0f), player->unk_068 + 10.0f,
                               player->unk_138 - 10.0f, Rand_ZeroOne() + 1.5f, 0xFF, 0xF, 0);
             }
             if ((player->unk_170 > 0.2f) && (player->timer_220 == 0)) {
-                func_8007A900(((Rand_ZeroOne() - 0.5f) * 10.0f) + (player->pos.x + 57.0f), player->unk_068 + 10.0f,
+                func_8007A900(RAND_CENTEREDFLOAT(10.0f) + (player->pos.x + 57.0f), player->unk_068 + 10.0f,
                               player->unk_138 - 10.0f, Rand_ZeroOne() + 1.5f, 0xFF, 0xF, 0);
             }
         }

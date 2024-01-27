@@ -195,22 +195,22 @@ void func_800A46A0(Player* player) {
     if ((player->unk_238 == 0) || (gLevelMode == LEVELMODE_ALL_RANGE)) {
         if (player->wings.rightState <= WINGSTATE_BROKEN) {
             if (!(gGameFrameCount & 1) && (D_80177D70[player->num] != 0)) {
-                func_8007D10C(((Rand_ZeroOne() - 0.5f) * 10.0f) + player->hit1.x,
+                func_8007D10C(RAND_CENTEREDFLOAT(10.0f) + player->hit1.x,
                               (Rand_ZeroOne() * 5.0f) + player->hit1.y, player->hit1.z, 1.0f);
             }
             if (!(gGameFrameCount & 1) && (Rand_ZeroOne() < 0.5f) && !gVersusMode) {
-                func_8007C484(((Rand_ZeroOne() - 0.5f) * 5.0f) + player->hit1.x,
+                func_8007C484(RAND_CENTEREDFLOAT(5.0f) + player->hit1.x,
                               (Rand_ZeroOne() * 5.0f) + player->hit1.y, player->hit1.z, player->vel.x, player->vel.y,
                               player->vel.z, (Rand_ZeroOne() * 0.02f) + 0.02f, player->num + 1);
             }
         }
         if (player->wings.leftState <= WINGSTATE_BROKEN) {
             if (!(gGameFrameCount & 1) && (D_80177D88[player->num] != 0)) {
-                func_8007D10C(((Rand_ZeroOne() - 0.5f) * 10.0f) + player->hit2.x,
+                func_8007D10C(RAND_CENTEREDFLOAT(10.0f) + player->hit2.x,
                               (Rand_ZeroOne() * 5.0f) + player->hit2.y, player->hit2.z, 1.0f);
             }
             if (!(gGameFrameCount & 1) && (Rand_ZeroOne() < 0.5f) && !gVersusMode) {
-                func_8007C484(((Rand_ZeroOne() - 0.5f) * 5.0f) + player->hit2.x,
+                func_8007C484(RAND_CENTEREDFLOAT(5.0f) + player->hit2.x,
                               (Rand_ZeroOne() * 5.0f) + player->hit2.y, player->hit2.z, player->vel.x, player->vel.y,
                               player->vel.z, (Rand_ZeroOne() * 0.02f) + 0.02f, player->num + 1);
             }
@@ -233,14 +233,14 @@ void func_800A46A0(Player* player) {
                 sp40 = 30.0f;
             }
             if (!(gGameFrameCount & var_v1)) {
-                func_8007D10C(((Rand_ZeroOne() - 0.5f) * 10.0f) + player->pos.x,
+                func_8007D10C(RAND_CENTEREDFLOAT(10.0f) + player->pos.x,
                               (Rand_ZeroOne() * 10.0f) + (player->pos.y + sp40),
-                              ((Rand_ZeroOne() - 0.5f) * 10.0f) + player->unk_138, 2.2f);
+                              RAND_CENTEREDFLOAT(10.0f) + player->unk_138, 2.2f);
             }
             if (!((var_v1 >> 2) & gGameFrameCount) && (Rand_ZeroOne() < 0.5f)) {
-                func_8007C484(((Rand_ZeroOne() - 0.5f) * 30.0f) + player->pos.x,
+                func_8007C484(RAND_CENTEREDFLOAT(30.0f) + player->pos.x,
                               (Rand_ZeroOne() * 10.0f) + (player->pos.y + sp40),
-                              ((Rand_ZeroOne() - 0.5f) * 30.0f) + player->unk_138, player->vel.x, player->vel.y,
+                              RAND_CENTEREDFLOAT(30.0f) + player->unk_138, player->vel.x, player->vel.y,
                               player->vel.z, (Rand_ZeroOne() * 0.03f) + 0.04f, player->num + 1);
                 if (player->timer_224 == 0) {
                     player->timer_224 = 2;
@@ -1830,13 +1830,13 @@ void func_800A8BA4(Player* player) {
                         player->timer_498 = 5;
                         player->unk_0D8.y = 30.0f;
                         boss->dmgType = DMG_BEAM;
-                        func_8007BFFC(player->pos.x + (10.0f * (Rand_ZeroOne() - 0.5f)),
+                        func_8007BFFC(player->pos.x + RAND_CENTEREDFLOAT(10.0f),
                                       player->pos.y + (10.0f * Rand_ZeroOne()),
-                                      player->unk_138 + (10.0f * (Rand_ZeroOne() - 0.5f)), 0.0f, 15.0f, 0.0f, 2.0f, 5);
+                                      player->unk_138 + RAND_CENTEREDFLOAT(10.0f), 0.0f, 15.0f, 0.0f, 2.0f, 5);
                         for (j = 0; j < 10; j++) {
-                            func_8007C484(player->pos.x + (30.0f * (Rand_ZeroOne() - 0.5f)),
+                            func_8007C484(player->pos.x + RAND_CENTEREDFLOAT(30.0f),
                                           player->pos.y + (10.0f * Rand_ZeroOne()),
-                                          player->unk_138 + (30.0f * (Rand_ZeroOne() - 0.5f)), player->vel.x,
+                                          player->unk_138 + RAND_CENTEREDFLOAT(30.0f), player->vel.x,
                                           20.0f + player->vel.y, player->vel.z, (Rand_ZeroOne() * 0.1f) + 0.1f,
                                           player->num + 11);
                         }
@@ -4838,16 +4838,16 @@ void func_800B3314(Player* player) {
         player->unk_0D4 = -0.4f;
         Math_SmoothStepToF(&D_801779A8[player->num], 30.0f, 1.0f, 10.0f, 0.0f);
         if ((gCamCount == 1) && !(gGameFrameCount & 1)) {
-            func_8007BC7C(((Rand_ZeroOne() - 0.5f) * 20.0f) + player->pos.x, player->unk_068 + 10.0f,
+            func_8007BC7C(RAND_CENTEREDFLOAT(20.0f) + player->pos.x, player->unk_068 + 10.0f,
                           player->unk_138 - 10.0f, (2.0f * Rand_ZeroOne()) + 4.0f);
         }
     } else if ((gCamCount == 1) && !(gGameFrameCount & 3) && (player->unk_1DC == 0)) {
         if ((player->unk_16C > 0.2f) && (player->timer_220 == 0)) {
-            func_8007BC7C(((Rand_ZeroOne() - 0.5f) * 10.0f) + (player->pos.x - 57.0f), player->unk_068 + 10.0f,
+            func_8007BC7C(RAND_CENTEREDFLOAT(10.0f) + (player->pos.x - 57.0f), player->unk_068 + 10.0f,
                           player->unk_138 - 10.0f, (2.0f * Rand_ZeroOne()) + 3.0f);
         }
         if ((player->unk_170 > 0.2f) && (player->timer_220 == 0)) {
-            func_8007BC7C(((Rand_ZeroOne() - 0.5f) * 10.0f) + (player->pos.x + 57.0f), player->unk_068 + 10.0f,
+            func_8007BC7C(RAND_CENTEREDFLOAT(10.0f) + (player->pos.x + 57.0f), player->unk_068 + 10.0f,
                           player->unk_138 - 10.0f, (2.0f * Rand_ZeroOne()) + 3.0f);
         }
     }
@@ -6189,7 +6189,7 @@ void func_800B79B0(void) {
             var_a0 = MIN(gPlayer[0].shields, 0xFF);
             func_8001D1C8(var_a0, sp3A);
             if (!(gGameFrameCount & 7) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7)) {
-                func_i3_8019E8B8((Rand_ZeroOne() - 0.5f) * 6000.0f, -80.0f,
+                func_i3_8019E8B8(RAND_CENTEREDFLOAT(6000.0f), -80.0f,
                                  gPlayer[0].unk_138 + ((Rand_ZeroOne() * 2000.0f) + -6000.0f),
                                  (Rand_ZeroOne() * 10.0f) + 20.0f);
             }

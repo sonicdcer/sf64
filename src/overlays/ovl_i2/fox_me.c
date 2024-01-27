@@ -1465,9 +1465,9 @@ void func_i2_8018978C(Boss* boss) {
 
                 case 0:
                     for (i = 0; i < 0x64; i++) {
-                        func_80079618(((Rand_ZeroOne() - 0.5f) * 1000.0f) + boss->obj.pos.x,
-                                      ((Rand_ZeroOne() - 0.5f) * 1000.0f) + boss->obj.pos.y,
-                                      ((Rand_ZeroOne() - 0.5f) * 1000.0f) + boss->obj.pos.z, 3.0f);
+                        func_80079618(RAND_CENTEREDFLOAT(1000.0f) + boss->obj.pos.x,
+                                      RAND_CENTEREDFLOAT(1000.0f) + boss->obj.pos.y,
+                                      RAND_CENTEREDFLOAT(1000.0f) + boss->obj.pos.z, 3.0f);
                     }
                     break;
             }

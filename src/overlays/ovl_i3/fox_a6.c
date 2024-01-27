@@ -651,10 +651,10 @@ void func_i3_80187944(Boss* bossA6) {
         Math_SmoothStepToAngle(&bossA6->obj.rot.z, bossA6->fwork[A6_FWK_8], 0.05f, bossA6->fwork[A6_FWK_9], 0.00001f);
         if (bossA6->swork[A6_SWK_25] >= 2) {
             if (!(gGameFrameCount & 0x3F) && (Rand_ZeroOne() < 0.5f)) {
-                bossA6->fwork[A6_FWK_6] = gPlayer[0].camEye.x + ((Rand_ZeroOne() - 0.5f) * 500.0f);
+                bossA6->fwork[A6_FWK_6] = gPlayer[0].camEye.x + RAND_CENTEREDFLOAT(500.0f);
             }
             if (!(gGameFrameCount & 0x3F) && (Rand_ZeroOne() < 0.5f)) {
-                bossA6->fwork[A6_FWK_7] = gPlayer[0].camEye.y + ((Rand_ZeroOne() - 0.5f) * 500.0f);
+                bossA6->fwork[A6_FWK_7] = gPlayer[0].camEye.y + RAND_CENTEREDFLOAT(500.0f);
             }
         } else {
             if (!(gGameFrameCount & 0x1F) && (Rand_ZeroOne() < 0.7f)) {
@@ -698,9 +698,9 @@ void func_i3_80187944(Boss* bossA6) {
         bossA6->obj.rot.z = Math_ModF(bossA6->obj.rot.z, 360.0f);
         Math_SmoothStepToF(&bossA6->fwork[A6_FWK_28], 5.0f, 0.1f, 0.2f, 0.0001f);
         for (i = 0; i < 10; i++) {
-            func_80079618(bossA6->obj.pos.x + ((Rand_ZeroOne() - 0.5f) * 500.0f),
-                          bossA6->obj.pos.y + ((Rand_ZeroOne() - 0.5f) * 500.0f),
-                          bossA6->obj.pos.z + ((Rand_ZeroOne() - 0.5f) * 100.0f), (Rand_ZeroOne() * 4.0f) + 1.0f);
+            func_80079618(bossA6->obj.pos.x + RAND_CENTEREDFLOAT(500.0f),
+                          bossA6->obj.pos.y + RAND_CENTEREDFLOAT(500.0f),
+                          bossA6->obj.pos.z + RAND_CENTEREDFLOAT(100.0f), (Rand_ZeroOne() * 4.0f) + 1.0f);
         }
         if (bossA6->timer_05C == 0) {
             bossA6->timer_05C = 15;
@@ -806,8 +806,8 @@ void func_i3_80187944(Boss* bossA6) {
                 Math_SmoothStepToF(&bossA6->fwork[A6_FWK_34], 2.0f, 0.1f, 0.1f, 0.0f);
                 Math_SmoothStepToF(&bossA6->fwork[A6_FWK_35], 1.2f, 0.1f, 0.1f, 0.0f);
                 if (D_i3_801C22F0.unk_24 < 1.0f) {
-                    bossA6->fwork[A6_FWK_6] = gPlayer[0].camEye.x + ((Rand_ZeroOne() - 0.5f) * 1000.0f);
-                    bossA6->fwork[A6_FWK_7] = gPlayer[0].camEye.y + ((Rand_ZeroOne() - 0.5f) * 1000.0f);
+                    bossA6->fwork[A6_FWK_6] = gPlayer[0].camEye.x + RAND_CENTEREDFLOAT(1000.0f);
+                    bossA6->fwork[A6_FWK_7] = gPlayer[0].camEye.y + RAND_CENTEREDFLOAT(1000.0f);
                     bossA6->fwork[A6_FWK_3] = -3700.0f + (Rand_ZeroOne() - 0.5f) * 3000.0f;
                     bossA6->fwork[A6_FWK_34] = 2.0f;
                     bossA6->fwork[A6_FWK_35] = 1.2f;
@@ -821,7 +821,7 @@ void func_i3_80187944(Boss* bossA6) {
                         bossA6->swork[A6_SWK_18 + 0] = bossA6->swork[A6_SWK_18 + 1] = bossA6->swork[A6_SWK_18 + 2] = 3;
                         bossA6->fwork[A6_FWK_3] = -1700.0f;
                         if ((bossA6->swork[A6_SWK_25] != 1) && (D_i3_801C2250[A6_BSS_0] != 2)) {
-                            bossA6->fwork[A6_FWK_3] = ((Rand_ZeroOne() - 0.5f) * 1000.0f) + -3700.0f;
+                            bossA6->fwork[A6_FWK_3] = RAND_CENTEREDFLOAT(1000.0f) + -3700.0f;
                         }
                         bossA6->obj.pos.z = gPlayer[0].camEye.z - D_80177D20 + bossA6->fwork[A6_FWK_3];
                         bossA6->fwork[A6_FWK_6] = bossA6->obj.pos.x = gPlayer[0].camEye.x;
@@ -946,7 +946,7 @@ void func_i3_80187944(Boss* bossA6) {
                 if (bossA6->swork[A6_SWK_25] == 0) {
                     bossA6->swork[A6_SWK_25] = 1;
                 }
-                bossA6->fwork[A6_FWK_3] = ((Rand_ZeroOne() - 0.5f) * 1000.0f) + -3700.0f;
+                bossA6->fwork[A6_FWK_3] = RAND_CENTEREDFLOAT(1000.0f) + -3700.0f;
                 if (D_i3_801C2250[A6_BSS_28] == 0) {
                     Audio_PlaySfx(0x39404068, bossA6->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 }

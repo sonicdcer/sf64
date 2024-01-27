@@ -1756,7 +1756,7 @@ void func_800319AC(Actor* this) {
                         Rand_ZeroOne();
                         spE4 = 0.0f;
                         spE0 = (Rand_ZeroOne() - 0.5f) * 500.0f;
-                        spDC = ((Rand_ZeroOne() - 0.5f) * 5000.0f) + 12000.0f;
+                        spDC = RAND_CENTEREDFLOAT(5000.0f) + 12000.0f;
                     } else {
                         spE4 = (Rand_ZeroOne() - 0.5f) * 15000.0f;
                         spE0 = (Rand_ZeroOne() - 0.5f) * 1000.0f;
