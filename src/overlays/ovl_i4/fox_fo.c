@@ -19,7 +19,6 @@ void func_800A5EBC(void);
 void func_i4_801875F0(Actor* actor);
 void func_i4_80187960(Actor* actor);
 
-#ifdef IMPORT_DATA
 void func_i4_801875F0(Actor* actor) {
     s32 i;
     s32 counter;
@@ -78,9 +77,8 @@ void func_i4_801875F0(Actor* actor) {
     }
     func_8002F69C(actor);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_fo/func_i4_801875F0.s")
-#endif
+
+f32 D_8019EDEC[] = { 0.0f, 700.0f, 12000.0f };
 
 void func_i4_80187884(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     s32 health = actor->health;
@@ -104,6 +102,10 @@ void func_i4_80187884(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     Object_SetInfo(&actor->info, actor->obj.id);
     Audio_PlaySfx(0x31004005U, actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
+
+Vec3f D_i4_8019EDF8[] = { { -300.0f, 1000.0f, 13000.0f }, { 300.0f, 700.0f, 14000.0f }, { 1000.0f, 300.0f, 0.0f } };
+Vec3f D_i4_8019EE1C[] = { { -1000.0f, 300.0f, 0 }, { 0.0f, 500.0f, 0 } };
+Vec3f D_i4_8019EE34 = { 0.0f, 0.0f, -10000 };
 
 void func_i4_80187960(Actor* actor) {
     s32 i;
@@ -515,6 +517,8 @@ void func_i4_80188AD0(Actor* actor) {
     }
 }
 
+Vec3f D_i4_8019EE40 = { 0.0f, 0.0f, 0.0f };
+
 void func_i4_80188DA0(s32 arg0, Vec3f* arg1, void* ptr) {
     Vec3f vec = D_i4_8019EE40;
     Actor* actor = (Actor*) ptr;
@@ -609,6 +613,11 @@ void func_i4_8018906C(void) {
     actor->scale = 0.0f;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
+
+f32 D_i4_8019EE4C[] = { -200.0f, 200.0f, -50.0f, -2000.0f };
+f32 D_i4_8019EE5C[] = { 0.0f, 30.0f, -90.0f, 0.0f };
+f32 D_i4_8019EE6C[] = { -100.0f, -200.0f, -300.0f };
+s32 D_i4_8019EE78[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 void func_i4_801890EC(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
