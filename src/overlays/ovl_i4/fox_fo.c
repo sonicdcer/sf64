@@ -32,9 +32,9 @@ void func_i4_801875F0(Actor* actor) {
             }
 
             for (i = 0, actorPtr = &gActors[10]; i < 10; i++, actorPtr++) {
-                if (actorPtr->obj.status == 0) {
+                if (actorPtr->obj.status == OBJ_FREE) {
                     Actor_Initialize(actorPtr);
-                    actorPtr->obj.status = 2;
+                    actorPtr->obj.status = OBJ_ACTIVE;
                     actorPtr->obj.id = 197;
                     actorPtr->obj.pos.x = gBosses[0].obj.pos.x;
                     actorPtr->obj.pos.y = gBosses[0].obj.pos.y + 20.0f;
@@ -78,7 +78,7 @@ void func_i4_80187884(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
 
     Actor_Initialize(actor);
     actor->health = health;
-    actor->obj.status = 2;
+    actor->obj.status = OBJ_ACTIVE;
     actor->obj.pos.x = xPos;
     actor->obj.pos.y = yPos;
     actor->obj.pos.z = zPos;
@@ -387,7 +387,7 @@ void func_i4_80187960(Actor* actor) {
                     Matrix_RotateX(gCalcMatrix, player->unk_0E4 * M_DTOR, 1);
                     Matrix_MultVec3f(gCalcMatrix, &sp50, &actor19->obj.pos);
 
-                    actor19->obj.status = 2;
+                    actor19->obj.status = OBJ_ACTIVE;
                     actor19->obj.id = OBJ_ACTOR_197;
                     actor19->state = 4;
                     actor19->unk_0F4.y = player->unk_0E8 + player->unk_114 + 180.0f;
@@ -450,7 +450,7 @@ void func_i4_80187960(Actor* actor) {
 
 void func_i4_801888C0(Actor* actor, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state) {
     Actor_Initialize(actor);
-    actor->obj.status = 2;
+    actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = OBJ_ACTOR_189;
     actor->state = state;
 
@@ -593,7 +593,7 @@ void func_i4_8018906C(void) {
     Actor* actor = &gActors[50];
 
     Actor_Initialize(actor);
-    actor->obj.status = 1;
+    actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_195;
     actor->obj.pos.x = 0.0f;
     actor->obj.pos.y = 0.0f;
@@ -610,7 +610,7 @@ s32 D_i4_8019EE78[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 void func_i4_801890EC(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
-    actor->obj.status = 1;
+    actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_195;
     actor->obj.pos.x = D_i4_8019EE4C[arg1] + gPlayer[0].pos.x;
     actor->obj.pos.y = D_i4_8019EE5C[arg1] + gPlayer[0].pos.y;
@@ -790,7 +790,7 @@ void func_i4_8018927C(Player* player) {
                 }
 
                 for (i = 0; i < 200; i++) {
-                    gObjects58[i].obj.status = 0;
+                    gObjects58[i].obj.status = OBJ_FREE;
                 }
 
                 func_800A5EBC();
@@ -1451,7 +1451,7 @@ void func_i4_8018BA2C(void) {
         }
         if (D_80178310[i].id < 161) {
             Object_58_Initialize(obj58);
-            obj58->obj.status = 2;
+            obj58->obj.status = OBJ_ACTIVE;
             obj58->obj.id = D_80178310[i].id;
             obj58->obj.pos.x = D_80178310[i].xPos;
             obj58->obj.pos.z = D_80178310[i].zPos1;
@@ -1468,7 +1468,7 @@ void func_i4_8018BA2C(void) {
         }
         if ((D_80178310[i].id >= 176) && (D_80178310[i].id < 292)) {
             Actor_Initialize(actor);
-            actor->obj.status = 1;
+            actor->obj.status = OBJ_INIT;
             actor->obj.id = D_80178310[i].id;
             actor->obj.pos.x = D_80178310[i].xPos;
             actor->obj.pos.z = D_80178310[i].zPos1;
@@ -1484,7 +1484,7 @@ void func_i4_8018BA2C(void) {
         }
         if (D_80178310[i].id == 163) {
             Object_4C_Initialize(obj4C);
-            obj4C->obj.status = 1;
+            obj4C->obj.status = OBJ_INIT;
             obj4C->obj.id = D_80178310[i].id;
             obj4C->obj.pos.x = D_80178310[i].xPos;
             obj4C->obj.pos.z = D_80178310[i].zPos1;
@@ -1494,7 +1494,7 @@ void func_i4_8018BA2C(void) {
         }
     }
     Boss_Initialize(boss);
-    boss->obj.status = 1;
+    boss->obj.status = OBJ_INIT;
     boss->obj.pos.x = 0.0f;
     boss->obj.pos.y = 0.0f;
     boss->obj.pos.z = 0.0f;
