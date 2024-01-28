@@ -456,7 +456,7 @@ void func_i4_801888C0(Actor* actor, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, 
     actor->vel.z = zVel;
 
     actor->scale = 2.5f;
-    actor->timer_0BC = (s32) (Rand_ZeroOne() * 15.0f) + 25.0f;
+    actor->timer_0BC = RAND_INT(15.0f) + 25.0f;
     actor->gravity = 0.5f;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
@@ -476,14 +476,14 @@ void func_i4_80188AD0(Actor* actor) {
     actor->fwork[0] += 2.0f;
     if (actor->state == 2) {
         actor->state = 3;
-        func_i4_80188A48(actor->vwork, &actor->vwork[6], (Rand_ZeroOne() - 0.5f) * 50.0f,
-                         (Rand_ZeroOne() * 10.0f) + 10.0f, (Rand_ZeroOne() - 0.5f) * 50.0f, 36);
-        func_i4_80188A48(&actor->vwork[1], &actor->vwork[7], (Rand_ZeroOne() - 0.5f) * 50.0f,
-                         (Rand_ZeroOne() * 10.0f) + 10.0f, (Rand_ZeroOne() - 0.5f) * 50.0f, 36);
-        func_i4_80188A48(&actor->vwork[2], &actor->vwork[8], (Rand_ZeroOne() - 0.5f) * 50.0f,
-                         (Rand_ZeroOne() * 10.0f) + 10.0f, (Rand_ZeroOne() - 0.5f) * 50.0f, 35);
-        func_i4_80188A48(&actor->vwork[3], &actor->vwork[9], (Rand_ZeroOne() - 0.5f) * 50.0f,
-                         (Rand_ZeroOne() * 10.0f) + 10.0f, (Rand_ZeroOne() - 0.5f) * 50.0f, 35);
+        func_i4_80188A48(actor->vwork, &actor->vwork[6], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
+                         RAND_FLOAT_CENTERED(50.0f), 36);
+        func_i4_80188A48(&actor->vwork[1], &actor->vwork[7], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
+                         RAND_FLOAT_CENTERED(50.0f), 36);
+        func_i4_80188A48(&actor->vwork[2], &actor->vwork[8], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
+                         RAND_FLOAT_CENTERED(50.0f), 35);
+        func_i4_80188A48(&actor->vwork[3], &actor->vwork[9], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
+                         RAND_FLOAT_CENTERED(50.0f), 35);
         func_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 180.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 10);
         actor->unk_044 = 1;
         actor->obj.pos.y += 230.0f;

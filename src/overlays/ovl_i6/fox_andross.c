@@ -838,13 +838,13 @@ void func_i6_80189B70(Boss* boss) {
         case 1:
             if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_9) && (boss->timer_050 == 0)) {
                 boss->fwork[2] = 1.6f;
-                boss->timer_050 = (s32) Rand_ZeroOne() * 50.0f + 50;
+                boss->timer_050 = RAND_INT(1.0f) * 50.0f + 50;
                 boss->fwork[3] = RAND_FLOAT_CENTERED(10000.0f);
                 boss->fwork[4] = RAND_FLOAT_CENTERED(1000.0f);
                 boss->fwork[5] = RAND_FLOAT_CENTERED(10000.0f);
                 if (Rand_ZeroOne() < 0.3f) {
                     boss->state = 2;
-                    boss->timer_050 = (s32) Rand_ZeroOne() * 100.0f + 50;
+                    boss->timer_050 = RAND_INT(1.0f) * 100.0f + 50;
                     boss->fwork[1] = 0.0f;
                 }
             }
@@ -852,7 +852,7 @@ void func_i6_80189B70(Boss* boss) {
         case 2:
             if (boss->timer_050 == 0) {
                 boss->state = 1;
-                boss->timer_050 = (s32) Rand_ZeroOne() * 50.0f + 50;
+                boss->timer_050 = RAND_INT(1.0f) * 50.0f + 50;
                 boss->fwork[1] = 50.0f;
             }
             break;
@@ -890,7 +890,7 @@ void func_i6_80189B70(Boss* boss) {
                 boss->timer_05A = 50;
                 if (boss->swork[4] != 0) {
                     boss->state = 1;
-                    boss->timer_050 = (s32) Rand_ZeroOne() * 50.0f + 50;
+                    boss->timer_050 = RAND_INT(1.0f) * 50.0f + 50;
                     boss->fwork[1] = 50.0f;
                 } else {
                     boss->state = 3;
@@ -2689,8 +2689,8 @@ void func_i6_8018DBF0(Boss* boss) {
                               boss->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), boss->obj.pos.z, 0.0f, 0.0f, boss->vel.z,
                               RAND_FLOAT(0.2f) + 0.2f, 0);
             }
-            func_8007D0E0(boss->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f), boss->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f),
-                          boss->obj.pos.z, RAND_FLOAT(5.0f) + 5.0f);
+            func_8007D0E0(boss->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
+                          boss->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), boss->obj.pos.z, RAND_FLOAT(5.0f) + 5.0f);
             break;
         case 32:
             boss->fwork[6] = -3000.0f;

@@ -1479,10 +1479,12 @@ void func_i3_801A2C98(Boss* bossSO) {
                 for (i = 0; i < 4; i++) {
                     func_i3_8019F038(bossSO->obj.pos.x + 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
                                      D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(2.0f),
-                                     D_i3_801BF8F0[i].y + 10.0f + RAND_FLOAT_CENTERED(2.0f), RAND_FLOAT(-10.0f) - 10.0f);
+                                     D_i3_801BF8F0[i].y + 10.0f + RAND_FLOAT_CENTERED(2.0f),
+                                     RAND_FLOAT(-10.0f) - 10.0f);
                     func_i3_8019F038(bossSO->obj.pos.x - 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
                                      D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(2.0f),
-                                     D_i3_801BF8F0[i].y + 10.0f + RAND_FLOAT_CENTERED(2.0f), RAND_FLOAT(-10.0f) - 10.0f);
+                                     D_i3_801BF8F0[i].y + 10.0f + RAND_FLOAT_CENTERED(2.0f),
+                                     RAND_FLOAT(-10.0f) - 10.0f);
                 }
             }
             if (bossSO->unk_04C == 20) {
@@ -2085,10 +2087,12 @@ void func_i3_801A4EF8(Boss* bossSO) {
                 for (i = 0; i < 4; i++) {
                     func_i3_8019F038(bossSO->obj.pos.x + 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
                                      D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(2.0f),
-                                     D_i3_801BF8F0[i].y + 10.0f + RAND_FLOAT_CENTERED(2.0f), RAND_FLOAT(-10.0f) - 10.0f);
+                                     D_i3_801BF8F0[i].y + 10.0f + RAND_FLOAT_CENTERED(2.0f),
+                                     RAND_FLOAT(-10.0f) - 10.0f);
                     func_i3_8019F038(bossSO->obj.pos.x - 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
                                      D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(2.0f),
-                                     D_i3_801BF8F0[i].y + 10.0f + RAND_FLOAT_CENTERED(2.0f), RAND_FLOAT(-10.0f) - 10.0f);
+                                     D_i3_801BF8F0[i].y + 10.0f + RAND_FLOAT_CENTERED(2.0f),
+                                     RAND_FLOAT(-10.0f) - 10.0f);
                 }
             }
             if (bossSO->swork[SO_SWK_11] == 16) {
