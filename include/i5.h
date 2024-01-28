@@ -45,7 +45,7 @@ void func_i5_801A5E2C(Actor *);
 void func_i5_801A6134(Actor *);
 void func_i5_801A65E0(Object_80 *);
 void func_i5_801A7D98(Actor *);
-void func_i5_801ACFBC(ObjectInit*);
+void func_i5_801ACFBC();
 void func_i5_801AD080(void);
 void func_i5_801B5110(f32, f32, f32);
 void func_i5_801B58AC(Gfx **, f32);
