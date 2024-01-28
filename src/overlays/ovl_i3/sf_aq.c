@@ -563,8 +563,8 @@ void func_i3_801A8E30(void) {
             spA8[i] = 0.0f;
             sp64[i] = 0.0f;
         } else {
-            spA8[i] = (Rand_ZeroOne() - 0.5f) * 70.0f;
-            sp64[i] = (Rand_ZeroOne() - 0.5f) * 70.0f;
+            spA8[i] = RAND_FLOAT_CENTERED(70.0f);
+            sp64[i] = RAND_FLOAT_CENTERED(70.0f);
         }
     }
     for (i = 0; i < 34; i++) {
@@ -667,8 +667,8 @@ void func_i3_801A9728(Actor* actor, f32 radius, f32 scale, s32 spread) {
     s32 i;
 
     for (i = 0; i < 36; i += spread) {
-        temp_fs1 = __sinf(i * 10.0f * M_DTOR) * radius;
-        temp_fs0 = __cosf(i * 10.0f * M_DTOR) * radius;
+        temp_fs1 = SIN_DEG(i * 10.0f) * radius;
+        temp_fs0 = COS_DEG(i * 10.0f) * radius;
         temp = gGroundLevel + 30.0f;
         func_8007B8F8(actor->obj.pos.x + temp_fs1, temp, actor->obj.pos.z + temp_fs0, scale);
     }

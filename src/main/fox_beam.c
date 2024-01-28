@@ -693,7 +693,7 @@ void func_80037CF4(PlayerShot* shot, Actor* actor, s32 hitIndex) {
         } else {
             shot->unk_64 = 25;
             shot->obj.rot.y += 90.0f;
-            shot->obj.rot.x = Rand_ZeroOne() * 360.0f;
+            shot->obj.rot.x = RAND_FLOAT(360.0f);
             Matrix_RotateY(gCalcMatrix, shot->obj.rot.y * M_DTOR, 0);
             Matrix_RotateX(gCalcMatrix, shot->obj.rot.x * M_DTOR, 1);
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
@@ -839,7 +839,7 @@ void func_80038140(PlayerShot* shot) {
                     (fabsf(player->pos.y - shot->obj.pos.y) < temp_fa0)) {
                     if (player->unk_280 >= 100) {
                         shot->obj.rot.y = player->unk_0E8 + player->unk_114 + 180.0f + 90.0f;
-                        shot->obj.rot.x = Rand_ZeroOne() * 360.0f;
+                        shot->obj.rot.x = RAND_FLOAT(360.0f);
                         Matrix_RotateY(gCalcMatrix, shot->obj.rot.y * M_DTOR, 0);
                         Matrix_RotateX(gCalcMatrix, shot->obj.rot.x * M_DTOR, 1);
                         sp88.x = sp88.y = 0.0f;
@@ -1221,8 +1221,8 @@ void func_80039A50(PlayerShot* shot) {
         }
     } else {
         if ((shot->obj.id == PLAYERSHOT_5) || (shot->obj.id == PLAYERSHOT_6) || (shot->obj.id == PLAYERSHOT_7)) {
-            shot->obj.rot.y = (-gPlayer[gPlayerNum].unk_058 * 180.0f) / M_PI;
-            shot->obj.rot.x = (gPlayer[gPlayerNum].unk_05C * 180.0f) / M_PI;
+            shot->obj.rot.y = RAD_TO_DEG(-gPlayer[gPlayerNum].unk_058);
+            shot->obj.rot.x = RAD_TO_DEG(gPlayer[gPlayerNum].unk_05C);
         }
         if (shot->obj.id != PLAYERSHOT_2) {
             Matrix_RotateY(gGfxMatrix, shot->obj.rot.y * M_DTOR, 1);
@@ -1334,7 +1334,7 @@ void func_80039A50(PlayerShot* shot) {
                             var_fv1 = 0.0f;
                         }
                         Matrix_RotateY(gGfxMatrix, var_fv1, 1);
-                        Matrix_RotateZ(gGfxMatrix, 0.5235988f, 1);
+                        Matrix_RotateZ(gGfxMatrix, 30.0f * M_DTOR, 1);
                         Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, 1);
                         Matrix_SetGfxMtx(&gMasterDisp);
                         gSPDisplayList(gMasterDisp++, D_301AD60);
@@ -1346,7 +1346,7 @@ void func_80039A50(PlayerShot* shot) {
                         var_fv1 = 0.0f;
                     }
                     Matrix_RotateY(gGfxMatrix, var_fv1, 1);
-                    Matrix_RotateZ(gGfxMatrix, 0.5235988f, 1);
+                    Matrix_RotateZ(gGfxMatrix, 30.0f * M_DTOR, 1);
                     Matrix_Scale(gGfxMatrix, 1.0f, 0.65f, 1.0f, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     RCP_SetupDL_68();
@@ -1626,12 +1626,12 @@ void func_8003B55C(PlayerShot* shot, s32 index) {
             func_8007B8F8(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
             func_8007B8F8(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
             func_8007B8F8(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
-            func_i3_801AC8A8(((Rand_ZeroOne() - 0.5f) * 10.0f) + shot->obj.pos.x,
-                             ((Rand_ZeroOne() - 0.5f) * 10.0f) + shot->obj.pos.y, shot->obj.pos.z, 0.8f, 0);
-            func_i3_801AC8A8(((Rand_ZeroOne() - 0.5f) * 10.0f) + shot->obj.pos.x,
-                             ((Rand_ZeroOne() - 0.5f) * 10.0f) + shot->obj.pos.y, shot->obj.pos.z, 0.8f, 0);
-            func_i3_801AC8A8(((Rand_ZeroOne() - 0.5f) * 10.0f) + shot->obj.pos.x,
-                             ((Rand_ZeroOne() - 0.5f) * 10.0f) + shot->obj.pos.y, shot->obj.pos.z, 0.8f, 0);
+            func_i3_801AC8A8(RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.x, RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.y,
+                             shot->obj.pos.z, 0.8f, 0);
+            func_i3_801AC8A8(RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.x, RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.y,
+                             shot->obj.pos.z, 0.8f, 0);
+            func_i3_801AC8A8(RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.x, RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.y,
+                             shot->obj.pos.z, 0.8f, 0);
         }
     }
     if (shot->unk_64 == 0) {
@@ -1898,7 +1898,7 @@ void func_8003C4D0(PlayerShot* shot, s32 damage) {
                     actor->vel.y = sp64 * 0.03f;
                     actor->vel.z = sp60 * 0.03f;
                     actor->obj.status = OBJ_DYING;
-                    actor->timer_0BC = (s32) (Rand_ZeroOne() * 15.0f) + 10;
+                    actor->timer_0BC = RAND_INT(15.0f) + 10;
                     actor->timer_0BE = 0;
                     actor->timer_04C = 4;
                     actor->obj.rot.x = Math_ModF(actor->obj.rot.x, 360.0f);
@@ -2204,7 +2204,7 @@ void func_8003D54C(PlayerShot* shot, s32 index) {
                     if ((shot->bonus >= 7) && (gBossActive == 0) && (gLevelMode == LEVELMODE_ON_RAILS) &&
                         ((gTeamShields[1] > 0) || (gTeamShields[2] > 0) || (gTeamShields[3] > 0))) {
                         do {
-                            teamId = (s32) (Rand_ZeroOne() * 2.9f) + 1;
+                            teamId = RAND_INT(2.9f) + 1;
                         } while (gTeamShields[teamId] <= 0);
                         switch (teamId) {
                             case 1:
