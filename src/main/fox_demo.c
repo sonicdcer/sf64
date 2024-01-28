@@ -1847,8 +1847,8 @@ void func_8004DEF8(Player* player) {
     }
 
     if (!(gGameFrameCount & 1)) {
-        func_8007D24C(RAND_CENTEREDFLOAT(20.0) + player->pos.x, RAND_CENTEREDFLOAT(20.0) + player->pos.y, player->unk_138,
-                      2.2f);
+        func_8007D24C(RAND_CENTEREDFLOAT(20.0) + player->pos.x, RAND_CENTEREDFLOAT(20.0) + player->pos.y,
+                      player->unk_138, 2.2f);
     }
 
     if ((player->pos.y < player->unk_0A4) && (player->unk_1D0 == 0)) {
@@ -2662,8 +2662,7 @@ void func_8004FEC0(Actor* actor) {
                             break;
                     }
 
-                    Matrix_Scale(gGfxMatrix, RAND_FLOAT_SEEDED(8.0f) + 8.0f, RAND_FLOAT_SEEDED(8.0f) + 8.0f,
-                                 10.0f, 1);
+                    Matrix_Scale(gGfxMatrix, RAND_FLOAT_SEEDED(8.0f) + 8.0f, RAND_FLOAT_SEEDED(8.0f) + 8.0f, 10.0f, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_1021E20);
                     Matrix_Pop(&gGfxMatrix);

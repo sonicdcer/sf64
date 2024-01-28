@@ -887,8 +887,7 @@ void func_menu_80189208(void) {
     gAmbientB = D_menu_801B830C;
 
     if ((D_menu_801B86A4 < 2) && (D_menu_801B9040 != 0)) {
-        D_menu_801B86D8 = RAD_TO_DEG(Math_Atan2F(-D_menu_801B9060, sqrtf(SQ(-D_menu_801B905C) +
-                                                              SQ(-D_menu_801B9064))));
+        D_menu_801B86D8 = RAD_TO_DEG(Math_Atan2F(-D_menu_801B9060, sqrtf(SQ(-D_menu_801B905C) + SQ(-D_menu_801B9064))));
         D_menu_801B86DC = RAD_TO_DEG(Math_Atan2F(D_menu_801B905C, D_menu_801B9064));
 
         Math_SmoothStepToF(&D_menu_801B86C8, D_menu_801B86D8, 0.1f, 100.0f, 0.0001f);

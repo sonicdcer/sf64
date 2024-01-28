@@ -553,10 +553,10 @@ void func_i3_80187944(Boss* bossA6) {
     gBossFrameCount++;
     if ((bossA6->state < 6) || ((bossA6->state >= 8) && (bossA6->state < 12))) {
         bossA6->obj.rot.y = RAD_TO_DEG(Math_Atan2F(gPlayer[0].camEye.x - bossA6->obj.pos.x,
-                                        gPlayer[0].camEye.z - (bossA6->obj.pos.z + D_80177D20)));
+                                                   gPlayer[0].camEye.z - (bossA6->obj.pos.z + D_80177D20)));
         bossA6->obj.rot.x = RAD_TO_DEG(-Math_Atan2F(gPlayer[0].camEye.y - bossA6->obj.pos.y,
-                                         sqrtf(SQ(gPlayer[0].camEye.z - (bossA6->obj.pos.z + D_80177D20)) +
-                                               SQ(gPlayer[0].camEye.x - bossA6->obj.pos.x))));
+                                                    sqrtf(SQ(gPlayer[0].camEye.z - (bossA6->obj.pos.z + D_80177D20)) +
+                                                          SQ(gPlayer[0].camEye.x - bossA6->obj.pos.x))));
     }
     Matrix_RotateY(gCalcMatrix, bossA6->obj.rot.y * M_DTOR, 0);
     Matrix_RotateX(gCalcMatrix, bossA6->obj.rot.x * M_DTOR, 1);

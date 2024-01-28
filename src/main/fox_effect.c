@@ -3784,11 +3784,12 @@ void func_80081C5C(Effect* effect) {
                     }
                     if ((!(gGameFrameCount & 0xF)) && (effect->timer_50 == 0)) {
                         D_800D18EC = RAD_TO_DEG(Math_Atan2F(gPlayer[0].camEye.x - gBosses[0].obj.pos.x,
-                                                 gPlayer[0].camEye.z - (gBosses[0].obj.pos.z + D_80177D20)));
+                                                            gPlayer[0].camEye.z - (gBosses[0].obj.pos.z + D_80177D20)));
 
-                        D_800D18E8 = RAD_TO_DEG(-Math_Atan2F(gPlayer[0].camEye.y - gBosses[0].obj.pos.y,
-                                                  sqrtf(SQ(gPlayer[0].camEye.z - (gBosses[0].obj.pos.z + D_80177D20)) +
-                                                        SQ(gPlayer[0].camEye.x - gBosses[0].obj.pos.x))));
+                        D_800D18E8 = RAD_TO_DEG(
+                            -Math_Atan2F(gPlayer[0].camEye.y - gBosses[0].obj.pos.y,
+                                         sqrtf(SQ(gPlayer[0].camEye.z - (gBosses[0].obj.pos.z + D_80177D20)) +
+                                               SQ(gPlayer[0].camEye.x - gBosses[0].obj.pos.x))));
                     }
                     if (gBosses[0].timer_050 == 0) {
                         gBosses[0].swork[39] = effect->index;
@@ -4068,8 +4069,8 @@ void func_800837EC(Effect* effect) {
             break;
     }
 
-    effect->obj.rot.y =
-        RAD_TO_DEG(Math_Atan2F(gPlayer[0].camEye.x - effect->obj.pos.x, gPlayer[0].camEye.z - (effect->obj.pos.z + D_80177D20)));
+    effect->obj.rot.y = RAD_TO_DEG(
+        Math_Atan2F(gPlayer[0].camEye.x - effect->obj.pos.x, gPlayer[0].camEye.z - (effect->obj.pos.z + D_80177D20)));
 }
 
 void func_80083B8C(Effect* effect) {

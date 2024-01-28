@@ -234,8 +234,7 @@ void func_i1_80187AC8(Boss* boss) {
                         func_800430DC(D_i1_8019B6D8[18 + var_s1 + 2], D_i1_8019B6D8[24 + var_s1 + 2],
                                       D_i1_8019B6D8[30 + var_s1 + 2], D_i1_8019B6D8[36 + var_s1 + 2],
                                       D_i1_8019B6D8[42 + var_s1 + 2], D_i1_8019B6D8[48 + var_s1 + 2], 0.0f,
-                                      RAND_FLOAT(20.0f), 0.0f, 5.5f, var_s1 + 0x1C,
-                                      RAND_INT(30.0f) + 60.0f);
+                                      RAND_FLOAT(20.0f), 0.0f, 5.5f, var_s1 + 0x1C, RAND_INT(30.0f) + 60.0f);
                     }
                     if (boss->state < 5) {
                         boss->state = 5;
@@ -254,8 +253,7 @@ void func_i1_80187AC8(Boss* boss) {
                         func_800430DC(D_i1_8019B6D8[18 + var_s1 + 2], D_i1_8019B6D8[24 + var_s1 + 2],
                                       D_i1_8019B6D8[30 + var_s1 + 2], D_i1_8019B6D8[36 + var_s1 + 2],
                                       D_i1_8019B6D8[42 + var_s1 + 2], D_i1_8019B6D8[48 + var_s1 + 2], 0.0f,
-                                      RAND_FLOAT(20.0f), 0.0f, 5.5f, var_s1 + 0x1C,
-                                      RAND_INT(30.0f) + 60.0f);
+                                      RAND_FLOAT(20.0f), 0.0f, 5.5f, var_s1 + 0x1C, RAND_INT(30.0f) + 60.0f);
                     }
                     if (boss->state < 5) {
                         boss->state = 6;
@@ -1357,9 +1355,8 @@ void func_i1_8018B58C(Actor* actor) {
                 for (i = 0; i < 4; i++) {
 
                     func_800430DC(actor->fwork[2 + i], actor->fwork[6 + i], actor->fwork[10 + i], 0.0f, 0.0f, 0.0f,
-                                  spB4[i] * (RAND_FLOAT(0.75f) + 0.5f),
-                                  spA4[i] * (RAND_FLOAT(0.75f) + 0.5f), RAND_CENTEREDFLOAT(20.0f), 3.0f,
-                                  i + 24, RAND_INT(30.0f) + 60.0f);
+                                  spB4[i] * (RAND_FLOAT(0.75f) + 0.5f), spA4[i] * (RAND_FLOAT(0.75f) + 0.5f),
+                                  RAND_CENTEREDFLOAT(20.0f), 3.0f, i + 24, RAND_INT(30.0f) + 60.0f);
                 }
 
                 if ((fabsf(actor->obj.pos.z - gPlayer[0].unk_138) < 500.0f) &&

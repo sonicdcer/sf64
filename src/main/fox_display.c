@@ -1580,7 +1580,7 @@ void func_80057D00(void) {
     sp78.z = 0.0f;
     Matrix_MultVec3f(gCalcMatrix, &sp78, &sp6C);
     if (D_80178410 != 0) {
-        D_80178428 = DEG_TO_RAD2(gPlayer[0].unk_034);
+        D_80178428 = DEG_TO_RAD(gPlayer[0].unk_034);
         func_800B6F50(D_801779D8.x, D_801779D8.y, D_801779D8.z, D_801779E8.x, D_801779E8.y, D_801779E8.z);
         func_8003DAF0();
     }

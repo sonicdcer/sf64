@@ -181,7 +181,7 @@ void func_i6_80198244(Boss* boss) {
 
     boss->swork[20] = 3;
     boss->swork[21] = 1;
-    boss->timer_056 = (s32)(RAND_FLOAT(500.0f) + 100.0f);
+    boss->timer_056 = (s32) (RAND_FLOAT(500.0f) + 100.0f);
     boss->fwork[11] = SIN_DEG(boss->unk_078.y) * boss->fwork[45];
     boss->fwork[13] = COS_DEG(boss->unk_078.y) * boss->fwork[45];
     speed = ABS(boss->vel.x);
@@ -308,7 +308,7 @@ void func_i6_80198ABC(Boss* boss) {
     boss->swork[21] = 3;
     boss->fwork[34] = 4.5f;
 
-    boss->timer_056 = (s32)(RAND_FLOAT(100.0f) + 100.0f);
+    boss->timer_056 = (s32) (RAND_FLOAT(100.0f) + 100.0f);
     boss->timer_050 = 0;
     if (yAngle > 180.0f) {
         boss->fwork[27] = 40.0f;
@@ -732,7 +732,7 @@ void func_i6_80199DAC(Boss* boss) {
 void func_i6_8019A434(Boss* boss) {
     boss->swork[20] = 7;
     boss->swork[21] = 5;
-    boss->timer_056 = (s32)(RAND_FLOAT(130.0f) + 60.0f);
+    boss->timer_056 = (s32) (RAND_FLOAT(130.0f) + 60.0f);
     boss->fwork[11] = SIN_DEG(boss->unk_078.y) * boss->fwork[45];
     boss->fwork[13] = COS_DEG(boss->unk_078.y) * boss->fwork[45];
     boss->fwork[12] = 30.0f;

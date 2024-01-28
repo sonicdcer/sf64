@@ -567,8 +567,8 @@ void func_i3_8018FF50(Actor* actor) {
     f32 temp;
 
     (void) " Enm->hitNO %d\n"; // Unclear where this goes. hitNO can't be info.bonus. Damage related?
-    actor->obj.rot.y =
-        RAD_TO_DEG(Math_Atan2F(gPlayer[0].camEye.x - actor->obj.pos.x, gPlayer[0].camEye.z - (actor->obj.pos.z + D_80177D20)));
+    actor->obj.rot.y = RAD_TO_DEG(
+        Math_Atan2F(gPlayer[0].camEye.x - actor->obj.pos.x, gPlayer[0].camEye.z - (actor->obj.pos.z + D_80177D20)));
     temp =
         sqrtf(SQ(gPlayer[0].camEye.z - (actor->obj.pos.z + D_80177D20)) + SQ(gPlayer[0].camEye.x - actor->obj.pos.x));
     actor->obj.rot.x = RAD_TO_DEG(-Math_Atan2F(gPlayer[0].camEye.y - actor->obj.pos.y, temp));
@@ -695,8 +695,8 @@ void func_i3_801904CC(Actor* actor) {
             break;
         case 1:
             for (i = 0; i < 11; i++) {
-                func_i3_801900FC(&actor->vwork[i], &actor->vwork[i + 11], RAND_CENTEREDFLOAT(20.0f),
-                                 RAND_FLOAT(-10.0f), RAND_FLOAT(10.0f), 41, actor->scale, 200, i);
+                func_i3_801900FC(&actor->vwork[i], &actor->vwork[i + 11], RAND_CENTEREDFLOAT(20.0f), RAND_FLOAT(-10.0f),
+                                 RAND_FLOAT(10.0f), 41, actor->scale, 200, i);
             }
             actor->unk_044 = 0;
             func_80066254(actor);
@@ -936,8 +936,8 @@ void func_i3_80191010(Actor* actor) {
             break;
         case 3:
             for (i = 0; i < 3; i++) {
-                func_i3_801900FC(&actor->vwork[i], &actor->vwork[3 + i], RAND_CENTEREDFLOAT(20.0f),
-                                 RAND_FLOAT(-10.0f), RAND_FLOAT(10.0f), 42, actor->scale, 200, i);
+                func_i3_801900FC(&actor->vwork[i], &actor->vwork[3 + i], RAND_CENTEREDFLOAT(20.0f), RAND_FLOAT(-10.0f),
+                                 RAND_FLOAT(10.0f), 42, actor->scale, 200, i);
             }
             actor->unk_044 = 4;
             func_80066254(actor);
@@ -1263,8 +1263,8 @@ void func_i3_80192094(Actor* actor) {
             break;
         case 4:
             for (i = 0; i < 6; i++) {
-                func_i3_801900FC(&actor->vwork[i], &actor->vwork[i + 6], RAND_CENTEREDFLOAT(40.0f),
-                                 RAND_FLOAT(-10.0f), RAND_FLOAT(20.0f), 44, actor->scale, 200, i);
+                func_i3_801900FC(&actor->vwork[i], &actor->vwork[i + 6], RAND_CENTEREDFLOAT(40.0f), RAND_FLOAT(-10.0f),
+                                 RAND_FLOAT(20.0f), 44, actor->scale, 200, i);
             }
             actor->unk_044 = 5;
             func_80066254(actor);
@@ -1365,8 +1365,8 @@ void func_i3_80192834(Actor* actor) {
             break;
         case 2:
             for (i = 0; i < 5; i++) {
-                func_i3_801900FC(&actor->vwork[i], &actor->vwork[5 + i], RAND_CENTEREDFLOAT(20.0f),
-                                 RAND_FLOAT(-10.0f), RAND_FLOAT(10.0f), 43, actor->scale, 200, i);
+                func_i3_801900FC(&actor->vwork[i], &actor->vwork[5 + i], RAND_CENTEREDFLOAT(20.0f), RAND_FLOAT(-10.0f),
+                                 RAND_FLOAT(10.0f), 43, actor->scale, 200, i);
             }
             actor->unk_044 = 0;
             func_80066254(actor);
@@ -1482,8 +1482,8 @@ void func_i3_80192E64(Actor* actor) {
             break;
         case 3:
             for (i = 0; i < 9; i++) {
-                func_i3_801900FC(&actor->vwork[i], &actor->vwork[9 + i], RAND_CENTEREDFLOAT(40.0f),
-                                 RAND_FLOAT(-10.0f), RAND_FLOAT(20.0f), 59, actor->scale, 200, i);
+                func_i3_801900FC(&actor->vwork[i], &actor->vwork[9 + i], RAND_CENTEREDFLOAT(40.0f), RAND_FLOAT(-10.0f),
+                                 RAND_FLOAT(20.0f), 59, actor->scale, 200, i);
             }
             actor->unk_044 = 7;
             func_80066254(actor);
@@ -2483,7 +2483,7 @@ void func_i3_80194A84(Boss* bossZO) {
                 D_80178340 = D_80178358 = 255;
                 D_80178358 = 0;
                 D_8017835C = 25;
-                D_80178480 = (s32)(RAND_FLOAT(20.0f) + 20.0f);
+                D_80178480 = (s32) (RAND_FLOAT(20.0f) + 20.0f);
             }
             if (D_80178480 == 29) {
                 D_80178348 = D_80178350 = D_80178354 = D_80178340 = 0;
@@ -2497,8 +2497,8 @@ void func_i3_80194A84(Boss* bossZO) {
                 spD8.z = bossZO->obj.rot.z;
                 for (i = 0; i < 5; i++) {
                     func_i3_801900FC(&spE4, &spD8, RAND_CENTEREDFLOAT(30.0f), RAND_CENTEREDFLOAT(20.0f),
-                                     RAND_CENTEREDFLOAT(30.0f), 4, 1.0f,
-                                     RAND_FLOAT(15.0f) + (bossZO->unk_3F8 * 10.0f), 0);
+                                     RAND_CENTEREDFLOAT(30.0f), 4, 1.0f, RAND_FLOAT(15.0f) + (bossZO->unk_3F8 * 10.0f),
+                                     0);
                 }
             }
             bossZO->vel.x = 0.0f;

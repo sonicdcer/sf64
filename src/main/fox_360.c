@@ -333,7 +333,7 @@ void func_8002EE64(Actor* actor) {
                         actor->fwork[25] = spA8.y;
                         actor->fwork[26] = spA0[0];
                         actor->fwork[28] = spA0[1];
-                        actor->fwork[27] = DEG_TO_RAD2(temp4);
+                        actor->fwork[27] = DEG_TO_RAD(temp4);
                     }
                 } else {
                     colId = COL2_0;
@@ -344,7 +344,7 @@ void func_8002EE64(Actor* actor) {
                         actor->fwork[25] = spB4.y;
                         actor->fwork[26] = spB4.x;
                         actor->fwork[28] = spB4.z;
-                        actor->fwork[27] = DEG_TO_RAD2(temp4);
+                        actor->fwork[27] = DEG_TO_RAD(temp4);
                     }
                 }
             }

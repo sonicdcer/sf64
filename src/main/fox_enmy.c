@@ -1997,8 +1997,8 @@ void func_8006753C(Actor* actor) {
             for (i = 0; i < 6; i++) {
                 func_800674B4(D_800CFEC4[i].x + actor->obj.pos.x, D_800CFEC4[i].y + actor->obj.pos.y,
                               D_800CFEC4[i].z + actor->obj.pos.z, D_800CFF0C[i].y + actor->obj.rot.y,
-                              D_800CFF0C[i].x + actor->obj.rot.x, RAND_CENTEREDFLOAT(40.0f),
-                              RAND_FLOAT(10.0f) + 10.0f, RAND_CENTEREDFLOAT(40.0f));
+                              D_800CFF0C[i].x + actor->obj.rot.x, RAND_CENTEREDFLOAT(40.0f), RAND_FLOAT(10.0f) + 10.0f,
+                              RAND_CENTEREDFLOAT(40.0f));
                 func_800794CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.6f);
             }
             Object_Kill(&actor->obj, actor->sfxPos);

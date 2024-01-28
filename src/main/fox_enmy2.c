@@ -1947,8 +1947,8 @@ void func_8006FEEC(Actor* actor) {
 
         if (actor->health <= 0) {
             for (i = 3; i < 11; i++) {
-                func_i3_801900FC(&actor->vwork[i], &actor->vwork[i + 11], RAND_CENTEREDFLOAT(20.0f),
-                                 RAND_FLOAT(-10.0f), RAND_FLOAT(10.0f), 41, actor->scale, 200, i);
+                func_i3_801900FC(&actor->vwork[i], &actor->vwork[i + 11], RAND_CENTEREDFLOAT(20.0f), RAND_FLOAT(-10.0f),
+                                 RAND_FLOAT(10.0f), 41, actor->scale, 200, i);
             }
             actor->unk_044 = 0;
             func_80066254(actor);
@@ -3918,8 +3918,7 @@ void func_80074FF0(Actor* actor) {
                         if (!(actor->timer_0C2 & 3) && (D_80177854 != 0x64)) {
                             func_8007D0E0(RAND_CENTEREDFLOAT(200.0f) + actor->obj.pos.x,
                                           RAND_CENTEREDFLOAT(200.0f) + actor->obj.pos.y,
-                                          RAND_CENTEREDFLOAT(200.0f) + actor->obj.pos.z,
-                                          RAND_FLOAT(1.5f) + 2.5f);
+                                          RAND_CENTEREDFLOAT(200.0f) + actor->obj.pos.z, RAND_FLOAT(1.5f) + 2.5f);
                         }
                         RCP_SetupDL(&gMasterDisp, 0x39);
                         gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);

@@ -200,8 +200,8 @@ void func_800A46A0(Player* player) {
             }
             if (!(gGameFrameCount & 1) && (Rand_ZeroOne() < 0.5f) && !gVersusMode) {
                 func_8007C484(RAND_CENTEREDFLOAT(5.0f) + player->hit1.x, RAND_FLOAT(5.0f) + player->hit1.y,
-                              player->hit1.z, player->vel.x, player->vel.y, player->vel.z,
-                              RAND_FLOAT(0.02f) + 0.02f, player->num + 1);
+                              player->hit1.z, player->vel.x, player->vel.y, player->vel.z, RAND_FLOAT(0.02f) + 0.02f,
+                              player->num + 1);
             }
         }
         if (player->wings.leftState <= WINGSTATE_BROKEN) {
@@ -211,8 +211,8 @@ void func_800A46A0(Player* player) {
             }
             if (!(gGameFrameCount & 1) && (Rand_ZeroOne() < 0.5f) && !gVersusMode) {
                 func_8007C484(RAND_CENTEREDFLOAT(5.0f) + player->hit2.x, RAND_FLOAT(5.0f) + player->hit2.y,
-                              player->hit2.z, player->vel.x, player->vel.y, player->vel.z,
-                              RAND_FLOAT(0.02f) + 0.02f, player->num + 1);
+                              player->hit2.z, player->vel.x, player->vel.y, player->vel.z, RAND_FLOAT(0.02f) + 0.02f,
+                              player->num + 1);
             }
         }
     }
@@ -233,13 +233,11 @@ void func_800A46A0(Player* player) {
                 sp40 = 30.0f;
             }
             if (!(gGameFrameCount & var_v1)) {
-                func_8007D10C(RAND_CENTEREDFLOAT(10.0f) + player->pos.x,
-                              RAND_FLOAT(10.0f) + (player->pos.y + sp40),
+                func_8007D10C(RAND_CENTEREDFLOAT(10.0f) + player->pos.x, RAND_FLOAT(10.0f) + (player->pos.y + sp40),
                               RAND_CENTEREDFLOAT(10.0f) + player->unk_138, 2.2f);
             }
             if (!((var_v1 >> 2) & gGameFrameCount) && (Rand_ZeroOne() < 0.5f)) {
-                func_8007C484(RAND_CENTEREDFLOAT(30.0f) + player->pos.x,
-                              RAND_FLOAT(10.0f) + (player->pos.y + sp40),
+                func_8007C484(RAND_CENTEREDFLOAT(30.0f) + player->pos.x, RAND_FLOAT(10.0f) + (player->pos.y + sp40),
                               RAND_CENTEREDFLOAT(30.0f) + player->unk_138, player->vel.x, player->vel.y, player->vel.z,
                               RAND_FLOAT(0.03f) + 0.04f, player->num + 1);
                 if (player->timer_224 == 0) {
@@ -1830,14 +1828,13 @@ void func_800A8BA4(Player* player) {
                         player->timer_498 = 5;
                         player->unk_0D8.y = 30.0f;
                         boss->dmgType = DMG_BEAM;
-                        func_8007BFFC(player->pos.x + RAND_CENTEREDFLOAT(10.0f),
-                                      player->pos.y + RAND_FLOAT(10.0f),
+                        func_8007BFFC(player->pos.x + RAND_CENTEREDFLOAT(10.0f), player->pos.y + RAND_FLOAT(10.0f),
                                       player->unk_138 + RAND_CENTEREDFLOAT(10.0f), 0.0f, 15.0f, 0.0f, 2.0f, 5);
                         for (j = 0; j < 10; j++) {
-                            func_8007C484(
-                                player->pos.x + RAND_CENTEREDFLOAT(30.0f), player->pos.y + RAND_FLOAT(10.0f),
-                                player->unk_138 + RAND_CENTEREDFLOAT(30.0f), player->vel.x, 20.0f + player->vel.y,
-                                player->vel.z, RAND_FLOAT(0.1f) + 0.1f, player->num + 11);
+                            func_8007C484(player->pos.x + RAND_CENTEREDFLOAT(30.0f), player->pos.y + RAND_FLOAT(10.0f),
+                                          player->unk_138 + RAND_CENTEREDFLOAT(30.0f), player->vel.x,
+                                          20.0f + player->vel.y, player->vel.z, RAND_FLOAT(0.1f) + 0.1f,
+                                          player->num + 11);
                         }
                         break;
                     }
@@ -2203,7 +2200,7 @@ void func_800AA800(Player* player) {
                                 player->unk_068 = spB0.y;
                                 player->unk_248 = spA8[0];
                                 player->unk_24C = spA8[1];
-                                player->unk_070 = DEG_TO_RAD2(sp120);
+                                player->unk_070 = DEG_TO_RAD(sp120);
                             }
                         } else {
                             colId = COL2_0;
@@ -2214,7 +2211,7 @@ void func_800AA800(Player* player) {
                                 player->unk_068 = spBC.y;
                                 player->unk_248 = spBC.x;
                                 player->unk_24C = spBC.z;
-                                player->unk_070 = DEG_TO_RAD2(sp120);
+                                player->unk_070 = DEG_TO_RAD(sp120);
                             }
                         }
                     }
@@ -2264,7 +2261,7 @@ void func_800AA800(Player* player) {
                                 player->unk_06C = player->unk_138 + var_fs1;
                                 player->unk_248 = spBC.x;
                                 player->unk_24C = spBC.z;
-                                player->unk_070 = DEG_TO_RAD2(sp120);
+                                player->unk_070 = DEG_TO_RAD(sp120);
                                 break;
                             }
                         }
@@ -2310,8 +2307,8 @@ void func_800AA800(Player* player) {
                                         if (gGroundLevel < player->unk_068) {
                                             player->unk_068 = spEC.y + 15.0f + tempy;
                                             player->unk_06C = spEC.z + 10.0f + tempz;
-                                            player->unk_248 = DEG_TO_RAD2(sp100);
-                                            player->unk_070 = DEG_TO_RAD2(sp120);
+                                            player->unk_248 = DEG_TO_RAD(sp100);
+                                            player->unk_070 = DEG_TO_RAD(sp120);
                                         }
                                         break;
                                     }
@@ -6268,7 +6265,7 @@ void func_800B832C(void) {
 }
 
 void func_800B852C(ObjectId objId, Item* item) {
-    u8 sp1F = (u8)RAND_FLOAT(5.0f);
+    u8 sp1F = (u8) RAND_FLOAT(5.0f);
 
     if (D_800D317C == sp1F) {
         D_80177844 -= 1;

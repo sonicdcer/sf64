@@ -436,8 +436,7 @@ void func_i3_8019F20C(Actor* actor) {
                     for (i = 0; i < 4; i++) {
                         func_i3_8019F038(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z,
                                          D_i3_801BF8F0[i].x + RAND_CENTEREDFLOAT(3.0f),
-                                         D_i3_801BF8F0[i].y + RAND_CENTEREDFLOAT(3.0f),
-                                         RAND_FLOAT(-10.0f) - 10.0f);
+                                         D_i3_801BF8F0[i].y + RAND_CENTEREDFLOAT(3.0f), RAND_FLOAT(-10.0f) - 10.0f);
                     }
                 } else if (actor->obj.id == OBJ_ACTOR_275) {
                     actor->unk_044 = 1;
@@ -454,8 +453,7 @@ void func_i3_8019F20C(Actor* actor) {
                 }
                 for (i = 0; i < 7; i++) {
                     func_i3_8019E9F4(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, RAND_CENTEREDFLOAT(30.0f),
-                                     RAND_CENTEREDFLOAT(30.0f), 0.0f, (RAND_FLOAT(2.0f) + 2.0f) * actor->scale,
-                                     1);
+                                     RAND_CENTEREDFLOAT(30.0f), 0.0f, (RAND_FLOAT(2.0f) + 2.0f) * actor->scale, 1);
                 }
                 func_8007A6F0(&actor->obj.pos, 0x2903A008);
             }
@@ -1481,12 +1479,10 @@ void func_i3_801A2C98(Boss* bossSO) {
                 for (i = 0; i < 4; i++) {
                     func_i3_8019F038(bossSO->obj.pos.x + 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
                                      D_i3_801BF8F0[i].x + RAND_CENTEREDFLOAT(2.0f),
-                                     D_i3_801BF8F0[i].y + 10.0f + RAND_CENTEREDFLOAT(2.0f),
-                                     RAND_FLOAT(-10.0f) - 10.0f);
+                                     D_i3_801BF8F0[i].y + 10.0f + RAND_CENTEREDFLOAT(2.0f), RAND_FLOAT(-10.0f) - 10.0f);
                     func_i3_8019F038(bossSO->obj.pos.x - 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
                                      D_i3_801BF8F0[i].x + RAND_CENTEREDFLOAT(2.0f),
-                                     D_i3_801BF8F0[i].y + 10.0f + RAND_CENTEREDFLOAT(2.0f),
-                                     RAND_FLOAT(-10.0f) - 10.0f);
+                                     D_i3_801BF8F0[i].y + 10.0f + RAND_CENTEREDFLOAT(2.0f), RAND_FLOAT(-10.0f) - 10.0f);
                 }
             }
             if (bossSO->unk_04C == 20) {
@@ -1996,31 +1992,25 @@ void func_i3_801A4A34(Boss* bossSO) {
         bossSO->swork[SO_SWK_2] = 0;
         func_i3_801A1E14(bossSO->fwork[SO_FWK_28], bossSO->fwork[SO_FWK_29], bossSO->fwork[SO_FWK_30],
                          bossSO->fwork[SO_FWK_41], bossSO->fwork[SO_FWK_42], bossSO->fwork[SO_FWK_43],
-                         RAND_FLOAT(-25.0f) - 10.0f, RAND_FLOAT(25.0f) + 30.0f,
-                         RAND_CENTEREDFLOAT(25.0f) - 50.0f, 0);
+                         RAND_FLOAT(-25.0f) - 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_CENTEREDFLOAT(25.0f) - 50.0f, 0);
         func_i3_801A1E14(bossSO->fwork[SO_FWK_22], bossSO->fwork[SO_FWK_23], bossSO->fwork[SO_FWK_24],
                          bossSO->fwork[SO_FWK_47], bossSO->fwork[SO_FWK_48], bossSO->fwork[SO_FWK_49],
-                         RAND_FLOAT(-25.0f) - 10.0f, RAND_FLOAT(25.0f) + 30.0f,
-                         RAND_CENTEREDFLOAT(25.0f) - 50.0f, 1);
+                         RAND_FLOAT(-25.0f) - 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_CENTEREDFLOAT(25.0f) - 50.0f, 1);
         func_i3_801A1E14(bossSO->fwork[SO_FWK_10], bossSO->fwork[SO_FWK_11], bossSO->fwork[SO_FWK_12],
                          bossSO->fwork[SO_FWK_35], bossSO->fwork[SO_FWK_36], bossSO->fwork[SO_FWK_37],
-                         RAND_FLOAT(-25.0f) - 10.0f, RAND_FLOAT(25.0f) + 30.0f,
-                         RAND_CENTEREDFLOAT(25.0f) - 50.0f, 2);
+                         RAND_FLOAT(-25.0f) - 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_CENTEREDFLOAT(25.0f) - 50.0f, 2);
     }
     if (bossSO->swork[SO_SWK_3] < 0) {
         bossSO->swork[SO_SWK_3] = 0;
         func_i3_801A1E14(bossSO->fwork[SO_FWK_25], bossSO->fwork[SO_FWK_26], bossSO->fwork[SO_FWK_27],
                          bossSO->fwork[SO_FWK_38], bossSO->fwork[SO_FWK_39], bossSO->fwork[SO_FWK_40],
-                         RAND_FLOAT(25.0f) + 10.0f, RAND_FLOAT(25.0f) + 30.0f,
-                         RAND_CENTEREDFLOAT(25.0f) - 50.0f, 5);
+                         RAND_FLOAT(25.0f) + 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_CENTEREDFLOAT(25.0f) - 50.0f, 5);
         func_i3_801A1E14(bossSO->fwork[SO_FWK_19], bossSO->fwork[SO_FWK_20], bossSO->fwork[SO_FWK_21],
                          bossSO->fwork[SO_FWK_44], bossSO->fwork[SO_FWK_45], bossSO->fwork[SO_FWK_46],
-                         RAND_FLOAT(25.0f) + 10.0f, RAND_FLOAT(25.0f) + 30.0f,
-                         RAND_CENTEREDFLOAT(25.0f) - 50.0f, 4);
+                         RAND_FLOAT(25.0f) + 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_CENTEREDFLOAT(25.0f) - 50.0f, 4);
         func_i3_801A1E14(bossSO->fwork[SO_FWK_7], bossSO->fwork[SO_FWK_8], bossSO->fwork[SO_FWK_9],
                          bossSO->fwork[SO_FWK_32], bossSO->fwork[SO_FWK_33], bossSO->fwork[SO_FWK_34],
-                         RAND_FLOAT(25.0f) + 10.0f, RAND_FLOAT(25.0f) + 30.0f,
-                         RAND_CENTEREDFLOAT(25.0f) - 50.0f, 3);
+                         RAND_FLOAT(25.0f) + 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_CENTEREDFLOAT(25.0f) - 50.0f, 3);
     }
     switch (bossSO->unk_04C) {
         case 30:
@@ -2095,12 +2085,10 @@ void func_i3_801A4EF8(Boss* bossSO) {
                 for (i = 0; i < 4; i++) {
                     func_i3_8019F038(bossSO->obj.pos.x + 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
                                      D_i3_801BF8F0[i].x + RAND_CENTEREDFLOAT(2.0f),
-                                     D_i3_801BF8F0[i].y + 10.0f + RAND_CENTEREDFLOAT(2.0f),
-                                     RAND_FLOAT(-10.0f) - 10.0f);
+                                     D_i3_801BF8F0[i].y + 10.0f + RAND_CENTEREDFLOAT(2.0f), RAND_FLOAT(-10.0f) - 10.0f);
                     func_i3_8019F038(bossSO->obj.pos.x - 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
                                      D_i3_801BF8F0[i].x + RAND_CENTEREDFLOAT(2.0f),
-                                     D_i3_801BF8F0[i].y + 10.0f + RAND_CENTEREDFLOAT(2.0f),
-                                     RAND_FLOAT(-10.0f) - 10.0f);
+                                     D_i3_801BF8F0[i].y + 10.0f + RAND_CENTEREDFLOAT(2.0f), RAND_FLOAT(-10.0f) - 10.0f);
                 }
             }
             if (bossSO->swork[SO_SWK_11] == 16) {
