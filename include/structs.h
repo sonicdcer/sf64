@@ -83,7 +83,11 @@ typedef struct {
     /* 0x10 */ f32 unk_10;
     /* 0x14 */ char pad14[0x4];
     /* 0x18 */ u16 timer;
-} UnkEntity1C; // size = 0x1C
+} BonusText; // size = 0x1C
+
+#define BONUS_TEXT_FREE 0
+#define BONUS_TEXT_GREAT 100
+#define BONUS_TEXT_1UP 101
 
 typedef struct {
     /* 0x00 */ f32 unk_00;

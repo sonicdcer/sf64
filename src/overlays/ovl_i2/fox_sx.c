@@ -53,7 +53,7 @@ void func_i2_8018F030(void) {
             actor->iwork[11] = 1;
             actor->unk_0E4 = 2;
             Object_SetInfo(&actor->info, actor->obj.id);
-            func_800BA808(gMsg_ID_5475, RCID_SLIPPY);
+            Radio_PlayMessage(gMsg_ID_5475, RCID_SLIPPY);
             break;
         }
     }
@@ -99,13 +99,13 @@ void func_i2_8018F330(Actor* actor) {
 
         case 1:
             actor->unk_0F4.z += 3.0f;
-            actor->obj.rot.z = __sinf((actor->unk_0F4.z + 90.0f) * M_DTOR) * 60.0f;
+            actor->obj.rot.z = SIN_DEG(actor->unk_0F4.z + 90.0f) * 60.0f;
             sp34 = fabsf(actor->obj.pos.z - gBosses[0].obj.pos.z) * 0.1f;
-            Math_SmoothStepToF(&actor->obj.pos.x, gBosses[0].obj.pos.x + __sinf(actor->unk_0F4.z * M_DTOR) * sp34, 0.1f,
-                               20.0f, 0.0f);
+            Math_SmoothStepToF(&actor->obj.pos.x, gBosses[0].obj.pos.x + SIN_DEG(actor->unk_0F4.z) * sp34, 0.1f, 20.0f,
+                               0.0f);
             Math_SmoothStepToF(&actor->obj.pos.y, gBosses[0].obj.pos.y, 0.1f, 20.0f, 0.0f);
             Math_SmoothStepToF(&actor->obj.pos.z, gBosses[0].obj.pos.z, 1.0f, 55.0f, 0);
-            if (gBosses[0].actionState == 20) {
+            if (gBosses[0].state == 20) {
                 actor->unk_0B6 = 10;
                 break;
             }
@@ -114,12 +114,12 @@ void func_i2_8018F330(Actor* actor) {
                 func_i2_8018F1DC(actor);
             }
 
-            if ((gBosses[0].unk_04C == 75) && (gBosses[0].actionState == 85)) {
+            if ((gBosses[0].unk_04C == 75) && (gBosses[0].state == 85)) {
                 actor->unk_0B6 = 2;
                 actor->vel.x = 10.0f;
                 actor->vel.y = -10.0f;
                 actor->vel.z = 30.0f;
-                func_800BA808(gMsg_ID_4111, RCID_SLIPPY);
+                Radio_PlayMessage(gMsg_ID_4111, RCID_SLIPPY);
                 func_8007A6F0(&actor->obj.pos, 0x2903A008);
                 gBosses[0].swork[6] = 0;
                 gTeamShields[2] = -2;
@@ -135,7 +135,7 @@ void func_i2_8018F330(Actor* actor) {
 
         case 2:
             if (actor->timer_0BC == 100) {
-                func_800BA808(gMsg_ID_20294, RCID_FOX);
+                Radio_PlayMessage(gMsg_ID_20294, RCID_FOX);
             }
 
             actor->obj.rot.x += 5.5f;
@@ -185,8 +185,8 @@ void func_i2_8018F884(Actor* actor) {
             break;
 
         case -1:
-            actor->obj.rot.y = (-gPlayer[gPlayerNum].unk_058 * 180.0f) / M_PI;
-            actor->obj.rot.x = (gPlayer[gPlayerNum].unk_05C * 180.0f) / M_PI;
+            actor->obj.rot.y = RAD_TO_DEG(-gPlayer[gPlayerNum].unk_058);
+            actor->obj.rot.x = RAD_TO_DEG(gPlayer[gPlayerNum].unk_05C);
             RCP_SetupDL(&gMasterDisp, 0x40);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 220, 70, 30, 255);
             Matrix_Scale(gGfxMatrix, 70.0f, 70.0f, 1.0f, 1);
@@ -245,12 +245,12 @@ void func_i2_8018FBBC(Vec3f* pos) {
     for (i = 0; i < ARRAY_COUNT(gActors); i++) {
         actor = &gActors[i];
         if ((actor->obj.status >= OBJ_ACTIVE) && (fabsf(pos->x - actor->obj.pos.x) < 2500.0f) &&
-            (fabsf(pos->z - actor->obj.pos.z) < 2500.0f) && (actor->unk_0B8 != 1000) && (actor->timer_0C2 == 0) &&
+            (fabsf(pos->z - actor->obj.pos.z) < 2500.0f) && (actor->state != 1000) && (actor->timer_0C2 == 0) &&
             (actor->scale < 0.0f) &&
             func_80062DBC(pos, actor->info.hitbox, &actor->obj, actor->vwork[29].x, actor->vwork[29].y,
                           actor->vwork[29].z + actor->unk_0F4.z)) {
             func_800A6028(actor->sfxPos, 0x09000004);
-            actor->unk_0B8 = 1000;
+            actor->state = 1000;
             xPos = Math_Atan2F(actor->obj.pos.x - pos->x, actor->obj.pos.z - pos->z);
             yPos = -Math_Atan2F(actor->obj.pos.y - pos->y,
                                 sqrtf(SQ(actor->obj.pos.x - pos->x) + SQ(actor->obj.pos.z - pos->z)));
@@ -274,13 +274,13 @@ void func_i2_8018FE38(Boss* boss) {
     Vec3f sp2C;
     Vec3f sp20;
 
-    if (boss->actionState == 0) {
+    if (boss->state == 0) {
         Animation_GetFrameData(&D_60206DC, boss->unk_04C, boss->vwork);
         Math_Vec3fFromAngles(&sp20, boss->obj.rot.x, boss->obj.rot.y, 20.0f);
         boss->vel.x = sp20.x;
         boss->vel.y = sp20.y;
         boss->vel.z = sp20.z;
-        boss->actionState++;
+        boss->state++;
     } else {
         if (boss->obj.id == OBJ_BOSS_304) {
             sp2C.x = boss->fwork[11];
@@ -354,15 +354,15 @@ void func_i2_80190078(Boss* boss) {
 
     switch (gBossFrameCount) {
         case 175:
-            func_800BA808(gMsg_ID_5473, RCID_FOX);
+            Radio_PlayMessage(gMsg_ID_5473, RCID_FOX);
             break;
 
         case 300:
-            func_800BA808(gMsg_ID_5492, RCID_BOSS_SECTORX);
+            Radio_PlayMessage(gMsg_ID_5492, RCID_BOSS_SECTORX);
             break;
 
         case 400:
-            func_800BA808(gMsg_ID_2225, RCID_SLIPPY);
+            Radio_PlayMessage(gMsg_ID_2225, RCID_SLIPPY);
             break;
 
         case 556:
@@ -370,7 +370,7 @@ void func_i2_80190078(Boss* boss) {
             break;
 
         case 540:
-            func_800BA808(gMsg_ID_5493, RCID_BOSS_SECTORX);
+            Radio_PlayMessage(gMsg_ID_5493, RCID_BOSS_SECTORX);
             break;
     }
 
@@ -392,22 +392,22 @@ void func_i2_80190078(Boss* boss) {
         Math_SmoothStepToAngle(&boss->fwork[6], 0.0f, 0.1f, 1.0f, 0.00001f);
     }
 
-    boss->fwork[5] = __sinf((boss->timer_054 * 50.0f) * M_DTOR) * boss->timer_054;
-    boss->fwork[7] = __sinf((boss->timer_054 * 30.0f) * M_DTOR) * boss->timer_054 * 0.5f;
+    boss->fwork[5] = SIN_DEG(boss->timer_054 * 50.0f) * boss->timer_054;
+    boss->fwork[7] = SIN_DEG(boss->timer_054 * 30.0f) * boss->timer_054 * 0.5f;
 
     Math_SmoothStepToF(&boss->obj.pos.z, gPlayer[0].pos.z + boss->fwork[1], 0.1f, boss->fwork[42], 0);
     Math_SmoothStepToF(&boss->obj.pos.y, boss->fwork[2], 0.05f, boss->fwork[43], 0);
     Math_SmoothStepToF(&boss->obj.pos.x, boss->fwork[3], 0.05f, boss->fwork[44], 0);
     Math_SmoothStepToAngle(&boss->obj.rot.z, boss->fwork[41], 0.05f, 2.0f, 0);
 
-    if (boss->actionState != 5) {
+    if (boss->state != 5) {
         Math_SmoothStepToF(&boss->fwork[29], 0.f, 0.1f, 50.0f, 0);
         Math_SmoothStepToF(&boss->fwork[30], 0.f, 0.1f, 50.0f, 0);
         Math_SmoothStepToF(&boss->fwork[31], 0.f, 0.1f, 50.0f, 0);
         Math_SmoothStepToF(&boss->fwork[32], 0.f, 0.1f, 50.0f, 0);
         Math_SmoothStepToF(&boss->fwork[33], 0.f, 0.1f, 50.0f, 0);
         Math_SmoothStepToF(&boss->fwork[34], 0.f, 0.1f, 50.0f, 0);
-        if (boss->actionState != 4) {
+        if (boss->state != 4) {
             Math_SmoothStepToF(&boss->fwork[27], 0.0f, 0.1f, 2.0f, 0);
             Math_SmoothStepToF(&boss->fwork[28], 0.0f, 0.1f, 2.0f, 0);
         }
@@ -434,7 +434,7 @@ void func_i2_80190078(Boss* boss) {
                     }
 
                     func_8007A6F0(&boss->obj.pos, 0x2940C00A);
-                    boss->actionState = 7;
+                    boss->state = 7;
                     boss->timer_050 = 80;
                     boss->swork[0] = 0;
                     boss->timer_05C = 80;
@@ -468,12 +468,12 @@ void func_i2_80190078(Boss* boss) {
                 if (boss->health <= 0) {
                     D_8017796C = -1;
                     boss->obj.rot.y = Math_ModF(boss->obj.rot.y, 360.0f);
-                    boss->actionState = 20;
+                    boss->state = 20;
                     boss->timer_050 = 300;
                     boss->fwork[0] = 0.0f;
                     boss->unk_04C = 0;
 
-                    func_800BA808(gMsg_ID_5499, RCID_BOSS_SECTORX);
+                    Radio_PlayMessage(gMsg_ID_5499, RCID_BOSS_SECTORX);
 
                     func_8007BFFC(boss->obj.pos.x, boss->obj.pos.y + 300.0f, boss->obj.pos.z, 0.0f, 0.0f, 0.0f, 10.0f,
                                   50);
@@ -506,8 +506,8 @@ void func_i2_80190078(Boss* boss) {
         }
     }
 
-    if (((boss->actionState != 8) && (boss->actionState != 20)) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_3)) {
-        boss->actionState = 8;
+    if (((boss->state != 8) && (boss->state != 20)) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_3)) {
+        boss->state = 8;
         boss->fwork[0] = 0.0f;
         func_8001A55C(D_i2_80195D88, 0x31032061);
         func_8001A55C(D_i2_80195D98, 0x31032061);
@@ -515,7 +515,7 @@ void func_i2_80190078(Boss* boss) {
 
     boss->vel.z = -20.0f;
 
-    switch (boss->actionState) {
+    switch (boss->state) {
         case 0:
             boss->swork[7] = 1;
             boss->obj.pos.x = gPlayer[0].unk_0AC;
@@ -526,7 +526,7 @@ void func_i2_80190078(Boss* boss) {
             boss->fwork[17] = -300.0f;
             boss->fwork[16] = 3500.0f;
             boss->fwork[19] = 3000.0f;
-            boss->actionState = 90;
+            boss->state = 90;
             boss->timer_050 = 450;
             boss->swork[3] = 400;
             boss->health = 300;
@@ -561,7 +561,7 @@ void func_i2_80190078(Boss* boss) {
             }
 
             if (boss->timer_050 == 0) {
-                boss->actionState = 100;
+                boss->state = 100;
                 boss->fwork[0] = 0.0f;
                 Audio_PlaySfx(0x29400023, boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
@@ -580,7 +580,7 @@ void func_i2_80190078(Boss* boss) {
 
             if (boss->unk_04C >= Animation_GetFrameCount(&D_60206DC)) {
                 boss->unk_04C = 0;
-                boss->actionState = 1;
+                boss->state = 1;
                 boss->fwork[0] = 0.0f;
                 Audio_PlaySfx(0x29402024, boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
@@ -605,11 +605,11 @@ void func_i2_80190078(Boss* boss) {
             boss->unk_04C++;
             if (boss->unk_04C >= Animation_GetFrameCount(&D_6016E28)) {
                 boss->unk_04C = 0;
-                boss->actionState = 2;
+                boss->state = 2;
                 boss->fwork[0] = 0.0f;
                 boss->swork[1] = 1;
                 boss->swork[0] = 1;
-                func_800BA808(gMsg_ID_5494, RCID_BOSS_SECTORX);
+                Radio_PlayMessage(gMsg_ID_5494, RCID_BOSS_SECTORX);
             }
             break;
 
@@ -641,7 +641,7 @@ void func_i2_80190078(Boss* boss) {
             boss->unk_04C++;
             if (boss->unk_04C >= Animation_GetFrameCount(&D_60123BC)) {
                 boss->unk_04C = 0;
-                boss->actionState = 3;
+                boss->state = 3;
                 boss->fwork[42] = boss->fwork[43] = boss->fwork[44] = boss->fwork[0] = 0.0f;
                 boss->swork[7] = 0;
             }
@@ -679,14 +679,14 @@ void func_i2_80190078(Boss* boss) {
                 boss->unk_04C = 0;
                 boss->fwork[0] = 0.0f;
                 if (boss->swork[3] <= 250) {
-                    boss->actionState = 4;
+                    boss->state = 4;
                     boss->timer_050 = 100;
-                    func_800BA808(gMsg_ID_5495, RCID_BOSS_SECTORX);
+                    Radio_PlayMessage(gMsg_ID_5495, RCID_BOSS_SECTORX);
                     boss->fwork[44] = 0.0f;
                     boss->fwork[43] = 0.0f;
                     boss->fwork[42] = 0.0f;
                 } else {
-                    boss->actionState = 1;
+                    boss->state = 1;
                     boss->swork[1] = 1;
                     boss->swork[7] = 1;
                 }
@@ -711,9 +711,9 @@ void func_i2_80190078(Boss* boss) {
             Math_SmoothStepToF(&boss->fwork[28], -30.0f, 0.05f, 1.0f, 0);
 
             if (boss->timer_050 == 0) {
-                boss->actionState = 5;
+                boss->state = 5;
                 boss->timer_050 = 100;
-                func_800BA808(gMsg_ID_5496, RCID_FOX);
+                Radio_PlayMessage(gMsg_ID_5496, RCID_FOX);
             }
             break;
 
@@ -798,7 +798,7 @@ void func_i2_80190078(Boss* boss) {
             }
 
             if (boss->timer_050 == 0) {
-                boss->actionState = 6;
+                boss->state = 6;
                 boss->timer_050 = 122;
             }
             break;
@@ -810,7 +810,7 @@ void func_i2_80190078(Boss* boss) {
 
             if (boss->timer_050 == 0) {
                 boss->unk_04C = 0;
-                boss->actionState = 1;
+                boss->state = 1;
                 boss->swork[1] = 1;
                 func_8001A55C(D_i2_80195D88, 0x31032061);
                 func_8001A55C(D_i2_80195D98, 0x31032061);
@@ -824,7 +824,7 @@ void func_i2_80190078(Boss* boss) {
 
         case 7:
             if (boss->timer_052 == 1) {
-                func_800BA808(gMsg_ID_15252, RCID_SLIPPY);
+                Radio_PlayMessage(gMsg_ID_15252, RCID_SLIPPY);
             }
             boss->fwork[41] = 20.0;
             boss->fwork[2] = -400.0f;
@@ -837,7 +837,7 @@ void func_i2_80190078(Boss* boss) {
 
             boss->unk_04C++;
             if (boss->unk_04C >= Animation_GetFrameCount(&D_601C690)) {
-                boss->actionState = 75;
+                boss->state = 75;
                 boss->fwork[0] = 0.0f;
                 boss->unk_04C = 0;
                 boss->timer_050 = 120;
@@ -854,19 +854,19 @@ void func_i2_80190078(Boss* boss) {
             Math_SmoothStepToF(boss->fwork, 0.1f, 1.0f, 0.005f, 0);
 
             if (boss->timer_050 == 0) {
-                boss->actionState = 8;
+                boss->state = 8;
                 boss->fwork[0] = 0.0f;
                 boss->unk_04C = 0;
                 boss->health = 300;
                 func_8001D9E0(0, D_800C9E90[gCurrentLevel], 1121, 25, 255);
-                func_800BA808(gMsg_ID_19205, RCID_FOX);
+                Radio_PlayMessage(gMsg_ID_19205, RCID_FOX);
                 boss->timer_052 = 100;
             }
             break;
 
         case 8:
             if (boss->timer_052 == 1) {
-                func_800BA808(gMsg_ID_5497, RCID_BOSS_SECTORX);
+                Radio_PlayMessage(gMsg_ID_5497, RCID_BOSS_SECTORX);
             }
             boss->fwork[41] = 0.0f;
             boss->fwork[2] = gPlayer[0].pos.y;
@@ -885,7 +885,7 @@ void func_i2_80190078(Boss* boss) {
             if (boss->unk_04C >= Animation_GetFrameCount(&D_600F890)) {
                 boss->unk_04C = 0;
                 boss->fwork[0] = 0.0f;
-                boss->actionState = 9;
+                boss->state = 9;
                 boss->swork[0] = 2;
                 boss->timer_050 = 30;
             }
@@ -907,7 +907,7 @@ void func_i2_80190078(Boss* boss) {
                     boss->unk_04C = Animation_GetFrameCount(&D_60123BC) - 1;
                     if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_0) {
                         boss->unk_04C = 0;
-                        boss->actionState = 10;
+                        boss->state = 10;
                         boss->fwork[0] = 0.0f;
                         boss->fwork[42] = 0.0f;
                     }
@@ -916,13 +916,13 @@ void func_i2_80190078(Boss* boss) {
                     Audio_PlaySfx(0x2902401C, boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 }
             } else if (boss->timer_050 == 1) {
-                func_800BA808(gMsg_ID_20267, RCID_PEPPY);
+                Radio_PlayMessage(gMsg_ID_20267, RCID_PEPPY);
             }
             break;
 
         case 9:
             if (boss->timer_050 == 1) {
-                func_800BA808(gMsg_ID_5492, RCID_BOSS_SECTORX);
+                Radio_PlayMessage(gMsg_ID_5492, RCID_BOSS_SECTORX);
             }
             boss->fwork[1] = -2000.0f;
             boss->fwork[2] = gPlayer[0].pos.y;
@@ -936,11 +936,11 @@ void func_i2_80190078(Boss* boss) {
 
             if (boss->unk_04C >= Animation_GetFrameCount(&D_601AA28)) {
                 boss->unk_04C = 0;
-                boss->actionState = 10;
+                boss->state = 10;
                 boss->fwork[0] = 0.0f;
                 boss->fwork[42] = 0.0f;
                 if (boss->swork[10] == 0) {
-                    func_800BA808(gMsg_ID_5474, RCID_FALCO);
+                    Radio_PlayMessage(gMsg_ID_5474, RCID_FALCO);
                 }
                 boss->swork[10] = 1;
             }
@@ -973,16 +973,16 @@ void func_i2_80190078(Boss* boss) {
 
                 if ((gBossFrameCount < 2200) || (gTeamShields[2] <= 0)) {
                     if (boss->health > 150) {
-                        boss->actionState = 8;
+                        boss->state = 8;
                     } else {
-                        boss->actionState = 35;
+                        boss->state = 35;
                         boss->timer_050 = 400;
                         boss->fwork[42] = boss->fwork[43] = boss->fwork[44] = boss->unk_078.y = 0.0f;
-                        boss->swork[9] = Rand_ZeroOne() * 1.9f;
-                        func_800BA808(gMsg_ID_5498, RCID_BOSS_SECTORX);
+                        boss->swork[9] = RAND_INT(1.9f);
+                        Radio_PlayMessage(gMsg_ID_5498, RCID_BOSS_SECTORX);
                     }
                 } else {
-                    boss->actionState = 85;
+                    boss->state = 85;
                     func_i2_8018F030();
                     boss->timer_050 = 100;
                 }
@@ -1032,9 +1032,9 @@ void func_i2_80190078(Boss* boss) {
                 boss->unk_04C = 0;
                 boss->fwork[0] = 0.0f;
                 if ((gBossFrameCount < 2200) || (gTeamShields[2] <= 0)) {
-                    boss->actionState = 9;
+                    boss->state = 9;
                 } else {
-                    boss->actionState = 85;
+                    boss->state = 85;
                     func_i2_8018F030();
                     boss->timer_050 = 100;
                 }
@@ -1059,9 +1059,9 @@ void func_i2_80190078(Boss* boss) {
             }
 
             if (!(boss->timer_050 & 3)) {
-                func_8007D2C8(((Rand_ZeroOne() - 0.5f) * 500.0f) + boss->obj.pos.x,
-                              ((Rand_ZeroOne() - 0.5f) * 500.0f) + boss->obj.pos.y, boss->obj.pos.z + 100.0f,
-                              (Rand_ZeroOne() * 5.0f) + 5.0f);
+                func_8007D2C8(RAND_FLOAT_CENTERED(500.0f) + boss->obj.pos.x,
+                              RAND_FLOAT_CENTERED(500.0f) + boss->obj.pos.y, boss->obj.pos.z + 100.0f,
+                              RAND_FLOAT(5.0f) + 5.0f);
             }
 
             if ((!(gGameFrameCount & 7)) && (Rand_ZeroOne() < 0.5f)) {
@@ -1123,7 +1123,7 @@ void func_i2_80190078(Boss* boss) {
         boss->swork[1] = 0;
     }
 
-    if (boss->actionState != 35) {
+    if (boss->state != 35) {
         boss->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6032550);
         boss->info.hitbox[43] = -211.0f + boss->fwork[16];
         boss->info.hitbox[45] = -35.0f + boss->fwork[15];
@@ -1262,7 +1262,7 @@ s32 func_i2_80192AF0(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4)
             arg2->x -= boss->fwork[14];
             arg2->y -= boss->fwork[16];
             arg2->z -= boss->fwork[15];
-            if (boss->actionState == 20) {
+            if (boss->state == 20) {
                 arg3->x += boss->fwork[14] * 0.2f;
                 arg3->y += boss->fwork[14] * 0.1f;
             }
@@ -1272,7 +1272,7 @@ s32 func_i2_80192AF0(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4)
             arg2->x += boss->fwork[17];
             arg2->y -= boss->fwork[19];
             arg2->z += boss->fwork[18];
-            if (boss->actionState == 20) {
+            if (boss->state == 20) {
                 arg3->x += boss->fwork[17] * 0.1f;
                 arg3->z += boss->fwork[17] * 0.2f;
             }
@@ -1452,7 +1452,7 @@ void func_i2_801938D8(Actor* actor, s32 arg1) {
     actor->obj.pos.x = D_i2_801956EC[arg1].x + gPlayer->camEye.x;
     actor->obj.pos.y = D_i2_801956EC[arg1].y + gPlayer->camEye.y;
     actor->obj.pos.z = D_i2_801956EC[arg1].z + gPlayer->camEye.z;
-    actor->unk_0B8 = 1;
+    actor->state = 1;
     actor->iwork[11] = 1;
     actor->vel.z = -30.0f;
     actor->vel.y = 0.0f;
@@ -1671,8 +1671,8 @@ void func_i2_801944D4(Actor* actor, s32 arg1) {
     actor->fwork[0] = destB.x;
     actor->fwork[1] = destB.y;
     actor->fwork[2] = destB.z;
-    actor->fwork[7] = Rand_ZeroOne() * 360.0f;
-    actor->fwork[8] = Rand_ZeroOne() * 360.0f;
+    actor->fwork[7] = RAND_FLOAT(360.0f);
+    actor->fwork[8] = RAND_FLOAT(360.0f);
     actor->vel.x = player->vel.x;
     actor->vel.y = player->vel.y;
     actor->vel.z = player->vel.z;
@@ -1681,7 +1681,7 @@ void func_i2_801944D4(Actor* actor, s32 arg1) {
     Object_SetInfo(&actor->info, actor->obj.id);
     if (arg1 == 3) {
         actor->unk_0B6 = 1;
-        actor->unk_0B8 = 20;
+        actor->state = 20;
         actor->obj.rot.x = -player->unk_0E4 - 10.0f;
         actor->obj.rot.y = (player->unk_0E8 + 180.0f) - 10.0f;
         actor->fwork[9] = 10.0f;
@@ -1822,15 +1822,15 @@ void func_i2_80194728(Player* player) {
             break;
 
         case 1050:
-            gActors[1].unk_0B8 = 10;
+            gActors[1].state = 10;
             break;
 
         case 1090:
-            gActors[2].unk_0B8 = 10;
+            gActors[2].state = 10;
             break;
 
         case 1120:
-            gActors[3].unk_0B8 = 10;
+            gActors[3].state = 10;
             break;
 
         case 1160:
@@ -1846,17 +1846,17 @@ void func_i2_80194728(Player* player) {
     if (gTeamShields[2] != -2) {
         switch (gCsFrameCount) {
             case 140:
-                func_800BA808(gMsg_ID_20010, RCID_FOX);
+                Radio_PlayMessage(gMsg_ID_20010, RCID_FOX);
                 break;
 
             case 228:
                 switch (gTeamShields[2]) {
                     case -1:
-                        func_800BA808(gMsg_ID_20339, RCID_ROB64);
+                        Radio_PlayMessage(gMsg_ID_20339, RCID_ROB64);
                         break;
 
                     case 0:
-                        func_800BA808(gMsg_ID_20345, RCID_ROB64);
+                        Radio_PlayMessage(gMsg_ID_20345, RCID_ROB64);
                         break;
 
                     default:
@@ -1868,11 +1868,11 @@ void func_i2_80194728(Player* player) {
             case 375:
                 switch (gTeamShields[3]) {
                     case -1:
-                        func_800BA808(gMsg_ID_20338, RCID_ROB64);
+                        Radio_PlayMessage(gMsg_ID_20338, RCID_ROB64);
                         break;
 
                     case 0:
-                        func_800BA808(gMsg_ID_20344, RCID_ROB64);
+                        Radio_PlayMessage(gMsg_ID_20344, RCID_ROB64);
                         break;
 
                     default:
@@ -1885,11 +1885,11 @@ void func_i2_80194728(Player* player) {
                 func_80048AC0(1);
                 switch (gTeamShields[1]) {
                     case -1:
-                        func_800BA808(gMsg_ID_20337, RCID_ROB64);
+                        Radio_PlayMessage(gMsg_ID_20337, RCID_ROB64);
                         break;
 
                     case 0:
-                        func_800BA808(gMsg_ID_20343, RCID_ROB64);
+                        Radio_PlayMessage(gMsg_ID_20343, RCID_ROB64);
                         break;
 
                     default:
@@ -1901,25 +1901,25 @@ void func_i2_80194728(Player* player) {
     } else {
         switch (gCsFrameCount) {
             case 140:
-                func_800BA808(gMsg_ID_5500, RCID_FOX);
+                Radio_PlayMessage(gMsg_ID_5500, RCID_FOX);
                 break;
 
             case 270:
-                func_800BA808(gMsg_ID_5503, RCID_ROB64);
+                Radio_PlayMessage(gMsg_ID_5503, RCID_ROB64);
                 break;
 
             case 423:
                 switch (gTeamShields[3]) {
                     case -1:
-                        func_800BA808(gMsg_ID_20338, RCID_ROB64);
+                        Radio_PlayMessage(gMsg_ID_20338, RCID_ROB64);
                         break;
 
                     case 0:
-                        func_800BA808(gMsg_ID_20344, RCID_ROB64);
+                        Radio_PlayMessage(gMsg_ID_20344, RCID_ROB64);
                         break;
 
                     default:
-                        func_800BA808(gMsg_ID_5501, RCID_PEPPY);
+                        Radio_PlayMessage(gMsg_ID_5501, RCID_PEPPY);
                         break;
                 }
                 break;
@@ -1928,15 +1928,15 @@ void func_i2_80194728(Player* player) {
                 func_80048AC0(1);
                 switch (gTeamShields[1]) {
                     case -1:
-                        func_800BA808(gMsg_ID_20337, RCID_ROB64);
+                        Radio_PlayMessage(gMsg_ID_20337, RCID_ROB64);
                         break;
 
                     case 0:
-                        func_800BA808(gMsg_ID_20343, RCID_ROB64);
+                        Radio_PlayMessage(gMsg_ID_20343, RCID_ROB64);
                         break;
 
                     default:
-                        func_800BA808(gMsg_ID_5502, RCID_FALCO);
+                        Radio_PlayMessage(gMsg_ID_5502, RCID_FALCO);
                         break;
                 }
                 break;
@@ -1957,7 +1957,7 @@ void func_i2_80194728(Player* player) {
     player->unk_138 = player->pos.z + player->unk_08C;
     player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
     player->unk_088 += 10.0f;
-    player->unk_080 = -__sinf(player->unk_088 * M_DTOR) * 0.3f;
+    player->unk_080 = -SIN_DEG(player->unk_088) * 0.3f;
     player->unk_0F4 += 8.0f;
-    player->unk_0F0 = __sinf(player->unk_0F4 * M_DTOR);
+    player->unk_0F0 = SIN_DEG(player->unk_0F4);
 }

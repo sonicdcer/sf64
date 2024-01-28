@@ -142,15 +142,15 @@ void func_800438E0(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale) {
     effect->obj.pos.x = xPos;
     effect->obj.pos.y = yPos;
     effect->obj.pos.z = zPos;
-    effect->vel.x = Rand_ZeroOne() - (2.0f * Rand_ZeroOne());
-    effect->vel.y = ((Rand_ZeroOne() * 3.0f) - (gPlayer[0].vel.z / 5.0f)) + 3.0f;
-    effect->vel.z = ((Rand_ZeroOne() * 3.0f) - (gPlayer[0].vel.z / 5.0f)) + 2.0f;
-    effect->scale2 = ((Rand_ZeroOne() * 0.8f) + 0.3f) * scale;
-    effect->timer_50 = (s32) (Rand_ZeroOne() * 5.0f) + 8;
-    effect->obj.rot.x = Rand_ZeroOne() * 360.0f;
-    effect->unk_60.x = (Rand_ZeroOne() - 0.5f) * 30.0f;
-    effect->unk_60.y = (Rand_ZeroOne() - 0.5f) * 30.0f;
-    effect->unk_60.z = (Rand_ZeroOne() - 0.5f) * 30.0f;
+    effect->vel.x = RAND_FLOAT(1.0f) - RAND_FLOAT(2.0f);
+    effect->vel.y = RAND_FLOAT(3.0f) - (gPlayer[0].vel.z / 5.0f) + 3.0f;
+    effect->vel.z = RAND_FLOAT(3.0f) - (gPlayer[0].vel.z / 5.0f) + 2.0f;
+    effect->scale2 = (RAND_FLOAT(0.8f) + 0.3f) * scale;
+    effect->timer_50 = RAND_INT(5.0f) + 8;
+    effect->obj.rot.x = RAND_FLOAT(360.0f);
+    effect->unk_60.x = RAND_FLOAT_CENTERED(30.0f);
+    effect->unk_60.y = RAND_FLOAT_CENTERED(30.0f);
+    effect->unk_60.z = RAND_FLOAT_CENTERED(30.0f);
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
@@ -187,7 +187,7 @@ void func_80043B18(Player* player) {
     if (player->unk_1DC != 0) {
 
         sp48.x = 0.0f;
-        sp48.z = ((Rand_ZeroOne() - 0.5f) * 50.0f) + -20.0f;
+        sp48.z = RAND_FLOAT_CENTERED(50.0f) + -20.0f;
         if (player->unk_1EC < 0) {
             sp38 -= 65.0f;
         } else {
@@ -366,8 +366,8 @@ void func_800444BC(Player* player) {
             if (player->vel.y) {} // fake?
             player->pos.y += 7.0f;
         }
-        player->unk_104 = (sp40 * 180.0f) / M_PI;
-        player->unk_10C = (sp3C * 180.0f) / M_PI;
+        player->unk_104 = RAD_TO_DEG(sp40);
+        player->unk_10C = RAD_TO_DEG(sp3C);
         if (gCurrentLevel == LEVEL_MACBETH) {
             if (player->unk_104 > 90.0f) {
                 player->unk_104 = -(180 - player->unk_104);
@@ -449,7 +449,7 @@ void func_80044868(Player* player) {
             player->unk_184 = -15.0f;
         }
     }
-    player->vel.z = -(__cosf(player->unk_108 * M_DTOR) * __cosf(player->unk_104 * M_DTOR) * sp2C);
+    player->vel.z = -(COS_DEG(player->unk_108) * COS_DEG(player->unk_104) * sp2C);
     if ((player->vel.x < 20.0f) && (player->unk_10C < -30.0f)) {
         Math_SmoothStepToF(&player->vel.x, -player->unk_10C * 0.5f, 0.2f, 3.0f, 0.0f);
         player->unk_184 = 0.0f;
@@ -457,12 +457,11 @@ void func_80044868(Player* player) {
         Math_SmoothStepToF(&player->vel.x, -player->unk_10C * 0.5f, 0.2f, 3.0f, 0.0f);
         player->unk_184 = 0.0f;
     } else {
-        Math_SmoothStepToF(&player->vel.x, player->unk_184 - (__sinf(player->unk_108 * M_DTOR) * sp2C), 0.5f, 5.0f,
-                           0.0f);
+        Math_SmoothStepToF(&player->vel.x, player->unk_184 - (SIN_DEG(player->unk_108) * sp2C), 0.5f, 5.0f, 0.0f);
     }
     player->vel.z += fabsf((player->unk_184 * 0.4f * player->unk_0D0) / 15.0f);
     if (player->unk_000 == 0) {
-        player->vel.z += __sinf(player->unk_0E4 * M_DTOR) * player->unk_110;
+        player->vel.z += SIN_DEG(player->unk_0E4) * player->unk_110;
     }
     if (D_800C9F00 != 0) {
         player->vel.z = 2.0f * D_800C9F00;
@@ -495,7 +494,7 @@ void func_80044868(Player* player) {
     if (player->unk_1D4 != 0) {
         player->unk_0A0 = 0.0f;
         player->unk_0F4 += player->unk_0D0 * 5.0f;
-        player->unk_0F0 = __sinf(player->unk_0F4 * M_DTOR) * 0.7f;
+        player->unk_0F0 = SIN_DEG(player->unk_0F4) * 0.7f;
         if (D_800C9F04 == 0) {
             if (player->unk_0D0 != 0.0f) {
                 func_80043B18(player);
@@ -552,8 +551,8 @@ void func_80045130(Player* player) {
             player->timer_1E4 = 10;
         }
     }
-    player->unk_18C = fabsf(__sinf(player->unk_12C * M_DTOR) * 25.0f);
-    player->unk_18C += fabsf(__sinf(player->unk_130 * M_DTOR) * 20.0f);
+    player->unk_18C = fabsf(SIN_DEG(player->unk_12C) * 25.0f);
+    player->unk_18C += fabsf(SIN_DEG(player->unk_130) * 20.0f);
 }
 
 void func_80045348(Player* player) {
@@ -693,19 +692,19 @@ void func_80045678(Player* player) {
             Math_SmoothStepToF(&player->vel.y, 0.0f, 0.1f, 2.0f, 0);
         }
         if ((gCamCount == 1) && !(gGameFrameCount & 1)) {
-            func_8007A900(((Rand_ZeroOne() - 0.5f) * 20.0f) + player->pos.x, player->unk_068 + 10.0f,
-                          player->unk_138 - 10.0f, (2.0f * Rand_ZeroOne()) + 3.5f, 0xFF, 0x10, 1);
+            func_8007A900(RAND_FLOAT_CENTERED(20.0f) + player->pos.x, player->unk_068 + 10.0f, player->unk_138 - 10.0f,
+                          RAND_FLOAT(2.0f) + 3.5f, 0xFF, 0x10, 1);
         }
     } else {
         D_800C9F3C = 0;
         if ((gCamCount == 1) && !(gGameFrameCount & 3) && (player->unk_1DC == 0)) {
             if ((player->unk_16C > 0.2f) && (player->timer_220 == 0)) {
-                func_8007A900(((Rand_ZeroOne() - 0.5f) * 10.0f) + (player->pos.x - 57.0f), player->unk_068 + 10.0f,
-                              player->unk_138 - 10.0f, Rand_ZeroOne() + 1.5f, 0xFF, 0xF, 0);
+                func_8007A900(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x - 57.0f), player->unk_068 + 10.0f,
+                              player->unk_138 - 10.0f, RAND_FLOAT(1.0f) + 1.5f, 0xFF, 0xF, 0);
             }
             if ((player->unk_170 > 0.2f) && (player->timer_220 == 0)) {
-                func_8007A900(((Rand_ZeroOne() - 0.5f) * 10.0f) + (player->pos.x + 57.0f), player->unk_068 + 10.0f,
-                              player->unk_138 - 10.0f, Rand_ZeroOne() + 1.5f, 0xFF, 0xF, 0);
+                func_8007A900(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x + 57.0f), player->unk_068 + 10.0f,
+                              player->unk_138 - 10.0f, RAND_FLOAT(1.0f) + 1.5f, 0xFF, 0xF, 0);
             }
         }
     }

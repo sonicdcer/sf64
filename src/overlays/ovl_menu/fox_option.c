@@ -1660,7 +1660,7 @@ void func_menu_801952B4(void) {
                 break;
 
             case 3:
-                D_menu_801B9178 = Rand_ZeroOne() * 15.0f;
+                D_menu_801B9178 = RAND_INT(15.0f);
                 D_menu_801B914C = 1;
                 break;
         }
@@ -1703,7 +1703,7 @@ void func_menu_801952B4(void) {
                     break;
                 }
 
-                D_menu_801B917C = Rand_ZeroOne() * 30.0f;
+                D_menu_801B917C = RAND_INT(30.0f);
                 D_menu_801B9158 = 0;
                 break;
         }
@@ -3696,7 +3696,7 @@ void func_menu_8019BF34(void) {
         func_menu_8019BDF0();
 
         for (i = 0; i < 3; i++) {
-            D_menu_801B920C = Rand_ZeroOne() * 0.5f;
+            D_menu_801B920C = RAND_FLOAT(0.5f);
             D_menu_801B9210 = 0.5f;
             func_menu_8019C04C();
             D_menu_801B9204 += 6.0f;

@@ -88,7 +88,7 @@ void func_i5_8018769C(Player* player) {
             D_80177988 = actor->obj.pos.z - 750.0f;
 
             if (gCsFrameCount == 330) {
-                func_800BA808(gMsg_ID_4113, RCID_FOX);
+                Radio_PlayMessage(gMsg_ID_4113, RCID_FOX);
             }
 
             if (gCsFrameCount == 430) {
@@ -211,14 +211,12 @@ void func_i5_8018769C(Player* player) {
             }
 
             if (player->pos.y < 100.0f) {
-                func_8007A900(((Rand_ZeroOne() - 0.5f) * 30.0f) + player->pos.x, 30.0f,
-                              ((Rand_ZeroOne() - 0.5f) * 30.0f) + player->unk_138, (2.0f * Rand_ZeroOne()) + 3.5f, 255,
-                              12, 1);
+                func_8007A900(RAND_FLOAT_CENTERED(30.0f) + player->pos.x, 30.0f,
+                              RAND_FLOAT_CENTERED(30.0f) + player->unk_138, RAND_FLOAT(2.0f) + 3.5f, 255, 12, 1);
                 Object_Kill(&gActors[3].obj, gActors[3].sfxPos);
             }
 
-            Math_SmoothStepToF(&player->unk_0F0, __sinf(((gGameFrameCount) *5.0f) * M_DTOR) * 10.0f, 0.1f, 100.0f,
-                               0.0f);
+            Math_SmoothStepToF(&player->unk_0F0, SIN_DEG(gGameFrameCount * 5.0f) * 10.0f, 0.1f, 100.0f, 0.0f);
 
             if (gCsFrameCount == 0x244) {
                 D_80177838 = 0x32;
@@ -257,8 +255,8 @@ void func_i5_80188108(Actor* actor, s32 arg1) {
     actor->obj.pos.y = D_i5_801B7328[arg1] + player->pos.y;
     actor->obj.pos.z = D_i5_801B7338[arg1] + player->pos.z;
 
-    actor->fwork[7] = Rand_ZeroOne() * 360.0f;
-    actor->fwork[8] = Rand_ZeroOne() * 360.0f;
+    actor->fwork[7] = RAND_FLOAT(360.0f);
+    actor->fwork[8] = RAND_FLOAT(360.0f);
 
     actor->vel.x = player->vel.x;
     actor->vel.y = player->vel.y;
@@ -274,11 +272,11 @@ void func_i5_80188108(Actor* actor, s32 arg1) {
         actor->iwork[11] = 1;
         actor->unk_0C9 = 1;
         actor->fwork[3] = D_i5_801B7348[arg1];
-        actor->unk_0B8 = 30;
+        actor->state = 30;
         Audio_PlaySfx(0x3100000CU, actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     } else {
         actor->unk_0B6 = 1;
-        actor->unk_0B8 = 20;
+        actor->state = 20;
         Audio_PlaySfx(0x11030010U, actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         actor->fwork[9] = 20.0f;
     }
@@ -330,7 +328,7 @@ void func_i5_801882CC(Player* player) {
 
             D_80177A48[2] = D_80177A48[1] + D_80177A48[2];
 
-            Matrix_RotateX(gCalcMatrix, -0.17453292f, 0);
+            Matrix_RotateX(gCalcMatrix, -10.0f * M_DTOR, 0);
             Matrix_RotateY(gCalcMatrix, D_80177A48[2] * M_DTOR, 1);
 
             src.x = 0.0f;
@@ -365,11 +363,11 @@ void func_i5_801882CC(Player* player) {
 
                 for (i = 0; i < 8; i++) {
                     x = D_i5_801B72B8[i].x;
-                    y = D_i5_801B72B8[i].y + (Rand_ZeroOne() - 0.5f) * 10.0f;
+                    y = D_i5_801B72B8[i].y + RAND_FLOAT_CENTERED(10.0f);
                     z = D_i5_801B72B8[i].z;
 
-                    func_8007A900(player->pos.x + x, player->pos.y + y, player->unk_138 + z,
-                                  (Rand_ZeroOne() * 0.5f) + 0.5f, 255, 21, 0);
+                    func_8007A900(player->pos.x + x, player->pos.y + y, player->unk_138 + z, RAND_FLOAT(0.5f) + 0.5f,
+                                  255, 21, 0);
                 }
             }
             break;
@@ -384,27 +382,23 @@ void func_i5_801882CC(Player* player) {
             D_801779C0 = player->pos.z + player->unk_144;
 
             if (player->pos.y < 100.0f) {
-                camAtY = __sinf((gGameFrameCount * 130.0f) * 0.017453292f) * 3.0f;
+                camAtY = SIN_DEG(gGameFrameCount * 130.0f) * 3.0f;
             }
 
             Math_SmoothStepToF(&player->unk_170, 2.0f, 1.0f, 0.2f, 0.0f);
             Math_SmoothStepToF(&player->unk_16C, 2.0f, 1.0f, 0.2f, 0.0f);
 
             if (gCsFrameCount < 1470) {
-                func_8007A900(((Rand_ZeroOne() - 0.5f) * 30.0f) + (player->pos.x + 30.0f), 30.0f,
-                              ((Rand_ZeroOne() - 0.5f) * 30.0f) + player->unk_138, (2.0f * Rand_ZeroOne()) + 3.5f, 255,
-                              12, 1);
+                func_8007A900(RAND_FLOAT_CENTERED(30.0f) + (player->pos.x + 30.0f), 30.0f,
+                              RAND_FLOAT_CENTERED(30.0f) + player->unk_138, RAND_FLOAT(2.0f) + 3.5f, 255, 12, 1);
             }
 
-            func_8007A900(((Rand_ZeroOne() - 0.5f) * 30.0f) + (player->pos.x - 30.0f), 30.0f,
-                          ((Rand_ZeroOne() - 0.5f) * 30.0f) + player->unk_138, (2.0f * Rand_ZeroOne()) + 3.5f, 255, 12,
-                          1);
-            Math_SmoothStepToF(&player->unk_0F0, __sinf((gGameFrameCount * 6.0f) * 0.017453292f) * 18.0f, 0.1f, 100.0f,
-                               0.0f);
-            Math_SmoothStepToF(&player->unk_080, __sinf((gGameFrameCount * 3.0f) * 0.017453292f) * 5.0f, 0.1f, 100.0f,
-                               0.0f);
+            func_8007A900(RAND_FLOAT_CENTERED(30.0f) + (player->pos.x - 30.0f), 30.0f,
+                          RAND_FLOAT_CENTERED(30.0f) + player->unk_138, RAND_FLOAT(2.0f) + 3.5f, 255, 12, 1);
+            Math_SmoothStepToF(&player->unk_0F0, SIN_DEG(gGameFrameCount * 6.0f) * 18.0f, 0.1f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->unk_080, SIN_DEG(gGameFrameCount * 3.0f) * 5.0f, 0.1f, 100.0f, 0.0f);
 
-            x = __sinf((gGameFrameCount * 4.0f) * 0.017453292f) * -1.5f;
+            x = SIN_DEG(gGameFrameCount * 4.0f) * -1.5f;
 
             player->vel.x = x;
             player->vel.y += 0.1f;
@@ -436,25 +430,25 @@ void func_i5_801882CC(Player* player) {
             break;
 
         case 160:
-            func_800BA808(gMsg_ID_20010, RCID_FOX);
+            Radio_PlayMessage(gMsg_ID_20010, RCID_FOX);
             break;
 
         case 248:
-            func_800BA808(gMsg_ID_4100, RCID_SLIPPY);
+            Radio_PlayMessage(gMsg_ID_4100, RCID_SLIPPY);
             break;
 
         case 380:
             switch (gTeamShields[1]) {
                 case -1:
-                    func_800BA808(gMsg_ID_20331, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20331, RCID_ROB64);
                     break;
 
                 case 0:
-                    func_800BA808(gMsg_ID_20343, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20343, RCID_ROB64);
                     break;
 
                 default:
-                    func_800BA808(gMsg_ID_4101, RCID_FALCO);
+                    Radio_PlayMessage(gMsg_ID_4101, RCID_FALCO);
                     break;
             }
 
@@ -463,33 +457,33 @@ void func_i5_801882CC(Player* player) {
         case 525:
             switch (gTeamShields[3]) {
                 case -1:
-                    func_800BA808(gMsg_ID_20332, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20332, RCID_ROB64);
                     break;
 
                 case 0:
-                    func_800BA808(gMsg_ID_20344, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20344, RCID_ROB64);
                     break;
 
                 default:
-                    func_800BA808(gMsg_ID_4102, RCID_PEPPY);
+                    Radio_PlayMessage(gMsg_ID_4102, RCID_PEPPY);
                     break;
             }
             break;
 
         case 671:
-            func_800BA808(gMsg_ID_4103, RCID_FOX);
+            Radio_PlayMessage(gMsg_ID_4103, RCID_FOX);
             break;
 
         case 1200:
-            gActors->unk_0B8++;
+            gActors->state++;
             break;
 
         case 1220:
-            gActors[1].unk_0B8++;
+            gActors[1].state++;
             break;
 
         case 1240:
-            gActors[2].unk_0B8++;
+            gActors[2].state++;
             break;
 
         case 1280:

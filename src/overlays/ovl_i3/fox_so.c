@@ -169,7 +169,7 @@ void func_i3_8019E7F0(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) 
     Effect_Initialize(effect);
     effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_392;
-    effect->unk_4E = 3;
+    effect->state = 3;
     effect->obj.pos.x = xPos;
     effect->obj.pos.y = yPos;
     effect->obj.pos.z = zPos;
@@ -196,12 +196,12 @@ void func_i3_8019E8B8(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
 }
 
 void func_i3_8019E920(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
-                      s32 unk4E) {
+                      s32 state) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_392;
-    effect->unk_4E = unk4E;
-    if (unk4E == 2) {
+    effect->state = state;
+    if (state == 2) {
         effect->timer_50 = 30;
         effect->unk_4C = 3;
     }
@@ -211,7 +211,7 @@ void func_i3_8019E920(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f3
     effect->vel.x = xVel;
     effect->vel.y = yVel;
     effect->vel.z = zVel;
-    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    effect->obj.rot.z = RAND_FLOAT(360.0f);
     effect->unk_44 = 176;
     effect->scale2 = scale2;
     Object_SetInfo(&effect->info, effect->obj.id);
@@ -232,12 +232,12 @@ void func_i3_8019EA7C(Actor* actor) {
     f32 sp34;
     s32 sp30;
 
-    if (actor->unk_0B8 == 0) {
+    if (actor->state == 0) {
         actor->vel.z = 20.0f - D_80177D08;
         actor->fwork[0] = 12.0f;
     } else {
         actor->vel.z = actor->fwork[1] - D_80177D08;
-        if (actor->unk_0B8 == 2) {
+        if (actor->state == 2) {
             Math_SmoothStepToF(&actor->obj.pos.x, gPlayer[0].pos.x, 1.0f, 100.0f, 10.0f);
         } else {
             actor->fwork[0] = 14.0f;
@@ -256,7 +256,7 @@ void func_i3_8019EA7C(Actor* actor) {
         D_801782EC[sp30 - 2] = actor->fwork[0] * 0.9f;
         D_801782EC[sp30 + 3] = actor->fwork[0] * 0.8f;
         D_801782EC[sp30 - 3] = actor->fwork[0] * 0.8f;
-        if (actor->unk_0B8 != 2) {
+        if (actor->state != 2) {
             D_801782EC[sp30 + 4] = actor->fwork[0] * 0.65f;
             D_801782EC[sp30 - 4] = actor->fwork[0] * 0.65f;
             D_801782EC[sp30 + 5] = actor->fwork[0] * 0.45f;
@@ -306,11 +306,11 @@ void func_i3_8019EF30(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 
     actor->obj.pos.x = xPos;
     actor->obj.pos.y = yPos;
     actor->obj.pos.z = zPos;
-    actor->unk_0F4.x = Rand_ZeroOne() * 360.0f;
+    actor->unk_0F4.x = RAND_FLOAT(360.0f);
     actor->vel.x = xVel;
     actor->vel.y = yVel;
     actor->vel.z = zVel;
-    actor->unk_0B8 = 2;
+    actor->state = 2;
     actor->timer_0C2 = 8;
     Object_SetInfo(&actor->info, actor->obj.id);
     if (gBossActive != 0) {
@@ -337,11 +337,11 @@ void func_i3_8019F0B0(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 
     actor->obj.pos.x = xPos;
     actor->obj.pos.y = yPos;
     actor->obj.pos.z = zPos;
-    actor->unk_0F4.x = Rand_ZeroOne() * 360.0f;
+    actor->unk_0F4.x = RAND_FLOAT(360.0f);
     actor->vel.x = xVel;
     actor->vel.y = yVel;
     actor->vel.z = zVel;
-    actor->unk_0B8 = 2;
+    actor->state = 2;
     actor->timer_0C2 = 8;
     Object_SetInfo(&actor->info, actor->obj.id);
     if (gBossActive != 0) {
@@ -397,19 +397,19 @@ void func_i3_8019F20C(Actor* actor) {
         actor->unk_0F4.x += 3.3f;
         actor->unk_0F4.y += 2.0f;
     }
-    switch (actor->unk_0B8) {
+    switch (actor->state) {
         case 0:
             actor->fwork[0] = actor->obj.pos.y * 0.05f;
             actor->obj.pos.y = -100.0f;
             /* fallthrough */
         case 1:
-            actor->unk_0B8 = 2;
+            actor->state = 2;
             actor->vel.y = actor->fwork[0];
             func_800A73E4(&sp8C, &sp88, actor->obj.pos.x, actor->obj.pos.y - 100.0f, actor->obj.pos.z);
             actor->obj.pos.y = sp8C;
             for (i = 0; i < 4; i++) {
                 func_i3_8019E9F4(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, D_i3_801BF8E0[i],
-                                 (Rand_ZeroOne() * 10.0f) + 10.0f, 0.0f, actor->scale * 5.0f, 1);
+                                 RAND_FLOAT(10.0f) + 10.0f, 0.0f, actor->scale * 5.0f, 1);
             }
             actor->timer_0C2 = 5;
             Audio_PlaySfx(0x29000071, actor->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -421,7 +421,7 @@ void func_i3_8019F20C(Actor* actor) {
                 func_8007A6F0(&actor->obj.pos, 0x29000072);
                 for (i = 0; i < 4; i++) {
                     func_i3_8019E9F4(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, D_i3_801BF8E0[i],
-                                     (Rand_ZeroOne() * 10.0f) + 10.0f, 0.0f, actor->scale * 5.0f, 1);
+                                     RAND_FLOAT(10.0f) + 10.0f, 0.0f, actor->scale * 5.0f, 1);
                 }
             }
             if (actor->timer_0BC == 0) {
@@ -435,9 +435,8 @@ void func_i3_8019F20C(Actor* actor) {
                 if (actor->obj.id == OBJ_ACTOR_277) {
                     for (i = 0; i < 4; i++) {
                         func_i3_8019F038(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z,
-                                         D_i3_801BF8F0[i].x + ((Rand_ZeroOne() - 0.5f) * 3.0f),
-                                         D_i3_801BF8F0[i].y + ((Rand_ZeroOne() - 0.5f) * 3.0f),
-                                         (Rand_ZeroOne() * -10.0f) - 10.0f);
+                                         D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(3.0f),
+                                         D_i3_801BF8F0[i].y + RAND_FLOAT_CENTERED(3.0f), RAND_FLOAT(-10.0f) - 10.0f);
                     }
                 } else if (actor->obj.id == OBJ_ACTOR_275) {
                     actor->unk_044 = 1;
@@ -453,9 +452,8 @@ void func_i3_8019F20C(Actor* actor) {
                     func_800794CC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.3f);
                 }
                 for (i = 0; i < 7; i++) {
-                    func_i3_8019E9F4(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z,
-                                     (Rand_ZeroOne() - 0.5f) * 30.0f, (Rand_ZeroOne() - 0.5f) * 30.0f, 0.0f,
-                                     ((2.0f * Rand_ZeroOne()) + 2.0f) * actor->scale, 1);
+                    func_i3_8019E9F4(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, RAND_FLOAT_CENTERED(30.0f),
+                                     RAND_FLOAT_CENTERED(30.0f), 0.0f, (RAND_FLOAT(2.0f) + 2.0f) * actor->scale, 1);
                 }
                 func_8007A6F0(&actor->obj.pos, 0x2903A008);
             }
@@ -472,7 +470,7 @@ void func_i3_8019F20C(Actor* actor) {
 }
 
 void func_i3_8019F7AC(Actor* actor) {
-    if (actor->unk_0B8 != 0) {
+    if (actor->state != 0) {
         Matrix_Push(&gGfxMatrix);
         Matrix_RotateY(gGfxMatrix, actor->unk_0F4.y * M_DTOR, 1);
         Matrix_RotateX(gGfxMatrix, actor->unk_0F4.x * M_DTOR, 1);
@@ -511,7 +509,7 @@ void func_i3_8019F99C(Actor* actor, Effect* effect, f32 scale1) {
     effect->obj.pos.z = effect->vel.z = actor->obj.pos.z;
     effect->scale1 = scale1;
     effect->unk_60.y = actor->obj.rot.y;
-    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    effect->obj.rot.z = RAND_FLOAT(360.0f);
     effect->unk_44 = 255 - (actor->unk_04E * 8);
     if (effect->unk_44 < 0) {
         effect->unk_44 = 0;
@@ -559,7 +557,7 @@ void func_i3_8019FAA4(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos
                 effect->obj.pos.z = bossSO->obj.pos.z + sp38.z;
                 effect->vel.z = gPlayer[0].vel.z;
                 effect->vel.y = yVel;
-                if (gBosses[0].actionState >= 2) {
+                if (gBosses[0].state >= 2) {
                     effect->scale2 = 15.0f;
                 }
             }
@@ -567,27 +565,27 @@ void func_i3_8019FAA4(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos
             effect->vel.z = gPlayer[0].vel.z;
         }
     } else {
-        effect->vel.x = (Rand_ZeroOne() - 0.5f) * 30.0f;
-        effect->vel.z = (Rand_ZeroOne() - 0.5f) * 30.0f;
+        effect->vel.x = RAND_FLOAT_CENTERED(30.0f);
+        effect->vel.z = RAND_FLOAT_CENTERED(30.0f);
     }
     effect->unk_60.y = bossSO->obj.rot.y;
     effect->unk_60.x = 90.0f;
-    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    effect->obj.rot.z = RAND_FLOAT(360.0f);
     effect->unk_44 = 255;
     effect->unk_48 = 1;
-    effect->unk_4E = 4;
+    effect->state = 4;
     effect->unk_4C = 5;
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_i3_8019FDE0(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 unk4E) {
+void func_i3_8019FDE0(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 state) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_392;
     effect->obj.pos.x = xPos;
     effect->obj.pos.y = yPos;
     effect->obj.pos.z = zPos;
-    if (unk4E != 0) {
+    if (state != 0) {
         effect->vel.z = gPlayer[0].vel.z + 80.0f;
     } else {
         effect->vel.z = gPlayer[0].vel.z + 15.0f;
@@ -595,10 +593,10 @@ void func_i3_8019FDE0(Boss* bossSO, Effect* effect, f32 xPos, f32 yPos, f32 zPos
     effect->scale2 = scale2;
     effect->unk_60.y = bossSO->obj.rot.y;
     effect->unk_60.x = 0.0f;
-    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    effect->obj.rot.z = RAND_FLOAT(360.0f);
     effect->unk_44 = 255;
     effect->unk_48 = 1;
-    effect->unk_4E = unk4E + 5;
+    effect->state = state + 5;
     Object_SetInfo(&effect->info, effect->obj.id);
     effect->info.damage = 40;
 }
@@ -637,10 +635,10 @@ void func_i3_8019FFC0(Boss* bossSO, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s3
 }
 
 void func_i3_801A003C(Actor* actor) {
-    switch (actor->unk_0B8) {
+    switch (actor->state) {
         case 0:
             if (actor->timer_0BE == 0) {
-                actor->unk_0B8 = 1;
+                actor->state = 1;
                 actor->timer_0BE = 50;
             } else if (actor->timer_0BC == 0) {
                 actor->timer_0BC = 2;
@@ -650,7 +648,7 @@ void func_i3_801A003C(Actor* actor) {
             break;
         case 1:
             if (actor->timer_0BE == 0) {
-                actor->unk_0B8 = 0;
+                actor->state = 0;
                 actor->timer_0BE = 50;
                 actor->unk_04E = 0;
                 func_8005F0E8(actor->sfxPos, &actor->obj.pos);
@@ -669,7 +667,7 @@ void func_i3_801A0120(Effect* effect) {
     s32 sp48;
     Vec3f sp3C;
 
-    switch (effect->unk_4E) {
+    switch (effect->state) {
         case 0:
             Matrix_Translate(gCalcMatrix, effect->vel.x, effect->vel.y, effect->vel.z, 0);
             Matrix_RotateY(gCalcMatrix, effect->unk_60.y * M_DTOR, 1);
@@ -712,7 +710,7 @@ void func_i3_801A0120(Effect* effect) {
                     sp58 = -100.0f;
                 }
                 func_i3_8019E9F4(effect->obj.pos.x + sp58, effect->obj.pos.y + sp54, effect->obj.pos.z, sp58 * 0.25f,
-                                 (Rand_ZeroOne() * 10.0f) + 20.0f, sp58 * 0.25f, 20.0f, 1);
+                                 RAND_FLOAT(10.0f) + 20.0f, sp58 * 0.25f, 20.0f, 1);
             }
             break;
         case 1:
@@ -778,7 +776,7 @@ void func_i3_801A0120(Effect* effect) {
                     sp58 = -100.0f;
                 }
                 func_i3_8019E9F4(effect->obj.pos.x + sp58, effect->obj.pos.y + -50.0f, effect->obj.pos.z, sp58 * 0.25f,
-                                 (Rand_ZeroOne() * 10.0f) + 20.0f, sp58 * 0.25f, 20.0f, 1);
+                                 RAND_FLOAT(10.0f) + 20.0f, sp58 * 0.25f, 20.0f, 1);
             }
             break;
         case 5:
@@ -790,8 +788,8 @@ void func_i3_801A0120(Effect* effect) {
                 effect->unk_60.x += 0.25f;
             }
             effect->unk_60.z += 10.0f;
-            effect->vel.x = __sinf(effect->unk_60.z * M_DTOR) * (effect->unk_60.x * 10.0f);
-            effect->vel.y = __cosf(effect->unk_60.z * M_DTOR) * (effect->unk_60.x * 10.0f);
+            effect->vel.x = SIN_DEG(effect->unk_60.z) * (effect->unk_60.x * 10.0f);
+            effect->vel.y = COS_DEG(effect->unk_60.z) * (effect->unk_60.x * 10.0f);
             effect->vel.z = gPlayer[0].vel.z + 15.0f;
             if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7) {
                 func_8007A774(&gPlayer[0], effect, effect->scale2 * 18.0f);
@@ -814,8 +812,8 @@ void func_i3_801A0120(Effect* effect) {
                 effect->unk_4C = 0;
             }
             effect->unk_60.z += 20.0f;
-            effect->vel.x = __sinf(effect->unk_60.z * M_DTOR) * sp50 * 50.0f;
-            effect->vel.y = __cosf(effect->unk_60.z * M_DTOR) * sp50 * 50.0f;
+            effect->vel.x = SIN_DEG(effect->unk_60.z) * sp50 * 50.0f;
+            effect->vel.y = COS_DEG(effect->unk_60.z) * sp50 * 50.0f;
             effect->vel.z = gPlayer[0].vel.z + 80.0f;
             if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7) {
                 func_8007A774(&gPlayer[0], effect, effect->scale2 * 18.0f);
@@ -831,7 +829,7 @@ void func_i3_801A0120(Effect* effect) {
 
 void func_i3_801A0AF0(Effect* effect) {
     Graphics_SetScaleMtx(effect->scale2);
-    switch (effect->unk_4E) {
+    switch (effect->state) {
         case 0:
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, effect->unk_44);
             gSPDisplayList(gMasterDisp++, D_i3_801BF92C[effect->unk_4C]);
@@ -864,7 +862,7 @@ void func_i3_801A0CEC(Actor* actor, f32 xPos, f32 zPos, f32 zVel, s32 unkB8) {
     actor->obj.pos.x = xPos;
     actor->obj.pos.z = zPos;
     actor->unk_046 = 1;
-    actor->unk_0B8 = unkB8;
+    actor->state = unkB8;
     actor->vel.z = zVel;
     actor->fwork[1] = zVel;
     if (unkB8 == 2) {
@@ -892,10 +890,10 @@ void func_i3_801A0DF8(f32 xPos, f32 zPos, f32 yRot, s32 index, f32 yPos) {
         case 0:
             if (D_80177A10[0] != 0) {
                 sp2C = 5;
-                D_80177A10[1] = (s32) (Rand_ZeroOne() * 10.0f) + 128;
+                D_80177A10[1] = RAND_INT(10.0f) + 128;
             } else {
                 sp2C = 4;
-                D_80177A10[0] = (s32) (Rand_ZeroOne() * 10.0f) + 128;
+                D_80177A10[0] = RAND_INT(10.0f) + 128;
             }
             break;
         case 1:
@@ -913,7 +911,7 @@ void func_i3_801A0DF8(f32 xPos, f32 zPos, f32 yRot, s32 index, f32 yPos) {
     gActors[sp2C].obj.status = OBJ_ACTIVE;
     gActors[sp2C].obj.id = OBJ_ACTOR_279;
     Object_SetInfo(&gActors[sp2C].info, gActors[sp2C].obj.id);
-    gActors[sp2C].unk_0B8 = 0;
+    gActors[sp2C].state = 0;
     gActors[sp2C].obj.pos.x = xPos;
     gActors[sp2C].obj.pos.z = zPos;
     gActors[sp2C].obj.rot.y = yRot;
@@ -937,7 +935,7 @@ void func_i3_801A0FD4(Actor* actor, s32 index) {
         actor->obj.pos.x = D_i3_801BF95C[index].x + gPlayer[0].pos.x;
         actor->obj.pos.y = D_i3_801BF95C[index].y + gPlayer[0].pos.y;
         actor->obj.pos.z = D_i3_801BF95C[index].z + gPlayer[0].pos.z;
-        actor->unk_0B8 = 0;
+        actor->state = 0;
         actor->iwork[11] = 1;
         actor->vel.z = 0.0f;
         actor->vel.y = 0.0f;
@@ -1013,8 +1011,8 @@ void func_i3_801A10F4(Player* player) {
                 D_8017835C = 8;
             }
             if (!(gGameFrameCount & 7)) {
-                func_i3_8019E8B8((Rand_ZeroOne() - 0.5f) * 6000.0f, ((Rand_ZeroOne() - 0.5f) * 5.0f) - 90.0f,
-                                 (Rand_ZeroOne() * 2000.0f) - 6000.0f + D_80177D20, (Rand_ZeroOne() * 20.0f) + 20.0f);
+                func_i3_8019E8B8(RAND_FLOAT_CENTERED(6000.0f), RAND_FLOAT_CENTERED(5.0f) - 90.0f,
+                                 RAND_FLOAT(2000.0f) - 6000.0f + D_80177D20, RAND_FLOAT(20.0f) + 20.0f);
             }
             if (gCsFrameCount == 380) {
                 for (i = 0; i < 100; i++) {
@@ -1056,7 +1054,7 @@ void func_i3_801A10F4(Player* player) {
             D_8017835C = 8;
             Math_SmoothStepToF(D_80177A48, 0.02f, 1.0f, 0.0000003f, 0.0f);
             if (gCsFrameCount == 525) {
-                func_800BA808(gMsg_ID_10010, RCID_FOX);
+                Radio_PlayMessage(gMsg_ID_10010, RCID_FOX);
             }
             if (gCsFrameCount == 550) {
                 Object_Kill(&gActors[5].obj, gActors[5].sfxPos);
@@ -1074,16 +1072,15 @@ void func_i3_801A10F4(Player* player) {
         case 3:
             D_80177CE8 += 60.0f;
             if (!(gGameFrameCount & 3)) {
-                func_i3_8019E8B8((Rand_ZeroOne() - 0.5f) * 6000.0f, -400.0f - ((player->camEye.y - 1380.0f) * 0.3f),
-                                 ((Rand_ZeroOne() - 0.5f) * 2000.0f) + 500.0f + D_80177D20,
-                                 (Rand_ZeroOne() * 20.0f) + 20.0f);
+                func_i3_8019E8B8(RAND_FLOAT_CENTERED(6000.0f), -400.0f - ((player->camEye.y - 1380.0f) * 0.3f),
+                                 RAND_FLOAT_CENTERED(2000.0f) + 500.0f + D_80177D20, RAND_FLOAT(20.0f) + 20.0f);
             }
             if (gCsFrameCount == 615) {
                 func_800A6028(player->sfxPos, 0x09000002);
                 gActors[0].fwork[29] = gActors[1].fwork[29] = gActors[2].fwork[29] = 5.0f;
-                gActors[0].unk_0B8 = 3;
-                gActors[1].unk_0B8 = 2;
-                gActors[2].unk_0B8 = 1;
+                gActors[0].state = 3;
+                gActors[1].state = 2;
+                gActors[2].state = 1;
                 player->timer_1F8 = 3;
                 player->unk_190 = 5.0f;
                 player->unk_1D0++;
@@ -1162,7 +1159,7 @@ void func_i3_801A1CD8(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_189;
-    actor->unk_0B8 = 40;
+    actor->state = 40;
     actor->unk_046 = unk46;
     actor->unk_04A = 3;
     actor->obj.pos.x = xPos;
@@ -1176,9 +1173,9 @@ void func_i3_801A1CD8(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 
     actor->vel.z = zVel;
     actor->iwork[0] = 3;
 
-    actor->fwork[0] = (Rand_ZeroOne() - 0.5f) * 25.0f;
-    actor->fwork[1] = (Rand_ZeroOne() - 0.5f) * 25.0f;
-    actor->fwork[2] = (Rand_ZeroOne() - 0.5f) * 25.0f;
+    actor->fwork[0] = RAND_FLOAT_CENTERED(25.0f);
+    actor->fwork[1] = RAND_FLOAT_CENTERED(25.0f);
+    actor->fwork[2] = RAND_FLOAT_CENTERED(25.0f);
     actor->fwork[5] = 2000.0f;
     actor->gravity = 3.5f;
     actor->scale = 5.5f;
@@ -1198,8 +1195,8 @@ void func_i3_801A1E14(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot
 }
 
 void func_i3_801A1EB0(Boss* bossSO, f32 xPos, f32 xOffset, f32 yPos, f32 zPos) {
-    func_i3_8019E9F4(xPos + xOffset, yPos, zPos, 20.0f, (Rand_ZeroOne() * 10.0f) + 20.0f, 0.0f, 20.0f, 1);
-    func_i3_8019E9F4(xPos - xOffset, yPos, zPos, -20.0f, (Rand_ZeroOne() * 10.0f) + 20.0f, 0.0f, 20.0f, 1);
+    func_i3_8019E9F4(xPos + xOffset, yPos, zPos, 20.0f, RAND_FLOAT(10.0f) + 20.0f, 0.0f, 20.0f, 1);
+    func_i3_8019E9F4(xPos - xOffset, yPos, zPos, -20.0f, RAND_FLOAT(10.0f) + 20.0f, 0.0f, 20.0f, 1);
 }
 
 void func_i3_801A1F80(Boss* bossSO) {
@@ -1270,7 +1267,7 @@ void func_i3_801A1F80(Boss* bossSO) {
         bossSO->fwork[SO_FWK_0] = 0.01f;
     }
     if ((gBossFrameCount == 100) && (gTeamShields[3] != 0)) {
-        func_800BA808(gMsg_ID_10300, RCID_PEPPY);
+        Radio_PlayMessage(gMsg_ID_10300, RCID_PEPPY);
     }
 }
 
@@ -1304,7 +1301,7 @@ void func_i3_801A23F4(Boss* bossSO) {
                         bossSO->swork[SO_SWK_1] = 4;
                     } else {
                         bossSO->swork[SO_SWK_1] = 2;
-                        bossSO->actionState = 0;
+                        bossSO->state = 0;
                         bossSO->unk_078.y = 0.0f;
                     }
                 } else if (bossSO->swork[SO_SWK_3] == 0) {
@@ -1369,9 +1366,9 @@ void func_i3_801A23F4(Boss* bossSO) {
                 sp40.z = 1100.0f;
                 Matrix_MultVec3f(gCalcMatrix, &sp40, &sp34);
                 for (i = 0; i < 4; i++) {
-                    sp58.x = D_i3_801BF8F0[i].x + (2.0f * (Rand_ZeroOne() - 0.5f));
-                    sp58.y = 2.0f * (Rand_ZeroOne() - 0.5f);
-                    sp58.z = (Rand_ZeroOne() * 10.0f) + 2.5f;
+                    sp58.x = D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(2.0f);
+                    sp58.y = RAND_FLOAT_CENTERED(2.0f);
+                    sp58.z = RAND_FLOAT(10.0f) + 2.5f;
                     Matrix_MultVec3f(gCalcMatrix, &sp58, &sp4C);
                     func_i3_8019F038(bossSO->fwork[SO_FWK_4] + sp34.x, bossSO->fwork[SO_FWK_5] + sp34.y,
                                      bossSO->fwork[SO_FWK_6] + sp34.z, sp4C.x, sp4C.y, sp4C.z);
@@ -1416,7 +1413,7 @@ void func_i3_801A23F4(Boss* bossSO) {
             }
             break;
         case 2:
-            if (((bossSO->unk_04C == 89) && (bossSO->actionState == 2)) || (bossSO->swork[SO_SWK_2] == 0)) {
+            if (((bossSO->unk_04C == 89) && (bossSO->state == 2)) || (bossSO->swork[SO_SWK_2] == 0)) {
                 bossSO->unk_04C = 0;
                 if ((bossSO->swork[SO_SWK_3] != 0) || (bossSO->swork[SO_SWK_2] != 0)) {
                     bossSO->swork[SO_SWK_1] = 5;
@@ -1426,7 +1423,7 @@ void func_i3_801A23F4(Boss* bossSO) {
             }
             if (bossSO->unk_04C == 80) {
                 bossSO->unk_078.y += 15.0f;
-                bossSO->actionState++;
+                bossSO->state++;
                 if (bossSO->unk_078.y >= 30.0f) {
                     bossSO->unk_078.y = 0.0f;
                 }
@@ -1458,7 +1455,7 @@ void func_i3_801A2C3C(Boss* bossSO) {
     bossSO->swork[SO_SWK_1] = 0;
     bossSO->fwork[SO_FWK_0] = 0.05f;
     bossSO->unk_04C = Animation_GetFrameCount(&D_601388C) - 2;
-    bossSO->actionState = 0;
+    bossSO->state = 0;
     bossSO->swork[SO_SWK_11] = 15;
 }
 
@@ -1468,7 +1465,7 @@ void func_i3_801A2C98(Boss* bossSO) {
     if (bossSO->swork[SO_SWK_11] != 0) {
         bossSO->swork[SO_SWK_11]--;
     }
-    if (bossSO->actionState == 0) {
+    if (bossSO->state == 0) {
         if (bossSO->swork[SO_SWK_11] == 0) {
             bossSO->unk_04C -= 2;
             Math_SmoothStepToF(&bossSO->obj.pos.y, -1000.0f, 0.1f, 10.0f, 0.1f);
@@ -1481,13 +1478,13 @@ void func_i3_801A2C98(Boss* bossSO) {
             if (bossSO->unk_04C == 60) {
                 for (i = 0; i < 4; i++) {
                     func_i3_8019F038(bossSO->obj.pos.x + 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
-                                     D_i3_801BF8F0[i].x + (2.0f * (Rand_ZeroOne() - 0.5f)),
-                                     D_i3_801BF8F0[i].y + 10.0f + (2.0f * (Rand_ZeroOne() - 0.5f)),
-                                     (Rand_ZeroOne() * -10.0f) - 10.0f);
+                                     D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(2.0f),
+                                     D_i3_801BF8F0[i].y + 10.0f + RAND_FLOAT_CENTERED(2.0f),
+                                     RAND_FLOAT(-10.0f) - 10.0f);
                     func_i3_8019F038(bossSO->obj.pos.x - 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
-                                     D_i3_801BF8F0[i].x + (2.0f * (Rand_ZeroOne() - 0.5f)),
-                                     D_i3_801BF8F0[i].y + 10.0f + (2.0f * (Rand_ZeroOne() - 0.5f)),
-                                     (Rand_ZeroOne() * -10.0f) - 10.0f);
+                                     D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(2.0f),
+                                     D_i3_801BF8F0[i].y + 10.0f + RAND_FLOAT_CENTERED(2.0f),
+                                     RAND_FLOAT(-10.0f) - 10.0f);
                 }
             }
             if (bossSO->unk_04C == 20) {
@@ -1495,7 +1492,7 @@ void func_i3_801A2C98(Boss* bossSO) {
                 Audio_PlaySfx(0x19036054, bossSO->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
             if (bossSO->unk_04C == 0) {
-                bossSO->actionState++;
+                bossSO->state++;
                 bossSO->swork[SO_SWK_11] = 100;
                 bossSO->obj.pos.y = -500.0f;
                 bossSO->fwork[SO_FWK_3] = 4800.0f;
@@ -1536,7 +1533,7 @@ void func_i3_801A30CC(Boss* bossSO) {
     bossSO->swork[SO_SWK_1] = 0;
     bossSO->fwork[SO_FWK_0] = 0.1f;
     bossSO->unk_04C = Animation_GetFrameCount(&D_601388C) - 2;
-    bossSO->actionState = 0;
+    bossSO->state = 0;
     bossSO->swork[SO_SWK_11] = 15;
 }
 
@@ -1544,7 +1541,7 @@ void func_i3_801A3128(Boss* bossSO) {
     if (bossSO->swork[SO_SWK_11] != 0) {
         bossSO->swork[SO_SWK_11]--;
     }
-    if (bossSO->actionState == 0) {
+    if (bossSO->state == 0) {
         if (bossSO->swork[SO_SWK_11] == 0) {
             bossSO->unk_04C -= 2;
             Math_SmoothStepToF(&bossSO->obj.pos.y, -1000.0f, 0.1f, 10.0f, 0.1f);
@@ -1556,7 +1553,7 @@ void func_i3_801A3128(Boss* bossSO) {
                 Audio_PlaySfx(0x19036054, bossSO->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
             if (bossSO->unk_04C == 0) {
-                bossSO->actionState++;
+                bossSO->state++;
                 bossSO->swork[SO_SWK_11] = 100;
                 bossSO->obj.pos.y = -500.0f;
                 bossSO->fwork[SO_FWK_3] = 2400.0f;
@@ -1574,11 +1571,11 @@ void func_i3_801A3128(Boss* bossSO) {
             if (D_i3_801C2740[2] & 1) {
                 if (D_i3_801C2740[2] & 2) {
                     if (gTeamShields[3] > 0) {
-                        func_800BA808(gMsg_ID_20317, RCID_PEPPY);
+                        Radio_PlayMessage(gMsg_ID_20317, RCID_PEPPY);
                     }
                 } else {
                     if (gTeamShields[1] > 0) {
-                        func_800BA808(gMsg_ID_20271, RCID_FALCO);
+                        Radio_PlayMessage(gMsg_ID_20271, RCID_FALCO);
                     }
                 }
             }
@@ -1598,7 +1595,7 @@ void func_i3_801A3128(Boss* bossSO) {
             bossSO->fwork[SO_FWK_0] = 0.01f;
             if ((Rand_ZeroOne() >= 0.4f) && (gTeamShields[3] > 0) && (bossSO->swork[SO_SWK_2] != 0) &&
                 (bossSO->swork[SO_SWK_3] != 0)) {
-                func_800BA808(gMsg_ID_10320, RCID_PEPPY);
+                Radio_PlayMessage(gMsg_ID_10320, RCID_PEPPY);
             }
         }
         if (bossSO->swork[SO_SWK_11] == 50) {
@@ -1651,7 +1648,7 @@ void func_i3_801A3510(Boss* bossSO) {
                 Audio_PlaySfx(0x29432077, bossSO->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
             if (bossSO->unk_04C == 94) {
-                func_i3_801A0DF8(bossSO->fwork[SO_FWK_13], bossSO->fwork[SO_FWK_15], (Rand_ZeroOne() - 0.5f) * 60.0f, 4,
+                func_i3_801A0DF8(bossSO->fwork[SO_FWK_13], bossSO->fwork[SO_FWK_15], RAND_FLOAT_CENTERED(60.0f), 4,
                                  2.0f);
                 bossSO->timer_050 = 90;
             }
@@ -1680,9 +1677,8 @@ void func_i3_801A3510(Boss* bossSO) {
             if (bossSO->unk_04C == 65) {
                 for (i = 0; i < 4; i++) {
                     func_i3_8019F194(bossSO->obj.pos.x, bossSO->obj.pos.y + 300.0f, bossSO->obj.pos.z + 1000.0f,
-                                     D_i3_801BF8F0[i].x + ((Rand_ZeroOne() - 0.5f) * 0.25f),
-                                     D_i3_801BF8F0[i].y + ((Rand_ZeroOne() - 0.5f) * 0.25f),
-                                     (Rand_ZeroOne() * 10.0f) + 100.0f);
+                                     D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(0.25f),
+                                     D_i3_801BF8F0[i].y + RAND_FLOAT_CENTERED(0.25f), RAND_FLOAT(10.0f) + 100.0f);
                 }
             }
             if ((bossSO->unk_048 != 0) && (bossSO->unk_04C == 68)) {
@@ -1799,7 +1795,7 @@ void func_i3_801A3C4C(Boss* bossSO) {
     }
     if (bossSO->health <= 0) {
         bossSO->unk_04C = 21;
-        bossSO->actionState = 0;
+        bossSO->state = 0;
         bossSO->swork[SO_SWK_1] = 1;
         bossSO->fwork[SO_FWK_0] = 0.01f;
         bossSO->info.hitbox = SEGMENTED_TO_VIRTUAL(D_800CBF34);
@@ -1830,7 +1826,7 @@ void func_i3_801A3C4C(Boss* bossSO) {
         }
         bossSO->fwork[SO_FWK_31] = 0.0f;
         bossSO->fwork[SO_FWK_3] = 2400.0f;
-        func_800BA808(gMsg_ID_15252, RCID_SLIPPY);
+        Radio_PlayMessage(gMsg_ID_15252, RCID_SLIPPY);
     }
 }
 
@@ -1854,16 +1850,16 @@ void func_i3_801A4214(Boss* bossSO) {
     sp50.y = 200.0f;
     sp50.z = 1100.0f;
     Matrix_MultVec3f(gCalcMatrix, &sp50, &sp44);
-    if (bossSO->actionState >= 2) {
+    if (bossSO->state >= 2) {
         Math_SmoothStepToF(&D_801779A8[gMainController], 30.0f, 1.0f, 2.5f, 0.0f);
     }
-    switch (bossSO->actionState) {
+    switch (bossSO->state) {
         case 0:
             if (D_i3_801C2740[0] >= 33) {
                 D_i3_801C2740[0] -= 3;
             }
             if (bossSO->timer_058 == 19910) {
-                bossSO->actionState++;
+                bossSO->state++;
                 bossSO->swork[SO_SWK_1] = 5;
                 bossSO->unk_04C = 0;
                 bossSO->fwork[SO_FWK_0] = 0.05f;
@@ -1873,12 +1869,12 @@ void func_i3_801A4214(Boss* bossSO) {
         case 1:
             if (bossSO->unk_04C == 51) {
                 bossSO->unk_04C = 50;
-                bossSO->actionState++;
+                bossSO->state++;
                 gShowBossHealth = false;
                 Audio_PlaySfx(0x39439076, bossSO->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 func_i3_801A1E14(bossSO->fwork[SO_FWK_4], bossSO->fwork[SO_FWK_5] + 300.0f, bossSO->fwork[SO_FWK_6],
-                                 bossSO->fwork[SO_FWK_1], bossSO->fwork[SO_FWK_2], 73.0f,
-                                 (Rand_ZeroOne() - 0.5f) * 50.0f, 80.0f, 40.0f, 8);
+                                 bossSO->fwork[SO_FWK_1], bossSO->fwork[SO_FWK_2], 73.0f, RAND_FLOAT_CENTERED(50.0f),
+                                 80.0f, 40.0f, 8);
                 D_i3_801C2768[3] = 6.0f;
                 D_i3_801C2768[2] = 100.0f;
                 D_80178340 = 255;
@@ -1900,7 +1896,7 @@ void func_i3_801A4214(Boss* bossSO) {
                 Math_SmoothStepToF(&bossSO->obj.pos.y, 180.0f, 0.1f, 10.0f, 0.1f);
                 D_i3_801C2740[1] -= 4;
             } else {
-                bossSO->actionState++;
+                bossSO->state++;
             }
             break;
         case 3:
@@ -1942,7 +1938,7 @@ void func_i3_801A4214(Boss* bossSO) {
                 D_801779A8[gMainController] = 120.0f;
             }
             if (gCsFrameCount == 250) {
-                bossSO->actionState++;
+                bossSO->state++;
                 bossSO->obj.pos.y = -1600.0f;
                 for (i = 0; i < 2; i++) {
                     if (gEffects[i].obj.status != OBJ_FREE) {
@@ -1989,7 +1985,7 @@ void func_i3_801A48B8(Boss* bossSO) {
     bossSO->unk_04C = 0;
     bossSO->fwork[SO_FWK_0] = 0.01f;
     if (((bossSO->swork[SO_SWK_2] > 0) || (bossSO->swork[SO_SWK_3] > 0)) && (gTeamShields[2] > 0)) {
-        func_800BA808(gMsg_ID_7086, RCID_SLIPPY);
+        Radio_PlayMessage(gMsg_ID_7086, RCID_SLIPPY);
     }
 }
 
@@ -1998,31 +1994,25 @@ void func_i3_801A4A34(Boss* bossSO) {
         bossSO->swork[SO_SWK_2] = 0;
         func_i3_801A1E14(bossSO->fwork[SO_FWK_28], bossSO->fwork[SO_FWK_29], bossSO->fwork[SO_FWK_30],
                          bossSO->fwork[SO_FWK_41], bossSO->fwork[SO_FWK_42], bossSO->fwork[SO_FWK_43],
-                         (Rand_ZeroOne() * -25.0f) - 10.0f, (Rand_ZeroOne() * 25.0f) + 30.0f,
-                         ((Rand_ZeroOne() - 0.5f) * 25.0f) - 50.0f, 0);
+                         RAND_FLOAT(-25.0f) - 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 0);
         func_i3_801A1E14(bossSO->fwork[SO_FWK_22], bossSO->fwork[SO_FWK_23], bossSO->fwork[SO_FWK_24],
                          bossSO->fwork[SO_FWK_47], bossSO->fwork[SO_FWK_48], bossSO->fwork[SO_FWK_49],
-                         (Rand_ZeroOne() * -25.0f) - 10.0f, (Rand_ZeroOne() * 25.0f) + 30.0f,
-                         ((Rand_ZeroOne() - 0.5f) * 25.0f) - 50.0f, 1);
+                         RAND_FLOAT(-25.0f) - 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 1);
         func_i3_801A1E14(bossSO->fwork[SO_FWK_10], bossSO->fwork[SO_FWK_11], bossSO->fwork[SO_FWK_12],
                          bossSO->fwork[SO_FWK_35], bossSO->fwork[SO_FWK_36], bossSO->fwork[SO_FWK_37],
-                         (Rand_ZeroOne() * -25.0f) - 10.0f, (Rand_ZeroOne() * 25.0f) + 30.0f,
-                         ((Rand_ZeroOne() - 0.5f) * 25.0f) - 50.0f, 2);
+                         RAND_FLOAT(-25.0f) - 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 2);
     }
     if (bossSO->swork[SO_SWK_3] < 0) {
         bossSO->swork[SO_SWK_3] = 0;
         func_i3_801A1E14(bossSO->fwork[SO_FWK_25], bossSO->fwork[SO_FWK_26], bossSO->fwork[SO_FWK_27],
                          bossSO->fwork[SO_FWK_38], bossSO->fwork[SO_FWK_39], bossSO->fwork[SO_FWK_40],
-                         (Rand_ZeroOne() * 25.0f) + 10.0f, (Rand_ZeroOne() * 25.0f) + 30.0f,
-                         ((Rand_ZeroOne() - 0.5f) * 25.0f) - 50.0f, 5);
+                         RAND_FLOAT(25.0f) + 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 5);
         func_i3_801A1E14(bossSO->fwork[SO_FWK_19], bossSO->fwork[SO_FWK_20], bossSO->fwork[SO_FWK_21],
                          bossSO->fwork[SO_FWK_44], bossSO->fwork[SO_FWK_45], bossSO->fwork[SO_FWK_46],
-                         (Rand_ZeroOne() * 25.0f) + 10.0f, (Rand_ZeroOne() * 25.0f) + 30.0f,
-                         ((Rand_ZeroOne() - 0.5f) * 25.0f) - 50.0f, 4);
+                         RAND_FLOAT(25.0f) + 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 4);
         func_i3_801A1E14(bossSO->fwork[SO_FWK_7], bossSO->fwork[SO_FWK_8], bossSO->fwork[SO_FWK_9],
                          bossSO->fwork[SO_FWK_32], bossSO->fwork[SO_FWK_33], bossSO->fwork[SO_FWK_34],
-                         (Rand_ZeroOne() * 25.0f) + 10.0f, (Rand_ZeroOne() * 25.0f) + 30.0f,
-                         ((Rand_ZeroOne() - 0.5f) * 25.0f) - 50.0f, 3);
+                         RAND_FLOAT(25.0f) + 10.0f, RAND_FLOAT(25.0f) + 30.0f, RAND_FLOAT_CENTERED(25.0f) - 50.0f, 3);
     }
     switch (bossSO->unk_04C) {
         case 30:
@@ -2050,7 +2040,7 @@ void func_i3_801A4EC0(Boss* bossSO) {
     bossSO->swork[SO_SWK_1] = 5;
     bossSO->fwork[SO_FWK_0] = 0.01f;
     bossSO->unk_04C = 0;
-    bossSO->actionState = 0;
+    bossSO->state = 0;
     bossSO->fwork[SO_FWK_31] = bossSO->obj.rot.y = 0.0f;
 }
 
@@ -2060,11 +2050,11 @@ void func_i3_801A4EF8(Boss* bossSO) {
     if (bossSO->swork[SO_SWK_11] != 0) {
         bossSO->swork[SO_SWK_11]--;
     }
-    switch (bossSO->actionState) {
+    switch (bossSO->state) {
         case 0:
             bossSO->unk_04C = 0;
             if (bossSO->fwork[SO_FWK_31] > 20.0f) {
-                bossSO->actionState++;
+                bossSO->state++;
                 bossSO->swork[SO_SWK_11] = 108;
                 bossSO->fwork[SO_FWK_0] = 0.01f;
                 bossSO->unk_04C = 56;
@@ -2096,20 +2086,20 @@ void func_i3_801A4EF8(Boss* bossSO) {
                 D_Timer_80177BD0[gMainController] = 70;
                 for (i = 0; i < 4; i++) {
                     func_i3_8019F038(bossSO->obj.pos.x + 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
-                                     D_i3_801BF8F0[i].x + (2.0f * (Rand_ZeroOne() - 0.5f)),
-                                     D_i3_801BF8F0[i].y + 10.0f + (2.0f * (Rand_ZeroOne() - 0.5f)),
-                                     (Rand_ZeroOne() * -10.0f) - 10.0f);
+                                     D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(2.0f),
+                                     D_i3_801BF8F0[i].y + 10.0f + RAND_FLOAT_CENTERED(2.0f),
+                                     RAND_FLOAT(-10.0f) - 10.0f);
                     func_i3_8019F038(bossSO->obj.pos.x - 100.0f, 100.0f, bossSO->obj.pos.z + 1100.0f,
-                                     D_i3_801BF8F0[i].x + (2.0f * (Rand_ZeroOne() - 0.5f)),
-                                     D_i3_801BF8F0[i].y + 10.0f + (2.0f * (Rand_ZeroOne() - 0.5f)),
-                                     (Rand_ZeroOne() * -10.0f) - 10.0f);
+                                     D_i3_801BF8F0[i].x + RAND_FLOAT_CENTERED(2.0f),
+                                     D_i3_801BF8F0[i].y + 10.0f + RAND_FLOAT_CENTERED(2.0f),
+                                     RAND_FLOAT(-10.0f) - 10.0f);
                 }
             }
             if (bossSO->swork[SO_SWK_11] == 16) {
                 gActors[10].unk_0D0 = 2;
             }
             if (bossSO->obj.pos.y <= -900.0f) {
-                bossSO->actionState++;
+                bossSO->state++;
                 bossSO->swork[SO_SWK_11] = 500;
                 bossSO->obj.pos.y = -1500.0f;
                 bossSO->fwork[SO_FWK_3] = 4800.0f;
@@ -2140,8 +2130,8 @@ void func_i3_801A4EF8(Boss* bossSO) {
                     gActors[9].unk_0D0 = 2;
                 }
                 if (bossSO->swork[SO_SWK_11] <= 170) {
-                    bossSO->vel.y = __cosf(bossSO->obj.rot.x * M_DTOR) * 80.0f;
-                    bossSO->vel.z = (__sinf(bossSO->obj.rot.x * M_DTOR) * 30.0f) + gPlayer[0].vel.z;
+                    bossSO->vel.y = COS_DEG(bossSO->obj.rot.x) * 80.0f;
+                    bossSO->vel.z = (SIN_DEG(bossSO->obj.rot.x) * 30.0f) + gPlayer[0].vel.z;
                 }
                 if (bossSO->obj.rot.x < 190.0f) {
                     bossSO->obj.rot.x += 1.0f;
@@ -2153,7 +2143,7 @@ void func_i3_801A4EF8(Boss* bossSO) {
                     D_80178480 = 10;
                 }
                 if (bossSO->obj.pos.y < -1500.0f) {
-                    bossSO->actionState++;
+                    bossSO->state++;
                     bossSO->swork[SO_SWK_11] = 100;
                     bossSO->obj.pos.y = -500.0f;
                     bossSO->fwork[SO_FWK_3] = 4800.0f;
@@ -2194,13 +2184,13 @@ void func_i3_801A4EF8(Boss* bossSO) {
 void func_i3_801A56B8(Boss* bossSO) {
     switch (bossSO->swork[SO_SWK_1]) {
         case 2:
-            if (((bossSO->unk_04C == 89) && (bossSO->actionState == 2)) || (bossSO->swork[SO_SWK_2] == 0)) {
+            if (((bossSO->unk_04C == 89) && (bossSO->state == 2)) || (bossSO->swork[SO_SWK_2] == 0)) {
                 bossSO->unk_04C = 0;
-                bossSO->actionState = 0;
+                bossSO->state = 0;
                 bossSO->unk_078.y = 0.0f;
             }
             if (bossSO->unk_04C == 89) {
-                bossSO->actionState++;
+                bossSO->state++;
                 bossSO->unk_078.y += 15.0f;
             }
             Math_SmoothStepToAngle(&bossSO->obj.rot.y, bossSO->unk_078.y, 1.0f, 3.0f, 1.0f);
@@ -2306,13 +2296,13 @@ void func_i3_801A5B3C(Boss* bossSO) {
         bossSO->swork[SO_SWK_10]--;
     }
     if ((gBossFrameCount == 200) && (gTeamShields[1] != 0)) {
-        func_800BA808(gMsg_ID_10310, RCID_FALCO);
+        Radio_PlayMessage(gMsg_ID_10310, RCID_FALCO);
     }
     if ((gBossFrameCount == 300) && (gTeamShields[2] != 0)) {
-        func_800BA808(gMsg_ID_4092, RCID_SLIPPY);
+        Radio_PlayMessage(gMsg_ID_4092, RCID_SLIPPY);
     }
     if ((gBossFrameCount == 450) && (gTeamShields[3] != 0)) {
-        func_800BA808(gMsg_ID_10320, RCID_PEPPY);
+        Radio_PlayMessage(gMsg_ID_10320, RCID_PEPPY);
     }
     if (bossSO->health != 0) {
         Math_SmoothStepToF(&bossSO->obj.pos.z, gPlayer[0].unk_138 - bossSO->fwork[SO_FWK_3], 1.0f, 60.0f, 1.0f);
@@ -2362,11 +2352,11 @@ void func_i3_801A5B3C(Boss* bossSO) {
     }
     if ((!(gGameFrameCount & 3) || (bossSO->fwork[SO_FWK_31] != 0.0f)) &&
         ((bossSO->swork[SO_SWK_0] != 7) || !(gGameFrameCount & 1))) {
-        if ((bossSO->swork[SO_SWK_2] == 0) && ((bossSO->health > 0) || (bossSO->actionState < 2))) {
+        if ((bossSO->swork[SO_SWK_2] == 0) && ((bossSO->health > 0) || (bossSO->state < 2))) {
             func_i3_8019FF44(bossSO, bossSO->fwork[SO_FWK_10], bossSO->fwork[SO_FWK_11], bossSO->fwork[SO_FWK_12],
                              bossSO->fwork[SO_FWK_31] - 20.0f, -1.0f);
         }
-        if ((bossSO->swork[SO_SWK_3] == 0) && ((bossSO->health > 0) || (bossSO->actionState < 2))) {
+        if ((bossSO->swork[SO_SWK_3] == 0) && ((bossSO->health > 0) || (bossSO->state < 2))) {
             func_i3_8019FF44(bossSO, bossSO->fwork[SO_FWK_7], bossSO->fwork[SO_FWK_8], bossSO->fwork[SO_FWK_9],
                              bossSO->fwork[SO_FWK_31] - 20.0f, 1.0f);
         }
@@ -2487,7 +2477,7 @@ void func_i3_801A5B3C(Boss* bossSO) {
         bossSO->dmgType = DMG_NONE;
         Audio_PlaySfx(0x29121007, bossSO->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         if (!((bossSO->swork[SO_SWK_0] == 0) || (bossSO->swork[SO_SWK_0] == 2) || (bossSO->swork[SO_SWK_0] == 3) ||
-              (bossSO->swork[SO_SWK_0] == 6) || ((bossSO->swork[SO_SWK_0] == 7) && (bossSO->actionState == 2)))) {
+              (bossSO->swork[SO_SWK_0] == 6) || ((bossSO->swork[SO_SWK_0] == 7) && (bossSO->state == 2)))) {
             func_i3_801A3C4C(bossSO);
         }
     }
@@ -2743,8 +2733,8 @@ void func_i3_801A71B8(Boss* bossSO) {
             Matrix_Pop(&gGfxMatrix);
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, bossSO->obj.pos.x, bossSO->obj.pos.y + 230.0f,
-                             (bossSO->obj.pos.z - 300.0f) + D_80177D20, 1);
-            Matrix_RotateX(gGfxMatrix, M_PI * 0.027777777, 1); // 1 / 36
+                             bossSO->obj.pos.z - 300.0f + D_80177D20, 1);
+            Matrix_RotateX(gGfxMatrix, M_DTOR * 5.0f, 1);
             Matrix_Scale(gGfxMatrix, D_i3_801C2768[13], 1.0f, D_i3_801C2768[13], 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_20112C0);
@@ -2755,7 +2745,7 @@ void func_i3_801A71B8(Boss* bossSO) {
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, bossSO->obj.pos.x, bossSO->obj.pos.y + 270.0f,
                              (bossSO->obj.pos.z - 300.0f) + D_80177D20, 1);
-            Matrix_RotateX(gGfxMatrix, -M_PI / 60.0f, 1);
+            Matrix_RotateX(gGfxMatrix, -3.0f * M_DTOR, 1);
             Matrix_Scale(gGfxMatrix, D_i3_801C2768[13], 1.0f, D_i3_801C2768[13], 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_20112C0);
@@ -2801,7 +2791,7 @@ void func_i3_801A7750(void) {
         actor->obj.pos.x = D_i3_801BFB30[i].x / 2.0f + gPlayer[0].pos.x;
         actor->obj.pos.y = D_i3_801BFB30[i].y + gPlayer[0].pos.y;
         actor->obj.pos.z = D_i3_801BFB30[i].z + gPlayer[0].pos.z;
-        actor->unk_0B8 = 1;
+        actor->state = 1;
         Object_SetInfo(&actor->info, actor->obj.id);
         actor->iwork[11] = 1;
         Audio_PlaySfx(0x3100000C, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -3039,15 +3029,15 @@ void func_i3_801A7930(Player* player) {
             D_80177840 = 100;
             break;
         case 640:
-            func_800BA808(gMsg_ID_20010, RCID_FOX);
+            Radio_PlayMessage(gMsg_ID_20010, RCID_FOX);
             break;
         case 728:
             switch (gTeamShields[2]) {
                 case 0:
-                    func_800BA808(gMsg_ID_20345, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20345, RCID_ROB64);
                     break;
                 case -1:
-                    func_800BA808(gMsg_ID_20339, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20339, RCID_ROB64);
                     break;
                 default:
                     func_80048AC0(2);
@@ -3057,10 +3047,10 @@ void func_i3_801A7930(Player* player) {
         case 875:
             switch (gTeamShields[3]) {
                 case 0:
-                    func_800BA808(gMsg_ID_20344, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20344, RCID_ROB64);
                     break;
                 case -1:
-                    func_800BA808(gMsg_ID_20338, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20338, RCID_ROB64);
                     break;
                 default:
                     func_80048AC0(3);
@@ -3070,10 +3060,10 @@ void func_i3_801A7930(Player* player) {
         case 1021:
             switch (gTeamShields[1]) {
                 case 0:
-                    func_800BA808(gMsg_ID_20343, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20343, RCID_ROB64);
                     break;
                 case -1:
-                    func_800BA808(gMsg_ID_20337, RCID_ROB64);
+                    Radio_PlayMessage(gMsg_ID_20337, RCID_ROB64);
                     break;
                 default:
                     func_80048AC0(1);
@@ -3092,7 +3082,7 @@ void func_i3_801A7930(Player* player) {
             break;
         case 1400:
             if (gTeamShields[3] > 0) {
-                gActors[0].unk_0B8 = 2;
+                gActors[0].state = 2;
             }
             break;
         case 1500:
@@ -3101,12 +3091,12 @@ void func_i3_801A7930(Player* player) {
             break;
         case 1420:
             if (gTeamShields[2] > 0) {
-                gActors[1].unk_0B8 = 2;
+                gActors[1].state = 2;
             }
             break;
         case 1440:
             if (gTeamShields[1] > 0) {
-                gActors[2].unk_0B8 = 2;
+                gActors[2].state = 2;
             }
             break;
     }
@@ -3133,25 +3123,25 @@ void func_i3_801A7930(Player* player) {
     Math_SmoothStepToF(&player->camAt.y, D_801779B8, D_80177A48[0], 50000.0f, 0.0f);
     Math_SmoothStepToF(&player->camAt.z, D_801779C0, D_80177A48[0], 50000.0f, 0.0f);
     player->unk_088 += 10.0f;
-    player->unk_080 = -__sinf(player->unk_088 * M_DTOR) * 0.3f;
+    player->unk_080 = -SIN_DEG(player->unk_088) * 0.3f;
     player->unk_0F4 += 8.0f;
-    player->unk_0F0 = __sinf(player->unk_0F4 * M_DTOR);
+    player->unk_0F0 = SIN_DEG(player->unk_0F4);
 }
 
 void func_i3_801A8BE8(Actor* actor) {
     Vec3f sp3C;
     Vec3f sp30;
 
-    switch (actor->unk_0B8) {
+    switch (actor->state) {
         case 4:
             break;
         case 1:
             if ((actor->unk_0B6 != 0) && ((((actor->index & 7) * 10) + 1030) < gCsFrameCount)) {
-                actor->unk_0B8 = 4;
+                actor->state = 4;
             }
             break;
         case 2:
-            actor->unk_0B8 = 3;
+            actor->state = 3;
             Audio_PlaySfx(0x09000002, actor->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             actor->fwork[29] = 5.0f;
             /* fallthrough */

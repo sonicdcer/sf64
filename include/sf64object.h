@@ -146,11 +146,11 @@ typedef struct {
     /* 0x1C */ ObjectInfo info;
     /* 0x40 */ s32 index;
     /* 0x44 */ s32 unk_44;
-    /* 0x48 */ s32 unk_48;
+    /* 0x48 */ s32 state;
     /* 0x4C */ s32 timer_4C;
-    /* 0x50 */ s8 unk_50;
+    /* 0x50 */ s8 dmgType;
     /* 0x51 */ char pad51[3];
-    /* 0x54 */ s32 unk_54;
+    /* 0x54 */ s32 dmgPart;
     /* 0x58 */ f32 unk_58;
     /* 0x5C */ f32 unk_5C;
     /* 0x60 */ f32 unk_60;
@@ -174,11 +174,11 @@ typedef struct {
     /* 0x1C */ ObjectInfo info;
     /* 0x40 */ s32 index;
     /* 0x44 */ s16 unk_44;
-    /* 0x46 */ u8 unk_46;
+    /* 0x46 */ u8 state;
     /* 0x48 */ u16 timer_48;
     /* 0x4A */ u16 timer_4A;
-    /* 0x4C */ s8 unk_4C;
-    /* 0x4E */ s16 unk_4E;
+    /* 0x4C */ s8 collected;
+    /* 0x4E */ s16 playerNum;
     /* 0x50 */ f32 unk_50;
     /* 0x54 */ f32 unk_54;
     /* 0x58 */ f32 unk_58;
@@ -195,7 +195,7 @@ typedef struct {
     /* 0x48 */ s16 unk_48;
     /* 0x4A */ s16 unk_4A;
     /* 0x4C */ u8 unk_4C;
-    /* 0x4E */ s16 unk_4E;
+    /* 0x4E */ s16 state;
     /* 0x50 */ u16 timer_50;
     /* 0x52 */ char pad52[0x2];
     /* 0x54 */ Vec3f vel;
@@ -218,7 +218,7 @@ typedef struct {
     /* 0x048 */ s16 unk_048; 
     /* 0x04A */ s16 unk_04A; 
     /* 0x04C */ s16 unk_04C;
-    /* 0x04E */ s16 actionState;
+    /* 0x04E */ s16 state;
     /* 0x050 */ s16 timer_050;
     /* 0x052 */ s16 timer_052;
     /* 0x054 */ s16 timer_054;
@@ -245,6 +245,7 @@ typedef struct {
 #define DMG_BEAM 1
 #define DMG_NONE 0
 #define DMG_BOMB -1
+#define DMG_UNK_100 100
 
 typedef struct {
     /* 0x000 */ Object obj;
@@ -259,7 +260,7 @@ typedef struct {
     /* 0x050 */ s32 iwork[25];
     /* 0x0B4 */ s16 unk_0B4;
     /* 0x0B6 */ s16 unk_0B6;
-    /* 0x0B8 */ s16 unk_0B8;
+    /* 0x0B8 */ s16 state;
     /* 0x0BA */ char pad0BA[0x2];
     /* 0x0BC */ u16 timer_0BC;
     /* 0x0BE */ u16 timer_0BE;

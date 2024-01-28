@@ -13,12 +13,12 @@ void func_i1_80198C50(void) {
     for (i = 0; i < 1000; i++) {
         if (D_80178310[i].id >= 0) {
             if (D_80178310[i].id <= 160) {
-                func_800A4F4C(obj58);
+                Object_58_Initialize(obj58);
                 obj58->obj.status = OBJ_ACTIVE;
                 obj58->obj.id = D_80178310[i].id;
                 obj58->obj.pos.x = D_80178310[i].xPos;
                 obj58->obj.pos.z = -D_80178310[i].zPos1;
-                obj58->obj.pos.y = D_80178310[i].yPos - (Rand_ZeroOneSeeded() * 300.0f);
+                obj58->obj.pos.y = D_80178310[i].yPos - RAND_FLOAT_SEEDED(300.0f);
                 obj58->obj.rot.y = D_80178310[i].rot.y;
                 Object_SetInfo(&obj58->info, obj58->obj.id);
                 obj58++;
@@ -72,7 +72,7 @@ void func_i1_80199024(Actor* actor) {
     s32 pad[8];
     Vec3f sp54;
     f32 var_fv0;
-    UnkEntity28* unkEntity28;
+    UnkEntity28* ent28;
     f32 temp_fv0;
     f32 temp_fv1;
     f32 var_fv0_2;
@@ -83,19 +83,19 @@ void func_i1_80199024(Actor* actor) {
     f32 cosRotY;
 
     if (actor->timer_0BC == 0) {
-        sp54.y = Rand_ZeroOne() * 1000.0f;
-        sp54.z = (Rand_ZeroOne() - 0.5f) * 10000.0f;
-        sp54.x = (Rand_ZeroOne() - 0.5f) * 10000.0f;
+        sp54.y = RAND_FLOAT(1000.0f);
+        sp54.z = RAND_FLOAT_CENTERED(10000.0f);
+        sp54.x = RAND_FLOAT_CENTERED(10000.0f);
         actor->fwork[4] = sp54.z;
         actor->fwork[5] = sp54.y;
         actor->fwork[6] = sp54.x;
-        actor->timer_0BC = (s32) (Rand_ZeroOne() * 20.0f) + 10;
+        actor->timer_0BC = RAND_INT(20.0f) + 10;
     }
 
-    sinRotX = __sinf(actor->obj.rot.x * M_DTOR);
-    cosRotX = __cosf(actor->obj.rot.x * M_DTOR);
-    sinRotY = __sinf(actor->obj.rot.y * M_DTOR);
-    cosRotY = __cosf(actor->obj.rot.y * M_DTOR);
+    sinRotX = SIN_DEG(actor->obj.rot.x);
+    cosRotX = COS_DEG(actor->obj.rot.x);
+    sinRotY = SIN_DEG(actor->obj.rot.y);
+    cosRotY = COS_DEG(actor->obj.rot.y);
     sp54.z = actor->fwork[4] - actor->obj.pos.x;
     sp54.y = actor->fwork[5] - actor->obj.pos.y;
     sp54.x = actor->fwork[6] - actor->obj.pos.z;
@@ -143,13 +143,13 @@ void func_i1_80199024(Actor* actor) {
         actor->vel.y = 0.0f;
     }
     func_8003088C(actor);
-    unkEntity28 = &gUnkEntities28[actor->index];
-    unkEntity28->unk_00 = 1;
-    unkEntity28->unk_02 = actor->unk_0E4;
-    unkEntity28->pos.x = actor->obj.pos.x;
-    unkEntity28->pos.y = actor->obj.pos.y;
-    unkEntity28->pos.z = actor->obj.pos.z;
-    unkEntity28->unk_10 = actor->unk_0F4.y + 180.0f;
+    ent28 = &gUnkEntities28[actor->index];
+    ent28->unk_00 = 1;
+    ent28->unk_02 = actor->unk_0E4;
+    ent28->pos.x = actor->obj.pos.x;
+    ent28->pos.y = actor->obj.pos.y;
+    ent28->pos.z = actor->obj.pos.z;
+    ent28->unk_10 = actor->unk_0F4.y + 180.0f;
     if (actor->iwork[8] != 0) {
         actor->iwork[8]--;
     }
@@ -223,7 +223,7 @@ void func_i1_8019949C(void) {
             D_80177C8C = 1;
         }
         if (D_i1_8019AE50[D_80177C8C].unk != 0) {
-            func_800BA808(D_i1_8019AE50[D_80177C8C].msg, RCID_TRAINING);
+            Radio_PlayMessage(D_i1_8019AE50[D_80177C8C].msg, RCID_TRAINING);
             D_80177C78 = D_i1_8019AE50[D_80177C8C].unk;
         } else {
             D_80161690 = 80;
@@ -237,6 +237,6 @@ void func_i1_8019949C(void) {
         D_800CFF90 = 0;
         D_80161690 = 0;
         // This is ROB 64. Keep up the good work.
-        func_800BA808(gMsg_ID_20329, RCID_ROB64);
+        Radio_PlayMessage(gMsg_ID_20329, RCID_ROB64);
     }
 }
