@@ -680,7 +680,7 @@ void func_menu_801881FC(void) {
         D_menu_801B8350[3].unk_00.x = 58.0f;
         D_menu_801B8350[3].unk_00.y = -5.0f;
         D_menu_801B8350[3].unk_00.z = 22.00f;
-        D_menu_801B8350[3].unk_48 = -17.899979;
+        D_menu_801B8350[3].unk_48 = -17.899979f;
         D_menu_801B8350[3].unk_4C = -8.890011f;
         D_menu_801B8350[3].unk_50 = 0.00f;
     } else {
