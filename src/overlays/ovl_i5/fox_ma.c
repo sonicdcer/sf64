@@ -16,6 +16,131 @@ typedef struct {
     /* 0x10 */ s16 unk_10;
 } UnkStruct_801BA1EC; //size = 0x14
 
+extern u8 D_6023228[];
+extern u8 D_6023388[];
+extern u8 D_Unk_800DB4B8[];
+extern f32 D_6035DD0[];
+extern f32 D_60359AC[];
+extern f32 D_6035E68[];
+extern f32 D_6035ECC[];
+extern f32 D_6035F30[];
+extern f32 D_6035F94[];
+extern f32 D_6035FF8[];
+extern f32 D_603605C[];
+extern f32 D_60359AC[];
+extern Gfx D_6010470[];
+extern Gfx D_6003370[];
+extern Gfx D_6004440[];
+extern AnimationHeader D_600FEC4;
+extern AnimationHeader D_6010144;
+extern AnimationHeader D_6010220;
+extern Limb* D_601042C[];
+extern Gfx D_6017720[];
+extern Gfx D_601BE90[];
+extern AnimationHeader D_601EAB0;
+extern Limb* D_601EBBC;
+extern Gfx D_6022200[];
+extern Gfx D_60227F0[];
+extern Gfx D_60239D0[];
+extern Gfx D_6024670[];
+extern Gfx D_60269E0[];
+extern AnimationHeader D_6027A04;
+extern Limb* D_6027AF0[];
+extern Gfx D_6027BF0[];
+extern Gfx D_6027D40[];
+extern Gfx D_6027EB0[];
+extern Gfx D_60288A0[];
+extern AnimationHeader D_602EA0C;
+extern Limb* D_602EBB8[];
+extern Gfx D_6001180[];
+extern Gfx D_60014A0[];
+extern Gfx D_601C170[];
+extern Gfx D_6022610[];
+extern AnimationHeader D_6025CA0;
+extern Limb* D_6025DAC[];
+extern Gfx D_6026860[];
+extern Gfx D_602D380[];
+extern Gfx D_602FBF0[];
+extern Gfx D_6030750[];
+extern Gfx D_60309D0[];
+extern Gfx D_601C000[];
+extern Gfx D_60253E0[];
+extern Gfx D_6003070[];
+extern Gfx D_60066A0[];
+extern Gfx D_60071C0[];
+extern Gfx D_6007290[];
+extern Gfx D_6007360[];
+extern Gfx D_6007430[];
+extern Gfx D_6007500[];
+extern Gfx D_6009C50[];
+extern Gfx D_6009F10[];
+extern Gfx D_600A1F0[];
+extern Gfx D_600A4D0[];
+extern Gfx D_600A7D0[];
+extern Gfx D_600AA70[];
+extern Gfx D_600AD50[];
+extern AnimationHeader D_600C4D0;
+extern Limb* D_600C65C[];
+extern f32 D_603648C[];
+extern Gfx D_602F380[];
+extern AnimationHeader D_602FEB4;
+extern Limb* D_602FFA0[];
+extern Gfx D_602FFC0[];
+extern Gfx D_601A2B0[];
+extern f32 D_6036520[];
+extern AnimationHeader D_602F098;
+extern Limb* D_602F264[];
+extern AnimationHeader D_602F2E0;
+extern Limb* D_602F36C[];
+extern Gfx D_601A840[];
+extern Gfx D_6012A60[];
+extern Gfx D_60251A0[];
+extern Gfx D_6025850[];
+extern Gfx D_60257B0[];
+extern Gfx D_601F270[];
+extern u16 D_6012C98[];
+extern AnimationHeader D_600CD18;
+extern AnimationHeader D_6015C24;
+extern AnimationHeader D_6016040;
+extern AnimationHeader D_60163F0;
+extern AnimationHeader D_6016B2C;
+extern AnimationHeader D_6017714;
+extern AnimationHeader D_601D188;
+extern f32 D_6036818[];
+extern Limb* D_600D1E4[];
+extern AnimationHeader D_601EA28;
+extern f32 D_6035A94[];
+extern ObjectInit D_6035678[];
+extern ObjectInit D_60357CC[];
+extern ObjectInit D_6035920[];
+extern Gfx D_4008CE0[];
+extern Gfx D_4008F70[];
+extern Gfx D_600D480[];
+extern Gfx D_6013060[];
+extern Gfx D_6012F50[];
+extern Gfx D_6015510[];
+
+f32 D_i5_801BE240;
+f32 D_i5_801BE244;
+f32 D_i5_801BE248;
+f32 D_i5_801BE24C;
+f32 D_i5_801BE250[40];
+s16 D_i5_801BE2F0[9];
+char D_i5_801BE308[8];
+s16 D_i5_801BE310;
+u8 D_i5_801BE312;
+u8 D_i5_801BE313;
+s16 D_i5_801BE314;
+s16 D_i5_801BE316;
+s16 D_i5_801BE318;
+s16 D_i5_801BE320[35];
+f32 D_i5_801BE368[50];
+Vec3f D_i5_801BE430[50];
+Vec3f D_i5_801BE688[2];
+Vec3f D_i5_801BE6A0[6];
+Vec3f D_i5_801BE6E8[6];
+s32 D_i5_801BE734[4];
+
 static UnkStruct_801B8E50 D_i5_801B8E50[156] = {
     { 5174.4f, -2141.0f, 0.0f, 350.0f, 94 },
     { 3401.4f, -1828.0f, 0.0f, 350.0f, 94 },
@@ -348,15 +473,6 @@ static f32 D_i5_801BA638[5][10] = {
 
 static f32 D_i5_801BA700[] = { 610.0f, 0.0f }; // unused?
 
-extern f32 D_i5_801BE250[23];
-extern s16 D_i5_801BE2F0[8];
-extern char D_i5_801BE308[];
-extern s16 D_i5_801BE310;
-extern u8 D_i5_801BE312;
-extern u8 D_i5_801BE313;
-extern s16 D_i5_801BE320[];
-extern f32 D_i5_801BE368[];
-
 void func_i5_80199920(void) {
     s16 i;
 
@@ -463,9 +579,6 @@ void func_i5_80199D88(u16* arg0, s32 arg1, s32 arg2) {
     }
 }
 
-extern s16 D_i5_801BE314;
-extern s16 D_i5_801BE316;
-
 void func_i5_80199F8C(Actor* actor) {
 
     actor->unk_0B8 = 0;
@@ -553,9 +666,7 @@ void func_i5_80199F8C(Actor* actor) {
 
 void func_i5_80199A40(u8*, u8*, f32);
 void func_i5_80199C20(u8*, s32, s32, s32, s32);
-extern u8 D_6023228[];
-extern u8 D_6023388[];
-extern u8 D_Unk_800DB4B8[];
+
 
 void func_i5_8019A128(void) {
     func_i5_80199C20(D_6023228, 0x10, 0x10, 0, 8);
@@ -563,10 +674,6 @@ void func_i5_8019A128(void) {
 }
 
 void func_8001CFA8(f32);
-extern f32 D_i5_801BA1DC;
-extern f32 D_i5_801BA1E0;
-extern s16 D_i5_801BE2F0[];
-extern s16 D_i5_801BE310;
 
 void func_i5_8019A198(Actor* actor) {
 
@@ -595,8 +702,6 @@ void func_i5_8019A198(Actor* actor) {
         }
     }
 }
-
-extern s16 D_i5_801BE320[];
 
 void func_i5_8019A2F4(Actor* actor) {
     f32 var_fa1;
@@ -804,8 +909,6 @@ void func_i5_8019BE50(Actor* actor) {
     func_8007A6F0(&actor->obj.pos, 0x2940C00A);
     gHitCount++;
 }
-
-extern s16 D_i5_801BE320[];
 
 s32 func_i5_8019C4EC(Actor* actor) {
     if (actor->unk_0D0 != 0) {
@@ -1067,7 +1170,6 @@ void func_i5_8019CE88(Actor* actor) {
     }
 }
 
-extern f32 D_6035DD0[];
 void func_i5_8019D670(f32, f32, f32, f32, f32, f32, f32, s32, u8);
 
 void func_i5_8019D048(Actor* actor) {
@@ -1197,14 +1299,6 @@ void func_i5_8019D700(Actor* actor) {
             break;
     }
 }
-
-extern f32 D_60359AC[];
-extern f32 D_6035E68[];
-extern f32 D_6035ECC[];
-extern f32 D_6035F30[];
-extern f32 D_6035F94[];
-extern f32 D_6035FF8[];
-extern f32 D_603605C[];
 
 void func_i5_8019D910(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32 arg5, s32* arg6, s32* arg7) {
     s32 var_v0;
@@ -1347,9 +1441,6 @@ void func_i5_8019E410(Actor* actor) {
     }
 }
 
-
-extern f32 D_60359AC[];
-
 void func_i5_8019E624(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32 arg5, s32* arg6) {
 
     switch (*arg1) {
@@ -1447,8 +1538,6 @@ void func_i5_8019EA60(Actor* actor) {
             break;
     }
 }
-
-extern f32 D_60359AC[];
 
 void func_i5_8019EBF8(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32 arg5, s32* arg6) {
 
@@ -1685,8 +1774,6 @@ void func_i5_8019F164(Actor* actor) {
             break;
     }
 }
-
-extern f32 D_60359AC[];
 
 void func_i5_8019FC54(Actor* actor, s32* arg1, s32* arg2, s32 arg3, s32 arg4, f32 arg5, f32 arg6, s32* arg7) {
 
@@ -2034,8 +2121,6 @@ s32 func_i5_801A0DD8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
     return false;
 }
 
-extern Vec3f D_i5_801BE688[];
-
 void func_i5_801A0E2C(s32 limbIndex, Vec3f* rot, void* data) {
     Vec3f sp24 = { 0.0f, 0.0f, 0.0f };
     s32 pad;
@@ -2049,8 +2134,6 @@ void func_i5_801A0E2C(s32 limbIndex, Vec3f* rot, void* data) {
             break;
     }
 }
-
-extern Gfx D_6010470[];
 
 s32 func_i5_801A0EB8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Actor* actor = (Actor*)data;
@@ -2098,29 +2181,6 @@ void func_i5_801A1268(s32 limbIndex, Vec3f* rot, void* data) {
 }
 
 s32 func_i5_801AC5AC(s32, Gfx**, Vec3f*, Vec3f*, void*); /* extern */
-extern Gfx D_6003370[];
-extern Gfx D_6004440[];
-extern AnimationHeader D_600FEC4;
-extern AnimationHeader D_6010144;
-extern AnimationHeader D_6010220;
-extern Limb* D_601042C[];
-extern Gfx D_6017720[];
-extern Gfx D_601BE90[];
-extern AnimationHeader D_601EAB0;
-extern Limb* D_601EBBC;
-extern Gfx D_6022200[];
-extern Gfx D_60227F0[];
-extern Gfx D_60239D0[];
-extern Gfx D_6024670[];
-extern Gfx D_60269E0[];
-extern AnimationHeader D_6027A04;
-extern Limb* D_6027AF0[];
-extern Gfx D_6027BF0[];
-extern Gfx D_6027D40[];
-extern Gfx D_6027EB0[];
-extern Gfx D_60288A0[];
-extern AnimationHeader D_602EA0C;
-extern Limb* D_602EBB8[];
 
 void func_i5_801A12C4(Actor* actor) {
     Vec3f spD0[50];
@@ -2368,18 +2428,6 @@ void func_i5_801A12C4(Actor* actor) {
     }
 }
 
-extern Gfx D_6001180[];
-extern Gfx D_60014A0[];
-extern Gfx D_601C170[];
-extern Gfx D_6022610[];
-extern AnimationHeader D_6025CA0;
-extern Limb* D_6025DAC[];
-extern Gfx D_6026860[];
-extern Gfx D_602D380[];
-extern Gfx D_602FBF0[];
-extern Gfx D_6030750[];
-extern Gfx D_60309D0[];
-
 void func_i5_801A23AC(Object_80* obj80) {
     Vec3f sp78[50];
 
@@ -2477,9 +2525,6 @@ void func_i5_801A23AC(Object_80* obj80) {
     RCP_SetupDL(&gMasterDisp, 0x1D);
 }
 
-extern Gfx D_601C000[];
-extern Gfx D_60253E0[];
-
 void func_i5_801A2A78(Object_80* obj80) {
 
     RCP_SetupDL(&gMasterDisp, 0x39);
@@ -2489,21 +2534,6 @@ void func_i5_801A2A78(Object_80* obj80) {
     GSGM_BACK();
     RCP_SetupDL(&gMasterDisp, 0x1D);
 }
-
-extern Gfx D_6003070[];
-extern Gfx D_60066A0[];
-extern Gfx D_60071C0[];
-extern Gfx D_6007290[];
-extern Gfx D_6007360[];
-extern Gfx D_6007430[];
-extern Gfx D_6007500[];
-extern Gfx D_6009C50[];
-extern Gfx D_6009F10[];
-extern Gfx D_600A1F0[];
-extern Gfx D_600A4D0[];
-extern Gfx D_600A7D0[];
-extern Gfx D_600AA70[];
-extern Gfx D_600AD50[];
 
 void func_i5_801A2B24(Object_80* obj80) {
 
@@ -2558,8 +2588,6 @@ void func_i5_801A2B24(Object_80* obj80) {
     RCP_SetupDL(&gMasterDisp, 0x1D);
 }
 
-extern Vec3f D_i5_801BE6A0[];
-
 void func_i5_801A2DD8(Object_80* obj80) {
     s16 i;
 
@@ -2581,8 +2609,6 @@ void func_i5_801A2DD8(Object_80* obj80) {
             break;
     }
 }
-
-extern Vec3f D_i5_801BE6E8[];
 
 void func_i5_801A30B8(s32 limbIndex, Vec3f* rot, void* data) {
     Vec3f sp24 = { 0.0f, 0.0f, 0.0f };
@@ -2616,9 +2642,6 @@ void func_i5_801A30B8(s32 limbIndex, Vec3f* rot, void* data) {
             break;
     }
 }
-
-extern AnimationHeader D_600C4D0;
-extern Limb* D_600C65C[];
 
 void func_i5_801A3240(Object_80* arg0) {
     Vec3f sp38[50];
@@ -2813,9 +2836,6 @@ s32 func_i5_801A3790(Player* player, f32 arg1, f32 arg2) {
     return false;
 }
 
-extern f32 D_i5_801BE250[];
-extern f32 D_i5_801BE2AC;
-
 s32 func_i5_801A3C20(f32 arg0) {
     s16 var_a0;
     f32 sp40;
@@ -2848,11 +2868,11 @@ s32 func_i5_801A3C20(f32 arg0) {
     D_i5_801BE250[21] = (f32) (((sp34 - sp40) * temp_fv0_2) + sp40);
     D_i5_801BE250[22] = (f32) (((sp30 - sp3C) * temp_fv0_2) + sp3C);
     if (sp30 < sp3C) {
-        Math_SmoothStepToF(&D_i5_801BE2AC, -10.0f, 0.05f, 1.0f, 0);
+        Math_SmoothStepToF(&D_i5_801BE250[23], -10.0f, 0.05f, 1.0f, 0);
     } else if (sp3C < sp30) {
-        Math_SmoothStepToF(&D_i5_801BE2AC, 10.0f, 0.05f, 1.0f, 0);
+        Math_SmoothStepToF(&D_i5_801BE250[23], 10.0f, 0.05f, 1.0f, 0);
     } else {
-        Math_SmoothStepToF(&D_i5_801BE2AC, 0.0f, 0.05f, 1.0f, 0);
+        Math_SmoothStepToF(&D_i5_801BE250[23], 0.0f, 0.05f, 1.0f, 0);
     }
     return true;
 }
@@ -2862,8 +2882,6 @@ void func_i5_801A3E70(Actor* actor) {
     actor->unk_046 = D_i5_801BA1D8;
     D_i5_801BA1D8++;
 }
-
-extern f32 D_603648C[];
 
 void func_i5_801A3E98(Actor* actor) {
 
@@ -2936,11 +2954,6 @@ s32 func_i5_801A41B0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
     }
     return false;
 }
-
-extern Gfx D_602F380[];
-extern AnimationHeader D_602FEB4;
-extern Limb* D_602FFA0[];
-extern Gfx D_602FFC0[];
 
 void func_i5_801A43BC(Actor* arg0) {
     Vec3f sp50[50];
@@ -3057,8 +3070,6 @@ void func_i5_801A49B8(Actor* actor) {
     }
 }
 
-extern Gfx D_601A2B0[];
-
 void func_i5_801A4A64(Actor* actor) {
 
     if (actor->unk_0B8 < 2) {
@@ -3070,16 +3081,11 @@ void func_i5_801A4A64(Actor* actor) {
     }
 }
 
-extern s16 D_i5_801BE318;
-
 void func_i5_801A4AF8(Actor* actor) {
     actor->fwork[1] = 10.0f;
     actor->fwork[6] = -100.0f;
     D_i5_801BE318 = actor->index;
 }
-
-
-extern f32 D_6036520[];
 
 void func_i5_801A4B24(Actor* actor) {
     s32 pad[2];
@@ -3190,8 +3196,6 @@ void func_i5_801A4B24(Actor* actor) {
 }
 
 
-extern u8 D_i5_801BE307[];
-
 s32 func_i5_801A5124(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Actor* actor = (Actor*)data;
 
@@ -3203,7 +3207,7 @@ s32 func_i5_801A5124(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
     if ((limbIndex > 0) && (limbIndex < 9)) {
         RCP_SetupDL(&gMasterDisp, 0x22);
         gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
-        if (D_i5_801BE307[limbIndex] != 0) {
+        if (D_i5_801BE308[limbIndex - 1] != 0) {
             GPC(0, actor->fwork[0], actor->fwork[4], 255);
         } else {
             GPC(actor->fwork[0], 0, 0, 255);
@@ -3229,11 +3233,6 @@ s32 func_i5_801A54AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
     }
     return false;
 }
-
-extern AnimationHeader D_602F098;
-extern Limb* D_602F264[];
-extern AnimationHeader D_602F2E0;
-extern Limb* D_602F36C[];
 
 void func_i5_801A54E8(Actor* actor) {
     Vec3f sp28[50];
@@ -3332,8 +3331,6 @@ void func_i5_801A57D0(Effect* effect) {
     }
 }
 
-extern Gfx D_601A840[];
-
 void func_i5_801A5AF0(Effect* effect) {
 
     RCP_SetupDL(&gMasterDisp, 0x3C);
@@ -3375,8 +3372,6 @@ void func_i5_801A5B4C(Effect* effect) {
     }
 }
 
-extern Gfx D_6012A60[];
-
 void func_i5_801A5D68(Effect* effect) {
 
     RCP_SetupDL(&gMasterDisp, 0x43);
@@ -3411,8 +3406,6 @@ void func_i5_801A5E54(Actor* actor) {
     }
 }
 
-extern Gfx D_60251A0[];
-
 void func_i5_801A5F90(Actor* actor) {
     GDL(D_60251A0);
 }
@@ -3438,8 +3431,6 @@ void func_i5_801A5FD0(Actor* actor) {
         Audio_PlaySfx(0x29121007, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
 }
-
-extern Gfx D_6025850[];
 
 void func_i5_801A6100(Actor* actor) {
     GDL(D_6025850);
@@ -3488,8 +3479,6 @@ void func_i5_801A6144(Actor* actor) {
     }
 }
 
-extern Gfx D_60257B0[];
-
 void func_i5_801A6540(Actor* actor) {
 
     RCP_SetupDL(&gMasterDisp, 0x39);
@@ -3507,9 +3496,6 @@ void func_i5_801A65E0(Object_80* obj80) {
     obj80->vel.z = obj80->obj.rot.z;
     obj80->obj.rot.z = 0.0f;
 }
-
-
-extern Gfx D_601F270[];
 
 void func_i5_801A6608(Object_80* obj80) {
 
@@ -3568,9 +3554,6 @@ void func_i5_801A68F8(Actor* actor, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
     gUnkEntities30[arg1].unk_10.z = arg7;
 }
 
-extern u16 D_6012C98[];
-extern f32 D_i5_801BE384;
-
 void func_i5_801A6984(Actor* actor) {
     f32 temp_fa0;
     f32 temp_fa1;
@@ -3619,9 +3602,9 @@ void func_i5_801A6984(Actor* actor) {
         sp80 = (D_i5_801BE368[6] - actor->obj.pos.z) / var_s4;
         for (i = 0; i < var_s4; i++) {
             if (D_i5_801BE320[1] == 0) {
-                Math_SmoothStepToF(&D_i5_801BE384, 0.0f, 0.01f, 0.05f, 0.01f);
+                Math_SmoothStepToF(&D_i5_801BE368[7], 0.0f, 0.01f, 0.05f, 0.01f);
             } else {
-                Math_SmoothStepToF(&D_i5_801BE384, 100.0f, 0.01f, 0.01f, 0.01f);
+                Math_SmoothStepToF(&D_i5_801BE368[7], 100.0f, 0.01f, 0.01f, 0.01f);
             }
 
             temp = __sinf(i * spA8 * M_DTOR) * (-(D_i5_801BE368[7] * 3.0f) * (1.0f - (i / sp78)));
@@ -3925,24 +3908,9 @@ void func_i5_801A7D98(Actor* actor) {
 
 void func_i5_801AE610(f32, f32, f32, f32, f32, f32, s16);
 void func_i5_801AE800(f32, f32, f32, f32, f32, f32);
-extern AnimationHeader D_600CD18;
-extern AnimationHeader D_6015C24;
-extern AnimationHeader D_6016040;
-extern AnimationHeader D_60163F0;
-extern AnimationHeader D_6016B2C;
-extern AnimationHeader D_6017714;
-extern AnimationHeader D_601D188;
-extern f32 D_6036818[];
+
 static Vec3f D_i5_801BA744 = { 0.0f, 0.0f, 0.0f };
 static Vec3f D_i5_801BA750 = { 0.0f, 0.0f, 30.0f };
-extern f32 D_i5_801BE370;
-extern f32 D_i5_801BE3B8;
-extern f32 D_i5_801BE3BC;
-extern f32 D_i5_801BE3C0;
-extern f32 D_i5_801BE3E8;
-extern f32 D_i5_801BE3EC;
-extern f32 D_i5_801BE3F0;
-extern Vec3f D_i5_801BE430;
 
 // static f32 D_i5_801BB808[5] = { 0.1f, 0.01f, 0.1f, 0.1f, 0.01f }; /* const */
 // static f32 D_i5_801BB83C[3] = { 3.1415927f, 0.1f, 0.01f }; /* const */
@@ -4607,7 +4575,7 @@ void func_i5_801A7E7C(Actor* actor) {
             Math_SmoothStepToF(&actor->obj.pos.z, gPlayer[0].unk_138 - 1200.0f, 0.1f, 35.0f, 0.01f);
             Math_SmoothStepToF(&actor->obj.pos.y, (actor->fwork[5] + 600.0f) + D_i5_801BE368[3], 0.1f, 20.0f, 10.0f);
             if (D_i5_801BE368[3] < ((gPlayer[0].unk_138 - actor->obj.pos.z) / 5.0f)) {
-                Math_SmoothStepToF(&D_i5_801BE370, 15.0f, 0.2f, 2.0f, 0.01f);
+                Math_SmoothStepToF(&D_i5_801BE368[2], 15.0f, 0.2f, 2.0f, 0.01f);
                 D_i5_801BE368[3] += D_i5_801BE368[2];
             } else if (((actor->fwork[5] + 600.0f) + D_i5_801BE368[3]) <= actor->obj.pos.y) {
                 actor->timer_0BC = 0;
@@ -4625,9 +4593,9 @@ void func_i5_801A7E7C(Actor* actor) {
             if (D_i5_801BE320[1] < 200) {
                 D_i5_801BE320[1]++;
             }
-            Math_SmoothStepToF(&D_i5_801BE3E8, actor->obj.pos.x + (Rand_ZeroOne() * 500.0f), 0.2f, 20.0f, 0.01f);
-            Math_SmoothStepToF(&D_i5_801BE3EC, actor->obj.pos.y + (Rand_ZeroOne() * 100.0f), 0.2f, 10.0f, 0.01f);
-            Math_SmoothStepToF(&D_i5_801BE3F0, actor->obj.pos.y + (Rand_ZeroOne() * 500.0f), 0.2f, 20.0f, 0.01f);
+            Math_SmoothStepToF(&D_i5_801BE368[32], actor->obj.pos.x + (Rand_ZeroOne() * 500.0f), 0.2f, 20.0f, 0.01f);
+            Math_SmoothStepToF(&D_i5_801BE368[33], actor->obj.pos.y + (Rand_ZeroOne() * 100.0f), 0.2f, 10.0f, 0.01f);
+            Math_SmoothStepToF(&D_i5_801BE368[34], actor->obj.pos.y + (Rand_ZeroOne() * 500.0f), 0.2f, 20.0f, 0.01f);
             if (actor->unk_0D0 != 0) {
                 gPlayer[0].shields = 0;
             }
@@ -4758,9 +4726,9 @@ void func_i5_801A7E7C(Actor* actor) {
     if (D_i5_801BE368[31] < 0.8f) {
         D_i5_801BE368[31] = 0.8f;
     }
-    Math_SmoothStepToF(&D_i5_801BE3B8, 0.0f, 0.4f, 25.0f, 0.1f);
-    Math_SmoothStepToF(&D_i5_801BE3BC, 0.0f, 0.4f, 20.0f, 0.1f);
-    Math_SmoothStepToF(&D_i5_801BE3C0, 0.0f, 0.2f, 20.0f, 0.1f);
+    Math_SmoothStepToF(&D_i5_801BE368[20], 0.0f, 0.4f, 25.0f, 0.1f);
+    Math_SmoothStepToF(&D_i5_801BE368[21], 0.0f, 0.4f, 20.0f, 0.1f);
+    Math_SmoothStepToF(&D_i5_801BE368[22], 0.0f, 0.2f, 20.0f, 0.1f);
     if ((D_i5_801BE368[20] <= 1.0f) && (D_i5_801BE368[21] <= 1.0f)) {
         D_i5_801BE368[20] = 255.0f;
         D_i5_801BE368[21] = 160.0f;
@@ -4776,35 +4744,35 @@ void func_i5_801A7E7C(Actor* actor) {
     switch (D_i5_801BE320[2]) {
         case 1:
             temp_a3 = Animation_GetFrameData(&D_600CD18, D_i5_801BE320[3], spD4);
-            Math_SmoothStepToVec3fArray(spD4, &D_i5_801BE430, 1, temp_a3, 0.2f, 100.0f, 0.01f);
+            Math_SmoothStepToVec3fArray(spD4, D_i5_801BE430, 1, temp_a3, 0.2f, 100.0f, 0.01f);
             break;
         case 2:
             temp_a3 = Animation_GetFrameData(&D_601D188, D_i5_801BE320[3], spD4);
-            Math_SmoothStepToVec3fArray(spD4, &D_i5_801BE430, 1, temp_a3, 0.15f, 100.0f, 0.01f);
+            Math_SmoothStepToVec3fArray(spD4, D_i5_801BE430, 1, temp_a3, 0.15f, 100.0f, 0.01f);
             break;
         case 3:
             temp_a3 = Animation_GetFrameData(&D_6017714, D_i5_801BE320[3], spD4);
             if (D_i5_801BE320[31] != 0) {
-                Math_SmoothStepToVec3fArray(spD4, &D_i5_801BE430, 1, temp_a3, 0.1f, 100.0f, 0.01f);
+                Math_SmoothStepToVec3fArray(spD4, D_i5_801BE430, 1, temp_a3, 0.1f, 100.0f, 0.01f);
             } else {
-                Math_SmoothStepToVec3fArray(spD4, &D_i5_801BE430, 1, temp_a3, 1.0f, 100.0f, 0.01f);
+                Math_SmoothStepToVec3fArray(spD4, D_i5_801BE430, 1, temp_a3, 1.0f, 100.0f, 0.01f);
             }
             break;
         case 4:
             temp_a3 = Animation_GetFrameData(&D_6016B2C, D_i5_801BE320[3], spD4);
-            Math_SmoothStepToVec3fArray(spD4, &D_i5_801BE430, 1, temp_a3, 0.2f, 50.0f, 0.01f);
+            Math_SmoothStepToVec3fArray(spD4, D_i5_801BE430, 1, temp_a3, 0.2f, 50.0f, 0.01f);
             break;
         case 5:
             temp_a3 = Animation_GetFrameData(&D_60163F0, D_i5_801BE320[3], spD4);
-            Math_SmoothStepToVec3fArray(spD4, &D_i5_801BE430, 1, temp_a3, 0.2f, 100.0f, 0.01f);
+            Math_SmoothStepToVec3fArray(spD4, D_i5_801BE430, 1, temp_a3, 0.2f, 100.0f, 0.01f);
             break;
         case 6:
             temp_a3 = Animation_GetFrameData(&D_6016040, D_i5_801BE320[3], spD4);
-            Math_SmoothStepToVec3fArray(spD4, &D_i5_801BE430, 1, temp_a3, 0.1f, 50.0f, 0.01f);
+            Math_SmoothStepToVec3fArray(spD4, D_i5_801BE430, 1, temp_a3, 0.1f, 50.0f, 0.01f);
             break;
         case 7:
             temp_a3 = Animation_GetFrameData(&D_6015C24, D_i5_801BE320[3], spD4);
-            Math_SmoothStepToVec3fArray(spD4, &D_i5_801BE430, 1, temp_a3, 0.1f, 50.0f, 0.01f);
+            Math_SmoothStepToVec3fArray(spD4, D_i5_801BE430, 1, temp_a3, 0.1f, 50.0f, 0.01f);
             break;
     }
 
@@ -4813,8 +4781,7 @@ void func_i5_801A7E7C(Actor* actor) {
     }
 }
 
-extern s16 D_i5_801BE332;
-extern s16 D_i5_801BE334;
+
 
 s32 func_i5_801ABC14(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Actor* actor = (Actor*)data;
@@ -4901,7 +4868,7 @@ s32 func_i5_801ABC14(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
                 RCP_SetupDL(&gMasterDisp, 0x1C);
                 GPC(255, 0, 0, 255);
             }
-            if (D_i5_801BE332 <= 0) {
+            if (D_i5_801BE320[9] <= 0) {
                 *dList = NULL;
             }
             break;
@@ -4916,7 +4883,7 @@ s32 func_i5_801ABC14(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
                 RCP_SetupDL(&gMasterDisp, 0x1C);
                 GPC(255, 0, 0, 255);
             }
-            if (D_i5_801BE334 <= 0) {
+            if (D_i5_801BE320[10] <= 0) {
                 *dList = NULL;
             }
             break;
@@ -4953,12 +4920,6 @@ void func_i5_801AC1C0(s32 limbIndex, Vec3f* rot, void* data) {
 
 }
 
-extern Limb* D_600D1E4[];
-extern AnimationHeader D_601EA28;
-extern s16 D_i5_801BE324;
-extern s16 D_i5_801BE326;
-extern Vec3f D_i5_801BE430;
-
 void func_i5_801AC294(Actor* actor) {
 
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) {
@@ -4971,21 +4932,18 @@ void func_i5_801AC294(Actor* actor) {
         }
     }
     
-    if (D_i5_801BE324 == 0) {
+    if (D_i5_801BE320[2] == 0) {
         Matrix_Translate(gCalcMatrix, actor->fwork[25], 0.0f, 0.0f, 1);
         Matrix_RotateY(gCalcMatrix, actor->fwork[26] * M_DTOR, 1);
         Matrix_RotateX(gCalcMatrix, actor->fwork[29] * M_DTOR, 1);
-        Animation_GetFrameData(&D_601EA28, D_i5_801BE326, &D_i5_801BE430);
+        Animation_GetFrameData(&D_601EA28, D_i5_801BE320[3], D_i5_801BE430);
     }
-    Animation_DrawSkeleton(3, D_600D1E4, &D_i5_801BE430, func_i5_801ABC14, func_i5_801AC1C0, actor, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_600D1E4, D_i5_801BE430, func_i5_801ABC14, func_i5_801AC1C0, actor, gCalcMatrix);
 }
 
 void func_i5_801AC42C(s32 arg0) {
 
 }
-
-extern f32 D_6035A94[];
-extern f32 D_i5_801BE388;
 
 void func_i5_801AC438(Actor* actor) {
 
@@ -5005,7 +4963,7 @@ void func_i5_801AC438(Actor* actor) {
         case 1:
             func_i5_8019A198(actor);
             func_i5_801A015C(actor);
-            Math_SmoothStepToF(&D_i5_801BE388, 160.0f, 0.1f, 3.0f, 0.01f);
+            Math_SmoothStepToF(&D_i5_801BE368[8], 160.0f, 0.1f, 3.0f, 0.01f);
             func_i5_8019A830(actor);
             break;
     }
@@ -5014,8 +4972,6 @@ void func_i5_801AC438(Actor* actor) {
         Audio_PlaySfx(0x29121007, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
 }
-
-extern f32 D_i5_801BE388;
 
 s32 func_i5_801AC5AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
 
@@ -5026,9 +4982,9 @@ s32 func_i5_801AC5AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
         gSPSetGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
     }
     if ((limbIndex == 1) || (limbIndex == 6)) {
-        pos->z -= D_i5_801BE388;
+        pos->z -= D_i5_801BE368[8];
     } else if ((limbIndex == 3) || (limbIndex == 7)) {
-        pos->z += D_i5_801BE388;
+        pos->z += D_i5_801BE368[8];
     }
     return false;
 }
@@ -5048,9 +5004,8 @@ void func_i5_801AC6B4(Actor* actor) {
 
 
 void func_i5_801ACF6C(void);
-extern ObjectInit D_6035678[];
+
 static f32 D_i5_801BA768 = 0.0f;
-extern f32 D_i5_801BE24C;
 
 void func_i5_801AC754(Player* player) {
     f32 sp4C;
@@ -5209,8 +5164,6 @@ void func_i5_801ACF6C(void) {
     }
 }
 
-extern ObjectInit D_60357CC[];
-
 void func_i5_801ACFBC(void) {
     ObjectInit* var_s0;
 
@@ -5220,8 +5173,6 @@ void func_i5_801ACFBC(void) {
         var_s0++;
     }
 }
-
-extern ObjectInit D_6035920[];
 
 void func_i5_801AD080(void) {
     ObjectInit* var_s0;
@@ -5388,9 +5339,6 @@ void func_i5_801AD6F0(Actor* actor) {
     }
 }
 
-extern Gfx D_4008CE0[];
-extern Gfx D_4008F70[];
-
 void func_i5_801ADAC8(Actor* actor) {
 
     switch (actor->unk_0B8) {
@@ -5443,8 +5391,6 @@ void func_i5_801ADCEC(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5
     }
 }
 
-extern s16 D_i5_801BE344;
-
 void func_i5_801ADD68(Actor* actor) {
     Vec3f sp3C = { 0.0f, -10.0f, 0.0f };
     s32 var_v0;
@@ -5458,7 +5404,7 @@ void func_i5_801ADD68(Actor* actor) {
             if (actor->timer_0BC == 0) {
                 actor->vel.y -= 2.5f;
                 if (actor->vel.y < 20.0f) {
-                    switch (D_i5_801BE344) {
+                    switch (D_i5_801BE320[18]) {
                         case 0:
                         case 1:
                             var_v0 = 1;
@@ -5541,9 +5487,6 @@ static Vec3f D_i5_801BA784[8] = {
     { -45.0f, 10.0f, -30.0f },
 }; // unused?
 
-extern Gfx D_600D480[];
-extern Gfx D_6013060[];
-
 void func_i5_801AE2C0(Actor* actor) {
 
     if (actor->unk_0B8 < 2) {
@@ -5572,8 +5515,6 @@ void func_i5_801AE2C0(Actor* actor) {
         GDL(D_600D480);
     }
 }
-
-extern f32 D_i5_801BA570[][10];
 
 void func_i5_801AE4CC(Actor* actor, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, s16 arg7) {
     
@@ -5611,8 +5552,6 @@ void func_i5_801AE610(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5
     }
 }
 
-extern f32 D_i5_801BE3C4;
-
 void func_i5_801AE694(Effect *effect, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     f32 sp4C;
     f32 sp48;
@@ -5626,7 +5565,7 @@ void func_i5_801AE694(Effect *effect, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f3
     effect->obj.pos.x = arg1;
     effect->obj.pos.y = arg2;
     effect->obj.pos.z = arg3;
-    effect->scale2 = D_i5_801BE3C4;
+    effect->scale2 = D_i5_801BE368[23];
     effect->unk_46 = arg1 - arg4;
     effect->unk_48 = arg2 - arg5;
     effect->unk_4A = arg3 - arg6;
@@ -5773,9 +5712,6 @@ void func_i5_801AEC04(Actor* actor) {
         }
     }
 }
-
-extern Gfx D_6012F50[];
-extern Gfx D_6015510[];
 
 void func_i5_801AEEFC(Actor* actor) {
     
@@ -5984,8 +5920,6 @@ static f32 D_i5_801BA894[5] = {
 static f32 D_i5_801BA8A8[3] = {
     230.0f, 220.0f, 350.0f
 }; // unused?
-
-extern s16 D_i5_801BE318;
 
 void func_i5_801AF8F4(Player* player) {
     s32 i;
@@ -6881,10 +6815,6 @@ void func_i5_801B38E0(void) {
     }
    
 }
-
-extern f32 D_i5_801BE240;
-extern f32 D_i5_801BE244;
-extern f32 D_i5_801BE248;
 
 void func_i5_801B3D04(Player* player) {
     f32 zeroVar = 0.0f;

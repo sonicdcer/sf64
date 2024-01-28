@@ -128,7 +128,7 @@
     - [0xE9F0E0, .rodata, sf_i5_4]
     - { start: 0xE9F1D0, type: .bss, vram: 0x801BBEE0, name: fox_i5 }
     - { type: bss, vram: 0x801BBEF0, name: fox_ti }
-    - { type: bss, vram: 0x801BE240, name: fox_ma }
+    - { type: .bss, vram: 0x801BE240, name: fox_ma }
     - { type: bss, vram: 0x801BE740, name: sf_i5_4 }
 
   - name: ovl_i6
