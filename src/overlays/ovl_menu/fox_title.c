@@ -1555,7 +1555,7 @@ void func_menu_8018B058(void) {
     D_menu_801B7C98 = 10;
 
     for (i = 0; i < 10; i++) {
-        D_menu_801B7BF8[i] = RAND_FLOAT(10.0f) + 10.0f;
+        D_menu_801B7BF8[i] = 10.0f + RAND_FLOAT(10.0f);
         D_menu_801B7C20[i] = -10.0f + RAND_FLOAT(-60.0f);
         D_menu_801B7C48[i] = 0.0f;
         D_menu_801B7C70[i] = 0.1f + RAND_FLOAT(0.3f);
