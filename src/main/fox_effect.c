@@ -3088,7 +3088,7 @@ void func_8008092C(Effect* effect) {
             RCP_SetupDL(&gMasterDisp, 0x31);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
             gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
-            Matrix_RotateZ(gGfxMatrix, 0.5235988f, 1);
+            Matrix_RotateZ(gGfxMatrix, 30.0f * M_DTOR, 1);
             Matrix_Scale(gGfxMatrix, 3.0f, 1.5f, 3.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_1024AC0);

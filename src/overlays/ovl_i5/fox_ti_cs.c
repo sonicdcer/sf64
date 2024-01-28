@@ -328,7 +328,7 @@ void func_i5_801882CC(Player* player) {
 
             D_80177A48[2] = D_80177A48[1] + D_80177A48[2];
 
-            Matrix_RotateX(gCalcMatrix, -0.17453292f, 0);
+            Matrix_RotateX(gCalcMatrix, -10.0f * M_DTOR, 0);
             Matrix_RotateY(gCalcMatrix, D_80177A48[2] * M_DTOR, 1);
 
             src.x = 0.0f;

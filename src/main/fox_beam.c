@@ -1334,7 +1334,7 @@ void func_80039A50(PlayerShot* shot) {
                             var_fv1 = 0.0f;
                         }
                         Matrix_RotateY(gGfxMatrix, var_fv1, 1);
-                        Matrix_RotateZ(gGfxMatrix, 0.5235988f, 1);
+                        Matrix_RotateZ(gGfxMatrix, 30.0f * M_DTOR, 1);
                         Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, 1);
                         Matrix_SetGfxMtx(&gMasterDisp);
                         gSPDisplayList(gMasterDisp++, D_301AD60);
@@ -1346,7 +1346,7 @@ void func_80039A50(PlayerShot* shot) {
                         var_fv1 = 0.0f;
                     }
                     Matrix_RotateY(gGfxMatrix, var_fv1, 1);
-                    Matrix_RotateZ(gGfxMatrix, 0.5235988f, 1);
+                    Matrix_RotateZ(gGfxMatrix, 30.0f * M_DTOR, 1);
                     Matrix_Scale(gGfxMatrix, 1.0f, 0.65f, 1.0f, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     RCP_SetupDL_68();

@@ -342,7 +342,7 @@ void func_i4_8019A3E8(Actor* actor) {
                 Actor_Initialize(actorPtr);
                 actorPtr->obj.status = OBJ_ACTIVE;
                 actorPtr->obj.id = OBJ_ACTOR_197;
-                Matrix_RotateY(gCalcMatrix, (actor->unk_04E * 18.0f) * 0.017453292f, 0);
+                Matrix_RotateY(gCalcMatrix, (actor->unk_04E * 18.0f) * M_DTOR, 0);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp40, &sp34);
 
                 actorPtr->obj.pos.x = sp34.x;
@@ -989,8 +989,8 @@ void func_i4_8019BA64(Player* player) {
             break;
     }
 
-    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114 + 180.0f) * 0.017453292f, 0);
-    Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * 0.017453292f), 1);
+    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114 + 180.0f) * M_DTOR, 0);
+    Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * M_DTOR), 1);
 
     sp74.x = 0.0f;
     sp74.y = 0.0f;

@@ -437,7 +437,7 @@ void func_80085944(void) {
 
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, D_800D1AC4[i + 1], D_800D1AD8[i + 1], -100.0f, 0);
-                    Matrix_RotateZ(gGfxMatrix, (3.14159265358979323846f / 180.0f) * D_801618B0[0], 1);
+                    Matrix_RotateZ(gGfxMatrix, M_DTOR * D_801618B0[0], 1);
                     Matrix_Scale(gGfxMatrix, D_801618B0[i + 2], D_801618B0[i + 2], D_801618B0[i + 2], 1);
 
                     Matrix_SetGfxMtx(&gMasterDisp);
@@ -4697,7 +4697,7 @@ bool func_800927A0(Actor* actor) {
         actor->obj.rot.z = actor->vwork[29].z + actor->fwork[20];
         actor->obj.pos.y += actor->fwork[28];
 
-        Matrix_RotateY(gCalcMatrix, actor->unk_0F4.y * 0.017453292f, 0U);
+        Matrix_RotateY(gCalcMatrix, actor->unk_0F4.y * M_DTOR, 0U);
         Matrix_RotateX(gCalcMatrix, -(M_DTOR * (actor->unk_0F4.x + actor->vwork[29].x + actor->fwork[19])), 1);
 
         src.z = actor->fwork[1];

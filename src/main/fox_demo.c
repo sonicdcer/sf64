@@ -2673,11 +2673,11 @@ void func_8004FEC0(Actor* actor) {
 
             if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2) {
                 Matrix_Push(&gGfxMatrix);
-                Matrix_RotateX(gGfxMatrix, 0.34906584f, 1);
+                Matrix_RotateX(gGfxMatrix, 20.0f * M_DTOR, 1);
                 Matrix_RotateY(gGfxMatrix, (gGameFrameCount * 0.5f) * M_DTOR, 1);
                 Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, 1);
             } else {
-                Matrix_RotateX(gGfxMatrix, -0.17453292f, 1);
+                Matrix_RotateX(gGfxMatrix, -10.0f * M_DTOR, 1);
                 Matrix_RotateY(gGfxMatrix, (gGameFrameCount * 0.3f) * M_DTOR, 1);
                 Matrix_Scale(gGfxMatrix, 4.0f, 4.0f, 4.0f, 1);
                 Matrix_Push(&gGfxMatrix);

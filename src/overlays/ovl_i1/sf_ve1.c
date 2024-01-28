@@ -300,8 +300,8 @@ void func_i1_80192AA4(Actor* actor) {
     Vec3f dest;
     f32 var_fs0;
 
-    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * 0.017453292f, 0U);
-    Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * 0.017453292f, 1U);
+    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0U);
+    Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1U);
 
     if ((actor->obj.rot.y <= 30.0f) || (actor->obj.rot.y >= 330.0f)) {
         temp.x = D_i1_80199FFC.x;
@@ -316,8 +316,8 @@ void func_i1_80192AA4(Actor* actor) {
         }
         if (0.0f <= 450.0f) {
             for (var_fs0 = 0.0f; var_fs0 <= 450.0f; var_fs0 += 50.0f) {
-                Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * 0.017453292f, 0U);
-                Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * 0.017453292f, 1U);
+                Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0U);
+                Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1U);
                 src.y = var_fs0;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
             }

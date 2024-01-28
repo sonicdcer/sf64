@@ -3213,23 +3213,23 @@ void func_i6_801928C8(Boss* boss) {
             }
             Matrix_Push(&gGfxMatrix);
             Matrix_RotateZ(gGfxMatrix, 0.0f, 1);
-            Matrix_RotateX(gGfxMatrix, 0.2617994f, 1);
+            Matrix_RotateX(gGfxMatrix, 15.0f * M_DTOR, 1);
             Matrix_Scale(gGfxMatrix, 0.3f, 1.0f, 1.0f, 1);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 200.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_C017440);
             Matrix_Pop(&gGfxMatrix);
             Matrix_Push(&gGfxMatrix);
-            Matrix_RotateZ(gGfxMatrix, 2.0943952f, 1);
-            Matrix_RotateX(gGfxMatrix, 0.2617994f, 1);
+            Matrix_RotateZ(gGfxMatrix, 120.0f * M_DTOR, 1);
+            Matrix_RotateX(gGfxMatrix, 15.0f * M_DTOR, 1);
             Matrix_Scale(gGfxMatrix, 0.3f, 1.0f, 1.0f, 1);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 200.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_C017440);
             Matrix_Pop(&gGfxMatrix);
             Matrix_Push(&gGfxMatrix);
-            Matrix_RotateZ(gGfxMatrix, 4.1887903f, 1);
-            Matrix_RotateX(gGfxMatrix, 0.2617994f, 1);
+            Matrix_RotateZ(gGfxMatrix, 240.0f * M_DTOR, 1);
+            Matrix_RotateX(gGfxMatrix, 15.0f * M_DTOR, 1);
             Matrix_Scale(gGfxMatrix, 0.3f, 1.0f, 1.0f, 1);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 200.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
@@ -3319,7 +3319,7 @@ void func_i6_80193244(Actor* actor) {
             scale *= 1.2f;
         }
         Matrix_Scale(gGfxMatrix, scale, scale, scale, 1);
-        Matrix_RotateX(gGfxMatrix, 1.5707964f, 1);
+        Matrix_RotateX(gGfxMatrix, M_PI / 2, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         RCP_SetupDL(&gMasterDisp, 0x43);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, alpha);
