@@ -39,6 +39,7 @@ void func_8001CA24(u8);
 void func_8001CB80(u8, u8);
 void func_8001CCDC(u8, f32 *);
 void func_8001CE28(u8, f32 *);
+void func_8001CFA8(f32);
 void func_8001D034(f32*, s32, u8);
 void func_8001D10C(f32*, u32);
 void func_8001D15C(u8);
