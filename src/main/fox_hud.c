@@ -3846,8 +3846,8 @@ s32 func_80090200(Boss* boss) {
             player->camAt.y = boss->obj.pos.x;
             player->camAt.z = boss->obj.pos.x;
 
-            player->camAt.x += __cosf(M_DTOR * ((f32) boss->timer_050 * 60)) * boss->fwork[9];
-            player->camAt.y += __sinf(M_DTOR * ((f32) boss->timer_050 * 179)) * boss->fwork[9];
+            player->camAt.x += __cosf(boss->timer_050 * 60.0f * M_DTOR)* boss->fwork[9];
+            player->camAt.y += __sinf(boss->timer_050 * 179.0f * M_DTOR) * boss->fwork[9];
         }
     }
 
@@ -5201,7 +5201,7 @@ void func_800935E8(Player* player) {
                     if (temp > 20.0f) {
                         temp = 20.0f;
                     }
-                    temp2 = __sinf(M_DTOR * (((f32) gGameFrameCount) * 70.0f)) * temp;
+                    temp2 = __sinf( gGameFrameCount * 70.0f * M_DTOR) * temp;
                 }
 
                 player->camEye.y = D_80177980 + temp2;
@@ -5292,11 +5292,11 @@ void func_800935E8(Player* player) {
             player->camAt.z = D_801779C0 = 0.0f;
 
         case 6:
-            player->unk_060 = __sinf(M_DTOR * (player->unk_0F4 * 0.7f)) * 0.5f;
+            player->unk_060 = __sinf(player->unk_0F4 * 0.7f * M_DTOR) * 0.5f;
             player->unk_088 += 10.0f;
             player->unk_0F4 += 8.0f;
-            player->unk_080 = -__sinf(M_DTOR * player->unk_088) * 0.5f;
-            player->unk_0F0 = __sinf(M_DTOR * player->unk_0F4) * 1.5f;
+            player->unk_080 = -__sinf(player->unk_088 * M_DTOR) * 0.5f;
+            player->unk_0F0 = __sinf(player->unk_0F4 * M_DTOR) * 1.5f;
 
             D_80177978 = player->pos.x * (600.0f / player->unk_09C);
             D_80177980 = player->pos.y * (740.0f / player->unk_0A0);
@@ -6010,11 +6010,11 @@ void func_80095604(Player* player) {
 
     player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
 
-    player->unk_060 = __sinf(M_DTOR * (player->unk_0F4 * 0.7f)) * 0.5f;
+    player->unk_060 =  __sinf(player->unk_0F4 * 0.7f * M_DTOR) * 0.5f;
     player->unk_088 += 10.0f;
     player->unk_0F4 += 8.0f;
-    player->unk_080 = -__sinf(M_DTOR * player->unk_088) * 0.5f;
-    player->unk_0F0 = __sinf(M_DTOR * player->unk_0F4) * 1.5f;
+    player->unk_080 = -__sinf(player->unk_088 * M_DTOR) * 0.5f;
+    player->unk_0F0 =  __sinf(player->unk_0F4 * M_DTOR) * 1.5f;
 
     if (player->unk_234) {
         src.x = 0.0f;
@@ -6171,9 +6171,9 @@ void func_80096A74(Player* player) {
                     Math_SmoothStepToAngle(&player->unk_0E4, 0.0f, 0.1f, 2.4f, 0.001f);
                 } else {
                     player->unk_088 += 10.0f;
-                    player->unk_080 = -__sinf(M_DTOR * (player->unk_088)) * 0.5f;
+                    player->unk_080 = -__sinf(player->unk_088 * M_DTOR) * 0.5f;
                     player->unk_0F4 += 3.0f;
-                    player->unk_0F0 = __sinf(M_DTOR * (player->unk_0F4)) * 1.5f;
+                    player->unk_0F0 = __sinf(player->unk_0F4 * M_DTOR) * 1.5f;
                 }
             }
         }

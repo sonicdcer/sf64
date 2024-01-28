@@ -274,7 +274,7 @@ void func_i1_80192518(Actor* actor) {
             break;
 
         case 3:
-            src.x = __sinf(((((30 - actor->timer_0BE) % 10) / 10.0f) * M_PI) * 2) * 5.0f;
+            src.x = __sinf((((30 - actor->timer_0BE) % 10) / 10.0f) * M_PI * 2) * 5.0f;
             src.y = 0.0f;
             src.z = 0.0f;
 

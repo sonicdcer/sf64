@@ -1892,10 +1892,10 @@ void func_800C2244(Actor* actor) {
             break;
     }
 
-    sinX = __sinf(M_DTOR * (actor->obj.rot.x));
-    cosX = __cosf(M_DTOR * (actor->obj.rot.x));
-    sinY = __sinf(M_DTOR * (actor->obj.rot.y));
-    cosY = __cosf(M_DTOR * (actor->obj.rot.y));
+    sinX = __sinf(actor->obj.rot.x * M_DTOR);
+    cosX = __cosf(actor->obj.rot.x * M_DTOR);
+    sinY = __sinf(actor->obj.rot.y * M_DTOR);
+    cosY = __cosf(actor->obj.rot.y * M_DTOR);
 
     if (boolTemp) {
         x = actor->fwork[4] - actor->obj.pos.x;
