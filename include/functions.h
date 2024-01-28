@@ -109,6 +109,7 @@ void func_8002E6B8(Actor*);
 void func_8002E6DC(Actor*);
 bool func_8002E4F8(u16*, RadioCharacterId);
 void func_8002E700(Player *);
+void func_8002EE34(void);
 void func_8002EE64(Actor * actor);
 void func_8002F180(void);
 void func_8002F5F4(u16* msg, RadioCharacterId character);
