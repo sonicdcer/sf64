@@ -107,7 +107,8 @@ void func_i4_80187960(Actor* actor) {
     Actor* actor2 = &gActors[2];
     Actor* actor3 = &gActors[3];
     Actor* actor4 = &gActors[4];
-    s32 pad[3];
+    Actor* actor19 = &gActors[19];
+    s32 pad[2];
 
     if ((player->state_1C8 == PLAYERSTATE_1C8_4) || (player->state_1C8 == PLAYERSTATE_1C8_6)) {
         D_8015F928 = 20000;
@@ -154,13 +155,8 @@ void func_i4_80187960(Actor* actor) {
     if (D_8015F928 == 8540) {
         Radio_PlayMessage(gMsg_ID_9400, RCID_ROB64);
         func_8001D444(0, 0x800A, 0, 0);
-        gActors[7].unk_0E6 = -1;
-        gActors[6].unk_0E6 = gActors[7].unk_0E6;
-        gActors[5].unk_0E6 = gActors[7].unk_0E6;
-        gActors[4].unk_0E6 = gActors[7].unk_0E6;
-        gActors[3].unk_0E6 = gActors[7].unk_0E6;
-        gActors[2].unk_0E6 = gActors[7].unk_0E6;
-        gActors[1].unk_0E6 = gActors[7].unk_0E6;
+        gActors[1].unk_0E6 = gActors[2].unk_0E6 = gActors[3].unk_0E6 = gActors[4].unk_0E6 = gActors[5].unk_0E6 =
+            gActors[6].unk_0E6 = gActors[7].unk_0E6 = -1;
     }
 
     if ((D_800C9B4C < D_8015F928) && (D_8015F928 < 9970) && (D_80177CD0[0] == 0) && (D_80177CD0[1] == 0) &&
@@ -378,8 +374,6 @@ void func_i4_80187960(Actor* actor) {
                 actor3->state = 2;
                 if (actor->iwork[0] == 130) {
                     Vec3f sp50 = D_i4_8019EE34;
-                    Actor* actor19 = &gActors[19];
-                    s32 pad2;
 
                     Actor_Initialize(actor19);
                     Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y, player->unk_138, 0);
@@ -575,7 +569,7 @@ s32 func_i4_80188F08(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* ptr) 
             break;
     }
 
-    return 0;
+    return false;
 }
 
 void func_i4_80188FE4(Actor* actor) {
@@ -622,15 +616,14 @@ void func_i4_801890EC(Actor* actor, s32 arg1) {
     if (arg1 < 3) {
         actor->iwork[11] = 1;
         Audio_PlaySfx(0x3100000CU, actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-        return;
+    } else {
+        actor->obj.pos.z = -9500.0f;
+        actor->unk_0B6 = 1;
+        actor->vel.z = 22.0f;
+
+        Audio_PlaySfx(0x11030010U, actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(0x31024059U, actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
-
-    actor->obj.pos.z = -9500.0f;
-    actor->unk_0B6 = 1;
-    actor->vel.z = 22.0f;
-
-    Audio_PlaySfx(0x11030010U, actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-    Audio_PlaySfx(0x31024059U, actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
 void func_i4_8018927C(Player* player) {
