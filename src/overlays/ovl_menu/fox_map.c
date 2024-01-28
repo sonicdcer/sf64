@@ -1200,8 +1200,8 @@ void func_menu_8019E99C(void) {
     D_menu_801CDA20 = 0.0f;
     D_menu_801CDA24 = 1.0f;
     D_menu_801CDA28 = 0.0f;
-    D_menu_801CDA00 = -150.552155f;
-    D_menu_801CDA04 = -489.679993f;
+    D_menu_801CDA00 = -150.55215f;
+    D_menu_801CDA04 = -489.68f;
     D_menu_801CDA08 = 0.0f;
     D_menu_801CDA0C = -42.750008f;
     D_menu_801CDA10 = -9.849999f;
@@ -2647,8 +2647,8 @@ void func_menu_801A281C(void) {
     D_menu_801CEEE8[5].y = D_menu_801CEEE8[4].y = D_menu_801CEEE8[3].y = D_menu_801CEEE8[2].y;
     D_menu_801CEEE8[5].z = D_menu_801CEEE8[4].z = D_menu_801CEEE8[3].z = D_menu_801CEEE8[2].z;
 
-    D_menu_801CEF58[7].x = D_menu_801CEF58[6].x = -150.552155f;
-    D_menu_801CEF58[7].y = D_menu_801CEF58[6].y = -489.679993f;
+    D_menu_801CEF58[7].x = D_menu_801CEF58[6].x = -150.55215f;
+    D_menu_801CEF58[7].y = D_menu_801CEF58[6].y = -489.68f;
     D_menu_801CEF58[7].z = D_menu_801CEF58[6].z = 0.0f;
 
     D_menu_801CDA0C = -42.750008f;
