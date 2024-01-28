@@ -457,8 +457,8 @@ void func_80049B44(void) {
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            x = RAND_CENTEREDFLOAT(400.0f);
-            y = RAND_CENTEREDFLOAT(400.0f);
+            x = RAND_FLOAT_CENTERED(400.0f);
+            y = RAND_FLOAT_CENTERED(400.0f);
             z = -D_80177D20 - 500.0f - RAND_FLOAT(500.0f);
             func_80049A9C(&gEffects[i], x, y, z);
             break;
@@ -774,8 +774,8 @@ void func_8004A888(Effect* effect) {
     Effect_Initialize(effect);
 
     effect->obj.status = OBJ_INIT;
-    sp2C.x = RAND_CENTEREDFLOAT(1500.0f);
-    sp2C.y = RAND_CENTEREDFLOAT(800.0f);
+    sp2C.x = RAND_FLOAT_CENTERED(1500.0f);
+    sp2C.y = RAND_FLOAT_CENTERED(800.0f);
     sp2C.z = 3000.0f;
 
     Matrix_MultVec3f(gCalcMatrix, &sp2C, &sp20);
@@ -1732,12 +1732,12 @@ void func_8004D828(Player* player) {
 
     if (gCamCount == 1) {
         if (!(gGameFrameCount & 1)) {
-            func_8007D24C(RAND_CENTEREDFLOAT(20.0) + player->pos.x, RAND_CENTEREDFLOAT(20.0) + player->pos.y,
+            func_8007D24C(RAND_FLOAT_CENTERED(20.0) + player->pos.x, RAND_FLOAT_CENTERED(20.0) + player->pos.y,
                           player->unk_138, 2.2f);
         }
     } else if (!(gGameFrameCount & 3)) {
-        func_8007D10C(RAND_CENTEREDFLOAT(10.0f) + player->pos.x, RAND_CENTEREDFLOAT(10.0f) + player->pos.y,
-                      RAND_CENTEREDFLOAT(10.0f) + player->unk_138, 2.2f);
+        func_8007D10C(RAND_FLOAT_CENTERED(10.0f) + player->pos.x, RAND_FLOAT_CENTERED(10.0f) + player->pos.y,
+                      RAND_FLOAT_CENTERED(10.0f) + player->unk_138, 2.2f);
     }
 
     if ((player->pos.y < player->unk_0A4) && (player->unk_1D0 == 0)) {
@@ -1847,7 +1847,7 @@ void func_8004DEF8(Player* player) {
     }
 
     if (!(gGameFrameCount & 1)) {
-        func_8007D24C(RAND_CENTEREDFLOAT(20.0) + player->pos.x, RAND_CENTEREDFLOAT(20.0) + player->pos.y,
+        func_8007D24C(RAND_FLOAT_CENTERED(20.0) + player->pos.x, RAND_FLOAT_CENTERED(20.0) + player->pos.y,
                       player->unk_138, 2.2f);
     }
 
@@ -2637,9 +2637,9 @@ void func_8004FEC0(Actor* actor) {
 
                 for (sp2D0 = 0; sp2D0 < 30; sp2D0++) {
                     Matrix_Push(&gGfxMatrix);
-                    Matrix_Translate(gGfxMatrix, RAND_CENTEREDFLOAT_SEEDED(3000.0f) * actor->fwork[20],
-                                     RAND_CENTEREDFLOAT_SEEDED(3000.0f) * actor->fwork[20],
-                                     RAND_CENTEREDFLOAT_SEEDED(3000.0f) * actor->fwork[20], 1);
+                    Matrix_Translate(gGfxMatrix, RAND_FLOAT_CENTERED_SEEDED(3000.0f) * actor->fwork[20],
+                                     RAND_FLOAT_CENTERED_SEEDED(3000.0f) * actor->fwork[20],
+                                     RAND_FLOAT_CENTERED_SEEDED(3000.0f) * actor->fwork[20], 1);
                     Matrix_RotateY(gGfxMatrix, 2.0f * RAND_FLOAT_SEEDED(M_PI), 1);
                     Matrix_RotateZ(gGfxMatrix, (2.0f * gGameFrameCount) * M_DTOR, 1);
                     Matrix_RotateX(gGfxMatrix, 2.0f * RAND_FLOAT_SEEDED(M_PI), 1);

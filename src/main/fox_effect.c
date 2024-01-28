@@ -613,8 +613,8 @@ void func_8007905C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, u8 
         effect->vel.z = (RAND_FLOAT(0.05f) + 0.03f) * zPos;
         effect->vel.y = 5.0f;
     } else if (scale2 == 1.55f) {
-        effect->vel.x = RAND_CENTEREDFLOAT(10.0f);
-        effect->vel.z = RAND_CENTEREDFLOAT(10.0f);
+        effect->vel.x = RAND_FLOAT_CENTERED(10.0f);
+        effect->vel.z = RAND_FLOAT_CENTERED(10.0f);
     } else if ((gCurrentLevel == LEVEL_BOLSE) && ((scale2 == 5.11f) || (scale2 == 7.22f))) {
         sp3C.x = gPlayer[0].pos.x;
         sp3C.y = gPlayer[0].pos.y;
@@ -624,24 +624,24 @@ void func_8007905C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, u8 
         xAng = -Math_Atan2F(sp3C.y - yPos, sp38);
         Matrix_RotateY(gCalcMatrix, yAng, 0);
         Matrix_RotateX(gCalcMatrix, xAng, 1);
-        sp54.x = RAND_CENTEREDFLOAT(50.0f);
-        sp54.y = RAND_CENTEREDFLOAT(50.0f);
+        sp54.x = RAND_FLOAT_CENTERED(50.0f);
+        sp54.y = RAND_FLOAT_CENTERED(50.0f);
         sp54.z = RAND_FLOAT(10.0f) + 150.0f;
         Matrix_MultVec3f(gCalcMatrix, &sp54, &sp48);
         effect->vel.x = sp48.x;
         effect->vel.y = sp48.y;
         effect->vel.z = sp48.z;
     } else {
-        effect->vel.y = (gLevelType == LEVELTYPE_PLANET) ? RAND_FLOAT(7.0f) + 7.0f : RAND_CENTEREDFLOAT(10.0f);
-        effect->vel.x = RAND_CENTEREDFLOAT(10.0f);
-        effect->vel.z = RAND_CENTEREDFLOAT(10.0f);
+        effect->vel.y = (gLevelType == LEVELTYPE_PLANET) ? RAND_FLOAT(7.0f) + 7.0f : RAND_FLOAT_CENTERED(10.0f);
+        effect->vel.x = RAND_FLOAT_CENTERED(10.0f);
+        effect->vel.z = RAND_FLOAT_CENTERED(10.0f);
     }
     effect->scale2 = (RAND_FLOAT(0.8f) + 0.3f) * scale2;
     effect->timer_50 = RAND_INT(50.0f) + 70;
     effect->obj.rot.x = RAND_FLOAT(360.0f);
-    effect->unk_60.x = RAND_CENTEREDFLOAT(30.0f);
-    effect->unk_60.y = RAND_CENTEREDFLOAT(30.0f);
-    effect->unk_60.z = RAND_CENTEREDFLOAT(30.0f);
+    effect->unk_60.x = RAND_FLOAT_CENTERED(30.0f);
+    effect->unk_60.y = RAND_FLOAT_CENTERED(30.0f);
+    effect->unk_60.z = RAND_FLOAT_CENTERED(30.0f);
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
@@ -1028,10 +1028,10 @@ void func_8007A818(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1, u8 
     effect->scale1 = scale1;
     effect->unk_44 = arg5;
     effect->unk_46 = arg6;
-    effect->unk_60.z = RAND_CENTEREDFLOAT(10.0f);
+    effect->unk_60.z = RAND_FLOAT_CENTERED(10.0f);
     effect->unk_60.y = scale1 * 0.1f;
     if (arg7 != 0) {
-        effect->vel.x = RAND_CENTEREDFLOAT(30.0f);
+        effect->vel.x = RAND_FLOAT_CENTERED(30.0f);
     }
     Object_SetInfo(&effect->info, effect->obj.id);
 }
@@ -1390,8 +1390,8 @@ void func_8007B7E8(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     effect->obj.pos.y = yPos;
     effect->obj.pos.z = zPos;
 
-    effect->vel.x = RAND_CENTEREDFLOAT(5.0f);
-    effect->vel.y = RAND_CENTEREDFLOAT(3.0f);
+    effect->vel.x = RAND_FLOAT_CENTERED(5.0f);
+    effect->vel.y = RAND_FLOAT_CENTERED(3.0f);
     effect->unk_48 = 3;
 
     if (Rand_ZeroOne() < 0.5f) {
@@ -1458,8 +1458,8 @@ void func_8007BB14(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     effect->obj.pos.y = yPos;
     effect->obj.pos.z = zPos;
 
-    effect->vel.x = RAND_CENTEREDFLOAT(5.0f);
-    effect->vel.y = RAND_CENTEREDFLOAT(3.0f);
+    effect->vel.x = RAND_FLOAT_CENTERED(5.0f);
+    effect->vel.y = RAND_FLOAT_CENTERED(3.0f);
     effect->unk_48 = 3;
 
     if (Rand_ZeroOne() < 0.5f) {
@@ -1627,8 +1627,8 @@ void func_8007C250(Effect* effect) {
     }
 
     if (!(effect->timer_50 & var_v0)) {
-        randX = RAND_CENTEREDFLOAT(40.0f);
-        randY = RAND_CENTEREDFLOAT(40.0f);
+        randX = RAND_FLOAT_CENTERED(40.0f);
+        randY = RAND_FLOAT_CENTERED(40.0f);
         randOther = RAND_FLOAT(0.5f) + 1.0f;
         func_8007D0E0(effect->obj.pos.x + randX, effect->obj.pos.y + randY, effect->obj.pos.z,
                       effect->scale2 * randOther);
@@ -1676,8 +1676,8 @@ void func_8007C50C(Effect* effect) {
     f32 randOther;
 
     if (!(effect->timer_50 & 7)) {
-        randX = RAND_CENTEREDFLOAT(40.0f) * effect->scale2;
-        randY = RAND_CENTEREDFLOAT(40.0f) * effect->scale2;
+        randX = RAND_FLOAT_CENTERED(40.0f) * effect->scale2;
+        randY = RAND_FLOAT_CENTERED(40.0f) * effect->scale2;
         randOther = RAND_FLOAT(1.0f) + 1.0f;
         func_8007C484(effect->obj.pos.x + randX, effect->obj.pos.y + randY, effect->obj.pos.z, effect->vel.x,
                       effect->vel.y, effect->vel.z, effect->scale2 * randOther, 0);
@@ -1768,8 +1768,8 @@ void func_8007C8C4(Effect* effect) {
     }
 
     if (!(effect->timer_50 & var_v0) && (gLevelType == LEVELTYPE_PLANET)) {
-        randX = RAND_CENTEREDFLOAT(10.0f);
-        randY = RAND_CENTEREDFLOAT(10.0f);
+        randX = RAND_FLOAT_CENTERED(10.0f);
+        randY = RAND_FLOAT_CENTERED(10.0f);
         randOther = RAND_FLOAT(0.5f) + 1.0f;
         func_8007C85C(effect->obj.pos.x + randX, effect->obj.pos.y + randY, effect->obj.pos.z,
                       effect->scale2 * randOther);
@@ -3352,12 +3352,12 @@ void func_8008165C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32
             break;
 
         case 5:
-            effect->vel.x = RAND_CENTEREDFLOAT(20.0f);
+            effect->vel.x = RAND_FLOAT_CENTERED(20.0f);
             effect->vel.y = RAND_FLOAT(20.0f) + 30.0f;
             effect->vel.z = RAND_FLOAT(30.0f);
 
             effect->unk_46 = 5;
-            effect->unk_44 = RAND_CENTEREDFLOAT(20.0f) * 1.5f;
+            effect->unk_44 = RAND_FLOAT_CENTERED(20.0f) * 1.5f;
             effect->info.unk_14 = 0;
             effect->unk_4A = 0xFF;
             break;
@@ -3369,24 +3369,24 @@ void func_8008165C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32
 
         case 7:
             effect->vel.y = RAND_FLOAT(7.0f) + 7.0f;
-            effect->vel.x = RAND_CENTEREDFLOAT(10.0f);
-            effect->vel.z = RAND_CENTEREDFLOAT(10.0f);
+            effect->vel.x = RAND_FLOAT_CENTERED(10.0f);
+            effect->vel.z = RAND_FLOAT_CENTERED(10.0f);
 
             effect->scale2 = (RAND_FLOAT(0.8f) + 0.3f) * scale2;
             effect->timer_50 = RAND_INT(50.0f) + 70;
             effect->obj.rot.x = RAND_FLOAT(360.0f);
 
-            effect->unk_60.x = RAND_CENTEREDFLOAT(30.0f);
-            effect->unk_60.y = RAND_CENTEREDFLOAT(30.0f);
-            effect->unk_60.z = RAND_CENTEREDFLOAT(30.0f);
+            effect->unk_60.x = RAND_FLOAT_CENTERED(30.0f);
+            effect->unk_60.y = RAND_FLOAT_CENTERED(30.0f);
+            effect->unk_60.z = RAND_FLOAT_CENTERED(30.0f);
 
             effect->info.unk_14 = 0;
             break;
 
         case 9:
-            effect->obj.pos.x += RAND_CENTEREDFLOAT(600.0f);
-            effect->obj.pos.y += RAND_CENTEREDFLOAT(600.0f);
-            effect->obj.pos.z += RAND_CENTEREDFLOAT(300.0f) + 300.0f;
+            effect->obj.pos.x += RAND_FLOAT_CENTERED(600.0f);
+            effect->obj.pos.y += RAND_FLOAT_CENTERED(600.0f);
+            effect->obj.pos.z += RAND_FLOAT_CENTERED(300.0f) + 300.0f;
             effect->scale1 = 0.0f;
             effect->scale2 = RAND_FLOAT(1.0f) + 1.0f;
             break;
@@ -3513,9 +3513,9 @@ void func_80081C5C(Effect* effect) {
             }
 
             if (!(gGameFrameCount & 1)) {
-                func_8007C484(RAND_CENTEREDFLOAT(50.0f) + effect->obj.pos.x,
-                              RAND_CENTEREDFLOAT(50.0f) + effect->obj.pos.y,
-                              RAND_CENTEREDFLOAT(50.0f) + effect->obj.pos.z, effect->vel.x, effect->vel.y,
+                func_8007C484(RAND_FLOAT_CENTERED(50.0f) + effect->obj.pos.x,
+                              RAND_FLOAT_CENTERED(50.0f) + effect->obj.pos.y,
+                              RAND_FLOAT_CENTERED(50.0f) + effect->obj.pos.z, effect->vel.x, effect->vel.y,
                               effect->vel.z, RAND_FLOAT(0.05f) + 0.05f, 0);
             }
 
@@ -3579,9 +3579,9 @@ void func_80081C5C(Effect* effect) {
             }
 
             if (!(gGameFrameCount & 3)) {
-                func_8007C120((RAND_CENTEREDFLOAT(effect->scale2) * 50.0f) + effect->obj.pos.x,
-                              (RAND_CENTEREDFLOAT(effect->scale2) * 50.0f) + effect->obj.pos.y,
-                              (RAND_CENTEREDFLOAT(effect->scale2) * 50.0f) + effect->obj.pos.z, effect->vel.x,
+                func_8007C120((RAND_FLOAT_CENTERED(effect->scale2) * 50.0f) + effect->obj.pos.x,
+                              (RAND_FLOAT_CENTERED(effect->scale2) * 50.0f) + effect->obj.pos.y,
+                              (RAND_FLOAT_CENTERED(effect->scale2) * 50.0f) + effect->obj.pos.z, effect->vel.x,
                               effect->vel.y, effect->vel.z, RAND_FLOAT(0.03f) + 0.05f, 10);
             }
             if (func_8006351C(effect->index, &effect->obj.pos, &velocity, 1) != 0) {
@@ -4049,10 +4049,10 @@ void func_800837EC(Effect* effect) {
                     var_fv1 = effect->unk_60.y * 100.0f;
                 }
                 for (i = 0; i < var_s2; i++) {
-                    func_80081BEC(RAND_CENTEREDFLOAT((effect->scale2 * 200.0f)) + effect->obj.pos.x,
-                                  RAND_CENTEREDFLOAT((effect->scale2 * 100.0f)) + (effect->obj.pos.y + var_fv1),
-                                  RAND_CENTEREDFLOAT((effect->scale2 * 200.0f)) + effect->obj.pos.z,
-                                  0.3f - RAND_CENTEREDFLOAT(0.2f), 0xB);
+                    func_80081BEC(effect->obj.pos.x + RAND_FLOAT_CENTERED(effect->scale2 * 200.0f),
+                                  effect->obj.pos.y + var_fv1 + RAND_FLOAT_CENTERED(effect->scale2 * 100.0f),
+                                  effect->obj.pos.z + RAND_FLOAT_CENTERED(effect->scale2 * 200.0f),
+                                  0.3f - RAND_FLOAT_CENTERED(0.2f), 11);
                 }
                 effect->state++;
             }

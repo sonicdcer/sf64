@@ -1626,11 +1626,11 @@ void func_8003B55C(PlayerShot* shot, s32 index) {
             func_8007B8F8(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
             func_8007B8F8(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
             func_8007B8F8(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
-            func_i3_801AC8A8(RAND_CENTEREDFLOAT(10.0f) + shot->obj.pos.x, RAND_CENTEREDFLOAT(10.0f) + shot->obj.pos.y,
+            func_i3_801AC8A8(RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.x, RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.y,
                              shot->obj.pos.z, 0.8f, 0);
-            func_i3_801AC8A8(RAND_CENTEREDFLOAT(10.0f) + shot->obj.pos.x, RAND_CENTEREDFLOAT(10.0f) + shot->obj.pos.y,
+            func_i3_801AC8A8(RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.x, RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.y,
                              shot->obj.pos.z, 0.8f, 0);
-            func_i3_801AC8A8(RAND_CENTEREDFLOAT(10.0f) + shot->obj.pos.x, RAND_CENTEREDFLOAT(10.0f) + shot->obj.pos.y,
+            func_i3_801AC8A8(RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.x, RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.y,
                              shot->obj.pos.z, 0.8f, 0);
         }
     }

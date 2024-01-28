@@ -84,8 +84,8 @@ void func_i1_80199024(Actor* actor) {
 
     if (actor->timer_0BC == 0) {
         sp54.y = RAND_FLOAT(1000.0f);
-        sp54.z = RAND_CENTEREDFLOAT(10000.0f);
-        sp54.x = RAND_CENTEREDFLOAT(10000.0f);
+        sp54.z = RAND_FLOAT_CENTERED(10000.0f);
+        sp54.x = RAND_FLOAT_CENTERED(10000.0f);
         actor->fwork[4] = sp54.z;
         actor->fwork[5] = sp54.y;
         actor->fwork[6] = sp54.x;

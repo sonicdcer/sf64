@@ -1059,8 +1059,8 @@ void func_i2_80190078(Boss* boss) {
             }
 
             if (!(boss->timer_050 & 3)) {
-                func_8007D2C8(RAND_CENTEREDFLOAT(500.0f) + boss->obj.pos.x,
-                              RAND_CENTEREDFLOAT(500.0f) + boss->obj.pos.y, boss->obj.pos.z + 100.0f,
+                func_8007D2C8(RAND_FLOAT_CENTERED(500.0f) + boss->obj.pos.x,
+                              RAND_FLOAT_CENTERED(500.0f) + boss->obj.pos.y, boss->obj.pos.z + 100.0f,
                               RAND_FLOAT(5.0f) + 5.0f);
             }
 

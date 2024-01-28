@@ -560,8 +560,8 @@ void func_i3_801A8E30(void) {
             spA8[i] = 0.0f;
             sp64[i] = 0.0f;
         } else {
-            spA8[i] = RAND_CENTEREDFLOAT(70.0f);
-            sp64[i] = RAND_CENTEREDFLOAT(70.0f);
+            spA8[i] = RAND_FLOAT_CENTERED(70.0f);
+            sp64[i] = RAND_FLOAT_CENTERED(70.0f);
         }
     }
     for (i = 0; i < 34; i++) {

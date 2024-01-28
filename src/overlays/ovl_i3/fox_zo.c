@@ -695,7 +695,7 @@ void func_i3_801904CC(Actor* actor) {
             break;
         case 1:
             for (i = 0; i < 11; i++) {
-                func_i3_801900FC(&actor->vwork[i], &actor->vwork[i + 11], RAND_CENTEREDFLOAT(20.0f), RAND_FLOAT(-10.0f),
+                func_i3_801900FC(&actor->vwork[i], &actor->vwork[i + 11], RAND_FLOAT_CENTERED(20.0f), RAND_FLOAT(-10.0f),
                                  RAND_FLOAT(10.0f), 41, actor->scale, 200, i);
             }
             actor->unk_044 = 0;
@@ -880,7 +880,7 @@ void func_i3_80191010(Actor* actor) {
     switch (actor->state) {
         case 0:
             actor->fwork[3] = actor->obj.rot.x;
-            actor->fwork[1] = RAND_CENTEREDFLOAT(1000.0f);
+            actor->fwork[1] = RAND_FLOAT_CENTERED(1000.0f);
             actor->health = 10;
             actor->timer_0BC = 30;
             actor->scale = 5.0f;
@@ -936,7 +936,7 @@ void func_i3_80191010(Actor* actor) {
             break;
         case 3:
             for (i = 0; i < 3; i++) {
-                func_i3_801900FC(&actor->vwork[i], &actor->vwork[3 + i], RAND_CENTEREDFLOAT(20.0f), RAND_FLOAT(-10.0f),
+                func_i3_801900FC(&actor->vwork[i], &actor->vwork[3 + i], RAND_FLOAT_CENTERED(20.0f), RAND_FLOAT(-10.0f),
                                  RAND_FLOAT(10.0f), 42, actor->scale, 200, i);
             }
             actor->unk_044 = 4;
@@ -1024,7 +1024,7 @@ void func_i3_80191680(Actor* actor) {
     }
     if (actor->timer_0BC == 0) {
         actor->timer_0BC = 30;
-        actor->fwork[1] = gPlayer[0].pos.x + RAND_CENTEREDFLOAT(1000.0f);
+        actor->fwork[1] = gPlayer[0].pos.x + RAND_FLOAT_CENTERED(1000.0f);
         actor->fwork[2] = gPlayer[0].pos.y + 50.0f + RAND_FLOAT(200.0f);
         actor->fwork[3] = gPlayer[0].unk_138 - 1500.0f;
     }
@@ -1105,8 +1105,8 @@ void func_i3_80191BC4(Actor* actor) {
     actor->fwork[0] += 10.0f;
     func_i3_8018FF50(actor);
     if (!(gGameFrameCount & 1)) {
-        func_8007C484(RAND_CENTEREDFLOAT(50.0f) + actor->obj.pos.x, RAND_CENTEREDFLOAT(50.0f) + actor->obj.pos.y,
-                      RAND_CENTEREDFLOAT(50.0f) + actor->obj.pos.z, actor->vel.x, actor->vel.y, actor->vel.z,
+        func_8007C484(RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.x, RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.y,
+                      RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.z, actor->vel.x, actor->vel.y, actor->vel.z,
                       RAND_FLOAT(0.05f) + 0.05f, 0);
     }
 }
@@ -1263,7 +1263,7 @@ void func_i3_80192094(Actor* actor) {
             break;
         case 4:
             for (i = 0; i < 6; i++) {
-                func_i3_801900FC(&actor->vwork[i], &actor->vwork[i + 6], RAND_CENTEREDFLOAT(40.0f), RAND_FLOAT(-10.0f),
+                func_i3_801900FC(&actor->vwork[i], &actor->vwork[i + 6], RAND_FLOAT_CENTERED(40.0f), RAND_FLOAT(-10.0f),
                                  RAND_FLOAT(20.0f), 44, actor->scale, 200, i);
             }
             actor->unk_044 = 5;
@@ -1365,7 +1365,7 @@ void func_i3_80192834(Actor* actor) {
             break;
         case 2:
             for (i = 0; i < 5; i++) {
-                func_i3_801900FC(&actor->vwork[i], &actor->vwork[5 + i], RAND_CENTEREDFLOAT(20.0f), RAND_FLOAT(-10.0f),
+                func_i3_801900FC(&actor->vwork[i], &actor->vwork[5 + i], RAND_FLOAT_CENTERED(20.0f), RAND_FLOAT(-10.0f),
                                  RAND_FLOAT(10.0f), 43, actor->scale, 200, i);
             }
             actor->unk_044 = 0;
@@ -1482,7 +1482,7 @@ void func_i3_80192E64(Actor* actor) {
             break;
         case 3:
             for (i = 0; i < 9; i++) {
-                func_i3_801900FC(&actor->vwork[i], &actor->vwork[9 + i], RAND_CENTEREDFLOAT(40.0f), RAND_FLOAT(-10.0f),
+                func_i3_801900FC(&actor->vwork[i], &actor->vwork[9 + i], RAND_FLOAT_CENTERED(40.0f), RAND_FLOAT(-10.0f),
                                  RAND_FLOAT(20.0f), 59, actor->scale, 200, i);
             }
             actor->unk_044 = 7;
@@ -1635,7 +1635,7 @@ void func_i3_801937D8(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
     effect->obj.pos.z = zPos;
     effect->unk_44 = 100;
     effect->scale2 = 3.0f;
-    effect->scale1 = RAND_CENTEREDFLOAT(20.0f);
+    effect->scale1 = RAND_FLOAT_CENTERED(20.0f);
     effect->unk_78 = 100;
     effect->unk_7A = 14;
     effect->obj.rot.z = RAND_FLOAT(360.0f);
@@ -1671,7 +1671,7 @@ void func_i3_80193970(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot, s3
     effect->obj.pos.z = zPos;
     effect->scale2 = 8.0f;
     effect->unk_44 = arg5;
-    effect->scale1 = RAND_CENTEREDFLOAT(200.0f);
+    effect->scale1 = RAND_FLOAT_CENTERED(200.0f);
     effect->obj.rot.z = RAND_FLOAT(360.0f);
     effect->state = 1;
     effect->unk_78 = 100;
@@ -1699,8 +1699,8 @@ void func_i3_80193B08(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale) {
     effect->obj.pos.x = xPos;
     effect->obj.pos.y = yPos;
     effect->obj.pos.z = zPos;
-    effect->vel.x = RAND_CENTEREDFLOAT(5.0f);
-    effect->vel.y = RAND_CENTEREDFLOAT(3.0f);
+    effect->vel.x = RAND_FLOAT_CENTERED(5.0f);
+    effect->vel.y = RAND_FLOAT_CENTERED(3.0f);
     effect->unk_48 = 3;
     if (Rand_ZeroOne() < 0.5f) {
         effect->unk_48 = -effect->unk_48;
@@ -2489,15 +2489,15 @@ void func_i3_80194A84(Boss* bossZO) {
                 D_80178348 = D_80178350 = D_80178354 = D_80178340 = 0;
             }
             if (!(gGameFrameCount & 3)) {
-                spE4.x = RAND_CENTEREDFLOAT(300.0f) + bossZO->obj.pos.x;
-                spE4.y = RAND_CENTEREDFLOAT(200.0f) + (bossZO->obj.pos.y + 600.0f);
+                spE4.x = RAND_FLOAT_CENTERED(300.0f) + bossZO->obj.pos.x;
+                spE4.y = RAND_FLOAT_CENTERED(200.0f) + (bossZO->obj.pos.y + 600.0f);
                 spE4.z = bossZO->obj.pos.z - 50.0f;
                 spD8.x = bossZO->obj.rot.x;
-                spD8.y = Math_ModF(RAND_CENTEREDFLOAT(60.0f) + 360.0f, 360.0f);
+                spD8.y = Math_ModF(RAND_FLOAT_CENTERED(60.0f) + 360.0f, 360.0f);
                 spD8.z = bossZO->obj.rot.z;
                 for (i = 0; i < 5; i++) {
-                    func_i3_801900FC(&spE4, &spD8, RAND_CENTEREDFLOAT(30.0f), RAND_CENTEREDFLOAT(20.0f),
-                                     RAND_CENTEREDFLOAT(30.0f), 4, 1.0f, RAND_FLOAT(15.0f) + (bossZO->unk_3F8 * 10.0f),
+                    func_i3_801900FC(&spE4, &spD8, RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(20.0f),
+                                     RAND_FLOAT_CENTERED(30.0f), 4, 1.0f, RAND_FLOAT(15.0f) + (bossZO->unk_3F8 * 10.0f),
                                      0);
                 }
             }
@@ -2509,7 +2509,7 @@ void func_i3_80194A84(Boss* bossZO) {
             }
             func_8007C120(sZoFwork[ZO_BSF_55_X], sZoFwork[ZO_BSF_55_Y], sZoFwork[ZO_BSF_55_Z], bossZO->vel.x,
                           bossZO->vel.y, bossZO->vel.z, 0.2f, 10);
-            func_8007D0E0(RAND_CENTEREDFLOAT(200.0f) + sZoFwork[ZO_BSF_55_X],
+            func_8007D0E0(RAND_FLOAT_CENTERED(200.0f) + sZoFwork[ZO_BSF_55_X],
                           ((Rand_ZeroOne() - 0.2f) * 800.0f) + sZoFwork[ZO_BSF_55_Y], sZoFwork[ZO_BSF_55_Z], 10.0f);
             if (bossZO->timer_050 == 30) {
                 Radio_PlayMessage(gMsg_ID_6079, RCID_BOSS_ZONESS);
@@ -2545,8 +2545,8 @@ void func_i3_80194A84(Boss* bossZO) {
             D_801779A8[0] = 20.0f;
             if (!(gGameFrameCount & 7) &&
                 (func_800A73E4(&sp134, &sp130, bossZO->obj.pos.x, -300.0f, bossZO->obj.pos.z) != 0)) {
-                func_8008377C(RAND_CENTEREDFLOAT(500.0f) + bossZO->obj.pos.x, sp134 - 300.0f,
-                              RAND_CENTEREDFLOAT(3000.0f) + bossZO->obj.pos.z, 5.0f, 2.0f);
+                func_8008377C(RAND_FLOAT_CENTERED(500.0f) + bossZO->obj.pos.x, sp134 - 300.0f,
+                              RAND_FLOAT_CENTERED(3000.0f) + bossZO->obj.pos.z, 5.0f, 2.0f);
             }
             if ((bossZO->timer_050 == 0) || (bossZO->obj.pos.y < -800.0f)) {
                 Object_Kill(&bossZO->obj, bossZO->sfxPos);
@@ -2735,9 +2735,9 @@ void func_i3_80194A84(Boss* bossZO) {
     if ((sZoSwork[ZO_BSS_13] < 2) && (sZoLimbTimers[ZO_LIMB_5] != LIMB_DESTROYED)) {
         D_801779A8[0] = 20.0f;
         if (!(gGameFrameCount & 1)) {
-            func_8007D0E0(RAND_CENTEREDFLOAT(200.0f) + sZoFwork[ZO_BSF_52_X],
-                          RAND_CENTEREDFLOAT(200.0f) + sZoFwork[ZO_BSF_52_Y],
-                          RAND_CENTEREDFLOAT(100.0f) + sZoFwork[ZO_BSF_52_Z], 5.0f);
+            func_8007D0E0(RAND_FLOAT_CENTERED(200.0f) + sZoFwork[ZO_BSF_52_X],
+                          RAND_FLOAT_CENTERED(200.0f) + sZoFwork[ZO_BSF_52_Y],
+                          RAND_FLOAT_CENTERED(100.0f) + sZoFwork[ZO_BSF_52_Z], 5.0f);
         }
         if (bossZO->swork[ZO_SWK_14] != 0) {
             if (sZoLimbTimers[ZO_LIMB_5] == 0) {
@@ -3252,7 +3252,7 @@ void func_i3_80198F3C(Boss* bossZO, s32 arg1, s32 arg2) {
         sZoLimbTimers[ZO_LIMB_7 + 4 * arg1] = sZoLimbTimers[ZO_LIMB_21 + 2 * arg1] =
             sZoLimbTimers[ZO_LIMB_22 + 2 * arg1] = 15;
     }
-    func_8007D0E0(sZoFwork[ZO_BSF_0 + arg2] + RAND_CENTEREDFLOAT(400.0f),
+    func_8007D0E0(sZoFwork[ZO_BSF_0 + arg2] + RAND_FLOAT_CENTERED(400.0f),
                   sZoFwork[ZO_BSF_1 + arg2] + (Rand_ZeroOne() - 0.2f) * 800.0f, sZoFwork[ZO_BSF_2 + arg2], 7.0f);
     if (!(gGameFrameCount & 1)) {
         func_8007C120(sZoFwork[ZO_BSF_0 + arg2], sZoFwork[ZO_BSF_1 + arg2], sZoFwork[ZO_BSF_2 + arg2], bossZO->vel.x,
@@ -3380,9 +3380,9 @@ void func_i3_8019969C(Actor* actor) {
         if (actor->health <= 0) {
             actor->health = 0;
             for (i = 0; i < 5; i++) {
-                func_80079618(RAND_CENTEREDFLOAT(50.0f) + actor->obj.pos.x,
-                              RAND_CENTEREDFLOAT(50.0f) + actor->obj.pos.y,
-                              RAND_CENTEREDFLOAT(50.0f) + actor->obj.pos.z, 1.0f);
+                func_80079618(RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.x,
+                              RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.y,
+                              RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.z, 1.0f);
             }
             func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 5.0f);
             actor->unk_044 = 5;
@@ -3667,7 +3667,7 @@ void func_i3_8019A5D4(Actor* actor) {
             actor->obj.pos.z = sZoFwork[ZO_BSF_65_Z];
             if ((sZoSwork[ZO_BSS_20] != 0) && (actor->timer_0BC == 0)) {
                 if ((sZoSwork[ZO_BSS_8] == 0) && (gBosses[0].state == 8)) {
-                    var_fv1 = RAND_CENTEREDFLOAT(3000.0f);
+                    var_fv1 = RAND_FLOAT_CENTERED(3000.0f);
                     var_fa0 = 0.0f;
                 } else {
                     var_fv1 = 0.0f;
@@ -3998,19 +3998,19 @@ void func_i3_8019B854(Actor* actor) {
             break;
         case 1:
             for (i = 0; i < 6; i++) {
-                func_i3_801900FC(&actor->vwork[i], &actor->vwork[6 + i], RAND_CENTEREDFLOAT(50.0f),
-                                 RAND_FLOAT(10.0f) + 20.0f, RAND_CENTEREDFLOAT(50.0f), 39, actor->scale,
+                func_i3_801900FC(&actor->vwork[i], &actor->vwork[6 + i], RAND_FLOAT_CENTERED(50.0f),
+                                 RAND_FLOAT(10.0f) + 20.0f, RAND_FLOAT_CENTERED(50.0f), 39, actor->scale,
                                  RAND_FLOAT(15.0f) + (actor->scale * 10.0f), i);
             }
             for (i = 0; i < 10; i++) {
-                func_80079618(RAND_CENTEREDFLOAT(50.0f) + actor->obj.pos.x,
-                              RAND_CENTEREDFLOAT(50.0f) + actor->obj.pos.y,
-                              RAND_CENTEREDFLOAT(50.0f) + actor->obj.pos.z, 2.0f);
+                func_80079618(RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.x,
+                              RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.y,
+                              RAND_FLOAT_CENTERED(50.0f) + actor->obj.pos.z, 2.0f);
             }
             for (i = 0; i < 3; i++) {
-                func_8007D0E0(actor->obj.pos.x + RAND_CENTEREDFLOAT(50.0f),
-                              actor->obj.pos.y + RAND_CENTEREDFLOAT(50.0f) + 20.0f,
-                              actor->obj.pos.z + RAND_CENTEREDFLOAT(30.0f), 10.0f + 2 * i);
+                func_8007D0E0(actor->obj.pos.x + RAND_FLOAT_CENTERED(50.0f),
+                              actor->obj.pos.y + RAND_FLOAT_CENTERED(50.0f) + 20.0f,
+                              actor->obj.pos.z + RAND_FLOAT_CENTERED(30.0f), 10.0f + 2 * i);
             }
             actor->obj.pos.y += 100.0f;
             if (D_i3_801BF824[actor->iwork[0]] < 1000) {
@@ -4025,8 +4025,8 @@ void func_i3_8019B854(Actor* actor) {
                         spB4.x = D_i3_801BF84C[j].x + actor->obj.pos.x;
                         spB4.y = D_i3_801BF84C[j].y + actor->obj.pos.y;
                         spB4.z = D_i3_801BF84C[j].z + actor->obj.pos.z;
-                        sp9C.x = RAND_CENTEREDFLOAT(10.0f);
-                        sp9C.y = RAND_CENTEREDFLOAT(10.0f);
+                        sp9C.x = RAND_FLOAT_CENTERED(10.0f);
+                        sp9C.y = RAND_FLOAT_CENTERED(10.0f);
                         sp9C.z = 50.0f;
                         func_8007EE68(353, &spB4, &spA8, &spA8, &sp9C, 1.0f);
                     }

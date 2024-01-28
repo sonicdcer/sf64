@@ -1013,7 +1013,7 @@ void func_8003088C(Actor* actor) {
                     if (Rand_ZeroOne() < 0.5f) {
                         sp48.x = -30.0f;
                     }
-                    sp48.y = RAND_CENTEREDFLOAT(30.0f);
+                    sp48.y = RAND_FLOAT_CENTERED(30.0f);
                     sp48.z = 0.0f;
                     if (actor->iwork[7] != 0) {
                         sp48.x *= 1.5f;
@@ -1753,26 +1753,26 @@ void func_800319AC(Actor* this) {
                 }
                 if ((gLevelType == LEVELTYPE_SPACE) && (gCurrentLevel != LEVEL_BOLSE)) {
                     if ((gCurrentLevel == LEVEL_SECTOR_Z) && (this->unk_0E4 == 8)) {
-                        spE4 = RAND_CENTEREDFLOAT(0.0f);
-                        spE0 = RAND_CENTEREDFLOAT(500.0f);
-                        spDC = RAND_CENTEREDFLOAT(5000.0f) + 12000.0f;
+                        spE4 = RAND_FLOAT_CENTERED(0.0f);
+                        spE0 = RAND_FLOAT_CENTERED(500.0f);
+                        spDC = RAND_FLOAT_CENTERED(5000.0f) + 12000.0f;
                     } else {
-                        spE4 = RAND_CENTEREDFLOAT(15000.0f);
-                        spE0 = RAND_CENTEREDFLOAT(1000.0f);
-                        spDC = RAND_CENTEREDFLOAT(15000.0f);
+                        spE4 = RAND_FLOAT_CENTERED(15000.0f);
+                        spE0 = RAND_FLOAT_CENTERED(1000.0f);
+                        spDC = RAND_FLOAT_CENTERED(15000.0f);
                     }
                 } else {
-                    spE4 = RAND_CENTEREDFLOAT(10000.0f);
+                    spE4 = RAND_FLOAT_CENTERED(10000.0f);
                     if ((gCurrentLevel == LEVEL_BOLSE) || (gCurrentLevel == LEVEL_KATINA) ||
                         (gCurrentLevel == LEVEL_VENOM_2)) {
                         spE0 = RAND_FLOAT(1000.0f);
                     } else {
                         spE0 = 0.0f;
                     }
-                    spDC = RAND_CENTEREDFLOAT(10000.0f);
+                    spDC = RAND_FLOAT_CENTERED(10000.0f);
                     if ((gCurrentLevel == LEVEL_KATINA) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_0)) {
-                        spE4 = RAND_CENTEREDFLOAT(5000.0f);
-                        spDC = RAND_CENTEREDFLOAT(5000.0f);
+                        spE4 = RAND_FLOAT_CENTERED(5000.0f);
+                        spDC = RAND_FLOAT_CENTERED(5000.0f);
                     }
                 }
                 if ((fabsf(this->obj.pos.x - spE4) > 2000.0f) || (fabsf(this->obj.pos.z - spDC) > 2000.0f)) {

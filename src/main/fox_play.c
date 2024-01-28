@@ -195,22 +195,22 @@ void func_800A46A0(Player* player) {
     if ((player->unk_238 == 0) || (gLevelMode == LEVELMODE_ALL_RANGE)) {
         if (player->wings.rightState <= WINGSTATE_BROKEN) {
             if (!(gGameFrameCount & 1) && (D_80177D70[player->num] != 0)) {
-                func_8007D10C(RAND_CENTEREDFLOAT(10.0f) + player->hit1.x, RAND_FLOAT(5.0f) + player->hit1.y,
+                func_8007D10C(RAND_FLOAT_CENTERED(10.0f) + player->hit1.x, RAND_FLOAT(5.0f) + player->hit1.y,
                               player->hit1.z, 1.0f);
             }
             if (!(gGameFrameCount & 1) && (Rand_ZeroOne() < 0.5f) && !gVersusMode) {
-                func_8007C484(RAND_CENTEREDFLOAT(5.0f) + player->hit1.x, RAND_FLOAT(5.0f) + player->hit1.y,
+                func_8007C484(RAND_FLOAT_CENTERED(5.0f) + player->hit1.x, RAND_FLOAT(5.0f) + player->hit1.y,
                               player->hit1.z, player->vel.x, player->vel.y, player->vel.z, RAND_FLOAT(0.02f) + 0.02f,
                               player->num + 1);
             }
         }
         if (player->wings.leftState <= WINGSTATE_BROKEN) {
             if (!(gGameFrameCount & 1) && (D_80177D88[player->num] != 0)) {
-                func_8007D10C(RAND_CENTEREDFLOAT(10.0f) + player->hit2.x, RAND_FLOAT(5.0f) + player->hit2.y,
+                func_8007D10C(RAND_FLOAT_CENTERED(10.0f) + player->hit2.x, RAND_FLOAT(5.0f) + player->hit2.y,
                               player->hit2.z, 1.0f);
             }
             if (!(gGameFrameCount & 1) && (Rand_ZeroOne() < 0.5f) && !gVersusMode) {
-                func_8007C484(RAND_CENTEREDFLOAT(5.0f) + player->hit2.x, RAND_FLOAT(5.0f) + player->hit2.y,
+                func_8007C484(RAND_FLOAT_CENTERED(5.0f) + player->hit2.x, RAND_FLOAT(5.0f) + player->hit2.y,
                               player->hit2.z, player->vel.x, player->vel.y, player->vel.z, RAND_FLOAT(0.02f) + 0.02f,
                               player->num + 1);
             }
@@ -233,13 +233,13 @@ void func_800A46A0(Player* player) {
                 sp40 = 30.0f;
             }
             if (!(gGameFrameCount & var_v1)) {
-                func_8007D10C(RAND_CENTEREDFLOAT(10.0f) + player->pos.x, RAND_FLOAT(10.0f) + (player->pos.y + sp40),
-                              RAND_CENTEREDFLOAT(10.0f) + player->unk_138, 2.2f);
+                func_8007D10C(player->pos.x + RAND_FLOAT_CENTERED(10.0f), player->pos.y + sp40 + RAND_FLOAT(10.0f),
+                              player->unk_138 + RAND_FLOAT_CENTERED(10.0f), 2.2f);
             }
             if (!((var_v1 >> 2) & gGameFrameCount) && (Rand_ZeroOne() < 0.5f)) {
-                func_8007C484(RAND_CENTEREDFLOAT(30.0f) + player->pos.x, RAND_FLOAT(10.0f) + (player->pos.y + sp40),
-                              RAND_CENTEREDFLOAT(30.0f) + player->unk_138, player->vel.x, player->vel.y, player->vel.z,
-                              RAND_FLOAT(0.03f) + 0.04f, player->num + 1);
+                func_8007C484(player->pos.x + RAND_FLOAT_CENTERED(30.0f), player->pos.y + sp40 + RAND_FLOAT(10.0f),
+                              player->unk_138 + RAND_FLOAT_CENTERED(30.0f), player->vel.x, player->vel.y, player->vel.z,
+                              0.04f + RAND_FLOAT(0.03f), player->num + 1);
                 if (player->timer_224 == 0) {
                     player->timer_224 = 2;
                 }
@@ -747,16 +747,16 @@ void func_800A670C(Actor* actor, s32 state, f32 xPos, f32 yPos, f32 zPos) {
     } else {
         if (gLevelType == LEVELTYPE_PLANET) {
             actor->vel.y = RAND_FLOAT(7.0f) + 7.0f;
-            actor->vel.x = RAND_CENTEREDFLOAT(10.0f);
+            actor->vel.x = RAND_FLOAT_CENTERED(10.0f);
             actor->vel.z = RAND_FLOAT(5.0f) + 5.0f;
             if (gLevelMode == LEVELMODE_ALL_RANGE) {
-                actor->vel.z = RAND_CENTEREDFLOAT(10.0f);
+                actor->vel.z = RAND_FLOAT_CENTERED(10.0f);
             }
             actor->timer_0BC = RAND_INT(10.0f) + 10;
         } else {
-            actor->vel.x = RAND_CENTEREDFLOAT(10.0f);
-            actor->vel.y = RAND_CENTEREDFLOAT(10.0f);
-            actor->vel.z = RAND_CENTEREDFLOAT(10.0f);
+            actor->vel.x = RAND_FLOAT_CENTERED(10.0f);
+            actor->vel.y = RAND_FLOAT_CENTERED(10.0f);
+            actor->vel.z = RAND_FLOAT_CENTERED(10.0f);
             actor->timer_0BC = RAND_INT(25.0f) + 25;
             actor->gravity = 0.0f;
         }
@@ -1828,11 +1828,11 @@ void func_800A8BA4(Player* player) {
                         player->timer_498 = 5;
                         player->unk_0D8.y = 30.0f;
                         boss->dmgType = DMG_BEAM;
-                        func_8007BFFC(player->pos.x + RAND_CENTEREDFLOAT(10.0f), player->pos.y + RAND_FLOAT(10.0f),
-                                      player->unk_138 + RAND_CENTEREDFLOAT(10.0f), 0.0f, 15.0f, 0.0f, 2.0f, 5);
+                        func_8007BFFC(player->pos.x + RAND_FLOAT_CENTERED(10.0f), player->pos.y + RAND_FLOAT(10.0f),
+                                      player->unk_138 + RAND_FLOAT_CENTERED(10.0f), 0.0f, 15.0f, 0.0f, 2.0f, 5);
                         for (j = 0; j < 10; j++) {
-                            func_8007C484(player->pos.x + RAND_CENTEREDFLOAT(30.0f), player->pos.y + RAND_FLOAT(10.0f),
-                                          player->unk_138 + RAND_CENTEREDFLOAT(30.0f), player->vel.x,
+                            func_8007C484(player->pos.x + RAND_FLOAT_CENTERED(30.0f), player->pos.y + RAND_FLOAT(10.0f),
+                                          player->unk_138 + RAND_FLOAT_CENTERED(30.0f), player->vel.x,
                                           20.0f + player->vel.y, player->vel.z, RAND_FLOAT(0.1f) + 0.1f,
                                           player->num + 11);
                         }
@@ -3847,7 +3847,7 @@ void func_800B0194(Player* player) {
         Math_SmoothStepToF(&player->unk_168, -sp74 * 0.3f, 0.1f, 10.0f, 0.00001f);
     } else {
         if (((gGameFrameCount & 0xF) == 0) && (Rand_ZeroOne() < 0.5f)) {
-            player->unk_17C = RAND_CENTEREDFLOAT(100.0f);
+            player->unk_17C = RAND_FLOAT_CENTERED(100.0f);
         }
         if (((gGameFrameCount & 0xF) == 3) && (Rand_ZeroOne() < 0.5f)) {
             player->unk_174 = (Rand_ZeroOne() - 0.2f) * 50.0f;
@@ -4834,16 +4834,16 @@ void func_800B3314(Player* player) {
         player->unk_0D4 = -0.4f;
         Math_SmoothStepToF(&D_801779A8[player->num], 30.0f, 1.0f, 10.0f, 0.0f);
         if ((gCamCount == 1) && !(gGameFrameCount & 1)) {
-            func_8007BC7C(RAND_CENTEREDFLOAT(20.0f) + player->pos.x, player->unk_068 + 10.0f, player->unk_138 - 10.0f,
+            func_8007BC7C(RAND_FLOAT_CENTERED(20.0f) + player->pos.x, player->unk_068 + 10.0f, player->unk_138 - 10.0f,
                           RAND_FLOAT(2.0f) + 4.0f);
         }
     } else if ((gCamCount == 1) && !(gGameFrameCount & 3) && (player->unk_1DC == 0)) {
         if ((player->unk_16C > 0.2f) && (player->timer_220 == 0)) {
-            func_8007BC7C(RAND_CENTEREDFLOAT(10.0f) + (player->pos.x - 57.0f), player->unk_068 + 10.0f,
+            func_8007BC7C(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x - 57.0f), player->unk_068 + 10.0f,
                           player->unk_138 - 10.0f, RAND_FLOAT(2.0f) + 3.0f);
         }
         if ((player->unk_170 > 0.2f) && (player->timer_220 == 0)) {
-            func_8007BC7C(RAND_CENTEREDFLOAT(10.0f) + (player->pos.x + 57.0f), player->unk_068 + 10.0f,
+            func_8007BC7C(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x + 57.0f), player->unk_068 + 10.0f,
                           player->unk_138 - 10.0f, RAND_FLOAT(2.0f) + 3.0f);
         }
     }
@@ -6184,7 +6184,7 @@ void func_800B79B0(void) {
             var_a0 = MIN(gPlayer[0].shields, 0xFF);
             func_8001D1C8(var_a0, sp3A);
             if (!(gGameFrameCount & 7) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7)) {
-                func_i3_8019E8B8(RAND_CENTEREDFLOAT(6000.0f), -80.0f,
+                func_i3_8019E8B8(RAND_FLOAT_CENTERED(6000.0f), -80.0f,
                                  gPlayer[0].unk_138 + (RAND_FLOAT(2000.0f) + -6000.0f),
                                  RAND_FLOAT(10.0f) + 20.0f); // check
             }

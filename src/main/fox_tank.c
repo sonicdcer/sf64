@@ -148,9 +148,9 @@ void func_800438E0(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale) {
     effect->scale2 = (RAND_FLOAT(0.8f) + 0.3f) * scale;
     effect->timer_50 = RAND_INT(5.0f) + 8;
     effect->obj.rot.x = RAND_FLOAT(360.0f);
-    effect->unk_60.x = RAND_CENTEREDFLOAT(30.0f);
-    effect->unk_60.y = RAND_CENTEREDFLOAT(30.0f);
-    effect->unk_60.z = RAND_CENTEREDFLOAT(30.0f);
+    effect->unk_60.x = RAND_FLOAT_CENTERED(30.0f);
+    effect->unk_60.y = RAND_FLOAT_CENTERED(30.0f);
+    effect->unk_60.z = RAND_FLOAT_CENTERED(30.0f);
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
@@ -187,7 +187,7 @@ void func_80043B18(Player* player) {
     if (player->unk_1DC != 0) {
 
         sp48.x = 0.0f;
-        sp48.z = RAND_CENTEREDFLOAT(50.0f) + -20.0f;
+        sp48.z = RAND_FLOAT_CENTERED(50.0f) + -20.0f;
         if (player->unk_1EC < 0) {
             sp38 -= 65.0f;
         } else {
@@ -692,18 +692,18 @@ void func_80045678(Player* player) {
             Math_SmoothStepToF(&player->vel.y, 0.0f, 0.1f, 2.0f, 0);
         }
         if ((gCamCount == 1) && !(gGameFrameCount & 1)) {
-            func_8007A900(RAND_CENTEREDFLOAT(20.0f) + player->pos.x, player->unk_068 + 10.0f, player->unk_138 - 10.0f,
+            func_8007A900(RAND_FLOAT_CENTERED(20.0f) + player->pos.x, player->unk_068 + 10.0f, player->unk_138 - 10.0f,
                           RAND_FLOAT(2.0f) + 3.5f, 0xFF, 0x10, 1);
         }
     } else {
         D_800C9F3C = 0;
         if ((gCamCount == 1) && !(gGameFrameCount & 3) && (player->unk_1DC == 0)) {
             if ((player->unk_16C > 0.2f) && (player->timer_220 == 0)) {
-                func_8007A900(RAND_CENTEREDFLOAT(10.0f) + (player->pos.x - 57.0f), player->unk_068 + 10.0f,
+                func_8007A900(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x - 57.0f), player->unk_068 + 10.0f,
                               player->unk_138 - 10.0f, RAND_FLOAT(1.0f) + 1.5f, 0xFF, 0xF, 0);
             }
             if ((player->unk_170 > 0.2f) && (player->timer_220 == 0)) {
-                func_8007A900(RAND_CENTEREDFLOAT(10.0f) + (player->pos.x + 57.0f), player->unk_068 + 10.0f,
+                func_8007A900(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x + 57.0f), player->unk_068 + 10.0f,
                               player->unk_138 - 10.0f, RAND_FLOAT(1.0f) + 1.5f, 0xFF, 0xF, 0);
             }
         }

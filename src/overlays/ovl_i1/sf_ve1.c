@@ -239,16 +239,16 @@ void func_i1_80192518(Actor* actor) {
                     effect->unk_78 = effect->unk_7A;
                     effect->obj.status = 2;
 
-                    effect->obj.pos.x = RAND_CENTEREDFLOAT(3.0f) + actor->obj.pos.x;
-                    effect->obj.pos.y = RAND_CENTEREDFLOAT(3.0f) + actor->obj.pos.y;
-                    effect->obj.pos.z = RAND_CENTEREDFLOAT(3.0f) + actor->obj.pos.z + 80.0f;
+                    effect->obj.pos.x = RAND_FLOAT_CENTERED(3.0f) + actor->obj.pos.x;
+                    effect->obj.pos.y = RAND_FLOAT_CENTERED(3.0f) + actor->obj.pos.y;
+                    effect->obj.pos.z = RAND_FLOAT_CENTERED(3.0f) + actor->obj.pos.z + 80.0f;
 
                     effect->scale2 = 8.0f;
 
                     effect->obj.rot.z = RAND_FLOAT(360.0f);
 
-                    effect->vel.x = RAND_CENTEREDFLOAT(5.0f);
-                    effect->vel.y = RAND_CENTEREDFLOAT(3.0f) + 10.0f;
+                    effect->vel.x = RAND_FLOAT_CENTERED(5.0f);
+                    effect->vel.y = RAND_FLOAT_CENTERED(3.0f) + 10.0f;
 
                     effect->unk_44 = 100;
                     effect->unk_46 = -5;

@@ -1727,8 +1727,8 @@ void func_i4_8019E454(Boss* boss) {
         z = boss->obj.pos.z + 1000.0f;
 
         for (i = 0; i < 25; i++) {
-            func_800794CC(x + RAND_CENTEREDFLOAT(300.0f), y + RAND_CENTEREDFLOAT(100.0f), z, 2.0f);
-            func_80079618(x + RAND_CENTEREDFLOAT(300.0f), y + RAND_CENTEREDFLOAT(100.0f), z, 2.0f);
+            func_800794CC(x + RAND_FLOAT_CENTERED(300.0f), y + RAND_FLOAT_CENTERED(100.0f), z, 2.0f);
+            func_80079618(x + RAND_FLOAT_CENTERED(300.0f), y + RAND_FLOAT_CENTERED(100.0f), z, 2.0f);
         }
         func_8007BFFC(x, y, z, 0.0f, 0.0f, 0.0f, 20.0f, 30);
     }
@@ -1737,7 +1737,7 @@ void func_i4_8019E454(Boss* boss) {
         for (j = 0; j < 1; j++) {
             i = RAND_INT(11.99f);
             func_i4_80199BDC(D_i4_8019F64C[i].x + boss->obj.pos.x, D_i4_8019F64C[i].y + boss->obj.pos.y,
-                             D_i4_8019F64C[i].z + boss->obj.pos.z, RAND_CENTEREDFLOAT(5.0f), RAND_CENTEREDFLOAT(5.0f),
+                             D_i4_8019F64C[i].z + boss->obj.pos.z, RAND_FLOAT_CENTERED(5.0f), RAND_FLOAT_CENTERED(5.0f),
                              10.0f, RAND_FLOAT(2.0f) + 4.0f);
         }
     }
@@ -1820,8 +1820,8 @@ void func_i4_8019EA68(void) {
             actor->obj.pos.y = D_80178310[i].yPos;
             actor->obj.pos.z = -D_80178310[i].zPos1;
             actor->health = 24;
-            actor->unk_0F4.x = RAND_CENTEREDFLOAT(4.0f);
-            actor->unk_0F4.y = RAND_CENTEREDFLOAT(4.0f);
+            actor->unk_0F4.x = RAND_FLOAT_CENTERED(4.0f);
+            actor->unk_0F4.y = RAND_FLOAT_CENTERED(4.0f);
             Object_SetInfo(&actor->info, actor->obj.id);
             actor->unk_044 = 1;
 

@@ -1465,9 +1465,9 @@ void func_i2_8018978C(Boss* boss) {
 
                 case 0:
                     for (i = 0; i < 0x64; i++) {
-                        func_80079618(RAND_CENTEREDFLOAT(1000.0f) + boss->obj.pos.x,
-                                      RAND_CENTEREDFLOAT(1000.0f) + boss->obj.pos.y,
-                                      RAND_CENTEREDFLOAT(1000.0f) + boss->obj.pos.z, 3.0f);
+                        func_80079618(RAND_FLOAT_CENTERED(1000.0f) + boss->obj.pos.x,
+                                      RAND_FLOAT_CENTERED(1000.0f) + boss->obj.pos.y,
+                                      RAND_FLOAT_CENTERED(1000.0f) + boss->obj.pos.z, 3.0f);
                     }
                     break;
             }
@@ -1802,9 +1802,9 @@ void func_i2_8018C8F4(Actor* actor1, Actor* actor2) {
     actor1->obj.status = OBJ_INIT;
     actor1->obj.id = OBJ_ACTOR_182;
 
-    actor1->obj.pos.x = RAND_CENTEREDFLOAT_SEEDED(2000.0f) + actor2->obj.pos.x;
-    actor1->obj.pos.y = RAND_CENTEREDFLOAT_SEEDED(2000.0f) + actor2->obj.pos.y;
-    actor1->obj.pos.z = (RAND_CENTEREDFLOAT_SEEDED(500.0f) + actor2->obj.pos.z) - 9000.0f;
+    actor1->obj.pos.x = RAND_FLOAT_CENTERED_SEEDED(2000.0f) + actor2->obj.pos.x;
+    actor1->obj.pos.y = RAND_FLOAT_CENTERED_SEEDED(2000.0f) + actor2->obj.pos.y;
+    actor1->obj.pos.z = (RAND_FLOAT_CENTERED_SEEDED(500.0f) + actor2->obj.pos.z) - 9000.0f;
 
     actor1->obj.rot.y = RAND_FLOAT_SEEDED(360.0f);
     actor1->obj.rot.x = RAND_FLOAT_SEEDED(360.0f);
@@ -1855,9 +1855,9 @@ void func_i2_8018CB50(Effect* effect, Actor* actor) {
     effect->obj.pos.y = actor->obj.pos.y;
     effect->obj.pos.z = actor->obj.pos.z;
 
-    effect->vel.x = RAND_CENTEREDFLOAT(30.0f);
-    effect->vel.y = RAND_CENTEREDFLOAT(30.0f);
-    effect->vel.z = RAND_CENTEREDFLOAT(30.0f);
+    effect->vel.x = RAND_FLOAT_CENTERED(30.0f);
+    effect->vel.y = RAND_FLOAT_CENTERED(30.0f);
+    effect->vel.z = RAND_FLOAT_CENTERED(30.0f);
 
     effect->obj.rot.z = RAND_FLOAT(360.0f);
     Object_SetInfo(&effect->info, effect->obj.id);
@@ -2116,7 +2116,7 @@ void func_i2_8018CD8C(Player* player) {
 void func_i2_8018D9EC(Actor* actor) {
     switch (actor->state) {
         case 0:
-            actor->fwork[0] = RAND_CENTEREDFLOAT(10.0f);
+            actor->fwork[0] = RAND_FLOAT_CENTERED(10.0f);
             actor->state = 1;
 
         case 1:
