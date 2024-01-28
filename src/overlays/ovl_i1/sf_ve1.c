@@ -239,16 +239,16 @@ void func_i1_80192518(Actor* actor) {
                     effect->unk_78 = effect->unk_7A;
                     effect->obj.status = 2;
 
-                    effect->obj.pos.x = (Rand_ZeroOne() - 0.5f) * 3.0f + actor->obj.pos.x;
-                    effect->obj.pos.y = (Rand_ZeroOne() - 0.5f) * 3.0f + actor->obj.pos.y;
-                    effect->obj.pos.z = (Rand_ZeroOne() - 0.5f) * 3.0f + actor->obj.pos.z + 80.0f;
+                    effect->obj.pos.x = RAND_FLOAT_CENTERED(3.0f) + actor->obj.pos.x;
+                    effect->obj.pos.y = RAND_FLOAT_CENTERED(3.0f) + actor->obj.pos.y;
+                    effect->obj.pos.z = RAND_FLOAT_CENTERED(3.0f) + actor->obj.pos.z + 80.0f;
 
                     effect->scale2 = 8.0f;
 
-                    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+                    effect->obj.rot.z = RAND_FLOAT(360.0f);
 
-                    effect->vel.x = (Rand_ZeroOne() - 0.5f) * 5.0f;
-                    effect->vel.y = (Rand_ZeroOne() - 0.5f) * 3.0f + 10.0f;
+                    effect->vel.x = RAND_FLOAT_CENTERED(5.0f);
+                    effect->vel.y = RAND_FLOAT_CENTERED(3.0f) + 10.0f;
 
                     effect->unk_44 = 100;
                     effect->unk_46 = -5;
@@ -274,7 +274,7 @@ void func_i1_80192518(Actor* actor) {
             break;
 
         case 3:
-            src.x = __sinf(((((30 - actor->timer_0BE) % 10) / 10.0f) * M_PI) * 2) * 5.0f;
+            src.x = __sinf((((30 - actor->timer_0BE) % 10) / 10.0f) * M_PI * 2) * 5.0f;
             src.y = 0.0f;
             src.z = 0.0f;
 
@@ -300,8 +300,8 @@ void func_i1_80192AA4(Actor* actor) {
     Vec3f dest;
     f32 var_fs0;
 
-    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * 0.017453292f, 0U);
-    Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * 0.017453292f, 1U);
+    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0U);
+    Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1U);
 
     if ((actor->obj.rot.y <= 30.0f) || (actor->obj.rot.y >= 330.0f)) {
         temp.x = D_i1_80199FFC.x;
@@ -316,8 +316,8 @@ void func_i1_80192AA4(Actor* actor) {
         }
         if (0.0f <= 450.0f) {
             for (var_fs0 = 0.0f; var_fs0 <= 450.0f; var_fs0 += 50.0f) {
-                Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * 0.017453292f, 0U);
-                Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * 0.017453292f, 1U);
+                Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0U);
+                Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1U);
                 src.y = var_fs0;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
             }

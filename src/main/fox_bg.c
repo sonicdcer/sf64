@@ -605,7 +605,7 @@ void func_8003E1E8(void) {
                         case LEVEL_SECTOR_Z:
                             Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, 1);
                             Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, 1);
-                            Matrix_RotateX(gGfxMatrix, M_PI / 2.0f, 1);
+                            Matrix_RotateX(gGfxMatrix, M_PI / 2, 1);
                             Matrix_SetGfxMtx(&gMasterDisp);
                             gSPDisplayList(gMasterDisp++, D_6002F80);
                             break;
@@ -631,8 +631,8 @@ void func_8003E1E8(void) {
                 sp124 = 0;
                 sp48 = 0.0f;
                 for (sp124 = 0; sp124 < 300; sp124++, sp50++, sp4C++) {
-                    *sp50 = (Rand_ZeroOneSeeded() * 480.0f) - 80.0f;
-                    *sp4C = (Rand_ZeroOneSeeded() * 360.0f) - 60.0f;
+                    *sp50 = RAND_FLOAT_SEEDED(480.0f) - 80.0f;
+                    *sp4C = RAND_FLOAT_SEEDED(360.0f) - 60.0f;
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, (*sp50 - 160.0f) * 10.0f, (*sp4C - 120.0f) * 10.0f, -5000.0f, 1);
                     Matrix_RotateZ(gGfxMatrix, sp48, 1);
@@ -640,7 +640,7 @@ void func_8003E1E8(void) {
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_800CFD80);
                     Matrix_Pop(&gGfxMatrix);
-                    sp48 += M_PI / 4.0f;
+                    sp48 += M_PI / 4;
                 }
             }
             break;
@@ -766,7 +766,7 @@ void func_80040954(void) {
             Matrix_Translate(gGfxMatrix, *var_s7 * temp_fs0, *var_s7 * -temp_fs1, 0.0f, 1);
             Matrix_Scale(gGfxMatrix, *var_s6, *var_s6, *var_s6, 1);
             if (((i == 5) || (i == 11)) && (gCurrentLevel != LEVEL_KATINA)) {
-                Matrix_RotateX(gGfxMatrix, M_PI / 2.0f, 1);
+                Matrix_RotateX(gGfxMatrix, M_PI / 2, 1);
             }
             Matrix_SetGfxMtx(&gMasterDisp);
             var_fv0 = *var_s4;
