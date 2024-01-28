@@ -487,7 +487,7 @@ void func_i2_801887D0(Boss* boss) {
         if (boss->swork[0] != 0) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, boss->swork[0]);
             Matrix_Push(&gGfxMatrix);
-            Matrix_RotateZ(gGfxMatrix, i * (M_PI / 2), 1);
+            Matrix_RotateZ(gGfxMatrix, M_DTOR * 90.0f * i, 1);
             Matrix_Translate(gGfxMatrix, 0.0f, 156.0f, 930.0f, 1);
 
             if (gGameFrameCount & 1) {
@@ -746,7 +746,7 @@ void func_i2_801892F0(Boss* boss, s32 arg1) {
         Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, 0);
         Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, 1);
         Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, 1);
-        Matrix_RotateZ(gCalcMatrix, arg1 * (M_PI / 2), 1);
+        Matrix_RotateZ(gCalcMatrix, M_DTOR * 90.0f * arg1, 1);
 
         src.x = 0.0f;
         src.y = 200.0f;
@@ -978,7 +978,7 @@ void func_i2_8018978C(Boss* boss) {
                     if (boss->obj.pos.y > 0.0f) {
                         boss->fwork[13] = -7.0f;
                     }
-                    boss->timer_054 = (s32) (Rand_ZeroOne() * 30.0f) + 40.0f;
+                    boss->timer_054 = RAND_INT(30.0f) + 40.0f;
                     boss->swork[16] = 1;
                 }
                 break;
@@ -994,7 +994,7 @@ void func_i2_8018978C(Boss* boss) {
 
                 if (boss->timer_054 == 0) {
                     boss->swork[16] = 0;
-                    boss->timer_054 = (s32) (Rand_ZeroOne() * 30.0f) + 40.0f;
+                    boss->timer_054 = RAND_INT(30.0f) + 40.0f;
                 }
                 break;
         }
@@ -1015,7 +1015,7 @@ void func_i2_8018978C(Boss* boss) {
                     if (boss->obj.pos.x > 0.0f) {
                         boss->fwork[14] = -7.0f;
                     }
-                    boss->timer_056 = (s32) (Rand_ZeroOne() * 40.0f) + 50.0f;
+                    boss->timer_056 = RAND_INT(40.0f) + 50.0f;
                     boss->swork[17] = 1;
                 }
                 break;
@@ -1029,7 +1029,7 @@ void func_i2_8018978C(Boss* boss) {
                 }
                 if (boss->timer_056 == 0) {
                     boss->swork[17] = 0;
-                    boss->timer_056 = (s32) (Rand_ZeroOne() * 40.0f) + 50.0f;
+                    boss->timer_056 = RAND_INT(40.0f) + 50.0f;
                 }
                 break;
         }
@@ -1204,7 +1204,7 @@ void func_i2_8018978C(Boss* boss) {
             }
 
             if (boss->timer_058 == 0) {
-                boss->timer_058 = (s32) (Rand_ZeroOne() * 80.0f) + 180.0f;
+                boss->timer_058 = RAND_INT(80.0f) + 180.0f;
                 boss->swork[18] = 1;
             }
             break;
@@ -1270,7 +1270,7 @@ void func_i2_8018978C(Boss* boss) {
                     D_80178348 = D_80178350 = D_80178354 = 0xFF;
                     func_i2_80187E38(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 1300.0f,
                                      boss->fwork[12] + boss->obj.rot.z);
-                    boss->fwork[12] = Rand_ZeroOne() * 360.0f;
+                    boss->fwork[12] = RAND_FLOAT(360.0f);
                 }
                 if ((boss->timer_050 == 13) || (boss->timer_050 == 33) || (boss->timer_050 == 53) ||
                     (boss->timer_050 == 73)) {
@@ -1340,7 +1340,7 @@ void func_i2_8018978C(Boss* boss) {
                     boss->fwork[10] = boss->fwork[10] + 0.0002f;
                 }
 
-                boss->obj.rot.x += ((-180.0f - boss->obj.rot.x) * boss->fwork[10]);
+                boss->obj.rot.x += (-180.0f - boss->obj.rot.x) * boss->fwork[10];
 
                 if (boss->timer_052 != 0) {
                     if (boss->swork[0] == 5) {
@@ -1364,7 +1364,7 @@ void func_i2_8018978C(Boss* boss) {
             break;
 
         case 9:
-            boss->obj.rot.x += ((-180.0f - boss->obj.rot.x) * boss->fwork[10]);
+            boss->obj.rot.x += (-180.0f - boss->obj.rot.x) * boss->fwork[10];
             if ((boss->timer_050 > 50) && (boss->timer_050 <= 64)) {
                 boss->fwork[22] -= 0.1f;
                 if (boss->fwork[22] < 0.0f) {
@@ -1423,7 +1423,7 @@ void func_i2_8018978C(Boss* boss) {
                 boss->timer_05C = 4;
             }
 
-            Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i2_80195430[(s32) ((Rand_ZeroOne() * 19.9f))], &dest);
+            Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i2_80195430[RAND_INT(19.9f)], &dest);
 
             if (!(gGameFrameCount & 1)) {
                 func_8007C120(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, boss->vel.x,
@@ -1612,7 +1612,7 @@ void func_i2_8018BACC(Boss* boss) {
 
             if (i == 4) {
                 Matrix_Translate(gGfxMatrix, 0.0f, 0, 300.0f, 1);
-                Matrix_RotateZ(gGfxMatrix, (M_PI / 4), 1);
+                Matrix_RotateZ(gGfxMatrix, M_PI / 4, 1);
                 Matrix_Scale(gGfxMatrix, boss->fwork[21], boss->fwork[21], 1.0f, 1);
             }
 
@@ -1627,7 +1627,7 @@ void func_i2_8018BACC(Boss* boss) {
             }
 
             if (i < 4) {
-                Matrix_RotateZ(gGfxMatrix, i * (M_PI / 2), 1);
+                Matrix_RotateZ(gGfxMatrix, M_DTOR * 90.0f * i, 1);
                 Matrix_Translate(gGfxMatrix, 0.0f, 200.0f, 500.0f, 1);
                 Matrix_Scale(gGfxMatrix, boss->fwork[17 + i], boss->fwork[17 + i], 1.0f, 1);
             }
@@ -1655,22 +1655,22 @@ void func_i2_8018BACC(Boss* boss) {
             switch (i) {
                 case 0:
                     Matrix_Translate(gGfxMatrix, 746.0f, 741.0f, 680.0f, 1);
-                    Matrix_RotateZ(gGfxMatrix, -(M_PI / 4), 1);
+                    Matrix_RotateZ(gGfxMatrix, -M_PI / 4, 1);
                     break;
 
                 case 1:
                     Matrix_Translate(gGfxMatrix, -746.0f, 741.0f, 680.0f, 1);
-                    Matrix_RotateZ(gGfxMatrix, (M_PI / 4), 1);
+                    Matrix_RotateZ(gGfxMatrix, M_PI / 4, 1);
                     break;
 
                 case 2:
                     Matrix_Translate(gGfxMatrix, -746.0f, -741.0f, 680.0f, 1);
-                    Matrix_RotateZ(gGfxMatrix, (3 * M_PI / 4), 1);
+                    Matrix_RotateZ(gGfxMatrix, 3 * M_PI / 4, 1);
                     break;
 
                 case 3:
                     Matrix_Translate(gGfxMatrix, 746.0f, -741.0f, 680.0f, 1);
-                    Matrix_RotateZ(gGfxMatrix, -(3 * M_PI / 4), 1);
+                    Matrix_RotateZ(gGfxMatrix, -3 * M_PI / 4, 1);
                     break;
             }
 
@@ -1686,10 +1686,10 @@ void func_i2_8018BACC(Boss* boss) {
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_102ED50);
             Matrix_Pop(&gGfxMatrix);
-            Matrix_RotateX(gGfxMatrix, -(M_PI / 6), 1);
+            Matrix_RotateX(gGfxMatrix, -M_PI / 6, 1);
 
             if (gGameFrameCount & 1) {
-                Matrix_RotateY(gGfxMatrix, 3.1415927f, 1);
+                Matrix_RotateY(gGfxMatrix, M_PI, 1);
             }
             Matrix_Scale(gGfxMatrix, 2.0f, 2.0f * var_fs1, 2.0f, 1);
             Matrix_Translate(gGfxMatrix, 0.0f, -20.0f, 0.0f, 1);
@@ -1802,12 +1802,12 @@ void func_i2_8018C8F4(Actor* actor1, Actor* actor2) {
     actor1->obj.status = OBJ_INIT;
     actor1->obj.id = OBJ_ACTOR_182;
 
-    actor1->obj.pos.x = ((Rand_ZeroOneSeeded() - 0.5f) * 2000.0f) + actor2->obj.pos.x;
-    actor1->obj.pos.y = ((Rand_ZeroOneSeeded() - 0.5f) * 2000.0f) + actor2->obj.pos.y;
-    actor1->obj.pos.z = (((Rand_ZeroOneSeeded() - 0.5f) * 500.0f) + actor2->obj.pos.z) - 9000.0f;
+    actor1->obj.pos.x = RAND_CENTEREDFLOAT_SEEDED(2000.0f) + actor2->obj.pos.x;
+    actor1->obj.pos.y = RAND_CENTEREDFLOAT_SEEDED(2000.0f) + actor2->obj.pos.y;
+    actor1->obj.pos.z = (RAND_CENTEREDFLOAT_SEEDED(500.0f) + actor2->obj.pos.z) - 9000.0f;
 
-    actor1->obj.rot.y = Rand_ZeroOneSeeded() * 360.0f;
-    actor1->obj.rot.x = Rand_ZeroOneSeeded() * 360.0f;
+    actor1->obj.rot.y = RAND_FLOAT_SEEDED(360.0f);
+    actor1->obj.rot.x = RAND_FLOAT_SEEDED(360.0f);
 
     actor1->timer_0C2 = 10000;
     actor1->vel.z = 30.0f;
@@ -1823,8 +1823,8 @@ void func_i2_8018CA10(Actor* actor1, Actor* actor2, f32 x, f32 y, f32 z) {
     actor1->obj.pos.y = actor2->obj.pos.y + y;
     actor1->obj.pos.z = actor2->obj.pos.x + z;
 
-    actor1->obj.rot.y = Rand_ZeroOneSeeded() * 360.0f;
-    actor1->obj.rot.x = Rand_ZeroOneSeeded() * 360.0f;
+    actor1->obj.rot.y = RAND_FLOAT_SEEDED(360.0f);
+    actor1->obj.rot.x = RAND_FLOAT_SEEDED(360.0f);
 
     actor1->timer_0C2 = 0x2710;
     actor1->vel.z = 30.0f;
@@ -1848,8 +1848,8 @@ void func_i2_8018CB50(Effect* effect, Actor* actor) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_346;
-    effect->timer_50 = (s32) (Rand_ZeroOne() * 20.0f) + 20.0f;
-    effect->scale2 = (Rand_ZeroOne() * 0.5f) + 0.5f;
+    effect->timer_50 = RAND_INT(20.0f) + 20.0f;
+    effect->scale2 = RAND_FLOAT(0.5f) + 0.5f;
 
     effect->obj.pos.x = actor->obj.pos.x;
     effect->obj.pos.y = actor->obj.pos.y;
@@ -1859,7 +1859,7 @@ void func_i2_8018CB50(Effect* effect, Actor* actor) {
     effect->vel.y = RAND_CENTEREDFLOAT(30.0f);
     effect->vel.z = RAND_CENTEREDFLOAT(30.0f);
 
-    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    effect->obj.rot.z = RAND_FLOAT(360.0f);
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
@@ -2145,7 +2145,7 @@ void func_i2_8018DBEC(Effect* effect) {
     if (effect->state == 1) {
         Matrix_RotateX(gGfxMatrix, effect->obj.rot.x * M_DTOR, 1);
         Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, 1);
-        Matrix_RotateZ(gGfxMatrix, (M_PI / 2), 1);
+        Matrix_RotateZ(gGfxMatrix, M_PI / 2, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_44);
         gSPDisplayList(gMasterDisp++, D_60263F0);
@@ -2161,7 +2161,7 @@ void func_i2_8018DCE4(Effect* effect) {
             Matrix_RotateZ(gGfxMatrix, M_PI, 1);
         }
 
-        Matrix_RotateX(gGfxMatrix, -(M_PI / 2), 1);
+        Matrix_RotateX(gGfxMatrix, -M_PI / 2, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 160, 255, 160, effect->unk_44);
         gSPDisplayList(gMasterDisp++, D_102F5E0);
@@ -2471,9 +2471,9 @@ void func_i2_8018E084(Player* player) {
     player->unk_138 = player->pos.z + player->unk_08C;
     player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
     player->unk_088 += 10.0f;
-    player->unk_080 = -__sinf(player->unk_088 * M_DTOR) * 0.3f;
+    player->unk_080 = -SIN_DEG(player->unk_088) * 0.3f;
     player->unk_0F4 += 8.0f;
-    player->unk_0F0 = __sinf(player->unk_0F4 * M_DTOR);
+    player->unk_0F0 = SIN_DEG(player->unk_0F4);
 }
 
 void func_i2_8018ED9C(Actor* actor) {

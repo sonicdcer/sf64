@@ -755,7 +755,7 @@ void func_menu_801888E8(void) {
             break;
 
         case 3:
-            D_menu_801B82A8 = (s32) ((Rand_ZeroOne() * 5.0f) + 1.0f) * 10;
+            D_menu_801B82A8 = (s32) (RAND_FLOAT(5.0f) + 1.0f) * 10;
             temp_fv1 = D_menu_801B8340;
             D_menu_801B8350[D_menu_801B8340].unk_5C = 0;
             D_menu_801B8350[D_menu_801B8340].unk_18 = 0.0f;
@@ -765,10 +765,10 @@ void func_menu_801888E8(void) {
             }
 
             while (temp_fv1 == D_menu_801B8340) {
-                D_menu_801B8340 = (s32) (Rand_ZeroOne() * 4.0f);
+                D_menu_801B8340 = RAND_INT(4.0f);
             }
 
-            D_menu_801B8350[D_menu_801B8340].unk_5C = (s32) (Rand_ZeroOne() * 6.0f) + 5;
+            D_menu_801B8350[D_menu_801B8340].unk_5C = RAND_INT(6.0f) + 5;
             D_menu_801B8350[D_menu_801B8340].unk_54 = 1;
 
             D_menu_801B82CC = 0.07f;
@@ -887,10 +887,9 @@ void func_menu_80189208(void) {
     gAmbientB = D_menu_801B830C;
 
     if ((D_menu_801B86A4 < 2) && (D_menu_801B9040 != 0)) {
-        D_menu_801B86D8 = Math_Atan2F(-D_menu_801B9060, sqrtf((-D_menu_801B905C * -D_menu_801B905C) +
-                                                              (-D_menu_801B9064 * -D_menu_801B9064))) *
-                          180.0f / M_PI;
-        D_menu_801B86DC = (Math_Atan2F(D_menu_801B905C, D_menu_801B9064) * 180.0f) / M_PI;
+        D_menu_801B86D8 = RAD_TO_DEG(Math_Atan2F(-D_menu_801B9060, sqrtf(SQ(-D_menu_801B905C) +
+                                                              SQ(-D_menu_801B9064))));
+        D_menu_801B86DC = RAD_TO_DEG(Math_Atan2F(D_menu_801B905C, D_menu_801B9064));
 
         Math_SmoothStepToF(&D_menu_801B86C8, D_menu_801B86D8, 0.1f, 100.0f, 0.0001f);
         Math_SmoothStepToF(&D_menu_801B86CC, D_menu_801B86DC, 0.1f, 100.0f, 0.0001f);
@@ -923,11 +922,11 @@ void func_menu_801894E8(void) {
     D_menu_801B7C98 = 10;
 
     for (i = 0; i < 10; i++) {
-        D_menu_801B7BF8[i] = 10.0f + (Rand_ZeroOne() * 10.0f);
-        D_menu_801B7C20[i] = -10.0f + (Rand_ZeroOne() * -60.0f);
+        D_menu_801B7BF8[i] = 10.0f + RAND_FLOAT(10.0f);
+        D_menu_801B7C20[i] = -10.0f + RAND_FLOAT(-60.0f);
         D_menu_801B7C48[i] = 0.0f;
-        D_menu_801B7C70[i] = 0.1f + (Rand_ZeroOne() * 0.3f);
-        D_menu_801B7D18[i] = 5 + (s32) (Rand_ZeroOne() * 5.0f);
+        D_menu_801B7C70[i] = 0.1f + RAND_FLOAT(0.3f);
+        D_menu_801B7D18[i] = 5 + RAND_INT(5.0f);
         D_menu_801B7CC8[i] = 255;
         D_menu_801B7CF0[i] = 128;
         D_menu_801B7CA0[i] = 0;
@@ -1557,11 +1556,11 @@ void func_menu_8018B058(void) {
     D_menu_801B7C98 = 10;
 
     for (i = 0; i < 10; i++) {
-        D_menu_801B7BF8[i] = (Rand_ZeroOne() * 10.0f) + 10.0f;
-        D_menu_801B7C20[i] = -10.0f + (Rand_ZeroOne() * -60.0f);
+        D_menu_801B7BF8[i] = RAND_FLOAT(10.0f) + 10.0f;
+        D_menu_801B7C20[i] = -10.0f + RAND_FLOAT(-60.0f);
         D_menu_801B7C48[i] = 0.0f;
-        D_menu_801B7C70[i] = 0.1f + (Rand_ZeroOne() * 0.3f);
-        D_menu_801B7D18[i] = 5 + (s32) (Rand_ZeroOne() * 5.0f);
+        D_menu_801B7C70[i] = 0.1f + RAND_FLOAT(0.3f);
+        D_menu_801B7D18[i] = 5 + RAND_INT(5.0f);
         D_menu_801B7CC8[i] = 255;
         D_menu_801B7CF0[i] = 128;
         D_menu_801B7CA0[i] = 0;
@@ -1570,12 +1569,12 @@ void func_menu_8018B058(void) {
     D_menu_801B8100 = 20;
 
     for (i = 0; i < D_menu_801B8100; i++) {
-        D_menu_801B7D40[i] = -(Rand_ZeroOne() * 22.0f) + 13.0f;
-        D_menu_801B7DE0[i] = 5.0f - (Rand_ZeroOne() * 10.0f);
-        D_menu_801B7E80[i] = -25.0f - (Rand_ZeroOne() * 15.0f);
+        D_menu_801B7D40[i] = -RAND_FLOAT(22.0f) + 13.0f;
+        D_menu_801B7DE0[i] = 5.0f - RAND_FLOAT(10.0f);
+        D_menu_801B7E80[i] = -25.0f - RAND_FLOAT(15.0f);
         D_menu_801B7FC0[i] = 0.0f;
-        D_menu_801B8060[i] = Rand_ZeroOne() * 0.04f;
-        D_menu_801B7F20[i] = 0.02f + (Rand_ZeroOne() * 0.08f);
+        D_menu_801B8060[i] = RAND_FLOAT(0.04f);
+        D_menu_801B7F20[i] = 0.02f + RAND_FLOAT(0.08f);
         D_menu_801B8108[i] = 0;
     }
 
@@ -1913,11 +1912,11 @@ void func_menu_8018C1C0(void) {
     D_menu_801B7C98 = 10;
 
     for (i = 0; i < 10; i++) {
-        D_menu_801B7BF8[i] = (Rand_ZeroOne() * 10.0f) + 10.0f;
-        D_menu_801B7C20[i] = -10.0f + (Rand_ZeroOne() * -60.0f);
+        D_menu_801B7BF8[i] = RAND_FLOAT(10.0f) + 10.0f;
+        D_menu_801B7C20[i] = -10.0f + RAND_FLOAT(-60.0f);
         D_menu_801B7C48[i] = 0.0f;
-        D_menu_801B7C70[i] = (Rand_ZeroOne() * 0.3f) + 0.1f;
-        D_menu_801B7D18[i] = 5 + (s32) (Rand_ZeroOne() * 5.0f);
+        D_menu_801B7C70[i] = RAND_FLOAT(0.3f) + 0.1f;
+        D_menu_801B7D18[i] = 5 + RAND_INT(5.0f);
         D_menu_801B7CC8[i] = 255;
         D_menu_801B7CF0[i] = 128;
         D_menu_801B7CA0[i] = 0;
@@ -2080,8 +2079,8 @@ void func_menu_8018C644(void) {
                     y = D_menu_801AE444[i] - D_menu_801B84E8[i].unk_00.y;
                     z = D_menu_801AE454[i] + 10.0f - D_menu_801B84E8[i].unk_00.z;
 
-                    D_menu_801B84E8[i].unk_18 = -Math_Atan2F(y, sqrtf(SQ(x) + SQ(z))) * 180.0f / M_PI;
-                    D_menu_801B84E8[i].unk_1C = Math_Atan2F(x, z) * 180.0f / M_PI;
+                    D_menu_801B84E8[i].unk_18 = RAD_TO_DEG(-Math_Atan2F(y, sqrtf(SQ(x) + SQ(z))));
+                    D_menu_801B84E8[i].unk_1C = RAD_TO_DEG(Math_Atan2F(x, z));
                 }
             }
 
@@ -2377,12 +2376,12 @@ void func_menu_8018D80C(s32 arg0) {
                 break;
 
             case 255:
-                D_menu_801B7D40[i] = 10.0f - (Rand_ZeroOne() * 20.0f);
-                D_menu_801B7DE0[i] = 3.0f - (Rand_ZeroOne() * 7.0f);
-                D_menu_801B7E80[i] = -30.0f - (Rand_ZeroOne() * 15.0f);
+                D_menu_801B7D40[i] = 10.0f - RAND_FLOAT(20.0f);
+                D_menu_801B7DE0[i] = 3.0f - RAND_FLOAT(7.0f);
+                D_menu_801B7E80[i] = -30.0f - RAND_FLOAT(15.0f);
                 D_menu_801B7FC0[i] = 0.0f;
-                D_menu_801B8060[i] = Rand_ZeroOne() * 0.02f;
-                D_menu_801B7F20[i] = 0.02f + (Rand_ZeroOne() * 0.08f);
+                D_menu_801B8060[i] = RAND_FLOAT(0.02f);
+                D_menu_801B7F20[i] = 0.02f + RAND_FLOAT(0.08f);
                 D_menu_801B8108[i] = 0;
                 break;
         }
@@ -2523,11 +2522,11 @@ void func_menu_8018E200(void) {
                 break;
 
             case 255:
-                D_menu_801B7BF8[i] = 10.0f + (Rand_ZeroOne() * 10.0f);
-                D_menu_801B7C20[i] = -10.0f + (Rand_ZeroOne() * -60.0f);
+                D_menu_801B7BF8[i] = 10.0f + RAND_FLOAT(10.0f);
+                D_menu_801B7C20[i] = -10.0f + RAND_FLOAT(-60.0f);
                 D_menu_801B7C48[i] = 0.0f;
-                D_menu_801B7C70[i] = 0.1f + (Rand_ZeroOne() * 0.3f);
-                D_menu_801B7D18[i] = 5 + (s32) (Rand_ZeroOne() * 5.0f);
+                D_menu_801B7C70[i] = 0.1f + RAND_FLOAT(0.3f);
+                D_menu_801B7D18[i] = 5 + RAND_INT(5.0f);
                 D_menu_801B7CC8[i] = 255;
                 D_menu_801B7CF0[i] = 128;
                 D_menu_801B7CA0[i] = 0;
@@ -2610,7 +2609,7 @@ void func_menu_8018E67C(s32 arg0) {
 
     Matrix_Pop(&gGfxMatrix);
 
-    temp_fv1 = __sinf(sp5C * 12.0f * M_DTOR) * 15.0f;
+    temp_fv1 = SIN_DEG(sp5C * 12.0f) * 15.0f;
 
     if (temp_fv1 >= 0) {
         D_menu_801B8350[arg0].unk_0C = temp_fv1;
@@ -3448,8 +3447,8 @@ void func_menu_80191798(f32* arg0, f32* arg1) {
     f32 temp_fv2 = D_80177980 - D_801779B8;
     f32 temp_ft4 = D_80177988 - D_801779C0;
 
-    *arg0 = -Math_Atan2F(temp_fv2, sqrtf(SQ(temp_fv1) + SQ(temp_ft4))) * (180.0f / M_PI);
-    *arg1 = Math_Atan2F(temp_fv1, temp_ft4) * (180.0f / M_PI);
+    *arg0 = -Math_Atan2F(temp_fv2, sqrtf(SQ(temp_fv1) + SQ(temp_ft4))) * M_RTOD;
+    *arg1 = Math_Atan2F(temp_fv1, temp_ft4) * M_RTOD;
 }
 
 void func_menu_80191844(f32 arg0, f32 arg1) {

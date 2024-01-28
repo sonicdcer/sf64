@@ -245,7 +245,7 @@ void func_i1_80192518(Actor* actor) {
 
                     effect->scale2 = 8.0f;
 
-                    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+                    effect->obj.rot.z = RAND_FLOAT(360.0f);
 
                     effect->vel.x = RAND_CENTEREDFLOAT(5.0f);
                     effect->vel.y = RAND_CENTEREDFLOAT(3.0f) + 10.0f;

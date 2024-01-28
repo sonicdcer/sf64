@@ -455,10 +455,10 @@ s32 func_800BE564(void) {
 
         if ((D_80178780[i] == 0) && (D_801787F8[i] == 0)) {
             if (sUnlockLandmaster && sUnlockOnFoot) {
-                D_80178780[i] = (s32) (Rand_ZeroOne() * 3.0f) + 1;
+                D_80178780[i] = RAND_INT(3.0f) + 1;
             }
             if (sUnlockLandmaster && !sUnlockOnFoot) {
-                D_80178780[i] = (s32) (Rand_ZeroOne() * 2.0f) + 1;
+                D_80178780[i] = RAND_INT(2.0f) + 1;
             }
         }
 
@@ -666,10 +666,10 @@ s32 func_800BF17C(void) {
             gPlayer[i].unk_1D0 = 0;
             if ((!D_80178780[i]) && (D_801787F8[i] == 0)) {
                 if (sUnlockLandmaster && sUnlockOnFoot) {
-                    D_80178780[i] = (s32) (Rand_ZeroOne() * 3.0f) + 1;
+                    D_80178780[i] = RAND_INT(3.0f) + 1;
                 }
                 if (sUnlockLandmaster && !sUnlockOnFoot) {
-                    D_80178780[i] = (s32) (Rand_ZeroOne() * 2.0f) + 1;
+                    D_80178780[i] = RAND_INT(2.0f) + 1;
                 }
             }
 
@@ -1878,7 +1878,7 @@ void func_800C2244(Actor* actor) {
             boolTemp = true;
 
             if (actor->timer_0BC == 0) {
-                y = Rand_ZeroOne() * 1000.0f;
+                y = RAND_FLOAT(1000.0f);
                 x = RAND_CENTEREDFLOAT(10000.0f);
                 z = RAND_CENTEREDFLOAT(10000.0f);
 
@@ -1886,16 +1886,16 @@ void func_800C2244(Actor* actor) {
                     actor->fwork[4] = x;
                     actor->fwork[5] = y;
                     actor->fwork[6] = z;
-                    actor->timer_0BC = (s32) (Rand_ZeroOne() * 20.0f) + 10;
+                    actor->timer_0BC = RAND_INT(20.0f) + 10;
                 }
             }
             break;
     }
 
-    sinX = __sinf(actor->obj.rot.x * M_DTOR);
-    cosX = __cosf(actor->obj.rot.x * M_DTOR);
-    sinY = __sinf(actor->obj.rot.y * M_DTOR);
-    cosY = __cosf(actor->obj.rot.y * M_DTOR);
+    sinX = SIN_DEG(actor->obj.rot.x);
+    cosX = COS_DEG(actor->obj.rot.x);
+    sinY = SIN_DEG(actor->obj.rot.y);
+    cosY = COS_DEG(actor->obj.rot.y);
 
     if (boolTemp) {
         x = actor->fwork[4] - actor->obj.pos.x;
@@ -1996,7 +1996,7 @@ void func_800C26C8(void) {
                 Actor_Initialize(actor);
                 actor->obj.status = OBJ_ACTIVE;
                 actor->obj.id = 197;
-                Matrix_RotateY(gCalcMatrix, M_DTOR * (Rand_ZeroOne() * 360.0f), 0);
+                Matrix_RotateY(gCalcMatrix, M_DTOR * RAND_FLOAT(360.0f), 0);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
                 actor->obj.pos.x = dest.x;
                 actor->obj.pos.y = dest.y;

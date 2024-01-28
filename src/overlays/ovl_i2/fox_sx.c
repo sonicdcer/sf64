@@ -99,10 +99,10 @@ void func_i2_8018F330(Actor* actor) {
 
         case 1:
             actor->unk_0F4.z += 3.0f;
-            actor->obj.rot.z = __sinf((actor->unk_0F4.z + 90.0f) * M_DTOR) * 60.0f;
+            actor->obj.rot.z = SIN_DEG(actor->unk_0F4.z + 90.0f) * 60.0f;
             sp34 = fabsf(actor->obj.pos.z - gBosses[0].obj.pos.z) * 0.1f;
-            Math_SmoothStepToF(&actor->obj.pos.x, gBosses[0].obj.pos.x + __sinf(actor->unk_0F4.z * M_DTOR) * sp34, 0.1f,
-                               20.0f, 0.0f);
+            Math_SmoothStepToF(&actor->obj.pos.x, gBosses[0].obj.pos.x + SIN_DEG(actor->unk_0F4.z) * sp34, 0.1f, 20.0f,
+                               0.0f);
             Math_SmoothStepToF(&actor->obj.pos.y, gBosses[0].obj.pos.y, 0.1f, 20.0f, 0.0f);
             Math_SmoothStepToF(&actor->obj.pos.z, gBosses[0].obj.pos.z, 1.0f, 55.0f, 0);
             if (gBosses[0].state == 20) {
@@ -185,8 +185,8 @@ void func_i2_8018F884(Actor* actor) {
             break;
 
         case -1:
-            actor->obj.rot.y = (-gPlayer[gPlayerNum].unk_058 * 180.0f) / M_PI;
-            actor->obj.rot.x = (gPlayer[gPlayerNum].unk_05C * 180.0f) / M_PI;
+            actor->obj.rot.y = RAD_TO_DEG(-gPlayer[gPlayerNum].unk_058);
+            actor->obj.rot.x = RAD_TO_DEG(gPlayer[gPlayerNum].unk_05C);
             RCP_SetupDL(&gMasterDisp, 0x40);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 220, 70, 30, 255);
             Matrix_Scale(gGfxMatrix, 70.0f, 70.0f, 1.0f, 1);
@@ -392,8 +392,8 @@ void func_i2_80190078(Boss* boss) {
         Math_SmoothStepToAngle(&boss->fwork[6], 0.0f, 0.1f, 1.0f, 0.00001f);
     }
 
-    boss->fwork[5] = __sinf((boss->timer_054 * 50.0f) * M_DTOR) * boss->timer_054;
-    boss->fwork[7] = __sinf((boss->timer_054 * 30.0f) * M_DTOR) * boss->timer_054 * 0.5f;
+    boss->fwork[5] = SIN_DEG(boss->timer_054 * 50.0f) * boss->timer_054;
+    boss->fwork[7] = SIN_DEG(boss->timer_054 * 30.0f) * boss->timer_054 * 0.5f;
 
     Math_SmoothStepToF(&boss->obj.pos.z, gPlayer[0].pos.z + boss->fwork[1], 0.1f, boss->fwork[42], 0);
     Math_SmoothStepToF(&boss->obj.pos.y, boss->fwork[2], 0.05f, boss->fwork[43], 0);
@@ -978,7 +978,7 @@ void func_i2_80190078(Boss* boss) {
                         boss->state = 35;
                         boss->timer_050 = 400;
                         boss->fwork[42] = boss->fwork[43] = boss->fwork[44] = boss->unk_078.y = 0.0f;
-                        boss->swork[9] = Rand_ZeroOne() * 1.9f;
+                        boss->swork[9] = RAND_INT(1.9f);
                         Radio_PlayMessage(gMsg_ID_5498, RCID_BOSS_SECTORX);
                     }
                 } else {
@@ -1061,7 +1061,7 @@ void func_i2_80190078(Boss* boss) {
             if (!(boss->timer_050 & 3)) {
                 func_8007D2C8(RAND_CENTEREDFLOAT(500.0f) + boss->obj.pos.x,
                               RAND_CENTEREDFLOAT(500.0f) + boss->obj.pos.y, boss->obj.pos.z + 100.0f,
-                              (Rand_ZeroOne() * 5.0f) + 5.0f);
+                              RAND_FLOAT(5.0f) + 5.0f);
             }
 
             if ((!(gGameFrameCount & 7)) && (Rand_ZeroOne() < 0.5f)) {
@@ -1671,8 +1671,8 @@ void func_i2_801944D4(Actor* actor, s32 arg1) {
     actor->fwork[0] = destB.x;
     actor->fwork[1] = destB.y;
     actor->fwork[2] = destB.z;
-    actor->fwork[7] = Rand_ZeroOne() * 360.0f;
-    actor->fwork[8] = Rand_ZeroOne() * 360.0f;
+    actor->fwork[7] = RAND_FLOAT(360.0f);
+    actor->fwork[8] = RAND_FLOAT(360.0f);
     actor->vel.x = player->vel.x;
     actor->vel.y = player->vel.y;
     actor->vel.z = player->vel.z;
@@ -1957,7 +1957,7 @@ void func_i2_80194728(Player* player) {
     player->unk_138 = player->pos.z + player->unk_08C;
     player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
     player->unk_088 += 10.0f;
-    player->unk_080 = -__sinf(player->unk_088 * M_DTOR) * 0.3f;
+    player->unk_080 = -SIN_DEG(player->unk_088) * 0.3f;
     player->unk_0F4 += 8.0f;
-    player->unk_0F0 = __sinf(player->unk_0F4 * M_DTOR);
+    player->unk_0F0 = SIN_DEG(player->unk_0F4);
 }

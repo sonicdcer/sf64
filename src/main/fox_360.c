@@ -333,7 +333,7 @@ void func_8002EE64(Actor* actor) {
                         actor->fwork[25] = spA8.y;
                         actor->fwork[26] = spA0[0];
                         actor->fwork[28] = spA0[1];
-                        actor->fwork[27] = (temp4 / 180.0f) * M_PI;
+                        actor->fwork[27] = DEG_TO_RAD2(temp4);
                     }
                 } else {
                     colId = COL2_0;
@@ -344,7 +344,7 @@ void func_8002EE64(Actor* actor) {
                         actor->fwork[25] = spB4.y;
                         actor->fwork[26] = spB4.x;
                         actor->fwork[28] = spB4.z;
-                        actor->fwork[27] = (temp4 / 180.0f) * M_PI;
+                        actor->fwork[27] = DEG_TO_RAD2(temp4);
                     }
                 }
             }
@@ -702,8 +702,8 @@ s32 func_800301F4(Actor* actor) {
     if (gLevelMode == LEVELMODE_ON_RAILS) {
         return 0;
     }
-    sp1C = __sinf(actor->obj.rot.y * M_DTOR);
-    sp18 = __cosf(actor->obj.rot.y * M_DTOR);
+    sp1C = SIN_DEG(actor->obj.rot.y);
+    sp18 = COS_DEG(actor->obj.rot.y);
     temp_ft4 = actor->fwork[9] * 10.0f + (sp1C * 650.0f);
     temp_ft5 = actor->fwork[9] * 10.0f + (sp18 * 650.0f);
     for (i = 0; i < 200; i++) {
@@ -751,8 +751,8 @@ s32 func_8003049C(Actor* actor) {
     if ((gLevelType == LEVELTYPE_SPACE) && (gCurrentLevel != LEVEL_BOLSE)) {
         return func_800301F4(actor);
     }
-    sp40 = __sinf(actor->obj.rot.y * M_DTOR);
-    sp3C = __cosf(actor->obj.rot.y * M_DTOR);
+    sp40 = SIN_DEG(actor->obj.rot.y);
+    sp3C = COS_DEG(actor->obj.rot.y);
     temp_fa0 = actor->fwork[9] * 10.0f + (sp40 * 650.0f);
     temp_ft4 = actor->fwork[9] * 10.0f + (sp3C * 650.0f);
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
@@ -870,8 +870,8 @@ void func_8003088C(Actor* actor) {
                 Audio_PlaySfx(0x2903700B, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 actor->timer_0C2 = 10;
                 actor->timer_0BE = 0;
-                actor->timer_04C = (Rand_ZeroOne() * 2.9f);
-                switch ((s32) (Rand_ZeroOne() * 4.0f)) {
+                actor->timer_04C = RAND_INT(2.9f);
+                switch (RAND_INT(4.0f)) {
                     case 0:
                         actor->timer_0BC = 0;
                         break;
@@ -892,11 +892,11 @@ void func_8003088C(Actor* actor) {
                     if (Rand_ZeroOne() < 0.5f) {
                         actor->timer_0BC = 10;
                     } else {
-                        actor->timer_0BC = (s32) (Rand_ZeroOne() * 50.0f);
+                        actor->timer_0BC = RAND_INT(50.0f);
                     }
                 }
                 if ((actor->unk_0E4 >= 4) && (actor->unk_0E4 < 8)) {
-                    actor->timer_0BC = (s32) (Rand_ZeroOne() * 40.0f) + 60.0f;
+                    actor->timer_0BC = RAND_INT(40.0f) + 60.0f;
                 }
                 if (actor->damage >= 20) {
                     actor->timer_0BC = 0;
@@ -1194,7 +1194,7 @@ void func_800319AC(Actor* this) {
         return;
     }
     if ((this->iwork[17] != 0) && (this->iwork[16] == 0) && (this->unk_0E4 >= 4)) {
-        switch ((s32) (Rand_ZeroOne() * 3.9f)) {
+        switch (RAND_INT(3.9f)) {
             case 0:
             case 1:
                 if (gCurrentLevel == LEVEL_VENOM_2) {
@@ -1229,7 +1229,7 @@ void func_800319AC(Actor* this) {
                 this->unk_046 = 0;
                 break;
             case 9:
-                this->timer_0BC = (s32) (Rand_ZeroOne() * 20.0f) + 30;
+                this->timer_0BC = RAND_INT(20.0f) + 30;
                 if (Rand_ZeroOne() < 0.5f) {
                     this->fwork[19] = this->obj.rot.y + 50.0f;
                 } else {
@@ -1455,9 +1455,9 @@ void func_800319AC(Actor* this) {
                     }
                     if ((this->unk_0E4 >= 4) && (this->unk_0E4 != 8) &&
                         ((gCurrentLevel != LEVEL_VENOM_2) || (this->unk_0E4 != 4))) {
-                        spCC = __sinf(((this->index * 45) + gGameFrameCount) * M_DTOR) * 100.0f;
-                        spC8 = __cosf(((this->index * 45) + (gGameFrameCount * 2)) * M_DTOR) * 100.0f;
-                        spC4 = __sinf(((this->index * 45) + gGameFrameCount) * M_DTOR) * 100.0f;
+                        spCC = SIN_DEG((this->index * 45) + gGameFrameCount) * 100.0f;
+                        spC8 = COS_DEG((this->index * 45) + (gGameFrameCount * 2)) * 100.0f;
+                        spC4 = SIN_DEG((this->index * 45) + gGameFrameCount) * 100.0f;
                     }
                     if (gPlayer[0].unk_4DC == 0) {
                         this->fwork[4] = gPlayer[0].pos.x + spCC;
@@ -1485,9 +1485,9 @@ void func_800319AC(Actor* this) {
                     }
                 } else if (this->unk_0E6 != 100) {
                     if (this->unk_0E4 >= 10) {
-                        spCC = __sinf(((this->index * 45) + gGameFrameCount) * M_DTOR) * 200.0f;
-                        spC8 = __cosf(((this->index * 45) + (gGameFrameCount * 2)) * M_DTOR) * 200.0f;
-                        spC4 = __sinf(((this->index * 45) + gGameFrameCount) * M_DTOR) * 200.0f;
+                        spCC = SIN_DEG((this->index * 45) + gGameFrameCount) * 200.0f;
+                        spC8 = COS_DEG((this->index * 45) + (gGameFrameCount * 2)) * 200.0f;
+                        spC4 = SIN_DEG((this->index * 45) + gGameFrameCount) * 200.0f;
                     }
                     this->fwork[4] = gActors[this->unk_0E6].obj.pos.x + spCC;
                     this->fwork[5] = gActors[this->unk_0E6].obj.pos.y + spC8;
@@ -1525,7 +1525,7 @@ void func_800319AC(Actor* this) {
                             }
                         }
                     } else if (this->timer_0C0 == 0) {
-                        this->timer_0C0 = (s32) (Rand_ZeroOne() * 200.0f) + 200;
+                        this->timer_0C0 = RAND_INT(200.0f) + 200;
                         this->fwork[10] = 20.0f;
                     }
                     if ((spE8 < spF4) && (spEC < spF4)) {
@@ -1753,8 +1753,7 @@ void func_800319AC(Actor* this) {
                 }
                 if ((gLevelType == LEVELTYPE_SPACE) && (gCurrentLevel != LEVEL_BOLSE)) {
                     if ((gCurrentLevel == LEVEL_SECTOR_Z) && (this->unk_0E4 == 8)) {
-                        Rand_ZeroOne();
-                        spE4 = 0.0f;
+                        spE4 = RAND_CENTEREDFLOAT(0.0f);
                         spE0 = RAND_CENTEREDFLOAT(500.0f);
                         spDC = RAND_CENTEREDFLOAT(5000.0f) + 12000.0f;
                     } else {
@@ -1766,7 +1765,7 @@ void func_800319AC(Actor* this) {
                     spE4 = RAND_CENTEREDFLOAT(10000.0f);
                     if ((gCurrentLevel == LEVEL_BOLSE) || (gCurrentLevel == LEVEL_KATINA) ||
                         (gCurrentLevel == LEVEL_VENOM_2)) {
-                        spE0 = Rand_ZeroOne() * 1000.0f;
+                        spE0 = RAND_FLOAT(1000.0f);
                     } else {
                         spE0 = 0.0f;
                     }
@@ -1780,11 +1779,11 @@ void func_800319AC(Actor* this) {
                     this->fwork[4] = spE4;
                     this->fwork[5] = spE0;
                     this->fwork[6] = spDC;
-                    this->timer_0BC = (s32) (Rand_ZeroOne() * 20.0f) + 10;
+                    this->timer_0BC = RAND_INT(20.0f) + 10;
                 }
             }
             if (this->timer_0C0 == 0) {
-                this->timer_0C0 = (s32) (Rand_ZeroOne() * 200.0f) + 200;
+                this->timer_0C0 = RAND_INT(200.0f) + 200;
                 this->fwork[10] = 30.0f;
             }
             if ((this->unk_0E6 > 0) && (gActors[this->unk_0E6].obj.id == OBJ_ACTOR_197) &&
@@ -1886,7 +1885,7 @@ void func_800319AC(Actor* this) {
                 sp108 = func_8003049C(this);
                 if ((sp108 != 0) && (this->unk_0E4 < 10) && (this->timer_0BE == 0) &&
                     ((this->fwork[7] < 0.01f) || (this->fwork[7] > 359.9f))) {
-                    this->timer_0BE = (s32) (Rand_ZeroOne() * 200.0f) + 200;
+                    this->timer_0BE = RAND_INT(200.0f) + 200;
                     if (Rand_ZeroOne() < 0.5f) {
                         this->fwork[8] = 0.0f;
                         this->fwork[7] = 360.0f;
@@ -1954,10 +1953,10 @@ void func_800319AC(Actor* this) {
     this->obj.rot.y = this->unk_0F4.y;
     Math_SmoothStepToF(&this->fwork[0], this->fwork[1], 0.2f, 1.0f, 0.1f);
     Math_SmoothStepToF(&this->fwork[2], this->fwork[3], 1.0f, 0.1f, 0.1f);
-    spC0 = __sinf(this->obj.rot.x * M_DTOR);
-    spB8 = __cosf(this->obj.rot.x * M_DTOR);
-    spBC = __sinf(this->obj.rot.y * M_DTOR);
-    spB4 = __cosf(this->obj.rot.y * M_DTOR);
+    spC0 = SIN_DEG(this->obj.rot.x);
+    spB8 = COS_DEG(this->obj.rot.x);
+    spBC = SIN_DEG(this->obj.rot.y);
+    spB4 = COS_DEG(this->obj.rot.y);
 
     sp9C.z = (this->fwork[0] + this->fwork[9]) * spB8;
     sp9C.y = (this->fwork[0] + this->fwork[9]) * -spC0;
@@ -2170,7 +2169,7 @@ void func_80035448(Actor* actor) {
 
     if (actor->unk_0E4 != 1000) {
         if ((actor->iwork[8] != 0) && (actor->unk_0E4 < 100)) {
-            pad2 = __sinf(actor->iwork[8] * 400.0f * M_DTOR);
+            pad2 = SIN_DEG(actor->iwork[8] * 400.0f);
             sp38 = actor->iwork[8] * pad2;
             Matrix_RotateY(gGfxMatrix, M_DTOR * sp38, 1);
             Matrix_RotateX(gGfxMatrix, M_DTOR * sp38, 1);

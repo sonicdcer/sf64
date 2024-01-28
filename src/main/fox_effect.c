@@ -208,7 +208,7 @@ void func_800778C4(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 y
     effect->scale2 = scale2;
     effect->unk_4C = 0;
     effect->scale1 = 0.5f;
-    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    effect->obj.rot.z = RAND_FLOAT(360.0f);
     Object_SetInfo(&effect->info, effect->obj.id);
     effect->unk_44 = 255;
 }
@@ -403,7 +403,7 @@ void func_80078438(Effect* effect) {
 void func_800784B4(Effect* effect) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_46);
     Graphics_SetScaleMtx(effect->scale2);
-    Matrix_RotateX(gGfxMatrix, (M_PI / 2.0f), 1);
+    Matrix_RotateX(gGfxMatrix, M_PI / 2, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_200D750);
 }
@@ -430,7 +430,7 @@ void func_8007868C(Effect* effect) {
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, 1);
     if (effect->unk_44 >= 2) {
-        Matrix_RotateX(gGfxMatrix, (M_PI / 2.0f), 1);
+        Matrix_RotateX(gGfxMatrix, M_PI / 2, 1);
     }
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_1029780);
@@ -441,7 +441,7 @@ void func_8007879C(Effect* effect) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     Matrix_Scale(gGfxMatrix, effect->scale2 * 0.6f, 1.0f, effect->scale2 * 3.5f, 1);
-    Matrix_RotateX(gGfxMatrix, (M_PI / 2.0f), 1);
+    Matrix_RotateX(gGfxMatrix, M_PI / 2, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_1029780);
     RCP_SetupDL(&gMasterDisp, 0x40);
@@ -609,8 +609,8 @@ void func_8007905C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, u8 
         effect->vel.x = (xPos - gBosses[1].obj.pos.x) * 0.1f;
         effect->vel.z = (zPos - gBosses[1].obj.pos.z) * 0.1f;
     } else if (scale2 == 1.3f) {
-        effect->vel.x = ((Rand_ZeroOne() * 0.05f) + 0.03f) * xPos;
-        effect->vel.z = ((Rand_ZeroOne() * 0.05f) + 0.03f) * zPos;
+        effect->vel.x = (RAND_FLOAT(0.05f) + 0.03f) * xPos;
+        effect->vel.z = (RAND_FLOAT(0.05f) + 0.03f) * zPos;
         effect->vel.y = 5.0f;
     } else if (scale2 == 1.55f) {
         effect->vel.x = RAND_CENTEREDFLOAT(10.0f);
@@ -626,20 +626,19 @@ void func_8007905C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, u8 
         Matrix_RotateX(gCalcMatrix, xAng, 1);
         sp54.x = RAND_CENTEREDFLOAT(50.0f);
         sp54.y = RAND_CENTEREDFLOAT(50.0f);
-        sp54.z = (Rand_ZeroOne() * 10.0f) + 150.0f;
+        sp54.z = RAND_FLOAT(10.0f) + 150.0f;
         Matrix_MultVec3f(gCalcMatrix, &sp54, &sp48);
         effect->vel.x = sp48.x;
         effect->vel.y = sp48.y;
         effect->vel.z = sp48.z;
     } else {
-        effect->vel.y =
-            (gLevelType == LEVELTYPE_PLANET) ? (Rand_ZeroOne() * 7.0f) + 7.0f : RAND_CENTEREDFLOAT(10.0f);
+        effect->vel.y = (gLevelType == LEVELTYPE_PLANET) ? RAND_FLOAT(7.0f) + 7.0f : RAND_CENTEREDFLOAT(10.0f);
         effect->vel.x = RAND_CENTEREDFLOAT(10.0f);
         effect->vel.z = RAND_CENTEREDFLOAT(10.0f);
     }
-    effect->scale2 = ((Rand_ZeroOne() * 0.8f) + 0.3f) * scale2;
-    effect->timer_50 = (s32) (Rand_ZeroOne() * 50.0f) + 70;
-    effect->obj.rot.x = Rand_ZeroOne() * 360.0f;
+    effect->scale2 = (RAND_FLOAT(0.8f) + 0.3f) * scale2;
+    effect->timer_50 = RAND_INT(50.0f) + 70;
+    effect->obj.rot.x = RAND_FLOAT(360.0f);
     effect->unk_60.x = RAND_CENTEREDFLOAT(30.0f);
     effect->unk_60.y = RAND_CENTEREDFLOAT(30.0f);
     effect->unk_60.z = RAND_CENTEREDFLOAT(30.0f);
@@ -1154,8 +1153,8 @@ void func_8007ADF4(f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32 scale1) {
     for (yRot = 11.25f, i = 0; i < 16; i++, yRot += 22.5f) {
         for (j = 0; j < ARRAY_COUNT(gEffects); j++) {
             if (gEffects[j].obj.status == OBJ_FREE) {
-                sinf = __sinf(M_DTOR * yRot) * scale1 * 20.0f;
-                cosf = __cosf(M_DTOR * yRot) * scale1 * 20.0f;
+                sinf = SIN_DEG(yRot) * scale1 * 20.0f;
+                cosf = COS_DEG(yRot) * scale1 * 20.0f;
                 func_8007AD58(&gEffects[j], xPos + sinf, yPos, zPos + cosf, scale2, scale1, yRot);
                 break;
             }
@@ -1401,7 +1400,7 @@ void func_8007B7E8(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     effect->unk_4A = 50;
     effect->unk_46 = 1;
     effect->scale2 = scale2 * 0.2f;
-    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    effect->obj.rot.z = RAND_FLOAT(360.0f);
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
@@ -1476,7 +1475,7 @@ void func_8007BB14(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     }
 
     effect->scale2 = scale2 * 0.25f;
-    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    effect->obj.rot.z = RAND_FLOAT(360.0f);
 
     if (scale2 == 6.0f) {
         effect->vel.z = gPlayer[0].vel.z * 0.6f;
@@ -1497,8 +1496,8 @@ void func_8007BC7C(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
 
 void func_8007BCE8(Effect* effect) {
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) {
-        effect->obj.rot.x = (gPlayer[0].unk_05C * 180.0f) / M_PI;
-        effect->obj.rot.y = (-gPlayer[0].unk_058 * 180.0f) / M_PI;
+        effect->obj.rot.x = RAD_TO_DEG(gPlayer[0].unk_05C);
+        effect->obj.rot.y = RAD_TO_DEG(-gPlayer[0].unk_058);
     }
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_6) {
         effect->unk_46 = 2;
@@ -1630,7 +1629,7 @@ void func_8007C250(Effect* effect) {
     if (!(effect->timer_50 & var_v0)) {
         randX = RAND_CENTEREDFLOAT(40.0f);
         randY = RAND_CENTEREDFLOAT(40.0f);
-        randOther = ((Rand_ZeroOne() * 0.5f) + 1.0f);
+        randOther = RAND_FLOAT(0.5f) + 1.0f;
         func_8007D0E0(effect->obj.pos.x + randX, effect->obj.pos.y + randY, effect->obj.pos.z,
                       effect->scale2 * randOther);
         if (effect->timer_50 == 0) {
@@ -1654,8 +1653,8 @@ void func_8007C3B4(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 y
 
     effect->scale2 = scale2;
     effect->unk_4A = arg8;
-    effect->unk_4C = (s32) (Rand_ZeroOne() * 12.0f);
-    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    effect->unk_4C = RAND_INT(12.0f);
+    effect->obj.rot.z = RAND_FLOAT(360.0f);
     Object_SetInfo(&effect->info, effect->obj.id);
     effect->unk_44 = 0xFF;
 }
@@ -1679,7 +1678,7 @@ void func_8007C50C(Effect* effect) {
     if (!(effect->timer_50 & 7)) {
         randX = RAND_CENTEREDFLOAT(40.0f) * effect->scale2;
         randY = RAND_CENTEREDFLOAT(40.0f) * effect->scale2;
-        randOther = (Rand_ZeroOne() + 1.0f);
+        randOther = RAND_FLOAT(1.0f) + 1.0f;
         func_8007C484(effect->obj.pos.x + randX, effect->obj.pos.y + randY, effect->obj.pos.z, effect->vel.x,
                       effect->vel.y, effect->vel.z, effect->scale2 * randOther, 0);
         if (effect->timer_50 == 0) {
@@ -1734,7 +1733,7 @@ void func_8007C6FC(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     }
 
     effect->scale2 = scale2 * 0.25f;
-    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    effect->obj.rot.z = RAND_FLOAT(360.0f);
     effect->unk_44 = 0;
 
     if (Rand_ZeroOne() < 0.3f) {
@@ -1742,7 +1741,7 @@ void func_8007C6FC(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
         effect->unk_4A = 255;
         effect->scale2 = scale2 * 0.3f;
     }
-    effect->scale1 = Rand_ZeroOne() * 0.2f;
+    effect->scale1 = RAND_FLOAT(0.2f);
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
@@ -1771,7 +1770,7 @@ void func_8007C8C4(Effect* effect) {
     if (!(effect->timer_50 & var_v0) && (gLevelType == LEVELTYPE_PLANET)) {
         randX = RAND_CENTEREDFLOAT(10.0f);
         randY = RAND_CENTEREDFLOAT(10.0f);
-        randOther = ((Rand_ZeroOne() * 0.5f) + 1.0f);
+        randOther = RAND_FLOAT(0.5f) + 1.0f;
         func_8007C85C(effect->obj.pos.x + randX, effect->obj.pos.y + randY, effect->obj.pos.z,
                       effect->scale2 * randOther);
         if (effect->timer_50 == 0) {
@@ -1825,7 +1824,7 @@ void func_8007CC00(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     effect->scale2 = scale2;
     effect->scale1 = 0.5f;
     effect->unk_4C = 0;
-    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    effect->obj.rot.z = RAND_FLOAT(360.0f);
     Object_SetInfo(&effect->info, effect->obj.id);
     if (gLevelType == LEVELTYPE_PLANET) {
         effect->unk_44 = 230;
@@ -1846,7 +1845,7 @@ void func_8007CCBC(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     effect->scale2 = scale2;
     effect->unk_4C = 3;
     effect->scale1 = 0.2f;
-    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    effect->obj.rot.z = RAND_FLOAT(360.0f);
     Object_SetInfo(&effect->info, effect->obj.id);
     if (gLevelType == LEVELTYPE_PLANET) {
         effect->unk_44 = 230;
@@ -1871,7 +1870,7 @@ void func_8007CD7C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32
     }
     effect->unk_4A = 0xFF;
     effect->scale2 = scale2;
-    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    effect->obj.rot.z = RAND_FLOAT(360.0f);
 
     if ((Rand_ZeroOne() < 0.5f) && (gLevelType == LEVELTYPE_PLANET) && (timer50 != 1)) {
         effect->unk_44 = 1;
@@ -1958,7 +1957,7 @@ void func_8007D138(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     effect->obj.pos.z = zPos;
 
     effect->scale2 = scale2;
-    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    effect->obj.rot.z = RAND_FLOAT(360.0f);
     Object_SetInfo(&effect->info, effect->obj.id);
     if (gLevelType == LEVELTYPE_PLANET) {
         effect->unk_4C = 15;
@@ -2272,13 +2271,13 @@ void func_8007E014(Effect* effect) {
     if (D_801784AC == 4) {
         func_i5_801B6E20(effect->obj.pos.x, effect->obj.pos.z + D_80177D20, &x, &y, &z);
         effect->obj.pos.y = y + 3.0f;
-        effect->obj.rot.x = (x * 180.0f) / M_PI;
-        effect->obj.rot.z = (z * 180.0f) / M_PI;
+        effect->obj.rot.x = RAD_TO_DEG(x);
+        effect->obj.rot.z = RAD_TO_DEG(z);
     }
 
     if (((effect->unk_44 == 1) || (effect->unk_44 == 3)) && ((effect->timer_50 & 3) == 1) && (Rand_ZeroOne() < 0.5f)) {
         func_8007D10C(effect->obj.pos.x, effect->obj.pos.y + (effect->scale2 * 5.0f), effect->obj.pos.z + 3.0f,
-                      ((Rand_ZeroOne() * 0.7f) + 1.0f) * (effect->scale2 * 1.2f));
+                      (RAND_FLOAT(0.7f) + 1.0f) * (effect->scale2 * 1.2f));
     }
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
@@ -2418,8 +2417,8 @@ void func_8007E6B8(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPos, f32 
     effect->vel.z = sp34.z - D_80177D08;
 
     if ((objId == OBJ_EFFECT_353) || (objId == OBJ_EFFECT_354)) {
-        effect->obj.rot.x = (sp54 * 180.0f) / M_PI;
-        effect->obj.rot.y = (sp50 * 180.0f) / M_PI;
+        effect->obj.rot.x = RAD_TO_DEG(sp54);
+        effect->obj.rot.y = RAD_TO_DEG(sp50);
     }
 
     if (objId == OBJ_EFFECT_356) {
@@ -2427,7 +2426,7 @@ void func_8007E6B8(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPos, f32 
     }
 
     if (objId == OBJ_EFFECT_376) {
-        effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+        effect->obj.rot.z = RAND_FLOAT(360.0f);
         effect->unk_4A = 180;
         effect->scale2 = 5.0f;
         return;
@@ -2475,8 +2474,8 @@ void func_8007E93C(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPos, f32 
     effect->vel.z = sp34.z - D_80177D08;
 
     if (objId == OBJ_EFFECT_353) {
-        effect->obj.rot.x = (sp54 * 180.0f) / M_PI;
-        effect->obj.rot.y = (sp50 * 180.0f) / M_PI;
+        effect->obj.rot.x = RAD_TO_DEG(sp54);
+        effect->obj.rot.y = RAD_TO_DEG(sp50);
     }
 
     if (objId == OBJ_EFFECT_356) {
@@ -2484,7 +2483,7 @@ void func_8007E93C(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPos, f32 
     }
 
     if (objId == OBJ_EFFECT_376) {
-        effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+        effect->obj.rot.z = RAND_FLOAT(360.0f);
         effect->unk_4A = 180;
         effect->scale2 = 5.0f;
         return;
@@ -2737,7 +2736,7 @@ void func_8007F6B0(Effect* effect) {
     }
 
     if (!(gGameFrameCount & 3) && (effect->state == 0)) {
-        randfloat = Rand_ZeroOne() * 30.0f;
+        randfloat = RAND_FLOAT(30.0f);
         for (i = 0; i < 36; i += 2) {
             temp = (i * 10.0f * M_DTOR) + randfloat;
             sin = __sinf(temp) * effect->scale2 * 8.0f;
@@ -2784,7 +2783,7 @@ void func_8007F958(Effect* effect) {
     }
 
     if (!(gGameFrameCount & 1)) {
-        randFloat = Rand_ZeroOne() * 144.0f;
+        randFloat = RAND_FLOAT(144.0f);
         for (i = 0; i < 5; i++) {
             temp = (i * 72.0f * M_DTOR) + randFloat;
             sin = __sinf(temp) * effect->scale2 * 16.0f;
@@ -2825,7 +2824,7 @@ void func_8007FBE0(Effect* effect) {
     }
 
     if (!(gGameFrameCount & 1)) {
-        randFloat = Rand_ZeroOne() * 144.0f;
+        randFloat = RAND_FLOAT(144.0f);
         for (i = 0; i < 10; i++) {
             temp = (i * 36.0f * M_DTOR) + randFloat;
             sin = __sinf(temp) * effect->scale2 * 16.0f;
@@ -2886,7 +2885,7 @@ void func_8007FE88(Effect* effect) {
             (fabsf(gPlayer[0].pos.y - effect->obj.pos.y) < (30.0f + var_fa0))) {
             if ((gPlayer[0].unk_280 != 0) || (gPlayer[0].timer_27C != 0)) {
                 effect->obj.rot.y = 90.0f;
-                effect->obj.rot.x = Rand_ZeroOne() * 360.0f;
+                effect->obj.rot.x = RAND_FLOAT(360.0f);
                 Matrix_RotateY(gCalcMatrix, effect->obj.rot.y * M_DTOR, 0);
                 Matrix_RotateX(gCalcMatrix, effect->obj.rot.x * M_DTOR, 1);
                 srcVelocity.x = 0.0f;
@@ -3019,7 +3018,7 @@ void func_8008040C(Effect* effect) {
                     (fabsf(gPlayer[0].pos.y - effect->obj.pos.y) < (30.0f + var_fa0))) {
                     if ((gPlayer[0].unk_280 != 0) || (gPlayer[0].timer_27C != 0)) {
                         effect->obj.rot.y = 90.0f;
-                        effect->obj.rot.x = Rand_ZeroOne() * 360.0f;
+                        effect->obj.rot.x = RAND_FLOAT(360.0f);
                         Matrix_RotateY(gCalcMatrix, effect->obj.rot.y * M_DTOR, 0);
                         Matrix_RotateX(gCalcMatrix, effect->obj.rot.x * M_DTOR, 1);
                         srcVelocity.y = 0.0f;
@@ -3269,7 +3268,7 @@ void func_80080D04(Effect* effect) {
 
             for (i = 0; i < 7; i++) {
                 Matrix_Translate(gGfxMatrix, 0.0f, 10.0f, 0.0f, 1);
-                Matrix_RotateZ(gGfxMatrix, (M_PI / 4), 1);
+                Matrix_RotateZ(gGfxMatrix, M_PI / 4, 1);
                 Matrix_Translate(gGfxMatrix, 1.0f, 20.0f, 0.0f, 1);
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Scale(gGfxMatrix, 0.25f, 1.0f, 1.0f, 1);
@@ -3354,8 +3353,8 @@ void func_8008165C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32
 
         case 5:
             effect->vel.x = RAND_CENTEREDFLOAT(20.0f);
-            effect->vel.y = (Rand_ZeroOne() * 20.0f) + 30.0f;
-            effect->vel.z = Rand_ZeroOne() * 30.0f;
+            effect->vel.y = RAND_FLOAT(20.0f) + 30.0f;
+            effect->vel.z = RAND_FLOAT(30.0f);
 
             effect->unk_46 = 5;
             effect->unk_44 = RAND_CENTEREDFLOAT(20.0f) * 1.5f;
@@ -3369,13 +3368,13 @@ void func_8008165C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32
             break;
 
         case 7:
-            effect->vel.y = (Rand_ZeroOne() * 7.0f) + 7.0f;
+            effect->vel.y = RAND_FLOAT(7.0f) + 7.0f;
             effect->vel.x = RAND_CENTEREDFLOAT(10.0f);
             effect->vel.z = RAND_CENTEREDFLOAT(10.0f);
 
-            effect->scale2 = ((Rand_ZeroOne() * 0.8f) + 0.3f) * scale2;
-            effect->timer_50 = (s32) (Rand_ZeroOne() * 50.0f) + 70;
-            effect->obj.rot.x = Rand_ZeroOne() * 360.0f;
+            effect->scale2 = (RAND_FLOAT(0.8f) + 0.3f) * scale2;
+            effect->timer_50 = RAND_INT(50.0f) + 70;
+            effect->obj.rot.x = RAND_FLOAT(360.0f);
 
             effect->unk_60.x = RAND_CENTEREDFLOAT(30.0f);
             effect->unk_60.y = RAND_CENTEREDFLOAT(30.0f);
@@ -3389,7 +3388,7 @@ void func_8008165C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32
             effect->obj.pos.y += RAND_CENTEREDFLOAT(600.0f);
             effect->obj.pos.z += RAND_CENTEREDFLOAT(300.0f) + 300.0f;
             effect->scale1 = 0.0f;
-            effect->scale2 = Rand_ZeroOne() + 1.0f;
+            effect->scale2 = RAND_FLOAT(1.0f) + 1.0f;
             break;
 
         case 10:
@@ -3517,7 +3516,7 @@ void func_80081C5C(Effect* effect) {
                 func_8007C484(RAND_CENTEREDFLOAT(50.0f) + effect->obj.pos.x,
                               RAND_CENTEREDFLOAT(50.0f) + effect->obj.pos.y,
                               RAND_CENTEREDFLOAT(50.0f) + effect->obj.pos.z, effect->vel.x, effect->vel.y,
-                              effect->vel.z, (Rand_ZeroOne() * 0.05f) + 0.05f, 0);
+                              effect->vel.z, RAND_FLOAT(0.05f) + 0.05f, 0);
             }
 
             if (func_8006351C(effect->index, &effect->obj.pos, &velocity, 1) != 0) {
@@ -3583,7 +3582,7 @@ void func_80081C5C(Effect* effect) {
                 func_8007C120((RAND_CENTEREDFLOAT(effect->scale2) * 50.0f) + effect->obj.pos.x,
                               (RAND_CENTEREDFLOAT(effect->scale2) * 50.0f) + effect->obj.pos.y,
                               (RAND_CENTEREDFLOAT(effect->scale2) * 50.0f) + effect->obj.pos.z, effect->vel.x,
-                              effect->vel.y, effect->vel.z, (Rand_ZeroOne() * 0.03f) + 0.05f, 10);
+                              effect->vel.y, effect->vel.z, RAND_FLOAT(0.03f) + 0.05f, 10);
             }
             if (func_8006351C(effect->index, &effect->obj.pos, &velocity, 1) != 0) {
                 func_8007B344(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 3.0f, 7);
@@ -3784,14 +3783,12 @@ void func_80081C5C(Effect* effect) {
                         effect->unk_46 -= 1;
                     }
                     if ((!(gGameFrameCount & 0xF)) && (effect->timer_50 == 0)) {
-                        D_800D18EC = Math_Atan2F(gPlayer[0].camEye.x - gBosses[0].obj.pos.x,
-                                                 gPlayer[0].camEye.z - (gBosses[0].obj.pos.z + D_80177D20)) *
-                                     180.0f / M_PI;
+                        D_800D18EC = RAD_TO_DEG(Math_Atan2F(gPlayer[0].camEye.x - gBosses[0].obj.pos.x,
+                                                 gPlayer[0].camEye.z - (gBosses[0].obj.pos.z + D_80177D20)));
 
-                        D_800D18E8 = -Math_Atan2F(gPlayer[0].camEye.y - gBosses[0].obj.pos.y,
+                        D_800D18E8 = RAD_TO_DEG(-Math_Atan2F(gPlayer[0].camEye.y - gBosses[0].obj.pos.y,
                                                   sqrtf(SQ(gPlayer[0].camEye.z - (gBosses[0].obj.pos.z + D_80177D20)) +
-                                                        SQ(gPlayer[0].camEye.x - gBosses[0].obj.pos.x))) *
-                                     180.0f / M_PI;
+                                                        SQ(gPlayer[0].camEye.x - gBosses[0].obj.pos.x))));
                     }
                     if (gBosses[0].timer_050 == 0) {
                         gBosses[0].swork[39] = effect->index;
@@ -4072,9 +4069,7 @@ void func_800837EC(Effect* effect) {
     }
 
     effect->obj.rot.y =
-        (Math_Atan2F(gPlayer[0].camEye.x - effect->obj.pos.x, gPlayer[0].camEye.z - (effect->obj.pos.z + D_80177D20)) *
-         180.0f) /
-        M_PI;
+        RAD_TO_DEG(Math_Atan2F(gPlayer[0].camEye.x - effect->obj.pos.x, gPlayer[0].camEye.z - (effect->obj.pos.z + D_80177D20)));
 }
 
 void func_80083B8C(Effect* effect) {
@@ -4174,8 +4169,8 @@ void func_80083FA8(Effect* effect) {
         return;
     }
 
-    effect->obj.rot.y = (-gPlayer[0].unk_058 * 180.0f) / M_PI;
-    effect->obj.rot.x = (gPlayer[0].unk_05C * 180.0f) / M_PI;
+    effect->obj.rot.y = RAD_TO_DEG(-gPlayer[0].unk_058);
+    effect->obj.rot.x = RAD_TO_DEG(gPlayer[0].unk_05C);
     effect->obj.rot.z += 20.0f;
 
     Matrix_RotateZ(gCalcMatrix, effect->unk_60.z * M_DTOR, 0);
