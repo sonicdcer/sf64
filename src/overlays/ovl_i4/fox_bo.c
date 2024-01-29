@@ -298,7 +298,7 @@ s32 func_i4_8018CC60(Boss* boss) {
         boss->obj.pos.y = src.y = boss->fwork[26];
         boss->obj.pos.z = src.z = boss->fwork[27];
         Matrix_MultVec3fNoTranslate(&D_i4_8019EE80, &src, &boss->obj.pos);
-        boss->fwork[0x1C] = gBosses->obj.rot.y;
+        boss->fwork[28] = gBosses->obj.rot.y;
     }
     return 0;
 }
@@ -311,7 +311,37 @@ s32 func_i4_8018CC60(Boss* boss) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018D124.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018D278.s")
+bool func_i4_8018D278(Actor* actor) {
+    s32 i;
+
+    if (actor->unk_0D0 == 0) {
+        return false;
+    }
+
+    actor->unk_0D0 = 0;
+    actor->obj.pos.y += 150.0f;
+
+    func_8007BFFC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 8.0f, 15);
+
+    for (i = 0; i < 3; i++) {
+        if (Rand_ZeroOne() >= 0.5f) {
+            func_800A69F8(4, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z);
+        }
+    }
+
+    func_8007A6F0(&actor->obj.pos, 0x2903A008);
+
+    actor->unk_044 = 1;
+
+    func_80066254(actor);
+    Object_Kill(&actor->obj, actor->sfxPos);
+
+    actor->info.bonus = 0;
+    actor->timer_0CA[0] = 0;
+    actor->info.unk_1C = 0.0f;
+
+    return true;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018D394.s")
 
