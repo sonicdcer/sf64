@@ -361,7 +361,15 @@ void func_i4_8018D394(Actor* actor) {
     actor->iwork[0] = 0;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018D414.s")
+s32 func_i4_8018D414(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* this) {
+    Actor* actor = (Actor*) this;
+
+    if (limbIndex == 2) {
+        rot->x -= actor->unk_0F4.x;
+        rot->y += actor->unk_0F4.y;
+    }
+    return false;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018D454.s")
 

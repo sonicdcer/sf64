@@ -35,7 +35,7 @@ typedef union {
     u16 array[SCREEN_HEIGHT][SCREEN_WIDTH];
 } FrameBuffer; // size = 0x25800
 
-typedef s32 (*OverrideLimbDraw)(s32, Gfx**, Vec3f*, Vec3f*, void*);
+typedef s32 (*OverrideLimbDraw)(s32 limbIndex, Gfx** dList,  Vec3f* pos, Vec3f* rot, void* this);
 typedef void (*PostLimbDraw)(s32, Vec3f*, void*);
 
 typedef struct {
