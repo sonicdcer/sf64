@@ -5,6 +5,10 @@ extern s32 D_i4_801A03D8[];
 extern s32 D_i4_801A0530;
 
 void func_8002FC00(Actor*);
+void func_i4_8018CCE8(Actor*);
+void func_i4_8018CE5C(Actor*);
+s32 func_i4_8018D008(Actor*);
+void func_i4_8018D124(Actor*);
 
 #ifdef IMPORT_DATA
 void func_i4_8018BD60(Actor* actor) {
@@ -290,16 +294,17 @@ void func_i4_8018C158(Actor* actor) {
     }
 }
 
-s32 func_i4_8018CC60(Boss* boss) {
-    Vec3f src;
+s32 func_i4_8018CC60(Actor* actor) {
+    Vec3f sp1C;
 
     if (D_8015F924 == 0) {
-        boss->obj.pos.x = src.x = boss->fwork[25];
-        boss->obj.pos.y = src.y = boss->fwork[26];
-        boss->obj.pos.z = src.z = boss->fwork[27];
-        Matrix_MultVec3fNoTranslate(&D_i4_8019EE80, &src, &boss->obj.pos);
-        boss->fwork[28] = gBosses->obj.rot.y;
+        actor->obj.pos.x = sp1C.x = actor->fwork[10];
+        actor->obj.pos.y = sp1C.y = actor->fwork[11];
+        actor->obj.pos.z = sp1C.z = actor->fwork[12];
+        Matrix_MultVec3fNoTranslate(&D_i4_8019EE80, &sp1C, &actor->obj.pos);
+        actor->fwork[13] = gBosses[0].obj.rot.y;
     }
+
     return 0;
 }
 
@@ -343,7 +348,18 @@ bool func_i4_8018D278(Actor* actor) {
     return true;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018D394.s")
+void func_i4_8018D394(Actor* actor) {
+    func_i4_8018CC60(actor);
+    if ((gPlayer->state_1C8 != PLAYERSTATE_1C8_0) && (gPlayer->state_1C8 != PLAYERSTATE_1C8_7)) {
+        func_i4_8018CCE8(actor);
+        func_i4_8018CE5C(actor);
+        if (func_i4_8018D008(actor) != 0) {
+            func_i4_8018D124(actor);
+        }
+    }
+    func_i4_8018D278(actor);
+    actor->iwork[0] = 0;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018D414.s")
 
