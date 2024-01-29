@@ -57,6 +57,7 @@ extern f32 D_i5_801C62E0;
 extern Gfx D_i5_801C2528[27][65];
 extern Gfx* D_i5_801C5C00[];
 extern u16 D_6001BA8[];
+extern s32 D_i5_801BA97C[2][3];
 
 // typedef struct {
 //     /* 0x00 */ s16 unk_00;
@@ -140,7 +141,7 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
                         var_s2->unk_20 = var_s2->unk_18;
                         break;
                     case 4:
-                        PRINTF("ICHIMAI POLYGON ON\n"); // ONE SHEET POLYGON ON
+                        PRINTF("ICHIMAI POLYGON ON\n"); // ONE PLANE POLYGON ON
                         *arg1 |= 2;
                         break;
                     case 5:
@@ -152,7 +153,7 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
                         *arg1 |= 1;
                         break;
                     case 7:
-                        PRINTF("ICHIMAI POLYGON OFF\n"); // ONE SHEET POLYGON OFF
+                        PRINTF("ICHIMAI POLYGON OFF\n"); // ONE PLANE POLYGON OFF
                         *arg1 &= ~2;
                         break;
                     case 8:
@@ -301,7 +302,7 @@ void func_i5_801B68A8(Gfx** dlist, s32 arg1, s32 arg2) {
     gDPSetTile((*dlist)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0, G_TX_MIRROR | G_TX_WRAP, 5,
                G_TX_NOLOD, G_TX_MIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
     gDPSetTileSize((*dlist)++, G_TX_RENDERTILE, 0, 0, 124, 124);
-    gDPSetTextureImage((*dlist)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_6001BA8);
+    gDPSetTextureImage((*dlist)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_6001BA8); // Ground Texture?
     gDPTileSync((*dlist)++);
     gDPSetTile((*dlist)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP,
                G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
