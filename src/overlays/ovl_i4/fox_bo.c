@@ -1,11 +1,22 @@
 #include "global.h"
 
+typedef struct UnkStruct_D_i4_801A03E0 {
+    f32 unk_00;
+    f32 unk_04;
+    f32 unk_08;
+    f32 unk_0C;
+    f32 unk_10;
+    f32 unk_14;
+    s32 unk_18;
+} UnkStruct_D_i4_801A03E0;
+
 extern AnimationHeader D_600F2E0;
 extern Limb* D_600F36C;
 extern u8 D_6011BA4[];
 
 extern s16 D_800C9C34; // fox_bg
 extern s32 D_i4_801A03D8[];
+extern UnkStruct_D_i4_801A03E0 D_i4_801A03E0[];
 extern s32 D_i4_801A0530;
 
 void func_8002FC00(Actor*);
@@ -381,8 +392,28 @@ void func_i4_8018D454(Actor* actor) {
     Animation_DrawSkeleton(1, &D_600F36C, actor->vwork, func_i4_8018D414, NULL, actor, &gIdentityMatrix);
     actor->iwork[0] = 1;
 }
-void func_i4_8018D4F0(Actor* actor);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018D4F0.s")
+
+s32 func_i4_8018D4F0(Actor* actor) {
+    s32 i;
+
+    for (i = 0; i < 6; i++) {
+        if (D_i4_801A03E0[i].unk_18 == 0) {
+            break;
+        }
+    }
+
+    if (i >= 6) {
+        return 0;
+    }
+    D_i4_801A03E0[i].unk_00 = (f32) actor->obj.pos.x;
+    D_i4_801A03E0[i].unk_04 = (f32) (actor->obj.pos.y + 730.0f);
+    D_i4_801A03E0[i].unk_08 = (f32) actor->obj.pos.z;
+    D_i4_801A03E0[i].unk_0C = (f32) actor->fwork[10];
+    D_i4_801A03E0[i].unk_10 = (f32) actor->fwork[11];
+    D_i4_801A03E0[i].unk_14 = (f32) actor->fwork[12];
+    D_i4_801A03E0[i].unk_18 = 1;
+    return 0;
+}
 
 bool func_i4_8018D584(Actor* actor) {
     s32 i;
