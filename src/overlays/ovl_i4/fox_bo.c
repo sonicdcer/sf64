@@ -2,6 +2,7 @@
 
 extern AnimationHeader D_600F2E0;
 extern Limb* D_600F36C;
+extern u8 D_6011BA4[];
 
 extern s16 D_800C9C34; // fox_bg
 extern s32 D_i4_801A03D8[];
@@ -375,17 +376,74 @@ s32 func_i4_8018D414(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
 }
 
 void func_i4_8018D454(Actor* actor) {
-    Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, 1U);
+    Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, 1);
     Animation_GetFrameData(&D_600F2E0, 0, actor->vwork);
     Animation_DrawSkeleton(1, &D_600F36C, actor->vwork, func_i4_8018D414, NULL, actor, &gIdentityMatrix);
     actor->iwork[0] = 1;
 }
-
+void func_i4_8018D4F0(Actor* actor);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018D4F0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018D584.s")
+bool func_i4_8018D584(Actor* actor) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018D7F0.s")
+    if (actor->unk_0D0 == 0) {
+        return false;
+    }
+
+    if ((actor->unk_0D2 < 2) && (actor->state == 0)) {
+        actor->timer_0C6 = 20;
+        actor->unk_0D0 = 0;
+        Audio_PlaySfx(0x29024003U, actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        actor->health += actor->damage;
+
+        if (actor->health < 100) {
+            return false;
+        }
+
+        BonusText_Display(actor->obj.pos.x, actor->obj.pos.y + 730.0f, actor->obj.pos.z, 3);
+        gHitCount += 4;
+        D_80177850 = 15;
+        D_i4_801A03DC--;
+        if (1) {}
+        actor->state = 1;
+
+        func_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 730.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 10.0f, 15);
+
+        for (i = 0; i < 10; i++) {
+            if (!(Rand_ZeroOne() >= 0.5f)) {
+                func_800A69F8(4, actor->obj.pos.x, actor->obj.pos.y + 730.0f, actor->obj.pos.z);
+            }
+        }
+
+        func_8007B344(actor->obj.pos.x, actor->obj.pos.y + 730.0f, actor->obj.pos.z, 10.0f, 5);
+        actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6011BA4);
+        func_8001A55C(actor->sfxPos, 0x11000028U);
+        Audio_PlaySfx(0x2903B009U, actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    } else {
+        func_8007A6F0(&actor->obj.pos, 0x29121007);
+    }
+
+    return true;
+}
+
+void func_i4_8018D7F0(Actor* actor) {
+    if (D_8015F924 != 0) {
+        actor->state = 1;
+    }
+
+    func_i4_8018CC60(actor);
+
+    if (actor->state == 0) {
+        func_i4_8018D4F0(actor);
+        func_i4_8018D584(actor);
+    } else {
+        actor->timer_0CA[0] = 0;
+        actor->info.bonus = 0;
+        actor->info.unk_1C = 0.0f;
+    }
+    actor->scale = -1.0f;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018D874.s")
 
