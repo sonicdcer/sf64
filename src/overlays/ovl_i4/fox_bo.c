@@ -476,7 +476,20 @@ void func_i4_8018D7F0(Actor* actor) {
     actor->scale = -1.0f;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018D874.s")
+s32 func_i4_8018D874(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* this) {
+    Actor* actor = (Actor*) this;
+
+    RCP_SetupDL(&gMasterDisp, 0x1D);
+    if (((limbIndex == 1) || (limbIndex == 2)) && (actor->timer_0C6 & 1)) {
+        RCP_SetupDL(&gMasterDisp, 0x29);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 0xFF, 0x40, 0x40, 0xFF);
+    }
+    if (((limbIndex == 1) || (limbIndex == 2)) && ((actor->health >= 100) || (D_8015F924 != 0))) {
+        *dList = NULL;
+    }
+
+    return false;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018D960.s")
 
