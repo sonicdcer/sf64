@@ -11,7 +11,6 @@ extern f32 D_6035F30[];
 extern f32 D_6035F94[];
 extern f32 D_6035FF8[];
 extern f32 D_603605C[];
-extern f32 D_60359AC[];
 extern Gfx D_6010470[];
 extern Gfx D_6003370[];
 extern Gfx D_6004440[];
@@ -107,14 +106,14 @@ extern Gfx D_6015510[];
 void func_i5_80199A40(u8*, u8*, f32);
 void func_i5_80199C20(u8*, s32, s32, s32, s32);
 void func_i5_801AD624(f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, s16, s16, f32);
-s32 func_i5_801A0308(Actor*, f32, f32, u8);
+bool func_i5_801A0308(Actor*, f32, f32, u8);
 void func_i5_801AF200(f32, f32, f32, f32, f32, f32);
 void func_i5_801A015C(Actor*);
 void func_i5_8019D048(Actor*);
 void func_i5_8019FC54(Actor*, s32*, s32*, s32, s32, f32, f32, s32*);
 void func_i5_8019D670(f32, f32, f32, f32, f32, f32, f32, s32, u8);
 void func_i5_8019D910(Actor*, s32*, s32*, s32, f32, f32, s32*, s32*);
-s32 func_i5_801AC5AC(s32, Gfx**, Vec3f*, Vec3f*, void*);
+bool func_i5_801AC5AC(s32, Gfx**, Vec3f*, Vec3f*, void*);
 void func_i5_801A49B8(Actor*);
 void func_i5_801ADCEC(f32, f32, f32, f32, f32, f32);
 void func_i5_801AE610(f32, f32, f32, f32, f32, f32, s16);
@@ -420,7 +419,6 @@ void func_i5_80199D88(u16* arg0, s32 arg1, s32 arg2) {
     temp_t1 = SEGMENTED_TO_VIRTUAL(arg0);
 
     for (i = 0; i < arg1; i++) {
-
         a = temp_t1[(arg2 - 1) * arg1 + i];
 
         for (j = arg2; j > 0; j--) {
@@ -432,7 +430,6 @@ void func_i5_80199D88(u16* arg0, s32 arg1, s32 arg2) {
 }
 
 void func_i5_80199F8C(Actor* actor) {
-
     actor->state = 0;
     actor->iwork[1] = 0;
     actor->iwork[2] = 0;
@@ -522,7 +519,6 @@ void func_i5_8019A128(void) {
 }
 
 void func_i5_8019A198(Actor* actor) {
-
     if ((actor->iwork[5] >= D_i5_801BA1E4) || (actor->iwork[5] >= D_i5_801BE2F0[3])) {
         Math_SmoothStepToF(&actor->vel.z, 0.0f, 0.02f, 10.0f, 0.01f);
     } else {
@@ -550,14 +546,11 @@ void func_i5_8019A198(Actor* actor) {
 }
 
 void func_i5_8019A2F4(Actor* actor) {
-    f32 var_fa1;
-    f32 var_ft4;
+    f32 var_fa1 = 0.0f;
+    f32 var_ft4 = 0.0f;
+    u8 var_v0 = D_i5_801BE2F0[0];
     s32 var_a0;
-    u8 var_v0;
 
-    var_v0 = D_i5_801BE2F0[0];
-    var_fa1 = 0.0f;
-    var_ft4 = 0.0f;
     while (D_i5_801BA1EC[var_v0].unk_00 != -1.0f) {
         if (D_i5_801BA1EC[var_v0].unk_00 < gPlayer[0].unk_138) {
             var_a0 = var_v0;
@@ -625,9 +618,8 @@ void func_i5_8019A2F4(Actor* actor) {
 void func_i5_8019A728(Actor* actor) {
     f32 var_fv0;
     u32 var_v1;
-    u8 var_v0;
+    u8 var_v0 = actor->iwork[2];
 
-    var_v0 = actor->iwork[2];
     while (D_i5_801BA1EC[var_v0].unk_00 != -1.0f) {
         if (D_i5_801BA1EC[var_v0].unk_00 < actor->obj.pos.z) {
             var_v1 = var_v0;
@@ -727,7 +719,6 @@ void func_i5_8019AF34(Actor* actor) {
 }
 
 void func_i5_8019B580(Actor* actor, s32* arg1) {
-
     if (*arg1 < 11) {
         if ((gGameFrameCount & 0x1F) == 0) {
             func_8007D2C8((actor->obj.pos.x + ((Rand_ZeroOne() - 0.5f) * 200.0f)) + actor->fwork[21],
@@ -754,7 +745,6 @@ void func_i5_8019B580(Actor* actor, s32* arg1) {
 }
 
 void func_i5_8019B8B0(Actor* actor) {
-
     if ((gGameFrameCount & 3) == 0) {
         func_8007D2C8((actor->obj.pos.x + ((Rand_ZeroOne() - 0.5f) * 200.0f)) + actor->fwork[21],
                       (actor->obj.pos.y + 280.0f) + ((Rand_ZeroOne() - 0.5f) * 100.0f),
@@ -779,7 +769,6 @@ void func_i5_8019B8B0(Actor* actor) {
 }
 
 void func_i5_8019BBEC(Actor* actor) {
-
     if ((actor->timer_0BC & 0xF) == 0) {
         func_8007D2C8((actor->obj.pos.x + ((Rand_ZeroOne() - 0.5f) * 200.0f)) + actor->fwork[21],
                       ((Rand_ZeroOne() - 0.5f) * 100.0f) + (actor->obj.pos.y + 100.0f),
@@ -834,7 +823,7 @@ void func_i5_8019BE50(Actor* actor) {
     gHitCount++;
 }
 
-s32 func_i5_8019C4EC(Actor* actor) {
+bool func_i5_8019C4EC(Actor* actor) {
     if (actor->unk_0D0 != 0) {
         actor->unk_0D0 = 0;
         if (actor->unk_0D2 == 1) {
@@ -891,7 +880,6 @@ void func_i5_8019C6C4(Actor* actor) {
 }
 
 void func_i5_8019C778(Actor* actor) {
-
     if (actor->vel.z < -3.0f) {
         func_i5_8019A128();
     }
@@ -1039,7 +1027,6 @@ void func_i5_8019C778(Actor* actor) {
 }
 
 void func_i5_8019CE88(Actor* actor) {
-
     switch (actor->state) {
         case 0:
             func_i5_8019A198(actor);
@@ -1086,7 +1073,6 @@ void func_i5_8019CE88(Actor* actor) {
 }
 
 void func_i5_8019D048(Actor* actor) {
-
     switch (actor->iwork[3]) {
         case 0:
             if (D_i5_801BE320[28] != 0) {
@@ -1178,7 +1164,6 @@ void func_i5_8019D670(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 zVel, f32 zRot
 }
 
 void func_i5_8019D700(Actor* actor) {
-
     switch (actor->state) {
         case 0:
             func_i5_8019A198(actor);
@@ -1348,7 +1333,6 @@ void func_i5_8019D910(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f3
 }
 
 void func_i5_8019E410(Actor* actor) {
-
     switch (actor->state) {
         case 0:
             func_i5_8019A198(actor);
@@ -1395,7 +1379,6 @@ void func_i5_8019E410(Actor* actor) {
 }
 
 void func_i5_8019E624(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32 arg5, s32* arg6) {
-
     switch (*arg1) {
         case 0:
             if (((actor->unk_0D0 != 0) && (arg3 == actor->unk_0D2)) ||
@@ -1460,7 +1443,6 @@ void func_i5_8019E624(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f3
 }
 
 void func_i5_8019EA60(Actor* actor) {
-
     switch (actor->state) {
         case 0:
             func_i5_8019A198(actor);
@@ -1503,7 +1485,6 @@ void func_i5_8019EA60(Actor* actor) {
 }
 
 void func_i5_8019EBF8(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32 arg5, s32* arg6) {
-
     switch (*arg1) {
         case 0:
             if (((actor->unk_0D0 != 0) && (arg3 == actor->unk_0D2)) ||
@@ -1540,7 +1521,6 @@ void func_i5_8019EBF8(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f3
 }
 
 void func_i5_8019EE68(Actor* actor) {
-
     switch (actor->state) {
         case 0:
             func_i5_8019A198(actor);
@@ -1752,7 +1732,6 @@ void func_i5_8019F164(Actor* actor) {
 }
 
 void func_i5_8019FC54(Actor* actor, s32* arg1, s32* arg2, s32 arg3, s32 arg4, f32 arg5, f32 arg6, s32* arg7) {
-
     switch (*arg1) {
         case 0:
             if (((actor->unk_0D0 != 0) && (actor->unk_0D2 >= arg3) && (arg4 >= actor->unk_0D2)) ||
@@ -1798,7 +1777,6 @@ void func_i5_8019FC54(Actor* actor, s32* arg1, s32* arg2, s32 arg3, s32 arg4, f3
 }
 
 void func_i5_8019FF9C(Actor* actor) {
-
     switch (actor->state) {
         case 0:
             func_i5_8019A198(actor);
@@ -1845,7 +1823,6 @@ void func_i5_8019FF9C(Actor* actor) {
 }
 
 void func_i5_801A015C(Actor* actor) {
-
     if (!func_i5_801A0308(actor, actor->obj.pos.z, actor->obj.rot.y, 0)) {
         actor->obj.pos.x = actor->fwork[19];
         actor->obj.pos.y = actor->fwork[5];
@@ -1877,7 +1854,7 @@ void func_i5_801A015C(Actor* actor) {
     }
 }
 
-s32 func_i5_801A0308(Actor* actor, f32 arg1, f32 arg2, u8 arg3) {
+bool func_i5_801A0308(Actor* actor, f32 arg1, f32 arg2, u8 arg3) {
     s16 var_a0;
     s16 sp4C;
     f32 temp_fv0;
@@ -2017,8 +1994,7 @@ s32 func_i5_801A0308(Actor* actor, f32 arg1, f32 arg2, u8 arg3) {
     return false;
 }
 
-s32 func_i5_801A0A74(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
-
+bool func_i5_801A0A74(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     if ((limbIndex == 5) || (limbIndex == 6)) {
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     } else {
@@ -2030,14 +2006,14 @@ s32 func_i5_801A0A74(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
     return false;
 }
 
-s32 func_i5_801A0B00(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool func_i5_801A0B00(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     if (limbIndex == 3) {
         *dList = NULL;
     }
     return false;
 }
 
-s32 func_i5_801A0B20(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool func_i5_801A0B20(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Actor* actor = (Actor*) data;
 
     if ((limbIndex == 3) || (limbIndex == 7)) {
@@ -2057,7 +2033,6 @@ s32 func_i5_801A0B20(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
 }
 
 void func_i5_801A0BD8(Object_80* obj80) {
-
     switch (obj80->state) {
         case 0:
             obj80->vel.y = 0.0f;
@@ -2097,7 +2072,7 @@ void func_i5_801A0BD8(Object_80* obj80) {
     }
 }
 
-s32 func_i5_801A0DD8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool func_i5_801A0DD8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Object_80* obj80 = (Object_80*) data;
     if (limbIndex == 5) {
         rot->y += obj80->vel.y;
@@ -2122,7 +2097,7 @@ void func_i5_801A0E2C(s32 limbIndex, Vec3f* rot, void* data) {
     }
 }
 
-s32 func_i5_801A0EB8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool func_i5_801A0EB8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Actor* actor = (Actor*) data;
 
     RCP_SetupDL(&gMasterDisp, 0x1D);
@@ -2514,7 +2489,6 @@ void func_i5_801A23AC(Object_80* obj80) {
 }
 
 void func_i5_801A2A78(Object_80* obj80) {
-
     RCP_SetupDL(&gMasterDisp, 0x39);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     gSPDisplayList(gMasterDisp++, D_60253E0);
@@ -2524,7 +2498,6 @@ void func_i5_801A2A78(Object_80* obj80) {
 }
 
 void func_i5_801A2B24(Object_80* obj80) {
-
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) {
         Object_Kill(&obj80->obj, obj80->sfxPos);
     }
@@ -2648,7 +2621,7 @@ void func_i5_801A3240(Object_80* obj80) {
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
-s32 func_i5_801A3300(Player* player, f32 arg1, f32 arg2) {
+bool func_i5_801A3300(Player* player, f32 arg1, f32 arg2) {
     s16 temp_a0;
     s16 var_v1;
     f32 temp_ft4;
@@ -2747,7 +2720,7 @@ s32 func_i5_801A3300(Player* player, f32 arg1, f32 arg2) {
     return false;
 }
 
-s32 func_i5_801A3790(Player* player, f32 arg1, f32 arg2) {
+bool func_i5_801A3790(Player* player, f32 arg1, f32 arg2) {
     s16 temp_a0;
     s16 var_v1;
     f32 temp_ft4;
@@ -2846,7 +2819,7 @@ s32 func_i5_801A3790(Player* player, f32 arg1, f32 arg2) {
     return false;
 }
 
-s32 func_i5_801A3C20(f32 arg0) {
+bool func_i5_801A3C20(f32 arg0) {
     s16 var_a0;
     f32 sp40;
     f32 sp3C;
@@ -2894,7 +2867,6 @@ void func_i5_801A3E70(Actor* actor) {
 }
 
 void func_i5_801A3E98(Actor* actor) {
-
     if ((gPlayer[0].unk_138 - actor->obj.pos.z) < -500.0f) {
         Object_Kill(&actor->obj, actor->sfxPos);
     }
@@ -2947,7 +2919,7 @@ void func_i5_801A3E98(Actor* actor) {
     }
 }
 
-s32 func_i5_801A41B0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool func_i5_801A41B0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Actor* actor = (Actor*) data;
 
     RCP_SetupDL(&gMasterDisp, 0x1D);
@@ -3003,7 +2975,6 @@ void func_i5_801A4660(Actor* actor) {
 }
 
 void func_i5_801A46A0(Actor* actor) {
-
     if ((gPlayer[0].unk_138 - actor->obj.pos.z) < -500.0f) {
         Object_Kill(&actor->obj, actor->sfxPos);
     }
@@ -3079,7 +3050,6 @@ void func_i5_801A49B8(Actor* actor) {
 }
 
 void func_i5_801A4A64(Actor* actor) {
-
     if (actor->state < 2) {
         if (actor->scale != 1.0f) {
             Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, actor->scale, 1);
@@ -3202,7 +3172,7 @@ void func_i5_801A4B24(Actor* actor) {
     }
 }
 
-s32 func_i5_801A5124(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool func_i5_801A5124(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Actor* actor = (Actor*) data;
 
     RCP_SetupDL(&gMasterDisp, 0x1D);
@@ -3230,7 +3200,7 @@ s32 func_i5_801A5124(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
     return false;
 }
 
-s32 func_i5_801A54AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool func_i5_801A54AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Actor* actor = (Actor*) data;
 
     pos->y = actor->fwork[6] + pos->y;
@@ -3304,7 +3274,6 @@ void func_i5_801A57D0(Effect* effect) {
     if ((fabsf(gPlayer[0].unk_138 - effect->obj.pos.z) < 50.0f) &&
         (fabsf(gPlayer[0].pos.x - effect->obj.pos.x) < 30.0f) &&
         (fabsf(gPlayer[0].pos.y - effect->obj.pos.y) < 30.0f)) {
-
         if ((gPlayer[0].unk_280 != 0) || (gPlayer[0].timer_27C != 0)) {
             sp50.x = 0.0f;
             sp50.y = 0.0f;
@@ -3342,14 +3311,12 @@ void func_i5_801A57D0(Effect* effect) {
 }
 
 void func_i5_801A5AF0(Effect* effect) {
-
     RCP_SetupDL(&gMasterDisp, 0x3C);
     gSPDisplayList(gMasterDisp++, D_601A840);
     RCP_SetupDL(&gMasterDisp, 0x40);
 }
 
 void func_i5_801A5B4C(Effect* effect) {
-
     if ((gPlayer[0].unk_138 - effect->obj.pos.z) < -2000.0f) {
         Object_Kill(&effect->obj, effect->sfxPos);
     }
@@ -3363,7 +3330,6 @@ void func_i5_801A5B4C(Effect* effect) {
     if ((fabsf(gPlayer[0].unk_138 - effect->obj.pos.z) < 100.0f) &&
         (fabsf(gPlayer[0].pos.x - effect->obj.pos.x) < 100.0f) &&
         (fabsf(gPlayer[0].pos.y - effect->obj.pos.y) < 30.0f) && (gPlayer[0].timer_498 == 0)) {
-
         Player_ApplyDamage(gPlayer, 0, effect->info.damage);
         gPlayer[0].unk_0D8.x = 20.0f;
         if (effect->vel.x < 0.0f) {
@@ -3385,7 +3351,6 @@ void func_i5_801A5B4C(Effect* effect) {
 }
 
 void func_i5_801A5D68(Effect* effect) {
-
     RCP_SetupDL(&gMasterDisp, 0x43);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 112, 255, 243, effect->unk_44);
     gDPSetEnvColor(gMasterDisp++, 255, 255, 255, effect->unk_44);
@@ -3426,7 +3391,6 @@ void func_i5_801A5FC4(s32 arg0) {
 }
 
 void func_i5_801A5FD0(Actor* actor) {
-
     if (gPlayer[0].unk_138 - actor->obj.pos.z < -500.0f) {
         Object_Kill(&actor->obj, actor->sfxPos);
     }
@@ -3461,7 +3425,6 @@ void func_i5_801A6144(Actor* actor) {
     switch (actor->state) {
         case 0:
             if (actor->unk_0D0 != 0) {
-
                 func_8007C120(actor->obj.pos.x, actor->obj.pos.y + 100.0f, actor->obj.pos.z, actor->vel.x, actor->vel.y,
                               actor->vel.z, 0.15f, 20);
                 Audio_PlaySfx(0x2903300E, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -3499,7 +3462,6 @@ void func_i5_801A6144(Actor* actor) {
 }
 
 void func_i5_801A6540(Actor* actor) {
-
     RCP_SetupDL(&gMasterDisp, 0x39);
     if (actor->timer_0C6 & 1) {
         RCP_SetupDL(&gMasterDisp, 0x3A);
@@ -3517,7 +3479,6 @@ void func_i5_801A65E0(Object_80* obj80) {
 }
 
 void func_i5_801A6608(Object_80* obj80) {
-
     if ((gPlayer[0].unk_138 - obj80->obj.pos.z) < obj80->vel.z) {
         if (D_80177854 != 100) {
             Math_SmoothStepToF(&obj80->vel.x, 30, 0.5f, 30.0f, 0.0f);
@@ -3537,7 +3498,6 @@ void func_i5_801A67BC(s32 arg0) {
 }
 
 void func_i5_801A67C8(Actor* actor) {
-
     if ((gPlayer[0].unk_138 - actor->obj.pos.z) < -300.0f) {
         Object_Kill(&actor->obj, actor->sfxPos);
     }
@@ -3560,7 +3520,6 @@ void func_i5_801A68EC(Actor* actor) {
 }
 
 void func_i5_801A68F8(Actor* actor, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
-
     gUnkEntities30[arg1].mode = 3;
     gUnkEntities30[arg1].unk_04.x = arg2;
     gUnkEntities30[arg1].unk_04.y = arg3;
@@ -3642,7 +3601,6 @@ void func_i5_801A6984(Actor* actor) {
 }
 
 void func_i5_801A6C78(Actor* actor) {
-
     // FAKE
     if (1) {}
     func_i5_801A0308(actor, actor->obj.pos.z, actor->obj.rot.y, 0);
@@ -3693,7 +3651,6 @@ void func_i5_801A6C78(Actor* actor) {
 }
 
 void func_i5_801A6FB4(Actor* actor) {
-
     // FAKE
     if (1) {}
     func_i5_801A0308(actor, actor->obj.pos.z, actor->obj.rot.y, 0);
@@ -3740,7 +3697,6 @@ void func_i5_801A6FB4(Actor* actor) {
 }
 
 void func_i5_801A72DC(Actor* actor) {
-
     func_i5_801A0308(actor, actor->obj.pos.z, actor->obj.rot.y, 0);
     switch (D_i5_801BE320[0]) {
         case 0:
@@ -3764,7 +3720,6 @@ void func_i5_801A72DC(Actor* actor) {
 }
 
 void func_i5_801A74C4(Actor* actor) {
-
     func_i5_801A0308(actor, actor->obj.pos.z, actor->obj.rot.y, 0);
     switch (D_i5_801BE320[0]) {
         case 0:
@@ -3825,7 +3780,6 @@ void func_i5_801A74C4(Actor* actor) {
 }
 
 void func_i5_801A78B0(Actor* actor) {
-
     func_i5_801A0308(actor, actor->obj.pos.z, actor->obj.rot.y, 0);
     switch (D_i5_801BE320[0]) {
         case 0:
@@ -4853,7 +4807,7 @@ void func_i5_801A7E7C(Actor* actor) {
     }
 }
 
-s32 func_i5_801ABC14(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool func_i5_801ABC14(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Actor* actor = (Actor*) data;
     s16 sp62;
 
@@ -4989,7 +4943,6 @@ void func_i5_801AC1C0(s32 limbIndex, Vec3f* rot, void* data) {
 }
 
 void func_i5_801AC294(Actor* actor) {
-
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) {
         if (((gPlayer[0].unk_138 - actor->obj.pos.z > 7000.0f) || (gPlayer[0].unk_138 - actor->obj.pos.z < -1000.0f))) {
             return;
@@ -5013,7 +4966,6 @@ void func_i5_801AC42C(s32 arg0) {
 }
 
 void func_i5_801AC438(Actor* actor) {
-
     switch (actor->state) {
         case 0:
             func_i5_8019A198(actor);
@@ -5040,8 +4992,7 @@ void func_i5_801AC438(Actor* actor) {
     }
 }
 
-s32 func_i5_801AC5AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
-
+bool func_i5_801AC5AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     RCP_SetupDL(&gMasterDisp, 0x1D);
     gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
     if ((limbIndex == 1) || (limbIndex == 3)) {
@@ -5410,7 +5361,6 @@ void func_i5_801AD6F0(Actor* actor) {
 }
 
 void func_i5_801ADAC8(Actor* actor) {
-
     switch (actor->state) {
         case 0:
             Graphics_SetScaleMtx(actor->scale);
@@ -5561,7 +5511,6 @@ static Vec3f D_i5_801BA784[8] = {
 }; // unused?
 
 void func_i5_801AE2C0(Actor* actor) {
-
     if (actor->state < 2) {
         Graphics_SetScaleMtx(actor->scale);
         if (actor->iwork[0] >= 128) {
@@ -5590,7 +5539,6 @@ void func_i5_801AE2C0(Actor* actor) {
 }
 
 void func_i5_801AE4CC(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 yVel, f32 arg6, s16 arg7) {
-
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_221;
@@ -5714,7 +5662,6 @@ void func_i5_801AE87C(Effect* effect) {
 }
 
 void func_i5_801AEAA0(Effect* effect) {
-
     RCP_SetupDL(&gMasterDisp, 0x43);
     if (effect->scale2 >= 3.0f) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, effect->unk_44);
@@ -5730,7 +5677,6 @@ void func_i5_801AEAA0(Effect* effect) {
 }
 
 void func_i5_801AEC04(Actor* actor) {
-
     if ((gPlayer[0].unk_138 - actor->obj.pos.z) < -300.0f) {
         Object_Kill(&actor->obj, actor->sfxPos);
     }
@@ -5789,7 +5735,6 @@ void func_i5_801AEC04(Actor* actor) {
 }
 
 void func_i5_801AEEFC(Actor* actor) {
-
     gSPDisplayList(gMasterDisp++, D_6015510);
     Matrix_Scale(gGfxMatrix, actor->fwork[0], actor->fwork[2], 1.0f, 1);
     Matrix_Push(&gGfxMatrix);
@@ -5909,7 +5854,6 @@ static Vec3f D_i5_801BA834[2] = {
 static f32 D_i5_801BA84C[2] = { 0.0f, 60.0f };
 
 void func_i5_801AF628(Actor* actor, s32 arg1) {
-
     Actor_Initialize(actor);
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = OBJ_ACTOR_195;
