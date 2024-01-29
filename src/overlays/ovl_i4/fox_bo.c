@@ -10,14 +10,18 @@ typedef struct UnkStruct_D_i4_801A03E0 {
     s32 unk_18;
 } UnkStruct_D_i4_801A03E0;
 
-extern AnimationHeader D_600F2E0;
-extern Limb* D_600F36C;
-extern u8 D_6011BA4[];
-
 extern s16 D_800C9C34; // fox_bg
+extern Vec3f D_i4_8019F0D8;
 extern s32 D_i4_801A03D8[];
 extern UnkStruct_D_i4_801A03E0 D_i4_801A03E0[];
 extern s32 D_i4_801A0530;
+
+extern AnimationHeader D_600F2E0;
+extern Limb* D_600F36C;
+extern u8 D_6011BA4[];
+extern u8 D_6008BB8[];
+extern u8 D_600AD80[];
+extern Gfx D_600BEC0[];
 
 void func_8002FC00(Actor*);
 void func_i4_8018CCE8(Actor*);
@@ -482,7 +486,7 @@ s32 func_i4_8018D874(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
     RCP_SetupDL(&gMasterDisp, 0x1D);
     if (((limbIndex == 1) || (limbIndex == 2)) && (actor->timer_0C6 & 1)) {
         RCP_SetupDL(&gMasterDisp, 0x29);
-        gDPSetPrimColor(gMasterDisp++, 0, 0, 0xFF, 0x40, 0x40, 0xFF);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 64, 64, 255);
     }
     if (((limbIndex == 1) || (limbIndex == 2)) && ((actor->health >= 100) || (D_8015F924 != 0))) {
         *dList = NULL;
@@ -547,4 +551,63 @@ s32 func_i4_8018D874(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_80191ED8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_80192264.s")
+void func_i4_80192264(void) {
+    Vec3f spDC = D_i4_8019F0D8;
+    Vec3f spD0;
+    f32 rnd;
+    f32 x;
+    f32 z;
+
+    gDPSetFogColor(gMasterDisp++, gFogRed, gFogGreen, gFogBlue, gFogAlpha);
+    gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
+
+    if (gBosses[1].obj.status == 2) {
+        RCP_SetupDL(&gMasterDisp, 0x22);
+        if (gGameFrameCount & 1) {
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 128, 160, 255);
+        } else {
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 192, 224, 255);
+        }
+    } else {
+        RCP_SetupDL(&gMasterDisp, 0x21);
+    }
+
+    Matrix_Push(&gGfxMatrix);
+    Rand_SetSeed(1, 29100, 9786);
+    Matrix_Translate(gGfxMatrix, 0.0f, D_8017847C, 0.0f, 1U);
+    Matrix_RotateY(gGfxMatrix, gBosses->obj.rot.y * 0.017453292f, 1U);
+    Matrix_Scale(gGfxMatrix, 5.0f, 1.0f, 5.0f, 1U);
+
+    for (z = -3200.0f; z <= 3200.0f; z += 800.0f) {
+        for (x = -3200.0f; x <= 3200.0f; x += 800.0f) {
+            rnd = Rand_ZeroOneSeeded();
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, x, 0.0f, z, 1);
+            Matrix_MultVec3f(gGfxMatrix, &spDC, &spD0);
+            if ((spD0.z < 3000.0f) && (spD0.z > -13000.0f) && (fabsf(spD0.x) < (fabsf(spD0.z * 0.7f) + 3000.0f)) &&
+                (fabsf(spD0.y) < (fabsf(spD0.z * 0.5f) + 2000.0f))) {
+                if (rnd < 0.3f) {
+                    gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_6008BB8);
+                    gDPTileSync(gMasterDisp++);
+                    gDPSetTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0,
+                               G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP,
+                               G_TX_NOMASK, G_TX_NOLOD);
+                    gDPLoadSync(gMasterDisp++);
+                    gDPLoadBlock(gMasterDisp++, G_TX_LOADTILE, 0, 0, 1023, 256);
+                } else {
+                    gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_600AD80);
+                    gDPTileSync(gMasterDisp++);
+                    gDPSetTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0,
+                               G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP,
+                               G_TX_NOMASK, G_TX_NOLOD);
+                    gDPLoadSync(gMasterDisp++);
+                    gDPLoadBlock(gMasterDisp++, G_TX_LOADTILE, 0, 0, 1023, 256);
+                }
+                Matrix_SetGfxMtx(&gMasterDisp);
+                gSPDisplayList(gMasterDisp++, D_600BEC0)
+            }
+            Matrix_Pop(&gGfxMatrix);
+        }
+    }
+    Matrix_Pop(&gGfxMatrix);
+}
