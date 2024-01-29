@@ -290,7 +290,18 @@ void func_i4_8018C158(Actor* actor) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018CC60.s")
+s32 func_i4_8018CC60(Boss* boss) {
+    Vec3f src;
+
+    if (D_8015F924 == 0) {
+        boss->obj.pos.x = src.x = boss->fwork[25];
+        boss->obj.pos.y = src.y = boss->fwork[26];
+        boss->obj.pos.z = src.z = boss->fwork[27];
+        Matrix_MultVec3fNoTranslate(&D_i4_8019EE80, &src, &boss->obj.pos);
+        boss->fwork[0x1C] = gBosses->obj.rot.y;
+    }
+    return 0;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018CCE8.s")
 
