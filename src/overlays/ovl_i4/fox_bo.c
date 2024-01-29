@@ -1,5 +1,8 @@
 #include "global.h"
 
+extern AnimationHeader D_600F2E0;
+extern Limb* D_600F36C;
+
 extern s16 D_800C9C34; // fox_bg
 extern s32 D_i4_801A03D8[];
 extern s32 D_i4_801A0530;
@@ -371,7 +374,12 @@ s32 func_i4_8018D414(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
     return false;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018D454.s")
+void func_i4_8018D454(Actor* actor) {
+    Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, 1U);
+    Animation_GetFrameData(&D_600F2E0, 0, actor->vwork);
+    Animation_DrawSkeleton(1, &D_600F36C, actor->vwork, func_i4_8018D414, NULL, actor, &gIdentityMatrix);
+    actor->iwork[0] = 1;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018D4F0.s")
 
