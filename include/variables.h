@@ -60,32 +60,32 @@ extern OSMesgQueue gPiMgrCmdQueue; // 800E2010
 extern OSMesg sPiMgrCmdBuff[50]; // 800E2028
 
 extern OSMesgQueue gDmaMsgQueue;
-extern void *sDmaMsgBuff[1];
+extern void* sDmaMsgBuff[1];
 extern OSIoMesg gDmaIOMsg;
 extern OSMesgQueue gSerialEventQueue;
-extern void *sSerialEventBuff[1];
+extern void* sSerialEventBuff[1];
 extern OSMesgQueue gMainThreadMsgQueue;
-extern void *sMainThreadMsgBuff[32];
+extern void* sMainThreadMsgBuff[32];
 extern OSMesgQueue gTaskMsgQueue;
-extern void *sTaskMsgBuff[16];
+extern void* sTaskMsgBuff[16];
 extern OSMesgQueue gAudioVImsgQueue;
-extern void *sAudioVImsgBuff[1];
+extern void* sAudioVImsgBuff[1];
 extern OSMesgQueue gAudioTaskMsgQueue;
-extern void *sAudioTaskMsgBuff[1];
+extern void* sAudioTaskMsgBuff[1];
 extern OSMesgQueue gGfxVImsgQueue;
-extern void *sGfxVImsgBuff[4];
+extern void* sGfxVImsgBuff[4];
 extern OSMesgQueue gGfxTaskMsgQueue;
-extern void *sGfxTaskMsgBuff[2];
+extern void* sGfxTaskMsgBuff[2];
 extern OSMesgQueue gSerialThreadMsgQueue;
-extern void *sSerialThreadMsgBuff[8];
+extern void* sSerialThreadMsgBuff[8];
 extern OSMesgQueue gControllerMsgQueue;
-extern void *sControllerMsgBuff[1];
+extern void* sControllerMsgBuff[1];
 extern OSMesgQueue gSaveMsgQueue;
-extern void *sSaveMsgBuff[1];
+extern void* sSaveMsgBuff[1];
 extern OSMesgQueue gTimerTaskMsgQueue;
-extern void *sTimerTaskMsgBuff[16];
+extern void* sTimerTaskMsgBuff[16];
 extern OSMesgQueue gTimerWaitMsgQueue;
-extern void *sTimerWaitMsgBuff[1];
+extern void* sTimerWaitMsgBuff[1];
 
 extern GfxPool gGfxPools[2]; // 800E23B0
 
@@ -97,7 +97,7 @@ extern Gfx* gUnkDisp1;
 extern Gfx* gMasterDisp;
 extern Gfx* gUnkDisp2;
 extern Lightsn* gLight;
-extern FrameBuffer *gFrameBuffer;
+extern FrameBuffer* gFrameBuffer;
 extern u16* gTextureRender;
 
 extern u8 D_80137E78;
@@ -431,11 +431,11 @@ extern f32 D_80177958[4];
 extern f32 D_80177968;
 extern s32 D_8017796C;
 extern f32 D_80177970;
-extern OSContPad *gInputHold;
+extern OSContPad* gInputHold;
 extern f32 D_80177978;
 extern OSContPad* gInputPress;
 extern f32 D_80177980;
-extern u8 *D_80177984;
+extern u8* D_80177984;
 extern f32 D_80177988;
 //
 extern s32 D_80177990[4];
@@ -580,24 +580,24 @@ extern u32* D_80178298;
 extern s32 gRadioState;
 //
 extern s32 D_801782A4;
-extern Object_58 *gObjects58;
+extern Object_58* gObjects58;
 extern s32 D_Timer_801782AC;
 //
 extern s32 D_Timer_801782B4;
 extern s32 D_801782B8;
 extern s32 D_801782BC;
 extern s32 D_801782C0;
-extern PosRot *D_801782C4;
+extern PosRot* D_801782C4;
 extern s32 D_801782C8;
-extern f32 *D_801782CC;
+extern f32* D_801782CC;
 extern s32 D_801782D0;
 extern f32* D_801782D4;
 extern s32 D_801782D8;
-extern f32 *D_801782DC;
+extern f32* D_801782DC;
 //
-extern f32 *D_801782E4;
+extern f32* D_801782E4;
 extern s32 D_801782E8;
-extern f32 *D_801782EC;
+extern f32* D_801782EC;
 // 0x8
 extern s32 D_801782F8;
 extern s32 D_801782FC;
@@ -721,7 +721,7 @@ extern s32 D_80178578;
 
 // fox_rcp?
 extern u8 D_80178580[];
-extern void *D_80178710;
+extern void* D_80178710;
 
 //fox_radio
 
@@ -738,7 +738,7 @@ extern s32 D_80178744;
 extern s32 D_80178748;
 extern s32 D_8017874C;
 
-// sf_versus
+// fox_versus
 extern s32 D_80178750;
 extern s32 D_80178754;
 extern s32 D_80178758;

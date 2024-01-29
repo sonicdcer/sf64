@@ -75,7 +75,7 @@ void func_i4_80199B18(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f3
     effect->scale1 = 0.5f;
 
     effect->unk_4C = 2;
-    effect->obj.rot.z = Rand_ZeroOne() * 360.0f;
+    effect->obj.rot.z = RAND_FLOAT(360.0f);
 
     Object_SetInfo(&effect->info, effect->obj.id);
 
@@ -117,7 +117,7 @@ void func_i4_80199C60(Actor* actor) {
 
     var_fv1 = gBosses[0].obj.pos.x - actor->obj.pos.x;
     var_fa0 = gBosses[0].obj.pos.z - actor->obj.pos.z;
-    __sinf((gGameFrameCount * M_DTOR));
+    SIN_DEG(gGameFrameCount);
 
     if (0) {
         ;
@@ -130,8 +130,8 @@ void func_i4_80199C60(Actor* actor) {
     }
 
     if (actor->unk_0E4 < 100) {
-        var_fv1 = __sinf(((f32) ((actor->index * 45) + gGameFrameCount)) * M_DTOR) * 5000.0f;
-        var_fa0 = __cosf(((f32) ((actor->index * 45) + (gGameFrameCount * 2))) * M_DTOR) * 5000.0f;
+        var_fv1 = SIN_DEG((actor->index * 45) + gGameFrameCount) * 5000.0f;
+        var_fa0 = COS_DEG((actor->index * 45) + (gGameFrameCount * 2)) * 5000.0f;
     } else {
         var_fa0 = 0.0f;
         var_fv1 = 0.0f;
@@ -342,11 +342,11 @@ void func_i4_8019A3E8(Actor* actor) {
                 Actor_Initialize(actorPtr);
                 actorPtr->obj.status = OBJ_ACTIVE;
                 actorPtr->obj.id = OBJ_ACTOR_197;
-                Matrix_RotateY(gCalcMatrix, (actor->unk_04E * 18.0f) * 0.017453292f, 0);
+                Matrix_RotateY(gCalcMatrix, (actor->unk_04E * 18.0f) * M_DTOR, 0);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp40, &sp34);
 
                 actorPtr->obj.pos.x = sp34.x;
-                actorPtr->obj.pos.y = (Rand_ZeroOne() * 1000.0f) + 300.0f;
+                actorPtr->obj.pos.y = RAND_FLOAT(1000.0f) + 300.0f;
                 actorPtr->obj.pos.z = sp34.z;
 
                 actorPtr->unk_0F4.y = actor->unk_04E * 18.0f;
@@ -658,7 +658,7 @@ void func_i4_8019B48C(void) {
         actor->obj.pos.x = D_i4_8019F528[i].x;
         actor->obj.pos.y = D_i4_8019F528[i].y;
         actor->obj.pos.z = D_i4_8019F528[i].z;
-        actor->obj.rot.y = Rand_ZeroOne() * 360.0f;
+        actor->obj.rot.y = RAND_FLOAT(360.0f);
         actor->vel.x = 5.0f;
         Object_SetInfo(&actor->info, actor->obj.id);
     }
@@ -989,8 +989,8 @@ void func_i4_8019BA64(Player* player) {
             break;
     }
 
-    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114 + 180.0f) * 0.017453292f, 0);
-    Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * 0.017453292f), 1);
+    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + player->unk_114 + 180.0f) * M_DTOR, 0);
+    Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * M_DTOR), 1);
 
     sp74.x = 0.0f;
     sp74.y = 0.0f;
@@ -1558,9 +1558,9 @@ void func_i4_8019C85C(Player* player) {
     }
 
     player->unk_088 += 10.0f;
-    player->unk_080 = -__sinf(player->unk_088 * M_DTOR) * 0.3f;
+    player->unk_080 = -SIN_DEG(player->unk_088) * 0.3f;
     player->unk_0F4 += 8.0f;
-    player->unk_0F0 = __sinf(player->unk_0F4 * M_DTOR);
+    player->unk_0F0 = SIN_DEG(player->unk_0F4);
 }
 
 void func_i4_8019DD20(Actor* actor) {
@@ -1727,18 +1727,18 @@ void func_i4_8019E454(Boss* boss) {
         z = boss->obj.pos.z + 1000.0f;
 
         for (i = 0; i < 25; i++) {
-            func_800794CC(x + ((Rand_ZeroOne() - 0.5f) * 300.0f), y + ((Rand_ZeroOne() - 0.5f) * 100.0f), z, 2.0f);
-            func_80079618(x + ((Rand_ZeroOne() - 0.5f) * 300.0f), y + ((Rand_ZeroOne() - 0.5f) * 100.0f), z, 2.0f);
+            func_800794CC(x + RAND_FLOAT_CENTERED(300.0f), y + RAND_FLOAT_CENTERED(100.0f), z, 2.0f);
+            func_80079618(x + RAND_FLOAT_CENTERED(300.0f), y + RAND_FLOAT_CENTERED(100.0f), z, 2.0f);
         }
         func_8007BFFC(x, y, z, 0.0f, 0.0f, 0.0f, 20.0f, 30);
     }
 
     if (boss->timer_052 != 0) {
         for (j = 0; j < 1; j++) {
-            i = Rand_ZeroOne() * 11.99f;
+            i = RAND_INT(11.99f);
             func_i4_80199BDC(D_i4_8019F64C[i].x + boss->obj.pos.x, D_i4_8019F64C[i].y + boss->obj.pos.y,
-                             D_i4_8019F64C[i].z + boss->obj.pos.z, (Rand_ZeroOne() - 0.5f) * 5.0f,
-                             (Rand_ZeroOne() - 0.5f) * 5.0f, 10.0f, (Rand_ZeroOne() * 2.0f) + 4.0f);
+                             D_i4_8019F64C[i].z + boss->obj.pos.z, RAND_FLOAT_CENTERED(5.0f), RAND_FLOAT_CENTERED(5.0f),
+                             10.0f, RAND_FLOAT(2.0f) + 4.0f);
         }
     }
 
@@ -1763,12 +1763,12 @@ void func_i4_8019E454(Boss* boss) {
         Matrix_RotateY(gCalcMatrix, (boss->obj.rot.y - 270.0f) * M_DTOR, 0);
         Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, 1);
         Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, 1);
-        Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i4_8019F64C[(s32) (Rand_ZeroOne() * 11.99f)], &dest);
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i4_8019F64C[RAND_INT(11.99f)], &dest);
         func_8007C484(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, boss->vel.x,
-                      boss->vel.y, boss->vel.z, (Rand_ZeroOne() * 0.1f) + 0.15f, 0);
+                      boss->vel.y, boss->vel.z, RAND_FLOAT(0.1f) + 0.15f, 0);
         if (((gGameFrameCount % 7) == 0) && (Rand_ZeroOne() < 0.5f)) {
             func_i4_80199BDC(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, boss->vel.x,
-                             boss->vel.y, boss->vel.z + 5.0f, (2.0f * Rand_ZeroOne()) + 4.0f);
+                             boss->vel.y, boss->vel.z + 5.0f, RAND_FLOAT(2.0f) + 4.0f);
         }
     }
 }
@@ -1820,8 +1820,8 @@ void func_i4_8019EA68(void) {
             actor->obj.pos.y = D_80178310[i].yPos;
             actor->obj.pos.z = -D_80178310[i].zPos1;
             actor->health = 24;
-            actor->unk_0F4.x = (Rand_ZeroOne() - 0.5f) * 4.0f;
-            actor->unk_0F4.y = (Rand_ZeroOne() - 0.5f) * 4.0f;
+            actor->unk_0F4.x = RAND_FLOAT_CENTERED(4.0f);
+            actor->unk_0F4.y = RAND_FLOAT_CENTERED(4.0f);
             Object_SetInfo(&actor->info, actor->obj.id);
             actor->unk_044 = 1;
 

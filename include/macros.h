@@ -4,6 +4,14 @@
 #define SCREEN_WIDTH  320
 #define SCREEN_HEIGHT 240
 
+#define RAND_FLOAT(max) (Rand_ZeroOne()*(max))
+#define RAND_INT(max) ((s32)(Rand_ZeroOne()*(max)))
+#define RAND_FLOAT_CENTERED(width) ((Rand_ZeroOne()-0.5f)*(width))
+
+#define RAND_FLOAT_SEEDED(max) (Rand_ZeroOneSeeded()*(max))
+#define RAND_INT_SEEDED(max) ((s32)(Rand_ZeroOneSeeded()*(max)))
+#define RAND_FLOAT_CENTERED_SEEDED(width) ((Rand_ZeroOneSeeded()-0.5f)*(width))
+
 #define SEGMENTED_TO_VIRTUAL(segment) ((void*)OS_PHYSICAL_TO_K0(gSegments[((uintptr_t)(segment)<<4)>>0x1C]+(((uintptr_t)(segment))&0xFFFFFF))) 
 
 #define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))

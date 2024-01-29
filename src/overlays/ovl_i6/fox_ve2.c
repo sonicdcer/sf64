@@ -469,7 +469,7 @@ void func_i6_80196D88(Player* player) {
     Math_SmoothStepToF(&player->camAt.y, D_801779B8, D_80177A48[1], 100.0f, 0);
     Math_SmoothStepToF(&player->camAt.z, D_801779C0, D_80177A48[1], 100.0f, 0);
     player->unk_088 += 10.0f;
-    player->unk_080 = -__sinf(player->unk_088 * M_DTOR) * 0.3f;
+    player->unk_080 = -SIN_DEG(player->unk_088) * 0.3f;
     player->unk_0F4 += 8.0f;
-    player->unk_0F0 = __sinf(player->unk_0F4 * M_DTOR);
+    player->unk_0F0 = SIN_DEG(player->unk_0F4);
 }
