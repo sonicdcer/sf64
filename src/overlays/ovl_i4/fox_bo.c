@@ -549,7 +549,78 @@ s32 func_i4_8018D874(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_80191DB0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_80191ED8.s")
+void func_i4_80191ED8(void) {
+    s32 i;
+    Actor* actor;
+    Boss* boss;
+    Object_58* obj58;
+
+    D_80178310 = SEGMENTED_TO_VIRTUAL(D_800CFDA0[gCurrentLevel]);
+
+    for (obj58 = gObjects58, i = 0; i < 1000; i++) {
+        if (D_80178310[i].id < 0) {
+            break;
+        }
+        if (D_80178310[i].id < 161) {
+            Object_58_Initialize(obj58);
+            obj58->obj.status = 2;
+            obj58->obj.id = D_80178310[i].id;
+            obj58->sfxPos[0] = obj58->obj.pos.x = D_80178310[i].xPos;
+            obj58->sfxPos[1] = obj58->obj.pos.y = D_80178310[i].yPos;
+            obj58->sfxPos[2] = obj58->obj.pos.z = -D_80178310[i].zPos1;
+            obj58->unk_54 = obj58->obj.rot.y = D_80178310[i].rot.y;
+            Object_SetInfo(&obj58->info, obj58->obj.id);
+            obj58++;
+        }
+    }
+
+    for (actor = &gActors[30], i = 0; i < 1000; i++) {
+        if (D_80178310[i].id < 0) {
+            break;
+        }
+        if ((D_80178310[i].id >= OBJ_ACTOR_176) && (D_80178310[i].id <= OBJ_ACTOR_291)) {
+            Actor_Initialize(actor);
+            actor->obj.status = 1;
+            actor->obj.id = D_80178310[i].id;
+            if ((actor->obj.id == OBJ_ACTOR_271) && (D_8015F924 == 0)) {
+                Audio_PlaySfx(0x11000028U, actor->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            }
+            actor->fwork[10] = actor->obj.pos.x = D_80178310[i].xPos;
+            actor->fwork[11] = actor->obj.pos.y = D_80178310[i].yPos;
+            actor->fwork[12] = actor->obj.pos.z = -D_80178310[i].zPos1;
+            actor->fwork[13] = actor->obj.rot.y = D_80178310[i].rot.y;
+            Object_SetInfo(&actor->info, actor->obj.id);
+            actor++;
+        }
+    }
+
+    boss = &gBosses[0];
+
+    Boss_Initialize(boss);
+    boss->obj.status = 1;
+    boss->obj.id = OBJ_BOSS_309;
+    Object_SetInfo(&boss->info, boss->obj.id);
+
+    boss++;
+
+    Boss_Initialize(boss);
+    boss->obj.status = 1;
+    boss->obj.id = OBJ_BOSS_310;
+    Object_SetInfo(&boss->info, boss->obj.id);
+
+    boss++;
+
+    Boss_Initialize(boss);
+    boss->obj.status = 1;
+    boss->obj.id = OBJ_BOSS_311;
+    boss->swork[36] = 8;
+    boss->obj.pos.y = -700.0f;
+
+    for (i = 0; i < 12; i++) {
+        boss->swork[i] = 30;
+    }
+    Object_SetInfo(&boss->info, boss->obj.id);
+}
 
 void func_i4_80192264(void) {
     Vec3f spDC = D_i4_8019F0D8;
