@@ -530,8 +530,32 @@ s32 func_i4_8018D874(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018F94C.s")
 
-void func_i4_80190D98(Effect*, f32, f32, f32, f32, f32);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_80190D98.s")
+void func_i4_80190D98(Effect* effect, f32 x, f32 y, f32 z, f32 xRot, f32 yRot) {
+    Vec3f src;
+    Vec3f dest;
+
+    Effect_Initialize(effect);
+    effect->obj.status = 2;
+    effect->obj.id = OBJ_EFFECT_397;
+    effect->obj.pos.x = x;
+    effect->obj.pos.y = y;
+    effect->obj.pos.z = z;
+    effect->obj.rot.x = xRot;
+    effect->obj.rot.y = yRot;
+    effect->scale2 = 1.0f;
+    Matrix_RotateY(gCalcMatrix, M_DTOR * yRot, 0);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * xRot, 1);
+    src.x = 0.0f;
+    src.y = 0.0f;
+    src.z = 200.0f;
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+    effect->vel.x = dest.x;
+    effect->vel.y = dest.y;
+    effect->vel.z = dest.z;
+    effect->timer_50 = 60;
+    Audio_PlaySfx(0x31000013U, effect->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    Object_SetInfo(&effect->info, effect->obj.id);
+}
 
 void func_i4_80190EE4(f32 x, f32 y, f32 z, f32 arg3, f32 arg4) {
     s32 i;
