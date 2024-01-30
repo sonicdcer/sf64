@@ -22,6 +22,7 @@ extern u8 D_6011BA4[];
 extern u8 D_6008BB8[];
 extern u8 D_600AD80[];
 extern Gfx D_600BEC0[];
+extern Gfx D_600C4E0[];
 
 void func_8002FC00(Actor*);
 void func_i4_8018CCE8(Actor*);
@@ -547,7 +548,22 @@ s32 func_i4_8018D874(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_80191BAC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_80191DB0.s")
+void func_i4_80191DB0(Boss* boss) {
+    s32 alpha;
+
+    Matrix_Scale(gGfxMatrix, boss->unk_3F8, boss->unk_3F8, boss->unk_3F8, 1U);
+    alpha = boss->fwork[0];
+    if (alpha != 0) {
+        if (!(gGameFrameCount & 1)) {
+            alpha *= 1.7f;
+        }
+        RCP_SetupDL(&gMasterDisp, 0x29);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha);
+        Matrix_Scale(gGfxMatrix, 1.2f, 0.55f, 1.2f, 1);
+        Matrix_SetGfxMtx(&gMasterDisp);
+        gSPDisplayList(gMasterDisp++, D_600C4E0);
+    }
+}
 
 void func_i4_80191ED8(void) {
     s32 i;
