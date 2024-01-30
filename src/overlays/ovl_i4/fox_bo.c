@@ -18,6 +18,7 @@ extern s32 D_i4_801A0530;
 
 extern AnimationHeader D_6001C64;
 extern Limb* D_6001FB0;
+extern Gfx D_6006910[];
 extern AnimationHeader D_600F2E0;
 extern Limb* D_600F36C;
 extern u8 D_6011BA4[];
@@ -539,11 +540,31 @@ s32 func_i4_8018D874(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_80191054.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_80191180.s")
+void func_i4_80191180(Effect* effect) {
+    switch (effect->state) {
+        case 0:
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 192);
+            Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, effect->scale2, 1);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_6006910);
+            break;
 
+        case 1:
+            RCP_SetupDL(&gMasterDisp, 0x43);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_44);
+            gDPSetEnvColor(gMasterDisp++, 0, 128, 255, effect->unk_44);
+            Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, 1);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            RCP_SetupDL(&gMasterDisp, 0x40);
+            break;
+    }
+}
+
+void func_i4_801912FC(Boss* boss);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_801912FC.s")
 
-s32 func_i4_801918E4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, Actor* this);
+s32 func_i4_801918E4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* this);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_801918E4.s")
 
 void func_i4_80191A6C(s32, Vec3f*, void*);
