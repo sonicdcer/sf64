@@ -58,6 +58,8 @@ extern Gfx D_i5_801C2528[27][65];
 extern Gfx* D_i5_801C5C00[];
 extern u16 D_6001BA8[];
 extern s32 D_i5_801BA97C[2][3];
+extern Gfx D_i5_801BA950;
+extern Mtx** D_i5_801C5C18;
 
 // typedef struct {
 //     /* 0x00 */ s16 unk_00;
@@ -289,7 +291,110 @@ void func_i5_801B5110(f32 arg0, f32 arg1, f32 arg2) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/sf_i5_4/func_i5_801B5244.s")
 
+#ifdef NON_EQUIVALENT
+void func_i5_801B58AC(Gfx** dlists, f32 arg1) {
+    s32 spC4;
+    f32 temp_fa1;
+    s32 temp_hi;
+    s32 var_s0;
+    s32 i;
+    s32 var_s2;
+    s16* temp_t1;
+    s16* temp_v0_2;
+    s16* temp_v1;
+    s32 k;
+    s32 h;
+
+    RCP_SetupDL(dlists, 0x1D);
+    RCP_SetFog(dlists, gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
+    spC4 = D_i5_801C5C14;
+    if (D_i5_801C5C14 & 2) {
+        gDPTileSync((*dlists)++);
+        gDPSetTile((*dlists)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP,
+                   5, G_TX_NOLOD, G_TX_MIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+        gDPSetTileSize((*dlists)++, G_TX_RENDERTILE, 0, 0, 124, 124);
+        gDPSetTextureImage((*dlists)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_6001BA8); // Ground Texture?
+        gDPTileSync((*dlists)++);
+        gDPSetTile((*dlists)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP,
+                   G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+        gDPLoadSync((*dlists)++);
+        gDPLoadBlock((*dlists)++, G_TX_LOADTILE, 0, 0, 1023, 256);
+        gSPMatrix((*dlists)++, &gIdentityMtx, G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+        Matrix_Translate(gGfxMatrix, D_i5_801C62D8.unk_00, D_i5_801C62D8.unk_04, D_i5_801C62D8.unk_08 + D_i5_801C5C10,
+                         0);
+        Matrix_ToMtx(gGfxMtx);
+        gSPMatrix((*dlists)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+        gSPDisplayList((*dlists)++, &D_i5_801BA950);
+        gSPPopMatrix((*dlists)++, G_MTX_MODELVIEW);
+        func_i5_801B4AA8(NULL, &D_i5_801C5C14);
+    }
+    if (D_i5_801C5C14 & 1) {
+        if (D_i5_801C5C0C == 1) {
+            D_i5_801C5C0C = 0;
+            temp_hi = (D_i5_801C5C08 + 27) % 28;
+            for (k = 0; k < ARRAY_COUNT(D_i5_801C1D48[0]); k += 4) {
+                for (h = 0; h < 4; h++) {
+                    D_i5_801C1D48[temp_hi][k + h] = 0;
+                }
+            }
+            D_i5_801C2448[temp_hi] = D_i5_801BE740;
+            D_i5_801C24B8[temp_hi] = D_i5_801BE744;
+            func_i5_801B4AA8(D_i5_801C1D48[temp_hi], &spC4);
+            i = 0;
+            var_s2 = 0;
+            do {
+                temp_v0_2 = D_i5_801BE748[(D_i5_801C5C04 * 512) + var_s2];
+                if ((i != 0) && (i != 15)) {
+                    temp_v0_2[0] = (D_i5_801C2448[D_i5_801C5C08] * ((i * 220.0f) - 1760.0f));
+                } else if (i == 0) {
+                    temp_v0_2[0] = -4000;
+                } else {
+                    temp_v0_2[0] = 4000;
+                }
+
+                temp_t1 = temp_v0_2 + 16;
+                if ((i != 0) && (i != 15)) {
+                    temp_t1[0] = (D_i5_801C2448[(D_i5_801C5C08 + 1) % 28] * ((i * 220.0f) - 1760.0f));
+                } else if (i == 0) {
+                    temp_t1[0] = -4000;
+                } else {
+                    temp_t1[0] = 4000;
+                }
+
+                temp_v0_2[1] = D_i5_801C1D48[D_i5_801C5C08][i];
+                temp_t1[1] = D_i5_801C1D48[(D_i5_801C5C08 + 1) % 28][i];
+                temp_v1 = D_i5_801BE748[(((D_i5_801C5C04 + 27) % 27) * 512) + var_s2];
+                temp_t1[10] = 0;
+                temp_t1[2] = (D_i5_801C24B8[(D_i5_801C5C08 + 29) % 28] * -220.0f);
+                Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, D_i5_801C24B8[D_i5_801C5C08] * -220.0f, 0);
+                Matrix_ToMtx((D_i5_801C5C04 << 6) + &D_i5_801C5C18);
+                i += 1;
+                var_s2 += 0x20;
+            } while (i < 16);
+            func_i5_801B5FE0(D_i5_801C5C08, D_i5_801C5C04, 1);
+        }
+        gSPMatrix((*dlists)++, &gIdentityMtx, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+        func_i5_801B68A8(dlists, D_i5_801C5C04, 1);
+        gSPPopMatrix((*dlists)++, G_MTX_MODELVIEW);
+    }
+    D_i5_801C5C10 += arg1;
+    if (D_i5_801C5C14 & 1) {
+        temp_fa1 = D_i5_801C24B8[(D_i5_801C5C08 + 25) % 28] * 220.0f;
+        if (temp_fa1 <= D_i5_801C5C10) {
+            D_i5_801C5C0C = 1;
+            D_i5_801C5C10 = Math_ModF(D_i5_801C5C10, temp_fa1);
+            D_i5_801C5C04 = (D_i5_801C5C04 + 26) % 27;
+            D_i5_801C5C08 = (D_i5_801C5C08 + 27) % 28;
+        }
+    }
+    if (D_i5_801C5C14 & 2) {
+        D_i5_801C5C10 = Math_ModF(D_i5_801C5C10, 220.0f * D_i5_801BE744);
+    }
+    D_i5_801C5C14 = spC4;
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/sf_i5_4/func_i5_801B58AC.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/sf_i5_4/func_i5_801B5FE0.s")
 
