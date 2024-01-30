@@ -534,15 +534,26 @@ s32 func_i4_8018D874(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_80190EE4.s")
 
-void func_i4_80190F58(Effect*, f32, f32, f32, f32);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_80190F58.s")
+void func_i4_80190F58(Effect* effect, f32 x, f32 y, f32 z, f32 scale) {
+    Effect_Initialize(effect);
+    effect->obj.status = 1;
+    effect->obj.id = OBJ_EFFECT_397;
+    effect->obj.pos.x = x;
+    effect->obj.pos.y = y;
+    effect->obj.pos.z = z;
+    effect->state = 1;
+    effect->scale1 = scale;
+    effect->unk_44 = 255;
+    Object_SetInfo(&effect->info, effect->obj.id);
+    effect->info.unk_14 = 1;
+}
 
-void func_i4_80190FE8(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
+void func_i4_80190FE8(f32 x, f32 y, f32 z, f32 scale) {
     s32 i;
 
     for (i = 99; i >= 0; i--) {
         if (gEffects[i].obj.status == 0) {
-            func_i4_80190F58(&gEffects[i], arg0, arg1, arg2, arg3);
+            func_i4_80190F58(&gEffects[i], x, y, z, scale);
             return;
         }
     }
