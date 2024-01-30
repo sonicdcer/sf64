@@ -534,11 +534,48 @@ s32 func_i4_8018D874(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_80190EE4.s")
 
+void func_i4_80190F58(Effect*, f32, f32, f32, f32);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_80190F58.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_80190FE8.s")
+void func_i4_80190FE8(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_80191054.s")
+    for (i = 99; i >= 0; i--) {
+        if (gEffects[i].obj.status == 0) {
+            func_i4_80190F58(&gEffects[i], arg0, arg1, arg2, arg3);
+            return;
+        }
+    }
+}
+
+void func_i4_80191054(Effect* effect) {
+    switch (effect->state) {
+        case 0:
+            if (gPlayer->unk_280 == 0) {
+                func_8007A774(gPlayer, effect, 150.0f);
+            }
+
+            Math_SmoothStepToF(&effect->scale2, 30.0f, 1.0f, 10.0f, 0.0f);
+
+            if (effect->timer_50 == 0) {
+                Object_Kill(&effect->obj, effect->sfxPos);
+            }
+
+            if (effect->obj.pos.y < gGroundLevel + 50.0f) {
+                func_i4_80190FE8(effect->obj.pos.x, gGroundLevel + 50.0f, effect->obj.pos.z, 3.0f);
+                Object_Kill(&effect->obj, effect->sfxPos);
+            }
+            break;
+
+        case 1:
+            Math_SmoothStepToF(&effect->scale2, effect->scale1, 0.1f, 20.0f, 0.0f);
+            effect->unk_44 -= 20;
+            if (effect->unk_44 < 0) {
+                Object_Kill(&effect->obj, effect->sfxPos);
+            }
+            break;
+    }
+}
 
 void func_i4_80191180(Effect* effect) {
     switch (effect->state) {
