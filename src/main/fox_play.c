@@ -4262,7 +4262,7 @@ void func_800B0F50(Player* playerx) {
             for (sp34 = D_80178310, i = 0; i < D_80177DC8; i++, sp34++) {
                 Object_Load(sp34, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
             }
-            func_i5_801ACFBC(sp34);
+            func_i5_801ACFBC();
         }
     }
     if (player->state_1C8 == PLAYERSTATE_1C8_2) {

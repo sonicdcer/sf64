@@ -98,6 +98,22 @@ typedef struct {
     /* 0x14 */ f32 unk_14;
 } UnkStruct_D_menu_801B8294; // size = 0x18
 
+typedef struct {
+    /* 0x00 */ f32 unk_00;
+    /* 0x04 */ f32 unk_04;
+    /* 0x08 */ f32 unk_08;
+    /* 0x0C */ f32 unk_0C;
+    /* 0x10 */ s16 unk_10;
+} UnkStruct_D_i5_801B8E50; //size = 0x14
+
+typedef struct {
+    /* 0x00 */ f32 unk_00;
+    /* 0x04 */ s16 unk_04;
+    /* 0x08 */ f32 unk_08;
+    /* 0x0C */ f32 unk_0C;
+    /* 0x10 */ s16 unk_10;
+} UnkStruct_D_i5_801BA1EC; //size = 0x14
+
 typedef enum OptionState {
     OPTION_WAIT,
     OPTION_SETUP,
