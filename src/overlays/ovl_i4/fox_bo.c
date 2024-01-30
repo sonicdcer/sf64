@@ -16,6 +16,8 @@ extern s32 D_i4_801A03D8[];
 extern UnkStruct_D_i4_801A03E0 D_i4_801A03E0[];
 extern s32 D_i4_801A0530;
 
+extern AnimationHeader D_6001C64;
+extern Limb* D_6001FB0;
 extern AnimationHeader D_600F2E0;
 extern Limb* D_600F36C;
 extern u8 D_6011BA4[];
@@ -541,11 +543,20 @@ s32 func_i4_8018D874(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_801912FC.s")
 
+s32 func_i4_801918E4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* this);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_801918E4.s")
 
+void func_i4_80191A6C(s32, Vec3f*, void*);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_80191A6C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_80191AFC.s")
+void func_i4_80191AFC(Boss* boss) {
+    Animation_GetFrameData(&D_6001C64, 0, boss->vwork);
+    if (boss->state >= 2) {
+        Animation_DrawSkeleton(3, &D_6001FB0, boss->vwork, func_i4_801918E4, func_i4_80191A6C, boss, gCalcMatrix);
+        return;
+    }
+    Animation_DrawSkeleton(3, &D_6001FB0, boss->vwork, NULL, NULL, boss, gCalcMatrix);
+}
 
 void func_i4_80191BAC(Boss* boss) {
     D_i4_801A0530 = 0;
