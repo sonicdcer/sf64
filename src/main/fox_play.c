@@ -5148,7 +5148,7 @@ void func_800B44C4(Player* player) {
             break;
         case FORM_BLUE_MARINE:
             func_i3_801BEC80(player);
-            return;
+            break;
         case FORM_ON_FOOT:
             func_800B00C0(player);
             func_800B0194(player);
