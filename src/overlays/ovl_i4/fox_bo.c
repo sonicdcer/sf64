@@ -23,6 +23,7 @@ extern u8 D_6008BB8[];
 extern u8 D_600AD80[];
 extern Gfx D_600BEC0[];
 extern Gfx D_600C4E0[];
+extern u8 D_600CF88[];
 
 void func_8002FC00(Actor*);
 void func_i4_8018CCE8(Actor*);
@@ -546,12 +547,56 @@ s32 func_i4_8018D874(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_80191AFC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_80191BAC.s")
+void func_i4_80191BAC(Boss* boss) {
+    D_i4_801A0530 = 0;
+
+    Math_SmoothStepToF(boss->fwork, D_i4_801A03D8[1] * 9.0f + 10.0f, 1.0f, 10.0f, 0.0f);
+
+    Texture_Scroll(&D_600CF88, 16, 16, 0);
+    Texture_Scroll(&D_600CF88, 16, 16, 0);
+
+    switch (boss->state) {
+        case 2:
+            break;
+
+        case 0:
+            if (D_i4_801A03D8[1] == 0) {
+                boss->timer_052 = 130;
+                boss->state = 1;
+                Radio_PlayMessage(gMsg_ID_11050, RCID_FOX);
+                func_800182F4(0x100100FF);
+                func_800182F4(0x110100FF);
+            }
+            break;
+
+        case 1:
+            Math_SmoothStepToF(&gBosses->fwork[1], 0.0f, 1.0f, 0.01f, 0.001f);
+            if (boss->timer_052 == 0) {
+                boss->state = 2;
+                Audio_PlaySfx(0x19401048U, boss->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            }
+            break;
+    }
+
+    if (D_8017812C == 0) {
+        if (!(gGameFrameCount & 1)) {
+            D_8017836C = 0.0f;
+        } else {
+            D_8017836C = 0.5f;
+        }
+        D_80178370 = boss->obj.pos.x;
+        D_80178374 = boss->obj.pos.y;
+        D_80178378 = boss->obj.pos.z;
+        D_80178360 = 255;
+        D_80178364 = 128;
+        D_80178368 = 128;
+    }
+}
 
 void func_i4_80191DB0(Boss* boss) {
     s32 alpha;
 
-    Matrix_Scale(gGfxMatrix, boss->unk_3F8, boss->unk_3F8, boss->unk_3F8, 1U);
+    Matrix_Scale(gGfxMatrix, boss->unk_3F8, boss->unk_3F8, boss->unk_3F8, 1);
     alpha = boss->fwork[0];
     if (alpha != 0) {
         if (!(gGameFrameCount & 1)) {
