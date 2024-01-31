@@ -13,6 +13,12 @@ typedef struct UnkStruct_D_i4_801A03E0 {
 extern s16 D_800C9C34; // fox_bg
 extern s32 D_80177C3C[];
 extern s32 D_801778F4[];
+extern f32 D_i4_8019EFDC[];
+extern f32 D_i4_8019EFE8[];
+extern f32 D_i4_8019EFF4[];
+extern s32 D_i4_8019F000[];
+extern f32 D_i4_8019F00C[];
+extern f32 D_i4_8019F018[];
 extern f32 D_i4_8019F06C[];
 extern f32 D_i4_8019F078[];
 extern f32 D_i4_8019F084[];
@@ -526,7 +532,22 @@ s32 func_i4_8018D874(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018E870.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018EAEC.s")
+void func_i4_8018EAEC(Actor* actor, s32 index) {
+    Actor_Initialize(actor);
+    actor->obj.status = 1;
+    actor->obj.id = OBJ_ACTOR_195;
+    actor->obj.pos.x = D_i4_8019EFDC[index] + gPlayer[0].pos.x;
+    actor->obj.pos.y = D_i4_8019EFE8[index] + gPlayer[0].pos.y;
+    actor->obj.pos.z = D_i4_8019EFF4[index] + gPlayer[0].pos.z;
+    actor->unk_0B6 = D_i4_8019F000[index];
+    actor->obj.rot.y = 180.0f;
+    actor->vel.z = -gPlayer[0].unk_0D0;
+    actor->unk_0F4.z = D_i4_8019F00C[index];
+    actor->unk_0F4.y = D_i4_8019F018[index];
+    Object_SetInfo(&actor->info, actor->obj.id);
+    actor->iwork[11] = 1;
+    Audio_PlaySfx(0x3100000CU, actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+}
 
 void func_i4_8018EC1C(void);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018EC1C.s")
@@ -534,9 +555,9 @@ void func_i4_8018EC1C(void);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018ECB4.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018ED44.s")
-
+void func_i4_8018EE4C(f32, f32);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018EE4C.s")
-
+void func_i4_8018EF6C(Player* player);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018EF6C.s")
 
 void func_i4_8018F83C(Actor* actor, s32 arg1) {
