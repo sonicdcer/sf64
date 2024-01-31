@@ -96,7 +96,6 @@ void func_i4_80187884(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
 
 Vec3f D_i4_8019EDF8[] = { { -300.0f, 1000.0f, 13000.0f }, { 300.0f, 700.0f, 14000.0f }, { 1000.0f, 300.0f, 0.0f } };
 Vec3f D_i4_8019EE1C[] = { { -1000.0f, 300.0f, 0 }, { 0.0f, 500.0f, 0 } };
-Vec3f D_i4_8019EE34 = { 0.0f, 0.0f, -10000 };
 
 void func_i4_80187960(Actor* actor) {
     s32 i;
@@ -373,7 +372,7 @@ void func_i4_80187960(Actor* actor) {
                 actor3->unk_0E6 = 0;
                 actor3->state = 2;
                 if (actor->iwork[0] == 130) {
-                    Vec3f sp50 = D_i4_8019EE34;
+                    Vec3f sp50 = { 0.0f, 0.0f, -10000 };
 
                     Actor_Initialize(actor19);
                     Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y, player->unk_138, 0);
