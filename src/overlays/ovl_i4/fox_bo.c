@@ -569,7 +569,7 @@ void func_i4_8018F94C(Player* player) {
 
         case 1:
             player->unk_190 = 2.0f;
-            
+
             Math_SmoothStepToF(&player->unk_0E4, 15.0f, 0.1f, 0.4f, 0.0f);
             Math_SmoothStepToF(&player->unk_0EC, 40.0f, 0.2f, 5.0f, 0.0f);
             Math_SmoothStepToF(&player->unk_0E8, 120.0f, 0.1f, 2.0f, 0.0f);
@@ -645,7 +645,7 @@ void func_i4_8018F94C(Player* player) {
                 if (!(gGameFrameCount & 1)) {
                     func_8007C484(actor50->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f), actor50->obj.pos.y + 100.0f,
                                   actor50->obj.pos.z + RAND_FLOAT_CENTERED(1000.0f), 0.0f, 0.0f, 0.0f,
-                                  RAND_FLOAT( 0.4f) + 0.4f, 0.0f);
+                                  RAND_FLOAT(0.4f) + 0.4f, 0.0f);
                 }
                 if (!(gGameFrameCount & 1)) {
                     //! FAKE:
@@ -653,8 +653,7 @@ void func_i4_8018F94C(Player* player) {
                     } while (0);
 
                     func_8007BFFC(RAND_FLOAT_CENTERED(1000.0f) + actor50->obj.pos.x, actor50->obj.pos.y + 100.0f,
-                                  RAND_FLOAT_CENTERED(1000.0f) + actor50->obj.pos.z, 0.0f, 0.0f, 0.0f, 10.0f,
-                                  5.0f);
+                                  RAND_FLOAT_CENTERED(1000.0f) + actor50->obj.pos.z, 0.0f, 0.0f, 0.0f, 10.0f, 5.0f);
                 }
             }
 
@@ -677,10 +676,10 @@ void func_i4_8018F94C(Player* player) {
                     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
                         Object_Kill(&gEffects[i].obj, gEffects[i].sfxPos);
                     }
- 
+
                     func_8007B344(actor50->obj.pos.x, actor50->obj.pos.y, actor50->obj.pos.z, 400.0f, 4);
                     break;
- 
+
                 case 100:
                 case 105:
                 case 110:
@@ -837,16 +836,14 @@ void func_i4_8018F94C(Player* player) {
     if (actor50->unk_046 != 0) {
         Math_SmoothStepToF(&actor50->fwork[20], 3.0f, 0.03f, 0.01f, 0);
         if (!(gGameFrameCount & 1)) {
-            func_8007C484(RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.x,
-                          RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.y,
-                          RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.z, 0.0f, 0.0f, 0.0f,
-                          RAND_FLOAT(0.8f) + 0.8f, 0);
+            func_8007C484(
+                RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.x, RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.y,
+                RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.z, 0.0f, 0.0f, 0.0f, RAND_FLOAT(0.8f) + 0.8f, 0);
         }
         if (!(gGameFrameCount & 1)) {
-            func_8007BFFC(RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.x,
-                          RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.y,
-                          RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.z, 0.0f, 0.0f, 0.0f,
-                          RAND_FLOAT(10.0f) + 20.0f, 5);
+            func_8007BFFC(
+                RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.x, RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.y,
+                RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.z, 0.0f, 0.0f, 0.0f, RAND_FLOAT(10.0f) + 20.0f, 5);
         }
     }
 
@@ -860,7 +857,7 @@ void func_i4_8018F94C(Player* player) {
 
     Matrix_RotateY(gCalcMatrix, (player->unk_114 + player->unk_0E8 + 180.0f) * M_DTOR, 0);
     Matrix_RotateX(gCalcMatrix, -((player->unk_120 + player->unk_0E4 + player->unk_4D8) * M_DTOR), 1);
-    
+
     sp74.x = 0.0f;
     sp74.y = 0.0f;
     sp74.z = player->unk_0D0 + player->unk_110;
