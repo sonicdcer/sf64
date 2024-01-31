@@ -40,6 +40,9 @@ extern Vec3f D_i4_8019F0F0[];
 extern Vec3f D_i4_8019F114[];
 extern Vec3f D_i4_8019F138[];
 extern s32 D_i4_8019F15C[];
+extern f32 D_i4_8019F174[];
+extern s32 D_i4_8019F190;
+extern u8 D_i4_8019F19C[];
 extern TempStruct D_i4_8019F494;
 
 extern void func_i4_80194458(Boss*, Vec3f*, f32);
