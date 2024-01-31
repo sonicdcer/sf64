@@ -5,7 +5,7 @@ ovl_setup_dict = {"_co":"Corneria", "_me":"Meteo", "_sy":"SectorY", "_sx":"Secto
                   "_zo":"Zoness", "_fo":"Fortuna", "_ka":"Katina", "_bo":"Bolse", "_ve1":"Venom1", 
                   "_andross":"Andross", "_ve2":"Venom2", "_so":"Solar", "_aq":"Aquas", "_ti":"Titania",
                   "_ti_cs":"Titania", "_a6":"Area6", "_title":"Title", "_option":"Option", "_map":"Map",
-                  "_ending_1":"Ending", "_ending_2":"Ending","_tr":"Training","_tr360":"Training"}
+                  "_ending_1":"Ending", "_ending_2":"Ending","_tr":"Training","_tr360":"Training", "_ma":"Macbeth"}
 
 def fetch_ovl_setup(ovl_name):
     with open("src/main/fox_load_inits.c", "r") as setup_file:
@@ -90,8 +90,8 @@ def create_headers(ovl_path):
 def create_all_headers(overlay_dir):
     for subdir, dirs, files in os.walk(overlay_dir):
         for file in files:
-            if file.endswith('.c') and "_i" not in file:
-                create_headers(file)
+            if file.endswith('.c') and "_i" not in file and "unused" not in file:
+                create_headers(subdir + os.sep + file)
     return
 
 
