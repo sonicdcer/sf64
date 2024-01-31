@@ -46,7 +46,7 @@ extern Gfx D_600C4E0[];
 extern u8 D_600CF88[];
 
 void func_8002FC00(Actor*);
-void func_i4_8018CCE8(Actor*);
+s32 func_i4_8018CCE8(Actor*);
 void func_i4_8018CE5C(Actor*);
 s32 func_i4_8018D008(Actor*);
 void func_i4_8018D124(Actor*);
@@ -352,7 +352,74 @@ s32 func_i4_8018CC60(Actor* actor) {
     return 0;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018CCE8.s")
+s32 func_i4_8018CCE8(Actor* actor) {
+    s32 i;
+    s32 var_v0;
+    f32 temp_fs0;
+    f32 temp_fv0;
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 var_fv1 = 10000.0f;
+    f32 var_fa0 = 10000.0f;
+
+    var_v0 = 0;
+
+    x = gActors[i].obj.pos.x;
+    z = gActors[i].obj.pos.z;
+
+    for (i = 0; i < 4; i += 2) {
+        if (i != 0) {
+            x = gActors[i].obj.pos.x;
+            z = gActors[i].obj.pos.z;
+        } else {
+            x = gPlayer[0].pos.x;
+            z = gPlayer[0].pos.z;
+        }
+
+        temp_fs0 = fabsf(x - actor->obj.pos.x);
+        temp_fv0 = fabsf(z - actor->obj.pos.z);
+
+        if ((!(var_fv1 < temp_fs0)) && (!(var_fa0 < temp_fv0))) {
+            var_fv1 = temp_fs0;
+            var_fa0 = temp_fv0;
+            var_v0 = i;
+            //! FAKE:
+            if (gPlayer) {}
+        }
+
+        if (i != -1) {
+            x = gActors[i + 1].obj.pos.x;
+            z = gActors[i + 1].obj.pos.z;
+        } else {
+            x = gPlayer[0].pos.x;
+            z = gPlayer[0].pos.z;
+        }
+
+        temp_fs0 = fabsf(x - actor->obj.pos.x);
+        temp_fv0 = fabsf(z - actor->obj.pos.z);
+
+        if ((!(var_fv1 < temp_fs0)) && (!(var_fa0 < temp_fv0))) {
+            var_fv1 = temp_fs0;
+            var_fa0 = temp_fv0;
+            var_v0 = i + 1;
+        }
+    }
+
+    if (var_v0 == 0) {
+        x = gPlayer[0].pos.x;
+        y = gPlayer[0].pos.y;
+        z = gPlayer[0].pos.z;
+    } else {
+        x = gActors[var_v0].obj.pos.x;
+        y = gActors[var_v0].obj.pos.y;
+        z = gActors[var_v0].obj.pos.z;
+    }
+    actor->fwork[0] = x;
+    actor->fwork[1] = y;
+    actor->fwork[2] = z;
+    return 0;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018CE5C.s")
 
