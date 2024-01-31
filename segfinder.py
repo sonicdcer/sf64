@@ -84,7 +84,18 @@ def create_headers(ovl_path):
                 header_txt = header_txt[:-1] + [defn] + header_txt[-1:]
         with open("include/assets/" + asset + ".h", 'w') as header_src:
              header_src.writelines(header_txt)
+    for defn in sym_defs:
+        prune_assets(defn)
     
+    return
+
+def prune_assets(defn):
+    with open("include/assets.h", "r") as ast_file:
+        ast_text = ast_file.readlines()
+    if defn in ast_text:
+        ast_text.remove(defn)
+    with open("include/assets.h", "w") as ast_file:
+        ast_file.writelines(ast_text)
     return
 
 def create_all_headers(overlay_dir):
