@@ -40,7 +40,7 @@ OverlayInit sNoOvl_Logo[1] = {
         /* 0xF */ ROM_SEGMENT(ast_logo) } },
 };
 
-OverlayInit sOvlending_Credits[6] = {
+OverlayInit sOvlending_Ending[6] = {
     { OVERLAY_OFFSETS(ovl_ending),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,

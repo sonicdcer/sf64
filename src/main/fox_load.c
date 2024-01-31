@@ -185,7 +185,7 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
             }
             break;
         case OVL_SETUP_CREDITS:
-            changeOvl = Overlay_Init(&sOvlending_Credits[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlending_Ending[ovlStage]);
             break;
         default:
             (void) "DMA MODE ERROR %d\n";

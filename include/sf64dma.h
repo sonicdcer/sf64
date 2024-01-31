@@ -93,7 +93,7 @@ typedef struct {
 extern DmaEntry gDmaTable[]; // 178A70
 
 extern OverlayInit sNoOvl_Logo[1]; // sets segment 15 with no overlay
-extern OverlayInit sOvlending_Credits[6]; // overlay EF0260
+extern OverlayInit sOvlending_Ending[6]; // overlay EF0260
 extern OverlayInit sOvlmenu_Title[1]; // EBFBE0
 extern OverlayInit sOvlmenu_Option[1]; // EBFBE0
 extern OverlayInit sOvlmenu_Map[1]; // EBFBE0
