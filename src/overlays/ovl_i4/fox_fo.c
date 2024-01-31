@@ -502,12 +502,12 @@ void func_i4_80188AD0(Actor* actor) {
     }
 }
 
-void func_i4_80188DA0(s32 arg0, Vec3f* arg1, void* ptr) {
+void func_i4_80188DA0(s32 limbIndex, Vec3f* rot, void* ptr) {
     Vec3f vec = { 0.0f, 0.0f, 0.0f };
     Actor* actor = (Actor*) ptr;
 
     if (actor->state == 1) {
-        switch (arg0) {
+        switch (limbIndex) {
             case 1:
                 Matrix_MultVec3f(gCalcMatrix, &vec, actor->vwork);
                 Matrix_GetYRPAngles(gCalcMatrix, &actor->vwork[6]);
@@ -541,31 +541,31 @@ void func_i4_80188DA0(s32 arg0, Vec3f* arg1, void* ptr) {
     }
 }
 
-s32 func_i4_80188F08(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* ptr) {
+s32 func_i4_80188F08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* ptr) {
     Actor* actor = (Actor*) ptr;
 
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 
-    if ((actor->state != 0) && (arg0 != 8)) {
-        *arg1 = NULL;
+    if ((actor->state != 0) && (limbIndex != 8)) {
+        *dList = NULL;
     }
 
-    switch (arg0) {
+    switch (limbIndex) {
         case 1:
         case 2:
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
             break;
 
         case 5:
-            arg3->x += actor->fwork[0];
+            rot->x += actor->fwork[0];
             break;
 
         case 6:
-            arg3->x += actor->fwork[0];
+            rot->x += actor->fwork[0];
             break;
 
         case 7:
-            arg3->x += actor->fwork[0] * 0.7f;
+            rot->x += actor->fwork[0] * 0.7f;
             break;
     }
 
