@@ -13,6 +13,10 @@ typedef struct UnkStruct_D_i4_801A03E0 {
 extern s16 D_800C9C34; // fox_bg
 extern s32 D_80177C3C[];
 extern s32 D_801778F4[];
+extern f32 D_i4_8019F06C[];
+extern f32 D_i4_8019F078[];
+extern f32 D_i4_8019F084[];
+extern f32 D_i4_8019F090[];
 extern Vec3f D_i4_8019F0D8;
 extern f32 D_i4_801A03D0;
 extern f32 D_i4_801A03D4;
@@ -38,6 +42,7 @@ void func_i4_8018CCE8(Actor*);
 void func_i4_8018CE5C(Actor*);
 s32 func_i4_8018D008(Actor*);
 void func_i4_8018D124(Actor*);
+void func_i4_8018F83C(Actor* actor, s32);
 
 #ifdef IMPORT_DATA
 void func_i4_8018BD60(Actor* actor) {
@@ -381,7 +386,7 @@ bool func_i4_8018D278(Actor* actor) {
 
 void func_i4_8018D394(Actor* actor) {
     func_i4_8018CC60(actor);
-    if ((gPlayer->state_1C8 != PLAYERSTATE_1C8_0) && (gPlayer->state_1C8 != PLAYERSTATE_1C8_7)) {
+    if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7)) {
         func_i4_8018CCE8(actor);
         func_i4_8018CE5C(actor);
         if (func_i4_8018D008(actor) != 0) {
@@ -534,8 +539,20 @@ void func_i4_8018EC1C(void);
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018EF6C.s")
 
-void func_i4_8018F83C(Actor* actor, s32);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018F83C.s")
+void func_i4_8018F83C(Actor* actor, s32 arg1) {
+    Actor_Initialize(actor);
+    actor->obj.status = 1;
+    actor->obj.id = OBJ_ACTOR_195;
+    actor->obj.pos.x = D_i4_8019F06C[arg1] + gPlayer[0].pos.x;
+    actor->obj.pos.y = D_i4_8019F078[arg1] + gPlayer[0].pos.y;
+    actor->obj.pos.z = D_i4_8019F084[arg1] + gPlayer[0].pos.z;
+    actor->obj.rot.y = 180.0f;
+    actor->obj.rot.z = D_i4_8019F090[arg1];
+    actor->vel.z = -gPlayer[0].unk_0D0;
+    Object_SetInfo(&actor->info, actor->obj.id);
+    actor->iwork[11] = 1;
+    Audio_PlaySfx(0x3100000CU, actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+}
 
 void func_i4_8018F94C(Player* player) {
     f32 sp8C;
@@ -558,9 +575,11 @@ void func_i4_8018F94C(Player* player) {
             D_i4_801A03D0 = 100.0f;
             D_i4_801A03D4 = 100.0f;
             D_i4_801A03D8 = 80.0f;
+
             Math_SmoothStepToF(&player->unk_0E8, -40.0f, 0.1f, 2.5f, 0.0f);
             Math_SmoothStepToF(&player->unk_0EC, -60.0f, 0.2f, 5.0f, 0.0f);
             Math_SmoothStepToF(&player->unk_0E4, 0.0f, 0.1f, 2.5f, 0.0f);
+
             if (player->timer_1F8 == 0) {
                 player->unk_1D0 = 1;
                 player->timer_1F8 = 200;
@@ -701,7 +720,6 @@ void func_i4_8018F94C(Player* player) {
                         func_800795AC(RAND_FLOAT_CENTERED(300.0f) + actor50->obj.pos.x,
                                       actor50->obj.pos.y - RAND_FLOAT(2000.0f),
                                       RAND_FLOAT_CENTERED(300.0f) + actor50->obj.pos.z, 5.11f);
-                        ;
                     };
                     actor50->unk_046 = 1;
                     break;
@@ -968,7 +986,7 @@ void func_i4_80190FE8(f32 x, f32 y, f32 z, f32 scale) {
 void func_i4_80191054(Effect* effect) {
     switch (effect->state) {
         case 0:
-            if (gPlayer->unk_280 == 0) {
+            if (gPlayer[0].unk_280 == 0) {
                 func_8007A774(gPlayer, effect, 150.0f);
             }
 
