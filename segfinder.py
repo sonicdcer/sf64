@@ -81,9 +81,9 @@ def create_headers(ovl_path):
             header_txt = header_src.readlines()
         for symbol, defn in zip(symbols, sym_defs):
             if i == get_seg_number(symbol) and defn not in header_txt:
-                header_txt = header_txt[:-3] + [defn] + header_txt[-3:]
-        # with open("include/assets/" + asset + ".h", 'w') as header_src:
-        #      header_src.writelines(header_txt)
+                header_txt = header_txt[:-1] + [defn] + header_txt[-1:]
+        with open("include/assets/" + asset + ".h", 'w') as header_src:
+             header_src.writelines(header_txt)
     
     return
 
