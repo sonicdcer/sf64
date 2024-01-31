@@ -95,7 +95,7 @@ extern DmaEntry gDmaTable[]; // 178A70
 extern OverlayInit sNoOvl_Logo[1]; // sets segment 15 with no overlay
 extern OverlayInit sOvlending_Credits[6]; // overlay EF0260
 extern OverlayInit sOvlmenu_Title[1]; // EBFBE0
-extern OverlayInit sOvlmenu_Menu[1]; // EBFBE0
+extern OverlayInit sOvlmenu_Option[1]; // EBFBE0
 extern OverlayInit sOvlmenu_Map[1]; // EBFBE0
 extern OverlayInit sOvlmenu_State5[1]; // EBFBE0
 extern OverlayInit sOvli1_Corneria[1]; // fox_i1
@@ -111,8 +111,8 @@ extern OverlayInit sOvli6_SectorY[1]; // E9F1D0
 extern OverlayInit sOvli3_Solar[1]; // i3
 extern OverlayInit sOvli3_Zoness[1]; // i3
 extern OverlayInit sOvli1_Venom1[1]; // fox_i1
-extern OverlayInit sOvli6_Venom2[1]; // E9F1D0
-extern OverlayInit sOvli6_VenomSW[2]; // E9F1D0
+extern OverlayInit sOvli6_Andross[1]; // E9F1D0
+extern OverlayInit sOvli6_Venom2[2]; // E9F1D0
 extern OverlayInit sOvli2_Setup20[1]; // fox_i2
 extern OverlayInit sOvli4_Bolse[1]; // i4
 extern OverlayInit sOvli4_Katina[1]; // i4
@@ -127,55 +127,55 @@ DECLARE_SEGMENT(dma_table);
 DECLARE_SEGMENT(audio_seq);
 DECLARE_SEGMENT(audio_bank);
 DECLARE_SEGMENT(audio_table);
-DECLARE_SEGMENT(ast_873CB0);
-DECLARE_SEGMENT(ast_8A68C0);
-DECLARE_SEGMENT(ast_8AE0A0);
-DECLARE_SEGMENT(ast_8BFC00);
-DECLARE_SEGMENT(ast_8D99F0);
-DECLARE_SEGMENT(ast_8E1F80);
-DECLARE_SEGMENT(ast_8E92D0);
-DECLARE_SEGMENT(ast_918430);
-DECLARE_SEGMENT(ast_922730);
-DECLARE_SEGMENT(ast_92EC40);
-DECLARE_SEGMENT(ast_940AD0);
-DECLARE_SEGMENT(ast_955270);
-DECLARE_SEGMENT(ast_961CE0);
-DECLARE_SEGMENT(ast_9A1460);
-DECLARE_SEGMENT(ast_9D2FD0);
-DECLARE_SEGMENT(ast_9DD390);
-DECLARE_SEGMENT(ast_9EB5E0);
-DECLARE_SEGMENT(ast_9F4880);
-DECLARE_SEGMENT(ast_A049A0);
-DECLARE_SEGMENT(ast_A0E340);
-DECLARE_SEGMENT(ast_A1D0F0);
-DECLARE_SEGMENT(ast_A4FBB0);
-DECLARE_SEGMENT(ast_A58F60);
-DECLARE_SEGMENT(ast_A8B470);
-DECLARE_SEGMENT(ast_AB4000);
-DECLARE_SEGMENT(ast_ACF960);
-DECLARE_SEGMENT(ast_AE60A0);
-DECLARE_SEGMENT(ast_B0AA00);
-DECLARE_SEGMENT(ast_B1CA50);
-DECLARE_SEGMENT(ast_B2CA50);
-DECLARE_SEGMENT(ast_B612E0);
-DECLARE_SEGMENT(ast_B84560);
-DECLARE_SEGMENT(ast_BB11D0);
-DECLARE_SEGMENT(ast_BC23D0);
-DECLARE_SEGMENT(ast_BFA740);
-DECLARE_SEGMENT(ast_BFC510);
-DECLARE_SEGMENT(ast_C48F40);
-DECLARE_SEGMENT(ast_CA9DE0);
-DECLARE_SEGMENT(ast_CBFE70);
-DECLARE_SEGMENT(ast_CD2410);
-DECLARE_SEGMENT(ast_CDDCA0);
-DECLARE_SEGMENT(ast_CE9E70);
-DECLARE_SEGMENT(ast_D25100);
-DECLARE_SEGMENT(ast_D27600);
-DECLARE_SEGMENT(ast_D43400);
-DECLARE_SEGMENT(ast_D68480);
-DECLARE_SEGMENT(ast_D91F10);
-DECLARE_SEGMENT(ast_DDC010);
-DECLARE_SEGMENT(ast_DE5D50);
+DECLARE_SEGMENT(ast_common);
+DECLARE_SEGMENT(ast_bg_space);
+DECLARE_SEGMENT(ast_bg_planet);
+DECLARE_SEGMENT(ast_arwing);
+DECLARE_SEGMENT(ast_landmaster);
+DECLARE_SEGMENT(ast_blue_marine);
+DECLARE_SEGMENT(ast_vs_player);
+DECLARE_SEGMENT(ast_enmy_planet);
+DECLARE_SEGMENT(ast_enmy_space);
+DECLARE_SEGMENT(ast_great_fox);
+DECLARE_SEGMENT(ast_star_wolf);
+DECLARE_SEGMENT(ast_allies);
+DECLARE_SEGMENT(ast_corneria);
+DECLARE_SEGMENT(ast_meteo);
+DECLARE_SEGMENT(ast_titania);
+DECLARE_SEGMENT(ast_7_ti_2);
+DECLARE_SEGMENT(ast_8_ti);
+DECLARE_SEGMENT(ast_9_ti);
+DECLARE_SEGMENT(ast_A_ti);
+DECLARE_SEGMENT(ast_7_ti_1);
+DECLARE_SEGMENT(ast_sector_x);
+DECLARE_SEGMENT(ast_sector_z);
+DECLARE_SEGMENT(ast_aquas);
+DECLARE_SEGMENT(ast_area_6);
+DECLARE_SEGMENT(ast_venom_1);
+DECLARE_SEGMENT(ast_venom_2);
+DECLARE_SEGMENT(ast_ve1_boss);
+DECLARE_SEGMENT(ast_bolse);
+DECLARE_SEGMENT(ast_fortuna);
+DECLARE_SEGMENT(ast_sector_y);
+DECLARE_SEGMENT(ast_solar);
+DECLARE_SEGMENT(ast_zoness);
+DECLARE_SEGMENT(ast_katina);
+DECLARE_SEGMENT(ast_macbeth);
+DECLARE_SEGMENT(ast_warp_zone);
+DECLARE_SEGMENT(ast_title);
+DECLARE_SEGMENT(ast_menu);
+DECLARE_SEGMENT(ast_option);
+DECLARE_SEGMENT(ast_versus);
+DECLARE_SEGMENT(ast_font);
+DECLARE_SEGMENT(ast_font_3d);
+DECLARE_SEGMENT(ast_andross);
+DECLARE_SEGMENT(ast_logo);
+DECLARE_SEGMENT(ast_ending);
+DECLARE_SEGMENT(ast_ending_award_front);
+DECLARE_SEGMENT(ast_ending_award_back);
+DECLARE_SEGMENT(ast_reward);
+DECLARE_SEGMENT(ast_training);
+DECLARE_SEGMENT(ast_radio);
 DECLARE_SEGMENT(ovl_i1);
 DECLARE_SEGMENT(ovl_i2);
 DECLARE_SEGMENT(ovl_i3);

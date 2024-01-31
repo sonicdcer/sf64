@@ -1,6 +1,6 @@
 #include "global.h"
 
-extern AnimationHeader D_6007854;
+extern Animation D_6007854;
 extern Limb* D_6007980;
 extern u8 D_600FF64[];
 

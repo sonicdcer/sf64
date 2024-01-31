@@ -11,7 +11,7 @@
 #include "sf64object.h"
 #include "sf64player.h"
 
-// ast_873CB0
+// ast_common
 extern u16 D_1002040[];
 extern u16 D_10032A0[];
 extern u16 D_10041C0[];
@@ -92,7 +92,7 @@ extern Gfx D_1031630[];
 extern Gfx D_1031EC0[];
 extern Gfx D_1032780[];
 
-// ast_8A68C0, ast_8AE0A0
+// ast_bg_space, ast_bg_planet
 extern Gfx D_2000000[];
 extern Gfx D_2000890[];
 extern Gfx D_2001090[];
@@ -125,7 +125,7 @@ extern Gfx D_200F910[];
 extern Gfx D_20101A0[];
 extern Gfx D_20112C0[];
 
-// ast_8BFC00, ast_8D99F0, ast_8E1F80, ast_8E92D0
+// ast_arwing, ast_landmaster, ast_blue_marine, ast_vs_player
 extern Gfx D_3006940[];
 extern Gfx D_301AD60[];
 extern Gfx D_301AEF0[];
@@ -153,7 +153,7 @@ extern u16 D_3007500[];
 extern u8 D_300A470[];
 extern u16 D_300B218[];
 
-extern u8 D_5007F60[];
+
 
 extern Gfx D_3001C90[];
 extern u16 D_3002E80[];
@@ -187,10 +187,10 @@ extern Gfx D_3014BF0[];
 extern Gfx D_3015120[];
 extern Gfx D_30155E0[];
 extern Gfx D_3015740[];
-extern AnimationHeader D_3015AF4;
-extern AnimationHeader D_3015C28;
+extern Animation D_3015AF4;
+extern Animation D_3015C28;
 extern Gfx D_3015D80[];
-extern AnimationHeader D_30163C4;
+extern Animation D_30163C4;
 extern Limb* D_3016610[];
 extern Gfx D_3016660[];
 extern Gfx D_30160A0[];
@@ -206,13 +206,13 @@ extern Gfx D_3018800[];
 extern Gfx D_30194E0[];
 extern Gfx D_301B080[];
 extern Gfx D_301B6E0[];
-extern AnimationHeader D_301C3A8;
+extern Animation D_301C3A8;
 extern Limb* D_301C614[];
-extern AnimationHeader D_301CFEC;
+extern Animation D_301CFEC;
 extern Limb* D_301D258[];
-extern AnimationHeader D_301D888;
+extern Animation D_301D888;
 extern Limb* D_301DB94[];
-extern AnimationHeader D_301E19C;
+extern Animation D_301E19C;
 extern Limb* D_301E3E8[];
 extern Gfx D_301E570[];
 extern Gfx D_301F140[];
@@ -250,23 +250,23 @@ extern Vec3f D_302F008[];
 extern Triangle D_302F044[];
 extern Vec3f D_302F098[];
 
-// ast_918430, ast_922730
-extern AnimationHeader D_4000080;
+// ast_enmy_planet, ast_enmy_space
+extern Animation D_4000080;
 extern Limb* D_400014C[];
-extern AnimationHeader D_40001A4;
+extern Animation D_40001A4;
 extern Limb* D_4000270[];
 extern Gfx D_40018A0[];
 extern Gfx D_4003BD0[];
-extern AnimationHeader D_40057AC;
+extern Animation D_40057AC;
 extern Limb* D_40058B8[];
 extern Gfx D_40068F0[];
 extern Gfx D_4007870[];
 extern Gfx D_4007AF0[];
-extern AnimationHeader D_400A30C;
+extern Animation D_400A30C;
 extern Limb* D_400A398[];
 extern Gfx D_400B390[];
 
-// ast_CD2410
+// ast_font
 extern u8 D_5000000[];
 extern u8 D_5000080[];
 extern u8 D_5000100[];
@@ -279,6 +279,7 @@ extern u8 D_5000400[];
 extern u8 D_5000480[];
 extern u8 D_50021F0[];
 extern u16 D_50077B0[];
+extern u8 D_5007F60[];
 extern u8 D_5009F60[];
 extern u8 D_500A050[];
 extern u8 D_500A140[];
@@ -291,10 +292,10 @@ extern u8 D_500A6E0[];
 extern u8 D_500A7D0[];
 extern Gfx D_500B600[];
 
-/* ast_961CE0, ast_9A1460, ast_9D2FD0, ast_A1D0F0, ast_A4FBB0,
- * ast_A58F60, ast_A8B470, ast_AB4000, ast_ACF960, ast_AE60A0*,
- * ast_B0AA00, ast_B1CA50, ast_B2CA50, ast_B612E0, ast_B84560,
- * ast_BB11D0, ast_BC23D0, ast_BFC510, ast_C48F40, ast_DDC010
+/* ast_corneria, ast_meteo, ast_titania, ast_sector_x, ast_sector_z,
+ * ast_aquas, ast_area_6, ast_venom_1, ast_venom_2, ast_ve1_boss*,
+ * ast_bolse, ast_fortuna, ast_sector_y, ast_solar, ast_zoness,
+ * ast_katina, ast_macbeth, ast_title, ast_menu, ast_training
  */
 extern u16 D_6000000[];
 extern Gfx D_60005B0[];
@@ -353,7 +354,7 @@ extern Gfx D_6006140[];
 extern Gfx D_6006310[];
 extern u16* D_600631C[];
 extern u8 D_6006320[];
-extern AnimationHeader D_600636C;
+extern Animation D_600636C;
 extern f32 D_60064AC[];
 extern f32 D_60064C8[];
 extern f32 D_60064FC[];
@@ -394,7 +395,7 @@ extern Gfx D_6006A80[];
 extern Gfx D_6006BE0[];
 extern f32 D_6006BF0[];
 extern f32 D_6006C44[];
-extern AnimationHeader D_6006D64;
+extern Animation D_6006D64;
 extern Limb *D_6006E50[];
 extern EnvSettings D_6006E70;
 extern u8 D_6006E80[];
@@ -427,7 +428,7 @@ extern u16* D_6009B34[];
 extern u16 D_6009BB8[];
 extern f32 D_6009CC4[];
 extern f32 D_6009CFC[];
-extern AnimationHeader D_6009D30;
+extern Animation D_6009D30;
 extern Gfx D_6009E30[];
 extern Vtx D_6009ED0[];
 extern Gfx D_6009F90[];
@@ -439,7 +440,7 @@ extern u16 D_600AB68[];
 extern u8 D_600AD30[];
 extern Gfx D_600AF40[];
 extern Gfx D_600B0E0[];
-extern AnimationHeader D_600B1B4;
+extern Animation D_600B1B4;
 extern Gfx D_600B4B0[];
 extern Gfx D_600B8B0[];
 extern u8 D_600B9B0[];
@@ -447,8 +448,8 @@ extern Gfx D_600BAF0[];
 extern u16 D_600BEA0[];
 extern Gfx D_600BF80[];
 extern Gfx D_600C130[];
-extern AnimationHeader D_600C15C;
-extern AnimationHeader D_600C200;
+extern Animation D_600C15C;
+extern Animation D_600C200;
 extern Limb *D_600C2AC[];
 extern u16 D_600C6A0[];
 extern Gfx D_600C740[];
@@ -457,7 +458,7 @@ extern Gfx D_600CAA0[];
 extern u16 D_600CBD8[];
 extern u8 D_600CC10[];
 extern Gfx D_600D190[];
-extern AnimationHeader D_600D3DC;
+extern Animation D_600D3DC;
 extern u16 D_600D5C0[];
 extern Gfx D_600D730[];
 extern u16 D_600D990[];
@@ -470,10 +471,10 @@ extern Gfx D_600DDF0[];
 extern Gfx D_600E050[];
 extern Gfx D_600E0C0[];
 extern u8 D_600E210[];
-extern AnimationHeader D_600E2C4;
+extern Animation D_600E2C4;
 extern u8 D_600E360[];
 extern Limb *D_600E470[];
-extern AnimationHeader D_600E5EC;
+extern Animation D_600E5EC;
 extern Gfx D_600E820[];
 extern u8 D_600E980[];
 extern EnvSettings D_600EA90;
@@ -497,7 +498,7 @@ extern CollisionPoly D_600F60C[];
 extern Gfx D_600F670[];
 extern Gfx D_600F6C0[];
 extern Gfx D_600F6C0[];
-extern AnimationHeader D_600F744;
+extern Animation D_600F744;
 extern Gfx D_600F8A0[];
 extern u8 D_600F940[];
 extern Gfx D_600F9B0[];
@@ -544,14 +545,14 @@ extern Gfx D_60120F0[];
 extern u8 D_6012310[];
 extern u8 D_60123F0[];
 extern Gfx D_6012C00_Gfx[];
-extern AnimationHeader D_6012C00_Anim;
+extern Animation D_6012C00_Anim;
 extern u8 D_60131A0[];
 extern Gfx D_60132B0[];
 extern u8 D_6013470[];
 extern Gfx D_6013480[];
 extern Gfx D_60137B0[];
-extern AnimationHeader D_6013820;
-extern AnimationHeader D_601388C;
+extern Animation D_6013820;
+extern Animation D_601388C;
 extern Limb* D_601390C[];
 extern Gfx D_6013960[];
 extern u8 D_60139E0[];
@@ -561,7 +562,7 @@ extern u8 D_6014360[];
 extern Gfx D_60143E0[];
 extern Gfx D_6014500[];
 extern u16 D_6014510[];
-extern AnimationHeader D_6014658;
+extern Animation D_6014658;
 extern Gfx D_6014670[];
 extern u16 D_60147C0[];
 extern u8 D_60147E0[];
@@ -595,7 +596,7 @@ extern u8 D_6017640[];
 extern u8 D_6018280[];
 extern Gfx D_6018450[];
 extern Gfx D_60188D0[];
-extern AnimationHeader D_6018994;
+extern Animation D_6018994;
 extern Limb* D_6018BA0[];
 extern Gfx D_6018BF0[];
 extern Gfx D_6018C00[]; // possible collision
@@ -656,7 +657,7 @@ extern Gfx D_601DE60[];
 extern Gfx D_601DE80[];
 extern Gfx D_601E150[];
 extern u16 D_601E1E8[];
-extern AnimationHeader D_601E8C4;
+extern Animation D_601E8C4;
 extern Limb* D_601E9D0[];
 extern Gfx D_601EAA0[];
 extern Gfx D_601F1D0[];
@@ -664,7 +665,7 @@ extern EnvSettings D_601F1F0;
 extern Gfx D_601F500[];
 extern Gfx D_601F5A0[];
 extern Gfx D_601F6B0[];
-extern AnimationHeader D_601F874;
+extern Animation D_601F874;
 extern Limb* D_601F920[];
 extern Gfx D_601FCB0[];
 extern u8 D_601FF40[];
@@ -678,7 +679,7 @@ extern Gfx D_6020E60[];
 extern u16 D_6020F60[];
 extern u16 D_6020FB0[];
 extern u16 D_6021ED0[];
-extern AnimationHeader D_602201C;
+extern Animation D_602201C;
 extern Limb* D_60220E8[];
 extern Gfx D_6022110[];
 extern u16 D_6022340[];
@@ -711,7 +712,7 @@ extern u16 D_6026C90[];
 extern u8 D_6026D70[];
 extern Gfx D_60270E0[];
 extern Gfx D_6027180[];
-extern AnimationHeader D_6027320;
+extern Animation D_6027320;
 extern u16 D_6027340[];
 extern Limb* D_602742C[];
 extern Gfx D_6027900[];
@@ -724,7 +725,7 @@ extern u16* D_60289FC[];
 extern u16 D_6028A60[];
 extern u16 D_6029170[];
 extern u8 D_6029220[];
-extern AnimationHeader D_6029528;
+extern Animation D_6029528;
 extern Limb* D_6029674[];
 extern Gfx D_6029890[];
 extern EnvSettings D_602A120;
@@ -953,7 +954,7 @@ extern Gfx D_6019670[];
 extern Gfx D_60185E0[];
 extern Gfx D_6017550[];
 
-// ast_9DD390, ast_A0E340, ast_BFA740, ast_CBFE70, ast_D27600
+// ast_7_ti_2, ast_7_ti_1, ast_warp_zone, ast_versus, ast_ending
 extern Gfx D_7000000[];
 extern u8 D_7000F10[];
 extern u8 D_7001030[];
@@ -979,14 +980,14 @@ extern Gfx D_7007350[];
 extern Gfx D_700AB70[];
 extern Gfx D_700BB10[];
 extern Gfx D_700BE00[];
-extern AnimationHeader D_700CAF4;
+extern Animation D_700CAF4;
 extern Limb* D_700CB60[];
 extern u16 D_700E9A0[];
 extern u8 D_70118E0[];
 extern u16 D_70123F8[];
 extern u16 D_70123F8[];
 
-// ast_9EB5E0, ast_CA9DE0, ast_D43400, ast_D68480, ast_D91F10
+// ast_8_ti, ast_option, ast_ending_award_front, ast_ending_award_back, ast_reward
 extern u8 D_8000000[];
 extern u16 D_8000680[];
 extern u8 D_80006A0[];
@@ -1033,7 +1034,7 @@ extern u16 D_800E170[];
 extern Gfx D_8015550[];
 extern Gfx D_8015DF0[];
 
-// ast_9F4880, ast_AE60A0, ast_CDDCA0
+// ast_9_ti, ast_ve1_boss, ast_font_3d
 extern Gfx D_9002CF0[];
 extern u16 D_9003330[];
 extern u16 D_9003890[];
@@ -1051,12 +1052,12 @@ extern Gfx D_9023290[];
 extern Gfx D_90234D0[];
 extern Gfx D_9023AD0[];
 
-// ast_A049A0
+// ast_A_ti
 extern Gfx D_A000000[];
 
 // segment B is unused
 
-// ast_CE9E70
+// ast_andross
 extern Gfx D_C017440[];
 extern ObjectInit* D_C0356A4[];
 extern u16* D_C037E3C[];
@@ -1069,7 +1070,7 @@ extern f32 D_C038DC0[];
 extern f32 D_C038F24[];
 extern Gfx D_C039208[];
 
-// ast_955270
+// ast_allies
 extern Gfx D_D000000[];
 extern u16 D_D000170[];
 extern u16 D_D001090[];
@@ -1087,21 +1088,23 @@ extern Gfx D_D00B5C0[];
 extern Gfx D_D00B720[];
 extern Gfx D_D00B880[];
 
-// ast_92EC40
+// ast_great_fox
+extern Gfx D_E000000[];
+extern Gfx D_E003AB0[];
 extern Gfx D_E00DFB0[];
 extern u16 D_E00E100[];
 extern u16 D_E00F020[];
 extern u16 D_E00FF40[];
 extern u16 D_E010E60[];
 
-// ast_D25100
+// ast_logo
 extern u16 D_F000000[];
 extern u16 D_F000800[];
 extern u16 D_F001000[];
 extern u16 D_F001800[];
 extern u16 D_F002000[];
 
-// ast_940AD0
+// ast_star_wolf
 extern u16 D_F000000[];
 extern u16 D_F000F20[];
 extern u16 D_F001E40[];

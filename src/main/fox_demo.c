@@ -9,17 +9,15 @@
 extern Gfx D_1024AC0[];
 extern Gfx D_60320E0[];
 extern Gfx D_7010970[];
-extern Gfx* D_E000000;
-extern Gfx* D_E003AB0;
 
 extern s32 D_800C9E90[];
 
-extern AnimationHeader D_60265B4[];
-extern AnimationHeader D_602B8DC[];
-extern AnimationHeader D_60034C4[];
-extern AnimationHeader D_602A2CC[];
-extern AnimationHeader D_602CEB4[];
-extern AnimationHeader D_602B778[];
+extern Animation D_60265B4[];
+extern Animation D_602B8DC[];
+extern Animation D_60034C4[];
+extern Animation D_602A2CC[];
+extern Animation D_602CEB4[];
+extern Animation D_602B778[];
 
 extern f32 D_80178454;
 extern f32 D_80178458;
@@ -36,7 +34,7 @@ extern Gfx D_60132B0[];
 extern Gfx D_6014A40[];
 extern Gfx D_6020810[];
 
-extern AnimationHeader D_6020A40;
+extern Animation D_6020A40;
 extern Limb* D_6020C6C;
 extern Limb* D_602D140;
 
@@ -127,8 +125,8 @@ f32 D_800CA1D4[] = {
     1.5f, 0.87f, 0.83f, 0.75f, 0.7f, 0.6f, 0.4f, 0.1f,
 };
 
-AnimationHeader* D_800CA1F4[] = {
-    D_60265B4, D_602B8DC, D_60034C4, D_602A2CC, D_602CEB4, D_602B778, (AnimationHeader*) 0x0601F3B8,
+Animation* D_800CA1F4[] = {
+    D_60265B4, D_602B8DC, D_60034C4, D_602A2CC, D_602CEB4, D_602B778, (Animation*) 0x0601F3B8,
 };
 
 void func_80048AC0(s32 teamId) {
@@ -2939,9 +2937,9 @@ void func_800515C4(void) {
     }
 
     if (D_80177B8C != 0) {
-        gSPDisplayList(gMasterDisp++, &D_E000000);
+        gSPDisplayList(gMasterDisp++, D_E000000);
     } else {
-        gSPDisplayList(gMasterDisp++, &D_E003AB0);
+        gSPDisplayList(gMasterDisp++, D_E003AB0);
     }
 
     if ((gCurrentLevel != LEVEL_AQUAS) &&

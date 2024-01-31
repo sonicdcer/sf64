@@ -526,8 +526,8 @@ void func_i1_80188D50(Boss* boss) {
     }
 }
 
-extern AnimationHeader D_602BC18;
-extern AnimationHeader D_602C0D0;
+extern Animation D_602BC18;
+extern Animation D_602C0D0;
 
 void func_i1_80189058(Boss* boss) {
     Vec3f sp21C = { 0.0f, 0.0f, 0.0f };
@@ -1154,7 +1154,7 @@ void func_i1_8018ACE0(Actor* actor) {
     }
 }
 
-extern AnimationHeader D_602991C;
+extern Animation D_602991C;
 extern Gfx D_60329C0[];
 
 void func_i1_8018AED0(Actor* actor) {
@@ -1222,7 +1222,7 @@ void func_i1_8018B0B4(Actor* actor) {
     }
 }
 
-extern AnimationHeader D_602AA04;
+extern Animation D_602AA04;
 
 void func_i1_8018B15C(Actor* actor) {
     Vec3f sp60[20];
@@ -1288,7 +1288,7 @@ void func_i1_8018B15C(Actor* actor) {
                                 1.0f, 1.0f);
 }
 
-extern AnimationHeader D_602A520;
+extern Animation D_602A520;
 
 void func_i1_8018B418(Actor* actor) {
     s32 pad;
@@ -2328,7 +2328,7 @@ s32 func_i1_8018EC54(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
     return false;
 }
 
-extern AnimationHeader D_602D400;
+extern Animation D_602D400;
 extern Limb* D_602D5AC[];
 
 void func_i1_8018ECAC(Boss* boss) {
@@ -2442,7 +2442,7 @@ s32 func_i1_8018F1C8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
     return 0;
 }
 
-extern AnimationHeader D_602AA7C;
+extern Animation D_602AA7C;
 extern Limb* D_602AB48[];
 
 void func_i1_8018F31C(Object_80* obj80) {

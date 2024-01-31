@@ -248,8 +248,8 @@ void Animation_DrawSkeleton(s32 mode, Limb** skeletonSegment, Vec3f* jointTable,
     }
 }
 
-s16 Animation_GetFrameData(AnimationHeader* animationSegmemt, s32 frame, Vec3f* frameTable) {
-    AnimationHeader* animation = SEGMENTED_TO_VIRTUAL(animationSegmemt);
+s16 Animation_GetFrameData(Animation* animationSegmemt, s32 frame, Vec3f* frameTable) {
+    Animation* animation = SEGMENTED_TO_VIRTUAL(animationSegmemt);
     u16 var4 = animation->limbCount;
     JointKey* key = SEGMENTED_TO_VIRTUAL(animation->jointKey);
     u16* frameData = SEGMENTED_TO_VIRTUAL(animation->frameData);
@@ -275,8 +275,8 @@ s16 Animation_GetFrameData(AnimationHeader* animationSegmemt, s32 frame, Vec3f* 
     return var4 + 1;
 }
 
-s16 Animation_GetFrameCount(AnimationHeader* animationSegment) {
-    AnimationHeader* animation = SEGMENTED_TO_VIRTUAL(animationSegment);
+s16 Animation_GetFrameCount(Animation* animationSegment) {
+    Animation* animation = SEGMENTED_TO_VIRTUAL(animationSegment);
 
     return animation->frameCount;
 }
@@ -335,11 +335,11 @@ void Animation_GetDListBoundingBox(Gfx* dList, s32 len, Vec3f* min, Vec3f* max) 
     Animation_FindBoundingBox(dList, len, min, max, &vtxFound, &vtxCount, &vtxList);
 }
 
-void Animation_GetSkeletonBoundingBox(Limb** skeletonSegment, AnimationHeader* animationSegment, s32 frame, Vec3f* min,
+void Animation_GetSkeletonBoundingBox(Limb** skeletonSegment, Animation* animationSegment, s32 frame, Vec3f* min,
                                       Vec3f* max) {
     JointKey* key;
     u16* frameData;
-    AnimationHeader* animation;
+    Animation* animation;
     Limb* limb;
     u16 var_t6;
     s32 vtxFound;
@@ -351,7 +351,7 @@ void Animation_GetSkeletonBoundingBox(Limb** skeletonSegment, AnimationHeader* a
     Limb** skeleton = (Limb**) SEGMENTED_TO_VIRTUAL(skeletonSegment);
 
     limb = (Limb*) SEGMENTED_TO_VIRTUAL(skeleton[0]);
-    animation = (AnimationHeader*) SEGMENTED_TO_VIRTUAL(animationSegment);
+    animation = (Animation*) SEGMENTED_TO_VIRTUAL(animationSegment);
     key = (JointKey*) SEGMENTED_TO_VIRTUAL(animation->jointKey);
     frameData = (u16*) SEGMENTED_TO_VIRTUAL(animation->frameData);
 

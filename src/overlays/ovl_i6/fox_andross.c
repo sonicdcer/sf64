@@ -160,9 +160,9 @@ void func_i6_801878A8() {
     }
 }
 
-extern ObjectInit* D_C036310;
-extern ObjectInit* D_C036B6C;
-extern ObjectInit* D_C03733C;
+extern ObjectInit D_C036310[];
+extern ObjectInit D_C036B6C[];
+extern ObjectInit D_C03733C[];
 
 void func_i6_80187C5C(void) {
     Actor* actor;
@@ -469,7 +469,7 @@ void func_i6_80188A4C(Boss* boss) {
     }
 }
 
-extern AnimationHeader D_600C038;
+extern Animation D_600C038;
 
 void func_i6_80188CB8(Boss* boss) {
     s32 i;
@@ -1273,8 +1273,8 @@ void func_i6_8018B8C0(Boss* boss) {
     }
 }
 
-extern Vtx* D_C017598;
-extern Vtx* D_C038FE8;
+extern Vtx D_C017598[];
+extern Vtx D_C038FE8[];
 
 void func_i6_8018BDD8(void) {
     s32 i;
@@ -1284,8 +1284,8 @@ void func_i6_8018BDD8(void) {
     Vtx* sp74;
     Vtx* sp70;
 
-    sp74 = SEGMENTED_TO_VIRTUAL(&D_C038FE8);
-    sp70 = SEGMENTED_TO_VIRTUAL(&D_C017598);
+    sp74 = SEGMENTED_TO_VIRTUAL(D_C038FE8);
+    sp70 = SEGMENTED_TO_VIRTUAL(D_C017598);
 
     for (i = 0; i < 17; i++) {
         if (i == 0 || i == 16) {
@@ -1789,24 +1789,24 @@ void func_i6_8018DA94(Boss* boss, Vec3f* arg1) {
     Audio_PlaySfx(0x2903B009, boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-extern AnimationHeader D_C00208C;
-extern AnimationHeader D_C002654;
-extern AnimationHeader D_C002B08;
-extern AnimationHeader D_C006F08;
-extern AnimationHeader D_C00DE48;
-extern AnimationHeader D_C00E598;
-extern AnimationHeader D_C017050;
-extern AnimationHeader D_C017430;
-extern AnimationHeader D_C018BC4;
-extern AnimationHeader D_C023B54;
-extern AnimationHeader D_C0240D0;
-extern AnimationHeader D_C025C00;
-extern AnimationHeader D_C029F74;
-extern AnimationHeader D_C02E494;
-extern AnimationHeader D_C02EDA0;
-extern AnimationHeader D_C030244;
-extern AnimationHeader D_C033780;
-extern AnimationHeader D_C033D98;
+extern Animation D_C00208C;
+extern Animation D_C002654;
+extern Animation D_C002B08;
+extern Animation D_C006F08;
+extern Animation D_C00DE48;
+extern Animation D_C00E598;
+extern Animation D_C017050;
+extern Animation D_C017430;
+extern Animation D_C018BC4;
+extern Animation D_C023B54;
+extern Animation D_C0240D0;
+extern Animation D_C025C00;
+extern Animation D_C029F74;
+extern Animation D_C02E494;
+extern Animation D_C02EDA0;
+extern Animation D_C030244;
+extern Animation D_C033780;
+extern Animation D_C033D98;
 
 static f32 D_i6_801A67B8[] = { 0.0f, 0.0f, 0.0f };
 
@@ -3172,7 +3172,7 @@ void func_i6_801924B4(s32 limbIndex, Vec3f* rot, void* data) {
     }
 }
 
-extern Limb* D_C01CC3C;
+extern Limb D_C01CC3C[];
 
 void func_i6_801928C8(Boss* boss) {
 
@@ -3185,7 +3185,7 @@ void func_i6_801928C8(Boss* boss) {
                                D_i6_801A7F74, D_i6_801A7F7C, D_i6_801A8430);
         }
         Matrix_Scale(gCalcMatrix, 10.0f, 10.0f, 10.0f, 1);
-        Animation_DrawSkeleton(2, &D_C01CC3C, D_i6_801A7F80, func_i6_801917F0, func_i6_801924B4, boss, gCalcMatrix);
+        Animation_DrawSkeleton(2, D_C01CC3C, D_i6_801A7F80, func_i6_801917F0, func_i6_801924B4, boss, gCalcMatrix);
         Matrix_Pop(&gGfxMatrix);
         Matrix_Push(&gGfxMatrix);
         if (boss->fwork[20] > 0.05f) {
@@ -3328,7 +3328,7 @@ void func_i6_80193244(Actor* actor) {
     }
 }
 
-extern Gfx* D_C038AC4;
+extern Gfx D_C038AC4[];
 
 void func_i6_80193380(Object_80* obj80) {
 
@@ -3336,7 +3336,7 @@ void func_i6_80193380(Object_80* obj80) {
         case 0:
             if (fabsf(obj80->obj.pos.z - gPlayer[0].unk_138) < 1800.0f) {
                 obj80->state = 1;
-                obj80->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_C038AC4);
+                obj80->info.hitbox = SEGMENTED_TO_VIRTUAL(D_C038AC4);
             }
             break;
         case 1:
