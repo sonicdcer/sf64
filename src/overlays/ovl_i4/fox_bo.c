@@ -75,9 +75,11 @@ void func_i4_8018BD60(Actor* actor) {
     func_8002FC00(actor);
 }
 #else
+void func_i4_8018BD60(Actor* actor);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018BD60.s")
 #endif
 
+void func_i4_8018BEF8(Actor* actor, s32);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018BEF8.s")
 
 void func_i4_8018C158(Actor* actor) {
@@ -112,7 +114,7 @@ void func_i4_8018C158(Actor* actor) {
             }
 
         case 2:
-            func_i4_8018BD60(actor, &D_i4_801A0530);
+            func_i4_8018BD60(actor);
 
             switch (D_8015F928) {
                 case 300:
@@ -521,6 +523,7 @@ s32 func_i4_8018D874(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018EAEC.s")
 
+void func_i4_8018EC1C(void);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018EC1C.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018ECB4.s")
@@ -531,6 +534,7 @@ s32 func_i4_8018D874(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018EF6C.s")
 
+void func_i4_8018F83C(Actor* actor, s32);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018F83C.s")
 
 void func_i4_8018F94C(Player* player) {
