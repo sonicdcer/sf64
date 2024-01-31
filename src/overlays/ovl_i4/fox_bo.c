@@ -12,7 +12,8 @@ typedef struct UnkStruct_D_i4_801A03E0 {
 
 extern s16 D_800C9C34; // fox_bg
 extern Vec3f D_i4_8019F0D8;
-extern s32 D_i4_801A03D8[];
+extern s32 D_i4_801A03DC;
+extern f32 D_i4_801A03D8;
 extern UnkStruct_D_i4_801A03E0 D_i4_801A03E0[];
 extern s32 D_i4_801A0530;
 
@@ -93,7 +94,7 @@ void func_i4_8018C158(Actor* actor) {
 
             if (D_8015F924 == 0) {
                 gBosses[0].fwork[1] = 0.3f;
-                D_i4_801A03D8[1] = 6;
+                D_i4_801A03DC = 6;
             } else {
                 D_8015F924 = 1;
                 gHitCount = gSavedHitCount;
@@ -664,7 +665,7 @@ void func_i4_80191AFC(Boss* boss) {
 void func_i4_80191BAC(Boss* boss) {
     D_i4_801A0530 = 0;
 
-    Math_SmoothStepToF(boss->fwork, D_i4_801A03D8[1] * 9.0f + 10.0f, 1.0f, 10.0f, 0.0f);
+    Math_SmoothStepToF(boss->fwork, D_i4_801A03DC * 9.0f + 10.0f, 1.0f, 10.0f, 0.0f);
 
     Texture_Scroll(&D_600CF88, 16, 16, 0);
     Texture_Scroll(&D_600CF88, 16, 16, 0);
@@ -674,7 +675,7 @@ void func_i4_80191BAC(Boss* boss) {
             break;
 
         case 0:
-            if (D_i4_801A03D8[1] == 0) {
+            if (D_i4_801A03DC == 0) {
                 boss->timer_052 = 130;
                 boss->state = 1;
                 Radio_PlayMessage(gMsg_ID_11050, RCID_FOX);
