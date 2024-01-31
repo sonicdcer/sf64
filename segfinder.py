@@ -84,10 +84,7 @@ def create_headers(ovl_path):
                 header_txt = header_txt[:-1] + [defn] + header_txt[-1:]
         with open("include/assets/" + asset + ".h", 'w') as header_src:
              header_src.writelines(header_txt)
-    for defn in sym_defs:
-        prune_assets(defn)
-    
-    return
+    return sym_defs
 
 def prune_assets(defn):
     with open("include/assets.h", "r") as ast_file:
@@ -99,10 +96,13 @@ def prune_assets(defn):
     return
 
 def create_all_headers(overlay_dir):
+    sym_defs = []
     for subdir, dirs, files in os.walk(overlay_dir):
         for file in files:
             if file.endswith('.c') and "_i" not in file and "unused" not in file:
-                create_headers(subdir + os.sep + file)
+                sym_defs += create_headers(subdir + os.sep + file)
+    for defn in sym_defs:
+        prune_assets(defn)
     return
 
 
