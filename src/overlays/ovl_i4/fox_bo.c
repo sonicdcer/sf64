@@ -552,7 +552,19 @@ void func_i4_8018EAEC(Actor* actor, s32 index) {
 void func_i4_8018EC1C(void);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018EC1C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018ECB4.s")
+void func_i4_8018ECB4(void) {
+    Boss* boss = &gBosses[1];
+
+    Boss_Initialize(boss);
+    boss->obj.status = 1;
+    boss->obj.pos.x = 0;
+    boss->obj.pos.y = 0.0f;
+    boss->obj.pos.z = -9000.0f;
+    boss->obj.rot.x = 20.0f;
+    boss->unk_3F8 = 0.15f;
+    boss->obj.id = OBJ_BOSS_310;
+    Object_SetInfo(&boss->info, boss->obj.id);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018ED44.s")
 void func_i4_8018EE4C(f32, f32);
