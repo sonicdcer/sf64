@@ -549,8 +549,20 @@ void func_i4_8018EAEC(Actor* actor, s32 index) {
     Audio_PlaySfx(0x3100000CU, actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-void func_i4_8018EC1C(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018EC1C.s")
+void func_i4_8018EC1C(void) {
+    Actor* actor = &gActors[50];
+
+    Actor_Initialize(actor);
+    actor->obj.status = 1;
+    actor->obj.pos.x = 0;
+    actor->obj.pos.y = 0.0f;
+    actor->obj.pos.z = -9000.0f;
+    actor->unk_0B6 = 30;
+    actor->fwork[20] = 1.0f;
+    actor->obj.id = OBJ_ACTOR_195;
+    Object_SetInfo(&actor->info, actor->obj.id);
+    actor->info.bonus = 1;
+}
 
 void func_i4_8018ECB4(void) {
     Boss* boss = &gBosses[1];
