@@ -35,7 +35,9 @@ extern AnimationHeader D_6001C64;
 extern Limb* D_6001FB0;
 extern Gfx D_6006910[];
 extern AnimationHeader D_600F2E0;
+extern AnimationHeader D_600F3D8;
 extern Limb* D_600F36C;
+extern Limb* D_600F4A4;
 extern u8 D_6011BA4[];
 extern u8 D_6008BB8[];
 extern u8 D_600AD80[];
@@ -518,7 +520,10 @@ s32 func_i4_8018D874(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
     return false;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018D960.s")
+void func_i4_8018D960(Actor* actor) {
+    Animation_GetFrameData(&D_600F3D8, 0, actor->vwork);
+    Animation_DrawSkeleton(3, &D_600F4A4, actor->vwork, func_i4_8018D874, NULL, actor, gCalcMatrix);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018D9CC.s")
 
