@@ -578,7 +578,27 @@ void func_i4_8018ECB4(void) {
     Object_SetInfo(&boss->info, boss->obj.id);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018ED44.s")
+void func_i4_8018ED44(void) {
+    Actor* actor = &gActors[0];
+    s32 i;
+
+    for (i = 0; i < ARRAY_COUNT(gActors); actor++, i++) {
+        if (actor->obj.status == 0) {
+            Actor_Initialize(actor);
+            actor->obj.status = 1;
+            actor->obj.id = OBJ_ACTOR_195;
+            actor->obj.pos.x = RAND_FLOAT_CENTERED(500.0f);
+            actor->obj.pos.y = gActors[50].obj.pos.y + RAND_FLOAT(100.0f);
+            actor->obj.pos.z = -9000.0f;
+            actor->timer_0BC = 50;
+            actor->unk_0B6 = 31;
+            actor->vel.z = 200.0f;
+            Object_SetInfo(&actor->info, actor->obj.id);
+            Audio_PlaySfx(0x29002002U, actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            break;
+        }
+    }
+}
 
 void func_i4_8018EE4C(f32 x, f32 y) {
     Actor* actor = &gActors[0];
