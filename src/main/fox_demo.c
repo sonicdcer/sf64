@@ -12,12 +12,12 @@ extern Gfx D_7010970[];
 
 extern s32 D_800C9E90[];
 
-extern Animation D_60265B4[];
-extern Animation D_602B8DC[];
-extern Animation D_60034C4[];
-extern Animation D_602A2CC[];
-extern Animation D_602CEB4[];
-extern Animation D_602B778[];
+extern Animation D_60265B4;
+extern Animation D_602B8DC;
+extern Animation D_60034C4;
+extern Animation D_602A2CC;
+extern Animation D_602CEB4;
+extern Animation D_602B778;
 
 extern f32 D_80178454;
 extern f32 D_80178458;
@@ -35,8 +35,8 @@ extern Gfx D_6014A40[];
 extern Gfx D_6020810[];
 
 extern Animation D_6020A40;
-extern Limb* D_6020C6C;
-extern Limb* D_602D140;
+extern Limb* D_6020C6C[];
+extern Limb* D_602D140[];
 
 Vec3f D_800C9F60[] = {
     { 2000.0f, 2000.0f, 2000.0f },
@@ -126,7 +126,7 @@ f32 D_800CA1D4[] = {
 };
 
 Animation* D_800CA1F4[] = {
-    D_60265B4, D_602B8DC, D_60034C4, D_602A2CC, D_602CEB4, D_602B778, (Animation*) 0x0601F3B8,
+    &D_60265B4, &D_602B8DC, &D_60034C4, &D_602A2CC, &D_602CEB4, &D_602B778, (Animation*) 0x0601F3B8,
 };
 
 void func_80048AC0(s32 teamId) {
@@ -2799,7 +2799,7 @@ void func_8004FEC0(Actor* actor) {
             Math_SmoothStepToVec3fArray(sp144, actor->vwork, 1, animFrameData, actor->fwork[2], 100.0f, .0f);
             RCP_SetupDL_30(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 150, 255, 150, 255);
-            Animation_DrawSkeleton(1, &D_602D140, actor->vwork, 0, 0, actor, &gIdentityMatrix);
+            Animation_DrawSkeleton(1, D_602D140, actor->vwork, 0, 0, actor, &gIdentityMatrix);
 
             if (actor->fwork[0] != 0.0f) {
                 RCP_SetupDL_49();
@@ -2893,7 +2893,7 @@ void func_8004FEC0(Actor* actor) {
         case 44:
             Animation_GetFrameData(&D_6020A40, actor->iwork[0], actor->vwork);
             gSPClearGeometryMode(gMasterDisp++, 0x00002000);
-            Animation_DrawSkeleton(1, &D_6020C6C, actor->vwork, 0, 0, &actor->index, &gIdentityMatrix);
+            Animation_DrawSkeleton(1, D_6020C6C, actor->vwork, 0, 0, &actor->index, &gIdentityMatrix);
             gSPSetGeometryMode(gMasterDisp++, 0x00002000);
             break;
 

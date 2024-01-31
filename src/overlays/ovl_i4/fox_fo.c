@@ -1,7 +1,7 @@
 #include "global.h"
 
 extern Animation D_6007854;
-extern Limb* D_6007980;
+extern Limb* D_6007980[];
 extern u8 D_600FF64[];
 
 s32 func_80090200(Boss* boss);
@@ -576,7 +576,7 @@ void func_i4_80188FE4(Actor* actor) {
     Vec3f vec[20];
 
     Animation_GetFrameData(&D_6007854, 0, vec);
-    Animation_DrawSkeleton(3, &D_6007980, vec, func_i4_80188F08, func_i4_80188DA0, actor, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_6007980, vec, func_i4_80188F08, func_i4_80188DA0, actor, gCalcMatrix);
 
     if (actor->state == 1) {
         actor->state = 2;

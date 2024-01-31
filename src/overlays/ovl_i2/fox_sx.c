@@ -23,7 +23,7 @@ extern Animation D_6016E28;
 extern Animation D_601AA28;
 extern Animation D_601C690;
 extern Animation D_60206DC;
-extern Limb* D_6020C68;
+extern Limb* D_6020C68[];
 extern Gfx D_6020D20[];
 extern Gfx D_603265C[];
 extern Gfx D_6032768[];
@@ -312,7 +312,7 @@ bool func_i2_8018FF40(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
 }
 
 void func_i2_8018FF84(Boss* boss) {
-    Animation_DrawSkeleton(3, &D_6020C68, boss->vwork, func_i2_8018FF40, func_i2_80193208, boss, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_6020C68, boss->vwork, func_i2_8018FF40, func_i2_80193208, boss, gCalcMatrix);
 }
 
 bool func_i2_8018FFDC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
@@ -324,7 +324,7 @@ bool func_i2_8018FFDC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
 }
 
 void func_i2_80190020(Boss* boss) {
-    Animation_DrawSkeleton(3, &D_6020C68, boss->vwork, func_i2_8018FFDC, func_i2_80193208, boss, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_6020C68, boss->vwork, func_i2_8018FFDC, func_i2_80193208, boss, gCalcMatrix);
 }
 
 void func_i2_80190078(Boss* boss) {
@@ -1106,7 +1106,7 @@ void func_i2_80190078(Boss* boss) {
 
     D_i2_80195640 = 1;
 
-    Animation_DrawSkeleton(1, &D_6020C68, boss->vwork, func_i2_80192AF0, func_i2_80193208, boss, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, D_6020C68, boss->vwork, func_i2_80192AF0, func_i2_80193208, boss, &gIdentityMatrix);
 
     if (((boss->swork[1] != 0) && (boss->swork[3] > 0)) && ((boss->fwork[4] < 45.0f) || (boss->fwork[4] > 315.0f))) {
         boss->swork[1]++;
@@ -1364,7 +1364,7 @@ void func_i2_80193434(Boss* boss) {
 
     if (boss->swork[5] == 0) {
         D_i2_80195640 = 0;
-        Animation_DrawSkeleton(3, &D_6020C68, boss->vwork, func_i2_80192AF0, 0, boss, gCalcMatrix);
+        Animation_DrawSkeleton(3, D_6020C68, boss->vwork, func_i2_80192AF0, 0, boss, gCalcMatrix);
         RCP_SetupDL_64();
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 96);
 

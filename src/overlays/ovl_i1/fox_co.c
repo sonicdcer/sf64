@@ -2550,7 +2550,7 @@ void func_i1_8018F6F8(Actor* actor, s32 arg1) {
     Audio_PlaySfx(0x3100000C, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-extern Gfx* D_30184D8;
+extern Gfx D_30184D8[];
 
 void func_i1_8018F880(Player* player) {
     s32 i;
