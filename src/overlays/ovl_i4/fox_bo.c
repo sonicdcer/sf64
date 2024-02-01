@@ -456,7 +456,22 @@ s32 func_i4_8018D008(Actor* actor) {
     return 1;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018D124.s")
+void func_i4_8018D124(Actor* actor) {
+    Vec3f src;
+    Vec3f dest;
+
+    Matrix_RotateY(gCalcMatrix, (actor->unk_0F4.y + actor->obj.rot.y) * M_DTOR, 0);
+    Matrix_RotateX(gCalcMatrix, -actor->unk_0F4.x * M_DTOR, 1);
+
+    src.y = 0.0f;
+    src.x = 0.0f;
+    src.z = D_80177828;
+
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+    func_8007F04C(OBJ_EFFECT_353, actor->obj.pos.x + dest.x, actor->obj.pos.y + 180.0f + dest.y,
+                  actor->obj.pos.z + dest.z, -actor->unk_0F4.x, actor->unk_0F4.y + actor->obj.rot.y, 0.0f, 0.0f, 0.0f,
+                  0.0f, dest.x, dest.y, dest.z, 1.0f);
+}
 
 bool func_i4_8018D278(Actor* actor) {
     s32 i;
