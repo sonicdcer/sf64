@@ -2,7 +2,7 @@
 
 void func_i5_801B5244(s32 arg0, s32 arg1);
 void func_i5_801B5FE0(s32 arg0, s32 arg1, s32 arg2);
-void func_i5_801B68A8(Gfx** dlists, s32 arg1, s32 arg2);
+void func_i5_801B68A8(Gfx** dlist, s32 arg1, s32 arg2);
 
 typedef struct {
     /* 0x00 */ s32 unk_00;
