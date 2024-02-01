@@ -50,6 +50,9 @@ s32 func_i4_8018CCE8(Actor*);
 s32 func_i4_8018CE5C(Actor*);
 s32 func_i4_8018D008(Actor*);
 void func_i4_8018D124(Actor*);
+void func_i4_8018D9CC();
+void func_i4_8018DE8C(Boss*);
+void func_i4_8018E3FC(Boss*);
 void func_i4_8018F83C(Actor* actor, s32);
 
 #ifdef IMPORT_DATA
@@ -646,7 +649,36 @@ void func_i4_8018D960(Actor* actor) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018E3FC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018E710.s")
+void func_i4_8018E710(Boss* boss) {
+    if (boss->state == 1) {
+        func_i4_8018DE8C(boss);
+    } else if (boss->swork[0] == 0) {
+        boss->fwork[2] += 8.0f;
+        if (boss->fwork[2] >= 100.0f) {
+            boss->swork[0] = 1;
+            boss->fwork[2] = 100.0f;
+        }
+    } else {
+        boss->fwork[2] -= 8.0f;
+        if (boss->fwork[2] <= 0.0f) {
+            boss->swork[0] = 0;
+            boss->fwork[2] = 0.0f;
+        }
+    }
+
+    func_i4_8018D9CC();
+    func_i4_8018E3FC(boss);
+
+    if (boss->fwork[1] != 0.0f) {
+        boss->obj.rot.y += boss->fwork[1];
+        if (boss->obj.rot.y >= 360.0f) {
+            boss->obj.rot.y = boss->obj.rot.y - 360.0f;
+        }
+    }
+
+    boss->fwork[0] += 2.0f;
+    Matrix_RotateY(&D_i4_8019EE80, gBosses->obj.rot.y * M_DTOR, 0);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018E870.s")
 
