@@ -82,25 +82,25 @@ extern Limb* D_600E7D8[];
 extern Gfx D_6013330[];
 extern Gfx D_6017950[];
 extern Gfx D_60181E0[];
-extern AnimationHeader D_6018550;
+extern Animation D_6018550;
 extern Limb* D_601863C[];
 extern Gfx D_6018660[];
-extern AnimationHeader D_60195EC;
+extern Animation D_60195EC;
 extern Limb* D_6019738[];
-extern AnimationHeader D_601996C;
+extern Animation D_601996C;
 extern Limb* D_6019E18[];
 extern Gfx D_6019EB0[];
 extern Gfx D_601A340[];
-extern AnimationHeader D_601AA48;
+extern Animation D_601AA48;
 extern Limb* D_601AB14[];
-extern AnimationHeader D_601AFB8;
+extern Animation D_601AFB8;
 extern Limb* D_601B184[];
 extern Gfx D_601BCC0[];
 extern Gfx D_601C590[];
 extern Gfx D_601D680[];
-extern AnimationHeader D_601FBC4;
+extern Animation D_601FBC4;
 extern Limb* D_601FC90[];
-extern AnimationHeader D_6021ABC;
+extern Animation D_6021ABC;
 extern Limb* D_6021B88[];
 extern Gfx D_6023D50[];
 extern Gfx D_6025E60[];
@@ -2522,8 +2522,8 @@ void func_i3_80194A84(Boss* bossZO) {
             }
             func_8007C120(sZoFwork[ZO_BSF_55_X], sZoFwork[ZO_BSF_55_Y], sZoFwork[ZO_BSF_55_Z], bossZO->vel.x,
                           bossZO->vel.y, bossZO->vel.z, 0.2f, 10);
-            func_8007D0E0(RAND_FLOAT_CENTERED(200.0f) + sZoFwork[ZO_BSF_55_X],
-                          ((Rand_ZeroOne() - 0.2f) * 800.0f) + sZoFwork[ZO_BSF_55_Y], sZoFwork[ZO_BSF_55_Z], 10.0f);
+            func_8007D0E0(sZoFwork[ZO_BSF_55_X] + RAND_FLOAT_CENTERED(200.0f),
+                          sZoFwork[ZO_BSF_55_Y] + RAND_RANGE(-160.0f, 640.0f), sZoFwork[ZO_BSF_55_Z], 10.0f);
             if (bossZO->timer_050 == 30) {
                 Radio_PlayMessage(gMsg_ID_6079, RCID_BOSS_ZONESS);
             }
@@ -2609,8 +2609,8 @@ void func_i3_80194A84(Boss* bossZO) {
                 }
                 if ((bossZO->timer_050 == 0) && (sZoSwork[ZO_BSS_26] != 0)) {
                     bossZO->timer_050 = 50;
-                    sZoFwork[ZO_BSF_37_X] = (Rand_ZeroOne() - 0.3f) * 1100.0f;
-                    sZoFwork[ZO_BSF_40_X] = (Rand_ZeroOne() - 0.7f) * 800.0f;
+                    sZoFwork[ZO_BSF_37_X] = RAND_RANGE(-330.0f, 770.0f);
+                    sZoFwork[ZO_BSF_40_X] = RAND_RANGE(-560.0f, 240.0f);
                     func_i3_801989FC(bossZO);
                 }
             } else {

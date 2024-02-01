@@ -344,7 +344,7 @@ void func_i6_80188528(Actor* actor) {
     actor->unk_0F4.z += actor->fwork[0];
 }
 
-extern Gfx* D_6009300;
+extern Gfx D_6009300[];
 
 void func_i6_80188660(Actor* actor) {
     RCP_SetupDL(&gMasterDisp, 0x3D);
@@ -355,7 +355,7 @@ void func_i6_80188660(Actor* actor) {
     Matrix_Scale(gGfxMatrix, 1.1f, 0.9f, 1.0f, 1);
     Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 1.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, &D_6009300);
+    gSPDisplayList(gMasterDisp++, D_6009300);
 }
 
 void func_i6_801887B0(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
@@ -469,7 +469,7 @@ void func_i6_80188A4C(Boss* boss) {
     }
 }
 
-extern AnimationHeader D_600C038;
+extern Animation D_600C038;
 
 void func_i6_80188CB8(Boss* boss) {
     s32 i;
@@ -1214,8 +1214,8 @@ s32 func_i6_8018B47C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
 }
 
 extern Limb* D_600C0A4[];
-extern Gfx* D_600C2D0;
-extern Gfx* D_600C560;
+extern Gfx D_600C2D0[];
+extern Gfx D_600C560[];
 
 void func_i6_8018B8C0(Boss* boss) {
     s32 j;
@@ -1262,9 +1262,9 @@ void func_i6_8018B8C0(Boss* boss) {
                 Matrix_Translate(gGfxMatrix, 0.0f, -5.0f, 0.0f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 if (j == 9) {
-                    gSPDisplayList(gMasterDisp++, &D_600C2D0);
+                    gSPDisplayList(gMasterDisp++, D_600C2D0);
                 } else {
-                    gSPDisplayList(gMasterDisp++, &D_600C560);
+                    gSPDisplayList(gMasterDisp++, D_600C560);
                 }
                 Matrix_Pop(&gGfxMatrix);
             }
@@ -1554,7 +1554,7 @@ void func_i6_8018CAD4(Effect* effect) {
     }
 }
 
-extern Gfx* D_2010A30;
+extern Gfx D_2010A30[];
 static Gfx* D_i6_801A6790[10] = {
     D_C001880, D_C001880, D_C001880, D_C001880, D_C001880, D_C001880, D_C001880, D_C001880, D_3016660, D_3015D80,
 };
@@ -1565,7 +1565,7 @@ void func_i6_8018CF98(Effect* effect) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, effect->unk_44);
         Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, &D_2010A30);
+        gSPDisplayList(gMasterDisp++, D_2010A30);
     } else {
         RCP_SetupDL(&gMasterDisp, 0x1D);
         if (effect->unk_4C < 8) {
@@ -1789,24 +1789,24 @@ void func_i6_8018DA94(Boss* boss, Vec3f* arg1) {
     Audio_PlaySfx(0x2903B009, boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-extern AnimationHeader D_C00208C;
-extern AnimationHeader D_C002654;
-extern AnimationHeader D_C002B08;
-extern AnimationHeader D_C006F08;
-extern AnimationHeader D_C00DE48;
-extern AnimationHeader D_C00E598;
-extern AnimationHeader D_C017050;
-extern AnimationHeader D_C017430;
-extern AnimationHeader D_C018BC4;
-extern AnimationHeader D_C023B54;
-extern AnimationHeader D_C0240D0;
-extern AnimationHeader D_C025C00;
-extern AnimationHeader D_C029F74;
-extern AnimationHeader D_C02E494;
-extern AnimationHeader D_C02EDA0;
-extern AnimationHeader D_C030244;
-extern AnimationHeader D_C033780;
-extern AnimationHeader D_C033D98;
+extern Animation D_C00208C;
+extern Animation D_C002654;
+extern Animation D_C002B08;
+extern Animation D_C006F08;
+extern Animation D_C00DE48;
+extern Animation D_C00E598;
+extern Animation D_C017050;
+extern Animation D_C017430;
+extern Animation D_C018BC4;
+extern Animation D_C023B54;
+extern Animation D_C0240D0;
+extern Animation D_C025C00;
+extern Animation D_C029F74;
+extern Animation D_C02E494;
+extern Animation D_C02EDA0;
+extern Animation D_C030244;
+extern Animation D_C033780;
+extern Animation D_C033D98;
 
 static f32 D_i6_801A67B8[] = { 0.0f, 0.0f, 0.0f };
 
@@ -3172,7 +3172,7 @@ void func_i6_801924B4(s32 limbIndex, Vec3f* rot, void* data) {
     }
 }
 
-extern Limb* D_C01CC3C;
+extern Limb* D_C01CC3C[];
 
 void func_i6_801928C8(Boss* boss) {
 
@@ -3185,7 +3185,7 @@ void func_i6_801928C8(Boss* boss) {
                                D_i6_801A7F74, D_i6_801A7F7C, D_i6_801A8430);
         }
         Matrix_Scale(gCalcMatrix, 10.0f, 10.0f, 10.0f, 1);
-        Animation_DrawSkeleton(2, &D_C01CC3C, D_i6_801A7F80, func_i6_801917F0, func_i6_801924B4, boss, gCalcMatrix);
+        Animation_DrawSkeleton(2, D_C01CC3C, D_i6_801A7F80, func_i6_801917F0, func_i6_801924B4, boss, gCalcMatrix);
         Matrix_Pop(&gGfxMatrix);
         Matrix_Push(&gGfxMatrix);
         if (boss->fwork[20] > 0.05f) {
@@ -3303,11 +3303,11 @@ void func_i6_80192E94(Actor* actor) {
     }
 }
 
-extern Gfx* D_6007E20;
+extern Gfx D_6007E20[];
 
 void func_i6_80193244(Actor* actor) {
 
-    gSPDisplayList(gMasterDisp++, &D_6007E20);
+    gSPDisplayList(gMasterDisp++, D_6007E20);
     if (actor->timer_0BC != 0) {
         f32 scale;
         u8 alpha;
@@ -3328,7 +3328,7 @@ void func_i6_80193244(Actor* actor) {
     }
 }
 
-extern Gfx* D_C038AC4;
+extern Gfx D_C038AC4[];
 
 void func_i6_80193380(Object_80* obj80) {
 
