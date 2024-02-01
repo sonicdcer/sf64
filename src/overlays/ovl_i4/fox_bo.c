@@ -47,7 +47,7 @@ extern u8 D_600CF88[];
 
 void func_8002FC00(Actor*);
 s32 func_i4_8018CCE8(Actor*);
-void func_i4_8018CE5C(Actor*);
+s32 func_i4_8018CE5C(Actor*);
 s32 func_i4_8018D008(Actor*);
 void func_i4_8018D124(Actor*);
 void func_i4_8018F83C(Actor* actor, s32);
@@ -423,7 +423,38 @@ s32 func_i4_8018CCE8(Actor* actor) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018CE5C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018D008.s")
+s32 func_i4_8018D008(Actor* actor) {
+    f32 x;
+    f32 y;
+    f32 z;
+
+    if (actor->iwork[0] == 0) {
+        return 0;
+    }
+    if (actor->timer_0BC != 0) {
+        return 0;
+    }
+
+    x = actor->fwork[0] - actor->obj.pos.x;
+    z = actor->fwork[2] - actor->obj.pos.z;
+
+    if (fabsf(x) >= 3000.0f) {
+        return 0;
+    }
+    if (fabsf(z) >= 3000.0f) {
+        return 0;
+    }
+
+    y = Math_RadToDeg(Math_Atan2F(x, z)) - actor->obj.rot.y;
+
+    if ((y > 100.0f) && (y < 259.0f)) {
+        return 0;
+    }
+
+    actor->timer_0BC = (s32) (Rand_ZeroOne() * 20.0f) + 10;
+
+    return 1;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018D124.s")
 
