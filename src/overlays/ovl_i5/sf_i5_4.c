@@ -2,7 +2,7 @@
 
 void func_i5_801B5244(s32 arg0, s32 arg1);
 void func_i5_801B5FE0(s32 arg0, s32 arg1, s32 arg2);
-void func_i5_801B68A8(Gfx** dlist, s32 arg1, s32 arg2);
+void func_i5_801B68A8(Gfx** dlists, s32 arg1, s32 arg2);
 
 typedef struct {
     /* 0x00 */ s32 unk_00;
@@ -15,6 +15,7 @@ typedef struct {
     /* 0x1C */ s16 unk_1C;
     /* 0x20 */ f32 unk_20;
 } UnkStruct_801C62E8; // size = 0x24
+extern UnkStruct_801C62E8 D_i5_801C62E8[20];
 
 // Quite likely just Vec3f.
 typedef struct {
@@ -22,6 +23,7 @@ typedef struct {
     /* 0x04 */ f32 unk_04;
     /* 0x08 */ f32 unk_08;
 } UnkStruct_801C62D8; // size = 0xC
+extern UnkStruct_801C62D8 D_i5_801C62D8;
 
 extern u8 D_i5_801BA970[12];
 extern f32 D_i5_801BE740;
@@ -31,28 +33,10 @@ extern s32 D_i5_801C5C08;
 extern s32 D_i5_801C5C0C;
 extern f32 D_i5_801C5C10;
 extern s32 D_i5_801C5C14;
-extern UnkStruct_801C62E8 D_i5_801C62E8[20];
 // extern UnkStruct_801C62E8 D_i5_801C1D48[49]; // Really unsure about this struct
-extern AnimationHeader D_8000708;
-extern AnimationHeader D_8000D80;
-extern AnimationHeader D_A0002BC;
-extern AnimationHeader D_A00047C;
-extern AnimationHeader D_A000858;
-extern AnimationHeader D_A000934;
-extern AnimationHeader D_A000D50;
-extern u8 D_i5_801B8C0C[24];
-extern Effect* D_i5_801BBEF0; // Not sure about struct type
-extern Player* D_i5_801BBEF4; // Not sure about struct type
-extern Vec3f D_i5_801BC978;
-extern Vec3f D_i5_801BC9D8;
-extern Vec3f D_i5_801BCA38;
-extern Vec3f D_i5_801BCDC8;
-extern Vec3f D_i5_801BCE28;
-extern Vec3f D_i5_801BCE88;
 extern s32 D_i5_801C1D48[28][16];
 extern f32 D_i5_801C24B8[28]; // size = 0x40
 extern f32 D_i5_801C2448[28]; // size = 0x40
-extern UnkStruct_801C62D8 D_i5_801C62D8;
 extern f32 D_i5_801C62E0;
 extern Gfx D_i5_801C2528[27][65];
 extern Gfx* D_i5_801C5C00[];
@@ -60,20 +44,7 @@ extern u16 D_6001BA8[];
 extern s32 D_i5_801BA97C[2][3];
 extern Gfx D_i5_801BA950;
 extern Mtx** D_i5_801C5C18;
-
-// typedef struct {
-//     /* 0x00 */ s16 unk_00;
-//     /* 0x02 */ s16 unk_02;
-//     /* 0x04 */ s16 unk_04;
-//     /* 0x06 */ s16 unk_06;
-//     /* 0x08 */ s16 unk_08;
-//     /* 0x0A */ s16 unk_0A;
-//     /* 0x0C */ s16 unk_0C;
-//     /* 0x0E */ s16 unk_0E;
-// } UnkStruct_801BE748; // size = 0x10
-// extern UnkStruct_801BE748 D_i5_801BE748[191]; // size = 0x1910
 extern s16 D_i5_801BE748[3208]; // size = 0x1910
-// Accessed with an array D_i5_801BE748[i * 512]
 
 bool func_i5_801B49D0(Actor* actor) {
     UnkStruct_801C62E8* var_v0;
