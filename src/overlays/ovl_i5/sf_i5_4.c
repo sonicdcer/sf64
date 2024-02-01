@@ -43,7 +43,7 @@ extern Gfx* D_i5_801C5C00[];
 extern u16 D_6001BA8[];
 extern s32 D_i5_801BA97C[2][3];
 extern Gfx D_i5_801BA950;
-extern Mtx** D_i5_801C5C18;
+extern Mtx D_i5_801C5C18[];
 extern s16 D_i5_801BE748[3208]; // size = 0x1910
 
 bool func_i5_801B49D0(Actor* actor) {
@@ -280,6 +280,7 @@ void func_i5_801B58AC(Gfx** dlists, f32 arg1) {
     RCP_SetFog(dlists, gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     spC4 = D_i5_801C5C14;
     if (D_i5_801C5C14 & 2) {
+        
         gDPTileSync((*dlists)++);
         gDPSetTile((*dlists)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP,
                    5, G_TX_NOLOD, G_TX_MIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
@@ -297,24 +298,23 @@ void func_i5_801B58AC(Gfx** dlists, f32 arg1) {
         gSPMatrix((*dlists)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
         gSPDisplayList((*dlists)++, &D_i5_801BA950);
         gSPPopMatrix((*dlists)++, G_MTX_MODELVIEW);
-        func_i5_801B4AA8(NULL, &D_i5_801C5C14);
+        func_i5_801B4AA8(NULL, &spC4);
     }
     if (D_i5_801C5C14 & 1) {
         if (D_i5_801C5C0C == 1) {
             D_i5_801C5C0C = 0;
             temp_hi = (D_i5_801C5C08 + 27) % 28;
-            for (k = 0; k < ARRAY_COUNT(D_i5_801C1D48[0]); k += 4) {
-                for (h = 0; h < 4; h++) {
-                    D_i5_801C1D48[temp_hi][k + h] = 0;
-                }
+            for (k = 0; k < ARRAY_COUNT(D_i5_801C1D48[0]); k++) {
+                if(1) {}
+                D_i5_801C1D48[temp_hi][k] = 0;
             }
             D_i5_801C2448[temp_hi] = D_i5_801BE740;
             D_i5_801C24B8[temp_hi] = D_i5_801BE744;
             func_i5_801B4AA8(D_i5_801C1D48[temp_hi], &spC4);
             i = 0;
-            var_s2 = 0;
+            // var_s2 = 0;
             do {
-                temp_v0_2 = D_i5_801BE748[(D_i5_801C5C04 * 512) + var_s2];
+                temp_v0_2 = &D_i5_801BE748[(D_i5_801C5C04 * 256) + 16*i];
                 if ((i != 0) && (i != 15)) {
                     temp_v0_2[0] = (D_i5_801C2448[D_i5_801C5C08] * ((i * 220.0f) - 1760.0f));
                 } else if (i == 0) {
@@ -334,13 +334,13 @@ void func_i5_801B58AC(Gfx** dlists, f32 arg1) {
 
                 temp_v0_2[1] = D_i5_801C1D48[D_i5_801C5C08][i];
                 temp_t1[1] = D_i5_801C1D48[(D_i5_801C5C08 + 1) % 28][i];
-                temp_v1 = D_i5_801BE748[(((D_i5_801C5C04 + 27) % 27) * 512) + var_s2];
+                temp_v1 = D_i5_801BE748[(((D_i5_801C5C04 + 27) % 27) * 512) + 16*i];
                 temp_t1[10] = 0;
                 temp_t1[2] = (D_i5_801C24B8[(D_i5_801C5C08 + 29) % 28] * -220.0f);
                 Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, D_i5_801C24B8[D_i5_801C5C08] * -220.0f, 0);
-                Matrix_ToMtx((D_i5_801C5C04 << 6) + &D_i5_801C5C18);
+                Matrix_ToMtx(&D_i5_801C5C18[D_i5_801C5C04]);
                 i += 1;
-                var_s2 += 0x20;
+                // var_s2 += 0x20;
             } while (i < 16);
             func_i5_801B5FE0(D_i5_801C5C08, D_i5_801C5C04, 1);
         }
