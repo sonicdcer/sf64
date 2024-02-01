@@ -190,7 +190,7 @@ typedef enum {
     /* 38 */ ZO_LIMB_38,
     /* 39 */ ZO_LIMB_39,
     /* 40 */ ZO_LIMB_MAX,
-} ZoLimbs;
+} BossZOLimbs;
 
 typedef enum {
     /*   0 */ ZO_BSF_0,
