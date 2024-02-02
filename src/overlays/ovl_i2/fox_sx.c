@@ -589,7 +589,7 @@ void func_i2_80190078(Boss* boss) {
             boss->fwork[42] = 30.0f;
             break;
 
-        case 1:
+        case 1: // Taunt
             boss->fwork[1] = -1800.0f;
             boss->fwork[3] = gPlayer[0].pos.x;
             boss->fwork[2] = gPlayer[0].pos.y;
@@ -613,7 +613,7 @@ void func_i2_80190078(Boss* boss) {
             }
             break;
 
-        case 2:
+        case 2: // right arm attack
             attack = true;
             boss->fwork[3] = gPlayer[0].pos.x;
             boss->fwork[2] = gPlayer[0].pos.y;
@@ -647,7 +647,7 @@ void func_i2_80190078(Boss* boss) {
             }
             break;
 
-        case 3:
+        case 3: // left arm attack
             attack = true;
             boss->fwork[3] = gPlayer[0].pos.x;
             boss->fwork[2] = gPlayer[0].pos.y;
@@ -693,7 +693,7 @@ void func_i2_80190078(Boss* boss) {
             }
             break;
 
-        case 4:
+        case 4: // Arms launch setup
             boss->swork[7] = 0;
             boss->fwork[1] = -3000.0f;
             boss->fwork[3] = gPlayer[0].pos.x;
@@ -717,7 +717,7 @@ void func_i2_80190078(Boss* boss) {
             }
             break;
 
-        case 5:
+        case 5: // arms lauching attack
             sp74.x = boss->fwork[8] + boss->obj.pos.x;
             sp74.y = boss->fwork[9] + boss->obj.pos.y;
             sp74.z = boss->fwork[10] + boss->obj.pos.z;
@@ -803,7 +803,7 @@ void func_i2_80190078(Boss* boss) {
             }
             break;
 
-        case 6:
+        case 6: // Arms come back to robot
             if ((boss->timer_050 == 20) || (boss->timer_050 == 30)) {
                 Audio_PlaySfx(0x29433022, boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
