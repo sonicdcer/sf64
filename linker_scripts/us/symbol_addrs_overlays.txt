@@ -148,4 +148,9 @@ D_i6_801A7F70 = 0x801A7F70;
 D_i6_801A7F78 = 0x801A7F78;
 D_i5_801BE308 = 0x801BE308;
 
+D_ending_80196D08 = 0x80196D08;//size:0x280 segment:ovl_ending
+D_ending_80196FA0 = 0x80196FA0;//size:0x960 segment:ovl_ending
+D_ending_80197900 = 0x80197900;//size:0x960 segment:ovl_ending
+D_ending_80198260 = 0x80198260;//size:0x320 segment:ovl_ending
+
 D_unused_801875C0 = 0x801875C0;
