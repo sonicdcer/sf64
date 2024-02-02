@@ -13,6 +13,8 @@ typedef struct UnkStruct_D_i4_801A03E0 {
 extern s16 D_800C9C34; // fox_bg
 extern s32 D_80177C3C[];
 extern s32 D_801778F4[];
+
+extern f32 D_i4_8019EEC0;
 extern f32 D_i4_8019EFDC[];
 extern f32 D_i4_8019EFE8[];
 extern f32 D_i4_8019EFF4[];
@@ -31,11 +33,11 @@ extern s32 D_i4_801A03DC;
 extern UnkStruct_D_i4_801A03E0 D_i4_801A03E0[];
 extern s32 D_i4_801A0530;
 
-extern AnimationHeader D_6001C64;
+extern Animation D_6001C64;
 extern Limb* D_6001FB0;
 extern Gfx D_6006910[];
-extern AnimationHeader D_600F2E0;
-extern AnimationHeader D_600F3D8;
+extern Animation D_600F2E0;
+extern Animation D_600F3D8;
 extern Limb* D_600F36C;
 extern Limb* D_600F4A4;
 extern u8 D_6011BA4[];
@@ -44,6 +46,7 @@ extern u8 D_600AD80[];
 extern Gfx D_600BEC0[];
 extern Gfx D_600C4E0[];
 extern u8 D_600CF88[];
+extern Gfx D_6009BC0[];
 
 void func_8002FC00(Actor*);
 s32 func_i4_8018CCE8(Actor*);
@@ -1274,8 +1277,49 @@ void func_i4_80191180(Effect* effect) {
 void func_i4_801912FC(Boss* boss);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_801912FC.s")
 
-s32 func_i4_801918E4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* this);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_801918E4.s")
+s32 func_i4_801918E4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* this) {
+    Boss* boss = (Boss*) this;
+
+    RCP_SetupDL(&gMasterDisp, 0x1D);
+
+    switch (limbIndex) {
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+        case 8:
+            RCP_SetupDL(&gMasterDisp, 0x29);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, (s32) D_i4_8019EEC0, 255);
+            if (boss->swork[limbIndex - 1] <= 0) {
+                *dList = NULL;
+            }
+            break;
+        case 9:
+        case 10:
+        case 11:
+        case 12:
+        case 13:
+        case 14:
+        case 15:
+        case 16:
+            if (boss->swork[3 + limbIndex] & 1) {
+                RCP_SetupDL(&gMasterDisp, 0x29);
+                if (boss->swork[3 + limbIndex] > 1000) {
+                    gDPSetPrimColor(gMasterDisp++, 0, 0, 64, 64, 255, 255);
+                } else {
+                    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 0, 0, 255);
+                }
+            }
+            if (boss->swork[0 + limbIndex - 9] <= 0) {
+                *dList = D_6009BC0;
+            }
+            break;
+    }
+    return false;
+}
 
 void func_i4_80191A6C(s32, Vec3f*, void*);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_80191A6C.s")
