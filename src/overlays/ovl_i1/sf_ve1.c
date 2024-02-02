@@ -7,8 +7,8 @@ extern s32 D_i1_8019C0B8;
 extern s32 D_i1_8019C0BC;
 extern s32 D_i1_8019C0C0;
 extern Vec3f D_i1_80199FFC;
-extern Limb* D_900D164;
-extern Limb* D_901C0F4;
+extern Limb* D_900D164[];
+extern Limb* D_901C0F4[];
 
 const char D_i1_8019B2B0[] = "--アタックオフ!!\n";
 const char D_i1_8019B2C4[] = "--レベルアップ!!\n";
@@ -351,7 +351,7 @@ void func_i1_801933B4(Actor* arg0) {
 
 void func_i1_801934D0(Actor* actor) {
     Matrix_Translate(gGfxMatrix, 0.0f, -488.0f, 0.0f, 1U);
-    Animation_DrawSkeleton(0, &D_900D164, actor->vwork, NULL, NULL, actor, &gIdentityMatrix);
+    Animation_DrawSkeleton(0, D_900D164, actor->vwork, NULL, NULL, actor, &gIdentityMatrix);
 }
 
 void func_i1_80193540(Object_80* arg0) {
@@ -383,7 +383,7 @@ void func_i1_80198594(Boss* boss) {
 
 void func_i1_801985E4(Boss* boss) {
     if (boss->swork[26] == 0) {
-        Animation_DrawSkeleton(0, &D_901C0F4, boss->vwork, func_i1_801937F4, func_i1_80193D64, boss, &gIdentityMatrix);
+        Animation_DrawSkeleton(0, D_901C0F4, boss->vwork, func_i1_801937F4, func_i1_80193D64, boss, &gIdentityMatrix);
     }
     boss->state = boss->swork[9];
 }
