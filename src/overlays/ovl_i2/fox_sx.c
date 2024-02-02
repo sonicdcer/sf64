@@ -13,17 +13,17 @@ Vec3f D_i2_80195668 = { 90.0f, 0.0f, 0.0f };
 extern Gfx D_60010C0[];
 extern Gfx D_6006810[];
 extern Gfx D_6009C30[];
-extern AnimationHeader D_6009FF8;
-extern AnimationHeader D_600A2D4;
-extern AnimationHeader D_600F890;
-extern AnimationHeader D_60123BC;
-extern AnimationHeader D_6013798;
-extern AnimationHeader D_60158C4;
-extern AnimationHeader D_6016E28;
-extern AnimationHeader D_601AA28;
-extern AnimationHeader D_601C690;
-extern AnimationHeader D_60206DC;
-extern Limb* D_6020C68;
+extern Animation D_6009FF8;
+extern Animation D_600A2D4;
+extern Animation D_600F890;
+extern Animation D_60123BC;
+extern Animation D_6013798;
+extern Animation D_60158C4;
+extern Animation D_6016E28;
+extern Animation D_601AA28;
+extern Animation D_601C690;
+extern Animation D_60206DC;
+extern Limb* D_6020C68[];
 extern Gfx D_6020D20[];
 extern Gfx D_603265C[];
 extern Gfx D_6032768[];
@@ -312,7 +312,7 @@ bool func_i2_8018FF40(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
 }
 
 void func_i2_8018FF84(Boss* boss) {
-    Animation_DrawSkeleton(3, &D_6020C68, boss->vwork, func_i2_8018FF40, func_i2_80193208, boss, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_6020C68, boss->vwork, func_i2_8018FF40, func_i2_80193208, boss, gCalcMatrix);
 }
 
 bool func_i2_8018FFDC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
@@ -324,7 +324,7 @@ bool func_i2_8018FFDC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
 }
 
 void func_i2_80190020(Boss* boss) {
-    Animation_DrawSkeleton(3, &D_6020C68, boss->vwork, func_i2_8018FFDC, func_i2_80193208, boss, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_6020C68, boss->vwork, func_i2_8018FFDC, func_i2_80193208, boss, gCalcMatrix);
 }
 
 void func_i2_80190078(Boss* boss) {
@@ -589,7 +589,7 @@ void func_i2_80190078(Boss* boss) {
             boss->fwork[42] = 30.0f;
             break;
 
-        case 1:
+        case 1: // Taunt
             boss->fwork[1] = -1800.0f;
             boss->fwork[3] = gPlayer[0].pos.x;
             boss->fwork[2] = gPlayer[0].pos.y;
@@ -613,7 +613,7 @@ void func_i2_80190078(Boss* boss) {
             }
             break;
 
-        case 2:
+        case 2: // right arm attack
             attack = true;
             boss->fwork[3] = gPlayer[0].pos.x;
             boss->fwork[2] = gPlayer[0].pos.y;
@@ -647,7 +647,7 @@ void func_i2_80190078(Boss* boss) {
             }
             break;
 
-        case 3:
+        case 3: // left arm attack
             attack = true;
             boss->fwork[3] = gPlayer[0].pos.x;
             boss->fwork[2] = gPlayer[0].pos.y;
@@ -693,7 +693,7 @@ void func_i2_80190078(Boss* boss) {
             }
             break;
 
-        case 4:
+        case 4: // Arms launch setup
             boss->swork[7] = 0;
             boss->fwork[1] = -3000.0f;
             boss->fwork[3] = gPlayer[0].pos.x;
@@ -717,7 +717,7 @@ void func_i2_80190078(Boss* boss) {
             }
             break;
 
-        case 5:
+        case 5: // arms lauching attack
             sp74.x = boss->fwork[8] + boss->obj.pos.x;
             sp74.y = boss->fwork[9] + boss->obj.pos.y;
             sp74.z = boss->fwork[10] + boss->obj.pos.z;
@@ -803,7 +803,7 @@ void func_i2_80190078(Boss* boss) {
             }
             break;
 
-        case 6:
+        case 6: // Arms come back to robot
             if ((boss->timer_050 == 20) || (boss->timer_050 == 30)) {
                 Audio_PlaySfx(0x29433022, boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
@@ -1106,7 +1106,7 @@ void func_i2_80190078(Boss* boss) {
 
     D_i2_80195640 = 1;
 
-    Animation_DrawSkeleton(1, &D_6020C68, boss->vwork, func_i2_80192AF0, func_i2_80193208, boss, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, D_6020C68, boss->vwork, func_i2_80192AF0, func_i2_80193208, boss, &gIdentityMatrix);
 
     if (((boss->swork[1] != 0) && (boss->swork[3] > 0)) && ((boss->fwork[4] < 45.0f) || (boss->fwork[4] > 315.0f))) {
         boss->swork[1]++;
@@ -1364,7 +1364,7 @@ void func_i2_80193434(Boss* boss) {
 
     if (boss->swork[5] == 0) {
         D_i2_80195640 = 0;
-        Animation_DrawSkeleton(3, &D_6020C68, boss->vwork, func_i2_80192AF0, 0, boss, gCalcMatrix);
+        Animation_DrawSkeleton(3, D_6020C68, boss->vwork, func_i2_80192AF0, 0, boss, gCalcMatrix);
         RCP_SetupDL_64();
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 96);
 

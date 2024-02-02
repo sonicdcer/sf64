@@ -3850,10 +3850,10 @@ void func_800B0194(Player* player) {
             player->unk_17C = RAND_FLOAT_CENTERED(100.0f);
         }
         if (((gGameFrameCount & 0xF) == 3) && (Rand_ZeroOne() < 0.5f)) {
-            player->unk_174 = (Rand_ZeroOne() - 0.2f) * 50.0f;
+            player->unk_174 = RAND_RANGE(-10.0f, 40.0f);
         }
         if (((gGameFrameCount & 0xF) == 10) && (Rand_ZeroOne() < 0.5f)) {
-            player->unk_178 = (Rand_ZeroOne() - 0.2f) * 50.0f;
+            player->unk_178 = RAND_RANGE(-10.0f, 40.0f);
         }
         Math_SmoothStepToF(&player->unk_15C, player->unk_17C, 0.15f, 10.0f, 0.00001f);
         Math_SmoothStepToF(&player->unk_164, player->unk_174, 0.1f, 10.0f, 0.00001f);
@@ -4262,7 +4262,7 @@ void func_800B0F50(Player* playerx) {
             for (sp34 = D_80178310, i = 0; i < D_80177DC8; i++, sp34++) {
                 Object_Load(sp34, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
             }
-            func_i5_801ACFBC(sp34);
+            func_i5_801ACFBC();
         }
     }
     if (player->state_1C8 == PLAYERSTATE_1C8_2) {
@@ -5148,7 +5148,7 @@ void func_800B44C4(Player* player) {
             break;
         case FORM_BLUE_MARINE:
             func_i3_801BEC80(player);
-            return;
+            break;
         case FORM_ON_FOOT:
             func_800B00C0(player);
             func_800B0194(player);

@@ -57,21 +57,21 @@
     - [0xE16C60, c, fox_a6]
     - [0xE1F680, c, fox_zo]
     - [0xE2DF20, c, fox_so]
-    - [0xE38560, c, sf_aq]
+    - [0xE38560, c, fox_aq]
     - [0xE4E3D0, .data, fox_i3]
     - [0xE4E3E0, .data, fox_a6]
     - [0xE4EC90, .data, fox_zo]
     - [0xE4F010, .data, fox_so]
-    - [0xE4F290, .data, sf_aq]
+    - [0xE4F290, .data, fox_aq]
     - [0xE50030, .rodata, fox_a6]
     - [0xE504E0, .rodata, fox_zo]
     - [0xE50C00, .rodata, fox_so]
-    - [0xE51160, .rodata, sf_aq]
+    - [0xE51160, .rodata, fox_aq]
     - { start: 0xE51970, type: .bss, vram: 0x801C2240, name: fox_i3 }
     - { type: .bss, vram: 0x801C2250, name: fox_a6 }
     - { type: .bss, vram: 0x801C2330, name: fox_zo }
     - { type: .bss, vram: 0x801C2740, name: fox_so }
-    - { type: .bss, vram: 0x801C27C0, name: sf_aq }
+    - { type: .bss, vram: 0x801C27C0, name: fox_aq }
 
   - name: ovl_i4
     type: code
@@ -119,6 +119,7 @@
     - [0xE9A580, .data, fox_i5]
     - [0xE9A590, .data, fox_ti_cs]
     - [0xE9A650, data, fox_ti]
+    - [0xE9C140, .data, fox_ma]
     - [0xE9DC00, data, sf_i5_4]
     - [0xE9DCD0, .rodata, fox_i5]
     - [0xE9DCE0, .rodata, fox_ti_cs]
@@ -127,7 +128,7 @@
     - [0xE9F0E0, .rodata, sf_i5_4]
     - { start: 0xE9F1D0, type: .bss, vram: 0x801BBEE0, name: fox_i5 }
     - { type: bss, vram: 0x801BBEF0, name: fox_ti }
-    - { type: bss, vram: 0x801BE240, name: fox_ma }
+    - { type: .bss, vram: 0x801BE240, name: fox_ma }
     - { type: bss, vram: 0x801BE740, name: sf_i5_4 }
 
   - name: ovl_i6
