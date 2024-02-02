@@ -25,6 +25,7 @@ extern f32 D_i4_8019F06C[];
 extern f32 D_i4_8019F078[];
 extern f32 D_i4_8019F084[];
 extern f32 D_i4_8019F090[];
+extern Vec3f D_i4_8019F0CC;
 extern Vec3f D_i4_8019F0D8;
 extern f32 D_i4_801A03D0;
 extern f32 D_i4_801A03D4;
@@ -1321,8 +1322,23 @@ s32 func_i4_801918E4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
     return false;
 }
 
-void func_i4_80191A6C(s32, Vec3f*, void*);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_80191A6C.s")
+void func_i4_80191A6C(s32 index, Vec3f* vec, void* ptr) {
+    Vec3f src = D_i4_8019F0CC;
+    Boss* boss = (Boss*) ptr;
+
+    switch (index) {
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+        case 8:
+            Matrix_MultVec3f(gCalcMatrix, &src, &boss->vwork[index - 1]);
+            break;
+    }
+}
 
 void func_i4_80191AFC(Boss* boss) {
     Animation_GetFrameData(&D_6001C64, 0, boss->vwork);
