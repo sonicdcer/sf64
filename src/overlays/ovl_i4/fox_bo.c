@@ -25,6 +25,7 @@ extern f32 D_i4_8019F06C[];
 extern f32 D_i4_8019F078[];
 extern f32 D_i4_8019F084[];
 extern f32 D_i4_8019F090[];
+extern f32 D_i4_8019F09C[12];
 extern Vec3f D_i4_8019F0CC;
 extern Vec3f D_i4_8019F0D8;
 extern f32 D_i4_801A03D0;
@@ -1275,8 +1276,118 @@ void func_i4_80191180(Effect* effect) {
     }
 }
 
-void func_i4_801912FC(Boss* boss);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_801912FC.s")
+void func_i4_801912FC(Boss* boss) {
+    s32 i;
+    Vec3f src;
+    Vec3f dest;
+
+    if (gGameFrameCount & 24) {
+        Math_SmoothStepToF(&D_i4_8019EEC0, 0.0f, 1.0f, 30.0f, 0);
+    } else {
+        Math_SmoothStepToF(&D_i4_8019EEC0, 255.0f, 1.0f, 30.0f, 0);
+    }
+
+    switch (boss->state) {
+        case 0:
+            if (D_8015F924 == 2) {
+                boss->state = 1;
+            }
+            boss->dmgType = 0;
+            gBossFrameCount = 0;
+            break;
+
+        case 1:
+            if (((gHitCount - gActors->iwork[1]) >= 5) || (D_i4_801A0530 > 8000)) {
+                boss->state = 2;
+                Radio_PlayMessage(gMsg_ID_11150, RCID_PEPPY);
+                boss->timer_050 = 1000;
+                Audio_PlaySfx(0x19034041U, boss->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            }
+            break;
+
+        case 2:
+            gBossFrameCount++;
+            Math_SmoothStepToF(&boss->obj.pos.y, 0.0f, 0.1f, 10.0f, 0);
+            boss->obj.rot.y += 1.0f;
+            if (boss->timer_050 == 1) {
+                boss->timer_050 = 2000;
+                Radio_PlayMessage(gMsg_ID_11160, RCID_PEPPY);
+                func_8001A55C(boss->sfxPos, 0x19034041);
+            }
+            break;
+
+        case 10:
+            Math_SmoothStepToF(&boss->obj.pos.y, -500.0f, 0.1f, 5.0f, 0);
+            boss->obj.rot.y += 1.0f;
+            break;
+    }
+
+    for (i = 0; i < 8; i++) {
+        if (boss->swork[12 + i] != 0) {
+            boss->swork[12 + i]--;
+            if (boss->swork[12 + i] == 1000) {
+                boss->swork[12 + i] = 0;
+            }
+        }
+    }
+
+    if (boss->state == 2) {
+        if (boss->dmgType != 0) {
+            boss->dmgType = 0;
+            if (boss->damage >= 16) {
+                boss->damage = 3;
+            }
+            if (boss->dmgPart < 8) {
+                boss->swork[boss->dmgPart] -= boss->damage;
+                if (boss->swork[boss->dmgPart] <= 0) {
+                    boss->swork[24 + boss->dmgPart] = 30;
+                    Audio_PlaySfx(0x2903B009U, boss->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    boss->swork[36] -= 1;
+                    if (boss->swork[36] <= 0) {
+                        boss->state = 10;
+                        gBosses->state = 1;
+                    }
+                    boss->obj.pos.y += 300.0f;
+                    func_80042EC0(boss);
+                    boss->obj.pos.y -= 300.0f;
+                } else {
+                    boss->swork[12 + boss->dmgPart] = 20;
+                    Audio_PlaySfx(0x29034003U, boss->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                }
+            }
+        }
+
+        Matrix_RotateY(gCalcMatrix, -boss->obj.rot.y * 0.017453292f, 0);
+
+        for (i = 0; i < 8; i++) {
+            if (boss->swork[i + 24] != 0) {
+                boss->swork[i + 24]--;
+                if (!(gGameFrameCount & 1)) {
+                    func_8007797C(boss->vwork[i].x, boss->vwork[i].y, boss->vwork[i].z, boss->vwork[i].x * 0.2f, 0.0f,
+                                  boss->vwork[i].z * 0.2f, 5.0f);
+                }
+            }
+
+            if (boss->swork[i] <= 0) {
+                boss->info.hitbox[i * 6 + 4] = -200.0f;
+                if (!((gGameFrameCount + i) & 7)) {
+                    func_i4_80190EE4(boss->vwork[i].x, boss->vwork[i].y, boss->vwork[i].z, RAND_FLOAT_CENTERED(30.0f),
+                                     (boss->obj.rot.y + D_i4_8019F09C[i]) + RAND_FLOAT_CENTERED(30.0f));
+                    boss->swork[i + 12] = 1003;
+                }
+            } else {
+                src.x = boss->vwork[i].x - boss->obj.pos.x;
+                src.y = boss->vwork[i].y - boss->obj.pos.y;
+                src.z = boss->vwork[i].z - boss->obj.pos.z;
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+                boss->info.hitbox[i * 6 + 4] = 50.0f;
+                boss->info.hitbox[i * 6 + 5] = dest.x;
+                boss->info.hitbox[i * 6 + 3] = dest.y;
+                boss->info.hitbox[i * 6 + 1] = dest.z;
+            }
+        }
+    }
+}
 
 s32 func_i4_801918E4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* this) {
     Boss* boss = (Boss*) this;
