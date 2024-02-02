@@ -616,4 +616,7 @@ void func_i1_80193D64(s32, Vec3f*, void*);
 void func_ending_8018A96C(void);
 void func_ending_8018AAC4(void);
 
+// sf_i5_5
+bool func_i5_801B49D0(Actor* actor);
+
 #endif
