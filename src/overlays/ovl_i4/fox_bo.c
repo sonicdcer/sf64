@@ -657,13 +657,15 @@ s32 func_i4_8018D4F0(Actor* actor) {
     if (i >= 6) {
         return 0;
     }
-    D_i4_801A03E0[i].unk_00 = (f32) actor->obj.pos.x;
-    D_i4_801A03E0[i].unk_04 = (f32) (actor->obj.pos.y + 730.0f);
-    D_i4_801A03E0[i].unk_08 = (f32) actor->obj.pos.z;
-    D_i4_801A03E0[i].unk_0C = (f32) actor->fwork[10];
-    D_i4_801A03E0[i].unk_10 = (f32) actor->fwork[11];
-    D_i4_801A03E0[i].unk_14 = (f32) actor->fwork[12];
+
+    D_i4_801A03E0[i].unk_00 = actor->obj.pos.x;
+    D_i4_801A03E0[i].unk_04 = actor->obj.pos.y + 730.0f;
+    D_i4_801A03E0[i].unk_08 = actor->obj.pos.z;
+    D_i4_801A03E0[i].unk_0C = actor->fwork[10];
+    D_i4_801A03E0[i].unk_10 = actor->fwork[11];
+    D_i4_801A03E0[i].unk_14 = actor->fwork[12];
     D_i4_801A03E0[i].unk_18 = 1;
+
     return 0;
 }
 
