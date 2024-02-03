@@ -15,6 +15,7 @@ extern s32 D_80177C3C[];
 extern s32 D_801778F4[];
 
 extern f32 D_i4_8019EEC0;
+extern f32 D_i4_8019EEE4[];
 extern f32 D_i4_8019EFDC[];
 extern f32 D_i4_8019EFE8[];
 extern f32 D_i4_8019EFF4[];
@@ -105,8 +106,75 @@ void func_i4_8018BD60(Actor* actor);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018BD60.s")
 #endif
 
-void func_i4_8018BEF8(Actor* actor, s32);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018BEF8.s")
+void func_i4_8018BEF8(Actor* actor, s32 arg1) {
+    s32 i;
+    Actor* actorPtr;
+
+    for (i = 10, actorPtr = &gActors[10]; i < arg1 + 10; i++, actorPtr++) {
+        if (actorPtr->obj.status == 0) {
+            Actor_Initialize(actorPtr);
+            actorPtr->obj.status = 2;
+            actorPtr->obj.id = OBJ_ACTOR_197;
+            actorPtr->obj.pos.z = 0.0f;
+
+            if (D_i4_801A0530 > 1000) {
+                actorPtr->obj.pos.x = 10000.0f;
+                actorPtr->obj.pos.y = 3000.0f;
+            } else {
+                actorPtr->obj.pos.x = D_i4_8019EEE4[actor->unk_04E];
+                actorPtr->obj.pos.y = 50.0f;
+                Audio_PlaySfx(0x2903305FU, actorPtr->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                actorPtr->timer_0BC = 5;
+                actorPtr->timer_0C2 = 100;
+                actorPtr->unk_0F4.x = 90.0f;
+            }
+
+            actorPtr->state = 1;
+            actorPtr->timer_0C4 = 300;
+            actorPtr->unk_0E4 = i;
+            actorPtr->unk_0E6 = -1;
+
+            if (i < 13) {
+                actorPtr->unk_0E6 = 2;
+                gActors[2].unk_0E6 = -1;
+            }
+
+            if ((i == 17) || (i == 18)) {
+                actorPtr->unk_0E6 = 0;
+            }
+
+            if ((i == 20) || (i == 21)) {
+                actorPtr->unk_0E6 = 3;
+                gActors[3].unk_0E6 = -1;
+            }
+
+            if (i == 22) {
+                actorPtr->unk_0E6 = 1;
+                gActors[1].unk_0E6 = -1;
+            }
+
+            if ((D_i4_801A0530 > 16000) && ((i == 23) || (i == 24))) {
+                actorPtr->unk_0E6 = 0;
+            }
+
+            actorPtr->health = 24;
+            actorPtr->iwork[11] = 1;
+
+            if (D_i4_801A0530 < 16000) {
+                actorPtr->unk_044 = 2;
+            }
+
+            Object_SetInfo(&actorPtr->info, actorPtr->obj.id);
+            Audio_PlaySfx(0x3100000CU, actorPtr->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+
+            actor->unk_04E++;
+            if (actor->unk_04E >= 5) {
+                actor->unk_04E = 0;
+            }
+            break;
+        }
+    }
+}
 
 void func_i4_8018C158(Actor* actor) {
     s32 i;
