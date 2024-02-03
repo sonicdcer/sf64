@@ -434,7 +434,36 @@ s32 func_i4_8018CCE8(Actor* actor) {
     return 0;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018CE5C.s")
+s32 func_i4_8018CE5C(Actor* actor) {
+    f32 x;
+    f32 y;
+    f32 z;
+
+    if (actor->iwork[0] == 0) {
+        return 0;
+    }
+
+    if (!((actor->index + gGameFrameCount) & 3)) {
+        x = actor->fwork[0] - actor->obj.pos.x + RAND_FLOAT_CENTERED(100.0f);
+        y = actor->fwork[1] - (actor->obj.pos.y + 180.0f) + RAND_FLOAT_CENTERED(100.0f);
+        z = actor->fwork[2] - actor->obj.pos.z;
+
+        actor->fwork[6] = Math_RadToDeg(Math_Atan2F(x, z)) - actor->obj.rot.y;
+
+        if (actor->fwork[6] >= 360.0f) {
+            actor->fwork[6] -= 360.0f;
+        }
+        if (actor->fwork[6] < 0.0f) {
+            actor->fwork[6] += 360.0f;
+        }
+        actor->fwork[5] = Math_RadToDeg(Math_Atan2F(y, sqrtf(SQ(x) + SQ(z))));
+    }
+
+    Math_SmoothStepToF(&actor->unk_0F4.x, actor->fwork[5], 0.1f, 4.8f, 0.1f);
+    Math_SmoothStepToF(&actor->unk_0F4.y, actor->fwork[6], 0.1f, 4.8f, 0.1f);
+
+    return 0;
+}
 
 s32 func_i4_8018D008(Actor* actor) {
     f32 x;
