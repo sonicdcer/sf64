@@ -34,23 +34,26 @@ extern f32 D_i4_801A03D0;
 extern f32 D_i4_801A03D4;
 extern f32 D_i4_801A03D8;
 extern s32 D_i4_801A03DC;
-extern UnkStruct_D_i4_801A03E0 D_i4_801A03E0[];
+extern UnkStruct_D_i4_801A03E0 D_i4_801A03E0[6];
+extern UnkStruct_D_i4_801A03E0 D_i4_801A0488[6];
 extern s32 D_i4_801A0530;
 
 extern Animation D_6001C64;
 extern Limb* D_6001FB0;
+extern Gfx D_6002020[];
 extern Gfx D_6006910[];
+extern u8 D_6008BB8[];
+extern Gfx D_6009BC0[];
+extern u8 D_600AD80[];
+extern Gfx D_600BEC0[];
+extern Gfx D_600BF30[];
+extern Gfx D_600C4E0[];
+extern u8 D_600CF88[];
 extern Animation D_600F2E0;
 extern Animation D_600F3D8;
 extern Limb* D_600F36C;
 extern Limb* D_600F4A4;
 extern u8 D_6011BA4[];
-extern u8 D_6008BB8[];
-extern u8 D_600AD80[];
-extern Gfx D_600BEC0[];
-extern Gfx D_600C4E0[];
-extern u8 D_600CF88[];
-extern Gfx D_6009BC0[];
 
 void func_8002FC00(Actor*);
 s32 func_i4_8018CCE8(Actor*);
@@ -687,7 +690,41 @@ void func_i4_8018E710(Boss* boss) {
     Matrix_RotateY(&D_i4_8019EE80, gBosses->obj.rot.y * M_DTOR, 0);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018E870.s")
+void func_i4_8018E870(Boss* boss) {
+    s32 i;
+    s32 alpha;
+
+    Matrix_Scale(gGfxMatrix, boss->unk_3F8, boss->unk_3F8, boss->unk_3F8, 1);
+
+    if (boss->vwork[30].y >= 0.0f) {
+        gSPDisplayList(gMasterDisp++, D_6002020);
+    }
+
+    if (gGameFrameCount & 1) {
+        alpha = 128;
+    } else {
+        alpha = 30;
+    }
+
+    for (i = 0; i < 6; i++) {
+        if (D_i4_801A0488[i].unk_18 == 0) {
+            continue;
+        }
+        Matrix_Push(&gGfxMatrix);
+        RCP_SetupDL(&gMasterDisp, 0x31);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha);
+        gDPSetEnvColor(gMasterDisp++, 255, 56, 56, alpha);
+        Matrix_Translate(gGfxMatrix, D_i4_801A0488[i].unk_0C, D_i4_801A0488[i].unk_10, D_i4_801A0488[i].unk_14, 1);
+        Matrix_RotateY(gGfxMatrix, D_i4_801A0488[i].unk_04 * M_DTOR, 1);
+        Matrix_RotateX(gGfxMatrix, D_i4_801A0488[i].unk_00 * M_DTOR, 1);
+        Matrix_RotateZ(gGfxMatrix, M_PI / 2, 1);
+        Matrix_Translate(gGfxMatrix, 1.0f, 1.0f, D_i4_801A0488[i].unk_08 * 200.0f, 1);
+        Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, D_i4_801A0488[i].unk_08, 1);
+        Matrix_SetGfxMtx(&gMasterDisp);
+        gSPDisplayList(gMasterDisp++, D_600BF30);
+        Matrix_Pop(&gGfxMatrix);
+    }
+}
 
 void func_i4_8018EAEC(Actor* actor, s32 index) {
     Actor_Initialize(actor);
@@ -783,13 +820,11 @@ void func_i4_8018EE4C(f32 x, f32 y) {
 
 void func_i4_8018EF6C(Player* player) {
     s32 i;
-    f32 sp60;
+    f32 sp60 = 0.0f;
     Vec3f sp54;
     Vec3f sp48;
     Actor* actor;
     s32 pad[4];
-
-    sp60 = 0.0f;
 
     switch (player->unk_1D0) {
         case 0:
