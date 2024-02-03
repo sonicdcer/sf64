@@ -10,6 +10,16 @@ typedef struct UnkStruct_D_i4_801A03E0 {
     s32 unk_18;
 } UnkStruct_D_i4_801A03E0;
 
+typedef struct UnkStruct_D_i4_801A04A0_2 {
+    s32 unk_00;
+    f32 unk_04;
+    f32 unk_08;
+    f32 unk_0C;
+    f32 unk_10;
+    f32 unk_14;
+    s32 unk_18;
+} UnkStruct_D_i4_801A04A0_2;
+
 extern s16 D_800C9C34; // fox_bg
 extern s32 D_80177C3C[];
 extern s32 D_801778F4[];
@@ -37,6 +47,7 @@ extern f32 D_i4_801A03D8;
 extern s32 D_i4_801A03DC;
 extern UnkStruct_D_i4_801A03E0 D_i4_801A03E0[6];
 extern UnkStruct_D_i4_801A03E0 D_i4_801A0488[6];
+extern UnkStruct_D_i4_801A04A0_2 D_i4_801A04A0[6];
 extern s32 D_i4_801A0530;
 
 extern Animation D_6001C64;
@@ -63,7 +74,7 @@ s32 func_i4_8018D008(Actor*);
 void func_i4_8018D124(Actor*);
 void func_i4_8018D9CC();
 void func_i4_8018DE8C(Boss*);
-void func_i4_8018E3FC(Boss*);
+s32 func_i4_8018E3FC(Boss*);
 void func_i4_8018F83C(Actor* actor, s32);
 
 #ifdef IMPORT_DATA
@@ -754,9 +765,132 @@ void func_i4_8018D960(Actor* actor) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018DE8C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018E05C.s")
+s32 func_i4_8018E05C(Boss* boss, s32 index) {
+    s32 i;
+    f32 temp_fs0;
+    f32 temp_fs1;
+    f32 temp_fs2;
+    f32 temp_fs3;
+    f32 temp_fs4;
+    f32 var_fs0;
+    bool ret = false;
+    Vec3f src;
+    Vec3f dest;
 
+    temp_fs4 = D_i4_801A0488[index].unk_08 * 400.0f;
+    temp_fs2 = D_i4_801A0488[index].unk_0C;
+    temp_fs3 = D_i4_801A0488[index].unk_14;
+    temp_fs1 = D_i4_801A0488[index].unk_00;
+    var_fs0 = D_i4_801A0488[index].unk_04;
+
+    Matrix_Push(&gGfxMatrix);
+    Matrix_RotateX(gCalcMatrix, -temp_fs1 * M_DTOR, 0);
+
+    var_fs0 += boss->obj.rot.y;
+    if (var_fs0 >= 360.0f) {
+        var_fs0 -= 360.0f;
+    }
+
+    Matrix_RotateY(gCalcMatrix, (-var_fs0) * M_DTOR, 1);
+
+    src.x = gPlayer->pos.x - (boss->obj.pos.x + temp_fs2);
+    src.y = gPlayer->pos.y - (boss->obj.pos.y + 580.0f);
+    src.z = gPlayer->unk_138 - (boss->obj.pos.z + temp_fs3);
+
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
+    if ((fabsf(dest.x) < 100.0f) && (fabsf(dest.y) < 200.0f)) {
+        if ((dest.z >= 0.0f) && (dest.z < temp_fs4) && (gPlayer->unk_1F4 == 0)) {
+            Player_ApplyDamage(gPlayer, 0, 40);
+
+            if (dest.y > 0.0f) {
+                gPlayer->unk_0D8.y = 20.0f;
+            } else {
+                gPlayer->unk_0D8.y = -20.0f;
+            }
+
+            for (i = 0; i < 5; i++) {
+                func_8007C484(RAND_FLOAT_CENTERED(30.0f) + gPlayer->pos.x, (Rand_ZeroOne() * 10.0f) + gPlayer->pos.y,
+                              RAND_FLOAT_CENTERED(30.0f) + gPlayer->unk_138, gPlayer->vel.x,
+                              gPlayer->unk_0D8.y + gPlayer->vel.y, gPlayer->vel.z, (Rand_ZeroOne() * 0.1f) + 0.1f,
+                              gPlayer->num + 11);
+            }
+
+            func_8007BFFC(RAND_FLOAT_CENTERED(10.0f) + gPlayer->pos.x, (Rand_ZeroOne() * 10.0f) + gPlayer->pos.y,
+                          RAND_FLOAT_CENTERED(10.0f) + gPlayer->unk_138, 0.0f, 15.0f, 0.0f, 2.0f, 5);
+        }
+        ret = true;
+    }
+
+    Matrix_Pop(&gGfxMatrix);
+
+    return ret;
+}
+
+#ifdef IMPORT_DATA
+s32 func_i4_8018E3FC(Boss* boss) {
+    s32 i;
+    s32 j;
+    f32 D_i4_8019EF94[6] = { 31.0f, 91.0f, 151.0f, 211.0f, 271.0f, 331.0f };
+    f32 D_i4_8019EFAC[6] = { 0.0f, 840.0f, 840.0f, 0.0f, -840.0f, -840.0f };
+    f32 D_i4_8019EFC4[6] = { 1000.0f, 500.0f, -500.0f, -1000.0f, -500.0f, 500.0f };
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 var_fs0;
+    f32 temp;
+
+    for (i = 0; i < 6; i++) {
+        if (D_i4_801A03E0[i].unk_18 == 0) {
+            D_i4_801A0488[i + 7].unk_18 = 0;
+        } else {
+            x = D_i4_801A03E0[i].unk_0C - boss->obj.pos.x;
+            var_fs0 = Math_RadToDeg(Math_Atan2F(x, D_i4_801A03E0[i].unk_14 - boss->obj.pos.z));
+            if (var_fs0 >= 360.0f) {
+                var_fs0 = var_fs0 - 360.0f;
+            }
+            if (var_fs0 < 0.0f) {
+                var_fs0 += 360.0f;
+            }
+            for (j = 0; j < 6; j++) {
+                if (var_fs0 < D_i4_8019EF94[j]) {
+                    break;
+                } else {
+                    continue;
+                }
+            }
+
+            if (j < 6) {
+                x = D_i4_801A03E0[i].unk_0C - (boss->obj.pos.x + D_i4_8019EFAC[j]);
+                y = D_i4_801A03E0[i].unk_04 - (boss->obj.pos.y + 580.0f);
+                z = D_i4_801A03E0[i].unk_14 - (boss->obj.pos.z + D_i4_8019EFC4[j]);
+                var_fs0 = Math_RadToDeg(Math_Atan2F(x, z));
+                if (var_fs0 >= 360.0f) {
+                    var_fs0 -= 360.0f;
+                }
+                if (var_fs0 < 0.0f) {
+                    var_fs0 += 360.0f;
+                }
+                z = sqrtf((x * x) + (z * z));
+                temp = 360.0f - Math_RadToDeg(Math_Atan2F(y, z));
+                D_i4_801A0488[i].unk_04 = var_fs0;
+                D_i4_801A0488[i].unk_00 = temp;
+                D_i4_801A0488[i].unk_18 = 1;
+                D_i4_801A0488[i].unk_10 = 580.0f;
+                D_i4_801A0488[i].unk_0C = D_i4_8019EFAC[j];
+                D_i4_801A0488[i].unk_14 = D_i4_8019EFC4[j];
+                D_i4_801A0488[i].unk_08 = z / 400.0f;
+                func_i4_8018E05C(boss, i);
+                D_i4_801A03E0[i].unk_18 = 0;
+            }
+        }
+    }
+
+    return 0;
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018E3FC.s")
+#endif
 
 void func_i4_8018E710(Boss* boss) {
     if (boss->state == 1) {
