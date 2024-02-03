@@ -59,6 +59,7 @@ extern Gfx D_6009BC0[];
 extern u8 D_600AD80[];
 extern Gfx D_600BEC0[];
 extern Gfx D_600BF30[];
+extern Vtx D_600C0B8[];
 extern Gfx D_600C4E0[];
 extern u8 D_600CF88[];
 extern Animation D_600F2E0;
@@ -66,13 +67,13 @@ extern Animation D_600F3D8;
 extern Limb* D_600F36C;
 extern Limb* D_600F4A4;
 extern u8 D_6011BA4[];
+extern Vtx D_6011E28[];
 
 void func_8002FC00(Actor*);
 s32 func_i4_8018CCE8(Actor*);
 s32 func_i4_8018CE5C(Actor*);
 s32 func_i4_8018D008(Actor*);
 void func_i4_8018D124(Actor*);
-void func_i4_8018D9CC();
 s32 func_i4_8018DE8C(Boss*);
 s32 func_i4_8018E3FC(Boss*);
 void func_i4_8018F83C(Actor* actor, s32);
@@ -761,7 +762,31 @@ void func_i4_8018D960(Actor* actor) {
     Animation_DrawSkeleton(3, &D_600F4A4, actor->vwork, func_i4_8018D874, NULL, actor, gCalcMatrix);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018D9CC.s")
+s32 func_i4_8018D9CC(void) {
+    s32 i;
+    f32 spA8[17];
+    f32 sp64[17];
+    s32 j;
+    Vtx* sp5C = SEGMENTED_TO_VIRTUAL(D_6011E28);
+    Vtx* sp58 = SEGMENTED_TO_VIRTUAL(D_600C0B8);
+
+    for (i = 0; i < 17; i++) {
+        if ((i == 0) || (i == 16)) {
+            spA8[i] = 0.0f;
+            sp64[i] = 0.0f;
+        } else {
+            spA8[i] = RAND_FLOAT_CENTERED(400.0f);
+            sp64[i] = RAND_FLOAT_CENTERED(400.0f);
+        }
+    }
+
+    for (i = 0; i < 34; i++) {
+        j = (sp5C[i].v.ob[2] + 200) / 25;
+        sp58[i].v.ob[0] = sp5C[i].v.ob[0] + spA8[j];
+        sp58[i].v.ob[1] = sp5C[i].v.ob[1] + sp64[j];
+    }
+    return 0;
+}
 
 #ifdef IMPORT_DATA
 s32 func_i4_8018DE8C(Boss* boss) {
