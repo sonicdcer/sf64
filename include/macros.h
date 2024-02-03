@@ -7,6 +7,7 @@
 #define RAND_FLOAT(max) (Rand_ZeroOne()*(max))
 #define RAND_INT(max) ((s32)(Rand_ZeroOne()*(max)))
 #define RAND_FLOAT_CENTERED(width) ((Rand_ZeroOne()-0.5f)*(width))
+#define RAND_RANGE(min, max) (((max) - (min)) * (Rand_ZeroOne() - (min) / ((min) - (max))))
 
 #define RAND_FLOAT_SEEDED(max) (Rand_ZeroOneSeeded()*(max))
 #define RAND_INT_SEEDED(max) ((s32)(Rand_ZeroOneSeeded()*(max)))

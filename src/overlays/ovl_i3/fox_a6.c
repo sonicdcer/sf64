@@ -1415,7 +1415,7 @@ void func_i3_8018A464(Boss* bossA6, s32 arg1) {
                                     }
                                 } else {
                                     bossA6->swork[A6_SWK_11] = 30;
-                                    D_i3_801BF100[0].x = (Rand_ZeroOne() - 0.4f) * 30.0f;
+                                    D_i3_801BF100[0].x = RAND_RANGE(-12.0f, 18.0f);
                                 }
                                 D_i3_801BF394[0] = D_i3_801BF100[0].x;
                             } else if (!(bossA6->swork[A6_SWK_11] & 7)) {

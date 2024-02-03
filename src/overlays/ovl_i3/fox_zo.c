@@ -46,7 +46,6 @@ typedef struct {
 #define ZO_HIT_10(bossZO, index) ((Hitbox*) ((f32*) (ZO_HIT_8(bossZO, 0) + 2) + 6 * (index)))
 #define ZO_HIT_12(bossZO) ((Hitbox*) (ZO_HIT_10(bossZO, 0) + 2))
 
-void func_8007EE68(s32, Vec3f*, Vec3f*, Vec3f*, Vec3f*, f32);
 void func_80081BEC(f32, f32, f32, f32, s32);
 void func_8008377C(f32, f32, f32, f32, f32);
 void func_i3_801A7750(void);
@@ -62,6 +61,20 @@ void func_i3_80199394(Boss* bossZO, s32 arg1);
 void func_i3_80199470(Boss* bossZO, s32 arg1);
 void func_i3_8019962C(Boss* bossZO, f32 arg1);
 
+// /* 0x1 */ ROM_SEGMENT(ast_873CB0),
+// /* 0x2 */ ROM_SEGMENT(ast_8AE0A0),
+// /* 0x3 */ ROM_SEGMENT(ast_8BFC00),
+// /* 0x4 */ ROM_SEGMENT(ast_918430),
+// /* 0x5 */ ROM_SEGMENT(ast_CD2410),
+// /* 0x6 */ ROM_SEGMENT(ast_B84560),
+// /* 0x7 */ NO_SEGMENT,
+// /* 0x8 */ NO_SEGMENT,
+// /* 0x9 */ NO_SEGMENT,
+// /* 0xA */ NO_SEGMENT,
+// /* 0xB */ NO_SEGMENT,
+// /* 0xC */ NO_SEGMENT,
+// /* 0xD */ ROM_SEGMENT(ast_955270),
+
 extern Gfx D_6002E10[];
 extern Gfx D_6004380[];
 extern Gfx D_6006360[];
@@ -69,25 +82,25 @@ extern Limb* D_600E7D8[];
 extern Gfx D_6013330[];
 extern Gfx D_6017950[];
 extern Gfx D_60181E0[];
-extern AnimationHeader D_6018550;
+extern Animation D_6018550;
 extern Limb* D_601863C[];
 extern Gfx D_6018660[];
-extern AnimationHeader D_60195EC;
+extern Animation D_60195EC;
 extern Limb* D_6019738[];
-extern AnimationHeader D_601996C;
+extern Animation D_601996C;
 extern Limb* D_6019E18[];
 extern Gfx D_6019EB0[];
 extern Gfx D_601A340[];
-extern AnimationHeader D_601AA48;
+extern Animation D_601AA48;
 extern Limb* D_601AB14[];
-extern AnimationHeader D_601AFB8;
+extern Animation D_601AFB8;
 extern Limb* D_601B184[];
 extern Gfx D_601BCC0[];
 extern Gfx D_601C590[];
 extern Gfx D_601D680[];
-extern AnimationHeader D_601FBC4;
+extern Animation D_601FBC4;
 extern Limb* D_601FC90[];
-extern AnimationHeader D_6021ABC;
+extern Animation D_6021ABC;
 extern Limb* D_6021B88[];
 extern Gfx D_6023D50[];
 extern Gfx D_6025E60[];
@@ -177,7 +190,7 @@ typedef enum {
     /* 38 */ ZO_LIMB_38,
     /* 39 */ ZO_LIMB_39,
     /* 40 */ ZO_LIMB_MAX,
-} ZoLimbs;
+} BossZOLimbs;
 
 typedef enum {
     /*   0 */ ZO_BSF_0,
@@ -2509,8 +2522,8 @@ void func_i3_80194A84(Boss* bossZO) {
             }
             func_8007C120(sZoFwork[ZO_BSF_55_X], sZoFwork[ZO_BSF_55_Y], sZoFwork[ZO_BSF_55_Z], bossZO->vel.x,
                           bossZO->vel.y, bossZO->vel.z, 0.2f, 10);
-            func_8007D0E0(RAND_FLOAT_CENTERED(200.0f) + sZoFwork[ZO_BSF_55_X],
-                          ((Rand_ZeroOne() - 0.2f) * 800.0f) + sZoFwork[ZO_BSF_55_Y], sZoFwork[ZO_BSF_55_Z], 10.0f);
+            func_8007D0E0(sZoFwork[ZO_BSF_55_X] + RAND_FLOAT_CENTERED(200.0f),
+                          sZoFwork[ZO_BSF_55_Y] + RAND_RANGE(-160.0f, 640.0f), sZoFwork[ZO_BSF_55_Z], 10.0f);
             if (bossZO->timer_050 == 30) {
                 Radio_PlayMessage(gMsg_ID_6079, RCID_BOSS_ZONESS);
             }
@@ -2596,8 +2609,8 @@ void func_i3_80194A84(Boss* bossZO) {
                 }
                 if ((bossZO->timer_050 == 0) && (sZoSwork[ZO_BSS_26] != 0)) {
                     bossZO->timer_050 = 50;
-                    sZoFwork[ZO_BSF_37_X] = (Rand_ZeroOne() - 0.3f) * 1100.0f;
-                    sZoFwork[ZO_BSF_40_X] = (Rand_ZeroOne() - 0.7f) * 800.0f;
+                    sZoFwork[ZO_BSF_37_X] = RAND_RANGE(-330.0f, 770.0f);
+                    sZoFwork[ZO_BSF_40_X] = RAND_RANGE(-560.0f, 240.0f);
                     func_i3_801989FC(bossZO);
                 }
             } else {
@@ -3253,7 +3266,7 @@ void func_i3_80198F3C(Boss* bossZO, s32 arg1, s32 arg2) {
             sZoLimbTimers[ZO_LIMB_22 + 2 * arg1] = 15;
     }
     func_8007D0E0(sZoFwork[ZO_BSF_0 + arg2] + RAND_FLOAT_CENTERED(400.0f),
-                  sZoFwork[ZO_BSF_1 + arg2] + (Rand_ZeroOne() - 0.2f) * 800.0f, sZoFwork[ZO_BSF_2 + arg2], 7.0f);
+                  sZoFwork[ZO_BSF_1 + arg2] + RAND_RANGE(-160.0f, 640.0f), sZoFwork[ZO_BSF_2 + arg2], 7.0f);
     if (!(gGameFrameCount & 1)) {
         func_8007C120(sZoFwork[ZO_BSF_0 + arg2], sZoFwork[ZO_BSF_1 + arg2], sZoFwork[ZO_BSF_2 + arg2], bossZO->vel.x,
                       bossZO->vel.y, bossZO->vel.z, 0.2f, 10);

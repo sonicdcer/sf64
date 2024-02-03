@@ -14,32 +14,32 @@ extern f32 D_603605C[];
 extern Gfx D_6010470[];
 extern Gfx D_6003370[];
 extern Gfx D_6004440[];
-extern AnimationHeader D_600FEC4;
-extern AnimationHeader D_6010144;
-extern AnimationHeader D_6010220;
+extern Animation D_600FEC4;
+extern Animation D_6010144;
+extern Animation D_6010220;
 extern Limb* D_601042C[];
 extern Gfx D_6017720[];
 extern Gfx D_601BE90[];
-extern AnimationHeader D_601EAB0;
+extern Animation D_601EAB0;
 extern Limb* D_601EBBC;
 extern Gfx D_6022200[];
 extern Gfx D_60227F0[];
 extern Gfx D_60239D0[];
 extern Gfx D_6024670[];
 extern Gfx D_60269E0[];
-extern AnimationHeader D_6027A04;
+extern Animation D_6027A04;
 extern Limb* D_6027AF0[];
 extern Gfx D_6027BF0[];
 extern Gfx D_6027D40[];
 extern Gfx D_6027EB0[];
 extern Gfx D_60288A0[];
-extern AnimationHeader D_602EA0C;
+extern Animation D_602EA0C;
 extern Limb* D_602EBB8[];
 extern Gfx D_6001180[];
 extern Gfx D_60014A0[];
 extern Gfx D_601C170[];
 extern Gfx D_6022610[];
-extern AnimationHeader D_6025CA0;
+extern Animation D_6025CA0;
 extern Limb* D_6025DAC[];
 extern Gfx D_6026860[];
 extern Gfx D_602D380[];
@@ -62,18 +62,18 @@ extern Gfx D_600A4D0[];
 extern Gfx D_600A7D0[];
 extern Gfx D_600AA70[];
 extern Gfx D_600AD50[];
-extern AnimationHeader D_600C4D0;
+extern Animation D_600C4D0;
 extern Limb* D_600C65C[];
 extern f32 D_603648C[];
 extern Gfx D_602F380[];
-extern AnimationHeader D_602FEB4;
+extern Animation D_602FEB4;
 extern Limb* D_602FFA0[];
 extern Gfx D_602FFC0[];
 extern Gfx D_601A2B0[];
 extern f32 D_6036520[];
-extern AnimationHeader D_602F098;
+extern Animation D_602F098;
 extern Limb* D_602F264[];
-extern AnimationHeader D_602F2E0;
+extern Animation D_602F2E0;
 extern Limb* D_602F36C[];
 extern Gfx D_601A840[];
 extern Gfx D_6012A60[];
@@ -82,16 +82,16 @@ extern Gfx D_6025850[];
 extern Gfx D_60257B0[];
 extern Gfx D_601F270[];
 extern u16 D_6012C98[];
-extern AnimationHeader D_600CD18;
-extern AnimationHeader D_6015C24;
-extern AnimationHeader D_6016040;
-extern AnimationHeader D_60163F0;
-extern AnimationHeader D_6016B2C;
-extern AnimationHeader D_6017714;
-extern AnimationHeader D_601D188;
+extern Animation D_600CD18;
+extern Animation D_6015C24;
+extern Animation D_6016040;
+extern Animation D_60163F0;
+extern Animation D_6016B2C;
+extern Animation D_6017714;
+extern Animation D_601D188;
 extern f32 D_6036818[];
 extern Limb* D_600D1E4[];
-extern AnimationHeader D_601EA28;
+extern Animation D_601EA28;
 extern f32 D_6035A94[];
 extern ObjectInit D_6035678[];
 extern ObjectInit D_60357CC[];
@@ -340,7 +340,7 @@ void func_i5_80199920(void) {
     D_i5_801BE250[6] = 0.0f;
     D_i5_801BE250[16] = 0.0f;
     D_i5_801BE250[20] = 0.0f;
-    D_i5_801BA1E8 = 0x62;
+    D_i5_801BA1E8 = 98;
     D_i5_801BA1E0 = 1e7f;
     D_i5_801BE310 = 999;
     D_i5_801BE312 = 0;
@@ -515,7 +515,7 @@ void func_i5_80199F8C(Actor* actor) {
 
 void func_i5_8019A128(void) {
     func_i5_80199C20(D_6023228, 16, 16, 0, 8);
-    func_i5_80199A40(D_6023388, D_Unk_800DB4B8, (f32) gGameFrameCount * -20.0f);
+    func_i5_80199A40(D_6023388, D_Unk_800DB4B8, gGameFrameCount * -20.0f);
 }
 
 void func_i5_8019A198(Actor* actor) {
@@ -531,7 +531,7 @@ void func_i5_8019A198(Actor* actor) {
                     func_8001CFA8(actor->vel.z);
                 }
                 func_8001D10C(actor->sfxPos, 0x31078085);
-                D_i5_801BE310 = (s16) actor->iwork[5];
+                D_i5_801BE310 = actor->iwork[5];
             }
             D_i5_801BA1E0 = actor->obj.pos.z;
             if (D_i5_801BE313 != 0) {
@@ -2046,14 +2046,15 @@ void func_i5_801A0BD8(Object_80* obj80) {
             break;
     }
     if (obj80->timer_4C != 0) {
-        obj80->vel.z = Rand_ZeroOne() + 2.0f;
+        obj80->vel.z = 2.0f + RAND_FLOAT(1.0f);
     } else {
-        obj80->vel.z = Rand_ZeroOne() + 1.0f;
+        obj80->vel.z = 1.0f + RAND_FLOAT(1.0f);
     }
 }
 
 bool func_i5_801A0DD8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Object_80* obj80 = (Object_80*) data;
+
     if (limbIndex == 5) {
         rot->y += obj80->vel.y;
     }
@@ -2973,7 +2974,7 @@ void func_i5_801A46A0(Actor* actor) {
                         }
 
                         actor->fwork[0] /= 1.2f + Rand_ZeroOne() / 2;
-                        actor->unk_046 -= 1;
+                        actor->unk_046--;
                         actor->vel.z /= 1.5f;
                         if (actor->unk_046 == 0) {
                             actor->timer_0BE = RAND_INT(30.0f);
@@ -3503,7 +3504,7 @@ void func_i5_801A68F8(Actor* actor, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
     gUnkEntities30[arg1].unk_04.y = arg3;
     gUnkEntities30[arg1].unk_28 = 5.0f;
     gUnkEntities30[arg1].unk_2C = gUnkEntities30[arg1].unk_2D = gUnkEntities30[arg1].unk_2E =
-        gUnkEntities30[arg1].unk_2F = 0xFF;
+        gUnkEntities30[arg1].unk_2F = 255;
     gUnkEntities30[arg1].timer = 3;
     gUnkEntities30[arg1].unk_04.z = arg4;
     gUnkEntities30[arg1].unk_10.x = arg5;
@@ -3512,23 +3513,22 @@ void func_i5_801A68F8(Actor* actor, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
 }
 
 void func_i5_801A6984(Actor* actor) {
+    s16 var_s3;
     f32 temp_fa0;
-    f32 temp_fa1;
     f32 temp_fs0;
-    f32 temp_fs1;
-    f32 temp_fs2_2;
+    f32 temp_fa1;
     f32 temp_fs3;
+    s32 var_s4;
+    f32 temp_fs2_2;
     f32 temp_fs3_2;
     f32 temp_fs4;
-    f32 var_fs5;
     f32 spA8;
-    f32 temp;
+    f32 var_fs5;
     f32 spA0;
     f32 sp9C;
-    f32 sp78;
-    s16 temp_a1;
-    s16 var_s3;
-    s32 var_s4;
+    f32 temp;
+    s32 pad1;
+    s32 pad2;
     s32 i;
     f32 sp88;
     f32 sp84;
@@ -3546,14 +3546,11 @@ void func_i5_801A6984(Actor* actor) {
         if (var_s4 == 0) {
             var_s4 = 1;
         }
-
-        sp78 = (f32) var_s4;
         spA8 = (180.0f / var_s4) + 1.0f;
         var_fs5 = actor->obj.pos.x;
-
         spA0 = actor->obj.pos.y;
-
         sp9C = actor->obj.pos.z;
+
         sp88 = (D_i5_801BE368[4] - actor->obj.pos.x) / var_s4;
         sp84 = (D_i5_801BE368[5] - actor->obj.pos.y) / var_s4;
         sp80 = (D_i5_801BE368[6] - actor->obj.pos.z) / var_s4;
@@ -3563,13 +3560,11 @@ void func_i5_801A6984(Actor* actor) {
             } else {
                 Math_SmoothStepToF(&D_i5_801BE368[7], 100.0f, 0.01f, 0.01f, 0.01f);
             }
-
-            temp = SIN_DEG(i * spA8) * (-(D_i5_801BE368[7] * 3.0f) * (1.0f - (i / sp78)));
-            temp_a1 = var_s3++;
+            temp = SIN_DEG(i * spA8) * (-(D_i5_801BE368[7] * 3.0f) * (1.0f - ((f32) i / var_s4)));
             temp_fs2_2 = actor->obj.pos.x + (sp88 * i);
             temp_fs3_2 = actor->obj.pos.y + (sp84 * i) + temp;
             temp_fs4 = actor->obj.pos.z + (sp80 * i);
-            func_i5_801A68F8(actor, temp_a1, var_fs5, spA0, sp9C, temp_fs2_2, temp_fs3_2, temp_fs4);
+            func_i5_801A68F8(actor, var_s3++, var_fs5, spA0, sp9C, temp_fs2_2, temp_fs3_2, temp_fs4);
             var_fs5 = temp_fs2_2;
             spA0 = temp_fs3_2;
             sp9C = temp_fs4;
@@ -4360,12 +4355,12 @@ void func_i5_801A7E7C(Actor* actor) {
                 spC6 = RAND_INT(5.0f);
                 for (i = 0; i < 10; i++) {
                     func_i5_801AE610(actor->vwork[0].x, actor->vwork[0].y + 100.0f, actor->vwork[0].z,
-                                     RAND_FLOAT_CENTERED(35.0f), RAND_FLOAT(80.0f) + 90.0f,
-                                     (Rand_ZeroOne() - 0.9f) * 80.0f, spC6);
+                                     RAND_FLOAT_CENTERED(35.0f), RAND_FLOAT(80) + 90.0f, RAND_RANGE(-72.0f, 8.0f),
+                                     spC6);
                 }
 
                 for (i = 0; i < 20; i++) {
-                    func_i5_801AD624(actor->vwork[0].x, (actor->vwork[0].y + 50.0f) + RAND_FLOAT(50.0f),
+                    func_i5_801AD624(actor->vwork[0].x, actor->vwork[0].y + 50.0f + RAND_FLOAT(50.0f),
                                      actor->vwork[0].z, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(5.0f),
                                      actor->vel.z + 2.0f, RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
                                      RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
@@ -4419,7 +4414,7 @@ void func_i5_801A7E7C(Actor* actor) {
                 sp360.z = RAND_FLOAT(200.0f) + 100.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp360, &sp354);
                 D_i5_801BE368[23] = 1.0f;
-                func_i5_801AE800((actor->vwork[2].x + sp354.x) - 50.0f, actor->vwork[2].y + sp354.y + 100.0f,
+                func_i5_801AE800(actor->vwork[2].x + sp354.x - 50.0f, actor->vwork[2].y + sp354.y + 100.0f,
                                  actor->vwork[2].z + sp354.z, actor->vwork[2].x, actor->vwork[2].y, actor->vwork[2].z);
                 D_i5_801BE368[23] = 2.0f;
                 func_i5_801AE800(actor->vwork[4].x + sp354.x + 50.0f, actor->vwork[4].y + sp354.y + 100.0f,
@@ -4453,7 +4448,7 @@ void func_i5_801A7E7C(Actor* actor) {
             Math_SmoothStepToF(&actor->obj.pos.z, gPlayer[0].unk_138 - 250.0f, 0.1f, 15.0f, 0.01f);
             Math_SmoothStepToF(&actor->obj.pos.y, 250.0f, 0.1f, 10.0f, 0.01f);
             if (D_i5_801BE320[3] < (Animation_GetFrameCount(&D_6015C24) - 1)) {
-                D_i5_801BE320[3] = (s16) (D_i5_801BE320[3] + 1);
+                D_i5_801BE320[3]++;
             }
             func_i5_8019A198(actor);
             func_i5_801A6984(actor);
@@ -4476,14 +4471,14 @@ void func_i5_801A7E7C(Actor* actor) {
                     actor->vwork[6].z += actor->vel.z;
                     actor->vwork[7].z += actor->vel.z;
                     sp348.x = actor->vwork[6].x - actor->vwork[2].x;
-                    sp348.y = (actor->vwork[6].y - actor->vwork[2].y) + 25.0f;
+                    sp348.y = actor->vwork[6].y - actor->vwork[2].y + 25.0f;
                     sp348.z = actor->vwork[6].z - actor->vwork[2].z;
                     Matrix_RotateZ(gCalcMatrix, -actor->vwork[3].z * M_DTOR, 0);
                     Matrix_RotateX(gCalcMatrix, -actor->vwork[3].x * M_DTOR, 1);
                     Matrix_RotateY(gCalcMatrix, -actor->vwork[3].y * M_DTOR, 1);
                     Matrix_MultVec3f(gCalcMatrix, &sp348, &sp354);
                     D_i5_801BE368[14] = Math_RadToDeg(Math_Atan2F(sp354.x, sp354.z));
-                    temp = sqrtf((sp354.x * sp354.x) + (sp354.z * sp354.z));
+                    temp = sqrtf(SQ(sp354.x) + SQ(sp354.z));
                     D_i5_801BE368[13] = Math_RadToDeg(-Math_Atan2F(sp354.y, temp));
                     Matrix_RotateY(gCalcMatrix, actor->vwork[3].y * M_DTOR, 0);
                     Matrix_RotateX(gCalcMatrix, actor->vwork[3].x * M_DTOR, 1);
@@ -4500,7 +4495,7 @@ void func_i5_801A7E7C(Actor* actor) {
                     sp330.z = actor->vwork[3].z;
                     func_8007EE68(OBJ_EFFECT_380, &sp348, &sp33C, &sp330, &D_i5_801BA750, 5.0f);
                     sp348.x = actor->vwork[7].x - actor->vwork[4].x;
-                    sp348.y = (actor->vwork[7].y - actor->vwork[4].y) + 25.0f;
+                    sp348.y = actor->vwork[7].y - actor->vwork[4].y + 25.0f;
                     sp348.z = actor->vwork[7].z - actor->vwork[4].z;
                     Matrix_RotateZ(gCalcMatrix, -actor->vwork[5].z * M_DTOR, 0);
                     Matrix_RotateX(gCalcMatrix, -actor->vwork[5].x * M_DTOR, 1);
@@ -4543,7 +4538,7 @@ void func_i5_801A7E7C(Actor* actor) {
             func_i5_801A0308(actor, actor->obj.pos.z, actor->obj.rot.y, 0);
             Math_SmoothStepToF(&actor->obj.pos.x, gPlayer[0].pos.x, 0.1f, 10.0f, 0.01f);
             Math_SmoothStepToF(&actor->obj.pos.z, gPlayer[0].unk_138 - 1200.0f, 0.1f, 35.0f, 0.01f);
-            Math_SmoothStepToF(&actor->obj.pos.y, (actor->fwork[5] + 600.0f) + D_i5_801BE368[3], 0.1f, 20.0f, 10.0f);
+            Math_SmoothStepToF(&actor->obj.pos.y, actor->fwork[5] + 600.0f + D_i5_801BE368[3], 0.1f, 20.0f, 10.0f);
             if (D_i5_801BE368[3] < ((gPlayer[0].unk_138 - actor->obj.pos.z) / 5.0f)) {
                 Math_SmoothStepToF(&D_i5_801BE368[2], 15.0f, 0.2f, 2.0f, 0.01f);
                 D_i5_801BE368[3] += D_i5_801BE368[2];
@@ -4617,7 +4612,7 @@ void func_i5_801A7E7C(Actor* actor) {
             Audio_PlaySfx(0x2903300E, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             actor->iwork[7] = 15;
             D_i5_801BE320[9] -= actor->damage;
-            func_i5_801AD624(actor->obj.pos.x, actor->obj.pos.y + 80.0f, actor->obj.pos.z + 50.0f,
+            func_i5_801AD624(actor->obj.pos.x, actor->obj.pos.y + 80, actor->obj.pos.z + 50.0f,
                              RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(5.0f), RAND_FLOAT_CENTERED(3.0f),
                              RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f),
                              RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f),
@@ -4687,9 +4682,9 @@ void func_i5_801A7E7C(Actor* actor) {
             Radio_PlayMessage(gMsg_ID_2225, RCID_SLIPPY);
         } else if (gBossFrameCount > 155) {
             gShowBossHealth = 1;
-            gBossHealthBar = (s32) (((f32) D_i5_801BE320[29] / 250) * 85.0f);
-            gBossHealthBar += (s32) (((f32) D_i5_801BE320[9] / 200) * 85.0f);
-            gBossHealthBar += (s32) (((f32) D_i5_801BE320[10] / 250) * 85.0f);
+            gBossHealthBar = (s32) ((D_i5_801BE320[29] / 250.f) * 85.0f);
+            gBossHealthBar += (s32) ((D_i5_801BE320[9] / 200.f) * 85.0f);
+            gBossHealthBar += (s32) ((D_i5_801BE320[10] / 250.f) * 85.0f);
         }
         gBossFrameCount++;
     }
