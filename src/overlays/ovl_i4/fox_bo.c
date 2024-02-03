@@ -21,6 +21,8 @@ extern f32 D_i4_8019EFF4[];
 extern s32 D_i4_8019F000[];
 extern f32 D_i4_8019F00C[];
 extern f32 D_i4_8019F018[];
+extern Vec3f D_i4_8019F030[];
+extern Vec3f D_i4_8019F054[];
 extern f32 D_i4_8019F06C[];
 extern f32 D_i4_8019F078[];
 extern f32 D_i4_8019F084[];
@@ -779,8 +781,214 @@ void func_i4_8018EE4C(f32 x, f32 y) {
     }
 }
 
-void func_i4_8018EF6C(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018EF6C.s")
+void func_i4_8018EF6C(Player* player) {
+    s32 i;
+    f32 sp60;
+    Vec3f sp54;
+    Vec3f sp48;
+    Actor* actor;
+    s32 pad[4];
+
+    sp60 = 0.0f;
+
+    switch (player->unk_1D0) {
+        case 0:
+            gLight1R = 100;
+            gLight1G = 100;
+            gLight1B = 80;
+
+            gAmbientR = 0;
+            gAmbientG = 15;
+            gAmbientB = 30;
+
+            D_80178410 = 1000;
+
+            gCsFrameCount = 0;
+
+            player->pos.x = 0;
+            player->pos.z = 0;
+            player->pos.y = 0;
+
+            player->unk_0D0 = 30.0f;
+
+            if (gTeamShields[1] > 0) {
+                func_i4_8018EAEC(&gActors[0], 0);
+            }
+            if (gTeamShields[2] > 0) {
+                func_i4_8018EAEC(&gActors[1], 1);
+            }
+            if (gTeamShields[3] > 0) {
+                func_i4_8018EAEC(&gActors[2], 2);
+            }
+
+            func_i4_8018EC1C();
+            func_i4_8018ECB4();
+
+            D_80177A48[1] = -13000.0f;
+            D_80177A48[2] = -13000.0f;
+            D_80177A48[4] = -22000.0f;
+
+            D_80177978 = player->pos.x - 150;
+            D_80177980 = player->pos.y;
+            D_80177988 = player->pos.z - 500.0f;
+
+            D_801779A0 = 0.0f;
+            D_801779B8 = player->pos.y;
+            D_801779C0 = player->pos.z;
+
+            player->unk_1D0 = 1;
+            player->unk_204 = 1;
+
+            D_80177A48[0] = 1.0f;
+            D_80178340 = D_80178358 = 255;
+            break;
+
+        case 1:
+            D_80178358 = 0;
+            D_801779A0 = 0.0f;
+            D_801779B8 = player->pos.y;
+            D_801779C0 = player->pos.z;
+            D_80177A48[2] += 4.5f;
+            sp60 = __sinf(D_80177A48[2] * M_DTOR) * 10.0f;
+            player->unk_0EC = __sinf(D_80177A48[2] * M_DTOR) * -60.0f;
+
+            if (!(gCsFrameCount & 7) && (Rand_ZeroOne() < 0.5f)) {
+                func_i4_8018ED44();
+            }
+
+            switch (gCsFrameCount) {
+                case 2:
+                    func_i4_8018EE4C(600.0f, -100.0f);
+                    break;
+                case 30:
+                    func_i4_8018EE4C(400.0f, 0.0f);
+                    break;
+
+                case 40:
+                    func_i4_8018EE4C(0.0f, 100.0f);
+                    break;
+
+                case 50:
+                    func_i4_8018EE4C(-200.0f, 200.0f);
+                    break;
+
+                case 70:
+                    func_i4_8018EE4C(200.0f, -300.0f);
+                    break;
+
+                case 80:
+                    func_i4_8018EE4C(700.0f, 400.0f);
+                    break;
+
+                case 85:
+                    func_i4_8018EE4C(600.0f, -200.0f);
+                    break;
+
+                case 100:
+                    func_i4_8018EE4C(-500.0f, 0.0f);
+                    break;
+
+                case 120:
+                    func_i4_8018EE4C(-500.0f, 0.0f);
+                    break;
+
+                case 127:
+                    func_800A6148();
+                    func_i4_80191ED8();
+                    func_8002F180();
+                    player->unk_1D0 = 2;
+                    player->pos.x = 0.0f;
+                    player->pos.y = 1400.0f;
+                    player->pos.z = 14000.0f;
+                    player->unk_0E4 = -8.0f;
+
+                    for (i = 0, actor = &gActors[1]; i < 3; i++, actor++) {
+                        actor->obj.pos.x = D_i4_8019F030[i - 1].x + player->pos.x;
+                        actor->obj.pos.y = D_i4_8019F030[i - 1].y + player->pos.y;
+                        actor->obj.pos.z = D_i4_8019F030[i - 1].z + player->pos.z;
+                        actor->unk_0F4.x = 352.0f;
+                        actor->state = 1;
+                        actor->timer_0BC = 1000;
+                    }
+
+                    D_80177978 = -200.0f;
+                    D_80177980 = 700.0f;
+                    D_80177988 = 12000.0f;
+                    D_801779A0 = player->pos.x;
+                    D_801779B8 = player->pos.y;
+                    D_801779C0 = player->pos.z;
+                    D_80178410 = 300;
+                    D_80177A98 = 1;
+
+                    gLight1R = 200;
+                    gLight1G = 80;
+                    gLight1B = 110;
+
+                    gAmbientR = 150;
+                    gAmbientG = 30;
+                    gAmbientB = 30;
+
+                    Radio_PlayMessage(gMsg_ID_11010, RCID_FOX);
+            }
+            break;
+
+        case 2:
+            D_80177988 += player->vel.z * 0.2f;
+            D_801779A0 = player->pos.x;
+            D_801779B8 = player->pos.y;
+            D_801779C0 = player->pos.z;
+
+            Math_SmoothStepToF(&player->unk_0EC, 0.0f, 0.1f, 1.0f, 0.0f);
+
+            if (gCsFrameCount == 200) {
+                player->unk_204 = 2;
+            }
+
+            if (gCsFrameCount == 270) {
+                player->state_1C8 = PLAYERSTATE_1C8_3;
+                player->unk_0D0 = D_80161A54;
+                player->unk_014 = 0.0001f;
+
+                for (i = 0, actor = &gActors[1]; i < 3; i++, actor++) {
+                    actor->fwork[4] = D_i4_8019F054[i - 1].x;
+                    actor->fwork[5] = D_i4_8019F054[i - 1].y;
+                    actor->fwork[6] = D_i4_8019F054[i - 1].z;
+                    actor->state = 3;
+                    actor->timer_0BC = 80;
+                }
+                func_8001D444(0U, D_80177C90, 0, 0xFF);
+                D_80177838 = 80;
+            }
+            break;
+    }
+
+    Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + 180.0f) * M_DTOR, 0);
+    Matrix_RotateX(gCalcMatrix, -(player->unk_0E4 * M_DTOR), 1);
+
+    sp54.x = 0.0f;
+    sp54.y = 0;
+    sp54.z = player->unk_0D0;
+
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
+
+    player->vel.x = sp48.x + sp60;
+    player->vel.z = sp48.z;
+    player->vel.y = sp48.y;
+
+    player->pos.x += player->vel.x;
+    player->pos.y += player->vel.y;
+    player->pos.z += player->vel.z;
+
+    player->unk_138 = player->pos.z;
+    player->unk_0F8 = (player->unk_0EC + player->unk_12C) + player->unk_130;
+
+    Math_SmoothStepToF(&player->camEye.x, D_80177978, D_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->camEye.y, D_80177980, D_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->camEye.z, D_80177988, D_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->camAt.x, D_801779A0, D_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->camAt.y, D_801779B8, D_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->camAt.z, D_801779C0, D_80177A48[0], 50000.0f, 0);
+}
 
 void func_i4_8018F83C(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
@@ -1357,7 +1565,7 @@ void func_i4_801912FC(Boss* boss) {
             }
         }
 
-        Matrix_RotateY(gCalcMatrix, -boss->obj.rot.y * 0.017453292f, 0);
+        Matrix_RotateY(gCalcMatrix, -boss->obj.rot.y * M_DTOR, 0);
 
         for (i = 0; i < 8; i++) {
             if (boss->swork[i + 24] != 0) {
