@@ -73,7 +73,7 @@ s32 func_i4_8018CE5C(Actor*);
 s32 func_i4_8018D008(Actor*);
 void func_i4_8018D124(Actor*);
 void func_i4_8018D9CC();
-void func_i4_8018DE8C(Boss*);
+s32 func_i4_8018DE8C(Boss*);
 s32 func_i4_8018E3FC(Boss*);
 void func_i4_8018F83C(Actor* actor, s32);
 
@@ -763,7 +763,32 @@ void func_i4_8018D960(Actor* actor) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018D9CC.s")
 
+#ifdef IMPORT_DATA
+s32 func_i4_8018DE8C(Boss* boss) {
+    Vec3s D_i4_8019EEF8[26] = { { 0xFF, 0xAF, 0x00 }, { 0xDC, 0xFF, 0xFC }, { 0x02, 0x7B, 0x00 }, { 0x42, 0xFE, 0x96 },
+                                { 0x02, 0xA5, 0x00 }, { 0xE7, 0x04, 0x27 }, { 0x01, 0x72, 0x01 }, { 0x54, 0x02, 0x8A },
+                                { 0xFF, 0x41, 0x01 }, { 0xDE, 0xFD, 0x98 }, { 0x00, 0x1E, 0x00 }, { 0xD2, 0xFD, 0xAF },
+                                { 0x05, 0x29, 0x00 }, { 0x53, 0xFF, 0xFE }, { 0x01, 0xCA, 0x01 }, { 0x54, 0x02, 0x06 },
+                                { 0xFE, 0xC8, 0x01 }, { 0xDE, 0xFD, 0xCF }, { 0x02, 0x86, 0x00 }, { 0x42, 0xFE, 0x96 },
+                                { 0x02, 0x94, 0x00 }, { 0xB7, 0xFB, 0xE4 }, { 0x03, 0x02, 0x00 }, { 0xF8, 0x00, 0x37 },
+                                { 0xFE, 0x02, 0x02 }, { 0x1B, 0xFF, 0xB3 } };
+    s32 index = Rand_ZeroOne() * 26;
+
+    if (!(gGameFrameCount % 2)) {
+        func_8007C120(D_i4_8019EEF8[index].x + boss->obj.pos.x, D_i4_8019EEF8[index].y + boss->obj.pos.y - 10.0f,
+                      D_i4_8019EEF8[index].z + boss->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.2f, 0x14);
+    }
+
+    if (!(gGameFrameCount % 5)) {
+        func_8007BFFC(D_i4_8019EEF8[index].x + boss->obj.pos.x, D_i4_8019EEF8[index].y + boss->obj.pos.y - 10.0f,
+                      D_i4_8019EEF8[index].z + boss->obj.pos.z, 0.0f, 0.0f, 0.0f, 8.0f, 0xA);
+    }
+
+    return 0;
+}
+#else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018DE8C.s")
+#endif
 
 s32 func_i4_8018E05C(Boss* boss, s32 index) {
     s32 i;
