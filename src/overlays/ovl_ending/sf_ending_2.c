@@ -693,7 +693,68 @@ void func_ending_8018F2A8(u32 arg0, UnkStruct_8018D250* arg1) {
     func_800515C4();
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_8018F64C.s")
+void func_ending_8018F64C(u32 arg0, UnkStruct_8018D250* arg1) {
+    f32 temp;
+
+    if (D_800D3180[8] == 0) {
+        return;
+    }
+
+    RCP_SetupDL(&gMasterDisp, arg1->unk_08);
+
+    gSPFogPosition(gMasterDisp++, arg1->unk_64, arg1->unk_66);
+    gDPSetFogColor(gMasterDisp++, arg1->unk_60, arg1->unk_61, arg1->unk_62, 0);
+    gDPSetEnvColor(gMasterDisp++, arg1->unk_68, arg1->unk_69, arg1->unk_6A, arg1->unk_6B);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->unk_6C, arg1->unk_6D, arg1->unk_6E, arg1->unk_6F);
+
+    Matrix_Translate(gGfxMatrix, arg1->unk_18.x + (arg0 - arg1->unk_0C) * arg1->unk_3C.x,
+                     arg1->unk_18.y + (arg0 - arg1->unk_0C) * arg1->unk_3C.y,
+                     arg1->unk_18.z + (arg0 - arg1->unk_0C) * arg1->unk_3C.z, 1);
+
+    Matrix_Scale(gGfxMatrix, arg1->unk_30.x, arg1->unk_30.y, arg1->unk_30.z, 1);
+
+    temp = __sinf(arg0 * 0.1f + arg1->unk_70);
+
+    switch (arg1->unk_71) {
+        case 1:
+            Matrix_RotateY(gGfxMatrix,
+                           M_DTOR * (-D_ending_801985F0.y + arg1->unk_24.y + temp * arg1->unk_54.y +
+                                     (arg0 - arg1->unk_0C) * arg1->unk_48.y),
+                           1);
+            Matrix_RotateX(gGfxMatrix,
+                           M_DTOR * (-D_ending_801985F0.x + arg1->unk_24.x + temp * arg1->unk_54.x +
+                                     (arg0 - arg1->unk_0C) * arg1->unk_48.x),
+                           1);
+            Matrix_RotateZ(gGfxMatrix,
+                           M_DTOR * (D_ending_801985F0.z + arg1->unk_24.z + temp * arg1->unk_54.z +
+                                     (arg0 - arg1->unk_0C) * arg1->unk_48.z),
+                           1);
+            break;
+
+        default:
+            Matrix_RotateY(gGfxMatrix,
+                           M_DTOR * (arg1->unk_24.y + temp * arg1->unk_54.y + (arg0 - arg1->unk_0C) * arg1->unk_48.y),
+                           1);
+            Matrix_RotateX(gGfxMatrix,
+                           M_DTOR * (arg1->unk_24.x + temp * arg1->unk_54.x + (arg0 - arg1->unk_0C) * arg1->unk_48.x),
+                           1);
+            Matrix_RotateZ(gGfxMatrix,
+                           M_DTOR * (arg1->unk_24.z + temp * arg1->unk_54.z + (arg0 - arg1->unk_0C) * arg1->unk_48.z),
+                           1);
+            break;
+    }
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+    gSPDisplayList(gMasterDisp++, D_D009A40);
+
+    RCP_SetupDL(&gMasterDisp, 0x43);
+    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
+
+    Matrix_Scale(gGfxMatrix, 0.8f + (arg0 % 3) * 0.01f, 0.3f + (arg0 % 3) * 0.01f, 0.8f + (arg0 % 3) * 0.01f, 1);
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    gSPDisplayList(gMasterDisp++, D_7010970);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_8018FC60.s")
 
