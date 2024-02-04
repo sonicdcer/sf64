@@ -52,6 +52,8 @@ extern u8 D_5007330[];
 extern u8 D_5007420[];
 extern u16 D_8000000[];
 
+bool func_ending_8018DCB4();
+
 void func_ending_8018CE20(u32 arg0) {
     u8 alpha;
     s32 i;
@@ -386,7 +388,43 @@ void func_ending_8018D814(u32 arg0, UnkStruct_8018D250* arg1) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/D_ending_80196B68.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_8018DA0C.s")
+void func_ending_8018DA0C(u32 arg0, UnkStruct_8018D250* arg1) {
+    u8 alpha = 255;
+
+    if ((arg1->unk_0C + arg1->unk_64) > arg0) {
+        alpha = (arg0 - arg1->unk_0C) * 255 / arg1->unk_64;
+    }
+
+    RCP_SetupDL(&gMasterDisp, arg1->unk_08);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->unk_6C, arg1->unk_6D, arg1->unk_6E, alpha);
+
+    Graphics_DisplaySmallText((s16) arg1->unk_18.x, (s16) arg1->unk_18.y, arg1->unk_30.x, arg1->unk_30.y, "TOTAL HITS");
+    Graphics_DisplayLargeNumber((s16) (arg1->unk_18.x + 5), (s16) (arg1->unk_18.y + 13), gTotalHits);
+
+    if ((func_ending_8018DCB4() == true) && (alpha == 255)) {
+        alpha = (arg0 - (arg1->unk_0C + arg1->unk_64)) % 10;
+
+        switch (alpha) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+                alpha = 83 * alpha;
+                break;
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+                alpha = 42 * (10 - alpha);
+                break;
+        }
+        gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->unk_6C, arg1->unk_6D, arg1->unk_6E, alpha);
+        Graphics_DisplaySmallText((s16) (arg1->unk_18.x + 7), (s16) (arg1->unk_18.y + 31), arg1->unk_30.x,
+                                  arg1->unk_30.y, "RANK IN!!");
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_8018DCB4.s")
 
