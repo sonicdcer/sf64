@@ -462,6 +462,8 @@ extern s32 D_menu_801B931C;
 extern bool D_menu_801B9320; // MusicPlaying status in the expert sound options
 #endif
 
+extern u8 D_8000000[];
+
 void Option_Setup(void) {
     bool enableExpertModes;
     bool var_v0_2;

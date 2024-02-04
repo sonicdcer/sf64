@@ -987,7 +987,6 @@ extern u16 D_70123F8[];
 extern u16 D_70123F8[];
 
 // ast_9EB5E0, ast_CA9DE0, ast_D43400, ast_D68480, ast_D91F10
-extern u8 D_8000000[];
 extern u16 D_8000680[];
 extern u8 D_80006A0[];
 extern u16 D_80017A0[];

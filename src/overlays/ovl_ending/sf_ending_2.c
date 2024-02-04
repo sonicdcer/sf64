@@ -42,12 +42,12 @@ typedef struct UnkStruct_8018D250 {
     /* 0x71 */ u8 unk_71;
 } UnkStruct_8018D250; // size = 0x72
 
-extern u8 D_800D2F68;
-extern u8 D_80137E78;
-extern s32 D_80178410;
-extern s32 gOverlayStage;
+extern u16 D_8025080[];
 extern UnkStruct_D_ending_80192E74 D_ending_80192E74[80];
 extern Vec3f D_ending_801985F0;
+extern s32 D_ending_80192E70;
+
+extern u16 D_8000000[];
 
 void func_ending_8018CE20(u32 arg0) {
     u8 alpha;
@@ -172,7 +172,37 @@ void func_ending_8018D4BC(s32 arg0, UnkStruct_8018D250* arg1) {
                        arg1->unk_30.x, arg1->unk_30.y, arg1->unk_30.z);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_8018D638.s")
+void func_ending_8018D638(u32 arg0, UnkStruct_8018D250* arg1) {
+    u8 alpha = 0;
+    s32 i;
+
+    if ((arg1->unk_0C + arg1->unk_66) > arg0) {
+        alpha = (arg1->unk_0C + arg1->unk_66 - arg0) * 255 / arg1->unk_66;
+    }
+
+    D_80178348 = arg1->unk_6C;
+    D_80178350 = arg1->unk_6D;
+    D_80178354 = arg1->unk_6E;
+
+    D_80178340 = D_80178358 = alpha;
+    D_8017835C = 0;
+
+    RCP_SetupDL(&gMasterDisp, 0x53);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+
+    if (gExpertMode != 0) {
+        for (i = 0; i < 240; i += 4) {
+            if (D_800D2F68 == 0) {
+                TextureRect_16bRGBA(&gMasterDisp, D_8025080 + 316 * i, 316, 4, 0.0f, i, 1.0f, 1.0f);
+            } else {
+                TextureRect_16bRGBA(&gMasterDisp, D_8000000 + 316 * i, 316, 4, 0.0f, i, 1.0f, 1.0f);
+            }
+        }
+    } else {
+        D_ending_80192E70 = 7200;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_8018D814.s")
 
