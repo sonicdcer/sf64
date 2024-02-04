@@ -51,6 +51,7 @@ extern s32 D_ending_80192E70;
 extern u8 D_5007240[];
 extern u8 D_5007330[];
 extern u8 D_5007420[];
+extern Gfx D_7002120[];
 extern Gfx D_7004240[];
 extern Gfx D_700E9E0[];
 extern u16 D_700EA38[];
@@ -849,7 +850,19 @@ void func_ending_80190274(u32 arg0, UnkStruct_8018D250* arg1) {
     gSPDisplayList(gMasterDisp++, D_7004240);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_80190648.s")
+void func_ending_80190648(s32 arg0, UnkStruct_8018D250* arg1) {
+    RCP_SetupDL(&gMasterDisp, arg1->unk_08);
+
+    Matrix_RotateY(gGfxMatrix, M_DTOR * D_ending_801985F0.y, 0);
+    Matrix_RotateX(gGfxMatrix, M_DTOR * D_ending_801985F0.x, 1);
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * D_ending_801985F0.z, 1);
+
+    Matrix_Translate(gGfxMatrix, arg1->unk_18.x, arg1->unk_18.y, arg1->unk_18.z, 1);
+    Matrix_Scale(gGfxMatrix, arg1->unk_30.x, arg1->unk_30.y, arg1->unk_30.z, 1);
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+    gSPDisplayList(gMasterDisp++, D_7002120);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_80190778.s")
 
