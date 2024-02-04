@@ -12,8 +12,42 @@ typedef struct {
     /* 0x13 */ u8 unk_13;
 } UnkStruct_D_ending_80192E74; // size = 0x14
 
+typedef struct UnkStruct_8018D250 {
+    /* 0x00 */ void* unk_00;
+    /* 0x04 */ void* unk_04;
+    /* 0x08 */ s16 unk_08;
+    /* 0x0C */ u32 unk_0C;
+    /* 0x10 */ u32 unk_10;
+    /* 0x14 */ f32 unk_14;
+    /* 0x18 */ Vec3f unk_18;
+    /* 0x24 */ Vec3f unk_24;
+    /* 0x30 */ Vec3f unk_30;
+    /* 0x3C */ Vec3f unk_3C;
+    /* 0x48 */ Vec3f unk_48;
+    /* 0x54 */ Vec3f unk_54;
+    /* 0x60 */ u8 unk_60;
+    /* 0x61 */ u8 unk_61;
+    /* 0x62 */ u8 unk_62;
+    /* 0x64 */ s16 unk_64;
+    /* 0x66 */ s16 unk_66;
+    /* 0x68 */ u8 unk_68;
+    /* 0x69 */ u8 unk_69;
+    /* 0x6A */ u8 unk_6A;
+    /* 0x6B */ u8 unk_6B;
+    /* 0x6C */ u8 unk_6C;
+    /* 0x6D */ u8 unk_6D;
+    /* 0x6E */ u8 unk_6E;
+    /* 0x6F */ u8 unk_6F;
+    /* 0x70 */ u8 unk_70;
+    /* 0x71 */ u8 unk_71;
+} UnkStruct_8018D250; // size = 0x72
+
 extern u8 D_800D2F68;
+extern u8 D_80137E78;
+extern s32 D_80178410;
+extern s32 gOverlayStage;
 extern UnkStruct_D_ending_80192E74 D_ending_80192E74[80];
+extern Vec3f D_ending_801985F0;
 
 void func_ending_8018CE20(u32 arg0) {
     u8 alpha;
@@ -73,15 +107,70 @@ void func_ending_8018CE20(u32 arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_8018D250.s")
+void func_ending_8018D250(u32 arg0, UnkStruct_8018D250* arg1) {
+    gOverlayStage = arg1->unk_08;
+    D_80137E78 = arg1->unk_70;
+    D_80178410 = arg1->unk_14;
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_8018D28C.s")
+void func_ending_8018D28C(s32 arg0, UnkStruct_8018D250* arg1) {
+    D_8017842C += arg1->unk_18.x;
+    D_80178430 += arg1->unk_18.y;
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_8018D2C8.s")
+void func_ending_8018D2C8(u32 arg0, UnkStruct_8018D250* arg1) {
+    u8 alpha = 255;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_8018D398.s")
+    if ((arg1->unk_0C + arg1->unk_64) > arg0) {
+        alpha = (arg0 - arg1->unk_0C) * 255 / arg1->unk_64;
+    }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_8018D4BC.s")
+    if ((arg1->unk_0C + arg1->unk_10 - arg1->unk_66) < arg0) {
+        alpha = (arg1->unk_0C + arg1->unk_10 - arg0 - 1) * 255 / arg1->unk_66;
+    }
+
+    D_80178348 = arg1->unk_6C;
+    D_80178350 = arg1->unk_6D;
+    D_80178354 = arg1->unk_6E;
+
+    D_80178340 = D_80178358 = alpha;
+    D_8017835C = 0;
+}
+
+void func_ending_8018D398(u32 arg0, UnkStruct_8018D250* arg1) {
+    u8 alpha = 255;
+
+    if ((arg1->unk_0C + arg1->unk_64) > arg0) {
+        alpha = (arg0 - arg1->unk_0C) * 255 / arg1->unk_64;
+    }
+
+    if ((arg1->unk_0C + arg1->unk_10 - arg1->unk_66) < arg0) {
+        alpha = (arg1->unk_0C + arg1->unk_10 - arg0) * 255 / arg1->unk_66;
+    }
+
+    D_80178348 = D_80178350 = D_80178354 = D_80178340 = D_80178358 = D_8017835C = 0;
+
+    Graphics_FillRectangle(&gMasterDisp, 8, 8, SCREEN_WIDTH - 8, SCREEN_HEIGHT - 8, arg1->unk_6C, arg1->unk_6D,
+                           arg1->unk_6E, alpha);
+}
+
+void func_ending_8018D4BC(s32 arg0, UnkStruct_8018D250* arg1) {
+    Vec3f src;
+    Vec3f dest;
+
+    Matrix_RotateY(gCalcMatrix, M_DTOR * D_ending_801985F0.y, 0);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * D_ending_801985F0.x, 1);
+    Matrix_RotateZ(gCalcMatrix, M_DTOR * D_ending_801985F0.z, 1);
+
+    src.x = arg1->unk_18.x;
+    src.y = arg1->unk_18.y;
+    src.z = arg1->unk_18.z;
+
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
+    Lights_SetOneLight(&gMasterDisp, dest.x, dest.y, dest.z, arg1->unk_24.x, arg1->unk_24.y, arg1->unk_24.z,
+                       arg1->unk_30.x, arg1->unk_30.y, arg1->unk_30.z);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_8018D638.s")
 
