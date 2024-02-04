@@ -426,7 +426,85 @@ void func_ending_8018DA0C(u32 arg0, UnkStruct_8018D250* arg1) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_8018DCB4.s")
+bool func_ending_8018DCB4(void) {
+    s32 i;
+    s32 j;
+    s32 k;
+    s32 m;
+    s32 temp;
+    s32 temp2 = 0;
+    s32 temp3 = 0;
+    s32 temp4[10];
+    s32 unk_5E[10][7];
+    s32 unk40[10];
+
+    for (i = 0; i < gCurrentPlanet + 1; i++) {
+        temp2 += ((D_80177B50[i] & 0x00FF0000) >> 16) & 1;
+        temp2 += ((D_80177B50[i] & 0x0000FF00) >> 8) & 1;
+        temp2 += (D_80177B50[i] & 0x000000FF) & 1;
+    }
+
+    for (i = 0; i < 10; i += 1) {
+        temp4[i] = 0;
+        unk40[i] = gSaveFile.save.data.unk_40[i];
+
+        for (j = 0; j < 7; j += 1) {
+            temp4[i] += gSaveFile.save.data.unk_5E[i][j].unk_0 + (gSaveFile.save.data.unk_5E[i][j].unk_C * 256);
+            unk_5E[i][0] += gSaveFile.save.data.unk_5E[i][j].unk_D & 1;
+            unk_5E[i][1] += gSaveFile.save.data.unk_5E[i][j].unk_F & 1;
+            unk_5E[i][2] += gSaveFile.save.data.unk_5E[i][j].unk_E & 1;
+        }
+    }
+
+    temp = -1;
+
+    for (i = 0; i < 10; i++) {
+        if (temp4[i] <= gTotalHits) {
+            if (temp4[i] == gTotalHits) {
+                for (j = i; j < 10; j++) {
+                    if (temp4[j] != gTotalHits) {
+                        temp = j;
+                        break;
+                    }
+
+                    if (unk40[j] <= gLifeCount[gPlayerNum]) {
+                        if (unk40[j] == gLifeCount[gPlayerNum]) {
+                            for (k = j; k < 10; k++) {
+                                if ((unk40[k] != gLifeCount[gPlayerNum]) || (temp4[k] != gTotalHits)) {
+                                    temp = k;
+                                    break;
+                                }
+
+                                temp3 = 0;
+
+                                for (m = 0; m < 3; m++) {
+                                    temp3 += unk_5E[k][m];
+                                }
+
+                                if (temp2 > temp3) {
+                                    temp = k;
+                                    break;
+                                }
+                            }
+                        } else {
+                            temp = j;
+                        }
+                        break;
+                    }
+                }
+            } else {
+                temp = i;
+            }
+            break;
+        }
+    }
+
+    if (temp == -1) {
+        return false;
+    } else {
+        return true;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_8018E1B8.s")
 
