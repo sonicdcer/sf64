@@ -1,6 +1,77 @@
-#include "common.h"
+#include "global.h"
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_8018CE20.s")
+typedef struct {
+    /* 0x00 */ u8* unk_00;
+    /* 0x04 */ u32 unk_04;
+    /* 0x08 */ u32 unk_08;
+    /* 0x0C */ u16 unk_0C;
+    /* 0x0E */ u16 unk_0E;
+    /* 0x10 */ u8 unk_10;
+    /* 0x11 */ u8 unk_11;
+    /* 0x12 */ u8 unk_12;
+    /* 0x13 */ u8 unk_13;
+} UnkStruct_D_ending_80192E74; // size = 0x14
+
+extern u8 D_800D2F68;
+extern UnkStruct_D_ending_80192E74 D_ending_80192E74[80];
+
+void func_ending_8018CE20(u32 arg0) {
+    u8 alpha;
+    s32 i;
+    s32 xPos;
+
+    for (i = 0; i < ARRAY_COUNT(D_ending_80192E74); i++) {
+        if (D_ending_80192E74[i].unk_00 != NULL) {
+            if ((D_ending_80192E74[i].unk_04 <= arg0) &&
+                ((D_ending_80192E74[i].unk_04 + D_ending_80192E74[i].unk_08) > arg0)) {
+                alpha = 255;
+
+                if ((D_ending_80192E74[i].unk_04 + D_ending_80192E74[i].unk_12) > arg0) {
+                    alpha = (arg0 - D_ending_80192E74[i].unk_04) * 255 / D_ending_80192E74[i].unk_12;
+                }
+
+                if ((D_ending_80192E74[i].unk_04 + D_ending_80192E74[i].unk_08 - D_ending_80192E74[i].unk_13) < arg0) {
+                    alpha = (D_ending_80192E74[i].unk_04 + D_ending_80192E74[i].unk_08 - arg0) * 255 /
+                            D_ending_80192E74[i].unk_13;
+                }
+
+                if (D_ending_80192E74[i].unk_11 == 0 || D_800D2F68 == 1) {
+                    if (D_ending_80192E74[i].unk_10 == 1) {
+                        xPos = (320 - Graphics_GetLargeTextWidth(D_ending_80192E74[i].unk_00)) / 2;
+                        RCP_SetupDL(&gMasterDisp, 0x53);
+                        gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
+                        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha);
+                        Graphics_DisplayLargeText(xPos, D_ending_80192E74[i].unk_0E, 1.0f, 1.0f,
+                                                  D_ending_80192E74[i].unk_00);
+
+                    } else if (D_ending_80192E74[i].unk_10 == 2) {
+                        RCP_SetupDL(&gMasterDisp, 0x53);
+                        gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
+                        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha);
+                        TextureRect_8bIA(&gMasterDisp, D_ending_80192E74[i].unk_00, 192, 5, 64.0f, 105.0f, 1.0f, 1.0f);
+                        TextureRect_8bIA(&gMasterDisp, D_ending_80192E74[i].unk_00 + 960 * 1, 192, 5, 64.0f, 110.0f,
+                                         1.0f, 1.0f);
+                        TextureRect_8bIA(&gMasterDisp, D_ending_80192E74[i].unk_00 + 960 * 2, 192, 5, 64.0f, 115.0f,
+                                         1.0f, 1.0f);
+                        TextureRect_8bIA(&gMasterDisp, D_ending_80192E74[i].unk_00 + 960 * 3, 192, 5, 64.0f, 120.0f,
+                                         1.0f, 1.0f);
+                        TextureRect_8bIA(&gMasterDisp, D_ending_80192E74[i].unk_00 + 960 * 4, 192, 5, 64.0f, 125.0f,
+                                         1.0f, 1.0f);
+                        TextureRect_8bIA(&gMasterDisp, D_ending_80192E74[i].unk_00 + 960 * 5, 192, 5, 64.0f, 130.0f,
+                                         1.0f, 1.0f);
+                    } else {
+                        xPos = (320 - Graphics_GetSmallTextWidth(D_ending_80192E74[i].unk_00)) / 2;
+                        RCP_SetupDL(&gMasterDisp, 0x53);
+                        gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
+                        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 155, 155, alpha);
+                        Graphics_DisplaySmallText(xPos, D_ending_80192E74[i].unk_0E, 1.0f, 1.0f,
+                                                  D_ending_80192E74[i].unk_00);
+                    }
+                }
+            }
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_8018D250.s")
 
