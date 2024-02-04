@@ -25,31 +25,33 @@ typedef struct UnkStruct_8018D250 {
     /* 0x3C */ Vec3f unk_3C;
     /* 0x48 */ Vec3f unk_48;
     /* 0x54 */ Vec3f unk_54;
-    /* 0x60 */ u8 unk_60;
-    /* 0x61 */ u8 unk_61;
-    /* 0x62 */ u8 unk_62;
-    /* 0x64 */ s16 unk_64;
-    /* 0x66 */ s16 unk_66;
-    /* 0x68 */ u8 unk_68;
-    /* 0x69 */ u8 unk_69;
-    /* 0x6A */ u8 unk_6A;
-    /* 0x6B */ u8 unk_6B;
-    /* 0x6C */ u8 unk_6C;
-    /* 0x6D */ u8 unk_6D;
-    /* 0x6E */ u8 unk_6E;
-    /* 0x6F */ u8 unk_6F;
+    /* 0x60 */ u8 unk_60;  // fogRed
+    /* 0x61 */ u8 unk_61;  // fogGreen
+    /* 0x62 */ u8 unk_62;  // fogBlue
+    /* 0x64 */ s16 unk_64; // fogNear
+    /* 0x66 */ s16 unk_66; // fogFar
+    /* 0x68 */ u8 unk_68;  // envRed
+    /* 0x69 */ u8 unk_69;  // envGreen
+    /* 0x6A */ u8 unk_6A;  // envBlue
+    /* 0x6B */ u8 unk_6B;  // envAlpha
+    /* 0x6C */ u8 unk_6C;  // primRed
+    /* 0x6D */ u8 unk_6D;  // primGreen
+    /* 0x6E */ u8 unk_6E;  // primBlue
+    /* 0x6F */ u8 unk_6F;  // primAlpha
     /* 0x70 */ u8 unk_70;
     /* 0x71 */ u8 unk_71;
 } UnkStruct_8018D250; // size = 0x72
 
 extern u16 D_8025080[];
 extern UnkStruct_D_ending_80192E74 D_ending_80192E74[80];
+extern Vec3f D_ending_801985D0;
 extern Vec3f D_ending_801985F0;
 extern s32 D_ending_80192E70;
 
 extern u8 D_5007240[];
 extern u8 D_5007330[];
 extern u8 D_5007420[];
+extern Gfx D_7010970[];
 extern u16 D_8000000[];
 
 bool func_ending_8018DCB4();
@@ -506,7 +508,61 @@ bool func_ending_8018DCB4(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_8018E1B8.s")
+void func_ending_8018E1B8(u32 arg0, UnkStruct_8018D250* arg1) {
+    f32 temp;
+
+    if ((arg1->unk_18.z + (arg0 - arg1->unk_0C) * arg1->unk_3C.z) < D_ending_801985D0.z) {
+        RCP_SetupDL(&gMasterDisp, 0x43);
+    } else {
+        RCP_SetupDL(&gMasterDisp, 0x3F);
+    }
+
+    gSPFogPosition(gMasterDisp++, arg1->unk_64, arg1->unk_66);
+    gDPSetFogColor(gMasterDisp++, arg1->unk_60, arg1->unk_61, arg1->unk_62, 0);
+    gDPSetEnvColor(gMasterDisp++, arg1->unk_68, arg1->unk_69, arg1->unk_6A, arg1->unk_6B);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->unk_6C, arg1->unk_6D, arg1->unk_6E, arg1->unk_6F);
+
+    Matrix_Translate(gGfxMatrix, arg1->unk_18.x + (arg0 - arg1->unk_0C) * arg1->unk_3C.x,
+                     arg1->unk_18.y + (arg0 - arg1->unk_0C) * arg1->unk_3C.y,
+                     arg1->unk_18.z + (arg0 - arg1->unk_0C) * arg1->unk_3C.z, 1);
+
+    Matrix_Scale(gGfxMatrix, arg1->unk_30.x + (arg0 % 3) * 0.01f, arg1->unk_30.y + (arg0 % 3) * 0.01f,
+                 arg1->unk_30.z + (arg0 % 3) * 0.01f, 1);
+
+    temp = __sinf(arg0 * 0.1f + arg1->unk_70);
+
+    switch (arg1->unk_71) {
+        case 1:
+            Matrix_RotateY(gGfxMatrix,
+                           M_DTOR * (-D_ending_801985F0.y + arg1->unk_24.y + temp * arg1->unk_54.y +
+                                     (arg0 - arg1->unk_0C) * arg1->unk_48.y),
+                           1);
+            Matrix_RotateX(gGfxMatrix,
+                           M_DTOR * (-D_ending_801985F0.x + arg1->unk_24.x + temp * arg1->unk_54.x +
+                                     (arg0 - arg1->unk_0C) * arg1->unk_48.x),
+                           1);
+            Matrix_RotateZ(gGfxMatrix,
+                           M_DTOR * (D_ending_801985F0.z + arg1->unk_24.z + temp * arg1->unk_54.z +
+                                     (arg0 - arg1->unk_0C) * arg1->unk_48.z),
+                           1);
+            break;
+
+        default:
+            Matrix_RotateY(gGfxMatrix,
+                           M_DTOR * (arg1->unk_24.y + temp * arg1->unk_54.y + (arg0 - arg1->unk_0C) * arg1->unk_48.y),
+                           1);
+            Matrix_RotateX(gGfxMatrix,
+                           M_DTOR * (arg1->unk_24.x + temp * arg1->unk_54.x + (arg0 - arg1->unk_0C) * arg1->unk_48.x),
+                           1);
+            Matrix_RotateZ(gGfxMatrix,
+                           M_DTOR * (arg1->unk_24.z + temp * arg1->unk_54.z + (arg0 - arg1->unk_0C) * arg1->unk_48.z),
+                           1);
+            break;
+    }
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+    gSPDisplayList(gMasterDisp++, D_7010970);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_8018E7B8.s")
 
