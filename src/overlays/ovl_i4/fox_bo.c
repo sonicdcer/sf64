@@ -10,45 +10,33 @@ typedef struct UnkStruct_D_i4_801A03E0 {
     s32 unk_18;
 } UnkStruct_D_i4_801A03E0;
 
-typedef struct UnkStruct_D_i4_801A04A0_2 {
-    s32 unk_00;
-    f32 unk_04;
-    f32 unk_08;
-    f32 unk_0C;
-    f32 unk_10;
-    f32 unk_14;
-    s32 unk_18;
-} UnkStruct_D_i4_801A04A0_2;
+f32 D_i4_8019EFDC[];
+f32 D_i4_8019EFE8[];
+f32 D_i4_8019EFF4[];
+s32 D_i4_8019F000[];
+f32 D_i4_8019F00C[];
+f32 D_i4_8019F018[];
+Vec3f D_i4_8019F030[];
+Vec3f D_i4_8019F054[];
+f32 D_i4_8019F06C[];
+f32 D_i4_8019F078[];
+f32 D_i4_8019F084[];
+f32 D_i4_8019F090[];
+f32 D_i4_8019F09C[12];
+Vec3f D_i4_8019F0CC;
+Vec3f D_i4_8019F0D8;
 
-extern s16 D_800C9C34; // fox_bg
-extern s32 D_80177C3C[];
-extern s32 D_801778F4[];
-
-extern f32 D_i4_8019EEC0;
-extern f32 D_i4_8019EEE4[];
-extern f32 D_i4_8019EFDC[];
-extern f32 D_i4_8019EFE8[];
-extern f32 D_i4_8019EFF4[];
-extern s32 D_i4_8019F000[];
-extern f32 D_i4_8019F00C[];
-extern f32 D_i4_8019F018[];
-extern Vec3f D_i4_8019F030[];
-extern Vec3f D_i4_8019F054[];
-extern f32 D_i4_8019F06C[];
-extern f32 D_i4_8019F078[];
-extern f32 D_i4_8019F084[];
-extern f32 D_i4_8019F090[];
-extern f32 D_i4_8019F09C[12];
-extern Vec3f D_i4_8019F0CC;
-extern Vec3f D_i4_8019F0D8;
 extern f32 D_i4_801A03D0;
 extern f32 D_i4_801A03D4;
 extern f32 D_i4_801A03D8;
 extern s32 D_i4_801A03DC;
 extern UnkStruct_D_i4_801A03E0 D_i4_801A03E0[6];
 extern UnkStruct_D_i4_801A03E0 D_i4_801A0488[6];
-extern UnkStruct_D_i4_801A04A0_2 D_i4_801A04A0[6];
 extern s32 D_i4_801A0530;
+
+extern s16 D_800C9C34; // fox_bg
+extern s32 D_80177C3C[];
+extern s32 D_801778F4[];
 
 extern Animation D_6001C64;
 extern Limb* D_6001FB0;
@@ -69,6 +57,8 @@ extern Limb* D_600F4A4;
 extern u8 D_6011BA4[];
 extern Vtx D_6011E28[];
 
+f32 D_i4_8019EEC0 = 0.0f;
+
 void func_8002FC00(Actor*);
 s32 func_i4_8018CCE8(Actor*);
 s32 func_i4_8018CE5C(Actor*);
@@ -78,7 +68,6 @@ s32 func_i4_8018DE8C(Boss*);
 s32 func_i4_8018E3FC(Boss*);
 void func_i4_8018F83C(Actor* actor, s32);
 
-#ifdef IMPORT_DATA
 void func_i4_8018BD60(Actor* actor) {
     s32 i;
     Actor* actorPtr;
@@ -113,10 +102,8 @@ void func_i4_8018BD60(Actor* actor) {
     func_8002F69C(actor);
     func_8002FC00(actor);
 }
-#else
-void func_i4_8018BD60(Actor* actor);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018BD60.s")
-#endif
+
+f32 D_i4_8019EEE4[] = { -200.0f, -100.0f, -0.0f, 100.0f, 200.0f };
 
 void func_i4_8018BEF8(Actor* actor, s32 arg1) {
     s32 i;
@@ -788,15 +775,16 @@ s32 func_i4_8018D9CC(void) {
     return 0;
 }
 
-#ifdef IMPORT_DATA
 s32 func_i4_8018DE8C(Boss* boss) {
-    Vec3s D_i4_8019EEF8[26] = { { 0xFF, 0xAF, 0x00 }, { 0xDC, 0xFF, 0xFC }, { 0x02, 0x7B, 0x00 }, { 0x42, 0xFE, 0x96 },
-                                { 0x02, 0xA5, 0x00 }, { 0xE7, 0x04, 0x27 }, { 0x01, 0x72, 0x01 }, { 0x54, 0x02, 0x8A },
-                                { 0xFF, 0x41, 0x01 }, { 0xDE, 0xFD, 0x98 }, { 0x00, 0x1E, 0x00 }, { 0xD2, 0xFD, 0xAF },
-                                { 0x05, 0x29, 0x00 }, { 0x53, 0xFF, 0xFE }, { 0x01, 0xCA, 0x01 }, { 0x54, 0x02, 0x06 },
-                                { 0xFE, 0xC8, 0x01 }, { 0xDE, 0xFD, 0xCF }, { 0x02, 0x86, 0x00 }, { 0x42, 0xFE, 0x96 },
-                                { 0x02, 0x94, 0x00 }, { 0xB7, 0xFB, 0xE4 }, { 0x03, 0x02, 0x00 }, { 0xF8, 0x00, 0x37 },
-                                { 0xFE, 0x02, 0x02 }, { 0x1B, 0xFF, 0xB3 } };
+    Vec3s D_i4_8019EEF8[26] = { { 0xFFAF, 0x00DC, 0xFFFC }, { 0x027B, 0x0042, 0xFE96 }, { 0x02A5, 0x00E7, 0x0427 },
+                                { 0x0172, 0x0154, 0x028A }, { 0xFF41, 0x01DE, 0xFD98 }, { 0x001E, 0x00D2, 0xFDAF },
+                                { 0x0529, 0x0053, 0xFFFE }, { 0x01CA, 0x0154, 0x0206 }, { 0xFEC8, 0x01DE, 0xFDCF },
+                                { 0x0286, 0x0042, 0xFE96 }, { 0x0294, 0x00B7, 0xFBE4 }, { 0x0302, 0x00F8, 0x0037 },
+                                { 0xFE02, 0x021B, 0xFFB3 }, { 0x00A3, 0x00DE, 0x0063 }, { 0x0286, 0x003C, 0x014B },
+                                { 0xFE06, 0x01EA, 0xFBEF }, { 0x0309, 0x00F8, 0xFFB3 }, { 0xFE08, 0x0245, 0x004D },
+                                { 0x0034, 0x00D8, 0x028A }, { 0xFBBF, 0x027D, 0x0001 }, { 0x01E0, 0x00DE, 0xFDDA },
+                                { 0xFF05, 0x020C, 0x01FA }, { 0x027B, 0x0042, 0x0140 }, { 0xFE06, 0x01EE, 0x040A },
+                                { 0x0130, 0x00DE, 0xFDB9 }, { 0xFF69, 0x01F0, 0x0252 } };
     s32 index = Rand_ZeroOne() * 26;
 
     if (!(gGameFrameCount % 2)) {
@@ -811,9 +799,6 @@ s32 func_i4_8018DE8C(Boss* boss) {
 
     return 0;
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018DE8C.s")
-#endif
 
 s32 func_i4_8018E05C(Boss* boss, s32 index) {
     s32 i;
@@ -877,7 +862,6 @@ s32 func_i4_8018E05C(Boss* boss, s32 index) {
     return ret;
 }
 
-#ifdef IMPORT_DATA
 s32 func_i4_8018E3FC(Boss* boss) {
     s32 i;
     s32 j;
@@ -892,7 +876,7 @@ s32 func_i4_8018E3FC(Boss* boss) {
 
     for (i = 0; i < 6; i++) {
         if (D_i4_801A03E0[i].unk_18 == 0) {
-            D_i4_801A0488[i + 7].unk_18 = 0;
+            D_i4_801A0488[i].unk_18 = 0;
         } else {
             x = D_i4_801A03E0[i].unk_0C - boss->obj.pos.x;
             var_fs0 = Math_RadToDeg(Math_Atan2F(x, D_i4_801A03E0[i].unk_14 - boss->obj.pos.z));
@@ -922,14 +906,14 @@ s32 func_i4_8018E3FC(Boss* boss) {
                     var_fs0 += 360.0f;
                 }
                 z = sqrtf((x * x) + (z * z));
-                temp = 360.0f - Math_RadToDeg(Math_Atan2F(y, z));
-                D_i4_801A0488[i].unk_04 = var_fs0;
-                D_i4_801A0488[i].unk_00 = temp;
-                D_i4_801A0488[i].unk_18 = 1;
-                D_i4_801A0488[i].unk_10 = 580.0f;
+                temp = Math_RadToDeg(Math_Atan2F(y, z));
                 D_i4_801A0488[i].unk_0C = D_i4_8019EFAC[j];
+                D_i4_801A0488[i].unk_10 = 580.0f;
                 D_i4_801A0488[i].unk_14 = D_i4_8019EFC4[j];
-                D_i4_801A0488[i].unk_08 = z / 400.0f;
+                D_i4_801A0488[i].unk_04 = var_fs0;
+                D_i4_801A0488[i].unk_00 = 360.0f - temp;
+                D_i4_801A0488[i].unk_18 = 1;
+                D_i4_801A0488[i].unk_08 = (z / 400.0f);
                 func_i4_8018E05C(boss, i);
                 D_i4_801A03E0[i].unk_18 = 0;
             }
@@ -938,9 +922,6 @@ s32 func_i4_8018E3FC(Boss* boss) {
 
     return 0;
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i4/fox_bo/func_i4_8018E3FC.s")
-#endif
 
 void func_i4_8018E710(Boss* boss) {
     if (boss->state == 1) {
@@ -1008,6 +989,13 @@ void func_i4_8018E870(Boss* boss) {
         Matrix_Pop(&gGfxMatrix);
     }
 }
+
+f32 D_i4_8019EFDC[] = { 180.0f, -180.0f, 0.0f };
+f32 D_i4_8019EFE8[] = { 100.0f, 200.0f, -80.0f };
+f32 D_i4_8019EFF4[] = { 400.0f, 800.0f, 1200.0f };
+s32 D_i4_8019F000[] = { 0, 0, 0 };
+f32 D_i4_8019F00C[] = { 0.0f, 80.0f, 150.0f };
+f32 D_i4_8019F018[] = { 3.0f, -4.0f, 5.0f, 700.0f, 300.0f, 1000.0f };
 
 void func_i4_8018EAEC(Actor* actor, s32 index) {
     Actor_Initialize(actor);
@@ -1100,6 +1088,13 @@ void func_i4_8018EE4C(f32 x, f32 y) {
         }
     }
 }
+
+Vec3f D_i4_8019F030[] = { -500.0f, 500.0f, 500.0f, 100.0f, 200.0f, 1500.0f, 8000.0f, 200.0f, 0.0f };
+Vec3f D_i4_8019F054[] = { -8000.0f, 200.0f, 0.0f, 300.0f, 5000.0f, 0.0f };
+f32 D_i4_8019F06C[] = { -300.0f, 300.0f, 50.0f };
+f32 D_i4_8019F078[] = { -30.0f, -60.0f, -90.0f };
+f32 D_i4_8019F084[] = { 200.0f, 260.0f, 400.0f };
+f32 D_i4_8019F090[] = { 70.0f, -80.0f, -65.0f };
 
 void func_i4_8018EF6C(Player* player) {
     s32 i;
@@ -1802,6 +1797,8 @@ void func_i4_80191180(Effect* effect) {
     }
 }
 
+f32 D_i4_8019F09C[12] = { 0.0f, 0.0f, 60.0f, 60.0f, 120.0f, 120.0f, 180.0f, 180.0f, 240.0f, 240.0f, 300.0f, 300.0f };
+
 void func_i4_801912FC(Boss* boss) {
     s32 i;
     Vec3f src;
@@ -1958,6 +1955,8 @@ s32 func_i4_801918E4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
     }
     return false;
 }
+
+Vec3f D_i4_8019F0CC = { 0.0f, 0.0f, 0.0f };
 
 void func_i4_80191A6C(s32 index, Vec3f* vec, void* ptr) {
     Vec3f src = D_i4_8019F0CC;
@@ -2121,6 +2120,9 @@ void func_i4_80191ED8(void) {
     }
     Object_SetInfo(&boss->info, boss->obj.id);
 }
+
+Vec3f D_i4_8019F0D8 = { 0.0f, 0.0f, 0.0f };
+Vec3f unk2 = { 0.0f, 0.0f, 0.0f };
 
 void func_i4_80192264(void) {
     Vec3f spDC = D_i4_8019F0D8;

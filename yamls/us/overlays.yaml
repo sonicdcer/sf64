@@ -89,7 +89,7 @@
     - [0xE63D50, c, fox_sz]
     - [0xE69220, .data, fox_i4]
     - [0xE69230, .data, fox_fo]
-    - [0xE69310, data, fox_bo]
+    - [0xE69310, .data, fox_bo]
     - [0xE69540, data, fox_ka]
     - [0xE69910, .data, fox_sz]
     - [0xE69B30, .rodata, fox_i4]
