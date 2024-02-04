@@ -98,7 +98,7 @@
     - [0xE6A170, .rodata, fox_ka]
     - [0xE6A510, .rodata, fox_sz]
     - { start: 0xE6A810, type: .bss, vram: 0x801A03C0, name: fox_i4 }
-    - { type: bss, vram: 0x801A03D0, name: fox_bo }
+    - { type: .bss, vram: 0x801A03D0, name: fox_bo }
     - { type: bss, vram: 0x801A0540, name: fox_ka }
     - { type: .bss, vram: 0x801A0560, name: fox_sz }
 
