@@ -25,7 +25,7 @@ typedef struct {
 } ObjEnd54; // size = 0x54
 
 typedef struct AssetInfo {
-    /* 0x00 */ void* unk_00; // pointer to a display list ?
+    /* 0x00 */ void* unk_00;
     /* 0x04 */ void* unk_04;
     /* 0x08 */ s16 unk_08;
     /* 0x0C */ u32 unk_0C;
@@ -1190,7 +1190,8 @@ void func_ending_80192290(u32 arg0, ObjEnd54* objEnd54) {
 }
 
 void func_ending_8019237C(u32 arg0, ObjEnd54* objEnd54) {
-    s32 i, j;
+    s32 i;
+    s32 j;
 
     for (i = 0; i < arg0 - objEnd54->unk_00; i++) {
         if (i < objEnd54->unk_04 * 1 / 4) {
