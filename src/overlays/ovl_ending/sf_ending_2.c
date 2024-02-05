@@ -982,7 +982,16 @@ void func_ending_80190CF0(u32 arg0, UnkStruct_8018D250* arg1) {
     gSPDisplayList(gMasterDisp++, D_7000000);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_80191234.s")
+void func_ending_80191234(s32 arg0, s32 arg1) {
+    D_80161A34 = 8;
+    gGameState = GSTATE_MENU;
+    D_Timer_8017783C = 2;
+    gOptionMenuStatus = OPTION_WAIT;
+    gDrawMode = DRAWMODE_0;
+    gBgColor = 0;
+    D_80178410 = 0;
+    gControllerLock = 10;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_80191294.s")
 
