@@ -134,6 +134,10 @@ D_i5_801BE284 = 0x801BE284;
 D_i5_801BE29C = 0x801BE29C;
 D_i5_801BE2FA = 0x801BE2FA;
 D_i5_801BE2A4 = 0x801BE2A4;
+D_i5_801BE748 = 0x801BE748;//size:0x3600 type:Vtx segment:ovl_i5
+D_i5_801C62D8 = 0x801C62D8;//size:0xC type:Vec3f segment:ovl_i5
+D_i5_801C65B8 = 0x801C65B8;//size:0x870 segment:ovl_i5
+D_i5_801C6E28 = 0x801C6E28;//size:0x34 type:s32 segment:ovl_i5
 
 func_i6_801888F4 = 0x801888F4;
 func_i6_80197CC4 = 0x80197CC4;
