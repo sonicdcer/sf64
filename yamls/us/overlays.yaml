@@ -194,14 +194,14 @@
     exclusive_ram_id: overlay
     symbol_name_format: ending_$VRAM
     subsegments:
-    - [0xEF0260, c, sf_ending_1]
-    - [0xEF5B60, c, sf_ending_2]
-    - [0xEFB560, .data, sf_ending_1]
-    - [0xEFBBB0, .data, sf_ending_2]
-    - [0xEFEF80, .rodata, sf_ending_1]
-    - [0xEFF380, .rodata, sf_ending_2]
-    - { start: 0xEFFA40, type: .bss, vram: 0x80196D00, name: sf_ending_1 }
-    - { type: .bss, vram: 0x80198590, name: sf_ending_2 }
+    - [0xEF0260, c, fox_end1]
+    - [0xEF5B60, c, fox_end2]
+    - [0xEFB560, .data, fox_end1]
+    - [0xEFBBB0, .data, fox_end2]
+    - [0xEFEF80, .rodata, fox_end1]
+    - [0xEFF380, .rodata, fox_end2]
+    - { start: 0xEFFA40, type: .bss, vram: 0x80196D00, name: fox_end1 }
+    - { type: .bss, vram: 0x80198590, name: fox_end2 }
 
   - name: ovl_unused
     type: code

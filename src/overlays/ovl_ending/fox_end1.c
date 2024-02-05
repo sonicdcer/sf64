@@ -187,7 +187,7 @@ void func_ending_80187860(s32 arg0, s32 arg1) {
 #else
 Animation* D_ending_80192820[4] = { &D_60246F8, &D_60338DC, &D_6036278, &D_603531C };
 void func_ending_80187860(s32, s32);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_1/func_ending_80187860.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/fox_end1/func_ending_80187860.s")
 #endif
 
 void func_ending_80187D3C(s32 arg0) {
@@ -407,7 +407,7 @@ void func_ending_8018845C(void) {
 }
 #else
 void func_ending_8018845C(void);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_1/func_ending_8018845C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/fox_end1/func_ending_8018845C.s")
 #endif
 
 s32 func_ending_80188634(void) {
