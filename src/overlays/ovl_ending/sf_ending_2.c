@@ -13,7 +13,7 @@ typedef struct {
 } UnkStruct_D_ending_80192E74; // size = 0x14
 
 typedef struct AssetInfo {
-    /* 0x00 */ void* unk_00;
+    /* 0x00 */ void* unk_00; // pointer to a display list ?
     /* 0x04 */ void* unk_04;
     /* 0x08 */ s16 unk_08;
     /* 0x0C */ u32 unk_0C;
@@ -1046,9 +1046,60 @@ void func_ending_80191294(u32 arg0, AssetInfo* asset) {
     func_80053658(&D_ending_80198590);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_80191700.s")
+void func_ending_80191700(s32 arg0, s32 arg1) {
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_80191710.s")
+void func_ending_80191710(u32 arg0, AssetInfo* asset) {
+    f32 temp;
+
+    RCP_SetupDL(&gMasterDisp, asset->unk_08);
+
+    gSPFogPosition(gMasterDisp++, asset->fogNear, asset->fogFar);
+    gDPSetFogColor(gMasterDisp++, asset->fogRed, asset->fogGreen, asset->fogBlue, 0);
+    gDPSetEnvColor(gMasterDisp++, asset->envRed, asset->envGreen, asset->envBlue, asset->envAlpha);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, asset->primAlpha);
+
+    Matrix_Translate(gGfxMatrix, asset->unk_18.x + (arg0 - asset->unk_0C) * asset->unk_3C.x,
+                     asset->unk_18.y + (arg0 - asset->unk_0C) * asset->unk_3C.y,
+                     asset->unk_18.z + (arg0 - asset->unk_0C) * asset->unk_3C.z, 1);
+
+    Matrix_Scale(gGfxMatrix, asset->unk_30.x, asset->unk_30.y, asset->unk_30.z, 1);
+
+    temp = __sinf(arg0 * 0.1f + asset->unk_70);
+
+    switch (asset->unk_71) {
+        case 1:
+            Matrix_RotateY(gGfxMatrix,
+                           M_DTOR * (-D_ending_801985F0.y + asset->unk_24.y + temp * asset->unk_54.y +
+                                     (arg0 - asset->unk_0C) * asset->unk_48.y),
+                           1);
+            Matrix_RotateX(gGfxMatrix,
+                           M_DTOR * (-D_ending_801985F0.x + asset->unk_24.x + temp * asset->unk_54.x +
+                                     (arg0 - asset->unk_0C) * asset->unk_48.x),
+                           1);
+            Matrix_RotateZ(gGfxMatrix,
+                           M_DTOR * (D_ending_801985F0.z + asset->unk_24.z + temp * asset->unk_54.z +
+                                     (arg0 - asset->unk_0C) * asset->unk_48.z),
+                           1);
+            break;
+
+        default:
+            Matrix_RotateY(
+                gGfxMatrix,
+                M_DTOR * (asset->unk_24.y + temp * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y), 1);
+            Matrix_RotateX(
+                gGfxMatrix,
+                M_DTOR * (asset->unk_24.x + temp * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x), 1);
+            Matrix_RotateZ(
+                gGfxMatrix,
+                M_DTOR * (asset->unk_24.z + temp * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z), 1);
+            break;
+    }
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    gSPDisplayList(gMasterDisp++, asset->unk_00);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_80191C58.s")
 
