@@ -46,6 +46,7 @@ extern u16 D_8025080[];
 
 extern s32 D_ending_80192E70;
 extern UnkStruct_D_ending_80192E74 D_ending_80192E74[80];
+extern AssetInfo D_ending_801934B4[];
 extern WingInfo D_ending_80198590;
 extern Vec3f D_ending_801985D0;
 extern Vec3f D_ending_801985F0;
@@ -1048,7 +1049,7 @@ void func_ending_80191294(u32 arg0, AssetInfo* asset) {
     func_80053658(&D_ending_80198590);
 }
 
-void func_ending_80191700(s32 arg0, s32 arg1) {
+void func_ending_80191700(u32 arg0, AssetInfo* asset) {
 }
 
 void func_ending_80191710(u32 arg0, AssetInfo* asset) {
@@ -1140,7 +1141,26 @@ void func_ending_80191C7C(u32 arg0, AssetInfo* asset) {
     Animation_DrawSkeleton(0, asset->unk_04, D_ending_80198600, NULL, NULL, NULL, &gIdentityMatrix);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_80192164.s")
+void func_ending_80192164(u32 arg0) {
+    s32 i;
+
+    for (i = 0; i < 94; i++) {
+        if ((D_ending_801934B4[i].unk_0C <= arg0) &&
+            ((D_ending_801934B4[i].unk_0C + D_ending_801934B4[i].unk_10) > arg0)) {
+            Matrix_Push(&gGfxMatrix);
+            if ((D_ending_801934B4[i].unk_00 == NULL) && (D_ending_801934B4[i].unk_04 == NULL)) {
+                func_ending_80191700(arg0, &D_ending_801934B4[i]);
+            } else if ((D_ending_801934B4[i].unk_00 != NULL) && (D_ending_801934B4[i].unk_04 == NULL)) {
+                func_ending_80191710(arg0, &D_ending_801934B4[i]);
+            } else if ((D_ending_801934B4[i].unk_00 == NULL) && (D_ending_801934B4[i].unk_04 != NULL)) {
+                func_ending_80191C58(arg0, &D_ending_801934B4[i]);
+            } else if ((D_ending_801934B4[i].unk_00 != NULL) && (D_ending_801934B4[i].unk_04 != NULL)) {
+                func_ending_80191C7C(arg0, &D_ending_801934B4[i]);
+            }
+            Matrix_Pop(&gGfxMatrix);
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_80192290.s")
 
