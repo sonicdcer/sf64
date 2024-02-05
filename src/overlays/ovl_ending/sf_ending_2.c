@@ -12,6 +12,18 @@ typedef struct {
     /* 0x13 */ u8 unk_13;
 } UnkStruct_D_ending_80192E74; // size = 0x14
 
+typedef struct {
+    /* 0x00 */ u32 unk_00;
+    /* 0x04 */ u32 unk_04;
+    /* 0x08 */ s8 unk_08;
+    /* 0x0C */ Vec3f unk_0C;
+    /* 0x18 */ Vec3f unk_18;
+    /* 0x24 */ Vec3f unk_24;
+    /* 0x30 */ Vec3f unk_30;
+    /* 0x3C */ Vec3f unk_3C;
+    /* 0x48 */ Vec3f unk_48;
+} ObjEnd54; // size = 0x54
+
 typedef struct AssetInfo {
     /* 0x00 */ void* unk_00; // pointer to a display list ?
     /* 0x04 */ void* unk_04;
@@ -49,6 +61,7 @@ extern UnkStruct_D_ending_80192E74 D_ending_80192E74[80];
 extern AssetInfo D_ending_801934B4[];
 extern WingInfo D_ending_80198590;
 extern Vec3f D_ending_801985D0;
+extern Vec3f D_ending_801985E0;
 extern Vec3f D_ending_801985F0;
 extern Vec3f D_ending_80198600[300];
 
@@ -1162,7 +1175,18 @@ void func_ending_80192164(u32 arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_80192290.s")
+void func_ending_80192290(u32 arg0, ObjEnd54* objEnd54) {
+    s32 i;
+
+    for (i = 0; i < (arg0 - objEnd54->unk_00); i++) {
+        D_ending_801985E0.x += objEnd54->unk_18.x - (objEnd54->unk_24.x * i);
+        D_ending_801985E0.y += objEnd54->unk_18.y - (objEnd54->unk_24.y * i);
+        D_ending_801985E0.z += objEnd54->unk_18.z - (objEnd54->unk_24.z * i);
+        D_ending_801985D0.x += objEnd54->unk_3C.x - (objEnd54->unk_48.x * i);
+        D_ending_801985D0.y += objEnd54->unk_3C.y - (objEnd54->unk_48.y * i);
+        D_ending_801985D0.z += objEnd54->unk_3C.z - (objEnd54->unk_48.z * i);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_8019237C.s")
 
