@@ -935,7 +935,7 @@ void func_i4_8018E710(Boss* boss) {
     if (boss->fwork[1] != 0.0f) {
         boss->obj.rot.y += boss->fwork[1];
         if (boss->obj.rot.y >= 360.0f) {
-            boss->obj.rot.y = boss->obj.rot.y - 360.0f;
+            boss->obj.rot.y -= 360.0f;
         }
     }
 
