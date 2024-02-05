@@ -51,7 +51,8 @@
     "sf64level.h": "c",
     "prevent_bss_reordering2.h": "c",
     "ast_aq.h": "c",
-    "ast_8e1f80.h": "c"
+    "ast_8e1f80.h": "c",
+    "fox_end2.inc" : "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }
