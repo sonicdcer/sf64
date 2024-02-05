@@ -23,7 +23,7 @@ extern s32 D_80177C3C[];
 extern s32 D_801778F4[];
 
 extern Animation D_6001C64;
-extern Limb* D_6001FB0;
+extern Limb* D_6001FB0[];
 extern Gfx D_6002020[];
 extern Gfx D_6006910[];
 extern u8 D_6008BB8[];
@@ -46,7 +46,7 @@ f32 D_i4_8019EEC0 = 0.0f;
 void func_8002FC00(Actor*);
 s32 func_i4_8018CCE8(Actor*);
 s32 func_i4_8018CE5C(Actor*);
-s32 func_i4_8018D008(Actor*);
+bool func_i4_8018D008(Actor*);
 void func_i4_8018D124(Actor*);
 s32 func_i4_8018DE8C(Boss*);
 s32 func_i4_8018E3FC(Boss*);
@@ -444,7 +444,7 @@ s32 func_i4_8018CCE8(Actor* actor) {
         temp_fs0 = fabsf(x - actor->obj.pos.x);
         temp_fv0 = fabsf(z - actor->obj.pos.z);
 
-        if ((!(var_fv1 < temp_fs0)) && (!(var_fa0 < temp_fv0))) {
+        if (!((var_fv1 < temp_fs0) || (var_fa0 < temp_fv0))) {
             var_fv1 = temp_fs0;
             var_fa0 = temp_fv0;
             var_v0 = i;
@@ -516,7 +516,7 @@ s32 func_i4_8018CE5C(Actor* actor) {
     return 0;
 }
 
-s32 func_i4_8018D008(Actor* actor) {
+bool func_i4_8018D008(Actor* actor) {
     f32 x;
     f32 y;
     f32 z;
@@ -541,12 +541,12 @@ s32 func_i4_8018D008(Actor* actor) {
     y = Math_RadToDeg(Math_Atan2F(x, z)) - actor->obj.rot.y;
 
     if ((y > 100.0f) && (y < 259.0f)) {
-        return 0;
+        return false;
     }
 
     actor->timer_0BC = (s32) RAND_FLOAT(20.0f) + 10;
 
-    return 1;
+    return true;
 }
 
 void func_i4_8018D124(Actor* actor) {
@@ -603,7 +603,7 @@ void func_i4_8018D394(Actor* actor) {
     if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7)) {
         func_i4_8018CCE8(actor);
         func_i4_8018CE5C(actor);
-        if (func_i4_8018D008(actor) != 0) {
+        if (func_i4_8018D008(actor)) {
             func_i4_8018D124(actor);
         }
     }
@@ -1071,7 +1071,7 @@ void func_i4_8018EE4C(f32 x, f32 y) {
             actor->unk_0B6 = 32;
             actor->vel.z = 80.0f;
             actor->obj.rot.z = RAND_FLOAT_CENTERED(120.0f);
-            actor->unk_0F4.z = Rand_ZeroOne() - 0.5f;
+            actor->unk_0F4.z = RAND_FLOAT_CENTERED(1.0f);
             Object_SetInfo(&actor->info, actor->obj.id);
             Audio_PlaySfx(0x29002002U, actor->sfxPos, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             break;
@@ -1159,8 +1159,8 @@ void func_i4_8018EF6C(Player* player) {
             D_801779B8 = player->pos.y;
             D_801779C0 = player->pos.z;
             D_80177A48[2] += 4.5f;
-            sp60 = __sinf(D_80177A48[2] * M_DTOR) * 10.0f;
-            player->unk_0EC = __sinf(D_80177A48[2] * M_DTOR) * -60.0f;
+            sp60 = SIN_DEG(D_80177A48[2]) * 10.0f;
+            player->unk_0EC = SIN_DEG(D_80177A48[2]) * -60.0f;
 
             if (!(gCsFrameCount & 7) && (Rand_ZeroOne() < 0.5f)) {
                 func_i4_8018ED44();
@@ -1697,16 +1697,16 @@ void func_i4_8018F94C(Player* player) {
     player->unk_0F0 = __sinf(player->unk_0F4 * M_DTOR);
 }
 
-void func_i4_80190D98(Effect* effect, f32 x, f32 y, f32 z, f32 xRot, f32 yRot) {
+void func_i4_80190D98(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot) {
     Vec3f src;
     Vec3f dest;
 
     Effect_Initialize(effect);
     effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_397;
-    effect->obj.pos.x = x;
-    effect->obj.pos.y = y;
-    effect->obj.pos.z = z;
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
     effect->obj.rot.x = xRot;
     effect->obj.rot.y = yRot;
     effect->scale2 = 1.0f;
@@ -1910,7 +1910,7 @@ void func_i4_801912FC(Boss* boss) {
                 boss->info.hitbox[i * 6 + 4] = -200.0f;
                 if (!((gGameFrameCount + i) & 7)) {
                     func_i4_80190EE4(boss->vwork[i].x, boss->vwork[i].y, boss->vwork[i].z, RAND_FLOAT_CENTERED(30.0f),
-                                     (boss->obj.rot.y + D_i4_8019F09C[i]) + RAND_FLOAT_CENTERED(30.0f));
+                                     boss->obj.rot.y + D_i4_8019F09C[i] + RAND_FLOAT_CENTERED(30.0f));
                     boss->swork[i + 12] = 1003;
                 }
             } else {
@@ -1993,9 +1993,9 @@ void func_i4_80191A6C(s32 index, Vec3f* vec, void* ptr) {
 void func_i4_80191AFC(Boss* boss) {
     Animation_GetFrameData(&D_6001C64, 0, boss->vwork);
     if (boss->state >= 2) {
-        Animation_DrawSkeleton(3, &D_6001FB0, boss->vwork, func_i4_801918E4, func_i4_80191A6C, boss, gCalcMatrix);
+        Animation_DrawSkeleton(3, D_6001FB0, boss->vwork, func_i4_801918E4, func_i4_80191A6C, boss, gCalcMatrix);
     } else {
-        Animation_DrawSkeleton(3, &D_6001FB0, boss->vwork, NULL, NULL, boss, gCalcMatrix);
+        Animation_DrawSkeleton(3, D_6001FB0, boss->vwork, NULL, NULL, boss, gCalcMatrix);
     }
 }
 
