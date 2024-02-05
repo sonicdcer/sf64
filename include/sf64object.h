@@ -288,7 +288,7 @@ typedef struct {
     /* 0x18C */ Vec3f vwork[30];
 } Actor; // size = 0x2F4
 
-typedef enum{
+typedef enum ObjectId {
   /*  -1 */  OBJ_INVALID=-1,
   /*   0 */  OBJ_80_0,  
   /*   1 */  OBJ_80_1,  
