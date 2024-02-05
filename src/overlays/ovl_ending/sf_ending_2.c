@@ -25,19 +25,19 @@ typedef struct UnkStruct_8018D250 {
     /* 0x3C */ Vec3f unk_3C;
     /* 0x48 */ Vec3f unk_48;
     /* 0x54 */ Vec3f unk_54;
-    /* 0x60 */ u8 unk_60;  // fogRed
-    /* 0x61 */ u8 unk_61;  // fogGreen
-    /* 0x62 */ u8 unk_62;  // fogBlue
-    /* 0x64 */ s16 unk_64; // fogNear
-    /* 0x66 */ s16 unk_66; // fogFar
-    /* 0x68 */ u8 unk_68;  // envRed
-    /* 0x69 */ u8 unk_69;  // envGreen
-    /* 0x6A */ u8 unk_6A;  // envBlue
-    /* 0x6B */ u8 unk_6B;  // envAlpha
-    /* 0x6C */ u8 unk_6C;  // primRed
-    /* 0x6D */ u8 unk_6D;  // primGreen
-    /* 0x6E */ u8 unk_6E;  // primBlue
-    /* 0x6F */ u8 unk_6F;  // primAlpha
+    /* 0x60 */ u8 fogRed;
+    /* 0x61 */ u8 fogGreen;
+    /* 0x62 */ u8 fogBlue;
+    /* 0x64 */ s16 fogNear;
+    /* 0x66 */ s16 fogFar;
+    /* 0x68 */ u8 envRed;
+    /* 0x69 */ u8 envGreen;
+    /* 0x6A */ u8 envBlue;
+    /* 0x6B */ u8 envAlpha;
+    /* 0x6C */ u8 primRed;
+    /* 0x6D */ u8 primGreen;
+    /* 0x6E */ u8 primBlue;
+    /* 0x6F */ u8 primAlpha;
     /* 0x70 */ u8 unk_70;
     /* 0x71 */ u8 unk_71;
 } UnkStruct_8018D250; // size = 0x72
@@ -132,17 +132,17 @@ void func_ending_8018D28C(s32 arg0, UnkStruct_8018D250* arg1) {
 void func_ending_8018D2C8(u32 arg0, UnkStruct_8018D250* arg1) {
     u8 alpha = 255;
 
-    if ((arg1->unk_0C + arg1->unk_64) > arg0) {
-        alpha = (arg0 - arg1->unk_0C) * 255 / arg1->unk_64;
+    if ((arg1->unk_0C + arg1->fogNear) > arg0) {
+        alpha = (arg0 - arg1->unk_0C) * 255 / arg1->fogNear;
     }
 
-    if ((arg1->unk_0C + arg1->unk_10 - arg1->unk_66) < arg0) {
-        alpha = (arg1->unk_0C + arg1->unk_10 - arg0 - 1) * 255 / arg1->unk_66;
+    if ((arg1->unk_0C + arg1->unk_10 - arg1->fogFar) < arg0) {
+        alpha = (arg1->unk_0C + arg1->unk_10 - arg0 - 1) * 255 / arg1->fogFar;
     }
 
-    D_80178348 = arg1->unk_6C;
-    D_80178350 = arg1->unk_6D;
-    D_80178354 = arg1->unk_6E;
+    D_80178348 = arg1->primRed;
+    D_80178350 = arg1->primGreen;
+    D_80178354 = arg1->primBlue;
 
     D_80178340 = D_80178358 = alpha;
     D_8017835C = 0;
@@ -151,18 +151,18 @@ void func_ending_8018D2C8(u32 arg0, UnkStruct_8018D250* arg1) {
 void func_ending_8018D398(u32 arg0, UnkStruct_8018D250* arg1) {
     u8 alpha = 255;
 
-    if ((arg1->unk_0C + arg1->unk_64) > arg0) {
-        alpha = (arg0 - arg1->unk_0C) * 255 / arg1->unk_64;
+    if ((arg1->unk_0C + arg1->fogNear) > arg0) {
+        alpha = (arg0 - arg1->unk_0C) * 255 / arg1->fogNear;
     }
 
-    if ((arg1->unk_0C + arg1->unk_10 - arg1->unk_66) < arg0) {
-        alpha = (arg1->unk_0C + arg1->unk_10 - arg0) * 255 / arg1->unk_66;
+    if ((arg1->unk_0C + arg1->unk_10 - arg1->fogFar) < arg0) {
+        alpha = (arg1->unk_0C + arg1->unk_10 - arg0) * 255 / arg1->fogFar;
     }
 
     D_80178348 = D_80178350 = D_80178354 = D_80178340 = D_80178358 = D_8017835C = 0;
 
-    Graphics_FillRectangle(&gMasterDisp, 8, 8, SCREEN_WIDTH - 8, SCREEN_HEIGHT - 8, arg1->unk_6C, arg1->unk_6D,
-                           arg1->unk_6E, alpha);
+    Graphics_FillRectangle(&gMasterDisp, 8, 8, SCREEN_WIDTH - 8, SCREEN_HEIGHT - 8, arg1->primRed, arg1->primGreen,
+                           arg1->primBlue, alpha);
 }
 
 void func_ending_8018D4BC(s32 arg0, UnkStruct_8018D250* arg1) {
@@ -187,13 +187,13 @@ void func_ending_8018D638(u32 arg0, UnkStruct_8018D250* arg1) {
     u8 alpha = 0;
     s32 i;
 
-    if ((arg1->unk_0C + arg1->unk_66) > arg0) {
-        alpha = (arg1->unk_0C + arg1->unk_66 - arg0) * 255 / arg1->unk_66;
+    if ((arg1->unk_0C + arg1->fogFar) > arg0) {
+        alpha = (arg1->unk_0C + arg1->fogFar - arg0) * 255 / arg1->fogFar;
     }
 
-    D_80178348 = arg1->unk_6C;
-    D_80178350 = arg1->unk_6D;
-    D_80178354 = arg1->unk_6E;
+    D_80178348 = arg1->primRed;
+    D_80178350 = arg1->primGreen;
+    D_80178354 = arg1->primBlue;
 
     D_80178340 = D_80178358 = alpha;
     D_8017835C = 0;
@@ -218,17 +218,17 @@ void func_ending_8018D638(u32 arg0, UnkStruct_8018D250* arg1) {
 void func_ending_8018D814(u32 arg0, UnkStruct_8018D250* arg1) {
     u8 alpha = 255;
 
-    if ((arg1->unk_0C + arg1->unk_64) > arg0) {
-        alpha = (arg0 - arg1->unk_0C) * 255 / arg1->unk_64;
+    if ((arg1->unk_0C + arg1->fogNear) > arg0) {
+        alpha = (arg0 - arg1->unk_0C) * 255 / arg1->fogNear;
     }
 
-    if ((arg1->unk_0C + arg1->unk_10 - arg1->unk_66) < arg0) {
-        alpha = (arg1->unk_0C + arg1->unk_10 - arg0) * 255 / arg1->unk_66;
+    if ((arg1->unk_0C + arg1->unk_10 - arg1->fogFar) < arg0) {
+        alpha = (arg1->unk_0C + arg1->unk_10 - arg0) * 255 / arg1->fogFar;
     }
 
     RCP_SetupDL(&gMasterDisp, arg1->unk_08);
 
-    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->unk_6C, arg1->unk_6D, arg1->unk_6E, alpha);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->primRed, arg1->primGreen, arg1->primBlue, alpha);
 
     TextureRect_8bIA(&gMasterDisp, D_5007240, 16, 15, arg1->unk_18.x, arg1->unk_18.y, 1.0f, 1.0f);
     TextureRect_8bIA(&gMasterDisp, D_5007420, 16, 15, arg1->unk_18.x + 16.0f * 1, arg1->unk_18.y, 1.0f, 1.0f);
@@ -397,18 +397,18 @@ void func_ending_8018D814(u32 arg0, UnkStruct_8018D250* arg1) {
 void func_ending_8018DA0C(u32 arg0, UnkStruct_8018D250* arg1) {
     u8 alpha = 255;
 
-    if ((arg1->unk_0C + arg1->unk_64) > arg0) {
-        alpha = (arg0 - arg1->unk_0C) * 255 / arg1->unk_64;
+    if ((arg1->unk_0C + arg1->fogNear) > arg0) {
+        alpha = (arg0 - arg1->unk_0C) * 255 / arg1->fogNear;
     }
 
     RCP_SetupDL(&gMasterDisp, arg1->unk_08);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->unk_6C, arg1->unk_6D, arg1->unk_6E, alpha);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->primRed, arg1->primGreen, arg1->primBlue, alpha);
 
     Graphics_DisplaySmallText((s16) arg1->unk_18.x, (s16) arg1->unk_18.y, arg1->unk_30.x, arg1->unk_30.y, "TOTAL HITS");
     Graphics_DisplayLargeNumber((s16) (arg1->unk_18.x + 5), (s16) (arg1->unk_18.y + 13), gTotalHits);
 
     if ((func_ending_8018DCB4() == true) && (alpha == 255)) {
-        alpha = (arg0 - (arg1->unk_0C + arg1->unk_64)) % 10;
+        alpha = (arg0 - (arg1->unk_0C + arg1->fogNear)) % 10;
 
         switch (alpha) {
             case 0:
@@ -426,7 +426,7 @@ void func_ending_8018DA0C(u32 arg0, UnkStruct_8018D250* arg1) {
                 alpha = 42 * (10 - alpha);
                 break;
         }
-        gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->unk_6C, arg1->unk_6D, arg1->unk_6E, alpha);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->primRed, arg1->primGreen, arg1->primBlue, alpha);
         Graphics_DisplaySmallText((s16) (arg1->unk_18.x + 7), (s16) (arg1->unk_18.y + 31), arg1->unk_30.x,
                                   arg1->unk_30.y, "RANK IN!!");
     }
@@ -521,10 +521,10 @@ void func_ending_8018E1B8(u32 arg0, UnkStruct_8018D250* arg1) {
         RCP_SetupDL(&gMasterDisp, 0x3F);
     }
 
-    gSPFogPosition(gMasterDisp++, arg1->unk_64, arg1->unk_66);
-    gDPSetFogColor(gMasterDisp++, arg1->unk_60, arg1->unk_61, arg1->unk_62, 0);
-    gDPSetEnvColor(gMasterDisp++, arg1->unk_68, arg1->unk_69, arg1->unk_6A, arg1->unk_6B);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->unk_6C, arg1->unk_6D, arg1->unk_6E, arg1->unk_6F);
+    gSPFogPosition(gMasterDisp++, arg1->fogNear, arg1->fogFar);
+    gDPSetFogColor(gMasterDisp++, arg1->fogRed, arg1->fogGreen, arg1->fogBlue, 0);
+    gDPSetEnvColor(gMasterDisp++, arg1->envRed, arg1->envGreen, arg1->envBlue, arg1->envAlpha);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->primRed, arg1->primGreen, arg1->primBlue, arg1->primAlpha);
 
     Matrix_Translate(gGfxMatrix, arg1->unk_18.x + (arg0 - arg1->unk_0C) * arg1->unk_3C.x,
                      arg1->unk_18.y + (arg0 - arg1->unk_0C) * arg1->unk_3C.y,
@@ -577,10 +577,10 @@ void func_ending_8018E7B8(u32 arg0, UnkStruct_8018D250* arg1) {
         RCP_SetupDL(&gMasterDisp, 0x3F);
     }
 
-    gSPFogPosition(gMasterDisp++, arg1->unk_64, arg1->unk_66);
-    gDPSetFogColor(gMasterDisp++, arg1->unk_60, arg1->unk_61, arg1->unk_62, 0);
-    gDPSetEnvColor(gMasterDisp++, arg1->unk_68, arg1->unk_69, arg1->unk_6A, arg1->unk_6B);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->unk_6C, arg1->unk_6D, arg1->unk_6E, arg1->unk_6F);
+    gSPFogPosition(gMasterDisp++, arg1->fogNear, arg1->fogFar);
+    gDPSetFogColor(gMasterDisp++, arg1->fogRed, arg1->fogGreen, arg1->fogBlue, 0);
+    gDPSetEnvColor(gMasterDisp++, arg1->envRed, arg1->envGreen, arg1->envBlue, arg1->envAlpha);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->primRed, arg1->primGreen, arg1->primBlue, arg1->primAlpha);
 
     Matrix_Translate(gGfxMatrix, arg1->unk_18.x + (arg0 - arg1->unk_0C) * arg1->unk_3C.x,
                      arg1->unk_18.y + (arg0 - arg1->unk_0C) * arg1->unk_3C.y,
@@ -632,9 +632,9 @@ void func_ending_8018EDB8(u32 arg0, UnkStruct_8018D250* arg1) {
 
     RCP_SetupDL(&gMasterDisp, arg1->unk_08);
 
-    gSPFogPosition(gMasterDisp++, arg1->unk_64, arg1->unk_66);
-    gDPSetFogColor(gMasterDisp++, arg1->unk_60, arg1->unk_61, arg1->unk_62, 0);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->unk_6C, arg1->unk_6D, arg1->unk_6E, arg1->unk_6F);
+    gSPFogPosition(gMasterDisp++, arg1->fogNear, arg1->fogFar);
+    gDPSetFogColor(gMasterDisp++, arg1->fogRed, arg1->fogGreen, arg1->fogBlue, 0);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->primRed, arg1->primGreen, arg1->primBlue, arg1->primAlpha);
 
     Matrix_Translate(gGfxMatrix, arg1->unk_18.x + (arg0 - arg1->unk_0C) * arg1->unk_3C.x,
                      arg1->unk_18.y + (arg0 - arg1->unk_0C) * arg1->unk_3C.y,
@@ -669,9 +669,9 @@ void func_ending_8018F2A8(u32 arg0, UnkStruct_8018D250* arg1) {
 
     RCP_SetupDL(&gMasterDisp, arg1->unk_08);
 
-    gSPFogPosition(gMasterDisp++, arg1->unk_64, arg1->unk_66);
-    gDPSetFogColor(gMasterDisp++, arg1->unk_60, arg1->unk_61, arg1->unk_62, 0);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->unk_6C, arg1->unk_6D, arg1->unk_6E, arg1->unk_6F);
+    gSPFogPosition(gMasterDisp++, arg1->fogNear, arg1->fogFar);
+    gDPSetFogColor(gMasterDisp++, arg1->fogRed, arg1->fogGreen, arg1->fogBlue, 0);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->primRed, arg1->primGreen, arg1->primBlue, arg1->primAlpha);
 
     Matrix_Translate(gGfxMatrix, arg1->unk_18.x + (arg0 - arg1->unk_0C) * arg1->unk_3C.x,
                      arg1->unk_18.y + (arg0 - arg1->unk_0C) * arg1->unk_3C.y,
@@ -704,10 +704,10 @@ void func_ending_8018F64C(u32 arg0, UnkStruct_8018D250* arg1) {
 
     RCP_SetupDL(&gMasterDisp, arg1->unk_08);
 
-    gSPFogPosition(gMasterDisp++, arg1->unk_64, arg1->unk_66);
-    gDPSetFogColor(gMasterDisp++, arg1->unk_60, arg1->unk_61, arg1->unk_62, 0);
-    gDPSetEnvColor(gMasterDisp++, arg1->unk_68, arg1->unk_69, arg1->unk_6A, arg1->unk_6B);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->unk_6C, arg1->unk_6D, arg1->unk_6E, arg1->unk_6F);
+    gSPFogPosition(gMasterDisp++, arg1->fogNear, arg1->fogFar);
+    gDPSetFogColor(gMasterDisp++, arg1->fogRed, arg1->fogGreen, arg1->fogBlue, 0);
+    gDPSetEnvColor(gMasterDisp++, arg1->envRed, arg1->envGreen, arg1->envBlue, arg1->envAlpha);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->primRed, arg1->primGreen, arg1->primBlue, arg1->primAlpha);
 
     Matrix_Translate(gGfxMatrix, arg1->unk_18.x + (arg0 - arg1->unk_0C) * arg1->unk_3C.x,
                      arg1->unk_18.y + (arg0 - arg1->unk_0C) * arg1->unk_3C.y,
@@ -767,10 +767,10 @@ void func_ending_8018FC60(u32 arg0, UnkStruct_8018D250* arg1) {
 
     RCP_SetupDL(&gMasterDisp, arg1->unk_08);
 
-    gSPFogPosition(gMasterDisp++, arg1->unk_64, arg1->unk_66);
-    gDPSetFogColor(gMasterDisp++, arg1->unk_60, arg1->unk_61, arg1->unk_62, 0);
-    gDPSetEnvColor(gMasterDisp++, arg1->unk_68, arg1->unk_69, arg1->unk_6A, arg1->unk_6B);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->unk_6C, arg1->unk_6D, arg1->unk_6E, arg1->unk_6F);
+    gSPFogPosition(gMasterDisp++, arg1->fogNear, arg1->fogFar);
+    gDPSetFogColor(gMasterDisp++, arg1->fogRed, arg1->fogGreen, arg1->fogBlue, 0);
+    gDPSetEnvColor(gMasterDisp++, arg1->envRed, arg1->envGreen, arg1->envBlue, arg1->envAlpha);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->primRed, arg1->primGreen, arg1->primBlue, arg1->primAlpha);
 
     Matrix_Translate(gGfxMatrix, arg1->unk_18.x + (arg0 - arg1->unk_0C) * arg1->unk_3C.x,
                      arg1->unk_18.y + (arg0 - arg1->unk_0C) * arg1->unk_3C.y,
@@ -826,9 +826,9 @@ void func_ending_80190274(u32 arg0, UnkStruct_8018D250* arg1) {
 
     RCP_SetupDL(&gMasterDisp, arg1->unk_08);
 
-    gSPFogPosition(gMasterDisp++, arg1->unk_64, arg1->unk_66);
-    gDPSetFogColor(gMasterDisp++, arg1->unk_60, arg1->unk_61, arg1->unk_62, 0);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->unk_6C, arg1->unk_6D, arg1->unk_6E, arg1->unk_6F);
+    gSPFogPosition(gMasterDisp++, arg1->fogNear, arg1->fogFar);
+    gDPSetFogColor(gMasterDisp++, arg1->fogRed, arg1->fogGreen, arg1->fogBlue, 0);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->primRed, arg1->primGreen, arg1->primBlue, arg1->primAlpha);
 
     Matrix_Translate(gGfxMatrix, D_ending_801985D0.x + arg1->unk_18.x + (arg0 - arg1->unk_0C) * arg1->unk_3C.x,
                      D_ending_801985D0.y + arg1->unk_18.y + (arg0 - arg1->unk_0C) * arg1->unk_3C.y,
@@ -864,7 +864,59 @@ void func_ending_80190648(s32 arg0, UnkStruct_8018D250* arg1) {
     gSPDisplayList(gMasterDisp++, D_7002120);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_80190778.s")
+void func_ending_80190778(u32 arg0, UnkStruct_8018D250* arg1) {
+    float temp;
+
+    RCP_SetupDL(&gMasterDisp, arg1->unk_08);
+
+    gSPFogPosition(gMasterDisp++, arg1->fogNear, arg1->fogFar);
+    gDPSetFogColor(gMasterDisp++, arg1->fogRed, arg1->fogGreen, arg1->fogBlue, 0);
+    gDPSetEnvColor(gMasterDisp++, arg1->envRed, arg1->envGreen, arg1->envBlue, arg1->envAlpha);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->primRed, arg1->primGreen, arg1->primBlue, arg1->primAlpha);
+
+    Matrix_Translate(gGfxMatrix, arg1->unk_18.x + (arg0 - arg1->unk_0C) * arg1->unk_3C.x,
+                     arg1->unk_18.y - 6.0f + (arg0 - arg1->unk_0C) * arg1->unk_3C.y,
+                     arg1->unk_18.z + (arg0 - arg1->unk_0C) * arg1->unk_3C.z, 1);
+
+    Matrix_Scale(gGfxMatrix, arg1->unk_30.x, arg1->unk_30.y, arg1->unk_30.z, 1);
+
+    temp = __sinf(arg0 * 0.2f + arg1->unk_70);
+
+    switch (arg1->unk_71) {
+        case 1:
+            Matrix_RotateY(gGfxMatrix,
+                           M_DTOR * (-D_ending_801985F0.y + arg1->unk_24.y + temp * arg1->unk_54.y +
+                                     (arg0 - arg1->unk_0C) * arg1->unk_48.y),
+                           1);
+            Matrix_RotateX(gGfxMatrix,
+                           M_DTOR * (-D_ending_801985F0.x + arg1->unk_24.x + temp * arg1->unk_54.x +
+                                     (arg0 - arg1->unk_0C) * arg1->unk_48.x),
+                           1);
+            Matrix_RotateZ(gGfxMatrix,
+                           M_DTOR * (D_ending_801985F0.z + arg1->unk_24.z + temp * arg1->unk_54.z +
+                                     (arg0 - arg1->unk_0C) * arg1->unk_48.z),
+                           1);
+            break;
+
+        default:
+            Matrix_RotateY(gGfxMatrix,
+                           M_DTOR * (arg1->unk_24.y + temp * arg1->unk_54.y + (arg0 - arg1->unk_0C) * arg1->unk_48.y),
+                           1);
+            Matrix_RotateX(gGfxMatrix,
+                           M_DTOR * (arg1->unk_24.x + temp * arg1->unk_54.x + (arg0 - arg1->unk_0C) * arg1->unk_48.x),
+                           1);
+            Matrix_RotateZ(gGfxMatrix,
+                           M_DTOR * (arg1->unk_24.z + temp * arg1->unk_54.z + (arg0 - arg1->unk_0C) * arg1->unk_48.z),
+                           1);
+            break;
+    }
+
+    Matrix_Translate(gGfxMatrix, 0.0f, 480.0f, 0.0f, 1);
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    gSPDisplayList(gMasterDisp++, D_3005AB0);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_80190CF0.s")
 
