@@ -12,7 +12,7 @@ typedef struct {
     /* 0x13 */ u8 unk_13;
 } UnkStruct_D_ending_80192E74; // size = 0x14
 
-typedef struct UnkStruct_8018D250 {
+typedef struct AssetInfo {
     /* 0x00 */ void* unk_00;
     /* 0x04 */ void* unk_04;
     /* 0x08 */ s16 unk_08;
@@ -40,10 +40,11 @@ typedef struct UnkStruct_8018D250 {
     /* 0x6F */ u8 primAlpha;
     /* 0x70 */ u8 unk_70;
     /* 0x71 */ u8 unk_71;
-} UnkStruct_8018D250; // size = 0x72
+} AssetInfo; // size = 0x72
 
 extern u16 D_8025080[];
 extern UnkStruct_D_ending_80192E74 D_ending_80192E74[80];
+extern WingInfo D_ending_80198590;
 extern Vec3f D_ending_801985D0;
 extern Vec3f D_ending_801985F0;
 extern s32 D_ending_80192E70;
@@ -118,54 +119,54 @@ void func_ending_8018CE20(u32 arg0) {
     }
 }
 
-void func_ending_8018D250(u32 arg0, UnkStruct_8018D250* arg1) {
-    gOverlayStage = arg1->unk_08;
-    D_80137E78 = arg1->unk_70;
-    D_80178410 = arg1->unk_14;
+void func_ending_8018D250(u32 arg0, AssetInfo* asset) {
+    gOverlayStage = asset->unk_08;
+    D_80137E78 = asset->unk_70;
+    D_80178410 = asset->unk_14;
 }
 
-void func_ending_8018D28C(s32 arg0, UnkStruct_8018D250* arg1) {
-    D_8017842C += arg1->unk_18.x;
-    D_80178430 += arg1->unk_18.y;
+void func_ending_8018D28C(s32 arg0, AssetInfo* asset) {
+    D_8017842C += asset->unk_18.x;
+    D_80178430 += asset->unk_18.y;
 }
 
-void func_ending_8018D2C8(u32 arg0, UnkStruct_8018D250* arg1) {
+void func_ending_8018D2C8(u32 arg0, AssetInfo* asset) {
     u8 alpha = 255;
 
-    if ((arg1->unk_0C + arg1->fogNear) > arg0) {
-        alpha = (arg0 - arg1->unk_0C) * 255 / arg1->fogNear;
+    if ((asset->unk_0C + asset->fogNear) > arg0) {
+        alpha = (arg0 - asset->unk_0C) * 255 / asset->fogNear;
     }
 
-    if ((arg1->unk_0C + arg1->unk_10 - arg1->fogFar) < arg0) {
-        alpha = (arg1->unk_0C + arg1->unk_10 - arg0 - 1) * 255 / arg1->fogFar;
+    if ((asset->unk_0C + asset->unk_10 - asset->fogFar) < arg0) {
+        alpha = (asset->unk_0C + asset->unk_10 - arg0 - 1) * 255 / asset->fogFar;
     }
 
-    D_80178348 = arg1->primRed;
-    D_80178350 = arg1->primGreen;
-    D_80178354 = arg1->primBlue;
+    D_80178348 = asset->primRed;
+    D_80178350 = asset->primGreen;
+    D_80178354 = asset->primBlue;
 
     D_80178340 = D_80178358 = alpha;
     D_8017835C = 0;
 }
 
-void func_ending_8018D398(u32 arg0, UnkStruct_8018D250* arg1) {
+void func_ending_8018D398(u32 arg0, AssetInfo* asset) {
     u8 alpha = 255;
 
-    if ((arg1->unk_0C + arg1->fogNear) > arg0) {
-        alpha = (arg0 - arg1->unk_0C) * 255 / arg1->fogNear;
+    if ((asset->unk_0C + asset->fogNear) > arg0) {
+        alpha = (arg0 - asset->unk_0C) * 255 / asset->fogNear;
     }
 
-    if ((arg1->unk_0C + arg1->unk_10 - arg1->fogFar) < arg0) {
-        alpha = (arg1->unk_0C + arg1->unk_10 - arg0) * 255 / arg1->fogFar;
+    if ((asset->unk_0C + asset->unk_10 - asset->fogFar) < arg0) {
+        alpha = (asset->unk_0C + asset->unk_10 - arg0) * 255 / asset->fogFar;
     }
 
     D_80178348 = D_80178350 = D_80178354 = D_80178340 = D_80178358 = D_8017835C = 0;
 
-    Graphics_FillRectangle(&gMasterDisp, 8, 8, SCREEN_WIDTH - 8, SCREEN_HEIGHT - 8, arg1->primRed, arg1->primGreen,
-                           arg1->primBlue, alpha);
+    Graphics_FillRectangle(&gMasterDisp, 8, 8, SCREEN_WIDTH - 8, SCREEN_HEIGHT - 8, asset->primRed, asset->primGreen,
+                           asset->primBlue, alpha);
 }
 
-void func_ending_8018D4BC(s32 arg0, UnkStruct_8018D250* arg1) {
+void func_ending_8018D4BC(s32 arg0, AssetInfo* asset) {
     Vec3f src;
     Vec3f dest;
 
@@ -173,27 +174,27 @@ void func_ending_8018D4BC(s32 arg0, UnkStruct_8018D250* arg1) {
     Matrix_RotateX(gCalcMatrix, M_DTOR * D_ending_801985F0.x, 1);
     Matrix_RotateZ(gCalcMatrix, M_DTOR * D_ending_801985F0.z, 1);
 
-    src.x = arg1->unk_18.x;
-    src.y = arg1->unk_18.y;
-    src.z = arg1->unk_18.z;
+    src.x = asset->unk_18.x;
+    src.y = asset->unk_18.y;
+    src.z = asset->unk_18.z;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-    Lights_SetOneLight(&gMasterDisp, dest.x, dest.y, dest.z, arg1->unk_24.x, arg1->unk_24.y, arg1->unk_24.z,
-                       arg1->unk_30.x, arg1->unk_30.y, arg1->unk_30.z);
+    Lights_SetOneLight(&gMasterDisp, dest.x, dest.y, dest.z, asset->unk_24.x, asset->unk_24.y, asset->unk_24.z,
+                       asset->unk_30.x, asset->unk_30.y, asset->unk_30.z);
 }
 
-void func_ending_8018D638(u32 arg0, UnkStruct_8018D250* arg1) {
+void func_ending_8018D638(u32 arg0, AssetInfo* asset) {
     u8 alpha = 0;
     s32 i;
 
-    if ((arg1->unk_0C + arg1->fogFar) > arg0) {
-        alpha = (arg1->unk_0C + arg1->fogFar - arg0) * 255 / arg1->fogFar;
+    if ((asset->unk_0C + asset->fogFar) > arg0) {
+        alpha = (asset->unk_0C + asset->fogFar - arg0) * 255 / asset->fogFar;
     }
 
-    D_80178348 = arg1->primRed;
-    D_80178350 = arg1->primGreen;
-    D_80178354 = arg1->primBlue;
+    D_80178348 = asset->primRed;
+    D_80178350 = asset->primGreen;
+    D_80178354 = asset->primBlue;
 
     D_80178340 = D_80178358 = alpha;
     D_8017835C = 0;
@@ -215,25 +216,25 @@ void func_ending_8018D638(u32 arg0, UnkStruct_8018D250* arg1) {
     }
 }
 
-void func_ending_8018D814(u32 arg0, UnkStruct_8018D250* arg1) {
+void func_ending_8018D814(u32 arg0, AssetInfo* asset) {
     u8 alpha = 255;
 
-    if ((arg1->unk_0C + arg1->fogNear) > arg0) {
-        alpha = (arg0 - arg1->unk_0C) * 255 / arg1->fogNear;
+    if ((asset->unk_0C + asset->fogNear) > arg0) {
+        alpha = (arg0 - asset->unk_0C) * 255 / asset->fogNear;
     }
 
-    if ((arg1->unk_0C + arg1->unk_10 - arg1->fogFar) < arg0) {
-        alpha = (arg1->unk_0C + arg1->unk_10 - arg0) * 255 / arg1->fogFar;
+    if ((asset->unk_0C + asset->unk_10 - asset->fogFar) < arg0) {
+        alpha = (asset->unk_0C + asset->unk_10 - arg0) * 255 / asset->fogFar;
     }
 
-    RCP_SetupDL(&gMasterDisp, arg1->unk_08);
+    RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
-    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->primRed, arg1->primGreen, arg1->primBlue, alpha);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, alpha);
 
-    TextureRect_8bIA(&gMasterDisp, D_5007240, 16, 15, arg1->unk_18.x, arg1->unk_18.y, 1.0f, 1.0f);
-    TextureRect_8bIA(&gMasterDisp, D_5007420, 16, 15, arg1->unk_18.x + 16.0f * 1, arg1->unk_18.y, 1.0f, 1.0f);
-    TextureRect_8bIA(&gMasterDisp, D_5007420, 16, 15, arg1->unk_18.x + 16.0f * 2, arg1->unk_18.y, 1.0f, 1.0f);
-    TextureRect_8bIA(&gMasterDisp, D_5007330, 16, 15, arg1->unk_18.x + 16.0f * 3, arg1->unk_18.y, 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, D_5007240, 16, 15, asset->unk_18.x, asset->unk_18.y, 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, D_5007420, 16, 15, asset->unk_18.x + 16.0f * 1, asset->unk_18.y, 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, D_5007420, 16, 15, asset->unk_18.x + 16.0f * 2, asset->unk_18.y, 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, D_5007330, 16, 15, asset->unk_18.x + 16.0f * 3, asset->unk_18.y, 1.0f, 1.0f);
 }
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/D_ending_80196640.s")
@@ -394,21 +395,22 @@ void func_ending_8018D814(u32 arg0, UnkStruct_8018D250* arg1) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/D_ending_80196B68.s")
 
-void func_ending_8018DA0C(u32 arg0, UnkStruct_8018D250* arg1) {
+void func_ending_8018DA0C(u32 arg0, AssetInfo* asset) {
     u8 alpha = 255;
 
-    if ((arg1->unk_0C + arg1->fogNear) > arg0) {
-        alpha = (arg0 - arg1->unk_0C) * 255 / arg1->fogNear;
+    if ((asset->unk_0C + asset->fogNear) > arg0) {
+        alpha = (arg0 - asset->unk_0C) * 255 / asset->fogNear;
     }
 
-    RCP_SetupDL(&gMasterDisp, arg1->unk_08);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->primRed, arg1->primGreen, arg1->primBlue, alpha);
+    RCP_SetupDL(&gMasterDisp, asset->unk_08);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, alpha);
 
-    Graphics_DisplaySmallText((s16) arg1->unk_18.x, (s16) arg1->unk_18.y, arg1->unk_30.x, arg1->unk_30.y, "TOTAL HITS");
-    Graphics_DisplayLargeNumber((s16) (arg1->unk_18.x + 5), (s16) (arg1->unk_18.y + 13), gTotalHits);
+    Graphics_DisplaySmallText((s16) asset->unk_18.x, (s16) asset->unk_18.y, asset->unk_30.x, asset->unk_30.y,
+                              "TOTAL HITS");
+    Graphics_DisplayLargeNumber((s16) (asset->unk_18.x + 5), (s16) (asset->unk_18.y + 13), gTotalHits);
 
     if ((func_ending_8018DCB4() == true) && (alpha == 255)) {
-        alpha = (arg0 - (arg1->unk_0C + arg1->fogNear)) % 10;
+        alpha = (arg0 - (asset->unk_0C + asset->fogNear)) % 10;
 
         switch (alpha) {
             case 0:
@@ -426,9 +428,9 @@ void func_ending_8018DA0C(u32 arg0, UnkStruct_8018D250* arg1) {
                 alpha = 42 * (10 - alpha);
                 break;
         }
-        gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->primRed, arg1->primGreen, arg1->primBlue, alpha);
-        Graphics_DisplaySmallText((s16) (arg1->unk_18.x + 7), (s16) (arg1->unk_18.y + 31), arg1->unk_30.x,
-                                  arg1->unk_30.y, "RANK IN!!");
+        gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, alpha);
+        Graphics_DisplaySmallText((s16) (asset->unk_18.x + 7), (s16) (asset->unk_18.y + 31), asset->unk_30.x,
+                                  asset->unk_30.y, "RANK IN!!");
     }
 }
 
@@ -512,55 +514,55 @@ bool func_ending_8018DCB4(void) {
     }
 }
 
-void func_ending_8018E1B8(u32 arg0, UnkStruct_8018D250* arg1) {
+void func_ending_8018E1B8(u32 arg0, AssetInfo* asset) {
     f32 temp;
 
-    if ((arg1->unk_18.z + (arg0 - arg1->unk_0C) * arg1->unk_3C.z) < D_ending_801985D0.z) {
+    if ((asset->unk_18.z + (arg0 - asset->unk_0C) * asset->unk_3C.z) < D_ending_801985D0.z) {
         RCP_SetupDL(&gMasterDisp, 0x43);
     } else {
         RCP_SetupDL(&gMasterDisp, 0x3F);
     }
 
-    gSPFogPosition(gMasterDisp++, arg1->fogNear, arg1->fogFar);
-    gDPSetFogColor(gMasterDisp++, arg1->fogRed, arg1->fogGreen, arg1->fogBlue, 0);
-    gDPSetEnvColor(gMasterDisp++, arg1->envRed, arg1->envGreen, arg1->envBlue, arg1->envAlpha);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->primRed, arg1->primGreen, arg1->primBlue, arg1->primAlpha);
+    gSPFogPosition(gMasterDisp++, asset->fogNear, asset->fogFar);
+    gDPSetFogColor(gMasterDisp++, asset->fogRed, asset->fogGreen, asset->fogBlue, 0);
+    gDPSetEnvColor(gMasterDisp++, asset->envRed, asset->envGreen, asset->envBlue, asset->envAlpha);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, asset->primAlpha);
 
-    Matrix_Translate(gGfxMatrix, arg1->unk_18.x + (arg0 - arg1->unk_0C) * arg1->unk_3C.x,
-                     arg1->unk_18.y + (arg0 - arg1->unk_0C) * arg1->unk_3C.y,
-                     arg1->unk_18.z + (arg0 - arg1->unk_0C) * arg1->unk_3C.z, 1);
+    Matrix_Translate(gGfxMatrix, asset->unk_18.x + (arg0 - asset->unk_0C) * asset->unk_3C.x,
+                     asset->unk_18.y + (arg0 - asset->unk_0C) * asset->unk_3C.y,
+                     asset->unk_18.z + (arg0 - asset->unk_0C) * asset->unk_3C.z, 1);
 
-    Matrix_Scale(gGfxMatrix, arg1->unk_30.x + (arg0 % 3) * 0.01f, arg1->unk_30.y + (arg0 % 3) * 0.01f,
-                 arg1->unk_30.z + (arg0 % 3) * 0.01f, 1);
+    Matrix_Scale(gGfxMatrix, asset->unk_30.x + (arg0 % 3) * 0.01f, asset->unk_30.y + (arg0 % 3) * 0.01f,
+                 asset->unk_30.z + (arg0 % 3) * 0.01f, 1);
 
-    temp = __sinf(arg0 * 0.1f + arg1->unk_70);
+    temp = __sinf(arg0 * 0.1f + asset->unk_70);
 
-    switch (arg1->unk_71) {
+    switch (asset->unk_71) {
         case 1:
             Matrix_RotateY(gGfxMatrix,
-                           M_DTOR * (-D_ending_801985F0.y + arg1->unk_24.y + temp * arg1->unk_54.y +
-                                     (arg0 - arg1->unk_0C) * arg1->unk_48.y),
+                           M_DTOR * (-D_ending_801985F0.y + asset->unk_24.y + temp * asset->unk_54.y +
+                                     (arg0 - asset->unk_0C) * asset->unk_48.y),
                            1);
             Matrix_RotateX(gGfxMatrix,
-                           M_DTOR * (-D_ending_801985F0.x + arg1->unk_24.x + temp * arg1->unk_54.x +
-                                     (arg0 - arg1->unk_0C) * arg1->unk_48.x),
+                           M_DTOR * (-D_ending_801985F0.x + asset->unk_24.x + temp * asset->unk_54.x +
+                                     (arg0 - asset->unk_0C) * asset->unk_48.x),
                            1);
             Matrix_RotateZ(gGfxMatrix,
-                           M_DTOR * (D_ending_801985F0.z + arg1->unk_24.z + temp * arg1->unk_54.z +
-                                     (arg0 - arg1->unk_0C) * arg1->unk_48.z),
+                           M_DTOR * (D_ending_801985F0.z + asset->unk_24.z + temp * asset->unk_54.z +
+                                     (arg0 - asset->unk_0C) * asset->unk_48.z),
                            1);
             break;
 
         default:
-            Matrix_RotateY(gGfxMatrix,
-                           M_DTOR * (arg1->unk_24.y + temp * arg1->unk_54.y + (arg0 - arg1->unk_0C) * arg1->unk_48.y),
-                           1);
-            Matrix_RotateX(gGfxMatrix,
-                           M_DTOR * (arg1->unk_24.x + temp * arg1->unk_54.x + (arg0 - arg1->unk_0C) * arg1->unk_48.x),
-                           1);
-            Matrix_RotateZ(gGfxMatrix,
-                           M_DTOR * (arg1->unk_24.z + temp * arg1->unk_54.z + (arg0 - arg1->unk_0C) * arg1->unk_48.z),
-                           1);
+            Matrix_RotateY(
+                gGfxMatrix,
+                M_DTOR * (asset->unk_24.y + temp * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y), 1);
+            Matrix_RotateX(
+                gGfxMatrix,
+                M_DTOR * (asset->unk_24.x + temp * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x), 1);
+            Matrix_RotateZ(
+                gGfxMatrix,
+                M_DTOR * (asset->unk_24.z + temp * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z), 1);
             break;
     }
 
@@ -568,88 +570,88 @@ void func_ending_8018E1B8(u32 arg0, UnkStruct_8018D250* arg1) {
     gSPDisplayList(gMasterDisp++, D_7010970);
 }
 
-void func_ending_8018E7B8(u32 arg0, UnkStruct_8018D250* arg1) {
+void func_ending_8018E7B8(u32 arg0, AssetInfo* asset) {
     f32 temp;
 
-    if ((arg1->unk_18.z + (arg0 - arg1->unk_0C) * arg1->unk_3C.z) < D_ending_801985D0.z) {
+    if ((asset->unk_18.z + (arg0 - asset->unk_0C) * asset->unk_3C.z) < D_ending_801985D0.z) {
         RCP_SetupDL(&gMasterDisp, 0x43);
     } else {
         RCP_SetupDL(&gMasterDisp, 0x3F);
     }
 
-    gSPFogPosition(gMasterDisp++, arg1->fogNear, arg1->fogFar);
-    gDPSetFogColor(gMasterDisp++, arg1->fogRed, arg1->fogGreen, arg1->fogBlue, 0);
-    gDPSetEnvColor(gMasterDisp++, arg1->envRed, arg1->envGreen, arg1->envBlue, arg1->envAlpha);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->primRed, arg1->primGreen, arg1->primBlue, arg1->primAlpha);
+    gSPFogPosition(gMasterDisp++, asset->fogNear, asset->fogFar);
+    gDPSetFogColor(gMasterDisp++, asset->fogRed, asset->fogGreen, asset->fogBlue, 0);
+    gDPSetEnvColor(gMasterDisp++, asset->envRed, asset->envGreen, asset->envBlue, asset->envAlpha);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, asset->primAlpha);
 
-    Matrix_Translate(gGfxMatrix, arg1->unk_18.x + (arg0 - arg1->unk_0C) * arg1->unk_3C.x,
-                     arg1->unk_18.y + (arg0 - arg1->unk_0C) * arg1->unk_3C.y,
-                     arg1->unk_18.z + (arg0 - arg1->unk_0C) * arg1->unk_3C.z, 1);
+    Matrix_Translate(gGfxMatrix, asset->unk_18.x + (arg0 - asset->unk_0C) * asset->unk_3C.x,
+                     asset->unk_18.y + (arg0 - asset->unk_0C) * asset->unk_3C.y,
+                     asset->unk_18.z + (arg0 - asset->unk_0C) * asset->unk_3C.z, 1);
 
-    temp = __sinf(arg0 * 0.1f + arg1->unk_70);
+    temp = __sinf(arg0 * 0.1f + asset->unk_70);
 
-    switch (arg1->unk_71) {
+    switch (asset->unk_71) {
         case 1:
             Matrix_RotateY(gGfxMatrix,
-                           M_DTOR * (-D_ending_801985F0.y + arg1->unk_24.y + temp * arg1->unk_54.y +
-                                     (arg0 - arg1->unk_0C) * arg1->unk_48.y),
+                           M_DTOR * (-D_ending_801985F0.y + asset->unk_24.y + temp * asset->unk_54.y +
+                                     (arg0 - asset->unk_0C) * asset->unk_48.y),
                            1);
             Matrix_RotateX(gGfxMatrix,
-                           M_DTOR * (-D_ending_801985F0.x + arg1->unk_24.x + temp * arg1->unk_54.x +
-                                     (arg0 - arg1->unk_0C) * arg1->unk_48.x),
+                           M_DTOR * (-D_ending_801985F0.x + asset->unk_24.x + temp * asset->unk_54.x +
+                                     (arg0 - asset->unk_0C) * asset->unk_48.x),
                            1);
             Matrix_RotateZ(gGfxMatrix,
-                           M_DTOR * (D_ending_801985F0.z + arg1->unk_24.z + temp * arg1->unk_54.z +
-                                     (arg0 - arg1->unk_0C) * arg1->unk_48.z),
+                           M_DTOR * (D_ending_801985F0.z + asset->unk_24.z + temp * asset->unk_54.z +
+                                     (arg0 - asset->unk_0C) * asset->unk_48.z),
                            1);
             break;
 
         default:
-            Matrix_RotateY(gGfxMatrix,
-                           M_DTOR * (arg1->unk_24.y + temp * arg1->unk_54.y + (arg0 - arg1->unk_0C) * arg1->unk_48.y),
-                           1);
-            Matrix_RotateX(gGfxMatrix,
-                           M_DTOR * (arg1->unk_24.x + temp * arg1->unk_54.x + (arg0 - arg1->unk_0C) * arg1->unk_48.x),
-                           1);
-            Matrix_RotateZ(gGfxMatrix,
-                           M_DTOR * (arg1->unk_24.z + temp * arg1->unk_54.z + (arg0 - arg1->unk_0C) * arg1->unk_48.z),
-                           1);
+            Matrix_RotateY(
+                gGfxMatrix,
+                M_DTOR * (asset->unk_24.y + temp * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y), 1);
+            Matrix_RotateX(
+                gGfxMatrix,
+                M_DTOR * (asset->unk_24.x + temp * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x), 1);
+            Matrix_RotateZ(
+                gGfxMatrix,
+                M_DTOR * (asset->unk_24.z + temp * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z), 1);
             break;
     }
 
-    Matrix_Scale(gGfxMatrix, arg1->unk_30.x + (arg0 % 3) * 0.5f, arg1->unk_30.y + (arg0 % 3) * 0.5f,
-                 arg1->unk_30.z + (arg0 % 3) * 0.5f, 1);
+    Matrix_Scale(gGfxMatrix, asset->unk_30.x + (arg0 % 3) * 0.5f, asset->unk_30.y + (arg0 % 3) * 0.5f,
+                 asset->unk_30.z + (arg0 % 3) * 0.5f, 1);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
     gSPDisplayList(gMasterDisp++, D_7010970);
 }
 
-void func_ending_8018EDB8(u32 arg0, UnkStruct_8018D250* arg1) {
+void func_ending_8018EDB8(u32 arg0, AssetInfo* asset) {
     f32 temp;
 
     D_80178410 = 0;
 
-    RCP_SetupDL(&gMasterDisp, arg1->unk_08);
+    RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
-    gSPFogPosition(gMasterDisp++, arg1->fogNear, arg1->fogFar);
-    gDPSetFogColor(gMasterDisp++, arg1->fogRed, arg1->fogGreen, arg1->fogBlue, 0);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->primRed, arg1->primGreen, arg1->primBlue, arg1->primAlpha);
+    gSPFogPosition(gMasterDisp++, asset->fogNear, asset->fogFar);
+    gDPSetFogColor(gMasterDisp++, asset->fogRed, asset->fogGreen, asset->fogBlue, 0);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, asset->primAlpha);
 
-    Matrix_Translate(gGfxMatrix, arg1->unk_18.x + (arg0 - arg1->unk_0C) * arg1->unk_3C.x,
-                     arg1->unk_18.y + (arg0 - arg1->unk_0C) * arg1->unk_3C.y,
-                     arg1->unk_18.z + (arg0 - arg1->unk_0C) * arg1->unk_3C.z, 1);
+    Matrix_Translate(gGfxMatrix, asset->unk_18.x + (arg0 - asset->unk_0C) * asset->unk_3C.x,
+                     asset->unk_18.y + (arg0 - asset->unk_0C) * asset->unk_3C.y,
+                     asset->unk_18.z + (arg0 - asset->unk_0C) * asset->unk_3C.z, 1);
 
-    Matrix_Scale(gGfxMatrix, arg1->unk_30.x, arg1->unk_30.y, arg1->unk_30.z, 1);
+    Matrix_Scale(gGfxMatrix, asset->unk_30.x, asset->unk_30.y, asset->unk_30.z, 1);
 
-    temp = __sinf(arg0 * 0.1f + arg1->unk_70);
+    temp = __sinf(arg0 * 0.1f + asset->unk_70);
 
     Matrix_RotateY(gGfxMatrix,
-                   M_DTOR * (arg1->unk_24.y + temp * arg1->unk_54.y + (arg0 - arg1->unk_0C) * arg1->unk_48.y), 1);
+                   M_DTOR * (asset->unk_24.y + temp * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y), 1);
     Matrix_RotateX(gGfxMatrix,
-                   M_DTOR * (arg1->unk_24.x + temp * arg1->unk_54.x + (arg0 - arg1->unk_0C) * arg1->unk_48.x), 1);
+                   M_DTOR * (asset->unk_24.x + temp * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x), 1);
     Matrix_RotateZ(gGfxMatrix,
-                   M_DTOR * (arg1->unk_24.z + temp * arg1->unk_54.z + (arg0 - arg1->unk_0C) * arg1->unk_48.z), 1);
+                   M_DTOR * (asset->unk_24.z + temp * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z), 1);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -664,29 +666,29 @@ void func_ending_8018EDB8(u32 arg0, UnkStruct_8018D250* arg1) {
     gSPDisplayList(gMasterDisp++, D_700E9E0);
 }
 
-void func_ending_8018F2A8(u32 arg0, UnkStruct_8018D250* arg1) {
+void func_ending_8018F2A8(u32 arg0, AssetInfo* asset) {
     f32 temp;
 
-    RCP_SetupDL(&gMasterDisp, arg1->unk_08);
+    RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
-    gSPFogPosition(gMasterDisp++, arg1->fogNear, arg1->fogFar);
-    gDPSetFogColor(gMasterDisp++, arg1->fogRed, arg1->fogGreen, arg1->fogBlue, 0);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->primRed, arg1->primGreen, arg1->primBlue, arg1->primAlpha);
+    gSPFogPosition(gMasterDisp++, asset->fogNear, asset->fogFar);
+    gDPSetFogColor(gMasterDisp++, asset->fogRed, asset->fogGreen, asset->fogBlue, 0);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, asset->primAlpha);
 
-    Matrix_Translate(gGfxMatrix, arg1->unk_18.x + (arg0 - arg1->unk_0C) * arg1->unk_3C.x,
-                     arg1->unk_18.y + (arg0 - arg1->unk_0C) * arg1->unk_3C.y,
-                     arg1->unk_18.z + (arg0 - arg1->unk_0C) * arg1->unk_3C.z, 1);
+    Matrix_Translate(gGfxMatrix, asset->unk_18.x + (arg0 - asset->unk_0C) * asset->unk_3C.x,
+                     asset->unk_18.y + (arg0 - asset->unk_0C) * asset->unk_3C.y,
+                     asset->unk_18.z + (arg0 - asset->unk_0C) * asset->unk_3C.z, 1);
 
-    Matrix_Scale(gGfxMatrix, arg1->unk_30.x, arg1->unk_30.y, arg1->unk_30.z, 1);
+    Matrix_Scale(gGfxMatrix, asset->unk_30.x, asset->unk_30.y, asset->unk_30.z, 1);
 
-    temp = __sinf(arg0 * 0.1f + arg1->unk_70);
+    temp = __sinf(arg0 * 0.1f + asset->unk_70);
 
     Matrix_RotateY(gGfxMatrix,
-                   M_DTOR * (arg1->unk_24.y + temp * arg1->unk_54.y + (arg0 - arg1->unk_0C) * arg1->unk_48.y), 1);
+                   M_DTOR * (asset->unk_24.y + temp * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y), 1);
     Matrix_RotateX(gGfxMatrix,
-                   M_DTOR * (arg1->unk_24.x + temp * arg1->unk_54.x + (arg0 - arg1->unk_0C) * arg1->unk_48.x), 1);
+                   M_DTOR * (asset->unk_24.x + temp * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x), 1);
     Matrix_RotateZ(gGfxMatrix,
-                   M_DTOR * (arg1->unk_24.z + temp * arg1->unk_54.z + (arg0 - arg1->unk_0C) * arg1->unk_48.z), 1);
+                   M_DTOR * (asset->unk_24.z + temp * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z), 1);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -695,54 +697,54 @@ void func_ending_8018F2A8(u32 arg0, UnkStruct_8018D250* arg1) {
     func_800515C4();
 }
 
-void func_ending_8018F64C(u32 arg0, UnkStruct_8018D250* arg1) {
+void func_ending_8018F64C(u32 arg0, AssetInfo* asset) {
     f32 temp;
 
     if (D_800D3180[8] == 0) {
         return;
     }
 
-    RCP_SetupDL(&gMasterDisp, arg1->unk_08);
+    RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
-    gSPFogPosition(gMasterDisp++, arg1->fogNear, arg1->fogFar);
-    gDPSetFogColor(gMasterDisp++, arg1->fogRed, arg1->fogGreen, arg1->fogBlue, 0);
-    gDPSetEnvColor(gMasterDisp++, arg1->envRed, arg1->envGreen, arg1->envBlue, arg1->envAlpha);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->primRed, arg1->primGreen, arg1->primBlue, arg1->primAlpha);
+    gSPFogPosition(gMasterDisp++, asset->fogNear, asset->fogFar);
+    gDPSetFogColor(gMasterDisp++, asset->fogRed, asset->fogGreen, asset->fogBlue, 0);
+    gDPSetEnvColor(gMasterDisp++, asset->envRed, asset->envGreen, asset->envBlue, asset->envAlpha);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, asset->primAlpha);
 
-    Matrix_Translate(gGfxMatrix, arg1->unk_18.x + (arg0 - arg1->unk_0C) * arg1->unk_3C.x,
-                     arg1->unk_18.y + (arg0 - arg1->unk_0C) * arg1->unk_3C.y,
-                     arg1->unk_18.z + (arg0 - arg1->unk_0C) * arg1->unk_3C.z, 1);
+    Matrix_Translate(gGfxMatrix, asset->unk_18.x + (arg0 - asset->unk_0C) * asset->unk_3C.x,
+                     asset->unk_18.y + (arg0 - asset->unk_0C) * asset->unk_3C.y,
+                     asset->unk_18.z + (arg0 - asset->unk_0C) * asset->unk_3C.z, 1);
 
-    Matrix_Scale(gGfxMatrix, arg1->unk_30.x, arg1->unk_30.y, arg1->unk_30.z, 1);
+    Matrix_Scale(gGfxMatrix, asset->unk_30.x, asset->unk_30.y, asset->unk_30.z, 1);
 
-    temp = __sinf(arg0 * 0.1f + arg1->unk_70);
+    temp = __sinf(arg0 * 0.1f + asset->unk_70);
 
-    switch (arg1->unk_71) {
+    switch (asset->unk_71) {
         case 1:
             Matrix_RotateY(gGfxMatrix,
-                           M_DTOR * (-D_ending_801985F0.y + arg1->unk_24.y + temp * arg1->unk_54.y +
-                                     (arg0 - arg1->unk_0C) * arg1->unk_48.y),
+                           M_DTOR * (-D_ending_801985F0.y + asset->unk_24.y + temp * asset->unk_54.y +
+                                     (arg0 - asset->unk_0C) * asset->unk_48.y),
                            1);
             Matrix_RotateX(gGfxMatrix,
-                           M_DTOR * (-D_ending_801985F0.x + arg1->unk_24.x + temp * arg1->unk_54.x +
-                                     (arg0 - arg1->unk_0C) * arg1->unk_48.x),
+                           M_DTOR * (-D_ending_801985F0.x + asset->unk_24.x + temp * asset->unk_54.x +
+                                     (arg0 - asset->unk_0C) * asset->unk_48.x),
                            1);
             Matrix_RotateZ(gGfxMatrix,
-                           M_DTOR * (D_ending_801985F0.z + arg1->unk_24.z + temp * arg1->unk_54.z +
-                                     (arg0 - arg1->unk_0C) * arg1->unk_48.z),
+                           M_DTOR * (D_ending_801985F0.z + asset->unk_24.z + temp * asset->unk_54.z +
+                                     (arg0 - asset->unk_0C) * asset->unk_48.z),
                            1);
             break;
 
         default:
-            Matrix_RotateY(gGfxMatrix,
-                           M_DTOR * (arg1->unk_24.y + temp * arg1->unk_54.y + (arg0 - arg1->unk_0C) * arg1->unk_48.y),
-                           1);
-            Matrix_RotateX(gGfxMatrix,
-                           M_DTOR * (arg1->unk_24.x + temp * arg1->unk_54.x + (arg0 - arg1->unk_0C) * arg1->unk_48.x),
-                           1);
-            Matrix_RotateZ(gGfxMatrix,
-                           M_DTOR * (arg1->unk_24.z + temp * arg1->unk_54.z + (arg0 - arg1->unk_0C) * arg1->unk_48.z),
-                           1);
+            Matrix_RotateY(
+                gGfxMatrix,
+                M_DTOR * (asset->unk_24.y + temp * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y), 1);
+            Matrix_RotateX(
+                gGfxMatrix,
+                M_DTOR * (asset->unk_24.x + temp * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x), 1);
+            Matrix_RotateZ(
+                gGfxMatrix,
+                M_DTOR * (asset->unk_24.z + temp * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z), 1);
             break;
     }
 
@@ -758,54 +760,54 @@ void func_ending_8018F64C(u32 arg0, UnkStruct_8018D250* arg1) {
     gSPDisplayList(gMasterDisp++, D_7010970);
 }
 
-void func_ending_8018FC60(u32 arg0, UnkStruct_8018D250* arg1) {
+void func_ending_8018FC60(u32 arg0, AssetInfo* asset) {
     f32 temp;
 
     if (D_800D3180[16] == 0) {
         return;
     }
 
-    RCP_SetupDL(&gMasterDisp, arg1->unk_08);
+    RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
-    gSPFogPosition(gMasterDisp++, arg1->fogNear, arg1->fogFar);
-    gDPSetFogColor(gMasterDisp++, arg1->fogRed, arg1->fogGreen, arg1->fogBlue, 0);
-    gDPSetEnvColor(gMasterDisp++, arg1->envRed, arg1->envGreen, arg1->envBlue, arg1->envAlpha);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->primRed, arg1->primGreen, arg1->primBlue, arg1->primAlpha);
+    gSPFogPosition(gMasterDisp++, asset->fogNear, asset->fogFar);
+    gDPSetFogColor(gMasterDisp++, asset->fogRed, asset->fogGreen, asset->fogBlue, 0);
+    gDPSetEnvColor(gMasterDisp++, asset->envRed, asset->envGreen, asset->envBlue, asset->envAlpha);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, asset->primAlpha);
 
-    Matrix_Translate(gGfxMatrix, arg1->unk_18.x + (arg0 - arg1->unk_0C) * arg1->unk_3C.x,
-                     arg1->unk_18.y + (arg0 - arg1->unk_0C) * arg1->unk_3C.y,
-                     arg1->unk_18.z + (arg0 - arg1->unk_0C) * arg1->unk_3C.z, 1);
+    Matrix_Translate(gGfxMatrix, asset->unk_18.x + (arg0 - asset->unk_0C) * asset->unk_3C.x,
+                     asset->unk_18.y + (arg0 - asset->unk_0C) * asset->unk_3C.y,
+                     asset->unk_18.z + (arg0 - asset->unk_0C) * asset->unk_3C.z, 1);
 
-    Matrix_Scale(gGfxMatrix, arg1->unk_30.x, arg1->unk_30.y, arg1->unk_30.z, 1);
+    Matrix_Scale(gGfxMatrix, asset->unk_30.x, asset->unk_30.y, asset->unk_30.z, 1);
 
-    temp = __sinf(arg0 * 0.1f + arg1->unk_70);
+    temp = __sinf(arg0 * 0.1f + asset->unk_70);
 
-    switch (arg1->unk_71) {
+    switch (asset->unk_71) {
         case 1:
             Matrix_RotateY(gGfxMatrix,
-                           M_DTOR * (-D_ending_801985F0.y + arg1->unk_24.y + temp * arg1->unk_54.y +
-                                     (arg0 - arg1->unk_0C) * arg1->unk_48.y),
+                           M_DTOR * (-D_ending_801985F0.y + asset->unk_24.y + temp * asset->unk_54.y +
+                                     (arg0 - asset->unk_0C) * asset->unk_48.y),
                            1);
             Matrix_RotateX(gGfxMatrix,
-                           M_DTOR * (-D_ending_801985F0.x + arg1->unk_24.x + temp * arg1->unk_54.x +
-                                     (arg0 - arg1->unk_0C) * arg1->unk_48.x),
+                           M_DTOR * (-D_ending_801985F0.x + asset->unk_24.x + temp * asset->unk_54.x +
+                                     (arg0 - asset->unk_0C) * asset->unk_48.x),
                            1);
             Matrix_RotateZ(gGfxMatrix,
-                           M_DTOR * (D_ending_801985F0.z + arg1->unk_24.z + temp * arg1->unk_54.z +
-                                     (arg0 - arg1->unk_0C) * arg1->unk_48.z),
+                           M_DTOR * (D_ending_801985F0.z + asset->unk_24.z + temp * asset->unk_54.z +
+                                     (arg0 - asset->unk_0C) * asset->unk_48.z),
                            1);
             break;
 
         default:
-            Matrix_RotateY(gGfxMatrix,
-                           M_DTOR * (arg1->unk_24.y + temp * arg1->unk_54.y + (arg0 - arg1->unk_0C) * arg1->unk_48.y),
-                           1);
-            Matrix_RotateX(gGfxMatrix,
-                           M_DTOR * (arg1->unk_24.x + temp * arg1->unk_54.x + (arg0 - arg1->unk_0C) * arg1->unk_48.x),
-                           1);
-            Matrix_RotateZ(gGfxMatrix,
-                           M_DTOR * (arg1->unk_24.z + temp * arg1->unk_54.z + (arg0 - arg1->unk_0C) * arg1->unk_48.z),
-                           1);
+            Matrix_RotateY(
+                gGfxMatrix,
+                M_DTOR * (asset->unk_24.y + temp * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y), 1);
+            Matrix_RotateX(
+                gGfxMatrix,
+                M_DTOR * (asset->unk_24.x + temp * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x), 1);
+            Matrix_RotateZ(
+                gGfxMatrix,
+                M_DTOR * (asset->unk_24.z + temp * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z), 1);
             break;
     }
 
@@ -821,93 +823,93 @@ void func_ending_8018FC60(u32 arg0, UnkStruct_8018D250* arg1) {
     gSPDisplayList(gMasterDisp++, D_7010970);
 }
 
-void func_ending_80190274(u32 arg0, UnkStruct_8018D250* arg1) {
+void func_ending_80190274(u32 arg0, AssetInfo* asset) {
     f32 temp;
 
-    RCP_SetupDL(&gMasterDisp, arg1->unk_08);
+    RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
-    gSPFogPosition(gMasterDisp++, arg1->fogNear, arg1->fogFar);
-    gDPSetFogColor(gMasterDisp++, arg1->fogRed, arg1->fogGreen, arg1->fogBlue, 0);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->primRed, arg1->primGreen, arg1->primBlue, arg1->primAlpha);
+    gSPFogPosition(gMasterDisp++, asset->fogNear, asset->fogFar);
+    gDPSetFogColor(gMasterDisp++, asset->fogRed, asset->fogGreen, asset->fogBlue, 0);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, asset->primAlpha);
 
-    Matrix_Translate(gGfxMatrix, D_ending_801985D0.x + arg1->unk_18.x + (arg0 - arg1->unk_0C) * arg1->unk_3C.x,
-                     D_ending_801985D0.y + arg1->unk_18.y + (arg0 - arg1->unk_0C) * arg1->unk_3C.y,
-                     D_ending_801985D0.z + arg1->unk_18.z + (arg0 - arg1->unk_0C) * arg1->unk_3C.z, 1);
+    Matrix_Translate(gGfxMatrix, D_ending_801985D0.x + asset->unk_18.x + (arg0 - asset->unk_0C) * asset->unk_3C.x,
+                     D_ending_801985D0.y + asset->unk_18.y + (arg0 - asset->unk_0C) * asset->unk_3C.y,
+                     D_ending_801985D0.z + asset->unk_18.z + (arg0 - asset->unk_0C) * asset->unk_3C.z, 1);
 
-    Matrix_Scale(gGfxMatrix, arg1->unk_30.x, arg1->unk_30.y, arg1->unk_30.z, 1);
+    Matrix_Scale(gGfxMatrix, asset->unk_30.x, asset->unk_30.y, asset->unk_30.z, 1);
 
-    temp = __sinf(arg0 * 0.1f + arg1->unk_70);
+    temp = __sinf(arg0 * 0.1f + asset->unk_70);
 
     Matrix_RotateY(gGfxMatrix,
-                   M_DTOR * (arg1->unk_24.y + temp * arg1->unk_54.y + (arg0 - arg1->unk_0C) * arg1->unk_48.y), 1);
+                   M_DTOR * (asset->unk_24.y + temp * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y), 1);
     Matrix_RotateX(gGfxMatrix,
-                   M_DTOR * (arg1->unk_24.x + temp * arg1->unk_54.x + (arg0 - arg1->unk_0C) * arg1->unk_48.x), 1);
+                   M_DTOR * (asset->unk_24.x + temp * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x), 1);
     Matrix_RotateZ(gGfxMatrix,
-                   M_DTOR * (arg1->unk_24.z + temp * arg1->unk_54.z + (arg0 - arg1->unk_0C) * arg1->unk_48.z), 1);
+                   M_DTOR * (asset->unk_24.z + temp * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z), 1);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
     gSPDisplayList(gMasterDisp++, D_7004240);
 }
 
-void func_ending_80190648(s32 arg0, UnkStruct_8018D250* arg1) {
-    RCP_SetupDL(&gMasterDisp, arg1->unk_08);
+void func_ending_80190648(s32 arg0, AssetInfo* asset) {
+    RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
     Matrix_RotateY(gGfxMatrix, M_DTOR * D_ending_801985F0.y, 0);
     Matrix_RotateX(gGfxMatrix, M_DTOR * D_ending_801985F0.x, 1);
     Matrix_RotateZ(gGfxMatrix, M_DTOR * D_ending_801985F0.z, 1);
 
-    Matrix_Translate(gGfxMatrix, arg1->unk_18.x, arg1->unk_18.y, arg1->unk_18.z, 1);
-    Matrix_Scale(gGfxMatrix, arg1->unk_30.x, arg1->unk_30.y, arg1->unk_30.z, 1);
+    Matrix_Translate(gGfxMatrix, asset->unk_18.x, asset->unk_18.y, asset->unk_18.z, 1);
+    Matrix_Scale(gGfxMatrix, asset->unk_30.x, asset->unk_30.y, asset->unk_30.z, 1);
 
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_7002120);
 }
 
-void func_ending_80190778(u32 arg0, UnkStruct_8018D250* arg1) {
+void func_ending_80190778(u32 arg0, AssetInfo* asset) {
     float temp;
 
-    RCP_SetupDL(&gMasterDisp, arg1->unk_08);
+    RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
-    gSPFogPosition(gMasterDisp++, arg1->fogNear, arg1->fogFar);
-    gDPSetFogColor(gMasterDisp++, arg1->fogRed, arg1->fogGreen, arg1->fogBlue, 0);
-    gDPSetEnvColor(gMasterDisp++, arg1->envRed, arg1->envGreen, arg1->envBlue, arg1->envAlpha);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->primRed, arg1->primGreen, arg1->primBlue, arg1->primAlpha);
+    gSPFogPosition(gMasterDisp++, asset->fogNear, asset->fogFar);
+    gDPSetFogColor(gMasterDisp++, asset->fogRed, asset->fogGreen, asset->fogBlue, 0);
+    gDPSetEnvColor(gMasterDisp++, asset->envRed, asset->envGreen, asset->envBlue, asset->envAlpha);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, asset->primAlpha);
 
-    Matrix_Translate(gGfxMatrix, arg1->unk_18.x + (arg0 - arg1->unk_0C) * arg1->unk_3C.x,
-                     arg1->unk_18.y - 6.0f + (arg0 - arg1->unk_0C) * arg1->unk_3C.y,
-                     arg1->unk_18.z + (arg0 - arg1->unk_0C) * arg1->unk_3C.z, 1);
+    Matrix_Translate(gGfxMatrix, asset->unk_18.x + (arg0 - asset->unk_0C) * asset->unk_3C.x,
+                     asset->unk_18.y - 6.0f + (arg0 - asset->unk_0C) * asset->unk_3C.y,
+                     asset->unk_18.z + (arg0 - asset->unk_0C) * asset->unk_3C.z, 1);
 
-    Matrix_Scale(gGfxMatrix, arg1->unk_30.x, arg1->unk_30.y, arg1->unk_30.z, 1);
+    Matrix_Scale(gGfxMatrix, asset->unk_30.x, asset->unk_30.y, asset->unk_30.z, 1);
 
-    temp = __sinf(arg0 * 0.2f + arg1->unk_70);
+    temp = __sinf(arg0 * 0.2f + asset->unk_70);
 
-    switch (arg1->unk_71) {
+    switch (asset->unk_71) {
         case 1:
             Matrix_RotateY(gGfxMatrix,
-                           M_DTOR * (-D_ending_801985F0.y + arg1->unk_24.y + temp * arg1->unk_54.y +
-                                     (arg0 - arg1->unk_0C) * arg1->unk_48.y),
+                           M_DTOR * (-D_ending_801985F0.y + asset->unk_24.y + temp * asset->unk_54.y +
+                                     (arg0 - asset->unk_0C) * asset->unk_48.y),
                            1);
             Matrix_RotateX(gGfxMatrix,
-                           M_DTOR * (-D_ending_801985F0.x + arg1->unk_24.x + temp * arg1->unk_54.x +
-                                     (arg0 - arg1->unk_0C) * arg1->unk_48.x),
+                           M_DTOR * (-D_ending_801985F0.x + asset->unk_24.x + temp * asset->unk_54.x +
+                                     (arg0 - asset->unk_0C) * asset->unk_48.x),
                            1);
             Matrix_RotateZ(gGfxMatrix,
-                           M_DTOR * (D_ending_801985F0.z + arg1->unk_24.z + temp * arg1->unk_54.z +
-                                     (arg0 - arg1->unk_0C) * arg1->unk_48.z),
+                           M_DTOR * (D_ending_801985F0.z + asset->unk_24.z + temp * asset->unk_54.z +
+                                     (arg0 - asset->unk_0C) * asset->unk_48.z),
                            1);
             break;
 
         default:
-            Matrix_RotateY(gGfxMatrix,
-                           M_DTOR * (arg1->unk_24.y + temp * arg1->unk_54.y + (arg0 - arg1->unk_0C) * arg1->unk_48.y),
-                           1);
-            Matrix_RotateX(gGfxMatrix,
-                           M_DTOR * (arg1->unk_24.x + temp * arg1->unk_54.x + (arg0 - arg1->unk_0C) * arg1->unk_48.x),
-                           1);
-            Matrix_RotateZ(gGfxMatrix,
-                           M_DTOR * (arg1->unk_24.z + temp * arg1->unk_54.z + (arg0 - arg1->unk_0C) * arg1->unk_48.z),
-                           1);
+            Matrix_RotateY(
+                gGfxMatrix,
+                M_DTOR * (asset->unk_24.y + temp * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y), 1);
+            Matrix_RotateX(
+                gGfxMatrix,
+                M_DTOR * (asset->unk_24.x + temp * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x), 1);
+            Matrix_RotateZ(
+                gGfxMatrix,
+                M_DTOR * (asset->unk_24.z + temp * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z), 1);
             break;
     }
 
@@ -918,7 +920,7 @@ void func_ending_80190778(u32 arg0, UnkStruct_8018D250* arg1) {
     gSPDisplayList(gMasterDisp++, D_3005AB0);
 }
 
-void func_ending_80190CF0(u32 arg0, UnkStruct_8018D250* arg1) {
+void func_ending_80190CF0(u32 arg0, AssetInfo* asset) {
     u8 alpha = 255;
     f32 temp;
 
@@ -926,55 +928,55 @@ void func_ending_80190CF0(u32 arg0, UnkStruct_8018D250* arg1) {
         return;
     }
 
-    if (arg0 == arg1->unk_0C) {
+    if (arg0 == asset->unk_0C) {
         Audio_PlaySfx(0x1940306EU, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
     }
 
-    RCP_SetupDL(&gMasterDisp, arg1->unk_08);
+    RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
-    gDPSetFogColor(gMasterDisp++, arg1->fogRed, arg1->fogGreen, arg1->fogBlue, 0);
-    gDPSetEnvColor(gMasterDisp++, arg1->envRed, arg1->envGreen, arg1->envBlue, arg1->envAlpha);
+    gDPSetFogColor(gMasterDisp++, asset->fogRed, asset->fogGreen, asset->fogBlue, 0);
+    gDPSetEnvColor(gMasterDisp++, asset->envRed, asset->envGreen, asset->envBlue, asset->envAlpha);
 
-    if ((arg1->unk_0C + arg1->fogNear) > arg0) {
-        alpha = (arg0 - arg1->unk_0C) * 255 / arg1->fogNear;
+    if ((asset->unk_0C + asset->fogNear) > arg0) {
+        alpha = (arg0 - asset->unk_0C) * 255 / asset->fogNear;
     }
 
-    gDPSetPrimColor(gMasterDisp++, 0, 0, arg1->primRed, arg1->primGreen, arg1->primBlue, alpha);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, alpha);
 
-    Matrix_Translate(gGfxMatrix, arg1->unk_18.x + (arg0 - arg1->unk_0C) * arg1->unk_3C.x,
-                     arg1->unk_18.y + (arg0 - arg1->unk_0C) * arg1->unk_3C.y,
-                     arg1->unk_18.z + (arg0 - arg1->unk_0C) * arg1->unk_3C.z, 1);
+    Matrix_Translate(gGfxMatrix, asset->unk_18.x + (arg0 - asset->unk_0C) * asset->unk_3C.x,
+                     asset->unk_18.y + (arg0 - asset->unk_0C) * asset->unk_3C.y,
+                     asset->unk_18.z + (arg0 - asset->unk_0C) * asset->unk_3C.z, 1);
 
-    Matrix_Scale(gGfxMatrix, arg1->unk_30.x, arg1->unk_30.y, arg1->unk_30.z, 1);
+    Matrix_Scale(gGfxMatrix, asset->unk_30.x, asset->unk_30.y, asset->unk_30.z, 1);
 
-    temp = __sinf(arg0 * 0.2f + arg1->unk_70);
+    temp = __sinf(arg0 * 0.2f + asset->unk_70);
 
-    switch (arg1->unk_71) {
+    switch (asset->unk_71) {
         case 1:
             Matrix_RotateY(gGfxMatrix,
-                           M_DTOR * (-D_ending_801985F0.y + arg1->unk_24.y + temp * arg1->unk_54.y +
-                                     (arg0 - arg1->unk_0C) * arg1->unk_48.y),
+                           M_DTOR * (-D_ending_801985F0.y + asset->unk_24.y + temp * asset->unk_54.y +
+                                     (arg0 - asset->unk_0C) * asset->unk_48.y),
                            1);
             Matrix_RotateX(gGfxMatrix,
-                           M_DTOR * (-D_ending_801985F0.x + arg1->unk_24.x + temp * arg1->unk_54.x +
-                                     (arg0 - arg1->unk_0C) * arg1->unk_48.x),
+                           M_DTOR * (-D_ending_801985F0.x + asset->unk_24.x + temp * asset->unk_54.x +
+                                     (arg0 - asset->unk_0C) * asset->unk_48.x),
                            1);
             Matrix_RotateZ(gGfxMatrix,
-                           M_DTOR * (D_ending_801985F0.z + arg1->unk_24.z + temp * arg1->unk_54.z +
-                                     (arg0 - arg1->unk_0C) * arg1->unk_48.z),
+                           M_DTOR * (D_ending_801985F0.z + asset->unk_24.z + temp * asset->unk_54.z +
+                                     (arg0 - asset->unk_0C) * asset->unk_48.z),
                            1);
             break;
 
         default:
-            Matrix_RotateY(gGfxMatrix,
-                           M_DTOR * (arg1->unk_24.y + temp * arg1->unk_54.y + (arg0 - arg1->unk_0C) * arg1->unk_48.y),
-                           1);
-            Matrix_RotateX(gGfxMatrix,
-                           M_DTOR * (arg1->unk_24.x + temp * arg1->unk_54.x + (arg0 - arg1->unk_0C) * arg1->unk_48.x),
-                           1);
-            Matrix_RotateZ(gGfxMatrix,
-                           M_DTOR * (arg1->unk_24.z + temp * arg1->unk_54.z + (arg0 - arg1->unk_0C) * arg1->unk_48.z),
-                           1);
+            Matrix_RotateY(
+                gGfxMatrix,
+                M_DTOR * (asset->unk_24.y + temp * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y), 1);
+            Matrix_RotateX(
+                gGfxMatrix,
+                M_DTOR * (asset->unk_24.x + temp * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x), 1);
+            Matrix_RotateZ(
+                gGfxMatrix,
+                M_DTOR * (asset->unk_24.z + temp * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z), 1);
             break;
     }
 
@@ -993,7 +995,56 @@ void func_ending_80191234(s32 arg0, s32 arg1) {
     gControllerLock = 10;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_80191294.s")
+void func_ending_80191294(u32 arg0, AssetInfo* asset) {
+    f32 temp;
+
+    RCP_SetupDL(&gMasterDisp, asset->unk_08);
+
+    gSPFogPosition(gMasterDisp++, asset->fogNear, asset->fogFar);
+    gDPSetFogColor(gMasterDisp++, asset->fogRed, asset->fogGreen, asset->fogBlue, 0);
+    gDPSetEnvColor(gMasterDisp++, asset->envRed, asset->envGreen, asset->envBlue, asset->envAlpha);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, asset->primRed, asset->primGreen, asset->primBlue, asset->primAlpha);
+
+    Matrix_Translate(gGfxMatrix, asset->unk_18.x + (arg0 - asset->unk_0C) * asset->unk_3C.x,
+                     asset->unk_18.y + (arg0 - asset->unk_0C) * asset->unk_3C.y,
+                     asset->unk_18.z + (arg0 - asset->unk_0C) * asset->unk_3C.z, 1);
+
+    Matrix_Scale(gGfxMatrix, asset->unk_30.x, asset->unk_30.y, asset->unk_30.z, 1);
+
+    temp = __sinf(arg0 * 0.1f + asset->unk_70);
+
+    Matrix_RotateY(gGfxMatrix,
+                   M_DTOR * (asset->unk_24.y + temp * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y), 1);
+    Matrix_RotateX(gGfxMatrix,
+                   M_DTOR * (asset->unk_24.x + temp * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x), 1);
+    Matrix_RotateZ(gGfxMatrix,
+                   M_DTOR * (asset->unk_24.z + temp * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z), 1);
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    D_ending_80198590.unk_28 = 0.0f;
+    D_ending_80198590.unk_10 = D_ending_80198590.unk_28;
+    D_ending_80198590.unk_14 = 0.0f;
+    D_ending_80198590.unk_0C = D_ending_80198590.unk_10;
+    D_ending_80198590.unk_08 = D_ending_80198590.unk_0C;
+    D_ending_80198590.unk_04 = D_ending_80198590.unk_08;
+    D_ending_80198590.unk_24 = D_ending_80198590.unk_04;
+    D_ending_80198590.unk_20 = D_ending_80198590.unk_24;
+    D_ending_80198590.unk_1C = D_ending_80198590.unk_20;
+    D_ending_80198590.unk_18 = D_ending_80198590.unk_1C;
+
+    if ((arg0 > 520) && (arg0 < 720)) {
+        D_ending_80198590.unk_2C = 1;
+    } else {
+        D_ending_80198590.unk_2C = 0;
+    }
+
+    D_ending_80198590.unk_38 = 0.0f;
+    D_ending_80198590.unk_30 = +D_ending_801985F0.x;
+    D_ending_80198590.unk_34 = -D_ending_801985F0.y;
+
+    func_80053658(&D_ending_80198590);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/sf_ending_2/func_ending_80191700.s")
 
