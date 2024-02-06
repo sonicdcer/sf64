@@ -649,7 +649,7 @@ void func_ending_80190648(s32 arg0, AssetInfo* asset) {
 }
 
 void func_ending_80190778(u32 arg0, AssetInfo* asset) {
-    float temp;
+    f32 temp;
 
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
