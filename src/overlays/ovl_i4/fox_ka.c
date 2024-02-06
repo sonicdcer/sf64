@@ -213,6 +213,7 @@ void func_i4_80192E20(Player* player) {
         case 9:
         case 10:
             break;
+
         case 0:
             D_80177A80 = 0;
             func_i4_80192C8C();
@@ -225,6 +226,7 @@ void func_i4_80192E20(Player* player) {
             player->unk_1D0 = 0xB;
             *D_80177A48 = 1.0f;
             break;
+
         case 11:
             D_801779A0 = gActors[4].obj.pos.x;
             D_801779B8 = gActors[4].obj.pos.y;
@@ -237,6 +239,7 @@ void func_i4_80192E20(Player* player) {
                 player->unk_1D0 = 0xC;
             }
             break;
+
         case 12:
             gActors[4].vel.y += 0.3f;
             gActors[4].vel.z += 0.7f;
@@ -287,6 +290,7 @@ void func_i4_80192E20(Player* player) {
         case 15:
             func_800BA808(gMsg_ID_18000, RCID_BILL);
             break;
+
         case 10:
         case 20:
         case 25:
@@ -296,9 +300,10 @@ void func_i4_80192E20(Player* player) {
             Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
             func_8006EEFC(5, actor->obj.pos.x + (dest.x * 1.5), actor->obj.pos.y + (dest.y * 1.5),
-                          actor->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, actor->obj.rot.x,
-                          actor->obj.rot.y, actor->obj.rot.z);
+                          actor->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, actor->obj.rot.x, actor->obj.rot.y,
+                          actor->obj.rot.z);
             break;
+
         case 35:
         case 41:
         case 44:
@@ -307,9 +312,10 @@ void func_i4_80192E20(Player* player) {
             Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
             func_8006EEFC(6, actor->obj.pos.x + (dest.x * 1.5), actor->obj.pos.y + (dest.y * 1.5),
-                          actor->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, actor->obj.rot.x,
-                          actor->obj.rot.y, actor->obj.rot.z);
+                          actor->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, actor->obj.rot.x, actor->obj.rot.y,
+                          actor->obj.rot.z);
             break;
+
         case 45:
             func_8007D2C8(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 10.0f);
 
@@ -318,6 +324,7 @@ void func_i4_80192E20(Player* player) {
             }
             func_8007A6F0(&gActors[5].obj.pos, 0x2903B009);
             break;
+
         case 47:
             Object_Kill(&gActors[5].obj, &gActors[5].sfxPos);
             break;
@@ -354,6 +361,7 @@ void func_i4_80193718(Boss* boss) {
     switch (boss->actionState) {
         case 0:
             break;
+
         case 1:
             boss->timer_050 = 4;
             boss->actionState++;
@@ -672,6 +680,7 @@ void func_i4_801946C4(Boss* boss) {
                 }
             }
             break;
+
         case 1:
             if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5)) {
                 if (boss->obj.pos.z < 4500.0f) {
@@ -698,6 +707,7 @@ void func_i4_801946C4(Boss* boss) {
                 }
             }
             break;
+
         case 2:
             gPlayer[0].camAt.y += 0.2f;
             Math_SmoothStepToF(&D_801779A8[gMainController], 30.0f, 1.0f, 1.65f, 0.0f);
@@ -738,6 +748,7 @@ void func_i4_801946C4(Boss* boss) {
                 }
             }
             break;
+
         case 3:
             if (boss->timer_050 == 0) {
                 boss->actionState++;
@@ -749,6 +760,7 @@ void func_i4_801946C4(Boss* boss) {
                 boss->fwork[8] = 30.0f;
             }
             break;
+
         case 4:
             if (boss->timer_050 == 0) {
                 boss->actionState++;
@@ -757,6 +769,7 @@ void func_i4_801946C4(Boss* boss) {
                 Audio_PlaySfx(0x19034042U, &boss->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
             break;
+
         case 5:
             if (boss->timer_050 == 1) {
                 func_8001D444(0U, 0x801DU, 0U, 0xFFU);
@@ -787,6 +800,7 @@ void func_i4_801946C4(Boss* boss) {
                 D_i4_801A0540 = 0;
             }
             break;
+
         case 6:
             if (boss->timer_052 == 1) {
                 Audio_PlaySfx(0x19034042U, &boss->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -809,6 +823,7 @@ void func_i4_801946C4(Boss* boss) {
                 func_800BA808(gMsg_ID_18045, RCID_BILL);
             }
             break;
+
         case 7:
             Math_SmoothStepToF(&boss->fwork[0xA], 0.0f, 0.1f, 0.5f, 0.0f);
             if ((boss->timer_050 < 0xC8) && !(boss->timer_050 & 0xF)) {
@@ -828,6 +843,7 @@ void func_i4_801946C4(Boss* boss) {
                 Audio_PlaySfx(0x19032040U, &boss->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
             break;
+
         case 10:
             if (boss->timer_050 == 0) {
                 boss->fwork[9] = 200.0f;
@@ -843,6 +859,7 @@ void func_i4_801946C4(Boss* boss) {
                 D_8015F930[2] = 0x1E;
             }
             break;
+
         case 11:
             if (boss->timer_050 == 0) {
                 Audio_PlaySfx(0x19034042U, &boss->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -852,6 +869,7 @@ void func_i4_801946C4(Boss* boss) {
                 Audio_PlaySfx(0x11034043U, &boss->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
             break;
+
         case 12:
             if (boss->timer_050 == 0x190) {
                 func_800BA808(gMsg_ID_18065, RCID_BILL);
@@ -884,6 +902,7 @@ void func_i4_801946C4(Boss* boss) {
                 gPlayer[0].camAt.z = boss->obj.pos.z;
             }
             break;
+
         case 15:
             if (boss->timer_050 == 0x2BC) {
                 func_800BA808(gMsg_ID_18070, RCID_BILL);
@@ -929,6 +948,7 @@ void func_i4_801946C4(Boss* boss) {
                 Audio_PlaySfx(0x19406044U, &boss->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
             break;
+
         case 16:
             Math_SmoothStepToF(&D_801779A8[gMainController], 30.0f, 1.0f, 1.6f, 0.0f);
             Math_SmoothStepToF(&gPlayer[0].camEye.z, 0.0f, 0.05f, 5.0f, 0.0f);
@@ -995,6 +1015,7 @@ void func_i4_801946C4(Boss* boss) {
                 boss->fwork[0xE] = 20.0f;
             }
             break;
+
         case 17:
             boss->fwork[0xD] += 0.1f;
             Math_SmoothStepToF(&gPlayer[0].camAt.y, 525.0f, 0.3f, 50.0f, 0.0f);
@@ -1006,6 +1027,7 @@ void func_i4_801946C4(Boss* boss) {
                 Audio_PlaySfx(0x11038046U, &boss->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
             break;
+
         case 18:
             Math_SmoothStepToF(&D_801779A8[gMainController], 100.0f, 1.0f, 100.0f, 0.0f);
             Math_SmoothStepToF(&gPlayer[0].camAt.y, 525.0f, 0.3f, 50.0f, 0.0f);
@@ -1035,6 +1057,7 @@ void func_i4_801946C4(Boss* boss) {
                 }
             }
             break;
+
         case 20:
             D_8015F93C = 0;
             Math_SmoothStepToF(&boss->fwork[0xA], 0.0f, 0.1f, 3.0f, 0.0f);
@@ -1057,6 +1080,7 @@ void func_i4_801946C4(Boss* boss) {
                 }
             }
             break;
+
         case 21:
             Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, 0U);
             Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, 1U);
@@ -1183,6 +1207,7 @@ s32 func_i4_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
                 *dList = &D_60012A0;
             }
             break;
+
         case 2:
             rot->y += boss->fwork[1];
             if (boss->swork[1] & 1) {
@@ -1194,6 +1219,7 @@ s32 func_i4_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
                 *dList = &D_600CDC0;
             }
             break;
+
         case 3:
             rot->y += boss->fwork[2];
             if (boss->swork[2] & 1) {
@@ -1205,6 +1231,7 @@ s32 func_i4_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
                 *dList = &D_600D4E0;
             }
             break;
+
         case 4:
             rot->y -= boss->fwork[3];
             if (boss->swork[3] & 1) {
@@ -1216,6 +1243,7 @@ s32 func_i4_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
                 *dList = &D_600D290;
             }
             break;
+
         case 9:
             pos->x -= boss->fwork[4];
             if (boss->swork[4] & 1) {
@@ -1227,6 +1255,7 @@ s32 func_i4_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
                 *dList = &D_600D090;
             }
             break;
+
         case 10:
             if (boss->health < 0) {
                 RCP_SetupDL(&gMasterDisp, 0x39);
@@ -1405,13 +1434,15 @@ void func_i4_80197290(Player* player) {
                 func_i4_80196E30(&gActors[3], 2);
             }
             break;
+
         case 0x1:
             D_80177978 += 10.0f;
             D_801779A0 = boss->obj.pos.x;
             D_801779B8 = 1000.0f;
             D_801779C0 = boss->obj.pos.z;
-            Math_SmoothStepToF(&player->unk_0EC, Math_SmoothStepToAngle(&player->unk_0E8, 283.0f, 0.1f, 3.0f, 0.0f) * 20.0f,
-                               0.1f, 1.0f, 0.0f);
+            Math_SmoothStepToF(&player->unk_0EC,
+                               Math_SmoothStepToAngle(&player->unk_0E8, 283.0f, 0.1f, 3.0f, 0.0f) * 20.0f, 0.1f, 1.0f,
+                               0.0f);
             for (i = 1; i < 4; i++) {
                 angle = Math_SmoothStepToAngle(&gActors[i].unk_0F4.y, gActors[i].fwork[1], 0.1f, 3.0f, 0.0f);
                 Math_SmoothStepToF(&gActors[i].unk_0F4.z, angle * 20.0f, 0.1f, 1.0f, 0.0f);
@@ -1445,6 +1476,7 @@ void func_i4_80197290(Player* player) {
                 player->unk_0EC = 0.0f;
             }
             break;
+
         case 0x2:
             if (player->timer_1F8 == 0) {
                 player->unk_240 = 1;
@@ -1466,6 +1498,7 @@ void func_i4_80197290(Player* player) {
                 D_80177A80 = 0;
             }
             break;
+
         case 0x3:
             D_80178358 = 0;
             D_8017835C = 2;
@@ -1511,26 +1544,33 @@ void func_i4_80197290(Player* player) {
                 case 0xBE:
                     D_80177840 = 0x64;
                     break;
+
                 case 0x15E:
                     D_80177830 = 1;
                     break;
+
                 case 0x226:
                     D_80177830 = 0;
                     break;
+
                 case 0x3F2:
                     Audio_PlaySfx(0x09000002U, &player->unk_460, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                     player->unk_194 = 5.0f;
                     player->unk_190 = 5.0f;
                     break;
+
                 case 0x3B6:
                     gActors[0].unk_0B8 = 2;
                     break;
+
                 case 0x3CA:
                     gActors[1].unk_0B8 = 2;
                     break;
+
                 case 0x3DE:
                     gActors[2].unk_0B8 = 2;
                     break;
+
                 case 0x23A:
                     if (D_80177930 != 0) {
                         if (D_8015F921 == 0) {
@@ -1542,6 +1582,7 @@ void func_i4_80197290(Player* player) {
                         func_800BA808(gMsg_ID_18080, RCID_FOX);
                     }
                     break;
+
                 case 0x2BC:
                     if (D_80177930 != 0) {
                         if (D_8015F921 == 0) {
@@ -1555,6 +1596,7 @@ void func_i4_80197290(Player* player) {
                     break;
             }
             break;
+
         case 0x64:
             func_i4_80196F40(&gActors[1], 0);
             if (gTeamShields[1] > 0) {
@@ -1568,6 +1610,7 @@ void func_i4_80197290(Player* player) {
             }
             player->unk_1D0 += 1;
             break;
+
         case 0x65:
             gActors[1].unk_0F4.y += 0.1f;
             gActors[1].unk_0F4.x += 0.1f;
@@ -1898,6 +1941,7 @@ void func_i4_80198AA0(Actor* actor) {
                 actor->unk_0B8 = 3;
             }
             break;
+
         case 2:
             state = 1;
             xDist = fabsf(actor->fwork[4] - actor->obj.pos.x);
@@ -1947,6 +1991,7 @@ void func_i4_80198AA0(Actor* actor) {
                 }
             }
             break;
+
         case 3:
             state = 1;
             if (actor->timer_0BC == 0) {
@@ -2005,8 +2050,7 @@ void func_i4_80198AA0(Actor* actor) {
             actor->unk_0F4.x = 0.0f;
         }
         Math_SmoothStepToAngle(&actor->unk_0F4.x, xAngle, 0.5f, actor->fwork[2], 0.0001f);
-        yAngle =
-            Math_SmoothStepToAngle(&actor->unk_0F4.y, actor->fwork[0x13], 0.5f, actor->fwork[2], 0.0001f) * 30.0f;
+        yAngle = Math_SmoothStepToAngle(&actor->unk_0F4.y, actor->fwork[0x13], 0.5f, actor->fwork[2], 0.0001f) * 30.0f;
         if (yAngle < 0.0f) {
             zAngle = yAngle * -1.0f;
         } else {
@@ -2042,10 +2086,10 @@ void func_i4_80198AA0(Actor* actor) {
         yVel = (-xSin * 200.0f * 0.5f);
         xVel = (xCos * 200.0f * 0.5f);
         zVel = (xCos * 200.0f * 0.5f);
-        func_8006EEFC(actor->unk_0E4, actor->obj.pos.x + ((ySin * xVel) * 1.5f),
-                      actor->obj.pos.y + (yVel * 1.5f), actor->obj.pos.z + ((yCos * zVel) * 1.5f),
-                      (ySin * (xCos * 200.0f * 0.5f)), (-xSin * 200.0f * 0.5f), (yCos * (xCos * 200.0f * 0.5f)),
-                      actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z);
+        func_8006EEFC(actor->unk_0E4, actor->obj.pos.x + ((ySin * xVel) * 1.5f), actor->obj.pos.y + (yVel * 1.5f),
+                      actor->obj.pos.z + ((yCos * zVel) * 1.5f), (ySin * (xCos * 200.0f * 0.5f)),
+                      (-xSin * 200.0f * 0.5f), (yCos * (xCos * 200.0f * 0.5f)), actor->obj.rot.x, actor->obj.rot.y,
+                      actor->obj.rot.z);
     }
     func_8003088C(actor);
     entity = &gUnkEntities28[actor->index];
@@ -2098,6 +2142,7 @@ void func_i4_801995B4(Actor* actor) {
                 gSPDisplayList(gMasterDisp++, D_6001530);
             }
             break;
+
         case 1:
             gSPDisplayList(gMasterDisp++, D_600E050);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1U);
