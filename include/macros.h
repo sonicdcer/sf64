@@ -15,6 +15,7 @@
 #define SEGMENTED_TO_VIRTUAL(segment) ((void*)OS_PHYSICAL_TO_K0(gSegments[((uintptr_t)(segment)<<4)>>0x1C]+(((uintptr_t)(segment))&0xFFFFFF))) 
 
 #define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))
+#define ARRAY_COUNTU(arr) (u32)(sizeof(arr) / sizeof(arr[0]))
 
 #define SIGN_OF(x) (((x) > 0) ? 1 : ((x) == 0) ? 0 : -1)
 #define SQ(x) ((x) * (x))
