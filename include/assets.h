@@ -294,7 +294,6 @@ extern Gfx D_500B600[];
  * ast_B0AA00, ast_B1CA50, ast_B2CA50, ast_B612E0, ast_B84560,
  * ast_BB11D0, ast_BC23D0, ast_BFC510, ast_C48F40, ast_DDC010
  */
-extern u16 D_6000000[];
 extern Gfx D_60005B0[];
 extern u16 D_6000900[];
 extern Gfx D_6000A80[];
