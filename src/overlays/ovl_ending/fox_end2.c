@@ -1,5 +1,5 @@
 #include "global.h"
-#include "fox_end2.inc"
+#include "fox_end2_data.c"
 
 void func_ending_8018CE20(u32 arg0) {
     u8 alpha;
@@ -941,68 +941,68 @@ void func_ending_80192164(u32 arg0) {
     }
 }
 
-void func_ending_80192290(u32 arg0, ObjEnd54* objEnd54) {
+void func_ending_80192290(u32 arg0, UnkEnd54* unkEnd54) {
     s32 i;
 
-    for (i = 0; i < (arg0 - objEnd54->unk_00); i++) {
-        D_ending_801985E0.x += objEnd54->unk_18.x - (objEnd54->unk_24.x * i);
-        D_ending_801985E0.y += objEnd54->unk_18.y - (objEnd54->unk_24.y * i);
-        D_ending_801985E0.z += objEnd54->unk_18.z - (objEnd54->unk_24.z * i);
-        D_ending_801985D0.x += objEnd54->unk_3C.x - (objEnd54->unk_48.x * i);
-        D_ending_801985D0.y += objEnd54->unk_3C.y - (objEnd54->unk_48.y * i);
-        D_ending_801985D0.z += objEnd54->unk_3C.z - (objEnd54->unk_48.z * i);
+    for (i = 0; i < (arg0 - unkEnd54->unk_00); i++) {
+        D_ending_801985E0.x += unkEnd54->unk_18.x - (unkEnd54->unk_24.x * i);
+        D_ending_801985E0.y += unkEnd54->unk_18.y - (unkEnd54->unk_24.y * i);
+        D_ending_801985E0.z += unkEnd54->unk_18.z - (unkEnd54->unk_24.z * i);
+        D_ending_801985D0.x += unkEnd54->unk_3C.x - (unkEnd54->unk_48.x * i);
+        D_ending_801985D0.y += unkEnd54->unk_3C.y - (unkEnd54->unk_48.y * i);
+        D_ending_801985D0.z += unkEnd54->unk_3C.z - (unkEnd54->unk_48.z * i);
     }
 }
 
-void func_ending_8019237C(u32 arg0, ObjEnd54* objEnd54) {
+void func_ending_8019237C(u32 arg0, UnkEnd54* unkEnd54) {
     s32 i;
     s32 j;
 
-    for (i = 0; i < arg0 - objEnd54->unk_00; i++) {
-        if (i < objEnd54->unk_04 * 1 / 4) {
+    for (i = 0; i < arg0 - unkEnd54->unk_00; i++) {
+        if (i < unkEnd54->unk_04 * 1 / 4) {
             j = i;
-        } else if (i < (objEnd54->unk_04 * 2) / 4) {
-            j = (objEnd54->unk_04 * 2) / 4 - i;
-        } else if (i < (objEnd54->unk_04 * 3) / 4) {
-            j = -(i - (objEnd54->unk_04 * 2) / 4);
-        } else if (i < (objEnd54->unk_04 * 4) / 4) {
-            j = -((objEnd54->unk_04 * 2) / 4 - (i - (objEnd54->unk_04 * 2) / 4));
+        } else if (i < (unkEnd54->unk_04 * 2) / 4) {
+            j = (unkEnd54->unk_04 * 2) / 4 - i;
+        } else if (i < (unkEnd54->unk_04 * 3) / 4) {
+            j = -(i - (unkEnd54->unk_04 * 2) / 4);
+        } else if (i < (unkEnd54->unk_04 * 4) / 4) {
+            j = -((unkEnd54->unk_04 * 2) / 4 - (i - (unkEnd54->unk_04 * 2) / 4));
         }
 
-        D_ending_801985E0.x += objEnd54->unk_18.x - (objEnd54->unk_24.x * j);
-        D_ending_801985E0.y += objEnd54->unk_18.y - (objEnd54->unk_24.y * j);
-        D_ending_801985E0.z += objEnd54->unk_18.z - (objEnd54->unk_24.z * j);
-        D_ending_801985D0.x += objEnd54->unk_3C.x - (objEnd54->unk_48.x * j);
-        D_ending_801985D0.y += objEnd54->unk_3C.y - (objEnd54->unk_48.y * j);
-        D_ending_801985D0.z += objEnd54->unk_3C.z - (objEnd54->unk_48.z * j);
+        D_ending_801985E0.x += unkEnd54->unk_18.x - (unkEnd54->unk_24.x * j);
+        D_ending_801985E0.y += unkEnd54->unk_18.y - (unkEnd54->unk_24.y * j);
+        D_ending_801985E0.z += unkEnd54->unk_18.z - (unkEnd54->unk_24.z * j);
+        D_ending_801985D0.x += unkEnd54->unk_3C.x - (unkEnd54->unk_48.x * j);
+        D_ending_801985D0.y += unkEnd54->unk_3C.y - (unkEnd54->unk_48.y * j);
+        D_ending_801985D0.z += unkEnd54->unk_3C.z - (unkEnd54->unk_48.z * j);
     }
 }
 
 void func_ending_801924EC(u32 arg0) {
     s32 i;
-    ObjEnd54* objEnd54 = D_ending_80195F4C;
+    UnkEnd54* unkEnd54 = D_ending_80195F4C;
 
-    for (i = 0; i < ARRAY_COUNT(D_ending_80195F4C); i++, objEnd54++) {
-        if ((objEnd54->unk_00 <= arg0) && ((objEnd54->unk_00 + objEnd54->unk_04) > arg0)) {
+    for (i = 0; i < ARRAY_COUNT(D_ending_80195F4C); i++, unkEnd54++) {
+        if ((unkEnd54->unk_00 <= arg0) && ((unkEnd54->unk_00 + unkEnd54->unk_04) > arg0)) {
             D_ending_801985E0.x = D_ending_801985E0.y = D_ending_801985E0.z = D_ending_801985D0.x =
                 D_ending_801985D0.y = D_ending_801985D0.z = 0.0f;
 
-            switch (objEnd54->unk_08) {
+            switch (unkEnd54->unk_08) {
                 case 1:
-                    func_ending_8019237C(arg0, objEnd54);
+                    func_ending_8019237C(arg0, unkEnd54);
                     break;
 
                 default:
-                    func_ending_80192290(arg0, objEnd54);
+                    func_ending_80192290(arg0, unkEnd54);
                     break;
             }
 
-            D_ending_801985E0.x += objEnd54->unk_0C.x;
-            D_ending_801985E0.y += objEnd54->unk_0C.y;
-            D_ending_801985E0.z += objEnd54->unk_0C.z;
-            D_ending_801985D0.x += objEnd54->unk_30.x;
-            D_ending_801985D0.y += objEnd54->unk_30.y;
-            D_ending_801985D0.z += objEnd54->unk_30.z;
+            D_ending_801985E0.x += unkEnd54->unk_0C.x;
+            D_ending_801985E0.y += unkEnd54->unk_0C.y;
+            D_ending_801985E0.z += unkEnd54->unk_0C.z;
+            D_ending_801985D0.x += unkEnd54->unk_30.x;
+            D_ending_801985D0.y += unkEnd54->unk_30.y;
+            D_ending_801985D0.z += unkEnd54->unk_30.z;
 
             Matrix_LookAt(gGfxMatrix, D_ending_801985D0.x, D_ending_801985D0.y, D_ending_801985D0.z,
                           D_ending_801985E0.x, D_ending_801985E0.y, D_ending_801985E0.z, 0.0f, 1.0f, 0.0f, 1);

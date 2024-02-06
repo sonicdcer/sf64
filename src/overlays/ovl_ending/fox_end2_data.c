@@ -1,5 +1,5 @@
-#ifndef FOX_END2_INC
-#define FOX_END2_INC
+#ifndef FOX_END2_DATA
+#define FOX_END2_DATA
 
 #include "global.h"
 
@@ -13,7 +13,7 @@ typedef struct {
     /* 0x11 */ u8 unk_11;
     /* 0x12 */ u8 unk_12;
     /* 0x13 */ u8 unk_13;
-} UnkStruct_D_ending_80192E74; // size = 0x14
+} Credit; // size = 0x14
 
 typedef struct {
     /* 0x00 */ u32 unk_00;
@@ -25,7 +25,7 @@ typedef struct {
     /* 0x30 */ Vec3f unk_30;
     /* 0x3C */ Vec3f unk_3C;
     /* 0x48 */ Vec3f unk_48;
-} ObjEnd54; // size = 0x54
+} UnkEnd54; // size = 0x54
 
 typedef struct AssetInfo {
     /* 0x00 */ void* unk_00;
@@ -112,7 +112,7 @@ extern u16 D_8025080[];
 
 u32 D_ending_80192E70 = 0;
 
-UnkStruct_D_ending_80192E74	D_ending_80192E74[] = {
+Credit D_ending_80192E74[] = {
     "PRODUCER",			        100,	200,    0,  60,    0,	0, 25, 20,
     "SHIGERU MIYAMOTO",		    100,	200,    0,  80,    1,	0, 25, 20,
     
@@ -313,7 +313,7 @@ AssetInfo D_ending_801934B4[] = {
     { NULL, func_ending_80191234, 0, 7200, 100, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 };
 
-ObjEnd54 D_ending_80195F4C[] = {
+UnkEnd54 D_ending_80195F4C[] = {
     100,      420,     1,        0.0f,     0.0f,   0.0f,  0.0f,  0.0f, 0.0f,    0.0f,    0.0f,     0.0f,     0.0f,   0.0f,      12000.0f, 0.0f,   0.0f,  -40.0f, -0.2f, 0.0f,    0.0f, 520,  200,      0,        1000.0f,  506.8f, -16.0f, 0.0f, 0.0f, 0.0f, 0.0f,   0.0f,
     0.0f,     1022.0f, 503.0f,   300.0f,   0.0f,   0.0f,  -3.0f, 0.0f, 0.0f,    -0.015f, 720,      200,      0,      1000.0f,   -490.0f,  -10.0f, 0.0f,  0.0f,   0.0f,  0.0f,    0.0f, 0.0f, 1015.0f,  -497.0f,  -297.0f,  0.0f,   0.0f,   3.0f, 0.0f, 0.0f, 0.015f, 920,
     200,      0,       -1000.0f, 510.0f,   -10.0f, 0.0f,  0.0f,  0.0f, 0.0f,    0.0f,    0.0f,     -1320.0f, 503.0f, 320.0f,    3.0f,     0.0f,   -3.0f, 0.015f, 0.0f,  -0.015f, 1120, 200,  0,        -1000.0f, -481.0f,  -16.0f, 0.0f,   0.0f, 0.0f, 0.0f, 0.0f,   0.0f,
