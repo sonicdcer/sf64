@@ -474,7 +474,7 @@ void func_ending_8018F2A8(u32 arg0, AssetInfo* asset) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gCurrentLevel = -1;
+    gCurrentLevel = LEVEL_UNK_M1;
 
     func_800515C4();
 }
