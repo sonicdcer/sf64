@@ -50,7 +50,7 @@ void func_i5_801AD080(void);
 void func_i5_801B5110(f32, f32, f32);
 void func_i5_801B58AC(Gfx **, f32);
 bool func_i5_801B6AEC(f32, f32, f32);
-void func_i5_801B6E20(f32, f32, f32 *, f32 *, f32 *);
+s32 func_i5_801B6E20(f32, f32, f32 *, f32 *, f32 *);
 void func_i5_801AD144(PlayerShot*);
 void func_i5_80189120(f32 x, f32 y, f32 z, f32, f32);
 bool func_i5_801A3C20(f32);
