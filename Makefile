@@ -273,6 +273,7 @@ build/src/libultra/libc/xlitob.o: OPTFLAGS := -O2 -g0
 build/src/libultra/libc/ll.o: OPTFLAGS := -O1 -g0
 build/src/libultra/libc/ll.o: MIPS_VERSION := -mips3 -32
 
+build/src/libultra/os/createmesgqueue.o: OPTFLAGS := -O1 -g0
 build/src/libultra/os/getactivequeue.o: OPTFLAGS := -O1 -g0
 build/src/libultra/os/stopthread.o: OPTFLAGS := -O1 -g0
 
