@@ -3,6 +3,8 @@
 
 #include "global.h"
 
+extern Limb* D_700CB60[];
+
 // Displaylists
 
 extern Gfx D_40068F0[];
@@ -63,6 +65,7 @@ extern Gfx D_9012180[];
 extern Gfx D_900EFC0[];
 extern Gfx D_601C520[];
 extern Gfx D_600AF40[];
+extern Gfx D_7000000[];
 extern Gfx D_7000C40[];
 extern Gfx D_70010E0[];
 extern Gfx D_7000E80[];

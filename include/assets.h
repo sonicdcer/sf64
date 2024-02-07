@@ -949,7 +949,6 @@ extern Gfx D_60185E0[];
 extern Gfx D_6017550[];
 
 // ast_9DD390, ast_A0E340, ast_BFA740, ast_CBFE70, ast_D27600
-extern Gfx D_7000000[];
 extern u8 D_7000F10[];
 extern u8 D_7001030[];
 extern u8 D_7001270[];
@@ -975,7 +974,6 @@ extern Gfx D_700AB70[];
 extern Gfx D_700BB10[];
 extern Gfx D_700BE00[];
 extern Animation D_700CAF4;
-extern Limb* D_700CB60[];
 extern u16 D_700E9A0[];
 extern u8 D_70118E0[];
 extern u16 D_70123F8[];
