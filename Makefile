@@ -198,7 +198,7 @@ COMMON_DEFINES  := -D_MIPS_SZLONG=32
 GBI_DEFINES     := -DF3DEX_GBI
 RELEASE_DEFINES := -DNDEBUG -D_FINALROM
 AS_DEFINES      := -DMIPSEB -D_LANGUAGE_ASSEMBLY -D_ULTRA64
-C_DEFINES       := -DLANGUAGE_C -D_LANGUAGE_C
+C_DEFINES       := -DLANGUAGE_C -D_LANGUAGE_C -DBUILD_VERSION=VERSION_H
 ENDIAN          := -EB
 
 OPTFLAGS        := -O2 -g3
@@ -274,6 +274,7 @@ build/src/libultra/libc/ll.o: OPTFLAGS := -O1 -g0
 build/src/libultra/libc/ll.o: MIPS_VERSION := -mips3 -32
 
 build/src/libultra/os/createmesgqueue.o: OPTFLAGS := -O1 -g0
+build/src/libultra/os/destroythread.o: OPTFLAGS := -O1 -g0
 build/src/libultra/os/getactivequeue.o: OPTFLAGS := -O1 -g0
 build/src/libultra/os/stopthread.o: OPTFLAGS := -O1 -g0
 
