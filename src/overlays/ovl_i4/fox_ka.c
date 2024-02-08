@@ -1,12 +1,57 @@
 #include "global.h"
 
-typedef struct TempStruct {
-    f32 unk_00;
-    f32 unk_04;
-    f32 unk_08;
-    f32 unk_0C;
-    f32 unk_10;
-} TempStruct;
+Vec3f D_i4_8019F0F0[3] = { { 7000.0f, 500.0f, -50 }, { 7700.0f, 550.0f, -50.0f }, { 6000.0f, 300.0f, 1950.0f } };
+Vec3f D_i4_8019F114[3] = { { -30.0f, 0.0f, 0.0f }, { -30.0f, 0.0f, 0.0f }, { 0.0f, 5.0f, -40.0f } };
+Vec3f D_i4_8019F138[3] = { { 0.0f, -135.0f, -5.0f }, { 0.0f, -135.0f, 15.0f }, { -10.0f, 135.0f, 0.0f } };
+s32 D_i4_8019F15C[3] = { 33, 34, 33 };
+Vec3f D_i4_8019F168[3] = { { 700.0f, 50.0f, -700.0f }, { -500.0f, 150.0f, -500 }, { 100.0f, 100.0f, -1200.0f } };
+f32 D_i4_8019F18C[3] = { 200.0f, 160.0f, 185.0f };
+u8 D_i4_8019F198[40] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+s32 D_i4_8019F1C0[40] = {
+    0xFFFFFFFF, 0x0000000B, 0xFFFFFFFF, 0x0000000D, 0xFFFFFFFF, 0x0000000F, 0xFFFFFFFF, 0x00000011,
+    0xFFFFFFFF, 0x00000013, 0x0000000A, 0x0000000B, 0x0000000C, 0x0000000D, 0x0000000E, 0x0000000F,
+    0x00000010, 0x00000011, 0x00000012, 0x00000013, 0x0000000A, 0x0000000B, 0x0000000C, 0x0000000D,
+    0x0000000E, 0x0000000F, 0x00000010, 0x00000011, 0x00000012, 0x00000013, 0x0000000A, 0x0000000B,
+    0x0000000C, 0x0000000D, 0x0000000E, 0x00000002, 0x00000002, 0x00000004, 0x00000003, 0x00000002,
+};
+f32 D_i4_8019F260[] = { 377.0f, -600.0f, 700.0f };
+f32 D_i4_8019F26C[] = { 50.0f, -50.0f, -100.0f };
+f32 D_i4_8019F278[] = { 100.0f, 500.0f, 260.0f };
+f32 D_i4_8019F284[] = { -600.0f, 60.0f, 120.0f };
+f32 D_i4_8019F290[] = { 60.0f, 262.0f, 285.0f };
+f32 D_i4_8019F29C[] = { 252.0f, -1000.0f, 0.0f, 1000.0f };
+f32 D_i4_8019F2AC[] = { 0.0f, 1000.0f, 1000.0f, 1000.0f };
+f32 D_i4_8019F2BC[] = { 1000.0f, 0.0f, 1000.0, -500.0f };
+f32 D_i4_8019F2CC[] = { -1000.0f, 180.0f, 180.0f, 180.0f };
+f32 D_i4_8019F2DC[] = { 180.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+s32 D_i4_8019F2F0[] = { 0x000186A0, 0x000186A0, 0x000186A0, 0x000186A0, 0x00000001, 0x00000010, 0x0000000F,
+                        0x00000008, 0x00000003, 0x00000007, 0x0000000C, 0x00000002, 0x00000005, 0x0000000E,
+                        0x00000009, 0x00000004, 0x0000000A, 0x0000000D, 0x00000006, 0x0000000B };
+Vec3f D_i4_8019F340[] = {
+    { 500.0f, -100.0f, 500.0f },    { -500.0f, -70.0f, 500.0f },    { 0.0f, -140.0f, 1000.0f },
+    { -500.0f, -200.0f, 1000.0f },  { 1000.0f, -230.0f, 1500.0f },  { -1500.0f, -300.0f, 2300.0f },
+    { -500.0f, -250.0f, 2000.0f },  { 500.0f, -300.0f, 2200.0f },   { 1500.0f, -280.0f, 2100.0f },
+    { -2000.0f, -400.0f, 2600.0f }, { -1000.0f, -450.0f, 2800.0f }, { 0.0f, -350.0f, 2700.0f },
+    { 1000.0f, -380.0f, 2600.0f },  { 2000.0f, -420.0f, 2500.0f },  { -2500.0f, -500.0f, 1100.0f },
+    { -1500.0f, -600.0f, 1200.0f }, { -500.0f, -650.0f, 1100.0f },  { 500.0f, -550.0f, 1300.0f },
+    { 1500.0f, -750.0f, 1200.0f },  { 2500.0f, -600.0f, 1000.0f }
+};
+u8 D_i4_8019F430[] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+s32 D_i4_8019F444[] = { 0x00000014, 0xFFFFFFFF, 0x00000016, 0xFFFFFFFF, 0x00000018, 0xFFFFFFFF, 0x0000001A,
+                        0xFFFFFFFF, 0x0000001C, 0xFFFFFFFF, 0xFFFFFFFF, 0x0000000B, 0xFFFFFFFF, 0x0000000D,
+                        0xFFFFFFFF, 0x0000000F, 0xFFFFFFFF, 0x00000011, 0xFFFFFFFF, 0x00000013 };
+// BSS SECTION START
+
+extern s32 D_i4_801A0540;
+extern f32 D_i4_801A0544;
+extern f32 D_i4_801A0548;
+extern f32 D_i4_801A054C;
+extern f32 D_i4_801A0550;
+extern f32 D_i4_801A0554;
+extern f32 D_i4_801A0558;
+
+// SEGMENTED ADDRESSES
 
 extern AnimationHeader D_60105D8;
 extern Gfx D_60012A0[];
@@ -18,39 +63,6 @@ extern Gfx D_600D090[];
 extern Gfx D_600D290[];
 extern Gfx D_600D4E0[];
 extern Limb D_6010744[];
-extern TempStruct D_i4_8019F494;
-extern Vec3f D_i4_8019F0F0[];
-extern Vec3f D_i4_8019F114[];
-extern Vec3f D_i4_8019F138[];
-extern Vec3f D_i4_8019F168[];
-extern Vec3f D_i4_8019F174[];
-extern Vec3f D_i4_8019F340[];
-extern Vec3f D_i4_8019F4A8;
-extern f32 D_i4_8019F18C[];
-extern f32 D_i4_8019F264[];
-extern f32 D_i4_8019F270[];
-extern f32 D_i4_8019F27C[];
-extern f32 D_i4_8019F288[];
-extern f32 D_i4_8019F294[];
-extern f32 D_i4_8019F2A0[];
-extern f32 D_i4_8019F2B0[];
-extern f32 D_i4_8019F2C0[];
-extern f32 D_i4_8019F2D0[];
-extern f32 D_i4_8019F2E0[];
-extern f32 D_i4_801A0544;
-extern f32 D_i4_801A0548;
-extern f32 D_i4_801A054C;
-extern f32 D_i4_801A0550;
-extern f32 D_i4_801A0554;
-extern f32 D_i4_801A0558;
-extern f32 func_8019FF00;
-extern s32 D_i4_8019F15C[];
-extern s32 D_i4_8019F198[];
-extern s32 D_i4_8019F2F0[];
-extern s32 D_i4_8019F444[];
-extern s32 D_i4_801A0540;
-extern u8 D_i4_8019F18E[];
-extern u8 D_i4_8019F430[];
 
 extern void func_i4_80194458(Boss*, Vec3f*, f32);
 extern void func_i4_801995B4(Actor*);
@@ -244,7 +256,7 @@ void func_i4_80192E20(Player* player) {
             gActors[4].vel.y += 0.3f;
             gActors[4].vel.z += 0.7f;
             gActors[4].obj.rot.z -= 1.0f;
-            if (D_80177A80 == 0x78) {
+            if (D_80177A80 == 120) {
                 func_8002F180();
                 player->unk_1D0 = 0xD;
                 player->pos.x = 0.0f;
@@ -584,8 +596,8 @@ void func_i4_80194458(Boss* boss, Vec3f* pos, f32 arg2) {
             actor->unk_0F4.y = arg2;
             actor->unk_0F4.x = -30.0f;
             actor->unk_0E4 = i + 0xA;
-            actor->unk_0B6 = D_i4_8019F18E[i];
-            actor->unk_0E6 = D_i4_8019F198[i];
+            actor->unk_0B6 = D_i4_8019F198[i - 10];
+            actor->unk_0E6 = D_i4_8019F1C0[i - 10];
             actor->unk_0CE = 0x18;
             if (actor->unk_0B6 >= 2) {
                 actor->unk_0CE = 0x3E8;
@@ -1320,11 +1332,11 @@ void func_i4_80196E30(Actor* actor, s32 idx) {
 
     actor->obj.status = 1;
     actor->obj.id = OBJ_ACTOR_195;
-    actor->obj.pos.x = D_i4_8019F264[idx] + gPlayer[0].pos.x;
-    actor->obj.pos.y = D_i4_8019F270[idx] + gPlayer[0].pos.y;
-    actor->obj.pos.z = D_i4_8019F27C[idx] + gPlayer[0].pos.z;
-    actor->unk_0F4.y = D_i4_8019F288[idx];
-    actor->fwork[1] = D_i4_8019F294[idx];
+    actor->obj.pos.x = D_i4_8019F260[idx + 1] + gPlayer[0].pos.x;
+    actor->obj.pos.y = D_i4_8019F26C[idx + 1] + gPlayer[0].pos.y;
+    actor->obj.pos.z = D_i4_8019F278[idx + 1] + gPlayer[0].pos.z;
+    actor->unk_0F4.y = D_i4_8019F284[idx + 1];
+    actor->fwork[1] = D_i4_8019F290[idx + 1];
     actor->fwork[0] = 40.0f;
 
     Object_SetInfo(&actor->info, actor->obj.id);
@@ -1338,11 +1350,11 @@ void func_i4_80196F40(Actor* actor, s32 idx) {
 
     actor->obj.status = 1;
     actor->obj.id = OBJ_ACTOR_195;
-    actor->obj.pos.x = D_i4_8019F2A0[idx];
-    actor->obj.pos.y = D_i4_8019F2B0[idx];
-    actor->obj.pos.z = D_i4_8019F2C0[idx];
-    actor->unk_0F4.y = D_i4_8019F2D0[idx];
-    actor->fwork[1] = D_i4_8019F2E0[idx];
+    actor->obj.pos.x = D_i4_8019F29C[idx + 1];
+    actor->obj.pos.y = D_i4_8019F2AC[idx + 1];
+    actor->obj.pos.z = D_i4_8019F2BC[idx + 1];
+    actor->unk_0F4.y = D_i4_8019F2CC[idx + 1];
+    actor->fwork[1] = D_i4_8019F2DC[idx + 1];
     actor->fwork[0] = 40.0f;
 
     Object_SetInfo(&actor->info, actor->obj.id);
@@ -1785,9 +1797,7 @@ void func_i4_8019848C(void) {
 
 void func_i4_80198594(Actor* actor) {
     s32 pad[4];
-    TempStruct angle;
-
-    angle = D_i4_8019F494;
+    f32 D_i4_8019F494[5] = { -200.0f, -100.0f, -0.0f, 100.0f, 200.0f };
 
     switch (actor->unk_0B8) {
         case 0:
@@ -2107,7 +2117,7 @@ void func_i4_80198AA0(Actor* actor) {
 void func_i4_801995B4(Actor* actor) {
     s32 pad3[3];
     f32 angle;
-    Vec3f unk = D_i4_8019F4A8;
+    Vec3f D_i4_8019F4A8[] = { { 0.0f, 0.0f, 0.0f } };
     Vec3f pad[30];
 
     if (!((actor->index + gSysFrameCount) & 7)) {
