@@ -269,6 +269,10 @@ build/src/libultra/io/ai.o: OPTFLAGS := -O1 -g0
 build/src/libultra/io/aigetlen.o: OPTFLAGS := -O1 -g0
 build/src/libultra/io/aisetfreq.o: OPTFLAGS := -O1 -g0
 build/src/libultra/io/viblack.o: OPTFLAGS := -O1 -g0
+build/src/libultra/io/virepeatline.o: OPTFLAGS := -O1 -g0
+build/src/libultra/io/visetmode.o: OPTFLAGS := -O1 -g0
+build/src/libultra/io/visetspecial.o: OPTFLAGS := -O1 -g0
+build/src/libultra/io/viswapbuf.o: OPTFLAGS := -O1 -g0
 
 build/src/libultra/libc/ldiv.o: OPTFLAGS := -O2 -g0
 build/src/libultra/libc/string.o: OPTFLAGS := -O2 -g0
@@ -287,6 +291,7 @@ build/src/libultra/rmon/rmonmem.o: OPTFLAGS := -O1 -g0
 build/src/libultra/rmon/rmontask.o: OPTFLAGS := -O1 -g0
 build/src/libultra/rmon/rmonregs.o: OPTFLAGS := -O1 -g0
 build/src/libultra/rmon/rmonmisc.o: OPTFLAGS := -O1 -g0
+
 build/src/libultra/gu/perspective.o: OPTFLAGS := -O3 -g0
 
 # cc & asm-processor
