@@ -72,7 +72,7 @@ void func_i4_801927E0(Effect* effect, f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z
     Vec3f dest;
 
     Effect_Initialize(effect);
-    effect->obj.status = 2;
+    effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_358;
     effect->obj.pos.x = x;
     effect->obj.pos.y = y;
@@ -96,7 +96,7 @@ void func_i4_80192908(f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
-        if (gEffects[i].obj.status == 0) {
+        if (gEffects[i].obj.status == OBJ_FREE) {
             func_i4_801927E0(&gEffects[i], x, y, z, x2, y2, z2);
             break;
         }
@@ -137,7 +137,7 @@ void func_i4_80192A68(Effect* effect) {
 void func_i4_80192B4C(Effect* effect, f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
     Effect_Initialize(effect);
 
-    effect->obj.status = 1;
+    effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_339;
 
     effect->obj.pos.x = x;
@@ -160,7 +160,7 @@ void func_i4_80192C08(f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f32 zVel, f32 sca
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
-        if (gEffects[i].obj.status == 0) {
+        if (gEffects[i].obj.status == OBJ_FREE) {
             func_i4_80192B4C(&gEffects[i], x, y, z, xVel, yVel, zVel, scale);
             break;
         }
@@ -175,9 +175,9 @@ void func_i4_80192C8C(void) {
     Matrix_RotateY(gCalcMatrix, -0.7853982f, 0);
 
     for (i = 0; i < 3; i++, actor++) {
-        if (actor->obj.status == 0) {
+        if (actor->obj.status == OBJ_FREE) {
             Actor_Initialize(actor);
-            actor->obj.status = 1;
+            actor->obj.status = OBJ_INIT;
             actor->obj.id = OBJ_ACTOR_195;
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i4_8019F0F0[i], &actor->obj.pos);
             actor->obj.rot = D_i4_8019F138[i];
@@ -393,8 +393,8 @@ void func_i4_80193718(Boss* boss) {
                 }
 
                 for (actor = &gActors[10], i = 10; i < ARRAY_COUNT(gActors); i++, actor++) {
-                    if (actor->obj.status == 2) {
-                        actor->obj.status = 3;
+                    if (actor->obj.status == OBJ_ACTIVE) {
+                        actor->obj.status = OBJ_DYING;
                         actor->timer_0BC = 30;
                     }
                 }
@@ -578,9 +578,9 @@ void func_i4_80194458(Boss* boss, Vec3f* pos, f32 arg2) {
     Actor* actor = &gActors[20];
 
     for (i = 10; i < 49; i++, actor++) {
-        if (actor->obj.status == 0) {
+        if (actor->obj.status == OBJ_FREE) {
             Actor_Initialize(actor);
-            actor->obj.status = 2;
+            actor->obj.status = OBJ_ACTIVE;
             actor->obj.id = OBJ_ACTOR_197;
             actor->obj.pos.x = boss->obj.pos.x + pos->x;
             actor->obj.pos.y = boss->obj.pos.y + pos->y;
@@ -644,7 +644,7 @@ void func_i4_801946C4(Boss* boss) {
 
     en_count = 0;
     for (i = 10, actor = &gActors[i]; i < ARRAY_COUNT(gActors); i++, actor++) {
-        if (actor->obj.status == 2 && actor->unk_0B6 == 0) {
+        if (actor->obj.status == OBJ_ACTIVE && actor->unk_0B6 == 0) {
             en_count++;
         }
     }
@@ -1337,7 +1337,7 @@ void func_i4_801968F4(Boss* boss) {
 void func_i4_80196E30(Actor* actor, s32 idx) {
     Actor_Initialize(actor);
 
-    actor->obj.status = 1;
+    actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_195;
     actor->obj.pos.x = D_i4_8019F260[idx + 1] + gPlayer[0].pos.x;
     actor->obj.pos.y = D_i4_8019F26C[idx + 1] + gPlayer[0].pos.y;
@@ -1355,7 +1355,7 @@ void func_i4_80196E30(Actor* actor, s32 idx) {
 void func_i4_80196F40(Actor* actor, s32 idx) {
     Actor_Initialize(actor);
 
-    actor->obj.status = 1;
+    actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_195;
     actor->obj.pos.x = D_i4_8019F29C[idx + 1];
     actor->obj.pos.y = D_i4_8019F2AC[idx + 1];
@@ -1386,7 +1386,7 @@ void func_i4_80197024(void) {
     for (i = 0; i <= target; i++, actor++) {
         if ((D_i4_8019F2F0[i] >= D_8015F921) && ((i >= 3) || (gTeamShields[i + 1] > 0))) {
             Actor_Initialize(actor);
-            actor->obj.status = 1;
+            actor->obj.status = OBJ_INIT;
             actor->obj.id = OBJ_ACTOR_195;
             actor->obj.pos.x = ((D_i4_8019F340[i].x * 0.5f) + gPlayer[0].pos.x) + RAND_FLOAT_CENTERED_SEEDED(2000.0f);
             actor->obj.pos.y = (D_i4_8019F340[i].y + gPlayer[0].pos.y) - RAND_FLOAT_SEEDED(1000.0f);
@@ -1746,11 +1746,11 @@ void func_i4_801981F8(Actor* actor) {
         }
 
         for (i = 0, actor_it = &gActors[10]; i < 20; i++, actor_it++) {
-            if (actor_it->obj.status == 0) {
+            if (actor_it->obj.status == OBJ_FREE) {
                 Actor_Initialize(actor_it);
                 actor_it->unk_0B6 = D_i4_8019F430[i];
                 if ((actor_it->unk_0B6 != 0) || (gBosses[1].state == 0)) {
-                    actor_it->obj.status = 2;
+                    actor_it->obj.status = OBJ_ACTIVE;
                     actor_it->obj.id = OBJ_ACTOR_197;
                     Matrix_RotateY(gCalcMatrix, actor->unk_04E * 18.0f * M_DTOR, 0);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
@@ -1792,7 +1792,7 @@ void func_i4_8019848C(void) {
     Actor* actor = &gActors[9];
 
     Actor_Initialize(actor);
-    actor->obj.status = 2;
+    actor->obj.status = OBJ_ACTIVE;
     actor->obj.pos.x = 0;
     actor->obj.pos.y = 1000.0f;
     actor->state = 1;
@@ -1901,7 +1901,7 @@ void func_i4_80198930(void) {
 
     Boss_Initialize(&boss[1]);
 
-    boss[1].obj.status = 1;
+    boss[1].obj.status = OBJ_INIT;
     boss[1].obj.pos.x = -15000.0f;
     boss[1].obj.pos.y = 3240.0f;
     boss[1].obj.pos.z = 15000.0f;
@@ -1910,7 +1910,7 @@ void func_i4_80198930(void) {
 
     Boss_Initialize(&boss[0]);
 
-    boss[0].obj.status = 1;
+    boss[0].obj.status = OBJ_INIT;
     boss[0].obj.pos.x = 0.0f;
     boss[0].obj.pos.y = 0.0f;
     boss[0].obj.pos.z = 0.0f;
@@ -2011,7 +2011,7 @@ void func_i4_80198AA0(Actor* actor) {
 
                     if ((actor->unk_0E6 > 0) &&
                         ((gActors[actor->unk_0E6].obj.status == 3) || (gActors[actor->unk_0E6].state == 6) ||
-                         gActors[actor->unk_0E6].obj.status == 0)) {
+                         gActors[actor->unk_0E6].obj.status == OBJ_FREE)) {
                         actor->state = 3;
                     }
                 }
@@ -2042,7 +2042,7 @@ void func_i4_80198AA0(Actor* actor) {
                 actor->fwork[10] = 30.0f;
             }
 
-            if ((actor->unk_0E6 > 0) && (gActors[actor->unk_0E6].obj.status == 2)) {
+            if ((actor->unk_0E6 > 0) && (gActors[actor->unk_0E6].obj.status == OBJ_ACTIVE)) {
                 actor->state = 2;
                 actor->iwork[2] = 0;
             }
