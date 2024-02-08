@@ -14,6 +14,7 @@ D_i1_8019A008 = 0x8019A008;
 func_i2_80187B08 = 0x80187B08;
 func_i2_80188A40 = 0x80188A40;
 D_i2_80195D70 = 0x80195D70;
+D_i4_8019F168 = 0x8019F168; // type:Vec3f segment:ovl_i4
 D_i4_8019F18C = 0x8019F18C; // type:f32 segment:ovl_i4
 sOptionCardPosY = 0x801AE570; // type:f32 size:0x18 force_migration:True segment:ovl_menu
 sOptionCardTextPosX = 0x801AE588; // type:f32 size:0x18 force_migration:True segment:ovl_menu
