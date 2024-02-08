@@ -1,4 +1,3 @@
-#include "prevent_bss_reordering.h"
 #include "global.h"
 
 Vec3f D_i4_8019F0F0[] = { { 7000.0f, 500.0f, -50 }, { 7700.0f, 550.0f, -50.0f }, { 6000.0f, 300.0f, 1950.0f } };
@@ -56,7 +55,7 @@ extern Gfx D_600CDC0[];
 extern Gfx D_600D090[];
 extern Gfx D_600D290[];
 extern Gfx D_600D4E0[];
-extern Limb D_6010744[];
+extern Limb* D_6010744[];
 
 extern void func_i4_80194458(Boss*, Vec3f*, f32);
 extern void func_i4_801995B4(Actor*);
@@ -231,7 +230,7 @@ void func_i4_80192E20(Player* player) {
             D_801779B8 = gActors[4].obj.pos.y;
             D_801779C0 = gActors[4].obj.pos.z;
             player->unk_1D0 = 11;
-            *D_80177A48 = 1.0f;
+            D_80177A48[0] = 1.0f;
             break;
 
         case 11:
@@ -377,6 +376,7 @@ void func_i4_80193718(Boss* boss) {
             gLight1R = 255;
             gLight1G = 0;
             gLight1B = 0;
+
         case 2:
             if (boss->timer_050 == 1) {
                 src.x = 0.0f;
@@ -419,11 +419,11 @@ void func_i4_80193B1C(Boss* boss) {
     Matrix_SetGfxMtx(&gMasterDisp);
     if (boss->state == 0) {
         gSPDisplayList(gMasterDisp++, D_600BAF0);
-        return;
+    } else {
+        RCP_SetupDL(&gMasterDisp, 57);
+        gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+        gSPDisplayList(gMasterDisp++, D_600C4E0);
     }
-    RCP_SetupDL(&gMasterDisp, 57);
-    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-    gSPDisplayList(gMasterDisp++, D_600C4E0);
 }
 
 void func_i4_80193CA4(Boss* boss) {
@@ -505,7 +505,7 @@ void func_i4_80193EF0(Boss* boss) {
             case 5:
             case 6:
             case 7:
-                if ((boss->swork[14] > 0) && (boss->state >= 11)) {
+                if ((boss->swork[14] > 0) && (boss->state > 10)) {
                     boss->swork[4] = 20;
                     boss->swork[14] = boss->swork[14] - boss->damage;
 
@@ -666,7 +666,7 @@ void func_i4_801946C4(Boss* boss) {
 
     switch (boss->state) {
         case 0:
-            if (((gHitCount >= 10) || (D_8015F928 >= 3841))) {
+            if (((gHitCount >= 10) || (D_8015F928 > 3840))) {
                 if ((D_801615D0.y < 0.0f)) {
                     boss->state = 1;
                     boss->vwork[0].y = 2000.0f;
@@ -1876,7 +1876,7 @@ void func_i4_80198594(Actor* actor) {
             if (!(D_8015F928 & 255) && (Rand_ZeroOne() < 0.5f)) {
                 func_8002E4F8(gMsg_ID_18060, RCID_BILL);
             }
-        } else if ((D_8015F928 >= 501) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && !(D_8015F928 & 511)) {
+        } else if ((D_8015F928 > 500) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && !(D_8015F928 & 511)) {
             switch (RAND_INT(3.99f)) {
                 case 0:
                     func_8002E4F8(gMsg_ID_18020, RCID_BILL);
