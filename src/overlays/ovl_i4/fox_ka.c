@@ -65,9 +65,9 @@ extern s32 func_80031900(Actor*);
 extern void func_800A3FB0(void);
 
 void func_i4_801927E0(Effect* effect, f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2) {
-    f32 distX;
-    f32 distY;
-    f32 distZ;
+    f32 yRot;
+    f32 xRot;
+    f32 distXZ;
     Vec3f src;
     Vec3f dest;
 
@@ -77,11 +77,11 @@ void func_i4_801927E0(Effect* effect, f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z
     effect->obj.pos.x = x;
     effect->obj.pos.y = y;
     effect->obj.pos.z = z;
-    distY = Math_Atan2F(x2 - x, z2 - z);
-    distZ = sqrtf(SQ(x2 - x) + SQ(z2 - z));
-    distX = -Math_Atan2F(y2 - y, distZ);
-    Matrix_RotateY(gCalcMatrix, distY, 0);
-    Matrix_RotateX(gCalcMatrix, distX, 1);
+    xRot = Math_Atan2F(x2 - x, z2 - z);
+    distXZ = sqrtf(SQ(x2 - x) + SQ(z2 - z));
+    yRot = -Math_Atan2F(y2 - y, distXZ);
+    Matrix_RotateY(gCalcMatrix, xRot, 0);
+    Matrix_RotateX(gCalcMatrix, yRot, 1);
     src.x = 0.0f;
     src.y = 0.0f;
     src.z = 30.0f;
