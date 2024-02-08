@@ -65,9 +65,9 @@ extern s32 func_80031900(Actor*);
 extern void func_800A3FB0(void);
 
 void func_i4_801927E0(Effect* effect, f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z2) {
-    f32 rotX;
-    f32 rotY;
-    f32 rotZ;
+    f32 distX;
+    f32 distY;
+    f32 distZ;
     Vec3f src;
     Vec3f dest;
 
@@ -77,11 +77,11 @@ void func_i4_801927E0(Effect* effect, f32 x, f32 y, f32 z, f32 x2, f32 y2, f32 z
     effect->obj.pos.x = x;
     effect->obj.pos.y = y;
     effect->obj.pos.z = z;
-    rotY = Math_Atan2F(x2 - x, z2 - z);
-    rotZ = sqrtf(SQ(x2 - x) + SQ(z2 - z));
-    rotX = -Math_Atan2F(y2 - y, rotZ);
-    Matrix_RotateY(gCalcMatrix, rotY, 0);
-    Matrix_RotateX(gCalcMatrix, rotX, 1);
+    distY = Math_Atan2F(x2 - x, z2 - z);
+    distZ = sqrtf(SQ(x2 - x) + SQ(z2 - z));
+    distX = -Math_Atan2F(y2 - y, distZ);
+    Matrix_RotateY(gCalcMatrix, distY, 0);
+    Matrix_RotateX(gCalcMatrix, distX, 1);
     src.x = 0.0f;
     src.y = 0.0f;
     src.z = 30.0f;
@@ -613,16 +613,16 @@ void func_i4_80194458(Boss* boss, Vec3f* pos, f32 arg2) {
 
 void func_i4_801945FC(Boss* boss) {
     f32 angle;
-    f32 rotY;
+    f32 distY;
     s32 i;
 
     for (i = 0, angle = 360.0f; i < 4; i++) {
         if (boss->swork[i + 10] > 0) {
-            rotY = boss->obj.rot.y + angle;
-            if (rotY > 360.0f) {
-                rotY -= 360.0f;
+            distY = boss->obj.rot.y + angle;
+            if (distY > 360.0f) {
+                distY -= 360.0f;
             }
-            func_i4_80194458(boss, &boss->vwork[i + 1], rotY);
+            func_i4_80194458(boss, &boss->vwork[i + 1], distY);
         }
         angle -= 90.0f;
     }
@@ -1119,8 +1119,8 @@ void func_i4_801946C4(Boss* boss) {
                 boss->gravity = 0.0f;
                 Math_SmoothStepToF(&boss->unk_078.z, 0.0f, 1.0f, 1.0f, 0.0f);
                 func_i4_80192C08(
-                    (boss->obj.pos.x + 2000.0f) + RAND_FLOAT(500.0f), (boss->obj.pos.y - 500.0f) + RAND_FLOAT(500.0f),
-                    (boss->obj.pos.z + 600.0f) + RAND_FLOAT(1000.0f), 0.0f, 20.0f, 0.0f, RAND_FLOAT(20.0f) + 15.0f);
+                    boss->obj.pos.x + 2000.0f + RAND_FLOAT(500.0f), (boss->obj.pos.y - 500.0f) + RAND_FLOAT(500.0f),
+                    boss->obj.pos.z + 600.0f + RAND_FLOAT(1000.0f), 0.0f, 20.0f, 0.0f, RAND_FLOAT(20.0f) + 15.0f);
             }
 
             if ((gGameFrameCount & 1) || (boss->timer_050 >= 851)) {
@@ -1195,10 +1195,10 @@ void func_i4_801946C4(Boss* boss) {
         boss->info.hitbox[12] = boss->fwork[1];
         boss->info.hitbox[22] = boss->fwork[2];
         boss->info.hitbox[32] = boss->fwork[3];
-        boss->info.hitbox[43] = ((boss->fwork[4] - 200.0f) + -750.0f);
-        boss->info.hitbox[49] = ((boss->fwork[4] - 200.0f) + -850.0f);
-        boss->info.hitbox[55] = ((boss->fwork[4] - 200.0f) + -950.0f);
-        boss->info.hitbox[61] = ((boss->fwork[4] - 200.0f) + -1200.0f);
+        boss->info.hitbox[43] = boss->fwork[4] - 200.0f + -750.0f;
+        boss->info.hitbox[49] = boss->fwork[4] - 200.0f + -850.0f;
+        boss->info.hitbox[55] = boss->fwork[4] - 200.0f + -950.0f;
+        boss->info.hitbox[61] = boss->fwork[4] - 200.0f + -1200.0f;
         func_i4_80193EF0(boss);
     }
 }
@@ -1308,7 +1308,7 @@ void func_i4_801968F4(Boss* boss) {
             gDPSetEnvColor(gMasterDisp++, 0, 255, 255, 255);
             Matrix_Translate(gGfxMatrix, 0.0f, 500.0f, 0.0f, 1);
             Matrix_Scale(gGfxMatrix, boss->fwork[14], boss->fwork[14], boss->fwork[14], 1);
-            Matrix_RotateX(gGfxMatrix, -(M_DTOR * 90), 1);
+            Matrix_RotateX(gGfxMatrix, -90 * M_DTOR, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             Matrix_Pop(&gGfxMatrix);
@@ -1317,7 +1317,7 @@ void func_i4_801968F4(Boss* boss) {
             gDPSetEnvColor(gMasterDisp++, 0, 255, 255, 64);
             Matrix_Translate(gGfxMatrix, 0.0f, 500.0f, 0.0f, 1);
             Matrix_Scale(gGfxMatrix, boss->fwork[14] * 3.0f, boss->fwork[14] * 3.0f, boss->fwork[14] * 3.0f, 1);
-            Matrix_RotateX(gGfxMatrix, -(M_DTOR * 90), 1);
+            Matrix_RotateX(gGfxMatrix, -90 * M_DTOR, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             Matrix_Pop(&gGfxMatrix);
@@ -1581,8 +1581,7 @@ void func_i4_80197290(Player* player) {
 
                 case 1010:
                     Audio_PlaySfx(0x09000002U, &player->sfxPos[0], 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-                    player->unk_194 = 5.0f;
-                    player->unk_190 = 5.0f;
+                    player->unk_190 = player->unk_194 = 5.0f;
                     break;
 
                 case 950:
@@ -1836,10 +1835,9 @@ void func_i4_80198594(Actor* actor) {
 
             func_i4_8019848C();
 
-            PRINTF("KT_time %d\n", D_i4_801A0540);
-
         case 2:
-            D_i4_801A0540 += 1;
+            D_i4_801A0540++;
+            PRINTF("KT_time %d\n", D_i4_801A0540);
             func_i4_801981F8(actor);
             break;
 
@@ -2012,7 +2010,7 @@ void func_i4_80198AA0(Actor* actor) {
                     }
 
                     if ((actor->unk_0E6 > 0) &&
-                        ((gActors[actor->unk_0E6].obj.status == 3) || gActors[actor->unk_0E6].state == 6 ||
+                        ((gActors[actor->unk_0E6].obj.status == 3) || (gActors[actor->unk_0E6].state == 6) ||
                          gActors[actor->unk_0E6].obj.status == 0)) {
                         actor->state = 3;
                     }
@@ -2060,7 +2058,7 @@ void func_i4_80198AA0(Actor* actor) {
         xRand = actor->fwork[4] - actor->obj.pos.x;
         yRand = actor->fwork[5] - actor->obj.pos.y;
         zRand = actor->fwork[6] - actor->obj.pos.z;
-        if (!((actor->index + gGameFrameCount) & 7)) {
+        if ((!((actor->index + gGameFrameCount) & 7))) {
             actor->fwork[19] = Math_RadToDeg(Math_Atan2F(xRand, zRand));
             xAngle = sqrtf(SQ(xRand) + SQ(zRand));
             actor->fwork[20] = Math_RadToDeg(Math_Atan2F(yRand, xAngle));
