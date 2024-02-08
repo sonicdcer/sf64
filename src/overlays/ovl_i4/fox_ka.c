@@ -383,7 +383,7 @@ void func_i4_80193718(Boss* boss) {
                 src.y = 0.0f;
                 src.z = 500.0f;
                 for (posX = 50.0f, i = 0; posX < 600.0f; i++) {
-                    Matrix_RotateY(gCalcMatrix, (f32) i * 13.0f * M_DTOR, 0);
+                    Matrix_RotateY(gCalcMatrix, i * 13.0f * M_DTOR, 0);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
                     if (dest.z > 0.0f) {
                         func_8007953C(dest.x, posX, dest.z, 1.3f);
@@ -638,11 +638,10 @@ void func_i4_801946C4(Boss* boss) {
     Vec3f src;
     Vec3f dest;
     s32 pad3;
-
     Actor* actor;
 
     gBossFrameCount++;
-    PRINTF("KT_time %d\n", gBossFrameCount);
+
     en_count = 0;
     for (i = 10, actor = &gActors[i]; i < ARRAY_COUNT(gActors); i++, actor++) {
         if (actor->obj.status == 2 && actor->unk_0B6 == 0) {
@@ -725,9 +724,9 @@ void func_i4_801946C4(Boss* boss) {
             Math_SmoothStepToF(&D_i4_801A0544, D_i4_801A0548, 1.0f, 4.0f, 0);
             Math_SmoothStepToF(&D_i4_801A054C, D_i4_801A0550, 1.0f, 2.8f, 0);
             Math_SmoothStepToF(&D_i4_801A0554, D_i4_801A0558, 1.0f, 2.0f, 0);
-            gLight1R = (s32) D_i4_801A0544;
-            gLight1G = (s32) D_i4_801A054C;
-            gLight1B = (s32) D_i4_801A0554;
+            gLight1R = D_i4_801A0544;
+            gLight1G = D_i4_801A054C;
+            gLight1B = D_i4_801A0554;
             if (boss->timer_050 == 170) {
                 boss->state++;
                 gPlayer[0].camEye.x = -2500.0f;
@@ -987,9 +986,9 @@ void func_i4_801946C4(Boss* boss) {
             Math_SmoothStepToF(&D_i4_801A054C, D_i4_801A0550, 1.0f, scale, 0);
             Math_SmoothStepToF(&D_i4_801A0554, D_i4_801A0558, 1.0f, scale, 0);
             i = 0;
-            gLight1R = (s32) D_i4_801A0544;
-            gLight1G = (s32) D_i4_801A054C;
-            gLight1B = (s32) D_i4_801A0554;
+            gLight1R = D_i4_801A0544;
+            gLight1G = D_i4_801A054C;
+            gLight1B = D_i4_801A0554;
 
             for (i = 0; i < rot_count; i++) {
                 Matrix_RotateY(gCalcMatrix, RAND_FLOAT(2.0f) * M_PI, 0);
@@ -1837,6 +1836,8 @@ void func_i4_80198594(Actor* actor) {
 
             func_i4_8019848C();
 
+            PRINTF("KT_time %d\n", D_i4_801A0540);
+
         case 2:
             D_i4_801A0540 += 1;
             func_i4_801981F8(actor);
@@ -1977,9 +1978,9 @@ void func_i4_80198AA0(Actor* actor) {
                 actor->state = 3;
             } else {
                 if (actor->unk_0E4 >= 10) {
-                    xPos = __sinf((f32) ((actor->index * 45) + gGameFrameCount) * M_DTOR) * 200.0f;
-                    yPos = __cosf((f32) ((actor->index * 45) + (gGameFrameCount * 2)) * M_DTOR) * 200.0f;
-                    zPos = __sinf((f32) ((actor->index * 45) + gGameFrameCount) * M_DTOR) * 200.0f;
+                    xPos = __sinf(((actor->index * 45) + gGameFrameCount) * M_DTOR) * 200.0f;
+                    yPos = __cosf(((actor->index * 45) + (gGameFrameCount * 2)) * M_DTOR) * 200.0f;
+                    zPos = __sinf(((actor->index * 45) + gGameFrameCount) * M_DTOR) * 200.0f;
                 }
                 actor->fwork[4] = gActors[actor->unk_0E6].obj.pos.x + xPos;
                 actor->fwork[5] = gActors[actor->unk_0E6].obj.pos.y + yPos;
@@ -2067,7 +2068,7 @@ void func_i4_80198AA0(Actor* actor) {
         xAngle = actor->fwork[20];
         isClose = func_i4_801989F4(actor, ySin, yCos);
         if (isClose != 0) {
-            xAngle += 40.0f * (f32) isClose;
+            xAngle += 40.0f * isClose;
             if (xAngle >= 360.0f) {
                 xAngle -= 360.0f;
             }
@@ -2137,7 +2138,7 @@ void func_i4_80198AA0(Actor* actor) {
 void func_i4_801995B4(Actor* actor) {
     s32 pad3[3];
     f32 angle;
-    Vec3f D_i4_8019F4A8[] = { { 0.0f, 0.0f, 0.0f } };
+    Vec3f D_i4_8019F4A8 = { 0.0f, 0.0f, 0.0f };
     Vec3f pad[30];
 
     if (!((actor->index + gSysFrameCount) & 7)) {
