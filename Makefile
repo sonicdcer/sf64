@@ -257,9 +257,13 @@ build/src/main/sys_math64.o: OPTFLAGS := -O2 -g0
 build/src/libultra/gu/sqrtf.o: OPTFLAGS := -O3 -g0
 build/src/libultra/gu/ortho.o: OPTFLAGS := -O3 -g0
 build/src/libultra/gu/lookat.o: OPTFLAGS := -O3 -g0
+build/src/libultra/gu/perspective.o: OPTFLAGS := -O3 -g0
 
+build/src/libultra/io/cartrominit.o: OPTFLAGS := -O1 -g0
 build/src/libultra/io/contquery.o: OPTFLAGS := -O1 -g0
+build/src/libultra/io/conteepread.o: OPTFLAGS := -O1 -g0
 build/src/libultra/io/contreaddata.o: OPTFLAGS := -O1 -g0
+build/src/libultra/io/dpsetstat.o: OPTFLAGS := -O1 -g0
 build/src/libultra/io/pidma.o: OPTFLAGS := -O1 -g0
 build/src/libultra/io/aisetnextbuf.o: OPTFLAGS := -O1 -g0
 build/src/libultra/io/pimgr.o: OPTFLAGS := -O1 -g0
@@ -268,10 +272,14 @@ build/src/libultra/io/controller.o: OPTFLAGS := -O1 -g0
 build/src/libultra/io/ai.o: OPTFLAGS := -O1 -g0
 build/src/libultra/io/aigetlen.o: OPTFLAGS := -O1 -g0
 build/src/libultra/io/aisetfreq.o: OPTFLAGS := -O1 -g0
+build/src/libultra/io/sptaskyielded.o: OPTFLAGS := -O1 -g0
+build/src/libultra/io/sptaskyield.o: OPTFLAGS := -O1 -g0
+build/src/libultra/io/sptask.o: OPTFLAGS := -O1 -g0
 build/src/libultra/io/viblack.o: OPTFLAGS := -O1 -g0
 build/src/libultra/io/virepeatline.o: OPTFLAGS := -O1 -g0
 build/src/libultra/io/visetmode.o: OPTFLAGS := -O1 -g0
 build/src/libultra/io/visetspecial.o: OPTFLAGS := -O1 -g0
+build/src/libultra/io/visetevent.o: OPTFLAGS := -O1 -g0
 build/src/libultra/io/viswapbuf.o: OPTFLAGS := -O1 -g0
 
 build/src/libultra/libc/ldiv.o: OPTFLAGS := -O2 -g0
@@ -281,18 +289,22 @@ build/src/libultra/libc/ll.o: OPTFLAGS := -O1 -g0
 build/src/libultra/libc/ll.o: MIPS_VERSION := -mips3 -32
 
 build/src/libultra/os/createmesgqueue.o: OPTFLAGS := -O1 -g0
+build/src/libultra/os/createthread.o: OPTFLAGS := -O1 -g0
+build/src/libultra/os/gettime.o: OPTFLAGS := -O1 -g0
 build/src/libultra/os/destroythread.o: OPTFLAGS := -O1 -g0
 build/src/libultra/os/getactivequeue.o: OPTFLAGS := -O1 -g0
 build/src/libultra/os/recvmesg.o: OPTFLAGS := -O1 -g0
 build/src/libultra/os/sendmesg.o: OPTFLAGS := -O1 -g0
+build/src/libultra/os/startthread.o: OPTFLAGS := -O1 -g0
 build/src/libultra/os/stopthread.o: OPTFLAGS := -O1 -g0
+build/src/libultra/os/setthreadpri.o: OPTFLAGS := -O1 -g0
+build/src/libultra/os/settimer.o: OPTFLAGS := -O1 -g0
+build/src/libultra/os/settime.o: OPTFLAGS := -O1 -g0
 
 build/src/libultra/rmon/rmonmem.o: OPTFLAGS := -O1 -g0
 build/src/libultra/rmon/rmontask.o: OPTFLAGS := -O1 -g0
 build/src/libultra/rmon/rmonregs.o: OPTFLAGS := -O1 -g0
 build/src/libultra/rmon/rmonmisc.o: OPTFLAGS := -O1 -g0
-
-build/src/libultra/gu/perspective.o: OPTFLAGS := -O3 -g0
 
 # cc & asm-processor
 CC := $(ASM_PROC) $(ASM_PROC_FLAGS) $(IDO) -- $(AS) $(ASFLAGS) --

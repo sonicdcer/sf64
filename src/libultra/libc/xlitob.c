@@ -35,7 +35,7 @@
 extern u8 ldigs[];
 extern u8 udigs[];
 
-void _Litob(_Pft* args, u8 type) {
+void _Litob(_Pft* args, char type) {
     u8 buff[BUFF_LEN];
     const u8* numMap;
     s32 base;
