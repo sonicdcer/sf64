@@ -436,7 +436,7 @@ void func_i1_80192518(Actor* actor) {
                 if (effect != NULL) {
                     effect->unk_7A = 11;
                     effect->unk_78 = effect->unk_7A;
-                    effect->obj.status == OBJ_ACTIVE;
+                    effect->obj.status = OBJ_ACTIVE;
 
                     effect->obj.pos.x = RAND_FLOAT_CENTERED(3.0f) + actor->obj.pos.x;
                     effect->obj.pos.y = RAND_FLOAT_CENTERED(3.0f) + actor->obj.pos.y;
@@ -741,7 +741,7 @@ void func_i1_80192EB0(Actor* actor) {
                 if (effect != NULL) {
                     effect->unk_7A = 11;
                     effect->unk_78 = effect->unk_7A;
-                    effect->obj.status == OBJ_ACTIVE;
+                    effect->obj.status = OBJ_ACTIVE;
                     effect->obj.pos.x = actor->obj.pos.x + RAND_FLOAT_CENTERED(3.0f);
                     effect->obj.pos.y = actor->obj.pos.y + RAND_FLOAT_CENTERED(3.0f);
                     effect->obj.pos.z = actor->obj.pos.z + RAND_FLOAT_CENTERED(3.0f) + 80.0f;
@@ -1092,6 +1092,7 @@ void func_i1_80193D64(s32 limbIndex, Vec3f* rot, void* thisx) {
 }
 
 #ifdef NON_MATCHING
+// Lots of problems with loop at 2082. Seems related to spE8. https://decomp.me/scratch/gOy2L
 void func_i1_80194398(Boss* boss) {
     s32 is0;
     Vec3f sp118[27];
@@ -1173,9 +1174,9 @@ void func_i1_80194398(Boss* boss) {
                 effect->vel.x = RAND_FLOAT_CENTERED(5.0f);
                 effect->vel.y = RAND_FLOAT_CENTERED(5.0f);
                 effect->vel.z = RAND_FLOAT_CENTERED(5.0f);
-                effect->unk_60.x = RAND_FLOAT_CENTERED(1.0f) + 5.0f;
-                effect->unk_60.y = RAND_FLOAT_CENTERED(1.0f) + 5.0f;
-                effect->unk_60.z = RAND_FLOAT_CENTERED(1.0f) + 5.0f;
+                effect->unk_60.x = 5.0f + RAND_FLOAT_CENTERED(1.0f);
+                effect->unk_60.y = 5.0f + RAND_FLOAT_CENTERED(1.0f);
+                effect->unk_60.z = 5.0f + RAND_FLOAT_CENTERED(1.0f);
                 effect->unk_78 = 12;
                 effect->unk_7A = 12;
             }
@@ -1184,7 +1185,7 @@ void func_i1_80194398(Boss* boss) {
     if (boss->swork[10] & 2) {
         effect = func_8007783C(OBJ_EFFECT_394);
         if (effect != NULL) {
-            effect->obj.status == OBJ_ACTIVE;
+            effect->obj.status = OBJ_ACTIVE;
             effect->unk_78 = effect->unk_7A = 11;
             effect->obj.pos.x = boss->obj.pos.x + 125.0f;
             effect->obj.pos.y = boss->obj.pos.y;
@@ -1202,7 +1203,7 @@ void func_i1_80194398(Boss* boss) {
         }
         effect = func_8007783C(OBJ_EFFECT_394);
         if (effect != NULL) {
-            effect->obj.status == OBJ_ACTIVE;
+            effect->obj.status = OBJ_ACTIVE;
             effect->unk_78 = effect->unk_7A = 11;
             effect->obj.pos.x = boss->obj.pos.x - 125.0f;
             effect->obj.pos.y = boss->obj.pos.y;
@@ -1225,7 +1226,6 @@ void func_i1_80194398(Boss* boss) {
             case 0:
                 break;
             case 1:
-
                 boss->fwork[13] = D_i1_8019AE00[boss->swork[21]].unk_0;
                 boss->swork[22] = boss->swork[21];
                 boss->swork[20]++;
@@ -1317,7 +1317,7 @@ void func_i1_80194398(Boss* boss) {
                     for (is1 = 0; is1 < D_i1_8019AD80[is4][0]; is1++) {
                         actor = func_800A3608(OBJ_ACTOR_189);
                         if (actor != NULL) {
-                            actor->obj.status == OBJ_ACTIVE;
+                            actor->obj.status = OBJ_ACTIVE;
                             actor->obj.pos.x = spF8.x + RAND_FLOAT_CENTERED(60.0f);
                             actor->obj.pos.y = spF8.y + RAND_FLOAT_CENTERED(60.0f);
 
@@ -1344,7 +1344,7 @@ void func_i1_80194398(Boss* boss) {
                     for (is1 = 0; is1 < D_i1_8019AD80[is4][1]; is1++) {
                         actor = func_800A3608(OBJ_ACTOR_189);
                         if (actor != NULL) {
-                            actor->obj.status == OBJ_ACTIVE;
+                            actor->obj.status = OBJ_ACTIVE;
                             actor->obj.pos.x = spF8.x + RAND_FLOAT_CENTERED(60.0f);
                             actor->obj.pos.y = spF8.y + RAND_FLOAT_CENTERED(60.0f);
                             actor->obj.pos.z = spF8.z;
@@ -1378,7 +1378,7 @@ void func_i1_80194398(Boss* boss) {
                     for (is1 = 0; is1 < 5; is1++) {
                         actor = func_800A3608(OBJ_ACTOR_189);
                         if (actor != NULL) {
-                            actor->obj.status == OBJ_ACTIVE;
+                            actor->obj.status = OBJ_ACTIVE;
                             actor->obj.pos.x = spF8.x + RAND_FLOAT_CENTERED(60.0f);
                             actor->obj.pos.y = spF8.y + RAND_FLOAT_CENTERED(60.0f);
                             actor->obj.pos.z = spF8.z;
@@ -1405,7 +1405,7 @@ void func_i1_80194398(Boss* boss) {
         if (D_i1_8019B838[spF4].unk_7C & 0x40) {
             actor = func_800A3608(OBJ_ACTOR_189);
             if (actor != NULL) {
-                actor->obj.status == OBJ_ACTIVE;
+                actor->obj.status = OBJ_ACTIVE;
                 actor->obj.pos.x = boss->obj.pos.x + D_i1_8019B838[spF4].unk_0C[0].x;
                 actor->obj.pos.y = boss->obj.pos.y + D_i1_8019B838[spF4].unk_0C[0].y;
                 actor->obj.pos.z = boss->obj.pos.z + D_i1_8019B838[spF4].unk_0C[0].z;
@@ -1429,18 +1429,18 @@ void func_i1_80194398(Boss* boss) {
                     sp104.y = 0.0f;
                     Matrix_MultVec3f(gCalcMatrix, &sp104, &spF8);
                     actor->vel.x = spF8.x;
-                    actor->vel.y = 15.0f * RAND_FLOAT_CENTERED(10.0f);
+                    actor->vel.y = 15.0f + RAND_FLOAT_CENTERED(10.0f);
                     actor->vel.z = spF8.z;
-                    actor->fwork[0] = 20.0f * RAND_FLOAT_CENTERED(1.0f);
-                    actor->fwork[1] = 20.0f * RAND_FLOAT_CENTERED(1.0f);
-                    actor->fwork[2] = 20.0f * RAND_FLOAT_CENTERED(1.0f);
+                    actor->fwork[0] = 20.0f + RAND_FLOAT_CENTERED(1.0f);
+                    actor->fwork[1] = 20.0f + RAND_FLOAT_CENTERED(1.0f);
+                    actor->fwork[2] = 20.0f + RAND_FLOAT_CENTERED(1.0f);
                 }
                 actor->gravity = 2.0f;
             }
             for (is1 = 0; is1 < 6; is1++) {
                 actor = func_800A3608(OBJ_ACTOR_189);
                 if (actor != NULL) {
-                    actor->obj.status == OBJ_ACTIVE;
+                    actor->obj.status = OBJ_ACTIVE;
                     actor->obj.pos.x = boss->obj.pos.x + D_i1_8019B838[spF4].unk_0C[0].x;
                     actor->obj.pos.y = boss->obj.pos.y + D_i1_8019B838[spF4].unk_0C[0].y;
                     actor->obj.pos.z = boss->obj.pos.z + D_i1_8019B838[spF4].unk_0C[0].z;
@@ -1944,7 +1944,7 @@ void func_i1_80194398(Boss* boss) {
                     D_80178340 = 0;
                     D_80178358 = 255;
                     D_8017835C = 5;
-                    boss->obj.status == OBJ_DYING;
+                    boss->obj.status = OBJ_DYING;
                     boss->timer_052 = 80;
                     break;
             }
@@ -2069,12 +2069,10 @@ void func_i1_80194398(Boss* boss) {
         }
     }
 
-    ia0 = D_i1_8019C0BC;
-    if ((ia0 != 0) && (boss->state >= 3)) {
+    if ((D_i1_8019C0BC != 0) && (boss->state >= 3)) {
         D_i1_8019C0BC = 0;
-        ia0 = 0;
     }
-    if ((ia0 != 0) && (boss->swork[1] != 2) && (boss->state < 3)) {
+    if ((D_i1_8019C0BC != 0) && (boss->swork[1] != 2) && (boss->state < 3)) {
         pad1 |= 2;
         spE4 = 1;
     }
@@ -2082,9 +2080,9 @@ void func_i1_80194398(Boss* boss) {
         is0 = boss->swork[1];
         is5 = boss->swork[2] - spE4 + 1;
         is1 = boss->swork[4];
-        if (ia0 != 0) {
+        if (D_i1_8019C0BC != 0) {
             if (temp_fv1 < 5000.0f) {
-                boss->swork[24] = ia0 - 1;
+                boss->swork[24] = D_i1_8019C0BC - 1;
                 is5 = 0;
                 is0 = 2;
             } else {
@@ -2137,10 +2135,12 @@ void func_i1_80194398(Boss* boss) {
                     D_i1_8019C0B8 = 0;
                 }
             } while (is4 != 0);
+            pad1 = spE8;
         }
-        if (spE8 != 0) {
+        is2 = D_i1_8019AD2C[is0].unk_0[is5].unk_0;
+        if (pad1 != 0) {
             boss->swork[27] = 0;
-            is2 = D_i1_8019AD2C[is0].unk_0[is5].unk_0;
+
             switch (is2) {
                 case 2:
                     boss->swork[23] = RAND_FLOAT(2.0f);
@@ -2245,7 +2245,7 @@ void func_i1_80194398(Boss* boss) {
                     }
                     if (is3 <= boss->swork[22]) {
                         Actor_Initialize(actor);
-                        actor->obj.status == OBJ_ACTIVE;
+                        actor->obj.status = OBJ_ACTIVE;
                         actor->obj.id = OBJ_ACTOR_280;
                         actor->obj.pos.x = D_i1_80199CD0[is4][is3].x;
                         actor->obj.pos.y = D_i1_80199CD0[is4][is3].y;
@@ -2277,7 +2277,7 @@ void func_i1_80194398(Boss* boss) {
                     }
                     if (is3 <= boss->swork[22]) {
                         Actor_Initialize(actor);
-                        actor->obj.status == OBJ_ACTIVE;
+                        actor->obj.status = OBJ_ACTIVE;
                         actor->obj.id = OBJ_ACTOR_280;
                         actor->obj.pos.x = D_i1_80199CD0[is4][is3].x;
                         actor->obj.pos.y = D_i1_80199CD0[is4][is3].y;
@@ -2308,7 +2308,7 @@ void func_i1_80194398(Boss* boss) {
                         }
                         if (is3 <= D_i1_80199E60[is4]) {
                             Actor_Initialize(actor);
-                            actor->obj.status == OBJ_ACTIVE;
+                            actor->obj.status = OBJ_ACTIVE;
                             actor->obj.id = OBJ_ACTOR_283;
                             actor->obj.pos.x = D_i1_80199E6C[is4][is3].x;
                             actor->obj.pos.y = D_i1_80199E6C[is4][is3].y;
@@ -2400,7 +2400,7 @@ void func_i1_8019864C(PlayerShot* playerShot) {
 
     boss = gBosses;
     for (i = 0; i < 4; i++, boss++) {
-        if (boss->obj.id == OBJ_BOSS_319 && boss->obj.status == OBJ_ACTIVE && boss->timer_05A == 0) {
+        if ((boss->obj.id == OBJ_BOSS_319) && (boss->obj.status == OBJ_ACTIVE) && (boss->timer_05A == 0)) {
             temp_fs1 = playerShot->unk_44 * 30.0f;
             hitboxData = boss->info.hitbox;
             count = *hitboxData++;
