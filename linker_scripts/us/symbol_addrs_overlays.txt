@@ -8,8 +8,15 @@ func_i1_80192CB0 = 0x80192CB0;
 func_i1_80192EA4 = 0x80192EA4;
 func_i1_801933B4 = 0x801933B4;
 func_i1_801935CC = 0x801935CC;
+D_i1_8019A04C = 0x8019A04C; // size:0xC type:s16 segment:ovl_i1
 D_i1_8019B6C0 = 0x8019B6C0;
-D_i1_8019A008 = 0x8019A008;
+D_i1_8019A008 = 0x8019A008; // segment:ovl_i1
+D_i1_8019A820 = 0x8019A820; // segment:ovl_i1 type:s16 size:0x198
+D_i1_8019AD2C = 0x8019AD2C; // segment:ovl_i1 size:0x28
+D_i1_8019AD5C = 0x8019AD5C; // segment:ovl_i1 type:Vec3f size:0xC
+D_i1_8019A748 = 0x8019A748; // segment:ovl_i1 size:0xD8 type:s32
+D_i1_8019A500 = 0x8019A500; // segment:ovl_i1 type:s16 size:0x44
+D_i1_8019B838 = 0x8019B838; // segment:ovl_i1 size:0x880
 
 func_i2_80187B08 = 0x80187B08;
 func_i2_80188A40 = 0x80188A40;

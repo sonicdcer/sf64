@@ -908,7 +908,7 @@ void Player_ApplyDamage(Player* player, s32 direction, s32 damage) {
             break;
         case 3:
             player->timer_224 = 20;
-            func_800A668C(player->hit3.x - player->vel.x, player->hit3.y, player->hit3.z - player->vel.z);
+            func_800A668C(player->hit4.x - player->vel.x, player->hit4.y, player->hit4.z - player->vel.z);
             if (player->form != FORM_LANDMASTER) {
                 sp44.x = 0.0f;
                 sp44.y = -sp34;
@@ -925,7 +925,7 @@ void Player_ApplyDamage(Player* player, s32 direction, s32 damage) {
             break;
         case 4:
             player->timer_224 = 20;
-            func_800A668C(player->hit4.x - player->vel.x, player->hit4.y, player->hit4.z - player->vel.z);
+            func_800A668C(player->hit3.x - player->vel.x, player->hit3.y, player->hit3.z - player->vel.z);
             sp44.x = 0.0f;
             sp44.y = sp34;
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
@@ -1117,13 +1117,13 @@ s32 func_800A7974(Player* player, f32* hitboxData, s32* index, f32 xPos, f32 yPo
                 Matrix_RotateY(gCalcMatrix, -argA * M_DTOR, 1);
             }
             if ((yRot == 0.0f) && (zRot == 0.0f) && (xRot == 0.0f) && (spA0 == 0)) {
-                var_fv0 = player->hit4.x;
-                var_fv1 = player->hit4.y;
-                var_fa0 = player->hit4.z;
+                var_fv0 = player->hit3.x;
+                var_fv1 = player->hit3.y;
+                var_fa0 = player->hit3.z;
             } else {
-                sp94.x = player->hit4.x - xPos;
-                sp94.y = player->hit4.y - yPos;
-                sp94.z = player->hit4.z - zPos;
+                sp94.x = player->hit3.x - xPos;
+                sp94.y = player->hit3.y - yPos;
+                sp94.z = player->hit3.z - zPos;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp94, &sp88);
                 var_fv0 = sp88.x + xPos;
                 var_fv1 = sp88.y + yPos;
@@ -1141,13 +1141,13 @@ s32 func_800A7974(Player* player, f32* hitboxData, s32* index, f32 xPos, f32 yPo
             }
             if (hitboxData[-1] < HITBOX_UNK_3) {
                 if ((yRot == 0.0f) && (zRot == 0.0f) && (xRot == 0.0f) && (spA0 == 0)) {
-                    var_fv0 = player->hit3.x;
-                    var_fv1 = player->hit3.y;
-                    var_fa0 = player->hit3.z;
+                    var_fv0 = player->hit4.x;
+                    var_fv1 = player->hit4.y;
+                    var_fa0 = player->hit4.z;
                 } else {
-                    sp94.x = player->hit3.x - xPos;
-                    sp94.y = player->hit3.y - yPos;
-                    sp94.z = player->hit3.z - zPos;
+                    sp94.x = player->hit4.x - xPos;
+                    sp94.y = player->hit4.y - yPos;
+                    sp94.z = player->hit4.z - zPos;
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp94, &sp88);
                     var_fv0 = sp88.x + xPos;
                     var_fv1 = sp88.y + yPos;
@@ -1418,16 +1418,16 @@ s32 func_800A8304(Player* player, ObjectId objId, f32 arg2, f32 arg3, f32 arg4, 
         }
         return 0;
     }
-    sp78.x = player->hit4.x - sp84.x;
-    sp78.y = player->hit4.y - sp84.y;
-    sp78.z = player->hit4.z - sp84.z;
+    sp78.x = player->hit3.x - sp84.x;
+    sp78.y = player->hit3.y - sp84.y;
+    sp78.z = player->hit3.z - sp84.z;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
     if (func_800A8054(objId, sp84.x, sp84.y, sp84.z, sp6C.x + sp84.x, sp6C.y + sp84.y, sp6C.z + sp84.z, &sp60, &sp54)) {
         return 3;
     }
-    sp78.x = player->hit3.x - sp84.x;
-    sp78.y = player->hit3.y - sp84.y;
-    sp78.z = player->hit3.z - sp84.z;
+    sp78.x = player->hit4.x - sp84.x;
+    sp78.y = player->hit4.y - sp84.y;
+    sp78.z = player->hit4.z - sp84.z;
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
     if (func_800A8054(objId, sp84.x, sp84.y, sp84.z, sp6C.x + sp84.x, sp6C.y + sp84.y, sp6C.z + sp84.z, &sp60, &sp54)) {
         return 4;
@@ -1490,9 +1490,9 @@ void func_800A887C(Player* player) {
         Matrix_MultVec3f(gCalcMatrix, &sp3C, &player->hit1);
         sp3C.x = 0.0f;
         sp3C.z = -40.0f;
-        Matrix_MultVec3f(gCalcMatrix, &sp3C, &player->hit4);
-        sp3C.z = 40.0f;
         Matrix_MultVec3f(gCalcMatrix, &sp3C, &player->hit3);
+        sp3C.z = 40.0f;
+        Matrix_MultVec3f(gCalcMatrix, &sp3C, &player->hit4);
     }
     if ((player->form == FORM_ON_FOOT) || (player->form == FORM_UNK_4)) {
         sp3C.x = 20.0f;
@@ -1503,9 +1503,9 @@ void func_800A887C(Player* player) {
         Matrix_MultVec3f(gCalcMatrix, &sp3C, &player->hit1);
         sp3C.x = 0.0f;
         sp3C.z = -20.0f;
-        Matrix_MultVec3f(gCalcMatrix, &sp3C, &player->hit4);
-        sp3C.z = 20.0f;
         Matrix_MultVec3f(gCalcMatrix, &sp3C, &player->hit3);
+        sp3C.z = 20.0f;
+        Matrix_MultVec3f(gCalcMatrix, &sp3C, &player->hit4);
     }
     if ((player->form == FORM_ARWING) || (player->form == FORM_BLUE_MARINE)) {
         Matrix_RotateY(gCalcMatrix, (player->unk_114 + 180.0f) * M_DTOR, 1);
@@ -1535,9 +1535,9 @@ void func_800A887C(Player* player) {
 
         sp3C.x = 0.0f;
         sp3C.y = 24.0f;
-        Matrix_MultVec3f(gCalcMatrix, &sp3C, &player->hit4);
-        sp3C.y = -24.0f;
         Matrix_MultVec3f(gCalcMatrix, &sp3C, &player->hit3);
+        sp3C.y = -24.0f;
+        Matrix_MultVec3f(gCalcMatrix, &sp3C, &player->hit4);
     }
 }
 
@@ -2041,11 +2041,11 @@ void func_800A8BA4(Player* player) {
         }
     }
     if (D_80178294 != 0) {
-        if (func_800A73E4(&sp94, &sp90, player->hit3.x, player->hit3.y, player->hit3.z)) {
+        if (func_800A73E4(&sp94, &sp90, player->hit4.x, player->hit4.y, player->hit4.z)) {
             if (gCurrentLevel == LEVEL_ZONESS) {
                 player->unk_0E4 = (player->unk_0D0 + player->unk_110) * 0.8f;
                 player->unk_1F4 = 15;
-                func_8007B228(player->hit3.x, sp94, player->hit3.z, 1.0f);
+                func_8007B228(player->hit4.x, sp94, player->hit4.z, 1.0f);
             } else {
                 if (player->unk_1F4 == 0) {
                     Player_ApplyDamage(player, 4, 10);

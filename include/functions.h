@@ -514,6 +514,7 @@ void func_80095604(Player*);
 void func_80094954(Effect*);
 void func_80094BBC(Effect*);
 void func_80094D20(f32, f32);
+void func_80096A74(Player* player);
 
 // fox_97F80
 void func_80098860(Plane* plane, Vec3f* point, Vec3f* normal);
@@ -531,7 +532,7 @@ void func_800A1FB0(Gfx**, u8 , u8);
 void func_800A24DC(s32);
 void func_800A26C0(void);
 void func_800A25DC(void);
-Actor* func_800A3608(s32);
+Actor* func_800A3608(ObjectId);
 
 // fox_A4290
 bool func_800A3690(Vec3f*, Vec3f*, s32, Vec3f*);
@@ -611,8 +612,8 @@ void func_menu_80187520(u32, void*);
 void func_menu_8019E8D0(void);
 
 void func_i1_80198414(void);
-s32 func_i1_801937F4(s32, Gfx**, Vec3f*, Vec3f*, void*);
-void func_i1_80193D64(s32, Vec3f*, void*);
+// s32 func_i1_801937F4(s32, Gfx**, Vec3f*, Vec3f*, void*);
+// void func_i1_80193D64(s32, Vec3f*, void*);
 
 void func_ending_8018A96C(void);
 void func_ending_8018AAC4(void);

@@ -265,8 +265,8 @@ typedef struct Player {
     /* 0x2C4 */ s32 unk_2C4;
     /* 0x2C8 */ Vec3f hit2;
     /* 0x2D4 */ Vec3f hit1;
-    /* 0x2E0 */ Vec3f hit4;
-    /* 0x2EC */ Vec3f hit3;
+    /* 0x2E0 */ Vec3f hit3;
+    /* 0x2EC */ Vec3f hit4;
     /* 0x2F8 */ Vec3f jointTable[30];
     /* 0x460 */ f32 sfxPos[3];
     /* 0x460 */ f32 sfxVel[3];
