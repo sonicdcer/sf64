@@ -14,7 +14,7 @@
     - [0xE05990, c, fox_tr360]
     - [0xE06510, .data, fox_i1]
     - [0xE06520, .data, fox_co]
-    - [0xE06880, data, sf_ve1]
+    - [0xE06880, .data, sf_ve1]
     - [0xE07B90, .data, fox_tr360]
     - [0xE07C30, .rodata, fox_co]
     - [0xE07FF0, .rodata, sf_ve1]
@@ -22,7 +22,7 @@
     - [0xE083C0, .rodata, fox_tr360]
     - { start: 0xE08400, type: .bss, vram: 0x8019B6C0, name: fox_i1 }
     - { type: .bss, vram: 0x8019B6D0, name: fox_co }
-    - { type: bss, vram: 0x8019B7F0, name: sf_ve1 }
+    - { type: .bss, vram: 0x8019B7F0, name: sf_ve1 }
 
   - name: ovl_i2
     type: code

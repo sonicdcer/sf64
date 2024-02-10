@@ -16,6 +16,11 @@ compiler_type = "ido"
 "RAD_TO_DEG" = "float"
 "DEG_TO_RAD" = "float"
 "NULL" = "void*"
+"RAND_F*" = "float"
+"RAND_I*" = "int"
+"RAND_D*" = "double"
+"RAND_RANGE" = "float"
+
 
 [decompme.compilers]
 "tools/ido-recomp/linux/cc" = "ido5.3"

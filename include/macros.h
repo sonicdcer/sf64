@@ -7,6 +7,7 @@
 #define RAND_FLOAT(max) (Rand_ZeroOne()*(max))
 #define RAND_INT(max) ((s32)(Rand_ZeroOne()*(max)))
 #define RAND_FLOAT_CENTERED(width) ((Rand_ZeroOne()-0.5f)*(width))
+#define RAND_DOUBLE_CENTERED(width) ((Rand_ZeroOne()-0.5)*(width))
 #define RAND_RANGE(min, max) (((max) - (min)) * (Rand_ZeroOne() - (min) / ((min) - (max))))
 
 #define RAND_FLOAT_SEEDED(max) (Rand_ZeroOneSeeded()*(max))
@@ -16,6 +17,7 @@
 #define SEGMENTED_TO_VIRTUAL(segment) ((void*)OS_PHYSICAL_TO_K0(gSegments[((uintptr_t)(segment)<<4)>>0x1C]+(((uintptr_t)(segment))&0xFFFFFF))) 
 
 #define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))
+#define ARRAY_COUNTU(arr) (u32)(sizeof(arr) / sizeof(arr[0]))
 
 #define SIGN_OF(x) (((x) > 0) ? 1 : ((x) == 0) ? 0 : -1)
 #define SQ(x) ((x) * (x))
