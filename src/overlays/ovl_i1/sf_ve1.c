@@ -32,16 +32,16 @@ extern Gfx D_9022D80[];
 extern Gfx D_9024750[];
 
 typedef struct {
-    s16 unk_00;
-    s16 unk_02;
-    s16 unk_04;
-    s16 unk_06;
-    s16 unk_08;
-    s16 unk_0A;
-    s16 unk_0C;
-    s16 unk_0E[4];
-    s16 unk_16;
-} UnkStruct_i1_8019A820;
+    /* 0x00 */ s16 unk_00;
+    /* 0x02 */ s16 unk_02;
+    /* 0x04 */ s16 unk_04;
+    /* 0x06 */ s16 unk_06;
+    /* 0x08 */ s16 unk_08;
+    /* 0x0A */ s16 unk_0A;
+    /* 0x0C */ s16 unk_0C;
+    /* 0x0E */ s16 unk_0E[4];
+    /* 0x16 */ s16 unk_16;
+} UnkStruct_i1_8019A820; // size = 0x18
 
 typedef struct {
     /* 0x00 */ s16 unk_00;
@@ -57,42 +57,42 @@ typedef struct {
     /* 0x74 */ f32 unk_74;
     /* 0x78 */ f32 unk_78;
     /* 0x7C */ u16 unk_7C;
-} UnkStruct_i1_8019B838; /* size = 0x80 */
+} UnkStruct_i1_8019B838; // size = 0x80
 
 typedef struct {
-    f32 unk_0;
-    s16 unk_4;
-    s16 unk_6;
-} UnkStruct_i1_8019AE00; /* size = 0x8 */
+    /* 0x0 */ f32 unk_0;
+    /* 0x4 */ s16 unk_4;
+    /* 0x6 */ s16 unk_6;
+} UnkStruct_i1_8019AE00; // size = 0x8
 
 typedef struct {
-    s16 unk_0;
-    u8 unk_2;
-} UnkStruct_i1_8019ACF8; /* size = 0x4 */
+    /* 0x0 */ s16 unk_0;
+    /* 0x2 */ u8 unk_2;
+} UnkStruct_i1_8019ACF8; // size = 0x4
 
 typedef struct {
-    s16 limb;
-    Gfx* dList;
-    s16 index;
-    s16 flag;
-} UnkStruct_i1_8019A748; /* size = 0xC */
+    /* 0x0 */ s16 limb;
+    /* 0x4 */ Gfx* dList;
+    /* 0x8 */ s16 index;
+    /* 0xA */ s16 flag;
+} UnkStruct_i1_8019A748; // size = 0xC
 
 typedef struct {
-    Vec3f offset;
-    f32 size;
-} UnkStruct_i1_8019A058; /* size = 0x10 */
+    /* 0x0 */ Vec3f offset;
+    /* 0xC */ f32 size;
+} UnkStruct_i1_8019A058; // size = 0x10
 
 typedef struct {
-    UnkStruct_i1_8019ACF8* unk_0;
-    s32 unk_4;
-} UnkStruct_i1_8019AD2C; /* size = 0x8 */
+    /* 0x0 */ UnkStruct_i1_8019ACF8* unk_0;
+    /* 0x4 */ s32 unk_4;
+} UnkStruct_i1_8019AD2C; // size = 0x8
 
 typedef struct {
-    f32 x;
-    f32 y;
-    f32 z;
-    f32 unk_C;
-} UnkStruct_i1_80199B40; /* size = 0x10*/
+    /* 0x0 */ f32 x;
+    /* 0x4 */ f32 y;
+    /* 0x8 */ f32 z;
+    /* 0xC */ f32 unk_C;
+} UnkStruct_i1_80199B40; // size = 0x10
 
 UnkStruct_i1_80199B40 D_i1_80199B40[5][5] = {
     {
@@ -1091,7 +1091,7 @@ void func_i1_80193D64(s32 limbIndex, Vec3f* rot, void* thisx) {
     RCP_SetupDL(&gMasterDisp, 0x1D);
 }
 
-#ifdef NON_MATCHING
+#ifdef NON_EQUIVALENT
 // Lots of problems with loop at 2082. Seems related to spE8. https://decomp.me/scratch/gOy2L
 void func_i1_80194398(Boss* boss) {
     s32 is0;
