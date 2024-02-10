@@ -37,6 +37,7 @@ extern Gfx D_6014A40[];
 extern Gfx D_6020810[];
 
 extern Animation D_6020A40;
+extern Animation D_601F3B8;
 extern Limb* D_6020C6C[];
 extern Limb* D_602D140[];
 
@@ -128,7 +129,7 @@ f32 D_800CA1D4[] = {
 };
 
 Animation* D_800CA1F4[] = {
-    D_60265B4, D_602B8DC, D_60034C4, D_602A2CC, D_602CEB4, D_602B778, (Animation*) 0x0601F3B8,
+    D_60265B4, D_602B8DC, D_60034C4, D_602A2CC, D_602CEB4, D_602B778, &D_601F3B8,
 };
 
 void func_80048AC0(s32 teamId) {

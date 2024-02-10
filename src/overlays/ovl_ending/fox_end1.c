@@ -4,8 +4,20 @@ void func_ending_8018CE20(s32);
 void func_ending_801926D4(void);
 extern u32 D_ending_80192E70;
 
+extern Animation D_601E424;
 extern Animation D_601F8E0;
+extern Animation D_6020058;
 extern Animation D_60246F8;
+extern Animation D_6029BE4;
+extern Animation D_602A710;
+extern Animation D_70111D0;
+extern Animation D_70143C0;
+extern Animation D_7018708;
+extern Limb* D_602FBAC[];
+extern Limb* D_603088C[];
+extern Limb* D_60313AC[];
+extern Limb* D_6032084[];
+extern Limb* D_70187B4[];
 extern Animation D_60338DC;
 extern Animation D_603531C;
 extern Animation D_6036278;
@@ -195,8 +207,8 @@ void func_ending_80187D3C(s32 arg0) {
     s32 j;
     Vec3f sp23C = { 0.0f, 0.0f, 0.0f };
     UnkStruct_196D08 sp13C[4] = {
-        { (Animation*) 0x0602A710,
-          (Limb**) 0x0602FBAC,
+        { &D_602A710,
+          D_602FBAC,
           23,
           { 110.0f, -520.0f, -1390.0f },
           { -20.0f, 0.0f, 0.0f },
@@ -205,8 +217,8 @@ void func_ending_80187D3C(s32 arg0) {
           0,
           0,
           { 0, 0, 0, 0 } },
-        { (Animation*) 0x0601E424,
-          (Limb**) 0x0603088C,
+        { &D_601E424,
+          D_603088C,
           23,
           { 380.0f, -670.0f, -1840.0f },
           { -20.0f, 0.0f, 0.0f },
@@ -215,8 +227,8 @@ void func_ending_80187D3C(s32 arg0) {
           30,
           0,
           { 0, 0, 0, 0 } },
-        { (Animation*) 0x06020058,
-          (Limb**) 0x060313AC,
+        { &D_6020058,
+          D_60313AC,
           23,
           { -100.0f, -590.0f, -1630.0f },
           { -20.0f, 0.0f, 0.0f },
@@ -225,8 +237,8 @@ void func_ending_80187D3C(s32 arg0) {
           20,
           0,
           { 0, 0, 0, 0 } },
-        { (Animation*) 0x06029BE4,
-          (Limb**) 0x06032084,
+        { &D_6029BE4,
+          D_6032084,
           23,
           { -330.0f, -660.0f, -1840.0f },
           { -20.0f, 0.0f, 0.0f },
@@ -237,8 +249,8 @@ void func_ending_80187D3C(s32 arg0) {
           { 0, 0, 0, 0 } },
     };
     UnkStruct_196D08 sp3C[4] = {
-        { (Animation*) 0x0602A710,
-          (Limb**) 0x0602FBAC,
+        { &D_602A710,
+          D_602FBAC,
           23,
           { -80.0f, -400.0f, -50.0f },
           { 0.0f, 180.0f, 0.0f },
@@ -247,8 +259,8 @@ void func_ending_80187D3C(s32 arg0) {
           0,
           0,
           { 0, 0, 0, 0 } },
-        { (Animation*) 0x0601E424,
-          (Limb**) 0x0603088C,
+        { &D_601E424,
+          D_603088C,
           23,
           { -160.0f, -400.0f, 350.0f },
           { 0.0f, 180.0f, 0.0f },
@@ -257,8 +269,8 @@ void func_ending_80187D3C(s32 arg0) {
           30,
           0,
           { 0, 0, 0, 0 } },
-        { (Animation*) 0x06020058,
-          (Limb**) 0x060313AC,
+        { &D_6020058,
+          D_60313AC,
           23,
           { 60.0f, -400.0f, 150.0f },
           { 0.0f, 180.0f, 0.0f },
@@ -267,8 +279,8 @@ void func_ending_80187D3C(s32 arg0) {
           20,
           0,
           { 0, 0, 0, 0 } },
-        { (Animation*) 0x06029BE4,
-          (Limb**) 0x06032084,
+        { &D_6029BE4,
+          D_6032084,
           23,
           { 160.0f, -400.0f, 350.0f },
           { 350.0f, 180.0f, 0.0f },
@@ -280,6 +292,7 @@ void func_ending_80187D3C(s32 arg0) {
     };
 
     D_ending_80196F88 = 4;
+
     switch (arg0) {
         case 0:
             for (i = 0; i < D_ending_80196F88; i++) {
@@ -294,6 +307,7 @@ void func_ending_80187D3C(s32 arg0) {
             D_ending_80196F9C = 0.003f;
             break;
     }
+
     for (i = 0; i < 4; i++) {
         for (j = 0; j < 50; j++) {
             D_ending_80198260[i][j] = 0;
@@ -318,9 +332,11 @@ void func_ending_80188030(s32 arg0) {
             sp30 = 0.0f;
             break;
     }
+
     if ((arg0 == 1) && (gCsFrameCount >= 394)) {
         Math_SmoothStepToF(&D_ending_80196F9C, 0.0f, 0.1f, 1.0f, 0.0001f);
     }
+
     for (i = 0; i < D_ending_80196F88; i++) {
         D_ending_80196D08[i].pos.z -= sp2C;
         D_ending_80196D08[i].pos.y += sp30;
@@ -328,6 +344,7 @@ void func_ending_80188030(s32 arg0) {
             D_ending_80196D08[i].unk_34 += 1;
         }
     }
+
     if (((gCsFrameCount >= 150) && (gCsFrameCount < 171)) || ((gCsFrameCount >= 280) && (gCsFrameCount < 301)) ||
         ((gCsFrameCount >= 340) && (gCsFrameCount < 361))) {
         Math_SmoothStepToF(&D_ending_80196FA0[2][0].x, 40.0f, 0.2f, 1000.0f, 0.1f);
@@ -350,7 +367,7 @@ void func_ending_80188030(s32 arg0) {
 s32 func_ending_80188394(void) {
     s32 i;
     UnkStruct_196D08 sp14[2] = {
-        { (Animation*) 0x070143C0,
+        { &D_70143C0,
           NULL,
           17,
           { 0.0f, -3830.0f, -7000.0f },
@@ -360,8 +377,8 @@ s32 func_ending_80188394(void) {
           0,
           0,
           { 0, 0, 0, 0 } },
-        { (Animation*) 0x07018708,
-          (Limb**) 0x070187B4,
+        { &D_7018708,
+          D_70187B4,
           23,
           { 0.0f, -310.0f, -370.0f },
           { 0.0f, 0.0f, 0.0f },
@@ -372,8 +389,7 @@ s32 func_ending_80188394(void) {
           { 0, 0, 0, 0 } },
     };
 
-    D_ending_80196F88 = 2;
-    for (i = 0; i < D_ending_80196F88; i++) {
+    for (D_ending_80196F88 = 2, i = 0; i < D_ending_80196F88; i++) {
         D_ending_80196D08[i] = sp14[i];
     }
 }
@@ -387,7 +403,9 @@ void func_ending_8018845C(void) {
     for (var_a2 = 0; var_a2 < 2; var_a2++) {
         if (var_a2 != D_ending_8019858C) {}
     }
+
     D_80178300 = 1;
+
     switch (gCsFrameCount) {
         case 10:
             Radio_PlayMessage(gMsg_ID_21010, RCID_GEN_PEPPER_TITLE);
@@ -396,8 +414,10 @@ void func_ending_8018845C(void) {
             Radio_PlayMessage(gMsg_ID_21020, RCID_GEN_PEPPER_TITLE);
             break;
     }
+
     temp_a3 = (u32) (D_ending_80196D08[1].unk_34 * D_ending_80196D08[var_a2].unk_30) %
               Animation_GetFrameCount(D_ending_80196D08[1].anim);
+
     if (((gCsFrameCount >= 20) && (gCsFrameCount < 31)) || ((gCsFrameCount >= 50) && (gCsFrameCount < 71)) ||
         ((gCsFrameCount >= 110) && (gCsFrameCount < 141)) || ((gCsFrameCount >= 160) && (gCsFrameCount < 191))) {
         D_ending_80196D08[1].unk_34++;
@@ -428,11 +448,14 @@ s32 func_ending_80188634(void) {
 
 void func_ending_801886F4(void) {
     f32 temp = 142.0f;
+
     if (D_80161690 == 0) {
         return;
     }
+
     RCP_SetupDL(&gMasterDisp, 0x4E);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
+
     switch ((D_ending_80196F90 % 8) / 2) {
         case 3:
             TextureRect_4bCI(&gMasterDisp, D_70110E0, D_70111B0, 16, 26, temp + 31.0f, 18.0f, 1.0f, 1.0f);
@@ -449,12 +472,11 @@ void func_ending_801886F4(void) {
 }
 
 void func_ending_801888F4(void) {
-    s32 sp29C;
+    s32 sp29C = 4;
     s32 temp_s0_5;
     s32 sp294;
     Vec3f sp3C[50];
 
-    sp29C = 4;
     Matrix_Push(&gGfxMatrix);
     RCP_SetupDL(&gMasterDisp, D_ending_80196D08[sp29C].setupDL);
     Matrix_Translate(gGfxMatrix, D_ending_80196D08[sp29C].pos.x, D_ending_80196D08[sp29C].pos.y,
@@ -464,12 +486,14 @@ void func_ending_801888F4(void) {
     Matrix_RotateY(gGfxMatrix, D_ending_80196D08[sp29C].rot.y * M_DTOR, 1);
     Matrix_RotateX(gGfxMatrix, D_ending_80196D08[sp29C].rot.x * M_DTOR, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
+
     switch (D_ending_80196D08[sp29C].unk_38) {
         case 0:
             sp294 = (u32) (D_ending_80196D08[sp29C].unk_34 * D_ending_80196D08[sp29C].unk_30) %
                     Animation_GetFrameCount(D_ending_80196D08[sp29C].anim);
             Animation_GetFrameData(D_ending_80196D08[sp29C].anim, sp294, D_ending_80197900[0]);
             break;
+
         case 1:
             sp294 = D_ending_80196D08[sp29C].unk_34 * D_ending_80196D08[sp29C].unk_30;
             if (sp294 >= Animation_GetFrameCount(&D_601F8E0)) {
@@ -478,6 +502,7 @@ void func_ending_801888F4(void) {
             Math_SmoothStepToVec3fArray(sp3C, D_ending_80197900[0], 1, Animation_GetFrameData(&D_601F8E0, sp294, sp3C),
                                         0.2f, 100.0f, 0.01f);
             break;
+
         case 2:
             sp294 = (u32) (D_ending_80196D08[sp29C].unk_34 * D_ending_80196D08[sp29C].unk_30) %
                     Animation_GetFrameCount(D_ending_80196D08[sp29C].anim);
@@ -486,6 +511,7 @@ void func_ending_801888F4(void) {
             Math_SmoothStepToVec3fArray(sp3C, D_ending_80197900[0], 1, temp_s0_5, D_ending_80198580, 100.0f, 0.01f);
             break;
     }
+
     Animation_DrawSkeleton(0, D_ending_80196D08[sp29C].skeleton, D_ending_80197900[0], func_ending_80189C64, NULL,
                            &sp29C, &gIdentityMatrix);
     Matrix_Pop(&gGfxMatrix);
@@ -496,7 +522,7 @@ void func_ending_80188DB4(void) {
     s32 j;
     Vec3f sp1B4 = { 0.0f, 0.0f, 0.0f };
     UnkStruct_196D08 sp74[5] = {
-        { (Animation*) 0x070111D0,
+        { &D_70111D0,
           NULL,
           17,
           { 0.0f, -2960.0f, -6600.0f },
@@ -507,7 +533,7 @@ void func_ending_80188DB4(void) {
           0,
           { 0, 0, 0, 0 } },
         { &D_60338DC,
-          (Limb**) 0x0603088C,
+          D_603088C,
           23,
           { 230.0f, -370.0f, -620.0f },
           { 350.0f, 0.0f, 0.0f },
@@ -517,7 +543,7 @@ void func_ending_80188DB4(void) {
           0,
           { 0, 0, 0, 0 } },
         { &D_6036278,
-          (Limb**) 0x060313AC,
+          D_60313AC,
           23,
           { -120.0f, -350.0f, -600.0f },
           { 350.0f, 10.0f, 0.0f },
@@ -527,7 +553,7 @@ void func_ending_80188DB4(void) {
           0,
           { 0, 0, 0, 0 } },
         { &D_603531C,
-          (Limb**) 0x06032084,
+          D_6032084,
           23,
           { -260.0f, -350.0f, -710.0f },
           { 350.0f, 10.0f, 0.0f },
@@ -537,7 +563,7 @@ void func_ending_80188DB4(void) {
           0,
           { 0, 0, 0, 0 } },
         { &D_60246F8,
-          (Limb**) 0x0602FBAC,
+          D_602FBAC,
           23,
           { 30.0f, -330.0f, -320.0f },
           { 350.0f, 0.0f, 0.0f },
@@ -548,10 +574,10 @@ void func_ending_80188DB4(void) {
           { 0, 0, 0, 0 } },
     };
 
-    D_ending_80196F88 = 5;
-    for (i = 0; i < D_ending_80196F88; i++) {
+    for (D_ending_80196F88 = 5, i = 0; i < D_ending_80196F88; i++) {
         D_ending_80196D08[i] = sp74[i];
     }
+
     for (i = 0; i < 4; i++) {
         for (j = 0; j < 50; j++) {
             D_ending_80197900[i][j] = sp1B4;
@@ -559,6 +585,7 @@ void func_ending_80188DB4(void) {
             D_ending_80196FA0[i][j] = sp1B4;
         }
     }
+
     D_80161690 = 0;
     D_ending_80196F94 = 0;
     D_ending_80196F98 = 0;
@@ -592,10 +619,12 @@ void func_ending_80189108(void) {
                     D_ending_80196F94 = 20;
                     break;
             }
+
             if ((D_ending_80196D08[4].unk_38 == 0) && (gCsFrameCount == 180)) {
                 D_80161690 = 120;
                 gRadioState = 0;
             }
+
             if (func_ending_80188634() || (gCsFrameCount == 230)) {
                 D_ending_80196D08[4].unk_34 = 0;
                 D_ending_80196D08[4].unk_38 = 1;
@@ -604,14 +633,17 @@ void func_ending_80189108(void) {
                 D_ending_80196F90 = 0;
                 D_80161690 = 0;
             }
+
             temp_a0 = (u32) (D_ending_80196D08[4].unk_34 * D_ending_80196D08[4].unk_30) %
                       Animation_GetFrameCount(D_ending_80196D08[4].anim);
+
             if (((gCsFrameCount >= 30) && (gCsFrameCount < 41)) || ((gCsFrameCount >= 60) && (gCsFrameCount < 111))) {
                 D_ending_80196D08[4].unk_34 += 1;
             } else if (temp_a0 != 0) {
                 D_ending_80196D08[4].unk_34 += 1;
             }
             break;
+
         case 1:
             D_80178300 = 0;
             if (gCsFrameCount == 20) {
@@ -622,8 +654,9 @@ void func_ending_80189108(void) {
                 D_ending_80196D08[4].unk_38 = 2;
                 gCsFrameCount = 0;
             }
-            D_ending_80196D08[4].unk_34 += 1;
+            D_ending_80196D08[4].unk_34++;
             break;
+
         case 2:
             D_80178300 = 1;
             switch (gCsFrameCount) {
@@ -634,8 +667,10 @@ void func_ending_80189108(void) {
                     D_80178358 = 255;
                     break;
             }
+
             temp_a0 = (u32) (D_ending_80196D08[4].unk_34 * D_ending_80196D08[4].unk_30) %
                       Animation_GetFrameCount(D_ending_80196D08[4].anim);
+
             if ((gCsFrameCount >= 20) && (gCsFrameCount < 51)) {
                 D_ending_80196D08[4].unk_34 += 1;
             } else if (temp_a0 != 0) {
@@ -643,12 +678,14 @@ void func_ending_80189108(void) {
             }
             break;
     }
+
     if (D_ending_80196F94 != 0) {
         D_ending_80196F94--;
     }
     if (D_ending_80196F98 != 0) {
         D_ending_80196F98--;
     }
+
     if ((D_80161690 == 0) && (D_ending_80196F94 != 0)) {
         if (D_ending_80198260[1][1] == 0) {
             D_ending_80196FA0[1][1].x -= 2.4f;
@@ -664,6 +701,7 @@ void func_ending_80189108(void) {
             }
         }
     }
+
     if ((D_80161690 == 0) && (D_ending_80196F98 != 0)) {
         if (D_ending_80198260[2][0] == 0) {
             Math_SmoothStepToF(&D_ending_80196FA0[2][0].y, -10.0f, 0.4f, 100.0f, 0.1f);
@@ -678,6 +716,7 @@ void func_ending_80189108(void) {
         }
         D_ending_80196D08[3].unk_34 += 2;
     }
+
     if ((D_ending_80196F98 == 0) && (D_ending_80196D08[4].unk_38 != 2)) {
         temp_a0 = (u32) (D_ending_80196D08[3].unk_34 * D_ending_80196D08[3].unk_30) %
                   Animation_GetFrameCount(D_ending_80196D08[3].anim);
@@ -685,6 +724,7 @@ void func_ending_80189108(void) {
             D_ending_80196D08[3].unk_34 += 2;
         }
     }
+
     if (D_ending_80196D08[4].unk_38 != 2) {
         if ((D_80161690 != 0) && (D_80161690 < 121)) {
             Math_SmoothStepToF(&D_ending_80196FA0[1][0].x, -50.0f, 0.2f, 1000.0f, 0.01f);
@@ -707,8 +747,10 @@ void func_ending_80189108(void) {
             Math_SmoothStepToF(&D_ending_80196FA0[2][0].y, 0.0f, 0.2f, 1000.0f, 0.01f);
         }
     }
+
     D_ending_80196FA0[2][2].z = -6.0f;
     D_ending_80196FA0[2][0].z = 6.0f;
+
     if ((D_ending_80196D08[4].unk_38 == 2) && (gCsFrameCount >= 60)) {
         Math_SmoothStepToF(&D_ending_80196FA0[1][0].x, -40.0f, 0.2f, 1000.0f, 0.01f);
         Math_SmoothStepToF(&D_ending_80196FA0[1][0].z, 18.0f, 0.2f, 1000.0f, 0.01f);
@@ -733,6 +775,7 @@ s32 func_ending_80189C64(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, voi
     if (temp_v0 == 3) {
         gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
     }
+
     switch (limbIndex) {
         case 1:
             if (temp_v0 == 2) {
@@ -741,6 +784,7 @@ s32 func_ending_80189C64(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, voi
                 rot->z += D_ending_80196FA0[temp_v0][2].z;
             }
             break;
+
         case 2:
             if (temp_v0 == 1) {
                 rot->x += D_ending_80196FA0[temp_v0][1].x;
@@ -748,6 +792,7 @@ s32 func_ending_80189C64(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, voi
                 rot->z += D_ending_80196FA0[temp_v0][1].z;
             }
             break;
+
         case 6:
             if (temp_v0 == 2) {
                 rot->x += D_ending_80196FA0[temp_v0][3].x;
@@ -755,6 +800,7 @@ s32 func_ending_80189C64(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, voi
                 rot->z += D_ending_80196FA0[temp_v0][3].z;
             }
             break;
+
         case 9:
             if (temp_v0 == 2) {
                 rot->x += D_ending_80196FA0[temp_v0][4].x;
@@ -762,6 +808,7 @@ s32 func_ending_80189C64(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, voi
                 rot->z += D_ending_80196FA0[temp_v0][4].z;
             }
             break;
+
         case 17:
             if (temp_v0 == 2) {
                 rot->x += D_ending_80196FA0[temp_v0][0].x;
@@ -769,6 +816,7 @@ s32 func_ending_80189C64(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, voi
                 rot->z += D_ending_80196FA0[temp_v0][0].z;
             }
             break;
+
         case 19:
             if ((temp_v0 == 1) || (temp_v0 == 3) || (temp_v0 == 0)) {
                 rot->x += D_ending_80196FA0[temp_v0][0].x;
@@ -781,6 +829,7 @@ s32 func_ending_80189C64(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, voi
                 rot->z += D_ending_80196FA0[temp_v0][6].z;
             }
             break;
+
         case 20:
             if (temp_v0 == 3) {
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -796,18 +845,18 @@ s32 func_ending_80189C64(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, voi
 }
 
 void func_ending_8018A024(void) {
-    Vec3f sp24;
-    Vec3f sp18;
+    Vec3f src;
+    Vec3f dest;
 
-    sp24.x = sp24.y = 0.0f;
-    sp24.z = -100.0f;
+    src.x = src.y = 0.0f;
+    src.z = -100.0f;
     Matrix_RotateX(gCalcMatrix, D_801784D0 * M_DTOR, 0);
     Matrix_RotateY(gCalcMatrix, D_801784D4 * M_DTOR, 1);
     Matrix_RotateZ(gCalcMatrix, D_801784D8 * M_DTOR, 1);
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp24, &sp18);
-    gLight1x = sp18.x;
-    gLight1y = sp18.y;
-    gLight1z = sp18.z;
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+    gLight1x = dest.x;
+    gLight1y = dest.y;
+    gLight1z = dest.z;
 }
 
 void func_ending_8018A124(s32 arg0) {
@@ -824,12 +873,15 @@ void func_ending_8018A124(s32 arg0) {
     D_801779A0 = (&sp20)[arg0][0];
     D_801779B8 = (&sp20)[arg0][1];
     D_801779C0 = (&sp20)[arg0][2];
+
     gLight1R = (&sp14)[arg0][0];
     gLight1G = (&sp14)[arg0][1];
     gLight1B = (&sp14)[arg0][2];
+
     gAmbientR = (&sp8)[arg0][0];
     gAmbientG = (&sp8)[arg0][1];
     gAmbientB = (&sp8)[arg0][2];
+
     D_801784D0 = (&sp0)[arg0][0];
     D_801784D4 = (&sp0)[arg0][1];
 }
@@ -851,6 +903,7 @@ void func_ending_8018A2A8(void) {
         Matrix_RotateX(gGfxMatrix, D_ending_80196D08[i].rot.x * M_DTOR, 1);
         Matrix_RotateZ(gGfxMatrix, D_ending_80196D08[i].rot.z * M_DTOR, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
+
         if (D_ending_80196D08[i].skeleton == NULL) {
             gSPDisplayList(gMasterDisp++, D_ending_80196D08[i].anim);
         } else {
@@ -866,30 +919,36 @@ void func_ending_8018A2A8(void) {
 
 void func_ending_8018A570(void) {
     func_ending_8018A024();
+
     Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR, gAmbientG,
                        gAmbientB);
+
     switch (D_ending_80196F8C) {
         case 2:
             if (gCsFrameCount == 200) {
                 D_ending_80196F8C = 3;
             }
             break;
+
         case 4:
             if (gCsFrameCount == 435) {
                 D_ending_80196F8C = 5;
             }
             break;
+
         case 6:
             if (gCsFrameCount == 180) {
                 D_ending_80196F8C = 7;
             }
             break;
+
         case 8:
             if ((D_ending_80196D08[4].unk_38 == 2) && (gCsFrameCount >= 108)) {
                 D_ending_80196F8C = 9;
             }
             break;
     }
+
     switch (D_ending_80196F8C) {
         case 0:
             func_ending_8018A124(0);
@@ -904,6 +963,7 @@ void func_ending_8018A570(void) {
         case 2:
             func_ending_80188030(0);
             break;
+
         case 3:
             func_ending_80187D3C(1);
             D_80178358 = 0;
@@ -912,9 +972,11 @@ void func_ending_8018A570(void) {
             gCsFrameCount = 0;
             gOverlayStage = 1;
             break;
+
         case 4:
             func_ending_80188030(1);
             break;
+
         case 5:
             func_ending_80188394();
             D_80178358 = 0;
@@ -923,9 +985,11 @@ void func_ending_8018A570(void) {
             gCsFrameCount = 0;
             gOverlayStage = 4;
             break;
+
         case 6:
             func_ending_8018845C();
             break;
+
         case 7:
             func_ending_80188DB4();
             D_80178358 = 0;
@@ -936,6 +1000,7 @@ void func_ending_8018A570(void) {
         case 8:
             func_ending_80189108();
             break;
+
         case 9:
             D_80178358 = 0;
             gCsFrameCount = 0;
@@ -951,14 +1016,17 @@ void func_ending_8018A828(void) {
             func_ending_801876A4();
             func_ending_80187860(0, 0);
             break;
+
         case 4:
             func_ending_80187520(1);
             func_ending_801876A4();
             func_ending_80187860(0, 1);
             break;
+
         case 6:
             func_ending_8018A2A8();
             break;
+
         case 7:
         case 8:
             D_ending_80196F88 = 1;
@@ -991,6 +1059,7 @@ void func_ending_8018A8FC(void) {
 void func_ending_8018A96C(void) {
     gCsFrameCount++;
     gGameFrameCount++;
+
     switch (D_ending_80196D00) {
         case 0:
             gRadioState = 0;
@@ -1001,6 +1070,7 @@ void func_ending_8018A96C(void) {
             D_801779C0 = -100.0f;
             D_ending_80196D00 = 1;
             break;
+
         case 1:
             if (D_ending_80192E70 < 2800) {
                 break;
@@ -1008,6 +1078,7 @@ void func_ending_8018A96C(void) {
         case 2:
             D_ending_80196D00 = 3;
             gCsFrameCount = 0;
+
         case 3:
             if (func_ending_8018BCB0() == 0) {
                 break;
@@ -1016,12 +1087,15 @@ void func_ending_8018A96C(void) {
             gOverlayStage = 2;
             D_ending_80196D00 = 5;
             break;
+
         case 5:
             D_ending_80196F8C = 0;
             D_ending_80196D00 = 6;
+
         case 6:
             func_ending_8018A570();
             break;
+
         case 7:
             break;
     }
@@ -1034,20 +1108,25 @@ void func_ending_8018AAC4(void) {
     Matrix_Push(&gGfxMatrix);
     Matrix_LookAt(gGfxMatrix, D_80177978, D_80177980, D_80177988, D_801779A0, D_801779B8, D_801779C0, 0.0f, 100.0f,
                   0.0f, 0);
+
     switch (D_ending_80196D00) {
         case 1:
             func_ending_801926D4();
             break;
+
         case 3:
             func_ending_8018C21C();
             break;
+
         case 6:
             func_ending_8018A828();
             break;
+
         case 7:
             func_ending_801926D4();
             break;
     }
+
     func_ending_8018CE20(D_ending_80196D04);
     D_ending_80196D04++;
     func_800BB5D0();
@@ -1058,15 +1137,18 @@ void func_ending_8018ABE8(void) {
     if (gControllerPress[3].button & Z_TRIG) {
         D_ending_80198584 ^= 1;
     }
+
     if (!D_ending_80198584) {
         return;
     }
+
     if (gControllerPress[3].button & R_TRIG) {
         D_ending_80198588++;
         if (D_ending_80198588 > 4) {
             D_ending_80198588 = 0;
         }
     }
+
     switch (D_ending_80198588) {
         case 0:
             if (gControllerHold[3].button & B_BUTTON) {
@@ -1106,6 +1188,7 @@ void func_ending_8018ABE8(void) {
                 }
             }
             break;
+
         case 1:
             if (gControllerHold[3].button & B_BUTTON) {
                 gLight1R++;
@@ -1144,6 +1227,7 @@ void func_ending_8018ABE8(void) {
                 }
             }
             break;
+
         case 2:
             if (gControllerHold[3].button & B_BUTTON) {
                 gAmbientR++;
@@ -1182,6 +1266,7 @@ void func_ending_8018ABE8(void) {
                 }
             }
             break;
+
         case 3:
             if (gControllerHold[3].button & B_BUTTON) {
                 D_801784D0 += 1.0f;
@@ -1220,6 +1305,7 @@ void func_ending_8018ABE8(void) {
                 }
             }
             break;
+
         case 4:
             if (gControllerPress[3].button & B_BUTTON) {
                 gFogNear++;
@@ -1270,6 +1356,7 @@ void func_ending_8018B174(Vec3f* arg0, Vec3f* arg1, f32* arg2) {
             var_fa1 -= 10.0f;
         }
     }
+
     if (gControllerHold[2].button & Z_TRIG) {
         if (gControllerHold[2].button & U_CBUTTONS) {
             var_fa0 += 100.0f;
@@ -1285,22 +1372,27 @@ void func_ending_8018B174(Vec3f* arg0, Vec3f* arg1, f32* arg2) {
             var_fa0 -= 10.0f;
         }
     }
+
     if (gControllerHold[2].button & Z_TRIG) {
         var_fv1 = gControllerPress[2].stick_y;
     } else {
         var_ft5 = gControllerPress[2].stick_y / 10.0f;
         var_ft4 = gControllerPress[2].stick_x / 10.0f;
     }
+
     if (gControllerHold[2].button & B_BUTTON) {
         var_fv0 += 0.01f;
     }
+
     if (gControllerHold[2].button & A_BUTTON) {
         var_fv0 -= 0.01f;
     }
+
     sp4C += var_fv0;
     if (sp4C < 0.01f) {
         sp4C = 0.01f;
     }
+
     sp28.x += var_fa1;
     sp28.y += var_fa0;
     sp28.z -= var_fv1;
@@ -1336,6 +1428,7 @@ void func_ending_8018B3E8(Actor* arg0, s32 arg1) {
     arg0->unk_0F4.y = sp20[arg1].y;
     arg0->unk_0F4.z = sp20[arg1].z;
     arg0->obj.pos = sp38[arg1];
+
     if (arg1 == 0) {
         arg0->obj.pos.x -= 600.0f;
         arg0->obj.pos.y += 150.0f;
@@ -1418,19 +1511,25 @@ void func_ending_8018B860(void) {
     D_80177978 = sp4C.x;
     D_80177980 = sp4C.y;
     D_80177988 = sp4C.z;
+
     D_801779A0 = sp40.x;
     D_801779B8 = sp40.y;
     D_801779C0 = sp40.z;
+
     gLight1R = sp28[0];
     gLight1G = sp28[1];
     gLight1B = sp28[2];
+
     D_801784D0 = sp34[0];
     D_801784D4 = sp34[1];
     D_801784D8 = sp34[2];
+
     gAmbientR = sp1C[0];
     gAmbientG = sp1C[1];
     gAmbientB = sp1C[2];
+
     func_800A6148();
+
     func_ending_8018B3E8(&gActors[0], 0);
     func_ending_8018B52C(&gActors[1], 0);
     func_ending_8018B52C(&gActors[2], 1);
@@ -1441,6 +1540,7 @@ void func_ending_8018B860(void) {
     func_ending_8018B6D8(&gActors[7], 3);
     func_ending_8018B6D8(&gActors[8], 4);
     func_ending_8018B6D8(&gActors[9], 5);
+
     D_80177A48[0] = D_801779A0;
     D_80177A10[0] = 0;
     D_ending_8019858C = 0;
@@ -1458,21 +1558,27 @@ void func_ending_8018BAD0(void) {
     D_80177978 = sp4C.x;
     D_80177980 = sp4C.y;
     D_80177988 = sp4C.z;
+
     D_801779A0 = sp40.x;
     D_801779B8 = sp40.y;
     D_801779C0 = sp40.z;
+
     gLight1R = sp28[0];
     gLight1G = sp28[1];
     gLight1B = sp28[2];
+
     D_801784D0 = sp34[0];
     D_801784D4 = sp34[1];
     D_801784D8 = sp34[2];
+
     gAmbientR = sp1C[0];
     gAmbientG = sp1C[1];
     gAmbientB = sp1C[2];
+
     func_800A6148();
     func_ending_8018B3E8(&gActors[0], 1);
     func_ending_8018B624(&gActors[1]);
+
     D_80177A10[0] = 1;
     D_ending_8019858C = 0;
     gBgColor = 0x4AE5;
@@ -1498,17 +1604,21 @@ bool func_ending_8018BCB0(void) {
             D_80178358 = 0;
             func_ending_8018B860();
             break;
+
         case 780:
             func_ending_8018BAD0();
             break;
+
         case 1010:
             sp5C = true;
             func_800A6148();
             break;
     }
+
     func_ending_8018A024();
     Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR, gAmbientG,
                        gAmbientB);
+
     for (i = 59; i >= 0; i--) {
         if (gActors[i].obj.status != OBJ_FREE) {
             switch (gActors[i].obj.id) {
@@ -1519,6 +1629,7 @@ bool func_ending_8018BCB0(void) {
                                 gActors[i].obj.status = OBJ_FREE;
                             }
                             break;
+
                         case 1:
                             if (gCsFrameCount >= 780) {
                                 gActors[i].obj.pos.x += 8.7f;
@@ -1527,20 +1638,24 @@ bool func_ending_8018BCB0(void) {
                             }
                             break;
                     }
+
                     if (i == D_ending_8019858C) {
                         func_ending_8018B174(&gActors[i].obj.pos, &gActors[i].obj.rot, &gActors[i].scale);
                     }
                     break;
+
                 case 1:
                     if (i == D_ending_8019858C) {
                         func_ending_8018B174(&gActors[i].obj.pos, &gActors[i].obj.rot, &gActors[i].scale);
                     }
                     break;
+
                 case 2:
                     if (i == D_ending_8019858C) {
                         func_ending_8018B174(&gActors[i].obj.pos, &gActors[i].obj.rot, &gActors[i].scale);
                     }
                     break;
+
                 case 3:
                     if (gActors[i].iwork[0] > 0) {
                         gActors[i].iwork[0]--;
@@ -1552,21 +1667,28 @@ bool func_ending_8018BCB0(void) {
                         }
                         Math_SmoothStepToF(&gActors[i].fwork[0], 1.0f, 0.05f, 1000.0f, 0.001f);
                     }
+
                     if (i == D_ending_8019858C) {
                         func_ending_8018B174(&gActors[i].obj.pos, &gActors[i].obj.rot, &gActors[i].scale);
                     }
                     break;
             }
+
             Matrix_RotateY(gCalcMatrix, (gActors[i].unk_0F4.y + 180.0f) * M_DTOR, 0);
             Matrix_RotateX(gCalcMatrix, -(gActors[i].unk_0F4.x * M_DTOR), 1);
+
             sp78.x = 0.0f;
             sp78.y = 0.0f;
             sp78.z = gActors[i].fwork[0];
+
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
+
             gActors[i].vel.x = sp6C.x;
             gActors[i].vel.y = sp6C.y;
             gActors[i].vel.z = sp6C.z;
+
             if (0) {} // some sort of vec_set macro?
+
             gActors[i].obj.rot.x = -gActors[i].unk_0F4.x;
             gActors[i].obj.rot.y = gActors[i].unk_0F4.y + 180.0f;
             gActors[i].obj.rot.z = -gActors[i].unk_0F4.z;
@@ -1578,6 +1700,7 @@ bool func_ending_8018BCB0(void) {
             gActors[i].vel.y -= gActors[i].gravity;
         }
     }
+
     if (D_80177A10[0] == 0) {
         if ((gActors[0].obj.pos.x <= D_801779A0) && (gActors[0].obj.pos.x > -400.0f)) {
             D_80177A48[0] = gActors[0].obj.pos.x;
@@ -1591,24 +1714,29 @@ bool func_ending_8018BCB0(void) {
         D_801779B8 = gActors[0].obj.pos.y;
         D_801779C0 = gActors[0].obj.pos.z;
     }
+
     if ((gCsFrameCount < 548) && (gCsFrameCount >= 240)) {
         D_801784D0 -= 0.2f;
         if (D_801784D0 < 180.0f) {
             D_801784D0 = 180.0f;
         }
     }
+
     if (gCsFrameCount >= 549) {
         D_801784D0 += 0.2f;
         if (D_801784D0 > 240.0f) {
             D_801784D0 = 240.0f;
         }
     }
+
     if ((gCsFrameCount == 760) || (gCsFrameCount == 994)) {
         D_80178358 = 255;
     }
+
     if (gCsFrameCount == 780) {
         D_80178358 = 0;
     }
+
     return sp5C;
 }
 
@@ -1648,7 +1776,9 @@ void func_ending_8018C21C(void) {
         gSPDisplayList(gMasterDisp++, D_700C8B0);
         Matrix_Pop(&gGfxMatrix);
     }
+
     Matrix_Push(&gGfxMatrix);
+
     for (i = 59; i >= 0; i--) {
         if (gActors[i].obj.status != OBJ_FREE) {
             Matrix_Push(&gGfxMatrix);
@@ -1663,15 +1793,19 @@ void func_ending_8018C21C(void) {
                         Matrix_RotateX(gGfxMatrix, gActors[i].obj.rot.x * M_DTOR, 1);
                         Matrix_RotateZ(gGfxMatrix, gActors[i].obj.rot.z * M_DTOR, 1);
                         Matrix_SetGfxMtx(&gMasterDisp);
+
                         if (D_80177B8C != 0) {
                             gSPDisplayList(gMasterDisp++, D_E000000);
                         }
+
                         if (D_80177B8C == 0) {
                             gSPDisplayList(gMasterDisp++, D_E003AB0);
                         }
+
                         RCP_SetupDL(&gMasterDisp, 0x31);
                         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 64);
                         gDPSetEnvColor(gMasterDisp++, 255, 255, 0, 64);
+
                         for (i2 = 0, var_s1 = sp124; i2 < 3; i2++, var_s1++) {
                             Matrix_Push(&gGfxMatrix);
                             scale = &sp10C[gGameFrameCount % 2];
@@ -1703,6 +1837,7 @@ void func_ending_8018C21C(void) {
                         func_800515C4();
                     }
                     break;
+
                 case 1:
                     RCP_SetupDL(&gMasterDisp, 0x17);
                     Matrix_Translate(gGfxMatrix, gActors[i].obj.pos.x, gActors[i].obj.pos.y, gActors[i].obj.pos.z, 1);
@@ -1713,6 +1848,7 @@ void func_ending_8018C21C(void) {
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_700F240);
                     break;
+
                 case 2:
                     RCP_SetupDL(&gMasterDisp, 0x17);
                     Matrix_Translate(gGfxMatrix, gActors[i].obj.pos.x, gActors[i].obj.pos.y, gActors[i].obj.pos.z, 1);
@@ -1723,6 +1859,7 @@ void func_ending_8018C21C(void) {
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_700F320);
                     break;
+
                 case 3:
                     RCP_SetupDL(&gMasterDisp, 0x17);
                     Matrix_Translate(gGfxMatrix, gActors[i].obj.pos.x, gActors[i].obj.pos.y, gActors[i].obj.pos.z, 1);
@@ -1744,6 +1881,7 @@ void func_ending_8018C21C(void) {
                     Matrix_Pop(&gGfxMatrix);
                     spE4 = gActors[i].fwork[1];
                     RCP_SetupDL(&gMasterDisp, 0x29);
+
                     switch (gActors[i].unk_046) {
                         case 0:
                             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 200, 0, 0, gActors[i].iwork[1]);

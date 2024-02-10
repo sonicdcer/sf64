@@ -158,6 +158,10 @@ f32 D_menu_801B907C;
 f32 D_menu_801B9080;
 f32 D_menu_801B9084;
 
+extern u8 D_5000200[];
+extern u8 D_5000300[];
+extern u16 D_6000000[];
+
 typedef struct {
     /* 0x00 */ Animation* unk_0;
     /* 0x04 */ Animation* unk_4;

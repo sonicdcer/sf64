@@ -97,7 +97,6 @@ extern u8 D_menu_801C6C10[96 * 96];
 extern u8 D_menu_801C9010[96 * 96];
 extern u8 D_menu_801CB410[96 * 96];
 
-
 void func_menu_801877F0(void);
  s32 func_menu_80187ABC(void);
 void func_menu_80187B00(void);

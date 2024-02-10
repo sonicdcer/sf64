@@ -10,225 +10,9 @@
 #include "global.h"
 #include "fox_option.h"
 
-extern f32 D_menu_801CD818[];
-
 //! TODO: IMPORT BSS
 
-extern s32 D_menu_801B81A8[][3];
-
-extern Gfx D_menu_801B4A40[];
-extern Gfx D_menu_801B5E78[];
-extern Gfx D_menu_801B61E0[];
-extern Gfx D_menu_801B6548[];
-extern Gfx D_menu_801B4D70[];
-extern Gfx D_menu_801B5B10[];
-extern Gfx D_menu_801B5440[];
-extern Gfx D_menu_801B50D8[];
-extern Gfx D_menu_801B5E78[];
-extern Gfx D_menu_801B57A8[];
-
 // #define IMPORT_BSS
-
-static f32 sOptionCardPosY[] = { 60.0f, 36.0f, 12.0f, -12.0f, -36.0f, -60.0f };           // D_menu_801AE570
-static f32 sOptionCardTextPosX[] = { 124.0f, 118.0f, 145.0f, 125.0f, 133.0f, 118.0f };    // D_menu_801AE588
-static f32 sOptionCardTextPosY[] = { 54.0f, 78.0f, 103.0f, 126.0f, 151.0f, 175.0f };      // D_menu_801AE5A0
-static f32 sOptionCardCurTextPosX[] = { 124.0f, 118.0f, 145.0f, 125.0f, 133.0f, 118.0f }; // D_menu_801AE5B8
-static f32 sOptionCardCurTextPosY[] = { 54.0f, 78.0f, 103.0f, 126.0f, 151.0f, 175.0f };   // D_menu_801AE5D0
-static f32 D_menu_801AE5E8[] = { 124.0f, 125.0f };
-static f32 D_menu_801AE5F0[] = { 54.0f, 55.0f };
-static f32 D_menu_801AE5F8[] = { 133.0f, 125.0f };
-static f32 D_menu_801AE600[] = { 151.0f, 151.0f };
-static f32 D_menu_801AE608[] = { 8.0f, 8.0f, 8.0f, 8.0f, 8.0f, 8.0f };
-static f32 D_menu_801AE620[] = { 1.9f, 2.4f, 0.9f, 1.9f, 1.8f, 2.4f };
-
-// D_menu_801AE638
-static OptionEntry sOptionCardList[] = {
-    {
-        { 0, 0, (void*) 0x08003B50, 0, 72, 12, 126.0f, 46.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
-        { 0.0f, 30.0f, -130.0f, 0.2f, 0.11f },
-        { -40.0f, 27.0f, 80.0f },
-        1,
-        1,
-    },
-    {
-        { 0, 0, (void*) 0x08003EB0, 0, 80, 12, 126.0f, 184.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
-        { 0.0f, 18.0f, -130.0f, 0.2f, 0.11f },
-        { -40.0f, 16.0f, 80.0f },
-        1,
-        1,
-    },
-    {
-        { 0, 0, (void*) 0x08004270, 0, 32, 10, 126.0f, 184.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
-        { 0.0f, 6.0f, -130.0f, 0.2f, 0.11f },
-        { -40.0f, 6.0f, 80.0f },
-        1,
-        1,
-    },
-    {
-        { 0, 0, (void*) 0x080043B0, 0, 64, 12, 110.0f, 91.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
-        { 0.0f, -6.0f, -130.0f, 0.2f, 0.11f },
-        { -40.0f, -5.0f, 80.0f },
-        1,
-        1,
-    },
-    {
-        { 0, 0, (void*) 0x080046B0, 0, 64, 10, 110.0f, 116.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
-        { 0.0f, -18.0f, -130.0f, 0.2f, 0.11f },
-        { -40.0f, -16.0f, 80.0f },
-        1,
-        1,
-    },
-    {
-        { 0, 0, (void*) 0x08004930, 0, 80, 10, 126.0f, 184.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
-        { 0.0f, -30.0f, -130.0f, 0.2f, 0.11f },
-        { -40.0f, -27.0f, 80.0f },
-        1,
-        1,
-    },
-};
-
-// D_menu_801AE878
-static OptionEntry sOptionVSCardList[] = {
-    {
-        { 0, 0, (void*) 0x08005010, 0, 96, 13, 110.0f, 91.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
-        { 0.0f, 11.0f, -130.0f, 0.2f, 0.11f },
-        { -40.0f, 11.0f, 80.0f },
-        1,
-        1,
-    },
-    {
-        { 0, 0, (void*) 0x080054F0, 0, 96, 10, 110.0f, 116.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
-        { 0.0f, 0.0f, -130.0f, 0.2f, 0.11f },
-        { -40.0f, 0.0f, 80.0f },
-        1,
-        1,
-    },
-    {
-        { 0, 0, (void*) 0x08005910, 0, 96, 10, 110.0f, 138.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
-        { 0.0f, -11.0f, -130.0f, 0.2f, 0.11f },
-        { -40.0f, -11.0f, 80.0f },
-        1,
-        1,
-    },
-};
-static u8 D_menu_801AE998[] = { 0, 3, 1 };
-
-static u8 D_menu_801AE99C[] = { 0, 1, 2 };
-
-static f32 D_menu_801AE9A0[4] = { 62.0f, 222.0f, 75.0f, 235.0f };
-
-static f32 D_menu_801AE9B0[4] = { 43.0f, 43.0f, 46.0f, 46.0f };
-
-static OptionTexture D_menu_801AE9C0[4] = {
-    { 2, 0, (void*) 0x080143B0, 0x080147B0, 32, 32, 56.0f, 175.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
-    { 2, 0, (void*) 0x080143B0, 0x080147B0, 32, 32, 216.0f, 175.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
-    { 1, 0, (void*) 0x080039D0, 0x08003A50, 16, 16, 69.0f, 178.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
-    { 1, 0, (void*) 0x080039D0, 0x08003A50, 16, 16, 229.0f, 178.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
-};
-
-static OptionTexture D_menu_801AEAA0[3] = {
-    { 3, 0, (void*) 0x08013990, 0, 104, 10, 151.0f, 135.0f, 1.05f, 1.0f, 255, 255, 255, 255 },
-    { 3, 0, (void*) 0x08013990, 0, 104, 10, 151.0f, 161.0f, 1.05f, 1.0f, 255, 255, 255, 255 },
-    { 3, 0, (void*) 0x08013990, 0, 104, 10, 151.0f, 188.0f, 1.05f, 1.0f, 255, 255, 255, 255 },
-};
-
-static OptionTexture D_menu_801AEB48[3] = {
-    { 3, 0, (void*) 0x080141B0, 0, 16, 16, 245.0f, 132.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
-    { 3, 0, (void*) 0x080141B0, 0, 16, 16, 245.0f, 158.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
-    { 3, 0, (void*) 0x080141B0, 0, 16, 16, 245.0f, 185.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
-};
-
-// Something inside D_menu_801AEC30 display list
-static u32 D_menu_801AEBF0[] = {
-    0x00010001, 0x00000000, 0x00000000, 0xFFFFFFFF, 0xFFFF0001, 0x00000000, 0x00000000, 0xFFFFFFFF,
-    0xFFFF0000, 0x00000000, 0x00000000, 0xFFFFFFFF, 0x00010000, 0x00000000, 0x00000000, 0xFFFFFFFF,
-};
-
-static Gfx D_menu_801AEC30[] = {
-    gsSPVertex(D_menu_801AEBF0, 4, 0),
-    gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsSPEndDisplayList(),
-};
-
-// Something inside D_menu_801AEC88 display list
-static u32 D_menu_801AEC48[] = {
-    0x00010000, 0x00000000, 0x00000000, 0xFFFFFFFF, 0xFFFF0000, 0x00000000, 0x00000000, 0xFFFFFFFF,
-    0xFFFFFFFF, 0x00000000, 0x00000000, 0xFFFFFFFF, 0x0001FFFF, 0x00000000, 0x00000000, 0xFFFFFFFF,
-};
-
-static Gfx D_menu_801AEC88[] = {
-    gsSPVertex(D_menu_801AEC48, 4, 0),
-    gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsSPEndDisplayList(),
-};
-
-// Something inside D_menu_801AECE0 display list
-static u32 D_menu_801AECA0[] = {
-    0x00010001, 0x00000000, 0x00000000, 0xFFFFFFFF, 0xFFFF0001, 0x00000000, 0x00000000, 0xFFFFFFFF,
-    0xFFFFFFFF, 0x00000000, 0x00000000, 0xFFFFFFFF, 0x0001FFFF, 0x00000000, 0x00000000, 0xFFFFFFFF,
-};
-
-static Gfx D_menu_801AECE0[] = {
-    gsSPVertex(D_menu_801AECA0, 4, 0),
-    gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsSPEndDisplayList(),
-};
-
-static u8* D_menu_801AECF8[10] = {
-    (u8*) 0x05009F60, (u8*) 0x0500A050, (u8*) 0x0500A140, (u8*) 0x0500A230, (u8*) 0x0500A320,
-    (u8*) 0x0500A410, (u8*) 0x0500A500, (u8*) 0x0500A5F0, (u8*) 0x0500A6E0, (u8*) 0x0500A7D0,
-};
-static f32 D_menu_801AED20[2] = { 255.0f, 255.0f };
-
-// TF is this? seems unused
-static s32 D_menu_801AED28[] = {
-    /* EE73E8 801AED28 00000038 */ 56,
-    /* EE73EC 801AED2C 00000043 */ 67,
-    /* EE73F0 801AED30 0000004E */ 78,
-    /* EE73F4 801AED34 00000059 */ 89,
-    /* EE73F8 801AED38 0000005B */ 91,
-};
-
-static s32 D_menu_801AED3C[4] = { 0, 0, 0, 0 };
-
-static UnkStruct_D_menu_801AED4C D_menu_801AED4C[24] = {
-    { 9, 0, 0 },  { 0, 12, 0 }, { 12, 4, 0 }, { 4, 10, 0 }, { 10, 2, 0 }, { 6, 4, 0 },   { 7, 2, 0 }, { 3, 2, 0 },
-    { 2, 14, 0 }, { 5, 6, 1 },  { 6, 13, 1 }, { 13, 7, 1 }, { 4, 7, 1 },  { 12, 13, 1 }, { 8, 7, 1 }, { 9, 5, 2 },
-    { 5, 11, 2 }, { 11, 8, 2 }, { 8, 3, 2 },  { 3, 1, 2 },  { 7, 1, 2 },  { 1, 14, 2 },  { 0, 6, 3 }, { 4, 3, 4 },
-};
-
-static Gfx* D_menu_801AEE6C[16] = {
-    (Gfx*) 0x06060610, (Gfx*) 0x0601DE80, (Gfx*) 0x0604B750, (Gfx*) 0x0601F6B0, (Gfx*) 0x0601C0D0, (Gfx*) 0x0601C960,
-    D_menu_801B5E78,   D_menu_801B61E0,   D_menu_801B6548,   D_menu_801B4D70,   D_menu_801B5B10,   D_menu_801B5440,
-    D_menu_801B50D8,   (Gfx*) 0x0604DB10, D_menu_801B57A8,   D_menu_801B57A8,
-};
-
-static char* D_menu_801AEEAC[] = {
-    "ME", "A6", "BO", "SZ", "SX", "SY", "KA", "MA", "ZO", "CO", "TI", "AQ", "FO", "SO", "VE", "VE",
-};
-
-static s32 PAD_menu_801AEEEC = 0;
-
-// Something inside D_menu_801AEF30 display list
-static u32 D_menu_801AEEF0[] = {
-    0xFFF5FFF5, 0x00000000, 0x000000FF, 0x00000000, 0x000BFFF5, 0x00000000, 0x00FF00FF, 0x00000000,
-    0x000B000B, 0x00000000, 0x00FF0000, 0x00000000, 0xFFF5000B, 0x00000000, 0x00000000, 0x00000000,
-};
-
-static Gfx D_menu_801AEF30[] = {
-    gsSPVertex(D_menu_801AEEF0, 4, 0),
-    gsSP1Triangle(0, 1, 2, 0),
-    gsSP1Triangle(0, 2, 3, 0),
-    gsSPEndDisplayList(),
-};
-
-static s32 PAD_menu_801AEF50[] = { 0x00000000, 0x00000000, 0x00000000 };
-
-static char D_menu_801AEF5C[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.";
-
-static f32 D_menu_801AEF84[] = { 24.0f, 0.0f, -24.0f };
-static f32 D_menu_801AEF90[] = { 111.0f, 112.0f, 121.0f };
-static f32 D_menu_801AEF9C[] = { 89.0f, 115.0f, 139.0f };
 
 #ifdef IMPORT_BSS
 s32 D_menu_801B9090;
@@ -462,7 +246,226 @@ extern s32 D_menu_801B931C;
 extern bool D_menu_801B9320; // MusicPlaying status in the expert sound options
 #endif
 
-extern u8 D_8000000[];
+extern s32 D_menu_801B81A8[][3];
+
+extern Gfx D_menu_801B4A40[];
+extern Gfx D_menu_801B5E78[];
+extern Gfx D_menu_801B61E0[];
+extern Gfx D_menu_801B6548[];
+extern Gfx D_menu_801B4D70[];
+extern Gfx D_menu_801B5B10[];
+extern Gfx D_menu_801B5440[];
+extern Gfx D_menu_801B50D8[];
+extern Gfx D_menu_801B5E78[];
+extern Gfx D_menu_801B57A8[];
+
+#include "fox_option_assets.h"
+
+static f32 sOptionCardPosY[] = { 60.0f, 36.0f, 12.0f, -12.0f, -36.0f, -60.0f };           // D_menu_801AE570
+static f32 sOptionCardTextPosX[] = { 124.0f, 118.0f, 145.0f, 125.0f, 133.0f, 118.0f };    // D_menu_801AE588
+static f32 sOptionCardTextPosY[] = { 54.0f, 78.0f, 103.0f, 126.0f, 151.0f, 175.0f };      // D_menu_801AE5A0
+static f32 sOptionCardCurTextPosX[] = { 124.0f, 118.0f, 145.0f, 125.0f, 133.0f, 118.0f }; // D_menu_801AE5B8
+static f32 sOptionCardCurTextPosY[] = { 54.0f, 78.0f, 103.0f, 126.0f, 151.0f, 175.0f };   // D_menu_801AE5D0
+static f32 D_menu_801AE5E8[] = { 124.0f, 125.0f };
+static f32 D_menu_801AE5F0[] = { 54.0f, 55.0f };
+static f32 D_menu_801AE5F8[] = { 133.0f, 125.0f };
+static f32 D_menu_801AE600[] = { 151.0f, 151.0f };
+static f32 D_menu_801AE608[] = { 8.0f, 8.0f, 8.0f, 8.0f, 8.0f, 8.0f };
+static f32 D_menu_801AE620[] = { 1.9f, 2.4f, 0.9f, 1.9f, 1.8f, 2.4f };
+
+extern f32 D_menu_801CD818[];
+
+// D_menu_801AE638
+static OptionEntry sOptionCardList[] = {
+    {
+        { 0, 0, D_8003B50, 0, 72, 12, 126.0f, 46.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
+        { 0.0f, 30.0f, -130.0f, 0.2f, 0.11f },
+        { -40.0f, 27.0f, 80.0f },
+        1,
+        1,
+    },
+    {
+        { 0, 0, D_8003EB0, 0, 80, 12, 126.0f, 184.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
+        { 0.0f, 18.0f, -130.0f, 0.2f, 0.11f },
+        { -40.0f, 16.0f, 80.0f },
+        1,
+        1,
+    },
+    {
+        { 0, 0, D_8004270, 0, 32, 10, 126.0f, 184.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
+        { 0.0f, 6.0f, -130.0f, 0.2f, 0.11f },
+        { -40.0f, 6.0f, 80.0f },
+        1,
+        1,
+    },
+    {
+        { 0, 0, D_80043B0, 0, 64, 12, 110.0f, 91.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
+        { 0.0f, -6.0f, -130.0f, 0.2f, 0.11f },
+        { -40.0f, -5.0f, 80.0f },
+        1,
+        1,
+    },
+    {
+        { 0, 0, D_80046B0, 0, 64, 10, 110.0f, 116.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
+        { 0.0f, -18.0f, -130.0f, 0.2f, 0.11f },
+        { -40.0f, -16.0f, 80.0f },
+        1,
+        1,
+    },
+    {
+        { 0, 0, D_8004930, 0, 80, 10, 126.0f, 184.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
+        { 0.0f, -30.0f, -130.0f, 0.2f, 0.11f },
+        { -40.0f, -27.0f, 80.0f },
+        1,
+        1,
+    },
+};
+
+// D_menu_801AE878
+static OptionEntry sOptionVSCardList[] = {
+    {
+        { 0, 0, D_8005010, 0, 96, 13, 110.0f, 91.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
+        { 0.0f, 11.0f, -130.0f, 0.2f, 0.11f },
+        { -40.0f, 11.0f, 80.0f },
+        1,
+        1,
+    },
+    {
+        { 0, 0, D_80054F0, 0, 96, 10, 110.0f, 116.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
+        { 0.0f, 0.0f, -130.0f, 0.2f, 0.11f },
+        { -40.0f, 0.0f, 80.0f },
+        1,
+        1,
+    },
+    {
+        { 0, 0, D_8005910, 0, 96, 10, 110.0f, 138.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
+        { 0.0f, -11.0f, -130.0f, 0.2f, 0.11f },
+        { -40.0f, -11.0f, 80.0f },
+        1,
+        1,
+    },
+};
+static u8 D_menu_801AE998[] = { 0, 3, 1 };
+
+static u8 D_menu_801AE99C[] = { 0, 1, 2 };
+
+static f32 D_menu_801AE9A0[4] = { 62.0f, 222.0f, 75.0f, 235.0f };
+
+static f32 D_menu_801AE9B0[4] = { 43.0f, 43.0f, 46.0f, 46.0f };
+
+static OptionTexture D_menu_801AE9C0[4] = {
+    { 2, 0, D_80143B0, D_80147B0, 32, 32, 56.0f, 175.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
+    { 2, 0, D_80143B0, D_80147B0, 32, 32, 216.0f, 175.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
+    { 1, 0, D_80039D0, D_8003A50, 16, 16, 69.0f, 178.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
+    { 1, 0, D_80039D0, D_8003A50, 16, 16, 229.0f, 178.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
+};
+
+static OptionTexture D_menu_801AEAA0[3] = {
+    { 3, 0, D_8013990, 0, 104, 10, 151.0f, 135.0f, 1.05f, 1.0f, 255, 255, 255, 255 },
+    { 3, 0, D_8013990, 0, 104, 10, 151.0f, 161.0f, 1.05f, 1.0f, 255, 255, 255, 255 },
+    { 3, 0, D_8013990, 0, 104, 10, 151.0f, 188.0f, 1.05f, 1.0f, 255, 255, 255, 255 },
+};
+
+static OptionTexture D_menu_801AEB48[3] = {
+    { 3, 0, D_80141B0, 0, 16, 16, 245.0f, 132.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
+    { 3, 0, D_80141B0, 0, 16, 16, 245.0f, 158.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
+    { 3, 0, D_80141B0, 0, 16, 16, 245.0f, 185.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
+};
+
+static Vtx D_menu_801AEBF0[] = {
+    { 1, 1, 0, 0, 0, 0, 255, 255, 255, 255 },
+    { -1, 1, 0, 0, 0, 0, 255, 255, 255, 255 },
+    { -1, 0, 0, 0, 0, 0, 255, 255, 255, 255 },
+    { 1, 0, 0, 0, 0, 0, 255, 255, 255, 255 },
+};
+
+static Gfx D_menu_801AEC30[] = {
+    gsSPVertex(D_menu_801AEBF0, 4, 0),
+    gsSP1Quadrangle(1, 2, 3, 0, 0),
+    gsSPEndDisplayList(),
+};
+
+static Vtx D_menu_801AEC48[] = {
+    { 1, 0, 0, 0, 0, 0, 255, 255, 255, 255 },
+    { -1, 0, 0, 0, 0, 0, 255, 255, 255, 255 },
+    { -1, -1, 0, 0, 0, 0, 255, 255, 255, 255 },
+    { 1, -1, 0, 0, 0, 0, 255, 255, 255, 255 },
+};
+
+static Gfx D_menu_801AEC88[] = {
+    gsSPVertex(D_menu_801AEC48, 4, 0),
+    gsSP1Quadrangle(1, 2, 3, 0, 0),
+    gsSPEndDisplayList(),
+};
+
+static Vtx D_menu_801AECA0[] = {
+    { 1, 1, 0, 0, 0, 0, 255, 255, 255, 255 },
+    { -1, 1, 0, 0, 0, 0, 255, 255, 255, 255 },
+    { -1, -1, 0, 0, 0, 0, 255, 255, 255, 255 },
+    { 1, -1, 0, 0, 0, 0, 255, 255, 255, 255 },
+};
+
+static Gfx D_menu_801AECE0[] = {
+    gsSPVertex(D_menu_801AECA0, 4, 0),
+    gsSP1Quadrangle(1, 2, 3, 0, 0),
+    gsSPEndDisplayList(),
+};
+
+static u8* D_menu_801AECF8[10] = {
+    D_5009F60, D_500A050, D_500A140, D_500A230, D_500A320, D_500A410, D_500A500, D_500A5F0, D_500A6E0, D_500A7D0,
+};
+static f32 D_menu_801AED20[2] = { 255.0f, 255.0f };
+
+// TF is this? seems unused
+static s32 D_menu_801AED28[] = {
+    /* EE73E8 801AED28 00000038 */ 56,
+    /* EE73EC 801AED2C 00000043 */ 67,
+    /* EE73F0 801AED30 0000004E */ 78,
+    /* EE73F4 801AED34 00000059 */ 89,
+    /* EE73F8 801AED38 0000005B */ 91,
+};
+
+static s32 D_menu_801AED3C[4] = { 0, 0, 0, 0 };
+
+static UnkStruct_D_menu_801AED4C D_menu_801AED4C[24] = {
+    { 9, 0, 0 },  { 0, 12, 0 }, { 12, 4, 0 }, { 4, 10, 0 }, { 10, 2, 0 }, { 6, 4, 0 },   { 7, 2, 0 }, { 3, 2, 0 },
+    { 2, 14, 0 }, { 5, 6, 1 },  { 6, 13, 1 }, { 13, 7, 1 }, { 4, 7, 1 },  { 12, 13, 1 }, { 8, 7, 1 }, { 9, 5, 2 },
+    { 5, 11, 2 }, { 11, 8, 2 }, { 8, 3, 2 },  { 3, 1, 2 },  { 7, 1, 2 },  { 1, 14, 2 },  { 0, 6, 3 }, { 4, 3, 4 },
+};
+
+static Gfx* D_menu_801AEE6C[16] = {
+    D_6060610,       D_601DE80,       D_604B750,       D_601F6B0,       D_601C0D0,       D_601C960,
+    D_menu_801B5E78, D_menu_801B61E0, D_menu_801B6548, D_menu_801B4D70, D_menu_801B5B10, D_menu_801B5440,
+    D_menu_801B50D8, D_604DB10,       D_menu_801B57A8, D_menu_801B57A8,
+};
+
+static char* D_menu_801AEEAC[] = {
+    "ME", "A6", "BO", "SZ", "SX", "SY", "KA", "MA", "ZO", "CO", "TI", "AQ", "FO", "SO", "VE", "VE",
+};
+
+static s32 PAD_menu_801AEEEC = 0;
+
+static Vtx D_menu_801AEEF0[] = {
+    { -11, -11, 0, 0, 0, 255, 0, 0, 0, 0 },
+    { 11, -11, 0, 0, 255, 255, 0, 0, 0, 0 },
+    { 11, 11, 0, 0, 255, 0, 0, 0, 0, 0 },
+    { -11, 11, 0, 0, 0, 0, 0, 0, 0, 0 },
+};
+
+static Gfx D_menu_801AEF30[] = {
+    gsSPVertex(D_menu_801AEEF0, 4, 0),
+    gsSP1Triangle(0, 1, 2, 0),
+    gsSP1Triangle(0, 2, 3, 0),
+    gsSPEndDisplayList(),
+};
+
+static s32 PAD_menu_801AEF50[] = { 0, 0, 0 };
+
+static char D_menu_801AEF5C[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.";
+
+static f32 D_menu_801AEF84[] = { 24.0f, 0.0f, -24.0f };
+static f32 D_menu_801AEF90[] = { 111.0f, 112.0f, 121.0f };
+static f32 D_menu_801AEF9C[] = { 89.0f, 115.0f, 139.0f };
 
 void Option_Setup(void) {
     bool enableExpertModes;
@@ -1814,9 +1817,9 @@ void Option_ExpertSoundDraw(void) {
     static f32 D_menu_801AF064 = 255.0f;
     static f32 D_menu_801AF068 = 100.0f;
     static Gfx* D_menu_801AF06C[] = {
-        (Gfx*) D_menu_801AEC30,
-        (Gfx*) D_menu_801AEC88,
-        (Gfx*) D_menu_801AECE0,
+        D_menu_801AEC30,
+        D_menu_801AEC88,
+        D_menu_801AECE0,
     };
     static f32 D_menu_801AF078[] = { -73.0f, -13.0f, -43.0f };
 
@@ -2849,33 +2852,33 @@ void func_menu_80199820(s32 arg0) {
     s32 colorGB;
     s32 i;
     static u8* D_menu_801AF1E0[3] = {
-        (u8*) 0x070030B0,
-        (u8*) 0x07003290,
-        (u8*) 0x07003470,
+        D_70030B0,
+        D_7003290,
+        D_7003470,
     };
     static u8* D_menu_801AF1EC[4] = {
-        (u8*) 0x070049C0,
-        (u8*) 0x07004BB0,
-        (u8*) 0x07004DC0,
-        (u8*) 0x07005020,
+        D_70049C0,
+        D_7004BB0,
+        D_7004DC0,
+        D_7005020,
     };
     static u16* D_menu_801AF1FC[4] = {
-        (u16*) 0x07004B80,
-        (u16*) 0x07004D90,
-        (u16*) 0x07004FF0,
-        (u16*) 0x070051A0,
+        D_7004B80,
+        D_7004D90,
+        D_7004FF0,
+        D_70051A0,
     };
     static u16* D_menu_801AF20C[4] = {
-        (u16*) 0x07008EE0,
-        (u16*) 0x0700AD20,
-        (u16*) 0x0700CB60,
-        (u16*) 0x070070A0,
+        D_7008EE0,
+        D_700AD20,
+        D_700CB60,
+        D_70070A0,
     };
     static u8* D_menu_801AF21C[4] = {
-        (u8*) 0x07000000,
-        (u8*) 0x070000D0,
-        (u8*) 0x07000210,
-        (u8*) 0x07000350,
+        D_7000000,
+        D_70000D0,
+        D_7000210,
+        D_7000350,
     };
     static s32 D_menu_801AF22C[4] = { 177, 255, 0, 30 };
     static s32 D_menu_801AF23C[4] = { 242, 30, 255, 30 };
@@ -3349,9 +3352,7 @@ void func_menu_8019AD84(void) {
     static f32 D_menu_801AF25C[6] = { 156.0f, 112.0f, 112.0f, 112.0f, 112.0f, 112.0f };
     static f32 D_menu_801AF274[6] = { 46.0f, 43.0f, 43.0f, 43.0f, 43.0f, 43.0f };
     // D_menu_801AF28C
-    static u8* sTimeTrialMinuteTextures[] = {
-        (u8*) 0x070024D0, (u8*) 0x07002730, (u8*) 0x07002990, (u8*) 0x07002BF0, (u8*) 0x07002E50,
-    };
+    static u8* sTimeTrialMinuteTextures[] = { D_70024D0, D_7002730, D_7002990, D_7002BF0, D_7002E50 };
 
     RCP_SetupDL(&gMasterDisp, 0x53);
 
@@ -3399,9 +3400,7 @@ void func_menu_8019AD84(void) {
 static f32 D_menu_801AF25C[6] = { 156.0f, 112.0f, 112.0f, 112.0f, 112.0f, 112.0f };
 static f32 D_menu_801AF274[6] = { 46.0f, 43.0f, 43.0f, 43.0f, 43.0f, 43.0f };
 // D_menu_801AF28C
-static u8* sTimeTrialMinuteTextures[] = {
-    (u8*) 0x070024D0, (u8*) 0x07002730, (u8*) 0x07002990, (u8*) 0x07002BF0, (u8*) 0x07002E50,
-};
+static u8* sTimeTrialMinuteTextures[] = { D_70024D0, D_7002730, D_7002990, D_7002BF0, D_7002E50 };
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019AD84.s")
 #endif
 
@@ -3477,9 +3476,9 @@ void func_menu_8019B1F8(void) {
     s32 i;
     s32 width;
     s32 sp8C[2];
-    static u8* D_menu_801AF2BC[] = { (u8*) 0x07001C10, (u8*) 0x070019E0 };
-    static u8* D_menu_801AF2C4[] = { (u8*) 0x07006780, (u8*) 0x07005F10 };
-    static u16* D_menu_801AF2CC[] = { (u16*) 0x07006EA0, (u16*) 0x07006630 };
+    static u8* D_menu_801AF2BC[] = { D_7001C10, D_70019E0 };
+    static u8* D_menu_801AF2C4[] = { D_7006780, D_7005F10 };
+    static u16* D_menu_801AF2CC[] = { D_7006EA0, D_7006630 };
 
     for (xPos = D_menu_801AF2A8, i = 0; i < 2; i++, xPos += D_menu_801AF2B0) {
         if (i == D_80161A28) {
@@ -3515,16 +3514,16 @@ void func_menu_8019B3DC(void) {
     s32 i;
     s32 sp8C[3];
     static u8* D_menu_801AF2E8[] = {
-        (u8*) 0x070017B0,
-        (u8*) 0x070019E0,
+        D_70017B0,
+        D_70019E0,
     };
     static u8* D_menu_801AF2F0[] = {
-        (u8*) 0x07005600,
-        (u8*) 0x07005F10,
+        D_7005600,
+        D_7005F10,
     };
     static u16* D_menu_801AF2F8[] = {
-        (u16*) 0x07005D20,
-        (u16*) 0x07006630,
+        D_7005D20,
+        D_7006630,
     };
 
     for (xPos = D_menu_801AF2D4, i = 0; i < 2; i++, xPos += D_menu_801AF2DC) {
@@ -4377,14 +4376,10 @@ void func_menu_8019D624(void) {
 
 void func_menu_8019DB20(s32 character, f32 x, f32 y, f32 z, f32 scale, f32 xAngle, f32 yAngle, f32 zAngle) {
     static Gfx* D_menu_801AF33C[37] = {
-        (Gfx*) 0x090086F0, (Gfx*) 0x09007FD0, (Gfx*) 0x09007BB0, (Gfx*) 0x09000980, (Gfx*) 0x090075A0,
-        (Gfx*) 0x090070C0, (Gfx*) 0x09006AE0, (Gfx*) 0x09006500, (Gfx*) 0x090062D0, (Gfx*) 0x09001120,
-        (Gfx*) 0x09005CA0, (Gfx*) 0x09005980, (Gfx*) 0x09005380, (Gfx*) 0x09004E10, (Gfx*) 0x09000570,
-        (Gfx*) 0x090014E0, (Gfx*) 0x09004920, (Gfx*) 0x09004230, (Gfx*) 0x09003A30, (Gfx*) 0x09003620,
-        (Gfx*) 0x09003230, (Gfx*) 0x09002EA0, (Gfx*) 0x09002890, (Gfx*) 0x090022A0, (Gfx*) 0x09001E90,
-        (Gfx*) 0x09001A10, (Gfx*) 0x0900BB90, (Gfx*) 0x090001F0, (Gfx*) 0x0900B580, (Gfx*) 0x0900AF60,
-        (Gfx*) 0x0900A870, (Gfx*) 0x0900A290, (Gfx*) 0x09009CB0, (Gfx*) 0x09009990, (Gfx*) 0x09009280,
-        (Gfx*) 0x09008C60, (Gfx*) 0x09000000,
+        D_90086F0, D_9007FD0, D_9007BB0, D_9000980, D_90075A0, D_90070C0, D_9006AE0, D_9006500, D_90062D0, D_9001120,
+        D_9005CA0, D_9005980, D_9005380, D_9004E10, D_9000570, D_90014E0, D_9004920, D_9004230, D_9003A30, D_9003620,
+        D_9003230, D_9002EA0, D_9002890, D_90022A0, D_9001E90, D_9001A10, D_900BB90, D_90001F0, D_900B580, D_900AF60,
+        D_900A870, D_900A290, D_9009CB0, D_9009990, D_9009280, D_9008C60, D_9000000,
     };
 
     s32 i;

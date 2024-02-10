@@ -99,6 +99,7 @@ extern Animation D_6031120;
 extern Limb* D_60313AC[];
 extern Animation D_6031DB8;
 extern Limb* D_6032084[];
+extern Gfx D_7000000[];
 extern Gfx D_7002120[];
 extern Gfx D_7004240[];
 extern Gfx D_700E9E0[];

@@ -71,12 +71,10 @@ Vec3fa D_i5_801C65B8[3][15][4];
 s32 D_i5_801C6E28[4][3];
 
 bool func_i5_801B49D0(Actor* actor) {
-    UnkStruct_801C62E8* var_v0;
     s32 i;
-    bool found;
+    bool found = false;
+    UnkStruct_801C62E8* var_v0 = D_i5_801C62E8;
 
-    found = false;
-    var_v0 = D_i5_801C62E8;
     for (i = 0; i < ARRAY_COUNT(D_i5_801C62E8); i++, var_v0++) {
         if (var_v0->unk_00 == 0) {
             found = true;
@@ -102,7 +100,7 @@ void func_i5_801B4A54(UnkStruct_801C62E8* arg0) {
 
 void func_i5_801B4AA8(s32* arg0, s32* arg1) {
     Actor actor;
-    UnkStruct_801C62E8* var_s2;
+    UnkStruct_801C62E8* var_s2 = D_i5_801C62E8;
     s32* var_s1;
     f32 temp_fa0;
     f32 temp_fs0;
@@ -117,7 +115,6 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
     s32 i;
     s32 j;
 
-    var_s2 = D_i5_801C62E8;
     for (i = 0; i < ARRAY_COUNT(D_i5_801C62E8); i++, var_s2++) {
         if (var_s2->unk_00 != 0) {
             unk_04 = var_s2->unk_04;
@@ -126,33 +123,41 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
             unk_14 = var_s2->unk_14;
             unk_18 = var_s2->unk_18;
             var_s1 = arg0;
+
             if (arg0 == NULL) {
                 unk_04 = D_i5_801BA970[unk_04];
             }
+
             if (var_s2->unk_00 == 1) {
                 switch (unk_04) {
                     case 0:
                         break;
+
                     case 1:
                     case 3:
                         var_s2->unk_20 = var_s2->unk_18;
                         break;
+
                     case 4:
                         PRINTF("ICHIMAI POLYGON ON\n"); // ONE PLANE POLYGON ON
                         *arg1 |= 2;
                         break;
+
                     case 5:
                         PRINTF("CHIKEI POLYGON OFF\n"); // TERRAIN POLYGON OFF
                         *arg1 &= ~1;
                         break;
+
                     case 6:
                         PRINTF("CHIKEI POLYGON ON\n"); // TERRAIN POLYGON ON
                         *arg1 |= 1;
                         break;
+
                     case 7:
                         PRINTF("ICHIMAI POLYGON OFF\n"); // ONE PLANE POLYGON OFF
                         *arg1 &= ~2;
                         break;
+
                     case 8:
                         PRINTF("RANDAMU YAMA\n"); // RANDOM MOUNTAIN
                         var_s2->unk_20 = 5000.0f;
@@ -160,9 +165,11 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
                 }
                 var_s2->unk_00 = 2;
             }
+
             switch (unk_04) {
                 case 0:
                     break;
+
                 case 1:
                     for (j = 0; j < 16; j++, var_s1++) {
                         temp_fs0 = (j * 220.0f * D_i5_801BE740) - 1760.0f - unk_08;
@@ -172,29 +179,35 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
                             *var_s1 += var_fv0 * unk_14 * temp_fs1;
                         }
                     }
+
                     var_s2->unk_20 -= 220.0f;
                     if (var_s2->unk_20 <= 0.0f) {
                         func_i5_801B4A54(var_s2);
                     }
                     break;
+
                 case 2:
                     unk_08 += (1760.0f - (unk_10 * 0.5f));
                     var_fv1 = unk_14;
+
                     if (var_s2->unk_20 <= var_fv1 / (70.0f * M_DTOR)) {
                         var_fv1 = var_s2->unk_20 * (70.0f * M_DTOR);
                     } else if (var_fv1 / (70.0f * M_DTOR) >= (unk_18 - var_s2->unk_20)) {
                         var_fv1 = (unk_18 - var_s2->unk_20) * (70.0f * M_DTOR);
                     }
+
                     for (j = 0, var_fv0 = 0.0f; j < 16; j++, var_fv0 += 220.0f, var_s1++) {
                         if (unk_08 <= var_fv0 && var_fv0 <= (unk_08 + unk_10) && *var_s1 < var_fv1) {
                             *var_s1 = var_fv1;
                         }
                     }
+
                     var_s2->unk_20 += 220.0f;
                     if (unk_18 <= var_s2->unk_20) {
                         func_i5_801B4A54(var_s2);
                     }
                     break;
+
                 case 3:
                     for (j = 0; j < 16; j++, var_s1++) {
                         temp_fs0 =
@@ -211,11 +224,13 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
                         *var_s1 +=
                             (var_s2->unk_14 - ((var_s2->unk_20 / var_s2->unk_18) * var_s2->unk_14)) * 4.0f * 0.7f;
                     }
+
                     var_s2->unk_20 -= 220.0f;
                     if (var_s2->unk_20 <= 0.0f) {
                         func_i5_801B4A54(var_s2);
                     }
                     break;
+
                 case 8:
                     if (var_s2->unk_1C <= 0) {
                         for (j = 0; j < (s32) var_s2->unk_18; j++) {
@@ -228,6 +243,7 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
                             actor.obj.rot.z = var_s2->unk_14 + RAND_FLOAT(var_s2->unk_14) * 0.25f;
                             func_i5_801B49D0(&actor);
                         }
+
                         var_s2->unk_20 -= 220.0f;
                         if (var_s2->unk_20 <= 0.0f) {
                             func_i5_801B4A54(var_s2);
@@ -236,6 +252,7 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
                         var_s2->unk_1C--;
                     }
                     break;
+
                 default:
                     func_i5_801B4A54(var_s2);
                     break;
@@ -258,9 +275,11 @@ void func_i5_801B5110(f32 arg0, f32 arg1, f32 arg2) {
     D_i5_801C62D8.y = arg1;
     D_i5_801C62D8.z = 200.0f; // Probably used to be arg2
     D_i5_801C5C14 = 1;
+
     for (i = 0, ptr = D_i5_801C62E8; i < ARRAY_COUNT(D_i5_801C62E8); i++, ptr++) {
         func_i5_801B4A54(ptr);
     }
+
     for (i = 0; i < ARRAY_COUNT(D_i5_801C1D48); i++) {
         for (k = 0; k < ARRAY_COUNT(D_i5_801C1D48[0]); k++) {
             D_i5_801C1D48[i][k] = 0;
@@ -276,27 +295,28 @@ void func_i5_801B5244(s32 arg0, s32 arg1) {
     s32 sp6C;
     s32 ia2;
     s32 iv1;
-    s32 sp60;
-    s32 sp5C;
+    s32 sp60 = arg0;
+    s32 sp5C = arg1;
     Vtx* v0;
     Vtx* v1;
 
-    sp60 = arg0;
-    sp5C = arg1;
     for (sp6C = 0; sp6C < 27; sp6C++) {
         for (ia2 = 0; ia2 < 16; ia2++) {
             v0 = &D_i5_801BE748[sp60][ia2][0];
             v1 = &D_i5_801BE748[sp60][ia2][1];
+
             if (ia2 != 0) {
                 v0->n.ob[0] = (D_i5_801C2448[sp5C] * ((ia2 * 220.0f) - 1760.0f));
             } else {
                 v0->n.ob[0] = -4000;
             }
+
             if (ia2 != 15) {
                 v1->n.ob[0] = (D_i5_801C2448[(sp5C + 1) % 28] * ((ia2 * 220.0f) - 1760.0f));
             } else {
                 v0[1].n.ob[0] = 4000;
             }
+
             v0 = &D_i5_801BE748[sp60][ia2][0];
             v0->n.ob[2] = D_i5_801C24B8[sp5C] * -220.0f;
             v1->n.ob[2] = 0;
@@ -311,8 +331,10 @@ void func_i5_801B5244(s32 arg0, s32 arg1) {
         sp60 = (sp60 + 1) % 27;
         sp5C = (sp5C + 1) % 28;
     }
+
     sp60 = arg0;
     sp5C = arg1;
+
     for (sp6C = 0; sp6C < 27; sp6C++) {
         D_i5_801C5C00 = D_i5_801C2528[sp60];
 
@@ -343,7 +365,9 @@ void func_i5_801B58AC(Gfx** dList, f32 arg1) {
 
     RCP_SetupDL(dList, 0x1D);
     RCP_SetFog(dList, gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
+
     spC4 = D_i5_801C5C14;
+
     if (D_i5_801C5C14 & 2) {
 
         gDPTileSync((*dList)++);
@@ -364,6 +388,7 @@ void func_i5_801B58AC(Gfx** dList, f32 arg1) {
         gSPPopMatrix((*dList)++, G_MTX_MODELVIEW);
         func_i5_801B4AA8(NULL, &spC4);
     }
+
     if (D_i5_801C5C14 & 1) {
         if (D_i5_801C5C0C == 1) {
             D_i5_801C5C0C = 0;
@@ -407,16 +432,20 @@ void func_i5_801B58AC(Gfx** dList, f32 arg1) {
         func_i5_801B68A8(dList, D_i5_801C5C04, 1);
         gSPPopMatrix((*dList)++, G_MTX_MODELVIEW);
     }
+
     D_i5_801C5C10 += arg1;
+
     if ((D_i5_801C5C14 & 1) && (D_i5_801C24B8[(D_i5_801C5C08 + 25) % 28] * 220.0f <= D_i5_801C5C10)) {
         D_i5_801C5C0C = 1;
         D_i5_801C5C10 = Math_ModF(D_i5_801C5C10, D_i5_801C24B8[(D_i5_801C5C08 + 25) % 28] * 220.0f);
         D_i5_801C5C04 = (D_i5_801C5C04 + 26) % 27;
         D_i5_801C5C08 = (D_i5_801C5C08 + 27) % 28;
     }
+
     if (D_i5_801C5C14 & 2) {
         D_i5_801C5C10 = Math_ModF(D_i5_801C5C10, 220.0f * D_i5_801BE744);
     }
+
     D_i5_801C5C14 = spC4;
 }
 
@@ -475,23 +504,29 @@ void func_i5_801B5FE0(s32 arg0, s32 arg1, s32 arg2) {
                 temp_fv1 = (temp_fs0 * temp_fs3) - (temp_fs2 * temp_fs1);
                 temp_fa0 = (temp_fs2 * temp_ft5) - (temp_ft4 * temp_fs3);
                 temp_fa1 = (temp_ft4 * temp_fs1) - (temp_fs0 * temp_ft5);
+
                 var_fv0 = sqrtf(SQ(temp_fv1) + SQ(temp_fa0) + SQ(temp_fa1));
+
                 D_i5_801C65B8[i0][i1][i2].a[0] = (temp_fv1 * 127.0f) / var_fv0;
                 D_i5_801C65B8[i0][i1][i2].a[1] = (temp_fa0 * 127.0f) / var_fv0;
                 D_i5_801C65B8[i0][i1][i2].a[2] = (temp_fa1 * 127.0f) / var_fv0;
             }
         }
+
         if (i0 < 2) {
             i0++;
         }
+
         if (sp9C >= 2) {
             if (sp9C == 2) {
                 sp90 = (arg1 + 27) % 27;
             }
+
             for (i1 = 0; i1 < 15; i1++) {
                 j1 = ((i1 + 1) * (i1 != 14)) + ((i1 == 14) * 14);
                 j3 = i1;
                 j2 = (i1 - 1) * (i1 != 0);
+
                 for (i2 = 0; i2 < 3; i2++) {
                     D_i5_801C6E28[0][i2] = (D_i5_801C65B8[0][j2][2].a[i2] + D_i5_801C65B8[1][j2][3].a[i2] +
                                             D_i5_801C65B8[1][j3][0].a[i2] + D_i5_801C65B8[0][j3][1].a[i2]) /
@@ -506,12 +541,14 @@ void func_i5_801B5FE0(s32 arg0, s32 arg1, s32 arg2) {
                                             D_i5_801C65B8[1][j1][0].a[i2] + D_i5_801C65B8[0][j1][1].a[i2]) /
                                            4.0f;
                 }
+
                 for (i2 = 0; i2 < 4; i2++) {
                     var_fv0 = sqrtf(SQ(D_i5_801C6E28[i2][0]) + SQ(D_i5_801C6E28[i2][1]) + SQ(D_i5_801C6E28[i2][2]));
                     D_i5_801C6E28[i2][0] = (D_i5_801C6E28[i2][0] / var_fv0) * 127.0f;
                     D_i5_801C6E28[i2][1] = (D_i5_801C6E28[i2][1] / var_fv0) * 127.0f;
                     D_i5_801C6E28[i2][2] = (D_i5_801C6E28[i2][2] / var_fv0) * 127.0f;
                 }
+
                 for (i2 = 0; i2 < 3; i2++) {
                     D_i5_801BE748[sp90][i1][0].n.n[i2] = D_i5_801C6E28[0][i2];
                     D_i5_801BE748[sp90][i1][1].n.n[i2] = D_i5_801C6E28[1][i2];
@@ -519,7 +556,9 @@ void func_i5_801B5FE0(s32 arg0, s32 arg1, s32 arg2) {
                     D_i5_801BE748[sp90][i1 + 1][0].n.n[i2] = D_i5_801C6E28[3][i2];
                 }
             }
+
             sp90 = (sp90 + 1) % 27;
+
             for (i1 = 0; i1 < 15; i1++) {
                 for (i2 = 0; i2 < 3; i2++) {
                     D_i5_801C65B8[1][i1][i2] = D_i5_801C65B8[2][i1][i2];
@@ -622,6 +661,7 @@ s32 func_i5_801B6B40(f32 arg0, f32 arg1, Vec3f* arg2, Plane* arg3) {
             }
         }
     }
+
     if (var_v1 == 0) {
         temp = ((z3 - z1) * (arg0 - x3)) - ((x3 - x1) * (arg1 - z3));
         if (temp >= 0.0f) {
@@ -641,6 +681,7 @@ s32 func_i5_801B6B40(f32 arg0, f32 arg1, Vec3f* arg2, Plane* arg3) {
             }
         }
     }
+
     if (var_v1 != 0) {
         arg3->dist = (-arg3->normal.x * x3) - (arg3->normal.y * y3) - (arg3->normal.z * z3);
     }
@@ -666,6 +707,7 @@ s32 func_i5_801B6E20(f32 arg0, f32 arg1, f32* arg2, f32* arg3, f32* arg4) {
     *arg3 = 0.0f;
     *arg4 = 0.0f;
     *arg2 = 0.0f;
+
     if (D_i5_801C5C14 & 1) {
         temp_fs2 = arg1 - D_i5_801C5C10 - D_i5_801C62D8.z;
         var_v1 = 0;
@@ -699,26 +741,31 @@ s32 func_i5_801B6E20(f32 arg0, f32 arg1, f32* arg2, f32* arg3, f32* arg4) {
             var_fs0 += var_s2[0][0].v.ob[2];
             var_s6 = (var_s6 + 26) % 27;
         }
+
         if (var_v1 != 0) {
             temp = ((-sp84.normal.x * arg0) - (sp84.normal.z * temp_fs2) - sp84.dist) / sp84.normal.y;
             if (*arg3 < temp) {
                 *arg3 = temp;
             }
+
             if (sp84.normal.x != 0.0f) {
                 var_fs2 = -sp84.dist / sp84.normal.x;
             } else {
                 var_fs2 = 0.0f;
             }
+
             if (sp84.normal.y != 0.0f) {
                 var_fs1 = -sp84.dist / sp84.normal.y;
             } else {
                 var_fs1 = 0.0f;
             }
+
             if (sp84.normal.z != 0.0f) {
                 var_fs0_2 = -sp84.dist / sp84.normal.z;
             } else {
                 var_fs0_2 = 0.0f;
             }
+
             *arg2 = -Math_Atan2F_XYAlt(var_fs1, var_fs0_2);
             if (var_fs0_2 != 0.0f) {
                 *arg4 = -Math_Atan2F_XYAlt(__sinf(Math_Atan2F_XYAlt(var_fs1, var_fs0_2)) * var_fs0_2, var_fs2);
