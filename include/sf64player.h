@@ -206,7 +206,12 @@ typedef struct Player {
     /* 0x19C */ s32 unk_19C;
     /* 0x1A0 */ s32 unk_1A0;
     /* 0x1A4 */ s32 unk_1A4;
-    /* 0x1A8 */ char pad1A8[0x1C];
+    /* 0x1A8 */ char pad1A8[8];
+    /* 0x1B0 */ s32 unk_1B0;
+    /* 0x1B4 */ s32 unk_1B4;
+    /* 0x1B8 */ char pad1B8[4];
+    /* 0x1BC */ s32 unk_1BC;
+    /* 0x1C0 */ s32 unk_1C0;
     /* 0x1C4 */ s32 num;
     /* 0x1C8 */ PlayerState1C8 state_1C8;
     /* 0x1CC */ PlayerForm form;
