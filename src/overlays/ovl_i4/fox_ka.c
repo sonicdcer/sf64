@@ -604,8 +604,8 @@ void func_i4_80194458(Boss* boss, Vec3f* pos, f32 arg2) {
             actor->timer_0C4 = 400;
             Object_SetInfo(&actor->info, actor->obj.id);
             Audio_PlaySfx(0x2903305FU, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
-            actor->info.action = func_i4_80198AA0;
-            actor->info.draw = func_i4_801995B4;
+            actor->info.action = (ObjectFunc) func_i4_80198AA0;
+            actor->info.draw = (ObjectFunc) func_i4_801995B4;
             break;
         }
     }
@@ -1219,7 +1219,7 @@ s32 func_i4_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
             if (boss->swork[10] <= 0) {
                 RCP_SetupDL(&gMasterDisp, 57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = &D_60012A0;
+                *dList = D_60012A0;
             }
             break;
 
@@ -1232,7 +1232,7 @@ s32 func_i4_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
             if (boss->swork[11] <= 0) {
                 RCP_SetupDL(&gMasterDisp, 57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = &D_600CDC0;
+                *dList = D_600CDC0;
             }
             break;
 
@@ -1245,7 +1245,7 @@ s32 func_i4_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
             if (boss->swork[12] <= 0) {
                 RCP_SetupDL(&gMasterDisp, 57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = &D_600D4E0;
+                *dList = D_600D4E0;
             }
             break;
 
@@ -1258,7 +1258,7 @@ s32 func_i4_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
             if (boss->swork[13] <= 0) {
                 RCP_SetupDL(&gMasterDisp, 57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = &D_600D290;
+                *dList = D_600D290;
             }
             break;
 
@@ -1271,7 +1271,7 @@ s32 func_i4_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
             if (boss->swork[14] <= 0) {
                 RCP_SetupDL(&gMasterDisp, 57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = &D_600D090;
+                *dList = D_600D090;
             }
             break;
 
@@ -1279,7 +1279,7 @@ s32 func_i4_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
             if (boss->health < 0) {
                 RCP_SetupDL(&gMasterDisp, 57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = &D_6007300;
+                *dList = D_6007300;
             }
             break;
     }
@@ -1298,7 +1298,7 @@ void func_i4_801968F4(Boss* boss) {
 
         Matrix_RotateY(gGfxMatrix, boss->fwork[13] * M_DTOR, 1);
         Animation_GetFrameData(&D_60105D8, 0, jointTable);
-        Animation_DrawSkeleton(1, &D_6010744, jointTable, func_i4_801965A8, NULL, boss, &gIdentityMatrix);
+        Animation_DrawSkeleton(1, D_6010744, jointTable, func_i4_801965A8, NULL, boss, &gIdentityMatrix);
 
         gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
         if (boss->fwork[14] > 0.0f) {
@@ -1778,8 +1778,8 @@ void func_i4_801981F8(Actor* actor) {
                         actor_it->info.bonus = 0;
                         Audio_PlaySfx(0x3100000C, actor_it->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                     }
-                    actor_it->info.action = func_i4_80198AA0;
-                    actor_it->info.draw = func_i4_801995B4;
+                    actor_it->info.action = (ObjectFunc) func_i4_80198AA0;
+                    actor_it->info.draw = (ObjectFunc) func_i4_801995B4;
                     actor->unk_04E++;
                 }
                 break;
