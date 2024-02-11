@@ -3491,18 +3491,15 @@ void func_800AECAC(Player* player) {
     func_800A46A0(player);
 }
 
-#ifdef NON_MATCHING
-// baffling control flow
-// https://decomp.me/scratch/5Iel8
 void func_800AF07C(Player* player) {
-    f32 sp9C;
-    f32 sp98;
+    f32 stickX;
+    f32 stickY;
     f32 var_fa0;
     f32 var_fa1;
     f32 var_fv0;
     f32 var_fv1;
     f32 sp84;
-    s32 temp;
+    s32 pad;
     f32 sp7C;
     f32 sp78;
     f32 sp74;
@@ -3514,29 +3511,37 @@ void func_800AF07C(Player* player) {
     D_80177968 = 2.3f;
     D_80177970 = 0.68f;
 
-    // if ((gInputPress->stick_x == 0) && (gInputPress->stick_y == 0)) {
-    //     // wut
-    // } else {
-    // }
-    sp9C = -gInputPress->stick_x;
-    sp98 = gInputPress->stick_y;
+    if ((gInputPress->stick_x != 0) || (gInputPress->stick_y != 0)) {
+        D_80177970 = 0.68f; //! FAKE ?
+    }
+
+    stickX = -gInputPress->stick_x;
+    stickY = +gInputPress->stick_y;
+
     Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 5.0f, 0.01f);
+
     if (player->unk_238 != 0) {
         Matrix_RotateZ(gCalcMatrix, player->unk_12C * M_DTOR, 0);
+
         sp68.z = 0.0f;
-        sp68.x = sp9C;
-        sp68.y = sp98;
+        sp68.x = stickX;
+        sp68.y = stickY;
+
         Matrix_MultVec3f(gCalcMatrix, &sp68, &sp5C);
-        sp9C = sp5C.x;
-        sp98 = sp5C.y;
+
+        stickX = sp5C.x;
+        stickY = sp5C.y;
     } else {
-        Matrix_RotateZ(gCalcMatrix, -player->unk_12C * M_DTOR, 0);
+        Matrix_RotateZ(gCalcMatrix, (-player->unk_12C) * M_DTOR, 0);
+
         sp68.z = 0.0f;
-        sp68.x = sp9C * 0.75f;
-        sp68.y = sp98 * 0.75f;
+        sp68.x = stickX * 0.75f;
+        sp68.y = stickY * 0.75f;
+
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp68, &sp5C);
+
         sp7C = sp5C.y;
-        sp78 = sp74 = 0.0f;
+        sp78 = (sp74 = 0.0f);
 
         if (sp5C.x < -5.0f) {
             sp78 = -sp5C.x;
@@ -3544,19 +3549,20 @@ void func_800AF07C(Player* player) {
         if (sp5C.x > 5.0f) {
             sp74 = sp5C.x;
         }
-
         Math_SmoothStepToF(&player->wings.unk_28, 0.0f, 0.1f, 100.0f, 0.0f);
-        Math_SmoothStepToF(&player->wings.unk_04, -sp7C + sp78, 0.1f, 100.0f, 0.0f);
-        Math_SmoothStepToF(&player->wings.unk_08, -sp7C - sp78, 0.1f, 100.0f, 0.0f);
-        Math_SmoothStepToF(&player->wings.unk_0C, -sp7C + sp74, 0.1f, 100.0f, 0.0f);
-        Math_SmoothStepToF(&player->wings.unk_10, -sp7C - sp74, 0.1f, 100.0f, 0.0f);
+        Math_SmoothStepToF(&player->wings.unk_04, (-sp7C) + sp78, 0.1f, 100.0f, 0.0f);
+        Math_SmoothStepToF(&player->wings.unk_08, (-sp7C) - sp78, 0.1f, 100.0f, 0.0f);
+        Math_SmoothStepToF(&player->wings.unk_0C, (-sp7C) + sp74, 0.1f, 100.0f, 0.0f);
+        Math_SmoothStepToF(&player->wings.unk_10, (-sp7C) - sp74, 0.1f, 100.0f, 0.0f);
     }
+
     sp84 = 0.1f;
-    if ((player->unk_12C > 10.0f) && (sp9C > 0)) {
+
+    if ((player->unk_12C > 10.0f) && (stickX > 0)) {
         sp84 = 0.2f;
         D_80177968 *= 2.0f;
     }
-    if ((player->unk_12C < -10.0f) && (sp9C < 0)) {
+    if ((player->unk_12C < (-10.0f)) && (stickX < 0)) {
         sp84 = 0.2f;
         D_80177968 *= 2.0f;
     }
@@ -3564,54 +3570,72 @@ void func_800AF07C(Player* player) {
         sp84 = 0.2f;
         D_80177968 = 6.8999996f;
     }
-    Math_SmoothStepToF(&player->unk_0E8, sp9C * D_80177970, sp84, D_80177968, 0.03f);
+
+    Math_SmoothStepToF(&player->unk_0E8, stickX * D_80177970, sp84, D_80177968, 0.03f);
+
     D_80177968 = 2.3f;
     sp84 = 0.1f;
-    var_fa1 = -sp98 * D_80177970;
+    var_fa1 = -stickY * D_80177970;
+
     if ((var_fa1 <= 0.0f) && (player->pos.y < (gGroundLevel + 50.0f))) {
         var_fa1 = 0.0f;
         sp84 = 0.2f;
         D_80177968 *= 2.0f;
     }
+
     Math_SmoothStepToF(&player->unk_0E4, var_fa1, sp84, D_80177968, 0.03f);
+
     var_fv1 = 1.0f;
     if (player->pos.y < (gGroundLevel + 70.0f)) {
         var_fv1 = 0.8f;
     }
+
     if (!(((gInputHold->button & R_TRIG) && (gInputHold->button & Z_TRIG)) ||
-          (!(gInputHold->button & R_TRIG) && !(gInputHold->button & Z_TRIG)))) {
+          ((!(gInputHold->button & R_TRIG)) && (!(gInputHold->button & Z_TRIG))))) {
         var_fv1 = 0.1f;
     }
+
     var_fv0 = 4.0f;
-    if (sp9C == 0) {
+    if (stickX == 0) {
         var_fv0 = 1.0f;
     }
-    Math_SmoothStepToF(&player->unk_0EC, sp9C * 0.6f * var_fv1, 0.1f, var_fv0, 0.03f);
+
+    Math_SmoothStepToF(&player->unk_0EC, (stickX * 0.6f) * var_fv1, 0.1f, var_fv0, 0.03f);
     Matrix_RotateY(gCalcMatrix, (player->unk_0E8 + 180.0f) * M_DTOR, 0);
     Matrix_RotateX(gCalcMatrix, -((player->unk_0E4 + player->unk_4D8) * M_DTOR), 1);
+
     sp68.x = 0.0f;
     sp68.y = 0.0f;
     sp68.z = player->unk_0D0;
+
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp68, &sp44);
+
     sp44.x *= 1.4f;
     sp44.y *= 1.4f;
+
     Matrix_RotateY(gCalcMatrix, player->unk_114 * M_DTOR, 0);
     Matrix_RotateX(gCalcMatrix, player->unk_120 * M_DTOR, 1);
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp5C);
+
     sp68.x = 0.0f;
     sp68.y = 0.0f;
     sp68.z = -player->unk_110;
+
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp68, &sp50);
+
     player->vel.x = (sp5C.x + sp50.x) * player->unk_150;
     player->vel.y = (sp5C.y + sp50.y) * player->unk_150;
     player->vel.z = sp5C.z + sp50.z;
+
     if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
         player->vel.z += D_i6_801A7F58;
     }
     sp68.x = 0.0f;
     sp68.y = 0.0f;
     sp68.z = -player->unk_110;
+
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp68, &sp50);
+
     if (player->wings.rightState <= WINGSTATE_BROKEN) {
         player->vel.x += 2.5f;
         player->vel.y -= 2.5f;
@@ -3620,6 +3644,7 @@ void func_800AF07C(Player* player) {
         player->vel.x -= 2.5f;
         player->vel.y -= 2.5f;
     }
+
     if (player->pos.x > (player->unk_0AC + (player->unk_09C - 100.0f))) {
         player->unk_228 = 1;
     }
@@ -3632,7 +3657,9 @@ void func_800AF07C(Player* player) {
     if (player->pos.y < (player->unk_0B0 - (player->unk_0A0 - 100.0f))) {
         player->unk_228 = 4;
     }
+
     player->pos.x += player->vel.x;
+
     if (player->pos.x > (player->unk_09C + player->unk_0AC)) {
         player->pos.x = player->unk_09C + player->unk_0AC;
         player->vel.x = 0.0f;
@@ -3643,7 +3670,9 @@ void func_800AF07C(Player* player) {
         player->vel.x = 0.0f;
         player->unk_0D8.x = 0.0f;
     }
+
     player->pos.y += player->vel.y;
+
     if (player->pos.y > (player->unk_0A0 + player->unk_0B0)) {
         player->pos.y = player->unk_0A0 + player->unk_0B0;
         player->vel.y = 0.0f;
@@ -3654,13 +3683,11 @@ void func_800AF07C(Player* player) {
         player->vel.y = 0.0f;
         player->unk_0D8.y = 0.0f;
     }
+
     player->pos.z += player->vel.z;
+
     func_800A4460(player);
 }
-#else
-void func_800AF07C(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_play/func_800AF07C.s")
-#endif
 
 void func_800AF928(Player* player) {
     f32 sp5C;
