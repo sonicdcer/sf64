@@ -1773,7 +1773,7 @@ void func_i3_8018C0D0(f32* arg0, f32 arg1, Vec3f* arg2, f32 arg3, s32 arg4) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-#ifdef NON_MATCHING
+#ifndef MON_MATCHING
 void func_i3_8018C54C(Boss* bossA6) {
     Vec3f spD0[30];
     Vec3f spC4;
@@ -1794,11 +1794,12 @@ void func_i3_8018C54C(Boss* bossA6) {
         Animation_GetFrameData(&D_6018994, 0, spD0);
         if (D_i3_801C22F0.unk_24 != 255.0f) {
             RCP_SetupDL(&gMasterDisp, 0x47);
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) D_i3_801C22F0.unk_24);
             spAC.x = 0.0f;
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) D_i3_801C22F0.unk_24);
+            
             if ((gSysFrameCount & 1) == 0) {
                 spAC.x = 0.0f;
-            }
+            } 
             spAC.y = spAC.z = 0.0f;
             Matrix_RotateZ(gCalcMatrix, gGameFrameCount * 6.0f * M_DTOR, 0);
             Matrix_MultVec3f(gCalcMatrix, &spAC, &spB8);
@@ -1829,12 +1830,13 @@ void func_i3_8018C54C(Boss* bossA6) {
                     Matrix_RotateY(gCalcMatrix, bossA6->obj.rot.y * M_DTOR, 0);
                     Matrix_RotateX(gCalcMatrix, bossA6->obj.rot.x * M_DTOR, 1);
                     Matrix_RotateZ(gCalcMatrix, bossA6->obj.rot.z * M_DTOR, 1);
-                    Matrix_MultVec3f(gCalcMatrix, &bossA6->vwork[A6_VWK_1 + i], &spC4);
+                    Matrix_MultVec3f(gCalcMatrix, &bossA6->vwork[A6_VWK_1] + i, &spC4);
                     func_8007D0E0(bossA6->obj.pos.x + spC4.x, bossA6->obj.pos.y + spC4.y, bossA6->obj.pos.z + spC4.z,
                                   20.0f);
                     spB8.x = bossA6->obj.pos.x + spC4.x;
                     spB8.y = bossA6->obj.pos.y + spC4.y;
                     spB8.z = bossA6->obj.pos.z + spC4.z;
+                    if ((!bossA6) && (!bossA6)) {}
                     if (D_i3_801C2250[A6_BSS_26] == 0) {
                         func_8007A6F0(&spB8, 0x2903B009);
                     }
@@ -1844,31 +1846,36 @@ void func_i3_8018C54C(Boss* bossA6) {
                     if (bossA6->swork[A6_SWK_27 + i] <= 0) {
                         bossA6->swork[A6_SWK_18 + i] = 4;
                         bossA6->swork[A6_SWK_38 + i] = 1;
-                        bossA6->fwork[A6_FWK_10 + i] = bossA6->fwork[A6_FWK_19 + i] = bossA6->fwork[A6_FWK_13 + i] =
-                            bossA6->fwork[A6_FWK_22 + i] = 0.0f;
+                        bossA6->fwork[A6_FWK_10 + i] = 
+                        bossA6->fwork[A6_FWK_19 + i] = 
+                        bossA6->fwork[A6_FWK_13 + i] = 
+
+                        bossA6->fwork[A6_FWK_22 + i] = 0.0f;
                         bossA6->fwork[A6_FWK_25 + i] = -90.0f;
+                        
+
                         for (j = 0; j < 12; j++) {
                             if (i == 0) {
-                                D_i3_801BED70[j].x = 0.0f;
-                                D_i3_801BED70[j].y = 0.0f;
+                                D_i3_801BED70[j].y = 
+                                D_i3_801BED70[j].x = 
+                                D_i3_801BEE00[j].y = 
                                 D_i3_801BEE00[j].x = 0.0f;
-                                D_i3_801BEE00[j].y = 0.0f;
                                 D_i3_801BEE90[j] = 3.0f;
                                 D_i3_801BEEC0[j] = 3.0f;
                             }
                             if (i == 1) {
-                                D_i3_801BEEF0[j].x = 0.0f;
-                                D_i3_801BEEF0[j].y = 0.0f;
+                                D_i3_801BEEF0[j].y = 
+                                D_i3_801BEEF0[j].x = 
+                                D_i3_801BEF80[j].y = 
                                 D_i3_801BEF80[j].x = 0.0f;
-                                D_i3_801BEF80[j].y = 0.0f;
                                 D_i3_801BF010[j] = 3.0f;
                                 D_i3_801BF040[j] = 3.0f;
                             }
                             if (i == 2) {
-                                D_i3_801BF070[j].x = 0.0f;
-                                D_i3_801BF070[j].y = 0.0f;
+                                D_i3_801BF070[j].y = 
+                                D_i3_801BF070[j].x = 
+                                D_i3_801BF100[j].y = 
                                 D_i3_801BF100[j].x = 0.0f;
-                                D_i3_801BF100[j].y = 0.0f;
                                 D_i3_801BF190[j] = 3.0f;
                                 D_i3_801BF1C0[j] = 3.0f;
                             }
