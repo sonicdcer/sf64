@@ -1,3 +1,4 @@
+#include "prevent_bss_reordering2.h"
 #include "global.h"
 #include "fox_map.h"
 
@@ -14,59 +15,15 @@ u8 D_800D2F6C[20] = {
     PLANET_CORNERIA, PLANET_MACBETH,    PLANET_TITANIA,  PLANET_AQUAS,    PLANET_FORTUNA,
     PLANET_METEO,    PLANET_KATINA,     PLANET_BOLSE,    PLANET_SECTOR_Z, SAVE_SLOT_VENOM_2,
 };
-Vec3f D_800D2F80 = { -65.0f, -22.0f, -65.0f };
-Vec3f D_800D2F8C = { 65.0f, -22.0f, -65.0f };
-EnvSettings* D_800D2F98[21] = {
-    &D_6037160, &D_ENV_6026C80, &D_602A120, &D_6023F20,     &D_6028760,     &D_602E4B0, &D_6007E30,
-    &D_601F1F0, &D_60266D0,     &D_C035110, &D_6006A60,     &D_6030E30_Env, &D_6005000, &D_602E540,
-    &D_600EA90, NULL,           &D_6011000, &D_600FF30_Env, &D_6006E70,     &D_6014D50, &D_302DD70,
-};
-f32 D_800D2FEC[5] = {
-    0.0f, 0.5f, -0.5f, 0.5f, -0.5f,
-};
-s32 D_800D3000[4][4] = {
-    { 20, 40, 0, 0 },
-    { 20, 20, 0, 0 },
-    { 0, 0, 0, 0 },
-    { 80, 120, 0, 0 },
-};
-Vec3f D_800D3040[6] = {
-    { 0.0f, -20.0f, 0.0f }, { -17.5f, -17.5f, 0.0f }, { -17.5f, 17.5f, 0.0f },
-    { 0.0f, 20.0f, 0.0f },  { 17.5f, 17.5f, 0.0f },   { 17.5f, -17.5f, 0.0f },
-};
-Vec3f D_800D3088[4] = {
-    { 0.0f, -20.0f, 0.0f },
-    { 0.0f, 20.0f, 0.0f },
-    { 20.0f, 0.0f, 0.0f },
-    { -20.0f, 0.0f, 0.0f },
-};
-Vec3f D_800D30B8[4] = {
-    { 0.0f, -20.0f, 0.0f },
-    { 0.0f, 20.0f, 0.0f },
-    { -20.0f, 0.0f, 0.0f },
-    { 20.0f, 0.0f, 0.0f },
-};
-Vec3f D_800D30E8 = { 0.0f, -10.0f, 0.0f };
-f32 D_800D30F4[4] = { 3.0f, 4.0f, 5.0f, 3.0f };
-f32 D_800D3104[4] = { 0.2f, 0.25f, 0.3f, 0.2f };
-f32 D_800D3114[4] = { 10000.0f, -10000.0f, 10000.0f, -10000.0f };
-f32 D_800D3124[12] = {
-    10000.0f, -10000.0f, -10000.0f, 10000.0f, 500.0f, -500.0f, 500.0f, -500.0f, 500.0f, -500.0f, -500.0f, 500.0f,
-};
-f32 D_800D3154[4] = {
-    45.0f,
-    -135.0f,
-    135.0f,
-    -45.0f,
-};
-s32 D_800D3164[6] = {
-    1, 1, -1, 1, -1, 1,
-};
-u8 D_800D317C = 255;
-u8 D_800D3180[30] = {
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-};
-UNK_TYPE D_800D31A0[4] = { 0 };
+
+u8 D_80161A50;
+f32 D_80161A54;
+s32 D_80161A58;
+s32 D_80161A5C;
+u16 D_Timer_80161A60;
+u16 D_80161A62;
+s32 D_80161A64;
+EnvSettings* sEnvSettings;
 
 extern f32 D_i3_801C4188;
 
@@ -251,8 +208,8 @@ void func_800A46A0(Player* player) {
 }
 
 void func_800A4C40(Player* player) {
-    Vec3f sp54 = D_800D2F80;
-    Vec3f sp48 = D_800D2F8C;
+    Vec3f sp54 = { -65.0f, -22.0f, -65.0f };
+    Vec3f sp48 = { 65.0f, -22.0f, -65.0f };
     Vec3f sp3C;
     Vec3f sp30;
 
@@ -492,6 +449,12 @@ void func_800A5844(void) {
         }
     }
 }
+
+EnvSettings* D_800D2F98[21] = {
+    &D_6037160, &D_ENV_6026C80, &D_602A120, &D_6023F20,     &D_6028760,     &D_602E4B0, &D_6007E30,
+    &D_601F1F0, &D_60266D0,     &D_C035110, &D_6006A60,     &D_6030E30_Env, &D_6005000, &D_602E540,
+    &D_600EA90, NULL,           &D_6011000, &D_600FF30_Env, &D_6006E70,     &D_6014D50, &D_302DD70,
+};
 
 void func_800A594C(void) {
     if (gVersusMode) {
@@ -948,6 +911,10 @@ void Player_ApplyDamage(Player* player, s32 direction, s32 damage) {
         player->timer_498 = 10;
     }
 }
+
+f32 D_800D2FEC[5] = {
+    0.0f, 0.5f, -0.5f, 0.5f, -0.5f,
+};
 
 void func_800A729C(Player* player, u32 arg1, f32 arg2, f32 arg3) {
     player->unk_21C = arg1;
@@ -1465,6 +1432,29 @@ void func_800A86E4(Player* player) {
         }
     }
 }
+
+s32 D_800D3000[4][4] = {
+    { 20, 40, 0, 0 },
+    { 20, 20, 0, 0 },
+    { 0, 0, 0, 0 },
+    { 80, 120, 0, 0 },
+};
+Vec3f D_800D3040[6] = {
+    { 0.0f, -20.0f, 0.0f }, { -17.5f, -17.5f, 0.0f }, { -17.5f, 17.5f, 0.0f },
+    { 0.0f, 20.0f, 0.0f },  { 17.5f, 17.5f, 0.0f },   { 17.5f, -17.5f, 0.0f },
+};
+Vec3f D_800D3088[4] = {
+    { 0.0f, -20.0f, 0.0f },
+    { 0.0f, 20.0f, 0.0f },
+    { 20.0f, 0.0f, 0.0f },
+    { -20.0f, 0.0f, 0.0f },
+};
+Vec3f D_800D30B8[4] = {
+    { 0.0f, -20.0f, 0.0f },
+    { 0.0f, 20.0f, 0.0f },
+    { -20.0f, 0.0f, 0.0f },
+    { 20.0f, 0.0f, 0.0f },
+};
 
 void func_800A8804(Player* playerA, Player* playerB) {
     if (playerA->timer_498 == 0) {
@@ -2112,7 +2102,7 @@ void func_800AA800(Player* player) {
     Vec3f spBC;
     Vec3f spB0;
     f32 spA8[2];
-    Vec3f sp9C = D_800D30E8;
+    Vec3f sp9C = { 0.0f, -10.0f, 0.0f };
     Vec3f* rot;
     s32 pad3;
     s32 pad4;
@@ -3816,6 +3806,9 @@ void func_800AF928(Player* player) {
     func_800A46A0(player);
 }
 
+f32 D_800D30F4[4] = { 3.0f, 4.0f, 5.0f, 3.0f };
+f32 D_800D3104[4] = { 0.2f, 0.25f, 0.3f, 0.2f };
+
 void func_800B00C0(Player* player) {
     f32 sp2C = 0.0f;
     f32 sp28 = 0.7f;
@@ -4021,6 +4014,14 @@ void func_800B0194(Player* player) {
     func_800AE278(player);
     player->unk_138 = player->pos.z;
 }
+
+f32 D_800D3114[4] = { 10000.0f, -10000.0f, 10000.0f, -10000.0f };
+f32 D_800D3124[4] = { 10000.0f, -10000.0f, -10000.0f, 10000.0f };
+f32 D_800D3134[8] = {
+    // unused? possibly two f32[4]?
+    500.0f, -500.0f, 500.0f, -500.0f, 500.0f, -500.0f, -500.0f, 500.0f,
+};
+f32 D_800D3154[4] = { 45.0f, -135.0f, 135.0f, -45.0f };
 
 void func_800B0F50(Player* playerx) {
     s32 j;
@@ -4875,6 +4876,10 @@ void func_800B3314(Player* player) {
         }
     }
 }
+
+s32 D_800D3164[6] = {
+    1, 1, -1, 1, -1, 1,
+};
 
 void func_800B39E0(Player* player) {
     s32 i;
@@ -6290,6 +6295,8 @@ void func_800B832C(void) {
     }
     func_800B79B0();
 }
+
+u8 D_800D317C = 255;
 
 void func_800B852C(ObjectId objId, Item* item) {
     u8 sp1F = (u8) RAND_FLOAT(5.0f);
