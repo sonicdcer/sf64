@@ -1699,13 +1699,11 @@ void func_i3_801ADF7C(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot
 }
 
 // OBJ_ACTOR_255 draw
-#ifdef NON_MATCHING
-// float calculation acts oddly. seems to depend on how many references there are to static vars.
 void func_i3_801AE168(Actor* actor) {
+    s32 i;
     f32 xz;
     f32 yRot;
     f32 xRot;
-    s32 i;
     s32 index;
 
     Matrix_Pop(&gGfxMatrix);
@@ -1715,30 +1713,34 @@ void func_i3_801AE168(Actor* actor) {
         if ((actor->iwork[1] != 10) && (i == 0)) {
             i = 1;
         }
-        index = actor->iwork[0] * 50 + actor->unk_04E - D_i3_801BFB64[actor->iwork[1]];
-        if (index < actor->iwork[0] * 50) {
+
+        index = ((actor->iwork[0] * 50) + actor->unk_04E) - D_i3_801BFB64[i];
+
+        if (index < (actor->iwork[0] * 50)) {
             if (index > 0) {
                 index -= actor->iwork[0] * 50;
             }
-            index = index + (actor->iwork[0] + 1) * 50;
+            index = index + ((actor->iwork[0] + 1) * 50);
         }
+
         D_i3_801C27C0 = &D_i3_801C27C8[index];
+
         xRot = D_i3_801C27C0->rot.x;
         yRot = D_i3_801C27C0->rot.y;
+
         if (i >= 2) {
             yRot = RAD_TO_DEG(Math_Atan2F(gPlayer[0].camEye.x - D_i3_801C27C0->pos.x,
                                           gPlayer[0].camEye.z - (D_i3_801C27C0->pos.z + D_80177D20)));
-            xz = sqrtf(SQ(gPlayer[0].camEye.x - D_i3_801C27C0->pos.x) +
-                       SQ(gPlayer[0].camEye.z - (D_i3_801C27C0->pos.z + D_80177D20)));
+            xz = sqrtf(((gPlayer[0].camEye.z - (D_i3_801C27C0->pos.z + D_80177D20)) *
+                        (gPlayer[0].camEye.z - (D_i3_801C27C0->pos.z + D_80177D20))) +
+                       ((gPlayer[0].camEye.x - D_i3_801C27C0->pos.x) * (gPlayer[0].camEye.x - D_i3_801C27C0->pos.x)));
             xRot = RAD_TO_DEG(-Math_Atan2F(gPlayer[0].camEye.y - D_i3_801C27C0->pos.y, xz));
         }
+
         func_i3_801ADF7C(D_i3_801C27C0->pos.x, D_i3_801C27C0->pos.y, D_i3_801C27C0->pos.z, xRot, yRot,
                          D_i3_801C27C0->rot.z, D_i3_801BFB90[i], actor->timer_0C6 & 1, actor->scale, i);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_aq/func_i3_801AE168.s")
-#endif
 
 void func_i3_801AE3AC(Actor* actor) {
     actor->fwork[1] = 1.0f;
