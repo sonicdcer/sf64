@@ -338,13 +338,14 @@ extern f32 D_80161A44;
 // fox_play
 extern u8 D_80161A50;
 extern f32 D_80161A54;
-//
+extern s32 D_80161A58;
 extern s32 D_80161A5C;
 extern u16 D_Timer_80161A60;
 extern u16 D_80161A62;
 extern s32 D_80161A64;
 extern EnvSettings* sEnvSettings;
-//
+
+// fox_context
 extern s32 D_80161A70; // Color32?
 extern s32 D_80161A74;
 extern s32 D_80161A78;
