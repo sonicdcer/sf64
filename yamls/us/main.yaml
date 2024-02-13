@@ -213,20 +213,23 @@
       - [0xC8880, .data, sys_sprintf]
 
       # DATA - Libultra
-      - [0xC88C0, data, ../libultra/io/controller]
-      - [0xC88D0, data, ../libultra/io/vimgr]
-      - [0xC89E0, data, ../libultra/io/pimgr]
-      - [0xC8A10, data, ../libultra/os/initialize]
-      - [0xC8A30, data, ../libultra/libc/xprintf]
-      - [0xC8A80, data, ../libultra/io/aisetnextbuf]
-      - [0xC8A90, data, ../libultra/io/siacs]
-      - [0xC8AA0, data, ../libultra/os/thread]
+      - [0xC88C0, .data, ../libultra/io/controller]
+      - [0xC88D0, .data, ../libultra/vimodes/vimodentsclan1]
+      - [0xC8920, .data, ../libultra/vimodes/vimodepallan1]
+      - [0xC8970, .data, ../libultra/vimodes/vimodempallan1]
+      - [0xC89DC, .data, ../libultra/io/vimgr]
+      - [0xC89E0, .data, ../libultra/io/pimgr]
+      - [0xC8A10, .data, ../libultra/os/initialize]
+      - [0xC8A30, .data, ../libultra/libc/xprintf]
+      - [0xC8A80, .data, ../libultra/io/aisetnextbuf]
+      - [0xC8A90, .data, ../libultra/io/siacs]
+      - [0xC8AA0, .data, ../libultra/os/thread]
       - [0xC8AC0, data, ../libultra/os/exceptasm]
-      - [0xC8AE0, data, ../libultra/io/vi]
-      - [0xC8B50, data, ../libultra/os/timerintr]
-      - [0xC8B60, data, ../libultra/io/piacs]
+      - [0xC8AE0, .data, ../libultra/io/vi]
+      - [0xC8B50, .data, ../libultra/os/timerintr]
+      - [0xC8B60, .data, ../libultra/io/piacs]
       - [0xC8B70, .data, ../libultra/os/rdbsend]
-      - [0xC8B80, data, ../libultra/libc/xlitob]
+      - [0xC8B80, .data, ../libultra/libc/xlitob]
       - [0xC8BB0, .data, ../libultra/debug/kdebugserver]
       - [0xC8BC0, .data, ../libultra/host/readhost]
       - [0xC8BD0, .data, ../libultra/rmon/rmoncmds]
@@ -332,20 +335,20 @@
       - { type: bss, vram: 0x80145D40, name: sys_audio }
 
       # Libultra bss
-      - { type: bss, vram: 0x80156620, name: ../libultra/io/controller }
-      - { type: bss, vram: 0x801566B0, name: ../libultra/io/motor }
-      - { type: bss, vram: 0x801568F0, name: ../libultra/os/seteventmesg }
+      - { type: .bss, vram: 0x80156620, name: ../libultra/io/controller }
+      - { type: .bss, vram: 0x801566B0, name: ../libultra/io/motor }
+      - { type: .bss, vram: 0x801568F0, name: ../libultra/os/seteventmesg }
       - { type: .bss, vram: 0x801569B0, name: ../libultra/io/sptask }
-      - { type: bss, vram: 0x801569F0, name: ../libultra/io/vimgr }
-      - { type: bss, vram: 0x80157C10, name: ../libultra/io/pimgr }
-      - { type: bss, vram: 0x801593D0, name: ../libultra/os/initialize }
+      - { type: .bss, vram: 0x801569F0, name: ../libultra/io/vimgr }
+      - { type: .bss, vram: 0x80157C10, name: ../libultra/io/pimgr }
+      - { type: .bss, vram: 0x801593D0, name: ../libultra/os/initialize }
       - { type: .bss, vram: 0x801593E0, name: ../libultra/io/conteepread }
       - { type: .bss, vram: 0x80159420, name: ../libultra/io/cartrominit }
-      - { type: bss, vram: 0x801594A0, name: ../libultra/io/siacs }
+      - { type: .bss, vram: 0x801594A0, name: ../libultra/io/siacs }
       - { type: .bss, vram: 0x801594C0, name: ../libultra/io/pfsisplug }
-      - { type: bss, vram: 0x80159500, name: ../libultra/os/timerintr }
+      - { type: .bss, vram: 0x80159500, name: ../libultra/os/timerintr }
       - { type: .bss, vram: 0x80159560, name: ../libultra/io/leodiskinit }
-      - { type: bss, vram: 0x801595E0, name: ../libultra/io/piacs }
+      - { type: .bss, vram: 0x801595E0, name: ../libultra/io/piacs }
       - { type: .bss, vram: 0x80159600, name: ../libultra/debug/kdebugserver }
       - { type: .bss, vram: 0x801597C0, name: ../libultra/host/readhost }
       - { type: .bss, vram: 0x801597F0, name: ../libultra/rmon/rmonsio }

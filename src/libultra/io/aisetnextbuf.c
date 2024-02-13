@@ -1,6 +1,5 @@
 #include "global.h"
 
-#ifdef IMPORT_DATA_PENDING
 s32 osAiSetNextBuffer(void* bufPtr, u32 size) {
     static u8 hdwrBugFlag = FALSE;
     char* bptr;
@@ -45,6 +44,3 @@ s32 osAiSetNextBuffer(void* bufPtr, u32 size) {
     IO_WRITE(AI_LEN_REG, size);
     return 0;
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/io/aisetnextbuf/osAiSetNextBuffer.s")
-#endif
