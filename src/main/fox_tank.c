@@ -1072,13 +1072,13 @@ s32 func_80046E40(Player* player, f32* hitboxData, s32* index, f32 xPos, f32 yPo
                 return 2;
             }
             if ((yRot == 0.0f) && (zRot == 0.0f) && (xRot == 0.0f) && (spA0 == 0)) {
-                var_fv0 = player->hit4.x;
-                var_fv1 = player->hit4.y;
-                var_fa0 = player->hit4.z;
+                var_fv0 = player->hit3.x;
+                var_fv1 = player->hit3.y;
+                var_fa0 = player->hit3.z;
             } else {
-                sp94.x = player->hit4.x - xPos;
-                sp94.y = player->hit4.y - yPos;
-                sp94.z = player->hit4.z - zPos;
+                sp94.x = player->hit3.x - xPos;
+                sp94.y = player->hit3.y - yPos;
+                sp94.z = player->hit3.z - zPos;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp94, &sp88);
                 var_fv0 = sp88.x + xPos;
                 var_fv1 = sp88.y + yPos;
@@ -1096,13 +1096,13 @@ s32 func_80046E40(Player* player, f32* hitboxData, s32* index, f32 xPos, f32 yPo
                 return 0;
             }
             if ((yRot == 0.0f) && (zRot == 0.0f) && (xRot == 0.0f) && (spA0 == 0)) {
-                var_fv0 = player->hit3.x;
-                var_fv1 = player->hit3.y;
-                var_fa0 = player->hit3.z;
+                var_fv0 = player->hit4.x;
+                var_fv1 = player->hit4.y;
+                var_fa0 = player->hit4.z;
             } else {
-                sp94.x = player->hit3.x - xPos;
-                sp94.y = player->hit3.y - yPos;
-                sp94.z = player->hit3.z - zPos;
+                sp94.x = player->hit4.x - xPos;
+                sp94.y = player->hit4.y - yPos;
+                sp94.z = player->hit4.z - zPos;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp94, &sp88);
                 var_fv0 = sp88.x + xPos;
                 var_fv1 = sp88.y + yPos;

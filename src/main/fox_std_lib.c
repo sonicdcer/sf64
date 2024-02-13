@@ -2,6 +2,8 @@
 
 char D_801619A0[100];
 
+#include "fox_std_lib_assets.h"
+
 char* Graphics_ClearPrintBuffer(char* buf, s32 fill, s32 len) {
     s32 i;
     char* ptr = buf;
@@ -248,8 +250,8 @@ void Animation_DrawSkeleton(s32 mode, Limb** skeletonSegment, Vec3f* jointTable,
     }
 }
 
-s16 Animation_GetFrameData(AnimationHeader* animationSegmemt, s32 frame, Vec3f* frameTable) {
-    AnimationHeader* animation = SEGMENTED_TO_VIRTUAL(animationSegmemt);
+s16 Animation_GetFrameData(Animation* animationSegmemt, s32 frame, Vec3f* frameTable) {
+    Animation* animation = SEGMENTED_TO_VIRTUAL(animationSegmemt);
     u16 var4 = animation->limbCount;
     JointKey* key = SEGMENTED_TO_VIRTUAL(animation->jointKey);
     u16* frameData = SEGMENTED_TO_VIRTUAL(animation->frameData);
@@ -275,8 +277,8 @@ s16 Animation_GetFrameData(AnimationHeader* animationSegmemt, s32 frame, Vec3f* 
     return var4 + 1;
 }
 
-s16 Animation_GetFrameCount(AnimationHeader* animationSegment) {
-    AnimationHeader* animation = SEGMENTED_TO_VIRTUAL(animationSegment);
+s16 Animation_GetFrameCount(Animation* animationSegment) {
+    Animation* animation = SEGMENTED_TO_VIRTUAL(animationSegment);
 
     return animation->frameCount;
 }
@@ -335,11 +337,11 @@ void Animation_GetDListBoundingBox(Gfx* dList, s32 len, Vec3f* min, Vec3f* max) 
     Animation_FindBoundingBox(dList, len, min, max, &vtxFound, &vtxCount, &vtxList);
 }
 
-void Animation_GetSkeletonBoundingBox(Limb** skeletonSegment, AnimationHeader* animationSegment, s32 frame, Vec3f* min,
+void Animation_GetSkeletonBoundingBox(Limb** skeletonSegment, Animation* animationSegment, s32 frame, Vec3f* min,
                                       Vec3f* max) {
     JointKey* key;
     u16* frameData;
-    AnimationHeader* animation;
+    Animation* animation;
     Limb* limb;
     u16 var_t6;
     s32 vtxFound;
@@ -351,7 +353,7 @@ void Animation_GetSkeletonBoundingBox(Limb** skeletonSegment, AnimationHeader* a
     Limb** skeleton = (Limb**) SEGMENTED_TO_VIRTUAL(skeletonSegment);
 
     limb = (Limb*) SEGMENTED_TO_VIRTUAL(skeleton[0]);
-    animation = (AnimationHeader*) SEGMENTED_TO_VIRTUAL(animationSegment);
+    animation = (Animation*) SEGMENTED_TO_VIRTUAL(animationSegment);
     key = (JointKey*) SEGMENTED_TO_VIRTUAL(animation->jointKey);
     frameData = (u16*) SEGMENTED_TO_VIRTUAL(animation->frameData);
 
@@ -765,14 +767,10 @@ u16* Graphics_SetupTextureRender(Gfx** gfxPtr, u8 width, u8 height) {
 }
 
 void Graphics_DisplayHUDNumber(s32 xPos, s32 yPos, s32 number) {
-    void* hudNumberTex[] = {
-        0x01010660, 0x010106B0, 0x01010700, 0x01010750, 0x010107A0,
-        0x010107F0, 0x01010840, 0x01010890, 0x010108E0, 0x01010930,
-    };
-    void* hudNumberPal[] = {
-        0x010106A0, 0x010106F0, 0x01010740, 0x01010790, 0x010107E0,
-        0x01010830, 0x01010880, 0x010108D0, 0x01010920, 0x01010970,
-    };
+    u8* hudNumberTex[] = { D_1010660, D_10106B0, D_1010700, D_1010750, D_10107A0,
+                           D_10107F0, D_1010840, D_1010890, D_10108E0, D_1010930 };
+    u16* hudNumberPal[] = { D_10106A0, D_10106F0, D_1010740, D_1010790, D_10107E0,
+                            D_1010830, D_1010880, D_10108D0, D_1010920, D_1010970 };
     s32 place;
     s32 startNumber = false;
 
@@ -791,10 +789,8 @@ void Graphics_DisplayHUDNumber(s32 xPos, s32 yPos, s32 number) {
                      1.0f);
 }
 
-void* sSmallNumberTex[] = {
-    0x05000000, 0x05000080, 0x05000100, 0x05000180, D_5000200,
-    0x05000280, D_5000300,  0x05000380, 0x05000400, 0x05000480,
-};
+u8* sSmallNumberTex[] = { D_5000000, D_5000080, D_5000100, D_5000180, D_5000200,
+                          D_5000280, D_5000300, D_5000380, D_5000400, D_5000480 };
 
 void Graphics_DisplaySmallNumber(s32 xPos, s32 yPos, s32 number) {
     s32 place;
@@ -818,22 +814,21 @@ char sLargeChars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ. 0123456789st-";
 u8 sLargeCharWidths[] = { 15, 14, 14, 13, 13, 13, 14, 14, 5,  12, 14, 12, 16, 14, 15, 13, 16, 14, 13, 13, 13,
                           16, 17, 17, 16, 13, 5,  16, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 10, 9,  14, 0 };
 void* sLargeCharTex[] = {
-    0x05008020, 0x05008110, 0x05008200, 0x050082F0, 0x050083E0, 0x050084D0, 0x050085C0, 0x050086B0, 0x050087A0,
-    0x05008890, 0x05008980, 0x05008A70, 0x05008B60, 0x05008C50, 0x05008D40, 0x05008E30, 0x05008F20, 0x05009010,
-    0x05009100, 0x050091F0, 0x050092E0, 0x050093D0, 0x050094C0, 0x050096A0, 0x05009880, 0x05009A60, 0x05009DB0,
-    NULL,       D_5009F60,  D_500A050,  D_500A140,  D_500A230,  D_500A320,  D_500A410,  D_500A500,  0x0500A5F0,
-    0x0500A6E0, 0x0500A7D0, 0x05009B50, 0x05009C40, 0x05009970,
+    D_5008020, D_5008110, D_5008200, D_50082F0, D_50083E0, D_50084D0, D_50085C0, D_50086B0, D_50087A0,
+    D_5008890, D_5008980, D_5008A70, D_5008B60, D_5008C50, D_5008D40, D_5008E30, D_5008F20, D_5009010,
+    D_5009100, D_50091F0, D_50092E0, D_50093D0, D_50094C0, D_50096A0, D_5009880, D_5009A60, D_5009DB0,
+    NULL,      D_5009F60, D_500A050, D_500A140, D_500A230, D_500A320, D_500A410, D_500A500, D_500A5F0,
+    D_500A6E0, D_500A7D0, D_5009B50, D_5009C40, D_5009970,
 };
 void* sLargeNumberTex[] = {
-    D_5009F60, D_500A050, D_500A140, D_500A230, D_500A320, D_500A410, D_500A500, 0x0500A5F0, 0x0500A6E0, 0x0500A7D0,
+    D_5009F60, D_500A050, D_500A140, D_500A230, D_500A320, D_500A410, D_500A500, D_500A5F0, D_500A6E0, D_500A7D0,
 };
-void* sSmallCharTex[] = {
-    NULL,       0x050070C0, 0x05007100, 0x05007180, 0x050071C0, 0x05007200, 0x05007510, 0x05007550, 0x05007590,
-    0x050075D0, 0x05007610, 0x05007650, 0x05007F60, 0x05007FA0, 0x05007FE0, 0x05009D30, 0x05009D70, 0x05009EA0,
-    0x05009EE0, 0x05009F20, 0x0500B380, 0x0500B440, 0x0500B480, 0x0500B4C0, 0x0500B500, 0x0500B540, 0x0500B5C0,
-    0x05007140, 0x0500B400, 0x0500B580, 0x0500B3C0, 0x05000000, 0x05000080, 0x05000100, 0x05000180, D_5000200,
-    0x05000280, D_5000300,  0x05000380, 0x05000400, 0x05000480,
-};
+void* sSmallCharTex[] = { NULL,      D_50070C0, D_5007100, D_5007180, D_50071C0, D_5007200, D_5007510,
+                          D_5007550, D_5007590, D_50075D0, D_5007610, D_5007650, D_5007F60, D_5007FA0,
+                          D_5007FE0, D_5009D30, D_5009D70, D_5009EA0, D_5009EE0, D_5009F20, D_500B380,
+                          D_500B440, D_500B480, D_500B4C0, D_500B500, D_500B540, D_500B5C0, D_5007140,
+                          D_500B400, D_500B580, D_500B3C0, D_5000000, D_5000080, D_5000100, D_5000180,
+                          D_5000200, D_5000280, D_5000300, D_5000380, D_5000400, D_5000480 };
 
 void Graphics_DisplayLargeText(s32 xPos, s32 yPos, f32 xScale, f32 yScale, char* text) {
     u32 charIndex;

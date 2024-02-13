@@ -1,20 +1,20 @@
 #include "global.h"
 
-extern AnimationHeader D_6003348;
-extern AnimationHeader D_60034C4;
+extern Animation D_6003348;
+extern Animation D_60034C4;
 extern Gfx D_6013600[];
 extern Gfx D_6014A40[];
 extern Gfx D_6014BD0[];
 extern Gfx D_601F3D0[];
-extern AnimationHeader D_60258A0;
-extern AnimationHeader D_602645C;
-extern AnimationHeader D_60265B4;
-extern AnimationHeader D_602738C;
-extern AnimationHeader D_6029B48;
-extern AnimationHeader D_602A2CC;
-extern AnimationHeader D_602B778;
-extern AnimationHeader D_602B8DC;
-extern AnimationHeader D_602CEB4;
+extern Animation D_60258A0;
+extern Animation D_602645C;
+extern Animation D_60265B4;
+extern Animation D_602738C;
+extern Animation D_6029B48;
+extern Animation D_602A2CC;
+extern Animation D_602B778;
+extern Animation D_602B8DC;
+extern Animation D_602CEB4;
 extern Limb* D_602D140[];
 extern f32 D_60340C0[];
 extern f32 D_6034124[];

@@ -7,19 +7,19 @@
 #include "global.h"
 #include "fox_title.h"
 
-extern AnimationHeader D_602F8E0;
-extern AnimationHeader D_60305C0;
-extern AnimationHeader D_6031DB8;
-extern AnimationHeader D_6031120;
-extern AnimationHeader D_6035024;
-extern AnimationHeader D_60338DC;
-extern AnimationHeader D_603531C;
-extern AnimationHeader D_6036278;
+extern Animation D_602F8E0;
+extern Animation D_60305C0;
+extern Animation D_6031DB8;
+extern Animation D_6031120;
+extern Animation D_6035024;
+extern Animation D_60338DC;
+extern Animation D_603531C;
+extern Animation D_6036278;
 
-extern SkelAnime D_602FBAC[];
-extern SkelAnime D_603088C[];
-extern SkelAnime D_6032084[];
-extern SkelAnime D_60313AC[];
+extern Limb* D_602FBAC[];
+extern Limb* D_603088C[];
+extern Limb* D_6032084[];
+extern Limb* D_60313AC[];
 
 extern Gfx D_6036290[];
 extern Gfx D_6036B30[];
@@ -158,8 +158,18 @@ f32 D_menu_801B907C;
 f32 D_menu_801B9080;
 f32 D_menu_801B9084;
 
+extern u8 D_5000200[];
+extern u8 D_5000300[];
+extern u16 D_6000000[];
+
+typedef struct {
+    /* 0x00 */ Animation* unk_0;
+    /* 0x04 */ Animation* unk_4;
+    /* 0x08 */ Limb** skeleton;
+} TitleAnimation; // size = 0x0C
+
 //! TODO: Symbols for segmented addresses
-Animation D_menu_801ADA00[4] = {
+TitleAnimation D_menu_801ADA00[4] = {
     { &D_602F8E0, &D_6035024, D_602FBAC },
     { &D_60305C0, &D_60338DC, D_603088C },
     { &D_6031DB8, &D_603531C, D_6032084 },
@@ -680,7 +690,7 @@ void func_menu_801881FC(void) {
         D_menu_801B8350[3].unk_00.x = 58.0f;
         D_menu_801B8350[3].unk_00.y = -5.0f;
         D_menu_801B8350[3].unk_00.z = 22.00f;
-        D_menu_801B8350[3].unk_48 = -17.899979;
+        D_menu_801B8350[3].unk_48 = -17.899979f;
         D_menu_801B8350[3].unk_4C = -8.890011f;
         D_menu_801B8350[3].unk_50 = 0.00f;
     } else {
@@ -2580,7 +2590,7 @@ void func_menu_8018E67C(s32 arg0) {
     }
 
     Animation_GetFrameData(D_menu_801ADA00[arg0].unk_0, sp5C, sp60);
-    Animation_DrawSkeleton(0, D_menu_801ADA00[arg0].skelanime, sp60, NULL, NULL, NULL, &gIdentityMatrix);
+    Animation_DrawSkeleton(0, D_menu_801ADA00[arg0].skeleton, sp60, NULL, NULL, NULL, &gIdentityMatrix);
 
     if (arg0 == 2) {
         gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -2645,7 +2655,7 @@ void func_menu_8018EA78(s32 arg0) {
 
     Math_SmoothStepToVec3fArray(sp48, D_menu_801B86E0[arg0], 1,
                                 Animation_GetFrameData(D_menu_801ADA00[arg0].unk_4, sp44, sp48), 0.2f, 100.0f, 0.0001f);
-    Animation_DrawSkeleton(1, D_menu_801ADA00[arg0].skelanime, D_menu_801B86E0[arg0], func_menu_8018EDC8, NULL, &arg0,
+    Animation_DrawSkeleton(1, D_menu_801ADA00[arg0].skeleton, D_menu_801B86E0[arg0], func_menu_8018EDC8, NULL, &arg0,
                            &gIdentityMatrix);
 
     Matrix_Pop(&gGfxMatrix);

@@ -215,7 +215,6 @@ void func_8003DE68(s32 arg0, s32 arg1) {
 void func_8003E1E0(void) {
 }
 
-#ifdef NON_MATCHING
 void func_8003E1E8(void) {
     f32 sp13C;
     f32 sp138;
@@ -252,7 +251,7 @@ void func_8003E1E8(void) {
                 case LEVEL_VENOM_2:
                 case LEVEL_VERSUS:
                     sp134 = (gPlayer[gPlayerNum].unk_05C * -6000.0f) - (gPlayer[gPlayerNum].camEye.y * 0.4f);
-                    sp13C = Math_ModF(Math_RadToDeg(gPlayer[gPlayerNum].unk_058) * -20.222221f * 5.0f, 7280.0f);
+                    sp13C = Math_ModF(Math_RadToDeg(gPlayer[gPlayerNum].unk_058) * (-7280.0f / 360.0f) * 5.0f, 7280.0f);
                     Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].unk_034 * M_DTOR, 1);
                     Matrix_Translate(gGfxMatrix, sp13C, -2000.0f + sp134, -6000.0f, 1);
                     if (gCurrentLevel == LEVEL_FORTUNA) {
@@ -307,7 +306,7 @@ void func_8003E1E8(void) {
                 case LEVEL_CORNERIA:
                 case LEVEL_VENOM_1:
                     sp134 = (gPlayer[gPlayerNum].unk_05C * -6000.0f) - (gPlayer[gPlayerNum].camEye.y * 0.6f);
-                    sp13C = Math_ModF(Math_RadToDeg(gPlayer[gPlayerNum].unk_058) * -20.222221f * 5.0f, 7280.0f);
+                    sp13C = Math_ModF(Math_RadToDeg(gPlayer[gPlayerNum].unk_058) * (-7280.0f / 360.0f) * 5.0f, 7280.0f);
                     Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].unk_034 * M_DTOR, 1);
                     Matrix_Translate(gGfxMatrix, sp13C, -2000.0f + sp134, -6000.0f, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
@@ -352,7 +351,8 @@ void func_8003E1E8(void) {
                                             (s32) D_800C9C30);
 
                             sp134 = (gPlayer[gPlayerNum].unk_05C * -6000.0f) - (gPlayer[gPlayerNum].camEye.y * 0.4f);
-                            sp13C = Math_ModF(Math_RadToDeg(gPlayer[gPlayerNum].unk_058) * -20.222221f * 5.0f, 7280.0f);
+                            sp13C = Math_ModF(Math_RadToDeg(gPlayer[gPlayerNum].unk_058) * (-7280.0f / 360.0f) * 5.0f,
+                                              7280.0f);
                             Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].unk_034 * M_DTOR, 1);
                             Matrix_Translate(gGfxMatrix, sp13C, -2000.0f + sp134, -6000.0f, 1);
                             Matrix_Translate(gGfxMatrix, 0.0f, -2500.0f, 0.0f, 1);
@@ -362,6 +362,7 @@ void func_8003E1E8(void) {
                             Matrix_SetGfxMtx(&gMasterDisp);
                             gSPDisplayList(gMasterDisp++, D_60038E0);
                         } else {
+                        fake_label: // fake
                             RCP_SetupDL(&gMasterDisp, 0x3E);
                             if (D_80177AB0 == 5) {
                                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 64);
@@ -391,7 +392,7 @@ void func_8003E1E8(void) {
                     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2) {
                         sp13C = ((Math_RadToDeg(gPlayer[gPlayerNum].unk_058) - gPlayer[gPlayerNum].unk_114));
                         sp134 = (gPlayer[gPlayerNum].unk_05C * -7000.0f) - (gPlayer[gPlayerNum].camEye.y * 0.6f);
-                        sp13C = Math_ModF(sp13C * -40.44444f * 2.0f, 7280.0f);
+                        sp13C = Math_ModF(sp13C * -40.44444f * 2.0f, 7280.0f); // close to 7280.0f / 180.0f
                         RCP_SetupDL_17();
                         Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].unk_034 * M_DTOR, 1);
                         Matrix_Scale(gGfxMatrix, 1.5f, 1.0f, 1.0f, 1);
@@ -424,9 +425,9 @@ void func_8003E1E8(void) {
                 case LEVEL_ZONESS:
                 case LEVEL_MACBETH:
                 case LEVEL_TITANIA:
-                    sp138 = Math_RadToDeg(gPlayer[gPlayerNum].unk_058) - gPlayer[gPlayerNum].unk_114;
+                    sp12C = Math_RadToDeg(gPlayer[gPlayerNum].unk_058) - gPlayer[gPlayerNum].unk_114;
                     sp134 = (gPlayer[gPlayerNum].unk_05C * -7000.0f) - (gPlayer[gPlayerNum].camEye.y * 0.6f);
-                    sp13C = sp138 * -40.44444f * 2.0f;
+                    sp13C = sp12C * -40.44444f * 2.0f; // close to 7280.0f / 180.0f
                     if ((gCurrentLevel == LEVEL_TITANIA) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2) &&
                         (gPlayer[0].unk_1D0 < 3)) {
                         D_8015F968 += __sinf(gPlayer[0].unk_058) * 20.0f;
@@ -647,9 +648,6 @@ void func_8003E1E8(void) {
     }
     Matrix_Pop(&gGfxMatrix);
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_bg/func_8003E1E8.s")
-#endif
 
 void func_80040450(void) {
     f32 sp44;

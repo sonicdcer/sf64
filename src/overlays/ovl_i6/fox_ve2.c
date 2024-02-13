@@ -14,7 +14,7 @@ s32 func_i6_8019624C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
     return false;
 }
 
-extern AnimationHeader D_6014904;
+extern Animation D_6014904;
 extern Limb* D_60149D0[];
 
 void func_i6_80196288(Boss* boss) {

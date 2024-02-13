@@ -35,7 +35,7 @@ typedef union {
     u16 array[SCREEN_HEIGHT][SCREEN_WIDTH];
 } FrameBuffer; // size = 0x25800
 
-typedef s32 (*OverrideLimbDraw)(s32, Gfx**, Vec3f*, Vec3f*, void*);
+typedef s32 (*OverrideLimbDraw)(s32 limbIndex, Gfx** dList,  Vec3f* pos, Vec3f* rot, void* this);
 typedef void (*PostLimbDraw)(s32, Vec3f*, void*);
 
 typedef struct {
@@ -52,7 +52,7 @@ typedef struct {
     /* 0x02 */ s16 limbCount;
     /* 0x04 */ u16* frameData;
     /* 0x08 */ JointKey* jointKey;
-} AnimationHeader; // size = 0xC
+} Animation; // size = 0xC
 
 typedef struct Limb {
     /* 0x000 */ Gfx* dList;
@@ -61,14 +61,6 @@ typedef struct Limb {
     /* 0x018 */ struct Limb* sibling;
     /* 0x01C */ struct Limb* child;
 } Limb; // size = 0x20
-
-typedef Limb* SkelAnime;
-
-typedef struct {
-    /* 0x00 */ AnimationHeader* unk_0;
-    /* 0x04 */ AnimationHeader* unk_4;
-    /* 0x08 */ SkelAnime* skelanime;
-} Animation; // size = 0x0C
 
 void Lights_SetOneLight(Gfx** dList, s32 dirX, s32 dirY, s32 dirZ, s32 colR, s32 colG, s32 colB, s32 ambR, s32 ambG, s32 ambB);
 void Lights_SetTwoLights(Gfx** dList, s32 dir1x, s32 dir1y, s32 dir1z, s32 dir2x, s32 dir2y, s32 dir2z, s32 col1r, s32 col1g,
@@ -79,13 +71,13 @@ s32 Graphics_Printf(const char *fmt, ...);
 void Texture_Scroll(void *texture, s32 width, s32 height, u8 mode);
 void Texture_Mottle(void *dst, void *src, u8 mode);    
 s32 Animation_GetLimbIndex(Limb* limb, Limb** skeleton);
-void Animation_DrawLimb(s32 mode, Limb * limb, Limb* *skeleton, Vec3f* jointTable, OverrideLimbDraw overrideLimbDraw, PostLimbDraw postLimbDraw, void* data);
+void Animation_DrawLimb(s32 mode, Limb* limb, Limb* *skeleton, Vec3f* jointTable, OverrideLimbDraw overrideLimbDraw, PostLimbDraw postLimbDraw, void* data);
 void Animation_DrawSkeleton(s32 mode, Limb** skeletonSegment, Vec3f* jointTable, OverrideLimbDraw overrideLimbDraw, PostLimbDraw postLimbDraw, void* data, Matrix* transform);
-s16 Animation_GetFrameData(AnimationHeader *animationSegmemt, s32 frame, Vec3f *frameTable);
-s16 Animation_GetFrameCount(AnimationHeader *animationSegment);
+s16 Animation_GetFrameData(Animation *animationSegmemt, s32 frame, Vec3f *frameTable);
+s16 Animation_GetFrameCount(Animation *animationSegment);
 void Animation_FindBoundingBox(Gfx* dList, s32 len, Vec3f *min, Vec3f *max, s32 *vtxFound, s32 *vtxCount, Vtx* *vtxList);
 void Animation_GetDListBoundingBox(Gfx *dList, s32 len, Vec3f *min, Vec3f *max);
-void Animation_GetSkeletonBoundingBox(Limb **skeletonSegment, AnimationHeader *animationSegment, s32 frame, Vec3f *min, Vec3f* max);
+void Animation_GetSkeletonBoundingBox(Limb** skeletonSegment, Animation *animationSegment, s32 frame, Vec3f *min, Vec3f* max);
 void TextureRect_4bCI(Gfx **gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
 void TextureRect_4bCI_Flip(Gfx **gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);
 void TextureRect_4bCI_MirX(Gfx **gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale, f32 yScale);

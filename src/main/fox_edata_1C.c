@@ -1,5 +1,8 @@
 #include "global.h"
 
+extern f32 D_6031398[];
+extern f32 D_60313CC[];
+
 f32 D_800CBE70[] = {
     1.0f, 0.0f, 50.0f, 0.0f, 25.0f, 0.0f, 25.0f,
 };
@@ -199,7 +202,7 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_80_126  */  {(void*) func_i3_801BE1FC, 1, (ObjectFunc)          NULL,       D_800CBF34,  2000.0f,  0, 0, 41, 0,   0.0f,  0 },
   /* OBJ_80_127  */  {(void*)     D_9005C80, 0, (ObjectFunc) func_i1_801924A8,        D_601B678,  1000.0f,  0, 0, 42, 0,   0.0f,  0 },
   /* OBJ_80_128  */  {(void*)     D_9003F50, 0, (ObjectFunc)          NULL,        D_601B6C4,  3200.0f,  0, 0, 42, 0,   0.0f,  0 },
-  /* OBJ_80_129  */  {(void*)     D_900F060, 0, (ObjectFunc)          NULL,        D_601B710,  3200.0f,  0, 0, 42, 0,   0.0f,  0 },
+  /* OBJ_80_129  */  {(void*)     D_900F060, 0, (ObjectFunc)          NULL,        D_F32_601B710,  3200.0f,  0, 0, 42, 0,   0.0f,  0 },
   /* OBJ_80_130  */  {(void*)     D_900F1D0, 0, (ObjectFunc)          NULL,        D_601B75C,  3200.0f,  0, 0, 42, 0,   0.0f,  0 },
   /* OBJ_80_131  */  {(void*) func_i6_801935D4, 1, (ObjectFunc) func_i6_8019356C,        D_C038BD8,   500.0f,  0, 0, 41, 0,   0.0f,  0 },
   /* OBJ_80_132  */  {(void*) func_i6_8019350C, 1, (ObjectFunc) func_i6_80193380,        D_C038A48,   500.0f,  0, 0, 41, 0,   0.0f,  0 },
