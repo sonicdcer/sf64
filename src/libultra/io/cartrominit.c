@@ -72,7 +72,7 @@ OSPiHandle* osCartRomInit(void) {
 
     if (CartRomHandle.baseAddress == PHYS_TO_K1(PI_DOM1_ADDR2)) {
         return &CartRomHandle;
-}
+    }
 
     CartRomHandle.type = DEVICE_TYPE_CART;
     CartRomHandle.baseAddress = PHYS_TO_K1(PI_DOM1_ADDR2);
