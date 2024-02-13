@@ -1,23 +1,23 @@
 #include "global.h"
 
 extern Gfx D_3007E70[];
-extern AnimationHeader D_700C8D8;
+extern Animation D_700C8D8;
 extern Limb* D_700C964[];
 extern Gfx D_700B9C0[];
 extern Gfx D_700C4B0[];
 extern Gfx D_700C980[];
 extern Gfx D_700E3F0[];
-extern AnimationHeader D_700D534;
+extern Animation D_700D534;
 extern Limb* D_700D700[];
 extern Gfx D_7009D60[];
 extern Gfx D_700A990[];
 extern Gfx D_7002490[];
 extern Limb* D_7006990[];
-extern AnimationHeader D_70067C4;
-extern AnimationHeader D_7006F74;
-extern AnimationHeader D_7007130;
-extern AnimationHeader D_7007234;
-extern AnimationHeader D_700733C;
+extern Animation D_70067C4;
+extern Animation D_7006F74;
+extern Animation D_7007130;
+extern Animation D_7007234;
+extern Animation D_700733C;
 extern Gfx D_70098E0[];
 extern Gfx D_7008930[];
 extern Gfx D_7009510[];
@@ -26,22 +26,22 @@ extern f32 D_6006C28[];
 extern Gfx D_7000A80[];
 extern Gfx D_7002270[];
 extern s32 D_8000FC0[];
-extern AnimationHeader D_8000708;
-extern AnimationHeader D_8000D80;
-extern AnimationHeader D_A0002BC;
-extern AnimationHeader D_A00047C;
-extern AnimationHeader D_A000858;
-extern AnimationHeader D_A000934;
-extern AnimationHeader D_A000D50;
-extern AnimationHeader D_7003EE8;
-extern AnimationHeader D_70084CC;
-extern AnimationHeader D_70096EC;
+extern Animation D_8000708;
+extern Animation D_8000D80;
+extern Animation D_A0002BC;
+extern Animation D_A00047C;
+extern Animation D_A000858;
+extern Animation D_A000934;
+extern Animation D_A000D50;
+extern Animation D_7003EE8;
+extern Animation D_70084CC;
+extern Animation D_70096EC;
 extern Gfx D_7009A80[];
-extern AnimationHeader D_700E244;
-extern AnimationHeader D_8008FE8;
-extern AnimationHeader D_9004288;
-extern AnimationHeader D_900FC4C;
-extern AnimationHeader D_A009990;
+extern Animation D_700E244;
+extern Animation D_8008FE8;
+extern Animation D_9004288;
+extern Animation D_900FC4C;
+extern Animation D_A009990;
 extern Gfx D_7005300[];
 extern Gfx D_8000D90[];
 extern Limb* D_A000568[];
@@ -49,15 +49,58 @@ extern Limb* D_A000EDC[];
 extern Limb* D_A001A70[];
 extern Gfx D_Gfx_800D94D0[];
 
+extern f32 D_i5_801B7360[25][4];
+// static f32 D_i5_801B7360[25][4] = {
+//     { 165.0f, 120.0f, 0.0f, 90.0f },
+//     { 127.5f, 7.5f, 0.0f, 90.0f },
+//     { 7.5f, -112.5f, 0.0f, 90.0f },
+//     { 255.0f, 285.0f, -60.0f, 60.0f }, 
+//     { 255.0f, 285.0f, 60.0f, 60.0f }, 
+//     { 247.5f, 120.0f, -90.0f, 75.0f }, 
+//     { 247.5f, 120.0f, 90.0f, 75.0f }, 
+//     { 217.5f, -75.0f, -135.0f, 90.0f }, 
+//     { 217.5f, -75.0f, 135.0f, 90.0f }, 
+//     { 90.0f, -172.5f, -157.5f, 60.0f }, 
+//     { 90.0f, -172.5f, 157.5f, 60.0f }, 
+//     { 72.0f, 12.0f, -3.0f, 30.0f }, 
+//     { 124.5f, 12.0f, -3.0f, 22.5f }, 
+//     { 84.0f, 19.5f, -3.0f, 45.0f }, 
+//     { 72.0f, 12.0f, 3.0f, 37.5f }, 
+//     { 124.5f, 12.0f, 3.0f, 22.5f }, 
+//     { 84.0f, 19.5f, 3.0f, 45.0f }, 
+//     { 277.5f, -55.5f, -31.5f, 30.0f }, 
+//     { 187.5f, -63.0f, -33.0f, 45.0f }, 
+//     { 60.0f, -25.5f, -33.0f, 67.5f }, 
+//     { 117.0f, -3.0f, -18.0f, 45.0f }, 
+//     { 277.5f, -55.5f, 31.5f, 30.0f }, 
+//     { 187.5f, -63.0f, 33.0f, 45.0f }, 
+//     { 60.0f, -25.5f, 33.0f, 67.5f }, 
+//     { 117.0f, -3.0f, 18.0f, 45.0f }
+// };
 
-extern s32 D_i5_801B750C[];
+extern u8 D_i5_801B74F0[9][3];
+// static u8 D_i5_801B74F0[9][3] = {
+//     { 13, 0, 11 },
+//     { 1, 11, 2 },
+//     { 2, 13, 1 },
+//     { 3, 14, 2 },
+//     { 4, 16, 1 },
+//     { 5, 17, 3 },
+//     { 6, 20, 1 },
+//     { 7, 21, 3 },
+//     { 8, 24, 1 },
+// };
+
+extern bool D_i5_801B750C[3];
+// static bool D_i5_801B750C[3] = { false, false, false };
+
 extern u8 D_i5_801BA1E8;
 
 void func_i5_80188F30(void) {
     s32 i;
 
     for (i = 0; i < 3; i++) {
-        D_i5_801B750C[i] = 0;
+        D_i5_801B750C[i] = false;
     }
     D_i5_801BA1E8 = 0x63;
 }
@@ -105,8 +148,6 @@ void func_i5_80189120(f32 x, f32 y, f32 z, f32 arg3, f32 arg4) {
         }
     }
 }
-
-extern void func_i5_801B49D0(Actor*);
 
 void func_i5_80189194(Actor* actor) {
     func_i5_801B49D0(actor);
@@ -667,12 +708,12 @@ void func_i5_8018ADC4(Actor* actor) {
     }
 }
 
-s32 func_i5_8018AFD4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool func_i5_8018AFD4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     *dList = NULL;
     return false;
 }
 
-s32 func_i5_8018AFF0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool func_i5_8018AFF0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     if ((limbIndex == 2) || (limbIndex == 3) || (limbIndex == 4)) {
         Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, 1);
         Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, 1);
@@ -1012,8 +1053,8 @@ void func_i5_8018BFB0(Actor* actor) {
 
 
     for (i = 0; i < 3; i++) {
-        if (D_i5_801B750C[i] == 0) {
-            D_i5_801B750C[i] = 1;
+        if (!D_i5_801B750C[i]) {
+            D_i5_801B750C[i] = true;
             actor->iwork[0] = i;
             break;
         }
@@ -1035,7 +1076,7 @@ void func_i5_8018BFB0(Actor* actor) {
     }
 }
 
-s32 func_i5_8018C118(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool func_i5_8018C118(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     *dList = NULL;
     return false;
 }
@@ -1048,7 +1089,7 @@ typedef struct {
 extern s16 D_i5_801B7630[];
 extern UnkStruct_i5_801BD750 D_i5_801BD750[][9];
 
-s32 func_i5_8018C134(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool func_i5_8018C134(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Actor* actor = (Actor*)data;
     s32 sp58;
     s32 i;
@@ -1093,8 +1134,6 @@ void func_i5_8018C370(s32 limbIndex, Vec3f* rot, void* data) {
     }
 }
 
-extern f32 D_i5_801B7360[][4];
-extern u8 D_i5_801B74F0[][3];
 extern s16 D_i5_801B7630[];
 extern Vec3f D_i5_801B7654;
 extern Vec3f D_i5_801B7660;
@@ -1584,7 +1623,7 @@ void func_i5_8018C8A8(Actor* actor) {
                     D_8017835C = 0x40;
                     break;
                 case 5:
-                    D_i5_801B750C[actor->iwork[0]] = 0;
+                    D_i5_801B750C[actor->iwork[0]] = false;
                     Object_Kill(&actor->obj, actor->sfxPos);
                     break;
             }
@@ -1618,7 +1657,7 @@ void func_i5_8018E2D8(Actor* actor) {
 }
 
 void func_i5_8018E3B0(Actor* actor) {
-    D_i5_801B750C[actor->iwork[0]] = 0;
+    D_i5_801B750C[actor->iwork[0]] = false;
 }
 
 extern f32 D_i5_801B7518[];
@@ -2161,7 +2200,7 @@ void func_i5_8018FA48(Boss* arg0) {
     D_i5_801BBEF8 = SEGMENTED_TO_VIRTUAL(D_8000FC0);
 }
 
-s32 func_i5_8018FC70(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool func_i5_8018FC70(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     f32 sp24;
 
     if (D_i5_801BBEF0[30] != 0) {
@@ -2283,7 +2322,7 @@ void func_i5_8019002C(s32 limbIndex, Vec3f* rot, void* data) {
     }
 }
 
-s32 func_i5_801903A0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool func_i5_801903A0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     f32 sp24;
     s32 sp20;
 
@@ -2401,7 +2440,7 @@ extern s16 D_i5_801B7960[][4];
 // regalloc
 // https://decomp.me/scratch/cEhIC
 
-s32 func_i5_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool func_i5_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Vec3f spCC;
     f32 spC8;
     f32 spC4;
@@ -2684,7 +2723,7 @@ s32 func_i5_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
 }
 #else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/fox_ti/func_i5_80190A08.s")
-s32 func_i5_80190A08(s32, Gfx**, Vec3f*, Vec3f*, void*);
+bool func_i5_80190A08(s32, Gfx**, Vec3f*, Vec3f*, void*);
 #endif
 
 #ifdef NON_MATCHING
