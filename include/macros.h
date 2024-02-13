@@ -31,6 +31,10 @@
 #define CYCLES_TO_USEC(c)    (((u64)(c)*(1000000LL/15625LL))/(osClockRate/15625LL))
 #define CYCLES_TO_MSEC(c) ((s32)CYCLES_TO_USEC(c)/1000)
 
+/*
+ * Macros for libultra
+ */
+
 #if defined(__sgi)
 #define PRINTF
 #else
@@ -38,7 +42,6 @@
 #endif
 
 #define ALIGNED(x) __attribute__((aligned(x)))
-#define ARRLEN(x) ((s32)(sizeof(x) / sizeof(x[0])))
 #define STUBBED_PRINTF(x) ((void)(x))
 #define UNUSED __attribute__((unused))
 
