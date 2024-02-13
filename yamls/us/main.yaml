@@ -225,7 +225,7 @@
       - [0xC8AE0, data, ../libultra/io/vi]
       - [0xC8B50, data, ../libultra/os/timerintr]
       - [0xC8B60, data, ../libultra/io/piacs]
-      - [0xC8B70, data, ../libultra/os/rdbsend]
+      - [0xC8B70, .data, ../libultra/os/rdbsend]
       - [0xC8B80, data, ../libultra/libc/xlitob]
       - [0xC8BB0, data, ../libultra/debug/kdebugserver]
       - [0xC8BC0, data, ../libultra/host/readhost]
