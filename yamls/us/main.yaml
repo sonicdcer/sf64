@@ -338,12 +338,12 @@
       - { type: bss, vram: 0x801569F0, name: ../libultra/io/vimgr }
       - { type: bss, vram: 0x80157C10, name: ../libultra/io/pimgr }
       - { type: bss, vram: 0x801593D0, name: ../libultra/os/initialize }
-      - { type: bss, vram: 0x801593E0, name: ../libultra/io/conteepread }
+      - { type: .bss, vram: 0x801593E0, name: ../libultra/io/conteepread }
       - { type: .bss, vram: 0x80159420, name: ../libultra/io/cartrominit }
       - { type: bss, vram: 0x801594A0, name: ../libultra/io/siacs }
-      - { type: bss, vram: 0x801594C0, name: ../libultra/io/pfsisplug }
+      - { type: .bss, vram: 0x801594C0, name: ../libultra/io/pfsisplug }
       - { type: bss, vram: 0x80159500, name: ../libultra/os/timerintr }
-      - { type: bss, vram: 0x80159560, name: ../libultra/io/leodiskinit }
+      - { type: .bss, vram: 0x80159560, name: ../libultra/io/leodiskinit }
       - { type: bss, vram: 0x801595E0, name: ../libultra/io/piacs }
       - { type: bss, vram: 0x80159600, name: ../libultra/debug/kdebugserver }
       - { type: bss, vram: 0x801597C0, name: ../libultra/host/readhost }

@@ -1,6 +1,7 @@
 #ifndef _CONTROLLER_H
 #define _CONTROLLER_H
 
+#include "PR/ultratypes.h"
 #include "PR/os_internal.h"
 #include "PR/os_version.h"
 #include "PR/rcp.h"
