@@ -32,7 +32,7 @@ void guMtxF2L(float mf[4][4], Mtx* m) {
             *(ai++) = (e1 & 0xffff0000) | ((e2 >> 16) & 0xffff);
             *(af++) = ((e1 << 16) & 0xffff0000) | (e2 & 0xffff);
         }
-}
+    }
 }
 
 // This function seems to use the SM64 version of the guMtxF2L function
@@ -66,9 +66,9 @@ void guMtxIdentF(float mf[4][4]) {
                 mf[i][j] = 1.0;
             } else {
                 mf[i][j] = 0.0;
-}
-}
-}
+            }
+        }
+    }
 }
 
 void guMtxIdent(Mtx* m) {
