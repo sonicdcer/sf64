@@ -227,10 +227,10 @@
       - [0xC8B60, data, ../libultra/io/piacs]
       - [0xC8B70, .data, ../libultra/os/rdbsend]
       - [0xC8B80, data, ../libultra/libc/xlitob]
-      - [0xC8BB0, data, ../libultra/debug/kdebugserver]
-      - [0xC8BC0, data, ../libultra/host/readhost]
-      - [0xC8BD0, data, ../libultra/rmon/rmoncmds]
-      - [0xC8CB0, data, ../libultra/rmon/rmonmain]
+      - [0xC8BB0, .data, ../libultra/debug/kdebugserver]
+      - [0xC8BC0, .data, ../libultra/host/readhost]
+      - [0xC8BD0, .data, ../libultra/rmon/rmoncmds]
+      - [0xC8CB0, .data, ../libultra/rmon/rmonmain]
 
       # RODATA - Nintendo Libraries
       - [0xC8CC0, .rodata, sys_math]
@@ -257,6 +257,7 @@
       - [0xCA180, .rodata, ../libultra/libc/xldtob]
       - [0xCA1E0, rodata, ../libultra/os/setintmask]
       - [0xCA260, .rodata, ../libultra/rmon/rmonmem]
+      - [0xCA330, .rodata, ../libultra/rmon/rmontask]
       - [0xCA3D0, .rodata, ../libultra/rmon/rmonmisc]
       - [0xCA400, .rodata, ../libultra/rmon/rmonregs]
       - [0xCA480, .rodata, ../libultra/rmon/rmonbrk]
@@ -345,16 +346,16 @@
       - { type: bss, vram: 0x80159500, name: ../libultra/os/timerintr }
       - { type: .bss, vram: 0x80159560, name: ../libultra/io/leodiskinit }
       - { type: bss, vram: 0x801595E0, name: ../libultra/io/piacs }
-      - { type: bss, vram: 0x80159600, name: ../libultra/debug/kdebugserver }
-      - { type: bss, vram: 0x801597C0, name: ../libultra/host/readhost }
-      - { type: bss, vram: 0x801597F0, name: ../libultra/rmon/rmonsio }
-      - { type: bss, vram: 0x8015A010, name: ../libultra/os/initrdb }
-      - { type: bss, vram: 0x8015A030, name: ../libultra/io/leointerrupt }
-      - { type: bss, vram: 0x8015B030, name: ../libultra/rmon/rmonmem }
-      - { type: bss, vram: 0x8015B130, name: ../libultra/rmon/rmonmisc }
-      - { type: bss, vram: 0x8015F350, name: ../libultra/rmon/rmonregs }
-      - { type: bss, vram: 0x8015F370, name: ../libultra/rmon/rmonbrk }
-      - { type: bss, vram: 0x8015F480, name: ../libultra/rmon/rmonmain }
+      - { type: .bss, vram: 0x80159600, name: ../libultra/debug/kdebugserver }
+      - { type: .bss, vram: 0x801597C0, name: ../libultra/host/readhost }
+      - { type: .bss, vram: 0x801597F0, name: ../libultra/rmon/rmonsio }
+      - { type: .bss, vram: 0x8015A010, name: ../libultra/os/initrdb }
+      - { type: .bss, vram: 0x8015A030, name: ../libultra/io/leointerrupt }
+      - { type: .bss, vram: 0x8015B030, name: ../libultra/rmon/rmonmem }
+      - { type: .bss, vram: 0x8015B130, name: ../libultra/rmon/rmonmisc }
+      - { type: .bss, vram: 0x8015F350, name: ../libultra/rmon/rmonregs }
+      - { type: .bss, vram: 0x8015F370, name: ../libultra/rmon/rmonbrk }
+      - { type: .bss, vram: 0x8015F480, name: ../libultra/rmon/rmonmain }
 
       # Game engine bss
       - { type: .bss, vram: 0x8015F900, name: fox_360 }
