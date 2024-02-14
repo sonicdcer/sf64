@@ -498,6 +498,7 @@ void func_8008EA14(f32, f32);
 void func_8008FA84(void);
 void func_8008FE78(Boss*);
 void func_8008FFF0(Boss*, s32);
+s32 func_80090200(Boss* boss);
 bool func_8009092C(Actor*);
 void func_800907C4(Boss*);
 s32 func_800915FC(Actor*);
@@ -548,6 +549,7 @@ void func_800AC290(Player* player, PlayerShot* shot, f32 arg2, f32 arg3, PlayerS
 void func_800A5844(void);
 void func_800A594C(void);
 void func_800A5D6C(void);
+void func_800A5EBC(void);
 void func_800A5FA0(f32* , u32 , s32 );
 void func_800A6070(f32* , u32 );
 void func_800A6148(void);

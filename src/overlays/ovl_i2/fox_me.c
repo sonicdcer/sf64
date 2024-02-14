@@ -146,7 +146,7 @@ void func_i2_801877C4(Actor* actor) {
 
     if (actor->timer_0BC == 0) {
         actor->timer_0BC = 40;
-        if (actor->obj.pos.z < (gPlayer->unk_138 - 1000.0f)) {
+        if (actor->obj.pos.z < (gPlayer[0].unk_138 - 1000.0f)) {
             func_8007F11C(0x161, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 120.0f);
         }
     }
@@ -680,7 +680,7 @@ void func_i2_80188FAC(Effect* effect) {
 }
 
 void func_i2_80189114(Effect* effect) {
-    if (gPlayer->state_1C8 == PLAYERSTATE_1C8_7) {
+    if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7) {
         Object_Kill(&effect->obj, effect->sfxPos);
     }
 
@@ -690,28 +690,28 @@ void func_i2_80189114(Effect* effect) {
     }
 
     effect->obj.rot.z += 35.0f;
-    if (effect->obj.pos.x < gPlayer->pos.x) {
+    if (effect->obj.pos.x < gPlayer[0].pos.x) {
         effect->obj.pos.x += 1.5f;
         if (effect->vel.x < 40.0f) {
             effect->vel.x += 2.0f;
         }
     }
 
-    if (gPlayer->pos.x < effect->obj.pos.x) {
+    if (gPlayer[0].pos.x < effect->obj.pos.x) {
         effect->obj.pos.x -= 1.5f;
         if (effect->vel.x > -40.0f) {
             effect->vel.x -= 2.0f;
         }
     }
 
-    if (effect->obj.pos.y < gPlayer->pos.y) {
+    if (effect->obj.pos.y < gPlayer[0].pos.y) {
         effect->obj.pos.y += 1.5f;
         if (effect->vel.y < 40.0f) {
             effect->vel.y += 2.0f;
         }
     }
 
-    if (gPlayer->pos.y < effect->obj.pos.y) {
+    if (gPlayer[0].pos.y < effect->obj.pos.y) {
         effect->obj.pos.y -= 1.5f;
         if (effect->vel.y > -40.0f) {
             effect->vel.y -= 2.0f;
@@ -1261,7 +1261,7 @@ void func_i2_8018978C(Boss* boss) {
             boss->obj.rot.z = boss->obj.rot.z + ((0.0f - boss->obj.rot.z) * 0.02f);
             Math_SmoothStepToF(&boss->fwork[0x15], 4.0f, 1.0f, 0.1f, 0.0f);
 
-            if (gPlayer->state_1C8 != PLAYERSTATE_1C8_6) {
+            if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_6) {
                 D_80178348 = D_80178340 = D_80178350 = D_80178354 = 0;
 
                 if ((boss->timer_050 == 10) || (boss->timer_050 == 30) || (boss->timer_050 == 50) ||
@@ -2049,7 +2049,7 @@ void func_i2_8018CD8C(Player* player) {
                                   gActors[player->unk_1D8].obj.pos.z, 10.0f);
                     gActors[player->unk_1D8].obj.status = OBJ_FREE;
                     func_i2_8018CCF8(&gActors[player->unk_1D8]);
-                    Object_Kill(&gPlayerShots->obj, gPlayerShots->sfxPos);
+                    Object_Kill(&gPlayerShots[0].obj, gPlayerShots[0].sfxPos);
                 }
             }
             break;
@@ -2243,20 +2243,20 @@ void func_i2_8018E084(Player* player) {
 
             Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
-            D_80177978 = gBosses->obj.pos.x + dest.x;
-            D_80177980 = gBosses->obj.pos.y + dest.y;
+            D_80177978 = gBosses[0].obj.pos.x + dest.x;
+            D_80177980 = gBosses[0].obj.pos.y + dest.y;
 
-            D_80177988 = gBosses->obj.pos.z + D_80177D20 + dest.z;
-            D_801779A0 = gBosses->obj.pos.x;
-            D_801779B8 = gBosses->obj.pos.y;
+            D_80177988 = gBosses[0].obj.pos.z + D_80177D20 + dest.z;
+            D_801779A0 = gBosses[0].obj.pos.x;
+            D_801779B8 = gBosses[0].obj.pos.y;
 
-            D_801779C0 = gBosses->obj.pos.z + D_80177D20;
+            D_801779C0 = gBosses[0].obj.pos.z + D_80177D20;
 
             Math_SmoothStepToF(&D_80177A48[1], 180.0f, 0.05f, 1.0f, 0.0f);
             Math_SmoothStepToF(&D_80177A48[2], 1500.0f, 0.1f, 10.0f, 0.0f);
             Math_SmoothStepToF(&D_80177A48[0], 0.1f, 0.1f, 0.001f, 0.0f);
             Math_SmoothStepToF(&player->unk_0D0, 0.0f, 1.0f, 0.5f, 0.0f);
-            Math_SmoothStepToF(&gBosses->vel.z, 0.0f, 1.0f, 0.5f, 0.0f);
+            Math_SmoothStepToF(&gBosses[0].vel.z, 0.0f, 1.0f, 0.5f, 0.0f);
             Math_SmoothStepToF(&player->unk_0E4, 0.0f, 0.1f, 3.0f, 0.0f);
 
             if (gCsFrameCount == 320) {
@@ -2344,12 +2344,12 @@ void func_i2_8018E084(Player* player) {
 
     switch (gCsFrameCount) {
         case 350:
-            Object_Kill(&gActors->obj, gActors->sfxPos);
+            Object_Kill(&gActors[0].obj, gActors[0].sfxPos);
             Object_Kill(&gActors[1].obj, gActors[1].sfxPos);
             Object_Kill(&gActors[2].obj, gActors[2].sfxPos);
 
             if (gTeamShields[1] > 0) {
-                func_i2_8018DF08(gActors, 0);
+                func_i2_8018DF08(&gActors[0], 0);
             }
             if (gTeamShields[2] > 0) {
                 func_i2_8018DF08(&gActors[1], 1);
@@ -2482,9 +2482,9 @@ void func_i2_8018ED9C(Actor* actor) {
 
     switch (actor->state) {
         case 0:
-            actor->vwork[0].x = D_i2_80195610[actor->index].x + gPlayer->pos.x;
-            actor->vwork[0].y = D_i2_80195610[actor->index].y + gPlayer->pos.y;
-            actor->vwork[0].z = D_i2_80195610[actor->index].z + gPlayer->pos.z;
+            actor->vwork[0].x = gPlayer[0].pos.x + D_i2_80195610[actor->index].x;
+            actor->vwork[0].y = gPlayer[0].pos.y + D_i2_80195610[actor->index].y;
+            actor->vwork[0].z = gPlayer[0].pos.z + D_i2_80195610[actor->index].z;
 
             Math_SmoothStepToF(&actor->obj.pos.x, actor->vwork[0].x, 0.02f, 50.0f, 0.0001f);
             Math_SmoothStepToF(&actor->obj.pos.y, actor->vwork[0].y, 0.02f, 50.0f, 0.0001f);

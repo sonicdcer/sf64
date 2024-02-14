@@ -1325,9 +1325,9 @@ void func_i6_8018C390(Player* player) {
         case 3:
             break;
         case 0:
-            Math_SmoothStepToF(&player->pos.x, gBosses->obj.pos.x, 0.5f, 30.0f, 0);
-            Math_SmoothStepToF(&player->pos.y, gBosses->obj.pos.y - 150.0f, 0.5f, 30.0f, 0);
-            Math_SmoothStepToF(&player->pos.z, gBosses->obj.pos.z - 100.0f, 0.5f, 60.0f, 0);
+            Math_SmoothStepToF(&player->pos.x, gBosses[0].obj.pos.x, 0.5f, 30.0f, 0);
+            Math_SmoothStepToF(&player->pos.y, gBosses[0].obj.pos.y - 150.0f, 0.5f, 30.0f, 0);
+            Math_SmoothStepToF(&player->pos.z, gBosses[0].obj.pos.z - 100.0f, 0.5f, 60.0f, 0);
             D_80177D20 = player->unk_144 = -player->pos.z;
             Math_SmoothStepToF(&player->camEye.z, 2000.0f, 0.05f, 20.0f, 0);
             Math_SmoothStepToF(&player->camEye.x, 0.0f, 0.05f, 10.0f, 0);

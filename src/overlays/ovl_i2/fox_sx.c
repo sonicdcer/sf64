@@ -47,9 +47,9 @@ void func_i2_8018F030(void) {
             actor->obj.id = OBJ_ACTOR_203;
             actor->unk_0B6 = 1;
             actor->obj.rot.y = 180.0f;
-            actor->obj.pos.x = gPlayer->camEye.x - 300.0f;
-            actor->obj.pos.y = gPlayer->camEye.y + 200.0f;
-            actor->obj.pos.z = gPlayer->camEye.z - D_80177D20 + 300.0f;
+            actor->obj.pos.x = gPlayer[0].camEye.x - 300.0f;
+            actor->obj.pos.y = gPlayer[0].camEye.y + 200.0f;
+            actor->obj.pos.z = gPlayer[0].camEye.z - D_80177D20 + 300.0f;
             actor->iwork[11] = 1;
             actor->unk_0E4 = 2;
             Object_SetInfo(&actor->info, actor->obj.id);
@@ -66,9 +66,9 @@ void func_i2_8018F124(void) {
     actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_203;
     actor->unk_0B6 = -1;
-    actor->obj.pos.x = gPlayer->camEye.x + 3000.0f;
-    actor->obj.pos.y = gPlayer->camEye.y - 3000.0f;
-    actor->obj.pos.z = gPlayer->pos.z + 30000.0f;
+    actor->obj.pos.x = gPlayer[0].camEye.x + 3000.0f;
+    actor->obj.pos.y = gPlayer[0].camEye.y - 3000.0f;
+    actor->obj.pos.z = gPlayer[0].pos.z + 30000.0f;
     Object_SetInfo(&actor->info, actor->obj.id);
     actor->info.unk_10 = 100000.0f;
 }
@@ -123,7 +123,7 @@ void func_i2_8018F330(Actor* actor) {
                 func_8007A6F0(&actor->obj.pos, 0x2903A008);
                 gBosses[0].swork[6] = 0;
                 gTeamShields[2] = -2;
-                gPlayer->state_1C8 = PLAYERSTATE_1C8_0;
+                gPlayer[0].state_1C8 = PLAYERSTATE_1C8_0;
                 actor->timer_0BC = 200;
                 actor->iwork[14] = 3;
                 actor->fwork[0] = 0.0f;
@@ -147,14 +147,14 @@ void func_i2_8018F330(Actor* actor) {
 
             Math_SmoothStepToF(&actor->fwork[0], 0.5f, 1.0f, 0.01f, 0);
             Math_SmoothStepToF(&actor->fwork[1], 0.1f, 1.0f, 0.01f, 0);
-            Math_SmoothStepToF(&gPlayer->camAt.x, actor->obj.pos.x, actor->fwork[0], 100.0f, 0.0f);
-            Math_SmoothStepToF(&gPlayer->camAt.y, actor->obj.pos.y, actor->fwork[0], 100.0f, 0.0f);
-            Math_SmoothStepToF(&gPlayer->camAt.z, actor->obj.pos.z + D_80177D20, actor->fwork[0], 100.0f, 0.0f);
-            Math_SmoothStepToF(&gPlayer->camEye.x, actor->obj.pos.x - 30.0f, actor->fwork[1], 20.0f, 0.0f);
-            Math_SmoothStepToF(&gPlayer->camEye.y, actor->obj.pos.y, actor->fwork[1], 20.0f, 0.0f);
+            Math_SmoothStepToF(&gPlayer[0].camAt.x, actor->obj.pos.x, actor->fwork[0], 100.0f, 0.0f);
+            Math_SmoothStepToF(&gPlayer[0].camAt.y, actor->obj.pos.y, actor->fwork[0], 100.0f, 0.0f);
+            Math_SmoothStepToF(&gPlayer[0].camAt.z, actor->obj.pos.z + D_80177D20, actor->fwork[0], 100.0f, 0.0f);
+            Math_SmoothStepToF(&gPlayer[0].camEye.x, actor->obj.pos.x - 30.0f, actor->fwork[1], 20.0f, 0.0f);
+            Math_SmoothStepToF(&gPlayer[0].camEye.y, actor->obj.pos.y, actor->fwork[1], 20.0f, 0.0f);
             if (actor->timer_0BC == 0) {
-                gPlayer->state_1C8 = PLAYERSTATE_1C8_3;
-                if (gPlayer->unk_238 != 0) {
+                gPlayer[0].state_1C8 = PLAYERSTATE_1C8_3;
+                if (gPlayer[0].unk_238 != 0) {
                     func_800B5D30(gPlayer, 1);
                 }
                 D_80161A44 = 12800.0f;
@@ -201,9 +201,9 @@ void func_i2_8018F884(Actor* actor) {
 void func_i2_8018FA04(f32 x, f32 y, f32 z) {
     s32 i;
     Actor* actor;
-    f32 yPos;
-    f32 xPos;
-    s32 pad;
+    f32 yRot;
+    f32 xRot;
+    f32 pad;
     Vec3f src;
     Vec3f dest;
 
@@ -218,10 +218,11 @@ void func_i2_8018FA04(f32 x, f32 y, f32 z) {
             actor->obj.pos.z = z;
             Object_SetInfo(&actor->info, actor->obj.id);
             actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_60328CC);
-            xPos = Math_Atan2F(gPlayer->pos.x - x, gPlayer->unk_138 - z);
-            yPos = -Math_Atan2F(gPlayer->pos.y - y, sqrtf(SQ(gPlayer->unk_138 - z) + SQ(gPlayer->pos.x - x)));
-            Matrix_RotateY(gCalcMatrix, xPos, 0);
-            Matrix_RotateX(gCalcMatrix, yPos, 1);
+            xRot = Math_Atan2F(gPlayer[0].pos.x - x, gPlayer[0].unk_138 - z);
+            pad = sqrtf(SQ(gPlayer[0].pos.x - x) + SQ(gPlayer[0].unk_138 - z));
+            yRot = -Math_Atan2F(gPlayer[0].pos.y - y, pad);
+            Matrix_RotateY(gCalcMatrix, xRot, 0);
+            Matrix_RotateX(gCalcMatrix, yRot, 1);
             src.x = 0.0f;
             src.y = 0.0f;
             src.z = 60.0f;
@@ -237,8 +238,8 @@ void func_i2_8018FA04(f32 x, f32 y, f32 z) {
 void func_i2_8018FBBC(Vec3f* pos) {
     s32 i;
     Actor* actor;
-    f32 xPos;
-    f32 yPos;
+    f32 xRot;
+    f32 yRot;
     Vec3f src;
     Vec3f dest;
 
@@ -251,11 +252,11 @@ void func_i2_8018FBBC(Vec3f* pos) {
                           actor->vwork[29].z + actor->unk_0F4.z)) {
             func_800A6028(actor->sfxPos, 0x09000004);
             actor->state = 1000;
-            xPos = Math_Atan2F(actor->obj.pos.x - pos->x, actor->obj.pos.z - pos->z);
-            yPos = -Math_Atan2F(actor->obj.pos.y - pos->y,
+            xRot = Math_Atan2F(actor->obj.pos.x - pos->x, actor->obj.pos.z - pos->z);
+            yRot = -Math_Atan2F(actor->obj.pos.y - pos->y,
                                 sqrtf(SQ(actor->obj.pos.x - pos->x) + SQ(actor->obj.pos.z - pos->z)));
-            Matrix_RotateY(gCalcMatrix, xPos, 0);
-            Matrix_RotateX(gCalcMatrix, yPos, 1);
+            Matrix_RotateY(gCalcMatrix, xRot, 0);
+            Matrix_RotateX(gCalcMatrix, yRot, 1);
             src.x = 0.0f;
             src.y = 0.0f;
             src.z = 20.0f;
@@ -1449,9 +1450,9 @@ void func_i2_801938D8(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = OBJ_ACTOR_195;
-    actor->obj.pos.x = D_i2_801956EC[arg1].x + gPlayer->camEye.x;
-    actor->obj.pos.y = D_i2_801956EC[arg1].y + gPlayer->camEye.y;
-    actor->obj.pos.z = D_i2_801956EC[arg1].z + gPlayer->camEye.z;
+    actor->obj.pos.x = gPlayer[0].camEye.x + D_i2_801956EC[arg1].x;
+    actor->obj.pos.y = gPlayer[0].camEye.y + D_i2_801956EC[arg1].y;
+    actor->obj.pos.z = gPlayer[0].camEye.z + D_i2_801956EC[arg1].z;
     actor->state = 1;
     actor->iwork[11] = 1;
     actor->vel.z = -30.0f;
@@ -1516,7 +1517,7 @@ void func_i2_80193A30(Player* player) {
                               xyzDeg, xzDeg, 0.0f);
             }
             if (gCsFrameCount == 143) {
-                Object_Kill(&gPlayerShots->obj, gPlayerShots->sfxPos);
+                Object_Kill(&gPlayerShots[0].obj, gPlayerShots[0].sfxPos);
                 func_8007BFFC(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 0.0f, 0.0f, 0.0f, 3.0f,
                               40);
                 func_8007D2C8(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 6.0f);
