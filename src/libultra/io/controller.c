@@ -2,7 +2,15 @@
 #include "PR/controller.h"
 #include "siint.h"
 
-extern s32 __osContinitialized;
+OSPifRam __osContPifRam ALIGNED(16);
+u8 __osContLastCmd;
+u8 __osMaxControllers;
+
+OSTimer __osEepromTimer;
+OSMesgQueue __osEepromTimerQ ALIGNED(8);
+OSMesg __osEepromTimerMsg;
+
+s32 __osContinitialized = 0;
 
 #define USEC_TO_CYCLES_OLD(n, clock) ((n) * (u64) (clock) / 1000000)
 

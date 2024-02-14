@@ -1,7 +1,25 @@
-#include "common.h"
+#include "macros.h"
+#include "PR/os_internal.h"
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/io/siacs/__osSiCreateAccessQueue.s")
+#define SI_Q_BUF_LEN 1
+OSMesg siAccessBuf[SI_Q_BUF_LEN] ALIGNED(8);
+OSMesgQueue __osSiAccessQueue ALIGNED(8);
+u32 __osSiAccessQueueEnabled = 0;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/io/siacs/__osSiGetAccess.s")
+void __osSiCreateAccessQueue(void) {
+    __osSiAccessQueueEnabled = 1;
+    osCreateMesgQueue(&__osSiAccessQueue, siAccessBuf, SI_Q_BUF_LEN);
+    osSendMesg(&__osSiAccessQueue, NULL, OS_MESG_NOBLOCK);
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/io/siacs/__osSiRelAccess.s")
+void __osSiGetAccess(void) {
+    OSMesg dummyMesg;
+    if (!__osSiAccessQueueEnabled) {
+        __osSiCreateAccessQueue();
+    }
+    osRecvMesg(&__osSiAccessQueue, &dummyMesg, OS_MESG_BLOCK);
+}
+
+void __osSiRelAccess(void) {
+    osSendMesg(&__osSiAccessQueue, NULL, OS_MESG_NOBLOCK);
+}
