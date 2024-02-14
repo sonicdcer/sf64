@@ -66,7 +66,7 @@ __osSpRawWriteIo = 0x8002E1E0;
 __osSpRawReadIo = 0x8002E230;
 osCreatePiManager = 0x800227A0;
 ramromMain = 0x8002296C;
-osSetThreadPri = 0x80022A80; 
+osSetThreadPri = 0x80022A80;
 osInitialize = 0x80022B60;
 osGetTime = 0x80023000;
 __sinf = 0x80023090;
@@ -243,7 +243,7 @@ __rmonRunRCP = 0x8002E3BC;
 
 __osContinitialized = 0x800C7CC0;
 osViModeNtscLan1 = 0x800C7CD0;
-osViModePalLan1 = 0x800C7D20; 
+osViModePalLan1 = 0x800C7D20;
 osViModeMpalLan1 = 0x800C7D70;
 __osViDevMgr = 0x800C7DC0; //size:0x1C
 __osPiDevMgr = 0x800C7DE0; //size:0x1C

@@ -819,14 +819,13 @@ extern f32 gStereoPanVolume[];
 extern f32 gDefaultPanVolume[];
 
 // buffers
-extern u64 gDramStack[SP_DRAM_STACK_SIZE64];
-extern u8 gOSYieldData[OS_YIELD_DATA_SIZE];
+extern u64 gDramStack[];
+extern u8 gOSYieldData[];
 extern FrameBuffer gZBuffer; // z buffer
-extern u8 gTaskOutputBuffer[0x30000];
-extern u8 gTaskOutputBufferEnd;
-extern u8 gAudioDataBuffer[0xB0000];
-extern u16 gTextureRenderBuffer[0x3C40];
-extern u16 gFillBuffer[3 * SCREEN_WIDTH];
-extern FrameBuffer gFrameBuffers[3]; // 8038F800
+extern u8 gTaskOutputBuffer[];
+extern u8 gAudioDataBuffer[];
+extern u16 gTextureRenderBuffer[];
+extern u16 gFillBuffer[];
+extern FrameBuffer gFrameBuffers[]; // 8038F800
 
 #endif // VARIABLES_H
