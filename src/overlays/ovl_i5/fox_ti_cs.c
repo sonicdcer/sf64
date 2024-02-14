@@ -304,7 +304,7 @@ void func_i5_801882CC(Player* player) {
 
             player->unk_0D4 = 3.0f;
 
-            func_i5_80188108(gActors, 0);
+            func_i5_80188108(&gActors[0], 0);
 
             if (gTeamShields[1] > 0) {
                 func_i5_80188108(&gActors[1], 1);

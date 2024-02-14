@@ -2349,7 +2349,7 @@ void func_i2_8018E084(Player* player) {
             Object_Kill(&gActors[2].obj, gActors[2].sfxPos);
 
             if (gTeamShields[1] > 0) {
-                func_i2_8018DF08(gActors, 0);
+                func_i2_8018DF08(&gActors[0], 0);
             }
             if (gTeamShields[2] > 0) {
                 func_i2_8018DF08(&gActors[1], 1);

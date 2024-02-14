@@ -4,12 +4,6 @@ extern Animation D_6007854;
 extern Limb* D_6007980[];
 extern u8 D_600FF64[];
 
-s32 func_80090200(Boss* boss);
-void func_800A5EBC(void);
-
-void func_i4_801875F0(Actor* actor);
-void func_i4_80187960(Actor* actor);
-
 void func_i4_801875F0(Actor* actor) {
     s32 i;
     s32 counter;
@@ -774,7 +768,7 @@ void func_i4_8018927C(Player* player) {
 
             gBosses[0].swork[0] = 1;
 
-            if ((func_80090200(gBosses) == 2) || (D_80177930 != 0)) {
+            if ((func_80090200(&gBosses[0]) == 2) || (D_80177930 != 0)) {
                 func_800A6148();
                 if (D_80177930 == 0) {
                     player->unk_1D0 = 10;

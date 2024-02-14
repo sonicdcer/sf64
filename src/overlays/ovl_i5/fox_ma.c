@@ -6971,7 +6971,7 @@ void func_i5_801B3D04(Player* player) {
             break;
         case 230:
             if (gTeamShields[2] > 0.0f) {
-                func_i5_801B3554(gActors, 0);
+                func_i5_801B3554(&gActors[0], 0);
             }
             break;
         case 260:
