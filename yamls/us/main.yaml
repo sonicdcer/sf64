@@ -387,3 +387,12 @@
     vram: 0x80178A70
     subsegments:
      - [0xDE480, .data, dmatable]
+
+  - name: fox_buffers
+    type: code
+    dir: main
+    start: 0xDEA20
+    bss_size: 0x17F500
+    vram: 0x80281000
+    subsegments:
+      - { type: .bss, vram: 0x80281000, name: buffers }
