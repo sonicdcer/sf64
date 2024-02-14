@@ -34,6 +34,9 @@ extern s32 D_8014C1D0;
 extern s32 D_8014C210[4];
 extern s32 D_8014C220[4];
 extern s32 D_8014C230[4];
+extern s32 D_8014C240[4];
+extern s32 D_8014C410[4];
+extern s32 D_8014C5E0[4];
 extern UnkStruct_func_8000BFA8 D_8014C3D4;
 extern s32 D_8014C3D8;
 extern UnkStruct_func_8000BFA8 D_8014C5A4;
@@ -94,7 +97,15 @@ void func_8000C0C0(s32* arg0) {
     func_8000BF6C(D_8014C230, func_8000BF14(D_8014C210, arg0[1]), arg0[1]);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000C13C.s")
+void func_8000C13C(s32* arg0) {
+    D_8014C220[1] = D_8014C220[0];
+    func_8000BF6C(&D_8014C240[1], func_8000BF14(D_8014C220, arg0[0]), arg0[0]);
+    func_8000BF6C(&D_8014C410[1], func_8000BF14(D_8014C220, arg0[1]), arg0[1]);
+    func_8000BF6C(&D_8014C5E0[1], func_8000BF14(D_8014C220, arg0[2]), arg0[2]);
+    func_8000BF94(D_8014C240);
+    func_8000BF94(D_8014C410);
+    func_8000BF94(D_8014C5E0);
+}
 
 void func_8000C1F8(s32* arg0) {
     D_8014C230[1] = D_8014C230[0];
