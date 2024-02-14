@@ -1,3 +1,9 @@
-#include "common.h"
+#include "PR/os_internal.h"
+#include "PR/rcp.h"
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/io/spgetstat/__osSpGetStatus.s")
+// TODO: this comes from a header
+#ident "$Revision: 1.17 $"
+
+u32 __osSpGetStatus() {
+    return IO_READ(SP_STATUS_REG);
+}

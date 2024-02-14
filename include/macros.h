@@ -14,7 +14,7 @@
 #define RAND_INT_SEEDED(max) ((s32)(Rand_ZeroOneSeeded()*(max)))
 #define RAND_FLOAT_CENTERED_SEEDED(width) ((Rand_ZeroOneSeeded()-0.5f)*(width))
 
-#define SEGMENTED_TO_VIRTUAL(segment) ((void*)OS_PHYSICAL_TO_K0(gSegments[((uintptr_t)(segment)<<4)>>0x1C]+(((uintptr_t)(segment))&0xFFFFFF))) 
+#define SEGMENTED_TO_VIRTUAL(segment) ((void*)OS_PHYSICAL_TO_K0(gSegments[((uintptr_t)(segment)<<4)>>0x1C]+(((uintptr_t)(segment))&0xFFFFFF)))
 
 #define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))
 #define ARRAY_COUNTU(arr) (u32)(sizeof(arr) / sizeof(arr[0]))
@@ -31,10 +31,23 @@
 #define CYCLES_TO_USEC(c)    (((u64)(c)*(1000000LL/15625LL))/(osClockRate/15625LL))
 #define CYCLES_TO_MSEC(c) ((s32)CYCLES_TO_USEC(c)/1000)
 
+/*
+ * Macros for libultra
+ */
+
 #if defined(__sgi)
 #define PRINTF
 #else
 #define PRINTF(...)
+#endif
+
+#define ALIGNED(x) __attribute__((aligned(x)))
+#define ARRLEN(x) ((s32)(sizeof(x) / sizeof(x[0])))
+#define STUBBED_PRINTF(x) ((void)(x))
+#define UNUSED __attribute__((unused))
+
+#ifndef __GNUC__
+#define __attribute__(x)
 #endif
 
 #endif // MACROS_H
