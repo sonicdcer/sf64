@@ -1203,9 +1203,9 @@ void func_i6_8019BC14(Boss* boss) {
         }
     }
     if (boss->index == 0) {
-        boss->timer_052 = (s32) (Rand_ZeroOne() * 20.0f) + 15;
+        boss->timer_052 = RAND_INT(20.0f) + 15;
     } else {
-        boss->timer_052 = (s32) (Rand_ZeroOne() * 20.0f) + 25;
+        boss->timer_052 = RAND_INT(20.0f) + 25;
     }
 }
 
@@ -3344,8 +3344,8 @@ void func_i6_801A3BD4(Actor* actor) {
                     sp1E4 = gPlayer[0].pos.x;
                     sp1E0 = gPlayer[0].pos.y;
                     if (actor->iwork[19] != 0) {
-                        gPlayer[0].pos.x += (Rand_ZeroOne() - 0.5f) * 300.0f;
-                        gPlayer[0].pos.y += (Rand_ZeroOne() - 0.5f) * 300.0f;
+                        gPlayer[0].pos.x += RAND_FLOAT_CENTERED(300.0f);
+                        gPlayer[0].pos.y += RAND_FLOAT_CENTERED(300.0f);
                     }
                     func_8007F11C(0x162, actor->fwork[16], actor->fwork[17], actor->fwork[18], 100.0f);
                     gPlayer[0].pos.x = sp1E4;
@@ -3396,8 +3396,8 @@ void func_i6_801A3BD4(Actor* actor) {
             }
             sp4C = Animation_GetFrameData(&D_6003348, actor->unk_0B6, sp68);
             if ((actor->timer_0BE % 4U) == 0) {
-                func_8007D2C8(((Rand_ZeroOne() - 0.5f) * 150.0f) + actor->obj.pos.x,
-                              ((Rand_ZeroOne() - 0.5f) * 150.0f) + actor->obj.pos.y, actor->obj.pos.z + 30.0f, 4.0f);
+                func_8007D2C8(RAND_FLOAT_CENTERED(150.0f) + actor->obj.pos.x,
+                              RAND_FLOAT_CENTERED(150.0f) + actor->obj.pos.y, actor->obj.pos.z + 30.0f, 4.0f);
             }
             if (actor->timer_0BE == 5U) {
                 func_8007BFFC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, actor->vel.x, actor->vel.y,
@@ -3409,9 +3409,8 @@ void func_i6_801A3BD4(Actor* actor) {
                 Object_Kill(&actor->obj, actor->sfxPos);
                 func_80066254(actor);
                 for (i = 10; i < 24; i++) {
-                    func_i6_801A3B50(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z,
-                                     (Rand_ZeroOne() - 0.5f) * 50.0f, (Rand_ZeroOne() - 0.5f) * 50.0f,
-                                     actor->vel.z + ((Rand_ZeroOne() - 0.5f) * 50.0f), i);
+                    func_i6_801A3B50(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, RAND_FLOAT_CENTERED(50.0f),
+                                     RAND_FLOAT_CENTERED(50.0f), actor->vel.z + RAND_FLOAT_CENTERED(50.0f), i);
                 }
             }
             break;
