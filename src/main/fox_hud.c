@@ -1,3 +1,4 @@
+#include "prevent_bss_reordering.h"
 #include "sf64math.h"
 
 // BSS section range:

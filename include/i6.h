@@ -25,6 +25,7 @@ extern f32 D_i6_801A7F74;
 extern f32 D_i6_801A7F78;
 extern f32 D_i6_801A7F7C;
 
+void func_i6_80187530(Actor*);
 void func_i6_80193C4C(Player*);
 void func_i6_80195E44(Actor*);
 void func_i6_80196BF8(Player*);

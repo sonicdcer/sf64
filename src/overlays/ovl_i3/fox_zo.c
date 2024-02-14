@@ -2038,11 +2038,16 @@ f32 D_i3_801BF6CC[2] = { 250.0f, -250.0f };
 f32 D_i3_801BF6D4[2] = { 330.0f, 30.0f };
 
 #ifdef NON_MATCHING
+// loop iterator problems with noted loops
+// float ordering in the boss health bar calculation
+// incorrect loading of sZoLimbTimers
+// compiler stack too large
+// https://decomp.me/scratch/jNmle
 void func_i3_80194A84(Boss* bossZO) {
     f32 sp134;
     s32 sp130;
     s32 i;
-    s16 var_s0;
+    s32 var_s0;
     s32 sp124;
     f32 sp120;
     f32 sp11C;
@@ -2055,8 +2060,8 @@ void func_i3_80194A84(Boss* bossZO) {
     f32 sp100;
     f32 spFC;
     s32 dmgType;
-    s32* temp2;
-    f32* temp3;
+    s32 pad1;
+    s32 pad2;
     Vec3f spE4;
     Vec3f spD8;
     Vec3f spCC;
@@ -2077,7 +2082,7 @@ void func_i3_80194A84(Boss* bossZO) {
     }
     if (sZoSwork[ZO_BSS_24] == 0) {
         Math_SmoothStepToF(&sZoFwork[ZO_BSF_27], sZoFwork[ZO_BSF_26], 0.1f, 2.0f, 0.00001f);
-        Math_SmoothStepToF(&bossZO->obj.pos.z, sZoFwork[ZO_BSF_28] + (gPlayer[0].camEye.z - D_80177D20), 0.1f,
+        Math_SmoothStepToF(&bossZO->obj.pos.z, gPlayer[0].camEye.z - D_80177D20 + sZoFwork[ZO_BSF_28], 0.1f,
                            sZoFwork[ZO_BSF_27], 0.00001f);
     }
     if (!(gGameFrameCount & 3)) {
@@ -2132,20 +2137,22 @@ void func_i3_80194A84(Boss* bossZO) {
             func_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, -19.0f, 46.0f, 5.0f);
             func_8007AFD0(bossZO->obj.pos.x, bossZO->obj.pos.z, 0.0f, 50.0f, 5.0f);
         }
-        bossZO->swork[ZO_SWK_9] = 20;
+
         bossZO->swork[ZO_SWK_11] += 1;
         bossZO->swork[ZO_SWK_11] &= 1;
+        bossZO->swork[ZO_SWK_9] = 20;
         if (bossZO->swork[ZO_SWK_11] == 0) {
-            bossZO->swork[ZO_SWK_9] = 100;
+
             bossZO->swork[ZO_SWK_10] += 1;
             bossZO->swork[ZO_SWK_10] &= 1;
+            bossZO->swork[ZO_SWK_9] = 100;
         }
     }
     if (bossZO->swork[ZO_SWK_9] != 0) {
         bossZO->swork[ZO_SWK_9]--;
     }
-    switch (bossZO->state) { /* switch 1 */
-        case 0:              /* switch 1 */
+    switch (bossZO->state) {
+        case 0:
             if ((!(gGameFrameCount & 7) || (bossZO->timer_050 == 43)) && (bossZO->swork[ZO_SWK_13] == 0) &&
                 ((bossZO->swork[ZO_SWK_12] < 7) || (bossZO->timer_050 == 43))) {
                 D_801779A8[0] = 20.0f;
@@ -2191,7 +2198,7 @@ void func_i3_80194A84(Boss* bossZO) {
                 }
             }
             break;
-        case 1: /* switch 1 */
+        case 1:
             Math_SmoothStepToF(&bossZO->fwork[ZO_FWK_4], 100.0f, 0.1f, 1.0f, 0.0f);
             func_i3_8019962C(bossZO, 0.0f);
             Math_SmoothStepToF(&sZoFwork[ZO_BSF_1], sZoFwork[ZO_BSF_74], 0.1f, 2.0f, 0.00001f);
@@ -2222,8 +2229,8 @@ void func_i3_80194A84(Boss* bossZO) {
                     }
                     if ((sZoSwork[ZO_BSS_7] == 1) && (sZoSwork[ZO_BSS_25] == 0) && (sZoSwork[ZO_BSS_19] != 0)) {
                         Radio_PlayMessage(gMsg_ID_6072, RCID_BOSS_ZONESS);
-                        sZoSwork[ZO_BSS_34] = 333;
                         sZoSwork[ZO_BSS_25]++;
+                        sZoSwork[ZO_BSS_34] = 333;
                     }
                     if (sZoSwork[ZO_BSS_7] >= 2) {
                         sZoSwork[ZO_BSS_7] = 0;
@@ -2240,7 +2247,7 @@ void func_i3_80194A84(Boss* bossZO) {
                 }
             }
             break;
-        case 2: /* switch 1 */
+        case 2:
             if (bossZO->timer_050 == 1) {
                 sZoSwork[ZO_BSS_20]++;
                 sZoFwork[ZO_BSF_77] = 0.0f;
@@ -2255,7 +2262,7 @@ void func_i3_80194A84(Boss* bossZO) {
                 }
             }
             break;
-        case 3: /* switch 1 */
+        case 3:
             if (ZO_HIT_12(bossZO)->z.offset != -883.99994f) {
                 ZO_HIT_12(bossZO)->z.offset = -883.99994f;
                 ZO_HIT_12(bossZO)->z.size = 244.4f;
@@ -2279,9 +2286,8 @@ void func_i3_80194A84(Boss* bossZO) {
             } else {
                 bossZO->timer_058 = 100;
                 sZoFwork[ZO_BSF_20] = 5.0f;
-                sZoFwork[ZO_BSF_78] = 2.0f;
-
                 sZoFwork[ZO_BSF_21] = sZoFwork[ZO_BSF_79] = 0.0f;
+                sZoFwork[ZO_BSF_78] = 2.0f;
                 sZoSwork[ZO_BSS_21]++;
                 if (sZoSwork[ZO_BSS_21] >= 2) {
                     sZoSwork[ZO_BSS_21] = 0;
@@ -2306,18 +2312,18 @@ void func_i3_80194A84(Boss* bossZO) {
                     Radio_PlayMessage(gMsg_ID_6078, RCID_BOSS_ZONESS);
                 }
                 if (bossZO->timer_056 == 0) {
-                    bossZO->timer_056 = 100;
                     bossZO->swork[ZO_SWK_1] += 1;
                     bossZO->swork[ZO_SWK_1] &= 1;
+                    bossZO->timer_056 = 100;
                 }
                 bossZO->fwork[ZO_FWK_5] += 4.0f;
                 bossZO->vel.x = COS_DEG(bossZO->fwork[ZO_FWK_5]) * 40.0f;
-                Math_SmoothStepToAngle(&bossZO->fwork[ZO_FWK_7],
-                                       Math_RadToDeg(Math_Atan2F(bossZO->fwork[ZO_FWK_6] - bossZO->obj.pos.x,
-                                                                 (D_i3_801BF6BC[bossZO->swork[ZO_SWK_1]] +
-                                                                  (gPlayer[0].camEye.z - D_80177D20)) -
-                                                                     bossZO->obj.pos.z)),
-                                       0.1f, 100.0f, 0.001f);
+                Math_SmoothStepToAngle(
+                    &bossZO->fwork[ZO_FWK_7],
+                    Math_RadToDeg(Math_Atan2F(bossZO->fwork[ZO_FWK_6] - bossZO->obj.pos.x,
+                                              gPlayer[0].camEye.z - D_80177D20 +
+                                                  D_i3_801BF6BC[bossZO->swork[ZO_SWK_1]] - bossZO->obj.pos.z)),
+                    0.1f, 100.0f, 0.001f);
                 Matrix_RotateY(gCalcMatrix, bossZO->fwork[ZO_FWK_7] * M_DTOR, 0);
                 spE4.x = spE4.y = 0.0f;
                 spE4.z = 20.0f;
@@ -2343,7 +2349,7 @@ void func_i3_80194A84(Boss* bossZO) {
                 spE4.z = gPlayer[0].unk_138 - sZoFwork[ZO_BSF_93_Z];
                 Matrix_MultVec3f(gCalcMatrix, &spE4, &spC0);
                 sp10C = Math_RadToDeg(Math_Atan2F(spC0.x, spC0.z));
-                sp110 = Math_RadToDeg(-Math_Atan2F(spC0.y, sqrtf((spC0.x * spC0.x) + (spC0.z * spC0.z))));
+                sp110 = Math_RadToDeg(-Math_Atan2F(spC0.y, sqrtf(SQ(spC0.x) + SQ(spC0.z))));
                 if ((sp10C > 40.0f) && (sp10C < 180.0f)) {
                     sp10C = 40.0f;
                 }
@@ -2382,12 +2388,9 @@ void func_i3_80194A84(Boss* bossZO) {
                 func_i3_80198BE8(bossZO, 1);
             }
             break;
-        case 4: /* switch 1 */
+        case 4:
             if (bossZO->swork[ZO_SWK_15] == 0) {
-                D_80178340 = 0;
-                D_80178354 = 0;
-                D_80178350 = 0;
-                D_80178348 = 0;
+                D_80178348 = D_80178350 = D_80178354 = D_80178340 = 0;
             }
             Math_SmoothStepToAngle(&bossZO->obj.rot.z, bossZO->fwork[ZO_FWK_9], 0.1f, 100.0f, 0.00001f);
             Math_SmoothStepToAngle(&bossZO->fwork[ZO_FWK_9], 0.0f, 0.1f, 100.0f, 0.00001f);
@@ -2422,11 +2425,11 @@ void func_i3_80194A84(Boss* bossZO) {
                 }
             }
             break;
-        case 5: /* switch 1 */
+        case 5:
             Math_SmoothStepToAngle(&bossZO->obj.rot.z, bossZO->fwork[ZO_FWK_9], 0.1f, 100.0f, 0.00001f);
             Math_SmoothStepToAngle(&bossZO->fwork[ZO_FWK_9], 0.0f, 0.1f, 100.0f, 0.00001f);
-            switch (sZoSwork[ZO_BSS_16]) { /* switch 3; irregular */
-                case 0:                    /* switch 3 */
+            switch (sZoSwork[ZO_BSS_16]) {
+                case 0:
                     if (sZoSwork[ZO_BSS_13] != 0) {
                         func_i3_8019962C(bossZO, 180.0f);
                         if (bossZO->obj.rot.y == 180.0f) {
@@ -2452,13 +2455,13 @@ void func_i3_80194A84(Boss* bossZO) {
                         }
                     }
                     break;
-                case 1: /* switch 3 */
+                case 1:
                     func_i3_80199470(bossZO, 0);
                     break;
-                case 2: /* switch 3 */
+                case 2:
                     func_i3_80199470(bossZO, 1);
                     break;
-                case 3: /* switch 3 */
+                case 3:
                     if (sZoSwork[ZO_BSS_13] != 0) {
                         if (bossZO->timer_050 == 0) {
                             Math_SmoothStepToF(&sZoFwork[ZO_BSF_4], 0.0f, 1.0f, 5.0f, 0.001f);
@@ -2489,7 +2492,7 @@ void func_i3_80194A84(Boss* bossZO) {
                     break;
             }
             break;
-        case 6: /* switch 1 */
+        case 6:
             D_801779A8[0] = 20.0f;
             if (D_80178480 == 0) {
                 D_80178348 = D_80178350 = D_80178354 = 255;
@@ -2528,7 +2531,7 @@ void func_i3_80194A84(Boss* bossZO) {
                 Radio_PlayMessage(gMsg_ID_6079, RCID_BOSS_ZONESS);
             }
             if (bossZO->timer_050 == 0) {
-                gEffects[98].obj.status = gEffects[99].obj.status = OBJ_FREE;
+                gEffects[99].obj.status = gEffects[98].obj.status = OBJ_FREE;
                 sZoFwork[ZO_BSF_25] = -1000.0f;
                 sZoFwork[ZO_BSF_23] = 10.0f;
                 gShowBossHealth = 0;
@@ -2545,7 +2548,7 @@ void func_i3_80194A84(Boss* bossZO) {
                         gPlayer[0].unk_0E8 += 360.0f;
                     }
                     gPlayer[0].unk_114 = 0.0f;
-                    func_8004319C(gPlayer, bossZO->obj.pos.x, 0.0f, bossZO->obj.pos.z);
+                    func_8004319C(&gPlayer[0], bossZO->obj.pos.x, 0.0f, bossZO->obj.pos.z);
                 }
                 bossZO->timer_050 = 70;
                 sZoSwork[ZO_BSS_5] = 0;
@@ -2554,7 +2557,7 @@ void func_i3_80194A84(Boss* bossZO) {
                 bossZO->state = 7;
             }
             break;
-        case 7: /* switch 1 */
+        case 7:
             D_801779A8[0] = 20.0f;
             if (!(gGameFrameCount & 7) &&
                 (func_800A73E4(&sp134, &sp130, bossZO->obj.pos.x, -300.0f, bossZO->obj.pos.z) != 0)) {
@@ -2565,7 +2568,7 @@ void func_i3_80194A84(Boss* bossZO) {
                 Object_Kill(&bossZO->obj, bossZO->sfxPos);
             }
             break;
-        case 8: /* switch 1 */
+        case 8:
             if (sZoSwork[ZO_BSS_18] != 0) {
                 if ((sZoSwork[ZO_BSS_27] != 2) && (bossZO->swork[ZO_SWK_5] == 0) && (bossZO->swork[ZO_SWK_6] < 2) &&
                     ((sZoSwork[ZO_BSS_33] == 0) || (sZoSwork[ZO_BSS_33] >= 30))) {
@@ -2748,9 +2751,9 @@ void func_i3_80194A84(Boss* bossZO) {
     if ((sZoSwork[ZO_BSS_13] < 2) && (sZoLimbTimers[ZO_LIMB_5] != LIMB_DESTROYED)) {
         D_801779A8[0] = 20.0f;
         if (!(gGameFrameCount & 1)) {
-            func_8007D0E0(RAND_FLOAT_CENTERED(200.0f) + sZoFwork[ZO_BSF_52_X],
-                          RAND_FLOAT_CENTERED(200.0f) + sZoFwork[ZO_BSF_52_Y],
-                          RAND_FLOAT_CENTERED(100.0f) + sZoFwork[ZO_BSF_52_Z], 5.0f);
+            func_8007D0E0(sZoFwork[ZO_BSF_52_X] + RAND_FLOAT_CENTERED(200.0f),
+                          sZoFwork[ZO_BSF_52_Y] + RAND_FLOAT_CENTERED(200.0f),
+                          sZoFwork[ZO_BSF_52_Z] + RAND_FLOAT_CENTERED(100.0f), 5.0f);
         }
         if (bossZO->swork[ZO_SWK_14] != 0) {
             if (sZoLimbTimers[ZO_LIMB_5] == 0) {
@@ -2784,21 +2787,21 @@ void func_i3_80194A84(Boss* bossZO) {
         if (dmgType == DMG_BEAM) {
             Audio_PlaySfx(0x29121007, bossZO->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         }
-        switch (bossZO->dmgPart) { /* switch 2 */
-            case 0:                /* switch 2 */
+        switch (bossZO->dmgPart) {
+            case 0:
                 if ((sZoSwork[ZO_BSS_8] != 0) && (dmgType == DMG_BOMB) &&
                     ((bossZO->state == 3) || (bossZO->state == 8))) {
                     sZoLimbTimers[ZO_LIMB_1] = sZoLimbTimers[ZO_LIMB_14] = sZoLimbTimers[ZO_LIMB_15] = 15;
                     sZoSwork[ZO_BSS_49] = 60;
                     sZoSwork[ZO_BSS_8] -= bossZO->damage;
                     if (sZoSwork[ZO_BSS_8] <= 0) {
-                        sZoSwork[ZO_BSS_8] = 0;
-                        sZoSwork[ZO_BSS_49] = 0;
+
+                        sZoSwork[ZO_BSS_49] = sZoSwork[ZO_BSS_8] = 0;
                         bossZO->swork[ZO_SWK_5] = 30;
                     }
                 }
                 break;
-            case 3: /* switch 2 */
+            case 3:
                 if ((sZoSwork[ZO_BSS_9] != 0) && (bossZO->state == 3) && (dmgType == DMG_BOMB) &&
                     (sZoSwork[ZO_BSS_50] == 0)) {
                     sZoLimbTimers[ZO_LIMB_10] = 15;
@@ -2814,7 +2817,7 @@ void func_i3_80194A84(Boss* bossZO) {
                     }
                 }
                 break;
-            case 4: /* switch 2 */
+            case 4:
                 if ((sZoSwork[ZO_BSS_10] != 0) && (bossZO->state == 3) && (dmgType == DMG_BOMB) &&
                     (sZoSwork[ZO_BSS_51] == 0)) {
                     sZoLimbTimers[ZO_LIMB_2] = 15;
@@ -2830,7 +2833,7 @@ void func_i3_80194A84(Boss* bossZO) {
                     }
                 }
                 break;
-            case 5: /* switch 2 */
+            case 5:
                 if ((sZoSwork[ZO_BSS_9] != 0) && (bossZO->state == 3) && (dmgType == DMG_BOMB) &&
                     (sZoSwork[ZO_BSS_50] == 0)) {
                     sZoLimbTimers[ZO_LIMB_10] = 15;
@@ -2860,7 +2863,7 @@ void func_i3_80194A84(Boss* bossZO) {
                     }
                 }
                 /* fallthrough */
-            case 6: /* switch 2 */
+            case 6:
                 if ((bossZO->health != 0) && (sZoSwork[ZO_BSS_9] == 0) && (sZoSwork[ZO_BSS_10] == 0) &&
                     (sZoSwork[ZO_BSS_11] == 0) && (sZoSwork[ZO_BSS_12] == 0) && (sZoSwork[ZO_BSS_13] == 0) &&
                     (bossZO->state == 3)) {
@@ -2888,8 +2891,8 @@ void func_i3_80194A84(Boss* bossZO) {
                     }
                 }
                 break;
-            case 7:  /* switch 2 */
-            case 12: /* switch 2 */
+            case 7:
+            case 12:
                 if ((sZoSwork[ZO_BSS_13] >= 2) && (bossZO->state == 5) && (dmgType == DMG_BOMB)) {
                     sZoLimbTimers[ZO_LIMB_5] = sZoLimbTimers[ZO_LIMB_6] = 15;
                     sZoSwork[ZO_BSS_52] = 30;
@@ -2905,8 +2908,8 @@ void func_i3_80194A84(Boss* bossZO) {
                     }
                 }
                 break;
-            case 8 + 0:  /* switch 2 */
-            case 10 + 0: /* switch 2 */
+            case 8 + 0:
+            case 10 + 0:
                 if ((sZoSwork[ZO_BSS_11] != 0) && (bossZO->state == 3) && (dmgType == DMG_BOMB) &&
                     (sZoSwork[ZO_BSS_53] == 0)) {
                     sZoLimbTimers[ZO_LIMB_7] = sZoLimbTimers[ZO_LIMB_21] = sZoLimbTimers[ZO_LIMB_22] = 15;
@@ -2931,8 +2934,8 @@ void func_i3_80194A84(Boss* bossZO) {
                     }
                 }
                 break;
-            case 8 + 1:  /* switch 2 */
-            case 10 + 1: /* switch 2 */
+            case 8 + 1:
+            case 10 + 1:
                 if ((sZoSwork[ZO_BSS_12] != 0) && (bossZO->state == 3) && (dmgType == DMG_BOMB) &&
                     (sZoSwork[ZO_BSS_54] == 0)) {
                     sZoLimbTimers[ZO_LIMB_11] = sZoLimbTimers[ZO_LIMB_23] = sZoLimbTimers[ZO_LIMB_24] = 15;
@@ -3009,9 +3012,9 @@ void func_i3_80194A84(Boss* bossZO) {
             sZoLimbTimers[sp124]--;
         }
     }
-    for (sp124 = 0, temp2 = &sZoSwork[ZO_BSS_49]; sp124 < 6; sp124++, temp2++) {
-        if (*temp2 != 0) {
-            (*temp2)--;
+    for (sp124 = 0; sp124 < 6; sp124++) { // may be using pointer iterators
+        if (sZoSwork[ZO_BSS_49 + sp124] != 0) {
+            sZoSwork[ZO_BSS_49 + sp124]--;
         }
     }
     if (bossZO->state < 4) {
@@ -3025,7 +3028,6 @@ void func_i3_80194A84(Boss* bossZO) {
             func_8007A6F0(&spD8, 0x29034003);
         }
         if ((sZoSwork[ZO_BSS_54] & 1) && (sZoSwork[ZO_BSS_12] != 0)) {
-            // if (gCalcMatrix) {}
             func_8007A6F0(&spCC, 0x29034003);
         }
     }
@@ -3070,7 +3072,7 @@ void func_i3_80194A84(Boss* bossZO) {
         Radio_PlayMessage(gMsg_ID_2225, RCID_SLIPPY);
     }
     if (gBossFrameCount == 686) {
-        gShowBossHealth = 1;
+        gShowBossHealth = true;
     }
     if (gBossFrameCount > 686) {
         gBossHealthBar = bossZO->health / 300.0f * 64.0f;
@@ -3097,9 +3099,9 @@ void func_i3_80194A84(Boss* bossZO) {
         }
     }
 
-    for (sp124 = 0, temp2 = &sZoSwork[ZO_BSS_49], temp3 = &sZoFwork[ZO_BSF_112]; sp124 < 6; sp124++, temp2++, temp3++) {
-        if ((!(&gPlayer[0].pos)) && (!(&gPlayer[0].pos))) {}
-        *temp3 = SIN_DEG(*temp2 * 50.0f) * func_i3_80193CC8(*temp2);
+    for (sp124 = 0; sp124 < 6; sp124++) { // may be using pointer iterators
+        sZoFwork[ZO_BSF_112 + sp124] =
+            SIN_DEG(sZoSwork[ZO_BSS_49 + sp124] * 50.0f) * func_i3_80193CC8(sZoSwork[ZO_BSS_49 + sp124]);
     }
 }
 #else
@@ -3553,12 +3555,12 @@ void func_i3_80199F10(Actor* actor) {
             actor->obj.rot.y += 2.0f;
             func_i3_80199E9C(actor, 0.0f, 20.0f);
             switch (sZoSwork[ZO_BSS_16]) { /* switch 1; irregular */
-                case 1:                    /* switch 1 */
+                case 1:
                     actor->fwork[1] = sZoFwork[ZO_BSF_68_Y] - sZoFwork[ZO_BSF_60_Y];
                     Audio_PlaySfx(0x3100503E, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                     actor->state++;
                     break;
-                case 2: /* switch 1 */
+                case 2:
                     actor->fwork[1] = sZoFwork[ZO_BSF_71_Y] - sZoFwork[ZO_BSF_60_Y];
                     Audio_PlaySfx(0x3100503E, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                     actor->state++;
@@ -3571,15 +3573,15 @@ void func_i3_80199F10(Actor* actor) {
                 func_i3_80199E9C(actor, actor->fwork[1], 20.0f);
             } else {
                 switch (sZoSwork[ZO_BSS_16]) {
-                    case 1: /* switch 2 */
+                    case 1:
                         actor->fwork[1] = sZoFwork[ZO_BSF_68_Y] - sZoFwork[ZO_BSF_60_Y];
                         func_i3_80199E9C(actor, actor->fwork[1], 20.0f);
                         break;
-                    case 2: /* switch 2 */
+                    case 2:
                         actor->fwork[1] = sZoFwork[ZO_BSF_71_Y] - sZoFwork[ZO_BSF_60_Y];
                         func_i3_80199E9C(actor, actor->fwork[1], 20.0f);
                         break;
-                    case 3: /* switch 2 */
+                    case 3:
                         actor->obj.rot.y += 2.0f;
                         if (gBosses[0].timer_050 != 0) {
                             func_i3_80199E9C(actor, 0.0f, 10.0f);
@@ -4433,33 +4435,28 @@ void func_i3_8019CE58(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_60181E0);
 }
 
-#ifdef NON_MATCHING
 void func_i3_8019D060(Actor* actor) {
     s32 i;
-    Actor* newActor;
 
-    for (i = 0, newActor = gActors; i < 60; i++, newActor++) {
-        if (newActor->obj.status == OBJ_FREE) {
-            Actor_Initialize(newActor);
-            newActor->obj.status = OBJ_ACTIVE;
-            newActor->obj.id = OBJ_ACTOR_247;
-            newActor->obj.pos.x = actor->obj.pos.x;
-            newActor->obj.pos.y = actor->obj.pos.y - 60.0f;
-            newActor->fwork[2] = newActor->obj.pos.y;
-            newActor->obj.pos.z = actor->obj.pos.z;
+    for (i = 0; i < 60; i++) {
+        if (gActors[i].obj.status == OBJ_FREE) {
+            Actor_Initialize(&gActors[i]);
+            gActors[i].obj.status = OBJ_ACTIVE;
+            gActors[i].obj.id = OBJ_ACTOR_247;
+            gActors[i].obj.pos.x = actor->obj.pos.x;
+            gActors[i].obj.pos.y = actor->obj.pos.y - 60.0f;
+            gActors[i].fwork[2] = gActors[i].obj.pos.y;
+            gActors[i].obj.pos.z = actor->obj.pos.z;
 
-            newActor->state = 1;
+            gActors[i].state = 1;
 
             actor->unk_046 = i + 1;
-            Object_SetInfo(&newActor->info, newActor->obj.id);
-            newActor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_602C028);
+            Object_SetInfo(&gActors[i].info, gActors[i].obj.id);
+            gActors[i].info.hitbox = SEGMENTED_TO_VIRTUAL(D_602C028);
             break;
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_zo/func_i3_8019D060.s")
-#endif
 
 void func_i3_8019D15C(Actor* actor) {
     Actor* temp_v0;
@@ -4573,17 +4570,15 @@ void func_i3_8019D428(Player* player) {
     D_80177CE8 += 40.0f;
 }
 
-#ifdef NON_MATCHING
-// more use of temps and chain assigns
 void func_i3_8019D76C(Player* player) {
-    f32 pad[4];
+    f32 temp_fa0;
+    f32 temp_ft5;
+    f32 dx;
+    f32 dz;
     s32 i;
     Vec3f sp58;
     Vec3f sp4C;
-    Actor* var_a0;
-    f32 temp_fa0;
-    f32 temp_ft5;
-    f32 pa2[2];
+    Boss* boss = &gBosses[0];
 
     switch (player->unk_1D0) {
         case 0:
@@ -4592,14 +4587,9 @@ void func_i3_8019D76C(Player* player) {
             player->unk_4D8 = 0.0f;
             player->unk_034 = 0.0f;
             player->unk_0D0 = 40.0f;
-            player->unk_110 = 0.0f;
-            player->unk_12C = 0.0f;
             player->unk_234 = 1;
-            player->wings.unk_04 = 0.0f;
-            player->wings.unk_0C = 0.0f;
-            player->wings.unk_08 = 0.0f;
-            player->wings.unk_10 = 0.0f;
-            player->unk_130 = 0.0f;
+            player->wings.unk_04 = player->wings.unk_0C = player->wings.unk_08 = player->wings.unk_10 =
+                player->unk_130 = player->unk_12C = player->unk_110 = 0.0f;
             D_80177978 = player->camEye.x;
             D_80177980 = player->camEye.y;
             D_80177988 = player->camEye.z;
@@ -4628,8 +4618,9 @@ void func_i3_8019D76C(Player* player) {
             Math_SmoothStepToF(&player->pos.y, 200.0f, 0.05f, 10.0f, 0.0f);
             Math_SmoothStepToF(&D_80177980, 250.0f, 1.0f, 20.0f, 0.0f);
             Math_SmoothStepToF(&D_801779B8, 240.0f, 1.0f, 20.0f, 0.0f);
-            temp_ft5 = Math_RadToDeg(
-                -Math_Atan2F(player->pos.x - gBosses[0].obj.pos.x, (player->pos.z - gBosses[0].obj.pos.z) * 0.05f));
+            dx = player->pos.x - boss->obj.pos.x;
+            dz = (player->pos.z - boss->obj.pos.z) * 0.05f;
+            temp_ft5 = Math_RadToDeg(-Math_Atan2F(dx, dz));
             temp_fa0 = Math_SmoothStepToAngle(&player->unk_0E8, temp_ft5, 0.5f, 2.0f, 0.0001f) * 30.0f;
             if (gCsFrameCount >= 14) {
                 Math_SmoothStepToAngle(&player->unk_0EC, temp_fa0, 0.1f, 5.0f, 0.0001f);
@@ -4656,7 +4647,7 @@ void func_i3_8019D76C(Player* player) {
                 player->unk_0EC = 0.0f;
             }
             break;
-        case 2: /* switch 1 */
+        case 2:
             D_80177CE8 += 60.0f;
             if (player->timer_1F8 == 0) {
                 player->pos.x = 0.0f;
@@ -4673,9 +4664,7 @@ void func_i3_8019D76C(Player* player) {
                 if (D_80161684 == 0) {
                     D_80177A48[1] = 330.0f;
                     player->camEye.x = 1350.0f;
-
                     player->camAt.x = D_801779A0 = 1450.0f;
-                    // 1350.0f;
                     D_80177A48[3] = 800.0f;
                     D_80177A48[4] = -0.15f;
                     D_80177A48[5] = -250.0f;
@@ -4694,7 +4683,7 @@ void func_i3_8019D76C(Player* player) {
                 D_80177A48[0] = 0.0f;
             }
             break;
-        case 3: /* switch 1 */
+        case 3:
             D_80177CE8 += 60.0f;
             D_80178358 = 0;
             D_8017835C = 4;
@@ -4734,9 +4723,7 @@ void func_i3_8019D76C(Player* player) {
             }
             if (gCsFrameCount >= 1271) {
                 D_80178358 = 255;
-                D_80178354 = 0;
-                D_80178350 = 0;
-                D_80178348 = 0;
+                D_80178348 = D_80178350 = D_80178354 = 0;
                 D_8017835C = 8;
                 if (D_80178340 == 255) {
                     func_8001CA24(0);
@@ -4803,31 +4790,31 @@ void func_i3_8019D76C(Player* player) {
                     break;
             }
             break;
-        case 906: /* switch 2 */
+        case 906:
             D_80177830 = 1;
             break;
-        case 1106: /* switch 2 */
+        case 1106:
             D_80177830 = 0;
             break;
-        case 1180: /* switch 2 */
+        case 1180:
             Audio_PlaySfx(0x09000002, player->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             player->unk_190 = player->unk_194 = 5.0f;
             break;
-        case 1240: /* switch 2 */
+        case 1240:
             func_800182F4(0x103200FF);
             func_800182F4(0x113200FF);
             break;
-        case 1120: /* switch 2 */
+        case 1120:
             if (gTeamShields[3] > 0) {
                 gActors[0].state = 2;
             }
             break;
-        case 1140: /* switch 2 */
+        case 1140:
             if (gTeamShields[2] > 0) {
                 gActors[1].state = 2;
             }
             break;
-        case 1160: /* switch 2 */
+        case 1160:
             if (gTeamShields[1] > 0) {
                 gActors[2].state = 2;
             }
@@ -4863,16 +4850,11 @@ void func_i3_8019D76C(Player* player) {
     player->unk_0F4 += 8.0f;
     player->unk_0F0 = SIN_DEG(player->unk_0F4);
 }
-#else
-// zoness outro
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_zo/func_i3_8019D76C.s")
-#endif
 
 void func_i3_8019E5F0(Actor* actor) {
     Vec3f sp34;
     Vec3f sp28;
 
-    (void) "Demo_Time %d\n"; // goes in above function, probably
     switch (actor->state) {
         case 4:
         case 5:
