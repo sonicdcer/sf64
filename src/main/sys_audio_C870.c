@@ -1,5 +1,19 @@
 #include "global.h"
 
+typedef struct {
+    /* 0x00 */ s32 unk_00;
+    /* 0x04 */ s32 unk_04;
+    /* 0x08 */ s32 unk_08;
+    /* 0x0C */ s32 unk_0C;
+    /* 0x10 */ s32 unk_10;
+    /* 0x14 */ s32 unk_14;
+    /* 0x18 */ char pad_18[0x6];
+    /* 0x1E */ s16 unk_1E;
+    /* 0x20 */ s32 unk_20;
+    /* 0x24 */ char pad24[0x6];
+    /* 0x2A */ s16 unk_2A;
+} UnkStruct_func_8000BFA8;
+
 extern s32 D_800C7C30;
 extern s32 D_8014C1C0;
 extern s32 D_8014C1D0;
@@ -27,7 +41,14 @@ void func_8000BF94(s32* arg0) {
     arg0[2] = arg0[1];
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000BFA8.s")
+void func_8000BFA8(UnkStruct_func_8000BFA8* arg0) {
+    arg0->unk_10 = 0;
+    arg0->unk_00 = 0;
+    arg0->unk_20 = arg0->unk_04 + arg0->unk_0C;
+    arg0->unk_1E = -1;
+    arg0->unk_2A = -1;
+    arg0->unk_14 = arg0->unk_08 = arg0->unk_04;
+}
 
 void func_8000BFD8(s32* arg0) {
     arg0[3] = 0;
