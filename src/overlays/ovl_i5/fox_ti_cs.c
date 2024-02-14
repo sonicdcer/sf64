@@ -77,7 +77,7 @@ void func_i5_8018769C(Player* player) {
             player->unk_240 = 1;
             player->unk_1D0 = 1;
             gFogFar = 1006;
-            gPlayer->unk_19C = 0;
+            gPlayer[0].unk_19C = 0;
             gBgColor = 0x78C1;
 
         case 1:
@@ -145,7 +145,7 @@ void func_i5_8018769C(Player* player) {
                 player->camAt.y = D_801779B8 = player->pos.y;
                 player->camAt.z = D_801779C0 = player->pos.z;
 
-                gPlayer->unk_19C = 1;
+                gPlayer[0].unk_19C = 1;
 
                 gBgColor = 0x2089;
 
@@ -475,7 +475,7 @@ void func_i5_801882CC(Player* player) {
             break;
 
         case 1200:
-            gActors->state++;
+            gActors[0].state++;
             break;
 
         case 1220:

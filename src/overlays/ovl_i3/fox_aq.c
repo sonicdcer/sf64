@@ -6021,7 +6021,7 @@ void func_i3_801BE034(Actor* actor) {
     if (actor->iwork[0] >= Animation_GetFrameCount(&D_60135E0)) {
         actor->iwork[0] = 0;
     }
-    if (gPlayer->unk_1D0 >= 5) {
+    if (gPlayer[0].unk_1D0 >= 5) {
         Object_Kill(&actor->obj, actor->sfxPos);
     }
 }
@@ -6082,7 +6082,7 @@ void func_i3_801BE3F8(Actor* actor) {
             actor->state++;
             break;
         case 1:
-            if (fabsf(gPlayer->pos.z - actor->obj.pos.z) <= 3000.0f) {
+            if (fabsf(gPlayer[0].pos.z - actor->obj.pos.z) <= 3000.0f) {
                 actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_60314E4);
                 actor->info.damage = 0;
                 actor->info.bonus = 1;
@@ -6101,11 +6101,11 @@ void func_i3_801BE3F8(Actor* actor) {
             }
             if ((actor->unk_0B6 == 18) && (actor->health != 0)) {
                 actor->unk_0B6 = 17;
-                if ((fabsf(actor->obj.pos.z - gPlayer->unk_138) > 1000.0f) && (actor->timer_0BC < 20) &&
+                if ((fabsf(actor->obj.pos.z - gPlayer[0].unk_138) > 1000.0f) && (actor->timer_0BC < 20) &&
                     !(actor->timer_0BC & 3)) {
-                    sp68 = gPlayer->pos.x + RAND_FLOAT_CENTERED(200.0f) - actor->obj.pos.x;
-                    sp64 = gPlayer->pos.y + RAND_FLOAT_CENTERED(200.0f) - actor->obj.pos.y;
-                    sp60 = gPlayer->unk_138 - actor->obj.pos.z;
+                    sp68 = gPlayer[0].pos.x + RAND_FLOAT_CENTERED(200.0f) - actor->obj.pos.x;
+                    sp64 = gPlayer[0].pos.y + RAND_FLOAT_CENTERED(200.0f) - actor->obj.pos.y;
+                    sp60 = gPlayer[0].unk_138 - actor->obj.pos.z;
                     sp58 = Math_RadToDeg(Math_Atan2F(sp68, sp60));
                     sp5C = Math_RadToDeg(-Math_Atan2F(sp64, sqrtf(SQ(sp68) + SQ(sp60))));
                     func_i3_801BE274(actor, sp58, sp5C);

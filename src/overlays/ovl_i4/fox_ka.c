@@ -2002,7 +2002,7 @@ void func_i4_80198AA0(Actor* actor) {
                         actor->iwork[5] = 1;
 
                         if (!((actor->index + gGameFrameCount) & 11) && (Rand_ZeroOne() < 0.1f) &&
-                            (func_80031900(actor) != 0) && (gActors->state == 2)) {
+                            (func_80031900(actor) != 0) && (gActors[0].state == 2)) {
                             actor->iwork[0] = 1;
                         }
                     } else {

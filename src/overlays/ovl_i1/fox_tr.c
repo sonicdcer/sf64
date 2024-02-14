@@ -15,13 +15,13 @@ void func_i1_80198968(Item* item) {
         case 0:
             item->obj.rot.z += 1.0f;
             Math_SmoothStepToF(&item->scale, 1.0f, 1.0f, 0.05f, 0.0f);
-            if ((item->unk_44 == 0) && (gPlayer->unk_4DC == 0)) {
+            if ((item->unk_44 == 0) && (gPlayer[0].unk_4DC == 0)) {
                 if (item->obj.rot.y == 0.0f) {
                     var_fv0 = 550.0f;
                 } else {
                     var_fv0 = 1000.0f;
                 }
-                if (item->obj.pos.z > (gPlayer->unk_138 + var_fv0)) {
+                if (item->obj.pos.z > (gPlayer[0].unk_138 + var_fv0)) {
                     item->unk_44 = 1;
                     PRINTF("♪:リング未通過音\n"); // Ring not passed sound
                     Audio_PlaySfx(0x4900402F, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -43,7 +43,7 @@ void func_i1_80198968(Item* item) {
         case 1:
             item->obj.pos.x += ((gPlayer[item->playerNum].pos.x - item->obj.pos.x) * 0.05f);
             item->obj.pos.y += ((gPlayer[item->playerNum].pos.y - item->obj.pos.y) * 0.05f);
-            if (gPlayer->unk_238 != 0) {
+            if (gPlayer[0].unk_238 != 0) {
                 item->obj.pos.z += ((gPlayer[item->playerNum].unk_138 - 300.0f) - item->obj.pos.z) * 0.05f;
             } else {
                 item->obj.pos.z += ((gPlayer[item->playerNum].unk_138 - item->obj.pos.z) * 0.05f);
