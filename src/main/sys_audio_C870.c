@@ -1,4 +1,10 @@
-#include "common.h"
+#include "global.h"
+
+extern s32 D_800C7C30;
+extern s32 D_8014C1C0;
+extern s32 D_8014C1D0;
+
+void func_8000BF6C(s32* arg0, u8*, s32 arg2);
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000BC70.s")
 
@@ -18,7 +24,10 @@
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000BFD8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000BFE8.s")
+void func_8000BFE8(s32 arg0) {
+    func_8000BF6C(&D_8014C1D0, gAudioDataBuffer, arg0);
+    func_8000BF6C(&D_8014C1C0, &gAudioDataBuffer[arg0], D_800C7C30 - arg0);
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000C044.s")
 
