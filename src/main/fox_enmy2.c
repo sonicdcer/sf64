@@ -6,8 +6,6 @@ s32 D_80161690;
 
 #include "fox_enmy2_assets.h"
 
-void func_80187530(Actor*); // figure out which one later
-
 void func_8006A7B0(u16* msg, s32 character) {
     PRINTF("Enm->obj.pos.y + tmp_xyz.y=<%10.3f>\n");
     if ((gRadioState == 0) || (D_80177D68 != character)) {
@@ -3659,7 +3657,7 @@ void func_80072594(Actor* actor) {
 
             case 103:
             case 104:
-                func_80187530(actor);
+                func_i6_80187530(actor); // might be i5 or i2
                 break;
 
             case 106:

@@ -21,13 +21,6 @@ extern Animation D_602A2CC[];
 extern Animation D_602CEB4[];
 extern Animation D_602B778[];
 
-extern f32 D_80178454;
-extern f32 D_80178458;
-extern f32 D_80178464;
-extern f32 D_80178468;
-extern f32 D_80178474;
-extern f32 D_80178478;
-
 extern Gfx D_400AAE0[];
 extern Gfx D_6000D80[];
 extern Gfx D_600BAA0[];
@@ -1216,9 +1209,9 @@ void func_8004B368(Player* player) {
 
             Matrix_MultVec3f(gCalcMatrix, &sp78, &sp6C);
 
-            D_80178454 = player->pos.x + sp6C.x;
-            D_80178464 = player->pos.y + sp6C.y;
-            D_80178474 = player->unk_138 + sp6C.z;
+            D_80178450[1] = player->pos.x + sp6C.x;
+            D_80178460[1] = player->pos.y + sp6C.y;
+            D_80178470[1] = player->unk_138 + sp6C.z;
 
             sp78.x = gActors[2].fwork[0] * gActors[2].fwork[3];
             sp78.y = gActors[2].fwork[1] * gActors[2].fwork[3];
@@ -1226,9 +1219,9 @@ void func_8004B368(Player* player) {
 
             Matrix_MultVec3f(gCalcMatrix, &sp78, &sp6C);
 
-            D_80178458 = player->pos.x + sp6C.x;
-            D_80178468 = player->pos.y + sp6C.y;
-            D_80178478 = player->unk_138 + sp6C.z;
+            D_80178450[2] = player->pos.x + sp6C.x;
+            D_80178460[2] = player->pos.y + sp6C.y;
+            D_80178470[2] = player->unk_138 + sp6C.z;
 
             switch (gCsFrameCount) {
                 case 330:

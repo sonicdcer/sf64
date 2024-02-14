@@ -2001,6 +2001,7 @@ void func_i3_801AF9FC(Actor* actor) {
 
 #ifdef NON_MATCHING
 // saved register use at start of case 3
+// https://decomp.me/scratch/gNkkb
 void func_i3_801AFA5C(Actor* actor) {
     s32 i;
     f32 sp70;
@@ -2409,7 +2410,10 @@ void func_i3_801B10F8(Boss* bossAQ) {
 
 // OBJ_BOSS_AQ action
 #ifdef NON_MATCHING
-// lots of float stuff, and unclear how to use the 4 indices
+//  unclear how to use the 4 indices
+// loop at 2854 unrolls incorrectly
+// sp100 shouldn't be on the stack
+// https://decomp.me/scratch/M6ghQ
 void func_i3_801B134C(Boss* bossAQ) {
     s32 i;
     s32 i2;
@@ -2952,7 +2956,7 @@ void func_i3_801B134C(Boss* bossAQ) {
                 D_i3_801C42A0[i3 + 10]++;
                 if (D_i3_801C42A0[i3 + 10] >= D_i3_801BFDB4[4 * i3 + i2]) {
                     D_i3_801C42A0[i3 + 16]++;
-                    if ((D_i3_801C42A0[i3 + 16] >= 4) || (D_i3_801BFDB4[4 * i3 + D_i3_801C42A0[i3 + 16]] == 10000)) {
+                    if ((D_i3_801C42A0[i3 + 16] >= 4) || (D_i3_801BFDB4[4 * i3 + D_i3_801C42A0[i3 + 16]] == 100000)) {
                         D_i3_801C42A0[i3 + 10] = 0;
                         D_i3_801C42A0[i3 + 16] = 0;
                     }
@@ -3822,7 +3826,8 @@ void func_i3_801B6344(Actor* actor) {
 }
 
 #ifdef NON_MATCHING
-// annoying float reg swap around 3880
+// The big spherical angle calculation has some reg swaps. BonusText_Display has a return?
+// https://decomp.me/scratch/DLrGN
 void func_i3_801B638C(Actor* actor) {
     Actor* var_v0;
     s32 i;
@@ -4005,7 +4010,8 @@ void func_i3_801B6E54(Actor* actor) {
 
 // OBJ_ACTOR_262 action
 #ifdef NON_MATCHING
-// annoying float reg swaps around 4000
+// reloads 0.0f for temp_fs2_2. BonusText_Display has a return?
+// https://decomp.me/scratch/02s9H
 void func_i3_801B6FF8(Actor* actor) {
     s32 i;
     f32 temp_dx;
@@ -4057,9 +4063,9 @@ void func_i3_801B6FF8(Actor* actor) {
             temp_dz = actor->fwork[3] - actor->obj.pos.z;
             spA8 = Math_RadToDeg(Math_Atan2F(temp_dx, temp_dz));
             var_fs0 = Math_RadToDeg(-Math_Atan2F(temp_dy, sqrtf(SQ(temp_dx) + SQ(temp_dz))));
-            temp_fs2_2 = Math_SmoothStepToAngle(&actor->obj.rot.y, spA8, 0.1f, 1.0f, 0);
+            temp_fs2_2 = Math_SmoothStepToAngle(&actor->obj.rot.y, spA8, 0.1f, 1.0f, 0.0f);
+            Math_SmoothStepToAngle(&actor->obj.rot.x, var_fs0, 0.1f, 1.0f, 0.0f);
 
-            Math_SmoothStepToAngle(&actor->obj.rot.x, var_fs0, 0.1f, 1.0f, 0);
             var_fs0 = 340.0f;
             if (temp_fs2_2 < 0.0f) {
                 var_fs0 = 20.0f;
@@ -4604,6 +4610,7 @@ void func_i3_801B90DC(Actor* actor) {
 // OBJ_ACTOR_263 action
 #ifdef NON_MATCHING
 // BonusText_Display has a return?
+// https://decomp.me/scratch/OwFpS
 void func_i3_801B91A4(Actor* actor) {
     Vec3f spDC = { 0.0f, 0.0f, 50.0f };
     Vec3f spD0;

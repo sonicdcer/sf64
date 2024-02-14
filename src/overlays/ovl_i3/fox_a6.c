@@ -425,7 +425,7 @@ f32 D_i3_801BF3F4[12] = {
 f32 D_i3_801BF424[12] = {
     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
 };
-Color_RGBAF32 D_i3_801BF454[4] = {
+f32 D_i3_801BF454[4][4] = {
     { 255.0f, 0.0f, 0.0f, 0.0f },
     { 255.0f, 255.0f, 0.0f, 0.0f },
     { 0.0f, 255.0f, 255.0f, 0.0f },
@@ -529,26 +529,27 @@ void func_i3_80187754(Boss* bossA6) {
 }
 
 #ifdef NON_MATCHING
+// var_s0 = D_i3_801C2250[A6_BSS_9]; is using the wrong variable, but unclear what correct one is.
+// https://decomp.me/scratch/P3kGr
 void func_i3_80187944(Boss* bossA6) {
     s32 i;
-    f32 var_fv1;
+    s32 pad;
     s32 var_s0;
     s32 sp128;
-    Color_RGBAF32* sp68;
+    s32 spf124;
     f32 sp120;
-    f32 sp11C;
-    f32 sp118;
-    f32 sp114;
-    f32 sp110;
-    f32 sp10C;
-    Effect* temp_s0_3;
+    f32 dx_11C;
+    f32 dy_118;
+    f32 dz_114;
+    f32 pitch_110;
+    f32 yaw_10C;
+    f32 temp2;
     f32 sp104;
     Vec3f spC8[5];
     Vec3f spA4[3];
     Vec3f sp98;
     Vec3f sp8C;
-    s32 temp_1;
-    f32 temp2;
+    Effect* temp_s0_3;
 
     gBossFrameCount++;
     if ((bossA6->state < 6) || ((bossA6->state >= 8) && (bossA6->state < 12))) {
@@ -565,8 +566,9 @@ void func_i3_80187944(Boss* bossA6) {
         bossA6->dmgType = DMG_NONE;
         if (bossA6->fwork[A6_FWK_0] > 5.0f) {
             if ((bossA6->dmgPart == 0) && (bossA6->swork[A6_SWK_25] == 0) && (bossA6->fwork[A6_FWK_29] < 30.0f)) {
-                bossA6->health -= bossA6->damage;
                 bossA6->timer_05C = 15;
+                bossA6->health -= bossA6->damage;
+
                 if (bossA6->health < 390) {
                     Audio_PlaySfx(0x2943500F, bossA6->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 } else {
@@ -629,17 +631,17 @@ void func_i3_80187944(Boss* bossA6) {
         func_8007C120(bossA6->obj.pos.x, bossA6->obj.pos.y, bossA6->obj.pos.z + 200.0f, bossA6->vel.x, bossA6->vel.y,
                       bossA6->vel.z, 0.3f, 1);
     }
-    temp2 = 0.5f;
-    if ((gBosses)[0].swork[A6_SWK_25] == 1) {
-        temp2 = 2.0f;
+    sp120 = 0.5f;
+    if (gBosses[0].swork[A6_SWK_25] == 1) {
+        sp120 = 2.0f;
     }
     if (D_i3_801C2250[A6_BSS_10] != 0) {
-        D_i3_801C22F0.unk_34 += temp2;
+        D_i3_801C22F0.unk_34 += sp120;
         if (D_i3_801C22F0.unk_34 > 360.0f) {
             D_i3_801C22F0.unk_34 -= 360.0f;
         }
     } else {
-        D_i3_801C22F0.unk_34 -= temp2;
+        D_i3_801C22F0.unk_34 -= sp120;
         if (D_i3_801C22F0.unk_34 < 0.0f) {
             D_i3_801C22F0.unk_34 += 360.0f;
         }
@@ -649,25 +651,25 @@ void func_i3_80187944(Boss* bossA6) {
         Math_SmoothStepToAngle(&bossA6->obj.rot.z, bossA6->fwork[A6_FWK_8], 0.05f, bossA6->fwork[A6_FWK_9], 0.00001f);
         if (bossA6->swork[A6_SWK_25] >= 2) {
             if (!(gGameFrameCount & 0x3F) && (Rand_ZeroOne() < 0.5f)) {
-                bossA6->fwork[A6_FWK_6] = gPlayer[0].camEye.x + RAND_FLOAT_CENTERED(500.0f);
+                bossA6->fwork[A6_FWK_6] = RAND_FLOAT_CENTERED(500.0f) + gPlayer[0].camEye.x;
             }
             if (!(gGameFrameCount & 0x3F) && (Rand_ZeroOne() < 0.5f)) {
-                bossA6->fwork[A6_FWK_7] = gPlayer[0].camEye.y + RAND_FLOAT_CENTERED(500.0f);
+                bossA6->fwork[A6_FWK_7] = RAND_FLOAT_CENTERED(500.0f) + gPlayer[0].camEye.y;
             }
         } else {
             if (!(gGameFrameCount & 0x1F) && (Rand_ZeroOne() < 0.7f)) {
-                bossA6->fwork[A6_FWK_6] = gPlayer[0].camEye.x + RAND_FLOAT_CENTERED(1000.0f);
+                bossA6->fwork[A6_FWK_6] = RAND_FLOAT_CENTERED(1000.0f) + gPlayer[0].camEye.x;
                 bossA6->fwork[A6_FWK_30] = 0.0f;
             }
             if (!(gGameFrameCount & 0x1F) && (Rand_ZeroOne() < 0.7f)) {
-                bossA6->fwork[A6_FWK_7] = gPlayer[0].camEye.y + RAND_FLOAT_CENTERED(1000.0f);
+                bossA6->fwork[A6_FWK_7] = RAND_FLOAT_CENTERED(1000.0f) + gPlayer[0].camEye.y;
                 bossA6->fwork[A6_FWK_31] = 0.0f;
             }
         }
     }
     if (bossA6->state != 0) {
         Math_SmoothStepToF(&bossA6->fwork[A6_FWK_4], bossA6->fwork[A6_FWK_5], 0.1f, 2.0f, 0.00001f);
-        Math_SmoothStepToF(&bossA6->obj.pos.z, bossA6->fwork[A6_FWK_3] + (gPlayer[0].camEye.z - D_80177D20), 0.1f,
+        Math_SmoothStepToF(&bossA6->obj.pos.z, gPlayer[0].camEye.z - D_80177D20 + bossA6->fwork[A6_FWK_3], 0.1f,
                            bossA6->fwork[A6_FWK_4], 0.00001f);
         if (bossA6->state < 5) {
             sp120 = 2.0f;
@@ -724,41 +726,41 @@ void func_i3_80187944(Boss* bossA6) {
         }
     }
     if (!(gGameFrameCount & 0xF)) {
-        sp114 = fabsf(bossA6->fwork[A6_FWK_3] / -1700.0f);
-        if (sp114 < 1.0f) {
-            sp114 = 1.0f;
+        dz_114 = fabsf(bossA6->fwork[A6_FWK_3] / -1700.0f);
+        if (dz_114 < 1.0f) {
+            dz_114 = 1.0f;
         }
-        if (sp114 > 3.0f) {
-            sp114 = 3.0f;
+        if (dz_114 > 3.0f) {
+            dz_114 = 3.0f;
         }
         for (i = 0; i < 3; i++) {
-            var_fv1 = sp114;
+            sp120 = dz_114;
             if (bossA6->swork[A6_SWK_18 + i] != 0) {
-                var_fv1 = 1.0f;
+                sp120 = 1.0f;
             }
-            A6_HIT_1_2(bossA6, i)->z.size = 195.0f * var_fv1;
-            A6_HIT_1_2(bossA6, i)->y.size = 147.0f * var_fv1;
-            A6_HIT_1_2(bossA6, i)->x.size = 153.0f * var_fv1;
+            A6_HIT_1_2(bossA6, i)->z.size = 195.0f * sp120;
+            A6_HIT_1_2(bossA6, i)->y.size = 147.0f * sp120;
+            A6_HIT_1_2(bossA6, i)->x.size = 153.0f * sp120;
         }
     }
     switch (bossA6->state) {
         case 0:
             bossA6->info.hitbox[0] = 0;
 
-            sp11C = gPlayer[0].pos.x - bossA6->obj.pos.x;
-            sp118 = gPlayer[0].pos.y - bossA6->obj.pos.y;
-            sp114 = gPlayer[0].pos.z - 700.0f - bossA6->obj.pos.z;
+            dx_11C = gPlayer[0].pos.x - bossA6->obj.pos.x;
+            dy_118 = gPlayer[0].pos.y - bossA6->obj.pos.y;
+            dz_114 = gPlayer[0].pos.z - 700.0f - bossA6->obj.pos.z;
             sp104 = 10.0f;
             if ((bossA6->timer_050 != 0) && (bossA6->timer_050 < 200)) {
-                sp11C = gPlayer[0].camEye.x - bossA6->obj.pos.x;
-                sp118 = gPlayer[0].camEye.y - bossA6->obj.pos.y;
-                sp114 = gPlayer[0].camEye.z - D_80177D20 + bossA6->fwork[A6_FWK_3] - bossA6->obj.pos.z;
+                dx_11C = gPlayer[0].camEye.x - bossA6->obj.pos.x;
+                dy_118 = gPlayer[0].camEye.y - bossA6->obj.pos.y;
+                dz_114 = gPlayer[0].camEye.z - D_80177D20 + bossA6->fwork[A6_FWK_3] - bossA6->obj.pos.z;
                 sp104 = 100.0f;
             }
-            sp10C = Math_RadToDeg(Math_Atan2F(sp11C, sp114));
-            sp110 = Math_RadToDeg(-Math_Atan2F(sp118, sqrtf(SQ(sp11C) + SQ(sp114))));
-            Math_SmoothStepToAngle(&bossA6->unk_078.y, sp10C, 1.0f, sp104, 0.00001f);
-            Math_SmoothStepToAngle(&bossA6->unk_078.x, sp110, 1.0f, sp104, 0.00001f);
+            yaw_10C = Math_RadToDeg(Math_Atan2F(dx_11C, dz_114));
+            pitch_110 = Math_RadToDeg(-Math_Atan2F(dy_118, sqrtf(SQ(dx_11C) + SQ(dz_114))));
+            Math_SmoothStepToAngle(&bossA6->unk_078.y, yaw_10C, 1.0f, sp104, 0.00001f);
+            Math_SmoothStepToAngle(&bossA6->unk_078.x, pitch_110, 1.0f, sp104, 0.00001f);
             Matrix_RotateY(gCalcMatrix, bossA6->unk_078.y * M_DTOR, 0);
             Matrix_RotateX(gCalcMatrix, bossA6->unk_078.x * M_DTOR, 1);
             sp98.x = sp98.y = 0.0f;
@@ -804,8 +806,8 @@ void func_i3_80187944(Boss* bossA6) {
                 Math_SmoothStepToF(&bossA6->fwork[A6_FWK_34], 2.0f, 0.1f, 0.1f, 0.0f);
                 Math_SmoothStepToF(&bossA6->fwork[A6_FWK_35], 1.2f, 0.1f, 0.1f, 0.0f);
                 if (D_i3_801C22F0.unk_24 < 1.0f) {
-                    bossA6->fwork[A6_FWK_6] = gPlayer[0].camEye.x + RAND_FLOAT_CENTERED(1000.0f);
-                    bossA6->fwork[A6_FWK_7] = gPlayer[0].camEye.y + RAND_FLOAT_CENTERED(1000.0f);
+                    bossA6->fwork[A6_FWK_6] = RAND_FLOAT_CENTERED(1000.0f) + gPlayer[0].camEye.x;
+                    bossA6->fwork[A6_FWK_7] = RAND_FLOAT_CENTERED(1000.0f) + gPlayer[0].camEye.y;
                     bossA6->fwork[A6_FWK_3] = -3700.0f + RAND_FLOAT_CENTERED(3000.0f);
                     bossA6->fwork[A6_FWK_34] = 2.0f;
                     bossA6->fwork[A6_FWK_35] = 1.2f;
@@ -1020,17 +1022,18 @@ void func_i3_80187944(Boss* bossA6) {
             bossA6->obj.pos.z -= bossA6->fwork[A6_FWK_37];
             Math_SmoothStepToF(&bossA6->fwork[A6_FWK_37], 0.0f, 1.0f, 10.0f, 0.00001f);
             Math_SmoothStepToF(&bossA6->fwork[A6_FWK_3], -6000.0f, 10.0f, 100.0f, 0.00001f);
-            sp68 = &D_i3_801BF454[D_i3_801C2250[A6_BSS_9]];
-            Math_SmoothStepToF(&D_i3_801C22F0.unk_28[0], sp68->r, 0.5f, 100.0f, 0.00001f);
-            Math_SmoothStepToF(&D_i3_801C22F0.unk_28[2], sp68->g, 0.5f, 100.0f, 0.00001f);
-            Math_SmoothStepToF(&D_i3_801C22F0.unk_28[1], sp68->b, 0.5f, 100.0f, 0.00001f);
+            var_s0 = D_i3_801C2250[A6_BSS_9];
+            // sp68 = &D_i3_801BF454[];
+            Math_SmoothStepToF(&D_i3_801C22F0.unk_28[0], D_i3_801BF454[var_s0][0], 0.5f, 100.0f, 0.00001f);
+            Math_SmoothStepToF(&D_i3_801C22F0.unk_28[2], D_i3_801BF454[var_s0][1], 0.5f, 100.0f, 0.00001f);
+            Math_SmoothStepToF(&D_i3_801C22F0.unk_28[1], D_i3_801BF454[var_s0][2], 0.5f, 100.0f, 0.00001f);
             if (!(gGameFrameCount & 0xF)) {
                 D_i3_801C2250[A6_BSS_9]++;
                 D_i3_801C2250[A6_BSS_9] &= 3;
             }
             if (bossA6->timer_050 == 0) {
-                bossA6->state = 7;
                 bossA6->fwork[A6_FWK_1] = 0.0f;
+                bossA6->state = 7;
             }
             break;
         case 7:
@@ -1087,28 +1090,28 @@ void func_i3_80187944(Boss* bossA6) {
                     if (bossA6->swork[A6_SWK_25] == 2) {
                         sp128 = 12;
                     }
-                    for (i = 0; i < sp128; i++) {
+                    for (var_s0 = 0; var_s0 < sp128; var_s0++) {
                         Matrix_RotateZ(gCalcMatrix, (360.0f / sp128) * M_DTOR, 1);
                         sp98.x = 0.0f;
                         sp98.y = 400.0f;
                         sp98.z = 0.0f;
                         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp98, &sp8C);
-                        sp10C = Math_RadToDeg(Math_Atan2F(sp8C.x, sp8C.z));
-                        sp110 = Math_RadToDeg(-Math_Atan2F(sp8C.y, sqrtf(SQ(sp8C.x) + SQ(sp8C.z))));
-                        temp_1 = D_i3_801C2250[A6_BSS_12_0 + i] - 1;
-                        if (temp_1 < 0) {
-                            temp_1 = 0;
+                        yaw_10C = Math_RadToDeg(Math_Atan2F(sp8C.x, sp8C.z));
+                        pitch_110 = Math_RadToDeg(-Math_Atan2F(sp8C.y, sqrtf(SQ(sp8C.x) + SQ(sp8C.z))));
+                        spf124 = D_i3_801C2250[A6_BSS_12_0 + var_s0] - 1;
+                        if (spf124 < 0) {
+                            spf124 = 0;
                         }
-                        if ((gActors[temp_1].obj.status == OBJ_FREE) || (gActors[temp_1].obj.id != OBJ_ACTOR_191) ||
+                        if ((gActors[spf124].obj.status == OBJ_FREE) || (gActors[spf124].obj.id != OBJ_ACTOR_191) ||
                             (D_i3_801C2250[A6_BSS_24] == 0)) {
-                            D_i3_801C2250[A6_BSS_12_0 + i] = 0;
-                            temp_1 = 0;
+                            D_i3_801C2250[A6_BSS_12_0 + var_s0] = 0;
+                            spf124 = 0;
                             if (bossA6->swork[A6_SWK_25] == 1) {
-                                temp_1 = 1;
+                                spf124 = 1;
                             }
                             func_i3_801875E4(bossA6->obj.pos.x + sp8C.x, bossA6->obj.pos.y + sp8C.y,
-                                             bossA6->obj.pos.z + sp8C.z, 25.0f, sp110, sp10C, 10, temp_1);
-                            D_i3_801C2250[A6_BSS_12_0 + i] = D_i3_801C2250[A6_BSS_11];
+                                             bossA6->obj.pos.z + sp8C.z, 25.0f, pitch_110, yaw_10C, 10, spf124);
+                            D_i3_801C2250[A6_BSS_12_0 + var_s0] = D_i3_801C2250[A6_BSS_11];
                         }
                     }
                     D_i3_801C2250[A6_BSS_24] = 1;
@@ -1344,7 +1347,7 @@ void func_i3_8018A464(Boss* bossA6, s32 arg1) {
                         }
                     }
                     break;
-                case 1: /* switch 1 */
+                case 1:
                     if (bossA6->swork[A6_SWK_34] != 0) {
                         for (i = 1; i < 12; i++) {
                             D_i3_801BF010[i] = 3.0f;
@@ -1388,7 +1391,7 @@ void func_i3_8018A464(Boss* bossA6, s32 arg1) {
                         }
                     }
                     break;
-                case 2: /* switch 1 */
+                case 2:
                     if (bossA6->swork[A6_SWK_35] != 0) {
                         for (i = 1; i < 12; i++) {
                             D_i3_801BF190[i] = 3.0f;
@@ -1773,7 +1776,9 @@ void func_i3_8018C0D0(f32* arg0, f32 arg1, Vec3f* arg2, f32 arg3, s32 arg4) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-#ifndef MON_MATCHING
+#ifdef NON_MATCHING
+// weirdness on setting spAC.x to 0.0f and in loading bossA6 near the fakeness
+// https://decomp.me/scratch/mwrs8
 void func_i3_8018C54C(Boss* bossA6) {
     Vec3f spD0[30];
     Vec3f spC4;
@@ -1796,10 +1801,10 @@ void func_i3_8018C54C(Boss* bossA6) {
             RCP_SetupDL(&gMasterDisp, 0x47);
             spAC.x = 0.0f;
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) D_i3_801C22F0.unk_24);
-            
+
             if ((gSysFrameCount & 1) == 0) {
                 spAC.x = 0.0f;
-            } 
+            }
             spAC.y = spAC.z = 0.0f;
             Matrix_RotateZ(gCalcMatrix, gGameFrameCount * 6.0f * M_DTOR, 0);
             Matrix_MultVec3f(gCalcMatrix, &spAC, &spB8);
@@ -1836,7 +1841,7 @@ void func_i3_8018C54C(Boss* bossA6) {
                     spB8.x = bossA6->obj.pos.x + spC4.x;
                     spB8.y = bossA6->obj.pos.y + spC4.y;
                     spB8.z = bossA6->obj.pos.z + spC4.z;
-                    if ((!bossA6) && (!bossA6)) {}
+                    if ((!bossA6) && (!bossA6)) {} // fake
                     if (D_i3_801C2250[A6_BSS_26] == 0) {
                         func_8007A6F0(&spB8, 0x2903B009);
                     }
@@ -1846,36 +1851,26 @@ void func_i3_8018C54C(Boss* bossA6) {
                     if (bossA6->swork[A6_SWK_27 + i] <= 0) {
                         bossA6->swork[A6_SWK_18 + i] = 4;
                         bossA6->swork[A6_SWK_38 + i] = 1;
-                        bossA6->fwork[A6_FWK_10 + i] = 
-                        bossA6->fwork[A6_FWK_19 + i] = 
-                        bossA6->fwork[A6_FWK_13 + i] = 
-
-                        bossA6->fwork[A6_FWK_22 + i] = 0.0f;
+                        bossA6->fwork[A6_FWK_10 + i] = bossA6->fwork[A6_FWK_19 + i] = bossA6->fwork[A6_FWK_13 + i] =
+                            bossA6->fwork[A6_FWK_22 + i] = 0.0f;
                         bossA6->fwork[A6_FWK_25 + i] = -90.0f;
-                        
 
                         for (j = 0; j < 12; j++) {
                             if (i == 0) {
-                                D_i3_801BED70[j].y = 
-                                D_i3_801BED70[j].x = 
-                                D_i3_801BEE00[j].y = 
-                                D_i3_801BEE00[j].x = 0.0f;
+                                D_i3_801BED70[j].y = D_i3_801BED70[j].x = D_i3_801BEE00[j].y = D_i3_801BEE00[j].x =
+                                    0.0f;
                                 D_i3_801BEE90[j] = 3.0f;
                                 D_i3_801BEEC0[j] = 3.0f;
                             }
                             if (i == 1) {
-                                D_i3_801BEEF0[j].y = 
-                                D_i3_801BEEF0[j].x = 
-                                D_i3_801BEF80[j].y = 
-                                D_i3_801BEF80[j].x = 0.0f;
+                                D_i3_801BEEF0[j].y = D_i3_801BEEF0[j].x = D_i3_801BEF80[j].y = D_i3_801BEF80[j].x =
+                                    0.0f;
                                 D_i3_801BF010[j] = 3.0f;
                                 D_i3_801BF040[j] = 3.0f;
                             }
                             if (i == 2) {
-                                D_i3_801BF070[j].y = 
-                                D_i3_801BF070[j].x = 
-                                D_i3_801BF100[j].y = 
-                                D_i3_801BF100[j].x = 0.0f;
+                                D_i3_801BF070[j].y = D_i3_801BF070[j].x = D_i3_801BF100[j].y = D_i3_801BF100[j].x =
+                                    0.0f;
                                 D_i3_801BF190[j] = 3.0f;
                                 D_i3_801BF1C0[j] = 3.0f;
                             }
@@ -2453,7 +2448,6 @@ void func_i3_8018EC38(Actor* actor, s32 arg1) {
     }
 }
 
-#ifdef NON_MATCHING
 void func_i3_8018ED78(Player* player) {
     s32 i;
     Vec3f spf90;
@@ -2462,9 +2456,10 @@ void func_i3_8018ED78(Player* player) {
     f32 sp84;
     Vec3f sp78;
     Vec3f sp6C;
-    s32 pad[2];
+    Actor* actor4 = &gActors[4];
+    s32 pad;
 
-    switch (player->unk_1D0) { /* irregular */
+    switch (player->unk_1D0) {
         case 0:
             gCsFrameCount = 0;
             player->unk_1D0 = 1;
@@ -2513,10 +2508,10 @@ void func_i3_8018ED78(Player* player) {
             D_801779C0 = gBosses[0].obj.pos.z + D_80177D20;
             D_80177A48[0] = 0.04f;
             if (gCsFrameCount == 140) {
-                func_i3_8018EA88(&gActors[4]);
+                func_i3_8018EA88(actor4);
                 func_i3_8018EA88(&gActors[5]);
                 func_i3_8018EA88(&gActors[6]);
-                gActors[4].fwork[4] = 0.5f;
+                actor4->fwork[4] = 0.5f;
             }
             if (gCsFrameCount >= 200) {
                 if (D_80178340 == 255) {
@@ -2536,33 +2531,34 @@ void func_i3_8018ED78(Player* player) {
             if ((gCsFrameCount == 146) || (gCsFrameCount == 150)) {
                 Audio_PlaySfx(0x2940F026, gActors[5].sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
-            if (gCsFrameCount >= 147) {
-                gActors[4].iwork[3] -= 4;
-                if (gActors[4].iwork[3] < 0) {
-                    gActors[4].iwork[3] = 0;
+            if (gCsFrameCount > 146) {
+                actor4->iwork[3] -= 4;
+                if (actor4->iwork[3] < 0) {
+                    actor4->iwork[3] = 0;
                 }
-                gActors[4].iwork[7] -= 4;
-                if (gActors[4].iwork[7] < 0) {
-                    gActors[4].iwork[7] = 0;
+                actor4->iwork[7] -= 4;
+                if (actor4->iwork[7] < 0) {
+                    actor4->iwork[7] = 0;
                 }
                 Math_SmoothStepToF(&gActors[5].fwork[4], 450.0f, 0.03f, 1000.0f, 1.0f);
                 Math_SmoothStepToF(&gActors[5].scale, 450.0f, 0.03f, 1000.0f, 1.0f);
             }
-            if (gCsFrameCount >= 161) {
+            if (gCsFrameCount > 160) {
                 Math_SmoothStepToF(&gActors[6].fwork[4], 350.0f, 0.03f, 1000.0f, 1.0f);
                 Math_SmoothStepToF(&gActors[6].scale, 350.0f, 0.03f, 1000.0f, 1.0f);
             }
-            if (gCsFrameCount >= 141) {
-                gActors[4].obj.pos.x = gActors[5].obj.pos.x = gActors[6].obj.pos.x = gBosses[0].obj.pos.x;
-                gActors[4].obj.pos.y = gActors[5].obj.pos.y = gActors[6].obj.pos.y = gBosses[0].obj.pos.y;
-                gActors[4].obj.pos.z = gActors[5].obj.pos.z = gActors[6].obj.pos.z = gBosses[0].obj.pos.z;
-                Math_SmoothStepToF(&gActors[4].scale, 600.0f, 0.03f, 1000.0f, 0.01f);
+            if (gCsFrameCount > 140) {
+                actor4->obj.pos.x = gActors[5].obj.pos.x = gActors[6].obj.pos.x = gBosses[0].obj.pos.x;
+                actor4->obj.pos.y = gActors[5].obj.pos.y = gActors[6].obj.pos.y = gBosses[0].obj.pos.y;
+                actor4->obj.pos.z = gActors[5].obj.pos.z = gActors[6].obj.pos.z = gBosses[0].obj.pos.z + 500.0f;
+                Math_SmoothStepToF(&actor4->scale, 600.0f, 0.03f, 1000.0f, 0.01f);
             }
             break;
         case 2:
             if (gCsFrameCount < 300) {
                 break;
             }
+
             if (gCsFrameCount == 300) {
                 player->unk_234 = 1;
                 player->pos.x = 0.0f;
@@ -2670,43 +2666,43 @@ void func_i3_8018ED78(Player* player) {
             }
             break;
     }
-    switch (gCsFrameCount) { /* switch 1; irregular */
-        case 380:            /* switch 1 */
+    switch (gCsFrameCount) {
+        case 380:
             func_8001D444(0, 38, 0, 255);
             break;
-        case 550: /* switch 1 */
+        case 550:
             D_80177840 = 100;
             break;
-        case 700: /* switch 1 */
+        case 700:
             D_80177830 = 1;
             break;
-        case 900: /* switch 1 */
+        case 900:
             D_80177830 = 0;
             break;
-        case 940: /* switch 1 */
+        case 940:
             Radio_PlayMessage(gMsg_ID_7093, RCID_FOX);
             break;
-        case 1070: /* switch 1 */
+        case 1070:
             gActors[1].fwork[29] = 5.0f;
             Audio_PlaySfx(0x09000002, gActors[1].sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             break;
-        case 1072: /* switch 1 */
+        case 1072:
             gActors[2].fwork[29] = 5.0f;
             Audio_PlaySfx(0x09000002, gActors[2].sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             break;
-        case 1074: /* switch 1 */
+        case 1074:
             gActors[3].fwork[29] = 5.0f;
             Audio_PlaySfx(0x09000002, gActors[3].sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             break;
     }
     if (gCsFrameCount >= 1070) {
-        Math_SmoothStepToF(&gActors[1].fwork[12], 50.0f, 0.1f, 1000.0f, 0.001f);
+        Math_SmoothStepToF(&gActors[1].fwork[0], 50.0f, 0.1f, 1000.0f, 0.001f);
     }
     if (gCsFrameCount >= 1072) {
-        Math_SmoothStepToF(&gActors[2].fwork[12], 50.0f, 0.1f, 1000.0f, 0.001f);
+        Math_SmoothStepToF(&gActors[2].fwork[0], 50.0f, 0.1f, 1000.0f, 0.001f);
     }
     if (gCsFrameCount >= 1074) {
-        Math_SmoothStepToF(&gActors[3].fwork[12], 50.0f, 0.1f, 1000.0f, 0.001f);
+        Math_SmoothStepToF(&gActors[3].fwork[0], 50.0f, 0.1f, 1000.0f, 0.001f);
     }
     if (gCsFrameCount >= 1076) {
         Math_SmoothStepToF(&player->unk_0D0, 50.0f, 0.1f, 1000.0f, 0.001f);
@@ -2732,7 +2728,3 @@ void func_i3_8018ED78(Player* player) {
     Math_SmoothStepToF(&player->camAt.y, D_801779B8, D_80177A48[0], 50000.0f, 0.0001f);
     Math_SmoothStepToF(&player->camAt.z, D_801779C0, D_80177A48[0], 50000.0f, 0.0001f);
 }
-#else
-void func_i3_8018ED78(Player* player);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_a6/func_i3_8018ED78.s")
-#endif
