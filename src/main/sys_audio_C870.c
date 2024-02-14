@@ -4,8 +4,6 @@ extern s32 D_800C7C30;
 extern s32 D_8014C1C0;
 extern s32 D_8014C1D0;
 
-void func_8000BF6C(s32* arg0, u8*, s32 arg2);
-
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000BC70.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000BD38.s")
@@ -16,7 +14,12 @@ void func_8000BF6C(s32* arg0, u8*, s32 arg2);
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000BF14.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000BF6C.s")
+void func_8000BF6C(s32* arg0, s32 arg1, s32 arg2) {
+    arg0[0] = (arg1 + 0xF) & ~0xF;
+    arg0[1] = (arg1 + 0xF) & ~0xF;
+    arg0[2] = arg2 - (arg1 & 0xF);
+    arg0[3] = 0;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000BF94.s")
 
