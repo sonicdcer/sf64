@@ -13,10 +13,6 @@
 #include "PR/ultratypes.h"
 #include "PR/guint.h"
 
-#define FTOFIX32(x) (long) ((x) * (float) 0x00010000)
-#define FIX32TOF(x) ((float) (x) * (1.0f / (float) 0x00010000))
-#define FTOFRAC8(x) ((int) MIN(((x) * (128.0f)), 127.0f) & 0xff)
-
 void guMtxF2L(float mf[4][4], Mtx* m) {
     int i, j;
     int e1, e2;

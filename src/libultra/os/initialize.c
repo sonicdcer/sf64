@@ -128,7 +128,7 @@ void INITIALIZE_FUNC() {
 
 #if BUILD_VERSION < VERSION_K && !defined(_FINALROM)
     if (!__kmc_pt_mode) {
-        int (*fnc)();
+        int (*fnc)(s32, s32);
 #if BUILD_VERSION < VERSION_J
         unsigned int c;
         unsigned int c1;

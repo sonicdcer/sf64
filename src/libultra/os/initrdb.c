@@ -19,7 +19,7 @@ void osInitRdb(u8* sendBuf, u32 sendSize) {
     }
     mask = __osDisableInt();
 
-    __osRdb_IP6_Data = sendBuf;
+    __osRdb_IP6_Data = (rdbPacket*) sendBuf;
     __osRdb_IP6_Size = sendSize;
     __osRdb_IP6_Ct = 0;
     __osRdb_IP6_CurWrite = 0;

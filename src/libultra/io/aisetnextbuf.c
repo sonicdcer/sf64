@@ -1,4 +1,7 @@
-#include "global.h"
+#include "PR/os_internal.h"
+#include "PR/ultraerror.h"
+#include "PR/rcp.h"
+#include "osint.h"
 
 s32 osAiSetNextBuffer(void* bufPtr, u32 size) {
     static u8 hdwrBugFlag = FALSE;
