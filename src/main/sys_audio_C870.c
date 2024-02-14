@@ -14,6 +14,19 @@ typedef struct {
     /* 0x2A */ s16 unk_2A;
 } UnkStruct_func_8000BFA8;
 
+typedef struct {
+    /* 0x00 */ char pad00;
+    /* 0x01 */ s8 unk_01;
+    /* 0x02 */ char pad[0x6];
+    /* 0x08 */ s32 unk_08;
+    /* 0x08 */ s32 unk_0C;
+} UnkStruct_8000E1C4_1;
+
+typedef struct {
+    /* 0x00 */ u8 unk_00;
+    /* 0x04 */ s32 unk_04;
+} UnkStruct_8000E1C4_2;
+
 extern s32 D_800C7C30;
 extern s32 D_8014C1C0;
 extern s32 D_8014C1D0;
@@ -100,7 +113,12 @@ void func_8000BFE8(s32 arg0) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000DFFC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000E1C4.s")
+void func_8000E1C4(UnkStruct_8000E1C4_1* arg0, UnkStruct_8000E1C4_2* arg1) {
+    if ((arg1 != NULL) && (arg1->unk_04 == arg0->unk_08)) {
+        arg1->unk_04 = arg0->unk_0C;
+        arg1->unk_00 = (((arg0->unk_01 & 0xFF) * 4) & 0xC) | (arg1->unk_00 & 0xFFF3);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000E208.s")
 
