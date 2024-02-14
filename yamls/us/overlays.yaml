@@ -218,12 +218,12 @@
 
   - name: fox_buffers
     type: code
-    dir: overlays/ovl_unused
+    dir: main
     start: 0xEFFB74
     vram: 0x80281000
     bss_size: 0x17F300
     exclusive_ram_id: buffers
     subsegments:
-    - { start: 0xEFFB74, type: .bss, vram: 0x80281000, name: buffers }
+    - { start: 0xEFFB74, type: .bss, vram: 0x80281000, name: fox_buffers }
 
   - [0xEFFB74]
