@@ -97,7 +97,7 @@ sRandSeed3 = 0x8013B3AC;
 sSeededRandSeed1 = 0x8013B3B0;
 sSeededRandSeed2 = 0x8013B3B4;
 
-// matrix 
+// matrix
 gIdentityMtx = 0x800C4620;
 gIdentityMatrix = 0x800C4660;
 gGfxMatrix = 0x8013B3C0;
@@ -105,18 +105,18 @@ sGfxMatrixStack = 0x8013B3C8;
 gCalcMatrix = 0x8013BBC8;
 sCalcMatrixStack = 0x8013BBD0;
 
-// memory 
+// memory
 sMemoryBuffer = 0x8013C3D0; // size:0x8800
 sMemoryPtr = 0x80144BD0;
 
 // thread 7
 sTimerTasks = 0x80144BE0;
 
-// save 
+// save
 gSaveIOBuffer = 0x80144F60;
 sPrevSaveData = 0x80145160;
 
-// fault 
+// fault
 gFaultMgr = 0x80145360; // size:0x9D8
 sFaultCharIndex = 0x800C46F0;
 sFaultCharPixelFlags = 0x800C4770;
