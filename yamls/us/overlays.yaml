@@ -215,5 +215,6 @@
     - [0xEFFA40, c, fox_unused]
     - [0xEFFA50, .data, fox_unused]
     - { start: 0xEFFAE0, type: .bss, vram: 0x801875C0, name: fox_unused }
+    - { start: 0xEFFB74, type: .bss, vram: 0x80281000, name: buffers }
 
-  - [0xEFFAE0]
+  - [0xEFFB74]
