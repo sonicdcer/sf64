@@ -1,5 +1,6 @@
 #include "global.h"
 
+extern f32 D_6006924[];
 extern Gfx D_3007E70[];
 extern Animation D_700C8D8;
 extern Limb* D_700C964[];
@@ -49,50 +50,26 @@ extern Limb* D_A000EDC[];
 extern Limb* D_A001A70[];
 extern Gfx D_Gfx_800D94D0[];
 
-extern f32 D_i5_801B7360[25][4];
-// static f32 D_i5_801B7360[25][4] = {
-//     { 165.0f, 120.0f, 0.0f, 90.0f },
-//     { 127.5f, 7.5f, 0.0f, 90.0f },
-//     { 7.5f, -112.5f, 0.0f, 90.0f },
-//     { 255.0f, 285.0f, -60.0f, 60.0f }, 
-//     { 255.0f, 285.0f, 60.0f, 60.0f }, 
-//     { 247.5f, 120.0f, -90.0f, 75.0f }, 
-//     { 247.5f, 120.0f, 90.0f, 75.0f }, 
-//     { 217.5f, -75.0f, -135.0f, 90.0f }, 
-//     { 217.5f, -75.0f, 135.0f, 90.0f }, 
-//     { 90.0f, -172.5f, -157.5f, 60.0f }, 
-//     { 90.0f, -172.5f, 157.5f, 60.0f }, 
-//     { 72.0f, 12.0f, -3.0f, 30.0f }, 
-//     { 124.5f, 12.0f, -3.0f, 22.5f }, 
-//     { 84.0f, 19.5f, -3.0f, 45.0f }, 
-//     { 72.0f, 12.0f, 3.0f, 37.5f }, 
-//     { 124.5f, 12.0f, 3.0f, 22.5f }, 
-//     { 84.0f, 19.5f, 3.0f, 45.0f }, 
-//     { 277.5f, -55.5f, -31.5f, 30.0f }, 
-//     { 187.5f, -63.0f, -33.0f, 45.0f }, 
-//     { 60.0f, -25.5f, -33.0f, 67.5f }, 
-//     { 117.0f, -3.0f, -18.0f, 45.0f }, 
-//     { 277.5f, -55.5f, 31.5f, 30.0f }, 
-//     { 187.5f, -63.0f, 33.0f, 45.0f }, 
-//     { 60.0f, -25.5f, 33.0f, 67.5f }, 
-//     { 117.0f, -3.0f, 18.0f, 45.0f }
-// };
+static f32 D_i5_801B7360[25][4] = {
+    { 165.0f, 120.0f, 0.0f, 90.0f },    { 127.5f, 7.5f, 0.0f, 90.0f },      { 7.5f, -112.5f, 0.0f, 90.0f },
+    { 255.0f, 285.0f, -60.0f, 60.0f },  { 255.0f, 285.0f, 60.0f, 60.0f },   { 247.5f, 120.0f, -90.0f, 75.0f },
+    { 247.5f, 120.0f, 90.0f, 75.0f },   { 217.5f, -75.0f, -135.0f, 90.0f }, { 217.5f, -75.0f, 135.0f, 90.0f },
+    { 90.0f, -172.5f, -157.5f, 60.0f }, { 90.0f, -172.5f, 157.5f, 60.0f },  { 72.0f, 12.0f, -3.0f, 30.0f },
+    { 124.5f, 12.0f, -3.0f, 22.5f },    { 84.0f, 19.5f, -3.0f, 45.0f },     { 72.0f, 12.0f, 3.0f, 37.5f },
+    { 124.5f, 12.0f, 3.0f, 22.5f },     { 84.0f, 19.5f, 3.0f, 45.0f },      { 277.5f, -55.5f, -31.5f, 30.0f },
+    { 187.5f, -63.0f, -33.0f, 45.0f },  { 60.0f, -25.5f, -33.0f, 67.5f },   { 117.0f, -3.0f, -18.0f, 45.0f },
+    { 277.5f, -55.5f, 31.5f, 30.0f },   { 187.5f, -63.0f, 33.0f, 45.0f },   { 60.0f, -25.5f, 33.0f, 67.5f },
+    { 117.0f, -3.0f, 18.0f, 45.0f }
+};
 
-extern u8 D_i5_801B74F0[9][3];
-// static u8 D_i5_801B74F0[9][3] = {
-//     { 13, 0, 11 },
-//     { 1, 11, 2 },
-//     { 2, 13, 1 },
-//     { 3, 14, 2 },
-//     { 4, 16, 1 },
-//     { 5, 17, 3 },
-//     { 6, 20, 1 },
-//     { 7, 21, 3 },
-//     { 8, 24, 1 },
-// };
+static u8 D_i5_801B74F0[9][3] = {
+    { 13, 0, 11 }, { 1, 11, 2 }, { 2, 13, 1 }, { 3, 14, 2 }, { 4, 16, 1 },
+    { 5, 17, 3 },  { 6, 20, 1 }, { 7, 21, 3 }, { 8, 24, 1 },
+};
 
-extern bool D_i5_801B750C[3];
-// static bool D_i5_801B750C[3] = { false, false, false };
+static bool D_i5_801B750C[3] = { false, false, false };
+
+static f32 D_i5_801B7518[2] = { 20.0f, 60.0f };
 
 extern u8 D_i5_801BA1E8;
 
@@ -117,7 +94,7 @@ void func_i5_80188F60(Effect* effect) {
 void func_i5_80188FA8(Effect* effect) {
 
     Matrix_Scale(gGfxMatrix, effect->scale2 * 0.5f, effect->scale2, effect->scale2, 1);
-    Matrix_RotateX(gGfxMatrix, - (M_DTOR * 90), 1);
+    Matrix_RotateX(gGfxMatrix, -(M_DTOR * 90), 1);
     Matrix_SetGfxMtx(&gMasterDisp);
     GSGM_BACK();
     GPC(255, 255, 255, effect->unk_44);
@@ -140,7 +117,7 @@ void func_i5_80189090(Effect* effect, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f3
 
 void func_i5_80189120(f32 x, f32 y, f32 z, f32 arg3, f32 arg4) {
     s32 i;
-    
+
     for (i = 50; i >= 0; i--) {
         if (gEffects[i].obj.status == 0) {
             func_i5_80189090(&gEffects[i], x, y, z, arg3, arg4);
@@ -153,11 +130,11 @@ void func_i5_80189194(Actor* actor) {
     func_i5_801B49D0(actor);
 }
 
-extern Vec3f D_i5_801B7520;
+static Vec3f D_i5_801B7520 = { -150.0f, 0.0f, 0.0f };
 
 void func_i5_801891B4(s32 limbIndex, Vec3f* rot, void* data) {
-    Actor* actor = (Actor*)data;
-    
+    Actor* actor = (Actor*) data;
+
     if (limbIndex == 2) {
         Matrix_MultVec3f(gCalcMatrix, &D_i5_801B7520, (Vec3f*) &actor->fwork[0]);
     }
@@ -230,8 +207,8 @@ void func_i5_80189380(Actor* actor) {
     func_8007EE68(0x161, &sp80, &sp74, &sp68, &sp5C, 1.0f);
 }
 
-extern Vec3f D_i5_801B752C;
-extern Vec3f D_i5_801B7538;
+static Vec3f D_i5_801B752C = { -50.0f, 0.0f, -20.0f };
+static Vec3f D_i5_801B7538 = { 50.0f, 0.0f, -20.0f };
 
 void func_i5_801895B8(Actor* actor) {
     Vec3f sp54;
@@ -295,9 +272,11 @@ void func_i5_801895B8(Actor* actor) {
         Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
         Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 1);
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i5_801B752C, &sp48);
-        func_i5_80189120(actor->obj.pos.x + sp48.x, actor->obj.pos.y + sp48.y, actor->obj.pos.z + sp48.z, actor->obj.pos.y, 1.3f);
+        func_i5_80189120(actor->obj.pos.x + sp48.x, actor->obj.pos.y + sp48.y, actor->obj.pos.z + sp48.z,
+                         actor->obj.pos.y, 1.3f);
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i5_801B7538, &sp48);
-        func_i5_80189120(actor->obj.pos.x + sp48.x, actor->obj.pos.y + sp48.y, actor->obj.pos.z + sp48.z, actor->obj.pos.y, 1.3f);
+        func_i5_80189120(actor->obj.pos.x + sp48.x, actor->obj.pos.y + sp48.y, actor->obj.pos.z + sp48.z,
+                         actor->obj.pos.y, 1.3f);
     }
     Math_SmoothStepToF(&actor->fwork[6], actor->fwork[7], 0.1f, 2.0f, 0.00001f);
     Matrix_Pop(&gCalcMatrix);
@@ -317,7 +296,8 @@ void func_i5_801895B8(Actor* actor) {
         func_80066254(actor);
         actor->info.bonus = 0;
         func_8007D2C8(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 8.0f);
-        func_8007C120(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, actor->vel.x, actor->vel.y, actor->vel.z, 0.1f, 0x1E);
+        func_8007C120(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, actor->vel.x, actor->vel.y,
+                      actor->vel.z, 0.1f, 0x1E);
         func_8007A6F0(&actor->obj.pos, 0x2903A008);
         Object_Kill(&actor->obj, actor->sfxPos);
     }
@@ -330,7 +310,7 @@ void func_i5_80189AFC(Actor* actor) {
     Animation_DrawSkeleton(1, D_700C964, actor->vwork, NULL, func_i5_801891B4, actor, &gIdentityMatrix);
 }
 
-extern Vec3f D_i5_801B7544;
+static Vec3f D_i5_801B7544 = { 0.0f, -50.0f, 178.0f };
 
 void func_i5_80189B80(Actor* actor) {
     f32 sp2C;
@@ -347,16 +327,11 @@ void func_i5_80189B80(Actor* actor) {
     actor->fwork[2] += actor->obj.pos.z;
 }
 
-#ifdef IMPORT_DATA
-extern f32 D_6006924[];
-
 void func_i5_80189CC8(Actor* actor) {
     static Vec3f D_i5_801B7550 = { 0.0f, -50.0f, 178.0f };
     static Vec3f D_i5_801B755C = { 0.0f, 0.0f, 90.0f };
     Vec3f sp64;
-    f32 sp60;
-    f32 sp5C;
-    f32 sp58;
+    Vec3f sp58;
     Vec3f sp4C;
     Vec3f sp40;
     f32 temp;
@@ -385,12 +360,12 @@ void func_i5_80189CC8(Actor* actor) {
             Matrix_RotateX(gCalcMatrix, -actor->obj.rot.x * M_DTOR, 1);
             Matrix_RotateY(gCalcMatrix, -actor->obj.rot.y * M_DTOR, 1);
             Matrix_MultVec3f(gCalcMatrix, &sp4C, &sp64);
-            sp58 = sp64.x - D_i5_801B7550.x;
-            sp5C = sp64.y - D_i5_801B7550.y;
-            sp60 = sp64.z - D_i5_801B7550.z;
-            temp = sqrtf(SQ(sp58) + SQ(sp60));
-            actor->fwork[5] = Math_RadToDeg(-Math_Atan2F(sp5C, temp));
-            actor->fwork[6] = Math_RadToDeg(Math_Atan2F(sp58, sp60));
+            sp58.x = sp64.x - D_i5_801B7550.x;
+            sp58.y = sp64.y - D_i5_801B7550.y;
+            sp58.z = sp64.z - D_i5_801B7550.z;
+            temp = sqrtf(SQ(sp58.x) + SQ(sp58.z));
+            actor->fwork[5] = Math_RadToDeg(-Math_Atan2F(sp58.y, temp));
+            actor->fwork[6] = Math_RadToDeg(Math_Atan2F(sp58.x, sp58.z));
             Math_SmoothStepToAngle(&actor->fwork[3], actor->fwork[5], 0.2f, 5.0f, 0.01f);
             Math_SmoothStepToAngle(&actor->fwork[4], actor->fwork[6], 0.2f, 5.0f, 0.01f);
 
@@ -417,7 +392,7 @@ void func_i5_80189CC8(Actor* actor) {
         sp40.z = 0.0f;
 
         if ((actor->timer_0BC < 15) && ((actor->timer_0BC % 7) == 0)) {
-            func_8007EE68(0x161, actor->fwork, &sp40, &actor->obj.rot, &D_i5_801B755C, 1.0f);
+            func_8007EE68(0x161, (Vec3f*) &actor->fwork[0], &sp40, &actor->obj.rot, &D_i5_801B755C, 1.0f);
             if (actor->timer_0BC == 0) {
                 actor->timer_0BC = 90;
             }
@@ -428,9 +403,6 @@ void func_i5_80189CC8(Actor* actor) {
         actor->timer_0C6 = 4;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/fox_ti/func_i5_80189CC8.s")
-#endif
 
 void func_i5_8018A1C0(Actor* actor) {
     GDL(D_700C4B0);
@@ -445,7 +417,20 @@ void func_i5_8018A1C0(Actor* actor) {
     }
 }
 
-extern f32 D_i5_801B7568[];
+static f32 D_i5_801B7568[7] = { 1.0f, 0.0f, 25.0f, 0.0f, 12.0f, 0.0f, 12.0f };
+extern Gfx D_700DDF0[];
+extern Gfx D_700D9B0[];
+extern Gfx D_700DF70[];
+extern Gfx D_700DC50[];
+extern Gfx D_700DED0[];
+extern Gfx D_700DAD0[];
+extern Gfx D_700DBB0[];
+extern Gfx D_700E030[];
+extern Gfx D_700D880[];
+extern Gfx D_700D740[];
+Gfx* D_i5_801B7584[10] = {
+    D_700DDF0, D_700D9B0, D_700DF70, D_700DC50, D_700DED0, D_700DAD0, D_700DBB0, D_700E030, D_700D880, D_700D740,
+}; // unused?
 
 void func_i5_8018A2E8(Actor* actor, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
 
@@ -467,7 +452,7 @@ void func_i5_8018A2E8(Actor* actor, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
 
 void func_i5_8018A3F4(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
     s32 i;
-    
+
     for (i = 0; i < ARRAY_COUNT(gActors); i++) {
         if (gActors[i].obj.status == 0) {
             func_i5_8018A2E8(&gActors[i], arg0, arg1, arg2, arg3, arg4, arg5);
@@ -481,7 +466,8 @@ void func_i5_8018A474(Actor* actor) {
     s32 i;
 
     for (i = 0; i < 4; i++) {
-        func_i5_8018A3F4(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, (Rand_ZeroOne() - 0.5f) * 40.0f, (Rand_ZeroOne() - 0.5f) * 40.0f, Rand_ZeroOne() * -20.0f);
+        func_i5_8018A3F4(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, (Rand_ZeroOne() - 0.5f) * 40.0f,
+                         (Rand_ZeroOne() - 0.5f) * 40.0f, Rand_ZeroOne() * -20.0f);
     }
 }
 
@@ -658,8 +644,8 @@ void func_i5_8018AB44(Actor* actor) {
     actor->unk_0D0 = 0;
 }
 
-extern Vec3f D_i5_801B75AC;
-extern Vec3f D_i5_801B75B8;
+static Vec3f D_i5_801B75AC = { -70.0f, 50.0f, 212.0f };
+static Vec3f D_i5_801B75B8 = { 70.0f, 50.0f, 212.0f };
 
 void func_i5_8018ADC4(Actor* actor) {
     Vec3f sp68[2];
@@ -702,7 +688,7 @@ void func_i5_8018ADC4(Actor* actor) {
     actor->health = 40;
     if (k < 2) {
         for (i = 0; i < k; i++) {
-                Object_Kill(&gActors[actor->iwork[k]].obj, gActors[actor->iwork[k]].sfxPos);
+            Object_Kill(&gActors[actor->iwork[k]].obj, gActors[actor->iwork[k]].sfxPos);
         }
         Object_Kill(&actor->obj, actor->sfxPos);
     }
@@ -725,14 +711,14 @@ bool func_i5_8018AFF0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
         GDL(*dList);
         RCP_SetupDL(&gMasterDisp, 0x1D);
         return true;
-    } 
+    }
     return false;
 }
 
-extern Vec3f D_i5_801B75C4;
+static Vec3f D_i5_801B75C4 = { 110.0f, 0.0f, 0.0f };
 
 void func_i5_8018B144(s32 limbIndex, Vec3f* rot, void* data) {
-    Actor* actor = (Actor*)data;
+    Actor* actor = (Actor*) data;
 
     switch (limbIndex) {
         case 2:
@@ -744,7 +730,9 @@ void func_i5_8018B144(s32 limbIndex, Vec3f* rot, void* data) {
     }
 }
 
-extern s16 D_i5_801B75D0[];
+static s16 D_i5_801B75D0[] = {
+    1, 2, 3, 4, 5, 6, 7, 10, 12, 13,
+};
 extern PosRot D_i5_801BDA30[];
 
 void func_i5_8018B1B4(s32 limbIndex, Vec3f* rot, void* data) {
@@ -770,7 +758,7 @@ void func_i5_8018B268(Actor* actor) {
 
     sp3C = actor->iwork[0];
     sp38 = actor->iwork[1];
-    
+
     if (actor->unk_0D0 > 0) {
         actor->unk_0D0 = 0;
         if (actor->health > 0) {
@@ -807,8 +795,8 @@ void func_i5_8018B268(Actor* actor) {
                     sp3C->vel.y = sp40.y;
                     sp3C->vel.z = sp40.z;
                     sp3C->unk_046 = 0;
-                    sp3C->iwork[0] = (uintptr_t)NULL;
-                    actor->iwork[0] = (uintptr_t)NULL;
+                    sp3C->iwork[0] = (uintptr_t) NULL;
+                    actor->iwork[0] = (uintptr_t) NULL;
                 }
                 sp4C.x = actor->fwork[3];
                 sp4C.y = actor->fwork[4] + 50.0f;
@@ -834,8 +822,8 @@ void func_i5_8018B268(Actor* actor) {
                     sp38->vel.y = sp40.y;
                     sp38->vel.z = sp40.z;
                     sp38->unk_046 = 0;
-                    sp38->iwork[0] = (uintptr_t)NULL;
-                    actor->iwork[1] = (uintptr_t)NULL;
+                    sp38->iwork[0] = (uintptr_t) NULL;
+                    actor->iwork[1] = (uintptr_t) NULL;
                 }
                 sp4C.x = actor->fwork[6];
                 sp4C.y = actor->fwork[7] + 50.0f;
@@ -864,8 +852,8 @@ void func_i5_8018B268(Actor* actor) {
 }
 
 void func_i5_8018B6AC(Actor* actor) {
-    Animation_GetFrameData(&D_700D534, actor->unk_0B6,  actor->vwork);
-    Animation_DrawSkeleton(0, D_700D700,  actor->vwork, func_i5_8018AFF0, func_i5_8018B144, actor, &gIdentityMatrix);
+    Animation_GetFrameData(&D_700D534, actor->unk_0B6, actor->vwork);
+    Animation_DrawSkeleton(0, D_700D700, actor->vwork, func_i5_8018AFF0, func_i5_8018B144, actor, &gIdentityMatrix);
 }
 
 extern PosRot D_i5_801BDA30[];
@@ -902,15 +890,15 @@ void func_i5_8018B720(Actor* actor) {
     }
     actorPtr = actor->iwork[0];
     if (actorPtr != NULL) {
-        actorPtr->iwork[0] = (uintptr_t)NULL;
-        actor->iwork[0] = (uintptr_t)NULL;
+        actorPtr->iwork[0] = (uintptr_t) NULL;
+        actor->iwork[0] = (uintptr_t) NULL;
         actorPtr->unk_046 = 0;
     }
     actorPtr = actor->iwork[1];
     if (actorPtr != NULL) {
         actorPtr->unk_046 = 0;
-        actorPtr->iwork[0] = (uintptr_t)NULL;
-        actor->iwork[1] = (uintptr_t)NULL;
+        actorPtr->iwork[0] = (uintptr_t) NULL;
+        actor->iwork[1] = (uintptr_t) NULL;
     }
     Object_Kill(&actor->obj, actor->sfxPos);
 }
@@ -1023,7 +1011,25 @@ void func_i5_8018B9D0(Actor* actor) {
     }
 }
 
-extern s32 D_i5_801B75E4[3][3];
+static s32 D_i5_801B75E4[3][3] = {
+    { 15, 255, 255 },
+    { 0, 255, 0 },
+    { 0, 0, 0 },
+};
+
+extern Gfx D_7005280[];
+extern Gfx D_7003C50[];
+extern Gfx D_7003E30[];
+extern Gfx D_7004370[];
+extern Gfx D_7004560[];
+extern Gfx D_7003A90[];
+extern Gfx D_7005420[];
+extern Gfx D_7003FC0[];
+extern Gfx D_7002930[];
+
+Gfx* D_i5_801B7608[10] = {
+    D_7005280, D_7003C50, D_7003E30, D_7004370, D_7004560, D_7003A90, D_7005420, D_7003FC0, D_7002930, D_7002490,
+};
 
 void func_i5_8018BE84(Actor* actor) {
     s32 index;
@@ -1051,7 +1057,6 @@ void func_i5_8018BFB0(Actor* actor) {
     s32 temp_a2;
     s32 i;
 
-
     for (i = 0; i < 3; i++) {
         if (!D_i5_801B750C[i]) {
             D_i5_801B750C[i] = true;
@@ -1063,7 +1068,7 @@ void func_i5_8018BFB0(Actor* actor) {
         Object_Kill(&actor->obj, actor->sfxPos);
         return;
     }
-    
+
     temp_a2 = actor->iwork[0];
     actor->info.hitbox = D_i5_801BDB20[temp_a2];
     actor->health = 80;
@@ -1071,7 +1076,8 @@ void func_i5_8018BFB0(Actor* actor) {
     temp_a1 = D_i5_801BD738[temp_a2];
 
     for (i = 0; i < 9; i++) {
-        temp_a1[i].unk_00.pos.x = temp_a1[i].unk_00.pos.y = temp_a1[i].unk_00.pos.z = temp_a1[i].unk_00.rot.x = temp_a1[i].unk_00.rot.y = temp_a1[i].unk_00.rot.z = 0.0f;
+        temp_a1[i].unk_00.pos.x = temp_a1[i].unk_00.pos.y = temp_a1[i].unk_00.pos.z = temp_a1[i].unk_00.rot.x =
+            temp_a1[i].unk_00.rot.y = temp_a1[i].unk_00.rot.z = 0.0f;
         temp_a1[i].unk_18 = 0;
     }
 }
@@ -1086,11 +1092,14 @@ typedef struct {
     char pad02[0x1A];
 } UnkStruct_i5_801BD750;
 
-extern s16 D_i5_801B7630[];
+static s16 D_i5_801B7630[18] = {
+    1, 0, 2, 1, 3, 0, 4, 1, 5, 1, 6, 0, 7, 1, 8, 0, 13, 1,
+};
+
 extern UnkStruct_i5_801BD750 D_i5_801BD750[][9];
 
 bool func_i5_8018C134(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
-    Actor* actor = (Actor*)data;
+    Actor* actor = (Actor*) data;
     s32 sp58;
     s32 i;
     s32 sp50;
@@ -1120,23 +1129,23 @@ bool func_i5_8018C134(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
             }
         }
     }
-    
+
     return sp58;
 }
 
 extern UnkStruct_i5_801BD750 D_i5_801BD830[][9];
 
 void func_i5_8018C370(s32 limbIndex, Vec3f* rot, void* data) {
-    Actor* actor = (Actor*)data;
+    Actor* actor = (Actor*) data;
 
     if ((limbIndex == 13) && !(D_i5_801BD830[actor->iwork[0]][0].unk_00 & 1)) {
         GDL(D_7002490);
     }
 }
 
-extern s16 D_i5_801B7630[];
-extern Vec3f D_i5_801B7654;
-extern Vec3f D_i5_801B7660;
+static Vec3f D_i5_801B7654 = { 387.0f, 0.0f, 0.0f };
+static Vec3f D_i5_801B7660 = { 199.5f, 0.0f, 0.0f };
+
 extern UnkStruct_i5_801BD738 D_i5_801BD738[][9];
 extern UnkStruct_i5_801BD738 D_i5_801BD81C[][9];
 
@@ -1150,7 +1159,7 @@ void func_i5_8018C3D8(s32 limbIndex, Vec3f* rot, void* data) {
     f32* var_v0_2;
     f32* var_s0_2;
     s32 temp;
-    Actor* actor = (Actor*)data;
+    Actor* actor = (Actor*) data;
 
     var_s0 = D_i5_801BD738[actor->iwork[0]];
     var_s0[8].unk_18 |= 2;
@@ -1225,7 +1234,6 @@ void func_i5_8018C3D8(s32 limbIndex, Vec3f* rot, void* data) {
                 break;
             }
             var_v0_2 += var_t0 * 6;
-
         }
     } else {
         var_v0_2[0] = 0.0f;
@@ -1242,7 +1250,7 @@ void func_i5_8018C72C(Actor* actor) {
     for (i = 0; i < 9; i++) {
         D_i5_801BD738[actor->iwork[0]][i].unk_18 |= 2;
     }
-    
+
     sp30 = actor->vwork[0].y;
     actor->vwork[0].y += actor->fwork[26];
     Animation_DrawSkeleton(0, D_7006990, actor->vwork, func_i5_8018C118, func_i5_8018C3D8, actor, &gIdentityMatrix);
@@ -1251,8 +1259,8 @@ void func_i5_8018C72C(Actor* actor) {
     actor->iwork[8] = 0;
 }
 
-extern s16 D_i5_801B7632[];
-extern Vec3f D_i5_801B766C;
+static Vec3f D_i5_801B766C = { 0.0f, 0.0f, 15.0f };
+
 #ifdef NON_EQUIVALENT
 // strange section on lines 113-118 in scratch
 // https://decomp.me/scratch/EoG59
@@ -1335,7 +1343,8 @@ void func_i5_8018C8A8(Actor* actor) {
             actor->vel.y = 20.0f;
             actor->vel.z = -70.0f;
             Animation_GetFrameData(&D_700733C, 0, actor->vwork);
-            Animation_DrawSkeleton(1, D_7006990, actor->vwork, func_i5_8018C118, func_i5_8018C3D8, actor, &gIdentityMatrix);
+            Animation_DrawSkeleton(1, D_7006990, actor->vwork, func_i5_8018C118, func_i5_8018C3D8, actor,
+                                   &gIdentityMatrix);
             actor->state = 1;
             break;
         case 1:
@@ -1345,7 +1354,8 @@ void func_i5_8018C8A8(Actor* actor) {
             actor->fwork[2] = sp98;
             Animation_GetFrameData(&D_700733C, 0, spA4);
             Math_SmoothStepToVec3fArray(spA4, actor->vwork, 1, 15, 0.2f, 10.0f, 0.01f);
-            Animation_DrawSkeleton(1, D_7006990, actor->vwork, func_i5_8018C118, func_i5_8018C3D8, actor, &gIdentityMatrix);
+            Animation_DrawSkeleton(1, D_7006990, actor->vwork, func_i5_8018C118, func_i5_8018C3D8, actor,
+                                   &gIdentityMatrix);
             if (actor->obj.pos.z <= gPlayer[0].pos.z) {
                 Math_SmoothStepToAngle(&actor->obj.rot.y, actor->unk_0F4.y, 0.2f, 10.0f, 0.01f);
             }
@@ -1357,8 +1367,10 @@ void func_i5_8018C8A8(Actor* actor) {
                 actor->gravity = 0.0f;
                 actor->vel.x = actor->vel.y = actor->vel.z = 0.0f;
                 actor->timer_0BC = 10;
-                func_8007A900(actor->obj.pos.x + actor->fwork[6], actor->obj.pos.y + actor->fwork[7] + actor->fwork[26], actor->obj.pos.z + actor->fwork[8], 20.0f, 0xFF, 8, 0);
-                func_8007A900(actor->obj.pos.x + actor->fwork[3], actor->obj.pos.y + actor->fwork[4] + actor->fwork[26], actor->obj.pos.z + actor->fwork[5], 20.0f, 0xFF, 8, 0);
+                func_8007A900(actor->obj.pos.x + actor->fwork[6], actor->obj.pos.y + actor->fwork[7] + actor->fwork[26],
+                              actor->obj.pos.z + actor->fwork[8], 20.0f, 0xFF, 8, 0);
+                func_8007A900(actor->obj.pos.x + actor->fwork[3], actor->obj.pos.y + actor->fwork[4] + actor->fwork[26],
+                              actor->obj.pos.z + actor->fwork[5], 20.0f, 0xFF, 8, 0);
                 temp_fv0 = fabsf(sp88);
                 if (temp_fv0 < 5000.0f) {
                     actor->iwork[4] = (s32) (temp_fv0 / 200.0f);
@@ -1370,19 +1382,19 @@ void func_i5_8018C8A8(Actor* actor) {
             Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 0);
             Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 1);
             Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 1);
-            Matrix_MultVec3f(gCalcMatrix, (Vec3f* ) &actor->fwork[12], &sp8C);
+            Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &actor->fwork[12], &sp8C);
             actor->fwork[12] = sp8C.x;
             actor->fwork[13] = sp8C.y;
             actor->fwork[14] = sp8C.z;
-            Matrix_MultVec3f(gCalcMatrix, (Vec3f* ) &actor->fwork[9], &sp8C);
+            Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &actor->fwork[9], &sp8C);
             actor->fwork[9] = sp8C.x;
             actor->fwork[10] = sp8C.y;
             actor->fwork[11] = sp8C.z;
-            Matrix_MultVec3f(gCalcMatrix, (Vec3f* ) &actor->fwork[3], &sp8C);
+            Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &actor->fwork[3], &sp8C);
             actor->fwork[3] = sp8C.x;
             actor->fwork[4] = sp8C.y;
             actor->fwork[5] = sp8C.z;
-            Matrix_MultVec3f(gCalcMatrix, (Vec3f* ) &actor->fwork[6], &sp8C);
+            Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &actor->fwork[6], &sp8C);
             actor->fwork[6] = sp8C.x;
             actor->fwork[7] = sp8C.y;
             actor->fwork[8] = sp8C.z;
@@ -1397,7 +1409,8 @@ void func_i5_8018C8A8(Actor* actor) {
             Math_SmoothStepToVec3fArray(spA4, actor->vwork, 1, 15, 0.5f, 7.0, 0.1f);
             temp_fs0 = actor->vwork[0].y;
             actor->vwork[0].y += actor->fwork[26];
-            Animation_DrawSkeleton(0, D_7006990, actor->vwork, func_i5_8018C118, func_i5_8018C3D8, actor, &gIdentityMatrix);
+            Animation_DrawSkeleton(0, D_7006990, actor->vwork, func_i5_8018C118, func_i5_8018C3D8, actor,
+                                   &gIdentityMatrix);
             actor->vwork[0].y = temp_fs0;
             actor->fwork[15] = 0.0f;
             if (actor->timer_0BC == 0) {
@@ -1415,7 +1428,8 @@ void func_i5_8018C8A8(Actor* actor) {
             Math_SmoothStepToVec3fArray(spA4, actor->vwork, 1, 0xF, 0.1f, 3.0f, 0.01f);
             temp_fs0 = actor->vwork[0].y;
             actor->vwork[0].y += actor->fwork[26];
-            Animation_DrawSkeleton(0, D_7006990, actor->vwork, func_i5_8018C118, func_i5_8018C3D8, actor, &gIdentityMatrix);
+            Animation_DrawSkeleton(0, D_7006990, actor->vwork, func_i5_8018C118, func_i5_8018C3D8, actor,
+                                   &gIdentityMatrix);
             actor->vwork[0].y = temp_fs0;
             actor->fwork[15] = 0.0f;
             Math_SmoothStepToF(&actor->fwork[26], -60.0f, 0.0f, 500.0f, 0.01f);
@@ -1467,7 +1481,8 @@ void func_i5_8018C8A8(Actor* actor) {
             Math_SmoothStepToVec3fArray(spA4, actor->vwork, 1, 15, actor->fwork[15], 360.0f, 0.01f);
             temp_fs0 = actor->vwork[0].y;
             actor->vwork[0].y += actor->fwork[26];
-            Animation_DrawSkeleton(0, D_7006990, actor->vwork, func_i5_8018C118, func_i5_8018C3D8, actor, &gIdentityMatrix);
+            Animation_DrawSkeleton(0, D_7006990, actor->vwork, func_i5_8018C118, func_i5_8018C3D8, actor,
+                                   &gIdentityMatrix);
             actor->vwork[0].y = temp_fs0;
             Math_SmoothStepToF(&actor->fwork[26], -60.0f, actor->fwork[15], 500.0f, 0.01f);
             if (actor->health <= 0) {
@@ -1486,7 +1501,8 @@ void func_i5_8018C8A8(Actor* actor) {
             Math_SmoothStepToF(&actor->fwork[26], -40.0f, actor->fwork[15], 500.0f, 0.01f);
             temp_fs0 = actor->vwork[0].y;
             actor->vwork[0].y += actor->fwork[26];
-            Animation_DrawSkeleton(0, D_7006990, actor->vwork, func_i5_8018C118, func_i5_8018C3D8, actor, &gIdentityMatrix);
+            Animation_DrawSkeleton(0, D_7006990, actor->vwork, func_i5_8018C118, func_i5_8018C3D8, actor,
+                                   &gIdentityMatrix);
             actor->vwork[0].y = temp_fs0;
             actor->unk_0B6++;
             if (actor->unk_0B6 >= Animation_GetFrameCount(&D_7007130)) {
@@ -1508,36 +1524,41 @@ void func_i5_8018C8A8(Actor* actor) {
             Math_SmoothStepToVec3fArray(spA4, actor->vwork, 1, 15, actor->fwork[15], 360.0f, 0.01f);
             temp_fs0 = actor->vwork[0].y;
             actor->vwork[0].y += actor->fwork[26];
-            Animation_DrawSkeleton(0, D_7006990, actor->vwork, func_i5_8018C118, func_i5_8018C3D8, actor, &gIdentityMatrix);
+            Animation_DrawSkeleton(0, D_7006990, actor->vwork, func_i5_8018C118, func_i5_8018C3D8, actor,
+                                   &gIdentityMatrix);
             actor->vwork[0].y = temp_fs0;
             if (actor->unk_0B6 == 0x15) {
                 Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
                 Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
                 Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 1);
-                Matrix_MultVec3f(gCalcMatrix, (Vec3f* ) &actor->fwork[12], &sp158);
-                func_8007A900(actor->obj.pos.x + sp158.x, actor->obj.pos.y + sp158.y, actor->obj.pos.z + sp158.z, 20.0f, 0xFF, 8, 0);
-                Matrix_MultVec3f(gCalcMatrix, (Vec3f* ) &actor->fwork[9], &sp158);
-                func_8007A900(actor->obj.pos.x + sp158.x, actor->obj.pos.y + sp158.y, actor->obj.pos.z + sp158.z, 20.0f, 0xFF, 8, 0);
-                Matrix_MultVec3f(gCalcMatrix, (Vec3f* ) &actor->fwork[3], &sp158);
-                func_8007A900(actor->obj.pos.x + sp158.x, actor->obj.pos.y + sp158.y, actor->obj.pos.z + sp158.z, 20.0f, 0xFF, 8, 0);
-                Matrix_MultVec3f(gCalcMatrix, (Vec3f* ) &actor->fwork[6], &sp158);
-                func_8007A900(actor->obj.pos.x + sp158.x, actor->obj.pos.y + sp158.y, actor->obj.pos.z + sp158.z, 20.0f, 0xFF, 8, 0);
+                Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &actor->fwork[12], &sp158);
+                func_8007A900(actor->obj.pos.x + sp158.x, actor->obj.pos.y + sp158.y, actor->obj.pos.z + sp158.z, 20.0f,
+                              0xFF, 8, 0);
+                Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &actor->fwork[9], &sp158);
+                func_8007A900(actor->obj.pos.x + sp158.x, actor->obj.pos.y + sp158.y, actor->obj.pos.z + sp158.z, 20.0f,
+                              0xFF, 8, 0);
+                Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &actor->fwork[3], &sp158);
+                func_8007A900(actor->obj.pos.x + sp158.x, actor->obj.pos.y + sp158.y, actor->obj.pos.z + sp158.z, 20.0f,
+                              0xFF, 8, 0);
+                Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &actor->fwork[6], &sp158);
+                func_8007A900(actor->obj.pos.x + sp158.x, actor->obj.pos.y + sp158.y, actor->obj.pos.z + sp158.z, 20.0f,
+                              0xFF, 8, 0);
                 Audio_PlaySfx(0x19030003, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
             if (!(actor->timer_0BC & 7)) {
                 Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
                 Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
                 Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 1);
-                Matrix_MultVec3f(gCalcMatrix, (Vec3f* ) &actor->fwork[0xC], &sp158);
+                Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &actor->fwork[0xC], &sp158);
                 func_8007D2C8(actor->obj.pos.x + sp158.x, actor->obj.pos.y + sp158.y, actor->obj.pos.z + sp158.z, 1.5f);
-                Matrix_MultVec3f(gCalcMatrix, (Vec3f* ) &actor->fwork[9], &sp158);
+                Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &actor->fwork[9], &sp158);
                 func_8007D2C8(actor->obj.pos.x + sp158.x, actor->obj.pos.y + sp158.y, actor->obj.pos.z + sp158.z, 1.5f);
-                Matrix_MultVec3f(gCalcMatrix, (Vec3f* ) &actor->fwork[3], &sp158);
+                Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &actor->fwork[3], &sp158);
                 func_8007D2C8(actor->obj.pos.x + sp158.x, actor->obj.pos.y + sp158.y, actor->obj.pos.z + sp158.z, 1.5f);
-                Matrix_MultVec3f(gCalcMatrix, (Vec3f* ) &actor->fwork[6], &sp158);
+                Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &actor->fwork[6], &sp158);
                 func_8007D2C8(actor->obj.pos.x + sp158.x, actor->obj.pos.y + sp158.y, actor->obj.pos.z + sp158.z, 1.5f);
             }
-            
+
             if (actor->unk_0B6 < (Animation_GetFrameCount(&D_7006F74) - 1)) {
                 actor->unk_0B6++;
             } else {
@@ -1564,7 +1585,7 @@ void func_i5_8018C8A8(Actor* actor) {
                     var_s1 = D_i5_801BD738[actor->iwork[0]];
                     for (i = 0; i < 9; i++, var_s1++) {
                         actorPtr = func_800A3608(0xBD);
-                        if ((actorPtr != NULL) && D_i5_801B7632[2 * i] == 1) {
+                        if ((actorPtr != NULL) && D_i5_801B7630[2 * i + 1] == 1) {
                             actorPtr->state = 0x2F;
                             actorPtr->unk_048 = i;
                             Matrix_MultVec3f(gCalcMatrix, &var_s1->unk_00.pos, &sp158);
@@ -1576,14 +1597,17 @@ void func_i5_8018C8A8(Actor* actor) {
                             actorPtr->obj.rot.z = var_s1->unk_00.rot.z + actor->obj.rot.z;
                             sp170 = Math_Atan2F(var_s1->unk_00.pos.z, var_s1->unk_00.pos.x);
                             actorPtr->vel.x = __sinf(sp170) * ((Rand_ZeroOne() * 5.0f) + 7.0f);
-                            actorPtr->vel.z =  __cosf(sp170) * ((Rand_ZeroOne() * 5.0f) + 7.0f);
+                            actorPtr->vel.z = __cosf(sp170) * ((Rand_ZeroOne() * 5.0f) + 7.0f);
                             actorPtr->vel.y = (Rand_ZeroOne() * 10.0f) + 7.0f;
                             actorPtr->iwork[0] = 1;
                             actorPtr->iwork[1] = 1;
                             if (i != 8) {
-                                actorPtr->fwork[0] = ((Rand_ZeroOne() < 0.5f) ? -1.0f : 1.0f) * ((Rand_ZeroOne() * 3.0f) + 4.0f);
-                                actorPtr->fwork[1] =((Rand_ZeroOne() < 0.5f) ? -1.0f : 1.0f) * ((Rand_ZeroOne() * 3.0f) + 4.0f);
-                                actorPtr->fwork[2] = ((Rand_ZeroOne() < 0.5f) ? -1.0f : 1.0f) * ((Rand_ZeroOne() * 3.0f) + 4.0f);
+                                actorPtr->fwork[0] =
+                                    ((Rand_ZeroOne() < 0.5f) ? -1.0f : 1.0f) * ((Rand_ZeroOne() * 3.0f) + 4.0f);
+                                actorPtr->fwork[1] =
+                                    ((Rand_ZeroOne() < 0.5f) ? -1.0f : 1.0f) * ((Rand_ZeroOne() * 3.0f) + 4.0f);
+                                actorPtr->fwork[2] =
+                                    ((Rand_ZeroOne() < 0.5f) ? -1.0f : 1.0f) * ((Rand_ZeroOne() * 3.0f) + 4.0f);
                             } else {
                                 actorPtr->fwork[0] = ((Rand_ZeroOne() < 0.5f) ? -1.0f : 1.0f) * (Rand_ZeroOne() + 0.5f);
                                 actorPtr->fwork[1] = ((Rand_ZeroOne() < 0.5f) ? -1.0f : 1.0f) * (Rand_ZeroOne() + 0.5f);
@@ -1629,7 +1653,7 @@ void func_i5_8018C8A8(Actor* actor) {
             }
             break;
     }
-    
+
     if (actor->health > 0) {
         actor->info.unk_1C = actor->fwork[27];
     } else {
@@ -1660,8 +1684,8 @@ void func_i5_8018E3B0(Actor* actor) {
     D_i5_801B750C[actor->iwork[0]] = false;
 }
 
-extern f32 D_i5_801B7518[];
-extern Vec3f D_i5_801B7678;
+static Vec3f D_i5_801B7678 = { 0.0f, 388.0f, 103.0f };
+static Vec3f D_i5_801B7684 = { 0.0f, 0.0f, 0.0f }; // unused
 
 void func_i5_8018E3CC(Actor* actor) {
     Actor* var_s0;
@@ -1697,9 +1721,9 @@ void func_i5_8018E3CC(Actor* actor) {
 }
 
 void func_i5_8018E54C(Actor* actor) {
-    
+
     actor->iwork[1]++;
-    if ((actor->iwork[0] == (uintptr_t)NULL) && !(actor->iwork[1] & 3)) {
+    if ((actor->iwork[0] == (uintptr_t) NULL) && !(actor->iwork[1] & 3)) {
         func_8007C120(actor->fwork[0], actor->fwork[1], actor->fwork[2], 0.0f, 0.0f, 0.0f, 0.0625f, 10);
     }
 }
@@ -1844,7 +1868,7 @@ void func_i5_8018E5F8(Actor* actor) {
                     actor->info.unk_1C = 0.0f;
                     func_80066254(actor);
                     actor->info.bonus = 0;
-                    ((Actor*)actor->iwork[4])->iwork[0] = 0;
+                    ((Actor*) actor->iwork[4])->iwork[0] = 0;
                     actor->iwork[5] = 0;
                     actor->state = 2;
                 }
@@ -1861,7 +1885,6 @@ void func_i5_8018E5F8(Actor* actor) {
         }
     }
 
-
     sp68 = (actor->fwork[3] - actor->fwork[0]) / 3000.0f;
     sp64 = (actor->fwork[4] - actor->fwork[1]) / 3000.0f;
     sp60 = (actor->fwork[5] - actor->fwork[2]) / 3000.0f;
@@ -1869,7 +1892,7 @@ void func_i5_8018E5F8(Actor* actor) {
     sp44 = actor->obj.pos.y + actor->fwork[1];
     sp48 = actor->obj.pos.z + actor->fwork[2];
 
-    for (i = 0; i <= 3000; i+=50) {
+    for (i = 0; i <= 3000; i += 50) {
         sp5C = (sp68 * i) + sp40;
         sp54 = (sp60 * i) + sp48;
         func_i5_801B6E20(sp5C, sp54 + D_80177D20, &sp74, &sp70, &sp6C);
@@ -1877,7 +1900,7 @@ void func_i5_8018E5F8(Actor* actor) {
             break;
         }
     }
-   
+
     if (actor->iwork[2] == 0) {
         index = actor->iwork[3] - 1;
         gUnkEntities30[index].mode = 0x65;
@@ -1957,7 +1980,9 @@ void func_i5_8018EFF0(Object_4C* obj4C) {
 }
 
 void func_i5_8018F038(Object_4C* obj4C) {
-    obj4C->obj.rot.y = Math_Atan2F(gPlayer[0].camEye.x - obj4C->obj.pos.x, gPlayer[0].camEye.z - (obj4C->obj.pos.z + D_80177D20)) * M_RTOD;
+    obj4C->obj.rot.y =
+        Math_Atan2F(gPlayer[0].camEye.x - obj4C->obj.pos.x, gPlayer[0].camEye.z - (obj4C->obj.pos.z + D_80177D20)) *
+        M_RTOD;
     if (obj4C->unk_46 != 0) {
         func_8007D074(obj4C->obj.pos.x, obj4C->obj.pos.y + 96.0f, obj4C->obj.pos.z, 4.0f);
         obj4C->obj.status = 0;
@@ -1978,7 +2003,52 @@ void func_i5_8018F0D8(Object_80* obj80) {
     obj80->vel.z = obj80->obj.pos.x;
 }
 
-extern Vec3f D_i5_801B7690;
+static Vec3f D_i5_801B7690 = { 0.0f, 460.0f, 0.0f };
+
+extern Gfx D_7009700[];
+extern Gfx D_7004E80[];
+extern Gfx D_70049C0[];
+extern Gfx D_70045D0[];
+extern Gfx D_A001FA0[];
+extern Gfx D_900FE80[];
+extern Gfx D_80018D0[];
+extern Gfx D_9005450[];
+extern Gfx D_8009000[];
+extern Gfx D_A002170[];
+extern Gfx D_8001FB0[];
+extern Gfx D_90058A0[];
+extern Gfx D_90042A0[];
+extern Gfx D_90043D0[];
+extern Gfx D_90044E0[];
+extern Gfx D_90045F0[];
+extern Gfx D_80020D0[];
+extern Gfx D_7003F00[];
+extern Gfx D_8001D20[];
+extern Gfx D_8001E20[];
+extern Gfx D_80011C0[];
+extern Gfx D_8002360[];
+extern Gfx D_90051C0[];
+extern Gfx D_8003640[];
+extern Gfx D_900FC60[];
+extern Gfx D_900FD70[];
+extern Gfx D_9005600[];
+extern Gfx D_8001630[];
+extern Gfx D_80014A0[];
+extern Gfx D_9005040[];
+extern Gfx D_7004400[];
+extern Gfx D_7009890[];
+extern Gfx D_8001A80[];
+extern Gfx D_A001DB0[];
+extern Gfx D_A001EC0[];
+extern Gfx D_A001BE0[];
+extern Gfx D_7004270[];
+
+Gfx* D_i5_801B769C[39] = {
+    D_7009700, D_7004E80, D_70049C0, D_70045D0, D_A001FA0, D_900FE80, D_80018D0, D_9005450, NULL,      D_8009000,
+    D_A002170, D_8001FB0, D_90058A0, D_90042A0, D_90043D0, D_90044E0, D_90045F0, D_80020D0, D_7003F00, D_8001D20,
+    D_8001E20, NULL,      D_80011C0, D_8002360, D_90051C0, D_8003640, D_900FC60, D_900FD70, D_9005600, D_8001630,
+    D_80014A0, D_9005040, D_7004400, D_7009890, D_8001A80, D_A001DB0, D_A001EC0, D_A001BE0, D_7004270,
+};
 
 void func_i5_8018F134(Object_80* obj80) {
     Vec3f sp7C;
@@ -1993,7 +2063,8 @@ void func_i5_8018F134(Object_80* obj80) {
             if ((obj80->obj.rot.y <= 30.0f) || (obj80->obj.rot.y >= 330.0f)) {
                 for (*j = -80.0f; *j <= 80.0f; *j += 40.0f) {
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i5_801B7690, &sp70);
-                    func_8007A900(obj80->obj.pos.x + sp70.x, obj80->obj.pos.y + sp70.y, obj80->obj.pos.z + sp70.z, 10.0f, 0xFF, 15, 0);
+                    func_8007A900(obj80->obj.pos.x + sp70.x, obj80->obj.pos.y + sp70.y, obj80->obj.pos.z + sp70.z,
+                                  10.0f, 0xFF, 15, 0);
                 }
             } else {
                 sp7C.z = 0.0f;
@@ -2007,7 +2078,8 @@ void func_i5_8018F134(Object_80* obj80) {
                     Matrix_RotateX(gCalcMatrix, obj80->obj.rot.x * M_DTOR, 1);
                     sp7C.y = i;
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp7C, &sp70);
-                    func_8007A900(obj80->obj.pos.x + sp70.x, obj80->obj.pos.y + sp70.y, obj80->obj.pos.z + sp70.z, 10.0f, 0xFF, 15, 0);
+                    func_8007A900(obj80->obj.pos.x + sp70.x, obj80->obj.pos.y + sp70.y, obj80->obj.pos.z + sp70.z,
+                                  10.0f, 0xFF, 15, 0);
                 }
             }
             break;
@@ -2018,7 +2090,8 @@ void func_i5_8018F134(Object_80* obj80) {
             for (i = 0.0f; i <= 450.0f; i += 50.0f) {
                 sp7C.y = i;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp7C, &sp70);
-                func_8007A900(obj80->obj.pos.x + sp70.x, obj80->obj.pos.y + sp70.y, obj80->obj.pos.z + sp70.z, 10.0f, 0xFF, 15, 0);
+                func_8007A900(obj80->obj.pos.x + sp70.x, obj80->obj.pos.y + sp70.y, obj80->obj.pos.z + sp70.z, 10.0f,
+                              0xFF, 15, 0);
             }
             break;
     }
@@ -2098,30 +2171,30 @@ void func_i5_8018F4D8(Object_80* obj80) {
 void func_i5_8018F8B8(Object_80* obj80) {
 
     switch (obj80->unk_44) {
-    case 0:
-        if (obj80->unk_44 == 0) {
-            GDL(D_7002270);
-        } else{
-            GDL(D_7000A80);
-        }
-        break;
-    case 1:
-    case 2:
-        if (obj80->obj.rot.z != 0.0f) {
-            if (obj80->obj.rot.z > 0.0f) {
-                Matrix_Translate(gGfxMatrix, 75.0f, 0.0f, 0.0f, 1);
-                Matrix_SetGfxMtx(&gMasterDisp);
+        case 0:
+            if (obj80->unk_44 == 0) {
+                GDL(D_7002270);
             } else {
-                Matrix_Translate(gGfxMatrix, -75.0f, 0.0f, 0.0f, 1);
-                Matrix_SetGfxMtx(&gMasterDisp);
+                GDL(D_7000A80);
             }
-        }
-        if (obj80->unk_44 == 0) {
-            GDL(D_7002270);
-        } else {
-            GDL(D_7000A80);
-        }
-        break;
+            break;
+        case 1:
+        case 2:
+            if (obj80->obj.rot.z != 0.0f) {
+                if (obj80->obj.rot.z > 0.0f) {
+                    Matrix_Translate(gGfxMatrix, 75.0f, 0.0f, 0.0f, 1);
+                    Matrix_SetGfxMtx(&gMasterDisp);
+                } else {
+                    Matrix_Translate(gGfxMatrix, -75.0f, 0.0f, 0.0f, 1);
+                    Matrix_SetGfxMtx(&gMasterDisp);
+                }
+            }
+            if (obj80->unk_44 == 0) {
+                GDL(D_7002270);
+            } else {
+                GDL(D_7000A80);
+            }
+            break;
     }
 }
 
@@ -2156,12 +2229,12 @@ void func_i5_8018FA48(Boss* arg0) {
         gOverlayStage = arg0->swork[0];
         arg0->timer_050 = 1;
     }
-    
+
     if (arg0->timer_050 != 0) {
         arg0->obj.status = 1;
         return;
     }
-    
+
     gBossActive = 1;
     arg0->fwork[2] = 1.0f;
     arg0->fwork[4] = 730.0f;
@@ -2174,7 +2247,8 @@ void func_i5_8018FA48(Boss* arg0) {
     var_v1 = D_i5_801BBF00;
     for (i = 0; i < ARRAY_COUNTU(D_i5_801BBF00); i++, var_v1++) {
         var_v1->unk_26 = 0;
-        var_v1->unk_00.pos.x = var_v1->unk_00.pos.y = var_v1->unk_00.pos.z = var_v1->unk_00.rot.x = var_v1->unk_00.rot.y = var_v1->unk_00.rot.z = var_v1->unk_18 = var_v1->unk_1C = var_v1->unk_20 = 0.0f;
+        var_v1->unk_00.pos.x = var_v1->unk_00.pos.y = var_v1->unk_00.pos.z = var_v1->unk_00.rot.x =
+            var_v1->unk_00.rot.y = var_v1->unk_00.rot.z = var_v1->unk_18 = var_v1->unk_1C = var_v1->unk_20 = 0.0f;
     }
 
     for (i = 0; i < 0x5C; i++) {
@@ -2196,7 +2270,7 @@ void func_i5_8018FA48(Boss* arg0) {
     for (i = 0; i < 0x4C; i++, sp1C++) {
         *sp1C = 0.0f;
     }
-    
+
     D_i5_801BBEF8 = SEGMENTED_TO_VIRTUAL(D_8000FC0);
 }
 
@@ -2204,7 +2278,7 @@ bool func_i5_8018FC70(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     f32 sp24;
 
     if (D_i5_801BBEF0[30] != 0) {
-        sp24 = (D_i5_801BBEF0[30] / 15.0f) *  D_i5_801BBEF0[32];
+        sp24 = (D_i5_801BBEF0[30] / 15.0f) * D_i5_801BBEF0[32];
         rot->z += __sinf((D_i5_801BBEF0[30] / (f32) D_i5_801BBEF0[31]) * 360.0f * M_DTOR) * sp24;
     }
     switch (limbIndex) {
@@ -2259,13 +2333,185 @@ bool func_i5_8018FC70(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return true;
 }
 
-extern f32 D_i5_801B8BBC[][4];
-extern s32 D_i5_801B8C24[][4];
-extern s32 D_i5_801B8CF4[];
-extern Vec3f D_i5_801B8D3C;
+static f32 D_i5_801B7738[14] = { -1.0f,  -1.0f,  -1.0f,  -1.0f,  -1.0f,   -1.0f,  -1.0f,
+                                 871.0f, 580.0f, 637.0f, 637.0f, 1000.0f, 380.0f, 1400.0f };
+
+static u8 D_i5_801B7770[][6] = {
+    { 1, 0, 0, 0, 0, 4 },    { 2, 0, 0, 0, 0, 5 },    { 3, 0, 0, 0, 0, 3 },    { 4, 0, 0, 0, 0, 6 },
+    { 5, 0, 0, 0, 0, 7 },    { 7, 0, 2, 0, 2, 10 },   { 8, 0, 2, 0, 2, 10 },   { 9, 0, 2, 0, 2, 10 },
+    { 10, 0, 3, 0, 3, 9 },   { 11, 0, 3, 17, 3, 37 }, { 12, 1, 3, 27, 3, 2 },  { 13, 1, 3, 27, 3, 2 },
+    { 14, 1, 3, 27, 3, 2 },  { 15, 1, 3, 27, 3, 2 },  { 16, 0, 4, 0, 4, 9 },   { 17, 0, 4, 18, 4, 37 },
+    { 18, 1, 4, 28, 4, 2 },  { 19, 1, 4, 28, 4, 2 },  { 20, 1, 4, 28, 4, 2 },  { 21, 1, 4, 28, 4, 2 },
+    { 22, 0, 1, 0, 1, 10 },  { 23, 0, 1, 0, 1, 10 },  { 24, 0, 1, 0, 1, 10 },  { 25, 2, 0, 0, 0, 11 },
+    { 26, 2, 0, 0, 0, 12 },  { 27, 0, 0, 0, 0, 0 },   { 28, 0, 0, 0, 0, 13 },  { 29, 0, 0, 0, 0, 14 },
+    { 30, 0, 0, 0, 0, 14 },  { 31, 0, 0, 0, 0, 15 },  { 32, 0, 0, 1, 0, 16 },  { 33, 0, 0, 5, 0, 17 },
+    { 34, 0, 0, 2, 0, 18 },  { 35, 1, 0, 0, 0, 19 },  { 36, 0, 0, 6, 0, 20 },  { 37, 0, 0, 3, 0, 18 },
+    { 38, 1, 0, 0, 0, 19 },  { 39, 0, 0, 4, 0, 20 },  { 51, 2, 0, 0, 0, 22 },  { 55, 0, 2, 8, 2, 1 },
+    { 56, 1, 2, 26, 2, 2 },  { 57, 1, 2, 26, 2, 2 },  { 58, 1, 2, 26, 2, 2 },  { 59, 1, 2, 26, 2, 2 },
+    { 61, 0, 1, 9, 1, 1 },   { 62, 1, 1, 25, 1, 2 },  { 63, 1, 1, 25, 1, 2 },  { 64, 1, 1, 25, 1, 2 },
+    { 65, 1, 1, 25, 1, 2 },  { 66, 3, 0, 0, 0, 23 },  { 70, 0, 0, 12, 0, 24 }, { 71, 0, 0, 7, 0, 25 },
+    { 72, 0, 0, 0, 0, 26 },  { 73, 0, 0, 0, 0, 26 },  { 74, 0, 0, 0, 0, 26 },  { 75, 0, 0, 0, 0, 26 },
+    { 76, 0, 0, 0, 0, 27 },  { 78, 0, 0, 15, 0, 28 }, { 80, 0, 0, 13, 0, 29 }, { 81, 0, 0, 11, 0, 30 },
+    { 84, 0, 0, 10, 0, 31 }, { 85, 0, 0, 0, 0, 32 },  { 86, 1, 0, 0, 0, 33 },  { 87, 0, 0, 16, 0, 34 },
+    { 88, 0, 0, 19, 0, 35 }, { 89, 0, 0, 20, 0, 36 }, { 90, 0, 0, 5, 0, 38 },
+};
+
+static u8 D_i5_801B7904[92] = {
+    29, 30, 31, 32, 33, 0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  1,  2,  2,  2,  3,  3,  4,  4,
+    5,  5,  6,  6,  6,  6,  6,  6,  6,  6,  7,  7,  7,  7,  7,  28, 8,  8,  8,  8,  8,  9,  9,
+    9,  10, 10, 10, 11, 11, 12, 12, 13, 14, 15, 16, 16, 16, 16, 16, 16, 17, 17, 17, 17, 17, 17,
+    18, 19, 20, 20, 20, 20, 20, 20, 21, 21, 21, 21, 21, 21, 22, 22, 23, 24, 25, 26, 27,
+};
+
+static s16 D_i5_801B7960[][4] = {
+    { 3, 7, 12, 90 },  { 1, 9, 12, 90 },  { 1, 9, 12, 90 },  { 1, 7, 12, 90 }, { 1, 7, 12, 90 },  { 1, 7, 12, 90 },
+    { 2, 14, 30, 90 }, { 2, 14, 12, 90 }, { 2, 14, 12, 90 }, { 2, 7, 6, 90 },  { 2, 7, 6, 90 },   { 1, 7, 6, 90 },
+    { 1, 7, 6, 90 },   { 0, 7, 6, 90 },   { 1, 7, 6, 90 },   { 1, 7, 6, 90 },  { 2, 14, 12, 90 }, { 2, 14, 12, 90 },
+    { 1, 7, 6, 90 },   { 1, 7, 6, 90 },   { 0, 0, 0, 0 },    { 0, 0, 0, 0 },   { 0, 0, 0, 0 },    { 0, 0, 0, 0 },
+    { 2, 1, 2, 67 },   { 2, 1, 2, 67 },   { 2, 1, 2, 67 },   { 2, 1, 2, 67 },  { 0, 0, 0, 0 },    { 0, 0, 0, 0 },
+    { 0, 0, 0, 0 },    { 0, 0, 0, 0 },    { 0, 0, 0, 0 },    { 0, 0, 0, 0 },
+};
+
+static f32 D_i5_801B7A70[86][4] = {
+    { 99.0f, 9.0f, 0.0f, 0.0f },        { 99.0f, 9.0f, 0.0f, 0.0f },      { 45.0f, 26.0f, 0.0f, 0.0f },
+    { 45.0f, 26.0f, 0.0f, 0.0f },       { 21.0f, 42.0f, 0.0f, 0.0f },     { 50.0f, -3.0f, 0.0f, 24.0f },
+    { 103.0f, 2.0f, 0.0f, 24.0f },      { 143.0f, -1.0f, 0.0f, 12.0f },   { 173.0f, 0.0f, 0.0f, 15.0f },
+    { 68.0f, -8.0f, 0.0f, 29.0f },      { 69.0f, -7.0f, 0.0f, 29.0f },    { 28.0f, -7.0f, 0.0f, 29.0f },
+    { 55.0f, -1.0f, 0.0f, 34.0f },      { 27.0f, 126.0f, 0.0f, 40.0f },   { 35.0f, 56.0f, -2.0f, 30.0f },
+    { 28.0f, -3.0f, -2.0f, 29.0f },     { 28.0f, -3.0f, 2.0f, 29.0f },    { 35.0f, 56.0f, 2.0f, 30.0f },
+    { 27.0f, 126.0f, 0.0f, 40.0f },     { 106.0f, 22.0f, 0.0f, 35.0f },   { 41.0f, 4.0f, 2.0f, 35.0f },
+    { 9.0f, -27.0f, 0.0f, 30.0f },      { 17.0f, 32.0f, 0.0f, 40.0f },    { 106.0f, 22.0f, 0.0f, 35.0f },
+    { 41.0f, 4.0f, -2.0f, 35.0f },      { 29.0f, -8.0f, 0.0f, 15.0f },    { 26.0f, 11.0f, 0.0f, 25.0f },
+    { 36.0f, 10.0f, 6.0f, 18.0f },      { 36.0f, 10.0f, -6.0f, 18.0f },   { 29.0f, 12.0f, -49.0f, 25.0f },
+    { 29.0f, 12.0f, 49.0f, 25.0f },     { 25.0f, 1.0f, 0.0f, 40.0f },     { 85.0f, -10.0f, 0.0f, 25.0f },
+    { 36.0f, -40.0f, 0.0f, 20.0f },     { 36.0f, -40.0f, 0.0f, 20.0f },   { 36.0f, -40.0f, 0.0f, 20.0f },
+    { 99.0f, 9.0f, 0.0f, 35.0f },       { 23.0f, 6.0f, 0.0f, 30.0f },     { 180.0f, 28.0f, -11.0f, 32.0f },
+    { 36.0f, -40.0f, 0.0f, 20.0f },     { 36.0f, -40.0f, 0.0f, 20.0f },   { 36.0f, -40.0f, 0.0f, 20.0f },
+    { 99.0f, 9.0f, 0.0f, 35.0f },       { 23.0f, 6.0f, 0.0f, 30.0f },     { 123.0f, -98.0f, -179.0f, 25.0f },
+    { 102.0f, -75.0f, -128.0f, 30.0f }, { 89.0f, -42.0f, -84.0f, 40.0f }, { 123.0f, -98.0f, 179.0f, 25.0f },
+    { 102.0f, -75.0f, 128.0f, 30.0f },  { 89.0f, -42.0f, 58.0f, 40.0f },  { -2.0f, 20.0f, -47.0f, 34.0f },
+    { 13.0f, 52.0f, -54.0f, 35.0f },    { -2.0f, 20.0f, 47.0f, 34.0f },   { 13.0f, 52.0f, 54.0f, 35.0f },
+    { 26.0f, 68.0f, 0.0f, 35.0f },      { 75.0f, 39.0f, -60.0f, 40.0f },  { 75.0f, 39.0f, 60.0f, 40.0f },
+    { 120.0f, 16.0f, 0.0f, 25.0f },     { 85.0f, 26.0f, 0.0f, 30.0f },    { 45.0f, 26.0f, 0.0f, 35.0f },
+    { -25.0f, 11.0f, 0.0f, 35.0f },     { 94.0f, 0.0f, 0.0f, 30.0f },     { 34.0f, 1.0f, 0.0f, 35.0f },
+    { 120.0f, 16.0f, 0.0f, 25.0f },     { 85.0f, 26.0f, 0.0f, 30.0f },    { 45.0f, 26.0f, 0.0f, 35.0f },
+    { -25.0f, 11.0f, 0.0f, 35.0f },     { 94.0f, 0.0f, 0.0f, 30.0f },     { 34.0f, 1.0f, 0.0f, 35.0f },
+    { 6.0f, 4.0f, 0.0f, 25.0f },        { 30.0f, 12.0f, 0.0f, 25.0f },    { 50.0f, -32.0f, 47.0f, 20.0f },
+    { 52.0f, -22.0f, 11.0f, 20.0f },    { 53.0f, -19.0f, -23.0f, 20.0f }, { 12.0f, 7.0f, -18.0f, 20.0f },
+    { 12.0f, 0.0f, 17.0f, 20.0f },      { 11.0f, -3.0f, 49.0f, 20.0f },   { 50.0f, -32.0f, -47.0f, 20.0f },
+    { 52.0f, -22.0f, -11.0f, 20.0f },   { 53.0f, -19.0f, 23.0f, 20.0f },  { 12.0f, 7.0f, 18.0f, 20.0f },
+    { 12.0f, 0.0f, -17.0f, 20.0f },     { 11.0f, -3.0f, -49.0f, 20.0f },  { 98.0f, 40.0f, 25.0f, 0.0f },
+    { 78.0f, 40.0f, -25.0f, 0.0f },     { 21.0f, 42.0f, 0.0f, 40.0f },
+};
+
+static s16 D_i5_801B7FD0[45][4] = {
+    { 61, 1, 1, 44 },  { 55, 2, 1, 39 },  { 10, 3, 1, 8 },   { 16, 4, 1, 14 },  { 51, 0, 1, 38 },  { 28, 5, 4, 26 },
+    { 29, 9, 1, 27 },  { 30, 10, 1, 28 }, { 31, 11, 1, 29 }, { 32, 12, 1, 30 }, { 34, 13, 3, 32 }, { 37, 16, 3, 35 },
+    { 39, 19, 2, 37 }, { 90, 21, 2, 66 }, { 36, 23, 2, 34 }, { 1, 25, 1, 0 },   { 2, 26, 1, 1 },   { 4, 27, 1, 3 },
+    { 5, 28, 1, 4 },   { 71, 29, 4, 51 }, { 7, 33, 1, 5 },   { 8, 34, 1, 6 },   { 9, 35, 1, 7 },   { 55, 36, 3, 39 },
+    { 24, 39, 1, 22 }, { 23, 40, 1, 21 }, { 23, 41, 1, 20 }, { 61, 42, 2, 44 }, { 85, 44, 3, 60 }, { 81, 47, 3, 59 },
+    { 70, 50, 2, 50 }, { 80, 52, 2, 58 }, { 85, 54, 1, 61 }, { 78, 55, 1, 57 }, { 87, 56, 1, 63 }, { 10, 57, 4, 8 },
+    { 11, 61, 2, 9 },  { 16, 63, 4, 14 }, { 17, 67, 2, 15 }, { 88, 69, 1, 64 }, { 89, 70, 1, 65 }, { 25, 71, 6, 23 },
+    { 26, 77, 6, 24 }, { 86, 83, 2, 62 }, { 51, 85, 1, 38 },
+};
+
+static s16 D_i5_801B8138[9] = { 12, 15, 18, 45, 48, 51, 78, 84, 102 };
+
+static s16 D_i5_801B814C[9] = { 21, 24, 27, 54, 57, 60, 81, 87, 105 };
+
+static s32 D_i5_801B8160[14] = {
+    28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 89, 90,
+};
+
+typedef struct {
+    s32 unk_00;
+    s32 unk_04;
+    Actor* actor;
+    s32 unk_0C;
+} UnkStruct_i5_801B8198; // size = 0x10
+
+static UnkStruct_i5_801B8198 D_i5_801B8198[33] = {
+    { 61, 0, NULL, 0 },  { 22, 30, NULL, 0 }, { 21, 30, NULL, 0 }, { 20, 30, NULL, 0 }, { 44, 25, NULL, 0 },
+    { 45, 20, NULL, 0 }, { 46, 15, NULL, 0 }, { 47, 10, NULL, 0 }, { 48, 5, NULL, 0 },  { 57, 0, NULL, 0 },
+    { 5, 30, NULL, 0 },  { 6, 30, NULL, 0 },  { 7, 30, NULL, 0 },  { 39, 25, NULL, 0 }, { 40, 20, NULL, 0 },
+    { 41, 15, NULL, 0 }, { 42, 10, NULL, 0 }, { 43, 5, NULL, 0 },  { 63, 0, NULL, 0 },  { 8, 30, NULL, 0 },
+    { 9, 30, NULL, 0 },  { 10, 25, NULL, 0 }, { 11, 20, NULL, 0 }, { 12, 15, NULL, 0 }, { 13, 10, NULL, 0 },
+    { 50, 5, NULL, 0 },  { 14, 30, NULL, 0 }, { 15, 30, NULL, 0 }, { 16, 25, NULL, 0 }, { 17, 20, NULL, 0 },
+    { 18, 15, NULL, 0 }, { 19, 10, NULL, 0 }, { 58, 5, NULL, 0 },
+};
+
+f32 D_i5_801B83A8[517] = {
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f
+};
+
+static f32 D_i5_801B8BBC[5][4] = { { 36.0f, -40.0f, 0.0f, 20.0f },
+                                   { 99.0f, 9.0f, 0.0f, 0.0f },
+                                   { 99.0f, 9.0f, 0.0f, 35.0f },
+                                   { 23.0f, 6.0f, 0.0f, 30.0f },
+                                   { 180.0f, 28.0f, -11.0f, 32.0f } };
+
+static u8 D_i5_801B8C0C[21] = {
+    0, 0, 0, 0, 0, 0, 3, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2,
+    // 0x00, 0x00, 0x00,
+};
+
+static s32 D_i5_801B8C24[4][4] = {
+    { 1, 0, 1, 0 },
+    { 2, 0, 1, 1 },
+    { 3, 0, 1, 2 },
+    { 7, 1, 4, 3 },
+};
+
+static f32 D_i5_801B8C64[7][4] = {
+    { 45.0f, 26.0f, 0.0f, 0.0f },  { 120.0f, 16.0f, 0.0f, 25.0f }, { 85.0f, 26.0f, 0.0f, 30.0f },
+    { 45.0f, 26.0f, 0.0f, 35.0f }, { -25.0f, 11.0f, 0.0f, 35.0f }, { 94.0f, 0.0f, 0.0f, 30.0f },
+    { 34.0f, 1.0f, 0.0f, 35.0f },
+};
+
+static s32 D_i5_801B8CD4[2][4] = {
+    { 1, 0, 5, 0 },
+    { 2, 4, 2, 5 },
+};
+
+static s32 D_i5_801B8CF4[3] = { 0, 7, 14 };
+
+static Vec3f D_i5_801B8D00 = { 104.0f, 23.0f, 0.0f };
+static Vec3f D_i5_801B8D0C = { 5.0f, 0.0f, 0.0f };
+static Vec3f D_i5_801B8D18 = { 0.0f, 0.0f, 30.0f };
+static Vec3f D_i5_801B8D24 = { 54.0f, 0.0f, 0.0f };
+static Vec3f D_i5_801B8D30 = { 47.0f, 0.0f, 0.0f };
+static Vec3f D_i5_801B8D3C = { 158.0f, 4.0f, 0.0f };
+static Vec3f D_i5_801B8D48 = { 0.0f, 0.0f, 60.0f };
 
 void func_i5_8019002C(s32 limbIndex, Vec3f* rot, void* data) {
-    Boss* boss = (Boss*)data;
+    Boss* boss = (Boss*) data;
     s32 i;
     s32 j;
     s32* var_s6;
@@ -2282,7 +2528,7 @@ void func_i5_8019002C(s32 limbIndex, Vec3f* rot, void* data) {
         if (limbIndex == var_s6[0]) {
             var_s0 = &D_i5_801B83A8[D_i5_801B8CF4[D_i5_801BBEF0[25]] * 6 + var_s6[3] * 6 + 1];
             temp = var_s6[1];
-            
+
             for (j = 0; j < temp_s3; j++) {
                 sp80.x = D_i5_801B8BBC[temp + j][0];
                 sp80.y = D_i5_801B8BBC[temp + j][1];
@@ -2387,8 +2633,6 @@ bool func_i5_801903A0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return true;
 }
 
-extern f32 D_i5_801B8C64[][4];
-extern s32 D_i5_801B8CD4[][4];
 extern Vec3f D_i5_801B8D00;
 
 void func_i5_8019081C(s32 limbIndex, Vec3f* rot, void* data) {
@@ -2434,8 +2678,6 @@ void func_i5_8019081C(s32 limbIndex, Vec3f* rot, void* data) {
     }
 }
 
-extern u8 D_i5_801B7770[][6];
-extern s16 D_i5_801B7960[][4];
 #ifdef NON_MATCHING
 // regalloc
 // https://decomp.me/scratch/cEhIC
@@ -2451,7 +2693,7 @@ bool func_i5_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     s32 padAC[1];
     f32 temp;
     u32 spA8;
-    Boss* boss = (Boss*)data;
+    Boss* boss = (Boss*) data;
     s32 spA0;
     f32 sp9C;
     s32 ret;
@@ -2494,7 +2736,9 @@ bool func_i5_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                         if (D_i5_801BBEF4[2] != 0.0f) {
                             rot->z += D_i5_801BBEF4[2];
                             if (D_i5_801BBEF4[3] != 0.0f) {
-                                rot->z += (__sinf((D_i5_801BBEF4[3] / D_i5_801BBEF4[5]) * 360.0f * M_DTOR) * D_i5_801BBEF4[3]) / 6.0f;
+                                rot->z += (__sinf((D_i5_801BBEF4[3] / D_i5_801BBEF4[5]) * 360.0f * M_DTOR) *
+                                           D_i5_801BBEF4[3]) /
+                                          6.0f;
                             }
                         }
                         break;
@@ -2529,7 +2773,9 @@ bool func_i5_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
 
                 if (spA0 != 0) {
                     spA8 = (u32) D_i5_801B7960[temp_v1][0];
-                    sp9C = ((__sinf(D_i5_801BD6B0[temp_v1] * M_DTOR) * (f32) D_i5_801BD668[temp_v1]) / (f32) D_i5_801B7960[temp_v1][1]) * D_i5_801B7960[temp_v1][2];
+                    sp9C = ((__sinf(D_i5_801BD6B0[temp_v1] * M_DTOR) * (f32) D_i5_801BD668[temp_v1]) /
+                            (f32) D_i5_801B7960[temp_v1][1]) *
+                           D_i5_801B7960[temp_v1][2];
                     switch (spA8) {
                         case 0:
                             break;
@@ -2630,7 +2876,7 @@ bool func_i5_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                             while (D_i5_801BBEF4[24] < -90.0f) {
                                 D_i5_801BBEF4[24] += 360.0f;
                             }
-                            
+
                             if (D_i5_801BBEF4[24] < -45.0f) {
                                 D_i5_801BBEF4[24] = -45.0f;
                             }
@@ -2653,7 +2899,8 @@ bool func_i5_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                 sp6C = 0;
                 if ((limbIndex == 0x33) || (limbIndex == 0x42)) {
                     if (D_i5_801BBEF0[1] != 0) {
-                        sp68 = 1.1f - (fabsf(__sinf(((f32) D_i5_801BBEF0[0] / D_i5_801BBEF0[1]) * 360.0f * M_DTOR))) * D_i5_801BBEF4[0];
+                        sp68 = 1.1f - (fabsf(__sinf(((f32) D_i5_801BBEF0[0] / D_i5_801BBEF0[1]) * 360.0f * M_DTOR))) *
+                                          D_i5_801BBEF4[0];
                         Matrix_Push(&gCalcMatrix);
                         Matrix_Scale(gCalcMatrix, sp68, sp68, sp68, 1);
                         sp6C = 1;
@@ -2691,7 +2938,8 @@ bool func_i5_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                         RCP_SetupDL(&gMasterDisp, 0x22);
                         break;
                 }
-                if ((boss->swork[0x16] & 1) || ((D_i5_801B7770[i][2] != 0) && (boss->swork[D_i5_801B7770[i][2] + 4] & 1))) {
+                if ((boss->swork[0x16] & 1) ||
+                    ((D_i5_801B7770[i][2] != 0) && (boss->swork[D_i5_801B7770[i][2] + 4] & 1))) {
                     GPC(255, 0, 0, 255);
                     sp58 = 1;
                 }
@@ -2718,7 +2966,7 @@ bool func_i5_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
             break;
         }
     }
-    
+
     return ret;
 }
 #else
@@ -2729,18 +2977,9 @@ bool func_i5_80190A08(s32, Gfx**, Vec3f*, Vec3f*, void*);
 #ifdef NON_MATCHING
 // s0/s1 regalloc
 // https://decomp.me/scratch/M2RNR
-extern f32 D_i5_801B7A70[][4];
-extern s16 D_i5_801B7FD0[][4];
-extern f32 D_i5_801B83AC[];
-extern Vec3f D_i5_801B8D00;
-extern Vec3f D_i5_801B8D24;
-extern Vec3f D_i5_801B8D30;
-extern Vec3f D_i5_801B8D3C;
-extern s32* D_i5_801BBEF0;
-extern f32* D_i5_801BBEF4;
 
 void func_i5_80191AE8(s32 limbIndex, Vec3f* rot, void* data) {
-    Boss* boss = (Boss*)data;
+    Boss* boss = (Boss*) data;
     f32* var_s0_2;
     Vec3f spB4;
     Vec3f spA8;
@@ -2753,11 +2992,9 @@ void func_i5_80191AE8(s32 limbIndex, Vec3f* rot, void* data) {
     s32 j;
     s32 cond;
     Vec3f sp78;
-    
-
 
     var_s0 = D_i5_801BBF00;
-    for (i = 0; i < (u32)0x43; i++, var_s0++) {
+    for (i = 0; i < (u32) 0x43; i++, var_s0++) {
         if ((var_s0->unk_26 & 1) && (limbIndex == D_i5_801B7770[i][0])) {
             Matrix_MultVec3f(gCalcMatrix, &D_800C9F2C, &var_s0->unk_00.pos);
             Matrix_GetYRPAngles(gCalcMatrix, &var_s0->unk_00.rot);
@@ -2765,11 +3002,11 @@ void func_i5_80191AE8(s32 limbIndex, Vec3f* rot, void* data) {
             break;
         }
     }
-    
+
     var_s0_2 = D_i5_801B83A8;
     var_s0_2[0] = 86.0f;
     var_s0_2++;
-    for (i = 0; i < (u32)0x2D; i++) {
+    for (i = 0; i < (u32) 0x2D; i++) {
         temp_s4 = D_i5_801B7FD0[i][2];
         if (limbIndex == D_i5_801B7FD0[i][0]) {
 
@@ -2777,7 +3014,6 @@ void func_i5_80191AE8(s32 limbIndex, Vec3f* rot, void* data) {
             cond = (D_i5_801BBF00[D_i5_801B7FD0[i][3]].unk_26 & 0xC);
             cond = !(cond || (i >= 20 && i < 23 && boss->state == 10));
 
-            
             for (j = 0; j < temp_s4; j++) {
                 if (cond && (D_i5_801BBEF0[8] == 0 || i != 0x17 || j != 2)) {
                     var_s1 = D_i5_801B7A70[temp_s6 + j];
@@ -2802,7 +3038,7 @@ void func_i5_80191AE8(s32 limbIndex, Vec3f* rot, void* data) {
                     var_s0_2 += 6;
                 }
             }
-    
+
             if (i < 5) {
                 continue;
             }
@@ -2869,7 +3105,6 @@ void func_i5_80191AE8(s32 limbIndex, Vec3f* rot, void* data) {
 void func_i5_80191AE8(s32, Vec3f*, void*);
 #endif
 
-extern u8 D_i5_801B8C0C[];
 extern Vec3f D_i5_801BC9D8[];
 extern Vec3f D_i5_801BCA38[];
 extern Vec3f D_i5_801BCE28[];
@@ -2959,7 +3194,7 @@ void func_i5_80192118(Boss* boss) {
             }
             break;
         case 2:
-            
+
             if (boss->dmgType == 1) {
                 switch (D_i5_801B8C0C[boss->dmgPart]) {
                     case 0:
@@ -3022,7 +3257,7 @@ void func_i5_80192118(Boss* boss) {
             }
             break;
         case 3:
-            
+
             if (D_i5_801BBEF0[22] == 0x25) {
                 sp54.x = (boss->obj.pos.x + D_i5_801BBEF4[39]) + D_i5_801BBEF4[68];
                 sp54.y = 0.0f;
@@ -3043,19 +3278,19 @@ void func_i5_80192118(Boss* boss) {
                 switch (D_i5_801B8C0C[boss->dmgPart]) {
                     case 0:
                         D_i5_801BBEF0[30] = 0xF;
-                        
+
                         D_i5_801BBEF0[27] -= boss->damage;
                         Audio_PlaySfx(0x2903300E, boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                         break;
                     case 1:
                         D_i5_801BBEF0[33] = 0xF;
-                        
+
                         D_i5_801BBEF0[27] -= boss->damage;
                         Audio_PlaySfx(0x2903300E, boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                         break;
                     case 2:
                         D_i5_801BBEF0[34] = 0xF;
-                        
+
                         D_i5_801BBEF0[27] -= boss->damage;
                         Audio_PlaySfx(0x2903300E, boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                         break;
@@ -3067,17 +3302,17 @@ void func_i5_80192118(Boss* boss) {
                 switch (D_i5_801B8C0C[boss->dmgPart]) {
                     case 0:
                         D_i5_801BBEF0[30] = 0xF;
-                        
+
                         D_i5_801BBEF0[27] -= boss->damage;
                         break;
                     case 1:
                         D_i5_801BBEF0[33] = 0xF;
-                        
+
                         D_i5_801BBEF0[27] -= boss->damage;
                         break;
                     case 2:
                         D_i5_801BBEF0[34] = 0xF;
-                        
+
                         D_i5_801BBEF0[27] -= boss->damage;
                         break;
                 }
@@ -3086,7 +3321,7 @@ void func_i5_80192118(Boss* boss) {
             Math_SmoothStepToF(&boss->obj.pos.x, gPlayer[0].pos.x, 0.1f, 6.0f, 0.01f);
             Math_SmoothStepToF(&boss->obj.pos.z, gPlayer[0].unk_138 - 450.0f, 0.1f, 1.0f, 0.01f);
             Animation_GetFrameData(&D_A000D50, D_i5_801BBEF0[24] >> 1, D_i5_801BCA38);
-            
+
             switch (D_i5_801BBEF0[39]) {
                 case 0:
                     Animation_GetFrameData(&D_A000858, D_i5_801BBEF0[22] >> 1, D_i5_801BC978);
@@ -3110,21 +3345,20 @@ void func_i5_80192118(Boss* boss) {
             D_i5_801BBEF0[24]++;
             D_i5_801BBEF0[22]++;
             D_i5_801BBEF0[23]++;
-            
+
             if (D_i5_801BBEF0[24] >= (Animation_GetFrameCount(&D_A000D50) * 2)) {
                 D_i5_801BBEF0[24] = 0;
-                
             }
-            
+
             switch (D_i5_801BBEF0[39]) {
                 case 0:
-                    
+
                     if (D_i5_801BBEF0[22] >= (Animation_GetFrameCount(&D_A000858) * 2)) {
                         D_i5_801BBEF0[22] = 0;
                     }
                     break;
                 case 1:
-                    
+
                     if (D_i5_801BBEF0[22] >= (Animation_GetFrameCount(&D_A00047C) * 2)) {
                         D_i5_801BBEF0[22] = 0;
                     }
@@ -3144,7 +3378,7 @@ void func_i5_80192118(Boss* boss) {
                     break;
             }
             D_i5_801BBEF4[51] = (f32) (__sinf((((f32) (boss->swork[0x26] & 0x7F) * 360.0f) / 128) * M_DTOR) * 40.0f);
-            
+
             switch (D_i5_801BBEF0[28]) {
                 case 0:
                     if (D_i5_801BBEF0[29] == 0) {
@@ -3248,15 +3482,12 @@ void func_i5_80192118(Boss* boss) {
         if ((boss->state != 4) || (boss->swork[0x1F] < 0x64)) {
             temp_ft2 = boss->obj.pos.x + D_i5_801BBEF4[36];
             temp_ft4 = boss->obj.pos.z + D_i5_801BBEF4[38];
-            
+
             temp_fa1 = D_i5_801BBEF4[57] - temp_ft2;
             temp_fv1 = D_i5_801BBEF4[58] - temp_ft4;
 
             if ((s32) sqrtf(SQ(temp_fa1) + SQ(temp_fv1)) > 50.0f) {
-                
-                
-                
-                
+
                 effect = func_8007783C(OBJ_EFFECT_394);
                 if (effect != NULL) {
                     effect->obj.status = 2;
@@ -3265,7 +3496,7 @@ void func_i5_80192118(Boss* boss) {
                     effect->obj.pos.x = temp_ft2;
                     effect->obj.pos.y = boss->obj.pos.y;
                     effect->obj.pos.z = temp_ft4;
-                    
+
                     effect->obj.rot.y = (Math_Atan2F(-temp_fv1, temp_fa1) * M_RTOD) - 90.0f;
                     effect->info.unk_14 = -1;
                     effect->unk_46 = 0x46;
@@ -3282,15 +3513,12 @@ void func_i5_80192118(Boss* boss) {
         if ((boss->state != 4) || (boss->swork[0x1F] < 0x5A)) {
             temp_ft2 = boss->obj.pos.x + D_i5_801BBEF4[39];
             temp_ft4 = boss->obj.pos.z + D_i5_801BBEF4[41];
-            
+
             temp_fa1 = D_i5_801BBEF4[59] - temp_ft2;
             temp_fv1 = D_i5_801BBEF4[60] - temp_ft4;
 
             if ((s32) sqrtf(SQ(temp_fa1) + SQ(temp_fv1)) > 50.0f) {
-                
-                
-                
-                
+
                 effect = func_8007783C(OBJ_EFFECT_394);
 
                 if (effect != NULL) {
@@ -3300,7 +3528,7 @@ void func_i5_80192118(Boss* boss) {
                     effect->obj.pos.x = temp_ft2;
                     effect->obj.pos.y = boss->obj.pos.y;
                     effect->obj.pos.z = temp_ft4;
-                    
+
                     effect->obj.rot.y = (Math_Atan2F(-temp_fv1, temp_fa1) * M_RTOD) - 90.0f;
                     effect->info.unk_14 = -1;
                     effect->unk_46 = 0x32;
@@ -3317,12 +3545,12 @@ void func_i5_80192118(Boss* boss) {
         if ((boss->state != 4) || (boss->swork[0x1F] < 0x66)) {
             temp_ft2 = boss->obj.pos.x + D_i5_801BBEF4[42];
             temp_ft4 = boss->obj.pos.z + D_i5_801BBEF4[44];
-            
+
             temp_fa1 = D_i5_801BBEF4[61] - temp_ft2;
             temp_fv1 = D_i5_801BBEF4[62] - temp_ft4;
 
             if ((s32) sqrtf(SQ(temp_fa1) + SQ(temp_fv1)) > 50.0f) {
-                
+
                 effect = func_8007783C(OBJ_EFFECT_394);
 
                 if (effect != NULL) {
@@ -3332,7 +3560,7 @@ void func_i5_80192118(Boss* boss) {
                     effect->obj.pos.x = temp_ft2;
                     effect->obj.pos.y = boss->obj.pos.y;
                     effect->obj.pos.z = temp_ft4;
-                    
+
                     effect->obj.rot.y = (Math_Atan2F(-temp_fv1, temp_fa1) * M_RTOD) - 90.0f;
                     effect->info.unk_14 = -1;
                     effect->unk_46 = 0x32;
@@ -3350,8 +3578,6 @@ void func_i5_80192118(Boss* boss) {
     boss->dmgType = 0;
 }
 
-extern f32 D_i5_801B7738[];
-
 void func_i5_80193B30(Boss* boss) {
 
     if (boss->state == boss->swork[1]) {
@@ -3362,7 +3588,7 @@ void func_i5_80193B30(Boss* boss) {
         }
     }
     switch (boss->swork[1]) {
-        case 8: 
+        case 8:
             if ((boss->swork[11] <= 0) && (boss->swork[12] <= 0)) {
                 if (boss->swork[35] == 0) {
                     boss->swork[1] = 12;
@@ -3454,24 +3680,33 @@ void func_i5_80193B30(Boss* boss) {
     }
 }
 
-extern u8 D_i5_801B7904[];
-extern s16 D_i5_801B8138[];
-extern s16 D_i5_801B814C[];
-extern s32 D_i5_801B8160[];
-typedef struct {
-    s32 unk_00;
-    s32 unk_04;
-    Actor* actor;
-    s32 unk_0C;
-} UnkStruct_i5_801B8198; // size = 0x10
-extern UnkStruct_i5_801B8198 D_i5_801B8198[0x21];
-extern Vec3f D_i5_801B8D0C;
-extern Vec3f D_i5_801B8D18;
-extern Vec3f D_i5_801B8D48;
-extern s16 D_i5_801BAA50[];
-extern s16 D_i5_801BAA78[];
-extern s16 D_i5_801BAABC[][10];
-extern s16 D_i5_801BAB0C[][10];
+extern s16 D_i5_801BAA50[19];
+extern s16 D_i5_801BAA78[34];
+extern s16 D_i5_801BAABC[4][10];
+extern s16 D_i5_801BAB0C[4][10];
+
+
+// s16 D_i5_801BAA50[19] = {
+//     0, 1, 91, 34, 90, 68, 33, 32, 31, 30, 29, 53, 37, 36, 35, 47, 40, 39, 38,
+// };
+
+// s16 D_i5_801BAA78[34] = {
+//     0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+// };
+
+// s16 D_i5_801BAABC[4][10] = {
+//     { 22, 21, 20, 44, 45, 46, 47, 48, 57, -1 },
+//     { 5, 6, 7, 39, 40, 41, 42, 43, 63, -1 },
+//     { 8, 9, 10, 11, 12, 13, 50, -1, 0, 0 },
+//     { 14, 15, 16, 17, 18, 19, 58, -1, 0, 0 },
+// };
+
+// s16 D_i5_801BAB0C[4][10] = {
+//     { 0, 0, 0, 5, 5, 5, 5, 5, 5, -1 },
+//     { 0, 0, 0, 5, 5, 5, 5, 5, 5, -1 },
+//     { 0, 5, 5, 5, 5, 5, 5, -1, 0, 0 },
+//     { 0, 5, 5, 5, 5, 5, 5, -1, 0, 0 },
+// };
 
 #ifdef NON_EQUIVALENT
 // lui/addiu issues, with problem loops
@@ -3489,13 +3724,13 @@ void func_i5_80193DF0(Boss* boss) {
     s32 pad2;
     Actor* actor;
     s32 spA4;
-    s32 pad; 
+    s32 pad;
     f32 sp9C;
     Vec3f sp90;
     Vec3f sp84;
 
     Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, 0);
-    
+
     for (i = 0; i < ARRAY_COUNTU(D_i5_801BBF00); i++) {
         if (D_i5_801BBF00[i].unk_26 & 0x10) {
             if ((i == 0x27) && (D_i5_801BBEF0[8] == 0)) {
@@ -3598,7 +3833,7 @@ void func_i5_80193DF0(Boss* boss) {
             D_i5_801BD668[i]--;
         }
     }
-    
+
     if (boss->swork[0x16] > 0) {
         boss->swork[0x16]--;
     }
@@ -3616,7 +3851,8 @@ void func_i5_80193DF0(Boss* boss) {
         D_i5_801BBEF0[4]--;
     }
 
-    if ((D_i5_801BBEF0[3] != 0) && (Math_SmoothStepToAngle(&D_i5_801BBEF4[6], D_i5_801BBEF4[7], 1.0f, 8.0f, 0.01f) == 0.0f)) {
+    if ((D_i5_801BBEF0[3] != 0) &&
+        (Math_SmoothStepToAngle(&D_i5_801BBEF4[6], D_i5_801BBEF4[7], 1.0f, 8.0f, 0.01f) == 0.0f)) {
         if (D_i5_801BBEF4[7] == 48.0f) {
             D_i5_801BBEF4[7] = 0.0f;
         } else {
@@ -3624,7 +3860,8 @@ void func_i5_80193DF0(Boss* boss) {
             D_i5_801BBEF0[3]--;
         }
     }
-    if ((D_i5_801BBEF0[5] != 0) && (Math_SmoothStepToAngle(&D_i5_801BBEF4[8], D_i5_801BBEF4[9], 1.0f, 8.0f, 0.01f) == 0.0f)) {
+    if ((D_i5_801BBEF0[5] != 0) &&
+        (Math_SmoothStepToAngle(&D_i5_801BBEF4[8], D_i5_801BBEF4[9], 1.0f, 8.0f, 0.01f) == 0.0f)) {
         if (D_i5_801BBEF4[9] == 48.0f) {
             D_i5_801BBEF4[9] = 0.0f;
         } else {
@@ -3634,7 +3871,7 @@ void func_i5_80193DF0(Boss* boss) {
     }
     if (D_i5_801BBEF0[6] != 0) {
         for (i = 0; i < ARRAY_COUNTU(D_i5_801BBF00); i++) {
-            for(j = 0; j < 14; j++) {
+            for (j = 0; j < 14; j++) {
                 if (D_i5_801B7770[i][0] == D_i5_801B8160[j]) {
                     break;
                 }
@@ -3651,7 +3888,8 @@ void func_i5_80193DF0(Boss* boss) {
         }
     }
 
-    if ((boss->state >= 7) && (boss->state < 0xE) && (boss->dmgType == 1) && (D_i5_801BAA78[D_i5_801B7904[boss->dmgPart]] == 2) && (D_i5_801BBEF0[8] == 0)) {
+    if ((boss->state >= 7) && (boss->state < 0xE) && (boss->dmgType == 1) &&
+        (D_i5_801BAA78[D_i5_801B7904[boss->dmgPart]] == 2) && (D_i5_801BBEF0[8] == 0)) {
         Audio_PlaySfx(0x29121007, boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         boss->dmgType = 0;
     }
@@ -3664,7 +3902,7 @@ void func_i5_80193DF0(Boss* boss) {
             if ((D_i5_801B7904[boss->dmgPart] == 6) && (boss->state == 0xB)) {
                 D_i5_801BD668[D_i5_801B7904[boss->dmgPart]] = 0;
             }
-            
+
             if (D_i5_801BAA78[D_i5_801B7904[boss->dmgPart]] != 0) {
                 Audio_PlaySfx(0x2940802C, boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 boss->swork[D_i5_801BAA78[D_i5_801B7904[boss->dmgPart]] + 4] = 0x14;
@@ -3677,7 +3915,7 @@ void func_i5_80193DF0(Boss* boss) {
                     }
                 }
                 var_v1 = 0;
-                for(i = 0; i < 4; i++) {
+                for (i = 0; i < 4; i++) {
                     if (boss->swork[i + 9] <= 0) {
                         var_v1++;
                     }
@@ -3691,7 +3929,8 @@ void func_i5_80193DF0(Boss* boss) {
                     boss->swork[0x1B] = 0x50;
                     boss->swork[0x23]++;
                 }
-            } else if ((gBossHealthBar > 0) && (D_i5_801B7904[boss->dmgPart] == 0x17) && (boss->swork[0x1D] != 0) && (boss->swork[0x15] > 0)) {
+            } else if ((gBossHealthBar > 0) && (D_i5_801B7904[boss->dmgPart] == 0x17) && (boss->swork[0x1D] != 0) &&
+                       (boss->swork[0x15] > 0)) {
                 boss->swork[0x15] -= boss->damage;
                 if (boss->swork[0x15] <= 0) {
                     D_8017796C = -1;
@@ -3739,7 +3978,7 @@ void func_i5_80193DF0(Boss* boss) {
                         D_i5_801BBEF0[6] = 0x28;
                         D_i5_801BBEF4[10] = 2.0f;
                         var_v1 = 0;
-                        for(i = 0; i < 4; i++) {
+                        for (i = 0; i < 4; i++) {
                             if (boss->swork[i + 9] <= 0) {
                                 var_v1++;
                             }
@@ -3790,7 +4029,7 @@ void func_i5_80193DF0(Boss* boss) {
             D_i5_801BBEF0[0] -= D_i5_801BBEF0[1];
         }
     }
-    
+
     switch (boss->swork[0x1C]) {
 
         case 1:
@@ -3893,9 +4132,12 @@ void func_i5_80193DF0(Boss* boss) {
                     if (D_i5_801B8198[i].unk_0C == 0) {
                         j = D_i5_801B8198[i].unk_00;
                         Matrix_MultVec3f(gCalcMatrix, &D_i5_801BBF00[j].unk_00.pos, &spC8);
-                        sp9C = fabsf(Math_SmoothStepToF(&actor->obj.pos.x, boss->obj.pos.x + spC8.x, 1.0f, 40.0f, 0.01f));
-                        sp9C += fabsf(Math_SmoothStepToF(&actor->obj.pos.y, boss->obj.pos.y + spC8.y, 1.0f, 40.0f, 0.01f));
-                        sp9C += fabsf(Math_SmoothStepToF(&actor->obj.pos.z, boss->obj.pos.z + spC8.z, 1.0f, 90.0f, 0.01f));
+                        sp9C =
+                            fabsf(Math_SmoothStepToF(&actor->obj.pos.x, boss->obj.pos.x + spC8.x, 1.0f, 40.0f, 0.01f));
+                        sp9C +=
+                            fabsf(Math_SmoothStepToF(&actor->obj.pos.y, boss->obj.pos.y + spC8.y, 1.0f, 40.0f, 0.01f));
+                        sp9C +=
+                            fabsf(Math_SmoothStepToF(&actor->obj.pos.z, boss->obj.pos.z + spC8.z, 1.0f, 90.0f, 0.01f));
                         actor->obj.rot.x += 20.0f;
                         actor->obj.rot.y += 20.0f;
                         actor->obj.rot.z += 20.0f;
@@ -3920,7 +4162,7 @@ void func_i5_80193DF0(Boss* boss) {
             for (i = 0; i < 0x21U; i++) {
                 D_i5_801BBF00[D_i5_801B8198[i].unk_00].unk_26 = 0;
             }
-            
+
             for (i = 0; i < 4; i++) {
                 boss->swork[i + 9] = 0x1E;
                 boss->swork[i + 13] = 0;
@@ -4034,7 +4276,9 @@ void func_i5_80193DF0(Boss* boss) {
                 if (D_i5_801BBF00[i].unk_24 > 0) {
                     D_i5_801BBF00[i].unk_24--;
                     if (!(D_i5_801BBF00[i].unk_24 & 1)) {
-                        func_8007A900(D_i5_801BBF00[i].unk_00.pos.x + boss->obj.pos.x, D_i5_801BBF00[i].unk_00.pos.y + boss->obj.pos.y, D_i5_801BBF00[i].unk_00.pos.z + boss->obj.pos.z, 7.0f, 160, 16, 0);
+                        func_8007A900(D_i5_801BBF00[i].unk_00.pos.x + boss->obj.pos.x,
+                                      D_i5_801BBF00[i].unk_00.pos.y + boss->obj.pos.y,
+                                      D_i5_801BBF00[i].unk_00.pos.z + boss->obj.pos.z, 7.0f, 160, 16, 0);
                     }
                 }
                 if (D_i5_801BBF00[i].unk_24 != 0) {
@@ -4127,8 +4371,10 @@ void func_i5_80193DF0(Boss* boss) {
             if ((boss->unk_04C == 0x16) || (boss->unk_04C == 0x50)) {
                 Audio_PlaySfx(0x2940702B, boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             }
-            if (((boss->unk_04C >= 0) && (boss->unk_04C < 0x12)) || ((boss->unk_04C >= 0x3E) && (boss->unk_04C < 0x50))) {
-                D_i5_801BBEF4[12] = Math_Atan2F(gPlayer[0].pos.x - boss->obj.pos.x, gPlayer[0].pos.z - boss->obj.pos.z) * M_RTOD;
+            if (((boss->unk_04C >= 0) && (boss->unk_04C < 0x12)) ||
+                ((boss->unk_04C >= 0x3E) && (boss->unk_04C < 0x50))) {
+                D_i5_801BBEF4[12] =
+                    Math_Atan2F(gPlayer[0].pos.x - boss->obj.pos.x, gPlayer[0].pos.z - boss->obj.pos.z) * M_RTOD;
                 D_i5_801BBEF4[11] = __cosf(D_i5_801BBEF4[12] * M_DTOR) * 580.0f;
             }
             if ((boss->unk_04C >= 0x25) && (boss->unk_04C < 0x29) && (boss->swork[0xB] > 0)) {
@@ -4441,7 +4687,7 @@ void func_i5_80193DF0(Boss* boss) {
                 break;
         }
     }
-    
+
     while (boss->fwork[0x31] >= 360.0f) {
         boss->fwork[0x31] -= 360.0f;
     }
@@ -4450,14 +4696,13 @@ void func_i5_80193DF0(Boss* boss) {
         boss->fwork[0x31] += 360.0f;
     }
 
-
     for (i = 0; i < 4; i++) {
         if (boss->swork[i + 9] == 0) {
             j = boss->swork[i + 0x11];
             if (boss->swork[i + 0xD] == D_i5_801BAB0C[i][j]) {
                 do {
                     D_i5_801BBF00[D_i5_801BAABC[i][j]].unk_26 = 3;
-                    boss->swork[i + 0x11]++; 
+                    boss->swork[i + 0x11]++;
                     j++;
                 } while (D_i5_801BAB0C[i][j] == 0);
                 if (D_i5_801BAB0C[i][j] == -1) {
@@ -4487,7 +4732,7 @@ void func_i5_80193DF0(Boss* boss) {
             effect = func_8007783C(OBJ_EFFECT_394);
             if (effect != NULL) {
                 Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, 0);
-                Matrix_MultVec3f(gCalcMatrix, (Vec3f* ) &boss->fwork[8], &spC8);
+                Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &boss->fwork[8], &spC8);
                 effect->obj.status = 2;
                 effect->unk_78 = effect->unk_7A = 0;
                 effect->obj.pos.x = boss->obj.pos.x + spC8.x;
@@ -4504,7 +4749,7 @@ void func_i5_80193DF0(Boss* boss) {
             effect = func_8007783C(OBJ_EFFECT_394);
             if (effect != NULL) {
                 Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, 0);
-                Matrix_MultVec3f(gCalcMatrix, (Vec3f* ) &boss->fwork[5], &spC8);
+                Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &boss->fwork[5], &spC8);
                 effect->obj.status = 2;
                 effect->unk_78 = effect->unk_7A = 0;
                 effect->obj.pos.x = boss->obj.pos.x + spC8.x;
@@ -4524,7 +4769,8 @@ void func_i5_80193DF0(Boss* boss) {
         D_80178480 = 7;
     }
     if (boss->state >= 7) {
-        if (((boss->fwork[0xF] > 0.0f) && (boss->fwork[9] <= 0.0f)) || ((boss->fwork[0xC] > 0.0f) && (boss->fwork[6] <= 0.0f))) {
+        if (((boss->fwork[0xF] > 0.0f) && (boss->fwork[9] <= 0.0f)) ||
+            ((boss->fwork[0xC] > 0.0f) && (boss->fwork[6] <= 0.0f))) {
             Audio_PlaySfx(0x29406029, boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
             if (boss->state == 0xC) {
                 boss->swork[0x27] = 4;
@@ -4539,7 +4785,12 @@ void func_i5_80193DF0(Boss* boss) {
     }
     if ((boss->state >= 7) && (D_i5_801B7738[boss->state] > 0.0f)) {
         // Can use temp here
-        boss->fwork[2] = (((-Math_SmoothStepToF(&boss->obj.pos.z, gPlayer[0].pos.z - D_i5_801BBEF4[11], 0.1f, 14.0f, 0.001f) / 14.0f) * 1.2f) + 1.0f) * 2.0f;
+        boss->fwork[2] =
+            (((-Math_SmoothStepToF(&boss->obj.pos.z, gPlayer[0].pos.z - D_i5_801BBEF4[11], 0.1f, 14.0f, 0.001f) /
+               14.0f) *
+              1.2f) +
+             1.0f) *
+            2.0f;
         boss->vel.z = -12.0f;
     }
     boss->dmgType = 0;
@@ -4549,13 +4800,14 @@ void func_i5_80193DF0(Boss* boss) {
 void func_i5_80193DF0(Boss*);
 #endif
 
-extern s16 D_i5_801B8D54[];
+static s16 D_i5_801B8D54[4] = { 30, 35, 60, 70 };
 
 void func_i5_80197A94(Boss* arg0) {
     Vec3f sp3C;
 
     arg0->swork[0x26]++;
-    if ((arg0->dmgType != 0) && (((arg0->state >= 0) && (arg0->state <= 1)) || ((arg0->state >= 4) && (arg0->state <= 6)))) {
+    if ((arg0->dmgType != 0) &&
+        (((arg0->state >= 0) && (arg0->state <= 1)) || ((arg0->state >= 4) && (arg0->state <= 6)))) {
         Audio_PlaySfx(0x29121007, arg0->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         arg0->dmgType = 0;
     }
@@ -4664,7 +4916,7 @@ void func_i5_80197A94(Boss* arg0) {
                     switch (arg0->swork[4]) {
                         case 1:
                             if (gTeamShields[3] > 0) {
-                            Radio_PlayMessage(gMsg_ID_4095, RCID_PEPPY);
+                                Radio_PlayMessage(gMsg_ID_4095, RCID_PEPPY);
                             }
                             D_i5_801BBEF0[42] = 1;
                             break;
@@ -4676,12 +4928,12 @@ void func_i5_80197A94(Boss* arg0) {
                             break;
                         default:
                             break;
-                        
                     }
 
                     if (arg0->swork[4] >= 4) {
                         if (!(D_i5_801BBEF0[46] & 1)) {
-                            if ((gTeamShields[1] > 0) && (D_i5_801BBEF0[8] == 0) && (gRadioState == 0) && (arg0->swork[0xA] >= 2)) {
+                            if ((gTeamShields[1] > 0) && (D_i5_801BBEF0[8] == 0) && (gRadioState == 0) &&
+                                (arg0->swork[0xA] >= 2)) {
                                 gTeamShields[2] = 1;
                                 Radio_PlayMessage(gMsg_ID_4098, RCID_SLIPPY);
                                 gTeamShields[2] = -2;
@@ -4712,7 +4964,7 @@ void func_i5_80197A94(Boss* arg0) {
             }
             break;
     }
-    
+
     if ((arg0->state != 5) && ((arg0->state != 4) || (arg0->swork[0x1F] < 0x65)) && (D_i5_801BBEF0[8] == 0)) {
         Math_SmoothStepToF(&D_i5_801BBEF4[74], D_i5_801BBEF4[75], 0.5f, 0.04f, 0.01f);
         if (D_i5_801BBEF4[74] == D_i5_801BBEF4[74]) {
@@ -4728,7 +4980,6 @@ void func_i5_80197A94(Boss* arg0) {
         if ((D_i5_801BBEF0[49] >= 0x19) && !((D_i5_801BBEF0[49] - 0x19) & 1)) {
             D_i5_801BBEF4[74] = (Rand_ZeroOne() * 0.4f) + 0.9f;
             D_i5_801BBEF4[75] = 0.6f;
-
         }
         if (D_i5_801BBEF0[49] == 0) {
             sp3C.x = arg0->fwork[0x1D] + arg0->obj.pos.x;
@@ -4746,9 +4997,18 @@ void func_i5_80197A94(Boss* arg0) {
     arg0->swork[0x1F]++;
 }
 
+static f32 D_i5_801B8D5C[50] = { 0.0f,   0.03f, 0.06f,  0.12f, 0.18f,  0.25f, 0.425f, 0.6f, 0.775f, 0.95f,
+                                 1.125f, 1.3f,  1.475f, 1.65f, 1.825f, 2.0f,  1.8f,   1.6f, 1.4f,   1.2f,
+                                 1.0f,   0.8f,  0.6f,   0.4f,  0.2f,   0.0f,  0.8f,   1.6f, 2.4f,   3.2f,
+                                 4.0f,   3.4f,  3.2f,   3.0f,  2.8f,   2.4f,  2.2f,   2.0f, 1.8f,   1.6f,
+                                 1.4f,   1.2f,  1.0f,   0.8f,  0.6f,   0.4f,  0.2f,   0.0f, 0.0f,   0.0f };
 
-extern f32 D_i5_801B8D5C[];
-extern f32 D_i5_801B8E24[][2];
+static f32 D_i5_801B8E24[4][2] = {
+    { -1.0f, 1.0f },
+    { 1.0f, 1.0f },
+    { -1.0f, -1.0f },
+    { 1.0f, -1.0f },
+};
 
 void func_i5_801982A8(Boss* arg0) {
     UnkEntity30* temp_v0_6;
@@ -4777,20 +5037,24 @@ void func_i5_801982A8(Boss* arg0) {
         case 4:
             Matrix_Push(&gGfxMatrix);
             D_i5_801BBEF0[25] = 0;
-            Animation_DrawSkeleton(0, D_A000EDC, D_i5_801BCE88, func_i5_8018FC70, func_i5_8019002C, arg0, &gIdentityMatrix);
+            Animation_DrawSkeleton(0, D_A000EDC, D_i5_801BCE88, func_i5_8018FC70, func_i5_8019002C, arg0,
+                                   &gIdentityMatrix);
             Matrix_Pop(&gGfxMatrix);
             D_i5_801B83A8[0] = 22.0f;
             Matrix_Push(&gGfxMatrix);
             D_i5_801BBEF0[25] = 1;
-            Animation_DrawSkeleton(0, D_A000568, D_i5_801BCDC8, func_i5_801903A0, func_i5_8019081C, arg0, &gIdentityMatrix);
+            Animation_DrawSkeleton(0, D_A000568, D_i5_801BCDC8, func_i5_801903A0, func_i5_8019081C, arg0,
+                                   &gIdentityMatrix);
             Matrix_Pop(&gGfxMatrix);
             Matrix_Push(&gGfxMatrix);
             D_i5_801BBEF0[25] = 2;
-            Animation_DrawSkeleton(0, D_A000568, D_i5_801BCE28, func_i5_801903A0, func_i5_8019081C, arg0, &gIdentityMatrix);
+            Animation_DrawSkeleton(0, D_A000568, D_i5_801BCE28, func_i5_801903A0, func_i5_8019081C, arg0,
+                                   &gIdentityMatrix);
             Matrix_Pop(&gGfxMatrix);
             break;
         case 6:
-            Animation_DrawSkeleton(0, D_A001A70, D_i5_801BCDC8, func_i5_80190A08, func_i5_80191AE8, arg0, &gIdentityMatrix);
+            Animation_DrawSkeleton(0, D_A001A70, D_i5_801BCDC8, func_i5_80190A08, func_i5_80191AE8, arg0,
+                                   &gIdentityMatrix);
             break;
         case 7:
         case 8:
@@ -4799,7 +5063,8 @@ void func_i5_801982A8(Boss* arg0) {
         case 11:
         case 12:
         case 13:
-            Animation_DrawSkeleton(0, D_A001A70, D_i5_801BCDC8, func_i5_80190A08, func_i5_80191AE8, arg0, &gIdentityMatrix);
+            Animation_DrawSkeleton(0, D_A001A70, D_i5_801BCDC8, func_i5_80190A08, func_i5_80191AE8, arg0,
+                                   &gIdentityMatrix);
             break;
         case 0:
             break;
@@ -4845,7 +5110,8 @@ void func_i5_801982A8(Boss* arg0) {
                     sp120 = (arg0->fwork[0x2B] + (f32) i) / 3.0f;
                     temp_fs2 = arg0->fwork[0x2D] * sp120;
                     temp_fv0 = 1.0f - sp120;
-                    GPC((s32) (temp_fv0 * 255.0f), (s32) ((temp_fv0 * 128.0f) + 127.0f), (s32) ((temp_fv0 * 60.0f) + 195.0f), (s32) ((temp_fv0 * 155.0f) + 100.0f));
+                    GPC((s32) (temp_fv0 * 255.0f), (s32) ((temp_fv0 * 128.0f) + 127.0f),
+                        (s32) ((temp_fv0 * 60.0f) + 195.0f), (s32) ((temp_fv0 * 155.0f) + 100.0f));
                     for (j = 0; j < 0x168; j += 0x2D) {
                         Matrix_Push(&gGfxMatrix);
                         Matrix_RotateZ(gGfxMatrix, (j + arg0->fwork[0x2B] * 360.0f) * M_DTOR, 1U);
@@ -4879,7 +5145,7 @@ void func_i5_801982A8(Boss* arg0) {
                 }
                 Matrix_Pop(&gGfxMatrix);
             }
-            
+
             if (D_i5_801BBEF0[16] > 0) {
                 temp = D_i5_801BBEF0[16] - 1;
                 Matrix_Push(&gGfxMatrix);
@@ -4902,12 +5168,12 @@ void func_i5_801982A8(Boss* arg0) {
                 Matrix_Scale(gGfxMatrix, 4.0f, 4.0f, 4.0f, 1U);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 RCP_SetupDL(&gMasterDisp, 0x31);
-                GPC(255, 255, 255, (s32)((f32) (D_i5_801BBEF0[17] * 89.0f) / 3.0f));
+                GPC(255, 255, 255, (s32) ((f32) (D_i5_801BBEF0[17] * 89.0f) / 3.0f));
                 GEC(0, 128, 60, 0);
                 GDL(D_7005300);
                 Matrix_Pop(&gGfxMatrix);
             }
-            
+
             if (arg0->swork[0x19] != 0) {
                 sp120 = arg0->fwork[0x29] / 40.0f;
                 temp_fs2 = arg0->fwork[0x2A] / 700.0f;
@@ -4965,7 +5231,7 @@ void func_i5_801982A8(Boss* arg0) {
     }
 }
 
-extern Vec3f D_i5_801B8E44;
+static Vec3f D_i5_801B8E44 = { 3.0f, 0.0f, 0.0f };
 
 void func_i5_801990DC(Boss* boss) {
     s32 i;
@@ -5014,7 +5280,7 @@ void func_i5_801990DC(Boss* boss) {
                             var_s1 = 1;
                         }
                         actor->fwork[0] = ((Rand_ZeroOne() * 5.0f) + 5.0f) * (f32) var_s1;
-                        
+
                         if (Rand_ZeroOne() < 0.5f) {
                             var_s1 = -1;
                         } else {
@@ -5026,7 +5292,9 @@ void func_i5_801990DC(Boss* boss) {
                         Matrix_MultVec3f(gCalcMatrix, &D_i5_801B8E44, &sp60);
                         Matrix_Pop(&gCalcMatrix);
                         actor->vel.x = sp60.x;
-                        var_s1 = (D_i5_801BBF00[i].unk_00.pos.y > 250.0f) ? 1 : (D_i5_801BBF00[i].unk_00.pos.y == 250.0f) ? 0 : -1;
+                        var_s1 = (D_i5_801BBF00[i].unk_00.pos.y > 250.0f)    ? 1
+                                 : (D_i5_801BBF00[i].unk_00.pos.y == 250.0f) ? 0
+                                                                             : -1;
                         actor->vel.y = ((f32) var_s1 - (Rand_ZeroOne() * 0.5f)) + 0.5f;
                         actor->vel.z = (boss->vel.z * 0.5f) + sp60.z;
                         actor->gravity = 0.1f;
@@ -5087,7 +5355,7 @@ void func_i5_801990DC(Boss* boss) {
                 } else {
                     var_s1 = 1;
                 }
-                
+
                 actor->fwork[1] = ((Rand_ZeroOne() * 5.0f) + 5.0f) * (f32) var_s1;
                 actor->state = 0x28;
                 actor->unk_046 = 2;
@@ -5097,7 +5365,7 @@ void func_i5_801990DC(Boss* boss) {
                 actor->fwork[3] = -150.0f;
                 actor->fwork[4] = -200.0f;
                 actor->fwork[5] = 200.0f;
-                actor->obj.pos.x = gPlayer[0].pos.x +  actor->fwork[3];
+                actor->obj.pos.x = gPlayer[0].pos.x + actor->fwork[3];
                 actor->obj.pos.y = 500.0f;
                 actor->obj.pos.z = gPlayer[0].unk_138 + actor->fwork[4];
                 actor->obj.rot.z = 90.0f;
@@ -5119,7 +5387,7 @@ void func_i5_801990DC(Boss* boss) {
                 } else {
                     var_s1 = 1;
                 }
-                
+
                 actor->fwork[1] = (Rand_ZeroOne() + 1.0f) * (f32) var_s1;
                 actor->state = 0x28;
                 actor->unk_046 = 2;
@@ -5129,7 +5397,7 @@ void func_i5_801990DC(Boss* boss) {
                 actor->fwork[3] = 100.0f;
                 actor->fwork[4] = -100.0f;
                 actor->fwork[5] = 200.0f;
-                actor->obj.pos.x = gPlayer[0].pos.x +  actor->fwork[3];
+                actor->obj.pos.x = gPlayer[0].pos.x + actor->fwork[3];
                 actor->obj.pos.y = 500.0f;
                 actor->obj.pos.z = gPlayer[0].unk_138 + actor->fwork[4];
                 actor->obj.rot.z = 90.0f;
@@ -5145,10 +5413,7 @@ void func_i5_801990DC(Boss* boss) {
     }
 }
 
-
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/fox_ti/D_i5_801BAA50.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/fox_ti/D_i5_801BAA54.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/fox_ti/D_i5_801BAA78.s")
 
