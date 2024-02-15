@@ -255,5 +255,7 @@ typedef enum SetupDL {
 } SetupDL;
 
 extern Gfx gSetupDLs[SETUPDL_MAX][9]; // 0x800D31B0
+extern u8 D_80178580[];
+extern void* D_80178710;
 
 #endif

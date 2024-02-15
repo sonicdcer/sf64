@@ -1,4 +1,4 @@
-#include "global.h"
+#include "sys.h"
 
 TimerTask sTimerTasks[0x10];
 

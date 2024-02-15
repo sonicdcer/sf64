@@ -3669,9 +3669,9 @@ void func_80072594(Actor* actor) {
         }
 
         if (gLevelMode == LEVELMODE_ALL_RANGE) {
-            D_80177F24[actor->index] = actor->obj.pos.x;
-            D_8017802C[actor->index] = actor->obj.pos.z;
-            D_80178134[actor->index] = Math_ModF(actor->unk_0F4.y, 360.0f) + 180.0f;
+            D_80177F20[actor->index + 1] = actor->obj.pos.x;
+            D_80178028[actor->index + 1] = actor->obj.pos.z;
+            D_80178130[actor->index + 1] = Math_ModF(actor->unk_0F4.y, 360.0f) + 180.0f;
             D_80178238[actor->index + 1] = 1;
         }
     }
@@ -4111,9 +4111,9 @@ void func_800763A4(Actor* actor) {
             func_80066254(actor);
 
             if (gLevelMode == LEVELMODE_ALL_RANGE) {
-                D_80177F24[actor->index] = actor->obj.pos.x;
-                D_8017802C[actor->index] = actor->obj.pos.z;
-                D_80178134[actor->index] = 1001.0f;
+                D_80177F20[actor->index + 1] = actor->obj.pos.x;
+                D_80178028[actor->index + 1] = actor->obj.pos.z;
+                D_80178130[actor->index + 1] = 1001.0f;
             }
             return;
         }
@@ -4308,9 +4308,9 @@ void func_800763A4(Actor* actor) {
     }
 
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
-        D_80177F24[actor->index] = actor->obj.pos.x;
-        D_8017802C[actor->index] = actor->obj.pos.z;
-        D_80178134[actor->index] = actor->unk_0F4.y + 180.0f;
+        D_80177F20[actor->index + 1] = actor->obj.pos.x;
+        D_80178028[actor->index + 1] = actor->obj.pos.z;
+        D_80178130[actor->index + 1] = actor->unk_0F4.y + 180.0f;
     }
 
     if (actor->obj.id == OBJ_ACTOR_197) {

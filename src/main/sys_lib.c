@@ -1,13 +1,13 @@
-#include "global.h"
+#include "sys.h"
 
 s32 Lib_vsPrintf(char* dst, const char* fmt, va_list args) {
     return vsprintf(dst, fmt, args);
 }
 
-void Lib_vTable(s32 arg0, void (**arg1)(s32, s32), s32 arg2, s32 arg3) {
-    void (*temp)(s32, s32) = arg1[arg0];
+void Lib_vTable(s32 index, void (**table)(s32, s32), s32 arg0, s32 arg1) {
+    void (*func)(s32, s32) = table[index];
 
-    temp(arg2, arg3);
+    func(arg0, arg1);
 }
 
 void Lib_SwapBuffers(u8* buf1, u8* buf2, s32 len) {
@@ -20,8 +20,6 @@ void Lib_SwapBuffers(u8* buf1, u8* buf2, s32 len) {
         buf1[i] = temp;
     }
 }
-
-typedef s32 (*CompareFunc)(void*, void*);
 
 void Lib_QuickSort(u8* first, u32 curLen, u32 size, CompareFunc cFunc) {
     u32 splitIdx;

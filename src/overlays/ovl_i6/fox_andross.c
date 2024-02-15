@@ -3511,8 +3511,9 @@ void func_i6_80193AE4(s32 actorIndex) {
     Audio_PlaySfx(0x3100000C, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-//! @bug This references a variable in another overlay, causing undefined behavior
-//! In US v1.1, that address contains the store instruction for player->vel.y = vel.y; in func_i6_80196BF8
+//! @bug This references a variable in another overlay, causing undefined behavior.
+//! In US v1.1, that address contains the store instruction for player->vel.y = vel.y; in func_i6_80196BF8. Setting this
+//! to nop is harmless, as the overlay will be unloaded next frame.
 extern s32 D_ending_80196D00;
 
 void func_i6_80193C4C(Player* player) {

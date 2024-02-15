@@ -8,15 +8,7 @@
 #include "sf64player.h"
 #include "sf64mesg.h"
 
-s32 Lib_vsPrintf(char* dst, const char* fmt, va_list args);
-void Lib_Perspective(Gfx** dList);
-void Lib_Ortho(Gfx** dList);
-void Lib_DmaRead(void* src, void* dst, s32 size);
-void Lib_FillScreen(u8 setFill);
-
-void Memory_FreeAll(void);
-void* Memory_Allocate(s32);
-
+// audio
 void func_8000FFCC(void);
 
 void func_80016A50(void);
@@ -63,38 +55,6 @@ void func_8001DECC(void);
 
 SPTask* func_8001DF50(void);
 void func_8001EE00(void);
-
-f32 func_8001FE60(f32);
-f64 func_8001FE6C(f64);
-s32 func_8001FE78(f32);
-s32 func_8001FE88(f64);
-f32 func_8001FE98(f32);
-f64 func_8001FEA4(f64);
-s32 func_8001FEB0(f32);
-s32 func_8001FEC0(f64);
-f32 func_8001FED0(f32);
-f64 func_8001FEDC(f64);
-s32 func_8001FEE8(f32);
-s32 func_8001FEF8(f64);
-f32 func_8001FF08(f32);
-f64 func_8001FF14(f64);
-s32 func_8001FF20(f32);
-s32 func_8001FF30(f64);
-f32 func_8001FF40(f32);
-f64 func_8001FF5C(f64);
-s32 func_8001FF7C(f32);
-s32 func_8001FF9C(f64);
-f32 func_8001FAE4(f32);
-f32 func_8001FB04(f32);
-f64 func_8001FB24(f64);
-f32 func_8001FB58(f32);
-f32 func_8001FB88(f32);
-f32 func_8001FBA8(f32);
-f32 func_8001FBC8(f32);
-
-void RdRam_CheckIPL3(void);
-void Mio0_Decompress(void* header, u8* dst);
-s32 vsprintf(char* dst, const char* fmt, va_list args);
 
 // fox_360
 void func_8002ED60(Player*);
@@ -467,7 +427,6 @@ void func_80084488(s32);
 void func_80084688(s32, s32);
 
 // fox_hud
-
 void func_80084B94(s32);
 void func_800857DC(f32, f32, f32, f32);
 void func_80085890(f32, f32, f32, f32);
@@ -522,7 +481,6 @@ s32 func_800988B4(Vec3f* vec, Plane* plane);
 s32 func_800998FC(Vec3f*, Vec3f*, Vec3f*, s32, Vec3f*, f32*);
 
 // fox_game
-void Game_Initialize(void);
 void Game_SetGameState(void);
 bool func_800A1B6C(void);
 void func_800A1C14(Gfx**);
@@ -530,9 +488,8 @@ void func_800A1E68(Gfx**);
 void func_800A1F44(void);
 void func_800A1FB0(Gfx**, u8 , u8);
 void func_800A24DC(s32);
-void func_800A26C0(void);
+
 void func_800A25DC(void);
-Actor* func_800A3608(ObjectId);
 
 // fox_A4290
 bool func_800A3690(Vec3f*, Vec3f*, s32, Vec3f*);
@@ -593,9 +550,6 @@ s32 func_800BA7BC(u16*, s32);
 void Radio_PlayMessage(u16*, RadioCharacterId);
 void func_800BB388(void);
 void func_800BB5D0(void);
-
-// fox_reset
-void Graphics_NMIWipe(void);
 
 // fox_versus
 s32 func_800C1E9C(void);

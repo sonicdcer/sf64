@@ -313,7 +313,7 @@ void func_800A25DC(void) {
     }
 }
 
-void func_800A26C0(void) {
+void Game_Update(void) {
     s32 i;
     u8 spBB;
     u16 var_v0_3;

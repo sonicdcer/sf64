@@ -6,18 +6,11 @@
 #define M_PI    3.14159265358979323846f
 #define M_DTOR	(M_PI / 180.0f)
 #define M_RTOD	(180.0f / M_PI)
-#define M_DTOD 1.0f
 #define M_SQRT2 1.41421356237309504880f
 #define M_SQRT1_2 0.70710678118654752440f	/* 1/sqrt(2) */
 #define FLT_MAX 340282346638528859811704183484516925440.0f
 #define SHT_MAX 32767.0f
 #define SHT_MINV (1.0f / SHT_MAX)
-
-#define RAD_TO_DEG(radians) (((radians) * 180.0f) / M_PI)
-#define DEG_TO_RAD(degrees) (((degrees) / 180.0f) * M_PI)
-
-#define SIN_DEG(angle) __sinf((M_DTOR)*(angle))
-#define COS_DEG(angle) __cosf((M_DTOR)*(angle))
 
 typedef union {
     struct {
@@ -52,5 +45,26 @@ float sqrtf(float f);
 
 double sqrt(double d);
 #pragma intrinsic(sqrt)
+
+f32 __floorf(f32);
+f64 __floor(f64);
+s32 __lfloorf(f32);
+s32 __lfloor(f64);
+f32 __ceilf(f32);
+f64 __ceil(f64);
+s32 __lceilf(f32);
+s32 __lceil(f64);
+f32 __truncf(f32);
+f64 __trunc(f64);
+s32 __ltruncf(f32);
+s32 __ltrunc(f64);
+f32 __roundf(f32);
+f64 __round(f64);
+s32 __lroundf(f32);
+s32 __lround(f64);
+f32 __nearbyintf(f32);
+f64 __nearbyint(f64);
+s32 __lnearbyintf(f32);
+s32 __lnearbyint(f64);
 
 #endif

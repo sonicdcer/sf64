@@ -1,4 +1,4 @@
-#include "global.h"
+#include "sys.h"
 
 s32 sMemoryBuffer[0x2200];
 s32* sMemoryPtr;
