@@ -820,13 +820,13 @@ void func_i5_8018B268(Actor* actor) {
                 sp3C->obj.pos.y = actor->obj.pos.y + sp40.y;
                 sp3C->obj.pos.z = actor->obj.pos.z + sp40.z;
             }
-            if ((actor->unk_0B6 >= 26) && (actor->unk_0B6 <= 59) && (sp38 != NULL)) {
+            if ((actor->unk_0B6 >= 26) && (actor->unk_0B6 <= 57) && (sp38 != NULL)) {
                 if (actor->unk_0B6 == 26) {
                     sp38->unk_046 = 2;
                     sp38->vel.x = 0.0f;
                     sp38->vel.y = 0.0f;
                     sp38->vel.z = 0.0f;
-                } else if (actor->unk_0B6 == 59) {
+                } else if (actor->unk_0B6 == 57) {
                     Audio_PlaySfx(0x29000028, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                     sp4C.x = 0.0f;
                     sp4C.y = actor->fwork[1];
