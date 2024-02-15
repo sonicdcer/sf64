@@ -128,4 +128,18 @@ void func_i5_801AEC04(Actor*);
 void func_i5_801AEEFC(Actor*);
 s32 func_i5_801A55D4(s32 , Vec3f* , Vec3f* , s32 );
 
+typedef struct {
+    /* 0x00 */ PosRot unk_00;
+    /* 0x18 */ u16 unk_18;
+} UnkStruct_i5_801BD738; // size = 0x1C
+
+typedef struct {
+    /* 0x00 */ PosRot unk_00;
+    /* 0x18 */ f32 unk_18;
+    /* 0x1C */ f32 unk_1C;
+    /* 0x20 */ f32 unk_20;
+    /* 0x24 */ s16 unk_24;
+    /* 0x26 */ u16 unk_26;
+} UnkStruct_i5_801BBF00; // size = 0x28
+
 #endif

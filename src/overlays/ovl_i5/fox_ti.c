@@ -50,6 +50,23 @@ extern Limb* D_A000EDC[];
 extern Limb* D_A001A70[];
 extern Gfx D_Gfx_800D94D0[];
 
+s32* D_i5_801BBEF0;
+f32* D_i5_801BBEF4;
+s32* D_i5_801BBEF8;
+UnkStruct_i5_801BBF00 D_i5_801BBF00[67];
+Vec3f D_i5_801BC978[8];
+Vec3f D_i5_801BC9D8[8];
+Vec3f D_i5_801BCA38[76];
+Vec3f D_i5_801BCDC8[8];
+Vec3f D_i5_801BCE28[8];
+Vec3f D_i5_801BCE88[76];
+Vec3f D_i5_801BD218[92];
+s16 D_i5_801BD668[36];
+f32 D_i5_801BD6B0[34];
+UnkStruct_i5_801BD738 D_i5_801BD738[3][9];
+PosRot D_i5_801BDA30[10];
+f32 D_i5_801BDB20[3][151];
+
 static f32 D_i5_801B7360[25][4] = {
     { 165.0f, 120.0f, 0.0f, 90.0f },    { 127.5f, 7.5f, 0.0f, 90.0f },      { 7.5f, -112.5f, 0.0f, 90.0f },
     { 255.0f, 285.0f, -60.0f, 60.0f },  { 255.0f, 285.0f, 60.0f, 60.0f },   { 247.5f, 120.0f, -90.0f, 75.0f },
@@ -70,8 +87,6 @@ static u8 D_i5_801B74F0[9][3] = {
 static bool D_i5_801B750C[3] = { false, false, false };
 
 static f32 D_i5_801B7518[2] = { 20.0f, 60.0f };
-
-extern u8 D_i5_801BA1E8;
 
 void func_i5_80188F30(void) {
     s32 i;
@@ -430,7 +445,7 @@ extern Gfx D_700D880[];
 extern Gfx D_700D740[];
 Gfx* D_i5_801B7584[10] = {
     D_700DDF0, D_700D9B0, D_700DF70, D_700DC50, D_700DED0, D_700DAD0, D_700DBB0, D_700E030, D_700D880, D_700D740,
-}; // unused?
+};
 
 void func_i5_8018A2E8(Actor* actor, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
 
@@ -733,7 +748,6 @@ void func_i5_8018B144(s32 limbIndex, Vec3f* rot, void* data) {
 static s16 D_i5_801B75D0[] = {
     1, 2, 3, 4, 5, 6, 7, 10, 12, 13,
 };
-extern PosRot D_i5_801BDA30[];
 
 void func_i5_8018B1B4(s32 limbIndex, Vec3f* rot, void* data) {
     s32 i;
@@ -855,8 +869,6 @@ void func_i5_8018B6AC(Actor* actor) {
     Animation_GetFrameData(&D_700D534, actor->unk_0B6, actor->vwork);
     Animation_DrawSkeleton(0, D_700D700, actor->vwork, func_i5_8018AFF0, func_i5_8018B144, actor, &gIdentityMatrix);
 }
-
-extern PosRot D_i5_801BDA30[];
 
 void func_i5_8018B720(Actor* actor) {
     PosRot* var_s1;
@@ -1045,13 +1057,6 @@ void func_i5_8018BE84(Actor* actor) {
     GDL(D_700A990);
 }
 
-typedef struct {
-    PosRot unk_00;
-    u16 unk_18;
-} UnkStruct_i5_801BD738;
-extern UnkStruct_i5_801BD738 D_i5_801BD738[][9];
-extern f32 D_i5_801BDB20[][151];
-
 void func_i5_8018BFB0(Actor* actor) {
     UnkStruct_i5_801BD738* temp_a1;
     s32 temp_a2;
@@ -1087,16 +1092,9 @@ bool func_i5_8018C118(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-typedef struct {
-    u16 unk_00;
-    char pad02[0x1A];
-} UnkStruct_i5_801BD750;
-
 static s16 D_i5_801B7630[18] = {
     1, 0, 2, 1, 3, 0, 4, 1, 5, 1, 6, 0, 7, 1, 8, 0, 13, 1,
 };
-
-extern UnkStruct_i5_801BD750 D_i5_801BD750[][9];
 
 bool func_i5_8018C134(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Actor* actor = (Actor*) data;
@@ -1108,7 +1106,7 @@ bool func_i5_8018C134(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     sp58 = false;
     for (i = 0; i < 9; i++) {
         if (limbIndex == D_i5_801B7630[i * 2]) {
-            if (!(D_i5_801BD750[sp50][i].unk_00 & 1)) {
+            if (!(D_i5_801BD738[sp50][i].unk_18 & 1)) {
                 Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, 1);
                 sp58 = true;
                 Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, 1);
@@ -1133,21 +1131,16 @@ bool func_i5_8018C134(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return sp58;
 }
 
-extern UnkStruct_i5_801BD750 D_i5_801BD830[][9];
-
 void func_i5_8018C370(s32 limbIndex, Vec3f* rot, void* data) {
     Actor* actor = (Actor*) data;
 
-    if ((limbIndex == 13) && !(D_i5_801BD830[actor->iwork[0]][0].unk_00 & 1)) {
+    if ((limbIndex == 13) && !(D_i5_801BD738[actor->iwork[0]][8].unk_18 & 1)) {
         GDL(D_7002490);
     }
 }
 
 static Vec3f D_i5_801B7654 = { 387.0f, 0.0f, 0.0f };
 static Vec3f D_i5_801B7660 = { 199.5f, 0.0f, 0.0f };
-
-extern UnkStruct_i5_801BD738 D_i5_801BD738[][9];
-extern UnkStruct_i5_801BD738 D_i5_801BD81C[][9];
 
 void func_i5_8018C3D8(s32 limbIndex, Vec3f* rot, void* data) {
     s32 i;
@@ -1173,7 +1166,7 @@ void func_i5_8018C3D8(s32 limbIndex, Vec3f* rot, void* data) {
         }
     }
 
-    actor->fwork[27] = D_i5_801BD81C[actor->iwork[0]][0].unk_00.pos.x;
+    actor->fwork[27] = D_i5_801BD738[actor->iwork[0]][8].unk_00.pos.y;
     switch (actor->iwork[2]) {
         case 0:
             switch (limbIndex) {
@@ -1739,7 +1732,6 @@ void func_i5_8018E5E8(Actor* actor) {
 #ifdef NON_MATCHING
 // a/v regalloc
 // https://decomp.me/scratch/Toi1P
-extern f32 D_i5_801B7518[];
 
 void func_i5_8018E5F8(Actor* actor) {
     f32 spA4;
@@ -2198,25 +2190,6 @@ void func_i5_8018F8B8(Object_80* obj80) {
     }
 }
 
-typedef struct {
-    PosRot unk_00;
-    f32 unk_18;
-    f32 unk_1C;
-    f32 unk_20;
-    s16 unk_24;
-    u16 unk_26;
-} UnkStruct_i5_801BBF00; // size = 0x28
-
-extern s32* D_i5_801BBEF0;
-extern f32* D_i5_801BBEF4;
-extern s32* D_i5_801BBEF8;
-extern UnkStruct_i5_801BBF00 D_i5_801BBF00[0x43];
-extern Vec3f D_i5_801BC978[];
-extern Vec3f D_i5_801BCDC8[];
-extern Vec3f D_i5_801BD218[];
-extern s16 D_i5_801BD668[];
-extern f32 D_i5_801BD6B0[];
-
 void func_i5_8018FA48(Boss* arg0) {
     s32 pad[2];
     f32* sp1C;
@@ -2632,8 +2605,6 @@ bool func_i5_801903A0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     }
     return true;
 }
-
-extern Vec3f D_i5_801B8D00;
 
 void func_i5_8019081C(s32 limbIndex, Vec3f* rot, void* data) {
     s32 i;
@@ -3104,14 +3075,6 @@ void func_i5_80191AE8(s32 limbIndex, Vec3f* rot, void* data) {
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/fox_ti/func_i5_80191AE8.s")
 void func_i5_80191AE8(s32, Vec3f*, void*);
 #endif
-
-extern Vec3f D_i5_801BC9D8[];
-extern Vec3f D_i5_801BCA38[];
-extern Vec3f D_i5_801BCE28[];
-extern Vec3f D_i5_801BCE88[];
-extern s32 D_i5_801C0058;
-extern s32 D_i5_801C006C;
-extern s32 D_i5_801C009C;
 
 void func_i5_80192118(Boss* boss) {
     Vec3f sp54;
@@ -3684,7 +3647,6 @@ extern s16 D_i5_801BAA50[19];
 extern s16 D_i5_801BAA78[34];
 extern s16 D_i5_801BAABC[4][10];
 extern s16 D_i5_801BAB0C[4][10];
-
 
 // s16 D_i5_801BAA50[19] = {
 //     0, 1, 91, 34, 90, 68, 33, 32, 31, 30, 29, 53, 37, 36, 35, 47, 40, 39, 38,
