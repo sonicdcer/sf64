@@ -1,6 +1,8 @@
 #ifndef MACROS_H
 #define MACROS_H
 
+#include "alignment.h"
+
 #define SCREEN_WIDTH  320
 #define SCREEN_HEIGHT 240
 
