@@ -813,31 +813,31 @@ s32 func_i4_8018E05C(Boss* boss, s32 index) {
 
     Matrix_RotateY(gCalcMatrix, (-var_fs0) * M_DTOR, 1);
 
-    src.x = gPlayer->pos.x - (boss->obj.pos.x + temp_fs2);
-    src.y = gPlayer->pos.y - (boss->obj.pos.y + 580.0f);
-    src.z = gPlayer->unk_138 - (boss->obj.pos.z + temp_fs3);
+    src.x = gPlayer[0].pos.x - (boss->obj.pos.x + temp_fs2);
+    src.y = gPlayer[0].pos.y - (boss->obj.pos.y + 580.0f);
+    src.z = gPlayer[0].unk_138 - (boss->obj.pos.z + temp_fs3);
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
     if ((fabsf(dest.x) < 100.0f) && (fabsf(dest.y) < 200.0f)) {
-        if ((dest.z >= 0.0f) && (dest.z < temp_fs4) && (gPlayer->unk_1F4 == 0)) {
+        if ((dest.z >= 0.0f) && (dest.z < temp_fs4) && (gPlayer[0].unk_1F4 == 0)) {
             Player_ApplyDamage(gPlayer, 0, 40);
 
             if (dest.y > 0.0f) {
-                gPlayer->unk_0D8.y = 20.0f;
+                gPlayer[0].unk_0D8.y = 20.0f;
             } else {
-                gPlayer->unk_0D8.y = -20.0f;
+                gPlayer[0].unk_0D8.y = -20.0f;
             }
 
             for (i = 0; i < 5; i++) {
-                func_8007C484(RAND_FLOAT_CENTERED(30.0f) + gPlayer->pos.x, RAND_FLOAT(10.0f) + gPlayer->pos.y,
-                              RAND_FLOAT_CENTERED(30.0f) + gPlayer->unk_138, gPlayer->vel.x,
-                              gPlayer->unk_0D8.y + gPlayer->vel.y, gPlayer->vel.z, RAND_FLOAT(0.1f) + 0.1f,
-                              gPlayer->num + 11);
+                func_8007C484(gPlayer[0].pos.x + RAND_FLOAT_CENTERED(30.0f), gPlayer[0].pos.y + RAND_FLOAT(10.0f),
+                              gPlayer[0].unk_138 + RAND_FLOAT_CENTERED(30.0f), gPlayer[0].vel.x,
+                              gPlayer[0].vel.y + gPlayer[0].unk_0D8.y, gPlayer[0].vel.z, RAND_FLOAT(0.1f) + 0.1f,
+                              gPlayer[0].num + 11);
             }
 
-            func_8007BFFC(RAND_FLOAT_CENTERED(10.0f) + gPlayer->pos.x, RAND_FLOAT(10.0f) + gPlayer->pos.y,
-                          RAND_FLOAT_CENTERED(10.0f) + gPlayer->unk_138, 0.0f, 15.0f, 0.0f, 2.0f, 5);
+            func_8007BFFC(gPlayer[0].pos.x + RAND_FLOAT_CENTERED(10.0f), gPlayer[0].pos.y + RAND_FLOAT(10.0f),
+                          gPlayer[0].unk_138 + RAND_FLOAT_CENTERED(10.0f), 0.0f, 15.0f, 0.0f, 2.0f, 5);
         }
         ret = true;
     }
@@ -942,7 +942,7 @@ void func_i4_8018E710(Boss* boss) {
     }
 
     boss->fwork[0] += 2.0f;
-    Matrix_RotateY(&D_i4_8019EE80, gBosses->obj.rot.y * M_DTOR, 0);
+    Matrix_RotateY(&D_i4_8019EE80, gBosses[0].obj.rot.y * M_DTOR, 0);
 }
 
 void func_i4_8018E870(Boss* boss) {
@@ -1463,7 +1463,7 @@ void func_i4_8018F94C(Player* player) {
 
                 case 95:
                     Audio_KillSfx(actor50->sfxPos);
-                    Audio_PlaySfx(0x2902F026U, gActors->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    Audio_PlaySfx(0x2902F026U, gActors[0].sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 
                     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
                         Object_Kill(&gEffects[i].obj, gEffects[i].sfxPos);
@@ -1834,7 +1834,7 @@ void func_i4_801912FC(Boss* boss) {
             break;
 
         case 1:
-            if (((gHitCount - gActors->iwork[1]) >= 5) || (D_i4_801A0530 > 8000)) {
+            if (((gHitCount - gActors[0].iwork[1]) >= 5) || (D_i4_801A0530 > 8000)) {
                 boss->state = 2;
                 Radio_PlayMessage(gMsg_ID_11150, RCID_PEPPY);
                 boss->timer_050 = 1000;
@@ -1884,7 +1884,7 @@ void func_i4_801912FC(Boss* boss) {
                     boss->swork[36]--;
                     if (boss->swork[36] <= 0) {
                         boss->state = 10;
-                        gBosses->state = 1;
+                        gBosses[0].state = 1;
                     }
                     boss->obj.pos.y += 300.0f;
                     func_80042EC0(boss);
@@ -2023,7 +2023,7 @@ void func_i4_80191BAC(Boss* boss) {
             break;
 
         case 1:
-            Math_SmoothStepToF(&gBosses->fwork[1], 0.0f, 1.0f, 0.01f, 0.001f);
+            Math_SmoothStepToF(&gBosses[0].fwork[1], 0.0f, 1.0f, 0.01f, 0.001f);
             if (boss->timer_052 == 0) {
                 boss->state = 2;
                 Audio_PlaySfx(0x19401048U, boss->sfxPos, 0U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
@@ -2160,7 +2160,7 @@ void func_i4_80192264(void) {
     Matrix_Push(&gGfxMatrix);
     Rand_SetSeed(1, 29100, 9786);
     Matrix_Translate(gGfxMatrix, 0.0f, D_8017847C, 0.0f, 1);
-    Matrix_RotateY(gGfxMatrix, gBosses->obj.rot.y * M_DTOR, 1);
+    Matrix_RotateY(gGfxMatrix, gBosses[0].obj.rot.y * M_DTOR, 1);
     Matrix_Scale(gGfxMatrix, 5.0f, 1.0f, 5.0f, 1);
 
     for (z = -3200.0f; z <= 3200.0f; z += 800.0f) {

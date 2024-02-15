@@ -14,8 +14,8 @@
     bss_size: 0x9B1F0
     subsegments:
     # Microcode
-      - [0x01050, asm, rspboot]
-      - [0x01120, asm, aspmain]
+      - [0x01050, textbin, rspboot]
+      - [0x01120, bin, aspmain]
       - [0x02010, bin, f3dex]
 
     # Nintendo libraries
