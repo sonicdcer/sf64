@@ -59,5 +59,7 @@ s32 Save_ReadEeprom(SaveFile*);
 
 extern SaveFile gSaveIOBuffer;
 extern SaveFile sPrevSaveData;
+extern Save gDefaultSave;
+extern SaveFile gSaveFile;
 
 #endif

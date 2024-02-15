@@ -1,5 +1,3 @@
-D_800C90F0 = 0x800C90F0;
-__libm_qnan_f = 0x800C9570;
 D_1 = 0x1; //ignore:true
 D_80120000 = 0x80120000;//ignore:true
 D_80130001 = 0x80130001;//ignore:true
@@ -25,6 +23,7 @@ D_80000018 = 0x80000018;//ignore:true
 D_8000001C = 0x8000001C;//ignore:true
 D_80000024 = 0x80000024;//ignore:true
 
+D_800C90F0 = 0x800C90F0;
 D_800C45E0 = 0x800C45E0;
 
 D_80151650 = 0x80151650; //ignore:true
@@ -51,6 +50,28 @@ sControllerMotor = 0x800DD900; // size:0x1A0
 D_800CBDD4 = 0x800CBDD4; //size:0x98
 
 D_800D55D0 = 0x800D55D0; //type:f32
+
+__libm_qnan_f = 0x800C9570;
+__floorf = 0x8001FE60;
+__floor = 0x8001FE6C;
+__lfloorf = 0x8001FE78;
+__lfloor = 0x8001FE88;
+__ceilf = 0x8001FE98;
+__ceil = 0x8001FEA4;
+__lceilf = 0x8001FEB0;
+__lceil = 0x8001FEC0;
+__truncf = 0x8001FED0;
+__trunc = 0x8001FEDC;
+__ltruncf = 0x8001FEE8;
+__ltrunc = 0x8001FEF8;
+__roundf = 0x8001FF08;
+__round = 0x8001FF14;
+__lroundf = 0x8001FF20;
+__lround = 0x8001FF30;
+__nearbyintf = 0x8001FF40;
+__nearbyint = 0x8001FF5C;
+__lnearbyintf = 0x8001FF7C;
+__lnearbyint = 0x8001FF9C;
 
 __dx1 = 0x80161950;
 __dx2 = 0x80161954;

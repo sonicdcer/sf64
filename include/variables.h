@@ -123,14 +123,8 @@ extern CollisionHeader2 D_800D2CA0[];
 extern u8 D_800D2F68;
 extern u8 D_800D3180[30];
 
-// unknown, could be fox_rcp, fox_play, or a data-only file.
-extern UNK_TYPE D_800D31A0[4];
-
 // fox_radio
 extern s32 gCurrentMsgPri;
-
-// fox_save
-extern Save gDefaultSave;
 
 // fox_360
 extern s32 D_8015F900;
@@ -150,9 +144,6 @@ extern s32 D_8015F93C;
 extern s32 D_8015F940;
 extern f32 D_8015F944;
 
-// fox_beam
-// extern Vec3f D_8015F950;
-
 // fox_bg
 extern f32 D_8015F960;
 extern u8 D_8015F964;
@@ -164,7 +155,6 @@ extern s32 D_8015F978;
 extern s32 D_8015F97C;
 extern s32 D_8015F980;
 extern f32 D_8015F984;
-// extern f32 D_80161394;
 
 // fox_boss
 extern s32 gBossFrameCount;
@@ -188,7 +178,7 @@ extern s32 D_Timer_80161670[4];
 extern s32 D_80161680;
 extern u8 D_80161684;
 
-// fox_6B3B0
+// fox_enmy2
 extern s32 D_80161690;
 
 // fox_hud
@@ -210,10 +200,6 @@ extern u16 D_Timer_80161A60;
 extern u16 D_80161A62;
 extern s32 D_80161A64;
 extern EnvSettings* sEnvSettings;
-
-// fox_rcp?
-extern u8 D_80178580[];
-extern void* D_80178710;
 
 //fox_radio
 extern u16** D_80178720;
@@ -268,9 +254,6 @@ extern s32 D_80178850[4];
 extern OSTime D_80178860;
 extern OSTime D_80178868;
 
-// fox_save
-extern SaveFile gSaveFile;
-
 // gfx_data
 extern u16 D_Unk_800DACB8[][32];
 extern u16 D_Tex_800D99F8[];
@@ -298,24 +281,9 @@ extern u16 gHaasEffectDelaySizes[64];
 // extern EnvelopePoint gDefaultEnvelope[];
 // extern NoteUnkStruct gZeroNoteSub;
 // extern NoteUnkStruct gDefaultNoteSub;
-extern s32 D_800D4A90;
-extern s32 D_800D4A94;
-extern s32 D_800D4A98; // versus frame counter?
-extern s32 D_800D4A9C;
-extern s32 D_800D4AA0;
 extern s16 D_800DD200[];
 extern f32 gHeadsetPanVolume[];
 extern f32 gStereoPanVolume[];
 extern f32 gDefaultPanVolume[];
-
-// buffers
-extern u64 gDramStack[];
-extern u8 gOSYieldData[];
-extern FrameBuffer gZBuffer; // z buffer
-extern u8 gTaskOutputBuffer[];
-extern u8 gAudioDataBuffer[];
-extern u16 gTextureRenderBuffer[];
-extern u16 gFillBuffer[];
-extern FrameBuffer gFrameBuffers[]; // 8038F800
 
 #endif // VARIABLES_H
