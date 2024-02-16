@@ -26,11 +26,7 @@ extern Gfx D_menu_801B57A8[];
 #include "fox_option_assets.h"
 
 extern f32 D_menu_801CD818[];
-//! TODO: IMPORT BSS
 
-#define IMPORT_BSS
-
-#ifdef IMPORT_BSS
 s32 D_menu_801B9090;
 s32 D_menu_801B9094;
 s32 D_menu_801B9098;    // gap
@@ -147,122 +143,6 @@ f32 D_menu_801B93F4;
 f32 D_menu_801B93F8; // gap
 UnkStruct_D_menu_801B9250 D_menu_801B9400;
 UnkStruct_D_menu_801B9250 D_menu_801B9408;
-#else
-extern s32 D_menu_801B9330[2];
-extern s32 D_menu_801B933C;
-extern s32 D_menu_801B9340; // gap
-extern s32 D_menu_801B9348[4];
-extern f32 D_menu_801B9358[4];
-extern f32 D_menu_801B9368;
-extern s32 D_menu_801B936C;
-extern f32 D_menu_801B9370;
-extern s32 D_menu_801B9374;
-extern f32 D_menu_801B9378;
-extern s32 D_menu_801B937C;
-extern UnkStruct_D_menu_801B9250 D_menu_801B9380[4];
-extern UnkStruct_D_menu_801B9250 D_menu_801B93A0[4];
-extern u8 D_menu_801B93C4;
-extern s32 D_menu_801B93D0;
-extern s32 D_menu_801B93D4;
-extern s32 D_menu_801B93D8;
-extern s32 D_menu_801B93DC;
-extern s32 D_menu_801B93E0;
-extern s32 D_menu_801B93E4;
-extern s32 D_menu_801B93E8;
-extern s32 D_menu_801B93EC;
-extern f32 D_menu_801B93F0;
-extern f32 D_menu_801B93F4;
-extern f32 D_menu_801B93F8; // gap
-extern UnkStruct_D_menu_801B9250 D_menu_801B9400;
-extern UnkStruct_D_menu_801B9250 D_menu_801B9408;
-extern s32 D_menu_801B9090;
-extern s32 D_menu_801B9094;
-extern s32 D_menu_801B9098;    // gap
-extern s32 D_menu_801B90A0[3]; // gap
-extern s32 D_menu_801B90B0[3]; // gap
-extern f32 D_menu_801B90C0[3]; // gap
-extern f32 D_menu_801B90D0[3]; // gap
-extern f32 D_menu_801B90E0[3]; // gap
-extern f32 D_menu_801B90F0[3]; // gap
-extern f32 D_menu_801B9100[3]; // gap
-extern f32 D_menu_801B9110[3];
-extern f32 D_menu_801B911C;
-extern f32 D_menu_801B9120;
-extern OptionId D_menu_801B9124;
-extern s32 D_menu_801B9128;
-extern s32 D_menu_801B912C;
-extern s32 D_menu_801B9130;
-extern s32 D_menu_801B9134;
-extern s32 D_menu_801B9138;
-extern s32 D_menu_801B913C;
-extern s32 D_menu_801B9140[3];
-extern s32 D_menu_801B914C;
-extern u8 D_menu_801B9150[3][2];
-extern s32 D_menu_801B9158;
-extern UnkStruct_D_menu_801B9250 D_menu_801B9160[3];
-extern s32 D_menu_801B9178;
-extern s32 D_menu_801B917C;
-extern UnkStruct_D_menu_801B9250 D_menu_801B9180; // gap
-extern UnkStruct_D_menu_801B9250 D_menu_801B9188;
-extern UnkStruct_D_menu_801B9250 D_menu_801B9190;
-extern UnkStruct_D_menu_801B9250 D_menu_801B9198;
-extern s32 D_menu_801B91A0;
-extern s32 D_menu_801B91A4;
-extern s32 D_menu_801B91A8;
-extern s32 D_menu_801B91AC;
-extern s32 D_menu_801B91B0;
-extern s32 D_menu_801B91B4;
-extern s32 D_menu_801B91B8;
-extern s32 D_menu_801B91BC;
-extern s32 D_menu_801B91C0;
-extern s32 D_menu_801B91C4;
-extern s32 D_menu_801B91C8;
-extern s32 D_menu_801B91CC;
-extern s32 D_menu_801B91D0;
-extern f32 D_menu_801B91D4;
-extern f32 D_menu_801B91D8;
-extern f32 D_menu_801B91DC;
-extern f32 D_menu_801B91E0;
-extern f32 D_menu_801B91E4;
-extern f32 D_menu_801B91E8;
-extern f32 D_menu_801B91EC;
-extern s32 D_menu_801B91F0;
-extern f32 D_menu_801B91F4;
-extern f32 D_menu_801B91F8;
-extern f32 D_menu_801B91FC;
-extern f32 D_menu_801B9200;
-extern f32 D_menu_801B9204;
-extern f32 D_menu_801B9208;
-extern f32 D_menu_801B920C;
-extern f32 D_menu_801B9210;
-extern s32 D_menu_801B9214;
-extern f32 D_menu_801B9218;
-extern f32 D_menu_801B921C;
-extern f32 D_menu_801B9220;
-extern f32 D_menu_801B9224;
-extern f32 D_menu_801B9228;
-extern s32 D_menu_801B922C;
-extern s32 D_menu_801B9230;
-extern s32 D_menu_801B9234;
-extern s32 D_menu_801B9238;
-extern s32 D_menu_801B923C;
-extern s32 D_menu_801B9240;
-extern s32 D_menu_801B9244;
-extern s32 D_menu_801B9248;
-extern u8 D_menu_801B924C;
-extern UnkStruct_D_menu_801B9250 D_menu_801B9250;
-extern UnkStruct_D_menu_801B9250 D_menu_801B9258;
-extern UnkStruct_D_menu_801B9250 D_menu_801B9260;
-extern UnkStruct_D_menu_801B9250 D_menu_801B9268;
-extern f32 D_menu_801B9270[5];
-extern s32 D_menu_801B9284;
-extern s32 D_menu_801B9288; // gap
-extern UnkStruct_D_menu_801B9250 D_menu_801B9290;
-extern f32 D_menu_801B9298[32];
-extern s32 spectrumAnalizerMode;
-extern s32 D_menu_801B931C;
-extern bool D_menu_801B9320; // MusicPlaying status in the expert sound options
-#endif
 
 #include "prevent_bss_reordering2.h"
 struct BssPad0 {
@@ -2982,8 +2862,6 @@ void func_menu_80199EA8(void) {
     }
 }
 
-// D_menu_801B9358 needs to be static but belongs to bss section?
-#if defined(IMPORT_BSS) || defined(NON_MATCHING)
 void Option_VersusStageInit(void) {
     s32 i;
 
@@ -3009,12 +2887,8 @@ void Option_VersusStageInit(void) {
     D_menu_801B9378 = 255.0f;
     func_menu_8019A080();
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_menu/fox_option/Option_VersusStageInit.s")
-#endif
 
 // D_menu_801B9380 needs to be static but belongs to bss section?
-#if defined(IMPORT_BSS) || defined(NON_MATCHING)
 void func_menu_8019A080(void) {
     s32 i;
 
@@ -3023,9 +2897,6 @@ void func_menu_8019A080(void) {
         D_menu_801B9380[i].unk_4 = 0;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019A080.s")
-#endif
 
 void Option_VersusStageUpdate(void) {
     switch (D_menu_801B93D0) {
@@ -3342,25 +3213,13 @@ void func_menu_8019AB30(void) {
         TextureRect_8bIA(&gMasterDisp, D_7001DF0, 80, 10, 122.0f, 49.0f, 1.0f, 1.0f);
     }
 }
-// extern f32 D_menu_801B9324; // in-function
-// extern f32 D_menu_801B9328; //gap, in-function
 
-// extern f32 D_menu_801B9338; // in-function
-// needs in function static
-#if defined(IMPORT_BSS) || defined(NON_MATCHING)
-#ifndef IMPORT_BSS
-extern f32 D_menu_801B9324;
-extern f32 D_menu_801B9328;
-extern f32 D_menu_801B9338;
-#endif
 void func_menu_8019AD84(void) {
     static f32 D_menu_801AF25C[6] = { 156.0f, 112.0f, 112.0f, 112.0f, 112.0f, 112.0f };
     static f32 D_menu_801AF274[6] = { 46.0f, 43.0f, 43.0f, 43.0f, 43.0f, 43.0f };
-#ifdef IMPORT_BSS
     static f32 D_menu_801B9324;
     static f32 D_menu_801B9328;
     static f32 D_menu_801B9338;
-#endif
     s32 pad[2];
     s32 colorGB;
     s32 var_v0;
@@ -3409,28 +3268,11 @@ void func_menu_8019AD84(void) {
         TextureRect_8bIA(&gMasterDisp, D_7002110, 80, 12, D_menu_801AF25C[0], D_menu_801AF274[0], 1.0f, 1.0f);
     }
 }
-#else
-static f32 D_menu_801AF25C[6] = { 156.0f, 112.0f, 112.0f, 112.0f, 112.0f, 112.0f };
-static f32 D_menu_801AF274[6] = { 46.0f, 43.0f, 43.0f, 43.0f, 43.0f, 43.0f };
-// D_menu_801AF28C
-static u8* sTimeTrialMinuteTextures[] = { D_70024D0, D_7002730, D_7002990, D_7002BF0, D_7002E50 };
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019AD84.s")
-#endif
 
-// needs in-function static data & bss
-#if defined(IMPORT_BSS) || defined(NON_MATCHING)
-#ifndef IMPORT_BSS
-extern f32 D_menu_801B93C0;
-extern f32 D_menu_801B93C8;
-extern f32 D_menu_801B93CC;
-#endif
 void func_menu_8019AFFC(void) {
-
-#ifdef IMPORT_BSS
     static f32 D_menu_801B93C0;
     static f32 D_menu_801B93C8;
     static f32 D_menu_801B93CC;
-#endif
     static f32 D_menu_801AF2A0 = 101.0f;
     static f32 D_menu_801AF2A4 = 86.0f;
     s32 var_v0;
@@ -3475,11 +3317,6 @@ void func_menu_8019AFFC(void) {
         func_menu_8019B3DC();
     }
 }
-#else
-static f32 D_menu_801AF2A0 = 101.0f;
-static f32 D_menu_801AF2A4 = 86.0f;
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019AFFC.s")
-#endif
 
 void func_menu_8019B1F8(void) {
     static f32 D_menu_801AF2A8 = 69.0f;
