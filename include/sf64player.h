@@ -206,7 +206,12 @@ typedef struct Player {
     /* 0x19C */ s32 unk_19C;
     /* 0x1A0 */ s32 unk_1A0;
     /* 0x1A4 */ s32 unk_1A4;
-    /* 0x1A8 */ char pad1A8[0x1C];
+    /* 0x1A8 */ char pad1A8[8];
+    /* 0x1B0 */ s32 unk_1B0;
+    /* 0x1B4 */ s32 unk_1B4;
+    /* 0x1B8 */ char pad1B8[4];
+    /* 0x1BC */ s32 unk_1BC;
+    /* 0x1C0 */ s32 unk_1C0;
     /* 0x1C4 */ s32 num;
     /* 0x1C8 */ PlayerState1C8 state_1C8;
     /* 0x1CC */ PlayerForm form;
@@ -265,8 +270,8 @@ typedef struct Player {
     /* 0x2C4 */ s32 unk_2C4;
     /* 0x2C8 */ Vec3f hit2;
     /* 0x2D4 */ Vec3f hit1;
-    /* 0x2E0 */ Vec3f hit4;
-    /* 0x2EC */ Vec3f hit3;
+    /* 0x2E0 */ Vec3f hit3;
+    /* 0x2EC */ Vec3f hit4;
     /* 0x2F8 */ Vec3f jointTable[30];
     /* 0x460 */ f32 sfxPos[3];
     /* 0x460 */ f32 sfxVel[3];

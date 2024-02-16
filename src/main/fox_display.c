@@ -1453,7 +1453,6 @@ void func_80057814(Player* player) {
     player->unk_490 = player->unk_0F8;
 }
 
-// Vec3f D_800CA39C = {0.0f, 0.0f, -300.0f};
 void func_800578C4(Player* player) {
     Vec3f sp4C = { 0.0f, 0.0f, -300.0f };
     Vec3f sp40;

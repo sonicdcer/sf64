@@ -1,22 +1,13 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
-#include "libc/stdbool.h"
+#include "sys.h"
 #include "structs.h"
 #include "sf64object.h"
-#include "sf64thread.h"
 #include "sf64player.h"
 #include "sf64mesg.h"
 
-s32 Lib_vsPrintf(char* dst, const char* fmt, va_list args);
-void Lib_Perspective(Gfx** dList);
-void Lib_Ortho(Gfx** dList);
-void Lib_DmaRead(void* src, void* dst, s32 size);
-void Lib_FillScreen(u8 setFill);
-
-void Memory_FreeAll(void);
-void* Memory_Allocate(s32);
-
+// audio
 void func_8000FFCC(void);
 
 void func_80016A50(void);
@@ -37,8 +28,9 @@ u8* func_8001C3EC(void);
 void func_8001C8B8(u8);
 void func_8001CA24(u8);
 void func_8001CB80(u8, u8);
-void func_8001CCDC(u8, f32*);
-void func_8001CE28(u8, f32*);
+void func_8001CCDC(u8, f32 *);
+void func_8001CE28(u8, f32 *);
+void func_8001CFA8(f32);
 void func_8001D034(f32*, s32, u8);
 void func_8001D10C(f32*, u32);
 void func_8001D15C(u8);
@@ -62,38 +54,6 @@ void func_8001DECC(void);
 
 SPTask* func_8001DF50(void);
 void func_8001EE00(void);
-
-f32 func_8001FE60(f32);
-f64 func_8001FE6C(f64);
-s32 func_8001FE78(f32);
-s32 func_8001FE88(f64);
-f32 func_8001FE98(f32);
-f64 func_8001FEA4(f64);
-s32 func_8001FEB0(f32);
-s32 func_8001FEC0(f64);
-f32 func_8001FED0(f32);
-f64 func_8001FEDC(f64);
-s32 func_8001FEE8(f32);
-s32 func_8001FEF8(f64);
-f32 func_8001FF08(f32);
-f64 func_8001FF14(f64);
-s32 func_8001FF20(f32);
-s32 func_8001FF30(f64);
-f32 func_8001FF40(f32);
-f64 func_8001FF5C(f64);
-s32 func_8001FF7C(f32);
-s32 func_8001FF9C(f64);
-f32 func_8001FAE4(f32);
-f32 func_8001FB04(f32);
-f64 func_8001FB24(f64);
-f32 func_8001FB58(f32);
-f32 func_8001FB88(f32);
-f32 func_8001FBA8(f32);
-f32 func_8001FBC8(f32);
-
-void RdRam_CheckIPL3(void);
-void Mio0_Decompress(void* header, u8* dst);
-s32 vsprintf(char* dst, const char* fmt, va_list args);
 
 // fox_360
 void func_8002ED60(Player*);
@@ -428,10 +388,10 @@ void func_8007E45C(Effect*);
 void func_8007E5CC(Effect*);
 void func_8007E648(Effect*);
 void func_8007E93C(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPos, f32 arg5);
-void func_8007EE68(s32 objId, Vec3f* pos, Vec3f* rot, Vec3f* arg3, Vec3f* arg4, f32 scale2);
-void func_8007F04C(s32 objId, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, f32 unkX, f32 unkY, f32 unkZ, f32 xVel, f32 yVel, f32 zVel, f32 scale2);
-void func_8007F11C(s32 objId, f32 xPos, f32 yPos, f32 zPos, f32 arg4);
-void func_8007F20C(s32 objId, f32 xPos, f32 yPos, f32 zPos, f32 arg4);
+void func_8007EE68(ObjectId objId, Vec3f* pos, Vec3f* rot, Vec3f* arg3, Vec3f* arg4, f32 scale2);
+void func_8007F04C(ObjectId objId, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, f32 unkX, f32 unkY, f32 unkZ, f32 xVel, f32 yVel, f32 zVel, f32 scale2);
+void func_8007F11C(ObjectId objId, f32 xPos, f32 yPos, f32 zPos, f32 arg4);
+void func_8007F20C(ObjectId objId, f32 xPos, f32 yPos, f32 zPos, f32 arg4);
 void func_8007F438(Effect*);
 void func_8007F6B0(Effect*);
 void func_8007F958(Effect*);
@@ -451,6 +411,7 @@ void func_80081A8C(f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 arg4);
 void func_80081BEC(f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 arg4);
 void func_80081C5C(Effect*);
 void func_80082F78(Effect*);
+void func_8008377C(f32, f32, f32, f32, f32);
 void func_800837EC(Effect*);
 void func_80083B8C(Effect*);
 void func_80083C70(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 arg7, s32 arg8);
@@ -465,7 +426,6 @@ void func_80084488(s32);
 void func_80084688(s32, s32);
 
 // fox_hud
-
 void func_80084B94(s32);
 void func_800857DC(f32, f32, f32, f32);
 void func_80085890(f32, f32, f32, f32);
@@ -496,6 +456,7 @@ void func_8008EA14(f32, f32);
 void func_8008FA84(void);
 void func_8008FE78(Boss*);
 void func_8008FFF0(Boss*, s32);
+s32 func_80090200(Boss* boss);
 bool func_8009092C(Actor*);
 void func_800907C4(Boss*);
 s32 func_800915FC(Actor*);
@@ -512,24 +473,12 @@ void func_80095604(Player*);
 void func_80094954(Effect*);
 void func_80094BBC(Effect*);
 void func_80094D20(f32, f32);
+void func_80096A74(Player* player);
 
 // fox_97F80
 void func_80098860(Plane* plane, Vec3f* point, Vec3f* normal);
 s32 func_800988B4(Vec3f* vec, Plane* plane);
 s32 func_800998FC(Vec3f*, Vec3f*, Vec3f*, s32, Vec3f*, f32*);
-
-// fox_game
-void Game_Initialize(void);
-void Game_SetGameState(void);
-bool func_800A1B6C(void);
-void func_800A1C14(Gfx**);
-void func_800A1E68(Gfx**);
-void func_800A1F44(void);
-void func_800A1FB0(Gfx**, u8 , u8);
-void func_800A24DC(s32);
-void func_800A26C0(void);
-void func_800A25DC(void);
-Actor* func_800A3608(s32);
 
 // fox_A4290
 bool func_800A3690(Vec3f*, Vec3f*, s32, Vec3f*);
@@ -545,6 +494,7 @@ void func_800AC290(Player* player, PlayerShot* shot, f32 arg2, f32 arg3, PlayerS
 void func_800A5844(void);
 void func_800A594C(void);
 void func_800A5D6C(void);
+void func_800A5EBC(void);
 void func_800A5FA0(f32* , u32 , s32 );
 void func_800A6070(f32* , u32 );
 void func_800A6148(void);
@@ -591,9 +541,6 @@ void Radio_PlayMessage(u16*, RadioCharacterId);
 void func_800BB388(void);
 void func_800BB5D0(void);
 
-// fox_reset
-void Graphics_NMIWipe(void);
-
 // fox_versus
 s32 func_800C1E9C(void);
 void func_800C1ED4(void);
@@ -601,18 +548,17 @@ void func_800C20B0(void);
 void func_800C2190(void);
 void func_800C26C8(void);
 
-// fox_save
-s32 Save_Write(void);
-s32 Save_Read(void);
-
 void func_menu_80187520(u32, void*);
 void func_menu_8019E8D0(void);
 
 void func_i1_80198414(void);
-s32 func_i1_801937F4(s32, Gfx**, Vec3f*, Vec3f*, void*);
-void func_i1_80193D64(s32, Vec3f*, void*);
+// s32 func_i1_801937F4(s32, Gfx**, Vec3f*, Vec3f*, void*);
+// void func_i1_80193D64(s32, Vec3f*, void*);
 
 void func_ending_8018A96C(void);
 void func_ending_8018AAC4(void);
+
+// sf_i5_5
+bool func_i5_801B49D0(Actor* actor);
 
 #endif

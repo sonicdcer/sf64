@@ -1,13 +1,13 @@
-#include "global.h"
+#include "sys.h"
 
 s32 Lib_vsPrintf(char* dst, const char* fmt, va_list args) {
     return vsprintf(dst, fmt, args);
 }
 
-void Lib_vTable(s32 arg0, void (**arg1)(s32, s32), s32 arg2, s32 arg3) {
-    void (*temp)(s32, s32) = arg1[arg0];
+void Lib_vTable(s32 index, void (**table)(s32, s32), s32 arg0, s32 arg1) {
+    void (*func)(s32, s32) = table[index];
 
-    temp(arg2, arg3);
+    func(arg0, arg1);
 }
 
 void Lib_SwapBuffers(u8* buf1, u8* buf2, s32 len) {
@@ -21,18 +21,16 @@ void Lib_SwapBuffers(u8* buf1, u8* buf2, s32 len) {
     }
 }
 
-typedef s32 (*CompareFunc)(void*, void*);
-
-void Lib_QuickSort(u8* first, u32 curLen, u32 size, CompareFunc cFunc) {
+void Lib_QuickSort(u8* first, u32 length, u32 size, CompareFunc cFunc) {
     u32 splitIdx;
     u8* last;
     u8* right;
     u8* left;
 
     while (1) {
-        last = first + (curLen - 1) * size;
+        last = first + (length - 1) * size;
 
-        if (curLen == 2) {
+        if (length == 2) {
             if (cFunc(first, last) > 0) {
                 Lib_SwapBuffers(first, last, size);
             }
@@ -58,27 +56,27 @@ void Lib_QuickSort(u8* first, u32 curLen, u32 size, CompareFunc cFunc) {
         }
         Lib_SwapBuffers(last, left, size);
         splitIdx = (left - first) / size;
-        if (curLen / 2 < splitIdx) {
-            if ((curLen - splitIdx) > 2) {
-                Lib_QuickSort(left + size, curLen - splitIdx - 1, size, cFunc);
+        if (length / 2 < splitIdx) {
+            if ((length - splitIdx) > 2) {
+                Lib_QuickSort(left + size, length - splitIdx - 1, size, cFunc);
             }
 
             if (splitIdx < 2) {
                 return;
             }
             left = first;
-            curLen = splitIdx;
+            length = splitIdx;
         } else {
             if (splitIdx >= 2) {
                 Lib_QuickSort(first, splitIdx, size, cFunc);
             }
 
-            if ((curLen - splitIdx) <= 2) {
+            if ((length - splitIdx) <= 2) {
                 return;
             }
 
             first = left + size;
-            curLen -= splitIdx + 1;
+            length -= splitIdx + 1;
         }
     }
 }

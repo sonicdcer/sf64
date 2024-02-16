@@ -1325,9 +1325,9 @@ void func_i6_8018C390(Player* player) {
         case 3:
             break;
         case 0:
-            Math_SmoothStepToF(&player->pos.x, gBosses->obj.pos.x, 0.5f, 30.0f, 0);
-            Math_SmoothStepToF(&player->pos.y, gBosses->obj.pos.y - 150.0f, 0.5f, 30.0f, 0);
-            Math_SmoothStepToF(&player->pos.z, gBosses->obj.pos.z - 100.0f, 0.5f, 60.0f, 0);
+            Math_SmoothStepToF(&player->pos.x, gBosses[0].obj.pos.x, 0.5f, 30.0f, 0);
+            Math_SmoothStepToF(&player->pos.y, gBosses[0].obj.pos.y - 150.0f, 0.5f, 30.0f, 0);
+            Math_SmoothStepToF(&player->pos.z, gBosses[0].obj.pos.z - 100.0f, 0.5f, 60.0f, 0);
             D_80177D20 = player->unk_144 = -player->pos.z;
             Math_SmoothStepToF(&player->camEye.z, 2000.0f, 0.05f, 20.0f, 0);
             Math_SmoothStepToF(&player->camEye.x, 0.0f, 0.05f, 10.0f, 0);
@@ -3511,7 +3511,10 @@ void func_i6_80193AE4(s32 actorIndex) {
     Audio_PlaySfx(0x3100000C, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-extern s32 D_fake_i6_80196D00;
+//! @bug This references a variable in another overlay, causing undefined behavior.
+//! In US v1.1, that address contains the store instruction for player->vel.y = vel.y; in func_i6_80196BF8. Setting this
+//! to nop is harmless, as the overlay will be unloaded next frame.
+extern s32 D_ending_80196D00;
 
 void func_i6_80193C4C(Player* player) {
     s32 i;
@@ -3983,8 +3986,8 @@ void func_i6_80193C4C(Player* player) {
                 D_80178358 = 255;
                 if (D_80178340 == 0xFF) {
                     gNextGameState = GSTATE_CREDITS;
-                    D_fake_i6_80196D00 = 0;
-                    D_800D3180[9] = Play_CheckMedalStatus(200) + 1;
+                    D_ending_80196D00 = 0;
+                    D_800D3180[LEVEL_VENOM_ANDROSS] = Play_CheckMedalStatus(200) + 1;
                     func_8001DC6C(0, 0x1B);
                 }
             }

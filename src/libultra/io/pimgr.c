@@ -2,16 +2,33 @@
 #include "piint.h"
 #include "PR/rdb.h"
 
-void ramromMain(void* arg);
-extern OSMesg piEventBuf[];
-extern OSMesgQueue piEventQueue;
-extern OSThread piThread;
-extern char piThreadStack[];
-extern OSThread ramromThread;
-extern char ramromThreadStack[];
+OSThread piThread ALIGNED(8);
+char piThreadStack[OS_PIM_STACKSIZE] ALIGNED(16);
 
-#ifdef IMPORT_DATA_PENDING
+#ifndef _FINALROM
+static OSThread ramromThread ALIGNED(8);
+static char ramromThreadStack[1024] ALIGNED(16);
+static OSMesgQueue getRamromQ ALIGNED(8);
+static OSMesg getRamromBuf[1];
+static OSMesgQueue freeRamromQ ALIGNED(8);
+static OSMesg freeRamromBuf[1];
+static void ramromMain(void*);
+#endif
+
+OSMesgQueue piEventQueue ALIGNED(8);
+OSMesg piEventBuf[1];
+
 OSDevMgr __osPiDevMgr = { 0 };
+OSPiHandle* __osPiTable = NULL;
+#if BUILD_VERSION >= VERSION_J
+OSPiHandle __Dom1SpeedParam ALIGNED(8);
+OSPiHandle __Dom2SpeedParam ALIGNED(8);
+OSPiHandle* __osCurrentHandle[2] ALIGNED(8) = { &__Dom1SpeedParam, &__Dom2SpeedParam };
+#else
+extern OSPiHandle CartRomHandle;
+extern OSPiHandle LeoDiskHandle;
+OSPiHandle* __osCurrentHandle[2] ALIGNED(8) = { &CartRomHandle, &LeoDiskHandle };
+#endif
 
 void osCreatePiManager(OSPri pri, OSMesgQueue* cmdQ, OSMesg* cmdBuf, s32 cmdMsgCnt) {
     u32 savedMask;
@@ -56,9 +73,6 @@ void osCreatePiManager(OSPri pri, OSMesgQueue* cmdQ, OSMesg* cmdBuf, s32 cmdMsgC
         osSetThreadPri(NULL, oldPri);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/libultra/io/pimgr/osCreatePiManager.s")
-#endif
 
 extern OSMesg freeRamromBuf[];
 extern OSMesgQueue freeRamromQ;

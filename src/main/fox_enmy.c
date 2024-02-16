@@ -5,10 +5,12 @@ s32 D_Timer_80161670[4];
 s32 D_80161680;
 u8 D_80161684;
 
+#include "fox_enmy_assets.h"
+
 ObjectInit* D_800CFDA0[] = {
-    0x060371A4, 0x06026CC4, 0x0602A164, 0x06023F64, 0x060287A4, 0x0602E4F4, 0x06007E74,
-    0x0601F234, 0x06026714, 0x0C035154, 0x06006AA4, 0x06031000, 0x06006C60, 0x0602E5C8,
-    0x0600EAD4, NULL,       0x06011044, 0x0600FF74, 0x06006EB4, 0x06014D94, 0x0302DE3C,
+    D_060371A4, D_06026CC4, D_0602A164, D_06023F64, D_060287A4, D_0602E4F4, D_06007E74,
+    D_0601F234, D_06026714, D_0C035154, D_06006AA4, D_06031000, D_06006C60, D_0602E5C8,
+    D_0600EAD4, NULL,       D_06011044, D_0600FF74, D_06006EB4, D_06014D94, D_0302DE3C,
 };
 s32 D_800CFDF4[] = {
     OBJ_80_0,
@@ -1398,14 +1400,18 @@ void func_8006566C(f32 xPos, f32 yPos, f32 zPos, s32 arg3) {
     }
 }
 
-#ifdef NON_EQUIVALENT
 void func_800656D4(Actor* actor) {
+    s32 i;
+    s32 j;
     f32 spD4;
     f32 spD0;
     f32 spCC;
+    f32 var_fv0;
     s32 spC4;
+    s32 var_ra;
     s32 spB4[3];
     s32 spA8[3];
+    s32 temp_a3_2;
     Vec3f sp98;
     Vec3f sp8C;
     f32 sp88;
@@ -1413,35 +1419,25 @@ void func_800656D4(Actor* actor) {
     f32 sp80;
     f32 sp7C;
     f32 sp78;
-    s32 var_ra;
-    f32 var_fv0;
-    s32 temp_a0;
-    s32 temp_a2;
-    s32 temp_t9;
-    s32 temp_v0;
-    s32 i;
-    s32 j;
 
-    if (gLevelMode == LEVELMODE_ALL_RANGE) {
-        var_ra = 2;
-    } else {
-        var_ra = 0;
-    }
-    if (actor->unk_058 == 0) {
+    var_ra = (gLevelMode == LEVELMODE_ALL_RANGE) ? 2 : 0;
+
+    if (actor->iwork[2] == 0) {
         if (actor->obj.id == OBJ_ACTOR_190) {
-            for (i = 0, j = 1; j < 4; i++, j++) {
-                spA8[i] = var_ra + j;
-                spB4[i] = gTeamShields[j];
+            for (i = 0; i < 3; i++) {
+                spB4[i] = gTeamShields[i + 1];
+                spA8[i] = var_ra + i;
             }
-            for (i = 0, j = 1; j < 3; i++, j++) {
-                temp_a0 = spB4[i];
-                temp_a2 = spB4[j];
-                temp_v0 = spA8[j];
-                if (spB4[i] < spB4[j]) {
-                    spA8[j] = spA8[i];
-                    spB4[j] = temp_a0;
-                    spB4[i] = temp_a2;
-                    spA8[i] = temp_v0;
+            for (i = 0; i < 3; i++) {
+                for (j = i + 1; j < 3; j++) {
+                    if (spB4[i] < spB4[j]) {
+                        temp_a3_2 = spB4[j];
+                        spB4[j] = spB4[i];
+                        spB4[i] = temp_a3_2;
+                        temp_a3_2 = spA8[j];
+                        spA8[j] = spA8[i];
+                        spA8[i] = temp_a3_2;
+                    }
                 }
             }
             switch (gGameFrameCount % 6U) {
@@ -1477,33 +1473,35 @@ void func_800656D4(Actor* actor) {
         }
         actor->iwork[1] = 10000;
     label:
-        actor->unk_058 = 1;
+        actor->iwork[2] = 1;
     }
     spC4 = actor->iwork[1];
     if ((spC4 == var_ra) || ((var_ra + 1) == spC4) || ((var_ra + 2) == spC4)) {
-        actor->unk_188 = gActors[spC4].obj.pos.z;
-        actor->unk_184 = gActors[spC4].obj.pos.y;
-        actor->unk_180 = gActors[spC4].obj.pos.x;
+        actor->fwork[29] = gActors[spC4].obj.pos.z;
+        actor->fwork[28] = gActors[spC4].obj.pos.y;
+        actor->fwork[27] = gActors[spC4].obj.pos.x;
         if ((fabsf(actor->obj.pos.x - gActors[spC4].obj.pos.x) < 400.0f) &&
             (fabsf(actor->obj.pos.z - gActors[spC4].obj.pos.z) < 400.0f)) {
             if (RAND_FLOAT(spC4 - 1) < 0.6f) {
-                gActors[spC4].iwork[9] = 1;
+                gActors[spC4].iwork[10] = 1;
             }
         }
 
     } else {
-        actor->unk_188 = gPlayer[0].unk_138;
-        actor->unk_184 = gPlayer[0].pos.y;
-        actor->unk_180 = gPlayer[0].pos.x;
+        actor->fwork[29] = gPlayer[0].unk_138;
+        actor->fwork[28] = gPlayer[0].pos.y;
+        actor->fwork[27] = gPlayer[0].pos.x;
     }
     if (actor->timer_0BC != 0) {
         Math_SmoothStepToAngle(&actor->obj.rot.x, 0.0f, 0.3f, 4.0f, 0.001f);
     } else {
-        if ((actor->iwork[10] == 0) && ((fabsf(actor->unk_180 - actor->obj.pos.x) > 300.0f) ||
-                                        (fabsf(actor->unk_188 - actor->obj.pos.z) > 300.0f))) {
+        if ((actor->iwork[10] == 0) && ((fabsf(actor->fwork[27] - actor->obj.pos.x) > 300.0f) ||
+                                        (fabsf(actor->fwork[29] - actor->obj.pos.z) > 300.0f))) {
             actor->fwork[0] += 5.0f;
             actor->fwork[1] += 8.0f;
-            sp80 = sqrtf(SQ(actor->unk_180 - actor->obj.pos.x) + SQ(actor->unk_188 - actor->obj.pos.z)) * 0.2f;
+            sp88 = actor->fwork[27] - actor->obj.pos.x;
+            sp80 = actor->fwork[29] - actor->obj.pos.z;
+            sp80 = sqrtf(SQ(sp88) + SQ(sp80)) * 0.2f;
             if (actor->unk_0B4 == 1) {
                 sp80 = 0.1f;
             }
@@ -1511,16 +1509,19 @@ void func_800656D4(Actor* actor) {
             sp88 = COS_DEG(actor->fwork[1]) * sp80;
             spD4 = COS_DEG(actor->obj.rot.y) * sp88;
             spCC = -SIN_DEG(actor->obj.rot.y) * sp88;
-            sp88 = (actor->unk_180 + spD4) - actor->obj.pos.x;
-            sp84 = (actor->unk_184 + spD0) - actor->obj.pos.y;
-            sp80 = (actor->unk_188 + spCC) - actor->obj.pos.z;
+
+            sp88 = (actor->fwork[27] + spD4) - actor->obj.pos.x;
+            sp84 = (actor->fwork[28] + spD0) - actor->obj.pos.y;
+            sp80 = (actor->fwork[29] + spCC) - actor->obj.pos.z;
             sp78 = Math_RadToDeg(Math_Atan2F(sp88, sp80));
-            sp7C = Math_RadToDeg(-Math_Atan2F(sp84, sqrtf(SQ(sp88) + SQ(sp80))));
+            sp80 = sqrtf(SQ(sp88) + SQ(sp80));
+            sp7C = Math_RadToDeg(-Math_Atan2F(sp84, sp80));
             sp84 = Math_SmoothStepToAngle(&actor->obj.rot.y, sp78, 0.3f, 4.0f, 0.001f);
             Math_SmoothStepToAngle(&actor->obj.rot.x, sp7C, 0.3f, 4.0f, 0.001f);
         }
-        if ((fabsf(actor->unk_180 - actor->obj.pos.x) < 60.0f) && (fabsf(actor->unk_184 - actor->obj.pos.y) < 60.0f) &&
-            (fabsf(actor->unk_188 - actor->obj.pos.z) < 60.0f) && ((spC4 == 2) || (spC4 == 3) || (spC4 == 4))) {
+        if ((fabsf(actor->fwork[27] - actor->obj.pos.x) < 60.0f) &&
+            (fabsf(actor->fwork[28] - actor->obj.pos.y) < 60.0f) &&
+            (fabsf(actor->fwork[29] - actor->obj.pos.z) < 60.0f) && ((spC4 == 2) || (spC4 == 3) || (spC4 == 4))) {
             gActors[spC4].unk_0D0 = 1;
             gActors[spC4].damage = 20;
             gActors[spC4].unk_0D4 = 2;
@@ -1586,9 +1587,6 @@ void func_800656D4(Actor* actor) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/fox_enmy/func_800656D4.s")
-#endif
 
 void func_800660F0(Actor* actor) {
     Item* item = gItems;

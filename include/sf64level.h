@@ -64,6 +64,7 @@ typedef enum {
 } OverlaySetups;
 
 typedef enum LevelId {
+    /* -1 */ LEVEL_UNK_M1 = -1,
     /*  0 */ LEVEL_CORNERIA,
     /*  1 */ LEVEL_METEO,
     /*  2 */ LEVEL_SECTOR_X,
@@ -89,16 +90,17 @@ typedef enum LevelId {
 } LevelId;
 
 typedef enum PlanetId {
-    /* 0 */ PLANET_METEO,
-    /* 1 */ PLANET_AREA_6,
-    /* 2 */ PLANET_BOLSE,
-    /* 3 */ PLANET_SECTOR_Z,
-    /* 4 */ PLANET_SECTOR_X,
-    /* 5 */ PLANET_SECTOR_Y,
-    /* 6 */ PLANET_KATINA,
-    /* 7 */ PLANET_MACBETH,
-    /* 8 */ PLANET_ZONESS,
-    /* 9 */ PLANET_CORNERIA,
+    /* -1 */ PLANET_NONE=-1,
+    /*  0 */ PLANET_METEO,
+    /*  1 */ PLANET_AREA_6,
+    /*  2 */ PLANET_BOLSE,
+    /*  3 */ PLANET_SECTOR_Z,
+    /*  4 */ PLANET_SECTOR_X,
+    /*  5 */ PLANET_SECTOR_Y,
+    /*  6 */ PLANET_KATINA,
+    /*  7 */ PLANET_MACBETH,
+    /*  8 */ PLANET_ZONESS,
+    /*  9 */ PLANET_CORNERIA,
     /* 10 */ PLANET_TITANIA,
     /* 11 */ PLANET_AQUAS,
     /* 12 */ PLANET_FORTUNA,

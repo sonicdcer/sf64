@@ -4,12 +4,6 @@ extern Animation D_6007854;
 extern Limb* D_6007980[];
 extern u8 D_600FF64[];
 
-s32 func_80090200(Boss* boss);
-void func_800A5EBC(void);
-
-void func_i4_801875F0(Actor* actor);
-void func_i4_80187960(Actor* actor);
-
 void func_i4_801875F0(Actor* actor) {
     s32 i;
     s32 counter;
@@ -598,8 +592,14 @@ void func_i4_8018906C(void) {
 
 f32 D_i4_8019EE4C[] = { -200.0f, 200.0f, -50.0f, -2000.0f };
 f32 D_i4_8019EE5C[] = { 0.0f, 30.0f, -90.0f, 0.0f };
-f32 D_i4_8019EE6C[] = { -100.0f, -200.0f, -300.0f };
-s32 D_i4_8019EE78[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+f32 D_i4_8019EE6C[] = { -100.0f, -200.0f, -300.0f, 0.0f };
+s32 D_i4_8019EE7C = 0; // padding for dword aligned matrix?
+Matrix D_i4_8019EE80 = { {
+    { 0.0f, 0.0f, 0.0f, 0.0f },
+    { 0.0f, 0.0f, 0.0f, 0.0f },
+    { 0.0f, 0.0f, 0.0f, 0.0f },
+    { 0.0f, 0.0f, 0.0f, 0.0f },
+} };
 
 void func_i4_801890EC(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
@@ -773,7 +773,7 @@ void func_i4_8018927C(Player* player) {
 
             gBosses[0].swork[0] = 1;
 
-            if ((func_80090200(gBosses) == 2) || (D_80177930 != 0)) {
+            if ((func_80090200(&gBosses[0]) == 2) || (D_80177930 != 0)) {
                 func_800A6148();
                 if (D_80177930 == 0) {
                     player->unk_1D0 = 10;
@@ -1096,7 +1096,7 @@ void func_i4_8018927C(Player* player) {
                 for (i = 0; i < 6; i++) {
                     D_80177CF0[i] = D_80177CD0[i];
                 }
-                D_800D3180[0xE] = Play_CheckMedalStatus(50) + 1;
+                D_800D3180[LEVEL_FORTUNA] = Play_CheckMedalStatus(50) + 1;
             }
             break;
 
@@ -1323,7 +1323,7 @@ void func_i4_8018927C(Player* player) {
                     }
                     // clang-format on
 
-                    D_800D3180[14] = Play_CheckMedalStatus(50) + 1;
+                    D_800D3180[LEVEL_FORTUNA] = Play_CheckMedalStatus(50) + 1;
                     func_800A6148();
                     break;
                 }

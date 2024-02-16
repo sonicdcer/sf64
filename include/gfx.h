@@ -35,7 +35,7 @@ typedef union {
     u16 array[SCREEN_HEIGHT][SCREEN_WIDTH];
 } FrameBuffer; // size = 0x25800
 
-typedef s32 (*OverrideLimbDraw)(s32, Gfx**, Vec3f*, Vec3f*, void*);
+typedef s32 (*OverrideLimbDraw)(s32 limbIndex, Gfx** dList,  Vec3f* pos, Vec3f* rot, void* this);
 typedef void (*PostLimbDraw)(s32, Vec3f*, void*);
 
 typedef struct {
@@ -61,6 +61,8 @@ typedef struct Limb {
     /* 0x018 */ struct Limb* sibling;
     /* 0x01C */ struct Limb* child;
 } Limb; // size = 0x20
+
+void Graphics_NMIWipe(void);
 
 void Lights_SetOneLight(Gfx** dList, s32 dirX, s32 dirY, s32 dirZ, s32 colR, s32 colG, s32 colB, s32 ambR, s32 ambG, s32 ambB);
 void Lights_SetTwoLights(Gfx** dList, s32 dir1x, s32 dir1y, s32 dir1z, s32 dir2x, s32 dir2y, s32 dir2z, s32 col1r, s32 col1g,
@@ -255,5 +257,7 @@ typedef enum SetupDL {
 } SetupDL;
 
 extern Gfx gSetupDLs[SETUPDL_MAX][9]; // 0x800D31B0
+extern u8 D_80178580[];
+extern void* D_80178710;
 
 #endif

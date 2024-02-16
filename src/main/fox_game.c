@@ -313,7 +313,7 @@ void func_800A25DC(void) {
     }
 }
 
-void func_800A26C0(void) {
+void Game_Update(void) {
     s32 i;
     u8 spBB;
     u16 var_v0_3;
@@ -540,7 +540,7 @@ void func_800A26C0(void) {
     }
 }
 
-Actor* func_800A3608(s32 arg0) {
+Actor* func_800A3608(ObjectId objId) {
     Actor* actor = gActors;
     s32 i;
 
@@ -548,7 +548,7 @@ Actor* func_800A3608(s32 arg0) {
         if (actor->obj.status == OBJ_FREE) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
-            actor->obj.id = arg0;
+            actor->obj.id = objId;
             Object_SetInfo(&actor->info, actor->obj.id);
             break;
         }

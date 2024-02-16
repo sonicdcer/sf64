@@ -1,12 +1,16 @@
-#include "global.h"
+#include "sys.h"
+
+void func_8000FFCC(void);
+SPTask* func_8001DF50(void);
+void func_8001DCE0(void);
+void func_8001DECC(void);
 
 s32 sGammaMode = 1;
-#ifdef BSS_IMPORT
+
 SPTask* gCurrentTask;
 SPTask* sAudioTasks[1];
 SPTask* sGfxTasks[2];
 SPTask* sNewAudioTasks[1];
-// 0x4 gap here
 SPTask* sNewGfxTasks[2];
 u32 gSegments[16];          // 800E1FD0
 OSMesgQueue gPiMgrCmdQueue; // 800E2010
@@ -74,81 +78,6 @@ OSThread gTimerThread;           // 800DFC50
 u8 gTimerThreadStack[0x1000];    // 800DFE00
 OSThread gSerialThread;          // 800E0E00
 u8 gSerialThreadStack[0x1000];   // 800E0FB0
-#else
-extern u8 gAudioThreadStack[0x1000];    // 800DDAA0
-extern OSThread gGraphicsThread;        // 800DEAA0
-extern u8 gGraphicsThreadStack[0x1000]; // 800DEC50
-extern OSThread gTimerThread;           // 800DFC50
-extern u8 gTimerThreadStack[0x1000];    // 800DFE00
-extern OSThread gSerialThread;          // 800E0E00
-extern u8 gSerialThreadStack[0x1000];   // 800E0FB0
-
-extern SPTask* gCurrentTask;
-extern SPTask* sAudioTasks[1];
-extern SPTask* sGfxTasks[2];
-extern SPTask* sNewAudioTasks[1];
-// 0x4 gap here
-extern SPTask* sNewGfxTasks[2];
-extern u32 gSegments[16];          // 800E1FD0
-extern OSMesgQueue gPiMgrCmdQueue; // 800E2010
-extern OSMesg sPiMgrCmdBuff[50];   // 800E2028
-
-extern OSMesgQueue gDmaMsgQueue;
-extern void* sDmaMsgBuff[1];
-extern OSIoMesg gDmaIOMsg;
-extern OSMesgQueue gSerialEventQueue;
-extern void* sSerialEventBuff[1];
-extern OSMesgQueue gMainThreadMsgQueue;
-extern void* sMainThreadMsgBuff[32];
-extern OSMesgQueue gTaskMsgQueue;
-extern void* sTaskMsgBuff[16];
-extern OSMesgQueue gAudioVImsgQueue;
-extern void* sAudioVImsgBuff[1];
-extern OSMesgQueue gAudioTaskMsgQueue;
-extern void* sAudioTaskMsgBuff[1];
-extern OSMesgQueue gGfxVImsgQueue;
-extern void* sGfxVImsgBuff[4];
-extern OSMesgQueue gGfxTaskMsgQueue;
-extern void* sGfxTaskMsgBuff[2];
-extern OSMesgQueue gSerialThreadMsgQueue;
-extern void* sSerialThreadMsgBuff[8];
-extern OSMesgQueue gControllerMsgQueue;
-extern void* sControllerMsgBuff[1];
-extern OSMesgQueue gSaveMsgQueue;
-extern void* sSaveMsgBuff[1];
-extern OSMesgQueue gTimerTaskMsgQueue;
-extern void* sTimerTaskMsgBuff[16];
-extern OSMesgQueue gTimerWaitMsgQueue;
-extern void* sTimerWaitMsgBuff[1];
-
-extern GfxPool gGfxPools[2];
-
-extern GfxPool* gGfxPool;
-extern SPTask* gGfxTask;
-extern Vp* gViewport;
-extern Mtx* gGfxMtx;
-extern Gfx* gUnkDisp1;
-extern Gfx* gMasterDisp;
-extern Gfx* gUnkDisp2;
-extern Lightsn* gLight;
-extern FrameBuffer* gFrameBuffer;
-extern u16* gTextureRender;
-
-extern u8 D_80137E78;
-extern u32 gSysFrameCount;
-extern u8 gStartNMI;
-extern u8 gStopTasks;
-extern u8 D_80137E84[4];
-extern u16 gFillScreenColor;
-extern u16 gFillScreen;
-
-extern u8 gUnusedStack[0x1000];
-extern OSThread sIdleThread;        // 80138E90
-extern u8 sIdleThreadStack[0x1000]; // 801390A0
-extern OSThread gMainThread;        // 8013A040
-extern u8 sMainThreadStack[0x1000]; // 8013A1F0
-extern OSThread gAudioThread;       // 8013B1F0
-#endif
 
 void Main_Initialize(void) {
     u8 i;
@@ -207,11 +136,11 @@ void Graphics_SetTask(void) {
     gGfxTask->msg = (OSMesg) TASK_MESG_2;
     gGfxTask->task.t.type = M_GFXTASK;
     gGfxTask->task.t.flags = 0;
-    gGfxTask->task.t.ucode_boot = __rspboot_start;
-    gGfxTask->task.t.ucode_boot_size = (uintptr_t) __rspboot_end - (uintptr_t) __rspboot_start;
-    gGfxTask->task.t.ucode = __f3dex_start;
+    gGfxTask->task.t.ucode_boot = rspbootTextStart;
+    gGfxTask->task.t.ucode_boot_size = (uintptr_t) rspbootTextEnd - (uintptr_t) rspbootTextStart;
+    gGfxTask->task.t.ucode = gspF3DEX_fifoTextStart;
     gGfxTask->task.t.ucode_size = SP_UCODE_SIZE;
-    gGfxTask->task.t.ucode_data = (u64*) &gF3dexData;
+    gGfxTask->task.t.ucode_data = (u64*) &gspF3DEX_fifoDataStart;
     gGfxTask->task.t.ucode_data_size = SP_UCODE_DATA_SIZE;
     gGfxTask->task.t.dram_stack = gDramStack;
     gGfxTask->task.t.dram_stack_size = SP_DRAM_STACK_SIZE8;
@@ -314,7 +243,7 @@ void Graphics_ThreadEntry(void* arg0) {
     {
         gSPSegment(gUnkDisp1++, 0, 0);
         gSPDisplayList(gMasterDisp++, gGfxPool->unkDL1);
-        func_800A26C0();
+        Game_Update();
         gSPEndDisplayList(gUnkDisp1++);
         gSPEndDisplayList(gUnkDisp2++);
         gSPDisplayList(gMasterDisp++, gGfxPool->unkDL2);
@@ -335,7 +264,7 @@ void Graphics_ThreadEntry(void* arg0) {
         {
             gSPSegment(gUnkDisp1++, 0, 0);
             gSPDisplayList(gMasterDisp++, gGfxPool->unkDL1);
-            func_800A26C0();
+            Game_Update();
             if (gStartNMI == 1) {
                 Graphics_NMIWipe();
             }

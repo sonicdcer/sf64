@@ -1,4 +1,5 @@
-#include "global.h"
+#include "sys.h"
+#include "PR/os_internal.h"
 
 FaultMgr gFaultMgr;
 
@@ -104,7 +105,7 @@ void func_8000762C(s32 arg0, s32 arg1, const char* fmt, ...) {
         sp40[i] = 0;
     }
 
-    if (_Printf(func_80007604, sp40, fmt, args) <= 0) {
+    if (_Printf((outfun*) func_80007604, sp40, fmt, args) <= 0) {
         return;
     }
     for (var_s0 = sp40; *var_s0 != 0; var_s0++) {

@@ -186,7 +186,7 @@ typedef u32 OSYieldResult;
 /*
  * break this up into two steps for debugging.
  */
-extern void		osSpTaskLoad(OSTask *tp);
+extern void		osSpTaskLoad(OSTask *intp);
 extern void		osSpTaskStartGo(OSTask *tp);
 
 extern void		osSpTaskYield(void);

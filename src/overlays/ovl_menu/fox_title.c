@@ -3,7 +3,8 @@
  * System: Title
  * Description: Starfox Title Handler
  */
-
+#include "prevent_bss_reordering.h"
+#include "prevent_bss_reordering2.h"
 #include "global.h"
 #include "fox_title.h"
 
@@ -158,14 +159,18 @@ f32 D_menu_801B907C;
 f32 D_menu_801B9080;
 f32 D_menu_801B9084;
 
+extern u8 D_5000200[];
+extern u8 D_5000300[];
+extern u16 D_6000000[];
+
 typedef struct {
     /* 0x00 */ Animation* unk_0;
     /* 0x04 */ Animation* unk_4;
     /* 0x08 */ Limb** skeleton;
-} CharacterAnimation; // size = 0x0C
+} TitleAnimation; // size = 0x0C
 
 //! TODO: Symbols for segmented addresses
-CharacterAnimation D_menu_801ADA00[4] = {
+TitleAnimation D_menu_801ADA00[4] = {
     { &D_602F8E0, &D_6035024, D_602FBAC },
     { &D_60305C0, &D_60338DC, D_603088C },
     { &D_6031DB8, &D_603531C, D_6032084 },
@@ -686,7 +691,7 @@ void func_menu_801881FC(void) {
         D_menu_801B8350[3].unk_00.x = 58.0f;
         D_menu_801B8350[3].unk_00.y = -5.0f;
         D_menu_801B8350[3].unk_00.z = 22.00f;
-        D_menu_801B8350[3].unk_48 = -17.899979;
+        D_menu_801B8350[3].unk_48 = -17.899979f;
         D_menu_801B8350[3].unk_4C = -8.890011f;
         D_menu_801B8350[3].unk_50 = 0.00f;
     } else {

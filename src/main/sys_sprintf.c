@@ -1,4 +1,4 @@
-#include "global.h"
+#include "sys.h"
 
 char D_800C7C80[] = "$Id: sprintf.c,v 1.5 1997/03/19 02:28:53 hayakawa Exp $";
 
@@ -7,7 +7,7 @@ void* proutSprintf(void* dst, const char* fmt, size_t size) {
 }
 
 s32 vsprintf(char* dst, const char* fmt, va_list args) {
-    s32 ret = _Printf(proutSprintf, dst, fmt, args);
+    s32 ret = _Printf((outfun*) proutSprintf, dst, fmt, args);
 
     if (ret > -1) {
         dst[ret] = 0;
@@ -20,7 +20,7 @@ int sprintf(char* s, const char* fmt, ...) {
     va_list args;
     va_start(args, fmt);
 
-    ret = _Printf(proutSprintf, s, fmt, args);
+    ret = _Printf((outfun*) proutSprintf, s, fmt, args);
 
     if (ret >= 0) {
         s[ret] = 0;

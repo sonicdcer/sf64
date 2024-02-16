@@ -2,12 +2,8 @@
 #ifndef ASSETS_H
 #define ASSETS_H
 
-#include "libc/stdbool.h"
-#include "sf64math.h"
-#include "structs.h"
-#include "gfx.h"
+#include "sys.h"
 #include "sf64level.h"
-#include "sf64thread.h"
 #include "sf64object.h"
 #include "sf64player.h"
 
@@ -271,9 +267,7 @@ extern u8 D_5000000[];
 extern u8 D_5000080[];
 extern u8 D_5000100[];
 extern u8 D_5000180[];
-extern u16 D_5000200[];
 extern u8 D_5000280[];
-extern u16 D_5000300[];
 extern u8 D_5000380[];
 extern u8 D_5000400[];
 extern u8 D_5000480[];
@@ -297,7 +291,6 @@ extern Gfx D_500B600[];
  * ast_bolse, ast_fortuna, ast_sector_y, ast_solar, ast_zoness,
  * ast_katina, ast_macbeth, ast_title, ast_menu, ast_training
  */
-extern u16 D_6000000[];
 extern Gfx D_60005B0[];
 extern u16 D_6000900[];
 extern Gfx D_6000A80[];
@@ -528,7 +521,7 @@ extern u8 D_6010FA0[];
 extern EnvSettings D_6011000;
 extern f32 D_6011058[];
 extern f32 D_601115C[];
-extern u8 D_6011660[];
+extern u8 D_TEX_6011660[];
 extern Vec3s D_601170C[];
 extern u8 D_6011890[];
 extern Gfx D_6011910[];
@@ -630,7 +623,7 @@ extern f32 D_601B644[];
 extern f32 D_601B678[];
 extern u16 D_601B6C0[];
 extern f32 D_601B6C4[];
-extern f32 D_601B710[];
+extern f32 D_F32_601B710[];
 extern f32 D_601B75C[];
 extern Gfx D_601B7C0[];
 extern f32 D_601B7F8[];
@@ -707,7 +700,7 @@ extern u16 D_6025500[];
 extern Gfx D_6025B50[];
 extern u16 D_6026420[];
 extern EnvSettings D_60266D0;
-extern EnvSettings D_6026C80;
+extern EnvSettings D_ENV_6026C80;
 extern u16 D_6026C90[];
 extern u8 D_6026D70[];
 extern Gfx D_60270E0[];
@@ -828,9 +821,7 @@ extern Triangle D_6030F64[];
 extern f32 D_6030F74[];
 extern Vec3f D_6030F7C[];
 extern Triangle D_6030FC4[];
-extern Vec3f D_6030FD0[];
-extern f32 D_6031398[];
-extern f32 D_60313CC[];
+
 extern f32 D_6031400[];
 extern f32 D_603144C[];
 extern f32 D_6031480[];
@@ -955,7 +946,6 @@ extern Gfx D_60185E0[];
 extern Gfx D_6017550[];
 
 // ast_7_ti_2, ast_7_ti_1, ast_warp_zone, ast_versus, ast_ending
-extern Gfx D_7000000[];
 extern u8 D_7000F10[];
 extern u8 D_7001030[];
 extern u8 D_7001270[];
@@ -981,7 +971,6 @@ extern Gfx D_700AB70[];
 extern Gfx D_700BB10[];
 extern Gfx D_700BE00[];
 extern Animation D_700CAF4;
-extern Limb* D_700CB60[];
 extern u16 D_700E9A0[];
 extern u8 D_70118E0[];
 extern u16 D_70123F8[];

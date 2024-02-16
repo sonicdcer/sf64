@@ -139,7 +139,7 @@ int __rmonExecute(KKHeader* request);
 
 /* commands */
 
-typedef int (*FUNPTR)();
+typedef int (*FUNPTR)(KKHeader*);
 
 int __rmonLoadProgram(KKHeader* req);
 int __rmonListProcesses(KKHeader* req);

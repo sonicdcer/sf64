@@ -2496,7 +2496,8 @@ void func_8007E93C(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPos, f32 
     Audio_PlaySfx(0x29002002, effect->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
 }
 
-void func_8007EBB8(Effect* effect, s32 objId, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2) {
+void func_8007EBB8(Effect* effect, ObjectId objId, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel,
+                   f32 scale2) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = objId;
@@ -2520,7 +2521,7 @@ void func_8007EBB8(Effect* effect, s32 objId, f32 xPos, f32 yPos, f32 zPos, f32 
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_8007ECB4(s32 objId, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2) {
+void func_8007ECB4(ObjectId objId, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
@@ -2531,7 +2532,7 @@ void func_8007ECB4(s32 objId, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, 
     }
 }
 
-void func_8007ED54(Effect* effect, s32 objId, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, f32 unkX,
+void func_8007ED54(Effect* effect, ObjectId objId, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, f32 unkX,
                    f32 unkY, f32 unkZ, f32 xVel, f32 yVel, f32 zVel, f32 scale2) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
@@ -2565,7 +2566,7 @@ void func_8007ED54(Effect* effect, s32 objId, f32 xPos, f32 yPos, f32 zPos, f32 
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void func_8007EE68(s32 objId, Vec3f* pos, Vec3f* rot, Vec3f* arg3, Vec3f* arg4, f32 scale2) {
+void func_8007EE68(ObjectId objId, Vec3f* pos, Vec3f* rot, Vec3f* arg3, Vec3f* arg4, f32 scale2) {
     s32 i;
     Vec3f sp68;
 
@@ -2587,8 +2588,8 @@ void func_8007EE68(s32 objId, Vec3f* pos, Vec3f* rot, Vec3f* arg3, Vec3f* arg4, 
     }
 }
 
-void func_8007F04C(s32 objId, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, f32 unkX, f32 unkY, f32 unkZ,
-                   f32 xVel, f32 yVel, f32 zVel, f32 scale2) {
+void func_8007F04C(ObjectId objId, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, f32 unkX, f32 unkY,
+                   f32 unkZ, f32 xVel, f32 yVel, f32 zVel, f32 scale2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
@@ -2600,7 +2601,7 @@ void func_8007F04C(s32 objId, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, 
     }
 }
 
-void func_8007F11C(s32 objId, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
+void func_8007F11C(ObjectId objId, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     s32 i;
 
     if ((fabsf(zPos - gPlayer[0].unk_138) > 300.0f) || (fabsf(xPos - gPlayer[0].pos.x) > 300.0f)) {
@@ -2615,7 +2616,7 @@ void func_8007F11C(s32 objId, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     }
 }
 
-void func_8007F20C(s32 objId, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
+void func_8007F20C(ObjectId objId, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     s32 i;
 
     if ((fabsf(zPos - gPlayer[0].camEye.z) > 300.0f) || (fabsf(xPos - gPlayer[0].camEye.x) > 300.0f)) {

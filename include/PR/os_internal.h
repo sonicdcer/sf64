@@ -26,6 +26,7 @@ extern "C" {
 #endif
 
 #include <PR/os.h>
+#include "PR/os_version.h"
 
 #if defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS)
 

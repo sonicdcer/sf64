@@ -8,18 +8,6 @@ void func_800481F4(Player* player);
 s32 func_80046E40(Player* player, f32* hitboxData, s32* index, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot,
                   f32 zRot, f32 arg9, f32 argA, f32 argB);
 
-typedef struct {
-    /* 0x00 */ char pad0[0x54];
-    /* 0x54 */ f32 unk_54;
-    /* 0x58 */ f32 unk_58;
-    /* 0x5C */ f32 unk_5C;
-    /* 0x60 */ char pad60[0xC];
-    /* 0x6C */ f32 unk_6C;
-    /* 0x70 */ f32 unk_70;
-    /* 0x74 */ f32 unk_74;
-} UnkStruct_D_i5_801BE250; // probably fake. investigate later.
-extern UnkStruct_D_i5_801BE250 D_i5_801BE250;
-
 static u8 D_800C9F00 = 0;
 static u8 D_800C9F04 = 0;
 static u8 D_800C9F08 = 0;
@@ -33,14 +21,8 @@ static f32 D_800C9F28 = 0.0f;
 Vec3f D_800C9F2C = { 0.0f, 0.0f, 0.0f };
 static s32 D_800C9F38 = 0; // unused
 
-extern f32 D_i5_801BE258;
-extern f32 D_i5_801BE25C;
-extern f32 D_i5_801BE274;
-extern f32 D_i5_801BE280;
-extern f32 D_i5_801BE284;
-extern f32 D_i5_801BE29C;
-extern f32 D_i5_801BE2A4;
-extern s16 D_i5_801BE2FA;
+extern f32 D_i5_801BE250[40];
+extern s16 D_i5_801BE2F0[9];
 
 void func_80043280(u16* text0, u16* text1, f32 zRot) {
     s32 py;
@@ -331,13 +313,13 @@ void func_800444BC(Player* player) {
         func_i5_801B6E20(player->pos.x, player->unk_138 + player->unk_144, &sp40, &sp38, &sp3C);
     }
     if (gCurrentLevel == LEVEL_MACBETH) {
-        D_i5_801BE250.unk_6C = gGroundLevel;
-        D_i5_801BE250.unk_70 = D_i5_801BE250.unk_74 = 0.0f;
+        D_i5_801BE250[27] = gGroundLevel;
+        D_i5_801BE250[28] = D_i5_801BE250[29] = 0.0f;
         D_800C9F10 = 0.0f;
         func_80047754(player);
-        sp38 = D_i5_801BE250.unk_6C;
-        sp40 = D_i5_801BE250.unk_70;
-        sp3C = D_i5_801BE250.unk_74;
+        sp38 = D_i5_801BE250[27];
+        sp40 = D_i5_801BE250[28];
+        sp3C = D_i5_801BE250[29];
     }
     if ((player->pos.y - sp30) < sp38) {
         if (player->vel.y < -10.0f) {
@@ -861,16 +843,16 @@ void func_8004641C(Player* player, s32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 a
     sp80 = sp64.y + arg3;
     sp7C = sp64.z + arg4;
     if (func_800A8054(arg1, arg2, arg3, arg4, sp84, sp80, sp7C, &sp58, &sp4C)) {
-        if (D_i5_801BE250.unk_6C < arg3 + sp58.y) {
-            D_i5_801BE250.unk_6C = arg3 + sp58.y;
+        if (D_i5_801BE250[27] < arg3 + sp58.y) {
+            D_i5_801BE250[27] = arg3 + sp58.y;
             if (arg1 == OBJ_80_67) {
                 player->unk_1DC = 0;
                 D_800C9F04 = 1;
             }
         }
-        D_i5_801BE250.unk_70 = sp58.x;
-        D_i5_801BE250.unk_74 = sp58.z;
-    } else if ((arg1 == OBJ_80_67) && (D_i5_801BE250.unk_6C == 0.0f) &&
+        D_i5_801BE250[28] = sp58.x;
+        D_i5_801BE250[29] = sp58.z;
+    } else if ((arg1 == OBJ_80_67) && (D_i5_801BE250[27] == 0.0f) &&
                func_800A8054(arg1, arg2 + 20.0f, arg3, arg4, sp84, sp80, sp7C, &sp58, &sp4C)) {
         player->unk_1DC = 9;
         player->timer_1E8 = 15;
@@ -917,9 +899,9 @@ void func_80046704(Player* player) {
                 if (((player->pos.x - 820.0f) <= obj80->obj.pos.x) && (obj80->obj.pos.x <= (player->pos.x + 820.0f)) &&
                     ((player->pos.y - 50.0f) <= obj80->obj.pos.y) && (obj80->obj.pos.y <= (player->pos.y + 50.0f)) &&
                     (player->unk_138 <= obj80->obj.pos.z) && (obj80->obj.pos.z <= (player->unk_138 + 960.0f))) {
-                    D_i5_801BE250.unk_6C = obj80->obj.pos.y;
+                    D_i5_801BE250[27] = obj80->obj.pos.y;
                     player->unk_064 = player->pos.x;
-                    player->unk_068 = D_i5_801BE250.unk_6C - 3.0f;
+                    player->unk_068 = D_i5_801BE250[27] - 3.0f;
                 }
             }
             if ((obj80->obj.id == OBJ_80_59) || (obj80->obj.id == OBJ_80_60) || (obj80->obj.id == OBJ_80_61) ||
@@ -969,7 +951,7 @@ void func_80046704(Player* player) {
 
                         if (!(((player->pos.x - 210.0f) <= obj80->obj.pos.x) &&
                               (obj80->obj.pos.x <= (player->pos.x + 210.0f))) &&
-                            (D_i5_801BE250.unk_6C == 0.f) && (player->vel.y < 0.f)) {
+                            (D_i5_801BE250[27] == 0.f) && (player->vel.y < 0.f)) {
                             player->unk_1DC = 9;
                             player->timer_1E8 = 15;
                             if ((player->pos.x - 200.0f) <= obj80->obj.pos.x) {
@@ -979,7 +961,7 @@ void func_80046704(Player* player) {
                             }
                         } else {
                             D_800C9F04 = 1;
-                            D_i5_801BE250.unk_6C = obj80->obj.pos.y + 206.0f;
+                            D_i5_801BE250[27] = obj80->obj.pos.y + 206.0f;
                             player->unk_1DC = 0;
                         }
                     }
@@ -990,9 +972,9 @@ void func_80046704(Player* player) {
                         player->unk_068 = obj80->obj.pos.y + 204.0f;
                     }
                 } else if ((obj80->obj.id == OBJ_80_105) && func_i5_801A3C20(player->unk_138)) {
-                    if (((player->pos.x - 200.0f) < D_i5_801BE250.unk_54) &&
-                        (D_i5_801BE250.unk_54 < (player->pos.x + 200.0f))) {
-                        player->unk_068 = D_i5_801BE250.unk_58 - 1.0f;
+                    if (((player->pos.x - 200.0f) < D_i5_801BE250[21]) &&
+                        (D_i5_801BE250[21] < (player->pos.x + 200.0f))) {
+                        player->unk_068 = D_i5_801BE250[22] - 1.0f;
                     }
                 }
             }
@@ -1072,13 +1054,13 @@ s32 func_80046E40(Player* player, f32* hitboxData, s32* index, f32 xPos, f32 yPo
                 return 2;
             }
             if ((yRot == 0.0f) && (zRot == 0.0f) && (xRot == 0.0f) && (spA0 == 0)) {
-                var_fv0 = player->hit4.x;
-                var_fv1 = player->hit4.y;
-                var_fa0 = player->hit4.z;
+                var_fv0 = player->hit3.x;
+                var_fv1 = player->hit3.y;
+                var_fa0 = player->hit3.z;
             } else {
-                sp94.x = player->hit4.x - xPos;
-                sp94.y = player->hit4.y - yPos;
-                sp94.z = player->hit4.z - zPos;
+                sp94.x = player->hit3.x - xPos;
+                sp94.y = player->hit3.y - yPos;
+                sp94.z = player->hit3.z - zPos;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp94, &sp88);
                 var_fv0 = sp88.x + xPos;
                 var_fv1 = sp88.y + yPos;
@@ -1096,13 +1078,13 @@ s32 func_80046E40(Player* player, f32* hitboxData, s32* index, f32 xPos, f32 yPo
                 return 0;
             }
             if ((yRot == 0.0f) && (zRot == 0.0f) && (xRot == 0.0f) && (spA0 == 0)) {
-                var_fv0 = player->hit3.x;
-                var_fv1 = player->hit3.y;
-                var_fa0 = player->hit3.z;
+                var_fv0 = player->hit4.x;
+                var_fv1 = player->hit4.y;
+                var_fa0 = player->hit4.z;
             } else {
-                sp94.x = player->hit3.x - xPos;
-                sp94.y = player->hit3.y - yPos;
-                sp94.z = player->hit3.z - zPos;
+                sp94.x = player->hit4.x - xPos;
+                sp94.y = player->hit4.y - yPos;
+                sp94.z = player->hit4.z - zPos;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp94, &sp88);
                 var_fv0 = sp88.x + xPos;
                 var_fv1 = sp88.y + yPos;
@@ -1179,49 +1161,52 @@ void func_80047504(Player* player) {
     }
 }
 
+// lots of fake stuff here
 void func_80047754(Player* player) {
     u8 sp2F = false;
 
-    if ((D_i5_801BE2FA == 0) && (func_i5_801A3300(player, player->unk_138, player->unk_0E8) == 0)) {
-        if (((player->pos.x - 110.0f) < D_i5_801BE274) && (D_i5_801BE274 < (player->pos.x + 110.0f)) &&
-            ((player->pos.y - 60.0f) < (D_i5_801BE258 + 30.0f)) && ((D_i5_801BE258 + 30.0f) < (player->pos.y + 60.f))) {
-            func_80047D38(player, D_i5_801BE258 + 29.0f);
-            player->unk_0E4 = D_i5_801BE25C;
+    if ((D_i5_801BE2F0[5] == 0) && (func_i5_801A3300(player, player->unk_138, player->unk_0E8) == 0)) {
+        if (((player->pos.x - 110.0f) < D_i5_801BE250[9]) && (D_i5_801BE250[9] < (player->pos.x + 110.0f)) &&
+            ((player->pos.y - 60.0f) < (D_i5_801BE250[2] + 30.0f)) &&
+            ((D_i5_801BE250[2] + 30.0f) < (player->pos.y + 60.f))) {
+            func_80047D38(player, D_i5_801BE250[2] + 29.0f);
+            player->unk_0E4 = D_i5_801BE250[3];
             func_80047FBC(player);
             sp2F = true;
-        } else if (((player->pos.x - 150.0f) < D_i5_801BE274) && (D_i5_801BE274 < (player->pos.x + 150.0f)) &&
-                   ((player->pos.y - 60.0f) < (D_i5_801BE258 + 30.0f)) &&
-                   ((D_i5_801BE258 + 30.0f) < (player->pos.y + 60.0f))) {
-            func_80047E7C(player, D_i5_801BE274, D_i5_801BE258 + 30.0f);
+        } else {
+            if (((player->pos.x - 150.0f) < D_i5_801BE250[9]) && (D_i5_801BE250[9] < (player->pos.x + 150.0f)) &&
+                ((player->pos.y - 60.0f) < (D_i5_801BE250[2] + 30.0f)) &&
+                ((D_i5_801BE250[2] + 30.0f) < (player->pos.y + 60.0f))) {
+                func_80047E7C(player, D_i5_801BE250[9], D_i5_801BE250[2] + 30.0f);
+            }
+            if (1) {}
         }
     }
     if (func_i5_801A3C20(player->unk_138)) {
-        player->unk_0E4 = D_i5_801BE250.unk_5C;
-        if (((player->pos.x - 200.0f) < D_i5_801BE250.unk_54) && (D_i5_801BE250.unk_54 < (player->pos.x + 200.0f))) {
-            if (((player->pos.y - 60.0f) < D_i5_801BE250.unk_58) && (D_i5_801BE250.unk_58 < (player->pos.y + 60.0f))) {
-                func_80047D38(player, D_i5_801BE250.unk_58);
+        player->unk_0E4 = D_i5_801BE250[23];
+        if (((player->pos.x - 200.0f) < D_i5_801BE250[21]) && (D_i5_801BE250[21] < (player->pos.x + 200.0f))) {
+            if (((player->pos.y - 60.0f) < D_i5_801BE250[22]) && (D_i5_801BE250[22] < (player->pos.y + 60.0f))) {
+                func_80047D38(player, D_i5_801BE250[22]);
             } else {
-                if ((100.0f < (D_i5_801BE250.unk_58 - player->pos.y)) &&
-                    ((D_i5_801BE250.unk_58 - player->pos.y) < 130.0f)) {
+                if ((100.0f < (D_i5_801BE250[22] - player->pos.y)) && ((D_i5_801BE250[22] - player->pos.y) < 130.0f)) {
                     player->unk_0A0 = 999.0f;
                     player->pos.y = player->unk_090.y - 1.0f;
                 }
                 goto label_29;
             }
-            if (!(((player->pos.x - 65.0f) < D_i5_801BE250.unk_54) &&
-                  (D_i5_801BE250.unk_54 < (player->pos.x + 65.0f)))) {
-                if (!(((player->pos.x - 100.0f) < D_i5_801BE250.unk_54) &&
-                      (D_i5_801BE250.unk_54 < (player->pos.x + 100.0f)))) {
+            if (!(((player->pos.x - 65.0f) < D_i5_801BE250[21]) && (D_i5_801BE250[21] < (player->pos.x + 65.0f)))) {
+                if (!(((player->pos.x - 100.0f) < D_i5_801BE250[21]) &&
+                      (D_i5_801BE250[21] < (player->pos.x + 100.0f)))) {
                     player->unk_1D4 = 9;
-                    Math_SmoothStepToF(&player->pos.y, D_i5_801BE250.unk_58 + 100.0f, 0.5f, 20.0f, 0);
+                    Math_SmoothStepToF(&player->pos.y, D_i5_801BE250[22] + 100.0f, 0.5f, 20.0f, 0);
                     player->vel.y = 2.0f;
                     Math_SmoothStepToF(&player->unk_0E8, 0.0f, 0.5f, 20.0f, 0);
-                    Math_SmoothStepToF(&player->pos.x, D_i5_801BE2A4, 0.02f, 30.0f, 0);
+                    Math_SmoothStepToF(&player->pos.x, D_i5_801BE250[21], 0.02f, 30.0f, 0);
                     Math_SmoothStepToF(&player->unk_12C, -30.0f, 1.0f, 10.0f, 0);
-                    D_i5_801BE284 += 0; // fake?
+                    D_i5_801BE250[13] += 0; // fake?
                 }
                 player->unk_188 = 0;
-                if (player->pos.x < D_i5_801BE250.unk_54) {
+                if (player->pos.x < D_i5_801BE250[21]) {
                     player->vel.x = 0.0f;
                     player->pos.x += 8.0f;
                 } else {
@@ -1233,25 +1218,27 @@ void func_80047754(Player* player) {
     }
 label_29:
 
-    if (((D_i5_801BE2FA == 1) || (player->unk_138 < -116467.875f)) &&
+    if (((D_i5_801BE2F0[5] == 1) || (player->unk_138 < -116467.875f)) &&
         (func_i5_801A3790(player, player->unk_138, player->unk_0E8) == 0)) {
-        if (((player->pos.x - 110.0f) < D_i5_801BE29C) && (D_i5_801BE29C < (player->pos.x + 110.0f)) &&
-            ((player->pos.y - 60.0f) < (D_i5_801BE280 + 30.0f)) &&
-            ((D_i5_801BE280 + 30.0f) < (player->pos.y + 60.0f))) {
+        if (((player->pos.x - 110.0f) < D_i5_801BE250[19]) && (D_i5_801BE250[19] < (player->pos.x + 110.0f)) &&
+            ((player->pos.y - 60.0f) < (D_i5_801BE250[12] + 30.0f)) &&
+            ((D_i5_801BE250[12] + 30.0f) < (player->pos.y + 60.0f))) {
             sp2F = true;
-            func_80047D38(player, D_i5_801BE280 + 29.0f);
-            player->unk_0E4 = D_i5_801BE284; // not fake, but weird
-            player->unk_0E4 = D_i5_801BE284;
+            func_80047D38(player, D_i5_801BE250[12] + 29.0f);
+            player->unk_0E4 = D_i5_801BE250[13]; // not fake, but weird
+            player->unk_0E4 = D_i5_801BE250[13];
             func_80047FBC(player);
         } else {
-            if (((player->pos.x - 150.0f) < D_i5_801BE29C) && (D_i5_801BE29C < (player->pos.x + 150.0f)) &&
-                ((player->pos.y - 60.0f) < (D_i5_801BE280 + 30.0f)) &&
-                ((D_i5_801BE280 + 30.0f) < (player->pos.y + 60.0f))) {
-                func_80047E7C(player, D_i5_801BE29C, D_i5_801BE280 + 30.0f);
+            if (((player->pos.x - 150.0f) < D_i5_801BE250[19]) && (D_i5_801BE250[19] < (player->pos.x + 150.0f)) &&
+                ((player->pos.y - 60.0f) < (D_i5_801BE250[12] + 30.0f)) &&
+                ((D_i5_801BE250[12] + 30.0f) < (player->pos.y + 60.0f))) {
+                func_80047E7C(player, D_i5_801BE250[19], D_i5_801BE250[12] + 30.0f);
             }
         }
     }
     if (!sp2F) {
+        if (!D_i5_801BE250) {}
+
         func_80046704(player);
     }
 }

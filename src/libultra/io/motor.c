@@ -1,10 +1,10 @@
 #include "global.h"
 #include "siint.h"
 
-extern OSPifRam _MotorStopData[MAXCONTROLLERS];
-extern OSPifRam _MotorStartData[MAXCONTROLLERS];
-extern u8 _motorstopbuf[0x20];
-extern u8 _motorstartbuf[0x20];
+OSPifRam _MotorStopData[MAXCONTROLLERS] ALIGNED(8);
+OSPifRam _MotorStartData[MAXCONTROLLERS] ALIGNED(8);
+u8 _motorstopbuf[32] ALIGNED(8);
+u8 _motorstartbuf[32] ALIGNED(8);
 
 s32 osMotorStop(OSPfs* pfs) {
     s32 i;

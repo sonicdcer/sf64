@@ -2494,13 +2494,13 @@ void func_i1_8018F55C(Effect* effect) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.pos.x = gPlayer[0].camEye.x + RAND_FLOAT_CENTERED(500.0f);
-    effect->obj.pos.y = gPlayer[0].camEye.y + ((Rand_ZeroOne() - 0.8f) * 350.0f);
+    effect->obj.pos.y = gPlayer[0].camEye.y + RAND_RANGE(-280.0f, 70.0f);
     effect->obj.id = OBJ_EFFECT_352;
     effect->timer_50 = 80;
     effect->unk_46 = 0x90;
     effect->obj.pos.z = -4000.0f;
     effect->vel.z = 60.0f;
-    effect->scale2 = RAND_FLOAT(15.0f) + 10.0f;
+    effect->scale2 = 10.0f + RAND_FLOAT(15.0f);
     if (Rand_ZeroOne() < 0.5f) {
         effect->obj.rot.z = 180.0f;
     }
