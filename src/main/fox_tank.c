@@ -1167,18 +1167,19 @@ void func_80047754(Player* player) {
 
     if ((D_i5_801BE2F0[5] == 0) && (func_i5_801A3300(player, player->unk_138, player->unk_0E8) == 0)) {
         if (((player->pos.x - 110.0f) < D_i5_801BE250[9]) && (D_i5_801BE250[9] < (player->pos.x + 110.0f)) &&
-            ((player->pos.y - 60.0f) < (D_i5_801BE250[2] + 30.0f)) && ((D_i5_801BE250[2] + 30.0f) < (player->pos.y + 60.f))) {
+            ((player->pos.y - 60.0f) < (D_i5_801BE250[2] + 30.0f)) &&
+            ((D_i5_801BE250[2] + 30.0f) < (player->pos.y + 60.f))) {
             func_80047D38(player, D_i5_801BE250[2] + 29.0f);
             player->unk_0E4 = D_i5_801BE250[3];
             func_80047FBC(player);
             sp2F = true;
         } else {
             if (((player->pos.x - 150.0f) < D_i5_801BE250[9]) && (D_i5_801BE250[9] < (player->pos.x + 150.0f)) &&
-                   ((player->pos.y - 60.0f) < (D_i5_801BE250[2] + 30.0f)) &&
-                   ((D_i5_801BE250[2] + 30.0f) < (player->pos.y + 60.0f))) {
-            func_80047E7C(player, D_i5_801BE250[9], D_i5_801BE250[2] + 30.0f);
+                ((player->pos.y - 60.0f) < (D_i5_801BE250[2] + 30.0f)) &&
+                ((D_i5_801BE250[2] + 30.0f) < (player->pos.y + 60.0f))) {
+                func_80047E7C(player, D_i5_801BE250[9], D_i5_801BE250[2] + 30.0f);
             }
-            if(1) {}
+            if (1) {}
         }
     }
     if (func_i5_801A3C20(player->unk_138)) {
@@ -1187,15 +1188,13 @@ void func_80047754(Player* player) {
             if (((player->pos.y - 60.0f) < D_i5_801BE250[22]) && (D_i5_801BE250[22] < (player->pos.y + 60.0f))) {
                 func_80047D38(player, D_i5_801BE250[22]);
             } else {
-                if ((100.0f < (D_i5_801BE250[22] - player->pos.y)) &&
-                    ((D_i5_801BE250[22] - player->pos.y) < 130.0f)) {
+                if ((100.0f < (D_i5_801BE250[22] - player->pos.y)) && ((D_i5_801BE250[22] - player->pos.y) < 130.0f)) {
                     player->unk_0A0 = 999.0f;
                     player->pos.y = player->unk_090.y - 1.0f;
                 }
                 goto label_29;
             }
-            if (!(((player->pos.x - 65.0f) < D_i5_801BE250[21]) &&
-                  (D_i5_801BE250[21] < (player->pos.x + 65.0f)))) {
+            if (!(((player->pos.x - 65.0f) < D_i5_801BE250[21]) && (D_i5_801BE250[21] < (player->pos.x + 65.0f)))) {
                 if (!(((player->pos.x - 100.0f) < D_i5_801BE250[21]) &&
                       (D_i5_801BE250[21] < (player->pos.x + 100.0f)))) {
                     player->unk_1D4 = 9;
@@ -1238,7 +1237,7 @@ label_29:
         }
     }
     if (!sp2F) {
-        if (!D_i5_801BE250){}
+        if (!D_i5_801BE250) {}
 
         func_80046704(player);
     }
