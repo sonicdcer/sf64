@@ -1,9 +1,9 @@
 // rsp
-__rspboot_start = 0x80000450;//name_end:__rspboot_end
-__aspmain_start = 0x80000520;//name_end:__aspmain_end
-__f3dex_start = 0x80001410;//name_end:__f3dex_end
-gF3dexData = 0x800C3DD0; //name_end:gF3dexData_end
-gAspMainData = 0x800C32E0; //name_end:gAspMainData_end
+rspbootTextStart = 0x80000450;//name_end:rspbootTextEnd
+aspMainTextStart = 0x80000520;//name_end:aspMainTextEnd
+gspF3DEX_fifoTextStart = 0x80001410;//name_end:gspF3DEX_fifoTextEnd
+gspF3DEX_fifoDataStart = 0x800C3DD0; //name_end:gspF3DEX_fifoDataEnd
+aspMainDataStart = 0x800C32E0; //name_end:aspMainDataEnd
 
 // sys_joybus
 gControllerHold = 0x800DD880; // size:0x18

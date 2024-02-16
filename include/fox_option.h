@@ -46,15 +46,15 @@ typedef struct {
 } OptionEntry; // size = 0x60
 
 typedef struct {
+    /* 0x0 */ PlanetId unk_0;
+    /* 0x4 */ PlanetId unk_4;
+    /* 0x8 */ s32 unk_8;
+} UnkStruct_D_menu_801AED4C; // size = 0xC
+
+typedef struct {
     s32 unk_0;
     s32 unk_4;
 } UnkStruct_D_menu_801B9250;
-
-typedef struct {
-    /* 0x0 */ s32 unk_0;
-    /* 0x4 */ s32 unk_4;
-    /* 0x8 */ s32 unk_8;
-} UnkStruct_D_menu_801AED4C; // size = 0xC
 
 typedef enum OptionId {
     OPTION_MAIN = 1000,
@@ -123,13 +123,10 @@ void func_menu_8018FC14(void);
 void func_menu_8018FD08(void);
 void func_menu_8018FF74(void);
 
-
-void Option_Setup(void);
 void Option_UpdateEntry(void);
 void Option_MapUpdate(void);
 void Option_MainMenuUpdate(void);
 void Option_TrainingUpdate(void);
-void func_menu_801929F0(void);
 void Option_MainMenuDraw(void);
 void Option_VersusUpdate(void);
 void Option_VersusDraw(void);
@@ -166,7 +163,7 @@ void func_menu_80198608(s32, s32, f32, f32);
 void func_menu_8019882C(s32, s32, f32, f32);
 void func_menu_8019896C(s32, f32, s32);
 void func_menu_80199198(f32 arg0, f32 arg1, f32 arg2);
-s32 func_menu_80199284(s32 arg0, s32 arg1);
+s32 func_menu_80199284(PlanetId start, PlanetId end);
 void Option_VersusMenuInit(void);
 void Option_VersusMenuUpdate(void);
 void func_menu_8019949C(void);
@@ -191,20 +188,22 @@ void func_menu_8019AFFC(void);
 void func_menu_8019B1F8(void);
 void func_menu_8019B3DC(void);
 void func_menu_8019B5AC(void);
+void func_menu_8019B6D8(f32 xPos, f32 yPos, f32 offset, s32 r, s32 g, s32 b);
 void func_menu_8019B7D4(void);
 void func_menu_8019B8A0(s32 arg0);
 void func_menu_8019B8C8(void);
 void Option_DrawMenuLabel(void);
-void func_menu_8019BDF0(void);
 void Option_DrawMenuCard(MenuContext_38 arg0);
 void Option_DrawMenuArwing(ArwingPosition arg0);
 void func_menu_8019BC44(f32, f32, f32, f32, f32, f32);
+void func_menu_8019BDF0(void);
 void func_menu_8019BE7C(f32, f32, f32, f32 *, f32 *, f32 *);
 void func_menu_8019BF34(void);
-void func_menu_8019B6D8(f32 xPos, f32 yPos, f32 offset, s32 r, s32 g, s32 b);
 void func_menu_8019C04C(void);
 void Option_DrawCardLabel(OptionTexture arg0);
 s32 func_menu_8019C418(s32* arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, UnkStruct_D_menu_801B9250* arg8);
+s32 func_menu_8019C5A0(s32*);
+s32 func_menu_8019C66C(f32* arg0, f32 arg1, f32 arg2, UnkStruct_D_menu_801B9250* arg3);
 void func_menu_8019C824(f32* );
 s32 func_menu_8019C8C4(void);
 void func_menu_8019CAE0(void);
@@ -220,8 +219,6 @@ void func_menu_8019DF64(void);
 void Option_InvoiceUpdate(void);
 void Option_InvoiceDraw(void);
 
-s32 func_menu_8019C5A0(s32*);
-s32 func_menu_8019C66C(f32* arg0, f32 arg1, f32 arg2, UnkStruct_D_menu_801B9250* arg3);
 void func_menu_8019E8D0(void);
 void func_menu_801A07E8(u8*, u8*, f32*);
 void func_menu_801AD7EC(s32, s32, s32);

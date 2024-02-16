@@ -52,7 +52,17 @@
     "prevent_bss_reordering2.h": "c",
     "ast_aq.h": "c",
     "ast_8e1f80.h": "c",
-    "fox_end2.inc" : "c"
+    "fox_end2.inc": "c",
+    "sf64thread.h": "c",
+    "gfx.h": "c",
+    "os.h": "c",
+    "math.h": "c",
+    "context.h": "c",
+    "sf64player.h": "c",
+    "sys.h": "c",
+    "fox_option_assets.h": "c",
+    "mods.h": "c",
+    "i5.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }

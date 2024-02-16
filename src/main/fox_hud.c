@@ -5923,7 +5923,7 @@ void func_80095604(Player* player) {
                 D_8017835C = 16;
 
                 if (D_80178340 == 255) {
-                    D_800D3180[13] = Play_CheckMedalStatus(150) + 1;
+                    D_800D3180[LEVEL_AQUAS] = Play_CheckMedalStatus(150) + 1;
                     player->state_1C8 = PLAYERSTATE_1C8_6;
                     player->timer_1F8 = 0;
                     func_8001DBD0(10);

@@ -2331,7 +2331,7 @@ void func_i2_8018E084(Player* player) {
                         player->state_1C8 = PLAYERSTATE_1C8_6;
                         player->timer_1F8 = 0;
                         D_8017837C = 4;
-                        D_800D3180[1] = Play_CheckMedalStatus(0xC8) + 1;
+                        D_800D3180[LEVEL_METEO] = Play_CheckMedalStatus(0xC8) + 1;
                     }
                 }
             } else {

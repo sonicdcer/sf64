@@ -15,8 +15,8 @@
     subsegments:
     # Microcode
       - [0x01050, textbin, rspboot]
-      - [0x01120, bin, aspmain]
-      - [0x02010, bin, f3dex]
+      - [0x01120, textbin, aspmain]
+      - [0x02010, textbin, f3dex]
 
     # Nintendo libraries
       - [0x03440, c, sys_joybus]
@@ -325,7 +325,7 @@
 
       # Nintendo Library bss
       - { start: 0xDE480, type: .bss, vram: 0x800DD880, name: sys_joybus }
-      - { type: bss, vram: 0x800DDAA0, name:  sys_main }
+      - { type: .bss, vram: 0x800DDAA0, name:  sys_main }
       - { type: .bss, vram: 0x8013B3A0, name: sys_math }
       - { type: .bss, vram: 0x8013B3C0, name: sys_matrix }
       - { type: .bss, vram: 0x8013C3D0, name: sys_memory }
@@ -374,7 +374,7 @@
       - { type: .bss, vram: 0x801619A0, name: fox_std_lib }
       - { type: .bss, vram: 0x80161A10, name: fox_game }
       - { type: .bss, vram: 0x80161A50, name: fox_play }
-      - { type: bss, vram: 0x80161A70, name: fox_context}
+      - { type: .bss, vram: 0x80161A70, name: fox_context}
       - { type: .bss, vram: 0x80178580, name: fox_rcp }
       - { type: .bss, vram: 0x80178720, name: fox_radio }
       - { type: .bss, vram: 0x80178750, name: fox_versus }

@@ -1,4 +1,4 @@
-#include "global.h"
+#include "sys.h"
 
 void Lights_AddLight(Gfx** dList) {
     gSPNumLights((*dList)++, 7);

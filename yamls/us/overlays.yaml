@@ -182,7 +182,7 @@
     - [0xEEFB80, .rodata, fox_map]
     - { start: 0xEF0260, type: .bss, vram: 0x801B7BA0, name: fox_i_menu }
     - { type: .bss, vram: 0x801B7BB0, name: fox_title }
-    - { type: bss, vram: 0x801B9090, name: fox_option }
+    - { type: .bss, vram: 0x801B9090, name: fox_option }
     - { type: .bss, vram: 0x801B9410, name: fox_map }
 
   - name: ovl_ending
@@ -221,8 +221,8 @@
     dir: main
     start: 0xEFFB74
     vram: 0x80281000
-    bss_size: 0x17F300
-    exclusive_ram_id: buffers
+    bss_size: 0x17F000
+    exclusive_ram_id: buffer
     subsegments:
     - { start: 0xEFFB74, type: .bss, vram: 0x80281000, name: fox_buffers }
 

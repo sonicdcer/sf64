@@ -1,4 +1,4 @@
-#include "global.h"
+#include "sys.h"
 
 char D_800C7C80[] = "$Id: sprintf.c,v 1.5 1997/03/19 02:28:53 hayakawa Exp $";
 

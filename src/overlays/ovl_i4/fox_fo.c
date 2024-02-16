@@ -593,8 +593,14 @@ void func_i4_8018906C(void) {
 
 f32 D_i4_8019EE4C[] = { -200.0f, 200.0f, -50.0f, -2000.0f };
 f32 D_i4_8019EE5C[] = { 0.0f, 30.0f, -90.0f, 0.0f };
-f32 D_i4_8019EE6C[] = { -100.0f, -200.0f, -300.0f };
-s32 D_i4_8019EE78[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+f32 D_i4_8019EE6C[] = { -100.0f, -200.0f, -300.0f, 0.0f };
+s32 D_i4_8019EE7C = 0; // padding for dword aligned matrix?
+Matrix D_i4_8019EE80 = { {
+    { 0.0f, 0.0f, 0.0f, 0.0f },
+    { 0.0f, 0.0f, 0.0f, 0.0f },
+    { 0.0f, 0.0f, 0.0f, 0.0f },
+    { 0.0f, 0.0f, 0.0f, 0.0f },
+} };
 
 void func_i4_801890EC(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
@@ -1091,7 +1097,7 @@ void func_i4_8018927C(Player* player) {
                 for (i = 0; i < 6; i++) {
                     D_80177CF0[i] = D_80177CD0[i];
                 }
-                D_800D3180[0xE] = Play_CheckMedalStatus(50) + 1;
+                D_800D3180[LEVEL_FORTUNA] = Play_CheckMedalStatus(50) + 1;
             }
             break;
 
@@ -1318,7 +1324,7 @@ void func_i4_8018927C(Player* player) {
                     }
                     // clang-format on
 
-                    D_800D3180[14] = Play_CheckMedalStatus(50) + 1;
+                    D_800D3180[LEVEL_FORTUNA] = Play_CheckMedalStatus(50) + 1;
                     func_800A6148();
                     break;
                 }

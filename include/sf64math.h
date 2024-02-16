@@ -40,6 +40,14 @@ typedef union {
     // u64 force_struct_alignment;
 } Matrix; // size = 0x40
 
+extern Mtx gIdentityMtx; // 800C4620
+extern Matrix gIdentityMatrix; //800C4660
+
+extern Matrix* gGfxMatrix;
+extern Matrix sGfxMatrixStack[0x20];
+extern Matrix* gCalcMatrix;
+extern Matrix sCalcMatrixStack[0x20];
+
 f32 Math_ModF(f32 value, f32 mod);
 void Rand_Init(void);
 f32 Rand_ZeroOne(void);
@@ -88,5 +96,13 @@ f32 __cosf(f32);
 s64 __ull_div(s64, s64);
 s64 __ll_mul(s64, s64);
 s64 __ll_rshift(s64, s64);
+
+f32 Math_FloorF(f32);
+f32 Math_CeilF(f32);
+f64 Math_Fabs(f64);
+f32 Math_FabsF(f32);
+f32 Math_NearbyIntF(f32);
+f32 Math_TruncF(f32);
+f32 Math_RoundF(f32);
 
 #endif

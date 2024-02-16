@@ -6419,7 +6419,7 @@ void func_i5_801AF8F4(Player* player) {
             }
             break;
         case 1420:
-            if (D_800D3180[8] != 0) {
+            if (D_800D3180[LEVEL_ZONESS] != 0) {
                 func_i5_801AF44C();
             }
             break;
@@ -6427,7 +6427,7 @@ void func_i5_801AF8F4(Player* player) {
             D_i5_801BA88C = 170.0f;
             break;
         case 1500:
-            if (D_800D3180[8] != 0) {
+            if (D_800D3180[LEVEL_ZONESS] != 0) {
                 Radio_PlayMessage(gMsg_ID_17300, RCID_KATT);
             }
             break;
@@ -6517,7 +6517,7 @@ void func_i5_801AF8F4(Player* player) {
             D_8017837C = 4;
             func_800A6148();
             func_8001DBD0(10);
-            D_800D3180[11] = Play_CheckMedalStatus(150) + 1;
+            D_800D3180[LEVEL_MACBETH] = Play_CheckMedalStatus(150) + 1;
         }
     }
 }
@@ -7024,17 +7024,17 @@ void func_i5_801B3D04(Player* player) {
             }
             break;
         case 680:
-            if (D_800D3180[8] != 0) {
+            if (D_800D3180[LEVEL_ZONESS] != 0) {
                 func_i5_801B3718();
             }
             break;
         case 1027:
-            if (D_800D3180[8] != 0) {
+            if (D_800D3180[LEVEL_ZONESS] != 0) {
                 Radio_PlayMessage(gMsg_ID_17350, RCID_KATT);
             }
             break;
         case 1065:
-            if (D_800D3180[8] != 0) {
+            if (D_800D3180[LEVEL_ZONESS] != 0) {
                 gActors[8].state++;
             }
             break;
@@ -7048,7 +7048,7 @@ void func_i5_801B3D04(Player* player) {
             gActors[2].state++;
             break;
         case 1158:
-            if (D_800D3180[8] != 0) {
+            if (D_800D3180[LEVEL_ZONESS] != 0) {
                 Object_Kill(&gActors[8].obj, gActors[8].sfxPos);
             }
             /* fallthrough */
@@ -7083,7 +7083,7 @@ void func_i5_801B3D04(Player* player) {
             D_8017837C = 4;
             func_800A6148();
             func_8001DBD0(10);
-            D_800D3180[11] = Play_CheckMedalStatus(150) + 1;
+            D_800D3180[LEVEL_MACBETH] = Play_CheckMedalStatus(150) + 1;
         }
     }
 }

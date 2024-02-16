@@ -1557,7 +1557,7 @@ void func_i4_80197290(Player* player) {
                     player->state_1C8 = PLAYERSTATE_1C8_6;
                     player->timer_1F8 = 0;
                     D_8017837C = 4;
-                    D_800D3180[16] = Play_CheckMedalStatus(150) + 1;
+                    D_800D3180[LEVEL_KATINA] = Play_CheckMedalStatus(150) + 1;
                 }
             }
             switch (gCsFrameCount) {
