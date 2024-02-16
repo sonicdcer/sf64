@@ -2,12 +2,8 @@
 #ifndef ASSETS_H
 #define ASSETS_H
 
-#include "libc/stdbool.h"
-#include "sf64math.h"
-#include "structs.h"
-#include "gfx.h"
+#include "sys.h"
 #include "sf64level.h"
-#include "sf64thread.h"
 #include "sf64object.h"
 #include "sf64player.h"
 

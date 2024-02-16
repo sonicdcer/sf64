@@ -526,7 +526,7 @@ void func_i5_801882CC(Player* player) {
             D_8017837C = 4;
             func_800A6148();
             func_8001DBD0(10);
-            D_800D3180[12] = Play_CheckMedalStatus(150) + 1;
+            D_800D3180[LEVEL_TITANIA] = Play_CheckMedalStatus(150) + 1;
         }
     }
 }

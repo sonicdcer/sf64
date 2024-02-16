@@ -3987,7 +3987,7 @@ void func_i6_80193C4C(Player* player) {
                 if (D_80178340 == 0xFF) {
                     gNextGameState = GSTATE_CREDITS;
                     D_ending_80196D00 = 0;
-                    D_800D3180[9] = Play_CheckMedalStatus(200) + 1;
+                    D_800D3180[LEVEL_VENOM_ANDROSS] = Play_CheckMedalStatus(200) + 1;
                     func_8001DC6C(0, 0x1B);
                 }
             }

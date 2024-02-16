@@ -51,6 +51,9 @@ typedef struct {
     /* 0x100 */ Save backup;
 } SaveFile; // size = 0x200
 
+s32 Save_Write(void);
+s32 Save_Read(void);
+
 void Save_ReadData(void);
 void Save_WriteData(void);
 

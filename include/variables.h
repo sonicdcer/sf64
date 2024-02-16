@@ -4,7 +4,6 @@
 #include "sys.h"
 #include "structs.h"
 #include "sf64level.h"
-#include "sf64thread.h"
 #include "sf64object.h"
 #include "sf64player.h"
 

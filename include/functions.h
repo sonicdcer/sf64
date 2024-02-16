@@ -1,10 +1,9 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
-#include "libc/stdbool.h"
+#include "sys.h"
 #include "structs.h"
 #include "sf64object.h"
-#include "sf64thread.h"
 #include "sf64player.h"
 #include "sf64mesg.h"
 
@@ -481,17 +480,6 @@ void func_80098860(Plane* plane, Vec3f* point, Vec3f* normal);
 s32 func_800988B4(Vec3f* vec, Plane* plane);
 s32 func_800998FC(Vec3f*, Vec3f*, Vec3f*, s32, Vec3f*, f32*);
 
-// fox_game
-void Game_SetGameState(void);
-bool func_800A1B6C(void);
-void func_800A1C14(Gfx**);
-void func_800A1E68(Gfx**);
-void func_800A1F44(void);
-void func_800A1FB0(Gfx**, u8 , u8);
-void func_800A24DC(s32);
-
-void func_800A25DC(void);
-
 // fox_A4290
 bool func_800A3690(Vec3f*, Vec3f*, s32, Vec3f*);
 
@@ -559,10 +547,6 @@ void func_800C1ED4(void);
 void func_800C20B0(void);
 void func_800C2190(void);
 void func_800C26C8(void);
-
-// fox_save
-s32 Save_Write(void);
-s32 Save_Read(void);
 
 void func_menu_80187520(u32, void*);
 void func_menu_8019E8D0(void);

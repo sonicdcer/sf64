@@ -5,14 +5,30 @@
  */
 
 #include "mods.h"
-// #include "prevent_bss_reordering2.h"
-// #include "prevent_bss_reordering.h"
+
+#include "prevent_bss_reordering.h"
 #include "global.h"
+
 #include "fox_option.h"
 
+extern s32 D_menu_801B81A8[][3];
+extern Gfx D_menu_801B4A40[];
+extern Gfx D_menu_801B5E78[];
+extern Gfx D_menu_801B61E0[];
+extern Gfx D_menu_801B6548[];
+extern Gfx D_menu_801B4D70[];
+extern Gfx D_menu_801B5B10[];
+extern Gfx D_menu_801B5440[];
+extern Gfx D_menu_801B50D8[];
+extern Gfx D_menu_801B5E78[];
+extern Gfx D_menu_801B57A8[];
+
+#include "fox_option_assets.h"
+
+extern f32 D_menu_801CD818[];
 //! TODO: IMPORT BSS
 
-// #define IMPORT_BSS
+#define IMPORT_BSS
 
 #ifdef IMPORT_BSS
 s32 D_menu_801B9090;
@@ -28,7 +44,7 @@ f32 D_menu_801B9100[3]; // gap
 f32 D_menu_801B9110[3];
 f32 D_menu_801B911C;
 f32 D_menu_801B9120;
-OptionId D_menu_801B9124;
+enum OptionId D_menu_801B9124;
 s32 D_menu_801B9128;
 s32 D_menu_801B912C;
 s32 D_menu_801B9130;
@@ -102,6 +118,7 @@ f32 D_menu_801B9298[32];
 s32 spectrumAnalizerMode;
 s32 D_menu_801B931C;
 bool D_menu_801B9320; // MusicPlaying status in the expert sound options
+extern s32 BSS_PAD_0;
 s32 D_menu_801B9330[2];
 s32 D_menu_801B933C;
 s32 D_menu_801B9340; // gap
@@ -116,6 +133,7 @@ s32 D_menu_801B937C;
 UnkStruct_D_menu_801B9250 D_menu_801B9380[4];
 UnkStruct_D_menu_801B9250 D_menu_801B93A0[4];
 u8 D_menu_801B93C4;
+extern s32 BSS_PAD_1;
 s32 D_menu_801B93D0;
 s32 D_menu_801B93D4;
 s32 D_menu_801B93D8;
@@ -246,20 +264,17 @@ extern s32 D_menu_801B931C;
 extern bool D_menu_801B9320; // MusicPlaying status in the expert sound options
 #endif
 
-extern s32 D_menu_801B81A8[][3];
-
-extern Gfx D_menu_801B4A40[];
-extern Gfx D_menu_801B5E78[];
-extern Gfx D_menu_801B61E0[];
-extern Gfx D_menu_801B6548[];
-extern Gfx D_menu_801B4D70[];
-extern Gfx D_menu_801B5B10[];
-extern Gfx D_menu_801B5440[];
-extern Gfx D_menu_801B50D8[];
-extern Gfx D_menu_801B5E78[];
-extern Gfx D_menu_801B57A8[];
-
-#include "fox_option_assets.h"
+#include "prevent_bss_reordering2.h"
+struct BssPad0 {
+    int x;
+};
+struct BssPad1 {
+    int x;
+};
+// struct BssPad2 {int x;};
+// struct BssPad3 {int x;};
+// struct BssPad4 {int x;};
+extern s32 BSS_PAD_2;
 
 static f32 sOptionCardPosY[] = { 60.0f, 36.0f, 12.0f, -12.0f, -36.0f, -60.0f };           // D_menu_801AE570
 static f32 sOptionCardTextPosX[] = { 124.0f, 118.0f, 145.0f, 125.0f, 133.0f, 118.0f };    // D_menu_801AE588
@@ -272,8 +287,6 @@ static f32 D_menu_801AE5F8[] = { 133.0f, 125.0f };
 static f32 D_menu_801AE600[] = { 151.0f, 151.0f };
 static f32 D_menu_801AE608[] = { 8.0f, 8.0f, 8.0f, 8.0f, 8.0f, 8.0f };
 static f32 D_menu_801AE620[] = { 1.9f, 2.4f, 0.9f, 1.9f, 1.8f, 2.4f };
-
-extern f32 D_menu_801CD818[];
 
 // D_menu_801AE638
 static OptionEntry sOptionCardList[] = {
@@ -469,7 +482,7 @@ static f32 D_menu_801AEF9C[] = { 89.0f, 115.0f, 139.0f };
 
 void Option_Setup(void) {
     bool enableExpertModes;
-    bool var_v0_2;
+    bool playedExpertMode;
     s32 i;
 
     D_80137E78 = 2;
@@ -522,7 +535,7 @@ void Option_Setup(void) {
     D_menu_801B91A8 = 0;
     D_menu_801B91AC = 0;
     D_menu_801B91B0 = 0;
-    var_v0_2 = gExpertMode;
+    playedExpertMode = gExpertMode;
     gExpertMode = false;
 
     gGameFrameCount = 0;
@@ -534,10 +547,10 @@ void Option_Setup(void) {
 
     if ((D_80161A34 == 5) || (D_80161A34 == 8)) {
         if (D_80161A34 == 8) {
-            D_80177B90[gCurrentPlanet] = 13;
+            D_80177B90[gCurrentPlanet] = PLANET_VENOM;
             if (D_800D3180[LEVEL_VENOM_ANDROSS] == 1) {
                 gSaveFile.save.data.planet[SAVE_SLOT_VENOM_1].played = 1;
-                if (var_v0_2 != 0) {
+                if (playedExpertMode) {
                     gSaveFile.save.data.planet[SAVE_SLOT_VENOM_1].expertClear = 1;
                 } else {
                     gSaveFile.save.data.planet[SAVE_SLOT_VENOM_1].normalClear = 1;
@@ -546,7 +559,7 @@ void Option_Setup(void) {
             } else if (D_800D3180[LEVEL_VENOM_ANDROSS] == 2) {
                 D_80177BB0[gCurrentPlanet] = 1;
                 gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].played = 1;
-                if (var_v0_2) {
+                if (playedExpertMode) {
                     gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].expertClear = 1;
                     gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].expertMedal = 1;
                 } else {
@@ -2436,8 +2449,8 @@ void func_menu_801982B0(s32 arg0, s32 arg1, f32 arg2, f32 arg3, s32 arg4) {
     s32 g;
     s32 b;
     s32 temp_v0;
-    s32 temp1;
-    s32 temp2;
+    PlanetId start;
+    PlanetId end;
 
     if ((arg3 > 30.0f) && (arg3 < 200.0f)) {
         RCP_SetupDL(&gMasterDisp, 0x4C);
@@ -2446,10 +2459,10 @@ void func_menu_801982B0(s32 arg0, s32 arg1, f32 arg2, f32 arg3, s32 arg4) {
             g = 255;
             r = 255;
             if (arg1 < (arg4 - 1)) {
-                temp1 = gSaveFile.save.data.unk_5E[arg0][arg1].unk_8 & 15;
-                temp2 = gSaveFile.save.data.unk_5E[arg0][arg1 + 1].unk_8 & 15;
+                start = gSaveFile.save.data.unk_5E[arg0][arg1].unk_8 & 0xF;
+                end = gSaveFile.save.data.unk_5E[arg0][arg1 + 1].unk_8 & 0xF;
 
-                temp_v0 = func_menu_80199284(temp1, temp2);
+                temp_v0 = func_menu_80199284(start, end);
 
                 g = 255;
                 b = 255;
@@ -2518,7 +2531,7 @@ void func_menu_80198608(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
 }
 
 void func_menu_8019882C(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
-    s32 temp;
+    PlanetId temp;
     char* sp20;
     f32 temp2;
 
@@ -2537,7 +2550,7 @@ void func_menu_8019896C(s32 arg0, f32 y, s32 arg2) {
     static f32 D_menu_801AF134 = -121.0f;
     static f32 D_menu_801AF138 = 40.1f;
     s32 i;
-    s32 data;
+    PlanetId planet;
     s32 spFC;
     s32 spF4;
     f32 x;
@@ -2551,10 +2564,10 @@ void func_menu_8019896C(s32 arg0, f32 y, s32 arg2) {
 
     spFC = gSaveFile.save.data.unk_4A[arg0];
     for (x = D_menu_801AF134, i = 0; i < arg2; i++, x += D_menu_801AF138) {
-        data = gSaveFile.save.data.unk_5E[arg0][i].unk_8 & 15;
+        planet = gSaveFile.save.data.unk_5E[arg0][i].unk_8 & 0xF;
 
-        switch (data) {
-            case 13:
+        switch (planet) {
+            case SAVE_SLOT_SOLAR:
                 RCP_SetupDL(&gMasterDisp, 0x43);
 
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 240, 0, 0, 255);
@@ -2566,16 +2579,16 @@ void func_menu_8019896C(s32 arg0, f32 y, s32 arg2) {
                 Matrix_Scale(gGfxMatrix, 0.3f, 0.3f, 0.3f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
 
-                gSPDisplayList(gMasterDisp++, D_menu_801AEE6C[data]);
+                gSPDisplayList(gMasterDisp++, D_menu_801AEE6C[planet]);
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 128);
                 gDPSetEnvColor(gMasterDisp++, 31, 0, 0, 0);
                 Matrix_Scale(gGfxMatrix, 0.8f, 0.8f, 0.8f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_menu_801AEE6C[data]);
+                gSPDisplayList(gMasterDisp++, D_menu_801AEE6C[planet]);
                 Matrix_Pop(&gGfxMatrix);
                 break;
 
-            case 0:
+            case PLANET_METEO:
                 RCP_SetupDL(&gMasterDisp, 0x3E);
 
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
@@ -2585,19 +2598,19 @@ void func_menu_8019896C(s32 arg0, f32 y, s32 arg2) {
                 Matrix_Scale(gGfxMatrix, 0.3f, 0.3f, 0.3f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
 
-                gSPDisplayList(gMasterDisp++, D_menu_801AEE6C[data]);
+                gSPDisplayList(gMasterDisp++, D_menu_801AEE6C[planet]);
 
                 Matrix_Translate(gGfxMatrix, 18.0f, -20.0f, 0.0f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
 
-                gSPDisplayList(gMasterDisp++, D_menu_801AEE6C[data]);
+                gSPDisplayList(gMasterDisp++, D_menu_801AEE6C[planet]);
 
                 Matrix_Pop(&gGfxMatrix);
                 break;
 
-            case 4:
-            case 5:
-            case 3:
+            case PLANET_SECTOR_X:
+            case PLANET_SECTOR_Y:
+            case PLANET_SECTOR_Z:
                 RCP_SetupDL(&gMasterDisp, 0x3E);
 
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 144);
@@ -2607,12 +2620,12 @@ void func_menu_8019896C(s32 arg0, f32 y, s32 arg2) {
                 Matrix_Scale(gGfxMatrix, 0.3f, 0.3f, 0.3f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
 
-                gSPDisplayList(gMasterDisp++, D_menu_801AEE6C[data]);
+                gSPDisplayList(gMasterDisp++, D_menu_801AEE6C[planet]);
 
                 Matrix_Pop(&gGfxMatrix);
                 break;
 
-            case 2:
+            case PLANET_BOLSE:
                 RCP_SetupDL(&gMasterDisp, 0x17);
                 Lights_SetOneLight(&gMasterDisp, 0, 0, 100, 100, 100, 70, 100, 100, 100);
 
@@ -2622,12 +2635,12 @@ void func_menu_8019896C(s32 arg0, f32 y, s32 arg2) {
                 Matrix_Scale(gGfxMatrix, 0.01f, 0.01f, 0.01f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
 
-                gSPDisplayList(gMasterDisp++, D_menu_801AEE6C[data]);
+                gSPDisplayList(gMasterDisp++, D_menu_801AEE6C[planet]);
 
                 Matrix_Pop(&gGfxMatrix);
                 break;
 
-            case 1:
+            case PLANET_AREA_6:
                 RCP_SetupDL(&gMasterDisp, 0x17);
                 Lights_SetOneLight(&gMasterDisp, 0, 0, 100, 100, 100, 70, 100, 100, 100);
 
@@ -2637,7 +2650,7 @@ void func_menu_8019896C(s32 arg0, f32 y, s32 arg2) {
                 Matrix_Scale(gGfxMatrix, 0.01f, 0.01f, 0.01f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
 
-                gSPDisplayList(gMasterDisp++, D_menu_801AEE6C[data]);
+                gSPDisplayList(gMasterDisp++, D_menu_801AEE6C[planet]);
 
                 Matrix_Pop(&gGfxMatrix);
                 break;
@@ -2652,10 +2665,10 @@ void func_menu_8019896C(s32 arg0, f32 y, s32 arg2) {
                 Matrix_Scale(gGfxMatrix, 0.3f, 0.3f, 0.3f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
 
-                gSPDisplayList(gMasterDisp++, D_menu_801AEE6C[data]);
+                gSPDisplayList(gMasterDisp++, D_menu_801AEE6C[planet]);
 
-                if ((data != 14) && (data != 15) && (data != 11)) {
-                    if (data == 7) {
+                if ((planet != SAVE_SLOT_VENOM_1) && (planet != SAVE_SLOT_VENOM_2) && (planet != PLANET_AQUAS)) {
+                    if (planet == PLANET_MACBETH) {
                         gDPSetPrimColor(gMasterDisp++, 0, 0, 64, 64, 64, 255);
                     } else {
                         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
@@ -2701,11 +2714,11 @@ void func_menu_80199198(f32 arg0, f32 arg1, f32 arg2) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-s32 func_menu_80199284(s32 arg0, s32 arg1) {
+s32 func_menu_80199284(PlanetId start, PlanetId end) {
     s32 i;
 
     for (i = 0; i < 24; i++) {
-        if ((D_menu_801AED4C[i].unk_0 == arg0) && (D_menu_801AED4C[i].unk_4 == arg1)) {
+        if ((D_menu_801AED4C[i].unk_0 == start) && (D_menu_801AED4C[i].unk_4 == end)) {
             break;
         }
     }
@@ -2981,11 +2994,11 @@ void Option_VersusStageInit(void) {
     D_menu_801B93D8 = D_80161A28;
     D_menu_801B93DC = D_menu_801B9340;
     D_801778C8 = D_menu_801B93DC;
-
-    for (i = 0; i < 4; i++) {
+    // clang-format off
+    for (i = 0; i < 4; i++) {\
         D_menu_801B9358[i] = 0;
     }
-
+    // clang-format on
     D_menu_801B936C = 0;
     D_menu_801B9374 = 0;
     D_menu_801B937C = 0;
@@ -3341,6 +3354,8 @@ extern f32 D_menu_801B9328;
 extern f32 D_menu_801B9338;
 #endif
 void func_menu_8019AD84(void) {
+    static f32 D_menu_801AF25C[6] = { 156.0f, 112.0f, 112.0f, 112.0f, 112.0f, 112.0f };
+    static f32 D_menu_801AF274[6] = { 46.0f, 43.0f, 43.0f, 43.0f, 43.0f, 43.0f };
 #ifdef IMPORT_BSS
     static f32 D_menu_801B9324;
     static f32 D_menu_801B9328;
@@ -3349,9 +3364,7 @@ void func_menu_8019AD84(void) {
     s32 pad[2];
     s32 colorGB;
     s32 var_v0;
-    static f32 D_menu_801AF25C[6] = { 156.0f, 112.0f, 112.0f, 112.0f, 112.0f, 112.0f };
-    static f32 D_menu_801AF274[6] = { 46.0f, 43.0f, 43.0f, 43.0f, 43.0f, 43.0f };
-    // D_menu_801AF28C
+
     static u8* sTimeTrialMinuteTextures[] = { D_70024D0, D_7002730, D_7002990, D_7002BF0, D_7002E50 };
 
     RCP_SetupDL(&gMasterDisp, 0x53);
@@ -3412,13 +3425,14 @@ extern f32 D_menu_801B93C8;
 extern f32 D_menu_801B93CC;
 #endif
 void func_menu_8019AFFC(void) {
-    static f32 D_menu_801AF2A0 = 101.0f;
-    static f32 D_menu_801AF2A4 = 86.0f;
+
 #ifdef IMPORT_BSS
     static f32 D_menu_801B93C0;
     static f32 D_menu_801B93C8;
     static f32 D_menu_801B93CC;
 #endif
+    static f32 D_menu_801AF2A0 = 101.0f;
+    static f32 D_menu_801AF2A4 = 86.0f;
     s32 var_v0;
     s32 colorGB;
 
@@ -4307,12 +4321,12 @@ void func_menu_8019D624(void) {
 
         var_a0 = D_80177B90[j];
 
-        if (D_80177B90[j] == 13) {
-            var_a0 = 14;
+        if (D_80177B90[j] == PLANET_VENOM) {
+            var_a0 = SAVE_SLOT_VENOM_1;
         }
 
-        if (D_80177B90[j] == 14) {
-            var_a0 = 13;
+        if (D_80177B90[j] == PLANET_SOLAR) {
+            var_a0 = SAVE_SLOT_SOLAR;
         }
 
         var_s0[10][j].unk_8 = var_a0;

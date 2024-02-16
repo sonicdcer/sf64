@@ -178,7 +178,7 @@ s32 D_80177B40;
 s32 gCurrentPlanet; // D_80177B48 // Arrow pointer?
 s32 D_80177B50[7];
 s32 D_80177B70[7];
-s32 D_80177B90[7];
+PlanetId D_80177B90[7];
 s32 D_80177BB0[7];
 s32 D_80177BD8[22]; // overruns D_80177C30?
 s32 D_80177C38[6];

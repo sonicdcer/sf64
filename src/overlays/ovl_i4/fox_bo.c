@@ -1,5 +1,5 @@
-#include "prevent_bss_reordering.h"
-#include "prevent_bss_reordering2.h"
+// #include "prevent_bss_reordering.h"
+// #include "prevent_bss_reordering2.h"
 #include "global.h"
 
 typedef struct UnkStruct_D_i4_801A03E0 {
@@ -394,7 +394,7 @@ void func_i4_8018C158(Actor* actor) {
                 break;
 
             case 390:
-                if (D_800D3180[14] == 0) {
+                if (D_800D3180[LEVEL_FORTUNA] == 0) {
                     Radio_PlayMessage(gMsg_ID_9285, RCID_FOX);
                 } else {
                     Radio_PlayMessage(gMsg_ID_11241, RCID_FOX);
@@ -1593,7 +1593,7 @@ void func_i4_8018F94C(Player* player) {
                     gNextLevel = LEVEL_VENOM_1;
                     func_8001CA24(0);
                     Audio_KillSfx(player->sfxPos);
-                    D_800D3180[17] = Play_CheckMedalStatus(150) + 1;
+                    D_800D3180[LEVEL_BOLSE] = Play_CheckMedalStatus(150) + 1;
 
                     for (i = 1; i < 6; i++) {
                         D_80177C38[i] = gTeamShields[i];

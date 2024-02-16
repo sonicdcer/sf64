@@ -47,10 +47,10 @@ extern u8 D_80177AC8;
 extern s32 D_80177AE0;
 extern s32 gMainController;
 extern s32 D_80177B40;
-extern s32 gCurrentPlanet; // D_80177B48 // Arrow pointer?
+extern PlanetId gCurrentPlanet; // D_80177B48 // Arrow pointer?
 extern s32 D_80177B50[7];
 extern s32 D_80177B70[7];
-extern s32 D_80177B90[7];
+extern PlanetId D_80177B90[7];
 extern s32 D_80177BB0[7];
 extern s32 D_80177BD8[22]; // overruns D_80177C30?
 extern s32 D_80177C38[6];

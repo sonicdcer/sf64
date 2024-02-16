@@ -21,7 +21,7 @@ typedef s32 (*CompareFunc)(void*, void*);
 
 s32 Lib_vsPrintf(char* dst, const char* fmt, va_list args);
 void Lib_vTable(s32 index, void (**table)(s32, s32), s32 arg0, s32 arg1);
-void Lib_QuickSort(u8* first, u32 curLen, u32 size, CompareFunc cFunc);
+void Lib_QuickSort(u8* first, u32 length, u32 size, CompareFunc cFunc);
 void Lib_Perspective(Gfx** dList);
 void Lib_Ortho(Gfx** dList);
 void Lib_DmaRead(void* src, void* dst, s32 size);
@@ -37,8 +37,6 @@ s32 vsprintf(char* dst, const char* fmt, va_list args);
 
 void Game_Initialize(void);
 void Game_Update(void);
-
-void Graphics_NMIWipe(void);
 
 extern s32 D_800D2860[];
 extern s32 D_800D2870;

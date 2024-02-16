@@ -1777,7 +1777,7 @@ void func_i2_80194728(Player* player) {
                     D_8017837C = 4;
                     player->timer_1F8 = 0;
                     func_800A6148();
-                    D_800D3180[2] = Play_CheckMedalStatus(150) + 1;
+                    D_800D3180[LEVEL_SECTOR_X] = Play_CheckMedalStatus(150) + 1;
                 }
             }
             break;
