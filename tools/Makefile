@@ -17,7 +17,7 @@ RECOMP_DIR := ido-recomp/$(DETECTED_OS)
 
 default: all
 
-all: recomp mio0
+all: recomp mio0 torch
 
 clean:
 	$(RM) -rf $(RECOMP_DIR)
