@@ -231,6 +231,7 @@ ASM_DIRS      := $(shell find asm/$(VERSION) -type d -not -path "asm/$(VERSION)/
 BIN_DIRS      := $(shell find bin -type d)
 
 C_FILES       := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
+C_FILES       := $(filter-out %.inc.c,$(C_FILES))
 S_FILES       := $(foreach dir,$(ASM_DIRS) $(SRC_DIRS),$(wildcard $(dir)/*.s))
 BIN_FILES     := $(foreach dir,$(BIN_DIRS),$(wildcard $(dir)/*.bin))
 O_FILES       := $(foreach f,$(C_FILES:.c=.o),$(BUILD_DIR)/$f) \
@@ -430,7 +431,6 @@ extract:
 
 clean:
 	@git clean -fdx asm/
-	@git clean -fdx assets/
 	@git clean -fdx bin/
 	@git clean -fdx build/
 	@git clean -fdx linker_scripts/*.ld

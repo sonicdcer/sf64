@@ -62,7 +62,10 @@
     "sys.h": "c",
     "fox_option_assets.h": "c",
     "mods.h": "c",
-    "i5.h": "c"
+    "i5.h": "c",
+    "assets.h": "c",
+    "sf64mesg.h": "c",
+    "ast_logo.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }
