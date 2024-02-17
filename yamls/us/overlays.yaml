@@ -3,32 +3,34 @@
     dir: overlays/ovl_i1
     start: 0xDF4260
     vram: 0x80187520
+    follows_vram: ast_radio
     bss_size: 0xA10
     exclusive_ram_id: overlay
     symbol_name_format: i1_$VRAM
     subsegments:
     - [0xDF4260, c, fox_i1]
     - [0xDF4270, c, fox_co]
-    - [0xDFEE30, c, sf_ve1]
+    - [0xDFEE30, c, fox_ve1]
     - [0xE05620, c, fox_tr]
     - [0xE05990, c, fox_tr360]
     - [0xE06510, .data, fox_i1]
     - [0xE06520, .data, fox_co]
-    - [0xE06880, .data, sf_ve1]
+    - [0xE06880, .data, fox_ve1]
     - [0xE07B90, .data, fox_tr360]
     - [0xE07C30, .rodata, fox_co]
-    - [0xE07FF0, .rodata, sf_ve1]
+    - [0xE07FF0, .rodata, fox_ve1]
     - [0xE08380, .rodata, fox_tr]
     - [0xE083C0, .rodata, fox_tr360]
     - { start: 0xE08400, type: .bss, vram: 0x8019B6C0, name: fox_i1 }
     - { type: .bss, vram: 0x8019B6D0, name: fox_co }
-    - { type: .bss, vram: 0x8019B7F0, name: sf_ve1 }
+    - { type: .bss, vram: 0x8019B7F0, name: fox_ve1 }
 
   - name: ovl_i2
     type: code
     dir: overlays/ovl_i2
     start: 0xE08400
     vram: 0x80187520
+    follows_vram: ast_radio
     bss_size: 0x40
     exclusive_ram_id: overlay
     symbol_name_format: i2_$VRAM
@@ -49,6 +51,7 @@
     dir: overlays/ovl_i3
     start: 0xE16C50
     vram: 0x80187520
+    follows_vram: ast_radio
     bss_size: 0x2220
     exclusive_ram_id: overlay
     symbol_name_format: i3_$VRAM
@@ -78,6 +81,7 @@
     dir: overlays/ovl_i4
     start: 0xE51970
     vram: 0x80187520
+    follows_vram: ast_radio
     bss_size: 0x1B0
     exclusive_ram_id: overlay
     symbol_name_format: i4_$VRAM
@@ -107,6 +111,7 @@
     dir: overlays/ovl_i5
     start: 0xE6A810
     vram: 0x80187520
+    follows_vram: ast_radio
     bss_size: 0xAF80
     exclusive_ram_id: overlay
     symbol_name_format: i5_$VRAM
@@ -136,6 +141,7 @@
     dir: overlays/ovl_i6
     start: 0xE9F1D0
     vram: 0x80187520
+    follows_vram: ast_radio
     bss_size: 0x520
     exclusive_ram_id: overlay
     symbol_name_format: i6_$VRAM
@@ -164,6 +170,7 @@
     dir: overlays/ovl_menu
     start: 0xEBFBE0
     vram: 0x80187520
+    follows_vram: ast_radio
     bss_size: 0x17590
     exclusive_ram_id: overlay
     symbol_name_format: menu_$VRAM
@@ -190,6 +197,7 @@
     dir: overlays/ovl_ending
     start: 0xEF0260
     vram: 0x80187520
+    follows_vram: ast_radio
     bss_size: 0x2710
     exclusive_ram_id: overlay
     symbol_name_format: ending_$VRAM
@@ -208,6 +216,7 @@
     dir: overlays/ovl_unused
     start: 0xEFFA40
     vram: 0x80187520
+    follows_vram: ast_radio
     bss_size: 0x10
     exclusive_ram_id: overlay
     symbol_name_format: unused_$VRAM

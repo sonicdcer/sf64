@@ -385,5 +385,6 @@
     dir: main
     start: 0xDE480
     vram: 0x80178A70
+    follows_vram: main
     subsegments:
      - [0xDE480, .data, dmatable]

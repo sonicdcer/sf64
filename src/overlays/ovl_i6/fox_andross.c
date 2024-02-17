@@ -160,9 +160,9 @@ void func_i6_801878A8() {
     }
 }
 
-extern ObjectInit* D_C036310;
-extern ObjectInit* D_C036B6C;
-extern ObjectInit* D_C03733C;
+extern ObjectInit D_C036310[];
+extern ObjectInit D_C036B6C[];
+extern ObjectInit D_C03733C[];
 
 void func_i6_80187C5C(void) {
     Actor* actor;
@@ -1273,8 +1273,8 @@ void func_i6_8018B8C0(Boss* boss) {
     }
 }
 
-extern Vtx* D_C017598;
-extern Vtx* D_C038FE8;
+extern Vtx D_C017598[];
+extern Vtx D_C038FE8[];
 
 void func_i6_8018BDD8(void) {
     s32 i;
@@ -1284,8 +1284,8 @@ void func_i6_8018BDD8(void) {
     Vtx* sp74;
     Vtx* sp70;
 
-    sp74 = SEGMENTED_TO_VIRTUAL(&D_C038FE8);
-    sp70 = SEGMENTED_TO_VIRTUAL(&D_C017598);
+    sp74 = SEGMENTED_TO_VIRTUAL(D_C038FE8);
+    sp70 = SEGMENTED_TO_VIRTUAL(D_C017598);
 
     for (i = 0; i < 17; i++) {
         if (i == 0 || i == 16) {
@@ -3336,7 +3336,7 @@ void func_i6_80193380(Object_80* obj80) {
         case 0:
             if (fabsf(obj80->obj.pos.z - gPlayer[0].unk_138) < 1800.0f) {
                 obj80->state = 1;
-                obj80->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_C038AC4);
+                obj80->info.hitbox = SEGMENTED_TO_VIRTUAL(D_C038AC4);
             }
             break;
         case 1:

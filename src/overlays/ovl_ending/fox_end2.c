@@ -148,7 +148,7 @@ void func_ending_8018D638(u32 arg0, AssetInfo* asset) {
             if (!D_800D2F68) {
                 TextureRect_16bRGBA(&gMasterDisp, D_8025080 + 316 * i, 316, 4, 0.0f, i, 1.0f, 1.0f);
             } else {
-                TextureRect_16bRGBA(&gMasterDisp, D_8000000 + 316 * i, 316, 4, 0.0f, i, 1.0f, 1.0f);
+                TextureRect_16bRGBA(&gMasterDisp, D_8000000_RGBA + 316 * i, 316, 4, 0.0f, i, 1.0f, 1.0f);
             }
         }
     } else {

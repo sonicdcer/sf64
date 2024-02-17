@@ -1,5 +1,4 @@
 #include "global.h"
-#include "sf_ve1.h"
 
 extern Limb* D_900D164[];
 extern Limb* D_901C0F4[];
@@ -2336,7 +2335,7 @@ void func_i1_80194398(Boss* boss) {
 }
 #else
 void func_i1_80194398(Boss* boss);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/sf_ve1/func_i1_80194398.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i1/fox_ve1/func_i1_80194398.s")
 #endif
 
 void func_i1_80198310(Boss* boss) {

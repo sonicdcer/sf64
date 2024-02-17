@@ -90,7 +90,6 @@ void func_i4_80187884(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
 
 Vec3f D_i4_8019EDF8[] = { { -300.0f, 1000.0f, 13000.0f }, { 300.0f, 700.0f, 14000.0f }, { 1000.0f, 300.0f, 0.0f } };
 Vec3f D_i4_8019EE1C[] = { { -1000.0f, 300.0f, 0 }, { 0.0f, 500.0f, 0 } };
-Vec3f D_i4_8019EE34 = { 0.0f, 0.0f, -10000 };
 
 void func_i4_80187960(Actor* actor) {
     s32 i;
@@ -367,7 +366,7 @@ void func_i4_80187960(Actor* actor) {
                 actor3->unk_0E6 = 0;
                 actor3->state = 2;
                 if (actor->iwork[0] == 130) {
-                    Vec3f sp50 = D_i4_8019EE34;
+                    Vec3f sp50 = { 0.0f, 0.0f, -10000 };
 
                     Actor_Initialize(actor19);
                     Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y, player->unk_138, 0);
@@ -496,12 +495,12 @@ void func_i4_80188AD0(Actor* actor) {
     }
 }
 
-void func_i4_80188DA0(s32 arg0, Vec3f* arg1, void* ptr) {
+void func_i4_80188DA0(s32 limbIndex, Vec3f* rot, void* ptr) {
     Vec3f vec = { 0.0f, 0.0f, 0.0f };
     Actor* actor = (Actor*) ptr;
 
     if (actor->state == 1) {
-        switch (arg0) {
+        switch (limbIndex) {
             case 1:
                 Matrix_MultVec3f(gCalcMatrix, &vec, actor->vwork);
                 Matrix_GetYRPAngles(gCalcMatrix, &actor->vwork[6]);
@@ -535,31 +534,31 @@ void func_i4_80188DA0(s32 arg0, Vec3f* arg1, void* ptr) {
     }
 }
 
-s32 func_i4_80188F08(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* ptr) {
+s32 func_i4_80188F08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* ptr) {
     Actor* actor = (Actor*) ptr;
 
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 
-    if ((actor->state != 0) && (arg0 != 8)) {
-        *arg1 = NULL;
+    if ((actor->state != 0) && (limbIndex != 8)) {
+        *dList = NULL;
     }
 
-    switch (arg0) {
+    switch (limbIndex) {
         case 1:
         case 2:
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
             break;
 
         case 5:
-            arg3->x += actor->fwork[0];
+            rot->x += actor->fwork[0];
             break;
 
         case 6:
-            arg3->x += actor->fwork[0];
+            rot->x += actor->fwork[0];
             break;
 
         case 7:
-            arg3->x += actor->fwork[0] * 0.7f;
+            rot->x += actor->fwork[0] * 0.7f;
             break;
     }
 
