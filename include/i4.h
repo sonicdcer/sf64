@@ -9,7 +9,6 @@
 #include "sf64mesg.h"
 
 extern Matrix D_i4_8019EE80;
-extern s32 D_i4_801A03DC;
 
 void func_i4_8018EF6C(Player*);
 void func_i4_8018F94C(Player*);

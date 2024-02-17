@@ -1,6 +1,6 @@
 
 
-#include "global.h"
+#include "sys.h"
 
 SaveFile gSaveIOBuffer;
 SaveFile sPrevSaveData;

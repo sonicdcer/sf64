@@ -2973,7 +2973,7 @@ void func_i5_801A46A0(Actor* actor) {
                             actor->vel.y = -actor->vel.y * (actor->unk_046 * 0.07f);
                         }
 
-                        actor->fwork[0] /= 1.2f + Rand_ZeroOne() / 2;
+                        actor->fwork[0] /= 1.2f + RAND_FLOAT(1.0f) / 2;
                         actor->unk_046--;
                         actor->vel.z /= 1.5f;
                         if (actor->unk_046 == 0) {
@@ -3579,14 +3579,14 @@ void func_i5_801A6C78(Actor* actor) {
     func_i5_801A0308(actor, actor->obj.pos.z, actor->obj.rot.y, 0);
     switch (D_i5_801BE320[0]) {
         case 0:
-            Math_SmoothStepToF(&D_i5_801BE368[0], 30.0f, 0.1f, Rand_ZeroOne() + 1.0f, 0.01f);
+            Math_SmoothStepToF(&D_i5_801BE368[0], 30.0f, 0.1f, RAND_FLOAT(1.0f) + 1.0f, 0.01f);
             D_i5_801BE368[1] += D_i5_801BE368[0];
             if (D_i5_801BE368[1] > 200.0f) {
                 D_i5_801BE320[0] = 1;
             }
             break;
         case 1:
-            Math_SmoothStepToF(&D_i5_801BE368[0], -30.0f, 0.1f, Rand_ZeroOne() + 1.0f, 0.01f);
+            Math_SmoothStepToF(&D_i5_801BE368[0], -30.0f, 0.1f, RAND_FLOAT(1.0f) + 1.0f, 0.01f);
             D_i5_801BE368[1] += D_i5_801BE368[0];
             if (D_i5_801BE368[1] < -200.0f) {
                 D_i5_801BE320[0] = 0;
@@ -3629,14 +3629,14 @@ void func_i5_801A6FB4(Actor* actor) {
     func_i5_801A0308(actor, actor->obj.pos.z, actor->obj.rot.y, 0);
     switch (D_i5_801BE320[0]) {
         case 0:
-            Math_SmoothStepToF(&D_i5_801BE368[0], 20.0f, 0.1f, Rand_ZeroOne() + 1.0f, 0.01f);
+            Math_SmoothStepToF(&D_i5_801BE368[0], 20.0f, 0.1f, RAND_FLOAT(1.0f) + 1.0f, 0.01f);
             D_i5_801BE368[1] += D_i5_801BE368[0];
             if (D_i5_801BE368[1] > 200.0f) {
                 D_i5_801BE320[0] = 1;
             }
             break;
         case 1:
-            Math_SmoothStepToF(&D_i5_801BE368[0], -20.0f, 0.1f, Rand_ZeroOne() + 1.0f, 0.01f);
+            Math_SmoothStepToF(&D_i5_801BE368[0], -20.0f, 0.1f, RAND_FLOAT(1.0f) + 1.0f, 0.01f);
             D_i5_801BE368[1] += D_i5_801BE368[0];
             if (D_i5_801BE368[1] < -200.0f) {
                 D_i5_801BE320[0] = 0;
@@ -3673,14 +3673,14 @@ void func_i5_801A72DC(Actor* actor) {
     func_i5_801A0308(actor, actor->obj.pos.z, actor->obj.rot.y, 0);
     switch (D_i5_801BE320[0]) {
         case 0:
-            Math_SmoothStepToF(&D_i5_801BE368[0], 5.0f, 0.1f, Rand_ZeroOne() + 0.3f, 0.01f);
+            Math_SmoothStepToF(&D_i5_801BE368[0], 5.0f, 0.1f, RAND_FLOAT(1.0f) + 0.3f, 0.01f);
             D_i5_801BE368[1] += D_i5_801BE368[0];
             if (D_i5_801BE368[1] > 100.0f) {
                 D_i5_801BE320[0] = 1;
             }
             break;
         case 1:
-            Math_SmoothStepToF(&D_i5_801BE368[0], -5.0f, 0.1f, Rand_ZeroOne() + 0.3f, 0.01f);
+            Math_SmoothStepToF(&D_i5_801BE368[0], -5.0f, 0.1f, RAND_FLOAT(1.0f) + 0.3f, 0.01f);
             D_i5_801BE368[1] += D_i5_801BE368[0];
             if (D_i5_801BE368[1] < -100.0f) {
                 D_i5_801BE320[0] = 0;
@@ -3696,14 +3696,14 @@ void func_i5_801A74C4(Actor* actor) {
     func_i5_801A0308(actor, actor->obj.pos.z, actor->obj.rot.y, 0);
     switch (D_i5_801BE320[0]) {
         case 0:
-            Math_SmoothStepToF(&D_i5_801BE368[0], 22.0f, 0.1f, Rand_ZeroOne() + 1.0f, 0.01f);
+            Math_SmoothStepToF(&D_i5_801BE368[0], 22.0f, 0.1f, RAND_FLOAT(1.0f) + 1.0f, 0.01f);
             D_i5_801BE368[1] += D_i5_801BE368[0];
             if (D_i5_801BE368[1] > 200.0f) {
                 D_i5_801BE320[0] = 1;
             }
             break;
         case 1:
-            Math_SmoothStepToF(&D_i5_801BE368[0], -22.0f, 0.1f, Rand_ZeroOne() + 1.0f, 0.01f);
+            Math_SmoothStepToF(&D_i5_801BE368[0], -22.0f, 0.1f, RAND_FLOAT(1.0f) + 1.0f, 0.01f);
             D_i5_801BE368[1] += D_i5_801BE368[0];
             if (D_i5_801BE368[1] < -200.0f) {
                 D_i5_801BE320[0] = 0;
@@ -3756,14 +3756,14 @@ void func_i5_801A78B0(Actor* actor) {
     func_i5_801A0308(actor, actor->obj.pos.z, actor->obj.rot.y, 0);
     switch (D_i5_801BE320[0]) {
         case 0:
-            Math_SmoothStepToF(&D_i5_801BE368[0], 10.0f, 0.1f, Rand_ZeroOne() + 1.0f, 0.01f);
+            Math_SmoothStepToF(&D_i5_801BE368[0], 10.0f, 0.1f, RAND_FLOAT(1.0f) + 1.0f, 0.01f);
             D_i5_801BE368[1] += D_i5_801BE368[0];
             if (D_i5_801BE368[1] > 200.0f) {
                 D_i5_801BE320[0] = 1;
             }
             break;
         case 1:
-            Math_SmoothStepToF(&D_i5_801BE368[0], -10.0f, 0.1f, Rand_ZeroOne() + 1.0f, 0.01f);
+            Math_SmoothStepToF(&D_i5_801BE368[0], -10.0f, 0.1f, RAND_FLOAT(1.0f) + 1.0f, 0.01f);
             D_i5_801BE368[1] += D_i5_801BE368[0];
             if (D_i5_801BE368[1] < -200.0f) {
                 D_i5_801BE320[0] = 0;
@@ -3778,14 +3778,14 @@ void func_i5_801A7A30(Actor* actor) {
     func_i5_801A0308(actor, actor->obj.pos.z, actor->obj.rot.y, 0);
     switch (D_i5_801BE320[0]) {
         case 0:
-            Math_SmoothStepToF(&D_i5_801BE368[0], 30.0f, 0.1f, Rand_ZeroOne() + 1.0f, 0.01f);
+            Math_SmoothStepToF(&D_i5_801BE368[0], 30.0f, 0.1f, RAND_FLOAT(1.0f) + 1.0f, 0.01f);
             D_i5_801BE368[1] += D_i5_801BE368[0];
             if (D_i5_801BE368[1] > 10.0f) {
                 D_i5_801BE320[0] = 1;
             }
             break;
         case 1:
-            Math_SmoothStepToF(&D_i5_801BE368[0], -30.0f, 0.1f, Rand_ZeroOne() + 1.0f, 0.01f);
+            Math_SmoothStepToF(&D_i5_801BE368[0], -30.0f, 0.1f, RAND_FLOAT(1.0f) + 1.0f, 0.01f);
             D_i5_801BE368[1] += D_i5_801BE368[0];
             if (D_i5_801BE368[1] < -10.0f) {
                 D_i5_801BE320[0] = 0;
@@ -4364,7 +4364,7 @@ void func_i5_801A7E7C(Actor* actor) {
                                      actor->vwork[0].z, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(5.0f),
                                      actor->vel.z + 2.0f, RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
                                      RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
-                                     (s32) (RAND_FLOAT(25.0f) + 30.f), 10, Rand_ZeroOne());
+                                     (s32) (RAND_FLOAT(25.0f) + 30.f), 10, RAND_FLOAT(1.0f));
                 }
                 actor->timer_0BC = 80;
                 actor->state = 14;
@@ -4616,7 +4616,7 @@ void func_i5_801A7E7C(Actor* actor) {
                              RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(5.0f), RAND_FLOAT_CENTERED(3.0f),
                              RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f),
                              RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f),
-                             3, Rand_ZeroOne());
+                             3, RAND_FLOAT(1.0f));
             if (D_i5_801BE320[9] <= 0) {
                 Audio_PlaySfx(0x2903B009, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 func_8007D2C8(actor->obj.pos.x, actor->obj.pos.y + 80.0f, actor->obj.pos.z + 50.0f, 5.0f);
@@ -4625,7 +4625,7 @@ void func_i5_801A7E7C(Actor* actor) {
                                      RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(5.0f), RAND_FLOAT_CENTERED(3.0f),
                                      RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
                                      RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.f),
-                                     (s32) (RAND_FLOAT(50.0f) + 70.0f), 3, Rand_ZeroOne());
+                                     (s32) (RAND_FLOAT(50.0f) + 70.0f), 3, RAND_FLOAT(1.0f));
                 }
                 func_i5_801AD624(actor->obj.pos.x, actor->obj.pos.y + 80.0f, actor->obj.pos.z + 50.0f,
                                  RAND_FLOAT_CENTERED(3.0f), RAND_FLOAT(15.0f), -2.0f, RAND_FLOAT(360.0f),
@@ -4641,7 +4641,7 @@ void func_i5_801A7E7C(Actor* actor) {
             func_i5_801AD624(actor->obj.pos.x, actor->obj.pos.y - 30.0f, actor->obj.pos.z, RAND_FLOAT_CENTERED(10.0f),
                              RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(3.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
                              RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
-                             RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 3, Rand_ZeroOne());
+                             RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 3, RAND_FLOAT(1.0f));
             if (D_i5_801BE320[10] <= 0) {
                 Audio_PlaySfx(0x2903B009, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
                 func_8007D2C8(actor->obj.pos.x, actor->obj.pos.y - 30.0f, actor->obj.pos.z, 6.0f);
@@ -4651,7 +4651,7 @@ void func_i5_801A7E7C(Actor* actor) {
                                      RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(3.0f),
                                      RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
                                      RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
-                                     (s32) (RAND_FLOAT(50.0f) + 70.0f), 3, Rand_ZeroOne());
+                                     (s32) (RAND_FLOAT(50.0f) + 70.0f), 3, RAND_FLOAT(1.0f));
                 }
                 func_i5_801AD624(actor->obj.pos.x, actor->obj.pos.y - 30.0f, actor->obj.pos.z + 50.0f,
                                  RAND_FLOAT_CENTERED(3.0f), RAND_FLOAT(15.0f), -2.0f, RAND_FLOAT(360.0f),
@@ -4710,8 +4710,8 @@ void func_i5_801A7E7C(Actor* actor) {
     D_i5_801BE368[28] = actor->vwork[4].y;
     D_i5_801BE368[29] = actor->vwork[4].z;
     D_i5_801BE368[19] = actor->vel.z;
-    D_i5_801BE368[30] = Rand_ZeroOne();
-    D_i5_801BE368[31] = Rand_ZeroOne();
+    D_i5_801BE368[30] = RAND_FLOAT(1.0f);
+    D_i5_801BE368[31] = RAND_FLOAT(1.0f);
     if (D_i5_801BE368[30] < 0.5f) {
         D_i5_801BE368[30] = 0.6f;
     }
@@ -6419,7 +6419,7 @@ void func_i5_801AF8F4(Player* player) {
             }
             break;
         case 1420:
-            if (D_800D3180[8] != 0) {
+            if (D_800D3180[LEVEL_ZONESS] != 0) {
                 func_i5_801AF44C();
             }
             break;
@@ -6427,7 +6427,7 @@ void func_i5_801AF8F4(Player* player) {
             D_i5_801BA88C = 170.0f;
             break;
         case 1500:
-            if (D_800D3180[8] != 0) {
+            if (D_800D3180[LEVEL_ZONESS] != 0) {
                 Radio_PlayMessage(gMsg_ID_17300, RCID_KATT);
             }
             break;
@@ -6517,7 +6517,7 @@ void func_i5_801AF8F4(Player* player) {
             D_8017837C = 4;
             func_800A6148();
             func_8001DBD0(10);
-            D_800D3180[11] = Play_CheckMedalStatus(150) + 1;
+            D_800D3180[LEVEL_MACBETH] = Play_CheckMedalStatus(150) + 1;
         }
     }
 }
@@ -6971,7 +6971,7 @@ void func_i5_801B3D04(Player* player) {
             break;
         case 230:
             if (gTeamShields[2] > 0.0f) {
-                func_i5_801B3554(gActors, 0);
+                func_i5_801B3554(&gActors[0], 0);
             }
             break;
         case 260:
@@ -7024,17 +7024,17 @@ void func_i5_801B3D04(Player* player) {
             }
             break;
         case 680:
-            if (D_800D3180[8] != 0) {
+            if (D_800D3180[LEVEL_ZONESS] != 0) {
                 func_i5_801B3718();
             }
             break;
         case 1027:
-            if (D_800D3180[8] != 0) {
+            if (D_800D3180[LEVEL_ZONESS] != 0) {
                 Radio_PlayMessage(gMsg_ID_17350, RCID_KATT);
             }
             break;
         case 1065:
-            if (D_800D3180[8] != 0) {
+            if (D_800D3180[LEVEL_ZONESS] != 0) {
                 gActors[8].state++;
             }
             break;
@@ -7048,7 +7048,7 @@ void func_i5_801B3D04(Player* player) {
             gActors[2].state++;
             break;
         case 1158:
-            if (D_800D3180[8] != 0) {
+            if (D_800D3180[LEVEL_ZONESS] != 0) {
                 Object_Kill(&gActors[8].obj, gActors[8].sfxPos);
             }
             /* fallthrough */
@@ -7083,7 +7083,7 @@ void func_i5_801B3D04(Player* player) {
             D_8017837C = 4;
             func_800A6148();
             func_8001DBD0(10);
-            D_800D3180[11] = Play_CheckMedalStatus(150) + 1;
+            D_800D3180[LEVEL_MACBETH] = Play_CheckMedalStatus(150) + 1;
         }
     }
 }

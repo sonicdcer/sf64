@@ -2,7 +2,7 @@
 #include "fox_map.h"
 
 extern PlanetId sPlanetList[15];
-extern s32 sCurrentPlanetId;
+extern PlanetId sCurrentPlanetId;
 
 void Map_LevelSelect(void) {
     static char* sLevelSelectPlanetNames[] = {

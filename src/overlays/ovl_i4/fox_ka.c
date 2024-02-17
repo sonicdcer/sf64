@@ -440,26 +440,20 @@ void func_i4_80193CA4(Boss* boss) {
 void func_i4_80193CE4(Boss* boss, s32 idx) {
     s32 i;
     Vec3f pos;
-    f32 randX;
-    f32 randY;
-    f32 randZ;
 
-    func_8007D2C8((boss->vwork[idx + 1].x * 1.3f) + boss->obj.pos.x, (boss->vwork[idx + 1].y * 1.3f) + boss->obj.pos.y,
-                  (boss->vwork[idx + 1].z * 1.3f) + boss->obj.pos.z, 15.0f);
+    func_8007D2C8(boss->obj.pos.x + (boss->vwork[idx + 1].x * 1.3f), boss->obj.pos.y + (boss->vwork[idx + 1].y * 1.3f),
+                  boss->obj.pos.z + (boss->vwork[idx + 1].z * 1.3f), 15.0f);
     boss->swork[idx + 5] = 60;
 
     for (i = 0; i < 20; i++) {
-        randX = Rand_ZeroOne();
-        randY = Rand_ZeroOne();
-        randZ = Rand_ZeroOne();
-        func_800794CC((boss->vwork[idx + 1].x * 1.3f) + (boss->obj.pos.x + ((randX - 0.5f) * 300.0f)),
-                      (boss->vwork[idx + 1].y * 1.3f) + (boss->obj.pos.y + ((randY - 0.5f) * 300.0f)),
-                      (boss->vwork[idx + 1].z * 1.3f) + (boss->obj.pos.z + ((randZ - 0.5f) * 300.0f)), 1.55f);
+        func_800794CC(boss->obj.pos.x + RAND_FLOAT_CENTERED(300.0f) + (boss->vwork[idx + 1].x * 1.3f),
+                      boss->obj.pos.y + RAND_FLOAT_CENTERED(300.0f) + (boss->vwork[idx + 1].y * 1.3f),
+                      boss->obj.pos.z + RAND_FLOAT_CENTERED(300.0f) + (boss->vwork[idx + 1].z * 1.3f), 1.55f);
     }
 
-    pos.x = (boss->vwork[idx + 1].x * 1.3f) + boss->obj.pos.x;
-    pos.y = (boss->vwork[idx + 1].y * 1.3f) + boss->obj.pos.y;
-    pos.z = (boss->vwork[idx + 1].z * 1.3f) + boss->obj.pos.z;
+    pos.x = boss->obj.pos.x + (boss->vwork[idx + 1].x * 1.3f);
+    pos.y = boss->obj.pos.y + (boss->vwork[idx + 1].y * 1.3f);
+    pos.z = boss->obj.pos.z + (boss->vwork[idx + 1].z * 1.3f);
     func_8007A6F0(&pos, 0x2903B009);
     boss->swork[15] += 1;
     BonusText_Display(pos.x, pos.y - 300.0f, pos.z, 5);
@@ -1563,7 +1557,7 @@ void func_i4_80197290(Player* player) {
                     player->state_1C8 = PLAYERSTATE_1C8_6;
                     player->timer_1F8 = 0;
                     D_8017837C = 4;
-                    D_800D3180[16] = Play_CheckMedalStatus(150) + 1;
+                    D_800D3180[LEVEL_KATINA] = Play_CheckMedalStatus(150) + 1;
                 }
             }
             switch (gCsFrameCount) {
@@ -2002,7 +1996,7 @@ void func_i4_80198AA0(Actor* actor) {
                         actor->iwork[5] = 1;
 
                         if (!((actor->index + gGameFrameCount) & 11) && (Rand_ZeroOne() < 0.1f) &&
-                            (func_80031900(actor) != 0) && (gActors->state == 2)) {
+                            (func_80031900(actor) != 0) && (gActors[0].state == 2)) {
                             actor->iwork[0] = 1;
                         }
                     } else {

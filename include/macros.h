@@ -27,6 +27,12 @@
 #define DOT_XYZ(a, b) ((a).x * (b).x + (a).y * (b).y + (a).z * (b).z)
 #define ABS(x) ((x) >= 0 ? (x) : -(x))
 
+#define RAD_TO_DEG(radians) (((radians) * 180.0f) / M_PI)
+#define DEG_TO_RAD(degrees) (((degrees) / 180.0f) * M_PI)
+
+#define SIN_DEG(angle) __sinf((M_DTOR)*(angle))
+#define COS_DEG(angle) __cosf((M_DTOR)*(angle))
+
 #define USEC_TO_CYCLES(n) (((u64)(n)*(osClockRate/15625LL))/(1000000LL/15625LL))
 #define MSEC_TO_CYCLES(n) (USEC_TO_CYCLES((n) * 1000LL))
 

@@ -4,12 +4,6 @@ extern Animation D_6007854;
 extern Limb* D_6007980[];
 extern u8 D_600FF64[];
 
-s32 func_80090200(Boss* boss);
-void func_800A5EBC(void);
-
-void func_i4_801875F0(Actor* actor);
-void func_i4_80187960(Actor* actor);
-
 void func_i4_801875F0(Actor* actor) {
     s32 i;
     s32 counter;
@@ -96,7 +90,6 @@ void func_i4_80187884(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
 
 Vec3f D_i4_8019EDF8[] = { { -300.0f, 1000.0f, 13000.0f }, { 300.0f, 700.0f, 14000.0f }, { 1000.0f, 300.0f, 0.0f } };
 Vec3f D_i4_8019EE1C[] = { { -1000.0f, 300.0f, 0 }, { 0.0f, 500.0f, 0 } };
-Vec3f D_i4_8019EE34 = { 0.0f, 0.0f, -10000 };
 
 void func_i4_80187960(Actor* actor) {
     s32 i;
@@ -373,7 +366,7 @@ void func_i4_80187960(Actor* actor) {
                 actor3->unk_0E6 = 0;
                 actor3->state = 2;
                 if (actor->iwork[0] == 130) {
-                    Vec3f sp50 = D_i4_8019EE34;
+                    Vec3f sp50 = { 0.0f, 0.0f, -10000 };
 
                     Actor_Initialize(actor19);
                     Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y, player->unk_138, 0);
@@ -502,12 +495,12 @@ void func_i4_80188AD0(Actor* actor) {
     }
 }
 
-void func_i4_80188DA0(s32 arg0, Vec3f* arg1, void* ptr) {
+void func_i4_80188DA0(s32 limbIndex, Vec3f* rot, void* ptr) {
     Vec3f vec = { 0.0f, 0.0f, 0.0f };
     Actor* actor = (Actor*) ptr;
 
     if (actor->state == 1) {
-        switch (arg0) {
+        switch (limbIndex) {
             case 1:
                 Matrix_MultVec3f(gCalcMatrix, &vec, actor->vwork);
                 Matrix_GetYRPAngles(gCalcMatrix, &actor->vwork[6]);
@@ -541,31 +534,31 @@ void func_i4_80188DA0(s32 arg0, Vec3f* arg1, void* ptr) {
     }
 }
 
-s32 func_i4_80188F08(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* ptr) {
+s32 func_i4_80188F08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* ptr) {
     Actor* actor = (Actor*) ptr;
 
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 
-    if ((actor->state != 0) && (arg0 != 8)) {
-        *arg1 = NULL;
+    if ((actor->state != 0) && (limbIndex != 8)) {
+        *dList = NULL;
     }
 
-    switch (arg0) {
+    switch (limbIndex) {
         case 1:
         case 2:
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
             break;
 
         case 5:
-            arg3->x += actor->fwork[0];
+            rot->x += actor->fwork[0];
             break;
 
         case 6:
-            arg3->x += actor->fwork[0];
+            rot->x += actor->fwork[0];
             break;
 
         case 7:
-            arg3->x += actor->fwork[0] * 0.7f;
+            rot->x += actor->fwork[0] * 0.7f;
             break;
     }
 
@@ -599,8 +592,14 @@ void func_i4_8018906C(void) {
 
 f32 D_i4_8019EE4C[] = { -200.0f, 200.0f, -50.0f, -2000.0f };
 f32 D_i4_8019EE5C[] = { 0.0f, 30.0f, -90.0f, 0.0f };
-f32 D_i4_8019EE6C[] = { -100.0f, -200.0f, -300.0f };
-s32 D_i4_8019EE78[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+f32 D_i4_8019EE6C[] = { -100.0f, -200.0f, -300.0f, 0.0f };
+s32 D_i4_8019EE7C = 0; // padding for dword aligned matrix?
+Matrix D_i4_8019EE80 = { {
+    { 0.0f, 0.0f, 0.0f, 0.0f },
+    { 0.0f, 0.0f, 0.0f, 0.0f },
+    { 0.0f, 0.0f, 0.0f, 0.0f },
+    { 0.0f, 0.0f, 0.0f, 0.0f },
+} };
 
 void func_i4_801890EC(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
@@ -774,7 +773,7 @@ void func_i4_8018927C(Player* player) {
 
             gBosses[0].swork[0] = 1;
 
-            if ((func_80090200(gBosses) == 2) || (D_80177930 != 0)) {
+            if ((func_80090200(&gBosses[0]) == 2) || (D_80177930 != 0)) {
                 func_800A6148();
                 if (D_80177930 == 0) {
                     player->unk_1D0 = 10;
@@ -1097,7 +1096,7 @@ void func_i4_8018927C(Player* player) {
                 for (i = 0; i < 6; i++) {
                     D_80177CF0[i] = D_80177CD0[i];
                 }
-                D_800D3180[0xE] = Play_CheckMedalStatus(50) + 1;
+                D_800D3180[LEVEL_FORTUNA] = Play_CheckMedalStatus(50) + 1;
             }
             break;
 
@@ -1324,7 +1323,7 @@ void func_i4_8018927C(Player* player) {
                     }
                     // clang-format on
 
-                    D_800D3180[14] = Play_CheckMedalStatus(50) + 1;
+                    D_800D3180[LEVEL_FORTUNA] = Play_CheckMedalStatus(50) + 1;
                     func_800A6148();
                     break;
                 }

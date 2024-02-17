@@ -1,35 +1,35 @@
-#include "global.h"
+#include "sys.h"
 
-f32 func_8001FAB0(f32 x) {
+f32 Math_TanF(f32 x) {
     return __sinf(x) / __cosf(x);
 }
 
-f32 func_8001FAE4(f32 x) {
-    return func_8001FE60(x);
+f32 Math_FloorF(f32 x) {
+    return __floorf(x);
 }
 
-f32 func_8001FB04(f32 x) {
-    return func_8001FE98(x);
+f32 Math_CeilF(f32 x) {
+    return __ceilf(x);
 }
 
-f64 func_8001FB24(f64 x) {
+f64 Math_Fabs(f64 x) {
     return (x < 0.0) ? -x : x;
 }
 
-f32 func_8001FB58(f32 x) {
+f32 Math_FabsF(f32 x) {
     return (x < 0.0f) ? -x : x;
 }
 
-f32 func_8001FB88(f32 x) {
-    return func_8001FF40(x);
+f32 Math_NearbyIntF(f32 x) {
+    return __nearbyintf(x);
 }
 
-f32 func_8001FBA8(f32 x) {
-    return func_8001FED0(x);
+f32 Math_TruncF(f32 x) {
+    return __truncf(x);
 }
 
-f32 func_8001FBC8(f32 x) {
-    return func_8001FF08(x);
+f32 Math_RoundF(f32 x) {
+    return __roundf(x);
 }
 
 f32 Math_FAtanF(f32 x) {

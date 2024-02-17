@@ -1,4 +1,4 @@
-#include "global.h"
+#include "sys.h"
 
 OSContPad gControllerHold[4];
 OSContPad gControllerPress[4];

@@ -26,6 +26,7 @@ s32 D_80161A64;
 EnvSettings* sEnvSettings;
 
 extern f32 D_i3_801C4188;
+extern s32 D_i4_801A03DC;
 
 #define MEM_ARRAY_ALLOCATE(arr, count) ((arr) = Memory_Allocate((count) * sizeof(*(arr))))
 

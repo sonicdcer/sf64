@@ -180,7 +180,7 @@ void func_i1_8019949C(void) {
     }
 
     if (!(gGameFrameCount & 3)) {
-        if (gPlayer->state_1C8 == PLAYERSTATE_1C8_3) {
+        if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) {
             sp44.x = 0.0f;
             sp44.y = 0.0f;
             sp44.z = -15000.0f;

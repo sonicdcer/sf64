@@ -1,4 +1,5 @@
-#include "global.h"
+#include "sys.h"
+#include "PR/os_internal.h"
 
 FaultMgr gFaultMgr;
 

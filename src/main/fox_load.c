@@ -104,7 +104,7 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
             }
             break;
         case OVL_SETUP_MENU:
-            changeOvl = Overlay_Init(&sOvlmenu_Menu[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlmenu_Option[ovlStage]);
             break;
         case OVL_SETUP_MAP:
             changeOvl = Overlay_Init(&sOvlmenu_Map[ovlStage]);
@@ -149,7 +149,7 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
             changeOvl = Overlay_Init(&sOvli3_Zoness[ovlStage]);
             break;
         case OVL_SETUP_VENOM_ANDROSS:
-            changeOvl = Overlay_Init(&sOvli6_Venom2[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli6_Andross[ovlStage]);
             break;
         case OVL_SETUP_TRAINING:
             changeOvl = Overlay_Init(&sOvli1_Training[ovlStage]);
@@ -158,7 +158,7 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
             changeOvl = Overlay_Init(&sOvli1_Venom1[ovlStage]);
             break;
         case OVL_SETUP_VENOM_2:
-            changeOvl = Overlay_Init(&sOvli6_VenomSW[ovlStage]);
+            changeOvl = Overlay_Init(&sOvli6_Venom2[ovlStage]);
             break;
         case OVL_SETUP_20:
             changeOvl = Overlay_Init(&sOvli2_Setup20[ovlStage]);
@@ -185,7 +185,7 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
             }
             break;
         case OVL_SETUP_CREDITS:
-            changeOvl = Overlay_Init(&sOvlending_Credits[ovlStage]);
+            changeOvl = Overlay_Init(&sOvlending_Ending[ovlStage]);
             break;
         default:
             (void) "DMA MODE ERROR %d\n";
@@ -197,5 +197,5 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
 
 void Overlay_InitDma(void) {
     Lib_DmaRead(SEGMENT_ROM_START(dma_table), SEGMENT_VRAM_START(dma_table), SEGMENT_ROM_SIZE(dma_table));
-    Overlay_LoadSegment(SEGMENT_ROM_START(ast_DE5D50), SEGMENT_VRAM_START(ast_DE5D50), SEGMENT_ROM_SIZE(ast_DE5D50));
+    Overlay_LoadSegment(SEGMENT_ROM_START(ast_radio), SEGMENT_VRAM_START(ast_radio), SEGMENT_ROM_SIZE(ast_radio));
 }

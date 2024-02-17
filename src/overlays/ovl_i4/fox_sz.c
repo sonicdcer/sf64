@@ -52,7 +52,7 @@ void func_i4_80199900(Actor* actor, s32 arg1) {
             func_800182F4(0x110100FF);
         }
 
-        if ((D_i4_801A0560 == 3) && (D_800D3180[8] != 0)) {
+        if ((D_i4_801A0560 == 3) && (D_800D3180[LEVEL_ZONESS] != 0)) {
             D_800C9B4C = D_8015F928 + 110;
         }
     }
@@ -1344,7 +1344,7 @@ void func_i4_8019C85C(Player* player) {
                     player->state_1C8 = PLAYERSTATE_1C8_6;
                     player->timer_1F8 = 0;
                     D_8017837C = 4;
-                    D_800D3180[18] = Play_CheckMedalStatus(100) + 1;
+                    D_800D3180[LEVEL_SECTOR_Z] = Play_CheckMedalStatus(100) + 1;
                 }
             }
             break;

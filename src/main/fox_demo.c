@@ -9,17 +9,22 @@
 extern Gfx D_1024AC0[];
 extern Gfx D_60320E0[];
 extern Gfx D_7010970[];
-extern Gfx D_E000000[];
-extern Gfx D_E003AB0[];
 
 extern s32 D_800C9E90[];
 
-extern Animation D_60265B4[];
-extern Animation D_602B8DC[];
-extern Animation D_60034C4[];
-extern Animation D_602A2CC[];
-extern Animation D_602CEB4[];
-extern Animation D_602B778[];
+extern Animation D_60265B4;
+extern Animation D_602B8DC;
+extern Animation D_60034C4;
+extern Animation D_602A2CC;
+extern Animation D_602CEB4;
+extern Animation D_602B778;
+
+extern f32 D_80178454;
+extern f32 D_80178458;
+extern f32 D_80178464;
+extern f32 D_80178468;
+extern f32 D_80178474;
+extern f32 D_80178478;
 
 extern Gfx D_400AAE0[];
 extern Gfx D_6000D80[];
@@ -122,7 +127,7 @@ f32 D_800CA1D4[] = {
 };
 
 Animation* D_800CA1F4[] = {
-    D_60265B4, D_602B8DC, D_60034C4, D_602A2CC, D_602CEB4, D_602B778, &D_601F3B8,
+    &D_60265B4, &D_602B8DC, &D_60034C4, &D_602A2CC, &D_602CEB4, &D_602B778, &D_601F3B8,
 };
 
 void func_80048AC0(s32 teamId) {
