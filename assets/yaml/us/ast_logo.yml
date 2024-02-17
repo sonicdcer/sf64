@@ -3,7 +3,6 @@
     seg15: 0xD25100
   header:
     - '#include "assets/ast_logo.h"'
-    - // clang-format off
 
 nintendo_logo:
   type: TEXTURE

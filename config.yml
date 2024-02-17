@@ -1,7 +1,7 @@
 # Supported Star Fox 64 Versions: US
 
 f7475fb11e7e6830f82883412638e8390791ab87:
-  name: Star Fox 64 (U) (V1.0)
+  name: Star Fox 64 (U) (V1.1)
   path: assets/yaml/us
   config:
     gbi: F3DEX
