@@ -1,4 +1,6 @@
 CC   = gcc
+MAKE = make
+N_THREADS ?= $(shell nproc)
 
 UNAME_S := $(shell uname -s)
 ifeq ($(OS),Windows_NT)
@@ -20,6 +22,7 @@ all: recomp mio0
 clean:
 	$(RM) -rf $(RECOMP_DIR)
 	$(RM) mio0
+	$(RM) -rf Torch/build
 
 distclean: clean
 
@@ -34,4 +37,8 @@ mio0:
 	@echo "Building mio0..."
 	$(CC) -Wall -Wextra -Wno-format-overflow -O2 -ffunction-sections -fdata-sections -DMIO0_STANDALONE -s -Wl,${MIO0_FLAGS} -o mio0 mio0-decompressor/libmio0.c
 
-.PHONY: all clean distclean default
+torch:
+	@echo "Building torch..."
+	$(MAKE) -C Torch type=release -j$(N_THREADS)
+
+.PHONY: all clean distclean default torch

@@ -137,6 +137,7 @@ OBJDUMP         := $(MIPS_BINUTILS_PREFIX)objdump
 ICONV           := iconv
 ASM_PROC        := $(PYTHON) $(TOOLS)/asm-processor/build.py
 CAT             := cat
+TORCH		    := tools/Torch/cmake-build-release/torch
 
 # Prefer clang as C preprocessor if installed on the system
 ifneq (,$(call find-command,clang))
@@ -385,12 +386,13 @@ build/src/libultra/libc/xldtob.o: CC := $(IDO)
 all: uncompressed
 
 toolchain:
-	@$(MAKE) -s -C tools
+	@$(MAKE) -C tools
 
 init:
 	@$(MAKE) clean
 	@$(MAKE) decompress
 	@$(MAKE) extract -j $(N_THREADS)
+	@$(MAKE) assets -j $(N_THREADS)
 	@$(MAKE) uncompressed -j $(N_THREADS)
 	@$(MAKE) compressed
 
@@ -428,6 +430,10 @@ extract:
 	@$(CAT) yamls/$(VERSION)/header.yaml yamls/$(VERSION)/main.yaml yamls/$(VERSION)/assets.yaml yamls/$(VERSION)/overlays.yaml > $(SPLAT_YAML)
 	@echo "Extracting..."
 	@$(SPLAT) $(SPLAT_YAML)
+
+assets:
+	@echo "Extracting assets..."
+	@$(TORCH) code $(BASEROM_UNCOMPRESSED)
 
 clean:
 	@git clean -fdx asm/
@@ -516,4 +522,4 @@ build/src/libultra/libc/ll.o: src/libultra/libc/ll.c
 # Print target for debugging
 print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
 
-.PHONY: all uncompressed compressed clean init extract expected format checkformat decompress context disasm toolchain
+.PHONY: all uncompressed compressed clean init extract expected format checkformat decompress assets context disasm toolchain
