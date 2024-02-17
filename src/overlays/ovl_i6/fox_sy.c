@@ -2125,52 +2125,55 @@ void func_i6_8019EE60(Player* player) {
             }
             break;
         case 725:
-            if (gTeamShields[2] != -1) {
-                if (gTeamShields[2] == 0) {
+            switch (gTeamShields[2]) {
+                case 0:
                     Radio_PlayMessage(gMsg_ID_20345, RCID_ROB64);
                     break;
-                }
-            } else {
-                Radio_PlayMessage(gMsg_ID_20333, RCID_ROB64);
-                break;
-            }
-            if (gHitCount >= 100) {
-                Radio_PlayMessage(gMsg_ID_2305, RCID_SLIPPY);
-            } else {
-                func_80048AC0(2);
+                case -1:
+                    Radio_PlayMessage(gMsg_ID_20333, RCID_ROB64);
+                    break;
+                default:
+                    if (gHitCount >= 100) {
+                        Radio_PlayMessage(gMsg_ID_2305, RCID_SLIPPY);
+                    } else {
+                        func_80048AC0(2);
+                    }
+                    break;
             }
             break;
 
         case 872:
-            if (gTeamShields[3] != -1) {
-                if (gTeamShields[3] == 0) {
+            switch (gTeamShields[3]) {
+                case 0:
                     Radio_PlayMessage(gMsg_ID_20344, RCID_ROB64);
                     break;
-                }
-            } else {
-                Radio_PlayMessage(gMsg_ID_20332, RCID_ROB64);
-                break;
-            }
-            if (gHitCount >= 100) {
-                Radio_PlayMessage(gMsg_ID_20261, RCID_PEPPY);
-            } else {
-                func_80048AC0(3);
+                case -1:
+                    Radio_PlayMessage(gMsg_ID_20332, RCID_ROB64);
+                    break;
+                default:
+                    if (gHitCount >= 100) {
+                        Radio_PlayMessage(gMsg_ID_20261, RCID_PEPPY);
+                    } else {
+                        func_80048AC0(3);
+                    }
+                    break;
             }
             break;
         case 1018:
-            if (gTeamShields[1] != -1) {
-                if (gTeamShields[1] == 0) {
+            switch (gTeamShields[1]) {
+                case 0:
                     Radio_PlayMessage(gMsg_ID_20340, RCID_ROB64);
                     break;
-                }
-            } else {
-                Radio_PlayMessage(gMsg_ID_20331, RCID_ROB64);
-                break;
-            }
-            if (gHitCount >= 100) {
-                Radio_PlayMessage(gMsg_ID_20262, RCID_FALCO);
-            } else {
-                func_80048AC0(1);
+                case -1:
+                    Radio_PlayMessage(gMsg_ID_20331, RCID_ROB64);
+                    break;
+                default:
+                    if (gHitCount >= 100) {
+                        Radio_PlayMessage(gMsg_ID_20262, RCID_FALCO);
+                    } else {
+                        func_80048AC0(1);
+                    }
+                    break;
             }
             break;
         case 1163:

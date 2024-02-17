@@ -486,9 +486,6 @@ void func_i5_8018A474(Actor* actor) {
     }
 }
 
-#ifdef NON_MATCHING
-// Regalloc
-// https://decomp.me/scratch/0X1gk
 void func_i5_8018A544(Actor* actor) {
     f32 temp_fv0;
     f32 temp_fv1;
@@ -508,9 +505,8 @@ void func_i5_8018A544(Actor* actor) {
         if (actor->scale == 1.0f) {
             if (actor->health >= 10) {
                 func_8007A6F0(&actor->obj.pos, 0x1903400F);
-                var_v0 = actor->iwork[0];
-                if (var_v0) {
-                    actor->iwork[actor->iwork[1]] = 0;
+                if ((Actor*) actor->iwork[0] != NULL) {
+                    ((Actor*) actor->iwork[0])->iwork[actor->iwork[1]] = 0;
                 }
                 func_8007A900(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 8.0f, 0xFF, 8, 1);
                 if (Rand_ZeroOne() < 0.3f) {
@@ -527,9 +523,8 @@ void func_i5_8018A544(Actor* actor) {
             func_8007A900(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 8.0f, 0xFF, 8, 1);
             Object_Kill(&actor->obj, actor->sfxPos);
 
-            var_v0 = actor->iwork[0];
-            if (var_v0) {
-                actor->iwork[actor->iwork[1]] = 0;
+            if ((Actor*) actor->iwork[0] != NULL) {
+                ((Actor*) actor->iwork[0])->iwork[actor->iwork[1]] = 0;
             }
         }
     }
@@ -579,11 +574,11 @@ void func_i5_8018A544(Actor* actor) {
 
     temp_fv1 = actor->scale * 314.0f;
     if (actor->vel.x != 0.0f) {
-        var_v0 = (actor->vel.x > 0) ? 1 : (actor->vel.x == 0.0f) ? 0 : -1;
+        var_v0 = SIGN_OF(actor->vel.x);
 
         actor->obj.rot.x += ((sqrtf(SQ(actor->vel.x) + SQ(actor->vel.z)) * 360.0f) / temp_fv1) * (f32) var_v0;
     } else {
-        var_v0 = (actor->vel.z > 0) ? 1 : (actor->vel.z == 0.0f) ? 0 : -1;
+        var_v0 = SIGN_OF(actor->vel.z);
 
         actor->obj.rot.x += ((sqrtf(SQ(actor->vel.x) + SQ(actor->vel.z)) * 360.0f) / temp_fv1) * (f32) var_v0;
     }
@@ -591,13 +586,10 @@ void func_i5_8018A544(Actor* actor) {
     if (actor->obj.rot.y >= 180.0f) {
         actor->obj.rot.y -= 180.0f;
     }
-    if (actor->obj.rot.y < 0.0f) {
+    if (actor->obj.rot.y < 0) {
         actor->obj.rot.y += 180.0f;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i5/fox_ti/func_i5_8018A544.s")
-#endif
 
 void func_i5_8018AABC(Actor* actor) {
     if (actor->scale != 1.0f) {
