@@ -386,7 +386,7 @@ build/src/libultra/libc/xldtob.o: CC := $(IDO)
 all: uncompressed
 
 toolchain:
-	@$(MAKE) -C tools
+	@$(MAKE) -s -C tools
 
 init:
 	@$(MAKE) clean
