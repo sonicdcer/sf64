@@ -137,6 +137,7 @@ OBJDUMP         := $(MIPS_BINUTILS_PREFIX)objdump
 ICONV           := iconv
 ASM_PROC        := $(PYTHON) $(TOOLS)/asm-processor/build.py
 CAT             := cat
+TORCH           := tools/Torch/cmake-build-release/torch
 
 # Prefer clang as C preprocessor if installed on the system
 ifneq (,$(call find-command,clang))
@@ -231,6 +232,7 @@ ASM_DIRS      := $(shell find asm/$(VERSION) -type d -not -path "asm/$(VERSION)/
 BIN_DIRS      := $(shell find bin -type d)
 
 C_FILES       := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
+C_FILES       := $(filter-out %.inc.c,$(C_FILES))
 S_FILES       := $(foreach dir,$(ASM_DIRS) $(SRC_DIRS),$(wildcard $(dir)/*.s))
 BIN_FILES     := $(foreach dir,$(BIN_DIRS),$(wildcard $(dir)/*.bin))
 O_FILES       := $(foreach f,$(C_FILES:.c=.o),$(BUILD_DIR)/$f) \
@@ -390,6 +392,7 @@ init:
 	@$(MAKE) clean
 	@$(MAKE) decompress
 	@$(MAKE) extract -j $(N_THREADS)
+	@$(MAKE) assets -j $(N_THREADS)
 	@$(MAKE) uncompressed -j $(N_THREADS)
 	@$(MAKE) compressed
 
@@ -428,9 +431,12 @@ extract:
 	@echo "Extracting..."
 	@$(SPLAT) $(SPLAT_YAML)
 
+assets:
+	@echo "Extracting assets..."
+	@$(TORCH) code $(BASEROM_UNCOMPRESSED)
+
 clean:
 	@git clean -fdx asm/
-	@git clean -fdx assets/
 	@git clean -fdx bin/
 	@git clean -fdx build/
 	@git clean -fdx linker_scripts/*.ld
@@ -516,4 +522,4 @@ build/src/libultra/libc/ll.o: src/libultra/libc/ll.c
 # Print target for debugging
 print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
 
-.PHONY: all uncompressed compressed clean init extract expected format checkformat decompress context disasm toolchain
+.PHONY: all uncompressed compressed clean init extract expected format checkformat decompress assets context disasm toolchain

@@ -179,16 +179,12 @@
     start: 0xCE9E70
 
   - name: ast_logo #F
-    type: bin
+    type: code
+    dir: assets
     start: 0xD25100
-    # width: 128
-    # height: 74
-    # subsegments:
-    # - [0xD25100, ia8, nintendo_logo_0, 128, 16]
-    # - [0xD25900, ia8, nintendo_logo_1, 128, 16]
-    # - [0xD26100, ia8, nintendo_logo_2, 128, 16]
-    # - [0xD26900, ia8, nintendo_logo_3, 128, 16]
-    # - [0xD27100, ia8, nintendo_logo_4, 128, 10]
+    vram: 0x0F000000
+    subsegments:
+      - [0xD25100, .data, ast_logo/bin]
 
   - name: ast_ending #7
     type: bin
