@@ -734,7 +734,7 @@ typedef struct {
 
 typedef struct {
     /* 0x000*/ AudioPersistentCache persistent;
-    /* 0x030 */ char pad[0xC0];
+    /* 0x030 */ char pad[0xC0]; // missing cache?
     /* 0x194*/ AudioTemporaryCache temporary; // differs from OOT
     /* 0x100*/ u8 unk_100[0x10];
 } AudioCache; // size = 0x110

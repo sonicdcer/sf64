@@ -37,7 +37,7 @@ extern AudioAllocPool D_8014C210;
 extern AudioAllocPool D_8014C220;
 extern AudioAllocPool D_8014C230;
 extern AudioPersistentCache D_8014C240; // seqCache
-extern AudioTemporaryCache D_8014C3D4; // fontCache
+extern AudioTemporaryCache D_8014C3D4;  // fontCache
 extern AudioAllocPool D_8014C3D8;
 extern AudioPersistentCache D_8014C410;
 extern AudioAllocPool D_8014C420;
@@ -46,8 +46,8 @@ extern AudioPersistentCache D_8014C5E0; // sampleBankCache
 extern AudioTemporaryCache D_8014C774;
 
 UnkStruct_8000E1C4_1* func_8000DD68(s32);
-void* AudioHeap_SearchRegularCaches(s32 tableType, s32 cache, s32 id); 
-void* AudioHeap_SearchPermanentCache(s32 tableType, s32 id);  
+void* AudioHeap_SearchRegularCaches(s32 tableType, s32 cache, s32 id);
+void* AudioHeap_SearchPermanentCache(s32 tableType, s32 id);
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000BC70.s")
 
@@ -198,7 +198,33 @@ void* AudioHeap_SearchRegularCaches(s32 tableType, s32 cache, s32 id) {
     return NULL;
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000CAF4.s")
+void func_8000CAF4(f32 p, f32 q, u16* out) {
+    // With the bug below fixed, this mysterious unused function computes two recurrences
+    // out[0..7] = a_i, out[8..15] = b_i, where
+    // a_{-2} = b_{-1} = 262159 = 2^18 + 15
+    // a_{-1} = b_{-2} = 0
+    // a_i = q * a_{i-1} + p * a_{i-2}
+    // b_i = q * b_{i-1} + p * b_{i-2}
+    // These grow exponentially if p < -1 or p + |q| > 1.
+    s32 i;
+    f32 tmp[16];
+
+    tmp[0] = (f32) (q * 262159.0f);
+    tmp[8] = (f32) (p * 262159.0f);
+    tmp[1] = (f32) ((q * p) * 262159.0f);
+    tmp[9] = (f32) (((p * p) + q) * 262159.0f);
+
+    for (i = 2; i < 8; i++) {
+        //! @bug value should be stored to tmp[i] and tmp[8 + i], otherwise we read
+        //! garbage in later loop iterations.
+        out[i] = q * tmp[i - 2] + p * tmp[i - 1];
+        out[8 + i] = q * tmp[6 + i] + p * tmp[7 + i];
+    }
+
+    for (i = 0; i < 16; i++) {
+        out[i] = tmp[i];
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000CEC8.s")
 
