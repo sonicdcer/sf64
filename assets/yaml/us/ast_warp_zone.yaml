@@ -4,27 +4,32 @@
   header:
     - '#include "assets/ast_warp_zone.h"'
 
-unk_7000000:
-  type: GFX
-  offset: 0x7000000
-  symbol: D_7000000
+D_7000000:
+  { type: GFX, offset: 0x7000000, symbol: D_7000000 }
 
-unk_7000C40:
-  type: GFX
-  offset: 0x7000C40
-  symbol: D_7000C40
+D_7000280:
+  { type: GFX, offset: 0x7000280, symbol: D_7000280 }
 
-unk_7000A30:
-  type: TEXTURE
-  format: CI4
-  width: 32
-  height: 32
-  offset: 0x7000A30
-  symbol: D_7000A30
+D_70008F0:
+  { type: GFX, offset: 0x70008F0, symbol: D_70008F0 }
 
-unk_7000C30:
-  type: TEXTURE
-  format: TLUT
-  colors: 16
-  offset: 0x7000C30
-  symbol: D_7000C30
+D_7000A30:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 32, height: 32, offset: 0x7000A30, symbol: D_7000A30, tlut: 0x7000C30 }
+
+D_7000C30:
+  { type: TEXTURE, ctype: u8, format: TLUT, colors: 16, offset: 0x7000C30, symbol: D_7000C30 }
+
+D_7000C40:
+  { type: GFX, offset: 0x7000C40, symbol: D_7000C40 }
+
+D_7000E80:
+  { type: GFX, offset: 0x7000E80, symbol: D_7000E80 }
+
+D_70010E0:
+  { type: GFX, offset: 0x70010E0, symbol: D_70010E0 }
+
+D_7001540:
+  { type: GFX, offset: 0x7001540, symbol: D_7001540 }
+
+D_70015D0:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x70015D0, symbol: D_70015D0 }

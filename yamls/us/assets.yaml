@@ -147,8 +147,12 @@
     start: 0xBC23D0
 
   - name: ast_warp_zone #7
-    type: bin
+    type: code
+    dir: assets
     start: 0xBFA740
+    vram: 0x07000000
+    subsegments:
+      - [0xBFA740, .data, ast_warp_zone/bin]
 
   - name: ast_title #6
     type: bin
