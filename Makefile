@@ -434,6 +434,7 @@ extract:
 assets:
 	@echo "Extracting assets..."
 	@$(TORCH) code $(BASEROM_UNCOMPRESSED)
+	@$(TORCH) header $(BASEROM_UNCOMPRESSED)
 
 clean:
 	@git clean -fdx asm/

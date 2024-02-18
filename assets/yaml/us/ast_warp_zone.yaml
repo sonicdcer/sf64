@@ -2,7 +2,12 @@
   segments:
     seg7: 0xBFA740
   header:
-    - '#include "assets/ast_warp_zone.h"'
+    code:
+      - '#include "assets/ast_warp_zone.h"'
+    header:
+      - '#include "gfx.h"'
+      - '#include "sf64object.h"'
+      - '#include "structs.h"'
 
 D_7000000:
   { type: GFX, offset: 0x7000000, symbol: D_7000000 }
@@ -12,6 +17,9 @@ D_7000280:
 
 D_70008F0:
   { type: GFX, offset: 0x70008F0, symbol: D_70008F0 }
+
+D_7000260:
+  { type: TEXTURE, ctype: u8, format: RGBA16, width: 32, height: 32, offset: 0x7000260, symbol: D_7000260 }
 
 D_7000A30:
   { type: TEXTURE, ctype: u8, format: CI4, width: 32, height: 32, offset: 0x7000A30, symbol: D_7000A30, tlut: 0x7000C30 }

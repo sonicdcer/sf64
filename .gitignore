@@ -14,6 +14,8 @@ ctx.c.m2c
 *.bin
 src/assets/*
 !src/assets/ast_radio.c
+include/assets/*
+!include/assets/ast_radio.h
 /build
 tools/mio0
 tools/ido-recomp

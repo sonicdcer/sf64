@@ -9,3 +9,4 @@ f7475fb11e7e6830f82883412638e8390791ab87:
     output:
       binary: lylat.otr
       code: src/assets
+      headers: include/assets
