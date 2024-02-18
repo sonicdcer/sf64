@@ -45,9 +45,10 @@ extern AudioTemporaryCache D_8014C5A4;
 extern AudioPersistentCache D_8014C5E0; // sampleBankCache
 extern AudioTemporaryCache D_8014C774;
 
-UnkStruct_8000E1C4_1* func_8000DD68(s32);
+SampleCacheEntry* AudioHeap_AllocTemporarySampleCacheEntry(s32);
 void* AudioHeap_SearchRegularCaches(s32 tableType, s32 cache, s32 id);
 void* AudioHeap_SearchPermanentCache(s32 tableType, s32 id);
+SampleCacheEntry* AudioHeap_AllocPersistentSampleCacheEntry(u32);
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000BC70.s")
 
@@ -160,15 +161,15 @@ void* AudioHeap_SearchRegularCaches(s32 tableType, s32 cache, s32 id) {
 
     switch (tableType) {
         case SEQUENCE_TABLE:
-            loadedCache = &D_8014C240;
+            loadedCache = (AudioCache*) &D_8014C240;
             break;
 
         case FONT_TABLE:
-            loadedCache = &D_8014C410;
+            loadedCache = (AudioCache*) &D_8014C410;
             break;
 
         case SAMPLE_TABLE:
-            loadedCache = &D_8014C5E0;
+            loadedCache = (AudioCache*) &D_8014C5E0;
             break;
     }
 
@@ -226,8 +227,10 @@ void func_8000CAF4(f32 p, f32 q, u16* out) {
     }
 }
 
+// Likely AudioHeap_UpdateReverbs
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000CEC8.s")
 
+// Likely AudioHeap_ClearCurrentAiBuffer
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000D08C.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000D104.s")
@@ -238,26 +241,48 @@ void func_8000CAF4(f32 p, f32 q, u16* out) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000DB64.s")
 
-bool func_8000DBE4(s32 arg0, s32 arg1, s32 arg2, s8 arg3) {
-    UnkStruct_8000E1C4_1* ret = func_8000DD68(arg0);
+bool func_8000DBE4(s32 size, s32 fontId, s32 sampleAddr, s8 medium) {
+    SampleCacheEntry* entry = AudioHeap_AllocTemporarySampleCacheEntry(size);
 
-    if (ret != NULL) {
-        ret->unk_02 = arg1;
-        ret->unk_0C = arg2;
-        ret->unk_01 = arg3;
-        return ret->unk_08;
+    if (entry != NULL) {
+        entry->sampleBankId = fontId;
+        entry->sampleAddr = sampleAddr;
+        entry->origMedium = medium;
+        return entry->allocatedAddr;
     } else {
         return false;
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000DC34.s")
+s32 func_8000DC34(s32 size, s32 fontId, s32 sampleAddr, s8 medium) {
+    SampleCacheEntry* entry = AudioHeap_AllocPersistentSampleCacheEntry(size);
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000DC84.s")
+    if (entry != NULL) {
+        entry->sampleBankId = fontId;
+        entry->sampleAddr = sampleAddr;
+        entry->origMedium = medium;
+        return entry->allocatedAddr;
+    } else {
+        return false;
+    }
+}
+
+u8* func_8000DC84(u32 size, s32 fontId, s32 sampleAddr, s8 medium) {
+    SampleCacheEntry* entry = AudioHeap_AllocPersistentSampleCacheEntry(size);
+
+    if (entry != NULL) {
+        entry->sampleBankId = fontId;
+        entry->sampleAddr = sampleAddr;
+        entry->origMedium = medium;
+        return entry->allocatedAddr;
+    } else {
+        return NULL;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000DCD4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000DD68.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/AudioHeap_AllocTemporarySampleCacheEntry.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000DFFC.s")
 
@@ -268,6 +293,6 @@ void func_8000E1C4(UnkStruct_8000E1C4_1* arg0, UnkStruct_8000E1C4_2* arg1) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000E208.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/AudioHeap_AllocPersistentSampleCacheEntry.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000E290.s")
