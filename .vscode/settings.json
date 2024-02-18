@@ -62,7 +62,8 @@
     "sys.h": "c",
     "fox_option_assets.h": "c",
     "mods.h": "c",
-    "i5.h": "c"
+    "i5.h": "c",
+    "sf64audio_provisional.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }
