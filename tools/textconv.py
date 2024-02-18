@@ -1,6 +1,12 @@
 import argparse
 
-char_code = ["END","NWL","NP2","NP3","NP4","NP5","NP6","NP7","NP8","NP9","NPA","NPB","SPC","HSP","QSP","NPF","CLF","CUP","CRT","CDN","AUP","ALF","ADN","ART","L_A","L_B","L_C","L_D","L_E","L_F","L_G","L_H","L_I","L_J","L_K","L_L","L_M","L_N","L_O","L_P","L_Q","L_R","L_S","L_T","L_U","L_V","L_W","L_X","L_Y","L_Z","l_a","l_b","l_c","l_d","l_e","l_f","l_g","l_h","l_i","l_j","l_k","l_l","l_m","l_n","l_o","l_p","l_q","l_r","l_s","l_t","l_u","l_v","l_w","l_x","l_y","l_z","EXM","QST","DSH","CMA","PRD","N_0","N_1","N_2","N_3","N_4","N_5","N_6","N_7","N_8","N_9","APS","LPR","RPR","CLN","PIP"]
+char_code = [
+    "END","NWL","NP2","NP3","NP4","NP5","NP6","NP7","NP8","NP9","NPA","NPB","SPC","HSP","QSP","NPF",
+    "CLF","CUP","CRT","CDN","AUP","ALF","ADN","ART","_A","_B","_C","_D","_E","_F","_G","_H","_I","_J",
+    "_K","_L","_M","_N","_O","_P","_Q","_R","_S","_T","_U","_V","_W","_X","_Y","_Z","_a","_b","_c",
+    "_d","_e","_f","_g","_h","_i","_j","_k","_l","_m","_n","_o","_p","_q","_r","_s","_t","_u","_v",
+    "_w","_x","_y","_z","EXM","QST","DSH","CMA","PRD","_0","_1","_2","_3","_4","_5","_6","_7","_8",
+    "_9","APS","LPR","RPR","CLN","PIP"]
 
 def convert_line(line):
     if 'x' in line or '{' in line or '}' in line:
@@ -44,7 +50,10 @@ def convert_names(filepath):
         file.write(file_text)
     return
 
-code_to_text = {'CLF':'(C<)', 'CUP':'(C^)', 'CRT':'(C>)', 'CDN':'(Cv)', 'AUP':'^', 'ALF':'<', 'ADN':'v', 'ART':'>', 'EXM':'!', 'QST':'?', 'DSH':'-', 'CMA':',', 'PRD':'.', 'APS':"'", 'LPR':'(', 'RPR':')', 'CLN':':', 'PIP':'|'}
+code_to_text = {
+    'CLF':'(C<)', 'CUP':'(C^)', 'CRT':'(C>)', 'CDN':'(Cv)', 'AUP':'^', 'ALF':'<', 'ADN':'v',
+    'ART':'>','EXM':'!', 'QST':'?', 'DSH':'-', 'CMA':',', 'PRD':'.', 'APS':"'", 'LPR':'(',
+    'RPR':')', 'CLN':':', 'PIP':'|'}
 
 def parse_line(line):
     codes = [x.strip() for x in line.split(',')]

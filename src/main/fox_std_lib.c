@@ -540,7 +540,7 @@ void TextureRect_4bCI(Gfx** gfxPtr, void* texture, void* palette, u32 width, u32
     gDPLoadTextureBlock_4b((*gfxPtr)++, texture, G_IM_FMT_CI, width, height, 0, G_TX_NOMIRROR | G_TX_WRAP,
                            G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangle((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f), (s32) ((xPos + width * xScale) * 4.0f),
-                        (s32) ((yPos + height * yScale) * 4.0f), 0, 0, 0, (s32) (1.0f / xScale * 1024.0f),
+                        (s32) ((yPos + height * yScale) * 4.0f), G_TX_RENDERTILE, 0, 0, (s32) (1.0f / xScale * 1024.0f),
                         (s32) (1.0f / yScale * 1024.0f));
 }
 
@@ -550,8 +550,8 @@ void TextureRect_4bCI_Flip(Gfx** gfxPtr, void* texture, void* palette, u32 width
     gDPLoadTextureBlock_4b((*gfxPtr)++, texture, G_IM_FMT_CI, width, height, 0, G_TX_NOMIRROR | G_TX_WRAP,
                            G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangleFlip((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f),
-                            (s32) ((xPos + width * xScale) * 4.0f), (s32) ((yPos + height * yScale) * 4.0f), 0, 0, 0,
-                            (s32) (1.0f / xScale * 1024.0f), (s32) (1.0f / yScale * 1024.0f));
+                            (s32) ((xPos + width * xScale) * 4.0f), (s32) ((yPos + height * yScale) * 4.0f),
+                            G_TX_RENDERTILE, 0, 0, (s32) (1.0f / xScale * 1024.0f), (s32) (1.0f / yScale * 1024.0f));
 }
 
 void TextureRect_4bCI_MirX(Gfx** gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos,
@@ -560,7 +560,7 @@ void TextureRect_4bCI_MirX(Gfx** gfxPtr, void* texture, void* palette, u32 width
     gDPLoadTextureBlock_4b((*gfxPtr)++, texture, G_IM_FMT_CI, width, height, 0, G_TX_MIRROR | G_TX_WRAP,
                            G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangle((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f), (s32) ((xPos + width * xScale) * 4.0f),
-                        (s32) ((yPos + height * yScale) * 4.0f), 0, (width - 1) * 32, 0,
+                        (s32) ((yPos + height * yScale) * 4.0f), G_TX_RENDERTILE, (width - 1) * 32, 0,
                         (u16) (s32) (-1.0f / xScale * 1024.0f), (s32) (1.0f / yScale * 1024.0f));
 }
 
@@ -570,7 +570,7 @@ void TextureRect_4bCI_MirY(Gfx** gfxPtr, void* texture, void* palette, u32 width
     gDPLoadTextureBlock_4b((*gfxPtr)++, texture, G_IM_FMT_CI, width, height, 0, G_TX_MIRROR | G_TX_WRAP,
                            G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangle((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f), (s32) ((xPos + width * xScale) * 4.0f),
-                        (s32) ((yPos + height * yScale) * 4.0f), 0, 0, (height - 1) * 32,
+                        (s32) ((yPos + height * yScale) * 4.0f), G_TX_RENDERTILE, 0, (height - 1) * 32,
                         (s32) (1.0f / xScale * 1024.0f), (u16) (s32) (-1.0f / yScale * 1024.0f));
 }
 
@@ -580,7 +580,7 @@ void TextureRect_8bCI(Gfx** gfxPtr, void* texture, void* palette, u32 width, u32
     gDPLoadTextureBlock((*gfxPtr)++, texture, G_IM_FMT_CI, G_IM_SIZ_8b, width, height, 0, G_TX_NOMIRROR | G_TX_WRAP,
                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangle((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f), (s32) ((xPos + width * xScale) * 4.0f),
-                        (s32) ((yPos + height * yScale) * 4.0f), 0, 0, 0, (s32) (1.0f / xScale * 1024.0f),
+                        (s32) ((yPos + height * yScale) * 4.0f), G_TX_RENDERTILE, 0, 0, (s32) (1.0f / xScale * 1024.0f),
                         (s32) (1.0f / yScale * 1024.0f));
 }
 
@@ -598,7 +598,7 @@ void TextureRect_16bRGBA_MirX(Gfx** gfxPtr, void* texture, u32 width, u32 height
     gDPLoadTextureBlock((*gfxPtr)++, texture, G_IM_FMT_RGBA, G_IM_SIZ_16b, width, height, 0, G_TX_NOMIRROR | G_TX_WRAP,
                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangle((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f), (s32) ((xPos + width * xScale) * 4.0f),
-                        (s32) ((yPos + height * yScale) * 4.0f), 0, (width - 1) * 32, 0,
+                        (s32) ((yPos + height * yScale) * 4.0f), G_TX_RENDERTILE, (width - 1) * 32, 0,
                         (u16) (s32) (-1.0f / xScale * 1024.0f), (s32) (1.0f / yScale * 1024.0f));
 }
 
@@ -615,8 +615,8 @@ void TextureRect_8bIA_FilpMirX(Gfx** gfxPtr, void* texture, u32 width, u32 heigh
     gDPLoadTextureBlock((*gfxPtr)++, texture, G_IM_FMT_IA, G_IM_SIZ_8b, width, height, 0, G_TX_NOMIRROR | G_TX_WRAP,
                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangleFlip((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f),
-                            (s32) ((xPos + height * xScale) * 4.0f), (s32) ((yPos + width * yScale) * 4.0f), 0,
-                            (width - 1) * 32, 0, (u16) (s32) (-1.0f / yScale * 1024.0f),
+                            (s32) ((xPos + height * xScale) * 4.0f), (s32) ((yPos + width * yScale) * 4.0f),
+                            G_TX_RENDERTILE, (width - 1) * 32, 0, (u16) (s32) (-1.0f / yScale * 1024.0f),
                             (s32) (1.0f / xScale * 1024.0f));
 }
 
@@ -625,8 +625,9 @@ void TextureRect_8bIA_FilpMirY(Gfx** gfxPtr, void* texture, u32 width, u32 heigh
     gDPLoadTextureBlock((*gfxPtr)++, texture, G_IM_FMT_IA, G_IM_SIZ_8b, width, height, 0, G_TX_NOMIRROR | G_TX_WRAP,
                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangleFlip((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f),
-                            (s32) ((xPos + height * xScale) * 4.0f), (s32) ((yPos + width * yScale) * 4.0f), 0, 0,
-                            (height - 1) * 32, (s32) (1.0f / yScale * 1024.0f), (u16) (s32) (-1.0f / xScale * 1024.0f));
+                            (s32) ((xPos + height * xScale) * 4.0f), (s32) ((yPos + width * yScale) * 4.0f),
+                            G_TX_RENDERTILE, 0, (height - 1) * 32, (s32) (1.0f / yScale * 1024.0f),
+                            (u16) (s32) (-1.0f / xScale * 1024.0f));
 }
 
 void TextureRect_8bIA_MirX(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale,
@@ -634,7 +635,7 @@ void TextureRect_8bIA_MirX(Gfx** gfxPtr, void* texture, u32 width, u32 height, f
     gDPLoadTextureBlock((*gfxPtr)++, texture, G_IM_FMT_IA, G_IM_SIZ_8b, width, height, 0, G_TX_NOMIRROR | G_TX_WRAP,
                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangle((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f), (s32) ((xPos + width * xScale) * 4.0f),
-                        (s32) ((yPos + height * yScale) * 4.0f), 0, (width - 1) * 32, 0,
+                        (s32) ((yPos + height * yScale) * 4.0f), G_TX_RENDERTILE, (width - 1) * 32, 0,
                         (u16) (s32) (-1.0f / xScale * 1024.0f), (s32) (1.0f / yScale * 1024.0f));
 }
 
@@ -643,7 +644,7 @@ void TextureRect_8bIA_MirY(Gfx** gfxPtr, void* texture, u32 width, u32 height, f
     gDPLoadTextureBlock((*gfxPtr)++, texture, G_IM_FMT_IA, G_IM_SIZ_8b, width, height, 0, G_TX_NOMIRROR | G_TX_WRAP,
                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangle((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f), (s32) ((xPos + width * xScale) * 4.0f),
-                        (s32) ((yPos + height * yScale) * 4.0f), 0, 0, (height - 1) * 32,
+                        (s32) ((yPos + height * yScale) * 4.0f), G_TX_RENDERTILE, 0, (height - 1) * 32,
                         (s32) (1.0f / xScale * 1024.0f), (u16) (s32) (-1.0f / yScale * 1024.0f));
 }
 
@@ -651,7 +652,7 @@ void TextureRect_16bIA(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32 x
     gDPLoadTextureBlock((*gfxPtr)++, texture, G_IM_FMT_IA, G_IM_SIZ_16b, width, height, 0, G_TX_NOMIRROR | G_TX_WRAP,
                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangle((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f), (s32) ((xPos + width * xScale) * 4.0f),
-                        (s32) ((yPos + height * yScale) * 4.0f), 0, 0, 0, (s32) (1.0f / xScale * 1024.0f),
+                        (s32) ((yPos + height * yScale) * 4.0f), G_TX_RENDERTILE, 0, 0, (s32) (1.0f / xScale * 1024.0f),
                         (s32) (1.0f / yScale * 1024.0f));
 }
 
@@ -660,7 +661,7 @@ void TextureRect_16bIA_MirX(Gfx** gfxPtr, void* texture, u32 width, u32 height, 
     gDPLoadTextureBlock((*gfxPtr)++, texture, G_IM_FMT_IA, G_IM_SIZ_16b, width, height, 0, G_TX_MIRROR | G_TX_WRAP,
                         G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangle((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f), (s32) ((xPos + width * xScale) * 4.0f),
-                        (s32) ((yPos + height * yScale) * 4.0f), 0, (width - 1) * 32, 0,
+                        (s32) ((yPos + height * yScale) * 4.0f), G_TX_RENDERTILE, (width - 1) * 32, 0,
                         (u16) (s32) (-1.0f / xScale * 1024.0f), (s32) (1.0f / yScale * 1024.0f));
 }
 
@@ -669,7 +670,7 @@ void TextureRect_16bIA_MirY(Gfx** gfxPtr, void* texture, u32 width, u32 height, 
     gDPLoadTextureBlock((*gfxPtr)++, texture, G_IM_FMT_IA, G_IM_SIZ_16b, width, height, 0, G_TX_MIRROR | G_TX_WRAP,
                         G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangle((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f), (s32) ((xPos + width * xScale) * 4.0f),
-                        (s32) ((yPos + height * yScale) * 4.0f), 0, 0, (height - 1) * 32,
+                        (s32) ((yPos + height * yScale) * 4.0f), G_TX_RENDERTILE, 0, (height - 1) * 32,
                         (s32) (1.0f / xScale * 1024.0f), (u16) (s32) (-1.0f / yScale * 1024.0f));
 }
 
@@ -678,7 +679,7 @@ void TextureRect_16bIA_MirXY(Gfx** gfxPtr, void* texture, u32 width, u32 height,
     gDPLoadTextureBlock((*gfxPtr)++, texture, G_IM_FMT_IA, G_IM_SIZ_16b, width, height, 0, G_TX_MIRROR | G_TX_WRAP,
                         G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangle((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f), (s32) ((xPos + width * xScale) * 4.0f),
-                        (s32) ((yPos + height * yScale) * 4.0f), 0, (width - 1) * 32, (height - 1) * 32,
+                        (s32) ((yPos + height * yScale) * 4.0f), G_TX_RENDERTILE, (width - 1) * 32, (height - 1) * 32,
                         (u16) (s32) (-1.0f / xScale * 1024.0f), (u16) (s32) (-1.0f / yScale * 1024.0f));
 }
 
@@ -687,7 +688,7 @@ void TextureRect_32bRGBA(Gfx** gfxPtr, void* texture, u32 width, u32 height, f32
     gDPLoadTextureBlock((*gfxPtr)++, texture, G_IM_FMT_RGBA, G_IM_SIZ_32b, width, height, 0, G_TX_NOMIRROR | G_TX_WRAP,
                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gSPTextureRectangle((*gfxPtr)++, (s32) (xPos * 4.0f), (s32) (yPos * 4.0f), (s32) ((xPos + width * xScale) * 4.0f),
-                        (s32) ((yPos + height * yScale) * 4.0f), 0, 0, 0, (s32) (1.0f / xScale * 1024.0f),
+                        (s32) ((yPos + height * yScale) * 4.0f), G_TX_RENDERTILE, 0, 0, (s32) (1.0f / xScale * 1024.0f),
                         (s32) (1.0f / yScale * 1024.0f));
 }
 
