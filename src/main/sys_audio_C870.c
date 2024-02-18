@@ -1,7 +1,6 @@
 #include "global.h"
 #include "sf64audio.h"
 
-
 typedef struct {
     /* 0x00 */ s32 unk_00;
     /* 0x04 */ s32 unk_04;
@@ -31,20 +30,20 @@ typedef struct {
 } UnkStruct_8000E1C4_2;
 
 extern s32 D_800C7C30;
-extern s32 D_8014C1C0;
-extern s32 D_8014C1D0;
-extern s32 D_8014C210[4];
-extern s32 D_8014C220[4];
-extern s32 D_8014C230[4];
-extern s32 D_8014C240[4];
-extern s32 D_8014C410[4];
-extern s32 D_8014C5E0[4];
-extern UnkStruct_func_8000BFA8 D_8014C3D4;
-extern s32 D_8014C3D8;
-extern UnkStruct_func_8000BFA8 D_8014C5A4;
-extern s32 D_8014C5A8;
-extern UnkStruct_func_8000BFA8 D_8014C774;
-extern s32 D_8014C778;
+extern AudioAllocPool D_8014C1C0;
+extern AudioAllocPool D_8014C1D0;
+extern AudioAllocPool D_8014C1E0;
+extern AudioAllocPool D_8014C210;
+extern AudioAllocPool D_8014C220;
+extern AudioAllocPool D_8014C230;
+extern AudioPersistentCache D_8014C240;
+extern AudioTemporaryCache D_8014C3D4;
+extern AudioAllocPool D_8014C3D8;
+extern AudioPersistentCache D_8014C410;
+extern AudioAllocPool D_8014C420;
+extern AudioTemporaryCache D_8014C5A4;
+extern AudioPersistentCache D_8014C5E0;
+extern AudioTemporaryCache D_8014C774;
 
 UnkStruct_8000E1C4_1* func_8000DD68(s32);
 
@@ -70,8 +69,8 @@ void* AudioHeap_Alloc(AudioAllocPool* pool, u32 size) {
 }
 
 void AudioHeap_InitPool(AudioAllocPool* pool, void* ramAddr, u32 size) {
-    pool->curRamAddr = pool->startRamAddr = (u8*)ALIGN16((u32)ramAddr);
-    pool->size = size - ((u32)ramAddr & 0xF);
+    pool->curRamAddr = pool->startRamAddr = (u8*) ALIGN16((u32) ramAddr);
+    pool->size = size - ((u32) ramAddr & 0xF);
     pool->numEntries = 0;
 }
 
@@ -101,29 +100,35 @@ void func_8000BFE8(s32 arg0) {
     AudioHeap_InitPool(&D_8014C1C0, &gAudioDataBuffer[arg0], D_800C7C30 - arg0);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000C044.s")
-
-void func_8000C0C0(s32* arg0) {
-    D_8014C210[1] = D_8014C210[0];
-    AudioHeap_InitPool(D_8014C220, AudioHeap_Alloc(D_8014C210, arg0[0]), arg0[0]);
-    AudioHeap_InitPool(D_8014C230, AudioHeap_Alloc(D_8014C210, arg0[1]), arg0[1]);
+void func_8000C044(AudioSessionPoolSplit* split) {
+    D_8014C1C0.curRamAddr = D_8014C1C0.startRamAddr;
+    AudioHeap_InitPool(&D_8014C1E0, AudioHeap_Alloc(&D_8014C1C0, split->miscPoolSize), split->miscPoolSize);
+    AudioHeap_InitPool(&D_8014C210, AudioHeap_Alloc(&D_8014C1C0, split->cachePoolSize), split->cachePoolSize);
 }
 
-void func_8000C13C(s32* arg0) {
-    D_8014C220[1] = D_8014C220[0];
-    AudioHeap_InitPool(&D_8014C240[1], AudioHeap_Alloc(D_8014C220, arg0[0]), arg0[0]);
-    AudioHeap_InitPool(&D_8014C410[1], AudioHeap_Alloc(D_8014C220, arg0[1]), arg0[1]);
-    AudioHeap_InitPool(&D_8014C5E0[1], AudioHeap_Alloc(D_8014C220, arg0[2]), arg0[2]);
-    AudioHeap_InitPersistentCache(D_8014C240);
-    AudioHeap_InitPersistentCache(D_8014C410);
-    AudioHeap_InitPersistentCache(D_8014C5E0);
+void func_8000C0C0(AudioCommonPoolSplit* split) {
+    D_8014C210.curRamAddr = D_8014C210.startRamAddr;
+    AudioHeap_InitPool(&D_8014C220, AudioHeap_Alloc(&D_8014C210, split->seqCacheSize), split->seqCacheSize);
+    AudioHeap_InitPool(&D_8014C230, AudioHeap_Alloc(&D_8014C210, split->fontCacheSize), split->fontCacheSize);
 }
 
-void func_8000C1F8(s32* arg0) {
-    D_8014C230[1] = D_8014C230[0];
-    AudioHeap_InitPool(&D_8014C3D8, AudioHeap_Alloc(D_8014C230, arg0[0]), arg0[0]);
-    AudioHeap_InitPool(&D_8014C5A8, AudioHeap_Alloc(D_8014C230, arg0[1]), arg0[1]);
-    AudioHeap_InitPool(&D_8014C778, AudioHeap_Alloc(D_8014C230, arg0[2]), arg0[2]);
+void func_8000C13C(AudioCommonPoolSplit* split) {
+    D_8014C220.curRamAddr = D_8014C220.startRamAddr;
+    AudioHeap_InitPool(&D_8014C240.pool, AudioHeap_Alloc(&D_8014C220, split->seqCacheSize), split->seqCacheSize);
+    AudioHeap_InitPool(&D_8014C410.pool, AudioHeap_Alloc(&D_8014C220, split->fontCacheSize), split->fontCacheSize);
+    AudioHeap_InitPool(&D_8014C5E0.pool, AudioHeap_Alloc(&D_8014C220, split->sampleBankCacheSize),
+                       split->sampleBankCacheSize);
+    AudioHeap_InitPersistentCache(&D_8014C240);
+    AudioHeap_InitPersistentCache(&D_8014C410);
+    AudioHeap_InitPersistentCache(&D_8014C5E0);
+}
+
+void func_8000C1F8(AudioCommonPoolSplit* split) {
+    D_8014C230.curRamAddr = D_8014C230.startRamAddr;
+    AudioHeap_InitPool(&D_8014C3D4.pool, AudioHeap_Alloc(&D_8014C230, split->seqCacheSize), split->seqCacheSize);
+    AudioHeap_InitPool(&D_8014C5A4.pool, AudioHeap_Alloc(&D_8014C230, split->fontCacheSize), split->fontCacheSize);
+    AudioHeap_InitPool(&D_8014C774.pool, AudioHeap_Alloc(&D_8014C230, split->sampleBankCacheSize),
+                       split->sampleBankCacheSize);
     AudioHeap_InitTemporaryCache(&D_8014C3D4);
     AudioHeap_InitTemporaryCache(&D_8014C5A4);
     AudioHeap_InitTemporaryCache(&D_8014C774);
