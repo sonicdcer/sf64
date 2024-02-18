@@ -36,16 +36,18 @@ extern AudioAllocPool D_8014C1E0;
 extern AudioAllocPool D_8014C210;
 extern AudioAllocPool D_8014C220;
 extern AudioAllocPool D_8014C230;
-extern AudioPersistentCache D_8014C240;
-extern AudioTemporaryCache D_8014C3D4;
+extern AudioPersistentCache D_8014C240; // seqCache
+extern AudioTemporaryCache D_8014C3D4; // fontCache
 extern AudioAllocPool D_8014C3D8;
 extern AudioPersistentCache D_8014C410;
 extern AudioAllocPool D_8014C420;
 extern AudioTemporaryCache D_8014C5A4;
-extern AudioPersistentCache D_8014C5E0;
+extern AudioPersistentCache D_8014C5E0; // sampleBankCache
 extern AudioTemporaryCache D_8014C774;
 
 UnkStruct_8000E1C4_1* func_8000DD68(s32);
+void* AudioHeap_SearchRegularCaches(s32 tableType, s32 cache, s32 id); 
+void* AudioHeap_SearchPermanentCache(s32 tableType, s32 id);  
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000BC70.s")
 
@@ -136,9 +138,65 @@ void func_8000C1F8(AudioCommonPoolSplit* split) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000C2B4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000C990.s")
+s32 AudioHeap_SearchCaches(s32 tableType, s32 cache, s32 id) {
+    void* ramAddr;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000C9E8.s")
+    // Always search the permanent cache in addition to the regular ones.
+    ramAddr = AudioHeap_SearchPermanentCache(tableType, id);
+    if (ramAddr != NULL) {
+        return ramAddr;
+    }
+    if (cache == CACHE_PERMANENT) {
+        return NULL;
+    }
+    return AudioHeap_SearchRegularCaches(tableType, cache, id);
+}
+
+void* AudioHeap_SearchRegularCaches(s32 tableType, s32 cache, s32 id) {
+    u32 i;
+    AudioCache* loadedCache;
+    AudioTemporaryCache* temporary;
+    AudioPersistentCache* persistent;
+
+    switch (tableType) {
+        case SEQUENCE_TABLE:
+            loadedCache = &D_8014C240;
+            break;
+
+        case FONT_TABLE:
+            loadedCache = &D_8014C410;
+            break;
+
+        case SAMPLE_TABLE:
+            loadedCache = &D_8014C5E0;
+            break;
+    }
+
+    temporary = &loadedCache->temporary;
+    if (cache == CACHE_TEMPORARY) {
+        if (temporary->entries[0].id == id) {
+            temporary->nextSide = 1;
+            return temporary->entries[0].ramAddr;
+        } else if (temporary->entries[1].id == id) {
+            temporary->nextSide = 0;
+            return temporary->entries[1].ramAddr;
+        } else {
+            return NULL;
+        }
+    }
+
+    persistent = &loadedCache->persistent;
+    for (i = 0; i < persistent->numEntries; i++) {
+        if (persistent->entries[i].id == id) {
+            return persistent->entries[i].ramAddr;
+        }
+    }
+
+    if (cache == CACHE_EITHER) {
+        return AudioHeap_SearchCaches(tableType, CACHE_TEMPORARY, id);
+    }
+    return NULL;
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000CAF4.s")
 
@@ -150,7 +208,7 @@ void func_8000C1F8(AudioCommonPoolSplit* split) {
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000D4A8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000DB0C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/AudioHeap_SearchPermanentCache.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000DB64.s")
 
