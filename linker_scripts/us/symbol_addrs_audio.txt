@@ -53,10 +53,10 @@ func_8000DBE4 = 0x8000DBE4;
 func_8000DC34 = 0x8000DC34;
 func_8000DC84 = 0x8000DC84;
 func_8000DCD4 = 0x8000DCD4;
-func_8000DD68 = 0x8000DD68;
+AudioHeap_AllocTemporarySampleCacheEntry = 0x8000DD68;
 func_8000DFFC = 0x8000DFFC;
 func_8000E1C4 = 0x8000E1C4;
-func_8000E208 = 0x8000E208;
+AudioHeap_AllocPersistentSampleCacheEntry = 0x8000E208;
 func_8000E290 = 0x8000E290;
 
 
