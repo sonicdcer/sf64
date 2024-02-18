@@ -1,0 +1,30 @@
+:config:
+  segments:
+    seg7: 0xBFA740
+  header:
+    - '#include "assets/ast_warp_zone.h"'
+
+unk_7000000:
+  type: GFX
+  offset: 0x7000000
+  symbol: D_7000000
+
+unk_7000C40:
+  type: GFX
+  offset: 0x7000C40
+  symbol: D_7000C40
+
+unk_7000A30:
+  type: TEXTURE
+  format: CI4
+  width: 32
+  height: 32
+  offset: 0x7000A30
+  symbol: D_7000A30
+
+unk_7000C30:
+  type: TEXTURE
+  format: TLUT
+  colors: 16
+  offset: 0x7000C30
+  symbol: D_7000C30
