@@ -1,3 +1,8 @@
+/**
+ * This file is provisional, some of the structs need to be corrected, and others might be unused
+ * This file is only meant to be used as reference to help audio decompilation
+*/
+
 #ifndef SF64_AUDIO_H
 #define SF64_AUDIO_H
 

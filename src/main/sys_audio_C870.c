@@ -1,5 +1,5 @@
 #include "global.h"
-#include "sf64audio.h"
+#include "sf64audio_provisional.h"
 
 typedef struct {
     /* 0x00 */ s32 unk_00;
