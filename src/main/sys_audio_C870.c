@@ -29,34 +29,247 @@ typedef struct {
     /* 0x04 */ s32 unk_04;
 } UnkStruct_8000E1C4_2;
 
+typedef struct {
+    /* 0x00 */ u8 priority;
+    /* 0x01 */ u8 waveId;
+    /* 0x02 */ u8 harmonicIndex; // the harmonic index for the synthetic wave contained in gWaveSamples (also matches
+                                 // the base 2 logarithm of the harmonic order)
+    /* 0x03 */ u8 fontId;
+    /* 0x04 */ u8 unk_04;
+    /* 0x05 */ u8 stereoHeadsetEffects;
+    /* 0x06 */ s16 adsrVolScaleUnused;
+    /* 0x08 */ f32 portamentoFreqScale;
+    /* 0x0C */ f32 vibratoFreqScale;
+    /* 0x10 */ SequenceLayer* prevParentLayer;
+    /* 0x14 */ SequenceLayer* parentLayer;
+    /* 0x18 */ SequenceLayer* wantedParentLayer;
+    /* 0x1C */ NoteAttributes attributes;
+    /* 0x40 */ AdsrState adsr;
+    /* 0x60 */ Portamento portamento;
+    /* 0x6C */ VibratoState vibratoState;
+} NotePlaybackState_Short; // size = 0x70
+
+typedef struct {
+    struct {
+        /* 0x00 */ volatile u8 enabled : 1;
+        /* 0x00 */ u8 needsInit : 1;
+        /* 0x00 */ u8 finished : 1; // ?
+        /* 0x00 */ u8 unused : 1;
+        /* 0x00 */ u8 stereoStrongRight : 1;
+        /* 0x00 */ u8 stereoStrongLeft : 1;
+        /* 0x00 */ u8 stereoHeadsetEffects : 1;
+        /* 0x00 */ u8 usesHeadsetPanEffects : 1; // ?
+    } bitField0;
+    struct {
+        /* 0x01 */ u8 reverbIndex : 3;
+        /* 0x01 */ u8 bookOffset : 2;
+        /* 0x01 */ u8 isSyntheticWave : 1;
+        /* 0x01 */ u8 hasTwoParts : 1;
+        /* 0x01 */ u8 useHaasEffect : 1;
+    } bitField1;
+    /* 0x02 */ u8 pad2[0xE];
+} NoteSubEu_Short; // size = 0x20
+
+typedef struct Note_C0 {
+    /* 0x00 */ AudioListItem listItem;
+    /* 0x10 */ NoteSynthesisState synthesisState;
+    /* 0x30 */ NotePlaybackState_Short playbackState;
+    /* 0xA0 */ char padA0[0x10];
+    /* 0xB0 */ NoteSubEu_Short noteSubEu;
+} Note_C0;
+
+typedef struct {
+    /* 0x000 */ u8 enabled : 1;
+    /* 0x000 */ u8 finished : 1;
+    /* 0x000 */ u8 muted : 1;
+    /* 0x000 */ u8 seqDmaInProgress : 1;
+    /* 0x000 */ u8 fontDmaInProgress : 1;
+    /* 0x000 */ u8 recalculateVolume : 1;
+    /* 0x000 */ u8 stopScript : 1;
+    /* 0x000 */ u8 applyBend : 1;
+    /* 0x001 */ u8 state;
+    /* 0x002 */ u8 noteAllocPolicy;
+    /* 0x003 */ u8 muteBehavior;
+    /* 0x004 */ u8 seqId;
+    /* 0x005 */ u8 defaultFont;
+    /* 0x006 */ u8 unk_06[1];
+    /* 0x007 */ s8 playerIdx;
+    /* 0x008 */ u16 tempo;       // seqTicks per minute
+    /* 0x00A */ u16 tempoAcc;    // tempo accumulation, used in a discretized algorithm to apply tempo.
+    /* 0x00C */ u16 tempoChange; // Used to adjust the tempo without altering the base tempo.
+    /* 0x00E */ s16 transposition;
+    /* 0x010 */ u16 delay;
+    /* 0x012 */ u16 fadeTimer; // in ticks
+    /* 0x014 */ u16 fadeTimerUnkEu;
+    /* 0x018 */ u8* seqData;
+    /* 0x01C */ f32 fadeVolume;
+    /* 0x020 */ f32 fadeVelocity;
+    /* 0x024 */ f32 volume;
+    /* 0x028 */ f32 muteVolumeScale;
+    /* 0x02C */ f32 fadeVolumeScale;
+    /* 0x030 */ f32 appliedFadeVolume;
+    /* 0x034 */ f32 bend;
+    /* 0x038 */ struct SequenceChannel* channels[16];
+    /* 0x078 */ SeqScriptState scriptState;
+    /* 0x094 */ u8* shortNoteVelocityTable;
+    /* 0x098 */ u8* shortNoteGateTimeTable;
+    /* 0x09C */ NotePool notePool;
+    /* 0x0DC */ s32 skipTicks;
+    /* 0x0E0 */ u32 scriptCounter;
+    /* 0x0E4 */ char
+        padE4[0x68];  // unused struct members for sequence/sound font dma management, according to sm64 decomp
+} SequencePlayer_14C; // size = 0x160
+
+typedef struct {
+    char pad0[0x1D4];
+} UnkStruct_1D4;
+
+typedef struct {
+    AudioAllocPool pool;
+    AudioCacheEntry entry[32];
+} PermanentCache; // size = 0x190
+
+extern s16 D_800C7C2C;
 extern s32 D_800C7C30;
+extern AudioSpec D_800C76B8[];
+
+extern SynthesisReverb D_8014BA50[4];
+// D_8014C1A0
+extern u16 D_8014C1B0;
+extern s8 D_8014C1B3;
+extern s16 D_8014C1B4;
+extern NoteSubEu* D_8014C1B8;
 extern AudioAllocPool D_8014C1C0;
 extern AudioAllocPool D_8014C1D0;
 extern AudioAllocPool D_8014C1E0;
+// 0x20
 extern AudioAllocPool D_8014C210;
 extern AudioAllocPool D_8014C220;
 extern AudioAllocPool D_8014C230;
-extern AudioPersistentCache D_8014C240; // seqCache
-extern AudioTemporaryCache D_8014C3D4;  // fontCache
-extern AudioAllocPool D_8014C3D8;
-extern AudioPersistentCache D_8014C410;
-extern AudioAllocPool D_8014C420;
-extern AudioTemporaryCache D_8014C5A4;
-extern AudioPersistentCache D_8014C5E0; // sampleBankCache
-extern AudioTemporaryCache D_8014C774;
+extern AudioCache D_8014C240; // seqCache
+extern AudioCache D_8014C410; // fontCache
+extern AudioCache D_8014C5E0; // sampleBankCache
+extern PermanentCache D_8014C7B0;
+extern AudioSampleCache D_8014C940;
+extern AudioSampleCache D_8014CE58;
+extern s32 D_8014CE60;
+extern s32 D_8014D368;
+extern AudioSessionPoolSplit D_8014D370;
+extern AudioCommonPoolSplit D_8014D380;
+extern AudioCommonPoolSplit D_8014D388;
+extern AudioCommonPoolSplit D_8014D398;
+extern u8 D_8014D3A8[64];
+extern u8 D_8014D3E8[64];
+extern u8 D_8014D428[256];
+extern volatile u8 D_8014D528;
+extern u8 D_8014D529;
+extern s32 D_8014D52C;
+// 0x1000 gap
+extern Note_C0* D_8014E530;
+extern SequencePlayer_14C D_8014E538[4];
+extern UNK_TYPE D_801530C0;
+extern AudioPreloadReq D_80153300[];
+extern s32 D_80153D04;
+extern s32 D_80155A48;
+extern AudioTable* D_80155C60;
+extern SoundFont* D_80155C70;
+extern AudioBufferParameters D_80155C78;
+// D_80155C98
+extern s32 D_80155C9C;
+extern s32 D_80155CA0;
+extern u16 D_80155CA4;
+extern s32 D_80155CB4;
+extern void* D_80155CB8[2];
+extern UNK_TYPE D_80155CC0;
+extern f32 D_80155D68;
+extern s32 D_80155D6C;
+extern u16* D_80155D70[];
+extern u16 D_80155D7C[];
 
+void func_8000DFFC(SampleCacheEntry* entry);
+void func_8000D4A8(void);
+void func_8000E290(void);
+void func_8000DCD4(u32, u32);
+void func_8000E1C4(SampleCacheEntry* entry, Sample* sample);
 SampleCacheEntry* AudioHeap_AllocTemporarySampleCacheEntry(s32);
 void* AudioHeap_SearchRegularCaches(s32 tableType, s32 cache, s32 id);
 void* AudioHeap_SearchPermanentCache(s32 tableType, s32 id);
 SampleCacheEntry* AudioHeap_AllocPersistentSampleCacheEntry(u32);
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000BC70.s")
+void func_8000E8E0(s32);
+void func_800128B4(void);
+void func_800132E8(void);
+void func_80011F4C(Note_C0*);
+Instrument* func_80011D4C(s32, s32);
+Drum* func_80011DFC(s32, s32);
+void func_80012C40(Note_C0*);
+void func_800145BC(UNK_TYPE*, Note_C0*);
+void func_800144E4(SequencePlayer_14C*);
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000BD38.s")
+void AudioHeap_ResetLoadStatus(void) {
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000BE24.s")
+    for (i = 0; i < 64; i++) {
+        if (D_8014D3E8[i] != 5) {
+            D_8014D3E8[i] = 0;
+        }
+    }
+    for (i = 0; i < 64; i++) {
+        if (D_8014D3A8[i] != 5) {
+            D_8014D3A8[i] = 0;
+        }
+    }
+    for (i = 0; i < 256; i++) {
+        if (D_8014D428[i] != 5) {
+            D_8014D428[i] = 0;
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000BE94.s")
+void AudioHeap_DiscardFont(s32 fontId) {
+    Note_C0* note;
+    s32 i;
+
+    for (i = 0; i < D_80155CA0; i++) {
+        note = &D_8014E530[i];
+        if (fontId == note->playbackState.fontId) {
+            if (note->playbackState.unk_04 == 0 && note->playbackState.priority != 0) {
+                note->playbackState.parentLayer->enabled = false;
+                note->playbackState.parentLayer->finished = true;
+            }
+            func_80011F4C(note);
+            func_80012C40(note);
+            func_800145BC(&D_801530C0, note);
+        }
+    }
+}
+
+void AudioHeap_DiscardSequence(s32 seqId) {
+    s32 i;
+
+    for (i = 0; i < 4; i++) {
+        if (D_8014E538[i].enabled && D_8014E538[i].seqId == seqId) {
+            func_800144E4(&D_8014E538[i]);
+        }
+    }
+}
+
+void* AudioHeap_AllocZeroed(AudioAllocPool* pool, u32 size) {
+    u32 aligned = ALIGN16(size);
+    u8* ramAddr = pool->curRamAddr;
+    u8* ptr;
+
+    if (pool->startRamAddr + pool->size >= pool->curRamAddr + aligned) {
+        pool->curRamAddr += aligned;
+        for (ptr = ramAddr; ptr < pool->curRamAddr; ptr++) {
+            *ptr = 0;
+        }
+    } else {
+        return NULL;
+    }
+    pool->numEntries++;
+    return ramAddr;
+}
 
 void* AudioHeap_Alloc(AudioAllocPool* pool, u32 size) {
     u32 aligned = ALIGN16(size);
@@ -117,27 +330,253 @@ void func_8000C0C0(AudioCommonPoolSplit* split) {
 
 void func_8000C13C(AudioCommonPoolSplit* split) {
     D_8014C220.curRamAddr = D_8014C220.startRamAddr;
-    AudioHeap_InitPool(&D_8014C240.pool, AudioHeap_Alloc(&D_8014C220, split->seqCacheSize), split->seqCacheSize);
-    AudioHeap_InitPool(&D_8014C410.pool, AudioHeap_Alloc(&D_8014C220, split->fontCacheSize), split->fontCacheSize);
-    AudioHeap_InitPool(&D_8014C5E0.pool, AudioHeap_Alloc(&D_8014C220, split->sampleBankCacheSize),
+    AudioHeap_InitPool(&D_8014C240.persistent.pool, AudioHeap_Alloc(&D_8014C220, split->seqCacheSize),
+                       split->seqCacheSize);
+    AudioHeap_InitPool(&D_8014C410.persistent.pool, AudioHeap_Alloc(&D_8014C220, split->fontCacheSize),
+                       split->fontCacheSize);
+    AudioHeap_InitPool(&D_8014C5E0.persistent.pool, AudioHeap_Alloc(&D_8014C220, split->sampleBankCacheSize),
                        split->sampleBankCacheSize);
-    AudioHeap_InitPersistentCache(&D_8014C240);
-    AudioHeap_InitPersistentCache(&D_8014C410);
-    AudioHeap_InitPersistentCache(&D_8014C5E0);
+    AudioHeap_InitPersistentCache(&D_8014C240.persistent);
+    AudioHeap_InitPersistentCache(&D_8014C410.persistent);
+    AudioHeap_InitPersistentCache(&D_8014C5E0.persistent);
 }
 
 void func_8000C1F8(AudioCommonPoolSplit* split) {
     D_8014C230.curRamAddr = D_8014C230.startRamAddr;
-    AudioHeap_InitPool(&D_8014C3D4.pool, AudioHeap_Alloc(&D_8014C230, split->seqCacheSize), split->seqCacheSize);
-    AudioHeap_InitPool(&D_8014C5A4.pool, AudioHeap_Alloc(&D_8014C230, split->fontCacheSize), split->fontCacheSize);
-    AudioHeap_InitPool(&D_8014C774.pool, AudioHeap_Alloc(&D_8014C230, split->sampleBankCacheSize),
+    AudioHeap_InitPool(&D_8014C240.temporary.pool, AudioHeap_Alloc(&D_8014C230, split->seqCacheSize),
+                       split->seqCacheSize);
+    AudioHeap_InitPool(&D_8014C410.temporary.pool, AudioHeap_Alloc(&D_8014C230, split->fontCacheSize),
+                       split->fontCacheSize);
+    AudioHeap_InitPool(&D_8014C5E0.temporary.pool, AudioHeap_Alloc(&D_8014C230, split->sampleBankCacheSize),
                        split->sampleBankCacheSize);
-    AudioHeap_InitTemporaryCache(&D_8014C3D4);
-    AudioHeap_InitTemporaryCache(&D_8014C5A4);
-    AudioHeap_InitTemporaryCache(&D_8014C774);
+    AudioHeap_InitTemporaryCache(&D_8014C240.temporary);
+    AudioHeap_InitTemporaryCache(&D_8014C410.temporary);
+    AudioHeap_InitTemporaryCache(&D_8014C5E0.temporary);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000C2B4.s")
+void* AudioHeap_AllocCached(s32 tableType, s32 size, s32 cache, s32 id) {
+    AudioCache* loadedCache;
+    AudioTemporaryCache* temporaryCache;
+    AudioAllocPool* temporaryPool;
+    void* persistentRamAddr;
+    void* temporaryRamAddr;
+    u8 loadStatusEntry0;
+    u8 loadStatusEntry1;
+    s32 i;
+    u8* loadStatus;
+
+    switch (tableType) {
+        case 0:
+            loadedCache = &D_8014C240;
+            loadStatus = D_8014D428;
+            break;
+        case 1:
+            loadedCache = &D_8014C410;
+            loadStatus = D_8014D3E8;
+            break;
+        case 2:
+            loadedCache = &D_8014C5E0;
+            loadStatus = D_8014D3A8;
+            break;
+    }
+    if (cache == 0) {
+        temporaryCache = &loadedCache->temporary;
+        temporaryPool = &temporaryCache->pool;
+        if (loadedCache->temporary.entries[0].id == -1) {
+            loadStatusEntry0 = 0;
+        } else {
+            loadStatusEntry0 = loadStatus[temporaryCache->entries[0].id];
+        }
+        if (temporaryCache->entries[1].id == -1) {
+            loadStatusEntry1 = 0;
+        } else {
+            loadStatusEntry1 = loadStatus[temporaryCache->entries[1].id];
+        }
+        if (tableType == 1) {
+            if (loadStatusEntry0 == 4) {
+                for (i = 0; i < D_80155CA0; i++) {
+                    if ((D_8014E530[i].playbackState.fontId == temporaryCache->entries[0].id) &&
+                        D_8014E530[i].noteSubEu.bitField0.enabled) {
+                        break;
+                    }
+                }
+                if (i == D_80155CA0) {
+                    if (D_8014D3E8[temporaryCache->entries[0].id] != 5) {
+                        D_8014D3E8[temporaryCache->entries[0].id] = 3;
+                    }
+                    loadStatusEntry0 = 3;
+                }
+            }
+            if (loadStatusEntry1 == 4) {
+                for (i = 0; i < D_80155CA0; i++) {
+                    if ((D_8014E530[i].playbackState.fontId == temporaryCache->entries[1].id) &&
+                        D_8014E530[i].noteSubEu.bitField0.enabled) {
+                        break;
+                    }
+                }
+                if (i == D_80155CA0) {
+                    if (D_8014D3E8[temporaryCache->entries[1].id] != 5) {
+                        D_8014D3E8[temporaryCache->entries[1].id] = 3;
+                    }
+                    loadStatusEntry1 = 3;
+                }
+            }
+        }
+        if (loadStatusEntry0 == 0) {
+            temporaryCache->nextSide = 0;
+        } else if (loadStatusEntry1 == 0) {
+            temporaryCache->nextSide = 1;
+        } else if ((loadStatusEntry0 == 3) && (loadStatusEntry1 == 3)) {
+            // Use the opposite side from last time.
+        } else if (loadStatusEntry0 == 3) {
+            temporaryCache->nextSide = 0;
+        } else if (loadStatusEntry1 == 3) {
+            temporaryCache->nextSide = 1;
+        } else {
+            // Check if there is a side which isn't in active use, if so, evict that one.
+            if (tableType == 0) {
+                if (loadStatusEntry0 == 2) {
+                    for (i = 0; i < 4; i++) {
+                        if (D_8014E538[i].enabled && (D_8014E538[i].seqId == temporaryCache->entries[0].id)) {
+                            break;
+                        }
+                    }
+                    if (i == 4) {
+                        temporaryCache->nextSide = 0;
+                        goto block_85;
+                    }
+                }
+                if (loadStatusEntry1 == 2) {
+                    for (i = 0; i < 4; i++) {
+                        if (D_8014E538[i].enabled && (D_8014E538[i].seqId == temporaryCache->entries[1].id)) {
+                            break;
+                        }
+                    }
+                    if (i == 4) {
+                        temporaryCache->nextSide = 1;
+                        goto block_85;
+                    }
+                }
+            } else if (tableType == 1) {
+                if (loadStatusEntry0 == 2) {
+                    for (i = 0; i < D_80155CA0; i++) {
+                        if ((D_8014E530[i].playbackState.fontId == temporaryCache->entries[0].id) &&
+                            D_8014E530[i].noteSubEu.bitField0.enabled) {
+                            break;
+                        }
+                    }
+
+                    if (i == D_80155CA0) {
+                        temporaryCache->nextSide = 0;
+                        goto block_85;
+                    }
+                }
+                if (loadStatusEntry1 == 2) {
+                    for (i = 0; i < D_80155CA0; i++) {
+                        if ((D_8014E530[i].playbackState.fontId == temporaryCache->entries[1].id) &&
+                            D_8014E530[i].noteSubEu.bitField0.enabled) {
+                            break;
+                        }
+                    }
+                    if (i == D_80155CA0) {
+                        temporaryCache->nextSide = 1;
+                        goto block_85;
+                    }
+                }
+            }
+            // No such luck. Evict the side that wasn't chosen last time, except
+            // if it is being loaded into.
+            if (temporaryCache->nextSide == 0) {
+                if (loadStatusEntry0 == 1) {
+                    if (loadStatusEntry1 == 1) {
+                        goto block_84;
+                    }
+                    temporaryCache->nextSide = 1;
+                }
+                goto block_85;
+            }
+            if (loadStatusEntry1 == 1) {
+                if (loadStatusEntry0 == 1) {
+                    goto block_84;
+                }
+                temporaryCache->nextSide = 0;
+                goto block_85;
+            block_84:
+                return NULL;
+            }
+        }
+    block_85:
+
+        if (temporaryCache->entries[temporaryCache->nextSide].id != -1) {
+            loadStatus[temporaryCache->entries[temporaryCache->nextSide].id] = 0;
+            if (tableType == 1) {
+                AudioHeap_DiscardFont(temporaryCache->entries[temporaryCache->nextSide].id);
+            }
+        }
+        switch (temporaryCache->nextSide) {
+            case 0:
+                temporaryCache->entries[0].ramAddr = temporaryPool->startRamAddr;
+                temporaryCache->entries[0].id = id;
+                temporaryCache->entries[0].size = size;
+                temporaryPool->curRamAddr = &temporaryPool->startRamAddr[size];
+                if ((temporaryCache->entries[1].id != -1) &&
+                    (temporaryCache->entries[1].ramAddr < temporaryPool->curRamAddr)) {
+                    loadStatus[temporaryCache->entries[1].id] = 0;
+                    switch (tableType) {
+                        case 0:
+                            AudioHeap_DiscardSequence(temporaryCache->entries[1].id);
+                            break;
+                        case 1:
+                            AudioHeap_DiscardFont(temporaryCache->entries[1].id);
+                            break;
+                    }
+                    temporaryCache->entries[1].id = -1;
+                    temporaryCache->entries[1].ramAddr = &temporaryPool->startRamAddr[temporaryPool->size];
+                }
+                temporaryRamAddr = temporaryCache->entries[0].ramAddr;
+                break;
+            case 1:
+                temporaryCache->entries[1].ramAddr =
+                    (u8*) (((u32) &temporaryPool->startRamAddr[temporaryPool->size] - size) & ~0xF);
+                temporaryCache->entries[1].id = id;
+                temporaryCache->entries[1].size = size;
+                if ((temporaryCache->entries[0].id != -1) &&
+                    (temporaryCache->entries[1].ramAddr < temporaryPool->curRamAddr)) {
+                    loadStatus[temporaryCache->entries[0].id] = 0;
+                    switch (tableType) {
+                        case 0:
+                            AudioHeap_DiscardSequence(temporaryCache->entries[0].id);
+                            break;
+                        case 1:
+                            AudioHeap_DiscardFont(temporaryCache->entries[0].id);
+                            break;
+                    }
+                    temporaryCache->entries[0].id = -1;
+                    temporaryPool->curRamAddr = temporaryPool->startRamAddr;
+                }
+                temporaryRamAddr = temporaryCache->entries[1].ramAddr;
+                break;
+            default:
+                return NULL;
+        }
+        temporaryCache->nextSide ^= 1;
+        return temporaryRamAddr;
+    }
+    persistentRamAddr = AudioHeap_Alloc(&loadedCache->persistent.pool, size);
+    loadedCache->persistent.entries[loadedCache->persistent.numEntries].ramAddr = persistentRamAddr;
+    if (persistentRamAddr == NULL) {
+        switch (cache) {
+            case 2:
+                return AudioHeap_AllocCached(tableType, size, 0, id);
+            case 0:
+            case 1:
+                return NULL;
+        }
+    }
+    loadedCache->persistent.entries[loadedCache->persistent.numEntries].id = id;
+    loadedCache->persistent.entries[loadedCache->persistent.numEntries].size = size;
+    return loadedCache->persistent.entries[loadedCache->persistent.numEntries++].ramAddr;
+}
 
 s32 AudioHeap_SearchCaches(s32 tableType, s32 cache, s32 id) {
     void* ramAddr;
@@ -227,21 +666,252 @@ void func_8000CAF4(f32 p, f32 q, u16* out) {
     }
 }
 
-// Likely AudioHeap_UpdateReverbs
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000CEC8.s")
+void func_8000CEC8(void) {
+    s32 var_a1;
+    s32 var_v0;
+    s32 var_v1;
 
-// Likely AudioHeap_ClearCurrentAiBuffer
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000D08C.s")
+    if (D_80155C78.specUnk4 == 2) {
+        var_v0 = 2;
+    } else {
+        var_v0 = 1;
+    }
+    for (var_v1 = 0; var_v1 < D_8014C1B3; var_v1++) {
+        for (var_a1 = 0; var_a1 < var_v0; var_a1++) {
+            D_8014BA50[var_v1].unk_08 -= D_8014BA50[var_v1].unk_08 / 3;
+        }
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000D104.s")
+void func_8000D08C(void) {
+    s32 i;
+    s32 var_a1 = D_80155CB4;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000D4A8.s")
+    D_80155D7C[var_a1] = D_80155C78.minAiBufferLength;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/AudioHeap_SearchPermanentCache.s")
+    for (i = 0; i < 0xAA0; i++) {
+        D_80155D70[var_a1][i] = 0;
+    }
+}
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000DB64.s")
+s32 func_8000D104(void) {
+    s32 i;
+    s32 j;
+    s32 sp24;
 
-bool func_8000DBE4(s32 size, s32 fontId, s32 sampleAddr, s8 medium) {
+    if (D_80155C78.specUnk4 == 2) {
+        sp24 = 2;
+    } else {
+        sp24 = 1;
+    }
+    switch (D_8014D528) {
+        case 5:
+            for (i = 0; i < 4; i++) {
+                func_800144E4(&D_8014E538[i]);
+            }
+            D_8014D52C = 4 / sp24;
+            D_8014D528--;
+            break;
+        case 4:
+            if (D_8014D52C != 0) {
+                D_8014D52C--;
+                func_8000CEC8();
+            } else {
+                for (i = 0; i < D_80155CA0; i++) {
+                    if (D_8014E530[i].noteSubEu.bitField0.enabled && (D_8014E530[i].playbackState.adsr.state != 0)) {
+                        D_8014E530[i].playbackState.adsr.fadeOutVel = D_80155C78.ticksPerUpdateInv;
+                        D_8014E530[i].playbackState.adsr.action.asByte |= 0x10;
+                    }
+                }
+
+                D_8014D52C = 0x10 / sp24;
+                D_8014D528--;
+            }
+            break;
+        case 3:
+            if (D_8014D52C != 0) {
+                D_8014D52C--;
+                func_8000CEC8();
+            } else {
+                for (i = 0; i < 3; i++) {
+                    for (j = 0; j < 0xAA0; j++) {
+                        D_80155D70[i][j] = 0;
+                    }
+                }
+                D_8014D52C = 4 / sp24;
+                D_8014D528--;
+                break; // needed to match
+            }
+            break;
+        case 2:
+            func_8000D08C();
+            if (D_8014D52C != 0) {
+                D_8014D52C--;
+            } else {
+                D_8014D528--;
+                func_8000E290();
+            }
+            break;
+        case 1:
+            func_8000D4A8();
+            D_8014D528 = 0;
+            for (i = 0; i < 3; i++) {
+                D_80155D7C[i] = D_80155C78.maxAiBufferLength;
+                for (j = 0; j < 0xAA0; j++) {
+                    D_80155D70[i][j] = 0;
+                }
+            }
+            break;
+    }
+    if (D_8014D528 < 3) {
+        return 0;
+    }
+    return 1;
+}
+
+void func_8000D4A8(void) {
+    s32 i;
+    s32 j;
+    AudioSpec* spec = &D_800C76B8[D_8014D529];
+    ReverbSettings* temp_v0_2;
+    SynthesisReverb* temp;
+    s16* temp_v0_3;
+    u32 temp_s0;
+    u32 temp_s1;
+    u32 temp_v0;
+    u32 temp_v1;
+
+    D_80155A48 = 0;
+    D_80155C78.samplingFrequency = spec->samplingFrequency;
+    D_80155C78.aiSamplingFrequency = osAiSetFrequency(D_80155C78.samplingFrequency);
+    D_80155C78.samplesPerFrameTarget = ((D_80155C78.samplingFrequency / D_80155D6C) + 0xF) & (u16) ~0xF;
+
+    D_80155C78.minAiBufferLength = D_80155C78.samplesPerFrameTarget - 0x10;
+    D_80155C78.maxAiBufferLength = D_80155C78.samplesPerFrameTarget + 0x10;
+
+    D_80155C78.ticksPerUpdate = ((D_80155C78.samplesPerFrameTarget + 0x10) / 192) + 1;
+    D_80155C78.samplesPerTick = (D_80155C78.samplesPerFrameTarget / D_80155C78.ticksPerUpdate) & ~7;
+    D_80155C78.samplesPerTickMax = D_80155C78.samplesPerTick + 8;
+    D_80155C78.samplesPerTickMin = D_80155C78.samplesPerTick - 8;
+    D_80155C78.resampleRate = 32000.0f / (s32) D_80155C78.samplingFrequency;
+    D_80155C78.ticksPerUpdateInvScaled = 0.001171875f / D_80155C78.ticksPerUpdate;
+    D_80155C78.ticksPerUpdateInv = 1.0f / D_80155C78.ticksPerUpdate;
+    D_80155CA0 = spec->numNotes;
+    D_8014C1B0 = spec->unk_14;
+    D_80155CA4 = (D_80155C78.ticksPerUpdate * 2880000.0f / D_800C7C2C) / D_80155D68;
+    D_80155C78.specUnk4 = spec->unk_04;
+    D_80155C78.samplesPerFrameTarget *= D_80155C78.specUnk4;
+    D_80155C78.maxAiBufferLength *= D_80155C78.specUnk4;
+    D_80155C78.minAiBufferLength *= D_80155C78.specUnk4;
+    D_80155C78.ticksPerUpdate *= D_80155C78.specUnk4;
+    if (D_80155C78.specUnk4 >= 2) {
+        D_80155C78.maxAiBufferLength -= 0x10;
+    }
+    D_80155C9C = (D_80155CA0 * 0x14 * D_80155C78.ticksPerUpdate) + (spec->numReverbs * 0x20) + 0x1E0;
+    temp_s0 = spec->persistentSeqCacheSize + spec->persistentFontCacheSize + spec->persistentSampleBankCacheSize +
+              spec->persistentSampleCacheSize + 0x10;
+    temp_s1 = spec->temporarySeqCacheSize + spec->temporaryFontCacheSize + spec->temporarySampleBankCacheSize +
+              spec->temporarySampleCacheSize + 0x10;
+    temp_v0 = temp_s0 + temp_s1;
+    temp_v1 = D_8014C1C0.size - (temp_v0 + 0x100);
+    D_8014D370.miscPoolSize = temp_v1;
+    D_8014D370.cachePoolSize = temp_v0;
+    func_8000C044(&D_8014D370);
+    D_8014D380.seqCacheSize = temp_s0;
+    D_8014D380.fontCacheSize = temp_s1;
+    func_8000C0C0(&D_8014D380);
+    D_8014D388.seqCacheSize = spec->persistentSeqCacheSize;
+    D_8014D388.fontCacheSize = spec->persistentFontCacheSize;
+    D_8014D388.sampleBankCacheSize = spec->persistentSampleBankCacheSize;
+    func_8000C13C(&D_8014D388);
+    D_8014D398.seqCacheSize = spec->temporarySeqCacheSize;
+    D_8014D398.fontCacheSize = spec->temporaryFontCacheSize;
+    D_8014D398.sampleBankCacheSize = spec->temporarySampleBankCacheSize;
+    func_8000C1F8(&D_8014D398);
+    func_8000DCD4(spec->persistentSampleCacheSize, spec->temporarySampleCacheSize);
+    AudioHeap_ResetLoadStatus();
+    D_8014E530 = AudioHeap_AllocZeroed(&D_8014C1E0, D_80155CA0 * sizeof(Note_C0));
+    func_800132E8();
+    func_800128B4();
+    D_8014C1B8 = AudioHeap_AllocZeroed(&D_8014C1E0, D_80155C78.ticksPerUpdate * D_80155CA0 * sizeof(NoteSubEu_Short));
+    for (i = 0; i != 2; i++) {
+        D_80155CB8[i] = AudioHeap_AllocZeroed(&D_8014C1E0, D_80155C9C * 8);
+    }
+    for (i = 0; i < 4; i++) {
+        D_8014BA50[i].useReverb = 0;
+    }
+    D_8014C1B3 = spec->numReverbs;
+    for (i = 0; i < D_8014C1B3; i++) {
+        temp_v0_2 = &spec->reverbSettings[i];
+        temp = &D_8014BA50[i];
+        temp->downsampleRate = temp_v0_2->downsampleRate;
+        temp->windowSize = temp_v0_2->windowSize * 64;
+        temp->unk_08 = temp_v0_2->unk_2;
+        temp->decayRatio = temp_v0_2->decayRatio;
+        temp->unk_0E = temp_v0_2->unk_6;
+        temp->useReverb = 8;
+
+        temp->leftRingBuf = AudioHeap_AllocZeroed(&D_8014C1E0, temp->windowSize * 2);
+        temp->rightRingBuf = AudioHeap_AllocZeroed(&D_8014C1E0, temp->windowSize * 2);
+        temp->nextRingBufPos = 0;
+        temp->unk_20 = 0;
+        temp->curFrame = 0;
+
+        temp->bufSizePerChan = temp->windowSize;
+        temp->framesToIgnore = 2;
+        if (temp->downsampleRate != 1) {
+            temp->resampleFlags = 1;
+            temp->unk_0A = (0x8000 / temp->downsampleRate);
+            temp->unk_30 = AudioHeap_AllocZeroed(&D_8014C1E0, 0x20);
+            temp->unk_34 = AudioHeap_AllocZeroed(&D_8014C1E0, 0x20);
+            temp->unk_38 = AudioHeap_AllocZeroed(&D_8014C1E0, 0x20);
+            temp->unk_3C = AudioHeap_AllocZeroed(&D_8014C1E0, 0x20);
+            for (j = 0; j < D_80155C78.ticksPerUpdate; j++) {
+                temp_v0_3 = AudioHeap_AllocZeroed(&D_8014C1E0, 0x300);
+                temp->items[0][j].toDownsampleLeft = temp_v0_3;
+                temp->items[0][j].toDownsampleRight = temp_v0_3 + 192;
+                temp_v0_3 = AudioHeap_AllocZeroed(&D_8014C1E0, 0x300);
+                temp->items[1][j].toDownsampleLeft = temp_v0_3;
+                temp->items[1][j].toDownsampleRight = temp_v0_3 + 192;
+            }
+        }
+    }
+    func_8000E8E0(D_80155CA0);
+    D_80153D04 = 0;
+    D_8014C1B4 = 0x1000;
+    osWritebackDCacheAll();
+}
+
+void* AudioHeap_SearchPermanentCache(s32 tableType, s32 id) {
+    s32 i;
+    AudioAllocPool* var_a1;
+    s32 var_v0;
+
+    for (i = 0; i < D_8014C7B0.pool.numEntries; i++) {
+        if ((tableType == D_8014C7B0.entry[i].tableType) && (id == D_8014C7B0.entry[i].id)) {
+            return D_8014C7B0.entry[i].ramAddr;
+        }
+    }
+    return NULL;
+}
+
+u8* func_8000DB64(s32 arg0, s32 arg1, u32 arg2) {
+    u8* temp;
+    s32 sp18 = D_8014C7B0.pool.numEntries;
+
+    temp = AudioHeap_Alloc(&D_8014C7B0.pool, arg2);
+    D_8014C7B0.entry[sp18].ramAddr = temp;
+    if (temp == NULL) {
+        return NULL;
+    }
+
+    D_8014C7B0.entry[sp18].tableType = arg0;
+    D_8014C7B0.entry[sp18].id = arg1;
+    D_8014C7B0.entry[sp18].size = arg2;
+    // return temp;
+}
+
+void* AudioHeap_AllocTemporarySampleCache(s32 size, s32 fontId, s32 sampleAddr, s8 medium) {
     SampleCacheEntry* entry = AudioHeap_AllocTemporarySampleCacheEntry(size);
 
     if (entry != NULL) {
@@ -250,24 +920,11 @@ bool func_8000DBE4(s32 size, s32 fontId, s32 sampleAddr, s8 medium) {
         entry->origMedium = medium;
         return entry->allocatedAddr;
     } else {
-        return false;
+        return NULL;
     }
 }
 
-s32 func_8000DC34(s32 size, s32 fontId, s32 sampleAddr, s8 medium) {
-    SampleCacheEntry* entry = AudioHeap_AllocPersistentSampleCacheEntry(size);
-
-    if (entry != NULL) {
-        entry->sampleBankId = fontId;
-        entry->sampleAddr = sampleAddr;
-        entry->origMedium = medium;
-        return entry->allocatedAddr;
-    } else {
-        return false;
-    }
-}
-
-u8* func_8000DC84(u32 size, s32 fontId, s32 sampleAddr, s8 medium) {
+void* AudioHeap_AllocPersistentSampleCache(s32 size, s32 fontId, s32 sampleAddr, s8 medium) {
     SampleCacheEntry* entry = AudioHeap_AllocPersistentSampleCacheEntry(size);
 
     if (entry != NULL) {
@@ -280,19 +937,213 @@ u8* func_8000DC84(u32 size, s32 fontId, s32 sampleAddr, s8 medium) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000DCD4.s")
+void* AudioHeap_AllocPersistentSampleCache_2(u32 size, s32 fontId, s32 sampleAddr, s8 medium) {
+    SampleCacheEntry* entry = AudioHeap_AllocPersistentSampleCacheEntry(size);
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/AudioHeap_AllocTemporarySampleCacheEntry.s")
-
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000DFFC.s")
-
-void func_8000E1C4(UnkStruct_8000E1C4_1* arg0, UnkStruct_8000E1C4_2* arg1) {
-    if ((arg1 != NULL) && (arg1->unk_04 == arg0->unk_08)) {
-        arg1->unk_04 = arg0->unk_0C;
-        arg1->unk_00 = (((arg0->unk_01 & 0xFF) * 4) & 0xC) | (arg1->unk_00 & 0xFFF3);
+    if (entry != NULL) {
+        entry->sampleBankId = fontId;
+        entry->sampleAddr = sampleAddr;
+        entry->origMedium = medium;
+        return entry->allocatedAddr;
+    } else {
+        return NULL;
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/AudioHeap_AllocPersistentSampleCacheEntry.s")
+void func_8000DCD4(u32 arg0, u32 arg1) {
+    void* temp_v0;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_C870/func_8000E290.s")
+    temp_v0 = AudioHeap_Alloc(&D_8014C220, arg0);
+    if (temp_v0 == NULL) {
+        D_8014C940.pool.size = 0;
+    } else {
+        AudioHeap_InitPool(&D_8014C940.pool, temp_v0, arg0);
+    }
+    temp_v0 = AudioHeap_Alloc(&D_8014C230, arg1);
+    if (temp_v0 == NULL) {
+        D_8014CE58.pool.size = 0;
+    } else {
+        AudioHeap_InitPool(&D_8014CE58.pool, temp_v0, arg1);
+    }
+    D_8014C940.numEntries = 0;
+    D_8014CE58.numEntries = 0;
+}
+
+SampleCacheEntry* AudioHeap_AllocTemporarySampleCacheEntry(s32 arg0) {
+    u8* temp_a0;
+    u8* temp_s0;
+    u8* sp3C;
+    s32 i;
+    s32 var_s5;
+    SampleCacheEntry* entry;
+    AudioPreloadReq* preload;
+    AudioSampleCache* cache;
+    u8* temp_s2;
+    u8* temp_v0_3;
+    u8* var_s3;
+
+    cache = &D_8014CE58;
+    var_s3 = cache->pool.curRamAddr;
+    sp3C = AudioHeap_Alloc(&cache->pool, (u32) arg0);
+    if (sp3C == NULL) {
+        temp_s0 = cache->pool.curRamAddr;
+        cache->pool.curRamAddr = cache->pool.startRamAddr;
+        sp3C = AudioHeap_Alloc(&cache->pool, (u32) arg0);
+        if (sp3C == NULL) {
+            cache->pool.curRamAddr = temp_s0;
+            return NULL;
+        }
+        var_s3 = cache->pool.startRamAddr;
+    }
+    temp_s2 = cache->pool.curRamAddr;
+    var_s5 = -1;
+    for (i = 0; i < D_80153D04; i++) {
+        preload = &D_80153300[i];
+        if (preload->isFree == 0) {
+            temp_v0_3 = preload->ramAddr;
+            temp_a0 = preload->ramAddr + preload->sample->size - 1;
+            if ((temp_a0 < var_s3) && (temp_v0_3 < var_s3)) {
+                continue;
+            }
+            if ((temp_a0 >= temp_s2) && (temp_v0_3 >= temp_s2)) {
+                continue;
+            }
+            preload->isFree = 1;
+        }
+    }
+    for (i = 0; i < cache->numEntries; i++) {
+        if (cache->entries[i].inUse == 0) {
+            continue;
+        }
+        temp_v0_3 = cache->entries[i].allocatedAddr;
+        temp_a0 = temp_v0_3 + cache->entries[i].size - 1;
+        if ((temp_a0 < var_s3) && (temp_v0_3 < var_s3)) {
+            continue;
+        }
+        if ((temp_a0 >= temp_s2) && (temp_v0_3 >= temp_s2)) {
+            continue;
+        }
+        func_8000DFFC(&cache->entries[i]);
+        if (var_s5 == -1) {
+            var_s5 = i;
+        }
+    }
+    if (var_s5 == -1) {
+        var_s5 = cache->numEntries++;
+    }
+    entry = &cache->entries[var_s5];
+    entry->inUse = 1;
+    entry->allocatedAddr = sp3C;
+    entry->size = arg0;
+    return entry;
+}
+
+void func_8000DFFC(SampleCacheEntry* entry) {
+    s32 i;
+    s32 sp40;
+    Drum* temp_v0_3;
+    Instrument* temp_v0_2;
+    s32 var_s1;
+    s32 var_s2;
+    s32 temp_a0;
+    s32 temp_v1;
+
+    sp40 = D_80155C60->numEntries;
+    for (i = 0; i < sp40; i++) {
+        temp_v1 = D_80155C70[i].sampleBankId1;
+        temp_a0 = D_80155C70[i].sampleBankId2;
+        if (((temp_v1 != 0xFF) && (entry->sampleBankId == temp_v1)) ||
+            ((temp_a0 != 0xFF) && (entry->sampleBankId == temp_a0)) || (entry->sampleBankId == 0)) {
+            if ((AudioHeap_SearchCaches(1, 2, i) != NULL) && ((D_8014D3E8[i] > 1) != 0)) {
+                for (var_s1 = 0; var_s1 < D_80155C70[i].numInstruments; var_s1++) {
+                    temp_v0_2 = func_80011D4C(i, var_s1);
+                    if (temp_v0_2 != NULL) {
+                        if (temp_v0_2->normalRangeLo != 0) {
+                            func_8000E1C4(entry, temp_v0_2->lowPitchTunedSample.sample);
+                        }
+                        if (temp_v0_2->normalRangeHi != 0x7F) {
+                            func_8000E1C4(entry, temp_v0_2->highPitchTunedSample.sample);
+                        }
+                        func_8000E1C4(entry, temp_v0_2->normalPitchTunedSample.sample);
+                    }
+                }
+                for (var_s2 = 0; var_s2 < D_80155C70[i].numDrums; var_s2++) {
+                    temp_v0_3 = func_80011DFC(i, var_s2);
+                    if (temp_v0_3 != NULL) {
+                        func_8000E1C4(entry, temp_v0_3->tunedSample.sample);
+                    }
+                }
+            }
+        }
+    }
+}
+
+void func_8000E1C4(SampleCacheEntry* entry, Sample* sample) {
+    if ((sample != NULL) && (sample->sampleAddr == entry->allocatedAddr)) {
+        sample->sampleAddr = entry->sampleAddr;
+        sample->medium = entry->origMedium;
+    }
+}
+
+SampleCacheEntry* AudioHeap_AllocPersistentSampleCacheEntry(u32 arg0) {
+    AudioSampleCache* cache = &D_8014C940;
+    SampleCacheEntry* temp_v0;
+    u8* temp_v0_2;
+
+    temp_v0_2 = AudioHeap_Alloc(&cache->pool, arg0);
+    if (temp_v0_2 == NULL) {
+        return NULL;
+    }
+    temp_v0 = &cache->entries[cache->numEntries];
+    temp_v0->inUse = 1;
+    temp_v0->allocatedAddr = temp_v0_2;
+    temp_v0->size = arg0;
+    cache->numEntries++;
+    return temp_v0;
+}
+
+void func_8000E290(void) {
+    s32 i;
+    s32 j;
+    s32 sp40;
+    s32 temp_a0;
+    s32 temp_v1;
+    u32 temp_a1;
+    s32 var_s1;
+    s32 var_s2;
+    Drum* temp_v0_3;
+    Instrument* temp_v0_2;
+    SampleCacheEntry* entry;
+
+    sp40 = D_80155C60->numEntries;
+    for (i = 0; i < sp40; i++) {
+        temp_v1 = D_80155C70[i].sampleBankId1;
+        temp_a0 = D_80155C70[i].sampleBankId2;
+        if (((temp_v1 != 0xFFU) && (entry->sampleBankId == temp_v1)) ||
+            ((temp_a0 != 0xFF) && (entry->sampleBankId == temp_a0)) || (entry->sampleBankId == 0)) {
+            if ((AudioHeap_SearchCaches(1, 3, i) != NULL) && ((D_8014D3E8[i] > 1) != 0)) {
+                for (j = 0; j < D_8014C940.numEntries; j++) {
+                    entry = &D_8014C940.entries[j];
+                    for (var_s1 = 0; var_s1 < D_80155C70[i].numInstruments; var_s1++) {
+                        temp_v0_2 = func_80011D4C(i, var_s1);
+                        if (temp_v0_2 != NULL) {
+                            if (temp_v0_2->normalRangeLo != 0) {
+                                func_8000E1C4(entry, temp_v0_2->lowPitchTunedSample.sample);
+                            }
+                            if (temp_v0_2->normalRangeHi != 0x7F) {
+                                func_8000E1C4(entry, temp_v0_2->highPitchTunedSample.sample);
+                            }
+                            func_8000E1C4(entry, temp_v0_2->normalPitchTunedSample.sample);
+                        }
+                    }
+                    for (var_s2 = 0; var_s2 < D_80155C70[i].numDrums; var_s2++) {
+                        temp_v0_3 = func_80011DFC(i, var_s2);
+                        if (temp_v0_3 != NULL) {
+                            func_8000E1C4(entry, temp_v0_3->tunedSample.sample);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

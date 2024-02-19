@@ -239,10 +239,10 @@ typedef struct {
     /* 0x01 */ u8 numDrums;
     /* 0x02 */ u8 sampleBankId1;
     /* 0x03 */ u8 sampleBankId2;
-    /* 0x04 */ u16 numSfx;
+    // /* 0x04 */ u16 numSfx;
     /* 0x08 */ Instrument** instruments;
     /* 0x0C */ Drum** drums;
-    /* 0x10 */ SoundEffect* soundEffects;
+    // /* 0x10 */ SoundEffect* soundEffects;
 } SoundFont; // size = 0x14
 
 typedef struct {
@@ -253,9 +253,9 @@ typedef struct {
     /* 0x0C */ s32 startPos;                    // start pos in ring buffer
     /* 0x10 */ s16 lengthA;                     // first length in ring buffer (from startPos, at most until end)
     /* 0x12 */ s16 lengthB;                     // second length in ring buffer (from pos 0)
-    /* 0x14 */ u16 unk_14;
-    /* 0x16 */ u16 unk_16;
-    /* 0x18 */ u16 unk_18;
+    // /* 0x14 */ u16 unk_14;
+    // /* 0x16 */ u16 unk_16;
+    // /* 0x18 */ u16 unk_18;
 } ReverbRingBufferItem; // size = 0x1C
 
 typedef struct {
@@ -266,18 +266,18 @@ typedef struct {
     /* 0x004 */ u8 downsampleRate;
     /* 0x005 */ s8 unk_05;
     /* 0x006 */ u16 windowSize;
-    /* 0x008 */ s16 unk_08;
-    /* 0x00A */ s16 volume;
+    /* 0x008 */ u16 unk_08;
+    /* 0x00A */ s16 unk_0A;
     /* 0x00C */ u16 decayRatio; // determines how much reverb persists
     /* 0x00E */ u16 unk_0E;
-    /* 0x010 */ s16 leakRtl;
-    /* 0x012 */ s16 leakLtr;
-    /* 0x014 */ u16 unk_14;
-    /* 0x016 */ s16 unk_16;
-    /* 0x018 */ u8 unk_18;
-    /* 0x019 */ u8 unk_19;
-    /* 0x01A */ u8 unk_1A;
-    /* 0x01B */ u8 unk_1B;
+    // /* 0x010 */ s16 leakRtl;
+    // /* 0x012 */ s16 leakLtr;
+    // /* 0x014 */ u16 unk_14;
+    // /* 0x016 */ s16 unk_16;
+    // /* 0x018 */ u8 unk_18;
+    // /* 0x019 */ u8 unk_19;
+    // /* 0x01A */ u8 unk_1A;
+    // /* 0x01B */ u8 unk_1B;
     /* 0x01C */ s32 nextRingBufPos;
     /* 0x020 */ s32 unk_20;
     /* 0x024 */ s32 bufSizePerChan;
@@ -287,15 +287,16 @@ typedef struct {
     /* 0x034 */ void* unk_34;
     /* 0x038 */ void* unk_38;
     /* 0x03C */ void* unk_3C;
-    /* 0x040 */ ReverbRingBufferItem items[2][5];
-    /* 0x158 */ ReverbRingBufferItem items2[2][5];
-    /* 0x270 */ s16* filterLeft;
-    /* 0x274 */ s16* filterRight;
-    /* 0x278 */ s16* filterLeftState;
-    /* 0x27C */ s16* filterRightState;
-    /* 0x280 */ TunedSample tunedSample;
-    /* 0x288 */ Sample sample;
-    /* 0x298 */ AdpcmLoop loop;
+    /* 0x040 */ ReverbRingBufferItem items[2][10];
+    char pad[0x10];
+    // /* 0x158 */ ReverbRingBufferItem items2[2][5];
+    // /* 0x270 */ s16* filterLeft;
+    // /* 0x274 */ s16* filterRight;
+    // /* 0x278 */ s16* filterLeftState;
+    // /* 0x27C */ s16* filterRightState;
+    // /* 0x280 */ TunedSample tunedSample;
+    // /* 0x288 */ Sample sample;
+    // /* 0x298 */ AdpcmLoop loop;
 } SynthesisReverb; // size = 0x2C8
 
 typedef struct {
@@ -363,18 +364,18 @@ typedef struct {
             /* 0x00 */ u8 hang : 1;
             /* 0x00 */ u8 decay : 1;
             /* 0x00 */ u8 release : 1;
-            /* 0x00 */ u8 state : 4;
+            /* 0x00 */ 
         } s;
         /* 0x00 */ u8 asByte;
     } action;
-    /* 0x01 */ u8 envIndex;
-    /* 0x02 */ s16 delay;
-    /* 0x04 */ f32 sustain;
-    /* 0x08 */ f32 velocity;
-    /* 0x0C */ f32 fadeOutVel;
-    /* 0x10 */ f32 current;
-    /* 0x14 */ f32 target;
-    /* 0x18 */ char unk_18[4];
+    /* 0x01 */ u8 state;
+    /* 0x02 */ u8 envIndex;
+    /* 0x04 */ s16 delay;
+    /* 0x08 */ f32 sustain;
+    /* 0x0C */ f32 velocity;
+    /* 0x10 */ f32 fadeOutVel;
+    /* 0x14 */ f32 current;
+    /* 0x18 */ f32 target;
     /* 0x1C */ EnvelopePoint* envelope;
 } AdsrState; // size = 0x20
 
@@ -400,9 +401,9 @@ typedef struct {
     /* 0x04 */ u8 combFilterSize;
     /* 0x06 */ u16 combFilterGain;
     /* 0x08 */ f32 freqScale;
-    /* 0x0C */ f32 velocity;
-    /* 0x10 */ s16* filter;
-    /* 0x14 */ s16 filterBuf[8];
+    // /* 0x0C */ f32 velocity;
+    // /* 0x10 */ s16* filter;
+    // /* 0x14 */ s16 filterBuf[8];
 } NoteAttributes; // size = 0x24
 
 // Also known as a SubTrack, according to sm64 debug strings.
@@ -616,17 +617,18 @@ typedef struct Note {
 
 typedef struct {
     /* 0x00 */ u8 downsampleRate;
-    /* 0x02 */ u16 windowSize;
+    /* 0x02 */ u8 windowSize;
+    /* 0x02 */ u16 unk_2;
     /* 0x04 */ u16 decayRatio; // determines how much reverb persists
     /* 0x06 */ u16 unk_6;
-    /* 0x08 */ u16 unk_8;
-    /* 0x0A */ u16 volume;
-    /* 0x0C */ u16 leakRtl;
-    /* 0x0E */ u16 leakLtr;
-    /* 0x10 */ s8 unk_10;
-    /* 0x12 */ u16 unk_12;
-    /* 0x14 */ s16 lowPassFilterCutoffLeft;
-    /* 0x16 */ s16 lowPassFilterCutoffRight;
+    // /* 0x08 */ u16 unk_8;
+    // /* 0x0A */ u16 volume;
+    // /* 0x0C */ u16 leakRtl;
+    // /* 0x0E */ u16 leakLtr;
+    // /* 0x10 */ s8 unk_10;
+    // /* 0x12 */ u16 unk_12;
+    // /* 0x14 */ s16 lowPassFilterCutoffLeft;
+    // /* 0x16 */ s16 lowPassFilterCutoffRight;
 } ReverbSettings; // size = 0x18
 
 /**
@@ -637,15 +639,15 @@ typedef struct {
     /* 0x00 */ u32 samplingFrequency; // Target sampling rate in Hz
     /* 0x04 */ u8 unk_04;
     /* 0x05 */ u8 numNotes;
-    /* 0x06 */ u8 numSequencePlayers;
-    /* 0x07 */ u8 unk_07; // unused, set to zero
-    /* 0x08 */ u8 unk_08; // unused, set to zero
-    /* 0x09 */ u8 numReverbs;
+    /* 0x06 */ u8 numReverbs;
+    // /* 0x07 */ u8 unk_07; // unused, set to zero
+    // /* 0x08 */ u8 unk_08; // unused, set to zero
+    // /* 0x09 */ u8 numReverbs;
     /* 0x0C */ ReverbSettings* reverbSettings;
-    /* 0x10 */ u16 sampleDmaBufSize1; // size of buffers in the audio misc pool to store small snippets of individual
-                                      // samples. Stored short-lived.
-    /* 0x12 */ u16 sampleDmaBufSize2; // size of buffers in the audio misc pool to store small snippets of individual
-                                      // samples. Stored long-lived.
+    // /* 0x10 */ u16 sampleDmaBufSize1; // size of buffers in the audio misc pool to store small snippets of individual
+    //                                   // samples. Stored short-lived.
+    // /* 0x12 */ u16 sampleDmaBufSize2; // size of buffers in the audio misc pool to store small snippets of individual
+    //                                   // samples. Stored long-lived.
     /* 0x14 */ u16 unk_14;
     /* 0x18 */ u32 persistentSeqCacheSize;  // size of cache on audio pool to store sequences persistently
     /* 0x1C */ u32 persistentFontCacheSize; // size of cache on audio pool to store soundFonts persistently
@@ -676,11 +678,11 @@ typedef struct {
     /* 0x0E */ s16 samplesPerTick;
     /* 0x10 */ s16 samplesPerTickMax;
     /* 0x12 */ s16 samplesPerTickMin;
-    /* 0x14 */ s16 numSequencePlayers;
+    // /* 0x14 */ s16 numSequencePlayers;
     /* 0x18 */ f32 resampleRate;
     /* 0x1C */ f32 ticksPerUpdateInv;       // inverse (reciprocal) of ticksPerUpdate
     /* 0x20 */ f32 ticksPerUpdateInvScaled; // ticksPerUpdateInv scaled down by a factor of 256
-    /* 0x24 */ f32 ticksPerUpdateScaled;    // ticksPerUpdate scaled down by a factor of 4
+    // /* 0x24 */ f32 ticksPerUpdateScaled;    // ticksPerUpdate scaled down by a factor of 4
 } AudioBufferParameters;                    // size = 0x28
 
 /**
@@ -721,15 +723,15 @@ typedef struct {
  */
 typedef struct {
     /* 0x000 */ AudioAllocPool pool;
-    /* 0x010 */ SampleCacheEntry entries[32];
+    /* 0x010 */ SampleCacheEntry entries[64];
     /* 0x290 */ s32 numEntries;
 } AudioSampleCache; // size = 0x294
 
 typedef struct {
     /* 0x00*/ u32 numEntries;
     /* 0x04*/ AudioAllocPool pool;
-    /* 0x14*/ AudioCacheEntry entries[16];
-} AudioPersistentCache; // size = 0xD4
+    /* 0x14*/ AudioCacheEntry entries[32];
+} AudioPersistentCache; // size = 0x194
 
 typedef struct {
     /* 0x00*/ u32 nextSide;
@@ -739,10 +741,8 @@ typedef struct {
 
 typedef struct {
     /* 0x000*/ AudioPersistentCache persistent;
-    /* 0x030 */ char pad[0xC0]; // missing cache?
-    /* 0x194*/ AudioTemporaryCache temporary; // differs from OOT
-    /* 0x100*/ u8 unk_100[0x10];
-} AudioCache; // size = 0x110
+    /* 0x194*/ AudioTemporaryCache temporary;
+} AudioCache; // size = 0x1D0
 
 typedef struct {
     /* 0x0 */ u32 persistentCommonPoolSize;

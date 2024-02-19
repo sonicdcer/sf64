@@ -25,10 +25,10 @@ func_8000B98C = 0x8000B98C;
 
 
 
-func_8000BC70 = 0x8000BC70;
-func_8000BD38 = 0x8000BD38;
-func_8000BE24 = 0x8000BE24;
-func_8000BE94 = 0x8000BE94;
+AudioHeap_ResetLoadStatus = 0x8000BC70;
+AudioHeap_DiscardFont = 0x8000BD38;
+AudioHeap_DiscardSequence = 0x8000BE24;
+AudioHeap_AllocZeroed = 0x8000BE94;
 AudioHeap_Alloc = 0x8000BF14;
 AudioHeap_InitPool = 0x8000BF6C;
 AudioHeap_InitPersistentCache = 0x8000BF94;
@@ -39,7 +39,7 @@ func_8000C044 = 0x8000C044;
 func_8000C0C0 = 0x8000C0C0;
 func_8000C13C = 0x8000C13C;
 func_8000C1F8 = 0x8000C1F8;
-func_8000C2B4 = 0x8000C2B4;
+AudioHeap_AllocCached = 0x8000C2B4;
 AudioHeap_SearchCaches = 0x8000C990;
 AudioHeap_SearchRegularCaches = 0x8000C9E8;
 func_8000CAF4 = 0x8000CAF4;
@@ -49,9 +49,9 @@ func_8000D104 = 0x8000D104;
 func_8000D4A8 = 0x8000D4A8;
 AudioHeap_SearchPermanentCache = 0x8000DB0C;
 func_8000DB64 = 0x8000DB64;
-func_8000DBE4 = 0x8000DBE4;
-func_8000DC34 = 0x8000DC34;
-func_8000DC84 = 0x8000DC84;
+AudioHeap_AllocTemporarySampleCache = 0x8000DBE4;
+AudioHeap_AllocPersistentSampleCache = 0x8000DC34;
+AudioHeap_AllocPersistentSampleCache_2 = 0x8000DC84;
 func_8000DCD4 = 0x8000DCD4;
 AudioHeap_AllocTemporarySampleCacheEntry = 0x8000DD68;
 func_8000DFFC = 0x8000DFFC;
