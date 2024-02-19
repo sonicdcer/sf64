@@ -64,6 +64,7 @@
     "mods.h": "c",
     "i5.h": "c",
     "ast_warp_zone.h": "c"
+    "sf64audio_provisional.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }
