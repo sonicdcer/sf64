@@ -31,8 +31,12 @@
     start: 0x8D99F0
 
   - name: ast_blue_marine #3
-    type: bin
+    type: code
+    dir: assets
     start: 0x8E1F80
+    vram: 0x03000000
+    subsegments:
+      - [0x8E1F80, .data, ast_blue_marine/ast_blue_marine]
 
   - name: ast_vs_player #3
     type: bin
