@@ -2,7 +2,12 @@
   segments:
     seg15: 0xD25100
   header:
-    - '#include "assets/ast_logo.h"'
+    code:
+      - '#include "assets/ast_logo.h"'
+    header:
+      - '#include "gfx.h"'
+      - '#include "sf64object.h"'
+      - '#include "structs.h"'
 
 nintendo_logo:
   type: TEXTURE

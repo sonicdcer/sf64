@@ -946,10 +946,10 @@ extern Gfx D_60185E0[];
 extern Gfx D_6017550[];
 
 // ast_7_ti_2, ast_7_ti_1, ast_warp_zone, ast_versus, ast_ending
-extern u8 D_7000F10[];
-extern u8 D_7001030[];
-extern u8 D_7001270[];
-extern Gfx D_7001540[];
+extern u8 D_7000F10[]; // fox_option
+extern u8 D_7001030[]; // fox_option
+extern u8 D_7001270[]; // fox_option
+extern Gfx D_7001540[]; // fox_bg
 extern u8 D_7001DF0[];
 extern u8 D_7002110[];
 extern u8 D_7003650[];
