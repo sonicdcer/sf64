@@ -168,7 +168,7 @@ void func_800A1C14(Gfx** arg0) {
 void func_800A1E68(Gfx** arg0) {
     gSPDisplayList((*arg0)++, D_Gfx_800DBAA0);
     gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT * 3);
-    gDPSetFillColor((*arg0)++, 0x00010001);
+    gDPSetFillColor((*arg0)++, FILL_COLOR(0x0001));
     gDPSetColorImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, gFrameBuffers[0].data);
     gDPFillRectangle((*arg0)++, 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT * 3 - 1);
     gDPPipeSync((*arg0)++);

@@ -73,8 +73,8 @@ typedef struct {
     /* 0x10 */ f32 scale;
 } UnkStruct_D_menu_801B8688; // size = 0x14
 
-extern UnkStruct_D_menu_801B8294 D_menu_801B6B40[];
-extern UnkStruct_D_menu_801B8294 D_menu_801B6C60[];
+extern CameraPoint D_menu_801B6B40[];
+extern CameraPoint D_menu_801B6C60[];
 extern f32 D_menu_801B7BB0;
 extern f32 D_menu_801B7BB4;
 extern f32 D_menu_801B7BB8;
@@ -119,7 +119,7 @@ extern s32 D_menu_801B8284;
 extern s32 D_menu_801B8288;
 extern f32 D_menu_801B828C;
 extern f32 D_menu_801B8290;
-extern UnkStruct_D_menu_801B8294* D_menu_801B8294;
+extern CameraPoint* D_menu_801B8294;
 extern s32 D_menu_801B8298;
 extern f32 D_menu_801B829C;
 extern f32 D_menu_801B82A0;
@@ -210,8 +210,8 @@ extern f32 D_menu_801B9080;
 extern f32 D_menu_801B9084;
 
 void func_menu_8019111C(void);
-void func_menu_8018CC30(UnkStruct_D_menu_801B8294*, s32, f32);
-void func_menu_8018CD9C(Vec3f *pos, UnkStruct_D_menu_801B8294 *arg1, f32 arg2, s32 arg3);
+void func_menu_8018CC30(CameraPoint*, s32, f32);
+void func_menu_8018CD9C(CameraPoint *pos, CameraPoint *arg1, f32 weight, s32 arg3);
 void func_menu_8018D510(s32);
 void func_menu_8018D80C(s32);
 void func_menu_8018DDB8(s32);
