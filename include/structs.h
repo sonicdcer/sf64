@@ -4,8 +4,6 @@
 #include "libultra/ultra64.h"
 #include "sf64math.h"
 
-#define UNK_TYPE s32
-
 typedef struct {
     /* 0x00 */ u8 unk_00;
     /* 0x02 */ u16 unk_02;

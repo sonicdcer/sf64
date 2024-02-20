@@ -1024,4 +1024,177 @@ typedef struct {
     /* 0x08 */ u32 permanentPoolSize;
 } AudioHeapInitSizes;            // size = 0xC
 
+typedef struct {
+    /* 0x00 */ u8 priority;
+    /* 0x01 */ u8 waveId;
+    /* 0x02 */ u8 harmonicIndex; // the harmonic index for the synthetic wave contained in gWaveSamples (also matches
+                                 // the base 2 logarithm of the harmonic order)
+    /* 0x03 */ u8 fontId;
+    /* 0x04 */ u8 unk_04;
+    /* 0x05 */ u8 stereoHeadsetEffects;
+    /* 0x06 */ s16 adsrVolScaleUnused;
+    /* 0x08 */ f32 portamentoFreqScale;
+    /* 0x0C */ f32 vibratoFreqScale;
+    /* 0x10 */ SequenceLayer* prevParentLayer;
+    /* 0x14 */ SequenceLayer* parentLayer;
+    /* 0x18 */ SequenceLayer* wantedParentLayer;
+    /* 0x1C */ NoteAttributes attributes;
+    /* 0x40 */ AdsrState adsr;
+    /* 0x60 */ Portamento portamento;
+    /* 0x6C */ VibratoState vibratoState;
+} NotePlaybackState_Short; // size = 0x70
+
+typedef struct {
+    struct {
+        /* 0x00 */ volatile u8 enabled : 1;
+        /* 0x00 */ u8 needsInit : 1;
+        /* 0x00 */ u8 finished : 1; // ?
+        /* 0x00 */ u8 unused : 1;
+        /* 0x00 */ u8 stereoStrongRight : 1;
+        /* 0x00 */ u8 stereoStrongLeft : 1;
+        /* 0x00 */ u8 stereoHeadsetEffects : 1;
+        /* 0x00 */ u8 usesHeadsetPanEffects : 1; // ?
+    } bitField0;
+    struct {
+        /* 0x01 */ u8 reverbIndex : 3;
+        /* 0x01 */ u8 bookOffset : 2;
+        /* 0x01 */ u8 isSyntheticWave : 1;
+        /* 0x01 */ u8 hasTwoParts : 1;
+        /* 0x01 */ u8 useHaasEffect : 1;
+    } bitField1;
+    /* 0x02 */ u8 pad2[0xE];
+} NoteSubEu_Short; // size = 0x20
+
+typedef struct Note_C0 {
+    /* 0x00 */ AudioListItem listItem;
+    /* 0x10 */ NoteSynthesisState synthesisState;
+    /* 0x30 */ NotePlaybackState_Short playbackState;
+    /* 0xA0 */ char padA0[0x10];
+    /* 0xB0 */ NoteSubEu_Short noteSubEu;
+} Note_C0;
+
+typedef struct {
+    /* 0x000 */ u8 enabled : 1;
+    /* 0x000 */ u8 finished : 1;
+    /* 0x000 */ u8 muted : 1;
+    /* 0x000 */ u8 seqDmaInProgress : 1;
+    /* 0x000 */ u8 fontDmaInProgress : 1;
+    /* 0x000 */ u8 recalculateVolume : 1;
+    /* 0x000 */ u8 stopScript : 1;
+    /* 0x000 */ u8 applyBend : 1;
+    /* 0x001 */ u8 state;
+    /* 0x002 */ u8 noteAllocPolicy;
+    /* 0x003 */ u8 muteBehavior;
+    /* 0x004 */ u8 seqId;
+    /* 0x005 */ u8 defaultFont;
+    /* 0x006 */ u8 unk_06[1];
+    /* 0x007 */ s8 playerIdx;
+    /* 0x008 */ u16 tempo;       // seqTicks per minute
+    /* 0x00A */ u16 tempoAcc;    // tempo accumulation, used in a discretized algorithm to apply tempo.
+    /* 0x00C */ u16 tempoChange; // Used to adjust the tempo without altering the base tempo.
+    /* 0x00E */ s16 transposition;
+    /* 0x010 */ u16 delay;
+    /* 0x012 */ u16 fadeTimer; // in ticks
+    /* 0x014 */ u16 fadeTimerUnkEu;
+    /* 0x018 */ u8* seqData;
+    /* 0x01C */ f32 fadeVolume;
+    /* 0x020 */ f32 fadeVelocity;
+    /* 0x024 */ f32 volume;
+    /* 0x028 */ f32 muteVolumeScale;
+    /* 0x02C */ f32 fadeVolumeScale;
+    /* 0x030 */ f32 appliedFadeVolume;
+    /* 0x034 */ f32 bend;
+    /* 0x038 */ struct SequenceChannel* channels[16];
+    /* 0x078 */ SeqScriptState scriptState;
+    /* 0x094 */ u8* shortNoteVelocityTable;
+    /* 0x098 */ u8* shortNoteGateTimeTable;
+    /* 0x09C */ NotePool notePool;
+    /* 0x0DC */ s32 skipTicks;
+    /* 0x0E0 */ u32 scriptCounter;
+    /* 0x0E4 */ char
+        padE4[0x68];  // unused struct members for sequence/sound font dma management, according to sm64 decomp
+} SequencePlayer_14C; // size = 0x160
+
+typedef struct {
+    AudioAllocPool pool;
+    AudioCacheEntry entry[32];
+} PermanentCache; // size = 0x190
+
+extern s16 D_800C7C2C;
+extern s32 D_800C7C30;
+extern AudioSpec D_800C76B8[];
+
+extern SynthesisReverb D_8014BA50[4];
+// D_8014C1A0
+extern u16 D_8014C1B0;
+extern s8 D_8014C1B3;
+extern s16 D_8014C1B4;
+extern NoteSubEu* D_8014C1B8;
+extern AudioAllocPool D_8014C1C0;
+extern AudioAllocPool D_8014C1D0;
+extern AudioAllocPool D_8014C1E0;
+// 0x20
+extern AudioAllocPool D_8014C210;
+extern AudioAllocPool D_8014C220;
+extern AudioAllocPool D_8014C230;
+extern AudioCache D_8014C240; // seqCache
+extern AudioCache D_8014C410; // fontCache
+extern AudioCache D_8014C5E0; // sampleBankCache
+extern PermanentCache D_8014C7B0;
+extern AudioSampleCache D_8014C940;
+extern AudioSampleCache D_8014CE58;
+extern s32 D_8014CE60;
+extern s32 D_8014D368;
+extern AudioSessionPoolSplit D_8014D370;
+extern AudioCommonPoolSplit D_8014D380;
+extern AudioCommonPoolSplit D_8014D388;
+extern AudioCommonPoolSplit D_8014D398;
+extern u8 D_8014D3A8[64];
+extern u8 D_8014D3E8[64];
+extern u8 D_8014D428[256];
+extern volatile u8 D_8014D528;
+extern u8 D_8014D529;
+extern s32 D_8014D52C;
+// 0x1000 gap
+extern Note_C0* D_8014E530;
+extern SequencePlayer_14C D_8014E538[4];
+extern UNK_TYPE D_801530C0;
+extern AudioPreloadReq D_80153300[];
+extern s32 D_80153D04;
+extern s32 D_80155A48;
+extern AudioTable* D_80155C60;
+extern SoundFont* D_80155C70;
+extern AudioBufferParameters D_80155C78;
+// D_80155C98
+extern s32 D_80155C9C;
+extern s32 D_80155CA0;
+extern u16 D_80155CA4;
+extern s32 D_80155CB4;
+extern void* D_80155CB8[2];
+extern UNK_TYPE D_80155CC0;
+extern f32 D_80155D68;
+extern s32 D_80155D6C;
+extern u16* D_80155D70[];
+extern u16 D_80155D7C[];
+
+void func_8000DFFC(SampleCacheEntry* entry);
+void func_8000D4A8(void);
+void func_8000E290(void);
+void func_8000DCD4(u32, u32);
+void func_8000E1C4(SampleCacheEntry* entry, Sample* sample);
+SampleCacheEntry* AudioHeap_AllocTemporarySampleCacheEntry(s32);
+void* AudioHeap_SearchRegularCaches(s32 tableType, s32 cache, s32 id);
+void* AudioHeap_SearchPermanentCache(s32 tableType, s32 id);
+SampleCacheEntry* AudioHeap_AllocPersistentSampleCacheEntry(u32);
+
+void func_8000E8E0(s32);
+void func_800128B4(void);
+void func_800132E8(void);
+void func_80011F4C(Note_C0*);
+Instrument* func_80011D4C(s32, s32);
+Drum* func_80011DFC(s32, s32);
+void func_80012C40(Note_C0*);
+void func_800145BC(UNK_TYPE*, Note_C0*);
+void func_800144E4(SequencePlayer_14C*);
+
 #endif
