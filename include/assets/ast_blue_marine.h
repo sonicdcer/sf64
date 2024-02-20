@@ -11,7 +11,7 @@ extern u8 D_3000090[];
 extern u8 D_3000120[];
 extern Gfx D_3000130[];
 extern Vtx ast_blue_marine_seg3_vtx_00000228[];
-extern Vtx ast_blue_marine_seg3_vtx_00000418[];
+extern Vtx D_3000418[];
 extern Gfx D_3000470[];
 extern Vtx ast_blue_marine_seg3_vtx_00000528[];
 extern u8 D_3000600[];

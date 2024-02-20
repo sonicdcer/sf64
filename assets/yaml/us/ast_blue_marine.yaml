@@ -24,6 +24,9 @@ D_3000120:
 D_3000130:
   { type: GFX, offset: 0x3000130, symbol: D_3000130 }
 
+ast_blue_marine_seg3_vtx_00000418:
+  { type: VTX, count: 5, offset: 0x3000418, symbol: D_3000418, pad: 2 }
+
 D_3000470:
   { type: GFX, offset: 0x3000470, symbol: D_3000470 }
 
