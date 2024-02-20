@@ -666,9 +666,9 @@ void func_i6_80189470(Actor* actor) {
         player->camEye.x = 1200.0f;
         player->camEye.z = 1200.0f;
         player->camEye.y = 1800.0f;
-        D_801779A0 = 0.0f;
-        D_801779B8 = 620.0f;
-        D_801779C0 = 0.0f;
+        gCsCamAtX = 0.0f;
+        gCsCamAtY = 620.0f;
+        gCsCamAtZ = 0.0f;
         player->unk_234 = 0;
         player->unk_034 = 0.0f;
         D_80177A48[0] = 1.0f;
@@ -3584,9 +3584,9 @@ void func_i6_80193C4C(Player* player) {
                     gCsFrameCount = 0;
                     break;
             }
-            D_801779A0 = gBosses[0].obj.pos.x;
-            D_801779B8 = gBosses[0].obj.pos.y;
-            D_801779C0 = gBosses[0].obj.pos.z + D_80177D20;
+            gCsCamAtX = gBosses[0].obj.pos.x;
+            gCsCamAtY = gBosses[0].obj.pos.y;
+            gCsCamAtZ = gBosses[0].obj.pos.z + D_80177D20;
             Math_SmoothStepToF(&player->unk_034, 0.0f, 0.1f, 3.0f, 0.0f);
             break;
         case 2:
@@ -3643,9 +3643,9 @@ void func_i6_80193C4C(Player* player) {
             Math_SmoothStepToF(&player->camEye.y, player->pos.y + 30.0f, 0.1f, 15.0f, 0.0f);
             Math_SmoothStepToF(&player->unk_0EC, -180.0f, 0.02f, D_80177A48[6], 0.0f);
             Math_SmoothStepToF(&D_80177A48[6], 3.0f, 1.0f, 0.05f, 0.0f);
-            D_801779A0 = player->pos.x;
-            D_801779B8 = player->pos.y;
-            D_801779C0 = player->unk_138 + D_80177D20;
+            gCsCamAtX = player->pos.x;
+            gCsCamAtY = player->pos.y;
+            gCsCamAtZ = player->unk_138 + D_80177D20;
             if (gCsFrameCount > 200) {
                 player->unk_25C += 0.03f;
                 if (player->unk_25C > 0.6f) {
@@ -3687,9 +3687,9 @@ void func_i6_80193C4C(Player* player) {
                     player->camEye.x = 1200.0f;
                     player->camEye.z = 1200.0f;
                     player->camEye.y = 1800.0f;
-                    D_801779A0 = 0.0f;
-                    D_801779B8 = 620.0f;
-                    D_801779C0 = 0.0f;
+                    gCsCamAtX = 0.0f;
+                    gCsCamAtY = 620.0f;
+                    gCsCamAtZ = 0.0f;
                     player->unk_034 = 0.0f;
                     player->unk_234 = 0;
                     D_80177A48[0] = 1.0f;
@@ -3734,13 +3734,13 @@ void func_i6_80193C4C(Player* player) {
                                   boss->obj.pos.z + RAND_FLOAT_CENTERED(150.0f), RAND_FLOAT_CENTERED(10.0f), 60.0f,
                                   RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(5.5f) + 5.5f);
                 }
-                Math_SmoothStepToF(&D_801779B8, gActors[10].obj.pos.y, 1.0f, D_80177A48[1], 0.0f);
+                Math_SmoothStepToF(&gCsCamAtY, gActors[10].obj.pos.y, 1.0f, D_80177A48[1], 0.0f);
                 Math_SmoothStepToF(&D_80177A48[1], 1000.0f, 1.0f, 5.0f, 0.0f);
             } else {
                 Math_SmoothStepToF(&player->camEye.z, 1640.0f, 0.05f, 50.0f, 0.0f);
                 Math_SmoothStepToF(&player->camEye.y, 110.0f, 0.05f, 50.0f, 0.0f);
                 Math_SmoothStepToF(&player->camEye.x, 0.0f, 0.05f, 50.0f, 0.0f);
-                Math_SmoothStepToF(&D_801779B8, 630.0f, 0.05f, 50.0f, 0.0f);
+                Math_SmoothStepToF(&gCsCamAtY, 630.0f, 0.05f, 50.0f, 0.0f);
             }
 
             if (gCsFrameCount == 70) {
@@ -3792,9 +3792,9 @@ void func_i6_80193C4C(Player* player) {
             player->camEye.x = gActors[10].obj.pos.x + 50.0f;
             player->camEye.y = gActors[10].obj.pos.y + D_80177A48[1];
             player->camEye.z = gActors[10].obj.pos.z;
-            D_801779A0 = gActors[10].obj.pos.x;
-            D_801779B8 = gActors[10].obj.pos.y + 50.0f;
-            D_801779C0 = gActors[10].obj.pos.z;
+            gCsCamAtX = gActors[10].obj.pos.x;
+            gCsCamAtY = gActors[10].obj.pos.y + 50.0f;
+            gCsCamAtZ = gActors[10].obj.pos.z;
             if (!(gGameFrameCount & 3) && (gCsFrameCount < 215)) {
                 func_8007797C(boss->obj.pos.x + RAND_FLOAT_CENTERED(350.0f), boss->obj.pos.y + 500.0f,
                               boss->obj.pos.z + RAND_FLOAT_CENTERED(350.0f), RAND_FLOAT_CENTERED(10.0f), 60.0f,
@@ -3833,12 +3833,12 @@ void func_i6_80193C4C(Player* player) {
                 D_80177A48[2] = 0.0f;
                 D_80177A48[3] = 0.0f;
                 D_80177A48[4] = 0.0f;
-                player->camEye.x = D_80177978 = 100.0f;
-                player->camEye.y = D_80177980 = 14800.0f;
-                player->camEye.z = D_80177988 = -1500.0f;
-                D_801779A0 = 0.0f;
-                D_801779B8 = 15000.0f;
-                D_801779C0 = 0;
+                player->camEye.x = gCsCamEyeX = 100.0f;
+                player->camEye.y = gCsCamEyeY = 14800.0f;
+                player->camEye.z = gCsCamEyeZ = -1500.0f;
+                gCsCamAtX = 0.0f;
+                gCsCamAtY = 15000.0f;
+                gCsCamAtZ = 0;
                 player->unk_034 = 0.0f;
                 gActors[10].state = 101;
                 gActors[10].fwork[0] = 0.0f;
@@ -3860,11 +3860,11 @@ void func_i6_80193C4C(Player* player) {
             }
             if (D_800D2F68 != 0) {
                 if (gCsFrameCount >= 1000) {
-                    D_801779A0 += D_80177A48[4] * 0.15f;
-                    D_80177988 += D_80177A48[4];
+                    gCsCamAtX += D_80177A48[4] * 0.15f;
+                    gCsCamEyeZ += D_80177A48[4];
                     Math_SmoothStepToF(&D_80177A48[4], 20.0f, 1.0f, 0.1f, 0.0f);
                 } else {
-                    D_80177988 = gActors[10].obj.pos.z - 20.0f;
+                    gCsCamEyeZ = gActors[10].obj.pos.z - 20.0f;
                 }
                 if ((gCsFrameCount >= 920) && (gTeamShields[3] > 0)) {
                     if (gCsFrameCount == 920) {
@@ -3914,16 +3914,16 @@ void func_i6_80193C4C(Player* player) {
                 Math_SmoothStepToF(&D_80177A48[1], 10.0f, 1.0f, 0.1f, 0.0f);
                 Math_SmoothStepToF(&player->camEye.x, gActors[10].obj.pos.x - 50.0f, D_80177A48[0], D_80177A48[1], 0);
                 Math_SmoothStepToF(&player->camEye.y, gActors[10].obj.pos.y + 10.0f, D_80177A48[0], D_80177A48[1], 0);
-                Math_SmoothStepToF(&player->camEye.z, D_80177988, D_80177A48[0], D_80177A48[1], 0);
-                D_801779B8 = SIN_DEG(gGameFrameCount * 5.5f) + 15000.0f;
+                Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, D_80177A48[0], D_80177A48[1], 0);
+                gCsCamAtY = SIN_DEG(gGameFrameCount * 5.5f) + 15000.0f;
             } else {
-                D_80177978 -= 1.0f;
-                D_80177980 += 0.3f;
-                D_80177988 += 4.0f;
-                D_801779B8 = (SIN_DEG(gGameFrameCount * 1.5f) * 10.0f) + 15000.0f;
-                Math_SmoothStepToF(&player->camEye.x, D_80177978, D_80177A48[0], 50000.0f, 0);
-                Math_SmoothStepToF(&player->camEye.y, D_80177980, D_80177A48[0], 50000.0f, 0);
-                Math_SmoothStepToF(&player->camEye.z, D_80177988, D_80177A48[0], 50000.0f, 0);
+                gCsCamEyeX -= 1.0f;
+                gCsCamEyeY += 0.3f;
+                gCsCamEyeZ += 4.0f;
+                gCsCamAtY = (SIN_DEG(gGameFrameCount * 1.5f) * 10.0f) + 15000.0f;
+                Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, D_80177A48[0], 50000.0f, 0);
+                Math_SmoothStepToF(&player->camEye.y, gCsCamEyeY, D_80177A48[0], 50000.0f, 0);
+                Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, D_80177A48[0], 50000.0f, 0);
             }
             if (D_800D2F68 != 0) {
                 switch (gCsFrameCount) {
@@ -4015,20 +4015,20 @@ void func_i6_80193C4C(Player* player) {
                 D_80161A44 = 12800.0f;
             }
             D_80177A48[0] = 1.0f;
-            D_801779A0 = (2.0f * SIN_DEG(gGameFrameCount * 40.0f)) + player->pos.x;
-            D_801779B8 = (2.0f * SIN_DEG(gGameFrameCount * 30.0f)) + player->pos.y;
-            D_801779C0 = (2.0f * SIN_DEG(gGameFrameCount * 50.0f)) + player->pos.z;
+            gCsCamAtX = (2.0f * SIN_DEG(gGameFrameCount * 40.0f)) + player->pos.x;
+            gCsCamAtY = (2.0f * SIN_DEG(gGameFrameCount * 30.0f)) + player->pos.y;
+            gCsCamAtZ = (2.0f * SIN_DEG(gGameFrameCount * 50.0f)) + player->pos.z;
             sp74.x = 0.0f;
             sp74.y = 0.0f;
             sp74.z = D_80177A48[5];
             Math_SmoothStepToF(&D_80177A48[5], -400.0f, 0.05f, 5.0f, 0.0f);
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp74, &sp68);
-            D_80177978 = player->pos.x + sp68.x;
-            D_80177980 = player->pos.y + sp68.y;
-            D_80177988 = player->pos.z + sp68.z;
-            Math_SmoothStepToF(&player->camEye.x, D_80177978, D_80177A48[0], 50000.0f, 0);
-            Math_SmoothStepToF(&player->camEye.y, D_80177980, D_80177A48[0], 50000.0f, 0);
-            Math_SmoothStepToF(&player->camEye.z, D_80177988, D_80177A48[0], 50000.0f, 0);
+            gCsCamEyeX = player->pos.x + sp68.x;
+            gCsCamEyeY = player->pos.y + sp68.y;
+            gCsCamEyeZ = player->pos.z + sp68.z;
+            Math_SmoothStepToF(&player->camEye.x, gCsCamEyeX, D_80177A48[0], 50000.0f, 0);
+            Math_SmoothStepToF(&player->camEye.y, gCsCamEyeY, D_80177A48[0], 50000.0f, 0);
+            Math_SmoothStepToF(&player->camEye.z, gCsCamEyeZ, D_80177A48[0], 50000.0f, 0);
             Math_SmoothStepToF(&player->unk_12C, 0.0f, 0.1f, 0.7f, 0.0f);
             Math_SmoothStepToF(&player->unk_034, 0.0f, 0.1f, 0.4f, 0.0f);
             break;
@@ -4040,9 +4040,9 @@ void func_i6_80193C4C(Player* player) {
     player->unk_0F8 = player->unk_0EC + player->unk_12C + player->unk_130;
     Math_SmoothStepToF(&player->unk_130, 0.0f, 0.1f, 15.0f, 0.0f);
     Math_SmoothStepToAngle(&player->unk_4D8, 0.0f, 0.1f, 20.0f, 0.0f);
-    Math_SmoothStepToF(&player->camAt.x, D_801779A0, D_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->camAt.y, D_801779B8, D_80177A48[0], 50000.0f, 0);
-    Math_SmoothStepToF(&player->camAt.z, D_801779C0, D_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->camAt.x, gCsCamAtX, D_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->camAt.y, gCsCamAtY, D_80177A48[0], 50000.0f, 0);
+    Math_SmoothStepToF(&player->camAt.z, gCsCamAtZ, D_80177A48[0], 50000.0f, 0);
 }
 
 void func_i6_80195E44(Actor* actor) {

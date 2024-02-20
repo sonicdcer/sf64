@@ -510,12 +510,12 @@ void Option_Setup(void) {
 
     func_800A5D6C();
 
-    D_80177978 = 0.0f;
-    D_80177980 = 0.0f;
-    D_80177988 = 10.0f;
-    D_801779A0 = 0.0f;
-    D_801779B8 = 0.0f;
-    D_801779C0 = 0.0f;
+    gCsCamEyeX = 0.0f;
+    gCsCamEyeY = 0.0f;
+    gCsCamEyeZ = 10.0f;
+    gCsCamAtX = 0.0f;
+    gCsCamAtY = 0.0f;
+    gCsCamAtZ = 0.0f;
 
     D_menu_801B9224 = -80.0f;
     D_menu_801B9228 = 0.0f;
@@ -3518,8 +3518,7 @@ void func_menu_8019BC44(f32 x, f32 y, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
 
 void func_menu_8019BDF0(void) {
     Matrix_Push(&gGfxMatrix);
-    Matrix_LookAt(gGfxMatrix, D_80177978, D_80177980, D_80177988, D_801779A0, D_801779B8, D_801779C0, 0.0f, 1.0f, 0.0f,
-                  1);
+    Matrix_LookAt(gGfxMatrix, gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ, 0.0f, 1.0f, 0.0f, 1);
 }
 
 void func_menu_8019BE7C(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg5) {

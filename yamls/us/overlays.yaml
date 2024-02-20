@@ -1,11 +1,11 @@
   - name: ovl_i1
+    exclusive_ram_id: overlay
     type: code
     dir: overlays/ovl_i1
     start: 0xDF4260
     vram: 0x80187520
     follows_vram: ast_radio
     bss_size: 0xA10
-    exclusive_ram_id: overlay
     symbol_name_format: i1_$VRAM
     subsegments:
     - [0xDF4260, c, fox_i1]
@@ -26,13 +26,13 @@
     - { type: .bss, vram: 0x8019B7F0, name: fox_ve1 }
 
   - name: ovl_i2
+    exclusive_ram_id: overlay
     type: code
     dir: overlays/ovl_i2
     start: 0xE08400
     vram: 0x80187520
     follows_vram: ast_radio
     bss_size: 0x40
-    exclusive_ram_id: overlay
     symbol_name_format: i2_$VRAM
     subsegments:
     - [0xE08400, c, fox_i2]
@@ -47,13 +47,13 @@
     - { type: .bss, vram: 0x80195D80, name: fox_sx }
 
   - name: ovl_i3
+    exclusive_ram_id: overlay
     type: code
     dir: overlays/ovl_i3
     start: 0xE16C50
     vram: 0x80187520
     follows_vram: ast_radio
     bss_size: 0x2220
-    exclusive_ram_id: overlay
     symbol_name_format: i3_$VRAM
     subsegments:
     - [0xE16C50, c, fox_i3]
@@ -77,13 +77,13 @@
     - { type: .bss, vram: 0x801C27C0, name: fox_aq }
 
   - name: ovl_i4
+    exclusive_ram_id: overlay
     type: code
     dir: overlays/ovl_i4
     start: 0xE51970
     vram: 0x80187520
     follows_vram: ast_radio
     bss_size: 0x1B0
-    exclusive_ram_id: overlay
     symbol_name_format: i4_$VRAM
     subsegments:
     - [0xE51970, c, fox_i4]
@@ -107,13 +107,13 @@
     - { type: .bss, vram: 0x801A0560, name: fox_sz }
 
   - name: ovl_i5
+    exclusive_ram_id: overlay
     type: code
     dir: overlays/ovl_i5
     start: 0xE6A810
     vram: 0x80187520
     follows_vram: ast_radio
     bss_size: 0xAF80
-    exclusive_ram_id: overlay
     symbol_name_format: i5_$VRAM
     subsegments:
     - [0xE6A810, c, fox_i5]
@@ -137,13 +137,13 @@
     - { type: .bss, vram: 0x801BE740, name: fox_ground }
 
   - name: ovl_i6
+    exclusive_ram_id: overlay
     type: code
     dir: overlays/ovl_i6
     start: 0xE9F1D0
     vram: 0x80187520
     follows_vram: ast_radio
     bss_size: 0x520
-    exclusive_ram_id: overlay
     symbol_name_format: i6_$VRAM
     subsegments:
     - [0xE9F1D0, c, fox_i6]
@@ -166,13 +166,13 @@
     - { type: .bss, vram: 0x801A8440, name: fox_sy }
 
   - name: ovl_menu
+    exclusive_ram_id: overlay
     type: code
     dir: overlays/ovl_menu
     start: 0xEBFBE0
     vram: 0x80187520
     follows_vram: ast_radio
     bss_size: 0x17590
-    exclusive_ram_id: overlay
     symbol_name_format: menu_$VRAM
     subsegments:
     - [0xEBFBE0, c, fox_i_menu]
@@ -193,13 +193,13 @@
     - { type: .bss, vram: 0x801B9410, name: fox_map }
 
   - name: ovl_ending
+    exclusive_ram_id: overlay
     type: code
     dir: overlays/ovl_ending
     start: 0xEF0260
     vram: 0x80187520
     follows_vram: ast_radio
     bss_size: 0x2710
-    exclusive_ram_id: overlay
     symbol_name_format: ending_$VRAM
     subsegments:
     - [0xEF0260, c, fox_end1]
@@ -212,13 +212,13 @@
     - { type: .bss, vram: 0x80198590, name: fox_end2 }
 
   - name: ovl_unused
+    exclusive_ram_id: overlay
     type: code
     dir: overlays/ovl_unused
     start: 0xEFFA40
     vram: 0x80187520
     follows_vram: ast_radio
     bss_size: 0x10
-    exclusive_ram_id: overlay
     symbol_name_format: unused_$VRAM
     subsegments:
     - [0xEFFA40, c, fox_unused]
@@ -226,13 +226,13 @@
     - { start: 0xEFFAE0, type: .bss, vram: 0x801875C0, name: fox_unused }
 
   - name: fox_buffers
+    exclusive_ram_id: buffer
     type: code
     dir: main
-    start: 0xEFFB74
+    start: 0xEFFAE0
     vram: 0x80281000
     bss_size: 0x17F000
-    exclusive_ram_id: buffer
     subsegments:
-    - { start: 0xEFFB74, type: .bss, vram: 0x80281000, name: fox_buffers }
+    - { start: 0xEFFAE0, type: .bss, vram: 0x80281000, name: fox_buffers }
 
-  - [0xEFFB74]
+  - [0xEFFAE0]

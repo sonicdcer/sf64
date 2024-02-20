@@ -1,6 +1,16 @@
 #include "sys.h"
 #include "sf64audio_provisional.h"
 
+void func_8000DFFC(SampleCacheEntry* entry);
+void func_8000D4A8(void);
+void func_8000E290(void);
+void func_8000DCD4(u32, u32);
+void func_8000E1C4(SampleCacheEntry* entry, Sample* sample);
+SampleCacheEntry* AudioHeap_AllocTemporarySampleCacheEntry(s32);
+void* AudioHeap_SearchRegularCaches(s32 tableType, s32 cache, s32 id);
+void* AudioHeap_SearchPermanentCache(s32 tableType, s32 id);
+SampleCacheEntry* AudioHeap_AllocPersistentSampleCacheEntry(u32);
+
 void AudioHeap_ResetLoadStatus(void) {
     s32 i;
 

@@ -69,7 +69,7 @@ s32 D_menu_801B8284;
 s32 D_menu_801B8288;
 f32 D_menu_801B828C;
 f32 D_menu_801B8290;
-UnkStruct_D_menu_801B8294* D_menu_801B8294;
+CameraPoint* D_menu_801B8294;
 s32 D_menu_801B8298;
 f32 D_menu_801B829C;
 f32 D_menu_801B82A0;
@@ -388,7 +388,7 @@ void func_menu_80187B00(void) {
 
         case 1:
             if (D_menu_801B82BC != 0) {
-                func_800B6F50(D_80177978, D_80177980, D_80177988, D_801779A0, D_801779B8, D_801779C0);
+                func_800B6F50(gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ);
                 D_8017842C -= 1.0f;
                 if (D_menu_801B82BC == 60) {
                     func_800182F4(0x103C00FF);
@@ -565,9 +565,9 @@ void func_menu_801881FC(void) {
     D_menu_801B86AC = 0.0f;
     D_menu_801B86B0 = 430.0f;
 
-    D_801779A0 = 0.0f;
-    D_801779B8 = 180.0f;
-    D_801779C0 = 0.0f;
+    gCsCamAtX = 0.0f;
+    gCsCamAtY = 180.0f;
+    gCsCamAtZ = 0.0f;
 
     D_menu_801B829C = 0.0f;
     D_menu_801B82A0 = 1.0f;
@@ -858,9 +858,9 @@ void func_menu_801888E8(void) {
 
     D_menu_801B84E8->unk_18 += 0.6f;
 
-    func_menu_80191320(1, &D_80177978, &D_80177980, &D_80177988, &D_801779A0, &D_801779B8, &D_801779C0, D_menu_801B86A8,
+    func_menu_80191320(1, &gCsCamEyeX, &gCsCamEyeY, &gCsCamEyeZ, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86A8,
                        D_menu_801B86AC, D_menu_801B86B0);
-    func_800B6F50(D_80177978, D_80177980, D_80177988, D_801779A0, D_801779B8, D_801779C0);
+    func_800B6F50(gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ);
 
     D_8017842C -= 0.5f;
 
@@ -1003,8 +1003,8 @@ void func_menu_801894E8(void) {
     D_menu_801B82A0 = 1.0f;
     D_menu_801B82A4 = 0.0f;
 
-    func_menu_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &D_80177978, &D_80177980, &D_80177988,
-                       D_menu_801B86B4, &D_801779A0, &D_801779B8, &D_801779C0, D_menu_801B86B8, D_menu_801B86A8,
+    func_menu_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gCsCamEyeX, &gCsCamEyeY, &gCsCamEyeZ,
+                       D_menu_801B86B4, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86B8, D_menu_801B86A8,
                        D_menu_801B86AC);
 
     D_menu_801B7BF0 = 0;
@@ -1102,12 +1102,12 @@ void func_menu_8018994C(void) {
                 D_menu_801B828C = 0.0f;
                 D_menu_801B8290 = 0.011f;
 
-                D_80177978 = D_menu_801B6B40[0].unk_00;
-                D_80177980 = D_menu_801B6B40[0].unk_04;
-                D_80177988 = D_menu_801B6B40[0].unk_08;
-                D_801779A0 = D_menu_801B6B40[0].unk_0C;
-                D_801779B8 = D_menu_801B6B40[0].unk_10;
-                D_801779C0 = D_menu_801B6B40[0].unk_14;
+                gCsCamEyeX = D_menu_801B6B40[0].eye.x;
+                gCsCamEyeY = D_menu_801B6B40[0].eye.y;
+                gCsCamEyeZ = D_menu_801B6B40[0].eye.z;
+                gCsCamAtX = D_menu_801B6B40[0].at.x;
+                gCsCamAtY = D_menu_801B6B40[0].at.y;
+                gCsCamAtZ = D_menu_801B6B40[0].at.z;
 
                 D_menu_801B82C0 = 10;
             }
@@ -1212,7 +1212,7 @@ void func_menu_8018994C(void) {
     func_menu_80191674(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
 
     if (D_menu_801B7BE8 != 0) {
-        func_800B6F50(D_80177978, D_80177980, D_80177988, D_801779A0, D_801779B8, D_801779C0);
+        func_800B6F50(gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ);
     }
 
     D_8017842C -= D_menu_801B7BE8;
@@ -1300,12 +1300,12 @@ void func_menu_8018A338(void) {
     D_menu_801B82A0 = 1.0f;
     D_menu_801B82A4 = 0.0f;
 
-    func_menu_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &D_80177978, &D_80177980, &D_80177988,
-                       D_menu_801B86B4, &D_801779A0, &D_801779B8, &D_801779C0, D_menu_801B86B8, D_menu_801B86A8,
+    func_menu_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gCsCamEyeX, &gCsCamEyeY, &gCsCamEyeZ,
+                       D_menu_801B86B4, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86B8, D_menu_801B86A8,
                        D_menu_801B86AC);
 }
 
-static UnkStruct_D_menu_801B8294 D_menu_801ADA94[50] = {
+static CameraPoint D_menu_801ADA94[50] = {
     { 70.68093f, 95.06561f, -146.52567f, 9.829767f, 121.2336f, -642.1186f },
     { 205.506f, 142.9332f, -268.0091f, 168.6235f, 176.76671f, -765.49774f },
     { 247.74275f, 218.72449f, -519.0222f, 186.81432f, 211.56888f, -1015.24445f },
@@ -1492,9 +1492,9 @@ void func_menu_8018ABC0(void) {
     D_menu_801B86C8 = 0.0f;
     D_menu_801B86CC = 0.0f;
 
-    D_801779A0 = -10.0f;
-    D_801779B8 = 0.0f;
-    D_801779C0 = 0.0f;
+    gCsCamAtX = -10.0f;
+    gCsCamAtY = 0.0f;
+    gCsCamAtZ = 0.0f;
 
     D_menu_801B829C = 0.0f;
     D_menu_801B82A0 = 1.0f;
@@ -1523,8 +1523,8 @@ void func_menu_8018ACEC(void) {
         case 1:
             Math_SmoothStepToF(&D_menu_801B86A8, 30.0f, D_menu_801B82CC, 100.0f, 0.0001f);
             Math_SmoothStepToF(&D_menu_801B86AC, -15.0f, D_menu_801B82CC, 100.0f, 0.0001f);
-            Math_SmoothStepToF(&D_801779A0, 0.0f, 0.05f, 100.0f, 0.0001f);
-            Math_SmoothStepToF(&D_801779B8, -40.0f, D_menu_801B82CC, 100.0f, 0.0001f);
+            Math_SmoothStepToF(&gCsCamAtX, 0.0f, 0.05f, 100.0f, 0.0001f);
+            Math_SmoothStepToF(&gCsCamAtY, -40.0f, D_menu_801B82CC, 100.0f, 0.0001f);
             Math_SmoothStepToF(&D_menu_801B86B0, 100.0f, D_menu_801B82CC, 100.0f, 0.0001f);
 
             D_menu_801B82CC *= 1.04f;
@@ -1546,10 +1546,10 @@ void func_menu_8018ACEC(void) {
             break;
     }
 
-    func_menu_80191320(1, &D_80177978, &D_80177980, &D_80177988, &D_801779A0, &D_801779B8, &D_801779C0, D_menu_801B86A8,
+    func_menu_80191320(1, &gCsCamEyeX, &gCsCamEyeY, &gCsCamEyeZ, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86A8,
                        D_menu_801B86AC, D_menu_801B86B0);
     func_menu_80191674(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
-    func_800B6F50(D_80177978, D_80177980, D_80177988, D_801779A0, D_801779B8, D_801779C0);
+    func_800B6F50(gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ);
 
     D_8017842C += 2.0f;
     D_80178430 += 2.0f;
@@ -1652,8 +1652,8 @@ void func_menu_8018B058(void) {
     D_menu_801B82A0 = 1.0f;
     D_menu_801B82A4 = 0.0f;
 
-    func_menu_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &D_80177978, &D_80177980, &D_80177988,
-                       D_menu_801B86B4, &D_801779A0, &D_801779B8, &D_801779C0, D_menu_801B86B8, D_menu_801B86A8,
+    func_menu_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gCsCamEyeX, &gCsCamEyeY, &gCsCamEyeZ,
+                       D_menu_801B86B4, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86B8, D_menu_801B86A8,
                        D_menu_801B86AC);
 
     D_menu_801B9044 = 25.0f;
@@ -1763,8 +1763,8 @@ void func_menu_8018B5C4(void) {
                 D_menu_801B86B4 = 36.0f;
                 D_menu_801B86B8 = -70.0f;
 
-                func_menu_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &D_80177978, &D_80177980,
-                                   &D_80177988, D_menu_801B86B4, &D_801779A0, &D_801779B8, &D_801779C0, D_menu_801B86B8,
+                func_menu_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gCsCamEyeX, &gCsCamEyeY,
+                                   &gCsCamEyeZ, D_menu_801B86B4, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86B8,
                                    D_menu_801B86A8, D_menu_801B86AC);
 
                 D_menu_801B82B4 = 0;
@@ -1838,8 +1838,8 @@ void func_menu_8018B5C4(void) {
             Math_SmoothStepToF(&D_menu_801B86B4, 16.0f, 0.01f, 100.0f, 0.01f);
             Math_SmoothStepToF(&D_menu_801B86AC, 138.0f, 0.01f, 100.0f, 0.01f);
 
-            func_menu_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &D_80177978, &D_80177980, &D_80177988,
-                               D_menu_801B86B4, &D_801779A0, &D_801779B8, &D_801779C0, D_menu_801B86B8, D_menu_801B86A8,
+            func_menu_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gCsCamEyeX, &gCsCamEyeY, &gCsCamEyeZ,
+                               D_menu_801B86B4, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86B8, D_menu_801B86A8,
                                D_menu_801B86AC);
             D_menu_801B82B4++;
             break;
@@ -1876,8 +1876,8 @@ void func_menu_8018B5C4(void) {
                 Math_SmoothStepToF(&D_menu_801B86BC, 100.0f, 0.2f, 100.0f, 0.01f);
                 Math_SmoothStepToF(&D_menu_801B86B4, 40.0f, 0.2f, 100.0f, 0.01f);
 
-                func_menu_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &D_80177978, &D_80177980,
-                                   &D_80177988, D_menu_801B86B4, &D_801779A0, &D_801779B8, &D_801779C0, D_menu_801B86B8,
+                func_menu_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gCsCamEyeX, &gCsCamEyeY,
+                                   &gCsCamEyeZ, D_menu_801B86B4, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86B8,
                                    D_menu_801B86A8, D_menu_801B86AC);
 
                 if (D_menu_801B82B4 > 8) {
@@ -2007,12 +2007,12 @@ void func_menu_8018C1C0(void) {
     D_menu_801B82A0 = 1.0f;
     D_menu_801B82A4 = 0.0f;
 
-    func_menu_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &D_80177978, &D_80177980, &D_80177988,
-                       D_menu_801B86B4, &D_801779A0, &D_801779B8, &D_801779C0, D_menu_801B86B8, D_menu_801B86A8,
+    func_menu_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gCsCamEyeX, &gCsCamEyeY, &gCsCamEyeZ,
+                       D_menu_801B86B4, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86B8, D_menu_801B86A8,
                        D_menu_801B86AC);
 }
 
-static UnkStruct_D_menu_801B8294 D_menu_801ADF84[50] = {
+static CameraPoint D_menu_801ADF84[50] = {
     { -223.5775f, -61.156242f, -26.375984f, -53.867554f, -42.139626f, 44.77107f },
     { -160.05501f, -67.74775f, 85.750084f, -61.486446f, -44.164986f, 29.322315f },
     { -22.228004f, -79.54139f, 121.01903f, -15.555059f, -64.843475f, 85.51631f },
@@ -2130,7 +2130,7 @@ void func_menu_8018C644(void) {
     func_menu_80191844(D_menu_801B86A8, D_menu_801B86AC);
     func_menu_8018CC30(D_menu_801B8294, 9, D_menu_801B8290);
     func_menu_80191674(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
-    func_800B6F50(D_80177978, D_80177980, D_80177988, D_801779A0, D_801779B8, D_801779C0);
+    func_800B6F50(gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ);
 
     D_menu_801B7BEC++;
 }
@@ -2153,9 +2153,9 @@ void func_menu_8018CB90(void) {
     }
 }
 
-void func_menu_8018CC30(UnkStruct_D_menu_801B8294* arg0, s32 arg1, f32 arg2) {
+void func_menu_8018CC30(CameraPoint* arg0, s32 arg1, f32 arg2) {
     s32 var_a3;
-    Vec3f pos[2];
+    CameraPoint pos;
 
     if (D_menu_801B8298 != -1) {
         if (D_menu_801B8298 == 0) {
@@ -2173,13 +2173,13 @@ void func_menu_8018CC30(UnkStruct_D_menu_801B8294* arg0, s32 arg1, f32 arg2) {
             var_a3 = 2;
         }
 
-        func_menu_8018CD9C(&pos[0], &arg0[D_menu_801B8298], D_menu_801B828C, var_a3);
-        D_80177978 = pos[0].x;
-        D_80177980 = pos[0].y;
-        D_80177988 = pos[0].z;
-        D_801779A0 = pos[1].x;
-        D_801779B8 = pos[1].y;
-        D_801779C0 = pos[1].z;
+        func_menu_8018CD9C(&pos, &arg0[D_menu_801B8298], D_menu_801B828C, var_a3);
+        gCsCamEyeX = pos.eye.x;
+        gCsCamEyeY = pos.eye.y;
+        gCsCamEyeZ = pos.eye.z;
+        gCsCamAtX = pos.at.x;
+        gCsCamAtY = pos.at.y;
+        gCsCamAtZ = pos.at.z;
 
         D_menu_801B828C += arg2;
 
@@ -2193,7 +2193,7 @@ void func_menu_8018CC30(UnkStruct_D_menu_801B8294* arg0, s32 arg1, f32 arg2) {
     }
 }
 
-void func_menu_8018CD9C(Vec3f* pos, UnkStruct_D_menu_801B8294* arg1, f32 arg2, s32 arg3) {
+void func_menu_8018CD9C(CameraPoint* pos, CameraPoint* arg1, f32 weight, s32 arg3) {
     f32 temp1;
     f32 temp2;
     f32 temp3;
@@ -2201,58 +2201,55 @@ void func_menu_8018CD9C(Vec3f* pos, UnkStruct_D_menu_801B8294* arg1, f32 arg2, s
 
     switch (arg3) {
         case 0:
-            temp1 = (1.0f - arg2) * (1.0f - arg2) * (1.0f - arg2);
-            temp2 = 21.0f * (arg2 * arg2 * arg2) / 12.0f - 9.0f * (arg2 * arg2) / 2.0f + 3.0f * arg2;
-            temp3 = -11.0f * (arg2 * arg2 * arg2) / 12.0f + 3.0f * (arg2 * arg2) / 2.0f;
-            temp4 = (arg2 * arg2 * arg2) / 6.0f;
+            temp1 = CUBE(1.0f - weight);
+            temp2 = 21.0f * CUBE(weight) / 12.0f - 9.0f * SQ(weight) / 2.0f + 3.0f * weight;
+            temp3 = -11.0f * CUBE(weight) / 12.0f + 3.0f * SQ(weight) / 2.0f;
+            temp4 = CUBE(weight) / 6.0f;
             break;
 
         case 1:
-            temp1 = ((1.0f - arg2) * (1.0f - arg2) * (1.0f - arg2)) / 4.0f;
-            temp2 = 7.0f * (arg2 * arg2 * arg2) / 12.0f - 5.0f * (arg2 * arg2) / 4.0f + arg2 / 4.0f + 7.0f / 12.0f;
-            temp3 = -(arg2 * arg2 * arg2) / 2.0f + (arg2 * arg2) / 2.0f + arg2 / 2.0f + 1.0f / 6.0f;
-            temp4 = (arg2 * arg2 * arg2) / 6.0f;
+            temp1 = CUBE(1.0f - weight) / 4.0f;
+            temp2 = 7.0f * CUBE(weight) / 12.0f - 5.0f * SQ(weight) / 4.0f + weight / 4.0f + 7.0f / 12.0f;
+            temp3 = -CUBE(weight) / 2.0f + SQ(weight) / 2.0f + weight / 2.0f + 1.0f / 6.0f;
+            temp4 = CUBE(weight) / 6.0f;
             break;
 
         case 2:
-            temp1 = (1.0f - arg2) * (1.0f - arg2) * (1.0f - arg2) / 6.0f;
-            temp2 = (0.5f * arg2 - 1.0f) * (arg2 * arg2) + 2.0f / 3.0f;
-            temp3 = ((-arg2 + 1.0f) * arg2 + 1.0f) * 0.5f * arg2 + 1.0f / 6.0f;
-            temp4 = (arg2 * arg2 * arg2) / 6.0f;
+            temp1 = CUBE(1.0f - weight) / 6.0f;
+            temp2 = (0.5f * weight - 1.0f) * SQ(weight) + 2.0f / 3.0f;
+            temp3 = ((-weight + 1.0f) * weight + 1.0f) * 0.5f * weight + 1.0f / 6.0f;
+            temp4 = CUBE(weight) / 6.0f;
             break;
 
         case 3:
-            temp1 = ((1.0f - arg2) * (1.0f - arg2) * (1.0f - arg2)) / 6.0f;
-            temp2 = -((1.0f - arg2) * (1.0f - arg2) * (1.0f - arg2)) / 2.0f + ((1.0f - arg2) * (1.0f - arg2)) / 2.0f +
-                    (1.0f - arg2) / 2.0f + 1.0f / 6.0f;
-            temp3 = 7.0f * ((1.0f - arg2) * (1.0f - arg2) * (1.0f - arg2)) / 12.0f -
-                    5.0f * ((1.0f - arg2) * (1.0f - arg2)) / 4.0f + (1.0f - arg2) / 4.0f + 7.0f / 12.0f;
-            temp4 = (arg2 * arg2 * arg2) / 4.0f;
+            temp1 = CUBE(1.0f - weight) / 6.0f;
+            temp2 = -CUBE(1.0f - weight) / 2.0f + SQ(1.0f - weight) / 2.0f + (1.0f - weight) / 2.0f + 1.0f / 6.0f;
+            temp3 = 7.0f * CUBE(1.0f - weight) / 12.0f - 5.0f * SQ(1.0f - weight) / 4.0f + (1.0f - weight) / 4.0f +
+                    7.0f / 12.0f;
+            temp4 = CUBE(weight) / 4.0f;
             break;
 
         case 4:
-            temp1 = ((1.0f - arg2) * (1.0f - arg2) * (1.0f - arg2)) / 6.0f;
-            temp2 = -11.0f * ((1.0f - arg2) * (1.0f - arg2) * (1.0f - arg2)) / 12.0f +
-                    3.0f * ((1.0f - arg2) * (1.0f - arg2)) / 2.0f;
-            temp3 = 21.0f * ((1.0f - arg2) * (1.0f - arg2) * (1.0f - arg2)) / 12.0f -
-                    9.0f * ((1.0f - arg2) * (1.0f - arg2)) / 2.0f + 3.0f * (1.0f - arg2);
-            temp4 = arg2 * arg2 * arg2;
+            temp1 = CUBE(1.0f - weight) / 6.0f;
+            temp2 = -11.0f * CUBE(1.0f - weight) / 12.0f + 3.0f * SQ(1.0f - weight) / 2.0f;
+            temp3 = 21.0f * CUBE(1.0f - weight) / 12.0f - 9.0f * SQ(1.0f - weight) / 2.0f + 3.0f * (1.0f - weight);
+            temp4 = CUBE(weight);
             break;
     }
 
-    pos[0].x = (temp1 * (arg1 + 0)->unk_00) + (temp2 * (arg1 + 1)->unk_00) + (temp3 * (arg1 + 2)->unk_00) +
-               (temp4 * (arg1 + 3)->unk_00);
-    pos[0].y = (temp1 * (arg1 + 0)->unk_04) + (temp2 * (arg1 + 1)->unk_04) + (temp3 * (arg1 + 2)->unk_04) +
-               (temp4 * (arg1 + 3)->unk_04);
-    pos[0].z = (temp1 * (arg1 + 0)->unk_08) + (temp2 * (arg1 + 1)->unk_08) + (temp3 * (arg1 + 2)->unk_08) +
-               (temp4 * (arg1 + 3)->unk_08);
+    pos->eye.x = (temp1 * (arg1 + 0)->eye.x) + (temp2 * (arg1 + 1)->eye.x) + (temp3 * (arg1 + 2)->eye.x) +
+                 (temp4 * (arg1 + 3)->eye.x);
+    pos->eye.y = (temp1 * (arg1 + 0)->eye.y) + (temp2 * (arg1 + 1)->eye.y) + (temp3 * (arg1 + 2)->eye.y) +
+                 (temp4 * (arg1 + 3)->eye.y);
+    pos->eye.z = (temp1 * (arg1 + 0)->eye.z) + (temp2 * (arg1 + 1)->eye.z) + (temp3 * (arg1 + 2)->eye.z) +
+                 (temp4 * (arg1 + 3)->eye.z);
 
-    pos[1].x = (temp1 * (arg1 + 0)->unk_0C) + (temp2 * (arg1 + 1)->unk_0C) + (temp3 * (arg1 + 2)->unk_0C) +
-               (temp4 * (arg1 + 3)->unk_0C);
-    pos[1].y = (temp1 * (arg1 + 0)->unk_10) + (temp2 * (arg1 + 1)->unk_10) + (temp3 * (arg1 + 2)->unk_10) +
-               (temp4 * (arg1 + 3)->unk_10);
-    pos[1].z = (temp1 * (arg1 + 0)->unk_14) + (temp2 * (arg1 + 1)->unk_14) + (temp3 * (arg1 + 2)->unk_14) +
-               (temp4 * (arg1 + 3)->unk_14);
+    pos->at.x = (temp1 * (arg1 + 0)->at.x) + (temp2 * (arg1 + 1)->at.x) + (temp3 * (arg1 + 2)->at.x) +
+                (temp4 * (arg1 + 3)->at.x);
+    pos->at.y = (temp1 * (arg1 + 0)->at.y) + (temp2 * (arg1 + 1)->at.y) + (temp3 * (arg1 + 2)->at.y) +
+                (temp4 * (arg1 + 3)->at.y);
+    pos->at.z = (temp1 * (arg1 + 0)->at.z) + (temp2 * (arg1 + 1)->at.z) + (temp3 * (arg1 + 2)->at.z) +
+                (temp4 * (arg1 + 3)->at.z);
 }
 
 void func_menu_8018D2B8(s32 arg0) {
@@ -2341,9 +2338,9 @@ void func_menu_8018D510(s32 arg0) {
     Matrix_RotateX(gGfxMatrix, -D_menu_801B84E8[arg0].unk_18 * M_DTOR, 1);
     Matrix_RotateY(gGfxMatrix, -D_menu_801B84E8[arg0].unk_1C * M_DTOR, 1);
 
-    sp3C = -Math_Atan2F(D_80177978 - D_menu_801B84E8[arg0].unk_00.x, D_80177988 - D_menu_801B84E8[arg0].unk_00.z);
-    temp = sqrtf(SQ(D_80177988 - D_menu_801B84E8[arg0].unk_00.z) + SQ(D_80177978 - D_menu_801B84E8[arg0].unk_00.x));
-    sp40 = Math_Atan2F(D_80177980 - D_menu_801B84E8[arg0].unk_00.y, temp);
+    sp3C = -Math_Atan2F(gCsCamEyeX - D_menu_801B84E8[arg0].unk_00.x, gCsCamEyeZ - D_menu_801B84E8[arg0].unk_00.z);
+    temp = sqrtf(SQ(gCsCamEyeZ - D_menu_801B84E8[arg0].unk_00.z) + SQ(gCsCamEyeX - D_menu_801B84E8[arg0].unk_00.x));
+    sp40 = Math_Atan2F(gCsCamEyeY - D_menu_801B84E8[arg0].unk_00.y, temp);
 
     Matrix_RotateY(gGfxMatrix, -sp3C, 1);
     Matrix_RotateX(gGfxMatrix, -sp40, 1);
@@ -2397,9 +2394,9 @@ void func_menu_8018D80C(s32 arg0) {
         }
     }
 
-    sp6C = -Math_Atan2F(D_80177978 - D_menu_801B84E8[arg0].unk_00.x, D_80177988 - D_menu_801B84E8[arg0].unk_00.z);
-    temp = sqrtf(SQ(D_80177988 - D_menu_801B84E8[arg0].unk_00.z) + SQ(D_80177978 - D_menu_801B84E8[arg0].unk_00.x));
-    sp70 = Math_Atan2F(D_80177980 - D_menu_801B84E8[arg0].unk_00.y, temp);
+    sp6C = -Math_Atan2F(gCsCamEyeX - D_menu_801B84E8[arg0].unk_00.x, gCsCamEyeZ - D_menu_801B84E8[arg0].unk_00.z);
+    temp = sqrtf(SQ(gCsCamEyeZ - D_menu_801B84E8[arg0].unk_00.z) + SQ(gCsCamEyeX - D_menu_801B84E8[arg0].unk_00.x));
+    sp70 = Math_Atan2F(gCsCamEyeY - D_menu_801B84E8[arg0].unk_00.y, temp);
 
     RCP_SetupDL(&gMasterDisp, 0x31);
 
@@ -2456,7 +2453,7 @@ void func_menu_8018DF0C(f32 arg0) {
     RCP_SetupDL(&gMasterDisp, 0x35);
 
     if (arg0 != 0.0f) {
-        D_menu_801B8688.pos.z = D_80177988 - arg0;
+        D_menu_801B8688.pos.z = gCsCamEyeZ - arg0;
     }
 
     Matrix_Push(&gGfxMatrix);
@@ -2803,7 +2800,7 @@ void func_menu_8018F438(void) {
 
     Lights_SetOneLight(&gMasterDisp, 0, 0, 0, 0, 0, 0, gAmbientR, gAmbientG, gAmbientB);
 
-    if (D_801779C0 < D_80177988) {
+    if (gCsCamAtZ < gCsCamEyeZ) {
         sp54 = 1.0f;
     } else {
         sp54 = 3.0f;
@@ -3453,9 +3450,9 @@ void func_menu_80191674(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32*
 }
 
 void func_menu_80191798(f32* arg0, f32* arg1) {
-    f32 temp_fv1 = D_80177978 - D_801779A0;
-    f32 temp_fv2 = D_80177980 - D_801779B8;
-    f32 temp_ft4 = D_80177988 - D_801779C0;
+    f32 temp_fv1 = gCsCamEyeX - gCsCamAtX;
+    f32 temp_fv2 = gCsCamEyeY - gCsCamAtY;
+    f32 temp_ft4 = gCsCamEyeZ - gCsCamAtZ;
 
     *arg0 = -Math_Atan2F(temp_fv2, sqrtf(SQ(temp_fv1) + SQ(temp_ft4))) * M_RTOD;
     *arg1 = Math_Atan2F(temp_fv1, temp_ft4) * M_RTOD;
@@ -3481,7 +3478,7 @@ void func_menu_80191844(f32 arg0, f32 arg1) {
 
 void func_menu_801918FC(void) {
     Matrix_Push(&gGfxMatrix);
-    Matrix_LookAt(gGfxMatrix, D_80177978, D_80177980, D_80177988, D_801779A0, D_801779B8, D_801779C0, D_menu_801B829C,
+    Matrix_LookAt(gGfxMatrix, gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ, D_menu_801B829C,
                   D_menu_801B82A0, D_menu_801B82A4, 1);
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
