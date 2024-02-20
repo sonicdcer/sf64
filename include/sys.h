@@ -17,6 +17,8 @@
 #include "sf64save.h"
 #include "buffers.h"
 
+#define UNK_TYPE s32
+
 typedef s32 (*CompareFunc)(void*, void*);
 
 s32 Lib_vsPrintf(char* dst, const char* fmt, va_list args);

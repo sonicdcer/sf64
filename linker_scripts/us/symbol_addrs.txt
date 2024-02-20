@@ -1,3 +1,4 @@
+// various hallucinated symbols
 D_1 = 0x1; //ignore:true
 D_80120000 = 0x80120000;//ignore:true
 D_80130001 = 0x80130001;//ignore:true
@@ -22,11 +23,34 @@ D_80000014 = 0x80000014;//ignore:true
 D_80000018 = 0x80000018;//ignore:true
 D_8000001C = 0x8000001C;//ignore:true
 D_80000024 = 0x80000024;//ignore:true
+D_801D0001 = 0x801D0001;//ignore:true
+D_80180001 = 0x80180001;//ignore:true
+D_7FFFFFFE = 0x7FFFFFFE;//ignore:true
+
+// constant for K1 access
+D_A0000000 = 0xA0000000;//ignore:true
+
+// hardcoded addresses in libultra
+D_BFF00000 = 0xBFF00000;//ignore:true
+D_BFF08000 = 0xBFF08000;//ignore:true
+D_BFF08004 = 0xBFF08004;//ignore:true
+
+// RDB regs used only in exceptasm
+D_C0000000 = 0xC0000000;//ignore:true
+D_C0000008 = 0xC0000008;//ignore:true
+D_C000000C = 0xC000000C;//ignore:true
+
+D_80151650 = 0x80151650; //ignore:true
+
+dma_table_ROM_START = 0xDE480; //defined:true
+audio_seq_ROM_START = 0xDEA20; //defined:true
+audio_bank_ROM_START = 0x119710; //defined:true
+audio_table_ROM_START = 0x137730; //defined:true
+ast_radio_ROM_START = 0xDE5D50; //defined:true
+ast_radio_ROM_END = 0xDF4260; //defined:true
 
 D_800C90F0 = 0x800C90F0;
 D_800C45E0 = 0x800C45E0;
-
-D_80151650 = 0x80151650; //ignore:true
 
 D_801615D0 = 0x801615D0;//size:0xC
 D_801615E0 = 0x801615E0;//size:0xC
@@ -98,7 +122,15 @@ Save_Checksum = 0x800C2FB0;
 Save_Write = 0x800C3084;
 Save_Read = 0x800C3194;
 
-sunused_Overlay = 0x800CBD3C;
+sUnused_Overlay = 0x800CBD3C;
+
+// hardcoded address used in sys_rdram
+D_A0300000 = 0xA0300000;
+
+//hardware addresses. should probably be in hardware_regs
+D_A4000000 = 0xA4000000;
+D_A5000508 = 0xA5000508;
+D_A5000510 = 0xA5000510;
 
 D_800CFA54 = 0x800CFA54;
 

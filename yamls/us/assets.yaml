@@ -10,143 +10,179 @@
     type: bin
     start: 0x137730
 
-  - name: ast_common #1
+  - name: ast_common
+    exclusive_ram_id: segment_01
     type: bin
     start: 0x873CB0
 
-  - name: ast_bg_space #2
+  - name: ast_bg_space
+    exclusive_ram_id: segment_02
     type: bin
     start: 0x8A68C0
 
-  - name: ast_bg_planet #2
+  - name: ast_bg_planet
+    exclusive_ram_id: segment_02
     type: bin
     start: 0x8AE0A0
 
-  - name: ast_arwing #3
+  - name: ast_arwing
+    exclusive_ram_id: segment_03
     type: bin
     start: 0x8BFC00
 
-  - name: ast_landmaster #3
+  - name: ast_landmaster
+    exclusive_ram_id: segment_03
     type: bin
     start: 0x8D99F0
 
-  - name: ast_blue_marine #3
+  - name: ast_blue_marine
+    exclusive_ram_id: segment_03
     type: bin
     start: 0x8E1F80
 
-  - name: ast_vs_player #3
+  - name: ast_vs_player
+    exclusive_ram_id: segment_03
     type: bin
     start: 0x8E92D0
 
-  - name: ast_enmy_planet #4
+  - name: ast_enmy_planet
+    exclusive_ram_id: segment_04
     type: bin
     start: 0x918430
 
-  - name: ast_enmy_space #4
+  - name: ast_enmy_space
+    exclusive_ram_id: segment_04
     type: bin
     start: 0x922730
 
-  - name: ast_great_fox #E
+  - name: ast_great_fox
+    exclusive_ram_id: segment_0E
     type: bin
     start: 0x92EC40
 
-  - name: ast_star_wolf #F
+  - name: ast_star_wolf
+    exclusive_ram_id: segment_0F
     type: bin
     start: 0x940AD0
 
-  - name: ast_allies #D
+  - name: ast_allies
+    exclusive_ram_id: segment_0D
     type: bin
     start: 0x955270
 
-  - name: ast_corneria #6
+  - name: ast_corneria
+    exclusive_ram_id: segment_06
     type: bin
     start: 0x961CE0
 
-  - name: ast_meteo #6
+  - name: ast_meteo
+    exclusive_ram_id: segment_06
     type: bin
     start: 0x9A1460
 
-  - name: ast_titania #6
+  - name: ast_titania
+    exclusive_ram_id: segment_06
     type: bin
     start: 0x9D2FD0
 
-  - name: ast_7_ti_2 #7
+  - name: ast_7_ti_2
+    exclusive_ram_id: segment_07
     type: bin
     start: 0x9DD390
 
-  - name: ast_8_ti #8
+  - name: ast_8_ti
+    exclusive_ram_id: segment_08
     type: bin
     start: 0x9EB5E0
 
-  - name: ast_9_ti #9
+  - name: ast_9_ti
+    exclusive_ram_id: segment_09
     type: bin
     start: 0x9F4880
 
-  - name: ast_A_ti #A
+  - name: ast_A_ti
+    exclusive_ram_id: segment_0A
     type: bin
     start: 0xA049A0
 
-  - name: ast_7_ti_1 #7
+  - name: ast_7_ti_1
+    exclusive_ram_id: segment_07
     type: bin
     start: 0xA0E340
 
-  - name: ast_sector_x #6
+  - name: ast_sector_x
+    exclusive_ram_id: segment_06
     type: bin
     start: 0xA1D0F0
 
-  - name: ast_sector_z #6
+  - name: ast_sector_z
+    exclusive_ram_id: segment_06
     type: bin
     start: 0xA4FBB0
 
-  - name: ast_aquas #6
+  - name: ast_aquas
+    exclusive_ram_id: segment_06
     type: bin
     start: 0xA58F60
 
-  - name: ast_area_6 #6
+  - name: ast_area_6
+    exclusive_ram_id: segment_06
     type: bin
     start: 0xA8B470
 
-  - name: ast_venom_1 #6
+  - name: ast_venom_1
+    exclusive_ram_id: segment_06
     type: bin
     start: 0xAB4000
 
-  - name: ast_venom_2 #6
+  - name: ast_venom_2
+    exclusive_ram_id: segment_06
     type: bin
     start: 0xACF960
 
-  - name: ast_ve1_boss #6, #9
+  - name: ast_ve1_boss
+    exclusive_ram_id: segment_06,
+    exclusive_ram_id: segment_09
     type: bin
     start: 0xAE60A0
 
-  - name: ast_bolse #6
+  - name: ast_bolse
+    exclusive_ram_id: segment_06
     type: bin
     start: 0xB0AA00
 
-  - name: ast_fortuna #6
+  - name: ast_fortuna
+    exclusive_ram_id: segment_06
     type: bin
     start: 0xB1CA50
 
-  - name: ast_sector_y #6
+  - name: ast_sector_y
+    exclusive_ram_id: segment_06
     type: bin
     start: 0xB2CA50
 
-  - name: ast_solar #6
+  - name: ast_solar
+    exclusive_ram_id: segment_06
     type: bin
     start: 0xB612E0
 
-  - name: ast_zoness #6
+  - name: ast_zoness
+    exclusive_ram_id: segment_06
     type: bin
     start: 0xB84560
 
-  - name: ast_katina #6
+  - name: ast_katina
+    exclusive_ram_id: segment_06
     type: bin
     start: 0xBB11D0
 
-  - name: ast_macbeth #6
+  - name: ast_macbeth
+    exclusive_ram_id: segment_06
     type: bin
     start: 0xBC23D0
 
-  - name: ast_warp_zone #7
+  - name: ast_warp_zone
+    exclusive_ram_id: segment_07
     type: code
     dir: assets
     start: 0xBFA740
@@ -154,35 +190,43 @@
     subsegments:
       - [0xBFA740, .data, ast_warp_zone/ast_warp_zone]
 
-  - name: ast_title #6
+  - name: ast_title
+    exclusive_ram_id: segment_06
     type: bin
     start: 0xBFC510
 
-  - name: ast_menu #6
+  - name: ast_menu
+    exclusive_ram_id: segment_06
     type: bin
     start: 0xC48F40
 
-  - name: ast_option #8
+  - name: ast_option
+    exclusive_ram_id: segment_08
     type: bin
     start: 0xCA9DE0
 
-  - name: ast_versus #7
+  - name: ast_versus
+    exclusive_ram_id: segment_07
     type: bin
     start: 0xCBFE70
 
-  - name: ast_font #5
+  - name: ast_font
+    exclusive_ram_id: segment_05
     type: bin
     start: 0xCD2410
 
-  - name: ast_font_3d #9
+  - name: ast_font_3d
+    exclusive_ram_id: segment_09
     type: bin
     start: 0xCDDCA0
 
-  - name: ast_andross #C
+  - name: ast_andross
+    exclusive_ram_id: segment_0C
     type: bin
     start: 0xCE9E70
 
-  - name: ast_logo #F
+  - name: ast_logo
+    exclusive_ram_id: segment_0F
     type: code
     dir: assets
     start: 0xD25100
@@ -190,23 +234,28 @@
     subsegments:
       - [0xD25100, .data, ast_logo/ast_logo]
 
-  - name: ast_ending #7
+  - name: ast_ending
+    exclusive_ram_id: segment_07
     type: bin
     start: 0xD27600
 
-  - name: ast_ending_award_front #8
+  - name: ast_ending_award_front
+    exclusive_ram_id: segment_08
     type: bin
     start: 0xD43400
 
-  - name: ast_ending_award_back #8
+  - name: ast_ending_award_back
+    exclusive_ram_id: segment_08
     type: bin
     start: 0xD68480
 
-  - name: ast_reward #8
+  - name: ast_reward
+    exclusive_ram_id: segment_08
     type: bin
     start: 0xD91F10
 
-  - name: ast_training #6
+  - name: ast_training
+    exclusive_ram_id: segment_06
     type: bin
     start: 0xDDC010
 
