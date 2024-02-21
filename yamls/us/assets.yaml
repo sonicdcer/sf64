@@ -37,8 +37,12 @@
 
   - name: ast_blue_marine
     exclusive_ram_id: segment_03
-    type: bin
+    type: code
+    dir: assets
     start: 0x8E1F80
+    vram: 0x03000000
+    subsegments:
+      - [0x8E1F80, .data, ast_blue_marine/ast_blue_marine]
 
   - name: ast_vs_player
     exclusive_ram_id: segment_03

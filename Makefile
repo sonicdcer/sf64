@@ -441,6 +441,7 @@ clean:
 	@git clean -fdx asm/
 	@git clean -fdx bin/
 	@git clean -fdx build/
+	@git clean -fdx src/assets/
 	@git clean -fdx linker_scripts/*.ld
 
 format:
