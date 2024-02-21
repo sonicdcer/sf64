@@ -61,10 +61,7 @@ D_3002180:
   { type: TEXTURE, ctype: u8, format: RGBA16, width: 32, height: 32, offset: 0x3002180, symbol: D_3002180 }
 
 D_3002980:
-  { type: TEXTURE, ctype: u8, format: RGBA16, width: 32, height: 16, offset: 0x3002980, symbol: D_3002980 } # CHECK SIZE
-
-D_3002D80:
-  { type: TEXTURE, ctype: u8, format: RGBA16, width: 32, height: 16, offset: 0x3002D80, symbol: D_3002D80 } # CHECK SIZE
+  { type: TEXTURE, ctype: u8, format: RGBA16, width: 32, height: 32, offset: 0x3002980, symbol: D_3002980 }
 
 D_3003180:
   { type: TEXTURE, ctype: u8, format: RGBA16, width: 32, height: 32, offset: 0x3003180, symbol: D_3003180 }
