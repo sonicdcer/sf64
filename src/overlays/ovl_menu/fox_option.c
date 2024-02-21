@@ -536,6 +536,12 @@ void Option_Setup(void) {
     D_menu_801B9244 = 0;
     D_menu_801B9248 = 0;
     func_8001D444(0, 36, 0, 255);
+
+    /* DEFAULTS */
+    osViSetSpecialFeatures(OS_VI_DITHER_FILTER_OFF);
+    osViSetSpecialFeatures(OS_VI_DIVOT_OFF);
+    osViSetSpecialFeatures(OS_VI_GAMMA_ON);
+    osViSetSpecialFeatures(OS_VI_GAMMA_DITHER_OFF);
 }
 
 void Option_Init(void) {
