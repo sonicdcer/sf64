@@ -4752,7 +4752,7 @@ void func_i5_80197A94(Boss* boss) {
         Audio_PlaySfx(0x29121007, boss->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
         boss->dmgType = DMG_NONE;
     }
-    if ((gPlayer->unk_1D4 != 0) && (boss->swork[39] > 0)) {
+    if ((gPlayer[0].unk_1D4 != 0) && (boss->swork[39] > 0)) {
         D_80137E84[0] = 1;
         boss->swork[39]--;
     }

@@ -29,14 +29,15 @@
       - [0x07B60, c, sys_timer]
       - [0x07D30, c, sys_save]
       - [0x07FC0, c, sys_fault]
-          # Audio block
-      - [0x08CC0, c, sys_audio_8CC0]
-      - [0x0C870, c, sys_audio_C870]
-      - [0x0F0A0, c, sys_audio_F0A0] # audio_load
-      - [0x12490, c, sys_audio_12490]
-      - [0x14AA0, c, sys_audio_14AA0]
-      - [0x17650, c, sys_audio_17650] # Sound related
-      - [0x1EB50, c, sys_audio_1EB50] # Audio Thread
+
+      - [0x08CC0, c, audio_synthesis]
+      - [0x0C870, c, audio_heap]
+      - [0x0F0A0, c, audio_load]
+      - [0x12490, c, audio_playback]
+      - [0x14000, c, audio_effects]
+      - [0x14AA0, c, audio_seqplayer]
+      - [0x17650, c, audio_general]
+      - [0x1EB50, c, audio_thread]
 
       - [0x1FA60, c, sys_1FA60] # May be blanked out osDriveRomInit
       - [0x1FA70, hasm, sys_mio0]
@@ -210,7 +211,15 @@
       - [0xC51E0, .data, sys_math]
       - [0xC5220, .data, sys_matrix]
       - [0xC52F0, .data, sys_fault]
-      - [0xC54D0, data, sys_audio]
+      - [0xC54D0, data, audio_synthesis]
+      - [0xC55B0, data, audio_heap]
+      - [0xC5B50, data, audio_load]
+      - [0xC6120, data, audio_playback] # could be C6110?
+      - [0xC6500, data, audio_effects]
+      - [0xC6520, data, audio_seqplayer]
+      - [0xC68E0, data, audio_general]
+      - [0xC80D0, data, audio_context]
+      - [0xC8850, data, audio_thread]
       - [0xC8880, .data, sys_sprintf]
 
       # DATA - Libultra
@@ -241,13 +250,14 @@
       - [0xC8D10, .rodata, sys_matrix]
       - [0xC8D20, .rodata, sys_save]
       - [0xC8E40, .rodata, sys_fault]
-      - [0xC9220, .rodata, sys_audio_8CC0]
-      - [0xC9260, .rodata, sys_audio_C870]
-      - [0xC9280, .rodata, sys_audio_F0A0]
-      - [0xC92C0, .rodata, sys_audio_12490]
-      - [0xC9320, .rodata, sys_audio_14AA0]
-      - [0xC99D0, .rodata, sys_audio_17650]
-      - [0xC9CF0, .rodata, sys_audio_1EB50]
+      - [0xC9220, .rodata, audio_synthesis]
+      - [0xC9260, .rodata, audio_heap]
+      - [0xC9280, .rodata, audio_load]
+      - [0xC92C0, .rodata, audio_playback]
+      - [0xC92EC, .rodata, audio_effects]
+      - [0xC9320, .rodata, audio_seqplayer]
+      - [0xC99D0, .rodata, audio_general]
+      - [0xC9CF0, .rodata, audio_thread]
       - [0xC9F10, .rodata, sys_math64]
 
       # RODATA - Libultra
@@ -333,7 +343,13 @@
       - { type: .bss, vram: 0x80144BE0, name: sys_timer }
       - { type: .bss, vram: 0x80144F60, name: sys_save }
       - { type: .bss, vram: 0x80145360, name: sys_fault }
-      - { type: bss, vram: 0x80145D40, name: sys_audio }
+      - { type: bss, vram: 0x80145D40, name: audio_synthesis }
+      - { type: bss, vram: 0x80146D80, name: audio_heap }
+      - { type: bss, vram: 0x80146D90, name: audio_load }
+      # padding suggests unused bss for playback, effects, or seqplayer
+      - { type: bss, vram: 0x80146E60, name: audio_general }
+      - { type: bss, vram: 0x8014BA40, name: audio_context }
+      - { type: bss, vram: 0x80155DA0, name: audio_thread }
 
       # Libultra bss
       - { type: .bss, vram: 0x80156620, name: ../libultra/io/controller }
