@@ -129,8 +129,10 @@ void func_8000C044(AudioSessionPoolSplit* split) {
 
 void func_8000C0C0(AudioCachePoolSplit* split) {
     D_8014C210.curRamAddr = D_8014C210.startRamAddr;
-    AudioHeap_InitPool(&D_8014C220, AudioHeap_Alloc(&D_8014C210, split->persistentCommonPoolSize), split->persistentCommonPoolSize);
-    AudioHeap_InitPool(&D_8014C230, AudioHeap_Alloc(&D_8014C210, split->temporaryCommonPoolSize), split->temporaryCommonPoolSize);
+    AudioHeap_InitPool(&D_8014C220, AudioHeap_Alloc(&D_8014C210, split->persistentCommonPoolSize),
+                       split->persistentCommonPoolSize);
+    AudioHeap_InitPool(&D_8014C230, AudioHeap_Alloc(&D_8014C210, split->temporaryCommonPoolSize),
+                       split->temporaryCommonPoolSize);
 }
 
 void func_8000C13C(AudioCommonPoolSplit* split) {

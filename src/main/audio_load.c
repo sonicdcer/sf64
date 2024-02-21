@@ -8,13 +8,13 @@
 
 void func_8000E8E0(s32 arg0) {
     s32 i;
-    u8 *temp_v0;
+    u8* temp_v0;
 
     D_80155C98 = 0x2D0;
-    for(i = 0; i < (3 * D_80155CA0 * D_80155C78.specUnk4); i++) {
+    for (i = 0; i < (3 * D_80155CA0 * D_80155C78.specUnk4); i++) {
         temp_v0 = AudioHeap_Alloc(&D_8014C1E0, D_80155C98);
         D_80154A48[D_80155A48].ramAddr = temp_v0;
-        if(temp_v0 == NULL) {
+        if (temp_v0 == NULL) {
             break;
         }
         D_80154A48[D_80155A48].devAddr = 0;
@@ -24,21 +24,21 @@ void func_8000E8E0(s32 arg0) {
         D_80154A48[D_80155A48].size = D_80155C98;
         D_80155A48++;
     }
-    for(i = 0; i < D_80155A48; i++) {
+    for (i = 0; i < D_80155A48; i++) {
         D_80155A58[i] = i;
         D_80154A48[i].reuseIndex = i;
     }
-    for(i = D_80155A48; i < 0x100; i++) {
+    for (i = D_80155A48; i < 0x100; i++) {
         D_80155A58[i] = 0;
     }
     D_80155C58 = 0;
     D_80155C5A = D_80155A48;
     D_80155A4C = D_80155A48;
     D_80155C98 = 0x200;
-    for(i = 0; i < D_80155CA0; i++) {
+    for (i = 0; i < D_80155CA0; i++) {
         temp_v0 = AudioHeap_Alloc(&D_8014C1E0, D_80155C98);
         D_80154A48[D_80155A48].ramAddr = temp_v0;
-        if(temp_v0 == NULL) {
+        if (temp_v0 == NULL) {
             break;
         }
         D_80154A48[D_80155A48].devAddr = 0;
@@ -48,24 +48,24 @@ void func_8000E8E0(s32 arg0) {
         D_80154A48[D_80155A48].size = D_80155C98;
         D_80155A48++;
     }
-    for(i = D_80155A4C; i < D_80155A48; i++) {
+    for (i = D_80155A4C; i < D_80155A48; i++) {
         D_80155B58[i - D_80155A4C] = i;
         D_80154A48[i].reuseIndex = i - D_80155A4C;
     }
-    for(i = D_80155A48; i < 0x100; i++) {
+    for (i = D_80155A48; i < 0x100; i++) {
         D_80155B58[i] = D_80155A4C;
     }
     D_80155C59 = 0;
     D_80155C5B = D_80155A48 - D_80155A4C;
 }
 
-void func_8000EBB4(AudioTable *arg0, u8 *arg1, u16 arg2) {
+void func_8000EBB4(AudioTable* arg0, u8* arg1, u16 arg2) {
     s32 i;
 
     arg0->unkMediumParam = arg2;
     arg0->romAddr = arg1;
 
-    for(i = 0; i < arg0->numEntries; i++) {
+    for (i = 0; i < arg0->numEntries; i++) {
         if ((arg0->entries[i].size != 0) && (arg0->entries[i].medium == 2)) {
             arg0->entries[i].romAddr += (u32) arg1;
         }
@@ -133,18 +133,18 @@ void func_8000FFCC(void) {
     s32 temp_s1;
     u32 temp_a0;
     s32 var_v1;
-    u64 *var_v0;
-    void *temp_v0;
+    u64* var_v0;
+    void* temp_v0;
 
     D_80155D8C = 0;
-    
-    for(i = 0 ; i < D_800C7C30 / 8; i++) {
-        ((u64*)gAudioDataBuffer)[i] = 0;
+
+    for (i = 0; i < D_800C7C30 / 8; i++) {
+        ((u64*) gAudioDataBuffer)[i] = 0;
     }
-    
+
     var_v0 = D_8014BA40;
-    var_v1 = ((u32)D_80155D90 - (u32)D_8014BA40) / 8;
-    for(; var_v1 >= 0; var_v1--) {
+    var_v1 = ((u32) D_80155D90 - (u32) D_8014BA40) / 8;
+    for (; var_v1 >= 0; var_v1--) {
         *var_v0++ = 0;
     }
     switch (osTvType) {
@@ -163,7 +163,7 @@ void func_8000FFCC(void) {
             break;
     }
     func_8001EE3C();
-    for(i = 0; i < 3; i++) {
+    for (i = 0; i < 3; i++) {
         D_80155D7C[i] = 0xA0;
     }
     D_80155CA8 = 0;
@@ -180,9 +180,9 @@ void func_8000FFCC(void) {
     D_80155CAC = 0;
     D_80155A48 = 0;
     func_8000BFE8(D_800C7C34);
-    for(i = 0; i < 3; i++) {
+    for (i = 0; i < 3; i++) {
         D_80155D70[i] = AudioHeap_Alloc(&D_8014C1D0, 0xAA0 * 2);
-        for(j = 0; j < 0xAA0; j++) {
+        for (j = 0; j < 0xAA0; j++) {
             D_80155D70[i][j] = 0;
         }
     }
@@ -199,11 +199,11 @@ void func_8000FFCC(void) {
     func_8000EBB4(D_80155C64, audio_table_ROM_START, D_800C7C44);
     temp_s1 = D_80155C60->numEntries;
     D_80155C70 = AudioHeap_Alloc(&D_8014C1D0, temp_s1 * 0xC);
-    for(i = 0; i < temp_s1; i++) {
-        D_80155C70[i].sampleBankId1  = (D_80155C60->entries[i].shortData1 >> 8) & 0xFF;
-        D_80155C70[i].sampleBankId2  = D_80155C60->entries[i].shortData1 & 0xFF;
+    for (i = 0; i < temp_s1; i++) {
+        D_80155C70[i].sampleBankId1 = (D_80155C60->entries[i].shortData1 >> 8) & 0xFF;
+        D_80155C70[i].sampleBankId2 = D_80155C60->entries[i].shortData1 & 0xFF;
         D_80155C70[i].numInstruments = (D_80155C60->entries[i].shortData2 >> 8) & 0xFF;
-        D_80155C70[i].numDrums       = D_80155C60->entries[i].shortData2 & 0xFF;
+        D_80155C70[i].numDrums = D_80155C60->entries[i].shortData2 & 0xFF;
     }
     temp_v0 = AudioHeap_Alloc(&D_8014C1D0, D_800C7C38);
     if (temp_v0 == NULL) {
