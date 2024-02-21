@@ -2,9 +2,9 @@
 #include "sf64dma.h"
 #include "sf64audio_provisional.h"
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000E4A0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000E4A0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000E5A8.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000E5A8.s")
 
 void func_8000E8E0(s32 arg0) {
     s32 i;
@@ -72,59 +72,59 @@ void func_8000EBB4(AudioTable *arg0, u8 *arg1, u16 arg2) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000EC14.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000EC14.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000ECC0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000ECC0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000ED28.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000ED28.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000EE14.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000EE14.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000EEE4.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000EEE4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000EF48.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000EF48.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000F010.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000F010.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000F078.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000F078.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000F158.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000F158.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000F200.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000F200.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000F220.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000F220.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000F354.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000F354.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000F388.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000F388.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000F478.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000F478.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000F554.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000F554.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000F790.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000F790.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000F7CC.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000F7CC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000F820.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000F820.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000F864.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000F864.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000FA28.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000FA28.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000FB50.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000FB50.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000FBA8.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000FBA8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000FC7C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000FC7C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000FC8C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000FC8C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000FCA0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000FCA0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000FCC0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000FCC0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000FF9C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8000FF9C.s")
 
 void func_8000FFCC(void) {
     s32 pad[13];
@@ -173,15 +173,15 @@ void func_8000FFCC(void) {
     D_80155CC4 = NULL;
     D_80155CC8[0].task.t.data_size = 0;
     D_80155CC8[1].task.t.data_size = 0;
-    osCreateMesgQueue(&D_80154A10, &D_80154A28, 1);
-    osCreateMesgQueue(&D_801542F8, &D_80154310, 0x40);
-    osCreateMesgQueue(&D_80154248, &D_80154260, 0x10);
-    osCreateMesgQueue(&D_801542A0, &D_801542B8, 0x10);
+    osCreateMesgQueue(&D_80154A10, D_80154A28, 1);
+    osCreateMesgQueue(&D_801542F8, D_80154310, 64);
+    osCreateMesgQueue(&D_80154248, D_80154260, 16);
+    osCreateMesgQueue(&D_801542A0, D_801542B8, 16);
     D_80155CAC = 0;
     D_80155A48 = 0;
     func_8000BFE8(D_800C7C34);
     for(i = 0; i < 3; i++) {
-        D_80155D70[i] = AudioHeap_Alloc(&D_8014C1D0, 0x1540);
+        D_80155D70[i] = AudioHeap_Alloc(&D_8014C1D0, 0xAA0 * 2);
         for(j = 0; j < 0xAA0; j++) {
             D_80155D70[i][j] = 0;
         }
@@ -213,34 +213,34 @@ void func_8000FFCC(void) {
     func_800168BC();
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_800105EC.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_800105EC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8001079C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8001079C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_80010808.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_80010808.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_80010870.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_80010870.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_800109FC.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_800109FC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_80010A80.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_80010A80.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_80010AD8.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_80010AD8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_80010BF0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_80010BF0.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_80010C60.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_80010C60.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_80010EFC.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_80010EFC.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_80010F8C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_80010F8C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_80010FE4.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_80010FE4.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_80011120.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_80011120.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8001154C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_8001154C.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_80011710.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_80011710.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_80011758.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/func_80011758.s")

@@ -32,7 +32,7 @@ void AudioHeap_ResetLoadStatus(void) {
 }
 
 void AudioHeap_DiscardFont(s32 fontId) {
-    Note_C0* note;
+    Note* note;
     s32 i;
 
     for (i = 0; i < D_80155CA0; i++) {
@@ -127,10 +127,10 @@ void func_8000C044(AudioSessionPoolSplit* split) {
     AudioHeap_InitPool(&D_8014C210, AudioHeap_Alloc(&D_8014C1C0, split->cachePoolSize), split->cachePoolSize);
 }
 
-void func_8000C0C0(AudioCommonPoolSplit* split) {
+void func_8000C0C0(AudioCachePoolSplit* split) {
     D_8014C210.curRamAddr = D_8014C210.startRamAddr;
-    AudioHeap_InitPool(&D_8014C220, AudioHeap_Alloc(&D_8014C210, split->seqCacheSize), split->seqCacheSize);
-    AudioHeap_InitPool(&D_8014C230, AudioHeap_Alloc(&D_8014C210, split->fontCacheSize), split->fontCacheSize);
+    AudioHeap_InitPool(&D_8014C220, AudioHeap_Alloc(&D_8014C210, split->persistentCommonPoolSize), split->persistentCommonPoolSize);
+    AudioHeap_InitPool(&D_8014C230, AudioHeap_Alloc(&D_8014C210, split->temporaryCommonPoolSize), split->temporaryCommonPoolSize);
 }
 
 void func_8000C13C(AudioCommonPoolSplit* split) {
@@ -635,10 +635,10 @@ void func_8000D4A8(void) {
     func_8000C1F8(&D_8014D398);
     func_8000DCD4(spec->persistentSampleCacheSize, spec->temporarySampleCacheSize);
     AudioHeap_ResetLoadStatus();
-    D_8014E530 = AudioHeap_AllocZeroed(&D_8014C1E0, D_80155CA0 * sizeof(Note_C0));
+    D_8014E530 = AudioHeap_AllocZeroed(&D_8014C1E0, D_80155CA0 * sizeof(Note));
     func_800132E8();
     func_800128B4();
-    D_8014C1B8 = AudioHeap_AllocZeroed(&D_8014C1E0, D_80155C78.ticksPerUpdate * D_80155CA0 * sizeof(NoteSubEu_Short));
+    D_8014C1B8 = AudioHeap_AllocZeroed(&D_8014C1E0, D_80155C78.ticksPerUpdate * D_80155CA0 * sizeof(NoteSubEu));
     for (i = 0; i != 2; i++) {
         D_80155CB8[i] = AudioHeap_AllocZeroed(&D_8014C1E0, D_80155C9C * 8);
     }
