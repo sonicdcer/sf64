@@ -251,6 +251,7 @@ $(shell mkdir -p $(BUILD_DIR)/linker_scripts/$(VERSION) $(BUILD_DIR)/linker_scri
 # directory flags
 
 # per-file flags
+build/src/main/sys_audio_F0A0.o:  OPTFLAGS := -O2 -g0
 build/src/main/sys_audio_17650.o:  OPTFLAGS := -O2 -g0
 build/src/main/sys_audio_C870.o:  OPTFLAGS := -O2 -g0
 build/src/main/sys_audio_1EB50.o: OPTFLAGS := -O1 -g0

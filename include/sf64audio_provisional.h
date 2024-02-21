@@ -1120,63 +1120,6 @@ typedef struct {
     AudioCacheEntry entry[32];
 } PermanentCache; // size = 0x190
 
-extern s16 D_800C7C2C;
-extern s32 D_800C7C30;
-extern AudioSpec D_800C76B8[];
-
-extern SynthesisReverb D_8014BA50[4];
-// D_8014C1A0
-extern u16 D_8014C1B0;
-extern s8 D_8014C1B3;
-extern s16 D_8014C1B4;
-extern NoteSubEu* D_8014C1B8;
-extern AudioAllocPool D_8014C1C0;
-extern AudioAllocPool D_8014C1D0;
-extern AudioAllocPool D_8014C1E0;
-// 0x20
-extern AudioAllocPool D_8014C210;
-extern AudioAllocPool D_8014C220;
-extern AudioAllocPool D_8014C230;
-extern AudioCache D_8014C240; // seqCache
-extern AudioCache D_8014C410; // fontCache
-extern AudioCache D_8014C5E0; // sampleBankCache
-extern PermanentCache D_8014C7B0;
-extern AudioSampleCache D_8014C940;
-extern AudioSampleCache D_8014CE58;
-extern s32 D_8014CE60;
-extern s32 D_8014D368;
-extern AudioSessionPoolSplit D_8014D370;
-extern AudioCommonPoolSplit D_8014D380;
-extern AudioCommonPoolSplit D_8014D388;
-extern AudioCommonPoolSplit D_8014D398;
-extern u8 D_8014D3A8[64];
-extern u8 D_8014D3E8[64];
-extern u8 D_8014D428[256];
-extern volatile u8 D_8014D528;
-extern u8 D_8014D529;
-extern s32 D_8014D52C;
-// 0x1000 gap
-extern Note_C0* D_8014E530;
-extern SequencePlayer_14C D_8014E538[4];
-extern UNK_TYPE D_801530C0;
-extern AudioPreloadReq D_80153300[];
-extern s32 D_80153D04;
-extern s32 D_80155A48;
-extern AudioTable* D_80155C60;
-extern SoundFont* D_80155C70;
-extern AudioBufferParameters D_80155C78;
-// D_80155C98
-extern s32 D_80155C9C;
-extern s32 D_80155CA0;
-extern u16 D_80155CA4;
-extern s32 D_80155CB4;
-extern void* D_80155CB8[2];
-extern UNK_TYPE D_80155CC0;
-extern f32 D_80155D68;
-extern s32 D_80155D6C;
-extern u16* D_80155D70[];
-extern u16 D_80155D7C[];
-
 void AudioHeap_ResetLoadStatus(void);
 void AudioHeap_DiscardFont(s32 fontId);
 void AudioHeap_DiscardSequence(s32 seqId);
@@ -1211,6 +1154,9 @@ void func_8000E1C4(SampleCacheEntry* entry, Sample* sample);
 SampleCacheEntry* AudioHeap_AllocPersistentSampleCacheEntry(u32 arg0);
 void func_8000E290(void);
 
+void func_8000EBB4(AudioTable *, u8 *, u16);
+void func_800168BC(void);
+void func_8001EE3C(void);
 void func_8000E8E0(s32);
 void func_800128B4(void);
 void func_800132E8(void);
@@ -1220,5 +1166,230 @@ Drum* func_80011DFC(s32, s32);
 void func_80012C40(Note_C0*);
 void func_800145BC(UNK_TYPE*, Note_C0*);
 void func_800144E4(SequencePlayer_14C*);
+
+
+
+
+extern AudioTable D_800C3610;
+extern AudioTable D_800C3660;
+extern AudioTable D_800C3A90;
+extern UNK_TYPE D_800C3CB0;
+
+
+
+
+
+extern f32 D_800C5D28[];
+extern f32 D_800C5D34;
+extern s8 D_800C5D3C;
+
+
+extern s16 D_800C7C2C;
+extern s32 D_800C7C30;
+extern s32 D_800C7C34;
+extern u32 D_800C7C38;
+extern u16 D_800C7C3C;
+extern u16 D_800C7C40;
+extern u16 D_800C7C44;
+extern s8 D_800C7C50;
+extern s8 D_800C7C54;
+extern OSMesgQueue* D_800C7C58;
+extern OSMesgQueue* D_800C7C5C;
+extern OSMesgQueue* D_800C7C60;
+extern OSMesgQueue* D_800C7C64;
+
+extern AudioSpec D_800C76B8[];
+
+
+typedef struct {
+    /* 0x0000 */ char pad0[0x10];
+    /* 0x0010 */ SynthesisReverb D_8014BA50[4];
+    /* 0x0760 */ char pad760[0x10];
+    /* 0x0770 */ u16 D_8014C1B0;
+    /* 0x0772 */ s8 D_8014C1B2;
+    /* 0x0773 */ s8 D_8014C1B3;
+    /* 0x0774 */ s16 D_8014C1B4;
+    /* 0x0778 */ NoteSubEu* D_8014C1B8;
+    /* 0x077C */ char pad77C[0x4];
+    /* 0x0780 */ AudioAllocPool D_8014C1C0;
+    /* 0x0790 */ AudioAllocPool D_8014C1D0;
+    /* 0x07A0 */ AudioAllocPool D_8014C1E0;
+    /* 0x07B0 */ char pad7B0[0x20];
+    /* 0x07D0 */ AudioAllocPool D_8014C210;
+    /* 0x07E0 */ AudioAllocPool D_8014C220;
+    /* 0x07F0 */ AudioAllocPool D_8014C230;
+    /* 0x0800 */ AudioCache D_8014C240; // seqCache
+    /* 0x09D0 */ AudioCache D_8014C410; // fontCache
+    /* 0x0BA0 */ AudioCache D_8014C5E0; // sampleBankCache
+    /* 0x0D70 */ PermanentCache D_8014C7B0;
+    /* 0x0F00 */ AudioSampleCache D_8014C940;
+    /* 0x1414 */ char pad1414[0x4];
+    /* 0x1418 */ AudioSampleCache D_8014CE58;
+    /* 0x192C */ char pad192C[0x4];
+    /* 0x1930 */ AudioSessionPoolSplit D_8014D370;
+    /* 0x1940 */ AudioCachePoolSplit D_8014D380;
+    /* 0x1948 */ AudioCommonPoolSplit D_8014D388;
+    /* 0x1954 */ char pad1954[0x4];
+    /* 0x1958 */ AudioCommonPoolSplit D_8014D398;
+    /* 0x1964 */ char pad1964[0x4];
+    /* 0x1968 */ u8 D_8014D3A8[64];
+    /* 0x19A8 */ u8 D_8014D3E8[64];
+    /* 0x19E8 */ u8 D_8014D428[256];
+    /* 0x1AE8 */ volatile u8 D_8014D528;
+    /* 0x1AE9 */ u8 D_8014D529;
+    /* 0x1AEC */ s32 D_8014D52C;
+    /* 0x1AF0 */ char pad1AF0[0x1000];
+    /* 0x2AF0 */ Note_C0* D_8014E530;
+    /* 0x2AF4 */ char pad2AF4[0x4];
+    /* 0x2AF8 */ SequencePlayer_14C D_8014E538[4];
+    /* 0x3028 */ char pad3028[0x4658];
+    /* 0x7680 */ UNK_TYPE D_801530C0;
+    /* 0x7684 */ char pad7684[0x23C];
+    /* 0x78C0 */ AudioPreloadReq D_80153300[128];
+    /* 0x82C0 */ char pad82C0[0x4];
+    /* 0x82C4 */ s32 D_80153D04;
+    /* 0x82C8 */ char pad82C8[0x540];
+    /* 0x8808 */ OSMesgQueue D_80154248;
+    /* 0x8820 */ OSMesg D_80154260[16];
+    /* 0x8860 */ OSMesgQueue D_801542A0;
+    /* 0x8878 */ OSMesg D_801542B8[16];
+    /* 0x88B8 */ OSMesgQueue D_801542F8;
+    /* 0x88D0 */ OSMesg D_80154310[64];
+    /* 0x89D0 */ char pad89D0[0x600];
+    /* 0x8FD0 */ OSMesgQueue D_80154A10;
+    /* 0x8FE8 */ OSMesg D_80154A28[1];
+    /* 0x8FEC */ char pad8FEC[0x101C];
+    /* 0xA008 */ s32 D_80155A48;
+    /* 0xA00C */ char padA00C[0x210];
+    /* 0xA21C */ AudioTable *D_80155C5C;
+    /* 0xA220 */ AudioTable* D_80155C60;
+    /* 0xA224 */ AudioTable *D_80155C64;
+    /* 0xA228 */ UNK_TYPE *D_80155C68;
+    /* 0xA22C */ s16 D_80155C6C;
+    /* 0xA230 */ SoundFont* D_80155C70;
+    /* 0xA234 */ char padA234[0x4];
+    /* 0xA238 */ AudioBufferParameters D_80155C78;
+    /* 0xA258 */ s32 D_80155C98;
+    /* 0xA25C */ s32 D_80155C9C;
+    /* 0xA260 */ s32 D_80155CA0;
+    /* 0xA264 */ u16 D_80155CA4;
+    /* 0xA266 */ s8 D_80155CA6;
+    /* 0xA268 */ volatile s32 D_80155CA8;
+    /* 0xA26C */ s32 D_80155CAC;
+    /* 0xA270 */ s32 D_80155CB0;
+    /* 0xA274 */ s32 D_80155CB4;
+    /* 0xA278 */ void* D_80155CB8[2];
+    /* 0xA280 */ UNK_TYPE D_80155CC0;
+    /* 0xA284 */ AudioTask* D_80155CC4;
+    /* 0xA288 */ AudioTask D_80155CC8[2];
+    /* 0xA328 */ f32 D_80155D68;
+    /* 0xA32C */ s32 D_80155D6C;
+    /* 0xA330 */ u16* D_80155D70[3];
+    /* 0xA33C */ u16 D_80155D7C[3];
+    /* 0xA344 */ UNK_TYPE D_80155D84;
+    /* 0xA348 */ UNK_TYPE D_80155D88;
+    /* 0xA34C */ volatile u32 D_80155D8C;
+} FoxAudioCtx;
+
+
+
+extern u64 D_8014BA40[];
+// 0x10
+extern SynthesisReverb D_8014BA50[4];
+// 0x10
+extern u16 D_8014C1B0;
+extern s8 D_8014C1B2;
+extern s8 D_8014C1B3;
+extern s16 D_8014C1B4;
+extern NoteSubEu* D_8014C1B8;
+// 0x4
+extern AudioAllocPool D_8014C1C0;
+extern AudioAllocPool D_8014C1D0;
+extern AudioAllocPool D_8014C1E0;
+// 0x20
+extern AudioAllocPool D_8014C210;
+extern AudioAllocPool D_8014C220;
+extern AudioAllocPool D_8014C230;
+extern AudioCache D_8014C240; // seqCache
+extern AudioCache D_8014C410; // fontCache
+extern AudioCache D_8014C5E0; // sampleBankCache
+extern PermanentCache D_8014C7B0;
+extern AudioSampleCache D_8014C940;
+// 0x4
+extern AudioSampleCache D_8014CE58;
+// 0x4
+extern AudioSessionPoolSplit D_8014D370;
+extern AudioCachePoolSplit D_8014D380;
+extern AudioCommonPoolSplit D_8014D388;
+// 0x4
+extern AudioCommonPoolSplit D_8014D398;
+// 0x4
+extern u8 D_8014D3A8[64];
+extern u8 D_8014D3E8[64];
+extern u8 D_8014D428[256];
+extern volatile u8 D_8014D528;
+extern u8 D_8014D529;
+extern s32 D_8014D52C;
+// 0x1000 gap
+extern Note_C0* D_8014E530;
+// 0x4
+extern SequencePlayer_14C D_8014E538[4];
+// D_8014EA68
+// 0x4658
+extern UNK_TYPE D_801530C0;
+extern AudioPreloadReq D_80153300[128];
+//0x4
+extern s32 D_80153D04;
+// 0x544
+extern OSMesgQueue D_80154248;
+extern OSMesg D_80154260[16];
+extern OSMesgQueue D_801542A0;
+extern OSMesg D_801542B8[16];
+extern OSMesgQueue D_801542F8;
+extern OSMesg D_80154310[64];
+// 0x600
+extern OSMesgQueue D_80154A10;
+extern OSMesg D_80154A28[1];
+// 0x101C
+extern s32 D_80155A48;
+// 0x210
+extern AudioTable *D_80155C5C;
+extern AudioTable* D_80155C60;
+extern AudioTable *D_80155C64;
+extern UNK_TYPE *D_80155C68;
+extern s16 D_80155C6C;
+extern SoundFont* D_80155C70;
+extern AudioBufferParameters D_80155C78;
+extern s32 D_80155C98;
+extern s32 D_80155C9C;
+extern s32 D_80155CA0;
+extern u16 D_80155CA4;
+extern s8 D_80155CA6;
+extern volatile s32 D_80155CA8;
+extern s32 D_80155CAC;
+extern s32 D_80155CB0;
+extern s32 D_80155CB4;
+extern void* D_80155CB8[2];
+extern UNK_TYPE D_80155CC0;
+extern AudioTask* D_80155CC4;
+extern AudioTask D_80155CC8[2];
+extern f32 D_80155D68;
+extern s32 D_80155D6C;
+extern u16* D_80155D70[3];
+extern u16 D_80155D7C[3];
+extern UNK_TYPE D_80155D84;
+extern UNK_TYPE D_80155D88;
+extern volatile u32 D_80155D8C;
+extern u64 D_80155D90[];
+
+
+
+extern OSMesg D_80156600[1];
+extern OSMesg D_80156608[4];
+extern OSMesg D_80156618[1];
+extern OSMesg D_8015661C[1];
+
+
+
 
 #endif

@@ -622,8 +622,8 @@ void func_8000D4A8(void) {
     D_8014D370.miscPoolSize = temp_v1;
     D_8014D370.cachePoolSize = temp_v0;
     func_8000C044(&D_8014D370);
-    D_8014D380.seqCacheSize = temp_s0;
-    D_8014D380.fontCacheSize = temp_s1;
+    D_8014D380.persistentCommonPoolSize = temp_s0;
+    D_8014D380.temporaryCommonPoolSize = temp_s1;
     func_8000C0C0(&D_8014D380);
     D_8014D388.seqCacheSize = spec->persistentSeqCacheSize;
     D_8014D388.fontCacheSize = spec->persistentFontCacheSize;

@@ -1478,7 +1478,7 @@ void func_800C1764(void) {
 }
 
 bool func_800C176C(void) {
-    bool ret = false;
+    s32 ret = 0;
 
     switch (D_80178754) {
         case 0:
@@ -1514,14 +1514,12 @@ bool func_800C176C(void) {
             D_80178778 = 2;
             ret = func_800BEF00();
 
-            if (ret == false) {
+            if (ret == 0) {
                 break;
             }
-
-            if (ret == true) {
+            if (ret == 1) {
                 D_80177E7C = 1;
             }
-
             if (func_800C16A0(30)) {
                 D_80178754 = 4;
             }
@@ -1639,29 +1637,27 @@ bool func_800C176C(void) {
 
         case 10:
             D_80178778 = 7;
-            if (func_800C16A0(60)) {
-                if (func_800C0C84()) {
-                    switch (D_801787A4) {
-                        case 0:
-                            D_80178754 = 11;
-                            break;
+            if (func_800C16A0(60) && func_800C0C84()) {
+                switch (D_801787A4) {
+                    case 0:
+                        D_80178754 = 11;
+                        break;
 
-                        case 1:
-                            D_80178754 = 12;
-                            break;
+                    case 1:
+                        D_80178754 = 12;
+                        break;
 
-                        case 2:
-                            D_80178754 = 13;
-                            break;
+                    case 2:
+                        D_80178754 = 13;
+                        break;
 
-                        default:
-                            D_80178754 = 14;
-                            break;
-                    }
-
-                    func_800182F4(0x103200FF);
-                    func_800182F4(0x113200FF);
+                    default:
+                        D_80178754 = 14;
+                        break;
                 }
+
+                func_800182F4(0x103200FF);
+                func_800182F4(0x113200FF);
             }
             break;
 
