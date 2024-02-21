@@ -542,6 +542,14 @@ void Option_Setup(void) {
     osViSetSpecialFeatures(OS_VI_DIVOT_OFF);
     osViSetSpecialFeatures(OS_VI_GAMMA_ON);
     osViSetSpecialFeatures(OS_VI_GAMMA_DITHER_OFF);
+    
+    for (i = 0; i < 16; i++) {
+        gSaveFile.save.data.planet[i].expertMedal = 1;
+        gSaveFile.save.data.planet[i].expertClear = 1;
+        gSaveFile.save.data.planet[i].played = 1;
+        gSaveFile.save.data.planet[i].normalMedal = 1;
+        gSaveFile.save.data.planet[i].normalClear = 1;
+    }
 }
 
 void Option_Init(void) {
