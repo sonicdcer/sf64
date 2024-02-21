@@ -35,7 +35,7 @@
     type: bin
     start: 0x8D99F0
 
-  - name: ast_blue_marine #3
+  - name: ast_blue_marine
     exclusive_ram_id: segment_03
     type: code
     dir: assets
