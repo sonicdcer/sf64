@@ -15,9 +15,9 @@
 #define VI_STATE_REPEATLINE 0x40     // repeat line?
 #define VI_STATE_FADE 0x80           // fade
 
-#define VI_CTRL_ANTIALIAS_MODE_3 0x00300 /* Bit [9:8] anti-alias mode */
-#define VI_CTRL_ANTIALIAS_MODE_2 0x00200 /* Bit [9:8] anti-alias mode */
-#define VI_CTRL_ANTIALIAS_MODE_1 0x00100 /* Bit [9:8] anti-alias mode */
+#define VI_CTRL_ANTIALIAS_MODE_3 0x00300 // Bit [9:8] anti-alias mode: AA disabled, resampling disabled, replicate pixels
+#define VI_CTRL_ANTIALIAS_MODE_2 0x00200 // Bit [9:8] anti-alias mode: AA disabled, resampling enabled, operate as if everything is covered
+#define VI_CTRL_ANTIALIAS_MODE_1 0x00100 // Bit [9:8] anti-alias mode: AA enabled, resampling enabled, fetch extra lines as-needed
 
 #define VI_SCALE_MASK 0xfff //see rcp scale_x/scale_y
 #define VI_2_10_FPART_MASK 0x3ff
