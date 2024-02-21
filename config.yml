@@ -4,7 +4,7 @@ f7475fb11e7e6830f82883412638e8390791ab87:
   name: Star Fox 64 (U) (V1.1)
   path: assets/yaml/us
   config:
-    gbi: F3DEX_MK64
+    gbi: F3DEX
     sort: OFFSET
     output:
       binary: lylat.otr
