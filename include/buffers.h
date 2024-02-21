@@ -7,7 +7,7 @@ extern u64 gDramStack[];
 extern u8 gOSYieldData[];
 extern FrameBuffer gZBuffer; // z buffer
 extern u8 gTaskOutputBuffer[];
-extern u64 gAudioDataBuffer[];
+extern u8 gAudioDataBuffer[];
 extern u16 gTextureRenderBuffer[];
 extern u16 gFillBuffer[];
 extern FrameBuffer gFrameBuffers[]; // 8038F800

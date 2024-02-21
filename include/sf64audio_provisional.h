@@ -1154,20 +1154,66 @@ void func_8000E1C4(SampleCacheEntry* entry, Sample* sample);
 SampleCacheEntry* AudioHeap_AllocPersistentSampleCacheEntry(u32 arg0);
 void func_8000E290(void);
 
-void func_8000EBB4(AudioTable *, u8 *, u16);
-void func_800168BC(void);
-void func_8001EE3C(void);
 void func_8000E8E0(s32);
-void func_800128B4(void);
-void func_800132E8(void);
-void func_80011F4C(Note_C0*);
+void func_8000EBB4(AudioTable *, u8 *, u16);
+void func_8000FFCC(void);
+
 Instrument* func_80011D4C(s32, s32);
 Drum* func_80011DFC(s32, s32);
+void func_80011F4C(Note_C0*);
+void func_800128B4(void);
 void func_80012C40(Note_C0*);
-void func_800145BC(UNK_TYPE*, Note_C0*);
+void func_800132E8(void);
+
 void func_800144E4(SequencePlayer_14C*);
+void func_800145BC(UNK_TYPE*, Note_C0*);
+void func_800168BC(void);
 
+void func_80016A50(void);
+void func_800182F4(s32);
+void func_80019290(s32, void*);
+void Audio_PlaySfx(u32, f32*, u8, f32*, f32*, s8*);
+void func_8001A38C(u8, f32*);
+void func_8001A55C(f32*, u32);
+void Audio_KillSfx(f32*);
+void func_8001A838(u32);
+void func_8001ACDC(s32);
+void func_8001AD00(u32);
+void func_8001AE58(void);
+s32 func_8001AE78(void);
+s32 func_8001AED4(void);
+void func_8001AF40(s32);
+u8* func_8001C3EC(void);
+void func_8001C8B8(u8);
+void func_8001CA24(u8);
+void func_8001CB80(u8, u8);
+void func_8001CCDC(u8, f32 *);
+void func_8001CE28(u8, f32 *);
+void func_8001CFA8(f32);
+void func_8001D034(f32*, s32, u8);
+void func_8001D10C(f32*, u32);
+void func_8001D15C(u8);
+void func_8001D1C8(u8, u32);
+void func_8001D2FC(f32*, u16);
+void func_8001D3A0(f32*, u16);
+void func_8001D400(s8);
+void func_8001D410(s32);
+void func_8001D444(u8, u16, u8, u8);
+void func_8001D4AC(u16, u8, u8, u8);
+void func_8001D520(void);
+void func_8001D638(u8);
+void func_8001D6DC(s32);
+void func_8001D8A8(u8, u8);
+void func_8001D8F4(u8);
+void func_8001DA90(u8);
+void func_8001DBD0(s32);
+void func_8001DC6C(u8, u16);
+void func_8001DCE0(void);
+void func_8001DECC(void);
 
+SPTask* func_8001DF50(void);
+void func_8001EE00(void);
+void func_8001EE3C(void);
 
 
 extern AudioTable D_800C3610;
@@ -1291,7 +1337,11 @@ typedef struct {
     /* 0xA34C */ volatile u32 D_80155D8C;
 } FoxAudioCtx;
 
+extern s32 D_80146D90;
+extern AudioSlowLoad D_80146D94[2];
 
+// file split
+// D_80146E60
 
 extern u64 D_8014BA40[];
 // 0x10
@@ -1336,23 +1386,35 @@ extern Note_C0* D_8014E530;
 extern SequencePlayer_14C D_8014E538[4];
 // D_8014EA68
 // 0x4658
-extern UNK_TYPE D_801530C0;
+extern UNK_TYPE D_801530C0; // size 0x40?
+extern Sample* D_80153100[128];
 extern AudioPreloadReq D_80153300[128];
-//0x4
+extern s32 D_80153D00;
 extern s32 D_80153D04;
-// 0x544
+extern s8 D_80153D08;
+// 0x540
 extern OSMesgQueue D_80154248;
 extern OSMesg D_80154260[16];
 extern OSMesgQueue D_801542A0;
 extern OSMesg D_801542B8[16];
 extern OSMesgQueue D_801542F8;
 extern OSMesg D_80154310[64];
-// 0x600
+extern OSIoMesg D_80154410[64];
 extern OSMesgQueue D_80154A10;
 extern OSMesg D_80154A28[1];
-// 0x101C
-extern s32 D_80155A48;
-// 0x210
+// 0x4
+extern OSIoMesg D_80154A30;
+extern SampleDma D_80154A48[0x100];
+extern u32 D_80155A48;
+extern u32 D_80155A4C;
+extern s32 D_80155A50;
+// 0x4
+extern u8 D_80155A58[0x100];
+extern u8 D_80155B58[0x100];
+extern u8 D_80155C58;
+extern u8 D_80155C59;
+extern u8 D_80155C5A;
+extern u8 D_80155C5B;
 extern AudioTable *D_80155C5C;
 extern AudioTable* D_80155C60;
 extern AudioTable *D_80155C64;

@@ -1,4 +1,4 @@
 #include "sys.h"
 
-void func_8001EE60(void) {
+OSPiHandle * func_8001EE60(void) {
 }

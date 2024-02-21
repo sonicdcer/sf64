@@ -6,9 +6,71 @@
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000E5A8.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000E8E0.s")
+void func_8000E8E0(s32 arg0) {
+    s32 i;
+    u8 *temp_v0;
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000EBB4.s")
+    D_80155C98 = 0x2D0;
+    for(i = 0; i < (3 * D_80155CA0 * D_80155C78.specUnk4); i++) {
+        temp_v0 = AudioHeap_Alloc(&D_8014C1E0, D_80155C98);
+        D_80154A48[D_80155A48].ramAddr = temp_v0;
+        if(temp_v0 == NULL) {
+            break;
+        }
+        D_80154A48[D_80155A48].devAddr = 0;
+        D_80154A48[D_80155A48].sizeUnused = 0;
+        D_80154A48[D_80155A48].unused = 0;
+        D_80154A48[D_80155A48].ttl = 0;
+        D_80154A48[D_80155A48].size = D_80155C98;
+        D_80155A48++;
+    }
+    for(i = 0; i < D_80155A48; i++) {
+        D_80155A58[i] = i;
+        D_80154A48[i].reuseIndex = i;
+    }
+    for(i = D_80155A48; i < 0x100; i++) {
+        D_80155A58[i] = 0;
+    }
+    D_80155C58 = 0;
+    D_80155C5A = D_80155A48;
+    D_80155A4C = D_80155A48;
+    D_80155C98 = 0x200;
+    for(i = 0; i < D_80155CA0; i++) {
+        temp_v0 = AudioHeap_Alloc(&D_8014C1E0, D_80155C98);
+        D_80154A48[D_80155A48].ramAddr = temp_v0;
+        if(temp_v0 == NULL) {
+            break;
+        }
+        D_80154A48[D_80155A48].devAddr = 0;
+        D_80154A48[D_80155A48].sizeUnused = 0;
+        D_80154A48[D_80155A48].unused = 0;
+        D_80154A48[D_80155A48].ttl = 0;
+        D_80154A48[D_80155A48].size = D_80155C98;
+        D_80155A48++;
+    }
+    for(i = D_80155A4C; i < D_80155A48; i++) {
+        D_80155B58[i - D_80155A4C] = i;
+        D_80154A48[i].reuseIndex = i - D_80155A4C;
+    }
+    for(i = D_80155A48; i < 0x100; i++) {
+        D_80155B58[i] = D_80155A4C;
+    }
+    D_80155C59 = 0;
+    D_80155C5B = D_80155A48 - D_80155A4C;
+}
+
+void func_8000EBB4(AudioTable *arg0, u8 *arg1, u16 arg2) {
+    s32 i;
+
+    arg0->unkMediumParam = arg2;
+    arg0->romAddr = arg1;
+
+    for(i = 0; i < arg0->numEntries; i++) {
+        if ((arg0->entries[i].size != 0) && (arg0->entries[i].medium == 2)) {
+            arg0->entries[i].romAddr += (u32) arg1;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/sys_audio_F0A0/func_8000EC14.s")
 
@@ -77,7 +139,7 @@ void func_8000FFCC(void) {
     D_80155D8C = 0;
     
     for(i = 0 ; i < D_800C7C30 / 8; i++) {
-        gAudioDataBuffer[i] = 0;
+        ((u64*)gAudioDataBuffer)[i] = 0;
     }
     
     var_v0 = D_8014BA40;

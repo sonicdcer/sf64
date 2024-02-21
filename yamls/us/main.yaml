@@ -210,7 +210,11 @@
       - [0xC51E0, .data, sys_math]
       - [0xC5220, .data, sys_matrix]
       - [0xC52F0, .data, sys_fault]
-      - [0xC54D0, data, sys_audio]
+      - [0xC54D0, data, sys_audio_8CC0]
+      - [0xC55B0, data, sys_audio_C870]
+      - [0xC5B50, data, sys_audio_F0A0]  # contains 12, 14, and 17 too
+      - [0xC80D0, data, sys_audio_context]
+      - [0xC8850, data, sys_audio_1EB50]
       - [0xC8880, .data, sys_sprintf]
 
       # DATA - Libultra
@@ -333,7 +337,11 @@
       - { type: .bss, vram: 0x80144BE0, name: sys_timer }
       - { type: .bss, vram: 0x80144F60, name: sys_save }
       - { type: .bss, vram: 0x80145360, name: sys_fault }
-      - { type: bss, vram: 0x80145D40, name: sys_audio }
+      - { type: bss, vram: 0x80145D40, name: sys_audio_8CC0 }
+      - { type: bss, vram: 0x80146D80, name: sys_audio_F0A0 }
+      - { type: bss, vram: 0x80146E60, name: sys_audio_17650 } # could be 80146E50
+      - { type: bss, vram: 0x8014BA40, name: sys_audio_context }
+      - { type: bss, vram: 0x80155D90, name: sys_audio_1E9AC }
 
       # Libultra bss
       - { type: .bss, vram: 0x80156620, name: ../libultra/io/controller }
