@@ -30,11 +30,20 @@ ast_blue_marine_seg3_vtx_00000418:
 D_3000470:
   { type: GFX, offset: 0x3000470, symbol: D_3000470 }
 
-D_3000600:
+D_30005E8: 
+  { type: BLOB, size: 24, offset: 0x30005E8, symbol: D_30005E8 }
+
+D_3000600: # BARRITA
   { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 8, offset: 0x3000600, symbol: D_3000600, tlut: 0x3000640 }
 
-D_3000640:
+D_3000640: # BARRITA TLUT
   { type: TEXTURE, ctype: u8, format: TLUT, colors: 16, offset: 0x3000640, symbol: D_3000640 }
+
+D_3000660:
+  { type: GFX, offset: 0x3000660, symbol: D_3000660 }
+
+D_30006E8: 
+  { type: TEXTURE, ctype: u8, format: IA8, width: 32, height: 32, offset: 0x30006E8, symbol: D_30006E8, pad: 2 }
 
 D_3000AF0:
   { type: GFX, offset: 0x3000AF0, symbol: D_3000AF0 }
@@ -54,6 +63,9 @@ D_3002180:
 D_3002980:
   { type: TEXTURE, ctype: u8, format: RGBA16, width: 16, height: 8, offset: 0x3002980, symbol: D_3002980 } # CHECK SIZE
 
+D_3002A80:
+  { type: BLOB, size: 0x400, offset: 0x3002A80, symbol: D_3002A80 }
+
 D_3002E80:
   { type: TEXTURE, ctype: u8, format: RGBA16, width: 32, height: 32, offset: 0x3002E80, symbol: D_3002E80 }
 
@@ -68,6 +80,9 @@ D_3004180:
 
 D_3004980:
   { type: TEXTURE, ctype: u8, format: RGBA16, width: 64, height: 32, offset: 0x3004980, symbol: D_3004980 }
+
+D_3005980:
+  { type: GFX, offset: 0x3005980, symbol: D_3005980 }
 
 D_3005AB0:
   { type: GFX, offset: 0x3005AB0, symbol: D_3005AB0 }
