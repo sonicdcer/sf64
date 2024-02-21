@@ -193,9 +193,9 @@ void Main_SetVIMode(void) {
             break;
     }
     if (sGammaMode != 0) {
-        osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON | OS_VI_DIVOT_OFF | OS_VI_GAMMA_ON | OS_VI_GAMMA_DITHER_ON);
+        osViSetSpecialFeatures(OS_VI_DITHER_FILTER_OFF | OS_VI_DIVOT_OFF | OS_VI_GAMMA_ON | OS_VI_GAMMA_DITHER_OFF);
     } else {
-        osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON | OS_VI_DIVOT_OFF | OS_VI_GAMMA_OFF | OS_VI_GAMMA_DITHER_OFF);
+        osViSetSpecialFeatures(OS_VI_DITHER_FILTER_OFF | OS_VI_DIVOT_OFF | OS_VI_GAMMA_OFF | OS_VI_GAMMA_DITHER_OFF);
     }
 }
 

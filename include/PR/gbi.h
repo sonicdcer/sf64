@@ -606,8 +606,8 @@
 #define G_CK_KEY	(1 << G_MDSFT_COMBKEY)
 
 /* G_SETOTHERMODE_H gSetColorDither */
-#define	G_CD_MAGICSQ		(0 << G_MDSFT_RGBDITHER)
-#define	G_CD_BAYER		(1 << G_MDSFT_RGBDITHER)
+#define	G_CD_MAGICSQ		(3 << G_MDSFT_RGBDITHER)
+#define	G_CD_BAYER		(3 << G_MDSFT_RGBDITHER)
 #define	G_CD_NOISE		(2 << G_MDSFT_RGBDITHER)
 
 #ifndef _HW_VERSION_1
