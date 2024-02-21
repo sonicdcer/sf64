@@ -23,6 +23,7 @@
 
 #define SIGN_OF(x) (((x) > 0) ? 1 : ((x) == 0) ? 0 : -1)
 #define SQ(x) ((x) * (x))
+#define CUBE(x) ((x) * (x) * (x))
 #define VEC3F_SQ(vec) (SQ((vec).x) + SQ((vec).y) + SQ((vec).z))
 #define DOT_XYZ(a, b) ((a).x * (b).x + (a).y * (b).y + (a).z * (b).z)
 #define ABS(x) ((x) >= 0 ? (x) : -(x))

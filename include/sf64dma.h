@@ -119,7 +119,7 @@ extern OverlayInit sOvli4_Katina[1]; // i4
 extern OverlayInit sOvli5_Macbeth[2]; // E6A810
 extern OverlayInit sOvli1_Training[1]; // fox_i1
 extern OverlayInit sOvli2_Versus[2]; // fox_i2
-extern OverlayInit sunused_Overlay[1]; // EFFA40
+extern OverlayInit sUnused_Overlay[1]; // EFFA40
 
 DECLARE_SEGMENT(makerom);
 DECLARE_SEGMENT(main);

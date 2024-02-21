@@ -790,7 +790,7 @@ OverlayInit sOvli2_Versus[2] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sunused_Overlay[1] = {
+OverlayInit sUnused_Overlay[1] = {
     { OVERLAY_OFFSETS(ovl_unused),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,

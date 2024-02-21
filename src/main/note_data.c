@@ -105,7 +105,7 @@ typedef struct {
         /* 0x01 */ u8 useHaasEffect : 1;
     } bitField1;
     /* 0x02 */ u8 pad2[0xE];
-} NoteUnkStruct; // size = 0120
+} NoteUnkStruct; // size = 0x10
 
 f32 gBendPitchOneOctaveFrequencies[] = {
     0.5f,      0.5f,      0.502736f, 0.505488f, 0.508254f, 0.511036f, 0.513833f, 0.516645f, 0.519472f, 0.522315f,

@@ -4,8 +4,6 @@
 #include "libultra/ultra64.h"
 #include "sf64math.h"
 
-#define UNK_TYPE s32
-
 typedef struct {
     /* 0x00 */ u8 unk_00;
     /* 0x02 */ u16 unk_02;
@@ -42,13 +40,9 @@ typedef struct {
 #define BONUS_TEXT_1UP 101
 
 typedef struct {
-    /* 0x00 */ f32 unk_00;
-    /* 0x04 */ f32 unk_04;
-    /* 0x08 */ f32 unk_08;
-    /* 0x0C */ f32 unk_0C;
-    /* 0x10 */ f32 unk_10;
-    /* 0x14 */ f32 unk_14;
-} UnkStruct_D_menu_801B8294; // size = 0x18
+    /* 0x00 */ Vec3f eye;
+    /* 0x0C */ Vec3f at;
+} CameraPoint; // size = 0x18
 
 typedef struct {
     /* 0x00 */ f32 unk_00;
