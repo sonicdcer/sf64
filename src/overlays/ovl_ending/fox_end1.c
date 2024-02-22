@@ -36,7 +36,6 @@ extern u8 D_7010FF0[];
 extern u16 D_70110C0[];
 extern u8 D_70110E0[];
 extern u16 D_70111B0[];
-extern u16 D_8000000_RGBA[];
 extern Gfx D_E000000[];
 extern Gfx D_E003AB0[];
 
@@ -109,7 +108,7 @@ void func_ending_80187520(s32 arg0) {
 
     RCP_SetupDL(&gMasterDisp, 0x4C);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
-    
+
     switch (arg0) {
         case 0:
             for (j = 0, i = 0; i < 67; j += 316 * 4, i++) {

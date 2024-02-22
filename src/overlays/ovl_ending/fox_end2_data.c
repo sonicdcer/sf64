@@ -106,8 +106,6 @@ extern Gfx D_700E9E0[];
 extern u16 D_700EA38[];
 extern Gfx D_7010970[];
 extern Gfx D_7016540[];
-extern u16 D_8000000_RGBA[];
-extern u16 D_8025080[];
 
 // clang-format off
 
