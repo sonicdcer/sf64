@@ -245,13 +245,21 @@
 
   - name: ast_ending_award_front
     exclusive_ram_id: segment_08
-    type: bin
+    type: code
+    dir: assets
     start: 0xD43400
+    vram: 0x08000000
+    subsegments:
+      - [0xD43400, .data, ast_ending_award_front/ast_ending_award_front]
 
   - name: ast_ending_award_back
     exclusive_ram_id: segment_08
-    type: bin
+    type: code
+    dir: assets
     start: 0xD68480
+    vram: 0x08000000
+    subsegments:
+      - [0xD68480, .data, ast_ending_award_back/ast_ending_award_back]
 
   - name: ast_reward
     exclusive_ram_id: segment_08

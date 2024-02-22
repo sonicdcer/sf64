@@ -5,4 +5,6 @@
 #include "sf64object.h"
 #include "structs.h"
 
+extern u16 gEndingAwardBack[];
+
 #endif
