@@ -263,8 +263,12 @@
 
   - name: ast_reward
     exclusive_ram_id: segment_08
-    type: bin
+    type: code
+    dir: assets
     start: 0xD91F10
+    vram: 0x08000000
+    subsegments:
+      - [0xD91F10, .data, ast_reward/ast_reward]
 
   - name: ast_training
     exclusive_ram_id: segment_06
