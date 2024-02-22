@@ -173,7 +173,7 @@ DECLARE_SEGMENT(ast_logo);
 DECLARE_SEGMENT(ast_ending);
 DECLARE_SEGMENT(ast_ending_award_front);
 DECLARE_SEGMENT(ast_ending_award_back);
-DECLARE_SEGMENT(ast_reward);
+DECLARE_SEGMENT(ast_ending_expert);
 DECLARE_SEGMENT(ast_training);
 DECLARE_SEGMENT(ast_radio);
 DECLARE_SEGMENT(ovl_i1);

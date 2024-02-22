@@ -3,7 +3,7 @@
     seg8: 0xD91F10
   header:
     code:
-      - '#include "assets/ast_reward.h"'
+      - '#include "assets/ast_ending_expert.h"'
     header:
       - '#include "gfx.h"'
       - '#include "sf64object.h"'

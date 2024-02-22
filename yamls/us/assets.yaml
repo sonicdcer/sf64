@@ -261,14 +261,14 @@
     subsegments:
       - [0xD68480, .data, ast_ending_award_back/ast_ending_award_back]
 
-  - name: ast_reward
+  - name: ast_ending_expert
     exclusive_ram_id: segment_08
     type: code
     dir: assets
     start: 0xD91F10
     vram: 0x08000000
     subsegments:
-      - [0xD91F10, .data, ast_reward/ast_reward]
+      - [0xD91F10, .data, ast_ending_expert/ast_ending_expert]
 
   - name: ast_training
     exclusive_ram_id: segment_06

@@ -5,4 +5,7 @@
 #include "sf64object.h"
 #include "structs.h"
 
+extern u16 gEndingExpertReward[];
+extern u16 gEndingNormalReward[];
+
 #endif
