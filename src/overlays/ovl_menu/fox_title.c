@@ -3200,8 +3200,8 @@ void func_menu_80190C9C(void) {
                 TextureRect_8bIA(&gMasterDisp, D_6011890 + (672 * i), 112, 6, D_menu_801AE564,
                                  D_menu_801AE568 + (6.0f * i), 1.0f, 1.0f);
             }
-            TextureRect_8bIA(&gMasterDisp, D_6011890 + (112 * 24), 112, 2, D_menu_801AE564, D_menu_801AE568 + (6.0f * 4), 1.0f,
-                             1.0f);
+            TextureRect_8bIA(&gMasterDisp, D_6011890 + (112 * 24), 112, 2, D_menu_801AE564,
+                             D_menu_801AE568 + (6.0f * 4), 1.0f, 1.0f);
     }
 }
 
