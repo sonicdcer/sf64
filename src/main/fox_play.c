@@ -233,7 +233,7 @@ void func_800A4C40(Player* player) {
         if ((sp30.y < gGroundLevel + 80.0f) || (sp3C.y < gGroundLevel + 80.0f)) {
             if (D_80161A64 == 0) {
                 D_80161A64 = 1;
-                Audio_PlaySfx(0x1100000B, player->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x1100000B, player->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
             }
         } else {
             D_80161A64 = 0;
@@ -476,7 +476,7 @@ void func_800A594C(void) {
     if (D_8017782C == 0) {
         if (gCurrentLevel == LEVEL_SOLAR) {
             func_8001D1C8(0xFF, 1);
-            Audio_PlaySfx(0x4100C023, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x4100C023, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
             func_8001A55C(gPlayer[0].sfxPos, 0x3140807E);
         }
     } else if (gCurrentLevel == LEVEL_AQUAS) {
@@ -551,18 +551,18 @@ void func_800A5EBC(void) {
 
 void func_800A5FA0(f32* sfxSrc, u32 sfxId, s32 mode) {
     if (!gVersusMode) {
-        Audio_PlaySfx(sfxId, sfxSrc, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(sfxId, sfxSrc, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
     } else {
-        Audio_PlaySfx(sfxId, sfxSrc, mode, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(sfxId, sfxSrc, mode, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
     }
 }
 
 void func_800A6028(f32* sfxSrc, u32 sfxId) {
-    Audio_PlaySfx(sfxId, sfxSrc, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    Audio_PlaySfx(sfxId, sfxSrc, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
 }
 
 void func_800A6070(f32* sfxSrc, u32 sfxId) {
-    Audio_PlaySfx(sfxId, sfxSrc, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    Audio_PlaySfx(sfxId, sfxSrc, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
 }
 
 void BonusText_Initialize(BonusText* bonus) {
@@ -827,9 +827,9 @@ void Player_ApplyDamage(Player* player, s32 direction, s32 damage) {
     } else {
         if (player->shields != 0) {
             if (player->shields < 50) {
-                Audio_PlaySfx(0x49008011, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x49008011, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
             } else if (player->shields < 100) {
-                Audio_PlaySfx(0x49008010, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x49008010, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
             }
         }
         if (damage < 25) {
@@ -1741,7 +1741,8 @@ void func_800A8BA4(Player* player) {
                                     player->unk_23C = 80;
                                 }
                                 if (player->unk_22C == 0) {
-                                    Audio_PlaySfx(0x19000001, obj80->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                                    Audio_PlaySfx(0x19000001, obj80->sfxPos, 0, &gDefaultScale, &gDefaultScale,
+                                                  &gDefaultReverb);
                                 }
                                 player->unk_22C += 2;
                                 if (player->unk_22C >= 4) {
@@ -1749,7 +1750,8 @@ void func_800A8BA4(Player* player) {
                                 }
                             } else if (obj80->obj.id == OBJ_80_54) {
                                 if (player->unk_22C == 0) {
-                                    Audio_PlaySfx(0x19832019, obj80->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                                    Audio_PlaySfx(0x19832019, obj80->sfxPos, 0, &gDefaultScale, &gDefaultScale,
+                                                  &gDefaultReverb);
                                 }
                                 player->unk_22C += 2;
                                 if (player->unk_22C >= 4) {
@@ -1844,7 +1846,8 @@ void func_800A8BA4(Player* player) {
                     if (temp_v0 != 0) {
                         if (temp_v0 < 0) {
                             if (player->unk_22C == 0) {
-                                Audio_PlaySfx(0x19000001, boss->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                                Audio_PlaySfx(0x19000001, boss->sfxPos, 0, &gDefaultScale, &gDefaultScale,
+                                              &gDefaultReverb);
                             }
                             player->unk_22C += 2;
                             if (player->unk_22C >= 4) {
@@ -1905,13 +1908,15 @@ void func_800A8BA4(Player* player) {
                                     if (D_80177E80 == 3) {
                                         Radio_PlayMessage(gMsg_ID_5504, RCID_FALCO);
                                     }
-                                    Audio_PlaySfx(D_800CFF54[D_80177E80], gPlayer[0].sfxPos, 0, &D_800C5D34,
-                                                  &D_800C5D34, &D_800C5D3C);
-                                    Audio_PlaySfx(0x49008025, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                                    Audio_PlaySfx(D_800CFF54[D_80177E80], gPlayer[0].sfxPos, 0, &gDefaultScale,
+                                                  &gDefaultScale, &gDefaultReverb);
+                                    Audio_PlaySfx(0x49008025, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale,
+                                                  &gDefaultReverb);
                                 }
                             } else if (temp_v0 < 0) {
                                 if (player->unk_22C == 0) {
-                                    Audio_PlaySfx(0x19000001, actor->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                                    Audio_PlaySfx(0x19000001, actor->sfxPos, 0, &gDefaultScale, &gDefaultScale,
+                                                  &gDefaultReverb);
                                 }
                                 player->unk_22C += 2;
                                 if (player->unk_22C >= 4) {
@@ -1943,7 +1948,8 @@ void func_800A8BA4(Player* player) {
                     if (temp_v0 != 0) {
                         if (temp_v0 < 0) {
                             if (player->unk_22C == 0) {
-                                Audio_PlaySfx(0x19000001, actor->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                                Audio_PlaySfx(0x19000001, actor->sfxPos, 0, &gDefaultScale, &gDefaultScale,
+                                              &gDefaultReverb);
                             }
                             player->unk_22C += 2;
                             if (player->unk_22C >= 4) {
@@ -5317,9 +5323,9 @@ void func_800B48BC(Player* player) {
             if ((!gVersusMode || (D_80177E7C != 0)) && (player->unk_4DC == 0) && (gInputPress->button & U_CBUTTONS) &&
                 ((player->form == FORM_ARWING) || (gVersusMode && (player->form == FORM_LANDMASTER)))) {
                 if (player->unk_238 = 1 - player->unk_238) {
-                    Audio_PlaySfx(0x4900002C, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    Audio_PlaySfx(0x4900002C, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
                 } else {
-                    Audio_PlaySfx(0x4900002D, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    Audio_PlaySfx(0x4900002D, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
                     if (gLevelMode == LEVELMODE_ON_RAILS) {
                         player->unk_034 = 0.0f;
                     }
@@ -6154,7 +6160,7 @@ void func_800B79B0(void) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_8;
                 gPlayer[0].unk_1D0 = 0;
                 gOverlayStage = 1;
-                Audio_PlaySfx(0x1900602A, D_800C5D28, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x1900602A, gDefaultSfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
                 D_80177930 = 2;
                 D_800D3180[gCurrentLevel] = 1;
             }
@@ -6208,9 +6214,9 @@ void func_800B79B0(void) {
                 }
                 if (gPlayer[0].heal == 0) {
                     if (gPlayer[0].shields == 50) {
-                        Audio_PlaySfx(0x49008011, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                        Audio_PlaySfx(0x49008011, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
                     } else if (gPlayer[0].shields == 100) {
-                        Audio_PlaySfx(0x49008010, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                        Audio_PlaySfx(0x49008010, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
                     }
                 }
             }
@@ -6423,9 +6429,9 @@ void func_800B86CC(void) {
                 if ((gControllerPress[gMainController].button & R_TRIG) && (gPlayer[0].form != FORM_BLUE_MARINE) &&
                     (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_0)) {
                     if (D_800D2860[0] = 1 - D_800D2860[0]) {
-                        Audio_PlaySfx(0x49000019, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                        Audio_PlaySfx(0x49000019, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
                     } else {
-                        Audio_PlaySfx(0x4900101A, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                        Audio_PlaySfx(0x4900101A, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
                     }
                 }
             } else {

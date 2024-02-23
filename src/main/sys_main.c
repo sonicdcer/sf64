@@ -1,6 +1,6 @@
 #include "sys.h"
 
-void func_8000FFCC(void);
+void AudioLoad_Init(void);
 SPTask* func_8001DF50(void);
 void func_8001DCE0(void);
 void func_8001DECC(void);
@@ -107,7 +107,7 @@ void Main_Initialize(void) {
 void Audio_ThreadEntry(void* arg0) {
     SPTask* task;
 
-    func_8000FFCC();
+    AudioLoad_Init();
     func_8001DCE0();
     task = func_8001DF50();
     if (task != NULL) {

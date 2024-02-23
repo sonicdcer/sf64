@@ -7,15 +7,15 @@
 #include "sf64object.h"
 #include "sf64player.h"
 
-extern f32 D_800C5D28[];
-extern f32 D_800C5D34;
-extern s8 D_800C5D3C;
-extern s8 D_800C7C50;
-extern s8 D_800C7C54;
-extern OSMesgQueue* D_800C7C58;
-extern OSMesgQueue* D_800C7C5C;
-extern OSMesgQueue* D_800C7C60;
-extern OSMesgQueue* D_800C7C64;
+extern f32 gDefaultSfxPos[];
+extern f32 gDefaultScale;
+extern s8 gDefaultReverb;
+extern s8 gThreadCmdWritePos;
+extern s8 gThreadCmdReadPos;
+extern OSMesgQueue* gAudioTaskStartQueue;
+extern OSMesgQueue* gThreadCmdProcQueue;
+extern OSMesgQueue* gAudioUnkQueue;
+extern OSMesgQueue* gAudioResetQueue;
 
 extern OSMesg D_80156600[1];
 extern OSMesg D_80156608[4];

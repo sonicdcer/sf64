@@ -367,7 +367,7 @@ void func_i6_80196D88(Player* player) {
                 if (player->unk_120 >= 180.0f) {
                     player->unk_120 -= 360.0f;
                 }
-                Audio_PlaySfx(0x09000002, player->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x09000002, player->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
                 player->unk_194 = 5.0f;
                 player->unk_190 = 5.0f;
                 gCsFrameCount = 0;
@@ -396,7 +396,7 @@ void func_i6_80196D88(Player* player) {
             }
 
             if (gCsFrameCount == 105) {
-                Audio_PlaySfx(0x09000002, player->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x09000002, player->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
                 player->unk_194 = 5.0f;
                 player->unk_190 = 5.0f;
             }

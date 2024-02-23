@@ -333,7 +333,7 @@ void func_800BDE44(void) {
                     } else {
                         D_80178810[i] = 0;
                     }
-                    Audio_PlaySfx(0x49004007U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    Audio_PlaySfx(0x49004007U, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
                 }
             }
 
@@ -362,12 +362,12 @@ s32 func_800BE078(void) {
 
         if ((D_80178768[1] -= temp) >= 0) {
             if ((D_80178768[0] == 0) && (D_80178768[1] < 15) && (D_80178768[1] >= 0)) {
-                Audio_PlaySfx(0x4900C02AU, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x4900C02AU, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
             }
             break;
         }
         // clang-format off
-	if (D_80178768[0] == 0)	{ Audio_PlaySfx(0x4900D036U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C); }
+	if (D_80178768[0] == 0)	{ Audio_PlaySfx(0x4900D036U, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb); }
         // clang-format on
         D_80178768[1] *= -1;
         temp = (D_80178768[1] / 60) + 1;
@@ -463,19 +463,19 @@ s32 func_800BE564(void) {
         }
 
         if ((sUnlockLandmaster) && (D_80178780[i] == 0) && (gControllerPress[i].button & B_BUTTON)) {
-            Audio_PlaySfx(0x49000003U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x49000003U, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
             D_80178780[i] = 2;
         }
 
         if ((sUnlockOnFoot) && (D_80178780[i] == 0) &&
             ((gControllerPress[i].button & L_CBUTTONS) || (gControllerPress[i].button & D_CBUTTONS) ||
              (gControllerPress[i].button & U_CBUTTONS) || (gControllerPress[i].button & R_CBUTTONS))) {
-            Audio_PlaySfx(0x49000003U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x49000003U, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
             D_80178780[i] = 3;
         }
 
         if ((D_80178780[i] == 0) && (gControllerPress[i].button & A_BUTTON)) {
-            Audio_PlaySfx(0x49000003U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x49000003U, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
             D_80178780[i] = 1;
         }
 
@@ -598,10 +598,10 @@ s32 func_800BEF00(void) {
     if (D_80178794 == 0) {
         D_80178790--;
         if (D_80178790 != 0) {
-            Audio_PlaySfx(0x49000008U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x49000008U, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
             ret = 0;
         } else {
-            Audio_PlaySfx(0x49000009U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x49000009U, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
             ret = 1;
         }
         D_80178794 = 30;
@@ -1129,7 +1129,7 @@ s32 func_800C07C4(void) {
     }
 
     // clang-format off
-    if (ret != 0) { Audio_PlaySfx(0x49000002U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C); }
+    if (ret != 0) { Audio_PlaySfx(0x49000002U, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb); }
     // clang-format on
 
     return ret;
@@ -1255,7 +1255,7 @@ bool func_800C0D10(void) {
             if (cont == 4) {
                 D_800D4A90 = 2;
             } else {
-                Audio_PlaySfx(0x49004007U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                Audio_PlaySfx(0x49004007U, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
             }
             break;
 
@@ -1306,7 +1306,7 @@ s32 func_800C0E78(void) {
 bool func_800C107C(s32 arg0) {
     D_80178798++;
     if (D_80178798 == 10) {
-        Audio_PlaySfx(0x49004007U, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        Audio_PlaySfx(0x49004007U, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
         D_801787B8++;
         D_80178798 = 0;
     }

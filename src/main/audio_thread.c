@@ -10,12 +10,12 @@
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_thread/func_8001E778.s")
 
 void func_8001E7C8(void) {
-    D_800C7C50 = 0;
-    D_800C7C54 = 0;
-    osCreateMesgQueue(D_800C7C58, D_80156600, 1);
-    osCreateMesgQueue(D_800C7C5C, D_80156608, 4);
-    osCreateMesgQueue(D_800C7C60, D_80156618, 1);
-    osCreateMesgQueue(D_800C7C64, D_8015661C, 1);
+    gThreadCmdWritePos = 0;
+    gThreadCmdReadPos = 0;
+    osCreateMesgQueue(gAudioTaskStartQueue, D_80156600, 1);
+    osCreateMesgQueue(gThreadCmdProcQueue, D_80156608, 4);
+    osCreateMesgQueue(gAudioUnkQueue, D_80156618, 1);
+    osCreateMesgQueue(gAudioResetQueue, D_8015661C, 1);
 }
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_thread/func_8001E850.s")
