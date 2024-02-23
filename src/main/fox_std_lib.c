@@ -129,7 +129,7 @@ void Texture_Mottle(void* dst, void* src, u8 mode) {
 s32 Animation_GetLimbIndex(Limb* limb, Limb** skeleton) {
     s32 i = 1;
 
-    for (i = 1; *skeleton != 0; i++, skeleton++) {
+    for (i = 1; *skeleton != NULL; i++, skeleton++) {
         if (*skeleton == limb) {
             return i;
         }

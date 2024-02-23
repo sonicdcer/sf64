@@ -203,7 +203,7 @@
 
       # DATA - Microcode
       - [0xC3EE0, data, aspmain]
-      - [0xC4210, data, audiotables]
+      - [0xC4210, .data, audiotables]
       - [0xC49D0, data, f3dex]
 
       # DATA - Nintendo Libraries

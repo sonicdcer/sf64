@@ -1,13 +1,6 @@
 #include "prevent_bss_reordering.h"
 #include "global.h"
 
-typedef struct {
-    s32 unk_00;
-    char unk_04[0x2F0];
-} UnkStruct_1515F0; // size = 0x2F4
-                    // placeholder for audio struct. struct size being equal to Actor probably coincidental
-extern UnkStruct_1515F0 D_801515F0[];
-
 /* static */ Vec3f D_800C9A90 = { 0.0f, -10.0f, 0.0f };
 /* static */ Vec3f D_800C9A9C[4] = {
     { 0.0f, 20000.0f, 0.0f },
@@ -978,10 +971,10 @@ void func_8003088C(Actor* actor) {
                                         break;
                                 }
                             } else {
-                                D_801515F0[actor->unk_0D4].unk_00 = 80;
+                                gActors[actor->unk_0D4 - 101].iwork[1] = 80;
                             }
                         } else {
-                            D_801515F0[actor->unk_0D4].unk_00 = 80;
+                            gActors[actor->unk_0D4 - 101].iwork[1] = 80;
                         }
                         break;
                 }

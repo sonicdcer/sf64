@@ -1,5 +1,6 @@
 #include "sys.h"
 #include "sf64audio_provisional.h"
+#include "context.h"
 
 void func_80016A50(void) {
 }
