@@ -976,7 +976,7 @@ extern u8 D_70118E0[];
 extern u16 D_70123F8[];
 extern u16 D_70123F8[];
 
-// ast_8_ti, ast_option, ast_ending_award_front, ast_ending_award_back, ast_reward
+// ast_8_ti, ast_option
 extern u8 D_8000000[];
 extern u16 D_8000680[];
 extern u8 D_80006A0[];

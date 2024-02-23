@@ -1,4 +1,6 @@
 #include "global.h"
+#include "assets/ast_ending_award_front.h"
+#include "assets/ast_ending_award_back.h"
 
 void func_ending_8018CE20(s32);
 void func_ending_801926D4(void);
@@ -34,7 +36,6 @@ extern u8 D_7010FF0[];
 extern u16 D_70110C0[];
 extern u8 D_70110E0[];
 extern u16 D_70111B0[];
-extern u16 D_8000000_RGBA[];
 extern Gfx D_E000000[];
 extern Gfx D_E003AB0[];
 
@@ -107,20 +108,21 @@ void func_ending_80187520(s32 arg0) {
 
     RCP_SetupDL(&gMasterDisp, 0x4C);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
+
     switch (arg0) {
         case 0:
             for (j = 0, i = 0; i < 67; j += 316 * 4, i++) {
-                TextureRect_16bRGBA(&gMasterDisp, D_8000000_RGBA + j, 316, 4, 0.0f, 4 * i, 1.0f, 1.0f);
+                TextureRect_16bRGBA(&gMasterDisp, gEndingAwardBack + j, 316, 4, 0.0f, 4 * i, 1.0f, 1.0f);
             }
-            TextureRect_16bRGBA(&gMasterDisp, D_8000000_RGBA + j, 316, 3, 0.0f, 4 * i, 1.0f, 1.0f);
+            TextureRect_16bRGBA(&gMasterDisp, gEndingAwardBack + j, 316, 3, 0.0f, 4 * i, 1.0f, 1.0f);
             break;
+
         case 1:
             for (j = 0, i = 0; i < 60; j += 316 * 4, i++) {
-                TextureRect_16bRGBA(&gMasterDisp, D_8000000_RGBA + j, 316, 4, 0.0f, 4 * i, 1.0f, 1.0f);
+                TextureRect_16bRGBA(&gMasterDisp, gEndingAwardFront + j, 316, 4, 0.0f, 4 * i, 1.0f, 1.0f);
             }
             break;
     }
-    if (!D_8000000_RGBA) {} // fake?
 }
 
 void func_ending_801876A4(void) {

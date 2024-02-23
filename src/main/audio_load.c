@@ -589,7 +589,7 @@ void func_8000F864(s32 arg0, u32 arg1x, void* arg2) {
         }
     }
     gSoundFontList[arg0].drums = arg1[0];
-    gSoundFontList[arg0].instruments = (u32)&arg1[1];
+    gSoundFontList[arg0].instruments = (u32) &arg1[1];
 }
 
 void func_8000FA28(u32 arg0, u8* arg1, u32 arg2, s32 arg3) {
