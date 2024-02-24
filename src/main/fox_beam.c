@@ -705,7 +705,7 @@ void func_80037CF4(PlayerShot* shot, Actor* actor, s32 hitIndex) {
             shot->obj.pos.z += shot->vel.z * 5.0f;
             actor->timer_0C2 = 3;
             func_80078E50(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 8.0f);
-            Audio_PlaySfx(0x29121007, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            Audio_PlaySfx(0x29121007, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
             func_800A668C(D_8017849C, D_801784A0, D_80178498);
         }
     } else {
@@ -852,7 +852,7 @@ void func_80038140(PlayerShot* shot) {
                         shot->obj.pos.y += 2.0f * shot->vel.y;
                         shot->obj.pos.z += 2.0f * shot->vel.z;
                         shot->unk_64 = 5;
-                        Audio_PlaySfx(0x09007011, player->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                        Audio_PlaySfx(0x09007011, player->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
                         func_80078E50(player->pos.x, player->pos.y, player->unk_138, 8.0f);
                     } else {
                         func_80036318(shot);
@@ -953,7 +953,7 @@ void func_80038140(PlayerShot* shot) {
                     } else {
                         boss->dmgType = DMG_BEAM;
                         func_80036318(shot);
-                        Audio_PlaySfx(0x29001062, shot->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                        Audio_PlaySfx(0x29001062, shot->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
                     }
                 }
             } else {
@@ -967,7 +967,7 @@ void func_80038140(PlayerShot* shot) {
                         } else {
                             boss->dmgType = DMG_BEAM;
                             boss->dmgPart = 100;
-                            Audio_PlaySfx(0x29121007, shot->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                            Audio_PlaySfx(0x29121007, shot->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
                             func_80036318(shot);
                         }
                     }

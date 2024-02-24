@@ -1,6 +1,6 @@
 #include "sys.h"
 
-void func_8000FFCC(void);
+void AudioLoad_Init(void);
 SPTask* func_8001DF50(void);
 void func_8001DCE0(void);
 void func_8001DECC(void);
@@ -107,7 +107,7 @@ void Main_Initialize(void) {
 void Audio_ThreadEntry(void* arg0) {
     SPTask* task;
 
-    func_8000FFCC();
+    AudioLoad_Init();
     func_8001DCE0();
     task = func_8001DF50();
     if (task != NULL) {
@@ -145,7 +145,7 @@ void Graphics_SetTask(void) {
     gGfxTask->task.t.dram_stack = gDramStack;
     gGfxTask->task.t.dram_stack_size = SP_DRAM_STACK_SIZE8;
     gGfxTask->task.t.output_buff = (u64*) gTaskOutputBuffer;
-    gGfxTask->task.t.output_buff_size = (u64*) gAudioDataBuffer;
+    gGfxTask->task.t.output_buff_size = (u64*) gAudioHeap;
     gGfxTask->task.t.data_ptr = (u64*) gGfxPool->masterDL;
     gGfxTask->task.t.data_size = (gMasterDisp - gGfxPool->masterDL) * sizeof(Gfx);
     gGfxTask->task.t.yield_data_ptr = (u64*) &gOSYieldData;

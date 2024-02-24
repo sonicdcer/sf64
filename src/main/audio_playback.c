@@ -7,9 +7,9 @@
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_playback/func_80011D10.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_playback/func_80011D4C.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_playback/Audio_GetInstrument.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_playback/func_80011DFC.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_playback/Audio_GetDrum.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_playback/func_80011EB8.s")
 

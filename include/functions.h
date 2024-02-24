@@ -8,7 +8,7 @@
 #include "sf64mesg.h"
 
 // audio
-void func_8000FFCC(void);
+void AudioLoad_Init(void);
 
 void func_80016A50(void);
 void func_800182F4(s32);

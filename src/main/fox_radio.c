@@ -593,7 +593,8 @@ void func_800BB5D0(void) {
                     if ((D_801782E8 >= 23000) && (D_801782E8 < 23033)) {
                         if (D_801782F8 != 0) {
                             D_Timer_801782B4 = 2;
-                            Audio_PlaySfx(0x49000017, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                            Audio_PlaySfx(0x49000017, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale,
+                                          &gDefaultReverb);
                         }
                     } else if (temp_v0 == 1) {
                         D_Timer_801782B4 = 2;
