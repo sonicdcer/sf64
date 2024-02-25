@@ -852,7 +852,7 @@ void func_80086DCC(void) {
         }
 
         if ((D_80177840 == 92) || (D_80177840 == 87) || (D_80177840 == 82) || (D_80177840 == 77)) {
-            Audio_PlaySfx(0x49008031U, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x49008031U, gDefaultSfxPos, 4U);
         }
     } else {
         if (D_80177840 <= 100) {
@@ -879,9 +879,9 @@ void func_80086DCC(void) {
 
         if ((D_80177840 == 80) || (D_80177840 == 72) || (D_80177840 == 64) || (D_80177840 == 56)) {
             if (!boolTemp) {
-                Audio_PlaySfx(0x49008034U, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x49008034U, gDefaultSfxPos, 4U);
             } else {
-                Audio_PlaySfx(0x49008031U, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x49008031U, gDefaultSfxPos, 4U);
             }
         }
     }
@@ -1138,7 +1138,7 @@ void func_80087B5C(void) {
                 if (((gTeamShields[1] > 0) && (gTeamShields[1] < 255)) &&
                     ((gTeamShields[2] > 0) && (gTeamShields[2] < 255)) &&
                     ((gTeamShields[3] > 0) && (gTeamShields[3] < 255))) {
-                    Audio_PlaySfx(0x41007012U, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x41007012U, gDefaultSfxPos, 4U);
                 }
                 D_801617C0[0] = 2;
 
@@ -1151,7 +1151,7 @@ void func_80087B5C(void) {
                 }
 
                 if (D_801617C0[5] > 0) {
-                    Audio_PlaySfx(0x49004007U, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x49004007U, gDefaultSfxPos, 4U);
 
                     if (D_801617C0[5] >= 100) {
                         D_801617C0[5] -= 100;
@@ -1209,7 +1209,7 @@ void func_80087B5C(void) {
                     D_801617C0[0]++;
                 } else {
                     if (!(gGameFrameCount & 1)) {
-                        Audio_PlaySfx(0x4900C024U, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                        AUDIO_PLAY_SFX(0x4900C024U, gDefaultSfxPos, 4U);
                         D_801617C0[3]++;
                     }
                 }
@@ -1481,7 +1481,7 @@ void func_80088970(void) {
                     D_80161838[0] = 0;
                     if (((ret > 0) && (D_80161810[1] == 1)) || ((ret < 0) && (D_80161810[1] == 0))) {
                         D_80161810[1] ^= 1;
-                        Audio_PlaySfx(0x49000002U, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                        AUDIO_PLAY_SFX(0x49000002U, gDefaultSfxPos, 4U);
                     }
                 }
 
@@ -1875,7 +1875,7 @@ void func_80089D28(void) {
     if ((gb == 10) || (gb == 0)) {
         // clang-format off
         //! FAKE: Probably a MACRO
-        if (1) {Audio_PlaySfx(0x4900001c, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);}
+        if (1) {AUDIO_PLAY_SFX(0x4900001c, gDefaultSfxPos, 4);}
         // clang-format on
     }
 
@@ -2307,7 +2307,7 @@ void func_8008B044(void) {
                 return;
             }
 
-            Audio_PlaySfx(0x49002018, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x49002018, gDefaultSfxPos, 4);
 
             if (D_800CFF90 != 0) {
                 func_8001AF40(1);
@@ -2320,7 +2320,7 @@ void func_8008B044(void) {
                 D_80161790++;
                 if (D_80161790 >= 7) {
                     if (D_80161794 & 1) {
-                        Audio_PlaySfx(0x49002018, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                        AUDIO_PLAY_SFX(0x49002018, gDefaultSfxPos, 4);
                     }
                     D_80161790 = 0;
                     D_80161794++;
@@ -3125,7 +3125,7 @@ void func_8008DE68(void) {
 
     if ((gShowBossHealth == 1) && (gTeamShields[2] > 0)) {
         if ((gBossHealthBar >= 0) && (D_801616BC == -1.0f)) {
-            Audio_PlaySfx(0x4900C028, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x4900C028, gDefaultSfxPos, 4);
             D_801616BC = 255.0f;
         }
 
@@ -3769,8 +3769,8 @@ s32 func_80090200(Boss* boss) {
 
         switch (boss->swork[1]) {
             case 0:
-                Audio_PlaySfx(0x11000011U, boss->sfxPos, 0U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
-                Audio_PlaySfx(0x3140402EU, boss->sfxPos, 0U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x11000011U, boss->sfxPos, 0U);
+                AUDIO_PLAY_SFX(0x3140402EU, boss->sfxPos, 0U);
                 func_800182F4(0x103200FF);
                 func_800182F4(0x113200FF);
 
@@ -4363,7 +4363,7 @@ bool func_80091CF8(Actor* actor) {
     if (actor->iwork[1] != 0) {
         if (actor->fwork[10] < 0.1f) {
             actor->fwork[10] = 20.0f;
-            Audio_PlaySfx(0x09000002, actor->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x09000002, actor->sfxPos, 0);
             actor->fwork[29] = 5.0f;
         }
         actor->iwork[1] = 0;
@@ -4412,7 +4412,7 @@ bool func_80091F00(Actor* actor) {
     }
     actor->timer_0C6 = 20;
 
-    Audio_PlaySfx(0x2903300E, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+    AUDIO_PLAY_SFX(0x2903300E, actor->sfxPos, 4);
     func_8007D10C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1.5f);
     Matrix_RotateY(gCalcMatrix, actor->unk_0F4.y * M_DTOR, 0);
 
@@ -4744,7 +4744,7 @@ void func_80092D48(Actor* actor) {
         actor->unk_0C9 = 1;
     }
 
-    Audio_PlaySfx(0x3100000CU, actor->sfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+    AUDIO_PLAY_SFX(0x3100000CU, actor->sfxPos, 4U);
 
     if (((D_800D1970 & 3) == 2) && (gCurrentLevel == LEVEL_SECTOR_X)) {
         Object_Kill(&actor->obj, actor->sfxPos);
@@ -4890,7 +4890,7 @@ void func_80093310(void) {
     if (1) {}
     this->obj.id = OBJ_ACTOR_195;
     Object_SetInfo(&this->info, this->obj.id);
-    Audio_PlaySfx(0x11030010, this->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+    AUDIO_PLAY_SFX(0x11030010, this->sfxPos, 0);
 }
 
 void func_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
@@ -5194,7 +5194,7 @@ void func_800935E8(Player* player) {
             }
 
             if (player->timer_1F8 == 774) {
-                Audio_PlaySfx(0x01038026U, player->sfxPos, 0U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x01038026U, player->sfxPos, 0U);
                 D_80177A10[9] = 40;
             }
 
@@ -6114,7 +6114,7 @@ void func_80096A74(Player* player) {
                 player->unk_190 = player->unk_194 = 10.0f;
                 player->unk_1D0 = 2;
                 D_80177A48[1] = 400.0f;
-                Audio_PlaySfx(0x09004002U, player->sfxPos, 0U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x09004002U, player->sfxPos, 0U);
             }
             break;
 

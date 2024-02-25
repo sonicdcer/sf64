@@ -664,7 +664,7 @@ void func_i3_801A9ED0(Player* player) {
                 }
             }
             if ((sp8C != D_i3_801C4190[4]) && (D_i3_801C41B8[5] == 3.0f)) {
-                Audio_PlaySfx(0x4900001B, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x4900001B, gDefaultSfxPos, 4);
                 D_i3_801C41B8[5] = 20.0f;
             }
         }
@@ -927,7 +927,7 @@ void func_i3_801AACF8(Player* player) {
             sp58 = 0.0f;
             D_80177968 = 2.0f;
             if (D_i3_801C4190[7] == 0) {
-                Audio_PlaySfx(0x9404028, player->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x9404028, player->sfxPos, 0);
                 D_i3_801C4190[7] = 1;
             }
         }
@@ -1147,7 +1147,7 @@ void func_i3_801AC09C(Player* player) {
     for (i = 15, shot = &gPlayerShots[15]; i < 16; i++, shot++) {
         if (shot->obj.status == OBJ_FREE) {
             func_800AC290(player, shot, 0.0f, 0.0f, PLAYERSHOT_8, 50.0f);
-            Audio_PlaySfx(0x1000025, shot->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x1000025, shot->sfxPos, 0);
             D_i3_801C4190[5] = i + 1;
             D_i3_801C4454 = 300;
             D_i3_801C4458 = -100.0f;
@@ -1165,9 +1165,9 @@ void func_i3_801AC18C(Player* player) {
         if (gPlayerShots[i].obj.status == OBJ_FREE) {
             func_800AC290(player, &gPlayerShots[i], 0.0f, -10.0f, PLAYERSHOT_0, 120.0f);
             if (gLaserStrength[gPlayerNum] == LASERS_SINGLE) {
-                Audio_PlaySfx(0x9400021, gPlayerShots[i].sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x9400021, gPlayerShots[i].sfxPos, 0);
             } else {
-                Audio_PlaySfx(0x9400027, gPlayerShots[i].sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x9400027, gPlayerShots[i].sfxPos, 0);
             }
             break;
         }
@@ -1232,7 +1232,7 @@ void func_i3_801AC274(Player* player) {
         }
 
         if ((D_i3_801C4190[0] != temp) && (D_i3_801C41B8[5] == 3.0f)) {
-            Audio_PlaySfx(0x4900001B, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x4900001B, gDefaultSfxPos, 4);
             D_i3_801C41B8[5] = 20.0f;
         }
         if (D_i3_801C4190[0] != 0) {
@@ -1427,7 +1427,7 @@ void func_i3_801ACE50(Player* player) {
         if ((gBoostButton[player->num] & gInputHold->button) && (player->unk_230 == 0) &&
             (player->state_1C8 != PLAYERSTATE_1C8_5) && (player->unk_2B4 == 0)) {
             if (player->unk_2BC == 0) {
-                Audio_PlaySfx(0x9004030, player->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x9004030, player->sfxPos, 4);
             }
             player->unk_2BC += 3.0f;
             if (player->unk_2BC > 90.0f) {
@@ -1467,7 +1467,7 @@ void func_i3_801AD328(Player* player) {
     if ((gBrakeButton[player->num] & gInputHold->button) && (player->unk_230 == 0) &&
         (player->state_1C8 != PLAYERSTATE_1C8_5) && (player->unk_2B4 == 0)) {
         if (player->unk_2BC == 0) {
-            Audio_PlaySfx(0x9004031, player->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x9004031, player->sfxPos, 4);
         }
         player->unk_2BC += 3.0f;
         if (player->unk_2BC > 90.0f) {
@@ -1562,7 +1562,7 @@ void func_i3_801AD6C0(Actor* actor) {
                 actor->unk_0F4.z = Math_ModF(actor->unk_0F4.z, 360.0f);
             } else {
                 actor->health = 30;
-                Audio_PlaySfx(0x31000047, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x31000047, actor->sfxPos, 4);
                 actor->state++;
             }
             break;
@@ -1572,14 +1572,14 @@ void func_i3_801AD6C0(Actor* actor) {
                     actor->unk_0D0 = 0;
                     actor->timer_0C6 = 15;
                     actor->health -= actor->damage;
-                    Audio_PlaySfx(0x29034045, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x29034045, actor->sfxPos, 4);
                     if (actor->health <= 0) {
                         actor->timer_0C2 = 30000;
                         actor->state = 2;
                         actor->vel.y = 0.0f;
                         actor->vel.x = 0.0f;
                         actor->vel.z = 0.0f;
-                        Audio_PlaySfx(0x2902A046, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                        AUDIO_PLAY_SFX(0x2902A046, actor->sfxPos, 4);
                     }
                 }
             }
@@ -1658,7 +1658,7 @@ void func_i3_801AD6C0(Actor* actor) {
                 }
                 actor->timer_0BC = 4;
                 func_8007D0E0(D_i3_801C27C0->pos.x, D_i3_801C27C0->pos.y, D_i3_801C27C0->pos.z, 3.0f);
-                Audio_PlaySfx(0x29018049, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x29018049, actor->sfxPos, 4);
             }
             break;
     }
@@ -1781,7 +1781,7 @@ void func_i3_801AE3D8(Actor* actor) {
                     actor->timer_0C6 = 30;
                     actor->iwork[1] = 0;
                     D_i3_801C4308[79] -= 5.0f;
-                    Audio_PlaySfx(0x29036050, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x29036050, actor->sfxPos, 4);
                     if (D_i3_801C4308[79] <= -28.0f) {
                         D_i3_801C4308[79] = -28.0f;
                     }
@@ -1814,8 +1814,7 @@ void func_i3_801AE3D8(Actor* actor) {
                                 actor->health = 0;
                                 actor->timer_0C6 = 300;
                                 actor->fwork[2] = actor->scale;
-                                Audio_PlaySfx(0x19000033, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale,
-                                              &gDefaultReverb);
+                                AUDIO_PLAY_SFX(0x19000033, actor->sfxPos, 4);
                                 actor->state++;
                             }
                         }
@@ -2033,7 +2032,7 @@ void func_i3_801AFA5C(Actor* actor) {
         if ((gBosses[0].state >= 10) && (actor->health != 0) && (actor->damage == 31)) {
             actor->timer_0BE = 70;
             actor->health -= actor->damage;
-            Audio_PlaySfx(0x2903604CU, actor->sfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x2903604CU, actor->sfxPos, 4U);
             if (actor->timer_0C6 == 0) {
                 actor->timer_0C6 = 70;
             }
@@ -2101,7 +2100,7 @@ void func_i3_801AFA5C(Actor* actor) {
                 i = -1;
             }
             if ((actor->iwork[1] == 13) && (i < 0)) {
-                Audio_PlaySfx(0x29022048U, actor->sfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x29022048U, actor->sfxPos, 4U);
                 for (i = 0, sp48 = gActors; i < 60; i++, sp48++) {
                     if (sp48->obj.status == OBJ_FREE) {
                         Actor_Initialize(sp48);
@@ -2152,7 +2151,7 @@ void func_i3_801AFA5C(Actor* actor) {
             actor->state = 5;
             actor->vel.y = 10.0f;
             actor->vel.z = 5.0f;
-            Audio_PlaySfx(0x1902102FU, actor->sfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x1902102FU, actor->sfxPos, 4U);
             break;
         case 5:
             if (actor->obj.pos.y > (gGroundLevel + 70.0f)) {
@@ -2183,10 +2182,10 @@ void func_i3_801AFA5C(Actor* actor) {
                 }
                 if (actor->vel.z != 0) {
                     actor->vel.y = actor->vel.z = 0.0f;
-                    Audio_PlaySfx(0x19402031U, actor->sfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x19402031U, actor->sfxPos, 4U);
                 }
                 if (actor->timer_0C0 == 1) {
-                    Audio_PlaySfx(0x19003030U, actor->sfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x19003030U, actor->sfxPos, 4U);
                 }
                 if (actor->timer_0C0 == 0) {
                     if (actor->timer_0BE == 0) {
@@ -2406,7 +2405,7 @@ void func_i3_801B10F8(Boss* bossAQ) {
     bossAQ->info.hitbox[119] = 1028.0f;
     bossAQ->info.hitbox[169] = 800.0f;
     bossAQ->swork[AQ_SWK_8] = bossAQ->swork[AQ_SWK_9] = 2;
-    Audio_PlaySfx(0x3140904D, bossAQ->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+    AUDIO_PLAY_SFX(0x3140904D, bossAQ->sfxPos, 4);
 }
 
 // OBJ_BOSS_AQ action
@@ -2471,7 +2470,7 @@ void func_i3_801B134C(Boss* bossAQ) {
                 D_i3_801C4308[12] = D_i3_801C4308[13] = 0.0f;
                 bossAQ->timer_056 = 20;
                 bossAQ->state = 2;
-                Audio_PlaySfx(0x1900002E, bossAQ->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x1900002E, bossAQ->sfxPos, 0);
             }
             break;
         case 2:
@@ -2561,7 +2560,7 @@ void func_i3_801B134C(Boss* bossAQ) {
             break;
         case 14:
             if (bossAQ->timer_056 == 58) {
-                Audio_PlaySfx(0x29408055, bossAQ->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x29408055, bossAQ->sfxPos, 4);
             }
             if ((bossAQ->timer_056 == 0) && (D_i3_801C4308[12] <= -44.0f)) {
                 bossAQ->swork[AQ_SWK_2] = bossAQ->swork[AQ_SWK_3] = 20;
@@ -2699,7 +2698,7 @@ void func_i3_801B134C(Boss* bossAQ) {
                 bossAQ->timer_052 = 0;
                 bossAQ->swork[AQ_SWK_19] = 500;
                 D_i3_801C4308[79] = 0.0f;
-                Audio_PlaySfx(0x29408054, bossAQ->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x29408054, bossAQ->sfxPos, 4);
                 if (bossAQ->state < 14) {
                     for (i3 = 0, actor = gActors; i3 < 60; i3++, actor++) {
                         if ((actor->obj.id == OBJ_ACTOR_260) && (actor->obj.status == OBJ_ACTIVE)) {
@@ -2709,7 +2708,7 @@ void func_i3_801B134C(Boss* bossAQ) {
                     bossAQ->timer_058 = 30;
                     bossAQ->swork[AQ_SWK_0] = 4;
                     D_80178480 = 50;
-                    Audio_PlaySfx(0x1900002D, bossAQ->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x1900002D, bossAQ->sfxPos, 0);
                     func_80062B60(bossAQ->obj.pos.x, bossAQ->obj.pos.z + 800.0f, 0, 100.0f);
                     var_fs3 = 80.0f;
                     for (i2 = 0; i2 < 3; i2++, var_fs3 += 10.0f) {
@@ -2758,24 +2757,21 @@ void func_i3_801B134C(Boss* bossAQ) {
                             D_i3_801C42A0[22] = 0;
                             bossAQ->swork[AQ_SWK_12]--;
                             bossAQ->swork[AQ_SWK_13] = 70;
-                            Audio_PlaySfx(0x2940604C, bossAQ->sfxPos, 4, &gDefaultScale, &gDefaultScale,
-                                          &gDefaultReverb);
+                            AUDIO_PLAY_SFX(0x2940604C, bossAQ->sfxPos, 4);
                         }
                     } else if (bossAQ->state >= 10) {
-                        Audio_PlaySfx(0x29121007, bossAQ->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                        AUDIO_PLAY_SFX(0x29121007, bossAQ->sfxPos, 4);
                     }
                     break;
                 case 14:
                     if (bossAQ->damage == 31) {
                         if (D_i3_801C42A0[23] != 0) {
-                            Audio_PlaySfx(0x29121007, bossAQ->sfxPos, 4, &gDefaultScale, &gDefaultScale,
-                                          &gDefaultReverb);
+                            AUDIO_PLAY_SFX(0x29121007, bossAQ->sfxPos, 4);
                         } else if ((bossAQ->state >= 15) && (bossAQ->swork[AQ_SWK_8] != 0)) {
                             D_i3_801C42A0[1] = 50;
                             sBossAQlimbTimers[AQ_LIMB_7] = 50;
                             bossAQ->swork[AQ_SWK_8]--;
-                            Audio_PlaySfx(0x2903604C, bossAQ->sfxPos, 4, &gDefaultScale, &gDefaultScale,
-                                          &gDefaultReverb);
+                            AUDIO_PLAY_SFX(0x2903604C, bossAQ->sfxPos, 4);
                             if (bossAQ->swork[AQ_SWK_8] == 0) {
                                 spD4.x = D_i3_801C4308[73];
                                 spD4.y = D_i3_801C4308[74];
@@ -2789,14 +2785,12 @@ void func_i3_801B134C(Boss* bossAQ) {
                 case 15:
                     if (bossAQ->damage == 31) {
                         if (D_i3_801C42A0[23] != 0) {
-                            Audio_PlaySfx(0x29121007, bossAQ->sfxPos, 4, &gDefaultScale, &gDefaultScale,
-                                          &gDefaultReverb);
+                            AUDIO_PLAY_SFX(0x29121007, bossAQ->sfxPos, 4);
                         } else if ((bossAQ->state >= 15) && (bossAQ->swork[AQ_SWK_9] != 0)) {
                             D_i3_801C42A0[2] = 50;
                             sBossAQlimbTimers[AQ_LIMB_8] = 50;
                             bossAQ->swork[AQ_SWK_9]--;
-                            Audio_PlaySfx(0x2903604C, bossAQ->sfxPos, 4, &gDefaultScale, &gDefaultScale,
-                                          &gDefaultReverb);
+                            AUDIO_PLAY_SFX(0x2903604C, bossAQ->sfxPos, 4);
                             if (bossAQ->swork[AQ_SWK_9] == 0) {
                                 spD4.x = D_i3_801C4308[76];
                                 spD4.y = D_i3_801C4308[77]; // 76?
@@ -2810,8 +2804,7 @@ void func_i3_801B134C(Boss* bossAQ) {
                 case 16:
                     if (bossAQ->damage == 31) {
                         if (D_i3_801C42A0[23] != 0) {
-                            Audio_PlaySfx(0x29121007, bossAQ->sfxPos, 4, &gDefaultScale, &gDefaultScale,
-                                          &gDefaultReverb);
+                            AUDIO_PLAY_SFX(0x29121007, bossAQ->sfxPos, 4);
                         } else if (bossAQ->state >= 15) {
                             D_i3_801C42A0[4] = 75;
                         }
@@ -2820,8 +2813,7 @@ void func_i3_801B134C(Boss* bossAQ) {
                 case 17:
                     if (bossAQ->damage == 31) {
                         if (D_i3_801C42A0[23] != 0) {
-                            Audio_PlaySfx(0x29121007, bossAQ->sfxPos, 4, &gDefaultScale, &gDefaultScale,
-                                          &gDefaultReverb);
+                            AUDIO_PLAY_SFX(0x29121007, bossAQ->sfxPos, 4);
                         } else if (bossAQ->state >= 15) {
                             D_i3_801C42A0[5] = 75;
                         }
@@ -2831,8 +2823,7 @@ void func_i3_801B134C(Boss* bossAQ) {
                     if ((bossAQ->damage == 31) && (bossAQ->swork[AQ_SWK_1] != 2) && (bossAQ->swork[AQ_SWK_12] == 0) &&
                         (bossAQ->state == 15) && (bossAQ->health != 0)) {
                         if (D_i3_801C42A0[23] != 0) {
-                            Audio_PlaySfx(0x29121007, bossAQ->sfxPos, 4, &gDefaultScale, &gDefaultScale,
-                                          &gDefaultReverb);
+                            AUDIO_PLAY_SFX(0x29121007, bossAQ->sfxPos, 4);
                         } else {
                             for (i7 = 0; i7 < AQ_LIMB_MAX; i7++) {
                                 sBossAQlimbTimers[i7] = 50;
@@ -2842,8 +2833,7 @@ void func_i3_801B134C(Boss* bossAQ) {
 
                             bossAQ->swork[AQ_SWK_13] = 40;
                             bossAQ->swork[AQ_SWK_1] = 2;
-                            Audio_PlaySfx(0x2940804E, bossAQ->sfxPos, 4, &gDefaultScale, &gDefaultScale,
-                                          &gDefaultReverb);
+                            AUDIO_PLAY_SFX(0x2940804E, bossAQ->sfxPos, 4);
                             bossAQ->health -= bossAQ->damage;
                             if ((bossAQ->swork[AQ_SWK_25] == 0) || (bossAQ->swork[AQ_SWK_25] == 2)) {
                                 Radio_PlayMessage(gMsg_ID_7086, RCID_SLIPPY);
@@ -2869,8 +2859,7 @@ void func_i3_801B134C(Boss* bossAQ) {
                                 bossAQ->swork[AQ_SWK_13] = 40;
                                 bossAQ->swork[AQ_SWK_1] = 2;
                                 bossAQ->timer_056 = 50;
-                                Audio_PlaySfx(0x2940A04F, bossAQ->sfxPos, 4, &gDefaultScale, &gDefaultScale,
-                                              &gDefaultReverb);
+                                AUDIO_PLAY_SFX(0x2940A04F, bossAQ->sfxPos, 4);
                                 gShowBossHealth = false;
                                 bossAQ->state = 16;
                             }
@@ -2881,15 +2870,14 @@ void func_i3_801B134C(Boss* bossAQ) {
                 case 20:
                     if (bossAQ->damage == 31) {
                         if (D_i3_801C42A0[23] != 0) {
-                            Audio_PlaySfx(0x29121007, bossAQ->sfxPos, 4, &gDefaultScale, &gDefaultScale,
-                                          &gDefaultReverb);
+                            AUDIO_PLAY_SFX(0x29121007, bossAQ->sfxPos, 4);
                         } else if (bossAQ->state >= 15) {
                             D_i3_801C42A0[6] = 50;
                         }
                     }
                     break;
                 default:
-                    Audio_PlaySfx(0x29121007, bossAQ->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x29121007, bossAQ->sfxPos, 4);
                     break;
             }
         }
@@ -3142,7 +3130,7 @@ void func_i3_801B134C(Boss* bossAQ) {
             Math_SmoothStepToF(&D_i3_801C4308[61], 0.0f, 0.3f, 0.5f, 0.0f);
             bossAQ->info.hitbox[119] = -10000.0f;
             if (bossAQ->swork[AQ_SWK_13] == 1) {
-                Audio_PlaySfx(0x29409051, bossAQ->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x29409051, bossAQ->sfxPos, 4);
             }
         } else if ((bossAQ->health != 0) || (bossAQ->state < 16)) {
             Math_SmoothStepToF(&D_i3_801C4308[54], 1.0f, 0.3f, 0.5f, 0.0f);
@@ -3876,7 +3864,7 @@ void func_i3_801B638C(Actor* actor) {
         }
         func_80066254(actor);
         Object_Kill(&actor->obj, actor->sfxPos);
-        Audio_PlaySfx(0x1903001D, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x1903001D, actor->sfxPos, 4);
         func_8007A6F0(&actor->obj.pos, 0x29038090);
     }
     actor->fwork[5] = (actor->obj.pos.y * 0.01f) + 2.5f;
@@ -3986,7 +3974,7 @@ void func_i3_801B638C(Actor* actor) {
         if ((actor->health != 0) && (actor->unk_0D2 == 0)) {
             actor->health -= actor->damage;
             actor->timer_0C6 = 30;
-            Audio_PlaySfx(0x2903408F, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x2903408F, actor->sfxPos, 4);
             if (actor->health <= 0) {
                 actor->health = 0;
                 BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 3);
@@ -4124,7 +4112,7 @@ void func_i3_801B6FF8(Actor* actor) {
                               actor->unk_0D8.y + RAND_FLOAT_CENTERED(70.0f),
                               actor->unk_0D8.z + RAND_FLOAT_CENTERED(70.0f), 1.0f, 1);
             }
-            Audio_PlaySfx(0x2903408F, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x2903408F, actor->sfxPos, 4);
             if (actor->health <= -100) {
                 actor->health = -100;
                 BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 3);
@@ -4365,7 +4353,7 @@ void func_i3_801B7C78(Actor* actor) {
                         func_80081B24(actor->vwork[20 + i].x, actor->vwork[20 + i].y, actor->vwork[20 + i].z, 0.1f) + 1;
                 }
                 actor->timer_0C0 = 10;
-                Audio_PlaySfx(0x2900208D, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x2900208D, actor->sfxPos, 4);
                 actor->state = 4;
             }
             break;
@@ -4401,7 +4389,7 @@ void func_i3_801B7C78(Actor* actor) {
                     effect->unk_44 = 2;
                     effect->timer_50 = 100;
                     actor->iwork[3] = 0;
-                    Audio_PlaySfx(0x2900308C, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x2900308C, actor->sfxPos, 4);
                 } else {
                     effect->obj.pos.x = actor->vwork[21].x;
                     effect->obj.pos.y = actor->vwork[21].y;
@@ -4499,7 +4487,7 @@ void func_i3_801B7C78(Actor* actor) {
                 actor->info.bonus = 1;
                 actor->timer_0C6 = 30;
                 actor->health -= actor->damage;
-                Audio_PlaySfx(0x2903408F, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x2903408F, actor->sfxPos, 4);
             } else {
                 actor->timer_0BC = 50;
             }
@@ -4768,7 +4756,7 @@ void func_i3_801B91A4(Actor* actor) {
         if ((actor->health != 0) && (actor->state != 0)) {
             actor->timer_0C6 = 15;
             actor->health -= actor->damage;
-            Audio_PlaySfx(0x2903408F, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x2903408F, actor->sfxPos, 4);
             if (actor->health <= 0) {
                 actor->health = 0;
                 if (actor->scale > 1.0f) {
@@ -4967,7 +4955,7 @@ void func_i3_801BA6A4(Actor* actor) {
                 actor->fwork[1] += 10.0f;
                 actor->vel.x = SIN_DEG(actor->fwork[1]) * 10.0f;
                 if (actor->obj.pos.y < (gGroundLevel + 30.0f)) {
-                    Audio_PlaySfx(0x19400007, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x19400007, actor->sfxPos, 4);
                     actor->iwork[1] = 1;
                     actor->vel.x = actor->vel.y = actor->vel.z = 0.0f;
                     actor->gravity = 0.0f;
@@ -4991,7 +4979,7 @@ void func_i3_801BA6A4(Actor* actor) {
                         actor->vel.y = 0.0f;
                     }
                     actor->iwork[1] = 1;
-                    Audio_PlaySfx(0x19400007, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x19400007, actor->sfxPos, 4);
                     func_8007B8F8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 100.0f, actor->scale * 30.0f);
                 }
             } else {
@@ -5496,7 +5484,7 @@ void func_i3_801BB79C(Actor* actor) {
     }
     if (actor->unk_0D0 != 0) {
         actor->unk_0D0 = 0;
-        Audio_PlaySfx(0x2903408F, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x2903408F, actor->sfxPos, 4);
         if (actor->damage != 31) {
             actor->timer_0C0 = actor->timer_0C6 = 40;
         } else {
@@ -5626,7 +5614,7 @@ void func_i3_801BC9A0(Actor* actor) {
                 actor->unk_0D0 = 0;
                 if ((actor->health != 0) && (actor->iwork[3] == 0) && (actor->damage == 31)) {
                     actor->health -= actor->damage;
-                    Audio_PlaySfx(0x2903B009, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x2903B009, actor->sfxPos, 4);
                     if (actor->health <= 0) {
                         actor->health = 0;
                         actor->state = 3;
@@ -5815,7 +5803,7 @@ void func_i3_801BD54C(Actor* actor) {
         if (fabsf(actor->fwork[5] - actor->obj.pos.z) >= var_fs0) {
             actor->state = 3;
             if (actor->iwork[0] == 0) {
-                Audio_PlaySfx(0x19400077, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x19400077, actor->sfxPos, 4);
             }
         } else {
             // needed to match

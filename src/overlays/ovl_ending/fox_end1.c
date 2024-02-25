@@ -435,7 +435,7 @@ void func_ending_8018845C(void);
 s32 func_ending_80188634(void) {
     if (D_80161690 != 0) {
         if ((D_ending_80196F90 % 14) == 0) {
-            Audio_PlaySfx(0x49002018, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x49002018, gDefaultSfxPos, 4);
         }
         D_ending_80196F90++;
         D_80161690--;

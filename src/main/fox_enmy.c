@@ -63,9 +63,9 @@ void func_80060F30(f32* pos, u32 sfxId, s32 arg2) {
     (void) "center_X        %f\n";
     (void) "Enm->obj.pos.x  %f\n";
     if (!gVersusMode) {
-        Audio_PlaySfx(sfxId, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(sfxId, gDefaultSfxPos, 4);
     } else {
-        Audio_PlaySfx(sfxId, pos, arg2, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(sfxId, pos, arg2);
     }
 }
 
@@ -996,10 +996,10 @@ void Object_Init(s32 index, ObjectId objId) {
             func_8007A6F0(&gObjects4C[index].obj.pos, 0x11000055);
             break;
         case OBJ_ACTOR_234:
-            Audio_PlaySfx(0x11030010, gActors[index].sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x11030010, gActors[index].sfxPos, 0);
             break;
         case OBJ_80_54:
-            Audio_PlaySfx(0x11000000, gObjects80[index].sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x11000000, gObjects80[index].sfxPos, 0);
             break;
         case OBJ_ACTOR_198:
             func_80092D48(&gActors[index]);
@@ -1154,7 +1154,7 @@ void Object_Init(s32 index, ObjectId objId) {
             break;
         case OBJ_ACTOR_190:
         case OBJ_ACTOR_191:
-            Audio_PlaySfx(0x31000012, gActors[index].sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x31000012, gActors[index].sfxPos, 4);
             break;
         case OBJ_ACTOR_192:
             gActors[index].unk_0C9 = 1;
@@ -1206,7 +1206,7 @@ void Object_Init(s32 index, ObjectId objId) {
             /* fallthrough */
         case OBJ_ACTOR_176:
             gActors[index].health = 24;
-            Audio_PlaySfx(0x31000016, gActors[index].sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x31000016, gActors[index].sfxPos, 4);
             break;
         case OBJ_BOSS_297:
             func_i2_80188A40(&gBosses[index]);
@@ -1608,10 +1608,10 @@ void func_800660F0(Actor* actor) {
             }
             if ((item->obj.id >= OBJ_ITEM_GOLD_RING) || (item->obj.id == OBJ_ITEM_1UP)) {
                 item->unk_50 = 90.0f;
-                Audio_PlaySfx(0x4900000C, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x4900000C, gDefaultSfxPos, 4);
                 item->timer_48 = 1000;
                 if (item->obj.id == OBJ_ITEM_WING_REPAIR) {
-                    Audio_PlaySfx(0x1900302B, item->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x1900302B, item->sfxPos, 0);
                 }
             }
             break;
@@ -1666,7 +1666,7 @@ void func_80066254(Actor* actor) {
                     }
                 }
                 func_800660F0(actor);
-                Audio_PlaySfx(0x4900000C, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x4900000C, gDefaultSfxPos, 4);
             } else if (actor->unk_044 == 24) {
                 if (gTeamShields[3] > 0) {
                     Radio_PlayMessage(gMsg_ID_20261, RCID_PEPPY);
@@ -1735,7 +1735,7 @@ void func_8006654C(Actor* actor) {
         actor->vel.z = -15.0f;
         actor->gravity = 0.5f;
         func_8007D2C8(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 13.0f);
-        Audio_PlaySfx(0x2903A008, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x2903A008, actor->sfxPos, 4);
     }
 }
 
@@ -1750,7 +1750,7 @@ void func_8006684C(Actor* actor) {
             Object_Kill(&actor->obj, actor->sfxPos);
             actor->unk_044 = 1;
             func_80066254(actor);
-            Audio_PlaySfx(0x2903B009, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x2903B009, actor->sfxPos, 4);
             BonusText_Display(actor->obj.pos.x, actor->obj.pos.y + 250.0f, actor->obj.pos.z, 3);
             gHitCount += 3;
             D_80177850 = 15;
@@ -1828,7 +1828,7 @@ void func_80066D5C(Object_80* obj80) {
         case 1:
             func_80066C00(obj80);
             obj80->state++;
-            Audio_PlaySfx(0x2900300F, obj80->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x2900300F, obj80->sfxPos, 4);
             break;
         case 2:
             obj80->vel.x += 0.05f;
@@ -1839,7 +1839,7 @@ void func_80066D5C(Object_80* obj80) {
                 func_80066A8C(obj80);
                 obj80->state = 0;
                 D_80178480 = 25;
-                Audio_PlaySfx(0x19130003, obj80->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x19130003, obj80->sfxPos, 4);
             }
             break;
         case 0:
@@ -2028,7 +2028,7 @@ void func_80067874(Actor* actor) {
 }
 
 void func_80067A40(void) {
-    Audio_PlaySfx(0x09008023, gPlayer[0].sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+    AUDIO_PLAY_SFX(0x09008023, gPlayer[0].sfxPos, 0);
     if (gPlayer[0].wings.rightState <= WINGSTATE_BROKEN) {
         D_80177D40[0] = 1050;
         gPlayer[0].wings.rightState = WINGSTATE_INTACT;
@@ -2119,7 +2119,7 @@ void func_80067F6C(Item* item) {
         item->obj.id = OBJ_ITEM_WING_REPAIR;
         Object_SetInfo(&item->info, item->obj.id);
         item->timer_48 = 2000;
-        Audio_PlaySfx(0x1900302B, item->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x1900302B, item->sfxPos, 0);
     } else {
         func_80067BEC(item);
     }
@@ -2247,8 +2247,7 @@ void func_80068688(Item* item) {
             item->state = 1;
             item->unk_44 = 255;
             gPlayer[item->playerNum].timer_27C = 100;
-            Audio_PlaySfx(D_800CFF54[D_80177E80], gPlayer[0].sfxPos, 0, &gDefaultScale, &gDefaultScale,
-                          &gDefaultReverb);
+            AUDIO_PLAY_SFX(D_800CFF54[D_80177E80], gPlayer[0].sfxPos, 0);
             if (D_80177E80 == 0) {
                 gPlayer[0].unk_110 = 0.0f;
             }
@@ -2256,7 +2255,7 @@ void func_80068688(Item* item) {
             if (D_80177E80 >= 7) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_8;
                 gPlayer[0].unk_1D0 = 0;
-                Audio_PlaySfx(0x1900602A, gDefaultSfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x1900602A, gDefaultSfxPos, 0);
                 D_80177930 = 2;
                 D_800D3180[gCurrentLevel] = 1;
             }
@@ -2308,7 +2307,7 @@ void func_80068914(Item* item) {
             for (i = 1; i < 4; i++) {
                 gSavedTeamShields[i] = gTeamShields[i];
             }
-            Audio_PlaySfx(0x4900400F, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x4900400F, gDefaultSfxPos, 4);
         }
     }
 }

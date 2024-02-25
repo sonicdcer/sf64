@@ -951,7 +951,7 @@ void func_8007A4B8(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     effect->obj.pos.y = yPos;
     effect->obj.pos.z = zPos;
 
-    Audio_PlaySfx(0x2940F026, effect->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+    AUDIO_PLAY_SFX(0x2940F026, effect->sfxPos, 4);
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
@@ -979,12 +979,12 @@ void func_8007A5F8(Effect* effect, Vec3f* pos, u32 sfxId) {
     effect->timer_50 = 50;
 
     if ((sfxId == 0x1903400F) || (sfxId == 0x11000055)) {
-        Audio_PlaySfx(sfxId, effect->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(sfxId, effect->sfxPos, 0);
         if (sfxId == 0x11000055) {
             effect->timer_50 = 300;
         }
     } else {
-        Audio_PlaySfx(sfxId, effect->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(sfxId, effect->sfxPos, 4);
     }
     Object_SetInfo(&effect->info, effect->obj.id);
 }
@@ -1224,7 +1224,7 @@ void func_8007B180(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     effect->unk_44 = 0xFF;
     effect->scale1 = scale1;
     Object_SetInfo(&effect->info, effect->obj.id);
-    Audio_PlaySfx(0x1100000C, effect->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+    AUDIO_PLAY_SFX(0x1100000C, effect->sfxPos, 0);
 }
 
 void func_8007B228(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
@@ -2208,7 +2208,7 @@ void func_8007DB70(Effect* effect) {
                 effect->unk_44 = 192;
                 effect->scale2 = 2.5f;
                 effect->scale1 = 2.5f;
-                Audio_PlaySfx(0x2903B009, effect->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x2903B009, effect->sfxPos, 4);
                 func_8007D0E0(effect->obj.pos.x, effect->obj.pos.y + 30.0f, effect->obj.pos.z, 7.0f);
                 func_8007BFFC(effect->obj.pos.x, effect->obj.pos.y + 30.0f, effect->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f,
                               5);
@@ -2422,7 +2422,7 @@ void func_8007E6B8(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPos, f32 
     }
 
     if (objId == OBJ_EFFECT_356) {
-        Audio_PlaySfx(0x31000025, effect->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x31000025, effect->sfxPos, 4);
     }
 
     if (objId == OBJ_EFFECT_376) {
@@ -2433,10 +2433,10 @@ void func_8007E6B8(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPos, f32 
     }
 
     if ((objId == OBJ_EFFECT_355) || (objId == OBJ_EFFECT_377)) {
-        Audio_PlaySfx(0x31000025, effect->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x31000025, effect->sfxPos, 4);
         return;
     }
-    Audio_PlaySfx(0x29002002, effect->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+    AUDIO_PLAY_SFX(0x29002002, effect->sfxPos, 4);
 }
 
 void func_8007E93C(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPos, f32 arg5) {
@@ -2479,7 +2479,7 @@ void func_8007E93C(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPos, f32 
     }
 
     if (objId == OBJ_EFFECT_356) {
-        Audio_PlaySfx(0x31000025, effect->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x31000025, effect->sfxPos, 4);
     }
 
     if (objId == OBJ_EFFECT_376) {
@@ -2490,10 +2490,10 @@ void func_8007E93C(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPos, f32 
     }
 
     if ((objId == OBJ_EFFECT_355) || (objId == OBJ_EFFECT_377)) {
-        Audio_PlaySfx(0x31000025, effect->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x31000025, effect->sfxPos, 4);
         return;
     }
-    Audio_PlaySfx(0x29002002, effect->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+    AUDIO_PLAY_SFX(0x29002002, effect->sfxPos, 4);
 }
 
 void func_8007EBB8(Effect* effect, ObjectId objId, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel,
@@ -2514,9 +2514,9 @@ void func_8007EBB8(Effect* effect, ObjectId objId, f32 xPos, f32 yPos, f32 zPos,
 
     effect->scale2 = scale2;
     if (objId == OBJ_EFFECT_355) {
-        Audio_PlaySfx(0x31000025, effect->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x31000025, effect->sfxPos, 4);
     } else {
-        Audio_PlaySfx(0x29002002, effect->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x29002002, effect->sfxPos, 4);
     }
     Object_SetInfo(&effect->info, effect->obj.id);
 }
@@ -2561,7 +2561,7 @@ void func_8007ED54(Effect* effect, ObjectId objId, f32 xPos, f32 yPos, f32 zPos,
 
     effect->scale2 = scale2;
     if (effect->obj.id != OBJ_EFFECT_380) {
-        Audio_PlaySfx(0x29002002, effect->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x29002002, effect->sfxPos, 4);
     }
     Object_SetInfo(&effect->info, effect->obj.id);
 }
@@ -2897,7 +2897,7 @@ void func_8007FE88(Effect* effect) {
                 effect->vel.y = destVelocity.y;
                 effect->vel.z = destVelocity.z;
                 gPlayer[0].unk_2C4 += 1;
-                Audio_PlaySfx(0x09007011, effect->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x09007011, effect->sfxPos, 0);
             }
 
             if ((gPlayer[0].unk_280 == 0) && (gPlayer[0].timer_498 == 0)) {
@@ -3030,7 +3030,7 @@ void func_8008040C(Effect* effect) {
                         effect->vel.y = destVelocity.y;
                         effect->vel.z = destVelocity.z;
                         gPlayer[0].unk_2C4++;
-                        Audio_PlaySfx(0x09007011, effect->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                        AUDIO_PLAY_SFX(0x09007011, effect->sfxPos, 0);
                     }
 
                     if ((gPlayer[0].unk_280 == 0) && (gPlayer[0].timer_498 == 0)) {
@@ -3394,7 +3394,7 @@ void func_8008165C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32
 
         case 10:
             effect->timer_50 = 10;
-            Audio_PlaySfx(0x31405094, effect->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x31405094, effect->sfxPos, 4);
             break;
 
         case 11:
@@ -3415,7 +3415,7 @@ void func_8008165C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32
             effect->obj.pos.y = yPos;
             effect->obj.pos.z = zPos;
 
-            Audio_PlaySfx(0x2940F026, effect->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x2940F026, effect->sfxPos, 4);
             D_Timer_80177BD0[0] = 60;
             break;
     }
@@ -4154,7 +4154,7 @@ void func_80083D2C(f32 xPos, f32 yPos, f32 zPos, f32 srcZ) {
             if (gEffects[j].obj.status == OBJ_FREE) {
                 func_80083C70(&gEffects[j], xPos, yPos, zPos, dest.x, dest.y, dest.z, i * 60.0f, i);
                 if (i == 0) {
-                    Audio_PlaySfx(0x3103109B, gEffects[j].sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x3103109B, gEffects[j].sfxPos, 4);
                 }
                 break;
             }

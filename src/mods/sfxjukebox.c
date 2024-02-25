@@ -79,7 +79,7 @@ void Option_ExpertSoundUpdate(void) {
     sfx |= sfxId & 0xFF;
 
     if (prevSfx != sfx) {
-        Audio_PlaySfx(0x49000002, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x49000002, gDefaultSfxPos, 4);
         prevSfx = sfx;
     }
 
@@ -88,7 +88,7 @@ void Option_ExpertSoundUpdate(void) {
     if (gControllerPress[gMainController].button & A_BUTTON) {
         func_800182F4(0x100100FF);
         func_800182F4(0x110100FF);
-        Audio_PlaySfx(sfx, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(sfx, gDefaultSfxPos, 4);
         D_menu_801B9320 = true;
     }
 
@@ -100,7 +100,7 @@ void Option_ExpertSoundUpdate(void) {
             D_menu_801B912C = 0;
             D_menu_801B9244 = 1;
         } else {
-            Audio_PlaySfx(0x4900101D, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x4900101D, gDefaultSfxPos, 4);
             Audio_KillSfx(gDefaultSfxPos);
             func_800182F4(0x100100FF);
             func_800182F4(0x110100FF);

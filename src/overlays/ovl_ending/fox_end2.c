@@ -712,7 +712,7 @@ void func_ending_80190CF0(u32 arg0, AssetInfo* asset) {
     }
 
     if (arg0 == asset->unk_0C) {
-        Audio_PlaySfx(0x1940306EU, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x1940306EU, gDefaultSfxPos, 4U);
     }
 
     RCP_SetupDL(&gMasterDisp, asset->unk_08);

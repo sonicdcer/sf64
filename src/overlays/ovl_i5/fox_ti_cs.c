@@ -19,7 +19,7 @@ void func_i5_80187530(Actor* actor) {
 
     actor->obj.rot.y = 180.0f;
     Object_SetInfo(&actor->info, actor->obj.id);
-    Audio_PlaySfx(0x11030010U, actor->sfxPos, 0U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+    AUDIO_PLAY_SFX(0x11030010U, actor->sfxPos, 0U);
     actor->unk_0B6 = 1;
 }
 
@@ -35,7 +35,7 @@ void func_i5_801875D0(Actor* actor, s32 arg1) {
     actor->obj.rot.y = 180.0f;
     actor->iwork[11] = 1;
     Object_SetInfo(&actor->info, actor->obj.id);
-    Audio_PlaySfx(0x3100000CU, actor->sfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+    AUDIO_PLAY_SFX(0x3100000CU, actor->sfxPos, 4U);
 }
 
 void func_i5_8018769C(Player* player) {
@@ -94,7 +94,7 @@ void func_i5_8018769C(Player* player) {
             if (gCsFrameCount == 430) {
                 player->unk_1D0 = 2;
                 player->timer_1F8 = 10;
-                Audio_PlaySfx(0x09000002U, player->sfxPos, 0U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x09000002U, player->sfxPos, 0U);
             }
             gCsCamAtX = player->pos.x;
             gCsCamAtY = player->pos.y;
@@ -206,7 +206,7 @@ void func_i5_8018769C(Player* player) {
 
                 if (D_80177A10[0] == 0) {
                     D_80177A10[0]++;
-                    Audio_PlaySfx(0x01008016U, player->sfxPos, 0U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x01008016U, player->sfxPos, 0U);
                 }
             }
 
@@ -273,11 +273,11 @@ void func_i5_80188108(Actor* actor, s32 arg1) {
         actor->unk_0C9 = 1;
         actor->fwork[3] = D_i5_801B7348[arg1];
         actor->state = 30;
-        Audio_PlaySfx(0x3100000CU, actor->sfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x3100000CU, actor->sfxPos, 4U);
     } else {
         actor->unk_0B6 = 1;
         actor->state = 20;
-        Audio_PlaySfx(0x11030010U, actor->sfxPos, 0U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x11030010U, actor->sfxPos, 0U);
         actor->fwork[9] = 20.0f;
     }
 }
@@ -499,7 +499,7 @@ void func_i5_801882CC(Player* player) {
             D_80161A44 = 30000.0f;
             player->unk_240 = 1;
             func_8001CA24(0);
-            Audio_PlaySfx(0x01008016U, player->sfxPos, 0U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x01008016U, player->sfxPos, 0U);
             break;
     }
 
