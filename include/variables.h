@@ -17,10 +17,10 @@ extern OSMesgQueue* gThreadCmdProcQueue;
 extern OSMesgQueue* gAudioUnkQueue;
 extern OSMesgQueue* gAudioResetQueue;
 
-extern OSMesg D_80156600[1];
-extern OSMesg D_80156608[4];
-extern OSMesg D_80156618[1];
-extern OSMesg D_8015661C[1];
+extern OSMesg sAudioTaskStartMsg[1];
+extern OSMesg sThreadCmdProcMsg[4];
+extern OSMesg sAudioUnkMsg[1];
+extern OSMesg sAudioResetMsg[1];
 
 // fox_360
 extern s32 D_800C9B4C;

@@ -1,4 +1,5 @@
-#include "common.h"
+#include "sys.h"
+#include "sf64audio_provisional.h"
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_synthesis/func_800080C0.s")
 
