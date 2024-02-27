@@ -219,8 +219,32 @@ D_80143B0:
 D_80147B0:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x80147B0, symbol: D_80147B0 }
 
+D_80147D0:
+  { type: BLOB, size: 0x20, offset: 0x80147D0, symbol: D_80147D0 }
+
+D_80147F0:
+  { type: GFX, offset: 0x80147F0, symbol: D_80147F0 } #Ends in 14B50
+
+D_8014D00:
+    { type: BLOB, size: 0x90, offset: 0x8014D00, symbol: D_8014D00 }
+
+D_8015310:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x8015310, symbol: D_8015310, tlut: 0x08015390 }
+
+D_8015390:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x8015390, symbol: D_8015390 }
+
+D_80153B0:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x80153B0, symbol: D_80153B0, tlut: 0x08015430 }
+
+D_8015430:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x8015430, symbol: D_8015430 }
+
+D_8015450:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 16, offset: 0x08015450, symbol: D_8015450 }
+
 D_8015550:
-    { type: GFX, offset: 0x8015550, symbol: D_8015550 }
+  { type: GFX, offset: 0x8015550, symbol: D_8015550 }
 
 D_80155E8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x080155E8, symbol: D_80155E8 }
