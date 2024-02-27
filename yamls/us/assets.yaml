@@ -204,10 +204,19 @@
     type: bin
     start: 0xC48F40
 
+  # - name: ast_option
+  #   exclusive_ram_id: segment_08
+  #   type: bin
+  #   start: 0xCA9DE0
+
   - name: ast_option
     exclusive_ram_id: segment_08
-    type: bin
+    type: code
+    dir: assets
     start: 0xCA9DE0
+    vram: 0x08000000
+    subsegments:
+      - [0xCA9DE0, .data, ast_option/ast_option]
 
   - name: ast_versus
     exclusive_ram_id: segment_07

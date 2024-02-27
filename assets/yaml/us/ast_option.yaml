@@ -28,7 +28,7 @@ D_80017C0:
   { type: TEXTURE, ctype: u8, format: CI4, width: 256, height: 32, offset: 0x80017C0, symbol: D_80017C0, tlut: 0x80038C0 }
 
 D_80038C0:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x80017A0, symbol: D_80038C0 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x80038C0, symbol: D_80038C0 }
 
 # nd
 D_80038E0:
@@ -186,9 +186,11 @@ D_800D070:
 D_800D170:
   { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 16, offset: 0x800D170, symbol: D_800D170 }
 
-
 D_800D1F0:
   { type: TEXTURE, ctype: u8, format: IA8, width: 80, height: 16, offset: 0x800D1F0, symbol: D_800D1F0 }
+
+D_800E130:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x800E130, symbol: D_800E130 }
 
 # ScrollBar
 D_8013990:
@@ -200,7 +202,7 @@ D_80141B0:
 
 # Speaker
 D_80143B0:
-  { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x8005910, symbol: D_80143B0, tlut: D_80147B0 }
+  { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x80143B0, symbol: D_80143B0, tlut: D_80147B0 }
 
 D_80147B0:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x80147B0, symbol: D_80147B0 }
