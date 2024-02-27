@@ -2205,7 +2205,7 @@ void func_menu_8019752C(void) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, temp_a0, temp_a0, 255);
     }
 
-    TextureRect_8bIA_MirY(&gMasterDisp, D_800D070, 0x10, 0x10, 150.0f, 200.0f, 1.0f, 1.0f);
+    TextureRect_8bIA_MirY(&gMasterDisp, D_800D070, 16, 16, 150.0f, 200.0f, 1.0f, 1.0f);
 }
 
 static Vec3f D_menu_801AF100[2] = { { 0.0f, 167.0f, 0.0f }, { 0.0f, -167.0f, 0.0f } };

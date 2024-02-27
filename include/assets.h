@@ -1010,13 +1010,13 @@ extern u8 D_8008DA0[]; // option
 extern u8 D_80098E0[]; // unused?
 extern u8 D_8009980[]; // option
 extern u8 D_8009B00[]; // option
-extern u8 D_8009CE0[];
-extern u8 D_800B5E0[];
-extern u8 D_800B680[];
-extern u8 D_800C640[];
-extern u8 D_800CD90[];
-extern u8 D_800D070[];
-extern u8 D_800D170[];
+extern u8 D_8009CE0[]; // option
+extern u8 D_800B5E0[]; // unused?
+extern u8 D_800B680[]; // option
+extern u8 D_800C640[]; // unused?
+extern u8 D_800CD90[]; // option
+extern u8 D_800D070[]; // option
+extern u8 D_800D170[]; // option
 extern u8 D_800D1F0[];
 extern u8 D_800E130[];
 extern u16 D_800E170[];

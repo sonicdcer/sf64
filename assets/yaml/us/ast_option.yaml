@@ -166,9 +166,29 @@ D_8009980:
 D_8009B00:
   { type: TEXTURE, ctype: u8, format: IA8, width: 40, height: 12, offset: 0x8009B00, symbol: D_8009B00 }
 
+# Are you REALLY sure?
+D_8009CE0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 160, height: 41, offset: 0x8009CE0, symbol: D_8009CE0 }
+
+# Data erased
+D_800B680:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 144, height: 41, offset: 0x800B680, symbol: D_800B680 }
+
 # Stereo
 D_800CD90:
   { type: TEXTURE, ctype: u8, format: IA8, width: 56, height: 13, offset: 0x800CD90, symbol: D_800CD90 }
+
+# UNK: Triangle shape, it's mirrored to form a diamond shape
+D_800D070:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 16, offset: 0x800D070, symbol: D_800D070 }
+
+# UNK:
+D_800D170:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 16, offset: 0x800D170, symbol: D_800D170 }
+
+
+D_800D1F0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 80, height: 16, offset: 0x800D170, symbol: D_800D170 }
 
 # ScrollBar
 D_8013990:
