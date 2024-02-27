@@ -130,6 +130,46 @@ D_80069C0:
 D_8006D10:
   { type: TEXTURE, ctype: u8, format: IA8, width: 24, height: 13, offset: 0x8006D10, symbol: D_8006D10 }
 
+# B to cancel
+D_8006E50:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 10, offset: 0x8006E50, symbol: D_8006E50 }
+
+# Headphone
+D_8007210:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 88, height: 14, offset: 0x8007210, symbol: D_8007210 }
+
+# Mono
+D_80076E0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 56, height: 14, offset: 0x80076E0, symbol: D_80076E0 }
+
+# Soundtrack
+D_80079F0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 128, height: 14, offset: 0x80079F0, symbol: D_80079F0 }
+
+# A to confirm
+D_80080F0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 10, offset: 0x80080F0, symbol: D_80080F0 }
+
+# Clear Saved Data
+D_80084B0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 176, height: 13, offset: 0x80084B0, symbol: D_80084B0 }
+
+# Are you sure?
+D_8008DA0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 160, height: 19, offset: 0x8008DA0, symbol: D_8008DA0 }
+
+# Yes
+D_8009980:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 32, height: 12, offset: 0x8009980, symbol: D_8009980 }
+
+# No
+D_8009B00:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 40, height: 12, offset: 0x8009B00, symbol: D_8009B00 }
+
+# Stereo
+D_800CD90:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 56, height: 13, offset: 0x800CD90, symbol: D_800CD90 }
+
 # ScrollBar
 D_8013990:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 104, height: 10, offset: 0x8013990, symbol: D_8013990 }
