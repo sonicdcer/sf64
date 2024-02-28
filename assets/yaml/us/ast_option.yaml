@@ -219,6 +219,7 @@ D_80143B0:
 D_80147B0:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x80147B0, symbol: D_80147B0 }
 
+# Seems unused, TLUT?
 D_80147D0:
   { type: BLOB, size: 0x20, offset: 0x80147D0, symbol: D_80147D0 }
 
