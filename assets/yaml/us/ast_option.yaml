@@ -250,5 +250,11 @@ D_8015550:
 D_80155E8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x080155E8, symbol: D_80155E8 }
 
+D_8015DF0:
+  { type: GFX, offset: 0x8015DF0, symbol: D_8015DF0 }
+
+D_8015E88:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x08015E88, symbol: D_8015E88 }
+
 # D_80159E8: 
 #   { type: BLOB, size: 0x100, offset: 0x80159E8, symbol: D_80159E8 }
