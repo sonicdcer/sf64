@@ -550,6 +550,7 @@ void Option_Setup(void) {
         gSaveFile.save.data.planet[i].normalMedal = 1;
         gSaveFile.save.data.planet[i].normalClear = 1;
     }
+    Save_Write();
 }
 
 void Option_Init(void) {
