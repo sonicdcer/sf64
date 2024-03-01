@@ -302,7 +302,7 @@ typedef struct {
     /* 0x004 */ u8 seqId;
     /* 0x005 */ u8 defaultFont;
     /* 0x006 */ u8 unk_06[1];
-    /* 0x007 */ s8 playerIdx;
+    /* 0x007 */ s8 unk_07[1]; // indexed like an array, but that can't be
     /* 0x008 */ u16 tempo;       // seqTicks per minute
     /* 0x00A */ u16 tempoAcc;    // tempo accumulation, used in a discretized algorithm to apply tempo.
     /* 0x00C */ u16 tempoChange; // Used to adjust the tempo without altering the base tempo.
@@ -318,14 +318,14 @@ typedef struct {
     /* 0x02C */ f32 fadeVolumeMod;
     /* 0x030 */ f32 appliedFadeVolume;
     // /* 0x034 */ f32 bend;
-    /* 0x038 */ struct SequenceChannel* channels[16];
-    /* 0x078 */ SeqScriptState scriptState;
-    /* 0x094 */ u8* shortNoteVelocityTable;
-    /* 0x098 */ u8* shortNoteGateTimeTable;
-    /* 0x09C */ NotePool notePool;
-    /* 0x0DC */ s32 skipTicks;
-    /* 0x0E0 */ u32 scriptCounter;
-    /* 0x0E4 */ char
+    /* 0x034 */ struct SequenceChannel* channels[16];
+    /* 0x074 */ SeqScriptState scriptState;
+    /* 0x090 */ u8* shortNoteVelocityTable;
+    /* 0x094 */ u8* shortNoteGateTimeTable;
+    /* 0x098 */ NotePool notePool;
+    /* 0x0D8 */ s32 skipTicks;
+    /* 0x0DC */ u32 scriptCounter;
+    /* 0x0E0 */ char
         padE4[0x6C];  // unused struct members for sequence/sound font dma management, according to sm64 decomp
 } SequencePlayer; // size = 0x14C
 
@@ -998,6 +998,7 @@ typedef struct {
          ((bit10)<<21)|((bit11)<<20)|((bit12)<<19)|((bit13)<<18))
 
 void func_80008780(f32 *, s32, f32 *);
+Acmd* func_80009B64(Acmd*, s32*, s16*, s32);
 
 void AudioHeap_ResetLoadStatus(void);
 void AudioHeap_DiscardFont(s32 fontId);
@@ -1039,12 +1040,12 @@ void* AudioLoad_DmaSampleData(u32 devAddr, u32 size, u32 arg2, u8* dmaIndexRef, 
 void AudioLoad_InitSampleDmaBuffers(s32 numNotes);
 void AudioLoad_InitTable(AudioTable* table, u8* romAddr, u16 unkMediumParam);
 void* AudioLoad_SyncLoadSeqFonts(s32 seqId, u32* outFontId);
-void AudioLoad_SyncLoadSeqParts(s32 seqId, s32 arg1);
+void AudioLoad_SyncLoadSeqParts(s32 seqId, s32 flags);
 s32 AudioLoad_SyncLoadSample(Sample* sample, s32 fontId);
 s32 AudioLoad_SyncLoadInstrument(s32 fontId, s32 instId, s32 drumId);
-void AudioLoad_AsyncLoadSampleBank(s32 sampleBankId, s32 arg1, s32 retData, OSMesgQueue* retQueue);
-void AudioLoad_AsyncLoadSeq(s32 seqId, s32 arg1, s32 retData, OSMesgQueue* retQueue);
-void* AudioLoad_GetFontsForSequence(s32 seqId, u32* outNumFonts);
+void AudioLoad_AsyncLoadSampleBank(s32 sampleBankId, s32 nChunks, s32 retData, OSMesgQueue* retQueue);
+void AudioLoad_AsyncLoadSeq(s32 seqId, s32 nChunks, s32 retData, OSMesgQueue* retQueue);
+u8* AudioLoad_GetFontsForSequence(s32 seqId, u32* outNumFonts);
 void AudioLoad_DiscardSeqFonts(s32 seqId);
 s32 AudioLoad_DiscardFont(s32 fontId);
 void AudioLoad_SyncInitSeqPlayer(s32 playerIdx, s32 seqId, s32 arg2);
@@ -1121,14 +1122,14 @@ void func_800168BC(void);
 
 
 
-SPTask* func_8001DF50(void);
-void func_8001E920(void);
-OSMesg func_8001ECAC(s32 *);
-void* func_8001ED14(s32 seqId, u32* outNumFonts);
+SPTask* AudioThread_CreateTask(void);
+void AudioThread_ScheduleProcessCmds(void);
+u32 AudioThread_GetAsyncLoadStatus(u32 *);
+u8* AudioThread_GetFontsForSequence(s32 seqId, u32* outNumFonts);
 s32 func_8001ED34(void);
-void func_8001ED8C(OSMesg);
-void func_8001EE00(void);
-void func_8001EE3C(void);
+void AudioThread_ResetAudioHeap(s32);
+void AudioThread_PreNMIReset(void);
+void AudioThread_Init(void);
 
 
 
@@ -1197,14 +1198,14 @@ extern u16 gSampleBankMedium;
 
 
 
-extern s8 gThreadCmdWritePos;
-extern s8 gThreadCmdReadPos;
+// extern u8 gThreadCmdWritePos;
+// extern u8 gThreadCmdReadPos;
 extern OSMesgQueue* gAudioTaskStartQueue;
 extern OSMesgQueue* gThreadCmdProcQueue;
 extern OSMesgQueue* gAudioUnkQueue;
 extern OSMesgQueue* gAudioResetQueue;
 extern s32 gMaxAbiCmdCnt;
-extern AudioTask* gWaitingAudioTask;
+extern SPTask* gWaitingAudioTask;
 extern s32 D_800C7C70;
 extern u8 gCurCmdReadPos;
 extern u8 gThreadCmdQueueFinished;
@@ -1344,14 +1345,14 @@ extern volatile s32 gAudioTaskCountQ;
 extern s32 gCurAudioFrameDmaCount;
 extern s32 gAudioTaskIndexQ;
 extern s32 gCurAiBuffIndex;
-extern void* gAbiCmdBuffs[2];
-extern Acmd* gCurAiCmdBuffer;
-extern AudioTask* gAudioCurTask;
-extern AudioTask gAudioRspTasks[2];
+extern Acmd* gAbiCmdBuffs[2];
+extern Acmd* gCurAbiCmdBuffer;
+extern SPTask* gAudioCurTask;
+extern SPTask gAudioRspTasks[2];
 extern f32 gMaxTempoTvTypeFactors;
 extern s32 gRefreshRate;
-extern u16* gAiBuffers[3];
-extern u16 gAiBuffLengths[3];
+extern s16* gAiBuffers[3];
+extern s16 gAiBuffLengths[3];
 extern u32 gAudioRandom;
 extern UNK_TYPE D_80155D88;
 extern volatile u32 gResetTimer;

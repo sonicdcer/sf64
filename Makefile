@@ -258,7 +258,7 @@ build/src/main/audio_playback.o:  OPTFLAGS := -O2 -g0
 build/src/main/audio_load.o:  OPTFLAGS := -O2 -g0
 build/src/main/audio_general.o:  OPTFLAGS := -O2 -g0
 build/src/main/audio_heap.o:  OPTFLAGS := -O2 -g0
-build/src/main/audio_thread.o: OPTFLAGS := -O1 -g0
+build/src/main/audio_thread.o: OPTFLAGS := -O2 -g0
 build/src/main/sys_sprintf.o: OPTFLAGS := -O2 -g0
 build/src/main/sys_math64.o: OPTFLAGS := -O2 -g0
 

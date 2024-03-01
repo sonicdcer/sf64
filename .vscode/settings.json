@@ -66,7 +66,8 @@
     "i5.h": "c",
     "ast_warp_zone.h": "c",
     "sf64audio_provisional.h": "c",
-    "fox_enmy_assets.h": "c"
+    "fox_enmy_assets.h": "c",
+    "audiothread_cmd.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }

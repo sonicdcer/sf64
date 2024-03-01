@@ -252,15 +252,15 @@ void* AudioLoad_SyncLoadSeqFonts(s32 seqId, u32* outFontId) {
     return soundFontData;
 }
 
-void AudioLoad_SyncLoadSeqParts(s32 seqId, s32 arg1) {
+void AudioLoad_SyncLoadSeqParts(s32 seqId, s32 flags) {
     s32 pad;
     u32 fontId;
 
     seqId = AudioLoad_GetLoadTableIndex(0, seqId);
-    if (arg1 & 2) {
+    if (flags & 2) {
         AudioLoad_SyncLoadSeqFonts(seqId, &fontId);
     }
-    if (arg1 & 1) {
+    if (flags & 1) {
         AudioLoad_SyncLoadSeq(seqId);
     }
 }
@@ -309,22 +309,22 @@ s32 AudioLoad_SyncLoadInstrument(s32 fontId, s32 instId, s32 drumId) {
     }
 }
 
-void AudioLoad_AsyncLoadSampleBank(s32 sampleBankId, s32 arg1, s32 retData, OSMesgQueue* retQueue) {
-    if (AudioLoad_AsyncLoadInner(2, AudioLoad_GetLoadTableIndex(2, sampleBankId), arg1, retData, retQueue) == NULL) {
+void AudioLoad_AsyncLoadSampleBank(s32 sampleBankId, s32 nChunks, s32 retData, OSMesgQueue* retQueue) {
+    if (AudioLoad_AsyncLoadInner(2, AudioLoad_GetLoadTableIndex(2, sampleBankId), nChunks, retData, retQueue) == NULL) {
         osSendMesg(retQueue, NULL, 0);
     }
 }
 
-void AudioLoad_AsyncLoadSeq(s32 seqId, s32 arg1, s32 retData, OSMesgQueue* retQueue) {
+void AudioLoad_AsyncLoadSeq(s32 seqId, s32 nChunks, s32 retData, OSMesgQueue* retQueue) {
     s32 index = ((u16*) gSeqFontTable)[AudioLoad_GetLoadTableIndex(0, seqId)];
     s32 fontsLeft = gSeqFontTable[index++];
 
     for (fontsLeft; fontsLeft > 0; fontsLeft--) {
-        AudioLoad_AsyncLoadInner(1, AudioLoad_GetLoadTableIndex(1, gSeqFontTable[index++]), arg1, retData, retQueue);
+        AudioLoad_AsyncLoadInner(1, AudioLoad_GetLoadTableIndex(1, gSeqFontTable[index++]), nChunks, retData, retQueue);
     }
 }
 
-void* AudioLoad_GetFontsForSequence(s32 seqId, u32* outNumFonts) {
+u8* AudioLoad_GetFontsForSequence(s32 seqId, u32* outNumFonts) {
     s32 index = ((u16*) gSeqFontTable)[AudioLoad_GetLoadTableIndex(0, seqId)];
 
     *outNumFonts = gSeqFontTable[index++];
@@ -838,21 +838,21 @@ void AudioLoad_Init(void) {
         *clearContext++ = 0;
     }
     switch (osTvType) {
-        case 0:
+        case OS_TV_PAL:
             gMaxTempoTvTypeFactors = 20.03042f;
-            gRefreshRate = 0x32;
+            gRefreshRate = 50;
             break;
-        case 2:
+        case OS_TV_MPAL:
             gMaxTempoTvTypeFactors = 16.546f;
-            gRefreshRate = 0x3C;
+            gRefreshRate = 60;
             break;
         default:
-        case 1:
+        case OS_TV_NTSC:
             gMaxTempoTvTypeFactors = 16.713f;
-            gRefreshRate = 0x3C;
+            gRefreshRate = 60;
             break;
     }
-    func_8001EE3C();
+    AudioThread_Init();
     for (i = 0; i < 3; i++) {
         gAiBuffLengths[i] = 0xA0;
     }
