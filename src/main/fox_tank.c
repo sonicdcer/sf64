@@ -331,7 +331,7 @@ void func_800444BC(Player* player) {
         }
         if (D_80177BAC != 0) {
             D_80177BAC = 0;
-            func_8001D444(0, 0x8004, 0, 0xFF);
+            Audio_PlaySequence(0, 0x8004, 0, 0xFF);
             func_8001C8B8(0);
         }
 
@@ -594,8 +594,8 @@ void func_80045678(Player* player) {
 
     player->unk_0D4 = 3.0f;
     if (!(gInputHold->button & Z_TRIG)) {
-        func_8001A55C(player->sfxPos, 0x01008016);
-        func_8001A55C(player->sfxPos, 0x1100000A);
+        Audio_KillSfxBySourceAndId(player->sfxPos, 0x01008016);
+        Audio_KillSfxBySourceAndId(player->sfxPos, 0x1100000A);
     }
     if ((gInputHold->button & Z_TRIG) && !player->unk_2B4) {
         D_800C9F14++;
@@ -624,8 +624,8 @@ void func_80045678(Player* player) {
         D_800C9F20 = 0.0f;
     }
     if (!(gInputHold->button & R_TRIG)) {
-        func_8001A55C(player->sfxPos, 0x01008016);
-        func_8001A55C(player->sfxPos, 0x1100000A);
+        Audio_KillSfxBySourceAndId(player->sfxPos, 0x01008016);
+        Audio_KillSfxBySourceAndId(player->sfxPos, 0x1100000A);
     }
     if ((gInputHold->button & R_TRIG) && !player->unk_2B4) {
         D_800C9F14++;
@@ -657,8 +657,8 @@ void func_80045678(Player* player) {
     if ((player->unk_16C > 0.2f) && (player->unk_170 > 0.2f) && (player->timer_220 == 0)) {
         if (D_800C9F3C == 0) {
             D_800C9F3C = 1;
-            func_8001A55C(player->sfxPos, 0x1100000A);
-            func_8001A55C(player->sfxPos, 0x01004024);
+            Audio_KillSfxBySourceAndId(player->sfxPos, 0x1100000A);
+            Audio_KillSfxBySourceAndId(player->sfxPos, 0x01004024);
             AUDIO_PLAY_SFX(0x01008016, player->sfxPos, 0);
         }
         player->unk_12C += ((__cosf(gGameFrameCount * M_DTOR * 8.0f) * 10.0f) - player->unk_12C) * 0.1f;
@@ -743,7 +743,7 @@ void func_80045E7C(Player* player) {
             }
             if (player->unk_1EC == 0) {
                 player->unk_1DC = 0;
-                func_8001A55C(player->sfxPos, 0x1100000A);
+                Audio_KillSfxBySourceAndId(player->sfxPos, 0x1100000A);
             }
         }
         if ((player->timer_1E8 >= 5) && (player->unk_1F4 == 0) && (player->unk_1DC != 9)) {
@@ -1117,14 +1117,14 @@ void func_80047504(Player* player) {
             if (player->unk_2BC > 90.0f) {
                 player->unk_2BC = 90.0f;
                 player->unk_2B4 = true;
-                func_8001A55C(player->sfxPos, 0x01004024);
-                func_8001A55C(player->sfxPos, 0x01008016);
+                Audio_KillSfxBySourceAndId(player->sfxPos, 0x01004024);
+                Audio_KillSfxBySourceAndId(player->sfxPos, 0x01008016);
             }
         } else {
             if (player->unk_2BC > 0.0f) {
                 player->unk_2B4 = true;
-                func_8001A55C(player->sfxPos, 0x01004024);
-                func_8001A55C(player->sfxPos, 0x01008016);
+                Audio_KillSfxBySourceAndId(player->sfxPos, 0x01004024);
+                Audio_KillSfxBySourceAndId(player->sfxPos, 0x01008016);
             }
         }
     } else {

@@ -799,7 +799,7 @@ void func_i3_801A0120(Effect* effect) {
             } else {
                 effect->vel.z += 65.0f;
                 if (fabsf(gBosses[0].obj.pos.z - effect->obj.pos.z) >= 2000.0f) {
-                    func_8001A55C(effect->sfxPos, 0x31033078);
+                    Audio_KillSfxBySourceAndId(effect->sfxPos, 0x31033078);
                 }
             }
             break;
@@ -821,7 +821,7 @@ void func_i3_801A0120(Effect* effect) {
                     AUDIO_PLAY_SFX(0x31033078, effect->sfxPos, 4);
                 }
             } else if (fabsf(gBosses[0].obj.pos.z - effect->obj.pos.z) >= 2000.0f) {
-                func_8001A55C(effect->sfxPos, 0x31033078);
+                Audio_KillSfxBySourceAndId(effect->sfxPos, 0x31033078);
             }
             break;
     }
@@ -1041,8 +1041,8 @@ void func_i3_801A10F4(Player* player) {
                 func_i3_801A0FD4(&gActors[2], 2);
                 gCsCamAtZ = -3000.0f;
                 gCsCamEyeZ = -3400.0f;
-                func_8001A55C(player->sfxPos, 0x3140807E);
-                func_8001D444(0, 0x33, 0, 0xFF);
+                Audio_KillSfxBySourceAndId(player->sfxPos, 0x3140807E);
+                Audio_PlaySequence(0, 0x33, 0, 0xFF);
                 func_80057814(player);
                 func_8001C8B8(gPlayerNum);
                 D_80177A48[0] = 0.01f;
@@ -1103,7 +1103,7 @@ void func_i3_801A10F4(Player* player) {
                 D_80178348 = D_80178350 = D_80178354 = 255;
             }
             if (D_80178340 == 255) {
-                func_8001D444(0, 0x800B, 0, 0xFF);
+                Audio_PlaySequence(0, 0x800B, 0, 0xFF);
                 player->pos.z = 0.0f;
                 player->unk_0D0 = D_80161A54;
                 func_800A6148();
@@ -1204,8 +1204,8 @@ void func_i3_801A1F80(Boss* bossSO) {
         bossSO->unk_3F8 = 5.5f;
     }
     if (bossSO->health == 0) {
-        func_800182F4(0x101400FF);
-        func_800182F4(0x111400FF);
+        Audio_QueueSeqCmd(0x101400FF);
+        Audio_QueueSeqCmd(0x111400FF);
         gBossActive = 1;
         gBossFrameCount = 0;
         bossSO->health = 600;
@@ -1249,7 +1249,7 @@ void func_i3_801A1F80(Boss* bossSO) {
         gFogBlue--;
     }
     if (gBossFrameCount == 30) {
-        func_8001D444(0, 0x801B, 0, 0xFF);
+        Audio_PlaySequence(0, 0x801B, 0, 0xFF);
     }
     if (gBossFrameCount <= 60) {
         Math_SmoothStepToF(&D_801779A8[gMainController], 120.0f, 1.0f, 3.5f, 0.0f);
@@ -1705,7 +1705,7 @@ void func_i3_801A3510(Boss* bossSO) {
                                  bossSO->fwork[SO_FWK_6] + 300.0f);
             }
             if (bossSO->unk_04C == 75) {
-                func_8001A55C(bossSO->sfxPos, 0x31033078);
+                Audio_KillSfxBySourceAndId(bossSO->sfxPos, 0x31033078);
             }
             if (bossSO->unk_04C == 99) {
                 bossSO->swork[SO_SWK_1] = 5;
@@ -1730,7 +1730,7 @@ void func_i3_801A3510(Boss* bossSO) {
                                  bossSO->fwork[SO_FWK_6] + 300.0f);
             }
             if (bossSO->unk_04C == 76) {
-                func_8001A55C(bossSO->sfxPos, 0x31033078);
+                Audio_KillSfxBySourceAndId(bossSO->sfxPos, 0x31033078);
             }
             if (bossSO->unk_04C >= 99) {
                 func_i3_801A30CC(bossSO);
@@ -1807,9 +1807,9 @@ void func_i3_801A3C4C(Boss* bossSO) {
         gCsFrameCount = 0;
         D_80137E84[gMainController] = 1;
         D_Timer_80177BD0[gMainController] = 10;
-        func_800182F4(0x100100FF);
-        func_800182F4(0x110100FF);
-        func_8001A838(0x4100C023);
+        Audio_QueueSeqCmd(0x100100FF);
+        Audio_QueueSeqCmd(0x110100FF);
+        Audio_KillSfxById(0x4100C023);
         AUDIO_PLAY_SFX(0x2940D09A, bossSO->sfxPos, 4);
         if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) {
             gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
@@ -1950,8 +1950,8 @@ void func_i3_801A4214(Boss* bossSO) {
             break;
         case 4:
             if (bossSO->timer_058 == 1) {
-                func_800182F4(0x105000FF);
-                func_800182F4(0x115000FF);
+                Audio_QueueSeqCmd(0x105000FF);
+                Audio_QueueSeqCmd(0x115000FF);
                 Object_Kill(&bossSO->obj, bossSO->sfxPos);
             }
             break;
@@ -2868,14 +2868,14 @@ void func_i3_801A7930(Player* player) {
                 D_80178348 = D_80178354 = D_80178350 = 255;
             }
             if (gCsFrameCount == 230) {
-                func_800182F4(0x103200FF);
-                func_800182F4(0x113200FF);
+                Audio_QueueSeqCmd(0x103200FF);
+                Audio_QueueSeqCmd(0x113200FF);
             }
             if (gCsFrameCount == 400) {
                 player->unk_1D0++;
                 func_800A6148();
                 func_8001CA24(0);
-                Audio_KillSfx(player->sfxPos);
+                Audio_KillSfxBySource(player->sfxPos);
                 D_80178340 = 250;
                 player->timer_1F8 = 20;
                 player->unk_0D0 = 0.0f;
@@ -2893,7 +2893,7 @@ void func_i3_801A7930(Player* player) {
                 player->unk_1D0++;
                 player->wings.unk_2C = 1;
                 func_8001C8B8(0);
-                func_8001D444(0, 0x26, 0, 0xFF);
+                Audio_PlaySequence(0, 0x26, 0, 0xFF);
                 D_80177A98 = 1;
                 func_800A6148();
                 D_80177A48[1] = 0.0f;
@@ -3015,7 +3015,7 @@ void func_i3_801A7930(Player* player) {
                 D_8017835C = 8;
                 if (D_80178340 == 255) {
                     func_8001CA24(0);
-                    func_8001DBD0(10);
+                    Audio_FadeOutAll(10);
                     player->state_1C8 = PLAYERSTATE_1C8_6;
                     player->timer_1F8 = 0;
                     D_8017837C = 4;
@@ -3086,8 +3086,8 @@ void func_i3_801A7930(Player* player) {
             }
             break;
         case 1500:
-            func_800182F4(0x103200FF);
-            func_800182F4(0x113200FF);
+            Audio_QueueSeqCmd(0x103200FF);
+            Audio_QueueSeqCmd(0x113200FF);
             break;
         case 1420:
             if (gTeamShields[2] > 0) {

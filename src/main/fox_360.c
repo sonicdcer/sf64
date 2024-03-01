@@ -455,8 +455,8 @@ void func_8002F69C(Actor* actor) {
     }
     if (((D_8015F928 + 100) == (0, D_800C9B4C)) && (gCurrentLevel != LEVEL_VENOM_2)) {
         // fake?
-        func_800182F4(0x101E00FF);
-        func_800182F4(0x111E00FF);
+        Audio_QueueSeqCmd(0x101E00FF);
+        Audio_QueueSeqCmd(0x111E00FF);
     }
     if (D_8015F928 == D_800C9B4C) {
         func_8002F3E0();
@@ -465,7 +465,7 @@ void func_8002F69C(Actor* actor) {
         if ((gCurrentLevel == LEVEL_VENOM_2) || (gCurrentLevel == LEVEL_BOLSE)) {
             gPlayer[0].unk_034 = 20.0f;
         }
-        func_8001D444(0, 0x802B, 0, 0xFF);
+        Audio_PlaySequence(0, 0x802B, 0, 0xFF);
         func_8002EE34();
         if ((gCurrentLevel == LEVEL_FORTUNA) || (gCurrentLevel == LEVEL_VENOM_2)) {
             gPlayer[0].camEye.x = 4500.0f;

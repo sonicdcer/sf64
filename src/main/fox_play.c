@@ -237,7 +237,7 @@ void func_800A4C40(Player* player) {
             }
         } else {
             D_80161A64 = 0;
-            func_8001A55C(player->sfxPos, 0x1100000B);
+            Audio_KillSfxBySourceAndId(player->sfxPos, 0x1100000B);
         }
     }
 }
@@ -477,7 +477,7 @@ void func_800A594C(void) {
         if (gCurrentLevel == LEVEL_SOLAR) {
             func_8001D1C8(0xFF, 1);
             AUDIO_PLAY_SFX(0x4100C023, gDefaultSfxPos, 4);
-            func_8001A55C(gPlayer[0].sfxPos, 0x3140807E);
+            Audio_KillSfxBySourceAndId(gPlayer[0].sfxPos, 0x3140807E);
         }
     } else if (gCurrentLevel == LEVEL_AQUAS) {
         sEnvSettings = SEGMENTED_TO_VIRTUAL(D_602E584);
@@ -2338,17 +2338,17 @@ void func_800AB334(void) {
 
     switch (gCurrentLevel) {
         case LEVEL_TRAINING:
-            func_8001DC6C(0, 28);
+            Audio_SetAudioSpec(0, 28);
             D_8017796C = -1;
             break;
         case LEVEL_VENOM_1:
-            func_8001DC6C(0, 6);
+            Audio_SetAudioSpec(0, 6);
             break;
         case LEVEL_VENOM_2:
-            func_8001DC6C(0, 6);
+            Audio_SetAudioSpec(0, 6);
             break;
         case LEVEL_VENOM_ANDROSS:
-            func_8001DC6C(0, 15);
+            Audio_SetAudioSpec(0, 15);
             func_8001D400(0);
             D_8017796C = -1;
             break;
@@ -2513,8 +2513,8 @@ void func_800ABAB4(void) {
     D_80177C70 = 0;
     D_800CA234 = NULL;
     D_Timer_800CA238 = 0;
-    func_8001A838(0x11403076);
-    func_8001A838(0x49000014);
+    Audio_KillSfxById(0x11403076);
+    Audio_KillSfxById(0x49000014);
     Memory_FreeAll();
     D_80177C78 = D_80177C8C = gShowBossHealth = D_8015F908 = D_8015F90C = D_8015F910 = 0;
     D_800CA220 = 0;
@@ -4297,24 +4297,24 @@ void func_800B0F50(Player* playerx) {
         player->unk_234 = 1;
         switch (gCurrentLevel) {
             case LEVEL_CORNERIA:
-                func_8001D444(0, 0x25, 0, 0xFF);
+                Audio_PlaySequence(0, 0x25, 0, 0xFF);
                 break;
             case LEVEL_METEO:
-                func_8001D444(0, 0x32, 0, 0xFF);
+                Audio_PlaySequence(0, 0x32, 0, 0xFF);
                 break;
             case LEVEL_FORTUNA:
             case LEVEL_BOLSE:
             case LEVEL_VENOM_2:
-                func_8001D444(0, 0x33, 0, 0xFF);
+                Audio_PlaySequence(0, 0x33, 0, 0xFF);
                 break;
             case LEVEL_VENOM_1:
-                func_8001D444(0, 0x8008, 0, 0xFF);
+                Audio_PlaySequence(0, 0x8008, 0, 0xFF);
                 break;
             case LEVEL_KATINA:
-                func_8001D444(0, 0x33, 0, 0xFF);
+                Audio_PlaySequence(0, 0x33, 0, 0xFF);
                 break;
             case LEVEL_TITANIA:
-                func_8001D444(0, 0x2D, 0, 0xFF);
+                Audio_PlaySequence(0, 0x2D, 0, 0xFF);
                 break;
             case LEVEL_ZONESS:
             case LEVEL_SECTOR_X:
@@ -4322,7 +4322,7 @@ void func_800B0F50(Player* playerx) {
             case LEVEL_TRAINING:
             case LEVEL_MACBETH:
             default:
-                func_8001D444(0, 0x2C, 0, 0xFF);
+                Audio_PlaySequence(0, 0x2C, 0, 0xFF);
                 break;
             case LEVEL_AREA_6:
             case LEVEL_SECTOR_Y:
@@ -4332,7 +4332,7 @@ void func_800B0F50(Player* playerx) {
                 break;
         }
     } else if (!gVersusMode && (D_80177C90 != 0xFFFF) && ((gLevelMode != LEVELMODE_ALL_RANGE) || (D_8015F924 == 0))) {
-        func_8001D444(0, D_80177C90, 0, 0xFF);
+        Audio_PlaySequence(0, D_80177C90, 0, 0xFF);
     }
     D_80177840 = gBossHealthBar = D_80177850 = 0;
 
@@ -5021,7 +5021,7 @@ void func_800B40AC(Player* player) {
         if (player->shields >= Play_GetMaxShields()) {
             player->shields = Play_GetMaxShields();
             player->heal = 0;
-            func_8001A838(0x41007012);
+            Audio_KillSfxById(0x41007012);
         }
     }
 }
@@ -5051,12 +5051,12 @@ void func_800B41E0(Player* player) {
 void func_800B41EC(Player* player) {
     player->state_1C8 = PLAYERSTATE_1C8_4;
     if (!gVersusMode) {
-        func_800182F4(0x100100FF);
-        func_800182F4(0x110100FF);
-        func_8001D444(0, 0x27, 0, 0xFF);
+        Audio_QueueSeqCmd(0x100100FF);
+        Audio_QueueSeqCmd(0x110100FF);
+        Audio_PlaySequence(0, 0x27, 0, 0xFF);
     }
     if (gCurrentLevel == LEVEL_SOLAR) {
-        func_8001A838(0x4100C023);
+        Audio_KillSfxById(0x4100C023);
     }
     func_8001CA24(player->num);
     func_800A5FA0(player->sfxPos, 0x0900C010, player->num);
@@ -5470,7 +5470,7 @@ void func_800B48BC(Player* player) {
                     D_80177D20 = gPlayer[0].unk_144 = 0.0f;
                     D_80178380[0] = 0;
                     D_8015F93C = gRadioState = 0;
-                    func_8001AE58();
+                    Audio_ClearVoice();
                     func_8001D400(0);
                     D_80161A94[0] = gGoldRingCount[0];
                     if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
@@ -6393,11 +6393,11 @@ void func_800B86CC(void) {
             if ((gControllerPress[gMainController].button & START_BUTTON) &&
                 (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2) &&
                 gSaveFile.save.data.planet[D_800D2F6C[gCurrentLevel]].normalClear) {
-                func_8001AE58();
+                Audio_ClearVoice();
                 func_8001D400(0);
                 func_800A6148();
                 for (i = 0; i < gCamCount; i++) {
-                    Audio_KillSfx(gPlayer[i].sfxPos);
+                    Audio_KillSfxBySource(gPlayer[i].sfxPos);
                     func_8001CA24(i);
                 }
                 D_80177854 = 1;

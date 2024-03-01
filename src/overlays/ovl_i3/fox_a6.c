@@ -523,8 +523,8 @@ void func_i3_80187754(Boss* bossA6) {
     A6_HIT_1(bossA6, 0)->z.size = A6_HIT_1(bossA6, 1)->z.size = A6_HIT_1(bossA6, 2)->z.size = 195.0f;
     A6_HIT_1(bossA6, 0)->y.size = A6_HIT_1(bossA6, 1)->y.size = A6_HIT_1(bossA6, 2)->y.size = 147.0f;
     A6_HIT_1(bossA6, 0)->x.size = A6_HIT_1(bossA6, 1)->x.size = A6_HIT_1(bossA6, 2)->x.size = 153.0f;
-    func_800182F4(0x102800FF);
-    func_800182F4(0x112800FF);
+    Audio_QueueSeqCmd(0x102800FF);
+    Audio_QueueSeqCmd(0x112800FF);
     AUDIO_PLAY_SFX(0x11002050, bossA6->sfxPos, 4);
 }
 
@@ -582,8 +582,8 @@ void func_i3_80187944(Boss* bossA6) {
                     D_8015F984 = (D_80177D20 * 0.00004f) + 0.5f;
                     AUDIO_PLAY_SFX(0x2940D09A, bossA6->sfxPos, 4);
                     gShowBossHealth = 0;
-                    func_800182F4(0x102800FF);
-                    func_800182F4(0x112800FF);
+                    Audio_QueueSeqCmd(0x102800FF);
+                    Audio_QueueSeqCmd(0x112800FF);
                     bossA6->fwork[A6_FWK_5] = 5.0f;
                     bossA6->fwork[A6_FWK_3] = -20000.0f;
                     bossA6->fwork[A6_FWK_1] = 170.0f;
@@ -777,7 +777,7 @@ void func_i3_80187944(Boss* bossA6) {
                 Math_SmoothStepToF(&D_i3_801C22F0.unk_24, 0.0f, 0.1f, 1.0f, 0);
                 if (D_i3_801C22F0.unk_24 < 1.0f) {
                     D_i3_801C22F0.unk_24 = 0.0f;
-                    Audio_KillSfx(bossA6->sfxPos);
+                    Audio_KillSfxBySource(bossA6->sfxPos);
                     AUDIO_PLAY_SFX(0x19004051, bossA6->sfxPos, 4);
                     bossA6->timer_050 = 20;
                     bossA6->obj.pos.z = gPlayer[0].camEye.z - D_80177D20 + bossA6->fwork[A6_FWK_3];
@@ -895,7 +895,7 @@ void func_i3_80187944(Boss* bossA6) {
             break;
         case 3:
             if (bossA6->timer_050 == 1) {
-                Audio_KillSfx(bossA6->sfxPos);
+                Audio_KillSfxBySource(bossA6->sfxPos);
                 if (D_i3_801C2250[A6_BSS_7] == 0) {
                     AUDIO_PLAY_SFX(0x31008069, bossA6->sfxPos, 4);
                     D_i3_801C2250[A6_BSS_7] = 1;
@@ -928,7 +928,7 @@ void func_i3_80187944(Boss* bossA6) {
                     bossA6->fwork[A6_FWK_2] = 1.0f;
                     bossA6->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6028454);
                     D_i3_801C2250[A6_BSS_6] = 1;
-                    Audio_KillSfx(bossA6->sfxPos);
+                    Audio_KillSfxBySource(bossA6->sfxPos);
                     AUDIO_PLAY_SFX(0x31404067, bossA6->sfxPos, 4);
                     bossA6->swork[A6_SWK_30 + 0] = bossA6->swork[A6_SWK_30 + 1] = bossA6->swork[A6_SWK_30 + 2] = 0;
                 } else if (bossA6->swork[A6_SWK_30 + 0] == 0) {
@@ -981,7 +981,7 @@ void func_i3_80187944(Boss* bossA6) {
                     D_i3_801C2250[A6_BSS_7] = bossA6->swork[A6_SWK_37] = 0;
                     bossA6->state = 3;
                     if (D_i3_801C2250[A6_BSS_6] == 0) {
-                        func_8001D444(0, 0x8017, 0, 0xFF);
+                        Audio_PlaySequence(0, 0x8017, 0, 0xFF);
                     }
                 }
             } else if (bossA6->swork[A6_SWK_38] != 0) {
@@ -1071,7 +1071,7 @@ void func_i3_80187944(Boss* bossA6) {
             break;
         case 9:
             if (bossA6->timer_052 == 0) {
-                Audio_KillSfx(bossA6->sfxPos);
+                Audio_KillSfxBySource(bossA6->sfxPos);
                 AUDIO_PLAY_SFX(0x19004051, bossA6->sfxPos, 4);
                 bossA6->timer_054 = 0;
                 bossA6->state = 10;
@@ -1648,7 +1648,7 @@ void func_i3_8018B9BC(Boss* bossA6) {
                 }
                 if ((bossA6->swork[A6_SWK_15] == 0) && (bossA6->swork[A6_SWK_16] == 0) &&
                     (bossA6->swork[A6_SWK_17] == 0)) {
-                    Audio_KillSfx(bossA6->sfxPos);
+                    Audio_KillSfxBySource(bossA6->sfxPos);
                     if (bossA6->swork[A6_SWK_25] != 0) {
                         bossA6->swork[A6_SWK_25]--;
                         if (bossA6->swork[A6_SWK_25] != 0) {
@@ -2292,14 +2292,14 @@ void func_i3_8018DF74(Player* player) {
                 player->unk_1D0 = 0;
                 player->timer_1F8 = 0;
 
-                func_8001D444(0, 0x8007, 0, 0xFF);
+                Audio_PlaySequence(0, 0x8007, 0, 0xFF);
                 player->state_1C8 = PLAYERSTATE_1C8_3;
             }
             break;
     }
     switch (gCsFrameCount) {
         case 280:
-            func_8001D444(0, 0x33, 0, 0xFF);
+            Audio_PlaySequence(0, 0x33, 0, 0xFF);
             break;
         case 40:
             Radio_PlayMessage(gMsg_ID_7005, RCID_CAIMAN_AREA6);
@@ -2653,7 +2653,7 @@ void func_i3_8018ED78(Player* player) {
                     }
                     D_80161A94[0] = gGoldRingCount[0];
                     func_8001CA24(0);
-                    Audio_KillSfx(player->sfxPos);
+                    Audio_KillSfxBySource(player->sfxPos);
                     func_800A6148();
                     gNextGameState = GSTATE_PLAY;
                     gNextLevel = LEVEL_VENOM_2;
@@ -2661,14 +2661,14 @@ void func_i3_8018ED78(Player* player) {
                 }
             }
             if (gCsFrameCount == 1040) {
-                func_800182F4(0x105000FF);
-                func_800182F4(0x115000FF);
+                Audio_QueueSeqCmd(0x105000FF);
+                Audio_QueueSeqCmd(0x115000FF);
             }
             break;
     }
     switch (gCsFrameCount) {
         case 380:
-            func_8001D444(0, 38, 0, 255);
+            Audio_PlaySequence(0, 38, 0, 255);
             break;
         case 550:
             D_80177840 = 100;

@@ -1033,7 +1033,7 @@ void func_8006D36C(Actor* actor) {
             break;
 
         case 0xD000:
-            Audio_KillSfx(actor->sfxPos);
+            Audio_KillSfxBySource(actor->sfxPos);
             actor->unk_0B4 = temp_s1[actor->unk_0E6 + 1];
 
             if (actor->unk_0B4 == 40) {
@@ -1090,10 +1090,10 @@ void func_8006D36C(Actor* actor) {
 
             if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) {
                 if (actor->unk_0B4 == 86) {
-                    func_8001D4AC(0x36, 0x14, 0xA, 0xA);
+                    Audio_PlayFanfare(0x36, 20, 10, 10);
                 }
                 if (actor->unk_0B4 == 85) {
-                    func_8001D4AC(0x37, 0x14, 0xA, 0xA);
+                    Audio_PlayFanfare(0x37, 20, 10, 10);
                 }
             }
 
@@ -1244,7 +1244,7 @@ void func_8006D36C(Actor* actor) {
 
         case 0xEE00:
             if ((D_80161A88 == 2) && (temp_s1[actor->unk_0E6 + 1] != 2)) {
-                func_8001A55C(gPlayer[0].sfxPos, 0x1100000B);
+                Audio_KillSfxBySourceAndId(gPlayer[0].sfxPos, 0x1100000B);
             }
             D_80161A88 = temp_s1[actor->unk_0E6 + 1];
             actor->unk_0E6 += 2;
@@ -1278,8 +1278,8 @@ void func_8006D36C(Actor* actor) {
             break;
 
         case 0xF400:
-            func_800182F4(0x103200FF);
-            func_800182F4(0x113200FF);
+            Audio_QueueSeqCmd(0x103200FF);
+            Audio_QueueSeqCmd(0x113200FF);
             actor->unk_0E6 += 2;
             func_8006D36C(actor);
             break;
@@ -1933,7 +1933,7 @@ void func_8006FE28(Actor* actor) {
         (fabsf(actor->obj.pos.y - gPlayer[0].pos.y) < 100.0f) &&
         (fabsf(actor->obj.pos.z - gPlayer[0].unk_138) < 50.0f)) {
         func_80067A40();
-        func_8001A55C(actor->sfxPos, 0x1900302B);
+        Audio_KillSfxBySourceAndId(actor->sfxPos, 0x1900302B);
         Object_Kill(&actor->obj, actor->sfxPos);
     }
 }

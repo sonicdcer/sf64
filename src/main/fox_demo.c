@@ -225,7 +225,7 @@ void func_80048E40(Player* player) {
     switch (player->unk_1D0) {
         case 0:
             player->unk_4DC = 0;
-            func_8001A38C(1, player->sfxPos);
+            Audio_StopSfxByBankAndSource(1, player->sfxPos);
             player->unk_1D0++;
             D_80177A48[0] = 0.0f;
             D_80177A48[1] = 0.0f;
@@ -300,7 +300,7 @@ void func_80048E40(Player* player) {
                 player->unk_190 = 2.0f;
 
                 if (gCsFrameCount == 530) {
-                    func_8001DBD0(0x32);
+                    Audio_FadeOutAll(50);
                 }
 
                 if (gCsFrameCount > 540) {
@@ -576,8 +576,8 @@ void func_80049C0C(Player* player) {
             if (player->timer_1F8 == 60) {
                 gActors[3].state = var_v0;
                 AUDIO_PLAY_SFX(0x0940802AU, gActors[3].sfxPos, 0);
-                func_800182F4(0x103200FF);
-                func_800182F4(0x113200FF);
+                Audio_QueueSeqCmd(0x103200FF);
+                Audio_QueueSeqCmd(0x113200FF);
             }
 
             if (player->timer_1F8 == 50) {
@@ -637,7 +637,7 @@ void func_80049C0C(Player* player) {
 
             if (player->timer_1F8 == 30) {
                 D_80178410 = 0x12C;
-                func_8001D444(0, 0x803AU, 0, 0xFFU);
+                Audio_PlaySequence(0, 0x803AU, 0, 0xFFU);
             }
 
             if (player->timer_1F8 == 0) {
@@ -833,13 +833,13 @@ void func_8004AAF4(Player* player) {
         D_80177E84 = 1;
         if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
             Radio_PlayMessage(gMsg_ID_19466, RCID_FOX);
-            func_8001D444(0, 0x803DU, 0, 0xFFU);
+            Audio_PlaySequence(0, 0x803DU, 0, 0xFFU);
         } else if (gCurrentLevel != LEVEL_TRAINING) {
             Radio_PlayMessage(gMsg_ID_20180, RCID_FOX);
             if (gCurrentLevel == LEVEL_SECTOR_Y) {
-                func_8001D444(0, D_800C9E90[gCurrentLevel], 0, 2);
+                Audio_PlaySequence(0, D_800C9E90[gCurrentLevel], 0, 2);
             } else {
-                func_8001D444(0, D_800C9E90[gCurrentLevel], 0, 0xFF);
+                Audio_PlaySequence(0, D_800C9E90[gCurrentLevel], 0, 0xFF);
             }
         }
     }
@@ -858,7 +858,7 @@ void func_8004AAF4(Player* player) {
 
     switch (player->unk_1D0) {
         case 0:
-            func_8001ACDC(0);
+            Audio_PlayVoice(0);
             D_80177A48[0] = 0.005f;
             D_80177A48[1] = 0.0f;
             D_80177A48[2] = 60.0f;
@@ -1307,7 +1307,7 @@ void func_8004B368(Player* player) {
                 player->state_1C8 = PLAYERSTATE_1C8_6;
                 player->timer_1F8 = 0;
                 D_8017837C = 4;
-                func_8001DBD0(0xA);
+                Audio_FadeOutAll(10);
                 D_800D3180[gCurrentLevel] = Play_CheckMedalStatus(150) + 1;
             }
             break;
@@ -1326,8 +1326,8 @@ void func_8004B368(Player* player) {
             player->unk_1D0 = 3;
             player->timer_1F8 = 0xA;
             func_800A6028(player->sfxPos, 0x09000002U);
-            func_800182F4(0x103200FF);
-            func_800182F4(0x113200FF);
+            Audio_QueueSeqCmd(0x103200FF);
+            Audio_QueueSeqCmd(0x113200FF);
             break;
     }
 
@@ -1421,7 +1421,7 @@ void func_8004C930(Player* player) {
                 func_800AA800(player);
             } else {
                 if (gCsFrameCount == 170) {
-                    func_8001D444(0, 0x26U, 0, 0xFFU);
+                    Audio_PlaySequence(0, 0x26U, 0, 0xFFU);
                 }
                 func_8004B368(player);
                 func_800AA800(player);
@@ -1629,7 +1629,7 @@ void func_8004D440(Player* player) {
     s32 teamId;
 
     func_8001CA24(player->num);
-    func_8001A55C(player->sfxPos, 0x0900C010U);
+    Audio_KillSfxBySourceAndId(player->sfxPos, 0x0900C010U);
     func_800A5FA0(player->sfxPos, 0x0903F004U, player->num);
     player->state_1C8 = PLAYERSTATE_1C8_6;
     player->timer_1F8 = 0x46;

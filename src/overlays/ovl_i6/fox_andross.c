@@ -444,10 +444,10 @@ void func_i6_80188A4C(Boss* boss) {
                             D_80177A48[0] = 0.0f;
                             D_80177A48[1] = 0.1f;
                             gCsFrameCount = 0;
-                            func_8001A55C(boss->sfxPos, 0x11034074U);
-                            func_8001A55C(boss->sfxPos, 0x31408097U);
-                            func_800182F4(0x100100FF);
-                            func_800182F4(0x110100FF);
+                            Audio_KillSfxBySourceAndId(boss->sfxPos, 0x11034074U);
+                            Audio_KillSfxBySourceAndId(boss->sfxPos, 0x31408097U);
+                            Audio_QueueSeqCmd(0x100100FF);
+                            Audio_QueueSeqCmd(0x110100FF);
                         }
                     }
                     break;
@@ -648,13 +648,13 @@ void func_i6_80189470(Actor* actor) {
         (fabsf(actor->obj.pos.z - gPlayer[0].unk_138) < 9000.0f)) {
         D_80177AB0 = 7;
         Radio_PlayMessage(gMsg_ID_19370, RCID_JAMES);
-        func_800182F4(0x101400FF);
-        func_800182F4(0x111400FF);
+        Audio_QueueSeqCmd(0x101400FF);
+        Audio_QueueSeqCmd(0x111400FF);
     }
 
     if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && (fabsf(actor->obj.pos.x - gPlayer[0].pos.x) < 500.0f) &&
         (fabsf(actor->obj.pos.z - gPlayer[0].unk_138) < 500.0f)) {
-        func_8001A838(0x11403076);
+        Audio_KillSfxById(0x11403076);
         func_8001D400(0);
         gCurrentLevel = LEVEL_VENOM_2;
         D_8017827C = 1;
@@ -764,7 +764,7 @@ void func_i6_80189B00(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
 }
 
 extern f32 D_800C9C30;
-extern u16 D_800C9E90[][2];
+extern s32 D_800C9E90[];
 
 void func_i6_801876FC(void);
 
@@ -895,7 +895,7 @@ void func_i6_80189B70(Boss* boss) {
                 } else {
                     boss->state = 3;
                 }
-                func_8001A55C(boss->sfxPos, 0x31408097);
+                Audio_KillSfxBySourceAndId(boss->sfxPos, 0x31408097);
             }
             break;
         case 3:
@@ -1043,8 +1043,8 @@ void func_i6_80189B70(Boss* boss) {
                     gPlayer[0].unk_014 = 1.0f;
                     func_800B7184(gPlayer, 1);
                     func_8001C8B8(0);
-                    func_8001D444(0, D_800C9E90[gCurrentLevel][1], 0, 0xFF);
-                    AUDIO_PLAY_SFX(0x11403076, gDefaultSfxPos, 0U);
+                    Audio_PlaySequence(0, D_800C9E90[gCurrentLevel], 0, 0xFF);
+                    AUDIO_PLAY_SFX(0x11403076, gDefaultSfxPos, 0);
 
                     D_80177CA4 = gHitCount;
                     break;
@@ -1605,7 +1605,7 @@ void func_i6_8018D16C(Boss* boss) {
     D_80177AB0 = 1;
     boss->info.hitbox[16] = 200.0f;
     boss->info.hitbox[22] = 200.0f;
-    func_8001D444(0, 0x8021, 0, 0);
+    Audio_PlaySequence(0, 0x8021, 0, 0);
 }
 
 void func_i6_8018D2B0(Boss* boss) {
@@ -1624,9 +1624,9 @@ void func_i6_8018D2B0(Boss* boss) {
                         AUDIO_PLAY_SFX(0x2940D09A, boss->sfxPos, 4);
                         AUDIO_PLAY_SFX(0x31009063, boss->sfxPos, 4);
                         AUDIO_PLAY_SFX(0x19403070, boss->sfxPos, 4);
-                        func_8001A55C(boss->sfxPos, 0x11030073);
-                        func_800182F4(0x100100FF);
-                        func_800182F4(0x110100FF);
+                        Audio_KillSfxBySourceAndId(boss->sfxPos, 0x11030073);
+                        Audio_QueueSeqCmd(0x100100FF);
+                        Audio_QueueSeqCmd(0x110100FF);
                         boss->state = 31;
                         boss->timer_050 = 200;
                         gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
@@ -1638,8 +1638,8 @@ void func_i6_8018D2B0(Boss* boss) {
                     }
                 } else if (boss->health <= 0) {
                     AUDIO_PLAY_SFX(0x19403070, boss->sfxPos, 4);
-                    func_800182F4(0x100100FF);
-                    func_800182F4(0x110100FF);
+                    Audio_QueueSeqCmd(0x100100FF);
+                    Audio_QueueSeqCmd(0x110100FF);
                     if (D_8017827C == 0) {
                         boss->state = 30;
                     } else {
@@ -2627,7 +2627,7 @@ void func_i6_8018DBF0(Boss* boss) {
                     boss->timer_050 = 50;
                     boss->fwork[9] = 0.0f;
                     AUDIO_PLAY_SFX(0x11030073, boss->sfxPos, 4);
-                    func_8001D444(0, 0x8021, 0, 0xFF);
+                    Audio_PlaySequence(0, 0x8021, 0, 0xFF);
                     break;
             }
             break;
@@ -2834,10 +2834,10 @@ void func_i6_8018DBF0(Boss* boss) {
     boss->info.hitbox[9] = boss->vwork[3].y - boss->obj.pos.y;
     boss->info.hitbox[11] = boss->vwork[3].x - boss->obj.pos.x;
     if ((initialstate == 17) && (boss->state != 17)) {
-        func_8001A55C(boss->sfxPos, 0x31022087);
+        Audio_KillSfxBySourceAndId(boss->sfxPos, 0x31022087);
     }
     if ((initialstate == 7) && (boss->state != 7)) {
-        func_8001A55C(boss->sfxPos, 0x3103108B);
+        Audio_KillSfxBySourceAndId(boss->sfxPos, 0x3103108B);
     }
 }
 
@@ -3674,7 +3674,7 @@ void func_i6_80193C4C(Player* player) {
                     AUDIO_PLAY_SFX(0x1900602A, gDefaultSfxPos, 0);
                     break;
                 case 340:
-                    func_8001A55C(player->sfxPos, 0x11403071);
+                    Audio_KillSfxBySourceAndId(player->sfxPos, 0x11403071);
                     func_8001D400(0);
                     D_800D2F68 = 0;
                     gBlurAlpha = 0xFF;
@@ -3744,7 +3744,7 @@ void func_i6_80193C4C(Player* player) {
             }
 
             if (gCsFrameCount == 70) {
-                func_8001D444(0, 0x8040, 0, 0xFF);
+                Audio_PlaySequence(0, 0x8040, 0, 0xFF);
             }
             if (gCsFrameCount == 150) {
                 player->unk_1D0++;
@@ -3978,7 +3978,7 @@ void func_i6_80193C4C(Player* player) {
                 }
             }
             if (gCsFrameCount == 1400) {
-                func_8001DBD0(40);
+                Audio_FadeOutAll(40);
             }
             if (gCsFrameCount > 1400) {
                 D_8017835C = 4;
@@ -3988,7 +3988,7 @@ void func_i6_80193C4C(Player* player) {
                     gNextGameState = GSTATE_CREDITS;
                     D_ending_80196D00 = 0;
                     D_800D3180[LEVEL_VENOM_ANDROSS] = Play_CheckMedalStatus(200) + 1;
-                    func_8001DC6C(0, 0x1B);
+                    Audio_SetAudioSpec(0, 0x1B);
                 }
             }
             break;

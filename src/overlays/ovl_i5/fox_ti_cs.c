@@ -228,7 +228,7 @@ void func_i5_8018769C(Player* player) {
                 func_800A594C();
                 D_8017782C = 0;
                 if ((gControllerHold[player->num].button & Z_TRIG) && (gControllerHold[player->num].button & R_TRIG)) {
-                    func_8001A55C(player->sfxPos, 0x01008016);
+                    Audio_KillSfxBySourceAndId(player->sfxPos, 0x01008016);
                 }
             }
             break;
@@ -313,7 +313,7 @@ void func_i5_801882CC(Player* player) {
                 func_i5_80188108(&gActors[2], 2);
             }
 
-            func_8001A55C(player->sfxPos, 0x01004024U);
+            Audio_KillSfxBySourceAndId(player->sfxPos, 0x01004024U);
 
         case 1:
             Math_SmoothStepToF(D_80177A48, 0.1f, 1.0f, 0.01f, 0.0f);
@@ -422,7 +422,7 @@ void func_i5_801882CC(Player* player) {
             break;
 
         case 50:
-            func_8001D444(0U, 0x26U, 0U, 0xFFU);
+            Audio_PlaySequence(0U, 0x26U, 0U, 0xFFU);
             break;
 
         case 80:
@@ -513,8 +513,8 @@ void func_i5_801882CC(Player* player) {
     player->camAt.y += camAtY;
 
     if (gCsFrameCount == 1380) {
-        func_800182F4(0x103C00FF);
-        func_800182F4(0x113C00FF);
+        Audio_QueueSeqCmd(0x103C00FF);
+        Audio_QueueSeqCmd(0x113C00FF);
     }
 
     if (gCsFrameCount > 1440) {
@@ -525,7 +525,7 @@ void func_i5_801882CC(Player* player) {
             player->state_1C8 = PLAYERSTATE_1C8_6;
             D_8017837C = 4;
             func_800A6148();
-            func_8001DBD0(10);
+            Audio_FadeOutAll(10);
             D_800D3180[LEVEL_TITANIA] = Play_CheckMedalStatus(150) + 1;
         }
     }

@@ -71,7 +71,7 @@ void func_80060F30(f32* pos, u32 sfxId, s32 arg2) {
 
 void Object_Kill(Object* obj, f32* sfxSrc) {
     obj->status = OBJ_FREE;
-    Audio_KillSfx(sfxSrc);
+    Audio_KillSfxBySource(sfxSrc);
 }
 
 bool func_80060FE4(Vec3f* arg0, f32 arg1) {

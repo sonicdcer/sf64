@@ -1292,7 +1292,7 @@ void func_i5_8018C8A8(Actor* actor) {
                 if ((actor->health > 0) && (actor->unk_0D2 >= 0) && (actor->unk_0D2 < 3)) {
                     actor->iwork[5] = 10;
                     if (actor->state == 4) {
-                        func_8001A55C(actor->sfxPos, 0x31030043);
+                        Audio_KillSfxBySourceAndId(actor->sfxPos, 0x31030043);
                         actor->timer_0BC = 20;
                         actor->fwork[24] = 1.0f;
                         actor->fwork[23] = actor->unk_0B6;
@@ -3201,7 +3201,7 @@ void func_i5_80192118(Boss* boss) {
                 D_i5_801BBEF0[38] = 2;
                 gPlayer[0].unk_19C = 0;
                 boss->swork[1] = 3;
-                func_8001D444(0, 0x8014, 0, 0xFF);
+                Audio_PlaySequence(0, 0x8014, 0, 0xFF);
             }
             break;
         case 3:
@@ -4030,7 +4030,7 @@ void func_i5_80193DF0(Boss* boss) {
             D_i5_801BBEF4[2] += D_i5_801BBEF4[1];
             D_i5_801BBEF4[1] -= 3.0;
             if (D_i5_801BBEF4[2] <= 0.0f) {
-                func_8001A55C(boss->sfxPos, 0x11003023);
+                Audio_KillSfxBySourceAndId(boss->sfxPos, 0x11003023);
                 boss->swork[29] = 0;
                 D_i5_801BBEF4[2] = 0.0f;
                 boss->swork[28]++;
@@ -4430,7 +4430,7 @@ void func_i5_80193DF0(Boss* boss) {
                 }
 
                 boss->swork[32] = 0;
-                func_8001A55C(boss->sfxPos, 0x3143102F);
+                Audio_KillSfxBySourceAndId(boss->sfxPos, 0x3143102F);
                 boss->swork[25] = 0;
                 boss->fwork[41] = 0.0f;
                 boss->fwork[42] = 0.0f;
@@ -4504,7 +4504,7 @@ void func_i5_80193DF0(Boss* boss) {
                     boss->fwork[41] = 0.0f;
                     boss->fwork[42] = 0.0f;
                     boss->swork[24] = 0;
-                    func_8001A55C(boss->sfxPos, 0x39435830);
+                    Audio_KillSfxBySourceAndId(boss->sfxPos, 0x39435830);
                 }
             }
             Math_SmoothStepToF(boss->fwork, 0.5f, 1.0f, 0.02f, 0.0f);
@@ -4546,7 +4546,7 @@ void func_i5_80193DF0(Boss* boss) {
             }
             D_i5_801BBEF0[6] = 2;
             if (boss->unk_04C == 0x1E) {
-                func_8001A55C(boss->sfxPos, 0x11003023);
+                Audio_KillSfxBySourceAndId(boss->sfxPos, 0x11003023);
                 D_i5_801BBEF0[7] = 0;
                 boss->obj.status = OBJ_DYING;
                 D_i5_801BBEF4[12] = 0.0f;
@@ -4664,11 +4664,11 @@ void func_i5_80193DF0(Boss* boss) {
         boss->swork[1] = 0xD;
         boss->unk_04C = 0;
         if (boss->swork[25] != 0) {
-            func_8001A55C(boss->sfxPos, 0x3143102F);
+            Audio_KillSfxBySourceAndId(boss->sfxPos, 0x3143102F);
             boss->swork[25] = 0;
         }
         if (boss->swork[24] != 0) {
-            func_8001A55C(boss->sfxPos, 0x39435830);
+            Audio_KillSfxBySourceAndId(boss->sfxPos, 0x39435830);
             boss->swork[24] = 0;
         }
     }
@@ -4828,8 +4828,8 @@ void func_i5_80197A94(Boss* boss) {
             break;
         case 1:
             if (boss->swork[31] == 1) {
-                func_800182F4(0x105A00FF);
-                func_800182F4(0x115A00FF);
+                Audio_QueueSeqCmd(0x105A00FF);
+                Audio_QueueSeqCmd(0x115A00FF);
             }
             break;
         case 2:
@@ -5183,8 +5183,8 @@ void func_i5_801990DC(Boss* boss) {
 
     if (boss->unk_044 == 0) {
         AUDIO_PLAY_SFX(0x2940902D, boss->sfxPos, 4);
-        func_800182F4(0x103200FF);
-        func_800182F4(0x113200FF);
+        Audio_QueueSeqCmd(0x103200FF);
+        Audio_QueueSeqCmd(0x113200FF);
         func_8007A568(boss->obj.pos.x, boss->obj.pos.y + 250.0f, boss->obj.pos.z, 40.0f);
         func_80042EC0(boss);
         gShowBossHealth = 0;

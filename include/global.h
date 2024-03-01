@@ -19,6 +19,6 @@
 #include "i6.h"
 #include "assets.h"
 
-#define AUDIO_PLAY_SFX(sfxId, srcPos, token) (Audio_PlaySfx((sfxId),(srcPos),(token),&gDefaultScale,&gDefaultScale,&gDefaultReverb))
+#define AUDIO_PLAY_SFX(sfxId, srcPos, token) (Audio_PlaySfx((sfxId),(srcPos),(token),&gDefaultMod,&gDefaultMod,&gDefaultReverb))
 
 #endif // GLOBAL_H

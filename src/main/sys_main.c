@@ -2,8 +2,8 @@
 
 void AudioLoad_Init(void);
 SPTask* func_8001DF50(void);
-void func_8001DCE0(void);
-void func_8001DECC(void);
+void Audio_InitSounds(void);
+void Audio_Update(void);
 
 s32 sGammaMode = 1;
 
@@ -108,7 +108,7 @@ void Audio_ThreadEntry(void* arg0) {
     SPTask* task;
 
     AudioLoad_Init();
-    func_8001DCE0();
+    Audio_InitSounds();
     task = func_8001DF50();
     if (task != NULL) {
         task->msgQueue = &gAudioTaskMsgQueue;
@@ -287,7 +287,7 @@ void Graphics_ThreadEntry(void* arg0) {
             osRecvMesg(&gGfxVImsgQueue, NULL, OS_MESG_BLOCK);
         }
 
-        func_8001DECC();
+        Audio_Update();
     }
 }
 

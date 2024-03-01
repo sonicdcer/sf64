@@ -535,7 +535,7 @@ void Option_Setup(void) {
     D_menu_801B91EC = 0;
     D_menu_801B9244 = 0;
     D_menu_801B9248 = 0;
-    func_8001D444(0, 36, 0, 255);
+    Audio_PlaySequence(0, 36, 0, 255);
 }
 
 void Option_Init(void) {
@@ -550,7 +550,7 @@ void Option_Init(void) {
         case OPTION_WAIT:
             if (D_Timer_8017783C == 0) {
                 gOptionMenuStatus = OPTION_SETUP;
-                func_8001DC6C(0, 23);
+                Audio_SetAudioSpec(0, 23);
             }
             break;
 
@@ -798,7 +798,7 @@ void Option_TrainingUpdate(void) {
         D_80177CB0 = 0.0f;
         D_8017782C = 1;
         gControllerLock = 3;
-        func_8001DC6C(0, 28);
+        Audio_SetAudioSpec(0, 28);
     } else {
         D_80178340 += 0x20;
         if (D_80178340 > 0xFF) {
@@ -1300,7 +1300,7 @@ void Option_SoundInit(void) {
     D_menu_801B91A0 = 0;
 
     gSoundMode = gSaveFile.save.data.soundMode;
-    func_800182F4(D_menu_801AE998[gSoundMode] | 0xE0000000);
+    Audio_QueueSeqCmd(D_menu_801AE998[gSoundMode] | 0xE0000000);
 
     gVolumeSettings[0] = gSaveFile.save.data.musicVolume;
     gVolumeSettings[1] = gSaveFile.save.data.voiceVolume;
@@ -1406,7 +1406,7 @@ void func_menu_80194AEC(void) {
             gSoundMode = 0;
         }
         gSaveFile.save.data.soundMode = gSoundMode;
-        func_800182F4(D_menu_801AE998[gSoundMode] | 0xE0000000);
+        Audio_QueueSeqCmd(D_menu_801AE998[gSoundMode] | 0xE0000000);
     }
 }
 
@@ -1657,22 +1657,22 @@ void Option_ExpertSoundUpdate(void) {
     }
 
     if (gControllerPress[gMainController].button & A_BUTTON) {
-        func_8001DA90(D_menu_801B931C);
+        Audio_PlaySoundTestTrack(D_menu_801B931C);
         D_menu_801B9320 = true;
     }
 
     if (gControllerPress[gMainController].button & B_BUTTON) {
         if (!D_menu_801B9320) {
             AUDIO_PLAY_SFX(0x49000021, gDefaultSfxPos, 4);
-            func_8001D444(0, 36, 0, 255);
+            Audio_PlaySequence(0, 36, 0, 255);
             gDrawMode = DRAWMODE_0;
             D_menu_801B9124 = 1000;
             D_menu_801B912C = 0;
             D_menu_801B9244 = 1;
         } else {
             AUDIO_PLAY_SFX(0x4900101D, gDefaultSfxPos, 4);
-            func_800182F4(0x100100FF);
-            func_800182F4(0x110100FF);
+            Audio_QueueSeqCmd(0x100100FF);
+            Audio_QueueSeqCmd(0x110100FF);
             D_menu_801B9320 = false;
         }
     }
@@ -1741,7 +1741,7 @@ void Option_ExpertSoundDraw(void) {
     }
 
     if (D_menu_801B9320 != 0) {
-        temp_v0_4 = func_8001C3EC();
+        temp_v0_4 = Audio_UpdateFrequencyAnalysis();
         var_fv1 = 60.0f;
 
         if (spectrumAnalizerMode == 2) {
@@ -2610,7 +2610,7 @@ void Option_VersusMenuInit(void) {
     s32 i;
 
     if (D_menu_801B91C4) {
-        func_8001D444(0, 56, 0, 255);
+        Audio_PlaySequence(0, 56, 0, 255);
     }
 
     D_menu_801B93D0 = D_menu_801B9124;
@@ -2691,7 +2691,7 @@ void func_menu_8019949C(void) {
                 AUDIO_PLAY_SFX(0x4900101D, gDefaultSfxPos, 4);
                 D_menu_801B93C4 &= (1 << i) ^ 15;
             } else {
-                func_8001D444(0, 36, 0, 255);
+                Audio_PlaySequence(0, 36, 0, 255);
                 AUDIO_PLAY_SFX(0x49000021, gDefaultSfxPos, 4);
                 func_menu_8019B8A0(2);
                 D_menu_801B9248 = 1;
@@ -3907,7 +3907,7 @@ void func_menu_8019CBC0(void) {
     s32 temp;
     s32 i;
 
-    func_8001D444(0, 36, 0, 255);
+    Audio_PlaySequence(0, 36, 0, 255);
 
     gBlurAlpha = 0xD0;
     D_80178410 = 800;
@@ -4331,8 +4331,8 @@ void func_menu_8019DE74(void) {
             gLifeCount[0] = 2;
             gTotalHits = 0;
         } else if (D_80161A34 == 8) {
-            func_800182F4(0x100100FF);
-            func_800182F4(0x110100FF);
+            Audio_QueueSeqCmd(0x100100FF);
+            Audio_QueueSeqCmd(0x110100FF);
             D_menu_801B9124 = 400;
         }
     }

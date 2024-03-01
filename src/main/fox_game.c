@@ -106,7 +106,7 @@ void Game_SetGameState(void) {
         D_80178348 = D_80178350 = D_80178354 = 255;
     } else {
         D_80178348 = D_80178350 = D_80178354 = 0;
-        func_8001DBD0(1);
+        Audio_FadeOutAll(1);
     }
     D_80178340 = 255;
     D_80178380[0] = 0;
@@ -114,7 +114,7 @@ void Game_SetGameState(void) {
     D_80178428 = 0.0f;
     gBlurAlpha = 255;
     gDrawMode = DRAWMODE_0;
-    func_8001AE58();
+    Audio_ClearVoice();
     func_8001D400(0);
 }
 
@@ -425,7 +425,7 @@ void Game_Update(void) {
                         var_v0_3 = 0;
                         break;
                 }
-                func_800182F4(var_v0_3 | 0xE0000000);
+                Audio_QueueSeqCmd(var_v0_3 | 0xE0000000);
                 gVolumeSettings[0] = gSaveFile.save.data.musicVolume;
                 gVolumeSettings[1] = gSaveFile.save.data.voiceVolume;
                 gVolumeSettings[2] = gSaveFile.save.data.sfxVolume;

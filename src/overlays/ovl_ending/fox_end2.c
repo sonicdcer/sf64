@@ -1036,7 +1036,7 @@ void func_ending_801926D4(void) {
         } else {
             D_ending_80198590.rightState = D_ending_80198590.leftState = 2;
         }
-        func_8001D444(0, 0x2A, 0, 0xFF);
+        Audio_PlaySequence(0, 0x2A, 0, 0xFF);
     }
 
     if ((2790 <= D_ending_80192E70) && (D_ending_80192E70 < 3000)) {

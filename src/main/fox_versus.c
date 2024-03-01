@@ -53,7 +53,7 @@ void func_800BC760(void) {
     func_800A6148();
 
     for (i = 0; i < gCamCount; i++) {
-        Audio_KillSfx(gPlayer[i].sfxPos);
+        Audio_KillSfxBySource(gPlayer[i].sfxPos);
         func_8001CA24(i);
     }
 
@@ -1492,7 +1492,7 @@ bool func_800C176C(void) {
                 break;
             }
             if (func_800C16A0(30)) {
-                func_8001D444(0, D_80177C90, 0, 0xFF);
+                Audio_PlaySequence(0, D_80177C90, 0, 0xFF);
                 D_80178754 = 2;
                 func_800C1690();
             }
@@ -1527,7 +1527,7 @@ bool func_800C176C(void) {
 
         case 4:
             if ((D_800D4A9C == 1) && (D_800D4AA0 == 0)) {
-                func_8001D444(0, 0x802F, 0, 0xFF);
+                Audio_PlaySequence(0, 0x802F, 0, 0xFF);
                 D_800D4AA0 = 1;
             }
 
@@ -1540,8 +1540,8 @@ bool func_800C176C(void) {
             }
 
             if (func_800BF9AC()) {
-                func_800182F4(0x100100FF);
-                func_800182F4(0x110100FF);
+                Audio_QueueSeqCmd(0x100100FF);
+                Audio_QueueSeqCmd(0x110100FF);
                 if (D_801778AC == 2) {
                     D_80178778 = 11;
                 } else {
@@ -1564,11 +1564,11 @@ bool func_800C176C(void) {
                     case 2:
 
                     case 3:
-                        func_8001D444(0, 0x26, 0, 0xFF);
+                        Audio_PlaySequence(0, 0x26, 0, 0xFF);
                         break;
 
                     case 99:
-                        func_8001D444(0, 0x31, 0, 0xFF);
+                        Audio_PlaySequence(0, 0x31, 0, 0xFF);
                         break;
 
                     default:
@@ -1656,8 +1656,8 @@ bool func_800C176C(void) {
                         break;
                 }
 
-                func_800182F4(0x103200FF);
-                func_800182F4(0x113200FF);
+                Audio_QueueSeqCmd(0x103200FF);
+                Audio_QueueSeqCmd(0x113200FF);
             }
             break;
 

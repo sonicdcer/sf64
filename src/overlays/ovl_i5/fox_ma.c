@@ -973,8 +973,8 @@ void func_i5_8019C778(Actor* actor) {
                     D_80177930 = 0;
                 }
                 actor->state++;
-                func_8001A55C(gPlayer[0].sfxPos, 0x1100000A);
-                func_8001A55C(gPlayer[0].sfxPos, 0x01004024);
+                Audio_KillSfxBySourceAndId(gPlayer[0].sfxPos, 0x1100000A);
+                Audio_KillSfxBySourceAndId(gPlayer[0].sfxPos, 0x01004024);
             }
             break;
     }
@@ -2030,7 +2030,7 @@ void func_i5_801A0BD8(Object_80* obj80) {
                 Math_SmoothStepToF(&obj80->vel.x, 1751.0f, 0.2f, 80.0f, 1.0f);
                 if (obj80->vel.x >= 1750.0) {
                     AUDIO_PLAY_SFX(0x1940807B, obj80->sfxPos, 0);
-                    func_8001A55C(gPlayer[0].sfxPos, 0x01004024);
+                    Audio_KillSfxBySourceAndId(gPlayer[0].sfxPos, 0x01004024);
                     obj80->timer_4C = 5;
                     obj80->state = 2;
                 }
@@ -3118,8 +3118,8 @@ void func_i5_801A4B24(Actor* actor) {
                 D_80177930 = 1;
                 actor->timer_0BC = 5;
                 actor->state = 6;
-                func_8001A55C(gPlayer[0].sfxPos, 0x1100000A);
-                func_8001A55C(gPlayer[0].sfxPos, 0x01004024);
+                Audio_KillSfxBySourceAndId(gPlayer[0].sfxPos, 0x1100000A);
+                Audio_KillSfxBySourceAndId(gPlayer[0].sfxPos, 0x01004024);
             }
             break;
         case 6:
@@ -3885,7 +3885,7 @@ void func_i5_801A7E7C(Actor* actor) {
             func_i5_8019A830(actor);
             func_i5_8019A728(actor);
             if (actor->iwork[1] != 0) {
-                func_8001D444(0, 0x8020, 0, 0xFF);
+                Audio_PlaySequence(0, 0x8020, 0, 0xFF);
                 actor->state = 1;
             }
             func_i5_801A6984(actor);
@@ -4135,8 +4135,8 @@ void func_i5_801A7E7C(Actor* actor) {
                 actor->iwork[9] = 15;
                 D_i5_801BE320[29] -= actor->damage;
                 if (D_i5_801BE320[29] <= 0) {
-                    func_800182F4(0x100100FF);
-                    func_800182F4(0x110100FF);
+                    Audio_QueueSeqCmd(0x100100FF);
+                    Audio_QueueSeqCmd(0x110100FF);
                     D_80178348 = D_80178350 = D_80178354 = D_80178340 = 255;
                     AUDIO_PLAY_SFX(0x2940D09A, actor->sfxPos, 4);
                     Radio_PlayMessage(gMsg_ID_17450, RCID_BOSS_MACBETH);
@@ -4307,7 +4307,7 @@ void func_i5_801A7E7C(Actor* actor) {
             func_i5_801A72DC(actor);
             func_i5_801A6984(actor);
             if (D_i5_801BE320[9] <= 0) {
-                func_8001A55C(actor->sfxPos, 0x19022067);
+                Audio_KillSfxBySourceAndId(actor->sfxPos, 0x19022067);
                 actor->state = 14;
                 actor->vel.y = -20.0f;
             }
@@ -4327,7 +4327,7 @@ void func_i5_801A7E7C(Actor* actor) {
                 }
             }
             if (actor->timer_0BC == 0) {
-                func_8001A55C(actor->sfxPos, 0x19022067);
+                Audio_KillSfxBySourceAndId(actor->sfxPos, 0x19022067);
                 D_i5_801BE320[3] = 0;
                 D_i5_801BE320[2] = 6;
                 D_i5_801BE320[31] = 30;
@@ -4438,7 +4438,7 @@ void func_i5_801A7E7C(Actor* actor) {
                 }
                 actor->timer_0BC = D_i5_801BE320[27];
                 actor->state = 16;
-                func_8001A55C(actor->sfxPos, 0x19022069);
+                Audio_KillSfxBySourceAndId(actor->sfxPos, 0x19022069);
             }
             break;
         case 16:
@@ -4524,7 +4524,7 @@ void func_i5_801A7E7C(Actor* actor) {
                 func_i5_801A78B0(actor);
             }
             if (actor->timer_0BC == 0) {
-                func_8001A55C(actor->sfxPos, 0x19006035);
+                Audio_KillSfxBySourceAndId(actor->sfxPos, 0x19006035);
                 actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_603677C);
                 D_i5_801BE320[3] = 0;
                 D_i5_801BE320[2] = 1;
@@ -5081,7 +5081,7 @@ void func_i5_801AC754(Player* player) {
             }
             break;
         case 3:
-            func_8001D444(0, 0x8010, 0, 0xFF);
+            Audio_PlaySequence(0, 0x8010, 0, 0xFF);
             D_80177838 = 50;
             player->state_1C8 = PLAYERSTATE_1C8_3;
             player->unk_1D0 = player->timer_1F8 = player->timer_1FC = player->unk_240 = 0;
@@ -5893,8 +5893,8 @@ void func_i5_801AF8F4(Player* player) {
             gCsFrameCount = 0;
             D_80178488 = 1;
             player->unk_234 = 0;
-            func_800182F4(0x101E00FF);
-            func_800182F4(0x111E00FF);
+            Audio_QueueSeqCmd(0x101E00FF);
+            Audio_QueueSeqCmd(0x111E00FF);
             player->unk_1D0 = 1;
             D_80177A48[0] = 0.0f;
             D_80177A48[4] = -60.0f;
@@ -6027,7 +6027,7 @@ void func_i5_801AF8F4(Player* player) {
                 player->camAt.z = gCsCamAtZ = 1900.0f;
                 player->unk_114 = 0.0f;
                 D_i5_801BA1DC = -100.0f;
-                func_8001A838(0x31078085);
+                Audio_KillSfxById(0x31078085);
                 AUDIO_PLAY_SFX(0x31408095, gActors[D_i5_801BE314].sfxPos, 4);
                 D_i5_801BE313 = 0;
             }
@@ -6118,7 +6118,7 @@ void func_i5_801AF8F4(Player* player) {
             D_80177D20 = player->unk_144;
             D_80177CE8 += player->unk_140;
             if (gCsFrameCount == 630) {
-                func_8001A55C(gActors[D_i5_801BE314].sfxPos, 0x31408095);
+                Audio_KillSfxBySourceAndId(gActors[D_i5_801BE314].sfxPos, 0x31408095);
                 AUDIO_PLAY_SFX(0x2940C00A, gActors[D_i5_801BE314].sfxPos, 4);
                 player->unk_1D0++;
                 player->vel.z = 0.0f;
@@ -6374,7 +6374,7 @@ void func_i5_801AF8F4(Player* player) {
             D_80177A48[5] = 360.0f;
             break;
         case 910:
-            func_8001D444(0, 0x26, 0, 0xFF);
+            Audio_PlaySequence(0, 0x26, 0, 0xFF);
             break;
         case 1040:
             Radio_PlayMessage(gMsg_ID_20010, RCID_FOX);
@@ -6485,8 +6485,8 @@ void func_i5_801AF8F4(Player* player) {
             gActors[3].state++;
             break;
         case 2440:
-            func_800182F4(0x103C00FF);
-            func_800182F4(0x113C00FF);
+            Audio_QueueSeqCmd(0x103C00FF);
+            Audio_QueueSeqCmd(0x113C00FF);
             break;
     }
 
@@ -6516,7 +6516,7 @@ void func_i5_801AF8F4(Player* player) {
             player->state_1C8 = PLAYERSTATE_1C8_6;
             D_8017837C = 4;
             func_800A6148();
-            func_8001DBD0(10);
+            Audio_FadeOutAll(10);
             D_800D3180[LEVEL_MACBETH] = Play_CheckMedalStatus(150) + 1;
         }
     }
@@ -6961,7 +6961,7 @@ void func_i5_801B3D04(Player* player) {
             D_80177830 = 0;
             break;
         case 50:
-            func_8001D444(0, 0x26, 0, 0xFF);
+            Audio_PlaySequence(0, 0x26, 0, 0xFF);
             break;
         case 100:
             D_80177840 = 100;
@@ -7072,8 +7072,8 @@ void func_i5_801B3D04(Player* player) {
         func_i5_801ACF6C();
     }
     if (gCsFrameCount == 1220) {
-        func_800182F4(0x103C00FF);
-        func_800182F4(0x113C00FF);
+        Audio_QueueSeqCmd(0x103C00FF);
+        Audio_QueueSeqCmd(0x113C00FF);
     }
     if (gCsFrameCount > 1280) {
         D_80178348 = D_80178350 = D_80178354 = 0;
@@ -7082,7 +7082,7 @@ void func_i5_801B3D04(Player* player) {
             player->state_1C8 = PLAYERSTATE_1C8_6;
             D_8017837C = 4;
             func_800A6148();
-            func_8001DBD0(10);
+            Audio_FadeOutAll(10);
             D_800D3180[LEVEL_MACBETH] = Play_CheckMedalStatus(150) + 1;
         }
     }

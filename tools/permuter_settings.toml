@@ -25,6 +25,7 @@ compiler_type = "ido"
 "true" = "int"
 "false" = "int"
 "DMG_.*" = "int"
+"AUDIOCMD_.*" = "void"
 
 [decompme.compilers]
 "tools/ido-recomp/linux/cc" = "ido5.3"

@@ -100,7 +100,7 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
         case OVL_SETUP_TITLE:
             changeOvl = Overlay_Init(&sOvlmenu_Title[ovlStage]);
             if (changeOvl == true) {
-                func_8001DC6C(0, 0x16);
+                Audio_SetAudioSpec(0, 0x16);
             }
             break;
         case OVL_SETUP_MENU:
@@ -175,13 +175,13 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
         case OVL_SETUP_VERSUS:
             changeOvl = Overlay_Init(&sOvli2_Versus[ovlStage]);
             if (changeOvl == true) {
-                func_8001DC6C(3, 0x310);
+                Audio_SetAudioSpec(3, 0x310);
             }
             break;
         case OVL_SETUP_LOGO:
             changeOvl = Overlay_Init(&sNoOvl_Logo[ovlStage]); // Logo does not load an overlay file
             if (changeOvl == true) {
-                func_8001DC6C(0, 0xE);
+                Audio_SetAudioSpec(0, 0xE);
             }
             break;
         case OVL_SETUP_CREDITS:

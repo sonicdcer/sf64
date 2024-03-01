@@ -408,7 +408,7 @@ void func_i2_80188344(Boss* boss) {
 
                 if (boss->swork[0] >= 0xFF) {
                     boss->unk_04A = 0;
-                    Audio_KillSfx(boss->sfxPos);
+                    Audio_KillSfxBySource(boss->sfxPos);
                     if (boss->swork[1] == 0) {
                         boss->swork[1]++;
                         Radio_PlayMessage(gMsg_ID_3315, RCID_PEPPY);
@@ -449,7 +449,7 @@ void func_i2_80188344(Boss* boss) {
 
                 boss->info.unk_10 = 1000.0f;
 
-                func_8001A55C(boss->sfxPos, 0x3103605B);
+                Audio_KillSfxBySourceAndId(boss->sfxPos, 0x3103605B);
                 AUDIO_PLAY_SFX(0x3102405DU, boss->sfxPos, 4U);
             }
             break;
@@ -507,7 +507,7 @@ void func_i2_801887D0(Boss* boss) {
 void func_i2_80188A40(Boss* boss) {
     s32 i;
 
-    func_8001D444(0, D_800C9E90[gCurrentLevel], 0, 255);
+    Audio_PlaySequence(0, D_800C9E90[gCurrentLevel], 0, 255);
 
     gBossActive = 1;
 
@@ -848,14 +848,14 @@ void func_i2_8018978C(Boss* boss) {
     if (boss->swork[0] > 5) {
         boss->swork[0]--;
         if (boss->swork[0] == 5) {
-            func_8001A55C(boss->sfxPos, 0x3102505AU);
+            Audio_KillSfxBySourceAndId(boss->sfxPos, 0x3102505AU);
         }
     }
 
     if (boss->swork[1] > 5) {
         boss->swork[1] = boss->swork[1] - 1;
         if (boss->swork[1] == 5) {
-            func_8001A55C(boss->sfxPos, 0x3102505AU);
+            Audio_KillSfxBySourceAndId(boss->sfxPos, 0x3102505AU);
         }
     }
 
@@ -938,8 +938,8 @@ void func_i2_8018978C(Boss* boss) {
                             gCsFrameCount = 0;
                         }
 
-                        func_800182F4(0x103200FF);
-                        func_800182F4(0x113200FF);
+                        Audio_QueueSeqCmd(0x103200FF);
+                        Audio_QueueSeqCmd(0x113200FF);
                         AUDIO_PLAY_SFX(0x2940D09AU, boss->sfxPos, 4U);
                         D_Timer_80161A60 = 8;
                     }
@@ -1294,7 +1294,7 @@ void func_i2_8018978C(Boss* boss) {
                 boss->fwork[11] -= 2.0f;
                 if (boss->fwork[11] <= 0.0f) {
                     boss->fwork[11] = 0.0f;
-                    Audio_KillSfx(boss->sfxPos);
+                    Audio_KillSfxBySource(boss->sfxPos);
                     if (boss->swork[6] == 0) {
                         boss->state = 8;
 
@@ -1306,8 +1306,8 @@ void func_i2_8018978C(Boss* boss) {
                         boss->fwork[23] = 0.0f;
                         gCsFrameCount = 0;
                         Radio_PlayMessage(gMsg_ID_3322, RCID_BOSS_METEO);
-                        func_800182F4(0x100100FF);
-                        func_800182F4(0x110100FF);
+                        Audio_QueueSeqCmd(0x100100FF);
+                        Audio_QueueSeqCmd(0x110100FF);
                     } else {
                         boss->state = 5;
                         boss->timer_050 = 70;
@@ -1327,7 +1327,7 @@ void func_i2_8018978C(Boss* boss) {
             }
 
             if (gCsFrameCount == 400) {
-                func_8001D444(0U, 0x8041U, 0U, 0xFFU);
+                Audio_PlaySequence(0U, 0x8041U, 0U, 0xFFU);
                 if (gTeamShields[1] > 0) {
                     Radio_PlayMessage(gMsg_ID_3345, RCID_BOSS_METEO);
                 } else {
@@ -2065,7 +2065,7 @@ void func_i2_8018CD8C(Player* player) {
             Math_SmoothStepToF(D_80177A48, 1.0f, 1.0f, 0.01f, 0.0f);
 
             if (player->timer_1F8 == 0) {
-                func_8001D444(0, D_80177C90, 0, 0xFF);
+                Audio_PlaySequence(0, D_80177C90, 0, 0xFF);
                 D_80177838 = 80;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_1D0 = 0;
@@ -2224,7 +2224,7 @@ void func_i2_8018E084(Player* player) {
 
     switch (player->unk_1D0) {
         case 0:
-            func_8001A38C(1, player->sfxPos);
+            Audio_StopSfxByBankAndSource(1, player->sfxPos);
             player->unk_1D0++;
 
             D_80177A48[0] = 0.0f;
@@ -2274,7 +2274,7 @@ void func_i2_8018E084(Player* player) {
                 Math_SmoothStepToF(&D_80177A48[3], 1.0f, 1.0f, 0.01f, 0.0f);
             }
             if (player->timer_1F8 == 50) {
-                func_8001D444(0, 0x26U, 0, 0xFFU);
+                Audio_PlaySequence(0, 0x26U, 0, 0xFFU);
             }
 
             Math_SmoothStepToF(&D_80177A48[1], 1080.0f, 0.01f, D_80177A48[3], 0.0f);
@@ -2320,7 +2320,7 @@ void func_i2_8018E084(Player* player) {
                 player->unk_190 = 2.0f;
 
                 if (gCsFrameCount == 1465) {
-                    func_8001DBD0(20);
+                    Audio_FadeOutAll(20);
                 }
 
                 if (gCsFrameCount > 1465) {

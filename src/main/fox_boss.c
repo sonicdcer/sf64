@@ -96,8 +96,8 @@ void func_80043188(Boss* boss) {
 }
 
 void func_8004319C(Player* player, f32 arg1, f32 arg2, f32 arg3) {
-    func_800182F4(0x105000FF);
-    func_800182F4(0x115000FF);
+    Audio_QueueSeqCmd(0x105000FF);
+    Audio_QueueSeqCmd(0x115000FF);
 
     gCsFrameCount = 0;
     D_80178448 = arg3 + D_80177D20;

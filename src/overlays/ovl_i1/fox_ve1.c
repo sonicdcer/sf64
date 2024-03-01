@@ -875,7 +875,7 @@ void func_i1_801935CC(Boss* boss) {
     }
     boss->swork[29] = boss->swork[30] = var_v0 + 100;
     Animation_GetFrameData(D_i1_8019ACD4[boss->swork[5]], 0, boss->vwork);
-    func_8001D444(0, 0x8018, 0, 0xFF);
+    Audio_PlaySequence(0, 0x8018, 0, 0xFF);
 }
 
 bool func_i1_801937F4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
@@ -2204,8 +2204,8 @@ void func_i1_80194398(Boss* boss) {
         boss->swork[2] = 0;
         boss->swork[6] = 4;
 
-        func_800182F4(0x100000FF);
-        func_800182F4(0x110000FF);
+        Audio_QueueSeqCmd(0x100000FF);
+        Audio_QueueSeqCmd(0x110000FF);
     }
     if ((spB4 == 1) || (spB4 == 2)) {
         effect = func_8007783C(OBJ_EFFECT_394);
@@ -2369,7 +2369,7 @@ void func_i1_80198414(void) {
     D_80177CBC = gRightWingHealth[0];
     D_80177CC4 = gLeftWingHealth[0];
     func_8001CA24(0);
-    Audio_KillSfx(gPlayer[0].sfxPos);
+    Audio_KillSfxBySource(gPlayer[0].sfxPos);
 }
 
 void func_i1_80198594(Boss* boss) {

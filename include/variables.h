@@ -8,7 +8,7 @@
 #include "sf64player.h"
 
 extern f32 gDefaultSfxPos[];
-extern f32 gDefaultScale;
+extern f32 gDefaultMod;
 extern s8 gDefaultReverb;
 extern s8 gThreadCmdWritePos;
 extern s8 gThreadCmdReadPos;

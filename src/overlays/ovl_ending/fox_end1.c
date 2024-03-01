@@ -440,7 +440,7 @@ s32 func_ending_80188634(void) {
         D_ending_80196F90++;
         D_80161690--;
         if (D_80161690 == 0) {
-            func_8001A838(0x49002018);
+            Audio_KillSfxById(0x49002018);
         }
     } else {
         D_ending_80196F90 = 0;
@@ -631,7 +631,7 @@ void func_ending_80189108(void) {
                 D_ending_80196D08[4].unk_34 = 0;
                 D_ending_80196D08[4].unk_38 = 1;
                 gCsFrameCount = 0;
-                func_8001A838(0x49002018);
+                Audio_KillSfxById(0x49002018);
                 D_ending_80196F90 = 0;
                 D_80161690 = 0;
             }

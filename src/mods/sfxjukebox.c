@@ -86,24 +86,24 @@ void Option_ExpertSoundUpdate(void) {
     decimalToHex(sfx, hexString, sizeof(hexString));
 
     if (gControllerPress[gMainController].button & A_BUTTON) {
-        func_800182F4(0x100100FF);
-        func_800182F4(0x110100FF);
+        Audio_QueueSeqCmd(0x100100FF);
+        Audio_QueueSeqCmd(0x110100FF);
         AUDIO_PLAY_SFX(sfx, gDefaultSfxPos, 4);
         D_menu_801B9320 = true;
     }
 
     if (gControllerPress[gMainController].button & B_BUTTON) {
         if (!D_menu_801B9320) {
-            func_8001D444(0, 36, 0, 255);
+            Audio_PlaySequence(0, 36, 0, 255);
             gDrawMode = DRAWMODE_0;
             D_menu_801B9124 = 1000;
             D_menu_801B912C = 0;
             D_menu_801B9244 = 1;
         } else {
             AUDIO_PLAY_SFX(0x4900101D, gDefaultSfxPos, 4);
-            Audio_KillSfx(gDefaultSfxPos);
-            func_800182F4(0x100100FF);
-            func_800182F4(0x110100FF);
+            Audio_KillSfxBySource(gDefaultSfxPos);
+            Audio_QueueSeqCmd(0x100100FF);
+            Audio_QueueSeqCmd(0x110100FF);
             D_menu_801B9320 = false;
         }
     }

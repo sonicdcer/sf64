@@ -2453,14 +2453,14 @@ void func_i3_801B134C(Boss* bossAQ) {
                     }
                 }
                 bossAQ->swork[AQ_SWK_21] = 1;
-                func_800182F4(0x102800FF);
-                func_800182F4(0x112800FF);
+                Audio_QueueSeqCmd(0x102800FF);
+                Audio_QueueSeqCmd(0x112800FF);
                 Radio_PlayMessage(gMsg_ID_15100, RCID_FOX);
             }
             if (fabsf(bossAQ->obj.pos.z - gPlayer[0].unk_138) <= 3000.0f) {
                 D_i3_801C4190[6] = 1;
                 bossAQ->timer_056 = 20;
-                func_8001D444(0, 32798, 0, 1);
+                Audio_PlaySequence(0, 32798, 0, 1);
                 bossAQ->state = 1;
             }
             break;
@@ -2840,8 +2840,8 @@ void func_i3_801B134C(Boss* bossAQ) {
                             }
                             bossAQ->swork[AQ_SWK_25]++;
                             if (bossAQ->health <= 0) {
-                                func_800182F4(0x102800FF);
-                                func_800182F4(0x112800FF);
+                                Audio_QueueSeqCmd(0x102800FF);
+                                Audio_QueueSeqCmd(0x112800FF);
                                 func_80042EC0(bossAQ);
                                 Radio_PlayMessage(gMsg_ID_15252, RCID_SLIPPY);
                                 D_8017796C = -1;
@@ -4360,7 +4360,7 @@ void func_i3_801B7C78(Actor* actor) {
         case 4:
             actor->iwork[5]++;
             if (actor->timer_0C0 == 0) {
-                Audio_KillSfx(actor->sfxPos);
+                Audio_KillSfxBySource(actor->sfxPos);
                 actor->unk_0B6++;
                 if (Animation_GetFrameCount(&D_602AC28) < actor->unk_0B6) {
                     actor->unk_0B6 = Animation_GetFrameCount(&D_6024F80) - 1;

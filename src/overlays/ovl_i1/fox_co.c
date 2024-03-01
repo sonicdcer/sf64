@@ -96,8 +96,8 @@ void func_i1_801878D8(Boss* boss) {
         if (gPlayer[0].state_1C8 == 3) {
             gPlayer[0].state_1C8 = 9;
             gPlayer[0].unk_1D0 = 0;
-            func_800182F4(0x103200FF);
-            func_800182F4(0x113200FF);
+            Audio_QueueSeqCmd(0x103200FF);
+            Audio_QueueSeqCmd(0x113200FF);
         }
         Object_Kill(&boss->obj, boss->sfxPos);
         return;
@@ -160,8 +160,8 @@ void func_i1_80187AC8(Boss* boss) {
                 }
                 boss->state = 7;
                 boss->timer_050 = 100;
-                func_800182F4(0x105000FF);
-                func_800182F4(0x115000FF);
+                Audio_QueueSeqCmd(0x105000FF);
+                Audio_QueueSeqCmd(0x115000FF);
                 gCsFrameCount = 0;
 
                 if ((gPlayer[0].state_1C8 == 3) || (gPlayer[0].state_1C8 == 5)) {
@@ -1704,8 +1704,8 @@ void func_i1_8018C19C(Boss* boss) {
             case 0:
                 boss->fwork[3] = gPlayer[0].unk_138 + 1500.0f;
                 if (boss->timer_050 == 350) {
-                    func_800182F4(0x102800FF);
-                    func_800182F4(0x112800FF);
+                    Audio_QueueSeqCmd(0x102800FF);
+                    Audio_QueueSeqCmd(0x112800FF);
                     Radio_PlayMessage(gMsg_ID_2290, RCID_BOSS_CORNERIA2);
                 }
                 if (boss->timer_050 == 180) {
@@ -1720,7 +1720,7 @@ void func_i1_8018C19C(Boss* boss) {
                     boss->fwork[6] = 800.0f;
                     boss->fwork[3] = gPlayer[0].camEye.z - D_80177D20 - 2500.0f;
                     boss->fwork[18] = -D_80161A54;
-                    func_8001D444(0, 0x8030, 0, 0xFF);
+                    Audio_PlaySequence(0, 0x8030, 0, 0xFF);
                     boss->timer_050 = 40;
                 }
                 break;
@@ -1837,7 +1837,7 @@ void func_i1_8018C19C(Boss* boss) {
                     boss->fwork[8] = 0.0f;
 
                     if ((boss->swork[3] != 1) || (boss->swork[3] != 3)) {
-                        func_8001A55C(boss->sfxPos, 0x31034025);
+                        Audio_KillSfxBySourceAndId(boss->sfxPos, 0x31034025);
                         boss->swork[9] = 0;
                     }
                 }
@@ -1885,9 +1885,9 @@ void func_i1_8018C19C(Boss* boss) {
                 }
                 if (boss->health < 2) {
                     D_8017796C = -1;
-                    func_8001A55C(boss->sfxPos, 0x31034025);
-                    func_800182F4(0x102800FF);
-                    func_800182F4(0x112800FF);
+                    Audio_KillSfxBySourceAndId(boss->sfxPos, 0x31034025);
+                    Audio_QueueSeqCmd(0x102800FF);
+                    Audio_QueueSeqCmd(0x112800FF);
                     AUDIO_PLAY_SFX(0x2940D09A, boss->sfxPos, 4);
                     D_Timer_80161A60 = 8;
                     gShowBossHealth = false;
@@ -2921,7 +2921,7 @@ void func_i1_8018F880(Player* player) {
                 D_80178348 = D_80178350 = D_80178354 = 0xFF;
             }
             if (D_80178340 == 0xFF) {
-                func_8001D444(0, D_80177C90, 0, 0xFF);
+                Audio_PlaySequence(0, D_80177C90, 0, 0xFF);
                 Object_Kill(&actor0->obj, actor0->sfxPos);
                 Object_Kill(&actor1->obj, actor1->sfxPos);
                 Object_Kill(&actor2->obj, actor2->sfxPos);
@@ -3046,7 +3046,7 @@ void func_i1_80191160(Player* player) {
 
     switch (player->unk_1D0) {
         case 0:
-            func_8001A38C(1, player->sfxPos);
+            Audio_StopSfxByBankAndSource(1, player->sfxPos);
             sp54 = player->camEye.x - D_i1_8019B6D8[62];
             sp4C = player->camEye.z - D_i1_8019B6D8[64];
 
@@ -3140,8 +3140,8 @@ void func_i1_80191160(Player* player) {
                 Math_SmoothStepToF(&D_80177A48[4], 0.0f, 1.0f, 0.003f, 0);
             }
             if (gCsFrameCount == 1270) {
-                func_800182F4(0x103200FF);
-                func_800182F4(0x113200FF);
+                Audio_QueueSeqCmd(0x103200FF);
+                Audio_QueueSeqCmd(0x113200FF);
                 AUDIO_PLAY_SFX(0x09000002, player->sfxPos, 0);
                 player->unk_1D0++;
                 player->unk_0D0 = 2.0f;
@@ -3159,7 +3159,7 @@ void func_i1_80191160(Player* player) {
                 player->unk_190 = 2.0f;
             }
             if (gCsFrameCount == 1290) {
-                func_8001DBD0(50);
+                Audio_FadeOutAll(50);
             }
             if (gCsFrameCount >= 1301) {
                 D_80178358 = 0xFF;
@@ -3183,7 +3183,7 @@ void func_i1_80191160(Player* player) {
             D_80177830 = 0;
             break;
         case 240:
-            func_8001D444(0, 0x26, 0, 0xFF);
+            Audio_PlaySequence(0, 0x26, 0, 0xFF);
             break;
         case 330:
             D_80177840 = 100;

@@ -319,8 +319,8 @@ void func_i6_80196D88(Player* player) {
             } else {
                 player->timer_1FC = 180;
             }
-            func_800182F4(0x103C00FF);
-            func_800182F4(0x113C00FF);
+            Audio_QueueSeqCmd(0x103C00FF);
+            Audio_QueueSeqCmd(0x113C00FF);
             /* fallthrough */
         case 1:
             if (D_8017827C == 2) {
@@ -418,7 +418,7 @@ void func_i6_80196D88(Player* player) {
                         D_80161A2E = 1;
                     }
                     func_8001CA24(0);
-                    Audio_KillSfx(player->sfxPos);
+                    Audio_KillSfxBySource(player->sfxPos);
 
                     for (i = 0; i < 200; i++) {
                         gObjects58[i].obj.status = OBJ_FREE;
@@ -432,7 +432,7 @@ void func_i6_80196D88(Player* player) {
     }
     if (player->timer_1FC == 150) {
         Radio_PlayMessage(gMsg_ID_8215, RCID_FOX);
-        func_8001D444(0, 0x803E, 0, 0xFF);
+        Audio_PlaySequence(0, 0x803E, 0, 0xFF);
     }
     if (player->timer_1FC == 1) {
         if ((gTeamShields[2] > 0) || (gTeamShields[1] > 0) || (gTeamShields[3] > 0)) {
