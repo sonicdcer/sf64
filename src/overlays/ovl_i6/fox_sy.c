@@ -948,7 +948,7 @@ void func_i6_8019AEEC(Boss* boss) {
     if ((boss->obj.pos.y != 365.0f) && (boss->swork[21] != 1)) {
         if (boss->unk_04A != 0) {
             if (boss->unk_04A == 1) {
-                Audio_PlaySequence(0, 0x8041, 0, 0);
+                Audio_PlaySequence(0, 0x8000 + 65, 0, 0);
                 boss->unk_04A++;
                 gPlayer[0].camEye.x = 0.0f;
                 gPlayer[0].camEye.y = 200.0f;
@@ -2026,7 +2026,7 @@ void func_i6_8019EE60(Player* player) {
                 player->pos.z = 0.0f;
                 player->unk_1D0++;
                 func_8001C8B8(0);
-                Audio_PlaySequence(0, 0x26, 0, 0xFF);
+                Audio_PlaySequence(0, 38, 0, 255);
                 D_80177A98 = 0;
 
                 for (i = 0; i < 200; i++) {
@@ -2879,7 +2879,7 @@ void func_i6_801A0AC0(Player* player) {
                     gActors[7].fwork[5] = 0.0f;
                     break;
                 case 360:
-                    Audio_PlaySequence(0, 0x2C, 0, 0xFF);
+                    Audio_PlaySequence(0, 44, 0, 255);
                     break;
                 case 389:
                     gActors[5].iwork[4] = 1;
@@ -3157,7 +3157,7 @@ void func_i6_801A0AC0(Player* player) {
                 D_80177A48[0] = 1.0f;
                 player->pos.z = player->unk_138 = 0.0f;
                 player->unk_0D0 = D_80161A54;
-                Audio_PlaySequence(0, 0x8009, 0, 0xFF);
+                Audio_PlaySequence(0, 0x8000 + 9, 0, 255);
                 D_80177838 = 100;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_1D0 = 0;

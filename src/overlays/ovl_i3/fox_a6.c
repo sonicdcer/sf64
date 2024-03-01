@@ -981,7 +981,7 @@ void func_i3_80187944(Boss* bossA6) {
                     D_i3_801C2250[A6_BSS_7] = bossA6->swork[A6_SWK_37] = 0;
                     bossA6->state = 3;
                     if (D_i3_801C2250[A6_BSS_6] == 0) {
-                        Audio_PlaySequence(0, 0x8017, 0, 0xFF);
+                        Audio_PlaySequence(0, 0x8000 + 23, 0, 255);
                     }
                 }
             } else if (bossA6->swork[A6_SWK_38] != 0) {
@@ -2292,14 +2292,14 @@ void func_i3_8018DF74(Player* player) {
                 player->unk_1D0 = 0;
                 player->timer_1F8 = 0;
 
-                Audio_PlaySequence(0, 0x8007, 0, 0xFF);
+                Audio_PlaySequence(0, 0x8000 + 7, 0, 255);
                 player->state_1C8 = PLAYERSTATE_1C8_3;
             }
             break;
     }
     switch (gCsFrameCount) {
         case 280:
-            Audio_PlaySequence(0, 0x33, 0, 0xFF);
+            Audio_PlaySequence(0, 51, 0, 255);
             break;
         case 40:
             Radio_PlayMessage(gMsg_ID_7005, RCID_CAIMAN_AREA6);

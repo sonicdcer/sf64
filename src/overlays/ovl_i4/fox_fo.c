@@ -147,7 +147,7 @@ void func_i4_80187960(Actor* actor) {
 
     if (D_8015F928 == 8540) {
         Radio_PlayMessage(gMsg_ID_9400, RCID_ROB64);
-        Audio_PlaySequence(0, 0x800A, 0, 0);
+        Audio_PlaySequence(0, 0x8000 + 10, 0, 0);
         gActors[1].unk_0E6 = gActors[2].unk_0E6 = gActors[3].unk_0E6 = gActors[4].unk_0E6 = gActors[5].unk_0E6 =
             gActors[6].unk_0E6 = gActors[7].unk_0E6 = -1;
     }
@@ -258,7 +258,7 @@ void func_i4_80187960(Actor* actor) {
                     actor->state = 2;
                     player->state_1C8 = 3;
                     player->unk_014 = 0.0001f;
-                    Audio_PlaySequence(0, D_80177C90, 0, 0xFF);
+                    Audio_PlaySequence(0, D_80177C90, 0, 255);
                     D_80177838 = 80;
                 }
             };
@@ -867,9 +867,9 @@ void func_i4_8018927C(Player* player) {
 
             if (gCsFrameCount == 200) {
                 if (D_80177930 == 0) {
-                    Audio_PlaySequence(0, 0x31, 0, 0xFF);
+                    Audio_PlaySequence(0, 49, 0, 255);
                 } else {
-                    Audio_PlaySequence(0, 0x26, 0, 0xFF);
+                    Audio_PlaySequence(0, 38, 0, 255);
                 }
             }
 
@@ -1187,7 +1187,7 @@ void func_i4_8018927C(Player* player) {
 
             switch (gCsFrameCount) {
                 case 140:
-                    Audio_PlaySequence(0, 0x26, 0, 0xFF);
+                    Audio_PlaySequence(0, 38, 0, 255);
                     break;
                 case 450:
                     D_80177840 = 100;

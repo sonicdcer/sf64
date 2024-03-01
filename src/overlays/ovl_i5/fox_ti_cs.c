@@ -422,7 +422,7 @@ void func_i5_801882CC(Player* player) {
             break;
 
         case 50:
-            Audio_PlaySequence(0U, 0x26U, 0U, 0xFFU);
+            Audio_PlaySequence(0, 38, 0, 255);
             break;
 
         case 80:

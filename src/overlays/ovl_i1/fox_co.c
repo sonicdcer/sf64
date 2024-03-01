@@ -1720,7 +1720,7 @@ void func_i1_8018C19C(Boss* boss) {
                     boss->fwork[6] = 800.0f;
                     boss->fwork[3] = gPlayer[0].camEye.z - D_80177D20 - 2500.0f;
                     boss->fwork[18] = -D_80161A54;
-                    Audio_PlaySequence(0, 0x8030, 0, 0xFF);
+                    Audio_PlaySequence(0, 0x8000 + 48, 0, 255);
                     boss->timer_050 = 40;
                 }
                 break;
@@ -2921,7 +2921,7 @@ void func_i1_8018F880(Player* player) {
                 D_80178348 = D_80178350 = D_80178354 = 0xFF;
             }
             if (D_80178340 == 0xFF) {
-                Audio_PlaySequence(0, D_80177C90, 0, 0xFF);
+                Audio_PlaySequence(0, D_80177C90, 0, 255);
                 Object_Kill(&actor0->obj, actor0->sfxPos);
                 Object_Kill(&actor1->obj, actor1->sfxPos);
                 Object_Kill(&actor2->obj, actor2->sfxPos);
@@ -3183,7 +3183,7 @@ void func_i1_80191160(Player* player) {
             D_80177830 = 0;
             break;
         case 240:
-            Audio_PlaySequence(0, 0x26, 0, 0xFF);
+            Audio_PlaySequence(0, 38, 0, 255);
             break;
         case 330:
             D_80177840 = 100;

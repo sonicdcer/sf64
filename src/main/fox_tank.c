@@ -331,7 +331,7 @@ void func_800444BC(Player* player) {
         }
         if (D_80177BAC != 0) {
             D_80177BAC = 0;
-            Audio_PlaySequence(0, 0x8004, 0, 0xFF);
+            Audio_PlaySequence(0, 0x8000 + 44, 0, 255);
             func_8001C8B8(0);
         }
 

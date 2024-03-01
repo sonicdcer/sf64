@@ -434,7 +434,7 @@ void func_i4_8019A3E8(Actor* actor) {
             actor->timer_0BC = 10000;
             D_80178340 = D_80178358 = 255;
             D_80178348 = D_80178350 = D_80178354 = 0;
-            Audio_PlaySequence(0U, 0x801FU, 0U, 0xFFU);
+            Audio_PlaySequence(0, 0x8000 + 31, 0, 255);
             break;
     }
 
@@ -866,7 +866,7 @@ void func_i4_8019BA64(Player* player) {
                 player->pos.y = actor->obj.pos.y - 480.0f;
                 player->pos.z = actor->obj.pos.z;
 
-                Audio_PlaySequence(0U, 0x33U, 0U, 0xFFU);
+                Audio_PlaySequence(0, 51, 0, 255);
             }
             break;
 
@@ -923,7 +923,7 @@ void func_i4_8019BA64(Player* player) {
                 Audio_KillSfxById(0x49000014U);
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_01C = player->unk_018 = player->unk_014 = 0.f;
-                Audio_PlaySequence(0U, D_80177C90, 0U, 0xFFU);
+                Audio_PlaySequence(0, D_80177C90, 0, 255);
                 D_80177838 = 0x32;
             }
             break;
@@ -1195,7 +1195,7 @@ void func_i4_8019C85C(Player* player) {
             Math_SmoothStepToF(&boss0->fwork[3], 0.7f, 1.0f, 0.7f, 0.0f);
 
             if ((gCsFrameCount == 100) && (D_80177B8C != 0)) {
-                Audio_PlaySequence(0U, 0x26U, 0U, 0xFFU);
+                Audio_PlaySequence(0, 38, 0, 255);
             }
 
             if ((gCsFrameCount == 210) && (D_80177B8C != 0)) {
@@ -1478,7 +1478,7 @@ void func_i4_8019C85C(Player* player) {
             if (D_80177B8C != 0) {
                 D_80177930 = 1;
             } else {
-                Audio_PlaySequence(0U, 0x31U, 0U, 0xFFU);
+                Audio_PlaySequence(0, 49, 0, 255);
                 D_80177930 = 0;
             }
             break;

@@ -4297,24 +4297,24 @@ void func_800B0F50(Player* playerx) {
         player->unk_234 = 1;
         switch (gCurrentLevel) {
             case LEVEL_CORNERIA:
-                Audio_PlaySequence(0, 0x25, 0, 0xFF);
+                Audio_PlaySequence(0, 37, 0, 255);
                 break;
             case LEVEL_METEO:
-                Audio_PlaySequence(0, 0x32, 0, 0xFF);
+                Audio_PlaySequence(0, 50, 0, 255);
                 break;
             case LEVEL_FORTUNA:
             case LEVEL_BOLSE:
             case LEVEL_VENOM_2:
-                Audio_PlaySequence(0, 0x33, 0, 0xFF);
+                Audio_PlaySequence(0, 51, 0, 255);
                 break;
             case LEVEL_VENOM_1:
-                Audio_PlaySequence(0, 0x8008, 0, 0xFF);
+                Audio_PlaySequence(0, 0x8000 + 8, 0, 255);
                 break;
             case LEVEL_KATINA:
-                Audio_PlaySequence(0, 0x33, 0, 0xFF);
+                Audio_PlaySequence(0, 51, 0, 255);
                 break;
             case LEVEL_TITANIA:
-                Audio_PlaySequence(0, 0x2D, 0, 0xFF);
+                Audio_PlaySequence(0, 45, 0, 255);
                 break;
             case LEVEL_ZONESS:
             case LEVEL_SECTOR_X:
@@ -4322,7 +4322,7 @@ void func_800B0F50(Player* playerx) {
             case LEVEL_TRAINING:
             case LEVEL_MACBETH:
             default:
-                Audio_PlaySequence(0, 0x2C, 0, 0xFF);
+                Audio_PlaySequence(0, 44, 0, 255);
                 break;
             case LEVEL_AREA_6:
             case LEVEL_SECTOR_Y:
@@ -4332,7 +4332,7 @@ void func_800B0F50(Player* playerx) {
                 break;
         }
     } else if (!gVersusMode && (D_80177C90 != 0xFFFF) && ((gLevelMode != LEVELMODE_ALL_RANGE) || (D_8015F924 == 0))) {
-        Audio_PlaySequence(0, D_80177C90, 0, 0xFF);
+        Audio_PlaySequence(0, D_80177C90, 0, 255);
     }
     D_80177840 = gBossHealthBar = D_80177850 = 0;
 
@@ -5053,7 +5053,7 @@ void func_800B41EC(Player* player) {
     if (!gVersusMode) {
         Audio_QueueSeqCmd(0x100100FF);
         Audio_QueueSeqCmd(0x110100FF);
-        Audio_PlaySequence(0, 0x27, 0, 0xFF);
+        Audio_PlaySequence(0, 39, 0, 255);
     }
     if (gCurrentLevel == LEVEL_SOLAR) {
         Audio_KillSfxById(0x4100C023);

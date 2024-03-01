@@ -636,8 +636,8 @@ void func_80049C0C(Player* player) {
             }
 
             if (player->timer_1F8 == 30) {
-                D_80178410 = 0x12C;
-                Audio_PlaySequence(0, 0x803AU, 0, 0xFFU);
+                D_80178410 = 300;
+                Audio_PlaySequence(0, 0x8000 + 58, 0, 255);
             }
 
             if (player->timer_1F8 == 0) {
@@ -833,13 +833,13 @@ void func_8004AAF4(Player* player) {
         D_80177E84 = 1;
         if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
             Radio_PlayMessage(gMsg_ID_19466, RCID_FOX);
-            Audio_PlaySequence(0, 0x803DU, 0, 0xFFU);
+            Audio_PlaySequence(0, 0x8000 + 61, 0, 255);
         } else if (gCurrentLevel != LEVEL_TRAINING) {
             Radio_PlayMessage(gMsg_ID_20180, RCID_FOX);
             if (gCurrentLevel == LEVEL_SECTOR_Y) {
                 Audio_PlaySequence(0, D_800C9E90[gCurrentLevel], 0, 2);
             } else {
-                Audio_PlaySequence(0, D_800C9E90[gCurrentLevel], 0, 0xFF);
+                Audio_PlaySequence(0, D_800C9E90[gCurrentLevel], 0, 255);
             }
         }
     }
@@ -1421,7 +1421,7 @@ void func_8004C930(Player* player) {
                 func_800AA800(player);
             } else {
                 if (gCsFrameCount == 170) {
-                    Audio_PlaySequence(0, 0x26U, 0, 0xFFU);
+                    Audio_PlaySequence(0, 38, 0, 255);
                 }
                 func_8004B368(player);
                 func_800AA800(player);

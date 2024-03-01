@@ -3885,7 +3885,7 @@ void func_i5_801A7E7C(Actor* actor) {
             func_i5_8019A830(actor);
             func_i5_8019A728(actor);
             if (actor->iwork[1] != 0) {
-                Audio_PlaySequence(0, 0x8020, 0, 0xFF);
+                Audio_PlaySequence(0, 0x8000 + 32, 0, 255);
                 actor->state = 1;
             }
             func_i5_801A6984(actor);
@@ -5081,7 +5081,7 @@ void func_i5_801AC754(Player* player) {
             }
             break;
         case 3:
-            Audio_PlaySequence(0, 0x8010, 0, 0xFF);
+            Audio_PlaySequence(0, 0x8000 + 16, 0, 255);
             D_80177838 = 50;
             player->state_1C8 = PLAYERSTATE_1C8_3;
             player->unk_1D0 = player->timer_1F8 = player->timer_1FC = player->unk_240 = 0;
@@ -6374,7 +6374,7 @@ void func_i5_801AF8F4(Player* player) {
             D_80177A48[5] = 360.0f;
             break;
         case 910:
-            Audio_PlaySequence(0, 0x26, 0, 0xFF);
+            Audio_PlaySequence(0, 38, 0, 255);
             break;
         case 1040:
             Radio_PlayMessage(gMsg_ID_20010, RCID_FOX);
@@ -6961,7 +6961,7 @@ void func_i5_801B3D04(Player* player) {
             D_80177830 = 0;
             break;
         case 50:
-            Audio_PlaySequence(0, 0x26, 0, 0xFF);
+            Audio_PlaySequence(0, 38, 0, 255);
             break;
         case 100:
             D_80177840 = 100;

@@ -1042,7 +1042,7 @@ void func_i3_801A10F4(Player* player) {
                 gCsCamAtZ = -3000.0f;
                 gCsCamEyeZ = -3400.0f;
                 Audio_KillSfxBySourceAndId(player->sfxPos, 0x3140807E);
-                Audio_PlaySequence(0, 0x33, 0, 0xFF);
+                Audio_PlaySequence(0, 51, 0, 0xFF);
                 func_80057814(player);
                 func_8001C8B8(gPlayerNum);
                 D_80177A48[0] = 0.01f;
@@ -1103,7 +1103,7 @@ void func_i3_801A10F4(Player* player) {
                 D_80178348 = D_80178350 = D_80178354 = 255;
             }
             if (D_80178340 == 255) {
-                Audio_PlaySequence(0, 0x800B, 0, 0xFF);
+                Audio_PlaySequence(0, 0x8000 + 11, 0, 255);
                 player->pos.z = 0.0f;
                 player->unk_0D0 = D_80161A54;
                 func_800A6148();
@@ -1249,7 +1249,7 @@ void func_i3_801A1F80(Boss* bossSO) {
         gFogBlue--;
     }
     if (gBossFrameCount == 30) {
-        Audio_PlaySequence(0, 0x801B, 0, 0xFF);
+        Audio_PlaySequence(0, 0x8000 + 27, 0, 255);
     }
     if (gBossFrameCount <= 60) {
         Math_SmoothStepToF(&D_801779A8[gMainController], 120.0f, 1.0f, 3.5f, 0.0f);
@@ -2893,7 +2893,7 @@ void func_i3_801A7930(Player* player) {
                 player->unk_1D0++;
                 player->wings.unk_2C = 1;
                 func_8001C8B8(0);
-                Audio_PlaySequence(0, 0x26, 0, 0xFF);
+                Audio_PlaySequence(0, 38, 0, 255);
                 D_80177A98 = 1;
                 func_800A6148();
                 D_80177A48[1] = 0.0f;

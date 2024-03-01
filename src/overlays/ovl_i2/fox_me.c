@@ -1327,7 +1327,7 @@ void func_i2_8018978C(Boss* boss) {
             }
 
             if (gCsFrameCount == 400) {
-                Audio_PlaySequence(0U, 0x8041U, 0U, 0xFFU);
+                Audio_PlaySequence(0, 0x8000 + 65, 0, 255);
                 if (gTeamShields[1] > 0) {
                     Radio_PlayMessage(gMsg_ID_3345, RCID_BOSS_METEO);
                 } else {
@@ -2065,7 +2065,7 @@ void func_i2_8018CD8C(Player* player) {
             Math_SmoothStepToF(D_80177A48, 1.0f, 1.0f, 0.01f, 0.0f);
 
             if (player->timer_1F8 == 0) {
-                Audio_PlaySequence(0, D_80177C90, 0, 0xFF);
+                Audio_PlaySequence(0, D_80177C90, 0, 255);
                 D_80177838 = 80;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_1D0 = 0;
@@ -2274,7 +2274,7 @@ void func_i2_8018E084(Player* player) {
                 Math_SmoothStepToF(&D_80177A48[3], 1.0f, 1.0f, 0.01f, 0.0f);
             }
             if (player->timer_1F8 == 50) {
-                Audio_PlaySequence(0, 0x26U, 0, 0xFFU);
+                Audio_PlaySequence(0, 38, 0, 255);
             }
 
             Math_SmoothStepToF(&D_80177A48[1], 1080.0f, 0.01f, D_80177A48[3], 0.0f);

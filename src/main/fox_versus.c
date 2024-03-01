@@ -1492,7 +1492,7 @@ bool func_800C176C(void) {
                 break;
             }
             if (func_800C16A0(30)) {
-                Audio_PlaySequence(0, D_80177C90, 0, 0xFF);
+                Audio_PlaySequence(0, D_80177C90, 0, 255);
                 D_80178754 = 2;
                 func_800C1690();
             }
@@ -1527,7 +1527,7 @@ bool func_800C176C(void) {
 
         case 4:
             if ((D_800D4A9C == 1) && (D_800D4AA0 == 0)) {
-                Audio_PlaySequence(0, 0x802F, 0, 0xFF);
+                Audio_PlaySequence(0, 0x8000 + 47, 0, 255);
                 D_800D4AA0 = 1;
             }
 
@@ -1564,11 +1564,11 @@ bool func_800C176C(void) {
                     case 2:
 
                     case 3:
-                        Audio_PlaySequence(0, 0x26, 0, 0xFF);
+                        Audio_PlaySequence(0, 38, 0, 255);
                         break;
 
                     case 99:
-                        Audio_PlaySequence(0, 0x31, 0, 0xFF);
+                        Audio_PlaySequence(0, 49, 0, 255);
                         break;
 
                     default:

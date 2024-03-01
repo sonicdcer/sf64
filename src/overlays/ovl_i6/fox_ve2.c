@@ -432,7 +432,7 @@ void func_i6_80196D88(Player* player) {
     }
     if (player->timer_1FC == 150) {
         Radio_PlayMessage(gMsg_ID_8215, RCID_FOX);
-        Audio_PlaySequence(0, 0x803E, 0, 0xFF);
+        Audio_PlaySequence(0, 0x8000 + 62, 0, 255);
     }
     if (player->timer_1FC == 1) {
         if ((gTeamShields[2] > 0) || (gTeamShields[1] > 0) || (gTeamShields[3] > 0)) {

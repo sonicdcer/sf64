@@ -3201,7 +3201,7 @@ void func_i5_80192118(Boss* boss) {
                 D_i5_801BBEF0[38] = 2;
                 gPlayer[0].unk_19C = 0;
                 boss->swork[1] = 3;
-                Audio_PlaySequence(0, 0x8014, 0, 0xFF);
+                Audio_PlaySequence(0, 0x8000 + 20, 0, 255);
             }
             break;
         case 3:

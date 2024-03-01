@@ -875,7 +875,7 @@ void func_i1_801935CC(Boss* boss) {
     }
     boss->swork[29] = boss->swork[30] = var_v0 + 100;
     Animation_GetFrameData(D_i1_8019ACD4[boss->swork[5]], 0, boss->vwork);
-    Audio_PlaySequence(0, 0x8018, 0, 0xFF);
+    Audio_PlaySequence(0, 0x8000 + 24, 0, 255);
 }
 
 bool func_i1_801937F4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {

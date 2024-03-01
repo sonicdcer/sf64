@@ -1043,7 +1043,7 @@ void func_i6_80189B70(Boss* boss) {
                     gPlayer[0].unk_014 = 1.0f;
                     func_800B7184(gPlayer, 1);
                     func_8001C8B8(0);
-                    Audio_PlaySequence(0, D_800C9E90[gCurrentLevel], 0, 0xFF);
+                    Audio_PlaySequence(0, D_800C9E90[gCurrentLevel], 0, 255);
                     AUDIO_PLAY_SFX(0x11403076, gDefaultSfxPos, 0);
 
                     D_80177CA4 = gHitCount;
@@ -1605,7 +1605,7 @@ void func_i6_8018D16C(Boss* boss) {
     D_80177AB0 = 1;
     boss->info.hitbox[16] = 200.0f;
     boss->info.hitbox[22] = 200.0f;
-    Audio_PlaySequence(0, 0x8021, 0, 0);
+    Audio_PlaySequence(0, 0x8000 + 33, 0, 0);
 }
 
 void func_i6_8018D2B0(Boss* boss) {
@@ -2627,7 +2627,7 @@ void func_i6_8018DBF0(Boss* boss) {
                     boss->timer_050 = 50;
                     boss->fwork[9] = 0.0f;
                     AUDIO_PLAY_SFX(0x11030073, boss->sfxPos, 4);
-                    Audio_PlaySequence(0, 0x8021, 0, 0xFF);
+                    Audio_PlaySequence(0, 0x8000 + 33, 0, 255);
                     break;
             }
             break;
@@ -3744,7 +3744,7 @@ void func_i6_80193C4C(Player* player) {
             }
 
             if (gCsFrameCount == 70) {
-                Audio_PlaySequence(0, 0x8040, 0, 0xFF);
+                Audio_PlaySequence(0, 0x8000 + 64, 0, 255);
             }
             if (gCsFrameCount == 150) {
                 player->unk_1D0++;

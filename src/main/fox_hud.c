@@ -5160,7 +5160,7 @@ void func_800935E8(Player* player) {
 
             func_i3_801BDF14();
 
-            Audio_PlaySequence(0U, 0x2DU, 0U, 0xFFU);
+            Audio_PlaySequence(0, 45, 0, 255);
 
         case 3:
             D_8017835C = 16;
@@ -5333,7 +5333,7 @@ void func_800935E8(Player* player) {
                 D_80178488 = 1;
                 Audio_QueueSeqCmd(0x103200FF);
                 Audio_QueueSeqCmd(0x113200FF);
-                Audio_PlaySequence(0U, 0xEU, 0U, 0xFFU);
+                Audio_PlaySequence(0, 14, 0, 255);
             }
 
             func_i3_801AC8A8(player->pos.x + RAND_FLOAT_CENTERED(10.0f), player->pos.y + RAND_FLOAT_CENTERED(10.0f),
@@ -5947,7 +5947,7 @@ void func_80095604(Player* player) {
             break;
 
         case 400:
-            Audio_PlaySequence(0U, 0x26U, 0U, 0xFFU);
+            Audio_PlaySequence(0, 38, 0, 255);
             break;
 
         case 440:

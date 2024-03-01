@@ -2164,7 +2164,7 @@ void func_i3_80194A84(Boss* bossZO) {
                         sp100 = 5.0f;
                         spFC = 3.0f;
                         if (sZoSwork[ZO_BSS_55] == 0) {
-                            Audio_PlaySequence(0, 0x8016, 0, 255);
+                            Audio_PlaySequence(0, 0x8000 + 22, 0, 255);
                             sZoSwork[ZO_BSS_55] = 1;
                         }
                         func_8008377C(sZoFwork[ZO_BSF_43_X], sp134, sZoFwork[ZO_BSF_43_Z] + 100.0f, 5.0f, 3.0f);
@@ -4557,7 +4557,7 @@ void func_i3_8019D428(Player* player) {
             }
             gControllerHold[gMainController].button = sp2C;
             if (gCsFrameCount >= 270) {
-                Audio_PlaySequence(0, 0x8006, 0, 255);
+                Audio_PlaySequence(0, 0x8000 + 6, 0, 255);
                 D_80177838 = 80;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_1D0 = 0;

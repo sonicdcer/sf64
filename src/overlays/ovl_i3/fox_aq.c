@@ -2460,7 +2460,7 @@ void func_i3_801B134C(Boss* bossAQ) {
             if (fabsf(bossAQ->obj.pos.z - gPlayer[0].unk_138) <= 3000.0f) {
                 D_i3_801C4190[6] = 1;
                 bossAQ->timer_056 = 20;
-                Audio_PlaySequence(0, 32798, 0, 1);
+                Audio_PlaySequence(0, 0x8000 + 30, 0, 1);
                 bossAQ->state = 1;
             }
             break;

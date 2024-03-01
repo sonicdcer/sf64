@@ -465,7 +465,7 @@ void func_8002F69C(Actor* actor) {
         if ((gCurrentLevel == LEVEL_VENOM_2) || (gCurrentLevel == LEVEL_BOLSE)) {
             gPlayer[0].unk_034 = 20.0f;
         }
-        Audio_PlaySequence(0, 0x802B, 0, 0xFF);
+        Audio_PlaySequence(0, 0x8000 + 43, 0, 255);
         func_8002EE34();
         if ((gCurrentLevel == LEVEL_FORTUNA) || (gCurrentLevel == LEVEL_VENOM_2)) {
             gPlayer[0].camEye.x = 4500.0f;

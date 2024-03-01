@@ -251,7 +251,7 @@ void func_i4_8018C158(Actor* actor) {
                 actor->state = 10;
                 actor->timer_0BC = 150;
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_0;
-                Audio_PlaySequence(0U, 0x801CU, 0U, 0xFFU);
+                Audio_PlaySequence(0, 0x8000 + 28, 0, 255);
                 func_8002EE34();
                 gPlayer[0].camEye.x = 400.0f;
                 gPlayer[0].camEye.y = 50.0f;
@@ -1270,7 +1270,7 @@ void func_i4_8018EF6C(Player* player) {
                     actor->state = 3;
                     actor->timer_0BC = 80;
                 }
-                Audio_PlaySequence(0, D_80177C90, 0, 0xFF);
+                Audio_PlaySequence(0, D_80177C90, 0, 255);
                 D_80177838 = 80;
             }
             break;
@@ -1454,7 +1454,7 @@ void func_i4_8018F94C(Player* player) {
 
             switch (gCsFrameCount) {
                 case 160:
-                    Audio_PlaySequence(0, 0x26, 0, 0xFF);
+                    Audio_PlaySequence(0, 38, 0, 255);
                     break;
 
                 case 92:

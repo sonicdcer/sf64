@@ -771,7 +771,7 @@ void func_i4_801946C4(Boss* boss) {
 
         case 5:
             if (boss->timer_050 == 1) {
-                Audio_PlaySequence(0, 32797, 0, 255);
+                Audio_PlaySequence(0, 0x8000 + 29, 0, 255);
             }
 
             if ((boss->timer_050 == 0) && !(boss->timer_052 & 15)) {
@@ -1824,7 +1824,7 @@ void func_i4_80198594(Actor* actor) {
                 D_8015F928 = 20000;
                 gBosses[1].swork[16] = 5760;
                 D_8015F920 = 1;
-                Audio_PlaySequence(0, 32797, 0, 255);
+                Audio_PlaySequence(0, 0x8000 + 29, 0, 255);
             }
 
             func_i4_8019848C();

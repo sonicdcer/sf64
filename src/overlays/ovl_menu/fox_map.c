@@ -1390,7 +1390,7 @@ void func_menu_8019E99C(void) {
     D_menu_801CEA6C = 0.0f;
     D_menu_801CEA70 = 0.002f;
 
-    Audio_PlaySequence(0, 0x3C, 0, 0xFF);
+    Audio_PlaySequence(0, 60, 0, 255);
 
     D_menu_801CEFC4 = 0;
     D_menu_801CEFC8 = 0;
@@ -2159,7 +2159,7 @@ void func_menu_801A0954(void) {
     }
 
     if (gControllerPress[gMainController].button & START_BUTTON) {
-        Audio_PlaySequence(0, 0x3C, 0, 0xFF);
+        Audio_PlaySequence(0, 60, 0, 255);
 
         AUDIO_PLAY_SFX(0x4900001FU, gDefaultSfxPos, 4U);
 
@@ -3107,7 +3107,7 @@ void func_menu_801A36A8(void) {
             D_menu_801CF080 = 1.0f;
             D_menu_801CD948 = 10;
 
-            Audio_PlaySequence(0, 0x28, 0, 0xFF);
+            Audio_PlaySequence(0, 40, 0, 255);
             break;
 
         case 10:

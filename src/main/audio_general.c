@@ -2848,13 +2848,13 @@ void func_8001D8A8(u8 audioType, u8 volume) {
 void func_8001D8F4(u8 enable) {
     switch (enable) {
         case false:
-            Audio_PlaySequence(0, 0x24, 0, 0xFF);
+            Audio_PlaySequence(0, 36, 0, 255);
             Audio_PlayVoice(1);
             Audio_KillSfxById(0x0100001F);
             Audio_KillSfxById(0x0100F005);
             break;
         case true:
-            Audio_PlaySequence(0, 0x2E, 0, 0xFF);
+            Audio_PlaySequence(0, 46, 0, 255);
             Audio_PlayVoice(2);
             Audio_PlaySfx(0x0100001F, gDefaultSfxPos, 0, &gDefaultMod, &gDefaultMod, &gDefaultReverb);
             Audio_PlaySfx(0x0100F005, gDefaultSfxPos, 0, &gDefaultMod, &gDefaultMod, &gDefaultReverb);
@@ -2865,7 +2865,7 @@ void func_8001D8F4(u8 enable) {
 void Audio_PlaySequenceDistorted(u8 seqPlayId, u16 seqId, u16 distortion, u8 duration, u8 unused) {
     u8 tempoDistortion = (distortion / 10);
 
-    Audio_PlaySequence(seqPlayId, seqId & ~0x8000, 0, 0xFF);
+    Audio_PlaySequence(seqPlayId, seqId & ~0x8000, 0, 255);
     SEQCMD_SET_SEQPLAYER_FREQ(seqPlayId, duration, distortion);
     SEQCMD_SCALE_TEMPO(seqPlayId, duration, tempoDistortion);
 }
