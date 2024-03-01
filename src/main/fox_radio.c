@@ -128,7 +128,7 @@ void Radio_PlayMessage(u16* msg, RadioCharacterId character) {
     }
 
     D_801782E8 = Message_IdFromPtr(msg);
-    func_8001ACDC(D_801782E8);
+    Audio_PlayVoice(D_801782E8);
 }
 
 void func_800BAAE8(void) {
@@ -547,10 +547,10 @@ void func_800BB5D0(void) {
             break;
 
         case 32:
-            if (func_8001AE78() == 0) {
+            if (Audio_GetCurrentVoice() == 0) {
                 D_80178724++;
                 D_80178308 = D_80178720[D_80178724];
-                func_8001ACDC(Message_IdFromPtr(D_80178308));
+                Audio_PlayVoice(Message_IdFromPtr(D_80178308));
                 D_801782D8 = 0;
                 D_8017874C = 0;
                 D_Timer_801782AC = 80;
@@ -560,7 +560,7 @@ void func_800BB5D0(void) {
             break;
 
         case 4:
-            if ((func_8001AE78() == 0) && (D_Timer_801782AC == 0)) {
+            if ((Audio_GetCurrentVoice() == 0) && (D_Timer_801782AC == 0)) {
                 D_Timer_801782AC = 10;
                 D_801782A4 = (s32) D_80177D68;
                 gRadioState = 6;
@@ -577,10 +577,10 @@ void func_800BB5D0(void) {
             }
 
             if (!(fakeTemp)) {
-                temp_v0 = func_8001AED4();
+                temp_v0 = Audio_GetCurrentVoiceStatus();
 
                 if (D_801782D8 < 60) {
-                    if (D_80178308[D_801782D8 + 1] == 15) {
+                    if (D_80178308[D_801782D8 + 1] == MSGCHAR_NPF) {
                         if (temp_v0 == 0) {
                             gRadioState = 31;
                         }
@@ -593,8 +593,7 @@ void func_800BB5D0(void) {
                     if ((D_801782E8 >= 23000) && (D_801782E8 < 23033)) {
                         if (D_801782F8 != 0) {
                             D_Timer_801782B4 = 2;
-                            Audio_PlaySfx(0x49000017, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale,
-                                          &gDefaultReverb);
+                            AUDIO_PLAY_SFX(0x49000017, gDefaultSfxSource, 4);
                         }
                     } else if (temp_v0 == 1) {
                         D_Timer_801782B4 = 2;
@@ -617,9 +616,9 @@ void func_800BB5D0(void) {
         case 6:
             if (D_Timer_801782AC == 0) {
                 if (gGameState == GSTATE_CREDITS) {
-                    func_8001AE58();
+                    Audio_ClearVoice();
                 } else {
-                    func_8001ACDC(0);
+                    Audio_PlayVoice(0);
                 }
                 gRadioState++;
             }
@@ -817,7 +816,7 @@ void func_800BC040(void) {
 
             case 6:
                 if (D_Timer_801782AC == 0) {
-                    func_8001ACDC(0);
+                    Audio_PlayVoice(0);
                     gRadioState++;
                 }
 

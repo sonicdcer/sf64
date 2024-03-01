@@ -435,12 +435,12 @@ void func_ending_8018845C(void);
 s32 func_ending_80188634(void) {
     if (D_80161690 != 0) {
         if ((D_ending_80196F90 % 14) == 0) {
-            Audio_PlaySfx(0x49002018, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x49002018, gDefaultSfxSource, 4);
         }
         D_ending_80196F90++;
         D_80161690--;
         if (D_80161690 == 0) {
-            func_8001A838(0x49002018);
+            Audio_KillSfxById(0x49002018);
         }
     } else {
         D_ending_80196F90 = 0;
@@ -631,7 +631,7 @@ void func_ending_80189108(void) {
                 D_ending_80196D08[4].unk_34 = 0;
                 D_ending_80196D08[4].unk_38 = 1;
                 gCsFrameCount = 0;
-                func_8001A838(0x49002018);
+                Audio_KillSfxById(0x49002018);
                 D_ending_80196F90 = 0;
                 D_80161690 = 0;
             }

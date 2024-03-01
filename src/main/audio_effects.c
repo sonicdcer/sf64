@@ -1,6 +1,8 @@
 #include "sys.h"
 #include "sf64audio_provisional.h"
 
+static char devstr[] = "Audio:Envp: overflow  %f\n";
+
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_effects/func_80013400.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_effects/func_800135A8.s")

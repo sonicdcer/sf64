@@ -712,7 +712,7 @@ void func_ending_80190CF0(u32 arg0, AssetInfo* asset) {
     }
 
     if (arg0 == asset->unk_0C) {
-        Audio_PlaySfx(0x1940306EU, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x1940306EU, gDefaultSfxSource, 4U);
     }
 
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
@@ -1036,7 +1036,7 @@ void func_ending_801926D4(void) {
         } else {
             D_ending_80198590.rightState = D_ending_80198590.leftState = 2;
         }
-        func_8001D444(0, 0x2A, 0, 0xFF);
+        AUDIO_PLAY_BGM(SEQ_ID_42);
     }
 
     if ((2790 <= D_ending_80192E70) && (D_ending_80192E70 < 3000)) {

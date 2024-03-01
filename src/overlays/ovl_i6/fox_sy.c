@@ -61,7 +61,7 @@ void func_i6_80197B30(Actor* actor, s32 timer) {
     actor->timer_04C = timer;
     actor->iwork[11] = 1;
     Object_SetInfo(&actor->info, actor->obj.id);
-    Audio_PlaySfx(0x3100000C, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
 }
 
 void func_i6_80197C64(Effect* effect) {
@@ -114,10 +114,10 @@ void func_i6_80197CC4(Boss* boss) {
         if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) {
             gPlayer[0].state_1C8 = PLAYERSTATE_1C8_9;
             gPlayer[0].unk_1D0 = 0;
-            func_800182F4(0x103200FF);
-            func_800182F4(0x113200FF);
+            SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
+            SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
         }
-        Object_Kill(&boss->obj, boss->sfxPos);
+        Object_Kill(&boss->obj, boss->sfxSource);
     }
 }
 
@@ -196,7 +196,7 @@ void func_i6_80198244(Boss* boss) {
     }
     boss->fwork[10] = 181.0f;
     boss->fwork[34] = 2.8f;
-    Audio_PlaySfx(0x2902306C, boss->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+    AUDIO_PLAY_SFX(0x2902306C, boss->sfxSource, 4);
 }
 
 void func_i6_801983E4(Boss* boss) {
@@ -321,7 +321,7 @@ void func_i6_80198ABC(Boss* boss) {
             boss->fwork[41] = 1.8f;
         }
     }
-    Audio_PlaySfx(0x2902306C, boss->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+    AUDIO_PLAY_SFX(0x2902306C, boss->sfxSource, 4);
 
     switch (D_80177A10[8]) {
         case 0:
@@ -419,14 +419,14 @@ void func_i6_80198F5C(Boss* boss) {
                 }
                 gPlayer[0].unk_114 = 0.0f;
             }
-            Audio_PlaySfx(0x2940D09A, boss->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
-            func_800182F4(0x101E00FF);
-            func_800182F4(0x111E00FF);
+            AUDIO_PLAY_SFX(0x2940D09A, boss->sfxSource, 4);
+            SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 30);
+            SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 30);
             return;
         }
         if ((gBosses[1].obj.status == OBJ_FREE) || (gBosses[2].obj.status == OBJ_FREE)) {
-            func_800182F4(0x101400FF);
-            func_800182F4(0x111400FF);
+            SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 20);
+            SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 20);
         }
 
         for (i = 4; i < 60; i++) {
@@ -468,11 +468,11 @@ void func_i6_80198F5C(Boss* boss) {
         }
     } else {
         if (boss->index != 0) {
-            Audio_PlaySfx(0x2903300E, boss->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x2903300E, boss->sfxSource, 4);
         } else if (boss->health > 70) {
-            Audio_PlaySfx(0x29034003, boss->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x29034003, boss->sfxSource, 4);
         } else {
-            Audio_PlaySfx(0x2943500F, boss->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x2943500F, boss->sfxSource, 4);
         }
         if ((gBosses[1].obj.status == OBJ_FREE) && (gBosses[2].obj.status == OBJ_FREE)) {
             func_8002E4F8(gMsg_ID_14350, RCID_BOSS_SECTORY);
@@ -522,7 +522,7 @@ void func_i6_80199438(Boss* boss) {
                 gHitCount += 4;
             }
             if (boss->timer_058 == 50) {
-                Audio_PlaySfx(0x2903A060, boss->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x2903A060, boss->sfxSource, 4);
                 D_80137E84[gMainController] = 1;
                 D_Timer_80177BD0[gMainController] = 20;
                 D_80177850 = 15;
@@ -555,10 +555,10 @@ void func_i6_80199438(Boss* boss) {
 
             for (i = 0; i < 2; i++) {
                 if (gEffects[i].obj.status != OBJ_FREE) {
-                    Object_Kill(&gEffects[i].obj, gEffects[i].sfxPos);
+                    Object_Kill(&gEffects[i].obj, gEffects[i].sfxSource);
                 }
             }
-            Audio_KillSfx(boss->sfxPos);
+            Audio_KillSfxBySource(boss->sfxSource);
             gShowBossHealth = 0;
             func_8007A568(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 40.0f);
             func_8007D0E0(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 30.0f);
@@ -577,7 +577,7 @@ void func_i6_80199438(Boss* boss) {
         }
         if (boss->timer_058 == 1) {
             if (boss->index != 0) {
-                Object_Kill(&gActors[D_80177A10[9]].obj, gActors[D_80177A10[9]].sfxPos);
+                Object_Kill(&gActors[D_80177A10[9]].obj, gActors[D_80177A10[9]].sfxSource);
                 if ((gBosses[1].obj.status == OBJ_FREE) || (gBosses[2].obj.status == OBJ_FREE)) {
                     gBosses[0].unk_04A = 1;
                     gObjects58[0].info.dList = D_601F3D0;
@@ -591,7 +591,7 @@ void func_i6_80199438(Boss* boss) {
                     }
                 }
             }
-            Object_Kill(&boss->obj, boss->sfxPos);
+            Object_Kill(&boss->obj, boss->sfxSource);
         }
     } else {
         if (boss->health < 80) {
@@ -608,7 +608,7 @@ void func_i6_80199438(Boss* boss) {
                 }
                 func_8007D2C8(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 30.0f, 4.0f);
                 boss->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6034304);
-                Audio_PlaySfx(0x2903A06F, boss->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x2903A06F, boss->sfxSource, 4);
             }
         }
         if (boss->health <= 80) {
@@ -681,7 +681,7 @@ void func_i6_80199DAC(Boss* boss) {
             boss->fwork[12] = 320.0f;
             if (boss->timer_056 == 0) {
                 boss->timer_056 = 51;
-                Audio_PlaySfx(0x2902306C, boss->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x2902306C, boss->sfxSource, 4);
             }
         }
 
@@ -737,7 +737,7 @@ void func_i6_8019A434(Boss* boss) {
     boss->fwork[13] = COS_DEG(boss->unk_078.y) * boss->fwork[45];
     boss->fwork[12] = 30.0f;
     boss->fwork[10] = 181.0f;
-    Audio_PlaySfx(0x19031003, boss->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+    AUDIO_PLAY_SFX(0x19031003, boss->sfxSource, 4);
 }
 
 void func_i6_8019A520(Boss* boss) {
@@ -757,7 +757,7 @@ void func_i6_8019A520(Boss* boss) {
     }
 
     if ((boss->unk_04C == 0) || (boss->unk_04C == 27)) {
-        Audio_PlaySfx(0x29022019, boss->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x29022019, boss->sfxSource, 4);
     }
 }
 
@@ -777,7 +777,7 @@ void func_i6_8019A66C(Boss* boss) {
         func_i6_8019BC14(boss);
     }
     if (boss->timer_056 == 60) {
-        Audio_PlaySfx(0x2902306C, boss->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x2902306C, boss->sfxSource, 4);
         boss->fwork[34] = 4.5f;
         if (Rand_ZeroOne() > 0.5f) {
             func_8002E4F8(gMsg_ID_14330, 160);
@@ -829,7 +829,7 @@ void func_i6_8019A898(Boss* boss) {
         Math_SmoothStepToAngle(&boss->unk_078.y, yAngle1, 0.1f, 2.0f, 0.1f);
         boss->fwork[0] = 1.0f;
         if ((boss->unk_04C == 0) || (boss->unk_04C == 27)) {
-            Audio_PlaySfx(0x29022019, boss->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x29022019, boss->sfxSource, 4);
         }
     } else {
         boss->timer_056 = 0;
@@ -888,9 +888,9 @@ void func_i6_8019AAF0(Boss* boss) {
     if (boss->unk_04C >= boss->swork[32] - 29) {
         if (boss->unk_04C == boss->swork[32] - 29) {
             if (boss->swork[31] == 11) {
-                Audio_PlaySfx(0x2903401C, boss->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x2903401C, boss->sfxSource, 4);
             } else {
-                Audio_PlaySfx(0x2902306D, boss->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x2902306D, boss->sfxSource, 4);
             }
         }
         if (boss->unk_04C >= (boss->swork[32] - 5)) {
@@ -948,7 +948,7 @@ void func_i6_8019AEEC(Boss* boss) {
     if ((boss->obj.pos.y != 365.0f) && (boss->swork[21] != 1)) {
         if (boss->unk_04A != 0) {
             if (boss->unk_04A == 1) {
-                func_8001D444(0, 0x8041, 0, 0);
+                Audio_PlaySequence(SEQ_PLAYER_BGM, SEQ_ID_65 | 0x8000, 0, 0);
                 boss->unk_04A++;
                 gPlayer[0].camEye.x = 0.0f;
                 gPlayer[0].camEye.y = 200.0f;
@@ -965,7 +965,7 @@ void func_i6_8019AEEC(Boss* boss) {
                 gActors[59].state = 6;
             }
             if (boss->obj.pos.y == 0.0f) {
-                Audio_PlaySfx(0x0100001D, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x0100001D, gDefaultSfxSource, 4);
             }
             Math_SmoothStepToF(&boss->obj.pos.y, 365.0f, 0.1f, 5.0f, 0.1f);
             Math_SmoothStepToF(&gActors[59].obj.pos.y, 153.0f, 0.1f, 5.0f, 0.1f);
@@ -975,7 +975,7 @@ void func_i6_8019AEEC(Boss* boss) {
                 gBossHealthBar = boss->health * 1.7f;
             }
             if (boss->obj.pos.y == 365.0f) {
-                Audio_PlaySfx(0x09002013, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x09002013, gDefaultSfxSource, 4);
                 boss->timer_050 = 20;
                 boss->timer_056 = 135;
             }
@@ -989,7 +989,7 @@ void func_i6_8019AEEC(Boss* boss) {
             boss->swork[21] = 0;
         }
         if (boss->timer_056 == 95) {
-            Audio_PlaySfx(0x3102505A, gActors[59].sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x3102505A, gActors[59].sfxSource, 4);
         }
         if (boss->timer_056 < 96) {
             Math_SmoothStepToF(&gActors[59].fwork[0], 0.0f, 0.1f, 0.2f, 0.05f);
@@ -1003,11 +1003,11 @@ void func_i6_8019AEEC(Boss* boss) {
             }
         }
         if (boss->timer_056 == 55) {
-            D_i6_801A8440[0] = boss->sfxPos[0];
-            D_i6_801A8440[1] = boss->sfxPos[1];
+            D_i6_801A8440[0] = boss->sfxSource[0];
+            D_i6_801A8440[1] = boss->sfxSource[1];
             D_i6_801A8440[2] = -500.0f;
-            Audio_PlaySfx(0x2902306C, D_i6_801A8440, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
-            Audio_KillSfx(gActors[59].sfxPos);
+            AUDIO_PLAY_SFX(0x2902306C, D_i6_801A8440, 4);
+            Audio_KillSfxBySource(gActors[59].sfxSource);
             boss->fwork[34] = 4.5f;
             gActors[59].vel.z = -40.0f;
             boss->vel.z = 120.0f;
@@ -1196,9 +1196,9 @@ void func_i6_8019BC14(Boss* boss) {
             gPlayer[0].pos.y = sp48;
             gPlayer[0].unk_138 = gPlayer[0].pos.z = sp44;
             if (boss->index == 0) {
-                Audio_PlaySfx(0x2901306EU, boss->sfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x2901306EU, boss->sfxSource, 4U);
             } else {
-                Audio_PlaySfx(0x2900306BU, boss->sfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x2900306BU, boss->sfxSource, 4U);
             }
         }
     }
@@ -1296,11 +1296,11 @@ void func_i6_8019C194(Boss* boss, f32 zSpeed, f32 xSpeed) {
             if (sp2C > 0.0f) {
                 if (boss->fwork[41] == 0.0f) {
                     boss->fwork[41] = ABS(sp2C * 0.01f) + 0.8f;
-                    Audio_PlaySfx(0x09000003, boss->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x09000003, boss->sfxSource, 4);
                 }
             } else if (boss->fwork[42] == 0.0f) {
                 boss->fwork[42] = ABS(sp2C * 0.01f) + 0.8f;
-                Audio_PlaySfx(0x09000003, boss->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x09000003, boss->sfxSource, 4);
             }
         }
     }
@@ -1346,7 +1346,7 @@ void func_i6_8019C888(Boss* boss) {
         }
 
         if ((boss->fwork[34] <= 1.0f) && (boss->fwork[34] > 0.5f)) {
-            Audio_KillSfx(boss->sfxPos);
+            Audio_KillSfxBySource(boss->sfxSource);
         }
         gBossFrameCount++;
 
@@ -1540,7 +1540,7 @@ void func_i6_8019C888(Boss* boss) {
             if (boss->dmgPart == 0) {
                 if (boss->swork[25] == 0) {
                     boss->swork[24] = 15;
-                    Audio_PlaySfx(0x29121007, boss->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x29121007, boss->sfxSource, 4);
                 } else {
                     func_i6_80198F5C(boss);
                 }
@@ -1920,7 +1920,7 @@ void func_i6_8019EB80(void) {
             actor->scale = 0.125f;
         }
         actor->iwork[11] = 1;
-        Audio_PlaySfx(0x3100000C, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
     }
 }
 
@@ -1960,12 +1960,12 @@ void func_i6_8019EE60(Player* player) {
 
             for (i = 10; i < ARRAY_COUNT(gActors); i++) {
                 if (gActors[i].unk_0B6 == 0) {
-                    Object_Kill(&gActors[i].obj, gActors[i].sfxPos);
+                    Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
                 }
             }
-            Object_Kill(&gActors[2].obj, gActors[2].sfxPos);
-            Object_Kill(&gActors[3].obj, gActors[3].sfxPos);
-            Object_Kill(&gActors[4].obj, gActors[4].sfxPos);
+            Object_Kill(&gActors[2].obj, gActors[2].sfxSource);
+            Object_Kill(&gActors[3].obj, gActors[3].sfxSource);
+            Object_Kill(&gActors[4].obj, gActors[4].sfxSource);
             player->unk_1D0++;
             D_80177A48[0] = 0.05f;
             if (Rand_ZeroOne() > 0.5f) {
@@ -2009,7 +2009,7 @@ void func_i6_8019EE60(Player* player) {
                 player->unk_1D0++;
                 func_800A6148();
                 func_8001CA24(0);
-                Audio_KillSfx(player->sfxPos);
+                Audio_KillSfxBySource(player->sfxSource);
                 D_80178340 = 250;
                 player->timer_1F8 = 50;
                 player->unk_0D0 = 0.0f;
@@ -2026,7 +2026,7 @@ void func_i6_8019EE60(Player* player) {
                 player->pos.z = 0.0f;
                 player->unk_1D0++;
                 func_8001C8B8(0);
-                func_8001D444(0, 0x26, 0, 0xFF);
+                AUDIO_PLAY_BGM(SEQ_ID_38);
                 D_80177A98 = 0;
 
                 for (i = 0; i < 200; i++) {
@@ -2055,10 +2055,10 @@ void func_i6_8019EE60(Player* player) {
             }
 
             if (gCsFrameCount == 343) {
-                Audio_PlaySfx(0x09000007, player->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x09000007, player->sfxSource, 0);
             }
             if (gCsFrameCount == 395) {
-                Audio_PlaySfx(0x09000013, player->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x09000013, player->sfxSource, 0);
             }
             D_80177A48[1] += D_80177A48[2];
             Matrix_RotateY(gCalcMatrix, D_80177A48[1] * M_DTOR, 0);
@@ -2101,7 +2101,7 @@ void func_i6_8019EE60(Player* player) {
                 D_80178348 = D_80178350 = D_80178354 = 0;
                 D_8017835C = 8;
                 if (D_80178340 == 0xFF) {
-                    func_8001DBD0(10);
+                    Audio_FadeOutAll(10);
                     player->state_1C8 = PLAYERSTATE_1C8_6;
                     player->timer_1F8 = 0;
                     D_8017837C = 4;
@@ -2183,11 +2183,11 @@ void func_i6_8019EE60(Player* player) {
             D_80177830 = 0;
             break;
         case 1440:
-            Audio_PlaySfx(0x09000002, player->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
             player->unk_194 = 5.0f;
             player->unk_190 = 5.0f;
-            func_800182F4(0x103200FF);
-            func_800182F4(0x113200FF);
+            SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
+            SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
             break;
         case 1380:
             if (gTeamShields[3] > 0) {
@@ -2249,7 +2249,7 @@ void func_i6_8019FF00(Actor* actor) {
             break;
         case 2:
             actor->state = 3;
-            Audio_PlaySfx(0x09000002, actor->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
             actor->fwork[29] = 5.0f;
             /* fallthrough */
         case 3:
@@ -2276,7 +2276,7 @@ void func_i6_8019FF00(Actor* actor) {
             } else {
                 if (gCsFrameCount == 540) {
                     actor->fwork[29] = 3.8f;
-                    Audio_PlaySfx(0x09000002, actor->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
                 }
                 Math_SmoothStepToF(&actor->obj.pos.x, 230.0f, 1.0f, 13.0f, 0.0f);
             }
@@ -2286,7 +2286,7 @@ void func_i6_8019FF00(Actor* actor) {
             if (gCsFrameCount >= 535) {
                 if (gCsFrameCount == 535) {
                     actor->fwork[29] = 3.8f;
-                    Audio_PlaySfx(0x09000002, actor->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
                 }
                 Math_SmoothStepToF(&actor->obj.pos.x, -1000.0f, 1.0f, 20.0f, 0.0f);
                 Math_SmoothStepToAngle(&actor->unk_0F4.z, 45.0f, 1.0f, 4.0f, 0.0f);
@@ -2301,7 +2301,7 @@ void func_i6_8019FF00(Actor* actor) {
             if (gCsFrameCount >= 525) {
                 if (gCsFrameCount == 525) {
                     actor->fwork[29] = 3.8f;
-                    Audio_PlaySfx(0x09000002, actor->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
                 }
                 Math_SmoothStepToF(&actor->obj.pos.x, 1500.0f, 1.0f, 20.0f, 0.0f);
                 Math_SmoothStepToAngle(&actor->unk_0F4.z, 315.0f, 1.0f, 2.0f, 0.0f);
@@ -2404,8 +2404,8 @@ void func_i6_801A06A4(Actor* actor, s32 arg1) {
         actor->state = arg1 + 7;
         actor->iwork[11] = 1;
         Object_SetInfo(&actor->info, actor->obj.id);
-        Audio_PlaySfx(0x3100000C, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
-        Audio_PlaySfx(0x09000002, actor->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(0x09000002, actor->sfxSource, 0);
     }
 }
 
@@ -2441,7 +2441,7 @@ void func_i6_801A07FC(Actor* actor0, Actor* actor1) {
     actor1->obj.rot.x = actor0->obj.rot.x;
     actor1->obj.rot.y = actor0->obj.rot.y;
     actor1->unk_0B6 = 42;
-    Audio_PlaySfx(0x2900306B, actor1->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+    AUDIO_PLAY_SFX(0x2900306B, actor1->sfxSource, 4);
 }
 
 void func_i6_801A0A08(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
@@ -2456,7 +2456,7 @@ void func_i6_801A0A08(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     actor->timer_0BC = 35;
     actor->iwork[0] = 255;
     actor->unk_0B6 = 43;
-    Audio_PlaySfx(0x2900306B, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+    AUDIO_PLAY_SFX(0x2900306B, actor->sfxSource, 4);
 }
 
 void func_i6_801A0AC0(Player* player) {
@@ -2666,16 +2666,16 @@ void func_i6_801A0AC0(Player* player) {
                     func_8007BFFC(gActors[11].obj.pos.x, gActors[11].obj.pos.y, gActors[11].obj.pos.z,
                                   gActors[11].vel.x, gActors[11].vel.y, gActors[11].vel.z, 8, 10);
                     func_8007B344(gActors[11].obj.pos.x, gActors[11].obj.pos.y, gActors[11].obj.pos.z, 8, 5);
-                    Audio_PlaySfx(0x2903A060, gActors[11].sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x2903A060, gActors[11].sfxSource, 4);
                     break;
                 case 188:
                     gActors[5].fwork[0] = gActors[6].fwork[0] = gActors[7].fwork[0] = 3.8f;
-                    Audio_PlaySfx(0x2902306C, gActors[5].sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
-                    Audio_PlaySfx(0x2902306C, gActors[6].sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
-                    Audio_PlaySfx(0x2902306C, gActors[7].sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x2902306C, gActors[5].sfxSource, 4);
+                    AUDIO_PLAY_SFX(0x2902306C, gActors[6].sfxSource, 4);
+                    AUDIO_PLAY_SFX(0x2902306C, gActors[7].sfxSource, 4);
                     break;
                 case 150:
-                    Object_Kill(&gActors[11].obj, gActors[11].sfxPos);
+                    Object_Kill(&gActors[11].obj, gActors[11].sfxSource);
                     for (i = 10; i < 24; i++) {
                         func_i6_801A3B50(gActors[11].obj.pos.x, gActors[11].obj.pos.y, gActors[11].obj.pos.z,
                                          RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT_CENTERED(50.0f),
@@ -2684,11 +2684,11 @@ void func_i6_801A0AC0(Player* player) {
                     break;
                 case 155:
                     gActors[7].fwork[0] = 3.8f;
-                    Audio_PlaySfx(0x2902306C, gActors[7].sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x2902306C, gActors[7].sfxSource, 4);
                     break;
                 case 163:
                     gActors[6].fwork[0] = 3.8f;
-                    Audio_PlaySfx(0x2902306C, gActors[6].sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x2902306C, gActors[6].sfxSource, 4);
                     break;
                 case 240:
                     gActors[9].iwork[0] = 255;
@@ -2699,7 +2699,7 @@ void func_i6_801A0AC0(Player* player) {
                     gActors[9].iwork[5] = 0;
                     gActors[9].iwork[6] = 255;
                     gActors[9].iwork[7] = 100;
-                    Audio_PlaySfx(0x2940F026, gActors[5].sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x2940F026, gActors[5].sfxSource, 4);
                     D_801779A8[gMainController] = 100.0f;
                     break;
                 case 260:
@@ -2710,7 +2710,7 @@ void func_i6_801A0AC0(Player* player) {
                     D_80178354 = 255;
                     D_80178340 = 255;
                     D_80178358 = 0;
-                    Object_Kill(&gActors[8].obj, gActors[8].sfxPos);
+                    Object_Kill(&gActors[8].obj, gActors[8].sfxSource);
                     player->unk_1D0++;
                     player->camEye.x = gCsCamEyeX = 0.0f;
                     player->camEye.y = gCsCamEyeY = 0.0f;
@@ -2766,7 +2766,7 @@ void func_i6_801A0AC0(Player* player) {
                 gActors[5].iwork[4] = gActors[6].iwork[4] = gActors[7].iwork[4] = 1;
                 gActors[5].fwork[5] = gActors[6].fwork[5] = gActors[7].fwork[5] = 80.0f;
                 gActors[6].fwork[1] = 60.0f;
-                Audio_PlaySfx(0x31000011, gActors[5].sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x31000011, gActors[5].sfxSource, 4);
             }
             if ((gCsFrameCount >= 285) && (gActors[9].iwork[3] != 0)) {
                 gActors[9].iwork[3] -= 5;
@@ -2868,18 +2868,18 @@ void func_i6_801A0AC0(Player* player) {
             switch (gCsFrameCount) {
                 case 340:
                     gActors[5].fwork[0] = 1.8f;
-                    Audio_PlaySfx(0x2902306C, gActors[5].sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x2902306C, gActors[5].sfxSource, 4);
                     break;
                 case 350:
                     gActors[6].fwork[0] = 1.8f;
-                    Audio_PlaySfx(0x2902306C, gActors[6].sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x2902306C, gActors[6].sfxSource, 4);
                     break;
                 case 370:
                     gActors[6].fwork[5] = 0.0f;
                     gActors[7].fwork[5] = 0.0f;
                     break;
                 case 360:
-                    func_8001D444(0, 0x2C, 0, 0xFF);
+                    AUDIO_PLAY_BGM(SEQ_ID_44);
                     break;
                 case 389:
                     gActors[5].iwork[4] = 1;
@@ -2913,7 +2913,7 @@ void func_i6_801A0AC0(Player* player) {
             if (gCsFrameCount >= 390) {
                 if (gActors[6].iwork[4] != 0) {
                     gActors[6].fwork[0] = 1.8f;
-                    Audio_PlaySfx(0x2902306C, gActors[6].sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x2902306C, gActors[6].sfxSource, 4);
                     gActors[6].obj.rot.x = (gActors[6].obj.rot.x - 2.0f);
                     if (gActors[6].obj.rot.x <= 320.0f) {
                         gActors[6].iwork[4] = 0;
@@ -2932,8 +2932,7 @@ void func_i6_801A0AC0(Player* player) {
                         gActors[6].obj.rot.y = (gActors[6].obj.rot.y + 6.0f);
                         if (gActors[6].obj.rot.y > 230.0f) {
                             gActors[6].fwork[0] = 2.8f;
-                            Audio_PlaySfx(0x2902306C, gActors[6].sfxPos, 4, &gDefaultScale, &gDefaultScale,
-                                          &gDefaultReverb);
+                            AUDIO_PLAY_SFX(0x2902306C, gActors[6].sfxSource, 4);
                         }
                     }
                 }
@@ -2972,8 +2971,7 @@ void func_i6_801A0AC0(Player* player) {
                     gActors[7].obj.rot.y = (gActors[7].obj.rot.y + 6.0f);
                     if (gActors[7].obj.rot.y > 230.0f) {
                         gActors[7].fwork[0] = 2.8f;
-                        Audio_PlaySfx(0x2902306C, gActors[7].sfxPos, 4, &gDefaultScale, &gDefaultScale,
-                                      &gDefaultReverb);
+                        AUDIO_PLAY_SFX(0x2902306C, gActors[7].sfxSource, 4);
                     }
                 }
             }
@@ -3005,13 +3003,12 @@ void func_i6_801A0AC0(Player* player) {
                     gActors[5].obj.rot.y += 7.0f;
                     if (gActors[5].obj.rot.y > 174.0f) {
                         gActors[5].fwork[0] = 2.8f;
-                        Audio_PlaySfx(0x2902306C, gActors[5].sfxPos, 4, &gDefaultScale, &gDefaultScale,
-                                      &gDefaultReverb);
+                        AUDIO_PLAY_SFX(0x2902306C, gActors[5].sfxSource, 4);
                     }
                 }
 
                 if ((gActors[5].iwork[4] == 6) && (gCsFrameCount == 550)) {
-                    Object_Kill(&gActors[10].obj, gActors[10].sfxPos);
+                    Object_Kill(&gActors[10].obj, gActors[10].sfxSource);
                     D_80178488 = 1;
                 }
                 if (gCsFrameCount >= 530) {
@@ -3047,14 +3044,14 @@ void func_i6_801A0AC0(Player* player) {
                 case 425:
                     gActors[5].vel.x -= 0.5f;
                     gActors[5].vel.z -= 1.5f;
-                    Object_Kill(&gActors[10].obj, gActors[10].sfxPos);
+                    Object_Kill(&gActors[10].obj, gActors[10].sfxSource);
                     func_i6_801A07FC(&gActors[5], &gActors[10]);
                     break;
                 case 435:
-                    Object_Kill(&gActors[10].obj, gActors[10].sfxPos);
+                    Object_Kill(&gActors[10].obj, gActors[10].sfxSource);
                     func_i6_801A07FC(&gActors[5], &gActors[10]);
                     gActors[7].fwork[0] = 1.8f;
-                    Audio_PlaySfx(0x2902306C, gActors[7].sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x2902306C, gActors[7].sfxSource, 4);
                     break;
                 case 458:
                     gActors[7].iwork[4] = 0;
@@ -3062,7 +3059,7 @@ void func_i6_801A0AC0(Player* player) {
                 case 450:
                     gActors[5].vel.x -= 0.5f;
                     gActors[5].vel.z -= 1.5f;
-                    Object_Kill(&gActors[10].obj, gActors[10].sfxPos);
+                    Object_Kill(&gActors[10].obj, gActors[10].sfxSource);
                     func_i6_801A07FC(&gActors[5], &gActors[10]);
                     gActors[10].timer_0BC = 180;
                     break;
@@ -3078,7 +3075,7 @@ void func_i6_801A0AC0(Player* player) {
                 case 545:
                     player->unk_194 = 10.0f;
                     player->unk_190 = 10.0f;
-                    Audio_PlaySfx(0x09000002, player->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
                     D_80137E84[gMainController] = 1;
                     D_Timer_80177BD0[gMainController] = 5;
                     break;
@@ -3092,7 +3089,7 @@ void func_i6_801A0AC0(Player* player) {
                     gActors[5].obj.rot.y = gActors[6].obj.rot.y = 180.0f;
                     gActors[7].obj.rot.y = 140.0f;
                     gActors[5].fwork[0] = 2.8f;
-                    Audio_PlaySfx(0x2902306C, gActors[5].sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x2902306C, gActors[5].sfxSource, 4);
                     player->unk_1D0++;
                     break;
             }
@@ -3137,7 +3134,7 @@ void func_i6_801A0AC0(Player* player) {
                 case 580:
 
                     for (i = 6; i < 10; i++) {
-                        Object_Kill(&gActors[i].obj, gActors[i].sfxPos);
+                        Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
                     }
 
                     for (i = 5; i < 7; i++) {
@@ -3146,11 +3143,11 @@ void func_i6_801A0AC0(Player* player) {
                     func_i6_801A0510(&gActors[9], 9);
                     break;
                 case 590:
-                    Object_Kill(&gActors[0].obj, gActors[0].sfxPos);
+                    Object_Kill(&gActors[0].obj, gActors[0].sfxSource);
                     break;
                 case 600:
-                    Object_Kill(&gActors[2].obj, gActors[9].sfxPos);
-                    Object_Kill(&gActors[1].obj, gActors[8].sfxPos);
+                    Object_Kill(&gActors[2].obj, gActors[9].sfxSource);
+                    Object_Kill(&gActors[1].obj, gActors[8].sfxSource);
                     break;
             }
             if (gCsFrameCount >= 609) {
@@ -3160,7 +3157,7 @@ void func_i6_801A0AC0(Player* player) {
                 D_80177A48[0] = 1.0f;
                 player->pos.z = player->unk_138 = 0.0f;
                 player->unk_0D0 = D_80161A54;
-                func_8001D444(0, 0x8009, 0, 0xFF);
+                AUDIO_PLAY_BGM(SEQ_ID_9 | 0x8000);
                 D_80177838 = 100;
                 player->state_1C8 = PLAYERSTATE_1C8_3;
                 player->unk_1D0 = 0;
@@ -3181,7 +3178,7 @@ void func_i6_801A0AC0(Player* player) {
                 player->camAt.y += 20.0f;
                 player->camAt.z = player->unk_138 - 41.0f;
                 for (i = 0; i < 11; i++) {
-                    Object_Kill(&gActors[i].obj, gActors[i].sfxPos);
+                    Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
                 }
             }
             break;
@@ -3356,7 +3353,7 @@ void func_i6_801A3BD4(Actor* actor) {
                     func_8007F11C(0x162, actor->fwork[16], actor->fwork[17], actor->fwork[18], 100.0f);
                     gPlayer[0].pos.x = sp1E4;
                     gPlayer[0].pos.y = sp1E0;
-                    Audio_PlaySfx(0x2900306B, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x2900306B, actor->sfxSource, 4);
                 }
                 actor->unk_048 = 0;
             }
@@ -3409,10 +3406,10 @@ void func_i6_801A3BD4(Actor* actor) {
                 func_8007BFFC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, actor->vel.x, actor->vel.y,
                               actor->vel.z, 8.0f, 0xA);
                 func_8007B344(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 8.0f, 5);
-                Audio_PlaySfx(0x2903A060, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x2903A060, actor->sfxSource, 4);
             }
             if (actor->timer_0BE == 0) {
-                Object_Kill(&actor->obj, actor->sfxPos);
+                Object_Kill(&actor->obj, actor->sfxSource);
                 func_80066254(actor);
                 for (i = 10; i < 24; i++) {
                     func_i6_801A3B50(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, RAND_FLOAT_CENTERED(50.0f),
@@ -3505,10 +3502,10 @@ void func_i6_801A3BD4(Actor* actor) {
         actor->unk_0D0 = 0;
         if (actor->unk_0D2 == 0) {
             actor->iwork[18] = 15;
-            Audio_PlaySfx(0x29121007, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
 
         } else {
-            Audio_PlaySfx(0x2903300E, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x2903300E, actor->sfxSource, 4);
             actor->timer_0C6 = 15;
             func_8007C120(actor->unk_0D8.x, actor->unk_0D8.y, actor->unk_0D8.z, actor->vel.x, actor->vel.y,
                           actor->vel.z, 0.1f, 10);
@@ -3609,7 +3606,7 @@ void func_i6_801A4E44(Object_80* obj80) {
     Vec3f sp30;
 
     if (obj80->state == 0) {
-        Audio_PlaySfx(0x1900404F, obj80->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x1900404F, obj80->sfxSource, 4);
         obj80->state++;
     }
     if (!(gGameFrameCount & 3)) {
@@ -3648,7 +3645,7 @@ void func_i6_801A52B8(Object_80* obj80) {
     Vec3f sp38;
 
     if (obj80->state == 0) {
-        Audio_PlaySfx(0x1900404F, obj80->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x1900404F, obj80->sfxSource, 4);
         obj80->state++;
     }
     if (!(gGameFrameCount & 3)) {

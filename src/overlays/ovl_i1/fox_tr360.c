@@ -200,7 +200,7 @@ void func_i1_8019949C(void) {
                     actor->unk_0C9 = actor->iwork[11] = 1;
                     actor->timer_0C2 = 30;
                     Object_SetInfo(&actor->info, actor->obj.id);
-                    Audio_PlaySfx(0x3100000C, actor->sfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
                     if ((i + 10) == 10) {
                         actor->unk_0E6 = 0;
                         actor->health = 50;

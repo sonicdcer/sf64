@@ -1,6 +1,28 @@
 #include "sys.h"
 #include "sf64audio_provisional.h"
 
+OSMesgQueue sAudioTaskStartQueue;
+OSMesgQueue sThreadCmdProcQueue;
+OSMesgQueue sAudioUnkQueue;
+OSMesgQueue sAudioResetQueue;
+AudioCmd gThreadCmdBuffer[256];
+OSMesg sAudioTaskStartMsg[1];
+OSMesg sThreadCmdProcMsg[4];
+OSMesg sAudioUnkMsg[1];
+OSMesg sAudioResetMsg[1];
+
+s8 gThreadCmdWritePos = 0;
+s8 gThreadCmdReadPos = 0;
+OSMesgQueue* gAudioTaskStartQueue = &sAudioTaskStartQueue;
+OSMesgQueue* gThreadCmdProcQueue = &sThreadCmdProcQueue;
+OSMesgQueue* gAudioUnkQueue = &sAudioUnkQueue;
+OSMesgQueue* gAudioResetQueue = &sAudioResetQueue;
+s32 gMaxAbiCmdCnt = 128;
+AudioTask* gWaitingAudioTask = NULL;
+s32 D_800C7C70 = 0;
+u8 gCurCmdReadPos = 0;
+u8 gThreadCmdQueueFinished = 0;
+
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_thread/func_8001DF50.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_thread/func_8001E444.s")
@@ -12,19 +34,19 @@
 void func_8001E7C8(void) {
     gThreadCmdWritePos = 0;
     gThreadCmdReadPos = 0;
-    osCreateMesgQueue(gAudioTaskStartQueue, D_80156600, 1);
-    osCreateMesgQueue(gThreadCmdProcQueue, D_80156608, 4);
-    osCreateMesgQueue(gAudioUnkQueue, D_80156618, 1);
-    osCreateMesgQueue(gAudioResetQueue, D_8015661C, 1);
+    osCreateMesgQueue(gAudioTaskStartQueue, sAudioTaskStartMsg, 1);
+    osCreateMesgQueue(gThreadCmdProcQueue, sThreadCmdProcMsg, 4);
+    osCreateMesgQueue(gAudioUnkQueue, sAudioUnkMsg, 1);
+    osCreateMesgQueue(gAudioResetQueue, sAudioResetMsg, 1);
 }
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_thread/func_8001E850.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_thread/AudioThread_QueueCmd.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_thread/func_8001E8A8.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_thread/AudioThread_QueueCmdF32.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_thread/func_8001E8CC.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_thread/AudioThread_QueueCmdS32.s")
 
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_thread/func_8001E8F0.s")
+#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_thread/AudioThread_QueueCmdS8.s")
 
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_thread/func_8001E920.s")
 

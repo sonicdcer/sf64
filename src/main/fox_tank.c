@@ -323,7 +323,7 @@ void func_800444BC(Player* player) {
     }
     if ((player->pos.y - sp30) < sp38) {
         if (player->vel.y < -10.0f) {
-            Audio_PlaySfx(0x09008015, player->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x09008015, player->sfxSource, 0);
         }
         player->unk_1D4 = 1;
         if (player->vel.y < -20.0f) {
@@ -331,7 +331,7 @@ void func_800444BC(Player* player) {
         }
         if (D_80177BAC != 0) {
             D_80177BAC = 0;
-            func_8001D444(0, 0x8004, 0, 0xFF);
+            AUDIO_PLAY_BGM(SEQ_ID_4 | 0x8000);
             func_8001C8B8(0);
         }
 
@@ -508,27 +508,27 @@ void func_80045130(Player* player) {
     Math_SmoothStepToF(&player->unk_170, 0.0f, 1.0f, 0.2f, 0.0f);
     Math_SmoothStepToF(&player->unk_16C, 0.0f, 1.0f, 0.2f, 0.0f);
     if (gInputPress->button & Z_TRIG) {
-        player->unk_48C = 1;
+        player->sfx.bank = 1;
         if ((player->timer_1E0 != 0) && (player->unk_12C > 0.0f) && (player->unk_2BC < 10.0f)) {
             player->unk_1DC = 1;
             player->timer_1E8 = 15;
             player->unk_1F0 = 20;
             player->unk_1EC = 20;
-            player->unk_494 = 1;
-            Audio_PlaySfx(0x1100000A, player->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            player->sfx.roll = 1;
+            AUDIO_PLAY_SFX(0x1100000A, player->sfxSource, 0);
         } else {
             player->timer_1E0 = 10;
         }
     }
     if (gInputPress->button & R_TRIG) {
-        player->unk_48C = 1;
+        player->sfx.bank = 1;
         if ((player->timer_1E4 != 0) && (player->unk_12C < 0.0f) && (player->unk_2BC < 10.0f)) {
             player->unk_1DC = 1;
             player->timer_1E8 = 15;
             player->unk_1F0 = -20;
             player->unk_1EC = -20;
-            player->unk_494 = 1;
-            Audio_PlaySfx(0x1100000A, player->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            player->sfx.roll = 1;
+            AUDIO_PLAY_SFX(0x1100000A, player->sfxSource, 0);
         } else {
             player->timer_1E4 = 10;
         }
@@ -552,7 +552,7 @@ void func_80045348(Player* player) {
             sp2E = true;
             if (D_800C9F24 == 0.0f) {
                 player->unk_190 = player->unk_194 = 4.0f;
-                Audio_PlaySfx(0x0900402F, player->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x0900402F, player->sfxSource, 0);
             } else {
                 player->unk_190 = 2.0f;
             }
@@ -594,13 +594,13 @@ void func_80045678(Player* player) {
 
     player->unk_0D4 = 3.0f;
     if (!(gInputHold->button & Z_TRIG)) {
-        func_8001A55C(player->sfxPos, 0x01008016);
-        func_8001A55C(player->sfxPos, 0x1100000A);
+        Audio_KillSfxBySourceAndId(player->sfxSource, 0x01008016);
+        Audio_KillSfxBySourceAndId(player->sfxSource, 0x1100000A);
     }
     if ((gInputHold->button & Z_TRIG) && !player->unk_2B4) {
         D_800C9F14++;
         if (D_800C9F20 == 0.0f) {
-            Audio_PlaySfx(0x01004024, player->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x01004024, player->sfxSource, 0);
         }
         player->unk_188 = 0.0f;
         player->unk_12C += 4.0f;
@@ -624,13 +624,13 @@ void func_80045678(Player* player) {
         D_800C9F20 = 0.0f;
     }
     if (!(gInputHold->button & R_TRIG)) {
-        func_8001A55C(player->sfxPos, 0x01008016);
-        func_8001A55C(player->sfxPos, 0x1100000A);
+        Audio_KillSfxBySourceAndId(player->sfxSource, 0x01008016);
+        Audio_KillSfxBySourceAndId(player->sfxSource, 0x1100000A);
     }
     if ((gInputHold->button & R_TRIG) && !player->unk_2B4) {
         D_800C9F14++;
         if (player->unk_2C0 == 0.0f) {
-            Audio_PlaySfx(0x01004024, player->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x01004024, player->sfxSource, 0);
         }
         player->unk_188 = 0.0f;
         player->unk_12C -= 4.0f;
@@ -657,9 +657,9 @@ void func_80045678(Player* player) {
     if ((player->unk_16C > 0.2f) && (player->unk_170 > 0.2f) && (player->timer_220 == 0)) {
         if (D_800C9F3C == 0) {
             D_800C9F3C = 1;
-            func_8001A55C(player->sfxPos, 0x1100000A);
-            func_8001A55C(player->sfxPos, 0x01004024);
-            Audio_PlaySfx(0x01008016, player->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            Audio_KillSfxBySourceAndId(player->sfxSource, 0x1100000A);
+            Audio_KillSfxBySourceAndId(player->sfxSource, 0x01004024);
+            AUDIO_PLAY_SFX(0x01008016, player->sfxSource, 0);
         }
         player->unk_12C += ((__cosf(gGameFrameCount * M_DTOR * 8.0f) * 10.0f) - player->unk_12C) * 0.1f;
         temp = -gInputPress->stick_y;
@@ -743,7 +743,7 @@ void func_80045E7C(Player* player) {
             }
             if (player->unk_1EC == 0) {
                 player->unk_1DC = 0;
-                func_8001A55C(player->sfxPos, 0x1100000A);
+                Audio_KillSfxBySourceAndId(player->sfxSource, 0x1100000A);
             }
         }
         if ((player->timer_1E8 >= 5) && (player->unk_1F4 == 0) && (player->unk_1DC != 9)) {
@@ -938,7 +938,7 @@ void func_80046704(Player* player) {
                         player->unk_0D0 = -(D_800C9F00 * 1.5f);
                         player->vel.z = D_800C9F00 * 1.5f;
                         D_800C9F00 = 12;
-                        Audio_PlaySfx(0x09008015, player->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                        AUDIO_PLAY_SFX(0x09008015, player->sfxSource, 0);
                         break;
                 }
                 if (obj80->obj.id == OBJ_80_59) {
@@ -1117,14 +1117,14 @@ void func_80047504(Player* player) {
             if (player->unk_2BC > 90.0f) {
                 player->unk_2BC = 90.0f;
                 player->unk_2B4 = true;
-                func_8001A55C(player->sfxPos, 0x01004024);
-                func_8001A55C(player->sfxPos, 0x01008016);
+                Audio_KillSfxBySourceAndId(player->sfxSource, 0x01004024);
+                Audio_KillSfxBySourceAndId(player->sfxSource, 0x01008016);
             }
         } else {
             if (player->unk_2BC > 0.0f) {
                 player->unk_2B4 = true;
-                func_8001A55C(player->sfxPos, 0x01004024);
-                func_8001A55C(player->sfxPos, 0x01008016);
+                Audio_KillSfxBySourceAndId(player->sfxSource, 0x01004024);
+                Audio_KillSfxBySourceAndId(player->sfxSource, 0x01008016);
             }
         }
     } else {
@@ -1249,7 +1249,7 @@ void func_80047D38(Player* player, f32 arg1) {
     }
     if ((player->pos.y - 5.0f) < arg1) {
         if (player->vel.y < -10.0f) {
-            Audio_PlaySfx(0x09008015, player->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x09008015, player->sfxSource, 0);
             player->unk_1F4 = 10;
         }
         D_800C9F04 = 1;
@@ -1296,7 +1296,7 @@ void func_80047FBC(Player* player) {
         Math_SmoothStepToF(&player->unk_0EC, -((player->vel.z / 5.0f) * 4.0f), 0.4f, 8.0f, 0.01f);
         if (player->unk_0EC >= 3.0f) {
             if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7) {
-                Audio_PlaySfx(0x19000065, player->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x19000065, player->sfxSource, 0);
             }
             D_800C9F08 |= 1;
         }
@@ -1361,16 +1361,14 @@ void func_800481F4(Player* player) {
                             D_80178578 = 20;
                             player->unk_23C = 80;
                             if (player->unk_22C == 0) {
-                                Audio_PlaySfx(0x19000001, player->sfxPos, 0, &gDefaultScale, &gDefaultScale,
-                                              &gDefaultReverb);
+                                AUDIO_PLAY_SFX(0x19000001, player->sfxSource, 0);
                             }
                             player->unk_22C += 2;
                             if (player->unk_22C >= 4) {
                                 player->unk_22C = 4;
                             }
                         } else if (temp_v0 == -2) {
-                            Audio_PlaySfx(0x19000001, player->sfxPos, 0, &gDefaultScale, &gDefaultScale,
-                                          &gDefaultReverb);
+                            AUDIO_PLAY_SFX(0x19000001, player->sfxSource, 0);
                         }
                     } else {
                         Player_ApplyDamage(player, temp_v0, obj80->info.damage);

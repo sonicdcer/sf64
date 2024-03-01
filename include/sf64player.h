@@ -16,6 +16,7 @@ typedef enum PlayerForm {
     /* 2 */ FORM_BLUE_MARINE,
     /* 3 */ FORM_ON_FOOT,
     /* 4 */ FORM_UNK_4,
+    /*-1 */ FORM_NONE=255,
 } PlayerForm;
 
 typedef enum DrawMode {
@@ -53,25 +54,6 @@ typedef enum PlayerState1C8 {
     /* 13 */ PLAYERSTATE_1C8_13,
 } PlayerState1C8;
 
-typedef struct {
-    /* 0x00 */ u8 rightState;
-    /* 0x01 */ u8 leftState;
-    /* 0x04 */ f32 unk_04;
-    /* 0x08 */ f32 unk_08;
-    /* 0x0C */ f32 unk_0C;
-    /* 0x10 */ f32 unk_10;
-    /* 0x14 */ f32 unk_14;
-    /* 0x18 */ f32 unk_18;
-    /* 0x1C */ f32 unk_1C;
-    /* 0x20 */ f32 unk_20;
-    /* 0x24 */ f32 unk_24;
-    /* 0x28 */ f32 unk_28;
-    /* 0x2C */ u8 unk_2C;
-    /* 0x30 */ f32 unk_30;
-    /* 0x34 */ f32 unk_34;
-    /* 0x38 */ f32 unk_38;
-} WingInfo; // size = 0x3C
-
 typedef enum {
     /* 0 */ PLAYERSHOT_0, // single laser?
     /* 1 */ PLAYERSHOT_1, // twin laser?
@@ -99,7 +81,7 @@ typedef struct {
     /* 0x2C */ f32 unk_2C;
     /* 0x30 */ f32 unk_30;
     /* 0x34 */ f32 unk_34; 
-    /* 0x38 */ f32 sfxPos[3];
+    /* 0x38 */ f32 sfxSource[3];
     /* 0x44 */ f32 unk_44;
     /* 0x48 */ f32 unk_48;
     /* 0x4C */ f32 unk_4C;
@@ -112,6 +94,38 @@ typedef struct {
     /* 0x68 */ s32 playerNum;
     /* 0x6C */ u8 bonus;
 } PlayerShot; // size = 0x70
+
+typedef struct {
+    /* 0x00 */ u8 rightState;
+    /* 0x01 */ u8 leftState;
+    /* 0x04 */ f32 unk_04;
+    /* 0x08 */ f32 unk_08;
+    /* 0x0C */ f32 unk_0C;
+    /* 0x10 */ f32 unk_10;
+    /* 0x14 */ f32 unk_14;
+    /* 0x18 */ f32 unk_18;
+    /* 0x1C */ f32 unk_1C;
+    /* 0x20 */ f32 unk_20;
+    /* 0x24 */ f32 unk_24;
+    /* 0x28 */ f32 unk_28;
+    /* 0x2C */ u8 unk_2C;
+    /* 0x30 */ f32 unk_30;
+    /* 0x34 */ f32 unk_34;
+    /* 0x38 */ f32 unk_38;
+} WingInfo; // size = 0x3C
+
+typedef struct {
+    /* 0x00 */ u8 levelType;
+    /* 0x01 */ u8 form;
+    /* 0x04 */ f32 *srcPos;
+    /* 0x08 */ f32 *srcVel;
+    /* 0x0C */ u8 boost;
+    /* 0x0D */ u8 brake;
+    /* 0x10 */ f32 yVel;
+    /* 0x14 */ u8 bank;
+    /* 0x18 */ f32 zRot;
+    /* 0x1C */ u8 roll;
+} PlayerSfx; // size = 0x20
 
 typedef struct Player {
     /* 0x000 */ f32 unk_000;
@@ -273,18 +287,9 @@ typedef struct Player {
     /* 0x2E0 */ Vec3f hit3;
     /* 0x2EC */ Vec3f hit4;
     /* 0x2F8 */ Vec3f jointTable[30];
-    /* 0x460 */ f32 sfxPos[3];
-    /* 0x460 */ f32 sfxVel[3];
-    /* 0x478 */ u8 levelType;
-    /* 0x479 */ u8 form2;
-    /* 0x47C */ f32 *srcPos;
-    /* 0x480 */ f32 *srcVel;
-    /* 0x484 */ s8 boost;
-    /* 0x485 */ s8 brake;
-    /* 0x488 */ f32 yVel;
-    /* 0x48C */ u8 unk_48C;
-    /* 0x490 */ f32 unk_490;
-    /* 0x494 */ u8 unk_494;
+    /* 0x460 */ f32 sfxSource[3];
+    /* 0x46C */ f32 sfxVel[3];
+    /* 0x478 */ PlayerSfx sfx;
     /* 0x498 */ s32 timer_498;
     /* 0x49C */ WingInfo wings;
     /* 0x4D8 */ f32 unk_4D8;

@@ -186,9 +186,9 @@ void func_i6_80196968(void) {
             Object_58_Initialize(obj58);
             obj58->obj.status = OBJ_ACTIVE;
             obj58->obj.id = D_80178310[i].id;
-            obj58->sfxPos[0] = obj58->obj.pos.x = D_80178310[i].xPos;
-            obj58->sfxPos[1] = obj58->obj.pos.y = D_80178310[i].yPos;
-            obj58->sfxPos[2] = obj58->obj.pos.z = -D_80178310[i].zPos1;
+            obj58->sfxSource[0] = obj58->obj.pos.x = D_80178310[i].xPos;
+            obj58->sfxSource[1] = obj58->obj.pos.y = D_80178310[i].yPos;
+            obj58->sfxSource[2] = obj58->obj.pos.z = -D_80178310[i].zPos1;
             obj58->unk_54 = obj58->obj.rot.y = D_80178310[i].rot.y;
 
             Object_SetInfo(&obj58->info, obj58->obj.id);
@@ -319,8 +319,8 @@ void func_i6_80196D88(Player* player) {
             } else {
                 player->timer_1FC = 180;
             }
-            func_800182F4(0x103C00FF);
-            func_800182F4(0x113C00FF);
+            SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 60);
+            SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 60);
             /* fallthrough */
         case 1:
             if (D_8017827C == 2) {
@@ -367,11 +367,11 @@ void func_i6_80196D88(Player* player) {
                 if (player->unk_120 >= 180.0f) {
                     player->unk_120 -= 360.0f;
                 }
-                Audio_PlaySfx(0x09000002, player->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
                 player->unk_194 = 5.0f;
                 player->unk_190 = 5.0f;
                 gCsFrameCount = 0;
-                func_8001D410(0);
+                Audio_SetBgmParam(0);
             }
             break;
         case 2:
@@ -396,7 +396,7 @@ void func_i6_80196D88(Player* player) {
             }
 
             if (gCsFrameCount == 105) {
-                Audio_PlaySfx(0x09000002, player->sfxPos, 0, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
                 player->unk_194 = 5.0f;
                 player->unk_190 = 5.0f;
             }
@@ -418,7 +418,7 @@ void func_i6_80196D88(Player* player) {
                         D_80161A2E = 1;
                     }
                     func_8001CA24(0);
-                    Audio_KillSfx(player->sfxPos);
+                    Audio_KillSfxBySource(player->sfxSource);
 
                     for (i = 0; i < 200; i++) {
                         gObjects58[i].obj.status = OBJ_FREE;
@@ -432,7 +432,7 @@ void func_i6_80196D88(Player* player) {
     }
     if (player->timer_1FC == 150) {
         Radio_PlayMessage(gMsg_ID_8215, RCID_FOX);
-        func_8001D444(0, 0x803E, 0, 0xFF);
+        AUDIO_PLAY_BGM(SEQ_ID_62 | 0x8000);
     }
     if (player->timer_1FC == 1) {
         if ((gTeamShields[2] > 0) || (gTeamShields[1] > 0) || (gTeamShields[3] > 0)) {

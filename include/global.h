@@ -3,6 +3,7 @@
 
 #include "sys.h"
 
+#include "sf64audio_external.h"
 #include "functions.h"
 #include "variables.h"
 #include "context.h"
