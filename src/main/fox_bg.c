@@ -1,4 +1,4 @@
-#include "prevent_bss_reordering.h"
+// #include "prevent_bss_reordering.h"
 #include "global.h"
 
 extern f32 D_i3_801C4188;

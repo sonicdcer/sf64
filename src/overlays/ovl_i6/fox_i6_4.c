@@ -61,7 +61,7 @@ void func_i6_801A581C(Player* player, f32 xOffset) {
     for (i = 0; i < ARRAY_COUNT(gPlayerShots); i++) {
         if (gPlayerShots[i].obj.status == 0) {
             func_i6_801A5560(player, &gPlayerShots[i], xOffset, -100.0f, 200.0f, PLAYERSHOT_9, 100.0f);
-            func_800A6028(gPlayerShots[i].sfxPos, 0x09000000);
+            func_800A6028(gPlayerShots[i].sfxSource, 0x09000000);
             break;
         }
     }

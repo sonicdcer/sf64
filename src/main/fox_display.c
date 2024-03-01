@@ -69,7 +69,7 @@ void func_80051B30(void) {
         }
         switch (sp7C) {
             case 0:
-                if (D_800CA234->sfxPos[0] > 0.0f) {
+                if (D_800CA234->sfxSource[0] > 0.0f) {
                     sp78 = 20.0f;
                     sp74 = M_PI / 2;
                 } else {
@@ -1440,17 +1440,17 @@ void func_80057814(Player* player) {
     sp20.x = player->pos.x;
     sp20.y = player->pos.y;
     sp20.z = player->unk_138;
-    sp2C.x = player->sfxPos[0];
-    sp2C.y = player->sfxPos[1];
-    sp2C.z = player->sfxPos[2];
-    func_8005F0E8(player->sfxPos, &sp20);
-    player->sfxVel[0] = player->sfxPos[0] - sp2C.x;
-    player->sfxVel[1] = player->sfxPos[1] - sp2C.y;
-    player->sfxVel[2] = player->sfxPos[2] - sp2C.z;
-    player->srcVel = player->sfxVel;
-    player->srcPos = player->sfxPos;
-    player->yVel = player->vel.y;
-    player->unk_490 = player->unk_0F8;
+    sp2C.x = player->sfxSource[0];
+    sp2C.y = player->sfxSource[1];
+    sp2C.z = player->sfxSource[2];
+    func_8005F0E8(player->sfxSource, &sp20);
+    player->sfxVel[0] = player->sfxSource[0] - sp2C.x;
+    player->sfxVel[1] = player->sfxSource[1] - sp2C.y;
+    player->sfxVel[2] = player->sfxSource[2] - sp2C.z;
+    player->sfx.srcVel = player->sfxVel;
+    player->sfx.srcPos = player->sfxSource;
+    player->sfx.yVel = player->vel.y;
+    player->sfx.zRot = player->unk_0F8;
 }
 
 void func_800578C4(Player* player) {

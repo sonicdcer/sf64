@@ -137,7 +137,7 @@ typedef struct {
     /* 0x00 */ Object obj;
     /* 0x1C */ ObjectInfo info;
     /* 0x40 */ char unk40[0x8];
-    /* 0x48 */ f32 sfxPos[3];
+    /* 0x48 */ f32 sfxSource[3];
     /* 0x54 */ f32 unk_54;
 } Object_58; // size = 0x58
 
@@ -155,7 +155,7 @@ typedef struct {
     /* 0x5C */ f32 unk_5C;
     /* 0x60 */ f32 unk_60;
     /* 0x64 */ Vec3f vel;
-    /* 0x70 */ f32 sfxPos[3];
+    /* 0x70 */ f32 sfxSource[3];
     /* 0x7C */ char pad7C[4];
 } Object_80; // size = 0x80
 
@@ -182,7 +182,7 @@ typedef struct {
     /* 0x50 */ f32 unk_50;
     /* 0x54 */ f32 unk_54;
     /* 0x58 */ f32 unk_58;
-    /* 0x5C */ f32 sfxPos[3];
+    /* 0x5C */ f32 sfxSource[3];
     /* 0x68 */ f32 scale;
 } Item; // size 0x6C
 
@@ -206,7 +206,7 @@ typedef struct {
     /* 0x78 */ s16 unk_78;
     /* 0x7A */ s16 unk_7A;
     /* 0x7C */ char pad7C[4];
-    /* 0x80 */ f32 sfxPos[3];
+    /* 0x80 */ f32 sfxSource[3];
 } Effect; // size 0x8C
 
 typedef struct {
@@ -239,7 +239,7 @@ typedef struct {
     /* 0x0D8 */ f32 fwork[50];
     /* 0x1A0 */ Vec3f vwork[50];
     /* 0x3F8 */ f32 unk_3F8;
-    /* 0x3FC */ f32 sfxPos[3];
+    /* 0x3FC */ f32 sfxSource[3];
 } Boss; // size = 0x408
 
 #define DMG_BEAM 1
@@ -281,7 +281,7 @@ typedef struct {
     /* 0x0E6 */ s16 unk_0E6;
     /* 0x0E8 */ Vec3f vel;
     /* 0x0F4 */ Vec3f unk_0F4;
-    /* 0x100 */ f32 sfxPos[3];
+    /* 0x100 */ f32 sfxSource[3];
     /* 0x10C */ f32 gravity;
     /* 0x110 */ f32 scale;
     /* 0x114 */ f32 fwork[30];

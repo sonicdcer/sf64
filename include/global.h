@@ -3,6 +3,7 @@
 
 #include "sys.h"
 
+#include "sf64audio_external.h"
 #include "functions.h"
 #include "variables.h"
 #include "context.h"
@@ -18,8 +19,5 @@
 #include "i5.h"
 #include "i6.h"
 #include "assets.h"
-
-#define AUDIO_PLAY_SFX(sfxId, srcPos, token) (Audio_PlaySfx((sfxId),(srcPos),(token),&gDefaultMod,&gDefaultMod,&gDefaultReverb))
-#define AUDIO_PLAY_BGM(seqId, param) Audio_PlaySequence(SEQ_PLAYER_0, (seqId), 0, (param))
 
 #endif // GLOBAL_H

@@ -1,4 +1,4 @@
-#include "prevent_bss_reordering.h"
+// #include "prevent_bss_reordering.h"
 #include "global.h"
 
 Vec3f D_801615D0;
@@ -994,10 +994,10 @@ void Actor_Draw2(Actor* actor) {
             }
             if (actor->info.drawType == 0) {
                 gSPDisplayList(gMasterDisp++, actor->info.dList);
-                func_8005F1EC(actor->sfxPos);
+                func_8005F1EC(actor->sfxSource);
             } else {
                 actor->info.draw(&actor->obj);
-                func_8005F1EC(actor->sfxPos);
+                func_8005F1EC(actor->sfxSource);
                 if (((actor->obj.id == OBJ_ACTOR_198) || ((actor->obj.id == OBJ_ACTOR_203) && (actor->unk_0B6 > 0))) &&
                     (D_80161410 > 0)) {
                     Matrix_MultVec3f(gGfxMatrix, &sp34, &D_80177E98[actor->unk_0E4]);
@@ -1090,7 +1090,7 @@ void Actor_Draw1(Actor* actor) {
     if (D_801615EC == 0) {
         actor->timer_0CA[gPlayerNum] = 0;
         if ((actor->obj.id == OBJ_ACTOR_189) || (actor->obj.id == OBJ_ACTOR_286)) {
-            Object_Kill(&actor->obj, actor->sfxPos);
+            Object_Kill(&actor->obj, actor->sfxSource);
         }
     }
     for (var_v1 = 0; var_v1 < gCamCount; var_v1++) {
@@ -1102,7 +1102,7 @@ void Actor_Draw1(Actor* actor) {
             }
         }
     }
-    func_8005F290(actor->sfxPos, &D_801615E0);
+    func_8005F290(actor->sfxSource, &D_801615E0);
     actor->iwork[24] = D_801615EC;
 }
 
@@ -1122,7 +1122,7 @@ void Boss_Draw(Boss* boss, s32 arg1) {
         func_8005D1F0(&boss->obj, boss->info.drawType);
     }
     Matrix_MultVec3f(&D_801615F0, &sp30, &D_801615D0);
-    func_8005F290(boss->sfxPos, &D_801615D0);
+    func_8005F290(boss->sfxSource, &D_801615D0);
     if ((boss->obj.id == OBJ_BOSS_316) || (boss->obj.id == OBJ_BOSS_317)) {
         var_fa1 = 6000.0f;
         var_fv0 = 6000.0f;
@@ -1218,9 +1218,9 @@ void Effect_Draw2(Effect* effect) {
             }
         }
     }
-    func_8005F290(effect->sfxPos, &sp40);
+    func_8005F290(effect->sfxSource, &sp40);
     if ((sp3B == 0) && (effect->obj.id != OBJ_EFFECT_352) && (effect->obj.id != OBJ_EFFECT_373) && (!gVersusMode)) {
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
     }
 }
 
@@ -1250,10 +1250,10 @@ void Item_Draw(Item* item, s32 arg1) {
             }
         }
     }
-    func_8005F290(item->sfxPos, &sp38);
+    func_8005F290(item->sfxSource, &sp38);
     if ((var_v0 == 0) && (gLevelMode == LEVELMODE_ALL_RANGE) && (gCamCount == 1) && (item->obj.id < 336) &&
         (gCurrentLevel != LEVEL_VENOM_ANDROSS)) {
-        Object_Kill(&item->obj, item->sfxPos);
+        Object_Kill(&item->obj, item->sfxSource);
     }
 }
 
@@ -1531,9 +1531,9 @@ void Object_DrawAll(s32 arg0) {
         for (i = 0, obj58 = gObjects58; i < 200; i++, obj58++) {
             if ((obj58->obj.status == OBJ_ACTIVE) && (obj58->obj.id != OBJ_80_147)) {
                 if (gCurrentLevel == LEVEL_BOLSE) {
-                    spAC.x = obj58->sfxPos[0];
-                    spAC.y = obj58->sfxPos[1];
-                    spAC.z = obj58->sfxPos[2];
+                    spAC.x = obj58->sfxSource[0];
+                    spAC.y = obj58->sfxSource[1];
+                    spAC.z = obj58->sfxSource[2];
                     Matrix_MultVec3fNoTranslate(&D_i4_8019EE80, &spAC, &obj58->obj.pos);
                     obj58->obj.rot.y = gBosses[0].obj.rot.y + (*obj58).unk_54;
                 }
@@ -1552,7 +1552,7 @@ void Object_DrawAll(s32 arg0) {
                 Matrix_Push(&gGfxMatrix);
                 Object_80_Draw(obj80, arg0);
                 Matrix_Pop(&gGfxMatrix);
-                func_8005F1EC(obj80->sfxPos);
+                func_8005F1EC(obj80->sfxSource);
             }
         }
     }
@@ -1672,7 +1672,7 @@ void func_8006046C(s32 arg0) {
                 Matrix_Push(&gGfxMatrix);
                 Effect_Draw1(effect, arg0);
                 Matrix_Pop(&gGfxMatrix);
-                func_8005F1EC(effect->sfxPos);
+                func_8005F1EC(effect->sfxSource);
                 if (effect->obj.id == OBJ_EFFECT_374) {
                     Matrix_Push(&gGfxMatrix);
                     func_8005ECD8(i, &effect->obj);

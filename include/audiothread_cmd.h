@@ -1,6 +1,12 @@
 #ifndef AUDIOTHREAD_CMD_H
 #define AUDIOTHREAD_CMD_H
 
+
+void AudioThread_QueueCmd(u32, void**);
+void AudioThread_QueueCmdF32(u32, f32);
+void AudioThread_QueueCmdS32(u32, u32);
+void AudioThread_QueueCmdS8(u32, s8);
+
 /**
  * Audio thread commands to safely transfer information/requests/data
  * from the external graph thread to the internal audio thread

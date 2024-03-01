@@ -1,6 +1,17 @@
 #ifndef SEQCMD_H
 #define SEQCMD_H
 
+void Audio_QueueSeqCmd(s32);
+
+// ==== Sequence Players ====
+
+typedef enum {
+    /* 0 */ SEQ_PLAYER_BGM,
+    /* 1 */ SEQ_PLAYER_FANFARE,
+    /* 2 */ SEQ_PLAYER_SFX,
+    /* 3 */ SEQ_PLAYER_VOICE
+} SequencePlayerId;
+
 // ==== Primary commands ====
 
 #define SEQCMD_OP_MASK 0xF0000000

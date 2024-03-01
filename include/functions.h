@@ -7,53 +7,6 @@
 #include "sf64player.h"
 #include "sf64mesg.h"
 
-// audio
-void AudioLoad_Init(void);
-
-void func_80016A50(void);
-void Audio_QueueSeqCmd(s32);
-void Audio_PlaySfx(u32, f32*, u8, f32*, f32*, s8*);
-void Audio_RemoveMatchingSfxRequests(s32, void*);
-void Audio_StopSfxByBankAndSource(u8, f32*);
-void Audio_KillSfxBySource(f32*);
-void Audio_KillSfxBySourceAndId(f32*, u32);
-void Audio_KillSfxById(u32);
-void Audio_PlayVoice(s32);
-void Audio_PlayVoiceWithoutBGM(u32);
-void Audio_ClearVoice(void);
-s32 Audio_GetCurrentVoice(void);
-s32 Audio_GetCurrentVoiceStatus(void);
-void func_8001AF40(s32);
-u8* Audio_UpdateFrequencyAnalysis(void);
-void func_8001C8B8(u8);
-void func_8001CA24(u8);
-void func_8001CB80(u8, u8);
-void func_8001CCDC(u8, f32 *);
-void func_8001CE28(u8, f32 *);
-void func_8001CFA8(f32);
-void func_8001D034(f32*, s32, u8);
-void func_8001D10C(f32*, u32);
-void func_8001D15C(u8);
-void func_8001D1C8(u8, u8);
-void func_8001D2FC(f32*, u16);
-void func_8001D3A0(f32*, u16);
-void func_8001D400(s8);
-void Audio_PlaySequence(u8, u16, u8, u8);
-void Audio_PlayFanfare(u16, u8, u8, u8);
-void func_8001D520(void);
-void func_8001D638(u8);
-void func_8001D6DC(u8);
-void Audio_PlaySoundTestTrack(u8);
-void Audio_FadeOutAll(u8);
-void Audio_SetAudioSpec(u8, u16);
-void func_8001D8A8(u8, u8);
-void func_8001D8F4(u8);
-void Audio_InitSounds(void);
-void Audio_Update(void);
-
-SPTask* func_8001DF50(void);
-void func_8001EE00(void);
-
 // fox_360
 void func_8002ED60(Player*);
 void func_8002E3E0(Actor*);

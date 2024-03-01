@@ -115,7 +115,7 @@ void Game_SetGameState(void) {
     gBlurAlpha = 255;
     gDrawMode = DRAWMODE_0;
     Audio_ClearVoice();
-    func_8001D400(0);
+    Audio_SetBaseSfxReverb(0);
 }
 
 bool func_800A1B6C(void) {

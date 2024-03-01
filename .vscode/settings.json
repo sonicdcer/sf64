@@ -9,7 +9,8 @@
     "**/.github": true,
     "build/**": true,
     "expected/**": true,
-    "tools/**": true
+    "tools/**": true,
+    "ctx.c" : true
   },
   "defines": [
     "_LANGUAGE_C"
@@ -63,8 +64,9 @@
     "fox_option_assets.h": "c",
     "mods.h": "c",
     "i5.h": "c",
-    "ast_warp_zone.h": "c"
-    "sf64audio_provisional.h": "c"
+    "ast_warp_zone.h": "c",
+    "sf64audio_provisional.h": "c",
+    "fox_enmy_assets.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }

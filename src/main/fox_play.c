@@ -233,11 +233,11 @@ void func_800A4C40(Player* player) {
         if ((sp30.y < gGroundLevel + 80.0f) || (sp3C.y < gGroundLevel + 80.0f)) {
             if (D_80161A64 == 0) {
                 D_80161A64 = 1;
-                AUDIO_PLAY_SFX(0x1100000B, player->sfxPos, 0);
+                AUDIO_PLAY_SFX(0x1100000B, player->sfxSource, 0);
             }
         } else {
             D_80161A64 = 0;
-            Audio_KillSfxBySourceAndId(player->sfxPos, 0x1100000B);
+            Audio_KillSfxBySourceAndId(player->sfxSource, 0x1100000B);
         }
     }
 }
@@ -476,8 +476,8 @@ void func_800A594C(void) {
     if (D_8017782C == 0) {
         if (gCurrentLevel == LEVEL_SOLAR) {
             func_8001D1C8(0xFF, 1);
-            AUDIO_PLAY_SFX(0x4100C023, gDefaultSfxPos, 4);
-            Audio_KillSfxBySourceAndId(gPlayer[0].sfxPos, 0x3140807E);
+            AUDIO_PLAY_SFX(0x4100C023, gDefaultSfxSource, 4);
+            Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, 0x3140807E);
         }
     } else if (gCurrentLevel == LEVEL_AQUAS) {
         sEnvSettings = SEGMENTED_TO_VIRTUAL(D_602E584);
@@ -606,30 +606,30 @@ void func_800A6148(void) {
         func_800A60E8(&gUnkEntities30[i]);
     }
     for (i = 0; i < ARRAY_COUNT(gObjects80); i++) {
-        Object_Kill(&gObjects80[i].obj, gObjects80[i].sfxPos);
+        Object_Kill(&gObjects80[i].obj, gObjects80[i].sfxSource);
         Object_80_Initialize(&gObjects80[i]);
     }
     for (i = 0; i < ARRAY_COUNT(gObjects4C); i++) {
         Object_4C_Initialize(&gObjects4C[i]);
     }
     for (i = 0; i < ARRAY_COUNT(gActors); i++) {
-        Object_Kill(&gActors[i].obj, gActors[i].sfxPos);
+        Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
         Actor_Initialize(&gActors[i]);
     }
     for (i = 0; i < ARRAY_COUNT(gBosses); i++) {
-        Object_Kill(&gBosses[i].obj, gBosses[i].sfxPos);
+        Object_Kill(&gBosses[i].obj, gBosses[i].sfxSource);
         Boss_Initialize(&gBosses[i]);
     }
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
-        Object_Kill(&gEffects[i].obj, gEffects[i].sfxPos);
+        Object_Kill(&gEffects[i].obj, gEffects[i].sfxSource);
         Effect_Initialize(&gEffects[i]);
     }
     for (i = 0; i < ARRAY_COUNT(gItems); i++) {
-        Object_Kill(&gItems[i].obj, gItems[i].sfxPos);
+        Object_Kill(&gItems[i].obj, gItems[i].sfxSource);
         Item_Initialize(&gItems[i]);
     }
     for (i = 0; i < ARRAY_COUNT(gPlayerShots); i++) {
-        Object_Kill(&gPlayerShots[i].obj, gPlayerShots[i].sfxPos);
+        Object_Kill(&gPlayerShots[i].obj, gPlayerShots[i].sfxSource);
         PlayerShot_Initialize(&gPlayerShots[i]);
     }
     D_801782B8 = D_801782BC = D_801782C0 = D_801782D0 = gBossActive = D_8017828C = D_8017812C = D_80177E70 =
@@ -764,7 +764,7 @@ void Player_DamageWings(Player* player, s32 side, s32 damage) {
                     player->wings.rightState = WINGSTATE_BROKEN;
                     func_8007D0E0(player->hit1.x, player->hit1.y, player->hit1.z, 2.0f);
                     D_80177D70[player->num] = 50;
-                    func_800A5FA0(player->sfxPos, 0x0900A02C, player->num);
+                    func_800A5FA0(player->sfxSource, 0x0900A02C, player->num);
                     if (D_8015F90C == 0) {
                         D_8015F90C = 1000;
                     }
@@ -779,7 +779,7 @@ void Player_DamageWings(Player* player, s32 side, s32 damage) {
                     player->wings.leftState = WINGSTATE_BROKEN;
                     func_8007D0E0(player->hit2.x, player->hit2.y, player->hit2.z, 2.0f);
                     D_80177D88[player->num] = 50;
-                    func_800A5FA0(player->sfxPos, 0x0900A02C, player->num);
+                    func_800A5FA0(player->sfxSource, 0x0900A02C, player->num);
                     if (D_8015F90C == 0) {
                         D_8015F90C = 1000;
                     }
@@ -820,22 +820,22 @@ void Player_ApplyDamage(Player* player, s32 direction, s32 damage) {
         player->timer_498 = 20;
     }
     if (D_80177AD0[player->num] != 0) {
-        func_800A5FA0(player->sfxPos, 0x0903900E, player->num);
+        func_800A5FA0(player->sfxSource, 0x0903900E, player->num);
         D_80177AE8[player->num] = 5;
         D_80177AB8[player->num] = 2.0f;
         player->damage = 0;
     } else {
         if (player->shields != 0) {
             if (player->shields < 50) {
-                AUDIO_PLAY_SFX(0x49008011, gDefaultSfxPos, 4);
+                AUDIO_PLAY_SFX(0x49008011, gDefaultSfxSource, 4);
             } else if (player->shields < 100) {
-                AUDIO_PLAY_SFX(0x49008010, gDefaultSfxPos, 4);
+                AUDIO_PLAY_SFX(0x49008010, gDefaultSfxSource, 4);
             }
         }
         if (damage < 25) {
-            func_800A5FA0(player->sfxPos, 0x0903900E, player->num);
+            func_800A5FA0(player->sfxSource, 0x0903900E, player->num);
         } else {
-            func_800A5FA0(player->sfxPos, 0x0903A00F, player->num);
+            func_800A5FA0(player->sfxSource, 0x0903A00F, player->num);
         }
     }
     Matrix_RotateY(gCalcMatrix, player->unk_114 * M_DTOR, 0);
@@ -1741,7 +1741,7 @@ void func_800A8BA4(Player* player) {
                                     player->unk_23C = 80;
                                 }
                                 if (player->unk_22C == 0) {
-                                    AUDIO_PLAY_SFX(0x19000001, obj80->sfxPos, 0);
+                                    AUDIO_PLAY_SFX(0x19000001, obj80->sfxSource, 0);
                                 }
                                 player->unk_22C += 2;
                                 if (player->unk_22C >= 4) {
@@ -1749,7 +1749,7 @@ void func_800A8BA4(Player* player) {
                                 }
                             } else if (obj80->obj.id == OBJ_80_54) {
                                 if (player->unk_22C == 0) {
-                                    AUDIO_PLAY_SFX(0x19832019, obj80->sfxPos, 0);
+                                    AUDIO_PLAY_SFX(0x19832019, obj80->sfxSource, 0);
                                 }
                                 player->unk_22C += 2;
                                 if (player->unk_22C >= 4) {
@@ -1844,7 +1844,7 @@ void func_800A8BA4(Player* player) {
                     if (temp_v0 != 0) {
                         if (temp_v0 < 0) {
                             if (player->unk_22C == 0) {
-                                AUDIO_PLAY_SFX(0x19000001, boss->sfxPos, 0);
+                                AUDIO_PLAY_SFX(0x19000001, boss->sfxSource, 0);
                             }
                             player->unk_22C += 2;
                             if (player->unk_22C >= 4) {
@@ -1905,12 +1905,12 @@ void func_800A8BA4(Player* player) {
                                     if (D_80177E80 == 3) {
                                         Radio_PlayMessage(gMsg_ID_5504, RCID_FALCO);
                                     }
-                                    AUDIO_PLAY_SFX(D_800CFF54[D_80177E80], gPlayer[0].sfxPos, 0);
-                                    AUDIO_PLAY_SFX(0x49008025, gDefaultSfxPos, 4);
+                                    AUDIO_PLAY_SFX(D_800CFF54[D_80177E80], gPlayer[0].sfxSource, 0);
+                                    AUDIO_PLAY_SFX(0x49008025, gDefaultSfxSource, 4);
                                 }
                             } else if (temp_v0 < 0) {
                                 if (player->unk_22C == 0) {
-                                    AUDIO_PLAY_SFX(0x19000001, actor->sfxPos, 0);
+                                    AUDIO_PLAY_SFX(0x19000001, actor->sfxSource, 0);
                                 }
                                 player->unk_22C += 2;
                                 if (player->unk_22C >= 4) {
@@ -1942,7 +1942,7 @@ void func_800A8BA4(Player* player) {
                     if (temp_v0 != 0) {
                         if (temp_v0 < 0) {
                             if (player->unk_22C == 0) {
-                                AUDIO_PLAY_SFX(0x19000001, actor->sfxPos, 0);
+                                AUDIO_PLAY_SFX(0x19000001, actor->sfxSource, 0);
                             }
                             player->unk_22C += 2;
                             if (player->unk_22C >= 4) {
@@ -2349,7 +2349,7 @@ void func_800AB334(void) {
             break;
         case LEVEL_VENOM_ANDROSS:
             Audio_SetAudioSpec(0, 15);
-            func_8001D400(0);
+            Audio_SetBaseSfxReverb(0);
             D_8017796C = -1;
             break;
     }
@@ -2784,7 +2784,7 @@ void func_800ACA40(Player* player) {
     for (i = 0; i < ARRAY_COUNT(gPlayerShots) - 1; i++) {
         if (gPlayerShots[i].obj.status == 0) {
             func_800AC650(player, &gPlayerShots[i], PLAYERSHOT_5, 100.0f);
-            func_800A5FA0(player->sfxPos, 0x09000014, player->num);
+            func_800A5FA0(player->sfxSource, 0x09000014, player->num);
             player->unk_1A0 = 2;
             break;
         }
@@ -2803,7 +2803,7 @@ void func_800ACABC(Player* player) {
             for (i = 0; i < ARRAY_COUNT(gPlayerShots) - 1; i++) {
                 if (gPlayerShots[i].obj.status == 0) {
                     func_800AC290(player, &gPlayerShots[i], 0.0f, 0.0f, PLAYERSHOT_0, 400.0f / 3.0f);
-                    func_800A5FA0(player->sfxPos, 0x09400000, player->num);
+                    func_800A5FA0(player->sfxSource, 0x09400000, player->num);
                     D_80177AA0[player->num] = 0.5f;
                     break;
                 }
@@ -2815,10 +2815,10 @@ void func_800ACABC(Player* player) {
                 if (gPlayerShots[i].obj.status == 0) {
                     func_800AC290(player, &gPlayerShots[i], 0.0f, -10.0f, PLAYERSHOT_1, 400.0f / 3.0f);
                     if (laser == LASERS_TWIN) {
-                        func_800A5FA0(player->sfxPos, 0x0940800C, player->num);
+                        func_800A5FA0(player->sfxSource, 0x0940800C, player->num);
                         D_80177AA0[player->num] = 0.5f;
                     } else {
-                        func_800A5FA0(player->sfxPos, 0x0940802B, player->num);
+                        func_800A5FA0(player->sfxSource, 0x0940802B, player->num);
                         D_80177AA0[player->num] = 0.75f;
                     }
                     break;
@@ -2846,7 +2846,7 @@ void func_800ACC7C(Player* player) {
         gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1].unk_48 = 30.0f;
         gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1].unk_60 = 0;
         func_8001CB80(player->num, 1);
-        func_8001CCDC(player->num, gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1].sfxPos);
+        func_8001CCDC(player->num, gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1].sfxSource);
     }
 }
 
@@ -2901,7 +2901,7 @@ void func_800AD094(Player* player) {
     for (i = 0; i < ARRAY_COUNT(gPlayerShots); i++) {
         if (gPlayerShots[i].obj.status == 0) {
             func_800ACDC0(player, &gPlayerShots[i], PLAYERSHOT_6);
-            func_800A5FA0(player->sfxPos, 0x09000014, player->num);
+            func_800A5FA0(player->sfxSource, 0x09000014, player->num);
             player->timer_1F8 = 2;
             player->unk_180 = 10.0f;
             break;
@@ -2940,7 +2940,7 @@ bool func_800AD1F4(Player* player) {
             gChargeTimers[player->num] = 21;
         }
         if (gChargeTimers[player->num] == 20) {
-            func_80060F30(player->sfxPos, 0x0900302D, player->num);
+            func_80060F30(player->sfxSource, 0x0900302D, player->num);
         }
         if ((!(gInputHold->button & R_TRIG) || !(gInputHold->button & Z_TRIG) || (player->form != FORM_ARWING) ||
              (player->state_1C8 != PLAYERSTATE_1C8_3)) &&
@@ -2976,7 +2976,7 @@ bool func_800AD1F4(Player* player) {
                     } else {
                         func_800AC650(player, &gPlayerShots[14 - player->num], PLAYERSHOT_8, 70.0f);
                     }
-                    func_80060F30(player->sfxPos, 0x09007029, player->num);
+                    func_80060F30(player->sfxSource, 0x09007029, player->num);
                     D_Timer_80177BD0[player->num] = 5;
                     return true;
                 }
@@ -2993,7 +2993,7 @@ bool func_800AD1F4(Player* player) {
                 } else {
                     func_800AC650(player, &gPlayerShots[14 - player->num], PLAYERSHOT_8, 70.0f);
                 }
-                func_80060F30(player->sfxPos, 0x09007029, player->num);
+                func_80060F30(player->sfxSource, 0x09007029, player->num);
                 gChargeTimers[player->num] = 0;
                 D_Timer_80177BD0[player->num] = 5;
                 return true;
@@ -3027,7 +3027,7 @@ bool func_800AD1F4(Player* player) {
                 gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1].unk_48 = 30.0f;
                 gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1].unk_60 = 0;
                 func_8001CB80(player->num, 1);
-                func_8001CCDC(player->num, gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1].sfxPos);
+                func_8001CCDC(player->num, gPlayerShots[ARRAY_COUNT(gPlayerShots) - 1].sfxSource);
                 return true;
             }
         }
@@ -3126,23 +3126,23 @@ void func_800ADA28(Player* player) {
     }
     Math_SmoothStepToF(&player->unk_12C, sp3C, sp38, 10.0f, 0.f);
     if (gInputPress->button & Z_TRIG) {
-        player->unk_48C = 1;
+        player->sfx.bank = 1;
         if (player->timer_1E0 != 0) {
             player->unk_1DC = 1;
             player->timer_1E8 = 10;
             player->unk_1EC = player->unk_1F0 = 30;
-            player->unk_494 = 1;
+            player->sfx.roll = 1;
         } else {
             player->timer_1E0 = 10;
         }
     }
     if (gInputPress->button & R_TRIG) {
-        player->unk_48C = 1;
+        player->sfx.bank = 1;
         if (player->timer_1E4 != 0) {
             player->unk_1DC = 1;
             player->timer_1E8 = 10;
             player->unk_1EC = player->unk_1F0 = -30;
-            player->unk_494 = 1;
+            player->sfx.roll = 1;
         } else {
             player->timer_1E4 = 10;
         }
@@ -4297,24 +4297,24 @@ void func_800B0F50(Player* playerx) {
         player->unk_234 = 1;
         switch (gCurrentLevel) {
             case LEVEL_CORNERIA:
-                Audio_PlaySequence(0, 37, 0, 255);
+                AUDIO_PLAY_BGM(SEQ_ID_37);
                 break;
             case LEVEL_METEO:
-                Audio_PlaySequence(0, 50, 0, 255);
+                AUDIO_PLAY_BGM(SEQ_ID_50);
                 break;
             case LEVEL_FORTUNA:
             case LEVEL_BOLSE:
             case LEVEL_VENOM_2:
-                Audio_PlaySequence(0, 51, 0, 255);
+                AUDIO_PLAY_BGM(SEQ_ID_51);
                 break;
             case LEVEL_VENOM_1:
-                Audio_PlaySequence(0, 0x8000 + 8, 0, 255);
+                AUDIO_PLAY_BGM(SEQ_ID_8 | 0x8000);
                 break;
             case LEVEL_KATINA:
-                Audio_PlaySequence(0, 51, 0, 255);
+                AUDIO_PLAY_BGM(SEQ_ID_51);
                 break;
             case LEVEL_TITANIA:
-                Audio_PlaySequence(0, 45, 0, 255);
+                AUDIO_PLAY_BGM(SEQ_ID_45);
                 break;
             case LEVEL_ZONESS:
             case LEVEL_SECTOR_X:
@@ -4322,7 +4322,7 @@ void func_800B0F50(Player* playerx) {
             case LEVEL_TRAINING:
             case LEVEL_MACBETH:
             default:
-                Audio_PlaySequence(0, 44, 0, 255);
+                AUDIO_PLAY_BGM(SEQ_ID_44);
                 break;
             case LEVEL_AREA_6:
             case LEVEL_SECTOR_Y:
@@ -4332,7 +4332,7 @@ void func_800B0F50(Player* playerx) {
                 break;
         }
     } else if (!gVersusMode && (D_80177C90 != 0xFFFF) && ((gLevelMode != LEVELMODE_ALL_RANGE) || (D_8015F924 == 0))) {
-        Audio_PlaySequence(0, D_80177C90, 0, 255);
+        AUDIO_PLAY_BGM(D_80177C90);
     }
     D_80177840 = gBossHealthBar = D_80177850 = 0;
 
@@ -4363,8 +4363,8 @@ void func_800B0F50(Player* playerx) {
     if ((gCurrentLevel == LEVEL_TRAINING)) {
         D_80177824 = 1;
     }
-    player->levelType = gLevelType;
-    player->form2 = player->form;
+    player->sfx.levelType = gLevelType;
+    player->sfx.form = player->form;
     func_80057814(player);
     if (!gVersusMode && (((gCurrentLevel != LEVEL_TITANIA) && (gCurrentLevel != LEVEL_SOLAR)) || gVersusMode ||
                          (player->state_1C8 != PLAYERSTATE_1C8_2))) {
@@ -4554,7 +4554,7 @@ void func_800B2574(Player* player) {
         sp28 = 1.5f;
         sp2C = 0.35f;
     }
-    player->boost = 0;
+    player->sfx.boost = 0;
     var = gInputPress->stick_y; // fake?
     if (D_Timer_80177A70[gPlayerNum] != 0) {
         D_Timer_80177A70[gPlayerNum]--;
@@ -4615,7 +4615,7 @@ void func_800B2574(Player* player) {
         if ((gInputHold->button & gBoostButton[player->num]) && !(gInputHold->button & gBrakeButton[player->num]) &&
             (player->state_1C8 != PLAYERSTATE_1C8_5) && !player->unk_2B4) {
             if (player->unk_2BC == 0.0f) {
-                func_800A5FA0(player->sfxPos, 0x09000002, player->num);
+                func_800A5FA0(player->sfxSource, 0x09000002, player->num);
                 player->unk_194 = 5.0f;
                 player->unk_190 = 5.0f;
                 if (gBoostButton[player->num] & gInputPress->button) {
@@ -4644,7 +4644,7 @@ void func_800B2574(Player* player) {
                 player->unk_110 = 30.0f;
             }
             Math_SmoothStepToF(&player->unk_08C, -400.0f, 0.1f, 30.0f, 0.0f);
-            player->boost = 1;
+            player->sfx.boost = 1;
             Math_SmoothStepToF(&D_801779A8[player->num], 50.0f, 1.0f, 10.0f, 0.0f);
         } else {
             if (player->unk_2BC > 0.0f) {
@@ -4680,7 +4680,7 @@ void func_800B2C00(Player* player) {
         sp30 = 1.5f;
         sp34 = 0.35f;
     }
-    player->brake = 0;
+    player->sfx.brake = 0;
     var = gInputPress->stick_y; // fake?
     if (D_Timer_80177A00[gPlayerNum] != 0) {
         D_Timer_80177A00[gPlayerNum]--;
@@ -4709,7 +4709,7 @@ void func_800B2C00(Player* player) {
     if ((gInputHold->button & gBrakeButton[player->num]) && !(gInputHold->button & gBoostButton[player->num]) &&
         (player->state_1C8 != PLAYERSTATE_1C8_5) && !player->unk_2B4) {
         if (player->unk_2BC == 0.0f) {
-            func_800A5FA0(player->sfxPos, 0x09000003, player->num);
+            func_800A5FA0(player->sfxSource, 0x09000003, player->num);
             if ((gLevelMode == LEVELMODE_ALL_RANGE) && (gInputPress->button & gBrakeButton[player->num])) {
                 D_Timer_80177A38[gPlayerNum] = 5;
             }
@@ -4731,7 +4731,7 @@ void func_800B2C00(Player* player) {
             player->unk_110 = -20.0f;
         }
         Math_SmoothStepToF(&player->unk_08C, 180.0f, 0.1f, 10.0f, 0.0f);
-        player->brake = 1;
+        player->sfx.brake = 1;
         Math_SmoothStepToF(&D_801779A8[player->num], 25.0f, 1.0f, 5.0f, 0.0f);
     } else if (player->unk_2BC > 0.0f) {
         player->unk_2BC -= sp34;
@@ -4767,7 +4767,7 @@ void func_800B3010(Player* player) {
         if (player->unk_2BC == 0.0f) {
             player->unk_194 = 4.0f;
             player->unk_190 = 4.0f;
-            func_800A5FA0(player->sfxPos, 0x09000002, player->num);
+            func_800A5FA0(player->sfxSource, 0x09000002, player->num);
         }
         Math_SmoothStepToF(&D_801779A8[player->num], 30.0f, 1.0f, 10.0f, 0.0f);
         player->unk_190 = 2.0f;
@@ -4780,7 +4780,7 @@ void func_800B3010(Player* player) {
     }
     if ((gInputHold->button & gBrakeButton[player->num]) && !player->unk_2B4) {
         if (player->unk_2BC == 0.0f) {
-            func_800A5FA0(player->sfxPos, 0x09000003, player->num);
+            func_800A5FA0(player->sfxSource, 0x09000003, player->num);
         }
         Math_SmoothStepToF(&D_801779A8[player->num], 20.0f, 1.0f, 10.0f, 0.0f);
         sp2C = 5.0f;
@@ -4800,7 +4800,7 @@ void func_800B3314(Player* player) {
     player->unk_0D4 = 3.0f;
     if ((gInputHold->button & Z_TRIG) && !player->unk_2B4) {
         if (player->unk_2BC == 0.0f) {
-            func_800A5FA0(player->sfxPos, 0x09000002, player->num);
+            func_800A5FA0(player->sfxSource, 0x09000002, player->num);
         }
         player->unk_188 = 0.0f;
         player->unk_12C += 4.0f;
@@ -4828,7 +4828,7 @@ void func_800B3314(Player* player) {
     }
     if ((gInputHold->button & R_TRIG) && !player->unk_2B4) {
         if (player->unk_2BC == 0.0f) {
-            func_800A5FA0(player->sfxPos, 0x09000002, player->num);
+            func_800A5FA0(player->sfxSource, 0x09000002, player->num);
         }
         player->unk_188 = 0.0f;
         player->unk_12C -= 4.0f;
@@ -5040,7 +5040,7 @@ void func_800B415C(Player* player) {
             var_v0 = 0xF;
         }
         if (!(gGameFrameCount & var_v0)) {
-            func_80060F30(player->sfxPos, 0x49001026, player->num);
+            func_80060F30(player->sfxSource, 0x49001026, player->num);
         }
     }
 }
@@ -5051,15 +5051,15 @@ void func_800B41E0(Player* player) {
 void func_800B41EC(Player* player) {
     player->state_1C8 = PLAYERSTATE_1C8_4;
     if (!gVersusMode) {
-        Audio_QueueSeqCmd(0x100100FF);
-        Audio_QueueSeqCmd(0x110100FF);
-        Audio_PlaySequence(0, 39, 0, 255);
+        SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
+        SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
+        AUDIO_PLAY_BGM(SEQ_ID_39);
     }
     if (gCurrentLevel == LEVEL_SOLAR) {
         Audio_KillSfxById(0x4100C023);
     }
     func_8001CA24(player->num);
-    func_800A5FA0(player->sfxPos, 0x0900C010, player->num);
+    func_800A5FA0(player->sfxSource, 0x0900C010, player->num);
     player->shields = 0;
     player->unk_1D0 = 0;
     player->unk_1F4 = 0;
@@ -5286,7 +5286,7 @@ void func_800B48BC(Player* player) {
         }
         Math_SmoothStepToVec3fArray(sp58, player->jointTable, 1, sp1C4, 0.1f, 1.3f, 0.0f);
     }
-    player->unk_48C = player->unk_494 = 0;
+    player->sfx.bank = player->sfx.roll = 0;
     sp1C4 = player->unk_22C;
     if (sp1C4 != 0) {
         player->unk_22C--;
@@ -5316,9 +5316,9 @@ void func_800B48BC(Player* player) {
             if ((!gVersusMode || (D_80177E7C != 0)) && (player->unk_4DC == 0) && (gInputPress->button & U_CBUTTONS) &&
                 ((player->form == FORM_ARWING) || (gVersusMode && (player->form == FORM_LANDMASTER)))) {
                 if (player->unk_238 = 1 - player->unk_238) {
-                    AUDIO_PLAY_SFX(0x4900002C, gDefaultSfxPos, 4);
+                    AUDIO_PLAY_SFX(0x4900002C, gDefaultSfxSource, 4);
                 } else {
-                    AUDIO_PLAY_SFX(0x4900002D, gDefaultSfxPos, 4);
+                    AUDIO_PLAY_SFX(0x4900002D, gDefaultSfxSource, 4);
                     if (gLevelMode == LEVELMODE_ON_RAILS) {
                         player->unk_034 = 0.0f;
                     }
@@ -5348,7 +5348,7 @@ void func_800B48BC(Player* player) {
                             if (D_80177E7C == 1) {
                                 D_80177E7C += 1;
                                 for (i = 0; i < 4; i++) {
-                                    func_800A5FA0(gPlayer[i].sfxPos, 0x09000002, gPlayer[i].num);
+                                    func_800A5FA0(gPlayer[i].sfxSource, 0x09000002, gPlayer[i].num);
                                     gPlayer[i].unk_190 = gPlayer[i].unk_194 = 5.0f;
                                 }
                             }
@@ -5432,7 +5432,7 @@ void func_800B48BC(Player* player) {
                 func_800B0F50(player);
                 func_800B44C4(player);
                 func_800B7184(player, 1);
-                func_800A5FA0(player->sfxPos, 0x09000002, player->num);
+                func_800A5FA0(player->sfxSource, 0x09000002, player->num);
                 player->unk_190 = player->unk_194 = 5.0f;
             } else if (player->unk_288 >= 0) {
                 if (player->unk_288 == 0) {
@@ -5471,7 +5471,7 @@ void func_800B48BC(Player* player) {
                     D_80178380[0] = 0;
                     D_8015F93C = gRadioState = 0;
                     Audio_ClearVoice();
-                    func_8001D400(0);
+                    Audio_SetBaseSfxReverb(0);
                     D_80161A94[0] = gGoldRingCount[0];
                     if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
                         if (1) {}
@@ -6153,7 +6153,7 @@ void func_800B79B0(void) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_8;
                 gPlayer[0].unk_1D0 = 0;
                 gOverlayStage = 1;
-                AUDIO_PLAY_SFX(0x1900602A, gDefaultSfxPos, 0);
+                AUDIO_PLAY_SFX(0x1900602A, gDefaultSfxSource, 0);
                 D_80177930 = 2;
                 D_800D3180[gCurrentLevel] = 1;
             }
@@ -6207,9 +6207,9 @@ void func_800B79B0(void) {
                 }
                 if (gPlayer[0].heal == 0) {
                     if (gPlayer[0].shields == 50) {
-                        AUDIO_PLAY_SFX(0x49008011, gDefaultSfxPos, 4);
+                        AUDIO_PLAY_SFX(0x49008011, gDefaultSfxSource, 4);
                     } else if (gPlayer[0].shields == 100) {
-                        AUDIO_PLAY_SFX(0x49008010, gDefaultSfxPos, 4);
+                        AUDIO_PLAY_SFX(0x49008010, gDefaultSfxSource, 4);
                     }
                 }
             }
@@ -6394,10 +6394,10 @@ void func_800B86CC(void) {
                 (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2) &&
                 gSaveFile.save.data.planet[D_800D2F6C[gCurrentLevel]].normalClear) {
                 Audio_ClearVoice();
-                func_8001D400(0);
+                Audio_SetBaseSfxReverb(0);
                 func_800A6148();
                 for (i = 0; i < gCamCount; i++) {
-                    Audio_KillSfxBySource(gPlayer[i].sfxPos);
+                    Audio_KillSfxBySource(gPlayer[i].sfxSource);
                     func_8001CA24(i);
                 }
                 D_80177854 = 1;
@@ -6422,18 +6422,18 @@ void func_800B86CC(void) {
                 if ((gControllerPress[gMainController].button & R_TRIG) && (gPlayer[0].form != FORM_BLUE_MARINE) &&
                     (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_0)) {
                     if (D_800D2860[0] = 1 - D_800D2860[0]) {
-                        AUDIO_PLAY_SFX(0x49000019, gDefaultSfxPos, 4);
+                        AUDIO_PLAY_SFX(0x49000019, gDefaultSfxSource, 4);
                     } else {
-                        AUDIO_PLAY_SFX(0x4900101A, gDefaultSfxPos, 4);
+                        AUDIO_PLAY_SFX(0x4900101A, gDefaultSfxSource, 4);
                     }
                 }
             } else {
                 for (i = 0; i < 4; i++) {
                     if ((gControllerPress[i].button & R_TRIG) && (gPlayer[i].form != FORM_ON_FOOT)) {
                         if (D_800D2860[i] = 1 - D_800D2860[i]) {
-                            func_80060F30(gPlayer[i].sfxPos, 0x49000019, i);
+                            func_80060F30(gPlayer[i].sfxSource, 0x49000019, i);
                         } else {
-                            func_80060F30(gPlayer[i].sfxPos, 0x4900101A, i);
+                            func_80060F30(gPlayer[i].sfxSource, 0x4900101A, i);
                         }
                     }
                 }

@@ -391,8 +391,8 @@ void func_menu_80187B00(void) {
                 func_800B6F50(gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ);
                 D_8017842C -= 1.0f;
                 if (D_menu_801B82BC == 60) {
-                    Audio_QueueSeqCmd(0x103C00FF);
-                    Audio_QueueSeqCmd(0x113C00FF);
+                    SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 60);
+                    SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 60);
                 }
             } else {
                 D_80178410 = 0;
@@ -728,7 +728,7 @@ void func_menu_801881FC(void) {
     D_menu_801B86A4 = 0;
     D_menu_801B82B0 = 100;
 
-    Audio_PlaySequence(0, 34, 0, 255);
+    AUDIO_PLAY_BGM(SEQ_ID_34);
 }
 
 void func_menu_801888E8(void) {
@@ -1009,7 +1009,7 @@ void func_menu_801894E8(void) {
 
     D_menu_801B7BF0 = 0;
 
-    Audio_PlaySequence(0, 35, 0, 255);
+    AUDIO_PLAY_BGM(SEQ_ID_35);
 }
 
 void func_menu_8018994C(void) {
@@ -1348,7 +1348,7 @@ void func_menu_8018A644(void) {
     switch (D_menu_801B82C0) {
         case 0:
             func_menu_8018A338();
-            AUDIO_PLAY_SFX(0x49000014, gDefaultSfxPos, 4);
+            AUDIO_PLAY_SFX(0x49000014, gDefaultSfxSource, 4);
             AUDIO_PLAY_SFX(0x0140001C, D_menu_801B84D8, 0);
 
             D_menu_801B82B4 = 0;
@@ -1671,7 +1671,7 @@ void func_menu_8018B5C4(void) {
             D_menu_801B7BEC = 0;
 
             func_menu_8018B058();
-            func_8001D400(0x68);
+            Audio_SetBaseSfxReverb(0x68);
 
             D_menu_801B82A8 = 30;
 
@@ -1689,7 +1689,7 @@ void func_menu_8018B5C4(void) {
 
         case 10:
             if (D_menu_801B82A8 == 0) {
-                AUDIO_PLAY_SFX(0x0100001D, gDefaultSfxPos, 4);
+                AUDIO_PLAY_SFX(0x0100001D, gDefaultSfxSource, 4);
                 D_menu_801B82B4 = 0;
                 D_menu_801B82C0 = 1;
             }
@@ -1704,7 +1704,7 @@ void func_menu_8018B5C4(void) {
                 D_menu_801B9048 -= 0.41f;
                 if (D_menu_801B9048 < 0.0f) {
                     D_menu_801B9048 = 0.0f;
-                    AUDIO_PLAY_SFX(0x09002013, gDefaultSfxPos, 4);
+                    AUDIO_PLAY_SFX(0x09002013, gDefaultSfxSource, 4);
                 }
             }
 
@@ -1881,7 +1881,7 @@ void func_menu_8018B5C4(void) {
                                    D_menu_801B86A8, D_menu_801B86AC);
 
                 if (D_menu_801B82B4 > 8) {
-                    func_8001D400(0);
+                    Audio_SetBaseSfxReverb(0);
                     D_menu_801B82C0 = 0;
                     D_menu_801B82C4 = 5;
                 }
@@ -3217,7 +3217,7 @@ void func_menu_80190EA4(void) {
     switch (D_menu_801B8280) {
         case 0:
             if (gControllerPress[gMainController].button & 0xD00F) { // START, A, B, C-left, C-Down, C-Up, C-Right
-                AUDIO_PLAY_SFX(0x49000003, gDefaultSfxPos, 4);
+                AUDIO_PLAY_SFX(0x49000003, gDefaultSfxSource, 4);
                 D_menu_801B8284 = 0;
                 D_menu_801B8280 = 1;
                 gControllerLock = 0x1E;
@@ -3249,9 +3249,9 @@ void func_menu_80190FD0(void) {
                 if (((gControllerPress[gMainController].button & START_BUTTON) ||
                      (gControllerPress[gMainController].button & A_BUTTON)) &&
                     (D_menu_801B8280 == 0)) {
-                    AUDIO_PLAY_SFX(0x49000003, gDefaultSfxPos, 4);
-                    Audio_QueueSeqCmd(0x101E00FF);
-                    Audio_QueueSeqCmd(0x111E00FF);
+                    AUDIO_PLAY_SFX(0x49000003, gDefaultSfxSource, 4);
+                    SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 30);
+                    SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 30);
                     D_menu_801B8284 = 0;
                     D_menu_801B8280 = 1;
                 }

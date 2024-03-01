@@ -52,7 +52,7 @@ void func_80035E78(PlayerShot* shot) {
         shot->unk_5C = 1;
         shot->unk_64 = 30;
         shot->unk_58 = 150;
-        func_8001CE28(shot->playerNum, shot->sfxPos);
+        func_8001CE28(shot->playerNum, shot->sfxSource);
         D_Timer_80161A60 = 4;
         if (shot->obj.pos.y < (gGroundLevel + 450.0f)) {
             D_80178480 = 15;
@@ -119,7 +119,7 @@ void func_80036318(PlayerShot* shot) {
     s32 i;
 
     if (shot->obj.id == PLAYERSHOT_4) {
-        Object_Kill(&shot->obj, shot->sfxPos);
+        Object_Kill(&shot->obj, shot->sfxSource);
         return;
     }
     shot->obj.pos.z = D_80178498; // strange order on the globals
@@ -172,7 +172,7 @@ void func_80036528(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 x
     effect->unk_46 = 80;
     effect->timer_50 = time;
     Object_SetInfo(&effect->info, effect->obj.id);
-    func_800A6070(effect->sfxPos, 0x29000000);
+    func_800A6070(effect->sfxSource, 0x29000000);
 }
 
 void func_800365E4(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 arg4, f32 arg5, f32 yRot, f32 xRot, f32 scale, s32 unk44,
@@ -201,7 +201,7 @@ void func_800366CC(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 s
     effect->scale2 = scale * 0.5f;
     effect->timer_50 = 80;
     Object_SetInfo(&effect->info, effect->obj.id);
-    func_800A6070(effect->sfxPos, 0x29000000);
+    func_800A6070(effect->sfxSource, 0x29000000);
 }
 
 void func_80036770(f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 scale) {
@@ -294,7 +294,7 @@ s32 func_80036874(PlayerShot* shot, f32* hitboxData, Object* obj) {
                     (fabsf(hitbox->x.offset + obj->pos.x - shotPx) < (hitbox->x.size + xySizeMod)) &&
                     (fabsf(hitbox->y.offset + obj->pos.y - shotPy) < (hitbox->y.size + xySizeMod))) {
                     if (shot->obj.id == PLAYERSHOT_4) {
-                        Object_Kill(&shot->obj, shot->sfxPos);
+                        Object_Kill(&shot->obj, shot->sfxSource);
                         return 0;
                     }
                     if ((obj->id < 176) || (obj->id >= 292)) {
@@ -602,7 +602,7 @@ bool func_8003774C(PlayerShot* shot, ObjectId objId, Object* obj) {
         if (!useCol2) {
             if (func_800998FC(&sp64, &sp58, &sp38, objId, &sp4C, sp44) > 0) {
                 if (shot->obj.id == PLAYERSHOT_4) {
-                    Object_Kill(&shot->obj, shot->sfxPos);
+                    Object_Kill(&shot->obj, shot->sfxSource);
                     return false;
                 }
                 func_80036318(shot);
@@ -625,7 +625,7 @@ bool func_8003774C(PlayerShot* shot, ObjectId objId, Object* obj) {
             }
         } else if (func_800A3690(&sp64, &sp58, objId, &sp4C)) {
             if (shot->obj.id == PLAYERSHOT_4) {
-                Object_Kill(&shot->obj, shot->sfxPos);
+                Object_Kill(&shot->obj, shot->sfxSource);
                 return false;
             }
             func_80036318(shot);
@@ -705,7 +705,7 @@ void func_80037CF4(PlayerShot* shot, Actor* actor, s32 hitIndex) {
             shot->obj.pos.z += shot->vel.z * 5.0f;
             actor->timer_0C2 = 3;
             func_80078E50(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 8.0f);
-            AUDIO_PLAY_SFX(0x29121007, actor->sfxPos, 4);
+            AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
             func_800A668C(D_8017849C, D_801784A0, D_80178498);
         }
     } else {
@@ -745,7 +745,7 @@ void func_80038140(PlayerShot* shot) {
                 if (effect->info.unk_19 == 2) {
                     effect->unk_44 = 1;
                 } else {
-                    Object_Kill(&effect->obj, effect->sfxPos);
+                    Object_Kill(&effect->obj, effect->sfxSource);
                 }
             }
         }
@@ -852,7 +852,7 @@ void func_80038140(PlayerShot* shot) {
                         shot->obj.pos.y += 2.0f * shot->vel.y;
                         shot->obj.pos.z += 2.0f * shot->vel.z;
                         shot->unk_64 = 5;
-                        AUDIO_PLAY_SFX(0x09007011, player->sfxPos, 0);
+                        AUDIO_PLAY_SFX(0x09007011, player->sfxSource, 0);
                         func_80078E50(player->pos.x, player->pos.y, player->unk_138, 8.0f);
                     } else {
                         func_80036318(shot);
@@ -949,11 +949,11 @@ void func_80038140(PlayerShot* shot) {
                 temp_fv0 = fabsf(boss->obj.pos.z - shot->obj.pos.z) * 0.8333333f;
                 if (sqrtf(SQ(temp_fv1) + SQ(temp_fa0) + SQ(temp_fv0)) < 1500.0f) {
                     if (shot->obj.id == PLAYERSHOT_4) {
-                        Object_Kill(&shot->obj, shot->sfxPos);
+                        Object_Kill(&shot->obj, shot->sfxSource);
                     } else {
                         boss->dmgType = DMG_BEAM;
                         func_80036318(shot);
-                        AUDIO_PLAY_SFX(0x29001062, shot->sfxPos, 4);
+                        AUDIO_PLAY_SFX(0x29001062, shot->sfxSource, 4);
                     }
                 }
             } else {
@@ -963,11 +963,11 @@ void func_80038140(PlayerShot* shot) {
                     temp_fv0 = fabsf(boss->obj.pos.z - shot->obj.pos.z);
                     if (sqrtf(SQ(temp_fv1) + SQ(temp_fa0) + SQ(temp_fv0)) < 2700.0f) {
                         if (shot->obj.id == PLAYERSHOT_4) {
-                            Object_Kill(&shot->obj, shot->sfxPos);
+                            Object_Kill(&shot->obj, shot->sfxSource);
                         } else {
                             boss->dmgType = DMG_BEAM;
                             boss->dmgPart = 100;
-                            AUDIO_PLAY_SFX(0x29121007, shot->sfxPos, 4);
+                            AUDIO_PLAY_SFX(0x29121007, shot->sfxSource, 4);
                             func_80036318(shot);
                         }
                     }
@@ -975,7 +975,7 @@ void func_80038140(PlayerShot* shot) {
                 temp_v0 = func_80036874(shot, boss->info.hitbox, &boss->obj);
                 if (temp_v0 != 0) {
                     if (shot->obj.id == PLAYERSHOT_4) {
-                        Object_Kill(&shot->obj, shot->sfxPos);
+                        Object_Kill(&shot->obj, shot->sfxSource);
                     } else if (!((boss->obj.id == OBJ_BOSS_316) && (shot->playerNum != 0))) {
                         boss->dmgType = DMG_BEAM;
                         if (shot->obj.id == PLAYERSHOT_3) {
@@ -1035,7 +1035,7 @@ void func_80038F34(PlayerShot* shot) {
     }
     if (!sp48) {
         if (!gVersusMode) {
-            Object_Kill(&shot->obj, shot->sfxPos);
+            Object_Kill(&shot->obj, shot->sfxSource);
             return;
         }
     } else {
@@ -1217,7 +1217,7 @@ void func_80039A50(PlayerShot* shot) {
     }
     if (!sp104) {
         if ((shot->obj.id != PLAYERSHOT_3) && (shot->unk_64 < 10) && !gVersusMode) {
-            Object_Kill(&shot->obj, shot->sfxPos);
+            Object_Kill(&shot->obj, shot->sfxSource);
         }
     } else {
         if ((shot->obj.id == PLAYERSHOT_5) || (shot->obj.id == PLAYERSHOT_6) || (shot->obj.id == PLAYERSHOT_7)) {
@@ -1482,7 +1482,7 @@ void func_8003AF88(PlayerShot* shot) {
 void func_8003AFD8(PlayerShot* shot) {
     shot->unk_60++;
     if (shot->unk_60 > 2) {
-        Object_Kill(&shot->obj, shot->sfxPos);
+        Object_Kill(&shot->obj, shot->sfxSource);
     }
 }
 
@@ -1558,13 +1558,13 @@ void func_8003B00C(PlayerShot* shot, Player* player) {
             }
             if ((fabsf(shot->obj.pos.x - shot->unk_48) < 200.0f) && (fabsf(shot->obj.pos.y - shot->unk_4C) < 200.0f) &&
                 (fabsf(shot->obj.pos.z - shot->unk_50) < 200.0f)) {
-                Object_Kill(&shot->obj, shot->sfxPos);
+                Object_Kill(&shot->obj, shot->sfxSource);
                 return;
             }
             break;
     }
     if (shot->unk_64 == 0) {
-        Object_Kill(&shot->obj, shot->sfxPos);
+        Object_Kill(&shot->obj, shot->sfxSource);
     }
     if (shot->unk_5C == 1) {
         if (shot->obj.pos.y < gGroundLevel) {
@@ -1614,7 +1614,7 @@ void func_8003B55C(PlayerShot* shot, s32 index) {
             }
         }
         if (D_80161A88 == 2) {
-            Object_Kill(&shot->obj, shot->sfxPos);
+            Object_Kill(&shot->obj, shot->sfxSource);
             return;
         }
         if (gCurrentLevel == LEVEL_FORTUNA) {
@@ -1635,7 +1635,7 @@ void func_8003B55C(PlayerShot* shot, s32 index) {
         }
     }
     if (shot->unk_64 == 0) {
-        Object_Kill(&shot->obj, shot->sfxPos);
+        Object_Kill(&shot->obj, shot->sfxSource);
         return;
     } else if ((shot->playerNum < 110) || (shot->unk_64 & 1)) {
         func_80038140(shot);
@@ -1687,10 +1687,10 @@ bool func_8003BB4C(PlayerShot* shot) {
              (fabsf(shot->obj.pos.y - (actor->obj.pos.y + actor->info.unk_1C)) <= var_fa0) &&
              (fabsf(shot->obj.pos.z - actor->obj.pos.z) <= var_fa0))) {
             actor->timer_0CA[shot->playerNum] = 20;
-            func_80060F30(gPlayer[shot->playerNum].sfxPos, 0x49008027, shot->playerNum);
+            func_80060F30(gPlayer[shot->playerNum].sfxSource, 0x49008027, shot->playerNum);
             for (j = 0; j < ARRAY_COUNT(gPlayerShots); j++) {
                 if (gPlayerShots[j].obj.id == PLAYERSHOT_4) {
-                    Object_Kill(&gPlayerShots[j].obj, gPlayerShots[j].sfxPos);
+                    Object_Kill(&gPlayerShots[j].obj, gPlayerShots[j].sfxSource);
                 }
             }
             D_801615B8[shot->playerNum] = 3.0f;
@@ -1708,10 +1708,10 @@ bool func_8003BB4C(PlayerShot* shot) {
                 D_80177B00[0][shot->playerNum] = D_80177B00[1][shot->playerNum] = D_80177B00[2][shot->playerNum] =
                     D_80177B00[3][shot->playerNum] = 0;
                 D_80177B00[i][shot->playerNum] = 20;
-                func_80060F30(gPlayer[shot->playerNum].sfxPos, 0x49008027, shot->playerNum);
+                func_80060F30(gPlayer[shot->playerNum].sfxSource, 0x49008027, shot->playerNum);
                 for (j = 0; j < ARRAY_COUNT(gPlayerShots); j++) {
                     if (gPlayerShots[j].obj.id == PLAYERSHOT_4) {
-                        Object_Kill(&gPlayerShots[j].obj, gPlayerShots[j].sfxPos);
+                        Object_Kill(&gPlayerShots[j].obj, gPlayerShots[j].sfxSource);
                     }
                 }
                 D_801615B8[shot->playerNum] = 3.0f;
@@ -1727,12 +1727,12 @@ void func_8003BEF4(PlayerShot* shot) {
     if (gVersusMode) {
         if ((shot->obj.pos.y < gGroundLevel) || func_8003BB4C(shot) ||
             !(gControllerHold[shot->playerNum].button & A_BUTTON) || (shot->unk_64 == 0)) {
-            Object_Kill(&shot->obj, shot->sfxPos);
+            Object_Kill(&shot->obj, shot->sfxSource);
         }
     } else {
         if ((shot->obj.pos.y < gGroundLevel) || func_8003BB4C(shot) ||
             !(gControllerHold[gMainController].button & A_BUTTON) || (shot->unk_64 == 0)) {
-            Object_Kill(&shot->obj, shot->sfxPos);
+            Object_Kill(&shot->obj, shot->sfxSource);
         }
     }
     func_80038140(shot);
@@ -1932,7 +1932,7 @@ void func_8003C4D0(PlayerShot* shot, s32 damage) {
             sp60 = effect->obj.pos.z - shot->obj.pos.z;
             if (sqrtf(SQ(sp68) + SQ(sp64) + SQ(sp60)) < temp_fs2) {
                 if (effect->info.unk_16 == 0) {
-                    Object_Kill(&effect->obj, effect->sfxPos);
+                    Object_Kill(&effect->obj, effect->sfxSource);
                 }
                 if (effect->info.unk_16 == 2) {
                     effect->obj.pos.x += sp68 * 0.03f;
@@ -2038,7 +2038,7 @@ void func_8003CC08(PlayerShot* shot) {
                 shot->unk_58 -= 8;
                 if (shot->unk_58 < 0) {
                     shot->unk_58 = 0;
-                    Object_Kill(&shot->obj, shot->sfxPos);
+                    Object_Kill(&shot->obj, shot->sfxSource);
                     D_8017812C = 0;
                 }
             }
@@ -2219,7 +2219,7 @@ void func_8003D54C(PlayerShot* shot, s32 index) {
                         }
                     }
                 }
-                Object_Kill(&shot->obj, shot->sfxPos);
+                Object_Kill(&shot->obj, shot->sfxSource);
                 func_8007A6F0(&shot->obj.pos, 0x0903502E);
             } else if (gCurrentLevel == LEVEL_AQUAS) {
                 func_i3_801ABA40(shot);
@@ -2292,7 +2292,7 @@ void func_8003DA0C(void) {
                 Matrix_Pop(&gGfxMatrix);
             }
             if (D_80161410 > 0) {
-                func_8005F290(gPlayerShots[i].sfxPos, &D_8015F950);
+                func_8005F290(gPlayerShots[i].sfxSource, &D_8015F950);
             }
         }
     }

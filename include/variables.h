@@ -7,21 +7,6 @@
 #include "sf64object.h"
 #include "sf64player.h"
 
-extern f32 gDefaultSfxPos[];
-extern f32 gDefaultMod;
-extern s8 gDefaultReverb;
-extern s8 gThreadCmdWritePos;
-extern s8 gThreadCmdReadPos;
-extern OSMesgQueue* gAudioTaskStartQueue;
-extern OSMesgQueue* gThreadCmdProcQueue;
-extern OSMesgQueue* gAudioUnkQueue;
-extern OSMesgQueue* gAudioResetQueue;
-
-extern OSMesg sAudioTaskStartMsg[1];
-extern OSMesg sThreadCmdProcMsg[4];
-extern OSMesg sAudioUnkMsg[1];
-extern OSMesg sAudioResetMsg[1];
-
 // fox_360
 extern s32 D_800C9B4C;
 

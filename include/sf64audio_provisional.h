@@ -128,13 +128,6 @@ typedef enum {
     /* 5 */ LOAD_STATUS_PERMANENTLY_LOADED // the entry data is loaded in the permanent pool, it won't be discarded
 } AudioLoadStatus;
 
-typedef enum {
-    /* 0 */ SEQ_PLAYER_0,
-    /* 1 */ SEQ_PLAYER_1,
-    /* 2 */ SEQ_PLAYER_SFX,
-    /* 3 */ SEQ_PLAYER_3
-} SequencePlayerId;
-
 typedef s32 (*DmaHandler)(OSPiHandle* handle, OSIoMesg* mb, s32 direction);
 
 struct Note;
@@ -1127,88 +1120,8 @@ void func_80016804(s32);
 void func_800168BC(void);
 
 
-void func_80016A50(void);
-f32 Audio_GetSfxFalloff(u8 bankId, u8 entryIndex);
-s8 Audio_GetSfxReverb(u8 bankId, u8 entryIndex, u8 channelId);
-s8 Audio_GetSfxPan(f32 xPos, f32 zPos, u8 mode);
-f32 Audio_GetSfxFreqMod(u8 bankId, u8 entryIndex);
-void Audio_SetSfxProperties(u8 bankId, u8 entryIndex, u8 channelId);
-f32 Audio_GetDopplerShift(f32 *sfxPos, f32 *sfxVel, f32 soundSpeed, f32 *curDopplerShift);
-void func_80017494(void);
-void func_80017550(void);
-void Audio_ResetSfxChannelState(void);
-
-void Audio_ProcessSeqCmd(u32 seqCmd);
-void Audio_QueueSeqCmd(s32 seqCmd);
-
-void Audio_SetSfxBanksMute(u16 muteFlags);
-void Audio_ClearBGMMute(u8 channelIndex);
-void Audio_RemoveMatchingSfxRequests(u8 aspect, SfxBankEntry* data);
-void Audio_PlaySfx(u32 sfxId, f32* sfxPos, u8 token, f32* freqMod, f32* volMod, s8* reverbAdd);
-void Audio_ProcessSfxRequest(void);
-void Audio_RemoveSfxBankEntry(u8 bankId, u8 entryIndex);
-void Audio_ChooseActiveSfx(u8 bankId);
-void Audio_PlayActiveSfx(u8 bankId);
-void Audio_KillSfxByBank(u8 bankId);
-void Audio_StopSfxByBankAndSource(u8 bankId, f32* sfxPos);
-void Audio_KillSfxByBankAndSource(u8 bankId, f32 *sfxPos);
-void Audio_KillSfxBySource(f32* sfxPos);
-void Audio_KillSfxBySourceAndId(f32* sfxPos, u32 sfxId);
-void Audio_KillSfxByTokenAndId(u8 token, u32 sfxId);
-void Audio_KillSfxById(u32 sfxId);
-void Audio_SetSfxVolumeMod(u8 bankId, u8 target, u16 timer);
-void Audio_UpdateSfxVolumeMod(u8 bankId);
-void Audio_PlayAllSfx(void);
-void Audio_ResetSfx(void);
-
-void func_8001D0B4(f32 *sfxPos, u32 sfxId, f32 freqMod);
-void func_8001DD40(void);
-
-// provisional prototypes
-void Audio_PlayVoice(s32);
-void Audio_PlayVoiceWithoutBGM(u32);
-void Audio_ClearVoice(void);
-s32 Audio_GetCurrentVoice(void);
-s32 Audio_GetCurrentVoiceStatus(void);
-void func_8001AF40(u8);
-u8* Audio_UpdateFrequencyAnalysis(void);
-void func_8001C8B8(u8);
-void func_8001CA24(u8);
-void func_8001CB80(u8, u8);
-void func_8001CCDC(u8, f32 *);
-void func_8001CE28(u8, f32 *);
-void func_8001CFA8(f32);
-void func_8001D034(f32*, u32, u8);
-void func_8001D10C(f32*, u32);
-void func_8001D15C(u8);
-void func_8001D1C8(u8, u8);
-void func_8001D2FC(f32*, u16);
-void func_8001D3A0(f32*, u16);
-void func_8001D400(s8);
-void func_8001D410(u8);
-void Audio_PlaySequence(u8, u16, u8, u8);
-void Audio_PlayFanfare(u16, u8, u8, u8);
-void func_8001D520(void);
-void func_8001D638(u8);
-void func_8001D6DC(u8);
-void func_8001D8A8(u8, u8);
-void func_8001D8F4(u8);
-void Audio_PlaySequenceDistorted(u8, u16, u16, u8, u8);
-void Audio_PlaySoundTestTrack(u8);
-void func_8001DBD0(u8);
-void func_8001DC6C(u8, u16);
-void Audio_InitSounds(void);
-void func_8001DE1C(u8);
-void func_8001DECC(void);
-
 
 SPTask* func_8001DF50(void);
-
-void AudioThread_QueueCmd(u32, void**);
-void AudioThread_QueueCmdF32(u32, f32);
-void AudioThread_QueueCmdS32(u32, u32);
-void AudioThread_QueueCmdS8(u32, s8);
-
 void func_8001E920(void);
 OSMesg func_8001ECAC(s32 *);
 void* func_8001ED14(s32 seqId, u32* outNumFonts);
@@ -1227,7 +1140,7 @@ extern u8 gSfxRequestWriteIndex;
 extern u8 gSfxRequestReadIndex;
 extern u8 gSfxChannelLayout;
 extern u16 D_800C5D24;
-extern f32 gDefaultSfxPos[3];
+extern f32 gDefaultSfxSource[3];
 extern f32 gDefaultMod;
 extern s8 gDefaultReverb;
 extern s32 gAudioFrameCounter;
@@ -1240,8 +1153,8 @@ extern u8 D_800C5D58;
 
 // file split?
 
-extern s8 D_800C5D60;
-extern s8 D_800C5D64;
+extern s8 sBaseReverb;
+extern s8 sAudioSpecReverb;
 extern u8 sVolumeSettings[3];
 extern u8  D_800C5D6C[29][7];
 extern s8  D_800C5E38[29];
@@ -1519,6 +1432,16 @@ typedef enum {
     SEQ_ID_57,
     SEQ_ID_58,
     SEQ_ID_59,
+    SEQ_ID_60,
+    SEQ_ID_61,
+    SEQ_ID_62,
+    SEQ_ID_63,
+    SEQ_ID_64,
+    SEQ_ID_65,
+    SEQ_ID_66,
+    SEQ_ID_67,
+    SEQ_ID_68,
+    SEQ_ID_69,
 } BgmSeqIds;
 
 
