@@ -146,6 +146,8 @@ extern u8 D_6002890[];
 extern Gfx D_6003090[];
 extern u8 D_C000A80[];
 
+#include "assets/ast_bg_space.h"
+
 // DATA SECTION START
 
 s16 D_800D1970 = 0;
