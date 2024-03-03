@@ -147,6 +147,7 @@ extern Gfx D_6003090[];
 extern u8 D_C000A80[];
 
 #include "assets/ast_bg_space.h"
+#include "assets/ast_bg_planet.h"
 
 // DATA SECTION START
 
