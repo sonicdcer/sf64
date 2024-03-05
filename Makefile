@@ -249,6 +249,10 @@ $(shell mkdir -p $(BUILD_DIR)/linker_scripts/$(VERSION) $(BUILD_DIR)/linker_scri
 
 
 # directory flags
+build/src/libultra/gu/%.o: OPTFLAGS := -O3 -g0
+build/src/libultra/io/%.o: OPTFLAGS := -O1 -g0
+build/src/libultra/os/%.o: OPTFLAGS := -O1 -g0
+build/src/libultra/rmon/%.o: OPTFLAGS := -O1 -g0
 
 # per-file flags
 build/src/main/audio_synthesis.o:  OPTFLAGS := -O2 -g0
@@ -264,72 +268,7 @@ build/src/main/sys_math64.o: OPTFLAGS := -O2 -g0
 
 build/src/libultra/debug/kdebugserver.o: OPTFLAGS := -O1 -g0
 
-build/src/libultra/gu/sqrtf.o: OPTFLAGS := -O3 -g0
-build/src/libultra/gu/ortho.o: OPTFLAGS := -O3 -g0
-build/src/libultra/gu/lookat.o: OPTFLAGS := -O3 -g0
-build/src/libultra/gu/perspective.o: OPTFLAGS := -O3 -g0
-build/src/libultra/gu/sinf.o: OPTFLAGS := -O3 -g0
-build/src/libultra/gu/cosf.o: OPTFLAGS := -O3 -g0
-build/src/libultra/gu/mtxutil.o: OPTFLAGS := -O3 -g0
-
 build/src/libultra/host/readhost.o:	OPTFLAGS := -O1 -g0
-
-build/src/libultra/io/crc.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/contramwrite.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/cartrominit.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/contquery.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/contramread.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/devmgr.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/epidma.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/epirawdma.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/epirawwrite.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/epirawread.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/leodiskinit.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/leointerrupt.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/pigetcmdq.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/conteepread.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/conteepwrite.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/conteepprobe.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/contreaddata.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/dpsetstat.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/aisetnextbuf.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/pimgr.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/pidma.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/pirawdma.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/pfsisplug.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/spsetpc.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/motor.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/controller.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/ai.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/vi.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/aigetlen.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/aisetfreq.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/pfsgetstatus.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/si.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/siacs.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/sp.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/sirawdma.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/sirawread.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/sirawwrite.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/sprawwrite.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/sprawread.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/sprawdma.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/spgetstat.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/sptaskyielded.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/sptaskyield.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/sptask.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/spsetstat.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/pirawread.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/piacs.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/viblack.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/vimgr.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/vigetcurrcontext.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/virepeatline.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/visetmode.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/visetspecial.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/visetevent.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/viswapbuf.o: OPTFLAGS := -O1 -g0
-build/src/libultra/io/viswapcontext.o: OPTFLAGS := -O1 -g0
 
 build/src/libultra/libc/ldiv.o: OPTFLAGS := -O2 -g0
 build/src/libultra/libc/string.o: OPTFLAGS := -O2 -g0
@@ -338,41 +277,6 @@ build/src/libultra/libc/xldtob.o: OPTFLAGS := -O3 -g0
 build/src/libultra/libc/xprintf.o: OPTFLAGS := -O3 -g0
 build/src/libultra/libc/ll.o: OPTFLAGS := -O1 -g0
 build/src/libultra/libc/ll.o: MIPS_VERSION := -mips3 -32
-
-build/src/libultra/os/createmesgqueue.o: OPTFLAGS := -O1 -g0
-build/src/libultra/os/createthread.o: OPTFLAGS := -O1 -g0
-build/src/libultra/os/setglobalintmask.o: OPTFLAGS := -O1 -g0
-build/src/libultra/os/gettime.o: OPTFLAGS := -O1 -g0
-build/src/libultra/os/initialize.o: OPTFLAGS := -O1 -g0
-build/src/libultra/os/jammesg.o: OPTFLAGS := -O1 -g0
-build/src/libultra/os/destroythread.o: OPTFLAGS := -O1 -g0
-build/src/libultra/os/getactivequeue.o: OPTFLAGS := -O1 -g0
-build/src/libultra/os/recvmesg.o: OPTFLAGS := -O1 -g0
-build/src/libultra/os/rdbsend.o: OPTFLAGS := -O1 -g0
-build/src/libultra/os/resetglobalintmask.o: OPTFLAGS := -O1 -g0
-build/src/libultra/os/sendmesg.o: OPTFLAGS := -O1 -g0
-build/src/libultra/os/startthread.o: OPTFLAGS := -O1 -g0
-build/src/libultra/os/stopthread.o: OPTFLAGS := -O1 -g0
-build/src/libultra/os/setthreadpri.o: OPTFLAGS := -O1 -g0
-build/src/libultra/os/settimer.o: OPTFLAGS := -O1 -g0
-build/src/libultra/os/settime.o: OPTFLAGS := -O1 -g0
-build/src/libultra/os/seteventmesg.o: OPTFLAGS := -O1 -g0
-build/src/libultra/os/initrdb.o: OPTFLAGS := -O1 -g0
-build/src/libultra/os/thread.o: OPTFLAGS := -O1 -g0
-build/src/libultra/os/timerintr.o: OPTFLAGS := -O1 -g0
-build/src/libultra/os/timerintr.o: OPTFLAGS := -O1 -g0
-build/src/libultra/os/getthreadpri.o: OPTFLAGS := -O1 -g0
-build/src/libultra/os/virtualtophysical.o: OPTFLAGS := -O1 -g0
-build/src/libultra/os/yieldthread.o: OPTFLAGS := -O1 -g0
-
-build/src/libultra/rmon/rmoncmds.o: OPTFLAGS := -O1 -g0
-build/src/libultra/rmon/rmonmain.o: OPTFLAGS := -O1 -g0
-build/src/libultra/rmon/rmonmem.o: OPTFLAGS := -O1 -g0
-build/src/libultra/rmon/rmonbrk.o: OPTFLAGS := -O1 -g0
-build/src/libultra/rmon/rmontask.o: OPTFLAGS := -O1 -g0
-build/src/libultra/rmon/rmonregs.o: OPTFLAGS := -O1 -g0
-build/src/libultra/rmon/rmonmisc.o: OPTFLAGS := -O1 -G0
-build/src/libultra/rmon/rmonsio.o: OPTFLAGS := -O1 -g0
 
 # cc & asm-processor
 CC := $(ASM_PROC) $(ASM_PROC_FLAGS) $(IDO) -- $(AS) $(ASFLAGS) --
@@ -441,6 +345,7 @@ assets:
 	@echo "Extracting assets..."
 	@$(TORCH) code $(BASEROM_UNCOMPRESSED)
 	@$(TORCH) header $(BASEROM_UNCOMPRESSED)
+	@$(TORCH) modding export $(BASEROM_UNCOMPRESSED)
 
 clean:
 	@git clean -fdx asm/

@@ -17,26 +17,10 @@ extern Gfx D_1015FC0[];
 extern Gfx D_1016130[];
 extern Gfx D_10162A0[];
 extern Gfx D_1016410[];
-extern Gfx D_2000000[];
-extern Gfx D_2001090[];
-extern Gfx D_2002120[];
-extern Gfx D_20031B0[];
-extern Gfx D_2004240[];
-extern Gfx D_20052D0[];
-extern Gfx D_2006360[];
-extern Gfx D_20073F0[];
-extern Gfx D_2008480[];
-extern Gfx D_2009510[];
-extern Gfx D_200A5A0[];
-extern Gfx D_200B630[];
-extern Gfx D_200C6C0[];
-extern Gfx D_200E7F0[];
-extern Gfx D_200F080[];
-extern Gfx D_200F910[];
-extern Gfx D_20101A0[];
-extern Gfx D_2010A30[];
+
 extern Gfx D_4008CE0[];
 extern Gfx D_4008F70[];
+
 extern Gfx D_6003440[];
 extern Gfx D_60034E0[];
 extern Gfx D_6003580[];
@@ -48,7 +32,11 @@ extern u16 D_6012840[];
 extern Gfx D_6016880[];
 extern Gfx D_6018AF0[];
 extern Gfx D_601BAD0[];
+
 extern Gfx D_9013C20[];
+
+#include "assets/ast_bg_space.h"
+#include "assets/ast_bg_planet.h"
 
 void BonusText_Display(f32 xPos, f32 yPos, f32 zPos, s32 hits) {
     s32 i;
@@ -2044,9 +2032,9 @@ void func_8007D2F4(Effect* effect) {
 }
 
 Gfx* D_800D17A4[] = {
-    D_200B630, D_200B630, D_200B630, D_200B630, D_200A5A0, D_2009510, D_2008480,
-    D_20073F0, D_2006360, D_200C6C0, D_20052D0, D_2004240, D_20031B0, D_2002120,
-    D_2001090, D_2000000, D_2010A30, D_20101A0, D_200F910, D_200F080, D_200E7F0,
+    D_200B630, D_200B630,           D_200B630, D_200B630, D_200A5A0, D_2009510, D_2008480,
+    D_20073F0, D_2006360,           D_200C6C0, D_20052D0, D_2004240, D_20031B0, D_2002120,
+    D_2001090, D_BG_PLANET_2000000, D_2010A30, D_20101A0, D_200F910, D_200F080, D_200E7F0,
 };
 
 f32 D_800D17F8[] = {

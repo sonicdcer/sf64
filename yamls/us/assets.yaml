@@ -17,13 +17,21 @@
 
   - name: ast_bg_space
     exclusive_ram_id: segment_02
-    type: bin
+    type: code
+    dir: assets
     start: 0x8A68C0
+    vram: 0x02000000
+    subsegments:
+      - [0x8A68C0, .data, ast_bg_space/ast_bg_space]
 
   - name: ast_bg_planet
     exclusive_ram_id: segment_02
-    type: bin
+    type: code
+    dir: assets
     start: 0x8AE0A0
+    vram: 0x02000000
+    subsegments:
+      - [0x8AE0A0, .data, ast_bg_planet/ast_bg_planet]
 
   - name: ast_arwing
     exclusive_ram_id: segment_03
