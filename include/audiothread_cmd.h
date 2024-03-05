@@ -1,11 +1,9 @@
 #ifndef AUDIOTHREAD_CMD_H
 #define AUDIOTHREAD_CMD_H
 
-
-void AudioThread_QueueCmd(u32, void**);
-void AudioThread_QueueCmdF32(u32, f32);
-void AudioThread_QueueCmdS32(u32, u32);
-void AudioThread_QueueCmdS8(u32, s8);
+void AudioThread_QueueCmdF32(u32 opArgs, f32 val);
+void AudioThread_QueueCmdS32(u32 opArgs, u32 val);
+void AudioThread_QueueCmdS8(u32 opArgs, s8 val);
 
 /**
  * Audio thread commands to safely transfer information/requests/data
@@ -247,8 +245,8 @@ typedef enum {
  * @param ioPort the index of the array to store the input-output value
  * @param ioData (s8) the value that's written to the input-output array
  */
-#define AUDIOCMD_SEQPLAYER_SET_IO(seqPlayerIndex, unk, ioPort, ioData) \
-    AudioThread_QueueCmdS8(AUDIO_MK_CMD(AUDIOCMD_OP_SEQPLAYER_SET_IO, seqPlayerIndex, unk, ioPort), ioData)
+#define AUDIOCMD_SEQPLAYER_SET_IO(seqPlayerIndex, unk, ioData) \
+    AudioThread_QueueCmdS8(AUDIO_MK_CMD(AUDIOCMD_OP_SEQPLAYER_SET_IO, seqPlayerIndex, unk, 0), ioData)
 
 /**
  * Set the tempo (bpm) of a sequence on a given seqPlayer
@@ -344,8 +342,8 @@ typedef enum {
  * @param seqId the id of the sequence to play, see `SeqId`
  * @param fadeInTimer (s32) number of ticks to fade in the sequence to the requested volume
  */
-#define AUDIOCMD_GLOBAL_INIT_SEQPLAYER(seqPlayerIndex, seqId, fadeInTimer) \
-    AudioThread_QueueCmdS32(AUDIO_MK_CMD(AUDIOCMD_OP_GLOBAL_INIT_SEQPLAYER, seqPlayerIndex, seqId, 0), fadeInTimer)
+#define AUDIOCMD_GLOBAL_INIT_SEQPLAYER(seqPlayerIndex, seqId, arg2, fadeInTimer) \
+    AudioThread_QueueCmdS32(AUDIO_MK_CMD(AUDIOCMD_OP_GLOBAL_INIT_SEQPLAYER, seqPlayerIndex, seqId, arg2), fadeInTimer)
 
 /**
  * Disable a sequence player
@@ -456,8 +454,8 @@ typedef enum {
  * @param sampleBankId the id of the samplebank to load
  * @param retData return data from `externalLoadQueue`
  */
-#define AUDIOCMD_GLOBAL_ASYNC_LOAD_SAMPLE_BANK(sampleBankId, retData) \
-    AudioThread_QueueCmdS8(AUDIO_MK_CMD(AUDIOCMD_OP_GLOBAL_ASYNC_LOAD_SAMPLE_BANK, sampleBankId, 0, retData), 0)
+#define AUDIOCMD_GLOBAL_ASYNC_LOAD_SAMPLE_BANK(sampleBankId, nChunks, retData) \
+    AudioThread_QueueCmdS8(AUDIO_MK_CMD(AUDIOCMD_OP_GLOBAL_ASYNC_LOAD_SAMPLE_BANK, sampleBankId, nChunks, retData), 0)
 
 /**
  * Asynchronously load a font
@@ -465,8 +463,8 @@ typedef enum {
  * @param fontId the id of the soundfont to load
  * @param retData return data from `externalLoadQueue`
  */
-#define AUDIOCMD_GLOBAL_ASYNC_LOAD_FONT(fontId, unk, retData) \
-    AudioThread_QueueCmdS8(AUDIO_MK_CMD(AUDIOCMD_OP_GLOBAL_ASYNC_LOAD_FONT, fontId, unk, retData), 0)
+#define AUDIOCMD_GLOBAL_ASYNC_LOAD_FONT(fontId, nChunks, retData) \
+    AudioThread_QueueCmdS8(AUDIO_MK_CMD(AUDIOCMD_OP_GLOBAL_ASYNC_LOAD_FONT, fontId, nChunks, retData), 0)
 
 /**
  * Discard sequence fonts

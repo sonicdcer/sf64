@@ -66,7 +66,20 @@
     "i5.h": "c",
     "ast_warp_zone.h": "c",
     "sf64audio_provisional.h": "c",
-    "fox_enmy_assets.h": "c"
+    "fox_enmy_assets.h": "c",
+    "audiothread_cmd.h": "c",
+    "span": "c",
+    "string_span": "c",
+    "array": "c",
+    "bitset": "c",
+    "string_view": "c",
+    "initializer_list": "c",
+    "regex": "c",
+    "utility": "c",
+    "valarray": "c",
+    "util": "c",
+    "variant": "c",
+    "chrono": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }
