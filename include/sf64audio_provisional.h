@@ -262,7 +262,7 @@ typedef struct {
     /* 0x005 */ s8 unk_05;
     /* 0x006 */ u16 windowSize;
     /* 0x008 */ u16 unk_08;
-    /* 0x00A */ s16 unk_0A;
+    /* 0x00A */ u16 unk_0A;
     /* 0x00C */ u16 decayRatio; // determines how much reverb persists
     /* 0x00E */ u16 unk_0E;
     /* 0x010 */ s32 nextRingBufPos;
@@ -476,14 +476,28 @@ typedef struct SequenceLayer {
     /* 0x7C */ char pad7C[4];
 } SequenceLayer; //size = 0x80
 
+typedef struct UnkStruct_800097A8 {
+    /* 0x00 */ s16* unk_0;
+    /* 0x04 */ s32 unk_4;
+    /* 0x08 */ s32 unk_8;
+    /* 0x0C */ s16* unk_C;
+    /* 0x10 */ char pad10[4];
+    /* 0x14 */ struct SampleDma* unk_14;
+    /* 0x18 */ s16 unk18;
+    /* 0x1A */ char pad1A[6];
+} UnkStruct_800097A8;  /* size = 0x20 */
+
 typedef struct {
     /* 0x000 */ s16 adpcmdecState[16];
     /* 0x020 */ s16 finalResampleState[16];
-    /* 0x040 */ s16 mixEnvelopeState[32];
-    /* 0x080 */ s16 unusedState[16];
-    /* 0x0A0 */ s16 haasEffectDelayState[32];
-    /* 0x0E0 */ s16 combFilterState[128];
-} NoteSynthesisBuffers; // size = 0x1E0
+    /* 0x040 */ UnkStruct_800097A8 unk_40;
+    /* 0x060 */ char pad[0x20];
+    /* 0x080 */ s16 panSamplesBuffer[0x20];
+    // /* 0x040 */ s16 mixEnvelopeState[32];
+    // /* 0x080 */ s16 unusedState[16];
+    // /* 0x0A0 */ s16 haasEffectDelayState[32];
+    // /* 0x0E0 */ s16 combFilterState[128];
+} NoteSynthesisBuffers; // size = 0xC0
 
 typedef struct {
     /* 0x00 */ u8 restart;
@@ -547,13 +561,19 @@ typedef struct {
     } bitField0;
     struct {
         /* 0x01 */ u8 reverbIndex : 3;
-        /* 0x01 */ u8 bookOffset : 2;
+        /* 0x01 */ u8 bookOffset : 3;
+        // /* 0x01 */ u8 isSyntheticWave : 1;
         /* 0x01 */ u8 isSyntheticWave : 1;
         /* 0x01 */ u8 hasTwoParts : 1;
-        /* 0x01 */ u8 useHaasEffect : 1;
     } bitField1;
-    /* 0x02 */ u8 pad2[0xA];
-    /* 0x0C*/ s16* waveSampleAddr;
+    /* 0x02 */ u8 unk_02;
+    /* 0x03 */ u8 unk_03;
+    /* 0x04 */ u8 unk_04;
+    /* 0x05 */ u8 unk_05;
+    /* 0x06 */ u16 unk_06;
+    /* 0x08 */ u16 unk_08;
+    /* 0x0A */ u16 unk_0A;
+    /* 0x0C */ s16* waveSampleAddr;
 } NoteSubEu; // size = 0x10
 
 typedef struct Note {
@@ -781,7 +801,7 @@ typedef struct {
     /* 0x10 */ AudioTableEntry entries[1]; // (dynamic size)
 } AudioTable;                              // size >= 0x20
 
-typedef struct {
+typedef struct SampleDma {
     /* 0x00 */ u8* ramAddr;
     /* 0x04 */ u32 devAddr;
     /* 0x08 */ u16 sizeUnused;
@@ -998,7 +1018,19 @@ typedef struct {
          ((bit10)<<21)|((bit11)<<20)|((bit12)<<19)|((bit13)<<18))
 
 void func_80008780(f32 *, s32, f32 *);
-Acmd* func_80009B64(Acmd*, s32*, s16*, s32);
+void func_80009A2C(s32 updateIndex, s32 noteIndex);
+void func_80009AAC(s32 updateIndex);
+Acmd* func_8000A700(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisState* synthState, s16* aiBuf, s32 aiBufLen, Acmd* aList, s32 updateIndex);
+Acmd* func_8000A25C(s16* aiBuf, s32 aiBufLen, Acmd* aList, s32 updateIndex);
+Acmd* func_800098DC(Acmd* aList, u16 dmem, u16 startPos, s32 size, s32 reverbIndex);
+Acmd* func_80009984(Acmd* aList, u16 dmem, u16 startPos, s32 size, s32 reverbIndex);
+Acmd* func_80009B64(Acmd* aList, s32* cmdCount, s16* aiBufStart, s32 aiBufLen);
+Acmd* func_80009D78(Acmd* aList, s32 aiBufLen, s16 reverbIndex, s16 updateIndex);
+Acmd* func_8000A128(Acmd* aList, s16 reverbIndex, s16 updateIndex);
+Acmd* func_8000B3F0(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthState, s32 numSamplesToLoad);
+Acmd* func_8000B480(Acmd* aList, NoteSynthesisState* synthState, s32 size, u16 pitch, u16 inpDmem, u32 resampleFlags);
+Acmd* func_8000B51C(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthState, s32 aiBufLen, u16 dmemSrc, s32 delaySide, s32 flags);
+Acmd* func_8000B98C(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthState, s32 size, s32 flags, s32 delaySide);
 
 void AudioHeap_ResetLoadStatus(void);
 void AudioHeap_DiscardFont(s32 fontId);
@@ -1117,6 +1149,7 @@ void func_800132E8(void);
 
 void func_800144E4(SequencePlayer*);
 void func_800145BC(AudioListItem*, AudioListItem*);
+void func_8001678C(s32);
 void func_80016804(s32);
 void func_800168BC(void);
 
