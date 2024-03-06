@@ -10,3 +10,6 @@
 [submodule "tools/m2c"]
 	path = tools/m2c
 	url = https://github.com/matt-kempster/m2c
+[submodule "tools/Torch"]
+	path = tools/Torch
+	url = https://github.com/HarbourMasters/Torch
