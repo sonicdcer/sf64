@@ -12,6 +12,8 @@ f32 D_80178740;
 s32 D_80178744;
 s32 D_80178748;
 
+#include "assets/ast_allies.h"
+
 s32 gCurrentMsgPri = 0;
 
 void func_800BA760(void) {

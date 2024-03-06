@@ -148,6 +148,7 @@ extern u8 D_C000A80[];
 
 #include "assets/ast_bg_space.h"
 #include "assets/ast_bg_planet.h"
+#include "assets/ast_allies.h"
 
 // DATA SECTION START
 
