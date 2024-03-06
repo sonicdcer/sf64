@@ -590,7 +590,7 @@ s32 AudioHeap_ResetStep(void) {
                     }
                 }
 
-                gResetFadeoutFramesLeft = 0x10 / sp24;
+                gResetFadeoutFramesLeft = 16 / sp24;
                 gResetStatus--;
             }
             break;

@@ -23,7 +23,7 @@ void Graphics_NMIWipe(void) {
     Graphics_FillRectangle(&gMasterDisp, SCREEN_WIDTH - 8 - MIN(304, D_800D4A80), 176, SCREEN_WIDTH - 8, 232, 0, 0, 0,
                            255);
     if (D_800D4A80 == 0) {
-        func_8001EE00();
+        AudioThread_PreNMIReset();
     }
     D_800D4A80 += 45;
     if (D_800D4A80 >= 485) {

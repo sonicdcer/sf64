@@ -870,7 +870,7 @@ void Audio_StartSequence(u8 seqPlayId, u8 seqId, u8 seqArgs, u16 fadeInTime) {
     s32 pad;
 
     if (!gStartSeqDisabled || (seqPlayId == SEQ_PLAYER_SFX)) {
-        AUDIOCMD_GLOBAL_INIT_SEQPLAYER((u32) seqPlayId, (u32) seqId, fadeInTime);
+        AUDIOCMD_GLOBAL_INIT_SEQPLAYER((u32) seqPlayId, (u32) seqId, 0, fadeInTime);
         gActiveSequences[seqPlayId].prevSeqId = gActiveSequences[seqPlayId].seqId = seqId | ((seqArgs) << 8);
         if (gActiveSequences[seqPlayId].mainVolume.mod != 1.0f) {
             AUDIOCMD_SEQPLAYER_FADE_VOLUME_SCALE((u32) seqPlayId, gActiveSequences[seqPlayId].mainVolume.mod);
@@ -930,8 +930,8 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
                     gActiveSequences[seqPlayId].isWaitingForFonts = 1;
                     Audio_StopSequence(seqPlayId, 1);
                     if (gActiveSequences[seqPlayId].prevSeqId != 0xFFFF) {
-                        tempptr = func_8001ED14(seqNumber, &sp4C);
-                        tempPtr2 = func_8001ED14(gActiveSequences[seqPlayId].prevSeqId & 0xFF, &sp4C);
+                        tempptr = AudioThread_GetFontsForSequence(seqNumber, &sp4C);
+                        tempPtr2 = AudioThread_GetFontsForSequence(gActiveSequences[seqPlayId].prevSeqId & 0xFF, &sp4C);
                         if (tempptr[0] != tempPtr2[0]) {
                             AUDIOCMD_GLOBAL_DISCARD_SEQ_FONTS(seqNumber);
                         }
@@ -1061,8 +1061,8 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
             break;
         case 7:
             val = seqCmd & 0xFF;
-            ioPort = ((seqCmd & 0xFF0000) >> 0x10);
-            AUDIOCMD_SEQPLAYER_SET_IO(seqPlayId, ioPort, 0, val);
+            ioPort = ((seqCmd & 0xFF0000) >> 0x10); // may be misnamed
+            AUDIOCMD_SEQPLAYER_SET_IO(seqPlayId, ioPort, val);
             // AudioThread_QueueCmdS8(((seqPlayId & 0xFF) << 0x10) | 0x46000000 | (temp3 << 8), temp4);
             break;
         case 8:
@@ -1127,7 +1127,7 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
             sp61 = sNewAudioSpecId;
             sNewAudioSpecId = specId;
             if (sp61 != sNewAudioSpecId) {
-                func_8001ED8C((OSMesg) (u32) sNewAudioSpecId);
+                AudioThread_ResetAudioHeap(sNewAudioSpecId);
                 func_8001DE1C(sp61);
                 AUDIOCMD_GLOBAL_STOP_AUDIOCMDS();
             } else {
@@ -1224,17 +1224,17 @@ void Audio_UpdateActiveSequences(void) {
     s32 temp;
     u32 cmd;
     f32 fadeMod;
-    s32 sp70;
+    u32 sp70;
     s32 pad1;
     s32 pad2;
 
     for (seqPlayId = 0; seqPlayId < 4; seqPlayId++) {
         if ((gActiveSequences[seqPlayId].isWaitingForFonts != 0)) {
-            switch ((s32) func_8001ECAC(&sp70)) {
-                case 1:
-                case 2:
-                case 3:
-                case 4:
+            switch ((s32) AudioThread_GetAsyncLoadStatus(&sp70)) {
+                case SEQ_PLAYER_BGM + 1:
+                case SEQ_PLAYER_FANFARE + 1:
+                case SEQ_PLAYER_SFX + 1:
+                case SEQ_PLAYER_VOICE + 1:
                     gActiveSequences[seqPlayId].isWaitingForFonts = 0;
                     Audio_ProcessSeqCmd(gActiveSequences[seqPlayId].startSeqCmd);
                     break;
@@ -1433,7 +1433,7 @@ u8 func_80018FA4(void) {
         if (D_800C5D58 == 1) {
             if (func_8001ED34() == 1) {
                 D_800C5D58 = 0;
-                AUDIOCMD_SEQPLAYER_SET_IO(SEQ_PLAYER_SFX, 0, 0, gSfxChannelLayout);
+                AUDIOCMD_SEQPLAYER_SET_IO(SEQ_PLAYER_SFX, 0, gSfxChannelLayout);
                 func_8001DD40();
             }
         } else if (D_800C5D58 == 2) {
@@ -1441,7 +1441,7 @@ u8 func_80018FA4(void) {
                 ;
             }
             D_800C5D58 = 0;
-            AUDIOCMD_SEQPLAYER_SET_IO(SEQ_PLAYER_SFX, 0, 0, gSfxChannelLayout);
+            AUDIOCMD_SEQPLAYER_SET_IO(SEQ_PLAYER_SFX, 0, gSfxChannelLayout);
             func_8001DD40();
         }
     }
@@ -2953,7 +2953,7 @@ void func_8001DD40(void) {
     func_80017550();
     SEQCMD_SET_SEQPLAYER_VOLUME(SEQ_PLAYER_SFX, 0, 127);
     SEQCMD_SET_SEQPLAYER_VOLUME(SEQ_PLAYER_VOICE, 0, 127);
-    func_8001E920();
+    AudioThread_ScheduleProcessCmds();
     AUDIOCMD_GLOBAL_STOP_AUDIOCMDS();
     AUDIOCMD_GLOBAL_STOP_AUDIOCMDS();
     AUDIOCMD_GLOBAL_STOP_AUDIOCMDS();
@@ -2989,7 +2989,7 @@ void Audio_Update(void) {
         func_8001AF50();
         Audio_UpdateActiveSequences();
         Audio_UpdateDelayedSeqCmds();
-        func_8001E920();
+        AudioThread_ScheduleProcessCmds();
     }
     gAudioFrameCounter++;
 }

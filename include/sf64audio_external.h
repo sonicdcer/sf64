@@ -134,8 +134,8 @@ void AudioLoad_Init(void);
 void func_80016A50(void);
 void Audio_InitSounds(void);
 void Audio_Update(void);
-SPTask* func_8001DF50(void);
-void func_8001EE00(void);
+SPTask* AudioThread_CreateTask(void);
+void AudioThread_PreNMIReset(void);
 
 
 #endif

@@ -1,7 +1,7 @@
 #include "sys.h"
 
 void AudioLoad_Init(void);
-SPTask* func_8001DF50(void);
+SPTask* AudioThread_CreateTask(void);
 void Audio_InitSounds(void);
 void Audio_Update(void);
 
@@ -109,7 +109,7 @@ void Audio_ThreadEntry(void* arg0) {
 
     AudioLoad_Init();
     Audio_InitSounds();
-    task = func_8001DF50();
+    task = AudioThread_CreateTask();
     if (task != NULL) {
         task->msgQueue = &gAudioTaskMsgQueue;
         task->msg = (OSMesg) TASK_MESG_1;
@@ -117,7 +117,7 @@ void Audio_ThreadEntry(void* arg0) {
         osSendMesg(&gTaskMsgQueue, task, OS_MESG_PRI_NORMAL);
     }
     while (1) {
-        task = func_8001DF50();
+        task = AudioThread_CreateTask();
         if (task != NULL) {
             task->msgQueue = &gAudioTaskMsgQueue;
             task->msg = (OSMesg) TASK_MESG_1;
