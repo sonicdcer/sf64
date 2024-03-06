@@ -39,6 +39,8 @@ extern Animation D_601F3B8;
 extern Limb* D_6020C6C[];
 extern Limb* D_602D140[];
 
+#include "assets/ast_allies.h"
+
 Vec3f D_800C9F60[] = {
     { 2000.0f, 2000.0f, 2000.0f },
     { -2000.0f, 2000.0f, 2000.0f },

@@ -79,8 +79,12 @@
 
   - name: ast_allies
     exclusive_ram_id: segment_0D
-    type: bin
+    type: code
+    dir: assets
     start: 0x955270
+    vram: 0x0D000000
+    subsegments:
+      - [0x955270, .data, ast_allies/ast_allies]
 
   - name: ast_corneria
     exclusive_ram_id: segment_06

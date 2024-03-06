@@ -6,6 +6,7 @@ s32 D_80161690;
 
 #include "fox_enmy2_assets.h"
 #include "assets/ast_warp_zone.h"
+#include "assets/ast_allies.h"
 
 void func_8006A7B0(u16* msg, s32 character) {
     PRINTF("Enm->obj.pos.y + tmp_xyz.y=<%10.3f>\n");
