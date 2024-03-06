@@ -79,7 +79,8 @@
     "valarray": "c",
     "util": "c",
     "variant": "c",
-    "chrono": "c"
+    "chrono": "c",
+    "ast_allies.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }
