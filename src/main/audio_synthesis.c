@@ -639,7 +639,7 @@ Acmd* func_80009B64(Acmd* aList, s32* cmdCount, s16* aiBufStart, s32 aiBufLen) {
                 func_800080C0(chunkLen, gAudioBufferParams.ticksPerUpdate - i, j);
             }
         }
-        aCmdPtr = func_8000A25C(aiBufPtr, chunkLen, aCmdPtr, gAudioBufferParams.ticksPerUpdate - i);
+        aCmdPtr = func_8000A25C((s16*) aiBufPtr, chunkLen, aCmdPtr, gAudioBufferParams.ticksPerUpdate - i);
         aiBufLen -= chunkLen;
         aiBufPtr += chunkLen;
     }
