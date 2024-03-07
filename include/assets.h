@@ -231,15 +231,24 @@ extern Gfx D_400B390[];
 
 // ast_font
 extern u8 D_5000000[];
-extern u8 D_HUD_5000000[];
 extern u8 D_5000080[];
 extern u8 D_5000100[];
 extern u8 D_5000180[];
+extern u8 D_5000200[];
 extern u8 D_5000280[];
 extern u8 D_5000380[];
 extern u8 D_5000400[];
 extern u8 D_5000480[];
+extern u8 D_5000500[];
+extern u8 D_5000D50[];
+extern u8 D_5001110[];
+extern u8 D_5001750[];
+extern u8 D_5001C50[];
 extern u8 D_50021F0[];
+extern u8 D_50022F0[];
+extern u8 D_5002DC0[];
+extern u8 D_5003A00[];
+extern u8 D_5004580[];
 extern u16 D_50077B0[];
 extern u8 D_5007F60[];
 extern u8 D_5009F60[];

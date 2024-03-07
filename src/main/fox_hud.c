@@ -108,7 +108,7 @@ extern Gfx D_101B480[];
 extern Gfx D_101B310[];
 extern Gfx D_101B1A0[];
 extern u16 D_3000120[];
-extern u16 D_5000200[];
+extern u8 D_5000200[];
 extern u16 D_5000300[];
 extern u8 D_5000500[];
 extern u8 D_5000D50[];
@@ -116,7 +116,6 @@ extern u8 D_5001110[];
 extern u8 D_5001750[];
 extern u8 D_5001C50[];
 extern u8 D_50022F0[];
-extern u8 D_5002D40[];
 extern u8 D_5002DC0[];
 extern u8 D_5003A00[];
 extern u8 D_5004580[];
@@ -2754,9 +2753,9 @@ void func_8008C104(u16* texture, u16* arg1) {
 }
 
 void func_8008C390(f32 arg0, f32 arg1, f32 arg2, s32 arg3) {
-    u16* D_800D1EC0[] = {
-        (u16*) D_HUD_5000000, (u16*) D_5000080, (u16*) D_5000100, (u16*) D_5000180, D_5000200,
-        (u16*) D_5000280, D_5000300,        (u16*) D_5000380, (u16*) D_5000400, (u16*) D_5000480,
+    void* D_800D1EC0[] = {
+        D_5000000, D_5000080, D_5000100, D_5000180, D_5000200,
+        D_5000280, D_5000300,        D_5000380, D_5000400, D_5000480,
     };
     s32 i;
 

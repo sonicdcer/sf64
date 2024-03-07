@@ -18,6 +18,74 @@ D_5000080:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000080, symbol: D_5000080 }
 
 # 2
-
 D_5000100:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000100, symbol: D_5000100 }
+
+# 3
+D_5000180:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000180, symbol: D_5000180 }
+
+# 4
+D_5000200:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000200, symbol: D_5000200 }
+
+# 5
+D_5000280:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000280, symbol: D_5000280 }
+
+# 6
+D_5000300:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000300, symbol: D_5000300 }
+
+# 7
+D_5000380:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000380, symbol: D_5000380 }
+
+# 8
+D_5000400:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000400, symbol: D_5000400 }
+
+# 9
+D_5000480:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000480, symbol: D_5000480 }
+
+# Mission No.
+D_5000500:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 112, height: 19, offset: 0x5000500, symbol: D_5000500 }
+
+# Training
+D_5000D50:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 80, height: 12, offset: 0x5000D50, symbol: D_5000D50 }
+
+# Enemies Down
+D_5001110:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 64, height: 25, offset: 0x5001110, symbol: D_5001110 }
+
+# Accumulated Total
+D_5001750:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 128, height: 10, offset: 0x5001750, symbol: D_5001750 }
+
+# Status of Team
+D_5001C50:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 120, height: 12, offset: 0x5001C50, symbol: D_5001C50 }
+
+# End
+D_50021F0:
+    { type: TEXTURE, ctype: u8, format: IA8, width: 32, height: 8, offset: 0x50021F0, symbol: D_50021F0 }
+
+# ACCOM
+D_50022F0:
+    { type: TEXTURE, ctype: u8, format: IA8, width: 120, height: 23, offset: 0x50022F0, symbol: D_50022F0, pad: 8 }
+
+# PLISHED
+D_5002DC0:
+    { type: TEXTURE, ctype: u8, format: IA8, width: 136, height: 23, offset: 0x5002DC0, symbol: D_5002D88 }
+
+# MISSION
+D_5003A00:
+    { type: TEXTURE, ctype: u8, format: IA8, width: 128, height: 23, offset: 0x5003A00, symbol: D_5003A00 }
+
+# COMP
+D_5004580:
+    { type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 23, offset: 0x5004580, symbol: D_5004580 }
+
