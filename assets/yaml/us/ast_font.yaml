@@ -9,43 +9,43 @@
       - '#include "sf64object.h"'
       - '#include "structs.h"'
 
-# 0
+# 0 (small)
 D_5000000:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000000, symbol: D_5000000 }
 
-# 1
+# 1 (small)
 D_5000080:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000080, symbol: D_5000080 }
 
-# 2
+# 2 (small)
 D_5000100:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000100, symbol: D_5000100 }
 
-# 3
+# 3 (small)
 D_5000180:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000180, symbol: D_5000180 }
 
-# 4
+# 4 (small)
 D_5000200:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000200, symbol: D_5000200 }
 
-# 5
+# 5 (small)
 D_5000280:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000280, symbol: D_5000280 }
 
-# 6
+# 6 (small)
 D_5000300:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000300, symbol: D_5000300 }
 
-# 7
+# 7 (small)
 D_5000380:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000380, symbol: D_5000380 }
 
-# 8
+# 8 (small)
 D_5000400:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000400, symbol: D_5000400 }
 
-# 9
+# 9 (small)
 D_5000480:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000480, symbol: D_5000480 }
 
@@ -71,21 +71,107 @@ D_5001C50:
 
 # End
 D_50021F0:
-    { type: TEXTURE, ctype: u8, format: IA8, width: 32, height: 8, offset: 0x50021F0, symbol: D_50021F0 }
+  { type: TEXTURE, ctype: u8, format: IA8, width: 32, height: 8, offset: 0x50021F0, symbol: D_50021F0 }
 
 # ACCOM
 D_50022F0:
-    { type: TEXTURE, ctype: u8, format: IA8, width: 120, height: 23, offset: 0x50022F0, symbol: D_50022F0, pad: 8 }
+  { type: TEXTURE, ctype: u8, format: IA8, width: 120, height: 23, offset: 0x50022F0, symbol: D_50022F0, pad: 8 }
 
 # PLISHED
 D_5002DC0:
-    { type: TEXTURE, ctype: u8, format: IA8, width: 136, height: 23, offset: 0x5002DC0, symbol: D_5002D88 }
+  { type: TEXTURE, ctype: u8, format: IA8, width: 136, height: 23, offset: 0x5002DC0, symbol: D_5002D88, pad: 8 }
 
 # MISSION
 D_5003A00:
-    { type: TEXTURE, ctype: u8, format: IA8, width: 128, height: 23, offset: 0x5003A00, symbol: D_5003A00 }
+  { type: TEXTURE, ctype: u8, format: IA8, width: 128, height: 23, offset: 0x5003A00, symbol: D_5003A00 }
 
 # COMP
 D_5004580:
-    { type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 23, offset: 0x5004580, symbol: D_5004580 }
+  { type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 23, offset: 0x5004580, symbol: D_5004580 }
 
+# LETE
+D_5004E20:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 80, height: 21, offset: 0x5004E20, symbol: D_5004E20 }
+
+# THE END
+D_50054B0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 192, height: 30, offset: 0x50054B0, symbol: D_50054B0 }
+
+# Falco
+D_5006B30:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 48, height: 8, offset: 0x5006B30, symbol: D_5006B30 }
+
+# Peppy
+D_5006CB0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 48, height: 10, offset: 0x5006CB0, symbol: D_5006CB0 }
+
+D_5006E90:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 56, height: 10, offset: 0x5006E90, symbol: D_5006E90 }
+
+# A (small)
+D_50070C0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x50070C0, symbol: D_50070C0 }
+
+# B (small)
+D_5007100:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007100, symbol: D_5007100 }
+
+# ! (small)
+D_5007140:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007140, symbol: D_5007140 }
+
+# C (small)
+D_5007180:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007180, symbol: D_5007180 }
+
+# D (small)
+D_50071C0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x50071C0, symbol: D_50071C0 }
+
+# E (small)
+D_5007200:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007200, symbol: D_5007200 }
+
+# 1 (big)
+D_5007240:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5007240, symbol: D_5007240 }
+
+# 7 (big)
+D_5007330:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5007330, symbol: D_5007330 }
+
+# 9 (big)
+D_5007420:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5007420, symbol: D_5007420 }
+
+# F (small)
+D_5007510:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007510, symbol: D_5007510 }
+
+# G (small)
+D_5007550:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007550, symbol: D_5007550 }
+
+# H (small)
+D_5007590:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007590, symbol: D_5007590 }
+
+# I (small)
+D_50075D0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x50075D0, symbol: D_50075D0 }
+
+# J (small)
+D_5007610:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007610, symbol: D_5007610 }
+
+# K (small)
+D_5007650:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007650, symbol: D_5007650 }
+
+# 完 (Japanese letter meaning COMPLETE)
+D_5007690:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 48, height: 47, offset: 0x5007690, symbol: D_5007690 }
+
+# L
+D_5007F60:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007F60, symbol: D_5007F60 }

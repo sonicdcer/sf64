@@ -119,7 +119,6 @@ extern u8 D_50022F0[];
 extern u8 D_5002DC0[];
 extern u8 D_5003A00[];
 extern u8 D_5004580[];
-extern u8 D_5004DC0[];
 extern u8 D_5004E20[];
 extern u8 D_5005460[];
 extern u8 D_5006B30[];
