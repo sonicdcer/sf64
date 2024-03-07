@@ -8,3 +8,16 @@
       - '#include "gfx.h"'
       - '#include "sf64object.h"'
       - '#include "structs.h"'
+
+# 0
+D_5000000:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000000, symbol: D_5000000 }
+
+# 1
+D_5000080:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000080, symbol: D_5000080 }
+
+# 2
+
+D_5000100:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 8, offset: 0x5000100, symbol: D_5000100 }
