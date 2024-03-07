@@ -292,4 +292,80 @@ D_5009970:
 D_5009A60:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009A60, symbol: D_5009A60 }
 
+# s (large)
+D_5009B50:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009B50, symbol: D_5009B50 }
+
+# t (large)
+D_5009C40:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009C40, symbol: D_5009C40 }
+
+# o (small)
+D_5009D30:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5009D30, symbol: D_5009D30 }
+
+# p (small)
+D_5009D70:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5009D70, symbol: D_5009D70 }
+
+# . (large)
+D_5009DB0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009DB0, symbol: D_5009DB0 }
+
+# q (small)
+D_5009EA0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5009EA0, symbol: D_5009EA0 }
+
+# r (small)
+D_5009EE0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5009EE0, symbol: D_5009EE0 }
+
+# s (small)
+D_5009F20:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5009F20, symbol: D_5009F20 }
+
+# 0 (large)
+D_5009F60:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009F20, symbol: D_5009F60 }
+
+# 1 (large)
+D_500A050:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A050, symbol: D_500A050 }
+
+# 2 (large)
+D_500A140:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A140, symbol: D_500A140 }
+
+# 3 (large)
+D_500A230:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A230, symbol: D_500A230 }
+
+# 4 (large)
+D_500A320:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A320, symbol: D_500A320 }
+
+# 5 (large)
+D_500A410:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A410, symbol: D_500A410 }
+
+# 6 (large)
+D_500A500:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A500, symbol: D_500A500 }
+
+# 7 (large)
+D_500A5F0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A5F0, symbol: D_500A5F0 }
+
+# 8 (large)
+D_500A6E0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A6E0, symbol: D_500A6E0 }
+
+# 9 (large)
+D_500A7D0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x500A7D0, symbol: D_500A7D0 }
+
+# 終 (Japanese letter meaning END)
+D_500A8C0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 56, height: 49, offset: 0x500A8C0, symbol: D_500A8C0 }
+
 
