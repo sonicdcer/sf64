@@ -231,6 +231,7 @@ extern Gfx D_400B390[];
 
 // ast_font
 extern u8 D_5000000[];
+extern u8 D_HUD_5000000[];
 extern u8 D_5000080[];
 extern u8 D_5000100[];
 extern u8 D_5000180[];
