@@ -132,15 +132,15 @@ D_50071C0:
 D_5007200:
   { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007200, symbol: D_5007200 }
 
-# 1 (big)
+# 1 (large)
 D_5007240:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5007240, symbol: D_5007240 }
 
-# 7 (big)
+# 7 (large)
 D_5007330:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5007330, symbol: D_5007330 }
 
-# 9 (big)
+# 9 (large)
 D_5007420:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5007420, symbol: D_5007420 }
 
@@ -172,6 +172,124 @@ D_5007650:
 D_5007690:
   { type: TEXTURE, ctype: u8, format: IA8, width: 48, height: 47, offset: 0x5007690, symbol: D_5007690 }
 
-# L
+# L (small)
 D_5007F60:
   { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007F60, symbol: D_5007F60 }
+
+# M (small)
+D_5007FA0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007FA0, symbol: D_5007FA0 }
+
+# N (small)
+D_5007FE0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x5007FE0, symbol: D_5007FE0 }
+
+# A (large)
+D_5008020:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008020, symbol: D_5008020 }
+  
+# B (large)
+D_5008110:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008110, symbol: D_5008110 }
+  
+# C (large)
+D_5008200:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008200, symbol: D_5008200 }
+  
+# D (large)
+D_50082F0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50082F0, symbol: D_50082F0 }
+  
+# E (large)
+D_50083E0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50083E0, symbol: D_50083E0 }
+  
+# F (large)
+D_50084D0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50084D0, symbol: D_50084D0 }
+  
+# G (large)
+D_50085C0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50085C0, symbol: D_50085C0 }
+  
+# H (large)
+D_50086B0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50086B0, symbol: D_50086B0 }
+  
+# I (large)
+D_50087A0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50087A0, symbol: D_50087A0 }
+
+# J (large)
+D_5008890:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008890, symbol: D_5008890 }
+
+# K (large)
+D_5008980:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008980, symbol: D_5008980 }
+
+# L (large)
+D_5008A70:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008A70, symbol: D_5008A70 }
+
+# M (large)
+D_5008B60:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008B60, symbol: D_5008B60 }
+
+# N (large)
+D_5008C50:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008C50, symbol: D_5008C50 }
+
+# O (large)
+D_5008D40:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008D40, symbol: D_5008D40 }
+
+# P (large)
+D_5008E30:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008E30, symbol: D_5008E30 }
+
+# Q (large)
+D_5008F20:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5008F20, symbol: D_5008F20 }
+
+# R (large)
+D_5009010:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009010, symbol: D_5009010 }
+
+# S (large)
+D_5009100:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009100, symbol: D_5009100 }
+
+# T (large)
+D_50091F0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50091F0, symbol: D_50091F0 }
+
+# U (large)
+D_50092E0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50092E0, symbol: D_50092E0 }
+
+# V (large)
+D_50093D0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x50093D0, symbol: D_50093D0 }
+
+# W (large)
+D_50094C0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 32, height: 15, offset: 0x50094C0, symbol: D_50094C0 }
+
+# X (large)
+D_50096A0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 32, height: 15, offset: 0x50096A0, symbol: D_50096A0 }
+
+# Y (large)
+D_5009880:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009880, symbol: D_5009880 }
+
+# - (large)
+D_5009970:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009880, symbol: D_5009880 }
+
+# Z (large)
+D_5009A60:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009A60, symbol: D_5009A60 }
+
+
