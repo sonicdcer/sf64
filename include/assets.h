@@ -230,28 +230,22 @@ extern Limb* D_400A398[];
 extern Gfx D_400B390[];
 
 // ast_font
-extern u8 D_5000000[];
-extern u8 D_5000080[];
-extern u8 D_5000100[];
-extern u8 D_5000180[];
-extern u8 D_5000280[];
-extern u8 D_5000380[];
-extern u8 D_5000400[];
-extern u8 D_5000480[];
-extern u8 D_50021F0[];
-extern u16 D_50077B0[];
-extern u8 D_5007F60[];
-extern u8 D_5009F60[];
-extern u8 D_500A050[];
-extern u8 D_500A140[];
-extern u8 D_500A230[];
-extern u8 D_500A320[];
-extern u8 D_500A410[];
-extern u8 D_500A500[];
-extern u8 D_500A5F0[];
-extern u8 D_500A6E0[];
-extern u8 D_500A7D0[];
-extern Gfx D_500B600[];
+extern u8 D_50021F0[]; // fox_option
+extern u8 D_50022F0[]; // fox_hud
+extern u8 D_5002DC0[]; // fox_hud
+extern u8 D_5003A00[]; // fox_hud
+extern u16 D_50077B0[]; // fox_title
+extern u8 D_5007F60[]; // fox_std_lib, fox_versus
+extern u8 D_5009F60[]; // fox_std_lib, fox_versus, fox_option
+extern u8 D_500A050[]; // fox_std_lib, fox_versus, fox_option, fox_map
+extern u8 D_500A140[]; // fox_std_lib, fox_versus, fox_option, fox_map, fox_hud
+extern u8 D_500A230[]; // fox_std_lib, fox_versus, fox_option, fox_map, fox_hud
+extern u8 D_500A320[]; // fox_std_lib, fox_versus, fox_option, fox_map, fox_hud
+extern u8 D_500A410[]; // fox_std_lib, fox_versus, fox_option, fox_map, fox_hud
+extern u8 D_500A500[]; // fox_std_lib, fox_versus, fox_option, fox_map, fox_hud
+extern u8 D_500A5F0[]; // fox_std_lib, fox_versus, fox_option, fox_hud
+extern u8 D_500A6E0[]; // fox_std_lib, fox_versus, fox_option, fox_hud
+extern u8 D_500A7D0[]; // fox_std_lib, fox_versus, fox_option, fox_hud
 
 /* ast_corneria, ast_meteo, ast_titania, ast_sector_x, ast_sector_z,
  * ast_aquas, ast_area_6, ast_venom_1, ast_venom_2, ast_ve1_boss*,
