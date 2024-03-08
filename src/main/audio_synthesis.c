@@ -1,8 +1,6 @@
 #include "sys.h"
 #include "sf64audio_provisional.h"
 
-extern s16 D_800DD200[];
-
 s32 D_80145D40;
 f32 D_80145D48[256];
 f32 D_80146148[256];

@@ -246,28 +246,6 @@ extern Gfx D_Gfx_800DBAA0[];
 extern Gfx D_Gfx_800DAC20[];
 extern Gfx D_Gfx_800D9688[];
 
-// wave_samples
-extern s16 gSawtoothWaveSample[];
-extern s16 gTriangleWaveSample[];
-extern s16 gSineWaveSample[];
-extern s16 gSquareWaveSample[];
-extern s16 gWhiteNoiseSample[];
-extern s16 gUnkSample[];
-extern s16* gWaveSamples[];
 
-// note_data
-extern f32 gBendPitchOneOctaveFrequencies[];
-extern f32 gBendPitchTwoSemitonesFrequencies[];
-extern f32 gPitchFrequencies[];
-extern u8 gDefaultShortNoteVelocityTable[];
-extern u8 gDefaultShortNoteGateTimeTable[];
-extern u16 gHaasEffectDelaySizes[64];
-// extern EnvelopePoint gDefaultEnvelope[];
-// extern NoteUnkStruct gZeroNoteSub;
-// extern NoteUnkStruct gDefaultNoteSub;
-extern s16 D_800DD200[];
-extern f32 gHeadsetPanVolume[];
-extern f32 gStereoPanVolume[];
-extern f32 gDefaultPanVolume[];
 
 #endif // VARIABLES_H

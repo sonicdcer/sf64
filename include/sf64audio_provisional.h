@@ -347,23 +347,24 @@ typedef struct {
         /* 0x00 */ u8 asByte;
     } action;
     /* 0x01 */ u8 state;
-    /* 0x02 */ u8 envIndex;
+    /* 0x02 */ s16 envIndex;
     /* 0x04 */ s16 delay;
     /* 0x08 */ f32 sustain;
     /* 0x0C */ f32 velocity;
     /* 0x10 */ f32 fadeOutVel;
     /* 0x14 */ f32 current;
     /* 0x18 */ f32 target;
-    /* 0x1C */ EnvelopePoint* envelope;
-} AdsrState; // size = 0x20
+    /* 0x1C */ char pad[4];
+    /* 0x20 */ EnvelopePoint* envelope;
+} AdsrState; // size = 0x24
 
 typedef struct {
+    /* 0x00 */ u8 stereoHeadsetEffects : 1;
+    /* 0x00 */ u8 usesHeadsetPanEffects : 1;
     /* 0x00 */ u8 unused : 2;
     /* 0x00 */ u8 bit2 : 2;
     /* 0x00 */ u8 strongRight : 1;
     /* 0x00 */ u8 strongLeft : 1;
-    /* 0x00 */ u8 stereoHeadsetEffects : 1;
-    /* 0x00 */ u8 usesHeadsetPanEffects : 1;
 } StereoData; // size = 0x1
 
 typedef union {
@@ -524,9 +525,9 @@ typedef struct {
     /* 0x10 */ f32 rate;
     /* 0x14 */ u8 active;
     /* 0x16 */ u16 rateChangeTimer;
-    // /* 0x18 */ u16 depthChangeTimer;
-    // /* 0x1A */ u16 delay;
-} VibratoState; // size = 0x18
+    /* 0x18 */ u16 depthChangeTimer;
+    /* 0x1A */ u16 delay;
+} VibratoState; // size = 0x1C
 
 typedef struct {
     /* 0x00 */ u8 priority;
@@ -544,9 +545,9 @@ typedef struct {
     /* 0x18 */ struct SequenceLayer* wantedParentLayer;
     /* 0x1C */ NoteAttributes attributes;
     /* 0x28 */ AdsrState adsr;
-    /* 0x48 */ Portamento portamento;
-    /* 0x58 */ VibratoState vibratoState;
-} NotePlaybackState; // size = 0x70
+    /* 0x4C */ Portamento portamento;
+    /* 0x5C */ VibratoState vibratoState;
+} NotePlaybackState; // size = 0x78
 
 typedef struct {
     struct {
@@ -580,7 +581,7 @@ typedef struct Note {
     /* 0x00 */ AudioListItem listItem;
     /* 0x10 */ NoteSynthesisState synthesisState;
     /* 0x30 */ NotePlaybackState playbackState;
-    /* 0xA0 */ char padA0[0x10];
+    /* 0xA8 */ char padA0[0x8];
     /* 0xB0 */ NoteSubEu noteSubEu;
 } Note; // size = 0xC0
 
@@ -1032,6 +1033,16 @@ Acmd* func_8000B480(Acmd* aList, NoteSynthesisState* synthState, s32 size, u16 p
 Acmd* func_8000B51C(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthState, s32 aiBufLen, u16 dmemSrc, s32 delaySide, s32 flags);
 Acmd* func_8000B98C(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthState, s32 size, s32 flags, s32 delaySide);
 
+void func_80013400(SequenceChannel* channel, s32 updateVolume);
+void func_800135A8(SequencePlayer* seqplayer);
+f32 func_80013708(Portamento* portamento);
+s16 func_800137DC(VibratoState* vibrato);
+f32 func_80013820(VibratoState* vibrato);
+void func_80013A18(Note* note);
+void func_80013A84(Note* note);
+void func_80013B6C(AdsrState* adsr, EnvelopePoint* envelope, s16* arg2);
+f32 func_80013B90(AdsrState* adsr);
+
 void AudioHeap_ResetLoadStatus(void);
 void AudioHeap_DiscardFont(s32 fontId);
 void AudioHeap_DiscardSequence(s32 seqId);
@@ -1118,41 +1129,62 @@ s32 AudioLoad_AddToSampleSet(Sample* sample, s32 numSamples, Sample** sampleSet)
 s32 AudioLoad_GetSamplesForFont(s32 fontId, Sample** sampleSet);
 
 
-void func_80011890(Note*, NoteAttributes*);
-void func_80011C58(Note*, f32);
+void func_80011890(Note* note, NoteAttributes* noteAttr);
+void func_80011C58(Note* note, f32);
+TunedSample* func_80011D10(Instrument* instrument, s32 arg1);
 Instrument* Audio_GetInstrument(s32, s32);
 Drum* Audio_GetDrum(s32, s32);
-void func_80011EB8(Note*);
-void func_80011F4C(Note*);
-void func_80012438(SequenceLayer*, s32);
-void func_8001266C(SequenceLayer*);
-void func_8001268C(SequenceLayer*);
-s32 func_800126AC(Note*, SequenceLayer*, s32);
-void func_800127B0(Note*, SequenceLayer*);
-void func_80012854(AudioListItem*);
-void func_80012864(NotePool*);
+void func_80011EB8(Note* note);
+void func_80011F4C(Note* note);
+void func_80011FA8(void);
+void func_80012438(SequenceLayer* layer, s32);
+void func_8001266C(SequenceLayer* layer);
+void func_8001268C(SequenceLayer* layer);
+s32 func_800126AC(Note* note, SequenceLayer* layer, s32);
+void func_800127B0(Note* note, SequenceLayer* layer);
+void func_80012854(AudioListItem* item);
+void func_80012864(NotePool* pool);
 void func_800128B4(void);
-void func_80012964(NotePool*);
-void func_80012AC4(NotePool*, s32);
-void func_80012C00(AudioListItem*, AudioListItem*);
-void func_80012C40(Note*);
-Note* func_80012C6C(AudioListItem*, s32);
-void func_80012CEC(Note *, SequenceLayer *);
-void func_80012E28(Note *, SequenceLayer *);
-void func_80012E5C(Note* , SequenceLayer *);
-Note *func_80012E88(NotePool* , SequenceLayer *);
-Note *func_80012ED4(NotePool* , SequenceLayer *);
-Note *func_80012F24(NotePool* , SequenceLayer *);
-Note *func_8001301C(SequenceLayer *);
+void func_80012964(NotePool* pool);
+void func_80012AC4(NotePool* pool, s32);
+void func_80012C00(AudioListItem* item1, AudioListItem* item2);
+void func_80012C40(Note* note);
+Note* func_80012C6C(AudioListItem* item, s32);
+void func_80012CEC(Note* note, SequenceLayer* layer);
+void func_80012E28(Note* note, SequenceLayer* layer);
+void func_80012E5C(Note*  note, SequenceLayer* layer);
+Note *func_80012E88(NotePool* pool, SequenceLayer* layer);
+Note *func_80012ED4(NotePool* pool, SequenceLayer* layer);
+Note *func_80012F24(NotePool* pool, SequenceLayer* layer);
+Note *func_8001301C(SequenceLayer* layer);
 void func_800132E8(void);
 
 
-void func_800144E4(SequencePlayer*);
-void func_800145BC(AudioListItem*, AudioListItem*);
-void func_8001678C(s32);
-void func_80016804(s32);
+void func_80013EA0(SequenceChannel* channel);
+s32 func_80013FC4(SequenceChannel* channel, s32 arg1);
+void func_800140D0(SequenceLayer* layer);
+void func_8001410C(SequenceChannel* channel, s32 arg1);
+void func_8001415C(SequenceChannel* channel);
+SequenceChannel* func_800141C8(void);
+void func_80014244(SequencePlayer* seqPlayer, u16 arg1);
+void func_80014370(SequencePlayer* seqPlayer, u16 arg1);
+void func_80014440(SequencePlayer* seqPlayer, u8 arg1, u8* arg2);
+void func_800144E4(SequencePlayer* seqPlayer);
+void func_800145BC(AudioListItem* list, AudioListItem* item);
+void* func_800145FC(AudioListItem* list);
+void func_8001463C(void);
+u8  func_800146C0(SeqScriptState* state);
+s16 func_800146D4(SeqScriptState* state);
+u16 func_80014704(SeqScriptState* state);
+void func_80014748(SequenceLayer* layer);
+u8 func_800152C0(SequenceChannel* channel, u8 arg1, Instrument** instrument, AdsrSettings* adsrSettings);
+void func_80015330(SequenceChannel* channel, u8 arg1);
+// void func_800153C4(SequenceChannel* channel, u8 arg1);
+void func_800153E8(SequenceChannel* channel);
+void func_80015FD4(SequencePlayer* seqPlayer);
+void func_8001678C(s32 arg0);
+void func_80016804(s32 arg0);
 void func_800168BC(void);
-
 
 
 SPTask* AudioThread_CreateTask(void);
@@ -1404,6 +1436,30 @@ extern OSMesg      sAudioTaskStartMsg[1];
 extern OSMesg      sThreadCmdProcMsg[4];
 extern OSMesg      sAudioUnkMsg[1];
 extern OSMesg      sAudioResetMsg[1];
+
+// wave_samples
+extern s16 gSawtoothWaveSample[];
+extern s16 gTriangleWaveSample[];
+extern s16 gSineWaveSample[];
+extern s16 gSquareWaveSample[];
+extern s16 gWhiteNoiseSample[];
+extern s16 gUnkSample[];
+extern s16* gWaveSamples[];
+
+// note_data
+extern f32 gBendPitchOneOctaveFrequencies[];
+extern f32 gBendPitchTwoSemitonesFrequencies[];
+extern f32 gPitchFrequencies[];
+extern u8 gDefaultShortNoteVelocityTable[];
+extern u8 gDefaultShortNoteGateTimeTable[];
+extern u16 gHaasEffectDelaySizes[64];
+extern EnvelopePoint gDefaultEnvelope[];
+extern NoteSubEu gZeroNoteSub;
+extern NoteSubEu gDefaultNoteSub;
+extern s16 D_800DD200[];
+extern f32 gHeadsetPanVolume[];
+extern f32 gStereoPanVolume[];
+extern f32 gDefaultPanVolume[];
 
 typedef enum {
     SEQ_ID_0,
