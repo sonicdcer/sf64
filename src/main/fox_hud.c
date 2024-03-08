@@ -108,32 +108,6 @@ extern Gfx D_101B480[];
 extern Gfx D_101B310[];
 extern Gfx D_101B1A0[];
 extern u16 D_3000120[];
-extern u8 D_5000200[];
-extern u16 D_5000300[];
-extern u8 D_5000500[];
-extern u8 D_5000D50[];
-extern u8 D_5001110[];
-extern u8 D_5001750[];
-extern u8 D_5001C50[];
-extern u8 D_50022F0[];
-extern u8 D_5002DC0[];
-extern u8 D_5003A00[];
-extern u8 D_5004580[];
-extern u8 D_5004E20[];
-extern u8 D_5005460[];
-extern u8 D_5006B30[];
-extern u8 D_5006CB0[];
-extern u8 D_5006E90[];
-extern u8 D_5009F60[];
-extern u8 D_500A050[];
-extern u8 D_500A140[];
-extern u8 D_500A230[];
-extern u8 D_500A320[];
-extern u8 D_500A410[];
-extern u8 D_500A500[];
-extern u8 D_500A5F0[];
-extern u8 D_500A6E0[];
-extern u8 D_500A7D0[];
 extern u8 D_6000000[];
 extern u16 D_6000840[];
 extern u16 D_6000C80[];
@@ -147,6 +121,7 @@ extern u8 D_C000A80[];
 #include "assets/ast_bg_space.h"
 #include "assets/ast_bg_planet.h"
 #include "assets/ast_allies.h"
+#include "assets/ast_font.h"
 
 // DATA SECTION START
 

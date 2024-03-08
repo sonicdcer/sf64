@@ -80,7 +80,8 @@
     "util": "c",
     "variant": "c",
     "chrono": "c",
-    "ast_allies.h": "c"
+    "ast_allies.h": "c",
+    "ast_font.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }

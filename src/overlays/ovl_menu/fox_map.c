@@ -191,6 +191,8 @@ f32 D_menu_801CF124;
 
 extern u16 D_6000000[];
 
+#include "assets/ast_font.h"
+
 s32 D_menu_801AF420[2] = { 10, 20 };
 
 u16* D_menu_801AF428[15][2] = {
