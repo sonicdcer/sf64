@@ -1,6 +1,6 @@
 :config:
   segments:
-    seg3: 0xCD2410
+    seg5: 0xCD2410
   header:
     code:
       - '#include "assets/ast_font.h"'
@@ -286,7 +286,7 @@ D_5009880:
 
 # - (large)
 D_5009970:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009880, symbol: D_5009880 }
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009970, symbol: D_5009970 }
 
 # Z (large)
 D_5009A60:
@@ -366,6 +366,47 @@ D_500A7D0:
 
 # 終 (Japanese letter meaning END)
 D_500A8C0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 56, height: 49, offset: 0x500A8C0, symbol: D_500A8C0 }
+  { type: TEXTURE, ctype: u8, format: IA8, width: 56, height: 49, offset: 0x500A8C0, symbol: D_500A8C0, pad: 8 }
 
+# T (small)
+D_500B380:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B380, symbol: D_500B380 }
 
+# . (small)
+D_500B3C0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B3C0, symbol: D_500B3C0 }
+
+# : (small)
+D_500B400:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B400, symbol: D_500B400 }
+
+# u (small)
+D_500B440:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B440, symbol: D_500B440 }
+
+# v (small)
+D_500B480:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B480, symbol: D_500B480 }
+
+# w (small)
+D_500B4C0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B4C0, symbol: D_500B4C0 }
+
+# x (small)
+D_500B500:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B500, symbol: D_500B500 }
+
+# y (small)
+D_500B540:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B540, symbol: D_500B540 }
+
+# - (small)
+D_500B580:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B580, symbol: D_500B580 }
+
+# z (small)
+D_500B5C0:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B5C0, symbol: D_500B5C0 }
+
+D_500B600:
+  { type: GFX, offset: 0x500B600, symbol: D_500B600 }
