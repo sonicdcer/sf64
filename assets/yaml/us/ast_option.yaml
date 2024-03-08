@@ -224,10 +224,17 @@ D_80147D0:
   { type: BLOB, size: 0x20, offset: 0x80147D0, symbol: D_80147D0 }
 
 D_80147F0:
-  { type: GFX, offset: 0x80147F0, symbol: D_80147F0 } #Ends in 14B50
+  { type: GFX, offset: 0x80147F0, symbol: D_80147F0 }
 
-# D_8014D00:
-#     { type: BLOB, size: 0x90, offset: 0x8014D00, symbol: D_8014D00 }
+ast_option_seg8_vtx_00014EA0:
+  { type: VTX, count: 9, offset: 0x8014EA0, symbol: ast_option_seg8_vtx_00014EA0 }
+
+ast_option_seg8_vtx_00014CB0:
+  { type: VTX, count: 21, offset: 0x8014CB0, symbol: ast_option_seg8_vtx_00014CB0 }
+
+# TORCH BUG: ast_option_seg8_vtx_00014F30 is a 2 count VTX, but torch refuses to generate it, this can create problems with GCC
+ast_option_seg8_vtx_00014F30:
+ { type: VTX, count: 1, offset: 0x8014F30, symbol: ast_option_seg8_vtx_00014F30 }
 
 D_8015310:
   { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x8015310, symbol: D_8015310, tlut: 0x08015390 }
@@ -248,13 +255,10 @@ D_8015550:
   { type: GFX, offset: 0x8015550, symbol: D_8015550 }
 
 D_80155E8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x080155E8, symbol: D_80155E8 }
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x080155E8, symbol: D_80155E8, pad: 8 }
 
 D_8015DF0:
   { type: GFX, offset: 0x8015DF0, symbol: D_8015DF0 }
 
 D_8015E88:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x08015E88, symbol: D_8015E88 }
-
-# D_80159E8: 
-#   { type: BLOB, size: 0x100, offset: 0x80159E8, symbol: D_80159E8 }
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x08015E88, symbol: D_8015E88 }
