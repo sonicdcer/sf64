@@ -79,7 +79,15 @@
     "valarray": "c",
     "util": "c",
     "variant": "c",
-    "chrono": "c"
+    "chrono": "c",
+    "optional": "c",
+    "istream": "c",
+    "ostream": "c",
+    "ratio": "c",
+    "system_error": "c",
+    "functional": "c",
+    "tuple": "c",
+    "type_traits": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }
