@@ -81,7 +81,8 @@
     "variant": "c",
     "chrono": "c",
     "ast_allies.h": "c",
-    "ast_font.h": "c"
+    "ast_font.h": "c",
+    "fox_std_lib_assets.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }
