@@ -237,8 +237,12 @@
 
   - name: ast_font_3d
     exclusive_ram_id: segment_09
-    type: bin
+    type: code
+    dir: assets
+    vram: 0x09000000
     start: 0xCDDCA0
+    subsegments:
+      - [0xCDDCA0, .data, ast_font_3d/ast_font_3d]
 
   - name: ast_andross
     exclusive_ram_id: segment_0C
