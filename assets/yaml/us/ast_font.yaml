@@ -105,6 +105,7 @@ D_5006B30:
 D_5006CB0:
   { type: TEXTURE, ctype: u8, format: IA8, width: 48, height: 10, offset: 0x5006CB0, symbol: D_5006CB0 }
 
+# Slippy
 D_5006E90:
   { type: TEXTURE, ctype: u8, format: IA8, width: 56, height: 10, offset: 0x5006E90, symbol: D_5006E90 }
 
