@@ -326,7 +326,7 @@ D_5009F20:
 
 # 0 (large)
 D_5009F60:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009F20, symbol: D_5009F60 }
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 15, offset: 0x5009F60, symbol: D_5009F60 }
 
 # 1 (large)
 D_500A050:
