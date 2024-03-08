@@ -1,11 +1,12 @@
 // #include "prevent_bss_reordering.h"
 #include "global.h"
 #include "fox_option.h"
+
 s32 D_80178750;
 s32 D_80178754;
 s32 D_80178758;
-s32 sUnlockLandmaster; // sUnlockLandmaster
-s32 sUnlockOnFoot;     // sUnlockOnFoot
+s32 sUnlockLandmaster;
+s32 sUnlockOnFoot;
 s32 D_80178768[4];
 s32 D_80178778;
 s32 D_80178780[4];
