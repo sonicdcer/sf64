@@ -1,6 +1,6 @@
 :config:
   segments:
-    seg15: 0xD25100
+    - [0x0F, 0xD25100]
   header:
     code:
       - '#include "assets/ast_logo.h"'
