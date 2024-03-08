@@ -408,11 +408,14 @@ D_500B580:
 D_500B5C0:
   { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x500B5C0, symbol: D_500B5C0 }
 
+# Wrench DisplayList (Teammate in maintenance state)
 D_500B600:
   { type: GFX, offset: 0x500B600, symbol: D_500B600 }
 
+# Wrench Texture
 D_500B768:
   { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 32, offset: 0x0500B768, symbol: D_500B768, tlut: 0x0D000160 }
 
+# Wrench TLUT
 D_500B868:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0500B868, symbol: D_500B868 }
