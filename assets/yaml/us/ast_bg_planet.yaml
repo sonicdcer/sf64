@@ -1,6 +1,6 @@
 :config:
   segments:
-    seg2: 0x8AE0A0
+    - [0x02, 0x8AE0A0]
   header:
     code:
       - '#include "assets/ast_bg_planet.h"'
