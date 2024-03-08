@@ -1,6 +1,7 @@
 #include "global.h"
 #include "assets/ast_ending_award_front.h"
 #include "assets/ast_ending_award_back.h"
+#include "assets/ast_allies.h"
 
 void func_ending_8018CE20(s32);
 void func_ending_801926D4(void);

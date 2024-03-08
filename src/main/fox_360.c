@@ -45,6 +45,8 @@ s32 D_8015F93C;
 s32 D_8015F940;
 f32 D_8015F944;
 
+#include "assets/ast_allies.h"
+
 void func_8002E3E0(Actor* actor) {
     s32 hits = 0;
 
