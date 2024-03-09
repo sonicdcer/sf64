@@ -1,6 +1,6 @@
 :config:
   segments:
-    seg13: 0x955270
+    - [0x0D, 0x955270]
   header:
     code:
       - '#include "assets/ast_allies.h"'

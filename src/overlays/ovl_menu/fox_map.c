@@ -5,12 +5,11 @@
  */
 
 #include "mods.h"
-#include "prevent_bss_reordering.h"
-// #include "prevent_bss_reordering2.h"
 #include "global.h"
 #include "fox_map.h"
 #include "fox_option.h"
-
+#include "prevent_bss_reordering.h"
+#include "prevent_bss_reordering2.h"
 // BSS STARTS HERE
 
 u8 D_menu_801B9410[96 * 96];
