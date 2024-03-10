@@ -237,7 +237,7 @@
     vram: 0x05000000
     start: 0xCD2410
     subsegments:
-      - [0xBFA740, .data, ast_font/ast_font]
+      - [0xCD2410, .data, ast_font/ast_font]
 
   - name: ast_font_3d
     exclusive_ram_id: segment_09
