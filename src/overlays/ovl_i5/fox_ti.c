@@ -1023,15 +1023,15 @@ static s32 D_i5_801B75E4[3][3] = {
     { 0, 0, 0 },
 };
 
-extern Gfx D_7005280[];
+extern Gfx D_7002930[];
+extern Gfx D_7003A90[];
 extern Gfx D_7003C50[];
 extern Gfx D_7003E30[];
+extern Gfx D_7003FC0[];
 extern Gfx D_7004370[];
 extern Gfx D_7004560[];
-extern Gfx D_7003A90[];
+extern Gfx D_7005280[];
 extern Gfx D_7005420[];
-extern Gfx D_7003FC0[];
-extern Gfx D_7002930[];
 
 Gfx* D_i5_801B7608[10] = {
     D_7005280, D_7003C50, D_7003E30, D_7004370, D_7004560, D_7003A90, D_7005420, D_7003FC0, D_7002930, D_7002490,
