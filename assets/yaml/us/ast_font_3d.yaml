@@ -1,6 +1,6 @@
 :config:
   segments:
-    seg9: 0xCDDCA0
+    - [0x09, 0xCDDCA0]
   header:
     code:
       - '#include "assets/ast_font_3d.h"'
@@ -72,8 +72,8 @@ D_9005380:
 D_9005980:
   { type: GFX, offset: 0x9005980, symbol: D_9005980 }
 
-# ast_font_3d_seg9_vtx_00005C58:
-#   { type: VTX, count: 4, offset: 0x0D005C58, symbol: ast_font_3d_seg9_vtx_00005C58, pad: 8 }
+ast_font_3d_seg9_vtx_00005C58:
+   { type: VTX, count: 4, offset: 0x0D005C58, symbol: ast_font_3d_seg9_vtx_00005C58, pad: 8 }
 
 D_9005CA0:
   { type: GFX, offset: 0x9005CA0, symbol: D_9005CA0 }
