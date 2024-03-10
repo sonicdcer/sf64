@@ -9,7 +9,7 @@
       - '#include "sf64object.h"'
       - '#include "structs.h"'
 
-# MISSING TLUT!
+# MISSING TLUT! Not clear what uses this texture yet!
 D_7000000:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x07000000, symbol: D_7000000, tlut: 0x07001108 }
 
@@ -109,9 +109,10 @@ D_7008090:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x07008090, symbol: D_7008090, tlut: 0x07008490 }
 
 D_7008490:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 32, offset: 0x07008490, symbol: D_7008490 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 242, offset: 0x07008490, symbol: D_7008490 }
 
-# GAP
+BLOB_7008674: 
+  { type: BLOB, size: 0x2BC, offset: 0x7008674, symbol: BLOB_7008674 }
 
 D_7008930:
   { type: GFX, offset: 0x7008930, symbol: D_7008930 }
@@ -139,6 +140,8 @@ D_70098E0:
 
 D_700B9C0:
   { type: GFX, offset: 0x700B9C0, symbol: D_700B9C0 }
+  
+# GAP at 0xBB10 size = 9A0
 
 D_700C4B0:
   { type: GFX, offset: 0x700C4B0, symbol: D_700C4B0 }
