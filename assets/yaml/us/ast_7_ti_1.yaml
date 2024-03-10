@@ -11,7 +11,7 @@
 
 # MISSING TLUT! Not clear what uses this texture yet!
 D_7000000:
-  { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x07000000, symbol: D_7000000, tlut: 0x07001108 }
+  { type: TEXTURE, ctype: u8, format: CI8, width: 96, height: 28, offset: 0x07000000, symbol: D_7000000, tlut: 0x07001108 }
 
 D_7000A80:
   { type: GFX, offset: 0x7000A80, symbol: D_7000A80 }
@@ -91,18 +91,16 @@ PAD_7005418:
 D_7005420:
   { type: GFX, offset: 0x7005420, symbol: D_7005420 }
 
-# At 0x5648 GAP 0x1D08 long
 BLOB_7005648: 
   { type: BLOB, size: 0x1D08, offset: 0x7005648, symbol: BLOB_7005648 }
 
 D_7007350:
   { type: GFX, offset: 0x7007350, symbol: D_7007350 }
 
-# At 0x7AB0 GAP 0x5E0 long
-D_7007AB0: # size 0x400
+D_7007AB0:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x7007AB0, symbol: D_7007AB0, tlut: 0x07007EB0 }
-#ends in 0x7EB0
-D_7007EB0: # size 0x1E0
+
+D_7007EB0:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 240, offset: 0x07007EB0, symbol: D_7007EB0 }
 
 D_7008090:
@@ -140,8 +138,21 @@ D_70098E0:
 
 D_700B9C0:
   { type: GFX, offset: 0x700B9C0, symbol: D_700B9C0 }
-  
-# GAP at 0xBB10 size = 9A0
+
+D_700BB10:
+  { type: GFX, offset: 0x700BB10, symbol: D_700BB10 }
+
+PAD_700BDF8:
+  { type: BLOB, size: 8, offset: 0x700BDF8, symbol: PAD_700BDF8 }
+
+D_700BE00:
+  { type: GFX, offset: 0x700BE00, symbol: D_700BE00 }
+
+D_700BFB0:
+  { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x0700BFB0, symbol: D_700BFB0, tlut: 0x0700C3B0 }
+
+D_700C3B0:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 128, offset: 0x0700C3B0, symbol: D_700C3B0 }
 
 D_700C4B0:
   { type: GFX, offset: 0x700C4B0, symbol: D_700C4B0 }
@@ -159,4 +170,9 @@ D_700E3F0:
   { type: GFX, offset: 0x700E3F0, symbol: D_700E3F0 }
 
 D_700E858:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0700E858, symbol: D_700E858 }
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0700E858, symbol: D_700E858, pad: 8 }
+
+D_700EA60:
+  { type: GFX, offset: 0x700EA60, symbol: D_700EA60 }
+
+# size = 0xEDB0
