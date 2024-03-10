@@ -425,7 +425,7 @@ typedef struct SequenceChannel {
     /* 0x28 */ s32 pan;
     /* 0x2C */ f32 appliedVolume;
     /* 0x30 */ f32 freqMod;
-    /* 0x34 */ u8 (*dynTable)[][2];
+    /* 0x34 */ u8 (*dynTable)[2];
     /* 0x38 */ struct Note* noteUnused;
     /* 0x3C */ struct SequenceLayer* layerUnused;
     /* 0x40 */ Instrument* instrument;
@@ -435,7 +435,7 @@ typedef struct SequenceChannel {
     /* 0x74 */ AdsrSettings adsr;
     /* 0x7C */ NotePool notePool;
     /* 0xBC */ s8 seqScriptIO[8]; // bridge between .seq script and audio lib, "io ports"
-    /* 0xC4 */ Stereo stereo;
+    /* 0xC4 */ u16 unkC4;
 } SequenceChannel; // size = 0xC8
 
 // Might also be known as a Track, according to sm64 debug strings (?).
@@ -1404,7 +1404,7 @@ extern AudioBufferParameters gAudioBufferParams;
 extern s32 gSampleDmaBuffSize;
 extern s32 gMaxAudioCmds;
 extern s32 gNumNotes;
-extern u16 gMaxTempo;
+extern s16 gMaxTempo;
 extern s8 gAudioSoundMode;
 extern volatile s32 gAudioTaskCountQ;
 extern s32 gCurAudioFrameDmaCount;

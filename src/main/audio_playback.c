@@ -491,7 +491,7 @@ void func_800128B4(void) {
     for (var_s1 = 0; var_s1 < gNumNotes; var_s1++) {
         gNotes[var_s1].listItem.u.value = &gNotes[var_s1];
         gNotes[var_s1].listItem.prev = NULL;
-        func_800145BC(&gNoteFreeLists.disabled, &gNotes[var_s1]);
+        func_800145BC(&gNoteFreeLists.disabled, &gNotes[var_s1].listItem);
     }
 }
 

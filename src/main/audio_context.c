@@ -84,7 +84,7 @@ AudioBufferParameters gAudioBufferParams;
 s32 gSampleDmaBuffSize;
 s32 gMaxAudioCmds;
 s32 gNumNotes;
-u16 gMaxTempo;
+s16 gMaxTempo;
 s8 gAudioSoundMode;
 volatile s32 gAudioTaskCountQ;
 s32 gCurAudioFrameDmaCount;
