@@ -1,6 +1,6 @@
 :config:
   segments:
-    seg8: 0xCA9DE0
+    - [0x08, 0xCA9DE0]
   header:
     code:
       - '#include "assets/ast_option.h"'
@@ -226,15 +226,8 @@ D_80147D0:
 D_80147F0:
   { type: GFX, offset: 0x80147F0, symbol: D_80147F0 }
 
-ast_option_seg8_vtx_00014EA0:
-  { type: VTX, count: 9, offset: 0x8014EA0, symbol: ast_option_seg8_vtx_00014EA0 }
-
-ast_option_seg8_vtx_00014CB0:
-  { type: VTX, count: 21, offset: 0x8014CB0, symbol: ast_option_seg8_vtx_00014CB0 }
-
-# TORCH BUG: ast_option_seg8_vtx_00014F30 is a 2 count VTX, but torch refuses to generate it, this can create problems with GCC
-ast_option_seg8_vtx_00014F30:
- { type: VTX, count: 1, offset: 0x8014F30, symbol: ast_option_seg8_vtx_00014F30 }
+ast_option_seg8_vtx_00014B50:
+  { type: VTX, count: 124, offset: 0x8014B50, symbol: ast_option_seg8_vtx_00014B50 }
 
 D_8015310:
   { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x8015310, symbol: D_8015310, tlut: 0x08015390 }
