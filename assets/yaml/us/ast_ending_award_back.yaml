@@ -1,6 +1,6 @@
 :config:
   segments:
-    seg8: 0xD68480
+    - [0x08, 0xD68480]
   header:
     code:
       - '#include "assets/ast_ending_award_back.h"'
