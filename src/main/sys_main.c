@@ -1,9 +1,9 @@
 #include "sys.h"
 
 void AudioLoad_Init(void);
-SPTask* func_8001DF50(void);
-void func_8001DCE0(void);
-void func_8001DECC(void);
+SPTask* AudioThread_CreateTask(void);
+void Audio_InitSounds(void);
+void Audio_Update(void);
 
 s32 sGammaMode = 1;
 
@@ -108,8 +108,8 @@ void Audio_ThreadEntry(void* arg0) {
     SPTask* task;
 
     AudioLoad_Init();
-    func_8001DCE0();
-    task = func_8001DF50();
+    Audio_InitSounds();
+    task = AudioThread_CreateTask();
     if (task != NULL) {
         task->msgQueue = &gAudioTaskMsgQueue;
         task->msg = (OSMesg) TASK_MESG_1;
@@ -117,7 +117,7 @@ void Audio_ThreadEntry(void* arg0) {
         osSendMesg(&gTaskMsgQueue, task, OS_MESG_PRI_NORMAL);
     }
     while (1) {
-        task = func_8001DF50();
+        task = AudioThread_CreateTask();
         if (task != NULL) {
             task->msgQueue = &gAudioTaskMsgQueue;
             task->msg = (OSMesg) TASK_MESG_1;
@@ -287,7 +287,7 @@ void Graphics_ThreadEntry(void* arg0) {
             osRecvMesg(&gGfxVImsgQueue, NULL, OS_MESG_BLOCK);
         }
 
-        func_8001DECC();
+        Audio_Update();
     }
 }
 

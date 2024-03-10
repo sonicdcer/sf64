@@ -9,7 +9,8 @@
     "**/.github": true,
     "build/**": true,
     "expected/**": true,
-    "tools/**": true
+    "tools/**": true,
+    "ctx.c" : true
   },
   "defines": [
     "_LANGUAGE_C"
@@ -63,8 +64,34 @@
     "fox_option_assets.h": "c",
     "mods.h": "c",
     "i5.h": "c",
-    "ast_warp_zone.h": "c"
-    "sf64audio_provisional.h": "c"
+    "ast_warp_zone.h": "c",
+    "sf64audio_provisional.h": "c",
+    "fox_enmy_assets.h": "c",
+    "audiothread_cmd.h": "c",
+    "span": "c",
+    "string_span": "c",
+    "array": "c",
+    "bitset": "c",
+    "string_view": "c",
+    "initializer_list": "c",
+    "regex": "c",
+    "utility": "c",
+    "valarray": "c",
+    "util": "c",
+    "variant": "c",
+    "chrono": "c",
+    "optional": "c",
+    "istream": "c",
+    "ostream": "c",
+    "ratio": "c",
+    "system_error": "c",
+    "functional": "c",
+    "tuple": "c",
+    "type_traits": "c",
+    "ast_allies.h": "c",
+    "ast_font.h": "c",
+    "fox_std_lib_assets.h": "c",
+    "fox_versus_assets.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }

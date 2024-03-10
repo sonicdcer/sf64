@@ -7,21 +7,6 @@
 #include "sf64object.h"
 #include "sf64player.h"
 
-extern f32 gDefaultSfxPos[];
-extern f32 gDefaultScale;
-extern s8 gDefaultReverb;
-extern s8 gThreadCmdWritePos;
-extern s8 gThreadCmdReadPos;
-extern OSMesgQueue* gAudioTaskStartQueue;
-extern OSMesgQueue* gThreadCmdProcQueue;
-extern OSMesgQueue* gAudioUnkQueue;
-extern OSMesgQueue* gAudioResetQueue;
-
-extern OSMesg D_80156600[1];
-extern OSMesg D_80156608[4];
-extern OSMesg D_80156618[1];
-extern OSMesg D_8015661C[1];
-
 // fox_360
 extern s32 D_800C9B4C;
 
@@ -261,28 +246,6 @@ extern Gfx D_Gfx_800DBAA0[];
 extern Gfx D_Gfx_800DAC20[];
 extern Gfx D_Gfx_800D9688[];
 
-// wave_samples
-extern s16 gSawtoothWaveSample[];
-extern s16 gTriangleWaveSample[];
-extern s16 gSineWaveSample[];
-extern s16 gSquareWaveSample[];
-extern s16 gWhiteNoiseSample[];
-extern s16 gUnkSample[];
-extern s16* gWaveSamples[];
 
-// note_data
-extern f32 gBendPitchOneOctaveFrequencies[];
-extern f32 gBendPitchTwoSemitonesFrequencies[];
-extern f32 gPitchFrequencies[];
-extern u8 gDefaultShortNoteVelocityTable[];
-extern u8 gDefaultShortNoteGateTimeTable[];
-extern u16 gHaasEffectDelaySizes[64];
-// extern EnvelopePoint gDefaultEnvelope[];
-// extern NoteUnkStruct gZeroNoteSub;
-// extern NoteUnkStruct gDefaultNoteSub;
-extern s16 D_800DD200[];
-extern f32 gHeadsetPanVolume[];
-extern f32 gStereoPanVolume[];
-extern f32 gDefaultPanVolume[];
 
 #endif // VARIABLES_H

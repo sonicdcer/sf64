@@ -88,39 +88,6 @@ extern Gfx D_1031630[];
 extern Gfx D_1031EC0[];
 extern Gfx D_1032780[];
 
-// ast_bg_space, ast_bg_planet
-extern Gfx D_2000000[];
-extern Gfx D_2000890[];
-extern Gfx D_2001090[];
-extern Gfx D_2001120[];
-extern Gfx D_20019B0[];
-extern Gfx D_2002120[];
-extern Gfx D_2002240[];
-extern Gfx D_2002AD0[];
-extern Gfx D_2003360[];
-extern Gfx D_2003BF0[];
-extern Gfx D_2004240[];
-extern Gfx D_2004480[];
-extern Gfx D_2004D10[];
-extern Gfx D_20052D0[];
-extern Gfx D_20055A0[];
-extern Gfx D_2005E30[];
-extern Gfx D_2006360[];
-extern Gfx D_20066C0[];
-extern Gfx D_2006F50[];
-extern Gfx D_20073F0[];
-extern Gfx D_2008480[];
-extern Gfx D_2009510[];
-extern Gfx D_200A5A0[];
-extern Gfx D_200B630[];
-extern Gfx D_200C6C0[];
-extern Gfx D_200D750[];
-extern Gfx D_200E7F0[];
-extern Gfx D_200F080[];
-extern Gfx D_200F910[];
-extern Gfx D_20101A0[];
-extern Gfx D_20112C0[];
-
 // ast_arwing, ast_landmaster, ast_blue_marine, ast_vs_player
 extern Gfx D_3006940[];
 extern Gfx D_301AD60[];
@@ -263,28 +230,22 @@ extern Limb* D_400A398[];
 extern Gfx D_400B390[];
 
 // ast_font
-extern u8 D_5000000[];
-extern u8 D_5000080[];
-extern u8 D_5000100[];
-extern u8 D_5000180[];
-extern u8 D_5000280[];
-extern u8 D_5000380[];
-extern u8 D_5000400[];
-extern u8 D_5000480[];
-extern u8 D_50021F0[];
-extern u16 D_50077B0[];
-extern u8 D_5007F60[];
-extern u8 D_5009F60[];
-extern u8 D_500A050[];
-extern u8 D_500A140[];
-extern u8 D_500A230[];
-extern u8 D_500A320[];
-extern u8 D_500A410[];
-extern u8 D_500A500[];
-extern u8 D_500A5F0[];
-extern u8 D_500A6E0[];
-extern u8 D_500A7D0[];
-extern Gfx D_500B600[];
+extern u8 D_50021F0[]; // fox_option
+extern u8 D_50022F0[]; // fox_hud
+extern u8 D_5002DC0[]; // fox_hud
+extern u8 D_5003A00[]; // fox_hud
+extern u16 D_50077B0[]; // fox_title
+extern u8 D_5007F60[]; // fox_std_lib, fox_versus
+extern u8 D_5009F60[]; // fox_std_lib, fox_versus, fox_option
+extern u8 D_500A050[]; // fox_std_lib, fox_versus, fox_option, fox_map
+extern u8 D_500A140[]; // fox_std_lib, fox_versus, fox_option, fox_map, fox_hud
+extern u8 D_500A230[]; // fox_std_lib, fox_versus, fox_option, fox_map, fox_hud
+extern u8 D_500A320[]; // fox_std_lib, fox_versus, fox_option, fox_map, fox_hud
+extern u8 D_500A410[]; // fox_std_lib, fox_versus, fox_option, fox_map, fox_hud
+extern u8 D_500A500[]; // fox_std_lib, fox_versus, fox_option, fox_map, fox_hud
+extern u8 D_500A5F0[]; // fox_std_lib, fox_versus, fox_option, fox_hud
+extern u8 D_500A6E0[]; // fox_std_lib, fox_versus, fox_option, fox_hud
+extern u8 D_500A7D0[]; // fox_std_lib, fox_versus, fox_option, fox_hud
 
 /* ast_corneria, ast_meteo, ast_titania, ast_sector_x, ast_sector_z,
  * ast_aquas, ast_area_6, ast_venom_1, ast_venom_2, ast_ve1_boss*,
@@ -1058,24 +1019,6 @@ extern f32 D_C038BD8[];
 extern f32 D_C038DC0[];
 extern f32 D_C038F24[];
 extern Gfx D_C039208[];
-
-// ast_allies
-extern Gfx D_D000000[];
-extern u16 D_D000170[];
-extern u16 D_D001090[];
-extern u16 D_D001FB0[];
-extern u16 D_D002ED0[];
-extern u16 D_D003DF0[];
-extern u16 D_D004D10[];
-extern u16 D_D005C30[];
-extern u16 D_D006B50[];
-extern u16 D_D007A70[];
-extern u16 D_D008990[];
-extern Gfx D_D0098B0[];
-extern Gfx D_D009A40[];
-extern Gfx D_D00B5C0[];
-extern Gfx D_D00B720[];
-extern Gfx D_D00B880[];
 
 // ast_great_fox
 extern Gfx D_E000000[];

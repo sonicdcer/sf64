@@ -5,12 +5,11 @@
  */
 
 #include "mods.h"
-#include "prevent_bss_reordering.h"
-// #include "prevent_bss_reordering2.h"
 #include "global.h"
 #include "fox_map.h"
 #include "fox_option.h"
-
+#include "prevent_bss_reordering.h"
+#include "prevent_bss_reordering2.h"
 // BSS STARTS HERE
 
 u8 D_menu_801B9410[96 * 96];
@@ -190,6 +189,8 @@ s32 D_menu_801CF120;
 f32 D_menu_801CF124;
 
 extern u16 D_6000000[];
+
+#include "assets/ast_font.h"
 
 s32 D_menu_801AF420[2] = { 10, 20 };
 
@@ -1293,7 +1294,7 @@ void func_menu_8019E99C(void) {
     s32 i;
     s32 j;
 
-    func_8001DC6C(0, 0x118);
+    Audio_SetAudioSpec(0, 0x118);
 
     D_80137E78 = 2;
     gGameFrameCount = 0;
@@ -1390,7 +1391,7 @@ void func_menu_8019E99C(void) {
     D_menu_801CEA6C = 0.0f;
     D_menu_801CEA70 = 0.002f;
 
-    func_8001D444(0, 0x3C, 0, 0xFF);
+    AUDIO_PLAY_BGM(SEQ_ID_60);
 
     D_menu_801CEFC4 = 0;
     D_menu_801CEFC8 = 0;
@@ -1577,7 +1578,7 @@ void func_menu_8019F42C(void) {
 
     D_menu_801CD9AC = 0;
 
-    func_8001DC6C(0, 0x19);
+    Audio_SetAudioSpec(0, 0x19);
 
     D_menu_801CD948 = 0;
     D_menu_801CD94C = 0;
@@ -2114,7 +2115,7 @@ void func_menu_801A0954(void) {
             }
 
             if ((s32) D_menu_801CD9E0 == 205) {
-                func_8001AD00(1000);
+                Audio_PlayVoiceWithoutBGM(1000);
             }
 
             if (D_menu_801CD9E0 > -355.0f) {
@@ -2159,9 +2160,9 @@ void func_menu_801A0954(void) {
     }
 
     if (gControllerPress[gMainController].button & START_BUTTON) {
-        func_8001D444(0, 0x3C, 0, 0xFF);
+        AUDIO_PLAY_BGM(SEQ_ID_60);
 
-        Audio_PlaySfx(0x4900001FU, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x4900001FU, gDefaultSfxSource, 4U);
 
         for (planetId = 0; planetId < PLANET_MAX; planetId++) {
             if ((planetId == PLANET_SECTOR_Z) || (planetId == PLANET_SECTOR_X) || (planetId == PLANET_SECTOR_Y)) {
@@ -2174,7 +2175,7 @@ void func_menu_801A0954(void) {
 
         D_menu_801CD970 = 255;
 
-        func_8001AE58();
+        Audio_ClearVoice();
 
         D_menu_801CD974 = 1;
         D_menu_801CD97C = 1;
@@ -2373,7 +2374,7 @@ void func_menu_801A1528(void) {
             }
 
             if (temp == 0.0f) {
-                Audio_PlaySfx(0x4900001FU, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x4900001FU, gDefaultSfxSource, 4U);
                 D_menu_801CD948 = 0;
                 D_menu_801CD97C = 1;
                 D_menu_801CD944 = 3;
@@ -2382,7 +2383,7 @@ void func_menu_801A1528(void) {
     }
 
     if (gControllerPress[gMainController].button & START_BUTTON) {
-        Audio_PlaySfx(0x4900001FU, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x4900001FU, gDefaultSfxSource, 4U);
 
         for (planetId = 0; planetId < PLANET_MAX; planetId++) {
             if ((planetId == PLANET_SECTOR_Z) || (planetId == PLANET_SECTOR_X) || (planetId == PLANET_SECTOR_Y)) {
@@ -2490,9 +2491,9 @@ void func_menu_801A1C14(void) {
                 if (sCurrentPlanetId == PLANET_CORNERIA) {
                     D_80178340 = 0;
                     D_menu_801CD948 = 10;
-                    Audio_PlaySfx(0x0940A00BU, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x0940A00BU, gDefaultSfxSource, 4U);
                 } else {
-                    Audio_PlaySfx(0x19003012U, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x19003012U, gDefaultSfxSource, 4U);
                     D_menu_801CD948++;
                 }
             } else {
@@ -2508,7 +2509,7 @@ void func_menu_801A1C14(void) {
 
         case 10:
             if (D_menu_801CEB34 == 4) {
-                Audio_PlaySfx(0x19003012U, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x19003012U, gDefaultSfxSource, 4U);
                 D_menu_801CD948 = 2;
             }
             break;
@@ -2516,7 +2517,7 @@ void func_menu_801A1C14(void) {
         case 2:
             func_menu_801A2674();
             if ((D_menu_801CD9FC == D_menu_801CDA50.z) && (D_menu_801CD9D8 == 0)) {
-                Audio_PlaySfx(0x19004013U, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x19004013U, gDefaultSfxSource, 4U);
                 D_menu_801CD9D8 = 1;
                 if (sCurrentPlanetId == PLANET_CORNERIA) {
                     D_menu_801CEB48[0] = true;
@@ -2593,7 +2594,7 @@ bool func_menu_801A2304(void) {
 
     switch (D_menu_801CD94C) {
         case 0:
-            func_8001ACDC(3);
+            Audio_PlayVoice(3);
             D_menu_801CEA78 += 2.9f;
             D_menu_801CEA80 += 2.9f;
             if (D_menu_801CEA78 > 5.5f) {
@@ -2750,8 +2751,8 @@ void func_menu_801A2674(void) {
         D_menu_801CD970 = 0;
     }
 
-    func_800182F4(0x102D00FF);
-    func_800182F4(0x112D00FF);
+    SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 45);
+    SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 45);
 }
 
 void func_menu_801A281C(void) {
@@ -2935,9 +2936,9 @@ void func_menu_801A2EB8(void) {
 
     if (D_menu_801CD9C4 == 30) {
         if (D_menu_801CD93C == 2) {
-            Audio_PlaySfx(0x0900802AU, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x0900802AU, gDefaultSfxSource, 4U);
         } else {
-            Audio_PlaySfx(0x09000032U, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x09000032U, gDefaultSfxSource, 4U);
         }
     }
 
@@ -3005,7 +3006,7 @@ void func_menu_801A2EB8(void) {
     }
 
     if ((D_menu_801CEED8 == 4) && (D_menu_801CEEDC == 0.0f)) {
-        Audio_PlaySfx(0x19000026U, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x19000026U, gDefaultSfxSource, 4U);
     }
 
     if ((D_menu_801CEED8 == 5) && (D_menu_801CEEDC == 0.0f)) {
@@ -3107,7 +3108,7 @@ void func_menu_801A36A8(void) {
             D_menu_801CF080 = 1.0f;
             D_menu_801CD948 = 10;
 
-            func_8001D444(0, 0x28, 0, 0xFF);
+            AUDIO_PLAY_BGM(SEQ_ID_40);
             break;
 
         case 10:
@@ -3163,7 +3164,7 @@ void func_menu_801A36A8(void) {
     }
 
     if (gControllerPress[gMainController].button & (A_BUTTON | START_BUTTON)) {
-        Audio_PlaySfx(0x49000003U, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x49000003U, gDefaultSfxSource, 4U);
         D_menu_801CD948 = 3;
     }
 }
@@ -3617,7 +3618,7 @@ void func_menu_801A4D7C(void) {
 
     if (gControllerPress[gMainController].button & A_BUTTON) {
         func_8001D6DC(0);
-        Audio_PlaySfx(0x49000003U, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x49000003U, gDefaultSfxSource, 4U);
         D_menu_801CF000[D_menu_801CEFDC] = 10;
 
         if (((D_menu_801CD93C != 0) && (D_menu_801CEFDC == 2)) || ((D_menu_801CD93C == 0) && (D_menu_801CEFDC == 1))) {
@@ -3808,7 +3809,7 @@ bool func_menu_801A5770(void) {
     }
 
     if (ret) {
-        Audio_PlaySfx(0x49000002, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x49000002, gDefaultSfxSource, 4);
     }
 
     return ret;
@@ -3969,15 +3970,15 @@ void func_menu_801A5E80(void) {
 
         case 1:
             if ((gControllerPress[gMainController].button & START_BUTTON) && !(D_menu_801CD9A8)) {
-                func_8001A838(0x4100001EU);
-                func_8001AE58();
+                Audio_KillSfxById(0x4100001EU);
+                Audio_ClearVoice();
                 D_menu_801CF018 = 0;
                 D_menu_801B8280 = 2;
                 D_menu_801CD9B8 = 0;
             }
 
             if ((gControllerPress[gMainController].button & A_BUTTON) && (D_menu_801CD9A0 == 0) && !(D_menu_801CD9A8)) {
-                func_8001AE58();
+                Audio_ClearVoice();
                 D_Timer_801782AC = 0;
             }
 
@@ -4018,7 +4019,7 @@ void func_menu_801A5E80(void) {
 
         case 4:
             if (D_menu_801CD9B8 == 0) {
-                Audio_PlaySfx(0x49002016U, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x49002016U, gDefaultSfxSource, 4U);
                 D_menu_801CD9B8 = 75;
                 D_menu_801B8280++;
             }
@@ -4038,59 +4039,59 @@ void func_menu_801A5E80(void) {
 void func_menu_801A61B4(LevelId level) {
     switch (level) {
         case LEVEL_CORNERIA:
-            func_8001DC6C(0, 0);
+            Audio_SetAudioSpec(0, 0);
             break;
 
         case LEVEL_METEO:
-            func_8001DC6C(0, 1);
+            Audio_SetAudioSpec(0, 1);
             break;
 
         case LEVEL_TITANIA:
-            func_8001DC6C(0, 2);
+            Audio_SetAudioSpec(0, 2);
             break;
 
         case LEVEL_AQUAS:
-            func_8001DC6C(0, 12);
+            Audio_SetAudioSpec(0, 12);
             break;
 
         case LEVEL_BOLSE:
-            func_8001DC6C(0, 10);
+            Audio_SetAudioSpec(0, 10);
             break;
 
         case LEVEL_KATINA:
-            func_8001DC6C(0, 11);
+            Audio_SetAudioSpec(0, 11);
             break;
 
         case LEVEL_AREA_6:
-            func_8001DC6C(0, 5);
+            Audio_SetAudioSpec(0, 5);
             break;
 
         case LEVEL_SECTOR_Z:
-            func_8001DC6C(0, 13);
+            Audio_SetAudioSpec(0, 13);
             break;
 
         case LEVEL_FORTUNA:
-            func_8001DC6C(0, 8);
+            Audio_SetAudioSpec(0, 8);
             break;
 
         case LEVEL_SECTOR_X:
-            func_8001DC6C(0, 3);
+            Audio_SetAudioSpec(0, 3);
             break;
 
         case LEVEL_MACBETH:
-            func_8001DC6C(0, 14);
+            Audio_SetAudioSpec(0, 14);
             break;
 
         case LEVEL_ZONESS:
-            func_8001DC6C(0, 4);
+            Audio_SetAudioSpec(0, 4);
             break;
 
         case LEVEL_SECTOR_Y:
-            func_8001DC6C(0, 7);
+            Audio_SetAudioSpec(0, 7);
             break;
 
         case LEVEL_SOLAR:
-            func_8001DC6C(0, 521);
+            Audio_SetAudioSpec(0, 0x209);
 
         default:
             break;
@@ -4278,11 +4279,11 @@ s32 func_menu_801A655C(PlanetId start, PlanetId end) {
 }
 
 void func_menu_801A659C(void) {
-    func_8001A838(0x1100004C);
-    func_8001A838(0x1100204C);
+    Audio_KillSfxById(0x1100004C);
+    Audio_KillSfxById(0x1100204C);
 
     if (sCurrentPlanetId != 9) {
-        Audio_PlaySfx(0x49000003, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x49000003, gDefaultSfxSource, 4);
     }
 
     D_menu_801CEFC8 = 0;
@@ -4943,7 +4944,7 @@ void func_menu_801A809C(PlanetId planetId) {
                 D_menu_801CD998 += 8;
 
                 if (D_menu_801CD998 == 8) {
-                    Audio_PlaySfx(0x49008030U, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x49008030U, gDefaultSfxSource, 4U);
                 }
 
                 if (D_menu_801CD998 >= 255) {
@@ -5833,7 +5834,7 @@ void func_menu_801AB300(void) {
             D_menu_801CD940 = 1;
             D_80178308 = D_menu_801AF428[sCurrentPlanetId][D_menu_801CD940];
 
-            func_8001ACDC(Message_IdFromPtr(D_80178308));
+            Audio_PlayVoice(Message_IdFromPtr(D_80178308));
 
             D_80177D68 = D_menu_801AF420[D_menu_801CD940];
             D_Timer_801782AC = Message_GetCharCount(D_80178308) * 2;
@@ -5848,8 +5849,8 @@ void func_menu_801AB300(void) {
                 D_menu_801CEA74 = 255;
                 D_80177D50 = 1.3f;
 
-                Audio_PlaySfx(0x4100001EU, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
-                func_8001ACDC(Message_IdFromPtr(D_80178308));
+                AUDIO_PLAY_SFX(0x4100001EU, gDefaultSfxSource, 4U);
+                Audio_PlayVoice(Message_IdFromPtr(D_80178308));
 
                 D_Timer_801782AC = Message_GetCharCount(D_80178308) * 2;
                 D_menu_801CD9A4 = 0;
@@ -5858,9 +5859,9 @@ void func_menu_801AB300(void) {
             break;
 
         case 4:
-            if (!D_Timer_801782AC && !func_8001AE78()) {
+            if (!D_Timer_801782AC && !Audio_GetCurrentVoice()) {
                 D_801782A4 = D_80177D68;
-                func_8001AE58();
+                Audio_ClearVoice();
                 if (D_menu_801CD940 == 0) {
                     D_801782D8 = 0;
                     D_Timer_801782AC = 30;
@@ -5889,7 +5890,7 @@ void func_menu_801AB300(void) {
             }
 
             if (D_menu_801CEAB4) {
-                if (func_8001AED4() == 1) {
+                if (Audio_GetCurrentVoiceStatus() == 1) {
                     D_Timer_801782B4 = 2;
                 } else {
                     D_Timer_801782B4 = 0;
@@ -5910,7 +5911,7 @@ void func_menu_801AB300(void) {
             } else {
                 D_menu_801CD940 = 1;
                 D_80178308 = D_menu_801AF428[sCurrentPlanetId][D_menu_801CD940];
-                func_8001ACDC(Message_IdFromPtr(D_80178308));
+                Audio_PlayVoice(Message_IdFromPtr(D_80178308));
                 D_80177D68 = D_menu_801AF420[D_menu_801CD940];
                 D_801782A4 = D_80177D68;
                 D_801782D8 = 0;
@@ -5930,8 +5931,8 @@ void func_menu_801AB300(void) {
 
         case 6:
             if (D_Timer_801782AC == 0) {
-                func_8001A838(0x4100001EU);
-                func_8001ACDC(0);
+                Audio_KillSfxById(0x4100001EU);
+                Audio_PlayVoice(0);
                 D_80177D50 = 0.0f;
                 D_menu_801CF018++;
                 D_menu_801CF018 = 7;
@@ -6371,7 +6372,7 @@ void func_menu_801AC9A0(s32 index) {
 
     switch (D_80177BD8[index]) {
         case 1:
-            Audio_PlaySfx(0x1900404DU, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x1900404DU, gDefaultSfxSource, 4U);
             D_80177BD8[index] = 11;
             break;
 
@@ -6379,7 +6380,7 @@ void func_menu_801AC9A0(s32 index) {
             Math_SmoothStepToF(&gUnkEntities30[index].unk_24, target, 0.1f, 100.0f, 4.0f);
             gUnkEntities30[index].unk_2F = 255;
             if (gUnkEntities30[index].unk_24 == target) {
-                func_8001A838(0x1900404DU);
+                Audio_KillSfxById(0x1900404DU);
                 D_80177BD8[index] = 4;
             }
             break;
@@ -6595,7 +6596,7 @@ void func_menu_801AD11C(void) {
     if (gControllerPress[gMainController].button & START_BUTTON) {
         if (D_menu_801CD944 == 3 && D_80161A34 == 7) {
             if (D_menu_801CEFD0) {
-                Audio_PlaySfx(0x4900100AU, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x4900100AU, gDefaultSfxSource, 4U);
             } else {
                 func_8001D6DC(1);
                 D_menu_801CEFC4 = 1;
@@ -6640,14 +6641,14 @@ void func_menu_801AD11C(void) {
     }
 
     if (D_menu_801CF014 == 0 && var_a3 == 1) {
-        func_8001D10C(gDefaultSfxPos, 0x1100204C);
+        func_8001D10C(gDefaultSfxSource, 0x1100204C);
         D_menu_801CF014 = 1;
     }
 
     if ((D_menu_801CF014 == 1) && (var_a3 == 0) && (y == 0.0f) && (x == 0.0f)) {
         var_a1 = 0;
         var_a2 = 0;
-        func_8001A838(0x1100204CU);
+        Audio_KillSfxById(0x1100204CU);
         D_menu_801CF014 = 0;
     }
 
@@ -6694,12 +6695,12 @@ void func_menu_801AD11C(void) {
     }
 
     if (D_menu_801CF010 == 0 && var_t0 == 1) {
-        Audio_PlaySfx(0x1100004CU, gDefaultSfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x1100004CU, gDefaultSfxSource, 4U);
         D_menu_801CF010 = 1;
     }
 
     if (D_menu_801CF010 == 1 && var_t0 == 0) {
-        func_8001A838(0x1100004CU);
+        Audio_KillSfxById(0x1100004CU);
         D_menu_801CF010 = 0;
     }
 }

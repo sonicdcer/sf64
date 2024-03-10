@@ -1,4 +1,4 @@
-#include "prevent_bss_reordering.h"
+// #include "prevent_bss_reordering.h"
 #include "global.h"
 
 extern f32 D_i3_801C4188;
@@ -15,6 +15,8 @@ s32 D_8015F980;
 f32 D_8015F984;
 UNK_TYPE D_8015F988[0x683]; // Unused? Close to being [13][0x80]
 f32 D_80161394;             // can be static
+
+#include "assets/ast_bg_planet.h"
 
 f32 D_800C9C30 = 0.0f;
 u16 D_800C9C34 = 1;

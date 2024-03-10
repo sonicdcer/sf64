@@ -2,12 +2,6 @@
 #include "sf64dma.h"
 #include "sf64audio_provisional.h"
 
-extern char D_800C4F6C[];
-extern char D_800C50E8[];
-extern char D_800C50F4[];
-extern char D_800C52F4[];
-extern char D_800C53AC[];
-
 extern AudioTable gSampleBankTableInit;
 // extern AudioTableEntry gSampleBankTableInitEntries[];
 extern AudioTable gSeqTableInit;
@@ -15,6 +9,73 @@ extern AudioTable gSeqTableInit;
 extern AudioTable gSoundFontTableInit;
 // extern AudioTableEntry gSoundFontTableInitEntries[];
 extern u8 gSeqFontTableInit[];
+
+static char devstr00[] = "CAUTION:WAVE CACHE FULL %d";
+static char D_800C4F6C[] = "SUPERDMA";
+static char devstr02[] = "Bank Change... top %d lba %d\n";
+static char devstr03[] = "BankCount %d\n";
+static char devstr04[] = "BANK LOAD MISS! FOR %d\n";
+static char devstr05[] = "BankCount %d\n";
+static char devstr06[] = "Flush Start\n";
+static char devstr07[] = "%d ->%d\n";
+static char devstr08[] = "useflag %d\n";
+static char devstr09[] = "BankCount %d\n";
+static char devstr10[] = "%2x ";
+static char devstr11[] = "StartSeq (Group %d,Seq %d) Process finish\n";
+static char devstr12[] = "LoadCtrl, Ptr %x and Media is %d\n";
+static char devstr13[] = "Load Bank, Type %d , ID %d\n";
+static char devstr14[] = "get auto\n";
+static char devstr15[] = "get s-auto %x\n";
+static char devstr16[] = "Seq %d Write ID OK %d!\n";
+static char devstr17[] = "Banknumber %d\n";
+static char devstr18[] = "Bank Offset %x %d %d\n";
+static char devstr19[] = "PEP Touch %x \n";
+static char D_800C50E8[] = "FastCopy";
+static char D_800C50F4[] = "FastCopy";
+static char devstr22[] = "Error: Cannot DMA Media [%d]\n";
+static char devstr23[] = "Warning: size not align 16 %x  (%s)\n";
+static char devstr24[] = "Load Bank BG, Type %d , ID %d\n";
+static char devstr25[] = "get auto\n";
+static char devstr26[] = "get s-auto %x\n";
+static char devstr27[] = "Clear Workarea %x -%x size %x \n";
+static char devstr28[] = "AudioHeap is %x\n";
+static char devstr29[] = "Heap reset.Synth Change %x \n";
+static char devstr30[] = "Heap %x %x %x\n";
+static char devstr31[] = "Main Heap Initialize.\n";
+static char devstr32[] = "%d :WaveA %d WaveB %d Inst %d,Perc %d\n";
+static char devstr33[] = "---------- Init Completed. ------------\n";
+static char devstr34[] = " Syndrv    :[%6d]\n";
+static char devstr35[] = " Seqdrv    :[%6d]\n";
+static char devstr36[] = " audiodata :[%6d]\n";
+static char devstr37[] = "---------------------------------------\n";
+static char devstr38[] = "Entry--- %d %d\n";
+static char devstr39[] = "---Block LPS here\n";
+static char devstr40[] = "===Block LPS end\n";
+static char D_800C52F4[] = "SLOWCOPY";
+static char devstr42[] = "Req: Src %x Dest %x Len %x,media %d,retcode %d\n";
+static char devstr43[] = "Remain Size %d\n";
+static char devstr44[] = "---Block BG here\n";
+static char devstr45[] = "===Block BG end\n";
+static char devstr46[] = "Retcode %x\n";
+static char devstr47[] = "Other Type: Not Write ID.\n";
+static char devstr48[] = "BGLOAD:Error: dma length 0\n";
+static char D_800C53AC[] = "BGCOPY";
+static char devstr50[] = "Error: Already wavetable is touched %x.\n";
+static char devstr51[] = "Touch Warning: Length zero %x\n";
+static char devstr52[] = "It's busy now!!!!! %d\n";
+static char devstr53[] = "BG LOAD BUFFER is OVER.\n";
+static char devstr54[] = "Warning: Length zero %x\n";
+static char devstr55[] = "Wave Load %d \n";
+static char devstr56[] = "Total Bg Wave Load %d \n";
+static char devstr57[] = "Receive %d\n";
+static char devstr58[] = "============Error: Magic is Broken after loading.\n";
+static char devstr59[] = "Remain DMA: %d\n";
+static char devstr60[] = "N start %d\n";
+static char devstr61[] = "============Error: Magic is Broken: %x\n";
+static char devstr62[] = "Error: No Handle.\n";
+static char devstr63[] = "Success: %x\n";
+
+AudioSlowLoadBuffer gSlowLoads;
 
 void AudioLoad_DecreaseSampleDmaTtls(void) {
     SampleDma* dma;
@@ -171,7 +232,7 @@ void AudioLoad_InitTable(AudioTable* table, u8* romAddr, u16 unkMediumParam) {
     table->romAddr = romAddr;
 
     for (i = 0; i < table->numEntries; i++) {
-        if ((table->entries[i].size != 0) && (table->entries[i].medium == 2)) {
+        if ((table->entries[i].size != 0) && (table->entries[i].medium == MEDIUM_CART)) {
             table->entries[i].romAddr += (u32) romAddr;
         }
     }
@@ -191,15 +252,15 @@ void* AudioLoad_SyncLoadSeqFonts(s32 seqId, u32* outFontId) {
     return soundFontData;
 }
 
-void AudioLoad_SyncLoadSeqParts(s32 seqId, s32 arg1) {
+void AudioLoad_SyncLoadSeqParts(s32 seqId, s32 flags) {
     s32 pad;
     u32 fontId;
 
     seqId = AudioLoad_GetLoadTableIndex(0, seqId);
-    if (arg1 & 2) {
+    if (flags & 2) {
         AudioLoad_SyncLoadSeqFonts(seqId, &fontId);
     }
-    if (arg1 & 1) {
+    if (flags & 1) {
         AudioLoad_SyncLoadSeq(seqId);
     }
 }
@@ -212,12 +273,12 @@ s32 AudioLoad_SyncLoadSample(Sample* sample, s32 fontId) {
         if (sampleAddr == NULL) {
             return -1;
         }
-        if (sample->medium == 1) {
+        if (sample->medium == MEDIUM_UNK) {
             AudioLoad_SyncDmaUnkMedium(sample->sampleAddr, sampleAddr, sample->size, gSampleBankTable->unkMediumParam);
         } else {
             AudioLoad_SyncDma(sample->sampleAddr, sampleAddr, sample->size, sample->medium);
         }
-        sample->medium = 0;
+        sample->medium = MEDIUM_RAM;
         sample->sampleAddr = sampleAddr;
     }
 }
@@ -248,22 +309,22 @@ s32 AudioLoad_SyncLoadInstrument(s32 fontId, s32 instId, s32 drumId) {
     }
 }
 
-void AudioLoad_AsyncLoadSampleBank(s32 sampleBankId, s32 arg1, s32 retData, OSMesgQueue* retQueue) {
-    if (AudioLoad_AsyncLoadInner(2, AudioLoad_GetLoadTableIndex(2, sampleBankId), arg1, retData, retQueue) == NULL) {
+void AudioLoad_AsyncLoadSampleBank(s32 sampleBankId, s32 nChunks, s32 retData, OSMesgQueue* retQueue) {
+    if (AudioLoad_AsyncLoadInner(2, AudioLoad_GetLoadTableIndex(2, sampleBankId), nChunks, retData, retQueue) == NULL) {
         osSendMesg(retQueue, NULL, 0);
     }
 }
 
-void AudioLoad_AsyncLoadSeq(s32 seqId, s32 arg1, s32 retData, OSMesgQueue* retQueue) {
+void AudioLoad_AsyncLoadSeq(s32 seqId, s32 nChunks, s32 retData, OSMesgQueue* retQueue) {
     s32 index = ((u16*) gSeqFontTable)[AudioLoad_GetLoadTableIndex(0, seqId)];
     s32 fontsLeft = gSeqFontTable[index++];
 
     for (fontsLeft; fontsLeft > 0; fontsLeft--) {
-        AudioLoad_AsyncLoadInner(1, AudioLoad_GetLoadTableIndex(1, gSeqFontTable[index++]), arg1, retData, retQueue);
+        AudioLoad_AsyncLoadInner(1, AudioLoad_GetLoadTableIndex(1, gSeqFontTable[index++]), nChunks, retData, retQueue);
     }
 }
 
-void* AudioLoad_GetFontsForSequence(s32 seqId, u32* outNumFonts) {
+u8* AudioLoad_GetFontsForSequence(s32 seqId, u32* outNumFonts) {
     s32 index = ((u16*) gSeqFontTable)[AudioLoad_GetLoadTableIndex(0, seqId)];
 
     *outNumFonts = gSeqFontTable[index++];
@@ -366,7 +427,7 @@ void* AudioLoad_SyncLoadSampleBank(u32 sampleBankId, s32* outMedium) {
         if (gSampleFontLoadStatus[sampleBankId] != 5) {
             gSampleFontLoadStatus[sampleBankId] = 2;
         }
-        *outMedium = 0;
+        *outMedium = MEDIUM_RAM;
         return ramAddr;
     }
     cachePolicy = sampleBankTable->entries[sampleBankId].cachePolicy;
@@ -376,7 +437,7 @@ void* AudioLoad_SyncLoadSampleBank(u32 sampleBankId, s32* outMedium) {
     }
     ramAddr = AudioLoad_SyncLoad(2, sampleBankId, &noLoad);
     if (ramAddr != NULL) {
-        *outMedium = 0;
+        *outMedium = MEDIUM_RAM;
         return ramAddr;
     }
     *outMedium = sampleBankTable->entries[sampleBankId].medium;
@@ -466,7 +527,7 @@ void* AudioLoad_SyncLoad(u32 tableType, u32 id, s32* didAllocate) {
         }
 
         *didAllocate = true;
-        if (medium == 1) {
+        if (medium == MEDIUM_UNK) {
             AudioLoad_SyncDmaUnkMedium(romAddr, ramAddr, size, table->unkMediumParam);
         } else {
             AudioLoad_SyncDma(romAddr, ramAddr, size, medium);
@@ -474,17 +535,17 @@ void* AudioLoad_SyncLoad(u32 tableType, u32 id, s32* didAllocate) {
         loadStatus = (cachePolicy == 0) ? 5 : 2;
     }
     switch (tableType) {
-        case 0:
+        case SEQUENCE_TABLE:
             if (gSeqLoadStatus[id] != 5) {
                 gSeqLoadStatus[id] = loadStatus;
             }
             break;
-        case 1:
+        case FONT_TABLE:
             if (gFontLoadStatus[id] != 5) {
                 gFontLoadStatus[id] = loadStatus;
             }
             break;
-        case 2:
+        case SAMPLE_TABLE:
             if (gSampleFontLoadStatus[id] != 5) {
                 gSampleFontLoadStatus[id] = loadStatus;
             }
@@ -520,13 +581,13 @@ AudioTable* AudioLoad_GetLoadTable(s32 tableType) {
     AudioTable* table;
 
     switch (tableType) {
-        case 0:
+        case SEQUENCE_TABLE:
             table = gSequenceTable;
             break;
-        case 1:
+        case FONT_TABLE:
             table = gSoundFontTable;
             break;
-        case 2:
+        case SAMPLE_TABLE:
             table = gSampleBankTable;
             break;
         default:
@@ -621,11 +682,11 @@ s32 AudioLoad_Dma(OSIoMesg* mesg, u32 priority, s32 direction, u32 devAddr, void
                   OSMesgQueue* retQueue, s32 medium, const char* dmaType) {
     OSPiHandle* handle;
 
-    switch (medium) { /* irregular */
-        case 2:
+    switch (medium) {
+        case MEDIUM_CART:
             handle = osCartRomInit();
             break;
-        case 3:
+        case MEDIUM_DISK_DRIVE:
             handle = func_8001EE60();
             break;
         default:
@@ -777,21 +838,21 @@ void AudioLoad_Init(void) {
         *clearContext++ = 0;
     }
     switch (osTvType) {
-        case 0:
+        case OS_TV_PAL:
             gMaxTempoTvTypeFactors = 20.03042f;
-            gRefreshRate = 0x32;
+            gRefreshRate = 50;
             break;
-        case 2:
+        case OS_TV_MPAL:
             gMaxTempoTvTypeFactors = 16.546f;
-            gRefreshRate = 0x3C;
+            gRefreshRate = 60;
             break;
         default:
-        case 1:
+        case OS_TV_NTSC:
             gMaxTempoTvTypeFactors = 16.713f;
-            gRefreshRate = 0x3C;
+            gRefreshRate = 60;
             break;
     }
-    func_8001EE3C();
+    AudioThread_Init();
     for (i = 0; i < 3; i++) {
         gAiBuffLengths[i] = 0xA0;
     }
@@ -851,7 +912,7 @@ s32 AudioLoad_SlowLoadSample(s32 fontId, u8 instId, s8* status) {
         *status = 0;
         return -1;
     }
-    if (sample->medium == 0) {
+    if (sample->medium == MEDIUM_RAM) {
         *status = 2;
         return 0;
     }
@@ -864,7 +925,7 @@ s32 AudioLoad_SlowLoadSample(s32 fontId, u8 instId, s8* status) {
     slowLoad->curRamAddr =
         AudioHeap_AllocTemporarySampleCache(sample->size, fontId, sample->sampleAddr, sample->medium);
     if (slowLoad->curRamAddr == NULL) {
-        if ((sample->medium == 1) || (sample->codec == 2)) {
+        if ((sample->medium == MEDIUM_UNK) || (sample->codec == 2)) {
             *status = 0;
             return -1;
         } else {
@@ -907,13 +968,13 @@ Sample* AudioLoad_GetFontSample(s32 fontId, s32 instId) {
 void AudioLoad_Stub_10800(void) {
 }
 
-void AudioLoad_FinishSlowLoad(AudioSlowLoad* arg0) {
-    Sample* sample = AudioLoad_GetFontSample(arg0->seqOrFontId, arg0->instId);
+void AudioLoad_FinishSlowLoad(AudioSlowLoad* slowLoad) {
+    Sample* sample = AudioLoad_GetFontSample(slowLoad->seqOrFontId, slowLoad->instId);
 
     if (sample != NULL) {
-        arg0->sample = *sample;
-        sample->sampleAddr = arg0->ramAddr;
-        sample->medium = 0;
+        slowLoad->sample = *sample;
+        sample->sampleAddr = slowLoad->ramAddr;
+        sample->medium = MEDIUM_RAM;
     }
 }
 
@@ -938,7 +999,7 @@ void AudioLoad_ProcessSlowLoads(s32 resetStatus) {
                     slowLoad->state = 3;
                     *slowLoad->status = 1;
                 } else if (slowLoad->bytesRemaining < 0x1000) {
-                    if (slowLoad->medium == 1) {
+                    if (slowLoad->medium == MEDIUM_UNK) {
                         AudioLoad_DmaSlowCopyUnkMedium(slowLoad->curDevAddr, slowLoad->curRamAddr,
                                                        slowLoad->bytesRemaining, sampleBankTable->unkMediumParam);
                     } else {
@@ -946,7 +1007,7 @@ void AudioLoad_ProcessSlowLoads(s32 resetStatus) {
                     }
                     slowLoad->bytesRemaining = 0;
                 } else {
-                    if (slowLoad->medium == 1) {
+                    if (slowLoad->medium == MEDIUM_UNK) {
                         AudioLoad_DmaSlowCopyUnkMedium(slowLoad->curDevAddr, slowLoad->curRamAddr, 0x1000,
                                                        sampleBankTable->unkMediumParam);
                     } else {
@@ -1091,7 +1152,7 @@ void AudioLoad_ProcessAsyncLoad(AudioAsyncLoad* asyncLoad, s32 resetStatus) {
         osSendMesg(asyncLoad->retQueue, asyncLoad->retMsg, 0);
     } else {
         if (asyncLoad->bytesRemaining < asyncLoad->chunkSize) {
-            if (asyncLoad->medium == 1) {
+            if (asyncLoad->medium == MEDIUM_UNK) {
                 AudioLoad_AsyncDmaUnkMedium(asyncLoad->curDevAddr, asyncLoad->curRamAddr, asyncLoad->bytesRemaining,
                                             sp5C->unkMediumParam);
             } else {
@@ -1099,7 +1160,7 @@ void AudioLoad_ProcessAsyncLoad(AudioAsyncLoad* asyncLoad, s32 resetStatus) {
             }
             asyncLoad->bytesRemaining = 0;
         } else {
-            if (asyncLoad->medium == 1) {
+            if (asyncLoad->medium == MEDIUM_UNK) {
                 AudioLoad_AsyncDmaUnkMedium(asyncLoad->curDevAddr, asyncLoad->curRamAddr, asyncLoad->chunkSize,
                                             sp5C->unkMediumParam);
             } else {
@@ -1132,23 +1193,23 @@ void AudioLoad_RelocateSample(TunedSample* tSample, u32 fontDataAddr, SampleBank
     void* reloc;
     Sample* sample;
 
-    if ((u32) tSample->sample < 0x80000001U) {
+    if ((u32) tSample->sample <= 0x80000000) {
         sample = tSample->sample = reloc = (u32) tSample->sample + fontDataAddr;
         // arg0->sample = temp_v1;
         if ((sample->size != 0) && (sample->isRelocated != 1)) {
             sample->loop = reloc = (u32) sample->loop + fontDataAddr;
             sample->book = reloc = (u32) sample->book + fontDataAddr;
             switch (sample->medium) { /* irregular */
-                case 0:
+                case MEDIUM_RAM:
                     sample->sampleAddr = reloc = sample->sampleAddr + relocInfo->baseAddr1;
                     sample->medium = relocInfo->medium1;
                     break;
-                case 1:
+                case MEDIUM_UNK:
                     sample->sampleAddr = reloc = sample->sampleAddr + relocInfo->baseAddr2;
                     sample->medium = relocInfo->medium2;
                     break;
-                case 2:
-                case 3:
+                case MEDIUM_CART:
+                case MEDIUM_DISK_DRIVE:
                     break;
             }
             sample->isRelocated = true;
@@ -1214,15 +1275,15 @@ s32 AudioLoad_RelocateFontAndPreloadSamples(s32 fontId, u32 fontDataAddr, Sample
         }
         switch (isAsync) {
             case 0:
-                if (sample->medium == 1) {
+                if (sample->medium == MEDIUM_UNK) {
                     AudioLoad_SyncDmaUnkMedium(sample->sampleAddr, sampleRamAddr, sample->size,
                                                gSampleBankTable->unkMediumParam);
                     sample->sampleAddr = sampleRamAddr;
-                    sample->medium = 0;
+                    sample->medium = MEDIUM_RAM;
                 } else {
                     AudioLoad_SyncDma(sample->sampleAddr, sampleRamAddr, sample->size, sample->medium);
                     sample->sampleAddr = sampleRamAddr;
-                    sample->medium = 0;
+                    sample->medium = MEDIUM_RAM;
                 }
                 break;
             case 1:
@@ -1276,7 +1337,7 @@ s32 AudioLoad_ProcessSamplePreloads(s32 resetStatus) {
             key = sample->sampleAddr + sample->size + sample->medium;
             if (key == gPreloadSampleStack[preloadIndex].endAndMediumKey) {
                 sample->sampleAddr = gPreloadSampleStack[preloadIndex].ramAddr;
-                sample->medium = 0;
+                sample->medium = MEDIUM_RAM;
             }
             gPreloadSampleStack[preloadIndex].isFree = 1;
         }

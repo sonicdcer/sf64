@@ -79,31 +79,31 @@ void Option_ExpertSoundUpdate(void) {
     sfx |= sfxId & 0xFF;
 
     if (prevSfx != sfx) {
-        Audio_PlaySfx(0x49000002, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x49000002, gDefaultSfxSource, 4);
         prevSfx = sfx;
     }
 
     decimalToHex(sfx, hexString, sizeof(hexString));
 
     if (gControllerPress[gMainController].button & A_BUTTON) {
-        func_800182F4(0x100100FF);
-        func_800182F4(0x110100FF);
-        Audio_PlaySfx(sfx, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
+        SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
+        AUDIO_PLAY_SFX(sfx, gDefaultSfxSource, 4);
         D_menu_801B9320 = true;
     }
 
     if (gControllerPress[gMainController].button & B_BUTTON) {
         if (!D_menu_801B9320) {
-            func_8001D444(0, 36, 0, 255);
+            AUDIO_PLAY_BGM(SEQ_ID_36);
             gDrawMode = DRAWMODE_0;
             D_menu_801B9124 = 1000;
             D_menu_801B912C = 0;
             D_menu_801B9244 = 1;
         } else {
-            Audio_PlaySfx(0x4900101D, gDefaultSfxPos, 4, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
-            Audio_KillSfx(gDefaultSfxPos);
-            func_800182F4(0x100100FF);
-            func_800182F4(0x110100FF);
+            AUDIO_PLAY_SFX(0x4900101D, gDefaultSfxSource, 4);
+            Audio_KillSfxBySource(gDefaultSfxSource);
+            SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
+            SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
             D_menu_801B9320 = false;
         }
     }

@@ -7,54 +7,6 @@
 #include "sf64player.h"
 #include "sf64mesg.h"
 
-// audio
-void AudioLoad_Init(void);
-
-void func_80016A50(void);
-void func_800182F4(s32);
-void Audio_PlaySfx(u32, f32*, u8, f32*, f32*, s8*);
-void func_80019290(s32, void*);
-void func_8001A38C(u8, f32*);
-void Audio_KillSfx(f32*);
-void func_8001A55C(f32*, u32);
-void func_8001A838(u32);
-void func_8001ACDC(s32);
-void func_8001AD00(u32);
-void func_8001AE58(void);
-s32 func_8001AE78(void);
-s32 func_8001AED4(void);
-void func_8001AF40(s32);
-u8* func_8001C3EC(void);
-void func_8001C8B8(u8);
-void func_8001CA24(u8);
-void func_8001CB80(u8, u8);
-void func_8001CCDC(u8, f32 *);
-void func_8001CE28(u8, f32 *);
-void func_8001CFA8(f32);
-void func_8001D034(f32*, s32, u8);
-void func_8001D10C(f32*, u32);
-void func_8001D15C(u8);
-void func_8001D1C8(u8, u32);
-void func_8001D2FC(f32*, u16);
-void func_8001D3A0(f32*, u16);
-void func_8001D400(s8);
-void func_8001D410(s32);
-void func_8001D444(u8, u16, u8, u8);
-void func_8001D4AC(u16, u8, u8, u8);
-void func_8001D520(void);
-void func_8001D638(u8);
-void func_8001D6DC(s32);
-void func_8001DA90(u8);
-void func_8001DBD0(s32);
-void func_8001DC6C(u8, u16);
-void func_8001D8A8(u8, u8);
-void func_8001D8F4(u8);
-void func_8001DCE0(void);
-void func_8001DECC(void);
-
-SPTask* func_8001DF50(void);
-void func_8001EE00(void);
-
 // fox_360
 void func_8002ED60(Player*);
 void func_8002E3E0(Actor*);

@@ -19,7 +19,7 @@ void func_i5_80187530(Actor* actor) {
 
     actor->obj.rot.y = 180.0f;
     Object_SetInfo(&actor->info, actor->obj.id);
-    Audio_PlaySfx(0x11030010U, actor->sfxPos, 0U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+    AUDIO_PLAY_SFX(0x11030010U, actor->sfxSource, 0U);
     actor->unk_0B6 = 1;
 }
 
@@ -35,7 +35,7 @@ void func_i5_801875D0(Actor* actor, s32 arg1) {
     actor->obj.rot.y = 180.0f;
     actor->iwork[11] = 1;
     Object_SetInfo(&actor->info, actor->obj.id);
-    Audio_PlaySfx(0x3100000CU, actor->sfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+    AUDIO_PLAY_SFX(0x3100000CU, actor->sfxSource, 4U);
 }
 
 void func_i5_8018769C(Player* player) {
@@ -94,7 +94,7 @@ void func_i5_8018769C(Player* player) {
             if (gCsFrameCount == 430) {
                 player->unk_1D0 = 2;
                 player->timer_1F8 = 10;
-                Audio_PlaySfx(0x09000002U, player->sfxPos, 0U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                AUDIO_PLAY_SFX(0x09000002U, player->sfxSource, 0U);
             }
             gCsCamAtX = player->pos.x;
             gCsCamAtY = player->pos.y;
@@ -206,14 +206,14 @@ void func_i5_8018769C(Player* player) {
 
                 if (D_80177A10[0] == 0) {
                     D_80177A10[0]++;
-                    Audio_PlaySfx(0x01008016U, player->sfxPos, 0U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+                    AUDIO_PLAY_SFX(0x01008016U, player->sfxSource, 0U);
                 }
             }
 
             if (player->pos.y < 100.0f) {
                 func_8007A900(RAND_FLOAT_CENTERED(30.0f) + player->pos.x, 30.0f,
                               RAND_FLOAT_CENTERED(30.0f) + player->unk_138, RAND_FLOAT(2.0f) + 3.5f, 255, 12, 1);
-                Object_Kill(&gActors[3].obj, gActors[3].sfxPos);
+                Object_Kill(&gActors[3].obj, gActors[3].sfxSource);
             }
 
             Math_SmoothStepToF(&player->unk_0F0, SIN_DEG(gGameFrameCount * 5.0f) * 10.0f, 0.1f, 100.0f, 0.0f);
@@ -228,7 +228,7 @@ void func_i5_8018769C(Player* player) {
                 func_800A594C();
                 D_8017782C = 0;
                 if ((gControllerHold[player->num].button & Z_TRIG) && (gControllerHold[player->num].button & R_TRIG)) {
-                    func_8001A55C(player->sfxPos, 0x01008016);
+                    Audio_KillSfxBySourceAndId(player->sfxSource, 0x01008016);
                 }
             }
             break;
@@ -273,11 +273,11 @@ void func_i5_80188108(Actor* actor, s32 arg1) {
         actor->unk_0C9 = 1;
         actor->fwork[3] = D_i5_801B7348[arg1];
         actor->state = 30;
-        Audio_PlaySfx(0x3100000CU, actor->sfxPos, 4U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x3100000CU, actor->sfxSource, 4U);
     } else {
         actor->unk_0B6 = 1;
         actor->state = 20;
-        Audio_PlaySfx(0x11030010U, actor->sfxPos, 0U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+        AUDIO_PLAY_SFX(0x11030010U, actor->sfxSource, 0U);
         actor->fwork[9] = 20.0f;
     }
 }
@@ -313,7 +313,7 @@ void func_i5_801882CC(Player* player) {
                 func_i5_80188108(&gActors[2], 2);
             }
 
-            func_8001A55C(player->sfxPos, 0x01004024U);
+            Audio_KillSfxBySourceAndId(player->sfxSource, 0x01004024U);
 
         case 1:
             Math_SmoothStepToF(D_80177A48, 0.1f, 1.0f, 0.01f, 0.0f);
@@ -422,7 +422,7 @@ void func_i5_801882CC(Player* player) {
             break;
 
         case 50:
-            func_8001D444(0U, 0x26U, 0U, 0xFFU);
+            AUDIO_PLAY_BGM(SEQ_ID_38);
             break;
 
         case 80:
@@ -499,7 +499,7 @@ void func_i5_801882CC(Player* player) {
             D_80161A44 = 30000.0f;
             player->unk_240 = 1;
             func_8001CA24(0);
-            Audio_PlaySfx(0x01008016U, player->sfxPos, 0U, &gDefaultScale, &gDefaultScale, &gDefaultReverb);
+            AUDIO_PLAY_SFX(0x01008016U, player->sfxSource, 0U);
             break;
     }
 
@@ -513,8 +513,8 @@ void func_i5_801882CC(Player* player) {
     player->camAt.y += camAtY;
 
     if (gCsFrameCount == 1380) {
-        func_800182F4(0x103C00FF);
-        func_800182F4(0x113C00FF);
+        SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 60);
+        SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 60);
     }
 
     if (gCsFrameCount > 1440) {
@@ -525,7 +525,7 @@ void func_i5_801882CC(Player* player) {
             player->state_1C8 = PLAYERSTATE_1C8_6;
             D_8017837C = 4;
             func_800A6148();
-            func_8001DBD0(10);
+            Audio_FadeOutAll(10);
             D_800D3180[LEVEL_TITANIA] = Play_CheckMedalStatus(150) + 1;
         }
     }

@@ -211,15 +211,15 @@
       - [0xC51E0, .data, sys_math]
       - [0xC5220, .data, sys_matrix]
       - [0xC52F0, .data, sys_fault]
-      - [0xC54D0, data, audio_synthesis]
-      - [0xC55B0, data, audio_heap]
-      - [0xC5B50, data, audio_load]
-      - [0xC6120, data, audio_playback] # could be C6110?
-      - [0xC6500, data, audio_effects]
-      - [0xC6520, data, audio_seqplayer]
-      - [0xC68E0, data, audio_general]
-      - [0xC80D0, data, audio_context]
-      - [0xC8850, data, audio_thread]
+      - [0xC54D0, .data, audio_synthesis]
+      - [0xC55B0, .data, audio_heap]
+      - [0xC5B50, .data, audio_load]
+      - [0xC6120, .data, audio_playback] # could be C6110?
+      - [0xC6500, .data, audio_effects]
+      - [0xC6520, .data, audio_seqplayer]
+      - [0xC68E0, .data, audio_general]
+      - [0xC80D0, .data, audio_context]
+      - [0xC8850, .data, audio_thread]
       - [0xC8880, .data, sys_sprintf]
 
       # DATA - Libultra
@@ -343,13 +343,12 @@
       - { type: .bss, vram: 0x80144BE0, name: sys_timer }
       - { type: .bss, vram: 0x80144F60, name: sys_save }
       - { type: .bss, vram: 0x80145360, name: sys_fault }
-      - { type: bss, vram: 0x80145D40, name: audio_synthesis }
-      - { type: bss, vram: 0x80146D80, name: audio_heap }
-      - { type: bss, vram: 0x80146D90, name: audio_load }
-      # padding suggests unused bss for playback, effects, or seqplayer
-      - { type: bss, vram: 0x80146E60, name: audio_general }
-      - { type: bss, vram: 0x8014BA40, name: audio_context }
-      - { type: bss, vram: 0x80155DA0, name: audio_thread }
+      - { type: .bss, vram: 0x80145D40, name: audio_synthesis }
+      - { type: .bss, vram: 0x80146D80, name: audio_heap }
+      - { type: .bss, vram: 0x80146D90, name: audio_load }
+      - { type: .bss, vram: 0x80146E60, name: audio_general }
+      - { type: .bss, vram: 0x8014BA40, name: audio_context }
+      - { type: .bss, vram: 0x80155DA0, name: audio_thread }
 
       # Libultra bss
       - { type: .bss, vram: 0x80156620, name: ../libultra/io/controller }
