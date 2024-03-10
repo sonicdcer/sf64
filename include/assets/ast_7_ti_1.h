@@ -65,6 +65,8 @@ extern Vtx ast_7_ti_1_seg7_vtx_7770[];
 extern Vtx ast_7_ti_1_seg7_vtx_7950[];
 extern Vtx ast_7_ti_1_seg7_vtx_7980[];
 extern Vtx ast_7_ti_1_seg7_vtx_7A60[];
+extern u8 D_7007AB0[];
+extern u16 D_7007EB0[];
 extern u8 D_7008090[];
 extern u16 D_7008490[];
 extern Gfx D_7008930[];

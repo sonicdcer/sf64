@@ -92,11 +92,18 @@ D_7005420:
   { type: GFX, offset: 0x7005420, symbol: D_7005420 }
 
 # At 0x5648 GAP 0x1D08 long
+BLOB_7005648: 
+  { type: BLOB, size: 0x1D08, offset: 0x7005648, symbol: BLOB_7005648 }
 
 D_7007350:
   { type: GFX, offset: 0x7007350, symbol: D_7007350 }
 
 # At 0x7AB0 GAP 0x5E0 long
+D_7007AB0: # size 0x400
+  { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x7007AB0, symbol: D_7007AB0, tlut: 0x07007EB0 }
+#ends in 0x7EB0
+D_7007EB0: # size 0x1E0
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 240, offset: 0x07007EB0, symbol: D_7007EB0 }
 
 D_7008090:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x07008090, symbol: D_7008090, tlut: 0x07008490 }
