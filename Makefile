@@ -343,7 +343,7 @@ extract:
 
 assets:
 	@echo "Extracting assets..."
-	@$(TORCH) code $(BASEROM_UNCOMPRESSED)
+	@$(TORCH) code $(BASEROM_UNCOMPRESSED) -v
 	@$(TORCH) header $(BASEROM_UNCOMPRESSED)
 	@$(TORCH) modding export $(BASEROM_UNCOMPRESSED)
 
