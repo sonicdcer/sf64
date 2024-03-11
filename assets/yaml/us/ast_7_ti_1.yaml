@@ -222,14 +222,26 @@ D_700C3B0:
 D_700C4B0:
   { type: GFX, offset: 0x700C4B0, symbol: D_700C4B0 }
 
-BLOB_700C888: 
-  { type: BLOB, size: 0xF8, offset: 0x700C888, symbol: BLOB_700C888 }
+PAD_700C888:
+  { type: BLOB, size: 8, offset: 0x700C888, symbol: PAD_700C888 }
+
+D_700C8D8:
+  { type: SF64:ANIM, offset: 0x700C8D8, symbol: D_700C8D8 }
+
+BLOB_700C8E4: 
+  { type: BLOB, size: 0x9C, offset: 0x700C8E4, symbol: BLOB_700C8E4 }
 
 D_700C980:
   { type: GFX, offset: 0x700C980, symbol: D_700C980 }
 
 BLOB_700CA58: 
- { type: BLOB, size: 0xCE8, offset: 0x700CA58, symbol: BLOB_700CA58 }
+ { type: BLOB, size: 0x118, offset: 0x700CA58, symbol: BLOB_700CA58 }
+
+D_700D534:
+  { type: SF64:ANIM, offset: 0x700D534, symbol: D_700D534 }
+
+BLOB_700D540: 
+ { type: BLOB, size: 0x200, offset: 0x700D540, symbol: BLOB_700D540 }
 
 D_700D740:
   { type: GFX, offset: 0x700D740, symbol: D_700D740 }
@@ -241,19 +253,19 @@ D_700D880:
   { type: GFX, offset: 0x700D880, symbol: D_700D880 }
 
 PAD_700D9A8: 
- { type: BLOB, size: 0x8, offset: 0x700D9A8, symbol: PAD_700D9A8 }
+  { type: BLOB, size: 0x8, offset: 0x700D9A8, symbol: PAD_700D9A8 }
 
 D_700D9B0:
   { type: GFX, offset: 0x700D9B0, symbol: D_700D9B0 }
 
 PAD_700DAC8: 
- { type: BLOB, size: 0x8, offset: 0x700DAC8, symbol: PAD_700DAC8 }
+  { type: BLOB, size: 0x8, offset: 0x700DAC8, symbol: PAD_700DAC8 }
 
 D_700DAD0:
   { type: GFX, offset: 0x700DAD0, symbol: D_700DAD0 }
 
 PAD_700DBA8: 
- { type: BLOB, size: 0x8, offset: 0x700DBA8, symbol: PAD_700DBA8 }
+  { type: BLOB, size: 0x8, offset: 0x700DBA8, symbol: PAD_700DBA8 }
 
 D_700DBB0:
   { type: GFX, offset: 0x700DBB0, symbol: D_700DBB0 }
