@@ -306,4 +306,4 @@
     vram: 0x80179010
     follows_vram: dma_table
     subsegments:
-      - [0xDE5D50, .data, ast_radio]
+      - [0xDE5D50, .data, ast_radio/ast_radio]
