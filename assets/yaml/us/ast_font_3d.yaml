@@ -78,6 +78,9 @@ PAD_9003618:
 D_9003620:
   { type: GFX, offset: 0x9003620, symbol: D_9003620 }
 
+PAD_9003A28: 
+  { type: BLOB, size: 8, offset: 0x9003A28, symbol: PAD_9003A28 }
+
 D_9003A30:
   { type: GFX, offset: 0x9003A30, symbol: D_9003A30 }
 
