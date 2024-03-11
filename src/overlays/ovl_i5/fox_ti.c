@@ -772,13 +772,10 @@ void func_i5_8018B1B4(s32 limbIndex, Vec3f* rot, void* data) {
 }
 
 void func_i5_8018B268(Actor* actor) {
-    Vec3f sp4C;
-    Vec3f sp40;
-    Actor* sp3C;
-    Actor* sp38;
-
-    sp3C = actor->iwork[0];
-    sp38 = actor->iwork[1];
+    Vec3f src;
+    Vec3f dest;
+    Actor* sp3C = actor->iwork[0];
+    Actor* sp38 = actor->iwork[1];
 
     if (actor->unk_0D0 > 0) {
         actor->unk_0D0 = 0;
@@ -809,24 +806,24 @@ void func_i5_8018B268(Actor* actor) {
                     sp3C->vel.y = 0.0f;
                     sp3C->vel.z = 0.0f;
                 } else if (actor->unk_0B6 == 53) {
-                    sp4C.x = 0.0f;
-                    sp4C.y = actor->fwork[1];
-                    sp4C.z = 20.0f;
-                    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp4C, &sp40);
-                    sp3C->vel.x = sp40.x;
-                    sp3C->vel.y = sp40.y;
-                    sp3C->vel.z = sp40.z;
+                    src.x = 0.0f;
+                    src.y = actor->fwork[1];
+                    src.z = 20.0f;
+                    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+                    sp3C->vel.x = dest.x;
+                    sp3C->vel.y = dest.y;
+                    sp3C->vel.z = dest.z;
                     sp3C->unk_046 = 0;
                     sp3C->iwork[0] = (uintptr_t) NULL;
                     actor->iwork[0] = (uintptr_t) NULL;
                 }
-                sp4C.x = actor->fwork[3];
-                sp4C.y = actor->fwork[4] + 50.0f;
-                sp4C.z = actor->fwork[5];
-                Matrix_MultVec3f(gCalcMatrix, &sp4C, &sp40);
-                sp3C->obj.pos.x = actor->obj.pos.x + sp40.x;
-                sp3C->obj.pos.y = actor->obj.pos.y + sp40.y;
-                sp3C->obj.pos.z = actor->obj.pos.z + sp40.z;
+                src.x = actor->fwork[3];
+                src.y = actor->fwork[4] + 50.0f;
+                src.z = actor->fwork[5];
+                Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+                sp3C->obj.pos.x = actor->obj.pos.x + dest.x;
+                sp3C->obj.pos.y = actor->obj.pos.y + dest.y;
+                sp3C->obj.pos.z = actor->obj.pos.z + dest.z;
             }
 
             if ((actor->unk_0B6 >= 26) && (actor->unk_0B6 <= 57) && (sp38 != NULL)) {
@@ -837,24 +834,24 @@ void func_i5_8018B268(Actor* actor) {
                     sp38->vel.z = 0.0f;
                 } else if (actor->unk_0B6 == 57) {
                     AUDIO_PLAY_SFX(0x29000028, actor->sfxSource, 4);
-                    sp4C.x = 0.0f;
-                    sp4C.y = actor->fwork[1];
-                    sp4C.z = 20.0f;
-                    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp4C, &sp40);
-                    sp38->vel.x = sp40.x;
-                    sp38->vel.y = sp40.y;
-                    sp38->vel.z = sp40.z;
+                    src.x = 0.0f;
+                    src.y = actor->fwork[1];
+                    src.z = 20.0f;
+                    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+                    sp38->vel.x = dest.x;
+                    sp38->vel.y = dest.y;
+                    sp38->vel.z = dest.z;
                     sp38->unk_046 = 0;
                     sp38->iwork[0] = (uintptr_t) NULL;
                     actor->iwork[1] = (uintptr_t) NULL;
                 }
-                sp4C.x = actor->fwork[6];
-                sp4C.y = actor->fwork[7] + 50.0f;
-                sp4C.z = actor->fwork[8];
-                Matrix_MultVec3f(gCalcMatrix, &sp4C, &sp40);
-                sp38->obj.pos.x = actor->obj.pos.x + sp40.x;
-                sp38->obj.pos.y = actor->obj.pos.y + sp40.y;
-                sp38->obj.pos.z = actor->obj.pos.z + sp40.z;
+                src.x = actor->fwork[6];
+                src.y = actor->fwork[7] + 50.0f;
+                src.z = actor->fwork[8];
+                Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+                sp38->obj.pos.x = actor->obj.pos.x + dest.x;
+                sp38->obj.pos.y = actor->obj.pos.y + dest.y;
+                sp38->obj.pos.z = actor->obj.pos.z + dest.z;
             }
 
             if (++actor->unk_0B6 >= Animation_GetFrameCount(&D_700D534)) {
