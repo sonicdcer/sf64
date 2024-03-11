@@ -938,46 +938,46 @@ extern u16 D_70123F8[];
 extern u16 D_70123F8[];
 
 // ast_8_ti, ast_option
-extern u8 D_8000000[];
-extern u16 D_8000680[];
-extern u8 D_80006A0[];
-extern u16 D_80017A0[];
-extern u8 D_80017C0[];
-extern u16 D_80038C0[];
-extern u8 D_80038E0[];
-extern u8 D_8003930[];
-extern u8 D_8003950[];
-extern u8 D_80039A8[];
-extern u8 D_8003A70[];
-extern u8 D_8003AB8[];
-extern u8 D_8003AE0[];
-extern u8 D_8003B28[];
-extern u8 D_8003B50[];
-extern u8 D_80046B0[];
-extern u8 D_8004C50[];
-extern u8 D_8005CD0[];
-extern u8 D_8006280[];
-extern u8 D_80064F0[];
-extern u8 D_80069C0[];
-extern u8 D_8006D10[];
-extern u8 D_8006E50[];
-extern u8 D_8007210[];
-extern u8 D_80076E0[];
-extern u8 D_80079F0[];
-extern u8 D_80080F0[];
-extern u8 D_80084B0[];
-extern u8 D_8008A30[];
-extern u8 D_8008DA0[];
-extern u8 D_80098E0[];
-extern u8 D_8009980[];
-extern u8 D_8009B00[];
-extern u8 D_8009CE0[];
-extern u8 D_800B5E0[];
-extern u8 D_800B680[];
-extern u8 D_800C640[];
-extern u8 D_800CD90[];
-extern u8 D_800D070[];
-extern u8 D_800D170[];
+extern u8 D_8000000[]; // option
+extern u16 D_8000680[]; // option
+extern u8 D_80006A0[]; // option
+extern u16 D_80017A0[]; // option
+extern u8 D_80017C0[]; // option
+extern u16 D_80038C0[]; // option
+extern u8 D_80038E0[]; // option
+extern u8 D_8003930[]; // option
+extern u8 D_8003950[]; // option
+extern u8 D_80039A8[]; // option
+extern u8 D_8003A70[]; // option
+extern u8 D_8003AB8[]; // option
+extern u8 D_8003AE0[]; // option
+extern u8 D_8003B28[]; // option
+extern u8 D_8003B50[]; // option
+extern u8 D_80046B0[]; // option
+extern u8 D_8004C50[]; // option
+extern u8 D_8005CD0[]; // option
+extern u8 D_8006280[]; // option
+extern u8 D_80064F0[]; // option
+extern u8 D_80069C0[]; // option
+extern u8 D_8006D10[]; // option
+extern u8 D_8006E50[]; // option
+extern u8 D_8007210[]; // option
+extern u8 D_80076E0[]; // option
+extern u8 D_80079F0[]; // option
+extern u8 D_80080F0[]; // option
+extern u8 D_80084B0[]; // option
+extern u8 D_8008A30[]; // unused?
+extern u8 D_8008DA0[]; // option
+extern u8 D_80098E0[]; // unused?
+extern u8 D_8009980[]; // option
+extern u8 D_8009B00[]; // option
+extern u8 D_8009CE0[]; // option
+extern u8 D_800B5E0[]; // unused?
+extern u8 D_800B680[]; // option
+extern u8 D_800C640[]; // unused?
+extern u8 D_800CD90[]; // option
+extern u8 D_800D070[]; // option
+extern u8 D_800D170[]; // option
 extern u8 D_800D1F0[];
 extern u8 D_800E130[];
 extern u16 D_800E170[];
