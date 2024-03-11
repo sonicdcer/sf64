@@ -123,8 +123,12 @@
 
   - name: ast_7_ti_1
     exclusive_ram_id: segment_07
-    type: bin
+    type: code
+    dir: assets
     start: 0xA0E340
+    vram: 0x07000000
+    subsegments:
+      - [0xA0E340, .data, ast_7_ti_1/ast_7_ti_1]
 
   - name: ast_sector_x
     exclusive_ram_id: segment_06

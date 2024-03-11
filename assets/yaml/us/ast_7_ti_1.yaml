@@ -10,8 +10,8 @@
       - '#include "structs.h"'
 
 # MISSING TLUT! Not clear what uses this texture yet!
-D_7000000:
-  { type: TEXTURE, ctype: u8, format: CI8, width: 96, height: 28, offset: 0x07000000, symbol: D_7000000, tlut: 0x07001108 }
+D_AST_7_TI_1_7000000:
+  { type: TEXTURE, ctype: u8, format: CI8, width: 96, height: 28, offset: 0x07000000, symbol: D_AST_7_TI_1_7000000, tlut: 0x07001108 }
 
 D_7000A80:
   { type: GFX, offset: 0x7000A80, symbol: D_7000A80 }
@@ -79,8 +79,14 @@ D_7004780:
 D_70049A0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x070049A0, symbol: D_70049A0 }
 
+D_7004BA0:
+  { type: GFX, offset: 0x7004BA0, symbol: D_7004BA0 }
+
+D_7004E78:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x07004E78, symbol: D_7004E78 }
+
 D_7005078:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x07005078, symbol: D_7005078 }
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x07005078, symbol: D_7005078, pad: 8 }
 
 D_7005280:
   { type: GFX, offset: 0x7005280, symbol: D_7005280 }
@@ -92,7 +98,12 @@ D_7005420:
   { type: GFX, offset: 0x7005420, symbol: D_7005420 }
 
 BLOB_7005648: 
-  { type: BLOB, size: 0x1D08, offset: 0x7005648, symbol: BLOB_7005648 }
+  { type: BLOB, size: 8, offset: 0x7005648, symbol: BLOB_7005648 }
+
+# the region from 0x5650 to 0x67D0 is a single animation
+# that is 89 frames long for a skeleton with 14 limbs
+BLOB_7005650: 
+  { type: BLOB, size: 0x1D00, offset: 0x7005650, symbol: BLOB_7005650 }
 
 D_7007350:
   { type: GFX, offset: 0x7007350, symbol: D_7007350 }
@@ -131,10 +142,43 @@ D_7009510:
   { type: GFX, offset: 0x7009510, symbol: D_7009510 }
 
 D_70096D8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x070096D8, symbol: D_70096D8 }
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x070096D8, symbol: D_70096D8, pad: 8 }
 
 D_70098E0:
   { type: GFX, offset: 0x70098E0, symbol: D_70098E0 }
+
+D_7009B58:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x07009B58, symbol: D_7009B58, pad: 8 }
+
+D_7009D60:
+  { type: GFX, offset: 0x7009D60, symbol: D_7009D60 }
+
+D_700A190:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0700A190, symbol: D_700A190 }
+
+D_700A990:
+  { type: GFX, offset: 0x700A990, symbol: D_700A990 }
+
+D_700AAD8:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x700AAD8, symbol: D_700AAD8, tlut: 0x700AB58 }
+
+D_700AB58:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0x700AB58, symbol: D_700AB58, pad: 8 }
+
+D_700AB70:
+  { type: GFX, offset: 0x700AB70, symbol: D_700AB70 }
+
+D_700AEA8:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x0700AEA8, symbol: D_700AEA8, pad: 8 }
+
+D_700AF30:
+  { type: GFX, offset: 0x700AF30, symbol: D_700AF30 }
+
+D_700B5B8:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0700B5B8, symbol: D_700B5B8 }
+
+D_700B7B8:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0700B7B8, symbol: D_700B7B8, pad: 8 }
 
 D_700B9C0:
   { type: GFX, offset: 0x700B9C0, symbol: D_700B9C0 }
@@ -163,8 +207,65 @@ BLOB_700C888:
 D_700C980:
   { type: GFX, offset: 0x700C980, symbol: D_700C980 }
 
+BLOB_700CA58: 
+ { type: BLOB, size: 0xCE8, offset: 0x700CA58, symbol: BLOB_700CA58 }
+
+D_700D740:
+  { type: GFX, offset: 0x700D740, symbol: D_700D740 }
+
+PAD_700D878: 
+  { type: BLOB, size: 0x8, offset: 0x700D878, symbol: PAD_700D878 }
+
+D_700D880:
+  { type: GFX, offset: 0x700D880, symbol: D_700D880 }
+
+PAD_700D9A8: 
+ { type: BLOB, size: 0x8, offset: 0x700D9A8, symbol: PAD_700D9A8 }
+
+D_700D9B0:
+  { type: GFX, offset: 0x700D9B0, symbol: D_700D9B0 }
+
+PAD_700DAC8: 
+ { type: BLOB, size: 0x8, offset: 0x700DAC8, symbol: PAD_700DAC8 }
+
+D_700DAD0:
+  { type: GFX, offset: 0x700DAD0, symbol: D_700DAD0 }
+
+PAD_700DBA8: 
+ { type: BLOB, size: 0x8, offset: 0x700DBA8, symbol: PAD_700DBA8 }
+
+D_700DBB0:
+  { type: GFX, offset: 0x700DBB0, symbol: D_700DBB0 }
+
+D_700DC50:
+  { type: GFX, offset: 0x700DC50, symbol: D_700DC50 }
+
 D_700DD68:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x0700DD68, symbol: D_700DD68 }
+
+PAD_700DDE8:
+  { type: BLOB, size: 0x8, offset: 0x700DDE8, symbol: PAD_700DDE8 }
+
+D_700DDF0:
+  { type: GFX, offset: 0x700DDF0, symbol: D_700DDF0 }
+
+PAD_700DEC8:
+  { type: BLOB, size: 0x8, offset: 0x700DEC8, symbol: PAD_700DEC8 }
+
+D_700DED0:
+  { type: GFX, offset: 0x700DED0, symbol: D_700DED0 }
+
+D_700DF70:
+  { type: GFX, offset: 0x700DF70, symbol: D_700DF70 }
+
+PAD_700E028:
+  { type: BLOB, size: 0x8, offset: 0x700E028, symbol: PAD_700E028 }
+
+D_700E030:
+  { type: GFX, offset: 0x700E030, symbol: D_700E030 }
+
+D_700E1E8: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0700E1E8, symbol: D_700E1E8, pad: 8 }
 
 D_700E3F0:
   { type: GFX, offset: 0x700E3F0, symbol: D_700E3F0 }
