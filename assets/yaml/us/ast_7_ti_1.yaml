@@ -9,6 +9,8 @@
       - '#include "sf64object.h"'
       - '#include "structs.h"'
 
+# TODO: There are still Animations and probably other things inside BLOBS
+
 # MISSING TLUT! Not clear what uses this texture yet!
 D_AST_7_TI_1_7000000:
   { type: TEXTURE, ctype: u8, format: CI8, width: 96, height: 28, offset: 0x07000000, symbol: D_AST_7_TI_1_7000000, tlut: 0x07001108 }
