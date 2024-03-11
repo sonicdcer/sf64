@@ -2205,7 +2205,7 @@ void func_menu_8019752C(void) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, temp_a0, temp_a0, 255);
     }
 
-    TextureRect_8bIA_MirY(&gMasterDisp, D_800D070, 0x10, 0x10, 150.0f, 200.0f, 1.0f, 1.0f);
+    TextureRect_8bIA_MirY(&gMasterDisp, D_800D070, 16, 16, 150.0f, 200.0f, 1.0f, 1.0f);
 }
 
 static Vec3f D_menu_801AF100[2] = { { 0.0f, 167.0f, 0.0f }, { 0.0f, -167.0f, 0.0f } };
@@ -3436,7 +3436,7 @@ void func_menu_8019B6D8(f32 xPos, f32 yPos, f32 offset, s32 r, s32 g, s32 b) {
 void func_menu_8019B7D4(void) {
     RCP_SetupDL(&gMasterDisp, 0x53);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-    TextureRect_8bIA(&gMasterDisp, &D_80080F0, 96, 10, 62.0f, 213.0f, 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, D_80080F0, 96, 10, 62.0f, 213.0f, 1.0f, 1.0f);
     TextureRect_8bIA(&gMasterDisp, D_8006E50, 96, 10, 166.0f, 213.0f, 1.0f, 1.0f);
 }
 

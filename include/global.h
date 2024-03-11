@@ -9,6 +9,7 @@
 #include "context.h"
 #include "structs.h"
 #include "sf64mesg.h"
+#include "assets/ast_radio.h"
 #include "sf64object.h"
 #include "sf64level.h"
 #include "sf64player.h"

@@ -123,8 +123,12 @@
 
   - name: ast_7_ti_1
     exclusive_ram_id: segment_07
-    type: bin
+    type: code
+    dir: assets
     start: 0xA0E340
+    vram: 0x07000000
+    subsegments:
+      - [0xA0E340, .data, ast_7_ti_1/ast_7_ti_1]
 
   - name: ast_sector_x
     exclusive_ram_id: segment_06
@@ -218,8 +222,12 @@
 
   - name: ast_option
     exclusive_ram_id: segment_08
-    type: bin
+    type: code
+    dir: assets
     start: 0xCA9DE0
+    vram: 0x08000000
+    subsegments:
+      - [0xCA9DE0, .data, ast_option/ast_option]
 
   - name: ast_versus
     exclusive_ram_id: segment_07
@@ -233,7 +241,7 @@
     vram: 0x05000000
     start: 0xCD2410
     subsegments:
-      - [0xBFA740, .data, ast_font/ast_font]
+      - [0xCD2410, .data, ast_font/ast_font]
 
   - name: ast_font_3d
     exclusive_ram_id: segment_09
@@ -302,4 +310,4 @@
     vram: 0x80179010
     follows_vram: dma_table
     subsegments:
-      - [0xDE5D50, .data, ast_radio]
+      - [0xDE5D50, .data, ast_radio/ast_radio]
