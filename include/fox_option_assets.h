@@ -4,6 +4,7 @@
 #include "global.h"
 
 extern u8 D_80039D0[];
+extern u16 D_8003A50[];
 extern u8 D_8003B50[];
 extern u8 D_8003EB0[];
 extern u8 D_8004270[];
@@ -13,12 +14,10 @@ extern u8 D_8004930[];
 extern u8 D_8005010[];
 extern u8 D_80054F0[];
 extern u8 D_8005910[];
-extern u8 D_80143B0[];
-
-extern u16 D_80147B0[];
-extern u16 D_8003A50[];
 extern u16 D_8013990[];
 extern u16 D_80141B0[];
+extern u8 D_80143B0[];
+extern u16 D_80147B0[];
 
 extern u8 D_70030B0[];
 extern u8 D_7003290[];

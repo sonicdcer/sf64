@@ -666,7 +666,7 @@ void AudioHeap_Init(void) {
     gAudioBufferParams.ticksPerUpdateInv = 1.0f / gAudioBufferParams.ticksPerUpdate;
     gNumNotes = spec->numNotes;
     D_8014C1B0 = spec->unk_14;
-    gMaxTempo = (gAudioBufferParams.ticksPerUpdate * 2880000.0f / gSeqTicksPerBeat) / gMaxTempoTvTypeFactors;
+    gMaxTempo = (u16) ((gAudioBufferParams.ticksPerUpdate * 2880000.0f / gSeqTicksPerBeat) / gMaxTempoTvTypeFactors);
     gAudioBufferParams.specUnk4 = spec->unk_04;
     gAudioBufferParams.samplesPerFrameTarget *= gAudioBufferParams.specUnk4;
     gAudioBufferParams.maxAiBufferLength *= gAudioBufferParams.specUnk4;
