@@ -22,7 +22,7 @@ all: recomp mio0 torch
 clean:
 	$(RM) -rf $(RECOMP_DIR)
 	$(RM) mio0
-	$(RM) -rf Torch/build
+	$(RM) -rf Torch/cmake-build-release
 
 distclean: clean
 
