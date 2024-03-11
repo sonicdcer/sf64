@@ -6,8 +6,6 @@
       range: [0x0, 0x958]
       mode: APPEND
   header:
-    header:
-      - '#include "sf64mesg.h"'
     code:
       - '#include "sf64mesg.h"'
       - ''
