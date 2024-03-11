@@ -5,11 +5,6 @@
 extern Animation D_7003EE8;
 extern Gfx D_7005300[];
 extern Limb* D_7006990[];
-extern Animation D_70067C4;
-extern Animation D_7006F74;
-extern Animation D_7007130;
-extern Animation D_7007234;
-extern Animation D_700733C;
 extern Animation D_70084CC;
 extern Animation D_70096EC;
 extern Animation D_700C8D8;

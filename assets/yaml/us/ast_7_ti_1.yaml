@@ -9,7 +9,7 @@
       - '#include "sf64object.h"'
       - '#include "structs.h"'
 
-# TODO: There are still Animations and probably other things inside BLOBS
+# TODO: There are still Limbs and probably other things inside BLOBS
 
 # MISSING TLUT! Not clear what uses this texture yet!
 D_AST_7_TI_1_7000000:
@@ -102,14 +102,29 @@ D_7005420:
 PAD_7005648: 
   { type: BLOB, size: 8, offset: 0x7005648, symbol: PAD_7005648 }
 
-# the region from 0x5650 to 0x67D0 is a single animation
-# that is 89 frames long for a skeleton with 14 limbs
-
 D_70067C4:
   { type: SF64:ANIM, offset: 0x70067C4, symbol: D_70067C4 }
   
 BLOB_70067D0: 
-  { type: BLOB, size: 0xB80, offset: 0x70067D0, symbol: BLOB_70067D0 }
+ { type: BLOB, size: 0x200, offset: 0x70067D0, symbol: BLOB_70067D0 }
+
+D_7006F74:
+  { type: SF64:ANIM, offset: 0x7006F74, symbol: D_7006F74 }
+
+D_7007130:
+  { type: SF64:ANIM, offset: 0x7007130, symbol: D_7007130 }
+
+PAD_700713C: 
+  { type: BLOB, size: 4, offset: 0x700713C, symbol: PAD_700713C }
+
+D_7007234:
+  { type: SF64:ANIM, offset: 0x7007234, symbol: D_7007234 }
+
+D_700733C:
+  { type: SF64:ANIM, offset: 0x700733C, symbol: D_700733C }
+
+PAD_7007348: 
+  { type: BLOB, size: 8, offset: 0x7007348, symbol: PAD_7007348 }
 
 D_7007350:
   { type: GFX, offset: 0x7007350, symbol: D_7007350 }
