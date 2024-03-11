@@ -99,13 +99,17 @@ PAD_7005418:
 D_7005420:
   { type: GFX, offset: 0x7005420, symbol: D_7005420 }
 
-BLOB_7005648: 
-  { type: BLOB, size: 8, offset: 0x7005648, symbol: BLOB_7005648 }
+PAD_7005648: 
+  { type: BLOB, size: 8, offset: 0x7005648, symbol: PAD_7005648 }
 
 # the region from 0x5650 to 0x67D0 is a single animation
 # that is 89 frames long for a skeleton with 14 limbs
-BLOB_7005650: 
-  { type: BLOB, size: 0x1D00, offset: 0x7005650, symbol: BLOB_7005650 }
+
+D_70067C4:
+  { type: SF64:ANIM, offset: 0x70067C4, symbol: D_70067C4 }
+  
+BLOB_70067D0: 
+  { type: BLOB, size: 0xB80, offset: 0x70067D0, symbol: BLOB_70067D0 }
 
 D_7007350:
   { type: GFX, offset: 0x7007350, symbol: D_7007350 }
