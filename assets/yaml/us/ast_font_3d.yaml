@@ -21,20 +21,38 @@ D_9000528:
 D_9000548:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x09000548, symbol: D_9000548 }
 
+PAD_9000568: 
+  { type: BLOB, size: 8, offset: 0x9000568, symbol: PAD_9000568 }
+
 D_9000570:
   { type: GFX, offset: 0x9000570, symbol: D_9000570 }
+
+PAD_9000978: 
+  { type: BLOB, size: 8, offset: 0x9000978, symbol: PAD_9000978 }
 
 D_9000980:
   { type: GFX, offset: 0x9000980, symbol: D_9000980 }
 
+PAD_9001118: 
+  { type: BLOB, size: 8, offset: 0x9001118, symbol: PAD_9001118 }
+
 D_9001120:
   { type: GFX, offset: 0x9001120, symbol: D_9001120 }
+
+PAD_90014D8: 
+  { type: BLOB, size: 8, offset: 0x90014D8, symbol: PAD_90014D8 }
 
 D_90014E0:
   { type: GFX, offset: 0x90014E0, symbol: D_90014E0 }
 
+PAD_9001A08: 
+  { type: BLOB, size: 8, offset: 0x9001A08, symbol: PAD_9001A08 }
+
 D_9001A10:
   { type: GFX, offset: 0x9001A10, symbol: D_9001A10 }
+
+PAD_9001E88: 
+  { type: BLOB, size: 8, offset: 0x9001E88, symbol: PAD_9001E88 }
 
 D_9001E90:
   { type: GFX, offset: 0x9001E90, symbol: D_9001E90 }
@@ -45,11 +63,17 @@ D_90022A0:
 D_9002890:
   { type: GFX, offset: 0x9002890, symbol: D_9002890 }
 
+PAD_9002E98: 
+  { type: BLOB, size: 8, offset: 0x9002E98, symbol: PAD_9002E98 }
+
 D_9002EA0:
   { type: GFX, offset: 0x9002EA0, symbol: D_9002EA0 }
 
 D_9003230:
   { type: GFX, offset: 0x9003230, symbol: D_9003230 }
+
+PAD_9003618: 
+  { type: BLOB, size: 8, offset: 0x9003618, symbol: PAD_9003618 }
 
 D_9003620:
   { type: GFX, offset: 0x9003620, symbol: D_9003620 }
@@ -57,14 +81,26 @@ D_9003620:
 D_9003A30:
   { type: GFX, offset: 0x9003A30, symbol: D_9003A30 }
 
+PAD_9004228: 
+  { type: BLOB, size: 8, offset: 0x9004228, symbol: PAD_9004228 }
+
 D_9004230:
   { type: GFX, offset: 0x9004230, symbol: D_9004230 }
+
+PAD_9004918: 
+  { type: BLOB, size: 8, offset: 0x9004918, symbol: PAD_9004918 }
 
 D_9004920:
   { type: GFX, offset: 0x9004920, symbol: D_9004920 }
 
+PAD_9004E08: 
+  { type: BLOB, size: 8, offset: 0x9004E08, symbol: PAD_9004E08 }
+
 D_9004E10:
   { type: GFX, offset: 0x9004E10, symbol: D_9004E10 }
+
+PAD_9005378: 
+  { type: BLOB, size: 8, offset: 0x9005378, symbol: PAD_9005378 }
 
 D_9005380:
   { type: GFX, offset: 0x9005380, symbol: D_9005380 }
@@ -72,11 +108,14 @@ D_9005380:
 D_9005980:
   { type: GFX, offset: 0x9005980, symbol: D_9005980 }
 
-ast_font_3d_seg9_vtx_00005C58:
-   { type: VTX, count: 4, offset: 0x0D005C58, symbol: ast_font_3d_seg9_vtx_00005C58, pad: 8 }
+PAD_9005C98: 
+  { type: BLOB, size: 8, offset: 0x9005C98, symbol: PAD_9005C98 }
 
 D_9005CA0:
   { type: GFX, offset: 0x9005CA0, symbol: D_9005CA0 }
+
+PAD_90062C8: 
+  { type: BLOB, size: 8, offset: 0x90062C8, symbol: PAD_90062C8 }
 
 D_90062C8:
   { type: GFX, offset: 0x90062D0, symbol: D_90062C8 }
@@ -93,11 +132,20 @@ D_90070C0:
 D_90075A0:
   { type: GFX, offset: 0x90075A0, symbol: D_90075A0 }
 
-D_9007BA8:
-  { type: GFX, offset: 0x9007BB0, symbol: D_9007BA8 }
+PAD_9007BA8: 
+  { type: BLOB, size: 8, offset: 0x9007BA8, symbol: PAD_9007BA8 }
+
+D_9007BB0:
+  { type: GFX, offset: 0x9007BB0, symbol: D_9007BB0 }
+
+PAD_9007FC8: 
+  { type: BLOB, size: 8, offset: 0x9007FC8, symbol: PAD_9007FC8 }
 
 D_9007FD0:
   { type: GFX, offset: 0x9007FD0, symbol: D_9007FD0 }
+
+PAD_90086E8: 
+  { type: BLOB, size: 8, offset: 0x90086E8, symbol: PAD_90086E8 }
 
 D_90086F0:
   { type: GFX, offset: 0x90086F0, symbol: D_90086F0 }
@@ -105,14 +153,26 @@ D_90086F0:
 D_9008C60:
   { type: GFX, offset: 0x9008C60, symbol: D_9008C60 }
 
+PAD_9009278: 
+  { type: BLOB, size: 8, offset: 0x9009278, symbol: PAD_9009278 }
+
 D_9009280:
   { type: GFX, offset: 0x9009280, symbol: D_9009280 }
+
+PAD_9009988: 
+  { type: BLOB, size: 8, offset: 0x9009988, symbol: PAD_9009988 }
 
 D_9009990:
   { type: GFX, offset: 0x9009990, symbol: D_9009990 }
 
+PAD_9009CA8: 
+  { type: BLOB, size: 8, offset: 0x9009CA8, symbol: PAD_9009CA8 }
+
 D_9009CB0:
   { type: GFX, offset: 0x9009CB0, symbol: D_9009CB0 }
+
+PAD_900A288: 
+  { type: BLOB, size: 8, offset: 0x900A288, symbol: PAD_900A288 }
 
 D_900A290:
   { type: GFX, offset: 0x900A290, symbol: D_900A290 }
@@ -120,11 +180,20 @@ D_900A290:
 D_900A870:
   { type: GFX, offset: 0x900A870, symbol: D_900A870 }
 
+PAD_900AF58: 
+  { type: BLOB, size: 8, offset: 0x900AF58, symbol: PAD_900AF58 }
+
 D_900AF60:
   { type: GFX, offset: 0x900AF60, symbol: D_900AF60 }
 
+PAD_900B578: 
+  { type: BLOB, size: 8, offset: 0x900B578, symbol: PAD_900B578 }
+
 D_900B580:
   { type: GFX, offset: 0x900B580, symbol: D_900B580 }
+
+PAD_900BB88: 
+  { type: BLOB, size: 8, offset: 0x900BB88, symbol: PAD_900BB88 }
 
 D_900BB90:
   { type: GFX, offset: 0x900BB90, symbol: D_900BB90 }
