@@ -24,7 +24,6 @@ extern Gfx D_7008930[];
 extern Gfx D_7009510[];
 extern f32 D_6006C0C[];
 extern f32 D_6006C28[];
-extern Gfx D_7000A80[];
 extern Gfx D_7002270[];
 extern s32 D_8000FC0[];
 extern Animation D_8000708;
@@ -68,6 +67,7 @@ PosRot D_i5_801BDA30[10];
 f32 D_i5_801BDB20[3][151];
 
 #include "assets/ast_bg_planet.h"
+#include "assets/ast_7_ti_1.h"
 
 static f32 D_i5_801B7360[25][4] = {
     { 165.0f, 120.0f, 0.0f, 90.0f },    { 127.5f, 7.5f, 0.0f, 90.0f },      { 7.5f, -112.5f, 0.0f, 90.0f },
