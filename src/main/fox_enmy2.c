@@ -1026,14 +1026,14 @@ void func_8006D36C(Actor* actor) {
     temp_s1 = SEGMENTED_TO_VIRTUAL(var_v1[actor->unk_0E4]);
 
     switch (temp_s1[actor->unk_0E6] & 0xFE00) {
-        case 0xFE00:
+        case EVOP_127 << 9:
             actor->state = 200;
             if (actor->info.unk_10 > 10000.0f) {
                 actor->info.unk_10 = 100.0f;
             }
             break;
 
-        case 0xD000:
+        case EVOP_104 << 9:
             Audio_KillSfxBySource(actor->sfxSource);
             actor->unk_0B4 = temp_s1[actor->unk_0E6 + 1];
 
@@ -1163,7 +1163,7 @@ void func_8006D36C(Actor* actor) {
             func_8006D36C(actor);
             break;
 
-        case 0xD200:
+        case EVOP_105 << 9:
             actor->iwork[12] = temp_s1[actor->unk_0E6 + 1];
 
             if (actor->iwork[12] < 4) {
@@ -1174,14 +1174,14 @@ void func_8006D36C(Actor* actor) {
             func_8006D36C(actor);
             break;
 
-        case 0xE200:
+        case EVOP_113 << 9:
             actor->iwork[15] = temp_s1[actor->unk_0E6 + 1];
             actor->iwork[16] = temp_s1[actor->unk_0E6] & 0x1FF;
             actor->unk_0E6 += 2;
             func_8006D36C(actor);
             break;
 
-        case 0x0600:
+        case EVOP_3 << 9:
             D_80177E78 = actor->index;
             D_80177F10.x = actor->obj.pos.x;
             D_80177F10.y = actor->obj.pos.y;
@@ -1193,7 +1193,7 @@ void func_8006D36C(Actor* actor) {
             func_8006D36C(actor);
             break;
 
-        case 0xE000:
+        case EVOP_112 << 9:
             if (temp_s1[actor->unk_0E6 + 1] == 0xE) {
                 actor->state = 0xA;
                 actor->fwork[11] = 0.0f;
@@ -1222,19 +1222,19 @@ void func_8006D36C(Actor* actor) {
             func_8006D36C(actor);
             break;
 
-        case 0xE800:
+        case EVOP_116 << 9:
             actor->unk_044 = temp_s1[actor->unk_0E6 + 1];
             actor->unk_0E6 += 2;
             func_8006D36C(actor);
             break;
 
-        case 0xEC00:
+        case EVOP_118 << 9:
             Audio_SetBaseSfxReverb(temp_s1[actor->unk_0E6 + 1]);
             actor->unk_0E6 += 2;
             func_8006D36C(actor);
             break;
 
-        case 0xF000:
+        case EVOP_120 << 9:
             temp_v0_4 = Message_PtrFromId(temp_s1[actor->unk_0E6 + 1]);
             if ((temp_v0_4 != NULL) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3)) {
                 Radio_PlayMessage(temp_v0_4, temp_s1[actor->unk_0E6] & 0x1FF);
@@ -1243,7 +1243,7 @@ void func_8006D36C(Actor* actor) {
             func_8006D36C(actor);
             break;
 
-        case 0xEE00:
+        case EVOP_119 << 9:
             if ((D_80161A88 == 2) && (temp_s1[actor->unk_0E6 + 1] != 2)) {
                 Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, 0x1100000B);
             }
@@ -1253,39 +1253,39 @@ void func_8006D36C(Actor* actor) {
             actor->obj.status = OBJ_FREE;
             break;
 
-        case 0x7000:
+        case EVOP_56 << 9:
             D_800CFF90 = temp_s1[actor->unk_0E6] & 0x1FF;
             D_80161690 = temp_s1[actor->unk_0E6 + 1];
             actor->unk_0E6 += 2;
             func_8006D36C(actor);
             break;
 
-        case 0x7200:
+        case EVOP_57 << 9:
             gTeamShields[temp_s1[actor->unk_0E6 + 1]] = 0xFF;
             actor->unk_0E6 += 2;
             func_8006D36C(actor);
             break;
 
-        case 0x7400:
+        case EVOP_58 << 9:
             func_8001D2FC(actor->sfxSource, temp_s1[actor->unk_0E6 + 1]);
             actor->unk_0E6 += 2;
             func_8006D36C(actor);
             break;
 
-        case 0x7600:
+        case EVOP_59 << 9:
             func_8001D3A0(actor->sfxSource, temp_s1[actor->unk_0E6 + 1]);
             actor->unk_0E6 += 2;
             func_8006D36C(actor);
             break;
 
-        case 0xF400:
+        case EVOP_122 << 9:
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
             actor->unk_0E6 += 2;
             func_8006D36C(actor);
             break;
 
-        case 0xF200:
+        case EVOP_121 << 9:
             if (actor->iwork[12] == temp_s1[actor->unk_0E6 + 1]) {
                 actor->unk_0D0 = 1;
                 actor->damage = temp_s1[actor->unk_0E6] & 0x1FF;
@@ -1297,7 +1297,7 @@ void func_8006D36C(Actor* actor) {
             func_8006D36C(actor);
             break;
 
-        case 0xF800:
+        case EVOP_124 << 9:
             actor->iwork[7] = 1;
             for (i = 0; i < ARRAY_COUNT(gUnkEntities30); i++) {
                 if (gUnkEntities30[i].mode == 0) {
@@ -1318,41 +1318,41 @@ void func_8006D36C(Actor* actor) {
             func_8006D36C(actor);
             break;
 
-        case 0xFA00:
+        case EVOP_125 << 9:
             actor->iwork[7] = 0;
             actor->unk_0E6 += 2;
             func_8006D36C(actor);
             break;
 
-        case 0x5000:
+        case EVOP_40 << 9:
             actor->state = 6;
             actor->timer_0BC = temp_s1[actor->unk_0E6 + 1];
             actor->fwork[24] = temp_s1[actor->unk_0E6] & 0x1FF;
             actor->unk_0E6 += 2;
             break;
 
-        case 0x5200:
+        case EVOP_41 << 9:
             actor->state = 7;
             actor->timer_0BC = temp_s1[actor->unk_0E6 + 1];
             actor->fwork[24] = temp_s1[actor->unk_0E6] & 0x1FF;
             actor->unk_0E6 += 2;
             break;
 
-        case 0x5400:
+        case EVOP_42 << 9:
             actor->state = 8;
             actor->timer_0BC = temp_s1[actor->unk_0E6 + 1];
             actor->fwork[24] = temp_s1[actor->unk_0E6] & 0x1FF;
             actor->unk_0E6 += 2;
             break;
 
-        case 0x5600:
+        case EVOP_43 << 9:
             actor->state = 9;
             actor->timer_0BC = temp_s1[actor->unk_0E6 + 1];
             actor->fwork[24] = temp_s1[actor->unk_0E6] & 0x1FF;
             actor->unk_0E6 += 2;
             break;
 
-        case 0x5A00:
+        case EVOP_45 << 9:
             actor->state = 1;
             actor->iwork[1] = D_800CFF80[temp_s1[actor->unk_0E6] & 0x1FF];
             actor->fwork[17] = temp_s1[actor->unk_0E6 + 1];
@@ -1360,35 +1360,35 @@ void func_8006D36C(Actor* actor) {
             actor->unk_0E6 += 2;
             break;
 
-        case 0x5800:
+        case EVOP_44 << 9:
             actor->state = 0xD;
             actor->timer_0BC = temp_s1[actor->unk_0E6 + 1];
             actor->fwork[24] = temp_s1[actor->unk_0E6] & 0x1FF;
             actor->unk_0E6 += 2;
             break;
 
-        case 0x5C00:
+        case EVOP_46 << 9:
             actor->state = 0xE;
             actor->timer_0BC = temp_s1[actor->unk_0E6 + 1];
             actor->fwork[24] = temp_s1[actor->unk_0E6] & 0x1FF;
             actor->unk_0E6 += 2;
             break;
 
-        case 0x5E00:
+        case EVOP_47 << 9:
             actor->state = 0xF;
             actor->timer_0BC = temp_s1[actor->unk_0E6 + 1];
             actor->fwork[24] = temp_s1[actor->unk_0E6] & 0x1FF;
             actor->unk_0E6 += 2;
             break;
 
-        case 0xC000:
+        case EVOP_96 << 9:
             actor->iwork[2] = temp_s1[actor->unk_0E6 + 1];
             actor->iwork[3] = temp_s1[actor->unk_0E6] & 0x1FF;
             actor->unk_0E6 += 2;
             func_8006D36C(actor);
             break;
 
-        case 0xFC00:
+        case EVOP_126 << 9:
             if (temp_s1[actor->unk_0E6 + 1] < actor->iwork[0]) {
                 actor->unk_0E6 += 2;
                 actor->iwork[0] = 0;
@@ -1403,13 +1403,13 @@ void func_8006D36C(Actor* actor) {
             func_8006D36C(actor);
             break;
 
-        case 0x6000:
+        case EVOP_48 << 9:
             actor->state = 1;
             actor->timer_0BC = temp_s1[actor->unk_0E6 + 1];
             actor->unk_0E6 += 2;
             break;
 
-        case 0x0000:
+        case EVOP_0 << 9:
             actor->fwork[0] = temp_s1[actor->unk_0E6] & 0x7F;
             actor->fwork[1] = actor->fwork[0];
             actor->iwork[5] = temp_s1[actor->unk_0E6] & 0x180;
@@ -1418,13 +1418,13 @@ void func_8006D36C(Actor* actor) {
             actor->unk_0E6 += 2;
             break;
 
-        case 0x0400:
+        case EVOP_2 << 9:
             actor->fwork[22] = temp_s1[actor->unk_0E6 + 1] & 0xFF;
             actor->unk_0E6 += 2;
             func_8006D36C(actor);
             break;
 
-        case 0x0200:
+        case EVOP_1 << 9:
             actor->fwork[1] = temp_s1[actor->unk_0E6] & 0x7F;
             actor->iwork[5] = temp_s1[actor->unk_0E6] & 0x180;
             actor->timer_0BC = temp_s1[actor->unk_0E6 + 1];
@@ -1432,48 +1432,48 @@ void func_8006D36C(Actor* actor) {
             actor->unk_0E6 += 2;
             break;
 
-        case 0x0800:
+        case EVOP_4 << 9:
             actor->timer_0C0 = temp_s1[actor->unk_0E6 + 1];
             actor->iwork[13] = 1;
             actor->unk_0E6 += 2;
             func_8006D36C(actor);
             break;
 
-        case 0x1000:
+        case EVOP_8 << 9:
             actor->iwork[13] = 0;
             actor->unk_0E6 += 2;
             func_8006D36C(actor);
             break;
 
-        case 0x1200:
+        case EVOP_9 << 9:
             actor->state = 2;
             actor->fwork[2] = temp_s1[actor->unk_0E6] & 0x1FF;
             actor->fwork[3] = temp_s1[actor->unk_0E6 + 1] * 0.1f;
             actor->unk_0E6 += 2;
             break;
 
-        case 0x1400:
+        case EVOP_10 << 9:
             actor->state = 3;
             actor->fwork[2] = temp_s1[actor->unk_0E6] & 0x1FF;
             actor->fwork[3] = temp_s1[actor->unk_0E6 + 1] * 0.1f;
             actor->unk_0E6 += 2;
             break;
 
-        case 0x1600:
+        case EVOP_11 << 9:
             actor->state = 4;
             actor->fwork[2] = temp_s1[actor->unk_0E6] & 0x1FF;
             actor->fwork[3] = temp_s1[actor->unk_0E6 + 1] * 0.1f;
             actor->unk_0E6 += 2;
             break;
 
-        case 0x1800:
+        case EVOP_12 << 9:
             actor->state = 5;
             actor->fwork[2] = temp_s1[actor->unk_0E6] & 0x1FF;
             actor->fwork[3] = temp_s1[actor->unk_0E6 + 1] * 0.1f;
             actor->unk_0E6 += 2;
             break;
 
-        case 0x2000:
+        case EVOP_16 << 9:
             actor->fwork[4] = temp_s1[actor->unk_0E6] & 0x1FF;
             actor->fwork[5] = temp_s1[actor->unk_0E6 + 1] * 0.1f;
             actor->fwork[6] = 1.0f;
@@ -1481,7 +1481,7 @@ void func_8006D36C(Actor* actor) {
             func_8006D36C(actor);
             break;
 
-        case 0x2200:
+        case EVOP_17 << 9:
             actor->fwork[4] = temp_s1[actor->unk_0E6] & 0x1FF;
             actor->fwork[5] = temp_s1[actor->unk_0E6 + 1] * 0.1f;
             actor->fwork[6] = -1.0f;
@@ -1489,7 +1489,7 @@ void func_8006D36C(Actor* actor) {
             func_8006D36C(actor);
             break;
 
-        case 0x2400:
+        case EVOP_18 << 9:
             actor->fwork[7] = temp_s1[actor->unk_0E6] & 0x1FF;
             actor->fwork[8] = temp_s1[actor->unk_0E6 + 1] * 0.1f;
             actor->fwork[9] = 1.0f;
@@ -1497,7 +1497,7 @@ void func_8006D36C(Actor* actor) {
             func_8006D36C(actor);
             break;
 
-        case 0x2600:
+        case EVOP_19 << 9:
             actor->fwork[7] = temp_s1[actor->unk_0E6] & 0x1FF;
             actor->fwork[8] = temp_s1[actor->unk_0E6 + 1] * 0.1f;
             actor->fwork[9] = -1.0f;
@@ -1505,7 +1505,7 @@ void func_8006D36C(Actor* actor) {
             func_8006D36C(actor);
             break;
 
-        case 0x2800:
+        case EVOP_20 << 9:
             actor->fwork[10] = temp_s1[actor->unk_0E6] & 0x1FF;
             actor->fwork[11] = temp_s1[actor->unk_0E6 + 1] * 0.1f;
             actor->fwork[12] = 1.0f;
@@ -1513,7 +1513,7 @@ void func_8006D36C(Actor* actor) {
             func_8006D36C(actor);
             break;
 
-        case 0x2A00:
+        case EVOP_21 << 9:
             actor->fwork[10] = temp_s1[actor->unk_0E6] & 0x1FF;
             actor->fwork[11] = temp_s1[actor->unk_0E6 + 1] * 0.1f;
             actor->fwork[12] = -1.0f;
@@ -1521,13 +1521,13 @@ void func_8006D36C(Actor* actor) {
             func_8006D36C(actor);
             break;
 
-        case 0x3000:
+        case EVOP_24 << 9:
             actor->iwork[6] = 1;
             actor->unk_0E6 += 2;
             func_8006D36C(actor);
             break;
 
-        case 0x3200:
+        case EVOP_25 << 9:
             actor->iwork[6] = 0;
             actor->unk_0E6 += 2;
             func_8006D36C(actor);

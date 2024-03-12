@@ -1435,7 +1435,7 @@ void func_i6_8019C888(Boss* boss) {
             sp58.z = boss->fwork[20] - boss->obj.pos.z;
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp58, &sp4C);
             sp1E4 = Math_RadToDeg(Math_Atan2F(sp4C.x, sp4C.z));
-            sp1E8 = Math_RadToDeg(-Math_Atan2F(sp4C.y, sqrtf((sp4C.x * sp4C.x) + (sp4C.z * sp4C.z))));
+            sp1E8 = Math_RadToDeg(-Math_Atan2F(sp4C.y, sqrtf(SQ(sp4C.x) + SQ(sp4C.z))));
 
             if ((sp1E8 > 30.0f) && (sp1E8 <= 180.0f)) {
                 sp1E8 = 30.0f;
@@ -1459,7 +1459,7 @@ void func_i6_8019C888(Boss* boss) {
             sp58.z = boss->fwork[20] - boss->obj.pos.z;
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp58, &sp4C);
             sp1E0 = Math_RadToDeg(Math_Atan2F(sp4C.x, sp4C.z));
-            sp1DC = Math_RadToDeg(-Math_Atan2F(sp4C.y, sqrtf((sp4C.x * sp4C.x) + (sp4C.z * sp4C.z))));
+            sp1DC = Math_RadToDeg(-Math_Atan2F(sp4C.y, sqrtf(SQ(sp4C.x) + SQ(sp4C.z))));
 
             if ((sp1DC > 30.0f) && (sp1DC <= 180.0f)) {
                 sp1DC = 30.0f;
@@ -1481,7 +1481,7 @@ void func_i6_8019C888(Boss* boss) {
             sp58.z = boss->fwork[20] - boss->obj.pos.z;
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp58, &sp4C);
             sp1D8 = Math_RadToDeg(Math_Atan2F(sp4C.x, sp4C.z));
-            sp1D4 = Math_RadToDeg(-Math_Atan2F(sp4C.y, sqrtf((sp4C.x * sp4C.x) + (sp4C.z * sp4C.z))));
+            sp1D4 = Math_RadToDeg(-Math_Atan2F(sp4C.y, sqrtf(SQ(sp4C.x) + SQ(sp4C.z))));
 
             if ((sp1D4 > 80.0f) && (sp1D4 <= 180.0f)) {
                 sp1D4 = 80.0f;
@@ -1505,7 +1505,7 @@ void func_i6_8019C888(Boss* boss) {
             sp58.z = (boss->fwork[20] - boss->obj.pos.z) - (COS_DEG(boss->obj.rot.y) * 60.0f);
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp58, &sp4C);
             sp1E4 = Math_RadToDeg(Math_Atan2F(sp4C.x, sp4C.z));
-            sp1E8 = Math_RadToDeg(-Math_Atan2F(sp4C.y, sqrtf((sp4C.x * sp4C.x) + (sp4C.z * sp4C.z))));
+            sp1E8 = Math_RadToDeg(-Math_Atan2F(sp4C.y, sqrtf(SQ(sp4C.x) + SQ(sp4C.z))));
 
             if ((sp1E8 > 80.0f) && (sp1E8 <= 180.0f)) {
                 sp1E8 = 80.0f;
@@ -3432,7 +3432,7 @@ void func_i6_801A3BD4(Actor* actor) {
         sp5C.z = gPlayer[0].pos.z - actor->obj.pos.z;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp5C, &sp50);
         sp1D4 = Math_RadToDeg(Math_Atan2F(sp50.x, sp50.z));
-        sp1D8 = Math_RadToDeg(-Math_Atan2F(sp50.y, sqrtf((sp50.x * sp50.x) + (sp50.z * sp50.z))));
+        sp1D8 = Math_RadToDeg(-Math_Atan2F(sp50.y, sqrtf(SQ(sp50.x) + SQ(sp50.z))));
         if ((sp1D8 > 90.0f) && (sp1D8 < 180.0f)) {
             sp1D8 = 90.0f;
         }

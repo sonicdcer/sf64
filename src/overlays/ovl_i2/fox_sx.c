@@ -600,7 +600,7 @@ void func_i2_80190078(Boss* boss) {
             frameData = Animation_GetFrameData(&D_6016E28, boss->unk_04C, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 100.0f, 0.0f);
 
-            Math_SmoothStepToF(boss->fwork, 1.0f, 1.0f, 0.05f, 0);
+            Math_SmoothStepToF(&boss->fwork[0], 1.0f, 1.0f, 0.05f, 0);
 
             boss->unk_04C++;
             if (boss->unk_04C >= Animation_GetFrameCount(&D_6016E28)) {
@@ -636,7 +636,7 @@ void func_i2_80190078(Boss* boss) {
             frameData = Animation_GetFrameData(&D_60123BC, boss->unk_04C, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 100.0f, 0.0f);
 
-            Math_SmoothStepToF(boss->fwork, 1.0f, 1.0f, 0.05f, 0);
+            Math_SmoothStepToF(&boss->fwork[0], 1.0f, 1.0f, 0.05f, 0);
 
             boss->unk_04C++;
             if (boss->unk_04C >= Animation_GetFrameCount(&D_60123BC)) {
@@ -672,7 +672,7 @@ void func_i2_80190078(Boss* boss) {
             frameData = Animation_GetFrameData(&D_6013798, boss->unk_04C, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 100.0f, 0.0f);
 
-            Math_SmoothStepToF(boss->fwork, 1.0f, 1.0f, 0.05f, 0);
+            Math_SmoothStepToF(&boss->fwork[0], 1.0f, 1.0f, 0.05f, 0);
 
             boss->unk_04C++;
             if (boss->unk_04C >= Animation_GetFrameCount(&D_6013798)) {
@@ -706,7 +706,7 @@ void func_i2_80190078(Boss* boss) {
             frameData = Animation_GetFrameData(&D_6016E28, 0, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 100.0f, 0.0f);
 
-            Math_SmoothStepToF(boss->fwork, 1.0f, 1.0f, 0.05f, 0);
+            Math_SmoothStepToF(&boss->fwork[0], 1.0f, 1.0f, 0.05f, 0);
             Math_SmoothStepToF(&boss->fwork[27], 30.0f, 0.05f, 1.0f, 0);
             Math_SmoothStepToF(&boss->fwork[28], -30.0f, 0.05f, 1.0f, 0);
 
@@ -833,7 +833,7 @@ void func_i2_80190078(Boss* boss) {
             frameData = Animation_GetFrameData(&D_601C690, boss->unk_04C, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 100.0f, 0.0f);
 
-            Math_SmoothStepToF(boss->fwork, 1.0f, 1.0f, 0.05f, 0);
+            Math_SmoothStepToF(&boss->fwork[0], 1.0f, 1.0f, 0.05f, 0);
 
             boss->unk_04C++;
             if (boss->unk_04C >= Animation_GetFrameCount(&D_601C690)) {
@@ -851,7 +851,7 @@ void func_i2_80190078(Boss* boss) {
             frameData = Animation_GetFrameData(&D_600A2D4, 0, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 2.5f, 0.0f);
 
-            Math_SmoothStepToF(boss->fwork, 0.1f, 1.0f, 0.005f, 0);
+            Math_SmoothStepToF(&boss->fwork[0], 0.1f, 1.0f, 0.005f, 0);
 
             if (boss->timer_050 == 0) {
                 boss->state = 8;
@@ -879,7 +879,7 @@ void func_i2_80190078(Boss* boss) {
             frameData = Animation_GetFrameData(&D_600F890, boss->unk_04C, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 100.0f, 0.0f);
 
-            Math_SmoothStepToF(boss->fwork, 1.0f, 1.0f, 0.02f, 0);
+            Math_SmoothStepToF(&boss->fwork[0], 1.0f, 1.0f, 0.02f, 0);
 
             boss->unk_04C++;
             if (boss->unk_04C >= Animation_GetFrameCount(&D_600F890)) {
@@ -899,7 +899,7 @@ void func_i2_80190078(Boss* boss) {
             frameData = Animation_GetFrameData(&D_60123BC, boss->unk_04C, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 50.0f, 0.0f);
 
-            Math_SmoothStepToF(boss->fwork, 1.0f, 1.0f, 0.01f, 0);
+            Math_SmoothStepToF(&boss->fwork[0], 1.0f, 1.0f, 0.01f, 0);
 
             if (boss->timer_050 == 0) {
                 boss->unk_04C++;
@@ -931,7 +931,7 @@ void func_i2_80190078(Boss* boss) {
             frameData = Animation_GetFrameData(&D_601AA28, boss->unk_04C, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 50.0f, 0.0f);
 
-            Math_SmoothStepToF(boss->fwork, 1.0f, 1.0f, 0.01f, 0);
+            Math_SmoothStepToF(&boss->fwork[0], 1.0f, 1.0f, 0.01f, 0);
             boss->unk_04C++;
 
             if (boss->unk_04C >= Animation_GetFrameCount(&D_601AA28)) {
@@ -960,7 +960,7 @@ void func_i2_80190078(Boss* boss) {
             frameData = Animation_GetFrameData(&D_60158C4, boss->unk_04C, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 100.0f, 0.0f);
 
-            Math_SmoothStepToF(boss->fwork, 1.0f, 1.0f, 0.05f, 0);
+            Math_SmoothStepToF(&boss->fwork[0], 1.0f, 1.0f, 0.05f, 0);
 
             boss->unk_04C++;
             if (!(boss->unk_04C & 15)) {
@@ -1023,7 +1023,7 @@ void func_i2_80190078(Boss* boss) {
             frameData = Animation_GetFrameData(&D_6009FF8, 0, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 5.0f, 0.0f);
 
-            Math_SmoothStepToF(boss->fwork, 0.1f, 1.0f, 0.001f, 0);
+            Math_SmoothStepToF(&boss->fwork[0], 0.1f, 1.0f, 0.001f, 0);
             Math_SmoothStepToF(&boss->unk_078.y, 10.0f, 1.0f, 0.1f, 0);
             Math_SmoothStepToF(&boss->obj.rot.y, 2880.0f, 0.1f, boss->unk_078.y, 0.1f);
 
@@ -1051,7 +1051,7 @@ void func_i2_80190078(Boss* boss) {
             frameData = Animation_GetFrameData(&D_601C690, boss->unk_04C, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 100.0f, 0.0f);
 
-            Math_SmoothStepToF(boss->fwork, 1.0f, 1.0f, 0.05f, 0);
+            Math_SmoothStepToF(&boss->fwork[0], 1.0f, 1.0f, 0.05f, 0);
             boss->unk_04C++;
 
             if (boss->unk_04C >= Animation_GetFrameCount(&D_601C690)) {

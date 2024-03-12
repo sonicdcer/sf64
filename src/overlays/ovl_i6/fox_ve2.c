@@ -1,7 +1,7 @@
 #include "global.h"
 
 void func_i6_80196210(Boss* boss) {
-    Math_SmoothStepToF(boss->fwork, boss->fwork[1], 0.5f, 5.0f, 0.0f);
+    Math_SmoothStepToF(&boss->fwork[0], boss->fwork[1], 0.5f, 5.0f, 0.0f);
 }
 
 s32 func_i6_8019624C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {

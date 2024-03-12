@@ -459,15 +459,9 @@ void func_i5_801B5FE0(s32 arg0, s32 arg1, s32 arg2) {
     f32 spDC;
     f32 spD8;
     f32 spD4;
-    f32 temp_ft4;
-    f32 temp_ft5;
-    f32 temp_fs0;
-    f32 temp_fs1;
-    f32 temp_fs2;
-    f32 temp_fs3;
-    f32 temp_fv1;
-    f32 temp_fa0;
-    f32 temp_fa1;
+    Vec3f v1;
+    Vec3f v2;
+    Vec3f v3;
     f32 var_fv0;
     s32 j1;
     s32 j3;
@@ -494,22 +488,22 @@ void func_i5_801B5FE0(s32 arg0, s32 arg1, s32 arg2) {
                 spD8 = D_i5_801BA9C4[i2 + 1] * D_i5_801C24B8[(D_i5_801BA994[i2 + 1] + var_s1) % 28];
                 spD4 = D_i5_801BA9C4[i2 + 2] * D_i5_801C24B8[(D_i5_801BA994[i2 + 2] + var_s1) % 28];
 
-                temp_ft4 = spF0 - spF4;
-                temp_ft5 = spEC - spF0;
-                temp_fs0 = spE4 - spE8;
-                temp_fs1 = spE0 - spE4;
-                temp_fs2 = spD8 - spDC;
-                temp_fs3 = spD4 - spD8;
+                v1.x = spF0 - spF4;
+                v2.x = spEC - spF0;
+                v1.y = spE4 - spE8;
+                v2.y = spE0 - spE4;
+                v1.z = spD8 - spDC;
+                v2.z = spD4 - spD8;
 
-                temp_fv1 = (temp_fs0 * temp_fs3) - (temp_fs2 * temp_fs1);
-                temp_fa0 = (temp_fs2 * temp_ft5) - (temp_ft4 * temp_fs3);
-                temp_fa1 = (temp_ft4 * temp_fs1) - (temp_fs0 * temp_ft5);
+                v3.x = (v1.y * v2.z) - (v1.z * v2.y);
+                v3.y = (v1.z * v2.x) - (v1.x * v2.z);
+                v3.z = (v1.x * v2.y) - (v1.y * v2.x);
 
-                var_fv0 = sqrtf(SQ(temp_fv1) + SQ(temp_fa0) + SQ(temp_fa1));
+                var_fv0 = VEC3F_MAG(&v3);
 
-                D_i5_801C65B8[i0][i1][i2].a[0] = (temp_fv1 * 127.0f) / var_fv0;
-                D_i5_801C65B8[i0][i1][i2].a[1] = (temp_fa0 * 127.0f) / var_fv0;
-                D_i5_801C65B8[i0][i1][i2].a[2] = (temp_fa1 * 127.0f) / var_fv0;
+                D_i5_801C65B8[i0][i1][i2].a[0] = (v3.x * 127.0f) / var_fv0;
+                D_i5_801C65B8[i0][i1][i2].a[1] = (v3.y * 127.0f) / var_fv0;
+                D_i5_801C65B8[i0][i1][i2].a[2] = (v3.z * 127.0f) / var_fv0;
             }
         }
 

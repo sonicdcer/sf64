@@ -1189,7 +1189,7 @@ void func_i4_8019C85C(Player* player) {
             Math_SmoothStepToAngle(&boss0->unk_078.x, 20.0f, 0.03f, boss0->fwork[1], 0.0f);
             Math_SmoothStepToAngle(&boss0->unk_078.y, 180.0f, 0.03f, boss0->fwork[2], 0.0f);
             Math_SmoothStepToAngle(&boss0->unk_078.z, 30.0f, 0.03f, boss0->fwork[3], 0.0f);
-            Math_SmoothStepToF(boss0->fwork, 20.0f, 0.05f, 0.3f, 0.0f);
+            Math_SmoothStepToF(&boss0->fwork[0], 20.0f, 0.05f, 0.3f, 0.0f);
             Math_SmoothStepToF(&boss0->fwork[1], 0.07f, 1.0f, 0.07f, 0.0f);
             Math_SmoothStepToF(&boss0->fwork[2], 0.5f, 1.0f, 0.05f, 0.0f);
             Math_SmoothStepToF(&boss0->fwork[3], 0.7f, 1.0f, 0.7f, 0.0f);
@@ -1588,7 +1588,7 @@ void func_i4_8019DD20(Actor* actor) {
 
         case 11:
             Math_SmoothStepToF(&actor->unk_0F4.x, 215.0f, 0.1f, 7.0f, 0.0f);
-            Math_SmoothStepToF(actor->fwork, 10.0f, 0.1f, 1.5f, 0.0f);
+            Math_SmoothStepToF(&actor->fwork[0], 10.0f, 0.1f, 1.5f, 0.0f);
             Math_SmoothStepToAngle(&actor->unk_0F4.y, 140.0f, 0.1f, 1.0f, 0.0f);
             if (actor->unk_0F4.x > 180.0f) {
                 actor->state = 12;
@@ -1599,7 +1599,7 @@ void func_i4_8019DD20(Actor* actor) {
             Math_SmoothStepToAngle(&actor->unk_0F4.x, 218.0f, 0.1f, 7.0f, 0.0f);
             Math_SmoothStepToAngle(&actor->unk_0F4.y, 147.0f, 0.1f, 1.0f, 0.0f);
             Math_SmoothStepToF(&actor->unk_0F4.z, 170.0f, 0.03f, 3.0f, 0.0f);
-            Math_SmoothStepToF(actor->fwork, 20.0f, 0.1f, 1.0f, 0.0f);
+            Math_SmoothStepToF(&actor->fwork[0], 20.0f, 0.1f, 1.0f, 0.0f);
             break;
     }
 
@@ -1628,7 +1628,7 @@ void func_i4_8019DD20(Actor* actor) {
         if (gCsFrameCount > 430) {
             actor->fwork[29] = 3.0f;
             Math_SmoothStepToF(&actor->unk_0F4.z, 500.0f, 0.1f, 20.0f, 0.0f);
-            Math_SmoothStepToF(actor->fwork, 40.0f, 0.1f, 3.0f, 0.0f);
+            Math_SmoothStepToF(&actor->fwork[0], 40.0f, 0.1f, 3.0f, 0.0f);
 
             if ((gCsFrameCount < 460) && !(gCsFrameCount & 3)) {
                 Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);

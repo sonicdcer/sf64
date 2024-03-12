@@ -2155,7 +2155,7 @@ void func_i3_801AFA5C(Actor* actor) {
             break;
         case 5:
             if (actor->obj.pos.y > (gGroundLevel + 70.0f)) {
-                Math_SmoothStepToF(actor->fwork, 1.0f, 0.1f, 0.2f, 0.0001f);
+                Math_SmoothStepToF(&actor->fwork[0], 1.0f, 0.1f, 0.2f, 0.0001f);
                 Math_SmoothStepToF(&actor->fwork[1], 1.0f, 0.1f, 0.2f, 0.0001f);
                 Math_SmoothStepToF(&actor->fwork[2], 1.0f, 0.1f, 0.2f, 0.0001f);
                 Math_SmoothStepToF(&actor->vel.y, -10.0f, 0.1f, 1.0f, 0.001f);
@@ -2191,7 +2191,7 @@ void func_i3_801AFA5C(Actor* actor) {
                     if (actor->timer_0BE == 0) {
                         actor->timer_0BE = 10;
                     }
-                    Math_SmoothStepToF(actor->fwork, 0.0f, 0.05f, 0.1f, 0.001f);
+                    Math_SmoothStepToF(&actor->fwork[0], 0.0f, 0.05f, 0.1f, 0.001f);
                     Math_SmoothStepToF(&actor->fwork[1], 0.0f, 0.05f, 0.1f, 0.001f);
                     Math_SmoothStepToF(&actor->fwork[2], 0.0f, 0.05f, 0.1f, 0.001f);
                     Math_SmoothStepToF(&actor->obj.pos.y, -300.0f, 0.1f, 1.0f, 0.001f);

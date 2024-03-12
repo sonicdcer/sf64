@@ -717,9 +717,7 @@ void func_80038140(PlayerShot* shot) {
     s32 i;
     s32 temp_v0;
     s32 spA4;
-    f32 temp_fa0;
-    f32 temp_fv0;
-    f32 temp_fv1;
+    Vec3f test;
     f32 sp94;
     Vec3f sp88;
     Vec3f sp7C;
@@ -767,10 +765,10 @@ void func_80038140(PlayerShot* shot) {
                                 return;
                             }
                         } else if (actor->unk_0B4 == 63) {
-                            temp_fv1 = fabsf(actor->obj.pos.x - shot->obj.pos.x);
-                            temp_fa0 = fabsf(actor->obj.pos.y - shot->obj.pos.y);
-                            temp_fv0 = fabsf(actor->obj.pos.z - shot->obj.pos.z);
-                            if (sqrtf(SQ(temp_fv1) + SQ(temp_fa0) + SQ(temp_fv0)) < 1000.0f) {
+                            test.x = fabsf(actor->obj.pos.x - shot->obj.pos.x);
+                            test.y = fabsf(actor->obj.pos.y - shot->obj.pos.y);
+                            test.z = fabsf(actor->obj.pos.z - shot->obj.pos.z);
+                            if (VEC3F_MAG(&test) < 1000.0f) {
                                 func_80037CF4(shot, actor, 0);
                             }
                         } else {
@@ -816,27 +814,28 @@ void func_80038140(PlayerShot* shot) {
         }
         if (gLevelMode == LEVELMODE_ALL_RANGE) {
             for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
-                temp_fv1 = 50.0f;
+                test.x = 50.0f;
                 if (gVersusMode && (shot->playerNum < 4) &&
                     !((gLaserStrength[shot->playerNum] == LASERS_SINGLE) && (shot->obj.id != PLAYERSHOT_8))) {
-                    temp_fv1 = 100.0f;
+                    test.x = 100.0f;
                 }
                 if (player->unk_280 >= 100) {
-                    temp_fv1 = 150.0f;
+                    test.x = 150.0f;
                 }
                 if (player->form == FORM_LANDMASTER) {
-                    temp_fv1 *= 2.0f;
-                    temp_fa0 = temp_fv1 + 50.0f;
+                    test.x *= 2.0f;
+                    test.y = test.x + 50.0f;
                 } else if (player->form == FORM_ON_FOOT) {
-                    temp_fa0 = temp_fv1 + 50.0f;
+                    test.y = test.x + 50.0f;
                 } else {
-                    temp_fa0 = temp_fv1;
+                    test.y = test.x;
                 }
+                test.z = test.x;
                 if ((i != shot->playerNum) &&
                     ((player->state_1C8 == PLAYERSTATE_1C8_3) || (player->state_1C8 == PLAYERSTATE_1C8_4)) &&
-                    (fabsf(player->unk_138 - shot->obj.pos.z) < temp_fv1) &&
-                    (fabsf(player->pos.x - shot->obj.pos.x) < temp_fv1) &&
-                    (fabsf(player->pos.y - shot->obj.pos.y) < temp_fa0)) {
+                    (fabsf(player->unk_138 - shot->obj.pos.z) < test.z) &&
+                    (fabsf(player->pos.x - shot->obj.pos.x) < test.x) &&
+                    (fabsf(player->pos.y - shot->obj.pos.y) < test.y)) {
                     if (player->unk_280 >= 100) {
                         shot->obj.rot.y = player->unk_0E8 + player->unk_114 + 180.0f + 90.0f;
                         shot->obj.rot.x = RAND_FLOAT(360.0f);
@@ -944,10 +943,10 @@ void func_80038140(PlayerShot* shot) {
                 (boss->obj.id == OBJ_BOSS_313)) {
                 func_8003774C(shot, boss->obj.id, &boss->obj);
             } else if (boss->obj.id == OBJ_BOSS_310) {
-                temp_fv1 = fabsf(boss->obj.pos.x - shot->obj.pos.x) * .8333333f;
-                temp_fa0 = fabsf(boss->obj.pos.y - shot->obj.pos.y) * 2;
-                temp_fv0 = fabsf(boss->obj.pos.z - shot->obj.pos.z) * 0.8333333f;
-                if (sqrtf(SQ(temp_fv1) + SQ(temp_fa0) + SQ(temp_fv0)) < 1500.0f) {
+                test.x = fabsf(boss->obj.pos.x - shot->obj.pos.x) * .8333333f;
+                test.y = fabsf(boss->obj.pos.y - shot->obj.pos.y) * 2;
+                test.z = fabsf(boss->obj.pos.z - shot->obj.pos.z) * 0.8333333f;
+                if (VEC3F_MAG(&test) < 1500.0f) {
                     if (shot->obj.id == PLAYERSHOT_4) {
                         Object_Kill(&shot->obj, shot->sfxSource);
                     } else {
@@ -958,10 +957,10 @@ void func_80038140(PlayerShot* shot) {
                 }
             } else {
                 if (boss->obj.id == OBJ_BOSS_316) {
-                    temp_fv1 = fabsf(boss->obj.pos.x - shot->obj.pos.x);
-                    temp_fa0 = fabsf(boss->obj.pos.y - 300.0f - shot->obj.pos.y) * 7.42f;
-                    temp_fv0 = fabsf(boss->obj.pos.z - shot->obj.pos.z);
-                    if (sqrtf(SQ(temp_fv1) + SQ(temp_fa0) + SQ(temp_fv0)) < 2700.0f) {
+                    test.x = fabsf(boss->obj.pos.x - shot->obj.pos.x);
+                    test.y = fabsf(boss->obj.pos.y - 300.0f - shot->obj.pos.y) * 7.42f;
+                    test.z = fabsf(boss->obj.pos.z - shot->obj.pos.z);
+                    if (VEC3F_MAG(&test) < 2700.0f) {
                         if (shot->obj.id == PLAYERSHOT_4) {
                             Object_Kill(&shot->obj, shot->sfxSource);
                         } else {
@@ -1743,9 +1742,7 @@ void func_8003C008(PlayerShot* shot) {
     s32 j;
     f32* hitboxData;
     Boss* boss;
-    f32 temp_ft4;
-    f32 temp_ft5;
-    f32 var_fa1;
+    Vec3f test;
     f32 var_fs2;
     Vec3f sp8C;
     Vec3f sp80;
@@ -1784,13 +1781,13 @@ void func_8003C008(PlayerShot* shot) {
                         sp8C.y = shot->obj.pos.y - boss->obj.pos.y;
                         sp8C.z = shot->obj.pos.z - boss->obj.pos.z;
                         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp8C, &sp80);
-                        temp_ft4 = (hitboxData[4] + boss->obj.pos.x) - (boss->obj.pos.x + sp80.x);
-                        temp_ft5 = (hitboxData[2] + boss->obj.pos.y) - (boss->obj.pos.y + sp80.y);
-                        var_fa1 = (hitboxData[0] + boss->obj.pos.z) - (boss->obj.pos.z + sp80.z);
-                        if ((gLevelMode == LEVELMODE_ON_RAILS) && (var_fa1 < 0.0f)) {
-                            var_fa1 *= 0.6f;
+                        test.x = (hitboxData[4] + boss->obj.pos.x) - (boss->obj.pos.x + sp80.x);
+                        test.y = (hitboxData[2] + boss->obj.pos.y) - (boss->obj.pos.y + sp80.y);
+                        test.z = (hitboxData[0] + boss->obj.pos.z) - (boss->obj.pos.z + sp80.z);
+                        if ((gLevelMode == LEVELMODE_ON_RAILS) && (test.z < 0.0f)) {
+                            test.z *= 0.6f;
                         }
-                        if (sqrtf(SQ(temp_ft4) + SQ(temp_ft5) + SQ(var_fa1)) < var_fs2) {
+                        if (VEC3F_MAG(&test) < var_fs2) {
                             boss->dmgPart = j;
                             boss->dmgType = DMG_BOMB;
                             boss->damage = 20;
@@ -1977,9 +1974,7 @@ void func_8003C4D0(PlayerShot* shot, s32 damage) {
 }
 
 void func_8003CC08(PlayerShot* shot) {
-    f32 temp_fa0;
-    f32 temp_fa1;
-    f32 temp_fv1;
+    Vec3f test;
     f32 var_ft5;
 
     switch (shot->unk_5C) {
@@ -2022,10 +2017,10 @@ void func_8003CC08(PlayerShot* shot) {
             if ((shot->unk_64 > 0) && (shot->unk_64 < 30)) {
                 if (!gVersusMode &&
                     ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5))) {
-                    temp_fv1 = gPlayer[0].pos.x - shot->obj.pos.x;
-                    temp_fa0 = gPlayer[0].pos.y - shot->obj.pos.y;
-                    temp_fa1 = gPlayer[0].unk_138 - shot->obj.pos.z;
-                    var_ft5 = sqrtf(SQ(temp_fv1) + SQ(temp_fa0) + SQ(temp_fa1)) * 0.01f;
+                    test.x = gPlayer[0].pos.x - shot->obj.pos.x;
+                    test.y = gPlayer[0].pos.y - shot->obj.pos.y;
+                    test.z = gPlayer[0].unk_138 - shot->obj.pos.z;
+                    var_ft5 = VEC3F_MAG(&test) * 0.01f;
                     if (var_ft5 > 60.0f) {
                         var_ft5 = 60.0f;
                     }

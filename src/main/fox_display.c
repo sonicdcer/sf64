@@ -1365,7 +1365,7 @@ void func_80057248(void) {
         RCP_SetupDL_40();
         for (i = 0; i < ARRAY_COUNT(D_80177E98); i++) {
             if (D_80177E98[i].z < 0.0f) {
-                var_fs0 = sqrtf(VEC3F_SQ(D_80177E98[i])) * 0.0015f;
+                var_fs0 = (VEC3F_MAG(&D_80177E98[i])) * 0.0015f;
                 if (var_fs0 > 100.0f) {
                     var_fs0 = 100.0f;
                 } else if (var_fs0 < 1.0f) {
@@ -1401,7 +1401,7 @@ void func_80057504(void) {
 
     for (i = 0; i < gCamCount; i++) {
         if (D_80161578[i].z < 0.0f) {
-            var_fs0 = sqrtf(VEC3F_SQ(D_80161578[i]));
+            var_fs0 = (VEC3F_MAG(&D_80161578[i]));
             if (var_fs0 < 20000.0f) {
                 var_fs0 *= 0.0015f;
                 if (var_fs0 > 100.0f) {

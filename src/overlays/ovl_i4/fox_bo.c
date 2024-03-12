@@ -2003,7 +2003,7 @@ void func_i4_80191AFC(Boss* boss) {
 void func_i4_80191BAC(Boss* boss) {
     D_i4_801A0530 = 0;
 
-    Math_SmoothStepToF(boss->fwork, D_i4_801A03DC * 9.0f + 10.0f, 1.0f, 10.0f, 0.0f);
+    Math_SmoothStepToF(&boss->fwork[0], D_i4_801A03DC * 9.0f + 10.0f, 1.0f, 10.0f, 0.0f);
 
     Texture_Scroll(&D_600CF88, 16, 16, 0);
     Texture_Scroll(&D_600CF88, 16, 16, 0);

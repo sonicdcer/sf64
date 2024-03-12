@@ -1171,7 +1171,7 @@ void func_i4_801946C4(Boss* boss) {
             }
         }
         if (boss->swork[10] != 0) {
-            Math_SmoothStepToF(boss->fwork, boss->fwork[5], 0.03f, 0.5f, 0);
+            Math_SmoothStepToF(&boss->fwork[0], boss->fwork[5], 0.03f, 0.5f, 0);
         }
         if (boss->swork[11] != 0) {
             Math_SmoothStepToF(&boss->fwork[1], boss->fwork[6], 0.03f, 0.5f, 0);

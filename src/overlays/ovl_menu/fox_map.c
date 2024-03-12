@@ -6119,27 +6119,28 @@ void func_menu_801ABF1C(void) {
 }
 
 void func_menu_801AC200(s32 index) {
-    f32 x;
-    f32 y;
-    f32 z;
+    // f32 z;
+    // f32 x;
+    // f32 y;
+    Vec3f v;
     f32 r;
     f32 r2;
     Vec3f vec;
 
-    x = gUnkEntities30[index].unk_10.x - gUnkEntities30[index].unk_04.x;
-    y = gUnkEntities30[index].unk_10.y - gUnkEntities30[index].unk_04.y;
-    z = gUnkEntities30[index].unk_10.z - gUnkEntities30[index].unk_04.z;
+    v.x = gUnkEntities30[index].unk_10.x - gUnkEntities30[index].unk_04.x;
+    v.y = gUnkEntities30[index].unk_10.y - gUnkEntities30[index].unk_04.y;
+    v.z = gUnkEntities30[index].unk_10.z - gUnkEntities30[index].unk_04.z;
 
-    r = sqrtf(SQ(x) + SQ(y) + SQ(z));
+    r = VEC3F_MAG(&v);
 
     if (r == 0.0f) {
         r = 1.0f;
     }
 
     if (sPaths[index].unk_14 == 2) {
-        vec.x = (x / r) * (r / (sPaths[index].length - 1));
-        vec.y = (y / r) * (r / (sPaths[index].length - 1));
-        vec.z = (z / r) * (r / (sPaths[index].length - 1));
+        vec.x = (v.x / r) * (r / (sPaths[index].length - 1));
+        vec.y = (v.y / r) * (r / (sPaths[index].length - 1));
+        vec.z = (v.z / r) * (r / (sPaths[index].length - 1));
 
         D_menu_801CEEB0.x = gUnkEntities30[index].unk_04.x + (vec.x * D_menu_801CEEA0);
         D_menu_801CEEB0.y = gUnkEntities30[index].unk_04.y + (vec.y * D_menu_801CEEA0);
@@ -6180,18 +6181,18 @@ void func_menu_801AC200(s32 index) {
             return;
         }
     } else {
-        vec.x = (x / r) * gUnkEntities30[index].unk_24;
-        vec.y = (y / r) * gUnkEntities30[index].unk_24;
-        vec.z = (z / r) * gUnkEntities30[index].unk_24;
+        vec.x = (v.x / r) * gUnkEntities30[index].unk_24;
+        vec.y = (v.y / r) * gUnkEntities30[index].unk_24;
+        vec.z = (v.z / r) * gUnkEntities30[index].unk_24;
 
         D_menu_801CEEB0.x = gUnkEntities30[index].unk_04.x + vec.x;
         D_menu_801CEEB0.y = gUnkEntities30[index].unk_04.y + vec.y;
         D_menu_801CEEB0.z = gUnkEntities30[index].unk_04.z + vec.z;
 
-        x = D_menu_801CEEB0.x - gUnkEntities30[index].unk_04.x;
-        y = D_menu_801CEEB0.y - gUnkEntities30[index].unk_04.y;
-        z = D_menu_801CEEB0.z - gUnkEntities30[index].unk_04.z;
-        r2 = sqrtf(SQ(x) + SQ(y) + SQ(z));
+        v.x = D_menu_801CEEB0.x - gUnkEntities30[index].unk_04.x;
+        v.y = D_menu_801CEEB0.y - gUnkEntities30[index].unk_04.y;
+        v.z = D_menu_801CEEB0.z - gUnkEntities30[index].unk_04.z;
+        r2 = VEC3F_MAG(&v);
 
         if (((r / 9.0f) * 8.0f) < r2) {
             D_menu_801CEEAC -= 16;
@@ -6461,9 +6462,7 @@ void func_menu_801ACD90(s32 index, Vec3f* src, Vec3f* dest) {
     f32 x2;
     f32 y2;
     f32 z2;
-    f32 x;
-    f32 y;
-    f32 z;
+    Vec3f v0;
     f32 r;
     f32 temp1;
     f32 temp2;
@@ -6531,19 +6530,19 @@ void func_menu_801ACD90(s32 index, Vec3f* src, Vec3f* dest) {
         temp2 = 30.0f;
     }
 
-    x = sPlanets[sPaths[index].end].pos.x - sPlanets[sPaths[index].start].pos.x;
-    y = sPlanets[sPaths[index].end].pos.y - sPlanets[sPaths[index].start].pos.y;
-    z = sPlanets[sPaths[index].end].pos.z - sPlanets[sPaths[index].start].pos.z;
+    v0.x = sPlanets[sPaths[index].end].pos.x - sPlanets[sPaths[index].start].pos.x;
+    v0.y = sPlanets[sPaths[index].end].pos.y - sPlanets[sPaths[index].start].pos.y;
+    v0.z = sPlanets[sPaths[index].end].pos.z - sPlanets[sPaths[index].start].pos.z;
 
-    r = sqrtf(SQ(x) + SQ(y) + SQ(z));
+    r = VEC3F_MAG(&v0);
 
-    x1 = sPlanets[sPaths[index].start].pos.x + (temp1 * sPlanets[sPaths[index].start].scale * (x / r));
-    y1 = sPlanets[sPaths[index].start].pos.y + (temp1 * sPlanets[sPaths[index].start].scale * (y / r));
-    z1 = sPlanets[sPaths[index].start].pos.z + (temp1 * sPlanets[sPaths[index].start].scale * (z / r));
+    x1 = sPlanets[sPaths[index].start].pos.x + (temp1 * sPlanets[sPaths[index].start].scale * (v0.x / r));
+    y1 = sPlanets[sPaths[index].start].pos.y + (temp1 * sPlanets[sPaths[index].start].scale * (v0.y / r));
+    z1 = sPlanets[sPaths[index].start].pos.z + (temp1 * sPlanets[sPaths[index].start].scale * (v0.z / r));
 
-    x2 = sPlanets[sPaths[index].end].pos.x + (temp2 * sPlanets[sPaths[index].end].scale * (-x / r));
-    y2 = sPlanets[sPaths[index].end].pos.y + (temp2 * sPlanets[sPaths[index].end].scale * (-y / r));
-    z2 = sPlanets[sPaths[index].end].pos.z + (temp2 * sPlanets[sPaths[index].end].scale * (-z / r));
+    x2 = sPlanets[sPaths[index].end].pos.x + (temp2 * sPlanets[sPaths[index].end].scale * (-v0.x / r));
+    y2 = sPlanets[sPaths[index].end].pos.y + (temp2 * sPlanets[sPaths[index].end].scale * (-v0.y / r));
+    z2 = sPlanets[sPaths[index].end].pos.z + (temp2 * sPlanets[sPaths[index].end].scale * (-v0.z / r));
 
     src->x = x1;
     src->y = y1;
