@@ -5204,7 +5204,7 @@ void func_i5_801AD144(PlayerShot* playerShot) {
                         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp8C, &sp80);
                         test.x = (var_s1[4] + actor->obj.pos.x) - (actor->obj.pos.x + sp80.x);
                         test.y = (var_s1[2] + actor->obj.pos.y) - (actor->obj.pos.y + sp80.y);
-                        test.z= (var_s1[0] + actor->obj.pos.z) - (actor->obj.pos.z + sp80.z);
+                        test.z = (var_s1[0] + actor->obj.pos.z) - (actor->obj.pos.z + sp80.z);
                         if ((gLevelMode == LEVELMODE_ON_RAILS) && (test.z < 0.0f)) {
                             test.z *= 0.6f;
                         }

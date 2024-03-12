@@ -6192,7 +6192,7 @@ void func_menu_801AC200(s32 index) {
         v.x = D_menu_801CEEB0.x - gUnkEntities30[index].unk_04.x;
         v.y = D_menu_801CEEB0.y - gUnkEntities30[index].unk_04.y;
         v.z = D_menu_801CEEB0.z - gUnkEntities30[index].unk_04.z;
-        r2 =  VEC3F_MAG(&v);
+        r2 = VEC3F_MAG(&v);
 
         if (((r / 9.0f) * 8.0f) < r2) {
             D_menu_801CEEAC -= 16;

@@ -26,8 +26,8 @@ bool func_800A36FC(Vec3f* objPos, Vec3f* colliderPos, CollisionHeader2* colHeade
     objRelPos.x = objPos->x - colliderPos->x;
     objRelPos.y = objPos->y - colliderPos->y;
     objRelPos.z = objPos->z - colliderPos->z;
-    if ((objRelPos.x < colHeader->min.x) || (objRelPos.y < colHeader->min.y) || (objRelPos.z < colHeader->min.z) || (colHeader->max.x < objRelPos.x) ||
-        (colHeader->max.y < objRelPos.y) || (colHeader->max.z < objRelPos.z)) {
+    if ((objRelPos.x < colHeader->min.x) || (objRelPos.y < colHeader->min.y) || (objRelPos.z < colHeader->min.z) ||
+        (colHeader->max.x < objRelPos.x) || (colHeader->max.y < objRelPos.y) || (colHeader->max.z < objRelPos.z)) {
         return false;
     }
     above = false;

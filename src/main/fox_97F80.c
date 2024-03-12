@@ -63,7 +63,8 @@ void func_80097380(Plane* plane, Vec3s** tri) {
         -a.x * b.y * c.z - b.x * c.y * a.z - c.x * a.y * b.z + a.x * c.y * b.z + b.x * a.y * c.z + c.x * b.y * a.z;
 }
 
-// Calculate the directed plane that contains the ordered triangle tri, given as an array of Vec3s. Duplicate of previous
+// Calculate the directed plane that contains the ordered triangle tri, given as an array of Vec3s. Duplicate of
+// previous
 void func_80097558(Plane* plane, Vec3s** tri) {
     Vec3s a;
     Vec3s b;
@@ -474,7 +475,8 @@ bool func_80098980(Vec3f* pos, Vec3s** tri, Vec3f* normal) {
     return var_v1;
 }
 
-bool func_80099254(Vec3f* objPos, Vec3f* colliderPos, Vec3f* objVel, CollisionHeader* colHeader, Vec3f* hitPosOut, f32* hitAnglesOut) {
+bool func_80099254(Vec3f* objPos, Vec3f* colliderPos, Vec3f* objVel, CollisionHeader* colHeader, Vec3f* hitPosOut,
+                   f32* hitAnglesOut) {
     Vec3s* polyVtxPos[3];
     Vec3f objRel;
     s32 pad11C;
@@ -517,8 +519,8 @@ bool func_80099254(Vec3f* objPos, Vec3f* colliderPos, Vec3f* objVel, CollisionHe
     max.z = colHeader->max.z;
 
     // check if object is outside the collision's bounding box
-    if ((objRel.x < min.x) || (objRel.y < min.y) || (objRel.z < min.z) || (max.x < objRel.x) ||
-        (max.y < objRel.y) || ((max.z < objRel.z))) {
+    if ((objRel.x < min.x) || (objRel.y < min.y) || (objRel.z < min.z) || (max.x < objRel.x) || (max.y < objRel.y) ||
+        ((max.z < objRel.z))) {
         return false;
     }
     if ((objVel->x == 0.0f) && (objVel->y == 0.0f) && (objVel->z == 0.0f)) {
@@ -564,7 +566,8 @@ bool func_80099254(Vec3f* objPos, Vec3f* colliderPos, Vec3f* objVel, CollisionHe
         Math_MinMax(&polyMinZ, &polyMaxZ, polyVtxPos[0]->z, polyVtxPos[1]->z, polyVtxPos[2]->z);
 
         // check if bounding boxes of the object's movement and the collision polygon overlap
-        if ((objMinX < polyMaxX) && (objMaxX > polyMinX) && (objMinY < polyMaxY) && (objMaxY > polyMinY) && (objMinZ < polyMaxZ) && (objMaxZ > polyMinZ)) {
+        if ((objMinX < polyMaxX) && (objMaxX > polyMinX) && (objMinY < polyMaxY) && (objMaxY > polyMinY) &&
+            (objMinZ < polyMaxZ) && (objMaxZ > polyMinZ)) {
             polyPlane.normal.x = colPoly->normal.x;
             polyPlane.normal.y = colPoly->normal.y;
             polyPlane.normal.z = colPoly->normal.z;
@@ -576,7 +579,8 @@ bool func_80099254(Vec3f* objPos, Vec3f* colliderPos, Vec3f* objVel, CollisionHe
                 // calculate the normal component of velocity
                 tempf = DOT_XYZ(&polyPlane.normal, objVel);
 
-                // check if the angle between the normal and velocity is > 90. That is, the object was moving toward the front of the polygon
+                // check if the angle between the normal and velocity is > 90. That is, the object was moving toward the
+                // front of the polygon
                 if (Math_FAcosF(tempf / (VEC3F_MAG(&polyPlane.normal) * speed)) > DEG_TO_RAD(90.0f)) {
                     // Calculate the time since the plane was crossed. Reusing the temp is required to match
                     tempf = (DOT_XYZ(&polyPlane.normal, &objRel) + polyPlane.dist) / tempf;
@@ -602,9 +606,9 @@ bool func_80099254(Vec3f* objPos, Vec3f* colliderPos, Vec3f* objVel, CollisionHe
                         }
                         hitAnglesOut[0] = Math_Atan2F_XY(polyPlane.normal.y, polyPlane.normal.z);
                         if (polyPlane.normal.z != 0.0f) {
-                            hitAnglesOut[1] =
-                                -Math_Atan2F_XY(__sinf(Math_Atan2F_XY(polyPlane.normal.y, polyPlane.normal.z)) * polyPlane.normal.z,
-                                                polyPlane.normal.x);
+                            hitAnglesOut[1] = -Math_Atan2F_XY(
+                                __sinf(Math_Atan2F_XY(polyPlane.normal.y, polyPlane.normal.z)) * polyPlane.normal.z,
+                                polyPlane.normal.x);
                         } else if (hitAnglesOut[0] >= M_PI) {
                             hitAnglesOut[1] = Math_Atan2F_XY(polyPlane.normal.y, polyPlane.normal.x);
                         } else {
@@ -622,5 +626,6 @@ bool func_80099254(Vec3f* objPos, Vec3f* colliderPos, Vec3f* objVel, CollisionHe
 }
 
 bool func_800998FC(Vec3f* objPos, Vec3f* colliderPos, Vec3f* objVel, s32 colId, Vec3f* hitPosOut, f32* hitAnglesOut) {
-    return func_80099254(objPos, colliderPos, objVel, SEGMENTED_TO_VIRTUAL(&D_800D2B38[colId]), hitPosOut, hitAnglesOut);
+    return func_80099254(objPos, colliderPos, objVel, SEGMENTED_TO_VIRTUAL(&D_800D2B38[colId]), hitPosOut,
+                         hitAnglesOut);
 }
