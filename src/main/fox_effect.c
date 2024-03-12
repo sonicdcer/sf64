@@ -104,7 +104,7 @@ void BonusText_Draw(BonusText* bonus) {
 
         if ((fabsf(sp54.x) < 20000.0f) && (fabsf(sp54.y) < 20000.0f)) {
             if ((sp54.z < 0.0f) && (sp54.z > -20000.0f)) {
-                sp50 = sqrtf(VEC3F_SQ(sp54)) * 0.0015f * 0.2f;
+                sp50 = (VEC3F_MAG(&sp54)) * 0.0015f * 0.2f;
                 Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].unk_058, 1);
                 Matrix_RotateX(gGfxMatrix, gPlayer[gPlayerNum].unk_05C, 1);
                 Matrix_Scale(gGfxMatrix, sp50, sp50, 1.0f, 1);

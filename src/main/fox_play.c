@@ -1813,7 +1813,7 @@ void func_800A8BA4(Player* player) {
                     spfD4.x = fabsf(boss->obj.pos.x - player->pos.x) * .8333333f;
                     spfD4.y = fabsf(boss->obj.pos.y - player->pos.y) * 2;
                     spfD4.z = fabsf(boss->obj.pos.z - player->unk_138) * 0.8333333f;
-                    if (sqrtf(VEC3F_SQ(spfD4)) < 1500.0f) {
+                    if ((VEC3F_MAG(&spfD4)) < 1500.0f) {
                         Player_ApplyDamage(player, 0, boss->info.damage);
                         player->unk_110 = 0.0f;
                         player->timer_498 = 5;
@@ -1834,7 +1834,7 @@ void func_800A8BA4(Player* player) {
                         spfD4.x = fabsf(boss->obj.pos.x - player->pos.x);
                         spfD4.y = fabsf(boss->obj.pos.y - 300.0f - player->pos.y) * 7.42f;
                         spfD4.z = fabsf(boss->obj.pos.z - player->unk_138);
-                        if (sqrtf(VEC3F_SQ(spfD4)) < 2700.0f) {
+                        if ((VEC3F_MAG(&spfD4)) < 2700.0f) {
                             Player_ApplyDamage(player, 3, boss->info.damage);
                         }
                     }
@@ -1887,7 +1887,7 @@ void func_800A8BA4(Player* player) {
                         spfD4.x = fabsf(actor->obj.pos.x - player->pos.x);
                         spfD4.y = fabsf(actor->obj.pos.y - player->pos.y);
                         spfD4.z = fabsf(actor->obj.pos.z - player->unk_138);
-                        if (sqrtf(VEC3F_SQ(spfD4)) < 900.0f) {
+                        if ((VEC3F_MAG(&spfD4)) < 900.0f) {
                             Player_ApplyDamage(player, 0, actor->info.damage);
                             actor->unk_0D0 = 3;
                         }

@@ -532,7 +532,7 @@ s32 Math_PursueVec3f(Vec3f* pos, Vec3f* target, Vec3f* rot, f32 stepSize, f32 sc
     diff.y = target->y - pos->y;
     diff.z = target->z - pos->z;
 
-    return sqrtf(VEC3F_SQ(diff)) < dist;
+    return (VEC3F_MAG(&diff)) < dist;
 }
 
 void TextureRect_4bCI(Gfx** gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale,

@@ -2887,7 +2887,7 @@ void func_i5_801A3E98(Actor* actor) {
         AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
         actor->unk_0D0 = 0;
     }
-    Math_SmoothStepToF(actor->fwork, 30.0f, 0.4f, 10.0f, 0.0f);
+    Math_SmoothStepToF(&actor->fwork[0], 30.0f, 0.4f, 10.0f, 0.0f);
     Math_SmoothStepToF(&actor->fwork[4], 30.0f, 0.4f, 10.0f, 0.0f);
     if (actor->fwork[0] < 31.0f) {
         if (actor->state >= 3) {
@@ -3145,7 +3145,7 @@ void func_i5_801A4B24(Actor* actor) {
         actor->unk_0D0 = 0;
         AUDIO_PLAY_SFX(0x29121007, actor->sfxSource, 4);
     }
-    Math_SmoothStepToF(actor->fwork, 30, 0.4f, actor->fwork[1], 0.0f);
+    Math_SmoothStepToF(&actor->fwork[0], 30, 0.4f, actor->fwork[1], 0.0f);
     Math_SmoothStepToF(&actor->fwork[4], 30, 0.4f, actor->fwork[1], 0.0f);
     if (actor->fwork[0] < 31.0f) {
         actor->fwork[0] = 255.0f;
@@ -3514,9 +3514,7 @@ void func_i5_801A68F8(Actor* actor, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
 
 void func_i5_801A6984(Actor* actor) {
     s16 var_s3;
-    f32 temp_fa0;
-    f32 temp_fs0;
-    f32 temp_fa1;
+    Vec3f test;
     f32 temp_fs3;
     s32 var_s4;
     f32 temp_fs2_2;
@@ -3536,12 +3534,12 @@ void func_i5_801A6984(Actor* actor) {
 
     var_s3 = 0;
     if (!((gPlayer[0].unk_138 - actor->obj.pos.z) > 7000.0f)) {
-        temp_fa0 = actor->obj.pos.x - D_i5_801BE368[4];
-        temp_fs0 = actor->obj.pos.y - D_i5_801BE368[5];
-        temp_fa1 = actor->obj.pos.z - D_i5_801BE368[6];
-        temp_fs3 = sqrtf(SQ(temp_fa0) + SQ(temp_fs0) + SQ(temp_fa1));
-        Math_Atan2F(temp_fa0, temp_fa1);
-        Math_Atan2F(temp_fs0, sqrtf(SQ(temp_fa0) + SQ(temp_fa1)));
+        test.x = actor->obj.pos.x - D_i5_801BE368[4];
+        test.y = actor->obj.pos.y - D_i5_801BE368[5];
+        test.z = actor->obj.pos.z - D_i5_801BE368[6];
+        temp_fs3 = VEC3F_MAG(&test);
+        Math_Atan2F(test.x, test.z);
+        Math_Atan2F(test.y, sqrtf(SQ(test.x) + SQ(test.z)));
         var_s4 = (s32) (temp_fs3 / 40.0f);
         if (var_s4 == 0) {
             var_s4 = 1;
@@ -4502,7 +4500,7 @@ void func_i5_801A7E7C(Actor* actor) {
                     Matrix_RotateY(gCalcMatrix, -actor->vwork[5].y * M_DTOR, 1);
                     Matrix_MultVec3f(gCalcMatrix, &sp348, &sp354);
                     D_i5_801BE368[14] = Math_RadToDeg(Math_Atan2F(sp354.x, sp354.z));
-                    temp = sqrtf((sp354.x * sp354.x) + (sp354.z * sp354.z));
+                    temp = sqrtf(SQ(sp354.x) + SQ(sp354.z));
                     D_i5_801BE368[13] = Math_RadToDeg(-Math_Atan2F(sp354.y, temp));
                     Matrix_RotateY(gCalcMatrix, actor->vwork[5].y * M_DTOR, 0);
                     Matrix_RotateX(gCalcMatrix, actor->vwork[5].x * M_DTOR, 1);
@@ -5167,9 +5165,7 @@ void func_i5_801AD144(PlayerShot* playerShot) {
     s32 j;
     Actor* actor;
     f32 temp_fs2;
-    f32 temp_ft4;
-    f32 temp_ft5;
-    f32 var_fa0;
+    Vec3f test;
     f32* var_s1;
     Vec3f sp8C;
     Vec3f sp80;
@@ -5206,13 +5202,13 @@ void func_i5_801AD144(PlayerShot* playerShot) {
                         sp8C.y = playerShot->obj.pos.y - actor->obj.pos.y;
                         sp8C.z = playerShot->obj.pos.z - actor->obj.pos.z;
                         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp8C, &sp80);
-                        temp_ft4 = (var_s1[4] + actor->obj.pos.x) - (actor->obj.pos.x + sp80.x);
-                        temp_ft5 = (var_s1[2] + actor->obj.pos.y) - (actor->obj.pos.y + sp80.y);
-                        var_fa0 = (var_s1[0] + actor->obj.pos.z) - (actor->obj.pos.z + sp80.z);
-                        if ((gLevelMode == LEVELMODE_ON_RAILS) && (var_fa0 < 0.0f)) {
-                            var_fa0 *= 0.6f;
+                        test.x = (var_s1[4] + actor->obj.pos.x) - (actor->obj.pos.x + sp80.x);
+                        test.y = (var_s1[2] + actor->obj.pos.y) - (actor->obj.pos.y + sp80.y);
+                        test.z= (var_s1[0] + actor->obj.pos.z) - (actor->obj.pos.z + sp80.z);
+                        if ((gLevelMode == LEVELMODE_ON_RAILS) && (test.z < 0.0f)) {
+                            test.z *= 0.6f;
                         }
-                        if (sqrtf(SQ(temp_ft4) + SQ(temp_ft5) + SQ(var_fa0)) < temp_fs2) {
+                        if (VEC3F_MAG(&test) < temp_fs2) {
                             actor->unk_0D2 = j;
                             actor->unk_0D0 = -1;
                             if ((gPlayer[0].unk_138 - actor->obj.pos.z) < 5000.0f) {

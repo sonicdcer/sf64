@@ -3444,7 +3444,7 @@ void func_i5_80192118(Boss* boss) {
             Animation_GetFrameData(&D_8000D80, D_i5_801BBEF0[22] >> 1, D_i5_801BC978);
             Animation_GetFrameData(&D_8000D80, D_i5_801BBEF0[23] >> 1, D_i5_801BC9D8);
             Animation_GetFrameData(&D_8000708, D_i5_801BBEF0[24] >> 1, D_i5_801BCA38);
-            Math_SmoothStepToF(boss->fwork, 0.5f, 0.05f, 0.05f, 0.01f);
+            Math_SmoothStepToF(&boss->fwork[0], 0.5f, 0.05f, 0.05f, 0.01f);
             Math_SmoothStepToVec3fArray(D_i5_801BC978, D_i5_801BCDC8, 1, 8, boss->fwork[0], 360.0f, 0.01f);
             Math_SmoothStepToVec3fArray(D_i5_801BC9D8, D_i5_801BCE28, 1, 8, boss->fwork[0], 360.0f, 0.01f);
             Math_SmoothStepToVec3fArray(D_i5_801BCA38, D_i5_801BCE88, 1, 13, boss->fwork[0], 360.0f, 0.01f);
@@ -4273,7 +4273,7 @@ void func_i5_80193DF0(Boss* boss) {
                 }
             }
             Animation_GetFrameData(&D_900FC4C, boss->unk_04C >> 1, D_i5_801BC978);
-            Math_SmoothStepToF(boss->fwork, 0.5f, 1.0f, 0.02f, 0.0f);
+            Math_SmoothStepToF(&boss->fwork[0], 0.5f, 1.0f, 0.02f, 0.0f);
             Math_SmoothStepToVec3fArray(D_i5_801BC978, D_i5_801BCDC8, 1, 0x5C, boss->fwork[0], 360.0f, 0.01f);
             boss->unk_04C++;
             if (boss->unk_04C >= (Animation_GetFrameCount(&D_900FC4C) * 2)) {
@@ -4335,7 +4335,7 @@ void func_i5_80193DF0(Boss* boss) {
                 D_i5_801BBEF4[8] = 48;
                 D_i5_801BBEF4[9] = 48;
             }
-            Math_SmoothStepToF(boss->fwork, 0.5f, 1.0f, 0.02f, 0.0f);
+            Math_SmoothStepToF(&boss->fwork[0], 0.5f, 1.0f, 0.02f, 0.0f);
             Math_SmoothStepToVec3fArray(D_i5_801BC978, D_i5_801BCDC8, 1, 0x5C, boss->fwork[0], 360.0f, 0.01f);
             boss->unk_04C++;
             if (boss->unk_04C >= (Animation_GetFrameCount(&D_70084CC) * 2)) {
@@ -4390,7 +4390,7 @@ void func_i5_80193DF0(Boss* boss) {
                     D_80178480 = 0x14;
                 }
             }
-            Math_SmoothStepToF(boss->fwork, 0.5f, 1.0f, 0.02f, 0.0f);
+            Math_SmoothStepToF(&boss->fwork[0], 0.5f, 1.0f, 0.02f, 0.0f);
             Math_SmoothStepToVec3fArray(D_i5_801BC978, D_i5_801BCDC8, 1, 0x5C, boss->fwork[0], 360.0f, 0.01f);
             boss->unk_04C++;
             if (boss->unk_04C >= (Animation_GetFrameCount(&D_7003EE8) * 2)) {
@@ -4398,7 +4398,7 @@ void func_i5_80193DF0(Boss* boss) {
             }
             break;
         case 9:
-            Math_SmoothStepToF(boss->fwork, 0.5f, 1.0f, 0.02f, 0.0f);
+            Math_SmoothStepToF(&boss->fwork[0], 0.5f, 1.0f, 0.02f, 0.0f);
             Math_SmoothStepToVec3fArray(D_i5_801BC978, D_i5_801BCDC8, 1, 0x5C, boss->fwork[0], 360.0f, 0.01f);
             boss->unk_04C++;
             if (boss->unk_04C >= (Animation_GetFrameCount(&D_8008FE8) * 2)) {
@@ -4406,7 +4406,7 @@ void func_i5_80193DF0(Boss* boss) {
             }
             break;
         case 10:
-            Math_SmoothStepToF(boss->fwork, 0.5f, 1.0f, 0.02f, 0.0f);
+            Math_SmoothStepToF(&boss->fwork[0], 0.5f, 1.0f, 0.02f, 0.0f);
             Math_SmoothStepToVec3fArray(D_i5_801BC978, D_i5_801BCDC8, 1, 0x5C, boss->fwork[0], 360.0f, 0.01f);
             boss->unk_04C++;
             if (boss->unk_04C >= (Animation_GetFrameCount(&D_700E244) * 2)) {
@@ -4549,7 +4549,7 @@ void func_i5_80193DF0(Boss* boss) {
                     Audio_KillSfxBySourceAndId(boss->sfxSource, 0x39435830);
                 }
             }
-            Math_SmoothStepToF(boss->fwork, 0.5f, 1.0f, 0.02f, 0.0f);
+            Math_SmoothStepToF(&boss->fwork[0], 0.5f, 1.0f, 0.02f, 0.0f);
             Math_SmoothStepToVec3fArray(D_i5_801BC978, D_i5_801BCDC8, 1, 0x5C, boss->fwork[0], 360.0f, 0.01f);
             boss->unk_04C++;
             if (boss->unk_04C >= (Animation_GetFrameCount(&D_9004288) * 2)) {
@@ -4565,7 +4565,7 @@ void func_i5_80193DF0(Boss* boss) {
                 boss->fwork[1] = ((f32) (boss->unk_04C - 0x26) * 360.0f) / 102.0f;
             }
             Math_SmoothStepToAngle(&boss->fwork[0x31], boss->fwork[1], 0.5f, 180.0f, 0.0f);
-            Math_SmoothStepToF(boss->fwork, 0.5f, 1.0f, 0.02f, 0.0f);
+            Math_SmoothStepToF(&boss->fwork[0], 0.5f, 1.0f, 0.02f, 0.0f);
             Math_SmoothStepToVec3fArray(D_i5_801BC978, D_i5_801BCDC8, 1, 0x5C, boss->fwork[0], 360.0f, 0.01f);
             boss->unk_04C++;
             if (boss->unk_04C >= (Animation_GetFrameCount(&D_A009990) * 2)) {
@@ -4581,7 +4581,7 @@ void func_i5_80193DF0(Boss* boss) {
                 }
                 Math_SmoothStepToAngle(&boss->fwork[0x31], boss->fwork[1], 0.5f, 180.0f, 0.0f);
             }
-            Math_SmoothStepToF(boss->fwork, 0.5f, 1.0f, 0.02f, 0.01f);
+            Math_SmoothStepToF(&boss->fwork[0], 0.5f, 1.0f, 0.02f, 0.01f);
             Math_SmoothStepToVec3fArray(D_i5_801BC978, D_i5_801BCDC8, 1, 0x5C, boss->fwork[0], 360.0f, 0.01f);
             if (boss->swork[38] & 1) {
                 boss->unk_04C++;

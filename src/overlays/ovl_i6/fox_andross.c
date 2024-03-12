@@ -283,7 +283,7 @@ void func_i6_801880E4(Actor* actor) {
         }
     }
 
-    Math_SmoothStepToF(actor->fwork, actor->fwork[1], 0.2f, 3.0f, 0.00001f);
+    Math_SmoothStepToF(&actor->fwork[0], actor->fwork[1], 0.2f, 3.0f, 0.00001f);
     yaw = Math_RadToDeg(Math_Atan2F(xDisplacement, zDisplacement));
     Math_SmoothStepToAngle(&actor->unk_0F4.x,
                            Math_RadToDeg(Math_Atan2F(yDisplacement, sqrtf(SQ(xDisplacement) + SQ(zDisplacement)))),
@@ -1117,7 +1117,7 @@ void func_i6_80189B70(Boss* boss) {
     } else if (boss->timer_054 == 0) {
         Math_SmoothStepToAngle(&boss->obj.rot.y, Math_RadToDeg(-gPlayer[0].unk_058), 0.3f, 1.5f, 0.0f);
     }
-    Math_SmoothStepToF(boss->fwork, boss->fwork[1], 0.2f, 1.0f, 0.00001f);
+    Math_SmoothStepToF(&boss->fwork[0], boss->fwork[1], 0.2f, 1.0f, 0.00001f);
     Matrix_RotateY(gCalcMatrix, boss->unk_078.y * M_DTOR, 0U);
     Matrix_RotateX(gCalcMatrix, -boss->unk_078.x * M_DTOR, 1U);
     vec.x = 0.0f;

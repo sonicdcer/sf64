@@ -20,7 +20,7 @@ typedef struct {
 } Hitbox; // size = 0x18
 
 typedef struct {
-   /* 0x00 */ s16 vtx[3];
+   /* 0x00 */ Triangle tri;
    /* 0x06 */ s16 unk_06;
    /* 0x08 */ Vec3s normal;
    /* 0x10 */ s32 dist;

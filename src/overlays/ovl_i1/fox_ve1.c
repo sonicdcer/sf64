@@ -420,7 +420,7 @@ void func_i1_80192518(Actor* actor) {
 
         case 2:
             if (actor->timer_0BC == 0) {
-                src.x = temp_fv1_2 = Math_SmoothStepToF(actor->fwork, actor->fwork[1], 0.7f, 80.0f, 0.01f);
+                src.x = temp_fv1_2 = Math_SmoothStepToF(&actor->fwork[0], actor->fwork[1], 0.7f, 80.0f, 0.01f);
                 src.y = 0.0f;
                 src.z = 0.0f;
 
@@ -728,7 +728,7 @@ void func_i1_80192EB0(Actor* actor) {
 
         case 2:
             if (actor->timer_0BC == 0) {
-                sp50.y = sp40 = Math_SmoothStepToF(actor->fwork, actor->fwork[1], 0.7f, 80.0f, 0.01f);
+                sp50.y = sp40 = Math_SmoothStepToF(&actor->fwork[0], actor->fwork[1], 0.7f, 80.0f, 0.01f);
                 sp50.x = 0.0f;
                 sp50.z = 0.0f;
 
@@ -1989,19 +1989,19 @@ void func_i1_80194398(Boss* boss) {
     switch (boss->swork[7]) {
         case 0:
             if (boss->fwork[11] < 0.9f) {
-                Math_SmoothStepToF(boss->fwork, 0.2f, 0.5f, 0.05f, 0.01f);
+                Math_SmoothStepToF(&boss->fwork[0], 0.2f, 0.5f, 0.05f, 0.01f);
                 Math_SmoothStepToVec3fArray(sp118, boss->vwork, 1, 27, boss->fwork[0], 360.0f, 0.01f);
             } else {
-                Math_SmoothStepToF(boss->fwork, 1.0f, 0.5f, 0.05f, 0.01f);
+                Math_SmoothStepToF(&boss->fwork[0], 1.0f, 0.5f, 0.05f, 0.01f);
                 Math_SmoothStepToVec3fArray(sp118, boss->vwork, 1, 27, boss->fwork[0], 360.0f, 0.01f);
             }
             break;
         case 1:
-            Math_SmoothStepToF(boss->fwork, 1.0f, 0.1f, 0.05f, 0.01f);
+            Math_SmoothStepToF(&boss->fwork[0], 1.0f, 0.1f, 0.05f, 0.01f);
             Math_SmoothStepToVec3fArray(sp118, boss->vwork, 1, 27, boss->fwork[0], 360.0f, 0.01f);
             break;
         case 2:
-            Math_SmoothStepToF(boss->fwork, 0.7f, 0.07f, 0.05f, 0.01f);
+            Math_SmoothStepToF(&boss->fwork[0], 0.7f, 0.07f, 0.05f, 0.01f);
             Math_SmoothStepToVec3fArray(sp118, boss->vwork, 1, 27, boss->fwork[0], 45.0f, 0.01f);
             break;
     }
@@ -2421,7 +2421,7 @@ void func_i1_8019864C(PlayerShot* playerShot) {
                         diff.z = hitboxData[0] - sp78.z;
                         diff.z *= 0.6f;
 
-                        D_i1_8019B7F0[j] = (sqrtf(VEC3F_SQ(diff)) < temp_fs1) ? 1 : 0;
+                        D_i1_8019B7F0[j] = ((VEC3F_MAG(&diff)) < temp_fs1) ? 1 : 0;
                     }
                 }
             }

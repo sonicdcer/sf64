@@ -1460,7 +1460,7 @@ void func_8005F670(Vec3f* arg0) {
         sp9C.x = arg0->x - D_80178370;
         sp9C.y = arg0->y - D_80178374;
         sp9C.z = arg0->z - D_80178378;
-        temp_fv0 = sqrtf(VEC3F_SQ(sp9C));
+        temp_fv0 = (VEC3F_MAG(&sp9C));
         if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2) {
             var_fs0 = 700.0f / temp_fv0;
         } else {

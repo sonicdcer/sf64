@@ -24,8 +24,9 @@
 #define SIGN_OF(x) (((x) > 0) ? 1 : ((x) == 0) ? 0 : -1)
 #define SQ(x) ((x) * (x))
 #define CUBE(x) ((x) * (x) * (x))
-#define VEC3F_SQ(vec) (SQ((vec).x) + SQ((vec).y) + SQ((vec).z))
-#define DOT_XYZ(a, b) ((a).x * (b).x + (a).y * (b).y + (a).z * (b).z)
+
+#define DOT_XYZ(v1Ptr, v2Ptr) ((v1Ptr)->x * (v2Ptr)->x + (v1Ptr)->y * (v2Ptr)->y + (v1Ptr)->z * (v2Ptr)->z)
+#define VEC3F_MAG(vecPtr) sqrtf(DOT_XYZ(vecPtr, vecPtr))
 #define ABS(x) ((x) >= 0 ? (x) : -(x))
 #define ABSF(x) ((x) >= 0.0f ? (x) : -(x))
 #define ROUND(float) ((s32)((float)+0.5f))

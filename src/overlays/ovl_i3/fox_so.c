@@ -2363,7 +2363,7 @@ void func_i3_801A5B3C(Boss* bossSO) {
                              bossSO->fwork[SO_FWK_31] - 20.0f, 1.0f);
         }
     }
-    Math_SmoothStepToF(bossSO->fwork, 1.0f, 0.01f, 0.01f, 0.0f);
+    Math_SmoothStepToF(&bossSO->fwork[0], 1.0f, 0.01f, 0.01f, 0.0f);
     if ((bossSO->health > 0) || (bossSO->swork[SO_SWK_0] == 0)) {
         D_i3_801BF980[bossSO->swork[SO_SWK_0]](bossSO);
     }
