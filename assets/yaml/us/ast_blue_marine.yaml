@@ -9,16 +9,16 @@
       - '#include "sf64object.h"'
       - '#include "structs.h"'
 
-D_3000000: 
-  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x3000000, symbol: D_3000000, tlut: 0x3000080 }
+D_blue_marine_3000000:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x3000000, symbol: D_blue_marine_3000000, tlut: 0x3000080 }
 
-D_3000080: 
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0x3000080, symbol: D_3000080 }
+D_blue_marine_3000080:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0x3000080, symbol: D_blue_marine_3000080 }
 
-D_3000090: 
+D_3000090:
   { type: TEXTURE, ctype: u8, format: CI4, width: 32, height: 9, offset: 0x3000090, symbol: D_3000090, tlut: 0x3000120 }
 
-D_3000120: 
+D_3000120:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0x3000120, symbol: D_3000120 }
 
 D_3000130:
@@ -30,7 +30,7 @@ ast_blue_marine_seg3_vtx_00000418:
 D_3000470:
   { type: GFX, offset: 0x3000470, symbol: D_3000470 }
 
-D_30005E8: 
+D_30005E8:
   { type: BLOB, size: 24, offset: 0x30005E8, symbol: D_30005E8 }
 
 D_3000600:
@@ -42,7 +42,7 @@ D_3000640:
 D_3000660:
   { type: GFX, offset: 0x3000660, symbol: D_3000660 }
 
-D_30006E8: 
+D_30006E8:
   { type: TEXTURE, ctype: u8, format: IA8, width: 32, height: 32, offset: 0x30006E8, symbol: D_30006E8, pad: 2 }
 
 D_3000AF0:
