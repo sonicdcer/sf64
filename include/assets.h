@@ -89,9 +89,8 @@ extern Gfx D_1031EC0[];
 extern Gfx D_1032780[];
 
 // ast_arwing, ast_landmaster, ast_blue_marine, ast_vs_player
-// extern u8  D_3000000[];
-// extern u16 D_3000080[];
-// extern Gfx D_3000090[];
+extern u8  D_3000000[];
+extern u16 D_3000080[];
 extern u8  D_30001E0[];
 extern u16 D_3000380[];
 extern u8  D_30003A0[];

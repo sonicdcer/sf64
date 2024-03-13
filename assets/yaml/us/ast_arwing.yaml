@@ -162,8 +162,8 @@ D_3015AF4:
 D_3015C28:
   { type: SF64:ANIM, offset: 0x3015C28, symbol: D_3015C28 }
 
-PAD_D3015C34:
-  { type: BLOB, offset: 0x3015C34, size: 0xC, symbol: PAD_D3015C34 }
+PAD_3015C34:
+  { type: BLOB, offset: 0x3015C34, size: 0xC, symbol: PAD_3015C34 }
 
 D_3015D68:
   { type: SF64:ANIM, offset: 0x3015D68, symbol: D_3015D68 }
