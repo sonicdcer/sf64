@@ -948,8 +948,8 @@ void func_80086DCC(void) {
 }
 
 void func_80087530(f32 x, f32 y, s32 number) {
-    u8* D_800D1D00[] = { D_arwing_3000000, D_arwing_3000000, D_arwing_3000000 };
-    u16* D_800D1D0C[] = { D_arwing_3000080, D_arwing_3000080, D_arwing_3000080 };
+    u8* D_800D1D00[] = { D_arwing_3000000, D_blue_marine_3000000, D_3000000 };
+    u16* D_800D1D0C[] = { D_arwing_3000080, D_blue_marine_3000080, D_3000080 };
     Player* player = &gPlayer[0];
     f32 x0;
     f32 x1;
