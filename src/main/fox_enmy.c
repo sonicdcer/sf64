@@ -649,10 +649,10 @@ bool func_80062DBC(Vec3f* pos, f32* hitboxData, Object* obj, f32 xRot, f32 yRot,
         for (i = 0; i < count; i++, hitboxData += 6) {
             rotate = 0.0f;
             hitRot.x = hitRot.y = hitRot.z = 0.0f;
-            if (*hitboxData >= HITBOX_UNK_3) {
+            if (*hitboxData >= HITBOX_TYPE_3) {
                 return false;
             }
-            if (*hitboxData == HITBOX_UNK_2) {
+            if (*hitboxData == HITBOX_TYPE_2) {
                 rotate = 1.0f;
                 hitRot.x = hitboxData[1];
                 hitRot.y = hitboxData[2];

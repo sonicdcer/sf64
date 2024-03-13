@@ -5,4 +5,7 @@
 #include "sf64object.h"
 #include "structs.h"
 
+extern f32 D_6028454[];
+extern f32 D_6028578[];
+
 #endif

@@ -193,7 +193,7 @@ void func_80043B18(Player* player) {
         if (player->unk_12C > -5.0f) {
             sp48.x = 36.0f;
             Matrix_MultVec3f(gCalcMatrix, &sp48, &sp3C);
-            if (gCurrentLevel == 0xB) {
+            if (gCurrentLevel == LEVEL_MACBETH) {
                 if (gGameFrameCount & 1) {
                     func_80043AA0(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->unk_138 + sp3C.z, 0.2f);
                 }
@@ -211,7 +211,7 @@ void func_80043B18(Player* player) {
         if (player->unk_12C < 5.0f) {
             sp48.x = -36.0f;
             Matrix_MultVec3f(gCalcMatrix, &sp48, &sp3C);
-            if (gCurrentLevel == 0xB) {
+            if (gCurrentLevel == LEVEL_MACBETH) {
                 if (!(gGameFrameCount & 1)) {
                     func_80043AA0(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->unk_138 + sp3C.z, 0.2f);
                 }
@@ -997,7 +997,7 @@ s32 func_80046E40(Player* player, f32* hitboxData, s32* index, f32 xPos, f32 yPo
     if (spB4 != 0) {
         for (i = 0; i < spB4; i++, hitboxData += 6) {
             spA0 = 0;
-            if (hitboxData[0] == HITBOX_UNK_2) {
+            if (hitboxData[0] == HITBOX_TYPE_2) {
                 Matrix_RotateZ(gCalcMatrix, -hitboxData[3] * M_DTOR, 0);
                 Matrix_RotateX(gCalcMatrix, -hitboxData[1] * M_DTOR, 1);
                 Matrix_RotateY(gCalcMatrix, -hitboxData[2] * M_DTOR, 1);
@@ -1007,7 +1007,7 @@ s32 func_80046E40(Player* player, f32* hitboxData, s32* index, f32 xPos, f32 yPo
                 hitboxData += 4;
                 spA0 = 1.0f;
             } else {
-                if (hitboxData[0] == HITBOX_UNK_3) {
+                if (hitboxData[0] == HITBOX_TYPE_3) {
                     hitboxData++;
                 }
                 Matrix_RotateZ(gCalcMatrix, -zRot * M_DTOR, 0);
@@ -1068,13 +1068,13 @@ s32 func_80046E40(Player* player, f32* hitboxData, s32* index, f32 xPos, f32 yPo
             }
             if (func_800A78C4((Hitbox*) hitboxData, xPos, yPos, zPos, var_fv0, var_fv1, var_fa0)) {
                 *index = i + 1;
-                if (hitboxData[-1] == HITBOX_UNK_3) {
+                if (hitboxData[-1] == HITBOX_TYPE_3) {
                     return -1;
                 } else {
                     return 3;
                 }
             }
-            if (hitboxData[-1] == HITBOX_UNK_3) {
+            if (hitboxData[-1] == HITBOX_TYPE_3) {
                 return 0;
             }
             if ((yRot == 0.0f) && (zRot == 0.0f) && (xRot == 0.0f) && (spA0 == 0)) {

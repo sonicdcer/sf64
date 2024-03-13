@@ -1212,7 +1212,7 @@ void func_i3_801AC274(Player* player) {
         for (i = 0, actor = gActors; i < 60; i++, actor++) {
             if ((actor->obj.status == OBJ_ACTIVE) && (actor->obj.id != OBJ_ACTOR_189)) {
                 var_v1 = 1;
-                if (actor->info.hitbox[1] == HITBOX_UNK_2) {
+                if (actor->info.hitbox[1] == HITBOX_TYPE_2) {
                     var_v1 = 5;
                 }
                 tempy1 = actor->obj.pos.y + actor->info.hitbox[var_v1 + 2] + actor->info.hitbox[var_v1 + 3] + 200.0f;

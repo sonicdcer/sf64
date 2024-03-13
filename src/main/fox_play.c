@@ -1062,7 +1062,7 @@ s32 func_800A7974(Player* player, f32* hitboxData, s32* index, f32 xPos, f32 yPo
         hitboxData++;
         for (i = 0; i < count; i++, hitboxData += 6) {
             spA0 = 0;
-            if (*hitboxData == HITBOX_UNK_2) {
+            if (*hitboxData == HITBOX_TYPE_2) {
                 Matrix_RotateZ(gCalcMatrix, -hitboxData[3] * M_DTOR, 0);
                 Matrix_RotateX(gCalcMatrix, -hitboxData[1] * M_DTOR, 1);
                 Matrix_RotateY(gCalcMatrix, -hitboxData[2] * M_DTOR, 1);
@@ -1072,7 +1072,7 @@ s32 func_800A7974(Player* player, f32* hitboxData, s32* index, f32 xPos, f32 yPo
                 hitboxData += 4;
                 spA0 = 1;
             } else {
-                if (*hitboxData >= HITBOX_UNK_3) {
+                if (*hitboxData >= HITBOX_TYPE_3) {
                     hitboxData++;
                 }
                 Matrix_RotateZ(gCalcMatrix, -zRot * M_DTOR, 0);
@@ -1099,15 +1099,15 @@ s32 func_800A7974(Player* player, f32* hitboxData, s32* index, f32 xPos, f32 yPo
             }
             if (func_800A78C4((Hitbox*) hitboxData, xPos, yPos, zPos, var_fv0, var_fv1, var_fa0)) {
                 *index = i + 1;
-                if (hitboxData[-1] == HITBOX_UNK_3) {
+                if (hitboxData[-1] == HITBOX_TYPE_3) {
                     return -1;
                 }
-                if (hitboxData[-1] == HITBOX_UNK_4) {
+                if (hitboxData[-1] == HITBOX_TYPE_4) {
                     return -2;
                 }
                 return 3;
             }
-            if (hitboxData[-1] < HITBOX_UNK_3) {
+            if (hitboxData[-1] < HITBOX_TYPE_3) {
                 if ((yRot == 0.0f) && (zRot == 0.0f) && (xRot == 0.0f) && (spA0 == 0)) {
                     var_fv0 = player->hit4.x;
                     var_fv1 = player->hit4.y;
@@ -2264,11 +2264,11 @@ void func_800AA800(Player* player) {
                             }
                             hitboxData++;
                             for (i = 0; i < count; i++, hitboxData += 6) {
-                                if (*hitboxData >= HITBOX_UNK_3) {
+                                if (*hitboxData >= HITBOX_TYPE_3) {
                                     break;
                                 }
 
-                                if (*hitboxData == HITBOX_UNK_2) {
+                                if (*hitboxData == HITBOX_TYPE_2) {
                                     sp100 = hitboxData[1];
                                     spFC = hitboxData[2];
                                     spF8 = hitboxData[3];

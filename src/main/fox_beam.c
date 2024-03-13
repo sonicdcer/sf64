@@ -260,10 +260,10 @@ s32 func_80036874(PlayerShot* shot, f32* hitboxData, Object* obj) {
                 boxRotZ = 0.0f;
                 boxRotY = 0.0f;
                 boxRotX = 0.0f;
-                if (hitboxData[0] >= HITBOX_UNK_3) {
+                if (hitboxData[0] >= HITBOX_TYPE_3) {
                     return 0;
                 }
-                if (hitboxData[0] == HITBOX_UNK_2) {
+                if (hitboxData[0] == HITBOX_TYPE_2) {
                     rotateBox = 1.0f;
                     boxRotX = hitboxData[1];
                     boxRotY = hitboxData[2];
@@ -372,7 +372,7 @@ s32 func_80036F88(PlayerShot* shot, Actor* actor) {
                     shotPy = shot->obj.pos.y;
                     shotPz = shot->obj.pos.z;
                 } else {
-                    if (hitboxData[0] == HITBOX_UNK_2) {
+                    if (hitboxData[0] == HITBOX_TYPE_2) {
                         Matrix_RotateZ(gCalcMatrix, -hitboxData[3] * M_DTOR, 0);
                         Matrix_RotateX(gCalcMatrix, -hitboxData[1] * M_DTOR, 1);
                         Matrix_RotateY(gCalcMatrix, -hitboxData[2] * M_DTOR, 1);
@@ -1763,7 +1763,7 @@ void func_8003C008(PlayerShot* shot) {
             count = *hitboxData++;
             if (count != 0) {
                 for (j = 0; j < count; j++, hitboxData += 6) {
-                    if (hitboxData[0] == HITBOX_UNK_2) {
+                    if (hitboxData[0] == HITBOX_TYPE_2) {
                         Matrix_RotateZ(gCalcMatrix, -hitboxData[3] * M_DTOR, 0);
                         Matrix_RotateX(gCalcMatrix, -hitboxData[1] * M_DTOR, 1);
                         Matrix_RotateY(gCalcMatrix, -hitboxData[2] * M_DTOR, 1);
