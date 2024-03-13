@@ -1,6 +1,7 @@
 #include "prevent_bss_reordering.h"
 #include "sf64math.h"
 
+#include "assets/ast_blue_marine.h"
 // BSS section range:
 // D_801616A0 <==> D_80161910
 
@@ -118,6 +119,7 @@ extern u8 D_6002890[];
 extern Gfx D_6003090[];
 extern u8 D_C000A80[];
 
+#include "assets/ast_arwing.h"
 #include "assets/ast_bg_space.h"
 #include "assets/ast_bg_planet.h"
 #include "assets/ast_allies.h"
@@ -161,14 +163,14 @@ Gfx D_800D1A40[] = {
 
 void func_80084930(f32 arg0, f32 arg1, s32 arg2) {
     u8* D_800D1A58[] = {
-        D_3000000,
-        D_3000000,
-        D_3000000,
+        D_arwing_3000000,
+        D_arwing_3000000,
+        D_arwing_3000000,
     };
     u16* D_800D1A64[] = {
-        D_3000080,
-        D_3000080,
-        D_3000080,
+        D_arwing_3000080,
+        D_arwing_3000080,
+        D_arwing_3000080,
     };
     Player* player;
     s32 var_t0;
@@ -946,8 +948,8 @@ void func_80086DCC(void) {
 }
 
 void func_80087530(f32 x, f32 y, s32 number) {
-    u8* D_800D1D00[] = { D_3000000, D_3000000, D_3000000 };
-    u16* D_800D1D0C[] = { D_3000080, D_3000080, D_3000080 };
+    u8* D_800D1D00[] = { D_arwing_3000000, D_arwing_3000000, D_arwing_3000000 };
+    u16* D_800D1D0C[] = { D_arwing_3000080, D_arwing_3000080, D_arwing_3000080 };
     Player* player = &gPlayer[0];
     f32 x0;
     f32 x1;

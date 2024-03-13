@@ -12,6 +12,7 @@ Vec3f D_80161578[4];
 f32 D_801615A8[4];
 f32 D_801615B8[4];
 
+#include "assets/ast_arwing.h"
 #include "assets/ast_allies.h"
 
 s32 D_800CA220 = 0;
@@ -276,7 +277,7 @@ void func_80052884(Player* player) {
 
     Matrix_Push(&gGfxMatrix);
     if (!gVersusMode) {
-        gSPDisplayList(gMasterDisp++, D_3000090);
+        gSPDisplayList(gMasterDisp++, D_arwing_3000090);
     } else {
         gSPDisplayList(gMasterDisp++, D_300FB80);
     }
@@ -310,7 +311,7 @@ void func_80052884(Player* player) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-Gfx* D_800CA26C[] = { D_3000090, D_3016CC0, D_3005AB0, D_3003CE0 };
+Gfx* D_800CA26C[] = { D_arwing_3000090, D_3016CC0, D_3005AB0, D_3003CE0 };
 Gfx* D_800CA27C[] = { D_3001C90, D_3016CC0, D_3005AB0, D_3003CE0 };
 f32 D_800CA28C = 2.0f;
 f32 D_800CA290 = 13.0f;
