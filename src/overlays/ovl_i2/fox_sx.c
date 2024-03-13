@@ -25,8 +25,8 @@ extern Animation D_601C690;
 extern Animation D_60206DC;
 extern Limb* D_6020C68[];
 extern Gfx D_6020D20[];
-extern Gfx D_603265C[]; // not from ast_sector_x
-extern Gfx D_6032768[]; // not from ast_sector_x
+extern f32 D_603265C[];
+extern f32 D_6032768[];
 extern f32 D_60328CC[];
 extern s32 D_800C9E90[];
 
