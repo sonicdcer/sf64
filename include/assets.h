@@ -252,36 +252,36 @@ extern u8 D_500A7D0[]; // fox_std_lib, fox_versus, fox_option, fox_hud
  * ast_bolse, ast_fortuna, ast_sector_y, ast_solar, ast_zoness,
  * ast_katina, ast_macbeth, ast_title, ast_menu, ast_training
  */
-extern Gfx D_60005B0[];
-extern u16 D_6000900[];
-extern Gfx D_6000A80[];
-extern u16 D_6000B60[];
-extern Gfx D_6000E00[];
-extern Gfx D_6000E10[];
-extern Gfx D_6001360[];
-extern Gfx D_6001530[];
-extern u16 D_6001820[];
-extern Gfx D_6001840[];
-extern Gfx D_6001950[];
-extern Gfx D_6001A60[];
-extern u16 D_6001A80[];
-extern u8 D_6001B80[];
-extern Vtx D_6001C50[];
-extern u8 D_6001C80[];
-extern Gfx D_6001DA0[];
-extern u8 D_60020D0[];
-extern u8 D_6002160[];
-extern Gfx D_60023B0[];
-extern Gfx D_6002990[];
-extern u16 D_60029A0[];
-extern Gfx D_6002E60[];
-extern Gfx D_6002F80[];
-extern Gfx D_6003000[];
-extern u8 D_60030D0[];
-extern Gfx D_60030F0[];
-extern Gfx D_60034D0[];
-extern Gfx D_6003610[];
-extern Gfx D_60036A0[];
+extern Gfx D_60005B0[]; // fox_bg
+extern u16 D_6000900[]; // fox_radio
+extern Gfx D_6000A80[]; // fox_bg, fox_effect
+extern u16 D_6000B60[]; // fox_radio
+extern Gfx D_6000E00[]; // fox_edata_1C
+extern Gfx D_6000E10[]; // fox_enmy2
+extern Gfx D_6001360[]; // fox_bg, fox_demo, fox_edata_1C
+extern Gfx D_6001530[]; // fox_360, fox_demo, fox_ka
+extern u16 D_6001820[]; // fox_radio
+extern Gfx D_6001840[]; // fox_bg
+extern Gfx D_6001950[]; // fox_enmy2
+extern Gfx D_6001A60[]; // fox_effect
+extern u16 D_6001A80[]; // fox_radio
+extern u8 D_6001B80[]; // fox_hud
+extern Vtx D_6001C50[]; // fox_play
+extern u8 D_6001C80[]; // fox_map
+extern Gfx D_6001DA0[]; // fox_demo, fox_edata_1C
+extern u8 D_60020D0[]; // fox_hud
+extern u8 D_6002160[]; // fox_map
+extern Gfx D_60023B0[]; // fox_edata_1C
+extern Gfx D_6002990[]; // fox_edata_1C
+extern u16 D_60029A0[]; // fox_radio
+extern Gfx D_6002E60[]; // fox_bg
+extern Gfx D_6002F80[]; // fox_bg
+extern Gfx D_6003000[]; // fox_edata_1C
+extern u8 D_60030D0[]; // fox_map
+extern Gfx D_60030F0[]; // fox_edata_1C
+extern Gfx D_60034D0[]; // fox_edata_1C, fox_enmy2
+extern Gfx D_6003610[]; // fox_edata_1C
+extern Gfx D_60036A0[]; // fox_edata_1C, fox_enmy2
 extern Gfx D_6003760[];
 extern u16 D_60038C0[];
 extern Gfx D_60038E0[];

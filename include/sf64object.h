@@ -288,9 +288,9 @@ typedef struct {
     /* 0x18C */ Vec3f vwork[30];
 } Actor; // size = 0x2F4
 
-#define EVENT_CMD(opcode, arg1, arg2) (((opcode) & 0x7F << 9) & (arg1 & 0x1FF)), arg2
+#define EVENT_CMD(opcode, arg1, arg2) ((((opcode) & 0x7F) << 9) | ((arg1) & 0x1FF)), (arg2)
 
-typedef enum {
+typedef enum EventOpcode {
     /*   0 */ EVOP_0,
     /*   1 */ EVOP_1,
     /*   2 */ EVOP_2,
@@ -330,13 +330,13 @@ typedef enum {
     /* 116 */ EVOP_116 = 116,
     /* 118 */ EVOP_118 = 118,
     /* 119 */ EVOP_119,
-    /* 120 */ EVOP_120,
+    /* 120 */ EVOP_120, // play message. arg1 is portrait, arg2 is message ID
     /* 121 */ EVOP_121,
     /* 122 */ EVOP_122,
     /* 124 */ EVOP_124 = 124,
     /* 125 */ EVOP_125,
     /* 126 */ EVOP_126,
-    /* 127 */ EVOP_127,
+    /* 127 */ EVOP_127, // stop script
 } EventOpcode;
 
 typedef enum ObjectId {

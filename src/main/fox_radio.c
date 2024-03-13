@@ -143,7 +143,9 @@ void func_800BAAE8(void) {
     s32 j;
 
     D_80178744 = 0;
+
     mirror = false;
+
     switch (D_801782A4) {
         case RCID_FOX_RED:
             D_80178744 = 1;

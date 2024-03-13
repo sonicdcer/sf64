@@ -132,8 +132,12 @@
 
   - name: ast_sector_x
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xA1D0F0
+    vram: 0x06000000
+    subsegments:
+      - [0xA1D0F0, .data, ast_sector_x/ast_sector_x]
 
   - name: ast_sector_z
     exclusive_ram_id: segment_06
