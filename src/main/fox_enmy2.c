@@ -1124,8 +1124,8 @@ void func_8006D36C(Actor* actor) {
 
                 switch (D_800D003C[actor->unk_0B4].unk_16) {
                     case 1:
-                        if ((gCurrentLevel != LEVEL_SOLAR) && (actor->unk_0B4 != 6) &&
-                            ((gCurrentLevel != LEVEL_CORNERIA) || (actor->unk_0B4 != 8))) {
+                        if (!((gCurrentLevel == LEVEL_SOLAR) || (actor->unk_0B4 == 6) ||
+                              ((gCurrentLevel == LEVEL_CORNERIA) && (actor->unk_0B4 == 8)))) {
                             AUDIO_PLAY_SFX(0x31000011, actor->sfxSource, 4);
                         }
                         break;

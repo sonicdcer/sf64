@@ -9,11 +9,8 @@
       - '#include "sf64object.h"'
       - '#include "structs.h"'
 
-# TODO: There are still Limbs and probably other things inside BLOBS
-
-# MISSING TLUT! Not clear what uses this texture yet!
 D_AST_7_TI_1_7000000:
-  { type: TEXTURE, ctype: u8, format: CI8, width: 96, height: 28, offset: 0x07000000, symbol: D_AST_7_TI_1_7000000, tlut: 0x07001108 }
+  { type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 28, offset: 0x07000000, symbol: D_AST_7_TI_1_7000000, tlut: 0x07001108 }
 
 D_7000A80:
   { type: GFX, offset: 0x7000A80, symbol: D_7000A80 }
@@ -104,9 +101,12 @@ PAD_7005648:
 
 D_70067C4:
   { type: SF64:ANIM, offset: 0x70067C4, symbol: D_70067C4 }
-  
-BLOB_70067D0: 
- { type: BLOB, size: 0x200, offset: 0x70067D0, symbol: BLOB_70067D0 }
+
+D_7006990:
+  { type: SF64:SKELETON, offset: 0x7006990, symbol: D_7006990}
+
+PAD_70069CC: 
+  { type: BLOB, size: 4, offset: 0x70069CC, symbol: PAD_70069CC }
 
 D_7006F74:
   { type: SF64:ANIM, offset: 0x7006F74, symbol: D_7006F74 }
@@ -139,10 +139,13 @@ D_7008090:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x07008090, symbol: D_7008090, tlut: 0x07008490 }
 
 D_7008490:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 242, offset: 0x07008490, symbol: D_7008490 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 248, offset: 0x07008490, symbol: D_7008490 }
 
-BLOB_7008674: 
-  { type: BLOB, size: 0x2BC, offset: 0x7008674, symbol: BLOB_7008674 }
+D_7008680:
+  { type: TEXTURE, ctype: u8, format: CI8, width: 16, height: 16, offset: 0x07008680, symbol: D_7008680, tlut: 0x07008490 }
+
+D_7008780:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 216, offset: 0x07008780, symbol: D_7008780 }
 
 D_7008930:
   { type: GFX, offset: 0x7008930, symbol: D_7008930 }
@@ -228,20 +231,29 @@ PAD_700C888:
 D_700C8D8:
   { type: SF64:ANIM, offset: 0x700C8D8, symbol: D_700C8D8 }
 
-BLOB_700C8E4: 
-  { type: BLOB, size: 0x9C, offset: 0x700C8E4, symbol: BLOB_700C8E4 }
+D_700C964:
+  { type: SF64:SKELETON, offset: 0x700C964, symbol: D_700C964 }
+
+PAD_700C978:
+  { type: BLOB, size: 8, offset: 0x700C978, symbol: PAD_700C978 }
 
 D_700C980:
   { type: GFX, offset: 0x700C980, symbol: D_700C980 }
 
-BLOB_700CA58: 
- { type: BLOB, size: 0x118, offset: 0x700CA58, symbol: BLOB_700CA58 }
+PAD_700CA58:
+  { type: BLOB, size: 8, offset: 0x700CA58, symbol: PAD_700CA58 }
+
+D_700CAF4:
+  { type: SF64:ANIM, offset: 0x700CAF4, symbol: D_700CAF4}
+
+D_700CB60:
+  {type: SF64:SKELETON, offset: 0x700CB60, symbol: D_700CB60}
 
 D_700D534:
   { type: SF64:ANIM, offset: 0x700D534, symbol: D_700D534 }
 
-BLOB_700D540: 
- { type: BLOB, size: 0x200, offset: 0x700D540, symbol: BLOB_700D540 }
+D_700D700:
+  {type: SF64:SKELETON, offset: 0x700D700, symbol: D_700D700}
 
 D_700D740:
   { type: GFX, offset: 0x700D740, symbol: D_700D740 }
