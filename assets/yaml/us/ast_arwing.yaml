@@ -63,6 +63,9 @@ D_30075D0:
 D_3007650:
   { type: GFX, offset: 0x3007650, symbol: D_3007650 }
 
+ast_arwing_seg3_vtx_7A20:
+  { type: VTX, offset: 0x3007A20, count: 244, symbol: ast_arwing_seg3_vtx_7A20 }
+
 D_3008960:
   { type: TEXTURE, format: RGBA16, offset: 0x3008960, width: 64, height: 32, ctype: u16, symbol: D_3008960 }
 
@@ -103,10 +106,10 @@ D_300F448:
   { type: TEXTURE, format: RGBA16, offset: 0x300F448, width: 64, height: 32, ctype: u16, symbol: D_300F448 }
 
 D_3010448:
-  { type: TEXTURE, format: RGBA16, offset: 0x3010448, width: 64, height: 32, ctype: u16, symbol: D_3010448 }
+  { type: TEXTURE, format: RGBA16, offset: 0x3010448, width: 64, height: 32, ctype: u16, symbol: D_3010448, pad: 0x8 }
 
-D_3011448:
-  { type: GFX, offset: 0x3011448, symbol: D_3011448 }
+# D_3011448:
+#   { type: GFX, offset: 0x3011448, symbol: D_3011448 }
 
 D_3011720:
   { type: GFX, offset: 0x3011720, symbol: D_3011720 }
@@ -141,17 +144,14 @@ D_3014F20:
 D_3015120:
   { type: GFX, offset: 0x3015120, symbol: D_3015120 }
 
-D_30154A0:
-  { type: GFX, offset: 0x30154A0, symbol: D_30154A0 }
+PAD_30155D8:
+  { type: BLOB, offset: 0x30155D8, size: 0x8, symbol: PAD_30155D8 }
 
-D_30155D8:
-  { type: GFX, offset: 0x30155D8, symbol: D_30155D8 }
+PAD_3015728:
+  { type: BLOB, offset: 0x3015728, size: 0x8, symbol: PAD_3015728 }
 
-D_3015728:
-  { type: GFX, offset: 0x3015728, symbol: D_3015728 }
-
-D_3015878:
-  { type: GFX, offset: 0x3015878, symbol: D_3015878 }
+PAD_3015878:
+  { type: BLOB, offset: 0x3015878, size: 0x8, symbol: PAD_3015878 }
 
 PAD_30159C8:
   { type: BLOB, offset: 0x30159C8, size: 0x8, symbol: PAD_30159C8 }
@@ -168,8 +168,8 @@ PAD_D3015C34:
 D_3015D68:
   { type: SF64:ANIM, offset: 0x3015D68, symbol: D_3015D68 }
 
-PAD_D3015D74:
-  { type: BLOB, offset: 0x3015D74, size: 0xC, symbol: PAD_D3015D74 }
+PAD_3015D74:
+  { type: BLOB, offset: 0x3015D74, size: 0xC, symbol: PAD_3015D74 }
 
 D_3015D80:
   { type: GFX, offset: 0x3015D80, symbol: D_3015D80 }
@@ -190,7 +190,7 @@ D_3016B28:
   { type: GFX, offset: 0x3016B28, symbol: D_3016B28 }
 
 D_3016BB8:
-  { type: TEXTURE, format: IA8, offset: 0x3016BB8, width: 16, height: 16, ctype: u16, symbol: D_3016BB8 }
+  { type: TEXTURE, format: IA8, offset: 0x3016BB8, width: 16, height: 16, ctype: u8, symbol: D_3016BB8 }
 
 D_3016CB8:
   { type: GFX, offset: 0x3016CB8, symbol: D_3016CB8 }
