@@ -108,9 +108,6 @@ D_300F448:
 D_3010448:
   { type: TEXTURE, format: RGBA16, offset: 0x3010448, width: 64, height: 32, ctype: u16, symbol: D_3010448, pad: 0x8 }
 
-# D_3011448:
-#   { type: GFX, offset: 0x3011448, symbol: D_3011448 }
-
 D_3011720:
   { type: GFX, offset: 0x3011720, symbol: D_3011720 }
 
