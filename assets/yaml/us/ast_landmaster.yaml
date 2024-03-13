@@ -1,0 +1,20 @@
+:config:
+  segments:
+    - [0x3, 0x8D99F0]
+  header:
+    code:
+      - '#include "assets/ast_landmaster.h"'
+    header:
+      - '#include "gfx.h"'
+      - '#include "sf64object.h"'
+      - '#include "structs.h"'
+
+
+D_landmaster_3000000:
+  { type: TEXTURE, format: CI4, offset: 0x3000000, width: 16, height: 16, ctype: u8, tlut: 0x3000080, symbol: D_landmaster_3000000 }
+
+D_landmaster_3000080:
+  { type: TEXTURE, format: TLUT, offset: 0x3000080, colors: 8, ctype: u16, symbol: D_landmaster_3000080 }
+
+D_landmaster_3000090:
+  { type: GFX, offset: 0x3000090, symbol: D_landmaster_3000090 }
