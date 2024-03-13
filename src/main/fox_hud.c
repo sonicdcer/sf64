@@ -164,13 +164,13 @@ Gfx D_800D1A40[] = {
 void func_80084930(f32 arg0, f32 arg1, s32 arg2) {
     u8* D_800D1A58[] = {
         D_arwing_3000000,
-        D_arwing_3000000,
-        D_arwing_3000000,
+        D_3000000,
+        D_3000000,
     };
     u16* D_800D1A64[] = {
         D_arwing_3000080,
-        D_arwing_3000080,
-        D_arwing_3000080,
+        D_3000080,
+        D_3000080,
     };
     Player* player;
     s32 var_t0;
