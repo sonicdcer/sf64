@@ -92,8 +92,7 @@
     "ast_font.h": "c",
     "fox_std_lib_assets.h": "c",
     "fox_versus_assets.h": "c",
-    "guint.h": "c",
-    "ast_aquas.h": "c"
+    "guint.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }
