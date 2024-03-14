@@ -154,8 +154,12 @@
 
   - name: ast_aquas
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xA58F60
+    vram: 0x06000000
+    subsegments:
+     - [0xA58F60, .data, ast_aquas/ast_aquas]
 
   - name: ast_area_6
     exclusive_ram_id: segment_06

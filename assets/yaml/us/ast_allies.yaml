@@ -86,7 +86,7 @@ D_D00B688:
   { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0D00B688, symbol: D_D00B688, tlut: 0xD00B708 }
 
 D_D00B708:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 12, offset: 0xD00B708, symbol: D_D00B708 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0xD00B708, symbol: D_D00B708, pad: 8 }
 
 D_D00B720:
   { type: GFX, offset: 0xD00B720, symbol: D_D00B720 }
