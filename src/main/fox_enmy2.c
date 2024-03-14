@@ -5,6 +5,7 @@ s32 D_800CFF90 = 0;
 s32 D_80161690;
 
 #include "fox_enmy2_assets.h"
+#include "assets/ast_training.h"
 #include "assets/ast_warp_zone.h"
 #include "assets/ast_allies.h"
 
@@ -955,7 +956,7 @@ UnkStruct_D003C D_800D003C[108] = {
     { D_6002500, D_601B944, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
     { D_60043F0, D_800CBF34, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
     { D_6004310, D_800CBF34, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_6002740, D_6009D18, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { D_training_6002740, D_training_6009D18, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
     { NULL, D_800CBF34, -1.0f, 500.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 0 },
     { NULL, D_800CBF34, -1.0f, 500.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 0 },
     { NULL, D_800CBEC4, 1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 1.0f, 1 },
@@ -1017,7 +1018,7 @@ void func_8006D36C(Actor* actor) {
             var_v1 = SEGMENTED_TO_VIRTUAL(D_60381D8);
             break;
         case LEVEL_TRAINING:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_6009B34);
+            var_v1 = SEGMENTED_TO_VIRTUAL(D_training_6009B34);
             break;
         default:
             var_v1 = SEGMENTED_TO_VIRTUAL(D_603D9E8);

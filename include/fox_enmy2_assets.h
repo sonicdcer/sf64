@@ -70,7 +70,6 @@ extern Gfx D_601A2B0[];
 extern Gfx D_6002500[];
 extern Gfx D_60043F0[];
 extern Gfx D_6004310[];
-extern Gfx D_6002740[];
 extern Gfx D_6002890[];
 
 extern f32 D_60282A0[];

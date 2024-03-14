@@ -37,6 +37,7 @@ extern Gfx D_9013C20[];
 
 #include "assets/ast_bg_space.h"
 #include "assets/ast_bg_planet.h"
+#include "assets/ast_training.h"
 
 void BonusText_Display(f32 xPos, f32 yPos, f32 zPos, s32 hits) {
     s32 i;
@@ -1056,7 +1057,7 @@ void func_8007A994(Effect* effect) {
     effect->unk_4A++;
 }
 
-Gfx* D_800D178C[] = { D_6003440, D_60034E0, D_6003580, D_6003620, D_60036C0, D_6003760 };
+Gfx* D_800D178C[] = { D_6003440, D_60034E0, D_6003580, D_6003620, D_60036C0, D_training_6003760 };
 
 void func_8007AA60(Effect* effect) {
     RCP_SetupDL(&gMasterDisp, 0x44);

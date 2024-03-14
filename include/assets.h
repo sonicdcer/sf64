@@ -246,14 +246,12 @@ extern u8 D_500A7D0[]; // fox_std_lib, fox_versus, fox_option, fox_hud
  * ast_katina, ast_macbeth, ast_title, ast_menu, ast_training
  */
 extern Gfx D_60005B0[]; // fox_bg
-extern u16 D_6000900[]; // fox_radio
 extern Gfx D_6000A80[]; // fox_bg, fox_effect
 extern u16 D_6000B60[]; // fox_radio
 extern Gfx D_6000E00[]; // fox_edata_1C
 extern Gfx D_6000E10[]; // fox_enmy2
 extern Gfx D_6001360[]; // fox_bg, fox_demo, fox_edata_1C
 extern Gfx D_6001530[]; // fox_360, fox_demo, fox_ka
-extern u16 D_6001820[]; // fox_radio
 extern Gfx D_6001840[]; // fox_bg
 extern Gfx D_6001950[]; // fox_enmy2
 extern Gfx D_6001A60[]; // fox_effect

@@ -3,6 +3,8 @@
 extern f32 D_6031398[];
 extern f32 D_60313CC[];
 
+#include "assets/ast_training.h"
+
 f32 D_800CBE70[] = {
     1.0f, 0.0f, 50.0f, 0.0f, 25.0f, 0.0f, 25.0f,
 };
@@ -206,7 +208,7 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_80_130  */  {(void*)     D_900F1D0, 0, (ObjectFunc)          NULL,        D_601B75C,  3200.0f,  0, 0, 42, 0,   0.0f,  0 },
   /* OBJ_80_131  */  {(void*) func_i6_801935D4, 1, (ObjectFunc) func_i6_8019356C,        D_C038BD8,   500.0f,  0, 0, 41, 0,   0.0f,  0 },
   /* OBJ_80_132  */  {(void*) func_i6_8019350C, 1, (ObjectFunc) func_i6_80193380,        D_C038A48,   500.0f,  0, 0, 41, 0,   0.0f,  0 },
-  /* OBJ_80_133  */  {(void*)     D_60030F0, 0, (ObjectFunc)          NULL,        D_6009CC4,  1000.0f,  0, 0, 20, 0,   0.0f,  0 },
+  /* OBJ_80_133  */  {(void*)     D_training_60030F0, 0, (ObjectFunc)          NULL,        D_training_6009CC4,  1000.0f,  0, 0, 20, 0,   0.0f,  0 },
   /* OBJ_80_134  */  {(void*)     D_6003000, 0, (ObjectFunc)          NULL,        D_C038BA4,     0.0f,  0, 0, 41, 1,   0.0f,  0 },
   /* OBJ_80_135  */  {(void*) D_6006890_Gfx, 0, (ObjectFunc)          NULL,        D_C038B40,     0.0f,  0, 0, 41, 1,   0.0f,  0 },
   /* OBJ_80_136  */  {(void*)     D_6002990, 0, (ObjectFunc)          NULL,        D_C038B40,     0.0f,  0, 0, 41, 1,   0.0f,  0 },
@@ -411,7 +413,7 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_ITEM_1UP  */  {(void*)     D_1022120, 0, (ObjectFunc) func_80067B1C,       D_800CBE8C,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_ITEM_GOLD_RING  */  {(void*) func_8005CA80, 1, (ObjectFunc) func_800685F8,       D_800CBF54,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_ITEM_WING_REPAIR  */  {(void*)     D_3007650, 0, (ObjectFunc) func_80068618,       D_800CBFA8,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_ITEM_TRAINING_RING  */  {(void*)     D_6006140, 0, (ObjectFunc) func_i1_80198968,        D_6009CFC,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
+  /* OBJ_ITEM_TRAINING_RING  */  {(void*)     gItemTrainingRingDL, 0, (ObjectFunc) func_i1_80198968,        D_training_6009CFC,   700.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_339  */  {(void*) func_8007D55C, 1, (ObjectFunc) func_8007D2F4,             NULL,  -200.0f,  1, 2,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_340  */  {(void*) func_8007D55C, 1, (ObjectFunc) func_8007D748,             NULL,  -200.0f,  1, 2,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_341  */  {(void*) func_8007D55C, 1, (ObjectFunc) func_8007D8A8,             NULL,  -200.0f,  1, 2,  0, 0,   0.0f,  0 },

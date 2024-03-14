@@ -1,6 +1,7 @@
 #include "prevent_bss_reordering2.h"
 #include "global.h"
 #include "fox_map.h"
+#include "assets/ast_training.h"
 
 UNK_TYPE D_800D2F50 = 0;
 s32 D_800D2F54 = 0;
@@ -453,9 +454,9 @@ void func_800A5844(void) {
 }
 
 EnvSettings* D_800D2F98[21] = {
-    &D_6037160, &D_ENV_6026C80, &D_602A120, &D_6023F20,     &D_6028760,     &D_602E4B0, &D_6007E30,
-    &D_601F1F0, &D_60266D0,     &D_C035110, &D_6006A60,     &D_6030E30_Env, &D_6005000, &D_602E540,
-    &D_600EA90, NULL,           &D_6011000, &D_600FF30_Env, &D_6006E70,     &D_6014D50, &D_302DD70,
+    &D_6037160, &D_ENV_6026C80, &D_602A120, &D_6023F20,          &D_6028760,     &D_602E4B0, &D_6007E30,
+    &D_601F1F0, &D_60266D0,     &D_C035110, &D_training_6006A60, &D_6030E30_Env, &D_6005000, &D_602E540,
+    &D_600EA90, NULL,           &D_6011000, &D_600FF30_Env,      &D_6006E70,     &D_6014D50, &D_302DD70,
 };
 
 void func_800A594C(void) {
