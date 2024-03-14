@@ -74,6 +74,7 @@ D_6005EE8:
 
 PAD_60066E8:
   { type: BLOB, size: 8, offset: 0x60066E8, symbol: PAD_60066E8 }
+
 D_60066F0:
   { type: GFX, offset: 0x60066F0, symbol: D_60066F0 }
 
@@ -118,6 +119,7 @@ D_6009C30:
 
 D_6009CC0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x6009CC0, symbol: D_6009CC0 }
+
 D_6009FF8:
   { type: SF64:ANIM, offset: 0x6009FF8, symbol: D_6009FF8 }
 
@@ -192,7 +194,7 @@ D_6013798:
 
 D_6013820:
   { type: SF64:ANIM, offset: 0x6013820, symbol: D_6013820 }
-  
+
 D_601390C:
   { type: SF64:SKELETON, offset: 0x601390C, symbol: D_601390C }
 
@@ -219,7 +221,7 @@ D_601AA28:
 
 PAD_601AA34:
   { type: BLOB, size: 0xC, offset: 0x601AA34, symbol: PAD_601AA34 }
-  
+
 D_601C690:
   { type: SF64:ANIM, offset: 0x601C690, symbol: D_601C690 }
 
@@ -231,7 +233,7 @@ PAD_601CA48:
 
 PAD_601CD78:
   { type: BLOB, size: 0x8, offset: 0x601CD78, symbol: PAD_601CD78 }
- 
+
 D_60206DC:
   { type: SF64:ANIM, offset: 0x60206DC, symbol: D_60206DC }
 
