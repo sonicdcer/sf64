@@ -5,10 +5,8 @@
  */
 
 #include "mods.h"
-
-#include "prevent_bss_reordering.h"
 #include "global.h"
-
+#include "prevent_bss_reordering.h"
 #include "fox_option.h"
 
 extern s32 D_menu_801B81A8[][3];
@@ -24,8 +22,12 @@ extern Gfx D_menu_801B5E78[];
 extern Gfx D_menu_801B57A8[];
 
 #include "fox_option_assets.h"
+#include "assets/ast_font.h"
+#include "assets/ast_font_3d.h"
+#include "assets/ast_option.h"
 
 extern f32 D_menu_801CD818[];
+
 
 s32 D_menu_801B9090;
 s32 D_menu_801B9094;
@@ -3268,6 +3270,7 @@ void func_menu_8019AD84(void) {
         TextureRect_8bIA(&gMasterDisp, D_7002110, 80, 12, D_menu_801AF25C[0], D_menu_801AF274[0], 1.0f, 1.0f);
     }
 }
+
 
 void func_menu_8019AFFC(void) {
     static f32 D_menu_801B93C0;

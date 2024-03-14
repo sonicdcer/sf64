@@ -1,4 +1,5 @@
 #include "global.h"
+#include "assets/ast_sector_x.h"
 
 s32 D_i2_80195D80;
 f32 D_i2_80195D88[3];
@@ -10,24 +11,24 @@ Vec3f D_i2_80195650 = { 90.0f, 0.0f, 0.0f };
 Vec3f D_i2_8019565C = { 73.0f, -102.0f, -80.0f };
 Vec3f D_i2_80195668 = { 90.0f, 0.0f, 0.0f };
 
-extern Gfx D_60010C0[];
-extern Gfx D_6006810[];
-extern Gfx D_6009C30[];
-extern Animation D_6009FF8;
-extern Animation D_600A2D4;
-extern Animation D_600F890;
-extern Animation D_60123BC;
-extern Animation D_6013798;
-extern Animation D_60158C4;
-extern Animation D_6016E28;
-extern Animation D_601AA28;
-extern Animation D_601C690;
-extern Animation D_60206DC;
-extern Limb* D_6020C68[];
-extern Gfx D_6020D20[];
-extern f32 D_603265C[];
-extern f32 D_6032768[];
-extern f32 D_60328CC[];
+extern Gfx D_SX_60010C0[];
+extern Gfx D_SX_6006810[];
+extern Gfx D_SX_6009C30[];
+extern Animation D_SX_6009FF8;
+extern Animation D_SX_600A2D4;
+extern Animation D_SX_600F890;
+extern Animation D_SX_60123BC;
+extern Animation D_SX_6013798;
+extern Animation D_SX_60158C4;
+extern Animation D_SX_6016E28;
+extern Animation D_SX_601AA28;
+extern Animation D_SX_601C690;
+extern Animation D_SX_60206DC;
+extern Limb* D_SX_6020C68[];
+extern Gfx D_SX_6020D20[];
+extern f32 D_SX_603265C[];
+extern f32 D_SX_6032768[];
+extern f32 D_SX_60328CC[];
 extern s32 D_800C9E90[];
 
 extern void func_i2_8018F030(void);
@@ -174,7 +175,7 @@ void func_i2_8018F330(Actor* actor) {
 void func_i2_8018F884(Actor* actor) {
     switch (actor->unk_0B6) {
         case 0:
-            gSPDisplayList(gMasterDisp++, D_6020D20);
+            gSPDisplayList(gMasterDisp++, D_SX_6020D20);
             break;
 
         case 1:
@@ -190,7 +191,7 @@ void func_i2_8018F884(Actor* actor) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 220, 70, 30, 255);
             Matrix_Scale(gGfxMatrix, 70.0f, 70.0f, 1.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_60010C0);
+            gSPDisplayList(gMasterDisp++, D_SX_60010C0);
 
         default:
             break;
@@ -216,7 +217,7 @@ void func_i2_8018FA04(f32 x, f32 y, f32 z) {
             actor->obj.pos.y = y;
             actor->obj.pos.z = z;
             Object_SetInfo(&actor->info, actor->obj.id);
-            actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_60328CC);
+            actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_60328CC);
             xRot = Math_Atan2F(gPlayer[0].pos.x - x, gPlayer[0].unk_138 - z);
             pad = sqrtf(SQ(gPlayer[0].pos.x - x) + SQ(gPlayer[0].unk_138 - z));
             yRot = -Math_Atan2F(gPlayer[0].pos.y - y, pad);
@@ -275,7 +276,7 @@ void func_i2_8018FE38(Boss* boss) {
     Vec3f sp20;
 
     if (boss->state == 0) {
-        Animation_GetFrameData(&D_60206DC, boss->unk_04C, boss->vwork);
+        Animation_GetFrameData(&D_SX_60206DC, boss->unk_04C, boss->vwork);
         Math_Vec3fFromAngles(&sp20, boss->obj.rot.x, boss->obj.rot.y, 20.0f);
         boss->vel.x = sp20.x;
         boss->vel.y = sp20.y;
@@ -312,7 +313,7 @@ bool func_i2_8018FF40(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
 }
 
 void func_i2_8018FF84(Boss* boss) {
-    Animation_DrawSkeleton(3, D_6020C68, boss->vwork, func_i2_8018FF40, func_i2_80193208, boss, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_SX_6020C68, boss->vwork, func_i2_8018FF40, func_i2_80193208, boss, gCalcMatrix);
 }
 
 bool func_i2_8018FFDC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
@@ -324,7 +325,7 @@ bool func_i2_8018FFDC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
 }
 
 void func_i2_80190020(Boss* boss) {
-    Animation_DrawSkeleton(3, D_6020C68, boss->vwork, func_i2_8018FFDC, func_i2_80193208, boss, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_SX_6020C68, boss->vwork, func_i2_8018FFDC, func_i2_80193208, boss, gCalcMatrix);
 }
 
 void func_i2_80190078(Boss* boss) {
@@ -446,7 +447,7 @@ void func_i2_80190078(Boss* boss) {
                     boss->swork[7] = 1;
                     Audio_KillSfxBySourceAndId(D_i2_80195D88, 0x31032061);
                     Audio_KillSfxBySourceAndId(D_i2_80195D98, 0x31032061);
-                    boss->info.hitbox = SEGMENTED_TO_VIRTUAL(D_603265C);
+                    boss->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_603265C);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
                     boss->timer_052 = 40;
@@ -520,7 +521,7 @@ void func_i2_80190078(Boss* boss) {
             boss->swork[7] = 1;
             boss->obj.pos.x = gPlayer[0].unk_0AC;
             boss->swork[0] = 0;
-            Animation_GetFrameData(&D_60206DC, boss->unk_04C, boss->vwork);
+            Animation_GetFrameData(&D_SX_60206DC, boss->unk_04C, boss->vwork);
             boss->fwork[1] = -2000.0f;
             boss->fwork[14] = 300.0f;
             boss->fwork[17] = -300.0f;
@@ -530,7 +531,7 @@ void func_i2_80190078(Boss* boss) {
             boss->timer_050 = 450;
             boss->swork[3] = 400;
             boss->health = 300;
-            boss->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6032550);
+            boss->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_6032550);
             gBossActive = 1;
             AUDIO_PLAY_BGM(D_800C9E90[gCurrentLevel]);
             boss->swork[6] = 1;
@@ -572,13 +573,13 @@ void func_i2_80190078(Boss* boss) {
         case 100:
             boss->fwork[1] = -2000.0f;
 
-            frameData = Animation_GetFrameData(&D_60206DC, boss->unk_04C, sp80);
+            frameData = Animation_GetFrameData(&D_SX_60206DC, boss->unk_04C, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 100.0f, 0.0f);
 
             Math_SmoothStepToF(&boss->fwork[0], 1.0f, 1.0f, 0.05f, 0);
             boss->unk_04C++;
 
-            if (boss->unk_04C >= Animation_GetFrameCount(&D_60206DC)) {
+            if (boss->unk_04C >= Animation_GetFrameCount(&D_SX_60206DC)) {
                 boss->unk_04C = 0;
                 boss->state = 1;
                 boss->fwork[0] = 0.0f;
@@ -597,13 +598,13 @@ void func_i2_80190078(Boss* boss) {
             boss->fwork[44] = 5.0f;
             boss->fwork[43] = 5.0f;
 
-            frameData = Animation_GetFrameData(&D_6016E28, boss->unk_04C, sp80);
+            frameData = Animation_GetFrameData(&D_SX_6016E28, boss->unk_04C, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 100.0f, 0.0f);
 
             Math_SmoothStepToF(&boss->fwork[0], 1.0f, 1.0f, 0.05f, 0);
 
             boss->unk_04C++;
-            if (boss->unk_04C >= Animation_GetFrameCount(&D_6016E28)) {
+            if (boss->unk_04C >= Animation_GetFrameCount(&D_SX_6016E28)) {
                 boss->unk_04C = 0;
                 boss->state = 2;
                 boss->fwork[0] = 0.0f;
@@ -633,13 +634,13 @@ void func_i2_80190078(Boss* boss) {
                 boss->fwork[42] = 0.0f;
             }
 
-            frameData = Animation_GetFrameData(&D_60123BC, boss->unk_04C, sp80);
+            frameData = Animation_GetFrameData(&D_SX_60123BC, boss->unk_04C, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 100.0f, 0.0f);
 
             Math_SmoothStepToF(&boss->fwork[0], 1.0f, 1.0f, 0.05f, 0);
 
             boss->unk_04C++;
-            if (boss->unk_04C >= Animation_GetFrameCount(&D_60123BC)) {
+            if (boss->unk_04C >= Animation_GetFrameCount(&D_SX_60123BC)) {
                 boss->unk_04C = 0;
                 boss->state = 3;
                 boss->fwork[42] = boss->fwork[43] = boss->fwork[44] = boss->fwork[0] = 0.0f;
@@ -669,13 +670,13 @@ void func_i2_80190078(Boss* boss) {
                 boss->fwork[42] = 0.0f;
             }
 
-            frameData = Animation_GetFrameData(&D_6013798, boss->unk_04C, sp80);
+            frameData = Animation_GetFrameData(&D_SX_6013798, boss->unk_04C, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 100.0f, 0.0f);
 
             Math_SmoothStepToF(&boss->fwork[0], 1.0f, 1.0f, 0.05f, 0);
 
             boss->unk_04C++;
-            if (boss->unk_04C >= Animation_GetFrameCount(&D_6013798)) {
+            if (boss->unk_04C >= Animation_GetFrameCount(&D_SX_6013798)) {
                 boss->unk_04C = 0;
                 boss->fwork[0] = 0.0f;
                 if (boss->swork[3] <= 250) {
@@ -703,7 +704,7 @@ void func_i2_80190078(Boss* boss) {
             Math_SmoothStepToF(&boss->fwork[43], 10.0f, 1.0f, 1.0f, 0);
             Math_SmoothStepToF(&boss->fwork[42], 50.0f, 1.0f, 3.0f, 0);
 
-            frameData = Animation_GetFrameData(&D_6016E28, 0, sp80);
+            frameData = Animation_GetFrameData(&D_SX_6016E28, 0, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 100.0f, 0.0f);
 
             Math_SmoothStepToF(&boss->fwork[0], 1.0f, 1.0f, 0.05f, 0);
@@ -830,13 +831,13 @@ void func_i2_80190078(Boss* boss) {
             boss->fwork[2] = -400.0f;
             boss->fwork[42] = 30.0f;
 
-            frameData = Animation_GetFrameData(&D_601C690, boss->unk_04C, sp80);
+            frameData = Animation_GetFrameData(&D_SX_601C690, boss->unk_04C, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 100.0f, 0.0f);
 
             Math_SmoothStepToF(&boss->fwork[0], 1.0f, 1.0f, 0.05f, 0);
 
             boss->unk_04C++;
-            if (boss->unk_04C >= Animation_GetFrameCount(&D_601C690)) {
+            if (boss->unk_04C >= Animation_GetFrameCount(&D_SX_601C690)) {
                 boss->state = 75;
                 boss->fwork[0] = 0.0f;
                 boss->unk_04C = 0;
@@ -848,7 +849,7 @@ void func_i2_80190078(Boss* boss) {
             boss->fwork[41] = 20.0f;
             boss->fwork[2] = -400.0f;
 
-            frameData = Animation_GetFrameData(&D_600A2D4, 0, sp80);
+            frameData = Animation_GetFrameData(&D_SX_600A2D4, 0, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 2.5f, 0.0f);
 
             Math_SmoothStepToF(&boss->fwork[0], 0.1f, 1.0f, 0.005f, 0);
@@ -876,13 +877,13 @@ void func_i2_80190078(Boss* boss) {
             boss->fwork[43] = 5.0f;
             boss->fwork[42] = 30.0f;
 
-            frameData = Animation_GetFrameData(&D_600F890, boss->unk_04C, sp80);
+            frameData = Animation_GetFrameData(&D_SX_600F890, boss->unk_04C, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 100.0f, 0.0f);
 
             Math_SmoothStepToF(&boss->fwork[0], 1.0f, 1.0f, 0.02f, 0);
 
             boss->unk_04C++;
-            if (boss->unk_04C >= Animation_GetFrameCount(&D_600F890)) {
+            if (boss->unk_04C >= Animation_GetFrameCount(&D_SX_600F890)) {
                 boss->unk_04C = 0;
                 boss->fwork[0] = 0.0f;
                 boss->state = 9;
@@ -896,15 +897,15 @@ void func_i2_80190078(Boss* boss) {
             boss->fwork[2] = gPlayer[0].pos.y;
             boss->fwork[3] = gPlayer[0].pos.x;
 
-            frameData = Animation_GetFrameData(&D_60123BC, boss->unk_04C, sp80);
+            frameData = Animation_GetFrameData(&D_SX_60123BC, boss->unk_04C, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 50.0f, 0.0f);
 
             Math_SmoothStepToF(&boss->fwork[0], 1.0f, 1.0f, 0.01f, 0);
 
             if (boss->timer_050 == 0) {
                 boss->unk_04C++;
-                if (boss->unk_04C >= Animation_GetFrameCount(&D_60123BC)) {
-                    boss->unk_04C = Animation_GetFrameCount(&D_60123BC) - 1;
+                if (boss->unk_04C >= Animation_GetFrameCount(&D_SX_60123BC)) {
+                    boss->unk_04C = Animation_GetFrameCount(&D_SX_60123BC) - 1;
                     if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_0) {
                         boss->unk_04C = 0;
                         boss->state = 10;
@@ -928,13 +929,13 @@ void func_i2_80190078(Boss* boss) {
             boss->fwork[2] = gPlayer[0].pos.y;
             boss->fwork[3] = gPlayer[0].pos.x;
 
-            frameData = Animation_GetFrameData(&D_601AA28, boss->unk_04C, sp80);
+            frameData = Animation_GetFrameData(&D_SX_601AA28, boss->unk_04C, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 50.0f, 0.0f);
 
             Math_SmoothStepToF(&boss->fwork[0], 1.0f, 1.0f, 0.01f, 0);
             boss->unk_04C++;
 
-            if (boss->unk_04C >= Animation_GetFrameCount(&D_601AA28)) {
+            if (boss->unk_04C >= Animation_GetFrameCount(&D_SX_601AA28)) {
                 boss->unk_04C = 0;
                 boss->state = 10;
                 boss->fwork[0] = 0.0f;
@@ -957,7 +958,7 @@ void func_i2_80190078(Boss* boss) {
             boss->fwork[1] = -1000.0f;
             Math_SmoothStepToF(&boss->fwork[42], 50.0f, 1.0f, 3.0f, 0);
 
-            frameData = Animation_GetFrameData(&D_60158C4, boss->unk_04C, sp80);
+            frameData = Animation_GetFrameData(&D_SX_60158C4, boss->unk_04C, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 100.0f, 0.0f);
 
             Math_SmoothStepToF(&boss->fwork[0], 1.0f, 1.0f, 0.05f, 0);
@@ -967,7 +968,7 @@ void func_i2_80190078(Boss* boss) {
                 AUDIO_PLAY_SFX(0x2902401C, boss->sfxSource, 4);
             }
 
-            if (boss->unk_04C >= Animation_GetFrameCount(&D_60158C4)) {
+            if (boss->unk_04C >= Animation_GetFrameCount(&D_SX_60158C4)) {
                 boss->unk_04C = 0;
                 boss->fwork[0] = 0.0f;
 
@@ -1020,7 +1021,7 @@ void func_i2_80190078(Boss* boss) {
             Math_SmoothStepToF(&boss->fwork[44], 20.0f, 1.0f, 0.5f, 0);
             Math_SmoothStepToF(&boss->fwork[43], 20.0f, 1.0f, 0.5f, 0);
 
-            frameData = Animation_GetFrameData(&D_6009FF8, 0, sp80);
+            frameData = Animation_GetFrameData(&D_SX_6009FF8, 0, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 5.0f, 0.0f);
 
             Math_SmoothStepToF(&boss->fwork[0], 0.1f, 1.0f, 0.001f, 0);
@@ -1048,14 +1049,14 @@ void func_i2_80190078(Boss* boss) {
             boss->fwork[41] = 340.0f;
             boss->fwork[2] = -400.0f;
 
-            frameData = Animation_GetFrameData(&D_601C690, boss->unk_04C, sp80);
+            frameData = Animation_GetFrameData(&D_SX_601C690, boss->unk_04C, sp80);
             Math_SmoothStepToVec3fArray(sp80, boss->vwork, 1, frameData, boss->fwork[0], 100.0f, 0.0f);
 
             Math_SmoothStepToF(&boss->fwork[0], 1.0f, 1.0f, 0.05f, 0);
             boss->unk_04C++;
 
-            if (boss->unk_04C >= Animation_GetFrameCount(&D_601C690)) {
-                boss->unk_04C = Animation_GetFrameCount(&D_601C690);
+            if (boss->unk_04C >= Animation_GetFrameCount(&D_SX_601C690)) {
+                boss->unk_04C = Animation_GetFrameCount(&D_SX_601C690);
             }
 
             if (!(boss->timer_050 & 3)) {
@@ -1106,7 +1107,7 @@ void func_i2_80190078(Boss* boss) {
 
     D_i2_80195640 = 1;
 
-    Animation_DrawSkeleton(1, D_6020C68, boss->vwork, func_i2_80192AF0, func_i2_80193208, boss, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, D_SX_6020C68, boss->vwork, func_i2_80192AF0, func_i2_80193208, boss, &gIdentityMatrix);
 
     if (((boss->swork[1] != 0) && (boss->swork[3] > 0)) && ((boss->fwork[4] < 45.0f) || (boss->fwork[4] > 315.0f))) {
         boss->swork[1]++;
@@ -1124,7 +1125,7 @@ void func_i2_80190078(Boss* boss) {
     }
 
     if (boss->state != 35) {
-        boss->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6032550);
+        boss->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_6032550);
         boss->info.hitbox[43] = -211.0f + boss->fwork[16];
         boss->info.hitbox[45] = -35.0f + boss->fwork[15];
         boss->info.hitbox[47] = 442.0f + boss->fwork[14];
@@ -1154,7 +1155,7 @@ void func_i2_80190078(Boss* boss) {
             boss->info.hitbox[66] = 70.0f;
         }
     } else {
-        boss->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6032768);
+        boss->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_6032768);
     }
 
     if (boss->swork[0] == 1) {
@@ -1189,7 +1190,7 @@ s32 func_i2_80192AF0(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4)
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 64, 64, 255, 255);
             }
             if (boss->swork[4] == 1) {
-                *arg1 = D_6006810;
+                *arg1 = D_SX_6006810;
             } else if (boss->swork[4] == 2) {
                 *arg1 = NULL;
             }
@@ -1222,7 +1223,7 @@ s32 func_i2_80192AF0(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4)
                     Matrix_RotateZ(gGfxMatrix, 2.0f * gGameFrameCount * M_DTOR, 1);
                     Matrix_Scale(gGfxMatrix, boss->fwork[45], boss->fwork[45], boss->fwork[45], 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_6009C30);
+                    gSPDisplayList(gMasterDisp++, D_SX_6009C30);
                     Matrix_Pop(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, D_i2_8019565C.x, D_i2_8019565C.y, D_i2_8019565C.z, (u8) 1);
                     Matrix_RotateZ(gGfxMatrix, D_i2_80195668.z * M_DTOR, 1);
@@ -1231,7 +1232,7 @@ s32 func_i2_80192AF0(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4)
                     Matrix_RotateZ(gGfxMatrix, 2.0f * -gGameFrameCount * M_DTOR, 1);
                     Matrix_Scale(gGfxMatrix, boss->fwork[45], boss->fwork[45], boss->fwork[45], 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_6009C30);
+                    gSPDisplayList(gMasterDisp++, D_SX_6009C30);
                 }
                 Matrix_Pop(&gGfxMatrix);
                 Matrix_Pop(&gCalcMatrix);
@@ -1364,7 +1365,7 @@ void func_i2_80193434(Boss* boss) {
 
     if (boss->swork[5] == 0) {
         D_i2_80195640 = 0;
-        Animation_DrawSkeleton(3, D_6020C68, boss->vwork, func_i2_80192AF0, 0, boss, gCalcMatrix);
+        Animation_DrawSkeleton(3, D_SX_6020C68, boss->vwork, func_i2_80192AF0, 0, boss, gCalcMatrix);
         RCP_SetupDL_64();
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 96);
 
@@ -1416,13 +1417,13 @@ void func_i2_80193434(Boss* boss) {
             Matrix_Translate(gGfxMatrix, boss->fwork[20], boss->fwork[21], boss->fwork[22], 1);
             Matrix_Scale(gGfxMatrix, fwork, fwork, fwork, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_600F8A0);
+            gSPDisplayList(gMasterDisp++, D_SX_600F8A0);
             Matrix_Pop(&gGfxMatrix);
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, boss->fwork[23], boss->fwork[24], boss->fwork[25], 1);
             Matrix_Scale(gGfxMatrix, fwork, fwork, fwork, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_600F8A0);
+            gSPDisplayList(gMasterDisp++, D_SX_600F8A0);
             Matrix_Pop(&gGfxMatrix);
         }
     }

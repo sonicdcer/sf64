@@ -1,3 +1,4 @@
+// #include "prevent_bss_reordering.h"
 #include "global.h"
 
 void func_i5_801B5244(s32 arg0, s32 arg1);

@@ -191,6 +191,7 @@ f32 D_menu_801CF124;
 extern u16 D_6000000[];
 
 #include "assets/ast_font.h"
+#include "assets/ast_font_3d.h"
 
 s32 D_menu_801AF420[2] = { 10, 20 };
 
@@ -1107,8 +1108,6 @@ Gfx* D_menu_801B68F8[] = {
     D_601C960,       D_menu_801B5E78, D_menu_801B61E0, D_menu_801B6548, D_menu_801B4D70,
     D_menu_801B5B10, D_menu_801B5440, D_menu_801B50D8, D_menu_801B57A8, D_604DB10,
 };
-
-extern u8 D_5000500[];
 
 extern u8 D_6000840[];
 extern u8 D_6001080[];

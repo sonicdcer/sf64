@@ -1,5 +1,5 @@
 #include "global.h"
-// #include "prevent_bss_reordering.h"
+#include "prevent_bss_reordering.h"
 
 f32 __dx1;
 f32 __dx2;

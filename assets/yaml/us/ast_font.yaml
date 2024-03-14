@@ -79,7 +79,7 @@ D_50022F0:
 
 # PLISHED
 D_5002DC0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 136, height: 23, offset: 0x5002DC0, symbol: D_5002D88, pad: 8 }
+  { type: TEXTURE, ctype: u8, format: IA8, width: 136, height: 23, offset: 0x5002DC0, symbol: D_5002DC0, pad: 8 }
 
 # MISSION
 D_5003A00:

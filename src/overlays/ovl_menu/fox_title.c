@@ -3,8 +3,8 @@
  * System: Title
  * Description: Starfox Title Handler
  */
-#include "prevent_bss_reordering.h"
-#include "prevent_bss_reordering2.h"
+// #include "prevent_bss_reordering.h"
+// #include "prevent_bss_reordering2.h"
 #include "global.h"
 #include "fox_title.h"
 
@@ -159,8 +159,6 @@ f32 D_menu_801B907C;
 f32 D_menu_801B9080;
 f32 D_menu_801B9084;
 
-extern u8 D_5000200[];
-extern u8 D_5000300[];
 extern u16 D_6000000[];
 
 #include "assets/ast_font.h"
@@ -436,7 +434,7 @@ void func_menu_80187CA8(void) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    TextureRect_8bIA(&gMasterDisp, D_50077B0, 16, 2, 36, 32, 15.2f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, &D_5007690[48 * 6], 16, 2, 36, 32, 15.2f, 1.0f);
     func_menu_80187E28();
 }
 

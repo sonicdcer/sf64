@@ -6,17 +6,7 @@ const char D_800D7230[] = "Enm->wrk3=<%d>\n";
 const char D_800D7240[] = "a=<%d>\n";
 const char D_800D7248[] = "a=<%d>\n";
 
-extern Gfx D_1003130[];
-extern Gfx D_1015320[];
-extern Gfx D_10156A0[];
-extern Gfx D_1015810[];
-extern Gfx D_1015B70[];
-extern Gfx D_1015CE0[];
-extern Gfx D_1015E50[];
-extern Gfx D_1015FC0[];
-extern Gfx D_1016130[];
-extern Gfx D_10162A0[];
-extern Gfx D_1016410[];
+
 
 extern Gfx D_4008CE0[];
 extern Gfx D_4008F70[];
@@ -35,9 +25,14 @@ extern Gfx D_601BAD0[];
 
 extern Gfx D_9013C20[];
 
+#include "assets/ast_blue_marine.h"
+#include "assets/ast_arwing.h"
 #include "assets/ast_bg_space.h"
 #include "assets/ast_bg_planet.h"
 #include "assets/ast_training.h"
+#include "assets/ast_sector_x.h"
+#include "assets/ast_aquas.h"
+#include "assets/ast_A_ti.h"
 
 void BonusText_Display(f32 xPos, f32 yPos, f32 zPos, s32 hits) {
     s32 i;
@@ -493,7 +488,7 @@ void func_80078BE0(Effect* effect) {
         var_fv0 *= 1.2f;
     }
     Graphics_SetScaleMtx(effect->scale2 * var_fv0);
-    gSPDisplayList(gMasterDisp++, D_600F8A0);
+    gSPDisplayList(gMasterDisp++, D_SX_600F8A0);
 }
 
 void func_80078C84(Effect* effect) {
@@ -841,7 +836,7 @@ void func_800798F0(Effect* effect) {
         case LEVEL_AQUAS:
             Matrix_SetGfxMtx(&gMasterDisp);
             RCP_SetupDL(&gMasterDisp, 0x3C);
-            gSPDisplayList(gMasterDisp++, D_600A220);
+            gSPDisplayList(gMasterDisp++, D_AQ_600A220);
             break;
 
         default:
@@ -1057,7 +1052,7 @@ void func_8007A994(Effect* effect) {
     effect->unk_4A++;
 }
 
-Gfx* D_800D178C[] = { D_6003440, D_60034E0, D_6003580, D_6003620, D_60036C0, D_training_6003760 };
+Gfx* D_800D178C[] = { D_6003440, D_60034E0, D_6003580, D_6003620, D_60036C0, D_TR_6003760 };
 
 void func_8007AA60(Effect* effect) {
     RCP_SetupDL(&gMasterDisp, 0x44);
@@ -3914,7 +3909,7 @@ void func_80082F78(Effect* effect) {
             Graphics_SetScaleMtx(effect->scale2);
             RCP_SetupDL(&gMasterDisp, 0x3C);
             if (gCurrentLevel == LEVEL_AQUAS) {
-                gSPDisplayList(gMasterDisp++, D_600A220);
+                gSPDisplayList(gMasterDisp++, D_AQ_600A220);
             }
             if (gCurrentLevel == LEVEL_ZONESS) {
                 gSPDisplayList(gMasterDisp++, D_6016880);

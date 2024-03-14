@@ -1,5 +1,8 @@
 #include "global.h"
 #include "assets/ast_landmaster.h"
+#include "assets/ast_aquas.h"
+#include "assets/ast_great_fox.h"
+#include "assets/ast_vs_player.h"
 
 static Vec3f D_8015F950;
 
@@ -1383,7 +1386,7 @@ void func_80039A50(PlayerShot* shot) {
                 Matrix_SetGfxMtx(&gMasterDisp);
                 if (gCurrentLevel == LEVEL_AQUAS) {
                     RCP_SetupDL(&gMasterDisp, 0x3C);
-                    gSPDisplayList(gMasterDisp++, D_600DB80);
+                    gSPDisplayList(gMasterDisp++, D_AQ_600DB80);
                     Matrix_Pop(&gGfxMatrix);
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, shot->obj.pos.x, gGroundLevel, shot->obj.pos.z + D_80177D20, 1);

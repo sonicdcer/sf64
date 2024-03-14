@@ -1,8 +1,15 @@
-#include "prevent_bss_reordering.h"
+// #include "prevent_bss_reordering.h"
 #include "sf64math.h"
 #include "assets/ast_blue_marine.h"
 #include "assets/ast_landmaster.h"
 #include "assets/ast_training.h"
+#include "assets/ast_andross.h"
+#include "assets/ast_star_wolf.h"
+#include "assets/ast_font.h"
+#include "assets/ast_vs_player.h"
+#include "assets/ast_bg_planet.h"
+#include "assets/ast_bg_space.h"
+#include "prevent_bss_reordering.h"
 
 // BSS section range:
 // D_801616A0 <==> D_80161910
@@ -71,46 +78,7 @@ void func_80087788(void);
 
 // Segmented addresses
 
-extern u8 D_1000000[];
-extern u8 D_1000280[];
-extern u8 D_1000640[];
-extern u16 D_1000E80[];
-extern u16 D_1002280[];
-extern u16 D_10030D0[];
-extern s32 D_1011280[];
-extern s32 D_10116A0[];
-extern s32 D_10116B0[];
-extern s32 D_1011730[];
-extern s32 D_1011AC0[];
-extern s32 D_1011B90[];
-extern s32 D_1011BB0[];
-extern s32 D_1011C80[];
-extern s32 D_1011CA0[];
-extern s32 D_1011D70[];
-extern s32 D_1011D90[];
-extern s32 D_1011E60[];
-extern s32 D_1013580[];
-extern s32 D_1013700[];
-extern Gfx D_20031B0[];
-extern Gfx D_2010A30[];
-extern u16 D_3000B20[];
-extern u8 D_30013E0[];
-extern Gfx D_1012110[];
-extern Gfx D_101C2E0[];
-extern Gfx D_1024990[];
-extern Gfx D_101C170[];
-extern Gfx D_101C000[];
-extern Gfx D_101BE90[];
-extern Gfx D_101BD20[];
-extern Gfx D_101BBB0[];
-extern Gfx D_101BA40[];
-extern Gfx D_101B8D0[];
-extern Gfx D_101B760[];
-extern Gfx D_101B5F0[];
-extern Gfx D_101B480[];
-extern Gfx D_101B310[];
-extern Gfx D_101B1A0[];
-extern u16 D_3000120[];
+
 extern u8 D_6000000[];
 extern u16 D_6000840[];
 extern u16 D_6000C80[];
@@ -119,8 +87,8 @@ extern u8 D_6001260[];
 extern u8 D_60012D0[];
 extern u8 D_6002890[];
 extern Gfx D_6003090[];
-extern u8 D_C000A80[];
 
+#include "assets/ast_blue_marine.h"
 #include "assets/ast_arwing.h"
 #include "assets/ast_bg_space.h"
 #include "assets/ast_bg_planet.h"
@@ -1711,7 +1679,7 @@ void func_80088970(void) {
                 }
 
                 if (gCurrentLevel == LEVEL_TRAINING) {
-                    TextureRect_8bIA(&gMasterDisp, D_training_6000000, 96, 12, x1, y1, 1.0f, 1.0f);
+                    TextureRect_8bIA(&gMasterDisp, D_TR_6000000, 96, 12, x1, y1, 1.0f, 1.0f);
                 } else {
                     if (gLifeCount[gPlayerNum]) {
                         TextureRect_8bIA(&gMasterDisp, D_1000280, 96, 10, x1, y1, 1.0f, 1.0f);

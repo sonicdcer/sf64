@@ -2,6 +2,11 @@
 #include "global.h"
 #include "fox_map.h"
 #include "assets/ast_training.h"
+#include "assets/ast_sector_x.h"
+#include "assets/ast_aquas.h"
+#include "assets/ast_andross.h"
+#include "assets/ast_arwing.h"
+#include "assets/ast_vs_player.h"
 
 UNK_TYPE D_800D2F50 = 0;
 s32 D_800D2F54 = 0;
@@ -454,8 +459,8 @@ void func_800A5844(void) {
 }
 
 EnvSettings* D_800D2F98[21] = {
-    &D_6037160, &D_ENV_6026C80, &D_602A120, &D_6023F20,          &D_6028760,     &D_602E4B0, &D_6007E30,
-    &D_601F1F0, &D_60266D0,     &D_C035110, &D_training_6006A60, &D_6030E30_Env, &D_6005000, &D_602E540,
+    &D_6037160, &D_ENV_6026C80, &D_SX_602A120, &D_6023F20,          &D_6028760,     &D_602E4B0, &D_6007E30,
+    &D_601F1F0, &D_60266D0,     &D_C035110, &D_TR_6006A60, &D_6030E30_Env, &D_6005000, &D_AQ_602E540,
     &D_600EA90, NULL,           &D_6011000, &D_600FF30_Env,      &D_6006E70,     &D_6014D50, &D_302DD70,
 };
 
@@ -482,7 +487,7 @@ void func_800A594C(void) {
             Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, 0x3140807E);
         }
     } else if (gCurrentLevel == LEVEL_AQUAS) {
-        sEnvSettings = SEGMENTED_TO_VIRTUAL(D_602E584);
+        sEnvSettings = SEGMENTED_TO_VIRTUAL(&D_AQ_602E584);
     }
     D_80177C90 = sEnvSettings->seqId;
     gLevelType = sEnvSettings->type;
@@ -1900,7 +1905,7 @@ void func_800A8BA4(Player* player) {
                                                 actor->vwork[29].z + actor->unk_0F4.z);
                         if (temp_v0 != 0) {
                             if ((temp_v0 < 0) && (actor->unk_0B4 == 38)) {
-                                actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6032328);
+                                actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_6032328);
                                 if (D_80177E80 >= 0) {
                                     actor->unk_046 = 2;
                                     D_80177E80++;
@@ -6167,7 +6172,7 @@ void func_800B79B0(void) {
             }
             break;
         case LEVEL_AQUAS:
-            func_8008C104(D_603158C, D_602ACC0);
+            func_8008C104(D_AQ_603158C, D_AQ_602ACC0);
             break;
         case LEVEL_SOLAR:
             func_800A3FEC();

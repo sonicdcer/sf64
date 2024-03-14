@@ -8,6 +8,14 @@ Matrix D_801615F0;
 WingInfo D_80161630;
 
 #include "fox_edisplay_assets.h"
+#include "assets/ast_sector_x.h"
+#include "assets/ast_aquas.h"
+#include "assets/ast_7_ti_1.h"
+#include "assets/ast_andross.h"
+#include "assets/ast_star_wolf.h"
+#include "assets/ast_arwing.h"
+#include "assets/ast_blue_marine.h"
+#include "assets/ast_vs_player.h"
 
 char D_800CF970[] = "$Id: fox_edisplay.c,v 1.196 1997/05/08 08:31:50 morita Exp $";
 
@@ -85,10 +93,10 @@ void func_80059AEC(Object_80* obj80) {
 
 void func_80059B20(Object_80* obj80) {
     if (obj80->obj.id == OBJ_80_29) {
-        gSPDisplayList(gMasterDisp++, D_7007350);
+        gSPDisplayList(gMasterDisp++, D_TI1_7007350);
     } else {
         Graphics_SetScaleMtx(D_800CF9B0[obj80->obj.id + 2]);
-        gSPDisplayList(gMasterDisp++, D_700BB10);
+        gSPDisplayList(gMasterDisp++, D_TI1_700BB10);
     }
 }
 
@@ -208,7 +216,7 @@ Gfx* D_800CFC0C[] = {
     D_60294A0, D_60291B0, D_60287F0, D_6029330, D_6029240, D_6029790, D_6029900,
     D_6028F50, D_60290C0, D_6029530, D_60296A0, D_6028A80, D_6028910,
 };
-Gfx* D_800CFC40[] = { D_6014FD0, D_6014FD0, D_6014FD0, D_6014FD0 };
+Gfx* D_800CFC40[] = { D_AQ_6014FD0, D_AQ_6014FD0, D_AQ_6014FD0, D_AQ_6014FD0 };
 Gfx* D_800CFC50[] = { D_601EDE0, D_601F2F0, D_601F830, D_601FD70, D_601D110 };
 Gfx* D_800CFC64[] = { D_6023940, D_6023D70, D_60249C0, D_6023EB0, D_60249C0, D_6023B80 };
 Gfx* D_800CFC7C[] = {
@@ -377,7 +385,7 @@ void func_8005A094(Actor* actor) {
         case 58:
             Graphics_SetScaleMtx(actor->scale);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_60148B0);
+            gSPDisplayList(gMasterDisp++, D_AQ_60148B0);
             break;
         case 59:
             Graphics_SetScaleMtx(actor->scale);
@@ -1769,7 +1777,7 @@ void func_80060968(void) {
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -200.0f, 1);
                     Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 5.0f * M_DTOR, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_60119A0);
+                    gSPDisplayList(gMasterDisp++, D_AQ_60119A0);
                 } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
                     Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.0025f, 1);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -200.0f, 1);

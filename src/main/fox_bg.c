@@ -17,7 +17,12 @@ UNK_TYPE D_8015F988[0x683]; // Unused? Close to being [13][0x80]
 f32 D_80161394;             // can be static
 
 #include "assets/ast_bg_planet.h"
+#include "assets/ast_vs_player.h"
 #include "assets/ast_training.h"
+#include "assets/ast_sector_x.h"
+#include "assets/ast_aquas.h"
+#include "assets/ast_andross.h"
+#include "assets/ast_warp_zone.h"
 
 f32 D_800C9C30 = 0.0f;
 u16 D_800C9C34 = 1;
@@ -403,9 +408,9 @@ void func_8003E1E8(void) {
                         Matrix_Translate(gGfxMatrix, sp13C, sp134, -7000.0f, 1);
                         Matrix_SetGfxMtx(&gMasterDisp);
                         if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2) {
-                            gSPDisplayList(gMasterDisp++, D_601AFF0);
+                            gSPDisplayList(gMasterDisp++, D_AQ_601AFF0);
                         } else {
-                            gSPDisplayList(gMasterDisp++, D_601C080);
+                            gSPDisplayList(gMasterDisp++, D_AQ_601C080);
                         }
 
                         if (sp13C < 0) {
@@ -416,10 +421,10 @@ void func_8003E1E8(void) {
                         Matrix_Translate(gGfxMatrix, 7280.0f * sp13C, 0.0f, 0.0f, 1);
                         Matrix_SetGfxMtx(&gMasterDisp);
                         if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2) {
-                            gSPDisplayList(gMasterDisp++, D_601AFF0);
+                            gSPDisplayList(gMasterDisp++, D_AQ_601AFF0);
 
                         } else {
-                            gSPDisplayList(gMasterDisp++, D_601C080);
+                            gSPDisplayList(gMasterDisp++, D_AQ_601C080);
                         }
                         Matrix_Pop(&gGfxMatrix);
                     }
@@ -533,7 +538,7 @@ void func_8003E1E8(void) {
                                 Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 10.0f * M_DTOR, 1);
                                 Matrix_Scale(gGfxMatrix, 1.07f, 0.93f, 1.0f, 1);
                                 Matrix_SetGfxMtx(&gMasterDisp);
-                                gSPDisplayList(gMasterDisp++, D_7001540);
+                                gSPDisplayList(gMasterDisp++, D_WZ_7001540);
                                 Matrix_Pop(&gGfxMatrix);
                             }
                             break;
@@ -557,7 +562,7 @@ void func_8003E1E8(void) {
                                 Matrix_SetGfxMtx(&gMasterDisp);
                                 RCP_SetupDL_62();
                                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 192);
-                                gSPDisplayList(gMasterDisp++, D_6029890);
+                                gSPDisplayList(gMasterDisp++, D_SX_6029890);
                             }
                             break;
                         case LEVEL_TRAINING:
@@ -566,7 +571,7 @@ void func_8003E1E8(void) {
                             Matrix_SetGfxMtx(&gMasterDisp);
                             RCP_SetupDL_62();
                             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
-                            gSPDisplayList(gMasterDisp++, D_training_6003760);
+                            gSPDisplayList(gMasterDisp++, D_TR_6003760);
                             break;
                         case LEVEL_AREA_6:
                         case LEVEL_UNK_4:
@@ -976,14 +981,14 @@ void func_80040CE4(void) {
                 Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -3000.0f + D_80177CE8, 1);
                 Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.5f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_training_6005880);
+                gSPDisplayList(gMasterDisp++, D_TR_6005880);
                 Matrix_Pop(&gGfxMatrix);
                 if (1) {}
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 3000.0f + D_80177CE8, 1);
                 Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.5f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_training_6005880);
+                gSPDisplayList(gMasterDisp++, D_TR_6005880);
                 Matrix_Pop(&gGfxMatrix);
             } else {
                 for (i = 0; i < 4; i++) {
@@ -991,7 +996,7 @@ void func_80040CE4(void) {
                     Matrix_Translate(gGfxMatrix, D_800C9E64[i], 0.0f, D_800C9E74[i], 1);
                     Matrix_Scale(gGfxMatrix, 1.5f, 1.0f, 1.0f, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_training_6005880);
+                    gSPDisplayList(gMasterDisp++, D_TR_6005880);
                     Matrix_Pop(&gGfxMatrix);
                 }
             }
@@ -1000,14 +1005,14 @@ void func_80040CE4(void) {
             RCP_SetupDL(&gMasterDisp, 0x14);
             gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
             if ((D_8015F964 == 0) && ((D_80177AC8 == 0) || (D_80177AC8 == 2))) {
-                gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, SEGMENTED_TO_VIRTUAL(D_600AB68));
+                gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, SEGMENTED_TO_VIRTUAL(D_AQ_600AB68));
                 gDPTileSync(gMasterDisp++);
                 gDPSetTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0,
                            G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK,
                            G_TX_NOLOD);
                 gDPLoadSync(gMasterDisp++);
                 gDPLoadBlock(gMasterDisp++, G_TX_LOADTILE, 0, 0, 1023, 256);
-                gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, SEGMENTED_TO_VIRTUAL(D_600AB68));
+                gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, SEGMENTED_TO_VIRTUAL(D_AQ_600AB68));
                 temp_s0 = fabsf(Math_ModF(2.0f * (D_80177CE8 * 0.2133333f), 128.0f));
                 temp_fv0 = Math_ModF((10000.0f - gPlayer[gPlayerNum].unk_0AC) * 0.32f, 128.0f);
                 gDPTileSync(gMasterDisp++);
@@ -1018,7 +1023,7 @@ void func_80040CE4(void) {
                 Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -3000.0f, 1);
                 Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.5f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                sp1C0 = D_600AB10;
+                sp1C0 = D_AQ_600AB10;
                 gSPDisplayList(gMasterDisp++, sp1C0);
                 Matrix_Pop(&gGfxMatrix);
                 Matrix_Push(&gGfxMatrix);
@@ -1029,14 +1034,14 @@ void func_80040CE4(void) {
                 Matrix_Pop(&gGfxMatrix);
             }
             if ((D_8015F964 != 0) || (D_80177AC8 == 0)) {
-                gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, SEGMENTED_TO_VIRTUAL(D_602ACC0));
+                gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, SEGMENTED_TO_VIRTUAL(D_AQ_602ACC0));
                 gDPTileSync(gMasterDisp++);
                 gDPSetTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0,
                            G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK,
                            G_TX_NOLOD);
                 gDPLoadSync(gMasterDisp++);
                 gDPLoadBlock(gMasterDisp++, G_TX_LOADTILE, 0, 0, 1023, 256);
-                gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, SEGMENTED_TO_VIRTUAL(D_602ACC0));
+                gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, SEGMENTED_TO_VIRTUAL(D_AQ_602ACC0));
                 temp_s0 = fabsf(Math_ModF(2.0f * (D_80177CE8 * 0.2133333f), 128.0f));
                 temp_fv0 = Math_ModF((10000.0f - gPlayer[gPlayerNum].unk_0AC) * 0.32f, 128.0f);
                 gDPTileSync(gMasterDisp++);
@@ -1059,12 +1064,12 @@ void func_80040CE4(void) {
                 Matrix_Translate(gGfxMatrix, 0.0f, D_8015F970, -3000.0f, 1);
                 Matrix_Scale(gGfxMatrix, 2.0f, 1.0f, 0.5f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_602AC40);
+                gSPDisplayList(gMasterDisp++, D_AQ_602AC40);
                 Matrix_Pop(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, 0.0f, D_8015F970, 3000.0f, 1);
                 Matrix_Scale(gGfxMatrix, 2.0f, 1.0f, 0.5f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_602AC40);
+                gSPDisplayList(gMasterDisp++, D_AQ_602AC40);
             }
             break;
         case LEVEL_FORTUNA:
@@ -1153,9 +1158,9 @@ void func_80042D38(void) {
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 125);
     Matrix_SetGfxMtx(&gMasterDisp);
     if (gGameFrameCount & 1) {
-        gSPDisplayList(gMasterDisp++, D_602C030);
+        gSPDisplayList(gMasterDisp++, D_AQ_602C030);
     } else {
-        gSPDisplayList(gMasterDisp++, D_602C088);
+        gSPDisplayList(gMasterDisp++, D_AQ_602C088);
     }
     Matrix_Pop(&gGfxMatrix);
 }

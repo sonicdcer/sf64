@@ -5,9 +5,14 @@ s32 D_800CFF90 = 0;
 s32 D_80161690;
 
 #include "fox_enmy2_assets.h"
+#include "assets/ast_arwing.h"
 #include "assets/ast_training.h"
 #include "assets/ast_warp_zone.h"
 #include "assets/ast_allies.h"
+#include "assets/ast_sector_x.h"
+#include "assets/ast_aquas.h"
+#include "assets/ast_7_ti_1.h"
+#include "assets/ast_andross.h"
 
 void func_8006A7B0(u16* msg, s32 character) {
     PRINTF("Enm->obj.pos.y + tmp_xyz.y=<%10.3f>\n");
@@ -872,28 +877,28 @@ UnkStruct_D003C D_800D003C[108] = {
     { D_400AAE0, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
     { D_4000650, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 6, 0, 1.0f, 1 },
     { D_6016190, D_60282A0, -2.0f, 2100.0f, 3000.0f, 0, 0, 7, 0, 0.0f, 5 },
-    { D_6023500, D_800CBEC4, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    { D_6022DF0, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    { D_SX_6023500, D_800CBEC4, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    { D_SX_6022DF0, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
     { NULL, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 2, 1, 1, 0, 0.0f, 1 },
     { NULL, D_800CBEC4, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 0.0f, 1 },
     { NULL, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 0.0f, 1 },
     { D_4008FA0, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    { D_60285F0, D_603298C, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_600AF70, D_6032904, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_6023E30, D_6032970, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { NULL, D_603285C, 2.5f, 100.0f, 3000.0f, 2, 0, 0, 0, 1.0f, 1 },
-    { D_6001CE0, D_6032938, 3.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 1.0f, 1 },
-    { D_6000840, D_6032954, 1.0f, 100.0f, 3000.0f, 2, 1, 0, 0, 1.0f, 1 },
+    { D_SX_60285F0, D_SX_603298C, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { D_SX_600AF70, D_SX_6032904, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { D_SX_6023E30, D_SX_6032970, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { NULL, D_SX_603285C, 2.5f, 100.0f, 3000.0f, 2, 0, 0, 0, 1.0f, 1 },
+    { D_SX_6001CE0, D_SX_6032938, 3.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 1.0f, 1 },
+    { D_SX_6000840, D_SX_6032954, 1.0f, 100.0f, 3000.0f, 2, 1, 0, 0, 1.0f, 1 },
     { D_6012A40, D_6028254, -2.0f, 2100.0f, 3001.0f, 0, 0, 7, 0, 0.0f, 2 },
     { NULL, D_60280E0, -2.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 3 },
-    { D_6009950, D_6032878, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { D_SX_6009950, D_SX_6032878, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
     { NULL, D_800CBEC4, 2.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
-    { D_600B2B0, D_6032894, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_600A2E0, D_60328B0, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { D_SX_600B2B0, D_SX_6032894, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { D_SX_600A2E0, D_SX_60328B0, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
     { NULL, D_800CBEFC, 2.0f, 200.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    { D_600B830, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    { NULL, D_603238C, 1.0f, 500.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
-    { D_6020D20, D_60328CC, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { D_SX_600B830, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    { NULL, D_SX_603238C, 1.0f, 500.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
+    { D_SX_6020D20, D_SX_60328CC, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
     { NULL, D_800CBF34, 1.0f, 100.0f, 3001.0f, 2, 0, 0, 0, 0.0f, 1 },
     { D_60097E0, D_6034478, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
     { D_601D730, D_603450C, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
@@ -907,7 +912,7 @@ UnkStruct_D003C D_800D003C[108] = {
     { NULL, D_603405C, 0.3f, 100.0f, 3000.0f, 0, 0, 1, 0, 1.0f, 1 },
     { D_6015D60, D_6034124, 2.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 1.0f, 1 },
     { NULL, D_602C1A0, -1.0f, 1000.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_600B540, D_60328E8, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { D_SX_600B540, D_SX_60328E8, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
     { D_4000EC0, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
     { D_4008D50, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
     { NULL, D_800CBF34, -1.0f, 2000.0f, 3000.0f, 0, 0, 3, 0, 0.0f, 1 },
@@ -937,26 +942,26 @@ UnkStruct_D003C D_800D003C[108] = {
     { NULL, D_601B474, -1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 0.0f, 1 },
     { NULL, D_800CBF34, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
     { NULL, D_800CBE8C, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    { NULL, D_6030B4C, 1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 60.0f, 1 },
+    { NULL, D_AQ_6030B4C, 1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 60.0f, 1 },
     { D_9012180, D_601B43C, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
     { NULL, D_800CBE8C, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
     { NULL, D_800CBE8C, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
     { D_900EFC0, D_800CBF34, 1.0f, 100.0f, 3000.0f, 1, 1, 0, 0, 0.0f, 1 },
-    { NULL, D_6030B30, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
-    { NULL, D_6030B14_f32, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    { NULL, D_AQ_6030B30, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    { NULL, D_AQ_6030B14_f32, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
     { D_601C520, D_60368FC, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
     { D_600AF40, D_60368E0, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
-    { D_7000C40, D_800CC0D4, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_70010E0, D_800CC0F0, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_7000E80, D_800CC054, 2.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
-    { D_70008F0, D_800CBE8C, -1.0f, 100.0f, 8000.0f, 1, 0, 0, 0, 0.0f, 0 },
-    { D_7000280, D_800CC070, -1.0f, 1000.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 0 },
+    { D_WZ_7000C40, D_800CC0D4, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { D_WZ_70010E0, D_800CC0F0, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { D_WZ_7000E80, D_800CC054, 2.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    { D_WZ_70008F0, D_800CBE8C, -1.0f, 100.0f, 8000.0f, 1, 0, 0, 0, 0.0f, 0 },
+    { D_WZ_7000280, D_800CC070, -1.0f, 1000.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 0 },
     { D_600AC70, D_800CBE8C, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
     { D_601A2B0, D_60364C0, 1.0f, 100.0f, 3000.0f, 1, 1, 0, 0, 0.0f, 1 },
     { D_6002500, D_601B944, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
     { D_60043F0, D_800CBF34, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
     { D_6004310, D_800CBF34, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_training_6002740, D_training_6009D18, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { D_TR_6002740, D_TR_6009D18, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
     { NULL, D_800CBF34, -1.0f, 500.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 0 },
     { NULL, D_800CBF34, -1.0f, 500.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 0 },
     { NULL, D_800CBEC4, 1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 1.0f, 1 },
@@ -988,13 +993,13 @@ void func_8006D36C(Actor* actor) {
             var_v1 = SEGMENTED_TO_VIRTUAL(D_602F3AC);
             break;
         case LEVEL_AQUAS:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_60308B8);
+            var_v1 = SEGMENTED_TO_VIRTUAL(D_AQ_60308B8);
             break;
         case LEVEL_TITANIA:
             var_v1 = SEGMENTED_TO_VIRTUAL(D_600631C);
             break;
         case LEVEL_SECTOR_X:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_60320D0);
+            var_v1 = SEGMENTED_TO_VIRTUAL(D_SX_60320D0);
             break;
         case LEVEL_UNK_4:
             var_v1 = SEGMENTED_TO_VIRTUAL(D_60289FC);
@@ -1018,7 +1023,7 @@ void func_8006D36C(Actor* actor) {
             var_v1 = SEGMENTED_TO_VIRTUAL(D_60381D8);
             break;
         case LEVEL_TRAINING:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_training_6009B34);
+            var_v1 = SEGMENTED_TO_VIRTUAL(D_TR_6009B34);
             break;
         default:
             var_v1 = SEGMENTED_TO_VIRTUAL(D_603D9E8);
@@ -2819,7 +2824,7 @@ void func_800720E8(Actor* actor) {
 
                 if (actor->health <= 0) {
                     actor->unk_046 = 1;
-                    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6032408);
+                    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_6032408);
                     AUDIO_PLAY_SFX(0x1900000D, actor->sfxSource, 0);
                 } else {
                     AUDIO_PLAY_SFX(0x2903300E, actor->sfxSource, 0);
@@ -3728,11 +3733,11 @@ bool func_80074C44(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* dat
 void func_80074E3C(Actor* actor) {
     Vec3f sp30[10];
 
-    Animation_GetFrameData(&D_6013820, 0, sp30);
+    Animation_GetFrameData(&D_SX_6013820, 0, sp30);
     sp30[6].y += actor->fwork[15];
     sp30[5].z += actor->fwork[16] + ((actor->timer_0BE >> 2) & 1);
     sp30[4].z -= actor->fwork[16] + ((actor->timer_0BE >> 2) & 1);
-    Animation_DrawSkeleton(1, D_601390C, sp30, func_80074C44, NULL, actor, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, D_SX_601390C, sp30, func_80074C44, NULL, actor, &gIdentityMatrix);
 }
 
 bool func_80074F04(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
@@ -3925,9 +3930,9 @@ void func_80074FF0(Actor* actor) {
                         }
                         RCP_SetupDL(&gMasterDisp, 0x39);
                         gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
-                        gSPDisplayList(gMasterDisp++, D_6001950);
+                        gSPDisplayList(gMasterDisp++, D_SX_6001950);
                     } else {
-                        gSPDisplayList(gMasterDisp++, D_60066F0);
+                        gSPDisplayList(gMasterDisp++, D_SX_60066F0);
                     }
                     break;
 
@@ -3946,9 +3951,9 @@ void func_80074FF0(Actor* actor) {
                     break;
 
                 case 36:
-                    Animation_GetFrameData(&D_700CAF4, actor->unk_0B6, sp114);
+                    Animation_GetFrameData(&D_TI1_700CAF4, actor->unk_0B6, sp114);
                     sp114[2].z += actor->fwork[15];
-                    Animation_DrawSkeleton(1, D_700CB60, sp114, NULL, NULL, actor, &gIdentityMatrix);
+                    Animation_DrawSkeleton(1, D_TI1_700CB60, sp114, NULL, NULL, actor, &gIdentityMatrix);
                     break;
 
                 case 38:
@@ -4026,8 +4031,8 @@ void func_80074FF0(Actor* actor) {
 
                 case 83:
                     Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, 1);
-                    Animation_GetFrameData(&D_602201C, actor->unk_0B6, sp114);
-                    Animation_DrawSkeleton(1, D_60220E8, sp114, NULL, NULL, actor, &gIdentityMatrix);
+                    Animation_GetFrameData(&D_AQ_602201C, actor->unk_0B6, sp114);
+                    Animation_DrawSkeleton(1, D_AQ_60220E8, sp114, NULL, NULL, actor, &gIdentityMatrix);
                     break;
 
                 case 85:
@@ -4043,12 +4048,12 @@ void func_80074FF0(Actor* actor) {
                 case 88:
                     RCP_SetupDL(&gMasterDisp, 0x16);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, actor->unk_046, actor->unk_046, actor->unk_046, 255);
-                    gSPDisplayList(gMasterDisp++, D_6008970);
+                    gSPDisplayList(gMasterDisp++, D_AQ_6008970);
                     break;
 
                 case 89:
                     RCP_SetupDL(&gMasterDisp, 0x15);
-                    gSPDisplayList(gMasterDisp++, D_6000E10);
+                    gSPDisplayList(gMasterDisp++, D_AQ_6000E10);
                     break;
 
                 case 103:
@@ -4060,7 +4065,7 @@ void func_80074FF0(Actor* actor) {
                     RCP_SetupDL(&gMasterDisp, 0x23);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 0x8F);
                     gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
-                    gSPDisplayList(gMasterDisp++, D_7000000);
+                    gSPDisplayList(gMasterDisp++, D_WZ_7000000);
                     break;
 
                 case 106:

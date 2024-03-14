@@ -1,5 +1,8 @@
 #include "prevent_bss_reordering.h"
 #include "global.h"
+#include "assets/ast_star_wolf.h"
+#include "assets/ast_allies.h"
+#include "assets/ast_vs_player.h"
 
 /* static */ Vec3f D_800C9A90 = { 0.0f, -10.0f, 0.0f };
 /* static */ Vec3f D_800C9A9C[4] = {
@@ -45,7 +48,7 @@ s32 D_8015F93C;
 s32 D_8015F940;
 f32 D_8015F944;
 
-#include "assets/ast_allies.h"
+
 
 void func_8002E3E0(Actor* actor) {
     s32 hits = 0;

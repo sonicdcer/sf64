@@ -1,12 +1,12 @@
 #include "global.h"
 
-extern ObjectInit D_6008EF8[];
+extern ObjectInit D_TR_6008EF8[];
 
 void func_i1_80198C50(void) {
     Object_58* obj58;
     s32 i;
 
-    D_80178310 = SEGMENTED_TO_VIRTUAL(D_6008EF8);
+    D_80178310 = SEGMENTED_TO_VIRTUAL(D_TR_6008EF8);
     Rand_SetSeed(1, 29000, 9876);
 
     obj58 = gObjects58;
@@ -223,7 +223,7 @@ void func_i1_8019949C(void) {
             D_80177C8C = 1;
         }
         if (D_i1_8019AE50[D_80177C8C].unk != 0) {
-            Radio_PlayMessage(D_i1_8019AE50[D_80177C8C].msg, RCID_TRAINING);
+            Radio_PlayMessage(D_i1_8019AE50[D_80177C8C].msg, RCID_TR);
             D_80177C78 = D_i1_8019AE50[D_80177C8C].unk;
         } else {
             D_80161690 = 80;

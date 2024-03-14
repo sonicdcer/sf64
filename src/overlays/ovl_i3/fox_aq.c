@@ -1,58 +1,10 @@
-// #include "prevent_bss_reordering.h"
+#include "prevent_bss_reordering.h"
 #include "global.h"
 #include "assets/ast_blue_marine.h"
+#include "assets/ast_aquas.h"
 
 const char D_i3_801C1A30[] = "プレイヤーのすべてをクリア \n";
 const char D_i3_801C1A50[] = "i %d\n";
-
-// /* 0x6 */ ROM_SEGMENT(ast_A58F60),
-extern Animation D_6000AE4;
-extern Limb* D_6000DB0[];
-extern Animation D_6002628;
-extern Limb* D_6002874[];
-extern Gfx D_6002C10[];
-extern Animation D_6005954;
-extern Limb* D_6005A80[];
-extern u8 D_6008EC8[];
-extern u8 D_6008FC8[];
-extern Vtx D_6011A78[];
-extern Animation D_60135E0;
-extern Limb* D_60136CC[];
-extern Limb* D_60137CC[];
-extern Gfx D_60137F0[];
-extern Gfx D_6014030[];
-extern Animation D_6014438;
-extern Limb* D_6014504[];
-extern Gfx D_6014520[];
-extern Gfx D_6014FD0[];
-extern Vtx D_6018878[];
-extern Vtx D_6018C78[];
-extern Vtx D_6019078[];
-extern u8 D_6019238[];
-extern u8 D_6019338[];
-extern Gfx D_60194D0[];
-extern Gfx D_6019880[];
-extern Gfx D_6019E80[];
-extern Animation D_601DE50;
-extern Animation D_601EC68;
-extern Limb* D_601EDB4[];
-extern Animation D_6020A40;
-extern Limb* D_6020C6C[];
-extern Animation D_6023780;
-extern Limb* D_602390C[];
-extern Gfx D_6024A50[];
-extern Animation D_6024F80;
-extern Limb* D_602512C[];
-extern Animation D_60260EC;
-extern Limb* D_60263F8[];
-extern Animation D_602AC28;
-extern Limb* D_602BD60[];
-extern f32 D_6030D3C[];
-extern f32 D_6030D58[];
-extern f32 D_60314AC[];
-extern f32 D_60314E4[];
-extern f32 D_603151C[];
-extern Vtx D_6031D90[];
 
 typedef enum {
     /*  0 */ AQ_LIMB_0,
@@ -245,7 +197,7 @@ s32 D_i3_801BFB64[11] = {
 u8 D_i3_801BFB90[12] = {
     0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
 };
-Gfx* D_i3_801BFB9C[3] = { D_6015FF0, D_6022110, D_6015DD0 };
+Gfx* D_i3_801BFB9C[3] = { D_AQ_6015FF0, D_AQ_6022110, D_AQ_6015DD0 };
 f32 D_i3_801BFBA8[2] = { 40.0f, -40.0f };
 f32 D_i3_801BFBB0[3] = { 20.0f, 10.0f, 15.0f };
 f32 D_i3_801BFBBC[3] = { 8.0f, 27.0f, 42.0f };
@@ -348,8 +300,8 @@ void func_i3_801A8E30(void) {
     f32 spA8[17];
     f32 sp64[17];
     s32 j;
-    Vtx* sp5C = SEGMENTED_TO_VIRTUAL(D_6031D90);
-    Vtx* sp58 = SEGMENTED_TO_VIRTUAL(D_6011A78);
+    Vtx* sp5C = SEGMENTED_TO_VIRTUAL(D_AQ_6031D90);
+    Vtx* sp58 = SEGMENTED_TO_VIRTUAL(D_AQ_6011A78);
 
     for (i = 0; i < 17; i++) {
         if ((i == 0) || (i == 16)) {
@@ -1882,11 +1834,11 @@ void func_i3_801AEB44(Actor* actor) {
         actor->iwork[1]++;
         actor->iwork[1] %= 8;
     }
-    temp_v1_2 = SEGMENTED_TO_VIRTUAL(D_6019078);
+    temp_v1_2 = SEGMENTED_TO_VIRTUAL(D_AQ_6019078);
     if (actor->iwork[1] < 4) {
-        var_t5 = SEGMENTED_TO_VIRTUAL(D_6018C78);
+        var_t5 = SEGMENTED_TO_VIRTUAL(D_AQ_6018C78);
     } else {
-        var_t5 = SEGMENTED_TO_VIRTUAL(D_6018878);
+        var_t5 = SEGMENTED_TO_VIRTUAL(D_AQ_6018878);
     }
     var_t1 = actor->iwork[1] % 4;
     if (var_t1 >= 3) {
@@ -1930,8 +1882,8 @@ void func_i3_801AEB44(Actor* actor) {
     }
     Matrix_SetGfxMtx(&gMasterDisp);
     gDPSetTextureLUT(gMasterDisp++, G_TT_RGBA16);
-    gDPLoadTLUT_pal256(gMasterDisp++, D_6008FC8);
-    gDPLoadTextureBlock(gMasterDisp++, D_6008EC8, G_IM_FMT_CI, G_IM_SIZ_8b, 16, 16, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gDPLoadTLUT_pal256(gMasterDisp++, D_AQ_6008FC8);
+    gDPLoadTextureBlock(gMasterDisp++, D_AQ_6008EC8, G_IM_FMT_CI, G_IM_SIZ_8b, 16, 16, 0, G_TX_NOMIRROR | G_TX_WRAP,
                         G_TX_NOMIRROR | G_TX_WRAP, 4, 4, G_TX_NOLOD, G_TX_NOLOD);
     gSPVertex(gMasterDisp++, D_i3_801C3A88[actor->iwork[0]][gSysFrameCount & 1], 14, 0);
     gSP1Triangle(gMasterDisp++, 0, 1, 2, 0);
@@ -1969,8 +1921,8 @@ void func_i3_801AEB44(Actor* actor) {
     gSP1Triangle(gMasterDisp++, 0, 11, 9, 0);
     gSP1Triangle(gMasterDisp++, 9, 1, 0, 0);
     gSP1Triangle(gMasterDisp++, 9, 12, 8, 0);
-    gDPLoadTLUT_pal256(gMasterDisp++, D_6019338);
-    gDPLoadTextureBlock(gMasterDisp++, D_6019238, G_IM_FMT_CI, G_IM_SIZ_8b, 16, 16, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gDPLoadTLUT_pal256(gMasterDisp++, D_AQ_6019338);
+    gDPLoadTextureBlock(gMasterDisp++, D_AQ_6019238, G_IM_FMT_CI, G_IM_SIZ_8b, 16, 16, 0, G_TX_NOMIRROR | G_TX_WRAP,
                         G_TX_NOMIRROR | G_TX_WRAP, 4, 4, G_TX_NOLOD, G_TX_NOLOD);
     gSPVertex(gMasterDisp++, &D_i3_801C3A88[actor->iwork[0]][gSysFrameCount & 1][20], 8, 0);
     gSP1Triangle(gMasterDisp++, 0, 1, 2, 0);
@@ -2231,13 +2183,13 @@ void func_i3_801B099C(Actor* actor) {
     }
     switch (actor->iwork[0]) {
         case 0:
-            gSPDisplayList(gMasterDisp++, D_6019E80);
+            gSPDisplayList(gMasterDisp++, D_AQ_6019E80);
             break;
         case 1:
-            gSPDisplayList(gMasterDisp++, D_60194D0);
+            gSPDisplayList(gMasterDisp++, D_AQ_60194D0);
             break;
         case 2:
-            gSPDisplayList(gMasterDisp++, D_6019880);
+            gSPDisplayList(gMasterDisp++, D_AQ_6019880);
             break;
     }
 }
@@ -2318,7 +2270,7 @@ void func_i3_801B0EC0(Actor* actor) {
         RCP_SetupDL(&gMasterDisp, 0x3D);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, actor->iwork[1], actor->iwork[2], actor->iwork[3], 255);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_6024A50);
+        gSPDisplayList(gMasterDisp++, D_AQ_6024A50);
     }
 }
 
@@ -3445,7 +3397,7 @@ void func_i3_801B49DC(s32 limbIndex, Vec3f* rot, void* thisx) {
 
 // OBJ_BOSS_AQ draw
 void func_i3_801B4D84(Boss* bossAQ) {
-    Animation_DrawSkeleton(3, D_602BD60, bossAQ->vwork, func_i3_801B42AC, func_i3_801B49DC, bossAQ, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_AQ_602BD60, bossAQ->vwork, func_i3_801B42AC, func_i3_801B49DC, bossAQ, gCalcMatrix);
 }
 
 f32 D_i3_801C01F8[11] = {
@@ -3518,8 +3470,8 @@ void func_i3_801B504C(Actor* actor) {
     Vec3f sp30[30];
 
     Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, 1);
-    Animation_GetFrameData(&D_6005954, actor->unk_0B6, sp30);
-    Animation_DrawSkeleton(3, D_6005A80, sp30, func_i3_801B4DDC, func_i3_801B4E94, actor, gCalcMatrix);
+    Animation_GetFrameData(&D_AQ_6005954, actor->unk_0B6, sp30);
+    Animation_DrawSkeleton(3, D_AQ_6005A80, sp30, func_i3_801B4DDC, func_i3_801B4E94, actor, gCalcMatrix);
 }
 
 f32 D_i3_801C025C[2] = { 120.0f, 0.0f };
@@ -3646,7 +3598,7 @@ void func_i3_801B50E8(Actor* actor) {
         } else {
             actor->unk_0B6 += 3;
         }
-        if (actor->unk_0B6 >= Animation_GetFrameCount(&D_6005954)) {
+        if (actor->unk_0B6 >= Animation_GetFrameCount(&D_AQ_6005954)) {
             actor->unk_0B6 = 0;
         }
     }
@@ -3795,8 +3747,8 @@ void func_i3_801B619C(Actor* actor) {
     Matrix_Push(&gCalcMatrix);
     Matrix_Push(&gGfxMatrix);
     Matrix_Scale(gCalcMatrix, actor->scale, actor->scale, actor->scale, 1);
-    Animation_GetFrameData(&D_6002628, actor->unk_0B6, sp40);
-    Animation_DrawSkeleton(3, D_6002874, sp40, func_i3_801B5C18, func_i3_801B5F68, actor, gCalcMatrix);
+    Animation_GetFrameData(&D_AQ_6002628, actor->unk_0B6, sp40);
+    Animation_DrawSkeleton(3, D_AQ_6002874, sp40, func_i3_801B5C18, func_i3_801B5F68, actor, gCalcMatrix);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Pop(&gCalcMatrix);
     Matrix_Push(&gGfxMatrix);
@@ -3875,7 +3827,7 @@ void func_i3_801B638C(Actor* actor) {
         actor->fwork[11] = 1200.0f;
     }
     actor->unk_0B6++;
-    if (actor->unk_0B6 >= Animation_GetFrameCount(&D_6002628)) {
+    if (actor->unk_0B6 >= Animation_GetFrameCount(&D_AQ_6002628)) {
         actor->unk_0B6 = 0;
     }
     switch (actor->state) {
@@ -4091,7 +4043,7 @@ void func_i3_801B6FF8(Actor* actor) {
         }
     }
     actor->unk_0B6++;
-    if (Animation_GetFrameCount(&D_60260EC) < actor->unk_0B6) {
+    if (Animation_GetFrameCount(&D_AQ_60260EC) < actor->unk_0B6) {
         actor->unk_0B6 = 0;
     }
     if (actor->unk_0D0 != 0) {
@@ -4205,8 +4157,8 @@ void func_i3_801B7A24(Actor* actor) {
         RCP_SetupDL(&gMasterDisp, 0x3D);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
-    Animation_GetFrameData(&D_60260EC, actor->unk_0B6, sp30);
-    Animation_DrawSkeleton(3, D_60263F8, sp30, func_i3_801B76EC, func_i3_801B7754, actor, gCalcMatrix);
+    Animation_GetFrameData(&D_AQ_60260EC, actor->unk_0B6, sp30);
+    Animation_DrawSkeleton(3, D_AQ_60263F8, sp30, func_i3_801B76EC, func_i3_801B7754, actor, gCalcMatrix);
 }
 
 void func_i3_801B7AF0(Actor* actor) {
@@ -4324,7 +4276,7 @@ void func_i3_801B7C78(Actor* actor) {
             break;
         case 2:
             actor->unk_0B6 += actor->iwork[1];
-            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_6024F80)) {
+            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_AQ_6024F80)) {
                 actor->unk_0B6 = 0;
                 actor->timer_0BE = 0;
                 if (actor->iwork[1] >= 2) {
@@ -4354,8 +4306,8 @@ void func_i3_801B7C78(Actor* actor) {
             if (actor->timer_0C0 == 0) {
                 Audio_KillSfxBySource(actor->sfxSource);
                 actor->unk_0B6++;
-                if (Animation_GetFrameCount(&D_602AC28) < actor->unk_0B6) {
-                    actor->unk_0B6 = Animation_GetFrameCount(&D_6024F80) - 1;
+                if (Animation_GetFrameCount(&D_AQ_602AC28) < actor->unk_0B6) {
+                    actor->unk_0B6 = Animation_GetFrameCount(&D_AQ_6024F80) - 1;
                     actor->state = 7;
                 }
             }
@@ -4418,8 +4370,8 @@ void func_i3_801B7C78(Actor* actor) {
         case 5:
             Math_SmoothStepToAngle(&actor->obj.rot.x, 40.0f, 0.1f, 10.0f, 0);
             actor->unk_0B6++;
-            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_6024F80)) {
-                actor->unk_0B6 = Animation_GetFrameCount(&D_6024F80) - 1;
+            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_AQ_6024F80)) {
+                actor->unk_0B6 = Animation_GetFrameCount(&D_AQ_6024F80) - 1;
             }
             if (actor->timer_0C0 == 0) {
                 temp_dy = gPlayer[0].pos.y - 50.0f - actor->obj.pos.y;
@@ -4438,8 +4390,8 @@ void func_i3_801B7C78(Actor* actor) {
             break;
         case 6:
             actor->unk_0B6++;
-            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_6024F80)) {
-                actor->unk_0B6 = Animation_GetFrameCount(&D_6024F80) - 1;
+            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_AQ_6024F80)) {
+                actor->unk_0B6 = Animation_GetFrameCount(&D_AQ_6024F80) - 1;
             }
             Math_SmoothStepToAngle(&actor->obj.rot.x, 30.0f, 0.1f, 10.0f, 0);
             if (!(gGameFrameCount & 1)) {
@@ -4591,12 +4543,12 @@ void func_i3_801B90DC(Actor* actor) {
     Vec3f sp30[30];
 
     if ((actor->state >= 3) && (actor->state < 5)) {
-        Animation_GetFrameData(&D_602AC28, actor->unk_0B6, sp30);
+        Animation_GetFrameData(&D_AQ_602AC28, actor->unk_0B6, sp30);
     } else {
-        Animation_GetFrameData(&D_6024F80, actor->unk_0B6, sp30);
+        Animation_GetFrameData(&D_AQ_6024F80, actor->unk_0B6, sp30);
     }
     Matrix_Translate(gCalcMatrix, 0.0f, -150.0f, 100.0f, 1);
-    Animation_DrawSkeleton(3, D_602512C, sp30, func_i3_801B8C50, func_i3_801B8D7C, actor, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_AQ_602512C, sp30, func_i3_801B8C50, func_i3_801B8D7C, actor, gCalcMatrix);
 }
 
 // OBJ_ACTOR_263 action
@@ -4649,7 +4601,7 @@ void func_i3_801B91A4(Actor* actor) {
             actor->unk_0B6 = 19;
             actor->fwork[1] = actor->obj.pos.z;
             if (actor->obj.rot.z >= 4.0f) {
-                actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_60314AC);
+                actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_AQ_60314AC);
                 actor->health = 200;
                 actor->info.bonus = 1;
                 actor->state = 2;
@@ -4672,7 +4624,7 @@ void func_i3_801B91A4(Actor* actor) {
             break;
         case 1:
             actor->unk_0B6++;
-            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_6000AE4)) {
+            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_AQ_6000AE4)) {
                 actor->unk_0B6 = 0;
             }
             if (actor->unk_0B6 == 36) {
@@ -4711,7 +4663,7 @@ void func_i3_801B91A4(Actor* actor) {
             break;
         case 2:
             actor->unk_0B6++;
-            if ((actor->unk_0B6 >= Animation_GetFrameCount(&D_6000AE4)) && (actor->fwork[8] < 1.0f)) {
+            if ((actor->unk_0B6 >= Animation_GetFrameCount(&D_AQ_6000AE4)) && (actor->fwork[8] < 1.0f)) {
                 actor->unk_0B6 = 0;
             }
             if (actor->unk_0B6 == 40) {
@@ -4861,8 +4813,8 @@ void func_i3_801BA108(Actor* actor) {
     if (actor->state == 1) {
         Matrix_RotateX(gCalcMatrix, (actor->obj.rot.x + 90.0f) * M_DTOR, 1);
     }
-    Animation_GetFrameData(&D_6000AE4, actor->unk_0B6, sp40);
-    Animation_DrawSkeleton(3, D_6000DB0, sp40, NULL, func_i3_801B9DB0, actor, gCalcMatrix);
+    Animation_GetFrameData(&D_AQ_6000AE4, actor->unk_0B6, sp40);
+    Animation_DrawSkeleton(3, D_AQ_6000DB0, sp40, NULL, func_i3_801B9DB0, actor, gCalcMatrix);
 }
 
 // OBJ_ACTOR_264 action
@@ -4877,10 +4829,10 @@ void func_i3_801BA26C(Actor* actor) {
             /* fallthrough */
         case 1:
             actor->unk_0B6 += 2;
-            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_6020A40)) {
+            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_AQ_6020A40)) {
                 actor->unk_0B6 = 0;
             }
-            sp3E = Animation_GetFrameData(&D_6020A40, actor->unk_0B6, sp40);
+            sp3E = Animation_GetFrameData(&D_AQ_6020A40, actor->unk_0B6, sp40);
             if ((fabsf(actor->obj.pos.x - gPlayer[0].pos.x) < 150.0f) &&
                 (fabsf(actor->obj.pos.y - gPlayer[0].pos.y) < 500.0f) &&
                 (fabsf(actor->obj.pos.z - gPlayer[0].unk_138) < 700.0f)) {
@@ -4890,10 +4842,10 @@ void func_i3_801BA26C(Actor* actor) {
             break;
         case 2:
             actor->unk_0B6 += 2;
-            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_601DE50)) {
+            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_AQ_601DE50)) {
                 actor->unk_0B6 = 0;
             }
-            sp3E = Animation_GetFrameData(&D_601DE50, actor->unk_0B6, sp40);
+            sp3E = Animation_GetFrameData(&D_AQ_601DE50, actor->unk_0B6, sp40);
             if ((fabsf(actor->obj.pos.x - gPlayer[0].pos.x) > 150.0f) ||
                 (fabsf(actor->obj.pos.y - gPlayer[0].pos.y) > 500.0f) ||
                 (fabsf(actor->obj.pos.z - gPlayer[0].unk_138) > 700.0f)) {
@@ -4909,7 +4861,7 @@ void func_i3_801BA26C(Actor* actor) {
 // OBJ_ACTOR_264 draw
 void func_i3_801BA4E4(Actor* actor) {
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-    Animation_DrawSkeleton(1, D_6020C6C, actor->vwork, NULL, NULL, &actor->index, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, D_AQ_6020C6C, actor->vwork, NULL, NULL, &actor->index, &gIdentityMatrix);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
@@ -4923,7 +4875,7 @@ void func_i3_801BA57C(Actor* actor) {
         actor->info.bonus = 0;
         actor->scale = 0.5f;
         actor->gravity = 0.1f;
-        actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_603151C);
+        actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_AQ_603151C);
         actor->fwork[2] = RAND_FLOAT_CENTERED((actor->index & 3) + 1.0f);
     }
     actor->fwork[1] = RAND_FLOAT(50.0f);
@@ -5027,7 +4979,7 @@ void func_i3_801BA6A4(Actor* actor) {
 void func_i3_801BAD7C(Actor* actor) {
     Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, actor->scale, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_6014FD0);
+    gSPDisplayList(gMasterDisp++, D_AQ_6014FD0);
 }
 
 // OBJ_ACTOR_266 action
@@ -5101,8 +5053,8 @@ void func_i3_801BB0C4(s32 limbIndex, Vec3f* rot, void* thisx) {
 void func_i3_801BB204(Actor* actor) {
     Vec3f sp28[30];
 
-    Animation_GetFrameData(&D_601EC68, 0, sp28);
-    Animation_DrawSkeleton(3, D_601EDB4, sp28, NULL, func_i3_801BB0C4, actor, gCalcMatrix);
+    Animation_GetFrameData(&D_AQ_601EC68, 0, sp28);
+    Animation_DrawSkeleton(3, D_AQ_601EDB4, sp28, NULL, func_i3_801BB0C4, actor, gCalcMatrix);
 }
 
 Vec3f D_i3_801C0344[4] = {
@@ -5155,7 +5107,7 @@ void func_i3_801BB26C(Actor* actor) {
     actor->iwork[7] = RAND_INT(120.0f);
     actor->iwork[8] = RAND_INT(120.0f);
     actor->iwork[9] = RAND_INT(120.0f);
-    actor->unk_0B6 = RAND_INT(Animation_GetFrameCount(&D_6023780));
+    actor->unk_0B6 = RAND_INT(Animation_GetFrameCount(&D_AQ_6023780));
     if (actor->iwork[2] == 0) {
         actor->iwork[18] = fabsf(actor->obj.rot.y / 10.0f);
         if ((actor->iwork[18] == 0) || (actor->iwork[18] == 2)) {
@@ -5400,7 +5352,7 @@ void func_i3_801BB79C(Actor* actor) {
         actor->iwork[3] &= 1;
     }
     actor->unk_0B6 += 2;
-    if (actor->unk_0B6 >= Animation_GetFrameCount(&D_6023780)) {
+    if (actor->unk_0B6 >= Animation_GetFrameCount(&D_AQ_6023780)) {
         actor->unk_0B6 = 0;
     }
     if (actor->iwork[4] < 30) {
@@ -5558,8 +5510,8 @@ void func_i3_801BC91C(s32 limbIndex, Vec3f* rot, void* thisx) {
 void func_i3_801BC930(Actor* actor) {
     Vec3f sp28[30];
 
-    Animation_GetFrameData(&D_6023780, actor->unk_0B6, sp28);
-    Animation_DrawSkeleton(3, D_602390C, sp28, func_i3_801BC530, func_i3_801BC91C, actor, gCalcMatrix);
+    Animation_GetFrameData(&D_AQ_6023780, actor->unk_0B6, sp28);
+    Animation_DrawSkeleton(3, D_AQ_602390C, sp28, func_i3_801BC530, func_i3_801BC91C, actor, gCalcMatrix);
 }
 
 s32 D_i3_801C04C4[9] = {
@@ -5644,10 +5596,10 @@ void func_i3_801BC9A0(Actor* actor) {
                             var_s0->vel.z = sp98.z;
                             var_s0->gravity = 0.4f;
                             var_s0->state = 5;
-                            var_s0->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6030D3C);
+                            var_s0->info.hitbox = SEGMENTED_TO_VIRTUAL(D_AQ_6030D3C);
                         } else {
                             var_s0->state = 2;
-                            var_s0->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6030D58);
+                            var_s0->info.hitbox = SEGMENTED_TO_VIRTUAL(D_AQ_6030D58);
                         }
                         break;
                     }
@@ -5735,18 +5687,18 @@ void func_i3_801BD264(Actor* actor) {
             case 0:
                 if (actor->state != 0) {
                     if ((actor->iwork[3] == 0) && (actor->info.drawType == 2)) {
-                        Animation_GetFrameData(&D_6014438, 0, sp40);
-                        Animation_DrawSkeleton(3, D_6014504, sp40, NULL, func_i3_801BD17C, actor, gCalcMatrix);
+                        Animation_GetFrameData(&D_AQ_6014438, 0, sp40);
+                        Animation_DrawSkeleton(3, D_AQ_6014504, sp40, NULL, func_i3_801BD17C, actor, gCalcMatrix);
                     } else {
-                        gSPDisplayList(gMasterDisp++, D_6014520);
+                        gSPDisplayList(gMasterDisp++, D_AQ_6014520);
                     }
                 }
                 break;
             case 1:
-                gSPDisplayList(gMasterDisp++, D_60137F0);
+                gSPDisplayList(gMasterDisp++, D_AQ_60137F0);
                 break;
             case 2:
-                gSPDisplayList(gMasterDisp++, D_6014030);
+                gSPDisplayList(gMasterDisp++, D_AQ_6014030);
                 break;
         }
     }
@@ -5925,7 +5877,7 @@ void func_i3_801BD54C(Actor* actor) {
             break;
     }
     actor->unk_0B6++;
-    if (Animation_GetFrameCount(&D_60135E0) < actor->unk_0B6) {
+    if (Animation_GetFrameCount(&D_AQ_60135E0) < actor->unk_0B6) {
         actor->unk_0B6 = 0;
     }
 }
@@ -5940,11 +5892,11 @@ s32 func_i3_801BDDFC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
 
 // OBJ_ACTOR_268 draw
 void func_i3_801BDE6C(Actor* actor) {
-    Animation_GetFrameData(&D_60135E0, actor->unk_0B6, actor->vwork);
+    Animation_GetFrameData(&D_AQ_60135E0, actor->unk_0B6, actor->vwork);
     if (actor->iwork[3] == 0) {
-        Animation_DrawSkeleton(1, D_60136CC, actor->vwork, func_i3_801BDDFC, NULL, actor, &gIdentityMatrix);
+        Animation_DrawSkeleton(1, D_AQ_60136CC, actor->vwork, func_i3_801BDDFC, NULL, actor, &gIdentityMatrix);
     } else {
-        Animation_DrawSkeleton(1, D_60137CC, actor->vwork, func_i3_801BDDFC, NULL, actor, &gIdentityMatrix);
+        Animation_DrawSkeleton(1, D_AQ_60137CC, actor->vwork, func_i3_801BDDFC, NULL, actor, &gIdentityMatrix);
     }
 }
 
@@ -6010,7 +5962,7 @@ void func_i3_801BE034(Actor* actor) {
         Math_SmoothStepToAngle(&actor->unk_0F4.y, temp, 1.0f, 100.0f, 0.00001f);
     }
     actor->iwork[0]++;
-    if (actor->iwork[0] >= Animation_GetFrameCount(&D_60135E0)) {
+    if (actor->iwork[0] >= Animation_GetFrameCount(&D_AQ_60135E0)) {
         actor->iwork[0] = 0;
     }
     if (gPlayer[0].unk_1D0 >= 5) {
@@ -6024,8 +5976,8 @@ void func_i3_801BE0F0(Actor* actor) {
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 255, 255, 255);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     Matrix_SetGfxMtx(&gMasterDisp);
-    Animation_GetFrameData(&D_60135E0, actor->iwork[0], actor->vwork);
-    Animation_DrawSkeleton(1, D_60136CC, actor->vwork, NULL, NULL, actor, &gIdentityMatrix);
+    Animation_GetFrameData(&D_AQ_60135E0, actor->iwork[0], actor->vwork);
+    Animation_DrawSkeleton(1, D_AQ_60136CC, actor->vwork, NULL, NULL, actor, &gIdentityMatrix);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
@@ -6033,7 +5985,7 @@ void func_i3_801BE0F0(Actor* actor) {
 void func_i3_801BE1FC(Object_80* obj80) {
     Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_600EEF0);
+    gSPDisplayList(gMasterDisp++, D_AQ_600EEF0);
 }
 
 void func_i3_801BE274(Actor* actor, f32 yRot, f32 xRot) {
@@ -6075,7 +6027,7 @@ void func_i3_801BE3F8(Actor* actor) {
             break;
         case 1:
             if (fabsf(gPlayer[0].pos.z - actor->obj.pos.z) <= 3000.0f) {
-                actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_60314E4);
+                actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_AQ_60314E4);
                 actor->info.damage = 0;
                 actor->info.bonus = 1;
                 actor->timer_0BC = 40.0f + RAND_FLOAT(30.0f);
@@ -6106,9 +6058,9 @@ void func_i3_801BE3F8(Actor* actor) {
                     }
                 }
             }
-            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_602201C)) {
+            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_AQ_602201C)) {
                 actor->info.bonus = 0;
-                actor->unk_0B6 = Animation_GetFrameCount(&D_602201C) - 1;
+                actor->unk_0B6 = Animation_GetFrameCount(&D_AQ_602201C) - 1;
                 actor->state++;
             }
             break;
@@ -6137,7 +6089,7 @@ void func_i3_801BE3F8(Actor* actor) {
                 }
             }
             if (actor->state == 1) {
-                actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_60314E4);
+                actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_AQ_60314E4);
                 actor->info.damage = 0;
                 actor->info.bonus = 1;
                 actor->state = 2;
@@ -6151,14 +6103,14 @@ void func_i3_801BEB1C(Actor* actor) {
     Graphics_SetScaleMtx(3.0f);
     RCP_SetupDL(&gMasterDisp, 0x38);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 143, 143, 255);
-    Animation_GetFrameData(&D_602201C, actor->unk_0B6, actor->vwork);
-    Animation_DrawSkeleton(1, D_60220E8, actor->vwork, NULL, NULL, &actor->index, &gIdentityMatrix);
+    Animation_GetFrameData(&D_AQ_602201C, actor->unk_0B6, actor->vwork);
+    Animation_DrawSkeleton(1, D_AQ_60220E8, actor->vwork, NULL, NULL, &actor->index, &gIdentityMatrix);
     if (actor->health != 0) {
         RCP_SetupDL(&gMasterDisp, 0x37);
         Matrix_Scale(gGfxMatrix, actor->fwork[0], actor->fwork[1], actor->fwork[2], 1);
         Matrix_Translate(gGfxMatrix, 0.0f, -8.0f, 51.0f, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_6002C10);
+        gSPDisplayList(gMasterDisp++, D_AQ_6002C10);
     }
 }
 
