@@ -93,7 +93,8 @@
     "fox_std_lib_assets.h": "c",
     "fox_versus_assets.h": "c",
     "guint.h": "c",
-    "ast_test.h": "c"
+    "ast_test.h": "c",
+    "ast_landmaster.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }

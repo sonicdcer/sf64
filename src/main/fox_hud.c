@@ -2,6 +2,7 @@
 #include "sf64math.h"
 
 #include "assets/ast_blue_marine.h"
+#include "assets/ast_landmaster.h"
 // BSS section range:
 // D_801616A0 <==> D_80161910
 
@@ -165,12 +166,12 @@ void func_80084930(f32 arg0, f32 arg1, s32 arg2) {
     u8* D_800D1A58[] = {
         D_arwing_3000000,
         D_blue_marine_3000000,
-        D_3000000,
+        D_landmaster_3000000,
     };
     u16* D_800D1A64[] = {
         D_arwing_3000080,
         D_blue_marine_3000080,
-        D_3000080,
+        D_landmaster_3000080,
     };
     Player* player;
     s32 var_t0;
@@ -948,8 +949,8 @@ void func_80086DCC(void) {
 }
 
 void func_80087530(f32 x, f32 y, s32 number) {
-    u8* D_800D1D00[] = { D_arwing_3000000, D_blue_marine_3000000, D_3000000 };
-    u16* D_800D1D0C[] = { D_arwing_3000080, D_blue_marine_3000080, D_3000080 };
+    u8* D_800D1D00[] = { D_arwing_3000000, D_blue_marine_3000000, D_landmaster_3000000 };
+    u16* D_800D1D0C[] = { D_arwing_3000080, D_blue_marine_3000080, D_landmaster_3000080 };
     Player* player = &gPlayer[0];
     f32 x0;
     f32 x1;
@@ -3528,7 +3529,7 @@ void func_8008EA14(f32 x, f32 y) {
         case 6:
             RCP_SetupDL(&gMasterDisp, 0x4E);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-            TextureRect_4bCI(&gMasterDisp, D_3000090, D_3000120, 32, 9, x + 1.0f, y, 1.0f, 1.0f);
+            TextureRect_4bCI(&gMasterDisp, D_blue_marine_3000090, D_3000120, 32, 9, x + 1.0f, y, 1.0f, 1.0f);
             break;
     }
 }

@@ -118,9 +118,7 @@ extern u8  D_300A470[];
 
 
 extern Gfx D_3001C90[];
-extern u16 D_3002E80[];
 extern Gfx D_3003CE0[];
-extern Gfx D_3004680[];
 extern Gfx D_3005980[];
 extern Gfx D_3005AB0[];
 extern u16 D_3005EA8[];
