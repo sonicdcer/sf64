@@ -1,4 +1,5 @@
 #include "global.h"
+#include "assets/ast_landmaster.h"
 
 static Vec3f D_8015F950;
 

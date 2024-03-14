@@ -44,8 +44,12 @@
 
   - name: ast_landmaster
     exclusive_ram_id: segment_03
-    type: bin
+    type: code
+    dir: assets
     start: 0x8D99F0
+    vram: 0x03000000
+    subsegments:
+      - [0x8D99F0, .data, ast_landmaster/ast_landmaster]
 
   - name: ast_blue_marine
     exclusive_ram_id: segment_03
@@ -308,8 +312,12 @@
 
   - name: ast_training
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xDDC010
+    vram: 0x06000000
+    subsegments:
+      - [0xDDC010, .data, ast_training/ast_training]
 
   - name: ast_radio
     type: code

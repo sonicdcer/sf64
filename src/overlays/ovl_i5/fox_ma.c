@@ -1,4 +1,5 @@
 #include "global.h"
+#include "assets/ast_landmaster.h"
 
 extern u8 D_6023228[];
 extern u8 D_6023388[];

@@ -13,6 +13,7 @@ s32 D_80178744;
 s32 D_80178748;
 
 #include "assets/ast_allies.h"
+#include "assets/ast_training.h"
 
 s32 gCurrentMsgPri = 0;
 
@@ -370,10 +371,10 @@ void func_800BAAE8(void) {
             sp44 = D_E010E60;
             break;
         case RCID_TRAINING:
-            sp44 = D_6000900;
+            sp44 = D_training_6000900;
             break;
         case RCID_TRAINING_OPEN:
-            sp44 = D_6001820;
+            sp44 = D_training_6001820;
             break;
         case RCID_STATIC_FLIP:
             mirror = true;

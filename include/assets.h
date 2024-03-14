@@ -103,7 +103,6 @@ extern u16 D_3000810[];
 extern u8  D_30013E0[];
 extern u8  D_3001420[];
 extern u16 D_3000BC0[];
-extern Gfx D_3006940[];
 extern u8  D_3004010[];
 extern u16 D_3003E20[];
 extern u16 D_3004D58[];
@@ -118,15 +117,10 @@ extern u8  D_300A470[];
 
 
 extern Gfx D_3001C90[];
-extern u16 D_3002E80[];
 extern Gfx D_3003CE0[];
-extern Gfx D_3004680[];
 extern Gfx D_3005980[];
 extern Gfx D_3005AB0[];
-extern u16 D_3005EA8[];
-extern Gfx D_30066B0[];
 extern Gfx D_3007650[];
-extern Gfx D_3008100[];
 extern u8 D_300D350[];
 extern u16 D_300D398[];
 extern u8 D_300D3C0[];
@@ -252,14 +246,12 @@ extern u8 D_500A7D0[]; // fox_std_lib, fox_versus, fox_option, fox_hud
  * ast_katina, ast_macbeth, ast_title, ast_menu, ast_training
  */
 extern Gfx D_60005B0[]; // fox_bg
-extern u16 D_6000900[]; // fox_radio
 extern Gfx D_6000A80[]; // fox_bg, fox_effect
 extern u16 D_6000B60[]; // fox_radio
 extern Gfx D_6000E00[]; // fox_edata_1C
 extern Gfx D_6000E10[]; // fox_enmy2
 extern Gfx D_6001360[]; // fox_bg, fox_demo, fox_edata_1C
 extern Gfx D_6001530[]; // fox_360, fox_demo, fox_ka
-extern u16 D_6001820[]; // fox_radio
 extern Gfx D_6001840[]; // fox_bg
 extern Gfx D_6001950[]; // fox_enmy2
 extern Gfx D_6001A60[]; // fox_effect

@@ -17,6 +17,7 @@ UNK_TYPE D_8015F988[0x683]; // Unused? Close to being [13][0x80]
 f32 D_80161394;             // can be static
 
 #include "assets/ast_bg_planet.h"
+#include "assets/ast_training.h"
 
 f32 D_800C9C30 = 0.0f;
 u16 D_800C9C34 = 1;
@@ -565,7 +566,7 @@ void func_8003E1E8(void) {
                             Matrix_SetGfxMtx(&gMasterDisp);
                             RCP_SetupDL_62();
                             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
-                            gSPDisplayList(gMasterDisp++, D_6003760);
+                            gSPDisplayList(gMasterDisp++, D_training_6003760);
                             break;
                         case LEVEL_AREA_6:
                         case LEVEL_UNK_4:
@@ -975,14 +976,14 @@ void func_80040CE4(void) {
                 Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -3000.0f + D_80177CE8, 1);
                 Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.5f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_6005880);
+                gSPDisplayList(gMasterDisp++, D_training_6005880);
                 Matrix_Pop(&gGfxMatrix);
                 if (1) {}
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 3000.0f + D_80177CE8, 1);
                 Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.5f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_6005880);
+                gSPDisplayList(gMasterDisp++, D_training_6005880);
                 Matrix_Pop(&gGfxMatrix);
             } else {
                 for (i = 0; i < 4; i++) {
@@ -990,7 +991,7 @@ void func_80040CE4(void) {
                     Matrix_Translate(gGfxMatrix, D_800C9E64[i], 0.0f, D_800C9E74[i], 1);
                     Matrix_Scale(gGfxMatrix, 1.5f, 1.0f, 1.0f, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_6005880);
+                    gSPDisplayList(gMasterDisp++, D_training_6005880);
                     Matrix_Pop(&gGfxMatrix);
                 }
             }
