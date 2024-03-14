@@ -15,6 +15,7 @@ f32 D_801615B8[4];
 #include "assets/ast_arwing.h"
 #include "assets/ast_allies.h"
 #include "assets/ast_landmaster.h"
+#include "assets/ast_vs_player.h"
 
 s32 D_800CA220 = 0;
 u8 D_800CA224[] = { 0, 0, 0, 0 };

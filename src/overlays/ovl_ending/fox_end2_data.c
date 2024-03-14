@@ -2,6 +2,8 @@
 #define FOX_END2_DATA
 
 #include "global.h"
+#include "assets/ast_arwing.h"
+#include "assets/ast_font.h"
 
 typedef struct {
     /* 0x00 */ u8* unk_00;
@@ -85,12 +87,6 @@ Vec3f D_ending_801985E0;
 Vec3f D_ending_801985F0;
 Vec3f D_ending_80198600[300];
 
-extern Gfx D_3003CE0[];
-extern Gfx D_3016CC0[];
-extern u8 D_50054B0[];
-extern u8 D_5007240[];
-extern u8 D_5007330[];
-extern u8 D_5007420[];
 extern Animation D_602F8E0;
 extern Limb* D_602FBAC[];
 extern Animation D_60305C0;

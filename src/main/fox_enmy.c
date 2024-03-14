@@ -1,5 +1,8 @@
 #include "prevent_bss_reordering.h"
 #include "global.h"
+#include "assets/ast_sector_x.h"
+#include "assets/ast_aquas.h"
+#include "assets/ast_andross.h"
 
 s32 D_Timer_80161670[4];
 s32 D_80161680;
@@ -8,9 +11,9 @@ u8 D_80161684;
 #include "fox_enmy_assets.h"
 
 ObjectInit* D_800CFDA0[] = {
-    D_60371A4, D_6026CC4, D_602A164,  D_6023F64, D_60287A4, D_602E4F4, D_6007E74,
-    D_601F234, D_6026714, D_0C035154, D_6006AA4, D_6031000, D_6006C60, D_602E5C8,
-    D_600EAD4, NULL,      D_6011044,  D_600FF74, D_6006EB4, D_6014D94, D_0302DE3C,
+    D_60371A4, D_6026CC4, D_SX_602A164, D_6023F64,    D_60287A4, D_602E4F4, D_6007E74,
+    D_601F234, D_6026714, D_0C035154,   D_TR_6006AA4, D_6031000, D_6006C60, D_602E5C8,
+    D_600EAD4, NULL,      D_6011044,    D_600FF74,    D_6006EB4, D_6014D94, D_0302DE3C,
 };
 s32 D_800CFDF4[] = {
     OBJ_80_0,
@@ -513,7 +516,7 @@ void func_80062664(void) {
     if ((gCurrentLevel == LEVEL_METEO) && (D_8017827C == 1)) {
         D_80178310 = SEGMENTED_TO_VIRTUAL(D_602B148);
     } else if ((gCurrentLevel == LEVEL_SECTOR_X) && (D_8017827C == 1)) {
-        D_80178310 = SEGMENTED_TO_VIRTUAL(D_602F18C);
+        D_80178310 = SEGMENTED_TO_VIRTUAL(D_SX_602F18C);
     } else if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (D_8017827C == 1)) {
         D_80178310 = SEGMENTED_TO_VIRTUAL(D_C0356A4);
     } else if ((gCurrentLevel == LEVEL_VENOM_1) && (D_8017827C == 1)) {

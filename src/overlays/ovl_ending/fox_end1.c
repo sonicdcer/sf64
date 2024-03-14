@@ -1,7 +1,9 @@
+#include "prevent_bss_reordering.h"
 #include "global.h"
 #include "assets/ast_ending_award_front.h"
 #include "assets/ast_ending_award_back.h"
 #include "assets/ast_allies.h"
+#include "assets/ast_great_fox.h"
 
 void func_ending_8018CE20(s32);
 void func_ending_801926D4(void);
@@ -37,8 +39,6 @@ extern u8 D_7010FF0[];
 extern u16 D_70110C0[];
 extern u8 D_70110E0[];
 extern u16 D_70111B0[];
-extern Gfx D_E000000[];
-extern Gfx D_E003AB0[];
 
 bool func_ending_80189C64(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data);
 void func_ending_8018ABE8(void);

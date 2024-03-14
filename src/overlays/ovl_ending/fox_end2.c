@@ -1,7 +1,8 @@
 #include "global.h"
-#include "fox_end2_data.c"
+#include "assets/ast_arwing.h"
 #include "assets/ast_ending_expert.h"
 #include "assets/ast_allies.h"
+#include "fox_end2_data.c"
 
 void func_ending_8018CE20(u32 arg0) {
     u8 alpha;

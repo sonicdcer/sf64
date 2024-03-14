@@ -14,6 +14,10 @@ s32 D_80178748;
 
 #include "assets/ast_allies.h"
 #include "assets/ast_training.h"
+#include "assets/ast_sector_x.h"
+#include "assets/ast_aquas.h"
+#include "assets/ast_star_wolf.h"
+#include "assets/ast_great_fox.h"
 
 s32 gCurrentMsgPri = 0;
 
@@ -287,10 +291,10 @@ void func_800BAAE8(void) {
             sp44 = D_6015430;
             break;
         case RCID_BOSS_SECTORX:
-            sp44 = D_6020FB0;
+            sp44 = D_SX_6020FB0;
             break;
         case RCID_BOSS_SECTORX_OPEN:
-            sp44 = D_6021ED0;
+            sp44 = D_SX_6021ED0;
             break;
         case RCID_BOSS_SECTORY:
             sp44 = D_6018F30;
@@ -370,11 +374,11 @@ void func_800BAAE8(void) {
         case RCID_GEN_PEPPER_TITLE_OPEN:
             sp44 = D_E010E60;
             break;
-        case RCID_TRAINING:
-            sp44 = D_training_6000900;
+        case RCID_TR:
+            sp44 = D_TR_6000900;
             break;
-        case RCID_TRAINING_OPEN:
-            sp44 = D_training_6001820;
+        case RCID_TR_OPEN:
+            sp44 = D_TR_6001820;
             break;
         case RCID_STATIC_FLIP:
             mirror = true;

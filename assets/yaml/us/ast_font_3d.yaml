@@ -120,8 +120,8 @@ D_9005CA0:
 PAD_90062C8: 
   { type: BLOB, size: 8, offset: 0x90062C8, symbol: PAD_90062C8 }
 
-D_90062C8:
-  { type: GFX, offset: 0x90062D0, symbol: D_90062C8 }
+D_90062D0:
+  { type: GFX, offset: 0x90062D0, symbol: D_90062D0 }
 
 D_9006500:
   { type: GFX, offset: 0x9006500, symbol: D_9006500 }

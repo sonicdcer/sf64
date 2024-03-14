@@ -5,8 +5,10 @@
  */
 
 #include "global.h"
+#include "assets/ast_sector_x.h"
+#include "assets/ast_aquas.h"
+#include "assets/ast_great_fox.h"
 
-extern Gfx D_1024AC0[];
 extern Gfx D_60320E0[];
 extern Gfx D_7010970[];
 
@@ -34,9 +36,9 @@ extern Gfx D_60132B0[];
 extern Gfx D_6014A40[];
 extern Gfx D_6020810[];
 
-extern Animation D_6020A40;
+extern Animation D_AQ_6020A40;
 extern Animation D_601F3B8;
-extern Limb* D_6020C6C[];
+extern Limb* D_AQ_6020C6C[];
 extern Limb* D_602D140[];
 
 #include "assets/ast_allies.h"
@@ -2893,24 +2895,24 @@ void func_8004FEC0(Actor* actor) {
             break;
 
         case 44:
-            Animation_GetFrameData(&D_6020A40, actor->iwork[0], actor->vwork);
+            Animation_GetFrameData(&D_AQ_6020A40, actor->iwork[0], actor->vwork);
             gSPClearGeometryMode(gMasterDisp++, 0x00002000);
-            Animation_DrawSkeleton(1, D_6020C6C, actor->vwork, 0, 0, &actor->index, &gIdentityMatrix);
+            Animation_DrawSkeleton(1, D_AQ_6020C6C, actor->vwork, 0, 0, &actor->index, &gIdentityMatrix);
             gSPSetGeometryMode(gMasterDisp++, 0x00002000);
             break;
 
         case 45:
             Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_600EEF0);
+            gSPDisplayList(gMasterDisp++, D_AQ_600EEF0);
             break;
 
         case 46:
-            gSPDisplayList(gMasterDisp++, D_601DE60);
+            gSPDisplayList(gMasterDisp++, D_AQ_601DE60);
             break;
 
         case 47:
-            gSPDisplayList(gMasterDisp++, D_602B4C0);
+            gSPDisplayList(gMasterDisp++, D_AQ_602B4C0);
             break;
     }
 }

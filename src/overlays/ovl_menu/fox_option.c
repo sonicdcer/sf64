@@ -5,10 +5,8 @@
  */
 
 #include "mods.h"
-
-#include "prevent_bss_reordering.h"
 #include "global.h"
-
+#include "prevent_bss_reordering.h"
 #include "fox_option.h"
 
 extern s32 D_menu_801B81A8[][3];
@@ -24,6 +22,9 @@ extern Gfx D_menu_801B5E78[];
 extern Gfx D_menu_801B57A8[];
 
 #include "fox_option_assets.h"
+#include "assets/ast_font.h"
+#include "assets/ast_font_3d.h"
+#include "assets/ast_option.h"
 
 extern f32 D_menu_801CD818[];
 

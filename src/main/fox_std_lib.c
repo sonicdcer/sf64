@@ -2,7 +2,6 @@
 
 char D_801619A0[100];
 
-#include "fox_std_lib_assets.h"
 #include "assets/ast_font.h"
 
 char* Graphics_ClearPrintBuffer(char* buf, s32 fill, s32 len) {

@@ -10,50 +10,50 @@
       - '#include "structs.h"'
       - '#include "sf64level.h"'
 
-D_training_6000000:
-  { type: TEXTURE, format: IA8, offset: 0x6000000, width: 96, height: 12, ctype: u8, symbol: D_training_6000000 }
+D_TR_6000000:
+  { type: TEXTURE, format: IA8, offset: 0x6000000, width: 96, height: 12, ctype: u8, symbol: D_TR_6000000 }
 
-D_training_6000480:
-  { type: TEXTURE, format: IA8, offset: 0x6000480, width: 96, height: 12, ctype: u8, symbol: D_training_6000480 }
+D_TR_6000480:
+  { type: TEXTURE, format: IA8, offset: 0x6000480, width: 96, height: 12, ctype: u8, symbol: D_TR_6000480 }
 
-D_training_6000900:
-  { type: TEXTURE, format: RGBA16, offset: 0x6000900, width: 44, height: 44, ctype: u16, symbol: D_training_6000900 }
+D_TR_6000900:
+  { type: TEXTURE, format: RGBA16, offset: 0x6000900, width: 44, height: 44, ctype: u16, symbol: D_TR_6000900 }
 
-D_training_6001820:
-  { type: TEXTURE, format: RGBA16, offset: 0x6001820, width: 44, height: 44, ctype: u16, symbol: D_training_6001820 }
+D_TR_6001820:
+  { type: TEXTURE, format: RGBA16, offset: 0x6001820, width: 44, height: 44, ctype: u16, symbol: D_TR_6001820 }
 
-D_training_6002740:
-  { type: GFX, offset: 0x6002740, symbol: D_training_6002740 }
+D_TR_6002740:
+  { type: GFX, offset: 0x6002740, symbol: D_TR_6002740 }
 
-D_60028F0:
-  { type: TEXTURE, format: RGBA16, offset: 0x060028F0, width: 32, height: 32, ctype: u16, symbol: D_60028F0 }
+D_TR_60028F0:
+  { type: TEXTURE, format: RGBA16, offset: 0x060028F0, width: 32, height: 32, ctype: u16, symbol: D_TR_60028F0 }
 
-D_training_60030F0:
-  { type: GFX, offset: 0x60030F0, symbol: D_training_60030F0 }
+D_TR_60030F0:
+  { type: GFX, offset: 0x60030F0, symbol: D_TR_60030F0 }
 
-D_6003360:
-  { type: TEXTURE, format: RGBA16, offset: 0x06003360, width: 16, height: 16, ctype: u16, symbol: D_6003360 }
+D_TR_6003360:
+  { type: TEXTURE, format: RGBA16, offset: 0x06003360, width: 16, height: 16, ctype: u16, symbol: D_TR_6003360 }
 
-D_6003560:
-  { type: TEXTURE, format: RGBA16, offset: 0x06003560, width: 16, height: 16, ctype: u16, symbol: D_6003560 }
+D_TR_6003560:
+  { type: TEXTURE, format: RGBA16, offset: 0x06003560, width: 16, height: 16, ctype: u16, symbol: D_TR_6003560 }
 
-D_training_6003760:
-  { type: GFX, offset: 0x6003760, symbol: D_training_6003760 }
+D_TR_6003760:
+  { type: GFX, offset: 0x6003760, symbol: D_TR_6003760 }
 
-D_6003878:
-  { type: TEXTURE, format: RGBA16, offset: 0x06003878, width: 64, height: 32, ctype: u16, symbol: D_6003878 }
+D_TR_6003878:
+  { type: TEXTURE, format: RGBA16, offset: 0x06003878, width: 64, height: 32, ctype: u16, symbol: D_TR_6003878 }
 
-D_6004878:
-  { type: TEXTURE, format: RGBA16, offset: 0x06004878, width: 64, height: 32, ctype: u16, symbol: D_6004878 }
+D_TR_6004878:
+  { type: TEXTURE, format: RGBA16, offset: 0x06004878, width: 64, height: 32, ctype: u16, symbol: D_TR_6004878 }
 
 PAD_6005878:
   { type: BLOB, offset: 0x6005878, size: 0x8, symbol: PAD_6005878 }
 
-D_training_6005880:
-  { type: GFX, offset: 0x6005880, symbol: D_training_6005880 }
+D_TR_6005880:
+  { type: GFX, offset: 0x6005880, symbol: D_TR_6005880 }
 
-D_6005938:
-  { type: TEXTURE, format: RGBA16, offset: 0x06005938, width: 32, height: 32, ctype: u16, symbol: D_6005938 }
+D_TR_6005938:
+  { type: TEXTURE, format: RGBA16, offset: 0x06005938, width: 32, height: 32, ctype: u16, symbol: D_TR_6005938 }
 
 PAD_6006138:
   { type: BLOB, offset: 0x6006138, size: 0x8, symbol: PAD_6006138 }
@@ -61,34 +61,34 @@ PAD_6006138:
 gItemTrainingRingDL:
   { type: GFX, offset: 0x6006140, symbol: gItemTrainingRingDL }
 
-D_6006958:
-  { type: TEXTURE, format: RGBA16, offset: 0x06006958, width: 8, height: 8, ctype: u16, symbol: D_6006958 }
+D_TR_6006958:
+  { type: TEXTURE, format: RGBA16, offset: 0x06006958, width: 8, height: 8, ctype: u16, symbol: D_TR_6006958 }
 
-D_60069D8:
-  { type: TEXTURE, format: RGBA16, offset: 0x060069D8, width: 8, height: 8, ctype: u16, symbol: D_60069D8 }
+D_TR_60069D8:
+  { type: TEXTURE, format: RGBA16, offset: 0x060069D8, width: 8, height: 8, ctype: u16, symbol: D_TR_60069D8 }
 
 PAD_6006A58:
   { type: BLOB, offset: 0x6006A58, size: 0x8, symbol: PAD_6006A58 }
 
-D_training_6006A60:
-  { type: SF64:ENV_SETTINGS, offset: 0x6006A60, symbol: D_training_6006A60 }
+D_TR_6006A60:
+  { type: SF64:ENV_SETTINGS, offset: 0x6006A60, symbol: D_TR_6006A60 }
 
-D_6006AA4:
-  { type: SF64:OBJECT_INIT, offset: 0x6006AA4, symbol: D_6006AA4 }
+D_TR_6006AA4:
+  { type: SF64:OBJECT_INIT, offset: 0x6006AA4, symbol: D_TR_6006AA4 }
 
-D_6008EF8:
-  { type: SF64:OBJECT_INIT, offset: 0x6008EF8, symbol: D_6008EF8 }
+D_TR_6008EF8:
+  { type: SF64:OBJECT_INIT, offset: 0x6008EF8, symbol: D_TR_6008EF8 }
 
-D_training_6009B34:
-  { type: SF64:SCRIPT, offset: 0x6009B34, symbol: D_training_6009B34 }
+D_TR_6009B34:
+  { type: SF64:SCRIPT, offset: 0x6009B34, symbol: D_TR_6009B34 }
 
-D_training_6009CC4:
-  { type: SF64:HITBOX, offset: 0x6009CC4, symbol: D_training_6009CC4 }
+D_TR_6009CC4:
+  { type: SF64:HITBOX, offset: 0x6009CC4, symbol: D_TR_6009CC4 }
 
-D_training_6009CFC:
-  { type: SF64:HITBOX, offset: 0x6009CFC, symbol: D_training_6009CFC }
+D_TR_6009CFC:
+  { type: SF64:HITBOX, offset: 0x6009CFC, symbol: D_TR_6009CFC }
 
-D_training_6009D18:
-  { type: SF64:HITBOX, offset: 0x6009D18, symbol: D_training_6009D18 }
+D_TR_6009D18:
+  { type: SF64:HITBOX, offset: 0x6009D18, symbol: D_TR_6009D18 }
 
 # size = 0x9D40

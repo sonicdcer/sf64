@@ -1,5 +1,18 @@
+#include "prevent_bss_reordering2.h"
 #include "prevent_bss_reordering.h"
 #include "global.h"
+#include "assets/ast_andross.h"
+#include "assets/ast_arwing.h"
+#include "assets/ast_vs_player.h"
+#include "assets/ast_bg_planet.h"
+
+extern Animation D_600C038;
+extern Gfx D_6009300[];
+extern Limb* D_600C0A4[];
+extern Gfx D_600C2D0[];
+extern Gfx D_600C560[];
+extern Limb* D_6014844[];
+extern Gfx D_6007E20[];
 
 f32 D_i6_801A7F40;
 f32 D_i6_801A7F44;
@@ -59,17 +72,12 @@ s32 func_i6_8018767C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
     return 0;
 }
 
-extern Limb* D_6014844[];
-
 void func_i6_8018769C(Actor* actor) {
     Vec3f sp28[20];
 
     Animation_GetFrameData(&D_6014658, actor->unk_0B6, sp28);
     Animation_DrawSkeleton(1, D_6014844, sp28, func_i6_8018767C, NULL, NULL, &gIdentityMatrix);
 }
-
-extern u32 D_C039290[];
-extern u32 D_C03A290[];
 
 void func_i6_801876FC(void) {
     s32 temp_ft3;
@@ -89,9 +97,6 @@ void func_i6_801876FC(void) {
         }
     }
 }
-
-extern ObjectInit D_C0356CC[];
-extern f32 D_C038CCC[];
 
 void func_i6_801878A8() {
     Actor* actor;
@@ -159,10 +164,6 @@ void func_i6_801878A8() {
         }
     }
 }
-
-extern ObjectInit D_C036310[];
-extern ObjectInit D_C036B6C[];
-extern ObjectInit D_C03733C[];
 
 void func_i6_80187C5C(void) {
     Actor* actor;
@@ -344,8 +345,6 @@ void func_i6_80188528(Actor* actor) {
     actor->unk_0F4.z += actor->fwork[0];
 }
 
-extern Gfx D_6009300[];
-
 void func_i6_80188660(Actor* actor) {
     RCP_SetupDL(&gMasterDisp, 0x3D);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
@@ -468,8 +467,6 @@ void func_i6_80188A4C(Boss* boss) {
         }
     }
 }
-
-extern Animation D_600C038;
 
 void func_i6_80188CB8(Boss* boss) {
     s32 i;
@@ -1213,10 +1210,6 @@ s32 func_i6_8018B47C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
     return false;
 }
 
-extern Limb* D_600C0A4[];
-extern Gfx D_600C2D0[];
-extern Gfx D_600C560[];
-
 void func_i6_8018B8C0(Boss* boss) {
     s32 j;
     s32 i;
@@ -1272,9 +1265,6 @@ void func_i6_8018B8C0(Boss* boss) {
         }
     }
 }
-
-extern Vtx D_C017598[];
-extern Vtx D_C038FE8[];
 
 void func_i6_8018BDD8(void) {
     s32 i;
@@ -1554,7 +1544,6 @@ void func_i6_8018CAD4(Effect* effect) {
     }
 }
 
-extern Gfx D_2010A30[];
 static Gfx* D_i6_801A6790[10] = {
     D_C001880, D_C001880, D_C001880, D_C001880, D_C001880, D_C001880, D_C001880, D_C001880, D_3016660, D_3015D80,
 };
@@ -1788,25 +1777,6 @@ void func_i6_8018DA94(Boss* boss, Vec3f* arg1) {
     func_8007B344(arg1->x, arg1->y, arg1->z, 10.0f, 5);
     AUDIO_PLAY_SFX(0x2903B009, boss->sfxSource, 4);
 }
-
-extern Animation D_C00208C;
-extern Animation D_C002654;
-extern Animation D_C002B08;
-extern Animation D_C006F08;
-extern Animation D_C00DE48;
-extern Animation D_C00E598;
-extern Animation D_C017050;
-extern Animation D_C017430;
-extern Animation D_C018BC4;
-extern Animation D_C023B54;
-extern Animation D_C0240D0;
-extern Animation D_C025C00;
-extern Animation D_C029F74;
-extern Animation D_C02E494;
-extern Animation D_C02EDA0;
-extern Animation D_C030244;
-extern Animation D_C033780;
-extern Animation D_C033D98;
 
 static f32 D_i6_801A67B8[] = { 0.0f, 0.0f, 0.0f };
 
@@ -2841,13 +2811,6 @@ void func_i6_8018DBF0(Boss* boss) {
     }
 }
 
-extern Gfx D_C002B20[];
-extern Gfx D_C002F00[];
-extern Gfx D_C0043D0[];
-extern Gfx D_C004860[];
-extern Gfx D_C015740[];
-extern Gfx D_C022520[];
-
 static Vec3f D_i6_801A67C4 = { 40.0f, 0.0f, -10.0f };
 static f32 D_i6_801A67D0 = 180.0f;
 static f32 D_i6_801A67D4 = 0.0f;
@@ -3172,8 +3135,6 @@ void func_i6_801924B4(s32 limbIndex, Vec3f* rot, void* data) {
     }
 }
 
-extern Limb* D_C01CC3C[];
-
 void func_i6_801928C8(Boss* boss) {
 
     if (boss->timer_058 == 0) {
@@ -3303,8 +3264,6 @@ void func_i6_80192E94(Actor* actor) {
     }
 }
 
-extern Gfx D_6007E20[];
-
 void func_i6_80193244(Actor* actor) {
 
     gSPDisplayList(gMasterDisp++, D_6007E20);
@@ -3327,8 +3286,6 @@ void func_i6_80193244(Actor* actor) {
         gSPDisplayList(gMasterDisp++, D_1024AC0);
     }
 }
-
-extern Gfx D_C038AC4[];
 
 void func_i6_80193380(Object_80* obj80) {
 
