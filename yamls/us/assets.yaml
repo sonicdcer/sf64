@@ -312,8 +312,12 @@
 
   - name: ast_training
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xDDC010
+    vram: 0x06000000
+    subsegments:
+      - [0xDDC010, .data, ast_training/ast_training]
 
   - name: ast_radio
     type: code
