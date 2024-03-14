@@ -4417,7 +4417,7 @@ void Option_InvoiceDraw(void) {
                          D_menu_801AF3F0[1] + (16 * i), 1.0f, 1.0f);
     }
 
-    TextureRect_4bCI(&gMasterDisp, D_80006A0 + 256 * 16 * 2, D_80017A0, 256, 2, D_menu_801AF3D0[1],
+    TextureRect_4bCI(&gMasterDisp, D_80006A0 + 256 * 16, D_80017A0, 256, 2, D_menu_801AF3D0[1],
                      D_menu_801AF3F0[1] + 32.0f, 1.0f, 1.0f);
 
     for (i = 0; i < 4; i++) {
