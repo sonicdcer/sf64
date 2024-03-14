@@ -18,10 +18,7 @@ D_8000680:
 
 # Cornerian army attn:
 D_80006A0:
-  { type: TEXTURE, ctype: u8, format: CI4, width: 256, height: 32, offset: 0x80006A0, symbol: D_80006A0, tlut: 0x80017A0 }
-
-D_80016A0: 
-  { type: BLOB, size: 0x100, offset: 0x80016A0, symbol: D_80016A0 }
+  { type: TEXTURE, ctype: u8, format: CI4, width: 256, height: 34, offset: 0x80006A0, symbol: D_80006A0, tlut: 0x80017A0 }
 
 D_80017A0:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x80017A0, symbol: D_80017A0 }
@@ -217,11 +214,7 @@ D_80143B0:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x80143B0, symbol: D_80143B0, tlut: D_80147B0 }
 
 D_80147B0:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x80147B0, symbol: D_80147B0 }
-
-# Seems unused, TLUT?
-D_80147D0:
-  { type: BLOB, size: 0x20, offset: 0x80147D0, symbol: D_80147D0 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 32, offset: 0x80147B0, symbol: D_80147B0 }
 
 D_80147F0:
   { type: GFX, offset: 0x80147F0, symbol: D_80147F0 }
