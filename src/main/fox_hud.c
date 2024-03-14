@@ -78,7 +78,6 @@ void func_80087788(void);
 
 // Segmented addresses
 
-
 extern u8 D_6000000[];
 extern u16 D_6000840[];
 extern u16 D_6000C80[];

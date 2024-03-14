@@ -72,14 +72,12 @@ s32 func_i6_8018767C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
     return 0;
 }
 
-
 void func_i6_8018769C(Actor* actor) {
     Vec3f sp28[20];
 
     Animation_GetFrameData(&D_6014658, actor->unk_0B6, sp28);
     Animation_DrawSkeleton(1, D_6014844, sp28, func_i6_8018767C, NULL, NULL, &gIdentityMatrix);
 }
-
 
 void func_i6_801876FC(void) {
     s32 temp_ft3;
@@ -99,7 +97,6 @@ void func_i6_801876FC(void) {
         }
     }
 }
-
 
 void func_i6_801878A8() {
     Actor* actor;
@@ -167,7 +164,6 @@ void func_i6_801878A8() {
         }
     }
 }
-
 
 void func_i6_80187C5C(void) {
     Actor* actor;
@@ -348,7 +344,6 @@ void func_i6_80188528(Actor* actor) {
     actor->obj.rot.x = RAD_TO_DEG(gPlayer[0].unk_05C);
     actor->unk_0F4.z += actor->fwork[0];
 }
-
 
 void func_i6_80188660(Actor* actor) {
     RCP_SetupDL(&gMasterDisp, 0x3D);
@@ -1215,7 +1210,6 @@ s32 func_i6_8018B47C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
     return false;
 }
 
-
 void func_i6_8018B8C0(Boss* boss) {
     s32 j;
     s32 i;
@@ -1271,7 +1265,6 @@ void func_i6_8018B8C0(Boss* boss) {
         }
     }
 }
-
 
 void func_i6_8018BDD8(void) {
     s32 i;
@@ -2818,7 +2811,6 @@ void func_i6_8018DBF0(Boss* boss) {
     }
 }
 
-
 static Vec3f D_i6_801A67C4 = { 40.0f, 0.0f, -10.0f };
 static f32 D_i6_801A67D0 = 180.0f;
 static f32 D_i6_801A67D4 = 0.0f;
@@ -3143,7 +3135,6 @@ void func_i6_801924B4(s32 limbIndex, Vec3f* rot, void* data) {
     }
 }
 
-
 void func_i6_801928C8(Boss* boss) {
 
     if (boss->timer_058 == 0) {
@@ -3273,7 +3264,6 @@ void func_i6_80192E94(Actor* actor) {
     }
 }
 
-
 void func_i6_80193244(Actor* actor) {
 
     gSPDisplayList(gMasterDisp++, D_6007E20);
@@ -3296,7 +3286,6 @@ void func_i6_80193244(Actor* actor) {
         gSPDisplayList(gMasterDisp++, D_1024AC0);
     }
 }
-
 
 void func_i6_80193380(Object_80* obj80) {
 

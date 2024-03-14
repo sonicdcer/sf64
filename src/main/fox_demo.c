@@ -9,7 +9,6 @@
 #include "assets/ast_aquas.h"
 #include "assets/ast_great_fox.h"
 
-
 extern Gfx D_60320E0[];
 extern Gfx D_7010970[];
 

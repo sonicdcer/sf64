@@ -9,11 +9,6 @@
 
 extern Gfx D_Gfx_800D94D0[];
 
-
-
-
-
-
 extern f32 D_6006924[];
 extern f32 D_6006C0C[];
 extern f32 D_6006C28[];
@@ -32,7 +27,6 @@ extern Gfx D_90058A0[];
 extern Gfx D_900FC60[];
 extern Gfx D_900FD70[];
 extern Gfx D_900FE80[];
-
 
 s32* D_i5_801BBEF0;
 f32* D_i5_801BBEF4;
@@ -442,7 +436,8 @@ void func_i5_8018A1C0(Actor* actor) {
 static f32 D_i5_801B7568[7] = { 1.0f, 0.0f, 25.0f, 0.0f, 12.0f, 0.0f, 12.0f };
 
 Gfx* D_i5_801B7584[10] = {
-    D_TI1_700DDF0, D_TI1_700D9B0, D_TI1_700DF70, D_TI1_700DC50, D_TI1_700DED0, D_TI1_700DAD0, D_TI1_700DBB0, D_TI1_700E030, D_TI1_700D880, D_TI1_700D740,
+    D_TI1_700DDF0, D_TI1_700D9B0, D_TI1_700DF70, D_TI1_700DC50, D_TI1_700DED0,
+    D_TI1_700DAD0, D_TI1_700DBB0, D_TI1_700E030, D_TI1_700D880, D_TI1_700D740,
 };
 
 void func_i5_8018A2E8(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
@@ -868,7 +863,8 @@ void func_i5_8018B268(Actor* actor) {
     if (actor->health == 0) {
         actor->obj.status = OBJ_DYING;
         Animation_GetFrameData(&D_TI1_700D534, actor->unk_0B6, actor->vwork);
-        Animation_DrawSkeleton(0, D_TI1_700D700, actor->vwork, func_i5_8018AFD4, func_i5_8018B1B4, actor, &gIdentityMatrix);
+        Animation_DrawSkeleton(0, D_TI1_700D700, actor->vwork, func_i5_8018AFD4, func_i5_8018B1B4, actor,
+                               &gIdentityMatrix);
         func_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
         actor->timer_0CA[0] = 0;
         actor->info.unk_1C = 0.0f;
@@ -1052,7 +1048,8 @@ static s32 D_i5_801B75E4[3][3] = {
 };
 
 Gfx* D_i5_801B7608[10] = {
-    D_TI1_7005280, D_TI1_7003C50, D_TI1_7003E30, D_TI1_7004370, D_TI1_7004560, D_TI1_7003A90, D_TI1_7005420, D_TI1_7003FC0, D_TI1_7002930, D_TI1_7002490,
+    D_TI1_7005280, D_TI1_7003C50, D_TI1_7003E30, D_TI1_7004370, D_TI1_7004560,
+    D_TI1_7003A90, D_TI1_7005420, D_TI1_7003FC0, D_TI1_7002930, D_TI1_7002490,
 };
 
 void func_i5_8018BE84(Actor* actor) {

@@ -28,7 +28,6 @@ extern Gfx D_menu_801B57A8[];
 
 extern f32 D_menu_801CD818[];
 
-
 s32 D_menu_801B9090;
 s32 D_menu_801B9094;
 s32 D_menu_801B9098;    // gap
@@ -3270,7 +3269,6 @@ void func_menu_8019AD84(void) {
         TextureRect_8bIA(&gMasterDisp, D_7002110, 80, 12, D_menu_801AF25C[0], D_menu_801AF274[0], 1.0f, 1.0f);
     }
 }
-
 
 void func_menu_8019AFFC(void) {
     static f32 D_menu_801B93C0;

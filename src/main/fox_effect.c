@@ -6,8 +6,6 @@ const char D_800D7230[] = "Enm->wrk3=<%d>\n";
 const char D_800D7240[] = "a=<%d>\n";
 const char D_800D7248[] = "a=<%d>\n";
 
-
-
 extern Gfx D_4008CE0[];
 extern Gfx D_4008F70[];
 
