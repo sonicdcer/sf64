@@ -33,8 +33,9 @@ extern s32 D_i4_801A03DC;
 bool Play_CheckMedalStatus(u16 hitCount) {
     if ((gTeamShields[2] > 0) && (gTeamShields[3] > 0) && (gTeamShields[1] > 0) && (gHitCount >= hitCount)) {
         return true;
+    } else {
+        return false;
     }
-    return false;
 }
 
 void func_800A3FB0(void) {

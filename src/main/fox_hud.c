@@ -1,8 +1,9 @@
 #include "prevent_bss_reordering.h"
 #include "sf64math.h"
-
 #include "assets/ast_blue_marine.h"
 #include "assets/ast_landmaster.h"
+#include "assets/ast_training.h"
+
 // BSS section range:
 // D_801616A0 <==> D_80161910
 
@@ -1710,7 +1711,7 @@ void func_80088970(void) {
                 }
 
                 if (gCurrentLevel == LEVEL_TRAINING) {
-                    TextureRect_8bIA(&gMasterDisp, D_6000000, 96, 12, x1, y1, 1.0f, 1.0f);
+                    TextureRect_8bIA(&gMasterDisp, D_training_6000000, 96, 12, x1, y1, 1.0f, 1.0f);
                 } else {
                     if (gLifeCount[gPlayerNum]) {
                         TextureRect_8bIA(&gMasterDisp, D_1000280, 96, 10, x1, y1, 1.0f, 1.0f);

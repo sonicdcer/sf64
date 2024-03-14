@@ -11,7 +11,10 @@
       - '#include "sf64level.h"'
 
 D_training_6000000:
-  { type: BLOB, offset: 0x6000000, size: 0x900, symbol: D_training_6000000 }
+  { type: TEXTURE, format: IA8, offset: 0x6000000, width: 96, height: 12, ctype: u8, symbol: D_training_6000000 }
+
+D_training_6000480:
+  { type: TEXTURE, format: IA8, offset: 0x6000480, width: 96, height: 12, ctype: u8, symbol: D_training_6000480 }
 
 D_6000900:
   { type: TEXTURE, format: RGBA16, offset: 0x6000900, width: 44, height: 44, ctype: u16, symbol: D_6000900 }
@@ -76,5 +79,16 @@ D_6006AA4:
 D_6008EF8:
   { type: SF64:OBJECT_INIT, offset: 0x6008EF8, symbol: D_6008EF8 }
 
-D_60094FC:
-  { type: BLOB, size: 0x844, offset: 0x60094FC, symbol: D_60094FC }
+D_6009B34:
+  { type: SF64:SCRIPT, offset: 0x6009B34, symbol: D_6009B34 }
+
+D_6009CC4:
+  { type: SF64:HITBOX, offset: 0x6009CC4, symbol: D_6009CC4 }
+
+D_6009CFC:
+  { type: SF64:HITBOX, offset: 0x6009CFC, symbol: D_6009CFC }
+
+D_6009D18:
+  { type: SF64:HITBOX, offset: 0x6009D18, symbol: D_6009D18 }
+
+# size = 0x9D40

@@ -6,6 +6,8 @@
 #include "structs.h"
 #include "sf64level.h"
 
+extern u8 D_training_6000000[];
+extern u8 D_training_6000480[];
 extern u16 D_6000900[];
 extern u16 D_6001820[];
 extern Gfx D_6002740[];
@@ -35,5 +37,9 @@ extern Vtx ast_training_seg6_vtx_6828[];
 extern u16 D_6006958[];
 extern u16 D_60069D8[];
 extern EnvSettings D_6006A60;
+extern u16* D_6009B34[];
+extern f32 D_6009CC4[];
+extern f32 D_6009CFC[];
+extern f32 D_6009D18[];
 
 #endif
