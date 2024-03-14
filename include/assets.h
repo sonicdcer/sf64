@@ -89,32 +89,31 @@ extern Gfx D_1031EC0[];
 extern Gfx D_1032780[];
 
 // ast_arwing, ast_landmaster, ast_blue_marine, ast_vs_player
+extern u8  D_3000000[];
+extern u16 D_3000080[];
+extern u8  D_30001E0[];
+extern u16 D_3000380[];
+extern u8  D_30003A0[];
+extern u16 D_30004E0[];
+extern u8  D_3000510[];
+extern Gfx D_3000660[];
+extern u8  D_30006D0[];
+extern u16 D_30006A0[];
+extern u16 D_3000810[];
+extern u8  D_30013E0[];
+extern u8  D_3001420[];
+extern u16 D_3000BC0[];
 extern Gfx D_3006940[];
+extern u8  D_3004010[];
+extern u16 D_3003E20[];
+extern u16 D_3004D58[];
 extern Gfx D_301AD60[];
 extern Gfx D_301AEF0[];
 extern Gfx D_302D120[];
-extern u8 D_3000000[];
-extern u16 D_3000080[];
-extern Gfx D_3000090[];
-extern u8 D_30001E0[];
-extern u16 D_3000380[];
-extern u8 D_30003A0[];
-extern u16 D_30004E0[];
-extern u8 D_3000510[];
-extern Gfx D_3000660[];
-extern u16 D_30006A0[];
-extern u8 D_30006D0[];
-extern u16 D_3000810[];
-extern u16 D_3000BC0[];
-extern u8 D_30013E0[];
-extern u8 D_3001420[];
-extern u16 D_3003E20[];
-extern u8 D_3004010[];
-extern u16 D_3004D58[];
-extern u8 D_3006C60[];
 extern u16 D_3007500[];
-extern u8 D_300A470[];
+extern u8  D_3006C60[];
 extern u16 D_300B218[];
+extern u8  D_300A470[];
 
 
 

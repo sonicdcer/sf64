@@ -35,8 +35,12 @@
 
   - name: ast_arwing
     exclusive_ram_id: segment_03
-    type: bin
+    type: code
+    dir: assets
     start: 0x8BFC00
+    vram: 0x03000000
+    subsegments:
+      - [0x8BFC00, .data, ast_arwing/ast_arwing]
 
   - name: ast_landmaster
     exclusive_ram_id: segment_03

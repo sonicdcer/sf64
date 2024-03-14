@@ -118,7 +118,6 @@ D_6009C30:
 
 D_6009CC0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x6009CC0, symbol: D_6009CC0 }
-# 2 byte gap ?
 D_6009FF8:
   { type: SF64:ANIM, offset: 0x6009FF8, symbol: D_6009FF8 }
 
@@ -342,15 +341,12 @@ D_6029918:
 PAD_602A118:
   { type: BLOB, size: 8, offset: 0x602A118, symbol: PAD_602A118 }
 
-# TODO: Replace with EnvSettings factory
 D_602A120:
   { type: SF64:ENV_SETTINGS, offset: 0x602A120, symbol: D_602A120 }
 
-# array of 1026 ObjectInit's
 D_602A164:
   { type: SF64:OBJECT_INIT, count: 1026, offset: 0x602A164, symbol: D_602A164 }
 
-# array of 167 ObjectInit's
 D_602F18C:
   { type: SF64:OBJECT_INIT, count: 167, offset: 0x602F18C, symbol: D_602F18C }
 
@@ -366,10 +362,10 @@ D_603238C:
 D_6032408:
   { type: SF64:HITBOX, offset: 0x6032408, symbol: D_6032408 }
 
-D_6032488: #
+D_6032488:
   { type: SF64:HITBOX, offset: 0x6032488, symbol: D_6032488 }
 
-D_60324EC: #
+D_60324EC:
   { type: SF64:HITBOX, offset: 0x60324EC, symbol: D_60324EC }
 
 D_6032550:
