@@ -1,17 +1,9 @@
 // #include "prevent_bss_reordering.h"
 #include "global.h"
+#include "assets/ast_blue_marine.h"
 
 const char D_i3_801C1A30[] = "プレイヤーのすべてをクリア \n";
 const char D_i3_801C1A50[] = "i %d\n";
-
-// /* 0x3 */ ROM_SEGMENT(ast_8E1F80),
-extern Gfx D_3000130[];
-extern Gfx D_3000470[];
-extern Gfx D_3000AF0[];
-extern Gfx D_3000C70[];
-extern Gfx D_3006AF0[];
-extern Gfx D_3006C70[];
-extern Gfx D_3006DE0[];
 
 // /* 0x6 */ ROM_SEGMENT(ast_A58F60),
 extern Animation D_6000AE4;
@@ -1361,7 +1353,7 @@ void func_i3_801ACBB4(Player* player) {
     Matrix_Translate(gGfxMatrix, 0.0f, -4.5f, 1.2f, 1);
     Matrix_RotateZ(gGfxMatrix, player->unk_178 * M_DTOR, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_3006DE0);
+    gSPDisplayList(gMasterDisp++, D_blue_marine_3006DE0);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, 0.0f, 2.0f, 40.0f, 1);

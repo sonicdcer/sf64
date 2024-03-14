@@ -1,6 +1,7 @@
 #include "global.h"
 #include "assets/ast_bg_planet.h"
 #include "assets/ast_7_ti_1.h"
+#include "assets/ast_landmaster.h"
 
 extern Animation D_7003EE8;
 extern Gfx D_7005300[];
@@ -10,7 +11,6 @@ extern Animation D_70096EC;
 extern Limb* D_700C964[];
 extern Limb* D_700D700[];
 extern Animation D_700E244;
-extern Gfx D_3007E70[];
 extern f32 D_6006924[];
 extern f32 D_6006C0C[];
 extern f32 D_6006C28[];

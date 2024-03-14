@@ -87,5 +87,5 @@ D_3006AF0:
 D_3006C70:
   { type: GFX, offset: 0x3006C70, symbol: D_3006C70 }
 
-D_3006DE0:
-  { type: GFX, offset: 0x3006DE0, symbol: D_3006DE0 }
+D_blue_marine_3006DE0:
+  { type: GFX, offset: 0x3006DE0, symbol: D_blue_marine_3006DE0 }
