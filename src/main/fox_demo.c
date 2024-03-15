@@ -8,6 +8,7 @@
 #include "assets/ast_sector_x.h"
 #include "assets/ast_aquas.h"
 #include "assets/ast_great_fox.h"
+#include "assets/ast_enmy_space.h"
 
 extern Gfx D_60320E0[];
 extern Gfx D_7010970[];
@@ -2601,7 +2602,7 @@ void func_8004FEC0(Actor* actor) {
             break;
 
         case 20:
-            gSPDisplayList(gMasterDisp++, D_400AAE0);
+            gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_400AAE0);
             break;
 
         case 24:
@@ -2624,7 +2625,7 @@ void func_8004FEC0(Actor* actor) {
             break;
 
         case 28:
-            gSPDisplayList(gMasterDisp++, D_400AAE0);
+            gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_400AAE0);
             Matrix_Translate(gGfxMatrix, 0.f, 0.f, -60.0f, 1);
             func_8005B1E8(actor, 2);
             break;

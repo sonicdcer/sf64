@@ -16,6 +16,7 @@ WingInfo D_80161630;
 #include "assets/ast_arwing.h"
 #include "assets/ast_blue_marine.h"
 #include "assets/ast_vs_player.h"
+#include "assets/ast_enmy_space.h"
 
 char D_800CF970[] = "$Id: fox_edisplay.c,v 1.196 1997/05/08 08:31:50 morita Exp $";
 
@@ -534,9 +535,9 @@ void func_8005B388(Actor* actor) {
     } else if (gLevelType == LEVELTYPE_PLANET) {
         gSPDisplayList(gMasterDisp++, D_40018A0);
     } else if (gPlayer[0].unk_204 == 2) {
-        gSPDisplayList(gMasterDisp++, D_4003BD0);
+        gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_4003BD0);
     } else {
-        gSPDisplayList(gMasterDisp++, D_4007870);
+        gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_4007870);
     }
     func_8005ADAC(actor);
 }
@@ -568,7 +569,7 @@ void func_8005B848(Actor* actor) {
             break;
         case 1:
             if (gCurrentLevel == LEVEL_AREA_6) {
-                gSPDisplayList(gMasterDisp++, D_400B390);
+                gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_400B390);
             } else {
                 gSPDisplayList(gMasterDisp++, D_4007AF0);
             }
