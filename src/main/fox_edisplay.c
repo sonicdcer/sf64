@@ -1,6 +1,6 @@
-#include "prevent_bss_reordering.h"
-#include "global.h"
 
+#include "global.h"
+#include "prevent_bss_reordering.h"
 Vec3f D_801615D0;
 Vec3f D_801615E0;
 s32 D_801615EC;
@@ -8,6 +8,14 @@ Matrix D_801615F0;
 WingInfo D_80161630;
 
 #include "fox_edisplay_assets.h"
+#include "assets/ast_sector_x.h"
+#include "assets/ast_aquas.h"
+#include "assets/ast_7_ti_1.h"
+#include "assets/ast_andross.h"
+#include "assets/ast_star_wolf.h"
+#include "assets/ast_arwing.h"
+#include "assets/ast_blue_marine.h"
+#include "assets/ast_vs_player.h"
 
 char D_800CF970[] = "$Id: fox_edisplay.c,v 1.196 1997/05/08 08:31:50 morita Exp $";
 
@@ -85,10 +93,10 @@ void func_80059AEC(Object_80* obj80) {
 
 void func_80059B20(Object_80* obj80) {
     if (obj80->obj.id == OBJ_80_29) {
-        gSPDisplayList(gMasterDisp++, D_7007350);
+        gSPDisplayList(gMasterDisp++, D_TI1_7007350);
     } else {
         Graphics_SetScaleMtx(D_800CF9B0[obj80->obj.id + 2]);
-        gSPDisplayList(gMasterDisp++, D_700BB10);
+        gSPDisplayList(gMasterDisp++, D_TI1_700BB10);
     }
 }
 
@@ -208,7 +216,7 @@ Gfx* D_800CFC0C[] = {
     D_60294A0, D_60291B0, D_60287F0, D_6029330, D_6029240, D_6029790, D_6029900,
     D_6028F50, D_60290C0, D_6029530, D_60296A0, D_6028A80, D_6028910,
 };
-Gfx* D_800CFC40[] = { D_6014FD0, D_6014FD0, D_6014FD0, D_6014FD0 };
+Gfx* D_800CFC40[] = { D_AQ_6014FD0, D_AQ_6014FD0, D_AQ_6014FD0, D_AQ_6014FD0 };
 Gfx* D_800CFC50[] = { D_601EDE0, D_601F2F0, D_601F830, D_601FD70, D_601D110 };
 Gfx* D_800CFC64[] = { D_6023940, D_6023D70, D_60249C0, D_6023EB0, D_60249C0, D_6023B80 };
 Gfx* D_800CFC7C[] = {
@@ -377,7 +385,7 @@ void func_8005A094(Actor* actor) {
         case 58:
             Graphics_SetScaleMtx(actor->scale);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_60148B0);
+            gSPDisplayList(gMasterDisp++, D_AQ_60148B0);
             break;
         case 59:
             Graphics_SetScaleMtx(actor->scale);
@@ -994,10 +1002,10 @@ void Actor_Draw2(Actor* actor) {
             }
             if (actor->info.drawType == 0) {
                 gSPDisplayList(gMasterDisp++, actor->info.dList);
-                func_8005F1EC(actor->sfxPos);
+                func_8005F1EC(actor->sfxSource);
             } else {
                 actor->info.draw(&actor->obj);
-                func_8005F1EC(actor->sfxPos);
+                func_8005F1EC(actor->sfxSource);
                 if (((actor->obj.id == OBJ_ACTOR_198) || ((actor->obj.id == OBJ_ACTOR_203) && (actor->unk_0B6 > 0))) &&
                     (D_80161410 > 0)) {
                     Matrix_MultVec3f(gGfxMatrix, &sp34, &D_80177E98[actor->unk_0E4]);
@@ -1090,7 +1098,7 @@ void Actor_Draw1(Actor* actor) {
     if (D_801615EC == 0) {
         actor->timer_0CA[gPlayerNum] = 0;
         if ((actor->obj.id == OBJ_ACTOR_189) || (actor->obj.id == OBJ_ACTOR_286)) {
-            Object_Kill(&actor->obj, actor->sfxPos);
+            Object_Kill(&actor->obj, actor->sfxSource);
         }
     }
     for (var_v1 = 0; var_v1 < gCamCount; var_v1++) {
@@ -1102,7 +1110,7 @@ void Actor_Draw1(Actor* actor) {
             }
         }
     }
-    func_8005F290(actor->sfxPos, &D_801615E0);
+    func_8005F290(actor->sfxSource, &D_801615E0);
     actor->iwork[24] = D_801615EC;
 }
 
@@ -1122,7 +1130,7 @@ void Boss_Draw(Boss* boss, s32 arg1) {
         func_8005D1F0(&boss->obj, boss->info.drawType);
     }
     Matrix_MultVec3f(&D_801615F0, &sp30, &D_801615D0);
-    func_8005F290(boss->sfxPos, &D_801615D0);
+    func_8005F290(boss->sfxSource, &D_801615D0);
     if ((boss->obj.id == OBJ_BOSS_316) || (boss->obj.id == OBJ_BOSS_317)) {
         var_fa1 = 6000.0f;
         var_fv0 = 6000.0f;
@@ -1218,9 +1226,9 @@ void Effect_Draw2(Effect* effect) {
             }
         }
     }
-    func_8005F290(effect->sfxPos, &sp40);
+    func_8005F290(effect->sfxSource, &sp40);
     if ((sp3B == 0) && (effect->obj.id != OBJ_EFFECT_352) && (effect->obj.id != OBJ_EFFECT_373) && (!gVersusMode)) {
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
     }
 }
 
@@ -1250,10 +1258,10 @@ void Item_Draw(Item* item, s32 arg1) {
             }
         }
     }
-    func_8005F290(item->sfxPos, &sp38);
+    func_8005F290(item->sfxSource, &sp38);
     if ((var_v0 == 0) && (gLevelMode == LEVELMODE_ALL_RANGE) && (gCamCount == 1) && (item->obj.id < 336) &&
         (gCurrentLevel != LEVEL_VENOM_ANDROSS)) {
-        Object_Kill(&item->obj, item->sfxPos);
+        Object_Kill(&item->obj, item->sfxSource);
     }
 }
 
@@ -1460,7 +1468,7 @@ void func_8005F670(Vec3f* arg0) {
         sp9C.x = arg0->x - D_80178370;
         sp9C.y = arg0->y - D_80178374;
         sp9C.z = arg0->z - D_80178378;
-        temp_fv0 = sqrtf(VEC3F_SQ(sp9C));
+        temp_fv0 = (VEC3F_MAG(&sp9C));
         if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2) {
             var_fs0 = 700.0f / temp_fv0;
         } else {
@@ -1531,9 +1539,9 @@ void Object_DrawAll(s32 arg0) {
         for (i = 0, obj58 = gObjects58; i < 200; i++, obj58++) {
             if ((obj58->obj.status == OBJ_ACTIVE) && (obj58->obj.id != OBJ_80_147)) {
                 if (gCurrentLevel == LEVEL_BOLSE) {
-                    spAC.x = obj58->sfxPos[0];
-                    spAC.y = obj58->sfxPos[1];
-                    spAC.z = obj58->sfxPos[2];
+                    spAC.x = obj58->sfxSource[0];
+                    spAC.y = obj58->sfxSource[1];
+                    spAC.z = obj58->sfxSource[2];
                     Matrix_MultVec3fNoTranslate(&D_i4_8019EE80, &spAC, &obj58->obj.pos);
                     obj58->obj.rot.y = gBosses[0].obj.rot.y + (*obj58).unk_54;
                 }
@@ -1552,7 +1560,7 @@ void Object_DrawAll(s32 arg0) {
                 Matrix_Push(&gGfxMatrix);
                 Object_80_Draw(obj80, arg0);
                 Matrix_Pop(&gGfxMatrix);
-                func_8005F1EC(obj80->sfxPos);
+                func_8005F1EC(obj80->sfxSource);
             }
         }
     }
@@ -1672,7 +1680,7 @@ void func_8006046C(s32 arg0) {
                 Matrix_Push(&gGfxMatrix);
                 Effect_Draw1(effect, arg0);
                 Matrix_Pop(&gGfxMatrix);
-                func_8005F1EC(effect->sfxPos);
+                func_8005F1EC(effect->sfxSource);
                 if (effect->obj.id == OBJ_EFFECT_374) {
                     Matrix_Push(&gGfxMatrix);
                     func_8005ECD8(i, &effect->obj);
@@ -1769,7 +1777,7 @@ void func_80060968(void) {
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -200.0f, 1);
                     Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 5.0f * M_DTOR, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_60119A0);
+                    gSPDisplayList(gMasterDisp++, D_AQ_60119A0);
                 } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
                     Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.0025f, 1);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -200.0f, 1);

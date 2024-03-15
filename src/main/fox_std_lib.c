@@ -2,7 +2,7 @@
 
 char D_801619A0[100];
 
-#include "fox_std_lib_assets.h"
+#include "assets/ast_font.h"
 
 char* Graphics_ClearPrintBuffer(char* buf, s32 fill, s32 len) {
     s32 i;
@@ -129,7 +129,7 @@ void Texture_Mottle(void* dst, void* src, u8 mode) {
 s32 Animation_GetLimbIndex(Limb* limb, Limb** skeleton) {
     s32 i = 1;
 
-    for (i = 1; *skeleton != 0; i++, skeleton++) {
+    for (i = 1; *skeleton != NULL; i++, skeleton++) {
         if (*skeleton == limb) {
             return i;
         }
@@ -531,7 +531,7 @@ s32 Math_PursueVec3f(Vec3f* pos, Vec3f* target, Vec3f* rot, f32 stepSize, f32 sc
     diff.y = target->y - pos->y;
     diff.z = target->z - pos->z;
 
-    return sqrtf(VEC3F_SQ(diff)) < dist;
+    return (VEC3F_MAG(&diff)) < dist;
 }
 
 void TextureRect_4bCI(Gfx** gfxPtr, void* texture, void* palette, u32 width, u32 height, f32 xPos, f32 yPos, f32 xScale,

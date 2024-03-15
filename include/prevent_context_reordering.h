@@ -2,8 +2,8 @@
 #define PREVENT_CONTEXT_REORDERING_H
 
 extern int Dummyhalf;
-struct Dummy0 {int x;};
-struct Dummy1 {int x;};
+// struct Dummy0 {int x;};
+// struct Dummy1 {int x;};
 struct Dummy2 {int x;};
 struct Dummy3 {int x;};
 struct Dummy4 {int x;};
@@ -74,7 +74,7 @@ struct Dummy68 {int x;};
 struct Dummy69 {int x;};
 struct Dummy70 {int x;};
 struct Dummy71 {int x;};
-struct Dummy72 {int x;};
+// struct Dummy72 {int x;};
 // struct Dummy73 {int x;};
 // struct Dummy75 { int x; };
 // struct Dummy76 { int x; };

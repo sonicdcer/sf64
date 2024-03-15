@@ -6,37 +6,9 @@ const char D_800D7230[] = "Enm->wrk3=<%d>\n";
 const char D_800D7240[] = "a=<%d>\n";
 const char D_800D7248[] = "a=<%d>\n";
 
-extern Gfx D_1003130[];
-extern Gfx D_1015320[];
-extern Gfx D_10156A0[];
-extern Gfx D_1015810[];
-extern Gfx D_1015B70[];
-extern Gfx D_1015CE0[];
-extern Gfx D_1015E50[];
-extern Gfx D_1015FC0[];
-extern Gfx D_1016130[];
-extern Gfx D_10162A0[];
-extern Gfx D_1016410[];
-extern Gfx D_2000000[];
-extern Gfx D_2001090[];
-extern Gfx D_2002120[];
-extern Gfx D_20031B0[];
-extern Gfx D_2004240[];
-extern Gfx D_20052D0[];
-extern Gfx D_2006360[];
-extern Gfx D_20073F0[];
-extern Gfx D_2008480[];
-extern Gfx D_2009510[];
-extern Gfx D_200A5A0[];
-extern Gfx D_200B630[];
-extern Gfx D_200C6C0[];
-extern Gfx D_200E7F0[];
-extern Gfx D_200F080[];
-extern Gfx D_200F910[];
-extern Gfx D_20101A0[];
-extern Gfx D_2010A30[];
 extern Gfx D_4008CE0[];
 extern Gfx D_4008F70[];
+
 extern Gfx D_6003440[];
 extern Gfx D_60034E0[];
 extern Gfx D_6003580[];
@@ -48,7 +20,17 @@ extern u16 D_6012840[];
 extern Gfx D_6016880[];
 extern Gfx D_6018AF0[];
 extern Gfx D_601BAD0[];
+
 extern Gfx D_9013C20[];
+
+#include "assets/ast_blue_marine.h"
+#include "assets/ast_arwing.h"
+#include "assets/ast_bg_space.h"
+#include "assets/ast_bg_planet.h"
+#include "assets/ast_training.h"
+#include "assets/ast_sector_x.h"
+#include "assets/ast_aquas.h"
+#include "assets/ast_A_ti.h"
 
 void BonusText_Display(f32 xPos, f32 yPos, f32 zPos, s32 hits) {
     s32 i;
@@ -116,7 +98,7 @@ void BonusText_Draw(BonusText* bonus) {
 
         if ((fabsf(sp54.x) < 20000.0f) && (fabsf(sp54.y) < 20000.0f)) {
             if ((sp54.z < 0.0f) && (sp54.z > -20000.0f)) {
-                sp50 = sqrtf(VEC3F_SQ(sp54)) * 0.0015f * 0.2f;
+                sp50 = (VEC3F_MAG(&sp54)) * 0.0015f * 0.2f;
                 Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].unk_058, 1);
                 Matrix_RotateX(gGfxMatrix, gPlayer[gPlayerNum].unk_05C, 1);
                 Matrix_Scale(gGfxMatrix, sp50, sp50, 1.0f, 1);
@@ -504,7 +486,7 @@ void func_80078BE0(Effect* effect) {
         var_fv0 *= 1.2f;
     }
     Graphics_SetScaleMtx(effect->scale2 * var_fv0);
-    gSPDisplayList(gMasterDisp++, D_600F8A0);
+    gSPDisplayList(gMasterDisp++, D_SX_600F8A0);
 }
 
 void func_80078C84(Effect* effect) {
@@ -570,7 +552,7 @@ void func_80078EBC(Effect* effect) {
         effect->scale1 -= 0.25f;
     }
     if (effect->scale1 <= 0.0f) {
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
     }
 }
 
@@ -692,14 +674,14 @@ void func_80079618(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
 void func_8007968C(Effect* effect) {
     if ((gCurrentLevel != LEVEL_MACBETH) || (effect->unk_44 != 7)) {
         if ((effect->timer_50 == 0) || (effect->obj.pos.y < gGroundLevel)) {
-            Object_Kill(&effect->obj, effect->sfxPos);
+            Object_Kill(&effect->obj, effect->sfxSource);
         }
     } else {
         if (!(gGameFrameCount & 3)) {
             func_8007D2C8(effect->obj.pos.x, effect->obj.pos.y + 550.0f, effect->obj.pos.z, 10.0f);
         }
         if ((effect->timer_50 == 0) || (effect->obj.pos.y < (gGroundLevel - 100.0f))) {
-            Object_Kill(&effect->obj, effect->sfxPos);
+            Object_Kill(&effect->obj, effect->sfxSource);
         }
     }
 
@@ -852,7 +834,7 @@ void func_800798F0(Effect* effect) {
         case LEVEL_AQUAS:
             Matrix_SetGfxMtx(&gMasterDisp);
             RCP_SetupDL(&gMasterDisp, 0x3C);
-            gSPDisplayList(gMasterDisp++, D_600A220);
+            gSPDisplayList(gMasterDisp++, D_AQ_600A220);
             break;
 
         default:
@@ -920,7 +902,7 @@ void func_8007A28C(Effect* effect) {
         effect->unk_44 -= 2;
         if (effect->unk_44 < 0) {
             effect->unk_44 = 0;
-            Object_Kill(&effect->obj, effect->sfxPos);
+            Object_Kill(&effect->obj, effect->sfxSource);
             D_8017812C = 0;
         }
     }
@@ -951,7 +933,7 @@ void func_8007A4B8(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     effect->obj.pos.y = yPos;
     effect->obj.pos.z = zPos;
 
-    Audio_PlaySfx(0x2940F026, effect->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    AUDIO_PLAY_SFX(0x2940F026, effect->sfxSource, 4);
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
@@ -979,12 +961,12 @@ void func_8007A5F8(Effect* effect, Vec3f* pos, u32 sfxId) {
     effect->timer_50 = 50;
 
     if ((sfxId == 0x1903400F) || (sfxId == 0x11000055)) {
-        Audio_PlaySfx(sfxId, effect->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        AUDIO_PLAY_SFX(sfxId, effect->sfxSource, 0);
         if (sfxId == 0x11000055) {
             effect->timer_50 = 300;
         }
     } else {
-        Audio_PlaySfx(sfxId, effect->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        AUDIO_PLAY_SFX(sfxId, effect->sfxSource, 4);
     }
     Object_SetInfo(&effect->info, effect->obj.id);
 }
@@ -1002,7 +984,7 @@ void func_8007A6F0(Vec3f* pos, s32 sfxId) {
 
 void func_8007A748(Effect* effect) {
     if (effect->timer_50 == 0) {
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
     }
 }
 
@@ -1063,12 +1045,12 @@ void func_8007A994(Effect* effect) {
 
     effect->unk_44 -= effect->unk_46;
     if (effect->unk_44 < 0x15) {
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
     }
     effect->unk_4A++;
 }
 
-Gfx* D_800D178C[] = { D_6003440, D_60034E0, D_6003580, D_6003620, D_60036C0, D_6003760 };
+Gfx* D_800D178C[] = { D_6003440, D_60034E0, D_6003580, D_6003620, D_60036C0, D_TR_6003760 };
 
 void func_8007AA60(Effect* effect) {
     RCP_SetupDL(&gMasterDisp, 0x44);
@@ -1086,13 +1068,13 @@ void func_8007AB50(Effect* effect) {
         Math_SmoothStepToF(&effect->scale2, effect->scale1, 0.1f, 10.0f, 0.0f);
         effect->unk_44 -= 20;
         if (effect->unk_44 < 0) {
-            Object_Kill(&effect->obj, effect->sfxPos);
+            Object_Kill(&effect->obj, effect->sfxSource);
         }
     } else {
         Math_SmoothStepToF(&effect->scale2, effect->scale1, 0.1f, 10.0f, 0.0f);
         effect->unk_44 -= 10;
         if (effect->unk_44 < 0) {
-            Object_Kill(&effect->obj, effect->sfxPos);
+            Object_Kill(&effect->obj, effect->sfxSource);
         }
     }
 }
@@ -1199,7 +1181,7 @@ void func_8007B040(Effect* effect) {
         D_801782EC[sp28 - 1] = effect->scale1 * 0.7f;
     }
     if (effect->timer_50 == 0) {
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
     }
 }
 
@@ -1208,7 +1190,7 @@ void func_8007B0F4(Effect* effect) {
     effect->unk_44 -= 13;
     effect->obj.rot.y = 180.0f - effect->obj.rot.y;
     if (effect->unk_44 < 0) {
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
     }
 }
 
@@ -1224,7 +1206,7 @@ void func_8007B180(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     effect->unk_44 = 0xFF;
     effect->scale1 = scale1;
     Object_SetInfo(&effect->info, effect->obj.id);
-    Audio_PlaySfx(0x1100000C, effect->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    AUDIO_PLAY_SFX(0x1100000C, effect->sfxSource, 0);
 }
 
 void func_8007B228(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
@@ -1287,7 +1269,7 @@ void func_8007B3B8(Effect* effect) {
 
     effect->unk_44 -= var_v0;
     if (effect->unk_44 < 0) {
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
     }
 }
 
@@ -1329,7 +1311,7 @@ void func_8007B5C0(Effect* effect) {
     Math_SmoothStepToF(&effect->scale2, effect->scale1, 0.1f, 10.0f, 0.1f);
     effect->unk_44 -= effect->unk_46;
     if (effect->unk_44 < 0) {
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
     }
 }
 
@@ -1337,7 +1319,7 @@ void func_8007B62C(Effect* effect) {
     if (effect->timer_50 == 0) {
         effect->unk_46 -= 4;
         if (effect->unk_46 <= 0) {
-            Object_Kill(&effect->obj, effect->sfxPos);
+            Object_Kill(&effect->obj, effect->sfxSource);
         }
     }
 }
@@ -1357,7 +1339,7 @@ void func_8007B67C(Effect* effect) {
     if (effect->unk_46 >= 9) {
         effect->unk_48++;
         if (effect->unk_48 >= 10) {
-            Object_Kill(&effect->obj, effect->sfxPos);
+            Object_Kill(&effect->obj, effect->sfxSource);
         }
     }
 
@@ -1376,7 +1358,7 @@ void func_8007B758(Effect* effect) {
     Math_SmoothStepToF(&effect->scale2, effect->scale1, 0.1f, 10.0f, 0.1f);
     effect->unk_44 -= 2;
     if (effect->unk_44 < 0) {
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
     }
     func_8007A774(gPlayer, effect, effect->scale2 * 20.0f);
 }
@@ -1419,7 +1401,7 @@ void func_8007B960(Effect* effect) {
     effect->scale2 += 0.07f;
     effect->unk_4A -= effect->unk_46;
     if (effect->unk_4A < 0) {
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
     }
     effect->obj.rot.z += effect->unk_48;
     effect->vel.y += 0.2f;
@@ -1508,7 +1490,7 @@ void func_8007BCE8(Effect* effect) {
     effect->unk_4A -= effect->unk_46;
 
     if (effect->unk_4A < 0) {
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
     }
     effect->obj.rot.z += effect->unk_48;
     effect->vel.y += 0.2f;
@@ -1518,7 +1500,7 @@ void func_8007BDE0(Effect* effect) {
     effect->scale2 += 0.04f;
     effect->unk_4A -= 2;
     if (effect->unk_4A < 0) {
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
     }
     effect->obj.rot.z += effect->unk_48;
     effect->vel.y += effect->scale1;
@@ -1528,7 +1510,7 @@ void func_8007BE54(Effect* effect) {
     effect->scale2 += 0.02f;
     effect->unk_4A -= 3;
     if (effect->unk_4A < 0) {
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
     }
     effect->vel.z = gPlayer[0].vel.z + 7.0f;
     effect->obj.rot.z += effect->unk_48;
@@ -1605,7 +1587,7 @@ void func_8007C1AC(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
             func_8007BF64(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2, timer50);
-            func_800A6070(gEffects[i].sfxPos, 0x29000000);
+            func_800A6070(gEffects[i].sfxSource, 0x29000000);
             break;
         }
     }
@@ -1633,7 +1615,7 @@ void func_8007C250(Effect* effect) {
         func_8007D0E0(effect->obj.pos.x + randX, effect->obj.pos.y + randY, effect->obj.pos.z,
                       effect->scale2 * randOther);
         if (effect->timer_50 == 0) {
-            Object_Kill(&effect->obj, effect->sfxPos);
+            Object_Kill(&effect->obj, effect->sfxSource);
         }
     }
 }
@@ -1682,7 +1664,7 @@ void func_8007C50C(Effect* effect) {
         func_8007C484(effect->obj.pos.x + randX, effect->obj.pos.y + randY, effect->obj.pos.z, effect->vel.x,
                       effect->vel.y, effect->vel.z, effect->scale2 * randOther, 0);
         if (effect->timer_50 == 0) {
-            Object_Kill(&effect->obj, effect->sfxPos);
+            Object_Kill(&effect->obj, effect->sfxSource);
         }
     }
 }
@@ -1774,7 +1756,7 @@ void func_8007C8C4(Effect* effect) {
         func_8007C85C(effect->obj.pos.x + randX, effect->obj.pos.y + randY, effect->obj.pos.z,
                       effect->scale2 * randOther);
         if (effect->timer_50 == 0) {
-            Object_Kill(&effect->obj, effect->sfxPos);
+            Object_Kill(&effect->obj, effect->sfxSource);
         }
     }
 }
@@ -1784,7 +1766,7 @@ void func_8007C9E0(Effect* effect) {
         effect->scale2 *= 1.03f;
         effect->unk_4A -= 3;
         if (effect->unk_4A < 0) {
-            Object_Kill(&effect->obj, effect->sfxPos);
+            Object_Kill(&effect->obj, effect->sfxSource);
         }
         effect->obj.rot.z += effect->unk_48;
         effect->vel.y += 0.3f;
@@ -1793,7 +1775,7 @@ void func_8007C9E0(Effect* effect) {
         effect->scale2 *= 1.03f;
         effect->unk_4A -= 7;
         if (effect->unk_4A < 0) {
-            Object_Kill(&effect->obj, effect->sfxPos);
+            Object_Kill(&effect->obj, effect->sfxSource);
         }
         effect->obj.rot.z += effect->unk_48;
         effect->vel.y += 0.3f;
@@ -2000,7 +1982,7 @@ void func_8007D2F4(Effect* effect) {
                     effect->timer_50 = 5;
                 }
                 if (effect->unk_4C > 20) {
-                    Object_Kill(&effect->obj, effect->sfxPos);
+                    Object_Kill(&effect->obj, effect->sfxSource);
                 }
             }
         } else {
@@ -2017,7 +1999,7 @@ void func_8007D2F4(Effect* effect) {
                     effect->timer_50 = 2;
                 }
                 if (effect->unk_4C > 20) {
-                    Object_Kill(&effect->obj, effect->sfxPos);
+                    Object_Kill(&effect->obj, effect->sfxSource);
                 }
             }
         }
@@ -2026,7 +2008,7 @@ void func_8007D2F4(Effect* effect) {
             effect->unk_4C++;
             effect->timer_50 = effect->unk_46;
             if (effect->unk_4C > 13) {
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
             }
         }
         effect->unk_44 -= 15;
@@ -2044,9 +2026,9 @@ void func_8007D2F4(Effect* effect) {
 }
 
 Gfx* D_800D17A4[] = {
-    D_200B630, D_200B630, D_200B630, D_200B630, D_200A5A0, D_2009510, D_2008480,
-    D_20073F0, D_2006360, D_200C6C0, D_20052D0, D_2004240, D_20031B0, D_2002120,
-    D_2001090, D_2000000, D_2010A30, D_20101A0, D_200F910, D_200F080, D_200E7F0,
+    D_200B630, D_200B630,           D_200B630, D_200B630, D_200A5A0, D_2009510, D_2008480,
+    D_20073F0, D_2006360,           D_200C6C0, D_20052D0, D_2004240, D_20031B0, D_2002120,
+    D_2001090, D_BG_PLANET_2000000, D_2010A30, D_20101A0, D_200F910, D_200F080, D_200E7F0,
 };
 
 f32 D_800D17F8[] = {
@@ -2103,7 +2085,7 @@ void func_8007D748(Effect* effect) {
                 effect->unk_4C = effect->unk_4C + 2;
             }
             if (effect->unk_4C > 20) {
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
             }
         }
     } else {
@@ -2111,7 +2093,7 @@ void func_8007D748(Effect* effect) {
             effect->unk_4C++;
             effect->timer_50 = 0;
             if (effect->unk_4C > 13) {
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
             }
         }
         effect->unk_44 -= 15;
@@ -2138,7 +2120,7 @@ void func_8007D8A8(Effect* effect) {
         effect->unk_4C++;
         effect->timer_50 = 2;
         if (effect->unk_4C >= 20) {
-            Object_Kill(&effect->obj, effect->sfxPos);
+            Object_Kill(&effect->obj, effect->sfxSource);
         }
     }
     if (effect->unk_4C >= 16) {
@@ -2180,7 +2162,7 @@ void func_8007DA58(Effect* effect) {
     }
     effect->obj.rot.y += effect->unk_60.y;
     if (effect->scale2 < 0.01f) {
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
     }
 }
 
@@ -2208,7 +2190,7 @@ void func_8007DB70(Effect* effect) {
                 effect->unk_44 = 192;
                 effect->scale2 = 2.5f;
                 effect->scale1 = 2.5f;
-                Audio_PlaySfx(0x2903B009, effect->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                AUDIO_PLAY_SFX(0x2903B009, effect->sfxSource, 4);
                 func_8007D0E0(effect->obj.pos.x, effect->obj.pos.y + 30.0f, effect->obj.pos.z, 7.0f);
                 func_8007BFFC(effect->obj.pos.x, effect->obj.pos.y + 30.0f, effect->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f,
                               5);
@@ -2226,7 +2208,7 @@ void func_8007DB70(Effect* effect) {
                 effect->scale1 -= 0.3f;
                 effect->unk_44 -= 20;
                 if (effect->unk_44 < 0) {
-                    Object_Kill(&effect->obj, effect->sfxPos);
+                    Object_Kill(&effect->obj, effect->sfxSource);
                 }
             }
             effect->obj.rot.y = 180.0f - effect->obj.rot.y;
@@ -2285,14 +2267,14 @@ void func_8007E014(Effect* effect) {
             (fabsf(effect->obj.pos.z - gEffects[i].obj.pos.z) < 20.0f) &&
             (fabsf(effect->obj.pos.x - gEffects[i].obj.pos.x) < 20.0f) &&
             (fabsf(effect->obj.pos.y - gEffects[i].obj.pos.y) < 20.0f)) {
-            Object_Kill(&effect->obj, effect->sfxPos);
+            Object_Kill(&effect->obj, effect->sfxSource);
         }
     }
 }
 
 void func_8007E258(Effect* effect) {
     if ((gCamCount != 1) && (effect->timer_50 == 0)) {
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
     }
 }
 
@@ -2301,7 +2283,7 @@ void func_8007E298(Effect* effect) {
         effect->scale2 *= 1.035f;
         effect->unk_4A -= 8;
         if (effect->unk_4A < 0) {
-            Object_Kill(&effect->obj, effect->sfxPos);
+            Object_Kill(&effect->obj, effect->sfxSource);
         }
     }
     effect->obj.rot.z += effect->unk_48;
@@ -2324,7 +2306,7 @@ void func_8007E3E4(Effect* effect) {
     effect->scale2 += 0.02f;
     effect->unk_4A -= 4;
     if (effect->unk_4A < 0) {
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
     }
     effect->obj.rot.z += effect->unk_48;
     effect->vel.y += 0.05f;
@@ -2338,7 +2320,7 @@ void func_8007E45C(Effect* effect) {
                 effect->unk_44 -= 10;
                 effect->obj.rot.z += effect->scale1;
                 if (effect->unk_44 < 0) {
-                    Object_Kill(&effect->obj, effect->sfxPos);
+                    Object_Kill(&effect->obj, effect->sfxSource);
                 }
                 break;
             }
@@ -2347,7 +2329,7 @@ void func_8007E45C(Effect* effect) {
             effect->unk_44 -= 1;
 
             if (effect->unk_44 < 0) {
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
             }
 
             effect->obj.rot.z += effect->scale1;
@@ -2360,7 +2342,7 @@ void func_8007E45C(Effect* effect) {
             effect->unk_44 -= 10;
             effect->obj.rot.z += effect->scale1;
             if (effect->unk_44 < 0) {
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
             }
             break;
     }
@@ -2377,7 +2359,7 @@ void func_8007E648(Effect* effect) {
         Math_SmoothStepToF(&effect->scale2, effect->scale1, 0.05f, 100.0f, 0.0f);
         effect->unk_44 -= 2;
         if (effect->unk_44 < 0) {
-            Object_Kill(&effect->obj, effect->sfxPos);
+            Object_Kill(&effect->obj, effect->sfxSource);
         }
     }
 }
@@ -2422,7 +2404,7 @@ void func_8007E6B8(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPos, f32 
     }
 
     if (objId == OBJ_EFFECT_356) {
-        Audio_PlaySfx(0x31000025, effect->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        AUDIO_PLAY_SFX(0x31000025, effect->sfxSource, 4);
     }
 
     if (objId == OBJ_EFFECT_376) {
@@ -2433,10 +2415,10 @@ void func_8007E6B8(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPos, f32 
     }
 
     if ((objId == OBJ_EFFECT_355) || (objId == OBJ_EFFECT_377)) {
-        Audio_PlaySfx(0x31000025, effect->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        AUDIO_PLAY_SFX(0x31000025, effect->sfxSource, 4);
         return;
     }
-    Audio_PlaySfx(0x29002002, effect->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    AUDIO_PLAY_SFX(0x29002002, effect->sfxSource, 4);
 }
 
 void func_8007E93C(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPos, f32 arg5) {
@@ -2479,7 +2461,7 @@ void func_8007E93C(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPos, f32 
     }
 
     if (objId == OBJ_EFFECT_356) {
-        Audio_PlaySfx(0x31000025, effect->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        AUDIO_PLAY_SFX(0x31000025, effect->sfxSource, 4);
     }
 
     if (objId == OBJ_EFFECT_376) {
@@ -2490,10 +2472,10 @@ void func_8007E93C(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPos, f32 
     }
 
     if ((objId == OBJ_EFFECT_355) || (objId == OBJ_EFFECT_377)) {
-        Audio_PlaySfx(0x31000025, effect->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        AUDIO_PLAY_SFX(0x31000025, effect->sfxSource, 4);
         return;
     }
-    Audio_PlaySfx(0x29002002, effect->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+    AUDIO_PLAY_SFX(0x29002002, effect->sfxSource, 4);
 }
 
 void func_8007EBB8(Effect* effect, ObjectId objId, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel,
@@ -2514,9 +2496,9 @@ void func_8007EBB8(Effect* effect, ObjectId objId, f32 xPos, f32 yPos, f32 zPos,
 
     effect->scale2 = scale2;
     if (objId == OBJ_EFFECT_355) {
-        Audio_PlaySfx(0x31000025, effect->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        AUDIO_PLAY_SFX(0x31000025, effect->sfxSource, 4);
     } else {
-        Audio_PlaySfx(0x29002002, effect->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        AUDIO_PLAY_SFX(0x29002002, effect->sfxSource, 4);
     }
     Object_SetInfo(&effect->info, effect->obj.id);
 }
@@ -2561,7 +2543,7 @@ void func_8007ED54(Effect* effect, ObjectId objId, f32 xPos, f32 yPos, f32 zPos,
 
     effect->scale2 = scale2;
     if (effect->obj.id != OBJ_EFFECT_380) {
-        Audio_PlaySfx(0x29002002, effect->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        AUDIO_PLAY_SFX(0x29002002, effect->sfxSource, 4);
     }
     Object_SetInfo(&effect->info, effect->obj.id);
 }
@@ -2633,11 +2615,11 @@ void func_8007F20C(ObjectId objId, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
 
 void func_8007F2FC(Effect* effect) {
     if (effect->timer_50 == 0) {
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
     }
 
     if ((effect->obj.pos.y < gGroundLevel) && (gLevelType == LEVELTYPE_PLANET)) {
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
     }
 
     if (gLevelType == LEVELTYPE_PLANET) {
@@ -2680,7 +2662,7 @@ void func_8007F438(Effect* effect) {
         }
 
         if (effect->timer_50 == 0) {
-            Object_Kill(&effect->obj, effect->sfxPos);
+            Object_Kill(&effect->obj, effect->sfxSource);
         }
     } else {
         effect->obj.rot.z += 3.5f;
@@ -2688,7 +2670,7 @@ void func_8007F438(Effect* effect) {
             effect->vel.y += 0.2f;
         }
         if (effect->timer_50 == 0) {
-            Object_Kill(&effect->obj, effect->sfxPos);
+            Object_Kill(&effect->obj, effect->sfxSource);
         }
     }
 }
@@ -2705,7 +2687,7 @@ void func_8007F5AC(Effect* effect) {
         if (!(gGameFrameCount & 1)) {
             effect->unk_44--;
             if (effect->unk_44 < 20) {
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
             }
         }
 
@@ -2733,7 +2715,7 @@ void func_8007F6B0(Effect* effect) {
 
     effect->unk_44 -= 2;
     if (effect->unk_44 < 0) {
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
     }
 
     if (!(gGameFrameCount & 3) && (effect->state == 0)) {
@@ -2779,7 +2761,7 @@ void func_8007F958(Effect* effect) {
 
     effect->unk_44 -= 9;
     if (effect->unk_44 < 0) {
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
         return;
     }
 
@@ -2821,7 +2803,7 @@ void func_8007FBE0(Effect* effect) {
 
     effect->unk_44 -= 6;
     if (effect->unk_44 < 0) {
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
     }
 
     if (!(gGameFrameCount & 1)) {
@@ -2868,12 +2850,12 @@ void func_8007FE88(Effect* effect) {
     f32 var_fa0 = 0.0f;
 
     if (effect->timer_50 == 0) {
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
         return;
     }
 
     if (func_8007FD84(effect) != 0) {
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
         return;
     }
 
@@ -2897,7 +2879,7 @@ void func_8007FE88(Effect* effect) {
                 effect->vel.y = destVelocity.y;
                 effect->vel.z = destVelocity.z;
                 gPlayer[0].unk_2C4 += 1;
-                Audio_PlaySfx(0x09007011, effect->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                AUDIO_PLAY_SFX(0x09007011, effect->sfxSource, 0);
             }
 
             if ((gPlayer[0].unk_280 == 0) && (gPlayer[0].timer_498 == 0)) {
@@ -2912,17 +2894,17 @@ void func_8007FE88(Effect* effect) {
                         gPlayer[0].unk_0D8.y *= -1.0f;
                     }
                 }
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
             }
         }
     }
 
     if (D_801784AC == 4) {
         if (func_i5_801B6AEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z + D_80177D20) != 0) {
-            Object_Kill(&effect->obj, effect->sfxPos);
+            Object_Kill(&effect->obj, effect->sfxSource);
         }
     } else if (effect->obj.pos.y < gGroundLevel) {
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
         if (D_80161A88 != 2) {
             effect->obj.pos.y = gGroundLevel;
             func_8007D074(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 2.0f);
@@ -2936,11 +2918,11 @@ void func_8007FE88(Effect* effect) {
     if (gCurrentLevel != LEVEL_MACBETH) {
         if (func_8006351C(1000, &effect->obj.pos, &velocity, 2) != 0) {
             func_8007D10C(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 2.0f);
-            Object_Kill(&effect->obj, effect->sfxPos);
+            Object_Kill(&effect->obj, effect->sfxSource);
         }
     } else if (func_i5_801A55D4(1000, &effect->obj.pos, &velocity, 0) != 0) {
         func_8007D10C(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 2.0f);
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
     }
 }
 
@@ -3001,12 +2983,12 @@ void func_8008040C(Effect* effect) {
         case 1:
             effect->obj.rot.z = 360.0f - effect->obj.rot.z;
             if (effect->timer_50 == 0) {
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
                 return;
             }
 
             if (func_8007FD84(effect) != 0) {
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
                 return;
             }
 
@@ -3030,7 +3012,7 @@ void func_8008040C(Effect* effect) {
                         effect->vel.y = destVelocity.y;
                         effect->vel.z = destVelocity.z;
                         gPlayer[0].unk_2C4++;
-                        Audio_PlaySfx(0x09007011, effect->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                        AUDIO_PLAY_SFX(0x09007011, effect->sfxSource, 0);
                     }
 
                     if ((gPlayer[0].unk_280 == 0) && (gPlayer[0].timer_498 == 0)) {
@@ -3043,16 +3025,16 @@ void func_8008040C(Effect* effect) {
                         if (effect->vel.y < 0.0f) {
                             gPlayer[0].unk_0D8.y *= -1.0f;
                         }
-                        Object_Kill(&effect->obj, effect->sfxPos);
+                        Object_Kill(&effect->obj, effect->sfxSource);
                     }
                 }
 
                 if (D_801784AC == 4) {
                     if (func_i5_801B6AEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z + D_80177D20) != 0) {
-                        Object_Kill(&effect->obj, effect->sfxPos);
+                        Object_Kill(&effect->obj, effect->sfxSource);
                     }
                 } else if (effect->obj.pos.y < gGroundLevel) {
-                    Object_Kill(&effect->obj, effect->sfxPos);
+                    Object_Kill(&effect->obj, effect->sfxSource);
                     if (D_80161A88 != 2) {
                         effect->obj.pos.y = gGroundLevel;
                         func_8007D074(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 2.0f);
@@ -3065,7 +3047,7 @@ void func_8008040C(Effect* effect) {
 
                 if (func_8006351C(1000, &effect->obj.pos, &sp3C, 2) != 0) {
                     func_8007D10C(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 2.0f);
-                    Object_Kill(&effect->obj, effect->sfxPos);
+                    Object_Kill(&effect->obj, effect->sfxSource);
                 }
             }
             break;
@@ -3119,7 +3101,7 @@ void func_80080ACC(Effect* effect) {
                 effect->unk_48 = 0xFF;
             }
             if (effect->unk_48 < 0x20) {
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
             }
             break;
 
@@ -3129,7 +3111,7 @@ void func_80080ACC(Effect* effect) {
             effect->vel.y += 0.2f;
             effect->unk_44 += effect->unk_46;
             if (effect->unk_44 < 10) {
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
             }
             break;
 
@@ -3138,7 +3120,7 @@ void func_80080ACC(Effect* effect) {
             effect->obj.rot.y += effect->unk_60.y;
             effect->obj.rot.z += effect->unk_60.z;
             if ((effect->unk_44 == 0) && (effect->obj.pos.y < gGroundLevel)) {
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
             }
             if (effect->unk_44 != 0) {
                 effect->unk_44--;
@@ -3194,7 +3176,7 @@ void func_80080D04(Effect* effect) {
             }
 
             if (alpha < 32) {
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
             } else {
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha);
                 gSPDisplayList(gMasterDisp++, effect->unk_74);
@@ -3394,7 +3376,7 @@ void func_8008165C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32
 
         case 10:
             effect->timer_50 = 10;
-            Audio_PlaySfx(0x31405094, effect->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            AUDIO_PLAY_SFX(0x31405094, effect->sfxSource, 4);
             break;
 
         case 11:
@@ -3415,7 +3397,7 @@ void func_8008165C(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32
             effect->obj.pos.y = yPos;
             effect->obj.pos.z = zPos;
 
-            Audio_PlaySfx(0x2940F026, effect->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            AUDIO_PLAY_SFX(0x2940F026, effect->sfxSource, 4);
             D_Timer_80177BD0[0] = 60;
             break;
     }
@@ -3509,7 +3491,7 @@ void func_80081C5C(Effect* effect) {
     switch (effect->state) {
         case 0:
             if (effect->timer_50 == 0) {
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
                 break;
             }
 
@@ -3522,14 +3504,14 @@ void func_80081C5C(Effect* effect) {
 
             if (func_8006351C(effect->index, &effect->obj.pos, &velocity, 1) != 0) {
                 func_8007B344(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 3.0f, 7);
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
             }
             sp84 = 50.0f;
             break;
 
         case 1:
             if (effect->timer_50 == 0) {
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
                 break;
             }
 
@@ -3548,14 +3530,14 @@ void func_80081C5C(Effect* effect) {
             }
 
             if (func_8006351C(effect->index, &effect->obj.pos, &velocity, 1) != 0) {
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
                 func_8007D0E0(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 1.0f);
             }
             break;
 
         case 2:
             if (effect->timer_50 == 0) {
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
                 break;
             }
 
@@ -3574,7 +3556,7 @@ void func_80081C5C(Effect* effect) {
                 case 3:
                     Math_SmoothStepToF(&effect->scale2, 0.0f, 0.1f, 10.0f, 0.0001f);
                     if (effect->scale2 < 0.3f) {
-                        Object_Kill(&effect->obj, effect->sfxPos);
+                        Object_Kill(&effect->obj, effect->sfxSource);
                     }
                     break;
             }
@@ -3587,7 +3569,7 @@ void func_80081C5C(Effect* effect) {
             }
             if (func_8006351C(effect->index, &effect->obj.pos, &velocity, 1) != 0) {
                 func_8007B344(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 3.0f, 7);
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
             }
             sp84 = 50.0f;
             break;
@@ -3595,11 +3577,11 @@ void func_80081C5C(Effect* effect) {
         case 3:
             effect->info.unk_19 = 2;
             if (effect->unk_44 != 0) {
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
                 func_8007D0E0(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 5.0f);
             } else if (fabsf(gPlayer[0].unk_138 - effect->obj.pos.z) < 1000.0f) {
                 func_8006F0D8(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 15.0f);
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
             }
             sp84 = 50.0f;
             break;
@@ -3610,7 +3592,7 @@ void func_80081C5C(Effect* effect) {
             effect->obj.rot.z += 3.0f;
             effect->vel.y += 0.2f;
             if (effect->unk_4A < 0) {
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
             }
             break;
 
@@ -3622,7 +3604,7 @@ void func_80081C5C(Effect* effect) {
             effect->obj.rot.z += effect->unk_44;
             effect->vel.y -= 2.0f;
             if ((effect->unk_4A < 0) || (effect->timer_50 == 0)) {
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
             }
             break;
 
@@ -3630,7 +3612,7 @@ void func_80081C5C(Effect* effect) {
             effect->unk_4A -= effect->unk_46;
             Math_SmoothStepToF(&effect->scale2, 0.0f, 0.1f, 1.0f, 0.00001f);
             if ((effect->unk_4A < 0) || (effect->timer_50 == 0)) {
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
             }
             break;
 
@@ -3645,7 +3627,7 @@ void func_80081C5C(Effect* effect) {
                     effect->obj.rot.z += effect->unk_60.z;
                     effect->vel.y -= 0.5f;
                     if ((effect->timer_50 == 0) || (effect->obj.pos.y < gGroundLevel)) {
-                        Object_Kill(&effect->obj, effect->sfxPos);
+                        Object_Kill(&effect->obj, effect->sfxSource);
                     }
                     break;
 
@@ -3666,7 +3648,7 @@ void func_80081C5C(Effect* effect) {
                                        effect->obj.pos.z)) ||
                         (effect->timer_50 == 0)) {
                         func_8007B228(effect->obj.pos.x, posYOut, effect->obj.pos.z, effect->scale2);
-                        Object_Kill(&effect->obj, effect->sfxPos);
+                        Object_Kill(&effect->obj, effect->sfxSource);
                     }
                     break;
             }
@@ -3727,7 +3709,7 @@ void func_80081C5C(Effect* effect) {
                     if (effect->timer_50 == 0) {
                         Math_SmoothStepToF(&effect->scale2, 0.0f, 1.0f, 10.0f, 0.00001f);
                         if (effect->scale2 == 0.0f) {
-                            Object_Kill(&effect->obj, effect->sfxPos);
+                            Object_Kill(&effect->obj, effect->sfxSource);
                         }
                     } else {
                         Math_SmoothStepToF(&effect->scale2, 8.0f, 0.1f, 1.0f, 0.00001f);
@@ -3761,7 +3743,7 @@ void func_80081C5C(Effect* effect) {
             Math_SmoothStepToF(&effect->vel.z, -70.0f, 0.01f, 0.1f, 0.0f);
             Math_SmoothStepToF(&effect->scale2, 0.0f, 0.1f, 0.5f, 0.00001f);
             if (effect->scale2 == 0.0f) {
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
             }
             break;
 
@@ -3853,7 +3835,7 @@ void func_80081C5C(Effect* effect) {
             Math_SmoothStepToF(&effect->scale1, 0.0f, 0.1f, 100.0f, 0.00001f);
 
             if ((effect->scale1 < 1.0f) || (effect->timer_50 == 0)) {
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
             }
             break;
 
@@ -3925,7 +3907,7 @@ void func_80082F78(Effect* effect) {
             Graphics_SetScaleMtx(effect->scale2);
             RCP_SetupDL(&gMasterDisp, 0x3C);
             if (gCurrentLevel == LEVEL_AQUAS) {
-                gSPDisplayList(gMasterDisp++, D_600A220);
+                gSPDisplayList(gMasterDisp++, D_AQ_600A220);
             }
             if (gCurrentLevel == LEVEL_ZONESS) {
                 gSPDisplayList(gMasterDisp++, D_6016880);
@@ -4065,7 +4047,7 @@ void func_800837EC(Effect* effect) {
             Math_SmoothStepToF(&effect->unk_60.x, effect->scale2 * 1.3f, 0.1f, 0.5f, 0.0001f);
             effect->unk_44 -= 35;
             if (effect->unk_44 < 0) {
-                Object_Kill(&effect->obj, effect->sfxPos);
+                Object_Kill(&effect->obj, effect->sfxSource);
             }
             break;
     }
@@ -4154,7 +4136,7 @@ void func_80083D2C(f32 xPos, f32 yPos, f32 zPos, f32 srcZ) {
             if (gEffects[j].obj.status == OBJ_FREE) {
                 func_80083C70(&gEffects[j], xPos, yPos, zPos, dest.x, dest.y, dest.z, i * 60.0f, i);
                 if (i == 0) {
-                    Audio_PlaySfx(0x3103109B, gEffects[j].sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    AUDIO_PLAY_SFX(0x3103109B, gEffects[j].sfxSource, 4);
                 }
                 break;
             }
@@ -4167,7 +4149,7 @@ void func_80083FA8(Effect* effect) {
     Vec3f dest;
 
     if (effect->timer_50 == 0) {
-        Object_Kill(&effect->obj, effect->sfxPos);
+        Object_Kill(&effect->obj, effect->sfxSource);
         return;
     }
 

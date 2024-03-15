@@ -17,23 +17,39 @@
 
   - name: ast_bg_space
     exclusive_ram_id: segment_02
-    type: bin
+    type: code
+    dir: assets
     start: 0x8A68C0
+    vram: 0x02000000
+    subsegments:
+      - [0x8A68C0, .data, ast_bg_space/ast_bg_space]
 
   - name: ast_bg_planet
     exclusive_ram_id: segment_02
-    type: bin
+    type: code
+    dir: assets
     start: 0x8AE0A0
+    vram: 0x02000000
+    subsegments:
+      - [0x8AE0A0, .data, ast_bg_planet/ast_bg_planet]
 
   - name: ast_arwing
     exclusive_ram_id: segment_03
-    type: bin
+    type: code
+    dir: assets
     start: 0x8BFC00
+    vram: 0x03000000
+    subsegments:
+      - [0x8BFC00, .data, ast_arwing/ast_arwing]
 
   - name: ast_landmaster
     exclusive_ram_id: segment_03
-    type: bin
+    type: code
+    dir: assets
     start: 0x8D99F0
+    vram: 0x03000000
+    subsegments:
+      - [0x8D99F0, .data, ast_landmaster/ast_landmaster]
 
   - name: ast_blue_marine
     exclusive_ram_id: segment_03
@@ -71,8 +87,12 @@
 
   - name: ast_allies
     exclusive_ram_id: segment_0D
-    type: bin
+    type: code
+    dir: assets
     start: 0x955270
+    vram: 0x0D000000
+    subsegments:
+      - [0x955270, .data, ast_allies/ast_allies]
 
   - name: ast_corneria
     exclusive_ram_id: segment_06
@@ -111,13 +131,21 @@
 
   - name: ast_7_ti_1
     exclusive_ram_id: segment_07
-    type: bin
+    type: code
+    dir: assets
     start: 0xA0E340
+    vram: 0x07000000
+    subsegments:
+      - [0xA0E340, .data, ast_7_ti_1/ast_7_ti_1]
 
   - name: ast_sector_x
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xA1D0F0
+    vram: 0x06000000
+    subsegments:
+      - [0xA1D0F0, .data, ast_sector_x/ast_sector_x]
 
   - name: ast_sector_z
     exclusive_ram_id: segment_06
@@ -126,8 +154,12 @@
 
   - name: ast_aquas
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xA58F60
+    vram: 0x06000000
+    subsegments:
+     - [0xA58F60, .data, ast_aquas/ast_aquas]
 
   - name: ast_area_6
     exclusive_ram_id: segment_06
@@ -206,8 +238,12 @@
 
   - name: ast_option
     exclusive_ram_id: segment_08
-    type: bin
+    type: code
+    dir: assets
     start: 0xCA9DE0
+    vram: 0x08000000
+    subsegments:
+      - [0xCA9DE0, .data, ast_option/ast_option]
 
   - name: ast_versus
     exclusive_ram_id: segment_07
@@ -216,13 +252,21 @@
 
   - name: ast_font
     exclusive_ram_id: segment_05
-    type: bin
+    type: code
+    dir: assets
+    vram: 0x05000000
     start: 0xCD2410
+    subsegments:
+      - [0xCD2410, .data, ast_font/ast_font]
 
   - name: ast_font_3d
     exclusive_ram_id: segment_09
-    type: bin
+    type: code
+    dir: assets
+    vram: 0x09000000
     start: 0xCDDCA0
+    subsegments:
+      - [0xCDDCA0, .data, ast_font_3d/ast_font_3d]
 
   - name: ast_andross
     exclusive_ram_id: segment_0C
@@ -245,23 +289,39 @@
 
   - name: ast_ending_award_front
     exclusive_ram_id: segment_08
-    type: bin
+    type: code
+    dir: assets
     start: 0xD43400
+    vram: 0x08000000
+    subsegments:
+      - [0xD43400, .data, ast_ending_award_front/ast_ending_award_front]
 
   - name: ast_ending_award_back
     exclusive_ram_id: segment_08
-    type: bin
+    type: code
+    dir: assets
     start: 0xD68480
+    vram: 0x08000000
+    subsegments:
+      - [0xD68480, .data, ast_ending_award_back/ast_ending_award_back]
 
-  - name: ast_reward
+  - name: ast_ending_expert
     exclusive_ram_id: segment_08
-    type: bin
+    type: code
+    dir: assets
     start: 0xD91F10
+    vram: 0x08000000
+    subsegments:
+      - [0xD91F10, .data, ast_ending_expert/ast_ending_expert]
 
   - name: ast_training
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xDDC010
+    vram: 0x06000000
+    subsegments:
+      - [0xDDC010, .data, ast_training/ast_training]
 
   - name: ast_radio
     type: code
@@ -270,4 +330,4 @@
     vram: 0x80179010
     follows_vram: dma_table
     subsegments:
-      - [0xDE5D50, .data, ast_radio]
+      - [0xDE5D50, .data, ast_radio/ast_radio]

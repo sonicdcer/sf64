@@ -106,7 +106,7 @@ void Game_SetGameState(void) {
         D_80178348 = D_80178350 = D_80178354 = 255;
     } else {
         D_80178348 = D_80178350 = D_80178354 = 0;
-        func_8001DBD0(1);
+        Audio_FadeOutAll(1);
     }
     D_80178340 = 255;
     D_80178380[0] = 0;
@@ -114,8 +114,8 @@ void Game_SetGameState(void) {
     D_80178428 = 0.0f;
     gBlurAlpha = 255;
     gDrawMode = DRAWMODE_0;
-    func_8001AE58();
-    func_8001D400(0);
+    Audio_ClearVoice();
+    Audio_SetBaseSfxReverb(0);
 }
 
 bool func_800A1B6C(void) {
@@ -364,11 +364,11 @@ void Game_Update(void) {
             case GSTATE_LOGO_WAIT:
                 RCP_SetupDL(&gMasterDisp, 0x4C);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
-                TextureRect_8bIA(&gMasterDisp, D_F000000, 128, 16, 100.0f, 86.0f, 1.0f, 1.0f);
-                TextureRect_8bIA(&gMasterDisp, D_F000800, 128, 16, 100.0f, 102.0f, 1.0f, 1.0f);
-                TextureRect_8bIA(&gMasterDisp, D_F001000, 128, 16, 100.0f, 118.0f, 1.0f, 1.0f);
-                TextureRect_8bIA(&gMasterDisp, D_F001800, 128, 16, 100.0f, 134.0f, 1.0f, 1.0f);
-                TextureRect_8bIA(&gMasterDisp, D_F002000, 128, 10, 100.0f, 150.0f, 1.0f, 1.0f);
+                TextureRect_8bIA(&gMasterDisp, &gNintendoLogo[128 * 16 * 0], 128, 16, 100.0f, 86.0f, 1.0f, 1.0f);
+                TextureRect_8bIA(&gMasterDisp, &gNintendoLogo[128 * 16 * 1], 128, 16, 100.0f, 102.0f, 1.0f, 1.0f);
+                TextureRect_8bIA(&gMasterDisp, &gNintendoLogo[128 * 16 * 2], 128, 16, 100.0f, 118.0f, 1.0f, 1.0f);
+                TextureRect_8bIA(&gMasterDisp, &gNintendoLogo[128 * 16 * 3], 128, 16, 100.0f, 134.0f, 1.0f, 1.0f);
+                TextureRect_8bIA(&gMasterDisp, &gNintendoLogo[128 * 16 * 4], 128, 10, 100.0f, 150.0f, 1.0f, 1.0f);
                 break;
             case GSTATE_START:
                 gGameState = GSTATE_INIT;
@@ -425,7 +425,7 @@ void Game_Update(void) {
                         var_v0_3 = 0;
                         break;
                 }
-                func_800182F4(var_v0_3 | 0xE0000000);
+                Audio_QueueSeqCmd(var_v0_3 | 0xE0000000);
                 gVolumeSettings[0] = gSaveFile.save.data.musicVolume;
                 gVolumeSettings[1] = gSaveFile.save.data.voiceVolume;
                 gVolumeSettings[2] = gSaveFile.save.data.sfxVolume;

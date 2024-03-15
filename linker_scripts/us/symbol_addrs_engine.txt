@@ -2,6 +2,8 @@
 D_Timer_800CA238 = 0x800CA238;
 
 //fox_std_lib
+sSmallChars = 0x800D2660;//type:asciz size:42
+
 Graphics_ClearPrintBuffer = 0x80099980;
 Graphics_Printf = 0x800999D8;
 Texture_Scroll = 0x80099A2C;
@@ -148,6 +150,8 @@ Message_DisplayScrollingText = 0x800C2D3C;
 Message_IsPrintingChar = 0x800C2F30;
 
 // fox_bg
+D_800C9DBC = 0x800C9DBC;//size:39
+D_800C9D94 = 0x800C9D94;//size:39
 D_800C9CC4 = 0x800C9CC4;
 D_800C9CF8 = 0x800C9CF8;
 
@@ -324,6 +328,9 @@ Effect_Update = 0x80069FD4;
 func_8006A06C = 0x8006A06C;
 func_8006A38C = 0x8006A38C;
 Object_UpdateAll = 0x8006A3E8;
+
+// fox_enmy2
+D_800D0DBC = 0x800D0DBC;//size:24
 
 // fox_game
 D_80161A10 = 0x80161A10;

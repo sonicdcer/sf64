@@ -2,6 +2,8 @@
 #include "macros.h"
 #include "variables.h"
 #include "assets.h"
+#include "assets/ast_aquas.h"
+#include "assets/ast_vs_player.h"
 
 extern Vec3f D_6030FD0[];
 
@@ -203,21 +205,21 @@ CollisionHeader2 D_800D2CA0[19] = {
         { -74.0f, 0.0f, -84.0f },
         { 74.0f, 125.0f, 84.0f },
         30,
-        D_60320B8,
+        D_AQ_60320B8,
         D_603216C,
     },
     {
         { -1200.0f, 0.0f, -1315.0f },
         { 1403.0f, 200.0f, 1308.0f },
         8,
-        D_6031FB0,
+        D_AQ_6031FB0,
         D_6031FE0,
     },
     {
         { -600.0f, 0.0f, -657.0f },
         { 701.0f, 100.0f, 654.0f },
         8,
-        D_6031FB0,
+        D_AQ_6031FB0,
         D_603204C,
     },
     {
@@ -231,7 +233,7 @@ CollisionHeader2 D_800D2CA0[19] = {
         { -814.0f, 0.0f, -691.0f },
         { 814.0f, 752.0f, 691.0f },
         28,
-        D_6032388,
+        D_AQ_6032388,
         D_6032430,
     },
 };

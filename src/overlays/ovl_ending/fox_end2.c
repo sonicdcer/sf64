@@ -1,4 +1,7 @@
 #include "global.h"
+#include "assets/ast_arwing.h"
+#include "assets/ast_ending_expert.h"
+#include "assets/ast_allies.h"
 #include "fox_end2_data.c"
 
 void func_ending_8018CE20(u32 arg0) {
@@ -146,9 +149,9 @@ void func_ending_8018D638(u32 arg0, AssetInfo* asset) {
     if (gExpertMode != 0) {
         for (i = 0; i < 240; i += 4) {
             if (!D_800D2F68) {
-                TextureRect_16bRGBA(&gMasterDisp, D_8025080 + 316 * i, 316, 4, 0.0f, i, 1.0f, 1.0f);
+                TextureRect_16bRGBA(&gMasterDisp, gEndingNormalReward + 316 * i, 316, 4, 0.0f, i, 1.0f, 1.0f);
             } else {
-                TextureRect_16bRGBA(&gMasterDisp, D_8000000_RGBA + 316 * i, 316, 4, 0.0f, i, 1.0f, 1.0f);
+                TextureRect_16bRGBA(&gMasterDisp, gEndingExpertReward + 316 * i, 316, 4, 0.0f, i, 1.0f, 1.0f);
             }
         }
     } else {
@@ -711,7 +714,7 @@ void func_ending_80190CF0(u32 arg0, AssetInfo* asset) {
     }
 
     if (arg0 == asset->unk_0C) {
-        Audio_PlaySfx(0x1940306EU, D_800C5D28, 4U, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+        AUDIO_PLAY_SFX(0x1940306EU, gDefaultSfxSource, 4U);
     }
 
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
@@ -1035,7 +1038,7 @@ void func_ending_801926D4(void) {
         } else {
             D_ending_80198590.rightState = D_ending_80198590.leftState = 2;
         }
-        func_8001D444(0, 0x2A, 0, 0xFF);
+        AUDIO_PLAY_BGM(SEQ_ID_42);
     }
 
     if ((2790 <= D_ending_80192E70) && (D_ending_80192E70 < 3000)) {

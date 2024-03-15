@@ -1,9 +1,9 @@
 #include "sys.h"
 
-void func_8000FFCC(void);
-SPTask* func_8001DF50(void);
-void func_8001DCE0(void);
-void func_8001DECC(void);
+void AudioLoad_Init(void);
+SPTask* AudioThread_CreateTask(void);
+void Audio_InitSounds(void);
+void Audio_Update(void);
 
 s32 sGammaMode = 1;
 
@@ -107,9 +107,9 @@ void Main_Initialize(void) {
 void Audio_ThreadEntry(void* arg0) {
     SPTask* task;
 
-    func_8000FFCC();
-    func_8001DCE0();
-    task = func_8001DF50();
+    AudioLoad_Init();
+    Audio_InitSounds();
+    task = AudioThread_CreateTask();
     if (task != NULL) {
         task->msgQueue = &gAudioTaskMsgQueue;
         task->msg = (OSMesg) TASK_MESG_1;
@@ -117,7 +117,7 @@ void Audio_ThreadEntry(void* arg0) {
         osSendMesg(&gTaskMsgQueue, task, OS_MESG_PRI_NORMAL);
     }
     while (1) {
-        task = func_8001DF50();
+        task = AudioThread_CreateTask();
         if (task != NULL) {
             task->msgQueue = &gAudioTaskMsgQueue;
             task->msg = (OSMesg) TASK_MESG_1;
@@ -145,7 +145,7 @@ void Graphics_SetTask(void) {
     gGfxTask->task.t.dram_stack = gDramStack;
     gGfxTask->task.t.dram_stack_size = SP_DRAM_STACK_SIZE8;
     gGfxTask->task.t.output_buff = (u64*) gTaskOutputBuffer;
-    gGfxTask->task.t.output_buff_size = (u64*) gAudioDataBuffer;
+    gGfxTask->task.t.output_buff_size = (u64*) gAudioHeap;
     gGfxTask->task.t.data_ptr = (u64*) gGfxPool->masterDL;
     gGfxTask->task.t.data_size = (gMasterDisp - gGfxPool->masterDL) * sizeof(Gfx);
     gGfxTask->task.t.yield_data_ptr = (u64*) &gOSYieldData;
@@ -287,7 +287,7 @@ void Graphics_ThreadEntry(void* arg0) {
             osRecvMesg(&gGfxVImsgQueue, NULL, OS_MESG_BLOCK);
         }
 
-        func_8001DECC();
+        Audio_Update();
     }
 }
 

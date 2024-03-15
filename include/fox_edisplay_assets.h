@@ -126,7 +126,6 @@ extern Gfx D_6029530[];
 extern Gfx D_60296A0[];
 extern Gfx D_6028A80[];
 extern Gfx D_6028910[];
-extern Gfx D_6014FD0[];
 extern Gfx D_601EDE0[];
 extern Gfx D_601F2F0[];
 extern Gfx D_601F830[];

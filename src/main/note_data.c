@@ -1,90 +1,5 @@
-#include "global.h"
-
-#define MK_CMD(b0, b1, b2, b3) \
-    ((((b0) &0xFF) << 0x18) | (((b1) &0xFF) << 0x10) | (((b2) &0xFF) << 0x8) | (((b3) &0xFF) << 0))
-
-#define NO_LAYER ((SequenceLayer*) (-1))
-
-#define TATUMS_PER_BEAT 48
-
-#define IS_SEQUENCE_CHANNEL_VALID(ptr) ((u32) (ptr) != (u32) &gAudioCtx.sequenceChannelNone)
-#define SEQ_NUM_CHANNELS 16
-#define SEQ_IO_VAL_NONE -1
-
-#define MAX_CHANNELS_PER_BANK 3
-
-#define MUTE_BEHAVIOR_3 (1 << 3)           // prevent further NoteUnkStructs from playing
-#define MUTE_BEHAVIOR_4 (1 << 4)           // stop something in seqLayer scripts
-#define MUTE_BEHAVIOR_SOFTEN (1 << 5)      // lower volume, by default to half
-#define MUTE_BEHAVIOR_STOP_NOTES (1 << 6)  // prevent further notes from playing
-#define MUTE_BEHAVIOR_STOP_SCRIPT (1 << 7) // stop processing sequence/channel scripts
-
-#define ADSR_DISABLE 0
-#define ADSR_HANG -1
-#define ADSR_GOTO -2
-#define ADSR_RESTART -3
-
-// size of a single sample point
-#define SAMPLE_SIZE sizeof(s16)
-
-// Samples are processed in groups of 16 called a "frame"
-#define SAMPLES_PER_FRAME ADPCMFSIZE
-
-// The length of one left/right channel is 13 frames
-#define DMEM_1CH_SIZE (13 * SAMPLES_PER_FRAME * SAMPLE_SIZE)
-// Both left and right channels
-#define DMEM_2CH_SIZE (2 * DMEM_1CH_SIZE)
-
-#define AIBUF_LEN (88 * SAMPLES_PER_FRAME)   // number of samples
-#define AIBUF_SIZE (AIBUF_LEN * SAMPLE_SIZE) // number of bytes
-
-// Filter sizes
-#define FILTER_SIZE (8 * SAMPLE_SIZE)
-#define FILTER_BUF_PART1 (8 * SAMPLE_SIZE)
-#define FILTER_BUF_PART2 (8 * SAMPLE_SIZE)
-
-// Must be the same amount of samples as copied by aDuplicate() (audio microcode)
-#define WAVE_SAMPLE_COUNT 64
-
-#define AUDIO_RELOCATED_ADDRESS_START K0BASE
-
-typedef struct {
-    /* 0x0 */ s16 delay;
-    /* 0x2 */ s16 arg;
-} EnvelopePoint; // size = 0x4
-
-typedef struct {
-    /* 0x00 */ u32 start;
-    /* 0x04 */ u32 end;
-    /* 0x08 */ u32 count;
-    /* 0x0C */ char unk_0C[0x4];
-    /* 0x10 */ s16 predictorState[16]; // only exists if count != 0. 8-byte aligned
-} AdpcmLoop;                           // size = 0x30 (or 0x10)
-
-typedef struct {
-    /* 0x00 */ s32 order;
-    /* 0x04 */ s32 numPredictors;
-    /* 0x08 */ s16 book[1]; // size 8 * order * numPredictors. 8-byte aligned
-} AdpcmBook;                // size >= 0x8
-
-typedef struct {
-    /* 0x00 */ u32 codec : 4;  // The state of compression or decompression
-    /* 0x00 */ u32 medium : 2; // Medium where sample is currently stored
-    /* 0x00 */ u32 unk_bit26 : 1;
-    /* 0x00 */ u32 isRelocated : 1; // Has the sample header been relocated (offsets to pointers)
-    /* 0x01 */ u32 size : 24;       // Size of the sample
-    /* 0x04 */ u8* sampleAddr;      // Raw sample data. Offset from the start of the sample bank or absolute address to
-                                    // either rom or ram
-    /* 0x08 */ AdpcmLoop*
-        loop; // Adpcm loop parameters used by the sample. Offset from the start of the sound font / pointer to ram
-    /* 0x0C */ AdpcmBook*
-        book; // Adpcm book parameters used by the sample. Offset from the start of the sound font / pointer to ram
-} Sample;     // size = 0x10
-
-typedef struct {
-    /* 0x00 */ Sample* sample;
-    /* 0x04 */ f32 tuning; // frequency scale factor
-} TunedSample;             // size = 0x8
+#include "sys.h"
+#include "sf64audio_provisional.h"
 
 typedef struct {
     struct {
@@ -310,12 +225,12 @@ EnvelopePoint gDefaultEnvelope[] = {
     { ADSR_DISABLE, 0 },
 };
 
-NoteUnkStruct gZeroNoteSub = { 0 };
+NoteSubEu gZeroNoteSub = { 0 };
 
-NoteUnkStruct gDefaultNoteSub = {
+NoteSubEu gDefaultNoteSub = {
     { 1, 1, 0, 0, 0, 0, 0, 0 },
     { 0 },
-    { 0 },
+    0,
 };
 
 u16 gHaasEffectDelaySizes[64] = {

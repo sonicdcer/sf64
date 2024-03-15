@@ -1,12 +1,12 @@
 #include "global.h"
 
-extern ObjectInit D_6008EF8[];
+extern ObjectInit D_TR_6008EF8[];
 
 void func_i1_80198C50(void) {
     Object_58* obj58;
     s32 i;
 
-    D_80178310 = SEGMENTED_TO_VIRTUAL(D_6008EF8);
+    D_80178310 = SEGMENTED_TO_VIRTUAL(D_TR_6008EF8);
     Rand_SetSeed(1, 29000, 9876);
 
     obj58 = gObjects58;
@@ -200,7 +200,7 @@ void func_i1_8019949C(void) {
                     actor->unk_0C9 = actor->iwork[11] = 1;
                     actor->timer_0C2 = 30;
                     Object_SetInfo(&actor->info, actor->obj.id);
-                    Audio_PlaySfx(0x3100000C, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
                     if ((i + 10) == 10) {
                         actor->unk_0E6 = 0;
                         actor->health = 50;
@@ -223,7 +223,7 @@ void func_i1_8019949C(void) {
             D_80177C8C = 1;
         }
         if (D_i1_8019AE50[D_80177C8C].unk != 0) {
-            Radio_PlayMessage(D_i1_8019AE50[D_80177C8C].msg, RCID_TRAINING);
+            Radio_PlayMessage(D_i1_8019AE50[D_80177C8C].msg, RCID_TR);
             D_80177C78 = D_i1_8019AE50[D_80177C8C].unk;
         } else {
             D_80161690 = 80;

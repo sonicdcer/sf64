@@ -12,6 +12,11 @@ Vec3f D_80161578[4];
 f32 D_801615A8[4];
 f32 D_801615B8[4];
 
+#include "assets/ast_arwing.h"
+#include "assets/ast_allies.h"
+#include "assets/ast_landmaster.h"
+#include "assets/ast_vs_player.h"
+
 s32 D_800CA220 = 0;
 u8 D_800CA224[] = { 0, 0, 0, 0 };
 s32 D_800CA228 = 0;
@@ -69,7 +74,7 @@ void func_80051B30(void) {
         }
         switch (sp7C) {
             case 0:
-                if (D_800CA234->sfxPos[0] > 0.0f) {
+                if (D_800CA234->sfxSource[0] > 0.0f) {
                     sp78 = 20.0f;
                     sp74 = M_PI / 2;
                 } else {
@@ -274,7 +279,7 @@ void func_80052884(Player* player) {
 
     Matrix_Push(&gGfxMatrix);
     if (!gVersusMode) {
-        gSPDisplayList(gMasterDisp++, D_3000090);
+        gSPDisplayList(gMasterDisp++, D_arwing_3000090);
     } else {
         gSPDisplayList(gMasterDisp++, D_300FB80);
     }
@@ -308,7 +313,7 @@ void func_80052884(Player* player) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-Gfx* D_800CA26C[] = { D_3000090, D_3016CC0, D_3005AB0, D_3003CE0 };
+Gfx* D_800CA26C[] = { D_arwing_3000090, D_3016CC0, D_3005AB0, D_3003CE0 };
 Gfx* D_800CA27C[] = { D_3001C90, D_3016CC0, D_3005AB0, D_3003CE0 };
 f32 D_800CA28C = 2.0f;
 f32 D_800CA290 = 13.0f;
@@ -1363,7 +1368,7 @@ void func_80057248(void) {
         RCP_SetupDL_40();
         for (i = 0; i < ARRAY_COUNT(D_80177E98); i++) {
             if (D_80177E98[i].z < 0.0f) {
-                var_fs0 = sqrtf(VEC3F_SQ(D_80177E98[i])) * 0.0015f;
+                var_fs0 = (VEC3F_MAG(&D_80177E98[i])) * 0.0015f;
                 if (var_fs0 > 100.0f) {
                     var_fs0 = 100.0f;
                 } else if (var_fs0 < 1.0f) {
@@ -1399,7 +1404,7 @@ void func_80057504(void) {
 
     for (i = 0; i < gCamCount; i++) {
         if (D_80161578[i].z < 0.0f) {
-            var_fs0 = sqrtf(VEC3F_SQ(D_80161578[i]));
+            var_fs0 = (VEC3F_MAG(&D_80161578[i]));
             if (var_fs0 < 20000.0f) {
                 var_fs0 *= 0.0015f;
                 if (var_fs0 > 100.0f) {
@@ -1440,17 +1445,17 @@ void func_80057814(Player* player) {
     sp20.x = player->pos.x;
     sp20.y = player->pos.y;
     sp20.z = player->unk_138;
-    sp2C.x = player->sfxPos[0];
-    sp2C.y = player->sfxPos[1];
-    sp2C.z = player->sfxPos[2];
-    func_8005F0E8(player->sfxPos, &sp20);
-    player->sfxVel[0] = player->sfxPos[0] - sp2C.x;
-    player->sfxVel[1] = player->sfxPos[1] - sp2C.y;
-    player->sfxVel[2] = player->sfxPos[2] - sp2C.z;
-    player->srcVel = player->sfxVel;
-    player->srcPos = player->sfxPos;
-    player->yVel = player->vel.y;
-    player->unk_490 = player->unk_0F8;
+    sp2C.x = player->sfxSource[0];
+    sp2C.y = player->sfxSource[1];
+    sp2C.z = player->sfxSource[2];
+    func_8005F0E8(player->sfxSource, &sp20);
+    player->sfxVel[0] = player->sfxSource[0] - sp2C.x;
+    player->sfxVel[1] = player->sfxSource[1] - sp2C.y;
+    player->sfxVel[2] = player->sfxSource[2] - sp2C.z;
+    player->sfx.srcVel = player->sfxVel;
+    player->sfx.srcPos = player->sfxSource;
+    player->sfx.yVel = player->vel.y;
+    player->sfx.zRot = player->unk_0F8;
 }
 
 void func_800578C4(Player* player) {

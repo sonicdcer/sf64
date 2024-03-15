@@ -1,12 +1,8 @@
 #include "prevent_bss_reordering.h"
 #include "global.h"
-
-typedef struct {
-    s32 unk_00;
-    char unk_04[0x2F0];
-} UnkStruct_1515F0; // size = 0x2F4
-                    // placeholder for audio struct. struct size being equal to Actor probably coincidental
-extern UnkStruct_1515F0 D_801515F0[];
+#include "assets/ast_star_wolf.h"
+#include "assets/ast_allies.h"
+#include "assets/ast_vs_player.h"
 
 /* static */ Vec3f D_800C9A90 = { 0.0f, -10.0f, 0.0f };
 /* static */ Vec3f D_800C9A9C[4] = {
@@ -103,7 +99,7 @@ void func_8002E548(void) {
 
         func_8008E51C(D_8015F930, D_8015F944);
         if ((D_8015F930[0] == 0) && (sp24 != D_8015F930[1]) && (D_8015F930[1] < 15)) {
-            Audio_PlaySfx(0x4900C02A, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            AUDIO_PLAY_SFX(0x4900C02A, gDefaultSfxSource, 4);
         }
     }
 }
@@ -201,7 +197,7 @@ void func_8002E700(Player* player) {
                 } else {
                     gRightWingHealth[0] = gLeftWingHealth[0] = 60;
                 }
-                Audio_PlaySfx(0x4900200E, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                AUDIO_PLAY_SFX(0x4900200E, gDefaultSfxSource, 4);
                 player->unk_1D0++;
             }
             break;
@@ -214,7 +210,7 @@ void func_8002E700(Player* player) {
                 player->unk_0D0 = D_80161A54;
                 player->unk_1D0++;
 
-                Audio_PlaySfx(0x09000002, player->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                AUDIO_PLAY_SFX(0x09000002, player->sfxSource, 0);
             }
             break;
         case 4:
@@ -389,12 +385,12 @@ void func_8002F180(void) {
             }
             actor->iwork[11] = 1;
             if (actor->unk_0E4 < 4) {
-                Audio_PlaySfx(0x3100000C, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
                 actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_800CC01C);
                 actor->info.unk_1C = 0.0f;
                 actor->info.bonus = 0;
             } else {
-                Audio_PlaySfx(0x31000011, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                AUDIO_PLAY_SFX(0x31000011, actor->sfxSource, 4);
             }
         }
     }
@@ -428,9 +424,9 @@ void func_8002F3E0(void) {
             }
             Object_SetInfo(&actor->info, actor->obj.id);
             if (gCurrentLevel == LEVEL_VENOM_2) {
-                Audio_PlaySfx(0x31004006, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                AUDIO_PLAY_SFX(0x31004006, actor->sfxSource, 4);
             } else {
-                Audio_PlaySfx(0x31004005, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                AUDIO_PLAY_SFX(0x31004005, actor->sfxSource, 4);
             }
         }
     }
@@ -462,8 +458,8 @@ void func_8002F69C(Actor* actor) {
     }
     if (((D_8015F928 + 100) == (0, D_800C9B4C)) && (gCurrentLevel != LEVEL_VENOM_2)) {
         // fake?
-        func_800182F4(0x101E00FF);
-        func_800182F4(0x111E00FF);
+        SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 30);
+        SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 30);
     }
     if (D_8015F928 == D_800C9B4C) {
         func_8002F3E0();
@@ -472,7 +468,7 @@ void func_8002F69C(Actor* actor) {
         if ((gCurrentLevel == LEVEL_VENOM_2) || (gCurrentLevel == LEVEL_BOLSE)) {
             gPlayer[0].unk_034 = 20.0f;
         }
-        func_8001D444(0, 0x802B, 0, 0xFF);
+        AUDIO_PLAY_BGM(SEQ_ID_43 | 0x8000);
         func_8002EE34();
         if ((gCurrentLevel == LEVEL_FORTUNA) || (gCurrentLevel == LEVEL_VENOM_2)) {
             gPlayer[0].camEye.x = 4500.0f;
@@ -641,7 +637,7 @@ void func_8002FEF0(Actor* actor) {
                         newActor->obj.pos.x = 200.0f;
                         newActor->obj.pos.y = -500.0f;
                         newActor->obj.pos.z = 0.0f;
-                        Audio_PlaySfx(0x09000002, newActor->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                        AUDIO_PLAY_SFX(0x09000002, newActor->sfxSource, 0);
                         newActor->timer_0C2 = 50;
                     } else {
                         newActor->obj.pos.x = 0.0f;
@@ -668,7 +664,7 @@ void func_8002FEF0(Actor* actor) {
 
 void func_8003010C(Actor* actor) {
     if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_4) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_6)) {
-        Object_Kill(&actor->obj, actor->sfxPos);
+        Object_Kill(&actor->obj, actor->sfxSource);
         return;
     }
     D_8015F928++;
@@ -868,7 +864,7 @@ void func_8003088C(Actor* actor) {
                 actor->obj.status = OBJ_DYING;
                 actor->fwork[23] = 0.0f;
                 func_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 4.0f);
-                Audio_PlaySfx(0x2903700B, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                AUDIO_PLAY_SFX(0x2903700B, actor->sfxSource, 4);
                 actor->timer_0C2 = 10;
                 actor->timer_0BE = 0;
                 actor->timer_04C = RAND_INT(2.9f);
@@ -978,16 +974,16 @@ void func_8003088C(Actor* actor) {
                                         break;
                                 }
                             } else {
-                                D_801515F0[actor->unk_0D4].unk_00 = 80;
+                                gActors[actor->unk_0D4 - 101].iwork[1] = 80;
                             }
                         } else {
-                            D_801515F0[actor->unk_0D4].unk_00 = 80;
+                            gActors[actor->unk_0D4 - 101].iwork[1] = 80;
                         }
                         break;
                 }
             } else {
                 if (var_a1) {
-                    Audio_PlaySfx(0x29001062, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    AUDIO_PLAY_SFX(0x29001062, actor->sfxSource, 4);
                     actor->iwork[7] = 3;
                     actor->iwork[18] = 5;
                     actor->iwork[8] = 15;
@@ -1003,9 +999,9 @@ void func_8003088C(Actor* actor) {
                     actor->iwork[8] = 20;
                 }
                 if (actor->unk_0E4 == 200) {
-                    Audio_PlaySfx(0x29034003, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    AUDIO_PLAY_SFX(0x29034003, actor->sfxSource, 4);
                 } else if (actor->iwork[7] == 0) {
-                    Audio_PlaySfx(0x2903300E, actor->sfxPos, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+                    AUDIO_PLAY_SFX(0x2903300E, actor->sfxSource, 4);
                 }
                 func_8007D10C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1.5f);
                 if (actor->unk_0E4 < 100) {
@@ -1337,7 +1333,7 @@ void func_800319AC(Actor* this) {
             this->fwork[29] = 5.0f;
             this->fwork[7] = 360.0f;
             this->fwork[8] = 0.0f;
-            Audio_PlaySfx(0x09000002, this->sfxPos, 0, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            AUDIO_PLAY_SFX(0x09000002, this->sfxSource, 0);
             this->unk_046 = 0;
         }
         gTeamShields[this->unk_0E4] = -1;
@@ -1361,13 +1357,13 @@ void func_800319AC(Actor* this) {
                     (fabsf(this->obj.pos.z - D_800C9B50[this->unk_046].z) < 800.0f)) {
                     this->unk_046++;
                     if (this->unk_046 >= 4) {
-                        Object_Kill(&this->obj, this->sfxPos);
+                        Object_Kill(&this->obj, this->sfxSource);
                     }
                 }
             } else {
                 this->fwork[5] = 20000.0f;
                 if (this->obj.pos.y > 3000.0f) {
-                    Object_Kill(&this->obj, this->sfxPos);
+                    Object_Kill(&this->obj, this->sfxSource);
                 }
             }
             sp104 = 2;

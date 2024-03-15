@@ -25,7 +25,12 @@ D_8000001C = 0x8000001C;//ignore:true
 D_80000024 = 0x80000024;//ignore:true
 D_801D0001 = 0x801D0001;//ignore:true
 D_80180001 = 0x80180001;//ignore:true
+D_80180000 = 0x80180000;//ignore:true
+D_80160000 = 0x80160000;//ignore:true
+D_800D0000 = 0x800D0000;//ignore:true
 D_7FFFFFFE = 0x7FFFFFFE;//ignore:true
+D_1000000 =  0x01000000;//ignore:true
+D_A000000 =  0x0A000000;//ignore:true
 
 // constant for K1 access
 D_A0000000 = 0xA0000000;//ignore:true
@@ -35,7 +40,7 @@ D_BFF00000 = 0xBFF00000;//ignore:true
 D_BFF08000 = 0xBFF08000;//ignore:true
 D_BFF08004 = 0xBFF08004;//ignore:true
 
-// RDB regs used only in exceptasm
+// RDB regs used only in exceptasm. Also 2.0f
 D_C0000000 = 0xC0000000;//ignore:true
 D_C0000008 = 0xC0000008;//ignore:true
 D_C000000C = 0xC000000C;//ignore:true
@@ -64,7 +69,7 @@ D_801613E0 = 0x801613E0;//size:0x18
 D_800CC124 = 0x800CC124;//type:u8
 D_800C9E90 = 0x800C9E90;//size:0x70
 
-D_800D3180 = 0x800D3180; // size:0x1E
+D_800D3180 = 0x800D3180; // size:0x20
 gSetupDLs = 0x800D31B0; // size:0x18C0
 
 D_800CFCA0 = 0x800CFCA0;

@@ -1,4 +1,9 @@
+#include "prevent_bss_reordering.h"
 #include "global.h"
+#include "assets/ast_ending_award_front.h"
+#include "assets/ast_ending_award_back.h"
+#include "assets/ast_allies.h"
+#include "assets/ast_great_fox.h"
 
 void func_ending_8018CE20(s32);
 void func_ending_801926D4(void);
@@ -34,9 +39,6 @@ extern u8 D_7010FF0[];
 extern u16 D_70110C0[];
 extern u8 D_70110E0[];
 extern u16 D_70111B0[];
-extern u16 D_8000000_RGBA[];
-extern Gfx D_E000000[];
-extern Gfx D_E003AB0[];
 
 bool func_ending_80189C64(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data);
 void func_ending_8018ABE8(void);
@@ -107,20 +109,21 @@ void func_ending_80187520(s32 arg0) {
 
     RCP_SetupDL(&gMasterDisp, 0x4C);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
+
     switch (arg0) {
         case 0:
             for (j = 0, i = 0; i < 67; j += 316 * 4, i++) {
-                TextureRect_16bRGBA(&gMasterDisp, D_8000000_RGBA + j, 316, 4, 0.0f, 4 * i, 1.0f, 1.0f);
+                TextureRect_16bRGBA(&gMasterDisp, gEndingAwardBack + j, 316, 4, 0.0f, 4 * i, 1.0f, 1.0f);
             }
-            TextureRect_16bRGBA(&gMasterDisp, D_8000000_RGBA + j, 316, 3, 0.0f, 4 * i, 1.0f, 1.0f);
+            TextureRect_16bRGBA(&gMasterDisp, gEndingAwardBack + j, 316, 3, 0.0f, 4 * i, 1.0f, 1.0f);
             break;
+
         case 1:
             for (j = 0, i = 0; i < 60; j += 316 * 4, i++) {
-                TextureRect_16bRGBA(&gMasterDisp, D_8000000_RGBA + j, 316, 4, 0.0f, 4 * i, 1.0f, 1.0f);
+                TextureRect_16bRGBA(&gMasterDisp, gEndingAwardFront + j, 316, 4, 0.0f, 4 * i, 1.0f, 1.0f);
             }
             break;
     }
-    if (!D_8000000_RGBA) {} // fake?
 }
 
 void func_ending_801876A4(void) {
@@ -433,12 +436,12 @@ void func_ending_8018845C(void);
 s32 func_ending_80188634(void) {
     if (D_80161690 != 0) {
         if ((D_ending_80196F90 % 14) == 0) {
-            Audio_PlaySfx(0x49002018, D_800C5D28, 4, &D_800C5D34, &D_800C5D34, &D_800C5D3C);
+            AUDIO_PLAY_SFX(0x49002018, gDefaultSfxSource, 4);
         }
         D_ending_80196F90++;
         D_80161690--;
         if (D_80161690 == 0) {
-            func_8001A838(0x49002018);
+            Audio_KillSfxById(0x49002018);
         }
     } else {
         D_ending_80196F90 = 0;
@@ -629,7 +632,7 @@ void func_ending_80189108(void) {
                 D_ending_80196D08[4].unk_34 = 0;
                 D_ending_80196D08[4].unk_38 = 1;
                 gCsFrameCount = 0;
-                func_8001A838(0x49002018);
+                Audio_KillSfxById(0x49002018);
                 D_ending_80196F90 = 0;
                 D_80161690 = 0;
             }
