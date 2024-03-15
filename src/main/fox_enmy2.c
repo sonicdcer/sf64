@@ -3875,7 +3875,7 @@ void func_80074FF0(Actor* actor) {
                     func_8005ADAC(actor);
                     break;
 
-                case 9: // taking assets from ast_enmy_planet
+                case 9:
                     Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, 1);
                     Animation_GetFrameData(&D_40001A4, actor->unk_0B6, sp114);
                     Animation_DrawSkeleton(1, D_4000270, sp114, NULL, NULL, actor, &gIdentityMatrix);
@@ -4070,7 +4070,7 @@ void func_80074FF0(Actor* actor) {
                     gSPDisplayList(gMasterDisp++, D_WZ_7000000);
                     break;
 
-                case 106: // taking assets from ast_enmy_space
+                case 106:
                     Animation_GetFrameData(&D_ENMY_SPACE_4000080, actor->unk_0B6, sp114);
                     Animation_DrawSkeleton(1, D_ENMY_SPACE_400014C, sp114, NULL, NULL, actor, &gIdentityMatrix);
                     break;
