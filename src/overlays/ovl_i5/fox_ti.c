@@ -1786,7 +1786,7 @@ void func_i5_8018E5F8(Actor* actor) {
     Effect* temp_v0_4;
     f32 sp54;
     s32 i;
-    UnkEntity30* temp_v0_2;
+    TexturedLine* temp_v0_2;
     f32 sp48;
     f32 sp44;
     f32 sp40;
@@ -1828,7 +1828,7 @@ void func_i5_8018E5F8(Actor* actor) {
             func_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
             actor->iwork[2] = 1;
             if (actor->iwork[3] > 0) {
-                gUnkEntities30[actor->iwork[3] - 1].mode = 0;
+                gTexturedLines[actor->iwork[3] - 1].mode = 0;
             }
             actor->state++;
             break;
@@ -1904,7 +1904,7 @@ void func_i5_8018E5F8(Actor* actor) {
 
     if (actor->iwork[3] == 0) {
         for (i = 0; i < 100; i++) {
-            if (gUnkEntities30[i].mode == 0) {
+            if (gTexturedLines[i].mode == 0) {
                 actor->iwork[3] = i + 1;
                 break;
             }
@@ -1929,26 +1929,26 @@ void func_i5_8018E5F8(Actor* actor) {
 
     if (actor->iwork[2] == 0) {
         index = actor->iwork[3] - 1;
-        gUnkEntities30[index].mode = 0x65;
-        gUnkEntities30[index].unk_04.x = actor->obj.pos.x + actor->fwork[0];
-        gUnkEntities30[index].unk_04.y = actor->obj.pos.y + actor->fwork[1];
-        gUnkEntities30[index].unk_04.z = actor->obj.pos.z + actor->fwork[2];
-        gUnkEntities30[index].unk_2C = 0xFF;
-        gUnkEntities30[index].unk_2D = 0xFF;
-        gUnkEntities30[index].unk_2E = 0;
-        gUnkEntities30[index].unk_2F = 0xFF;
-        gUnkEntities30[index].unk_10.x = sp5C;
-        gUnkEntities30[index].unk_10.y = sp70;
-        gUnkEntities30[index].unk_10.z = sp54;
-        gUnkEntities30[index].unk_28 = 3.0f;
+        gTexturedLines[index].mode = 0x65;
+        gTexturedLines[index].unk_04.x = actor->obj.pos.x + actor->fwork[0];
+        gTexturedLines[index].unk_04.y = actor->obj.pos.y + actor->fwork[1];
+        gTexturedLines[index].unk_04.z = actor->obj.pos.z + actor->fwork[2];
+        gTexturedLines[index].unk_2C = 0xFF;
+        gTexturedLines[index].unk_2D = 0xFF;
+        gTexturedLines[index].unk_2E = 0;
+        gTexturedLines[index].unk_2F = 0xFF;
+        gTexturedLines[index].unk_10.x = sp5C;
+        gTexturedLines[index].unk_10.y = sp70;
+        gTexturedLines[index].unk_10.z = sp54;
+        gTexturedLines[index].unk_28 = 3.0f;
         if (actor->timer_0C0 == 0) {
-            gUnkEntities30[index].unk_2C = 0xFF;
-            gUnkEntities30[index].unk_2D = 0xFF;
-            gUnkEntities30[index].unk_2E = 0x40;
+            gTexturedLines[index].unk_2C = 0xFF;
+            gTexturedLines[index].unk_2D = 0xFF;
+            gTexturedLines[index].unk_2E = 0x40;
         } else {
-            gUnkEntities30[index].unk_2C = 0xFF;
-            gUnkEntities30[index].unk_2D = 0x64;
-            gUnkEntities30[index].unk_2E = 0;
+            gTexturedLines[index].unk_2C = 0xFF;
+            gTexturedLines[index].unk_2D = 0x64;
+            gTexturedLines[index].unk_2E = 0;
         }
         if (i < 0xBB9) {
             if (actor->timer_0C0 == 0) {
@@ -4416,8 +4416,8 @@ void func_i5_80193DF0(Boss* boss) {
                 for (i = 0; i < 4; i++) {
                     if (D_i5_801BBEF0[i + 9] == 0) {
                         for (j = 0; j < 100; j++) {
-                            if (gUnkEntities30[j].mode == 0) {
-                                gUnkEntities30[j].mode = 1;
+                            if (gTexturedLines[j].mode == 0) {
+                                gTexturedLines[j].mode = 1;
                                 D_i5_801BBEF0[i + 9] = j + 1;
                                 break;
                             }
@@ -4429,7 +4429,7 @@ void func_i5_80193DF0(Boss* boss) {
                 for (i = 0; i < 4; i++) {
                     // stores in v instead of t
                     j = D_i5_801BBEF0[i + 9];
-                    gUnkEntities30[j - 1].mode = 0;
+                    gTexturedLines[j - 1].mode = 0;
                 }
 
                 boss->swork[32] = 0;
@@ -4954,7 +4954,7 @@ static f32 D_i5_801B8E24[4][2] = {
 };
 
 void func_i5_801982A8(Boss* boss) {
-    UnkEntity30* temp_v0_6;
+    TexturedLine* temp_v0_6;
     f32 sp120;
     f32 temp_fs0;
     f32 temp_fs1;
@@ -5153,22 +5153,22 @@ void func_i5_801982A8(Boss* boss) {
                         spF4.y = D_i5_801B8E24[i][1] * boss->fwork[41];
                         spF4.z = boss->fwork[42];
                         Matrix_MultVec3f(gCalcMatrix, &spF4, &spE8);
-                        gUnkEntities30[temp_v1_28].unk_04.x = temp_fs0;
-                        gUnkEntities30[temp_v1_28].unk_04.y = temp_fs1;
-                        gUnkEntities30[temp_v1_28].unk_04.z = temp_fs2;
-                        gUnkEntities30[temp_v1_28].unk_10.x = temp_fs0 + spE8.x;
-                        gUnkEntities30[temp_v1_28].unk_10.y = temp_fs1 + spE8.y;
-                        gUnkEntities30[temp_v1_28].unk_10.z = temp_fs2 + spE8.z;
+                        gTexturedLines[temp_v1_28].unk_04.x = temp_fs0;
+                        gTexturedLines[temp_v1_28].unk_04.y = temp_fs1;
+                        gTexturedLines[temp_v1_28].unk_04.z = temp_fs2;
+                        gTexturedLines[temp_v1_28].unk_10.x = temp_fs0 + spE8.x;
+                        gTexturedLines[temp_v1_28].unk_10.y = temp_fs1 + spE8.y;
+                        gTexturedLines[temp_v1_28].unk_10.z = temp_fs2 + spE8.z;
                         if (boss->swork[32] == 0) {
-                            gUnkEntities30[temp_v1_28].mode = 0;
+                            gTexturedLines[temp_v1_28].mode = 0;
                         } else {
-                            gUnkEntities30[temp_v1_28].mode = 1;
+                            gTexturedLines[temp_v1_28].mode = 1;
                         }
-                        gUnkEntities30[temp_v1_28].unk_2C = 0;
-                        gUnkEntities30[temp_v1_28].unk_2E = 0;
-                        gUnkEntities30[temp_v1_28].unk_2D = 0;
-                        gUnkEntities30[temp_v1_28].unk_2F = 0;
-                        gUnkEntities30[temp_v1_28].unk_28 = 1;
+                        gTexturedLines[temp_v1_28].unk_2C = 0;
+                        gTexturedLines[temp_v1_28].unk_2E = 0;
+                        gTexturedLines[temp_v1_28].unk_2D = 0;
+                        gTexturedLines[temp_v1_28].unk_2F = 0;
+                        gTexturedLines[temp_v1_28].unk_28 = 1;
                     }
                 }
             }

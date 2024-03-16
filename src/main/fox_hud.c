@@ -1838,7 +1838,7 @@ void func_80089D28(void) {
     gSPDisplayList(gMasterDisp++, D_1024230);
 }
 
-void func_80089E98(s32 arg0) {
+void RadarMark_Draw(s32 arg0) {
     s32 var_a1;
     s32 var_a1_2;
 
@@ -1955,11 +1955,11 @@ void func_8008A240(void) {
         if (gPlayer[i].state_1C8 == PLAYERSTATE_1C8_6) {
             continue;
         }
-        gUnkEntities28[i].unk_00 = 1;
-        gUnkEntities28[i].unk_02 = i;
-        gUnkEntities28[i].unk_10 = gPlayer[i].unk_114 + gPlayer[i].unk_0E8;
-        gUnkEntities28[i].pos.z = gPlayer[i].unk_138;
-        gUnkEntities28[i].pos.x = gPlayer[i].pos.x;
+        gRadarMarks[i].unk_00 = 1;
+        gRadarMarks[i].unk_02 = i;
+        gRadarMarks[i].unk_10 = gPlayer[i].unk_114 + gPlayer[i].unk_0E8;
+        gRadarMarks[i].pos.z = gPlayer[i].unk_138;
+        gRadarMarks[i].pos.x = gPlayer[i].pos.x;
 
         if (gPlayerNum == i) {
             continue;
@@ -1977,20 +1977,20 @@ void func_8008A240(void) {
             continue;
         }
 
-        if (gGameFrameCount & 63) {
-            gUnkEntities28[i].unk_02 = 999;
+        if (gGameFrameCount & 0x3F) {
+            gRadarMarks[i].unk_02 = 999;
         }
     }
 
     if (gVersusMode == 1) {
         for (i = 0, item = gItems; i < 20; i++, item++) {
             if (item->obj.status >= OBJ_ACTIVE) {
-                gUnkEntities28[item->index + 50].unk_00 = 1;
-                gUnkEntities28[item->index + 50].unk_02 = 103;
-                gUnkEntities28[item->index + 50].pos.x = item->obj.pos.x;
-                gUnkEntities28[item->index + 50].pos.y = item->obj.pos.y;
-                gUnkEntities28[item->index + 50].pos.z = item->obj.pos.z;
-                gUnkEntities28[item->index + 50].unk_10 = 0.0f;
+                gRadarMarks[item->index + 50].unk_00 = 1;
+                gRadarMarks[item->index + 50].unk_02 = 103;
+                gRadarMarks[item->index + 50].pos.x = item->obj.pos.x;
+                gRadarMarks[item->index + 50].pos.y = item->obj.pos.y;
+                gRadarMarks[item->index + 50].pos.z = item->obj.pos.z;
+                gRadarMarks[item->index + 50].unk_10 = 0.0f;
             }
         }
     }
@@ -2138,30 +2138,30 @@ s32 func_8008A4DC(void) {
     }
 
     for (i = 64; i >= 0; i--) {
-        if (gUnkEntities28[i].unk_00 == 0) {
+        if (gRadarMarks[i].unk_00 == 0) {
             continue;
         }
 
-        if (fabsf(gUnkEntities28[i].pos.x) >= (temp2 + 1000.0f) ||
-            fabsf(gUnkEntities28[i].pos.z) >= (temp2 + 1000.0f)) {
+        if (fabsf(gRadarMarks[i].pos.x) >= (temp2 + 1000.0f) ||
+            fabsf(gRadarMarks[i].pos.z) >= (temp2 + 1000.0f)) {
             continue;
         }
 
         Matrix_Push(&gGfxMatrix);
-        Matrix_Translate(gGfxMatrix, gUnkEntities28[i].pos.x * 0.008f, -gUnkEntities28[i].pos.z * 0.008f, 0.0f, 1);
+        Matrix_Translate(gGfxMatrix, gRadarMarks[i].pos.x * 0.008f, -gRadarMarks[i].pos.z * 0.008f, 0.0f, 1);
 
-        if (gUnkEntities28[i].unk_02 == 103) {
-            gUnkEntities28[i].unk_10 = 45.0f;
+        if (gRadarMarks[i].unk_02 == 103) {
+            gRadarMarks[i].unk_10 = 45.0f;
         }
 
-        Matrix_RotateZ(gGfxMatrix, M_DTOR * gUnkEntities28[i].unk_10, 1);
+        Matrix_RotateZ(gGfxMatrix, M_DTOR * gRadarMarks[i].unk_10, 1);
         Matrix_Scale(gGfxMatrix, scale, scale, 1.0f, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
 
-        func_80089E98(gUnkEntities28[i].unk_02);
+        RadarMark_Draw(gRadarMarks[i].unk_02);
         Matrix_Pop(&gGfxMatrix);
 
-        gUnkEntities28[i].unk_00 = 0;
+        gRadarMarks[i].unk_00 = 0;
     }
 
     Matrix_Pop(&gGfxMatrix);
@@ -4438,12 +4438,12 @@ bool func_80091F00(Actor* actor) {
 }
 
 void func_80092244(Actor* actor) {
-    gUnkEntities28[actor->index].unk_00 = 1;
-    gUnkEntities28[actor->index].unk_02 = actor->unk_0E4;
-    gUnkEntities28[actor->index].pos.x = actor->obj.pos.x;
-    gUnkEntities28[actor->index].pos.y = actor->obj.pos.y;
-    gUnkEntities28[actor->index].pos.z = actor->obj.pos.z;
-    gUnkEntities28[actor->index].unk_10 = actor->unk_0F4.y + 180.0f;
+    gRadarMarks[actor->index].unk_00 = 1;
+    gRadarMarks[actor->index].unk_02 = actor->unk_0E4;
+    gRadarMarks[actor->index].pos.x = actor->obj.pos.x;
+    gRadarMarks[actor->index].pos.y = actor->obj.pos.y;
+    gRadarMarks[actor->index].pos.z = actor->obj.pos.z;
+    gRadarMarks[actor->index].unk_10 = actor->unk_0F4.y + 180.0f;
 }
 
 void func_800922F4(Actor* actor) {

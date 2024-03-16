@@ -196,7 +196,7 @@ OverlayInit sOvlmenu_Map[1] = {
         /* 0xF */ NO_SEGMENT } },
 };
 
-OverlayInit sOvlmenu_State5[1] = {
+OverlayInit sOvlmenu_GameOver[1] = {
     { OVERLAY_OFFSETS(ovl_menu),
       { /* 0x1 */ NO_SEGMENT,
         /* 0x2 */ NO_SEGMENT,

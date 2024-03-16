@@ -37,7 +37,7 @@ typedef enum {
     /*  0 */ OVL_SETUP_TITLE,
     /*  1 */ OVL_SETUP_MENU,
     /*  2 */ OVL_SETUP_MAP,
-    /*  3 */ OVL_SETUP_STATE_5,
+    /*  3 */ OVL_SETUP_GAME_OVER,
     /*  4 */ OVL_SETUP_CREDITS,
     /*  5 */ OVL_SETUP_CORNERIA,
     /*  6 */ OVL_SETUP_METEO,

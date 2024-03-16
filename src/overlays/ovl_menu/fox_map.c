@@ -1614,7 +1614,7 @@ void func_menu_8019F600(void) {
     D_menu_801CD970 = 0;
     for (i = 0; i < 24; i++) {
         D_80177BD8[i] = 0;
-        gUnkEntities30[i].unk_24 = 0.0f;
+        gTexturedLines[i].unk_24 = 0.0f;
     }
 
     for (i = 0; i < 7; i++) {
@@ -1664,7 +1664,7 @@ void func_menu_8019F83C(void) {
         }
 
         sPaths[i].alpha = 0;
-        gUnkEntities30[i].unk_24 = 0.0f;
+        gTexturedLines[i].unk_24 = 0.0f;
     }
 }
 
@@ -6126,9 +6126,9 @@ void func_menu_801AC200(s32 index) {
     f32 r2;
     Vec3f vec;
 
-    v.x = gUnkEntities30[index].unk_10.x - gUnkEntities30[index].unk_04.x;
-    v.y = gUnkEntities30[index].unk_10.y - gUnkEntities30[index].unk_04.y;
-    v.z = gUnkEntities30[index].unk_10.z - gUnkEntities30[index].unk_04.z;
+    v.x = gTexturedLines[index].unk_10.x - gTexturedLines[index].unk_04.x;
+    v.y = gTexturedLines[index].unk_10.y - gTexturedLines[index].unk_04.y;
+    v.z = gTexturedLines[index].unk_10.z - gTexturedLines[index].unk_04.z;
 
     r = VEC3F_MAG(&v);
 
@@ -6141,9 +6141,9 @@ void func_menu_801AC200(s32 index) {
         vec.y = (v.y / r) * (r / (sPaths[index].length - 1));
         vec.z = (v.z / r) * (r / (sPaths[index].length - 1));
 
-        D_menu_801CEEB0.x = gUnkEntities30[index].unk_04.x + (vec.x * D_menu_801CEEA0);
-        D_menu_801CEEB0.y = gUnkEntities30[index].unk_04.y + (vec.y * D_menu_801CEEA0);
-        D_menu_801CEEB0.z = gUnkEntities30[index].unk_04.z + (vec.z * D_menu_801CEEA0);
+        D_menu_801CEEB0.x = gTexturedLines[index].unk_04.x + (vec.x * D_menu_801CEEA0);
+        D_menu_801CEEB0.y = gTexturedLines[index].unk_04.y + (vec.y * D_menu_801CEEA0);
+        D_menu_801CEEB0.z = gTexturedLines[index].unk_04.z + (vec.z * D_menu_801CEEA0);
 
         switch (D_menu_801CEEA4) {
             case 0:
@@ -6180,17 +6180,17 @@ void func_menu_801AC200(s32 index) {
             return;
         }
     } else {
-        vec.x = (v.x / r) * gUnkEntities30[index].unk_24;
-        vec.y = (v.y / r) * gUnkEntities30[index].unk_24;
-        vec.z = (v.z / r) * gUnkEntities30[index].unk_24;
+        vec.x = (v.x / r) * gTexturedLines[index].unk_24;
+        vec.y = (v.y / r) * gTexturedLines[index].unk_24;
+        vec.z = (v.z / r) * gTexturedLines[index].unk_24;
 
-        D_menu_801CEEB0.x = gUnkEntities30[index].unk_04.x + vec.x;
-        D_menu_801CEEB0.y = gUnkEntities30[index].unk_04.y + vec.y;
-        D_menu_801CEEB0.z = gUnkEntities30[index].unk_04.z + vec.z;
+        D_menu_801CEEB0.x = gTexturedLines[index].unk_04.x + vec.x;
+        D_menu_801CEEB0.y = gTexturedLines[index].unk_04.y + vec.y;
+        D_menu_801CEEB0.z = gTexturedLines[index].unk_04.z + vec.z;
 
-        v.x = D_menu_801CEEB0.x - gUnkEntities30[index].unk_04.x;
-        v.y = D_menu_801CEEB0.y - gUnkEntities30[index].unk_04.y;
-        v.z = D_menu_801CEEB0.z - gUnkEntities30[index].unk_04.z;
+        v.x = D_menu_801CEEB0.x - gTexturedLines[index].unk_04.x;
+        v.y = D_menu_801CEEB0.y - gTexturedLines[index].unk_04.y;
+        v.z = D_menu_801CEEB0.z - gTexturedLines[index].unk_04.z;
         r2 = VEC3F_MAG(&v);
 
         if (((r / 9.0f) * 8.0f) < r2) {
@@ -6235,9 +6235,9 @@ void func_menu_801AC530(s32 index) {
 
     Matrix_Translate(gGfxMatrix, D_menu_801CEEB0.x, D_menu_801CEEB0.y, D_menu_801CEEB0.z, 1);
 
-    Matrix_RotateY(gGfxMatrix, gUnkEntities30[index].unk_20, 1);
+    Matrix_RotateY(gGfxMatrix, gTexturedLines[index].unk_20, 1);
     Matrix_RotateX(gGfxMatrix, M_DTOR * -90.0f, 1);
-    Matrix_RotateX(gGfxMatrix, gUnkEntities30[index].unk_1C, 1);
+    Matrix_RotateX(gGfxMatrix, gTexturedLines[index].unk_1C, 1);
 
     Matrix_Scale(gGfxMatrix, 0.8f, 0.8f, 0.8f, 1);
 
@@ -6357,18 +6357,18 @@ void func_menu_801AC9A0(s32 index) {
 
     target = sqrtf(SQ(x) + SQ(y) + SQ(z));
 
-    gUnkEntities30[index].mode = 4;
+    gTexturedLines[index].mode = 4;
 
-    gUnkEntities30[index].unk_04.x = srcPos.x;
-    gUnkEntities30[index].unk_04.y = srcPos.y;
-    gUnkEntities30[index].unk_04.z = srcPos.z;
+    gTexturedLines[index].unk_04.x = srcPos.x;
+    gTexturedLines[index].unk_04.y = srcPos.y;
+    gTexturedLines[index].unk_04.z = srcPos.z;
 
-    gUnkEntities30[index].unk_10.x = destPos.x;
-    gUnkEntities30[index].unk_10.y = destPos.y;
-    gUnkEntities30[index].unk_10.z = destPos.z;
+    gTexturedLines[index].unk_10.x = destPos.x;
+    gTexturedLines[index].unk_10.y = destPos.y;
+    gTexturedLines[index].unk_10.z = destPos.z;
 
-    gUnkEntities30[index].unk_20 = Math_Atan2F(x, z);
-    gUnkEntities30[index].unk_1C = -Math_Atan2F(y, sqrtf(SQ(x) + SQ(z)));
+    gTexturedLines[index].unk_20 = Math_Atan2F(x, z);
+    gTexturedLines[index].unk_1C = -Math_Atan2F(y, sqrtf(SQ(x) + SQ(z)));
 
     switch (D_80177BD8[index]) {
         case 1:
@@ -6377,9 +6377,9 @@ void func_menu_801AC9A0(s32 index) {
             break;
 
         case 11:
-            Math_SmoothStepToF(&gUnkEntities30[index].unk_24, target, 0.1f, 100.0f, 4.0f);
-            gUnkEntities30[index].unk_2F = 255;
-            if (gUnkEntities30[index].unk_24 == target) {
+            Math_SmoothStepToF(&gTexturedLines[index].unk_24, target, 0.1f, 100.0f, 4.0f);
+            gTexturedLines[index].unk_2F = 255;
+            if (gTexturedLines[index].unk_24 == target) {
                 Audio_KillSfxById(0x1900404DU);
                 D_80177BD8[index] = 4;
             }
@@ -6387,9 +6387,9 @@ void func_menu_801AC9A0(s32 index) {
 
         case 5:
         case 6:
-            Math_SmoothStepToF(&gUnkEntities30[index].unk_24, target, 0.1f, 100.0f, 1.0f);
-            if (gUnkEntities30[index].unk_24 == target) {
-                gUnkEntities30[index].unk_24 = 0.0f;
+            Math_SmoothStepToF(&gTexturedLines[index].unk_24, target, 0.1f, 100.0f, 1.0f);
+            if (gTexturedLines[index].unk_24 == target) {
+                gTexturedLines[index].unk_24 = 0.0f;
                 D_80177BD8[index] = 6;
                 D_menu_801CEEAC = 255;
             }
@@ -6400,55 +6400,55 @@ void func_menu_801AC9A0(s32 index) {
             if (D_menu_801CD944 == 7) {
                 temp = 0.25f;
             }
-            Math_SmoothStepToF(&gUnkEntities30[index].unk_24, target, temp, 100.0f, 4.0f);
-            gUnkEntities30[index].unk_2F = 255;
-            if (gUnkEntities30[index].unk_24 == target) {
+            Math_SmoothStepToF(&gTexturedLines[index].unk_24, target, temp, 100.0f, 4.0f);
+            gTexturedLines[index].unk_2F = 255;
+            if (gTexturedLines[index].unk_24 == target) {
                 D_80177BD8[index] = 3;
             }
             break;
 
         case 3:
         case 4:
-            gUnkEntities30[index].unk_24 = target;
-            gUnkEntities30[index].unk_2F = sPaths[index].alpha;
+            gTexturedLines[index].unk_24 = target;
+            gTexturedLines[index].unk_2F = sPaths[index].alpha;
             break;
     }
 
     if ((D_80177BD8[index] == 1) || (D_80177BD8[index] == 11) || (D_80177BD8[index] == 4)) {
-        gUnkEntities30[index].unk_2C = 32;
-        gUnkEntities30[index].unk_2D = 32;
-        gUnkEntities30[index].unk_2E = 32;
-        gUnkEntities30[index].unk_28 = 4.0f;
+        gTexturedLines[index].unk_2C = 32;
+        gTexturedLines[index].unk_2D = 32;
+        gTexturedLines[index].unk_2E = 32;
+        gTexturedLines[index].unk_28 = 4.0f;
     } else {
         switch (sPaths[index].type) {
             case PL_PATH_BLU:
-                gUnkEntities30[index].unk_2C = 16;
-                gUnkEntities30[index].unk_2D = 64;
-                gUnkEntities30[index].unk_2E = 255;
-                gUnkEntities30[index].unk_28 = 8.0f;
+                gTexturedLines[index].unk_2C = 16;
+                gTexturedLines[index].unk_2D = 64;
+                gTexturedLines[index].unk_2E = 255;
+                gTexturedLines[index].unk_28 = 8.0f;
                 break;
 
             case PL_PATH_YLW:
-                gUnkEntities30[index].unk_2C = 255;
-                gUnkEntities30[index].unk_2D = 175;
-                gUnkEntities30[index].unk_2E = 0;
-                gUnkEntities30[index].unk_28 = 8.0f;
+                gTexturedLines[index].unk_2C = 255;
+                gTexturedLines[index].unk_2D = 175;
+                gTexturedLines[index].unk_2E = 0;
+                gTexturedLines[index].unk_28 = 8.0f;
                 break;
 
             case PL_PATH_RED:
-                gUnkEntities30[index].unk_2C = 255;
-                gUnkEntities30[index].unk_2D = 0;
-                gUnkEntities30[index].unk_2E = 0;
-                gUnkEntities30[index].unk_28 = 8.0f;
+                gTexturedLines[index].unk_2C = 255;
+                gTexturedLines[index].unk_2D = 0;
+                gTexturedLines[index].unk_2E = 0;
+                gTexturedLines[index].unk_28 = 8.0f;
                 break;
 
             case PL_WARP_YLW:
             case PL_WARP_RED:
-                gUnkEntities30[index].unk_2C = 0;
-                gUnkEntities30[index].unk_2D = 0;
-                gUnkEntities30[index].unk_2E = 0;
-                gUnkEntities30[index].unk_2F = 0;
-                gUnkEntities30[index].unk_28 = 0.1f;
+                gTexturedLines[index].unk_2C = 0;
+                gTexturedLines[index].unk_2D = 0;
+                gTexturedLines[index].unk_2E = 0;
+                gTexturedLines[index].unk_2F = 0;
+                gTexturedLines[index].unk_28 = 0.1f;
                 break;
         }
     }

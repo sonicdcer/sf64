@@ -1277,7 +1277,7 @@ void func_800564C0(Player* player, s32 arg1) {
                     } else {
                         RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
                     }
-                } else if (gVersusStage == 2) {
+                } else if (gVersusStage == VS_STAGE_SECTOR_Z) {
                     RCP_SetupDL_29(128, 128, 255, 255, gFogNear, gFogFar);
                 } else {
                     RCP_SetupDL_29(0, 0, 0, 255, gFogNear, gFogFar);
@@ -1638,7 +1638,7 @@ void func_80057D00(void) {
     Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR, gAmbientG,
                        gAmbientB);
     func_80060714(1);
-    func_80060968();
+    TexturedLine_Draw();
     D_80161410 = 1;
     func_8003DA0C();
     if ((D_80161A88 == 2) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_2)) {

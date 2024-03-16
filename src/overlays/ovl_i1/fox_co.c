@@ -575,13 +575,13 @@ void func_i1_80189058(Boss* boss) {
             gBossFrameCount = 0;
         }
         gBossFrameCount++;
-        gUnkEntities28[59].unk_00 = 1;
-        gUnkEntities28[59].unk_02 = 0x66;
-        gUnkEntities28[59].pos.x = boss->obj.pos.x;
-        gUnkEntities28[59].pos.y = boss->obj.pos.y;
-        gUnkEntities28[59].pos.z = boss->obj.pos.z;
+        gRadarMarks[59].unk_00 = 1;
+        gRadarMarks[59].unk_02 = 0x66;
+        gRadarMarks[59].pos.x = boss->obj.pos.x;
+        gRadarMarks[59].pos.y = boss->obj.pos.y;
+        gRadarMarks[59].pos.z = boss->obj.pos.z;
 
-        gUnkEntities28[59].unk_10 = boss->obj.rot.y + 180.0f;
+        gRadarMarks[59].unk_10 = boss->obj.rot.y + 180.0f;
         func_i1_80188D50(boss);
         if (D_801615D0.z > 0.0f) {
             if (D_801615D0.x > 0.0f) {

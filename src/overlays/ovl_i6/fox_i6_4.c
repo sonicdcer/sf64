@@ -96,23 +96,23 @@ void func_i6_801A58A8(Player* player) {
 
     for (i = 0; i < player->unk_1C0; i++) {
         if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].obj.id == OBJ_ACTOR_200)) {
-            gUnkEntities30[i].mode = 3;
-            gUnkEntities30[i].unk_24 = 1.0f;
+            gTexturedLines[i].mode = 3;
+            gTexturedLines[i].unk_24 = 1.0f;
 
-            gUnkEntities30[i].unk_04.x = player->pos.x;
-            gUnkEntities30[i].unk_04.y = player->pos.y;
-            gUnkEntities30[i].unk_04.z = player->pos.z - 100.0f;
+            gTexturedLines[i].unk_04.x = player->pos.x;
+            gTexturedLines[i].unk_04.y = player->pos.y;
+            gTexturedLines[i].unk_04.z = player->pos.z - 100.0f;
 
-            gUnkEntities30[i].timer = 2;
+            gTexturedLines[i].timer = 2;
 
-            gUnkEntities30[i].unk_2C = 255;
-            gUnkEntities30[i].unk_2D = 255;
-            gUnkEntities30[i].unk_2E = 255;
-            gUnkEntities30[i].unk_2F = 255;
+            gTexturedLines[i].unk_2C = 255;
+            gTexturedLines[i].unk_2D = 255;
+            gTexturedLines[i].unk_2E = 255;
+            gTexturedLines[i].unk_2F = 255;
 
-            gUnkEntities30[i].unk_10.x = gActors[i].obj.pos.x;
-            gUnkEntities30[i].unk_10.y = gActors[i].obj.pos.y;
-            gUnkEntities30[i].unk_10.z = gActors[i].obj.pos.z;
+            gTexturedLines[i].unk_10.x = gActors[i].obj.pos.x;
+            gTexturedLines[i].unk_10.y = gActors[i].obj.pos.y;
+            gTexturedLines[i].unk_10.z = gActors[i].obj.pos.z;
         }
     }
     if (gControllerHold[player->num].button & 0x10) {

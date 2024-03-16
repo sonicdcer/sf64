@@ -227,7 +227,7 @@ Object_DrawAll = 0x8005FB70;
 func_8006046C = 0x8006046C;
 func_80060714 = 0x80060714;
 func_8006089C = 0x8006089C;
-func_80060968 = 0x80060968;
+TexturedLine_Draw = 0x80060968;
 func_80060D94 = 0x80060D94;
 
 // fox_effect
@@ -325,8 +325,8 @@ Object_80_Update = 0x80069DF4;
 Object_4C_Update = 0x80069E88;
 Item_Update = 0x80069F30;
 Effect_Update = 0x80069FD4;
-func_8006A06C = 0x8006A06C;
-func_8006A38C = 0x8006A38C;
+TexturedLine_Update = 0x8006A06C;
+TexturedLine_UpdateAll = 0x8006A38C;
 Object_UpdateAll = 0x8006A3E8;
 
 // fox_enmy2
@@ -410,8 +410,8 @@ gBosses = 0x8016F110; //size:0x1020
 gEffects = 0x80170130; //size:0x36B0
 gItems = 0x801737E0; //size:0x870
 gPlayerShots = 0x80174050; //size:0x700
-gUnkEntities30 = 0x80174750; //size:0x12C0
-gUnkEntities28 = 0x80175A10; //size:0xA28
+gTexturedLines = 0x80174750; //size:0x12C0
+gRadarMarks = 0x80175A10; //size:0xA28
 gBonusText = 0x80176438; //size:0x118
 D_80176550 = 0x80176550;
 D_80176558 = 0x80176558;
@@ -670,8 +670,8 @@ func_800A5FA0 = 0x800A5FA0;
 func_800A6028 = 0x800A6028;
 func_800A6070 = 0x800A6070;
 BonusText_Initialize = 0x800A60B8;
-func_800A60E8 = 0x800A60E8;
-func_800A6118 = 0x800A6118;
+TexturedLine_Initialize = 0x800A60E8;
+RadarMark_Initialize = 0x800A6118;
 func_800A6148 = 0x800A6148;
 func_800A6590 = 0x800A6590;
 func_800A668C = 0x800A668C;

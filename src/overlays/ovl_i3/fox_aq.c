@@ -320,17 +320,17 @@ void func_i3_801A8E30(void) {
 }
 
 void func_i3_801A92EC(Actor* actor, f32 xUnk, f32 yUnk, f32 zUnk, s32 index, s32 mode) {
-    gUnkEntities30[index].mode = mode;
-    gUnkEntities30[index].unk_28 = 10.0f;
-    gUnkEntities30[index].unk_04.x = actor->obj.pos.x;
-    gUnkEntities30[index].unk_04.y = actor->obj.pos.y;
-    gUnkEntities30[index].unk_04.z = actor->obj.pos.z;
-    gUnkEntities30[index].unk_10.x = xUnk;
-    gUnkEntities30[index].unk_10.y = yUnk;
-    gUnkEntities30[index].unk_10.z = zUnk;
-    gUnkEntities30[index].unk_2C = gUnkEntities30[index].unk_2D = gUnkEntities30[index].unk_2E =
-        gUnkEntities30[index].unk_2F = 255;
-    gUnkEntities30[index].timer = 3;
+    gTexturedLines[index].mode = mode;
+    gTexturedLines[index].unk_28 = 10.0f;
+    gTexturedLines[index].unk_04.x = actor->obj.pos.x;
+    gTexturedLines[index].unk_04.y = actor->obj.pos.y;
+    gTexturedLines[index].unk_04.z = actor->obj.pos.z;
+    gTexturedLines[index].unk_10.x = xUnk;
+    gTexturedLines[index].unk_10.y = yUnk;
+    gTexturedLines[index].unk_10.z = zUnk;
+    gTexturedLines[index].unk_2C = gTexturedLines[index].unk_2D = gTexturedLines[index].unk_2E =
+        gTexturedLines[index].unk_2F = 255;
+    gTexturedLines[index].timer = 3;
 }
 
 void func_i3_801A9374(Actor* actor, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state, f32 scale,

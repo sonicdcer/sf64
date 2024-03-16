@@ -1320,7 +1320,7 @@ void func_i6_8019C888(Boss* boss) {
     f32 sp1D8;
     f32 sp1D4;
     s32 sp1D0;
-    UnkEntity28* unkEntity28;
+    RadarMark* radarMark;
     Vec3f sp64[30];
     Vec3f sp58;
     Vec3f sp4C;
@@ -1550,21 +1550,21 @@ void func_i6_8019C888(Boss* boss) {
         }
 
         if (boss->index == 0) {
-            unkEntity28 = &gUnkEntities28[boss->index + 1];
-            unkEntity28->unk_00 = 1;
-            unkEntity28->unk_02 = 102;
-            unkEntity28->pos.x = boss->obj.pos.x;
-            unkEntity28->pos.y = boss->obj.pos.y;
-            unkEntity28->pos.z = boss->obj.pos.z;
-            unkEntity28->unk_10 = boss->unk_078.y + 180.0f;
+            radarMark = &gRadarMarks[boss->index + 1];
+            radarMark->unk_00 = 1;
+            radarMark->unk_02 = 102;
+            radarMark->pos.x = boss->obj.pos.x;
+            radarMark->pos.y = boss->obj.pos.y;
+            radarMark->pos.z = boss->obj.pos.z;
+            radarMark->unk_10 = boss->unk_078.y + 180.0f;
         } else {
-            unkEntity28 = &gUnkEntities28[boss->index + 4];
-            unkEntity28->unk_00 = 1;
-            unkEntity28->unk_02 = 10;
-            unkEntity28->pos.x = boss->obj.pos.x;
-            unkEntity28->pos.y = boss->obj.pos.y;
-            unkEntity28->pos.z = boss->obj.pos.z;
-            unkEntity28->unk_10 = boss->unk_078.y + 180.0f;
+            radarMark = &gRadarMarks[boss->index + 4];
+            radarMark->unk_00 = 1;
+            radarMark->unk_02 = 10;
+            radarMark->pos.x = boss->obj.pos.x;
+            radarMark->pos.y = boss->obj.pos.y;
+            radarMark->pos.z = boss->obj.pos.z;
+            radarMark->unk_10 = boss->unk_078.y + 180.0f;
         }
 
         if (gBossFrameCount == 250) {

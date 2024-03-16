@@ -1307,17 +1307,17 @@ void func_8006D36C(Actor* actor) {
 
         case EVOP_124 << 9:
             actor->iwork[7] = 1;
-            for (i = 0; i < ARRAY_COUNT(gUnkEntities30); i++) {
-                if (gUnkEntities30[i].mode == 0) {
-                    gUnkEntities30[i].mode = 1;
-                    gUnkEntities30[i].unk_28 = 3.0f;
-                    gUnkEntities30[i].unk_04.x = actor->obj.pos.x - actor->vel.x;
-                    gUnkEntities30[i].unk_04.y = actor->obj.pos.y - actor->vel.y;
-                    gUnkEntities30[i].unk_04.z = actor->obj.pos.z - actor->vel.z;
-                    gUnkEntities30[i].unk_2C = D_800D0DBC[temp_s1[actor->unk_0E6 + 1]][0];
-                    gUnkEntities30[i].unk_2D = D_800D0DBC[temp_s1[actor->unk_0E6 + 1]][1];
-                    gUnkEntities30[i].unk_2E = D_800D0DBC[temp_s1[actor->unk_0E6 + 1]][2];
-                    gUnkEntities30[i].unk_2F = D_800D0DBC[temp_s1[actor->unk_0E6 + 1]][3];
+            for (i = 0; i < ARRAY_COUNT(gTexturedLines); i++) {
+                if (gTexturedLines[i].mode == 0) {
+                    gTexturedLines[i].mode = 1;
+                    gTexturedLines[i].unk_28 = 3.0f;
+                    gTexturedLines[i].unk_04.x = actor->obj.pos.x - actor->vel.x;
+                    gTexturedLines[i].unk_04.y = actor->obj.pos.y - actor->vel.y;
+                    gTexturedLines[i].unk_04.z = actor->obj.pos.z - actor->vel.z;
+                    gTexturedLines[i].unk_2C = D_800D0DBC[temp_s1[actor->unk_0E6 + 1]][0];
+                    gTexturedLines[i].unk_2D = D_800D0DBC[temp_s1[actor->unk_0E6 + 1]][1];
+                    gTexturedLines[i].unk_2E = D_800D0DBC[temp_s1[actor->unk_0E6 + 1]][2];
+                    gTexturedLines[i].unk_2F = D_800D0DBC[temp_s1[actor->unk_0E6 + 1]][3];
                     actor->iwork[8] = i;
                     break;
                 }
@@ -1544,10 +1544,10 @@ void func_8006D36C(Actor* actor) {
 }
 
 void func_8006EA50(Actor* actor) {
-    if ((actor->iwork[7] != 0) && (gUnkEntities30[actor->iwork[8]].mode != 0)) {
-        gUnkEntities30[actor->iwork[8]].unk_10.x = actor->obj.pos.x;
-        gUnkEntities30[actor->iwork[8]].unk_10.y = actor->obj.pos.y;
-        gUnkEntities30[actor->iwork[8]].unk_10.z = actor->obj.pos.z;
+    if ((actor->iwork[7] != 0) && (gTexturedLines[actor->iwork[8]].mode != 0)) {
+        gTexturedLines[actor->iwork[8]].unk_10.x = actor->obj.pos.x;
+        gTexturedLines[actor->iwork[8]].unk_10.y = actor->obj.pos.y;
+        gTexturedLines[actor->iwork[8]].unk_10.z = actor->obj.pos.z;
     }
 }
 

@@ -10,7 +10,7 @@ typedef struct {
     /* 0x04 */ Vec3f pos;
     /* 0x10 */ f32 unk_10;
     /* 0x14 */ char pad14[0x14];
-} UnkEntity28; // size = 0x28
+} RadarMark; // size = 0x28
 
 typedef struct {
     /* 0x00 */ u8 mode;
@@ -25,7 +25,7 @@ typedef struct {
     /* 0x2D */ u8 unk_2D;
     /* 0x2E */ u8 unk_2E;
     /* 0x2F */ u8 unk_2F;
-} UnkEntity30; // size = 0x30
+} TexturedLine; // size = 0x30
 
 typedef struct {
     /* 0x00 */ u8 hits;
@@ -65,5 +65,12 @@ typedef enum OptionState {
     OPTION_SETUP,
     OPTION_UPDATE
 } OptionState;
+
+typedef enum OptionSoundMode {
+    OPTIONSOUND_STEREO,
+    OPTIONSOUND_MONO,
+    OPTIONSOUND_HEADSET,
+    OPTIONSOUND_MAX,
+} OptionSoundMode;
 
 #endif

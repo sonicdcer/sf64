@@ -268,13 +268,13 @@ void func_800A4F7C(void) {
     s32 var_s4_2;
 
     switch (gVersusStage) {
-        case 0:
+        case VS_STAGE_CORNERIA:
             D_80178310 = SEGMENTED_TO_VIRTUAL(D_vs_player_302DE3C);
             break;
-        case 1:
+        case VS_STAGE_KATINA:
             D_80178310 = SEGMENTED_TO_VIRTUAL(D_vs_player_302E0E4);
             break;
-        case 2:
+        case VS_STAGE_SECTOR_Z:
             if (D_801778AC == 2) {
                 D_80178310 = SEGMENTED_TO_VIRTUAL(D_vs_player_302E378);
             } else {
@@ -581,20 +581,20 @@ void BonusText_Initialize(BonusText* bonus) {
     }
 }
 
-void func_800A60E8(UnkEntity30* ent30) {
+void TexturedLine_Initialize(TexturedLine* texLine) {
     s32 i;
-    u8* ptr = (u8*) ent30;
+    u8* ptr = (u8*) texLine;
 
-    for (i = 0; i < sizeof(UnkEntity30); i++, ptr++) {
+    for (i = 0; i < sizeof(TexturedLine); i++, ptr++) {
         *ptr = 0;
     }
 }
 
-void func_800A6118(UnkEntity28* unkEnt28) {
+void RadarMark_Initialize(RadarMark* radarMark) {
     s32 i;
-    u8* ptr = (u8*) unkEnt28;
+    u8* ptr = (u8*) radarMark;
 
-    for (i = 0; i < sizeof(UnkEntity28); i++, ptr++) {
+    for (i = 0; i < sizeof(RadarMark); i++, ptr++) {
         *ptr = 0;
     }
 }
@@ -606,11 +606,11 @@ void func_800A6148(void) {
     for (i = 0; i < ARRAY_COUNT(gBonusText); i++) {
         BonusText_Initialize(&gBonusText[i]);
     }
-    for (i = 0; i < ARRAY_COUNT(gUnkEntities28); i++) {
-        func_800A6118(&gUnkEntities28[i]);
+    for (i = 0; i < ARRAY_COUNT(gRadarMarks); i++) {
+        RadarMark_Initialize(&gRadarMarks[i]);
     }
-    for (i = 0; i < ARRAY_COUNT(gUnkEntities30); i++) {
-        func_800A60E8(&gUnkEntities30[i]);
+    for (i = 0; i < ARRAY_COUNT(gTexturedLines); i++) {
+        TexturedLine_Initialize(&gTexturedLines[i]);
     }
     for (i = 0; i < ARRAY_COUNT(gObjects80); i++) {
         Object_Kill(&gObjects80[i].obj, gObjects80[i].sfxSource);

@@ -859,7 +859,7 @@ void AudioLoad_Init(void) {
     gAudioTaskCountQ = 0;
     gAudioTaskIndexQ = 0;
     gCurAiBuffIndex = 0;
-    gAudioSoundMode = 0;
+    gAudioSoundMode = SOUNDMODE_STEREO;
     gAudioCurTask = NULL;
     gAudioRspTasks[0].task.t.data_size = 0;
     gAudioRspTasks[1].task.t.data_size = 0;

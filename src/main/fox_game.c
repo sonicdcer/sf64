@@ -1,7 +1,8 @@
-#include "prevent_bss_reordering.h"
+// #include "prevent_bss_reordering.h"
 #include "global.h"
 #include "sf64dma.h"
 #include "assets/ast_logo.h"
+#include "audioseq_cmd.h"
 
 f32 D_80161A10;
 f32 D_80161A14;
@@ -282,33 +283,33 @@ void func_800A24DC(s32 arg0) {
 
 void func_800A25DC(void) {
     switch (gGameState) {
-        case 1:
+        case GSTATE_INIT:
             gOverlaySetup = OVL_SETUP_TITLE;
             gOverlayStage = 0;
             break;
-        case 2:
+        case GSTATE_TITLE:
             gOverlaySetup = OVL_SETUP_TITLE;
             gOverlayStage = 0;
             break;
-        case 3:
+        case GSTATE_MENU:
             gOverlaySetup = OVL_SETUP_MENU;
             gOverlayStage = 0;
             break;
-        case 4:
+        case GSTATE_MAP:
             gOverlaySetup = OVL_SETUP_MAP;
             gOverlayStage = 0;
             return;
-        case 6:
+        case GSTATE_VS_INIT:
             gOverlaySetup = OVL_SETUP_VERSUS;
             break;
-        case 7:
+        case GSTATE_PLAY:
             gOverlaySetup = sOverlaySetups[gCurrentLevel];
             break;
-        case 5:
-            gOverlaySetup = OVL_SETUP_STATE_5;
+        case GSTATE_GAME_OVER:
+            gOverlaySetup = OVL_SETUP_GAME_OVER;
             gOverlayStage = 0;
             break;
-        case 8:
+        case GSTATE_CREDITS:
             gOverlaySetup = OVL_SETUP_CREDITS;
             break;
     }
@@ -317,7 +318,7 @@ void func_800A25DC(void) {
 void Game_Update(void) {
     s32 i;
     u8 spBB;
-    u16 var_v0_3;
+    u8 var_v0_3;
 
     Game_SetGameState();
     if (D_80161A39) {
@@ -411,21 +412,21 @@ void Game_Update(void) {
                 gExpertMode = false;
                 gSoundMode = gSaveFile.save.data.soundMode;
                 switch (gSoundMode) {
-                    case 0:
-                        var_v0_3 = 0;
+                    case OPTIONSOUND_STEREO:
+                        var_v0_3 = SOUNDMODE_STEREO;
                         break;
-                    case 1:
-                        var_v0_3 = 3;
+                    case OPTIONSOUND_MONO:
+                        var_v0_3 = SOUNDMODE_MONO;
                         break;
-                    case 2:
-                        var_v0_3 = 1;
+                    case OPTIONSOUND_HEADSET:
+                        var_v0_3 = SOUNDMODE_HEADSET;
                         break;
                     default:
-                        gSoundMode = 0;
-                        var_v0_3 = 0;
+                        gSoundMode = OPTIONSOUND_STEREO;
+                        var_v0_3 = SOUNDMODE_STEREO;
                         break;
                 }
-                Audio_QueueSeqCmd(var_v0_3 | 0xE0000000);
+                SEQCMD_SET_SOUND_MODE(var_v0_3);
                 gVolumeSettings[0] = gSaveFile.save.data.musicVolume;
                 gVolumeSettings[1] = gSaveFile.save.data.voiceVolume;
                 gVolumeSettings[2] = gSaveFile.save.data.sfxVolume;

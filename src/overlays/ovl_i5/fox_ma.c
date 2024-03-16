@@ -3501,17 +3501,17 @@ void func_i5_801A68EC(Actor* actor) {
 }
 
 void func_i5_801A68F8(Actor* actor, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
-    gUnkEntities30[arg1].mode = 3;
-    gUnkEntities30[arg1].unk_04.x = arg2;
-    gUnkEntities30[arg1].unk_04.y = arg3;
-    gUnkEntities30[arg1].unk_28 = 5.0f;
-    gUnkEntities30[arg1].unk_2C = gUnkEntities30[arg1].unk_2D = gUnkEntities30[arg1].unk_2E =
-        gUnkEntities30[arg1].unk_2F = 255;
-    gUnkEntities30[arg1].timer = 3;
-    gUnkEntities30[arg1].unk_04.z = arg4;
-    gUnkEntities30[arg1].unk_10.x = arg5;
-    gUnkEntities30[arg1].unk_10.y = arg6;
-    gUnkEntities30[arg1].unk_10.z = arg7;
+    gTexturedLines[arg1].mode = 3;
+    gTexturedLines[arg1].unk_04.x = arg2;
+    gTexturedLines[arg1].unk_04.y = arg3;
+    gTexturedLines[arg1].unk_28 = 5.0f;
+    gTexturedLines[arg1].unk_2C = gTexturedLines[arg1].unk_2D = gTexturedLines[arg1].unk_2E =
+        gTexturedLines[arg1].unk_2F = 255;
+    gTexturedLines[arg1].timer = 3;
+    gTexturedLines[arg1].unk_04.z = arg4;
+    gTexturedLines[arg1].unk_10.x = arg5;
+    gTexturedLines[arg1].unk_10.y = arg6;
+    gTexturedLines[arg1].unk_10.z = arg7;
 }
 
 void func_i5_801A6984(Actor* actor) {
@@ -6759,11 +6759,11 @@ void func_i5_801B38E0(void) {
     s16 j;
 
     for (i = 0; i < 65; i++) {
-        gUnkEntities28[i].unk_00 = 0;
+        gRadarMarks[i].unk_00 = 0;
     }
 
     for (i = 0; i < 100; i++) {
-        gUnkEntities30[i].mode = 0;
+        gTexturedLines[i].mode = 0;
     }
 
     for (i = 0; i < 50; i++) {

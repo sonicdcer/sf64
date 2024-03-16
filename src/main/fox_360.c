@@ -1156,7 +1156,7 @@ void func_800319AC(Actor* this) {
     s32 sp108;
     s32 sp104;
     s32 temp_v0_27;
-    UnkEntity28* ent28;
+    RadarMark* radarMark;
     f32 spF8;
     f32 spF4;
     f32 spF0;
@@ -2005,20 +2005,20 @@ void func_800319AC(Actor* this) {
         }
     }
     func_8003088C(this);
-    ent28 = &gUnkEntities28[this->index];
-    ent28->unk_00 = 1;
+    radarMark = &gRadarMarks[this->index];
+    radarMark->unk_00 = 1;
     if (this->unk_0E4 == 200) {
-        ent28->unk_02 = 100;
+        radarMark->unk_02 = 100;
     } else {
-        ent28->unk_02 = this->unk_0E4;
+        radarMark->unk_02 = this->unk_0E4;
     }
     if (gCurrentLevel == LEVEL_TRAINING) {
-        ent28->unk_02 = 4;
+        radarMark->unk_02 = 4;
     }
-    ent28->pos.x = this->obj.pos.x;
-    ent28->pos.y = this->obj.pos.y;
-    ent28->pos.z = this->obj.pos.z;
-    ent28->unk_10 = this->unk_0F4.y + 180.0f;
+    radarMark->pos.x = this->obj.pos.x;
+    radarMark->pos.y = this->obj.pos.y;
+    radarMark->pos.z = this->obj.pos.z;
+    radarMark->unk_10 = this->unk_0F4.y + 180.0f;
     if (this->iwork[1] != 0) {
         this->iwork[1]--;
         if ((this->iwork[1] == 0) && (gActors[0].state == 2) && (gRadioState == 0)) {

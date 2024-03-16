@@ -525,15 +525,15 @@ void func_i6_80188CB8(Boss* boss) {
 
     for (i = 10; i < 12; i++) {
         if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].obj.id == OBJ_ACTOR_197)) {
-            gUnkEntities30[i].mode = 50;
-            gUnkEntities30[i].unk_28 = 1.0f;
-            gUnkEntities30[i].unk_04.x = boss->obj.pos.x;
-            gUnkEntities30[i].unk_04.y = boss->obj.pos.y - 200.0f;
-            gUnkEntities30[i].unk_04.z = boss->obj.pos.z;
-            gUnkEntities30[i].timer = 3;
-            gUnkEntities30[i].unk_10.x = gActors[i].obj.pos.x;
-            gUnkEntities30[i].unk_10.y = gActors[i].obj.pos.y;
-            gUnkEntities30[i].unk_10.z = gActors[i].obj.pos.z;
+            gTexturedLines[i].mode = 50;
+            gTexturedLines[i].unk_28 = 1.0f;
+            gTexturedLines[i].unk_04.x = boss->obj.pos.x;
+            gTexturedLines[i].unk_04.y = boss->obj.pos.y - 200.0f;
+            gTexturedLines[i].unk_04.z = boss->obj.pos.z;
+            gTexturedLines[i].timer = 3;
+            gTexturedLines[i].unk_10.x = gActors[i].obj.pos.x;
+            gTexturedLines[i].unk_10.y = gActors[i].obj.pos.y;
+            gTexturedLines[i].unk_10.z = gActors[i].obj.pos.z;
             boss->swork[4] = 1;
         }
     }
@@ -1125,12 +1125,12 @@ void func_i6_80189B70(Boss* boss) {
     boss->vel.y = sp64.y;
     boss->vel.z = sp64.z - D_80177D08;
     if (boss->state < 20) {
-        gUnkEntities28[59].unk_00 = 1;
-        gUnkEntities28[59].unk_02 = 0x66;
-        gUnkEntities28[59].pos.x = boss->obj.pos.x;
-        gUnkEntities28[59].pos.y = boss->obj.pos.y;
-        gUnkEntities28[59].pos.z = boss->obj.pos.z;
-        gUnkEntities28[59].unk_10 = boss->unk_078.y + 180.0f;
+        gRadarMarks[59].unk_00 = 1;
+        gRadarMarks[59].unk_02 = 0x66;
+        gRadarMarks[59].pos.x = boss->obj.pos.x;
+        gRadarMarks[59].pos.y = boss->obj.pos.y;
+        gRadarMarks[59].pos.z = boss->obj.pos.z;
+        gRadarMarks[59].unk_10 = boss->unk_078.y + 180.0f;
     }
     gActors[10].info.unk_1C = 1.0f;
     gActors[11].info.unk_1C = 1.0f;
@@ -3229,15 +3229,15 @@ void func_i6_80192E94(Actor* actor) {
                     (fabsf(otherActor->obj.pos.z - actor->obj.pos.z) < 200.0f)) {
                     actor->timer_0BC = 5;
                     otherActor->timer_0BC = 5;
-                    gUnkEntities30[actor->index].mode = 50;
-                    gUnkEntities30[actor->index].unk_28 = 1.0f;
-                    gUnkEntities30[actor->index].unk_04.x = actor->obj.pos.x;
-                    gUnkEntities30[actor->index].unk_04.y = actor->obj.pos.y;
-                    gUnkEntities30[actor->index].unk_04.z = actor->obj.pos.z;
-                    gUnkEntities30[actor->index].unk_10.x = otherActor->obj.pos.x;
-                    gUnkEntities30[actor->index].unk_10.y = otherActor->obj.pos.y;
-                    gUnkEntities30[actor->index].unk_10.z = otherActor->obj.pos.z;
-                    gUnkEntities30[actor->index].timer = 3;
+                    gTexturedLines[actor->index].mode = 50;
+                    gTexturedLines[actor->index].unk_28 = 1.0f;
+                    gTexturedLines[actor->index].unk_04.x = actor->obj.pos.x;
+                    gTexturedLines[actor->index].unk_04.y = actor->obj.pos.y;
+                    gTexturedLines[actor->index].unk_04.z = actor->obj.pos.z;
+                    gTexturedLines[actor->index].unk_10.x = otherActor->obj.pos.x;
+                    gTexturedLines[actor->index].unk_10.y = otherActor->obj.pos.y;
+                    gTexturedLines[actor->index].unk_10.z = otherActor->obj.pos.z;
+                    gTexturedLines[actor->index].timer = 3;
                     break;
                 }
             }
