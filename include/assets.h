@@ -7,21 +7,14 @@
 #include "sf64object.h"
 #include "sf64player.h"
 
-// ast_enmy_planet, ast_enmy_space
-extern Animation D_4000080;
-extern Limb* D_400014C[];
+// ast_enmy_planet
 extern Animation D_40001A4;
 extern Limb* D_4000270[];
 extern Gfx D_40018A0[];
-extern Gfx D_4003BD0[];
 extern Animation D_40057AC;
 extern Limb* D_40058B8[];
 extern Gfx D_40068F0[];
-extern Gfx D_4007870[];
 extern Gfx D_4007AF0[];
-extern Animation D_400A30C;
-extern Limb* D_400A398[];
-extern Gfx D_400B390[];
 
 /* ast_corneria, ast_meteo, ast_titania, ast_sector_x, ast_sector_z,
  * ast_aquas, ast_area_6, ast_venom_1, ast_venom_2, ast_ve1_boss*,

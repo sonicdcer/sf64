@@ -76,8 +76,12 @@
 
   - name: ast_enmy_space
     exclusive_ram_id: segment_04
-    type: bin
+    type: code
+    dir: assets
     start: 0x922730
+    vram: 0x04000000
+    subsegments:
+      - [0x922730, .data, ast_enmy_space/ast_enmy_space]
 
   - name: ast_great_fox
     exclusive_ram_id: segment_0E
