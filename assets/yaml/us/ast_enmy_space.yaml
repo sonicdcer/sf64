@@ -49,7 +49,7 @@ D_ENMY_SPACE_4002030:
   { type: TEXTURE, format: RGBA16, offset: 0x04002030, width: 16, height: 16, ctype: u16, symbol: D_ENMY_SPACE_4002030 }
 
 D_ENMY_SPACE_4002230:
-  { type: GFX, offset: 0x4002230, symbol: D_4002230 }
+  { type: GFX, offset: 0x4002230, symbol: D_ENMY_SPACE_4002230 }
 
 PAD_4002658:
   { type: BLOB, offset: 0x4002658, size: 0x8, symbol: PAD_4002658 }
