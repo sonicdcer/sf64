@@ -1,4 +1,4 @@
-#include "prevent_bss_reordering.h"
+// #include "prevent_bss_reordering.h"
 #include "sf64math.h"
 #include "assets/ast_blue_marine.h"
 #include "assets/ast_landmaster.h"
