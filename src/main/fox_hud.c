@@ -2142,8 +2142,7 @@ s32 func_8008A4DC(void) {
             continue;
         }
 
-        if (fabsf(gRadarMarks[i].pos.x) >= (temp2 + 1000.0f) ||
-            fabsf(gRadarMarks[i].pos.z) >= (temp2 + 1000.0f)) {
+        if (fabsf(gRadarMarks[i].pos.x) >= (temp2 + 1000.0f) || fabsf(gRadarMarks[i].pos.z) >= (temp2 + 1000.0f)) {
             continue;
         }
 
