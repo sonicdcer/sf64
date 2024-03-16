@@ -10,8 +10,8 @@
       - '#include "structs.h"'
       - '#include "sf64level.h"'
 
-D_6000000:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 13, offset: 0x6000000, symbol: D_6000000 }
+D_AQ_6000000:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 13, offset: 0x6000000, symbol: D_AQ_6000000 }
 
 D_AQ_6000AE4:
   { type: SF64:ANIM, offset: 0x6000AE4, symbol: D_AQ_6000AE4 }
@@ -797,10 +797,10 @@ D_AQ_6031D90:
   { type: VTX, count: 34, offset: 0x6031D90, symbol: D_AQ_6031D90 }
 
 D_AQ_6031FB0:
-  { type: SF64:TRIANGLE, count: 8, mesh_count: 2, offset: 0x6031FB0, symbol: D_AQ_6031FB0 }
+  { type: SF64:TRIANGLE, count: 8, offset: 0x6031FB0, symbol: D_AQ_6031FB0, mesh_symbol: D_AQ_OFFSET, mesh_count: 2}
 
 D_AQ_60320B8:
-  { type: SF64:TRIANGLE, count: 30, mesh_count: 1, offset: 0x60320B8, symbol: D_AQ_60320B8 }
+  { type: SF64:TRIANGLE, count: 30, offset: 0x60320B8, symbol: D_AQ_60320B8, mesh_symbol: D_AQ_OFFSET }
 
 D_AQ_6032388:
-  { type: SF64:TRIANGLE, count: 28, offset: 0x6032388, symbol: D_AQ_6032388 }
+  { type: SF64:TRIANGLE, count: 28, offset: 0x6032388, symbol: D_AQ_6032388, mesh_symbol: D_AQ_OFFSET }

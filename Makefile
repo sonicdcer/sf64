@@ -298,6 +298,9 @@ all: uncompressed
 toolchain:
 	@$(MAKE) -s -C tools
 
+torch:
+	@$(MAKE) -s -C tools torch
+
 init:
 	@$(MAKE) clean
 	@$(MAKE) decompress

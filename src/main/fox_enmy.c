@@ -3,6 +3,9 @@
 #include "assets/ast_sector_x.h"
 #include "assets/ast_aquas.h"
 #include "assets/ast_andross.h"
+#include "assets/ast_area_6.h"
+#include "assets/ast_training.h"
+#include "assets/ast_vs_player.h"
 
 s32 D_Timer_80161670[4];
 s32 D_80161680;
@@ -11,9 +14,9 @@ u8 D_80161684;
 #include "fox_enmy_assets.h"
 
 ObjectInit* D_800CFDA0[] = {
-    D_60371A4, D_6026CC4, D_SX_602A164, D_6023F64,    D_60287A4, D_602E4F4, D_6007E74,
-    D_601F234, D_6026714, D_0C035154,   D_TR_6006AA4, D_6031000, D_6006C60, D_602E5C8,
-    D_600EAD4, NULL,      D_6011044,    D_600FF74,    D_6006EB4, D_6014D94, D_0302DE3C,
+    D_60371A4, D_6026CC4, D_SX_602A164, D_A6_6023F64, D_A6_60287A4, D_602E4F4, D_6007E74,
+    D_601F234, D_6026714, D_C035154,    D_TR_6006AA4, D_6031000,    D_6006C60, D_602E5C8,
+    D_600EAD4, NULL,      D_6011044,    D_600FF74,    D_6006EB4,    D_6014D94, D_vs_player_302DE3C,
 };
 s32 D_800CFDF4[] = {
     OBJ_80_0,

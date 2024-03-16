@@ -1545,7 +1545,8 @@ void func_i6_8018CAD4(Effect* effect) {
 }
 
 static Gfx* D_i6_801A6790[10] = {
-    D_C001880, D_C001880, D_C001880, D_C001880, D_C001880, D_C001880, D_C001880, D_C001880, D_3016660, D_3015D80,
+    D_C001880, D_C001880, D_C001880, D_C001880,        D_C001880,
+    D_C001880, D_C001880, D_C001880, D_arwing_3016660, D_arwing_3015D80,
 };
 
 void func_i6_8018CF98(Effect* effect) {
@@ -1554,7 +1555,7 @@ void func_i6_8018CF98(Effect* effect) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, effect->unk_44);
         Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_2010A30);
+        gSPDisplayList(gMasterDisp++, D_BG_PLANET_2010A30);
     } else {
         RCP_SetupDL(&gMasterDisp, 0x1D);
         if (effect->unk_4C < 8) {

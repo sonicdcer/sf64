@@ -273,16 +273,16 @@ void func_800BAAE8(void) {
             sp44 = D_601D800;
             break;
         case RCID_BOSS_AREA6:
-            sp44 = D_60047E0;
+            sp44 = D_A6_60047E0;
             break;
         case RCID_BOSS_AREA6_OPEN:
-            sp44 = D_6005700;
+            sp44 = D_A6_6005700;
             break;
         case RCID_CAIMAN_AREA6:
-            sp44 = D_60029A0;
+            sp44 = D_A6_60029A0;
             break;
         case RCID_CAIMAN_AREA6_OPEN:
-            sp44 = D_60038C0;
+            sp44 = D_A6_60038C0;
             break;
         case RCID_BOSS_ZONESS:
             sp44 = D_6014510;
@@ -332,7 +332,7 @@ void func_800BAAE8(void) {
         case RCID_ANDROSS:
             sp44 = D_D000170;
             if ((gGameState == GSTATE_PLAY) && (gCurrentLevel == LEVEL_AREA_6)) {
-                sp44 = D_6000B60;
+                sp44 = D_A6_6000B60;
             }
             D_80178744 = 1;
             break;
@@ -340,7 +340,7 @@ void func_800BAAE8(void) {
         case RCID_ANDROSS_OPEN:
             sp44 = D_D001090;
             if ((gGameState == GSTATE_PLAY) && (gCurrentLevel == LEVEL_AREA_6)) {
-                sp44 = D_6001A80;
+                sp44 = D_A6_6001A80;
             }
             D_80178744 = 1;
             break;

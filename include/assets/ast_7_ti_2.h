@@ -5,7 +5,7 @@
 #include "sf64object.h"
 #include "structs.h"
 
-extern Animation D_7003EE8;
+extern Animation D_TI2_7003EE8;
 extern Animation D_70084CC;
 extern Animation D_70096EC;
 extern Animation D_700E244;

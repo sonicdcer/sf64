@@ -2605,26 +2605,26 @@ void func_i1_8018F880(Player* player) {
     D_80177A48[7] += fabsf(sp40);
 
     if (sp2C >= 0.0f) {
-        Texture_Scroll(&D_30184D8, 64, 32, 2);
-        Texture_Scroll(&D_30184D8, 64, 32, 2);
+        Texture_Scroll(&D_arwing_30184D8, 64, 32, 2);
+        Texture_Scroll(&D_arwing_30184D8, 64, 32, 2);
     } else {
-        Texture_Scroll(&D_30184D8, 64, 32, 3);
-        Texture_Scroll(&D_30184D8, 64, 32, 3);
+        Texture_Scroll(&D_arwing_30184D8, 64, 32, 3);
+        Texture_Scroll(&D_arwing_30184D8, 64, 32, 3);
     }
 
     for (i = 0; (i < 40 && D_80177A48[6] >= 0.2f); i++, D_80177A48[6] -= 0.2f) {
         if (sp44 >= 0) {
-            Texture_Scroll(&D_30184D8, 64, 32, 2);
+            Texture_Scroll(&D_arwing_30184D8, 64, 32, 2);
         } else {
-            Texture_Scroll(&D_30184D8, 64, 32, 3);
+            Texture_Scroll(&D_arwing_30184D8, 64, 32, 3);
         }
     }
 
     for (i = 0; (i < 40 && D_80177A48[7] >= 0.3f); i++, D_80177A48[7] -= 0.3f) {
         if (sp40 >= 0) {
-            Texture_Scroll(&D_30184D8, 64, 32, 0);
+            Texture_Scroll(&D_arwing_30184D8, 64, 32, 0);
         } else {
-            Texture_Scroll(&D_30184D8, 64, 32, 1);
+            Texture_Scroll(&D_arwing_30184D8, 64, 32, 1);
         }
     }
 

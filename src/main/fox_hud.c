@@ -1,4 +1,4 @@
-// #include "prevent_bss_reordering.h"
+#include "prevent_bss_reordering.h"
 #include "sf64math.h"
 #include "assets/ast_blue_marine.h"
 #include "assets/ast_landmaster.h"
@@ -9,7 +9,8 @@
 #include "assets/ast_vs_player.h"
 #include "assets/ast_bg_planet.h"
 #include "assets/ast_bg_space.h"
-#include "prevent_bss_reordering.h"
+#include "assets/ast_area_6.h"
+#include "assets/ast_aquas.h"
 
 // BSS section range:
 // D_801616A0 <==> D_80161910
@@ -285,7 +286,7 @@ void func_800856C0(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
 
 void func_80085740(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     if (gVersusMode) {
-        TextureRect_8bIA(&gMasterDisp, D_3000B20, 32, 5, arg0, arg1, arg2, arg3);
+        TextureRect_8bIA(&gMasterDisp, D_vs_player_3000B20, 32, 5, arg0, arg1, arg2, arg3);
     } else {
         TextureRect_8bIA(&gMasterDisp, D_1000E80, 48, 9, arg0, arg1, arg2, arg3);
     }
@@ -293,7 +294,7 @@ void func_80085740(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
 
 void func_800857DC(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     if (gVersusMode) {
-        TextureRect_8bCI(&gMasterDisp, D_300D3C0, D_300D408, 24, 3, arg0, arg1, arg2, arg3);
+        TextureRect_8bCI(&gMasterDisp, D_vs_player_300D3C0, D_vs_player_300D408, 24, 3, arg0, arg1, arg2, arg3);
     } else {
         TextureRect_8bCI(&gMasterDisp, D_10128C0, D_1012988, 40, 5, arg0, arg1, arg2, arg3);
     }
@@ -301,7 +302,7 @@ void func_800857DC(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
 
 void func_80085890(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     if (gVersusMode) {
-        TextureRect_8bCI(&gMasterDisp, D_300D350, D_300D398, 24, 3, arg0, arg1, arg2, arg3);
+        TextureRect_8bCI(&gMasterDisp, D_vs_player_300D350, D_vs_player_300D398, 24, 3, arg0, arg1, arg2, arg3);
     } else {
         TextureRect_8bCI(&gMasterDisp, D_10127D0, D_1012898, 40, 5, arg0, arg1, arg2, arg3);
     }
@@ -551,11 +552,11 @@ s32 func_800863C8(void) {
 UnkStruct_D_800D1AEC D_800D1AEC[] = {
     { D_500A050, 16, 15, D_6000000, 128, 28 }, { D_500A140, 16, 15, D_6000000, 96, 28 },
     { D_500A140, 16, 15, D_6000000, 176, 12 }, { D_500A230, 16, 15, D_6000000, 168, 28 },
-    { D_500A230, 16, 15, D_6000000, 168, 28 }, { D_500A230, 16, 15, D_6000000, 96, 13 },
+    { D_500A230, 16, 15, D_6000000, 168, 28 }, { D_500A230, 16, 15, D_AQ_6000000, 96, 13 },
     { D_500A320, 16, 15, D_6000000, 176, 12 }, { D_500A320, 16, 15, D_6000000, 112, 13 },
     { D_500A320, 16, 15, D_6000000, 112, 28 }, { D_500A410, 16, 15, D_6000000, 96, 28 },
     { D_500A410, 16, 15, D_6000000, 160, 28 }, { D_500A410, 16, 15, D_6000000, 176, 12 },
-    { D_500A500, 16, 15, D_6000000, 168, 19 }, { D_500A500, 16, 15, D_6000000, 104, 28 },
+    { D_500A500, 16, 15, D_6000000, 168, 19 }, { D_500A500, 16, 15, D_A6_6000000, 104, 28 },
     { D_500A5F0, 16, 15, D_6000D80, 128, 28 }, { D_500A5F0, 16, 15, D_60012D0, 128, 28 },
     { D_500A5F0, 16, 15, D_C000A80, 128, 28 }, { D_5009F60, 16, 15, D_5000D50, 80, 12 },
 };
@@ -1354,12 +1355,15 @@ s32 func_800886B8(void) {
 
 void func_80088784(s32 arg0) {
     Gfx* D_800D1D4C[] = {
-        D_200B630, D_200A5A0, D_2009510, D_2008480, D_20073F0, D_2006360, D_200C6C0, D_20052D0, D_2004240,
-        D_20031B0, D_2002120, D_2001090, D_2000000, D_2010A30, D_20101A0, D_200F910, D_200F080, D_200E7F0,
+        D_BG_PLANET_200B630, D_BG_PLANET_200A5A0, D_BG_PLANET_2009510, D_BG_PLANET_2008480, D_BG_PLANET_20073F0,
+        D_BG_PLANET_2006360, D_BG_PLANET_200C6C0, D_BG_PLANET_20052D0, D_BG_PLANET_2004240, D_BG_PLANET_20031B0,
+        D_BG_PLANET_2002120, D_BG_PLANET_2001090, D_BG_SPACE_2000000,  D_BG_PLANET_2010A30, D_BG_PLANET_20101A0,
+        D_BG_PLANET_200F910, D_BG_PLANET_200F080, D_BG_PLANET_200E7F0,
     };
     Gfx* D_800D1D94[] = {
-        D_20066C0, D_2005E30, D_20055A0, D_2004D10, D_2004480, D_2003BF0, D_2003360,
-        D_2002AD0, D_2002240, D_20019B0, D_2001120, D_2000890, D_2000000,
+        D_BG_SPACE_20066C0, D_BG_SPACE_2005E30, D_BG_SPACE_20055A0, D_BG_SPACE_2004D10, D_BG_SPACE_2004480,
+        D_BG_SPACE_2003BF0, D_BG_SPACE_2003360, D_BG_SPACE_2002AD0, D_BG_SPACE_2002240, D_BG_SPACE_20019B0,
+        D_BG_SPACE_2001120, D_BG_SPACE_2000890, D_BG_SPACE_2000000,
     };
     s32 D_800D1DC8[] = {
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 200, 150, 100, 50,
@@ -2804,7 +2808,7 @@ s32 func_8008CB8C(void) {
 }
 
 void func_8008CB98(f32 arg0, f32 arg1, f32 arg2) {
-    TextureRect_8bIA(&gMasterDisp, D_30013E0, 8, 8, arg0, arg1, arg2, arg2);
+    TextureRect_8bIA(&gMasterDisp, D_vs_player_30013E0, 8, 8, arg0, arg1, arg2, arg2);
 }
 
 void func_8008CBE4(void) {
@@ -2878,15 +2882,17 @@ void func_8008CFB8(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     s32 i;
 
     for (i = 0; i < 3; i++) {
-        TextureRect_8bIA(&gMasterDisp, D_3000BC0 + ((640 * i) / 2), 80, 8, arg0, (8 * i * arg3) + arg1, arg2, arg3);
+        TextureRect_8bIA(&gMasterDisp, D_vs_player_3000BC0 + 2 * ((640 * i) / 2), 80, 8, arg0, (8 * i * arg3) + arg1,
+                         arg2, arg3);
     }
-    TextureRect_8bIA(&gMasterDisp, D_3000BC0 + ((640 * i) / 2), 80, 2, arg0, (8 * i * arg3) + arg1, arg2, arg3);
+    TextureRect_8bIA(&gMasterDisp, D_vs_player_3000BC0 + 2 * ((640 * i) / 2), 80, 2, arg0, (8 * i * arg3) + arg1, arg2,
+                     arg3);
 }
 
 void func_8008D0DC(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     u32 var_t8 = 48.0f * arg4;
 
-    func_80084E78(&gMasterDisp, D_300D440, D_300D500, 48, 4, arg0, arg1, arg2, arg3, var_t8, 4);
+    func_80084E78(&gMasterDisp, D_vs_player_300D440, D_vs_player_300D500, 48, 4, arg0, arg1, arg2, arg3, var_t8, 4);
 }
 
 void func_8008D1F0(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
@@ -3497,7 +3503,8 @@ void func_8008EA14(f32 x, f32 y) {
         case 6:
             RCP_SetupDL(&gMasterDisp, 0x4E);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-            TextureRect_4bCI(&gMasterDisp, D_blue_marine_3000090, D_3000120, 32, 9, x + 1.0f, y, 1.0f, 1.0f);
+            TextureRect_4bCI(&gMasterDisp, D_blue_marine_3000090, D_blue_marine_3000120, 32, 9, x + 1.0f, y, 1.0f,
+                             1.0f);
             break;
     }
 }

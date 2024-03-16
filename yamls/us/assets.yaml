@@ -62,8 +62,12 @@
 
   - name: ast_vs_player
     exclusive_ram_id: segment_03
-    type: bin
+    type: code
+    dir: assets
     start: 0x8E92D0
+    vram: 0x03000000
+    subsegments:
+      - [0x8E92D0, .data, ast_vs_player/ast_vs_player]
 
   - name: ast_enmy_planet
     exclusive_ram_id: segment_04
@@ -163,9 +167,13 @@
 
   - name: ast_area_6
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xA8B470
-
+    vram: 0x06000000
+    subsegments:
+     - [0xA8B470, .data, ast_area_6/ast_area_6]
+     
   - name: ast_venom_1
     exclusive_ram_id: segment_06
     type: bin

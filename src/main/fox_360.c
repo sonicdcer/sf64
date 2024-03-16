@@ -2271,7 +2271,7 @@ void func_80035448(Actor* actor) {
                     Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 10.0f, 1);
                     Animation_DrawSkeleton(0, D_600C2AC, actor->vwork, NULL, NULL, actor, &gIdentityMatrix);
                 } else if (gCurrentLevel == LEVEL_VERSUS) {
-                    gSPDisplayList(gMasterDisp++, D_3015740);
+                    gSPDisplayList(gMasterDisp++, D_vs_player_3015740);
                 } else if (gCurrentLevel == LEVEL_TRAINING) {
                     if (actor->unk_0E6 == 0) {
                         gSPDisplayList(gMasterDisp++, D_F00F200);

@@ -44,6 +44,7 @@ extern Animation D_C030244;
 extern Animation D_C033780;
 extern Animation D_C033D98;
 extern EnvSettings D_C035110;
+extern ObjectInit D_C035154[];
 extern ObjectInit D_C0356A4[];
 extern ObjectInit D_C0356CC[];
 extern ObjectInit D_C036310[];

@@ -229,20 +229,20 @@ void func_8005A094(Actor* actor) {
             Matrix_Translate(gGfxMatrix, 18.0f, 15.0f, -15.0f, 1);
             Matrix_RotateY(gGfxMatrix, M_PI, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_3016660);
+            gSPDisplayList(gMasterDisp++, D_arwing_3016660);
             break;
         case 1:
             Matrix_Translate(gGfxMatrix, -18.0f, 15.0f, -15.0f, 1);
             Matrix_RotateY(gGfxMatrix, M_PI, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_3015D80);
+            gSPDisplayList(gMasterDisp++, D_arwing_3015D80);
             break;
         case 2:
             Graphics_SetScaleMtx(actor->scale);
-            gSPDisplayList(gMasterDisp++, D_30155E0);
+            gSPDisplayList(gMasterDisp++, D_arwing_30155E0);
             break;
         case 3:
-            gSPDisplayList(gMasterDisp++, D_3011720);
+            gSPDisplayList(gMasterDisp++, D_arwing_3011720);
             break;
         case 4:
             Graphics_SetScaleMtx(actor->scale);
@@ -807,7 +807,7 @@ void func_8005CA80(Item* item) {
 void func_8005CB44(Item* item) {
     if (gCurrentLevel == LEVEL_AQUAS) {
         Graphics_SetScaleMtx(item->scale);
-        gSPDisplayList(gMasterDisp++, D_3005980);
+        gSPDisplayList(gMasterDisp++, D_blue_marine_3005980);
     } else {
         Graphics_SetScaleMtx(item->scale * 0.1f);
         RCP_SetupDL(&gMasterDisp, 0x1D);

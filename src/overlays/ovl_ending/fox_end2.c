@@ -702,7 +702,7 @@ void func_ending_80190778(u32 arg0, AssetInfo* asset) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_3005AB0);
+    gSPDisplayList(gMasterDisp++, D_arwing_3005AB0);
 }
 
 void func_ending_80190CF0(u32 arg0, AssetInfo* asset) {

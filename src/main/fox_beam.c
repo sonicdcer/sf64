@@ -1188,12 +1188,12 @@ void func_80039210(PlayerShot* shot) {
         if (gLaserStrength[shot->playerNum] != LASERS_SINGLE) {
             Matrix_Translate(gGfxMatrix, 6.0f, 0.0f, 0.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_302D120);
+            gSPDisplayList(gMasterDisp++, D_vs_player_302D120);
             Matrix_Translate(gGfxMatrix, -12.0f, 0.0f, 0.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_302D120);
+            gSPDisplayList(gMasterDisp++, D_vs_player_302D120);
         } else {
-            gSPDisplayList(gMasterDisp++, D_302D120);
+            gSPDisplayList(gMasterDisp++, D_vs_player_302D120);
         }
     }
 }
@@ -1323,13 +1323,13 @@ void func_80039A50(PlayerShot* shot) {
                         Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 70.0f * M_DTOR, 1);
                         Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, 1);
                         Matrix_SetGfxMtx(&gMasterDisp);
-                        gSPDisplayList(gMasterDisp++, D_301AD60);
+                        gSPDisplayList(gMasterDisp++, D_vs_player_301AD60);
                         Matrix_Pop(&gGfxMatrix);
                         Matrix_Translate(gGfxMatrix, 0.0f, -50.0f, 0.0f, 1);
                         Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 70.0f * M_DTOR, 1);
                         Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, 1);
                         Matrix_SetGfxMtx(&gMasterDisp);
-                        gSPDisplayList(gMasterDisp++, D_301AD60);
+                        gSPDisplayList(gMasterDisp++, D_vs_player_301AD60);
                     } else {
                         if (!(gGameFrameCount & 1)) {
                             var_fv1 = M_PI;
@@ -1340,7 +1340,7 @@ void func_80039A50(PlayerShot* shot) {
                         Matrix_RotateZ(gGfxMatrix, 30.0f * M_DTOR, 1);
                         Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, 1);
                         Matrix_SetGfxMtx(&gMasterDisp);
-                        gSPDisplayList(gMasterDisp++, D_301AD60);
+                        gSPDisplayList(gMasterDisp++, D_vs_player_301AD60);
                     }
                 } else {
                     if (!(gGameFrameCount & 1)) {
@@ -1356,7 +1356,7 @@ void func_80039A50(PlayerShot* shot) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
                     gDPSetEnvColor(gMasterDisp++, 0, 255, 0, 0);
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_3006940);
+                    gSPDisplayList(gMasterDisp++, D_landmaster_3006940);
                 }
                 break;
             case PLAYERSHOT_6:
@@ -1372,13 +1372,13 @@ void func_80039A50(PlayerShot* shot) {
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, 0.f, 40.0f, 0.0f, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_301AEF0);
+                    gSPDisplayList(gMasterDisp++, D_vs_player_301AEF0);
                     Matrix_Pop(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, 0.f, -40.0f, 0.0f, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_301AEF0);
+                    gSPDisplayList(gMasterDisp++, D_vs_player_301AEF0);
                 } else {
-                    gSPDisplayList(gMasterDisp++, D_301AEF0);
+                    gSPDisplayList(gMasterDisp++, D_vs_player_301AEF0);
                 }
                 break;
             case PLAYERSHOT_8:

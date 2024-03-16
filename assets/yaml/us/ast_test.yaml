@@ -11,4 +11,4 @@
       - '#include "sf64level.h"'
 
 D_6014FEC:
-  {type: SF64:COLPOLY, count: 250, offset: 0x6014FEC, symbol: D_6014FEC}
+  {type: SF64:COLPOLY, count: 250, offset: 0x6014FEC, symbol: D_6014FEC, mesh_symbol: D_OFFSET}

@@ -90,7 +90,7 @@ void func_i5_80188FA8(Effect* effect) {
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, effect->unk_44);
-    gSPDisplayList(gMasterDisp++, D_3007E70);
+    gSPDisplayList(gMasterDisp++, D_landmaster_3007E70);
 }
 
 void func_i5_80189090(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 scale2) {
@@ -4131,7 +4131,7 @@ void func_i5_80193DF0(Boss* boss) {
             Animation_GetFrameData(&D_70084CC, boss->unk_04C >> 1, D_i5_801BC978);
             break;
         case 8:
-            Animation_GetFrameData(&D_7003EE8, boss->unk_04C >> 1, D_i5_801BC978);
+            Animation_GetFrameData(&D_TI2_7003EE8, boss->unk_04C >> 1, D_i5_801BC978);
             break;
         case 9:
             Animation_GetFrameData(&D_8008FE8, boss->unk_04C >> 1, D_i5_801BC978);
@@ -4310,7 +4310,7 @@ void func_i5_80193DF0(Boss* boss) {
                 boss->unk_04C = 0x3E;
             }
             if ((boss->unk_04C == 0x3E) && (boss->swork[0xC] <= 0)) {
-                boss->unk_04C = (Animation_GetFrameCount(&D_7003EE8) * 2) - 1;
+                boss->unk_04C = (Animation_GetFrameCount(&D_TI2_7003EE8) * 2) - 1;
                 D_i5_801BBEF4[12] = 0.0f;
             }
             if (boss->unk_04C == 0x62) {
@@ -4354,7 +4354,7 @@ void func_i5_80193DF0(Boss* boss) {
             Math_SmoothStepToF(&boss->fwork[0], 0.5f, 1.0f, 0.02f, 0.0f);
             Math_SmoothStepToVec3fArray(D_i5_801BC978, D_i5_801BCDC8, 1, 0x5C, boss->fwork[0], 360.0f, 0.01f);
             boss->unk_04C++;
-            if (boss->unk_04C >= (Animation_GetFrameCount(&D_7003EE8) * 2)) {
+            if (boss->unk_04C >= (Animation_GetFrameCount(&D_TI2_7003EE8) * 2)) {
                 spB8 = 1;
             }
             break;
@@ -5079,14 +5079,14 @@ void func_i5_801982A8(Boss* boss) {
                 Matrix_Scale(gGfxMatrix, sp120, 1.0f, sp120, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 120, 255, 220, D_i5_801BBEF0[7] * 50);
-                gSPDisplayList(gMasterDisp++, D_20112C0);
+                gSPDisplayList(gMasterDisp++, D_BG_PLANET_20112C0);
                 Matrix_Pop(&gGfxMatrix);
                 if (D_i5_801BBEF0[7] > 0) {
                     sp120 = (f32) (D_i5_801BBEF0[7] - 1) * 24.0f;
                     Matrix_Scale(gGfxMatrix, sp120, 1.0f, sp120, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 120, 255, 220, D_i5_801BBEF0[7] * 50);
-                    gSPDisplayList(gMasterDisp++, D_20112C0);
+                    gSPDisplayList(gMasterDisp++, D_BG_PLANET_20112C0);
                 }
                 Matrix_Pop(&gGfxMatrix);
             }

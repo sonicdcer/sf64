@@ -5107,7 +5107,7 @@ void func_i5_801AC754(Player* player) {
     player->unk_0A0 = 0.0f;
     player->unk_0F4 += player->vel.z * 5.0f;
     player->unk_0F0 = SIN_DEG(player->unk_0F4) * 0.7f;
-    Texture_Scroll(D_3002E80, 32, 32, 0);
+    Texture_Scroll(D_landmaster_3002E80, 32, 32, 0);
     if ((gCsFrameCount > 150) && ((-player->unk_138 - player->unk_144) > 200.0f)) {
         if (D_i5_801BA768 < 11.5f) {
             D_i5_801BA768 += 0.2f;
