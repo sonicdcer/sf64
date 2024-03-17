@@ -2030,6 +2030,7 @@ void func_800701E0(Actor* actor) {
             if (actor->health <= 0) {
                 if (actor->unk_0B4 == 106) {
                     BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 3);
+                    if (1) {}
                     gHitCount += 4;
                     D_80177850 = 15;
                 }
