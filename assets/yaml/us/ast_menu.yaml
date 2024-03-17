@@ -1,0 +1,106 @@
+:config:
+  segments:
+    - [0x06, 0xC48F40]
+  header:
+    code:
+      - '#include "assets/ast_option.h"'
+    header:
+      - '#include "gfx.h"'
+      - '#include "sf64object.h"'
+      - '#include "structs.h"'
+
+# Restart Game (Game Over)
+D_MENU_6000000:
+  { type: TEXTURE, format: IA8, offset: 0x6000000, width: 96, height: 22, ctype: u8, symbol: D_MENU_6000000 }
+
+# Proceed to Next Course
+D_MENU_6000840:
+  { type: TEXTURE, format: IA8, offset: 0x6000840, width: 96, height: 22, ctype: u8, symbol: D_MENU_6000840 }
+
+# Retry Course (Lose 1 Arwing)
+D_MENU_6001080:
+  { type: TEXTURE, format: IA8, offset: 0x6001080, width: 96, height: 22, ctype: u8, symbol: D_MENU_6001080 }
+
+# Change Course
+D_MENU_60018C0:
+  { type: TEXTURE, format: IA8, offset: 0x60018C0, width: 96, height: 10, ctype: u8, symbol: D_MENU_60018C0 }
+
+# Aquas Ocean
+D_MENU_6001C80:
+  { type: TEXTURE, format: IA8, offset: 0x6001C80, width: 96, height: 13, ctype: u8, symbol: D_MENU_6001C80 }
+
+# Terror of the Deep
+D_MENU_6002160:
+  { type: TEXTURE, format: IA8, offset: 0x6002160, width: 208, height: 19, ctype: u8, symbol: D_MENU_6002160 }
+
+# Meteo
+# Asteroid Field
+D_MENU_60030D0:
+  { type: TEXTURE, format: IA8, offset: 0x60030D0, width: 96, height: 28, ctype: u8, symbol: D_MENU_60030D0 }
+
+# Into the Asteroid Field
+D_MENU_6003B50:
+  { type: TEXTURE, format: IA8, offset: 0x6003B50, width: 208, height: 19, ctype: u8, symbol: D_MENU_6003B50 }
+
+# Bolse Defense Outpost
+D_MENU_6004AC0:
+  { type: TEXTURE, format: IA8, offset: 0x6004AC0, width: 168, height: 19, ctype: u8, symbol: D_MENU_6004AC0, pad: 8 }
+
+# The Last Hurrah
+D_MENU_6005740:
+  { type: TEXTURE, format: IA8, offset: 0x6005740, width: 160, height: 19, ctype: u8, symbol: D_MENU_6005740 }
+
+# Area 6
+# Defense Station
+D_MENU_6006320:
+  { type: TEXTURE, format: IA8, offset: 0x6006320, width: 104, height: 28, ctype: u8, symbol: D_MENU_6006320 }
+
+# Through the Middle
+D_MENU_6006E80:
+  { type: TEXTURE, format: IA8, offset: 0x6006E80, width: 176, height: 19, ctype: u8, symbol: D_MENU_6006E80 }
+
+# Corneria
+# Former Army Base
+D_MENU_6007B90:
+  { type: TEXTURE, format: IA8, offset: 0x6007B90, width: 128, height: 28, ctype: u8, symbol: D_MENU_6007B90 }
+
+# Enter Star Fox
+D_MENU_6008990:
+  { type: TEXTURE, format: IA8, offset: 0x6008990, width: 232, height: 19, ctype: u8, symbol: D_MENU_6008990, pad: 8 }
+
+# Fortuna
+# Former Defense Post
+D_MENU_6009AD0:
+  { type: TEXTURE, format: IA8, offset: 0x6009AD0, width: 168, height: 28, ctype: u8, symbol: D_MENU_6009AD0 }
+
+# Enter Star Wolf
+D_MENU_600AD30:
+  { type: TEXTURE, format: IA8, offset: 0x600AD30, width: 168, height: 19, ctype: u8, symbol: D_MENU_600AD30, pad: 8 }
+
+# Katina
+# Frontline Base
+D_MENU_600B9B0:
+  { type: TEXTURE, format: IA8, offset: 0x600B9B0, width: 168, height: 28, ctype: u8, symbol: D_MENU_600B9B0 }
+
+# Reunion
+D_MENU_600CC10:
+  { type: TEXTURE, format: IA8, offset: 0x600CC10, width: 128, height: 19, ctype: u8, symbol: D_MENU_600CC10 }
+
+# The Lylat System
+D_MENU_600D590:
+  { type: TEXTURE, format: IA8, offset: 0x600D590, width: 168, height: 19, ctype: u8, symbol: D_MENU_600D590, pad: 8 }
+
+# Macbeth
+# Venom Army Supply Base
+D_MENU_600E210:
+  { type: TEXTURE, format: IA8, offset: 0x600E210, width: 160, height: 28, ctype: u8, symbol: D_MENU_600E210 }
+
+# The Forever Train
+D_MENU_600F390:
+  { type: TEXTURE, format: IA8, offset: 0x600F390, width: 168, height: 19, ctype: u8, symbol: D_MENU_600F390 }
+
+
+
+
+
+# size = 0x60EA0
