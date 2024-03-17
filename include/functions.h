@@ -136,7 +136,7 @@ s32 func_8005F9DC(Vec3f*);
 // fox_enmy
 void func_80060714(s32 );
 void func_8006089C(u8 );
-void func_80060968(void);
+void TexturedLine_Draw(void);
 void func_80060D94(s32);
 void func_80060F30(f32* , u32 , s32 );
 void Object_Kill(Object*, f32*);
@@ -204,8 +204,8 @@ void Object_80_Update(Object_80*);
 void Object_4C_Update(Object_4C*);
 void Item_Update(Item*);
 void Effect_Update(Effect*);
-void func_8006A06C(UnkEntity30*);
-void func_8006A38C(void);
+void TexturedLine_Update(TexturedLine*);
+void TexturedLine_UpdateAll(void);
 void Object_UpdateAll(void);
 
 //fox_6B3B0

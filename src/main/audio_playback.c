@@ -53,7 +53,7 @@ void func_80011890(Note* note, NoteAttributes* noteAttr) {
     sp26 = noteAttr->reverb;
     sp24 = noteAttr->stereo;
     sp27 &= 0x7F;
-    if ((temp_v0->bitField0.stereoHeadsetEffects) && (gAudioSoundMode == 1)) {
+    if ((temp_v0->bitField0.stereoHeadsetEffects) && (gAudioSoundMode == SOUNDMODE_HEADSET)) {
         var_a0 = sp27 >> 1;
         if (var_a0 >= 0x40) {
             var_a0 = 0x3F;
@@ -66,7 +66,7 @@ void func_80011890(Note* note, NoteAttributes* noteAttr) {
 
         var_fa0 = gHeadsetPanVolume[sp27];
         var_fa1 = gHeadsetPanVolume[127 - sp27];
-    } else if (temp_v0->bitField0.stereoHeadsetEffects && (gAudioSoundMode == 0)) {
+    } else if (temp_v0->bitField0.stereoHeadsetEffects && (gAudioSoundMode == SOUNDMODE_STEREO)) {
         temp_v0->unk_03 = 0;
         temp_v0->unk_04 = 0;
         temp_v0->bitField0.usesHeadsetPanEffects = 0;
@@ -98,7 +98,7 @@ void func_80011890(Note* note, NoteAttributes* noteAttr) {
                 temp_v0->bitField0.stereoStrongLeft = sp24.s.strongLeft ^ var_a1;
                 break;
         }
-    } else if (gAudioSoundMode == 3) {
+    } else if (gAudioSoundMode == SOUNDMODE_MONO) {
         var_fa0 = 0.707f;
         var_fa1 = 0.707f;
     } else {

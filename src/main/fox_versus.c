@@ -88,17 +88,17 @@ void func_800BC8D8(f32 xPos, f32 yPos, f32 scale) {
     s32 i;
 
     for (i = 0; i < 2; i++) {
-        TextureRect_8bCI(&gMasterDisp, D_300A470 + (i * 152 * 8), D_300B218, 152, 8, xPos, yPos + (8 * i * scale),
-                         scale, scale);
+        TextureRect_8bCI(&gMasterDisp, D_vs_player_300A470 + (i * 152 * 8), D_vs_player_300B218, 152, 8, xPos,
+                         yPos + (8 * i * scale), scale, scale);
     }
 
-    TextureRect_8bCI(&gMasterDisp, D_300A470 + (152 * 8 * i), D_300B218, 152, 7, xPos, yPos + (8 * i * scale), scale,
-                     scale);
+    TextureRect_8bCI(&gMasterDisp, D_vs_player_300A470 + (152 * 8 * i), D_vs_player_300B218, 152, 7, xPos,
+                     yPos + (8 * i * scale), scale, scale);
 }
 
 void func_800BC9DC(f32 xPos, f32 yPos, f32 scale, s32 yScale) {
-    u16* D_800D4AA4[] = { D_3008DE0, D_30098C0, D_300A390 };
-    u8* D_800D4ABC[] = { D_30087A0, D_3008EC0, D_3009990 };
+    u16* D_800D4AA4[] = { D_vs_player_3008DE0, D_vs_player_30098C0, D_vs_player_300A390 };
+    u8* D_800D4ABC[] = { D_vs_player_30087A0, D_vs_player_3008EC0, D_vs_player_3009990 };
     s32 D_800D4AB0[] = { 40, 64, 64 };
     s32 i;
 
@@ -112,16 +112,16 @@ void func_800BCB44(f32 xPos, f32 yPos, f32 scale) {
     s32 i;
 
     for (i = 0; i < 2; i++) {
-        TextureRect_8bCI(&gMasterDisp, D_3006C60 + (96 * 8 * i), D_3007500, 96, 8, xPos, yPos + (8 * i * scale), scale,
-                         scale);
+        TextureRect_8bCI(&gMasterDisp, D_vs_player_3006C60 + (96 * 8 * i), D_vs_player_3007500, 96, 8, xPos,
+                         yPos + (8 * i * scale), scale, scale);
     }
-    TextureRect_8bCI(&gMasterDisp, D_3006C60 + (96 * 8 * i), D_3007500, 96, 7, xPos, yPos + (8 * i * scale), scale,
-                     scale);
+    TextureRect_8bCI(&gMasterDisp, D_vs_player_3006C60 + (96 * 8 * i), D_vs_player_3007500, 96, 7, xPos,
+                     yPos + (8 * i * scale), scale, scale);
 }
 
 void func_800BCC48(f32 xPos, f32 yPos, f32 xScale, f32 yScale, s32 arg4) {
-    u16* D_800D4AC8[] = { D_3006A68, D_3008598, D_300C458, D_3005E38 };
-    u8* D_800D4AD8[] = { D_3006040, D_30076C0, D_300B3F0, D_3004F60 };
+    u16* D_800D4AC8[] = { D_vs_player_3006A68, D_vs_player_3008598, D_vs_player_300C458, D_vs_player_3005E38 };
+    u8* D_800D4AD8[] = { D_vs_player_3006040, D_vs_player_30076C0, D_vs_player_300B3F0, D_vs_player_3004F60 };
     s32 D_800D4AE8[] = { 104, 152, 168, 152 };
     s32 i;
 
@@ -137,8 +137,8 @@ void func_800BCE24(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
     s32 i;
 
     for (i = 0; i < 6; i++) {
-        TextureRect_8bCI(&gMasterDisp, D_3001420 + (256 * 7 * i), D_3003E20, 256, 7, xPos, yPos + (7 * i * yScale),
-                         xScale, yScale);
+        TextureRect_8bCI(&gMasterDisp, D_vs_player_3001420 + (256 * 7 * i), D_vs_player_3003E20, 256, 7, xPos,
+                         yPos + (7 * i * yScale), xScale, yScale);
     }
 }
 
@@ -146,11 +146,11 @@ void func_800BCEF8(f32 xPos, f32 yPos, f32 scale) {
     s32 i;
 
     for (i = 0; i < 12; i++) {
-        TextureRect_8bCI(&gMasterDisp, D_3004010 + (136 * 2 * i), D_3004D58, 136, 2, xPos, yPos + (2 * i * scale),
-                         scale, scale);
+        TextureRect_8bCI(&gMasterDisp, D_vs_player_3004010 + (136 * 2 * i), D_vs_player_3004D58, 136, 2, xPos,
+                         yPos + (2 * i * scale), scale, scale);
     }
-    TextureRect_8bCI(&gMasterDisp, D_3004010 + (136 * 2 * i), D_3004D58, 136, 1, xPos, yPos + (2 * i * scale), scale,
-                     scale);
+    TextureRect_8bCI(&gMasterDisp, D_vs_player_3004010 + (136 * 2 * i), D_vs_player_3004D58, 136, 1, xPos,
+                     yPos + (2 * i * scale), scale, scale);
 }
 
 void func_800BCFFC(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
@@ -158,15 +158,15 @@ void func_800BCFFC(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
 }
 
 void func_800BD05C(f32 xPos, f32 yPos, f32 scale) {
-    TextureRect_4bCI(&gMasterDisp, D_30003A0, D_30004E0, 64, 10, xPos, yPos, scale, scale);
+    TextureRect_4bCI(&gMasterDisp, D_vs_player_30003A0, D_vs_player_30004E0, 64, 10, xPos, yPos, scale, scale);
 }
 
 void func_800BD0B4(f32 xPos, f32 yPos, f32 scale) {
-    TextureRect_4bCI(&gMasterDisp, D_3000510, D_30006A0, 80, 10, xPos, yPos, scale, scale);
+    TextureRect_4bCI(&gMasterDisp, D_vs_player_3000510, D_vs_player_30006A0, 80, 10, xPos, yPos, scale, scale);
 }
 
 void func_800BD10C(f32 xPos, f32 yPos, f32 scale) {
-    TextureRect_4bCI(&gMasterDisp, D_30006D0, D_3000810, 64, 10, xPos, yPos, scale, scale);
+    TextureRect_4bCI(&gMasterDisp, D_vs_player_30006D0, D_vs_player_3000810, 64, 10, xPos, yPos, scale, scale);
 }
 
 void func_800BD164(f32 xPos, f32 yPos) {
@@ -229,11 +229,11 @@ void func_800BD4D4(f32 xPos, f32 yPos, s32 arg2) {
 }
 
 void func_800BD720(f32 xPos, f32 yPos) {
-    TextureRect_8bIA(&gMasterDisp, D_30013E0, 8, 8, xPos, yPos, 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, D_vs_player_30013E0, 8, 8, xPos, yPos, 1.0f, 1.0f);
 }
 
 void func_800BD76C(f32 xPos, f32 yPos) {
-    TextureRect_4bCI(&gMasterDisp, D_30001E0, D_3000380, 64, 13, xPos, yPos, 1.0f, 1.0f);
+    TextureRect_4bCI(&gMasterDisp, D_vs_player_30001E0, D_vs_player_3000380, 64, 13, xPos, yPos, 1.0f, 1.0f);
 }
 
 void func_800BD7C4(f32 xPos, f32 yPos, s32 arg2) {

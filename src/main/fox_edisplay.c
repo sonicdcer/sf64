@@ -230,20 +230,20 @@ void func_8005A094(Actor* actor) {
             Matrix_Translate(gGfxMatrix, 18.0f, 15.0f, -15.0f, 1);
             Matrix_RotateY(gGfxMatrix, M_PI, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_3016660);
+            gSPDisplayList(gMasterDisp++, D_arwing_3016660);
             break;
         case 1:
             Matrix_Translate(gGfxMatrix, -18.0f, 15.0f, -15.0f, 1);
             Matrix_RotateY(gGfxMatrix, M_PI, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_3015D80);
+            gSPDisplayList(gMasterDisp++, D_arwing_3015D80);
             break;
         case 2:
             Graphics_SetScaleMtx(actor->scale);
-            gSPDisplayList(gMasterDisp++, D_30155E0);
+            gSPDisplayList(gMasterDisp++, D_arwing_30155E0);
             break;
         case 3:
-            gSPDisplayList(gMasterDisp++, D_3011720);
+            gSPDisplayList(gMasterDisp++, D_arwing_3011720);
             break;
         case 4:
             Graphics_SetScaleMtx(actor->scale);
@@ -808,7 +808,7 @@ void func_8005CA80(Item* item) {
 void func_8005CB44(Item* item) {
     if (gCurrentLevel == LEVEL_AQUAS) {
         Graphics_SetScaleMtx(item->scale);
-        gSPDisplayList(gMasterDisp++, D_3005980);
+        gSPDisplayList(gMasterDisp++, D_blue_marine_3005980);
     } else {
         Graphics_SetScaleMtx(item->scale * 0.1f);
         RCP_SetupDL(&gMasterDisp, 0x1D);
@@ -1747,7 +1747,7 @@ Gfx D_800CFD80[] = {
     gsSPEndDisplayList(),
 };
 
-void func_80060968(void) {
+void TexturedLine_Draw(void) {
     s32 i;
 
     if (gCurrentLevel == LEVEL_MACBETH) {
@@ -1758,16 +1758,16 @@ void func_80060968(void) {
     } else {
         RCP_SetupDL_14();
     }
-    for (i = 0; i < ARRAY_COUNT(gUnkEntities30); i++) {
-        UnkEntity30* ent30 = &gUnkEntities30[i];
+    for (i = 0; i < ARRAY_COUNT(gTexturedLines); i++) {
+        TexturedLine* texLine = &gTexturedLines[i];
 
-        if (gUnkEntities30[i].mode != 0) {
+        if (gTexturedLines[i].mode != 0) {
             Matrix_Push(&gGfxMatrix);
-            Matrix_Translate(gGfxMatrix, ent30->unk_04.x, ent30->unk_04.y, ent30->unk_04.z + D_80177D20, 1);
-            Matrix_RotateY(gGfxMatrix, ent30->unk_20, 1);
-            Matrix_RotateX(gGfxMatrix, ent30->unk_1C, 1);
-            Matrix_RotateZ(gGfxMatrix, ent30->unk_20, 1);
-            Matrix_Scale(gGfxMatrix, ent30->unk_28, ent30->unk_28, ent30->unk_24, 1);
+            Matrix_Translate(gGfxMatrix, texLine->unk_04.x, texLine->unk_04.y, texLine->unk_04.z + D_80177D20, 1);
+            Matrix_RotateY(gGfxMatrix, texLine->unk_20, 1);
+            Matrix_RotateX(gGfxMatrix, texLine->unk_1C, 1);
+            Matrix_RotateZ(gGfxMatrix, texLine->unk_20, 1);
+            Matrix_Scale(gGfxMatrix, texLine->unk_28, texLine->unk_28, texLine->unk_24, 1);
 
             if ((gCurrentLevel == LEVEL_AQUAS) || (gCurrentLevel == LEVEL_VENOM_ANDROSS)) {
                 s32 alpha = (gGameFrameCount & 1) ? 180 : 50;
@@ -1791,8 +1791,8 @@ void func_80060968(void) {
                 if (gCurrentLevel == LEVEL_MACBETH) {
                     gSPDisplayList(gMasterDisp++, D_6012C00_Gfx);
                 } else {
-                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, ent30->unk_2C, ent30->unk_2D, ent30->unk_2E,
-                                    ent30->unk_2F);
+                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, texLine->unk_2C, texLine->unk_2D, texLine->unk_2E,
+                                    texLine->unk_2F);
                     gSPDisplayList(gMasterDisp++, D_800CFD80);
                 }
             }
@@ -1802,20 +1802,20 @@ void func_80060968(void) {
 }
 
 void func_80060D94(s32 arg0) {
-    UnkEntity30* ent30 = &gUnkEntities30[arg0];
+    TexturedLine* texLine = &gTexturedLines[arg0];
 
-    if (ent30->unk_2F == 0xFF) {
+    if (texLine->unk_2F == 0xFF) {
         RCP_SetupDL(&gMasterDisp, 5);
     } else {
         RCP_SetupDL(&gMasterDisp, 0xE);
     }
-    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, ent30->unk_2C, ent30->unk_2D, ent30->unk_2E, ent30->unk_2F);
+    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, texLine->unk_2C, texLine->unk_2D, texLine->unk_2E, texLine->unk_2F);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, ent30->unk_04.x, ent30->unk_04.y, ent30->unk_04.z, 1);
-    Matrix_RotateY(gGfxMatrix, ent30->unk_20, 1);
-    Matrix_RotateX(gGfxMatrix, ent30->unk_1C, 1);
-    Matrix_RotateZ(gGfxMatrix, ent30->unk_1C, 1);
-    Matrix_Scale(gGfxMatrix, ent30->unk_28, 1.0f, ent30->unk_24, 1);
+    Matrix_Translate(gGfxMatrix, texLine->unk_04.x, texLine->unk_04.y, texLine->unk_04.z, 1);
+    Matrix_RotateY(gGfxMatrix, texLine->unk_20, 1);
+    Matrix_RotateX(gGfxMatrix, texLine->unk_1C, 1);
+    Matrix_RotateZ(gGfxMatrix, texLine->unk_1C, 1);
+    Matrix_Scale(gGfxMatrix, texLine->unk_28, 1.0f, texLine->unk_24, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     gSPDisplayList(gMasterDisp++, D_800CFD80);

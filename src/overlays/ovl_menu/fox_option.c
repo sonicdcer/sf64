@@ -239,7 +239,7 @@ static OptionEntry sOptionVSCardList[] = {
         1,
     },
 };
-static u8 D_menu_801AE998[] = { 0, 3, 1 };
+static u8 D_menu_801AE998[] = { SOUNDMODE_STEREO, SOUNDMODE_MONO, SOUNDMODE_HEADSET };
 
 static u8 D_menu_801AE99C[] = { 0, 1, 2 };
 
@@ -1301,7 +1301,7 @@ void Option_SoundInit(void) {
     D_menu_801B91A0 = 0;
 
     gSoundMode = gSaveFile.save.data.soundMode;
-    Audio_QueueSeqCmd(D_menu_801AE998[gSoundMode] | 0xE0000000);
+    SEQCMD_SET_SOUND_MODE(D_menu_801AE998[gSoundMode]);
 
     gVolumeSettings[0] = gSaveFile.save.data.musicVolume;
     gVolumeSettings[1] = gSaveFile.save.data.voiceVolume;
@@ -1403,11 +1403,11 @@ void func_menu_80194AEC(void) {
     if (func_menu_8019C418(&sp3C, 2, 0, 0, 20, 5, 4, gMainController, &D_menu_801B9260)) {
         AUDIO_PLAY_SFX(0x49000002, gDefaultSfxSource, 4);
         gSoundMode = sp3C;
-        if (gSoundMode >= 3) {
-            gSoundMode = 0;
+        if (gSoundMode >= OPTIONSOUND_MAX) {
+            gSoundMode = OPTIONSOUND_STEREO;
         }
         gSaveFile.save.data.soundMode = gSoundMode;
-        Audio_QueueSeqCmd(D_menu_801AE998[gSoundMode] | 0xE0000000);
+        SEQCMD_SET_SOUND_MODE(D_menu_801AE998[gSoundMode]);
     }
 }
 
@@ -1499,15 +1499,15 @@ void Option_SoundDraw(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     switch (gSoundMode) {
-        case 0:
+        case OPTIONSOUND_STEREO:
             TextureRect_8bIA(&gMasterDisp, D_800CD90, 56, 13, D_menu_801AEFA8[8], D_menu_801AEFD4[8], 1.0f, 1.0f);
             break;
 
-        case 1:
+        case OPTIONSOUND_MONO:
             TextureRect_8bIA(&gMasterDisp, D_80076E0, 56, 14, D_menu_801AEFA8[9], D_menu_801AEFD4[9], 1.0f, 1.0f);
             break;
 
-        case 2:
+        case OPTIONSOUND_HEADSET:
             TextureRect_8bIA(&gMasterDisp, D_8007210, 88, 14, D_menu_801AEFA8[10], D_menu_801AEFD4[10], 1.0f, 1.0f);
             break;
     }

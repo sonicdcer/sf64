@@ -99,7 +99,8 @@
     "ast_training.h": "c",
     "ast_sector_x.h": "c",
     "ast_aquas.h": "c",
-    "ast_enmy_space.h": "c"
+    "ast_enmy_space.h": "c",
+    "prevent_context_reordering.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }

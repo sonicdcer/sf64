@@ -372,7 +372,7 @@ Vec3f D_i3_801BF8F0[4] = {
 };
 Vec3f D_i3_801BF920 = { 0.0f, 0.0f, 0.0f };
 Gfx* D_i3_801BF92C[6] = {
-    D_200B630, D_200A5A0, D_2009510, D_60084C0, D_6008D40, D_6007C40,
+    D_BG_PLANET_200B630, D_BG_PLANET_200A5A0, D_BG_PLANET_2009510, D_60084C0, D_6008D40, D_6007C40,
 };
 Gfx* D_i3_801BF944[6] = {
     D_601B790, D_601B790, D_601A700, D_6019670, D_60185E0, D_6017550,
@@ -2739,10 +2739,10 @@ void func_i3_801A71B8(Boss* bossSO) {
             Matrix_RotateX(gGfxMatrix, M_DTOR * 5.0f, 1);
             Matrix_Scale(gGfxMatrix, D_i3_801C2768[13], 1.0f, D_i3_801C2768[13], 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_20112C0);
+            gSPDisplayList(gMasterDisp++, D_BG_PLANET_20112C0);
             Matrix_Scale(gGfxMatrix, 0.6f, 1.0f, 0.6f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_20112C0);
+            gSPDisplayList(gMasterDisp++, D_BG_PLANET_20112C0);
             Matrix_Pop(&gGfxMatrix);
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, bossSO->obj.pos.x, bossSO->obj.pos.y + 270.0f,
@@ -2750,10 +2750,10 @@ void func_i3_801A71B8(Boss* bossSO) {
             Matrix_RotateX(gGfxMatrix, -3.0f * M_DTOR, 1);
             Matrix_Scale(gGfxMatrix, D_i3_801C2768[13], 1.0f, D_i3_801C2768[13], 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_20112C0);
+            gSPDisplayList(gMasterDisp++, D_BG_PLANET_20112C0);
             Matrix_Scale(gGfxMatrix, 0.6f, 1.0f, 0.6f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_20112C0);
+            gSPDisplayList(gMasterDisp++, D_BG_PLANET_20112C0);
         }
     }
 }

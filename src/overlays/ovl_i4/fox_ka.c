@@ -1148,12 +1148,12 @@ void func_i4_801946C4(Boss* boss) {
         if (boss->obj.rot.y < 0.0f) {
             boss->obj.rot.y += 360.0f;
         }
-        gUnkEntities28[64].unk_00 = 1;
-        gUnkEntities28[64].unk_02 = 101;
-        gUnkEntities28[64].pos.x = boss->obj.pos.x;
-        gUnkEntities28[64].pos.y = boss->obj.pos.y;
-        gUnkEntities28[64].pos.z = boss->obj.pos.z;
-        gUnkEntities28[64].unk_10 = boss->unk_078.y + 180.0f;
+        gRadarMarks[64].unk_00 = 1;
+        gRadarMarks[64].unk_02 = 101;
+        gRadarMarks[64].pos.x = boss->obj.pos.x;
+        gRadarMarks[64].pos.y = boss->obj.pos.y;
+        gRadarMarks[64].pos.z = boss->obj.pos.z;
+        gRadarMarks[64].unk_10 = boss->unk_078.y + 180.0f;
         if (boss->state < 6) {
             Math_SmoothStepToF(&boss->obj.pos.x, boss->vwork[0].x, 0.01f, boss->fwork[10], 0);
             Math_SmoothStepToF(&boss->obj.pos.y, boss->vwork[0].y, 0.01f, boss->fwork[10], 0);
@@ -1945,7 +1945,7 @@ void func_i4_80198AA0(Actor* actor) {
     f32 ySin;
     f32 xCos;
     f32 yCos;
-    UnkEntity28* entity;
+    RadarMark* radarMark;
     s32 pad2[9];
 
     zPos = 0.0f;
@@ -2116,13 +2116,13 @@ void func_i4_80198AA0(Actor* actor) {
                       actor->obj.rot.z);
     }
     func_8003088C(actor);
-    entity = &gUnkEntities28[actor->index];
-    entity->unk_00 = 1;
-    entity->unk_02 = actor->unk_0E4;
-    entity->pos.x = actor->obj.pos.x;
-    entity->pos.y = actor->obj.pos.y;
-    entity->pos.z = actor->obj.pos.z;
-    entity->unk_10 = actor->unk_0F4.y + 180.0f;
+    radarMark = &gRadarMarks[actor->index];
+    radarMark->unk_00 = 1;
+    radarMark->unk_02 = actor->unk_0E4;
+    radarMark->pos.x = actor->obj.pos.x;
+    radarMark->pos.y = actor->obj.pos.y;
+    radarMark->pos.z = actor->obj.pos.z;
+    radarMark->unk_10 = actor->unk_0F4.y + 180.0f;
     if (actor->iwork[8] != 0) {
         actor->iwork[8]--;
     }

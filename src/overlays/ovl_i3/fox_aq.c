@@ -320,17 +320,17 @@ void func_i3_801A8E30(void) {
 }
 
 void func_i3_801A92EC(Actor* actor, f32 xUnk, f32 yUnk, f32 zUnk, s32 index, s32 mode) {
-    gUnkEntities30[index].mode = mode;
-    gUnkEntities30[index].unk_28 = 10.0f;
-    gUnkEntities30[index].unk_04.x = actor->obj.pos.x;
-    gUnkEntities30[index].unk_04.y = actor->obj.pos.y;
-    gUnkEntities30[index].unk_04.z = actor->obj.pos.z;
-    gUnkEntities30[index].unk_10.x = xUnk;
-    gUnkEntities30[index].unk_10.y = yUnk;
-    gUnkEntities30[index].unk_10.z = zUnk;
-    gUnkEntities30[index].unk_2C = gUnkEntities30[index].unk_2D = gUnkEntities30[index].unk_2E =
-        gUnkEntities30[index].unk_2F = 255;
-    gUnkEntities30[index].timer = 3;
+    gTexturedLines[index].mode = mode;
+    gTexturedLines[index].unk_28 = 10.0f;
+    gTexturedLines[index].unk_04.x = actor->obj.pos.x;
+    gTexturedLines[index].unk_04.y = actor->obj.pos.y;
+    gTexturedLines[index].unk_04.z = actor->obj.pos.z;
+    gTexturedLines[index].unk_10.x = xUnk;
+    gTexturedLines[index].unk_10.y = yUnk;
+    gTexturedLines[index].unk_10.z = zUnk;
+    gTexturedLines[index].unk_2C = gTexturedLines[index].unk_2D = gTexturedLines[index].unk_2E =
+        gTexturedLines[index].unk_2F = 255;
+    gTexturedLines[index].timer = 3;
 }
 
 void func_i3_801A9374(Actor* actor, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state, f32 scale,
@@ -640,7 +640,7 @@ void func_i3_801AA20C(void) {
                 Matrix_Translate(gGfxMatrix, var_fs1, var_fs2, 0.0f, 1);
                 Matrix_Push(&gGfxMatrix);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_3000470);
+                gSPDisplayList(gMasterDisp++, D_blue_marine_3000470);
                 Matrix_Pop(&gGfxMatrix);
             }
         } else {
@@ -648,7 +648,7 @@ void func_i3_801AA20C(void) {
             Matrix_Translate(gGfxMatrix, D_i3_801C41B8[0], D_i3_801C41B8[1], D_i3_801C41B8[2] + gPlayer[0].unk_144, 1);
             Matrix_Scale(gGfxMatrix, D_i3_801C41B8[5], D_i3_801C41B8[5], D_i3_801C41B8[5], 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_3000130);
+            gSPDisplayList(gMasterDisp++, D_blue_marine_3000130);
         }
         Matrix_Pop(&gGfxMatrix);
     }
@@ -1300,7 +1300,7 @@ void func_i3_801ACBB4(Player* player) {
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -40.0f, 1);
     Matrix_RotateY(gGfxMatrix, M_PI, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_3000C70);
+    gSPDisplayList(gMasterDisp++, D_blue_marine_3000C70);
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, 0.0f, -4.5f, 1.2f, 1);
     Matrix_RotateZ(gGfxMatrix, player->unk_178 * M_DTOR, 1);
@@ -1311,19 +1311,19 @@ void func_i3_801ACBB4(Player* player) {
     Matrix_Translate(gGfxMatrix, 0.0f, 2.0f, 40.0f, 1);
     Matrix_RotateY(gGfxMatrix, -player->unk_180 * M_DTOR, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_3006C70);
+    gSPDisplayList(gMasterDisp++, D_blue_marine_3006C70);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, -19.0f, -3.6f, 1.2f, 1);
     Matrix_RotateX(gGfxMatrix, player->unk_17C * M_DTOR, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_3000AF0);
+    gSPDisplayList(gMasterDisp++, D_blue_marine_3000AF0);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, 19.0f, -3.6f, 1.2f, 1);
     Matrix_RotateX(gGfxMatrix, player->unk_17C * M_DTOR, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_3006AF0);
+    gSPDisplayList(gMasterDisp++, D_blue_marine_3006AF0);
     Matrix_Pop(&gGfxMatrix);
 }
 

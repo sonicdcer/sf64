@@ -72,7 +72,7 @@ void func_i1_80199024(Actor* actor) {
     s32 pad[8];
     Vec3f sp54;
     f32 var_fv0;
-    UnkEntity28* ent28;
+    RadarMark* radarMark;
     f32 temp_fv0;
     f32 temp_fv1;
     f32 var_fv0_2;
@@ -143,13 +143,13 @@ void func_i1_80199024(Actor* actor) {
         actor->vel.y = 0.0f;
     }
     func_8003088C(actor);
-    ent28 = &gUnkEntities28[actor->index];
-    ent28->unk_00 = 1;
-    ent28->unk_02 = actor->unk_0E4;
-    ent28->pos.x = actor->obj.pos.x;
-    ent28->pos.y = actor->obj.pos.y;
-    ent28->pos.z = actor->obj.pos.z;
-    ent28->unk_10 = actor->unk_0F4.y + 180.0f;
+    radarMark = &gRadarMarks[actor->index];
+    radarMark->unk_00 = 1;
+    radarMark->unk_02 = actor->unk_0E4;
+    radarMark->pos.x = actor->obj.pos.x;
+    radarMark->pos.y = actor->obj.pos.y;
+    radarMark->pos.z = actor->obj.pos.z;
+    radarMark->unk_10 = actor->unk_0F4.y + 180.0f;
     if (actor->iwork[8] != 0) {
         actor->iwork[8]--;
     }

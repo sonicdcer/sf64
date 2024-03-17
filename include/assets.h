@@ -23,13 +23,13 @@ extern Gfx D_4007AF0[];
  */
 extern Gfx D_60005B0[]; // fox_bg
 extern Gfx D_6000A80[]; // fox_bg, fox_effect
-extern u16 D_6000B60[]; // fox_radio
+extern u16 D_A6_6000B60[]; // fox_radio
 extern Gfx D_6000E00[]; // fox_edata_1C
 extern Gfx D_6001360[]; // fox_bg, fox_demo, fox_edata_1C
 extern Gfx D_6001530[]; // fox_360, fox_demo, fox_ka
 extern Gfx D_6001840[]; // fox_bg
 extern Gfx D_6001A60[]; // fox_effect
-extern u16 D_6001A80[]; // fox_radio
+extern u16 D_A6_6001A80[]; // fox_radio
 extern u8 D_6001B80[]; // fox_hud
 extern Vtx D_6001C50[]; // fox_play
 extern u8 D_6001C80[]; // fox_map
@@ -38,7 +38,7 @@ extern u8 D_60020D0[]; // fox_hud
 extern u8 D_6002160[]; // fox_map
 extern Gfx D_60023B0[]; // fox_edata_1C
 extern Gfx D_6002990[]; // fox_edata_1C
-extern u16 D_60029A0[]; // fox_radio
+extern u16 D_A6_60029A0[]; // fox_radio
 extern Gfx D_6002E60[]; // fox_bg
 extern Gfx D_6002F80[]; // fox_bg
 extern Gfx D_6003000[]; // fox_edata_1C
@@ -47,7 +47,7 @@ extern Gfx D_60030F0[]; // fox_edata_1C
 extern Gfx D_60034D0[]; // fox_edata_1C, fox_enmy2
 extern Gfx D_60036A0[]; // fox_edata_1C, fox_enmy2
 extern Gfx D_6003760[];
-extern u16 D_60038C0[];
+extern u16 D_A6_60038C0[];
 extern Gfx D_60038E0[];
 extern u16 D_60038F8[];
 extern u8 D_6003B50[];
@@ -56,13 +56,13 @@ extern Gfx D_6004330[];
 extern Vtx D_6004500[];
 extern Gfx D_6004570[];
 extern Gfx D_60046F0[];
-extern u16 D_60047E0[];
+extern u16 D_A6_60047E0[];
 extern Gfx D_6004900[];
 extern u8 D_6004AC0[];
 extern Gfx D_6004FE0[];
 extern EnvSettings D_6005000;
 extern Gfx D_6005360[];
-extern u16 D_6005700[];
+extern u16 D_A6_6005700[];
 extern u16 D_6005710[];
 extern u8 D_6005740[];
 extern Gfx D_6005780[];
@@ -180,7 +180,7 @@ extern Gfx D_600DBC0[];
 extern u8 D_600DDC0[];
 extern Gfx D_600DDF0[];
 extern Gfx D_600E050[];
-extern Gfx D_600E0C0[];
+extern Gfx D_A6_600E0C0[];
 extern u8 D_600E210[];
 extern Animation D_600E2C4;
 extern u8 D_600E360[];
@@ -194,7 +194,7 @@ extern Gfx D_600EFF0[];
 extern Gfx D_600F160[];
 extern Gfx D_600F1D0[];
 extern CollisionPoly D_600F1DC[];
-extern Gfx D_600F1F0[];
+extern Gfx D_A6_600F1F0[];
 extern Gfx D_600F2F0[];
 extern u8 D_600F390[];
 extern Vec3s D_600F394[];
@@ -239,7 +239,7 @@ extern f32 D_601115C[];
 extern u8 D_TEX_6011660[];
 extern Vec3s D_601170C[];
 extern u8 D_6011890[];
-extern Gfx D_6011910[];
+extern Gfx D_A6_6011910[];
 extern f32 D_6011B24[];
 extern u16 D_6011B40[];
 extern f32 D_6011BF4[];
@@ -279,7 +279,7 @@ extern CollisionPoly D_6014FEC[];
 extern Gfx D_60153B0[];
 extern u16 D_6015430[];
 extern u8 D_6015CE0[];
-extern Gfx D_6015EE0[];
+extern Gfx D_A6_6015EE0[];
 extern Gfx D_6015F00[];
 extern Gfx D_6016270[];
 extern Vec3s D_6016374[];
@@ -296,25 +296,25 @@ extern u8 D_6017640[];
 extern u8 D_6018280[];
 extern Gfx D_6018450[];
 extern Gfx D_60188D0[];
-extern Animation D_6018994;
-extern Limb* D_6018BA0[];
-extern Gfx D_6018BF0[];
+extern Animation D_A6_6018994;
+extern Limb* D_A6_6018BA0[];
+extern Gfx D_A6_6018BF0[];
 extern Gfx D_6018C00[]; // possible collision
 extern Gfx D_6018D40[];
 extern Gfx D_6018E80[];
 extern u16 D_6018F30[];
 extern u8 D_60190B0[];
 extern Gfx D_6019220[];
-extern Gfx D_6019730[];
+extern Gfx D_A6_6019730[];
 extern u16 D_6019E50[];
-extern Gfx D_601A120[];
+extern Gfx D_A6_601A120[];
 extern Gfx D_601A7A0[];
 extern Gfx D_601A7D0[];
 extern Gfx D_601AD70[];
 extern Gfx D_601AE40[];
 extern Gfx D_601B0D0[];
 extern u16* D_601B1E4[];
-extern Gfx D_601B2B0[];
+extern Gfx D_A6_601B2B0[];
 extern u16 D_601B4B0[];
 extern f32 D_601B4C4[];
 extern f32 D_601B4E0[];
@@ -337,7 +337,7 @@ extern f32 D_601B830[];
 extern f32 D_601B868[];
 extern f32 D_601B8A0[];
 extern f32 D_601B8D8[];
-extern Gfx D_601BB40[];
+extern Gfx D_A6_601BB40[];
 extern Gfx D_601BEC0[];
 extern Gfx D_601C0D0[];
 extern Gfx D_601C6A0[];
@@ -385,7 +385,7 @@ extern u16 D_60229A4[];
 extern f32 D_60231A4[];
 extern Gfx D_60238F0[];
 extern Gfx D_6023AC0[];
-extern EnvSettings D_6023F20;
+extern EnvSettings D_A6_6023F20;
 extern Gfx D_6024010[];
 extern Gfx D_6024220[];
 extern Gfx D_60244A0[];
@@ -407,12 +407,12 @@ extern Animation D_6027320;
 extern u16 D_6027340[];
 extern Limb* D_602742C[];
 extern Gfx D_6027900[];
-extern u16* D_6027F50[];
+extern u16* D_A6_6027F50[];
 extern u16 D_6028260[];
-extern f32 D_6028454[];
-extern f32 D_6028578[];
-extern EnvSettings D_6028760;
-extern u16* D_60289FC[];
+extern f32 D_A6_6028454[];
+extern f32 D_A6_6028578[];
+extern EnvSettings D_A6_6028760;
+extern u16* D_A6_60289FC[];
 extern u16 D_6028A60[];
 extern u16 D_6029170[];
 extern u8 D_6029220[];
@@ -494,12 +494,8 @@ extern Triangle D_6030F64[];
 extern Vec3f D_6030F7C[];
 extern Triangle D_6030FC4[];
 extern Vec3s D_603184C[];
-extern Vec3f D_6031FE0[];
-extern Vec3f D_603204C[];
 extern Gfx D_60320E0[];
-extern Vec3f D_603216C[];
 extern u16 D_60323D0[];
-extern Vec3f D_6032430[];
 extern u16 D_6032440[];
 extern Gfx D_6032580[];
 extern u16 D_6032A60[];

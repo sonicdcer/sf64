@@ -97,7 +97,7 @@ extern OverlayInit sOvlending_Ending[6]; // overlay EF0260
 extern OverlayInit sOvlmenu_Title[1]; // EBFBE0
 extern OverlayInit sOvlmenu_Option[1]; // EBFBE0
 extern OverlayInit sOvlmenu_Map[1]; // EBFBE0
-extern OverlayInit sOvlmenu_State5[1]; // EBFBE0
+extern OverlayInit sOvlmenu_GameOver[1]; // EBFBE0
 extern OverlayInit sOvli1_Corneria[1]; // fox_i1
 extern OverlayInit sOvli2_Meteo[2]; // fox_i2
 extern OverlayInit sOvli5_Titania[6]; // E6A810

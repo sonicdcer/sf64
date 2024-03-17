@@ -15,8 +15,8 @@ extern Gfx D_6003580[];
 extern Gfx D_6003620[];
 extern Gfx D_60036C0[];
 extern Gfx D_6004900[];
-extern Gfx D_6012550[];
-extern u16 D_6012840[];
+extern Gfx D_A6_6012550[];
+extern u16 D_A6_6012840[];
 extern Gfx D_6016880[];
 extern Gfx D_6018AF0[];
 extern Gfx D_601BAD0[];
@@ -209,7 +209,7 @@ void func_8007797C(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f
 void func_80077A00(Effect* effect) {
     Graphics_SetScaleMtx(effect->scale2);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_44);
-    gSPDisplayList(gMasterDisp++, D_3016B30);
+    gSPDisplayList(gMasterDisp++, D_arwing_3016B30);
 }
 
 void func_80077A7C(Effect* effect) {
@@ -373,7 +373,7 @@ void func_800780F8(Effect* effect) {
 void func_800783C0(Effect* effect) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_44);
     Graphics_SetScaleMtx(effect->scale2);
-    gSPDisplayList(gMasterDisp++, D_2006F50);
+    gSPDisplayList(gMasterDisp++, D_BG_SPACE_2006F50);
 }
 
 void func_80078438(Effect* effect) {
@@ -387,7 +387,7 @@ void func_800784B4(Effect* effect) {
     Graphics_SetScaleMtx(effect->scale2);
     Matrix_RotateX(gGfxMatrix, M_PI / 2, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_200D750);
+    gSPDisplayList(gMasterDisp++, D_BG_PLANET_200D750);
 }
 
 void func_80078550(Effect* effect) {
@@ -395,7 +395,7 @@ void func_80078550(Effect* effect) {
     Graphics_SetScaleMtx(effect->scale2);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_4A);
     gDPSetEnvColor(gMasterDisp++, 101, 138, 153, 255);
-    gSPDisplayList(gMasterDisp++, D_3000660);
+    gSPDisplayList(gMasterDisp++, D_blue_marine_3000660);
     RCP_SetupDL(&gMasterDisp, 0x40);
 }
 
@@ -403,7 +403,7 @@ void func_80078604(Effect* effect) {
     if (effect->timer_50 == 0) {
         Graphics_SetScaleMtx(effect->scale2);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_44);
-        gSPDisplayList(gMasterDisp++, D_20112C0);
+        gSPDisplayList(gMasterDisp++, D_BG_PLANET_20112C0);
     }
 }
 
@@ -458,7 +458,7 @@ void func_800788B0(Effect* effect) {
 void func_80078A64(Effect* effect) {
     Graphics_SetScaleMtx(effect->scale2);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_44);
-    gSPDisplayList(gMasterDisp++, D_20112C0);
+    gSPDisplayList(gMasterDisp++, D_BG_PLANET_20112C0);
 }
 
 void func_80078AE0(void* effect) {
@@ -1423,7 +1423,7 @@ void func_8007B9DC(Effect* effect) {
     }
     //! DEBUG: Hold Z on controller 4 to set up a display list.
     if (!(gControllerHold[3].button & A_BUTTON)) {
-        gSPDisplayList(gMasterDisp++, D_2010A30);
+        gSPDisplayList(gMasterDisp++, D_BG_PLANET_2010A30);
     }
     //! DEBUG: Hold Z on controller 4 to set up a display list.
     if (gControllerHold[3].button & Z_TRIG) {
@@ -1520,7 +1520,7 @@ void func_8007BE54(Effect* effect) {
 void func_8007BEE8(Effect* effect) {
     Graphics_SetScaleMtx(effect->scale2);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_4A);
-    gSPDisplayList(gMasterDisp++, D_2010A30);
+    gSPDisplayList(gMasterDisp++, D_BG_PLANET_2010A30);
 }
 
 void func_8007BF64(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
@@ -1792,7 +1792,7 @@ void func_8007CAF0(Effect* effect) {
         Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_4A);
-        gSPDisplayList(gMasterDisp++, D_20031B0);
+        gSPDisplayList(gMasterDisp++, D_BG_PLANET_20031B0);
     }
 }
 
@@ -2026,9 +2026,11 @@ void func_8007D2F4(Effect* effect) {
 }
 
 Gfx* D_800D17A4[] = {
-    D_200B630, D_200B630,           D_200B630, D_200B630, D_200A5A0, D_2009510, D_2008480,
-    D_20073F0, D_2006360,           D_200C6C0, D_20052D0, D_2004240, D_20031B0, D_2002120,
-    D_2001090, D_BG_PLANET_2000000, D_2010A30, D_20101A0, D_200F910, D_200F080, D_200E7F0,
+    D_BG_PLANET_200B630, D_BG_PLANET_200B630, D_BG_PLANET_200B630, D_BG_PLANET_200B630, D_BG_PLANET_200A5A0,
+    D_BG_PLANET_2009510, D_BG_PLANET_2008480, D_BG_PLANET_20073F0, D_BG_PLANET_2006360, D_BG_PLANET_200C6C0,
+    D_BG_PLANET_20052D0, D_BG_PLANET_2004240, D_BG_PLANET_20031B0, D_BG_PLANET_2002120, D_BG_PLANET_2001090,
+    D_BG_PLANET_2000000, D_BG_PLANET_2010A30, D_BG_PLANET_20101A0, D_BG_PLANET_200F910, D_BG_PLANET_200F080,
+    D_BG_PLANET_200E7F0,
 };
 
 f32 D_800D17F8[] = {
@@ -2047,8 +2049,9 @@ u8 D_800D184C[][4] = {
 };
 
 Gfx* D_800D18A0[] = {
-    D_20066C0, D_20066C0, D_2005E30, D_20055A0, D_2004D10, D_2004480, D_2003BF0,
-    D_2003360, D_2002AD0, D_2002240, D_20019B0, D_2001120, D_2000890, D_2000000,
+    D_BG_SPACE_20066C0, D_BG_SPACE_20066C0, D_BG_SPACE_2005E30, D_BG_SPACE_20055A0, D_BG_SPACE_2004D10,
+    D_BG_SPACE_2004480, D_BG_SPACE_2003BF0, D_BG_SPACE_2003360, D_BG_SPACE_2002AD0, D_BG_SPACE_2002240,
+    D_BG_SPACE_20019B0, D_BG_SPACE_2001120, D_BG_SPACE_2000890, D_BG_SPACE_2000000,
 };
 
 void func_8007D55C(Effect* effect) {
@@ -2299,7 +2302,7 @@ void func_8007E330(Effect* effect) {
     } else {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_4A);
     }
-    gSPDisplayList(gMasterDisp++, D_2010A30);
+    gSPDisplayList(gMasterDisp++, D_BG_PLANET_2010A30);
 }
 
 void func_8007E3E4(Effect* effect) {
@@ -2351,7 +2354,7 @@ void func_8007E45C(Effect* effect) {
 void func_8007E5CC(Effect* effect) {
     Graphics_SetScaleMtx(effect->scale2);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_44);
-    gSPDisplayList(gMasterDisp++, D_2010A30);
+    gSPDisplayList(gMasterDisp++, D_BG_PLANET_2010A30);
 }
 
 void func_8007E648(Effect* effect) {
@@ -3891,7 +3894,7 @@ void func_80082F78(Effect* effect) {
 
         case 3:
             RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-            gSPDisplayList(gMasterDisp++, D_601A120);
+            gSPDisplayList(gMasterDisp++, D_A6_601A120);
             break;
 
         case 4:
@@ -3944,13 +3947,13 @@ void func_80082F78(Effect* effect) {
 
         case 10:
             if (D_80177854 != 100) {
-                Texture_Scroll(D_6012840, 16, 16, 0);
+                Texture_Scroll(D_A6_6012840, 16, 16, 0);
             }
             RCP_SetupDL(&gMasterDisp, 0x35);
             Matrix_Scale(gGfxMatrix, effect->unk_60.x, effect->unk_60.y, effect->unk_60.z, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-            gSPDisplayList(gMasterDisp++, D_6012550);
+            gSPDisplayList(gMasterDisp++, D_A6_6012550);
             break;
 
         case 11:

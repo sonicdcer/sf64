@@ -31,6 +31,7 @@ D_800D0000 = 0x800D0000;//ignore:true
 D_7FFFFFFE = 0x7FFFFFFE;//ignore:true
 D_1000000 =  0x01000000;//ignore:true
 D_A000000 =  0x0A000000;//ignore:true
+D_4000000 = 0x04000000;//ignore:true
 
 // constant for K1 access
 D_A0000000 = 0xA0000000;//ignore:true

@@ -8,6 +8,13 @@
 #define AUDIO_PLAY_BGM(seqId) Audio_PlaySequence(SEQ_PLAYER_BGM, (seqId), 0, -1)
 
 typedef enum {
+    /* 0 */ SOUNDMODE_STEREO,
+    /* 1 */ SOUNDMODE_HEADSET,
+    /* 2 */ SOUNDMODE_SURROUND,
+    /* 3 */ SOUNDMODE_MONO
+} SoundMode;
+
+typedef enum {
     SEQ_ID_0,
     SEQ_ID_1,
     SEQ_ID_2,

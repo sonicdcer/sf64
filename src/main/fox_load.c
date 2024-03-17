@@ -109,8 +109,8 @@ u8 Overlay_Load(u8 ovlSetup, u8 ovlStage) {
         case OVL_SETUP_MAP:
             changeOvl = Overlay_Init(&sOvlmenu_Map[ovlStage]);
             break;
-        case OVL_SETUP_STATE_5:
-            changeOvl = Overlay_Init(&sOvlmenu_State5[ovlStage]);
+        case OVL_SETUP_GAME_OVER:
+            changeOvl = Overlay_Init(&sOvlmenu_GameOver[ovlStage]);
             break;
         case OVL_SETUP_CORNERIA:
             changeOvl = Overlay_Init(&sOvli1_Corneria[ovlStage]);

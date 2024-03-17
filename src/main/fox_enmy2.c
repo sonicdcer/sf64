@@ -13,6 +13,7 @@ s32 D_80161690;
 #include "assets/ast_aquas.h"
 #include "assets/ast_7_ti_1.h"
 #include "assets/ast_andross.h"
+#include "assets/ast_area_6.h"
 #include "assets/ast_enmy_space.h"
 
 void func_8006A7B0(u16* msg, s32 character) {
@@ -877,7 +878,7 @@ UnkStruct_D003C D_800D003C[108] = {
     { D_601F2A0, D_800CBEFC, 7.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
     { D_ENMY_SPACE_400AAE0, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
     { D_ENMY_SPACE_4000650, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 6, 0, 1.0f, 1 },
-    { D_6016190, D_60282A0, -2.0f, 2100.0f, 3000.0f, 0, 0, 7, 0, 0.0f, 5 },
+    { D_A6_6016190, D_A6_60282A0, -2.0f, 2100.0f, 3000.0f, 0, 0, 7, 0, 0.0f, 5 },
     { D_SX_6023500, D_800CBEC4, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
     { D_SX_6022DF0, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
     { NULL, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 2, 1, 1, 0, 0.0f, 1 },
@@ -890,8 +891,8 @@ UnkStruct_D003C D_800D003C[108] = {
     { NULL, D_SX_603285C, 2.5f, 100.0f, 3000.0f, 2, 0, 0, 0, 1.0f, 1 },
     { D_SX_6001CE0, D_SX_6032938, 3.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 1.0f, 1 },
     { D_SX_6000840, D_SX_6032954, 1.0f, 100.0f, 3000.0f, 2, 1, 0, 0, 1.0f, 1 },
-    { D_6012A40, D_6028254, -2.0f, 2100.0f, 3001.0f, 0, 0, 7, 0, 0.0f, 2 },
-    { NULL, D_60280E0, -2.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 3 },
+    { D_A6_6012A40, D_A6_6028254, -2.0f, 2100.0f, 3001.0f, 0, 0, 7, 0, 0.0f, 2 },
+    { NULL, D_A6_60280E0, -2.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 3 },
     { D_SX_6009950, D_SX_6032878, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
     { NULL, D_800CBEC4, 2.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
     { D_SX_600B2B0, D_SX_6032894, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
@@ -931,7 +932,7 @@ UnkStruct_D003C D_800D003C[108] = {
     { D_60205D0, D_603445C, 3.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
     { D_60036A0, D_6034664, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
     { D_601AD70, D_800CBF34, 4.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 0.0f, 1 },
-    { D_3007650, D_800CBF34, 1.0f, 100.0f, 3000.0f, 2, 0, 5, 0, 0.0f, 1 },
+    { D_arwing_3007650, D_800CBF34, 1.0f, 100.0f, 3000.0f, 2, 0, 5, 0, 0.0f, 1 },
     { D_60034D0, D_60347D4, 3.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
     { D_6005360, D_6034770, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
     { D_600F6C0, D_60347F0, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
@@ -1003,10 +1004,10 @@ void func_8006D36C(Actor* actor) {
             var_v1 = SEGMENTED_TO_VIRTUAL(D_SX_60320D0);
             break;
         case LEVEL_UNK_4:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_60289FC);
+            var_v1 = SEGMENTED_TO_VIRTUAL(D_A6_60289FC);
             break;
         case LEVEL_AREA_6:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_6027F50);
+            var_v1 = SEGMENTED_TO_VIRTUAL(D_A6_6027F50);
             break;
         case LEVEL_SECTOR_Y:
             var_v1 = SEGMENTED_TO_VIRTUAL(D_6032E18);
@@ -1306,17 +1307,17 @@ void func_8006D36C(Actor* actor) {
 
         case EVOP_124 << 9:
             actor->iwork[7] = 1;
-            for (i = 0; i < ARRAY_COUNT(gUnkEntities30); i++) {
-                if (gUnkEntities30[i].mode == 0) {
-                    gUnkEntities30[i].mode = 1;
-                    gUnkEntities30[i].unk_28 = 3.0f;
-                    gUnkEntities30[i].unk_04.x = actor->obj.pos.x - actor->vel.x;
-                    gUnkEntities30[i].unk_04.y = actor->obj.pos.y - actor->vel.y;
-                    gUnkEntities30[i].unk_04.z = actor->obj.pos.z - actor->vel.z;
-                    gUnkEntities30[i].unk_2C = D_800D0DBC[temp_s1[actor->unk_0E6 + 1]][0];
-                    gUnkEntities30[i].unk_2D = D_800D0DBC[temp_s1[actor->unk_0E6 + 1]][1];
-                    gUnkEntities30[i].unk_2E = D_800D0DBC[temp_s1[actor->unk_0E6 + 1]][2];
-                    gUnkEntities30[i].unk_2F = D_800D0DBC[temp_s1[actor->unk_0E6 + 1]][3];
+            for (i = 0; i < ARRAY_COUNT(gTexturedLines); i++) {
+                if (gTexturedLines[i].mode == 0) {
+                    gTexturedLines[i].mode = 1;
+                    gTexturedLines[i].unk_28 = 3.0f;
+                    gTexturedLines[i].unk_04.x = actor->obj.pos.x - actor->vel.x;
+                    gTexturedLines[i].unk_04.y = actor->obj.pos.y - actor->vel.y;
+                    gTexturedLines[i].unk_04.z = actor->obj.pos.z - actor->vel.z;
+                    gTexturedLines[i].unk_2C = D_800D0DBC[temp_s1[actor->unk_0E6 + 1]][0];
+                    gTexturedLines[i].unk_2D = D_800D0DBC[temp_s1[actor->unk_0E6 + 1]][1];
+                    gTexturedLines[i].unk_2E = D_800D0DBC[temp_s1[actor->unk_0E6 + 1]][2];
+                    gTexturedLines[i].unk_2F = D_800D0DBC[temp_s1[actor->unk_0E6 + 1]][3];
                     actor->iwork[8] = i;
                     break;
                 }
@@ -1543,10 +1544,10 @@ void func_8006D36C(Actor* actor) {
 }
 
 void func_8006EA50(Actor* actor) {
-    if ((actor->iwork[7] != 0) && (gUnkEntities30[actor->iwork[8]].mode != 0)) {
-        gUnkEntities30[actor->iwork[8]].unk_10.x = actor->obj.pos.x;
-        gUnkEntities30[actor->iwork[8]].unk_10.y = actor->obj.pos.y;
-        gUnkEntities30[actor->iwork[8]].unk_10.z = actor->obj.pos.z;
+    if ((actor->iwork[7] != 0) && (gTexturedLines[actor->iwork[8]].mode != 0)) {
+        gTexturedLines[actor->iwork[8]].unk_10.x = actor->obj.pos.x;
+        gTexturedLines[actor->iwork[8]].unk_10.y = actor->obj.pos.y;
+        gTexturedLines[actor->iwork[8]].unk_10.z = actor->obj.pos.z;
     }
 }
 
@@ -3901,12 +3902,12 @@ void func_80074FF0(Actor* actor) {
 
                 case 20:
                     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-                    gSPDisplayList(gMasterDisp++, D_601A120);
+                    gSPDisplayList(gMasterDisp++, D_A6_601A120);
                     break;
 
                 case 21:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_6018BF0);
+                    gSPDisplayList(gMasterDisp++, D_A6_6018BF0);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, 1);
                     actor->iwork[11] = 1;
@@ -3915,7 +3916,7 @@ void func_80074FF0(Actor* actor) {
 
                 case 22:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_6019730);
+                    gSPDisplayList(gMasterDisp++, D_A6_6019730);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, 1);
                     actor->iwork[11] = 1;
@@ -3940,7 +3941,7 @@ void func_80074FF0(Actor* actor) {
                 case 31:
                     Matrix_RotateX(gGfxMatrix, M_PI / 2, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_600E0C0);
+                    gSPDisplayList(gMasterDisp++, D_A6_600E0C0);
                     break;
 
                 case 33:

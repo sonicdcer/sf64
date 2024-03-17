@@ -887,7 +887,7 @@ void func_i3_80187944(Boss* bossA6) {
                         bossA6->fwork[A6_FWK_1] = 90.0f;
                         bossA6->fwork[A6_FWK_2] = 2.0f;
                         AUDIO_PLAY_SFX(0x31404066, bossA6->sfxSource, 4);
-                        bossA6->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6028578);
+                        bossA6->info.hitbox = SEGMENTED_TO_VIRTUAL(D_A6_6028578);
                         D_i3_801C2250[A6_BSS_7] = 0;
                     }
                 }
@@ -926,7 +926,7 @@ void func_i3_80187944(Boss* bossA6) {
                     D_i3_801C2250[A6_BSS_28] = 0;
                     bossA6->state = 4;
                     bossA6->fwork[A6_FWK_2] = 1.0f;
-                    bossA6->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6028454);
+                    bossA6->info.hitbox = SEGMENTED_TO_VIRTUAL(D_A6_6028454);
                     D_i3_801C2250[A6_BSS_6] = 1;
                     Audio_KillSfxBySource(bossA6->sfxSource);
                     AUDIO_PLAY_SFX(0x31404067, bossA6->sfxSource, 4);
@@ -977,7 +977,7 @@ void func_i3_80187944(Boss* bossA6) {
                     bossA6->fwork[A6_FWK_8] = bossA6->fwork[A6_FWK_9] = 0;
                     bossA6->fwork[A6_FWK_2] = 2.0f;
                     AUDIO_PLAY_SFX(0x31404066, bossA6->sfxSource, 4);
-                    bossA6->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6028578);
+                    bossA6->info.hitbox = SEGMENTED_TO_VIRTUAL(D_A6_6028578);
                     D_i3_801C2250[A6_BSS_7] = bossA6->swork[A6_SWK_37] = 0;
                     bossA6->state = 3;
                     if (D_i3_801C2250[A6_BSS_6] == 0) {
@@ -1698,14 +1698,14 @@ void func_i3_8018BCD4(Vec3f* arg0, f32 arg1, f32 arg2, Vec3f* arg3, s32 arg4, f3
                 Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
-                gSPDisplayList(gMasterDisp++, D_600F1F0);
+                gSPDisplayList(gMasterDisp++, D_A6_600F1F0);
                 Matrix_MultVec3f(gCalcMatrix, &sp90, arg3);
             } else {
                 Matrix_Scale(gCalcMatrix, 2.0f, 2.0f, 2.0f, 1);
                 Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                gSPDisplayList(gMasterDisp++, D_6015EE0);
+                gSPDisplayList(gMasterDisp++, D_A6_6015EE0);
                 if (arg6 != 12) {
                     Matrix_MultVec3f(gCalcMatrix, &sp90, arg3);
                 }
@@ -1796,7 +1796,7 @@ void func_i3_8018C54C(Boss* bossA6) {
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_101C2E0);
     } else if (D_i3_801C22F0.unk_24 != 0.0f) {
-        Animation_GetFrameData(&D_6018994, 0, spD0);
+        Animation_GetFrameData(&D_A6_6018994, 0, spD0);
         if (D_i3_801C22F0.unk_24 != 255.0f) {
             RCP_SetupDL(&gMasterDisp, 0x47);
             spAC.x = 0.0f;
@@ -1826,7 +1826,7 @@ void func_i3_8018C54C(Boss* bossA6) {
         spD0[3].z -= bossA6->fwork[A6_FWK_0];
         spD0[4].z -= bossA6->fwork[A6_FWK_0];
         spD0[5].z -= bossA6->fwork[A6_FWK_0];
-        Animation_DrawSkeleton(1, D_6018BA0, spD0, NULL, NULL, &bossA6->index, &gIdentityMatrix);
+        Animation_DrawSkeleton(1, D_A6_6018BA0, spD0, NULL, NULL, &bossA6->index, &gIdentityMatrix);
         if (bossA6->unk_3F8 >= 1.0f) {
             for (i = 0; i < 3; i++) {
                 if ((bossA6->swork[A6_SWK_33 + i] == 0) && (bossA6->state != 3) &&
@@ -1952,7 +1952,7 @@ void func_i3_8018C54C(Boss* bossA6) {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) D_i3_801C22F0.unk_24);
         }
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_601B2B0);
+        gSPDisplayList(gMasterDisp++, D_A6_601B2B0);
         Matrix_Pop(&gGfxMatrix);
         RCP_SetupDL(&gMasterDisp, 0x47);
         if (D_i3_801C22F0.unk_24 != 255.0f) {
@@ -1964,7 +1964,7 @@ void func_i3_8018C54C(Boss* bossA6) {
         }
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 74.0f, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_6011910);
+        gSPDisplayList(gMasterDisp++, D_A6_6011910);
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 74.0f, 1);
     }
 }

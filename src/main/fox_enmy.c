@@ -3,6 +3,9 @@
 #include "assets/ast_sector_x.h"
 #include "assets/ast_aquas.h"
 #include "assets/ast_andross.h"
+#include "assets/ast_area_6.h"
+#include "assets/ast_training.h"
+#include "assets/ast_vs_player.h"
 
 s32 D_Timer_80161670[4];
 s32 D_80161680;
@@ -11,9 +14,9 @@ u8 D_80161684;
 #include "fox_enmy_assets.h"
 
 ObjectInit* D_800CFDA0[] = {
-    D_60371A4, D_6026CC4, D_SX_602A164, D_6023F64,    D_60287A4, D_602E4F4, D_6007E74,
-    D_601F234, D_6026714, D_0C035154,   D_TR_6006AA4, D_6031000, D_6006C60, D_602E5C8,
-    D_600EAD4, NULL,      D_6011044,    D_600FF74,    D_6006EB4, D_6014D94, D_0302DE3C,
+    D_60371A4, D_6026CC4, D_SX_602A164, D_A6_6023F64, D_A6_60287A4, D_602E4F4, D_6007E74,
+    D_601F234, D_6026714, D_C035154,    D_TR_6006AA4, D_6031000,    D_6006C60, D_602E5C8,
+    D_600EAD4, NULL,      D_6011044,    D_600FF74,    D_6006EB4,    D_6014D94, D_vs_player_302DE3C,
 };
 s32 D_800CFDF4[] = {
     OBJ_80_0,
@@ -2005,12 +2008,12 @@ void func_8006753C(Actor* actor) {
             Object_Kill(&actor->obj, actor->sfxSource);
         }
     }
-    gUnkEntities28[63].unk_00 = 1;
-    gUnkEntities28[63].unk_02 = 103;
-    gUnkEntities28[63].pos.x = actor->obj.pos.x;
-    gUnkEntities28[63].pos.y = actor->obj.pos.y;
-    gUnkEntities28[63].pos.z = actor->obj.pos.z;
-    gUnkEntities28[63].unk_10 = 0.0f;
+    gRadarMarks[63].unk_00 = 1;
+    gRadarMarks[63].unk_02 = 103;
+    gRadarMarks[63].pos.x = actor->obj.pos.x;
+    gRadarMarks[63].pos.y = actor->obj.pos.y;
+    gRadarMarks[63].pos.z = actor->obj.pos.z;
+    gRadarMarks[63].unk_10 = 0.0f;
 }
 
 void func_80067874(Actor* actor) {
@@ -2768,64 +2771,64 @@ void Effect_Update(Effect* effect) {
     }
 }
 
-void func_8006A06C(UnkEntity30* ent30) {
+void TexturedLine_Update(TexturedLine* texLine) {
     Vec3f sp44;
     Vec3f sp38;
     f32 sp34;
     f32 sp30;
     f32 sp2C;
 
-    if (ent30->timer != 0) {
-        ent30->timer--;
+    if (texLine->timer != 0) {
+        texLine->timer--;
     }
-    sp34 = ent30->unk_04.x - ent30->unk_10.x;
-    sp30 = ent30->unk_04.y - ent30->unk_10.y;
-    sp2C = ent30->unk_04.z - ent30->unk_10.z;
-    ent30->unk_20 = Math_Atan2F(sp34, sp2C);
-    ent30->unk_1C = -Math_Atan2F(sp30, sqrtf(SQ(sp34) + SQ(sp2C)));
-    if (ent30->mode != 4) {
-        ent30->unk_24 = sqrtf(SQ(sp34) + SQ(sp30) + SQ(sp2C));
+    sp34 = texLine->unk_04.x - texLine->unk_10.x;
+    sp30 = texLine->unk_04.y - texLine->unk_10.y;
+    sp2C = texLine->unk_04.z - texLine->unk_10.z;
+    texLine->unk_20 = Math_Atan2F(sp34, sp2C);
+    texLine->unk_1C = -Math_Atan2F(sp30, sqrtf(SQ(sp34) + SQ(sp2C)));
+    if (texLine->mode != 4) {
+        texLine->unk_24 = sqrtf(SQ(sp34) + SQ(sp30) + SQ(sp2C));
     }
     if (gGameState == GSTATE_PLAY) {
-        if (((ent30->mode == 1) || (ent30->mode == 101) || (ent30->mode == 50)) &&
+        if (((texLine->mode == 1) || (texLine->mode == 101) || (texLine->mode == 50)) &&
             (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && (gPlayer[0].unk_1F4 == 0)) {
-            Matrix_RotateX(gCalcMatrix, -ent30->unk_1C, 0);
-            Matrix_RotateY(gCalcMatrix, -ent30->unk_20, 1);
-            sp44.x = gPlayer[gPlayerNum].pos.x - ent30->unk_04.x;
-            sp44.y = gPlayer[gPlayerNum].pos.y - ent30->unk_04.y;
-            sp44.z = gPlayer[gPlayerNum].unk_138 - ent30->unk_04.z;
+            Matrix_RotateX(gCalcMatrix, -texLine->unk_1C, 0);
+            Matrix_RotateY(gCalcMatrix, -texLine->unk_20, 1);
+            sp44.x = gPlayer[gPlayerNum].pos.x - texLine->unk_04.x;
+            sp44.y = gPlayer[gPlayerNum].pos.y - texLine->unk_04.y;
+            sp44.z = gPlayer[gPlayerNum].unk_138 - texLine->unk_04.z;
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
-            sp38.x += ent30->unk_04.x;
-            sp38.y += ent30->unk_04.y;
-            sp38.z += ent30->unk_04.z;
-            if ((fabsf(sp38.x - ent30->unk_04.x) < 30.0f) && (fabsf(sp38.y - ent30->unk_04.y) < 30.0f) &&
-                (sp38.z < ent30->unk_04.z) && ((ent30->unk_04.z - ent30->unk_24) < sp38.z)) {
+            sp38.x += texLine->unk_04.x;
+            sp38.y += texLine->unk_04.y;
+            sp38.z += texLine->unk_04.z;
+            if ((fabsf(sp38.x - texLine->unk_04.x) < 30.0f) && (fabsf(sp38.y - texLine->unk_04.y) < 30.0f) &&
+                (sp38.z < texLine->unk_04.z) && ((texLine->unk_04.z - texLine->unk_24) < sp38.z)) {
                 if (gCurrentLevel == LEVEL_AQUAS) {
                     Player_ApplyDamage(&gPlayer[0], 0, 30);
                 } else {
                     Player_ApplyDamage(&gPlayer[0], 0, 20);
                 }
-                if (ent30->mode < 100) {
-                    ent30->mode = 0;
+                if (texLine->mode < 100) {
+                    texLine->mode = 0;
                 }
             }
         }
-        if (((ent30->unk_04.z + D_80177D20) > 1000.0f) && (gLevelMode != LEVELMODE_ALL_RANGE)) {
-            ent30->mode = 0;
+        if (((texLine->unk_04.z + D_80177D20) > 1000.0f) && (gLevelMode != LEVELMODE_ALL_RANGE)) {
+            texLine->mode = 0;
         }
-        if (((ent30->mode == 3) || (ent30->mode == 50)) && (ent30->timer == 0)) {
-            ent30->mode = 0;
+        if (((texLine->mode == 3) || (texLine->mode == 50)) && (texLine->timer == 0)) {
+            texLine->mode = 0;
         }
     }
 }
 
-void func_8006A38C(void) {
-    UnkEntity30* ent30;
+void TexturedLine_UpdateAll(void) {
+    TexturedLine* texLine;
     s32 i;
 
-    for (i = 0, ent30 = gUnkEntities30; i < ARRAY_COUNT(gUnkEntities30); i++, ent30++) {
-        if (ent30->mode != 0) {
-            func_8006A06C(ent30);
+    for (i = 0, texLine = gTexturedLines; i < ARRAY_COUNT(gTexturedLines); i++, texLine++) {
+        if (texLine->mode != 0) {
+            TexturedLine_Update(texLine);
         }
     }
 }
@@ -2899,7 +2902,7 @@ void Object_UpdateAll(void) {
             Effect_Update(effect);
         }
     }
-    func_8006A38C();
+    TexturedLine_UpdateAll();
     for (i = 0; i < ARRAY_COUNT(D_Timer_80161670); i++) {
         if (D_Timer_80161670[i] != 0) {
             D_Timer_80161670[i]--;

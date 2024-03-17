@@ -1,10 +1,10 @@
 #ifndef PREVENT_CONTEXT_REORDERING_H
 #define PREVENT_CONTEXT_REORDERING_H
 
-extern int Dummyhalf;
+// extern int Dummyhalf;
 // struct Dummy0 {int x;};
 // struct Dummy1 {int x;};
-struct Dummy2 {int x;};
+// struct Dummy2 {int x;};
 struct Dummy3 {int x;};
 struct Dummy4 {int x;};
 struct Dummy5 {int x;};
