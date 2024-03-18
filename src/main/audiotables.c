@@ -16,7 +16,7 @@ AudioTableEntry gSampleBankTableInitEntries[4] = {
     { 0x678C80, 0xC3900, 2, 4, 0, 0, 0 },
 };
 
-AudioTableBase gSeqTableInit = { 0x42, 0, 0 };
+AudioTableBase gSeqTableInit = { 66, 0, 0 };
 AudioTableEntry gSeqTableInitEntries[66] = {
     /* 00 */ { 0, 0x3AF0, 2, 0, 0, 0, 0 },
     /* 01 */ { 0x3AF0, 0x56B0, 2, 0, 0, 0, 0 },
@@ -85,8 +85,8 @@ AudioTableEntry gSeqTableInitEntries[66] = {
     /* 64 */ { 0x385C0, 0xFB0, 2, 3, 0, 0, 0 },
     /* 65 */ { 0x39570, 0x1780, 2, 3, 0, 0, 0 },
 };
-AudioTableBase gSoundFontTableInit = { 0x21, 0, 0 };
-AudioTableEntry gSoundFontTableInitEntries[0x21] = {
+AudioTableBase gSoundFontTableInit = { 33, 0, 0 };
+AudioTableEntry gSoundFontTableInitEntries[33] = {
     { 0, 0x2F00, 2, 0, 0xFF, 0x7F00, 0 },        { 0x2F00, 0xFE0, 2, 0, 0x1FF, 0x7F00, 0 },
     { 0x3EE0, 0x640, 2, 0, 0x2FF, 0x7F00, 0 },   { 0x4520, 0x1560, 2, 0, 0x2FF, 0x7F00, 0 },
     { 0x5A80, 0xC00, 2, 0, 0x2FF, 0x7F00, 0 },   { 0x6680, 0xDE0, 2, 0, 0x2FF, 0x7F00, 0 },

@@ -4587,6 +4587,7 @@ void func_i5_801A7E7C(Actor* actor) {
             Math_SmoothStepToF(&actor->obj.rot.y, 0.0f, 0.1f, 20.0f, 0.01f);
             if (actor->obj.pos.z < -135200.0f) {
                 BonusText_Display(actor->obj.pos.x, actor->obj.pos.y + sp374, actor->obj.pos.z, 50);
+                if (1) {}
                 gHitCount += 51;
                 D_80177850 = 15;
                 func_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 20.0f);

@@ -3770,7 +3770,7 @@ void func_i3_801B6344(Actor* actor) {
 }
 
 #ifdef NON_MATCHING
-// The big spherical angle calculation has some reg swaps. BonusText_Display has a return?
+// The big spherical angle calculation has a reg swap.
 // https://decomp.me/scratch/DLrGN
 void func_i3_801B638C(Actor* actor) {
     Actor* var_v0;
@@ -3872,9 +3872,9 @@ void func_i3_801B638C(Actor* actor) {
                         }
                     }
                 }
-                temp_dx = actor->obj.pos.x - actor->fwork[15];
-                temp_dz = actor->obj.pos.z - actor->fwork[16];
-                sp98 = sqrtf(SQ(temp_dx) + SQ(temp_dz));
+                // temp_dx = actor->obj.pos.x - actor->fwork[15];
+                // temp_dz = actor->obj.pos.z - actor->fwork[16];
+                sp98 = sqrtf(SQ(actor->obj.pos.z - actor->fwork[16]) + SQ(actor->obj.pos.x - actor->fwork[15]));
                 actor->fwork[13] -= 20.0f;
                 actor->fwork[14] += 5.0f;
                 spB4 = SIN_DEG(actor->fwork[13]) * sp98 * 0.1f;
@@ -3954,8 +3954,9 @@ void func_i3_801B6E54(Actor* actor) {
 
 // OBJ_ACTOR_262 action
 #ifdef NON_MATCHING
-// reloads 0.0f for temp_fs2_2. BonusText_Display has a return?
+// reloads 0.0f for temp_fs2_2.
 // https://decomp.me/scratch/02s9H
+
 void func_i3_801B6FF8(Actor* actor) {
     s32 i;
     f32 temp_dx;
@@ -4027,8 +4028,7 @@ void func_i3_801B6FF8(Actor* actor) {
         case 1:
             Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
             Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
-            sp9C.x = 0.0f;
-            sp9C.y = 0.0f;
+            sp9C.y = sp9C.x = 0.0f;
             sp9C.z = 19.0f;
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp9C, &sp90);
             actor->vel.x = sp90.x;
@@ -4552,9 +4552,6 @@ void func_i3_801B90DC(Actor* actor) {
 }
 
 // OBJ_ACTOR_263 action
-#ifdef NON_MATCHING
-// BonusText_Display has a return?
-// https://decomp.me/scratch/OwFpS
 void func_i3_801B91A4(Actor* actor) {
     Vec3f spDC = { 0.0f, 0.0f, 50.0f };
     Vec3f spD0;
@@ -4712,10 +4709,6 @@ void func_i3_801B91A4(Actor* actor) {
         }
     }
 }
-#else
-Vec3f D_i3_801C0314 = { 0.0f, 0.0f, 50.0f };
-#pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_i3/fox_aq/func_i3_801B91A4.s")
-#endif
 
 void func_i3_801B9DB0(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp34 = { 0.0f, 0.0f, 0.0f };

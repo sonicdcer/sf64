@@ -32,7 +32,7 @@ extern Gfx D_9013C20[];
 #include "assets/ast_aquas.h"
 #include "assets/ast_A_ti.h"
 
-void BonusText_Display(f32 xPos, f32 yPos, f32 zPos, s32 hits) {
+s32 BonusText_Display(f32 xPos, f32 yPos, f32 zPos, s32 hits) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gBonusText); i++) {

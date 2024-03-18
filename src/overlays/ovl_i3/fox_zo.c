@@ -1291,7 +1291,6 @@ void func_i3_80192094(Actor* actor) {
             BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 5);
             gHitCount += 6;
             D_80177850 = 15;
-            if (actor->unk_0D0 && actor->unk_0D0) {}
             actor->state = 4;
         }
         actor->unk_0D0 = 0;
@@ -1511,7 +1510,6 @@ void func_i3_80192E64(Actor* actor) {
                 BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 2);
                 gHitCount += 3;
                 D_80177850 = 15;
-                if ((actor->unk_0D0) && (actor->unk_0D0)) {} // fake
                 actor->state = 3;
             }
         } else {
@@ -4140,7 +4138,6 @@ void func_i3_8019BE48(Actor* actor) {
                     if (D_80161684 == 0) {
                         BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + 200.0f, 2);
                         gHitCount += 2;
-                        if (actor->unk_0D0 && actor->unk_0D0) {}
                     }
                     actor->health = actor->unk_044 = 0;
                     func_80066254(actor);

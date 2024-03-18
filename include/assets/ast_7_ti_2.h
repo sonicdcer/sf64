@@ -18,5 +18,6 @@ extern Gfx D_7004E80[];
 extern Gfx D_7005300[];
 extern Gfx D_7009700[];
 extern Gfx D_7009890[];
+extern Gfx D_7009A80[];
 
 #endif

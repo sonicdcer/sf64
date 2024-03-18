@@ -237,7 +237,7 @@ void func_80077218(Actor*);
 
 // fox_effect
 s32 func_80081B24(f32 xPos, f32 yPos, f32 zPos, f32 scale2);
-void BonusText_Display(f32 xPos, f32 yPos, f32 zPos, s32 hits);
+s32 BonusText_Display(f32 xPos, f32 yPos, f32 zPos, s32 hits);
 void BonusText_Update(void);
 void BonusText_DrawAll(void);
 Effect* func_8007783C(ObjectId objId);
