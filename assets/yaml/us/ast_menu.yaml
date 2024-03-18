@@ -97,9 +97,51 @@ D_MENU_600E210:
 
 # The Forever Train
 D_MENU_600F390:
-  { type: TEXTURE, format: IA8, offset: 0x600F390, width: 168, height: 19, ctype: u8, symbol: D_MENU_600F390 }
+  { type: TEXTURE, format: IA8, offset: 0x600F390, width: 168, height: 19, ctype: u8, symbol: D_MENU_600F390, pad: 8 }
 
+# Solar
+D_MENU_6010010:
+  { type: TEXTURE, format: IA8, offset: 0x6010010, width: 112, height: 13, ctype: u8, symbol: D_MENU_6010010 }
 
+# Out of the Frying Pan.
+D_MENU_60105C0:
+  { type: TEXTURE, format: IA8, offset: 0x60105C0, width: 224, height: 19, ctype: u8, symbol: D_MENU_60105C0 }
+
+# Sector X Combat Zone
+D_MENU_6011660:
+  { type: TEXTURE, format: IA8, offset: 0x6011660, width: 176, height: 12, ctype: u8, symbol: D_MENU_6011660 }
+
+# Mystery of the Space Base
+D_MENU_6011EA0:
+  { type: TEXTURE, format: IA8, offset: 0x6011EA0, width: 256, height: 19, ctype: u8, symbol: D_MENU_6011EA0 }
+
+# Sector Y Combat Zone
+D_MENU_60131A0:
+  { type: TEXTURE, format: IA8, offset: 0x60131A0, width: 176, height: 12, ctype: u8, symbol: D_MENU_60131A0 }
+
+# Fierce Melee
+D_MENU_60139E0:
+  { type: TEXTURE, format: IA8, offset: 0x60139E0, width: 128, height: 19, ctype: u8, symbol: D_MENU_60139E0 }
+
+# Sector Z Combat Zone
+D_MENU_6014360:
+  { type: TEXTURE, format: IA8, offset: 0x6014360, width: 176, height: 12, ctype: u8, symbol: D_MENU_6014360 }
+
+# The Ambush of Great Fox
+D_MENU_6014BA0:
+  { type: TEXTURE, format: IA8, offset: 0x6014BA0, width: 232, height: 19, ctype: u8, symbol: D_MENU_6014BA0, pad: 8 }
+
+# Titania
+# Arid Desert
+D_MENU_6015CE0:
+  { type: TEXTURE, format: IA8, offset: 0x6015CE0, width: 96, height: 28, ctype: u8, symbol: D_MENU_6015CE0 }
+
+# The Search for Slippy
+D_MENU_6016760:
+  { type: TEXTURE, format: IA8, offset: 0x6016760, width: 200, height: 18, ctype: u8, symbol: D_MENU_6016760 }
+
+D_MENU_6017570: # WRONG ?
+  { type: TEXTURE, format: IA8, offset: 0x6017570, width: 200, height: 18, ctype: u8, symbol: D_MENU_6017570 }
 
 
 
