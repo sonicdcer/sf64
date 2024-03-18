@@ -138,10 +138,26 @@ D_MENU_6015CE0:
 
 # The Search for Slippy
 D_MENU_6016760:
-  { type: TEXTURE, format: IA8, offset: 0x6016760, width: 200, height: 18, ctype: u8, symbol: D_MENU_6016760 }
+  { type: TEXTURE, format: IA8, offset: 0x6016760, width: 200, height: 19, ctype: u8, symbol: D_MENU_6016760, pad: 8 }
 
-D_MENU_6017570: # WRONG ?
-  { type: TEXTURE, format: IA8, offset: 0x6017570, width: 200, height: 18, ctype: u8, symbol: D_MENU_6017570 }
+# Zones
+# Toxic Waste Area
+D_MENU_6017640: 
+  { type: TEXTURE, format: IA8, offset: 0x6017640, width: 112, height: 28, ctype: u8, symbol: D_MENU_6017640 }
+
+# Invasion Aftermath
+D_MENU_6018280: 
+  { type: TEXTURE, format: IA8, offset: 0x6018280, width: 184, height: 19, ctype: u8, symbol: D_MENU_6018280, pad: 8 }
+
+# Clouds ?
+D_MENU_6019030: 
+  { type: TEXTURE, format: IA8, offset: 0x6019030, width: 8, height: 16, ctype: u8, symbol: D_MENU_6019030 }
+
+D_MENU_60190B0: 
+  { type: TEXTURE, format: IA8, offset: 0x60190B0, width: 96, height: 96, ctype: u8, symbol: D_MENU_60190B0 }
+
+D_MENU_601B4B0: 
+  { type: TEXTURE, format: IA8, offset: 0x601B4B0, width: 24, height: 17, ctype: u8, symbol: D_MENU_601B4B0 }
 
 
 

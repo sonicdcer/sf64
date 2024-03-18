@@ -36,6 +36,10 @@ extern u8 D_MENU_6014360[];
 extern u8 D_MENU_6014BA0[];
 extern u8 D_MENU_6015CE0[];
 extern u8 D_MENU_6016760[];
-extern u8 D_MENU_6017570[];
+extern u8 D_MENU_6017640[];
+extern u8 D_MENU_6018280[];
+extern u8 D_MENU_6019030[];
+extern u8 D_MENU_60190B0[];
+extern u8 D_MENU_601B4B0[];
 
 #endif
