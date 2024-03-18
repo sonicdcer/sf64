@@ -1,0 +1,14 @@
+header:
+  type: AUDIO:HEADER
+  ctl: # audio_bank
+    offset: 0x119710
+    size: 0x1E020
+  tbl: # audio_table
+    offset: 0x137730
+    size: 0x73C580
+  ctl_header: # gSoundFontTableInit
+    offset: 0xC4690
+    size: 0x220
+  tbl_header: # gSampleBankTableInit
+    offset: 0xC4210
+    size: 0x50
