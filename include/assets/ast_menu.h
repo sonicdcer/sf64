@@ -62,5 +62,7 @@ extern Vtx ast_menu_seg6_vtx_1E298[];
 extern Vtx ast_menu_seg6_vtx_1E498[];
 extern Vtx ast_menu_seg6_vtx_1E698[];
 extern Vtx ast_menu_seg6_vtx_1E7D8[];
+extern u8 D_MENU_601F2B0[];
+extern u16 D_MENU_601F4B0[];
 
 #endif
