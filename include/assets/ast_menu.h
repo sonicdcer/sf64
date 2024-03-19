@@ -62,6 +62,15 @@ extern Vtx ast_menu_seg6_vtx_1E298[];
 extern Vtx ast_menu_seg6_vtx_1E498[];
 extern Vtx ast_menu_seg6_vtx_1E698[];
 extern Vtx ast_menu_seg6_vtx_1E7D8[];
+extern u8 D_MENU_601E8F8[];
+extern u16 D_MENU_601E978[];
+extern Gfx D_MENU_601E9A0[];
+extern Vtx ast_menu_seg6_vtx_1EC60[];
+extern Vtx ast_menu_seg6_vtx_1EDF0[];
+extern Vtx ast_menu_seg6_vtx_1EE30[];
+extern Vtx ast_menu_seg6_vtx_1F020[];
+extern Vtx ast_menu_seg6_vtx_1F220[];
+extern Vtx ast_menu_seg6_vtx_1F280[];
 extern u8 D_MENU_601F2B0[];
 extern u16 D_MENU_601F4B0[];
 

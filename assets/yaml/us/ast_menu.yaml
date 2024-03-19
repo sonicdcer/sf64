@@ -202,4 +202,13 @@ D_MENU_601F2B0:
 D_MENU_601F4B0:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0601F4B0, symbol: D_MENU_601F4B0 }
 
+D_MENU_601E8F8:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0601E8F8, symbol: D_MENU_601E8F8, tlut: 0x0601E978 }
+
+D_MENU_601E978:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0601E978, symbol: D_MENU_601E978, pad: 8 }
+
+D_MENU_601E9A0:
+  { type: GFX, offset: 0x601E9A0, symbol: D_MENU_601E9A0 }
+
 # size = 0x60EA0
