@@ -1,6 +1,7 @@
 // #include "prevent_bss_reordering.h"
 #include "global.h"
 #include "fox_option.h"
+#include "assets/ast_versus.h"
 
 s32 D_80178750;
 s32 D_80178754;
@@ -81,7 +82,7 @@ void func_800BC760(void) {
 }
 
 void func_800BC88C(f32 xPos, f32 yPos, f32 scale) {
-    TextureRect_8bIA(&gMasterDisp, &D_7003830, 64, 17, xPos, yPos, scale, scale);
+    TextureRect_8bIA(&gMasterDisp, &D_VS_7003830, 64, 17, xPos, yPos, scale, scale);
 }
 
 void func_800BC8D8(f32 xPos, f32 yPos, f32 scale) {
@@ -170,41 +171,42 @@ void func_800BD10C(f32 xPos, f32 yPos, f32 scale) {
 }
 
 void func_800BD164(f32 xPos, f32 yPos) {
-    TextureRect_8bIA(&gMasterDisp, D_7003C70, 16, 16, xPos, yPos, 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, D_VS_7003C70, 16, 16, xPos, yPos, 1.0f, 1.0f);
 }
 
 void func_800BD1B0(f32 xPos, f32 yPos) {
-    TextureRect_8bIA(&gMasterDisp, D_7003F10, 16, 16, xPos, yPos, 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, D_VS_7003F10, 16, 16, xPos, yPos, 1.0f, 1.0f);
 }
 
 void func_800BD1FC(f32 xPos, f32 yPos) {
-    TextureRect_8bIA(&gMasterDisp, D_7003E10, 16, 16, xPos, yPos, 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, D_VS_7003E10, 16, 16, xPos, yPos, 1.0f, 1.0f);
 }
 
 void func_800BD248(f32 xPos, f32 yPos) {
-    TextureRect_8bCI(&gMasterDisp, D_7004050, D_7004150, 16, 16, xPos, yPos, 1.0f, 1.0f);
+    TextureRect_8bCI(&gMasterDisp, D_VS_7004050, D_VS_7004150, 16, 16, xPos, yPos, 1.0f, 1.0f);
 }
 
 void func_800BD2A0(f32 xPos, f32 yPos) {
-    TextureRect_8bCI(&gMasterDisp, D_70041F0, D_70042F0, 16, 16, xPos, yPos, 1.0f, 1.0f);
+    TextureRect_8bCI(&gMasterDisp, D_VS_70041F0, D_VS_70042F0, 16, 16, xPos, yPos, 1.0f, 1.0f);
 }
 
 void func_800BD2F8(f32 xPos, f32 yPos) {
-    TextureRect_8bCI(&gMasterDisp, D_7004360, D_7004460, 16, 16, xPos, yPos, 1.0f, 1.0f);
+    TextureRect_8bCI(&gMasterDisp, D_VS_7004360, D_VS_7004460, 16, 16, xPos, yPos, 1.0f, 1.0f);
 }
 
 void func_800BD350(f32 xPos, f32 yPos) {
-    TextureRect_8bCI(&gMasterDisp, D_70044D0, D_7004990, 64, 19, xPos, yPos, 1.0f, 1.0f);
+    TextureRect_8bCI(&gMasterDisp, D_VS_70044D0, D_VS_7004990, 64, 19, xPos, yPos, 1.0f, 1.0f);
 }
 
 void func_800BD3A8(f32 xPos, f32 yPos) {
     s32 i;
 
     for (i = 0; i < 8; i++) {
-        TextureRect_4bCI(&gMasterDisp, D_70118E0 + ((80 * 8 * i) / 2), D_70123F8, 80, 8, xPos, yPos + (i * 8), 1.0f,
-                         1.0f);
+        TextureRect_4bCI(&gMasterDisp, D_VS_70118E0 + ((80 * 8 * i) / 2), D_VS_70123F8, 80, 8, xPos, yPos + (i * 8),
+                         1.0f, 1.0f);
     }
-    TextureRect_4bCI(&gMasterDisp, D_70118E0 + ((80 * 8 * i) / 2), D_70123F8, 80, 7, xPos, yPos + (i * 8), 1.0f, 1.0f);
+    TextureRect_4bCI(&gMasterDisp, D_VS_70118E0 + ((80 * 8 * i) / 2), D_VS_70123F8, 80, 7, xPos, yPos + (i * 8), 1.0f,
+                     1.0f);
 }
 
 void func_800BD4D4(f32 xPos, f32 yPos, s32 arg2) {

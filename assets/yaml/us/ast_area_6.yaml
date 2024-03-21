@@ -36,9 +36,6 @@ D_A6_6006620:
 D_A6_6006A40:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 4, offset: 0x6006A40, symbol: D_A6_6006A40}
 
-PAD_A6_6006A48:
-  { type: BLOB, size: 0x8, offset: 0x6006A48, symbol: PAD_A6_6006A48}
-
 D_A6_6008918:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06008918, symbol: D_A6_6008918 }
 
@@ -57,15 +54,6 @@ D_A6_6009718:
 D_A6_6009B18:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06009B18, symbol: D_A6_6009B18 }
 
-PAD_A6_600A318:
-  { type: BLOB, size: 0x8, offset: 0x600A318, symbol: PAD_A6_600A318}
-
-PAD_A6_600C1E8:
-  { type: BLOB, size: 0x8, offset: 0x600C1E8, symbol: PAD_A6_600C1E8}
-
-PAD_A6_600E0B8:
-  { type: BLOB, size: 0x8, offset: 0x600E0B8, symbol: PAD_A6_600E0B8}
-
 D_A6_600E0C0:
   { type: GFX, offset: 0x600E0C0, symbol: D_A6_600E0C0 }
 
@@ -74,9 +62,6 @@ D_A6_600EBE8:
 
 D_A6_600EFE8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0600EFE8, symbol: D_A6_600EFE8 }
-
-PAD_A6_600F1E8:
-  { type: BLOB, size: 0x8, offset: 0x600F1E8, symbol: PAD_A6_600F1E8}
 
 D_A6_600F1F0:
   { type: GFX, offset: 0x600F1F0, symbol: D_A6_600F1F0 }
@@ -96,17 +81,11 @@ D_A6_6011688:
 D_A6_6011888:
   { type: TEXTURE, ctype: u16, format: RGBA16, width:  8, height:  8, offset: 0x06011888, symbol: D_A6_6011888 }
 
-PAD_A6_6011908:
-  { type: BLOB, size: 0x8, offset: 0x6011908, symbol: PAD_A6_6011908}
-
 D_A6_6011910:
   { type: GFX, offset: 0x6011910, symbol: D_A6_6011910 }
 
 D_A6_6011D48:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06011D48, symbol: D_A6_6011D48 }
-
-PAD_A6_6012548:
-  { type: BLOB, size: 0x8, offset: 0x6012548, symbol: PAD_A6_6012548}
 
 D_A6_6012550:
   { type: GFX, offset: 0x6012550, symbol: D_A6_6012550 }
@@ -132,14 +111,8 @@ D_A6_60154D8:
 D_A6_6015CD8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06015CD8, symbol: D_A6_6015CD8 }
 
-PAD_A6_6015ED8:
-  { type: BLOB, size: 0x8, offset: 0x6015ED8, symbol: PAD_A6_6015ED8}
-
 D_A6_6015EE0:
   { type: GFX, offset: 0x6015EE0, symbol: D_A6_6015EE0 }
-
-PAD_A6_6016188:
-  { type: BLOB, size: 0x8, offset: 0x6016188, symbol: PAD_A6_6016188}
 
 D_A6_6016190:
   { type: GFX, offset: 0x6016190, symbol: D_A6_6016190 }
@@ -168,17 +141,11 @@ D_A6_60187F8:
 D_A6_6018878:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0x6018878, symbol: D_A6_6018878}
 
-PAD_A6_6018888:
-  { type: BLOB, size: 0x8, offset: 0x6018888, symbol: PAD_A6_6018888}
-
 D_A6_6018994:
   { type: SF64:ANIM, offset: 0x6018994, symbol: D_A6_6018994 }
 
 D_A6_6018BA0:
   { type: SF64:SKELETON, offset: 0x6018BA0, symbol: D_A6_6018BA0 }
-
-PAD_A6_6018BE4:
-  { type: BLOB, size: 0xC, offset: 0x6018BE4, symbol: PAD_A6_6018BE4}
 
 D_A6_6018BF0:
   { type: GFX, offset: 0x6018BF0, symbol: D_A6_6018BF0 }
@@ -216,17 +183,11 @@ D_A6_601AA20:
 D_A6_601AAA8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0601AAA8, symbol: D_A6_601AAA8 }
 
-PAD_A6_601B2A8:
-  { type: BLOB, size: 0x8, offset: 0x601B2A8, symbol: PAD_A6_601B2A8}
-
 D_A6_601B2B0:
   { type: GFX, offset: 0x601B2B0, symbol: D_A6_601B2B0 }
 
 D_A6_601B338:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0601B338, symbol: D_A6_601B338 }
-
-PAD_A6_601BB38:
-  { type: BLOB, size: 0x8, offset: 0x601BB38, symbol: PAD_A6_601BB38}
 
 D_A6_601BB40:
   { type: GFX, offset: 0x601BB40, symbol: D_A6_601BB40 }
@@ -278,9 +239,6 @@ D_A6_6028454:
 
 D_A6_6028578:
   { type: SF64:HITBOX, offset: 0x6028578, symbol: D_A6_6028578 }
-
-PAD_A6_6028754:
-  { type: BLOB, size: 0xC, offset: 0x6028754, symbol: PAD_A6_6028754}
 
 D_A6_6028760:
   { type: SF64:ENV_SETTINGS, offset: 0x6028760, symbol: D_A6_6028760}

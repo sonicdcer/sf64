@@ -58,7 +58,7 @@ D_D0098B0:
   { type: GFX, offset: 0xD0098B0, symbol: D_D0098B0 }
 
 D_D009938:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 16, offset: 0x0D009938, symbol: D_D009938, pad: 8 }
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 16, offset: 0x0D009938, symbol: D_D009938 }
 
 D_D009A40:
   { type: GFX, offset: 0xD009A40, symbol: D_D009A40 }
@@ -76,7 +76,7 @@ D_D00AFB8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 16, offset: 0x0D00AFB8, symbol: D_D00AFB8 }
 
 D_D00B3B8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0D00B3B8, symbol: D_D00B3B8, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0D00B3B8, symbol: D_D00B3B8 }
 
 D_D00B5C0:
   { type: GFX, offset: 0xD00B5C0, symbol: D_D00B5C0 }
@@ -86,7 +86,7 @@ D_D00B688:
   { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0D00B688, symbol: D_D00B688, tlut: 0xD00B708 }
 
 D_D00B708:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0xD00B708, symbol: D_D00B708, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0xD00B708, symbol: D_D00B708 }
 
 D_D00B720:
   { type: GFX, offset: 0xD00B720, symbol: D_D00B720 }

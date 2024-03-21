@@ -3,6 +3,7 @@
 #include "assets/ast_star_wolf.h"
 #include "assets/ast_allies.h"
 #include "assets/ast_vs_player.h"
+#include "assets/ast_enmy_planet.h"
 
 /* static */ Vec3f D_800C9A90 = { 0.0f, -10.0f, 0.0f };
 /* static */ Vec3f D_800C9A9C[4] = {

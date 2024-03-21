@@ -75,11 +75,11 @@ D_50021F0:
 
 # ACCOM
 D_50022F0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 120, height: 23, offset: 0x50022F0, symbol: D_50022F0, pad: 8 }
+  { type: TEXTURE, ctype: u8, format: IA8, width: 120, height: 23, offset: 0x50022F0, symbol: D_50022F0 }
 
 # PLISHED
 D_5002DC0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 136, height: 23, offset: 0x5002DC0, symbol: D_5002DC0, pad: 8 }
+  { type: TEXTURE, ctype: u8, format: IA8, width: 136, height: 23, offset: 0x5002DC0, symbol: D_5002DC0 }
 
 # MISSION
 D_5003A00:
@@ -367,7 +367,7 @@ D_500A7D0:
 
 # 終 (Japanese letter meaning END)
 D_500A8C0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 56, height: 49, offset: 0x500A8C0, symbol: D_500A8C0, pad: 8 }
+  { type: TEXTURE, ctype: u8, format: IA8, width: 56, height: 49, offset: 0x500A8C0, symbol: D_500A8C0 }
 
 # T (small)
 D_500B380:

@@ -119,23 +119,39 @@
 
   - name: ast_7_ti_2
     exclusive_ram_id: segment_07
-    type: bin
+    type: code
+    dir: assets
+    vram: 0x07000000
     start: 0x9DD390
+    subsegments:
+      - [0x9DD390, .data, ast_7_ti_2/ast_7_ti_2]
 
   - name: ast_8_ti
     exclusive_ram_id: segment_08
-    type: bin
+    type: code
+    dir: assets
     start: 0x9EB5E0
+    vram: 0x08000000
+    subsegments:
+      - [0x9EB5E0, .data, ast_8_ti/ast_8_ti]
 
   - name: ast_9_ti
     exclusive_ram_id: segment_09
-    type: bin
+    type: code
+    dir: assets
     start: 0x9F4880
+    vram: 0x09000000
+    subsegments:
+      - [0x9F4880, .data, ast_9_ti/ast_9_ti]
 
   - name: ast_A_ti
+    type: code
+    dir: assets
     exclusive_ram_id: segment_0A
-    type: bin
     start: 0xA049A0
+    vram: 0x0A000000
+    subsegments:
+      - [0xA049A0, .data, ast_A_ti/ast_A_ti]
 
   - name: ast_7_ti_1
     exclusive_ram_id: segment_07

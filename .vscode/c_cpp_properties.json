@@ -15,6 +15,7 @@
             ],
             "defines": [
                 "_LANGUAGE_C",
+                "__sgi",
                 "_MIPS_SZLONG=32",
                 "F3DEX_GBI"
             ],
