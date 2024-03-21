@@ -19,6 +19,15 @@
 
 // placed before global.h for reordering reasons
 
+typedef struct {
+    /* 0x00 */ u8* unk_00;
+    /* 0x04 */ s32 width;
+    /* 0x08 */ s32 height;
+    /* 0x0C */ u8* unk_0C;
+    /* 0x10 */ s32 unk_10;
+    /* 0x14 */ s32 unk_14;
+} UnkStruct_D_800D1AEC;
+
 Vec3f D_801616A0;
 Vec3f D_801616B0;
 f32 D_801616BC;
@@ -73,7 +82,7 @@ s32 D_80161900[20];
 // BSS SECTION END
 
 #include "global.h"
-#include "hud.h"
+#include "assets.h"
 
 void func_80087788(void);
 

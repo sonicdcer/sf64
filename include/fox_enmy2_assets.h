@@ -1,7 +1,7 @@
 #ifndef FOX_ENMY2_ASSETS_H
 #define FOX_ENMY2_ASSETS_H
 
-#include "global.h"
+#include "sys.h"
 
 // Displaylists
 

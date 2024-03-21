@@ -1,5 +1,6 @@
 #include "prevent_bss_reordering.h"
 #include "global.h"
+#include "assets.h"
 #include "assets/ast_enmy_planet.h"
 
 // f32 temp[] = {
@@ -1034,7 +1035,7 @@ void func_i3_80191680(Actor* actor) {
         }
     }
     actor->unk_0B6++;
-    if (actor->unk_0B6 >= Animation_GetFrameCount(&D_40057AC)) {
+    if (actor->unk_0B6 >= Animation_GetFrameCount(&D_ENMY_PLANET_40057AC)) {
         actor->unk_0B6 = 0;
     }
     if (actor->timer_0BC == 0) {
@@ -1095,8 +1096,8 @@ void func_i3_80191680(Actor* actor) {
 }
 
 void func_i3_80191B4C(Actor* actor) {
-    Animation_GetFrameData(&D_40057AC, actor->unk_0B6, actor->vwork);
-    Animation_DrawSkeleton(1, D_40058B8, actor->vwork, NULL, NULL, &actor->index, &gIdentityMatrix);
+    Animation_GetFrameData(&D_ENMY_PLANET_40057AC, actor->unk_0B6, actor->vwork);
+    Animation_DrawSkeleton(1, D_ENMY_PLANET_40058B8, actor->vwork, NULL, NULL, &actor->index, &gIdentityMatrix);
 }
 
 void func_i3_80191BB8(Actor* actor) {

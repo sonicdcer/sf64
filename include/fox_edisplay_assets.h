@@ -1,7 +1,7 @@
 #ifndef FOX_EDISPLAY_ASSETS_H
 #define FOX_EDISPLAY_ASSETS_H
 
-#include "global.h"
+#include "sys.h"
 
 extern Gfx D_6027960[];
 extern Gfx D_60273A0[];

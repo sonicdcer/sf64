@@ -1,4 +1,5 @@
 #include "global.h"
+#include "assets.h"
 
 extern Animation D_6007854;
 extern Limb* D_6007980[];

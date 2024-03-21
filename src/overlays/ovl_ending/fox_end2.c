@@ -2,6 +2,13 @@
 #include "assets/ast_arwing.h"
 #include "assets/ast_ending_expert.h"
 #include "assets/ast_allies.h"
+
+WingInfo D_ending_80198590;
+Vec3f D_ending_801985D0;
+Vec3f D_ending_801985E0;
+Vec3f D_ending_801985F0;
+Vec3f D_ending_80198600[300];
+
 #include "fox_end2_data.c"
 
 void func_ending_8018CE20(u32 arg0) {
@@ -352,7 +359,7 @@ void func_ending_8018E1B8(u32 arg0, AssetInfo* asset) {
     }
 
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_7010970);
+    gSPDisplayList(gMasterDisp++, D_END_7010970);
 }
 
 void func_ending_8018E7B8(u32 arg0, AssetInfo* asset) {
@@ -409,7 +416,7 @@ void func_ending_8018E7B8(u32 arg0, AssetInfo* asset) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_7010970);
+    gSPDisplayList(gMasterDisp++, D_END_7010970);
 }
 
 void func_ending_8018EDB8(u32 arg0, AssetInfo* asset) {
@@ -440,7 +447,7 @@ void func_ending_8018EDB8(u32 arg0, AssetInfo* asset) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gDPLoadTextureBlock(gMasterDisp++, D_700EA38, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, 0, G_TX_WRAP | G_TX_NOMIRROR,
+    gDPLoadTextureBlock(gMasterDisp++, D_END_700EA38, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, 0, G_TX_WRAP | G_TX_NOMIRROR,
                         G_TX_WRAP | G_TX_NOMIRROR, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
 
     gDPTileSync(gMasterDisp++);
@@ -448,7 +455,7 @@ void func_ending_8018EDB8(u32 arg0, AssetInfo* asset) {
                G_TX_WRAP, 5, 0, G_TX_WRAP, 5, 0);
     gDPSetTileSize(gMasterDisp++, 0, arg0 * 14, 0, (32 - 1) << G_TEXTURE_IMAGE_FRAC, (32 - 1) << G_TEXTURE_IMAGE_FRAC);
 
-    gSPDisplayList(gMasterDisp++, D_700E9E0);
+    gSPDisplayList(gMasterDisp++, D_END_700E9E0);
 }
 
 void func_ending_8018F2A8(u32 arg0, AssetInfo* asset) {
@@ -542,7 +549,7 @@ void func_ending_8018F64C(u32 arg0, AssetInfo* asset) {
     Matrix_Scale(gGfxMatrix, 0.8f + (arg0 % 3) * 0.01f, 0.3f + (arg0 % 3) * 0.01f, 0.8f + (arg0 % 3) * 0.01f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_7010970);
+    gSPDisplayList(gMasterDisp++, D_END_7010970);
 }
 
 void func_ending_8018FC60(u32 arg0, AssetInfo* asset) {
@@ -605,7 +612,7 @@ void func_ending_8018FC60(u32 arg0, AssetInfo* asset) {
     Matrix_Scale(gGfxMatrix, 0.5f + (arg0 % 3) * 0.01f, 0.3f + (arg0 % 3) * 0.01f, 0.5f + (arg0 % 3) * 0.01f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_7010970);
+    gSPDisplayList(gMasterDisp++, D_END_7010970);
 }
 
 void func_ending_80190274(u32 arg0, AssetInfo* asset) {
@@ -634,7 +641,7 @@ void func_ending_80190274(u32 arg0, AssetInfo* asset) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_7004240);
+    gSPDisplayList(gMasterDisp++, D_END_7004240);
 }
 
 void func_ending_80190648(s32 arg0, AssetInfo* asset) {
@@ -648,7 +655,7 @@ void func_ending_80190648(s32 arg0, AssetInfo* asset) {
     Matrix_Scale(gGfxMatrix, asset->unk_30.x, asset->unk_30.y, asset->unk_30.z, 1);
 
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_7002120);
+    gSPDisplayList(gMasterDisp++, D_END_7002120);
 }
 
 void func_ending_80190778(u32 arg0, AssetInfo* asset) {

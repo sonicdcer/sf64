@@ -1,4 +1,5 @@
 #include "global.h"
+#include "assets.h"
 
 extern s32 D_800C9E90[];
 

@@ -1,44 +1,31 @@
 #include "prevent_bss_reordering.h"
 #include "global.h"
+#include "assets/ast_title.h"
 #include "assets/ast_ending_award_front.h"
 #include "assets/ast_ending_award_back.h"
 #include "assets/ast_allies.h"
 #include "assets/ast_great_fox.h"
+#include "assets/ast_ending.h"
 
 void func_ending_8018CE20(s32);
 void func_ending_801926D4(void);
 extern u32 D_ending_80192E70;
-
+extern Gfx D_6041070[];
 extern Animation D_601E424;
 extern Animation D_601F8E0;
 extern Animation D_6020058;
 extern Animation D_60246F8;
 extern Animation D_6029BE4;
 extern Animation D_602A710;
-extern Animation D_70111D0;
-extern Animation D_70143C0;
-extern Animation D_7018708;
+
 extern Limb* D_602FBAC[];
 extern Limb* D_603088C[];
 extern Limb* D_60313AC[];
 extern Limb* D_6032084[];
-extern Limb* D_70187B4[];
+
 extern Animation D_60338DC;
 extern Animation D_603531C;
 extern Animation D_6036278;
-extern Gfx D_700C620[];
-extern Gfx D_700C8B0[];
-extern Gfx D_700F240[];
-extern Gfx D_700F320[];
-extern Gfx D_7010970[];
-extern u8 D_7010E10[];
-extern u16 D_7010EE0[];
-extern u8 D_7010F00[];
-extern u16 D_7010FD0[];
-extern u8 D_7010FF0[];
-extern u16 D_70110C0[];
-extern u8 D_70110E0[];
-extern u16 D_70111B0[];
 
 bool func_ending_80189C64(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data);
 void func_ending_8018ABE8(void);
@@ -370,7 +357,7 @@ void func_ending_80188030(s32 arg0) {
 s32 func_ending_80188394(void) {
     s32 i;
     UnkStruct_196D08 sp14[2] = {
-        { &D_70143C0,
+        { &D_END_70143C0,
           NULL,
           17,
           { 0.0f, -3830.0f, -7000.0f },
@@ -380,8 +367,8 @@ s32 func_ending_80188394(void) {
           0,
           0,
           { 0, 0, 0, 0 } },
-        { &D_7018708,
-          D_70187B4,
+        { &D_END_7018708,
+          D_END_70187B4,
           23,
           { 0.0f, -310.0f, -370.0f },
           { 0.0f, 0.0f, 0.0f },
@@ -461,16 +448,16 @@ void func_ending_801886F4(void) {
 
     switch ((D_ending_80196F90 % 8) / 2) {
         case 3:
-            TextureRect_4bCI(&gMasterDisp, D_70110E0, D_70111B0, 16, 26, temp + 31.0f, 18.0f, 1.0f, 1.0f);
+            TextureRect_4bCI(&gMasterDisp, D_END_70110E0, D_END_70111B0, 16, 26, temp + 31.0f, 18.0f, 1.0f, 1.0f);
             /* fallthrough */
         case 2:
-            TextureRect_4bCI(&gMasterDisp, D_7010FF0, D_70110C0, 16, 26, temp + 24.0f, 18.0f, 1.0f, 1.0f);
+            TextureRect_4bCI(&gMasterDisp, D_END_7010FF0, D_END_70110C0, 16, 26, temp + 24.0f, 18.0f, 1.0f, 1.0f);
             /* fallthrough */
         case 1:
-            TextureRect_4bCI(&gMasterDisp, D_7010F00, D_7010FD0, 16, 26, temp + 18.0f, 18.0f, 1.0f, 1.0f);
+            TextureRect_4bCI(&gMasterDisp, D_END_7010F00, D_END_7010FD0, 16, 26, temp + 18.0f, 18.0f, 1.0f, 1.0f);
             /* fallthrough */
         case 0:
-            TextureRect_4bCI(&gMasterDisp, D_7010E10, D_7010EE0, 16, 26, temp, 18.0f, 1.0f, 1.0f);
+            TextureRect_4bCI(&gMasterDisp, D_END_7010E10, D_END_7010EE0, 16, 26, temp, 18.0f, 1.0f, 1.0f);
     }
 }
 
@@ -525,7 +512,7 @@ void func_ending_80188DB4(void) {
     s32 j;
     Vec3f sp1B4 = { 0.0f, 0.0f, 0.0f };
     UnkStruct_196D08 sp74[5] = {
-        { &D_70111D0,
+        { &D_END_70111D0,
           NULL,
           17,
           { 0.0f, -2960.0f, -6600.0f },
@@ -1768,7 +1755,7 @@ void func_ending_8018C21C(void) {
         RCP_SetupDL(&gMasterDisp, 0x11);
         Matrix_Translate(gGfxMatrix, 0.0f, -1200.0f, -6000.0f, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_700C8B0);
+        gSPDisplayList(gMasterDisp++, D_END_700C8B0);
         Matrix_Pop(&gGfxMatrix);
     } else {
         Matrix_Push(&gGfxMatrix);
@@ -1776,7 +1763,7 @@ void func_ending_8018C21C(void) {
         Matrix_Translate(gGfxMatrix, -2000.0f, -3000.0f, 3000.0f, 1);
         Matrix_RotateY(gGfxMatrix, 110.0f * M_DTOR, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_700C8B0);
+        gSPDisplayList(gMasterDisp++, D_END_700C8B0);
         Matrix_Pop(&gGfxMatrix);
     }
 
@@ -1817,7 +1804,7 @@ void func_ending_8018C21C(void) {
                             Matrix_Scale(gGfxMatrix, scale->x, scale->y, scale->z, 1);
                             Matrix_RotateX(gGfxMatrix, M_PI / 2, 1);
                             Matrix_SetGfxMtx(&gMasterDisp);
-                            gSPDisplayList(gMasterDisp++, D_7010970);
+                            gSPDisplayList(gMasterDisp++, D_END_7010970);
                             Matrix_Pop(&gGfxMatrix);
                             Matrix_Push(&gGfxMatrix);
                             scale = &spF4[gGameFrameCount % 2];
@@ -1825,7 +1812,7 @@ void func_ending_8018C21C(void) {
                             Matrix_Scale(gGfxMatrix, scale->x, scale->y, scale->z, 1);
                             Matrix_RotateX(gGfxMatrix, M_PI / 2, 1);
                             Matrix_SetGfxMtx(&gMasterDisp);
-                            gSPDisplayList(gMasterDisp++, D_7010970);
+                            gSPDisplayList(gMasterDisp++, D_END_7010970);
                             Matrix_Pop(&gGfxMatrix);
                         }
                     } else {
@@ -1849,7 +1836,7 @@ void func_ending_8018C21C(void) {
                     Matrix_RotateX(gGfxMatrix, gActors[i].obj.rot.x * M_DTOR, 1);
                     Matrix_RotateZ(gGfxMatrix, gActors[i].obj.rot.z * M_DTOR, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_700F240);
+                    gSPDisplayList(gMasterDisp++, D_END_700F240);
                     break;
 
                 case 2:
@@ -1860,7 +1847,7 @@ void func_ending_8018C21C(void) {
                     Matrix_RotateX(gGfxMatrix, gActors[i].obj.rot.x * M_DTOR, 1);
                     Matrix_RotateZ(gGfxMatrix, gActors[i].obj.rot.z * M_DTOR, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_700F320);
+                    gSPDisplayList(gMasterDisp++, D_END_700F320);
                     break;
 
                 case 3:
@@ -1880,7 +1867,7 @@ void func_ending_8018C21C(void) {
                     Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, 1);
                     Matrix_RotateX(gGfxMatrix, M_PI / 2, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_7010970);
+                    gSPDisplayList(gMasterDisp++, D_END_7010970);
                     Matrix_Pop(&gGfxMatrix);
                     spE4 = gActors[i].fwork[1];
                     RCP_SetupDL(&gMasterDisp, 0x29);
@@ -1911,7 +1898,7 @@ void func_ending_8018C21C(void) {
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -17.5f, 1);
                     Matrix_RotateX(gGfxMatrix, M_PI / 2, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_700C620);
+                    gSPDisplayList(gMasterDisp++, D_END_700C620);
                     Matrix_Pop(&gGfxMatrix);
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, -70.0f, 0.0f, -100.0f, 1);
@@ -1919,7 +1906,7 @@ void func_ending_8018C21C(void) {
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -17.5f, 1);
                     Matrix_RotateX(gGfxMatrix, M_PI / 2, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_700C620);
+                    gSPDisplayList(gMasterDisp++, D_END_700C620);
                     Matrix_Pop(&gGfxMatrix);
                     break;
             }

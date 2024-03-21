@@ -1,4 +1,4 @@
-#include "global.h"
+#include "PR/rcp.h"
 
 extern s32 osViClock;
 

@@ -1,4 +1,3 @@
-#include "global.h"
 #include "osint.h"
 
 void osStopThread(OSThread* t) {

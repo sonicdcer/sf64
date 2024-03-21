@@ -1,4 +1,5 @@
 #include "global.h"
+#include "assets.h"
 #include "assets/ast_arwing.h"
 
 // bss

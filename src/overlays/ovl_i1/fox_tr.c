@@ -1,4 +1,5 @@
 #include "global.h"
+#include "assets/ast_training.h"
 
 void func_i1_801988E0(void) {
     if (D_80177E80 != 0) {

@@ -1,4 +1,5 @@
 #include "global.h"
+#include "assets.h"
 
 extern Animation D_6003348;
 extern Animation D_60034C4;

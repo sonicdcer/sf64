@@ -1,5 +1,5 @@
 #include "global.h"
-#include "hud.h"
+#include "assets.h"
 
 // rodata
 const char D_800D7230[] = "Enm->wrk3=<%d>\n";
@@ -12,8 +12,6 @@ extern Gfx D_6003580[];
 extern Gfx D_6003620[];
 extern Gfx D_60036C0[];
 extern Gfx D_6004900[];
-extern Gfx D_A6_6012550[];
-extern u16 D_A6_6012840[];
 extern Gfx D_6016880[];
 extern Gfx D_6018AF0[];
 extern Gfx D_601BAD0[];
@@ -25,6 +23,7 @@ extern Gfx D_601BAD0[];
 #include "assets/ast_training.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_area_6.h"
 #include "assets/ast_A_ti.h"
 #include "assets/ast_ve1_boss.h"
 #include "assets/ast_enmy_planet.h"
@@ -2229,7 +2228,7 @@ void func_8007DED4(Effect* effect) {
         case 0:
             Graphics_SetScaleMtx(effect->scale2);
             RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-            gSPDisplayList(gMasterDisp++, D_4008CE0);
+            gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_4008CE0);
             RCP_SetupDL(&gMasterDisp, 0x40);
             break;
 
@@ -2238,7 +2237,7 @@ void func_8007DED4(Effect* effect) {
             Matrix_SetGfxMtx(&gMasterDisp);
             RCP_SetupDL_40();
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-            gSPDisplayList(gMasterDisp++, D_4008F70);
+            gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_4008F70);
             RCP_SetupDL(&gMasterDisp, 0x40);
             break;
     }

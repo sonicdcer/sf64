@@ -1,4 +1,3 @@
-#include "global.h"
 #include "piint.h"
 
 s32 osPiStartDma(OSIoMesg* mb, s32 pri, s32 rw, u32 devAddr, void* dramAddr, u32 size, OSMesgQueue* piHandle) {

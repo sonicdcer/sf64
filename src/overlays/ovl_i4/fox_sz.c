@@ -1,4 +1,5 @@
 #include "global.h"
+#include "assets.h"
 
 s32 D_i4_801A0560;
 s32 D_i4_801A0564;

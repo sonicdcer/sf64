@@ -1,5 +1,6 @@
 #include "prevent_bss_reordering2.h"
 #include "global.h"
+#include "assets.h"
 #include "fox_map.h"
 #include "assets/ast_training.h"
 #include "assets/ast_sector_x.h"
@@ -7,6 +8,7 @@
 #include "assets/ast_andross.h"
 #include "assets/ast_arwing.h"
 #include "assets/ast_vs_player.h"
+#include "assets/ast_area_6.h"
 
 UNK_TYPE D_800D2F50 = 0;
 s32 D_800D2F54 = 0;

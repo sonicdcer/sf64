@@ -1,4 +1,5 @@
 #include "global.h"
+#include "assets.h"
 #include "assets/ast_landmaster.h"
 
 void func_80047754(Player* player);

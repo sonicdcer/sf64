@@ -1,5 +1,6 @@
 #include "global.h"
-#include "prevent_bss_reordering.h"
+#include "assets.h"
+// #include "prevent_bss_reordering.h"
 
 extern f32 D_i3_801C4188;
 
@@ -23,6 +24,7 @@ f32 D_80161394;             // can be static
 #include "assets/ast_aquas.h"
 #include "assets/ast_andross.h"
 #include "assets/ast_warp_zone.h"
+#include "assets/ast_area_6.h"
 
 f32 D_800C9C30 = 0.0f;
 u16 D_800C9C34 = 1;
