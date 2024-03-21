@@ -19,7 +19,7 @@ extern Gfx D_4007AF0[];
 /* ast_corneria, ast_meteo, ast_titania, ast_sector_x, ast_sector_z,
  * ast_aquas, ast_area_6, ast_venom_1, ast_venom_2, ast_ve1_boss*,
  * ast_bolse, ast_fortuna, ast_sector_y, ast_solar, ast_zoness,
- * ast_katina, ast_macbeth, ast_title, ast_menu, ast_training
+ * ast_katina, ast_macbeth, ast_title, ast_map, ast_training
  */
 extern Gfx D_60005B0[]; // fox_bg
 extern Gfx D_6000A80[]; // fox_bg, fox_effect

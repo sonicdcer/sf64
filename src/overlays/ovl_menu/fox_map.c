@@ -1109,8 +1109,8 @@ Gfx* D_menu_801B68F8[] = {
     D_menu_801B5B10, D_menu_801B5440, D_menu_801B50D8, D_menu_801B57A8, D_604DB10,
 };
 
-extern u8 D_6000840[];
-extern u8 D_6001080[];
+extern u8 D_6000840[]; // ast_map
+extern u8 D_6001080[]; // ast_map
 extern u8 D_60018C0[];
 extern u8 D_600D590[];
 extern u8 D_6019030[];

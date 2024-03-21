@@ -56,7 +56,7 @@ DmaEntry gDmaTable[90] = {
     { SEGMENT_ROM_START(ast_macbeth), { SEGMENT_ROM_START(ast_macbeth), SEGMENT_ROM_END(ast_macbeth) }, false },
     { SEGMENT_ROM_START(ast_warp_zone), { SEGMENT_ROM_START(ast_warp_zone), SEGMENT_ROM_END(ast_warp_zone) }, false },
     { SEGMENT_ROM_START(ast_title), { SEGMENT_ROM_START(ast_title), SEGMENT_ROM_END(ast_title) }, false },
-    { SEGMENT_ROM_START(ast_menu), { SEGMENT_ROM_START(ast_menu), SEGMENT_ROM_END(ast_menu) }, false },
+    { SEGMENT_ROM_START(ast_map), { SEGMENT_ROM_START(ast_map), SEGMENT_ROM_END(ast_map) }, false },
     { SEGMENT_ROM_START(ast_option), { SEGMENT_ROM_START(ast_option), SEGMENT_ROM_END(ast_option) }, false },
     { SEGMENT_ROM_START(ast_versus), { SEGMENT_ROM_START(ast_versus), SEGMENT_ROM_END(ast_versus) }, false },
     { SEGMENT_ROM_START(ast_font), { SEGMENT_ROM_START(ast_font), SEGMENT_ROM_END(ast_font) }, false },
