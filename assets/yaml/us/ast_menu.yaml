@@ -3,7 +3,7 @@
     - [0x06, 0xC48F40]
   header:
     code:
-      - '#include "assets/ast_option.h"'
+      - '#include "assets/ast_menu.h"'
     header:
       - '#include "gfx.h"'
       - '#include "sf64object.h"'
@@ -210,5 +210,251 @@ D_MENU_601E978:
 
 D_MENU_601E9A0:
   { type: GFX, offset: 0x601E9A0, symbol: D_MENU_601E9A0 }
+
+D_MENU_601F4D0:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0601F4D0, symbol: D_MENU_601F4D0, tlut: 0x0601F550 }
+
+D_MENU_601F550:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0601F550, symbol: D_MENU_601F550 }
+
+D_MENU_601F570:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0601F570, symbol: D_MENU_601F570, tlut: 0x0601F5F0 }
+
+D_MENU_601F5F0:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0601F5F0, symbol: D_MENU_601F5F0 }
+
+D_MENU_601F610:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0601F610, symbol: D_MENU_601F610, tlut: 0x0601F690 }
+
+D_MENU_601F690:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0601F690, symbol: D_MENU_601F690 }
+
+D_MENU_601F6B0:
+  { type: GFX, offset: 0x601F6B0, symbol: D_MENU_601F6B0 }
+
+D_MENU_601F740:
+  { type: TEXTURE, format: RGBA16, offset: 0x0601F740, width: 32, height: 32, ctype: u16, symbol: D_MENU_601F740 }
+
+# Looks like Aquas
+D_MENU_601FF40:
+  { type: TEXTURE, format: CI8, offset: 0x601FF40, width: 96, height: 96, ctype: u8, symbol: D_MENU_601FF40, tlut: 0x06022340 }
+
+D_MENU_6022340:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 75, offset: 0x06022340, symbol: D_MENU_6022340, pad: 8 }
+
+# Looks like Venom
+D_MENU_60223E0:
+  { type: TEXTURE, format: CI8, offset: 0x60223E0, width: 96, height: 96, ctype: u8, symbol: D_MENU_60223E0, tlut: 0x060247E0 }
+
+D_MENU_60247E0:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 84, offset: 0x060247E0, symbol: D_MENU_60247E0, pad: 8 }
+
+# Looks like Corneria
+D_MENU_6024890:
+  { type: TEXTURE, format: CI8, offset: 0x6024890, width: 96, height: 96, ctype: u8, symbol: D_MENU_6024890, tlut: 0x06026C90 }
+
+D_MENU_6026C90:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 108, offset: 0x06026C90, symbol: D_MENU_6026C90, pad: 8 }
+
+# Looks like Zones
+D_MENU_6026D70:
+  { type: TEXTURE, format: CI8, offset: 0x6026D70, width: 96, height: 96, ctype: u8, symbol: D_MENU_6026D70, tlut: 0x06029170 }
+
+D_MENU_6029170:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 84, offset: 0x06029170, symbol: D_MENU_6029170, pad: 8 }
+
+# Looks like Solar
+D_MENU_6029220:
+  { type: TEXTURE, format: CI8, offset: 0x6029220, width: 96, height: 96, ctype: u8, symbol: D_MENU_6029220, tlut: 0x0602B620 }
+
+D_MENU_602B620:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 84, offset: 0x0602B620, symbol: D_MENU_602B620, pad: 8 }
+
+# Looks like Macbeth
+D_MENU_602B6D0:
+  { type: TEXTURE, format: CI8, offset: 0x602B6D0, width: 96, height: 96, ctype: u8, symbol: D_MENU_602B6D0, tlut: 0x0602DAD0 }
+
+D_MENU_602DAD0:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 68, offset: 0x0602DAD0, symbol: D_MENU_602DAD0, pad: 8 }
+
+# Looks like Sector Z
+D_MENU_602DB60:
+  { type: TEXTURE, format: CI8, offset: 0x602DB60, width: 96, height: 96, ctype: u8, symbol: D_MENU_602DB60, tlut: 0x0602FF60 }
+
+D_MENU_602FF60:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 56, offset: 0x0602FF60, symbol: D_MENU_602FF60 }
+
+D_MENU_602FFD0:
+  { type: TEXTURE, format: CI8, offset: 0x602FFD0, width: 96, height: 96, ctype: u8, symbol: D_MENU_602FFD0, tlut: 0x060323D0 }
+
+D_MENU_60323D0:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 52, offset: 0x060323D0, symbol: D_MENU_60323D0, pad: 8 }
+
+# Portrait of Falco
+D_MENU_6032440:
+  { type: TEXTURE, format: RGBA16, offset: 0x06032440, width: 28, height: 28, ctype: u16, symbol: D_MENU_6032440 }
+
+# Portrait of Peppy
+D_MENU_6032A60:
+  { type: TEXTURE, format: RGBA16, offset: 0x06032A60, width: 28, height: 28, ctype: u16, symbol: D_MENU_6032A60 }
+
+# Picture of Peppy, James and Pigma used in the narrated intro.
+D_MENU_6033080:
+  { type: TEXTURE, format: RGBA16, offset: 0x06033080, width: 96, height: 52, ctype: u16, symbol: D_MENU_6033080 }
+
+# Picture of Andross, General Pepper and Venom in the background, used in the narrated intro.
+D_MENU_6035780:
+  { type: TEXTURE, format: RGBA16, offset: 0x06035780, width: 96, height: 52, ctype: u16, symbol: D_MENU_6035780 }
+
+# Picture of Andross, hands open, Corneria in the middle, used in the narrated intro.
+D_MENU_6037E80:
+  { type: TEXTURE, format: RGBA16, offset: 0x06037E80, width: 96, height: 52, ctype: u16, symbol: D_MENU_6037E80 }
+
+# Picture of an Arwing dodging attacks from enemies, used in the narrated intro.
+D_MENU_603A580:
+  { type: TEXTURE, format: RGBA16, offset: 0x0603A580, width: 96, height: 52, ctype: u16, symbol: D_MENU_603A580 }
+
+# Picture of Slippy, Peppy, Fox and Falco, used in the narrated intro.
+D_MENU_603CC80:
+  { type: TEXTURE, format: RGBA16, offset: 0x0603CC80, width: 96, height: 52, ctype: u16, symbol: D_MENU_603CC80 }
+
+# Picture of Peppy returning from Vemon, used in the narrated intro.
+D_MENU_603F380:
+  { type: TEXTURE, format: RGBA16, offset: 0x0603F380, width: 96, height: 52, ctype: u16, symbol: D_MENU_603F380 }
+
+# Picture of Corneria, used in the narrated intro.
+D_MENU_6041A80:
+  { type: TEXTURE, format: RGBA16, offset: 0x06041A80, width: 96, height: 52, ctype: u16, symbol: D_MENU_6041A80 }
+
+# Portrait of Slippy
+D_MENU_6044180:
+  { type: TEXTURE, format: RGBA16, offset: 0x06044180, width: 28, height: 28, ctype: u16, symbol: D_MENU_6044180 }
+
+# White Square ?
+D_MENU_60447A0:
+  { type: TEXTURE, format: RGBA16, offset: 0x060447A0, width: 8, height: 8, ctype: u16, symbol: D_MENU_60447A0 }
+
+# Picture of Fox receiving orders from General Pepper, used in the map (briefing)
+D_MENU_6044820:
+  { type: TEXTURE, format: RGBA16, offset: 0x06044820, width: 92, height: 51, ctype: u16, symbol: D_MENU_6044820, pad: 8 }
+
+# Fox face talking during briefing.
+D_MENU_6046CD0:
+  { type: TEXTURE, format: RGBA16, offset: 0x06046CD0, width: 32, height: 34, ctype: u16, symbol: D_MENU_6046CD0 }
+
+# Black Square with borders.
+D_MENU_6047550:
+  { type: TEXTURE, format: RGBA16, offset: 0x06047550, width: 24, height: 24, ctype: u16, symbol: D_MENU_6047550 }
+
+D_MENU_60479D0:
+  { type: GFX, offset: 0x60479D0, symbol: D_MENU_60479D0 }
+
+D_MENU_6047A68:
+  { type: TEXTURE, format: IA8, offset: 0x06047A68, width: 32, height: 32, ctype: u16, symbol: D_MENU_6047A68, pad: 8 }
+
+D_MENU_6047E70:
+  { type: GFX, offset: 0x6047E70, symbol: D_MENU_6047E70 }
+
+D_MENU_6047F80:
+  { type: TEXTURE, format: IA8, offset: 0x06047F80, width: 64, height: 32, ctype: u16, symbol: D_MENU_6047F80 }
+
+D_MENU_6048780:
+  { type: TEXTURE, format: IA8, offset: 0x06048780, width: 64, height: 32, ctype: u16, symbol: D_MENU_6048780 }
+
+D_MENU_6048F80:
+  { type: TEXTURE, format: IA8, offset: 0x06048F80, width: 64, height: 64, ctype: u16, symbol: D_MENU_6048F80 }
+
+D_MENU_6049F80:
+  { type: GFX, offset: 0x6049F80, symbol: D_MENU_6049F80 }
+
+D_MENU_604A048:
+  { type: TEXTURE, format: CI8, offset: 0x0604A048, width: 16, height: 16, ctype: u8, symbol: D_MENU_604A048, tlut: 0x0602FF60 }
+
+D_MENU_604A148:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 32, offset: 0x0604A148, symbol: D_MENU_604A148, pad: 8 }
+
+D_MENU_604A190:
+  { type: GFX, offset: 0x604A190, symbol: D_MENU_604A190 }
+
+D_MENU_604A258:
+  { type: TEXTURE, format: CI8, offset: 0x0604A258, width: 16, height: 16, ctype: u8, symbol: D_MENU_604A258, tlut: 0x0604A358 }
+
+D_MENU_604A358:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 32, offset: 0x0604A358, symbol: D_MENU_604A358, pad: 8 }
+
+D_MENU_604A400:
+  { type: GFX, offset: 0x604A400, symbol: D_MENU_604A400 }
+
+D_MENU_604A4C8:
+  { type: TEXTURE, format: CI8, offset: 0x0604A4C8, width: 16, height: 16, ctype: u8, symbol: D_MENU_604A4C8, tlut: 0x0604A5C8 }
+
+D_MENU_604A5C8:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 160, offset: 0x0604A5C8, symbol: D_MENU_604A5C8, pad: 8 }
+
+D_MENU_604A710:
+  { type: GFX, offset: 0x604A710, symbol: D_MENU_604A710 }
+
+D_MENU_604A7D8:
+  { type: TEXTURE, format: CI8, offset: 0x0604A7D8, width: 16, height: 16, ctype: u8, symbol: D_MENU_604A7D8, tlut: 0x0604A8D8 }
+
+D_MENU_604A8D8:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 136, offset: 0x0604A8D8, symbol: D_MENU_604A8D8, pad: 8 }
+
+# Arwing Model, used in the map.
+D_MENU_604A9F0:
+  { type: GFX, offset: 0x604A9F0, symbol: D_MENU_604A9F0 }
+
+D_MENU_604B510:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0604B510, symbol: D_MENU_604B510, tlut: 0x0604B590 }
+
+D_MENU_604B590: 
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0604B590, symbol: D_MENU_604B590 }
+
+D_MENU_604B5B0:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0604B5B0, symbol: D_MENU_604B5B0, tlut: 0x0604B630 }
+
+D_MENU_604B630:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0604B630, symbol: D_MENU_604B630 }
+
+D_MENU_604B650:
+  { type: TEXTURE, format: RGBA16, offset: 0x0604B650, width: 8, height: 16, ctype: u16, symbol: D_MENU_604B650 }
+
+# Model of Bolse
+D_MENU_604B750:
+  { type: GFX, offset: 0x604B750, symbol: D_MENU_604B750 }
+
+D_MENU_604BC48:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 32, height: 32, offset: 0x0604BC48, symbol: D_MENU_604BC48, tlut: 0x0604BC48 }
+
+D_MENU_604BE48: 
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0604BE48, symbol: D_MENU_604BE48 }
+
+D_MENU_604BE68:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 32, height: 32, offset: 0x0604BE68, symbol: D_MENU_604BE68, tlut: 0x0604C068 }
+
+D_MENU_604C068: 
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0604C068, symbol: D_MENU_604C068 }
+
+D_MENU_604C088:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 32, height: 32, offset: 0x0604C088, symbol: D_MENU_604C088, tlut: 0x0604C288 }
+
+D_MENU_604C288: 
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0604C288, symbol: D_MENU_604C288 }
+
+D_MENU_604C2A8:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 32, offset: 0x0604C2A8, symbol: D_MENU_604C2A8, tlut: 0x0604C328 }
+
+D_MENU_604C328: 
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0604C328, symbol: D_MENU_604C328, pad: 8 }
+
+# Television outcoming light Model, used during briefing.
+D_MENU_604C350:
+  { type: GFX, offset: 0x604C350, symbol: D_MENU_604C350 }
+
+D_MENU_604C4C0:
+  { type: TEXTURE, format: IA8, offset: 0x0604C4C0, width: 8, height: 16, ctype: u16, symbol: D_MENU_604C4C0 }
+
+
+
 
 # size = 0x60EA0
