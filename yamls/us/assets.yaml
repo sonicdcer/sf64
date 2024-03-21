@@ -243,7 +243,7 @@
     type: bin
     start: 0xBFC510
 
-  - name: ast_menu
+  - name: ast_map
     exclusive_ram_id: segment_06
     type: bin
     start: 0xC48F40
