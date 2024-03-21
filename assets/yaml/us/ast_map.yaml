@@ -44,7 +44,7 @@ D_MAP_6003B50:
 
 # Bolse Defense Outpost
 D_MAP_6004AC0:
-  { type: TEXTURE, format: IA8, offset: 0x6004AC0, width: 168, height: 19, ctype: u8, symbol: D_MAP_6004AC0, pad: 8 }
+  { type: TEXTURE, format: IA8, offset: 0x6004AC0, width: 168, height: 19, ctype: u8, symbol: D_MAP_6004AC0 }
 
 # The Last Hurrah
 D_MAP_6005740:
@@ -66,7 +66,7 @@ D_MAP_6007B90:
 
 # Enter Star Fox
 D_MAP_6008990:
-  { type: TEXTURE, format: IA8, offset: 0x6008990, width: 232, height: 19, ctype: u8, symbol: D_MAP_6008990, pad: 8 }
+  { type: TEXTURE, format: IA8, offset: 0x6008990, width: 232, height: 19, ctype: u8, symbol: D_MAP_6008990 }
 
 # Fortuna
 # Former Defense Post
@@ -75,7 +75,7 @@ D_MAP_6009AD0:
 
 # Enter Star Wolf
 D_MAP_600AD30:
-  { type: TEXTURE, format: IA8, offset: 0x600AD30, width: 168, height: 19, ctype: u8, symbol: D_MAP_600AD30, pad: 8 }
+  { type: TEXTURE, format: IA8, offset: 0x600AD30, width: 168, height: 19, ctype: u8, symbol: D_MAP_600AD30 }
 
 # Katina
 # Frontline Base
@@ -88,7 +88,7 @@ D_MAP_600CC10:
 
 # The Lylat System
 D_MAP_600D590:
-  { type: TEXTURE, format: IA8, offset: 0x600D590, width: 168, height: 19, ctype: u8, symbol: D_MAP_600D590, pad: 8 }
+  { type: TEXTURE, format: IA8, offset: 0x600D590, width: 168, height: 19, ctype: u8, symbol: D_MAP_600D590 }
 
 # Macbeth
 # Venom Army Supply Base
@@ -97,7 +97,7 @@ D_MAP_600E210:
 
 # The Forever Train
 D_MAP_600F390:
-  { type: TEXTURE, format: IA8, offset: 0x600F390, width: 168, height: 19, ctype: u8, symbol: D_MAP_600F390, pad: 8 }
+  { type: TEXTURE, format: IA8, offset: 0x600F390, width: 168, height: 19, ctype: u8, symbol: D_MAP_600F390 }
 
 # Solar
 D_MAP_6010010:
@@ -129,7 +129,7 @@ D_MAP_6014360:
 
 # The Ambush of Great Fox
 D_MAP_6014BA0:
-  { type: TEXTURE, format: IA8, offset: 0x6014BA0, width: 232, height: 19, ctype: u8, symbol: D_MAP_6014BA0, pad: 8 }
+  { type: TEXTURE, format: IA8, offset: 0x6014BA0, width: 232, height: 19, ctype: u8, symbol: D_MAP_6014BA0 }
 
 # Titania
 # Arid Desert
@@ -138,7 +138,7 @@ D_MAP_6015CE0:
 
 # The Search for Slippy
 D_MAP_6016760:
-  { type: TEXTURE, format: IA8, offset: 0x6016760, width: 200, height: 19, ctype: u8, symbol: D_MAP_6016760, pad: 8 }
+  { type: TEXTURE, format: IA8, offset: 0x6016760, width: 200, height: 19, ctype: u8, symbol: D_MAP_6016760 }
 
 # Zones
 # Toxic Waste Area
@@ -147,7 +147,7 @@ D_MAP_6017640:
 
 # Invasion Aftermath
 D_MAP_6018280: 
-  { type: TEXTURE, format: IA8, offset: 0x6018280, width: 184, height: 19, ctype: u8, symbol: D_MAP_6018280, pad: 8 }
+  { type: TEXTURE, format: IA8, offset: 0x6018280, width: 184, height: 19, ctype: u8, symbol: D_MAP_6018280 }
 
 D_MAP_6019030: 
   { type: TEXTURE, format: IA8, offset: 0x6019030, width: 8, height: 16, ctype: u8, symbol: D_MAP_6019030 }
@@ -206,7 +206,7 @@ D_MAP_601E8F8:
   { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0601E8F8, symbol: D_MAP_601E8F8, tlut: 0x0601E978 }
 
 D_MAP_601E978:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0601E978, symbol: D_MAP_601E978, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0601E978, symbol: D_MAP_601E978 }
 
 D_MAP_601E9A0:
   { type: GFX, offset: 0x601E9A0, symbol: D_MAP_601E9A0 }
@@ -240,42 +240,42 @@ D_MAP_601FF40:
   { type: TEXTURE, format: CI8, offset: 0x601FF40, width: 96, height: 96, ctype: u8, symbol: D_MAP_601FF40, tlut: 0x06022340 }
 
 D_MAP_6022340:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 75, offset: 0x06022340, symbol: D_MAP_6022340, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 75, offset: 0x06022340, symbol: D_MAP_6022340 }
 
 # Looks like Venom
 D_MAP_60223E0:
   { type: TEXTURE, format: CI8, offset: 0x60223E0, width: 96, height: 96, ctype: u8, symbol: D_MAP_60223E0, tlut: 0x060247E0 }
 
 D_MAP_60247E0:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 84, offset: 0x060247E0, symbol: D_MAP_60247E0, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 84, offset: 0x060247E0, symbol: D_MAP_60247E0 }
 
 # Looks like Corneria
 D_MAP_6024890:
   { type: TEXTURE, format: CI8, offset: 0x6024890, width: 96, height: 96, ctype: u8, symbol: D_MAP_6024890, tlut: 0x06026C90 }
 
 D_MAP_6026C90:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 108, offset: 0x06026C90, symbol: D_MAP_6026C90, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 108, offset: 0x06026C90, symbol: D_MAP_6026C90 }
 
 # Looks like Zones
 D_MAP_6026D70:
   { type: TEXTURE, format: CI8, offset: 0x6026D70, width: 96, height: 96, ctype: u8, symbol: D_MAP_6026D70, tlut: 0x06029170 }
 
 D_MAP_6029170:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 84, offset: 0x06029170, symbol: D_MAP_6029170, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 84, offset: 0x06029170, symbol: D_MAP_6029170 }
 
 # Looks like Solar
 D_MAP_6029220:
   { type: TEXTURE, format: CI8, offset: 0x6029220, width: 96, height: 96, ctype: u8, symbol: D_MAP_6029220, tlut: 0x0602B620 }
 
 D_MAP_602B620:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 84, offset: 0x0602B620, symbol: D_MAP_602B620, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 84, offset: 0x0602B620, symbol: D_MAP_602B620 }
 
 # Looks like Macbeth
 D_MAP_602B6D0:
   { type: TEXTURE, format: CI8, offset: 0x602B6D0, width: 96, height: 96, ctype: u8, symbol: D_MAP_602B6D0, tlut: 0x0602DAD0 }
 
 D_MAP_602DAD0:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 68, offset: 0x0602DAD0, symbol: D_MAP_602DAD0, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 68, offset: 0x0602DAD0, symbol: D_MAP_602DAD0 }
 
 # Looks like Sector Z
 D_MAP_602DB60:
@@ -288,7 +288,7 @@ D_MAP_602FFD0:
   { type: TEXTURE, format: CI8, offset: 0x602FFD0, width: 96, height: 96, ctype: u8, symbol: D_MAP_602FFD0, tlut: 0x060323D0 }
 
 D_MAP_60323D0:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 52, offset: 0x060323D0, symbol: D_MAP_60323D0, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 52, offset: 0x060323D0, symbol: D_MAP_60323D0 }
 
 # Portrait of Falco
 D_MAP_6032440:
@@ -336,7 +336,7 @@ D_MAP_60447A0:
 
 # Picture of Fox receiving orders from General Pepper, used in the map (briefing)
 D_MAP_6044820:
-  { type: TEXTURE, format: RGBA16, offset: 0x06044820, width: 92, height: 51, ctype: u16, symbol: D_MAP_6044820, pad: 8 }
+  { type: TEXTURE, format: RGBA16, offset: 0x06044820, width: 92, height: 51, ctype: u16, symbol: D_MAP_6044820 }
 
 # Fox face talking during briefing.
 D_MAP_6046CD0:
@@ -350,7 +350,7 @@ D_MAP_60479D0:
   { type: GFX, offset: 0x60479D0, symbol: D_MAP_60479D0 }
 
 D_MAP_6047A68:
-  { type: TEXTURE, format: IA8, offset: 0x06047A68, width: 32, height: 32, ctype: u8, symbol: D_MAP_6047A68, pad: 8 }
+  { type: TEXTURE, format: IA8, offset: 0x06047A68, width: 32, height: 32, ctype: u8, symbol: D_MAP_6047A68 }
 
 D_MAP_6047E70:
   { type: GFX, offset: 0x6047E70, symbol: D_MAP_6047E70 }
@@ -371,7 +371,7 @@ D_MAP_604A048:
   { type: TEXTURE, format: CI8, offset: 0x0604A048, width: 16, height: 16, ctype: u8, symbol: D_MAP_604A048, tlut: 0x0602FF60 }
 
 D_MAP_604A148:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 32, offset: 0x0604A148, symbol: D_MAP_604A148, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 32, offset: 0x0604A148, symbol: D_MAP_604A148 }
 
 D_MAP_604A190:
   { type: GFX, offset: 0x604A190, symbol: D_MAP_604A190 }
@@ -380,7 +380,7 @@ D_MAP_604A258:
   { type: TEXTURE, format: CI8, offset: 0x0604A258, width: 16, height: 16, ctype: u8, symbol: D_MAP_604A258, tlut: 0x0604A358 }
 
 D_MAP_604A358:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 80, offset: 0x0604A358, symbol: D_MAP_604A358, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 80, offset: 0x0604A358, symbol: D_MAP_604A358 }
 
 D_MAP_604A400:
   { type: GFX, offset: 0x604A400, symbol: D_MAP_604A400 }
@@ -389,7 +389,7 @@ D_MAP_604A4C8:
   { type: TEXTURE, format: CI8, offset: 0x0604A4C8, width: 16, height: 16, ctype: u8, symbol: D_MAP_604A4C8, tlut: 0x0604A5C8 }
 
 D_MAP_604A5C8:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 160, offset: 0x0604A5C8, symbol: D_MAP_604A5C8, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 160, offset: 0x0604A5C8, symbol: D_MAP_604A5C8 }
 
 D_MAP_604A710:
   { type: GFX, offset: 0x604A710, symbol: D_MAP_604A710 }
@@ -398,7 +398,7 @@ D_MAP_604A7D8:
   { type: TEXTURE, format: CI8, offset: 0x0604A7D8, width: 16, height: 16, ctype: u8, symbol: D_MAP_604A7D8, tlut: 0x0604A8D8 }
 
 D_MAP_604A8D8:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 136, offset: 0x0604A8D8, symbol: D_MAP_604A8D8, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 136, offset: 0x0604A8D8, symbol: D_MAP_604A8D8 }
 
 # Arwing Model, used in the map.
 D_MAP_604A9F0:
@@ -448,7 +448,7 @@ D_MAP_604C2A8:
   { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0604C2A8, symbol: D_MAP_604C2A8, tlut: 0x0604C328 }
 
 D_MAP_604C328: 
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0604C328, symbol: D_MAP_604C328, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0604C328, symbol: D_MAP_604C328 }
 
 # Television outcoming light Model, used during briefing.
 D_MAP_604C350:
@@ -461,19 +461,19 @@ D_MAP_604C540:
   { type: GFX, offset: 0x604C540, symbol: D_MAP_604C540 }
 
 D_MAP_604C5D8:
-  { type: TEXTURE, format: IA8, offset: 0x0604C5D8, width: 32, height: 64, ctype: u8, symbol: D_MAP_604C5D8, pad: 8 }
+  { type: TEXTURE, format: IA8, offset: 0x0604C5D8, width: 32, height: 64, ctype: u8, symbol: D_MAP_604C5D8 }
 
 D_MAP_604CDE0:
   { type: GFX, offset: 0x604CDE0, symbol: D_MAP_604CDE0 }
 
 D_MAP_604CE78:
-  { type: TEXTURE, format: IA8, offset: 0x0604CE78, width: 32, height: 64, ctype: u8, symbol: D_MAP_604CE78, pad: 8 }
+  { type: TEXTURE, format: IA8, offset: 0x0604CE78, width: 32, height: 64, ctype: u8, symbol: D_MAP_604CE78 }
 
 D_MAP_604D680:
   { type: GFX, offset: 0x604D680, symbol: D_MAP_604D680 }
 
 D_MAP_604D708:
-  { type: TEXTURE, format: IA8, offset: 0x0604D708, width: 32, height: 32, ctype: u8, symbol: D_MAP_604D708, pad: 8 }
+  { type: TEXTURE, format: IA8, offset: 0x0604D708, width: 32, height: 32, ctype: u8, symbol: D_MAP_604D708 }
 
 # Solar Rays
 D_MAP_604DB10:
