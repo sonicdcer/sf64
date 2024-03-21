@@ -404,11 +404,8 @@ D_MAP_604A8D8:
 D_MAP_604A9F0:
   { type: GFX, offset: 0x604A9F0, symbol: D_MAP_604A9F0 }
 
-#ast_map_seg6_vtx_4B050:
-#  { type: VTX, offset: 0x604B050, count: 4, symbol: ast_map_seg6_vtx_4B050 }
-
-#BLOB_MAP_604AF00: # TEST
-#  { type: BLOB, size: 0x90, offset: 0x604AF00, symbol: D_MAP_604AF00 }
+ast_map_seg6_vtx_4AD50:
+  { type: VTX, offset: 0x604AD50, count: 124, symbol: ast_map_seg6_vtx_4AD50 }
 
 D_MAP_604B510:
   { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0604B510, symbol: D_MAP_604B510, tlut: 0x0604B590 }
@@ -448,7 +445,7 @@ D_MAP_604C288:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0604C288, symbol: D_MAP_604C288 }
 
 D_MAP_604C2A8:
-  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 32, offset: 0x0604C2A8, symbol: D_MAP_604C2A8, tlut: 0x0604C328 }
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0604C2A8, symbol: D_MAP_604C2A8, tlut: 0x0604C328 }
 
 D_MAP_604C328: 
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0604C328, symbol: D_MAP_604C328, pad: 8 }
