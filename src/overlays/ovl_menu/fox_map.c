@@ -3430,7 +3430,8 @@ void func_menu_801A4394(void) {
 void func_menu_801A4650(void) {
     s32 i;
     static Gfx* D_menu_801B6A4C[] = {
-        D_9006AE0, D_90086F0, D_9005380, D_90075A0, D_9000570, D_9002EA0, D_90075A0, D_9004230,
+        D_FONT3D_9006AE0, D_FONT3D_90086F0, D_FONT3D_9005380, D_FONT3D_90075A0,
+        D_FONT3D_9000570, D_FONT3D_9002EA0, D_FONT3D_90075A0, D_FONT3D_9004230,
     };
 
     Lights_SetOneLight(&gMasterDisp, 0, 0, 127, 28, 58, 105, 65, 70, 48);

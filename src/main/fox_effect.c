@@ -6,9 +6,6 @@ const char D_800D7230[] = "Enm->wrk3=<%d>\n";
 const char D_800D7240[] = "a=<%d>\n";
 const char D_800D7248[] = "a=<%d>\n";
 
-extern Gfx D_4008CE0[];
-extern Gfx D_4008F70[];
-
 extern Gfx D_6003440[];
 extern Gfx D_60034E0[];
 extern Gfx D_6003580[];
@@ -21,8 +18,6 @@ extern Gfx D_6016880[];
 extern Gfx D_6018AF0[];
 extern Gfx D_601BAD0[];
 
-extern Gfx D_9013C20[];
-
 #include "assets/ast_blue_marine.h"
 #include "assets/ast_arwing.h"
 #include "assets/ast_bg_space.h"
@@ -31,6 +26,8 @@ extern Gfx D_9013C20[];
 #include "assets/ast_sector_x.h"
 #include "assets/ast_aquas.h"
 #include "assets/ast_A_ti.h"
+#include "assets/ast_ve1_boss.h"
+#include "assets/ast_enmy_planet.h"
 
 s32 BonusText_Display(f32 xPos, f32 yPos, f32 zPos, s32 hits) {
     s32 i;
@@ -3195,7 +3192,7 @@ void func_80080D04(Effect* effect) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_48);
             Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, effect->scale2, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_A000000);
+            gSPDisplayList(gMasterDisp++, D_TI_A000000);
             RCP_SetupDL(&gMasterDisp, 0x40);
             break;
 
@@ -3211,7 +3208,7 @@ void func_80080D04(Effect* effect) {
         case 12:
             Graphics_SetScaleMtx(effect->scale2);
             RCP_SetupDL(&gMasterDisp, 0x17);
-            gSPDisplayList(gMasterDisp++, D_9013C20);
+            gSPDisplayList(gMasterDisp++, D_VE1_9013C20);
             RCP_SetupDL(&gMasterDisp, 0x40);
             break;
 

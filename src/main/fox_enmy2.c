@@ -15,6 +15,8 @@ s32 D_80161690;
 #include "assets/ast_andross.h"
 #include "assets/ast_area_6.h"
 #include "assets/ast_enmy_space.h"
+#include "assets/ast_enmy_planet.h"
+#include "assets/ast_ve1_boss.h"
 
 void func_8006A7B0(u16* msg, s32 character) {
     PRINTF("Enm->obj.pos.y + tmp_xyz.y=<%10.3f>\n");
@@ -945,10 +947,10 @@ UnkStruct_D003C D_800D003C[108] = {
     { NULL, D_800CBF34, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
     { NULL, D_800CBE8C, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
     { NULL, D_AQ_6030B4C, 1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 60.0f, 1 },
-    { D_9012180, D_601B43C, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { D_VE1_9012180, D_601B43C, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
     { NULL, D_800CBE8C, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
     { NULL, D_800CBE8C, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
-    { D_900EFC0, D_800CBF34, 1.0f, 100.0f, 3000.0f, 1, 1, 0, 0, 0.0f, 1 },
+    { D_VE1_900EFC0, D_800CBF34, 1.0f, 100.0f, 3000.0f, 1, 1, 0, 0, 0.0f, 1 },
     { NULL, D_AQ_6030B30, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
     { NULL, D_AQ_6030B14_f32, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
     { D_601C520, D_60368FC, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
@@ -4015,15 +4017,15 @@ void func_80074FF0(Actor* actor) {
                 case 80:
                     Matrix_Scale(gGfxMatrix, 0.6f, 0.6f, 0.6f, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_9011200);
+                    gSPDisplayList(gMasterDisp++, D_VE1_9011200);
                     break;
 
                 case 81:
                     if (actor->fwork[15] > 0.001f) {
                         Matrix_Scale(gGfxMatrix, actor->fwork[15], actor->fwork[15], actor->fwork[15], 1);
                         Matrix_SetGfxMtx(&gMasterDisp);
-                        Texture_BlendRGBA16(actor->fwork[16], 16 * 11, D_9003890, D_9003DF0, D_9003330);
-                        gSPDisplayList(gMasterDisp++, D_9002CF0);
+                        Texture_BlendRGBA16(actor->fwork[16], 16 * 11, D_VE1_9003890, D_VE1_9003DF0, D_VE1_9003330);
+                        gSPDisplayList(gMasterDisp++, D_VE1_9002CF0);
                     }
                     break;
 

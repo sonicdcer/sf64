@@ -8,13 +8,7 @@
 #include "sf64player.h"
 
 // ast_enmy_planet
-extern Animation D_40001A4;
-extern Limb* D_4000270[];
-extern Gfx D_40018A0[];
-extern Animation D_40057AC;
-extern Limb* D_40058B8[];
-extern Gfx D_40068F0[];
-extern Gfx D_4007AF0[];
+
 
 /* ast_corneria, ast_meteo, ast_titania, ast_sector_x, ast_sector_z,
  * ast_aquas, ast_area_6, ast_venom_1, ast_venom_2, ast_ve1_boss*,
@@ -590,48 +584,6 @@ extern Gfx D_601A700[];
 extern Gfx D_6019670[];
 extern Gfx D_60185E0[];
 extern Gfx D_6017550[];
-
-// ast_versus, ast_ending
-extern u8 D_7000F10[]; // fox_option
-extern u8 D_7001030[]; // fox_option
-extern u8 D_7001270[]; // fox_option
-extern u8 D_7001DF0[]; // fox_option
-extern u8 D_7002110[]; // fox_option
-extern u8 D_7003650[]; // fox_option
-extern Gfx D_7003830[]; // fox_versus
-extern u8 D_7003C70[]; // fox_versus
-extern u8 D_7003E10[]; // fox_versus
-extern u8 D_7003F10[]; // fox_versus
-extern u8 D_7004010[]; // fox_option
-extern u8 D_7004050[]; // fox_versus
-extern u16 D_7004150[]; // fox_versus
-extern u8 D_70041F0[]; // fox_versus
-extern u16 D_70042F0[]; // fox_versus
-extern u8 D_7004360[]; // fox_versus
-extern u16 D_7004460[]; // fox_versus
-extern u8 D_70044D0[]; // fox_versus
-extern u16 D_7004990[]; // fox_versus
-extern u16 D_700E9A0[]; // fox_option
-extern u8 D_70118E0[]; // fox_versus, fox_option
-extern u16 D_70123F8[]; // fox_versus, fox_option
-
-// ast_9_ti, ast_ve1_boss
-extern Gfx D_9002CF0[];
-extern u16 D_9003330[];
-extern u16 D_9003890[];
-extern u16 D_9003DF0[];
-extern Gfx D_9003F50[];
-extern Gfx D_9005C80[];
-extern Gfx D_900D180[];
-extern Gfx D_900DD20[];
-extern Gfx D_900F060[];
-extern Gfx D_900F1D0[];
-extern Gfx D_9010FD0[];
-extern Gfx D_9011200[];
-extern Gfx D_901DA50[];
-extern Gfx D_9023290[];
-extern Gfx D_90234D0[];
-extern Gfx D_9023AD0[];
 
 // fox_map, to be ordered later
 

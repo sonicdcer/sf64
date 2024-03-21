@@ -1,5 +1,6 @@
 #include "prevent_bss_reordering.h"
 #include "global.h"
+#include "assets/ast_enmy_planet.h"
 
 // f32 temp[] = {
 //     13.0f,

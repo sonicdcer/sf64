@@ -9,6 +9,7 @@
 #include "assets/ast_aquas.h"
 #include "assets/ast_great_fox.h"
 #include "assets/ast_enmy_space.h"
+#include "assets/ast_enmy_planet.h"
 
 extern Gfx D_60320E0[];
 extern Gfx D_7010970[];
@@ -29,7 +30,6 @@ extern f32 D_80178468;
 extern f32 D_80178474;
 extern f32 D_80178478;
 
-extern Gfx D_400AAE0[];
 extern Gfx D_6000D80[];
 extern Gfx D_600BAA0[];
 extern Gfx D_60132A0[];

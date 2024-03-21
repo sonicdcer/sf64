@@ -22,7 +22,7 @@ D_TI1_7001108:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 176, offset: 0x07001108, symbol: D_TI1_7001108 }
 
 D_TI1_7001268:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x7001268, symbol: D_TI1_7001268, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x7001268, symbol: D_TI1_7001268 }
 
 D_TI1_7002270:
   { type: GFX, offset: 0x7002270, symbol: D_TI1_7002270 }
@@ -43,7 +43,7 @@ D_TI1_7003488:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x07003488, symbol: D_TI1_7003488, tlut: 0x07003888 }
 
 D_TI1_7003888:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 256, offset: 0x07003888, symbol: D_TI1_7003888, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 256, offset: 0x07003888, symbol: D_TI1_7003888 }
 
 D_TI1_7003A90:
   { type: GFX, offset: 0x7003A90, symbol: D_TI1_7003A90 }
@@ -53,9 +53,6 @@ D_TI1_7003C50:
 
 D_TI1_7003E30:
   { type: GFX, offset: 0x7003E30, symbol: D_TI1_7003E30 }
-
-PAD_7003FB8: 
-  { type: BLOB, size: 8, offset: 0x7003FB8, symbol: PAD_7003FB8 }
 
 D_TI1_7003FC0:
   { type: GFX, offset: 0x7003FC0, symbol: D_TI1_7003FC0 }
@@ -68,9 +65,6 @@ D_TI1_7004370:
 
 D_TI1_7004560:
   { type: GFX, offset: 0x7004560, symbol: D_TI1_7004560 }
-
-PAD_7004778: 
-  { type: BLOB, size: 8, offset: 0x7004778, symbol: PAD_7004778 }
 
 D_TI1_7004780:
   { type: GFX, offset: 0x7004780, symbol: D_TI1_7004780 }
@@ -85,19 +79,13 @@ D_TI1_7004E78:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x07004E78, symbol: D_TI1_7004E78 }
 
 D_TI1_7005078:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x07005078, symbol: D_TI1_7005078, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x07005078, symbol: D_TI1_7005078 }
 
 D_TI1_7005280:
   { type: GFX, offset: 0x7005280, symbol: D_TI1_7005280 }
 
-PAD_7005418: 
-  { type: BLOB, size: 8, offset: 0x7005418, symbol: PAD_7005418 }
-
 D_TI1_7005420:
   { type: GFX, offset: 0x7005420, symbol: D_TI1_7005420 }
-
-PAD_7005648: 
-  { type: BLOB, size: 8, offset: 0x7005648, symbol: PAD_7005648 }
 
 D_TI1_70067C4:
   { type: SF64:ANIM, offset: 0x70067C4, symbol: D_TI1_70067C4 }
@@ -105,26 +93,17 @@ D_TI1_70067C4:
 D_TI1_7006990:
   { type: SF64:SKELETON, offset: 0x7006990, symbol: D_TI1_7006990}
 
-PAD_70069CC: 
-  { type: BLOB, size: 4, offset: 0x70069CC, symbol: PAD_70069CC }
-
 D_TI1_7006F74:
   { type: SF64:ANIM, offset: 0x7006F74, symbol: D_TI1_7006F74 }
 
 D_TI1_7007130:
   { type: SF64:ANIM, offset: 0x7007130, symbol: D_TI1_7007130 }
 
-PAD_700713C: 
-  { type: BLOB, size: 4, offset: 0x700713C, symbol: PAD_700713C }
-
 D_TI1_7007234:
   { type: SF64:ANIM, offset: 0x7007234, symbol: D_TI1_7007234 }
 
 D_TI1_700733C:
   { type: SF64:ANIM, offset: 0x700733C, symbol: D_TI1_700733C }
-
-PAD_7007348: 
-  { type: BLOB, size: 8, offset: 0x7007348, symbol: PAD_7007348 }
 
 D_TI1_7007350:
   { type: GFX, offset: 0x7007350, symbol: D_TI1_7007350 }
@@ -166,13 +145,13 @@ D_TI1_7009510:
   { type: GFX, offset: 0x7009510, symbol: D_TI1_7009510 }
 
 D_TI1_70096D8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x070096D8, symbol: D_TI1_70096D8, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x070096D8, symbol: D_TI1_70096D8 }
 
 D_TI1_70098E0:
   { type: GFX, offset: 0x70098E0, symbol: D_TI1_70098E0 }
 
 D_TI1_7009B58:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x07009B58, symbol: D_TI1_7009B58, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x07009B58, symbol: D_TI1_7009B58 }
 
 D_TI1_7009D60:
   { type: GFX, offset: 0x7009D60, symbol: D_TI1_7009D60 }
@@ -187,13 +166,13 @@ D_TI1_700AAD8:
   { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x700AAD8, symbol: D_TI1_700AAD8, tlut: 0x700AB58 }
 
 D_TI1_700AB58:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0x700AB58, symbol: D_TI1_700AB58, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0x700AB58, symbol: D_TI1_700AB58 }
 
 D_TI1_700AB70:
   { type: GFX, offset: 0x700AB70, symbol: D_TI1_700AB70 }
 
 D_TI1_700AEA8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x0700AEA8, symbol: D_TI1_700AEA8, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x0700AEA8, symbol: D_TI1_700AEA8 }
 
 D_TI1_700AF30:
   { type: GFX, offset: 0x700AF30, symbol: D_TI1_700AF30 }
@@ -202,16 +181,13 @@ D_TI1_700B5B8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0700B5B8, symbol: D_TI1_700B5B8 }
 
 D_TI1_700B7B8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0700B7B8, symbol: D_TI1_700B7B8, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0700B7B8, symbol: D_TI1_700B7B8 }
 
 D_TI1_700B9C0:
   { type: GFX, offset: 0x700B9C0, symbol: D_TI1_700B9C0 }
 
 D_TI1_700BB10:
   { type: GFX, offset: 0x700BB10, symbol: D_TI1_700BB10 }
-
-PAD_700BDF8:
-  { type: BLOB, size: 8, offset: 0x700BDF8, symbol: PAD_700BDF8 }
 
 D_TI1_700BE00:
   { type: GFX, offset: 0x700BE00, symbol: D_TI1_700BE00 }
@@ -225,23 +201,14 @@ D_TI1_700C3B0:
 D_TI1_700C4B0:
   { type: GFX, offset: 0x700C4B0, symbol: D_TI1_700C4B0 }
 
-PAD_700C888:
-  { type: BLOB, size: 8, offset: 0x700C888, symbol: PAD_700C888 }
-
 D_TI1_700C8D8:
   { type: SF64:ANIM, offset: 0x700C8D8, symbol: D_TI1_700C8D8 }
 
 D_TI1_700C964:
   { type: SF64:SKELETON, offset: 0x700C964, symbol: D_TI1_700C964 }
 
-PAD_700C978:
-  { type: BLOB, size: 8, offset: 0x700C978, symbol: PAD_700C978 }
-
 D_TI1_700C980:
   { type: GFX, offset: 0x700C980, symbol: D_TI1_700C980 }
-
-PAD_700CA58:
-  { type: BLOB, size: 8, offset: 0x700CA58, symbol: PAD_700CA58 }
 
 D_TI1_700CAF4:
   { type: SF64:ANIM, offset: 0x700CAF4, symbol: D_TI1_700CAF4}
@@ -258,26 +225,14 @@ D_TI1_700D700:
 D_TI1_700D740:
   { type: GFX, offset: 0x700D740, symbol: D_TI1_700D740 }
 
-PAD_700D878: 
-  { type: BLOB, size: 0x8, offset: 0x700D878, symbol: PAD_700D878 }
-
 D_TI1_700D880:
   { type: GFX, offset: 0x700D880, symbol: D_TI1_700D880 }
-
-PAD_700D9A8: 
-  { type: BLOB, size: 0x8, offset: 0x700D9A8, symbol: PAD_700D9A8 }
 
 D_TI1_700D9B0:
   { type: GFX, offset: 0x700D9B0, symbol: D_TI1_700D9B0 }
 
-PAD_700DAC8: 
-  { type: BLOB, size: 0x8, offset: 0x700DAC8, symbol: PAD_700DAC8 }
-
 D_TI1_700DAD0:
   { type: GFX, offset: 0x700DAD0, symbol: D_TI1_700DAD0 }
-
-PAD_700DBA8: 
-  { type: BLOB, size: 0x8, offset: 0x700DBA8, symbol: PAD_700DBA8 }
 
 D_TI1_700DBB0:
   { type: GFX, offset: 0x700DBB0, symbol: D_TI1_700DBB0 }
@@ -288,14 +243,8 @@ D_TI1_700DC50:
 D_TI1_700DD68:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x0700DD68, symbol: D_TI1_700DD68 }
 
-PAD_700DDE8:
-  { type: BLOB, size: 0x8, offset: 0x700DDE8, symbol: PAD_700DDE8 }
-
 D_TI1_700DDF0:
   { type: GFX, offset: 0x700DDF0, symbol: D_TI1_700DDF0 }
-
-PAD_700DEC8:
-  { type: BLOB, size: 0x8, offset: 0x700DEC8, symbol: PAD_700DEC8 }
 
 D_TI1_700DED0:
   { type: GFX, offset: 0x700DED0, symbol: D_TI1_700DED0 }
@@ -303,20 +252,17 @@ D_TI1_700DED0:
 D_TI1_700DF70:
   { type: GFX, offset: 0x700DF70, symbol: D_TI1_700DF70 }
 
-PAD_700E028:
-  { type: BLOB, size: 0x8, offset: 0x700E028, symbol: PAD_700E028 }
-
 D_TI1_700E030:
   { type: GFX, offset: 0x700E030, symbol: D_TI1_700E030 }
 
 D_TI1_700E1E8: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0700E1E8, symbol: D_TI1_700E1E8, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0700E1E8, symbol: D_TI1_700E1E8 }
 
 D_TI1_700E3F0:
   { type: GFX, offset: 0x700E3F0, symbol: D_TI1_700E3F0 }
 
 D_TI1_700E858:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0700E858, symbol: D_TI1_700E858, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0700E858, symbol: D_TI1_700E858 }
 
 D_TI1_700EA60:
   { type: GFX, offset: 0x700EA60, symbol: D_TI1_700EA60 }

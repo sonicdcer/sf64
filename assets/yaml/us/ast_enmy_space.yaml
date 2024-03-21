@@ -13,13 +13,10 @@ D_ENMY_SPACE_4000080:
   { type: SF64:ANIM, offset: 0x4000080, symbol: D_ENMY_SPACE_4000080 }
 
 D_ENMY_SPACE_400014C: 
-  { type: SF64:SKELETON, offset: 0x400014C, symbol: D_ENMY_SPACE_400014C, pad: 8 }
+  { type: SF64:SKELETON, offset: 0x400014C, symbol: D_ENMY_SPACE_400014C }
 
 D_ENMY_SPACE_4000170:
   { type: GFX, offset: 0x4000170, symbol: D_ENMY_SPACE_4000170 }
-
-PAD_4000648:
-  { type: BLOB, offset: 0x4000648, size: 0x8, symbol: PAD_4000648 }
 
 D_ENMY_SPACE_4000650:
   { type: GFX, offset: 0x4000650, symbol: D_ENMY_SPACE_4000650 }
@@ -29,9 +26,6 @@ D_ENMY_SPACE_4000EC0:
 
 D_ENMY_SPACE_4001108:
   { type: TEXTURE, format: RGBA16, offset: 0x4001108, width: 16, height: 16, ctype: u16, symbol: D_ENMY_SPACE_4001108 }
-
-PAD_4001308:
-  { type: BLOB, offset: 0x4001308, size: 0x8, symbol: PAD_4001308 }
 
 D_ENMY_SPACE_4001310:
   { type: GFX, offset: 0x4001310, symbol: D_ENMY_SPACE_4001310 }
@@ -50,9 +44,6 @@ D_ENMY_SPACE_4002030:
 
 D_ENMY_SPACE_4002230:
   { type: GFX, offset: 0x4002230, symbol: D_ENMY_SPACE_4002230 }
-
-PAD_4002658:
-  { type: BLOB, offset: 0x4002658, size: 0x8, symbol: PAD_4002658 }
 
 D_ENMY_SPACE_4002C50:
   { type: TEXTURE, format: RGBA16, offset: 0x04002C50, width: 16, height: 16, ctype: u16, symbol: D_ENMY_SPACE_4002C50 }
@@ -91,7 +82,7 @@ D_ENMY_SPACE_40067E8:
   { type: TEXTURE, format: RGBA16, offset: 0x40067E8, width: 32, height: 32, ctype: u16, symbol: D_ENMY_SPACE_40067E8 }
 
 D_ENMY_SPACE_40077E8:
-  { type: TEXTURE, format: RGBA16, offset: 0x40077E8, width: 8, height: 8, ctype: u16, symbol: D_ENMY_SPACE_40077E8, pad: 8 }
+  { type: TEXTURE, format: RGBA16, offset: 0x40077E8, width: 8, height: 8, ctype: u16, symbol: D_ENMY_SPACE_40077E8 }
 
 D_ENMY_SPACE_4007870:
   { type: GFX, offset: 0x4007870, symbol: D_ENMY_SPACE_4007870 }
@@ -108,9 +99,6 @@ D_ENMY_SPACE_4008550:
 D_ENMY_SPACE_4008D50:
   { type: GFX, offset: 0x4008D50, symbol: D_ENMY_SPACE_4008D50 }
 
-PAD_4008F98:
-  { type: BLOB, offset: 0x4008F98, size: 0x8, symbol: PAD_4008F98 }
-
 D_ENMY_SPACE_4008FA0:
   { type: GFX, offset: 0x4008FA0, symbol: D_ENMY_SPACE_4008FA0 }
 
@@ -123,35 +111,23 @@ D_ENMY_SPACE_40098B8:
 D_ENMY_SPACE_4009AB8:
   { type: TEXTURE, format: RGBA16, offset: 0x04009AB8, width: 32, height: 32, ctype: u16, symbol: D_ENMY_SPACE_4009AB8 }
 
-PAD_400A2B8:
-  { type: BLOB, offset: 0x400A2B8, size: 0x8, symbol: PAD_400A2B8 }
-
 D_ENMY_SPACE_400A30C:
   { type: SF64:ANIM, offset: 0x400A30C, symbol: D_ENMY_SPACE_400A30C }
 
 D_ENMY_SPACE_400A398:
   { type: SF64:SKELETON, offset: 0x400A398, symbol: D_ENMY_SPACE_400A398 }
 
-PAD_400A3AC:
-  { type: BLOB, offset: 0x400A3AC, size: 0x4, symbol: PAD_400A3AC }
-
 D_ENMY_SPACE_400A630:
   { type: GFX, offset: 0x400A630, symbol: D_ENMY_SPACE_400A630 }
 
-PAD_400AAD8:
-  { type: BLOB, offset: 0x400AAD8, size: 0x8, symbol: PAD_400AAD8 }
   
 D_ENMY_SPACE_400AAE0:
   { type: GFX, offset: 0x400AAE0, symbol: D_ENMY_SPACE_400AAE0 }
 
-PAD_400B388:
-  { type: BLOB, offset: 0x400B388, size: 0x8, symbol: PAD_400B388 }
   
 D_ENMY_SPACE_400B390:
   { type: GFX, offset: 0x400B390, symbol: D_ENMY_SPACE_400B390 }
   
-PAD_400BD18:
-  { type: BLOB, offset: 0x400BD18, size: 0x8, symbol: PAD_400BD18 }
   
 D_ENMY_SPACE_400BD20:
   { type: GFX, offset: 0x400BD20, symbol: D_ENMY_SPACE_400BD20 }

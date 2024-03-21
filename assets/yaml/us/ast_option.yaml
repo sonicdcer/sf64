@@ -42,7 +42,7 @@ D_8003950:
   { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 11, offset: 0x8003950, symbol: D_8003950, tlut: 0x80039A8 }
 
 D_80039A8:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x80039A8, symbol: D_80039A8, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x80039A8, symbol: D_80039A8 }
 
 # 
 D_80039D0:
@@ -56,14 +56,14 @@ D_8003A70:
   { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 9, offset: 0x8003A70, symbol: D_8003A70, tlut: 0x8003AB8 }
 
 D_8003AB8:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x8003AB8, symbol: D_8003AB8, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x8003AB8, symbol: D_8003AB8 }
 
 # th
 D_8003AE0:
   { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 9, offset: 0x8003AE0, symbol: D_8003AE0, tlut: 0x8003B28 }
 
 D_8003B28:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x8003B28, symbol: D_8003B28, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x8003B28, symbol: D_8003B28 }
 
 # Option Title Cards
 
@@ -124,11 +124,11 @@ D_80064F0:
 
 # Voice
 D_80069C0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 56, height: 15, offset: 0x80069C0, symbol: D_80069C0, pad: 8 }
+  { type: TEXTURE, ctype: u8, format: IA8, width: 56, height: 15, offset: 0x80069C0, symbol: D_80069C0 }
 
 # SE
 D_8006D10:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 24, height: 13, offset: 0x8006D10, symbol: D_8006D10, pad: 8 }
+  { type: TEXTURE, ctype: u8, format: IA8, width: 24, height: 13, offset: 0x8006D10, symbol: D_8006D10 }
 
 # B to cancel
 D_8006E50:
@@ -176,7 +176,7 @@ D_800B680:
 
 # Stereo
 D_800CD90:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 56, height: 13, offset: 0x800CD90, symbol: D_800CD90, pad: 8 }
+  { type: TEXTURE, ctype: u8, format: IA8, width: 56, height: 13, offset: 0x800CD90, symbol: D_800CD90 }
 
 # UNK: Triangle shape, it's mirrored to form a diamond shape
 D_800D070:
@@ -241,7 +241,7 @@ D_8015550:
   { type: GFX, offset: 0x8015550, symbol: D_8015550 }
 
 D_80155E8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x080155E8, symbol: D_80155E8, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x080155E8, symbol: D_80155E8 }
 
 D_8015DF0:
   { type: GFX, offset: 0x8015DF0, symbol: D_8015DF0 }

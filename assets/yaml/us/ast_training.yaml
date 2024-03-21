@@ -46,17 +46,11 @@ D_TR_6003878:
 D_TR_6004878:
   { type: TEXTURE, format: RGBA16, offset: 0x06004878, width: 64, height: 32, ctype: u16, symbol: D_TR_6004878 }
 
-PAD_6005878:
-  { type: BLOB, offset: 0x6005878, size: 0x8, symbol: PAD_6005878 }
-
 D_TR_6005880:
   { type: GFX, offset: 0x6005880, symbol: D_TR_6005880 }
 
 D_TR_6005938:
   { type: TEXTURE, format: RGBA16, offset: 0x06005938, width: 32, height: 32, ctype: u16, symbol: D_TR_6005938 }
-
-PAD_6006138:
-  { type: BLOB, offset: 0x6006138, size: 0x8, symbol: PAD_6006138 }
 
 gItemTrainingRingDL:
   { type: GFX, offset: 0x6006140, symbol: gItemTrainingRingDL }
@@ -66,9 +60,6 @@ D_TR_6006958:
 
 D_TR_60069D8:
   { type: TEXTURE, format: RGBA16, offset: 0x060069D8, width: 8, height: 8, ctype: u16, symbol: D_TR_60069D8 }
-
-PAD_6006A58:
-  { type: BLOB, offset: 0x6006A58, size: 0x8, symbol: PAD_6006A58 }
 
 D_TR_6006A60:
   { type: SF64:ENV_SETTINGS, offset: 0x6006A60, symbol: D_TR_6006A60 }

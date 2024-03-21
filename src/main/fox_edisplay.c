@@ -17,6 +17,8 @@ WingInfo D_80161630;
 #include "assets/ast_blue_marine.h"
 #include "assets/ast_vs_player.h"
 #include "assets/ast_enmy_space.h"
+#include "assets/ast_enmy_planet.h"
+#include "assets/ast_ve1_boss.h"
 
 char D_800CF970[] = "$Id: fox_edisplay.c,v 1.196 1997/05/08 08:31:50 morita Exp $";
 
@@ -339,16 +341,16 @@ void func_8005A094(Actor* actor) {
             }
             switch (actor->iwork[0]) {
                 case 0:
-                    gSPDisplayList(gMasterDisp++, D_90234D0);
+                    gSPDisplayList(gMasterDisp++, D_VE1_90234D0);
                     break;
                 case 1:
-                    gSPDisplayList(gMasterDisp++, D_9023290);
+                    gSPDisplayList(gMasterDisp++, D_VE1_9023290);
                     break;
                 case 2:
-                    gSPDisplayList(gMasterDisp++, D_900D180);
+                    gSPDisplayList(gMasterDisp++, D_VE1_900D180);
                     break;
                 case 3:
-                    gSPDisplayList(gMasterDisp++, D_9010FD0);
+                    gSPDisplayList(gMasterDisp++, D_VE1_9010FD0);
                     break;
             }
             if (actor->iwork[1] != 0) {

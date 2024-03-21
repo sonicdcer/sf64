@@ -766,7 +766,7 @@ void func_ending_80190CF0(u32 arg0, AssetInfo* asset) {
     }
 
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_7000000);
+    gSPDisplayList(gMasterDisp++, D_END_7000000);
 }
 
 void func_ending_80191234(s32 arg0, s32 arg1) {

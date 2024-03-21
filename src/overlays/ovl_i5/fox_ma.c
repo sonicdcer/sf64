@@ -1,6 +1,7 @@
 // #include "prevent_bss_reordering.h"
 #include "global.h"
 #include "assets/ast_landmaster.h"
+#include "assets/ast_enmy_planet.h"
 
 extern u8 D_6023228[];
 extern u8 D_6023388[];
@@ -98,8 +99,6 @@ extern f32 D_6035A94[];
 extern ObjectInit D_6035678[];
 extern ObjectInit D_60357CC[];
 extern ObjectInit D_6035920[];
-extern Gfx D_4008CE0[];
-extern Gfx D_4008F70[];
 extern Gfx D_600D480[];
 extern Gfx D_6013060[];
 extern Gfx D_6012F50[];

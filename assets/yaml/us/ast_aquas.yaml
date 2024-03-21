@@ -31,9 +31,7 @@ D_AQ_6002628:
 D_AQ_6002874:
   { type: SF64:SKELETON, offset: 0x6002874, symbol: D_AQ_6002874 }
 
-PAD_6002C08:
-  { type: BLOB, size: 8, offset: 0x6002C08, symbol: PAD_6002C08 }
-
+# 
 D_AQ_6002C10:
   { type: GFX, offset: 0x6002C10, symbol: D_AQ_6002C10 }
 
@@ -41,7 +39,7 @@ D_AQ_6002D58:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x6002D58, symbol: D_AQ_6002D58, tlut: 0x6003158 }
 
 D_AQ_6003158:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 248, offset: 0x6003158, symbol: D_AQ_6003158, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 248, offset: 0x6003158, symbol: D_AQ_6003158 }
 
 D_AQ_6003610:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6003610, symbol: D_AQ_6003610 }
@@ -58,9 +56,6 @@ D_AQ_6005954:
 D_AQ_6005A80:
   { type: SF64:SKELETON, offset: 0x6005A80, symbol: D_AQ_6005A80 }
 
-PAD_6005AA8:
-  { type: BLOB, size: 8, offset: 0x6005AA8, symbol: PAD_6005AA8 }
-
 D_AQ_6006160:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6006160, symbol: D_AQ_6006160 }
 
@@ -70,14 +65,8 @@ D_AQ_6006960:
 D_AQ_6007378:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6007378, symbol: D_AQ_6007378 }
 
-PAD_6007B78:
-  { type: BLOB, size: 8, offset: 0x6007B78, symbol: PAD_6007B78 }
-
 D_AQ_6007B80:
   { type: GFX, offset: 0x6007B80, symbol: D_AQ_6007B80 }
-
-PAD_6007D68:
-  { type: BLOB, size: 8, offset: 0x6007D68, symbol: PAD_6007D68 }
 
 D_AQ_6007F68:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6007F68, symbol: D_AQ_6007F68 }
@@ -87,9 +76,6 @@ D_AQ_6007F68:
 
 D_AQ_6008168:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6008168, symbol: D_AQ_6008168 }
-
-PAD_6008968:
-  { type: BLOB, size: 8, offset: 0x6008968, symbol: PAD_6008968 }
 
 D_AQ_6008970:
   { type: GFX, offset: 0x6008970, symbol: D_AQ_6008970 }
@@ -103,38 +89,14 @@ D_AQ_6008FC8:
 D_AQ_6009188:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6009188, symbol: D_AQ_6009188 }
 
-PAD_6009988:
-  { type: BLOB, size: 8, offset: 0x6009988, symbol: PAD_6009988 }
-
 D_AQ_6009C28:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x6009C28, symbol: D_AQ_6009C28, tlut: 0x600A028 }
 
 D_AQ_600A028:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 248, offset: 0x600A028, symbol: D_AQ_600A028 }
 
-PAD_600A218:
-  { type: BLOB, size: 8, offset: 0x600A218, symbol: PAD_600A218 }
-
 D_AQ_600A220:
   { type: GFX, offset: 0x600A220, symbol: D_AQ_600A220 }
-
-PAD_600A478:
-  { type: BLOB, size: 8, offset: 0x600A478, symbol: PAD_600A478 }
-
-PAD_600A518:
-  { type: BLOB, size: 8, offset: 0x600A518, symbol: PAD_600A518 }
-
-PAD_600A718:
-  { type: BLOB, size: 8, offset: 0x600A718, symbol: PAD_600A718 }
-
-PAD_600A838:
-  { type: BLOB, size: 8, offset: 0x600A838, symbol: PAD_600A838 }
-
-PAD_600A8D8:
-  { type: BLOB, size: 8, offset: 0x600A8D8, symbol: PAD_600A8D8 }
-
-PAD_600A968:
-  { type: BLOB, size: 8, offset: 0x600A968, symbol: PAD_600A968 }
 
 D_AQ_600AB10:
   { type: GFX, offset: 0x600AB10, symbol: D_AQ_600AB10 }
@@ -142,20 +104,8 @@ D_AQ_600AB10:
 D_AQ_600AB68:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x600AB68, symbol: D_AQ_600AB68 }
 
-PAD_600B368:
-  { type: BLOB, size: 8, offset: 0x600B368, symbol: PAD_600B368 }
-
-PAD_600B3F8:
-  { type: BLOB, size: 8, offset: 0x600B3F8, symbol: PAD_600B3F8 }
-
 D_AQ_600B518:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x600B518, symbol: D_AQ_600B518 }
-
-PAD_600BD18:
-  { type: BLOB, size: 8, offset: 0x600BD18, symbol: PAD_600BD18 }
-
-PAD_600BF78:
-  { type: BLOB, size: 8, offset: 0x600BF78, symbol: PAD_600BF78 }
 
 D_AQ_600BF80:
   { type: GFX, offset: 0x600BF80, symbol: D_AQ_600BF80 }
@@ -172,35 +122,17 @@ D_AQ_600CB20:
 D_AQ_600CF20:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 104, offset: 0x600CF20, symbol: D_AQ_600CF20 }
 
-PAD_600DB78:
-  { type: BLOB, size: 8, offset: 0x600DB78, symbol: PAD_600DB78 }
-
 D_AQ_600DB80:
   { type: GFX, offset: 0x600DB80, symbol: D_AQ_600DB80 }
 
 D_AQ_600DF48:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x600DF48, symbol: D_AQ_600DF48 }
 
-PAD_600E148:
-  { type: BLOB, size: 8, offset: 0x600E148, symbol: PAD_600E148 }
-
 D_AQ_600E368:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x600E368, symbol: D_AQ_600E368 }
 
-PAD_600EB68:
-  { type: BLOB, size: 8, offset: 0x600EB68, symbol: PAD_600EB68 }
-
-PAD_600EBF8:
-  { type: BLOB, size: 8, offset: 0x600EBF8, symbol: PAD_600EBF8 }
-
-PAD_600EE08:
-  { type: BLOB, size: 8, offset: 0x600EE08, symbol: PAD_600EE08 }
-
 D_AQ_600EE10:
   { type: GFX, offset: 0x600EE10, symbol: D_AQ_600EE10 }
-
-PAD_600EEE8:
-  { type: BLOB, size: 8, offset: 0x600EEE8, symbol: PAD_600EEE8 }
 
 D_AQ_600EEF0:
   { type: GFX, offset: 0x600EEF0, symbol: D_AQ_600EEF0 }
@@ -229,9 +161,6 @@ D_AQ_6011A78:
 D_AQ_6011CD8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6011CD8, symbol: D_AQ_6011CD8 }
 
-PAD_6011ED8:
-  { type: BLOB, size: 8, offset: 0x6011ED8, symbol: PAD_6011ED8 }
-
 D_AQ_6011EE0:
   { type: GFX, offset: 0x6011EE0, symbol: D_AQ_6011EE0 }
 
@@ -254,7 +183,7 @@ D_AQ_6012EA8:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x6012EA8, symbol: D_AQ_6012EA8, tlut: 0x60132A8 }
 
 D_AQ_60132A8:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 240, offset: 0x60132A8, symbol: D_AQ_60132A8, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 240, offset: 0x60132A8, symbol: D_AQ_60132A8 }
 
 D_AQ_60135E0:
   { type: SF64:ANIM, offset: 0x60135E0, symbol: D_AQ_60135E0 }
@@ -289,12 +218,6 @@ D_AQ_6014520:
 D_AQ_60148B0:
   { type: GFX, offset: 0x60148B0, symbol: D_AQ_60148B0 }
 
-PAD_6014B28:
-  { type: BLOB, size: 8, offset: 0x6014B28, symbol: PAD_6014B28 }
-
-PAD_6014CC8:
-  { type: BLOB, size: 8, offset: 0x6014CC8, symbol: PAD_6014CC8 }
-
 D_AQ_6014CD0:
   { type: GFX, offset: 0x6014CD0, symbol: D_AQ_6014CD0 }
 
@@ -311,43 +234,22 @@ D_AQ_60154F8:
   { type: TEXTURE, ctype: u8, format: CI8, width: 16, height: 16, offset: 0x60154F8, symbol: D_AQ_60154F8, tlut: 0x60155F8 }
 
 D_AQ_60155F8:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 152, offset: 0x60155F8, symbol: D_AQ_60155F8, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 152, offset: 0x60155F8, symbol: D_AQ_60155F8 }
 
 D_AQ_6015730:
   { type: GFX, offset: 0x6015730, symbol: D_AQ_6015730 }
 
-PAD_6015B28:
-  { type: BLOB, size: 8, offset: 0x6015B28, symbol: PAD_6015B28 }
-
-PAD_6015C78:
-  { type: BLOB, size: 8, offset: 0x6015C78, symbol: PAD_6015C78 }
-
-PAD_6015DC8:
-  { type: BLOB, size: 8, offset: 0x6015DC8, symbol: PAD_6015DC8 }
-
 D_AQ_6015DD0:
   { type: GFX, offset: 0x6015DD0, symbol: D_AQ_6015DD0 }
 
-PAD_6015FE8:
-  { type: BLOB, size: 8, offset: 0x6015FE8, symbol: PAD_6015FE8 }
-
 D_AQ_6015FF0:
   { type: GFX, offset: 0x6015FF0, symbol: D_AQ_6015FF0 }
-
-PAD_6016538:
-  { type: BLOB, size: 8, offset: 0x6016538, symbol: PAD_6016538 }
-
-PAD_6016BF8:
-  { type: BLOB, size: 8, offset: 0x6016BF8, symbol: PAD_6016BF8 }
-
-PAD_6016F38:
-  { type: BLOB, size: 8, offset: 0x6016F38, symbol: PAD_6016F38 }
 
 D_AQ_6017BD8:
   { type: TEXTURE, ctype: u8, format: CI8, width: 16, height: 16, offset: 0x6017BD8, symbol: D_AQ_6017BD8, tlut: 0x6017CD8 }
 
 D_AQ_6017CD8:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 64, offset: 0x6017CD8, symbol: D_AQ_6017CD8, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 64, offset: 0x6017CD8, symbol: D_AQ_6017CD8 }
 
 D_AQ_6018640:
   { type: GFX, offset: 0x6018640, symbol: D_AQ_6018640 }
@@ -365,13 +267,10 @@ D_AQ_6019238:
   { type: TEXTURE, ctype: u8, format: CI8, width: 16, height: 16, offset: 0x6019238, symbol: D_AQ_6019238, tlut: 0x6019338 }
 
 D_AQ_6019338:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 200, offset: 0x6019338, symbol: D_AQ_6019338, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 200, offset: 0x6019338, symbol: D_AQ_6019338 }
 
 D_AQ_60194D0:
   { type: GFX, offset: 0x60194D0, symbol: D_AQ_60194D0 }
-
-PAD_6019878:
-  { type: BLOB, size: 8, offset: 0x6019878, symbol: PAD_6019878 }
 
 D_AQ_6019880:
   { type: GFX, offset: 0x6019880, symbol: D_AQ_6019880 }
@@ -380,7 +279,7 @@ D_AQ_6019C28:
   { type: TEXTURE, ctype: u8, format: CI8, width: 16, height: 16, offset: 0x6019C28, symbol: D_AQ_6019C28, tlut: 0x6019D28 }
 
 D_AQ_6019D28:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 168, offset: 0x6019D28, symbol: D_AQ_6019D28, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 168, offset: 0x6019D28, symbol: D_AQ_6019D28 }
 
 D_AQ_6019E80:
   { type: GFX, offset: 0x6019E80, symbol: D_AQ_6019E80 }
@@ -389,10 +288,7 @@ D_AQ_601A308:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x601A308, symbol: D_AQ_601A308, tlut: 0x601A708 }
 
 D_AQ_601A708:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 248, offset: 0x601A708, symbol: D_AQ_601A708, pad: 8 }
-
-PAD_601AB28:
-  { type: BLOB, size: 8, offset: 0x601AB28, symbol: PAD_601AB28 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 248, offset: 0x601A708, symbol: D_AQ_601A708 }
 
 D_AQ_601AE70:
   { type: TEXTURE, ctype: u8, format: CI8, width: 16, height: 16, offset: 0x601AE70, symbol: D_AQ_601AE70, tlut: 0x601AF70 }
@@ -424,50 +320,17 @@ D_AQ_601E1F0:
 D_AQ_601E9F0:
   { type: GFX, offset: 0x601E9F0, symbol: D_AQ_601E9F0 }
 
-PAD_601EBD8:
-  { type: BLOB, size: 8, offset: 0x601EBD8, symbol: PAD_601EBD8 }
-
 D_AQ_601EC68:
   { type: SF64:ANIM, offset: 0x601EC68, symbol: D_AQ_601EC68 }
 
 D_AQ_601EDB4:
   { type: SF64:SKELETON, offset: 0x601EDB4, symbol: D_AQ_601EDB4 }
 
-PAD_601F2E8:
-  { type: BLOB, size: 8, offset: 0x601F2E8, symbol: PAD_601F2E8 }
-
-PAD_601F828:
-  { type: BLOB, size: 8, offset: 0x601F828, symbol: PAD_601F828 }
-
-PAD_601FD68:
-  { type: BLOB, size: 8, offset: 0x601FD68, symbol: PAD_601FD68 }
-
-PAD_60202D8:
-  { type: BLOB, size: 8, offset: 0x60202D8, symbol: PAD_60202D8 }
-
 D_AQ_6020A40:
   { type: SF64:ANIM, offset: 0x6020A40, symbol: D_AQ_6020A40 }
 
 D_AQ_6020C6C:
   { type: SF64:SKELETON, offset: 0x6020C6C, symbol: D_AQ_6020C6C }
-
-PAD_6020CB4:
-  { type: BLOB, size: 12, offset: 0x6020CB4, symbol: PAD_6020CB4 }
-
-PAD_6020D48:
-  { type: BLOB, size: 8, offset: 0x6020D48, symbol: PAD_6020D48 }
-
-PAD_6020DE8:
-  { type: BLOB, size: 8, offset: 0x6020DE8, symbol: PAD_6020DE8 }
-
-PAD_6020E88:
-  { type: BLOB, size: 8, offset: 0x6020E88, symbol: PAD_6020E88 }
-
-PAD_6020F28:
-  { type: BLOB, size: 8, offset: 0x6020F28, symbol: PAD_6020F28 }
-
-PAD_6020FC8:
-  { type: BLOB, size: 8, offset: 0x6020FC8, symbol: PAD_6020FC8 }
 
 D_AQ_6021058:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6021058, symbol: D_AQ_6021058 }
@@ -476,16 +339,13 @@ D_AQ_6021858:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x6021858, symbol: D_AQ_6021858, tlut: 0x6021C58 }
 
 D_AQ_6021C58:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 232, offset: 0x6021C58, symbol: D_AQ_6021C58, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 232, offset: 0x6021C58, symbol: D_AQ_6021C58 }
 
 D_AQ_602201C:
   { type: SF64:ANIM, offset: 0x602201C, symbol: D_AQ_602201C }
 
 D_AQ_60220E8:
   { type: SF64:SKELETON, offset: 0x60220E8, symbol: D_AQ_60220E8 }
-
-PAD_6022104:
-  { type: BLOB, size: 12, offset: 0x6022104, symbol: PAD_6022104 }
 
 D_AQ_6022110:
   { type: GFX, offset: 0x6022110, symbol: D_AQ_6022110 }
@@ -505,9 +365,6 @@ D_AQ_6022888:
 D_AQ_60229B8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x60229B8, symbol: D_AQ_60229B8 }
 
-PAD_60231B8:
-  { type: BLOB, size: 8, offset: 0x60231B8, symbol: PAD_60231B8 }
-
 D_AQ_60231C0:
   { type: GFX, offset: 0x60231C0, symbol: D_AQ_60231C0 }
 
@@ -516,9 +373,6 @@ D_AQ_6023780:
 
 D_AQ_602390C:
   { type: SF64:SKELETON, offset: 0x602390C, symbol: D_AQ_602390C }
-
-PAD_6023EA8:
-  { type: BLOB, size: 8, offset: 0x6023EA8, symbol: PAD_6023EA8 }
 
 D_AQ_6023F38:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6023F38, symbol: D_AQ_6023F38 }
@@ -529,17 +383,8 @@ D_AQ_6024738:
 D_AQ_6024938:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x6024938, symbol: D_AQ_6024938 }
 
-PAD_60249B8:
-  { type: BLOB, size: 8, offset: 0x60249B8, symbol: PAD_60249B8 }
-
-PAD_6024A48:
-  { type: BLOB, size: 8, offset: 0x6024A48, symbol: PAD_6024A48 }
-
 D_AQ_6024A50:
   { type: GFX, offset: 0x6024A50, symbol: D_AQ_6024A50 }
-
-PAD_6024AD8:
-  { type: BLOB, size: 8, offset: 0x6024AD8, symbol: PAD_6024AD8 }
 
 D_AQ_6024F80:
   { type: SF64:ANIM, offset: 0x6024F80, symbol: D_AQ_6024F80 }
@@ -547,68 +392,14 @@ D_AQ_6024F80:
 D_AQ_602512C:
   { type: SF64:SKELETON, offset: 0x602512C, symbol: D_AQ_602512C }
 
-PAD_6025164:
-  { type: BLOB, size: 12, offset: 0x6025164, symbol: PAD_6025164 }
-
 D_AQ_60260EC:
   { type: SF64:ANIM, offset: 0x60260EC, symbol: D_AQ_60260EC }
 
 D_AQ_60263F8:
   { type: SF64:SKELETON, offset: 0x60263F8, symbol: D_AQ_60263F8 }
 
-PAD_AQ_60266A8:
-  { type: BLOB, size: 8, offset: 0x60266A8, symbol: PAD_AQ_60266A8 }
-
-PAD_6026C78:
-  { type: BLOB, size: 8, offset: 0x6026C78, symbol: PAD_6026C78 }
-
-PAD_6026D08:
-  { type: BLOB, size: 8, offset: 0x6026D08, symbol: PAD_6026D08 }
-
-PAD_6026D98:
-  { type: BLOB, size: 8, offset: 0x6026D98, symbol: PAD_6026D98 }
-
-PAD_6026E28:
-  { type: BLOB, size: 8, offset: 0x6026E28, symbol: PAD_6026E28 }
-
-PAD_6026EB8:
-  { type: BLOB, size: 8, offset: 0x6026EB8, symbol: PAD_6026EB8 }
-
-PAD_6026F58:
-  { type: BLOB, size: 8, offset: 0x6026F58, symbol: PAD_6026F58 }
-
-PAD_60273B8:
-  { type: BLOB, size: 8, offset: 0x60273B8, symbol: PAD_60273B8 }
-
-PAD_6027458:
-  { type: BLOB, size: 8, offset: 0x6027458, symbol: PAD_6027458 }
-
-PAD_60276E8:
-  { type: BLOB, size: 8, offset: 0x60276E8, symbol: PAD_60276E8 }
-
-PAD_6027C88:
-  { type: BLOB, size: 8, offset: 0x6027C88, symbol: PAD_6027C88 }
-
-PAD_6028238:
-  { type: BLOB, size: 8, offset: 0x6028238, symbol: PAD_6028238 }
-
-PAD_60287E8:
-  { type: BLOB, size: 8, offset: 0x60287E8, symbol: PAD_60287E8 }
-
-PAD_6028F48:
-  { type: BLOB, size: 8, offset: 0x6028F48, symbol: PAD_6028F48 }
-
-PAD_6029238:
-  { type: BLOB, size: 8, offset: 0x6029238, symbol: PAD_6029238 }
-
-PAD_6029528:
-  { type: BLOB, size: 8, offset: 0x6029528, symbol: PAD_6029528 }
-
 D_AQ_602AC28:
   { type: SF64:ANIM, offset: 0x602AC28, symbol: D_AQ_602AC28 }
-
-PAD_602AC34:
-  { type: BLOB, size: 12, offset: 0x602AC34, symbol: PAD_602AC34 }
 
 D_AQ_602AC40:
   { type: GFX, offset: 0x602AC40, symbol: D_AQ_602AC40 }
@@ -625,17 +416,11 @@ D_AQ_602B9D4: # unused and possibly broken
 D_AQ_602BD60:
   { type: SF64:SKELETON, offset: 0x602BD60, symbol: D_AQ_602BD60 }
 
-PAD_602BDD4:
-  { type: BLOB, size: 12, offset: 0x602BDD4, symbol: PAD_602BDD4 }
-
 D_AQ_602BF88:
   { type: SF64:ANIM, offset: 0x602BF88, symbol: D_AQ_602BF88 }
 
 D_AQ_602C014:
   { type: SF64:SKELETON, offset: 0x602C014, symbol: D_AQ_602C014 }
-
-PAD_602C028:
-  { type: BLOB, size: 8, offset: 0x602C028, symbol: PAD_602C028 }
 
 D_AQ_602C030:
   { type: GFX, offset: 0x602C030, symbol: D_AQ_602C030 }
@@ -649,9 +434,6 @@ D_AQ_602C160:
 D_AQ_602C960:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x602C960, symbol: D_AQ_602C960 }
 
-PAD_602D2B8:
-  { type: BLOB, size: 8, offset: 0x602D2B8, symbol: PAD_602D2B8 }
-
 D_AQ_602DA28:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x602DA28, symbol: D_AQ_602DA28 }
 
@@ -663,12 +445,6 @@ D_AQ_602DE28:
 
 D_AQ_602E028:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x602E028, symbol: D_AQ_602E028 }
-
-PAD_602E228:
-  { type: BLOB, size: 8, offset: 0x602E228, symbol: PAD_602E228 }
-
-PAD_602E538:
-  { type: BLOB, size: 8, offset: 0x602E538, symbol: PAD_602E538 }
 
 D_AQ_602E540:
   { type: SF64:ENV_SETTINGS, offset: 0x602E540, symbol: D_AQ_602E540 }
@@ -789,9 +565,6 @@ D_AQ_6031570:
 
 D_AQ_603158C:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x603158C, symbol: D_AQ_603158C }
-
-PAD_6031D8C:
-  { type: BLOB, size: 4, offset: 0x6031D8C, symbol: PAD_6031D8C }
 
 D_AQ_6031D90:
   { type: VTX, count: 34, offset: 0x6031D90, symbol: D_AQ_6031D90 }
