@@ -2228,7 +2228,7 @@ void func_8007DED4(Effect* effect) {
         case 0:
             Graphics_SetScaleMtx(effect->scale2);
             RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-            gSPDisplayList(gMasterDisp++, D_4008CE0);
+            gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_4008CE0);
             RCP_SetupDL(&gMasterDisp, 0x40);
             break;
 
@@ -2237,7 +2237,7 @@ void func_8007DED4(Effect* effect) {
             Matrix_SetGfxMtx(&gMasterDisp);
             RCP_SetupDL_40();
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-            gSPDisplayList(gMasterDisp++, D_4008F70);
+            gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_4008F70);
             RCP_SetupDL(&gMasterDisp, 0x40);
             break;
     }

@@ -11,9 +11,9 @@
 #include "assets/ast_great_fox.h"
 #include "assets/ast_enmy_space.h"
 #include "assets/ast_enmy_planet.h"
+#include "assets/ast_ending.h"
 
 extern Gfx D_60320E0[];
-extern Gfx D_7010970[];
 
 extern s32 D_800C9E90[];
 
@@ -2562,7 +2562,7 @@ void func_8004FEC0(Actor* actor) {
         case 1000:
             RCP_SetupDL(&gMasterDisp, 0x2D);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, actor->unk_046);
-            gSPDisplayList(gMasterDisp++, D_40018A0);
+            gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
 
             if (actor->unk_046 >= 0x33) {
                 func_8005ADAC(actor);
@@ -2933,7 +2933,7 @@ void func_800515C4(void) {
     if (gGameState == GSTATE_TITLE) {
         var_fp = D_60320E0;
     } else if (gGameState == GSTATE_CREDITS) {
-        var_fp = D_7010970;
+        var_fp = D_END_7010970;
     } else {
         var_fp = D_1024AC0;
     }

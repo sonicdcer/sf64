@@ -310,7 +310,7 @@ void func_8005A094(Actor* actor) {
             gSPDisplayList(gMasterDisp++, D_800CFB28[actor->unk_048]);
             break;
         case 45:
-            gSPDisplayList(gMasterDisp++, D_40018A0);
+            gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
             break;
         case 46:
             if ((actor->unk_048 == 2) || (actor->unk_048 == 3) || (actor->unk_048 == 4)) {
@@ -536,7 +536,7 @@ void func_8005B388(Actor* actor) {
         }
         func_80053658(&D_80161630);
     } else if (gLevelType == LEVELTYPE_PLANET) {
-        gSPDisplayList(gMasterDisp++, D_40018A0);
+        gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
     } else if (gPlayer[0].unk_204 == 2) {
         gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_4003BD0);
     } else {
@@ -574,7 +574,7 @@ void func_8005B848(Actor* actor) {
             if (gCurrentLevel == LEVEL_AREA_6) {
                 gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_400B390);
             } else {
-                gSPDisplayList(gMasterDisp++, D_4007AF0);
+                gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_4007AF0);
             }
             break;
     }

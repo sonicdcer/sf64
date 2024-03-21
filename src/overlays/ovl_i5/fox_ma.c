@@ -5328,7 +5328,7 @@ void func_i5_801ADAC8(Actor* actor) {
         case 0:
             Graphics_SetScaleMtx(actor->scale);
             RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-            gSPDisplayList(gMasterDisp++, D_4008CE0);
+            gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_4008CE0);
             RCP_SetupDL(&gMasterDisp, 0x40);
             break;
         case 1:
@@ -5336,7 +5336,7 @@ void func_i5_801ADAC8(Actor* actor) {
             Matrix_SetGfxMtx(&gMasterDisp);
             RCP_SetupDL_40();
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-            gSPDisplayList(gMasterDisp++, D_4008F70);
+            gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_4008F70);
             RCP_SetupDL(&gMasterDisp, 0x40);
             break;
     }

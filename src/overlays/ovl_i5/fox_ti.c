@@ -2487,7 +2487,7 @@ void func_i5_8019002C(s32 limbIndex, Vec3f* rot, void* data) {
         Matrix_RotateX(gGfxMatrix, -(M_DTOR * 90.0f), 1);
         Matrix_RotateZ(gGfxMatrix, -(M_DTOR * 90.0f), 1);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_40018A0);
+        gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -47.0f, 1);
         Matrix_GetYRPAngles(gGfxMatrix, &sp64);
         Matrix_RotateZ(gGfxMatrix, -sp64.z * M_DTOR, 1);
@@ -2999,7 +2999,7 @@ void func_i5_80191AE8(s32 limbIndex, Vec3f* rot, void* data) {
                 Matrix_RotateX(gGfxMatrix, -(M_DTOR * 90.0f), 1);
                 Matrix_RotateZ(gGfxMatrix, -(M_DTOR * 90.0f), 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_40018A0);
+                gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
                 Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -47.0f, 1);
                 Matrix_GetYRPAngles(gGfxMatrix, &sp78);
                 Matrix_RotateZ(gGfxMatrix, -sp78.z * M_DTOR, 1);

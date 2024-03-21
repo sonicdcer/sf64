@@ -864,15 +864,15 @@ void func_8006D350(Object_80* obj80) {
 }
 
 UnkStruct_D003C D_800D003C[108] = {
-    { D_40068F0, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    { D_4006E90, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    { D_ENMY_PLANET_40068F0, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    { D_ENMY_PLANET_4006E90, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
     { NULL, D_800CBE8C, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
-    { D_4009800, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
-    { D_40073C0, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
-    { D_4007AF0, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    { D_ENMY_PLANET_4009800, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
+    { D_ENMY_PLANET_40073C0, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
+    { D_ENMY_PLANET_4007AF0, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
     { NULL, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
     { D_6011F90, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 0.0f, 1 },
-    { D_4000710, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 2, 0, 1, 1, 1.0f, 1 },
+    { D_ENMY_PLANET_4000710, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 2, 0, 1, 1, 1.0f, 1 },
     { NULL, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 6, 0, 1.0f, 1 },
     { D_ENMY_SPACE_400BD20, D_800CBEC4, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
     { D_ENMY_SPACE_4001310, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 6, 0, 1.0f, 1 },
@@ -3454,14 +3454,14 @@ void func_80072594(Actor* actor) {
                         func_i3_8019E9F4(actor->obj.pos.x, actor->obj.pos.y - 20, actor->obj.pos.z - 180.0f, 0.0f,
                                          RAND_FLOAT(20.0f) * -1.0f, 0.0f, 4.0f, 2);
                     }
-                } else if (actor->unk_0B6 >= Animation_GetFrameCount(&D_40057AC)) {
+                } else if (actor->unk_0B6 >= Animation_GetFrameCount(&D_ENMY_PLANET_40057AC)) {
                     actor->unk_0B6 = 0;
                 }
                 break;
 
             case 9:
                 actor->unk_0B6++;
-                if (actor->unk_0B6 >= Animation_GetFrameCount(&D_40001A4)) {
+                if (actor->unk_0B6 >= Animation_GetFrameCount(&D_ENMY_PLANET_40001A4)) {
                     actor->unk_0B6 = 0;
                 }
                 if (actor->iwork[6] == 0) {
@@ -3851,7 +3851,7 @@ void func_80074FF0(Actor* actor) {
 
                 case 43:
                     if (gLevelType == LEVELTYPE_PLANET) {
-                        gSPDisplayList(gMasterDisp++, D_40018A0);
+                        gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
                     } else {
                         gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_4007870);
                     }
@@ -3870,8 +3870,8 @@ void func_80074FF0(Actor* actor) {
                         Animation_DrawSkeleton(1, D_6006558, sp114, NULL, NULL, actor, &gIdentityMatrix);
                         gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     } else {
-                        Animation_GetFrameData(&D_40057AC, actor->unk_0B6, sp114);
-                        Animation_DrawSkeleton(1, D_40058B8, sp114, NULL, NULL, actor, &gIdentityMatrix);
+                        Animation_GetFrameData(&D_ENMY_PLANET_40057AC, actor->unk_0B6, sp114);
+                        Animation_DrawSkeleton(1, D_ENMY_PLANET_40058B8, sp114, NULL, NULL, actor, &gIdentityMatrix);
                     }
                     break;
 
@@ -3882,8 +3882,8 @@ void func_80074FF0(Actor* actor) {
 
                 case 9:
                     Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, 1);
-                    Animation_GetFrameData(&D_40001A4, actor->unk_0B6, sp114);
-                    Animation_DrawSkeleton(1, D_4000270, sp114, NULL, NULL, actor, &gIdentityMatrix);
+                    Animation_GetFrameData(&D_ENMY_PLANET_40001A4, actor->unk_0B6, sp114);
+                    Animation_DrawSkeleton(1, D_ENMY_PLANET_4000270, sp114, NULL, NULL, actor, &gIdentityMatrix);
                     break;
 
                 case 18:

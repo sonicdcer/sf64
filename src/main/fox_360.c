@@ -2280,7 +2280,7 @@ void func_80035448(Actor* actor) {
                         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
                         func_8005B1E8(actor, 3);
                     } else {
-                        gSPDisplayList(gMasterDisp++, D_40068F0);
+                        gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40068F0);
                         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
                         func_8005B1E8(actor, 2);
                     }
