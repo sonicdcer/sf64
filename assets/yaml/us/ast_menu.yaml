@@ -454,7 +454,110 @@ D_MENU_604C350:
 D_MENU_604C4C0:
   { type: TEXTURE, format: IA8, offset: 0x0604C4C0, width: 8, height: 16, ctype: u16, symbol: D_MENU_604C4C0 }
 
+D_MENU_604C540:
+  { type: GFX, offset: 0x604C540, symbol: D_MENU_604C540 }
 
+D_MENU_604C5D8:
+  { type: TEXTURE, format: IA8, offset: 0x0604C5D8, width: 32, height: 64, ctype: u16, symbol: D_MENU_604C5D8, pad: 8 }
 
+D_MENU_604CDE0:
+  { type: GFX, offset: 0x604CDE0, symbol: D_MENU_604CDE0 }
+
+D_MENU_604CE78:
+  { type: TEXTURE, format: IA8, offset: 0x0604CE78, width: 32, height: 64, ctype: u16, symbol: D_MENU_604CE78, pad: 8 }
+
+D_MENU_604D680:
+  { type: GFX, offset: 0x604D680, symbol: D_MENU_604D680 }
+
+D_MENU_604D708:
+  { type: TEXTURE, format: IA8, offset: 0x0604D708, width: 32, height: 32, ctype: u16, symbol: D_MENU_604D708, pad: 8 }
+
+# Solar Rays
+D_MENU_604DB10:
+  { type: GFX, offset: 0x604DB10, symbol: D_MENU_604DB10 }
+
+D_MENU_604DD20:
+  { type: TEXTURE, format: IA8, offset: 0x0604DD20, width: 128, height: 32, ctype: u16, symbol: D_MENU_604DD20 }
+
+D_MENU_604ED20:
+  { type: TEXTURE, format: IA8, offset: 0x0604ED20, width: 128, height: 32, ctype: u16, symbol: D_MENU_604ED20 }
+
+D_MENU_604FD20:
+  { type: TEXTURE, format: IA8, offset: 0x0604FD20, width: 128, height: 32, ctype: u16, symbol: D_MENU_604FD20 }
+
+D_MENU_6050D20:
+  { type: TEXTURE, format: IA8, offset: 0x06050D20, width: 128, height: 32, ctype: u16, symbol: D_MENU_6050D20 }
+
+D_MENU_6051D20:
+  { type: GFX, offset: 0x6051D20, symbol: D_MENU_6051D20 }
+
+D_MENU_6051F20:
+  { type: TEXTURE, format: RGBA16, offset: 0x06051F20, width: 64, height: 32, ctype: u16, symbol: D_MENU_6051F20 }
+
+D_MENU_6052F20:
+  { type: TEXTURE, format: RGBA16, offset: 0x06052F20, width: 64, height: 32, ctype: u16, symbol: D_MENU_6052F20 }
+
+D_MENU_6053F20:
+  { type: TEXTURE, format: RGBA16, offset: 0x06053F20, width: 64, height: 32, ctype: u16, symbol: D_MENU_6053F20 }
+
+D_MENU_6054F20:
+  { type: TEXTURE, format: RGBA16, offset: 0x06054F20, width: 64, height: 32, ctype: u16, symbol: D_MENU_6054F20 }
+
+D_MENU_6055F20:
+  { type: GFX, offset: 0x6055F20, symbol: D_MENU_6055F20 }
+
+D_MENU_6056120:
+  { type: TEXTURE, format: RGBA16, offset: 0x06056120, width: 64, height: 32, ctype: u16, symbol: D_MENU_6056120 }
+
+D_MENU_6057120:
+  { type: TEXTURE, format: RGBA16, offset: 0x06057120, width: 64, height: 32, ctype: u16, symbol: D_MENU_6057120 }
+
+D_MENU_6058120:
+  { type: TEXTURE, format: RGBA16, offset: 0x06058120, width: 64, height: 32, ctype: u16, symbol: D_MENU_6058120 }
+
+D_MENU_6059120:
+  { type: TEXTURE, format: RGBA16, offset: 0x06059120, width: 64, height: 32, ctype: u16, symbol: D_MENU_6059120 }
+
+D_MENU_605A120:
+  { type: GFX, offset: 0x605A120, symbol: D_MENU_605A120 }
+
+D_MENU_605A230:
+  { type: TEXTURE, format: RGBA16, offset: 0x0605A230, width: 64, height: 32, ctype: u16, symbol: D_MENU_605A230 }
+
+D_MENU_605B230:
+  { type: TEXTURE, format: RGBA16, offset: 0x0605B230, width: 64, height: 32, ctype: u16, symbol: D_MENU_605B230 }
+
+D_MENU_605C230:
+  { type: GFX, offset: 0x605C230, symbol: D_MENU_605C230 }
+
+D_MENU_605C610:
+  { type: TEXTURE, format: IA8, offset: 0x0605C610, width: 64, height: 32, ctype: u16, symbol: D_MENU_605C610 }
+
+D_MENU_605CE10:
+  { type: TEXTURE, format: IA8, offset: 0x0605CE10, width: 64, height: 32, ctype: u16, symbol: D_MENU_605CE10 }
+
+D_MENU_605D610:
+  { type: TEXTURE, format: IA8, offset: 0x0605D610, width: 64, height: 32, ctype: u16, symbol: D_MENU_605D610 }
+
+D_MENU_605DE10:
+  { type: TEXTURE, format: IA8, offset: 0x0605DE10, width: 64, height: 32, ctype: u16, symbol: D_MENU_605DE10 }
+
+D_MENU_605E610:
+  { type: TEXTURE, format: IA8, offset: 0x0605E610, width: 64, height: 32, ctype: u16, symbol: D_MENU_605E610 }
+
+D_MENU_605EE10:
+  { type: TEXTURE, format: IA8, offset: 0x0605EE10, width: 64, height: 32, ctype: u16, symbol: D_MENU_605EE10 }
+
+D_MENU_605F610:
+  { type: TEXTURE, format: IA8, offset: 0x0605F610, width: 64, height: 32, ctype: u16, symbol: D_MENU_605F610 }
+
+D_MENU_605FE10:
+  { type: TEXTURE, format: IA8, offset: 0x0605FE10, width: 64, height: 32, ctype: u16, symbol: D_MENU_605FE10 }
+
+D_MENU_6060610:
+  { type: GFX, offset: 0x6060610, symbol: D_MENU_6060610 }
+
+D_MENU_6060698:
+  { type: TEXTURE, format: RGBA16, offset: 0x06060698, width: 32, height: 32, ctype: u16, symbol: D_MENU_6060698 }
 
 # size = 0x60EA0
