@@ -1,4 +1,4 @@
-#include "global.h"
+#include "PR/ultratypes.h"
 #include "PR/gbi.h"
 #include "PR/gu.h"
 

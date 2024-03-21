@@ -1,5 +1,6 @@
 // #include "prevent_bss_reordering.h"
 #include "global.h"
+#include "assets.h"
 
 void func_i5_801B5244(s32 arg0, s32 arg1);
 void func_i5_801B5FE0(s32 arg0, s32 arg1, s32 arg2);

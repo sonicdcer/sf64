@@ -1,4 +1,5 @@
 #include "global.h"
+#include "assets.h"
 
 void Graphics_NMIWipe(void) {
     static s16 D_800D4A80 = 0;

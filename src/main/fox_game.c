@@ -1,5 +1,6 @@
 // #include "prevent_bss_reordering.h"
 #include "global.h"
+#include "assets.h"
 #include "sf64dma.h"
 #include "assets/ast_logo.h"
 #include "audioseq_cmd.h"

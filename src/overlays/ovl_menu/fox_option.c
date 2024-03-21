@@ -6,6 +6,7 @@
 
 #include "mods.h"
 #include "global.h"
+#include "assets.h"
 #include "prevent_bss_reordering.h"
 #include "fox_option.h"
 

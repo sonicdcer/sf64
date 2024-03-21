@@ -1,4 +1,5 @@
 #include "global.h"
+#include "assets.h"
 
 u16** D_80178720;
 s32 D_80178724;

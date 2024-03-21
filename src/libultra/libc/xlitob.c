@@ -1,4 +1,4 @@
-#include "global.h"
+#include "PR/xstdio.h"
 #include "libc/string.h"
 #include "libc/stdlib.h"
 

@@ -1,7 +1,7 @@
 #ifndef FOX_ENMY_ASSETS_H
 #define FOX_ENMY_ASSETS_H
 
-#include "global.h"
+#include "sf64object.h"
 
 extern ObjectInit D_60371A4[];
 extern ObjectInit D_6026CC4[];

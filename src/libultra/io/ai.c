@@ -1,4 +1,4 @@
-#include "global.h"
+#include "libc/stdbool.h"
 #include "PR/rcp.h"
 
 s32 __osAiDeviceBusy(void) {

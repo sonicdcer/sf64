@@ -1,4 +1,3 @@
-#include "global.h"
 #include "libc/stdlib.h"
 
 lldiv_t lldiv(long long numer, long long denom) {

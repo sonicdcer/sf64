@@ -2,6 +2,7 @@
 #define FOX_END2_DATA
 
 #include "global.h"
+#include "assets.h"
 #include "assets/ast_arwing.h"
 #include "assets/ast_font.h"
 

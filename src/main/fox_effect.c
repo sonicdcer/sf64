@@ -1,5 +1,5 @@
 #include "global.h"
-#include "hud.h"
+#include "assets.h"
 
 // rodata
 const char D_800D7230[] = "Enm->wrk3=<%d>\n";
@@ -12,8 +12,6 @@ extern Gfx D_6003580[];
 extern Gfx D_6003620[];
 extern Gfx D_60036C0[];
 extern Gfx D_6004900[];
-extern Gfx D_A6_6012550[];
-extern u16 D_A6_6012840[];
 extern Gfx D_6016880[];
 extern Gfx D_6018AF0[];
 extern Gfx D_601BAD0[];
@@ -25,6 +23,7 @@ extern Gfx D_601BAD0[];
 #include "assets/ast_training.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_area_6.h"
 #include "assets/ast_A_ti.h"
 #include "assets/ast_ve1_boss.h"
 #include "assets/ast_enmy_planet.h"

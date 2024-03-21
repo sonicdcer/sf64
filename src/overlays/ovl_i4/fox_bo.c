@@ -1,6 +1,7 @@
 #include "prevent_bss_reordering.h"
 // #include "prevent_bss_reordering2.h"
 #include "global.h"
+#include "assets.h"
 
 typedef struct UnkStruct_D_i4_801A03E0 {
     f32 unk_00;

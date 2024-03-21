@@ -1,4 +1,5 @@
 #include "global.h"
+#include "assets.h"
 
 extern ObjectInit D_TR_6008EF8[];
 

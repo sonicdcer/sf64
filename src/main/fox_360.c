@@ -1,5 +1,6 @@
 #include "prevent_bss_reordering.h"
 #include "global.h"
+#include "assets.h"
 #include "assets/ast_star_wolf.h"
 #include "assets/ast_allies.h"
 #include "assets/ast_vs_player.h"

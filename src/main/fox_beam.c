@@ -1,4 +1,5 @@
 #include "global.h"
+#include "assets.h"
 #include "assets/ast_landmaster.h"
 #include "assets/ast_aquas.h"
 #include "assets/ast_great_fox.h"

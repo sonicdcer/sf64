@@ -1,4 +1,5 @@
 #include "global.h"
+#include "assets.h"
 
 void func_menu_80187754(void);
 void func_menu_801878D8(void);

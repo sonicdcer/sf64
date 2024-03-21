@@ -1,4 +1,5 @@
 #include "global.h"
+#include "assets.h"
 #include "assets/ast_sector_x.h"
 
 s32 D_i2_80195D80;

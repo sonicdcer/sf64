@@ -1,4 +1,5 @@
 #include "global.h"
+#include "assets.h"
 #include "sf64dma.h"
 
 #define SEGMENT_SIZE(segment) ((ptrdiff_t) ((uintptr_t) (segment).end - (uintptr_t) (segment).start))

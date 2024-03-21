@@ -1,4 +1,4 @@
-#include "global.h"
+#include "macros.h"
 #include "piint.h"
 #include "PR/rdb.h"
 

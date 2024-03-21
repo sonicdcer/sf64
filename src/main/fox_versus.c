@@ -1,5 +1,6 @@
 // #include "prevent_bss_reordering.h"
 #include "global.h"
+#include "assets.h"
 #include "fox_option.h"
 #include "assets/ast_versus.h"
 

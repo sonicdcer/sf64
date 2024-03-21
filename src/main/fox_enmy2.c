@@ -1,4 +1,5 @@
 #include "global.h"
+#include "assets.h"
 
 s32 D_800CFF80[4] = { 0, 0, 0, 0 };
 s32 D_800CFF90 = 0;

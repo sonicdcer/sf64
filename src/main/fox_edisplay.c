@@ -1,5 +1,6 @@
 
 #include "global.h"
+#include "assets.h"
 #include "prevent_bss_reordering.h"
 Vec3f D_801615D0;
 Vec3f D_801615E0;

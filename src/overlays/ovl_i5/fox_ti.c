@@ -1,5 +1,6 @@
 #include "prevent_bss_reordering.h"
 #include "global.h"
+#include "assets.h"
 #include "assets/ast_bg_planet.h"
 #include "assets/ast_7_ti_1.h"
 #include "assets/ast_7_ti_2.h"

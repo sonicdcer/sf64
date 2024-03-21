@@ -1,4 +1,4 @@
-#include "global.h"
+#include "PR/controller.h"
 #include "siint.h"
 
 OSPifRam _MotorStopData[MAXCONTROLLERS] ALIGNED(8);

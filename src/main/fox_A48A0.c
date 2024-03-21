@@ -1,4 +1,5 @@
 #include "global.h"
+#include "assets.h"
 
 void func_800A3CA0(void) {
     Matrix_Push(&gGfxMatrix);

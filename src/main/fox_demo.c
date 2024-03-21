@@ -5,6 +5,7 @@
  */
 
 #include "global.h"
+#include "assets.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_aquas.h"
 #include "assets/ast_great_fox.h"

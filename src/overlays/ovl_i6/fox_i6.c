@@ -1,4 +1,5 @@
 #include "global.h"
+#include "assets.h"
 
 UNK_TYPE D_i6_801A7F30;
 s32 D_i6_801A6750 = 0;

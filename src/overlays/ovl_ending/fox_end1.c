@@ -1,5 +1,6 @@
 #include "prevent_bss_reordering.h"
 #include "global.h"
+#include "assets.h"
 #include "assets/ast_ending_award_front.h"
 #include "assets/ast_ending_award_back.h"
 #include "assets/ast_allies.h"

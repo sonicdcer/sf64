@@ -1,4 +1,5 @@
 #include "global.h"
+#include "assets.h"
 #include "fox_map.h"
 
 extern PlanetId sPlanetList[15];

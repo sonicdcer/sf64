@@ -1,4 +1,5 @@
 #include "global.h"
+#include "assets.h"
 
 void func_i3_8018A1B0(Boss* bossA6, s32 arg1);
 void func_i3_8018A2C4(Boss* bossA6);

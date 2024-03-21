@@ -1,4 +1,5 @@
 #include "global.h"
+#include "assets.h"
 #include "assets/ast_andross.h"
 
 UNK_TYPE D_unused_801875C0;

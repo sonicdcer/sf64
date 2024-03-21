@@ -1,4 +1,5 @@
 #include "global.h"
+#include "assets.h"
 
 SaveFile gSaveFile;
 Save gDefaultSave = {
