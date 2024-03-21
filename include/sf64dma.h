@@ -163,7 +163,7 @@ DECLARE_SEGMENT(ast_katina);
 DECLARE_SEGMENT(ast_macbeth);
 DECLARE_SEGMENT(ast_warp_zone);
 DECLARE_SEGMENT(ast_title);
-DECLARE_SEGMENT(ast_menu);
+DECLARE_SEGMENT(ast_map);
 DECLARE_SEGMENT(ast_option);
 DECLARE_SEGMENT(ast_versus);
 DECLARE_SEGMENT(ast_font);
