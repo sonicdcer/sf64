@@ -350,19 +350,19 @@ D_MAP_60479D0:
   { type: GFX, offset: 0x60479D0, symbol: D_MAP_60479D0 }
 
 D_MAP_6047A68:
-  { type: TEXTURE, format: IA8, offset: 0x06047A68, width: 32, height: 32, ctype: u16, symbol: D_MAP_6047A68, pad: 8 }
+  { type: TEXTURE, format: IA8, offset: 0x06047A68, width: 32, height: 32, ctype: u8, symbol: D_MAP_6047A68, pad: 8 }
 
 D_MAP_6047E70:
   { type: GFX, offset: 0x6047E70, symbol: D_MAP_6047E70 }
 
 D_MAP_6047F80:
-  { type: TEXTURE, format: IA8, offset: 0x06047F80, width: 64, height: 32, ctype: u16, symbol: D_MAP_6047F80 }
+  { type: TEXTURE, format: IA8, offset: 0x06047F80, width: 64, height: 32, ctype: u8, symbol: D_MAP_6047F80 }
 
 D_MAP_6048780:
-  { type: TEXTURE, format: IA8, offset: 0x06048780, width: 64, height: 32, ctype: u16, symbol: D_MAP_6048780 }
+  { type: TEXTURE, format: IA8, offset: 0x06048780, width: 64, height: 32, ctype: u8, symbol: D_MAP_6048780 }
 
 D_MAP_6048F80:
-  { type: TEXTURE, format: IA8, offset: 0x06048F80, width: 64, height: 64, ctype: u16, symbol: D_MAP_6048F80 }
+  { type: TEXTURE, format: IA8, offset: 0x06048F80, width: 64, height: 64, ctype: u8, symbol: D_MAP_6048F80 }
 
 D_MAP_6049F80:
   { type: GFX, offset: 0x6049F80, symbol: D_MAP_6049F80 }
@@ -380,7 +380,7 @@ D_MAP_604A258:
   { type: TEXTURE, format: CI8, offset: 0x0604A258, width: 16, height: 16, ctype: u8, symbol: D_MAP_604A258, tlut: 0x0604A358 }
 
 D_MAP_604A358:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 32, offset: 0x0604A358, symbol: D_MAP_604A358, pad: 8 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 80, offset: 0x0604A358, symbol: D_MAP_604A358, pad: 8 }
 
 D_MAP_604A400:
   { type: GFX, offset: 0x604A400, symbol: D_MAP_604A400 }
@@ -403,6 +403,12 @@ D_MAP_604A8D8:
 # Arwing Model, used in the map.
 D_MAP_604A9F0:
   { type: GFX, offset: 0x604A9F0, symbol: D_MAP_604A9F0 }
+
+#ast_map_seg6_vtx_4B050:
+#  { type: VTX, offset: 0x604B050, count: 4, symbol: ast_map_seg6_vtx_4B050 }
+
+#BLOB_MAP_604AF00: # TEST
+#  { type: BLOB, size: 0x90, offset: 0x604AF00, symbol: D_MAP_604AF00 }
 
 D_MAP_604B510:
   { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0604B510, symbol: D_MAP_604B510, tlut: 0x0604B590 }
@@ -452,41 +458,41 @@ D_MAP_604C350:
   { type: GFX, offset: 0x604C350, symbol: D_MAP_604C350 }
 
 D_MAP_604C4C0:
-  { type: TEXTURE, format: IA8, offset: 0x0604C4C0, width: 8, height: 16, ctype: u16, symbol: D_MAP_604C4C0 }
+  { type: TEXTURE, format: IA8, offset: 0x0604C4C0, width: 8, height: 16, ctype: u8, symbol: D_MAP_604C4C0 }
 
 D_MAP_604C540:
   { type: GFX, offset: 0x604C540, symbol: D_MAP_604C540 }
 
 D_MAP_604C5D8:
-  { type: TEXTURE, format: IA8, offset: 0x0604C5D8, width: 32, height: 64, ctype: u16, symbol: D_MAP_604C5D8, pad: 8 }
+  { type: TEXTURE, format: IA8, offset: 0x0604C5D8, width: 32, height: 64, ctype: u8, symbol: D_MAP_604C5D8, pad: 8 }
 
 D_MAP_604CDE0:
   { type: GFX, offset: 0x604CDE0, symbol: D_MAP_604CDE0 }
 
 D_MAP_604CE78:
-  { type: TEXTURE, format: IA8, offset: 0x0604CE78, width: 32, height: 64, ctype: u16, symbol: D_MAP_604CE78, pad: 8 }
+  { type: TEXTURE, format: IA8, offset: 0x0604CE78, width: 32, height: 64, ctype: u8, symbol: D_MAP_604CE78, pad: 8 }
 
 D_MAP_604D680:
   { type: GFX, offset: 0x604D680, symbol: D_MAP_604D680 }
 
 D_MAP_604D708:
-  { type: TEXTURE, format: IA8, offset: 0x0604D708, width: 32, height: 32, ctype: u16, symbol: D_MAP_604D708, pad: 8 }
+  { type: TEXTURE, format: IA8, offset: 0x0604D708, width: 32, height: 32, ctype: u8, symbol: D_MAP_604D708, pad: 8 }
 
 # Solar Rays
 D_MAP_604DB10:
   { type: GFX, offset: 0x604DB10, symbol: D_MAP_604DB10 }
 
 D_MAP_604DD20:
-  { type: TEXTURE, format: IA8, offset: 0x0604DD20, width: 128, height: 32, ctype: u16, symbol: D_MAP_604DD20 }
+  { type: TEXTURE, format: IA8, offset: 0x0604DD20, width: 128, height: 32, ctype: u8, symbol: D_MAP_604DD20 }
 
 D_MAP_604ED20:
-  { type: TEXTURE, format: IA8, offset: 0x0604ED20, width: 128, height: 32, ctype: u16, symbol: D_MAP_604ED20 }
+  { type: TEXTURE, format: IA8, offset: 0x0604ED20, width: 128, height: 32, ctype: u8, symbol: D_MAP_604ED20 }
 
 D_MAP_604FD20:
-  { type: TEXTURE, format: IA8, offset: 0x0604FD20, width: 128, height: 32, ctype: u16, symbol: D_MAP_604FD20 }
+  { type: TEXTURE, format: IA8, offset: 0x0604FD20, width: 128, height: 32, ctype: u8, symbol: D_MAP_604FD20 }
 
 D_MAP_6050D20:
-  { type: TEXTURE, format: IA8, offset: 0x06050D20, width: 128, height: 32, ctype: u16, symbol: D_MAP_6050D20 }
+  { type: TEXTURE, format: IA8, offset: 0x06050D20, width: 128, height: 32, ctype: u8, symbol: D_MAP_6050D20 }
 
 D_MAP_6051D20:
   { type: GFX, offset: 0x6051D20, symbol: D_MAP_6051D20 }
@@ -531,28 +537,28 @@ D_MAP_605C230:
   { type: GFX, offset: 0x605C230, symbol: D_MAP_605C230 }
 
 D_MAP_605C610:
-  { type: TEXTURE, format: IA8, offset: 0x0605C610, width: 64, height: 32, ctype: u16, symbol: D_MAP_605C610 }
+  { type: TEXTURE, format: IA8, offset: 0x0605C610, width: 64, height: 32, ctype: u8, symbol: D_MAP_605C610 }
 
 D_MAP_605CE10:
-  { type: TEXTURE, format: IA8, offset: 0x0605CE10, width: 64, height: 32, ctype: u16, symbol: D_MAP_605CE10 }
+  { type: TEXTURE, format: IA8, offset: 0x0605CE10, width: 64, height: 32, ctype: u8, symbol: D_MAP_605CE10 }
 
 D_MAP_605D610:
-  { type: TEXTURE, format: IA8, offset: 0x0605D610, width: 64, height: 32, ctype: u16, symbol: D_MAP_605D610 }
+  { type: TEXTURE, format: IA8, offset: 0x0605D610, width: 64, height: 32, ctype: u8, symbol: D_MAP_605D610 }
 
 D_MAP_605DE10:
-  { type: TEXTURE, format: IA8, offset: 0x0605DE10, width: 64, height: 32, ctype: u16, symbol: D_MAP_605DE10 }
+  { type: TEXTURE, format: IA8, offset: 0x0605DE10, width: 64, height: 32, ctype: u8, symbol: D_MAP_605DE10 }
 
 D_MAP_605E610:
-  { type: TEXTURE, format: IA8, offset: 0x0605E610, width: 64, height: 32, ctype: u16, symbol: D_MAP_605E610 }
+  { type: TEXTURE, format: IA8, offset: 0x0605E610, width: 64, height: 32, ctype: u8, symbol: D_MAP_605E610 }
 
 D_MAP_605EE10:
-  { type: TEXTURE, format: IA8, offset: 0x0605EE10, width: 64, height: 32, ctype: u16, symbol: D_MAP_605EE10 }
+  { type: TEXTURE, format: IA8, offset: 0x0605EE10, width: 64, height: 32, ctype: u8, symbol: D_MAP_605EE10 }
 
 D_MAP_605F610:
-  { type: TEXTURE, format: IA8, offset: 0x0605F610, width: 64, height: 32, ctype: u16, symbol: D_MAP_605F610 }
+  { type: TEXTURE, format: IA8, offset: 0x0605F610, width: 64, height: 32, ctype: u8, symbol: D_MAP_605F610 }
 
 D_MAP_605FE10:
-  { type: TEXTURE, format: IA8, offset: 0x0605FE10, width: 64, height: 32, ctype: u16, symbol: D_MAP_605FE10 }
+  { type: TEXTURE, format: IA8, offset: 0x0605FE10, width: 64, height: 32, ctype: u8, symbol: D_MAP_605FE10 }
 
 D_MAP_6060610:
   { type: GFX, offset: 0x6060610, symbol: D_MAP_6060610 }

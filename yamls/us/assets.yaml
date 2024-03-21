@@ -245,8 +245,12 @@
 
   - name: ast_map
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xC48F40
+    vram: 0x06000000
+    subsegments:
+      - [0xC48F40, .data, ast_map/ast_map]
 
   - name: ast_option
     exclusive_ram_id: segment_08
