@@ -1,7 +1,5 @@
 #include "global.h"
-#include "assets.h"
-
-extern ObjectInit D_TR_6008EF8[];
+#include "assets/ast_training.h"
 
 void func_i1_80198C50(void) {
     Object_58* obj58;

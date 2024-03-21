@@ -1,8 +1,14 @@
 #include "global.h"
-#include "assets.h"
 #include "assets/ast_arwing.h"
 #include "assets/ast_ending_expert.h"
 #include "assets/ast_allies.h"
+
+WingInfo D_ending_80198590;
+Vec3f D_ending_801985D0;
+Vec3f D_ending_801985E0;
+Vec3f D_ending_801985F0;
+Vec3f D_ending_80198600[300];
+
 #include "fox_end2_data.c"
 
 void func_ending_8018CE20(u32 arg0) {

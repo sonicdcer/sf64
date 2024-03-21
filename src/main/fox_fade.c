@@ -1,5 +1,4 @@
 #include "global.h"
-#include "assets.h"
 
 void func_80084370(s32 arg0) {
     Graphics_FillRectangle(&gMasterDisp, 0, 0, arg0, SCREEN_HEIGHT, 0, 0, 0, 255);

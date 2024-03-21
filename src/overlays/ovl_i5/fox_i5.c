@@ -1,5 +1,4 @@
 #include "global.h"
-#include "assets.h"
 
 UNK_TYPE D_i5_801BBEE0;
 s32 D_i5_801B7290 = 0;

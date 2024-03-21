@@ -1,6 +1,6 @@
 #include "prevent_bss_reordering.h"
 #include "global.h"
-#include "assets.h"
+#include "assets/ast_title.h"
 #include "assets/ast_ending_award_front.h"
 #include "assets/ast_ending_award_back.h"
 #include "assets/ast_allies.h"
@@ -9,7 +9,7 @@
 void func_ending_8018CE20(s32);
 void func_ending_801926D4(void);
 extern u32 D_ending_80192E70;
-
+extern Gfx D_6041070[];
 extern Animation D_601E424;
 extern Animation D_601F8E0;
 extern Animation D_6020058;

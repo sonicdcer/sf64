@@ -1,5 +1,4 @@
 #include "global.h"
-#include "assets.h"
 
 char D_801619A0[100];
 

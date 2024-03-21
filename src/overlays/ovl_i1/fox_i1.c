@@ -1,5 +1,4 @@
 #include "global.h"
-#include "assets.h"
 
 static s32 D_i1_801997D0 = 0;
 

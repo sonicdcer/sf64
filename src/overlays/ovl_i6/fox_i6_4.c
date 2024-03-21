@@ -1,5 +1,4 @@
 #include "global.h"
-#include "assets.h"
 
 void func_i6_801A5560(Player* player, PlayerShot* shot, f32 xOffset, f32 yOffset, f32 zOffset, s32 shotId, f32 speed) {
     Vec3f sp4C;

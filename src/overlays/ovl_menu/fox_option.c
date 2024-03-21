@@ -6,7 +6,6 @@
 
 #include "mods.h"
 #include "global.h"
-#include "assets.h"
 #include "prevent_bss_reordering.h"
 #include "fox_option.h"
 
@@ -26,6 +25,7 @@ extern Gfx D_menu_801B57A8[];
 #include "assets/ast_font_3d.h"
 #include "assets/ast_option.h"
 #include "assets/ast_versus.h"
+#include "assets/ast_map.h"
 
 extern f32 D_menu_801CD818[];
 
@@ -329,9 +329,9 @@ static UnkStruct_D_menu_801AED4C D_menu_801AED4C[24] = {
 };
 
 static Gfx* D_menu_801AEE6C[16] = {
-    D_6060610,       D_601DE80,       D_604B750,       D_601F6B0,       D_601C0D0,       D_601C960,
+    D_MAP_6060610,   D_MAP_601DE80,   D_MAP_604B750,   D_MAP_601F6B0,   D_MAP_601C0D0,   D_MAP_601C960,
     D_menu_801B5E78, D_menu_801B61E0, D_menu_801B6548, D_menu_801B4D70, D_menu_801B5B10, D_menu_801B5440,
-    D_menu_801B50D8, D_604DB10,       D_menu_801B57A8, D_menu_801B57A8,
+    D_menu_801B50D8, D_MAP_604DB10,   D_menu_801B57A8, D_menu_801B57A8,
 };
 
 static char* D_menu_801AEEAC[] = {
@@ -1461,7 +1461,8 @@ void Option_SoundDraw(void) {
 
     RCP_SetupDL(&gMasterDisp, 0x4C);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-    TextureRect_16bRGBA(&gMasterDisp, D_60447A0, 8, 8, D_menu_801AEFA8[0], D_menu_801AEFD4[0], D_menu_801AF000, 0.2f);
+    TextureRect_16bRGBA(&gMasterDisp, D_MAP_60447A0, 8, 8, D_menu_801AEFA8[0], D_menu_801AEFD4[0], D_menu_801AF000,
+                        0.2f);
 
     RCP_SetupDL(&gMasterDisp, 0x53);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
@@ -1738,8 +1739,8 @@ void Option_ExpertSoundDraw(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 50, 50, 200, 255);
 
     for (i = 0; i < 4; i++) {
-        TextureRect_16bRGBA(&gMasterDisp, D_60447A0, 8, 8, D_menu_801AF014[i], D_menu_801AF024[i], D_menu_801AF034[i],
-                            D_menu_801AF044[i]);
+        TextureRect_16bRGBA(&gMasterDisp, D_MAP_60447A0, 8, 8, D_menu_801AF014[i], D_menu_801AF024[i],
+                            D_menu_801AF034[i], D_menu_801AF044[i]);
     }
 
     if (D_menu_801B9320 != 0) {
@@ -2283,7 +2284,7 @@ void func_menu_80197D30(s32 arg0, s32 arg1, s32 arg2) {
 void func_menu_80197DE4(s32 arg0, s32 arg1, s32 arg2) {
     RCP_SetupDL(&gMasterDisp, 0x53);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 170);
-    TextureRect_8bIA(&gMasterDisp, D_601B4B0, 24, 17, arg1, arg2, 3.17f, 1.05f);
+    TextureRect_8bIA(&gMasterDisp, D_MAP_601B4B0, 24, 17, arg1, arg2, 3.17f, 1.05f);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
     Graphics_DisplaySmallText(arg1, arg2, 1.0f, 1.0f, "TOTAL HITS");
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
@@ -2370,10 +2371,10 @@ void func_menu_801982B0(s32 arg0, s32 arg1, f32 arg2, f32 arg3, s32 arg4) {
                 }
             }
             gDPSetPrimColor(gMasterDisp++, 0, 0, r, g, b, 255);
-            TextureRect_16bRGBA(&gMasterDisp, D_60447A0, 8, 8, arg2 + 24.0f, arg3 + 11.0f, 2.0f, 0.2f);
+            TextureRect_16bRGBA(&gMasterDisp, D_MAP_60447A0, 8, 8, arg2 + 24.0f, arg3 + 11.0f, 2.0f, 0.2f);
         }
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-        TextureRect_16bRGBA(&gMasterDisp, D_6047550, 24, 24, arg2, arg3, 1.0f, 1.0f);
+        TextureRect_16bRGBA(&gMasterDisp, D_MAP_6047550, 24, 24, arg2, arg3, 1.0f, 1.0f);
     }
 }
 
@@ -2561,7 +2562,7 @@ void func_menu_8019896C(s32 arg0, f32 y, s32 arg2) {
                 Matrix_Scale(gGfxMatrix, 1.6f, 1.6f, 1.6f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
 
-                gSPDisplayList(gMasterDisp++, D_605C230);
+                gSPDisplayList(gMasterDisp++, D_MAP_605C230);
 
                 Matrix_Pop(&gGfxMatrix);
                 break;
@@ -2592,7 +2593,7 @@ void func_menu_80199198(f32 arg0, f32 arg1, f32 arg2) {
     Matrix_Translate(gGfxMatrix, arg0 - D_menu_801AF140, arg1 + D_menu_801AF144, arg2, 1);
     Matrix_Scale(gGfxMatrix, D_menu_801AF13C, D_menu_801AF13C, D_menu_801AF13C, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_601D1F0);
+    gSPDisplayList(gMasterDisp++, D_MAP_601D1F0);
     Matrix_Pop(&gGfxMatrix);
 }
 
@@ -3181,7 +3182,7 @@ void func_menu_8019AB30(void) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 190);
 
-    TextureRect_8bIA(&gMasterDisp, D_601B4B0, 24, 17, 94.0f, 43.0f, 5.0f, 1.1f);
+    TextureRect_8bIA(&gMasterDisp, D_MAP_601B4B0, 24, 17, 94.0f, 43.0f, 5.0f, 1.1f);
 
     if (D_menu_801B912C == 0) {
         func_menu_8019B6D8(97.0f, 50.0f, 107.0f, 255, 255, 255);
@@ -3232,7 +3233,7 @@ void func_menu_8019AD84(void) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 190);
 
-    TextureRect_8bIA(&gMasterDisp, D_601B4B0, 24, 17, 93.0f, 42.0f, 5.1f, 1.1f);
+    TextureRect_8bIA(&gMasterDisp, D_MAP_601B4B0, 24, 17, 93.0f, 42.0f, 5.1f, 1.1f);
 
     if (D_menu_801B912C == 0) {
         D_menu_801B9324 = 97.0f;
@@ -3513,7 +3514,7 @@ void func_menu_8019BC44(f32 x, f32 y, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
 
     RCP_SetupDL_55();
 
-    gSPDisplayList(gMasterDisp++, D_604A9F0);
+    gSPDisplayList(gMasterDisp++, D_MAP_604A9F0);
 
     Matrix_Pop(&gGfxMatrix);
 }

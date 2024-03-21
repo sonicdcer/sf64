@@ -1,5 +1,4 @@
 #include "global.h"
-#include "assets.h"
 
 #include "fox_A4290_colheaders.c"
 

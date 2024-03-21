@@ -1,5 +1,4 @@
 #include "global.h"
-#include "assets.h"
 
 void func_i4_8018927C(u32);
 void func_i4_8018D394(u32);

@@ -6,11 +6,11 @@
 
 #include "mods.h"
 #include "global.h"
-#include "assets.h"
 #include "fox_map.h"
 #include "fox_option.h"
 #include "prevent_bss_reordering.h"
-#include "prevent_bss_reordering2.h"
+// #include "prevent_bss_reordering2.h"
+#include "assets/ast_map.h"
 // BSS STARTS HERE
 
 u8 D_menu_801B9410[96 * 96];
@@ -188,8 +188,6 @@ s32 D_menu_801CF118;
 s32 D_menu_801CF11C;
 s32 D_menu_801CF120;
 f32 D_menu_801CF124;
-
-extern u16 D_6000000[];
 
 #include "assets/ast_font.h"
 #include "assets/ast_font_3d.h"
@@ -397,22 +395,22 @@ PlanetId sPlanetList[] = {
     PLANET_SECTOR_Z, PLANET_ZONESS, PLANET_KATINA,  PLANET_SECTOR_Y, PLANET_SOLAR,
 };
 
-Gfx* D_menu_801AF824[4] = { D_604A710, D_604A400, D_604A190, D_6049F80 };
+Gfx* D_menu_801AF824[4] = { D_MAP_604A710, D_MAP_604A400, D_MAP_604A190, D_MAP_6049F80 };
 
 TitleCard D_menu_801AF834[14] = {
-    { D_6007B90, 128, 28, 95.0f },     { D_60030D0, 96, 28, 110.0f },  { D_60131A0, 176, 12, 73.0f },
-    { D_6009AD0, 168, 28, 77.0f },     { D_600B9B0, 168, 28, 74.0f },  { D_6001C80, 96, 13, 106.0f },
-    { D_TEX_6011660, 176, 12, 75.0f }, { D_6010010, 112, 13, 109.0f }, { D_6017640, 112, 28, 101.0f },
-    { D_6015CE0, 96, 28, 108.0f },     { D_600E210, 160, 28, 78.0f },  { D_6014360, 176, 12, 73.0f },
-    { D_6004AC0, 168, 19, 72.0f },     { D_6006320, 104, 28, 105.0f },
+    { D_MAP_6007B90, 128, 28, 95.0f }, { D_MAP_60030D0, 96, 28, 110.0f },  { D_MAP_60131A0, 176, 12, 73.0f },
+    { D_MAP_6009AD0, 168, 28, 77.0f }, { D_MAP_600B9B0, 168, 28, 74.0f },  { D_MAP_6001C80, 96, 13, 106.0f },
+    { D_MAP_6011660, 176, 12, 75.0f }, { D_MAP_6010010, 112, 13, 109.0f }, { D_MAP_6017640, 112, 28, 101.0f },
+    { D_MAP_6015CE0, 96, 28, 108.0f }, { D_MAP_600E210, 160, 28, 78.0f },  { D_MAP_6014360, 176, 12, 73.0f },
+    { D_MAP_6004AC0, 168, 19, 72.0f }, { D_MAP_6006320, 104, 28, 105.0f },
 };
 
 TitleCard D_menu_801AF914[] = {
-    { D_6008990, 232, 19, 46.0f }, { D_6003B50, 208, 19, 56.0f }, { D_60139E0, 128, 19, 98.0f },
-    { D_600AD30, 168, 19, 77.0f }, { D_600CC10, 128, 19, 95.0f }, { D_6002160, 208, 19, 57.0f },
-    { D_6011EA0, 256, 19, 40.0f }, { D_60105C0, 224, 19, 49.0f }, { D_6018280, 184, 19, 70.0f },
-    { D_6016760, 200, 18, 61.0f }, { D_600F390, 168, 19, 75.0f }, { D_6014BA0, 232, 19, 43.0f },
-    { D_6005740, 160, 19, 81.0f }, { D_6006E80, 176, 19, 70.0f },
+    { D_MAP_6008990, 232, 19, 46.0f }, { D_MAP_6003B50, 208, 19, 56.0f }, { D_MAP_60139E0, 128, 19, 98.0f },
+    { D_MAP_600AD30, 168, 19, 77.0f }, { D_MAP_600CC10, 128, 19, 95.0f }, { D_MAP_6002160, 208, 19, 57.0f },
+    { D_MAP_6011EA0, 256, 19, 40.0f }, { D_MAP_60105C0, 224, 19, 49.0f }, { D_MAP_6018280, 184, 19, 70.0f },
+    { D_MAP_6016760, 200, 18, 61.0f }, { D_MAP_600F390, 168, 19, 75.0f }, { D_MAP_6014BA0, 232, 19, 43.0f },
+    { D_MAP_6005740, 160, 19, 81.0f }, { D_MAP_6006E80, 176, 19, 70.0f },
 };
 
 char* sPlanetNames[] = {
@@ -420,8 +418,8 @@ char* sPlanetNames[] = {
 };
 
 Gfx* D_menu_801AFA30[2] = {
-    D_6055F20,
-    D_6051D20,
+    D_MAP_6055F20,
+    D_MAP_6051D20,
 };
 
 ObjPosition D_menu_801AFA38[] = {
@@ -720,7 +718,7 @@ Gfx D_menu_801B4A40[] = {
 };
 
 Gfx D_menu_801B4D70[] = {
-    gsDPLoadTLUT_pal256(D_6026C90),
+    gsDPLoadTLUT_pal256(D_MAP_6026C90),
     gsSPVertex(D_menu_801B4740, 16, 0),
     gsDPLoadTextureBlock(D_menu_801BB810, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
@@ -767,7 +765,7 @@ Gfx D_menu_801B4D70[] = {
 };
 
 Gfx D_menu_801B50D8[] = {
-    gsDPLoadTLUT_pal256(D_6029170),
+    gsDPLoadTLUT_pal256(D_MAP_6029170),
     gsSPVertex(D_menu_801B4740, 16, 0),
     gsDPLoadTextureBlock(&D_menu_801BDC10, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
@@ -814,7 +812,7 @@ Gfx D_menu_801B50D8[] = {
 };
 
 Gfx D_menu_801B5440[] = {
-    gsDPLoadTLUT_pal256(D_6022340),
+    gsDPLoadTLUT_pal256(D_MAP_6022340),
     gsSPVertex(D_menu_801B4740, 16, 0),
     gsDPLoadTextureBlock(D_menu_801C0010, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
@@ -861,7 +859,7 @@ Gfx D_menu_801B5440[] = {
 };
 
 Gfx D_menu_801B57A8[] = {
-    gsDPLoadTLUT_pal256(D_60247E0),
+    gsDPLoadTLUT_pal256(D_MAP_60247E0),
     gsSPVertex(D_menu_801B4740, 16, 0),
     gsDPLoadTextureBlock(D_menu_801C2410, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
@@ -908,7 +906,7 @@ Gfx D_menu_801B57A8[] = {
 };
 
 Gfx D_menu_801B5B10[] = {
-    gsDPLoadTLUT_pal256(D_602FF60),
+    gsDPLoadTLUT_pal256(D_MAP_602FF60),
     gsSPVertex(D_menu_801B4740, 16, 0),
     gsDPLoadTextureBlock(D_menu_801C4810, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
@@ -955,7 +953,7 @@ Gfx D_menu_801B5B10[] = {
 };
 
 Gfx D_menu_801B5E78[] = {
-    gsDPLoadTLUT_pal256(D_602B620),
+    gsDPLoadTLUT_pal256(D_MAP_602B620),
     gsSPVertex(D_menu_801B4740, 16, 0),
     gsDPLoadTextureBlock(D_menu_801C6C10, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
@@ -1002,7 +1000,7 @@ Gfx D_menu_801B5E78[] = {
 };
 
 Gfx D_menu_801B61E0[] = {
-    gsDPLoadTLUT_pal256(D_602DAD0),
+    gsDPLoadTLUT_pal256(D_MAP_602DAD0),
     gsSPVertex(D_menu_801B4740, 16, 0),
     gsDPLoadTextureBlock(D_menu_801C9010, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
@@ -1049,7 +1047,7 @@ Gfx D_menu_801B61E0[] = {
 };
 
 Gfx D_menu_801B6548[] = {
-    gsDPLoadTLUT_pal256(D_60323D0),
+    gsDPLoadTLUT_pal256(D_MAP_60323D0),
     gsSPVertex(D_menu_801B4740, 16, 0),
     gsDPLoadTextureBlock(D_menu_801CB410, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
@@ -1101,39 +1099,40 @@ void* D_menu_801B68B0[] = {
 };
 
 u8* D_menu_801B68D4[] = {
-    D_6029220, D_602B6D0, D_602FFD0, D_6024890, D_602DB60, D_601FF40, D_6026D70, D_60223E0, D_60190B0,
+    D_MAP_6029220, D_MAP_602B6D0, D_MAP_602FFD0, D_MAP_6024890, D_MAP_602DB60,
+    D_MAP_601FF40, D_MAP_6026D70, D_MAP_60223E0, D_MAP_60190B0,
 };
 
 Gfx* D_menu_801B68F8[] = {
-    D_6060610,       D_601DE80,       D_604B750,       D_601F6B0,       D_601C0D0,
-    D_601C960,       D_menu_801B5E78, D_menu_801B61E0, D_menu_801B6548, D_menu_801B4D70,
-    D_menu_801B5B10, D_menu_801B5440, D_menu_801B50D8, D_menu_801B57A8, D_604DB10,
+    D_MAP_6060610,   D_MAP_601DE80,   D_MAP_604B750,   D_MAP_601F6B0,   D_MAP_601C0D0,
+    D_MAP_601C960,   D_menu_801B5E78, D_menu_801B61E0, D_menu_801B6548, D_menu_801B4D70,
+    D_menu_801B5B10, D_menu_801B5440, D_menu_801B50D8, D_menu_801B57A8, D_MAP_604DB10,
 };
 
-extern u8 D_6000840[]; // ast_map
-extern u8 D_6001080[]; // ast_map
-extern u8 D_60018C0[];
-extern u8 D_600D590[];
-extern u8 D_6019030[];
-extern Gfx D_601D1F0[];
+extern u8 D_MAP_6000840[]; // ast_map
+extern u8 D_MAP_6001080[]; // ast_map
+extern u8 D_MAP_60018C0[];
+extern u8 D_MAP_600D590[];
+extern u8 D_MAP_6019030[];
+extern Gfx D_MAP_601D1F0[];
 extern u8 D_601DC10[];
 extern u16 D_601DC90[];
-extern Gfx D_601DCF0[];
+extern Gfx D_MAP_601DCF0[];
 extern u8 D_601DCA0[];
 extern u16 D_601DCD8[];
-extern Gfx D_601E9A0[];
-extern u16 D_6044820[];
+extern Gfx D_MAP_601E9A0[];
+extern u16 D_MAP_6044820[];
 extern u16 D_6046AA0[];
-extern u16 D_6046CD0[];
-extern Gfx D_60479D0[];
-extern Gfx D_6047E70[];
-extern u8 D_6047F80[];
-extern u8 D_6048F80[];
-extern Gfx D_604C350[];
-extern Gfx D_604C540[];
-extern Gfx D_604CDE0[];
-extern Gfx D_604D680[];
-extern Gfx D_605A120[];
+extern u16 D_MAP_6046CD0[];
+extern Gfx D_MAP_60479D0[];
+extern Gfx D_MAP_6047E70[];
+extern u8 D_MAP_6047F80[];
+extern u8 D_MAP_6048F80[];
+extern Gfx D_MAP_604C350[];
+extern Gfx D_MAP_604C540[];
+extern Gfx D_MAP_604CDE0[];
+extern Gfx D_MAP_604D680[];
+extern Gfx D_MAP_605A120[];
 
 void func_menu_8019E800(void);
 void func_menu_8019E99C(void);
@@ -2000,7 +1999,7 @@ void func_menu_801A01A8(void) {
         D_menu_801CEEC4 = 0;
     }
 
-    Texture_Mottle((u16*) D_6047F80, (u16*) D_6048F80, 5);
+    Texture_Mottle((u16*) D_MAP_6047F80, (u16*) D_MAP_6048F80, 5);
 }
 
 s32 func_menu_801A05B4(void) {
@@ -2189,7 +2188,7 @@ void func_menu_801A0D14(void) {
     static f32 D_menu_801B694C = 71.0f;
     static f32 D_menu_801B6950 = 205.0f;
     static u16* D_menu_801B6954[] = {
-        D_6041A80, D_6035780, D_6033080, D_603A580, D_603F380, D_6037E80, D_603CC80,
+        D_MAP_6041A80, D_MAP_6035780, D_MAP_6033080, D_MAP_603A580, D_MAP_603F380, D_MAP_6037E80, D_MAP_603CC80,
     };
 
     func_menu_801A116C();
@@ -2205,8 +2204,8 @@ void func_menu_801A0D14(void) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    TextureRect_8bIA(&gMasterDisp, D_6019030, 8, 16, 0.0f, D_menu_801B694C, 40.0f, 1.66f);
-    TextureRect_8bIA_MirY(&gMasterDisp, D_6019030, 8, 16, 0.0f, D_menu_801B6950, 40.0f, 1.68f);
+    TextureRect_8bIA(&gMasterDisp, D_MAP_6019030, 8, 16, 0.0f, D_menu_801B694C, 40.0f, 1.66f);
+    TextureRect_8bIA_MirY(&gMasterDisp, D_MAP_6019030, 8, 16, 0.0f, D_menu_801B6950, 40.0f, 1.68f);
 
     func_8003DE68(0x47, 0x76);
     func_8003DE68(0xCD, 0xEF);
@@ -2407,9 +2406,9 @@ void func_menu_801A19A8(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32) D_menu_801CEA9C);
 
     for (i = 0; i < 4; i++) {
-        TextureRect_8bIA(&gMasterDisp, D_600D590 + (i * 168 * 4), 168, 4, 72.0f, 104.0f + (4.0f * i), 1.0f, 1.0f);
+        TextureRect_8bIA(&gMasterDisp, D_MAP_600D590 + (i * 168 * 4), 168, 4, 72.0f, 104.0f + (4.0f * i), 1.0f, 1.0f);
     }
-    TextureRect_8bIA(&gMasterDisp, D_600D590 + (168 * 16), 168, 3, 72.0f, 104.0f + 16.0f, 1.0f, 1.0f);
+    TextureRect_8bIA(&gMasterDisp, D_MAP_600D590 + (168 * 16), 168, 3, 72.0f, 104.0f + 16.0f, 1.0f, 1.0f);
 }
 
 void func_menu_801A1AE8(void) {
@@ -3853,16 +3852,16 @@ void func_menu_801A5834(void) {
     }
 
     if (gLifeCount[gPlayerNum]) {
-        texture = D_6001080;
+        texture = D_MAP_6001080;
     } else {
-        texture = (u8*) D_6000000;
+        texture = D_MAP_6000000;
     }
 
     RCP_SetupDL(&gMasterDisp, 0x4C);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 170);
 
-    TextureRect_8bIA(&gMasterDisp, D_601B4B0, 24, 17, x, y, 4.6f, D_menu_801B6A6C[var_t0]);
+    TextureRect_8bIA(&gMasterDisp, D_MAP_601B4B0, 24, 17, x, y, 4.6f, D_menu_801B6A6C[var_t0]);
 
     mask = 0xFFFFFFFF;
     if (D_menu_801CF000[colorIndex] != 0) {
@@ -3873,7 +3872,7 @@ void func_menu_801A5834(void) {
     if (gGameFrameCount & mask) {
         RCP_SetupDL(&gMasterDisp, 0x53);
         gDPSetPrimColor(gMasterDisp++, 0, 0, r[colorIndex], g[colorIndex], b[colorIndex], 255);
-        TextureRect_8bIA(&gMasterDisp, D_6000840, 96, 22, x + 11.0f, y + 3.0f, 1.0f, 1.0f);
+        TextureRect_8bIA(&gMasterDisp, D_MAP_6000840, 96, 22, x + 11.0f, y + 3.0f, 1.0f, 1.0f);
     }
     z = 24.0f;
     colorIndex++;
@@ -3887,7 +3886,7 @@ void func_menu_801A5834(void) {
 
         if (gGameFrameCount & mask) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, r[colorIndex], g[colorIndex], b[colorIndex], 255);
-            TextureRect_8bIA(&gMasterDisp, D_60018C0, 96, 10, x + 10.0f, y + z + 8.0f, 1.0f, 1.0f);
+            TextureRect_8bIA(&gMasterDisp, D_MAP_60018C0, 96, 10, x + 10.0f, y + z + 8.0f, 1.0f, 1.0f);
         }
         z += 18.0f;
         colorIndex++;
@@ -4703,7 +4702,7 @@ void func_menu_801A77B0(PlanetId planetId) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_605C230);
+    gSPDisplayList(gMasterDisp++, D_MAP_605C230);
 
     Matrix_Pop(&gGfxMatrix);
 }
@@ -4725,7 +4724,7 @@ void func_menu_801A791C(PlanetId planetId) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_604C540);
+    gSPDisplayList(gMasterDisp++, D_MAP_604C540);
 
     Matrix_Pop(&gGfxMatrix);
 }
@@ -4745,7 +4744,7 @@ void func_menu_801A7A84(PlanetId planetId) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_604CDE0);
+    gSPDisplayList(gMasterDisp++, D_MAP_604CDE0);
 
     Matrix_Pop(&gGfxMatrix);
 }
@@ -4770,7 +4769,7 @@ void func_menu_801A7BEC(f32* zAngle, f32 next, f32 scale) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_6047E70);
+    gSPDisplayList(gMasterDisp++, D_MAP_6047E70);
 
     Matrix_Pop(&gGfxMatrix);
 
@@ -4832,7 +4831,7 @@ void func_menu_801A7F1C(PlanetId planetId) {
         Matrix_Copy(gGfxMatrix, &D_menu_801CE1E0[planetId]);
         Matrix_SetGfxMtx(&gMasterDisp);
 
-        gSPDisplayList(gMasterDisp++, D_604D680);
+        gSPDisplayList(gMasterDisp++, D_MAP_604D680);
 
         Matrix_Pop(&gGfxMatrix);
 
@@ -4875,7 +4874,7 @@ void func_menu_801A809C(PlanetId planetId) {
 
                 Matrix_SetGfxMtx(&gMasterDisp);
 
-                gSPDisplayList(gMasterDisp++, D_604D680);
+                gSPDisplayList(gMasterDisp++, D_MAP_604D680);
 
                 Matrix_Pop(&gGfxMatrix);
 
@@ -4911,7 +4910,7 @@ void func_menu_801A809C(PlanetId planetId) {
 
                     Matrix_SetGfxMtx(&gMasterDisp);
 
-                    gSPDisplayList(gMasterDisp++, D_604D680);
+                    gSPDisplayList(gMasterDisp++, D_MAP_604D680);
 
                     Matrix_Pop(&gGfxMatrix);
                 }
@@ -4936,7 +4935,7 @@ void func_menu_801A809C(PlanetId planetId) {
 
                 Matrix_SetGfxMtx(&gMasterDisp);
 
-                gSPDisplayList(gMasterDisp++, D_601D1F0);
+                gSPDisplayList(gMasterDisp++, D_MAP_601D1F0);
 
                 Matrix_Pop(&gGfxMatrix);
 
@@ -4974,7 +4973,7 @@ void func_menu_801A809C(PlanetId planetId) {
 
         Matrix_SetGfxMtx(&gMasterDisp);
 
-        gSPDisplayList(gMasterDisp++, D_601D1F0);
+        gSPDisplayList(gMasterDisp++, D_MAP_601D1F0);
 
         Matrix_Pop(&gGfxMatrix);
 
@@ -5031,7 +5030,7 @@ void func_menu_801A8738(void) {
 
         Matrix_SetGfxMtx(&gMasterDisp);
 
-        gSPDisplayList(gMasterDisp++, D_60479D0);
+        gSPDisplayList(gMasterDisp++, D_MAP_60479D0);
 
         Matrix_Pop(&gGfxMatrix);
     }
@@ -5116,7 +5115,7 @@ void func_menu_801A89BC(PlanetId planetId, s32 arg1) {
 
         Matrix_SetGfxMtx(&gMasterDisp);
 
-        gSPDisplayList(gMasterDisp++, D_60479D0);
+        gSPDisplayList(gMasterDisp++, D_MAP_60479D0);
 
         Matrix_Pop(&gGfxMatrix);
     }
@@ -5148,7 +5147,7 @@ void func_menu_801A8F40(void) {
 
         Matrix_SetGfxMtx(&gMasterDisp);
 
-        gSPDisplayList(gMasterDisp++, D_601DCF0);
+        gSPDisplayList(gMasterDisp++, D_MAP_601DCF0);
 
         Matrix_Pop(&gGfxMatrix);
 
@@ -5299,7 +5298,7 @@ void func_menu_801A9448(void) {
             Matrix_MultVec3f(gCalcMatrix, &dest, &src);
             Lights_SetOneLight(&gMasterDisp, src.x, src.y, src.z, 80, 80, 60, 0, 0, 0);
 
-            gSPDisplayList(gMasterDisp++, D_601E9A0);
+            gSPDisplayList(gMasterDisp++, D_MAP_601E9A0);
 
             Matrix_Pop(&gGfxMatrix);
         }
@@ -5557,10 +5556,10 @@ void func_menu_801AA1CC(s32 arg0) {
             } else {
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
             }
-            TextureRect_16bRGBA(&gMasterDisp, D_60447A0, 8, 8, 28.0f + x + 24.0f, y + 11.0f, 2.0f, 0.2f);
+            TextureRect_16bRGBA(&gMasterDisp, D_MAP_60447A0, 8, 8, 28.0f + x + 24.0f, y + 11.0f, 2.0f, 0.2f);
         }
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-        TextureRect_16bRGBA(&gMasterDisp, D_6047550, 24, 24, 28.0f + x, y, 1.0f, 1.0f);
+        TextureRect_16bRGBA(&gMasterDisp, D_MAP_6047550, 24, 24, 28.0f + x, y, 1.0f, 1.0f);
     }
 }
 
@@ -5760,7 +5759,7 @@ void func_menu_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
                     }
                     Matrix_Scale(gGfxMatrix, 1.6f, 1.6f, 1.6f, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_605C230);
+                    gSPDisplayList(gMasterDisp++, D_MAP_605C230);
                 }
                 Matrix_Pop(&gGfxMatrix);
             }
@@ -5786,7 +5785,7 @@ void func_menu_801AB17C(f32 x, f32 y, f32 z) {
     Matrix_Scale(gGfxMatrix, scale, scale, scale, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_601D1F0);
+    gSPDisplayList(gMasterDisp++, D_MAP_601D1F0);
 
     Matrix_Pop(&gGfxMatrix);
 }
@@ -5963,7 +5962,7 @@ void func_menu_801AB978(s32 arg0) {
     f32 yPos;
     s32 sp90[3];
     static f32 D_menu_801B6B0C[3] = { 205.0f, 237.0f, 269.0f };
-    static u16* D_menu_801B6B18[3] = { D_6032A60, D_6044180, D_6032440 };
+    static u16* D_menu_801B6B18[3] = { D_MAP_6032A60, D_MAP_6044180, D_MAP_6032440 };
 
     switch (arg0) {
         case 10:
@@ -5980,13 +5979,13 @@ void func_menu_801AB978(s32 arg0) {
                 yPos = 77.0f;
 
                 for (i = 0; i < 12; i++) {
-                    TextureRect_16bRGBA(&gMasterDisp, D_6044820 + (i * 92 * 4), 92, 4, xPos, yPos + (i * 4.0f), 1.0f,
-                                        1.0f);
+                    TextureRect_16bRGBA(&gMasterDisp, D_MAP_6044820 + (i * 92 * 4), 92, 4, xPos, yPos + (i * 4.0f),
+                                        1.0f, 1.0f);
                 }
-                TextureRect_16bRGBA(&gMasterDisp, D_6044820 + (92 * 12 * 4), 92, 3, xPos, yPos + 48.0f, 1.0f, 1.0f);
+                TextureRect_16bRGBA(&gMasterDisp, D_MAP_6044820 + (92 * 12 * 4), 92, 3, xPos, yPos + 48.0f, 1.0f, 1.0f);
 
                 if (arg0 == 21) {
-                    TextureRect_16bRGBA(&gMasterDisp, D_6046CD0, 32, 34, xPos + 47.0, yPos, 1.0f, 1.0f);
+                    TextureRect_16bRGBA(&gMasterDisp, D_MAP_6046CD0, 32, 34, xPos + 47.0, yPos, 1.0f, 1.0f);
                 }
 
                 for (i = 0; i < 3; i++) {
@@ -6090,7 +6089,7 @@ void func_menu_801ABF1C(void) {
 
             Matrix_SetGfxMtx(&gMasterDisp);
 
-            gSPDisplayList(gMasterDisp++, D_605A120);
+            gSPDisplayList(gMasterDisp++, D_MAP_605A120);
         }
         Matrix_Pop(&gGfxMatrix);
 
@@ -6111,7 +6110,7 @@ void func_menu_801ABF1C(void) {
             Matrix_SetGfxMtx(&gMasterDisp);
 
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-            gSPDisplayList(gMasterDisp++, D_604C350);
+            gSPDisplayList(gMasterDisp++, D_MAP_604C350);
             gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
         }
         Matrix_Pop(&gGfxMatrix);
@@ -6268,7 +6267,7 @@ void func_menu_801AC530(s32 index) {
 
     Lights_SetOneLight(&gMasterDisp, dirX, dirY, dirZ, 50, 50, 40, 0, 0, 0);
 
-    gSPDisplayList(gMasterDisp++, D_604A9F0);
+    gSPDisplayList(gMasterDisp++, D_MAP_604A9F0);
 
     Matrix_Pop(&gGfxMatrix);
 }
@@ -6305,7 +6304,7 @@ void func_menu_801AC80C(PathType pathType) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_604D680);
+    gSPDisplayList(gMasterDisp++, D_MAP_604D680);
 
     Matrix_Pop(&gGfxMatrix);
 

@@ -1,5 +1,4 @@
-#include "global.h"
-#include "assets.h"
+#include "sys.h"
 
 // clang-format off
 s16 gSawtoothWaveSample[] = {

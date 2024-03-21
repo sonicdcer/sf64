@@ -9,6 +9,7 @@
 #include "assets/ast_7_ti_1.h"
 #include "assets/ast_andross.h"
 #include "assets/ast_ve1_boss.h"
+#include "assets/ast_area_6.h"
 
 f32 D_800CBE70[] = {
     1.0f, 0.0f, 50.0f, 0.0f, 25.0f, 0.0f, 25.0f,

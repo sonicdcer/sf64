@@ -8,6 +8,7 @@
 #include "assets/ast_andross.h"
 #include "assets/ast_arwing.h"
 #include "assets/ast_vs_player.h"
+#include "assets/ast_area_6.h"
 
 UNK_TYPE D_800D2F50 = 0;
 s32 D_800D2F54 = 0;

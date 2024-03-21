@@ -1,5 +1,4 @@
 #include "global.h"
-#include "assets.h"
 
 s32 gBossFrameCount;
 

@@ -1,5 +1,4 @@
 #include "global.h"
-#include "assets.h"
 #include "fox_map.h"
 #include "fox_option.h"
 

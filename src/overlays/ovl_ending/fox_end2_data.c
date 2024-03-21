@@ -2,9 +2,9 @@
 #define FOX_END2_DATA
 
 #include "global.h"
-#include "assets.h"
 #include "assets/ast_arwing.h"
 #include "assets/ast_font.h"
+#include "assets/ast_title.h"
 
 typedef struct {
     /* 0x00 */ u8* unk_00;
@@ -81,12 +81,6 @@ void func_ending_80190778(u32 arg0, AssetInfo* asset);
 void func_ending_80190CF0(u32 arg0, AssetInfo* asset);
 void func_ending_80191234(s32 arg0, s32 arg1);
 void func_ending_80191294(u32 arg0, AssetInfo* asset);
-
-WingInfo D_ending_80198590;
-Vec3f D_ending_801985D0;
-Vec3f D_ending_801985E0;
-Vec3f D_ending_801985F0;
-Vec3f D_ending_80198600[300];
 
 extern Animation D_602F8E0;
 extern Limb* D_602FBAC[];

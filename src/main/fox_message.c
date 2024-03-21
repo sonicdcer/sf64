@@ -1,5 +1,4 @@
 #include "global.h"
-#include "assets.h"
 
 u16* Message_PtrFromId(u16 msgId) {
     s32 i;

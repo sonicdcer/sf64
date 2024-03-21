@@ -1,9 +1,7 @@
 // #include "prevent_bss_reordering.h"
 #include "global.h"
-#include "assets.h"
 #include "sf64dma.h"
 #include "assets/ast_logo.h"
-#include "audioseq_cmd.h"
 
 f32 D_80161A10;
 f32 D_80161A14;

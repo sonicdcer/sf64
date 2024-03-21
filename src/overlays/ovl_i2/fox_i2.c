@@ -1,5 +1,4 @@
 #include "global.h"
-#include "assets.h"
 
 UNK_TYPE D_i2_80195D70;
 

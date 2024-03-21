@@ -19,6 +19,7 @@ s32 D_80178748;
 #include "assets/ast_aquas.h"
 #include "assets/ast_star_wolf.h"
 #include "assets/ast_great_fox.h"
+#include "assets/ast_area_6.h"
 
 s32 gCurrentMsgPri = 0;
 
