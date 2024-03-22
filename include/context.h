@@ -287,7 +287,7 @@ extern s32 D_80177B00[4][4];
 extern u8 D_Timer_80177B44;
 extern u8 D_80177B4C;
 extern u8 D_80177B6C;
-extern u8  D_80177B8C;
+extern u8  gGreatFoxIntact;
 extern u8 D_80177BAC;
 extern u16 D_Timer_80177BD0[4];
 extern u16 D_80177C30[4];

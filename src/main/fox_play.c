@@ -2365,7 +2365,7 @@ void func_800AB334(void) {
     D_80178294 = 0;
     switch (gCurrentLevel) {
         case LEVEL_SECTOR_Z:
-            D_80177B8C = 1;
+            gGreatFoxIntact = true;
             break;
         case LEVEL_METEO:
         case LEVEL_SECTOR_X:
@@ -4359,7 +4359,7 @@ void func_800B0F50(Player* playerx) {
         gGoldRingCount[0] = D_80161A94[0] = gTotalHits = 0;
         gLifeCount[gPlayerNum] = 2;
         gBombCount[gPlayerNum] = 3;
-        D_80177B8C = 1;
+        gGreatFoxIntact = true;
         if (gCamCount == (gPlayerNum + 1)) {
             D_80161720[0] = 0.0f;
             D_80161720[1] = 0.0f;

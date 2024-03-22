@@ -305,9 +305,7 @@ s32 D_80177B00[4][4];
 u8 D_Timer_80177B44;
 u8 D_80177B4C;
 u8 D_80177B6C;
-
-// Great fox state: Damaged 0, Intact 1
-u8 D_80177B8C;
+u8 gGreatFoxIntact;
 u8 D_80177BAC;
 u16 D_Timer_80177BD0[4];
 u16 D_80177C30[4];

@@ -2943,7 +2943,7 @@ void func_800515C4(void) {
         RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, 1005);
     }
 
-    if (D_80177B8C != 0) {
+    if (gGreatFoxIntact) {
         gSPDisplayList(gMasterDisp++, D_GREAT_FOX_E000000);
     } else {
         gSPDisplayList(gMasterDisp++, D_GREAT_FOX_E003AB0);
@@ -2954,7 +2954,7 @@ void func_800515C4(void) {
         RCP_SetupDL_49();
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
         for (i = 0, var_s6_2 = D_800CA0BC; i < 4; i++, var_s6_2++) {
-            if ((i != 1) || (D_80177B8C != 0)) {
+            if ((i != 1) || gGreatFoxIntact) {
                 sp9C[i] = 0.0f;
                 if (i < 2) {
                     if (!(gGameFrameCount & 0x38)) {
