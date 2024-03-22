@@ -9,7 +9,7 @@
       - '#include "sf64object.h"'
       - '#include "structs.h"'
 
-
+# Great Fox Model
 D_GREAT_FOX_E000000:
   { type: GFX, offset: 0xE000000, symbol: D_GREAT_FOX_E000000 }
 
@@ -50,6 +50,7 @@ D_GREAT_FOX_E00D7B0:
 D_GREAT_FOX_E007430:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x0E007430, symbol: D_GREAT_FOX_E007430 }
 
+# Great Fox Model (damaged)
 D_GREAT_FOX_E003AB0:
   { type: GFX, offset: 0xE003AB0, symbol: D_GREAT_FOX_E003AB0 }
 
