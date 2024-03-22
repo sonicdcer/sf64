@@ -20,6 +20,7 @@ s32 D_80178748;
 #include "assets/ast_star_wolf.h"
 #include "assets/ast_great_fox.h"
 #include "assets/ast_area_6.h"
+#include "assets/ast_great_fox.h"
 
 s32 gCurrentMsgPri = 0;
 
@@ -365,16 +366,16 @@ void func_800BAAE8(void) {
             sp44 = D_D008990;
             break;
         case RCID_ROB64_TITLE:
-            sp44 = D_E00E100;
+            sp44 = D_GREAT_FOX_E00E100;
             break;
         case RCID_ROB64_TITLE_OPEN:
-            sp44 = D_E00F020;
+            sp44 = D_GREAT_FOX_E00F020;
             break;
         case RCID_GEN_PEPPER_TITLE:
-            sp44 = D_E00FF40;
+            sp44 = D_GREAT_FOX_E00FF40;
             break;
         case RCID_GEN_PEPPER_TITLE_OPEN:
-            sp44 = D_E010E60;
+            sp44 = D_GREAT_FOX_E010E60;
             break;
         case RCID_TR:
             sp44 = D_TR_6000900;

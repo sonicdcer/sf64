@@ -12,6 +12,7 @@
 #include "assets/ast_enmy_space.h"
 #include "assets/ast_enmy_planet.h"
 #include "assets/ast_ending.h"
+#include "assets/ast_great_fox.h"
 
 extern Gfx D_60320E0[];
 
@@ -2943,9 +2944,9 @@ void func_800515C4(void) {
     }
 
     if (D_80177B8C != 0) {
-        gSPDisplayList(gMasterDisp++, D_E000000);
+        gSPDisplayList(gMasterDisp++, D_GREAT_FOX_E000000);
     } else {
-        gSPDisplayList(gMasterDisp++, D_E003AB0);
+        gSPDisplayList(gMasterDisp++, D_GREAT_FOX_E003AB0);
     }
 
     if ((gCurrentLevel != LEVEL_AQUAS) &&

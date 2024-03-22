@@ -6,6 +6,7 @@
 #include "assets/ast_allies.h"
 #include "assets/ast_great_fox.h"
 #include "assets/ast_ending.h"
+#include "assets/ast_great_fox.h"
 
 void func_ending_8018CE20(s32);
 void func_ending_801926D4(void);
@@ -1785,11 +1786,11 @@ void func_ending_8018C21C(void) {
                         Matrix_SetGfxMtx(&gMasterDisp);
 
                         if (D_80177B8C != 0) {
-                            gSPDisplayList(gMasterDisp++, D_E000000);
+                            gSPDisplayList(gMasterDisp++, D_GREAT_FOX_E000000);
                         }
 
                         if (D_80177B8C == 0) {
-                            gSPDisplayList(gMasterDisp++, D_E003AB0);
+                            gSPDisplayList(gMasterDisp++, D_GREAT_FOX_E003AB0);
                         }
 
                         RCP_SetupDL(&gMasterDisp, 0x31);
