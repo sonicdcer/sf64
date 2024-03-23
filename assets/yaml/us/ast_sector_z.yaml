@@ -9,3 +9,6 @@
       - '#include "sf64object.h"'
       - '#include "structs.h"'
       - '#include "sf64level.h"'
+
+D_SZ_6000000:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 176, height: 12, offset: 0x6000000, symbol: D_SZ_6000000 }
