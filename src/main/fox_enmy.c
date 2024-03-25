@@ -64,11 +64,11 @@ u32 D_800CFF54[9] = {
 };
 
 void func_80060F30(f32* pos, u32 sfxId, s32 arg2) {
-    (void) "CHIME SET \n";
-    (void) "BOMB SET 1\n";
-    (void) "BOMB SET 2\n";
-    (void) "center_X        %f\n";
-    (void) "Enm->obj.pos.x  %f\n";
+    PRINTF("CHIME SET \n");
+    PRINTF("BOMB SET 1\n");
+    PRINTF("BOMB SET 2\n");
+    PRINTF("center_X        %f\n");
+    PRINTF("Enm->obj.pos.x  %f\n");
     if (!gVersusMode) {
         AUDIO_PLAY_SFX(sfxId, gDefaultSfxSource, 4);
     } else {
