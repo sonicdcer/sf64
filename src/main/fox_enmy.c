@@ -2536,7 +2536,7 @@ void func_800696F8(Object_80* obj80) {
         if ((obj80->obj.id == OBJ_80_6) || (obj80->obj.id == OBJ_80_7)) {
             var_fa0 = 1000.0f;
         }
-        temp_fv0 = ((var_fa0 > temp_fv0) ? 0.0f : (temp_fv0 - var_fa0) * 1.7f);
+        temp_fv0 = ((temp_fv0 - var_fa0) < 0.0f) ? 0.0f : (temp_fv0 - var_fa0) * 1.7f;
         if ((fabsf(gPlayer[0].unk_114) > 1.0f) || (gCurrentLevel == LEVEL_MACBETH)) {
             temp_fv0 = 0.0f;
         }
@@ -2556,7 +2556,7 @@ void func_80069858(Object_4C* obj4C) {
             (obj4C->obj.id == OBJ_80_8)) {
             var_fa0 = 1000.0f;
         }
-        temp_fv0 = ((var_fa0 > temp_fv0) ? 0.0f : (temp_fv0 - var_fa0) * 1.7f);
+        temp_fv0 = ((temp_fv0 - var_fa0) < 0.0f) ? 0.0f * 1.7f : (temp_fv0 - var_fa0) * 1.7f;
         temp_fv0 -= gPlayer[0].camEye.z;
         if ((obj4C->info.unk_10 - temp_fv0) < (obj4C->obj.pos.z + D_80177D20)) {
             obj4C->obj.status = OBJ_FREE;

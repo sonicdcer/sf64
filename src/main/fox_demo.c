@@ -811,7 +811,7 @@ void func_8004A888(Effect* effect) {
 void func_8004AA84(void) {
     s32 i;
 
-    if (!(gGameFrameCount & 7) && (gLevelType == LEVEL_CORNERIA)) {
+    if (!(gGameFrameCount & 7) && (gLevelType == LEVELTYPE_PLANET)) {
         for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
             if (gEffects[i].obj.status == OBJ_FREE) {
                 func_8004A888(&gEffects[i]);

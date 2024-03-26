@@ -4474,12 +4474,10 @@ void func_800922F4(Actor* actor) {
                           actor->obj.pos.z + RAND_FLOAT_CENTERED(10.0f), 2.2f);
         }
 
-        if (!((temp >> 2) & gGameFrameCount)) {
-            if (Rand_ZeroOne() < 0.5f) {
-                func_8007C120(actor->obj.pos.x + RAND_FLOAT_CENTERED(30.0f), actor->obj.pos.y + RAND_FLOAT(10.0f),
-                              actor->obj.pos.z + RAND_FLOAT_CENTERED(30.0f), actor->vel.x, actor->vel.y, actor->vel.z,
-                              actor->scale * 0.07f, 3);
-            }
+        if (!(gGameFrameCount & (temp >> 2)) && (Rand_ZeroOne() < 0.5f)) {
+            func_8007C120(actor->obj.pos.x + RAND_FLOAT_CENTERED(30.0f), actor->obj.pos.y + RAND_FLOAT(10.0f),
+                            actor->obj.pos.z + RAND_FLOAT_CENTERED(30.0f), actor->vel.x, actor->vel.y, actor->vel.z,
+                            actor->scale * 0.07f, 3);
         }
     }
 }

@@ -979,7 +979,10 @@ void func_80038140(PlayerShot* shot) {
                 if (temp_v0 != 0) {
                     if (shot->obj.id == PLAYERSHOT_4) {
                         Object_Kill(&shot->obj, shot->sfxSource);
-                    } else if (!((boss->obj.id == OBJ_BOSS_316) && (shot->playerNum != 0))) {
+                    } else {
+                        if ((boss->obj.id == OBJ_BOSS_316) && (shot->playerNum != 0)) {
+                            break;
+                        } 
                         boss->dmgType = DMG_BEAM;
                         if (shot->obj.id == PLAYERSHOT_3) {
                             boss->dmgType = DMG_BOMB;
@@ -1014,8 +1017,6 @@ void func_80038140(PlayerShot* shot) {
                             boss->fwork[48] = shot->obj.pos.y;
                             boss->fwork[49] = shot->obj.pos.z;
                         }
-                    } else {
-                        return;
                     }
                 }
             }

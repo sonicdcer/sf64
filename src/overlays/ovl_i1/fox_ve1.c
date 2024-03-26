@@ -1065,7 +1065,7 @@ void func_i1_80193D64(s32 limbIndex, Vec3f* rot, void* thisx) {
     RCP_SetupDL(&gMasterDisp, 0x1D);
 }
 
-#ifdef NON_EQUIVALENT
+#ifdef NON_MATCHING
 // Lots of problems with loop at 2082. Seems related to spE8. https://decomp.me/scratch/gOy2L
 void func_i1_80194398(Boss* boss) {
     s32 is0;

@@ -637,7 +637,7 @@ void func_80014748(SequenceLayer* layer) {
         }
     } else {
         cmd = 0;
-        if (!(layer->continuousNotes)) {
+        if (!layer->continuousNotes) {
             cmd = 1;
         } else if ((layer->note == NULL) || ((u8) layer->unk_3 == 0)) {
             cmd = 1;

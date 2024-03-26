@@ -2008,214 +2008,216 @@ void func_800701E0(Actor* actor) {
     f32 var_fv1;
     f32 temp_fv1;
 
-    if (!func_800700A4(actor)) {
-        if ((actor->unk_0D0 != 0) && (actor->unk_0B4 == 0x43) && (actor->unk_0D2 == 0)) {
-            actor->unk_0D0 = 0;
+    if (func_800700A4(actor)) {
+        return;
+    }
+    if ((actor->unk_0D0 != 0) && (actor->unk_0B4 == 0x43) && (actor->unk_0D2 == 0)) {
+        actor->unk_0D0 = 0;
+    }
+
+    if ((actor->unk_0D0 != 0) && (actor->unk_0B4 == 83) && (actor->timer_0C2 >= 2)) {
+        actor->unk_0D0 = 0;
+    }
+
+    if ((actor->unk_0D0 != 0) && (((actor->unk_0B4 == 64) && (actor->unk_0D2 == 2)) || (actor->unk_0B4 != 64))) {
+        if (actor->iwork[12] >= 4) {
+            actor->damage = 0;
         }
 
-        if ((actor->unk_0D0 != 0) && (actor->unk_0B4 == 83) && (actor->timer_0C2 >= 2)) {
-            actor->unk_0D0 = 0;
+        if ((actor->iwork[12] > 0) && (actor->iwork[12] < 4)) {
+            gTeamShields[actor->iwork[12]] -= actor->damage;
+        } else if ((actor->unk_0B4 == 83) && ((actor->damage == 30) || (actor->damage == 31))) {
+            actor->health = 0;
+        } else {
+            actor->health -= actor->damage;
         }
 
-        if ((actor->unk_0D0 != 0) && (((actor->unk_0B4 == 64) && (actor->unk_0D2 == 2)) || (actor->unk_0B4 != 64))) {
-            if (actor->iwork[12] >= 4) {
-                actor->damage = 0;
+        if (actor->health <= 0) {
+            if (actor->unk_0B4 == 106) {
+                BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 3);
+                if (1) {}
+                gHitCount += 4;
+                D_80177850 = 15;
             }
 
-            if ((actor->iwork[12] > 0) && (actor->iwork[12] < 4)) {
-                gTeamShields[actor->iwork[12]] -= actor->damage;
-            } else if ((actor->unk_0B4 == 83) && ((actor->damage == 30) || (actor->damage == 31))) {
-                actor->health = 0;
-            } else {
-                actor->health -= actor->damage;
-            }
-
-            if (actor->health <= 0) {
-                if (actor->unk_0B4 == 106) {
-                    BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 3);
-                    if (1) {}
-                    gHitCount += 4;
-                    D_80177850 = 15;
-                }
-
-                if (actor->unk_0B4 != 83) {
-                    if ((actor->unk_0B4 == 6) && (gCurrentLevel == LEVEL_SOLAR)) {
-                        AUDIO_PLAY_SFX(0x29018036, actor->sfxSource, 4);
-                    } else {
-                        AUDIO_PLAY_SFX(0x2903700B, actor->sfxSource, 4);
-                    }
-
-                    actor->obj.status = OBJ_DYING;
-                    var_fv1 = 0.7f;
-
-                    if (gLevelType == LEVELTYPE_SPACE) {
-                        var_fv1 = 0.3f;
-                    }
-
-                    if (((Rand_ZeroOne() < var_fv1) || (actor->iwork[12] != 0)) && (actor->info.unk_14 == 0) &&
-                        (actor->unk_0B4 != 0xD) && (actor->unk_0B4 != 0xE) && (actor->unk_0B4 != 0x3D) &&
-                        ((s32) actor->damage < 0x1F) && (actor->unk_0B4 != 0x3E) && (actor->unk_0B4 != 0x40) &&
-                        (actor->unk_0B4 != 0x48) && (actor->unk_0B4 != 0x44)) {
-                        func_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, actor->scale * 4.0f);
-                        actor->unk_0D0 = 0;
-                    }
-
-                    actor->timer_0C2 = 10;
-                    actor->timer_0BE = 0;
-                    actor->unk_046 = 0xFF;
-                    actor->unk_048 = 900;
-                    actor->unk_0C9 = 1;
-
-                    if (gLevelType == LEVELTYPE_PLANET) {
-                        actor->timer_04C = RAND_INT(2.9f);
-                        if (actor->unk_0B4 == 2) {
-                            actor->timer_04C = 1;
-                            if (actor->obj.pos.x < actor->unk_0D8.x) {
-                                func_800A69F8(1, actor->obj.pos.x + 20.0f, actor->obj.pos.y, actor->obj.pos.z);
-                                actor->fwork[17] = 777.0f;
-                            } else {
-                                func_800A69F8(0, actor->obj.pos.x - 20.0f, actor->obj.pos.y, actor->obj.pos.z);
-                                actor->fwork[18] = 777.0f;
-                            }
-                        }
-                        actor->timer_0BC = 300;
-
-                        if (gLevelMode != LEVELMODE_ALL_RANGE) {
-                            actor->vel.x *= 0.5f;
-                            actor->vel.y = RAND_FLOAT(5.0f);
-                            if (actor->vel.z < 0.0f) {
-                                actor->vel.z = actor->vel.z;
-                            } else {
-                                actor->vel.z = actor->vel.z * 0.3f;
-                            }
-                            if (((actor->obj.pos.z + D_80177D20) > -3000.0f) && (actor->vel.z > 0.0f)) {
-                                actor->vel.z = RAND_FLOAT(-10.0f);
-                            }
-                        }
-
-                        if (actor->unk_0B4 == 90) {
-                            actor->timer_04C = 999;
-                        }
-                    } else {
-                        switch (actor->unk_0B4) {
-                            case 13:
-                                func_800654E4(&actor->obj);
-                                break;
-
-                            case 61:
-                                func_i2_8018CCF8(actor);
-                                break;
-
-                            case 27:
-                                actor->obj.pos.y -= actor->vel.y;
-                                actor->obj.status = OBJ_ACTIVE;
-                                func_8007D0E0(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y + 30.0f,
-                                              actor->obj.pos.z - actor->vel.z, actor->scale * 5.0f);
-                                actor->unk_0D0 = 0;
-                                actor->timer_0C2 = 10000;
-                                actor->info.unk_1C = 0.0f;
-                                gHitCount += actor->info.bonus;
-                                D_80177850 = 0xF;
-                                break;
-
-                            default:
-                                actor->timer_0BC = 35;
-                                actor->timer_04C = 2;
-                                actor->vel.y = RAND_FLOAT_CENTERED(20.0f);
-                                actor->vel.x = RAND_FLOAT_CENTERED(20.0f);
-                                actor->vel.z = 0.0f;
-                                break;
-                        }
-                    }
-                }
-
-                if (actor->unk_0B4 == 0x52) {
-                    AUDIO_PLAY_SFX(0x11000055, actor->sfxSource, 0);
-                    actor->unk_0D0 = 1;
-                    func_8007C688(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 3.0f, 0x3C);
-                }
-            } else {
-                actor->timer_0C6 = 20;
+            if (actor->unk_0B4 != 83) {
                 if ((actor->unk_0B4 == 6) && (gCurrentLevel == LEVEL_SOLAR)) {
-                    AUDIO_PLAY_SFX(0x29033037, actor->sfxSource, 4);
-                } else if (actor->health < 20) {
-                    AUDIO_PLAY_SFX(0x2943500F, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(0x29018036, actor->sfxSource, 4);
                 } else {
-                    AUDIO_PLAY_SFX(0x2903300E, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(0x2903700B, actor->sfxSource, 4);
                 }
 
-                if ((actor->unk_0B4 != 0xD) && (actor->unk_0B4 != 0x3D) && (actor->unk_0B4 != 0x53)) {
-                    func_8007D10C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, actor->scale * 1.5f);
-                }
-
-                if (((gLevelMode == LEVELMODE_ALL_RANGE) || (gLevelMode == LEVELMODE_UNK_2)) &&
-                    (actor->unk_0B4 != 0x15) && (actor->unk_0B4 != 0x17)) {
-                    actor->fwork[13] = 20.0f;
-                    if (actor->obj.pos.x < actor->unk_0D8.x) {
-                        actor->fwork[13] *= -1.0f;
-                    }
-                }
-
-                if (actor->unk_0D4 == 1) {
-                    switch (actor->iwork[12]) {
-                        case 1:
-                            if (actor->unk_0D0 == 3) {
-                                func_8006A7B0(gMsg_ID_20210, RCID_FALCO);
-                            } else {
-                                func_8006A7B0(gMsg_ID_20060, RCID_FALCO);
-                            }
-                            break;
-
-                        case 3:
-                            if (actor->unk_0D0 == 3) {
-                                func_8006A7B0(gMsg_ID_20200, RCID_PEPPY);
-                            } else {
-                                func_8006A7B0(gMsg_ID_20070, RCID_PEPPY);
-                            }
-                            break;
-
-                        case 2:
-                            if (actor->unk_0D0 == 3) {
-                                func_8006A7B0(gMsg_ID_20190, RCID_SLIPPY);
-                            } else {
-                                func_8006A7B0(gMsg_ID_20080, RCID_SLIPPY);
-                            }
-                            break;
-
-                        case 4:
-                            func_8006A7B0(gMsg_ID_20084, RCID_KATT);
-                            break;
-
-                        case 5:
-                            func_8006A7B0(gMsg_ID_20085, RCID_BILL);
-                            break;
-                    }
-                }
-                actor->unk_0D0 = 0;
-            }
-        }
-        if ((actor->iwork[12] == 0) && (actor->iwork[13] == 0) && (actor->info.unk_16 != 2) &&
-            (gLevelType == LEVELTYPE_SPACE)) {
-            sp3C.x = actor->vel.x;
-            sp3C.y = actor->vel.y;
-            sp3C.z = actor->vel.z;
-
-            if ((func_8006351C(actor->index, &actor->obj.pos, &sp3C, 0) != 0) ||
-                (actor->obj.pos.y < (gGroundLevel + 20.0f))) {
                 actor->obj.status = OBJ_DYING;
-                actor->obj.pos.z -= actor->vel.z;
-                actor->unk_0D0 = 1;
-                if (actor->unk_0B4 == 13) {
-                    actor->obj.id = OBJ_ACTOR_182;
-                    func_800654E4(&actor->obj);
+                var_fv1 = 0.7f;
+
+                if (gLevelType == LEVELTYPE_SPACE) {
+                    var_fv1 = 0.3f;
                 }
 
-                if (actor->unk_0B4 == 61) {
-                    func_i2_8018CCF8(actor);
+                if (((Rand_ZeroOne() < var_fv1) || (actor->iwork[12] != 0)) && (actor->info.unk_14 == 0) &&
+                    (actor->unk_0B4 != 13) && (actor->unk_0B4 != 14) && (actor->unk_0B4 != 61) &&
+                    (actor->damage <= 30) && (actor->unk_0B4 != 62) && (actor->unk_0B4 != 64) &&
+                    (actor->unk_0B4 != 72) && (actor->unk_0B4 != 68)) {
+                    func_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, actor->scale * 4.0f);
+                    actor->unk_0D0 = 0;
                 }
+
+                actor->timer_0C2 = 10;
+                actor->timer_0BE = 0;
+                actor->unk_046 = 0xFF;
+                actor->unk_048 = 900;
+                actor->unk_0C9 = 1;
+
+                if (gLevelType == LEVELTYPE_PLANET) {
+                    actor->timer_04C = RAND_INT(2.9f);
+                    if (actor->unk_0B4 == 2) {
+                        actor->timer_04C = 1;
+                        if (actor->obj.pos.x < actor->unk_0D8.x) {
+                            func_800A69F8(1, actor->obj.pos.x + 20.0f, actor->obj.pos.y, actor->obj.pos.z);
+                            actor->fwork[17] = 777.0f;
+                        } else {
+                            func_800A69F8(0, actor->obj.pos.x - 20.0f, actor->obj.pos.y, actor->obj.pos.z);
+                            actor->fwork[18] = 777.0f;
+                        }
+                    }
+                    actor->timer_0BC = 300;
+
+                    if (gLevelMode != LEVELMODE_ALL_RANGE) {
+                        actor->vel.x *= 0.5f;
+                        actor->vel.y = RAND_FLOAT(5.0f);
+                        if (actor->vel.z < 0.0f) {
+                            actor->vel.z = actor->vel.z;
+                        } else {
+                            actor->vel.z = actor->vel.z * 0.3f;
+                        }
+                        if (((actor->obj.pos.z + D_80177D20) > -3000.0f) && (actor->vel.z > 0.0f)) {
+                            actor->vel.z = RAND_FLOAT(-10.0f);
+                        }
+                    }
+
+                    if (actor->unk_0B4 == 90) {
+                        actor->timer_04C = 999;
+                    }
+                } else {
+                    switch (actor->unk_0B4) {
+                        case 13:
+                            func_800654E4(&actor->obj);
+                            break;
+
+                        case 61:
+                            func_i2_8018CCF8(actor);
+                            break;
+
+                        case 27:
+                            actor->obj.pos.y -= actor->vel.y;
+                            actor->obj.status = OBJ_ACTIVE;
+                            func_8007D0E0(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y + 30.0f,
+                                            actor->obj.pos.z - actor->vel.z, actor->scale * 5.0f);
+                            actor->unk_0D0 = 0;
+                            actor->timer_0C2 = 10000;
+                            actor->info.unk_1C = 0.0f;
+                            gHitCount += actor->info.bonus;
+                            D_80177850 = 0xF;
+                            break;
+
+                        default:
+                            actor->timer_0BC = 35;
+                            actor->timer_04C = 2;
+                            actor->vel.y = RAND_FLOAT_CENTERED(20.0f);
+                            actor->vel.x = RAND_FLOAT_CENTERED(20.0f);
+                            actor->vel.z = 0.0f;
+                            break;
+                    }
+                }
+            }
+
+            if (actor->unk_0B4 == 0x52) {
+                AUDIO_PLAY_SFX(0x11000055, actor->sfxSource, 0);
+                actor->unk_0D0 = 1;
+                func_8007C688(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 3.0f, 0x3C);
+            }
+        } else {
+            actor->timer_0C6 = 20;
+            if ((actor->unk_0B4 == 6) && (gCurrentLevel == LEVEL_SOLAR)) {
+                AUDIO_PLAY_SFX(0x29033037, actor->sfxSource, 4);
+            } else if (actor->health < 20) {
+                AUDIO_PLAY_SFX(0x2943500F, actor->sfxSource, 4);
+            } else {
+                AUDIO_PLAY_SFX(0x2903300E, actor->sfxSource, 4);
+            }
+
+            if ((actor->unk_0B4 != 0xD) && (actor->unk_0B4 != 0x3D) && (actor->unk_0B4 != 0x53)) {
+                func_8007D10C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, actor->scale * 1.5f);
+            }
+
+            if (((gLevelMode == LEVELMODE_ALL_RANGE) || (gLevelMode == LEVELMODE_UNK_2)) &&
+                (actor->unk_0B4 != 0x15) && (actor->unk_0B4 != 0x17)) {
+                actor->fwork[13] = 20.0f;
+                if (actor->obj.pos.x < actor->unk_0D8.x) {
+                    actor->fwork[13] *= -1.0f;
+                }
+            }
+
+            if (actor->unk_0D4 == 1) {
+                switch (actor->iwork[12]) {
+                    case 1:
+                        if (actor->unk_0D0 == 3) {
+                            func_8006A7B0(gMsg_ID_20210, RCID_FALCO);
+                        } else {
+                            func_8006A7B0(gMsg_ID_20060, RCID_FALCO);
+                        }
+                        break;
+
+                    case 3:
+                        if (actor->unk_0D0 == 3) {
+                            func_8006A7B0(gMsg_ID_20200, RCID_PEPPY);
+                        } else {
+                            func_8006A7B0(gMsg_ID_20070, RCID_PEPPY);
+                        }
+                        break;
+
+                    case 2:
+                        if (actor->unk_0D0 == 3) {
+                            func_8006A7B0(gMsg_ID_20190, RCID_SLIPPY);
+                        } else {
+                            func_8006A7B0(gMsg_ID_20080, RCID_SLIPPY);
+                        }
+                        break;
+
+                    case 4:
+                        func_8006A7B0(gMsg_ID_20084, RCID_KATT);
+                        break;
+
+                    case 5:
+                        func_8006A7B0(gMsg_ID_20085, RCID_BILL);
+                        break;
+                }
+            }
+            actor->unk_0D0 = 0;
+        }
+    }
+    if ((actor->iwork[12] == 0) && (actor->iwork[13] == 0) && (actor->info.unk_16 != 2) &&
+        (gLevelType == LEVELTYPE_SPACE)) {
+        sp3C.x = actor->vel.x;
+        sp3C.y = actor->vel.y;
+        sp3C.z = actor->vel.z;
+
+        if ((func_8006351C(actor->index, &actor->obj.pos, &sp3C, 0) != 0) ||
+            (actor->obj.pos.y < (gGroundLevel + 20.0f))) {
+            actor->obj.status = OBJ_DYING;
+            actor->obj.pos.z -= actor->vel.z;
+            actor->unk_0D0 = 1;
+            if (actor->unk_0B4 == 13) {
+                actor->obj.id = OBJ_ACTOR_182;
+                func_800654E4(&actor->obj);
+            }
+
+            if (actor->unk_0B4 == 61) {
+                func_i2_8018CCF8(actor);
             }
         }
     }
+    
 }
 
 void func_80070BA8(Actor* actor) {

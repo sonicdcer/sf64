@@ -466,7 +466,7 @@ s32 func_i4_8018CCE8(Actor* actor) {
         temp_fs0 = fabsf(x - actor->obj.pos.x);
         temp_fv0 = fabsf(z - actor->obj.pos.z);
 
-        if ((!(var_fv1 < temp_fs0)) && (!(var_fa0 < temp_fv0))) {
+        if (!((var_fv1 < temp_fs0) || (var_fa0 < temp_fv0))) {
             var_fv1 = temp_fs0;
             var_fa0 = temp_fv0;
             var_v0 = i + 1;
