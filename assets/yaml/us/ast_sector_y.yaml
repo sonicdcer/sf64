@@ -100,8 +100,20 @@ D_SY_600F6C0:
 D_SY_60102C0:
   { type: GFX, offset: 0x60102C0, symbol: D_SY_60102C0 }
 
+D_SY_6011758:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x06011758, symbol: D_SY_6011758 }
+
+D_SY_60117D8:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x060117D8, symbol: D_SY_60117D8 }
+
 D_SY_60119D8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x060119D8, symbol: D_SY_60119D8 }
+
+D_SY_60132A0:
+  { type: GFX, offset: 0x60132A0, symbol: D_SY_60132A0 }
+
+D_SY_6015D60:
+  { type: GFX, offset: 0x6015D60, symbol: D_SY_6015D60 }
 
 D_SY_601F3D0:
   { type: GFX, offset: 0x601F3D0, symbol: D_SY_601F3D0 }
@@ -139,6 +151,60 @@ D_SY_6015960:
 D_SY_6015B60:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06015B60, symbol: D_SY_6015B60 }
 
+D_SY_60188D0:
+  { type: GFX, offset: 0x60188D0, symbol: D_SY_60188D0 }
+
+D_SY_6018F30:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x06018F30, symbol: D_SY_6018F30 }
+
+D_SY_6019E50:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x06019E50, symbol: D_SY_6019E50 }
+
+D_SY_601AD70: 
+  { type: GFX, offset: 0x601AD70, symbol: D_SY_601AD70 }
+
+D_SY_601AE08:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0601AE08, symbol: D_SY_601AE08 }
+
+D_SY_601B610: 
+  { type: GFX, offset: 0x601B610, symbol: D_SY_601B610 }
+
+D_SY_601B6A0: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0601B6A0, symbol: D_SY_601B6A0 }
+
+D_SY_601C6A0: 
+  { type: GFX, offset: 0x601C6A0, symbol: D_SY_601C6A0 }
+
+D_SY_601C730: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0601C730, symbol: D_SY_601C730 }
+
+D_SY_601D730: 
+  { type: GFX, offset: 0x601D730, symbol: D_SY_601D730 }
+
+D_SY_601F3B8:
+  { type: SF64:ANIM, offset: 0x601F3B8, symbol: D_SY_601F3B8 }
+
+D_SY_60205D0: 
+  { type: GFX, offset: 0x60205D0, symbol: D_SY_60205D0 }
+
+D_SY_60209F0: 
+  { type: GFX, offset: 0x60209F0, symbol: D_SY_60209F0 }
+
+D_SY_6020B08:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x06020B08, symbol: D_SY_6020B08 }
+
+D_SY_6021B08:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x06021B08, symbol: D_SY_6021B08 }
+
+D_SY_6022B10:
+  { type: GFX, offset: 0x6022B10, symbol: D_SY_6022B10 }
+
+D_SY_6022C28:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x06022C28, symbol: D_SY_6022C28 }
+
+D_SY_6023C28:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x06023C28, symbol: D_SY_6023C28 }
+
 D_SY_60258A0:
   { type: SF64:ANIM, offset: 0x60258A0, symbol: D_SY_60258A0 }
 
@@ -151,11 +217,17 @@ D_SY_60265B4:
 D_SY_602738C:
   { type: SF64:ANIM, offset: 0x602738C, symbol: D_SY_602738C }
 
+D_SY_6028668:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06028668, symbol: D_SY_6028668 }
+
 D_SY_6029B48:
   { type: SF64:ANIM, offset: 0x6029B48, symbol: D_SY_6029B48 }
 
 D_SY_602A2CC:
   { type: SF64:ANIM, offset: 0x602A2CC, symbol: D_SY_602A2CC }
+
+D_SY_602AFF8:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0602AFF8, symbol: D_SY_602AFF8 }
 
 D_SY_602B778:
   { type: SF64:ANIM, offset: 0x602B778, symbol: D_SY_602B778 }
@@ -168,6 +240,30 @@ D_SY_602CEB4:
 
 D_SY_602D140: 
   { type: SF64:SKELETON, offset: 0x602D140, symbol: D_SY_602D140 }
+
+D_SY_602D194:
+  { type: GFX, offset: 0x602D1A0, symbol: D_SY_602D194 }
+
+D_SY_602D238:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 16, offset: 0x0602D238, symbol: D_SY_602D238 }
+
+D_SY_602E4B0:
+  { type: SF64:ENV_SETTINGS, offset: 0x602E4B0, symbol: D_SY_602E4B0 }
+
+D_SY_602E4F4:
+  { type: SF64:OBJECT_INIT, offset: 0x602E4F4, symbol: D_SY_602E4F4 }
+
+D_SY_6030B14:
+  { type: SF64:OBJECT_INIT, offset: 0x6030B14, symbol: D_SY_6030B14 }
+
+D_SY_6032E18:
+  { type: SF64:SCRIPT, offset: 0x6032E18, symbol: D_SY_6032E18 }
+
+D_SY_6033070:
+  {type: SF64:COLPOLY, count: 174, offset: 0x6033070, symbol: D_SY_6033070, mesh_symbol: D_SY_6033E08 }
+
+D_SY_603405C:
+  { type: SF64:HITBOX, offset: 0x603405C, symbol: D_SY_603405C }
 
 D_SY_60340C0:
   { type: SF64:HITBOX, offset: 0x60340C0, symbol: D_SY_60340C0 }
@@ -186,5 +282,35 @@ D_SY_60342A0:
 
 D_SY_6034304:
   { type: SF64:HITBOX, offset: 0x6034304, symbol: D_SY_6034304 }
+
+D_SY_6034368:
+  { type: SF64:HITBOX, offset: 0x6034368, symbol: D_SY_6034368 }
+
+D_SY_603445C:
+  { type: SF64:HITBOX, offset: 0x603445C, symbol: D_SY_603445C }
+
+D_SY_6034478:
+  { type: SF64:HITBOX, offset: 0x6034478, symbol: D_SY_6034478 }
+
+D_SY_603450C:
+  { type: SF64:HITBOX, offset: 0x603450C, symbol: D_SY_603450C }
+
+D_SY_6034588:
+  { type: SF64:HITBOX, offset: 0x6034588, symbol: D_SY_6034588 }
+
+D_SY_6034664:
+  { type: SF64:HITBOX, offset: 0x6034664, symbol: D_SY_6034664 }
+
+D_SY_6034770:
+  { type: SF64:HITBOX, offset: 0x6034770, symbol: D_SY_6034770 }
+
+D_SY_60347D4:
+  { type: SF64:HITBOX, offset: 0x60347D4, symbol: D_SY_60347D4 }
+
+D_SY_60347F0:
+  { type: SF64:HITBOX, offset: 0x60347F0, symbol: D_SY_60347F0 }
+
+D_SY_603486C:
+  { type: SF64:HITBOX, offset: 0x603486C, symbol: D_SY_603486C }
 
 # size = 0x34890

@@ -230,8 +230,12 @@
 
   - name: ast_sector_y
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xB2CA50
+    vram: 0x06000000
+    subsegments:
+      - [0xB2CA50, .data, ast_sector_y/ast_sector_y]
 
   - name: ast_solar
     exclusive_ram_id: segment_06
