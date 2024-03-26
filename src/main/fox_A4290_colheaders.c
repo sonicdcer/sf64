@@ -92,7 +92,7 @@ CollisionHeader D_800D2B38[10] = {
         { 1386.0f, 1033.0f, 1833.0f },
         316,
         D_SZ_6007558,
-        D_6008E08,
+        D_6008E08, //! TODO: replace with D_SZ_6008E08 after factory fix
     },
     {
         { -671.0f, 0.0f, -671.0f },
