@@ -13,6 +13,7 @@
 #include "assets/ast_enmy_planet.h"
 #include "assets/ast_ending.h"
 #include "assets/ast_great_fox.h"
+#include "assets/ast_sector_z.h"
 
 extern Gfx D_60320E0[];
 
@@ -2614,14 +2615,14 @@ void func_8004FEC0(Actor* actor) {
 
         case 25:
             if (actor->index & 1) {
-                gSPDisplayList(gMasterDisp++, D_6001DA0);
+                gSPDisplayList(gMasterDisp++, D_SZ_6001DA0);
             } else {
-                gSPDisplayList(gMasterDisp++, D_6001360);
+                gSPDisplayList(gMasterDisp++, D_SZ_6001360);
             }
             break;
 
         case 26:
-            gSPDisplayList(gMasterDisp++, D_6004FE0);
+            gSPDisplayList(gMasterDisp++, D_SZ_6004FE0);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
             func_8005B1E8(actor, 2);
             break;

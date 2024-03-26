@@ -10,12 +10,20 @@
       - '#include "structs.h"'
       - '#include "sf64level.h"'
 
+# Sector Z: Combat Zone
 D_SZ_6000000:
   { type: TEXTURE, ctype: u8, format: IA8, width: 176, height: 12, offset: 0x6000000, symbol: D_SZ_6000000 }
 
+# One of the so called "Boss titles", unused in the game. A version of the same thing
+# seems to have been implemented in the 3DS version.
+# The text in japanese translates to:
+
+# Interspace anti-ship missile
+# Macbeth B
 D_SZ_6000840:
   { type: TEXTURE, ctype: u8, format: IA8, width: 104, height: 26, offset: 0x6000840, symbol: D_SZ_6000840 }
 
+# Great Fox icon showed in the Radar
 D_SZ_60012D0:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 9, offset: 0x60012D0, symbol: D_SZ_60012D0 }
 
@@ -65,7 +73,6 @@ D_SZ_6002F80:
 D_SZ_6003010:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x06003010, symbol: D_SZ_6003010 }
 
-# Seems unused
 D_SZ_6004010:
   { type: GFX, offset: 0x6004010, symbol: D_SZ_6004010 }
 
@@ -84,7 +91,7 @@ D_SZ_6004458:
 D_SZ_6004558:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0x06004558, symbol: D_SZ_6004558 }
 
-D_SZ_600470:
+D_SZ_6004570:
   { type: GFX, offset: 0x6004570, symbol: D_SZ_6004570 }
 
 D_SZ_60045E0:
@@ -111,7 +118,6 @@ D_SZ_6005BC0:
 D_SZ_6005BF0:
   { type: GFX, offset: 0x6005BF0, symbol: D_SZ_6005BF0 }
 
-
 D_SZ_6006090:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x06006090, symbol: D_SZ_6006090, tlut: 0x06006490 }
 
@@ -121,7 +127,6 @@ D_SZ_6006490:
 D_SZ_6006660:
   { type: GFX, offset: 0x6006660, symbol: D_SZ_6006660 }
 
-# Seems unused?
 D_SZ_6006780:
   { type: GFX, offset: 0x6006780, symbol: D_SZ_6006780 }
 

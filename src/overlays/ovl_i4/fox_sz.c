@@ -1,5 +1,6 @@
 #include "global.h"
 #include "assets.h"
+#include "assets/ast_sector_z.h"
 
 s32 D_i4_801A0560;
 s32 D_i4_801A0564;
@@ -7,10 +8,6 @@ s32 D_i4_801A0564;
 Vec3f D_i4_8019F4C0[] = { 0.0f, 0.0f, 35000.0f, -2000.0f, 0.0f, 35000.0f, 2000.0f, 0.0f, 35000.0f };
 Vec3f D_i4_8019F4E4[] = { -700.0f, -200.0f, 200.0f,  500.0f, 200.0f, -300.0f,
                           300.0f,  -300.0f, -200.0f, 200.0f, 400.0f, 500.0f };
-
-extern Gfx D_6001A10[];
-extern Gfx D_60045E0[];
-extern f32 D_6009230[];
 
 extern s32 D_80161710;
 
@@ -188,7 +185,7 @@ void func_i4_80199FCC(Actor* actor, s32 arg1) {
 
     actor->health = 250;
     actor->info.drawType = 2;
-    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6009230);
+    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SZ_6009230);
     actor->fwork[1] = 25.0f;
     actor->fwork[29] = 2.0f;
 
@@ -1689,10 +1686,10 @@ void func_i4_8019E234(Actor* actor) {
 }
 
 void func_i4_8019E3A8(Actor* actor) {
-    gSPDisplayList(gMasterDisp++, D_6001A10);
+    gSPDisplayList(gMasterDisp++, D_SZ_6001A10);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     RCP_SetupDL(&gMasterDisp, 0x39);
-    gSPDisplayList(gMasterDisp++, D_60045E0);
+    gSPDisplayList(gMasterDisp++, D_SZ_60045E0);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 

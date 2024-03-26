@@ -15,7 +15,6 @@ extern ObjectInit D_602E5C8[];
 extern ObjectInit D_600EAD4[];
 extern ObjectInit D_6011044[];
 extern ObjectInit D_600FF74[];
-extern ObjectInit D_6006EB4[];
 extern ObjectInit D_6014D94[];
 
 #endif

@@ -10,6 +10,7 @@
 #include "assets/ast_andross.h"
 #include "assets/ast_ve1_boss.h"
 #include "assets/ast_area_6.h"
+#include "assets/ast_sector_z.h"
 
 f32 D_800CBE70[] = {
     1.0f, 0.0f, 50.0f, 0.0f, 25.0f, 0.0f, 25.0f,
@@ -238,8 +239,8 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_80_154  */  {(void*)     D_600BAF0, 0, (ObjectFunc)          NULL,        D_601115C,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_155  */  {(void*)          NULL, 0, (ObjectFunc)          NULL,       D_800CBF34,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_156  */  {(void*) func_i6_80197CB8, 1, (ObjectFunc)          NULL,        D_6034368,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_80_157  */  {(void*)     D_6001DA0, 0, (ObjectFunc)          NULL,        D_600924C,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_80_158  */  {(void*)     D_6001360, 0, (ObjectFunc)          NULL,        D_60092E8,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_157  */  {(void*)     D_SZ_6001DA0, 0, (ObjectFunc)          NULL,        D_SZ_600924C,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_158  */  {(void*)     D_SZ_6001360, 0, (ObjectFunc)          NULL,        D_SZ_60092E8,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_159  */  {(void*)     D_6008370, 0, (ObjectFunc)          NULL,        D_601668C,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_160  */  {(void*)     D_6010960, 0, (ObjectFunc)          NULL,        D_6016714,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_4C_161  */  {(void*)     D_602F7C0, 0, (ObjectFunc) func_80068FE0,        D_603E468,   100.0f,  0, 0, 40, 0,   0.0f,  0 },
@@ -394,7 +395,7 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_BOSS_310 */  {(void*) func_8002E64C, 1, (ObjectFunc) func_8002E628,       D_800CBF34,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
   /* OBJ_BOSS_311 */  {(void*) func_i4_80191AFC, 2, (ObjectFunc) func_i4_801912FC,        D_6011C80,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
   /* OBJ_BOSS_312 */  {(void*) func_i6_80196288, 2, (ObjectFunc) func_i6_80196210,        D_60166F4,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
-  /* OBJ_BOSS_313 */  {(void*) func_i4_8019E98C, 1, (ObjectFunc) func_i4_8019E454,        D_6009388,     0.0f,  0, 0, 40, 0,   0.0f, 10 },
+  /* OBJ_BOSS_313 */  {(void*) func_i4_8019E98C, 1, (ObjectFunc) func_i4_8019E454,        D_SZ_6009388,     0.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_BOSS_314 */  {(void*) func_i6_8019E2C4, 2, (ObjectFunc) func_i6_8019C888,       D_800CBF34,     0.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_BOSS_SO */  {(void*) func_i3_801A71B8, 2, (ObjectFunc) func_i3_801A5B3C,       D_800CBF34,     0.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_BOSS_316 */  {(void*) func_i4_801968F4, 1, (ObjectFunc) func_i4_801946C4,        D_6011058,     0.0f,  0, 0, 40, 0,   0.0f, 10 },

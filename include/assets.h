@@ -18,18 +18,16 @@
 extern Gfx D_60005B0[]; // fox_bg
 extern Gfx D_6000A80[]; // fox_bg, fox_effect
 extern Gfx D_6000E00[]; // fox_edata_1C
-extern Gfx D_6001360[]; // fox_bg, fox_demo, fox_edata_1C
+extern Gfx D_6001360[]; // fox_bg, fox_demo, fox_edata_1C. Possible symbol collision
 extern Gfx D_6001530[]; // fox_360, fox_demo, fox_ka
 extern Gfx D_6001840[]; // fox_bg
 extern Gfx D_6001A60[]; // fox_effect
 extern u8 D_6001B80[]; // fox_hud
 extern Vtx D_6001C50[]; // fox_play
-extern Gfx D_6001DA0[]; // fox_demo, fox_edata_1C
 extern u8 D_60020D0[]; // fox_hud
 extern Gfx D_60023B0[]; // fox_edata_1C
 extern Gfx D_6002990[]; // fox_edata_1C
 extern Gfx D_6002E60[]; // fox_bg
-extern Gfx D_6002F80[]; // fox_bg
 extern Gfx D_6003000[]; // fox_edata_1C
 extern Gfx D_60030F0[]; // fox_edata_1C
 extern Gfx D_60034D0[]; // fox_edata_1C, fox_enmy2
@@ -38,12 +36,9 @@ extern Gfx D_6003760[];
 extern Gfx D_60038E0[];
 extern u16 D_60038F8[];
 extern Gfx D_6004170[];
-extern Gfx D_6004330[];
 extern Vtx D_6004500[];
-extern Gfx D_6004570[];
 extern Gfx D_60046F0[];
 extern Gfx D_6004900[];
-extern Gfx D_6004FE0[];
 extern EnvSettings D_6005000;
 extern Gfx D_6005360[];
 extern u16 D_6005710[];
@@ -93,13 +88,9 @@ extern Gfx D_6006A80[];
 extern Gfx D_6006BE0[];
 extern f32 D_6006BF0[];
 extern f32 D_6006C44[];
-extern Animation D_6006D64;
-extern Limb* D_6006E50[];
-extern EnvSettings D_6006E70;
 extern u16 D_6006EA0[];
 extern Gfx D_6006F50[];
 extern Gfx D_6007410[];
-extern CollisionPoly D_6007558[];
 extern Gfx D_60075D0[];
 extern Gfx D_6007650[];
 extern Gfx D_60079B0[];
@@ -112,10 +103,7 @@ extern Gfx D_6008770[];
 extern Gfx D_6008830[];
 extern Gfx D_6008AA0[];
 extern Vec3s D_6008E08[];
-extern f32 D_600924C[];
 extern Gfx D_6009250[];
-extern f32 D_60092E8[];
-extern f32 D_6009388[];
 extern Gfx D_60097E0[];
 extern u16* D_6009B34[];
 extern u16 D_6009BB8[];

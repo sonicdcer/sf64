@@ -2,6 +2,7 @@
 #include "global.h"
 #include "assets.h"
 #include "assets/ast_sector_x.h"
+#include "assets/ast_sector_z.h"
 #include "assets/ast_aquas.h"
 #include "assets/ast_andross.h"
 #include "assets/ast_area_6.h"
@@ -17,7 +18,7 @@ u8 D_80161684;
 ObjectInit* D_800CFDA0[] = {
     D_60371A4, D_6026CC4, D_SX_602A164, D_A6_6023F64, D_A6_60287A4, D_602E4F4, D_6007E74,
     D_601F234, D_6026714, D_C035154,    D_TR_6006AA4, D_6031000,    D_6006C60, D_602E5C8,
-    D_600EAD4, NULL,      D_6011044,    D_600FF74,    D_6006EB4,    D_6014D94, D_vs_player_302DE3C,
+    D_600EAD4, NULL,      D_6011044,    D_600FF74,    D_SZ_6006EB4, D_6014D94, D_vs_player_302DE3C,
 };
 s32 D_800CFDF4[] = {
     OBJ_80_0,

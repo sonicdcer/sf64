@@ -102,7 +102,8 @@
     "ast_enmy_space.h": "c",
     "prevent_context_reordering.h": "c",
     "ast_option.h": "c",
-    "ast_area_6.h": "c"
+    "ast_area_6.h": "c",
+    "ast_bg_space.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }
