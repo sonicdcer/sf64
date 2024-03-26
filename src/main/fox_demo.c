@@ -11,7 +11,6 @@
 #include "assets/ast_enmy_space.h"
 #include "assets/ast_enmy_planet.h"
 #include "assets/ast_ending.h"
-#include "assets/ast_great_fox.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"

@@ -3,7 +3,6 @@
 #include "assets/ast_aquas.h"
 #include "assets/ast_great_fox.h"
 #include "assets/ast_vs_player.h"
-#include "assets/ast_great_fox.h"
 
 static Vec3f D_8015F950;
 

@@ -6,7 +6,6 @@
 #include "assets/ast_allies.h"
 #include "assets/ast_great_fox.h"
 #include "assets/ast_ending.h"
-#include "assets/ast_great_fox.h"
 
 void func_ending_8018CE20(s32);
 void func_ending_801926D4(void);
