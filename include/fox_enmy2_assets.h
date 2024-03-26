@@ -7,27 +7,14 @@
 
 extern Gfx D_6011F90[];
 extern Gfx D_601F2A0[];
-extern Gfx D_60102C0[];
 extern Gfx D_6017B60[];
 extern Gfx D_6004D00[];
 extern Gfx D_601A880[];
-extern Gfx D_6015D60[];
-extern Gfx D_60102C0[];
-extern Gfx D_601F3D0[];
-extern Gfx D_6022B10[];
-extern Gfx D_60209F0[];
 extern Gfx D_6019430[];
 extern Gfx D_6018960[];
 extern Gfx D_6009F50[];
 extern Gfx D_600C2A0[];
 extern Gfx D_600BD40[];
-extern Gfx D_60205D0[];
-extern Gfx D_60036A0[];
-extern Gfx D_60034D0[];
-extern Gfx D_6005360[];
-extern Gfx D_601B610[];
-extern Gfx D_601C6A0[];
-extern Gfx D_60188D0[];
 extern Gfx D_601C520[];
 extern Gfx D_600AF40[];
 extern Gfx D_600AC70[];

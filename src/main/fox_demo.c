@@ -6,13 +6,14 @@
 
 #include "global.h"
 #include "assets.h"
-#include "assets/ast_sector_x.h"
 #include "assets/ast_aquas.h"
 #include "assets/ast_great_fox.h"
 #include "assets/ast_enmy_space.h"
 #include "assets/ast_enmy_planet.h"
 #include "assets/ast_ending.h"
 #include "assets/ast_great_fox.h"
+#include "assets/ast_sector_x.h"
+#include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
 
 extern Gfx D_60320E0[];
@@ -21,7 +22,6 @@ extern s32 D_800C9E90[];
 
 extern Animation D_60265B4;
 extern Animation D_602B8DC;
-extern Animation D_60034C4;
 extern Animation D_602A2CC;
 extern Animation D_602CEB4;
 extern Animation D_602B778;
@@ -35,13 +35,10 @@ extern f32 D_80178478;
 
 extern Gfx D_6000D80[];
 extern Gfx D_600BAA0[];
-extern Gfx D_60132A0[];
 extern Gfx D_60132B0[];
-extern Gfx D_6014A40[];
 extern Gfx D_6020810[];
 
 extern Animation D_AQ_6020A40;
-extern Animation D_601F3B8;
 extern Limb* D_AQ_6020C6C[];
 extern Limb* D_602D140[];
 
@@ -135,7 +132,7 @@ f32 D_800CA1D4[] = {
 };
 
 Animation* D_800CA1F4[] = {
-    &D_60265B4, &D_602B8DC, &D_60034C4, &D_602A2CC, &D_602CEB4, &D_602B778, &D_601F3B8,
+    &D_60265B4, &D_602B8DC, &D_SY_60034C4, &D_602A2CC, &D_602CEB4, &D_602B778, &D_SY_601F3B8,
 };
 
 void func_80048AC0(s32 teamId) {
@@ -2782,14 +2779,14 @@ void func_8004FEC0(Actor* actor) {
             Matrix_SetGfxMtx(&gMasterDisp);
             /* fallthrough */
         case 39:
-            gSPDisplayList(gMasterDisp++, D_60097E0);
+            gSPDisplayList(gMasterDisp++, D_SY_60097E0);
             func_8004FCB8(actor, 4);
             break;
 
         case 36:
             Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, actor->scale, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_601D730);
+            gSPDisplayList(gMasterDisp++, D_SY_601D730);
             func_8004FCB8(actor, 0);
             break;
 
@@ -2867,7 +2864,7 @@ void func_8004FEC0(Actor* actor) {
             break;
 
         case 40:
-            gSPDisplayList(gMasterDisp++, D_60132A0);
+            gSPDisplayList(gMasterDisp++, D_SY_60132A0);
             break;
 
         case 41:
@@ -2875,7 +2872,7 @@ void func_8004FEC0(Actor* actor) {
             break;
 
         case 42:
-            gSPDisplayList(gMasterDisp++, D_6014A40);
+            gSPDisplayList(gMasterDisp++, D_SY_6014A40);
             break;
 
         case 43:

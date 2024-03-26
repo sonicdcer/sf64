@@ -16,6 +16,7 @@ s32 D_80178748;
 #include "assets/ast_allies.h"
 #include "assets/ast_training.h"
 #include "assets/ast_sector_x.h"
+#include "assets/ast_sector_y.h"
 #include "assets/ast_aquas.h"
 #include "assets/ast_star_wolf.h"
 #include "assets/ast_great_fox.h"
@@ -300,10 +301,10 @@ void func_800BAAE8(void) {
             sp44 = D_SX_6021ED0;
             break;
         case RCID_BOSS_SECTORY:
-            sp44 = D_6018F30;
+            sp44 = D_SY_6018F30;
             break;
         case RCID_BOSS_SECTORY_OPEN:
-            sp44 = D_6019E50;
+            sp44 = D_SY_6019E50;
             break;
         case RCID_BOSS_MACBETH:
             sp44 = D_6010C20;

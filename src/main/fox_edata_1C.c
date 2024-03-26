@@ -5,12 +5,13 @@
 #include "assets/ast_arwing.h"
 #include "assets/ast_training.h"
 #include "assets/ast_sector_x.h"
+#include "assets/ast_sector_y.h"
+#include "assets/ast_sector_z.h"
 #include "assets/ast_aquas.h"
 #include "assets/ast_7_ti_1.h"
 #include "assets/ast_andross.h"
 #include "assets/ast_ve1_boss.h"
 #include "assets/ast_area_6.h"
-#include "assets/ast_sector_z.h"
 
 f32 D_800CBE70[] = {
     1.0f, 0.0f, 50.0f, 0.0f, 25.0f, 0.0f, 25.0f,
@@ -188,17 +189,17 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_80_103  */  {(void*) func_i5_801A23AC, 1, (ObjectFunc)          NULL,       D_800CBF34,  2500.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_80_104  */  {(void*) func_i5_801A23AC, 1, (ObjectFunc) func_i5_801A0BD8,        D_6036594,  2500.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_80_105  */  {(void*) func_i5_801A23AC, 1, (ObjectFunc)          NULL,        D_6036204,  1300.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_106  */  {(void*)     D_60097E0, 0, (ObjectFunc)          NULL,        D_6034478,  4000.0f,  0, 0, 41, 0,   0.0f,  0 },
-  /* OBJ_80_107  */  {(void*)     D_601D730, 0, (ObjectFunc)          NULL,        D_603450C,  4000.0f,  0, 0, 41, 0,   0.0f,  0 },
-  /* OBJ_80_108  */  {(void*)     D_60102C0, 0, (ObjectFunc)          NULL,        D_6034588,  4000.0f,  0, 0, 41, 0,   0.0f,  0 },
-  /* OBJ_80_109  */  {(void*)     D_60036A0, 0, (ObjectFunc) func_i6_801A4E44,        D_6034664,  4000.0f,  0, 0, 41, 0,   0.0f,  0 },
-  /* OBJ_80_110  */  {(void*)     D_6005360, 0, (ObjectFunc)          NULL,        D_6034770,  4000.0f,  0, 0, 41, 0,   0.0f,  0 },
+  /* OBJ_80_106  */  {(void*)     D_SY_60097E0, 0, (ObjectFunc)          NULL,        D_6034478,  4000.0f,  0, 0, 41, 0,   0.0f,  0 },
+  /* OBJ_80_107  */  {(void*)     D_SY_601D730, 0, (ObjectFunc)          NULL,        D_603450C,  4000.0f,  0, 0, 41, 0,   0.0f,  0 },
+  /* OBJ_80_108  */  {(void*)     D_SY_60102C0, 0, (ObjectFunc)          NULL,        D_6034588,  4000.0f,  0, 0, 41, 0,   0.0f,  0 },
+  /* OBJ_80_109  */  {(void*)     D_SY_60036A0, 0, (ObjectFunc) func_i6_801A4E44,        D_6034664,  4000.0f,  0, 0, 41, 0,   0.0f,  0 },
+  /* OBJ_80_110  */  {(void*)     D_SY_6005360, 0, (ObjectFunc)          NULL,        D_6034770,  4000.0f,  0, 0, 41, 0,   0.0f,  0 },
   /* OBJ_80_111  */  {(void*) func_80074F90, 1, (ObjectFunc)          NULL,       D_800CBF34,  2000.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_112  */  {(void*)     D_600F6C0, 0, (ObjectFunc) func_i6_801A52B8,        D_60347F0,  4000.0f,  0, 0, 41, 0,   0.0f,  0 },
-  /* OBJ_80_113  */  {(void*)     D_601B610, 0, (ObjectFunc)          NULL,       D_800CBF34,  2000.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_80_114  */  {(void*)     D_601C6A0, 0, (ObjectFunc)          NULL,       D_800CBF34,  2000.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_80_115  */  {(void*)     D_60188D0, 0, (ObjectFunc)          NULL,        D_603486C,  2000.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_80_116  */  {(void*)     D_60034D0, 0, (ObjectFunc)          NULL,        D_60347D4,  2000.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_112  */  {(void*)     D_SY_600F6C0, 0, (ObjectFunc) func_i6_801A52B8,        D_60347F0,  4000.0f,  0, 0, 41, 0,   0.0f,  0 },
+  /* OBJ_80_113  */  {(void*)     D_SY_601B610, 0, (ObjectFunc)          NULL,       D_800CBF34,  2000.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_114  */  {(void*)     D_SY_601C6A0, 0, (ObjectFunc)          NULL,       D_800CBF34,  2000.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_115  */  {(void*)     D_SY_60188D0, 0, (ObjectFunc)          NULL,        D_603486C,  2000.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_116  */  {(void*)     D_SY_60034D0, 0, (ObjectFunc)          NULL,        D_60347D4,  2000.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_117  */  {(void*)     D_AQ_60231C0, 0, (ObjectFunc)          NULL,        D_AQ_6030C60,  2000.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_118  */  {(void*)     D_AQ_6011EE0, 0, (ObjectFunc)          NULL,        D_AQ_6030C7C,  2000.0f,  0, 0, 41, 0,   0.0f,  0 },
   /* OBJ_80_119  */  {(void*)     D_AQ_6015730, 0, (ObjectFunc)          NULL,        D_AQ_6030D74,  2000.0f,  0, 0, 39, 0,   0.0f,  0 },

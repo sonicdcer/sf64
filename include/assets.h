@@ -20,7 +20,6 @@ extern Gfx D_6000A80[]; // fox_bg, fox_effect
 extern Gfx D_6000E00[]; // fox_edata_1C
 extern Gfx D_6001360[]; // fox_bg, fox_demo, fox_edata_1C. Possible symbol collision
 extern Gfx D_6001530[]; // fox_360, fox_demo, fox_ka
-extern Gfx D_6001840[]; // fox_bg
 extern Gfx D_6001A60[]; // fox_effect
 extern u8 D_6001B80[]; // fox_hud
 extern Vtx D_6001C50[]; // fox_play
@@ -30,8 +29,6 @@ extern Gfx D_6002990[]; // fox_edata_1C
 extern Gfx D_6002E60[]; // fox_bg
 extern Gfx D_6003000[]; // fox_edata_1C
 extern Gfx D_60030F0[]; // fox_edata_1C
-extern Gfx D_60034D0[]; // fox_edata_1C, fox_enmy2
-extern Gfx D_60036A0[]; // fox_edata_1C, fox_enmy2
 extern Gfx D_6003760[];
 extern Gfx D_60038E0[];
 extern u16 D_60038F8[];
@@ -40,7 +37,6 @@ extern Vtx D_6004500[];
 extern Gfx D_60046F0[];
 extern Gfx D_6004900[];
 extern EnvSettings D_6005000;
-extern Gfx D_6005360[];
 extern u16 D_6005710[];
 extern Gfx D_6005780[];
 extern Gfx D_6005880[];
@@ -104,7 +100,6 @@ extern Gfx D_6008830[];
 extern Gfx D_6008AA0[];
 extern Vec3s D_6008E08[];
 extern Gfx D_6009250[];
-extern Gfx D_60097E0[];
 extern u16* D_6009B34[];
 extern u16 D_6009BB8[];
 extern f32 D_6009CC4[];
@@ -163,8 +158,6 @@ extern Gfx D_600F560[];
 extern Vec3s D_600F5AC[];
 extern CollisionPoly D_600F60C[];
 extern Gfx D_600F670[];
-extern Gfx D_600F6C0[];
-extern Gfx D_600F6C0[];
 extern Animation D_600F744;
 extern u8 D_600F940[];
 extern Gfx D_600F9B0[];
@@ -181,7 +174,6 @@ extern ObjectInit* D_6010088[];
 extern u8 D_6010090[];
 extern u16 D_6010198[];
 extern CollisionPoly D_6010294[];
-extern Gfx D_60102C0[];
 extern u8 D_60106B0[];
 extern Gfx D_6010700[];
 extern Gfx D_6010960[];
@@ -239,16 +231,12 @@ extern Gfx D_6016CF0[];
 extern Gfx D_6017090[];
 extern Gfx D_6017370[];
 extern Gfx D_6018450[];
-extern Gfx D_60188D0[];
 extern Gfx D_6018C00[]; // possible collision
 extern Gfx D_6018D40[];
 extern Gfx D_6018E80[];
-extern u16 D_6018F30[];
 extern Gfx D_6019220[];
-extern u16 D_6019E50[];
 extern Gfx D_601A7A0[];
 extern Gfx D_601A7D0[];
-extern Gfx D_601AD70[];
 extern Gfx D_601AE40[];
 extern Gfx D_601B0D0[];
 extern u16* D_601B1E4[];
@@ -259,7 +247,6 @@ extern f32 D_601B518[];
 extern Gfx D_601B560[];
 extern f32 D_601B584[];
 extern f32 D_601B5F4[];
-extern Gfx D_601B610[];
 extern Gfx D_601B640[];
 extern f32 D_601B644[];
 extern f32 D_601B678[];
@@ -274,12 +261,10 @@ extern f32 D_601B868[];
 extern f32 D_601B8A0[];
 extern f32 D_601B8D8[];
 extern Gfx D_601BEC0[];
-extern Gfx D_601C6A0[];
 extern Gfx D_601C7C0[];
 extern Gfx D_601C820[];
 extern u16 D_601C8E0[];
 extern Gfx D_601C9B0[];
-extern Gfx D_601D730[];
 extern u8 D_601D750[];
 extern u16 D_601D800[];
 extern u16 D_601DB50[];

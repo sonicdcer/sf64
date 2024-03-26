@@ -21,6 +21,7 @@ f32 D_80161394;             // can be static
 #include "assets/ast_vs_player.h"
 #include "assets/ast_training.h"
 #include "assets/ast_sector_x.h"
+#include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
 #include "assets/ast_aquas.h"
 #include "assets/ast_andross.h"
@@ -627,7 +628,7 @@ void func_8003E1E8(void) {
                             Matrix_SetGfxMtx(&gMasterDisp);
                             RCP_SetupDL_62();
                             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 192);
-                            gSPDisplayList(gMasterDisp++, D_6001840);
+                            gSPDisplayList(gMasterDisp++, D_SY_6001840);
                             break;
                     }
                 }

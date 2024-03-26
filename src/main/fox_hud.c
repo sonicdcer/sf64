@@ -1,19 +1,5 @@
 // #include "prevent_bss_reordering.h"
 #include "sf64math.h"
-#include "assets/ast_blue_marine.h"
-#include "assets/ast_landmaster.h"
-#include "assets/ast_training.h"
-#include "assets/ast_andross.h"
-#include "assets/ast_star_wolf.h"
-#include "assets/ast_font.h"
-#include "assets/ast_vs_player.h"
-#include "assets/ast_bg_planet.h"
-#include "assets/ast_bg_space.h"
-#include "assets/ast_area_6.h"
-#include "assets/ast_aquas.h"
-#include "assets/ast_sector_x.h"
-#include "assets/ast_sector_z.h"
-
 // BSS section range:
 // D_801616A0 <==> D_80161910
 
@@ -86,12 +72,26 @@ s32 D_80161900[20];
 #include "global.h"
 #include "assets.h"
 
+#include "assets/ast_blue_marine.h"
+#include "assets/ast_landmaster.h"
+#include "assets/ast_training.h"
+#include "assets/ast_andross.h"
+#include "assets/ast_star_wolf.h"
+#include "assets/ast_font.h"
+#include "assets/ast_vs_player.h"
+#include "assets/ast_bg_planet.h"
+#include "assets/ast_bg_space.h"
+#include "assets/ast_area_6.h"
+#include "assets/ast_aquas.h"
+#include "assets/ast_sector_x.h"
+#include "assets/ast_sector_y.h"
+#include "assets/ast_sector_z.h"
+
 void func_80087788(void);
 
 // Segmented addresses
 
 extern u8 D_6000000[];
-extern u16 D_6000840[];
 extern u16 D_6000C80[];
 extern u8 D_6000D80[];
 extern u8 D_6001260[];
@@ -562,7 +562,7 @@ s32 func_800863C8(void) {
 
 UnkStruct_D_800D1AEC D_800D1AEC[] = {
     { D_500A050, 16, 15, D_6000000, 128, 28 },    { D_500A140, 16, 15, D_6000000, 96, 28 },
-    { D_500A140, 16, 15, D_6000000, 176, 12 },    { D_500A230, 16, 15, D_6000000, 168, 28 },
+    { D_500A140, 16, 15, D_SY_6000000, 176, 12 },    { D_500A230, 16, 15, D_6000000, 168, 28 },
     { D_500A230, 16, 15, D_6000000, 168, 28 },    { D_500A230, 16, 15, D_AQ_6000000, 96, 13 },
     { D_500A320, 16, 15, D_SZ_6000000, 176, 12 }, { D_500A320, 16, 15, D_6000000, 112, 13 },
     { D_500A320, 16, 15, D_6000000, 112, 28 },    { D_500A410, 16, 15, D_6000000, 96, 28 },
@@ -2124,7 +2124,7 @@ s32 func_8008A4DC(void) {
                     if ((y < 150.0f) || (y > 206.0f)) {
                         break;
                     }
-                    TextureRect_8bIA(&gMasterDisp, D_6000840, 64, 64, 250.0f + D_800D1E10, temp, 0.25f, 0.25f);
+                    TextureRect_8bIA(&gMasterDisp, D_SY_6000840, 64, 64, 250.0f + D_800D1E10, temp, 0.25f, 0.25f);
                 }
                 break;
 
