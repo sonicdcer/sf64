@@ -21,11 +21,26 @@ D_1000640:
 D_1000E80:
   { type: TEXTURE, format: IA8, width: 48, height: 9, ctype: u8, offset: 0x1000E80, symbol: D_1000E80 }
 
+D_1001030:
+  { type: TEXTURE, format: IA8, width: 8, height: 8, ctype: u8, offset: 0x1001030, symbol: D_1001030 }
+
+D_1001070:
+  { type: TEXTURE, format: IA8, width: 104, height: 10, ctype: u8, offset: 0x1001070, symbol: D_1001070 }
+
+D_1001480:
+  { type: BLOB, size: 0xBC0, offset: 0x1001480, symbol: D_1001480 }
+
 D_1002040:
   { type: TEXTURE, format: IA8, width: 40, height: 12, ctype: u8, offset: 0x1002040, symbol: D_1002040 }
 
+D_1002220:
+  { type: BLOB, size: 0x60, offset: 0x1002220, symbol: D_1002220 }
+
 D_1002280:
   { type: TEXTURE, format: IA8, width: 8, height: 12, ctype: u8, offset: 0x1002280, symbol: D_1002280 }
+
+D_10022E0:
+  { type: BLOB, size: 0xDF0, offset: 0x10022E0, symbol: D_10022E0 }
 
 D_10030D0:
   { type: TEXTURE, format: IA8, width: 8, height: 12, ctype: u8, offset: 0x10030D0, symbol: D_10030D0 }
@@ -42,8 +57,17 @@ D_1003288:
 D_10032A0:
   { type: TEXTURE, format: RGBA16, width: 44, height: 24, ctype: u16, offset: 0x10032A0, symbol: D_10032A0 }
 
+D_1003AE0:
+  { type: BLOB, size: 0x6E0, offset: 0x1003AE0, symbol: D_1003AE0 }
+
 D_10041C0:
   { type: TEXTURE, format: RGBA16, width: 44, height: 24, ctype: u16, offset: 0x10041C0, symbol: D_10041C0 }
+
+D_1004A00:
+  { type: BLOB, size: 0x6E0, offset: 0x1004A00, symbol: D_1004A00 }
+
+D_1005920:
+  { type: BLOB, size: 0x6E0, offset: 0x1005920, symbol: D_1005920 }
 
 D_10050E0:
   { type: TEXTURE, format: RGBA16, width: 44, height: 24, ctype: u16, offset: 0x10050E0, symbol: D_10050E0 }
@@ -51,32 +75,62 @@ D_10050E0:
 D_1006000:
   { type: TEXTURE, format: RGBA16, width: 44, height: 24, ctype: u16, offset: 0x1006000, symbol: D_1006000 }
 
+D_1006840:
+  { type: BLOB, size: 0x6E0, offset: 0x1006840, symbol: D_1006840 }
+
 D_1006F20:
   { type: TEXTURE, format: RGBA16, width: 44, height: 24, ctype: u16, offset: 0x1006F20, symbol: D_1006F20 }
+
+D_1007760:
+  { type: BLOB, size: 0x6E0, offset: 0x1007760, symbol: D_1007760 }
 
 D_1007E40:
   { type: TEXTURE, format: RGBA16, width: 44, height: 24, ctype: u16, offset: 0x1007E40, symbol: D_1007E40 }
 
+D_1008680:
+  { type: BLOB, size: 0x6E0, offset: 0x1008680, symbol: D_1008680 }
+
 D_1008D60:
   { type: TEXTURE, format: RGBA16, width: 44, height: 24, ctype: u16, offset: 0x1008D60, symbol: D_1008D60 }
+
+D_10095A0:
+  { type: BLOB, size: 0x6E0, offset: 0x10095A0, symbol: D_10095A0 }
 
 D_1009C80:
   { type: TEXTURE, format: RGBA16, width: 44, height: 24, ctype: u16, offset: 0x1009C80, symbol: D_1009C80 }
 
+D_100A4C0:
+  { type: BLOB, size: 0x6E0, offset: 0x100A4C0, symbol: D_100A4C0 }
+
 D_100ABA0:
   { type: TEXTURE, format: RGBA16, width: 44, height: 24, ctype: u16, offset: 0x100ABA0, symbol: D_100ABA0 }
+
+D_100B3E0:
+  { type: BLOB, size: 0x6E0, offset: 0x100B3E0, symbol: D_100B3E0 }
 
 D_100BAC0:
   { type: TEXTURE, format: RGBA16, width: 44, height: 24, ctype: u16, offset: 0x100BAC0, symbol: D_100BAC0 }
 
+D_100C300:
+  { type: BLOB, size: 0x6E0, offset: 0x100C300, symbol: D_100C300 }
+
 D_100C9E0:
   { type: TEXTURE, format: RGBA16, width: 44, height: 24, ctype: u16, offset: 0x100C9E0, symbol: D_100C9E0 }
+
+D_100D220:
+  { type: BLOB, size: 0x6E0, offset: 0x100D220, symbol: D_100D220 }
 
 D_100D900:
   { type: TEXTURE, format: RGBA16, width: 44, height: 24, ctype: u16, offset: 0x100D900, symbol: D_100D900 }
 
+D_100E140:
+  { type: BLOB, size: 0x6E0, offset: 0x100E140, symbol: D_100E140 }
+
 D_100E820:
   { type: TEXTURE, format: RGBA16, width: 44, height: 24, ctype: u16, offset: 0x100E820, symbol: D_100E820 }
+
+D_100F060:
+  { type: BLOB, size: 0x1600, offset: 0x100F060, symbol: D_100F060 }
 
 D_1010660:
   { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x1010660, tlut: 0x10106A0, symbol: D_1010660 }
@@ -138,6 +192,9 @@ D_1010930:
 D_1010970:
   { type: TEXTURE, format: TLUT, colors: 8, offset: 0x1010970, ctype: u16, symbol: D_1010970 }
 
+D_1010980:
+  { type: BLOB, size: 0x900, offset: 0x1010980, symbol: D_1010980 }
+
 D_1011280:
   { type: TEXTURE, format: CI4, width: 48, height: 44, ctype: u8, offset: 0x1011280, tlut: 0x10116A0, symbol: D_1011280 }
 
@@ -149,6 +206,9 @@ D_10116B0:
 
 D_1011730:
   { type: TEXTURE, format: TLUT, colors: 8, ctype: u16, offset: 0x1011730, symbol: D_1011730 }
+
+D_1011740:
+  { type: BLOB, size: 0x300, offset: 0x1011740, symbol: D_1011740 }
 
 D_1011A40:
   { type: TEXTURE, format: CI4, width: 32, height: 7, ctype: u8, offset: 0x1011A40, tlut: 0x1011AB0, symbol: D_1011A40 }
@@ -190,7 +250,7 @@ D_1011ED0:
   { type: TEXTURE, format: CI4, width: 16, height: 7, ctype: u8, offset: 0x1011ED0, tlut: 0x1011F08, symbol: D_1011ED0 }
 
 D_1011F08:
-  { type: TEXTURE, format: TLUT, colors: 8, ctype: u16, offset: 0x1011F08, symbol: D_1011F08 }
+  { type: TEXTURE, format: TLUT, colors: 12, ctype: u16, offset: 0x1011F08, symbol: D_1011F08 }
 
 D_1011F20:
   { type: GFX, offset: 0x1011F20, symbol: D_1011F20 }
@@ -206,6 +266,9 @@ D_1012110:
 
 D_1012190:
   { type: TEXTURE, format: IA8, width: 16, height: 16, ctype: u8, offset: 0x1012190, symbol: D_1012190 }
+
+D_1012290:
+  { type: BLOB, size: 0x540, offset: 0x1012290, symbol: D_1012290 }
 
 D_10127D0:
   { type: TEXTURE, format: CI8, width: 40, height: 5, ctype: u8, offset: 0x10127D0, tlut: 0x1012898, symbol: D_10127D0 }
@@ -236,6 +299,9 @@ D_1013580:
 
 D_1013700:
   { type: TEXTURE, format: TLUT, colors: 58, ctype: u16, offset: 0x1013700, symbol: D_1013700 }
+
+D_1013774:
+  { type: BLOB, size: 0x1BAC, offset: 0x1013774, symbol: D_1013774 }
 
 D_1015320:
   { type: GFX, offset: 0x1015320, symbol: D_1015320 }
@@ -360,6 +426,9 @@ D_1016BC8:
 D_1016FC8:
   { type: TEXTURE, format: TLUT, colors: 256, offset: 0x1016FC8, ctype: u16, symbol: D_1016FC8 }
 
+D_10171C8:
+  { type: BLOB, size: 0x5F8, offset: 0x10171C8, symbol: D_10171C8 }
+
 D_10177C0:
   { type: GFX, offset: 0x10177C0, symbol: D_10177C0 }
 
@@ -374,6 +443,9 @@ D_10182C0:
 
 D_10190C0:
   { type: TEXTURE, format: IA8, width: 16, height: 32, ctype: u8, offset: 0x10190C0, symbol: D_10190C0 }
+
+D_10192C0:
+  { type: BLOB, size: 0x200, offset: 0x10192C0, symbol: D_10192C0 }
 
 D_10194C0:
   { type: GFX, offset: 0x10194C0, symbol: D_10194C0 }
@@ -543,6 +615,9 @@ D_101C2E0:
 D_101C368:
   { type: TEXTURE, format: IA8, width: 32, height: 32, ctype: u8, colors: 20, offset: 0x101C368, symbol: D_101C368 }
 
+D_101C768:
+  { type: BLOB, size: 0x378, offset: 0x101C768, symbol: D_101C768 }
+
 D_101CAE0:
   { type: GFX, offset: 0x101CAE0, symbol: D_101CAE0 }
 
@@ -557,6 +632,9 @@ D_101CD70:
 
 D_101D070:
   { type: TEXTURE, format: IA8, width: 32, height: 32, ctype: u8, offset: 0x101D070, symbol: D_101D070 }
+
+D_101D470:
+  { type: BLOB, size: 0x7A0, offset: 0x101D470, symbol: D_101D470 }
 
 D_101DE20:
   { type: TEXTURE, format: IA8, width: 128, height: 32, ctype: u8, offset: 0x101DE20, symbol: D_101DE20 }
@@ -603,6 +681,9 @@ D_1022D60:
 D_1022D80:
   { type: TEXTURE, format: RGBA16, width: 4, height: 16, ctype: u16, offset: 0x1022D80, symbol: D_1022D80 }
 
+D_1022E00:
+  { type: BLOB, size: 0x80, offset: 0x1022E00, symbol: D_1022E00 }
+
 D_1022E80:
   { type: GFX, offset: 0x1022E80, symbol: D_1022E80 }
 
@@ -615,6 +696,9 @@ D_1023180:
 D_10231A0:
   { type: GFX, offset: 0x10231A0, symbol: D_10231A0 }
 
+D_1023518:
+  { type: BLOB, size: 0x18, offset: 0x1023518, symbol: D_1023518 }
+
 D_1023530:
   { type: TEXTURE, format: CI8, width: 16, height: 16, ctype: u8, offset: 0x1023530, tlut: 0x1023630, symbol: D_1023530 }
 
@@ -626,6 +710,9 @@ D_1023700:
 
 D_1023750:
   { type: GFX, offset: 0x1023750, symbol: D_1023750 }
+
+D_10237D8:
+  { type: BLOB, size: 0xA0, offset: 0x10237D8, symbol: D_10237D8 }
 
 D_1023878:
   { type: TEXTURE, format: IA8, width: 32, height: 32, ctype: u8, offset: 0x1023878, symbol: D_1023878 }
@@ -717,6 +804,9 @@ D_1025888:
 D_1026090:
   { type: GFX, offset: 0x1026090, symbol: D_1026090 }
 
+D_1026118:
+  { type: BLOB, size: 0x2118, offset: 0x1026118, symbol: D_1026118 }
+
 D_1028230:
   { type: GFX, offset: 0x1028230, symbol: D_1028230 }
 
@@ -731,6 +821,9 @@ D_1028B58:
 
 D_1028D58:
   { type: TEXTURE, format: RGBA16, width: 8, height: 8, ctype: u16, offset: 0x1028D58, symbol: D_1028D58 }
+
+D_1028DD8:
+  { type: BLOB, size: 0x9A8, offset: 0x1028DD8, symbol: D_1028DD8 }
 
 D_1029780:
   { type: GFX, offset: 0x1029780, symbol: D_1029780 }
@@ -750,6 +843,9 @@ D_102A8A0:
 D_102A928:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, ctype: u16, offset: 0x102A928, symbol: D_102A928 }
 
+D_102AB28:
+  { type: BLOB, size: 0x4228, offset: 0x102AB28, symbol: D_102AB28 }
+
 D_102ED50:
   { type: GFX, offset: 0x102ED50, symbol: D_102ED50 }
 
@@ -767,6 +863,9 @@ D_102FE80:
 
 D_102FF08:
   { type: TEXTURE, format: IA8, width: 8, height: 8, ctype: u8, offset: 0x102FF08, symbol: D_102FF08 }
+
+D_102FF48:
+  { type: BLOB, size: 0x16E8, offset: 0X102FF48, symbol: D_102FF48 }
 
 D_1031630:
   { type: GFX, offset: 0x1031630, symbol: D_1031630 }
