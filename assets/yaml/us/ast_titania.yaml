@@ -1,0 +1,10 @@
+:config:
+  segments:
+    - [0x06, 0x9D2FD0]
+  header:
+    code:
+      - '#include "assets/ast_7_ti_1.h"'
+    header:
+      - '#include "gfx.h"'
+      - '#include "sf64object.h"'
+      - '#include "structs.h"'
