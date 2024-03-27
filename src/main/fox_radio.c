@@ -210,52 +210,52 @@ void func_800BAAE8(void) {
             sp44 = D_100C9E0;
             break;
         case RCID_WOLF:
-            sp44 = D_F00B580;
+            sp44 = D_STAR_WOLF_F00B580;
             break;
         case RCID_WOLF_OPEN:
-            sp44 = D_F00C4A0;
+            sp44 = D_STAR_WOLF_F00C4A0;
             break;
         case RCID_PIGMA:
-            sp44 = D_F003C80;
+            sp44 = D_STAR_WOLF_F003C80;
             break;
         case RCID_PIGMA_OPEN:
-            sp44 = D_F004BA0;
+            sp44 = D_STAR_WOLF_F004BA0;
             break;
         case RCID_LEON:
-            sp44 = D_F007900;
+            sp44 = D_STAR_WOLF_F007900;
             break;
         case RCID_LEON_OPEN:
-            sp44 = D_F008820;
+            sp44 = D_STAR_WOLF_F008820;
             break;
         case RCID_ANDREW:
-            sp44 = D_F000000;
+            sp44 = D_STAR_WOLF_F000000;
             break;
         case RCID_ANDREW_OPEN:
-            sp44 = D_F000F20;
+            sp44 = D_STAR_WOLF_F000F20;
             break;
         case RCID_WOLF_2:
-            sp44 = D_F00D3C0;
+            sp44 = D_STAR_WOLF_F00D3C0;
             break;
         case RCID_WOLF_2_OPEN:
-            sp44 = D_F00E2E0;
+            sp44 = D_STAR_WOLF_F00E2E0;
             break;
         case RCID_PIGMA_2:
-            sp44 = D_F005AC0;
+            sp44 = D_STAR_WOLF_F005AC0;
             break;
         case RCID_PIGMA_2_OPEN:
-            sp44 = D_F0069E0;
+            sp44 = D_STAR_WOLF_F0069E0;
             break;
         case RCID_LEON_2:
-            sp44 = D_F009740;
+            sp44 = D_STAR_WOLF_F009740;
             break;
         case RCID_LEON_2_OPEN:
-            sp44 = D_F00A660;
+            sp44 = D_STAR_WOLF_F00A660;
             break;
         case RCID_ANDREW_2:
-            sp44 = D_F001E40;
+            sp44 = D_STAR_WOLF_F001E40;
             break;
         case RCID_ANDREW_2_OPEN:
-            sp44 = D_F002D60;
+            sp44 = D_STAR_WOLF_F002D60;
             break;
         case RCID_BOSS_CORNERIA:
             sp44 = D_6026420;

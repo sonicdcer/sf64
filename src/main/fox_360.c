@@ -2195,7 +2195,7 @@ void func_80035448(Actor* actor) {
             case 6:
             case 7:
                 if (gCurrentLevel == LEVEL_VENOM_2) {
-                    gSPDisplayList(gMasterDisp++, D_F0103D0);
+                    gSPDisplayList(gMasterDisp++, D_STAR_WOLF_F0103D0);
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, 30.0f, 0.0f, -60.0f, 1);
                     func_8005B1E8(actor, 2);
@@ -2207,7 +2207,7 @@ void func_80035448(Actor* actor) {
                     func_80035098(actor);
                     func_80034E64(actor);
                 } else {
-                    gSPDisplayList(gMasterDisp++, D_F00F200);
+                    gSPDisplayList(gMasterDisp++, D_STAR_WOLF_F00F200);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
                     if (gCurrentLevel == LEVEL_BOLSE) {
                         func_8005B1E8(actor, 3);
@@ -2277,7 +2277,7 @@ void func_80035448(Actor* actor) {
                     gSPDisplayList(gMasterDisp++, D_vs_player_3015740);
                 } else if (gCurrentLevel == LEVEL_TRAINING) {
                     if (actor->unk_0E6 == 0) {
-                        gSPDisplayList(gMasterDisp++, D_F00F200);
+                        gSPDisplayList(gMasterDisp++, D_STAR_WOLF_F00F200);
                         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
                         func_8005B1E8(actor, 3);
                     } else {

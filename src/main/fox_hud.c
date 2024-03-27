@@ -1793,7 +1793,7 @@ void func_80089AF4(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, 255);
     Matrix_Scale(gGfxMatrix, 54.0f, 54.0f, 1.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_F014180);
+    gSPDisplayList(gMasterDisp++, D_STAR_WOLF_F014180);
 }
 
 void func_80089B94(void) {
