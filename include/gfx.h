@@ -12,12 +12,49 @@
 #define RGBA16_GRN(color16) (((color16) >> 6) & 0x1F)
 #define RGBA16_BLU(color16) (((color16) >> 1) & 0x1F)
 
-// used for convenience while decopming. You should find/replace them with the full macros before PRing
-#define GDL(dl) gSPDisplayList(gMasterDisp++, dl) // 06000000 dl
-#define GPC(r, g, b, a) gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, r, g, b, a) // FA000000 RRGGBBAA
-#define GEC(r, g, b, a) gDPSetEnvColor(gMasterDisp++, r, g, b, a) // FB000000 RRGGBBAA
-#define GSGM_BACK() gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK) // B7000000 00002000, most common geometry mode changed
-#define GCGM_BACK() gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK) // B6000000 00002000
+#define gDPSetupTile(pkt, fmt, siz, width, height, dw, dh,           \
+                     cms, cmt, masks, maskt, shifts, shiftt)         \
+{                                                                    \
+    gDPTileSync(pkt);                                                \
+    gDPSetTile(pkt, fmt, siz, (((width) * siz##_LINE_BYTES)+7)>>3, 0,\
+        G_TX_RENDERTILE, 0, cmt, maskt, shiftt, cms, masks, shifts); \
+    gDPSetTileSize(pkt, G_TX_RENDERTILE, dw, dh,                     \
+        ((width)-1) << G_TEXTURE_IMAGE_FRAC,                         \
+        ((height)-1) << G_TEXTURE_IMAGE_FRAC)                        \
+}
+
+#define gsDPSetupTile(fmt, siz, width, height, dw, dh,               \
+                      cms, cmt, masks, maskt, shifts, shiftt)        \
+    gsDPTileSync(),                                                  \
+    gsDPSetTile(fmt, siz, (((width) * siz##_LINE_BYTES)+7)>>3, 0,    \
+        G_TX_RENDERTILE, 0, cmt, maskt, shiftt, cms, masks, shifts), \
+    gsDPSetTileSize(G_TX_RENDERTILE, dw, dh,                         \
+        ((width)-1) << G_TEXTURE_IMAGE_FRAC,                         \
+        ((height)-1) << G_TEXTURE_IMAGE_FRAC),
+
+#define gDPLoadTileTexture(pkt, timg, fmt, siz, width, height)         \
+{                                                                      \
+    gDPSetTextureImage(pkt, fmt, siz##_LOAD_BLOCK, 1, timg);           \
+    gDPTileSync(pkt);                                                  \
+    gDPSetTile(pkt, fmt, siz##_LOAD_BLOCK, 0, 0, G_TX_LOADTILE,        \
+                0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, \
+                G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);   \
+    gDPLoadSync(pkt);                                                  \
+    gDPLoadBlock(pkt, G_TX_LOADTILE, 0, 0,                             \
+        (((width)*(height) + siz##_INCR) >> siz##_SHIFT) -1,           \
+        CALC_DXT(width, siz##_BYTES));                                 \
+}
+
+#define gsDPLoadTileTexture(timg, fmt, siz, width, height)             \
+    gsDPSetTextureImage(fmt, siz##_LOAD_BLOCK, 1, timg),               \
+    gsDPTileSync(),                                                    \
+    gsDPSetTile(fmt, siz##_LOAD_BLOCK, 0, 0, G_TX_LOADTILE,            \
+                0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, \
+                G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD),   \
+    gsDPLoadSync(),                                                    \
+    gsDPLoadBlock(G_TX_LOADTILE, 0, 0,                                 \
+        (((width)*(height) + siz##_INCR) >> siz##_SHIFT) -1,           \
+        CALC_DXT(width, siz##_BYTES)),
 
 #define gSPSetOtherModeHi(pkt, settings) gSPSetOtherMode(pkt, G_SETOTHERMODE_H, G_MDSFT_BLENDMASK, 24, settings)
 #define gsSPSetOtherModeHi(settings) gsSPSetOtherMode(G_SETOTHERMODE_H, G_MDSFT_BLENDMASK, 24, settings)
@@ -76,7 +113,7 @@ s32 Animation_GetLimbIndex(Limb* limb, Limb** skeleton);
 void Animation_DrawLimb(s32 mode, Limb* limb, Limb* *skeleton, Vec3f* jointTable, OverrideLimbDraw overrideLimbDraw, PostLimbDraw postLimbDraw, void* data);
 void Animation_DrawSkeleton(s32 mode, Limb** skeletonSegment, Vec3f* jointTable, OverrideLimbDraw overrideLimbDraw, PostLimbDraw postLimbDraw, void* data, Matrix* transform);
 s16 Animation_GetFrameData(Animation *animationSegmemt, s32 frame, Vec3f *frameTable);
-s16 Animation_GetFrameCount(Animation *animationSegment);
+s32 Animation_GetFrameCount(Animation *animationSegment);
 void Animation_FindBoundingBox(Gfx* dList, s32 len, Vec3f *min, Vec3f *max, s32 *vtxFound, s32 *vtxCount, Vtx* *vtxList);
 void Animation_GetDListBoundingBox(Gfx *dList, s32 len, Vec3f *min, Vec3f *max);
 void Animation_GetSkeletonBoundingBox(Limb** skeletonSegment, Animation *animationSegment, s32 frame, Vec3f *min, Vec3f* max);

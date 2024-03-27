@@ -1,4 +1,4 @@
-#include "prevent_bss_reordering2.h"
+// #include "prevent_bss_reordering2.h"
 #include "global.h"
 #include "assets.h"
 #include "fox_map.h"
@@ -205,7 +205,7 @@ void func_800A46A0(Player* player) {
                 func_8007D10C(player->pos.x + RAND_FLOAT_CENTERED(10.0f), player->pos.y + sp40 + RAND_FLOAT(10.0f),
                               player->unk_138 + RAND_FLOAT_CENTERED(10.0f), 2.2f);
             }
-            if (!((var_v1 >> 2) & gGameFrameCount) && (Rand_ZeroOne() < 0.5f)) {
+            if (!(gGameFrameCount & (var_v1 >> 2)) && (Rand_ZeroOne() < 0.5f)) {
                 func_8007C484(player->pos.x + RAND_FLOAT_CENTERED(30.0f), player->pos.y + sp40 + RAND_FLOAT(10.0f),
                               player->unk_138 + RAND_FLOAT_CENTERED(30.0f), player->vel.x, player->vel.y, player->vel.z,
                               0.04f + RAND_FLOAT(0.03f), player->num + 1);
@@ -213,7 +213,7 @@ void func_800A46A0(Player* player) {
                     player->timer_224 = 2;
                 }
             }
-        } else if (!((var_v1 >> 2) & gGameFrameCount) && (Rand_ZeroOne() < 0.5f) && (player->timer_224 == 0)) {
+        } else if (!(gGameFrameCount & (var_v1 >> 2)) && (Rand_ZeroOne() < 0.5f) && (player->timer_224 == 0)) {
             player->timer_224 = 2;
         }
     }
@@ -463,9 +463,9 @@ void func_800A5844(void) {
 }
 
 EnvSettings* D_800D2F98[21] = {
-    &D_6037160, &D_ENV_6026C80, &D_SX_602A120, &D_A6_6023F20,  &D_A6_6028760,  &D_SY_602E4B0, &D_6007E30,
-    &D_601F1F0, &D_60266D0,     &D_C035110,    &D_TR_6006A60,  &D_6030E30_Env, &D_6005000,    &D_AQ_602E540,
-    &D_600EA90, NULL,           &D_6011000,    &D_600FF30_Env, &D_SZ_6006E70,  &D_6014D50,    &D_vs_player_302DD70,
+    &D_CO_6037160, &D_ME_6026C80, &D_SX_602A120, &D_A6_6023F20, &D_A6_6028760, &D_SY_602E4B0,  &D_VE1_6007E30,
+    &D_SO_601F1F0, &D_ZO_60266D0, &D_C035110,    &D_TR_6006A60, &D_MA_6030E30, &D_TI_6005000,  &D_AQ_602E540,
+    &D_FO_600EA90, NULL,          &D_KA_6011000, &D_BO_600FF30, &D_SZ_6006E70, &D_VE2_6014D50, &D_vs_player_302DD70,
 };
 
 void func_800A594C(void) {
@@ -3371,8 +3371,8 @@ void func_800AE4A4(Player* player) {
     if (player->pos.y < (gGroundLevel + 70.0f)) {
         var_fv1 = 0.8f;
     }
-    if (!(((gInputHold->button & R_TRIG) && (gInputHold->button & Z_TRIG)) ||
-          (!(gInputHold->button & R_TRIG) && !(gInputHold->button & Z_TRIG)))) {
+    if (!((gInputHold->button & R_TRIG) && (gInputHold->button & Z_TRIG)) &&
+        !(!(gInputHold->button & R_TRIG) && !(gInputHold->button & Z_TRIG))) {
         var_fv1 = 0.1f;
     }
     var_fv0 = 4.0f;
@@ -3591,8 +3591,8 @@ void func_800AF07C(Player* player) {
         var_fv1 = 0.8f;
     }
 
-    if (!(((gInputHold->button & R_TRIG) && (gInputHold->button & Z_TRIG)) ||
-          ((!(gInputHold->button & R_TRIG)) && (!(gInputHold->button & Z_TRIG))))) {
+    if (!((gInputHold->button & R_TRIG) && (gInputHold->button & Z_TRIG)) &&
+        !(!(gInputHold->button & R_TRIG) && !(gInputHold->button & Z_TRIG))) {
         var_fv1 = 0.1f;
     }
 

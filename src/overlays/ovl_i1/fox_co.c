@@ -3042,7 +3042,7 @@ void func_i1_80191160(Player* player) {
         gActors[2].obj.pos.y += 3.0f;
     }
 
-    gBgColor = 0x845;
+    gBgColor = 0x845; // 8, 8, 32
 
     switch (player->unk_1D0) {
         case 0:

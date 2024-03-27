@@ -277,7 +277,7 @@ s16 Animation_GetFrameData(Animation* animationSegmemt, s32 frame, Vec3f* frameT
     return var4 + 1;
 }
 
-s16 Animation_GetFrameCount(Animation* animationSegment) {
+s32 Animation_GetFrameCount(Animation* animationSegment) {
     Animation* animation = SEGMENTED_TO_VIRTUAL(animationSegment);
 
     return animation->frameCount;

@@ -3535,42 +3535,43 @@ void func_i5_801A6984(Actor* actor) {
     f32 sp80;
 
     var_s3 = 0;
-    if (!((gPlayer[0].unk_138 - actor->obj.pos.z) > 7000.0f)) {
-        test.x = actor->obj.pos.x - D_i5_801BE368[4];
-        test.y = actor->obj.pos.y - D_i5_801BE368[5];
-        test.z = actor->obj.pos.z - D_i5_801BE368[6];
-        temp_fs3 = VEC3F_MAG(&test);
-        Math_Atan2F(test.x, test.z);
-        Math_Atan2F(test.y, sqrtf(SQ(test.x) + SQ(test.z)));
-        var_s4 = (s32) (temp_fs3 / 40.0f);
-        if (var_s4 == 0) {
-            var_s4 = 1;
-        }
-        spA8 = (180.0f / var_s4) + 1.0f;
-        var_fs5 = actor->obj.pos.x;
-        spA0 = actor->obj.pos.y;
-        sp9C = actor->obj.pos.z;
-
-        sp88 = (D_i5_801BE368[4] - actor->obj.pos.x) / var_s4;
-        sp84 = (D_i5_801BE368[5] - actor->obj.pos.y) / var_s4;
-        sp80 = (D_i5_801BE368[6] - actor->obj.pos.z) / var_s4;
-        for (i = 0; i < var_s4; i++) {
-            if (D_i5_801BE320[1] == 0) {
-                Math_SmoothStepToF(&D_i5_801BE368[7], 0.0f, 0.01f, 0.05f, 0.01f);
-            } else {
-                Math_SmoothStepToF(&D_i5_801BE368[7], 100.0f, 0.01f, 0.01f, 0.01f);
-            }
-            temp = SIN_DEG(i * spA8) * (-(D_i5_801BE368[7] * 3.0f) * (1.0f - ((f32) i / var_s4)));
-            temp_fs2_2 = actor->obj.pos.x + (sp88 * i);
-            temp_fs3_2 = actor->obj.pos.y + (sp84 * i) + temp;
-            temp_fs4 = actor->obj.pos.z + (sp80 * i);
-            func_i5_801A68F8(actor, var_s3++, var_fs5, spA0, sp9C, temp_fs2_2, temp_fs3_2, temp_fs4);
-            var_fs5 = temp_fs2_2;
-            spA0 = temp_fs3_2;
-            sp9C = temp_fs4;
-        }
-        func_i5_80199D88(D_6012C98, 4, 8);
+    if ((gPlayer[0].unk_138 - actor->obj.pos.z) > 7000.0f) {
+        return;
     }
+    test.x = actor->obj.pos.x - D_i5_801BE368[4];
+    test.y = actor->obj.pos.y - D_i5_801BE368[5];
+    test.z = actor->obj.pos.z - D_i5_801BE368[6];
+    temp_fs3 = VEC3F_MAG(&test);
+    Math_Atan2F(test.x, test.z);
+    Math_Atan2F(test.y, sqrtf(SQ(test.x) + SQ(test.z)));
+    var_s4 = (s32) (temp_fs3 / 40.0f);
+    if (var_s4 == 0) {
+        var_s4 = 1;
+    }
+    spA8 = (180.0f / var_s4) + 1.0f;
+    var_fs5 = actor->obj.pos.x;
+    spA0 = actor->obj.pos.y;
+    sp9C = actor->obj.pos.z;
+
+    sp88 = (D_i5_801BE368[4] - actor->obj.pos.x) / var_s4;
+    sp84 = (D_i5_801BE368[5] - actor->obj.pos.y) / var_s4;
+    sp80 = (D_i5_801BE368[6] - actor->obj.pos.z) / var_s4;
+    for (i = 0; i < var_s4; i++) {
+        if (D_i5_801BE320[1] == 0) {
+            Math_SmoothStepToF(&D_i5_801BE368[7], 0.0f, 0.01f, 0.05f, 0.01f);
+        } else {
+            Math_SmoothStepToF(&D_i5_801BE368[7], 100.0f, 0.01f, 0.01f, 0.01f);
+        }
+        temp = SIN_DEG(i * spA8) * (-(D_i5_801BE368[7] * 3.0f) * (1.0f - ((f32) i / var_s4)));
+        temp_fs2_2 = actor->obj.pos.x + (sp88 * i);
+        temp_fs3_2 = actor->obj.pos.y + (sp84 * i) + temp;
+        temp_fs4 = actor->obj.pos.z + (sp80 * i);
+        func_i5_801A68F8(actor, var_s3++, var_fs5, spA0, sp9C, temp_fs2_2, temp_fs3_2, temp_fs4);
+        var_fs5 = temp_fs2_2;
+        spA0 = temp_fs3_2;
+        sp9C = temp_fs4;
+    }
+    func_i5_80199D88(D_6012C98, 4, 8);
 }
 
 void func_i5_801A6C78(Actor* actor) {

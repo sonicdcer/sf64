@@ -94,8 +94,12 @@
 
   - name: ast_star_wolf
     exclusive_ram_id: segment_0F
-    type: bin
+    type: code
+    dir: assets
     start: 0x940AD0
+    vram: 0x0F000000
+    subsegments:
+      - [0x940AD0, .data, ast_star_wolf/ast_star_wolf]
 
   - name: ast_allies
     exclusive_ram_id: segment_0D

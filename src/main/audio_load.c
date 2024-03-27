@@ -31,49 +31,6 @@ static char devstr17[] = "Banknumber %d\n";
 static char devstr18[] = "Bank Offset %x %d %d\n";
 static char devstr19[] = "PEP Touch %x \n";
 static char D_800C50E8[] = "FastCopy";
-static char D_800C50F4[] = "FastCopy";
-static char devstr22[] = "Error: Cannot DMA Media [%d]\n";
-static char devstr23[] = "Warning: size not align 16 %x  (%s)\n";
-static char devstr24[] = "Load Bank BG, Type %d , ID %d\n";
-static char devstr25[] = "get auto\n";
-static char devstr26[] = "get s-auto %x\n";
-static char devstr27[] = "Clear Workarea %x -%x size %x \n";
-static char devstr28[] = "AudioHeap is %x\n";
-static char devstr29[] = "Heap reset.Synth Change %x \n";
-static char devstr30[] = "Heap %x %x %x\n";
-static char devstr31[] = "Main Heap Initialize.\n";
-static char devstr32[] = "%d :WaveA %d WaveB %d Inst %d,Perc %d\n";
-static char devstr33[] = "---------- Init Completed. ------------\n";
-static char devstr34[] = " Syndrv    :[%6d]\n";
-static char devstr35[] = " Seqdrv    :[%6d]\n";
-static char devstr36[] = " audiodata :[%6d]\n";
-static char devstr37[] = "---------------------------------------\n";
-static char devstr38[] = "Entry--- %d %d\n";
-static char devstr39[] = "---Block LPS here\n";
-static char devstr40[] = "===Block LPS end\n";
-static char D_800C52F4[] = "SLOWCOPY";
-static char devstr42[] = "Req: Src %x Dest %x Len %x,media %d,retcode %d\n";
-static char devstr43[] = "Remain Size %d\n";
-static char devstr44[] = "---Block BG here\n";
-static char devstr45[] = "===Block BG end\n";
-static char devstr46[] = "Retcode %x\n";
-static char devstr47[] = "Other Type: Not Write ID.\n";
-static char devstr48[] = "BGLOAD:Error: dma length 0\n";
-static char D_800C53AC[] = "BGCOPY";
-static char devstr50[] = "Error: Already wavetable is touched %x.\n";
-static char devstr51[] = "Touch Warning: Length zero %x\n";
-static char devstr52[] = "It's busy now!!!!! %d\n";
-static char devstr53[] = "BG LOAD BUFFER is OVER.\n";
-static char devstr54[] = "Warning: Length zero %x\n";
-static char devstr55[] = "Wave Load %d \n";
-static char devstr56[] = "Total Bg Wave Load %d \n";
-static char devstr57[] = "Receive %d\n";
-static char devstr58[] = "============Error: Magic is Broken after loading.\n";
-static char devstr59[] = "Remain DMA: %d\n";
-static char devstr60[] = "N start %d\n";
-static char devstr61[] = "============Error: Magic is Broken: %x\n";
-static char devstr62[] = "Error: No Handle.\n";
-static char devstr63[] = "Success: %x\n";
 
 AudioSlowLoadBuffer gSlowLoads;
 
@@ -652,6 +609,8 @@ void AudioLoad_RelocateFont(s32 fontId, u32 fontBaseAddr, void* relocData) {
     gSoundFontList[fontId].instruments = (u32) &fontDataPtrs[1];
 }
 
+static char D_800C50F4[] = "FastCopy";
+
 void AudioLoad_SyncDma(u32 devAddr, u8* ramAddr, u32 size, s32 medium) {
     size = ALIGN16(size);
     osInvalDCache(ramAddr, size);
@@ -677,6 +636,12 @@ void AudioLoad_SyncDmaUnkMedium(u32 devAddr, u8* ramAddr, u32 size, s32 unkMediu
     osInvalDCache(ramAddr, size);
     func_8000FC8C(func_8000FC7C(unkMediumParam, &addr), addr, ramAddr, size);
 }
+
+static char devstr22[] = "Error: Cannot DMA Media [%d]\n";
+static char devstr23[] = "Warning: size not align 16 %x  (%s)\n";
+static char devstr24[] = "Load Bank BG, Type %d , ID %d\n";
+static char devstr25[] = "get auto\n";
+static char devstr26[] = "get s-auto %x\n";
 
 s32 AudioLoad_Dma(OSIoMesg* mesg, u32 priority, s32 direction, u32 devAddr, void* ramAddr, u32 size,
                   OSMesgQueue* retQueue, s32 medium, const char* dmaType) {
@@ -817,6 +782,18 @@ void AudioLoad_ProcessLoads(s32 resetStatus) {
     AudioLoad_ProcessAsyncLoads(resetStatus);
 }
 
+static char devstr27[] = "Clear Workarea %x -%x size %x \n";
+static char devstr28[] = "AudioHeap is %x\n";
+static char devstr29[] = "Heap reset.Synth Change %x \n";
+static char devstr30[] = "Heap %x %x %x\n";
+static char devstr31[] = "Main Heap Initialize.\n";
+static char devstr32[] = "%d :WaveA %d WaveB %d Inst %d,Perc %d\n";
+static char devstr33[] = "---------- Init Completed. ------------\n";
+static char devstr34[] = " Syndrv    :[%6d]\n";
+static char devstr35[] = " Seqdrv    :[%6d]\n";
+static char devstr36[] = " audiodata :[%6d]\n";
+static char devstr37[] = "---------------------------------------\n";
+
 void AudioLoad_Init(void) {
     s32 pad[14];
     s32 i;
@@ -903,6 +880,9 @@ void AudioLoad_Init(void) {
     func_800168BC();
 }
 
+static char devstr38[] = "Entry--- %d %d\n";
+static char devstr39[] = "---Block LPS here\n";
+static char devstr40[] = "===Block LPS end\n";
 s32 AudioLoad_SlowLoadSample(s32 fontId, u8 instId, s8* status) {
     Sample* sample;
     AudioSlowLoad* slowLoad;
@@ -1021,6 +1001,14 @@ void AudioLoad_ProcessSlowLoads(s32 resetStatus) {
         }
     }
 }
+
+static char D_800C52F4[] = "SLOWCOPY";
+static char devstr42[] = "Req: Src %x Dest %x Len %x,media %d,retcode %d\n";
+static char devstr43[] = "Remain Size %d\n";
+static char devstr44[] = "---Block BG here\n";
+static char devstr45[] = "===Block BG end\n";
+static char devstr46[] = "Retcode %x\n";
+static char devstr47[] = "Other Type: Not Write ID.\n";
 
 void AudioLoad_DmaSlowCopy(AudioSlowLoad* slowLoad, s32 size) {
     osInvalDCache(slowLoad->curRamAddr, size);
@@ -1173,6 +1161,9 @@ void AudioLoad_ProcessAsyncLoad(AudioAsyncLoad* asyncLoad, s32 resetStatus) {
     }
 }
 
+static char devstr48[] = "BGLOAD:Error: dma length 0\n";
+static char D_800C53AC[] = "BGCOPY";
+
 void AudioLoad_AsyncDma(AudioAsyncLoad* asyncLoad, u32 size) {
     size = ALIGN16(size);
     osInvalDCache(asyncLoad->curRamAddr, size);
@@ -1189,13 +1180,17 @@ void AudioLoad_AsyncDmaUnkMedium(u32 devAddr, u8* ramAddr, u32 size, s32 unkMedi
     func_8000FC8C(func_8000FC7C(unkMediumParam, &addr), addr, ramAddr, size);
 }
 
+static char devstr50[] = "Error: Already wavetable is touched %x.\n";
+static char devstr51[] = "Touch Warning: Length zero %x\n";
+
 void AudioLoad_RelocateSample(TunedSample* tSample, u32 fontDataAddr, SampleBankRelocInfo* relocInfo) {
     void* reloc;
     Sample* sample;
 
+    // "Error: Already wavetable is touched %x.\n";
     if ((u32) tSample->sample <= 0x80000000) {
         sample = tSample->sample = reloc = (u32) tSample->sample + fontDataAddr;
-        // arg0->sample = temp_v1;
+        // "Touch Warning: Length zero %x\n";
         if ((sample->size != 0) && (sample->isRelocated != 1)) {
             sample->loop = reloc = (u32) sample->loop + fontDataAddr;
             sample->book = reloc = (u32) sample->book + fontDataAddr;
@@ -1220,6 +1215,12 @@ void AudioLoad_RelocateSample(TunedSample* tSample, u32 fontDataAddr, SampleBank
     }
 }
 
+static char devstr52[] = "It's busy now!!!!! %d\n";
+static char devstr53[] = "BG LOAD BUFFER is OVER.\n";
+static char devstr54[] = "Warning: Length zero %x\n";
+static char devstr55[] = "Wave Load %d \n";
+static char devstr56[] = "Total Bg Wave Load %d \n";
+
 #ifdef NON_MATCHING
 // gPreloadSampleStackTop ends up in the wrong register near the end. https://decomp.me/scratch/tGyym
 s32 AudioLoad_RelocateFontAndPreloadSamples(s32 fontId, u32 fontDataAddr, SampleBankRelocInfo* relocData, s32 isAsync) {
@@ -1243,7 +1244,7 @@ s32 AudioLoad_RelocateFontAndPreloadSamples(s32 fontId, u32 fontDataAddr, Sample
     for (i = 0; i < gNumUsedSamples; i++) {
         size += ALIGN16(gUsedSamples[i]->size);
     }
-    if (size && size) {}
+    // if(size && size) {}
     for (i = 0; i < gNumUsedSamples; i++) {
         if (gPreloadSampleStackTop == 120) {
             break;
@@ -1297,13 +1298,11 @@ s32 AudioLoad_RelocateFontAndPreloadSamples(s32 fontId, u32 fontDataAddr, Sample
                 break;
         }
     }
-
     gNumUsedSamples = 0;
-    if ((gPreloadSampleStackTop != 0) && (inProgress == 0)) {
+    if ((gPreloadSampleStackTop != 0) && !inProgress) {
         sample = gPreloadSampleStack[gPreloadSampleStackTop - 1].sample;
-        if (1) {}
+        // if (1) {}
         nChunks = (sample->size / 0x1000) + 1;
-
         AudioLoad_StartAsyncLoad(sample->sampleAddr, gPreloadSampleStack[gPreloadSampleStackTop - 1].ramAddr,
                                  sample->size, sample->medium, nChunks, &gPreloadSampleQueue,
                                  gPreloadSampleStack[gPreloadSampleStackTop - 1].encodedInfo);
@@ -1312,6 +1311,16 @@ s32 AudioLoad_RelocateFontAndPreloadSamples(s32 fontId, u32 fontDataAddr, Sample
 #else
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_load/AudioLoad_RelocateFontAndPreloadSamples.s")
 #endif
+
+// static char devstr55[] = "Wave Load %d \n";
+// static char devstr56[] = "Total Bg Wave Load %d \n";
+// static char devstr57[] = "Receive %d\n";
+
+static char devstr57[] = "Receive %d\n";
+static char devstr58[] = "============Error: Magic is Broken after loading.\n";
+static char devstr59[] = "Remain DMA: %d\n";
+static char devstr60[] = "N start %d\n";
+static char devstr61[] = "============Error: Magic is Broken: %x\n";
 
 s32 AudioLoad_ProcessSamplePreloads(s32 resetStatus) {
     Sample* sample;
@@ -1330,6 +1339,7 @@ s32 AudioLoad_ProcessSamplePreloads(s32 resetStatus) {
         if (osRecvMesg(&gPreloadSampleQueue, (OSMesg) &preloadIndex, 0) == -1) {
             return false;
         }
+        // "Receive %d\n"
         preloadIndex >>= 0x18;
 
         if (gPreloadSampleStack[preloadIndex].isFree == 0) {
@@ -1339,6 +1349,7 @@ s32 AudioLoad_ProcessSamplePreloads(s32 resetStatus) {
                 sample->sampleAddr = gPreloadSampleStack[preloadIndex].ramAddr;
                 sample->medium = MEDIUM_RAM;
             }
+            //  "============Error: Magic is Broken after loading.\n"
             gPreloadSampleStack[preloadIndex].isFree = 1;
         }
         while (true) {
@@ -1356,6 +1367,7 @@ s32 AudioLoad_ProcessSamplePreloads(s32 resetStatus) {
             nChunks = (size >> 0xC) + 1;
             key = sampleAddr + size + sample->medium;
             if (key != gPreloadSampleStack[gPreloadSampleStackTop - 1].endAndMediumKey) {
+                // "============Error: Magic is Broken: %x\n";
                 gPreloadSampleStack[gPreloadSampleStackTop - 1].isFree = 1;
                 gPreloadSampleStackTop--;
             } else {
@@ -1383,6 +1395,9 @@ s32 AudioLoad_AddToSampleSet(Sample* sample, s32 numSamples, Sample** sampleSet)
     }
     return numSamples;
 }
+
+static char devstr62[] = "Error: No Handle.\n";
+static char devstr63[] = "Success: %x\n";
 
 s32 AudioLoad_GetSamplesForFont(s32 fontId, Sample** sampleSet) {
     s32 i;
