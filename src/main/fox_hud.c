@@ -83,6 +83,7 @@ s32 D_80161900[20];
 #include "assets/ast_bg_space.h"
 #include "assets/ast_area_6.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_titania.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
@@ -98,7 +99,6 @@ extern u8 D_FO_6000000[];
 extern u8 D_KA_6000000[];
 extern u8 D_SO_6000000[];
 extern u8 D_ZO_6000000[];
-extern u8 D_TI_6000000[];
 extern u8 D_BO_6000000[];
 
 extern u16 D_6000C80[];
@@ -2150,7 +2150,7 @@ s32 func_8008A4DC(void) {
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, x1, y1, z1, 1);
 
-    if ((gCurrentLevel == LEVEL_SECTOR_Z) && (D_80161710)) {
+    if ((gCurrentLevel == LEVEL_SECTOR_Z) && (D_80161710 != 0)) {
         Matrix_Push(&gGfxMatrix);
         func_80089D28();
         Matrix_Pop(&gGfxMatrix);

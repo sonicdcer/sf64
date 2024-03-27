@@ -122,8 +122,12 @@
 
   - name: ast_titania
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
+    vram: 0x06000000
     start: 0x9D2FD0
+    subsegments:
+      - [0x9D2FD0, .data, ast_titania/ast_titania]
 
   - name: ast_7_ti_2
     exclusive_ram_id: segment_07

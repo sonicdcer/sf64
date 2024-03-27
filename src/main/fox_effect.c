@@ -6,11 +6,6 @@ const char D_800D7230[] = "Enm->wrk3=<%d>\n";
 const char D_800D7240[] = "a=<%d>\n";
 const char D_800D7248[] = "a=<%d>\n";
 
-extern Gfx D_6003440[];
-extern Gfx D_60034E0[];
-extern Gfx D_6003580[];
-extern Gfx D_6003620[];
-extern Gfx D_60036C0[];
 extern Gfx D_6004900[];
 extern Gfx D_6016880[];
 extern Gfx D_6018AF0[];
@@ -24,6 +19,7 @@ extern Gfx D_601BAD0[];
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_titania.h"
 #include "assets/ast_area_6.h"
 #include "assets/ast_A_ti.h"
 #include "assets/ast_ve1_boss.h"
@@ -489,7 +485,7 @@ void func_80078BE0(Effect* effect) {
 void func_80078C84(Effect* effect) {
     Graphics_SetScaleMtx(effect->scale2);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 192);
-    gSPDisplayList(gMasterDisp++, D_6000A80);
+    gSPDisplayList(gMasterDisp++, D_TI_6000A80);
 }
 
 void func_80078CE8(Effect* effect) {
@@ -1047,7 +1043,7 @@ void func_8007A994(Effect* effect) {
     effect->unk_4A++;
 }
 
-Gfx* D_800D178C[] = { D_6003440, D_60034E0, D_6003580, D_6003620, D_60036C0, D_TR_6003760 };
+Gfx* D_800D178C[] = { D_TI_6003440, D_TI_60034E0, D_TI_6003580, D_TI_6003620, D_TI_60036C0, D_TR_6003760 };
 
 void func_8007AA60(Effect* effect) {
     RCP_SetupDL(&gMasterDisp, 0x44);

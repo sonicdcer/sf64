@@ -7,6 +7,7 @@
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_titania.h"
 #include "assets/ast_andross.h"
 #include "assets/ast_arwing.h"
 #include "assets/ast_vs_player.h"

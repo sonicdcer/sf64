@@ -104,7 +104,11 @@
     "ast_option.h": "c",
     "ast_area_6.h": "c",
     "ast_bg_space.h": "c",
-    "ast_sector_y.h": "c"
+    "ast_sector_y.h": "c",
+    "ast_vs_player.h": "c",
+    "ast_enmy_planet.h": "c",
+    "ast_sector_z.h": "c",
+    "ast_titania.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }

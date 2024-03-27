@@ -24,6 +24,7 @@ f32 D_80161394;             // can be static
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_titania.h"
 #include "assets/ast_andross.h"
 #include "assets/ast_warp_zone.h"
 #include "assets/ast_area_6.h"
@@ -463,7 +464,7 @@ void func_8003E1E8(void) {
                     }
                     Matrix_SetGfxMtx(&gMasterDisp);
                     if (gCurrentLevel == LEVEL_TITANIA) {
-                        gSPDisplayList(gMasterDisp++, D_6000A80);
+                        gSPDisplayList(gMasterDisp++, D_TI_6000A80);
                     } else if (gCurrentLevel == LEVEL_MACBETH) {
                         gSPDisplayList(gMasterDisp++, D_6019220);
                     } else if (gCurrentLevel == LEVEL_ZONESS) {
@@ -479,7 +480,7 @@ void func_8003E1E8(void) {
                     Matrix_Translate(gGfxMatrix, 7280.0f * sp13C, 0.0f, 0.0f, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     if (gCurrentLevel == LEVEL_TITANIA) {
-                        gSPDisplayList(gMasterDisp++, D_6000A80);
+                        gSPDisplayList(gMasterDisp++, D_TI_6000A80);
                     } else if (gCurrentLevel == LEVEL_MACBETH) {
                         gSPDisplayList(gMasterDisp++, D_6019220);
                     } else if (gCurrentLevel == LEVEL_ZONESS) {

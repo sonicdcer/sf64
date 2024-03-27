@@ -1,6 +1,6 @@
 #include "global.h"
-#include "assets.h"
 #include "assets/ast_landmaster.h"
+#include "assets/ast_titania.h"
 
 void func_80047754(Player* player);
 void func_80047D38(Player* player, f32);
@@ -491,7 +491,7 @@ void func_80044868(Player* player) {
     if (player->unk_0D0 > 0.0f) {
         Texture_Scroll(D_landmaster_3002E80, 0x20, 0x20, 0);
         if ((gCurrentLevel == LEVEL_TITANIA) && (gBossActive == 0)) {
-            func_80043280(D_landmaster_3005EA8, D_6009BB8, gGameFrameCount * -55.0f);
+            func_80043280(D_landmaster_3005EA8, D_TI_6009BB8, gGameFrameCount * -55.0f);
         }
         if ((gCurrentLevel == LEVEL_MACBETH) && (player->state_1C8 == PLAYERSTATE_1C8_7)) {
             func_80043280(D_landmaster_3005EA8, *D_Unk_800DACB8, gGameFrameCount * -55.0f);
@@ -500,7 +500,7 @@ void func_80044868(Player* player) {
     if (player->unk_0D0 > 10.0f) {
         Texture_Scroll(D_landmaster_3002E80, 0x20, 0x20, 0);
         if ((gCurrentLevel == LEVEL_TITANIA) && (gBossActive == 0)) {
-            func_80043280(D_landmaster_3005EA8, D_6009BB8, gGameFrameCount * -55.0f);
+            func_80043280(D_landmaster_3005EA8, D_TI_6009BB8, gGameFrameCount * -55.0f);
         }
     }
     func_800A46A0(player);

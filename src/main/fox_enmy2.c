@@ -13,6 +13,7 @@ s32 D_80161690;
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_titania.h"
 #include "assets/ast_7_ti_1.h"
 #include "assets/ast_andross.h"
 #include "assets/ast_area_6.h"
