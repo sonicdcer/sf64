@@ -806,14 +806,14 @@ void func_i2_8018978C(Boss* boss) {
         }
     }
 
-    if (!(gGameFrameCount & 56)) {
+    if (!(gGameFrameCount & 0x38)) {
         boss->fwork[3] = D_i2_80195534[gGameFrameCount & 7];
         boss->fwork[4] = D_i2_80195534[gGameFrameCount & 7];
         boss->fwork[5] = D_i2_80195534[gGameFrameCount & 7];
         boss->fwork[6] = D_i2_80195534[gGameFrameCount & 7];
     }
 
-    if (!((gGameFrameCount + 20) & 56)) {
+    if (!((gGameFrameCount + 20) & 0x38)) {
         boss->fwork[7] = D_i2_80195534[(gGameFrameCount + 20) & 7];
         boss->fwork[8] = D_i2_80195534[(gGameFrameCount + 20) & 7];
     }

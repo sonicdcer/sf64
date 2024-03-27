@@ -1174,7 +1174,7 @@ s32 func_i2_80192AF0(s32 arg0, Gfx** arg1, Vec3f* arg2, Vec3f* arg3, void* arg4)
         *arg1 = NULL;
     }
 
-    if (!((s32) boss->timer_05C & 1)) {
+    if (!(boss->timer_05C & 1)) {
         RCP_SetupDL(&gMasterDisp, 0x1D);
     } else {
         RCP_SetupDL(&gMasterDisp, 0x1B);

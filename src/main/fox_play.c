@@ -1,4 +1,4 @@
-#include "prevent_bss_reordering2.h"
+// #include "prevent_bss_reordering2.h"
 #include "global.h"
 #include "assets.h"
 #include "fox_map.h"
@@ -205,7 +205,7 @@ void func_800A46A0(Player* player) {
                 func_8007D10C(player->pos.x + RAND_FLOAT_CENTERED(10.0f), player->pos.y + sp40 + RAND_FLOAT(10.0f),
                               player->unk_138 + RAND_FLOAT_CENTERED(10.0f), 2.2f);
             }
-            if (!((var_v1 >> 2) & gGameFrameCount) && (Rand_ZeroOne() < 0.5f)) {
+            if (!(gGameFrameCount & (var_v1 >> 2)) && (Rand_ZeroOne() < 0.5f)) {
                 func_8007C484(player->pos.x + RAND_FLOAT_CENTERED(30.0f), player->pos.y + sp40 + RAND_FLOAT(10.0f),
                               player->unk_138 + RAND_FLOAT_CENTERED(30.0f), player->vel.x, player->vel.y, player->vel.z,
                               0.04f + RAND_FLOAT(0.03f), player->num + 1);
@@ -213,7 +213,7 @@ void func_800A46A0(Player* player) {
                     player->timer_224 = 2;
                 }
             }
-        } else if (!((var_v1 >> 2) & gGameFrameCount) && (Rand_ZeroOne() < 0.5f) && (player->timer_224 == 0)) {
+        } else if (!(gGameFrameCount & (var_v1 >> 2)) && (Rand_ZeroOne() < 0.5f) && (player->timer_224 == 0)) {
             player->timer_224 = 2;
         }
     }
@@ -3371,8 +3371,8 @@ void func_800AE4A4(Player* player) {
     if (player->pos.y < (gGroundLevel + 70.0f)) {
         var_fv1 = 0.8f;
     }
-    if (!(((gInputHold->button & R_TRIG) && (gInputHold->button & Z_TRIG)) ||
-          (!(gInputHold->button & R_TRIG) && !(gInputHold->button & Z_TRIG)))) {
+    if (!((gInputHold->button & R_TRIG) && (gInputHold->button & Z_TRIG)) &&
+        !(!(gInputHold->button & R_TRIG) && !(gInputHold->button & Z_TRIG))) {
         var_fv1 = 0.1f;
     }
     var_fv0 = 4.0f;
@@ -3591,8 +3591,8 @@ void func_800AF07C(Player* player) {
         var_fv1 = 0.8f;
     }
 
-    if (!(((gInputHold->button & R_TRIG) && (gInputHold->button & Z_TRIG)) ||
-          ((!(gInputHold->button & R_TRIG)) && (!(gInputHold->button & Z_TRIG))))) {
+    if (!((gInputHold->button & R_TRIG) && (gInputHold->button & Z_TRIG)) &&
+        !(!(gInputHold->button & R_TRIG) && !(gInputHold->button & Z_TRIG))) {
         var_fv1 = 0.1f;
     }
 

@@ -9,6 +9,7 @@ Vtx D_Vtx_800D94A0[] = {
 };
 
 Gfx D_Gfx_800D94D0[] = {
+    // used in fox_ti for the triangular light rays before firing his lazor
     gsSPVertex(D_Vtx_800D94A0, 3, 0),
     gsSP1Triangle(0, 1, 2, 0),
     gsSPEndDisplayList(),
@@ -26,6 +27,7 @@ Vtx D_Vtx_800D94E8[] = {
 };
 
 Gfx D_Gfx_800D95E8[] = {
+    //  unused
     gsSPVertex(D_Vtx_800D94E8, 16, 0), gsSP1Triangle(2, 1, 0, 0),   gsSP1Triangle(3, 2, 0, 0),
     gsSP1Triangle(6, 5, 4, 0),         gsSP1Triangle(7, 6, 4, 0),   gsSP1Triangle(5, 2, 3, 0),
     gsSP1Triangle(4, 5, 3, 0),         gsSP1Triangle(1, 6, 7, 0),   gsSP1Triangle(0, 1, 7, 0),
@@ -40,6 +42,7 @@ Vtx D_Vtx_800D9658[] = {
 };
 
 Gfx D_Gfx_800D9688[] = {
+    // used fox_fade for unused spinning fade
     gsSPVertex(D_Vtx_800D9658, 3, 0),
     gsSP1Triangle(0, 1, 2, 0),
     gsSPEndDisplayList(),
@@ -52,16 +55,19 @@ Vtx D_Vtx_800D96A0[] = {
 };
 
 Gfx D_Gfx_800D96D0[] = {
+    // unused
     gsSPVertex(D_Vtx_800D96A0, 3, 0),
     gsSP1Triangle(0, 1, 2, 0),
     gsSPEndDisplayList(),
 };
 
 Vec3s D_Unk_800D96E8[] = {
+    // unused
     { -100, 100, -100 },  { -100, 100, 100 },  { 100, 100, 100 },  { 100, 100, -100 },
     { -100, -100, -100 }, { -100, -100, 100 }, { 100, -100, 100 }, { 100, -100, -100 },
 };
-u16 D_Unk_800D9718[][3] = {
+Triangle D_Unk_800D9718[] = {
+    // unused
     { 0, 1, 2 }, { 0, 2, 3 }, { 5, 4, 7 }, { 5, 7, 6 }, { 1, 5, 6 }, { 1, 6, 2 },
     { 3, 7, 4 }, { 3, 4, 0 }, { 2, 6, 7 }, { 2, 7, 3 }, { 0, 4, 5 }, { 0, 5, 1 },
 };
@@ -78,6 +84,7 @@ Vtx D_Vtx_800D9760[] = {
 };
 
 Gfx D_Gfx_800D9860[] = {
+    // unused
     gsDPTileSync(),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0, G_TX_MIRROR | G_TX_WRAP, 5, G_TX_NOLOD,
                 G_TX_MIRROR | G_TX_WRAP, 5, G_TX_NOLOD),
@@ -119,6 +126,7 @@ Vtx D_Vtx_800D9950[] = {
 };
 
 Gfx D_Gfx_800D9990[] = {
+    // unused
     gsDPSetPrimColor(0, 0, 0xFF, 0xFF, 0xFF, 0xFF),
     gsDPTileSync(),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 2, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, 3, G_TX_NOLOD,
@@ -138,6 +146,7 @@ Gfx D_Gfx_800D9990[] = {
 
 //  u16 D_Tex_800D99F8[32][32]; ?
 u16 D_Tex_800D99F8[1024] = {
+    // used in fox_hud
     0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF,
     0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF,
     0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF,
@@ -292,6 +301,7 @@ u16 D_Tex_800DA1F8[1024] = {
 };
 
 Gfx D_Gfx_800DA9F8[] = {
+    // unused
     gsDPTileSync(),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 2, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, 3, G_TX_NOLOD,
                 G_TX_NOMIRROR | G_TX_CLAMP, 3, G_TX_NOLOD),
@@ -316,6 +326,7 @@ Vtx D_Vtx_800DAA58[] = {
 };
 
 Gfx D_Gfx_800DAA98[] = {
+    // unused
     gsDPTileSync(),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 2, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, 3, G_TX_NOLOD,
                 G_TX_NOMIRROR | G_TX_CLAMP, 3, G_TX_NOLOD),
@@ -339,6 +350,7 @@ Vtx D_Vtx_800DAAF8[] = {
 };
 
 Gfx D_Gfx_800DAB28[] = {
+    // unused
     gsSPVertex(D_Vtx_800DAAF8, 3, 0),
     gsSP1Triangle(0, 1, 2, 0),
     gsSPEndDisplayList(),
@@ -352,6 +364,7 @@ Vtx D_Vtx_800DAB40[] = {
 };
 
 Gfx D_Gfx_800DAB80[] = {
+    // unused
     gsDPTileSync(),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 2, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, 3, G_TX_NOLOD,
                 G_TX_NOMIRROR | G_TX_CLAMP, 3, G_TX_NOLOD),
@@ -376,6 +389,7 @@ Vtx D_Vtx_800DABE0[] = {
 };
 
 Gfx D_Gfx_800DAC20[] = {
+    // used in fox_edisplay
     gsDPTileSync(),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 2, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, 3, G_TX_NOLOD,
                 G_TX_NOMIRROR | G_TX_CLAMP, 3, G_TX_NOLOD),
@@ -398,6 +412,7 @@ Vtx D_Vtx_800DAC80[] = {
 };
 
 Gfx D_Gfx_800DACA0[] = {
+    // unused
     gsSPVertex(D_Vtx_800DAC80, 2, 0),
     gsSPLine3D(0, 1, 0),
     gsSPEndDisplayList(),
@@ -405,6 +420,7 @@ Gfx D_Gfx_800DACA0[] = {
 
 // u16 D_Unk_800DACB8[32][32]; ?
 u16 D_Unk_800DACB8[] = {
+    // used in fox_tank for landmaster wheels
     0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001,
     0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001,
     0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001,
@@ -483,6 +499,7 @@ u16 D_Unk_800DACB8[] = {
 
 // u8 D_Unk_800DB4B8[32][32] ?
 u8 D_Unk_800DB4B8[] = {
+    // used in fox_ma
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08,
     0x09, 0x0A, 0x0B, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x0B, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x0F, 0x10, 0x11, 0x12, 0x13, 0x0F, 0x14, 0x15, 0x0C, 0x00, 0x00, 0x00,
@@ -540,6 +557,7 @@ u8 D_Unk_800DB4B8[] = {
 };
 
 u16 D_Unk_800DB8B8[] = {
+    // unused
     0x08D1, 0x3219, 0x7425, 0xADB1, 0xDF3B, 0xD6F9, 0xD739, 0xC675, 0x8CEB, 0x4ADF, 0x2197, 0x1113, 0x1955, 0x429F,
     0x9531, 0xE77F, 0xBE35, 0x8429, 0x94AB, 0xCE79, 0x7429, 0x5321, 0x321B, 0x5B65, 0x0843, 0xAD73, 0xB637, 0x84AD,
     0x3A5D, 0x6C29, 0xADF7, 0x7BE5, 0x0001, 0xCEFB, 0x8CEF, 0x29D9, 0x2195, 0x3A5B, 0x429D, 0x5B63, 0xDF3D, 0xA5B3,
@@ -556,6 +574,7 @@ u16 D_Unk_800DB8B8[] = {
 };
 
 u16 D_Tex_800DBA20[0x40] = {
+    // used in fox_msg
     0x0000, 0xFFFF, 0x0000, 0xFFFF, 0x0000, 0xFFFF, 0x0000, 0xFFFF, 0x0000, 0xFFFF, 0x0000, 0xFFFF, 0x0000,
     0xFFFF, 0x0000, 0xFFFF, 0x0000, 0x0000, 0xFFFF, 0xFFFF, 0x0000, 0x0000, 0xFFFF, 0xFFFF, 0x0000, 0x0000,
     0xFFFF, 0xFFFF, 0x0000, 0x0000, 0xFFFF, 0xFFFF, 0x0000, 0x0000, 0x0000, 0x0000, 0xFFFF, 0xFFFF, 0xFFFF,
@@ -564,6 +583,7 @@ u16 D_Tex_800DBA20[0x40] = {
 };
 
 Gfx D_Gfx_800DBAA0[] = {
+    // used in fox_game
     gsDPPipeSync(),
     gsSPClearGeometryMode(G_ZBUFFER | G_SHADE | G_CULL_BOTH | G_FOG | G_LIGHTING | G_TEXTURE_GEN |
                           G_TEXTURE_GEN_LINEAR | G_LOD | G_SHADING_SMOOTH),

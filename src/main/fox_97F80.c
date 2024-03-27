@@ -27,7 +27,7 @@ f32 __pos_z;
 #define TRINORM_Z(A, B, C) ((B##_x - A##_x) * (C##_y - B##_y) - (B##_y - A##_y) * (C##_x - B##_x))
 
 // Calculate the directed plane that contains the ordered triangle tri, given as an array of Vec3s
-void func_80097380(Plane* plane, Vec3s** tri) {
+void func_80097380(PlaneF* plane, Vec3s** tri) {
     Vec3s a;
     Vec3s b;
     Vec3s c;
@@ -65,7 +65,7 @@ void func_80097380(Plane* plane, Vec3s** tri) {
 
 // Calculate the directed plane that contains the ordered triangle tri, given as an array of Vec3s. Duplicate of
 // previous
-void func_80097558(Plane* plane, Vec3s** tri) {
+void func_80097558(PlaneF* plane, Vec3s** tri) {
     Vec3s a;
     Vec3s b;
     Vec3s c;
@@ -339,8 +339,8 @@ bool func_800985CC(Vec3f* vec, Vtx_tn* tri) {
     return true;
 }
 
-// Plane from normal and point
-void func_80098860(Plane* plane, Vec3f* point, Vec3f* normal) {
+// PlaneF from normal and point
+void func_80098860(PlaneF* plane, Vec3f* point, Vec3f* normal) {
     plane->normal.x = normal->x;
     plane->normal.y = normal->y;
     plane->normal.z = normal->z;
@@ -348,17 +348,17 @@ void func_80098860(Plane* plane, Vec3f* point, Vec3f* normal) {
 }
 
 // y dist to closest point on plane
-s32 func_800988B4(Vec3f* vec, Plane* plane) {
+s32 func_800988B4(Vec3f* vec, PlaneF* plane) {
     return (-plane->normal.x * vec->x - plane->normal.z * vec->z - plane->dist) / plane->normal.y;
 }
 
 // z dist to closest point on plane
-s32 func_800988F8(Vec3f* vec, Plane* plane) {
+s32 func_800988F8(Vec3f* vec, PlaneF* plane) {
     return (-plane->normal.x * vec->x - plane->normal.y * vec->y - plane->dist) / plane->normal.z;
 }
 
 // x dist to closest point on plane
-s32 func_8009893C(Vec3f* vec, Plane* plane) {
+s32 func_8009893C(Vec3f* vec, PlaneF* plane) {
     return (-plane->normal.y * vec->y - plane->normal.z * vec->z - plane->dist) / plane->normal.x;
 }
 
@@ -481,7 +481,7 @@ bool func_80099254(Vec3f* objPos, Vec3f* colliderPos, Vec3f* objVel, CollisionHe
     Vec3f objRel;
     s32 pad11C;
     s32 pad118;
-    Plane polyPlane;
+    PlaneF polyPlane;
     f32 tempf;
     s32 didHit = false;
     s32 swapBuff;
@@ -568,10 +568,10 @@ bool func_80099254(Vec3f* objPos, Vec3f* colliderPos, Vec3f* objVel, CollisionHe
         // check if bounding boxes of the object's movement and the collision polygon overlap
         if ((objMinX < polyMaxX) && (objMaxX > polyMinX) && (objMinY < polyMaxY) && (objMaxY > polyMinY) &&
             (objMinZ < polyMaxZ) && (objMaxZ > polyMinZ)) {
-            polyPlane.normal.x = colPoly->normal.x;
-            polyPlane.normal.y = colPoly->normal.y;
-            polyPlane.normal.z = colPoly->normal.z;
-            polyPlane.dist = colPoly->dist;
+            polyPlane.normal.x = colPoly->plane.normal.x;
+            polyPlane.normal.y = colPoly->plane.normal.y;
+            polyPlane.normal.z = colPoly->plane.normal.z;
+            polyPlane.dist = colPoly->plane.dist;
 
             // check if object is on the "back" side of the polygon
             if ((DOT_XYZ(&polyPlane.normal, &objRel) + polyPlane.dist) <= 0.0f) {

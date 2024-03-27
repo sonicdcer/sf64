@@ -876,42 +876,22 @@ void func_80040CE4(void) {
                 gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, SEGMENTED_TO_VIRTUAL(D_601B6C0));
                 temp_s0 = fabsf(Math_ModF(2.0f * (D_80177CE8 * 0.2133333f), 128.0f));
                 temp_fv0 = Math_ModF((10000.0f - gPlayer[gPlayerNum].unk_0AC) * 0.32f, 128.0f);
-                gDPTileSync(gMasterDisp++);
-                gDPSetTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0,
-                           G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-                gDPSetTileSize(gMasterDisp++, G_TX_RENDERTILE, temp_fv0, temp_s0, 124, 124);
+                gDPSetupTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, temp_fv0, temp_s0,
+                             G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
                 switch (D_80161A88) {
                     case 0:
-                        gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_601B6C0);
-                        gDPTileSync(gMasterDisp++);
-                        gDPSetTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0,
-                                   G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP,
-                                   G_TX_NOMASK, G_TX_NOLOD);
-                        gDPLoadSync(gMasterDisp++);
-                        gDPLoadBlock(gMasterDisp++, G_TX_LOADTILE, 0, 0, 1023, 256);
-                        gBgColor = 0x845;
+                        gDPLoadTileTexture(gMasterDisp++, D_601B6C0, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
+                        gBgColor = 0x845; // 8, 8, 32
                         break;
                     case 1:
-                        gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_6028260);
-                        gDPTileSync(gMasterDisp++);
-                        gDPSetTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0,
-                                   G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP,
-                                   G_TX_NOMASK, G_TX_NOLOD);
-                        gDPLoadSync(gMasterDisp++);
-                        gDPLoadBlock(gMasterDisp++, G_TX_LOADTILE, 0, 0, 1023, 256);
-                        gBgColor = 0x845;
+                        gDPLoadTileTexture(gMasterDisp++, D_6028260, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
+                        gBgColor = 0x845; // 8, 8, 32
                         break;
                     case 2:
                         RCP_SetupDL_45(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
                         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 128);
-                        gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_6028A60);
-                        gDPTileSync(gMasterDisp++);
-                        gDPSetTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0,
-                                   G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP,
-                                   G_TX_NOMASK, G_TX_NOLOD);
-                        gDPLoadSync(gMasterDisp++);
-                        gDPLoadBlock(gMasterDisp++, G_TX_LOADTILE, 0, 0, 1023, 256);
-                        gBgColor = 0x190F;
+                        gDPLoadTileTexture(gMasterDisp++, D_6028A60, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
+                        gBgColor = 0x190F; // 24, 32, 56
                         break;
                 }
                 Matrix_Push(&gGfxMatrix);
@@ -926,7 +906,7 @@ void func_80040CE4(void) {
                 gSPDisplayList(gMasterDisp++, D_601B640);
             } else {
                 D_80161A88 = 0;
-                gBgColor = 0x845;
+                gBgColor = 0x845; // 8, 8, 32
                 for (i = 0; i < 4; i++) {
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, D_800C9E64[i], 0.0f, D_800C9E74[i], 1);
@@ -958,10 +938,8 @@ void func_80040CE4(void) {
             gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, sp1C4);
             temp_s0 = fabsf(Math_ModF(2.0f * (D_80177CE8 * 0.2133333f), 128.0f));
             temp_fv0 = Math_ModF((10000.0f - gPlayer[gPlayerNum].unk_0AC) * 0.32f, 128.0f);
-            gDPTileSync(gMasterDisp++);
-            gDPSetTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0,
-                       G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-            gDPSetTileSize(gMasterDisp++, G_TX_RENDERTILE, temp_fv0, temp_s0, 124, 124);
+            gDPSetupTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, temp_fv0, temp_s0,
+                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -3000.0f, 1);
             Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.5f, 1);
@@ -1007,27 +985,22 @@ void func_80040CE4(void) {
             break;
         case LEVEL_AQUAS:
             RCP_SetupDL(&gMasterDisp, 0x14);
+            sp1C0 = D_AQ_600AB10;
             gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
             if ((D_8015F964 == 0) && ((D_80177AC8 == 0) || (D_80177AC8 == 2))) {
-                gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, SEGMENTED_TO_VIRTUAL(D_AQ_600AB68));
-                gDPTileSync(gMasterDisp++);
-                gDPSetTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0,
-                           G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK,
-                           G_TX_NOLOD);
-                gDPLoadSync(gMasterDisp++);
-                gDPLoadBlock(gMasterDisp++, G_TX_LOADTILE, 0, 0, 1023, 256);
+
+                gDPLoadTileTexture(gMasterDisp++, SEGMENTED_TO_VIRTUAL(D_AQ_600AB68), G_IM_FMT_RGBA, G_IM_SIZ_16b, 32,
+                                   32);
                 gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, SEGMENTED_TO_VIRTUAL(D_AQ_600AB68));
                 temp_s0 = fabsf(Math_ModF(2.0f * (D_80177CE8 * 0.2133333f), 128.0f));
                 temp_fv0 = Math_ModF((10000.0f - gPlayer[gPlayerNum].unk_0AC) * 0.32f, 128.0f);
-                gDPTileSync(gMasterDisp++);
-                gDPSetTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0,
-                           G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-                gDPSetTileSize(gMasterDisp++, G_TX_RENDERTILE, temp_fv0, temp_s0, 124, 124);
+                gDPSetupTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, temp_fv0, temp_s0,
+                             G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
+
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -3000.0f, 1);
                 Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.5f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                sp1C0 = D_AQ_600AB10;
                 gSPDisplayList(gMasterDisp++, sp1C0);
                 Matrix_Pop(&gGfxMatrix);
                 Matrix_Push(&gGfxMatrix);
@@ -1038,20 +1011,13 @@ void func_80040CE4(void) {
                 Matrix_Pop(&gGfxMatrix);
             }
             if ((D_8015F964 != 0) || (D_80177AC8 == 0)) {
-                gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, SEGMENTED_TO_VIRTUAL(D_AQ_602ACC0));
-                gDPTileSync(gMasterDisp++);
-                gDPSetTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0,
-                           G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK,
-                           G_TX_NOLOD);
-                gDPLoadSync(gMasterDisp++);
-                gDPLoadBlock(gMasterDisp++, G_TX_LOADTILE, 0, 0, 1023, 256);
+                gDPLoadTileTexture(gMasterDisp++, SEGMENTED_TO_VIRTUAL(D_AQ_602ACC0), G_IM_FMT_RGBA, G_IM_SIZ_16b, 32,
+                                   32);
                 gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, SEGMENTED_TO_VIRTUAL(D_AQ_602ACC0));
                 temp_s0 = fabsf(Math_ModF(2.0f * (D_80177CE8 * 0.2133333f), 128.0f));
                 temp_fv0 = Math_ModF((10000.0f - gPlayer[gPlayerNum].unk_0AC) * 0.32f, 128.0f);
-                gDPTileSync(gMasterDisp++);
-                gDPSetTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0,
-                           G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-                gDPSetTileSize(gMasterDisp++, G_TX_RENDERTILE, temp_fv0, temp_s0, 124, 124);
+                gDPSetupTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, temp_fv0, temp_s0,
+                             G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
                 if (D_80177AC8 != 0) {
                     RCP_SetupDL(&gMasterDisp, 0x2F);
                 } else {

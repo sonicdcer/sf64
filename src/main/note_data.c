@@ -1,27 +1,6 @@
 #include "sys.h"
 #include "sf64audio_provisional.h"
 
-typedef struct {
-    struct {
-        /* 0x00 */ volatile u8 enabled : 1;
-        /* 0x00 */ u8 needsInit : 1;
-        /* 0x00 */ u8 finished : 1; // ?
-        /* 0x00 */ u8 unused : 1;
-        /* 0x00 */ u8 stereoStrongRight : 1;
-        /* 0x00 */ u8 stereoStrongLeft : 1;
-        /* 0x00 */ u8 stereoHeadsetEffects : 1;
-        /* 0x00 */ u8 usesHeadsetPanEffects : 1; // ?
-    } bitField0;
-    struct {
-        /* 0x01 */ u8 reverbIndex : 3;
-        /* 0x01 */ u8 bookOffset : 2;
-        /* 0x01 */ u8 isSyntheticWave : 1;
-        /* 0x01 */ u8 hasTwoParts : 1;
-        /* 0x01 */ u8 useHaasEffect : 1;
-    } bitField1;
-    /* 0x02 */ u8 pad2[0xE];
-} NoteUnkStruct; // size = 0x10
-
 f32 gBendPitchOneOctaveFrequencies[] = {
     0.5f,      0.5f,      0.502736f, 0.505488f, 0.508254f, 0.511036f, 0.513833f, 0.516645f, 0.519472f, 0.522315f,
     0.525174f, 0.528048f, 0.530938f, 0.533843f, 0.536765f, 0.539702f, 0.542656f, 0.545626f, 0.548612f, 0.551614f,

@@ -5436,8 +5436,8 @@ void func_menu_801A9A8C(void) {
 void func_menu_801A9DE8(void) {
     s32 mask;
 
-    if (!((D_menu_801CD978 != 0) || (D_menu_801CD944 == 3) || (D_menu_801CD944 == 6) ||
-          ((D_menu_801CD944 == 7) && (D_menu_801CD948 == 2)))) {
+    if ((D_menu_801CD978 == 0) &&
+        !((D_menu_801CD944 == 3) || (D_menu_801CD944 == 6) || ((D_menu_801CD944 == 7) && (D_menu_801CD948 == 2)))) {
         return;
     }
 

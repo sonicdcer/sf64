@@ -1065,7 +1065,7 @@ void func_i1_80193D64(s32 limbIndex, Vec3f* rot, void* thisx) {
     RCP_SetupDL(&gMasterDisp, 0x1D);
 }
 
-#ifdef NON_EQUIVALENT
+#ifdef NON_MATCHING
 // Lots of problems with loop at 2082. Seems related to spE8. https://decomp.me/scratch/gOy2L
 void func_i1_80194398(Boss* boss) {
     s32 is0;
@@ -2332,7 +2332,7 @@ void func_i1_80198414(void) {
         D_801778F0[i] = gSavedTeamShields[i];
         gSavedTeamShields[i] = gTeamShields[i];
     }
-    gBgColor = 0xFFFF;
+    gBgColor = 0xFFFF; // 248, 248, 248
     gNextGameState = GSTATE_PLAY;
     gNextLevel = LEVEL_VENOM_2;
     D_80161A2E = 2;

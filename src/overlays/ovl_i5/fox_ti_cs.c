@@ -78,7 +78,7 @@ void func_i5_8018769C(Player* player) {
             player->unk_1D0 = 1;
             gFogFar = 1006;
             gPlayer[0].unk_19C = 0;
-            gBgColor = 0x78C1;
+            gBgColor = 0x78C1; // 120, 24, 0
 
         case 1:
             D_80177A48[0] = 0.01f;
@@ -147,7 +147,7 @@ void func_i5_8018769C(Player* player) {
 
                 gPlayer[0].unk_19C = 1;
 
-                gBgColor = 0x2089;
+                gBgColor = 0x2089; // 32, 16, 32
 
                 player->unk_16C = 0.5f;
                 player->unk_170 = 0.5f;

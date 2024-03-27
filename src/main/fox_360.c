@@ -1920,7 +1920,7 @@ void func_800319AC(Actor* this) {
             spD0 = 360.0f - spD0;
         }
         if ((this->fwork[7] > 0.01f) && (this->fwork[7] < 359.9f)) {
-            if (!((gGameFrameCount + 0xF) & 0x1F) && (gCurrentLevel != LEVEL_VENOM_2)) {
+            if ((((gGameFrameCount + 15) % 32) == 0) && (gCurrentLevel != LEVEL_VENOM_2)) {
                 this->timer_0CA[0] = 0;
             }
         } else {
@@ -2176,7 +2176,7 @@ void func_80035448(Actor* actor) {
             Matrix_RotateZ(gGfxMatrix, M_DTOR * sp38, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
         }
-        if (!(actor->timer_0C6 & 1)) {
+        if ((actor->timer_0C6 % 2) == 0) {
             RCP_SetupDL(&gMasterDisp, 0x1D);
             gSPFogPosition(gMasterDisp++, gFogNear, 1005);
         }

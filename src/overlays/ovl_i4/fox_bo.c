@@ -1,5 +1,5 @@
 #include "prevent_bss_reordering.h"
-// #include "prevent_bss_reordering2.h"
+#include "prevent_bss_reordering2.h"
 #include "global.h"
 #include "assets.h"
 
@@ -466,7 +466,7 @@ s32 func_i4_8018CCE8(Actor* actor) {
         temp_fs0 = fabsf(x - actor->obj.pos.x);
         temp_fv0 = fabsf(z - actor->obj.pos.z);
 
-        if ((!(var_fv1 < temp_fs0)) && (!(var_fa0 < temp_fv0))) {
+        if (!((var_fv1 < temp_fs0) || (var_fa0 < temp_fv0))) {
             var_fv1 = temp_fs0;
             var_fa0 = temp_fv0;
             var_v0 = i + 1;
@@ -2173,21 +2173,9 @@ void func_i4_80192264(void) {
             if ((spD0.z < 3000.0f) && (spD0.z > -13000.0f) && (fabsf(spD0.x) < (fabsf(spD0.z * 0.7f) + 3000.0f)) &&
                 (fabsf(spD0.y) < (fabsf(spD0.z * 0.5f) + 2000.0f))) {
                 if (rnd < 0.3f) {
-                    gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_6008BB8);
-                    gDPTileSync(gMasterDisp++);
-                    gDPSetTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0,
-                               G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP,
-                               G_TX_NOMASK, G_TX_NOLOD);
-                    gDPLoadSync(gMasterDisp++);
-                    gDPLoadBlock(gMasterDisp++, G_TX_LOADTILE, 0, 0, 1023, 256);
+                    gDPLoadTileTexture(gMasterDisp++, D_6008BB8, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
                 } else {
-                    gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_600AD80);
-                    gDPTileSync(gMasterDisp++);
-                    gDPSetTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0,
-                               G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP,
-                               G_TX_NOMASK, G_TX_NOLOD);
-                    gDPLoadSync(gMasterDisp++);
-                    gDPLoadBlock(gMasterDisp++, G_TX_LOADTILE, 0, 0, 1023, 256);
+                    gDPLoadTileTexture(gMasterDisp++, D_600AD80, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
                 }
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_600BEC0)

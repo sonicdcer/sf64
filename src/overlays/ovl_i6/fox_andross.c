@@ -1018,7 +1018,7 @@ void func_i6_80189B70(Boss* boss) {
                     gFogBlue = 0;
                     gFogNear = 996;
                     gFogFar = 1007;
-                    gBgColor = 0x4081;
+                    gBgColor = 0x4081; // 64, 16, 0
                     D_80161A44 = 30000.0f;
                     gGroundLevel = -50.0f;
                     gPlayer[0].pos.x = -25995.0f;

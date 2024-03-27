@@ -21,9 +21,7 @@ typedef struct {
 
 typedef struct {
    /* 0x00 */ Triangle tri;
-   /* 0x06 */ s16 unk_06;
-   /* 0x08 */ Vec3s normal;
-   /* 0x10 */ s32 dist;
+   /* 0x08 */ PlaneI plane;
 } CollisionPoly; // size = 0x14
 
 typedef struct {

@@ -1534,7 +1534,7 @@ void func_ending_8018B860(void) {
     D_80177A48[0] = gCsCamAtX;
     D_80177A10[0] = 0;
     D_ending_8019858C = 0;
-    gBgColor = 0x4AE5;
+    gBgColor = 0x4AE5; // 72, 88, 144
     D_80178410 = 0;
 }
 
@@ -1571,7 +1571,7 @@ void func_ending_8018BAD0(void) {
 
     D_80177A10[0] = 1;
     D_ending_8019858C = 0;
-    gBgColor = 0x4AE5;
+    gBgColor = 0x4AE5; // 72, 88, 144
     D_80178410 = 0;
 }
 
