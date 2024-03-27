@@ -102,7 +102,7 @@ void Game_SetGameState(void) {
     gFillScreenColor = gBgColor = 0;
     D_80177D20 = 0.0f;
     if ((gCurrentLevel == LEVEL_VENOM_2) && (D_8017827C == 2)) {
-        gFillScreenColor = gBgColor = 0xFFFF;
+        gFillScreenColor = gBgColor = 0xFFFF; // 248, 248, 248
         D_80178348 = D_80178350 = D_80178354 = 255;
     } else {
         D_80178348 = D_80178350 = D_80178354 = 0;

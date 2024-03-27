@@ -2332,7 +2332,7 @@ void func_i1_80198414(void) {
         D_801778F0[i] = gSavedTeamShields[i];
         gSavedTeamShields[i] = gTeamShields[i];
     }
-    gBgColor = 0xFFFF;
+    gBgColor = 0xFFFF; // 248, 248, 248
     gNextGameState = GSTATE_PLAY;
     gNextLevel = LEVEL_VENOM_2;
     D_80161A2E = 2;

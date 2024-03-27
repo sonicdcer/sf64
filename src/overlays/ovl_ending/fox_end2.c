@@ -449,12 +449,8 @@ void func_ending_8018EDB8(u32 arg0, AssetInfo* asset) {
 
     gDPLoadTextureBlock(gMasterDisp++, D_END_700EA38, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, 0, G_TX_WRAP | G_TX_NOMIRROR,
                         G_TX_WRAP | G_TX_NOMIRROR, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
-
-    gDPTileSync(gMasterDisp++);
-    gDPSetTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, (((32 * G_IM_SIZ_16b_LINE_BYTES) + 7) >> 3), 0, 0, 0,
-               G_TX_WRAP, 5, 0, G_TX_WRAP, 5, 0);
-    gDPSetTileSize(gMasterDisp++, 0, arg0 * 14, 0, (32 - 1) << G_TEXTURE_IMAGE_FRAC, (32 - 1) << G_TEXTURE_IMAGE_FRAC);
-
+    gDPSetupTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, arg0 * 14, 0, G_TX_NOMIRROR | G_TX_WRAP,
+                 G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
     gSPDisplayList(gMasterDisp++, D_END_700E9E0);
 }
 

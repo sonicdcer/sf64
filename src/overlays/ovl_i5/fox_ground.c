@@ -370,17 +370,9 @@ void func_i5_801B58AC(Gfx** dList, f32 arg1) {
     spC4 = D_i5_801C5C14;
 
     if (D_i5_801C5C14 & 2) {
-
-        gDPTileSync((*dList)++);
-        gDPSetTile((*dList)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5,
-                   G_TX_NOLOD, G_TX_MIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-        gDPSetTileSize((*dList)++, G_TX_RENDERTILE, 0, 0, 124, 124);
-        gDPSetTextureImage((*dList)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_6001BA8); // Ground Texture?
-        gDPTileSync((*dList)++);
-        gDPSetTile((*dList)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP,
-                   G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-        gDPLoadSync((*dList)++);
-        gDPLoadBlock((*dList)++, G_TX_LOADTILE, 0, 0, 1023, 256);
+        gDPSetupTile((*dList)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, 0, 0, G_TX_MIRROR | G_TX_WRAP,
+                     G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
+        gDPLoadTileTexture((*dList)++, D_6001BA8, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
         gSPMatrix((*dList)++, &gIdentityMtx, G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
         Matrix_Translate(gGfxMatrix, D_i5_801C62D8.x, D_i5_801C62D8.y, D_i5_801C62D8.z + D_i5_801C5C10, 0);
         Matrix_ToMtx(gGfxMtx);
@@ -569,16 +561,9 @@ void func_i5_801B68A8(Gfx** dlist, s32 arg1, s32 arg2) {
     s32 var_a1;
     s32 var;
 
-    gDPTileSync((*dlist)++);
-    gDPSetTile((*dlist)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0, G_TX_MIRROR | G_TX_WRAP, 5,
-               G_TX_NOLOD, G_TX_MIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-    gDPSetTileSize((*dlist)++, G_TX_RENDERTILE, 0, 0, 124, 124);
-    gDPSetTextureImage((*dlist)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_6001BA8); // Ground Texture?
-    gDPTileSync((*dlist)++);
-    gDPSetTile((*dlist)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP,
-               G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-    gDPLoadSync((*dlist)++);
-    gDPLoadBlock((*dlist)++, G_TX_LOADTILE, 0, 0, 1023, 256);
+    gDPSetupTile((*dlist)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, 0, 0, G_TX_MIRROR | G_TX_WRAP,
+                 G_TX_MIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
+    gDPLoadTileTexture((*dlist)++, D_6001BA8, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
     Matrix_Translate(gGfxMatrix, D_i5_801C62D8.x, D_i5_801C62D8.y, D_i5_801C62D8.z + D_i5_801C5C10, 0);
     Matrix_ToMtx(gGfxMtx);
     gSPMatrix((*dlist)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);

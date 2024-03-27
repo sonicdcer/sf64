@@ -1,4 +1,4 @@
-#include "prevent_bss_reordering2.h"
+// #include "prevent_bss_reordering2.h"
 #include "global.h"
 #include "assets.h"
 #include "fox_map.h"
@@ -3372,7 +3372,7 @@ void func_800AE4A4(Player* player) {
         var_fv1 = 0.8f;
     }
     if (!((gInputHold->button & R_TRIG) && (gInputHold->button & Z_TRIG)) &&
-          !(!(gInputHold->button & R_TRIG) && !(gInputHold->button & Z_TRIG))) {
+        !(!(gInputHold->button & R_TRIG) && !(gInputHold->button & Z_TRIG))) {
         var_fv1 = 0.1f;
     }
     var_fv0 = 4.0f;
@@ -3592,7 +3592,7 @@ void func_800AF07C(Player* player) {
     }
 
     if (!((gInputHold->button & R_TRIG) && (gInputHold->button & Z_TRIG)) &&
-          !(!(gInputHold->button & R_TRIG) && !(gInputHold->button & Z_TRIG))) {
+        !(!(gInputHold->button & R_TRIG) && !(gInputHold->button & Z_TRIG))) {
         var_fv1 = 0.1f;
     }
 

@@ -2113,7 +2113,7 @@ void func_800701E0(Actor* actor) {
                             actor->obj.pos.y -= actor->vel.y;
                             actor->obj.status = OBJ_ACTIVE;
                             func_8007D0E0(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y + 30.0f,
-                                            actor->obj.pos.z - actor->vel.z, actor->scale * 5.0f);
+                                          actor->obj.pos.z - actor->vel.z, actor->scale * 5.0f);
                             actor->unk_0D0 = 0;
                             actor->timer_0C2 = 10000;
                             actor->info.unk_1C = 0.0f;
@@ -2151,8 +2151,8 @@ void func_800701E0(Actor* actor) {
                 func_8007D10C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, actor->scale * 1.5f);
             }
 
-            if (((gLevelMode == LEVELMODE_ALL_RANGE) || (gLevelMode == LEVELMODE_UNK_2)) &&
-                (actor->unk_0B4 != 0x15) && (actor->unk_0B4 != 0x17)) {
+            if (((gLevelMode == LEVELMODE_ALL_RANGE) || (gLevelMode == LEVELMODE_UNK_2)) && (actor->unk_0B4 != 0x15) &&
+                (actor->unk_0B4 != 0x17)) {
                 actor->fwork[13] = 20.0f;
                 if (actor->obj.pos.x < actor->unk_0D8.x) {
                     actor->fwork[13] *= -1.0f;
@@ -2218,7 +2218,6 @@ void func_800701E0(Actor* actor) {
             }
         }
     }
-    
 }
 
 void func_80070BA8(Actor* actor) {

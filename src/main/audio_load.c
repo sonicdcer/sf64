@@ -32,11 +32,6 @@ static char devstr18[] = "Bank Offset %x %d %d\n";
 static char devstr19[] = "PEP Touch %x \n";
 static char D_800C50E8[] = "FastCopy";
 
-
-
-
-
-
 AudioSlowLoadBuffer gSlowLoads;
 
 void AudioLoad_DecreaseSampleDmaTtls(void) {
@@ -616,7 +611,6 @@ void AudioLoad_RelocateFont(s32 fontId, u32 fontBaseAddr, void* relocData) {
 
 static char D_800C50F4[] = "FastCopy";
 
-
 void AudioLoad_SyncDma(u32 devAddr, u8* ramAddr, u32 size, s32 medium) {
     size = ALIGN16(size);
     osInvalDCache(ramAddr, size);
@@ -800,7 +794,6 @@ static char devstr35[] = " Seqdrv    :[%6d]\n";
 static char devstr36[] = " audiodata :[%6d]\n";
 static char devstr37[] = "---------------------------------------\n";
 
-
 void AudioLoad_Init(void) {
     s32 pad[14];
     s32 i;
@@ -886,7 +879,6 @@ void AudioLoad_Init(void) {
     AudioHeap_InitPool(&gPermanentPool.pool, ramAddr, gPermanentPoolSize);
     func_800168BC();
 }
-
 
 static char devstr38[] = "Entry--- %d %d\n";
 static char devstr39[] = "---Block LPS here\n";
@@ -1172,9 +1164,6 @@ void AudioLoad_ProcessAsyncLoad(AudioAsyncLoad* asyncLoad, s32 resetStatus) {
 static char devstr48[] = "BGLOAD:Error: dma length 0\n";
 static char D_800C53AC[] = "BGCOPY";
 
-
-
-
 void AudioLoad_AsyncDma(AudioAsyncLoad* asyncLoad, u32 size) {
     size = ALIGN16(size);
     osInvalDCache(asyncLoad->curRamAddr, size);
@@ -1332,7 +1321,6 @@ static char devstr58[] = "============Error: Magic is Broken after loading.\n";
 static char devstr59[] = "Remain DMA: %d\n";
 static char devstr60[] = "N start %d\n";
 static char devstr61[] = "============Error: Magic is Broken: %x\n";
-
 
 s32 AudioLoad_ProcessSamplePreloads(s32 resetStatus) {
     Sample* sample;

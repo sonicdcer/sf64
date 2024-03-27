@@ -3572,7 +3572,6 @@ void func_i5_801A6984(Actor* actor) {
         sp9C = temp_fs4;
     }
     func_i5_80199D88(D_6012C98, 4, 8);
-    
 }
 
 void func_i5_801A6C78(Actor* actor) {

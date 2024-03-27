@@ -98,7 +98,6 @@ extern Gfx D_6008370[];
 extern Gfx D_6008770[];
 extern Gfx D_6008830[];
 extern Gfx D_6008AA0[];
-extern Vec3s D_6008E08[];
 extern Gfx D_6009250[];
 extern u16* D_6009B34[];
 extern u16 D_6009BB8[];

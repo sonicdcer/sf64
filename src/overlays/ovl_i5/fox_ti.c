@@ -953,7 +953,6 @@ void func_i5_8018B9D0(Actor* actor) {
                 } else {
                     actor->iwork[0] = 0;
                 }
-                
             }
 
             if (actor->timer_0BE == 1) {
@@ -1604,9 +1603,12 @@ void func_i5_8018C8A8(Actor* actor) {
                                 actorPtr->fwork[2] =
                                     ((Rand_ZeroOne() < 0.5f) ? -1.0f : 1.0f) * (4.0f + RAND_FLOAT(3.0f));
                             } else {
-                                actorPtr->fwork[0] = ((Rand_ZeroOne() < 0.5f) ? -1.0f : 1.0f) * (RAND_FLOAT(1.0f) + 0.5f);
-                                actorPtr->fwork[1] = ((Rand_ZeroOne() < 0.5f) ? -1.0f : 1.0f) * (RAND_FLOAT(1.0f) + 0.5f);
-                                actorPtr->fwork[2] = ((Rand_ZeroOne() < 0.5f) ? -1.0f : 1.0f) * (RAND_FLOAT(1.0f) + 0.5f);
+                                actorPtr->fwork[0] =
+                                    ((Rand_ZeroOne() < 0.5f) ? -1.0f : 1.0f) * (RAND_FLOAT(1.0f) + 0.5f);
+                                actorPtr->fwork[1] =
+                                    ((Rand_ZeroOne() < 0.5f) ? -1.0f : 1.0f) * (RAND_FLOAT(1.0f) + 0.5f);
+                                actorPtr->fwork[2] =
+                                    ((Rand_ZeroOne() < 0.5f) ? -1.0f : 1.0f) * (RAND_FLOAT(1.0f) + 0.5f);
                             }
                             actorPtr->gravity = 0.8f;
                         }
@@ -2658,8 +2660,7 @@ bool func_i5_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                             rot->z += D_i5_801BBEF4[2];
                             if (D_i5_801BBEF4[3] != 0.0f) {
                                 rot->z += __sinf((D_i5_801BBEF4[3] / D_i5_801BBEF4[5]) * 360.0f * M_DTOR) *
-                                           D_i5_801BBEF4[3] /
-                                          6.0f;
+                                          D_i5_801BBEF4[3] / 6.0f;
                             }
                         }
                         break;
@@ -2695,7 +2696,7 @@ bool func_i5_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                 if (spA0 != 0) {
                     spA8 = D_i5_801B7960[temp_v1][0];
                     sp9C = ((__sinf(D_i5_801BD6B0[temp_v1] * M_DTOR) * D_i5_801BD668[temp_v1]) /
-                           D_i5_801B7960[temp_v1][1]) *
+                            D_i5_801B7960[temp_v1][1]) *
                            D_i5_801B7960[temp_v1][2];
                     switch (spA8) {
                         case 0:
@@ -2735,24 +2736,24 @@ bool func_i5_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                     Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, 1);
                     Matrix_GetYRPAngles(gCalcMatrix, &sp8C);
                     Matrix_MultVec3f(gCalcMatrix, &D_800C9F2C, &sp7C);
-                    
+
                     if ((limbIndex == 0x47) && (boss->fwork[0x2E] != 0.0f)) {
                         sp70.x = (gPlayer[0].pos.x - (boss->obj.pos.x + sp7C.x)) * boss->fwork[0x2E];
                         sp70.y = (gPlayer[0].pos.y + 50.0f) - (boss->obj.pos.y + sp7C.y);
                         sp70.z = (gPlayer[0].unk_138 - (boss->obj.pos.z + sp7C.z)) * boss->fwork[0x2E];
-                        
-                        sp5C.y = Math_Atan2F(sp70.x , sp70.z) * M_RTOD;
+
+                        sp5C.y = Math_Atan2F(sp70.x, sp70.z) * M_RTOD;
                         sp5C.x = -Math_Atan2F(sp70.y, sqrtf(SQ(sp70.x) + SQ(sp70.z))) * M_RTOD;
 
                     } else {
                         sp70.x = gPlayer[0].pos.x - (boss->obj.pos.x + sp7C.x);
                         sp70.y = (gPlayer[0].pos.y + 30.0f) - (boss->obj.pos.y + sp7C.y);
                         sp70.z = gPlayer[0].unk_138 - (boss->obj.pos.z + sp7C.z);
-                        
-                        sp5C.y = Math_Atan2F(sp70.x,  sp70.z) * M_RTOD;
+
+                        sp5C.y = Math_Atan2F(sp70.x, sp70.z) * M_RTOD;
                         sp5C.x = -Math_Atan2F(sp70.y, sqrtf(SQ(sp70.x) + SQ(sp70.z))) * M_RTOD;
                     }
-                    
+
                     Matrix_Pop(&gCalcMatrix);
                     Matrix_RotateZ(gCalcMatrix, -(spCC.z * M_DTOR), 1);
                     Matrix_RotateX(gCalcMatrix, -(spCC.x * M_DTOR), 1);
@@ -2767,9 +2768,9 @@ bool func_i5_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                             }
                             D_i5_801BBEF4[29] = 0.0f;
                             D_i5_801BBEF4[30] = sp5C.y - 90.0f;
-                            
+
                             D_i5_801BBEF4[31] = -sp5C.x;
-                            
+
                             sp8C.x = 0.0f;
                             Math_SmoothStepToAngle(&sp8C.y, D_i5_801BBEF4[21], boss->fwork[0x28], 360.0f, 0.01f);
                             Math_SmoothStepToAngle(&sp8C.z, D_i5_801BBEF4[22], boss->fwork[0x28], 360.0f, 0.01f);
@@ -3634,7 +3635,6 @@ void func_i5_80193DF0(Boss* boss) {
     Vec3f sp90;
     Vec3f sp84;
 
-
     Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, 0);
 
     for (i = 0; i < ARRAY_COUNTU(D_i5_801BBF00); i++) {
@@ -3783,12 +3783,11 @@ void func_i5_80193DF0(Boss* boss) {
                     break;
                 }
             }
-            if (boss->unk_04C){}
+            if (boss->unk_04C) {}
 
             if (j == ARRAY_COUNT(D_i5_801B8160)) {
                 D_i5_801BBF00[i].unk_20 = RAND_FLOAT(5.0f) - 2.5f;
             }
-            
         }
     }
 
@@ -3940,7 +3939,7 @@ void func_i5_80193DF0(Boss* boss) {
             D_i5_801BBEF0[0] -= D_i5_801BBEF0[1];
         }
     }
-    
+
     switch (boss->swork[28]) {
         case 1:
             if (boss->swork[27] == 0) {
@@ -5071,8 +5070,7 @@ void func_i5_801982A8(Boss* boss) {
                 Matrix_Scale(gGfxMatrix, 4.0f, 4.0f, 4.0f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 RCP_SetupDL(&gMasterDisp, 0x31);
-                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255,
-                                (s32) ((D_i5_801BBEF0[17] * 89.0f) / 3.0f));
+                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) ((D_i5_801BBEF0[17] * 89.0f) / 3.0f));
                 gDPSetEnvColor(gMasterDisp++, 0, 128, 60, 0);
                 gSPDisplayList(gMasterDisp++, D_TI2_7005300);
                 Matrix_Pop(&gGfxMatrix);

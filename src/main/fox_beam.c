@@ -982,7 +982,7 @@ void func_80038140(PlayerShot* shot) {
                     } else {
                         if ((boss->obj.id == OBJ_BOSS_316) && (shot->playerNum != 0)) {
                             break;
-                        } 
+                        }
                         boss->dmgType = DMG_BEAM;
                         if (shot->obj.id == PLAYERSHOT_3) {
                             boss->dmgType = DMG_BOMB;

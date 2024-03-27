@@ -1420,19 +1420,19 @@ bool func_800C15D8(void) {
         D_80161A10 = 1.5f;
         switch (gVersusStage) {
             case VS_STAGE_CORNERIA:
-                gBgColor = 0x8FBD;
+                gBgColor = 0x8FBD; // 136, 240, 240
                 break;
 
             case VS_STAGE_KATINA:
-                gBgColor = 0xADA7;
+                gBgColor = 0xADA7; // 168, 176, 152
                 break;
 
             case VS_STAGE_SECTOR_Z:
-                gBgColor = 0x0001;
+                gBgColor = 0x0001; // 0, 0, 0
                 break;
 
             default:
-                gBgColor = 0x8FBD;
+                gBgColor = 0x8FBD; // 136, 240, 240
                 break;
         }
         ret = true;
