@@ -993,16 +993,16 @@ void func_8006D36C(Actor* actor) {
             var_v1 = SEGMENTED_TO_VIRTUAL(D_C037E3C);
             break;
         case LEVEL_CORNERIA:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_603D9E8);
+            var_v1 = SEGMENTED_TO_VIRTUAL(D_CO_603D9E8);
             break;
         case LEVEL_METEO:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_602F3AC);
+            var_v1 = SEGMENTED_TO_VIRTUAL(D_ME_602F3AC);
             break;
         case LEVEL_AQUAS:
             var_v1 = SEGMENTED_TO_VIRTUAL(D_AQ_60308B8);
             break;
         case LEVEL_TITANIA:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_600631C);
+            var_v1 = SEGMENTED_TO_VIRTUAL(D_TI_600631C);
             break;
         case LEVEL_SECTOR_X:
             var_v1 = SEGMENTED_TO_VIRTUAL(D_SX_60320D0);
@@ -1017,22 +1017,22 @@ void func_8006D36C(Actor* actor) {
             var_v1 = SEGMENTED_TO_VIRTUAL(D_SY_6032E18);
             break;
         case LEVEL_SOLAR:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_6020DD0);
+            var_v1 = SEGMENTED_TO_VIRTUAL(D_SO_600631C);
             break;
         case LEVEL_ZONESS:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_602AAC0);
+            var_v1 = SEGMENTED_TO_VIRTUAL(D_ZO_602AAC0);
             break;
         case LEVEL_VENOM_1:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_601B1E4);
+            var_v1 = SEGMENTED_TO_VIRTUAL(D_VE1_601B1E4);
             break;
         case LEVEL_MACBETH:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_60381D8);
+            var_v1 = SEGMENTED_TO_VIRTUAL(D_MA_60381D8);
             break;
         case LEVEL_TRAINING:
             var_v1 = SEGMENTED_TO_VIRTUAL(D_TR_6009B34);
             break;
         default:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_603D9E8);
+            var_v1 = SEGMENTED_TO_VIRTUAL(D_CO_603D9E8);
             break;
     }
     temp_s1 = SEGMENTED_TO_VIRTUAL(var_v1[actor->unk_0E4]);
