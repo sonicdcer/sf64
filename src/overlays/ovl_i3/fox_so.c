@@ -1,5 +1,6 @@
 #include "global.h"
 #include "assets.h"
+#include "assets/ast_bg_planet.h"
 
 typedef void (*BossSOfunc)(Boss*);
 
@@ -165,8 +166,6 @@ void func_i3_801A8DB8(Vec3f* pos, u32 sfxId, f32 zVel);
 s32 D_i3_801C2740[10];
 f32 D_i3_801C2768[14];
 s32 D_i3_801C27A0[8]; // unused? part of previous?
-
-#include "assets/ast_bg_planet.h"
 
 void func_i3_8019E7F0(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(effect);
