@@ -589,7 +589,7 @@ bool func_i5_801B6AEC(f32 arg0, f32 arg1, f32 arg2) {
     }
 }
 
-s32 func_i5_801B6B40(f32 arg0, f32 arg1, Vec3f* arg2, Plane* arg3) {
+s32 func_i5_801B6B40(f32 arg0, f32 arg1, Vec3f* arg2, PlaneF* arg3) {
     f32 x1;
     f32 y1;
     f32 z1;
@@ -679,7 +679,7 @@ s32 func_i5_801B6E20(f32 arg0, f32 arg1, f32* arg2, f32* arg3, f32* arg4) {
     f32 var_fs0_2;
     f32 var_fs1;
     f32 var_fs2;
-    Plane sp84;
+    PlaneF sp84;
     f32 temp;
     f32 temp_fs2;
     s32 pad[4];

@@ -11,7 +11,7 @@ bool func_800A3690(Vec3f* objPos, Vec3f* colliderPos, s32 colId, Vec3f* hitDataO
 
 bool func_800A36FC(Vec3f* objPos, Vec3f* colliderPos, CollisionHeader2* colHeader, Vec3f* hitDataOut) {
     Vec3f objRelPos;
-    Plane triPlane;
+    PlaneF triPlane;
     bool above;
     s32 i;
     s32 j;

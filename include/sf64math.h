@@ -10,6 +10,12 @@ typedef struct {
 } Vec3f; // size = 0xC
 
 typedef struct {
+    /* 0x0 */ s16 x;
+    /* 0x2 */ s16 y;
+    /* 0x4 */ s16 z;
+} Vec3s; // size = 0x6;
+
+typedef struct {
     /* 0x00 */ Vec3f pos;
     /* 0x0C */ Vec3f rot;
 } PosRot; // size = 0x18
@@ -21,13 +27,12 @@ typedef struct {
 typedef struct {
     /* 0x0 */ Vec3f normal;
     /* 0xC */ f32 dist;
-} Plane; // size = 0x10
+} PlaneF; // size = 0x10
 
 typedef struct {
-    /* 0x0 */ s16 x;
-    /* 0x2 */ s16 y;
-    /* 0x4 */ s16 z;
-} Vec3s; // size = 0x6;
+    /* 0x0 */ Vec3s normal;
+    /* 0x8 */ s32 dist;
+} PlaneI; // size = 0xC
 
 typedef union {
     float m[4][4];

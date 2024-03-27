@@ -1,4 +1,4 @@
-// #include "prevent_bss_reordering.h"
+#include "prevent_bss_reordering.h"
 #include "global.h"
 #include "sf64dma.h"
 #include "assets/ast_logo.h"
