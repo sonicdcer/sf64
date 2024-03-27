@@ -108,7 +108,9 @@
     "ast_vs_player.h": "c",
     "ast_enmy_planet.h": "c",
     "ast_sector_z.h": "c",
-    "ast_titania.h": "c"
+    "ast_titania.h": "c",
+    "ast_bg_planet.h": "c",
+    "assets.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }

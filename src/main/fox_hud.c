@@ -72,21 +72,23 @@ s32 D_80161900[20];
 #include "global.h"
 #include "assets.h"
 
-#include "assets/ast_blue_marine.h"
-#include "assets/ast_landmaster.h"
-#include "assets/ast_training.h"
-#include "assets/ast_andross.h"
-#include "assets/ast_star_wolf.h"
-#include "assets/ast_font.h"
-#include "assets/ast_vs_player.h"
-#include "assets/ast_bg_planet.h"
 #include "assets/ast_bg_space.h"
+#include "assets/ast_bg_planet.h"
+#include "assets/ast_arwing.h"
+#include "assets/ast_landmaster.h"
+#include "assets/ast_blue_marine.h"
+#include "assets/ast_vs_player.h"
+#include "assets/ast_font.h"
+#include "assets/ast_training.h"
 #include "assets/ast_area_6.h"
 #include "assets/ast_aquas.h"
 #include "assets/ast_titania.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
+#include "assets/ast_andross.h"
+#include "assets/ast_allies.h"
+#include "assets/ast_star_wolf.h"
 
 void func_80087788(void);
 
@@ -100,20 +102,12 @@ extern u8 D_KA_6000000[];
 extern u8 D_SO_6000000[];
 extern u8 D_ZO_6000000[];
 extern u8 D_BO_6000000[];
-
-extern u16 D_6000C80[];
 extern u8 D_VE1_6000D80[];
-extern u8 D_6001260[];
 extern u8 D_VE2_60012D0[];
+extern u8 D_6000C80[];
+extern u8 D_6001260[];
 extern u8 D_6002890[];
 extern Gfx D_6003090[];
-
-#include "assets/ast_blue_marine.h"
-#include "assets/ast_arwing.h"
-#include "assets/ast_bg_space.h"
-#include "assets/ast_bg_planet.h"
-#include "assets/ast_allies.h"
-#include "assets/ast_font.h"
 
 // DATA SECTION START
 
@@ -2024,17 +2018,19 @@ s32 func_8008A4DC(void) {
     f32 z1;
     f32 x;
     f32 y;
+    s32 pad;
     f32 temp;
-    s32 ret = 0;
-    f32 temp2, temp3;
+    f32 temp2;
+    f32 temp3;
+    
 
     if (!gVersusMode) {
         if (gLevelMode != LEVELMODE_ALL_RANGE) {
-            return ret;
+            return 0;
         }
 
         if (D_80177AB0 >= 5) {
-            return ret;
+            return 0;
         }
 
         if (D_80177838) {
@@ -2044,7 +2040,7 @@ s32 func_8008A4DC(void) {
         }
 
         if (D_800D1E10 == 60.0f) {
-            return ret;
+            return 0;
         }
 
         switch (gCurrentLevel) {
@@ -2088,11 +2084,9 @@ s32 func_8008A4DC(void) {
         x = 254.000f + D_800D1E10;
         y = 162.000f;
         x1 += D_800D1E10 * temp3;
-    }
-
-    else {
+    } else {
         if ((D_80177E7C == 0) || (D_80178750 != 0)) {
-            return ret;
+            return 0;
         }
         temp2 = 13000.00f;
 
@@ -2158,11 +2152,8 @@ s32 func_8008A4DC(void) {
     }
 
     for (i = 64; i >= 0; i--) {
-        if (gRadarMarks[i].unk_00 == 0) {
-            continue;
-        }
-
-        if (fabsf(gRadarMarks[i].pos.x) >= (temp2 + 1000.0f) || fabsf(gRadarMarks[i].pos.z) >= (temp2 + 1000.0f)) {
+        if ((gRadarMarks[i].unk_00 == 0) || (fabsf(gRadarMarks[i].pos.x) >= (temp2 + 1000.0f)) ||
+            (fabsf(gRadarMarks[i].pos.z) >= (temp2 + 1000.0f))) {
             continue;
         }
 
@@ -2184,7 +2175,7 @@ s32 func_8008A4DC(void) {
     }
 
     Matrix_Pop(&gGfxMatrix);
-    return ret;
+    return 0;
 }
 
 s32 func_8008AC54(s32 arg0) {
