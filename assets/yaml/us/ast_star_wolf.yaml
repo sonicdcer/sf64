@@ -75,7 +75,7 @@ D_STAR_WOLF_F0103D0:
 D_STAR_WOLF_F011F00:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0F011F00, symbol: D_STAR_WOLF_F011F00 }
 
-D_STAR_WOLF_F012700: #Dlist says it's 16x16 but texture looks 32x32
+D_STAR_WOLF_F012700:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0F012700, symbol: D_STAR_WOLF_F012700 }
 
 D_STAR_WOLF_F012F00:
