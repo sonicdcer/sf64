@@ -390,7 +390,6 @@ extern Gfx D_6032580[];
 extern Gfx D_6032BC0[];
 extern Gfx D_6033000[];
 extern Vec3s D_6033E08[];
-extern f32 D_603486C[];
 extern Gfx D_6034B90[];
 extern f32 D_60359C8[];
 extern f32 D_6035A14[];
