@@ -3,6 +3,8 @@
 #include "variables.h"
 #include "assets.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_sector_y.h"
+#include "assets/ast_sector_z.h"
 #include "assets/ast_vs_player.h"
 
 extern Vec3f D_6030FD0[];
@@ -55,7 +57,7 @@ CollisionHeader D_800D2B38[10] = {
         { -1704.0f, -1006.0f, -4751.0f },
         { 1704.0f, 1030.0f, 4842.0f },
         174,
-        D_6033070,
+        D_SY_6033070,
         D_6033E08,
     },
     {
@@ -90,8 +92,8 @@ CollisionHeader D_800D2B38[10] = {
         { -1386.0f, -696.0f, -2274.0f },
         { 1386.0f, 1033.0f, 1833.0f },
         316,
-        D_6007558,
-        D_6008E08,
+        D_SZ_6007558,
+        D_6008E08, //! TODO: replace with D_SZ_6008E08 after factory fix
     },
     {
         { -671.0f, 0.0f, -671.0f },

@@ -345,7 +345,7 @@ extract:
 	@$(SPLAT) $(SPLAT_YAML)
 
 assets:
-	@echo "Extracting assets..."
+	@echo "Extracting assets from ROM..."
 	@$(TORCH) code $(BASEROM_UNCOMPRESSED) -v
 	@$(TORCH) header $(BASEROM_UNCOMPRESSED)
 	@$(TORCH) modding export $(BASEROM_UNCOMPRESSED)

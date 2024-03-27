@@ -6,23 +6,18 @@
 
 #include "global.h"
 #include "assets.h"
-#include "assets/ast_sector_x.h"
 #include "assets/ast_aquas.h"
 #include "assets/ast_great_fox.h"
 #include "assets/ast_enmy_space.h"
 #include "assets/ast_enmy_planet.h"
 #include "assets/ast_ending.h"
+#include "assets/ast_sector_x.h"
+#include "assets/ast_sector_y.h"
+#include "assets/ast_sector_z.h"
 
 extern Gfx D_60320E0[];
 
 extern s32 D_800C9E90[];
-
-extern Animation D_60265B4;
-extern Animation D_602B8DC;
-extern Animation D_60034C4;
-extern Animation D_602A2CC;
-extern Animation D_602CEB4;
-extern Animation D_602B778;
 
 extern f32 D_80178454;
 extern f32 D_80178458;
@@ -33,15 +28,11 @@ extern f32 D_80178478;
 
 extern Gfx D_6000D80[];
 extern Gfx D_600BAA0[];
-extern Gfx D_60132A0[];
 extern Gfx D_60132B0[];
-extern Gfx D_6014A40[];
 extern Gfx D_6020810[];
 
 extern Animation D_AQ_6020A40;
-extern Animation D_601F3B8;
 extern Limb* D_AQ_6020C6C[];
-extern Limb* D_602D140[];
 
 #include "assets/ast_allies.h"
 
@@ -133,7 +124,7 @@ f32 D_800CA1D4[] = {
 };
 
 Animation* D_800CA1F4[] = {
-    &D_60265B4, &D_602B8DC, &D_60034C4, &D_602A2CC, &D_602CEB4, &D_602B778, &D_601F3B8,
+    &D_SY_60265B4, &D_SY_602B8DC, &D_SY_60034C4, &D_SY_602A2CC, &D_SY_602CEB4, &D_SY_602B778, &D_SY_601F3B8,
 };
 
 void func_80048AC0(s32 teamId) {
@@ -2613,14 +2604,14 @@ void func_8004FEC0(Actor* actor) {
 
         case 25:
             if (actor->index & 1) {
-                gSPDisplayList(gMasterDisp++, D_6001DA0);
+                gSPDisplayList(gMasterDisp++, D_SZ_6001DA0);
             } else {
-                gSPDisplayList(gMasterDisp++, D_6001360);
+                gSPDisplayList(gMasterDisp++, D_SZ_6001360);
             }
             break;
 
         case 26:
-            gSPDisplayList(gMasterDisp++, D_6004FE0);
+            gSPDisplayList(gMasterDisp++, D_SZ_6004FE0);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
             func_8005B1E8(actor, 2);
             break;
@@ -2780,14 +2771,14 @@ void func_8004FEC0(Actor* actor) {
             Matrix_SetGfxMtx(&gMasterDisp);
             /* fallthrough */
         case 39:
-            gSPDisplayList(gMasterDisp++, D_60097E0);
+            gSPDisplayList(gMasterDisp++, D_SY_60097E0);
             func_8004FCB8(actor, 4);
             break;
 
         case 36:
             Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, actor->scale, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_601D730);
+            gSPDisplayList(gMasterDisp++, D_SY_601D730);
             func_8004FCB8(actor, 0);
             break;
 
@@ -2805,7 +2796,7 @@ void func_8004FEC0(Actor* actor) {
             Math_SmoothStepToVec3fArray(sp144, actor->vwork, 1, animFrameData, actor->fwork[2], 100.0f, .0f);
             RCP_SetupDL_30(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 150, 255, 150, 255);
-            Animation_DrawSkeleton(1, D_602D140, actor->vwork, 0, 0, actor, &gIdentityMatrix);
+            Animation_DrawSkeleton(1, D_SY_602D140, actor->vwork, 0, 0, actor, &gIdentityMatrix);
 
             if (actor->fwork[0] != 0.0f) {
                 RCP_SetupDL_49();
@@ -2865,7 +2856,7 @@ void func_8004FEC0(Actor* actor) {
             break;
 
         case 40:
-            gSPDisplayList(gMasterDisp++, D_60132A0);
+            gSPDisplayList(gMasterDisp++, D_SY_60132A0);
             break;
 
         case 41:
@@ -2873,7 +2864,7 @@ void func_8004FEC0(Actor* actor) {
             break;
 
         case 42:
-            gSPDisplayList(gMasterDisp++, D_6014A40);
+            gSPDisplayList(gMasterDisp++, D_SY_6014A40);
             break;
 
         case 43:
@@ -2942,10 +2933,10 @@ void func_800515C4(void) {
         RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, 1005);
     }
 
-    if (D_80177B8C != 0) {
-        gSPDisplayList(gMasterDisp++, D_E000000);
+    if (gGreatFoxIntact) {
+        gSPDisplayList(gMasterDisp++, D_GREAT_FOX_E000000);
     } else {
-        gSPDisplayList(gMasterDisp++, D_E003AB0);
+        gSPDisplayList(gMasterDisp++, D_GREAT_FOX_E003AB0);
     }
 
     if ((gCurrentLevel != LEVEL_AQUAS) &&
@@ -2953,7 +2944,7 @@ void func_800515C4(void) {
         RCP_SetupDL_49();
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
         for (i = 0, var_s6_2 = D_800CA0BC; i < 4; i++, var_s6_2++) {
-            if ((i != 1) || (D_80177B8C != 0)) {
+            if ((i != 1) || gGreatFoxIntact) {
                 sp9C[i] = 0.0f;
                 if (i < 2) {
                     if (!(gGameFrameCount & 0x38)) {

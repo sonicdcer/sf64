@@ -21,6 +21,8 @@ f32 D_80161394;             // can be static
 #include "assets/ast_vs_player.h"
 #include "assets/ast_training.h"
 #include "assets/ast_sector_x.h"
+#include "assets/ast_sector_y.h"
+#include "assets/ast_sector_z.h"
 #include "assets/ast_aquas.h"
 #include "assets/ast_andross.h"
 #include "assets/ast_warp_zone.h"
@@ -618,7 +620,7 @@ void func_8003E1E8(void) {
                             Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, 1);
                             Matrix_RotateX(gGfxMatrix, M_PI / 2, 1);
                             Matrix_SetGfxMtx(&gMasterDisp);
-                            gSPDisplayList(gMasterDisp++, D_6002F80);
+                            gSPDisplayList(gMasterDisp++, D_SZ_6002F80);
                             break;
                         case LEVEL_SECTOR_Y:
                             Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, 1);
@@ -626,7 +628,7 @@ void func_8003E1E8(void) {
                             Matrix_SetGfxMtx(&gMasterDisp);
                             RCP_SetupDL_62();
                             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 192);
-                            gSPDisplayList(gMasterDisp++, D_6001840);
+                            gSPDisplayList(gMasterDisp++, D_SY_6001840);
                             break;
                     }
                 }

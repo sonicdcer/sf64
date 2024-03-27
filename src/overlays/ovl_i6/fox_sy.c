@@ -1,28 +1,8 @@
 #include "global.h"
 #include "assets.h"
+#include "assets/ast_sector_y.h"
 
-extern Animation D_6003348;
-extern Animation D_60034C4;
-extern Gfx D_6013600[];
-extern Gfx D_6014A40[];
-extern Gfx D_6014BD0[];
-extern Gfx D_601F3D0[];
-extern Animation D_60258A0;
-extern Animation D_602645C;
-extern Animation D_60265B4;
-extern Animation D_602738C;
-extern Animation D_6029B48;
-extern Animation D_602A2CC;
-extern Animation D_602B778;
-extern Animation D_602B8DC;
-extern Animation D_602CEB4;
-extern Limb* D_602D140[];
-extern f32 D_60340C0[];
 extern f32 D_6034124[];
-extern f32 D_60341A8[];
-extern f32 D_603421C[];
-extern f32 D_60342A0[];
-extern f32 D_6034304[];
 
 void func_i6_80198244(Boss*);
 void func_i6_80198ABC(Boss*);
@@ -66,9 +46,8 @@ void func_i6_80197B30(Actor* actor, s32 timer) {
 }
 
 void func_i6_80197C64(Effect* effect) {
-
     RCP_SetupDL_21();
-    gSPDisplayList(gMasterDisp++, D_6014A40);
+    gSPDisplayList(gMasterDisp++, D_SY_6014A40);
     RCP_SetupDL(&gMasterDisp, 0x40);
 }
 
@@ -76,41 +55,47 @@ void func_i6_80197CB8(Object_80* obj80) {
 }
 
 void func_i6_80197CC4(Boss* boss) {
-
     boss->fwork[9] = 0.0f;
     boss->swork[33] = 5500;
     boss->timer_050 = 10;
     boss->timer_058 = 0;
     D_80177A10[8] = 0;
+
     if (boss->index == 0) {
-        boss->info.hitbox = SEGMENTED_TO_VIRTUAL(D_60342A0);
+        boss->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_60342A0);
         boss->health = 150;
+
         boss->swork[28] = 5;
         boss->fwork[43] = 3.5f;
         boss->fwork[45] = 40.0f;
+
         if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_9) {
             boss->obj.pos.z = -28900.0f;
             gObjects58[0].obj.pos.z = -30000.0f;
         }
+
         boss->unk_078.y = 0.0f;
         func_i6_8019AEC0(boss);
     } else {
         boss->fwork[34] = 2.8f;
-        boss->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6034304);
+        boss->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_6034304);
         boss->health = 100;
         boss->swork[28] = 0;
         boss->swork[25] = 1;
         boss->fwork[45] = 35.0f;
+
         if (boss->index == 1) {
             boss->unk_078.y = 15.0f;
         } else {
             boss->unk_078.y = 345.0f;
         }
+
         boss->vel.x = SIN_DEG(boss->unk_078.y) * boss->fwork[45] * 0.2f;
         boss->vel.z = COS_DEG(boss->unk_078.y) * boss->fwork[45] * 0.2f;
         func_i6_80198244(boss);
         boss->timer_056 = 250;
     }
+
     if (gLevelMode == LEVELMODE_ON_RAILS) {
         if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) {
             gPlayer[0].state_1C8 = PLAYERSTATE_1C8_9;
@@ -140,6 +125,7 @@ void func_i6_80197F84(Boss* boss) {
     Math_SmoothStepToF(&boss->vel.z, 0.0f, 0.1f, 0.2f, 0.1f);
     Math_SmoothStepToF(&boss->vel.x, 0.0f, 0.1f, 0.2f, 0.1f);
     Math_SmoothStepToAngle(&boss->unk_078.x, 0.0f, 0.1f, 4.0f, 0.1f);
+
     if (func_i6_8019B5CC(boss) != 0) {
         Math_SmoothStepToF(&boss->obj.pos.y, 1000.0f, 0.1f, 30.0f, 0.1f);
     } else {
@@ -154,9 +140,11 @@ void func_i6_80197F84(Boss* boss) {
     yaw = Math_RadToDeg(Math_Atan2F(boss->fwork[18] - boss->obj.pos.x, boss->fwork[20] - boss->obj.pos.z));
 
     Math_SmoothStepToAngle(&boss->unk_078.y, yaw, 0.1f, 8.0f, 0.1f);
+
     if (boss->timer_050 == 0) {
         func_i6_80198244(boss);
     }
+
     if (boss->swork[22] == 1) {
         if (ABS(boss->vel.x) <= 1.0f && (ABS(boss->vel.z) <= 1.0f) &&
             (fabsf(boss->fwork[18] - boss->obj.pos.x) <= 400.0f) &&
@@ -169,6 +157,7 @@ void func_i6_80197F84(Boss* boss) {
             }
         }
     }
+
     if (func_i6_8019B528(boss) != 0) {
         func_i6_80198ABC(boss);
     }
@@ -206,9 +195,11 @@ void func_i6_801983E4(Boss* boss) {
     f32 zSpeed;
 
     func_i6_8019B6E8(boss);
+
     if (boss->timer_052 == 0) {
         func_i6_8019BC14(boss);
     }
+
     Math_SmoothStepToAngle(&boss->unk_078.z, 0.0f, 0.1f, 2.0f, 0.1f);
     Math_SmoothStepToAngle(&boss->unk_078.x, 0.0f, 0.1f, 2.0f, 0.1f);
     Math_SmoothStepToF(&boss->vel.x, boss->fwork[11], 0.1f, 0.5f, 0.1f);
@@ -238,22 +229,27 @@ void func_i6_801983E4(Boss* boss) {
             boss->fwork[34] = 2.8f;
         }
     }
+
     func_i6_8019C194(boss, zSpeed, xSpeed);
+
     if (boss->swork[22] == 1) {
         yAngle = gPlayer[0].unk_114 - 180.0f;
         if (yAngle < 0.0f) {
             yAngle += 360.0f;
         }
+
         yAngle = boss->unk_078.y - yAngle;
         if (yAngle < 0.0f) {
             yAngle += 360.0f;
         }
+
         if ((zSpeed <= 1300.0f) && (xSpeed <= 800.0f) && (yAngle < 260.0f) && (yAngle > 100.0f) &&
             (boss->unk_078.x == 0.0f) && (boss->fwork[34] <= 2.0f)) {
             if (Rand_ZeroOne() < 0.2f) {
                 func_i6_8019AA08(boss);
             }
         }
+
         if ((zSpeed < 3400.0f) || (xSpeed < 2400.0f)) {
             if (((yAngle >= 60.0f) && (yAngle <= 100.0f)) || ((yAngle <= 300.0f) && (yAngle >= 260.0f))) {
                 if (Rand_ZeroOne() < 0.3f) {
@@ -264,6 +260,7 @@ void func_i6_801983E4(Boss* boss) {
                     }
                 }
             }
+
             if (((yAngle > 300.0f) || (yAngle < 60.0f)) && (boss->unk_078.x == 0.0f)) {
                 if (Rand_ZeroOne() < 0.3f) {
                     if (Rand_ZeroOne() < 0.4f) {
@@ -281,11 +278,13 @@ void func_i6_801983E4(Boss* boss) {
             }
         }
     }
+
     if (func_i6_8019B5CC(boss) != 0) {
         Math_SmoothStepToF(&boss->obj.pos.y, 1000.0f, 0.1f, 30.0f, 0.1f);
     } else {
         Math_SmoothStepToF(&boss->obj.pos.y, 0.0f, 0.1f, 5.0f, 0.1f);
     }
+
     if (boss->timer_056 == 0) {
         if (Rand_ZeroOne() <= 0.7f) {
             func_i6_80199D64(boss);
@@ -293,6 +292,7 @@ void func_i6_801983E4(Boss* boss) {
             func_i6_80197F18(boss);
         }
     }
+
     if (func_i6_8019B528(boss) != 0) {
         func_i6_80198ABC(boss);
     }
@@ -305,12 +305,14 @@ void func_i6_80198ABC(Boss* boss) {
     if (yAngle < 0.0f) {
         yAngle += 360.0f;
     }
+
     boss->swork[20] = 4;
     boss->swork[21] = 3;
     boss->fwork[34] = 4.5f;
 
     boss->timer_056 = (s32) (RAND_FLOAT(100.0f) + 100.0f);
     boss->timer_050 = 0;
+
     if (yAngle > 180.0f) {
         boss->fwork[27] = 40.0f;
         if (boss->index == 0) {
@@ -330,11 +332,13 @@ void func_i6_80198ABC(Boss* boss) {
                 func_8002E4F8(gMsg_ID_14200, RCID_FALCO);
             }
             break;
+
         case 1:
             if ((gBosses[1].obj.status == OBJ_FREE) && (gBosses[2].obj.status == OBJ_FREE)) {
                 func_8002E4F8(gMsg_ID_14320, RCID_BOSS_SECTORY);
             }
             break;
+
         case 2:
             if ((gTeamShields[2] > 0) && (gBosses[1].obj.status != OBJ_FREE) && (gBosses[2].obj.status != OBJ_FREE)) {
                 func_8002E4F8(gMsg_ID_14220, RCID_SLIPPY);
@@ -350,9 +354,11 @@ void func_i6_80198CE4(Boss* boss) {
     f32 yAngle;
 
     func_i6_8019B6E8(boss);
+
     if (boss->timer_052 == 0) {
         func_i6_8019BC14(boss);
     }
+
     Math_SmoothStepToAngle(&boss->unk_078.z, boss->fwork[27], 0.1f, 0.5f, 0.1f);
     Math_SmoothStepToAngle(&boss->unk_078.x, 0.0f, 0.1f, 4.0f, 0.1f);
     yAngle = Math_RadToDeg(Math_Atan2F(-boss->obj.pos.x, -300.0f - boss->obj.pos.z));
@@ -362,6 +368,7 @@ void func_i6_80198CE4(Boss* boss) {
     } else {
         Math_SmoothStepToAngle(&boss->unk_078.y, yAngle, 0.1f, 2.0f, 0.1f);
     }
+
     if (boss->index == 0) {
         boss->vel.x = SIN_DEG(boss->unk_078.y) * (boss->fwork[45] + 20.0f);
         boss->vel.z = COS_DEG(boss->unk_078.y) * (boss->fwork[45] + 20.0f);
@@ -369,16 +376,20 @@ void func_i6_80198CE4(Boss* boss) {
         boss->vel.x = SIN_DEG(boss->unk_078.y) * boss->fwork[45];
         boss->vel.z = COS_DEG(boss->unk_078.y) * boss->fwork[45];
     }
+
     if (func_i6_8019B5CC(boss) != 0) {
         Math_SmoothStepToF(&boss->obj.pos.y, 1000.0f, 0.1f, 30.0f, 0.1f);
     } else {
         Math_SmoothStepToF(&boss->obj.pos.y, 0.0f, 0.1f, 5.0f, 0.1f);
     }
+
     Math_SmoothStepToF(&boss->vel.y, 0.0f, 0.1f, 0.2f, 0.1f);
     yAngle -= boss->unk_078.y;
+
     if (yAngle < 0.0f) {
         yAngle += 360.0f;
     }
+
     if ((func_i6_8019B528(boss) == 0) && ((yAngle <= 20.0f) || (yAngle >= 320.0f))) {
         func_i6_80198244(boss);
     }
@@ -394,15 +405,19 @@ void func_i6_80198F5C(Boss* boss) {
     boss->timer_05C = 20;
     func_8007C120(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, boss->vel.x, boss->vel.y, boss->vel.z, 0.1f, 10);
     boss->health -= boss->damage;
+
     if (boss->health < 0) {
         boss->health = 0;
     }
+
     boss->timer_058 = 20;
+
     if (boss->health <= 0) {
         boss->unk_04C = 0;
         boss->swork[36] = 0;
         boss->swork[21] = 9;
         boss->info.hitbox = SEGMENTED_TO_VIRTUAL(D_800CBF34);
+
         if (boss->index == 0) {
             boss->timer_058 = 20000;
             boss->vel.x = boss->vel.y = boss->vel.z = 0.0f;
@@ -425,6 +440,7 @@ void func_i6_80198F5C(Boss* boss) {
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 30);
             return;
         }
+
         if ((gBosses[1].obj.status == OBJ_FREE) || (gBosses[2].obj.status == OBJ_FREE)) {
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 20);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 20);
@@ -581,7 +597,7 @@ void func_i6_80199438(Boss* boss) {
                 Object_Kill(&gActors[D_80177A10[9]].obj, gActors[D_80177A10[9]].sfxSource);
                 if ((gBosses[1].obj.status == OBJ_FREE) || (gBosses[2].obj.status == OBJ_FREE)) {
                     gBosses[0].unk_04A = 1;
-                    gObjects58[0].info.dList = D_601F3D0;
+                    gObjects58[0].info.dList = D_SY_601F3D0;
                     gObjects58[0].info.drawType = 0;
                 } else {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_3;
@@ -608,7 +624,7 @@ void func_i6_80199438(Boss* boss) {
                     }
                 }
                 func_8007D2C8(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 30.0f, 4.0f);
-                boss->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6034304);
+                boss->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_6034304);
                 AUDIO_PLAY_SFX(0x2903A06F, boss->sfxSource, 4);
             }
         }
@@ -849,12 +865,12 @@ void func_i6_8019AA08(Boss* boss) {
         if (Rand_ZeroOne() >= 0.5f) {
             boss->swork[21] = 7;
             boss->swork[31] = 11;
-            boss->swork[32] = Animation_GetFrameCount(&D_602645C) - 1;
+            boss->swork[32] = Animation_GetFrameCount(&D_SY_602645C) - 1;
 
         } else if (boss->index == 0) {
             boss->swork[21] = 8;
             boss->swork[31] = 13;
-            boss->swork[32] = Animation_GetFrameCount(&D_60258A0) - 1;
+            boss->swork[32] = Animation_GetFrameCount(&D_SY_60258A0) - 1;
 
         } else {
             return;
@@ -1369,56 +1385,56 @@ void func_i6_8019C888(Boss* boss) {
 
         switch (boss->swork[21]) {
             case 0:
-                boss->unk_04C = Animation_GetFrameCount(&D_602B778) - 1;
-                sp1D0 = Animation_GetFrameData(&D_602B778, boss->unk_04C, sp64);
+                boss->unk_04C = Animation_GetFrameCount(&D_SY_602B778) - 1;
+                sp1D0 = Animation_GetFrameData(&D_SY_602B778, boss->unk_04C, sp64);
                 break;
             case 1:
-                boss->unk_04C = Animation_GetFrameCount(&D_60265B4) - 1;
-                sp1D0 = Animation_GetFrameData(&D_60265B4, boss->unk_04C, sp64);
+                boss->unk_04C = Animation_GetFrameCount(&D_SY_60265B4) - 1;
+                sp1D0 = Animation_GetFrameData(&D_SY_60265B4, boss->unk_04C, sp64);
                 break;
             case 2:
-                boss->unk_04C = Animation_GetFrameCount(&D_6029B48) - 1;
-                sp1D0 = Animation_GetFrameData(&D_6029B48, boss->unk_04C, sp64);
+                boss->unk_04C = Animation_GetFrameCount(&D_SY_6029B48) - 1;
+                sp1D0 = Animation_GetFrameData(&D_SY_6029B48, boss->unk_04C, sp64);
                 break;
             case 3:
-                boss->unk_04C = Animation_GetFrameCount(&D_602B8DC) - 1;
-                sp1D0 = Animation_GetFrameData(&D_602B8DC, boss->unk_04C, sp64);
+                boss->unk_04C = Animation_GetFrameCount(&D_SY_602B8DC) - 1;
+                sp1D0 = Animation_GetFrameData(&D_SY_602B8DC, boss->unk_04C, sp64);
                 break;
             case 4:
                 boss->unk_04C++;
-                if (boss->unk_04C >= Animation_GetFrameCount(&D_6003348)) {
-                    boss->unk_04C = Animation_GetFrameCount(&D_6003348) - 1;
+                if (boss->unk_04C >= Animation_GetFrameCount(&D_SY_6003348)) {
+                    boss->unk_04C = Animation_GetFrameCount(&D_SY_6003348) - 1;
                 }
-                sp1D0 = Animation_GetFrameData(&D_6003348, boss->unk_04C, sp64);
+                sp1D0 = Animation_GetFrameData(&D_SY_6003348, boss->unk_04C, sp64);
                 break;
             case 5:
                 boss->unk_04C++;
-                if (boss->unk_04C >= Animation_GetFrameCount(&D_602738C)) {
+                if (boss->unk_04C >= Animation_GetFrameCount(&D_SY_602738C)) {
                     boss->unk_04C = 0;
                 }
-                sp1D0 = Animation_GetFrameData(&D_602738C, boss->unk_04C, sp64);
+                sp1D0 = Animation_GetFrameData(&D_SY_602738C, boss->unk_04C, sp64);
                 break;
             case 6:
-                sp1D0 = Animation_GetFrameData(&D_602738C, boss->unk_04C, sp64);
+                sp1D0 = Animation_GetFrameData(&D_SY_602738C, boss->unk_04C, sp64);
                 break;
             case 7:
-                if (boss->unk_04C < (Animation_GetFrameCount(&D_602645C) - 1)) {
+                if (boss->unk_04C < (Animation_GetFrameCount(&D_SY_602645C) - 1)) {
                     boss->unk_04C++;
                 }
-                sp1D0 = Animation_GetFrameData(&D_602645C, boss->unk_04C, sp64);
+                sp1D0 = Animation_GetFrameData(&D_SY_602645C, boss->unk_04C, sp64);
                 break;
             case 8:
-                if (boss->unk_04C < (Animation_GetFrameCount(&D_60258A0) - 1)) {
+                if (boss->unk_04C < (Animation_GetFrameCount(&D_SY_60258A0) - 1)) {
                     boss->unk_04C++;
                 }
-                sp1D0 = Animation_GetFrameData(&D_60258A0, boss->unk_04C, sp64);
+                sp1D0 = Animation_GetFrameData(&D_SY_60258A0, boss->unk_04C, sp64);
                 break;
             case 9:
                 boss->unk_04C++;
-                if (boss->unk_04C >= Animation_GetFrameCount(&D_60034C4)) {
+                if (boss->unk_04C >= Animation_GetFrameCount(&D_SY_60034C4)) {
                     boss->unk_04C = 0;
                 }
-                sp1D0 = Animation_GetFrameData(&D_60034C4, boss->unk_04C, sp64);
+                sp1D0 = Animation_GetFrameData(&D_SY_60034C4, boss->unk_04C, sp64);
                 break;
         }
         boss->obj.rot.x = boss->unk_078.x;
@@ -1645,7 +1661,7 @@ s32 func_i6_8019DC4C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
         case 17:
             rot->x += boss->fwork[8];
             rot->y -= boss->fwork[7];
-            *dList = D_6014BD0;
+            *dList = D_SY_6014BD0;
             break;
         case 18:
             rot->x += boss->fwork[6];
@@ -1680,7 +1696,7 @@ s32 func_i6_8019DE10(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
             break;
         case 4:
             if (boss->swork[25] == 0) {
-                *dList = D_6013600;
+                *dList = D_SY_6013600;
                 if (boss->swork[24] & 1) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 255, 0, 255);
                 }
@@ -1691,7 +1707,7 @@ s32 func_i6_8019DE10(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
         case 17:
             rot->x += boss->fwork[8];
             rot->y -= boss->fwork[7];
-            *dList = D_6014BD0;
+            *dList = D_SY_6014BD0;
             break;
         case 18:
             rot->x += boss->fwork[6];
@@ -1781,7 +1797,7 @@ void func_i6_8019E2C4(Boss* boss) {
         RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     }
     if ((boss->health > 0) || (boss->swork[36] == 0)) {
-        Animation_DrawSkeleton(2, D_602D140, boss->vwork, func_i6_8019DE10, func_i6_8019E014, boss, gCalcMatrix);
+        Animation_DrawSkeleton(2, D_SY_602D140, boss->vwork, func_i6_8019DE10, func_i6_8019E014, boss, gCalcMatrix);
         if (boss->timer_054 != 0) {
             sp9C = D_i6_801A69AC[boss->timer_054];
             RCP_SetupDL_49();
@@ -3298,11 +3314,11 @@ void func_i6_801A3BD4(Actor* actor) {
                 break;
             case 5:
                 actor->unk_046 = 5;
-                actor->unk_0B6 = Animation_GetFrameCount(&D_602B778) - 1;
+                actor->unk_0B6 = Animation_GetFrameCount(&D_SY_602B778) - 1;
                 break;
             case 7:
                 actor->unk_046 = 6;
-                actor->unk_0B6 = Animation_GetFrameCount(&D_602B778) - 1;
+                actor->unk_0B6 = Animation_GetFrameCount(&D_SY_602B778) - 1;
                 break;
         }
         actor->unk_048 = 0;
@@ -3314,30 +3330,30 @@ void func_i6_801A3BD4(Actor* actor) {
             i = actor->iwork[17];
             if (i != 0) {
                 if (i == 1) {
-                    actor->unk_0B6 = Animation_GetFrameCount(&D_60265B4) - 1;
-                    sp4C = Animation_GetFrameData(&D_60265B4, actor->unk_0B6, sp68);
+                    actor->unk_0B6 = Animation_GetFrameCount(&D_SY_60265B4) - 1;
+                    sp4C = Animation_GetFrameData(&D_SY_60265B4, actor->unk_0B6, sp68);
                 } else if (i == 2) {
-                    actor->unk_0B6 = Animation_GetFrameCount(&D_602B8DC) - 1;
-                    sp4C = Animation_GetFrameData(&D_602B8DC, actor->unk_0B6, sp68);
+                    actor->unk_0B6 = Animation_GetFrameCount(&D_SY_602B8DC) - 1;
+                    sp4C = Animation_GetFrameData(&D_SY_602B8DC, actor->unk_0B6, sp68);
                 }
             } else {
-                actor->unk_0B6 = Animation_GetFrameCount(&D_602CEB4);
-                sp4C = Animation_GetFrameData(&D_602CEB4, actor->unk_0B6, sp68);
+                actor->unk_0B6 = Animation_GetFrameCount(&D_SY_602CEB4);
+                sp4C = Animation_GetFrameData(&D_SY_602CEB4, actor->unk_0B6, sp68);
             }
             break;
         case 1:
             i = actor->iwork[17];
             if (i != 0) {
                 if (i == 1) {
-                    actor->unk_0B6 = Animation_GetFrameCount(&D_60265B4) - 1;
-                    sp4C = Animation_GetFrameData(&D_60265B4, actor->unk_0B6, sp68);
+                    actor->unk_0B6 = Animation_GetFrameCount(&D_SY_60265B4) - 1;
+                    sp4C = Animation_GetFrameData(&D_SY_60265B4, actor->unk_0B6, sp68);
                 } else if (i == 2) {
-                    actor->unk_0B6 = Animation_GetFrameCount(&D_602B8DC) - 1;
-                    sp4C = Animation_GetFrameData(&D_602B8DC, actor->unk_0B6, sp68);
+                    actor->unk_0B6 = Animation_GetFrameCount(&D_SY_602B8DC) - 1;
+                    sp4C = Animation_GetFrameData(&D_SY_602B8DC, actor->unk_0B6, sp68);
                 }
             } else {
-                actor->unk_0B6 = Animation_GetFrameCount(&D_602A2CC) - 1;
-                sp4C = Animation_GetFrameData(&D_602A2CC, actor->unk_0B6, sp68);
+                actor->unk_0B6 = Animation_GetFrameCount(&D_SY_602A2CC) - 1;
+                sp4C = Animation_GetFrameData(&D_SY_602A2CC, actor->unk_0B6, sp68);
             }
             if (actor->timer_0BE == 15) {
                 actor->timer_0C4 = 4;
@@ -3365,19 +3381,19 @@ void func_i6_801A3BD4(Actor* actor) {
             }
             break;
         case 2:
-            if (actor->unk_0B6 < (Animation_GetFrameCount(&D_6029B48) - 1)) {
+            if (actor->unk_0B6 < (Animation_GetFrameCount(&D_SY_6029B48) - 1)) {
                 actor->unk_0B6++;
             }
-            sp4C = Animation_GetFrameData(&D_6029B48, actor->unk_0B6, sp68);
+            sp4C = Animation_GetFrameData(&D_SY_6029B48, actor->unk_0B6, sp68);
             break;
         case 4:
             actor->unk_0B6++;
-            if (actor->unk_0B6 >= (Animation_GetFrameCount(&D_602B778) - 1)) {
+            if (actor->unk_0B6 >= (Animation_GetFrameCount(&D_SY_602B778) - 1)) {
                 actor->unk_046 = 0;
                 actor->iwork[17] = 0;
                 actor->fwork[15] = 0.0f;
             }
-            sp4C = Animation_GetFrameData(&D_602B778, actor->unk_0B6, sp68);
+            sp4C = Animation_GetFrameData(&D_SY_602B778, actor->unk_0B6, sp68);
             break;
         case 5:
         case 6:
@@ -3391,14 +3407,14 @@ void func_i6_801A3BD4(Actor* actor) {
                 }
                 actor->unk_046 = 0;
             }
-            sp4C = Animation_GetFrameData(&D_602B778, actor->unk_0B6, sp68);
+            sp4C = Animation_GetFrameData(&D_SY_602B778, actor->unk_0B6, sp68);
             break;
         case 3:
             actor->unk_0B6++;
-            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_6003348)) {
-                actor->unk_0B6 = Animation_GetFrameCount(&D_6003348) - 1;
+            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_SY_6003348)) {
+                actor->unk_0B6 = Animation_GetFrameCount(&D_SY_6003348) - 1;
             }
-            sp4C = Animation_GetFrameData(&D_6003348, actor->unk_0B6, sp68);
+            sp4C = Animation_GetFrameData(&D_SY_6003348, actor->unk_0B6, sp68);
             if ((actor->timer_0BE % 4U) == 0) {
                 func_8007D2C8(RAND_FLOAT_CENTERED(150.0f) + actor->obj.pos.x,
                               RAND_FLOAT_CENTERED(150.0f) + actor->obj.pos.y, actor->obj.pos.z + 30.0f, 4.0f);
@@ -3479,20 +3495,20 @@ void func_i6_801A3BD4(Actor* actor) {
     } else {
         Math_SmoothStepToF(&actor->fwork[27], 0.0f, 1.0f, 0.05f, 0.0f);
     }
-    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_603405C);
+    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_603405C);
     if (actor->unk_046 == 1) {
-        actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_603421C);
+        actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_603421C);
     }
     i = actor->iwork[17];
     if (i != 0) {
         if (i == 1) {
-            actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6034124);
+            actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_6034124);
         } else if (i == 2) {
-            actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_60341A8);
+            actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_60341A8);
         }
     }
     if (actor->unk_046 == 2) {
-        actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_60340C0);
+        actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_60340C0);
     }
 
     if ((actor->unk_0D0 != 0) && (actor->unk_046 != 3)) {
@@ -3554,7 +3570,7 @@ s32 func_i6_801A4A18(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
         rot->x += actor->fwork[28];
         rot->y -= actor->fwork[29];
         if (actor->unk_0B4 == 48) {
-            *dList = D_6014BD0;
+            *dList = D_SY_6014BD0;
         }
     }
     if (limbIndex == 18) {
@@ -3585,7 +3601,7 @@ void func_i6_801A4CB0(Actor* actor) {
     f32 scale;
 
     RCP_SetupDL_30(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    Animation_DrawSkeleton(2, D_602D140, actor->vwork, func_i6_801A4A18, func_i6_801A4C34, actor, gCalcMatrix);
+    Animation_DrawSkeleton(2, D_SY_602D140, actor->vwork, func_i6_801A4A18, func_i6_801A4C34, actor, gCalcMatrix);
 
     if (actor->timer_0C4 != 0) {
         scale = D_i6_801A6B64[actor->timer_0C4];

@@ -1784,12 +1784,12 @@ void func_ending_8018C21C(void) {
                         Matrix_RotateZ(gGfxMatrix, gActors[i].obj.rot.z * M_DTOR, 1);
                         Matrix_SetGfxMtx(&gMasterDisp);
 
-                        if (D_80177B8C != 0) {
-                            gSPDisplayList(gMasterDisp++, D_E000000);
+                        if (gGreatFoxIntact) {
+                            gSPDisplayList(gMasterDisp++, D_GREAT_FOX_E000000);
                         }
 
-                        if (D_80177B8C == 0) {
-                            gSPDisplayList(gMasterDisp++, D_E003AB0);
+                        if (!gGreatFoxIntact) {
+                            gSPDisplayList(gMasterDisp++, D_GREAT_FOX_E003AB0);
                         }
 
                         RCP_SetupDL(&gMasterDisp, 0x31);

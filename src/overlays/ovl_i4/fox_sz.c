@@ -1,5 +1,6 @@
 #include "global.h"
 #include "assets.h"
+#include "assets/ast_sector_z.h"
 
 s32 D_i4_801A0560;
 s32 D_i4_801A0564;
@@ -7,10 +8,6 @@ s32 D_i4_801A0564;
 Vec3f D_i4_8019F4C0[] = { 0.0f, 0.0f, 35000.0f, -2000.0f, 0.0f, 35000.0f, 2000.0f, 0.0f, 35000.0f };
 Vec3f D_i4_8019F4E4[] = { -700.0f, -200.0f, 200.0f,  500.0f, 200.0f, -300.0f,
                           300.0f,  -300.0f, -200.0f, 200.0f, 400.0f, 500.0f };
-
-extern Gfx D_6001A10[];
-extern Gfx D_60045E0[];
-extern f32 D_6009230[];
 
 extern s32 D_80161710;
 
@@ -188,7 +185,7 @@ void func_i4_80199FCC(Actor* actor, s32 arg1) {
 
     actor->health = 250;
     actor->info.drawType = 2;
-    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6009230);
+    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SZ_6009230);
     actor->fwork[1] = 25.0f;
     actor->fwork[29] = 2.0f;
 
@@ -1027,7 +1024,7 @@ f32 D_i4_8019F63C[] = { -200.0f, -250.0f, -500.0f, 5000.0f };
 void func_i4_8019C574(Actor* actor, s32 index) {
     f32 var_fv0 = 1.0f;
 
-    if (D_80177B8C == 0) {
+    if (!gGreatFoxIntact) {
         var_fv0 = -1.0f;
     }
 
@@ -1096,7 +1093,7 @@ void func_i4_8019C85C(Player* player) {
     Boss* boss0 = &gBosses[0];
     f32 var_fv1 = 1.0f;
 
-    if (D_80177B8C == 0) {
+    if (!gGreatFoxIntact) {
         var_fv1 = -1.0f;
     }
 
@@ -1195,11 +1192,11 @@ void func_i4_8019C85C(Player* player) {
             Math_SmoothStepToF(&boss0->fwork[2], 0.5f, 1.0f, 0.05f, 0.0f);
             Math_SmoothStepToF(&boss0->fwork[3], 0.7f, 1.0f, 0.7f, 0.0f);
 
-            if ((gCsFrameCount == 100) && (D_80177B8C != 0)) {
+            if ((gCsFrameCount == 100) && gGreatFoxIntact) {
                 AUDIO_PLAY_BGM(SEQ_ID_38);
             }
 
-            if ((gCsFrameCount == 210) && (D_80177B8C != 0)) {
+            if ((gCsFrameCount == 210) && gGreatFoxIntact) {
                 D_80177840 = 100;
                 D_80177930 = 1;
             }
@@ -1222,7 +1219,7 @@ void func_i4_8019C85C(Player* player) {
             D_80178340 = 0;
 
             if (player->timer_1F8 == 0) {
-                if (D_80177B8C == 0) {
+                if (!gGreatFoxIntact) {
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
                 }
@@ -1351,7 +1348,7 @@ void func_i4_8019C85C(Player* player) {
             break;
     }
 
-    if (D_80177B8C != 0) {
+    if (gGreatFoxIntact) {
         switch (gCsFrameCount) {
             case 1729:
                 Radio_PlayMessage(gMsg_ID_16250, RCID_ROB64);
@@ -1476,7 +1473,7 @@ void func_i4_8019C85C(Player* player) {
             break;
 
         case 1370:
-            if (D_80177B8C != 0) {
+            if (gGreatFoxIntact) {
                 D_80177930 = 1;
             } else {
                 AUDIO_PLAY_BGM(SEQ_ID_49);
@@ -1485,7 +1482,7 @@ void func_i4_8019C85C(Player* player) {
             break;
 
         case 1560:
-            if (D_80177B8C == 0) {
+            if (!gGreatFoxIntact) {
                 D_80177840 = 100;
             }
             break;
@@ -1618,7 +1615,7 @@ void func_i4_8019DD20(Actor* actor) {
                 break;
 
             case 400:
-                if (D_80177B8C != 0) {
+                if (gGreatFoxIntact) {
                     Radio_PlayMessage(gMsg_ID_16160, RCID_KATT);
                 } else {
                     Radio_PlayMessage(gMsg_ID_16165, RCID_KATT);
@@ -1689,10 +1686,10 @@ void func_i4_8019E234(Actor* actor) {
 }
 
 void func_i4_8019E3A8(Actor* actor) {
-    gSPDisplayList(gMasterDisp++, D_6001A10);
+    gSPDisplayList(gMasterDisp++, D_SZ_6001A10);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     RCP_SetupDL(&gMasterDisp, 0x39);
-    gSPDisplayList(gMasterDisp++, D_60045E0);
+    gSPDisplayList(gMasterDisp++, D_SZ_60045E0);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
@@ -1719,7 +1716,7 @@ void func_i4_8019E454(Boss* boss) {
     }
 
     if (boss->timer_050 == 1) {
-        D_80177B8C = 0;
+        gGreatFoxIntact = false;
     }
 
     if (boss->timer_050 == 5) {
@@ -1760,7 +1757,7 @@ void func_i4_8019E454(Boss* boss) {
     boss->obj.rot.y = boss->unk_078.y + 180.0f;
     boss->obj.rot.z = -boss->unk_078.z;
 
-    if (D_80177B8C == 0) {
+    if (!gGreatFoxIntact) {
         Matrix_RotateY(gCalcMatrix, (boss->obj.rot.y - 270.0f) * M_DTOR, 0);
         Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, 1);
         Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, 1);

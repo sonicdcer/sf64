@@ -85,8 +85,12 @@
 
   - name: ast_great_fox
     exclusive_ram_id: segment_0E
-    type: bin
+    type: code
+    dir: assets
     start: 0x92EC40
+    vram: 0x0E000000
+    subsegments:
+      - [0x92EC40, .data, ast_great_fox/ast_great_fox]
 
   - name: ast_star_wolf
     exclusive_ram_id: segment_0F
@@ -173,8 +177,12 @@
 
   - name: ast_sector_z
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xA4FBB0
+    vram: 0x06000000
+    subsegments:
+      - [0xA4FBB0, .data, ast_sector_z/ast_sector_z]
 
   - name: ast_aquas
     exclusive_ram_id: segment_06
@@ -222,8 +230,12 @@
 
   - name: ast_sector_y
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xB2CA50
+    vram: 0x06000000
+    subsegments:
+      - [0xB2CA50, .data, ast_sector_y/ast_sector_y]
 
   - name: ast_solar
     exclusive_ram_id: segment_06

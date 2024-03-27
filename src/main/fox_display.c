@@ -17,6 +17,7 @@ f32 D_801615B8[4];
 #include "assets/ast_allies.h"
 #include "assets/ast_landmaster.h"
 #include "assets/ast_vs_player.h"
+#include "assets/ast_sector_z.h"
 
 s32 D_800CA220 = 0;
 u8 D_800CA224[] = { 0, 0, 0, 0 };
@@ -1390,7 +1391,7 @@ void func_80057248(void) {
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
                 if ((i == 0) && (gCurrentLevel == LEVEL_SECTOR_Z)) {
-                    gSPDisplayList(gMasterDisp++, D_6004330);
+                    gSPDisplayList(gMasterDisp++, D_SZ_6004330);
                 } else {
                     gSPDisplayList(gMasterDisp++, D_800CA354[i]);
                 }
