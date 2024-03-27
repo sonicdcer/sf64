@@ -5,7 +5,6 @@
 
 extern ObjectInit D_60371A4[];
 extern ObjectInit D_6026CC4[];
-extern ObjectInit D_602E4F4[];
 extern ObjectInit D_6007E74[];
 extern ObjectInit D_601F234[];
 extern ObjectInit D_6026714[];

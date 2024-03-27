@@ -4,6 +4,7 @@
 #include "fox_map.h"
 #include "assets/ast_training.h"
 #include "assets/ast_sector_x.h"
+#include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
 #include "assets/ast_aquas.h"
 #include "assets/ast_andross.h"
@@ -379,7 +380,7 @@ void func_800A55B0(void) {
     s32 i;
     s32 j;
 
-    D_80178310 = SEGMENTED_TO_VIRTUAL(D_6030B14);
+    D_80178310 = SEGMENTED_TO_VIRTUAL(D_SY_6030B14);
 
     for (j = 0, obj58 = gObjects58; j < 200; j++) {
         if (D_80178310[j].id <= OBJ_INVALID) {
@@ -462,7 +463,7 @@ void func_800A5844(void) {
 }
 
 EnvSettings* D_800D2F98[21] = {
-    &D_6037160, &D_ENV_6026C80, &D_SX_602A120, &D_A6_6023F20,  &D_A6_6028760,  &D_602E4B0, &D_6007E30,
+    &D_6037160, &D_ENV_6026C80, &D_SX_602A120, &D_A6_6023F20,  &D_A6_6028760,  &D_SY_602E4B0, &D_6007E30,
     &D_601F1F0, &D_60266D0,     &D_C035110,    &D_TR_6006A60,  &D_6030E30_Env, &D_6005000, &D_AQ_602E540,
     &D_600EA90, NULL,           &D_6011000,    &D_600FF30_Env, &D_SZ_6006E70,  &D_6014D50, &D_vs_player_302DD70,
 };

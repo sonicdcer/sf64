@@ -3,6 +3,7 @@
 #include "variables.h"
 #include "assets.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
 #include "assets/ast_vs_player.h"
 
@@ -56,7 +57,7 @@ CollisionHeader D_800D2B38[10] = {
         { -1704.0f, -1006.0f, -4751.0f },
         { 1704.0f, 1030.0f, 4842.0f },
         174,
-        D_6033070,
+        D_SY_6033070,
         D_6033E08,
     },
     {
