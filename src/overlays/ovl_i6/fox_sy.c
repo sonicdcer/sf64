@@ -405,7 +405,7 @@ void func_i6_80198F5C(Boss* boss) {
     boss->timer_05C = 20;
     func_8007C120(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, boss->vel.x, boss->vel.y, boss->vel.z, 0.1f, 10);
     boss->health -= boss->damage;
-    
+
     if (boss->health < 0) {
         boss->health = 0;
     }
