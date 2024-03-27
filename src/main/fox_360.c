@@ -5,6 +5,7 @@
 #include "assets/ast_allies.h"
 #include "assets/ast_vs_player.h"
 #include "assets/ast_enmy_planet.h"
+#include "assets/ast_sector_z.h"
 
 /* static */ Vec3f D_800C9A90 = { 0.0f, -10.0f, 0.0f };
 /* static */ Vec3f D_800C9A9C[4] = {
@@ -2229,8 +2230,8 @@ void func_80035448(Actor* actor) {
                 func_8004FEC0(actor);
                 break;
             case 200:
-                Animation_GetFrameData(&D_6006D64, 0, sp7C);
-                Animation_DrawSkeleton(3, D_6006E50, sp7C, func_800352E0, NULL, actor, gCalcMatrix);
+                Animation_GetFrameData(&D_SZ_6006D64, 0, sp7C);
+                Animation_DrawSkeleton(3, D_SZ_6006E50, sp7C, func_800352E0, NULL, actor, gCalcMatrix);
                 Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -400.0f, 1);
                 Matrix_Scale(gGfxMatrix, actor->fwork[29], actor->fwork[29], actor->fwork[29], 1);
                 func_8005B1E8(actor, 3);
@@ -2260,7 +2261,7 @@ void func_80035448(Actor* actor) {
                             break;
                     }
                 } else if (gCurrentLevel == LEVEL_SECTOR_Z) {
-                    gSPDisplayList(gMasterDisp++, D_6004FE0) Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
+                    gSPDisplayList(gMasterDisp++, D_SZ_6004FE0) Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
                     func_8005B1E8(actor, 2);
                 } else if (gCurrentLevel == LEVEL_BOLSE) {
                     gSPDisplayList(gMasterDisp++, D_6008770) Matrix_Push(&gGfxMatrix);

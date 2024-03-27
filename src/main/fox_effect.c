@@ -22,6 +22,7 @@ extern Gfx D_601BAD0[];
 #include "assets/ast_bg_planet.h"
 #include "assets/ast_training.h"
 #include "assets/ast_sector_x.h"
+#include "assets/ast_sector_y.h"
 #include "assets/ast_aquas.h"
 #include "assets/ast_area_6.h"
 #include "assets/ast_A_ti.h"
@@ -807,7 +808,7 @@ void func_800798F0(Effect* effect) {
 
                 case 16:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_600F6C0);
+                    gSPDisplayList(gMasterDisp++, D_SY_600F6C0);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
 

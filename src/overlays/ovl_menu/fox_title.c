@@ -2487,7 +2487,7 @@ void func_menu_8018E058(void) {
     Matrix_SetGfxMtx(&gMasterDisp);
     RCP_SetupDL(&gMasterDisp, 0x17);
 
-    D_80177B8C = 1;
+    gGreatFoxIntact = true;
 
     func_800515C4();
     func_8005F1EC(D_menu_801B8658.unk_24);
