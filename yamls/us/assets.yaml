@@ -71,8 +71,12 @@
 
   - name: ast_enmy_planet
     exclusive_ram_id: segment_04
-    type: bin
+    type: code
+    dir: assets
     start: 0x918430
+    vram: 0x04000000
+    subsegments:
+      - [0x918430, .data, ast_enmy_planet/ast_enmy_planet]
 
   - name: ast_enmy_space
     exclusive_ram_id: segment_04
