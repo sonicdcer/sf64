@@ -2022,7 +2022,6 @@ s32 func_8008A4DC(void) {
     f32 temp;
     f32 temp2;
     f32 temp3;
-    
 
     if (!gVersusMode) {
         if (gLevelMode != LEVELMODE_ALL_RANGE) {
