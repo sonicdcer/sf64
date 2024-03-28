@@ -1,7 +1,7 @@
 // #include "prevent_bss_reordering.h"
 #include "global.h"
-#include "assets.h"
 #include "assets/ast_bg_planet.h"
+#include "assets/ast_titania.h"
 #include "assets/ast_7_ti_1.h"
 #include "assets/ast_7_ti_2.h"
 #include "assets/ast_8_ti.h"
@@ -11,10 +11,6 @@
 #include "assets/ast_enmy_planet.h"
 
 extern Gfx D_Gfx_800D94D0[];
-
-extern f32 D_6006924[];
-extern f32 D_6006C0C[];
-extern f32 D_6006C28[];
 
 s32* D_i5_801BBEF0;
 f32* D_i5_801BBEF4;
@@ -317,7 +313,7 @@ void func_i5_80189B80(Actor* actor) {
 
     func_i5_801B6E20(actor->obj.pos.x, actor->obj.pos.z + D_80177D20, &sp2C, &actor->obj.pos.y, &sp2C);
     actor->health = 10;
-    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_60068F0);
+    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_TI_60068F0);
     Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
     Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, 1);
     Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, 1);
@@ -348,7 +344,7 @@ void func_i5_80189CC8(Actor* actor) {
                 actor->info.unk_1C = 0.0f;
                 func_80066254(actor);
                 actor->info.bonus = 0;
-                actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6006924);
+                actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_TI_6006924);
                 func_8007D0E0(actor->fwork[0], actor->fwork[1], actor->fwork[2], 2.0f);
             }
         }
@@ -2113,13 +2109,13 @@ void func_i5_8018F4D8(Object_80* obj80) {
     if (obj80->unk_44 != 0) {
         if (obj80->obj.rot.z == 0.0f) {
             obj80->obj.pos.x = obj80->vel.z;
-            obj80->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6006BF0);
+            obj80->info.hitbox = SEGMENTED_TO_VIRTUAL(D_TI_6006BF0);
         } else if (obj80->obj.rot.z > 0.0f) {
             obj80->obj.pos.x = obj80->vel.z - 75.0f;
-            obj80->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6006C28);
+            obj80->info.hitbox = SEGMENTED_TO_VIRTUAL(D_TI_6006C28);
         } else {
             obj80->obj.pos.x = obj80->vel.z + 75.0f;
-            obj80->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6006C0C);
+            obj80->info.hitbox = SEGMENTED_TO_VIRTUAL(D_TI_6006C0C);
         }
     }
 }

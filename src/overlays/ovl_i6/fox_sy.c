@@ -1,8 +1,5 @@
 #include "global.h"
-#include "assets.h"
 #include "assets/ast_sector_y.h"
-
-extern f32 D_6034124[];
 
 void func_i6_80198244(Boss*);
 void func_i6_80198ABC(Boss*);
