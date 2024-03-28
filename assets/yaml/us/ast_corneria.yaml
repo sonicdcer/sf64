@@ -53,6 +53,12 @@ D_CO_6007610:
 D_CO_60091C8: 
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x060091C8, symbol: D_CO_60091C8 }
 
+D_CO_60099C8: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x060099C8, symbol: D_CO_60099C8 }
+
+D_CO_6009BC8: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06009BC8, symbol: D_CO_6009BC8 }
+
 D_CO_600A3C8: 
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0600A3C8, symbol: D_CO_600A3C8 }
 
@@ -88,6 +94,15 @@ D_CO_6010050:
   
 D_CO_6010250:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06010250, symbol: D_CO_6010250 }
+  
+D_CO_60199D0: 
+  { type: GFX, offset: 0x60199D0, symbol: D_CO_60199D0 }
+
+D_CO_6019C60: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06019C60, symbol: D_CO_6019C60 }
+  
+D_CO_6019E60: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06019E60, symbol: D_CO_6019E60 }
   
 D_CO_60245E0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x060245E0, symbol: D_CO_60245E0 }
