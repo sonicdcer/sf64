@@ -1,0 +1,11 @@
+:config:
+  segments:
+    - [0x06, 0x961CE0]
+  header:
+    code:
+      - '#include "assets/ast_corneria.h"'
+    header:
+      - '#include "gfx.h"'
+      - '#include "sf64object.h"'
+      - '#include "structs.h"'
+
