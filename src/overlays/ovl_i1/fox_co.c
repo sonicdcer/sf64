@@ -1086,7 +1086,7 @@ void func_i1_8018A730(s32 limbIndex, Vec3f* rot, void* data) {
 extern Limb* D_602BE64[];
 
 void func_i1_8018AA74(Boss* boss) {
-    Matrix_Translate(gCalcMatrix, 0.0f, 700.0f, 0.0f, (u8) 1);
+    Matrix_Translate(gCalcMatrix, 0.0f, 700.0f, 0.0f, 1);
     Animation_DrawSkeleton(2, D_602BE64, boss->vwork, func_i1_8018A434, func_i1_8018A730, boss, gCalcMatrix);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
