@@ -9,6 +9,7 @@ Matrix D_801615F0;
 WingInfo D_80161630;
 
 #include "fox_edisplay_assets.h"
+#include "assets/ast_corneria.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_aquas.h"
 #include "assets/ast_7_ti_1.h"
@@ -108,7 +109,7 @@ void func_80059BB0(void* arg0) {
 }
 
 void func_80059BBC(Object_80* obj80) {
-    gSPDisplayList(gMasterDisp++, D_6023AC0);
+    gSPDisplayList(gMasterDisp++, D_CO_6023AC0);
 }
 
 void func_80059BF0(Actor* actor) {
@@ -200,7 +201,7 @@ Gfx* D_800CFADC[] = {
 };
 Gfx* D_800CFB08[] = { D_6020F10, D_6021100, D_60214B0 };
 Gfx* D_800CFB14[] = { D_60163E0, D_60165D0, D_6016880, D_6016B50, D_6000C40 };
-Gfx* D_800CFB28[] = { D_6018E80, D_601F620, D_601F420, D_6018C80, D_601F940, D_601F260 };
+Gfx* D_800CFB28[] = { D_CO_6018E80, D_601F620, D_601F420, D_6018C80, D_601F940, D_601F260 };
 Gfx* D_800CFB40[] = {
     D_6014DB0, D_60146D0, D_6014B80, D_6014470, D_6014930, D_60138A0, D_60151A0, D_600F750, D_6015810,
 };
@@ -590,8 +591,8 @@ void func_8005B848(Actor* actor) {
 
 void func_8005B9A4(Actor* actor) {
     Matrix_Translate(gGfxMatrix, 0.0f, -124.0f, 0.0f, 1);
-    Animation_GetFrameData(&D_6029528, actor->unk_0B6, actor->vwork);
-    Animation_DrawSkeleton(1, D_6029674, actor->vwork, NULL, NULL, actor, &gIdentityMatrix);
+    Animation_GetFrameData(&D_CO_6029528, actor->unk_0B6, actor->vwork);
+    Animation_DrawSkeleton(1, D_CO_6029674, actor->vwork, NULL, NULL, actor, &gIdentityMatrix);
 }
 
 void func_8005BA30(Actor* actor) {
@@ -599,7 +600,7 @@ void func_8005BA30(Actor* actor) {
         RCP_SetupDL_27();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
-    gSPDisplayList(gMasterDisp++, D_6020B40);
+    gSPDisplayList(gMasterDisp++, D_CO_6020B40);
 }
 
 void func_8005BAAC(void) {

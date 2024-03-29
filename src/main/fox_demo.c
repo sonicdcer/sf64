@@ -28,7 +28,6 @@ extern f32 D_80178478;
 
 extern Gfx D_6000D80[];
 extern Gfx D_600BAA0[];
-extern Gfx D_60132B0[];
 extern Gfx D_6020810[];
 
 extern Animation D_AQ_6020A40;

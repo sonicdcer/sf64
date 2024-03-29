@@ -2,6 +2,7 @@
 #include "global.h"
 #include "assets.h"
 #include "fox_map.h"
+#include "assets/ast_corneria.h"
 #include "assets/ast_training.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
@@ -345,7 +346,7 @@ void func_800A5338(void) {
             obj58->obj.rot.y = D_80178310[j].rot.y;
             Object_SetInfo(&obj58->info, obj58->obj.id);
             if (obj58->obj.id == OBJ_80_1) {
-                obj58->info.dList = D_6020760;
+                obj58->info.dList = D_CO_6020760;
             }
             obj58++;
         }
@@ -6171,9 +6172,9 @@ void func_800B79B0(void) {
             }
             break;
         case LEVEL_CORNERIA:
-            func_8008C104(D_603EB38, D_6028A60);
+            func_8008C104(D_603EB38, D_CO_6028A60);
             if (gGameFrameCount & 1) {
-                Texture_Scroll(D_600CBD8, 64, 32, 3);
+                Texture_Scroll(D_CO_600CBD8, 64, 32, 3);
             }
             break;
         case LEVEL_AQUAS:

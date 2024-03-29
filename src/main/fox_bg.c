@@ -19,6 +19,7 @@ f32 D_80161394;             // can be static
 
 #include "assets/ast_bg_planet.h"
 #include "assets/ast_vs_player.h"
+#include "assets/ast_corneria.h"
 #include "assets/ast_training.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
@@ -325,7 +326,7 @@ void func_8003E1E8(void) {
                     Matrix_SetGfxMtx(&gMasterDisp);
                     switch (gCurrentLevel) {
                         case LEVEL_CORNERIA:
-                            gSPDisplayList(gMasterDisp++, D_60059F0);
+                            gSPDisplayList(gMasterDisp++, D_CO_60059F0);
                             break;
                         case LEVEL_VENOM_1:
                             gSPDisplayList(gMasterDisp++, D_60046F0);
@@ -335,7 +336,7 @@ void func_8003E1E8(void) {
                     Matrix_SetGfxMtx(&gMasterDisp);
                     switch (gCurrentLevel) {
                         case LEVEL_CORNERIA:
-                            gSPDisplayList(gMasterDisp++, D_60059F0);
+                            gSPDisplayList(gMasterDisp++, D_CO_60059F0);
                             break;
                         case LEVEL_VENOM_1:
                             gSPDisplayList(gMasterDisp++, D_60046F0);
@@ -874,24 +875,24 @@ void func_80040CE4(void) {
                 RCP_SetupDL_20(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             }
             if (gLevelMode == LEVELMODE_ON_RAILS) {
-                gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, SEGMENTED_TO_VIRTUAL(D_601B6C0));
+                gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, SEGMENTED_TO_VIRTUAL(D_CO_601B6C0));
                 temp_s0 = fabsf(Math_ModF(2.0f * (D_80177CE8 * 0.2133333f), 128.0f));
                 temp_fv0 = Math_ModF((10000.0f - gPlayer[gPlayerNum].unk_0AC) * 0.32f, 128.0f);
                 gDPSetupTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, temp_fv0, temp_s0,
                              G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
                 switch (D_80161A88) {
                     case 0:
-                        gDPLoadTileTexture(gMasterDisp++, D_601B6C0, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
+                        gDPLoadTileTexture(gMasterDisp++, D_CO_601B6C0, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
                         gBgColor = 0x845; // 8, 8, 32
                         break;
                     case 1:
-                        gDPLoadTileTexture(gMasterDisp++, D_6028260, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
+                        gDPLoadTileTexture(gMasterDisp++, D_CO_6028260, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
                         gBgColor = 0x845; // 8, 8, 32
                         break;
                     case 2:
                         RCP_SetupDL_45(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
                         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 128);
-                        gDPLoadTileTexture(gMasterDisp++, D_6028A60, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
+                        gDPLoadTileTexture(gMasterDisp++, D_CO_6028A60, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
                         gBgColor = 0x190F; // 24, 32, 56
                         break;
                 }
@@ -899,12 +900,12 @@ void func_80040CE4(void) {
                 Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -3000.0f, 1);
                 Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.5f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_601B640);
+                gSPDisplayList(gMasterDisp++, D_CO_601B640);
                 Matrix_Pop(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 3000.0f, 1);
                 Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.5f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_601B640);
+                gSPDisplayList(gMasterDisp++, D_CO_601B640);
             } else {
                 D_80161A88 = 0;
                 gBgColor = 0x845; // 8, 8, 32
@@ -912,7 +913,7 @@ void func_80040CE4(void) {
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, D_800C9E64[i], 0.0f, D_800C9E74[i], 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_601EAA0);
+                    gSPDisplayList(gMasterDisp++, D_CO_601EAA0);
                     Matrix_Pop(&gGfxMatrix);
                 }
             }

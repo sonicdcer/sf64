@@ -16,7 +16,6 @@
  * ast_katina, ast_macbeth, ast_title, ast_map, ast_training
  */
 extern Gfx D_60005B0[]; // fox_bg
-extern Gfx D_6000E00[]; // fox_edata_1C
 extern Gfx D_6001360[]; // fox_bg, fox_demo, fox_edata_1C. Possible symbol collision
 extern Gfx D_6001530[]; // fox_360, fox_demo, fox_ka
 extern Gfx D_6001A60[]; // fox_effect
@@ -28,15 +27,12 @@ extern Gfx D_6002E60[]; // fox_bg
 extern Gfx D_6003000[]; // fox_edata_1C
 extern Gfx D_60030F0[]; // fox_edata_1C
 extern Gfx D_60038E0[];
-extern u16 D_60038F8[];
 extern Gfx D_6004170[];
 extern Vtx D_6004500[];
 extern Gfx D_60046F0[];
-extern Gfx D_6004900[];
 extern u16 D_6005710[];
 extern Gfx D_6005780[];
 extern Gfx D_6005880[];
-extern Gfx D_60059F0[];
 extern Gfx D_6006140[];
 extern Gfx D_6006310[];
 extern Animation D_600636C;
@@ -44,7 +40,6 @@ extern Limb* D_6006558[];
 extern Gfx D_60066D0[];
 extern u16 D_6006750[];
 extern EnvSettings D_6006A60;
-extern Gfx D_6006A80[];
 extern Gfx D_6006BE0[];
 extern u16 D_6006EA0[];
 extern Gfx D_6006F50[];
@@ -85,7 +80,6 @@ extern u16 D_600C6A0[];
 extern Gfx D_600C740[];
 extern Vtx D_600C780[];
 extern Gfx D_600CAA0[];
-extern u16 D_600CBD8[];
 extern Gfx D_600D190[];
 extern Animation D_600D3DC;
 extern u16 D_600D5C0[];
@@ -137,9 +131,7 @@ extern CollisionPoly D_6010294[];
 extern u8 D_60106B0[];
 extern Gfx D_6010700[];
 extern Gfx D_6010960[];
-extern Gfx D_6010A50[];
 extern u16 D_6010C20[];
-extern Gfx D_6010E00[];
 extern u8 D_6010FA0[];
 extern EnvSettings D_KA_6011000;
 extern f32 D_6011058[];
@@ -156,25 +148,17 @@ extern u8 D_6012310[];
 extern u8 D_60123F0[];
 extern Gfx D_6012C00_Gfx[];
 extern Animation D_6012C00_Anim;
-extern Gfx D_60132B0[];
 extern u8 D_6013470[];
 extern Gfx D_6013480[];
-extern Gfx D_60137B0[];
 extern Animation D_601388C;
 extern Gfx D_6013960[];
-extern Gfx D_6013B50[];
 extern u8 D_6014140[];
-extern Gfx D_60143E0[];
-extern Gfx D_6014500[];
 extern u16 D_6014510[];
 extern Animation D_6014658;
-extern Gfx D_6014670[];
 extern u16 D_60147C0[];
 extern u8 D_60147E0[];
 extern u8 D_60148B0[];
 extern Gfx D_60148D0[];
-extern Gfx D_6014A20[];
-extern Gfx D_6014B50[];
 extern EnvSettings D_VE2_6014D50;
 extern CollisionPoly D_6014FEC[];
 extern Gfx D_60153B0[];

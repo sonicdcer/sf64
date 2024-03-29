@@ -8,6 +8,7 @@ s32 D_80161690;
 #include "fox_enmy2_assets.h"
 #include "assets/ast_arwing.h"
 #include "assets/ast_training.h"
+#include "assets/ast_corneria.h"
 #include "assets/ast_warp_zone.h"
 #include "assets/ast_allies.h"
 #include "assets/ast_sector_x.h"
@@ -103,7 +104,7 @@ void func_8006AA98(Object_80* obj80) {
     Vec3f sp24;
     Vec3f sp18;
 
-    Texture_Scroll(D_60038F8, 32, 32, 1);
+    Texture_Scroll(D_CO_60038F8, 32, 32, 1);
     if ((gGameFrameCount % 4) == 0) {
         Matrix_RotateY(gCalcMatrix, obj80->obj.rot.y * M_DTOR, 0);
 
@@ -873,7 +874,7 @@ UnkStruct_D003C D_800D003C[108] = {
     { D_ENMY_PLANET_40073C0, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
     { D_ENMY_PLANET_4007AF0, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
     { NULL, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 1.0f, 1 },
-    { D_6011F90, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 0.0f, 1 },
+    { D_CO_6011F90, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 0.0f, 1 },
     { D_ENMY_PLANET_4000710, D_800CBE8C, 1.0f, 100.0f, 3000.0f, 2, 0, 1, 1, 1.0f, 1 },
     { NULL, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 6, 0, 1.0f, 1 },
     { D_ENMY_SPACE_400BD20, D_800CBEC4, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },

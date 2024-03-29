@@ -56,7 +56,6 @@ extern Gfx D_60165D0[];
 extern Gfx D_6016880[];
 extern Gfx D_6016B50[];
 extern Gfx D_6000C40[];
-extern Gfx D_6018E80[];
 extern Gfx D_601F620[];
 extern Gfx D_601F420[];
 extern Gfx D_6018C80[];
