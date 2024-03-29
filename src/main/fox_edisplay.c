@@ -1,7 +1,7 @@
 
 #include "global.h"
 #include "assets.h"
-// #include "prevent_bss_reordering.h"
+#include "prevent_bss_reordering.h"
 Vec3f D_801615D0;
 Vec3f D_801615E0;
 s32 D_801615EC;
@@ -11,6 +11,7 @@ WingInfo D_80161630;
 #include "fox_edisplay_assets.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_macbeth.h"
 #include "assets/ast_7_ti_1.h"
 #include "assets/ast_andross.h"
 #include "assets/ast_star_wolf.h"
@@ -54,7 +55,7 @@ void func_800598DC(s32 arg0) {
 
 void func_800598E8(Actor* actor) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    gSPDisplayList(gMasterDisp++, D_6025B50);
+    gSPDisplayList(gMasterDisp++, D_MA_6025B50);
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
 
@@ -1792,7 +1793,7 @@ void TexturedLine_Draw(void) {
             } else {
                 Matrix_SetGfxMtx(&gMasterDisp);
                 if (gCurrentLevel == LEVEL_MACBETH) {
-                    gSPDisplayList(gMasterDisp++, D_6012C00_Gfx);
+                    gSPDisplayList(gMasterDisp++, D_MA_6012C00);
                 } else {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, texLine->unk_2C, texLine->unk_2D, texLine->unk_2E,
                                     texLine->unk_2F);

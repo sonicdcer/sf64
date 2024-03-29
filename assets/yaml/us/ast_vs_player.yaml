@@ -723,16 +723,16 @@ D_vs_player_302EE9C:
   { type: SF64:HITBOX, offset: 0x302EE9C, symbol: D_vs_player_302EE9C}
 
 D_vs_player_302EEE8:
-  { type: SF64:TRIANGLE, count: 4, offset: 0x302EEE8, symbol: D_vs_player_302EEE8, mesh_symbol: "D_vs_player_OFFSET"}
+  { type: SF64:TRIANGLE, count: 4, offset: 0x302EEE8, symbol: D_vs_player_302EEE8, mesh_symbol: D_vs_player_OFFSET}
 
 D_vs_player_302EF6C:
-  { type: SF64:TRIANGLE, count: 4, offset: 0x302EF6C, symbol: D_vs_player_302EF6C, mesh_symbol: "D_vs_player_OFFSET"}
+  { type: SF64:TRIANGLE, count: 4, offset: 0x302EF6C, symbol: D_vs_player_302EF6C, mesh_symbol: D_vs_player_OFFSET}
 
 D_vs_player_302EFF0:
-  { type: SF64:TRIANGLE, count: 4, offset: 0x302EFF0, symbol: D_vs_player_302EFF0, mesh_symbol: "D_vs_player_OFFSET"}
+  { type: SF64:TRIANGLE, count: 4, offset: 0x302EFF0, symbol: D_vs_player_302EFF0, mesh_symbol: D_vs_player_OFFSET}
 
 D_vs_player_302F044:
-  { type: SF64:TRIANGLE, count: 14, offset: 0x302F044, symbol: D_vs_player_302F044, mesh_symbol: "D_vs_player_OFFSET"}
+  { type: SF64:TRIANGLE, count: 14, offset: 0x302F044, symbol: D_vs_player_302F044, mesh_symbol: D_vs_player_OFFSET}
 
 D_vs_player_302E56C:
   {type: VEC3F, count: 20, offset: 0x302E56C, symbol: D_vs_player_302E56C}

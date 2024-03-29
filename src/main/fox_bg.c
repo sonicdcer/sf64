@@ -1,6 +1,6 @@
 #include "global.h"
 #include "assets.h"
-// #include "prevent_bss_reordering.h"
+#include "prevent_bss_reordering.h"
 
 extern f32 D_i3_801C4188;
 
@@ -25,6 +25,7 @@ f32 D_80161394;             // can be static
 #include "assets/ast_sector_z.h"
 #include "assets/ast_aquas.h"
 #include "assets/ast_titania.h"
+#include "assets/ast_macbeth.h"
 #include "assets/ast_andross.h"
 #include "assets/ast_warp_zone.h"
 #include "assets/ast_area_6.h"
@@ -466,7 +467,7 @@ void func_8003E1E8(void) {
                     if (gCurrentLevel == LEVEL_TITANIA) {
                         gSPDisplayList(gMasterDisp++, D_TI_6000A80);
                     } else if (gCurrentLevel == LEVEL_MACBETH) {
-                        gSPDisplayList(gMasterDisp++, D_6019220);
+                        gSPDisplayList(gMasterDisp++, D_MA_6019220);
                     } else if (gCurrentLevel == LEVEL_ZONESS) {
                         gSPDisplayList(gMasterDisp++, D_6013480);
                     } else if (gCurrentLevel == LEVEL_SOLAR) {
@@ -482,7 +483,7 @@ void func_8003E1E8(void) {
                     if (gCurrentLevel == LEVEL_TITANIA) {
                         gSPDisplayList(gMasterDisp++, D_TI_6000A80);
                     } else if (gCurrentLevel == LEVEL_MACBETH) {
-                        gSPDisplayList(gMasterDisp++, D_6019220);
+                        gSPDisplayList(gMasterDisp++, D_MA_6019220);
                     } else if (gCurrentLevel == LEVEL_ZONESS) {
                         gSPDisplayList(gMasterDisp++, D_6013480);
                     } else if (gCurrentLevel == LEVEL_SOLAR) {
@@ -929,8 +930,8 @@ void func_80040CE4(void) {
                                         G_TX_NOLOD);
                     break;
                 case LEVEL_MACBETH:
-                    sp1C4 = D_602DCB8;
-                    sp1C0 = D_60306D0;
+                    sp1C4 = D_MA_602DCB8;
+                    sp1C0 = D_MA_60306D0;
                     gDPLoadTextureBlock(gMasterDisp++, sp1C4, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, 0,
                                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD,
                                         G_TX_NOLOD);
@@ -1063,7 +1064,7 @@ void func_80040CE4(void) {
                 } else if (gCurrentLevel == LEVEL_BOLSE) {
                     gSPDisplayList(gMasterDisp++, D_600A810);
                 } else if (gCurrentLevel == LEVEL_VENOM_2) {
-                    gSPDisplayList(gMasterDisp++, D_6010700);
+                    gSPDisplayList(gMasterDisp++, D_MA_6010700);
                 }
                 Matrix_Pop(&gGfxMatrix);
             }
