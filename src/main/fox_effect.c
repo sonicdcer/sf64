@@ -6,7 +6,6 @@ const char D_800D7230[] = "Enm->wrk3=<%d>\n";
 const char D_800D7240[] = "a=<%d>\n";
 const char D_800D7248[] = "a=<%d>\n";
 
-extern Gfx D_6004900[];
 extern Gfx D_6016880[];
 extern Gfx D_6018AF0[];
 extern Gfx D_601BAD0[];
@@ -15,6 +14,7 @@ extern Gfx D_601BAD0[];
 #include "assets/ast_arwing.h"
 #include "assets/ast_bg_space.h"
 #include "assets/ast_bg_planet.h"
+#include "assets/ast_corneria.h"
 #include "assets/ast_training.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
@@ -492,7 +492,7 @@ void func_80078C84(Effect* effect) {
 void func_80078CE8(Effect* effect) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_4A);
     Graphics_SetScaleMtx(effect->scale2);
-    gSPDisplayList(gMasterDisp++, D_6033000);
+    gSPDisplayList(gMasterDisp++, D_CO_6033000);
 }
 
 void func_80078D60(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
@@ -2166,7 +2166,7 @@ void func_8007DA58(Effect* effect) {
 void func_8007DAE4(Effect* effect) {
     Graphics_SetScaleMtx(effect->scale2);
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    gSPDisplayList(gMasterDisp++, D_6004900);
+    gSPDisplayList(gMasterDisp++, D_CO_6004900);
     RCP_SetupDL(&gMasterDisp, 0x40);
 }
 

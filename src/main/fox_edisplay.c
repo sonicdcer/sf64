@@ -1,7 +1,7 @@
 
 #include "global.h"
 #include "assets.h"
-#include "prevent_bss_reordering.h"
+//#include "prevent_bss_reordering.h"
 Vec3f D_801615D0;
 Vec3f D_801615E0;
 s32 D_801615EC;
@@ -9,6 +9,7 @@ Matrix D_801615F0;
 WingInfo D_80161630;
 
 #include "fox_edisplay_assets.h"
+#include "assets/ast_corneria.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_aquas.h"
 #include "assets/ast_macbeth.h"
@@ -109,12 +110,12 @@ void func_80059BB0(void* arg0) {
 }
 
 void func_80059BBC(Object_80* obj80) {
-    gSPDisplayList(gMasterDisp++, D_6023AC0);
+    gSPDisplayList(gMasterDisp++, D_CO_6023AC0);
 }
 
 void func_80059BF0(Actor* actor) {
     if (actor->unk_0B6 != 0) {
-        gSPDisplayList(gMasterDisp++, D_6032BC0);
+        gSPDisplayList(gMasterDisp++, D_CO_6032BC0);
     }
 }
 
@@ -131,12 +132,12 @@ void func_80059C40(Object_4C* obj4C) {
         case 0:
             Matrix_Scale(gGfxMatrix, 2.0f, 1.0f, 0.7f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_6034B90);
+            gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
         case 21:
             Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.7f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_6034B90);
+            gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
         case 6:
         case 7:
@@ -147,17 +148,17 @@ void func_80059C40(Object_4C* obj4C) {
         case 56:
             Matrix_Scale(gGfxMatrix, 1.6f, 1.0f, 1.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_6034B90);
+            gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
         case 20:
             Matrix_Scale(gGfxMatrix, 1.2f, 1.0f, 1.3f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_6034B90);
+            gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
         case 22:
             Matrix_Scale(gGfxMatrix, 2.2f, 1.0f, 1.4f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_6034B90);
+            gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
     }
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
@@ -166,18 +167,18 @@ void func_80059C40(Object_4C* obj4C) {
 void func_80059F68(Item* item) {
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -95.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_602DA20);
+    gSPDisplayList(gMasterDisp++, D_CO_602DA20);
 }
 
 void func_80059FDC(Item* item) {
-    gSPDisplayList(gMasterDisp++, D_6035DA0);
+    gSPDisplayList(gMasterDisp++, D_CO_6035DA0);
 }
 
 void func_8005A010(Object_4C* obj4C) {
     if (obj4C->unk_48 == 0) {
         Matrix_RotateY(gGfxMatrix, M_PI / 2, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_60361F0);
+        gSPDisplayList(gMasterDisp++, D_CO_60361F0);
     }
 }
 
@@ -188,9 +189,10 @@ void func_8005A088(void* arg0) {
 }
 
 Gfx* D_800CFA54[] = {
-    D_6027960, D_60273A0, D_60183B0, D_60121E0, D_602A2E0, D_602A720, D_602B8F0, D_602A8C0, D_6028E70, D_602E0A0,
-    D_602DE70, D_602DC40, D_602D830, D_602D340, D_6031280, D_6031130, D_6030850, D_6030FD0, D_602DD40, D_6033AF0,
-    D_60186E0, D_6024160, D_6033290, D_6017F10, D_60074E0, D_6007590, D_6007730, D_6005CC0,
+    D_6027960,    D_60273A0,    D_60183B0,    D_60121E0,    D_602A2E0, D_602A720, D_602B8F0,
+    D_602A8C0,    D_6028E70,    D_602E0A0,    D_602DE70,    D_602DC40, D_602D830, D_602D340,
+    D_CO_6031280, D_CO_6031130, D_CO_6030850, D_CO_6030FD0, D_602DD40, D_6033AF0, D_60186E0,
+    D_6024160,    D_6033290,    D_6017F10,    D_60074E0,    D_6007590, D_6007730, D_6005CC0,
 };
 Gfx* D_800CFAC4[] = {
     D_60176D0, D_6017810, D_6017770, D_6016D90, D_6016E30, D_60178B0,
@@ -201,7 +203,7 @@ Gfx* D_800CFADC[] = {
 };
 Gfx* D_800CFB08[] = { D_6020F10, D_6021100, D_60214B0 };
 Gfx* D_800CFB14[] = { D_60163E0, D_60165D0, D_6016880, D_6016B50, D_6000C40 };
-Gfx* D_800CFB28[] = { D_6018E80, D_601F620, D_601F420, D_6018C80, D_601F940, D_601F260 };
+Gfx* D_800CFB28[] = { D_CO_6018E80, D_601F620, D_601F420, D_6018C80, D_601F940, D_601F260 };
 Gfx* D_800CFB40[] = {
     D_6014DB0, D_60146D0, D_6014B80, D_6014470, D_6014930, D_60138A0, D_60151A0, D_600F750, D_6015810,
 };
@@ -591,8 +593,8 @@ void func_8005B848(Actor* actor) {
 
 void func_8005B9A4(Actor* actor) {
     Matrix_Translate(gGfxMatrix, 0.0f, -124.0f, 0.0f, 1);
-    Animation_GetFrameData(&D_6029528, actor->unk_0B6, actor->vwork);
-    Animation_DrawSkeleton(1, D_6029674, actor->vwork, NULL, NULL, actor, &gIdentityMatrix);
+    Animation_GetFrameData(&D_CO_6029528, actor->unk_0B6, actor->vwork);
+    Animation_DrawSkeleton(1, D_CO_6029674, actor->vwork, NULL, NULL, actor, &gIdentityMatrix);
 }
 
 void func_8005BA30(Actor* actor) {
@@ -600,7 +602,7 @@ void func_8005BA30(Actor* actor) {
         RCP_SetupDL_27();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
-    gSPDisplayList(gMasterDisp++, D_6020B40);
+    gSPDisplayList(gMasterDisp++, D_CO_6020B40);
 }
 
 void func_8005BAAC(void) {
@@ -658,7 +660,7 @@ void func_8005BAB4(ObjectId objId, s32 index) {
             }
             break;
         case OBJ_BOSS_292:
-            gSPDisplayList(gMasterDisp++, D_6034B90);
+            gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
         case OBJ_BOSS_316:
             if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_0) {
@@ -681,14 +683,14 @@ void func_8005BAB4(ObjectId objId, s32 index) {
             }
             switch (objId) {
                 case OBJ_BOSS_293:
-                    gSPDisplayList(gMasterDisp++, D_6036840);
+                    gSPDisplayList(gMasterDisp++, D_CO_6036840);
                     break;
                 case OBJ_BOSS_294:
-                    gSPDisplayList(gMasterDisp++, D_6036CD0);
+                    gSPDisplayList(gMasterDisp++, D_CO_6036CD0);
                     break;
                 case OBJ_BOSS_295:
                 case OBJ_BOSS_296:
-                    gSPDisplayList(gMasterDisp++, D_60363B0);
+                    gSPDisplayList(gMasterDisp++, D_CO_60363B0);
                     break;
             }
             break;
@@ -696,7 +698,7 @@ void func_8005BAB4(ObjectId objId, s32 index) {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 150);
             Matrix_Scale(gGfxMatrix, 0.4f, 0.4f, gActors[index].scale, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_6034B90);
+            gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
         case OBJ_ACTOR_230:
             RCP_SetupDL_48();

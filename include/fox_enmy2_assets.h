@@ -5,7 +5,6 @@
 
 // Displaylists
 
-extern Gfx D_6011F90[];
 extern Gfx D_601F2A0[];
 extern Gfx D_6017B60[];
 extern Gfx D_6004D00[];

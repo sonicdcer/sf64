@@ -79,6 +79,7 @@ s32 D_80161900[20];
 #include "assets/ast_blue_marine.h"
 #include "assets/ast_vs_player.h"
 #include "assets/ast_font.h"
+#include "assets/ast_corneria.h"
 #include "assets/ast_training.h"
 #include "assets/ast_area_6.h"
 #include "assets/ast_aquas.h"
@@ -95,7 +96,6 @@ void func_80087788(void);
 
 // Segmented addresses
 
-extern u8 D_CO_6000000[];
 extern u8 D_ME_6000000[];
 extern u8 D_FO_6000000[];
 extern u8 D_KA_6000000[];

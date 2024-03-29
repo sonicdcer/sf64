@@ -1,6 +1,7 @@
 #include "global.h"
 #include "assets.h"
 #include "assets/ast_arwing.h"
+#include "assets/ast_corneria.h"
 
 // bss
 u8 D_i1_8019B6D0;
@@ -9,12 +10,10 @@ f32 D_i1_8019B6D8[68];
 void func_i1_80187530(Object_80* obj80) {
 }
 
-extern Gfx D_60199D0[];
-
 void func_i1_8018753C(Object_80* obj80) {
 
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-    gSPDisplayList(gMasterDisp++, D_60199D0);
+    gSPDisplayList(gMasterDisp++, D_CO_60199D0);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
@@ -528,9 +527,6 @@ void func_i1_80188D50(Boss* boss) {
     }
 }
 
-extern Animation D_602BC18;
-extern Animation D_602C0D0;
-
 void func_i1_80189058(Boss* boss) {
     Vec3f sp21C = { 0.0f, 0.0f, 0.0f };
     s32 sp218;
@@ -572,7 +568,7 @@ void func_i1_80189058(Boss* boss) {
             D_i1_8019B6D8[66] = 0.0f;
             D_i1_8019B6D8[67] = 10000.0f;
             boss->timer_050 = 30;
-            Animation_GetFrameData(&D_602C0D0, 0, boss->vwork);
+            Animation_GetFrameData(&D_CO_602C0D0, 0, boss->vwork);
             gBossFrameCount = 0;
         }
         gBossFrameCount++;
@@ -714,7 +710,7 @@ void func_i1_80189058(Boss* boss) {
                             break;
                     }
                 }
-                Animation_GetFrameData(&D_602C0D0, boss->unk_04C, sp84);
+                Animation_GetFrameData(&D_CO_602C0D0, boss->unk_04C, sp84);
                 if (boss->timer_052 == 0) {
                     boss->timer_052 = 150;
                     boss->swork[30] = 1;
@@ -726,10 +722,10 @@ void func_i1_80189058(Boss* boss) {
                 D_i1_8019B6D8[19] = D_i1_8019B6D8[67] = gPlayer[0].unk_138;
 
                 boss->unk_04C += 2;
-                if (boss->unk_04C >= Animation_GetFrameCount(&D_602BC18)) {
+                if (boss->unk_04C >= Animation_GetFrameCount(&D_CO_602BC18)) {
                     boss->unk_04C = 0;
                 }
-                Animation_GetFrameData(&D_602BC18, boss->unk_04C, sp84);
+                Animation_GetFrameData(&D_CO_602BC18, boss->unk_04C, sp84);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp1EC, &sp21C);
                 if (boss->timer_052 == 0) {
                     boss->timer_052 = 150;
@@ -746,7 +742,7 @@ void func_i1_80189058(Boss* boss) {
                 if (boss->unk_04C < 0) {
                     boss->unk_04C = 100;
                 }
-                Animation_GetFrameData(&D_602BC18, boss->unk_04C, sp84);
+                Animation_GetFrameData(&D_CO_602BC18, boss->unk_04C, sp84);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp6C, &sp21C);
                 if (boss->timer_052 == 0) {
                     boss->timer_052 = 30;
@@ -767,7 +763,7 @@ void func_i1_80189058(Boss* boss) {
                 if (boss->unk_04C >= 101) {
                     boss->unk_04C = 0;
                 }
-                Animation_GetFrameData(&D_602BC18, boss->unk_04C, sp84);
+                Animation_GetFrameData(&D_CO_602BC18, boss->unk_04C, sp84);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp21C);
                 if (boss->timer_052 == 0) {
                     boss->timer_052 = 30;
@@ -788,7 +784,7 @@ void func_i1_80189058(Boss* boss) {
                 if (boss->unk_04C >= 101) {
                     boss->unk_04C = 0;
                 }
-                Animation_GetFrameData(&D_602BC18, boss->unk_04C, sp84);
+                Animation_GetFrameData(&D_CO_602BC18, boss->unk_04C, sp84);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp21C);
                 func_i1_80188A18(boss);
                 break;
@@ -848,7 +844,7 @@ void func_i1_80189058(Boss* boss) {
                 if (!(gGameFrameCount & 0xF)) {
                     boss->unk_04C = RAND_INT(100.0f);
                 }
-                Animation_GetFrameData(&D_602BC18, boss->unk_04C, sp84);
+                Animation_GetFrameData(&D_CO_602BC18, boss->unk_04C, sp84);
                 boss->fwork[14] = 0.03f;
                 break;
             case 7:
@@ -917,10 +913,10 @@ void func_i1_80189058(Boss* boss) {
                 if (boss->timer_050 == 0) {
                     Object_Kill(&boss->obj, boss->sfxSource);
                 }
-                Animation_GetFrameData(&D_602BC18, 0, sp84);
+                Animation_GetFrameData(&D_CO_602BC18, 0, sp84);
                 break;
             default:
-                Animation_GetFrameData(&D_602C0D0, boss->unk_04C, sp84);
+                Animation_GetFrameData(&D_CO_602C0D0, boss->unk_04C, sp84);
                 break;
         }
         Math_SmoothStepToF(&boss->vel.x, sp21C.x, 0.3f, 5.0f, 0.0f);
@@ -1083,11 +1079,9 @@ void func_i1_8018A730(s32 limbIndex, Vec3f* rot, void* data) {
     }
 }
 
-extern Limb* D_602BE64[];
-
 void func_i1_8018AA74(Boss* boss) {
-    Matrix_Translate(gCalcMatrix, 0.0f, 700.0f, 0.0f, (u8) 1);
-    Animation_DrawSkeleton(2, D_602BE64, boss->vwork, func_i1_8018A434, func_i1_8018A730, boss, gCalcMatrix);
+    Matrix_Translate(gCalcMatrix, 0.0f, 700.0f, 0.0f, 1);
+    Animation_DrawSkeleton(2, D_CO_602BE64, boss->vwork, func_i1_8018A434, func_i1_8018A730, boss, gCalcMatrix);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
 }
@@ -1156,17 +1150,14 @@ void func_i1_8018ACE0(Actor* actor) {
     }
 }
 
-extern Animation D_602991C;
-extern Gfx D_60329C0[];
-
 void func_i1_8018AED0(Actor* actor) {
     Vec3f sp40[20];
     f32 temp_sin;
     f32 temp_cos;
 
     func_i1_8018ACE0(actor);
-    Math_SmoothStepToVec3fArray(sp40, actor->vwork, 0, Animation_GetFrameData(&D_602991C, actor->unk_0B6, sp40), 1.0f,
-                                1.0f, 1.0f);
+    Math_SmoothStepToVec3fArray(sp40, actor->vwork, 0, Animation_GetFrameData(&D_CO_602991C, actor->unk_0B6, sp40),
+                                1.0f, 1.0f, 1.0f);
     temp_sin = SIN_DEG(actor->obj.rot.y);
     actor->vel.x = actor->fwork[0] * temp_sin;
     temp_cos = COS_DEG(actor->obj.rot.y);
@@ -1174,7 +1165,7 @@ void func_i1_8018AED0(Actor* actor) {
     switch (actor->state) {
         case 0:
             actor->fwork[1] += 20.0f;
-            Texture_Scroll(&D_60329C0, 16, 16, 1);
+            Texture_Scroll(&D_CO_60329C0, 16, 16, 1);
             actor->unk_0B6 = 0;
             actor->fwork[0] += 1.0f;
             if (actor->fwork[0] > 10.0f) {
@@ -1194,7 +1185,7 @@ void func_i1_8018AED0(Actor* actor) {
             if (actor->unk_0B6 == 50) {
                 gObjects80[actor->iwork[0] - 1].state = 1;
             }
-            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_602991C)) {
+            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_CO_602991C)) {
                 actor->state++;
             }
             break;
@@ -1224,8 +1215,6 @@ void func_i1_8018B0B4(Actor* actor) {
     }
 }
 
-extern Animation D_602AA04;
-
 void func_i1_8018B15C(Actor* actor) {
     Vec3f sp60[20];
     Vec3f sp54;
@@ -1235,37 +1224,43 @@ void func_i1_8018B15C(Actor* actor) {
     f32 temp_cos;
 
     func_i1_8018ACE0(actor);
+
     obj80 = &gObjects80[actor->iwork[0]];
     temp_sin = SIN_DEG(actor->obj.rot.y);
     actor->vel.x = actor->fwork[0] * temp_sin;
     temp_cos = COS_DEG(actor->obj.rot.y);
     actor->vel.z = actor->fwork[0] * temp_cos;
+
     Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, 0);
 
     switch (actor->state) {
         case 3:
             break;
+
         case 0:
             actor->timer_0BC = 40;
             actor->state = 1;
             actor->unk_0B6 = 0;
             break;
+
         case 1:
             actor->fwork[0] = -10.0f;
-            Texture_Scroll(&D_60329C0, 16, 16, 1);
+            Texture_Scroll(&D_CO_60329C0, 16, 16, 1);
             if (actor->timer_0BC == 0) {
                 actor->state = 2;
                 actor->iwork[2] = RAND_INT(10.0f) + 10;
             }
             break;
+
         case 2:
             actor->fwork[0] = -10.0f;
-            Texture_Scroll(&D_60329C0, 16, 16, 1);
+            Texture_Scroll(&D_CO_60329C0, 16, 16, 1);
             actor->unk_0B6++;
-            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_602AA04)) {
+
+            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_CO_602AA04)) {
                 actor->state = 3;
             }
-            if (actor->unk_0B6 == (Animation_GetFrameCount(&D_602AA04) - actor->iwork[2])) {
+            if (actor->unk_0B6 == (Animation_GetFrameCount(&D_CO_602AA04) - actor->iwork[2])) {
                 actor->iwork[1] = 1;
                 obj80->state = 1;
                 sp54.x = 0.0f;
@@ -1279,6 +1274,7 @@ void func_i1_8018B15C(Actor* actor) {
             }
             break;
     }
+
     if (actor->iwork[1] == 0) {
         obj80->obj.pos.x = actor->fwork[2];
         obj80->obj.pos.y = actor->fwork[6];
@@ -1286,11 +1282,10 @@ void func_i1_8018B15C(Actor* actor) {
         obj80->obj.rot.y = actor->obj.rot.y;
         obj80->vel.y = 0.0f;
     }
-    Math_SmoothStepToVec3fArray(sp60, actor->vwork, 0, Animation_GetFrameData(&D_602AA04, actor->unk_0B6, sp60), 1.0f,
-                                1.0f, 1.0f);
-}
 
-extern Animation D_602A520;
+    Math_SmoothStepToVec3fArray(sp60, actor->vwork, 0, Animation_GetFrameData(&D_CO_602AA04, actor->unk_0B6, sp60),
+                                1.0f, 1.0f, 1.0f);
+}
 
 void func_i1_8018B418(Actor* actor) {
     s32 pad;
@@ -1301,24 +1296,28 @@ void func_i1_8018B418(Actor* actor) {
     s32 pad2[4];
 
     func_i1_8018ACE0(actor);
+
     temp_sin = SIN_DEG(actor->obj.rot.y);
     actor->vel.x = actor->fwork[0] * temp_sin;
     temp_cos = COS_DEG(actor->obj.rot.y);
     actor->vel.z = actor->fwork[0] * temp_cos;
+
     switch (actor->state) {
         case 0:
             actor->state = 1;
             break;
+
         case 1:
             actor->fwork[0] = 5.0f;
             actor->fwork[1] += 5.0f;
-            Texture_Scroll(&D_60329C0, 16, 16, 1);
+            Texture_Scroll(&D_CO_60329C0, 16, 16, 1);
             actor->unk_0B6++;
-            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_602A520)) {
+            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_CO_602A520)) {
                 actor->unk_0B6 = 0;
             }
             break;
     }
+
     if (actor->iwork[1] == 0) {
         temp_v0_2 = &gObjects80[actor->iwork[0]];
         temp_v0_2->obj.pos.x = actor->fwork[2];
@@ -1327,8 +1326,9 @@ void func_i1_8018B418(Actor* actor) {
         temp_v0_2->obj.rot.y = actor->fwork[1];
         temp_v0_2->vel.y = 0.0f;
     }
-    Math_SmoothStepToVec3fArray(sp54, actor->vwork, 0, Animation_GetFrameData(&D_602A520, actor->unk_0B6, sp54), 1.0f,
-                                1.0f, 1.0f);
+
+    Math_SmoothStepToVec3fArray(sp54, actor->vwork, 0, Animation_GetFrameData(&D_CO_602A520, actor->unk_0B6, sp54),
+                                1.0f, 1.0f, 1.0f);
 }
 
 void func_i1_8018B58C(Actor* actor) {
@@ -1386,10 +1386,8 @@ void func_i1_8018B58C(Actor* actor) {
     }
 }
 
-extern Limb* D_6029A48[];
-
 void func_i1_8018BAAC(Actor* actor) {
-    Animation_DrawSkeleton(3, D_6029A48, actor->vwork, func_i1_8018AB08, NULL, actor, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_CO_6029A48, actor->vwork, func_i1_8018AB08, NULL, actor, gCalcMatrix);
 }
 
 void func_i1_8018BAFC(s32 limbIndex, Vec3f* rot, void* data) {
@@ -1409,11 +1407,11 @@ void func_i1_8018BAFC(s32 limbIndex, Vec3f* rot, void* data) {
 }
 
 void func_i1_8018BBA4(Actor* actor) {
-    Animation_DrawSkeleton(3, D_6029A48, actor->vwork, NULL, func_i1_8018BAFC, actor, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_CO_6029A48, actor->vwork, NULL, func_i1_8018BAFC, actor, gCalcMatrix);
 }
 
 void func_i1_8018BBF8(Actor* actor) {
-    Animation_DrawSkeleton(3, D_6029A48, actor->vwork, func_i1_8018AB08, func_i1_8018BAFC, actor, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_CO_6029A48, actor->vwork, func_i1_8018AB08, func_i1_8018BAFC, actor, gCalcMatrix);
 }
 
 s32 func_i1_8018BC50(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
@@ -1456,7 +1454,7 @@ void func_i1_8018BC84(s32 limbIndex, Vec3f* rot, void* data) {
 }
 
 void func_i1_8018BD7C(Actor* actor) {
-    Animation_DrawSkeleton(3, D_6029A48, actor->vwork, func_i1_8018BC50, func_i1_8018BC84, actor, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_CO_6029A48, actor->vwork, func_i1_8018BC50, func_i1_8018BC84, actor, gCalcMatrix);
 }
 
 void func_i1_8018BDD4(Boss* boss, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5, s32 arg6) {
@@ -2003,8 +2001,8 @@ void func_i1_8018C19C(Boss* boss) {
                 }
                 break;
         }
-        temp_a0 = SEGMENTED_TO_VIRTUAL(D_603E748);
-        temp_a1 = SEGMENTED_TO_VIRTUAL(D_603E7C4);
+        temp_a0 = SEGMENTED_TO_VIRTUAL(D_CO_603E748);
+        temp_a1 = SEGMENTED_TO_VIRTUAL(D_CO_603E7C4);
         temp_a0[9] = -100000.0f;
         temp_a0[3] = 172.0f;
         temp_a1[9] = -100000.0f;
@@ -2330,13 +2328,10 @@ s32 func_i1_8018EC54(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
     return false;
 }
 
-extern Animation D_602D400;
-extern Limb* D_602D5AC[];
-
 void func_i1_8018ECAC(Boss* boss) {
 
-    Animation_GetFrameData(&D_602D400, 0, boss->vwork);
-    Animation_DrawSkeleton(1, D_602D5AC, boss->vwork, func_i1_8018EC54, NULL, &boss->index, &gIdentityMatrix);
+    Animation_GetFrameData(&D_CO_602D400, 0, boss->vwork);
+    Animation_DrawSkeleton(1, D_CO_602D5AC, boss->vwork, func_i1_8018EC54, NULL, &boss->index, &gIdentityMatrix);
 }
 
 s32 func_i1_8018ED1C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
@@ -2353,8 +2348,8 @@ void func_i1_8018ED78(Boss* boss) {
 
     Matrix_Translate(gGfxMatrix, -D_i1_80199A78.x, -D_i1_80199A78.y, 0.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    Animation_GetFrameData(&D_602D400, 0, boss->vwork);
-    Animation_DrawSkeleton(1, D_602D5AC, boss->vwork, func_i1_8018ED1C, NULL, &boss->index, &gIdentityMatrix);
+    Animation_GetFrameData(&D_CO_602D400, 0, boss->vwork);
+    Animation_DrawSkeleton(1, D_CO_602D5AC, boss->vwork, func_i1_8018ED1C, NULL, &boss->index, &gIdentityMatrix);
 }
 
 s32 func_i1_8018EE2C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
@@ -2371,8 +2366,8 @@ void func_i1_8018EE84(Boss* boss) {
 
     Matrix_Translate(gGfxMatrix, -D_i1_80199A90.x, -D_i1_80199A90.y, 0.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    Animation_GetFrameData(&D_602D400, 0, boss->vwork);
-    Animation_DrawSkeleton(1, D_602D5AC, boss->vwork, func_i1_8018EE2C, NULL, &boss->index, &gIdentityMatrix);
+    Animation_GetFrameData(&D_CO_602D400, 0, boss->vwork);
+    Animation_DrawSkeleton(1, D_CO_602D5AC, boss->vwork, func_i1_8018EE2C, NULL, &boss->index, &gIdentityMatrix);
 }
 
 s32 func_i1_8018EF38(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
@@ -2389,11 +2384,9 @@ void func_i1_8018EF90(Boss* boss) {
 
     Matrix_Translate(gGfxMatrix, -D_i1_80199AA8.x, -D_i1_80199AA8.y, 0.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    Animation_GetFrameData(&D_602D400, 0, boss->vwork);
-    Animation_DrawSkeleton(1, D_602D5AC, boss->vwork, func_i1_8018EF38, NULL, &boss->index, &gIdentityMatrix);
+    Animation_GetFrameData(&D_CO_602D400, 0, boss->vwork);
+    Animation_DrawSkeleton(1, D_CO_602D5AC, boss->vwork, func_i1_8018EF38, NULL, &boss->index, &gIdentityMatrix);
 }
-
-extern f32 D_603E924[];
 
 void func_i1_8018F044(Object_80* obj80) {
 
@@ -2408,7 +2401,7 @@ void func_i1_8018F044(Object_80* obj80) {
                     obj80->vel.y += 2.0f;
                     if (obj80->unk_44 >= 3) {
                         obj80->state = 1;
-                        obj80->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_603E924);
+                        obj80->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_CO_603E924);
                         AUDIO_PLAY_SFX(0x1900000D, obj80->sfxSource, 0);
                         return;
                     }
@@ -2444,14 +2437,11 @@ s32 func_i1_8018F1C8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
     return 0;
 }
 
-extern Animation D_602AA7C;
-extern Limb* D_602AB48[];
-
 void func_i1_8018F31C(Object_80* obj80) {
     Vec3f sp28[10];
 
-    Animation_GetFrameData(&D_602AA7C, 0, sp28);
-    Animation_DrawSkeleton(3, D_602AB48, sp28, func_i1_8018F1C8, NULL, obj80, gCalcMatrix);
+    Animation_GetFrameData(&D_CO_602AA7C, 0, sp28);
+    Animation_DrawSkeleton(3, D_CO_602AB48, sp28, func_i1_8018F1C8, NULL, obj80, gCalcMatrix);
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
 
