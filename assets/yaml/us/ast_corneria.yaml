@@ -27,9 +27,6 @@ D_CO_60020F8:
 D_CO_60028F8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x060028F8, symbol: D_CO_60028F8 }
 
-#D_CO_60030F8: # Not sure if it's part of the previous one or not
-#  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x060030F8, symbol: D_CO_60030F8 }
-
 D_CO_60038F8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x060038F8, symbol: D_CO_60038F8 }
 
@@ -562,10 +559,7 @@ D_CO_603EB38:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0603EB38, symbol: D_CO_603EB38 }
 
 D_CO_603F338:
-  { type: SF64:TRIANGLE, count: 13, offset: 0x603F338, symbol: D_CO_603F338, mesh_symbol: "D_CO_OFFSET" }
+  { type: SF64:TRIANGLE, count: 13, offset: 0x603F338, symbol: D_CO_603F338, mesh_symbol: "D_CO_OFFSET", mesh_offset: 0x603F388 }
 
 D_CO_603F40C:
   { type: SF64:TRIANGLE, count: 36, offset: 0x603F40C, symbol: D_CO_603F40C, mesh_symbol: "D_CO_OFFSET" }
-
-#D_CO_603F338:
-#  {type: SF64:COLPOLY, count: 13, offset: 0x603F338, symbol: D_CO_603F338, mesh_symbol: D_CO_OFFSET }
