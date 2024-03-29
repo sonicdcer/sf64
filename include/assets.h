@@ -265,9 +265,6 @@ extern Gfx D_601A700[];
 extern Gfx D_6019670[];
 extern Gfx D_60185E0[];
 extern Gfx D_6017550[];
-extern Vec3f D_603F388[];
-extern Triangle D_603F40C[];
-extern Vec3f D_603F4E4[];
 extern Gfx D_6041070[];
 
 #endif // ASSETS_H
