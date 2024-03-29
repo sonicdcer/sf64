@@ -259,7 +259,7 @@ D_CO_6025500:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x06025500, symbol: D_CO_6025500 }
   
 D_CO_6026420:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x06026420, symbol: D_CO_6025500 }
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x06026420, symbol: D_CO_6026420 }
   
 D_CO_6027340:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x06027340, symbol: D_CO_6027340 }
