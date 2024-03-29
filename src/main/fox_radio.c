@@ -22,6 +22,7 @@ s32 D_80178748;
 #include "assets/ast_star_wolf.h"
 #include "assets/ast_great_fox.h"
 #include "assets/ast_area_6.h"
+#include "assets/ast_title.h"
 
 s32 gCurrentMsgPri = 0;
 
@@ -455,8 +456,8 @@ void func_800BB388(void) {
         switch (gGameState) {
             case GSTATE_TITLE:
             case GSTATE_CREDITS:
-                sp38 = D_601D750;
-                sp34 = D_601DB50;
+                sp38 = D_TITLE_601D750;
+                sp34 = D_TITLE_601DB50;
                 break;
             case GSTATE_PLAY:
                 sp38 = D_1013170;

@@ -288,8 +288,12 @@
 
   - name: ast_title
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
+    vram: 0x06000000
     start: 0xBFC510
+    subsegments:
+      - [0xBFC510, .data, ast_title/ast_title]
 
   - name: ast_map
     exclusive_ram_id: segment_06

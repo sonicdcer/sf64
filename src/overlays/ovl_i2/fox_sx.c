@@ -11,24 +11,6 @@ Vec3f D_i2_80195650 = { 90.0f, 0.0f, 0.0f };
 Vec3f D_i2_8019565C = { 73.0f, -102.0f, -80.0f };
 Vec3f D_i2_80195668 = { 90.0f, 0.0f, 0.0f };
 
-extern Gfx D_SX_60010C0[];
-extern Gfx D_SX_6006810[];
-extern Gfx D_SX_6009C30[];
-extern Animation D_SX_6009FF8;
-extern Animation D_SX_600A2D4;
-extern Animation D_SX_600F890;
-extern Animation D_SX_60123BC;
-extern Animation D_SX_6013798;
-extern Animation D_SX_60158C4;
-extern Animation D_SX_6016E28;
-extern Animation D_SX_601AA28;
-extern Animation D_SX_601C690;
-extern Animation D_SX_60206DC;
-extern Limb* D_SX_6020C68[];
-extern Gfx D_SX_6020D20[];
-extern f32 D_SX_603265C[];
-extern f32 D_SX_6032768[];
-extern f32 D_SX_60328CC[];
 extern s32 D_800C9E90[];
 
 extern void func_i2_8018F030(void);
