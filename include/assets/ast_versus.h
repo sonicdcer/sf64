@@ -26,7 +26,7 @@ extern u8  D_VS_70030B0[];
 extern u8  D_VS_7003290[];
 extern u8  D_VS_7003470[];
 extern u8  D_VS_7003650[]; // fox_option
-extern u8 D_VS_7003830[]; // fox_versus
+extern u8  D_VS_7003830[]; // fox_versus
 extern u8  D_VS_7003C70[]; // fox_versus
 extern u8  D_VS_7003E10[]; // fox_versus
 extern u8  D_VS_7003F10[]; // fox_versus
