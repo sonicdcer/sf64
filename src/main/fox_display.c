@@ -16,7 +16,7 @@ f32 D_801615B8[4];
 #include "assets/ast_arwing.h"
 #include "assets/ast_allies.h"
 #include "assets/ast_landmaster.h"
-#include "assets/ast_vs_player.h"
+#include "assets/ast_versus.h"
 #include "assets/ast_sector_z.h"
 
 s32 D_800CA220 = 0;
@@ -244,7 +244,7 @@ void func_80052584(Player* player) {
         Matrix_SetGfxMtx(&gMasterDisp);
         RCP_SetupDL_40();
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-        gSPDisplayList(gMasterDisp++, D_vs_player_302D240);
+        gSPDisplayList(gMasterDisp++, D_versus_302D240);
     }
     Matrix_Pop(&gGfxMatrix);
 }
@@ -255,19 +255,19 @@ void func_800526B8(Player* player) {
     Matrix_Translate(gCalcMatrix, 0.0f, 35.0f, 0.0f, 1);
     switch (player->num) {
         case 0:
-            Animation_DrawSkeleton(5, D_vs_player_301D258, player->jointTable, func_800520FC, func_800523A8, player,
+            Animation_DrawSkeleton(5, D_versus_301D258, player->jointTable, func_800520FC, func_800523A8, player,
                                    gCalcMatrix);
             break;
         case 1:
-            Animation_DrawSkeleton(5, D_vs_player_301DB94, player->jointTable, func_800520FC, func_80052420, player,
+            Animation_DrawSkeleton(5, D_versus_301DB94, player->jointTable, func_800520FC, func_80052420, player,
                                    gCalcMatrix);
             break;
         case 2:
-            Animation_DrawSkeleton(5, D_vs_player_301E3E8, player->jointTable, func_800520FC, func_80052498, player,
+            Animation_DrawSkeleton(5, D_versus_301E3E8, player->jointTable, func_800520FC, func_80052498, player,
                                    gCalcMatrix);
             break;
         case 3:
-            Animation_DrawSkeleton(5, D_vs_player_301C614, player->jointTable, func_800520FC, func_8005250C, player,
+            Animation_DrawSkeleton(5, D_versus_301C614, player->jointTable, func_800520FC, func_8005250C, player,
                                    gCalcMatrix);
             break;
     }
@@ -287,7 +287,7 @@ void func_80052884(Player* player) {
     if (!gVersusMode) {
         gSPDisplayList(gMasterDisp++, D_arwing_3000090);
     } else {
-        gSPDisplayList(gMasterDisp++, D_vs_player_300FB80);
+        gSPDisplayList(gMasterDisp++, D_versus_300FB80);
     }
     Matrix_MultVec3f(gGfxMatrix, &sp40, &D_80161518[player->num]);
     Matrix_Translate(gGfxMatrix, 0.0f, 51.0f, -10.0f, 1);
@@ -313,7 +313,7 @@ void func_80052884(Player* player) {
         }
         gSPDisplayList(gMasterDisp++, D_landmaster_3004680);
     } else {
-        gSPDisplayList(gMasterDisp++, D_vs_player_301F140);
+        gSPDisplayList(gMasterDisp++, D_versus_301F140);
     }
     Matrix_MultVec3f(gGfxMatrix, &sp4C, &D_80161548[player->num]);
     Matrix_Pop(&gGfxMatrix);
@@ -338,7 +338,7 @@ void func_80052B80(Player* player) {
         if (gVersusMode) {
             RCP_SetupDL_40();
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-            gSPDisplayList(gMasterDisp++, D_vs_player_301FD20);
+            gSPDisplayList(gMasterDisp++, D_versus_301FD20);
         } else {
             Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
@@ -383,7 +383,7 @@ void func_80052D48(Player* player) {
         if (!gVersusMode) {
             gSPDisplayList(gMasterDisp++, D_landmaster_30066B0);
         } else {
-            gSPDisplayList(gMasterDisp++, D_vs_player_301B6E0);
+            gSPDisplayList(gMasterDisp++, D_versus_301B6E0);
         }
         Matrix_Pop(&gGfxMatrix);
     }
@@ -406,7 +406,7 @@ void func_80052D48(Player* player) {
         if (!gVersusMode) {
             gSPDisplayList(gMasterDisp++, D_landmaster_30066B0);
         } else {
-            gSPDisplayList(gMasterDisp++, D_vs_player_301B6E0);
+            gSPDisplayList(gMasterDisp++, D_versus_301B6E0);
         }
         Matrix_Pop(&gGfxMatrix);
     }
@@ -635,15 +635,15 @@ void func_80053C38(Player* player, s32 arg1) {
     } else {
         if (gVersusMode) {
             if ((player->wings.rightState == WINGSTATE_INTACT) && (player->wings.leftState == WINGSTATE_INTACT)) {
-                gSPDisplayList(gMasterDisp++, D_vs_player_300EE80);
+                gSPDisplayList(gMasterDisp++, D_versus_300EE80);
             } else if ((player->wings.rightState <= WINGSTATE_BROKEN) &&
                        (player->wings.leftState == WINGSTATE_INTACT)) {
-                gSPDisplayList(gMasterDisp++, D_vs_player_3010A90);
+                gSPDisplayList(gMasterDisp++, D_versus_3010A90);
             } else if ((player->wings.rightState == WINGSTATE_INTACT) &&
                        (player->wings.leftState <= WINGSTATE_BROKEN)) {
-                gSPDisplayList(gMasterDisp++, D_vs_player_3011470);
+                gSPDisplayList(gMasterDisp++, D_versus_3011470);
             } else {
-                gSPDisplayList(gMasterDisp++, D_vs_player_300D550);
+                gSPDisplayList(gMasterDisp++, D_versus_300D550);
             }
         } else {
             if ((gLevelType == LEVELTYPE_SPACE) || (gCurrentLevel == LEVEL_BOLSE)) {
@@ -741,7 +741,7 @@ void func_80054300(Player* player) {
             if (!gVersusMode) {
                 gSPDisplayList(gMasterDisp++, D_landmaster_3008100);
             } else {
-                gSPDisplayList(gMasterDisp++, D_vs_player_301E570);
+                gSPDisplayList(gMasterDisp++, D_versus_301E570);
             }
             Matrix_Pop(&gGfxMatrix);
             break;

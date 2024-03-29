@@ -64,14 +64,14 @@
     subsegments:
       - [0x8E1F80, .data, ast_blue_marine/ast_blue_marine]
 
-  - name: ast_vs_player
+  - name: ast_versus
     exclusive_ram_id: segment_03
     type: code
     dir: assets
     start: 0x8E92D0
     vram: 0x03000000
     subsegments:
-      - [0x8E92D0, .data, ast_vs_player/ast_vs_player]
+      - [0x8E92D0, .data, ast_versus/ast_versus]
 
   - name: ast_enmy_planet
     exclusive_ram_id: segment_04
@@ -325,10 +325,14 @@
     subsegments:
       - [0xCA9DE0, .data, ast_option/ast_option]
 
-  - name: ast_versus
+  - name: ast_vs_menu
     exclusive_ram_id: segment_07
-    type: bin
+    type: code
+    dir: assets
     start: 0xCBFE70
+    vram: 0x07000000
+    subsegments:
+      - [0xCBFE70, .data, ast_vs_menu/ast_vs_menu]
 
   - name: ast_font
     exclusive_ram_id: segment_05
@@ -364,8 +368,12 @@
 
   - name: ast_ending
     exclusive_ram_id: segment_07
-    type: bin
+    type: code
+    dir: assets
     start: 0xD27600
+    vram: 0x07000000
+    subsegments:
+      - [0xD27600, .data, ast_ending/ast_ending]
 
   - name: ast_ending_award_front
     exclusive_ram_id: segment_08

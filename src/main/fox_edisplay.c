@@ -18,7 +18,7 @@ WingInfo D_80161630;
 #include "assets/ast_star_wolf.h"
 #include "assets/ast_arwing.h"
 #include "assets/ast_blue_marine.h"
-#include "assets/ast_vs_player.h"
+#include "assets/ast_versus.h"
 #include "assets/ast_enmy_space.h"
 #include "assets/ast_enmy_planet.h"
 #include "assets/ast_ve1_boss.h"

@@ -77,7 +77,7 @@ s32 D_80161900[20];
 #include "assets/ast_arwing.h"
 #include "assets/ast_landmaster.h"
 #include "assets/ast_blue_marine.h"
-#include "assets/ast_vs_player.h"
+#include "assets/ast_versus.h"
 #include "assets/ast_font.h"
 #include "assets/ast_corneria.h"
 #include "assets/ast_training.h"
@@ -300,7 +300,7 @@ void func_800856C0(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
 
 void func_80085740(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     if (gVersusMode) {
-        TextureRect_8bIA(&gMasterDisp, D_vs_player_3000B20, 32, 5, arg0, arg1, arg2, arg3);
+        TextureRect_8bIA(&gMasterDisp, D_versus_3000B20, 32, 5, arg0, arg1, arg2, arg3);
     } else {
         TextureRect_8bIA(&gMasterDisp, D_1000E80, 48, 9, arg0, arg1, arg2, arg3);
     }
@@ -308,7 +308,7 @@ void func_80085740(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
 
 void func_800857DC(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     if (gVersusMode) {
-        TextureRect_8bCI(&gMasterDisp, D_vs_player_300D3C0, D_vs_player_300D408, 24, 3, arg0, arg1, arg2, arg3);
+        TextureRect_8bCI(&gMasterDisp, D_versus_300D3C0, D_versus_300D408, 24, 3, arg0, arg1, arg2, arg3);
     } else {
         TextureRect_8bCI(&gMasterDisp, D_10128C0, D_1012988, 40, 5, arg0, arg1, arg2, arg3);
     }
@@ -316,7 +316,7 @@ void func_800857DC(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
 
 void func_80085890(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     if (gVersusMode) {
-        TextureRect_8bCI(&gMasterDisp, D_vs_player_300D350, D_vs_player_300D398, 24, 3, arg0, arg1, arg2, arg3);
+        TextureRect_8bCI(&gMasterDisp, D_versus_300D350, D_versus_300D398, 24, 3, arg0, arg1, arg2, arg3);
     } else {
         TextureRect_8bCI(&gMasterDisp, D_10127D0, D_1012898, 40, 5, arg0, arg1, arg2, arg3);
     }
@@ -2817,7 +2817,7 @@ s32 func_8008CB8C(void) {
 }
 
 void func_8008CB98(f32 arg0, f32 arg1, f32 arg2) {
-    TextureRect_8bIA(&gMasterDisp, D_vs_player_30013E0, 8, 8, arg0, arg1, arg2, arg2);
+    TextureRect_8bIA(&gMasterDisp, D_versus_30013E0, 8, 8, arg0, arg1, arg2, arg2);
 }
 
 void func_8008CBE4(void) {
@@ -2891,17 +2891,17 @@ void func_8008CFB8(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     s32 i;
 
     for (i = 0; i < 3; i++) {
-        TextureRect_8bIA(&gMasterDisp, D_vs_player_3000BC0 + 2 * ((640 * i) / 2), 80, 8, arg0, (8 * i * arg3) + arg1,
-                         arg2, arg3);
+        TextureRect_8bIA(&gMasterDisp, D_versus_3000BC0 + 2 * ((640 * i) / 2), 80, 8, arg0, (8 * i * arg3) + arg1, arg2,
+                         arg3);
     }
-    TextureRect_8bIA(&gMasterDisp, D_vs_player_3000BC0 + 2 * ((640 * i) / 2), 80, 2, arg0, (8 * i * arg3) + arg1, arg2,
+    TextureRect_8bIA(&gMasterDisp, D_versus_3000BC0 + 2 * ((640 * i) / 2), 80, 2, arg0, (8 * i * arg3) + arg1, arg2,
                      arg3);
 }
 
 void func_8008D0DC(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     u32 var_t8 = 48.0f * arg4;
 
-    func_80084E78(&gMasterDisp, D_vs_player_300D440, D_vs_player_300D500, 48, 4, arg0, arg1, arg2, arg3, var_t8, 4);
+    func_80084E78(&gMasterDisp, D_versus_300D440, D_versus_300D500, 48, 4, arg0, arg1, arg2, arg3, var_t8, 4);
 }
 
 void func_8008D1F0(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
