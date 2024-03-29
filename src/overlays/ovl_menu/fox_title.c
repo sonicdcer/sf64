@@ -3128,7 +3128,7 @@ void func_menu_801906A0(void) {
                 TextureRect_16bRGBA(&gMasterDisp, D_6006EA0 + (2048 * i), 128, 16, D_menu_801B9070,
                                     D_menu_801B9074 + (16 * i * D_menu_801B907C), D_menu_801B9078, D_menu_801B907C);
             }
-            TextureRect_16bRGBA(&gMasterDisp, D_600BEA0, 128, 8, D_menu_801B9070,
+            TextureRect_16bRGBA(&gMasterDisp, D_6006EA0 + (2048 * 5), 128, 8, D_menu_801B9070,
                                 (80.0f * D_menu_801B907C) + D_menu_801B9074, D_menu_801B9078, D_menu_801B907C);
 
         case -1:
@@ -3202,8 +3202,8 @@ void func_menu_80190C9C(void) {
                 TextureRect_8bIA(&gMasterDisp, D_6011890 + (672 * i), 112, 6, D_menu_801AE564,
                                  D_menu_801AE568 + (6.0f * i), 1.0f, 1.0f);
             }
-            TextureRect_8bIA(&gMasterDisp, D_6012310, 112, 2, D_menu_801AE564, D_menu_801AE568 + (6.0f * 4), 1.0f,
-                             1.0f);
+            TextureRect_8bIA(&gMasterDisp, D_6011890 + (112 * 24), 112, 2, D_menu_801AE564,
+                             D_menu_801AE568 + (6.0f * 4), 1.0f, 1.0f);
     }
 }
 
