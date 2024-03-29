@@ -341,7 +341,7 @@ void func_ending_80188030(s32 arg0) {
 s32 func_ending_80188394(void) {
     s32 i;
     UnkStruct_196D08 sp14[2] = {
-        { &D_END_70143C0,
+        { (void*) D_END_70143C0,
           NULL,
           17,
           { 0.0f, -3830.0f, -7000.0f },
@@ -496,7 +496,7 @@ void func_ending_80188DB4(void) {
     s32 j;
     Vec3f sp1B4 = { 0.0f, 0.0f, 0.0f };
     UnkStruct_196D08 sp74[5] = {
-        { &D_END_70111D0,
+        { (void*) D_END_70111D0,
           NULL,
           17,
           { 0.0f, -2960.0f, -6600.0f },

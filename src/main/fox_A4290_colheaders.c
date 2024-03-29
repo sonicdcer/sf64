@@ -7,7 +7,7 @@
 #include "assets/ast_macbeth.h"
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
-#include "assets/ast_vs_player.h"
+#include "assets/ast_versus.h"
 
 static Vec3f D_800D2920[16] = {
     { 1075.0f, 0.0f, 0.0f },   { 746.0f, 0.0f, -746.0f },    { 202.0f, 361.0f, -202.0f }, { 0.0f, 0.0f, -1075.0f },
@@ -137,22 +137,22 @@ CollisionHeader2 D_800D2CA0[19] = {
         { -498.0f, -10.0f, -498.0f },
         { 498.0f, 705.0f, 498.0f },
         4,
-        D_vs_player_302EEE8,
-        D_vs_player_302EF00,
+        D_versus_302EEE8,
+        D_versus_302EF00,
     },
     {
         { -1494.0f, -30.0f, -1494.0f },
         { 1494.0f, 2115.0f, 1494.0f },
         4,
-        D_vs_player_302EF6C,
-        D_vs_player_302EF84,
+        D_versus_302EF6C,
+        D_versus_302EF84,
     },
     {
         { -623.0f, -10.0f, -623.0f },
         { 623.0f, 200.0f, 623.0f },
         4,
-        D_vs_player_302EFF0,
-        D_vs_player_302F008,
+        D_versus_302EFF0,
+        D_versus_302F008,
     },
     {
         { -488.0f, 0.0f, -568.0f },
@@ -228,8 +228,8 @@ CollisionHeader2 D_800D2CA0[19] = {
         { -2965.0f, -16.0f, -2965.0f },
         { 2965.0f, 544.0f, 2965.0f },
         14,
-        D_vs_player_302F044,
-        D_vs_player_302F098,
+        D_versus_302F044,
+        D_versus_302F098,
     },
     {
         { -814.0f, 0.0f, -691.0f },
