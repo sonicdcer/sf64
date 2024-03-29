@@ -4,11 +4,10 @@
 #include "assets.h"
 #include "assets/ast_aquas.h"
 #include "assets/ast_corneria.h"
+#include "assets/ast_macbeth.h"
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
 #include "assets/ast_vs_player.h"
-
-extern Vec3f D_6030FD0[];
 
 static Vec3f D_800D2920[16] = {
     { 1075.0f, 0.0f, 0.0f },   { 746.0f, 0.0f, -746.0f },    { 202.0f, 361.0f, -202.0f }, { 0.0f, 0.0f, -1075.0f },
@@ -166,43 +165,43 @@ CollisionHeader2 D_800D2CA0[19] = {
         { -900.0f, -110.0f, -1900.0f },
         { 900.0f, 190.0f, 100.0f },
         2,
-        D_6030E74,
-        D_6030E80,
+        D_MA_6030E74,
+        D_MA_6030E80,
     },
     {
         { -900.0f, -100.0f, -1000.0f },
         { 900.0f, 250.0f, 100.0f },
         2,
-        D_6030EB0,
-        D_6030EBC,
+        D_MA_6030EB0,
+        D_MA_6030EBC,
     },
     {
         { -900.0f, -190.0f, -1900.0f },
         { 900.0f, 100.0f, 100.0f },
         2,
-        D_6030EEC,
-        D_6030EF8,
+        D_MA_6030EEC,
+        D_MA_6030EF8,
     },
     {
         { -500.0f, -250.0f, -1010.0f },
         { 500.0f, 100.0f, 100.0f },
         2,
-        D_6030F28,
-        D_6030F34,
+        D_MA_6030F28,
+        D_MA_6030F34,
     },
     {
         { -1200.0f, 0.0f, -1800.0f },
         { 0.0f, 900.0f, 1500.0f },
         4,
-        D_6030F64,
-        D_6030F7C,
+        D_MA_6030F64,
+        D_MA_6030F7C,
     },
     {
         { -400.0f, 0.0f, -900.0f },
         { 400.0f, 0.0f, 0.0f },
         2,
-        D_6030FC4,
-        D_6030FD0,
+        D_MA_6030FC4,
+        D_MA_6030FD0,
     },
     {
         { -74.0f, 0.0f, -84.0f },

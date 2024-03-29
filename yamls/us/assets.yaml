@@ -270,8 +270,12 @@
 
   - name: ast_macbeth
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
+    vram: 0x06000000
     start: 0xBC23D0
+    subsegments:
+      - [0xBC23D0, .data, ast_macbeth/ast_macbeth]
 
   - name: ast_warp_zone
     exclusive_ram_id: segment_07

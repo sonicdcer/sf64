@@ -19,6 +19,7 @@ extern Gfx D_601BAD0[];
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_macbeth.h"
 #include "assets/ast_titania.h"
 #include "assets/ast_area_6.h"
 #include "assets/ast_A_ti.h"
@@ -730,25 +731,25 @@ void func_800798F0(Effect* effect) {
             switch (effect->unk_44) {
                 case 1:
                     if (effect->index & 1) {
-                        gSPDisplayList(gMasterDisp++, D_6022530);
+                        gSPDisplayList(gMasterDisp++, D_MA_6022530);
                     } else {
-                        gSPDisplayList(gMasterDisp++, D_6022450);
+                        gSPDisplayList(gMasterDisp++, D_MA_6022450);
                     }
                     break;
 
                 case 2:
                     RCP_SetupDL(&gMasterDisp, 0x39);
                     if (effect->index & 1) {
-                        gSPDisplayList(gMasterDisp++, D_601A7A0);
+                        gSPDisplayList(gMasterDisp++, D_MA_601A7A0);
                     } else {
-                        gSPDisplayList(gMasterDisp++, D_60223C0);
+                        gSPDisplayList(gMasterDisp++, D_MA_60223C0);
                     }
                     RCP_SetupDL(&gMasterDisp, 0x1D);
                     break;
 
                 case 7:
-                    Animation_GetFrameData(&D_6027320, 0, frameJointTable);
-                    Animation_DrawSkeleton(1, D_602742C, frameJointTable, func_800798C4, NULL, effect,
+                    Animation_GetFrameData(&D_MA_6027320, 0, frameJointTable);
+                    Animation_DrawSkeleton(1, D_MA_602742C, frameJointTable, func_800798C4, NULL, effect,
                                            &gIdentityMatrix);
                     break;
 
