@@ -111,7 +111,11 @@
     "ast_titania.h": "c",
     "ast_bg_planet.h": "c",
     "assets.h": "c",
-    "ast_title.h": "c"
+    "ast_title.h": "c",
+    "any": "c",
+    "memory_resource": "c",
+    "ast_andross.h": "c",
+    "sf64object.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }

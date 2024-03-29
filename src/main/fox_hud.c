@@ -82,6 +82,7 @@ s32 D_80161900[20];
 #include "assets/ast_training.h"
 #include "assets/ast_area_6.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_macbeth.h"
 #include "assets/ast_titania.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
@@ -96,7 +97,6 @@ void func_80087788(void);
 
 extern u8 D_CO_6000000[];
 extern u8 D_ME_6000000[];
-extern u8 D_MA_6000000[];
 extern u8 D_FO_6000000[];
 extern u8 D_KA_6000000[];
 extern u8 D_SO_6000000[];

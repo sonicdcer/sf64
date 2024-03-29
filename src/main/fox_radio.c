@@ -17,7 +17,7 @@ s32 D_80178748;
 #include "assets/ast_training.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
-#include "assets/ast_aquas.h"
+#include "assets/ast_macbeth.h"
 #include "assets/ast_star_wolf.h"
 #include "assets/ast_great_fox.h"
 #include "assets/ast_area_6.h"
@@ -306,10 +306,10 @@ void func_800BAAE8(void) {
             sp44 = D_SY_6019E50;
             break;
         case RCID_BOSS_MACBETH:
-            sp44 = D_6010C20;
+            sp44 = D_MA_6010C20;
             break;
         case RCID_BOSS_MACBETH_OPEN:
-            sp44 = D_6011B40;
+            sp44 = D_MA_6011B40;
             break;
         case RCID_ROB64_RED:
             D_80178744 = 1;
