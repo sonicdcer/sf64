@@ -5,14 +5,16 @@
  */
 
 #include "mods.h"
+#include "prevent_bss_reordering.h"
 #include "global.h"
 #include "fox_map.h"
 #include "fox_option.h"
-#include "prevent_bss_reordering.h"
 // #include "prevent_bss_reordering2.h"
 #include "assets/ast_map.h"
-// BSS STARTS HERE
+#include "assets/ast_font.h"
+#include "assets/ast_font_3d.h"
 
+// BSS STARTS HERE
 u8 D_menu_801B9410[96 * 96];
 u8 D_menu_801BB810[96 * 96];
 u8 D_menu_801BDC10[96 * 96];
@@ -188,9 +190,6 @@ s32 D_menu_801CF118;
 s32 D_menu_801CF11C;
 s32 D_menu_801CF120;
 f32 D_menu_801CF124;
-
-#include "assets/ast_font.h"
-#include "assets/ast_font_3d.h"
 
 s32 D_menu_801AF420[2] = { 10, 20 };
 
