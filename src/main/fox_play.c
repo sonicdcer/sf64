@@ -12,7 +12,7 @@
 #include "assets/ast_titania.h"
 #include "assets/ast_andross.h"
 #include "assets/ast_arwing.h"
-#include "assets/ast_vs_player.h"
+#include "assets/ast_versus.h"
 #include "assets/ast_area_6.h"
 
 UNK_TYPE D_800D2F50 = 0;
@@ -276,16 +276,16 @@ void func_800A4F7C(void) {
 
     switch (gVersusStage) {
         case VS_STAGE_CORNERIA:
-            D_80178310 = SEGMENTED_TO_VIRTUAL(D_vs_player_302DE3C);
+            D_80178310 = SEGMENTED_TO_VIRTUAL(D_versus_302DE3C);
             break;
         case VS_STAGE_KATINA:
-            D_80178310 = SEGMENTED_TO_VIRTUAL(D_vs_player_302E0E4);
+            D_80178310 = SEGMENTED_TO_VIRTUAL(D_versus_302E0E4);
             break;
         case VS_STAGE_SECTOR_Z:
             if (D_801778AC == 2) {
-                D_80178310 = SEGMENTED_TO_VIRTUAL(D_vs_player_302E378);
+                D_80178310 = SEGMENTED_TO_VIRTUAL(D_versus_302E378);
             } else {
-                D_80178310 = SEGMENTED_TO_VIRTUAL(D_vs_player_302E170);
+                D_80178310 = SEGMENTED_TO_VIRTUAL(D_versus_302E170);
             }
             break;
     }
@@ -468,20 +468,20 @@ void func_800A5844(void) {
 EnvSettings* D_800D2F98[21] = {
     &D_CO_6037160, &D_ME_6026C80, &D_SX_602A120, &D_A6_6023F20, &D_A6_6028760, &D_SY_602E4B0,  &D_VE1_6007E30,
     &D_SO_601F1F0, &D_ZO_60266D0, &D_C035110,    &D_TR_6006A60, &D_MA_6030E30, &D_TI_6005000,  &D_AQ_602E540,
-    &D_FO_600EA90, NULL,          &D_KA_6011000, &D_BO_600FF30, &D_SZ_6006E70, &D_VE2_6014D50, &D_vs_player_302DD70,
+    &D_FO_600EA90, NULL,          &D_KA_6011000, &D_BO_600FF30, &D_SZ_6006E70, &D_VE2_6014D50, &D_versus_302DD70,
 };
 
 void func_800A594C(void) {
     if (gVersusMode) {
         switch (gVersusStage) {
             case 0:
-                sEnvSettings = SEGMENTED_TO_VIRTUAL(&D_vs_player_302DD70);
+                sEnvSettings = SEGMENTED_TO_VIRTUAL(&D_versus_302DD70);
                 break;
             case 1:
-                sEnvSettings = SEGMENTED_TO_VIRTUAL(&D_vs_player_302DDB4);
+                sEnvSettings = SEGMENTED_TO_VIRTUAL(&D_versus_302DDB4);
                 break;
             case 2:
-                sEnvSettings = SEGMENTED_TO_VIRTUAL(&D_vs_player_302DDF8);
+                sEnvSettings = SEGMENTED_TO_VIRTUAL(&D_versus_302DDF8);
                 break;
         }
     } else {
@@ -3923,7 +3923,7 @@ void func_800B0194(Player* player) {
     if (player->unk_1D4 != 0) {
         if (player->unk_0D0 > 1.0f) {
             player->unk_00C += player->unk_008;
-            if ((s32) player->unk_00C >= Animation_GetFrameCount(&D_vs_player_301CFEC)) {
+            if ((s32) player->unk_00C >= Animation_GetFrameCount(&D_versus_301CFEC)) {
                 player->unk_00C = 0.0f;
             }
             player->unk_080 = 2.0f * SIN_DEG((player->unk_20C + 7) * 24.0f);
@@ -3934,16 +3934,16 @@ void func_800B0194(Player* player) {
             player->unk_20C = player->unk_00C;
             switch (gPlayerNum) {
                 case 0:
-                    sp44 = Animation_GetFrameData(&D_vs_player_301CFEC, player->unk_20C, sp78);
+                    sp44 = Animation_GetFrameData(&D_versus_301CFEC, player->unk_20C, sp78);
                     break;
                 case 1:
-                    sp44 = Animation_GetFrameData(&D_vs_player_301D888, player->unk_20C, sp78);
+                    sp44 = Animation_GetFrameData(&D_versus_301D888, player->unk_20C, sp78);
                     break;
                 case 2:
-                    sp44 = Animation_GetFrameData(&D_vs_player_301E19C, player->unk_20C, sp78);
+                    sp44 = Animation_GetFrameData(&D_versus_301E19C, player->unk_20C, sp78);
                     break;
                 case 3:
-                    sp44 = Animation_GetFrameData(&D_vs_player_301C3A8, player->unk_20C, sp78);
+                    sp44 = Animation_GetFrameData(&D_versus_301C3A8, player->unk_20C, sp78);
                     break;
             }
             Math_SmoothStepToVec3fArray(sp78, player->jointTable, 1, sp44, 1.0f, player->unk_010, 0.01f);
@@ -3965,16 +3965,16 @@ void func_800B0194(Player* player) {
             }
             switch (gPlayerNum) {
                 case 0:
-                    sp48 = SEGMENTED_TO_VIRTUAL(D_vs_player_302E56C);
+                    sp48 = SEGMENTED_TO_VIRTUAL(D_versus_302E56C);
                     break;
                 case 1:
-                    sp48 = SEGMENTED_TO_VIRTUAL(D_vs_player_302E830);
+                    sp48 = SEGMENTED_TO_VIRTUAL(D_versus_302E830);
                     break;
                 case 2:
-                    sp48 = SEGMENTED_TO_VIRTUAL(D_vs_player_302E74C);
+                    sp48 = SEGMENTED_TO_VIRTUAL(D_versus_302E74C);
                     break;
                 case 3:
-                    sp48 = SEGMENTED_TO_VIRTUAL(D_vs_player_302E65C);
+                    sp48 = SEGMENTED_TO_VIRTUAL(D_versus_302E65C);
                     break;
             }
             Math_SmoothStepToVec3fArray(sp48, player->jointTable, 1, 0x18, 0.2f, 10.0f, 0.01f);
@@ -3988,16 +3988,16 @@ void func_800B0194(Player* player) {
     if (player->unk_1D4 == 0) {
         switch (gPlayerNum) {
             case 0:
-                sp48 = SEGMENTED_TO_VIRTUAL(D_vs_player_302E95C);
+                sp48 = SEGMENTED_TO_VIRTUAL(D_versus_302E95C);
                 break;
             case 1:
-                sp48 = SEGMENTED_TO_VIRTUAL(D_vs_player_302EC20);
+                sp48 = SEGMENTED_TO_VIRTUAL(D_versus_302EC20);
                 break;
             case 2:
-                sp48 = SEGMENTED_TO_VIRTUAL(D_vs_player_302EB3C);
+                sp48 = SEGMENTED_TO_VIRTUAL(D_versus_302EB3C);
                 break;
             case 3:
-                sp48 = SEGMENTED_TO_VIRTUAL(D_vs_player_302EA4C);
+                sp48 = SEGMENTED_TO_VIRTUAL(D_versus_302EA4C);
                 break;
         }
         Math_SmoothStepToVec3fArray(sp48, player->jointTable, 1, 0x18, 0.2f, 10.0f, 0.01f);
@@ -4209,16 +4209,16 @@ void func_800B0F50(Player* playerx) {
                 player->unk_068 = 0;
                 switch (gPlayerNum) {
                     case 0:
-                        sp38 = SEGMENTED_TO_VIRTUAL(D_vs_player_302E56C);
+                        sp38 = SEGMENTED_TO_VIRTUAL(D_versus_302E56C);
                         break;
                     case 1:
-                        sp38 = SEGMENTED_TO_VIRTUAL(D_vs_player_302E830);
+                        sp38 = SEGMENTED_TO_VIRTUAL(D_versus_302E830);
                         break;
                     case 2:
-                        sp38 = SEGMENTED_TO_VIRTUAL(D_vs_player_302E74C);
+                        sp38 = SEGMENTED_TO_VIRTUAL(D_versus_302E74C);
                         break;
                     case 3:
-                        sp38 = SEGMENTED_TO_VIRTUAL(D_vs_player_302E65C);
+                        sp38 = SEGMENTED_TO_VIRTUAL(D_versus_302E65C);
                         break;
                 }
                 for (j = 0; j < 30; j++, sp38++) {

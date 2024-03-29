@@ -18,7 +18,7 @@ UNK_TYPE D_8015F988[0x683]; // Unused? Close to being [13][0x80]
 f32 D_80161394;             // can be static
 
 #include "assets/ast_bg_planet.h"
-#include "assets/ast_vs_player.h"
+#include "assets/ast_versus.h"
 #include "assets/ast_corneria.h"
 #include "assets/ast_training.h"
 #include "assets/ast_sector_x.h"
@@ -278,11 +278,11 @@ void func_8003E1E8(void) {
                     switch (gCurrentLevel) {
                         case LEVEL_VERSUS:
                             if (gVersusStage == VS_STAGE_CORNERIA) {
-                                gSPDisplayList(gMasterDisp++, D_vs_player_302D4D0);
+                                gSPDisplayList(gMasterDisp++, D_versus_302D4D0);
                             } else if (gVersusStage == VS_STAGE_KATINA) {
-                                gSPDisplayList(gMasterDisp++, D_vs_player_30146B0);
+                                gSPDisplayList(gMasterDisp++, D_versus_30146B0);
                             } else {
-                                gSPDisplayList(gMasterDisp++, D_vs_player_3011E40);
+                                gSPDisplayList(gMasterDisp++, D_versus_3011E40);
                             }
                             break;
                         case LEVEL_FORTUNA:
@@ -300,11 +300,11 @@ void func_8003E1E8(void) {
                     switch (gCurrentLevel) {
                         case LEVEL_VERSUS:
                             if (gVersusStage == VS_STAGE_CORNERIA) {
-                                gSPDisplayList(gMasterDisp++, D_vs_player_302D4D0);
+                                gSPDisplayList(gMasterDisp++, D_versus_302D4D0);
                             } else if (gVersusStage == VS_STAGE_KATINA) {
-                                gSPDisplayList(gMasterDisp++, D_vs_player_30146B0);
+                                gSPDisplayList(gMasterDisp++, D_versus_30146B0);
                             } else {
-                                gSPDisplayList(gMasterDisp++, D_vs_player_3011E40);
+                                gSPDisplayList(gMasterDisp++, D_versus_3011E40);
                             }
                             break;
                         case LEVEL_FORTUNA:
@@ -1081,9 +1081,9 @@ void func_80040CE4(void) {
                 Matrix_Translate(gGfxMatrix, D_800C9E64[i], 0.0f, D_800C9E74[i], 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 if (gVersusStage == VS_STAGE_CORNERIA) {
-                    gSPDisplayList(gMasterDisp++, D_vs_player_3018800);
+                    gSPDisplayList(gMasterDisp++, D_versus_3018800);
                 } else {
-                    gSPDisplayList(gMasterDisp++, D_vs_player_30160A0);
+                    gSPDisplayList(gMasterDisp++, D_versus_30160A0);
                 }
                 Matrix_Pop(&gGfxMatrix);
             }

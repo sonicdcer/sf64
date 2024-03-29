@@ -1,7 +1,7 @@
 #include "global.h"
 #include "assets.h"
 
-#include "assets/ast_vs_player.h"
+#include "assets/ast_versus.h"
 #include "assets/ast_arwing.h"
 #include "assets/ast_corneria.h"
 #include "assets/ast_training.h"
@@ -224,15 +224,15 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_80_135  */  {(void*) D_TI_6006890, 0, (ObjectFunc)          NULL,        D_C038B40,     0.0f,  0, 0, 41, 1,   0.0f,  0 },
   /* OBJ_80_136  */  {(void*)     D_6002990, 0, (ObjectFunc)          NULL,        D_C038B40,     0.0f,  0, 0, 41, 1,   0.0f,  0 },
   /* OBJ_80_137  */  {(void*)     D_6004170, 0, (ObjectFunc)          NULL,       D_800CBF34,     0.0f,  0, 0,  0, 1,   0.0f,  0 },
-  /* OBJ_80_138  */  {(void*)     D_vs_player_3017600, 0, (ObjectFunc)          NULL,        D_vs_player_302EE64,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_80_139  */  {(void*)     D_vs_player_3017600, 0, (ObjectFunc)          NULL,        D_vs_player_302EE80,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_80_140  */  {(void*)     D_vs_player_30173C0, 0, (ObjectFunc)          NULL,       D_800CBF34,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_80_141  */  {(void*)     D_vs_player_30174E0, 0, (ObjectFunc)          NULL,       D_800CBF34,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_80_142  */  {(void*)     D_vs_player_301B080, 0, (ObjectFunc)          NULL,        D_vs_player_302EE9C,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_80_143  */  {(void*)     D_vs_player_3016B00, 0, (ObjectFunc)          NULL,        D_vs_player_302EE00,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_80_144  */  {(void*)     D_vs_player_3013780, 0, (ObjectFunc)          NULL,        D_vs_player_302ED4C,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_80_145  */  {(void*)     D_vs_player_3013580, 0, (ObjectFunc)          NULL,        D_vs_player_302ED98,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_80_146  */  {(void*)     D_vs_player_3012ED0, 0, (ObjectFunc)          NULL,        D_vs_player_302EDB4,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_138  */  {(void*)     D_versus_3017600, 0, (ObjectFunc)          NULL,        D_versus_302EE64,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_139  */  {(void*)     D_versus_3017600, 0, (ObjectFunc)          NULL,        D_versus_302EE80,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_140  */  {(void*)     D_versus_30173C0, 0, (ObjectFunc)          NULL,       D_800CBF34,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_141  */  {(void*)     D_versus_30174E0, 0, (ObjectFunc)          NULL,       D_800CBF34,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_142  */  {(void*)     D_versus_301B080, 0, (ObjectFunc)          NULL,        D_versus_302EE9C,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_143  */  {(void*)     D_versus_3016B00, 0, (ObjectFunc)          NULL,        D_versus_302EE00,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_144  */  {(void*)     D_versus_3013780, 0, (ObjectFunc)          NULL,        D_versus_302ED4C,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_145  */  {(void*)     D_versus_3013580, 0, (ObjectFunc)          NULL,        D_versus_302ED98,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_146  */  {(void*)     D_versus_3012ED0, 0, (ObjectFunc)          NULL,        D_versus_302EDB4,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_147  */  {(void*)          NULL, 0, (ObjectFunc)          NULL,       D_800CBF34,     0.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_80_148  */  {(void*)     D_60079B0, 0, (ObjectFunc)          NULL,        D_600FF80,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_149  */  {(void*)     D_6007D80, 0, (ObjectFunc)          NULL,        D_600FFA0,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
