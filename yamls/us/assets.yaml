@@ -319,8 +319,12 @@
 
   - name: ast_versus
     exclusive_ram_id: segment_07
-    type: bin
+    type: code
+    dir: assets
     start: 0xCBFE70
+    vram: 0x07000000
+    subsegments:
+      - [0xCBFE70, .data, ast_versus/ast_versus]
 
   - name: ast_font
     exclusive_ram_id: segment_05
