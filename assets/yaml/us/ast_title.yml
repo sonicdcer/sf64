@@ -1,6 +1,6 @@
 :config:
   segments:
-    seg6: 0xBFC510
+    - [0x06, 0xBFC510]
   header:
     code:
       - '#include "assets/ast_title.h"'
@@ -25,7 +25,7 @@ nintendo_copyright:
   { type: TEXTURE, ctype: u8, format: IA8, width: 120, height: 12, offset: 0x600DDC0, symbol: gTitleNintendoCopyright }
 
 press_start:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 120, height: 13, offset: 0x600E360, symbol: gTitlePressStart, pad: 8 }
+  { type: TEXTURE, ctype: u8, format: IA8, width: 120, height: 13, offset: 0x600E360, symbol: gTitlePressStart }
 
 great_fox_card:
   { type: TEXTURE, ctype: u8, format: IA8, width: 144, height: 28, offset: 0x600E980, symbol: gTitleGreatFoxCard }
@@ -34,7 +34,7 @@ slippy_card:
   { type: TEXTURE, ctype: u8, format: IA8, width: 144, height: 13, offset: 0x600F940, symbol: gTitleSlippyCard }
 
 peppy_card:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 120, height: 13, offset: 0x6010090, symbol: gTitlePeppyCard, pad: 8 }
+  { type: TEXTURE, ctype: u8, format: IA8, width: 120, height: 13, offset: 0x6010090, symbol: gTitlePeppyCard }
 
 falco_card:
   { type: TEXTURE, ctype: u8, format: IA8, width: 176, height: 13, offset: 0x60106B0, symbol: gTitleFalcoCard }
@@ -141,8 +141,8 @@ D_601D750:
 D_601DB50:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0x601DB50, symbol: D_601DB50 }
 
-D_601DB60:
-  { type: BLOB, size: 0x8D4, offset: 0x601DB60, symbol: D_601DB60 }
+# D_601DB60:
+#   { type: BLOB, size: 0x8D4, offset: 0x601DB60, symbol: D_601DB60 }
 
 # Unknown texture at 0x601EA00 here
 
@@ -185,26 +185,14 @@ D_602F8E0:
 D_602F90C:
   { type: SF64:SKELETON, offset: 0x602F90C, symbol: D_602F90C }
 
-D_602FBAC:
-  { type: SF64:LIMB, offset: 0x602FBAC, symbol: D_602FBAC }
-
 D_60305C0:
   { type: SF64:ANIM, offset: 0x60305C0, symbol: D_60305C0 }
-
-D_603088C:
-  { type: SF64:LIMB, offset: 0x603088C, symbol: D_603088C }
 
 D_6031120:
   { type: SF64:ANIM, offset: 0x6031120, symbol: D_6031120 }
 
-D_60313AC:
-  { type: SF64:LIMB, offset: 0x60313AC, symbol: D_60313AC }
-
 D_6031DB8:
   { type: SF64:ANIM, offset: 0x6031DB8, symbol: D_6031DB8 }
-
-D_6032084:
-  { type: SF64:LIMB, offset: 0x6032084, symbol: D_6032084 }
 
 D_60338DC:
   { type: SF64:ANIM, offset: 0x60338DC, symbol: D_60338DC }
