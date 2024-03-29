@@ -14,7 +14,6 @@ ctx.c.m2c
 *.bin
 *.otr
 assets/yaml/us/ast_test.yaml
-torch.hash.yml
 src/assets/*
 include/assets/*
 /build
