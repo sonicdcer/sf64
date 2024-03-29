@@ -229,10 +229,14 @@
     start: 0xACF960
 
   - name: ast_ve1_boss
-    exclusive_ram_id: segment_06,
+    # exclusive_ram_id: segment_06
     exclusive_ram_id: segment_09
-    type: bin
+    type: code
+    dir: assets
     start: 0xAE60A0
+    vram: 0x09000000
+    subsegments:
+      - [0xAE60A0, .data, ast_ve1_boss/ast_ve1_boss]
 
   - name: ast_bolse
     exclusive_ram_id: segment_06
