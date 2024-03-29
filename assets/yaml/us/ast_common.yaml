@@ -1,6 +1,6 @@
 :config:
   segments:
-    - [0x01, 0x873CB0]
+    - [0x1, 0x873CB0]
   header:
     code:
       - '#include "assets/ast_common.h"'
@@ -238,7 +238,7 @@ D_1011980:
   { type: TEXTURE, format: CI4, width: 48, height: 7, ctype: u8, offset: 0x1011980, tlut: 0x1011A28, symbol: D_1011980 }
 
 D_1011A28:
-  { type: TEXTURE, format: TLUT, colors: 6, ctype: u16, offset: 0x1011A28, symbol: D_1011A28 }
+  { type: TEXTURE, format: TLUT, colors: 12, ctype: u16, offset: 0x1011A28, symbol: D_1011A28 }
 
 D_1011A40:
   { type: TEXTURE, format: CI4, width: 32, height: 7, ctype: u8, offset: 0x1011A40, tlut: 0x1011AB0, symbol: D_1011A40 }
@@ -250,25 +250,25 @@ D_1011AC0:
   { type: TEXTURE, format: CI4, width: 16, height: 26, ctype: u8, offset: 0x1011AC0, tlut: 0x1011B90, symbol: D_1011AC0 }
 
 D_1011B90:
-  { type: TEXTURE, format: TLUT, colors: 8, ctype: u16, offset: 0x1011B90, symbol: D_1011B90 }
+  { type: TEXTURE, format: TLUT, colors: 15, ctype: u16, offset: 0x1011B90, symbol: D_1011B90 }
 
 D_1011BB0:
   { type: TEXTURE, format: CI4, width: 16, height: 26, ctype: u8, offset: 0x1011BB0, tlut: 0x1011C80, symbol: D_1011BB0 }
 
 D_1011C80:
-  { type: TEXTURE, format: TLUT, colors: 8, ctype: u16, offset: 0x1011C80, symbol: D_1011C80 }
+  { type: TEXTURE, format: TLUT, colors: 15, ctype: u16, offset: 0x1011C80, symbol: D_1011C80 }
 
 D_1011CA0:
   { type: TEXTURE, format: CI4, width: 16, height: 26, ctype: u8, offset: 0x1011CA0, tlut: 0x1011D70, symbol: D_1011CA0 }
 
 D_1011D70:
-  { type: TEXTURE, format: TLUT, colors: 8, ctype: u16, offset: 0x1011D70, symbol: D_1011D70 }
+  { type: TEXTURE, format: TLUT, colors: 15, ctype: u16, offset: 0x1011D70, symbol: D_1011D70 }
 
 D_1011D90:
   { type: TEXTURE, format: CI4, width: 16, height: 26, ctype: u8, offset: 0x1011D90, tlut: 0x1011E60, symbol: D_1011D90 }
 
 D_1011E60:
-  { type: TEXTURE, format: TLUT, colors: 8, ctype: u16, offset: 0x1011E60, symbol: D_1011E60 }
+  { type: TEXTURE, format: TLUT, colors: 15, ctype: u16, offset: 0x1011E60, symbol: D_1011E60 }
 
 D_1011E80:
   { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x1011E80, tlut: 0x1011EC0, symbol: D_1011E80 }
@@ -307,7 +307,7 @@ D_10126F0:
   { type: TEXTURE, format: CI8, width: 24, height: 4, ctype: u8, offset: 0x10126F0, tlut: 0x1012750, symbol: D_10126F0 }
 
 D_1012750:
-  { type: TEXTURE, format: TLUT, colors: 58, ctype: u16, offset: 0x1012750, symbol: D_1012750 }
+  { type: TEXTURE, format: TLUT, colors: 59, ctype: u16, offset: 0x1012750, symbol: D_1012750 }
 
 D_1013780:
   { type: TEXTURE, format: CI8, width: 48, height: 141, ctype: u8, offset: 0x1013780, tlut: 0x10151F0, symbol: D_1013780 }
@@ -511,7 +511,7 @@ D_10190C0:
   { type: TEXTURE, format: IA8, width: 16, height: 32, ctype: u8, offset: 0x10190C0, symbol: D_10190C0 }
 
 D_10192C0:
-  { type: BLOB, size: 0x200, offset: 0x10192C0, symbol: D_10192C0 }
+  { type: TEXTURE, format: RGBA16, width: 16, height: 16, ctype: u16, offset: 0x10192C0, symbol: D_10192C0 }
 
 D_10194C0:
   { type: GFX, offset: 0x10194C0, symbol: D_10194C0 }
@@ -574,7 +574,7 @@ D_101B268:
   { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101B268, tlut: 0x101B2E8, symbol: D_101B268 }
 
 D_101B2E8:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x101B2E8, ctype: u16, symbol: D_101B2E8 }
+  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101B2E8, ctype: u16, symbol: D_101B2E8 }
 
 D_101B310:
   { type: GFX, offset: 0x101B310, symbol: D_101B310 }
@@ -583,7 +583,7 @@ D_101B3D8:
   { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101B3D8, tlut: 0x101B458, symbol: D_101B3D8 }
 
 D_101B458:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x101B458, ctype: u16, symbol: D_101B458 }
+  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101B458, ctype: u16, symbol: D_101B458 }
 
 D_101B480:
   { type: GFX, offset: 0x101B480, symbol: D_101B480 }
@@ -592,7 +592,7 @@ D_101B548:
   { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101B548, tlut: 0x101B5C8, symbol: D_101B548 }
 
 D_101B5C8:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x101B5C8, ctype: u16, symbol: D_101B5C8 }
+  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101B5C8, ctype: u16, symbol: D_101B5C8 }
 
 D_101B5F0:
   { type: GFX, offset: 0x101B5F0, symbol: D_101B5F0 }
@@ -601,7 +601,7 @@ D_101B6B8:
   { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101B6B8, tlut: 0x101B738, symbol: D_101B6B8 }
 
 D_101B738:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x101B738, ctype: u16, symbol: D_101B738 }
+  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101B738, ctype: u16, symbol: D_101B738 }
 
 D_101B760:
   { type: GFX, offset: 0x101B760, symbol: D_101B760 }
@@ -610,7 +610,7 @@ D_101B828:
   { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101B828, tlut: 0x101B8A8, symbol: D_101B828 }
 
 D_101B8A8:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x101B8A8, ctype: u16, symbol: D_101B8A8 }
+  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101B8A8, ctype: u16, symbol: D_101B8A8 }
 
 D_101B8D0:
   { type: GFX, offset: 0x101B8D0, symbol: D_101B8D0 }
@@ -619,7 +619,7 @@ D_101B998:
   { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101B998, tlut: 0x101BA18, symbol: D_101B998 }
 
 D_101BA18:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x101BA18, ctype: u16, symbol: D_101BA18 }
+  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101BA18, ctype: u16, symbol: D_101BA18 }
 
 D_101BA40:
   { type: GFX, offset: 0x101BA40, symbol: D_101BA40 }
@@ -628,7 +628,7 @@ D_101BB08:
   { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101BB08, tlut: 0x101BB88, symbol: D_101BB08 }
 
 D_101BB88:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x101BB88, ctype: u16, symbol: D_101BB88 }
+  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101BB88, ctype: u16, symbol: D_101BB88 }
 
 D_101BBB0:
   { type: GFX, offset: 0x101BBB0, symbol: D_101BBB0 }
@@ -637,7 +637,7 @@ D_101BC78:
   { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101BC78, tlut: 0x101BCF8, symbol: D_101BC78 }
 
 D_101BCF8:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x101BCF8, ctype: u16, symbol: D_101BCF8 }
+  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101BCF8, ctype: u16, symbol: D_101BCF8 }
 
 D_101BD20:
   { type: GFX, offset: 0x101BD20, symbol: D_101BD20 }
@@ -646,7 +646,7 @@ D_101BDE8:
   { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101BDE8, tlut: 0x101BE68, symbol: D_101BDE8 }
 
 D_101BE68:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x101BE68, ctype: u16, symbol: D_101BE68 }
+  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101BE68, ctype: u16, symbol: D_101BE68 }
 
 D_101BE90:
   { type: GFX, offset: 0x101BE90, symbol: D_101BE90 }
@@ -655,7 +655,7 @@ D_101BF58:
   { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101BF58, tlut: 0x101BFD8, symbol: D_101BF58 }
 
 D_101BFD8:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x101BFD8, ctype: u16, symbol: D_101BFD8 }
+  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101BFD8, ctype: u16, symbol: D_101BFD8 }
 
 D_101C000:
   { type: GFX, offset: 0x101C000, symbol: D_101C000 }
@@ -664,7 +664,7 @@ D_101C0C8:
   { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101C0C8, tlut: 0x101C148, symbol: D_101C0C8 }
 
 D_101C148:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x101C148, ctype: u16, symbol: D_101C148 }
+  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101C148, ctype: u16, symbol: D_101C148 }
 
 D_101C170:
   { type: GFX, offset: 0x101C170, symbol: D_101C170 }
@@ -680,9 +680,6 @@ D_101C2E0:
 
 D_101C368:
   { type: TEXTURE, format: IA8, width: 32, height: 32, ctype: u8, colors: 20, offset: 0x101C368, symbol: D_101C368 }
-
-# D_101C768:
-#   { type: BLOB, size: 0x378, offset: 0x101C768, symbol: D_101C768 }
 
 D_101C770:
   { type: GFX, offset: 0x101C770, symbol: D_101C770 }
@@ -706,13 +703,13 @@ D_101CD70:
   { type: GFX, offset: 0x101CD70, symbol: D_101CD70 }
 
 D_101D070:
-  { type: TEXTURE, format: IA8, width: 32, height: 32, ctype: u8, offset: 0x101D070, symbol: D_101D070 }
-
-D_101D470:
-  { type: BLOB, size: 0x7A0, offset: 0x101D470, symbol: D_101D470 }
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, ctype: u16, offset: 0x101D070, symbol: D_101D070 }
 
 D_101D870:
   { type: GFX, offset: 0x101D870, symbol: D_101D870 }
+
+ast_common_seg1_vtx_1D9C8:
+  { type: VTX, offset: 0x101D9C8, count: 36, symbol: ast_common_seg1_vtx_1D9C8 }
 
 D_101DE20:
   { type: TEXTURE, format: IA8, width: 128, height: 32, ctype: u8, offset: 0x101DE20, symbol: D_101DE20 }
@@ -757,10 +754,7 @@ D_1022D60:
   { type: TEXTURE, format: TLUT, colors: 16, offset: 0x1022D60, ctype: u16, symbol: D_1022D60 }
 
 D_1022D80:
-  { type: TEXTURE, format: RGBA16, width: 4, height: 16, ctype: u16, offset: 0x1022D80, symbol: D_1022D80 }
-
-D_1022E00:
-  { type: BLOB, size: 0x80, offset: 0x1022E00, symbol: D_1022E00 }
+  { type: TEXTURE, format: RGBA16, width: 8, height: 16, ctype: u16, offset: 0x1022D80, symbol: D_1022D80 }
 
 D_1022E80:
   { type: GFX, offset: 0x1022E80, symbol: D_1022E80 }
@@ -775,7 +769,7 @@ D_10231A0:
   { type: GFX, offset: 0x10231A0, symbol: D_10231A0 }
 
 D_1023518:
-  { type: BLOB, size: 0x18, offset: 0x1023518, symbol: D_1023518 }
+  { type: TEXTURE, format: IA8, width: 4, height: 5, ctype: u8, offset: 0x1023518, symbol: D_1023518 }
 
 D_1023530:
   { type: TEXTURE, format: CI8, width: 16, height: 16, ctype: u8, offset: 0x1023530, tlut: 0x1023630, symbol: D_1023530 }
@@ -791,9 +785,6 @@ D_1023750:
 
 D_10237E0:
   { type: GFX, offset: 0x10237E0, symbol: D_10237E0 }
-
-D_10237D8:
-  { type: BLOB, size: 0xA0, offset: 0x10237D8, symbol: D_10237D8 }
 
 D_1023878:
   { type: TEXTURE, format: IA8, width: 32, height: 32, ctype: u8, offset: 0x1023878, symbol: D_1023878 }
@@ -885,9 +876,6 @@ D_1025888:
 D_1026090:
   { type: GFX, offset: 0x1026090, symbol: D_1026090 }
 
-# D_1026118:
-#   { type: BLOB, size: 0x2118, offset: 0x1026118, symbol: D_1026118 }
-
 D_1026120:
   { type: GFX, offset: 0x1026120, symbol: D_1026120 }
 
@@ -912,14 +900,17 @@ D_1028B58:
 D_1028D58:
   { type: TEXTURE, format: RGBA16, width: 8, height: 8, ctype: u16, offset: 0x1028D58, symbol: D_1028D58 }
 
-# D_1028DD8:
-# { type: BLOB, size: 0x9A8, offset: 0x1028DD8, symbol: D_1028DD8 }
-
 D_1028DE0:
   { type: GFX, offset: 0x1028DE0, symbol: D_1028DE0 }
 
 D_1028E68:
   { type: TEXTURE, format: RGBA16, width: 8, height: 8, ctype: u16, offset: 0x1028E68, symbol: D_1028E68 }
+
+D_1028EF0:
+  { type: GFX, offset: 0x1028EF0, symbol: D_1028EF0 }
+
+D_1028F78:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, ctype: u16, offset: 0x1028F78, symbol: D_1028F78 }
 
 D_1029780:
   { type: GFX, offset: 0x1029780, symbol: D_1029780 }
@@ -939,8 +930,23 @@ D_102A8A0:
 D_102A928:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, ctype: u16, offset: 0x102A928, symbol: D_102A928 }
 
-D_102AB28:
-  { type: BLOB, size: 0x4228, offset: 0x102AB28, symbol: D_102AB28 }
+D_102AB30:
+  { type: GFX, offset: 0x102AB30, symbol: D_102AB30 }
+
+D_102AC40:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 64, ctype: u16, offset: 0x102AC40, symbol: D_102AC40 }
+
+D_102BC40:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 64, ctype: u16, offset: 0x102BC40, symbol: D_102BC40 }
+
+D_102CC40:
+  { type: GFX, offset: 0x102CC40, symbol: D_102CC40 }
+
+D_102CD50:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 64, ctype: u16, offset: 0x102CD50, symbol: D_102CD50 }
+
+D_102DD50:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 64, ctype: u16, offset: 0x102DD50, symbol: D_102DD50 }
 
 D_102ED50:
   { type: GFX, offset: 0x102ED50, symbol: D_102ED50 }
@@ -958,10 +964,13 @@ D_102FE80:
   { type: GFX, offset: 0x102FE80, symbol: D_102FE80 }
 
 D_102FF08:
-  { type: TEXTURE, format: IA8, width: 8, height: 8, ctype: u8, offset: 0x102FF08, symbol: D_102FF08 }
+  { type: TEXTURE, format: RGBA16, width: 8, height: 8, ctype: u16, offset: 0x102FF08, symbol: D_102FF08 }
 
-D_102FF48:
-  { type: BLOB, size: 0x16E8, offset: 0x102FF48, symbol: D_102FF48 }
+D_102FF90:
+  { type: GFX, offset: 0x102FF90, symbol: D_102FF90 }
+
+D_1031228:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 16, ctype: u16, offset: 0x1031228, symbol: D_1031228 }
 
 D_1031630:
   { type: GFX, offset: 0x1031630, symbol: D_1031630 }
