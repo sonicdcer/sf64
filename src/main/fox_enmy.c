@@ -5,6 +5,7 @@
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_titania.h"
 #include "assets/ast_andross.h"
 #include "assets/ast_area_6.h"
 #include "assets/ast_training.h"
@@ -17,9 +18,9 @@ u8 D_80161684;
 #include "fox_enmy_assets.h"
 
 ObjectInit* D_800CFDA0[] = {
-    D_60371A4, D_6026CC4, D_SX_602A164, D_A6_6023F64, D_A6_60287A4, D_SY_602E4F4, D_6007E74,
-    D_601F234, D_6026714, D_C035154,    D_TR_6006AA4, D_6031000,    D_6006C60,    D_602E5C8,
-    D_600EAD4, NULL,      D_6011044,    D_600FF74,    D_SZ_6006EB4, D_6014D94,    D_vs_player_302DE3C,
+    D_CO_60371A4, D_ME_6026CC4, D_SX_602A164, D_A6_6023F64, D_A6_60287A4, D_SY_602E4F4,  D_VE1_6007E74,
+    D_SO_601F234, D_ZO_6026714, D_C035154,    D_TR_6006AA4, D_MA_6031000, D_TI_6006C60,  D_AQ_602E5C8,
+    D_FO_600EAD4, NULL,         D_KA_6011044, D_BO_600FF74, D_SZ_6006EB4, D_VE2_600FF74, D_vs_player_302DE3C,
 };
 s32 D_800CFDF4[] = {
     OBJ_80_0,
@@ -1031,31 +1032,31 @@ void Object_Init(s32 index, ObjectId objId) {
             }
             break;
         case OBJ_80_30:
-            func_80063E5C(&gObjects80[index], D_6006940);
+            func_80063E5C(&gObjects80[index], D_TI_6006940);
             break;
         case OBJ_80_31:
-            func_80063E5C(&gObjects80[index], D_600695C);
+            func_80063E5C(&gObjects80[index], D_TI_600695C);
             break;
         case OBJ_80_32:
-            func_80063E5C(&gObjects80[index], D_6006978);
+            func_80063E5C(&gObjects80[index], D_TI_6006978);
             break;
         case OBJ_80_33:
-            func_80063E5C(&gObjects80[index], D_6006994);
+            func_80063E5C(&gObjects80[index], D_TI_6006994);
             break;
         case OBJ_80_34:
-            func_80063E5C(&gObjects80[index], D_60069B0);
+            func_80063E5C(&gObjects80[index], D_TI_60069B0);
             break;
         case OBJ_80_35:
-            func_80063E5C(&gObjects80[index], D_60069CC);
+            func_80063E5C(&gObjects80[index], D_TI_60069CC);
             break;
         case OBJ_80_36:
-            func_80063E5C(&gObjects80[index], D_60069E8);
+            func_80063E5C(&gObjects80[index], D_TI_60069E8);
             break;
         case OBJ_80_37:
-            func_80063E5C(&gObjects80[index], D_6006A04);
+            func_80063E5C(&gObjects80[index], D_TI_6006A04);
             break;
         case OBJ_80_38:
-            func_80063E5C(&gObjects80[index], D_6006A20);
+            func_80063E5C(&gObjects80[index], D_TI_6006A20);
             break;
         case OBJ_80_23:
             func_80063CAC(&gObjects80[index]);

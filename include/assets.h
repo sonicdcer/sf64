@@ -16,7 +16,6 @@
  * ast_katina, ast_macbeth, ast_title, ast_map, ast_training
  */
 extern Gfx D_60005B0[]; // fox_bg
-extern Gfx D_6000A80[]; // fox_bg, fox_effect
 extern Gfx D_6000E00[]; // fox_edata_1C
 extern Gfx D_6001360[]; // fox_bg, fox_demo, fox_edata_1C. Possible symbol collision
 extern Gfx D_6001530[]; // fox_360, fox_demo, fox_ka
@@ -24,66 +23,29 @@ extern Gfx D_6001A60[]; // fox_effect
 extern u8 D_6001B80[]; // fox_hud
 extern Vtx D_6001C50[]; // fox_play
 extern u8 D_60020D0[]; // fox_hud
-extern Gfx D_60023B0[]; // fox_edata_1C
 extern Gfx D_6002990[]; // fox_edata_1C
 extern Gfx D_6002E60[]; // fox_bg
 extern Gfx D_6003000[]; // fox_edata_1C
 extern Gfx D_60030F0[]; // fox_edata_1C
-extern Gfx D_6003760[];
 extern Gfx D_60038E0[];
 extern u16 D_60038F8[];
 extern Gfx D_6004170[];
 extern Vtx D_6004500[];
 extern Gfx D_60046F0[];
 extern Gfx D_6004900[];
-extern EnvSettings D_TI_6005000;
 extern u16 D_6005710[];
 extern Gfx D_6005780[];
 extern Gfx D_6005880[];
 extern Gfx D_60059F0[];
 extern Gfx D_6006140[];
 extern Gfx D_6006310[];
-extern u16* D_TI_600631C[];
 extern Animation D_600636C;
-extern f32 D_60064AC[];
-extern f32 D_60064C8[];
-extern f32 D_60064FC[];
-extern f32 D_6006518[];
 extern Limb* D_6006558[];
-extern f32 D_6006564[];
-extern f32 D_60065B0[];
-extern f32 D_60065FC[];
-extern f32 D_6006648[];
-extern f32 D_6006694[];
 extern Gfx D_60066D0[];
-extern f32 D_60066E0_f32[];
-extern Gfx D_60066E0_Gfx[];
-extern f32 D_600672C[];
 extern u16 D_6006750[];
-extern f32 D_6006778[];
-extern f32 D_60067C4[];
-extern f32 D_6006808[];
-extern f32 D_600683C[];
-extern f32 D_6006858[];
-extern f32 D_6006890_f32[];
-extern Gfx D_6006890_Gfx[];
-extern f32 D_60068BC[];
-extern f32 D_60068F0[];
-extern f32 D_6006940[];
-extern f32 D_600695C[];
-extern f32 D_6006978[];
-extern f32 D_6006994[];
-extern f32 D_60069B0[];
-extern f32 D_60069CC[];
-extern f32 D_60069E8[];
-extern f32 D_6006A04[];
-extern f32 D_6006A20[];
-extern f32 D_6006A3C[];
 extern EnvSettings D_6006A60;
 extern Gfx D_6006A80[];
 extern Gfx D_6006BE0[];
-extern f32 D_6006BF0[];
-extern f32 D_6006C44[];
 extern u16 D_6006EA0[];
 extern Gfx D_6006F50[];
 extern Gfx D_6007410[];
@@ -100,7 +62,6 @@ extern Gfx D_6008830[];
 extern Gfx D_6008AA0[];
 extern Gfx D_6009250[];
 extern u16* D_6009B34[];
-extern u16 D_6009BB8[];
 extern f32 D_6009CC4[];
 extern f32 D_6009CFC[];
 extern Animation D_6009D30;

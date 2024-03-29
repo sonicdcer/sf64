@@ -1,11 +1,10 @@
-// #include "prevent_bss_reordering.h"
+#include "prevent_bss_reordering.h"
 #include "global.h"
+#include "assets/ast_titania.h"
 
 void func_i5_801B5244(s32 arg0, s32 arg1);
 void func_i5_801B5FE0(s32 arg0, s32 arg1, s32 arg2);
 void func_i5_801B68A8(Gfx** dlist, s32 arg1, s32 arg2);
-
-extern u16 D_6001BA8[];
 
 typedef struct {
     /* 0x00 */ s32 unk_00;
@@ -372,7 +371,7 @@ void func_i5_801B58AC(Gfx** dList, f32 arg1) {
     if (D_i5_801C5C14 & 2) {
         gDPSetupTile((*dList)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, 0, 0, G_TX_MIRROR | G_TX_WRAP,
                      G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
-        gDPLoadTileTexture((*dList)++, D_6001BA8, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
+        gDPLoadTileTexture((*dList)++, D_TI_6001BA8, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
         gSPMatrix((*dList)++, &gIdentityMtx, G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
         Matrix_Translate(gGfxMatrix, D_i5_801C62D8.x, D_i5_801C62D8.y, D_i5_801C62D8.z + D_i5_801C5C10, 0);
         Matrix_ToMtx(gGfxMtx);
@@ -563,7 +562,7 @@ void func_i5_801B68A8(Gfx** dlist, s32 arg1, s32 arg2) {
 
     gDPSetupTile((*dlist)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, 0, 0, G_TX_MIRROR | G_TX_WRAP,
                  G_TX_MIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
-    gDPLoadTileTexture((*dlist)++, D_6001BA8, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
+    gDPLoadTileTexture((*dlist)++, D_TI_6001BA8, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
     Matrix_Translate(gGfxMatrix, D_i5_801C62D8.x, D_i5_801C62D8.y, D_i5_801C62D8.z + D_i5_801C5C10, 0);
     Matrix_ToMtx(gGfxMtx);
     gSPMatrix((*dlist)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
