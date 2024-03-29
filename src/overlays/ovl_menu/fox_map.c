@@ -1109,31 +1109,6 @@ Gfx* D_menu_801B68F8[] = {
     D_menu_801B5B10, D_menu_801B5440, D_menu_801B50D8, D_menu_801B57A8, D_MAP_604DB10,
 };
 
-extern u8 D_MAP_6000840[]; // ast_map
-extern u8 D_MAP_6001080[]; // ast_map
-extern u8 D_MAP_60018C0[];
-extern u8 D_MAP_600D590[];
-extern u8 D_MAP_6019030[];
-extern Gfx D_MAP_601D1F0[];
-extern u8 D_601DC10[];
-extern u16 D_601DC90[];
-extern Gfx D_MAP_601DCF0[];
-extern u8 D_601DCA0[];
-extern u16 D_601DCD8[];
-extern Gfx D_MAP_601E9A0[];
-extern u16 D_MAP_6044820[];
-extern u16 D_6046AA0[];
-extern u16 D_MAP_6046CD0[];
-extern Gfx D_MAP_60479D0[];
-extern Gfx D_MAP_6047E70[];
-extern u8 D_MAP_6047F80[];
-extern u8 D_MAP_6048F80[];
-extern Gfx D_MAP_604C350[];
-extern Gfx D_MAP_604C540[];
-extern Gfx D_MAP_604CDE0[];
-extern Gfx D_MAP_604D680[];
-extern Gfx D_MAP_605A120[];
-
 void func_menu_8019E800(void);
 void func_menu_8019E99C(void);
 void func_menu_8019F164(void);
@@ -6730,11 +6705,11 @@ void func_menu_801AD7EC(s32 xPos, s32 yPos, s32 number) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    TextureRect_4bCI(&gMasterDisp, D_601DC10, D_601DC90, 16, 16, xPos, yPos, 1.0f, 1.0f);
+    TextureRect_4bCI(&gMasterDisp, D_MAP_601DC10, D_MAP_601DC90, 16, 16, xPos, yPos, 1.0f, 1.0f);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
-    TextureRect_4bCI(&gMasterDisp, D_601DCA0, D_601DCD8, 16, 7, xPos + 18.0f, yPos + 9.0f, 1.0f, 1.0f);
+    TextureRect_4bCI(&gMasterDisp, D_MAP_601DCA0, D_MAP_601DCD8, 16, 7, xPos + 18.0f, yPos + 9.0f, 1.0f, 1.0f);
 
     RCP_SetupDL(&gMasterDisp, 0x53);
 

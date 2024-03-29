@@ -14,8 +14,7 @@
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
-
-extern Gfx D_60320E0[];
+#include "assets/ast_title.h"
 
 extern s32 D_800C9E90[];
 
@@ -30,9 +29,6 @@ extern Gfx D_6000D80[];
 extern Gfx D_600BAA0[];
 extern Gfx D_60132B0[];
 extern Gfx D_6020810[];
-
-extern Animation D_AQ_6020A40;
-extern Limb* D_AQ_6020C6C[];
 
 #include "assets/ast_allies.h"
 
@@ -2922,7 +2918,7 @@ void func_800515C4(void) {
     (void) "d Enm->wrk0 %d\n";
 
     if (gGameState == GSTATE_TITLE) {
-        var_fp = D_60320E0;
+        var_fp = D_TITLE_60320E0;
     } else if (gGameState == GSTATE_CREDITS) {
         var_fp = D_END_7010970;
     } else {

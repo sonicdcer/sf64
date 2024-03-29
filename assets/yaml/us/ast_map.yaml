@@ -182,7 +182,19 @@ D_MAP_601D2F0:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 64, offset: 0x0601D2F0, symbol: D_MAP_601D2F0, tlut: 0x0601DAF0 }
 
 D_MAP_601DAF0:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 256, offset: 0x0601DAF0, symbol: D_MAP_601DAF0 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 144, offset: 0x0601DAF0, symbol: D_MAP_601DAF0 }
+
+D_MAP_601DC10:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0601DC10, symbol: D_MAP_601DC10, tlut: 0x0601DC90 }
+
+D_MAP_601DC90:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0x0601DC90, symbol: D_MAP_601DC90 }
+
+D_MAP_601DCA0:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 7, offset: 0x0601DCA0, symbol: D_MAP_601DCA0, tlut: 0x0601DCD8 }
+
+D_MAP_601DCD8:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 5, offset: 0x0601DCD8, symbol: D_MAP_601DCD8 }
 
 D_MAP_601DCF0:
   { type: GFX, offset: 0x601DCF0, symbol: D_MAP_601DCF0 }

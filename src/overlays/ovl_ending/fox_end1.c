@@ -10,22 +10,6 @@
 void func_ending_8018CE20(s32);
 void func_ending_801926D4(void);
 extern u32 D_ending_80192E70;
-extern Gfx D_6041070[];
-extern Animation D_601E424;
-extern Animation D_601F8E0;
-extern Animation D_6020058;
-extern Animation D_60246F8;
-extern Animation D_6029BE4;
-extern Animation D_602A710;
-
-extern Limb* D_602FBAC[];
-extern Limb* D_603088C[];
-extern Limb* D_60313AC[];
-extern Limb* D_6032084[];
-
-extern Animation D_60338DC;
-extern Animation D_603531C;
-extern Animation D_6036278;
 
 bool func_ending_80189C64(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data);
 void func_ending_8018ABE8(void);
@@ -128,7 +112,7 @@ void func_ending_801876A4(void) {
         Matrix_RotateX(gGfxMatrix, (D_ending_80196D08[i].rot.x + 5.0f) * M_DTOR, 1);
         Matrix_RotateZ(gGfxMatrix, D_ending_80196D08[i].rot.z * M_DTOR, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_6041070);
+        gSPDisplayList(gMasterDisp++, D_TITLE_6041070);
         Matrix_Pop(&gGfxMatrix);
     }
 }
@@ -139,7 +123,7 @@ void func_ending_80187860(s32 arg0, s32 arg1) {
     Vec3f sp88[50];
     s32 i;
     s32 sp80;
-    Animation* sp70[4] = { &D_60246F8, &D_60338DC, &D_6036278, &D_603531C };
+    Animation* sp70[4] = { &D_TITLE_60246F8, &D_TITLE_60338DC, &D_TITLE_6036278, &D_TITLE_603531C };
 
     for (i = arg0; i < D_ending_80196F88; i++) {
         Matrix_Push(&gGfxMatrix);
@@ -162,16 +146,16 @@ void func_ending_80187860(s32 arg0, s32 arg1) {
         if ((arg1 != 0) && (gCsFrameCount >= 394)) {
             switch (i) {
                 case 0:
-                    sp80 = Animation_GetFrameData(&D_60246F8, 0, sp88);
+                    sp80 = Animation_GetFrameData(&D_TITLE_60246F8, 0, sp88);
                     break;
                 case 1:
-                    sp80 = Animation_GetFrameData(&D_60338DC, 0, sp88);
+                    sp80 = Animation_GetFrameData(&D_TITLE_60338DC, 0, sp88);
                     break;
                 case 2:
-                    sp80 = Animation_GetFrameData(&D_6036278, 0, sp88);
+                    sp80 = Animation_GetFrameData(&D_TITLE_6036278, 0, sp88);
                     break;
                 case 3:
-                    sp80 = Animation_GetFrameData(&D_603531C, 0, sp88);
+                    sp80 = Animation_GetFrameData(&D_TITLE_603531C, 0, sp88);
                     break;
             }
             Math_SmoothStepToVec3fArray(sp88, D_ending_80197900[i], 1, sp80, 0.1f, 100.0f, 0.01f);
@@ -187,7 +171,7 @@ void func_ending_80187860(s32 arg0, s32 arg1) {
     }
 }
 #else
-Animation* D_ending_80192820[4] = { &D_60246F8, &D_60338DC, &D_6036278, &D_603531C };
+Animation* D_ending_80192820[4] = { &D_TITLE_60246F8, &D_TITLE_60338DC, &D_TITLE_6036278, &D_TITLE_603531C };
 void func_ending_80187860(s32, s32);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/overlays/ovl_ending/fox_end1/func_ending_80187860.s")
 #endif
@@ -197,8 +181,8 @@ void func_ending_80187D3C(s32 arg0) {
     s32 j;
     Vec3f sp23C = { 0.0f, 0.0f, 0.0f };
     UnkStruct_196D08 sp13C[4] = {
-        { &D_602A710,
-          D_602FBAC,
+        { &D_TITLE_602A710,
+          D_TITLE_602FBAC,
           23,
           { 110.0f, -520.0f, -1390.0f },
           { -20.0f, 0.0f, 0.0f },
@@ -207,8 +191,8 @@ void func_ending_80187D3C(s32 arg0) {
           0,
           0,
           { 0, 0, 0, 0 } },
-        { &D_601E424,
-          D_603088C,
+        { &D_TITLE_601E424,
+          D_TITLE_603088C,
           23,
           { 380.0f, -670.0f, -1840.0f },
           { -20.0f, 0.0f, 0.0f },
@@ -217,8 +201,8 @@ void func_ending_80187D3C(s32 arg0) {
           30,
           0,
           { 0, 0, 0, 0 } },
-        { &D_6020058,
-          D_60313AC,
+        { &D_TITLE_6020058,
+          D_TITLE_60313AC,
           23,
           { -100.0f, -590.0f, -1630.0f },
           { -20.0f, 0.0f, 0.0f },
@@ -227,8 +211,8 @@ void func_ending_80187D3C(s32 arg0) {
           20,
           0,
           { 0, 0, 0, 0 } },
-        { &D_6029BE4,
-          D_6032084,
+        { &D_TITLE_6029BE4,
+          D_TITLE_6032084,
           23,
           { -330.0f, -660.0f, -1840.0f },
           { -20.0f, 0.0f, 0.0f },
@@ -239,8 +223,8 @@ void func_ending_80187D3C(s32 arg0) {
           { 0, 0, 0, 0 } },
     };
     UnkStruct_196D08 sp3C[4] = {
-        { &D_602A710,
-          D_602FBAC,
+        { &D_TITLE_602A710,
+          D_TITLE_602FBAC,
           23,
           { -80.0f, -400.0f, -50.0f },
           { 0.0f, 180.0f, 0.0f },
@@ -249,8 +233,8 @@ void func_ending_80187D3C(s32 arg0) {
           0,
           0,
           { 0, 0, 0, 0 } },
-        { &D_601E424,
-          D_603088C,
+        { &D_TITLE_601E424,
+          D_TITLE_603088C,
           23,
           { -160.0f, -400.0f, 350.0f },
           { 0.0f, 180.0f, 0.0f },
@@ -259,8 +243,8 @@ void func_ending_80187D3C(s32 arg0) {
           30,
           0,
           { 0, 0, 0, 0 } },
-        { &D_6020058,
-          D_60313AC,
+        { &D_TITLE_6020058,
+          D_TITLE_60313AC,
           23,
           { 60.0f, -400.0f, 150.0f },
           { 0.0f, 180.0f, 0.0f },
@@ -269,8 +253,8 @@ void func_ending_80187D3C(s32 arg0) {
           20,
           0,
           { 0, 0, 0, 0 } },
-        { &D_6029BE4,
-          D_6032084,
+        { &D_TITLE_6029BE4,
+          D_TITLE_6032084,
           23,
           { 160.0f, -400.0f, 350.0f },
           { 350.0f, 180.0f, 0.0f },
@@ -486,17 +470,17 @@ void func_ending_801888F4(void) {
 
         case 1:
             sp294 = D_ending_80196D08[sp29C].unk_34 * D_ending_80196D08[sp29C].unk_30;
-            if (sp294 >= Animation_GetFrameCount(&D_601F8E0)) {
-                sp294 = Animation_GetFrameCount(&D_601F8E0) - 1;
+            if (sp294 >= Animation_GetFrameCount(&D_TITLE_601F8E0)) {
+                sp294 = Animation_GetFrameCount(&D_TITLE_601F8E0) - 1;
             }
-            Math_SmoothStepToVec3fArray(sp3C, D_ending_80197900[0], 1, Animation_GetFrameData(&D_601F8E0, sp294, sp3C),
-                                        0.2f, 100.0f, 0.01f);
+            Math_SmoothStepToVec3fArray(sp3C, D_ending_80197900[0], 1,
+                                        Animation_GetFrameData(&D_TITLE_601F8E0, sp294, sp3C), 0.2f, 100.0f, 0.01f);
             break;
 
         case 2:
             sp294 = (u32) (D_ending_80196D08[sp29C].unk_34 * D_ending_80196D08[sp29C].unk_30) %
                     Animation_GetFrameCount(D_ending_80196D08[sp29C].anim);
-            temp_s0_5 = Animation_GetFrameData(&D_60246F8, sp294, sp3C);
+            temp_s0_5 = Animation_GetFrameData(&D_TITLE_60246F8, sp294, sp3C);
             Math_SmoothStepToF(&D_ending_80198580, 1.0f, 0.01f, 1.0f, 0.05f);
             Math_SmoothStepToVec3fArray(sp3C, D_ending_80197900[0], 1, temp_s0_5, D_ending_80198580, 100.0f, 0.01f);
             break;
@@ -522,8 +506,8 @@ void func_ending_80188DB4(void) {
           0,
           0,
           { 0, 0, 0, 0 } },
-        { &D_60338DC,
-          D_603088C,
+        { &D_TITLE_60338DC,
+          D_TITLE_603088C,
           23,
           { 230.0f, -370.0f, -620.0f },
           { 350.0f, 0.0f, 0.0f },
@@ -532,8 +516,8 @@ void func_ending_80188DB4(void) {
           0,
           0,
           { 0, 0, 0, 0 } },
-        { &D_6036278,
-          D_60313AC,
+        { &D_TITLE_6036278,
+          D_TITLE_60313AC,
           23,
           { -120.0f, -350.0f, -600.0f },
           { 350.0f, 10.0f, 0.0f },
@@ -542,8 +526,8 @@ void func_ending_80188DB4(void) {
           0,
           0,
           { 0, 0, 0, 0 } },
-        { &D_603531C,
-          D_6032084,
+        { &D_TITLE_603531C,
+          D_TITLE_6032084,
           23,
           { -260.0f, -350.0f, -710.0f },
           { 350.0f, 10.0f, 0.0f },
@@ -552,8 +536,8 @@ void func_ending_80188DB4(void) {
           0,
           0,
           { 0, 0, 0, 0 } },
-        { &D_60246F8,
-          D_602FBAC,
+        { &D_TITLE_60246F8,
+          D_TITLE_602FBAC,
           23,
           { 30.0f, -330.0f, -320.0f },
           { 350.0f, 0.0f, 0.0f },
