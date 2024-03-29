@@ -1,6 +1,7 @@
 #include "prevent_bss_reordering.h"
 #include "global.h"
 #include "assets.h"
+#include "assets/ast_corneria.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
@@ -1707,7 +1708,7 @@ void func_8006654C(Actor* actor) {
                 actor->fwork[0] += 0.5f;
             }
             actor->unk_0B6++;
-            if (Animation_GetFrameCount(&D_6029528) < actor->unk_0B6) {
+            if (Animation_GetFrameCount(&D_CO_6029528) < actor->unk_0B6) {
                 actor->unk_0B6 = 0;
             }
             if ((actor->obj.rot.z < 15.0f) && (actor->unk_0B6 < 0x14)) {

@@ -14,6 +14,7 @@ s32 D_80178744;
 s32 D_80178748;
 
 #include "assets/ast_allies.h"
+#include "assets/ast_corneria.h"
 #include "assets/ast_training.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
@@ -259,16 +260,16 @@ void func_800BAAE8(void) {
             sp44 = D_STAR_WOLF_F002D60;
             break;
         case RCID_BOSS_CORNERIA:
-            sp44 = D_6026420;
+            sp44 = D_CO_6026420;
             break;
         case RCID_BOSS_CORNERIA_OPEN:
-            sp44 = D_6027340;
+            sp44 = D_CO_6027340;
             break;
         case RCID_BOSS_CORNERIA2:
-            sp44 = D_60245E0;
+            sp44 = D_CO_60245E0;
             break;
         case RCID_BOSS_CORNERIA2_OPEN:
-            sp44 = D_6025500;
+            sp44 = D_CO_6025500;
             break;
         case RCID_BOSS_METEO:
             sp44 = D_601C8E0;
