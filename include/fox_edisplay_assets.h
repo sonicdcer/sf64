@@ -17,7 +17,6 @@ extern Gfx D_602DE70[];
 extern Gfx D_602DC40[];
 extern Gfx D_602D830[];
 extern Gfx D_602D340[];
-extern Gfx D_6031280[];
 extern Gfx D_6031130[];
 extern Gfx D_6030850[];
 extern Gfx D_6030FD0[];

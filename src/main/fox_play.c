@@ -330,7 +330,7 @@ void func_800A5338(void) {
     s32 i;
     s32 j;
 
-    D_80178310 = SEGMENTED_TO_VIRTUAL(D_603B074);
+    D_80178310 = SEGMENTED_TO_VIRTUAL(D_CO_603B074);
 
     for (j = 0, obj58 = gObjects58; j < 200; j++) {
         if (D_80178310[j].id <= OBJ_INVALID) {
@@ -6172,7 +6172,7 @@ void func_800B79B0(void) {
             }
             break;
         case LEVEL_CORNERIA:
-            func_8008C104(D_603EB38, D_CO_6028A60);
+            func_8008C104(D_CO_603EB38, D_CO_6028A60);
             if (gGameFrameCount & 1) {
                 Texture_Scroll(D_CO_600CBD8, 64, 32, 3);
             }

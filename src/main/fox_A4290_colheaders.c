@@ -3,6 +3,7 @@
 #include "variables.h"
 #include "assets.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_corneria.h"
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
 #include "assets/ast_vs_player.h"
@@ -116,15 +117,15 @@ CollisionHeader2 D_800D2CA0[19] = {
         { -1220.0f, 0.0f, -1315.0f },
         { 1403.0f, 174.0f, 1308.0f },
         13,
-        D_603F338,
-        D_603F388,
+        D_CO_603F338,
+        D_CO_603F388,
     },
     {
         { -1311.0f, 0.0f, -1120.0f },
         { 1266.0f, 1465.0f, 1266.0f },
         36,
-        D_603F40C,
-        D_603F4E4,
+        D_CO_603F40C,
+        D_CO_603F4E4,
     },
     {
         { -435.0f, -10.0f, -435.0f },

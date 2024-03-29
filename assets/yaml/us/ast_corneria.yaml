@@ -424,6 +424,7 @@ D_CO_603B074:
 D_CO_603D9E8:
   { type: SF64:SCRIPT, offset: 0x603D9E8, symbol: D_CO_603D9E8 }
 
+# Seems unused
 D_CO_603DC40:
   { type: SF64:HITBOX, offset: 0x603DC40, symbol: D_CO_603DC40 }
 
@@ -472,9 +473,11 @@ D_CO_603E1B4:
 D_CO_603E21C:
   { type: SF64:HITBOX, offset: 0x603E21C, symbol: D_CO_603E21C }
 
+# seems unused
 D_CO_603E2C0:
   { type: SF64:HITBOX, offset: 0x603E2C0, symbol: D_CO_603E2C0 }
 
+# seems unused
 D_CO_603E2F4:
   { type: SF64:HITBOX, offset: 0x603E2F4, symbol: D_CO_603E2F4 }
 
@@ -560,7 +563,7 @@ D_CO_603EB38:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0603EB38, symbol: D_CO_603EB38 }
 
 D_CO_603F338:
-  { type: SF64:TRIANGLE, count: 13, offset: 0x603F338, symbol: D_CO_603F338, mesh_symbol: "D_CO_OFFSET", mesh_offset: 0x603F388 }
+  { type: SF64:TRIANGLE, count: 13, offset: 0x603F338, symbol: D_CO_603F338, mesh_symbol: D_CO_OFFSET, mesh_offset: 0x603F388 }
 
 D_CO_603F40C:
-  { type: SF64:TRIANGLE, count: 36, offset: 0x603F40C, symbol: D_CO_603F40C, mesh_symbol: "D_CO_OFFSET" }
+  { type: SF64:TRIANGLE, count: 36, offset: 0x603F40C, symbol: D_CO_603F40C, mesh_symbol: D_CO_OFFSET }
