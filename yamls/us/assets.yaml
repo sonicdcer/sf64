@@ -364,8 +364,12 @@
 
   - name: ast_ending
     exclusive_ram_id: segment_07
-    type: bin
+    type: code
+    dir: assets
     start: 0xD27600
+    vram: 0x07000000
+    subsegments:
+      - [0xD27600, .data, ast_ending/ast_ending]
 
   - name: ast_ending_award_front
     exclusive_ram_id: segment_08
