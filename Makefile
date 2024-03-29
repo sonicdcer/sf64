@@ -351,7 +351,7 @@ assets:
 	@$(TORCH) modding export $(BASEROM_UNCOMPRESSED)
 
 clean:
-	rm torch.hash.yml
+	rm -f torch.hash.yml
 	@git clean -fdx asm/
 	@git clean -fdx bin/
 	@git clean -fdx build/
