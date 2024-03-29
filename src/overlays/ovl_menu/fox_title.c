@@ -4,7 +4,6 @@
  * Description: Starfox Title Handler
  */
 #include "prevent_bss_reordering.h"
-#include "prevent_bss_reordering2.h"
 #include "global.h"
 #include "fox_title.h"
 #include "assets/ast_title.h"

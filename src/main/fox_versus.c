@@ -83,7 +83,7 @@ void func_800BC760(void) {
 }
 
 void func_800BC88C(f32 xPos, f32 yPos, f32 scale) {
-    TextureRect_8bIA(&gMasterDisp, &D_VS_7003830, 64, 17, xPos, yPos, scale, scale);
+    TextureRect_8bIA(&gMasterDisp, D_VS_7003830, 64, 17, xPos, yPos, scale, scale);
 }
 
 void func_800BC8D8(f32 xPos, f32 yPos, f32 scale) {

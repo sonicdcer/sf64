@@ -12,8 +12,12 @@
 
   - name: ast_common
     exclusive_ram_id: segment_01
-    type: bin
+    type: code
+    dir: assets
     start: 0x873CB0
+    vram: 0x01000000
+    subsegments:
+      - [0x873CB0, .data, ast_common/ast_common]
 
   - name: ast_bg_space
     exclusive_ram_id: segment_02
@@ -221,7 +225,7 @@
     vram: 0x06000000
     subsegments:
      - [0xA8B470, .data, ast_area_6/ast_area_6]
-     
+
   - name: ast_venom_1
     exclusive_ram_id: segment_06
     type: bin
@@ -233,10 +237,14 @@
     start: 0xACF960
 
   - name: ast_ve1_boss
-    exclusive_ram_id: segment_06,
+    # exclusive_ram_id: segment_06
     exclusive_ram_id: segment_09
-    type: bin
+    type: code
+    dir: assets
     start: 0xAE60A0
+    vram: 0x09000000
+    subsegments:
+      - [0xAE60A0, .data, ast_ve1_boss/ast_ve1_boss]
 
   - name: ast_bolse
     exclusive_ram_id: segment_06
