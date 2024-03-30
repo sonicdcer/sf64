@@ -98,15 +98,23 @@ void func_i4_80199BDC(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel
         }
     }
 }
+typedef enum {
+    MISSILE_TARGET_X = 4,
+    MISSILE_TARGET_Y = 5,
+    MISSILE_TARGET_Z = 6,
+} MissileWork;
 
-// https://decomp.me/scratch/FVgio
+// https://decomp.me/scratch/7td7r
 #ifdef NON_MATCHING
-void func_i4_80199C60(Actor* actor) {
-    s32 pad[2];
-    f32 var_fa0;
-    f32 var_fv1;
+void func_i4_80199C60(Actor* missile) {
+    f32 xDist;
+    f32 yDist;
+    f32 zDist;
+    f32 x;
+    f32 y;
+    s32 pad;
 
-    switch (++actor->iwork[9]) {
+    switch (++missile->iwork[9]) {
         case 600:
             Radio_PlayMessage(gMsg_ID_16080, RCID_ROB64);
             break;
@@ -120,39 +128,38 @@ void func_i4_80199C60(Actor* actor) {
             break;
     }
 
-    var_fv1 = gBosses[0].obj.pos.x - actor->obj.pos.x;
-    var_fa0 = gBosses[0].obj.pos.z - actor->obj.pos.z;
-    SIN_DEG(gGameFrameCount);
+    /* Distance between the Great Fox and the missile */ 
+    xDist = gBosses[0].obj.pos.x - missile->obj.pos.x;
+    zDist = gBosses[0].obj.pos.z - missile->obj.pos.z;
+    
+    SIN_DEG(gGameFrameCount); // WTF
 
-    if (0) {
-        ;
+    if (xDist) {
+        
     }
-    if (var_fv1) {
-        ;
+    if (zDist) {
+        
     }
-    if (var_fa0) {
-        ;
-    }
-
-    if (actor->unk_0E4 < 100) {
-        var_fv1 = SIN_DEG((actor->index * 45) + gGameFrameCount) * 5000.0f;
-        var_fa0 = COS_DEG((actor->index * 45) + (gGameFrameCount * 2)) * 5000.0f;
+    
+    if (missile->unk_0E4 < 100) {
+        xDist = SIN_DEG((missile->index * 45) + gGameFrameCount) * 5000.0f;
+        zDist = COS_DEG((missile->index * 45) + (gGameFrameCount * 2)) * 5000.0f;
     } else {
-        var_fa0 = 0.0f;
-        var_fv1 = 0.0f;
+        zDist = 0.0f;
+        xDist = 0.0f;
     }
 
-    actor->fwork[4] = (gBosses[0].obj.pos.x + var_fv1) + 400.0f;
-    actor->fwork[5] = (gBosses[0].obj.pos.y + var_fa0) + 100.0f;
-    // temp_fv0 = fabsf(actor->fwork[4] - actor->obj.pos.x);
-    actor->fwork[6] = gBosses[0].obj.pos.z;
-    actor->fwork[3] = 1.4f;
+    missile->fwork[MISSILE_TARGET_X] = (gBosses[0].obj.pos.x + xDist) + 400.0f;
+    missile->fwork[MISSILE_TARGET_Y] = (gBosses[0].obj.pos.y + zDist) + 100.0f;
+    missile->fwork[MISSILE_TARGET_Z] = gBosses[0].obj.pos.z;
+    missile->fwork[3] = 1.4f;
 
-    if (((fabsf(actor->fwork[4] - actor->obj.pos.x) < 800.0f) &&
-         (fabsf(actor->fwork[5] - actor->obj.pos.y) < 800.0f)) &&
-        (fabsf(actor->fwork[6] - actor->obj.pos.z) < 800.0f)) {
-        func_i4_80199900(actor, 0);
-        D_80178480 = 0x19;
+    if (((fabsf(missile->fwork[MISSILE_TARGET_X] - missile->obj.pos.x) < 800.0f)
+         && (fabsf(missile->fwork[MISSILE_TARGET_Y] - missile->obj.pos.y) < 800.0f))
+        && (fabsf(missile->fwork[MISSILE_TARGET_Z] - missile->obj.pos.z) < 800.0f))
+    {
+        func_i4_80199900(missile, 0);
+        D_80178480 = 25;
         gBosses[0].dmgType = DMG_UNK_100;
         if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5)) {
             gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
@@ -161,11 +168,11 @@ void func_i4_80199C60(Actor* actor) {
             return;
         }
     }
-
-    if (((fabsf(actor->fwork[6] - actor->obj.pos.z) < 2000.0f) &&
-         (((gPlayer[0].camEye.z < 0.0f) || (D_801615D0.y < 0.0f)) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_10))) &&
-        (((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_10)) ||
-         (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5))) {
+    if (((fabsf(missile->fwork[MISSILE_TARGET_Z] - missile->obj.pos.z) < 2000.0f)
+         && (((gPlayer[0].camEye.z < 0.0f) || (D_801615D0.y < 0.0f)) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_10)))
+        && (((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_10))
+            || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5)))
+    {
         gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
         gPlayer[0].unk_1D0 = 100;
         gActors[0].state = -31072;
