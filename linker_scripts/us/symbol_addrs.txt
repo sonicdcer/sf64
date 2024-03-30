@@ -42,9 +42,9 @@ D_BFF08000 = 0xBFF08000;//ignore:true
 D_BFF08004 = 0xBFF08004;//ignore:true
 
 // RDB regs used only in exceptasm. Also 2.0f
-D_C0000000 = 0xC0000000;//ignore:true
-D_C0000008 = 0xC0000008;//ignore:true
-D_C000000C = 0xC000000C;//ignore:true
+D_ANDROSS_C0000000 = 0xC0000000;//ignore:true
+D_ANDROSS_C0000008 = 0xC0000008;//ignore:true
+D_ANDROSS_C000000C = 0xC000000C;//ignore:true
 
 D_80151650 = 0x80151650; //ignore:true
 
