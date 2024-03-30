@@ -10,6 +10,7 @@ WingInfo D_80161630;
 
 #include "fox_edisplay_assets.h"
 #include "assets/ast_corneria.h"
+#include "assets/ast_meteo.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_aquas.h"
 #include "assets/ast_macbeth.h"
@@ -89,12 +90,12 @@ void func_80059A24(Actor* actor) {
 
     Matrix_Translate(gGfxMatrix, 0.f, -temp, 0.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    Animation_GetFrameData(&D_601E8C4, actor->unk_0B6, sp30);
-    Animation_DrawSkeleton(1, D_601E9D0, sp30, NULL, func_800599A4, &actor->index, &gIdentityMatrix);
+    Animation_GetFrameData(&D_ME_601E8C4, actor->unk_0B6, sp30);
+    Animation_DrawSkeleton(1, D_ME_601E9D0, sp30, NULL, func_800599A4, &actor->index, &gIdentityMatrix);
 }
 
 void func_80059AEC(Object_80* obj80) {
-    gSPDisplayList(gMasterDisp++, D_601AE40);
+    gSPDisplayList(gMasterDisp++, D_ME_601AE40);
 }
 
 void func_80059B20(Object_80* obj80) {
@@ -551,19 +552,19 @@ void func_8005B388(Actor* actor) {
 void func_8005B6A4(Actor* actor) {
     Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_6024B60);
+    gSPDisplayList(gMasterDisp++, D_ME_6024B60);
 }
 
 void func_8005B71C(Actor* actor) {
     RCP_SetupDL_29(actor->unk_046, gFogGreen, gFogBlue, gFogAlpha, actor->unk_048, gFogFar);
     Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_6018C00);
+    gSPDisplayList(gMasterDisp++, D_ME_6018C00);
 }
 
 void func_8005B7CC(Actor* actor) {
     RCP_SetupDL_29(actor->unk_046, gFogGreen, gFogBlue, gFogAlpha, actor->unk_048, gFogFar);
-    gSPDisplayList(gMasterDisp++, D_6022920);
+    gSPDisplayList(gMasterDisp++, D_ME_6022920);
 }
 
 void func_8005B848(Actor* actor) {

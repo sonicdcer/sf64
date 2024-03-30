@@ -3,6 +3,7 @@
 #include "variables.h"
 #include "assets.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_meteo.h"
 #include "assets/ast_corneria.h"
 #include "assets/ast_macbeth.h"
 #include "assets/ast_sector_y.h"
@@ -36,22 +37,22 @@ CollisionHeader D_800D2B38[10] = {
         { -1128.0f, -1835.0f, -1202.0f },
         { 997.0f, 139.0f, 1360.0f },
         79,
-        D_602FA9C,
-        D_60300C8,
+        D_ME_602FA9C,
+        D_ME_60300C8,
     },
     {
         { -3006.0f, -2274.0f, -4530.0f },
         { 3015.0f, 3348.0f, 5246.0f },
         236,
-        D_60305DC,
-        D_603184C,
+        D_ME_60305DC,
+        D_ME_603184C,
     },
     {
         { -152.0f, -200.0f, -152.0f },
         { 165.0f, 204.0f, 181.0f },
         42,
-        D_6030208,
-        D_6030550,
+        D_ME_6030208,
+        D_ME_6030550,
     },
     {
         { -1704.0f, -1006.0f, -4751.0f },

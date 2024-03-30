@@ -4,6 +4,7 @@
 #include "assets/ast_versus.h"
 #include "assets/ast_arwing.h"
 #include "assets/ast_corneria.h"
+#include "assets/ast_meteo.h"
 #include "assets/ast_training.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
@@ -267,13 +268,13 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_ACTOR_178 */  {(void*) func_i1_8018BBF8, 2, (ObjectFunc) func_i1_8018B418,        D_CO_603E5D0,   500.0f,  0, 0, 39, 1, 200.0f,  1 },
   /* OBJ_ACTOR_179 */  {(void*) func_i1_8018BD7C, 2, (ObjectFunc) func_i1_8018B58C,        D_CO_603E604,   500.0f,  0, 0, 39, 1,   0.0f,  1 },
   /* OBJ_ACTOR_180 */  {(void*) func_8005B6A4, 1, (ObjectFunc) func_80066A80,       D_800CBF34,  1000.0f,  0, 0, 39, 0,   0.0f,  1 },
-  /* OBJ_ACTOR_181 */  {(void*)     D_6018C00, 0, (ObjectFunc) func_i2_8018756C,        D_602F6EC,   200.0f,  0, 0, 39, 0,   1.0f,  1 },
-  /* OBJ_ACTOR_182 */  {(void*) func_8005B71C, 1, (ObjectFunc) func_i2_80187650,        D_602F708,   100.0f,  0, 1, 39, 0,   1.0f,  1 },
+  /* OBJ_ACTOR_181 */  {(void*)     D_ME_6018C00, 0, (ObjectFunc) func_i2_8018756C,        D_ME_602F6EC,   200.0f,  0, 0, 39, 0,   1.0f,  1 },
+  /* OBJ_ACTOR_182 */  {(void*) func_8005B71C, 1, (ObjectFunc) func_i2_80187650,        D_ME_602F708,   100.0f,  0, 1, 39, 0,   1.0f,  1 },
   /* OBJ_ACTOR_183 */  {(void*) func_i2_8018DA6C, 1, (ObjectFunc) func_i2_8018D9EC,       D_800CBF34,   100.0f,  0, 1, 39, 0,   0.0f,  1 },
   /* OBJ_ACTOR_184 */  {(void*) func_i2_8018DAEC, 1, (ObjectFunc) func_i2_8018D9EC,       D_800CBF34,   100.0f,  0, 1, 39, 0,   0.0f,  1 },
   /* OBJ_ACTOR_185 */  {(void*) func_i2_8018DB6C, 1, (ObjectFunc) func_i2_8018D9EC,       D_800CBF34,   100.0f,  0, 1, 39, 0,   0.0f,  1 },
-  /* OBJ_ACTOR_186 */  {(void*) func_8005B7CC, 1, (ObjectFunc) func_i2_8018795C,        D_602F724,   200.0f,  0, 1, 39, 0,   1.0f,  1 },
-  /* OBJ_ACTOR_187 */  {(void*)     D_6018450, 0, (ObjectFunc) func_i2_801877C4,        D_602F740,   200.0f,  0, 1, 39, 0,   1.0f,  1 },
+  /* OBJ_ACTOR_186 */  {(void*) func_8005B7CC, 1, (ObjectFunc) func_i2_8018795C,        D_ME_602F724,   200.0f,  0, 1, 39, 0,   1.0f,  1 },
+  /* OBJ_ACTOR_187 */  {(void*)     D_ME_6018450, 0, (ObjectFunc) func_i2_801877C4,        D_ME_602F740,   200.0f,  0, 1, 39, 0,   1.0f,  1 },
   /* OBJ_ACTOR_188 */  {(void*) func_i3_801BEC74, 1, (ObjectFunc) func_i3_801BEC68,        D_AQ_6030BE0,   200.0f,  0, 1, 39, 0,   1.0f,  1 },
   /* OBJ_ACTOR_189 */  {(void*) func_8005A094, 1, (ObjectFunc) func_8006C008,       D_800CBF34,     0.0f,  0, 0, 39, 0,   0.0f,  0 },
   /* OBJ_ACTOR_190 */  {(void*) func_8005B848, 1, (ObjectFunc) func_800656D4,       D_800CBFE4,   100.0f,  0, 1, 39, 0,   1.0f,  0 },
@@ -287,8 +288,8 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_ACTOR_198 */  {(void*) func_80035448, 1, (ObjectFunc) func_80092EC0,       D_800CC01C, 20000.0f,  0, 0, 39, 1,   0.0f,  0 },
   /* OBJ_ACTOR_199 */  {(void*) func_i6_80188448, 1, (ObjectFunc) func_i6_801880E4,       D_800CBF34, 20000.0f,  0, 0, 39, 1,   0.0f,  0 },
   /* OBJ_ACTOR_200 */  {(void*) func_80074FF0, 1, (ObjectFunc) func_80072594,       D_800CBF34,  2000.0f,  0, 1, 39, 0,   0.0f,  1 },
-  /* OBJ_ACTOR_201 */  {(void*) func_800598E8, 1, (ObjectFunc) func_8006AC08,        D_602F684,   100.0f,  0, 1, 39, 0,   1.0f,  1 },
-  /* OBJ_ACTOR_202 */  {(void*) func_80059A24, 1, (ObjectFunc) func_8006AD18,        D_602F6A0,   100.0f,  0, 1, 39, 0, 180.0f,  1 },
+  /* OBJ_ACTOR_201 */  {(void*) func_800598E8, 1, (ObjectFunc) func_8006AC08,        D_ME_602F684,   100.0f,  0, 1, 39, 0,   1.0f,  1 },
+  /* OBJ_ACTOR_202 */  {(void*) func_80059A24, 1, (ObjectFunc) func_8006AD18,        D_ME_602F6A0,   100.0f,  0, 1, 39, 0, 180.0f,  1 },
   /* OBJ_ACTOR_203 */  {(void*) func_i2_8018F884, 1, (ObjectFunc) func_i2_8018F330,       D_800CBF34,  1000.0f,  0, 0, 39, 0,   0.0f,  0 },
   /* OBJ_ACTOR_204 */  {(void*) func_i6_801A4CB0, 1, (ObjectFunc) func_i6_801A3BD4,        D_SY_603405C,  1000.0f,  0, 0, 39, 0,   1.0f,  1 },
   /* OBJ_ACTOR_205 */  {(void*) func_i5_801A12C4, 1, (ObjectFunc) func_i5_8019C778,        D_MA_60359C8, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },
@@ -383,8 +384,8 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_BOSS_294 */  {(void*) func_i1_8018ED78, 1, (ObjectFunc) func_i1_8018DDAC,        D_CO_603E714, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_BOSS_295 */  {(void*) func_i1_8018EE84, 1, (ObjectFunc) func_i1_8018E290,        D_CO_603E748, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_BOSS_296 */  {(void*) func_i1_8018EF90, 1, (ObjectFunc) func_i1_8018E76C,        D_CO_603E7C4, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
-  /* OBJ_BOSS_297 */  {(void*) func_i2_8018BACC, 1, (ObjectFunc) func_i2_8018978C,        D_602F75C, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
-  /* OBJ_BOSS_298 */  {(void*) func_i2_801887D0, 1, (ObjectFunc) func_i2_80188344,        D_602FA50, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
+  /* OBJ_BOSS_297 */  {(void*) func_i2_8018BACC, 1, (ObjectFunc) func_i2_8018978C,        D_ME_602F75C, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
+  /* OBJ_BOSS_298 */  {(void*) func_i2_801887D0, 1, (ObjectFunc) func_i2_80188344,        D_ME_602FA50, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_BOSS_299 */  {(void*) func_80042FC4, 2, (ObjectFunc) func_80042FB8,       D_800CBF34, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_BOSS_300 */  {(void*) func_80042FE8, 1, (ObjectFunc) func_80042FDC,       D_800CBF34, 20000.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_BOSS_301 */  {(void*) func_i3_801BEC5C, 1, (ObjectFunc) func_i3_801BEC50,        D_AQ_6030B10,     0.0f,  0, 0, 40, 0,   0.0f, 10 },

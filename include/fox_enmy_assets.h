@@ -3,7 +3,6 @@
 
 #include "sf64object.h"
 
-extern ObjectInit D_ME_6026CC4[];
 extern ObjectInit D_VE1_6007E74[];
 extern ObjectInit D_SO_601F234[];
 extern ObjectInit D_ZO_6026714[];

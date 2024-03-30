@@ -15,6 +15,7 @@ extern Gfx D_601BAD0[];
 #include "assets/ast_bg_space.h"
 #include "assets/ast_bg_planet.h"
 #include "assets/ast_corneria.h"
+#include "assets/ast_meteo.h"
 #include "assets/ast_training.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
@@ -433,7 +434,7 @@ void func_800788B0(Effect* effect) {
         case LEVEL_METEO:
             Graphics_SetScaleMtx(effect->scale2);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 128, 128, 128, 255);
-            gSPDisplayList(gMasterDisp++, D_601FF80);
+            gSPDisplayList(gMasterDisp++, D_ME_601FF80);
             break;
 
         case LEVEL_AQUAS:

@@ -141,9 +141,6 @@ D_ME_6016240:
 D_ME_60162C8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x060162C8, symbol: D_ME_60162C8 }
   
-#D_ME_60162D0: #
-#  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x060162D0, symbol: D_ME_60162D0 }
-
 D_ME_60172C8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x060172C8, symbol: D_ME_60172C8 }
 
@@ -189,6 +186,7 @@ D_ME_601E8C4:
 D_ME_601E9D0: 
   { type: SF64:SKELETON, offset: 0x601E9D0, symbol: D_ME_601E9D0 }
 
+# Beta Meteo background, unused
 D_ME_601EA00: 
   { type: GFX, offset: 0x0601EA00, symbol: D_ME_601EA00 }
 

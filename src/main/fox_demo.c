@@ -11,6 +11,7 @@
 #include "assets/ast_enmy_space.h"
 #include "assets/ast_enmy_planet.h"
 #include "assets/ast_ending.h"
+#include "assets/ast_meteo.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
@@ -27,7 +28,6 @@ extern f32 D_80178478;
 
 extern Gfx D_6000D80[];
 extern Gfx D_600BAA0[];
-extern Gfx D_6020810[];
 
 #include "assets/ast_allies.h"
 
@@ -2571,7 +2571,7 @@ void func_8004FEC0(Actor* actor) {
             RCP_SetupDL_40();
             Matrix_Scale(gGfxMatrix, 60.0f, 60.0f, 1.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_6020810);
+            gSPDisplayList(gMasterDisp++, D_ME_6020810);
             break;
 
         case 11:

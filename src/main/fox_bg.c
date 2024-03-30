@@ -20,6 +20,7 @@ f32 D_80161394;             // can be static
 #include "assets/ast_bg_planet.h"
 #include "assets/ast_versus.h"
 #include "assets/ast_corneria.h"
+#include "assets/ast_meteo.h"
 #include "assets/ast_training.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
@@ -554,12 +555,12 @@ void func_8003E1E8(void) {
                                 Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f) - 30.0f, -290.0f, 1);
                                 Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 1.0f, 1);
                                 Matrix_SetGfxMtx(&gMasterDisp);
-                                gSPDisplayList(gMasterDisp++, D_600DDF0);
+                                gSPDisplayList(gMasterDisp++, D_ME_600DDF0);
                             } else if (D_80177D20 > 185668.0f) {
                                 Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f) - 130.0f, -290.0f, 1);
                                 Matrix_Scale(gGfxMatrix, 0.4f, 0.4f, 1.0f, 1);
                                 Matrix_SetGfxMtx(&gMasterDisp);
-                                gSPDisplayList(gMasterDisp++, D_600DDF0);
+                                gSPDisplayList(gMasterDisp++, D_ME_600DDF0);
                             }
                             break;
                         case LEVEL_SECTOR_X:

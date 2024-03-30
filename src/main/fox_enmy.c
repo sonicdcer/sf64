@@ -6,6 +6,7 @@
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_meteo.h"
 #include "assets/ast_macbeth.h"
 #include "assets/ast_titania.h"
 #include "assets/ast_andross.h"
@@ -523,7 +524,7 @@ void func_80062664(void) {
     s32 j;
 
     if ((gCurrentLevel == LEVEL_METEO) && (D_8017827C == 1)) {
-        D_80178310 = SEGMENTED_TO_VIRTUAL(D_602B148);
+        D_80178310 = SEGMENTED_TO_VIRTUAL(D_ME_602B148);
     } else if ((gCurrentLevel == LEVEL_SECTOR_X) && (D_8017827C == 1)) {
         D_80178310 = SEGMENTED_TO_VIRTUAL(D_SX_602F18C);
     } else if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (D_8017827C == 1)) {
