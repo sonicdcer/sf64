@@ -250,6 +250,7 @@ D_ME_6024AD0:
 D_ME_6024B60:
   { type: GFX, offset: 0x06024B60, symbol: D_ME_6024B60 }
 
+# Unused Meteo Ball
 D_ME_6025B50:
   { type: GFX, offset: 0x06025B50, symbol: D_ME_6025B50 }
 
