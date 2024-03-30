@@ -1545,8 +1545,8 @@ void func_i6_8018CAD4(Effect* effect) {
 }
 
 static Gfx* D_i6_801A6790[10] = {
-    D_ANDROSS_C001880, D_ANDROSS_C001880, D_ANDROSS_C001880, D_ANDROSS_C001880,        D_ANDROSS_C001880,
-    D_ANDROSS_C001880, D_ANDROSS_C001880, D_ANDROSS_C001880, D_arwing_3016660, D_arwing_3015D80,
+    D_ANDROSS_C001880, D_ANDROSS_C001880, D_ANDROSS_C001880, D_ANDROSS_C001880, D_ANDROSS_C001880,
+    D_ANDROSS_C001880, D_ANDROSS_C001880, D_ANDROSS_C001880, D_arwing_3016660,  D_arwing_3015D80,
 };
 
 void func_i6_8018CF98(Effect* effect) {
@@ -3147,7 +3147,8 @@ void func_i6_801928C8(Boss* boss) {
                                D_i6_801A7F74, D_i6_801A7F7C, D_i6_801A8430);
         }
         Matrix_Scale(gCalcMatrix, 10.0f, 10.0f, 10.0f, 1);
-        Animation_DrawSkeleton(2, D_ANDROSS_C01CC3C, D_i6_801A7F80, func_i6_801917F0, func_i6_801924B4, boss, gCalcMatrix);
+        Animation_DrawSkeleton(2, D_ANDROSS_C01CC3C, D_i6_801A7F80, func_i6_801917F0, func_i6_801924B4, boss,
+                               gCalcMatrix);
         Matrix_Pop(&gGfxMatrix);
         Matrix_Push(&gGfxMatrix);
         if (boss->fwork[20] > 0.05f) {
