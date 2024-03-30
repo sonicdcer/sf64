@@ -350,8 +350,12 @@
 
   - name: ast_andross
     exclusive_ram_id: segment_0C
-    type: bin
+    type: code
+    dir: assets
+    vram: 0x0C000000
     start: 0xCE9E70
+    subsegments:
+      - [0xCE9E70, .data, ast_andross/ast_andross]
 
   - name: ast_logo
     exclusive_ram_id: segment_0F
