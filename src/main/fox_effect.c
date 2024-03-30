@@ -487,7 +487,7 @@ void func_80078BE0(Effect* effect) {
 void func_80078C84(Effect* effect) {
     Graphics_SetScaleMtx(effect->scale2);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 192);
-    gSPDisplayList(gMasterDisp++, D_TI_6000A80);
+    gSPDisplayList(gMasterDisp++, D_ME_6000A80);
 }
 
 void func_80078CE8(Effect* effect) {
