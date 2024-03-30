@@ -128,19 +128,15 @@ void func_i4_80199C60(Actor* missile) {
             break;
     }
 
-    /* Distance between the Great Fox and the missile */ 
+    /* Distance between the Great Fox and the missile */
     xDist = gBosses[0].obj.pos.x - missile->obj.pos.x;
     zDist = gBosses[0].obj.pos.z - missile->obj.pos.z;
-    
+
     SIN_DEG(gGameFrameCount); // WTF
 
-    if (xDist) {
-        
-    }
-    if (zDist) {
-        
-    }
-    
+    if (xDist) {}
+    if (zDist) {}
+
     if (missile->unk_0E4 < 100) {
         xDist = SIN_DEG((missile->index * 45) + gGameFrameCount) * 5000.0f;
         zDist = COS_DEG((missile->index * 45) + (gGameFrameCount * 2)) * 5000.0f;
@@ -154,10 +150,9 @@ void func_i4_80199C60(Actor* missile) {
     missile->fwork[MISSILE_TARGET_Z] = gBosses[0].obj.pos.z;
     missile->fwork[3] = 1.4f;
 
-    if (((fabsf(missile->fwork[MISSILE_TARGET_X] - missile->obj.pos.x) < 800.0f)
-         && (fabsf(missile->fwork[MISSILE_TARGET_Y] - missile->obj.pos.y) < 800.0f))
-        && (fabsf(missile->fwork[MISSILE_TARGET_Z] - missile->obj.pos.z) < 800.0f))
-    {
+    if (((fabsf(missile->fwork[MISSILE_TARGET_X] - missile->obj.pos.x) < 800.0f) &&
+         (fabsf(missile->fwork[MISSILE_TARGET_Y] - missile->obj.pos.y) < 800.0f)) &&
+        (fabsf(missile->fwork[MISSILE_TARGET_Z] - missile->obj.pos.z) < 800.0f)) {
         func_i4_80199900(missile, 0);
         D_80178480 = 25;
         gBosses[0].dmgType = DMG_UNK_100;
@@ -168,11 +163,10 @@ void func_i4_80199C60(Actor* missile) {
             return;
         }
     }
-    if (((fabsf(missile->fwork[MISSILE_TARGET_Z] - missile->obj.pos.z) < 2000.0f)
-         && (((gPlayer[0].camEye.z < 0.0f) || (D_801615D0.y < 0.0f)) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_10)))
-        && (((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_10))
-            || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5)))
-    {
+    if (((fabsf(missile->fwork[MISSILE_TARGET_Z] - missile->obj.pos.z) < 2000.0f) &&
+         (((gPlayer[0].camEye.z < 0.0f) || (D_801615D0.y < 0.0f)) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_10))) &&
+        (((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_10)) ||
+         (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5))) {
         gPlayer[0].state_1C8 = PLAYERSTATE_1C8_7;
         gPlayer[0].unk_1D0 = 100;
         gActors[0].state = -31072;
