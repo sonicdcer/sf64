@@ -20,13 +20,8 @@ extern Gfx D_6001530[]; // fox_360, fox_demo, fox_ka
 extern Gfx D_6001A60[]; // fox_effect
 extern u8 D_6001B80[]; // fox_hud
 extern Vtx D_6001C50[]; // fox_play
-extern u8 D_60020D0[]; // fox_hud
-extern Gfx D_6002990[]; // fox_edata_1C
 extern Gfx D_6002E60[]; // fox_bg
-extern Gfx D_6003000[]; // fox_edata_1C
 extern Gfx D_60030F0[]; // fox_edata_1C
-extern Gfx D_60038E0[];
-extern Gfx D_6004170[];
 extern Vtx D_6004500[];
 extern Gfx D_60046F0[];
 extern u16 D_6005710[];
@@ -41,12 +36,12 @@ extern EnvSettings D_6006A60;
 extern u16 D_6006EA0[];
 extern Gfx D_6006F50[];
 extern Gfx D_6007410[];
-extern Gfx D_6007650[];
 extern Gfx D_6007C40[];
 extern Gfx D_6007CF0[];
 extern EnvSettings D_VE1_6007E30;
 extern Gfx D_6007D90[];
-extern Gfx D_6008370[];
+extern Gfx D_60084C0[];
+extern Gfx D_6008770[];
 extern Gfx D_6008830[];
 extern Gfx D_6009250[];
 extern u16* D_6009B34[];
@@ -61,8 +56,6 @@ extern Animation D_600B1B4;
 extern Gfx D_600B8B0[];
 extern u16 D_600BEA0[];
 extern Animation D_600C15C;
-extern Animation D_600C200;
-extern Limb* D_600C2AC[];
 extern u16 D_600C6A0[];
 extern Vtx D_600C780[];
 extern Animation D_600D3DC;
@@ -84,7 +77,6 @@ extern Gfx D_600F3D0[];
 extern CollisionPoly D_600F3F4[];
 extern Gfx D_600F560[];
 extern Vec3s D_600F5AC[];
-extern Gfx D_600F670[];
 extern Animation D_600F744;
 extern u8 D_600F940[];
 extern Gfx D_600F9B0[];
@@ -100,7 +92,6 @@ extern ObjectInit* D_6010088[];
 extern u8 D_6010090[];
 extern u16 D_6010198[];
 extern u8 D_60106B0[];
-extern Gfx D_6010960[];
 extern u8 D_6010FA0[];
 extern Vec3s D_601170C[];
 extern u8 D_6011890[];
@@ -112,17 +103,12 @@ extern Gfx D_6013480[];
 extern Animation D_601388C;
 extern u8 D_6014140[];
 extern u16 D_6014510[];
-extern Animation D_6014658;
 extern u16 D_60147C0[];
 extern u8 D_60147E0[];
 extern u8 D_60148B0[];
-extern CollisionPoly D_6014FEC[];
 extern u16 D_6015430[];
 extern Gfx D_6016270[];
 extern Vec3s D_6016374[];
-extern f32 D_601668C[];
-extern f32 D_60166F4[];
-extern f32 D_6016714[];
 extern Gfx D_6016CF0[];
 extern Gfx D_6017090[];
 extern Gfx D_6017370[];
@@ -194,7 +180,6 @@ extern Vec3s D_6033E08[];
 extern Gfx D_6041070[];
 extern EnvSettings D_BO_600FF30;
 extern EnvSettings D_ME_6026C80;
-extern EnvSettings D_VE2_6014D50;
 extern EnvSettings D_ZO_60266D0;
 
 #endif // ASSETS_H

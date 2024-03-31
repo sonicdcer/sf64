@@ -16,6 +16,7 @@ s32 D_80161690;
 #include "assets/ast_sector_y.h"
 #include "assets/ast_aquas.h"
 #include "assets/ast_macbeth.h"
+#include "assets/ast_venom_2.h"
 #include "assets/ast_titania.h"
 #include "assets/ast_7_ti_1.h"
 #include "assets/ast_andross.h"
@@ -1119,7 +1120,7 @@ void func_8006D36C(Actor* actor) {
             }
 
             if (actor->unk_0B4 == 104) {
-                actor->unk_0B6 = Animation_GetFrameCount(&D_6014658) - 1;
+                actor->unk_0B6 = Animation_GetFrameCount(&D_VE2_6014658) - 1;
             }
 
             if (actor->unk_0B4 < 200) {

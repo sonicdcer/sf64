@@ -10,6 +10,7 @@ WingInfo D_80161630;
 
 #include "fox_edisplay_assets.h"
 #include "assets/ast_katina.h"
+#include "assets/ast_venom_2.h"
 #include "assets/ast_fortuna.h"
 #include "assets/ast_corneria.h"
 #include "assets/ast_meteo.h"
@@ -1450,7 +1451,7 @@ void Object_58_Draw(Object_58* obj58) {
                     Matrix_RotateY(gGfxMatrix, M_PI / 2, 1);
                     Matrix_Translate(gGfxMatrix, -551.0f, 0.0f, 0.0f, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_6007650);
+                    gSPDisplayList(gMasterDisp++, D_VE2_6007650);
                 } else {
                     Matrix_RotateY(gGfxMatrix, obj58->obj.rot.y * M_DTOR, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);

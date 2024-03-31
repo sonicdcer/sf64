@@ -7,6 +7,7 @@
 #include "assets/ast_meteo.h"
 #include "assets/ast_corneria.h"
 #include "assets/ast_macbeth.h"
+#include "assets/ast_venom_2.h"
 #include "assets/ast_fortuna.h"
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
@@ -102,7 +103,7 @@ CollisionHeader D_800D2B38[10] = {
         { -671.0f, 0.0f, -671.0f },
         { 671.0f, 648.0f, 671.0f },
         250,
-        D_6014FEC,
+        D_VE2_6014FEC,
         D_6016374,
     },
 };

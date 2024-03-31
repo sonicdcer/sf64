@@ -12,6 +12,7 @@
 #include "assets/ast_meteo.h"
 #include "assets/ast_macbeth.h"
 #include "assets/ast_katina.h"
+#include "assets/ast_venom_2.h"
 #include "assets/ast_fortuna.h"
 #include "assets/ast_titania.h"
 #include "assets/ast_andross.h"

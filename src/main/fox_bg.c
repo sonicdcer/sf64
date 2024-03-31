@@ -18,6 +18,7 @@ UNK_TYPE D_8015F988[0x683]; // Unused? Close to being [13][0x80]
 f32 D_80161394;             // can be static
 
 #include "assets/ast_katina.h"
+#include "assets/ast_venom_2.h"
 #include "assets/ast_fortuna.h"
 #include "assets/ast_bg_planet.h"
 #include "assets/ast_versus.h"
@@ -296,7 +297,7 @@ void func_8003E1E8(void) {
                             gSPDisplayList(gMasterDisp++, D_KA_600F1D0);
                             break;
                         case LEVEL_VENOM_2:
-                            gSPDisplayList(gMasterDisp++, D_600F670);
+                            gSPDisplayList(gMasterDisp++, D_VE2_600F670);
                             break;
                     }
                     Matrix_Translate(gGfxMatrix, 7280.0f, 0.0f, 0.0f, 1);
@@ -318,7 +319,7 @@ void func_8003E1E8(void) {
                             gSPDisplayList(gMasterDisp++, D_KA_600F1D0);
                             break;
                         case LEVEL_VENOM_2:
-                            gSPDisplayList(gMasterDisp++, D_600F670);
+                            gSPDisplayList(gMasterDisp++, D_VE2_600F670);
                             break;
                     }
                     break;
@@ -354,7 +355,7 @@ void func_8003E1E8(void) {
                             Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].unk_034 * M_DTOR, 1);
                             Matrix_Translate(gGfxMatrix, 0.0f, -4000.0f, -7000.0f, 1);
                             Matrix_SetGfxMtx(&gMasterDisp);
-                            gSPDisplayList(gMasterDisp++, D_600F670);
+                            gSPDisplayList(gMasterDisp++, D_VE2_600F670);
                         } else if ((D_80177AB0 == 3) || (D_80177AB0 == 4)) {
                             RCP_SetupDL(&gMasterDisp, 0x3E);
                             if (D_80177AB0 == 4) {
@@ -376,10 +377,10 @@ void func_8003E1E8(void) {
                             Matrix_Translate(gGfxMatrix, sp13C, -2000.0f + sp134, -6000.0f, 1);
                             Matrix_Translate(gGfxMatrix, 0.0f, -2500.0f, 0.0f, 1);
                             Matrix_SetGfxMtx(&gMasterDisp);
-                            gSPDisplayList(gMasterDisp++, D_60038E0);
+                            gSPDisplayList(gMasterDisp++, D_VE2_60038E0);
                             Matrix_Translate(gGfxMatrix, 7280.0f, 0.0f, 0.0f, 1);
                             Matrix_SetGfxMtx(&gMasterDisp);
-                            gSPDisplayList(gMasterDisp++, D_60038E0);
+                            gSPDisplayList(gMasterDisp++, D_VE2_60038E0);
                         } else {
                         fake_label: // fake
                             RCP_SetupDL(&gMasterDisp, 0x3E);
