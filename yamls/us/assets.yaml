@@ -248,8 +248,12 @@
 
   - name: ast_bolse
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xB0AA00
+    vram: 0x06000000
+    subsegments:
+      - [0xB0AA00, .data, ast_bolse/ast_bolse]
 
   - name: ast_fortuna
     exclusive_ram_id: segment_06
