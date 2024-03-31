@@ -233,8 +233,12 @@
 
   - name: ast_venom_2
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xACF960
+    vram: 0x06000000
+    subsegments:
+      - [0xA4FBB0, .data, ast_venom_2/ast_venom_2]
 
   - name: ast_ve1_boss
     # exclusive_ram_id: segment_06

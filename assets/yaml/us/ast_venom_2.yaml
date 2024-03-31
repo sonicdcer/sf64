@@ -94,8 +94,17 @@ D_600A680:
 D_600B708:
   { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x600B708, ctype: u16, symbol: D_600B708 }
 
+D_600C038:
+  { type: SF64:ANIM, offset: 0x600C038, symbol: D_600C038 }
+
+D_600C0A4:
+  { type: SF64:SKELETON, offset: 0x600C0A4, symbol: D_600C0A4 }
+
 D_600C200:
   { type: SF64:ANIM, offset: 0x600C200, symbol: D_600C200 }
+
+D_600C2AC:
+  { type: SF64:SKELETON, offset: 0x600C2AC, symbol: D_600C2AC }
 
 D_600C2D0:
   { type: GFX, offset: 0x600C2D0, symbol: D_600C2D0 }
@@ -163,8 +172,32 @@ D_60114A0:
 D_6013AF8:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x6013AF8, ctype: u16, symbol: D_6013AF8 }
 
+D_6014658:
+  { type: SF64:ANIM, offset: 0x6014658, symbol: D_6014658 }
+
+D_6014844:
+  { type: SF64:SKELETON, offset: 0x6014844, symbol: D_6014844 }
+
 D_6014904:
   { type: SF64:ANIM, offset: 0x6014904, symbol: D_6014904 }
 
 D_60149D0:
   { type: SF64:SKELETON, offset: 0x60149D0, symbol: D_60149D0 }
+
+D_VE2_6014D50:
+  { type: SF64:ENV_SETTINGS, offset: 0x6014D50, symbol: D_VE2_6014D50 }
+
+D_VE2_6014D94:
+  { type: SF64:OBJECT_INIT, offset: 0x6014D94, symbol: D_VE2_6014D94 }
+
+D_6014FEC:
+  { type: SF64:COLPOLY, count: 250, offset: 0x6014FEC, symbol: D_6014FEC }
+
+D_601668C:
+  { type: SF64:HITBOX, offset: 0x601668C, symbol: D_601668C }
+
+D_60166F4:
+  { type: SF64:HITBOX, offset: 0x60166F4, symbol: D_60166F4 }
+
+D_16714:
+  { type: SF64:HITBOX, offset: 0x6016714, symbol: D_16714 }

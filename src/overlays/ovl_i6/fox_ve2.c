@@ -1,6 +1,8 @@
 #include "global.h"
 #include "assets.h"
 
+#include "assets/ast_venom_2.h"
+
 void func_i6_80196210(Boss* boss) {
     Math_SmoothStepToF(&boss->fwork[0], boss->fwork[1], 0.5f, 5.0f, 0.0f);
 }

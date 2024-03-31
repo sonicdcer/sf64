@@ -83,6 +83,7 @@ s32 D_80161900[20];
 #include "assets/ast_training.h"
 #include "assets/ast_area_6.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_venom_2.h"
 #include "assets/ast_katina.h"
 #include "assets/ast_macbeth.h"
 #include "assets/ast_titania.h"

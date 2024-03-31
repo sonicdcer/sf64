@@ -2,17 +2,10 @@
 #include "prevent_bss_reordering.h"
 #include "global.h"
 #include "assets.h"
+#include "assets/ast_venom_2.h"
 #include "assets/ast_andross.h"
 #include "assets/ast_arwing.h"
 #include "assets/ast_bg_planet.h"
-
-extern Animation D_600C038;
-extern Gfx D_6009300[];
-extern Limb* D_600C0A4[];
-extern Gfx D_600C2D0[];
-extern Gfx D_600C560[];
-extern Limb* D_6014844[];
-extern Gfx D_6007E20[];
 
 f32 D_i6_801A7F40;
 f32 D_i6_801A7F44;
