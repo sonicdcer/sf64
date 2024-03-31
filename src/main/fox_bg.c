@@ -17,6 +17,7 @@ f32 D_8015F984;
 UNK_TYPE D_8015F988[0x683]; // Unused? Close to being [13][0x80]
 f32 D_80161394;             // can be static
 
+#include "assets/ast_fortuna.h"
 #include "assets/ast_bg_planet.h"
 #include "assets/ast_versus.h"
 #include "assets/ast_corneria.h"
@@ -608,7 +609,7 @@ void func_8003E1E8(void) {
                             Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, 1);
                             Matrix_Scale(gGfxMatrix, sp128, sp128, sp128, 1);
                             Matrix_SetGfxMtx(&gMasterDisp);
-                            gSPDisplayList(gMasterDisp++, D_600B4B0);
+                            gSPDisplayList(gMasterDisp++, D_FO_600B4B0);
                             break;
                         case LEVEL_BOLSE:
                             sp128 = 1.0f;
@@ -1061,7 +1062,7 @@ void func_80040CE4(void) {
                 Matrix_Translate(gGfxMatrix, D_800C9E64[i], 0.0f, D_800C9E74[i], 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 if (gCurrentLevel == LEVEL_FORTUNA) {
-                    gSPDisplayList(gMasterDisp++, D_6001360);
+                    gSPDisplayList(gMasterDisp++, D_FO_6001360);
                 } else if (gCurrentLevel == LEVEL_KATINA) {
                     gSPDisplayList(gMasterDisp++, D_6009250);
                 } else if (gCurrentLevel == LEVEL_BOLSE) {

@@ -9,6 +9,7 @@ Matrix D_801615F0;
 WingInfo D_80161630;
 
 #include "fox_edisplay_assets.h"
+#include "assets/ast_fortuna.h"
 #include "assets/ast_corneria.h"
 #include "assets/ast_meteo.h"
 #include "assets/ast_sector_x.h"
@@ -193,7 +194,7 @@ Gfx* D_800CFA54[] = {
     D_6027960,    D_60273A0,    D_60183B0,    D_60121E0,    D_602A2E0, D_602A720, D_602B8F0,
     D_602A8C0,    D_6028E70,    D_602E0A0,    D_602DE70,    D_602DC40, D_602D830, D_602D340,
     D_CO_6031280, D_CO_6031130, D_CO_6030850, D_CO_6030FD0, D_602DD40, D_6033AF0, D_60186E0,
-    D_6024160,    D_6033290,    D_6017F10,    D_60074E0,    D_6007590, D_6007730, D_6005CC0,
+    D_6024160,    D_6033290,    D_6017F10,    D_60074E0,    D_6007590, D_6007730, D_FO_6005CC0,
 };
 Gfx* D_800CFAC4[] = {
     D_60176D0, D_6017810, D_6017770, D_6016D90, D_6016E30, D_60178B0,
@@ -1298,7 +1299,7 @@ void func_8005EA24(Actor* actor) {
     } else if ((actor->unk_0E4 < 8) || (gCurrentLevel != LEVEL_FORTUNA)) {
         gSPDisplayList(gMasterDisp++, D_STAR_WOLF_F014310);
     } else if (gCurrentLevel == LEVEL_FORTUNA) {
-        gSPDisplayList(gMasterDisp++, D_6009F90);
+        gSPDisplayList(gMasterDisp++, D_FO_6009F90);
     } else {
         gSPDisplayList(gMasterDisp++, D_STAR_WOLF_F014310);
     }

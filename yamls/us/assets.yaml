@@ -257,7 +257,8 @@
 
   - name: ast_fortuna
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xB1CA50
     vram: 0x06000000
     subsegments:

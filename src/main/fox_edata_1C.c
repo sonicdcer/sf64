@@ -13,6 +13,7 @@
 #include "assets/ast_aquas.h"
 #include "assets/ast_macbeth.h"
 #include "assets/ast_titania.h"
+#include "assets/ast_fortuna.h"
 #include "assets/ast_7_ti_1.h"
 #include "assets/ast_andross.h"
 #include "assets/ast_ve1_boss.h"
@@ -236,10 +237,10 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_80_145  */  {(void*)     D_versus_3013580, 0, (ObjectFunc)          NULL,        D_versus_302ED98,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_146  */  {(void*)     D_versus_3012ED0, 0, (ObjectFunc)          NULL,        D_versus_302EDB4,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_147  */  {(void*)          NULL, 0, (ObjectFunc)          NULL,       D_800CBF34,     0.0f,  0, 0,  0, 0,   0.0f,  0 },
-  /* OBJ_80_148  */  {(void*)     D_60079B0, 0, (ObjectFunc)          NULL,        D_600FF80,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_80_149  */  {(void*)     D_6007D80, 0, (ObjectFunc)          NULL,        D_600FFA0,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_80_150  */  {(void*)     D_6006310, 0, (ObjectFunc)          NULL,        D_600FFC0,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_80_151  */  {(void*) D_TI_60066E0, 0, (ObjectFunc)          NULL,        D_600FEB8,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_148  */  {(void*)     D_60079B0, 0, (ObjectFunc)          NULL,        D_FO_600FF80,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_149  */  {(void*)     D_6007D80, 0, (ObjectFunc)          NULL,        D_FO_600FFA0,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_150  */  {(void*)     D_6006310, 0, (ObjectFunc)          NULL,        D_FO_600FFC0,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_151  */  {(void*) D_TI_60066E0, 0, (ObjectFunc)          NULL,        D_FO_600FEB8,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_152  */  {(void*)     D_BO_600F4C0, 0, (ObjectFunc)          NULL,        D_BO_6011C10,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_153  */  {(void*)     D_BO_600B8B0, 0, (ObjectFunc)          NULL,        D_BO_6011C48,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_154  */  {(void*)     D_600BAF0, 0, (ObjectFunc)          NULL,        D_601115C,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
@@ -251,7 +252,7 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_80_160  */  {(void*)     D_6010960, 0, (ObjectFunc)          NULL,        D_6016714,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_4C_161  */  {(void*)     D_CO_602F7C0, 0, (ObjectFunc) func_80068FE0,        D_CO_603E468,   100.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_4C_162  */  {(void*)     D_CO_601C9B0, 0, (ObjectFunc) func_80068FE0,        D_CO_603E484,   100.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_4C_163  */  {(void*)     D_600A420, 0, (ObjectFunc) func_80068FE0,        D_600FE9C,   100.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_4C_163  */  {(void*)     D_FO_600A420, 0, (ObjectFunc) func_80068FE0,        D_FO_600FE9C,   100.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_4C_164  */  {(void*) func_80059C40, 1, (ObjectFunc)          NULL,       D_800CBF34,  1800.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_4C_165  */  {(void*)     D_CO_602DCA0, 0, (ObjectFunc)          NULL,       D_800CBF34,  -100.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_4C_166  */  {(void*)     D_CO_601F500, 0, (ObjectFunc)          NULL,       D_800CBF34,  -100.0f,  0, 0, 40, 0,   0.0f,  0 },
@@ -361,7 +362,7 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_ACTOR_270 */  {(void*) func_i3_801BEB1C, 1, (ObjectFunc) func_i3_801BE3F8,        D_AQ_60314C8,  1000.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_ACTOR_271 */  {(void*) func_8002E694, 2, (ObjectFunc) func_8002E670,        D_BO_6011B24,     0.0f,  0, 0, 39, 0, 730.0f,  1 },
   /* OBJ_ACTOR_272 */  {(void*) func_8002E6DC, 1, (ObjectFunc) func_8002E6B8,        D_BO_6011BF4,     0.0f,  0, 0, 39, 0, 150.0f,  1 },
-  /* OBJ_ACTOR_273 */  {(void*) func_i4_80188FE4, 2, (ObjectFunc) func_i4_80188AD0,        D_600FF30_Hitbox,     0.0f,  0, 0, 39, 0, 220.0f,  1 },
+  /* OBJ_ACTOR_273 */  {(void*) func_i4_80188FE4, 2, (ObjectFunc) func_i4_80188AD0,        D_FO_600FF30,     0.0f,  0, 0, 39, 0, 220.0f,  1 },
   /* OBJ_ACTOR_274 */  {(void*) func_i4_8019E3A8, 1, (ObjectFunc) func_i4_8019E234,       D_800CBEC4,     0.0f,  0, 0, 39, 0,   1.0f,  0 },
   /* OBJ_ACTOR_275 */  {(void*) func_i3_8019F7AC, 1, (ObjectFunc) func_i3_8019F20C,       D_800CBE8C,   200.0f,  0, 0, 39, 0,   1.0f,  1 },
   /* OBJ_ACTOR_276 */  {(void*) func_i3_8019F7AC, 1, (ObjectFunc) func_i3_8019F20C,       D_800CBE8C,   200.0f,  0, 0, 39, 0,   1.0f,  1 },
@@ -396,7 +397,7 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_BOSS_305 */  {(void*) func_i2_80190020, 2, (ObjectFunc) func_i2_8018FF20,        D_SX_60324EC,  1000.0f,  0, 0, 20, 0,   0.0f, 10 },
   /* OBJ_BOSS_306 */  {(void*) func_i5_801982A8, 1, (ObjectFunc) func_i5_80197A94,D_i5_801B83A8,  1000.0f,  0, 0, 40, 1,   0.0f, 10 },
   /* OBJ_BOSS_ZO */  {(void*) func_i3_801949DC, 2, (ObjectFunc) func_i3_80194A84,        D_602C044,  1000.0f,  0, 0, 40, 0,   1.0f, 10 },
-  /* OBJ_BOSS_308 */  {(void*) func_8008FE78, 1, (ObjectFunc) func_800907C4,        D_600FFE0,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
+  /* OBJ_BOSS_308 */  {(void*) func_8008FE78, 1, (ObjectFunc) func_800907C4,        D_FO_600FFE0,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
   /* OBJ_BOSS_309 */  {(void*) func_8002E604, 1, (ObjectFunc) func_8002E5E0,       D_800CBF34,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
   /* OBJ_BOSS_310 */  {(void*) func_8002E64C, 1, (ObjectFunc) func_8002E628,       D_800CBF34,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
   /* OBJ_BOSS_311 */  {(void*) func_i4_80191AFC, 2, (ObjectFunc) func_i4_801912FC,        D_BO_6011C80,     0.0f,  0, 0, 40, 1,   0.0f, 10 },

@@ -86,6 +86,7 @@ s32 D_80161900[20];
 #include "assets/ast_macbeth.h"
 #include "assets/ast_titania.h"
 #include "assets/ast_bolse.h"
+#include "assets/ast_fortuna.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
@@ -98,16 +99,12 @@ void func_80087788(void);
 // Segmented addresses
 
 extern u8 D_ME_6000000[];
-extern u8 D_FO_6000000[];
 extern u8 D_KA_6000000[];
 extern u8 D_SO_6000000[];
 extern u8 D_ZO_6000000[];
 extern u8 D_BO_6000000[];
 extern u8 D_VE1_6000D80[];
 extern u8 D_VE2_60012D0[];
-extern u8 D_6001260[];
-extern u8 D_6002890[];
-extern Gfx D_6003090[];
 
 // DATA SECTION START
 
@@ -2111,7 +2108,7 @@ s32 func_8008A4DC(void) {
                 break;
 
             case LEVEL_FORTUNA:
-                TextureRect_8bIA(&gMasterDisp, D_6001260, 16, 16, 251.0f + D_800D1E10, 178.0f, 1.00f, 1.00f);
+                TextureRect_8bIA(&gMasterDisp, D_FO_6001260, 16, 16, 251.0f + D_800D1E10, 178.0f, 1.00f, 1.00f);
                 break;
 
             case LEVEL_BOLSE:
@@ -2131,11 +2128,11 @@ s32 func_8008A4DC(void) {
                 break;
 
             case LEVEL_KATINA:
-                TextureRect_8bIA(&gMasterDisp, D_6001260, 8, 8, 254.0f + D_800D1E10, 182.0f, 1.00f, 1.00f);
+                TextureRect_8bIA(&gMasterDisp, D_FO_6001260, 8, 8, 254.0f + D_800D1E10, 182.0f, 1.00f, 1.00f);
                 break;
 
             case LEVEL_VENOM_2:
-                TextureRect_8bIA(&gMasterDisp, D_6002890, 16, 16, 251.0f + D_800D1E10, 178.0f, 1.00f, 1.00f);
+                TextureRect_8bIA(&gMasterDisp, D_FO_6002890, 16, 16, 251.0f + D_800D1E10, 178.0f, 1.00f, 1.00f);
                 break;
         }
     }
@@ -3664,12 +3661,12 @@ void func_8008FA84(void) {
 
 void func_8008FE78(Boss* boss) {
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    gSPDisplayList(gMasterDisp++, D_6003090);
+    gSPDisplayList(gMasterDisp++, D_FO_6003090);
     RCP_SetupDL_34(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
     gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 0, (s32) boss->fwork[1], (s32) boss->fwork[2], 255);
-    gSPDisplayList(gMasterDisp++, D_600D5C0);
+    gSPDisplayList(gMasterDisp++, D_FO_600D5C0);
     gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
 }
 

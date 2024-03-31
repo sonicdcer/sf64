@@ -11,6 +11,7 @@
 #include "assets/ast_bolse.h"
 #include "assets/ast_meteo.h"
 #include "assets/ast_macbeth.h"
+#include "assets/ast_fortuna.h"
 #include "assets/ast_titania.h"
 #include "assets/ast_andross.h"
 #include "assets/ast_arwing.h"

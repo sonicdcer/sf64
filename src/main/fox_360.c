@@ -1,6 +1,7 @@
 #include "prevent_bss_reordering.h"
 #include "global.h"
 #include "assets.h"
+#include "assets/ast_fortuna.h"
 #include "assets/ast_star_wolf.h"
 #include "assets/ast_allies.h"
 #include "assets/ast_bolse.h"
@@ -2241,7 +2242,7 @@ void func_80035448(Actor* actor) {
                 if (gCurrentLevel == LEVEL_FORTUNA) {
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 60.0f, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_6006BE0);
+                    gSPDisplayList(gMasterDisp++, D_FO_6006BE0);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -100.0f, 1);
                     Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, 1);
                     func_8005B1E8(actor, 2);
