@@ -349,16 +349,16 @@ void func_8005A094(Actor* actor) {
             }
             switch (actor->iwork[0]) {
                 case 0:
-                    gSPDisplayList(gMasterDisp++, D_VE1_90234D0);
+                    gSPDisplayList(gMasterDisp++, D_VE1B_90234D0);
                     break;
                 case 1:
-                    gSPDisplayList(gMasterDisp++, D_VE1_9023290);
+                    gSPDisplayList(gMasterDisp++, D_VE1B_9023290);
                     break;
                 case 2:
-                    gSPDisplayList(gMasterDisp++, D_VE1_900D180);
+                    gSPDisplayList(gMasterDisp++, D_VE1B_900D180);
                     break;
                 case 3:
-                    gSPDisplayList(gMasterDisp++, D_VE1_9010FD0);
+                    gSPDisplayList(gMasterDisp++, D_VE1B_9010FD0);
                     break;
             }
             if (actor->iwork[1] != 0) {

@@ -3206,7 +3206,7 @@ void func_80080D04(Effect* effect) {
         case 12:
             Graphics_SetScaleMtx(effect->scale2);
             RCP_SetupDL(&gMasterDisp, 0x17);
-            gSPDisplayList(gMasterDisp++, D_VE1_9013C20);
+            gSPDisplayList(gMasterDisp++, D_VE1B_9013C20);
             RCP_SetupDL(&gMasterDisp, 0x40);
             break;
 
