@@ -160,7 +160,7 @@ D_KA_6010780:
   { type: GFX, offset: 0x6010780, symbol: D_KA_6010780 }
 
 D_KA_6011000:
-  { type: SF64:ENV_SETTINGS, offset: 0x6011000, symbol: D_KA6011000 }
+  { type: SF64:ENV_SETTINGS, offset: 0x6011000, symbol: D_KA_6011000 }
 
 D_KA_6011044:
   { type: SF64:OBJECT_INIT, offset: 0x6011044, symbol: D_KA_6011044 }

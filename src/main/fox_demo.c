@@ -17,6 +17,7 @@
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
 #include "assets/ast_title.h"
+#include "assets/ast_katina.h"
 
 extern s32 D_800C9E90[];
 

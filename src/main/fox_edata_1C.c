@@ -13,6 +13,7 @@
 #include "assets/ast_aquas.h"
 #include "assets/ast_macbeth.h"
 #include "assets/ast_titania.h"
+#include "assets/ast_katina.h"
 #include "assets/ast_fortuna.h"
 #include "assets/ast_7_ti_1.h"
 #include "assets/ast_andross.h"

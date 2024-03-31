@@ -9,6 +9,7 @@ Matrix D_801615F0;
 WingInfo D_80161630;
 
 #include "fox_edisplay_assets.h"
+#include "assets/ast_katina.h"
 #include "assets/ast_fortuna.h"
 #include "assets/ast_corneria.h"
 #include "assets/ast_meteo.h"
