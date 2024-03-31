@@ -285,8 +285,12 @@
 
   - name: ast_katina
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xBB11D0
+    vram: 0x06000000
+    subsegments:
+      - [0xBB11D0, .data, ast_katina/ast_katina]
 
   - name: ast_macbeth
     exclusive_ram_id: segment_06

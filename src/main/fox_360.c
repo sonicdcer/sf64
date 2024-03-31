@@ -2249,10 +2249,10 @@ void func_80035448(Actor* actor) {
                 } else if (gCurrentLevel == LEVEL_KATINA) {
                     switch (actor->unk_0B6) {
                         case 0:
-                            gSPDisplayList(gMasterDisp++, D_600EFF0);
+                            gSPDisplayList(gMasterDisp++, D_KA_600EFF0);
                             break;
                         case 1:
-                            gSPDisplayList(gMasterDisp++, D_600E050);
+                            gSPDisplayList(gMasterDisp++, D_KA_600E050);
                             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
                             func_8005B1E8(actor, 0);
                             break;

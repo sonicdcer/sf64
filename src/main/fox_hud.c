@@ -83,6 +83,7 @@ s32 D_80161900[20];
 #include "assets/ast_training.h"
 #include "assets/ast_area_6.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_katina.h"
 #include "assets/ast_macbeth.h"
 #include "assets/ast_titania.h"
 #include "assets/ast_bolse.h"
@@ -2128,7 +2129,7 @@ s32 func_8008A4DC(void) {
                 break;
 
             case LEVEL_KATINA:
-                TextureRect_8bIA(&gMasterDisp, D_FO_6001260, 8, 8, 254.0f + D_800D1E10, 182.0f, 1.00f, 1.00f);
+                TextureRect_8bIA(&gMasterDisp, D_KA_6001260, 8, 8, 254.0f + D_800D1E10, 182.0f, 1.00f, 1.00f);
                 break;
 
             case LEVEL_VENOM_2:

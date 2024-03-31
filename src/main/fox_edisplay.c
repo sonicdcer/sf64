@@ -1292,9 +1292,9 @@ void func_8005EA24(Actor* actor) {
         gSPDisplayList(gMasterDisp++, D_1032780);
     } else if (gCurrentLevel == LEVEL_KATINA) {
         if ((actor->unk_0B6 == 1) || (actor->unk_0B6 == 2)) {
-            gSPDisplayList(gMasterDisp++, D_600D730);
+            gSPDisplayList(gMasterDisp++, D_KA_600D730);
         } else {
-            gSPDisplayList(gMasterDisp++, D_600DBC0);
+            gSPDisplayList(gMasterDisp++, D_KA_600DBC0);
         }
     } else if ((actor->unk_0E4 < 8) || (gCurrentLevel != LEVEL_FORTUNA)) {
         gSPDisplayList(gMasterDisp++, D_STAR_WOLF_F014310);

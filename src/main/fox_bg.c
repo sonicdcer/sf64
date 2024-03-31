@@ -292,7 +292,7 @@ void func_8003E1E8(void) {
                             gSPDisplayList(gMasterDisp++, D_600D9F0);
                             break;
                         case LEVEL_KATINA:
-                            gSPDisplayList(gMasterDisp++, D_600F1D0);
+                            gSPDisplayList(gMasterDisp++, D_KA_600F1D0);
                             break;
                         case LEVEL_VENOM_2:
                             gSPDisplayList(gMasterDisp++, D_600F670);
@@ -314,7 +314,7 @@ void func_8003E1E8(void) {
                             gSPDisplayList(gMasterDisp++, D_600D9F0);
                             break;
                         case LEVEL_KATINA:
-                            gSPDisplayList(gMasterDisp++, D_600F1D0);
+                            gSPDisplayList(gMasterDisp++, D_KA_600F1D0);
                             break;
                         case LEVEL_VENOM_2:
                             gSPDisplayList(gMasterDisp++, D_600F670);
