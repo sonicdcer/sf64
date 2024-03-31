@@ -15,11 +15,7 @@ s32 func_i6_8019624C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
     return false;
 }
 
-extern Animation D_6014904;
-extern Limb* D_60149D0[];
-
 void func_i6_80196288(Boss* boss) {
-
     Animation_GetFrameData(&D_6014904, 0, boss->vwork);
     Animation_DrawSkeleton(3, D_60149D0, boss->vwork, func_i6_8019624C, NULL, boss, gCalcMatrix);
 }

@@ -2133,7 +2133,7 @@ s32 func_8008A4DC(void) {
                 break;
 
             case LEVEL_VENOM_2:
-                TextureRect_8bIA(&gMasterDisp, D_FO_6002890, 16, 16, 251.0f + D_800D1E10, 178.0f, 1.00f, 1.00f);
+                TextureRect_8bIA(&gMasterDisp, D_VE2_6002890, 16, 16, 251.0f + D_800D1E10, 178.0f, 1.00f, 1.00f);
                 break;
         }
     }
