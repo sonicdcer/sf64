@@ -259,6 +259,9 @@
     exclusive_ram_id: segment_06
     type: bin
     start: 0xB1CA50
+    vram: 0x06000000
+    subsegments:
+      - [0xB1CA50, .data, ast_fortuna/ast_fortuna]
 
   - name: ast_sector_y
     exclusive_ram_id: segment_06
