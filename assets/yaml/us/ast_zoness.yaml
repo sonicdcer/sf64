@@ -411,7 +411,7 @@ D_ZO_602AC50:
 
 # Unused
 D_ZO_602AE94:
-  { type: ARRAY, count: 726, array_type: f32, offset: 0x602AE94, symbol: D_ZO_602AE94}
+  { type: ARRAY, count: 242, array_type: Vec3f, offset: 0x602AE94, symbol: D_ZO_602AE94}
 
 D_ZO_602B9EC:
   { type: SF64:HITBOX, offset: 0x602B9EC, symbol: D_ZO_602B9EC}
@@ -471,7 +471,7 @@ D_ZO_602C2CC:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x602C2CC, symbol: D_ZO_602C2CC}
 
 D_ZO_602CACC:
-  {type: SF64:TRIANGLE, count: 30, offset: 0x602CACC, symbol: D_ZO_602CACC, mesh_symbol: D_OFFSET}
+  {type: SF64:TRIANGLE, count: 30, offset: 0x602CACC, symbol: D_ZO_602CACC, mesh_symbol: D_ZO_OFFSET}
 
 
 
