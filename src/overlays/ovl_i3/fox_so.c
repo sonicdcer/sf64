@@ -2,6 +2,7 @@
 #include "global.h"
 #include "assets.h"
 #include "assets/ast_bg_planet.h"
+#include "assets/ast_solar.h"
 
 typedef void (*BossSOfunc)(Boss*);
 
@@ -373,10 +374,10 @@ Vec3f D_i3_801BF8F0[4] = {
 };
 Vec3f D_i3_801BF920 = { 0.0f, 0.0f, 0.0f };
 Gfx* D_i3_801BF92C[6] = {
-    D_BG_PLANET_200B630, D_BG_PLANET_200A5A0, D_BG_PLANET_2009510, D_60084C0, D_6008D40, D_6007C40,
+    D_BG_PLANET_200B630, D_BG_PLANET_200A5A0, D_BG_PLANET_2009510, D_SO_60084C0, D_SO_6008D40, D_SO_6007C40,
 };
 Gfx* D_i3_801BF944[6] = {
-    D_601B790, D_601B790, D_601A700, D_6019670, D_60185E0, D_6017550,
+    D_601B790, D_601B790, D_SO_601A700, D_SO_6019670, D_SO_60185E0, D_SO_6017550,
 };
 Vec3f D_i3_801BF95C[3] = {
     { 0.0f, 30.0f, 480.0f },
@@ -480,17 +481,17 @@ void func_i3_8019F7AC(Actor* actor) {
         Matrix_SetGfxMtx(&gMasterDisp);
         switch (actor->obj.id) {
             case OBJ_ACTOR_275:
-                gSPDisplayList(gMasterDisp++, D_6017370);
+                gSPDisplayList(gMasterDisp++, D_SO_6017370);
                 break;
             case OBJ_ACTOR_276:
                 if (!(gGameFrameCount & 1)) {
                     RCP_SetupDL(&gMasterDisp, 0x29);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                 }
-                gSPDisplayList(gMasterDisp++, D_6017090);
+                gSPDisplayList(gMasterDisp++, D_SO_6017090);
                 break;
             case OBJ_ACTOR_277:
-                gSPDisplayList(gMasterDisp++, D_6016CF0);
+                gSPDisplayList(gMasterDisp++, D_SO_6016CF0);
                 break;
         }
 
@@ -844,7 +845,7 @@ void func_i3_801A0AF0(Effect* effect) {
             break;
         case 3:
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, effect->unk_44);
-            gSPDisplayList(gMasterDisp++, D_601C820);
+            gSPDisplayList(gMasterDisp++, D_SO_601C820);
             break;
         case 4:
         case 5:
@@ -1223,7 +1224,7 @@ void func_i3_801A1F80(Boss* bossSO) {
         D_801779A8[gMainController] = 10.0f;
         D_80178480 = 120;
         bossSO->fwork[SO_FWK_3] = 2400.0f;
-        bossSO->info.hitbox = SEGMENTED_TO_VIRTUAL(D_60231A4);
+        bossSO->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SO_60231A4);
         bossSO->unk_04C = 0;
         bossSO->swork[SO_SWK_1] = 0;
         bossSO->info.hitbox[8] = bossSO->info.hitbox[12] = bossSO->info.hitbox[14] = bossSO->info.hitbox[18] =
@@ -1457,7 +1458,7 @@ void func_i3_801A2C3C(Boss* bossSO) {
     bossSO->swork[SO_SWK_0] = 2;
     bossSO->swork[SO_SWK_1] = 0;
     bossSO->fwork[SO_FWK_0] = 0.05f;
-    bossSO->unk_04C = Animation_GetFrameCount(&D_601388C) - 2;
+    bossSO->unk_04C = Animation_GetFrameCount(&D_SO_601388C) - 2;
     bossSO->state = 0;
     bossSO->swork[SO_SWK_11] = 15;
 }
@@ -1503,7 +1504,7 @@ void func_i3_801A2C98(Boss* bossSO) {
                 bossSO->obj.rot.y = -bossSO->obj.rot.y;
             }
         } else {
-            bossSO->unk_04C = Animation_GetFrameCount(&D_601388C) - 2;
+            bossSO->unk_04C = Animation_GetFrameCount(&D_SO_601388C) - 2;
         }
     } else {
         Math_SmoothStepToAngle(&bossSO->obj.rot.y, 0.0f, 1.0f, 1.5f, 1.0f);
@@ -1535,7 +1536,7 @@ void func_i3_801A30CC(Boss* bossSO) {
     bossSO->swork[SO_SWK_0] = 3;
     bossSO->swork[SO_SWK_1] = 0;
     bossSO->fwork[SO_FWK_0] = 0.1f;
-    bossSO->unk_04C = Animation_GetFrameCount(&D_601388C) - 2;
+    bossSO->unk_04C = Animation_GetFrameCount(&D_SO_601388C) - 2;
     bossSO->state = 0;
     bossSO->swork[SO_SWK_11] = 15;
 }
@@ -1563,7 +1564,7 @@ void func_i3_801A3128(Boss* bossSO) {
                 bossSO->obj.pos.z = gPlayer[0].unk_138 - 2100.0f;
             }
         } else {
-            bossSO->unk_04C = Animation_GetFrameCount(&D_601388C) - 2;
+            bossSO->unk_04C = Animation_GetFrameCount(&D_SO_601388C) - 2;
         }
     } else {
         if (bossSO->swork[SO_SWK_11] == 80) {
@@ -2377,44 +2378,44 @@ void func_i3_801A5B3C(Boss* bossSO) {
             if (bossSO->unk_04C == 75) {
                 AUDIO_PLAY_SFX(0x29432073, bossSO->sfxSource, 4);
             }
-            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_601388C)) {
+            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_SO_601388C)) {
                 if (bossSO->health != 0) {
                     bossSO->unk_04C = 0;
                     bossSO->swork[SO_SWK_1]++;
                     bossSO->fwork[SO_FWK_0] = 0.01f;
                 } else {
-                    bossSO->unk_04C = Animation_GetFrameCount(&D_601388C) - 1;
+                    bossSO->unk_04C = Animation_GetFrameCount(&D_SO_601388C) - 1;
                 }
             }
-            sp1BC = Animation_GetFrameData(&D_601388C, bossSO->unk_04C, sp50);
+            sp1BC = Animation_GetFrameData(&D_SO_601388C, bossSO->unk_04C, sp50);
             break;
         case 1:
             bossSO->unk_04C++;
-            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_600D3DC)) {
+            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_SO_600D3DC)) {
                 bossSO->unk_04C = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_600D3DC, bossSO->unk_04C, sp50);
+            sp1BC = Animation_GetFrameData(&D_SO_600D3DC, bossSO->unk_04C, sp50);
             break;
         case 2:
             bossSO->unk_04C++;
-            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_600E2C4)) {
+            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_SO_600E2C4)) {
                 bossSO->unk_04C = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_600E2C4, bossSO->unk_04C, sp50);
+            sp1BC = Animation_GetFrameData(&D_SO_600E2C4, bossSO->unk_04C, sp50);
             break;
         case 3:
             bossSO->unk_04C++;
-            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_600F744)) {
+            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_SO_600F744)) {
                 bossSO->unk_04C = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_600F744, bossSO->unk_04C, sp50);
+            sp1BC = Animation_GetFrameData(&D_SO_600F744, bossSO->unk_04C, sp50);
             break;
         case 4:
             bossSO->unk_04C++;
-            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_600C15C)) {
+            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_SO_600C15C)) {
                 bossSO->unk_04C = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_600C15C, bossSO->unk_04C, sp50);
+            sp1BC = Animation_GetFrameData(&D_SO_600C15C, bossSO->unk_04C, sp50);
             break;
         case 5:
         case 8:
@@ -2423,24 +2424,24 @@ void func_i3_801A5B3C(Boss* bossSO) {
             if ((bossSO->unk_04C == 45) && (bossSO->health != 0)) {
                 AUDIO_PLAY_SFX(0x29432073, bossSO->sfxSource, 4);
             }
-            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_6012C00_Anim)) {
+            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_SO_6012C00)) {
                 bossSO->unk_04C = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_6012C00_Anim, bossSO->unk_04C, sp50);
+            sp1BC = Animation_GetFrameData(&D_SO_6012C00, bossSO->unk_04C, sp50);
             break;
         case 6:
             bossSO->unk_04C++;
-            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_600B1B4)) {
+            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_SO_600B1B4)) {
                 bossSO->unk_04C = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_600B1B4, bossSO->unk_04C, sp50);
+            sp1BC = Animation_GetFrameData(&D_SO_600B1B4, bossSO->unk_04C, sp50);
             break;
         case 7:
             bossSO->unk_04C++;
-            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_6009D30)) {
+            if (bossSO->unk_04C >= Animation_GetFrameCount(&D_SO_6009D30)) {
                 bossSO->unk_04C = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_6009D30, bossSO->unk_04C, sp50);
+            sp1BC = Animation_GetFrameData(&D_SO_6009D30, bossSO->unk_04C, sp50);
             break;
     }
     Matrix_RotateZ(gCalcMatrix, -bossSO->vwork[SO_VWK_29].z * M_DTOR, 0);
@@ -2708,7 +2709,7 @@ void func_i3_801A71B8(Boss* bossSO) {
 
     Matrix_Scale(gCalcMatrix, bossSO->unk_3F8, bossSO->unk_3F8, bossSO->unk_3F8, 1);
     if (gBossActive != 0) {
-        Animation_DrawSkeleton(2, D_600E470, bossSO->vwork, func_i3_801A68A8, func_i3_801A6BDC, bossSO, gCalcMatrix);
+        Animation_DrawSkeleton(2, D_SO_600E470, bossSO->vwork, func_i3_801A68A8, func_i3_801A6BDC, bossSO, gCalcMatrix);
     }
     if (bossSO->health <= 0) {
         RCP_SetupDL_49();

@@ -30,6 +30,7 @@ f32 D_80161394;             // can be static
 #include "assets/ast_titania.h"
 #include "assets/ast_macbeth.h"
 #include "assets/ast_andross.h"
+#include "assets/ast_solar.h"
 #include "assets/ast_warp_zone.h"
 #include "assets/ast_area_6.h"
 #include "assets/ast_zoness.h"
@@ -475,7 +476,7 @@ void func_8003E1E8(void) {
                     } else if (gCurrentLevel == LEVEL_ZONESS) {
                         gSPDisplayList(gMasterDisp++, D_ZO_6013480);
                     } else if (gCurrentLevel == LEVEL_SOLAR) {
-                        gSPDisplayList(gMasterDisp++, D_601E150);
+                        gSPDisplayList(gMasterDisp++, D_SO_601E150);
                     }
                     if (sp13C < 0) {
                         sp13C = 1.0f;
@@ -491,7 +492,7 @@ void func_8003E1E8(void) {
                     } else if (gCurrentLevel == LEVEL_ZONESS) {
                         gSPDisplayList(gMasterDisp++, D_ZO_6013480);
                     } else if (gCurrentLevel == LEVEL_SOLAR) {
-                        gSPDisplayList(gMasterDisp++, D_601E150);
+                        gSPDisplayList(gMasterDisp++, D_SO_601E150);
                     }
                     break;
             }
@@ -1097,9 +1098,9 @@ void func_80040CE4(void) {
             Matrix_Scale(gGfxMatrix, 3.0f, 2.0f, 3.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             if (gGameFrameCount & 1) {
-                gSPDisplayList(gMasterDisp++, D_60005B0);
+                gSPDisplayList(gMasterDisp++, D_SO_60005B0);
             } else {
-                gSPDisplayList(gMasterDisp++, D_6002E60);
+                gSPDisplayList(gMasterDisp++, D_SO_6002E60);
             }
             break;
         case LEVEL_ZONESS:

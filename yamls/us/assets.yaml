@@ -271,8 +271,12 @@
 
   - name: ast_solar
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xB612E0
+    vram: 0x06000000
+    subsegments:
+      - [0xB612E0, .data, ast_solar/ast_solar]
 
   - name: ast_zoness
     exclusive_ram_id: segment_06
