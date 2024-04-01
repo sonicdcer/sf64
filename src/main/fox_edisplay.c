@@ -1791,7 +1791,7 @@ void TexturedLine_Draw(void) {
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -200.0f, 1);
                     Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 25.0f * M_DTOR, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_C017440);
+                    gSPDisplayList(gMasterDisp++, D_ANDROSS_C017440);
                 }
             } else {
                 Matrix_SetGfxMtx(&gMasterDisp);

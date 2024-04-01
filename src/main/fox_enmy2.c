@@ -994,7 +994,7 @@ void func_8006D36C(Actor* actor) {
 
     switch (gCurrentLevel) {
         case LEVEL_VENOM_ANDROSS:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_C037E3C);
+            var_v1 = SEGMENTED_TO_VIRTUAL(D_ANDROSS_C037E3C);
             break;
         case LEVEL_CORNERIA:
             var_v1 = SEGMENTED_TO_VIRTUAL(D_CO_603D9E8);

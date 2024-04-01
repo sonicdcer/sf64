@@ -391,7 +391,7 @@ void func_8003E1E8(void) {
                             Matrix_Scale(gGfxMatrix, 11.0f, 11.0f, 1.0f, 1);
                             Matrix_RotateZ(gGfxMatrix, (gPlayer[0].unk_034 + (gGameFrameCount * 1.5f)) * M_DTOR, 1);
                             Matrix_SetGfxMtx(&gMasterDisp);
-                            gSPDisplayList(gMasterDisp++, D_C039208);
+                            gSPDisplayList(gMasterDisp++, D_ANDROSS_C039208);
                             Matrix_Pop(&gGfxMatrix);
                             if (D_80177AB0 != 5) {
                                 Matrix_Push(&gGfxMatrix);
@@ -399,7 +399,7 @@ void func_8003E1E8(void) {
                                 Matrix_RotateZ(gGfxMatrix, (gPlayer[0].unk_034 + (gGameFrameCount * -1.3f)) * M_DTOR,
                                                1);
                                 Matrix_SetGfxMtx(&gMasterDisp);
-                                gSPDisplayList(gMasterDisp++, D_C039208);
+                                gSPDisplayList(gMasterDisp++, D_ANDROSS_C039208);
                                 Matrix_Pop(&gGfxMatrix);
                             }
                         }
