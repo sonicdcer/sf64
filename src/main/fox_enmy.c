@@ -5,6 +5,7 @@
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
+#include "assets/ast_venom_1.h"
 #include "assets/ast_aquas.h"
 #include "assets/ast_bolse.h"
 #include "assets/ast_meteo.h"
@@ -532,7 +533,7 @@ void func_80062664(void) {
     } else if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (D_8017827C == 1)) {
         D_80178310 = SEGMENTED_TO_VIRTUAL(D_ANDROSS_C0356A4);
     } else if ((gCurrentLevel == LEVEL_VENOM_1) && (D_8017827C == 1)) {
-        D_80178310 = SEGMENTED_TO_VIRTUAL(D_6010088);
+        D_80178310 = SEGMENTED_TO_VIRTUAL(D_VE1_6010088);
     } else {
         D_80178310 = SEGMENTED_TO_VIRTUAL(D_800CFDA0[gCurrentLevel]);
     }
