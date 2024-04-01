@@ -1,3 +1,9 @@
+/*
+ * File: fox_co.c
+ * System: Corneria
+ * Description: Level: Corneria
+ */
+
 #include "global.h"
 #include "assets/ast_arwing.h"
 #include "assets/ast_corneria.h"

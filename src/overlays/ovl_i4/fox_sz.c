@@ -1,3 +1,9 @@
+/*
+ * File: fox_sx.c
+ * System: Sector Z
+ * Description: Level: Sector Z
+ */
+
 #include "global.h"
 #include "assets/ast_sector_z.h"
 

@@ -1,3 +1,9 @@
+/*
+ * File: fox_bo.c
+ * System: Bolse
+ * Description: Level: Bolse
+ */
+
 #include "global.h"
 #include "assets/ast_bolse.h"
 

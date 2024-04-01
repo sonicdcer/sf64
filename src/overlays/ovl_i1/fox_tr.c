@@ -1,3 +1,9 @@
+/*
+ * File: fox_tr.c
+ * System: Training
+ * Description: Level: Training - On Rails
+ */
+
 #include "global.h"
 #include "assets/ast_training.h"
 
