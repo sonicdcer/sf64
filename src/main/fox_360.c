@@ -1,6 +1,5 @@
 #include "prevent_bss_reordering.h"
 #include "global.h"
-#include "assets.h"
 #include "assets/ast_katina.h"
 #include "assets/ast_venom_2.h"
 #include "assets/ast_fortuna.h"
@@ -2259,7 +2258,7 @@ void func_80035448(Actor* actor) {
                             func_8005B1E8(actor, 0);
                             break;
                         case 3:
-                            gSPDisplayList(gMasterDisp++, D_6001530);
+                            gSPDisplayList(gMasterDisp++, D_KA_6001530);
                             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 30.0f, 1);
                             func_80034E64(actor);
                             break;

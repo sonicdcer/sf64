@@ -70,7 +70,6 @@ s32 D_80161900[20];
 // BSS SECTION END
 
 #include "global.h"
-#include "assets.h"
 
 #include "assets/ast_bg_space.h"
 #include "assets/ast_bg_planet.h"

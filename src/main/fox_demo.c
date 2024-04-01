@@ -5,7 +5,6 @@
  */
 
 #include "global.h"
-#include "assets.h"
 #include "assets/ast_aquas.h"
 #include "assets/ast_great_fox.h"
 #include "assets/ast_enmy_space.h"
@@ -2757,7 +2756,7 @@ void func_8004FEC0(Actor* actor) {
             break;
 
         case 34:
-            gSPDisplayList(gMasterDisp++, D_6001530);
+            gSPDisplayList(gMasterDisp++, D_KA_6001530);
             break;
 
         case 35:

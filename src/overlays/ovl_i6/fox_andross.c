@@ -1,7 +1,6 @@
 #include "prevent_bss_reordering2.h"
 #include "prevent_bss_reordering.h"
 #include "global.h"
-#include "assets.h"
 #include "assets/ast_venom_2.h"
 #include "assets/ast_andross.h"
 #include "assets/ast_arwing.h"

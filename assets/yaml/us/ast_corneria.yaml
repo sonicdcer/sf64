@@ -159,9 +159,8 @@ D_CO_6015F00:
 D_CO_6015700:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06015700, symbol: D_CO_6015700 }
 
-# Seems unused
-D_CO_6016268: 
-  { type: GFX, offset: 0x6016268, symbol: D_CO_6016268 }
+D_CO_6016270: 
+  { type: GFX, offset: 0x6016270, symbol: D_CO_6016270 }
 
 D_CO_60164F0: 
   { type: GFX, offset: 0x60164F0, symbol: D_CO_60164F0 }

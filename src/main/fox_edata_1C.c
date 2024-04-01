@@ -1,5 +1,4 @@
 #include "global.h"
-#include "assets.h"
 
 #include "assets/ast_versus.h"
 #include "assets/ast_arwing.h"
@@ -116,7 +115,7 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_80_20,  */  {(void*)     D_CO_601F5A0, 0, (ObjectFunc)          NULL,        D_CO_603E14C,   500.0f,  0, 0, 39, 0,   0.0f,  0 },
   /* OBJ_80_21,  */  {(void*)     D_CO_60137B0, 0, (ObjectFunc)          NULL,        D_CO_603E1B4,   400.0f,  0, 0, 39, 0,   0.0f,  0 },
   /* OBJ_80_22,  */  {(void*)     D_CO_6006A80, 0, (ObjectFunc)          NULL,        D_CO_603E21C,   400.0f,  0, 0, 39, 0,   0.0f,  0 },
-  /* OBJ_80_23,  */  {(void*)     D_6016270, 0,    (ObjectFunc)          NULL,        D_CO_603E4A0,   200.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_23,  */  {(void*)     D_CO_6016270, 0,    (ObjectFunc)          NULL,        D_CO_603E4A0,   200.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_24,  */  {(void*)     D_CO_6010E00, 0, (ObjectFunc)          NULL,        D_CO_603E9EC,  2500.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_25,  */  {(void*)     D_CO_6014670, 0, (ObjectFunc)          NULL,        D_CO_603EA08,  2500.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_26,  */  {(void*)     D_CO_6010A50, 0, (ObjectFunc)          NULL,        D_CO_603EA74,  2500.0f,  0, 0, 40, 0,   0.0f,  0 },
@@ -222,7 +221,7 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_80_126  */  {(void*) func_i3_801BE1FC, 1, (ObjectFunc)          NULL,       D_800CBF34,  2000.0f,  0, 0, 41, 0,   0.0f,  0 },
   /* OBJ_80_127  */  {(void*)     D_VE1_9005C80, 0, (ObjectFunc) func_i1_801924A8,        D_VE1_601B678,  1000.0f,  0, 0, 42, 0,   0.0f,  0 },
   /* OBJ_80_128  */  {(void*)     D_VE1_9003F50, 0, (ObjectFunc)          NULL,        D_VE1_601B6C4,  3200.0f,  0, 0, 42, 0,   0.0f,  0 },
-  /* OBJ_80_129  */  {(void*)     D_VE1_900F060, 0, (ObjectFunc)          NULL,        D_F32_601B710,  3200.0f,  0, 0, 42, 0,   0.0f,  0 },
+  /* OBJ_80_129  */  {(void*)     D_VE1_900F060, 0, (ObjectFunc)          NULL,        D_VE1_601B710,  3200.0f,  0, 0, 42, 0,   0.0f,  0 },
   /* OBJ_80_130  */  {(void*)     D_VE1_900F1D0, 0, (ObjectFunc)          NULL,        D_VE1_601B75C,  3200.0f,  0, 0, 42, 0,   0.0f,  0 },
   /* OBJ_80_131  */  {(void*) func_i6_801935D4, 1, (ObjectFunc) func_i6_8019356C,        D_ANDROSS_C038BD8,   500.0f,  0, 0, 41, 0,   0.0f,  0 },
   /* OBJ_80_132  */  {(void*) func_i6_8019350C, 1, (ObjectFunc) func_i6_80193380,        D_ANDROSS_C038A48,   500.0f,  0, 0, 41, 0,   0.0f,  0 },

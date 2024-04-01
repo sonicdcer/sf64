@@ -1,5 +1,4 @@
 #include "global.h"
-#include "assets.h"
 
 // rodata
 const char D_800D7230[] = "Enm->wrk3=<%d>\n";
@@ -757,13 +756,13 @@ void func_800798F0(Effect* effect) {
 
                 case 8:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_6020E60);
+                    gSPDisplayList(gMasterDisp++, D_MA_6020E60);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
 
                 case 9:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_6020A30);
+                    gSPDisplayList(gMasterDisp++, D_MA_6020A30);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
 
@@ -777,31 +776,31 @@ void func_800798F0(Effect* effect) {
 
                 case 11:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_60200E0);
+                    gSPDisplayList(gMasterDisp++, D_MA_60200E0);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
 
                 case 12:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_600F2F0);
+                    gSPDisplayList(gMasterDisp++, D_MA_600F2F0);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
 
                 case 13:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_6001A60);
+                    gSPDisplayList(gMasterDisp++, D_MA_6001A60);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
 
                 case 14:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_600F160);
+                    gSPDisplayList(gMasterDisp++, D_MA_600F160);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
 
                 case 15:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_600F3D0);
+                    gSPDisplayList(gMasterDisp++, D_MA_600F3D0);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
 
@@ -813,7 +812,7 @@ void func_800798F0(Effect* effect) {
 
                 case 17:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_600F9B0);
+                    gSPDisplayList(gMasterDisp++, D_MA_600F9B0);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
 

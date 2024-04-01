@@ -1,5 +1,4 @@
 #include "global.h"
-#include "assets.h"
 
 u16** D_80178720;
 s32 D_80178724;
@@ -400,7 +399,7 @@ void func_800BAAE8(void) {
                     break;
                 case GSTATE_TITLE:
                 case GSTATE_CREDITS:
-                    sp44 = D_600C6A0;
+                    sp44 = gTitleRadioStatic;
                     break;
             }
             if (((s32) D_80177D68 == RCID_ANDROSS) || ((s32) D_80177D68 == RCID_ANDROSS_RED)) {

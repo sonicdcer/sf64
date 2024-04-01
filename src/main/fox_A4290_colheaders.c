@@ -1,7 +1,6 @@
 #include "structs.h"
 #include "macros.h"
 #include "variables.h"
-#include "assets.h"
 #include "assets/ast_aquas.h"
 #include "assets/ast_bolse.h"
 #include "assets/ast_meteo.h"
@@ -63,28 +62,28 @@ CollisionHeader D_800D2B38[10] = {
         { 1704.0f, 1030.0f, 4842.0f },
         174,
         D_SY_6033070,
-        D_6033E08,
+        D_SY_6033E08,
     },
     {
         { -1308.0f, 0.0f, -1460.0f },
         { 1310.0f, 666.0f, 807.0f },
         93,
         D_FO_600F60C,
-        D_600FD50,
+        D_FO_600FD50,
     },
     {
         { -951.0f, 0.0f, -1075.0f },
         { 1075.0f, 1014.0f, 1075.0f },
         22,
         D_FO_600F3F4,
-        D_600F5AC,
+        D_FO_600F5AC,
     },
     {
         { -951.0f, 0.0f, -1075.0f },
         { 1075.0f, 384.0f, 1075.0f },
         22,
         D_FO_600F1DC,
-        D_600F394,
+        D_FO_600F394,
     },
     {
         { -1554.0f, -2.0f, -1401.0f },
@@ -105,7 +104,7 @@ CollisionHeader D_800D2B38[10] = {
         { 671.0f, 648.0f, 671.0f },
         250,
         D_VE2_6014FEC,
-        D_6016374,
+        D_VE2_6016374,
     },
 };
 
@@ -164,7 +163,7 @@ CollisionHeader2 D_800D2CA0[19] = {
         { 488.0f, 148.0f, 567.0f },
         30,
         D_ZO_602CACC,
-        D_602CB80,
+        D_ZO_602CB80,
     },
     {
         { -900.0f, -110.0f, -1900.0f },

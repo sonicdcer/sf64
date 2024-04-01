@@ -31,6 +31,9 @@ D_MA_6001578:
 D_MA_6001978:
   { type: TEXTURE, format: TLUT, ctype: u16, colors: 112, offset: 0x6001978, symbol: D_MA_6001978}
 
+D_MA_6001A60:
+  {type: GFX, offset: 0x6001A60, symbol: D_MA_6001A60}
+
 D_MA_6001B38:
   { type: TEXTURE, format: CI8, ctype: u8, width: 16, height: 16, offset: 0x6001B38, symbol: D_MA_6001B38, tlut: 0x6001C38}
 
@@ -303,6 +306,21 @@ D_MA_600F028:
 
 D_MA_600F128:
   { type: TEXTURE, format: TLUT, ctype: u16, colors: 24, offset: 0x600F128, symbol: D_MA_600F128}
+  
+D_MA_600F160:
+  {type: GFX, offset: 0x600F160, symbol: D_MA_600F160}
+  
+D_MA_600F2F0:
+  {type: GFX, offset: 0x600F2F0, symbol: D_MA_600F2F0}
+  
+D_MA_600F3D0:
+  {type: GFX, offset: 0x600F3D0, symbol: D_MA_600F3D0}
+  
+D_MA_600F6C0:
+  {type: GFX, offset: 0x600F6C0, symbol: D_MA_600F6C0}
+  
+D_MA_600F9B0:
+  {type: GFX, offset: 0x600F9B0, symbol: D_MA_600F9B0}
 
 D_MA_600FEC4:
   {type: SF64:ANIM, offset: 0x600FEC4, symbol: D_MA_600FEC4}
@@ -477,6 +495,15 @@ D_MA_601F1D0:
 
 D_MA_601F270:
   {type: GFX, offset: 0x601F270, symbol: D_MA_601F270}
+
+D_MA_6020A30:
+  {type: GFX, offset: 0x6020A30, symbol: D_MA_6020A30}
+
+D_MA_60200E0:
+  {type: GFX, offset: 0x60200E0, symbol: D_MA_60200E0}
+
+D_MA_6020E600:
+  {type: GFX, offset: 0x6020E60, symbol: D_MA_6020E60}
 
 D_MA_6022200:
   {type: GFX, offset: 0x6022200, symbol: D_MA_6022200}

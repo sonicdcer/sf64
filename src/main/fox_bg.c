@@ -1,5 +1,4 @@
 #include "global.h"
-#include "assets.h"
 #include "prevent_bss_reordering.h"
 
 extern f32 D_i3_801C4188;
@@ -294,7 +293,7 @@ void func_8003E1E8(void) {
                             }
                             break;
                         case LEVEL_FORTUNA:
-                            gSPDisplayList(gMasterDisp++, D_600D9F0);
+                            gSPDisplayList(gMasterDisp++, D_FO_600D9F0);
                             break;
                         case LEVEL_KATINA:
                             gSPDisplayList(gMasterDisp++, D_KA_600F1D0);
@@ -316,7 +315,7 @@ void func_8003E1E8(void) {
                             }
                             break;
                         case LEVEL_FORTUNA:
-                            gSPDisplayList(gMasterDisp++, D_600D9F0);
+                            gSPDisplayList(gMasterDisp++, D_FO_600D9F0);
                             break;
                         case LEVEL_KATINA:
                             gSPDisplayList(gMasterDisp++, D_KA_600F1D0);
@@ -338,7 +337,7 @@ void func_8003E1E8(void) {
                             gSPDisplayList(gMasterDisp++, D_CO_60059F0);
                             break;
                         case LEVEL_VENOM_1:
-                            gSPDisplayList(gMasterDisp++, D_60046F0);
+                            gSPDisplayList(gMasterDisp++, D_VE1_60046F0);
                             break;
                     }
                     Matrix_Translate(gGfxMatrix, 7280.0f, 0.0f, 0.0f, 1);
@@ -348,7 +347,7 @@ void func_8003E1E8(void) {
                             gSPDisplayList(gMasterDisp++, D_CO_60059F0);
                             break;
                         case LEVEL_VENOM_1:
-                            gSPDisplayList(gMasterDisp++, D_60046F0);
+                            gSPDisplayList(gMasterDisp++, D_VE1_60046F0);
                             break;
                     }
                     break;
@@ -1069,7 +1068,7 @@ void func_80040CE4(void) {
                 if (gCurrentLevel == LEVEL_FORTUNA) {
                     gSPDisplayList(gMasterDisp++, D_FO_6001360);
                 } else if (gCurrentLevel == LEVEL_KATINA) {
-                    gSPDisplayList(gMasterDisp++, D_6009250);
+                    gSPDisplayList(gMasterDisp++, D_KA_6009250);
                 } else if (gCurrentLevel == LEVEL_BOLSE) {
                     gSPDisplayList(gMasterDisp++, D_BO_600A810);
                 } else if (gCurrentLevel == LEVEL_VENOM_2) {

@@ -1,7 +1,5 @@
-#include "prevent_bss_reordering.h"
+// #include "prevent_bss_reordering.h"
 #include "global.h"
-#include "assets.h"
-
 #include "assets/ast_katina.h"
 
 Vec3f D_i4_8019F0F0[] = { { 7000.0f, 500.0f, -50 }, { 7700.0f, 550.0f, -50.0f }, { 6000.0f, 300.0f, 1950.0f } };
@@ -2155,7 +2153,7 @@ void func_i4_801995B4(Actor* actor) {
             if (actor->iwork[23] != 0) {
                 gSPDisplayList(gMasterDisp++, D_KA_600EFF0);
             } else {
-                gSPDisplayList(gMasterDisp++, D_6001530);
+                gSPDisplayList(gMasterDisp++, D_KA_6001530);
             }
             break;
 

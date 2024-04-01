@@ -1,6 +1,4 @@
 #include "global.h"
-#include "assets.h"
-
 #include "assets/ast_venom_2.h"
 
 void func_i6_80196210(Boss* boss) {

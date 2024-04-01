@@ -1,5 +1,4 @@
 #include "global.h"
-#include "assets.h"
 #include "assets/ast_meteo.h"
 
 extern s32 D_800C9E90[];

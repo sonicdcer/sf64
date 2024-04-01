@@ -1,5 +1,4 @@
 #include "global.h"
-#include "assets.h"
 #include "assets/ast_fortuna.h"
 
 void func_i4_801875F0(Actor* actor) {

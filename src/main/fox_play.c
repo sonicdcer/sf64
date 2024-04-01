@@ -1,6 +1,5 @@
 // #include "prevent_bss_reordering2.h"
 #include "global.h"
-#include "assets.h"
 #include "fox_map.h"
 #include "assets/ast_corneria.h"
 #include "assets/ast_training.h"

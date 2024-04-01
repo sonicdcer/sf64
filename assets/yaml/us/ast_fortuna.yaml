@@ -127,7 +127,7 @@ D_FO_600D7E8:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600D7E8, ctype: u16, symbol: D_FO_600D7E8 }
 
 D_FO_600D9F0:
-  { type: GFX, offset: 0x600D9F0, symbol: D_FO_600D9F8 }
+  { type: GFX, offset: 0x600D9F0, symbol: D_FO_600D9F0 }
 
 D_FO_600DA88:
   { type: TEXTURE, format: RGBA16, width: 64, height: 32, offset: 0x600DA88, ctype: u16, symbol: D_FO_600DA88 }
@@ -139,13 +139,13 @@ D_FO_600EAD4:
   { type: SF64:OBJECT_INIT, offset: 0x600EAD4, symbol: D_FO_600EAD4 }
 
 D_FO_600F1DC:
-  { type: SF64:COLPOLY, offset: 0x600F1DC, count: 22, symbol: D_FO_600F1DC }
+  { type: SF64:COLPOLY, offset: 0x600F1DC, count: 22, symbol: D_FO_600F1DC, mesh_symbol: D_FO_OFFSET }
 
 D_FO_600F3F4:
-  { type: SF64:COLPOLY, offset: 0x600F3F4, count: 22, symbol: D_FO_600F3F4 }
+  { type: SF64:COLPOLY, offset: 0x600F3F4, count: 22, symbol: D_FO_600F3F4, mesh_symbol: D_FO_OFFSET }
 
 D_FO_600F60C:
-  { type: SF64:COLPOLY, offset: 0x600F60C, count: 93, symbol: D_FO_600F60C }
+  { type: SF64:COLPOLY, offset: 0x600F60C, count: 93, symbol: D_FO_600F60C, mesh_symbol: D_FO_OFFSET }
 
 D_FO_600FE9C:
   { type: SF64:HITBOX, offset: 0x600FE9C, symbol: D_FO_600FE9C }

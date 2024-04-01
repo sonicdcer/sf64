@@ -191,7 +191,7 @@ D_VE2_6014D94:
   { type: SF64:OBJECT_INIT, offset: 0x6014D94, symbol: D_VE2_6014D94 }
 
 D_VE2_6014FEC:
-  { type: SF64:COLPOLY, count: 250, offset: 0x6014FEC, symbol: D_VE2_6014FEC }
+  { type: SF64:COLPOLY, count: 250, offset: 0x6014FEC, symbol: D_VE2_6014FEC, mesh_symbol: D_VE2_OFFSET }
 
 D_VE2_601668C:
   { type: SF64:HITBOX, offset: 0x601668C, symbol: D_VE2_601668C }

@@ -1,6 +1,5 @@
 #include "prevent_bss_reordering.h"
 #include "global.h"
-#include "assets.h"
 #include "assets/ast_corneria.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
