@@ -148,8 +148,8 @@ D_SO_601A700:
 D_SO_601A788:
   { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x601A788, symbol: D_SO_601A788}
 
-D_SO_601B788:
-  { type: GFX, offset: 0x601B788, symbol: D_SO_601B788}
+D_SO_601B790:
+  { type: GFX, offset: 0x601B790, symbol: D_SO_601B790}
 
 D_SO_601B818:
   { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x601B818, symbol: D_SO_601B818}

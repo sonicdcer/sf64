@@ -124,7 +124,7 @@ extern u32 D_SO_60196F8[];
 extern Gfx D_SO_601A700[];
 extern Vtx ast_solar_seg6__1A758[];
 extern u32 D_SO_601A788[];
-extern Gfx D_SO_601B788[];
+extern Gfx D_SO_601B790[];
 extern Vtx ast_solar_seg6__1B7E8[];
 extern u32 D_SO_601B818[];
 extern Gfx D_SO_601C820[];
