@@ -536,8 +536,8 @@ void func_i6_80189098(Boss* boss) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_197;
-    actor->unk_0E4 = 10;
-    actor->unk_0E6 = 0;
+    actor->aiType = 10;
+    actor->aiIndex = 0;
     actor->health = 200;
     actor->obj.pos.x = 200.0f;
     actor->obj.pos.y = 0.0f;
@@ -550,8 +550,8 @@ void func_i6_80189098(Boss* boss) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_197;
-    actor->unk_0E4 = 10;
-    actor->unk_0E6 = 0;
+    actor->aiType = 10;
+    actor->aiIndex = 0;
     actor->health = 200;
     actor->obj.pos.x = -200.0f;
     actor->obj.pos.y = 0.0f;

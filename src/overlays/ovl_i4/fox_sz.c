@@ -143,7 +143,7 @@ void func_i4_80199C60(Actor* missile) {
     if (xDist) {}
     if (zDist) {}
 
-    if (missile->unk_0E4 < 100) {
+    if (missile->aiType < 100) {
         xDist = SIN_DEG((missile->index * 45) + gGameFrameCount) * 5000.0f;
         zDist = COS_DEG((missile->index * 45) + (gGameFrameCount * 2)) * 5000.0f;
     } else {
@@ -186,7 +186,7 @@ void func_i4_80199FCC(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_197;
-    actor->unk_0E4 = 200;
+    actor->aiType = 200;
 
     actor->obj.pos.x = D_i4_8019F4C0[arg1].x;
     actor->obj.pos.y = D_i4_8019F4C0[arg1].y;
@@ -210,7 +210,7 @@ void func_i4_8019A0F8(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_197;
-    actor->unk_0E4 = arg1 + 13;
+    actor->aiType = arg1 + 13;
 
     actor->obj.pos.x = gActors[10].obj.pos.x + D_i4_8019F4E4[arg1].x;
     actor->obj.pos.y = gActors[10].obj.pos.y + D_i4_8019F4E4[arg1].y;
@@ -236,8 +236,8 @@ void func_i4_8019A1D0(void) {
     actor->obj.pos.y = 4500.0f;
     actor->obj.pos.z = 30000.0f;
 
-    actor->unk_0E4 = 8;
-    actor->unk_0E6 = 12;
+    actor->aiType = 8;
+    actor->aiIndex = 12;
     actor->health = 10000;
     actor->unk_0F4.y = 180.0f;
     actor->state = 0;
@@ -285,54 +285,54 @@ void func_i4_8019A3E8(Actor* actor) {
         if (gTeamShields[1] > 0) {
             if (gActors[1].iwork[2] == 0) {
                 if (gActors[10].obj.status == 2) {
-                    if (gActors[1].unk_0E6 != 10) {
+                    if (gActors[1].aiIndex != 10) {
                         Radio_PlayMessage(gMsg_ID_16040, RCID_FALCO);
                     }
-                    gActors[1].unk_0E6 = 10;
+                    gActors[1].aiIndex = 10;
                 } else {
-                    gActors[1].unk_0E6 = 13;
+                    gActors[1].aiIndex = 13;
                 }
             } else {
-                gActors[1].unk_0E6 = -1;
+                gActors[1].aiIndex = -1;
             }
         }
 
         if (gTeamShields[3] > 0) {
             if (gActors[3].iwork[2] == 0) {
                 if (gActors[12].obj.status == 2) {
-                    if (gActors[3].unk_0E6 != 12) {
+                    if (gActors[3].aiIndex != 12) {
                         Radio_PlayMessage(gMsg_ID_16046, RCID_PEPPY);
                     }
-                    gActors[3].unk_0E6 = 12;
+                    gActors[3].aiIndex = 12;
                 } else {
-                    gActors[3].unk_0E6 = 15;
+                    gActors[3].aiIndex = 15;
                 }
             } else {
-                gActors[3].unk_0E6 = -1;
+                gActors[3].aiIndex = -1;
             }
         }
 
         if (D_i4_801A0564 != 0) {
             if (gActors[11].obj.status == 2) {
-                if (gActors[8].unk_0E6 != 11) {
+                if (gActors[8].aiIndex != 11) {
                     Radio_PlayMessage(gMsg_ID_16135, RCID_KATT);
                 }
-                gActors[8].unk_0E6 = 11;
+                gActors[8].aiIndex = 11;
             } else {
-                gActors[8].unk_0E6 = -1;
+                gActors[8].aiIndex = -1;
             }
         } else if (gTeamShields[2] > 0) {
             if (gActors[2].iwork[2] == 0) {
                 if (gActors[11].obj.status == 2) {
-                    if (gActors[2].unk_0E6 != 11) {
+                    if (gActors[2].aiIndex != 11) {
                         Radio_PlayMessage(gMsg_ID_16047, RCID_SLIPPY);
                     }
-                    gActors[2].unk_0E6 = 11;
+                    gActors[2].aiIndex = 11;
                 } else {
-                    gActors[2].unk_0E6 = 14;
+                    gActors[2].aiIndex = 14;
                 }
             } else {
-                gActors[2].unk_0E6 = -1;
+                gActors[2].aiIndex = -1;
             }
         }
     }
@@ -363,24 +363,24 @@ void func_i4_8019A3E8(Actor* actor) {
 
                 actorPtr->unk_0F4.y = actor->unk_04E * 18.0f;
                 actorPtr->state = 3;
-                actorPtr->unk_0E4 = i + 13;
-                actorPtr->unk_0E6 = -1;
+                actorPtr->aiType = i + 13;
+                actorPtr->aiIndex = -1;
 
                 if (D_8015F928 >= 0) {
                     if (((i + 13) == 23) || ((i + 13) == 24)) {
-                        actorPtr->unk_0E6 = 2;
+                        actorPtr->aiIndex = 2;
                         actorPtr->state = 2;
                     }
                     if ((i + 13) == 25) {
-                        actorPtr->unk_0E6 = 0;
+                        actorPtr->aiIndex = 0;
                         actorPtr->state = 2;
                     }
                     if (((i + 13) == 26) || ((i + 13) == 27)) {
-                        actorPtr->unk_0E6 = 3;
+                        actorPtr->aiIndex = 3;
                         actorPtr->state = 2;
                     }
                     if ((i + 13) == 28) {
-                        actorPtr->unk_0E6 = 1;
+                        actorPtr->aiIndex = 1;
                         actorPtr->state = 2;
                     }
                 }
@@ -566,15 +566,15 @@ void func_i4_8019AB8C(Actor* actor) {
             break;
 
         case 6:
-            gActors[1].unk_0E6 = 0;
+            gActors[1].aiIndex = 0;
             gActors[1].state = 2;
-            gActors[2].unk_0E6 = 0;
+            gActors[2].aiIndex = 0;
             gActors[2].state = 2;
-            gActors[3].unk_0E6 = 0;
+            gActors[3].aiIndex = 0;
             gActors[3].state = 2;
 
             for (i = 10; i < ARRAY_COUNT(gActors); i++) {
-                gActors[i].unk_0E6 = -1;
+                gActors[i].aiIndex = -1;
                 gActors[i].state = 3;
             }
             break;
@@ -588,22 +588,22 @@ void func_i4_8019AB8C(Actor* actor) {
                     break;
 
                 case 9780:
-                    gActors[13].unk_0E6 = -1;
+                    gActors[13].aiIndex = -1;
                     gActors[13].state = 3;
                     break;
 
                 case 9740:
-                    gActors[14].unk_0E6 = -1;
+                    gActors[14].aiIndex = -1;
                     gActors[14].state = 3;
                     break;
 
                 case 9730:
-                    gActors[15].unk_0E6 = -1;
+                    gActors[15].aiIndex = -1;
                     gActors[15].state = 3;
                     break;
 
                 case 9710:
-                    gActors[16].unk_0E6 = -1;
+                    gActors[16].aiIndex = -1;
                     gActors[16].state = 3;
                     break;
             }
@@ -761,12 +761,12 @@ void func_i4_8019B888(void) {
             actor->obj.id = OBJ_ACTOR_197;
             Object_SetInfo(&actor->info, actor->obj.id);
             if (i == 0) {
-                actor->unk_0E4 = 1000;
+                actor->aiType = 1000;
             } else {
                 actor->obj.pos.x = gPlayer[0].pos.x + D_i4_8019F5EC[i].x;
                 actor->obj.pos.y = gPlayer[0].pos.y + D_i4_8019F5EC[i].y;
                 actor->obj.pos.z = gPlayer[0].pos.z + D_i4_8019F5EC[i].z;
-                actor->unk_0E4 = i;
+                actor->aiType = i;
                 actor->state = 2;
                 actor->unk_0F4.y = 270.0f;
                 actor->health = 255;

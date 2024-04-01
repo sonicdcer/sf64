@@ -9,6 +9,7 @@
       - '#include "sf64object.h"'
       - '#include "sf64level.h"'
       - '#include "structs.h"'
+      - '#include "sf64mesg.h"'
 
 D_VE1_6000000:
   { type: TEXTURE, format: IA8, width: 96, height: 28, offset: 0x6000000, ctype: u8, symbol: D_VE1_6000000 }

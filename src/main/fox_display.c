@@ -61,7 +61,7 @@ void func_80051B30(void) {
             sp7C = 1;
         }
         RCP_SetupDL(&gMasterDisp, 0xC);
-        switch (D_800CA234->unk_0E4) {
+        switch (D_800CA234->aiType) {
             case 3:
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 30, 0, 255);
                 break;

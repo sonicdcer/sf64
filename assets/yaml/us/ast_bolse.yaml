@@ -9,7 +9,7 @@
       - '#include "sf64object.h"'
       - '#include "structs.h"'
       - '#include "sf64level.h"'
-
+      - '#include "sf64mesg.h"'
 # Bolse Defense Outpost
 D_BO_6000000:
   { type: TEXTURE, ctype: u8, format: IA8, width: 168, height: 19, offset: 0x6000000, symbol: D_BO_6000000 }

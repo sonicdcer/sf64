@@ -383,13 +383,13 @@ void func_80061F0C(Actor* actor, ObjectInit* objInit, s32 arg2) {
     actor->obj.id = OBJ_ACTOR_200;
     actor->timer_0C2 = 10;
     actor->unk_0B4 = 4095;
-    actor->unk_0E4 = objInit->id - OBJ_UNK_1000;
+    actor->aiType = objInit->id - OBJ_UNK_1000;
 
     Object_SetInfo(&actor->info, actor->obj.id);
     actor->info.unk_10 = 3000.0f;
     actor->fwork[25] = 20000.0f;
     actor->iwork[1] = D_80177E70;
-    actor->iwork[10] = gActors[D_80177E70].unk_0E4;
+    actor->iwork[10] = gActors[D_80177E70].aiType;
     actor->fwork[22] = D_80161A54;
     Matrix_RotateZ(gCalcMatrix, -D_80177E88.z * M_DTOR, 0);
     Matrix_RotateX(gCalcMatrix, -D_80177E88.x * M_DTOR, 1);
@@ -885,7 +885,7 @@ s32 func_8006351C(s32 index, Vec3f* pos, Vec3f* arg2, s32 arg3) {
         for (i = 0; i < ARRAY_COUNT(gActors); i++, actor++) {
             if ((actor->obj.status >= OBJ_ACTIVE) && (fabsf(pos->x - actor->obj.pos.x) < 1000.0f) &&
                 (fabsf(pos->z - actor->obj.pos.z) < 1500.0f) && (index != i) && (actor->info.unk_16 != 2) &&
-                ((actor->obj.id != OBJ_ACTOR_197) || (actor->unk_0E4 >= 4)) && (actor->timer_0C2 == 0)) {
+                ((actor->obj.id != OBJ_ACTOR_197) || (actor->aiType >= 4)) && (actor->timer_0C2 == 0)) {
                 if (actor->obj.id == OBJ_ACTOR_180) {
                     if (func_8006326C(pos, arg2, actor->obj.id, &actor->obj)) {
                         return 2;
@@ -906,8 +906,8 @@ s32 func_8006351C(s32 index, Vec3f* pos, Vec3f* arg2, s32 arg3) {
                         actor->unk_0D0 = 1;
                         actor->damage = 10;
                         actor->unk_0D2 = -1;
-                        if (((actor->obj.id != OBJ_ACTOR_200) || (actor->iwork[12] == 0)) &&
-                            ((actor->obj.id != OBJ_ACTOR_197) || ((actor->unk_0E4 >= 10) && (actor->unk_0E4 < 100)))) {
+                        if (!(((actor->obj.id == OBJ_ACTOR_200) && (actor->iwork[12] != 0)) ||
+                              ((actor->obj.id == OBJ_ACTOR_197) && ((actor->aiType < 10) || (actor->aiType >= 100))))) {
                             actor->health = 0;
                         }
                         actor->unk_0D8.x = pos->x;
@@ -1665,7 +1665,7 @@ void func_80066254(Actor* actor) {
                 D_80161A62 = 0;
             }
             if (actor->obj.id == OBJ_ACTOR_197) {
-                if ((actor->unk_0E4 >= 4) && (actor->unk_0E4 < 8)) {
+                if ((actor->aiType >= 4) && (actor->aiType < 8)) {
                     func_8002E3E0(actor);
                 }
             }

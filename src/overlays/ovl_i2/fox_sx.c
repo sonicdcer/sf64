@@ -1,3 +1,4 @@
+#include "prevent_bss_reordering.h"
 #include "global.h"
 #include "assets/ast_sector_x.h"
 
@@ -33,7 +34,7 @@ void func_i2_8018F030(void) {
             actor->obj.pos.y = gPlayer[0].camEye.y + 200.0f;
             actor->obj.pos.z = gPlayer[0].camEye.z - D_80177D20 + 300.0f;
             actor->iwork[11] = 1;
-            actor->unk_0E4 = 2;
+            actor->aiType = 2;
             Object_SetInfo(&actor->info, actor->obj.id);
             Radio_PlayMessage(gMsg_ID_5475, RCID_SLIPPY);
             break;

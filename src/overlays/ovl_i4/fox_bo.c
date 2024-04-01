@@ -60,11 +60,11 @@ void func_i4_8018BD60(Actor* actor) {
                 actorPtr->obj.pos.y = 1000.0f;
                 actorPtr->obj.pos.z = D_i4_8019EED4[actor->unk_04E];
                 actorPtr->state = 1;
-                actorPtr->unk_0E6 = -1;
+                actorPtr->aiIndex = -1;
                 actorPtr->health = 24;
                 actorPtr->iwork[11] = 1;
                 actorPtr->unk_044 = 2;
-                actorPtr->unk_0E4 = i;
+                actorPtr->aiType = i;
                 Object_SetInfo(&actorPtr->info, actorPtr->obj.id);
                 AUDIO_PLAY_SFX(0x3100000CU, actorPtr->sfxSource, 4U);
                 break;
@@ -102,30 +102,30 @@ void func_i4_8018BEF8(Actor* actor, s32 arg1) {
 
             actorPtr->state = 1;
             actorPtr->timer_0C4 = 300;
-            actorPtr->unk_0E4 = i;
-            actorPtr->unk_0E6 = -1;
+            actorPtr->aiType = i;
+            actorPtr->aiIndex = -1;
 
             if (i < 13) {
-                actorPtr->unk_0E6 = 2;
-                gActors[2].unk_0E6 = -1;
+                actorPtr->aiIndex = 2;
+                gActors[2].aiIndex = -1;
             }
 
             if ((i == 17) || (i == 18)) {
-                actorPtr->unk_0E6 = 0;
+                actorPtr->aiIndex = 0;
             }
 
             if ((i == 20) || (i == 21)) {
-                actorPtr->unk_0E6 = 3;
-                gActors[3].unk_0E6 = -1;
+                actorPtr->aiIndex = 3;
+                gActors[3].aiIndex = -1;
             }
 
             if (i == 22) {
-                actorPtr->unk_0E6 = 1;
-                gActors[1].unk_0E6 = -1;
+                actorPtr->aiIndex = 1;
+                gActors[1].aiIndex = -1;
             }
 
             if ((D_i4_801A0530 > 16000) && ((i == 23) || (i == 24))) {
-                actorPtr->unk_0E6 = 0;
+                actorPtr->aiIndex = 0;
             }
 
             actorPtr->health = 24;
@@ -342,13 +342,13 @@ void func_i4_8018C158(Actor* actor) {
             break;
 
         case 6:
-            gActors[1].unk_0E6 = 0;
+            gActors[1].aiIndex = 0;
             gActors[1].state = 2;
-            gActors[2].unk_0E6 = 0;
+            gActors[2].aiIndex = 0;
             gActors[2].state = 2;
-            gActors[3].unk_0E6 = 0;
+            gActors[3].aiIndex = 0;
             gActors[3].state = 2;
-            gActors[4].unk_0E6 = gActors[5].unk_0E6 = gActors[6].unk_0E6 = gActors[7].unk_0E6 = -1;
+            gActors[4].aiIndex = gActors[5].aiIndex = gActors[6].aiIndex = gActors[7].aiIndex = -1;
             break;
     }
 

@@ -18,7 +18,7 @@ bool Message_DisplayText(Gfx** gfxPtr, u16* msgPtr, s32 xPos, s32 yPos, s32 len)
 void Message_DisplayScrollingText(Gfx** gfxPtr, u16* msgPtr, s32 xPos, s32 yPos, s32 yRangeHi, s32 yRangeLo, s32 len);
 bool Message_IsPrintingChar(u16* msgPtr, s32 charPos);
 
-typedef enum {
+typedef enum RadioCharacterId {
     RCID_FOX = 0,
     RCID_FOX_OPEN,
     RCID_FOX_RED = 5,
@@ -98,6 +98,10 @@ typedef enum {
     RCID_FOX_EXPERT = 400,
     RCID_FOX_EXPERT_OPEN,
 } RadioCharacterId;
+
+void Radio_PlayMessage(u16*, enum RadioCharacterId);
+void func_800BB388(void);
+void func_800BB5D0(void);
 
 typedef enum {
     MSGCHAR_END,

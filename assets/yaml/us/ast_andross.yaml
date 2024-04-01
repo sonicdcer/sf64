@@ -9,7 +9,7 @@
       - '#include "sf64object.h"'
       - '#include "structs.h"'
       - '#include "sf64level.h"'
-
+      - '#include "sf64mesg.h"'
 D_ANDROSS_C000000:
   {type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 28, offset: 0xC000000, symbol: D_ANDROSS_C000000}
 

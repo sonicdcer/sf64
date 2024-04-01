@@ -487,12 +487,6 @@ s32 func_800A7974(Player* player, f32* hitboxData, s32* index, f32 xPos, f32 yPo
 bool func_800A8054(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, Vec3f* arg7, Vec3f* arg8);
 void Object_58_Initialize(Object_58*);
 
-// fox_radio
-s32 func_800BA7BC(u16*, s32);
-void Radio_PlayMessage(u16*, RadioCharacterId);
-void func_800BB388(void);
-void func_800BB5D0(void);
-
 // fox_versus
 s32 func_800C1E9C(void);
 void func_800C1ED4(void);

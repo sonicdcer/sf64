@@ -30,7 +30,7 @@
         G_TX_RENDERTILE, 0, cmt, maskt, shiftt, cms, masks, shifts), \
     gsDPSetTileSize(G_TX_RENDERTILE, dw, dh,                         \
         ((width)-1) << G_TEXTURE_IMAGE_FRAC,                         \
-        ((height)-1) << G_TEXTURE_IMAGE_FRAC),
+        ((height)-1) << G_TEXTURE_IMAGE_FRAC)
 
 #define gDPLoadTileTexture(pkt, timg, fmt, siz, width, height)         \
 {                                                                      \
@@ -54,7 +54,7 @@
     gsDPLoadSync(),                                                    \
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0,                                 \
         (((width)*(height) + siz##_INCR) >> siz##_SHIFT) -1,           \
-        CALC_DXT(width, siz##_BYTES)),
+        CALC_DXT(width, siz##_BYTES))
 
 #define gSPSetOtherModeHi(pkt, settings) gSPSetOtherMode(pkt, G_SETOTHERMODE_H, G_MDSFT_BLENDMASK, 24, settings)
 #define gsSPSetOtherModeHi(settings) gsSPSetOtherMode(G_SETOTHERMODE_H, G_MDSFT_BLENDMASK, 24, settings)

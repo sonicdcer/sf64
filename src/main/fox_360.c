@@ -368,20 +368,20 @@ void func_8002F180(void) {
         actor->obj.id = OBJ_ACTOR_197;
         Object_SetInfo(&actor->info, actor->obj.id);
         if (i == 0) {
-            actor->unk_0E4 = 1000;
+            actor->aiType = 1000;
         } else {
             actor->obj.pos.x = D_800C9A9C[i].x;
             actor->obj.pos.y = D_800C9A9C[i].y;
             actor->obj.pos.z = D_800C9A9C[i].z;
-            actor->unk_0E4 = D_800C9ACC[i];
+            actor->aiType = D_800C9ACC[i];
             if (gCurrentLevel == LEVEL_KATINA) {
-                actor->unk_0E6 = D_800C9AEC[i];
+                actor->aiIndex = D_800C9AEC[i];
             } else {
-                actor->unk_0E6 = D_800C9ADC[i];
+                actor->aiIndex = D_800C9ADC[i];
             }
             actor->state = 2;
             actor->unk_0F4.y = 180.0f;
-            if (actor->unk_0E6 < 0) {
+            if (actor->aiIndex < 0) {
                 actor->state = 3;
             }
             actor->health = 50;
@@ -389,7 +389,7 @@ void func_8002F180(void) {
                 actor->unk_0C9 = 1;
             }
             actor->iwork[11] = 1;
-            if (actor->unk_0E4 < 4) {
+            if (actor->aiType < 4) {
                 AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
                 actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_800CC01C);
                 actor->info.unk_1C = 0.0f;
@@ -413,9 +413,9 @@ void func_8002F3E0(void) {
             actor->obj.pos.y = D_800C9AFC[i].y;
             actor->obj.pos.z = D_800C9AFC[i].z;
             actor->obj.id = OBJ_ACTOR_197;
-            actor->unk_0E4 = i + 4;
-            actor->unk_0E6 = D_800C9B2C[i];
-            gActors[actor->unk_0E6].unk_0E6 = -1;
+            actor->aiType = i + 4;
+            actor->aiIndex = D_800C9B2C[i];
+            gActors[actor->aiIndex].aiIndex = -1;
             actor->health = 100;
             actor->unk_0C9 = 1;
             actor->unk_0F4.y = 225.0f;
@@ -492,16 +492,16 @@ void func_8002F69C(Actor* actor) {
             for (i = 1, otherActor = &gActors[1]; i < 8; i++, otherActor++) {
                 if ((otherActor->obj.status == OBJ_ACTIVE) && (otherActor->state == 2) && (otherActor->health < 70) &&
                     (otherActor->timer_0C6 != 0) && (otherActor->unk_0D4 == 1)) {
-                    if ((gActors[otherActor->unk_0E6].state == 3) && (gActors[otherActor->unk_0E6].unk_0E4 < 8)) {
-                        gActors[otherActor->unk_0E6].iwork[2] = 0;
-                        gActors[otherActor->unk_0E6].state = 2;
-                        gActors[otherActor->unk_0E6].unk_0E6 = otherActor->unk_0E4;
-                        if (D_800CA234 == &gActors[otherActor->unk_0E6]) {
+                    if ((gActors[otherActor->aiIndex].state == 3) && (gActors[otherActor->aiIndex].aiType < 8)) {
+                        gActors[otherActor->aiIndex].iwork[2] = 0;
+                        gActors[otherActor->aiIndex].state = 2;
+                        gActors[otherActor->aiIndex].aiIndex = otherActor->aiType;
+                        if (D_800CA234 == &gActors[otherActor->aiIndex]) {
                             D_800CA234 = NULL;
                             D_Timer_800CA238 = 0;
                         }
-                        if (gActors[otherActor->unk_0E6].iwork[3] == 0) {
-                            switch (gActors[otherActor->unk_0E6].unk_0E4) {
+                        if (gActors[otherActor->aiIndex].iwork[3] == 0) {
+                            switch (gActors[otherActor->aiIndex].aiType) {
                                 case 1:
                                     func_8002F5F4(gMsg_ID_9160, RCID_FALCO);
                                     break;
@@ -512,28 +512,28 @@ void func_8002F69C(Actor* actor) {
                                     func_8002F5F4(gMsg_ID_9180, RCID_PEPPY);
                                     break;
                             }
-                            gActors[otherActor->unk_0E6].iwork[3] = 200;
+                            gActors[otherActor->aiIndex].iwork[3] = 200;
                         }
                     }
-                    if (otherActor->unk_0E4 == 4) {
+                    if (otherActor->aiType == 4) {
                         if (gCurrentLevel != LEVEL_VENOM_2) {
                             otherActor->state = 3;
                             otherActor->unk_04E = 300;
                         }
                     } else {
                         otherActor->state = 3;
-                        otherActor->unk_0E6 = -1;
+                        otherActor->aiIndex = -1;
                     }
                 }
             }
             if (gTeamShields[1] <= 0) {
-                gActors[5].unk_0E6 = 0;
+                gActors[5].aiIndex = 0;
             }
             if (gTeamShields[2] <= 0) {
-                gActors[7].unk_0E6 = 0;
+                gActors[7].aiIndex = 0;
             }
             if (gTeamShields[3] <= 0) {
-                gActors[6].unk_0E6 = 0;
+                gActors[6].aiIndex = 0;
             }
         }
     }
@@ -548,15 +548,15 @@ void func_8002FB4C(Actor* actor) {
 
     for (i = 10, actor1 = &gActors[10]; i < 60; i++, actor1++) {
         if ((actor1->obj.status == OBJ_ACTIVE) && (actor1->obj.id == OBJ_ACTOR_197) && (actor1->unk_0B6 == 0) &&
-            (actor1->unk_0E6 < 0)) {
+            (actor1->aiIndex < 0)) {
             var_a0 = false;
             for (j = 1, actor2 = &gActors[1]; j < 4; j++, actor2++) {
-                if ((j != actor->index) && (i == actor2->unk_0E6)) {
+                if ((j != actor->index) && (i == actor2->aiIndex)) {
                     var_a0 = true;
                 }
             }
             if (!var_a0) {
-                actor->unk_0E6 = i;
+                actor->aiIndex = i;
                 actor->state = 2;
                 actor->iwork[2] = 0;
                 break;
@@ -570,25 +570,25 @@ void func_8002FC00(Actor* actor) {
     s32 i;
 
     for (i = 0, otherActor = &gActors[10]; i < 50; i++, otherActor++) {
-        if ((otherActor->obj.status == OBJ_DYING) && (otherActor->unk_0E6 > 0) && (otherActor->unk_0E6 < 4)) {
+        if ((otherActor->obj.status == OBJ_DYING) && (otherActor->aiIndex > 0) && (otherActor->aiIndex < 4)) {
             Actor* actor2;
             s32 j;
 
             for (j = 0, actor2 = &gActors[10]; j < 51; j++, actor2++) {
                 if ((actor2->obj.status == OBJ_ACTIVE) && (actor2->state == 2) &&
-                    (actor2->unk_0E6 == otherActor->unk_0E6)) {
+                    (actor2->aiIndex == otherActor->aiIndex)) {
                     return;
                 }
             }
-            if (gTeamShields[otherActor->unk_0E6] > 0) {
-                func_8002FB4C(&gActors[otherActor->unk_0E6]);
+            if (gTeamShields[otherActor->aiIndex] > 0) {
+                func_8002FB4C(&gActors[otherActor->aiIndex]);
                 if ((otherActor->iwork[5] != 0) && (otherActor->unk_0D4 == 1) &&
-                    (gActors[otherActor->unk_0E6].iwork[3] == 0)) {
-                    if (D_800CA234 == &gActors[otherActor->unk_0E6]) {
+                    (gActors[otherActor->aiIndex].iwork[3] == 0)) {
+                    if (D_800CA234 == &gActors[otherActor->aiIndex]) {
                         D_800CA234 = NULL;
                         D_Timer_800CA238 = 0;
                     }
-                    switch (gActors[otherActor->unk_0E6].unk_0E4) {
+                    switch (gActors[otherActor->aiIndex].aiType) {
                         case 1:
                             func_8002F5F4(gMsg_ID_9160, RCID_FALCO);
                             break;
@@ -599,8 +599,8 @@ void func_8002FC00(Actor* actor) {
                             func_8002F5F4(gMsg_ID_9180, RCID_PEPPY);
                             break;
                     }
-                    gActors[otherActor->unk_0E6].iwork[3] = 200;
-                    gActors[otherActor->unk_0E6].timer_0C4 = 600;
+                    gActors[otherActor->aiIndex].iwork[3] = 200;
+                    gActors[otherActor->aiIndex].timer_0C4 = 600;
                 }
             }
         }
@@ -768,7 +768,7 @@ s32 func_8003049C(Actor* actor) {
     }
     sp44 = 1200.0f;
     var_ft5 = 650.0f;
-    if (actor->unk_0E4 < 8) {
+    if (actor->aiType < 8) {
         var_ft5 = 720.0f;
     }
 
@@ -795,14 +795,14 @@ void func_8003088C(Actor* actor) {
     Vec3f sp3C;
 
     if (actor->unk_0D0 != 0) {
-        if (actor->unk_0E4 == 100) {
+        if (actor->aiType == 100) {
             actor->unk_0D0 = 0;
         }
-        if ((actor->unk_0D0 >= 2) && (actor->unk_0E4 >= 4) && (actor->unk_0E4 < 8)) {
+        if ((actor->unk_0D0 >= 2) && (actor->aiType >= 4) && (actor->aiType < 8)) {
             actor->damage = 10;
             actor->timer_0C2 = 10;
         }
-        if (((actor->unk_0E4 < 4) || (actor->unk_0E4 == 9) || (actor->unk_0E4 == 8)) && (actor->unk_0D0 == 2)) {
+        if (((actor->aiType < 4) || (actor->aiType == 9) || (actor->aiType == 8)) && (actor->unk_0D0 == 2)) {
             actor->unk_0D0 = 0;
         }
         if ((actor->unk_0D0 == 2) && (actor->fwork[22] > 0.0f)) {
@@ -814,8 +814,8 @@ void func_8003088C(Actor* actor) {
         if (actor->unk_0D0 != 0) {
             var_a1 = false;
             if ((actor->unk_0B6 == 3) ||
-                ((gCurrentLevel == LEVEL_BOLSE) && (gBosses[1].obj.status != OBJ_FREE) && (actor->unk_0E4 >= 4)) ||
-                ((gCurrentLevel == LEVEL_VENOM_2) && (actor->unk_0E4 >= 4) && (actor->unk_0E4 < 10) &&
+                ((gCurrentLevel == LEVEL_BOLSE) && (gBosses[1].obj.status != OBJ_FREE) && (actor->aiType >= 4)) ||
+                ((gCurrentLevel == LEVEL_VENOM_2) && (actor->aiType >= 4) && (actor->aiType < 10) &&
                  (actor->unk_0D0 == 2))) {
                 actor->damage = 0;
                 var_a1 = true;
@@ -823,21 +823,21 @@ void func_8003088C(Actor* actor) {
                     actor->unk_0D4 = 0;
                 }
             }
-            if (actor->unk_0E4 >= 4) {
-                if (((actor->unk_0D0 != 3) || (actor->unk_0E4 != 4)) &&
-                    ((actor->unk_0E4 != 200) || (actor->unk_0D0 != 2))) {
+            if (actor->aiType >= 4) {
+                if (((actor->unk_0D0 != 3) || (actor->aiType != 4)) &&
+                    ((actor->aiType != 200) || (actor->unk_0D0 != 2))) {
                     actor->health -= actor->damage;
                 }
-            } else if ((actor->unk_0E4 < 4) && (actor->state != 6)) {
-                if (actor->unk_0E4 == 1) {
-                    gTeamDamage[actor->unk_0E4] = actor->damage;
+            } else if ((actor->aiType < 4) && (actor->state != 6)) {
+                if (actor->aiType == 1) {
+                    gTeamDamage[actor->aiType] = actor->damage;
                 } else {
-                    gTeamDamage[actor->unk_0E4] = actor->damage * 2;
+                    gTeamDamage[actor->aiType] = actor->damage * 2;
                 }
             }
             if (actor->health <= 0) {
                 actor->health = 0;
-                if (actor->unk_0E4 == 200) {
+                if (actor->aiType == 200) {
                     func_i4_80199900(actor, 1);
                     if (actor->unk_0D4 == 1) {
                         if (gActors[8].obj.status == OBJ_ACTIVE) {
@@ -897,7 +897,7 @@ void func_8003088C(Actor* actor) {
                         actor->timer_0BC = RAND_INT(50.0f);
                     }
                 }
-                if ((actor->unk_0E4 >= 4) && (actor->unk_0E4 < 8)) {
+                if ((actor->aiType >= 4) && (actor->aiType < 8)) {
                     actor->timer_0BC = RAND_INT(40.0f) + 60.0f;
                 }
                 if (actor->damage >= 20) {
@@ -909,7 +909,7 @@ void func_8003088C(Actor* actor) {
                     }
                     D_8015F921++;
                 }
-                switch (actor->unk_0E4) {
+                switch (actor->aiType) {
                     case 4:
                         D_80177CD0[0] = 0;
                         if (gCurrentLevel == LEVEL_VENOM_2) {
@@ -943,12 +943,12 @@ void func_8003088C(Actor* actor) {
                         }
                         break;
                 }
-                if ((actor->unk_0E4 >= 4) && (actor->unk_0E4 < 8)) {
+                if ((actor->aiType >= 4) && (actor->aiType < 8)) {
                     D_8015F904 = 150;
                 }
                 switch (actor->unk_0D4) {
                     case 1:
-                        if (actor->unk_0E4 >= 10) {
+                        if (actor->aiType >= 10) {
                             switch (actor->iwork[2]) {
                                 case 1:
                                     func_8002F5F4(gMsg_ID_20170, RCID_FALCO);
@@ -965,7 +965,7 @@ void func_8003088C(Actor* actor) {
                     case 102:
                     case 103:
                     case 104:
-                        if ((actor->unk_0E4 >= 4) && (actor->unk_0E4 < 8)) {
+                        if ((actor->aiType >= 4) && (actor->aiType < 8)) {
                             if ((D_80177CD0[0] + D_80177CD0[1] + D_80177CD0[2] + D_80177CD0[3]) == 0) {
                                 switch (actor->unk_0D4) {
                                     case 102:
@@ -1003,13 +1003,13 @@ void func_8003088C(Actor* actor) {
                     actor->timer_0C6 = 20;
                     actor->iwork[8] = 20;
                 }
-                if (actor->unk_0E4 == 200) {
+                if (actor->aiType == 200) {
                     AUDIO_PLAY_SFX(0x29034003, actor->sfxSource, 4);
                 } else if (actor->iwork[7] == 0) {
                     AUDIO_PLAY_SFX(0x2903300E, actor->sfxSource, 4);
                 }
                 func_8007D10C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1.5f);
-                if (actor->unk_0E4 < 100) {
+                if (actor->aiType < 100) {
                     Matrix_RotateY(gCalcMatrix, actor->unk_0F4.y * M_DTOR, 0);
                     sp48.x = 30.0f;
                     if (Rand_ZeroOne() < 0.5f) {
@@ -1032,7 +1032,7 @@ void func_8003088C(Actor* actor) {
                 }
                 if ((gRadioState == 0) && (gActors[0].obj.status == OBJ_ACTIVE)) {
                     if (actor->unk_0D0 == 3) {
-                        switch (actor->unk_0E4) {
+                        switch (actor->aiType) {
                             case 1:
                                 func_8002F5F4(gMsg_ID_20210, RCID_FALCO);
                                 break;
@@ -1047,17 +1047,17 @@ void func_8003088C(Actor* actor) {
                                 break;
                         }
                     } else if (actor->unk_0D4 < 105) {
-                        if (actor->unk_0E4 >= 4) {
+                        if (actor->aiType >= 4) {
                             if (actor->unk_0D4 == 1) {
                                 if ((gCurrentLevel == LEVEL_KATINA) && (actor->unk_0B6 == 1) && (D_8015F920 == 0)) {
                                     D_8015F920 = 1;
                                     Radio_PlayMessage(gMsg_ID_18015, RCID_BILL);
-                                } else if (actor->unk_0E4 == 8) {
+                                } else if (actor->aiType == 8) {
                                     func_8002F5F4(gMsg_ID_20084, RCID_KATT);
-                                } else if (actor->unk_0E4 == 9) {
+                                } else if (actor->aiType == 9) {
                                     func_8002F5F4(gMsg_ID_20085, RCID_BILL);
                                 } else if (gCurrentLevel == LEVEL_VENOM_2) {
-                                    switch (actor->unk_0E4) {
+                                    switch (actor->aiType) {
                                         case 4:
                                             func_8002F5F4(gMsg_ID_19454, RCID_WOLF);
                                             break;
@@ -1074,7 +1074,7 @@ void func_8003088C(Actor* actor) {
                                 }
                             }
                         } else if (actor->unk_0D4 == 1) {
-                            switch (actor->unk_0E4) {
+                            switch (actor->aiType) {
                                 case 1:
                                     func_8002F5F4(gMsg_ID_20060, RCID_FALCO);
                                     break;
@@ -1086,15 +1086,15 @@ void func_8003088C(Actor* actor) {
                                     break;
                             }
                         }
-                    } else if ((actor->unk_0E4 < 4) && (actor->iwork[6] != 0) && (actor->iwork[2] != 0)) {
-                        switch (actor->unk_0E4) {
+                    } else if ((actor->aiType < 4) && (actor->iwork[6] != 0) && (actor->iwork[2] != 0)) {
+                        switch (actor->aiType) {
                             case 1:
                                 if (gTeamShields[1] >= 90) {
                                     func_8002F5F4(gMsg_ID_9130, RCID_FALCO);
                                 } else {
                                     Radio_PlayMessage(gMsg_ID_9151, RCID_FALCO);
                                 }
-                                if ((D_800CA234 == NULL) || (gTeamShields[actor->unk_0E4] <= 50)) {
+                                if ((D_800CA234 == NULL) || (gTeamShields[actor->aiType] <= 50)) {
                                     D_800CA234 = actor;
                                     D_Timer_800CA238 = 320;
                                 }
@@ -1105,7 +1105,7 @@ void func_8003088C(Actor* actor) {
                                 } else {
                                     Radio_PlayMessage(gMsg_ID_9152, RCID_SLIPPY);
                                 }
-                                if ((D_800CA234 == NULL) || (gTeamShields[actor->unk_0E4] <= 50)) {
+                                if ((D_800CA234 == NULL) || (gTeamShields[actor->aiType] <= 50)) {
                                     D_800CA234 = actor;
                                     D_Timer_800CA238 = 320;
                                 }
@@ -1116,7 +1116,7 @@ void func_8003088C(Actor* actor) {
                                 } else {
                                     Radio_PlayMessage(gMsg_ID_9153, RCID_PEPPY);
                                 }
-                                if ((D_800CA234 == NULL) || (gTeamShields[actor->unk_0E4] <= 50)) {
+                                if ((D_800CA234 == NULL) || (gTeamShields[actor->aiType] <= 50)) {
                                     D_800CA234 = actor;
                                     D_Timer_800CA238 = 320;
                                 }
@@ -1189,13 +1189,13 @@ void func_800319AC(Actor* this) {
     s32 pad2;
     s32 pad3;
 
-    if (this->unk_0E4 == 1000) {
+    if (this->aiType == 1000) {
         this->timer_0C2 = 10;
         this->info.unk_1C = 0.0f;
         func_8003010C(this);
         return;
     }
-    if ((this->iwork[17] != 0) && (this->iwork[16] == 0) && (this->unk_0E4 >= 4)) {
+    if ((this->iwork[17] != 0) && (this->iwork[16] == 0) && (this->aiType >= 4)) {
         switch (RAND_INT(3.9f)) {
             case 0:
             case 1:
@@ -1216,7 +1216,7 @@ void func_800319AC(Actor* this) {
             this->iwork[16] = 0;
         }
     }
-    if ((this->timer_0CA[0] != 0) && (gCurrentLevel != LEVEL_VENOM_2) && (this->unk_0E4 < 10) &&
+    if ((this->timer_0CA[0] != 0) && (gCurrentLevel != LEVEL_VENOM_2) && (this->aiType < 10) &&
         (this->timer_0CA[0] < 5) && !(gGameFrameCount & 0x1F)) {
         this->iwork[16] = 10;
     }
@@ -1275,10 +1275,10 @@ void func_800319AC(Actor* this) {
     } else {
         this->iwork[11] = 1;
     }
-    if (this->unk_0E4 < 10) {
+    if (this->aiType < 10) {
         func_80031858(this);
         if (this->iwork[10] == 200) {
-            switch (this->unk_0E4) {
+            switch (this->aiType) {
                 case 4:
                 case 5:
                 case 6:
@@ -1320,11 +1320,11 @@ void func_800319AC(Actor* this) {
     }
     sp104 = 0;
     this->iwork[5] = 0;
-    if ((this->unk_0E4 > 0) && (this->unk_0E4 < 4) && (gTeamShields[this->unk_0E4] <= 0) && (this->state != 6)) {
+    if ((this->aiType > 0) && (this->aiType < 4) && (gTeamShields[this->aiType] <= 0) && (this->state != 6)) {
         this->state = 6;
         if (this->timer_0C2 < 100) {
-            gTeamShields[this->unk_0E4] = 1;
-            switch (this->unk_0E4) {
+            gTeamShields[this->aiType] = 1;
+            switch (this->aiType) {
                 case 1:
                     Radio_PlayMessage(gMsg_ID_20220, RCID_FALCO);
                     break;
@@ -1341,8 +1341,8 @@ void func_800319AC(Actor* this) {
             AUDIO_PLAY_SFX(0x09000002, this->sfxSource, 0);
             this->unk_046 = 0;
         }
-        gTeamShields[this->unk_0E4] = -1;
-        gTeamDamage[this->unk_0E4] = 0;
+        gTeamShields[this->aiType] = -1;
+        gTeamDamage[this->aiType] = 0;
         this->iwork[1] = 0;
         this->timer_0C2 = 10000;
     }
@@ -1352,8 +1352,8 @@ void func_800319AC(Actor* this) {
             this->iwork[11] = 2;
             this->fwork[1] = 45.0f;
             this->fwork[3] = 2.0f;
-            gTeamShields[this->unk_0E4] = -1;
-            gTeamDamage[this->unk_0E4] = 0;
+            gTeamShields[this->aiType] = -1;
+            gTeamDamage[this->aiType] = 0;
             if (gCurrentLevel == LEVEL_SECTOR_Z) {
                 this->fwork[4] = D_800C9B50[this->unk_046].x;
                 this->fwork[5] = D_800C9B50[this->unk_046].y;
@@ -1385,7 +1385,7 @@ void func_800319AC(Actor* this) {
                     this->fwork[1] = 200.0f;
                 }
                 if (this->timer_0BC == 0) {
-                    if (this->unk_0E4 == 4) {
+                    if (this->aiType == 4) {
                         this->state = 3;
                         if (gCurrentLevel == LEVEL_VENOM_2) {
                             this->unk_04E = 200;
@@ -1394,7 +1394,7 @@ void func_800319AC(Actor* this) {
                         }
                     } else {
                         this->state = 2;
-                        if (this->unk_0E4 == 8) {
+                        if (this->aiType == 8) {
                             this->fwork[7] = 360.0f;
                             this->fwork[8] = 0.0f;
                         }
@@ -1410,7 +1410,7 @@ void func_800319AC(Actor* this) {
             }
             if (this->timer_0BC == 0) {
                 this->state = 3;
-                if ((gCurrentLevel == LEVEL_BOLSE) && (this->unk_0E6 >= 0)) {
+                if ((gCurrentLevel == LEVEL_BOLSE) && (this->aiIndex >= 0)) {
                     this->state = 2;
                 }
             }
@@ -1423,30 +1423,30 @@ void func_800319AC(Actor* this) {
             spEC = fabsf(this->fwork[4] - this->obj.pos.x);
             spE8 = fabsf(this->fwork[6] - this->obj.pos.z);
             sp10F = 0xB;
-            if (this->unk_0E4 == 1) {
+            if (this->aiType == 1) {
                 spF0 = 0.5f;
             } else if ((this->unk_0B6 != 2) && (this->unk_0B6 == 3)) {
                 spF0 = 0.5f;
             }
-            if (this->unk_0E6 == 0) {
+            if (this->aiIndex == 0) {
                 spF0 = 0.2f;
             }
-            if (this->unk_0E6 < 0) {
+            if (this->aiIndex < 0) {
                 this->state = 3;
             } else {
-                if (gActors[this->unk_0E6].unk_0E4 == 200) {
+                if (gActors[this->aiIndex].aiType == 200) {
                     spF0 = 0.8f;
                     spF4 = spF8 = 3000.0f;
                     this->fwork[3] = 2.0f;
                 }
-                if (this->unk_0E6 == 0) {
+                if (this->aiIndex == 0) {
                     if (gCurrentLevel != LEVEL_VENOM_2) {
                         if (((gPlayer[0].unk_4DC != 0) && (this->iwork[4] > 10)) ||
                             ((gCurrentLevel == LEVEL_BOLSE) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_0))) {
                             this->state = 3;
                             this->unk_04E = 300;
                             this->timer_0BC = 160;
-                            if (this->unk_0E4 == 4) {
+                            if (this->aiType == 4) {
                                 func_8002F5F4(gMsg_ID_9369, RCID_WOLF);
                             }
                             break;
@@ -1455,8 +1455,8 @@ void func_800319AC(Actor* this) {
                             break;
                         }
                     }
-                    if ((this->unk_0E4 >= 4) && (this->unk_0E4 != 8) &&
-                        ((gCurrentLevel != LEVEL_VENOM_2) || (this->unk_0E4 != 4))) {
+                    if ((this->aiType >= 4) && (this->aiType != 8) &&
+                        ((gCurrentLevel != LEVEL_VENOM_2) || (this->aiType != 4))) {
                         spCC = SIN_DEG((this->index * 45) + gGameFrameCount) * 100.0f;
                         spC8 = COS_DEG((this->index * 45) + (gGameFrameCount * 2)) * 100.0f;
                         spC4 = SIN_DEG((this->index * 45) + gGameFrameCount) * 100.0f;
@@ -1467,11 +1467,11 @@ void func_800319AC(Actor* this) {
                         this->fwork[6] = gPlayer[0].unk_138 + spC4;
                         this->fwork[1] = gPlayer[0].unk_0D0 + 10.0f;
                     }
-                    if ((gActors[0].state == 6) && (this->unk_0E4 < 4)) {
+                    if ((gActors[0].state == 6) && (this->aiType < 4)) {
                         this->fwork[3] = 3.0f;
                         this->fwork[1] = gPlayer[0].unk_0D0 - 5.0f;
                         this->iwork[11] = 2;
-                    } else if ((gCurrentLevel == LEVEL_VENOM_2) && (this->unk_0E4 >= 4)) {
+                    } else if ((gCurrentLevel == LEVEL_VENOM_2) && (this->aiType >= 4)) {
                         this->fwork[3] = 1.6f;
                         this->fwork[1] = 55.0f;
                     } else {
@@ -1485,23 +1485,23 @@ void func_800319AC(Actor* this) {
                     } else {
                         spF0 = 0.7f;
                     }
-                } else if (this->unk_0E6 != 100) {
-                    if (this->unk_0E4 >= 10) {
+                } else if (this->aiIndex != 100) {
+                    if (this->aiType >= 10) {
                         spCC = SIN_DEG((this->index * 45) + gGameFrameCount) * 200.0f;
                         spC8 = COS_DEG((this->index * 45) + (gGameFrameCount * 2)) * 200.0f;
                         spC4 = SIN_DEG((this->index * 45) + gGameFrameCount) * 200.0f;
                     }
-                    this->fwork[4] = gActors[this->unk_0E6].obj.pos.x + spCC;
-                    this->fwork[5] = gActors[this->unk_0E6].obj.pos.y + spC8;
-                    this->fwork[6] = gActors[this->unk_0E6].obj.pos.z + spC4;
-                    if ((gCurrentLevel == LEVEL_VENOM_2) && (this->unk_0E4 >= 4)) {
+                    this->fwork[4] = gActors[this->aiIndex].obj.pos.x + spCC;
+                    this->fwork[5] = gActors[this->aiIndex].obj.pos.y + spC8;
+                    this->fwork[6] = gActors[this->aiIndex].obj.pos.z + spC4;
+                    if ((gCurrentLevel == LEVEL_VENOM_2) && (this->aiType >= 4)) {
                         this->fwork[1] = 55.0f;
                         this->fwork[3] = 1.6f;
-                    } else if ((gCurrentLevel == LEVEL_FORTUNA) && (this->unk_0E4 >= 0xB)) {
+                    } else if ((gCurrentLevel == LEVEL_FORTUNA) && (this->aiType >= 0xB)) {
                         this->fwork[3] = 1.4f;
                         this->fwork[1] = 50.0f;
                     } else {
-                        this->fwork[1] = gActors[this->unk_0E6].fwork[0] + 10.0f;
+                        this->fwork[1] = gActors[this->aiIndex].fwork[0] + 10.0f;
                         if (this->fwork[1] < 30.0f) {
                             this->fwork[1] = 30.0f;
                         }
@@ -1513,11 +1513,11 @@ void func_800319AC(Actor* this) {
                     this->fwork[6] = gBosses[0].obj.pos.z;
                     this->fwork[1] = 40.0f;
                 }
-                if ((this->unk_0E6 >= 0) && (this->unk_0E6 != 100) && (gActors[0].state != 6)) {
+                if ((this->aiIndex >= 0) && (this->aiIndex != 100) && (gActors[0].state != 6)) {
                     if (spE8 < spF8) {
                         if (spEC < spF8) {
-                            if (this->unk_0E6 != 0) {
-                                this->fwork[1] = gActors[this->unk_0E6].fwork[0] - 5.0f;
+                            if (this->aiIndex != 0) {
+                                this->fwork[1] = gActors[this->aiIndex].fwork[0] - 5.0f;
                             } else {
                                 this->fwork[1] = gPlayer[0].unk_0D0 - 5.0f;
                                 if ((gCurrentLevel == LEVEL_VENOM_2) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_5) &&
@@ -1535,11 +1535,11 @@ void func_800319AC(Actor* this) {
                         this->iwork[5] = 1;
                         if (!((this->index + gGameFrameCount) & sp10F) && (Rand_ZeroOne() < spF0) &&
                             func_80031900(this) && ((gActors[0].state == 2) || (gCurrentLevel == LEVEL_TRAINING))) {
-                            if ((this->unk_0E6 == 0) && (gCurrentLevel != LEVEL_TRAINING)) {
+                            if ((this->aiIndex == 0) && (gCurrentLevel != LEVEL_TRAINING)) {
                                 if ((this->iwork[4] > 250) && (gCurrentLevel != LEVEL_VENOM_ANDROSS)) {
                                     if ((Rand_ZeroOne() < 0.5f) || (gCurrentLevel == LEVEL_VENOM_2)) {
                                         this->iwork[4] = 0;
-                                        switch (this->unk_0E4) {
+                                        switch (this->aiType) {
                                             case 4:
                                                 func_8002E4F8(gMsg_ID_19450, RCID_WOLF);
                                                 break;
@@ -1566,47 +1566,47 @@ void func_800319AC(Actor* this) {
                             (gActors[0].obj.status == OBJ_ACTIVE)) {
                             this->timer_0C4 = 600;
                             if (Rand_ZeroOne() < 0.5f) {
-                                gActors[this->unk_0E6].iwork[6]++;
-                                switch (this->unk_0E6) {
+                                gActors[this->aiIndex].iwork[6]++;
+                                switch (this->aiIndex) {
                                     case 1:
                                         if ((gCurrentLevel == LEVEL_VENOM_2) && (Rand_ZeroOne() < 0.5f)) {
                                             func_8002F5F4(gMsg_ID_19462, RCID_FALCO);
-                                        } else if ((gActors[this->unk_0E6].iwork[6] >= 3) && (Rand_ZeroOne() < 0.5f)) {
+                                        } else if ((gActors[this->aiIndex].iwork[6] >= 3) && (Rand_ZeroOne() < 0.5f)) {
                                             func_8002F5F4(gMsg_ID_20310, RCID_FALCO);
                                         } else {
                                             func_8002F5F4(gMsg_ID_9100, RCID_FALCO);
                                         }
-                                        gActors[this->unk_0E6].iwork[2] = this->unk_0E4;
-                                        if ((D_800CA234 == NULL) || (gTeamShields[this->unk_0E6] <= 50)) {
-                                            D_800CA234 = &gActors[this->unk_0E6];
+                                        gActors[this->aiIndex].iwork[2] = this->aiType;
+                                        if ((D_800CA234 == NULL) || (gTeamShields[this->aiIndex] <= 50)) {
+                                            D_800CA234 = &gActors[this->aiIndex];
                                             D_Timer_800CA238 = 320;
                                         }
                                         break;
                                     case 2:
                                         if ((gCurrentLevel == LEVEL_VENOM_2) && (Rand_ZeroOne() < 0.5f)) {
                                             func_8002F5F4(gMsg_ID_19463, RCID_SLIPPY);
-                                        } else if ((gActors[this->unk_0E6].iwork[6] >= 3) && (Rand_ZeroOne() < 0.5f)) {
+                                        } else if ((gActors[this->aiIndex].iwork[6] >= 3) && (Rand_ZeroOne() < 0.5f)) {
                                             func_8002F5F4(gMsg_ID_20311, RCID_SLIPPY);
                                         } else {
                                             func_8002F5F4(gMsg_ID_9110, RCID_SLIPPY);
                                         }
-                                        gActors[this->unk_0E6].iwork[2] = this->unk_0E4;
-                                        if ((D_800CA234 == NULL) || (gTeamShields[this->unk_0E6] <= 50)) {
-                                            D_800CA234 = &gActors[this->unk_0E6];
+                                        gActors[this->aiIndex].iwork[2] = this->aiType;
+                                        if ((D_800CA234 == NULL) || (gTeamShields[this->aiIndex] <= 50)) {
+                                            D_800CA234 = &gActors[this->aiIndex];
                                             D_Timer_800CA238 = 320;
                                         }
                                         break;
                                     case 3:
                                         if ((gCurrentLevel == LEVEL_VENOM_2) && (Rand_ZeroOne() < 0.5f)) {
                                             func_8002F5F4(gMsg_ID_19464, 0x1E);
-                                        } else if ((gActors[this->unk_0E6].iwork[6] >= 3) && (Rand_ZeroOne() < 0.5f)) {
+                                        } else if ((gActors[this->aiIndex].iwork[6] >= 3) && (Rand_ZeroOne() < 0.5f)) {
                                             func_8002F5F4(gMsg_ID_20312, 0x1E);
                                         } else {
                                             func_8002F5F4(gMsg_ID_9120, 0x1E);
                                         }
-                                        gActors[this->unk_0E6].iwork[2] = this->unk_0E4;
-                                        if ((D_800CA234 == NULL) || (gTeamShields[this->unk_0E6] <= 50)) {
-                                            D_800CA234 = &gActors[this->unk_0E6];
+                                        gActors[this->aiIndex].iwork[2] = this->aiType;
+                                        if ((D_800CA234 == NULL) || (gTeamShields[this->aiIndex] <= 50)) {
+                                            D_800CA234 = &gActors[this->aiIndex];
                                             D_Timer_800CA238 = 320;
                                         }
                                         break;
@@ -1632,14 +1632,14 @@ void func_800319AC(Actor* this) {
                                         break;
                                 }
                             } else {
-                                switch (this->unk_0E4) {
+                                switch (this->aiType) {
                                     case 1:
                                         if ((gCurrentLevel == LEVEL_FORTUNA) && (Rand_ZeroOne() < 0.5f)) {
                                             func_8002F5F4(gMsg_ID_9211, RCID_FALCO);
                                         } else {
                                             func_8002F5F4(gMsg_ID_9190, RCID_FALCO);
                                         }
-                                        gActors[this->unk_0E6].iwork[2] = 1;
+                                        gActors[this->aiIndex].iwork[2] = 1;
                                         break;
                                     case 2:
                                         if ((gCurrentLevel == LEVEL_FORTUNA) && (Rand_ZeroOne() < 0.5f)) {
@@ -1647,7 +1647,7 @@ void func_800319AC(Actor* this) {
                                         } else {
                                             func_8002F5F4(gMsg_ID_9200, RCID_SLIPPY);
                                         }
-                                        gActors[this->unk_0E6].iwork[2] = 2;
+                                        gActors[this->aiIndex].iwork[2] = 2;
                                         break;
                                     case 3:
                                         if ((gCurrentLevel == LEVEL_FORTUNA) && (Rand_ZeroOne() < 0.5f)) {
@@ -1655,7 +1655,7 @@ void func_800319AC(Actor* this) {
                                         } else {
                                             func_8002F5F4(gMsg_ID_9210, RCID_PEPPY);
                                         }
-                                        gActors[this->unk_0E6].iwork[2] = 3;
+                                        gActors[this->aiIndex].iwork[2] = 3;
                                         break;
                                     case 4:
                                         if (gCurrentLevel != LEVEL_VENOM_2) {
@@ -1676,12 +1676,12 @@ void func_800319AC(Actor* this) {
                                         break;
                                     case 5:
                                         if (gCurrentLevel == LEVEL_VENOM_2) {
-                                            if ((Rand_ZeroOne() < 0.5f) && (this->unk_0E6 == 1)) {
+                                            if ((Rand_ZeroOne() < 0.5f) && (this->aiIndex == 1)) {
                                                 func_8002F5F4(gMsg_ID_9323, RCID_LEON);
                                             } else {
                                                 func_8002F5F4(gMsg_ID_19451, RCID_LEON);
                                             }
-                                        } else if ((Rand_ZeroOne() < 0.5f) && (this->unk_0E6 == 1)) {
+                                        } else if ((Rand_ZeroOne() < 0.5f) && (this->aiIndex == 1)) {
                                             func_8002F5F4(gMsg_ID_9323, RCID_LEON);
                                         } else {
                                             func_8002F5F4(gMsg_ID_9300, RCID_LEON);
@@ -1689,12 +1689,12 @@ void func_800319AC(Actor* this) {
                                         break;
                                     case 6:
                                         if (gCurrentLevel == LEVEL_VENOM_2) {
-                                            if ((Rand_ZeroOne() < 0.5f) && (this->unk_0E6 == 3)) {
+                                            if ((Rand_ZeroOne() < 0.5f) && (this->aiIndex == 3)) {
                                                 func_8002F5F4(gMsg_ID_9324, RCID_PIGMA);
                                             } else {
                                                 func_8002F5F4(gMsg_ID_19452, RCID_PIGMA);
                                             }
-                                        } else if ((Rand_ZeroOne() < 0.5f) && (this->unk_0E6 == 3)) {
+                                        } else if ((Rand_ZeroOne() < 0.5f) && (this->aiIndex == 3)) {
                                             func_8002F5F4(gMsg_ID_9324, RCID_PIGMA);
                                         } else {
                                             func_8002F5F4(gMsg_ID_9310, RCID_PIGMA);
@@ -1702,12 +1702,12 @@ void func_800319AC(Actor* this) {
                                         break;
                                     case 7:
                                         if (gCurrentLevel == LEVEL_VENOM_2) {
-                                            if ((Rand_ZeroOne() < 0.5f) && (this->unk_0E6 == 2)) {
+                                            if ((Rand_ZeroOne() < 0.5f) && (this->aiIndex == 2)) {
                                                 func_8002F5F4(gMsg_ID_9325, RCID_ANDREW);
                                             } else {
                                                 func_8002F5F4(gMsg_ID_19453, RCID_ANDREW);
                                             }
-                                        } else if ((Rand_ZeroOne() < 0.5f) && (this->unk_0E6 == 2)) {
+                                        } else if ((Rand_ZeroOne() < 0.5f) && (this->aiIndex == 2)) {
                                             func_8002F5F4(gMsg_ID_9325, RCID_ANDREW);
                                         } else {
                                             func_8002F5F4(gMsg_ID_9320, RCID_ANDREW);
@@ -1719,9 +1719,9 @@ void func_800319AC(Actor* this) {
                     } else {
                         this->iwork[4] = 0;
                     }
-                    if ((this->unk_0E6 > 0) &&
-                        ((gActors[this->unk_0E6].obj.status == OBJ_DYING) || (gActors[this->unk_0E6].state == 6) ||
-                         (gActors[this->unk_0E6].obj.status == OBJ_FREE))) {
+                    if ((this->aiIndex > 0) &&
+                        ((gActors[this->aiIndex].obj.status == OBJ_DYING) || (gActors[this->aiIndex].state == 6) ||
+                         (gActors[this->aiIndex].obj.status == OBJ_FREE))) {
                         this->state = 3;
                         if (gCurrentLevel == LEVEL_BOLSE) {
                             func_8002FB4C(this);
@@ -1733,9 +1733,9 @@ void func_800319AC(Actor* this) {
         case 3:
             sp104 = 1;
             if (this->timer_0BC == 0) {
-                if ((this->unk_0E4 < 10) || (gCurrentLevel == LEVEL_BOLSE)) {
+                if ((this->aiType < 10) || (gCurrentLevel == LEVEL_BOLSE)) {
                     if (gCurrentLevel == LEVEL_VENOM_2) {
-                        if (this->unk_0E4 >= 4) {
+                        if (this->aiType >= 4) {
                             this->fwork[3] = 1.6f;
                             this->fwork[1] = 55.0f;
                         } else {
@@ -1754,7 +1754,7 @@ void func_800319AC(Actor* this) {
                     this->fwork[10] = 30.0f;
                 }
                 if ((gLevelType == LEVELTYPE_SPACE) && (gCurrentLevel != LEVEL_BOLSE)) {
-                    if ((gCurrentLevel == LEVEL_SECTOR_Z) && (this->unk_0E4 == 8)) {
+                    if ((gCurrentLevel == LEVEL_SECTOR_Z) && (this->aiType == 8)) {
                         spE4 = RAND_FLOAT_CENTERED(0.0f);
                         spE0 = RAND_FLOAT_CENTERED(500.0f);
                         spDC = RAND_FLOAT_CENTERED(5000.0f) + 12000.0f;
@@ -1788,12 +1788,12 @@ void func_800319AC(Actor* this) {
                 this->timer_0C0 = RAND_INT(200.0f) + 200;
                 this->fwork[10] = 30.0f;
             }
-            if ((this->unk_0E6 > 0) && (gActors[this->unk_0E6].obj.id == OBJ_ACTOR_197) &&
-                (gActors[this->unk_0E6].timer_0C2 == 0) && (gActors[this->unk_0E6].obj.status == OBJ_ACTIVE)) {
+            if ((this->aiIndex > 0) && (gActors[this->aiIndex].obj.id == OBJ_ACTOR_197) &&
+                (gActors[this->aiIndex].timer_0C2 == 0) && (gActors[this->aiIndex].obj.status == OBJ_ACTIVE)) {
                 this->state = 2;
                 this->iwork[2] = 0;
             }
-            if (this->unk_0E6 == 0) {
+            if (this->aiIndex == 0) {
                 if (this->unk_04E != 0) {
                     this->unk_04E--;
                 }
@@ -1883,9 +1883,9 @@ void func_800319AC(Actor* this) {
         spD4 = this->fwork[19];
         sp108 = 0;
         if (sp104 == 1) {
-            if (this->unk_0E4 < 100) {
+            if (this->aiType < 100) {
                 sp108 = func_8003049C(this);
-                if ((sp108 != 0) && (this->unk_0E4 < 10) && (this->timer_0BE == 0) &&
+                if ((sp108 != 0) && (this->aiType < 10) && (this->timer_0BE == 0) &&
                     ((this->fwork[7] < 0.01f) || (this->fwork[7] > 359.9f))) {
                     this->timer_0BE = RAND_INT(200.0f) + 200;
                     if (Rand_ZeroOne() < 0.5f) {
@@ -1898,7 +1898,7 @@ void func_800319AC(Actor* this) {
                 }
             }
             if (sp108 != 0) {
-                if ((this->unk_0E4 < 10) || (gCurrentLevel != LEVEL_FORTUNA)) {
+                if ((this->aiType < 10) || (gCurrentLevel != LEVEL_FORTUNA)) {
                     spD8 += 40.0f * sp108;
                 } else {
                     spD8 += 20.0f * sp108;
@@ -1937,7 +1937,7 @@ void func_800319AC(Actor* this) {
     }
     if ((this->fwork[7] > 0.01f) && (this->fwork[7] < 359.9f)) {
         Math_SmoothStepToAngle(&this->obj.rot.z, this->fwork[7], 0.2f, 100.0f, 0.01f);
-        if ((this->unk_0E4 == 8) && !(gGameFrameCount & 1)) {
+        if ((this->aiType == 8) && !(gGameFrameCount & 1)) {
             if ((this->fwork[7] > 10.0f) && (this->fwork[7] < 350.0f)) {
                 Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, 0);
                 Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, 1);
@@ -1983,7 +1983,7 @@ void func_800319AC(Actor* this) {
         sp90.x = spBC * sp90.z;
         sp90.z = spB4 * sp90.z;
 
-        if ((gCurrentLevel == LEVEL_VENOM_2) && (this->unk_0E4 >= 4)) {
+        if ((gCurrentLevel == LEVEL_VENOM_2) && (this->aiType >= 4)) {
             Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, 0);
             Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, 1);
             Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, 1);
@@ -1992,19 +1992,19 @@ void func_800319AC(Actor* this) {
             if (Rand_ZeroOne() < 0.8f) {
                 spA8.x = 60.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &spA8, &sp9C);
-                func_8006EEFC(this->unk_0E4, this->obj.pos.x + sp9C.x + (sp90.x * 1.5f),
+                func_8006EEFC(this->aiType, this->obj.pos.x + sp9C.x + (sp90.x * 1.5f),
                               this->obj.pos.y + sp9C.y + (sp90.y * 1.5f), this->obj.pos.z + sp9C.z + (sp90.z * 1.5f),
                               sp90.x, sp90.y, sp90.z, this->obj.rot.x, this->obj.rot.y, this->obj.rot.z);
             }
             if (Rand_ZeroOne() < 0.8f) {
                 spA8.x = -60.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &spA8, &sp9C);
-                func_8006EEFC(this->unk_0E4, this->obj.pos.x + sp9C.x + (sp90.x * 1.5f),
+                func_8006EEFC(this->aiType, this->obj.pos.x + sp9C.x + (sp90.x * 1.5f),
                               this->obj.pos.y + sp9C.y + (sp90.y * 1.5f), this->obj.pos.z + sp9C.z + (sp90.z * 1.5f),
                               sp90.x, sp90.y, sp90.z, this->obj.rot.x, this->obj.rot.y, this->obj.rot.z);
             }
         } else {
-            func_8006EEFC(this->unk_0E4, this->obj.pos.x + (sp90.x * 1.5f), this->obj.pos.y + (sp90.y * 1.5f),
+            func_8006EEFC(this->aiType, this->obj.pos.x + (sp90.x * 1.5f), this->obj.pos.y + (sp90.y * 1.5f),
                           this->obj.pos.z + (sp90.z * 1.5f), sp90.x, sp90.y, sp90.z, this->obj.rot.x, this->obj.rot.y,
                           this->obj.rot.z);
         }
@@ -2012,10 +2012,10 @@ void func_800319AC(Actor* this) {
     func_8003088C(this);
     radarMark = &gRadarMarks[this->index];
     radarMark->unk_00 = 1;
-    if (this->unk_0E4 == 200) {
+    if (this->aiType == 200) {
         radarMark->unk_02 = 100;
     } else {
-        radarMark->unk_02 = this->unk_0E4;
+        radarMark->unk_02 = this->aiType;
     }
     if (gCurrentLevel == LEVEL_TRAINING) {
         radarMark->unk_02 = 4;
@@ -2027,7 +2027,7 @@ void func_800319AC(Actor* this) {
     if (this->iwork[1] != 0) {
         this->iwork[1]--;
         if ((this->iwork[1] == 0) && (gActors[0].state == 2) && (gRadioState == 0)) {
-            switch (this->unk_0E4) {
+            switch (this->aiType) {
                 case 1:
                     func_8002F5F4(gMsg_ID_9220, RCID_FALCO);
                     break;
@@ -2045,8 +2045,8 @@ void func_800319AC(Actor* this) {
         }
     }
     if ((gCurrentLevel != LEVEL_KATINA) && (gCurrentLevel != LEVEL_VENOM_ANDROSS) && (this->timer_0C2 == 0)) {
-        if (((this->unk_0E4 >= 10) && (this->unk_0E4 < 100)) ||
-            ((this->unk_0E4 >= 4) && (this->unk_0E4 < 10) && (this->timer_0C6 != 0))) {
+        if (((this->aiType >= 10) && (this->aiType < 100)) ||
+            ((this->aiType >= 4) && (this->aiType < 10) && (this->timer_0C6 != 0))) {
             s32 var_a3 = 0;
 
             if (((gCurrentLevel == LEVEL_BOLSE) || (gCurrentLevel == LEVEL_SECTOR_Z)) && (this->timer_0C6 == 0)) {
@@ -2060,7 +2060,7 @@ void func_800319AC(Actor* this) {
                 this->obj.pos.x -= this->vel.x;
                 this->obj.pos.y -= this->vel.y;
                 this->obj.pos.z -= this->vel.z;
-                if ((temp_v0_27 >= 2) && (this->unk_0E4 >= 0xB)) {
+                if ((temp_v0_27 >= 2) && (this->aiType >= 0xB)) {
                     this->timer_0BE = 2;
                     this->obj.status = OBJ_DYING;
                     this->unk_044 = 0;
@@ -2169,8 +2169,8 @@ void func_80035448(Actor* actor) {
     Vec3f sp7C[30];
     f32 pad2;
 
-    if (actor->unk_0E4 != 1000) {
-        if ((actor->iwork[8] != 0) && (actor->unk_0E4 < 100)) {
+    if (actor->aiType != 1000) {
+        if ((actor->iwork[8] != 0) && (actor->aiType < 100)) {
             pad2 = SIN_DEG(actor->iwork[8] * 400.0f);
             sp38 = actor->iwork[8] * pad2;
             Matrix_RotateY(gGfxMatrix, M_DTOR * sp38, 1);
@@ -2182,7 +2182,7 @@ void func_80035448(Actor* actor) {
             RCP_SetupDL(&gMasterDisp, 0x1D);
             gSPFogPosition(gMasterDisp++, gFogNear, 1005);
         }
-        switch (actor->unk_0E4) {
+        switch (actor->aiType) {
             case 0:
             case 1:
             case 2:
@@ -2278,7 +2278,7 @@ void func_80035448(Actor* actor) {
                 } else if (gCurrentLevel == LEVEL_VERSUS) {
                     gSPDisplayList(gMasterDisp++, D_versus_3015740);
                 } else if (gCurrentLevel == LEVEL_TRAINING) {
-                    if (actor->unk_0E6 == 0) {
+                    if (actor->aiIndex == 0) {
                         gSPDisplayList(gMasterDisp++, D_STAR_WOLF_F00F200);
                         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
                         func_8005B1E8(actor, 3);

@@ -9,7 +9,7 @@
       - '#include "sf64object.h"'
       - '#include "structs.h"'
       - '#include "sf64level.h"'
-
+      - '#include "sf64mesg.h"'
 D_ZO_6000000:
   { type: TEXTURE, ctype: u8, format: IA8, width: 112, height: 28, offset: 0x6000000, symbol: D_ZO_6000000}
 
