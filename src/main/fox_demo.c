@@ -17,6 +17,7 @@
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
 #include "assets/ast_title.h"
+#include "assets/ast_katina.h"
 
 extern s32 D_800C9E90[];
 
@@ -2749,7 +2750,7 @@ void func_8004FEC0(Actor* actor) {
             if ((actor->index == 3) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_7)) {
                 gSPDisplayList(gMasterDisp++, D_D00B880);
             } else {
-                gSPDisplayList(gMasterDisp++, D_600E050);
+                gSPDisplayList(gMasterDisp++, D_KA_600E050);
             }
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
             func_8005B1E8(actor, 0);

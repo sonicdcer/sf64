@@ -2,6 +2,8 @@
 #include "global.h"
 #include "assets.h"
 
+#include "assets/ast_katina.h"
+
 Vec3f D_i4_8019F0F0[] = { { 7000.0f, 500.0f, -50 }, { 7700.0f, 550.0f, -50.0f }, { 6000.0f, 300.0f, 1950.0f } };
 Vec3f D_i4_8019F114[] = { { -30.0f, 0.0f, 0.0f }, { -30.0f, 0.0f, 0.0f }, { 0.0f, 5.0f, -40.0f } };
 Vec3f D_i4_8019F138[] = { { 0.0f, -135.0f, -5.0f }, { 0.0f, -135.0f, 15.0f }, { -10.0f, 135.0f, 0.0f } };
@@ -47,17 +49,6 @@ f32 D_i4_801A054C;
 f32 D_i4_801A0550;
 f32 D_i4_801A0554;
 f32 D_i4_801A0558;
-
-extern Animation D_60105D8;
-extern Gfx D_60012A0[];
-extern Gfx D_6007300[];
-extern Gfx D_600BFB0[];
-extern Gfx D_600C4E0[];
-extern Gfx D_600CDC0[];
-extern Gfx D_600D090[];
-extern Gfx D_600D290[];
-extern Gfx D_600D4E0[];
-extern Limb* D_6010744[];
 
 extern void func_i4_80194458(Boss*, Vec3f*, f32);
 extern void func_i4_801995B4(Actor*);
@@ -420,11 +411,11 @@ void func_i4_80193B1C(Boss* boss) {
     Matrix_Translate(gGfxMatrix, 0.0f, 20.0f, 0.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
     if (boss->state == 0) {
-        gSPDisplayList(gMasterDisp++, D_600BAF0);
+        gSPDisplayList(gMasterDisp++, D_KA_600BAF0);
     } else {
         RCP_SetupDL(&gMasterDisp, 57);
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-        gSPDisplayList(gMasterDisp++, D_600C4E0);
+        gSPDisplayList(gMasterDisp++, D_KA_600C4E0);
     }
 }
 
@@ -1215,7 +1206,7 @@ s32 func_i4_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
             if (boss->swork[10] <= 0) {
                 RCP_SetupDL(&gMasterDisp, 57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = D_60012A0;
+                *dList = D_KA_60012A0;
             }
             break;
 
@@ -1228,7 +1219,7 @@ s32 func_i4_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
             if (boss->swork[11] <= 0) {
                 RCP_SetupDL(&gMasterDisp, 57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = D_600CDC0;
+                *dList = D_KA_600CDC0;
             }
             break;
 
@@ -1241,7 +1232,7 @@ s32 func_i4_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
             if (boss->swork[12] <= 0) {
                 RCP_SetupDL(&gMasterDisp, 57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = D_600D4E0;
+                *dList = D_KA_600D4E0;
             }
             break;
 
@@ -1254,7 +1245,7 @@ s32 func_i4_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
             if (boss->swork[13] <= 0) {
                 RCP_SetupDL(&gMasterDisp, 57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = D_600D290;
+                *dList = D_KA_600D290;
             }
             break;
 
@@ -1267,7 +1258,7 @@ s32 func_i4_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
             if (boss->swork[14] <= 0) {
                 RCP_SetupDL(&gMasterDisp, 57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = D_600D090;
+                *dList = D_KA_600D090;
             }
             break;
 
@@ -1275,7 +1266,7 @@ s32 func_i4_801965A8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
             if (boss->health < 0) {
                 RCP_SetupDL(&gMasterDisp, 57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = D_6007300;
+                *dList = D_KA_6007300;
             }
             break;
     }
@@ -1293,8 +1284,8 @@ void func_i4_801968F4(Boss* boss) {
         }
 
         Matrix_RotateY(gGfxMatrix, boss->fwork[13] * M_DTOR, 1);
-        Animation_GetFrameData(&D_60105D8, 0, jointTable);
-        Animation_DrawSkeleton(1, D_6010744, jointTable, func_i4_801965A8, NULL, boss, &gIdentityMatrix);
+        Animation_GetFrameData(&D_KA_60105D8, 0, jointTable);
+        Animation_DrawSkeleton(1, D_KA_6010744, jointTable, func_i4_801965A8, NULL, boss, &gIdentityMatrix);
 
         gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
         if (boss->fwork[14] > 0.0f) {
@@ -1325,7 +1316,7 @@ void func_i4_801968F4(Boss* boss) {
             Matrix_RotateX(gGfxMatrix, M_PI, 1);
             Matrix_Scale(gGfxMatrix, 0.3f, boss->fwork[15], 0.3f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_600BFB0);
+            gSPDisplayList(gMasterDisp++, D_KA_600BFB0);
         }
     }
 }
@@ -2162,14 +2153,14 @@ void func_i4_801995B4(Actor* actor) {
     switch (actor->unk_0B6) {
         case 0:
             if (actor->iwork[23] != 0) {
-                gSPDisplayList(gMasterDisp++, D_600EFF0);
+                gSPDisplayList(gMasterDisp++, D_KA_600EFF0);
             } else {
                 gSPDisplayList(gMasterDisp++, D_6001530);
             }
             break;
 
         case 1:
-            gSPDisplayList(gMasterDisp++, D_600E050);
+            gSPDisplayList(gMasterDisp++, D_KA_600E050);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
             func_8005B1E8(actor, 0);
             break;

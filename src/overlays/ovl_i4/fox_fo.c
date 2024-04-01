@@ -1,9 +1,6 @@
 #include "global.h"
 #include "assets.h"
-
-extern Animation D_6007854;
-extern Limb* D_6007980[];
-extern u8 D_600FF64[];
+#include "assets/ast_fortuna.h"
 
 void func_i4_801875F0(Actor* actor) {
     s32 i;
@@ -488,7 +485,7 @@ void func_i4_80188AD0(Actor* actor) {
     if ((actor->unk_0D0 != 0) && (actor->state == 0)) {
         actor->unk_0D0 = 0;
         actor->state = 1;
-        actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_600FF64);
+        actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_FO_600FF64);
         actor->info.unk_1C = 0.0f;
         actor->timer_0CA[0] = 0;
         actor->info.bonus = 0;
@@ -569,8 +566,8 @@ s32 func_i4_80188F08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* p
 void func_i4_80188FE4(Actor* actor) {
     Vec3f vec[20];
 
-    Animation_GetFrameData(&D_6007854, 0, vec);
-    Animation_DrawSkeleton(3, D_6007980, vec, func_i4_80188F08, func_i4_80188DA0, actor, gCalcMatrix);
+    Animation_GetFrameData(&D_FO_6007854, 0, vec);
+    Animation_DrawSkeleton(3, D_FO_6007980, vec, func_i4_80188F08, func_i4_80188DA0, actor, gCalcMatrix);
 
     if (actor->state == 1) {
         actor->state = 2;

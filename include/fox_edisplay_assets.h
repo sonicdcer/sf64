@@ -127,7 +127,7 @@ extern Gfx D_6023EB0[];
 extern Gfx D_60249C0[];
 extern Gfx D_6023B80[];
 extern Gfx D_601B570[];
-extern Gfx D_601B710[];
+extern Gfx D_VE1_601B710[];
 extern Gfx D_60209B0[];
 extern Gfx D_6020B70[];
 extern Gfx D_6020D50[];

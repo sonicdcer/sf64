@@ -2,17 +2,10 @@
 #include "prevent_bss_reordering.h"
 #include "global.h"
 #include "assets.h"
+#include "assets/ast_venom_2.h"
 #include "assets/ast_andross.h"
 #include "assets/ast_arwing.h"
 #include "assets/ast_bg_planet.h"
-
-extern Animation D_600C038;
-extern Gfx D_6009300[];
-extern Limb* D_600C0A4[];
-extern Gfx D_600C2D0[];
-extern Gfx D_600C560[];
-extern Limb* D_6014844[];
-extern Gfx D_6007E20[];
 
 f32 D_i6_801A7F40;
 f32 D_i6_801A7F44;
@@ -46,8 +39,8 @@ void func_i6_80187530(Actor* actor) {
             break;
         case 1:
             actor->unk_0B6 += (s32) actor->fwork[22];
-            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_6014658)) {
-                actor->unk_0B6 = Animation_GetFrameCount(&D_6014658) - 1;
+            if (actor->unk_0B6 >= Animation_GetFrameCount(&D_VE2_6014658)) {
+                actor->unk_0B6 = Animation_GetFrameCount(&D_VE2_6014658) - 1;
             }
             break;
         case 2:
@@ -75,8 +68,8 @@ s32 func_i6_8018767C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
 void func_i6_8018769C(Actor* actor) {
     Vec3f sp28[20];
 
-    Animation_GetFrameData(&D_6014658, actor->unk_0B6, sp28);
-    Animation_DrawSkeleton(1, D_6014844, sp28, func_i6_8018767C, NULL, NULL, &gIdentityMatrix);
+    Animation_GetFrameData(&D_VE2_6014658, actor->unk_0B6, sp28);
+    Animation_DrawSkeleton(1, D_VE2_6014844, sp28, func_i6_8018767C, NULL, NULL, &gIdentityMatrix);
 }
 
 void func_i6_801876FC(void) {
@@ -354,7 +347,7 @@ void func_i6_80188660(Actor* actor) {
     Matrix_Scale(gGfxMatrix, 1.1f, 0.9f, 1.0f, 1);
     Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 1.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_6009300);
+    gSPDisplayList(gMasterDisp++, D_VE2_6009300);
 }
 
 void func_i6_801887B0(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
@@ -474,10 +467,10 @@ void func_i6_80188CB8(Boss* boss) {
     Vec3f sp44;
 
     boss->unk_04C++;
-    if (boss->unk_04C >= Animation_GetFrameCount(&D_600C038)) {
+    if (boss->unk_04C >= Animation_GetFrameCount(&D_VE2_600C038)) {
         boss->unk_04C = 0;
     }
-    Animation_GetFrameData(&D_600C038, boss->unk_04C, boss->vwork);
+    Animation_GetFrameData(&D_VE2_600C038, boss->unk_04C, boss->vwork);
 
     if (boss->swork[3] != 0) {
         boss->swork[3]--;
@@ -1224,7 +1217,7 @@ void func_i6_8018B8C0(Boss* boss) {
         Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 20.0f * M_DTOR, 1);
         Matrix_Scale(gGfxMatrix, boss->fwork[23] + 1.0f, 1.0f - boss->fwork[23], 1.0f, 1);
         Matrix_Scale(gGfxMatrix, boss->unk_3F8, boss->unk_3F8, boss->unk_3F8, 1);
-        Animation_DrawSkeleton(0, D_600C0A4, boss->vwork, func_i6_8018B47C, NULL, boss, &gIdentityMatrix);
+        Animation_DrawSkeleton(0, D_VE2_600C0A4, boss->vwork, func_i6_8018B47C, NULL, boss, &gIdentityMatrix);
         if (boss->fwork[21] >= 254) {
             RCP_SetupDL(&gMasterDisp, 0x36);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 64, 64, 255);
@@ -1255,9 +1248,9 @@ void func_i6_8018B8C0(Boss* boss) {
                 Matrix_Translate(gGfxMatrix, 0.0f, -5.0f, 0.0f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 if (j == 9) {
-                    gSPDisplayList(gMasterDisp++, D_600C2D0);
+                    gSPDisplayList(gMasterDisp++, D_VE2_600C2D0);
                 } else {
-                    gSPDisplayList(gMasterDisp++, D_600C560);
+                    gSPDisplayList(gMasterDisp++, D_VE2_600C560);
                 }
                 Matrix_Pop(&gGfxMatrix);
             }
@@ -3268,7 +3261,7 @@ void func_i6_80192E94(Actor* actor) {
 
 void func_i6_80193244(Actor* actor) {
 
-    gSPDisplayList(gMasterDisp++, D_6007E20);
+    gSPDisplayList(gMasterDisp++, D_VE2_6007E20);
     if (actor->timer_0BC != 0) {
         f32 scale;
         u8 alpha;
@@ -3303,8 +3296,8 @@ void func_i6_80193380(Object_80* obj80) {
             obj80->info.hitbox[17] = -130.0f - (obj80->unk_44 * 1.6f);
             obj80->info.hitbox[27] = -130.0f - (obj80->unk_44 * 1.6f);
             obj80->unk_44 += 2;
-            if (obj80->unk_44 >= Animation_GetFrameCount(&D_6014658)) {
-                obj80->unk_44 = Animation_GetFrameCount(&D_6014658) - 1;
+            if (obj80->unk_44 >= Animation_GetFrameCount(&D_VE2_6014658)) {
+                obj80->unk_44 = Animation_GetFrameCount(&D_VE2_6014658) - 1;
             }
             break;
     }
@@ -3321,8 +3314,8 @@ s32 func_i6_801934EC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
 void func_i6_8019350C(Object_80* obj80) {
     Vec3f frameTable[20];
 
-    Animation_GetFrameData(&D_6014658, obj80->unk_44, frameTable);
-    Animation_DrawSkeleton(1, D_6014844, frameTable, func_i6_801934EC, NULL, NULL, &gIdentityMatrix);
+    Animation_GetFrameData(&D_VE2_6014658, obj80->unk_44, frameTable);
+    Animation_DrawSkeleton(1, D_VE2_6014844, frameTable, func_i6_801934EC, NULL, NULL, &gIdentityMatrix);
 }
 
 void func_i6_8019356C(Object_80* obj80) {
@@ -3343,11 +3336,11 @@ s32 func_i6_801935B4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* d
 void func_i6_801935D4(Object_80* obj80) {
     Vec3f frameTable[20];
 
-    Animation_GetFrameData(&D_6014658, obj80->unk_44, frameTable);
+    Animation_GetFrameData(&D_VE2_6014658, obj80->unk_44, frameTable);
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     }
-    Animation_DrawSkeleton(1, D_6014844, frameTable, func_i6_801935B4, NULL, NULL, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, D_VE2_6014844, frameTable, func_i6_801935B4, NULL, NULL, &gIdentityMatrix);
 }
 
 void func_i6_80193668(Object_80* obj80, f32 xPos, f32 yPos, f32 zPos, s32 arg4) {
