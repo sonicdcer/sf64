@@ -1,3 +1,9 @@
+/*
+ * File: fox_fo.c
+ * System: Fortuna
+ * Description: Level: Fortuna
+ */
+
 #include "global.h"
 #include "assets/ast_fortuna.h"
 

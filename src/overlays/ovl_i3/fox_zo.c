@@ -1,3 +1,9 @@
+/*
+ * File: fox_zo.c
+ * System: Zoness
+ * Description: Level: Zoness
+ */
+
 #include "global.h"
 #include "assets/ast_enmy_planet.h"
 #include "assets/ast_zoness.h"

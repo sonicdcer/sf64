@@ -1,3 +1,9 @@
+/*
+ * File: fox_ka.c
+ * System: Katina
+ * Description: Level: Karina
+ */
+
 #include "global.h"
 #include "assets/ast_katina.h"
 

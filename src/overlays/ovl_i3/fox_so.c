@@ -1,3 +1,9 @@
+/*
+ * File: fox_so.c
+ * System: Solar
+ * Description: Level: Solar
+ */
+
 #include "global.h"
 #include "assets/ast_bg_planet.h"
 #include "assets/ast_solar.h"

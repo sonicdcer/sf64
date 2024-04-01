@@ -1,3 +1,9 @@
+/*
+ * File: fox_ma.c
+ * System: Macbeth
+ * Description: Level: Macbeth
+ */
+
 #include "global.h"
 #include "assets/ast_macbeth.h"
 #include "assets/ast_landmaster.h"

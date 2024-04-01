@@ -1,3 +1,9 @@
+/*
+ * File: fox_tr360.c
+ * System: Training
+ * Description: Level: Training - All Range mode
+ */
+
 #include "global.h"
 #include "assets/ast_training.h"
 

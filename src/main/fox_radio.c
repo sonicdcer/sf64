@@ -1,3 +1,9 @@
+/*
+ * File: fox_title.c
+ * System: Radio
+ * Description: Starfox Radio Handler
+ */
+
 #include "global.h"
 
 u16** D_80178720;

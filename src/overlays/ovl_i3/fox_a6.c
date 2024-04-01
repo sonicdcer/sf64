@@ -1,3 +1,9 @@
+/*
+ * File: fox_a6.c
+ * System: Area 6
+ * Description: Level: Area 6
+ */
+
 #include "global.h"
 #include "assets/ast_area_6.h"
 
