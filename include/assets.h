@@ -98,7 +98,11 @@ extern Gfx D_6017370[];
 extern u16* D_VE1_601B1E4[];
 extern Gfx D_6018C00[]; // possible collision
 extern Gfx D_6019670[];
+extern Gfx D_6008D40[];
+extern Gfx D_60185E0[];
+extern Gfx D_6017550[];
 extern Gfx D_601A700[];
+extern u16* D_SO_600631C[];
 extern Gfx D_601AE40[];
 extern f32 D_F32_601B710[];
 extern Gfx D_601B790[];
