@@ -1,17 +1,9 @@
 #include "global.h"
-#include "assets.h"
+#include "assets/ast_meteo.h"
 
 extern s32 D_800C9E90[];
 
-extern Gfx D_6001310[];
-extern Gfx D_600CD60[];
-extern Gfx D_6016240[];
-extern Gfx D_6017AD0[];
-extern Gfx D_60236F0[];
-extern Gfx D_6023810[];
 extern Gfx D_6024AD0[];
-extern Gfx D_60240B0[];
-extern Gfx D_60263F0[];
 
 Vec3f D_i2_80195430[] = {
     { 122.0, -5.0, -1200.0 },   { 122.0, -103.0, -727.0 }, { 142.0, -323.0, -848.0 }, { 362.0, -59.0, -435.0 },
@@ -481,7 +473,7 @@ void func_i2_801887D0(Boss* boss) {
 
     Matrix_RotateZ(gGfxMatrix, (M_PI / 4), 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_60240B0);
+    gSPDisplayList(gMasterDisp++, D_ME_60240B0);
     RCP_SetupDL_64();
 
     for (i = 1; i < 4; i++) {
@@ -499,7 +491,7 @@ void func_i2_801887D0(Boss* boss) {
 
             Matrix_RotateZ(gGfxMatrix, 1.5707964f, 1); // (M_PI / 2) does not match
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_60263F0);
+            gSPDisplayList(gMasterDisp++, D_ME_60263F0);
             Matrix_Pop(&gGfxMatrix);
         }
     }
@@ -1552,7 +1544,7 @@ void func_i2_8018BACC(Boss* boss) {
     f32 var_fs1;
     s32 pad;
 
-    gSPDisplayList(gMasterDisp++, D_6001310);
+    gSPDisplayList(gMasterDisp++, D_ME_6001310);
     RCP_SetupDL_64();
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
 
@@ -1636,9 +1628,9 @@ void func_i2_8018BACC(Boss* boss) {
             Matrix_SetGfxMtx(&gMasterDisp);
 
             if (i < 4) {
-                gSPDisplayList(gMasterDisp++, D_6024AD0);
+                gSPDisplayList(gMasterDisp++, D_ME_6024AD0);
             } else {
-                gSPDisplayList(gMasterDisp++, D_60236F0);
+                gSPDisplayList(gMasterDisp++, D_ME_60236F0);
             }
             Matrix_Pop(&gGfxMatrix);
         }
@@ -1737,7 +1729,7 @@ void func_i2_8018BACC(Boss* boss) {
                 }
 
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_6023810);
+                gSPDisplayList(gMasterDisp++, D_ME_6023810);
                 Matrix_Pop(&gGfxMatrix);
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, -700.0f, 0.0f, -(1235.0f - ((var_fs0 - 1.0f) * 89.2f)), 1);
@@ -1749,7 +1741,7 @@ void func_i2_8018BACC(Boss* boss) {
                 }
 
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_6023810);
+                gSPDisplayList(gMasterDisp++, D_ME_6023810);
                 Matrix_Pop(&gGfxMatrix);
             }
         }
@@ -2129,17 +2121,17 @@ void func_i2_8018D9EC(Actor* actor) {
 
 void func_i2_8018DA6C(Actor* actor) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    gSPDisplayList(gMasterDisp++, D_6017AD0);
+    gSPDisplayList(gMasterDisp++, D_ME_6017AD0);
 }
 
 void func_i2_8018DAEC(Actor* actor) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    gSPDisplayList(gMasterDisp++, D_6016240);
+    gSPDisplayList(gMasterDisp++, D_ME_6016240);
 }
 
 void func_i2_8018DB6C(Actor* actor) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    gSPDisplayList(gMasterDisp++, D_600CD60);
+    gSPDisplayList(gMasterDisp++, D_ME_600CD60);
 }
 
 void func_i2_8018DBEC(Effect* effect) {
@@ -2149,7 +2141,7 @@ void func_i2_8018DBEC(Effect* effect) {
         Matrix_RotateZ(gGfxMatrix, M_PI / 2, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_44);
-        gSPDisplayList(gMasterDisp++, D_60263F0);
+        gSPDisplayList(gMasterDisp++, D_ME_60263F0);
     }
 }
 
@@ -2177,7 +2169,7 @@ void func_i2_8018DE14(Effect* effect) {
 
     switch (effect->unk_4C) {
         case 0:
-            gSPDisplayList(gMasterDisp++, D_6023810);
+            gSPDisplayList(gMasterDisp++, D_ME_6023810);
         case 1:
             break;
     }

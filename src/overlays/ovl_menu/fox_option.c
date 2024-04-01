@@ -6,7 +6,6 @@
 
 #include "mods.h"
 #include "global.h"
-// #include "prevent_bss_reordering.h"
 #include "fox_option.h"
 
 extern s32 D_menu_801B81A8[][3];

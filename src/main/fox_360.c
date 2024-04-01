@@ -1,8 +1,10 @@
-#include "prevent_bss_reordering.h"
 #include "global.h"
-#include "assets.h"
+#include "assets/ast_katina.h"
+#include "assets/ast_venom_2.h"
+#include "assets/ast_fortuna.h"
 #include "assets/ast_star_wolf.h"
 #include "assets/ast_allies.h"
+#include "assets/ast_bolse.h"
 #include "assets/ast_versus.h"
 #include "assets/ast_enmy_planet.h"
 #include "assets/ast_sector_z.h"
@@ -2077,7 +2079,7 @@ void func_800319AC(Actor* this) {
         func_8002EE64(this);
     } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
         this->unk_04A++;
-        if (this->unk_04A >= Animation_GetFrameCount(&D_600C200)) {
+        if (this->unk_04A >= Animation_GetFrameCount(&D_VE2_600C200)) {
             this->unk_04A = 0;
         }
     }
@@ -2240,22 +2242,22 @@ void func_80035448(Actor* actor) {
                 if (gCurrentLevel == LEVEL_FORTUNA) {
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 60.0f, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_6006BE0);
+                    gSPDisplayList(gMasterDisp++, D_FO_6006BE0);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -100.0f, 1);
                     Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, 1);
                     func_8005B1E8(actor, 2);
                 } else if (gCurrentLevel == LEVEL_KATINA) {
                     switch (actor->unk_0B6) {
                         case 0:
-                            gSPDisplayList(gMasterDisp++, D_600EFF0);
+                            gSPDisplayList(gMasterDisp++, D_KA_600EFF0);
                             break;
                         case 1:
-                            gSPDisplayList(gMasterDisp++, D_600E050);
+                            gSPDisplayList(gMasterDisp++, D_KA_600E050);
                             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
                             func_8005B1E8(actor, 0);
                             break;
                         case 3:
-                            gSPDisplayList(gMasterDisp++, D_6001530);
+                            gSPDisplayList(gMasterDisp++, D_KA_6001530);
                             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 30.0f, 1);
                             func_80034E64(actor);
                             break;
@@ -2264,15 +2266,15 @@ void func_80035448(Actor* actor) {
                     gSPDisplayList(gMasterDisp++, D_SZ_6004FE0) Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
                     func_8005B1E8(actor, 2);
                 } else if (gCurrentLevel == LEVEL_BOLSE) {
-                    gSPDisplayList(gMasterDisp++, D_6008770) Matrix_Push(&gGfxMatrix);
+                    gSPDisplayList(gMasterDisp++, D_BO_6008770) Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
                     func_8005B1E8(actor, 2);
                     Matrix_Pop(&gGfxMatrix);
                     func_80034E64(actor);
                 } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
-                    Animation_GetFrameData(&D_600C200, actor->unk_04A, actor->vwork);
+                    Animation_GetFrameData(&D_VE2_600C200, actor->unk_04A, actor->vwork);
                     Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 10.0f, 1);
-                    Animation_DrawSkeleton(0, D_600C2AC, actor->vwork, NULL, NULL, actor, &gIdentityMatrix);
+                    Animation_DrawSkeleton(0, D_VE2_600C2AC, actor->vwork, NULL, NULL, actor, &gIdentityMatrix);
                 } else if (gCurrentLevel == LEVEL_VERSUS) {
                     gSPDisplayList(gMasterDisp++, D_versus_3015740);
                 } else if (gCurrentLevel == LEVEL_TRAINING) {

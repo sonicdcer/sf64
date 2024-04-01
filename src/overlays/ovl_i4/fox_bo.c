@@ -1,7 +1,5 @@
-#include "prevent_bss_reordering.h"
-// #include "prevent_bss_reordering2.h"
 #include "global.h"
-#include "assets.h"
+#include "assets/ast_bolse.h"
 
 typedef struct UnkStruct_D_i4_801A03E0 {
     f32 unk_00;
@@ -24,25 +22,6 @@ s32 D_i4_801A0530;
 extern s16 D_800C9C34; // fox_bg
 extern s32 D_80177C3C[];
 extern s32 D_801778F4[];
-
-extern Animation D_6001C64;
-extern Limb* D_6001FB0[];
-extern Gfx D_6002020[];
-extern Gfx D_6006910[];
-extern u8 D_6008BB8[];
-extern Gfx D_6009BC0[];
-extern u8 D_600AD80[];
-extern Gfx D_600BEC0[];
-extern Gfx D_600BF30[];
-extern Vtx D_600C0B8[];
-extern Gfx D_600C4E0[];
-extern u8 D_600CF88[];
-extern Animation D_600F2E0;
-extern Animation D_600F3D8;
-extern Limb* D_600F36C;
-extern Limb* D_600F4A4;
-extern u8 D_6011BA4[];
-extern Vtx D_6011E28[];
 
 f32 D_i4_8019EEC0 = 0.0f;
 
@@ -626,8 +605,8 @@ s32 func_i4_8018D414(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
 
 void func_i4_8018D454(Actor* actor) {
     Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, 1);
-    Animation_GetFrameData(&D_600F2E0, 0, actor->vwork);
-    Animation_DrawSkeleton(1, &D_600F36C, actor->vwork, func_i4_8018D414, NULL, actor, &gIdentityMatrix);
+    Animation_GetFrameData(&D_BO_600F2E0, 0, actor->vwork);
+    Animation_DrawSkeleton(1, D_BO_600F36C, actor->vwork, func_i4_8018D414, NULL, actor, &gIdentityMatrix);
     actor->iwork[0] = 1;
 }
 
@@ -688,7 +667,7 @@ bool func_i4_8018D584(Actor* actor) {
         }
 
         func_8007B344(actor->obj.pos.x, actor->obj.pos.y + 730.0f, actor->obj.pos.z, 10.0f, 5);
-        actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_6011BA4);
+        actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_BO_6011BA4);
         Audio_KillSfxBySourceAndId(actor->sfxSource, 0x11000028U);
         AUDIO_PLAY_SFX(0x2903B009U, actor->sfxSource, 0U);
     } else {
@@ -732,8 +711,8 @@ s32 func_i4_8018D874(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
 }
 
 void func_i4_8018D960(Actor* actor) {
-    Animation_GetFrameData(&D_600F3D8, 0, actor->vwork);
-    Animation_DrawSkeleton(3, &D_600F4A4, actor->vwork, func_i4_8018D874, NULL, actor, gCalcMatrix);
+    Animation_GetFrameData(&D_BO_600F3D8, 0, actor->vwork);
+    Animation_DrawSkeleton(3, D_BO_600F4A4, actor->vwork, func_i4_8018D874, NULL, actor, gCalcMatrix);
 }
 
 s32 func_i4_8018D9CC(void) {
@@ -741,8 +720,8 @@ s32 func_i4_8018D9CC(void) {
     f32 spA8[17];
     f32 sp64[17];
     s32 j;
-    Vtx* sp5C = SEGMENTED_TO_VIRTUAL(D_6011E28);
-    Vtx* sp58 = SEGMENTED_TO_VIRTUAL(D_600C0B8);
+    Vtx* sp5C = SEGMENTED_TO_VIRTUAL(D_BO_6011E28);
+    Vtx* sp58 = SEGMENTED_TO_VIRTUAL(D_BO_600C0B8);
 
     for (i = 0; i < 17; i++) {
         if ((i == 0) || (i == 16)) {
@@ -953,7 +932,7 @@ void func_i4_8018E870(Boss* boss) {
     Matrix_Scale(gGfxMatrix, boss->unk_3F8, boss->unk_3F8, boss->unk_3F8, 1);
 
     if (boss->vwork[30].y >= 0.0f) {
-        gSPDisplayList(gMasterDisp++, D_6002020);
+        gSPDisplayList(gMasterDisp++, D_BO_6002020);
     }
 
     if (gGameFrameCount & 1) {
@@ -977,7 +956,7 @@ void func_i4_8018E870(Boss* boss) {
         Matrix_Translate(gGfxMatrix, 1.0f, 1.0f, D_i4_801A0488[i].unk_08 * 200.0f, 1);
         Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, D_i4_801A0488[i].unk_08, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_600BF30);
+        gSPDisplayList(gMasterDisp++, D_BO_600BF30);
         Matrix_Pop(&gGfxMatrix);
     }
 }
@@ -1797,7 +1776,7 @@ void func_i4_80191180(Effect* effect) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 192);
             Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, effect->scale2, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_6006910);
+            gSPDisplayList(gMasterDisp++, D_BO_6006910);
             break;
 
         case 1:
@@ -1967,7 +1946,7 @@ s32 func_i4_801918E4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
                 }
             }
             if (boss->swork[0 + limbIndex - 9] <= 0) {
-                *dList = D_6009BC0;
+                *dList = D_BO_6009BC0;
             }
             break;
     }
@@ -1993,11 +1972,11 @@ void func_i4_80191A6C(s32 index, Vec3f* vec, void* ptr) {
 }
 
 void func_i4_80191AFC(Boss* boss) {
-    Animation_GetFrameData(&D_6001C64, 0, boss->vwork);
+    Animation_GetFrameData(&D_BO_6001C64, 0, boss->vwork);
     if (boss->state >= 2) {
-        Animation_DrawSkeleton(3, D_6001FB0, boss->vwork, func_i4_801918E4, func_i4_80191A6C, boss, gCalcMatrix);
+        Animation_DrawSkeleton(3, D_BO_6001FB0, boss->vwork, func_i4_801918E4, func_i4_80191A6C, boss, gCalcMatrix);
     } else {
-        Animation_DrawSkeleton(3, D_6001FB0, boss->vwork, NULL, NULL, boss, gCalcMatrix);
+        Animation_DrawSkeleton(3, D_BO_6001FB0, boss->vwork, NULL, NULL, boss, gCalcMatrix);
     }
 }
 
@@ -2006,8 +1985,8 @@ void func_i4_80191BAC(Boss* boss) {
 
     Math_SmoothStepToF(&boss->fwork[0], D_i4_801A03DC * 9.0f + 10.0f, 1.0f, 10.0f, 0.0f);
 
-    Texture_Scroll(&D_600CF88, 16, 16, 0);
-    Texture_Scroll(&D_600CF88, 16, 16, 0);
+    Texture_Scroll(&D_BO_600CF88, 16, 16, 0);
+    Texture_Scroll(&D_BO_600CF88, 16, 16, 0);
 
     switch (boss->state) {
         case 2:
@@ -2060,7 +2039,7 @@ void func_i4_80191DB0(Boss* boss) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha);
         Matrix_Scale(gGfxMatrix, 1.2f, 0.55f, 1.2f, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_600C4E0);
+        gSPDisplayList(gMasterDisp++, D_BO_600C4E0);
     }
 }
 
@@ -2173,12 +2152,12 @@ void func_i4_80192264(void) {
             if ((spD0.z < 3000.0f) && (spD0.z > -13000.0f) && (fabsf(spD0.x) < (fabsf(spD0.z * 0.7f) + 3000.0f)) &&
                 (fabsf(spD0.y) < (fabsf(spD0.z * 0.5f) + 2000.0f))) {
                 if (rnd < 0.3f) {
-                    gDPLoadTileTexture(gMasterDisp++, D_6008BB8, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
+                    gDPLoadTileTexture(gMasterDisp++, D_BO_6008BB8, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
                 } else {
-                    gDPLoadTileTexture(gMasterDisp++, D_600AD80, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
+                    gDPLoadTileTexture(gMasterDisp++, D_BO_600AD80, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
                 }
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_600BEC0)
+                gSPDisplayList(gMasterDisp++, D_BO_600BEC0)
             }
             Matrix_Pop(&gGfxMatrix);
         }

@@ -1,5 +1,4 @@
 #include "global.h"
-#include "assets.h"
 
 u16** D_80178720;
 s32 D_80178724;
@@ -15,6 +14,7 @@ s32 D_80178748;
 
 #include "assets/ast_allies.h"
 #include "assets/ast_corneria.h"
+#include "assets/ast_meteo.h"
 #include "assets/ast_training.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
@@ -23,6 +23,7 @@ s32 D_80178748;
 #include "assets/ast_great_fox.h"
 #include "assets/ast_area_6.h"
 #include "assets/ast_title.h"
+#include "assets/ast_zoness.h"
 
 s32 gCurrentMsgPri = 0;
 
@@ -272,10 +273,10 @@ void func_800BAAE8(void) {
             sp44 = D_CO_6025500;
             break;
         case RCID_BOSS_METEO:
-            sp44 = D_601C8E0;
+            sp44 = D_ME_601C8E0;
             break;
         case RCID_BOSS_METEO_OPEN:
-            sp44 = D_601D800;
+            sp44 = D_ME_601D800;
             break;
         case RCID_BOSS_AREA6:
             sp44 = D_A6_60047E0;
@@ -290,10 +291,10 @@ void func_800BAAE8(void) {
             sp44 = D_A6_60038C0;
             break;
         case RCID_BOSS_ZONESS:
-            sp44 = D_6014510;
+            sp44 = D_ZO_6014510;
             break;
         case RCID_BOSS_ZONESS_OPEN:
-            sp44 = D_6015430;
+            sp44 = D_ZO_6015430;
             break;
         case RCID_BOSS_SECTORX:
             sp44 = D_SX_6020FB0;
@@ -398,7 +399,7 @@ void func_800BAAE8(void) {
                     break;
                 case GSTATE_TITLE:
                 case GSTATE_CREDITS:
-                    sp44 = D_600C6A0;
+                    sp44 = gTitleRadioStatic;
                     break;
             }
             if (((s32) D_80177D68 == RCID_ANDROSS) || ((s32) D_80177D68 == RCID_ANDROSS_RED)) {

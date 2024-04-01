@@ -1,20 +1,20 @@
 #include "global.h"
-#include "assets.h"
 
 // rodata
 const char D_800D7230[] = "Enm->wrk3=<%d>\n";
 const char D_800D7240[] = "a=<%d>\n";
 const char D_800D7248[] = "a=<%d>\n";
 
-extern Gfx D_6016880[];
+extern Gfx D_ZO_6016880[];
 extern Gfx D_6018AF0[];
-extern Gfx D_601BAD0[];
+extern Gfx D_ZO_601BAD0[];
 
 #include "assets/ast_blue_marine.h"
 #include "assets/ast_arwing.h"
 #include "assets/ast_bg_space.h"
 #include "assets/ast_bg_planet.h"
 #include "assets/ast_corneria.h"
+#include "assets/ast_meteo.h"
 #include "assets/ast_training.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
@@ -25,6 +25,7 @@ extern Gfx D_601BAD0[];
 #include "assets/ast_A_ti.h"
 #include "assets/ast_ve1_boss.h"
 #include "assets/ast_enmy_planet.h"
+#include "assets/ast_zoness.h"
 
 s32 BonusText_Display(f32 xPos, f32 yPos, f32 zPos, s32 hits) {
     s32 i;
@@ -213,7 +214,7 @@ void func_80077A7C(Effect* effect) {
     Matrix_Scale(gGfxMatrix, effect->scale1, effect->scale2, 1.0f, 1);
     Matrix_Translate(gGfxMatrix, 0.0f, 20.0f, 0.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_6024220);
+    gSPDisplayList(gMasterDisp++, D_ZO_6024220);
     RCP_SetupDL(&gMasterDisp, 0x40);
 }
 
@@ -433,7 +434,7 @@ void func_800788B0(Effect* effect) {
         case LEVEL_METEO:
             Graphics_SetScaleMtx(effect->scale2);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 128, 128, 128, 255);
-            gSPDisplayList(gMasterDisp++, D_601FF80);
+            gSPDisplayList(gMasterDisp++, D_ME_601FF80);
             break;
 
         case LEVEL_AQUAS:
@@ -486,7 +487,7 @@ void func_80078BE0(Effect* effect) {
 void func_80078C84(Effect* effect) {
     Graphics_SetScaleMtx(effect->scale2);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 192);
-    gSPDisplayList(gMasterDisp++, D_TI_6000A80);
+    gSPDisplayList(gMasterDisp++, D_ME_6000A80);
 }
 
 void func_80078CE8(Effect* effect) {
@@ -755,13 +756,13 @@ void func_800798F0(Effect* effect) {
 
                 case 8:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_6020E60);
+                    gSPDisplayList(gMasterDisp++, D_MA_6020E60);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
 
                 case 9:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_6020A30);
+                    gSPDisplayList(gMasterDisp++, D_MA_6020A30);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
 
@@ -775,31 +776,31 @@ void func_800798F0(Effect* effect) {
 
                 case 11:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_60200E0);
+                    gSPDisplayList(gMasterDisp++, D_MA_60200E0);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
 
                 case 12:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_600F2F0);
+                    gSPDisplayList(gMasterDisp++, D_MA_600F2F0);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
 
                 case 13:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_6001A60);
+                    gSPDisplayList(gMasterDisp++, D_MA_6001A60);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
 
                 case 14:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_600F160);
+                    gSPDisplayList(gMasterDisp++, D_MA_600F160);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
 
                 case 15:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_600F3D0);
+                    gSPDisplayList(gMasterDisp++, D_MA_600F3D0);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
 
@@ -811,7 +812,7 @@ void func_800798F0(Effect* effect) {
 
                 case 17:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_600F9B0);
+                    gSPDisplayList(gMasterDisp++, D_MA_600F9B0);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
 
@@ -3907,7 +3908,7 @@ void func_80082F78(Effect* effect) {
                 gSPDisplayList(gMasterDisp++, D_AQ_600A220);
             }
             if (gCurrentLevel == LEVEL_ZONESS) {
-                gSPDisplayList(gMasterDisp++, D_6016880);
+                gSPDisplayList(gMasterDisp++, D_ZO_6016880);
             }
             break;
 
@@ -4059,7 +4060,7 @@ void func_80083B8C(Effect* effect) {
     gDPSetEnvColor(gMasterDisp++, 36, 45, 28, 255);
     Matrix_Scale(gGfxMatrix, effect->unk_60.x, effect->scale2 * effect->unk_60.y, effect->scale2, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_601BAD0);
+    gSPDisplayList(gMasterDisp++, D_ZO_601BAD0);
     RCP_SetupDL(&gMasterDisp, 0x40);
 }
 

@@ -1,6 +1,4 @@
-// #include "prevent_bss_reordering2.h"
 #include "global.h"
-#include "assets.h"
 #include "fox_map.h"
 #include "assets/ast_corneria.h"
 #include "assets/ast_training.h"
@@ -8,12 +6,20 @@
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_bolse.h"
+#include "assets/ast_meteo.h"
 #include "assets/ast_macbeth.h"
+#include "assets/ast_katina.h"
+#include "assets/ast_venom_1.h"
+#include "assets/ast_venom_2.h"
+#include "assets/ast_fortuna.h"
 #include "assets/ast_titania.h"
 #include "assets/ast_andross.h"
+#include "assets/ast_solar.h"
 #include "assets/ast_arwing.h"
 #include "assets/ast_versus.h"
 #include "assets/ast_area_6.h"
+#include "assets/ast_zoness.h"
 
 UNK_TYPE D_800D2F50 = 0;
 s32 D_800D2F54 = 0;
@@ -83,11 +89,11 @@ void func_800A3FEC(void) {
     switch (gCurrentLevel) {
         case LEVEL_SOLAR:
             if (gGameFrameCount & 1) {
-                spB4 = SEGMENTED_TO_VIRTUAL(D_6001C50);
+                spB4 = SEGMENTED_TO_VIRTUAL(D_SO_6001C50);
             } else {
-                spB4 = SEGMENTED_TO_VIRTUAL(D_6004500);
+                spB4 = SEGMENTED_TO_VIRTUAL(D_SO_6004500);
             }
-            spB0 = SEGMENTED_TO_VIRTUAL(D_6022760);
+            spB0 = SEGMENTED_TO_VIRTUAL(D_SO_6022760);
             spA8 = 15;
             sp90 = 70.0f;
             sp8C = 0.1f;
@@ -96,11 +102,11 @@ void func_800A3FEC(void) {
             break;
         case LEVEL_ZONESS:
             if (gGameFrameCount & 1) {
-                spB4 = SEGMENTED_TO_VIRTUAL(D_6009ED0);
+                spB4 = SEGMENTED_TO_VIRTUAL(D_ZO_6009ED0);
             } else {
-                spB4 = SEGMENTED_TO_VIRTUAL(D_600C780);
+                spB4 = SEGMENTED_TO_VIRTUAL(D_ZO_600C780);
             }
-            spB0 = SEGMENTED_TO_VIRTUAL(D_602AC50);
+            spB0 = SEGMENTED_TO_VIRTUAL(D_ZO_602AC50);
             spA8 = 7;
             sp90 = 40.0f;
             sp8C = 0.2f;
@@ -466,9 +472,9 @@ void func_800A5844(void) {
 }
 
 EnvSettings* D_800D2F98[21] = {
-    &D_CO_6037160, &D_ME_6026C80, &D_SX_602A120, &D_A6_6023F20, &D_A6_6028760, &D_SY_602E4B0,  &D_VE1_6007E30,
-    &D_SO_601F1F0, &D_ZO_60266D0, &D_C035110,    &D_TR_6006A60, &D_MA_6030E30, &D_TI_6005000,  &D_AQ_602E540,
-    &D_FO_600EA90, NULL,          &D_KA_6011000, &D_BO_600FF30, &D_SZ_6006E70, &D_VE2_6014D50, &D_versus_302DD70,
+    &D_CO_6037160, &D_ME_6026C80, &D_SX_602A120,      &D_A6_6023F20, &D_A6_6028760, &D_SY_602E4B0,  &D_VE1_6007E30,
+    &D_SO_601F1F0, &D_ZO_60266D0, &D_ANDROSS_C035110, &D_TR_6006A60, &D_MA_6030E30, &D_TI_6005000,  &D_AQ_602E540,
+    &D_FO_600EA90, NULL,          &D_KA_6011000,      &D_BO_600FF30, &D_SZ_6006E70, &D_VE2_6014D50, &D_versus_302DD70,
 };
 
 void func_800A594C(void) {
@@ -992,12 +998,12 @@ bool func_800A73E4(f32* arg0, s32* arg1, f32 xPos, f32 yPos, f32 zPos) {
 
     switch (gCurrentLevel) {
         case LEVEL_SOLAR:
-            spA4 = SEGMENTED_TO_VIRTUAL(D_6001C50);
-            spA0 = SEGMENTED_TO_VIRTUAL(D_6022760);
+            spA4 = SEGMENTED_TO_VIRTUAL(D_SO_6001C50);
+            spA0 = SEGMENTED_TO_VIRTUAL(D_SO_6022760);
             break;
         case LEVEL_ZONESS:
-            spA4 = SEGMENTED_TO_VIRTUAL(D_6009ED0);
-            spA0 = SEGMENTED_TO_VIRTUAL(D_602AC50);
+            spA4 = SEGMENTED_TO_VIRTUAL(D_ZO_6009ED0);
+            spA0 = SEGMENTED_TO_VIRTUAL(D_ZO_602AC50);
             break;
         default:
             return false;
@@ -2438,10 +2444,10 @@ void func_800AB334(void) {
 
             switch (gCurrentLevel) {
                 case LEVEL_SOLAR:
-                    mesh = SEGMENTED_TO_VIRTUAL(D_6001C50);
+                    mesh = SEGMENTED_TO_VIRTUAL(D_SO_6001C50);
                     break;
                 case LEVEL_ZONESS:
-                    mesh = SEGMENTED_TO_VIRTUAL(D_6009ED0);
+                    mesh = SEGMENTED_TO_VIRTUAL(D_ZO_6009ED0);
                     break;
             }
             for (i = 0; i < 17 * 17; i++, mesh++) {
@@ -2458,10 +2464,10 @@ void func_800AB334(void) {
 
             switch (gCurrentLevel) {
                 case LEVEL_SOLAR:
-                    mesh = SEGMENTED_TO_VIRTUAL(D_6004500);
+                    mesh = SEGMENTED_TO_VIRTUAL(D_SO_6004500);
                     break;
                 case LEVEL_ZONESS:
-                    mesh = SEGMENTED_TO_VIRTUAL(D_600C780);
+                    mesh = SEGMENTED_TO_VIRTUAL(D_ZO_600C780);
                     break;
             }
             for (i = 0; i < 17 * 17; i++, mesh++) {
@@ -6185,12 +6191,12 @@ void func_800B79B0(void) {
             func_800A3FEC();
 
             for (D_80177CE8; D_80177CE8 >= 10.0f; D_80177CE8 -= 10.0f) {
-                Texture_Scroll(D_6005710, 32, 32, 1);
+                Texture_Scroll(D_SO_6005710, 32, 32, 1);
             }
             if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_6) {
-                Texture_Scroll(D_6005710, 32, 32, 1);
+                Texture_Scroll(D_SO_6005710, 32, 32, 1);
             }
-            Texture_Mottle(D_601E1E8, D_6020F60, 3);
+            Texture_Mottle(D_SO_601E1E8, D_SO_6020F60, 3);
 
             if (gPlayer[0].pos.y > 600.0f) {
                 var_v0_2 = 7;
@@ -6234,7 +6240,7 @@ void func_800B79B0(void) {
                                  gPlayer[0].unk_138 + (RAND_FLOAT(2000.0f) + -6000.0f),
                                  RAND_FLOAT(10.0f) + 20.0f); // check
             }
-            func_8008C104(D_60229A4, D_6010198);
+            func_8008C104(D_SO_60229A4, D_SO_6010198);
             if (gPlayer[0].shields == 0) {
                 D_80177B4C = 1;
             }
@@ -6242,12 +6248,12 @@ void func_800B79B0(void) {
         case LEVEL_ZONESS:
             func_800A3FEC();
             for (D_80177CE8; D_80177CE8 >= 20.0f; D_80177CE8 -= 20.0f) {
-                Texture_Scroll(D_602C2CC, 32, 32, 1);
+                Texture_Scroll(D_ZO_602C2CC, 32, 32, 1);
             }
             if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_6) {
-                Texture_Scroll(D_602C2CC, 32, 32, 1);
+                Texture_Scroll(D_ZO_602C2CC, 32, 32, 1);
             }
-            func_8008C104(D_602C2CC, D_600D990);
+            func_8008C104(D_ZO_602C2CC, D_ZO_600D990);
             if (func_800A73E4(&sp3C, &sp40, gPlayer[0].camEye.x, gPlayer[0].camEye.y,
                               gPlayer[0].camEye.z - D_80177D20)) {
                 gLight1R = 0;

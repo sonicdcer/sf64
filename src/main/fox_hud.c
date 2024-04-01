@@ -1,11 +1,4 @@
-// #include "prevent_bss_reordering.h"
 #include "sf64math.h"
-// BSS section range:
-// D_801616A0 <==> D_80161910
-
-// BSS SECTION START
-
-// placed before global.h for reordering reasons
 
 typedef struct {
     /* 0x00 */ u8* unk_00;
@@ -27,17 +20,16 @@ s32 D_80161704;
 s32 D_80161708;
 s32 D_8016170C;
 s32 D_80161710;
-s32 gTotalHits; // 0x80161714
+s32 gTotalHits;
 s32 D_80161718;
 s32 D_8016171C;
 f32 D_80161720[3];
 s32 D_8016172C;
 s32 D_80161730;
-s32 gShowBossHealth; // 0x80161734
+s32 gShowBossHealth;
 s32 D_80161738[4];
 s32 D_80161748[4];
 s32 D_80161758;
-// gap = 0x4 bytes, probably padding
 s32 D_80161760[4];
 f32 D_80161770;
 f32 D_80161774;
@@ -56,9 +48,8 @@ f32 D_801617A4;
 f32 D_801617A8;
 f32 D_801617AC;
 s32 D_801617B0;
-s32 gMedalStatus;     // 0x801617B4
-s32 gMedalFlashTimer; // 0x801617B8
-// gap = 0x4 bytes, probably padding
+s32 gMedalStatus;
+s32 gMedalFlashTimer;
 s32 D_801617C0[10];
 s32 D_801617E8[10];
 s32 D_80161810[10];
@@ -67,10 +58,7 @@ s32 D_80161860[20];
 f32 D_801618B0[20];
 s32 D_80161900[20];
 
-// BSS SECTION END
-
 #include "global.h"
-#include "assets.h"
 
 #include "assets/ast_bg_space.h"
 #include "assets/ast_bg_planet.h"
@@ -83,8 +71,13 @@ s32 D_80161900[20];
 #include "assets/ast_training.h"
 #include "assets/ast_area_6.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_venom_1.h"
+#include "assets/ast_venom_2.h"
+#include "assets/ast_katina.h"
 #include "assets/ast_macbeth.h"
 #include "assets/ast_titania.h"
+#include "assets/ast_bolse.h"
+#include "assets/ast_fortuna.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
@@ -94,22 +87,13 @@ s32 D_80161900[20];
 
 void func_80087788(void);
 
-// Segmented addresses
-
 extern u8 D_ME_6000000[];
-extern u8 D_FO_6000000[];
 extern u8 D_KA_6000000[];
 extern u8 D_SO_6000000[];
 extern u8 D_ZO_6000000[];
 extern u8 D_BO_6000000[];
 extern u8 D_VE1_6000D80[];
 extern u8 D_VE2_60012D0[];
-extern u8 D_6000C80[];
-extern u8 D_6001260[];
-extern u8 D_6002890[];
-extern Gfx D_6003090[];
-
-// DATA SECTION START
 
 s16 D_800D1970 = 0;
 
@@ -564,22 +548,22 @@ s32 func_800863C8(void) {
 }
 
 UnkStruct_D_800D1AEC D_800D1AEC[] = {
-    { D_500A050, 16, 15, D_CO_6000000, 128, 28 },  { D_500A140, 16, 15, D_ME_6000000, 96, 28 },
-    { D_500A140, 16, 15, D_SY_6000000, 176, 12 },  { D_500A230, 16, 15, D_FO_6000000, 168, 28 },
-    { D_500A230, 16, 15, D_KA_6000000, 168, 28 },  { D_500A230, 16, 15, D_AQ_6000000, 96, 13 },
-    { D_500A320, 16, 15, D_SX_6000000, 176, 12 },  { D_500A320, 16, 15, D_SO_6000000, 112, 13 },
-    { D_500A320, 16, 15, D_ZO_6000000, 112, 28 },  { D_500A410, 16, 15, D_TI_6000000, 96, 28 },
-    { D_500A410, 16, 15, D_MA_6000000, 160, 28 },  { D_500A410, 16, 15, D_SZ_6000000, 176, 12 },
-    { D_500A500, 16, 15, D_BO_6000000, 168, 19 },  { D_500A500, 16, 15, D_A6_6000000, 104, 28 },
-    { D_500A5F0, 16, 15, D_VE1_6000D80, 128, 28 }, { D_500A5F0, 16, 15, D_VE2_60012D0, 128, 28 },
-    { D_500A5F0, 16, 15, D_C000A80, 128, 28 },     { D_5009F60, 16, 15, D_5000D50, 80, 12 },
+    { D_500A050, 16, 15, D_CO_6000000, 128, 28 },      { D_500A140, 16, 15, D_ME_6000000, 96, 28 },
+    { D_500A140, 16, 15, D_SY_6000000, 176, 12 },      { D_500A230, 16, 15, D_FO_6000000, 168, 28 },
+    { D_500A230, 16, 15, D_KA_6000000, 168, 28 },      { D_500A230, 16, 15, D_AQ_6000000, 96, 13 },
+    { D_500A320, 16, 15, D_SX_6000000, 176, 12 },      { D_500A320, 16, 15, D_SO_6000000, 112, 13 },
+    { D_500A320, 16, 15, D_ZO_6000000, 112, 28 },      { D_500A410, 16, 15, D_TI_6000000, 96, 28 },
+    { D_500A410, 16, 15, D_MA_6000000, 160, 28 },      { D_500A410, 16, 15, D_SZ_6000000, 176, 12 },
+    { D_500A500, 16, 15, D_BO_6000000, 168, 19 },      { D_500A500, 16, 15, D_A6_6000000, 104, 28 },
+    { D_500A5F0, 16, 15, D_VE1_6000D80, 128, 28 },     { D_500A5F0, 16, 15, D_VE2_60012D0, 128, 28 },
+    { D_500A5F0, 16, 15, D_ANDROSS_C000A80, 128, 28 }, { D_5009F60, 16, 15, D_5000D50, 80, 12 },
 };
 
 void func_80086444(void) {
     s32 i = 9;
     s32 j;
 
-    u8* D_800D1C9C[] = { D_6001B80, D_60020D0 };
+    u8* D_800D1C9C[] = { D_VE1_6001B80, D_VE2_60020D0 };
     s32 D_800D1CA4[] = { 128, 104 };
     s32 D_800D1CAC[] = { 19, 19 };
     f32 D_800D1CB4[] = { 96.0f, 112.0f };
@@ -2111,11 +2095,11 @@ s32 func_8008A4DC(void) {
                 break;
 
             case LEVEL_FORTUNA:
-                TextureRect_8bIA(&gMasterDisp, D_6001260, 16, 16, 251.0f + D_800D1E10, 178.0f, 1.00f, 1.00f);
+                TextureRect_8bIA(&gMasterDisp, D_FO_6001260, 16, 16, 251.0f + D_800D1E10, 178.0f, 1.00f, 1.00f);
                 break;
 
             case LEVEL_BOLSE:
-                TextureRect_8bIA(&gMasterDisp, D_6000C80, 16, 16, 251.0f + D_800D1E10, 178.0f, 1.00f, 1.00f);
+                TextureRect_8bIA(&gMasterDisp, D_BO_6000C80, 16, 16, 251.0f + D_800D1E10, 178.0f, 1.00f, 1.00f);
                 break;
 
             case LEVEL_SECTOR_Y:
@@ -2131,11 +2115,11 @@ s32 func_8008A4DC(void) {
                 break;
 
             case LEVEL_KATINA:
-                TextureRect_8bIA(&gMasterDisp, D_6001260, 8, 8, 254.0f + D_800D1E10, 182.0f, 1.00f, 1.00f);
+                TextureRect_8bIA(&gMasterDisp, D_KA_6001260, 8, 8, 254.0f + D_800D1E10, 182.0f, 1.00f, 1.00f);
                 break;
 
             case LEVEL_VENOM_2:
-                TextureRect_8bIA(&gMasterDisp, D_6002890, 16, 16, 251.0f + D_800D1E10, 178.0f, 1.00f, 1.00f);
+                TextureRect_8bIA(&gMasterDisp, D_VE2_6002890, 16, 16, 251.0f + D_800D1E10, 178.0f, 1.00f, 1.00f);
                 break;
         }
     }
@@ -3664,12 +3648,12 @@ void func_8008FA84(void) {
 
 void func_8008FE78(Boss* boss) {
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    gSPDisplayList(gMasterDisp++, D_6003090);
+    gSPDisplayList(gMasterDisp++, D_FO_6003090);
     RCP_SetupDL_34(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
     gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 0, (s32) boss->fwork[1], (s32) boss->fwork[2], 255);
-    gSPDisplayList(gMasterDisp++, D_600D5C0);
+    gSPDisplayList(gMasterDisp++, D_FO_600D5C0);
     gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
 }
 

@@ -9,7 +9,6 @@
 #include "global.h"
 #include "fox_map.h"
 #include "fox_option.h"
-// #include "prevent_bss_reordering2.h"
 #include "assets/ast_map.h"
 #include "assets/ast_font.h"
 #include "assets/ast_font_3d.h"

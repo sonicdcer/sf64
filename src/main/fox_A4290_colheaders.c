@@ -1,13 +1,17 @@
 #include "structs.h"
 #include "macros.h"
 #include "variables.h"
-#include "assets.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_bolse.h"
+#include "assets/ast_meteo.h"
 #include "assets/ast_corneria.h"
 #include "assets/ast_macbeth.h"
+#include "assets/ast_venom_2.h"
+#include "assets/ast_fortuna.h"
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
 #include "assets/ast_versus.h"
+#include "assets/ast_zoness.h"
 
 static Vec3f D_800D2920[16] = {
     { 1075.0f, 0.0f, 0.0f },   { 746.0f, 0.0f, -746.0f },    { 202.0f, 361.0f, -202.0f }, { 0.0f, 0.0f, -1075.0f },
@@ -36,57 +40,57 @@ CollisionHeader D_800D2B38[10] = {
         { -1128.0f, -1835.0f, -1202.0f },
         { 997.0f, 139.0f, 1360.0f },
         79,
-        D_602FA9C,
-        D_60300C8,
+        D_ME_602FA9C,
+        D_ME_60300C8,
     },
     {
         { -3006.0f, -2274.0f, -4530.0f },
         { 3015.0f, 3348.0f, 5246.0f },
         236,
-        D_60305DC,
-        D_603184C,
+        D_ME_60305DC,
+        D_ME_603184C,
     },
     {
         { -152.0f, -200.0f, -152.0f },
         { 165.0f, 204.0f, 181.0f },
         42,
-        D_6030208,
-        D_6030550,
+        D_ME_6030208,
+        D_ME_6030550,
     },
     {
         { -1704.0f, -1006.0f, -4751.0f },
         { 1704.0f, 1030.0f, 4842.0f },
         174,
         D_SY_6033070,
-        D_6033E08,
+        D_SY_6033E08,
     },
     {
         { -1308.0f, 0.0f, -1460.0f },
         { 1310.0f, 666.0f, 807.0f },
         93,
-        D_600F60C,
-        D_600FD50,
+        D_FO_600F60C,
+        D_FO_600FD50,
     },
     {
         { -951.0f, 0.0f, -1075.0f },
         { 1075.0f, 1014.0f, 1075.0f },
         22,
-        D_600F3F4,
-        D_600F5AC,
+        D_FO_600F3F4,
+        D_FO_600F5AC,
     },
     {
         { -951.0f, 0.0f, -1075.0f },
         { 1075.0f, 384.0f, 1075.0f },
         22,
-        D_600F1DC,
-        D_600F394,
+        D_FO_600F1DC,
+        D_FO_600F394,
     },
     {
         { -1554.0f, -2.0f, -1401.0f },
         { 1554.0f, 590.0f, 1401.0f },
         262,
-        D_6010294,
-        D_601170C,
+        D_BO_6010294,
+        D_BO_601170C,
     },
     {
         { -1386.0f, -696.0f, -2274.0f },
@@ -99,8 +103,8 @@ CollisionHeader D_800D2B38[10] = {
         { -671.0f, 0.0f, -671.0f },
         { 671.0f, 648.0f, 671.0f },
         250,
-        D_6014FEC,
-        D_6016374,
+        D_VE2_6014FEC,
+        D_VE2_6016374,
     },
 };
 
@@ -158,8 +162,8 @@ CollisionHeader2 D_800D2CA0[19] = {
         { -488.0f, 0.0f, -568.0f },
         { 488.0f, 148.0f, 567.0f },
         30,
-        D_602CACC,
-        D_602CB80,
+        D_ZO_602CACC,
+        D_ZO_602CB80,
     },
     {
         { -900.0f, -110.0f, -1900.0f },

@@ -185,3 +185,5 @@ D_ending_80198260 = 0x80198260;//size:0x320 segment:ovl_ending
 D_ending_80192DF0 = 0x80192DF0;//size:0x20 type:f32 segment:ovl_ending
 
 D_unused_801875C0 = 0x801875C0;
+
+D_ZO_601996C = 0x601996C;

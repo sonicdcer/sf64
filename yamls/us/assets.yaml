@@ -129,8 +129,12 @@
 
   - name: ast_meteo
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0x9A1460
+    vram: 0x06000000
+    subsegments:
+      - [0x9A1460, .data, ast_meteo/ast_meteo]
 
   - name: ast_titania
     exclusive_ram_id: segment_06
@@ -224,13 +228,21 @@
 
   - name: ast_venom_1
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xAB4000
+    vram: 0x06000000
+    subsegments:
+      - [0xA4FBB0, .data, ast_venom_1/ast_venom_1]
 
   - name: ast_venom_2
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xACF960
+    vram: 0x06000000
+    subsegments:
+      - [0xA4FBB0, .data, ast_venom_2/ast_venom_2]
 
   - name: ast_ve1_boss
     # exclusive_ram_id: segment_06
@@ -244,13 +256,21 @@
 
   - name: ast_bolse
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xB0AA00
+    vram: 0x06000000
+    subsegments:
+      - [0xB0AA00, .data, ast_bolse/ast_bolse]
 
   - name: ast_fortuna
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xB1CA50
+    vram: 0x06000000
+    subsegments:
+      - [0xB1CA50, .data, ast_fortuna/ast_fortuna]
 
   - name: ast_sector_y
     exclusive_ram_id: segment_06
@@ -263,18 +283,30 @@
 
   - name: ast_solar
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xB612E0
+    vram: 0x06000000
+    subsegments:
+      - [0xB612E0, .data, ast_solar/ast_solar]
 
   - name: ast_zoness
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xB84560
+    vram: 0x06000000
+    subsegments:
+      - [0xB84560, .data, ast_zoness/ast_zoness]
 
   - name: ast_katina
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xBB11D0
+    vram: 0x06000000
+    subsegments:
+      - [0xBB11D0, .data, ast_katina/ast_katina]
 
   - name: ast_macbeth
     exclusive_ram_id: segment_06
@@ -350,8 +382,12 @@
 
   - name: ast_andross
     exclusive_ram_id: segment_0C
-    type: bin
+    type: code
+    dir: assets
+    vram: 0x0C000000
     start: 0xCE9E70
+    subsegments:
+      - [0xCE9E70, .data, ast_andross/ast_andross]
 
   - name: ast_logo
     exclusive_ram_id: segment_0F

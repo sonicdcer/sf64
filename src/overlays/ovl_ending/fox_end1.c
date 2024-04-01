@@ -1,4 +1,3 @@
-#include "prevent_bss_reordering.h"
 #include "global.h"
 #include "assets/ast_title.h"
 #include "assets/ast_ending_award_front.h"
