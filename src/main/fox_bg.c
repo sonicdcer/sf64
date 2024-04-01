@@ -18,6 +18,7 @@ UNK_TYPE D_8015F988[0x683]; // Unused? Close to being [13][0x80]
 f32 D_80161394;             // can be static
 
 #include "assets/ast_katina.h"
+#include "assets/ast_venom_1.h"
 #include "assets/ast_venom_2.h"
 #include "assets/ast_fortuna.h"
 #include "assets/ast_bg_planet.h"
@@ -929,8 +930,8 @@ void func_80040CE4(void) {
             RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             switch (gCurrentLevel) {
                 case LEVEL_VENOM_1:
-                    sp1C4 = D_6006750;
-                    sp1C0 = D_60066D0;
+                    sp1C4 = D_VE1_6006750;
+                    sp1C0 = D_VE1_60066D0;
                     gDPLoadTextureBlock(gMasterDisp++, sp1C4, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, 0,
                                         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD,
                                         G_TX_NOLOD);

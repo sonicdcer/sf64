@@ -83,6 +83,7 @@ s32 D_80161900[20];
 #include "assets/ast_training.h"
 #include "assets/ast_area_6.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_venom_1.h"
 #include "assets/ast_venom_2.h"
 #include "assets/ast_katina.h"
 #include "assets/ast_macbeth.h"
@@ -578,7 +579,7 @@ void func_80086444(void) {
     s32 i = 9;
     s32 j;
 
-    u8* D_800D1C9C[] = { D_6001B80, D_VE2_60020D0 };
+    u8* D_800D1C9C[] = { D_VE1_6001B80, D_VE2_60020D0 };
     s32 D_800D1CA4[] = { 128, 104 };
     s32 D_800D1CAC[] = { 19, 19 };
     f32 D_800D1CB4[] = { 96.0f, 112.0f };
