@@ -36,6 +36,7 @@ f32 D_80161394;             // can be static
 #include "assets/ast_andross.h"
 #include "assets/ast_warp_zone.h"
 #include "assets/ast_area_6.h"
+#include "assets/ast_zoness.h"
 
 f32 D_800C9C30 = 0.0f;
 u16 D_800C9C34 = 1;
@@ -476,7 +477,7 @@ void func_8003E1E8(void) {
                     } else if (gCurrentLevel == LEVEL_MACBETH) {
                         gSPDisplayList(gMasterDisp++, D_MA_6019220);
                     } else if (gCurrentLevel == LEVEL_ZONESS) {
-                        gSPDisplayList(gMasterDisp++, D_6013480);
+                        gSPDisplayList(gMasterDisp++, D_ZO_6013480);
                     } else if (gCurrentLevel == LEVEL_SOLAR) {
                         gSPDisplayList(gMasterDisp++, D_601E150);
                     }
@@ -492,7 +493,7 @@ void func_8003E1E8(void) {
                     } else if (gCurrentLevel == LEVEL_MACBETH) {
                         gSPDisplayList(gMasterDisp++, D_MA_6019220);
                     } else if (gCurrentLevel == LEVEL_ZONESS) {
-                        gSPDisplayList(gMasterDisp++, D_6013480);
+                        gSPDisplayList(gMasterDisp++, D_ZO_6013480);
                     } else if (gCurrentLevel == LEVEL_SOLAR) {
                         gSPDisplayList(gMasterDisp++, D_601E150);
                     }
@@ -1111,9 +1112,9 @@ void func_80040CE4(void) {
             Matrix_Scale(gGfxMatrix, 3.0f, 2.0f, 3.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
             if (gGameFrameCount & 1) {
-                gSPDisplayList(gMasterDisp++, D_6008830);
+                gSPDisplayList(gMasterDisp++, D_ZO_6008830);
             } else {
-                gSPDisplayList(gMasterDisp++, D_600B0E0);
+                gSPDisplayList(gMasterDisp++, D_ZO_600B0E0);
             }
             break;
     }

@@ -288,8 +288,12 @@
 
   - name: ast_zoness
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xB84560
+    vram: 0x06000000
+    subsegments:
+      - [0xB84560, .data, ast_zoness/ast_zoness]
 
   - name: ast_katina
     exclusive_ram_id: segment_06

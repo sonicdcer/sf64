@@ -20,6 +20,7 @@
 #include "assets/ast_arwing.h"
 #include "assets/ast_versus.h"
 #include "assets/ast_area_6.h"
+#include "assets/ast_zoness.h"
 
 UNK_TYPE D_800D2F50 = 0;
 s32 D_800D2F54 = 0;
@@ -102,11 +103,11 @@ void func_800A3FEC(void) {
             break;
         case LEVEL_ZONESS:
             if (gGameFrameCount & 1) {
-                spB4 = SEGMENTED_TO_VIRTUAL(D_6009ED0);
+                spB4 = SEGMENTED_TO_VIRTUAL(D_ZO_6009ED0);
             } else {
-                spB4 = SEGMENTED_TO_VIRTUAL(D_600C780);
+                spB4 = SEGMENTED_TO_VIRTUAL(D_ZO_600C780);
             }
-            spB0 = SEGMENTED_TO_VIRTUAL(D_602AC50);
+            spB0 = SEGMENTED_TO_VIRTUAL(D_ZO_602AC50);
             spA8 = 7;
             sp90 = 40.0f;
             sp8C = 0.2f;
@@ -1002,8 +1003,8 @@ bool func_800A73E4(f32* arg0, s32* arg1, f32 xPos, f32 yPos, f32 zPos) {
             spA0 = SEGMENTED_TO_VIRTUAL(D_6022760);
             break;
         case LEVEL_ZONESS:
-            spA4 = SEGMENTED_TO_VIRTUAL(D_6009ED0);
-            spA0 = SEGMENTED_TO_VIRTUAL(D_602AC50);
+            spA4 = SEGMENTED_TO_VIRTUAL(D_ZO_6009ED0);
+            spA0 = SEGMENTED_TO_VIRTUAL(D_ZO_602AC50);
             break;
         default:
             return false;
@@ -2447,7 +2448,7 @@ void func_800AB334(void) {
                     mesh = SEGMENTED_TO_VIRTUAL(D_6001C50);
                     break;
                 case LEVEL_ZONESS:
-                    mesh = SEGMENTED_TO_VIRTUAL(D_6009ED0);
+                    mesh = SEGMENTED_TO_VIRTUAL(D_ZO_6009ED0);
                     break;
             }
             for (i = 0; i < 17 * 17; i++, mesh++) {
@@ -2467,7 +2468,7 @@ void func_800AB334(void) {
                     mesh = SEGMENTED_TO_VIRTUAL(D_6004500);
                     break;
                 case LEVEL_ZONESS:
-                    mesh = SEGMENTED_TO_VIRTUAL(D_600C780);
+                    mesh = SEGMENTED_TO_VIRTUAL(D_ZO_600C780);
                     break;
             }
             for (i = 0; i < 17 * 17; i++, mesh++) {
@@ -6248,12 +6249,12 @@ void func_800B79B0(void) {
         case LEVEL_ZONESS:
             func_800A3FEC();
             for (D_80177CE8; D_80177CE8 >= 20.0f; D_80177CE8 -= 20.0f) {
-                Texture_Scroll(D_602C2CC, 32, 32, 1);
+                Texture_Scroll(D_ZO_602C2CC, 32, 32, 1);
             }
             if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_6) {
-                Texture_Scroll(D_602C2CC, 32, 32, 1);
+                Texture_Scroll(D_ZO_602C2CC, 32, 32, 1);
             }
-            func_8008C104(D_602C2CC, D_600D990);
+            func_8008C104(D_ZO_602C2CC, D_ZO_600D990);
             if (func_800A73E4(&sp3C, &sp40, gPlayer[0].camEye.x, gPlayer[0].camEye.y,
                               gPlayer[0].camEye.z - D_80177D20)) {
                 gLight1R = 0;

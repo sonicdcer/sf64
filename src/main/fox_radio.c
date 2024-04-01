@@ -24,6 +24,7 @@ s32 D_80178748;
 #include "assets/ast_great_fox.h"
 #include "assets/ast_area_6.h"
 #include "assets/ast_title.h"
+#include "assets/ast_zoness.h"
 
 s32 gCurrentMsgPri = 0;
 
@@ -291,10 +292,10 @@ void func_800BAAE8(void) {
             sp44 = D_A6_60038C0;
             break;
         case RCID_BOSS_ZONESS:
-            sp44 = D_6014510;
+            sp44 = D_ZO_6014510;
             break;
         case RCID_BOSS_ZONESS_OPEN:
-            sp44 = D_6015430;
+            sp44 = D_ZO_6015430;
             break;
         case RCID_BOSS_SECTORX:
             sp44 = D_SX_6020FB0;

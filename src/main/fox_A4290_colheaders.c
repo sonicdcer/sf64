@@ -12,6 +12,7 @@
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
 #include "assets/ast_versus.h"
+#include "assets/ast_zoness.h"
 
 static Vec3f D_800D2920[16] = {
     { 1075.0f, 0.0f, 0.0f },   { 746.0f, 0.0f, -746.0f },    { 202.0f, 361.0f, -202.0f }, { 0.0f, 0.0f, -1075.0f },
@@ -162,7 +163,7 @@ CollisionHeader2 D_800D2CA0[19] = {
         { -488.0f, 0.0f, -568.0f },
         { 488.0f, 148.0f, 567.0f },
         30,
-        D_602CACC,
+        D_ZO_602CACC,
         D_602CB80,
     },
     {
