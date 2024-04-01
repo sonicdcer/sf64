@@ -256,8 +256,8 @@ D_ZO_60195EC:
 D_ZO_6019738:
   { type: SF64:SKELETON, offset: 0x6019738, symbol: D_ZO_6019738}
 
-D_601996C:
-  { type: SF64:ANIM, offset: 0x601996C, symbol: D_601996C}
+D_ZO_601996C:
+  { type: SF64:ANIM, offset: 0x601996C, symbol: D_ZO_601996C}
 
 D_ZO_6019E18:
   { type: SF64:SKELETON, offset: 0x6019E18, symbol: D_ZO_6019E18}

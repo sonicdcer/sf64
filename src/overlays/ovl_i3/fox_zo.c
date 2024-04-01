@@ -91,7 +91,6 @@ extern Limb* D_ZO_601863C[];
 extern Gfx D_ZO_6018660[];
 extern Animation D_ZO_60195EC;
 extern Limb* D_ZO_6019738[];
-extern Animation D_601996C;
 extern Limb* D_ZO_6019E18[];
 extern Gfx D_ZO_6019EB0[];
 extern Gfx D_ZO_601A340[];
@@ -3088,7 +3087,7 @@ void func_i3_80194A84(Boss* bossZO) {
     ZO_HIT_0(bossZO)->x.offset = sZoFwork[ZO_BSF_43_X] - bossZO->obj.pos.x;
     ZO_HIT_1(bossZO)->z.offset = sZoFwork[ZO_BSF_43_Z] - bossZO->obj.pos.z;
     ZO_HIT_1(bossZO)->x.offset = sZoFwork[ZO_BSF_43_X] - bossZO->obj.pos.x;
-    Animation_GetFrameData(&D_601996C, 0, bossZO->vwork);
+    Animation_GetFrameData(&D_ZO_601996C, 0, bossZO->vwork);
     if (sZoSwork[ZO_BSS_38] != 0) {
         sZoSwork[ZO_BSS_37] -= 10;
         if (sZoSwork[ZO_BSS_37] < 0) {
