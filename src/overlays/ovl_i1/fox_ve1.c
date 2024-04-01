@@ -492,9 +492,9 @@ void func_i1_80192AA4(Actor* actor) {
 }
 
 Gfx* D_i1_8019A008[17] = {
-    D_VE1B_90150A0, D_VE1B_9015BB0, D_VE1B_9015900, D_VE1B_9000000, D_VE1B_9022A20, D_VE1B_9021630,
-    D_VE1B_9015480, D_VE1B_90007F0, D_VE1B_9014DF0, D_VE1B_9022D80, D_VE1B_901E350, D_VE1B_901F990,
-    D_VE1B_901F6D0, D_VE1B_9021900, D_VE1B_901FC40, D_VE1B_9021B80, D_VE1B_9013880,
+    D_VE1_90150A0, D_VE1_9015BB0, D_VE1_9015900, D_VE1_9000000, D_VE1_9022A20, D_VE1_9021630,
+    D_VE1_9015480, D_VE1_90007F0, D_VE1_9014DF0, D_VE1_9022D80, D_VE1_901E350, D_VE1_901F990,
+    D_VE1_901F6D0, D_VE1_9021900, D_VE1_901FC40, D_VE1_9021B80, D_VE1_9013880,
 };
 s16 D_i1_8019A04C[3][2] = { { -2500, 300 }, { -1000, 0 }, { -5000, 0 } };
 UnkStruct_i1_8019A058 D_i1_8019A058[33] = {
@@ -545,12 +545,12 @@ Vec3f D_i1_8019A544[43] = {
     { 134.0f, 0.0f, -24.0f },  { 104.0f, 106.0f, -24.0f }, { 104.0f, -106.0f, -24.0f },
 };
 UnkStruct_i1_8019A748 D_i1_8019A748[18] = {
-    { 1, D_VE1B_90150A0, 0, 0 },   { 2, D_VE1B_9015BB0, 1, 0 },   { 3, D_VE1B_9015900, 2, 0 },
-    { 4, D_VE1B_9000000, 3, 0 },   { 5, D_VE1B_9022A20, 4, 0 },   { 6, D_VE1B_9021630, 5, 0 },
-    { 7, D_VE1B_9015480, 6, 0 },   { 8, D_VE1B_90007F0, 7, 0 },   { 9, D_VE1B_9014DF0, 8, 0 },
-    { 10, D_VE1B_9022D80, 9, 0 },  { 11, D_VE1B_901E350, 10, 0 }, { 12, D_VE1B_901F990, 11, 0 },
-    { 13, D_VE1B_9024750, 15, 1 }, { 16, D_VE1B_901F6D0, 12, 0 }, { 17, D_VE1B_9021900, 13, 0 },
-    { 20, D_VE1B_901FC40, 14, 0 }, { 21, D_VE1B_9021B80, 15, 0 }, { 25, D_VE1B_9013880, 16, 0 },
+    { 1, D_VE1_90150A0, 0, 0 },   { 2, D_VE1_9015BB0, 1, 0 },   { 3, D_VE1_9015900, 2, 0 },
+    { 4, D_VE1_9000000, 3, 0 },   { 5, D_VE1_9022A20, 4, 0 },   { 6, D_VE1_9021630, 5, 0 },
+    { 7, D_VE1_9015480, 6, 0 },   { 8, D_VE1_90007F0, 7, 0 },   { 9, D_VE1_9014DF0, 8, 0 },
+    { 10, D_VE1_9022D80, 9, 0 },  { 11, D_VE1_901E350, 10, 0 }, { 12, D_VE1_901F990, 11, 0 },
+    { 13, D_VE1_9024750, 15, 1 }, { 16, D_VE1_901F6D0, 12, 0 }, { 17, D_VE1_9021900, 13, 0 },
+    { 20, D_VE1_901FC40, 14, 0 }, { 21, D_VE1_9021B80, 15, 0 }, { 25, D_VE1_9013880, 16, 0 },
 };
 UnkStruct_i1_8019A820 D_i1_8019A820[17] = {
     { 1, 50, 0, 3, 1, 2, 5, -1, -1, -1, -1, 1 },      { 2, 60, 3, 2, 0, 2, 5, 0, -1, -1, -1, 1 },
@@ -577,9 +577,8 @@ f32 D_i1_8019A9B8[199] = {
     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
 };
 Animation* D_i1_8019ACD4[9] = {
-    &D_VE1B_9018BD0, &D_VE1B_901A4B8, &D_VE1B_901BDA8,
-    &D_VE1B_901DA38, &D_VE1B_9024738, &D_VE1B_9024738,
-    &D_VE1B_9018BD0, &D_VE1B_9010FC4, NULL,
+    &D_VE1_9018BD0, &D_VE1_901A4B8, &D_VE1_901BDA8, &D_VE1_901DA38, &D_VE1_9024738,
+    &D_VE1_9024738, &D_VE1_9018BD0, &D_VE1_9010FC4, NULL,
 };
 UnkStruct_i1_8019ACF8 D_i1_8019ACF8[2] = { { 0, 1 }, { -1, 0 } };
 UnkStruct_i1_8019ACF8 D_i1_8019AD00[4] = { { 1, 0 }, { 2, 1 }, { 3, 0 }, { -1, 0 } };
@@ -660,7 +659,7 @@ void func_i1_80192CD4(Actor* actor) {
 void func_i1_80192E2C(Actor* actor) {
     Matrix_Scale(gGfxMatrix, 1.0f, 0.5f, 1.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_VE1B_901DA50);
+    gSPDisplayList(gMasterDisp++, D_VE1_901DA50);
 }
 
 void func_i1_80192EA4(Actor* actor) {
@@ -780,9 +779,9 @@ void func_i1_801933DC(Actor* actor) {
     if ((actor->unk_0B6 == 38) || (actor->unk_0B6 == 58)) {
         AUDIO_PLAY_SFX(0x1903005A, actor->sfxSource, 0);
     }
-    Animation_GetFrameData(&D_VE1B_900D098, actor->unk_0B6, actor->vwork);
+    Animation_GetFrameData(&D_VE1_900D098, actor->unk_0B6, actor->vwork);
 
-    if (actor->unk_0B6 < (Animation_GetFrameCount(&D_VE1B_900D098) - 1)) {
+    if (actor->unk_0B6 < (Animation_GetFrameCount(&D_VE1_900D098) - 1)) {
         actor->unk_0B6++;
     } else {
         actor->unk_0B6 = 0;
@@ -794,7 +793,7 @@ void func_i1_801933DC(Actor* actor) {
 
 void func_i1_801934D0(Actor* actor) {
     Matrix_Translate(gGfxMatrix, 0.0f, -488.0f, 0.0f, 1);
-    Animation_DrawSkeleton(0, D_VE1B_900D164, actor->vwork, NULL, NULL, actor, &gIdentityMatrix);
+    Animation_DrawSkeleton(0, D_VE1_900D164, actor->vwork, NULL, NULL, actor, &gIdentityMatrix);
 }
 
 void func_i1_80193540(Object_80* obj80) {
@@ -1058,7 +1057,7 @@ void func_i1_80193D64(s32 limbIndex, Vec3f* rot, void* thisx) {
                 }
                 Matrix_Scale(gGfxMatrix, 4.0f, 4.0f, 1.0f, 1);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_VE1B_900DF20);
+                gSPDisplayList(gMasterDisp++, D_VE1_900DF20);
                 Matrix_Pop(&gGfxMatrix);
             }
         }
@@ -2357,7 +2356,7 @@ void func_i1_80198594(Boss* boss) {
 
 void func_i1_801985E4(Boss* boss) {
     if (boss->swork[26] == 0) {
-        Animation_DrawSkeleton(0, D_VE1B_901C0F4, boss->vwork, func_i1_801937F4, func_i1_80193D64, boss,
+        Animation_DrawSkeleton(0, D_VE1_901C0F4, boss->vwork, func_i1_801937F4, func_i1_80193D64, boss,
                                &gIdentityMatrix);
     }
     boss->state = boss->swork[9];
