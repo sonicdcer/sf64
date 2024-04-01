@@ -17,6 +17,7 @@
 #include "assets/ast_fortuna.h"
 #include "assets/ast_titania.h"
 #include "assets/ast_andross.h"
+#include "assets/ast_solar.h"
 #include "assets/ast_arwing.h"
 #include "assets/ast_versus.h"
 #include "assets/ast_area_6.h"
@@ -90,11 +91,11 @@ void func_800A3FEC(void) {
     switch (gCurrentLevel) {
         case LEVEL_SOLAR:
             if (gGameFrameCount & 1) {
-                spB4 = SEGMENTED_TO_VIRTUAL(D_6001C50);
+                spB4 = SEGMENTED_TO_VIRTUAL(D_SO_6001C50);
             } else {
-                spB4 = SEGMENTED_TO_VIRTUAL(D_6004500);
+                spB4 = SEGMENTED_TO_VIRTUAL(D_SO_6004500);
             }
-            spB0 = SEGMENTED_TO_VIRTUAL(D_6022760);
+            spB0 = SEGMENTED_TO_VIRTUAL(D_SO_6022760);
             spA8 = 15;
             sp90 = 70.0f;
             sp8C = 0.1f;
@@ -999,8 +1000,8 @@ bool func_800A73E4(f32* arg0, s32* arg1, f32 xPos, f32 yPos, f32 zPos) {
 
     switch (gCurrentLevel) {
         case LEVEL_SOLAR:
-            spA4 = SEGMENTED_TO_VIRTUAL(D_6001C50);
-            spA0 = SEGMENTED_TO_VIRTUAL(D_6022760);
+            spA4 = SEGMENTED_TO_VIRTUAL(D_SO_6001C50);
+            spA0 = SEGMENTED_TO_VIRTUAL(D_SO_6022760);
             break;
         case LEVEL_ZONESS:
             spA4 = SEGMENTED_TO_VIRTUAL(D_ZO_6009ED0);
@@ -2445,7 +2446,7 @@ void func_800AB334(void) {
 
             switch (gCurrentLevel) {
                 case LEVEL_SOLAR:
-                    mesh = SEGMENTED_TO_VIRTUAL(D_6001C50);
+                    mesh = SEGMENTED_TO_VIRTUAL(D_SO_6001C50);
                     break;
                 case LEVEL_ZONESS:
                     mesh = SEGMENTED_TO_VIRTUAL(D_ZO_6009ED0);
@@ -2465,7 +2466,7 @@ void func_800AB334(void) {
 
             switch (gCurrentLevel) {
                 case LEVEL_SOLAR:
-                    mesh = SEGMENTED_TO_VIRTUAL(D_6004500);
+                    mesh = SEGMENTED_TO_VIRTUAL(D_SO_6004500);
                     break;
                 case LEVEL_ZONESS:
                     mesh = SEGMENTED_TO_VIRTUAL(D_ZO_600C780);
@@ -6192,12 +6193,12 @@ void func_800B79B0(void) {
             func_800A3FEC();
 
             for (D_80177CE8; D_80177CE8 >= 10.0f; D_80177CE8 -= 10.0f) {
-                Texture_Scroll(D_6005710, 32, 32, 1);
+                Texture_Scroll(D_SO_6005710, 32, 32, 1);
             }
             if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_6) {
-                Texture_Scroll(D_6005710, 32, 32, 1);
+                Texture_Scroll(D_SO_6005710, 32, 32, 1);
             }
-            Texture_Mottle(D_601E1E8, D_6020F60, 3);
+            Texture_Mottle(D_SO_601E1E8, D_SO_6020F60, 3);
 
             if (gPlayer[0].pos.y > 600.0f) {
                 var_v0_2 = 7;
@@ -6241,7 +6242,7 @@ void func_800B79B0(void) {
                                  gPlayer[0].unk_138 + (RAND_FLOAT(2000.0f) + -6000.0f),
                                  RAND_FLOAT(10.0f) + 20.0f); // check
             }
-            func_8008C104(D_60229A4, D_6010198);
+            func_8008C104(D_SO_60229A4, D_SO_6010198);
             if (gPlayer[0].shields == 0) {
                 D_80177B4C = 1;
             }

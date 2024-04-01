@@ -24,6 +24,7 @@ s32 D_80161690;
 #include "assets/ast_area_6.h"
 #include "assets/ast_enmy_space.h"
 #include "assets/ast_enmy_planet.h"
+#include "assets/ast_solar.h"
 #include "assets/ast_ve1_boss.h"
 #include "assets/ast_zoness.h"
 
@@ -1024,7 +1025,7 @@ void func_8006D36C(Actor* actor) {
             var_v1 = SEGMENTED_TO_VIRTUAL(D_SY_6032E18);
             break;
         case LEVEL_SOLAR:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_SO_600631C);
+            var_v1 = SEGMENTED_TO_VIRTUAL(D_SO_6020DD0);
             break;
         case LEVEL_ZONESS:
             var_v1 = SEGMENTED_TO_VIRTUAL(D_ZO_602AAC0);
@@ -3456,7 +3457,7 @@ void func_80072594(Actor* actor) {
             case 6:
                 actor->unk_0B6++;
                 if (gCurrentLevel == LEVEL_SOLAR) {
-                    if (actor->unk_0B6 >= Animation_GetFrameCount(&D_600636C)) {
+                    if (actor->unk_0B6 >= Animation_GetFrameCount(&D_SO_600636C)) {
                         actor->unk_0B6 = 0;
                     }
                     if (((s32) gGameFrameCount % 3) == 0) {
@@ -3875,8 +3876,8 @@ void func_80074FF0(Actor* actor) {
                 case 6:
                     if (gCurrentLevel == LEVEL_SOLAR) {
                         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                        Animation_GetFrameData(&D_600636C, actor->unk_0B6, sp114);
-                        Animation_DrawSkeleton(1, D_6006558, sp114, NULL, NULL, actor, &gIdentityMatrix);
+                        Animation_GetFrameData(&D_SO_600636C, actor->unk_0B6, sp114);
+                        Animation_DrawSkeleton(1, D_SO_6006558, sp114, NULL, NULL, actor, &gIdentityMatrix);
                         gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     } else {
                         Animation_GetFrameData(&D_ENMY_PLANET_40057AC, actor->unk_0B6, sp114);

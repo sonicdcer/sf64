@@ -79,39 +79,6 @@ void func_i3_8019962C(Boss* bossZO, f32 arg1);
 // /* 0xC */ NO_SEGMENT,
 // /* 0xD */ ROM_SEGMENT(ast_955270),
 
-extern Gfx D_ZO_6002E10[];
-extern Gfx D_ZO_6004380[];
-extern Gfx D_ZO_6006360[];
-extern Limb* D_ZO_600E7D8[];
-extern Gfx D_ZO_6013330[];
-extern Gfx D_ZO_6017950[];
-extern Gfx D_ZO_60181E0[];
-extern Animation D_ZO_6018550;
-extern Limb* D_ZO_601863C[];
-extern Gfx D_ZO_6018660[];
-extern Animation D_ZO_60195EC;
-extern Limb* D_ZO_6019738[];
-extern Limb* D_ZO_6019E18[];
-extern Gfx D_ZO_6019EB0[];
-extern Gfx D_ZO_601A340[];
-extern Animation D_ZO_601AA48;
-extern Limb* D_ZO_601AB14[];
-extern Animation D_ZO_601AFB8;
-extern Limb* D_ZO_601B184[];
-extern Gfx D_ZO_601BCC0[];
-extern Gfx D_ZO_601C590[];
-extern Gfx D_ZO_601D680[];
-extern Animation D_ZO_601FBC4;
-extern Limb* D_ZO_601FC90[];
-extern Animation D_ZO_6021ABC;
-extern Limb* D_ZO_6021B88[];
-extern Gfx D_ZO_6023D50[];
-extern Gfx D_ZO_6025E60[];
-extern f32 D_ZO_602C028[];
-extern Gfx D_ZO_60012A0[];
-extern Gfx D_ZO_60239E0[];
-extern Gfx D_ZO_6023730[];
-
 // typedef struct {
 //     /* 0 */ char pad0[4];
 //     /* 4 */ f32 unk_4;
