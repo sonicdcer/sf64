@@ -9,6 +9,9 @@ Matrix D_801615F0;
 WingInfo D_80161630;
 
 #include "fox_edisplay_assets.h"
+#include "assets/ast_katina.h"
+#include "assets/ast_venom_2.h"
+#include "assets/ast_fortuna.h"
 #include "assets/ast_corneria.h"
 #include "assets/ast_meteo.h"
 #include "assets/ast_sector_x.h"
@@ -193,7 +196,7 @@ Gfx* D_800CFA54[] = {
     D_6027960,    D_60273A0,    D_60183B0,    D_60121E0,    D_602A2E0, D_602A720, D_602B8F0,
     D_602A8C0,    D_6028E70,    D_602E0A0,    D_602DE70,    D_602DC40, D_602D830, D_602D340,
     D_CO_6031280, D_CO_6031130, D_CO_6030850, D_CO_6030FD0, D_602DD40, D_6033AF0, D_60186E0,
-    D_6024160,    D_6033290,    D_6017F10,    D_60074E0,    D_6007590, D_6007730, D_6005CC0,
+    D_6024160,    D_6033290,    D_6017F10,    D_60074E0,    D_6007590, D_6007730, D_FO_6005CC0,
 };
 Gfx* D_800CFAC4[] = {
     D_60176D0, D_6017810, D_6017770, D_6016D90, D_6016E30, D_60178B0,
@@ -227,9 +230,8 @@ Gfx* D_800CFC0C[] = {
 Gfx* D_800CFC40[] = { D_AQ_6014FD0, D_AQ_6014FD0, D_AQ_6014FD0, D_AQ_6014FD0 };
 Gfx* D_800CFC50[] = { D_601EDE0, D_601F2F0, D_601F830, D_601FD70, D_601D110 };
 Gfx* D_800CFC64[] = { D_6023940, D_6023D70, D_60249C0, D_6023EB0, D_60249C0, D_6023B80 };
-Gfx* D_800CFC7C[] = {
-    D_601B570, D_601B710, D_60209B0, D_6020B70, D_6020D50, D_601B8F0, D_601B3B0, D_601B1C0, D_6011660
-};
+Gfx* D_800CFC7C[] = { D_601B570, D_VE1_601B710, D_60209B0, D_6020B70, D_6020D50,
+                      D_601B8F0, D_601B3B0,     D_601B1C0, D_6011660 };
 
 void func_8005A094(Actor* actor) {
     switch (actor->state) {
@@ -1291,14 +1293,14 @@ void func_8005EA24(Actor* actor) {
         gSPDisplayList(gMasterDisp++, D_1032780);
     } else if (gCurrentLevel == LEVEL_KATINA) {
         if ((actor->unk_0B6 == 1) || (actor->unk_0B6 == 2)) {
-            gSPDisplayList(gMasterDisp++, D_600D730);
+            gSPDisplayList(gMasterDisp++, D_KA_600D730);
         } else {
-            gSPDisplayList(gMasterDisp++, D_600DBC0);
+            gSPDisplayList(gMasterDisp++, D_KA_600DBC0);
         }
     } else if ((actor->unk_0E4 < 8) || (gCurrentLevel != LEVEL_FORTUNA)) {
         gSPDisplayList(gMasterDisp++, D_STAR_WOLF_F014310);
     } else if (gCurrentLevel == LEVEL_FORTUNA) {
-        gSPDisplayList(gMasterDisp++, D_6009F90);
+        gSPDisplayList(gMasterDisp++, D_FO_6009F90);
     } else {
         gSPDisplayList(gMasterDisp++, D_STAR_WOLF_F014310);
     }
@@ -1448,7 +1450,7 @@ void Object_58_Draw(Object_58* obj58) {
                     Matrix_RotateY(gGfxMatrix, M_PI / 2, 1);
                     Matrix_Translate(gGfxMatrix, -551.0f, 0.0f, 0.0f, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_6007650);
+                    gSPDisplayList(gMasterDisp++, D_VE2_6007650);
                 } else {
                     Matrix_RotateY(gGfxMatrix, obj58->obj.rot.y * M_DTOR, 1);
                     Matrix_SetGfxMtx(&gMasterDisp);

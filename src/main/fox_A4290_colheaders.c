@@ -7,6 +7,8 @@
 #include "assets/ast_meteo.h"
 #include "assets/ast_corneria.h"
 #include "assets/ast_macbeth.h"
+#include "assets/ast_venom_2.h"
+#include "assets/ast_fortuna.h"
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
 #include "assets/ast_versus.h"
@@ -66,21 +68,21 @@ CollisionHeader D_800D2B38[10] = {
         { -1308.0f, 0.0f, -1460.0f },
         { 1310.0f, 666.0f, 807.0f },
         93,
-        D_600F60C,
+        D_FO_600F60C,
         D_600FD50,
     },
     {
         { -951.0f, 0.0f, -1075.0f },
         { 1075.0f, 1014.0f, 1075.0f },
         22,
-        D_600F3F4,
+        D_FO_600F3F4,
         D_600F5AC,
     },
     {
         { -951.0f, 0.0f, -1075.0f },
         { 1075.0f, 384.0f, 1075.0f },
         22,
-        D_600F1DC,
+        D_FO_600F1DC,
         D_600F394,
     },
     {
@@ -101,7 +103,7 @@ CollisionHeader D_800D2B38[10] = {
         { -671.0f, 0.0f, -671.0f },
         { 671.0f, 648.0f, 671.0f },
         250,
-        D_6014FEC,
+        D_VE2_6014FEC,
         D_6016374,
     },
 };

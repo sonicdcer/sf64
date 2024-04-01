@@ -228,13 +228,21 @@
 
   - name: ast_venom_1
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xAB4000
+    vram: 0x06000000
+    subsegments:
+      - [0xA4FBB0, .data, ast_venom_1/ast_venom_1]
 
   - name: ast_venom_2
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xACF960
+    vram: 0x06000000
+    subsegments:
+      - [0xA4FBB0, .data, ast_venom_2/ast_venom_2]
 
   - name: ast_ve1_boss
     # exclusive_ram_id: segment_06
@@ -257,8 +265,12 @@
 
   - name: ast_fortuna
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xB1CA50
+    vram: 0x06000000
+    subsegments:
+      - [0xB1CA50, .data, ast_fortuna/ast_fortuna]
 
   - name: ast_sector_y
     exclusive_ram_id: segment_06
@@ -281,8 +293,12 @@
 
   - name: ast_katina
     exclusive_ram_id: segment_06
-    type: bin
+    type: code
+    dir: assets
     start: 0xBB11D0
+    vram: 0x06000000
+    subsegments:
+      - [0xBB11D0, .data, ast_katina/ast_katina]
 
   - name: ast_macbeth
     exclusive_ram_id: segment_06

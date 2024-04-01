@@ -16,6 +16,8 @@ s32 D_80161690;
 #include "assets/ast_sector_y.h"
 #include "assets/ast_aquas.h"
 #include "assets/ast_macbeth.h"
+#include "assets/ast_venom_1.h"
+#include "assets/ast_venom_2.h"
 #include "assets/ast_titania.h"
 #include "assets/ast_7_ti_1.h"
 #include "assets/ast_andross.h"
@@ -949,11 +951,11 @@ UnkStruct_D003C D_800D003C[108] = {
     { D_SY_60188D0, D_SY_603486C, 3.0f, 100.0f, 3001.0f, 0, 0, 1, 0, 0.0f, 1 },
     { NULL, D_800CBEA8, 1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 1.0f, 0 },
     { NULL, D_602C294, 1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 1.0f, 1 },
-    { NULL, D_601B474, -1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 0.0f, 1 },
+    { NULL, D_VE1_601B474, -1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 0.0f, 1 },
     { NULL, D_800CBF34, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
     { NULL, D_800CBE8C, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
     { NULL, D_AQ_6030B4C, 1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 60.0f, 1 },
-    { D_VE1_9012180, D_601B43C, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { D_VE1_9012180, D_VE1_601B43C, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
     { NULL, D_800CBE8C, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
     { NULL, D_800CBE8C, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
     { D_VE1_900EFC0, D_800CBF34, 1.0f, 100.0f, 3000.0f, 1, 1, 0, 0, 0.0f, 1 },
@@ -968,9 +970,9 @@ UnkStruct_D003C D_800D003C[108] = {
     { D_WZ_7000280, D_800CC070, -1.0f, 1000.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 0 },
     { D_ME_600AC70, D_800CBE8C, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
     { D_MA_601A2B0, D_MA_60364C0, 1.0f, 100.0f, 3000.0f, 1, 1, 0, 0, 0.0f, 1 },
-    { D_6002500, D_601B944, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_60043F0, D_800CBF34, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
-    { D_6004310, D_800CBF34, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { D_VE1_6002500, D_VE1_601B944, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { D_VE1_60043F0, D_800CBF34, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { D_VE1_6004310, D_800CBF34, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
     { D_TR_6002740, D_TR_6009D18, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
     { NULL, D_800CBF34, -1.0f, 500.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 0 },
     { NULL, D_800CBF34, -1.0f, 500.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 0 },
@@ -1119,7 +1121,7 @@ void func_8006D36C(Actor* actor) {
             }
 
             if (actor->unk_0B4 == 104) {
-                actor->unk_0B6 = Animation_GetFrameCount(&D_6014658) - 1;
+                actor->unk_0B6 = Animation_GetFrameCount(&D_VE2_6014658) - 1;
             }
 
             if (actor->unk_0B4 < 200) {
@@ -3609,7 +3611,7 @@ void func_80072594(Actor* actor) {
                 Math_SmoothStepToF(&actor->fwork[15], 1.0f, 0.1f, 0.1f, 0.001f);
 
                 if (actor->fwork[15] > 0.5f) {
-                    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_601B4C4);
+                    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_VE1_601B4C4);
                 }
 
                 if (actor->unk_046 == 0) {

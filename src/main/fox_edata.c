@@ -9,7 +9,7 @@ void func_800594F0(Object_80* obj80) {
     RCP_SetupDL_57(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     Matrix_RotateY(gGfxMatrix, M_PI, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_6007D90);
+    gSPDisplayList(gMasterDisp++, D_VE1_6007D90);
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
 
@@ -17,7 +17,7 @@ void func_800595D0(Object_80* obj80) {
     RCP_SetupDL_57(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     Matrix_RotateY(gGfxMatrix, M_PI, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_6007CF0);
+    gSPDisplayList(gMasterDisp++, D_VE1_6007CF0);
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
 
