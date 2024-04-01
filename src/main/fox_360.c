@@ -3,6 +3,7 @@
 #include "assets.h"
 #include "assets/ast_star_wolf.h"
 #include "assets/ast_allies.h"
+#include "assets/ast_bolse.h"
 #include "assets/ast_versus.h"
 #include "assets/ast_enmy_planet.h"
 #include "assets/ast_sector_z.h"
@@ -2264,7 +2265,7 @@ void func_80035448(Actor* actor) {
                     gSPDisplayList(gMasterDisp++, D_SZ_6004FE0) Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
                     func_8005B1E8(actor, 2);
                 } else if (gCurrentLevel == LEVEL_BOLSE) {
-                    gSPDisplayList(gMasterDisp++, D_6008770) Matrix_Push(&gGfxMatrix);
+                    gSPDisplayList(gMasterDisp++, D_BO_6008770) Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, 1);
                     func_8005B1E8(actor, 2);
                     Matrix_Pop(&gGfxMatrix);

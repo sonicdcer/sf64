@@ -20,11 +20,13 @@ f32 D_80161394;             // can be static
 #include "assets/ast_bg_planet.h"
 #include "assets/ast_versus.h"
 #include "assets/ast_corneria.h"
+#include "assets/ast_meteo.h"
 #include "assets/ast_training.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_bolse.h"
 #include "assets/ast_titania.h"
 #include "assets/ast_macbeth.h"
 #include "assets/ast_andross.h"
@@ -554,12 +556,12 @@ void func_8003E1E8(void) {
                                 Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f) - 30.0f, -290.0f, 1);
                                 Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 1.0f, 1);
                                 Matrix_SetGfxMtx(&gMasterDisp);
-                                gSPDisplayList(gMasterDisp++, D_600DDF0);
+                                gSPDisplayList(gMasterDisp++, D_ME_600DDF0);
                             } else if (D_80177D20 > 185668.0f) {
                                 Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f) - 130.0f, -290.0f, 1);
                                 Matrix_Scale(gGfxMatrix, 0.4f, 0.4f, 1.0f, 1);
                                 Matrix_SetGfxMtx(&gMasterDisp);
-                                gSPDisplayList(gMasterDisp++, D_600DDF0);
+                                gSPDisplayList(gMasterDisp++, D_ME_600DDF0);
                             }
                             break;
                         case LEVEL_SECTOR_X:
@@ -616,7 +618,7 @@ void func_8003E1E8(void) {
                             Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, 1);
                             Matrix_Scale(gGfxMatrix, sp128, sp128, sp128, 1);
                             Matrix_SetGfxMtx(&gMasterDisp);
-                            gSPDisplayList(gMasterDisp++, D_600D190);
+                            gSPDisplayList(gMasterDisp++, D_BO_600D190);
                             break;
                         case LEVEL_SECTOR_Z:
                             Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, 1);
@@ -1063,7 +1065,7 @@ void func_80040CE4(void) {
                 } else if (gCurrentLevel == LEVEL_KATINA) {
                     gSPDisplayList(gMasterDisp++, D_6009250);
                 } else if (gCurrentLevel == LEVEL_BOLSE) {
-                    gSPDisplayList(gMasterDisp++, D_600A810);
+                    gSPDisplayList(gMasterDisp++, D_BO_600A810);
                 } else if (gCurrentLevel == LEVEL_VENOM_2) {
                     gSPDisplayList(gMasterDisp++, D_MA_6010700);
                 }

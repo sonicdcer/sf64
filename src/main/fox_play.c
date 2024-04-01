@@ -8,6 +8,8 @@
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_bolse.h"
+#include "assets/ast_meteo.h"
 #include "assets/ast_macbeth.h"
 #include "assets/ast_titania.h"
 #include "assets/ast_andross.h"
