@@ -6,9 +6,9 @@ const char D_800D7230[] = "Enm->wrk3=<%d>\n";
 const char D_800D7240[] = "a=<%d>\n";
 const char D_800D7248[] = "a=<%d>\n";
 
-extern Gfx D_6016880[];
+extern Gfx D_ZO_6016880[];
 extern Gfx D_6018AF0[];
-extern Gfx D_601BAD0[];
+extern Gfx D_ZO_601BAD0[];
 
 #include "assets/ast_blue_marine.h"
 #include "assets/ast_arwing.h"
@@ -25,6 +25,7 @@ extern Gfx D_601BAD0[];
 #include "assets/ast_A_ti.h"
 #include "assets/ast_ve1_boss.h"
 #include "assets/ast_enmy_planet.h"
+#include "assets/ast_zoness.h"
 
 s32 BonusText_Display(f32 xPos, f32 yPos, f32 zPos, s32 hits) {
     s32 i;
@@ -213,7 +214,7 @@ void func_80077A7C(Effect* effect) {
     Matrix_Scale(gGfxMatrix, effect->scale1, effect->scale2, 1.0f, 1);
     Matrix_Translate(gGfxMatrix, 0.0f, 20.0f, 0.0f, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_6024220);
+    gSPDisplayList(gMasterDisp++, D_ZO_6024220);
     RCP_SetupDL(&gMasterDisp, 0x40);
 }
 
@@ -3907,7 +3908,7 @@ void func_80082F78(Effect* effect) {
                 gSPDisplayList(gMasterDisp++, D_AQ_600A220);
             }
             if (gCurrentLevel == LEVEL_ZONESS) {
-                gSPDisplayList(gMasterDisp++, D_6016880);
+                gSPDisplayList(gMasterDisp++, D_ZO_6016880);
             }
             break;
 
@@ -4059,7 +4060,7 @@ void func_80083B8C(Effect* effect) {
     gDPSetEnvColor(gMasterDisp++, 36, 45, 28, 255);
     Matrix_Scale(gGfxMatrix, effect->unk_60.x, effect->scale2 * effect->unk_60.y, effect->scale2, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_601BAD0);
+    gSPDisplayList(gMasterDisp++, D_ZO_601BAD0);
     RCP_SetupDL(&gMasterDisp, 0x40);
 }
 

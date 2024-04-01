@@ -22,6 +22,7 @@ s32 D_80161690;
 #include "assets/ast_enmy_space.h"
 #include "assets/ast_enmy_planet.h"
 #include "assets/ast_ve1_boss.h"
+#include "assets/ast_zoness.h"
 
 void func_8006A7B0(u16* msg, s32 character) {
     PRINTF("Enm->obj.pos.y + tmp_xyz.y=<%10.3f>\n");
@@ -914,13 +915,13 @@ UnkStruct_D003C D_800D003C[108] = {
     { NULL, D_800CBE8C, 1.0f, 20000.0f, 3000.0f, 1, 0, 2, 0, 0.0f, 0 },
     { D_SY_60102C0, D_SY_6034588, -1.0f, 10000.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
     { D_6017B60, D_800CBEC4, -1.0f, 300.0f, 3001.0f, 0, 0, 0, 0, 1.0f, 1 },
-    { D_6004D00, D_800CBEC4, 1.0f, 100.0f, 3000.0f, 1, 0, 4, 0, 1.0f, 1 },
+    { D_ZO_6004D00, D_800CBEC4, 1.0f, 100.0f, 3000.0f, 1, 0, 4, 0, 1.0f, 1 },
     { D_601A880, D_800CBE8C, -1.0f, 100.0f, 3000.0f, 1, 0, 0, 0, 0.0f, 1 },
     { NULL, D_SY_603405C, 0.3f, 100.0f, 3000.0f, 0, 0, 1, 0, 1.0f, 1 },
     { NULL, D_SY_603405C, 0.3f, 100.0f, 3000.0f, 0, 0, 1, 0, 1.0f, 1 },
     { NULL, D_SY_603405C, 0.3f, 100.0f, 3000.0f, 0, 0, 1, 0, 1.0f, 1 },
     { D_SY_6015D60, D_SY_6034124, 2.0f, 100.0f, 3000.0f, 0, 0, 1, 0, 1.0f, 1 },
-    { NULL, D_602C1A0, -1.0f, 1000.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
+    { NULL, D_ZO_602C1A0, -1.0f, 1000.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
     { D_SX_600B540, D_SX_60328E8, -1.0f, 2100.0f, 3001.0f, 0, 0, 0, 0, 0.0f, 1 },
     { D_ENMY_SPACE_4000EC0, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
     { D_ENMY_SPACE_4008D50, D_800CBE8C, 1.5f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
@@ -947,7 +948,7 @@ UnkStruct_D003C D_800D003C[108] = {
     { D_SY_601C6A0, D_800CBF34, -1.0f, 10000.0f, 3001.0f, 0, 0, 1, 0, 0.0f, 1 },
     { D_SY_60188D0, D_SY_603486C, 3.0f, 100.0f, 3001.0f, 0, 0, 1, 0, 0.0f, 1 },
     { NULL, D_800CBEA8, 1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 1.0f, 0 },
-    { NULL, D_602C294, 1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 1.0f, 1 },
+    { NULL, D_ZO_602C294, 1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 1.0f, 1 },
     { NULL, D_601B474, -1.0f, 100.0f, 3000.0f, 2, 0, 0, 0, 0.0f, 1 },
     { NULL, D_800CBF34, -1.0f, 100.0f, 3000.0f, 0, 0, 0, 0, 0.0f, 1 },
     { NULL, D_800CBE8C, 2.0f, 100.0f, 3000.0f, 1, 0, 1, 0, 1.0f, 1 },
@@ -3491,7 +3492,7 @@ void func_80072594(Actor* actor) {
             case 79:
                 if (actor->timer_0C4 == 0) {
                     actor->unk_0B6 += 1;
-                    if (Animation_GetFrameCount(&D_600E5EC) < actor->unk_0B6) {
+                    if (Animation_GetFrameCount(&D_ZO_600E5EC) < actor->unk_0B6) {
                         actor->unk_0B6 = 0;
                     }
                 }
@@ -3979,11 +3980,11 @@ void func_80074FF0(Actor* actor) {
                     break;
 
                 case 52:
-                    Animation_GetFrameData(&D_601F874, actor->unk_0B6, sp114);
+                    Animation_GetFrameData(&D_ZO_601F874, actor->unk_0B6, sp114);
                     sp114[2].z -= actor->fwork[15];
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                     Matrix_Scale(gGfxMatrix, 2.6f, 2.6f, 2.6f, 1);
-                    Animation_DrawSkeleton(1, D_601F920, sp114, NULL, NULL, actor, &gIdentityMatrix);
+                    Animation_DrawSkeleton(1, D_ZO_601F920, sp114, NULL, NULL, actor, &gIdentityMatrix);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
 

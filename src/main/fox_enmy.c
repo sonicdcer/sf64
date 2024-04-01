@@ -12,6 +12,7 @@
 #include "assets/ast_area_6.h"
 #include "assets/ast_training.h"
 #include "assets/ast_versus.h"
+#include "assets/ast_zoness.h"
 
 s32 D_Timer_80161670[4];
 s32 D_80161680;
