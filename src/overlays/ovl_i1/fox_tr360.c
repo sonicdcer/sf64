@@ -144,7 +144,7 @@ void func_i1_80199024(Actor* actor) {
     func_8003088C(actor);
     radarMark = &gRadarMarks[actor->index];
     radarMark->unk_00 = 1;
-    radarMark->unk_02 = actor->unk_0E4;
+    radarMark->unk_02 = actor->aiType;
     radarMark->pos.x = actor->obj.pos.x;
     radarMark->pos.y = actor->obj.pos.y;
     radarMark->pos.z = actor->obj.pos.z;
@@ -194,17 +194,17 @@ void func_i1_8019949C(void) {
                     actor->obj.pos.y = 2000.0f;
                     actor->obj.pos.z = sp38.z;
                     actor->unk_0F4.y = gGameFrameCount * 6.0f;
-                    actor->unk_0E4 = i + 10;
+                    actor->aiType = i + 10;
                     actor->health = 24;
                     actor->unk_0C9 = actor->iwork[11] = 1;
                     actor->timer_0C2 = 30;
                     Object_SetInfo(&actor->info, actor->obj.id);
                     AUDIO_PLAY_SFX(0x3100000C, actor->sfxSource, 4);
                     if ((i + 10) == 10) {
-                        actor->unk_0E6 = 0;
+                        actor->aiIndex = 0;
                         actor->health = 50;
                     } else {
-                        actor->unk_0E6 = -1;
+                        actor->aiIndex = -1;
                         actor->info.action = (ObjectFunc) func_i1_80199024;
                     }
                     break;

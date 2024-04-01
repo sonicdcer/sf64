@@ -1015,7 +1015,7 @@ void Actor_Draw2(Actor* actor) {
                 func_8005F1EC(actor->sfxSource);
                 if (((actor->obj.id == OBJ_ACTOR_198) || ((actor->obj.id == OBJ_ACTOR_203) && (actor->unk_0B6 > 0))) &&
                     (D_80161410 > 0)) {
-                    Matrix_MultVec3f(gGfxMatrix, &sp34, &D_80177E98[actor->unk_0E4]);
+                    Matrix_MultVec3f(gGfxMatrix, &sp34, &D_80177E98[actor->aiType]);
                 }
             }
             if ((actor->timer_0CA[0] != 0) && (D_80161410 > 0)) {
@@ -1047,7 +1047,7 @@ void Actor_Draw1(Actor* actor) {
         Matrix_Pop(&gGfxMatrix);
         var_fv0 = 0.0f;
         var_fv1 = -12000.0f;
-        if ((actor->obj.id == OBJ_ACTOR_197) && (actor->unk_0E4 >= 100)) {
+        if ((actor->obj.id == OBJ_ACTOR_197) && (actor->aiType >= 100)) {
             var_fv0 = 1000.0f;
             var_fv1 = -25000.0f;
         }
@@ -1060,7 +1060,7 @@ void Actor_Draw1(Actor* actor) {
                     actor->info.draw(&actor->obj);
                     D_801615EC = 1;
                     if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) && (actor->obj.id == OBJ_ACTOR_197) &&
-                        (actor->unk_0E4 == 200)) {
+                        (actor->aiType == 200)) {
                         D_80177E98[0] = D_801615E0;
                     }
                 }
@@ -1070,7 +1070,7 @@ void Actor_Draw1(Actor* actor) {
         Matrix_Translate(gGfxMatrix, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1);
         Matrix_MultVec3f(gGfxMatrix, &sp50, &D_801615E0);
         if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_2) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_0) ||
-            ((actor->obj.id == OBJ_ACTOR_197) && (actor->unk_0E4 >= 100)) ||
+            ((actor->obj.id == OBJ_ACTOR_197) && (actor->aiType >= 100)) ||
             ((actor->obj.id == OBJ_ACTOR_195) && (actor->info.bonus != 0))) {
             var_ft5 = var_fv0 = 3000.0f;
             var_fv1 = -29000.0f;
@@ -1093,9 +1093,9 @@ void Actor_Draw1(Actor* actor) {
                         D_801615EC = 1;
                         if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3) &&
                             (((actor->obj.id == OBJ_ACTOR_197) &&
-                              ((actor->unk_0E4 < 4) || (actor->unk_0E4 == 8) || (actor->unk_0E4 == 9))) ||
+                              ((actor->aiType < 4) || (actor->aiType == 8) || (actor->aiType == 9))) ||
                              (actor->obj.id == OBJ_ACTOR_198))) {
-                            D_80177E98[actor->unk_0E4] = D_801615E0;
+                            D_80177E98[actor->aiType] = D_801615E0;
                         }
                     }
                 }
@@ -1284,7 +1284,7 @@ void func_8005EA24(Actor* actor) {
     Matrix_RotateY(gGfxMatrix, (actor->obj.rot.y + 180.0f) * M_DTOR, 1);
     Matrix_RotateZ(gGfxMatrix, actor->obj.rot.z * M_DTOR, 1);
     Matrix_SetGfxMtx(&gMasterDisp);
-    if (actor->unk_0E4 < 4) {
+    if (actor->aiType < 4) {
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 30.0f, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_1032780);
@@ -1294,7 +1294,7 @@ void func_8005EA24(Actor* actor) {
         } else {
             gSPDisplayList(gMasterDisp++, D_600DBC0);
         }
-    } else if ((actor->unk_0E4 < 8) || (gCurrentLevel != LEVEL_FORTUNA)) {
+    } else if ((actor->aiType < 8) || (gCurrentLevel != LEVEL_FORTUNA)) {
         gSPDisplayList(gMasterDisp++, D_STAR_WOLF_F014310);
     } else if (gCurrentLevel == LEVEL_FORTUNA) {
         gSPDisplayList(gMasterDisp++, D_6009F90);

@@ -585,9 +585,9 @@ void func_i4_80194458(Boss* boss, Vec3f* pos, f32 arg2) {
             actor->timer_0BC = 20;
             actor->unk_0F4.y = arg2;
             actor->unk_0F4.x = -30.0f;
-            actor->unk_0E4 = i + 10;
+            actor->aiType = i + 10;
             actor->unk_0B6 = D_i4_8019F198[i - 10];
-            actor->unk_0E6 = D_i4_8019F1C0[i - 10];
+            actor->aiIndex = D_i4_8019F1C0[i - 10];
             actor->health = 24;
             if (actor->unk_0B6 >= 2) {
                 actor->health = 1000;
@@ -1755,8 +1755,8 @@ void func_i4_801981F8(Actor* actor) {
                     actor_it->obj.pos.z = dest.z;
                     actor_it->unk_0F4.y = actor->unk_04E * 18.0f;
                     actor_it->state = 1;
-                    actor_it->unk_0E4 = i + 10;
-                    actor_it->unk_0E6 = D_i4_8019F444[i];
+                    actor_it->aiType = i + 10;
+                    actor_it->aiIndex = D_i4_8019F444[i];
                     actor_it->unk_0F4.x = 3.0f;
                     actor_it->health = 24;
                     if (actor_it->unk_0B6 >= 2) {
@@ -1792,8 +1792,8 @@ void func_i4_8019848C(void) {
     actor->obj.pos.x = 0;
     actor->obj.pos.y = 1000.0f;
     actor->state = 1;
-    actor->unk_0E4 = 9;
-    actor->unk_0E6 = 27;
+    actor->aiType = 9;
+    actor->aiIndex = 27;
     actor->unk_0B6 = 2;
     actor->health = 1000;
     actor->iwork[11] = 1;
@@ -1838,11 +1838,11 @@ void func_i4_80198594(Actor* actor) {
             break;
 
         case 6:
-            gActors[1].unk_0E6 = 0;
+            gActors[1].aiIndex = 0;
             gActors[1].state = 2;
-            gActors[2].unk_0E6 = 0;
+            gActors[2].aiIndex = 0;
             gActors[2].state = 2;
-            gActors[3].unk_0E6 = 0;
+            gActors[3].aiIndex = 0;
             gActors[3].state = 2;
             break;
     }
@@ -1968,26 +1968,26 @@ void func_i4_80198AA0(Actor* actor) {
             state = 1;
             xDist = fabsf(actor->fwork[4] - actor->obj.pos.x);
             yDist = fabsf(actor->fwork[6] - actor->obj.pos.z);
-            if (actor->unk_0E6 < 0) {
+            if (actor->aiIndex < 0) {
                 actor->state = 3;
             } else {
-                if (actor->unk_0E4 >= 10) {
+                if (actor->aiType >= 10) {
                     xPos = __sinf(((actor->index * 45) + gGameFrameCount) * M_DTOR) * 200.0f;
                     yPos = __cosf(((actor->index * 45) + (gGameFrameCount * 2)) * M_DTOR) * 200.0f;
                     zPos = __sinf(((actor->index * 45) + gGameFrameCount) * M_DTOR) * 200.0f;
                 }
-                actor->fwork[4] = gActors[actor->unk_0E6].obj.pos.x + xPos;
-                actor->fwork[5] = gActors[actor->unk_0E6].obj.pos.y + yPos;
-                actor->fwork[6] = gActors[actor->unk_0E6].obj.pos.z + zPos;
-                actor->fwork[1] = gActors[actor->unk_0E6].fwork[0] + 10.0f;
+                actor->fwork[4] = gActors[actor->aiIndex].obj.pos.x + xPos;
+                actor->fwork[5] = gActors[actor->aiIndex].obj.pos.y + yPos;
+                actor->fwork[6] = gActors[actor->aiIndex].obj.pos.z + zPos;
+                actor->fwork[1] = gActors[actor->aiIndex].fwork[0] + 10.0f;
                 if (actor->fwork[1] < 30.0f) {
                     actor->fwork[1] = 30.0f;
                 }
                 actor->fwork[3] = 1.4f;
-                if (actor->unk_0E6 >= 0) {
+                if (actor->aiIndex >= 0) {
                     if (yDist < 800.0f) {
                         if (xDist < 800.0f) {
-                            actor->fwork[1] = gActors[actor->unk_0E6].fwork[0] - 5.0f;
+                            actor->fwork[1] = gActors[actor->aiIndex].fwork[0] - 5.0f;
                         }
                     } else if (actor->timer_0C0 == 0) {
                         actor->timer_0C0 = RAND_INT(200.0f) + 200;
@@ -2005,9 +2005,9 @@ void func_i4_80198AA0(Actor* actor) {
                         actor->iwork[4] = 0;
                     }
 
-                    if ((actor->unk_0E6 > 0) &&
-                        ((gActors[actor->unk_0E6].obj.status == 3) || (gActors[actor->unk_0E6].state == 6) ||
-                         gActors[actor->unk_0E6].obj.status == OBJ_FREE)) {
+                    if ((actor->aiIndex > 0) &&
+                        ((gActors[actor->aiIndex].obj.status == 3) || (gActors[actor->aiIndex].state == 6) ||
+                         gActors[actor->aiIndex].obj.status == OBJ_FREE)) {
                         actor->state = 3;
                     }
                 }
@@ -2038,7 +2038,7 @@ void func_i4_80198AA0(Actor* actor) {
                 actor->fwork[10] = 30.0f;
             }
 
-            if ((actor->unk_0E6 > 0) && (gActors[actor->unk_0E6].obj.status == OBJ_ACTIVE)) {
+            if ((actor->aiIndex > 0) && (gActors[actor->aiIndex].obj.status == OBJ_ACTIVE)) {
                 actor->state = 2;
                 actor->iwork[2] = 0;
             }
@@ -2111,7 +2111,7 @@ void func_i4_80198AA0(Actor* actor) {
         yVel = (-xSin * 200.0f * 0.5f);
         xVel = (xCos * 200.0f * 0.5f);
         zVel = (xCos * 200.0f * 0.5f);
-        func_8006EEFC(actor->unk_0E4, actor->obj.pos.x + ((ySin * xVel) * 1.5f), actor->obj.pos.y + (yVel * 1.5f),
+        func_8006EEFC(actor->aiType, actor->obj.pos.x + ((ySin * xVel) * 1.5f), actor->obj.pos.y + (yVel * 1.5f),
                       actor->obj.pos.z + ((yCos * zVel) * 1.5f), (ySin * (xCos * 200.0f * 0.5f)),
                       (-xSin * 200.0f * 0.5f), (yCos * (xCos * 200.0f * 0.5f)), actor->obj.rot.x, actor->obj.rot.y,
                       actor->obj.rot.z);
@@ -2119,7 +2119,7 @@ void func_i4_80198AA0(Actor* actor) {
     func_8003088C(actor);
     radarMark = &gRadarMarks[actor->index];
     radarMark->unk_00 = 1;
-    radarMark->unk_02 = actor->unk_0E4;
+    radarMark->unk_02 = actor->aiType;
     radarMark->pos.x = actor->obj.pos.x;
     radarMark->pos.y = actor->obj.pos.y;
     radarMark->pos.z = actor->obj.pos.z;
@@ -2143,7 +2143,7 @@ void func_i4_801995B4(Actor* actor) {
         }
     }
 
-    if ((actor->iwork[8] != 0) && (actor->unk_0E4 < 100)) {
+    if ((actor->iwork[8] != 0) && (actor->aiType < 100)) {
         angle = __sinf(actor->iwork[8] * 400.0f * M_DTOR) * actor->iwork[8];
         Matrix_RotateY(gGfxMatrix, M_DTOR * angle, 1);
         Matrix_RotateX(gGfxMatrix, M_DTOR * angle, 1);

@@ -786,7 +786,7 @@ void func_80038140(PlayerShot* shot) {
                     default:
                         if (actor->info.unk_16 != 0) {
                             if (actor->obj.id == OBJ_ACTOR_197) {
-                                if ((actor->unk_0E4 >= 4) && (actor->unk_0E4 < 10) &&
+                                if ((actor->aiType >= 4) && (actor->aiType < 10) &&
                                     (((gCurrentLevel == LEVEL_VENOM_2) && (shot->playerNum < 104)) ||
                                      ((gCurrentLevel != LEVEL_VENOM_2) && (shot->playerNum == 0))) &&
                                     (shot->obj.id != PLAYERSHOT_8) &&

@@ -2480,7 +2480,7 @@ s32 func_8008B774(void) {
             if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].iwork[12] == temp)) {
                 if ((gActors[i].unk_0B4 == 2) || (gActors[i].unk_0B4 == 43) ||
                     ((gActors[i].obj.id == 198) &&
-                     ((gActors[i].unk_0E4 == 1) || (gActors[i].unk_0E4 == 2) || (gActors[i].unk_0E4 == 3)))) {
+                     ((gActors[i].aiType == 1) || (gActors[i].aiType == 2) || (gActors[i].aiType == 3)))) {
                     if (gActors[i].timer_0C6) {
                         ret = 1;
                     } else {
@@ -3855,7 +3855,7 @@ bool func_8009092C(Actor* actor) {
     Boss* boss;
     s32 i = 0;
 
-    if (actor->unk_0E6 != 0) {
+    if (actor->aiIndex != 0) {
         return true;
     }
 
@@ -3864,10 +3864,10 @@ bool func_8009092C(Actor* actor) {
     for (i = 1; i < 4; i++, boss++) {
         if (boss->obj.status == OBJ_ACTIVE) {
             var_s5 = true;
-            if (actor->unk_0E6 == 0) {
-                actor->unk_0E6 = i;
+            if (actor->aiIndex == 0) {
+                actor->aiIndex = i;
             } else if (Rand_ZeroOne() > 0.4f) {
-                actor->unk_0E6 = i;
+                actor->aiIndex = i;
             }
             actor->state = 0;
         }
@@ -3954,9 +3954,9 @@ bool func_80090CCC(Actor* actor) {
     bool ret = false;
 
     if (func_8009092C(actor)) {
-        actor->fwork[6] = gBosses[actor->unk_0E6].obj.pos.z;
-        actor->fwork[5] = gBosses[actor->unk_0E6].obj.pos.y;
-        actor->fwork[4] = gBosses[actor->unk_0E6].obj.pos.x;
+        actor->fwork[6] = gBosses[actor->aiIndex].obj.pos.z;
+        actor->fwork[5] = gBosses[actor->aiIndex].obj.pos.y;
+        actor->fwork[4] = gBosses[actor->aiIndex].obj.pos.x;
     } else {
         actor->fwork[6] = gBosses[0].obj.pos.z;
         actor->fwork[5] = gBosses[0].obj.pos.y;
@@ -3983,9 +3983,9 @@ bool func_80090CCC(Actor* actor) {
         actor->fwork[10] = 30.0f;
     }
 
-    if (gBosses[actor->unk_0E6].obj.status == OBJ_FREE) {
+    if (gBosses[actor->aiIndex].obj.status == OBJ_FREE) {
         actor->state = 1;
-        actor->unk_0E6 = 0;
+        actor->aiIndex = 0;
         actor->iwork[6] = 0;
         ret = true;
     }
@@ -4018,7 +4018,7 @@ s32 func_80090E8C(Actor* actor) {
         }
     }
 
-    if (actor->unk_0E4 == 1) {
+    if (actor->aiType == 1) {
         var_fv1_2 = 3000.0f;
     } else {
         var_fv1_2 = 5000.0f;
@@ -4050,7 +4050,7 @@ bool func_800910C0(Actor* actor) {
     actor->fwork[5] = actor->vwork[28].y;
     actor->fwork[6] = gBosses[0].obj.pos.z + actor->vwork[28].z;
 
-    if (actor->unk_0E4 == 1) {
+    if (actor->aiType == 1) {
         var_fv1 = 1500.0f;
     } else {
         var_fv1 = 3000.0f;
@@ -4079,7 +4079,7 @@ void func_80091254(Actor* actor) {
 bool func_80091298(Actor* actor) {
     actor->fwork[1] = gPlayer[0].unk_0D0 + 10.0f;
     actor->fwork[3] = 3.6f;
-    actor->fwork[4] = gPlayer[0].pos.x + ((f32) (actor->unk_0E4 - 2) * 700.0f);
+    actor->fwork[4] = gPlayer[0].pos.x + ((f32) (actor->aiType - 2) * 700.0f);
     actor->fwork[5] = gPlayer[0].pos.y;
     actor->fwork[6] = gPlayer[0].unk_138;
 
@@ -4096,9 +4096,9 @@ bool func_80091368(Actor* actor) {
             actor->fwork[5] = 20000.0f;
             actor->iwork[1] = 1;
             actor->iwork[5] = 1;
-            gTeamShields[actor->unk_0E4] = 1;
+            gTeamShields[actor->aiType] = 1;
 
-            switch (actor->unk_0E4) {
+            switch (actor->aiType) {
                 case 1:
                     Radio_PlayMessage(gMsg_ID_20220, RCID_FALCO);
                     break;
@@ -4111,7 +4111,7 @@ bool func_80091368(Actor* actor) {
                     Radio_PlayMessage(gMsg_ID_20222, RCID_SLIPPY);
                     break;
             }
-            gTeamShields[actor->unk_0E4] = -1;
+            gTeamShields[actor->aiType] = -1;
             break;
 
         case 1:
@@ -4156,7 +4156,7 @@ void func_800914FC(Actor* actor) {
             break;
     }
 
-    if ((gTeamShields[actor->unk_0E4] <= 0) && (actor->state != 3)) {
+    if ((gTeamShields[actor->aiType] <= 0) && (actor->state != 3)) {
         actor->iwork[5] = 0;
         actor->state = 3;
     }
@@ -4211,7 +4211,7 @@ bool func_800915FC(Actor* actor) {
     boss = &gBosses[0];
 
     y = 650.0f;
-    if (actor->unk_0E4 < 8) {
+    if (actor->aiType < 8) {
         y = 720.0f;
     }
 
@@ -4351,7 +4351,7 @@ bool func_80091DF4(Actor* actor) {
         sp44.y = 0.0f;
         sp44.z = 100.0f;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
-        func_8006EEFC(actor->unk_0E4, actor->obj.pos.x + (sp38.x * 1.5), actor->obj.pos.y + (sp38.y * 1.5),
+        func_8006EEFC(actor->aiType, actor->obj.pos.x + (sp38.x * 1.5), actor->obj.pos.y + (sp38.y * 1.5),
                       actor->obj.pos.z + (sp38.z * 1.5), sp38.x, sp38.y, sp38.z, actor->obj.rot.x, actor->obj.rot.y,
                       actor->obj.rot.z);
     }
@@ -4394,14 +4394,14 @@ bool func_80091F00(Actor* actor) {
     actor->fwork[14] = sp34.y;
     actor->fwork[12] = sp34.z;
 
-    gTeamShields[actor->unk_0E4] = actor->health;
+    gTeamShields[actor->aiType] = actor->health;
 
     if (gRadioState != 0) {
         return false;
     }
 
     if ((actor->unk_0D0 == 3) && (actor->unk_0D4 == 1)) {
-        switch (actor->unk_0E4) {
+        switch (actor->aiType) {
             case 1:
                 Radio_PlayMessage(gMsg_ID_20210, RCID_FALCO);
                 break;
@@ -4415,7 +4415,7 @@ bool func_80091F00(Actor* actor) {
     }
 
     if ((actor->unk_0D0 != 3) && (actor->unk_0D4 == 1)) {
-        switch (actor->unk_0E4) {
+        switch (actor->aiType) {
             case 1:
                 Radio_PlayMessage(gMsg_ID_20060, RCID_FALCO);
                 break;
@@ -4429,7 +4429,7 @@ bool func_80091F00(Actor* actor) {
     }
 
     if ((actor->unk_0D4 == 2) || (actor->unk_0D4 == 100)) {
-        switch (actor->unk_0E4) {
+        switch (actor->aiType) {
             case 1:
                 Radio_PlayMessage(gMsg_ID_20030, RCID_FALCO);
                 break;
@@ -4448,7 +4448,7 @@ bool func_80091F00(Actor* actor) {
 
 void func_80092244(Actor* actor) {
     gRadarMarks[actor->index].unk_00 = 1;
-    gRadarMarks[actor->index].unk_02 = actor->unk_0E4;
+    gRadarMarks[actor->index].unk_02 = actor->aiType;
     gRadarMarks[actor->index].pos.x = actor->obj.pos.x;
     gRadarMarks[actor->index].pos.y = actor->obj.pos.y;
     gRadarMarks[actor->index].pos.z = actor->obj.pos.z;
@@ -4458,15 +4458,15 @@ void func_80092244(Actor* actor) {
 void func_800922F4(Actor* actor) {
     s32 temp;
 
-    if ((gTeamShields[actor->unk_0E4] < 64) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7)) {
+    if ((gTeamShields[actor->aiType] < 64) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_7)) {
         temp = 7;
-        if (gTeamShields[actor->unk_0E4] > 16) {
+        if (gTeamShields[actor->aiType] > 16) {
             temp = 15;
         }
-        if (gTeamShields[actor->unk_0E4] > 32) {
+        if (gTeamShields[actor->aiType] > 32) {
             temp = 31;
         }
-        if (gTeamShields[actor->unk_0E4] > 48) {
+        if (gTeamShields[actor->aiType] > 48) {
             temp = 63;
         }
 
@@ -4689,16 +4689,16 @@ void func_80092D48(Actor* actor) {
     if (gCurrentLevel != LEVEL_TITANIA) {
         actor->fwork[1] = 40.0f;
         actor->fwork[3] = 1.2f;
-        actor->unk_0E4 = (D_800D1970 & 3) + 1;
+        actor->aiType = (D_800D1970 & 3) + 1;
         D_800D1970++;
     } else {
         actor->state = 7;
-        actor->unk_0E4 = 2;
+        actor->aiType = 2;
         actor->iwork[5] = 0;
         gTeamShields[2] = 255;
     }
 
-    actor->iwork[12] = D_800D22A8[actor->unk_0E4 - 1];
+    actor->iwork[12] = D_800D22A8[actor->aiType - 1];
     actor->iwork[11] = 1;
 
     if (gLevelType == LEVELTYPE_PLANET) {
@@ -4711,7 +4711,7 @@ void func_80092D48(Actor* actor) {
         Object_Kill(&actor->obj, actor->sfxSource);
     }
 
-    if (gTeamShields[actor->unk_0E4] <= 0) {
+    if (gTeamShields[actor->aiType] <= 0) {
         Object_Kill(&actor->obj, actor->sfxSource);
     }
 }
@@ -4719,7 +4719,7 @@ void func_80092D48(Actor* actor) {
 void func_80092EC0(Actor* actor) {
     f32 var_fv1;
 
-    actor->health = gTeamShields[actor->unk_0E4];
+    actor->health = gTeamShields[actor->aiType];
 
     switch (actor->unk_048) {
         case 0:

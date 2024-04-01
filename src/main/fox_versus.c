@@ -1998,7 +1998,7 @@ void func_800C26C8(void) {
                 actor->obj.pos.x = dest.x;
                 actor->obj.pos.y = dest.y;
                 actor->obj.pos.z = dest.z;
-                actor->unk_0E4 = i + 10;
+                actor->aiType = i + 10;
                 actor->health = 24;
                 actor->timer_0C2 = 30;
 

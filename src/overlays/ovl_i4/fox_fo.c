@@ -36,17 +36,17 @@ void func_i4_801875F0(Actor* actor) {
                     actorPtr->obj.pos.z = gBosses[0].obj.pos.z;
                     actorPtr->state = 1;
                     actorPtr->timer_0BC = 100;
-                    actorPtr->unk_0E4 = i + 10;
-                    actorPtr->unk_0E6 = -1;
+                    actorPtr->aiType = i + 10;
+                    actorPtr->aiIndex = -1;
 
                     if ((i == 3) && (Rand_ZeroOne() < 0.3f)) {
-                        actorPtr->unk_0E6 = 2;
+                        actorPtr->aiIndex = 2;
                     }
                     if ((i == 4) && (Rand_ZeroOne() < 0.3f)) {
-                        actorPtr->unk_0E6 = 3;
+                        actorPtr->aiIndex = 3;
                     }
                     if ((i == 5) && (Rand_ZeroOne() < 0.3f)) {
-                        actorPtr->unk_0E6 = 1;
+                        actorPtr->aiIndex = 1;
                     }
 
                     actorPtr->unk_0F4.x = 3.0f;
@@ -78,7 +78,7 @@ void func_i4_80187884(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     actor->obj.pos.y = yPos;
     actor->obj.pos.z = zPos;
     actor->obj.id = OBJ_ACTOR_197;
-    actor->unk_0E4 = 4;
+    actor->aiType = 4;
     actor->unk_0C9 = 1;
     actor->state = 0;
     actor->timer_0BC = 10000;
@@ -149,8 +149,8 @@ void func_i4_80187960(Actor* actor) {
     if (D_8015F928 == 8540) {
         Radio_PlayMessage(gMsg_ID_9400, RCID_ROB64);
         Audio_PlaySequence(SEQ_PLAYER_BGM, SEQ_ID_10 | 0x8000, 0, 0);
-        gActors[1].unk_0E6 = gActors[2].unk_0E6 = gActors[3].unk_0E6 = gActors[4].unk_0E6 = gActors[5].unk_0E6 =
-            gActors[6].unk_0E6 = gActors[7].unk_0E6 = -1;
+        gActors[1].aiIndex = gActors[2].aiIndex = gActors[3].aiIndex = gActors[4].aiIndex = gActors[5].aiIndex =
+            gActors[6].aiIndex = gActors[7].aiIndex = -1;
     }
 
     if ((D_800C9B4C < D_8015F928) && (D_8015F928 < 9970) && (D_80177CD0[0] == 0) && (D_80177CD0[1] == 0) &&
@@ -360,11 +360,11 @@ void func_i4_80187960(Actor* actor) {
         case 6:
             actor->iwork[0] += 1;
             if (D_80177930 == 0) {
-                actor1->unk_0E6 = 0;
+                actor1->aiIndex = 0;
                 actor1->state = 2;
-                actor2->unk_0E6 = 0;
+                actor2->aiIndex = 0;
                 actor2->state = 2;
-                actor3->unk_0E6 = 0;
+                actor3->aiIndex = 0;
                 actor3->state = 2;
                 if (actor->iwork[0] == 130) {
                     Vec3f sp50 = { 0.0f, 0.0f, -10000 };
@@ -380,7 +380,7 @@ void func_i4_80187960(Actor* actor) {
                     actor19->state = 4;
                     actor19->unk_0F4.y = player->unk_0E8 + player->unk_114 + 180.0f;
                     actor19->unk_0F4.x = 15.0f;
-                    actor19->unk_0E4 = 0x64;
+                    actor19->aiType = 100;
                     actor19->fwork[1] = 90.0f;
                     actor19->fwork[0] = 90.0f;
                     Object_SetInfo(&actor19->info, actor19->obj.id);

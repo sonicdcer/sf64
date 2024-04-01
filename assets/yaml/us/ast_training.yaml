@@ -9,6 +9,7 @@
       - '#include "sf64object.h"'
       - '#include "structs.h"'
       - '#include "sf64level.h"'
+      - '#include "sf64mesg.h"'
 
 D_TR_6000000:
   { type: TEXTURE, format: IA8, offset: 0x6000000, width: 96, height: 12, ctype: u8, symbol: D_TR_6000000 }

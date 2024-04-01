@@ -9,6 +9,7 @@
       - '#include "sf64object.h"'
       - '#include "structs.h"'
       - '#include "sf64level.h"'
+      - '#include "sf64mesg.h"'
 
 D_versus_3000000:
   { type: TEXTURE, ctype: u8, format: CI4, width:  16, height: 16, offset: 0x3000000, symbol: D_versus_3000000, tlut: 0x3000080 }

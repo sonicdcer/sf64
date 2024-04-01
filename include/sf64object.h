@@ -85,17 +85,17 @@ typedef struct {
 } ObjectInit; // size = 0x14
 
 typedef struct {
-    /* 0x00 */ Gfx* unk_00;
-    /* 0x04 */ f32* unk_04;
-    /* 0x08 */ f32 unk_08;
-    /* 0x0C */ f32 unk_0C;
+    /* 0x00 */ Gfx* dList;
+    /* 0x04 */ f32* hitbox;
+    /* 0x08 */ f32 scale;
+    /* 0x0C */ f32 info_unk_10;
     /* 0x10 */ f32 unk_10;
-    /* 0x14 */ u8 unk_14;
-    /* 0x15 */ u8 unk_15;
-    /* 0x16 */ u8 unk_16;
-    /* 0x17 */ u8 unk_17;
-    /* 0x18 */ f32 unk_18;
-    /* 0x1C */ u8 unk_1C;
+    /* 0x14 */ u8 info_unk_16;
+    /* 0x15 */ u8 info_unk_14;
+    /* 0x16 */ u8 sfx;
+    /* 0x17 */ u8 info_unk_19;
+    /* 0x18 */ f32 info_unk_1C;
+    /* 0x1C */ u8 bonus;
 } UnkStruct_D003C; // size = 0x20
 
 typedef enum ObjectStatus {
@@ -275,8 +275,8 @@ typedef struct {
     /* 0x0D4 */ s16 unk_0D4;
     /* 0x0D6 */ u16 damage;
     /* 0x0D8 */ Vec3f unk_0D8;
-    /* 0x0E4 */ s16 unk_0E4;
-    /* 0x0E6 */ s16 unk_0E6;
+    /* 0x0E4 */ s16 aiType;
+    /* 0x0E6 */ s16 aiIndex;
     /* 0x0E8 */ Vec3f vel;
     /* 0x0F4 */ Vec3f unk_0F4;
     /* 0x100 */ f32 sfxSource[3];
@@ -285,57 +285,6 @@ typedef struct {
     /* 0x114 */ f32 fwork[30];
     /* 0x18C */ Vec3f vwork[30];
 } Actor; // size = 0x2F4
-
-#define EVENT_CMD(opcode, arg1, arg2) ((((opcode) & 0x7F) << 9) | ((arg1) & 0x1FF)), (arg2)
-
-typedef enum EventOpcode {
-    /*   0 */ EVOP_0,
-    /*   1 */ EVOP_1,
-    /*   2 */ EVOP_2,
-    /*   3 */ EVOP_3,
-    /*   4 */ EVOP_4,
-    /*   8 */ EVOP_8 = 8,
-    /*   9 */ EVOP_9,
-    /*  10 */ EVOP_10,
-    /*  11 */ EVOP_11,
-    /*  12 */ EVOP_12,
-    /*  16 */ EVOP_16 = 16,
-    /*  17 */ EVOP_17,
-    /*  18 */ EVOP_18,
-    /*  19 */ EVOP_19,
-    /*  20 */ EVOP_20,
-    /*  21 */ EVOP_21,
-    /*  24 */ EVOP_24 = 24,
-    /*  25 */ EVOP_25,
-    /*  40 */ EVOP_40 = 40,
-    /*  41 */ EVOP_41,
-    /*  42 */ EVOP_42,
-    /*  43 */ EVOP_43,
-    /*  44 */ EVOP_44,
-    /*  45 */ EVOP_45,
-    /*  46 */ EVOP_46,
-    /*  47 */ EVOP_47,
-    /*  48 */ EVOP_48,
-    /*  56 */ EVOP_56 = 56,
-    /*  57 */ EVOP_57,
-    /*  58 */ EVOP_58,
-    /*  59 */ EVOP_59,
-    /*  96 */ EVOP_96 = 96,
-    /* 104 */ EVOP_104 = 104,
-    /* 105 */ EVOP_105,
-    /* 112 */ EVOP_112 = 112,
-    /* 113 */ EVOP_113,
-    /* 116 */ EVOP_116 = 116,
-    /* 118 */ EVOP_118 = 118,
-    /* 119 */ EVOP_119,
-    /* 120 */ EVOP_120, // play message. arg1 is portrait, arg2 is message ID
-    /* 121 */ EVOP_121,
-    /* 122 */ EVOP_122,
-    /* 124 */ EVOP_124 = 124,
-    /* 125 */ EVOP_125,
-    /* 126 */ EVOP_126,
-    /* 127 */ EVOP_127, // stop script
-} EventOpcode;
 
 typedef enum ObjectId {
   /*  -1 */  OBJ_INVALID=-1,

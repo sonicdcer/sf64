@@ -984,73 +984,73 @@ u8 D_800D0DBC[6][4] = {
 };
 
 void func_8006D36C(Actor* actor) {
-    u16** var_v1;
-    u16* temp_s1;
-    u16* temp_v0_4;
+    u16** levelScripts;
+    u16* actorScript;
+    u16* msg;
     u16* test;
     s32 i;
     s32 j;
 
     switch (gCurrentLevel) {
         case LEVEL_VENOM_ANDROSS:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_C037E3C);
+            levelScripts = SEGMENTED_TO_VIRTUAL(D_C037E3C);
             break;
         case LEVEL_CORNERIA:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_CO_603D9E8);
+            levelScripts = SEGMENTED_TO_VIRTUAL(D_CO_603D9E8);
             break;
         case LEVEL_METEO:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_ME_602F3AC);
+            levelScripts = SEGMENTED_TO_VIRTUAL(D_ME_602F3AC);
             break;
         case LEVEL_AQUAS:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_AQ_60308B8);
+            levelScripts = SEGMENTED_TO_VIRTUAL(D_AQ_60308B8);
             break;
         case LEVEL_TITANIA:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_TI_600631C);
+            levelScripts = SEGMENTED_TO_VIRTUAL(D_TI_600631C);
             break;
         case LEVEL_SECTOR_X:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_SX_60320D0);
+            levelScripts = SEGMENTED_TO_VIRTUAL(D_SX_60320D0);
             break;
         case LEVEL_UNK_4:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_A6_60289FC);
+            levelScripts = SEGMENTED_TO_VIRTUAL(D_A6_60289FC);
             break;
         case LEVEL_AREA_6:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_A6_6027F50);
+            levelScripts = SEGMENTED_TO_VIRTUAL(D_A6_6027F50);
             break;
         case LEVEL_SECTOR_Y:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_SY_6032E18);
+            levelScripts = SEGMENTED_TO_VIRTUAL(D_SY_6032E18);
             break;
         case LEVEL_SOLAR:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_SO_600631C);
+            levelScripts = SEGMENTED_TO_VIRTUAL(D_SO_600631C);
             break;
         case LEVEL_ZONESS:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_ZO_602AAC0);
+            levelScripts = SEGMENTED_TO_VIRTUAL(D_ZO_602AAC0);
             break;
         case LEVEL_VENOM_1:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_VE1_601B1E4);
+            levelScripts = SEGMENTED_TO_VIRTUAL(D_VE1_601B1E4);
             break;
         case LEVEL_MACBETH:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_MA_60381D8);
+            levelScripts = SEGMENTED_TO_VIRTUAL(D_MA_60381D8);
             break;
         case LEVEL_TRAINING:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_TR_6009B34);
+            levelScripts = SEGMENTED_TO_VIRTUAL(D_TR_6009B34);
             break;
         default:
-            var_v1 = SEGMENTED_TO_VIRTUAL(D_CO_603D9E8);
+            levelScripts = SEGMENTED_TO_VIRTUAL(D_CO_603D9E8);
             break;
     }
-    temp_s1 = SEGMENTED_TO_VIRTUAL(var_v1[actor->unk_0E4]);
+    actorScript = SEGMENTED_TO_VIRTUAL(levelScripts[actor->aiType]);
 
-    switch (temp_s1[actor->unk_0E6] & 0xFE00) {
-        case EVOP_127 << 9:
+    switch (actorScript[actor->aiIndex] & (0x7F << 9)) {
+        case EVOP_STOP_SCRIPT << 9:
             actor->state = 200;
             if (actor->info.unk_10 > 10000.0f) {
                 actor->info.unk_10 = 100.0f;
             }
             break;
 
-        case EVOP_104 << 9:
+        case EVOP_INIT_ACTOR << 9:
             Audio_KillSfxBySource(actor->sfxSource);
-            actor->unk_0B4 = temp_s1[actor->unk_0E6 + 1];
+            actor->unk_0B4 = actorScript[actor->aiIndex + 1];
 
             if (actor->unk_0B4 == 40) {
                 actor->timer_0C2 = 10000;
@@ -1067,8 +1067,8 @@ void func_8006D36C(Actor* actor) {
                 actor->info.drawType = 2;
             }
 
-            actor->health = temp_s1[actor->unk_0E6] & 0x1FF;
-            actor->unk_0E6 += 2;
+            actor->health = actorScript[actor->aiIndex] & 0x1FF;
+            actor->aiIndex += 2;
 
             if ((actor->unk_0B4 >= 200) && (actor->unk_0B4 < 300)) {
                 actor->unk_046 = 100;
@@ -1122,22 +1122,22 @@ void func_8006D36C(Actor* actor) {
             }
 
             if (actor->unk_0B4 < 200) {
-                actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_800D003C[actor->unk_0B4].unk_04);
-                actor->scale = D_800D003C[actor->unk_0B4].unk_08;
-                actor->info.unk_16 = D_800D003C[actor->unk_0B4].unk_14;
-                actor->info.unk_14 = D_800D003C[actor->unk_0B4].unk_15;
-                actor->info.unk_19 = D_800D003C[actor->unk_0B4].unk_17;
-                actor->info.unk_1C = D_800D003C[actor->unk_0B4].unk_18;
-                actor->info.bonus = D_800D003C[actor->unk_0B4].unk_1C;
+                actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_800D003C[actor->unk_0B4].hitbox);
+                actor->scale = D_800D003C[actor->unk_0B4].scale;
+                actor->info.unk_16 = D_800D003C[actor->unk_0B4].info_unk_16;
+                actor->info.unk_14 = D_800D003C[actor->unk_0B4].info_unk_14;
+                actor->info.unk_19 = D_800D003C[actor->unk_0B4].info_unk_19;
+                actor->info.unk_1C = D_800D003C[actor->unk_0B4].info_unk_1C;
+                actor->info.bonus = D_800D003C[actor->unk_0B4].bonus;
 
                 if (actor->unk_0B4 == 78) {
                     actor->info.damage = 0;
                 }
 
-                actor->info.unk_10 = D_800D003C[actor->unk_0B4].unk_0C;
+                actor->info.unk_10 = D_800D003C[actor->unk_0B4].info_unk_10;
                 actor->fwork[25] = D_800D003C[actor->unk_0B4].unk_10;
 
-                switch (D_800D003C[actor->unk_0B4].unk_16) {
+                switch (D_800D003C[actor->unk_0B4].sfx) {
                     case 1:
                         if (!((gCurrentLevel == LEVEL_SOLAR) || (actor->unk_0B4 == 6) ||
                               ((gCurrentLevel == LEVEL_CORNERIA) && (actor->unk_0B4 == 8)))) {
@@ -1179,20 +1179,20 @@ void func_8006D36C(Actor* actor) {
             break;
 
         case EVOP_105 << 9:
-            actor->iwork[12] = temp_s1[actor->unk_0E6 + 1];
+            actor->iwork[12] = actorScript[actor->aiIndex + 1];
 
             if (actor->iwork[12] < 4) {
                 D_800CFF80[actor->iwork[12]] = actor->index;
             }
 
-            actor->unk_0E6 += 2;
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
 
         case EVOP_113 << 9:
-            actor->iwork[15] = temp_s1[actor->unk_0E6 + 1];
-            actor->iwork[16] = temp_s1[actor->unk_0E6] & 0x1FF;
-            actor->unk_0E6 += 2;
+            actor->iwork[15] = actorScript[actor->aiIndex + 1];
+            actor->iwork[16] = actorScript[actor->aiIndex] & 0x1FF;
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
 
@@ -1204,115 +1204,115 @@ void func_8006D36C(Actor* actor) {
             D_80177E88.x = actor->obj.rot.x;
             D_80177E88.y = actor->obj.rot.y;
             D_80177E88.z = actor->obj.rot.z;
-            actor->unk_0E6 += 2;
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
 
         case EVOP_112 << 9:
-            if (temp_s1[actor->unk_0E6 + 1] == 0xE) {
-                actor->state = 0xA;
+            if (actorScript[actor->aiIndex + 1] == 14) {
+                actor->state = 10;
                 actor->fwork[11] = 0.0f;
-                actor->unk_0E6 += 2;
+                actor->aiIndex += 2;
                 break;
             }
 
-            if (temp_s1[actor->unk_0E6 + 1] == 0xF) {
+            if (actorScript[actor->aiIndex + 1] == 15) {
                 actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_800CBEC4);
-                actor->state = 0xB;
-                actor->unk_0E6 += 2;
+                actor->state = 11;
+                actor->aiIndex += 2;
                 break;
             }
 
-            actor->unk_048 = temp_s1[actor->unk_0E6 + 1];
+            actor->unk_048 = actorScript[actor->aiIndex + 1];
 
             if (actor->unk_048 == 3) {
                 actor->timer_04C = 4;
             }
 
-            if (actor->unk_048 == 0xD) {
-                actor->timer_0BE = 0x32;
+            if (actor->unk_048 == 13) {
+                actor->timer_0BE = 50;
             }
 
-            actor->unk_0E6 += 2;
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
 
         case EVOP_116 << 9:
-            actor->unk_044 = temp_s1[actor->unk_0E6 + 1];
-            actor->unk_0E6 += 2;
+            actor->unk_044 = actorScript[actor->aiIndex + 1];
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
 
         case EVOP_118 << 9:
-            Audio_SetBaseSfxReverb(temp_s1[actor->unk_0E6 + 1]);
-            actor->unk_0E6 += 2;
+            Audio_SetBaseSfxReverb(actorScript[actor->aiIndex + 1]);
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
 
-        case EVOP_120 << 9:
-            temp_v0_4 = Message_PtrFromId(temp_s1[actor->unk_0E6 + 1]);
-            if ((temp_v0_4 != NULL) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3)) {
-                Radio_PlayMessage(temp_v0_4, temp_s1[actor->unk_0E6] & 0x1FF);
+        case EVOP_PLAY_MSG << 9:
+            msg = Message_PtrFromId(actorScript[actor->aiIndex + 1]);
+            if ((msg != NULL) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_3)) {
+                Radio_PlayMessage(msg, actorScript[actor->aiIndex] & 0x1FF);
             }
-            actor->unk_0E6 += 2;
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
 
         case EVOP_119 << 9:
-            if ((D_80161A88 == 2) && (temp_s1[actor->unk_0E6 + 1] != 2)) {
+            if ((D_80161A88 == 2) && (actorScript[actor->aiIndex + 1] != 2)) {
                 Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, 0x1100000B);
             }
-            D_80161A88 = temp_s1[actor->unk_0E6 + 1];
-            actor->unk_0E6 += 2;
+            D_80161A88 = actorScript[actor->aiIndex + 1];
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             actor->obj.status = OBJ_FREE;
             break;
 
         case EVOP_56 << 9:
-            D_800CFF90 = temp_s1[actor->unk_0E6] & 0x1FF;
-            D_80161690 = temp_s1[actor->unk_0E6 + 1];
-            actor->unk_0E6 += 2;
+            D_800CFF90 = actorScript[actor->aiIndex] & 0x1FF;
+            D_80161690 = actorScript[actor->aiIndex + 1];
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
 
         case EVOP_57 << 9:
-            gTeamShields[temp_s1[actor->unk_0E6 + 1]] = 0xFF;
-            actor->unk_0E6 += 2;
+            gTeamShields[actorScript[actor->aiIndex + 1]] = 0xFF;
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
 
         case EVOP_58 << 9:
-            func_8001D2FC(actor->sfxSource, temp_s1[actor->unk_0E6 + 1]);
-            actor->unk_0E6 += 2;
+            func_8001D2FC(actor->sfxSource, actorScript[actor->aiIndex + 1]);
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
 
         case EVOP_59 << 9:
-            func_8001D3A0(actor->sfxSource, temp_s1[actor->unk_0E6 + 1]);
-            actor->unk_0E6 += 2;
+            func_8001D3A0(actor->sfxSource, actorScript[actor->aiIndex + 1]);
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
 
         case EVOP_122 << 9:
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
-            actor->unk_0E6 += 2;
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
 
         case EVOP_121 << 9:
-            if (actor->iwork[12] == temp_s1[actor->unk_0E6 + 1]) {
+            if (actor->iwork[12] == actorScript[actor->aiIndex + 1]) {
                 actor->unk_0D0 = 1;
-                actor->damage = temp_s1[actor->unk_0E6] & 0x1FF;
+                actor->damage = actorScript[actor->aiIndex] & 0x1FF;
                 actor->unk_0D4 = 100;
             } else {
-                gTeamDamage[temp_s1[actor->unk_0E6 + 1]] = temp_s1[actor->unk_0E6] & 0x1FF;
+                gTeamDamage[actorScript[actor->aiIndex + 1]] = actorScript[actor->aiIndex] & 0x1FF;
             }
-            actor->unk_0E6 += 2;
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
 
-        case EVOP_124 << 9:
+        case EVOP_MAKE_TEXLINE << 9:
             actor->iwork[7] = 1;
             for (i = 0; i < ARRAY_COUNT(gTexturedLines); i++) {
                 if (gTexturedLines[i].mode == 0) {
@@ -1321,98 +1321,98 @@ void func_8006D36C(Actor* actor) {
                     gTexturedLines[i].unk_04.x = actor->obj.pos.x - actor->vel.x;
                     gTexturedLines[i].unk_04.y = actor->obj.pos.y - actor->vel.y;
                     gTexturedLines[i].unk_04.z = actor->obj.pos.z - actor->vel.z;
-                    gTexturedLines[i].unk_2C = D_800D0DBC[temp_s1[actor->unk_0E6 + 1]][0];
-                    gTexturedLines[i].unk_2D = D_800D0DBC[temp_s1[actor->unk_0E6 + 1]][1];
-                    gTexturedLines[i].unk_2E = D_800D0DBC[temp_s1[actor->unk_0E6 + 1]][2];
-                    gTexturedLines[i].unk_2F = D_800D0DBC[temp_s1[actor->unk_0E6 + 1]][3];
+                    gTexturedLines[i].unk_2C = D_800D0DBC[actorScript[actor->aiIndex + 1]][0];
+                    gTexturedLines[i].unk_2D = D_800D0DBC[actorScript[actor->aiIndex + 1]][1];
+                    gTexturedLines[i].unk_2E = D_800D0DBC[actorScript[actor->aiIndex + 1]][2];
+                    gTexturedLines[i].unk_2F = D_800D0DBC[actorScript[actor->aiIndex + 1]][3];
                     actor->iwork[8] = i;
                     break;
                 }
             }
-            actor->unk_0E6 += 2;
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
 
-        case EVOP_125 << 9:
+        case EVOP_STOP_TEXLINE << 9:
             actor->iwork[7] = 0;
-            actor->unk_0E6 += 2;
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
 
         case EVOP_40 << 9:
             actor->state = 6;
-            actor->timer_0BC = temp_s1[actor->unk_0E6 + 1];
-            actor->fwork[24] = temp_s1[actor->unk_0E6] & 0x1FF;
-            actor->unk_0E6 += 2;
+            actor->timer_0BC = actorScript[actor->aiIndex + 1];
+            actor->fwork[24] = actorScript[actor->aiIndex] & 0x1FF;
+            actor->aiIndex += 2;
             break;
 
         case EVOP_41 << 9:
             actor->state = 7;
-            actor->timer_0BC = temp_s1[actor->unk_0E6 + 1];
-            actor->fwork[24] = temp_s1[actor->unk_0E6] & 0x1FF;
-            actor->unk_0E6 += 2;
+            actor->timer_0BC = actorScript[actor->aiIndex + 1];
+            actor->fwork[24] = actorScript[actor->aiIndex] & 0x1FF;
+            actor->aiIndex += 2;
             break;
 
         case EVOP_42 << 9:
             actor->state = 8;
-            actor->timer_0BC = temp_s1[actor->unk_0E6 + 1];
-            actor->fwork[24] = temp_s1[actor->unk_0E6] & 0x1FF;
-            actor->unk_0E6 += 2;
+            actor->timer_0BC = actorScript[actor->aiIndex + 1];
+            actor->fwork[24] = actorScript[actor->aiIndex] & 0x1FF;
+            actor->aiIndex += 2;
             break;
 
         case EVOP_43 << 9:
             actor->state = 9;
-            actor->timer_0BC = temp_s1[actor->unk_0E6 + 1];
-            actor->fwork[24] = temp_s1[actor->unk_0E6] & 0x1FF;
-            actor->unk_0E6 += 2;
+            actor->timer_0BC = actorScript[actor->aiIndex + 1];
+            actor->fwork[24] = actorScript[actor->aiIndex] & 0x1FF;
+            actor->aiIndex += 2;
             break;
 
         case EVOP_45 << 9:
             actor->state = 1;
-            actor->iwork[1] = D_800CFF80[temp_s1[actor->unk_0E6] & 0x1FF];
-            actor->fwork[17] = temp_s1[actor->unk_0E6 + 1];
+            actor->iwork[1] = D_800CFF80[actorScript[actor->aiIndex] & 0x1FF];
+            actor->fwork[17] = actorScript[actor->aiIndex + 1];
             actor->timer_0BC = 0;
-            actor->unk_0E6 += 2;
+            actor->aiIndex += 2;
             break;
 
         case EVOP_44 << 9:
             actor->state = 0xD;
-            actor->timer_0BC = temp_s1[actor->unk_0E6 + 1];
-            actor->fwork[24] = temp_s1[actor->unk_0E6] & 0x1FF;
-            actor->unk_0E6 += 2;
+            actor->timer_0BC = actorScript[actor->aiIndex + 1];
+            actor->fwork[24] = actorScript[actor->aiIndex] & 0x1FF;
+            actor->aiIndex += 2;
             break;
 
         case EVOP_46 << 9:
             actor->state = 0xE;
-            actor->timer_0BC = temp_s1[actor->unk_0E6 + 1];
-            actor->fwork[24] = temp_s1[actor->unk_0E6] & 0x1FF;
-            actor->unk_0E6 += 2;
+            actor->timer_0BC = actorScript[actor->aiIndex + 1];
+            actor->fwork[24] = actorScript[actor->aiIndex] & 0x1FF;
+            actor->aiIndex += 2;
             break;
 
         case EVOP_47 << 9:
             actor->state = 0xF;
-            actor->timer_0BC = temp_s1[actor->unk_0E6 + 1];
-            actor->fwork[24] = temp_s1[actor->unk_0E6] & 0x1FF;
-            actor->unk_0E6 += 2;
+            actor->timer_0BC = actorScript[actor->aiIndex + 1];
+            actor->fwork[24] = actorScript[actor->aiIndex] & 0x1FF;
+            actor->aiIndex += 2;
             break;
 
-        case EVOP_96 << 9:
-            actor->iwork[2] = temp_s1[actor->unk_0E6 + 1];
-            actor->iwork[3] = temp_s1[actor->unk_0E6] & 0x1FF;
-            actor->unk_0E6 += 2;
+        case EVOP_BRANCH << 9:
+            actor->iwork[2] = actorScript[actor->aiIndex + 1];
+            actor->iwork[3] = actorScript[actor->aiIndex] & 0x1FF;
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
 
-        case EVOP_126 << 9:
-            if (temp_s1[actor->unk_0E6 + 1] < actor->iwork[0]) {
-                actor->unk_0E6 += 2;
+        case EVOP_LOOP << 9:
+            if (actorScript[actor->aiIndex + 1] < actor->iwork[0]) {
+                actor->aiIndex += 2;
                 actor->iwork[0] = 0;
-            } else if ((temp_s1[actor->unk_0E6] & 0x1FF) < 200) {
-                actor->unk_0E6 = (temp_s1[actor->unk_0E6] & 0x1FF) * 2;
+            } else if ((actorScript[actor->aiIndex] & 0x1FF) < 200) {
+                actor->aiIndex = (actorScript[actor->aiIndex] & 0x1FF) * 2;
                 actor->iwork[0]++;
             } else {
-                actor->unk_0E4 = (temp_s1[actor->unk_0E6] & 0x1FF) - 200;
-                actor->unk_0E6 = 0;
+                actor->aiType = (actorScript[actor->aiIndex] & 0x1FF) - 200;
+                actor->aiIndex = 0;
                 actor->iwork[0] = 0;
             }
             func_8006D36C(actor);
@@ -1420,131 +1420,131 @@ void func_8006D36C(Actor* actor) {
 
         case EVOP_48 << 9:
             actor->state = 1;
-            actor->timer_0BC = temp_s1[actor->unk_0E6 + 1];
-            actor->unk_0E6 += 2;
+            actor->timer_0BC = actorScript[actor->aiIndex + 1];
+            actor->aiIndex += 2;
             break;
 
-        case EVOP_0 << 9:
-            actor->fwork[0] = temp_s1[actor->unk_0E6] & 0x7F;
+        case EVOP_SET_SPEED << 9:
+            actor->fwork[0] = actorScript[actor->aiIndex] & 0x7F;
             actor->fwork[1] = actor->fwork[0];
-            actor->iwork[5] = temp_s1[actor->unk_0E6] & 0x180;
-            actor->timer_0BC = temp_s1[actor->unk_0E6 + 1];
+            actor->iwork[5] = actorScript[actor->aiIndex] & 0x180;
+            actor->timer_0BC = actorScript[actor->aiIndex + 1];
             actor->state = 1;
-            actor->unk_0E6 += 2;
+            actor->aiIndex += 2;
             break;
 
         case EVOP_2 << 9:
-            actor->fwork[22] = temp_s1[actor->unk_0E6 + 1] & 0xFF;
-            actor->unk_0E6 += 2;
+            actor->fwork[22] = actorScript[actor->aiIndex + 1] & 0xFF;
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
 
-        case EVOP_1 << 9:
-            actor->fwork[1] = temp_s1[actor->unk_0E6] & 0x7F;
-            actor->iwork[5] = temp_s1[actor->unk_0E6] & 0x180;
-            actor->timer_0BC = temp_s1[actor->unk_0E6 + 1];
+        case EVOP_SET_ACCEL << 9:
+            actor->fwork[1] = actorScript[actor->aiIndex] & 0x7F;
+            actor->iwork[5] = actorScript[actor->aiIndex] & 0x180;
+            actor->timer_0BC = actorScript[actor->aiIndex + 1];
             actor->state = 1;
-            actor->unk_0E6 += 2;
+            actor->aiIndex += 2;
             break;
 
         case EVOP_4 << 9:
-            actor->timer_0C0 = temp_s1[actor->unk_0E6 + 1];
+            actor->timer_0C0 = actorScript[actor->aiIndex + 1];
             actor->iwork[13] = 1;
-            actor->unk_0E6 += 2;
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
 
         case EVOP_8 << 9:
             actor->iwork[13] = 0;
-            actor->unk_0E6 += 2;
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
 
         case EVOP_9 << 9:
             actor->state = 2;
-            actor->fwork[2] = temp_s1[actor->unk_0E6] & 0x1FF;
-            actor->fwork[3] = temp_s1[actor->unk_0E6 + 1] * 0.1f;
-            actor->unk_0E6 += 2;
+            actor->fwork[2] = actorScript[actor->aiIndex] & 0x1FF;
+            actor->fwork[3] = actorScript[actor->aiIndex + 1] * 0.1f;
+            actor->aiIndex += 2;
             break;
 
         case EVOP_10 << 9:
             actor->state = 3;
-            actor->fwork[2] = temp_s1[actor->unk_0E6] & 0x1FF;
-            actor->fwork[3] = temp_s1[actor->unk_0E6 + 1] * 0.1f;
-            actor->unk_0E6 += 2;
+            actor->fwork[2] = actorScript[actor->aiIndex] & 0x1FF;
+            actor->fwork[3] = actorScript[actor->aiIndex + 1] * 0.1f;
+            actor->aiIndex += 2;
             break;
 
         case EVOP_11 << 9:
             actor->state = 4;
-            actor->fwork[2] = temp_s1[actor->unk_0E6] & 0x1FF;
-            actor->fwork[3] = temp_s1[actor->unk_0E6 + 1] * 0.1f;
-            actor->unk_0E6 += 2;
+            actor->fwork[2] = actorScript[actor->aiIndex] & 0x1FF;
+            actor->fwork[3] = actorScript[actor->aiIndex + 1] * 0.1f;
+            actor->aiIndex += 2;
             break;
 
         case EVOP_12 << 9:
             actor->state = 5;
-            actor->fwork[2] = temp_s1[actor->unk_0E6] & 0x1FF;
-            actor->fwork[3] = temp_s1[actor->unk_0E6 + 1] * 0.1f;
-            actor->unk_0E6 += 2;
+            actor->fwork[2] = actorScript[actor->aiIndex] & 0x1FF;
+            actor->fwork[3] = actorScript[actor->aiIndex + 1] * 0.1f;
+            actor->aiIndex += 2;
             break;
 
         case EVOP_16 << 9:
-            actor->fwork[4] = temp_s1[actor->unk_0E6] & 0x1FF;
-            actor->fwork[5] = temp_s1[actor->unk_0E6 + 1] * 0.1f;
+            actor->fwork[4] = actorScript[actor->aiIndex] & 0x1FF;
+            actor->fwork[5] = actorScript[actor->aiIndex + 1] * 0.1f;
             actor->fwork[6] = 1.0f;
-            actor->unk_0E6 += 2;
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
 
         case EVOP_17 << 9:
-            actor->fwork[4] = temp_s1[actor->unk_0E6] & 0x1FF;
-            actor->fwork[5] = temp_s1[actor->unk_0E6 + 1] * 0.1f;
+            actor->fwork[4] = actorScript[actor->aiIndex] & 0x1FF;
+            actor->fwork[5] = actorScript[actor->aiIndex + 1] * 0.1f;
             actor->fwork[6] = -1.0f;
-            actor->unk_0E6 += 2;
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
 
         case EVOP_18 << 9:
-            actor->fwork[7] = temp_s1[actor->unk_0E6] & 0x1FF;
-            actor->fwork[8] = temp_s1[actor->unk_0E6 + 1] * 0.1f;
+            actor->fwork[7] = actorScript[actor->aiIndex] & 0x1FF;
+            actor->fwork[8] = actorScript[actor->aiIndex + 1] * 0.1f;
             actor->fwork[9] = 1.0f;
-            actor->unk_0E6 += 2;
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
 
         case EVOP_19 << 9:
-            actor->fwork[7] = temp_s1[actor->unk_0E6] & 0x1FF;
-            actor->fwork[8] = temp_s1[actor->unk_0E6 + 1] * 0.1f;
+            actor->fwork[7] = actorScript[actor->aiIndex] & 0x1FF;
+            actor->fwork[8] = actorScript[actor->aiIndex + 1] * 0.1f;
             actor->fwork[9] = -1.0f;
-            actor->unk_0E6 += 2;
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
 
         case EVOP_20 << 9:
-            actor->fwork[10] = temp_s1[actor->unk_0E6] & 0x1FF;
-            actor->fwork[11] = temp_s1[actor->unk_0E6 + 1] * 0.1f;
+            actor->fwork[10] = actorScript[actor->aiIndex] & 0x1FF;
+            actor->fwork[11] = actorScript[actor->aiIndex + 1] * 0.1f;
             actor->fwork[12] = 1.0f;
-            actor->unk_0E6 += 2;
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
 
         case EVOP_21 << 9:
-            actor->fwork[10] = temp_s1[actor->unk_0E6] & 0x1FF;
-            actor->fwork[11] = temp_s1[actor->unk_0E6 + 1] * 0.1f;
+            actor->fwork[10] = actorScript[actor->aiIndex] & 0x1FF;
+            actor->fwork[11] = actorScript[actor->aiIndex + 1] * 0.1f;
             actor->fwork[12] = -1.0f;
-            actor->unk_0E6 += 2;
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
 
-        case EVOP_24 << 9:
+        case EVOP_SET_ROTATE << 9:
             actor->iwork[6] = 1;
-            actor->unk_0E6 += 2;
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
 
-        case EVOP_25 << 9:
+        case EVOP_STOP_ROTATE << 9:
             actor->iwork[6] = 0;
-            actor->unk_0E6 += 2;
+            actor->aiIndex += 2;
             func_8006D36C(actor);
             break;
     }
@@ -2245,13 +2245,13 @@ void func_80070BA8(Actor* actor) {
 
 void func_80070CEC(Actor* actor) {
     if (actor->iwork[3] < 200) {
-        actor->unk_0E6 = actor->iwork[3] * 2;
+        actor->aiIndex = actor->iwork[3] * 2;
         actor->iwork[0] = 0;
         actor->iwork[2] = 0;
         func_8006D36C(actor);
     } else {
-        actor->unk_0E4 = actor->iwork[3] - 200;
-        actor->unk_0E6 = 0;
+        actor->aiType = actor->iwork[3] - 200;
+        actor->aiIndex = 0;
         actor->iwork[0] = 0;
         actor->iwork[2] = 0;
         func_8006D36C(actor);
@@ -2278,239 +2278,239 @@ void func_80070D44(Actor* actor) {
     }
 
     switch (actor->iwork[2]) {
-        case 0:
+        case EVC_0:
             break;
 
-        case 1:
+        case EVC_1:
             if ((gActors[actor->iwork[1]].obj.status != OBJ_ACTIVE) || (gActors[actor->iwork[1]].health <= 0) ||
-                (actor->iwork[10] != gActors[actor->iwork[1]].unk_0E4)) {
+                (actor->iwork[10] != gActors[actor->iwork[1]].aiType)) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 2:
+        case EVC_2:
             if (var_v1 == 3) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 3:
+        case EVC_3:
             if (var_v1 == 2) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 4:
+        case EVC_4:
             if (var_v1 == 1) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 5:
+        case EVC_5:
             if (var_v1 == 0) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 6:
+        case EVC_6:
             if (gTeamShields[1] > 0) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 7:
+        case EVC_7:
             if (gTeamShields[3] > 0) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 8:
+        case EVC_8:
             if (gTeamShields[2] > 0) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 9:
+        case EVC_9:
             if (((actor->obj.pos.x - gPlayer[0].pos.x) <= 100.0f) && ((actor->obj.pos.x - gPlayer[0].pos.x) >= 0.0f)) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 10:
+        case EVC_10:
             if (((actor->obj.pos.x - gPlayer[0].pos.x) <= 400.0f) && ((actor->obj.pos.x - gPlayer[0].pos.x) >= 0.0f)) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 11:
+        case EVC_11:
             if (((actor->obj.pos.x - gPlayer[0].pos.x) <= 700.0f) && ((actor->obj.pos.x - gPlayer[0].pos.x) >= 0.0f)) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 12:
+        case EVC_12:
             if (((actor->obj.pos.x - gPlayer[0].pos.x) <= 200.0f) && ((actor->obj.pos.x - gPlayer[0].pos.x) >= 0.0f)) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 13:
+        case EVC_13:
             if (((actor->obj.pos.x - gPlayer[0].pos.x) >= -100.0f) && ((actor->obj.pos.x - gPlayer[0].pos.x) <= 0.0f)) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 14:
+        case EVC_14:
             if (((actor->obj.pos.x - gPlayer[0].pos.x) >= -400.0f) && ((actor->obj.pos.x - gPlayer[0].pos.x) <= 0.0f)) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 15:
+        case EVC_15:
             if (((actor->obj.pos.x - gPlayer[0].pos.x) >= -700.0f) && ((actor->obj.pos.x - gPlayer[0].pos.x) <= 0.0f)) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 16:
+        case EVC_16:
             if (((actor->obj.pos.x - gPlayer[0].pos.x) >= -200.0f) && ((actor->obj.pos.x - gPlayer[0].pos.x) <= 0.0f)) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 17:
+        case EVC_17:
             if (((actor->obj.pos.y - gPlayer[0].pos.y) <= 100.0f) && ((actor->obj.pos.y - gPlayer[0].pos.y) >= 0.0f)) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 18:
+        case EVC_18:
             if (((actor->obj.pos.y - gPlayer[0].pos.y) <= 400.0f) && ((actor->obj.pos.y - gPlayer[0].pos.y) >= 0.0f)) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 19:
+        case EVC_19:
             if (((actor->obj.pos.y - gPlayer[0].pos.y) <= 700.0f) && ((actor->obj.pos.y - gPlayer[0].pos.y) >= 0.0f)) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 20:
+        case EVC_20:
             if (((actor->obj.pos.y - gPlayer[0].pos.y) <= 200.0f) && ((actor->obj.pos.y - gPlayer[0].pos.y) >= 0.0f)) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 21:
+        case EVC_21:
             if (((actor->obj.pos.y - gPlayer[0].pos.y) >= -100.0f) && ((actor->obj.pos.y - gPlayer[0].pos.y) <= 0.0f)) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 22:
+        case EVC_22:
             if (((actor->obj.pos.y - gPlayer[0].pos.y) >= -400.0f) && ((actor->obj.pos.y - gPlayer[0].pos.y) <= 0.0f)) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 23:
+        case EVC_23:
             if (((actor->obj.pos.y - gPlayer[0].pos.y) >= -700.0f) && ((actor->obj.pos.y - gPlayer[0].pos.y) <= 0.0f)) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 24:
+        case EVC_24:
             if (((actor->obj.pos.y - gPlayer[0].pos.y) >= -200.0f) && ((actor->obj.pos.y - gPlayer[0].pos.y) <= 0.0f)) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 25:
+        case EVC_25:
             if (gPlayer[0].shields >= Play_GetMaxShields()) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 26:
+        case EVC_26:
             if (gPlayer[0].shields >= (Play_GetMaxShields() * 3 / 4)) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 27:
+        case EVC_27:
             if (gPlayer[0].shields >= (Play_GetMaxShields() / 2)) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 28:
+        case EVC_28:
             if (gPlayer[0].shields >= (Play_GetMaxShields() / 4)) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 29:
+        case EVC_29:
             if (gPlayer[0].shields == 0) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 30:
+        case EVC_30:
             if (gPlayer[0].unk_270 >= 5) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 31:
+        case EVC_31:
             if (gPlayer[0].unk_270 != 0) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 32:
+        case EVC_32:
             if (gPlayer[0].unk_270 == 0) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 33:
+        case EVC_33:
             if (gPlayer[0].unk_250 >= 16.8f) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 34:
+        case EVC_34:
             if (gPlayer[0].unk_250 <= 8.4f) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 35:
+        case EVC_35:
             if (gPlayer[0].wings.unk_14 > -8.0f) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 36:
+        case EVC_36:
             if ((gPlayer[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == LASERS_TWIN)) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 37:
+        case EVC_37:
             if ((gPlayer[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == LASERS_HYPER)) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 38:
+        case EVC_38:
             if ((gPlayer[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == LASERS_UNK_3)) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 39:
+        case EVC_39:
             for (i = 0; i < ARRAY_COUNT(gPlayerShots); i++) {
                 if ((gPlayerShots[i].obj.status == 1) &&
                     (fabsf(actor->obj.pos.x - gPlayerShots[i].obj.pos.x) < 150.0f) &&
@@ -2522,7 +2522,7 @@ void func_80070D44(Actor* actor) {
             }
             break;
 
-        case 40:
+        case EVC_40:
             for (i = 0; i < ARRAY_COUNT(gPlayerShots); i++) {
                 if ((gPlayerShots[i].obj.status == 1) &&
                     (fabsf(actor->obj.pos.x - gPlayerShots[i].obj.pos.x) < 300.0f) &&
@@ -2534,14 +2534,14 @@ void func_80070D44(Actor* actor) {
             }
             break;
 
-        case 41:
+        case EVC_41:
             if ((gActors[actor->iwork[9]].obj.status != OBJ_ACTIVE) ||
                 ((gActors[actor->iwork[9]].scale < 0.0f) && (actor->health <= 0))) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 42:
+        case EVC_42:
             for (i = 0; i < ARRAY_COUNT(gActors); i++) {
                 if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].obj.id == OBJ_ACTOR_200) &&
                     (gActors[i].iwork[13] != 0) && (i != actor->index) && (actor->index == gActors[i].iwork[9])) {
@@ -2551,7 +2551,7 @@ void func_80070D44(Actor* actor) {
             func_80070CEC(actor);
             break;
 
-        case 43:
+        case EVC_43:
             for (i = 0; i < ARRAY_COUNT(gActors); i++) {
                 if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].obj.id == OBJ_ACTOR_200) &&
                     (gActors[i].iwork[13] != 0) && (i != actor->index) && (actor->index == gActors[i].iwork[9])) {
@@ -2561,13 +2561,13 @@ void func_80070D44(Actor* actor) {
             }
             break;
 
-        case 44:
+        case EVC_44:
             if (actor->unk_0D0 != 0) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 45:
+        case EVC_45:
             var_v1_4 = 7;
             switch (gCurrentLevel) {
                 case LEVEL_CORNERIA:
@@ -2585,7 +2585,7 @@ void func_80070D44(Actor* actor) {
             }
             break;
 
-        case 46:
+        case EVC_46:
             for (i = 0, otherActor = gActors; i < ARRAY_COUNT(gActors); i++, otherActor++) {
                 if (((otherActor->obj.status == OBJ_DYING) || (otherActor->obj.status == OBJ_FREE)) &&
                     (otherActor->iwork[15] == actor->iwork[15]) && (otherActor->iwork[16] != 0)) {
@@ -2594,7 +2594,7 @@ void func_80070D44(Actor* actor) {
             }
             break;
 
-        case 47:
+        case EVC_47:
             if (gControllerPress[gMainController].button & R_CBUTTONS) {
                 func_8001AF40(0);
                 D_800CFF90 = 0;
@@ -2603,121 +2603,121 @@ void func_80070D44(Actor* actor) {
             }
             break;
 
-        case 48:
+        case EVC_48:
             if ((gPlayer[0].wings.rightState <= WINGSTATE_BROKEN) || (gPlayer[0].wings.leftState <= WINGSTATE_BROKEN)) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 49:
+        case EVC_49:
             if (D_800D3180[LEVEL_METEO] != 0) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 50:
+        case EVC_50:
             if (D_800D3180[LEVEL_FORTUNA] != 0) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 51:
+        case EVC_51:
             if (D_800D3180[LEVEL_SECTOR_X] != 0) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 52:
+        case EVC_52:
             if (D_800D3180[LEVEL_TITANIA] != 0) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 53:
+        case EVC_53:
             if (D_800D3180[LEVEL_BOLSE] != 0) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 54:
+        case EVC_54:
             if (D_800D3180[LEVEL_SECTOR_Y] != 0) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 55:
+        case EVC_55:
             if (D_800D3180[LEVEL_KATINA] != 0) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 56:
+        case EVC_56:
             if (D_800D3180[LEVEL_SOLAR] != 0) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 57:
+        case EVC_57:
             if (D_800D3180[LEVEL_MACBETH] != 0) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 58:
+        case EVC_58:
             if (D_800D3180[LEVEL_AQUAS] != 0) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 59:
+        case EVC_59:
             if (D_800D3180[LEVEL_ZONESS] != 0) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 60:
+        case EVC_60:
             if (D_800D3180[LEVEL_SECTOR_Z] != 0) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 61:
+        case EVC_61:
             if (D_800D3180[LEVEL_AREA_6] != 0) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 62:
+        case EVC_62:
             if (D_Timer_80161670[actor->iwork[12]] == 0) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 63:
+        case EVC_63:
             if (D_Timer_80161670[actor->iwork[12]] != 0) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 64:
+        case EVC_64:
             if (D_80161684 != 0) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 65:
+        case EVC_65:
             if (gHitCount >= 30) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 66:
+        case EVC_66:
             if (gHitCount >= 80) {
                 func_80070CEC(actor);
             }
             break;
 
-        case 67:
+        case EVC_67:
             if (gExpertMode) {
                 func_80070CEC(actor);
             }
@@ -3818,12 +3818,12 @@ void func_80074FF0(Actor* actor) {
             gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, (s32) actor->fwork[15], (s32) actor->fwork[16],
                             (s32) actor->fwork[17], 255);
-            gSPDisplayList(gMasterDisp++, D_800D003C[actor->unk_0B4].unk_00);
+            gSPDisplayList(gMasterDisp++, D_800D003C[actor->unk_0B4].dList);
             gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
             break;
         default:
-            if ((actor->unk_0B4 < 200) && (D_800D003C[actor->unk_0B4].unk_00 != NULL)) {
-                gSPDisplayList(gMasterDisp++, D_800D003C[actor->unk_0B4].unk_00);
+            if ((actor->unk_0B4 < 200) && (D_800D003C[actor->unk_0B4].dList != NULL)) {
+                gSPDisplayList(gMasterDisp++, D_800D003C[actor->unk_0B4].dList);
             }
 
             switch (actor->unk_0B4) {
@@ -4216,7 +4216,7 @@ void func_800763A4(Actor* actor) {
                     func_8007D2C8(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y, actor->obj.pos.z - actor->vel.z,
                                   actor->scale * 3.0f);
 
-                    if ((actor->obj.id == OBJ_ACTOR_197) && (actor->unk_0E4 < 8)) {
+                    if ((actor->obj.id == OBJ_ACTOR_197) && (actor->aiType < 8)) {
                         func_8007A6F0(&actor->obj.pos, 0x2903B009);
                     } else {
                         func_8007A6F0(&actor->obj.pos, 0x2903A008);
@@ -4281,7 +4281,7 @@ void func_800763A4(Actor* actor) {
 
                     actor->timer_0BE = 2;
 
-                    if ((actor->obj.id == OBJ_ACTOR_197) && (actor->unk_0E4 < 8)) {
+                    if ((actor->obj.id == OBJ_ACTOR_197) && (actor->aiType < 8)) {
                         func_8007A6F0(&actor->obj.pos, 0x2903B009);
                     } else {
                         func_8007A6F0(&actor->obj.pos, 0x2903A008);
@@ -4319,7 +4319,7 @@ void func_800763A4(Actor* actor) {
 
             actor->timer_0BE = 2;
 
-            if ((actor->obj.id == OBJ_ACTOR_197) && (actor->unk_0E4 < 8)) {
+            if ((actor->obj.id == OBJ_ACTOR_197) && (actor->aiType < 8)) {
                 func_8007A6F0(&actor->obj.pos, 0x2903B009);
             } else {
                 func_8007A6F0(&actor->obj.pos, 0x2903A008);

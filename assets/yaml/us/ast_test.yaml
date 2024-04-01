@@ -9,6 +9,7 @@
       - '#include "sf64object.h"'
       - '#include "structs.h"'
       - '#include "sf64level.h"'
+      - '#include "sf64mesg.h"'
 
 D_6014FEC:
   {type: SF64:COLPOLY, count: 250, offset: 0x6014FEC, symbol: D_6014FEC, mesh_symbol: D_OFFSET}
