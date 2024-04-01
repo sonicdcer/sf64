@@ -1,6 +1,4 @@
-#include "prevent_bss_reordering.h"
 #include "global.h"
-#include "prevent_bss_reordering.h"
 #include "assets/ast_macbeth.h"
 #include "assets/ast_landmaster.h"
 #include "assets/ast_enmy_planet.h"

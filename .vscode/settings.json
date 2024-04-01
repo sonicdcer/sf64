@@ -125,7 +125,8 @@
     "ast_zoness.h": "c",
     "ast_solar.h": "c",
     "ast_ve1_boss.h": "c",
-    "ast_arwing.h": "c"
+    "ast_arwing.h": "c",
+    "ast_ending_award_back.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }

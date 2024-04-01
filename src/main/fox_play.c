@@ -1,4 +1,3 @@
-// #include "prevent_bss_reordering2.h"
 #include "global.h"
 #include "fox_map.h"
 #include "assets/ast_corneria.h"

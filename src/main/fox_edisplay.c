@@ -1,12 +1,5 @@
 
 #include "global.h"
-#include "prevent_bss_reordering.h"
-Vec3f D_801615D0;
-Vec3f D_801615E0;
-s32 D_801615EC;
-Matrix D_801615F0;
-WingInfo D_80161630;
-
 #include "fox_edisplay_assets.h"
 #include "assets/ast_katina.h"
 #include "assets/ast_venom_2.h"
@@ -26,6 +19,12 @@ WingInfo D_80161630;
 #include "assets/ast_enmy_planet.h"
 #include "assets/ast_ve1_boss.h"
 #include "assets/ast_zoness.h"
+
+Vec3f D_801615D0;
+Vec3f D_801615E0;
+s32 D_801615EC;
+Matrix D_801615F0;
+WingInfo D_80161630;
 
 char D_800CF970[] = "$Id: fox_edisplay.c,v 1.196 1997/05/08 08:31:50 morita Exp $";
 

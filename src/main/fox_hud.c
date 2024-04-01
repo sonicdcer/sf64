@@ -1,11 +1,4 @@
-// #include "prevent_bss_reordering.h"
 #include "sf64math.h"
-// BSS section range:
-// D_801616A0 <==> D_80161910
-
-// BSS SECTION START
-
-// placed before global.h for reordering reasons
 
 typedef struct {
     /* 0x00 */ u8* unk_00;
@@ -27,17 +20,16 @@ s32 D_80161704;
 s32 D_80161708;
 s32 D_8016170C;
 s32 D_80161710;
-s32 gTotalHits; // 0x80161714
+s32 gTotalHits;
 s32 D_80161718;
 s32 D_8016171C;
 f32 D_80161720[3];
 s32 D_8016172C;
 s32 D_80161730;
-s32 gShowBossHealth; // 0x80161734
+s32 gShowBossHealth;
 s32 D_80161738[4];
 s32 D_80161748[4];
 s32 D_80161758;
-// gap = 0x4 bytes, probably padding
 s32 D_80161760[4];
 f32 D_80161770;
 f32 D_80161774;
@@ -56,9 +48,8 @@ f32 D_801617A4;
 f32 D_801617A8;
 f32 D_801617AC;
 s32 D_801617B0;
-s32 gMedalStatus;     // 0x801617B4
-s32 gMedalFlashTimer; // 0x801617B8
-// gap = 0x4 bytes, probably padding
+s32 gMedalStatus;
+s32 gMedalFlashTimer;
 s32 D_801617C0[10];
 s32 D_801617E8[10];
 s32 D_80161810[10];
@@ -66,8 +57,6 @@ s32 D_80161838[10];
 s32 D_80161860[20];
 f32 D_801618B0[20];
 s32 D_80161900[20];
-
-// BSS SECTION END
 
 #include "global.h"
 
@@ -98,8 +87,6 @@ s32 D_80161900[20];
 
 void func_80087788(void);
 
-// Segmented addresses
-
 extern u8 D_ME_6000000[];
 extern u8 D_KA_6000000[];
 extern u8 D_SO_6000000[];
@@ -107,8 +94,6 @@ extern u8 D_ZO_6000000[];
 extern u8 D_BO_6000000[];
 extern u8 D_VE1_6000D80[];
 extern u8 D_VE2_60012D0[];
-
-// DATA SECTION START
 
 s16 D_800D1970 = 0;
 

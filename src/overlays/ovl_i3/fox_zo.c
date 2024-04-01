@@ -1,4 +1,3 @@
-#include "prevent_bss_reordering.h"
 #include "global.h"
 #include "assets/ast_enmy_planet.h"
 #include "assets/ast_zoness.h"

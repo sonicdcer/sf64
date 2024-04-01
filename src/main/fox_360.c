@@ -1,4 +1,3 @@
-#include "prevent_bss_reordering.h"
 #include "global.h"
 #include "assets/ast_katina.h"
 #include "assets/ast_venom_2.h"
