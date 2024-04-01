@@ -51,15 +51,18 @@ D_BO_6006AD0:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x6006AD0, symbol: D_BO_6006AD0 }
 
 D_BO_6006ED0:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 128, offset: 0x06006ED0, symbol: D_BO_6006ED0 }
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 64, offset: 0x06006ED0, symbol: D_BO_6006ED0 }
+
+D_BO_6006F50:
+  { type: TEXTURE, format: RGBA16, offset: 0x06006F50, width: 4, height: 16, ctype: u16, symbol: D_BO_6006F50 }
 
 D_BO_6006FD0:
   { type: TEXTURE, format: RGBA16, offset: 0x06006FD0, width: 32, height: 32, ctype: u16, symbol: D_BO_6006FD0 }
 
-D_BO_60077D0: # guessed
+D_BO_60077D0:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x60077D0, symbol: D_BO_60077D0 }
 
-D_BO_6007BD0: # guessed
+D_BO_6007BD0:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 64, offset: 0x06007BD0, symbol: D_BO_6007BD0 }
 
 D_BO_6007DF8:
@@ -67,16 +70,20 @@ D_BO_6007DF8:
 
 D_BO_6008440:
   { type: TEXTURE, format: RGBA16, offset: 0x06008440, width: 16, height: 16, ctype: u16, symbol: D_BO_6008440 }
-      
+
+# Unused Animation
 D_BO_6008668: 
   { type: SF64:ANIM, offset: 0x6008668, symbol: D_BO_6008668 }
-      
+
+# Unused Skeleton
 D_BO_60086B4: 
   { type: SF64:SKELETON, offset: 0x60086B4, symbol: D_BO_60086B4 }
-  
+
+# Unused Animation
 D_BO_60086F4: 
   { type: SF64:ANIM, offset: 0x60086F4, symbol: D_BO_60086F4 }
-    
+
+# Unused Skeleton
 D_BO_6008760: 
   { type: SF64:SKELETON, offset: 0x6008760, symbol: D_BO_6008760 }
 
@@ -92,12 +99,14 @@ D_BO_60093B8:
 D_BO_6009BC0:
   { type: GFX, offset: 0x6009BC0, symbol: D_BO_6009BC0 }
 
+# Unused DisplayList, looks like a tube.
 D_BO_600A2C0:
   { type: GFX, offset: 0x600A2C0, symbol: D_BO_600A2C0 }
 
 D_BO_600A810:
   { type: GFX, offset: 0x600A810, symbol: D_BO_600A810 }
 
+# Unused DisplayList, looks like a cube with an entrance.
 D_BO_600AB90:
   { type: GFX, offset: 0x600AB90, symbol: D_BO_600AB90 }
 

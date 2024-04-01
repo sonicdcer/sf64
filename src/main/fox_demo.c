@@ -12,6 +12,7 @@
 #include "assets/ast_enmy_planet.h"
 #include "assets/ast_ending.h"
 #include "assets/ast_meteo.h"
+#include "assets/ast_bolse.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
@@ -25,9 +26,6 @@ extern f32 D_80178464;
 extern f32 D_80178468;
 extern f32 D_80178474;
 extern f32 D_80178478;
-
-extern Gfx D_6000D80[];
-extern Gfx D_600BAA0[];
 
 #include "assets/ast_allies.h"
 
@@ -2677,7 +2675,7 @@ void func_8004FEC0(Actor* actor) {
 
             Matrix_SetGfxMtx(&gMasterDisp);
 
-            gSPDisplayList(gMasterDisp++, D_600BAA0);
+            gSPDisplayList(gMasterDisp++, D_BO_600BAA0);
 
             Matrix_Push(&gGfxMatrix);
 
@@ -2724,7 +2722,7 @@ void func_8004FEC0(Actor* actor) {
             Matrix_SetGfxMtx(&gMasterDisp);
 
             gDPSetTextureFilter(gMasterDisp++, 0 << 12);
-            gSPDisplayList(gMasterDisp++, D_6000D80);
+            gSPDisplayList(gMasterDisp++, D_BO_6000D80);
             gDPSetTextureFilter(gMasterDisp++, 2 << 12);
 
             Matrix_Pop(&gGfxMatrix);
@@ -2744,7 +2742,7 @@ void func_8004FEC0(Actor* actor) {
             break;
 
         case 32:
-            gSPDisplayList(gMasterDisp++, D_6008770);
+            gSPDisplayList(gMasterDisp++, D_BO_6008770);
             break;
 
         case 33:

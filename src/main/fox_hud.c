@@ -85,6 +85,7 @@ s32 D_80161900[20];
 #include "assets/ast_aquas.h"
 #include "assets/ast_macbeth.h"
 #include "assets/ast_titania.h"
+#include "assets/ast_bolse.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
@@ -104,7 +105,6 @@ extern u8 D_ZO_6000000[];
 extern u8 D_BO_6000000[];
 extern u8 D_VE1_6000D80[];
 extern u8 D_VE2_60012D0[];
-extern u8 D_6000C80[];
 extern u8 D_6001260[];
 extern u8 D_6002890[];
 extern Gfx D_6003090[];
@@ -2115,7 +2115,7 @@ s32 func_8008A4DC(void) {
                 break;
 
             case LEVEL_BOLSE:
-                TextureRect_8bIA(&gMasterDisp, D_6000C80, 16, 16, 251.0f + D_800D1E10, 178.0f, 1.00f, 1.00f);
+                TextureRect_8bIA(&gMasterDisp, D_BO_6000C80, 16, 16, 251.0f + D_800D1E10, 178.0f, 1.00f, 1.00f);
                 break;
 
             case LEVEL_SECTOR_Y:

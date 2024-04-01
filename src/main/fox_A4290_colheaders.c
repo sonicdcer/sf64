@@ -3,6 +3,7 @@
 #include "variables.h"
 #include "assets.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_bolse.h"
 #include "assets/ast_meteo.h"
 #include "assets/ast_corneria.h"
 #include "assets/ast_macbeth.h"
@@ -86,8 +87,8 @@ CollisionHeader D_800D2B38[10] = {
         { -1554.0f, -2.0f, -1401.0f },
         { 1554.0f, 590.0f, 1401.0f },
         262,
-        D_6010294,
-        D_601170C,
+        D_BO_6010294,
+        D_BO_601170C,
     },
     {
         { -1386.0f, -696.0f, -2274.0f },

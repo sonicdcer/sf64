@@ -5,6 +5,7 @@
 #include "assets/ast_arwing.h"
 #include "assets/ast_corneria.h"
 #include "assets/ast_meteo.h"
+#include "assets/ast_bolse.h"
 #include "assets/ast_training.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
@@ -239,8 +240,8 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_80_149  */  {(void*)     D_6007D80, 0, (ObjectFunc)          NULL,        D_600FFA0,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_150  */  {(void*)     D_6006310, 0, (ObjectFunc)          NULL,        D_600FFC0,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_151  */  {(void*) D_TI_60066E0, 0, (ObjectFunc)          NULL,        D_600FEB8,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_80_152  */  {(void*)     D_600F4C0, 0, (ObjectFunc)          NULL,        D_6011C10,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_80_153  */  {(void*)     D_600B8B0, 0, (ObjectFunc)          NULL,        D_6011C48,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_152  */  {(void*)     D_BO_600F4C0, 0, (ObjectFunc)          NULL,        D_BO_6011C10,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_80_153  */  {(void*)     D_BO_600B8B0, 0, (ObjectFunc)          NULL,        D_BO_6011C48,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_154  */  {(void*)     D_600BAF0, 0, (ObjectFunc)          NULL,        D_601115C,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_155  */  {(void*)          NULL, 0, (ObjectFunc)          NULL,       D_800CBF34,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_80_156  */  {(void*) func_i6_80197CB8, 1, (ObjectFunc)          NULL,        D_SY_6034368,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
@@ -358,8 +359,8 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_ACTOR_268 */  {(void*) func_i3_801BDE6C, 1, (ObjectFunc) func_i3_801BD54C,        D_AQ_6031570, 10000.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_ACTOR_269 */  {(void*) func_i3_801BD264, 1, (ObjectFunc) func_i3_801BC9A0,        D_AQ_6030D20,  2000.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_ACTOR_270 */  {(void*) func_i3_801BEB1C, 1, (ObjectFunc) func_i3_801BE3F8,        D_AQ_60314C8,  1000.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_ACTOR_271 */  {(void*) func_8002E694, 2, (ObjectFunc) func_8002E670,        D_6011B24,     0.0f,  0, 0, 39, 0, 730.0f,  1 },
-  /* OBJ_ACTOR_272 */  {(void*) func_8002E6DC, 1, (ObjectFunc) func_8002E6B8,        D_6011BF4,     0.0f,  0, 0, 39, 0, 150.0f,  1 },
+  /* OBJ_ACTOR_271 */  {(void*) func_8002E694, 2, (ObjectFunc) func_8002E670,        D_BO_6011B24,     0.0f,  0, 0, 39, 0, 730.0f,  1 },
+  /* OBJ_ACTOR_272 */  {(void*) func_8002E6DC, 1, (ObjectFunc) func_8002E6B8,        D_BO_6011BF4,     0.0f,  0, 0, 39, 0, 150.0f,  1 },
   /* OBJ_ACTOR_273 */  {(void*) func_i4_80188FE4, 2, (ObjectFunc) func_i4_80188AD0,        D_600FF30_Hitbox,     0.0f,  0, 0, 39, 0, 220.0f,  1 },
   /* OBJ_ACTOR_274 */  {(void*) func_i4_8019E3A8, 1, (ObjectFunc) func_i4_8019E234,       D_800CBEC4,     0.0f,  0, 0, 39, 0,   1.0f,  0 },
   /* OBJ_ACTOR_275 */  {(void*) func_i3_8019F7AC, 1, (ObjectFunc) func_i3_8019F20C,       D_800CBE8C,   200.0f,  0, 0, 39, 0,   1.0f,  1 },
@@ -398,7 +399,7 @@ ObjectInfo D_800CC124[0x190] = {
   /* OBJ_BOSS_308 */  {(void*) func_8008FE78, 1, (ObjectFunc) func_800907C4,        D_600FFE0,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
   /* OBJ_BOSS_309 */  {(void*) func_8002E604, 1, (ObjectFunc) func_8002E5E0,       D_800CBF34,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
   /* OBJ_BOSS_310 */  {(void*) func_8002E64C, 1, (ObjectFunc) func_8002E628,       D_800CBF34,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
-  /* OBJ_BOSS_311 */  {(void*) func_i4_80191AFC, 2, (ObjectFunc) func_i4_801912FC,        D_6011C80,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
+  /* OBJ_BOSS_311 */  {(void*) func_i4_80191AFC, 2, (ObjectFunc) func_i4_801912FC,        D_BO_6011C80,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
   /* OBJ_BOSS_312 */  {(void*) func_i6_80196288, 2, (ObjectFunc) func_i6_80196210,        D_60166F4,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
   /* OBJ_BOSS_313 */  {(void*) func_i4_8019E98C, 1, (ObjectFunc) func_i4_8019E454,        D_SZ_6009388,     0.0f,  0, 0, 40, 0,   0.0f, 10 },
   /* OBJ_BOSS_314 */  {(void*) func_i6_8019E2C4, 2, (ObjectFunc) func_i6_8019C888,       D_800CBF34,     0.0f,  0, 0, 40, 0,   0.0f, 10 },
