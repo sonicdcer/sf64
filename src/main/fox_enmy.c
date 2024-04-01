@@ -6,6 +6,8 @@
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_bolse.h"
+#include "assets/ast_meteo.h"
 #include "assets/ast_macbeth.h"
 #include "assets/ast_titania.h"
 #include "assets/ast_andross.h"
@@ -21,9 +23,9 @@ u8 D_80161684;
 #include "fox_enmy_assets.h"
 
 ObjectInit* D_800CFDA0[] = {
-    D_CO_60371A4, D_ME_6026CC4, D_SX_602A164, D_A6_6023F64, D_A6_60287A4, D_SY_602E4F4,  D_VE1_6007E74,
-    D_SO_601F234, D_ZO_6026714, D_C035154,    D_TR_6006AA4, D_MA_6031000, D_TI_6006C60,  D_AQ_602E5C8,
-    D_FO_600EAD4, NULL,         D_KA_6011044, D_BO_600FF74, D_SZ_6006EB4, D_VE2_600FF74, D_versus_302DE3C,
+    D_CO_60371A4, D_ME_6026CC4, D_SX_602A164,      D_A6_6023F64, D_A6_60287A4, D_SY_602E4F4,  D_VE1_6007E74,
+    D_SO_601F234, D_ZO_6026714, D_ANDROSS_C035154, D_TR_6006AA4, D_MA_6031000, D_TI_6006C60,  D_AQ_602E5C8,
+    D_FO_600EAD4, NULL,         D_KA_6011044,      D_BO_600FF74, D_SZ_6006EB4, D_VE2_600FF74, D_versus_302DE3C,
 };
 s32 D_800CFDF4[] = {
     OBJ_80_0,
@@ -524,11 +526,11 @@ void func_80062664(void) {
     s32 j;
 
     if ((gCurrentLevel == LEVEL_METEO) && (D_8017827C == 1)) {
-        D_80178310 = SEGMENTED_TO_VIRTUAL(D_602B148);
+        D_80178310 = SEGMENTED_TO_VIRTUAL(D_ME_602B148);
     } else if ((gCurrentLevel == LEVEL_SECTOR_X) && (D_8017827C == 1)) {
         D_80178310 = SEGMENTED_TO_VIRTUAL(D_SX_602F18C);
     } else if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (D_8017827C == 1)) {
-        D_80178310 = SEGMENTED_TO_VIRTUAL(D_C0356A4);
+        D_80178310 = SEGMENTED_TO_VIRTUAL(D_ANDROSS_C0356A4);
     } else if ((gCurrentLevel == LEVEL_VENOM_1) && (D_8017827C == 1)) {
         D_80178310 = SEGMENTED_TO_VIRTUAL(D_6010088);
     } else {

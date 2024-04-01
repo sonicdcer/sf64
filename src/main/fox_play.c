@@ -8,6 +8,8 @@
 #include "assets/ast_sector_y.h"
 #include "assets/ast_sector_z.h"
 #include "assets/ast_aquas.h"
+#include "assets/ast_bolse.h"
+#include "assets/ast_meteo.h"
 #include "assets/ast_macbeth.h"
 #include "assets/ast_titania.h"
 #include "assets/ast_andross.h"
@@ -467,9 +469,9 @@ void func_800A5844(void) {
 }
 
 EnvSettings* D_800D2F98[21] = {
-    &D_CO_6037160, &D_ME_6026C80, &D_SX_602A120, &D_A6_6023F20, &D_A6_6028760, &D_SY_602E4B0,  &D_VE1_6007E30,
-    &D_SO_601F1F0, &D_ZO_60266D0, &D_C035110,    &D_TR_6006A60, &D_MA_6030E30, &D_TI_6005000,  &D_AQ_602E540,
-    &D_FO_600EA90, NULL,          &D_KA_6011000, &D_BO_600FF30, &D_SZ_6006E70, &D_VE2_6014D50, &D_versus_302DD70,
+    &D_CO_6037160, &D_ME_6026C80, &D_SX_602A120,      &D_A6_6023F20, &D_A6_6028760, &D_SY_602E4B0,  &D_VE1_6007E30,
+    &D_SO_601F1F0, &D_ZO_60266D0, &D_ANDROSS_C035110, &D_TR_6006A60, &D_MA_6030E30, &D_TI_6005000,  &D_AQ_602E540,
+    &D_FO_600EA90, NULL,          &D_KA_6011000,      &D_BO_600FF30, &D_SZ_6006E70, &D_VE2_6014D50, &D_versus_302DD70,
 };
 
 void func_800A594C(void) {

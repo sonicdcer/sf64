@@ -15,6 +15,7 @@ s32 D_80178748;
 
 #include "assets/ast_allies.h"
 #include "assets/ast_corneria.h"
+#include "assets/ast_meteo.h"
 #include "assets/ast_training.h"
 #include "assets/ast_sector_x.h"
 #include "assets/ast_sector_y.h"
@@ -273,10 +274,10 @@ void func_800BAAE8(void) {
             sp44 = D_CO_6025500;
             break;
         case RCID_BOSS_METEO:
-            sp44 = D_ZO_601C8E0;
+            sp44 = D_ME_601C8E0;
             break;
         case RCID_BOSS_METEO_OPEN:
-            sp44 = D_601D800;
+            sp44 = D_ME_601D800;
             break;
         case RCID_BOSS_AREA6:
             sp44 = D_A6_60047E0;
