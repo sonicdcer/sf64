@@ -907,7 +907,7 @@ s32 func_8006351C(s32 index, Vec3f* pos, Vec3f* arg2, s32 arg3) {
                         actor->damage = 10;
                         actor->unk_0D2 = -1;
                         if (!(((actor->obj.id == OBJ_ACTOR_200) && (actor->iwork[12] != 0)) ||
-                            ((actor->obj.id == OBJ_ACTOR_197) && ((actor->aiType < 10) || (actor->aiType >= 100))))) {
+                              ((actor->obj.id == OBJ_ACTOR_197) && ((actor->aiType < 10) || (actor->aiType >= 100))))) {
                             actor->health = 0;
                         }
                         actor->unk_0D8.x = pos->x;
