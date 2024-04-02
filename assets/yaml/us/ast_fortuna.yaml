@@ -81,6 +81,15 @@ D_FO_60070E0:
 D_FO_60072E0:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x60072E0, ctype: u16, symbol: D_FO_60072E0 }
 
+D_FO_60074E0:
+  { type: GFX, offset: 0x60074E0, symbol: D_FO_60074E0 }
+
+D_FO_6007590:
+  { type: GFX, offset: 0x6007590, symbol: D_FO_6007590 }
+
+D_FO_6007730:
+  { type: GFX, offset: 0x6007730, symbol: D_FO_6007730 }
+
 D_FO_6007854:
   { type: SF64:ANIM, offset: 0x6007854, symbol: D_FO_6007854 }
 

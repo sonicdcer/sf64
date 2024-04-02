@@ -120,6 +120,9 @@ D_SY_6015D60:
 D_SY_601F3D0:
   { type: GFX, offset: 0x601F3D0, symbol: D_SY_601F3D0 }
 
+D_SY_60121E0:
+  { type: GFX, offset: 0x60121E0, symbol: D_SY_60121E0 }
+
 D_SY_60128A0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x060128A0, symbol: D_SY_60128A0 }
 
@@ -155,6 +158,9 @@ D_SY_6015B60:
 
 D_SY_60188D0:
   { type: GFX, offset: 0x60188D0, symbol: D_SY_60188D0 }
+
+D_SY_60183B0:
+  { type: GFX, offset: 0x60183B0, symbol: D_SY_60183B0 }
 
 D_SY_6018F30:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x06018F30, symbol: D_SY_6018F30 }
@@ -219,14 +225,32 @@ D_SY_60265B4:
 D_SY_602738C:
   { type: SF64:ANIM, offset: 0x602738C, symbol: D_SY_602738C }
 
+D_SY_60273A0:
+  { type: GFX, offset: 0x60273A0, symbol: D_SY_60273A0 }
+
+D_SY_6027960:
+  { type: GFX, offset: 0x6027960, symbol: D_SY_6027960 }
+
 D_SY_6028668:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06028668, symbol: D_SY_6028668 }
+
+D_SY_6028E70:
+  { type: GFX, offset: 0x6028E70, symbol: D_SY_6028E70 }
 
 D_SY_6029B48:
   { type: SF64:ANIM, offset: 0x6029B48, symbol: D_SY_6029B48 }
 
 D_SY_602A2CC:
   { type: SF64:ANIM, offset: 0x602A2CC, symbol: D_SY_602A2CC }
+
+D_SY_602A2E0:
+  { type: GFX, offset: 0x602A2E0, symbol: D_SY_602A2E0 }
+
+D_SY_602A720:
+  { type: GFX, offset: 0x602A720, symbol: D_SY_602A720 }
+
+D_SY_602A8C0:
+  { type: GFX, offset: 0x602A8C0, symbol: D_SY_602A8C0 }
 
 D_SY_602AFF8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0602AFF8, symbol: D_SY_602AFF8 }
@@ -237,8 +261,26 @@ D_SY_602B778:
 D_SY_602B8DC:
   { type: SF64:ANIM, offset: 0x602B8DC, symbol: D_SY_602B8DC }
 
+D_SY_602B8F0:
+  { type: GFX, offset: 0x602B8F0, symbol: D_SY_602B8F0 }
+
 D_SY_602CEB4:
   { type: SF64:ANIM, offset: 0x602CEB4, symbol: D_SY_602CEB4 }
+
+D_SY_602D340:
+  { type: GFX, offset: 0x602D340, symbol: D_SY_602D340 }
+
+D_SY_602D830:
+  { type: GFX, offset: 0x602D830, symbol: D_SY_602D830 }
+
+D_SY_602DC40:
+  { type: GFX, offset: 0x602DC40, symbol: D_SY_602DC40 }
+
+D_SY_602DE70:
+  { type: GFX, offset: 0x602DE70, symbol: D_SY_602DE70 }
+
+D_SY_602E0A0:
+  { type: GFX, offset: 0x602E0A0, symbol: D_SY_602E0A0 }
 
 D_SY_602D140: 
   { type: SF64:SKELETON, offset: 0x602D140, symbol: D_SY_602D140 }

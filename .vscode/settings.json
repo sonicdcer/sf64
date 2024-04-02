@@ -130,7 +130,8 @@
     "fox_edisplay_assets.h": "c",
     "ast_versus.h": "c",
     "ast_macbeth.h": "c",
-    "ast_7_ti_1.h": "c"
+    "ast_7_ti_1.h": "c",
+    "ast_meteo.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }

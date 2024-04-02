@@ -211,6 +211,18 @@ D_ZO_6016E30:
 D_ZO_6016EC8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6016EC8, symbol: D_ZO_6016EC8}
 
+D_ZO_60176D0:
+  { type: GFX, offset: 0x60176D0, symbol: D_ZO_60176D0}
+
+D_ZO_6017770:
+  { type: GFX, offset: 0x6017770, symbol: D_ZO_6017770}
+
+D_ZO_6017810:
+  { type: GFX, offset: 0x6017810, symbol: D_ZO_6017810}
+
+D_ZO_60178B0:
+  { type: GFX, offset: 0x60178B0, symbol: D_ZO_60178B0}
+
 D_ZO_6017950:
   { type: GFX, offset: 0x6017950, symbol: D_ZO_6017950}
 
@@ -235,8 +247,8 @@ D_ZO_6018660:
 D_ZO_60186E8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 32, offset: 0x60186E8, symbol: D_ZO_60186E8}
 
-D_ZO_6018AE8:
-  { type: GFX, offset: 0x6018AE8, symbol: D_ZO_6018AE8}
+D_ZO_6018AF0:
+  { type: GFX, offset: 0x6018AF0, symbol: D_ZO_6018AF0}
 
 D_ZO_6018B78:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 16, offset: 0x6018B78, symbol: D_ZO_6018B78}
@@ -280,6 +292,21 @@ D_ZO_601AFB8:
 D_ZO_601B184:
   { type: SF64:SKELETON, offset: 0x601B184, symbol: D_ZO_601B184}
 
+D_ZO_601B1C0:
+  { type: GFX, offset: 0x601B1C0, symbol: D_ZO_601B1C0}
+
+D_ZO_601B3B0:
+  { type: GFX, offset: 0x601B3B0, symbol: D_ZO_601B3B0}
+
+D_ZO_601B570:
+  { type: GFX, offset: 0x601B570, symbol: D_ZO_601B570}
+
+D_ZO_601B710:
+  { type: GFX, offset: 0x601B710, symbol: D_ZO_601B710}
+
+D_ZO_601B8F0:
+  { type: GFX, offset: 0x601B8F0, symbol: D_ZO_601B8F0}
+
 D_ZO_601BAD0:
   { type: GFX, offset: 0x601BAD0, symbol: D_ZO_601BAD0}
 
@@ -313,11 +340,23 @@ D_ZO_601D680:
 D_ZO_601E618:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x601E618, symbol: D_ZO_601E618}
 
+D_ZO_601F260:
+  { type: GFX, offset: 0x601F260, symbol: D_ZO_601F260}
+
+D_ZO_601F420:
+  { type: GFX, offset: 0x601F420, symbol: D_ZO_601F420}
+
+D_ZO_601F620:
+  { type: GFX, offset: 0x601F620, symbol: D_ZO_601F620}
+
 D_ZO_601F874:
   { type: SF64:ANIM, offset: 0x601F874, symbol: D_ZO_601F874}
 
 D_ZO_601F920:
   { type: SF64:SKELETON, offset: 0x601F920, symbol: D_ZO_601F920}
+
+D_ZO_601F940:
+  { type: GFX, offset: 0x601F940, symbol: D_ZO_601F940}
 
 D_ZO_601FBC4:
   { type: SF64:ANIM, offset: 0x601FBC4, symbol: D_ZO_601FBC4}
@@ -331,6 +370,24 @@ D_ZO_601FCB0:
 D_ZO_60201B0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x60201B0, symbol: D_ZO_60201B0}
 
+D_ZO_60209B0:
+  { type: GFX, offset: 0x60209B0, symbol: D_ZO_60209B0}
+
+D_ZO_6020B70:
+  { type: GFX, offset: 0x6020B70, symbol: D_ZO_6020B70}
+
+D_ZO_6020D50:
+  { type: GFX, offset: 0x6020D50, symbol: D_ZO_6020D50}
+
+D_ZO_6020F10:
+  { type: GFX, offset: 0x6020F10, symbol: D_ZO_6020F10}
+
+D_ZO_6021100:
+  { type: GFX, offset: 0x6021100, symbol: D_ZO_6021100}
+
+D_ZO_60214B0:
+  { type: GFX, offset: 0x60214B0, symbol: D_ZO_60214B0}
+
 D_ZO_60212B0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x60212B0, symbol: D_ZO_60212B0}
 
@@ -343,14 +400,41 @@ D_ZO_6021ABC:
 D_ZO_6021B88:
   { type: SF64:SKELETON, offset: 0x6021B88, symbol: D_ZO_6021B88}
 
+D_ZO_6021BB0:
+  { type: GFX, offset: 0x6021BB0, symbol: D_ZO_6021BB0}
+
+D_ZO_6021C50:
+  { type: GFX, offset: 0x6021C50, symbol: D_ZO_6021C50}
+
+D_ZO_6021CE0:
+  { type: GFX, offset: 0x6021CE0, symbol: D_ZO_6021CE0}
+
+D_ZO_6021D80:
+  { type: GFX, offset: 0x6021D80, symbol: D_ZO_6021D80}
+
+D_ZO_6021E20:
+  { type: GFX, offset: 0x6021E20, symbol: D_ZO_6021E20}
+
 D_ZO_60220A0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x60220A0, symbol: D_ZO_60220A0}
+
+D_ZO_60222A0:
+  { type: GFX, offset: 0x60222A0, symbol: D_ZO_60222A0}
 
 D_ZO_60227D8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x60227D8, symbol: D_ZO_60227D8}
 
 D_ZO_60229D8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x60229D8, symbol: D_ZO_60229D8}
+
+D_ZO_6022BE0:
+  { type: GFX, offset: 0x6022BE0, symbol: D_ZO_6022BE0}
+
+D_ZO_6022D70:
+  { type: GFX, offset: 0x6022D70, symbol: D_ZO_6022D70}
+
+D_ZO_6022F00:
+  { type: GFX, offset: 0x6022F00, symbol: D_ZO_6022F00}
 
 D_ZO_6023088:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6023088, symbol: D_ZO_6023088}
@@ -360,6 +444,9 @@ D_ZO_6023288:
 
 D_ZO_6023488:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6023488, symbol: D_ZO_6023488}
+
+D_ZO_6023690:
+  { type: GFX, offset: 0x6023690, symbol: D_ZO_6023690}
 
 D_ZO_6023730:
   { type: GFX, offset: 0x6023730, symbol: D_ZO_6023730}

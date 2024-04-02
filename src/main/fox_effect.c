@@ -5,10 +5,6 @@ const char D_800D7230[] = "Enm->wrk3=<%d>\n";
 const char D_800D7240[] = "a=<%d>\n";
 const char D_800D7248[] = "a=<%d>\n";
 
-extern Gfx D_ZO_6016880[];
-extern Gfx D_6018AF0[];
-extern Gfx D_ZO_601BAD0[];
-
 #include "assets/ast_blue_marine.h"
 #include "assets/ast_arwing.h"
 #include "assets/ast_bg_space.h"
@@ -3062,7 +3058,7 @@ void func_8008092C(Effect* effect) {
             gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
             Matrix_Scale(gGfxMatrix, 4.0f, 2.0f, 4.0f, 1);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_6018AF0);
+            gSPDisplayList(gMasterDisp++, D_ZO_6018AF0);
             break;
 
         case 1:
