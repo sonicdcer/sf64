@@ -533,7 +533,6 @@ s32 func_8000967C(s32 length, s16* ramAddr, UnkStruct_800097A8* arg2) {
     return temp_t0;
 }
 
-#ifdef NON_MATCHING
 u8* func_800097A8(Sample* sample, s32 length, u32 flags, UnkStruct_800097A8* arg3) {
     s32 pad1;
     SampleDma* pad2;
@@ -554,6 +553,7 @@ u8* func_800097A8(Sample* sample, s32 length, u32 flags, UnkStruct_800097A8* arg
     if (gSampleDmaReuseQueue1RdPos != gSampleDmaReuseQueue1WrPos) {
         sp1C = &gSampleDmas[gSampleDmaReuseQueue1[gSampleDmaReuseQueue1RdPos++]];
     }
+    if (1) {}
     sp1C->ttl = 2;
     sp1C->devAddr = sample->sampleAddr;
     sp1C->sizeUnused = length * 2;
@@ -562,10 +562,6 @@ u8* func_800097A8(Sample* sample, s32 length, u32 flags, UnkStruct_800097A8* arg
     arg3->unk_8 += func_8000967C(length, (s16*) sp1C->ramAddr, arg3);
     return sp1C->ramAddr;
 }
-#else
-u8* func_800097A8(Sample* sample, s32 length, u32 flags, UnkStruct_800097A8* arg3);
-#pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_synthesis/func_800097A8.s")
-#endif
 
 Acmd* func_800098DC(Acmd* aList, u16 dmem, u16 startPos, s32 size, s32 reverbIndex) {
     aLoadBuffer(aList++, OS_K0_TO_PHYSICAL(&gSynthReverbs[reverbIndex].leftRingBuf[startPos]), dmem, size);
