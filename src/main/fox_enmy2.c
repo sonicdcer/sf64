@@ -4,7 +4,6 @@ s32 D_800CFF80[4] = { 0, 0, 0, 0 };
 s32 D_800CFF90 = 0;
 s32 D_80161690;
 
-#include "fox_enmy2_assets.h"
 #include "assets/ast_arwing.h"
 #include "assets/ast_training.h"
 #include "assets/ast_corneria.h"
