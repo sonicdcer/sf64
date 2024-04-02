@@ -16,6 +16,8 @@ void Map_LevelSelect(void) {
             gCurrentPlanet = 14;
         }
         sCurrentPlanetId = sPlanetList[gCurrentPlanet];
+        Map_801A6368();
+        Map_801A914C();
     }
 
     if (gControllerPress[0].button & R_JPAD) {
@@ -24,6 +26,8 @@ void Map_LevelSelect(void) {
             gCurrentPlanet = 0;
         }
         sCurrentPlanetId = sPlanetList[gCurrentPlanet];
+        Map_801A6368();
+        Map_801A914C();
     }
 
     /* Draw */
