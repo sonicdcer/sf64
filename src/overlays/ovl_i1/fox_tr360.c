@@ -7,24 +7,24 @@
 #include "global.h"
 #include "assets/ast_training.h"
 
-void func_i1_80198C50(void) {
+void Training_80198C50(void) {
     Object_58* obj58;
     s32 i;
 
-    D_80178310 = SEGMENTED_TO_VIRTUAL(D_TR_6008EF8);
+    D_ctx_80178310 = SEGMENTED_TO_VIRTUAL(D_TR_6008EF8);
     Rand_SetSeed(1, 29000, 9876);
 
     obj58 = gObjects58;
     for (i = 0; i < 1000; i++) {
-        if (D_80178310[i].id >= 0) {
-            if (D_80178310[i].id <= 160) {
+        if (D_ctx_80178310[i].id >= 0) {
+            if (D_ctx_80178310[i].id <= 160) {
                 Object_58_Initialize(obj58);
                 obj58->obj.status = OBJ_ACTIVE;
-                obj58->obj.id = D_80178310[i].id;
-                obj58->obj.pos.x = D_80178310[i].xPos;
-                obj58->obj.pos.z = -D_80178310[i].zPos1;
-                obj58->obj.pos.y = D_80178310[i].yPos - RAND_FLOAT_SEEDED(300.0f);
-                obj58->obj.rot.y = D_80178310[i].rot.y;
+                obj58->obj.id = D_ctx_80178310[i].id;
+                obj58->obj.pos.x = D_ctx_80178310[i].xPos;
+                obj58->obj.pos.z = -D_ctx_80178310[i].zPos1;
+                obj58->obj.pos.y = D_ctx_80178310[i].yPos - RAND_FLOAT_SEEDED(300.0f);
+                obj58->obj.rot.y = D_ctx_80178310[i].rot.y;
                 Object_SetInfo(&obj58->info, obj58->obj.id);
                 obj58++;
             }
@@ -34,7 +34,7 @@ void func_i1_80198C50(void) {
     }
 }
 
-bool func_i1_80198DCC(Actor* actor, f32 x, f32 z) {
+bool Training_80198DCC(Actor* actor, f32 x, f32 z) {
     Object_58* obj58;
     s32 i;
 
@@ -73,7 +73,7 @@ bool func_i1_80198DCC(Actor* actor, f32 x, f32 z) {
     return false;
 }
 
-void func_i1_80199024(Actor* actor) {
+void Training_80199024(Actor* actor) {
     s32 pad[8];
     Vec3f sp54;
     f32 var_fv0;
@@ -111,7 +111,7 @@ void func_i1_80199024(Actor* actor) {
     }
 
     var_fv0 = actor->fwork[20];
-    temp_v0 = func_i1_80198DCC(actor, sinRotY, cosRotY);
+    temp_v0 = Training_80198DCC(actor, sinRotY, cosRotY);
     if (temp_v0 != 0) {
         var_fv0 += 40.0f * (f32) temp_v0;
         if (var_fv0 >= 360.0f) {
@@ -147,7 +147,7 @@ void func_i1_80199024(Actor* actor) {
         actor->obj.pos.y = gGroundLevel + 40.0f;
         actor->vel.y = 0.0f;
     }
-    func_8003088C(actor);
+    func_360_8003088C(actor);
     radarMark = &gRadarMarks[actor->index];
     radarMark->unk_00 = 1;
     radarMark->unk_02 = actor->aiType;
@@ -173,7 +173,7 @@ UnkMsg_D_i1_8019AE50 D_i1_8019AE50[] = {
     { gMsg_ID_20330, 0 },   { gMsg_ID_23026, 256 }, { gMsg_ID_23032, 256 }, { NULL, -1 },
 };
 
-void func_i1_8019949C(void) {
+void Training_8019949C(void) {
     s32 i;
     Actor* actor;
     Vec3f sp44;
@@ -211,7 +211,7 @@ void func_i1_8019949C(void) {
                         actor->health = 50;
                     } else {
                         actor->aiIndex = -1;
-                        actor->info.action = (ObjectFunc) func_i1_80199024;
+                        actor->info.action = (ObjectFunc) Training_80199024;
                     }
                     break;
                 }
@@ -219,28 +219,28 @@ void func_i1_8019949C(void) {
         }
     }
 
-    if (D_80177C78 != 0) {
-        D_80177C78--;
+    if (D_ctx_80177C78 != 0) {
+        D_ctx_80177C78--;
     }
 
-    if (D_80177C78 == 0) {
-        if (D_i1_8019AE50[D_80177C8C].msg == 0) {
-            D_80177C8C = 1;
+    if (D_ctx_80177C78 == 0) {
+        if (D_i1_8019AE50[D_ctx_80177C8C].msg == 0) {
+            D_ctx_80177C8C = 1;
         }
-        if (D_i1_8019AE50[D_80177C8C].unk != 0) {
-            Radio_PlayMessage(D_i1_8019AE50[D_80177C8C].msg, RCID_TR);
-            D_80177C78 = D_i1_8019AE50[D_80177C8C].unk;
+        if (D_i1_8019AE50[D_ctx_80177C8C].unk != 0) {
+            Radio_PlayMessage(D_i1_8019AE50[D_ctx_80177C8C].msg, RCID_TR);
+            D_ctx_80177C78 = D_i1_8019AE50[D_ctx_80177C8C].unk;
         } else {
-            D_80161690 = 80;
-            D_80177C78 = 320;
+            D_enmy2_80161690 = 80;
+            D_ctx_80177C78 = 320;
         }
-        D_80177C8C++;
+        D_ctx_80177C8C++;
     }
 
-    if ((D_80161690 != 0) && (gControllerPress[gMainController].button & R_CBUTTONS)) {
+    if ((D_enmy2_80161690 != 0) && (gControllerPress[gMainController].button & R_CBUTTONS)) {
         func_8001AF40(0);
-        D_800CFF90 = 0;
-        D_80161690 = 0;
+        D_enmy2_800CFF90 = 0;
+        D_enmy2_80161690 = 0;
         // This is ROB 64. Keep up the good work.
         Radio_PlayMessage(gMsg_ID_20329, RCID_ROB64);
     }

@@ -1,16 +1,16 @@
 #include "global.h"
 
-void func_80084370(s32 arg0) {
+void func_fade_80084370(s32 arg0) {
     Graphics_FillRectangle(&gMasterDisp, 0, 0, arg0, SCREEN_HEIGHT, 0, 0, 0, 255);
     Graphics_FillRectangle(&gMasterDisp, SCREEN_WIDTH - arg0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, 255);
 }
 
-void func_800843FC(s32 arg0) {
+void func_fade_800843FC(s32 arg0) {
     Graphics_FillRectangle(&gMasterDisp, 0, 0, SCREEN_WIDTH, arg0, 0, 0, 0, 255);
     Graphics_FillRectangle(&gMasterDisp, 0, SCREEN_HEIGHT - arg0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, 255);
 }
 
-void func_80084488(s32 arg0) {
+void func_fade_80084488(s32 arg0) {
     s32 var_s1;
 
     RCP_SetupDL_12();
@@ -28,17 +28,17 @@ void func_80084488(s32 arg0) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_80084688(s32 arg0, s32 arg1) {
+void func_fade_80084688(s32 arg0, s32 arg1) {
     if (arg1 != 0) {
         switch (arg0) {
             case 0:
-                func_80084488(arg1);
+                func_fade_80084488(arg1);
                 break;
             case 1:
-                func_80084370(arg1);
+                func_fade_80084370(arg1);
                 break;
             case 2:
-                func_800843FC(arg1);
+                func_fade_800843FC(arg1);
                 break;
             default:
                 (void) "そのような フェード は ない (%d)\n"; // There is no such fade

@@ -11,7 +11,7 @@ Vec3f D_ending_80198600[300];
 
 #include "fox_end2_data.c"
 
-void func_ending_8018CE20(u32 arg0) {
+void Ending_8018CE20(u32 arg0) {
     u8 alpha;
     s32 i;
     s32 xPos;
@@ -31,7 +31,7 @@ void func_ending_8018CE20(u32 arg0) {
                             D_ending_80192E74[i].unk_13;
                 }
 
-                if ((D_ending_80192E74[i].unk_11 == 0) || (D_800D2F68 == true)) {
+                if ((D_ending_80192E74[i].unk_11 == 0) || (D_play_800D2F68 == true)) {
                     if (D_ending_80192E74[i].unk_10 == 1) {
                         xPos = (320 - Graphics_GetLargeTextWidth(D_ending_80192E74[i].unk_00)) / 2;
                         RCP_SetupDL(&gMasterDisp, 0x53);
@@ -69,18 +69,18 @@ void func_ending_8018CE20(u32 arg0) {
     }
 }
 
-void func_ending_8018D250(u32 arg0, AssetInfo* asset) {
+void Ending_8018D250(u32 arg0, AssetInfo* asset) {
     gOverlayStage = asset->unk_08;
     D_80137E78 = asset->unk_70;
-    D_80178410 = asset->unk_14;
+    D_ctx_80178410 = asset->unk_14;
 }
 
-void func_ending_8018D28C(s32 arg0, AssetInfo* asset) {
-    D_8017842C += asset->unk_18.x;
-    D_80178430 += asset->unk_18.y;
+void Ending_8018D28C(s32 arg0, AssetInfo* asset) {
+    D_ctx_8017842C += asset->unk_18.x;
+    D_ctx_80178430 += asset->unk_18.y;
 }
 
-void func_ending_8018D2C8(u32 arg0, AssetInfo* asset) {
+void Ending_8018D2C8(u32 arg0, AssetInfo* asset) {
     u8 alpha = 255;
 
     if ((asset->unk_0C + asset->fogNear) > arg0) {
@@ -91,15 +91,15 @@ void func_ending_8018D2C8(u32 arg0, AssetInfo* asset) {
         alpha = (asset->unk_0C + asset->unk_10 - arg0 - 1) * 255 / asset->fogFar;
     }
 
-    D_80178348 = asset->primRed;
-    D_80178350 = asset->primGreen;
-    D_80178354 = asset->primBlue;
+    D_ctx_80178348 = asset->primRed;
+    D_ctx_80178350 = asset->primGreen;
+    D_ctx_80178354 = asset->primBlue;
 
-    D_80178340 = D_80178358 = alpha;
-    D_8017835C = 0;
+    D_ctx_80178340 = D_ctx_80178358 = alpha;
+    D_ctx_8017835C = 0;
 }
 
-void func_ending_8018D398(u32 arg0, AssetInfo* asset) {
+void Ending_8018D398(u32 arg0, AssetInfo* asset) {
     u8 alpha = 255;
 
     if ((asset->unk_0C + asset->fogNear) > arg0) {
@@ -110,13 +110,13 @@ void func_ending_8018D398(u32 arg0, AssetInfo* asset) {
         alpha = (asset->unk_0C + asset->unk_10 - arg0) * 255 / asset->fogFar;
     }
 
-    D_80178348 = D_80178350 = D_80178354 = D_80178340 = D_80178358 = D_8017835C = 0;
+    D_ctx_80178348 = D_ctx_80178350 = D_ctx_80178354 = D_ctx_80178340 = D_ctx_80178358 = D_ctx_8017835C = 0;
 
     Graphics_FillRectangle(&gMasterDisp, 8, 8, SCREEN_WIDTH - 8, SCREEN_HEIGHT - 8, asset->primRed, asset->primGreen,
                            asset->primBlue, alpha);
 }
 
-void func_ending_8018D4BC(s32 arg0, AssetInfo* asset) {
+void Ending_8018D4BC(s32 arg0, AssetInfo* asset) {
     Vec3f src;
     Vec3f dest;
 
@@ -134,7 +134,7 @@ void func_ending_8018D4BC(s32 arg0, AssetInfo* asset) {
                        asset->unk_30.x, asset->unk_30.y, asset->unk_30.z);
 }
 
-void func_ending_8018D638(u32 arg0, AssetInfo* asset) {
+void Ending_8018D638(u32 arg0, AssetInfo* asset) {
     u8 alpha = 0;
     s32 i;
 
@@ -142,12 +142,12 @@ void func_ending_8018D638(u32 arg0, AssetInfo* asset) {
         alpha = (asset->unk_0C + asset->fogFar - arg0) * 255 / asset->fogFar;
     }
 
-    D_80178348 = asset->primRed;
-    D_80178350 = asset->primGreen;
-    D_80178354 = asset->primBlue;
+    D_ctx_80178348 = asset->primRed;
+    D_ctx_80178350 = asset->primGreen;
+    D_ctx_80178354 = asset->primBlue;
 
-    D_80178340 = D_80178358 = alpha;
-    D_8017835C = 0;
+    D_ctx_80178340 = D_ctx_80178358 = alpha;
+    D_ctx_8017835C = 0;
 
     RCP_SetupDL(&gMasterDisp, 0x53);
 
@@ -155,7 +155,7 @@ void func_ending_8018D638(u32 arg0, AssetInfo* asset) {
 
     if (gExpertMode != 0) {
         for (i = 0; i < 240; i += 4) {
-            if (!D_800D2F68) {
+            if (!D_play_800D2F68) {
                 TextureRect_16bRGBA(&gMasterDisp, gEndingNormalReward + 316 * i, 316, 4, 0.0f, i, 1.0f, 1.0f);
             } else {
                 TextureRect_16bRGBA(&gMasterDisp, gEndingExpertReward + 316 * i, 316, 4, 0.0f, i, 1.0f, 1.0f);
@@ -166,7 +166,7 @@ void func_ending_8018D638(u32 arg0, AssetInfo* asset) {
     }
 }
 
-void func_ending_8018D814(u32 arg0, AssetInfo* asset) {
+void Ending_8018D814(u32 arg0, AssetInfo* asset) {
     u8 alpha = 255;
 
     if ((asset->unk_0C + asset->fogNear) > arg0) {
@@ -187,7 +187,7 @@ void func_ending_8018D814(u32 arg0, AssetInfo* asset) {
     TextureRect_8bIA(&gMasterDisp, D_5007330, 16, 15, asset->unk_18.x + 16.0f * 3, asset->unk_18.y, 1.0f, 1.0f);
 }
 
-void func_ending_8018DA0C(u32 arg0, AssetInfo* asset) {
+void Ending_8018DA0C(u32 arg0, AssetInfo* asset) {
     u8 alpha = 255;
 
     if ((asset->unk_0C + asset->fogNear) > arg0) {
@@ -201,7 +201,7 @@ void func_ending_8018DA0C(u32 arg0, AssetInfo* asset) {
                               "TOTAL HITS");
     Graphics_DisplayLargeNumber((s16) (asset->unk_18.x + 5), (s16) (asset->unk_18.y + 13), gTotalHits);
 
-    if ((func_ending_8018DCB4() == true) && (alpha == 255)) {
+    if ((Ending_8018DCB4() == true) && (alpha == 255)) {
         alpha = (arg0 - (asset->unk_0C + asset->fogNear)) % 10;
 
         switch (alpha) {
@@ -226,7 +226,7 @@ void func_ending_8018DA0C(u32 arg0, AssetInfo* asset) {
     }
 }
 
-bool func_ending_8018DCB4(void) {
+bool Ending_8018DCB4(void) {
     s32 i;
     s32 j;
     s32 k;
@@ -239,9 +239,9 @@ bool func_ending_8018DCB4(void) {
     s32 unk40[10];
 
     for (i = 0; i < gCurrentPlanet + 1; i++) {
-        temp2 += ((D_80177B50[i] & 0x00FF0000) >> 16) & 1;
-        temp2 += ((D_80177B50[i] & 0x0000FF00) >> 8) & 1;
-        temp2 += (D_80177B50[i] & 0x000000FF) & 1;
+        temp2 += ((D_ctx_80177B50[i] & 0x00FF0000) >> 16) & 1;
+        temp2 += ((D_ctx_80177B50[i] & 0x0000FF00) >> 8) & 1;
+        temp2 += (D_ctx_80177B50[i] & 0x000000FF) & 1;
     }
 
     for (i = 0; i < 10; i += 1) {
@@ -306,7 +306,7 @@ bool func_ending_8018DCB4(void) {
     }
 }
 
-void func_ending_8018E1B8(u32 arg0, AssetInfo* asset) {
+void Ending_8018E1B8(u32 arg0, AssetInfo* asset) {
     f32 temp;
 
     if ((asset->unk_18.z + (arg0 - asset->unk_0C) * asset->unk_3C.z) < D_ending_801985D0.z) {
@@ -362,7 +362,7 @@ void func_ending_8018E1B8(u32 arg0, AssetInfo* asset) {
     gSPDisplayList(gMasterDisp++, D_END_7010970);
 }
 
-void func_ending_8018E7B8(u32 arg0, AssetInfo* asset) {
+void Ending_8018E7B8(u32 arg0, AssetInfo* asset) {
     f32 temp;
 
     if ((asset->unk_18.z + (arg0 - asset->unk_0C) * asset->unk_3C.z) < D_ending_801985D0.z) {
@@ -419,10 +419,10 @@ void func_ending_8018E7B8(u32 arg0, AssetInfo* asset) {
     gSPDisplayList(gMasterDisp++, D_END_7010970);
 }
 
-void func_ending_8018EDB8(u32 arg0, AssetInfo* asset) {
+void Ending_8018EDB8(u32 arg0, AssetInfo* asset) {
     f32 temp;
 
-    D_80178410 = 0;
+    D_ctx_80178410 = 0;
 
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
@@ -454,7 +454,7 @@ void func_ending_8018EDB8(u32 arg0, AssetInfo* asset) {
     gSPDisplayList(gMasterDisp++, D_END_700E9E0);
 }
 
-void func_ending_8018F2A8(u32 arg0, AssetInfo* asset) {
+void Ending_8018F2A8(u32 arg0, AssetInfo* asset) {
     f32 temp;
 
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
@@ -482,13 +482,13 @@ void func_ending_8018F2A8(u32 arg0, AssetInfo* asset) {
 
     gCurrentLevel = LEVEL_UNK_M1;
 
-    func_800515C4();
+    func_demo_800515C4();
 }
 
-void func_ending_8018F64C(u32 arg0, AssetInfo* asset) {
+void Ending_8018F64C(u32 arg0, AssetInfo* asset) {
     f32 temp;
 
-    if (D_800D3180[8] == 0) {
+    if (D_play_800D3180[8] == 0) {
         return;
     }
 
@@ -548,10 +548,10 @@ void func_ending_8018F64C(u32 arg0, AssetInfo* asset) {
     gSPDisplayList(gMasterDisp++, D_END_7010970);
 }
 
-void func_ending_8018FC60(u32 arg0, AssetInfo* asset) {
+void Ending_8018FC60(u32 arg0, AssetInfo* asset) {
     f32 temp;
 
-    if (D_800D3180[16] == 0) {
+    if (D_play_800D3180[16] == 0) {
         return;
     }
 
@@ -611,7 +611,7 @@ void func_ending_8018FC60(u32 arg0, AssetInfo* asset) {
     gSPDisplayList(gMasterDisp++, D_END_7010970);
 }
 
-void func_ending_80190274(u32 arg0, AssetInfo* asset) {
+void Ending_80190274(u32 arg0, AssetInfo* asset) {
     f32 temp;
 
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
@@ -640,7 +640,7 @@ void func_ending_80190274(u32 arg0, AssetInfo* asset) {
     gSPDisplayList(gMasterDisp++, D_END_7004240);
 }
 
-void func_ending_80190648(s32 arg0, AssetInfo* asset) {
+void Ending_80190648(s32 arg0, AssetInfo* asset) {
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
     Matrix_RotateY(gGfxMatrix, M_DTOR * D_ending_801985F0.y, 0);
@@ -654,7 +654,7 @@ void func_ending_80190648(s32 arg0, AssetInfo* asset) {
     gSPDisplayList(gMasterDisp++, D_END_7002120);
 }
 
-void func_ending_80190778(u32 arg0, AssetInfo* asset) {
+void Ending_80190778(u32 arg0, AssetInfo* asset) {
     f32 temp;
 
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
@@ -708,11 +708,11 @@ void func_ending_80190778(u32 arg0, AssetInfo* asset) {
     gSPDisplayList(gMasterDisp++, D_arwing_3005AB0);
 }
 
-void func_ending_80190CF0(u32 arg0, AssetInfo* asset) {
+void Ending_80190CF0(u32 arg0, AssetInfo* asset) {
     u8 alpha = 255;
     f32 temp;
 
-    if (D_800D2F68 == true) {
+    if (D_play_800D2F68 == true) {
         return;
     }
 
@@ -772,18 +772,18 @@ void func_ending_80190CF0(u32 arg0, AssetInfo* asset) {
     gSPDisplayList(gMasterDisp++, D_END_7000000);
 }
 
-void func_ending_80191234(s32 arg0, s32 arg1) {
-    D_80161A34 = 8;
+void Ending_80191234(s32 arg0, s32 arg1) {
+    D_game_80161A34 = 8;
     gGameState = GSTATE_MENU;
     D_Timer_8017783C = 2;
     gOptionMenuStatus = OPTION_WAIT;
     gDrawMode = DRAWMODE_0;
     gBgColor = 0;
-    D_80178410 = 0;
+    D_ctx_80178410 = 0;
     gControllerLock = 10;
 }
 
-void func_ending_80191294(u32 arg0, AssetInfo* asset) {
+void Ending_80191294(u32 arg0, AssetInfo* asset) {
     f32 temp;
 
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
@@ -831,13 +831,13 @@ void func_ending_80191294(u32 arg0, AssetInfo* asset) {
     D_ending_80198590.unk_30 = +D_ending_801985F0.x;
     D_ending_80198590.unk_34 = -D_ending_801985F0.y;
 
-    func_80053658(&D_ending_80198590);
+    func_display_80053658(&D_ending_80198590);
 }
 
-void func_ending_80191700(u32 arg0, AssetInfo* asset) {
+void Ending_80191700(u32 arg0, AssetInfo* asset) {
 }
 
-void func_ending_80191710(u32 arg0, AssetInfo* asset) {
+void Ending_80191710(u32 arg0, AssetInfo* asset) {
     f32 temp;
 
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
@@ -889,11 +889,11 @@ void func_ending_80191710(u32 arg0, AssetInfo* asset) {
     gSPDisplayList(gMasterDisp++, asset->unk_00);
 }
 
-void func_ending_80191C58(u32 arg0, AssetInfo* asset) {
+void Ending_80191C58(u32 arg0, AssetInfo* asset) {
     ((void (*)(u32, AssetInfo*)) asset->unk_04)(arg0, asset);
 }
 
-void func_ending_80191C7C(u32 arg0, AssetInfo* asset) {
+void Ending_80191C7C(u32 arg0, AssetInfo* asset) {
     f32 temp;
 
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
@@ -926,7 +926,7 @@ void func_ending_80191C7C(u32 arg0, AssetInfo* asset) {
     Animation_DrawSkeleton(0, asset->unk_04, D_ending_80198600, NULL, NULL, NULL, &gIdentityMatrix);
 }
 
-void func_ending_80192164(u32 arg0) {
+void Ending_80192164(u32 arg0) {
     s32 i;
 
     for (i = 0; i < 94; i++) {
@@ -934,20 +934,20 @@ void func_ending_80192164(u32 arg0) {
             ((D_ending_801934B4[i].unk_0C + D_ending_801934B4[i].unk_10) > arg0)) {
             Matrix_Push(&gGfxMatrix);
             if ((D_ending_801934B4[i].unk_00 == NULL) && (D_ending_801934B4[i].unk_04 == NULL)) {
-                func_ending_80191700(arg0, &D_ending_801934B4[i]);
+                Ending_80191700(arg0, &D_ending_801934B4[i]);
             } else if ((D_ending_801934B4[i].unk_00 != NULL) && (D_ending_801934B4[i].unk_04 == NULL)) {
-                func_ending_80191710(arg0, &D_ending_801934B4[i]);
+                Ending_80191710(arg0, &D_ending_801934B4[i]);
             } else if ((D_ending_801934B4[i].unk_00 == NULL) && (D_ending_801934B4[i].unk_04 != NULL)) {
-                func_ending_80191C58(arg0, &D_ending_801934B4[i]);
+                Ending_80191C58(arg0, &D_ending_801934B4[i]);
             } else if ((D_ending_801934B4[i].unk_00 != NULL) && (D_ending_801934B4[i].unk_04 != NULL)) {
-                func_ending_80191C7C(arg0, &D_ending_801934B4[i]);
+                Ending_80191C7C(arg0, &D_ending_801934B4[i]);
             }
             Matrix_Pop(&gGfxMatrix);
         }
     }
 }
 
-void func_ending_80192290(u32 arg0, UnkEnd54* unkEnd54) {
+void Ending_80192290(u32 arg0, UnkEnd54* unkEnd54) {
     s32 i;
 
     for (i = 0; i < (arg0 - unkEnd54->unk_00); i++) {
@@ -960,7 +960,7 @@ void func_ending_80192290(u32 arg0, UnkEnd54* unkEnd54) {
     }
 }
 
-void func_ending_8019237C(u32 arg0, UnkEnd54* unkEnd54) {
+void Ending_8019237C(u32 arg0, UnkEnd54* unkEnd54) {
     s32 i;
     s32 j;
 
@@ -984,7 +984,7 @@ void func_ending_8019237C(u32 arg0, UnkEnd54* unkEnd54) {
     }
 }
 
-void func_ending_801924EC(u32 arg0) {
+void Ending_801924EC(u32 arg0) {
     s32 i;
     UnkEnd54* unkEnd54 = D_ending_80195F4C;
 
@@ -995,11 +995,11 @@ void func_ending_801924EC(u32 arg0) {
 
             switch (unkEnd54->unk_08) {
                 case 1:
-                    func_ending_8019237C(arg0, unkEnd54);
+                    Ending_8019237C(arg0, unkEnd54);
                     break;
 
                 default:
-                    func_ending_80192290(arg0, unkEnd54);
+                    Ending_80192290(arg0, unkEnd54);
                     break;
             }
 
@@ -1013,8 +1013,8 @@ void func_ending_801924EC(u32 arg0) {
             Matrix_LookAt(gGfxMatrix, D_ending_801985D0.x, D_ending_801985D0.y, D_ending_801985D0.z,
                           D_ending_801985E0.x, D_ending_801985E0.y, D_ending_801985E0.z, 0.0f, 1.0f, 0.0f, 1);
 
-            func_800B6F50(D_ending_801985D0.x, D_ending_801985D0.y, D_ending_801985D0.z, D_ending_801985E0.x,
-                          D_ending_801985E0.y, D_ending_801985E0.z);
+            func_play_800B6F50(D_ending_801985D0.x, D_ending_801985D0.y, D_ending_801985D0.z, D_ending_801985E0.x,
+                               D_ending_801985E0.y, D_ending_801985E0.z);
 
             Matrix_GetYRPAngles(gGfxMatrix, &D_ending_801985F0);
             break;
@@ -1022,13 +1022,13 @@ void func_ending_801924EC(u32 arg0) {
     }
 }
 
-void func_ending_801926D4(void) {
+void Ending_801926D4(void) {
     gControllerLock = 10000;
 
     Matrix_Push(&gGfxMatrix);
 
-    func_ending_801924EC(D_ending_80192E70);
-    func_ending_80192164(D_ending_80192E70);
+    Ending_801924EC(D_ending_80192E70);
+    Ending_80192164(D_ending_80192E70);
 
     Matrix_Pop(&gGfxMatrix);
 
@@ -1036,7 +1036,7 @@ void func_ending_801926D4(void) {
 
     if ((0 <= D_ending_80192E70) && (D_ending_80192E70 < 100)) {
         D_ending_80192E70 = 100;
-        if (D_80177824 == 0) {
+        if (D_ctx_80177824 == 0) {
             D_ending_80198590 = gPlayer[0].wings;
         } else {
             D_ending_80198590.rightState = D_ending_80198590.leftState = 2;

@@ -1,9 +1,9 @@
 #include "global.h"
 #include "assets/ast_titania.h"
 
-void func_i5_801B5244(s32 arg0, s32 arg1);
-void func_i5_801B5FE0(s32 arg0, s32 arg1, s32 arg2);
-void func_i5_801B68A8(Gfx** dlist, s32 arg1, s32 arg2);
+void Ground_801B5244(s32 arg0, s32 arg1);
+void Ground_801B5FE0(s32 arg0, s32 arg1, s32 arg2);
+void Ground_801B68A8(Gfx** dlist, s32 arg1, s32 arg2);
 
 typedef struct {
     /* 0x00 */ s32 unk_00;
@@ -69,7 +69,7 @@ UnkStruct_801C62E8 D_i5_801C62E8[20];
 Vec3fa D_i5_801C65B8[3][15][4];
 s32 D_i5_801C6E28[4][3];
 
-bool func_i5_801B49D0(Actor* actor) {
+bool Ground_801B49D0(Actor* actor) {
     s32 i;
     bool found = false;
     UnkStruct_801C62E8* var_v0 = D_i5_801C62E8;
@@ -91,13 +91,13 @@ bool func_i5_801B49D0(Actor* actor) {
     return found;
 }
 
-void func_i5_801B4A54(UnkStruct_801C62E8* arg0) {
+void Ground_801B4A54(UnkStruct_801C62E8* arg0) {
     // Lots of conversions between floats, and ints unnecessarily here because of this chain assignment.
     arg0->unk_00 = arg0->unk_04 = arg0->unk_08 = arg0->unk_0C = arg0->unk_10 = arg0->unk_14 = arg0->unk_18 =
         arg0->unk_1C = arg0->unk_20 = 0;
 }
 
-void func_i5_801B4AA8(s32* arg0, s32* arg1) {
+void Ground_801B4AA8(s32* arg0, s32* arg1) {
     Actor actor;
     UnkStruct_801C62E8* var_s2 = D_i5_801C62E8;
     s32* var_s1;
@@ -181,7 +181,7 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
 
                     var_s2->unk_20 -= 220.0f;
                     if (var_s2->unk_20 <= 0.0f) {
-                        func_i5_801B4A54(var_s2);
+                        Ground_801B4A54(var_s2);
                     }
                     break;
 
@@ -203,7 +203,7 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
 
                     var_s2->unk_20 += 220.0f;
                     if (unk_18 <= var_s2->unk_20) {
-                        func_i5_801B4A54(var_s2);
+                        Ground_801B4A54(var_s2);
                     }
                     break;
 
@@ -226,7 +226,7 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
 
                     var_s2->unk_20 -= 220.0f;
                     if (var_s2->unk_20 <= 0.0f) {
-                        func_i5_801B4A54(var_s2);
+                        Ground_801B4A54(var_s2);
                     }
                     break;
 
@@ -240,12 +240,12 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
                             actor.obj.rot.x = var_s2->unk_10 + RAND_FLOAT(var_s2->unk_10) * 0.25f;
                             actor.obj.rot.z = 2.0f * actor.obj.rot.x; // Should this have been obj.rot.y?
                             actor.obj.rot.z = var_s2->unk_14 + RAND_FLOAT(var_s2->unk_14) * 0.25f;
-                            func_i5_801B49D0(&actor);
+                            Ground_801B49D0(&actor);
                         }
 
                         var_s2->unk_20 -= 220.0f;
                         if (var_s2->unk_20 <= 0.0f) {
-                            func_i5_801B4A54(var_s2);
+                            Ground_801B4A54(var_s2);
                         }
                     } else {
                         var_s2->unk_1C--;
@@ -253,14 +253,14 @@ void func_i5_801B4AA8(s32* arg0, s32* arg1) {
                     break;
 
                 default:
-                    func_i5_801B4A54(var_s2);
+                    Ground_801B4A54(var_s2);
                     break;
             }
         }
     }
 }
 
-void func_i5_801B5110(f32 arg0, f32 arg1, f32 arg2) {
+void Ground_801B5110(f32 arg0, f32 arg1, f32 arg2) {
     UnkStruct_801C62E8* ptr;
     s32 i;
     s32 k;
@@ -276,7 +276,7 @@ void func_i5_801B5110(f32 arg0, f32 arg1, f32 arg2) {
     D_i5_801C5C14 = 1;
 
     for (i = 0, ptr = D_i5_801C62E8; i < ARRAY_COUNT(D_i5_801C62E8); i++, ptr++) {
-        func_i5_801B4A54(ptr);
+        Ground_801B4A54(ptr);
     }
 
     for (i = 0; i < ARRAY_COUNT(D_i5_801C1D48); i++) {
@@ -285,10 +285,10 @@ void func_i5_801B5110(f32 arg0, f32 arg1, f32 arg2) {
         }
         D_i5_801C2448[i] = D_i5_801C24B8[i] = 1.0f;
     }
-    func_i5_801B5244(D_i5_801C5C04, D_i5_801C5C08);
+    Ground_801B5244(D_i5_801C5C04, D_i5_801C5C08);
 }
 
-void func_i5_801B5244(s32 arg0, s32 arg1) {
+void Ground_801B5244(s32 arg0, s32 arg1) {
     s32 var_s5;
     s32 var_s6;
     s32 sp6C;
@@ -352,10 +352,10 @@ void func_i5_801B5244(s32 arg0, s32 arg1) {
         sp5C = (sp5C + 1) % 28;
         sp60 = (sp60 + 1) % 27;
     }
-    func_i5_801B5FE0(arg1, arg0, 27);
+    Ground_801B5FE0(arg1, arg0, 27);
 }
 
-void func_i5_801B58AC(Gfx** dList, f32 arg1) {
+void Ground_801B58AC(Gfx** dList, f32 arg1) {
     s32 spC4;
     s32 temp_hi;
     s32 i;
@@ -377,7 +377,7 @@ void func_i5_801B58AC(Gfx** dList, f32 arg1) {
         gSPMatrix((*dList)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
         gSPDisplayList((*dList)++, D_i5_801BA950);
         gSPPopMatrix((*dList)++, G_MTX_MODELVIEW);
-        func_i5_801B4AA8(NULL, &spC4);
+        Ground_801B4AA8(NULL, &spC4);
     }
 
     if (D_i5_801C5C14 & 1) {
@@ -389,7 +389,7 @@ void func_i5_801B58AC(Gfx** dList, f32 arg1) {
             }
             D_i5_801C2448[temp_hi] = D_i5_801BE740;
             D_i5_801C24B8[temp_hi] = D_i5_801BE744;
-            func_i5_801B4AA8(D_i5_801C1D48[temp_hi], &spC4);
+            Ground_801B4AA8(D_i5_801C1D48[temp_hi], &spC4);
             for (i = 0; i < 16; i++) {
                 temp_v0 = &D_i5_801BE748[D_i5_801C5C04][i][0];
                 temp_t1 = &D_i5_801BE748[D_i5_801C5C04][i][1];
@@ -417,10 +417,10 @@ void func_i5_801B58AC(Gfx** dList, f32 arg1) {
                 Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, D_i5_801C24B8[D_i5_801C5C08] * -220.0f, 0);
                 Matrix_ToMtx(&D_i5_801C5C18[D_i5_801C5C04]);
             }
-            func_i5_801B5FE0(D_i5_801C5C08, D_i5_801C5C04, 1);
+            Ground_801B5FE0(D_i5_801C5C08, D_i5_801C5C04, 1);
         }
         gSPMatrix((*dList)++, &gIdentityMtx, G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-        func_i5_801B68A8(dList, D_i5_801C5C04, 1);
+        Ground_801B68A8(dList, D_i5_801C5C04, 1);
         gSPPopMatrix((*dList)++, G_MTX_MODELVIEW);
     }
 
@@ -440,7 +440,7 @@ void func_i5_801B58AC(Gfx** dList, f32 arg1) {
     D_i5_801C5C14 = spC4;
 }
 
-void func_i5_801B5FE0(s32 arg0, s32 arg1, s32 arg2) {
+void Ground_801B5FE0(s32 arg0, s32 arg1, s32 arg2) {
     f32 spF4;
     f32 spF0;
     f32 spEC;
@@ -554,7 +554,7 @@ void func_i5_801B5FE0(s32 arg0, s32 arg1, s32 arg2) {
     }
 }
 
-void func_i5_801B68A8(Gfx** dlist, s32 arg1, s32 arg2) {
+void Ground_801B68A8(Gfx** dlist, s32 arg1, s32 arg2) {
     s32 var_a0;
     s32 var_a1;
     s32 var;
@@ -574,12 +574,12 @@ void func_i5_801B68A8(Gfx** dlist, s32 arg1, s32 arg2) {
     }
 }
 
-bool func_i5_801B6AEC(f32 arg0, f32 arg1, f32 arg2) {
+bool Ground_801B6AEC(f32 arg0, f32 arg1, f32 arg2) {
     f32 sp2C;
     f32 sp28;
     f32 sp24;
 
-    func_i5_801B6E20(arg0, arg2, &sp2C, &sp28, &sp24);
+    Ground_801B6E20(arg0, arg2, &sp2C, &sp28, &sp24);
     if (arg1 < sp28) {
         return true;
     } else {
@@ -587,7 +587,7 @@ bool func_i5_801B6AEC(f32 arg0, f32 arg1, f32 arg2) {
     }
 }
 
-s32 func_i5_801B6B40(f32 arg0, f32 arg1, Vec3f* arg2, PlaneF* arg3) {
+s32 Ground_801B6B40(f32 arg0, f32 arg1, Vec3f* arg2, PlaneF* arg3) {
     f32 x1;
     f32 y1;
     f32 z1;
@@ -666,7 +666,7 @@ s32 func_i5_801B6B40(f32 arg0, f32 arg1, Vec3f* arg2, PlaneF* arg3) {
     return var_v1;
 }
 
-s32 func_i5_801B6E20(f32 arg0, f32 arg1, f32* arg2, f32* arg3, f32* arg4) {
+s32 Ground_801B6E20(f32 arg0, f32 arg1, f32* arg2, f32* arg3, f32* arg4) {
     s32 var_s1;
     s32 var_s6;
     s32 var_s7;
@@ -712,7 +712,7 @@ s32 func_i5_801B6E20(f32 arg0, f32 arg1, f32* arg2, f32* arg3, f32* arg4) {
                     spA4[3].z = var_s2[1][0].v.ob[2] + var_fs0;
 
                     if (((spA4[0].x <= arg0) || (spA4[1].x <= arg0)) && ((arg0 <= spA4[2].x) || (arg0 <= spA4[3].x))) {
-                        var_v1 = func_i5_801B6B40(arg0, temp_fs2, spA4, &sp84);
+                        var_v1 = Ground_801B6B40(arg0, temp_fs2, spA4, &sp84);
                     }
                 }
             }
@@ -759,12 +759,12 @@ s32 func_i5_801B6E20(f32 arg0, f32 arg1, f32* arg2, f32* arg3, f32* arg4) {
     return 1;
 }
 
-void func_i5_801B7240(f32 arg0, f32 arg1, f32* arg2, f32* arg3, f32* arg4) {
+void Ground_801B7240(f32 arg0, f32 arg1, f32* arg2, f32* arg3, f32* arg4) {
     s32 pad;
     f32 sp28;
     f32 sp24;
 
-    func_i5_801B6E20(arg0, arg1, &sp28, arg3, &sp24);
+    Ground_801B6E20(arg0, arg1, &sp28, arg3, &sp24);
     *arg2 = sp28 * M_RTOD;
     *arg4 = sp24 * M_RTOD;
 }

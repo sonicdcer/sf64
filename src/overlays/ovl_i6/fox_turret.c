@@ -1,6 +1,6 @@
 #include "global.h"
 
-void func_i6_801A5560(Player* player, PlayerShot* shot, f32 xOffset, f32 yOffset, f32 zOffset, s32 shotId, f32 speed) {
+void Turret_801A5560(Player* player, PlayerShot* shot, f32 xOffset, f32 yOffset, f32 zOffset, s32 shotId, f32 speed) {
     Vec3f sp4C;
     Vec3f sp40;
     Vec3f sp34;
@@ -54,20 +54,20 @@ void func_i6_801A5560(Player* player, PlayerShot* shot, f32 xOffset, f32 yOffset
     shot->playerNum = player->num;
 }
 
-void func_i6_801A581C(Player* player, f32 xOffset) {
+void Turret_801A581C(Player* player, f32 xOffset) {
     s32 i;
     PlayerShot* shot;
 
     for (i = 0; i < ARRAY_COUNT(gPlayerShots); i++) {
         if (gPlayerShots[i].obj.status == 0) {
-            func_i6_801A5560(player, &gPlayerShots[i], xOffset, -100.0f, 200.0f, PLAYERSHOT_9, 100.0f);
-            func_800A6028(gPlayerShots[i].sfxSource, 0x09000000);
+            Turret_801A5560(player, &gPlayerShots[i], xOffset, -100.0f, 200.0f, PLAYERSHOT_9, 100.0f);
+            func_play_800A6028(gPlayerShots[i].sfxSource, 0x09000000);
             break;
         }
     }
 }
 
-void func_i6_801A58A8(Player* player) {
+void Turret_801A58A8(Player* player) {
     s32 i;
 
     if (gControllerPress[player->num].button & A_BUTTON) {
@@ -75,8 +75,8 @@ void func_i6_801A58A8(Player* player) {
     }
     if (gControllerHold[player->num].button & A_BUTTON) {
         if (player->timer_244 == 0) {
-            func_i6_801A581C(player, -100.0f);
-            func_i6_801A581C(player, 100.0f);
+            Turret_801A581C(player, -100.0f);
+            Turret_801A581C(player, 100.0f);
             player->unk_1BC = 30;
         }
         player->timer_244++;
@@ -127,7 +127,7 @@ void func_i6_801A58A8(Player* player) {
     }
 }
 
-void func_i6_801A5AD4(Player* player) {
+void Turret_801A5AD4(Player* player) {
     f32 sp2C;
     f32 sp28;
 
@@ -146,7 +146,7 @@ void func_i6_801A5AD4(Player* player) {
         if (player->unk_1BC == 0) {
             gControllerLock = 0;
             player->unk_1B0++;
-            D_80177838 = 50;
+            D_ctx_80177838 = 50;
         }
     }
     sp2C = (f32) gControllerPress[player->num].stick_x;
@@ -157,8 +157,8 @@ void func_i6_801A5AD4(Player* player) {
     player->unk_140 = -gActors[player->unk_1B4].vel.z;
     player->unk_144 += player->unk_140;
 
-    D_80177D08 = player->unk_140;
-    D_80177D20 = player->unk_144;
+    D_ctx_80177D08 = player->unk_140;
+    D_ctx_80177D20 = player->unk_144;
 
     if (!(gControllerHold[player->num].button & Z_TRIG) && (sqrtf((sp2C * sp2C) + (sp28 * sp28)) > 55.0f)) {
         if ((gControllerHold[player->num].button & R_CBUTTONS) || (sp2C > 40.0f)) {
@@ -205,10 +205,10 @@ void func_i6_801A5AD4(Player* player) {
     }
     Math_SmoothStepToF(&player->unk_180, -player->unk_008, 0.5f, 3.0f, 0.00001f);
     Math_SmoothStepToF(&player->unk_17C, -player->unk_00C, 0.5f, 3.0f, 0.00001f);
-    func_i6_801A58A8(player);
+    Turret_801A58A8(player);
 }
 
-void func_i6_801A5FC0(Player* player) {
+void Turret_801A5FC0(Player* player) {
     Vec3f sp3C;
     Vec3f sp30;
 
@@ -226,13 +226,13 @@ void func_i6_801A5FC0(Player* player) {
     Matrix_MultVec3f(gCalcMatrix, &sp3C, &sp30);
     player->camAt.x = player->pos.x + sp30.x;
     player->camAt.y = player->pos.y + sp30.y;
-    player->camAt.z = player->pos.z + D_80177D20 + sp30.z;
+    player->camAt.z = player->pos.z + D_ctx_80177D20 + sp30.z;
     player->camEye.x = player->pos.x;
     player->camEye.y = player->pos.y;
-    player->camEye.z = player->pos.z + D_80177D20;
+    player->camEye.z = player->pos.z + D_ctx_80177D20;
 }
 
-void func_i6_801A6164(Player* player) {
+void Turret_801A6164(Player* player) {
     static f32 D_i6_801A6B80 = -100.0f;
 
     if (gControllerHold[player->num].button & U_JPAD) {

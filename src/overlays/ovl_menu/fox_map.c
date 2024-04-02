@@ -1107,116 +1107,116 @@ Gfx* D_menu_801B68F8[] = {
     D_menu_801B5B10, D_menu_801B5440, D_menu_801B50D8, D_menu_801B57A8, D_MAP_604DB10,
 };
 
-void func_menu_8019E800(void);
-void func_menu_8019E99C(void);
-void func_menu_8019F164(void);
-void func_menu_8019F42C(void);
-void func_menu_8019F600(void);
-void func_menu_8019F910(void);
-void func_menu_8019F97C(void);
-void func_menu_8019F83C(void);
-void func_menu_8019FA1C(void);
-void func_menu_8019FC04(void);
-s32 func_menu_8019FD1C(LevelId levelId, s32 arg1);
-void func_menu_8019FF48(void);
-s32 func_menu_801A05B4(void);
-void func_menu_801A0788(void);
-void func_menu_801A0954(void);
-void func_menu_801A0D14(void);
-void func_menu_801A1528(void);
-void func_menu_801A116C(void);
-void func_menu_801A19A8(void);
-void func_menu_801A1C14(void);
-bool func_menu_801A2304(void);
-f32 func_menu_801A25C8(PlanetId);
-void func_menu_801A2674(void);
-void func_menu_801A281C(void);
-void func_menu_801A2B8C(void);
-void func_menu_801A2EB8(void);
-void func_menu_801A3440(f32);
-void func_menu_801A3550(Vec3f*, Vec3f*, Vec3f*, f32);
-void func_menu_801A36A8(void);
-void func_menu_801A3A00(void);
-void func_menu_801A4394(void);
-void func_menu_801A4650(void);
-void func_menu_801A48C0(f32 speed);
-void func_menu_801A4A38(f32 arg0);
-void func_menu_801A4AE8(void);
-void func_menu_801A4D0C(u32);
-void func_menu_801A4D7C(void);
-void func_menu_801A4F8C(void);
-void func_menu_801A4FC4(void);
-void func_menu_801A53C8(void);
-void func_menu_801A5834(void);
-void func_menu_801A5C90(void);
-s32 func_menu_801A5770(void);
-void func_menu_801A5E80(void);
-void func_menu_801A6368(void);
-void func_menu_801A61B4(LevelId level);
-bool func_menu_801A62FC(PlanetId planet);
-s32 func_menu_801A655C(PlanetId start, PlanetId end);
-void func_menu_801A6628(void);
-void func_menu_801A6694(void);
-void func_menu_801A68E4(void);
-void func_menu_801A6A24(void);
-void func_menu_801A6A98(PlanetId);
-s32 func_menu_801A6DAC(PlanetId planetId);
-void func_menu_801A6EC0(PlanetId planetId);
-void func_menu_801A7230(PlanetId planetId);
-void func_menu_801A74F4(PlanetId);
-void func_menu_801A7684(PlanetId planetId);
-void func_menu_801A77B0(PlanetId planetId);
-void func_menu_801A791C(PlanetId planetId);
-void func_menu_801A7A84(PlanetId planetId);
-void func_menu_801A7BEC(f32* zAngle, f32 next, f32 scale);
-void func_menu_801A7D3C(PlanetId planetId);
-void func_menu_801A7F1C(PlanetId planetId);
-void func_menu_801A914C(void);
-void func_menu_801A9EE4(void);
-void func_menu_801AD11C(void);
-void func_menu_801AD718(f32, f32, f32, f32*, f32*, f32*, f32, f32, f32);
-PlanetId GetPlanetId(LevelId level);
-void func_menu_801A809C(PlanetId planetId);
-void func_menu_801A8738(void);
-void func_menu_801A89BC(PlanetId, s32);
-void func_menu_801A8F40(void);
-void func_menu_801A9224(void);
-void func_menu_801A9448(void);
-void func_menu_801A9814(void);
-void func_menu_801A9910(void);
-void func_menu_801A9A8C(void);
-void func_menu_801A9DE8(void);
-void func_menu_801AA1CC(s32);
-void func_menu_801AA434(s32, f32, f32, s32);
-void func_menu_801AA778(s32, f32, f32, PlanetId);
-void func_menu_801AB17C(f32 x, f32 y, f32 z);
-void func_menu_801AB284(void);
-void func_menu_801AB300(void);
-void func_menu_801AB978(s32);
-void func_menu_801ABCDC(s32 arg0, s32 alpha);
-void func_menu_801ABF1C(void);
-void func_menu_801AC200(s32);
-void func_menu_801AC530(s32 index);
-void func_menu_801AC80C(PathType);
-void func_menu_801AC9A0(s32);
-void func_menu_801ACD90(s32 index, Vec3f* src, Vec3f* dest);
-void func_menu_801AD048(void);
+void Map_8019E800(void);
+void Map_8019E99C(void);
+void Map_8019F164(void);
+void Map_8019F42C(void);
+void Map_8019F600(void);
+void Map_8019F910(void);
+void Map_8019F97C(void);
+void Map_8019F83C(void);
+void Map_8019FA1C(void);
+void Map_8019FC04(void);
+s32 Map_8019FD1C(LevelId levelId, s32 arg1);
+void Map_8019FF48(void);
+s32 Map_801A05B4(void);
+void Map_801A0788(void);
+void Map_801A0954(void);
+void Map_801A0D14(void);
+void Map_801A1528(void);
+void Map_801A116C(void);
+void Map_801A19A8(void);
+void Map_801A1C14(void);
+bool Map_801A2304(void);
+f32 Map_801A25C8(PlanetId);
+void Map_801A2674(void);
+void Map_801A281C(void);
+void Map_801A2B8C(void);
+void Map_801A2EB8(void);
+void Map_801A3440(f32);
+void Map_801A3550(Vec3f*, Vec3f*, Vec3f*, f32);
+void Map_801A36A8(void);
+void Map_801A3A00(void);
+void Map_801A4394(void);
+void Map_801A4650(void);
+void Map_801A48C0(f32 speed);
+void Map_801A4A38(f32 arg0);
+void Map_801A4AE8(void);
+void Map_801A4D0C(u32);
+void Map_801A4D7C(void);
+void Map_801A4F8C(void);
+void Map_801A4FC4(void);
+void Map_801A53C8(void);
+void Map_801A5834(void);
+void Map_801A5C90(void);
+s32 Map_801A5770(void);
+void Map_801A5E80(void);
+void Map_801A6368(void);
+void Map_801A61B4(LevelId level);
+bool Map_801A62FC(PlanetId planet);
+s32 Map_801A655C(PlanetId start, PlanetId end);
+void Map_801A6628(void);
+void Map_801A6694(void);
+void Map_801A68E4(void);
+void Map_801A6A24(void);
+void Map_801A6A98(PlanetId);
+s32 Map_801A6DAC(PlanetId planetId);
+void Map_801A6EC0(PlanetId planetId);
+void Map_801A7230(PlanetId planetId);
+void Map_801A74F4(PlanetId);
+void Map_801A7684(PlanetId planetId);
+void Map_801A77B0(PlanetId planetId);
+void Map_801A791C(PlanetId planetId);
+void Map_801A7A84(PlanetId planetId);
+void Map_801A7BEC(f32* zAngle, f32 next, f32 scale);
+void Map_801A7D3C(PlanetId planetId);
+void Map_801A7F1C(PlanetId planetId);
+void Map_801A914C(void);
+void Map_801A9EE4(void);
+void Map_801AD11C(void);
+void Map_801AD718(f32, f32, f32, f32*, f32*, f32*, f32, f32, f32);
+PlanetId Map_GetPlanetId(LevelId level);
+void Map_801A809C(PlanetId planetId);
+void Map_801A8738(void);
+void Map_801A89BC(PlanetId, s32);
+void Map_801A8F40(void);
+void Map_801A9224(void);
+void Map_801A9448(void);
+void Map_801A9814(void);
+void Map_801A9910(void);
+void Map_801A9A8C(void);
+void Map_801A9DE8(void);
+void Map_801AA1CC(s32);
+void Map_801AA434(s32, f32, f32, s32);
+void Map_801AA778(s32, f32, f32, PlanetId);
+void Map_801AB17C(f32 x, f32 y, f32 z);
+void Map_801AB284(void);
+void Map_801AB300(void);
+void Map_801AB978(s32);
+void Map_801ABCDC(s32 arg0, s32 alpha);
+void Map_801ABF1C(void);
+void Map_801AC200(s32);
+void Map_801AC530(s32 index);
+void Map_801AC80C(PathType);
+void Map_801AC9A0(s32);
+void Map_801ACD90(s32 index, Vec3f* src, Vec3f* dest);
+void Map_801AD048(void);
 
-void func_menu_8019E800(void) {
+void Map_8019E800(void) {
     Memory_FreeAll();
-    func_800A5D6C();
-    D_80178410 = 0;
+    func_play_800A5D6C();
+    D_ctx_80178410 = 0;
     gNextGameState = 4;
-    D_80161A34 = 5;
-    D_80177868 = 2;
+    D_game_80161A34 = 5;
+    D_ctx_80177868 = 2;
     gDrawMode = DRAWMODE_0;
 }
 
-void func_menu_8019E85C(void) {
-    switch (D_80177868) {
+void Map_8019E85C(void) {
+    switch (D_ctx_80177868) {
         case 0:
             if (D_Timer_8017783C == 0) {
-                D_80177868 = 1;
+                D_ctx_80177868 = 1;
             }
             break;
 
@@ -1224,15 +1224,15 @@ void func_menu_8019E85C(void) {
             break;
 
         case 1:
-            func_menu_8019E800();
+            Map_8019E800();
             break;
     }
 }
 
-void func_menu_8019E8C8(void) {
+void Map_8019E8C8(void) {
 }
 
-void func_menu_8019E8D0(void) {
+void Map_8019E8D0(void) {
     if (D_menu_801CD9B8 > 0) {
         D_menu_801CD9B8--;
     }
@@ -1243,26 +1243,26 @@ void func_menu_8019E8D0(void) {
         D_menu_801CD9C0--;
     }
 
-    switch (D_80177B40) {
+    switch (D_ctx_80177B40) {
         case 0:
             if (D_Timer_8017783C == 0) {
-                D_80177B40 = 1;
+                D_ctx_80177B40 = 1;
             }
             break;
 
         case 1:
             gDrawMode = DRAWMODE_0;
-            func_menu_8019E99C();
+            Map_8019E99C();
             break;
 
         case 2:
             gDrawMode = DRAW_MAP;
-            func_menu_8019FF48();
+            Map_8019FF48();
             break;
     }
 }
 
-void func_menu_8019E99C(void) {
+void Map_8019E99C(void) {
     s32 i;
     s32 j;
 
@@ -1271,9 +1271,9 @@ void func_menu_8019E99C(void) {
     D_80137E78 = 2;
     gGameFrameCount = 0;
 
-    func_menu_80188010();
+    Title_80188010();
 
-    D_menu_801CD83C = func_menu_801A05B4();
+    D_menu_801CD83C = Map_801A05B4();
 
     D_menu_801CD980 = 0;
     D_menu_801CD984 = 0;
@@ -1326,9 +1326,9 @@ void func_menu_8019E99C(void) {
     D_menu_801CDA18 = 0.0f;
     D_menu_801CDA1C = 0.0f;
 
-    func_menu_801AD718(D_menu_801CDA00, D_menu_801CDA04, D_menu_801CDA08, &D_menu_801CD9F4, &D_menu_801CD9F8,
-                       &D_menu_801CD9FC, D_menu_801CDA14, D_menu_801CDA0C + D_menu_801CDA18,
-                       D_menu_801CDA10 + D_menu_801CDA1C);
+    Map_801AD718(D_menu_801CDA00, D_menu_801CDA04, D_menu_801CDA08, &D_menu_801CD9F4, &D_menu_801CD9F8,
+                 &D_menu_801CD9FC, D_menu_801CDA14, D_menu_801CDA0C + D_menu_801CDA18,
+                 D_menu_801CDA10 + D_menu_801CDA1C);
 
     for (i = 0; i < 15; i++) {
         D_menu_801CD8A0[i] = i;
@@ -1336,11 +1336,11 @@ void func_menu_8019E99C(void) {
 
     D_menu_801CD960 = 0;
 
-    D_80178340 = 0xFF;
-    D_80178348 = 0;
-    D_80178350 = 0;
-    D_80178354 = 0;
-    D_80177D20 = 0.0f;
+    D_ctx_80178340 = 0xFF;
+    D_ctx_80178348 = 0;
+    D_ctx_80178350 = 0;
+    D_ctx_80178354 = 0;
+    D_ctx_80177D20 = 0.0f;
 
     D_menu_801CF018 = 0;
 
@@ -1350,7 +1350,7 @@ void func_menu_8019E99C(void) {
     D_menu_801CEA5C = 0.0f;
     D_menu_801CEA60 = 0.0f;
 
-    func_menu_801A0788();
+    Map_801A0788();
 
     D_menu_801B8280 = 0;
     D_menu_801B8284 = 0;
@@ -1375,24 +1375,24 @@ void func_menu_8019E99C(void) {
         sPaths[i].unk_14 = 0;
     }
 
-    func_menu_801A6694();
+    Map_801A6694();
 
-    switch (D_80161A34) {
+    switch (D_game_80161A34) {
         default:
         case 0:
-            func_menu_8019F600();
+            Map_8019F600();
             break;
 
         case 7:
-            func_menu_8019F164();
+            Map_8019F164();
             break;
 
         case 5:
-            func_menu_8019F42C();
+            Map_8019F42C();
             break;
     }
 
-    func_menu_801A914C();
+    Map_801A914C();
 
     for (i = 0; i < 96 * 96; i++) {
         D_menu_801BB810[i] = 106;
@@ -1408,12 +1408,12 @@ void func_menu_8019E99C(void) {
 
     for (i = 0; i < 9; i++) {
         D_menu_801CD818[i] = 0.0f;
-        func_menu_801A07E8(D_menu_801B68B0[i], SEGMENTED_TO_VIRTUAL(D_menu_801B68D4[i]), &D_menu_801CD818[i]);
+        Map_801A07E8(D_menu_801B68B0[i], SEGMENTED_TO_VIRTUAL(D_menu_801B68D4[i]), &D_menu_801CD818[i]);
     }
 
     D_menu_801CD810 = 0;
 
-    D_80177B40 = 2;
+    D_ctx_80177B40 = 2;
 
     D_menu_801CD948 = 0;
     D_menu_801CEEC4 = 0;
@@ -1429,7 +1429,7 @@ void func_menu_8019E99C(void) {
     D_menu_801CEB34 = -1;
 }
 
-void func_menu_8019F164(void) {
+void Map_8019F164(void) {
     s32 i;
 
     D_menu_801CD974 = 1;
@@ -1439,40 +1439,40 @@ void func_menu_8019F164(void) {
     }
 
     for (i = 0; i < 6; i++) {
-        D_80177C38[i] = gTeamShields[i];
-        D_801778F0[i] = gSavedTeamShields[i];
+        D_ctx_80177C38[i] = gTeamShields[i];
+        D_ctx_801778F0[i] = gSavedTeamShields[i];
         gSavedTeamShields[i] = gTeamShields[i];
     }
 
     for (i = 1; i < 4; i++) {
-        if (D_80177C38[i] == 0) {
-            D_80177C38[i] = 255;
+        if (D_ctx_80177C38[i] == 0) {
+            D_ctx_80177C38[i] = 255;
         }
     }
 
-    D_menu_801CD93C = D_80177930;
+    D_menu_801CD93C = D_ctx_80177930;
 
-    sCurrentPlanetId = GetPlanetId(gCurrentLevel);
+    sCurrentPlanetId = Map_GetPlanetId(gCurrentLevel);
 
     D_menu_801CD950 = sCurrentPlanetId;
 
-    D_menu_801CD980 = func_menu_8019FD1C(gCurrentLevel, 0);
+    D_menu_801CD980 = Map_8019FD1C(gCurrentLevel, 0);
 
-    func_menu_8019FD1C(gCurrentLevel, 2);
+    Map_8019FD1C(gCurrentLevel, 2);
 
-    if (D_800D3180[gCurrentLevel] == 2) {
+    if (D_play_800D3180[gCurrentLevel] == 2) {
         D_menu_801CD98C = 1;
-        D_80177BB0[gCurrentPlanet] = 1;
-        func_menu_8019FD1C(gCurrentLevel, 1);
+        D_ctx_80177BB0[gCurrentPlanet] = 1;
+        Map_8019FD1C(gCurrentLevel, 1);
     }
 
     Save_Write();
 
-    func_menu_8019F97C();
+    Map_8019F97C();
 
-    func_menu_8019F83C();
+    Map_8019F83C();
 
-    func_menu_8019FA1C();
+    Map_8019FA1C();
 
     switch (D_menu_801CD93C) {
         case 0:
@@ -1490,7 +1490,7 @@ void func_menu_8019F164(void) {
 
     gCurrentPlanet++;
 
-    func_menu_8019FC04();
+    Map_8019FC04();
 
     D_menu_801CEFC4 = 0;
     D_menu_801CEFD0 = 0;
@@ -1512,21 +1512,21 @@ void func_menu_8019F164(void) {
     D_menu_801CD944 = 5;
 }
 
-void func_menu_8019F42C(void) {
+void Map_8019F42C(void) {
     s32 i;
 
     gTotalHits += gHitCount;
     gLifeCount[gPlayerNum] = 0;
 
     D_menu_801CD974 = 1;
-    sCurrentPlanetId = GetPlanetId(gCurrentLevel);
+    sCurrentPlanetId = Map_GetPlanetId(gCurrentLevel);
 
-    D_80177B70[gCurrentPlanet] = gHitCount;
+    D_ctx_80177B70[gCurrentPlanet] = gHitCount;
 
-    func_menu_8019F910();
-    func_menu_8019FD1C(gCurrentLevel, 0);
+    Map_8019F910();
+    Map_8019FD1C(gCurrentLevel, 0);
     Save_Write();
-    func_menu_8019F83C();
+    Map_8019F83C();
 
     for (i = 0; i < 7; i++) {
         D_menu_801CD8E0[i] = 0;
@@ -1534,19 +1534,19 @@ void func_menu_8019F42C(void) {
 
     if (gCurrentPlanet != 0) {
         for (i = 0; i < gCurrentPlanet; i++) {
-            D_menu_801CD8E0[i] = func_menu_801A655C(D_80177B90[i], D_80177B90[i + 1]);
+            D_menu_801CD8E0[i] = Map_801A655C(D_ctx_80177B90[i], D_ctx_80177B90[i + 1]);
         }
     }
 
     for (i = 0; i < 24; i++) {
-        D_80177BD8[i] = 0;
+        D_ctx_80177BD8[i] = 0;
     }
 
     for (i = 0; i < 15; i++) {
         sPlanets[i].alpha = 0;
     }
 
-    func_menu_8019FC04();
+    Map_8019FC04();
 
     D_menu_801CD9AC = 0;
 
@@ -1557,7 +1557,7 @@ void func_menu_8019F42C(void) {
     D_menu_801CD944 = 7;
 }
 
-void func_menu_8019F600(void) {
+void Map_8019F600(void) {
     s32 i;
     s32 sp18;
     s32 temp_t4;
@@ -1571,12 +1571,12 @@ void func_menu_8019F600(void) {
     gSavedTeamShields[1] = 255;
     gSavedTeamShields[2] = 255;
     gSavedTeamShields[3] = 255;
-    D_80177C38[1] = 255;
-    D_80177C38[2] = 255;
-    D_80177C38[3] = 255;
-    D_80177C58[1] = 255;
-    D_80177C58[2] = 255;
-    D_80177C58[3] = 255;
+    D_ctx_80177C38[1] = 255;
+    D_ctx_80177C38[2] = 255;
+    D_ctx_80177C38[3] = 255;
+    D_ctx_80177C58[1] = 255;
+    D_ctx_80177C58[2] = 255;
+    D_ctx_80177C58[3] = 255;
 
     D_menu_801CD950 = -1;
 
@@ -1586,22 +1586,22 @@ void func_menu_8019F600(void) {
 
     D_menu_801CD970 = 0;
     for (i = 0; i < 24; i++) {
-        D_80177BD8[i] = 0;
+        D_ctx_80177BD8[i] = 0;
         gTexturedLines[i].unk_24 = 0.0f;
     }
 
     for (i = 0; i < 7; i++) {
-        D_80177BB0[i] = 0;
-        D_80177B70[i] = 0;
-        D_80177B50[i] = 0x00FFFFFF;
+        D_ctx_80177BB0[i] = 0;
+        D_ctx_80177B70[i] = 0;
+        D_ctx_80177B50[i] = 0x00FFFFFF;
     }
-    D_80177B90[0] = PLANET_CORNERIA;
-    D_80177B90[1] = PLANET_NONE;
-    D_80177B90[2] = PLANET_NONE;
-    D_80177B90[3] = PLANET_NONE;
-    D_80177B90[4] = PLANET_NONE;
-    D_80177B90[5] = PLANET_NONE;
-    D_80177B90[6] = PLANET_VENOM;
+    D_ctx_80177B90[0] = PLANET_CORNERIA;
+    D_ctx_80177B90[1] = PLANET_NONE;
+    D_ctx_80177B90[2] = PLANET_NONE;
+    D_ctx_80177B90[3] = PLANET_NONE;
+    D_ctx_80177B90[4] = PLANET_NONE;
+    D_ctx_80177B90[5] = PLANET_NONE;
+    D_ctx_80177B90[6] = PLANET_VENOM;
 
     for (i = 0; i < 24; i++) {
         sPaths[i].alpha = 255;
@@ -1616,23 +1616,24 @@ void func_menu_8019F600(void) {
     D_menu_801CD9B4 = 0.01f;
     D_menu_801CD944 = 0;
 
-    sp18 = func_menu_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest1);
-    temp_t4 = func_menu_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest2);
-    D_80177BD8[sp18] = 1;
-    D_80177BD8[temp_t4] = 1;
+    sp18 = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest1);
+    temp_t4 = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest2);
+    D_ctx_80177BD8[sp18] = 1;
+    D_ctx_80177BD8[temp_t4] = 1;
 }
 
-void func_menu_8019F83C(void) {
+void Map_8019F83C(void) {
     s32 i;
 
     D_menu_801CD970 = 0;
 
     for (i = 0; i < 24; i++) {
-        if ((D_80177BD8[i] == 4) || (D_80177BD8[i] == 5) || (D_80177BD8[i] == 1) || (D_80177BD8[i] == 11)) {
-            D_80177BD8[i] = 0;
+        if ((D_ctx_80177BD8[i] == 4) || (D_ctx_80177BD8[i] == 5) || (D_ctx_80177BD8[i] == 1) ||
+            (D_ctx_80177BD8[i] == 11)) {
+            D_ctx_80177BD8[i] = 0;
         }
 
-        if (D_80177BD8[i] == 6) {
+        if (D_ctx_80177BD8[i] == 6) {
             sPaths[i].unk_14 = 5;
         }
 
@@ -1641,22 +1642,22 @@ void func_menu_8019F83C(void) {
     }
 }
 
-void func_menu_8019F910(void) {
+void Map_8019F910(void) {
     s32 i;
     s32 mask = 0x00FF0000;
 
     for (i = 0; i < 3; i++) {
         if (gTeamShields[3 - i] <= 0) {
-            D_80177B50[gCurrentPlanet] ^= mask;
+            D_ctx_80177B50[gCurrentPlanet] ^= mask;
         } else {
-            D_80177B50[gCurrentPlanet] |= mask;
+            D_ctx_80177B50[gCurrentPlanet] |= mask;
         }
         mask >>= 8;
     }
 }
 
-void func_menu_8019F97C(void) {
-    D_menu_801CEA54 = func_menu_801A25C8(sCurrentPlanetId);
+void Map_8019F97C(void) {
+    D_menu_801CEA54 = Map_801A25C8(sCurrentPlanetId);
 
     D_menu_801CD9F4 = D_menu_801CDA00 = sPlanets[sCurrentPlanetId].pos.x;
     D_menu_801CD9F8 = D_menu_801CDA04 = sPlanets[sCurrentPlanetId].pos.y;
@@ -1664,7 +1665,7 @@ void func_menu_8019F97C(void) {
     D_menu_801CD9FC = sPlanets[sCurrentPlanetId].pos.z + D_menu_801CEA54;
 }
 
-void func_menu_8019FA1C(void) {
+void Map_8019FA1C(void) {
     PlanetId planetId;
 
     for (planetId = 0; planetId < PLANET_MAX; planetId++) {
@@ -1680,7 +1681,7 @@ void func_menu_8019FA1C(void) {
     }
 }
 
-void func_menu_8019FC04(void) {
+void Map_8019FC04(void) {
     s32 i;
 
     if (gCurrentPlanet != PLANET_METEO) {
@@ -1689,16 +1690,16 @@ void func_menu_8019FC04(void) {
     }
 
     for (i = 0; i < 7; i++) {
-        if (D_80177B90[i] == PLANET_KATINA) {
+        if (D_ctx_80177B90[i] == PLANET_KATINA) {
             D_menu_801CEB48[1] = false;
         }
-        if (D_80177B90[i] == PLANET_SECTOR_Y) {
+        if (D_ctx_80177B90[i] == PLANET_SECTOR_Y) {
             D_menu_801CEB48[2] = false;
         }
     }
 }
 
-bool func_menu_8019FD1C(LevelId levelId, s32 arg1) {
+bool Map_8019FD1C(LevelId levelId, s32 arg1) {
     s32 ret;
     s32 planetSaveSlot;
 
@@ -1768,7 +1769,7 @@ bool func_menu_8019FD1C(LevelId levelId, s32 arg1) {
             break;
 
         case LEVEL_VENOM_ANDROSS:
-            if (D_8017827C == 0) {
+            if (D_ctx_8017827C == 0) {
                 planetSaveSlot = SAVE_SLOT_VENOM_1;
             } else {
                 planetSaveSlot = SAVE_SLOT_VENOM_2;
@@ -1818,45 +1819,45 @@ bool func_menu_8019FD1C(LevelId levelId, s32 arg1) {
     return ret;
 }
 
-void func_menu_8019FF48(void) {
-    func_menu_801A6694();
-    func_menu_801A68E4();
-    func_menu_801A6A24();
+void Map_8019FF48(void) {
+    Map_801A6694();
+    Map_801A68E4();
+    Map_801A6A24();
 
     switch (D_menu_801CD944) {
         case 0:
-            func_menu_801A0954();
-            D_8017842C += 0.09f;
+            Map_801A0954();
+            D_ctx_8017842C += 0.09f;
             break;
 
         case 1:
-            func_menu_801A1528();
+            Map_801A1528();
             D_menu_801CDA1C += 0.03f;
             break;
 
         case 3:
-            func_menu_801AD11C();
+            Map_801AD11C();
             D_menu_801CDA1C += 0.03f;
             break;
 
         case 2:
-            func_menu_801A1C14();
+            Map_801A1C14();
             break;
 
         case 4:
-            func_menu_801A5E80();
+            Map_801A5E80();
             break;
 
         case 5:
-            func_menu_801A2B8C();
+            Map_801A2B8C();
             break;
 
         case 6:
-            func_menu_801A4AE8();
+            Map_801A4AE8();
             break;
 
         case 7:
-            func_menu_801A36A8();
+            Map_801A36A8();
             break;
 
         default:
@@ -1864,11 +1865,11 @@ void func_menu_8019FF48(void) {
     }
 
     if ((D_menu_801CD944 == 0) || (D_menu_801CD944 == 1) || (D_menu_801CD944 == 7) || (D_menu_801CD944 == 3)) {
-        func_menu_801AD718(D_menu_801CDA00, D_menu_801CDA04, D_menu_801CDA08, &D_menu_801CD9F4, &D_menu_801CD9F8,
-                           &D_menu_801CD9FC, D_menu_801CDA14, D_menu_801CDA0C + D_menu_801CDA18,
-                           D_menu_801CDA10 + D_menu_801CDA1C);
-        func_800B6F50(D_menu_801CD9F4, D_menu_801CD9F8, D_menu_801CD9FC, D_menu_801CDA00, D_menu_801CDA04,
-                      D_menu_801CDA08);
+        Map_801AD718(D_menu_801CDA00, D_menu_801CDA04, D_menu_801CDA08, &D_menu_801CD9F4, &D_menu_801CD9F8,
+                     &D_menu_801CD9FC, D_menu_801CDA14, D_menu_801CDA0C + D_menu_801CDA18,
+                     D_menu_801CDA10 + D_menu_801CDA1C);
+        func_play_800B6F50(D_menu_801CD9F4, D_menu_801CD9F8, D_menu_801CD9FC, D_menu_801CDA00, D_menu_801CDA04,
+                           D_menu_801CDA08);
     }
     gGameFrameCount++;
 #if MODS_LEVEL_SELECT == true
@@ -1876,7 +1877,7 @@ void func_menu_8019FF48(void) {
 #endif
 }
 
-void func_menu_801A01A8(void) {
+void Map_801A01A8(void) {
     s32 i;
     s32* ptr;
 
@@ -1888,85 +1889,84 @@ void func_menu_801A01A8(void) {
 
     if (D_menu_801CD974 && D_menu_801CD944 != 0) {
         for (i = 0; i < 24; i++) {
-            if (D_80177BD8[i] == 0) {
+            if (D_ctx_80177BD8[i] == 0) {
                 continue;
             }
             if (sPaths[i].alpha == 0) {
                 continue;
             }
 
-            func_menu_801AC9A0(i);
+            Map_801AC9A0(i);
 
             if (sPaths[i].unk_14) {
-                func_menu_801AC200(i);
+                Map_801AC200(i);
             }
 
-            func_80060D94(i);
+            func_edisplay_80060D94(i);
         }
     }
 
-    func_menu_801A8F40();
+    Map_801A8F40();
 
-    func_menu_801A9224();
+    Map_801A9224();
 
-    func_menu_801A9448();
+    Map_801A9448();
 
     for (ptr = D_menu_801CD8A0, i = 0; i < 15; i++, ptr++) {
-        func_menu_801A6A98(*ptr);
+        Map_801A6A98(*ptr);
     }
 
-    func_menu_801A8738();
+    Map_801A8738();
 
     Matrix_Pop(&gGfxMatrix);
 
     if (D_menu_801CD96C) {
-        func_menu_801ABF1C();
+        Map_801ABF1C();
     }
 
-    func_menu_801AB300();
+    Map_801AB300();
 
     if (D_menu_801CEFC4) {
-        func_menu_801A5834();
+        Map_801A5834();
     }
 
     if (D_menu_801CD964) {
-        func_menu_801A9910();
+        Map_801A9910();
     }
 
-    func_menu_801A9814();
+    Map_801A9814();
 
     if (D_menu_801CD968) {
-        func_menu_801A9A8C();
+        Map_801A9A8C();
     }
 
-    func_menu_801A9DE8();
+    Map_801A9DE8();
 
-    func_menu_801A5C90();
+    Map_801A5C90();
 
     if ((D_menu_801CD944 == 7) && (D_menu_801CD948 == 1)) {
-        func_menu_801A4650();
+        Map_801A4650();
     }
     if (D_menu_801CD944 == 0) {
-        func_menu_801A0D14();
+        Map_801A0D14();
     }
     if (D_menu_801CD944 == 1) {
-        func_menu_801A19A8();
+        Map_801A19A8();
     }
 
     if (D_menu_801CEEC8 == 0) {
-        func_menu_801A07E8((u8*) D_menu_801B68B0[8], (u8*) SEGMENTED_TO_VIRTUAL(D_menu_801B68D4[8]),
-                           &(D_menu_801CD818[8]));
+        Map_801A07E8((u8*) D_menu_801B68B0[8], (u8*) SEGMENTED_TO_VIRTUAL(D_menu_801B68D4[8]), &(D_menu_801CD818[8]));
         D_menu_801CEEC8 = 5;
     } else {
         D_menu_801CEEC8--;
     }
 
-    func_menu_801A07E8((u8*) D_menu_801B68B0[D_menu_801CEEC4 * 2],
-                       (u8*) SEGMENTED_TO_VIRTUAL(D_menu_801B68D4[D_menu_801CEEC4 * 2]),
-                       &(D_menu_801CD818[D_menu_801CEEC4 * 2]));
-    func_menu_801A07E8((u8*) D_menu_801B68B0[(D_menu_801CEEC4 * 2) + 1],
-                       (u8*) SEGMENTED_TO_VIRTUAL(D_menu_801B68D4[(D_menu_801CEEC4 * 2) + 1]),
-                       &(D_menu_801CD818[(D_menu_801CEEC4 * 2) + 1]));
+    Map_801A07E8((u8*) D_menu_801B68B0[D_menu_801CEEC4 * 2],
+                 (u8*) SEGMENTED_TO_VIRTUAL(D_menu_801B68D4[D_menu_801CEEC4 * 2]),
+                 &(D_menu_801CD818[D_menu_801CEEC4 * 2]));
+    Map_801A07E8((u8*) D_menu_801B68B0[(D_menu_801CEEC4 * 2) + 1],
+                 (u8*) SEGMENTED_TO_VIRTUAL(D_menu_801B68D4[(D_menu_801CEEC4 * 2) + 1]),
+                 &(D_menu_801CD818[(D_menu_801CEEC4 * 2) + 1]));
     D_menu_801CEEC4++;
     if (D_menu_801CEEC4 > 3) {
         D_menu_801CEEC4 = 0;
@@ -1975,7 +1975,7 @@ void func_menu_801A01A8(void) {
     Texture_Mottle((u16*) D_MAP_6047F80, (u16*) D_MAP_6048F80, 5);
 }
 
-s32 func_menu_801A05B4(void) {
+s32 Map_801A05B4(void) {
     s32 i;
     s32 j;
     s32 sp30[10];
@@ -2009,19 +2009,19 @@ s32 func_menu_801A05B4(void) {
     return ret;
 }
 
-void func_menu_801A0788(void) {
-    D_80178410 = 800;
+void Map_801A0788(void) {
+    D_ctx_80178410 = 800;
 
     Memory_FreeAll();
-    func_800A5D6C();
+    func_play_800A5D6C();
 
-    D_80178420 = 320.0f;
-    D_80178424 = 240.0f;
-    D_8017842C = 0.0f;
-    D_80178430 = 0.0f;
+    D_ctx_80178420 = 320.0f;
+    D_ctx_80178424 = 240.0f;
+    D_ctx_8017842C = 0.0f;
+    D_ctx_80178430 = 0.0f;
 }
 
-void func_menu_801A07E8(u8* arg0, u8* arg1, f32* arg2) {
+void Map_801A07E8(u8* arg0, u8* arg1, f32* arg2) {
     s32* var_v0 = D_menu_801B0004;
     s32 temp;
     s32 i;
@@ -2055,7 +2055,7 @@ void func_menu_801A07E8(u8* arg0, u8* arg1, f32* arg2) {
     }
 }
 
-void func_menu_801A0954(void) {
+void Map_801A0954(void) {
     PlanetId planetId;
     static f32 D_menu_801B6934[] = {
         99.0f, 24, -90.0f, -150.0f, -208.0f, -276.0f,
@@ -2072,7 +2072,7 @@ void func_menu_801A0954(void) {
             D_menu_801CD9E8 = 0;
             D_menu_801CD9E4 = 0;
             D_menu_801CD9EC = 0.29f;
-            D_80178410 = 800;
+            D_ctx_80178410 = 800;
             D_menu_801CD9C0 = 5;
             D_menu_801CD948++;
             break;
@@ -2082,7 +2082,7 @@ void func_menu_801A0954(void) {
                 break;
             }
 
-            if (D_80178340 != 0) {
+            if (D_ctx_80178340 != 0) {
                 break;
             }
 
@@ -2156,7 +2156,7 @@ void func_menu_801A0954(void) {
     }
 }
 
-void func_menu_801A0D14(void) {
+void Map_801A0D14(void) {
     s32 i;
     static f32 D_menu_801B694C = 71.0f;
     static f32 D_menu_801B6950 = 205.0f;
@@ -2164,7 +2164,7 @@ void func_menu_801A0D14(void) {
         D_MAP_6041A80, D_MAP_6035780, D_MAP_6033080, D_MAP_603A580, D_MAP_603F380, D_MAP_6037E80, D_MAP_603CC80,
     };
 
-    func_menu_801A116C();
+    Map_801A116C();
 
     RCP_SetupDL(&gMasterDisp, 0x51);
 
@@ -2180,8 +2180,8 @@ void func_menu_801A0D14(void) {
     TextureRect_8bIA(&gMasterDisp, D_MAP_6019030, 8, 16, 0.0f, D_menu_801B694C, 40.0f, 1.66f);
     TextureRect_8bIA_MirY(&gMasterDisp, D_MAP_6019030, 8, 16, 0.0f, D_menu_801B6950, 40.0f, 1.68f);
 
-    func_8003DE68(0x47, 0x76);
-    func_8003DE68(0xCD, 0xEF);
+    func_bg_8003DE68(0x47, 0x76);
+    func_bg_8003DE68(0xCD, 0xEF);
 
     RCP_SetupDL(&gMasterDisp, 0x4C);
 
@@ -2207,7 +2207,7 @@ void func_menu_801A0D14(void) {
     }
 }
 
-void func_menu_801A116C(void) {
+void Map_801A116C(void) {
     static f32 D_menu_801B6970 = 35.0f;
     WingInfo wings;
     Vec3f dest;
@@ -2275,7 +2275,7 @@ void func_menu_801A116C(void) {
         wings.unk_34 = 0.0f;
         wings.unk_38 = 0.0f;
 
-        func_80053658(&wings);
+        func_display_80053658(&wings);
 
         Matrix_Pop(&gGfxMatrix);
         Matrix_Pop(&gGfxMatrix);
@@ -2295,7 +2295,7 @@ f32* D_menu_801B6A34[2] = { D_menu_801B69D4, D_menu_801B6974 };
 f32* D_menu_801B6A3C[2] = { D_menu_801B69F4, D_menu_801B6994 };
 f32* D_menu_801B6A44[2] = { D_menu_801B6A14, D_menu_801B69B4 };
 
-void func_menu_801A1528(void) {
+void Map_801A1528(void) {
     PlanetId planetId;
     f32 temp;
 
@@ -2371,7 +2371,7 @@ void func_menu_801A1528(void) {
     }
 }
 
-void func_menu_801A19A8(void) {
+void Map_801A19A8(void) {
     s32 i;
 
     RCP_SetupDL(&gMasterDisp, 0x53);
@@ -2384,14 +2384,14 @@ void func_menu_801A19A8(void) {
     TextureRect_8bIA(&gMasterDisp, D_MAP_600D590 + (168 * 16), 168, 3, 72.0f, 104.0f + 16.0f, 1.0f, 1.0f);
 }
 
-void func_menu_801A1AE8(void) {
+void Map_801A1AE8(void) {
     f32 x;
     f32 y;
     f32 z;
 
     D_menu_801CEA64 = 0.04f;
 
-    D_menu_801CEA54 = func_menu_801A25C8(sCurrentPlanetId);
+    D_menu_801CEA54 = Map_801A25C8(sCurrentPlanetId);
 
     D_menu_801CDA40.x = sPlanets[sCurrentPlanetId].pos.x;
     D_menu_801CDA40.y = sPlanets[sCurrentPlanetId].pos.y;
@@ -2414,12 +2414,12 @@ void func_menu_801A1AE8(void) {
     D_menu_801CEA68 = sqrtf(SQ(x) + SQ(y) + SQ(z));
 }
 
-void func_menu_801A1C14(void) {
+void Map_801A1C14(void) {
     s32 i;
 
     switch (D_menu_801CD948) {
         case 0:
-            func_menu_801A1AE8();
+            Map_801A1AE8();
 
             D_menu_801CD94C = 0;
             D_menu_801CD9C4 = 0;
@@ -2445,12 +2445,12 @@ void func_menu_801A1C14(void) {
             for (i = 0; i < 24; i++) {
                 sPaths[i].alpha = 0;
             }
-            D_80178410 = 0;
+            D_ctx_80178410 = 0;
 
-            D_80178348 = 255;
-            D_80178350 = 255;
-            D_80178354 = 255;
-            D_80178340 = 0;
+            D_ctx_80178348 = 255;
+            D_ctx_80178350 = 255;
+            D_ctx_80178354 = 255;
+            D_ctx_80178340 = 0;
 
             D_menu_801CEB3C = 0.0f;
             D_menu_801CEB38 = 255;
@@ -2461,7 +2461,7 @@ void func_menu_801A1C14(void) {
         case 1:
             if (D_menu_801CD95C == 0) {
                 if (sCurrentPlanetId == PLANET_CORNERIA) {
-                    D_80178340 = 0;
+                    D_ctx_80178340 = 0;
                     D_menu_801CD948 = 10;
                     AUDIO_PLAY_SFX(0x0940A00BU, gDefaultSfxSource, 4U);
                 } else {
@@ -2470,7 +2470,7 @@ void func_menu_801A1C14(void) {
                 }
             } else {
                 if (sCurrentPlanetId == PLANET_CORNERIA) {
-                    D_80178340 ^= 0xFF;
+                    D_ctx_80178340 ^= 0xFF;
                     if (D_menu_801CD95C == 2) {
                         D_menu_801CEB34 = 0;
                     }
@@ -2487,7 +2487,7 @@ void func_menu_801A1C14(void) {
             break;
 
         case 2:
-            func_menu_801A2674();
+            Map_801A2674();
             if ((D_menu_801CD9FC == D_menu_801CDA50.z) && (D_menu_801CD9D8 == 0)) {
                 AUDIO_PLAY_SFX(0x19004013U, gDefaultSfxSource, 4U);
                 D_menu_801CD9D8 = 1;
@@ -2514,7 +2514,7 @@ void func_menu_801A1C14(void) {
                 // clang-format on
                 D_menu_801CD970 = 0;
 
-                if (func_menu_801A2304()) {
+                if (Map_801A2304()) {
                     D_menu_801CD948 = 3;
                 }
             }
@@ -2544,7 +2544,7 @@ void func_menu_801A1C14(void) {
             // clang-format on
             D_menu_801CD970 = 0;
 
-            if (func_menu_801A2304()) {
+            if (Map_801A2304()) {
                 D_menu_801CD948 = 3;
             }
             break;
@@ -2557,7 +2557,7 @@ void func_menu_801A1C14(void) {
     D_menu_801CD9C4++;
 }
 
-bool func_menu_801A2304(void) {
+bool Map_801A2304(void) {
     s32 ret = false;
     f32 sp28;
     f32 sp24;
@@ -2621,7 +2621,7 @@ bool func_menu_801A2304(void) {
     return ret;
 }
 
-f32 func_menu_801A25C8(PlanetId planetId) {
+f32 Map_801A25C8(PlanetId planetId) {
     f32 sp4;
 
     switch (planetId) {
@@ -2671,12 +2671,12 @@ f32 func_menu_801A25C8(PlanetId planetId) {
     return sp4;
 }
 
-void func_menu_801A2674(void) {
+void Map_801A2674(void) {
     s32 i;
 
-    func_menu_801A48C0(D_menu_801CEA64);
+    Map_801A48C0(D_menu_801CEA64);
 
-    func_menu_801A4A38(D_menu_801CEA64);
+    Map_801A4A38(D_menu_801CEA64);
 
     D_menu_801CEA64 *= 1.03f;
 
@@ -2699,7 +2699,7 @@ void func_menu_801A2674(void) {
     }
 
     for (i = 0; i < 24; i++) {
-        if (D_80177BD8[i] == 0) {
+        if (D_ctx_80177BD8[i] == 0) {
             continue;
         }
 
@@ -2727,11 +2727,11 @@ void func_menu_801A2674(void) {
     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 45);
 }
 
-void func_menu_801A281C(void) {
-    D_80178348 = 0;
-    D_80178350 = 0;
-    D_80178354 = 0;
-    D_80178340 = 255;
+void Map_801A281C(void) {
+    D_ctx_80178348 = 0;
+    D_ctx_80178350 = 0;
+    D_ctx_80178354 = 0;
+    D_ctx_80178340 = 255;
 
     D_menu_801CD988 = 5;
     D_menu_801CEED8 = 0;
@@ -2757,8 +2757,8 @@ void func_menu_801A281C(void) {
     D_menu_801CDA10 = 0.0f;
     D_menu_801CDA14 = 500.0f;
 
-    func_menu_801AD718(D_menu_801CEF58[2].x, D_menu_801CEF58[2].y, D_menu_801CEF58[2].z, &D_menu_801CEEE8[2].x,
-                       &D_menu_801CEEE8[2].y, &D_menu_801CEEE8[2].z, D_menu_801CDA14, D_menu_801CDA0C, D_menu_801CDA10);
+    Map_801AD718(D_menu_801CEF58[2].x, D_menu_801CEF58[2].y, D_menu_801CEF58[2].z, &D_menu_801CEEE8[2].x,
+                 &D_menu_801CEEE8[2].y, &D_menu_801CEEE8[2].z, D_menu_801CDA14, D_menu_801CDA0C, D_menu_801CDA10);
 
     D_menu_801CEEE8[5].x = D_menu_801CEEE8[4].x = D_menu_801CEEE8[3].x = D_menu_801CEEE8[2].x;
     D_menu_801CEEE8[5].y = D_menu_801CEEE8[4].y = D_menu_801CEEE8[3].y = D_menu_801CEEE8[2].y;
@@ -2772,47 +2772,47 @@ void func_menu_801A281C(void) {
     D_menu_801CDA10 = -9.849999f;
     D_menu_801CDA14 = 3375.000000f;
 
-    func_menu_801AD718(D_menu_801CEF58[6].x, D_menu_801CEF58[6].y, D_menu_801CEF58[6].z, &D_menu_801CEEE8[6].x,
-                       &D_menu_801CEEE8[6].y, &D_menu_801CEEE8[6].z, D_menu_801CDA14, D_menu_801CDA0C, D_menu_801CDA10);
+    Map_801AD718(D_menu_801CEF58[6].x, D_menu_801CEF58[6].y, D_menu_801CEF58[6].z, &D_menu_801CEEE8[6].x,
+                 &D_menu_801CEEE8[6].y, &D_menu_801CEEE8[6].z, D_menu_801CDA14, D_menu_801CDA0C, D_menu_801CDA10);
 
     D_menu_801CEEE8[7].x = D_menu_801CEEE8[6].x;
     D_menu_801CEEE8[7].y = D_menu_801CEEE8[6].y;
     D_menu_801CEEE8[7].z = D_menu_801CEEE8[6].z;
 
-    D_menu_801CEECC = func_menu_801A655C(sCurrentPlanetId, sNextPlanetId);
+    D_menu_801CEECC = Map_801A655C(sCurrentPlanetId, sNextPlanetId);
 
     if (D_menu_801CD93C == 2) {
-        D_80177BD8[D_menu_801CEECC] = 5;
+        D_ctx_80177BD8[D_menu_801CEECC] = 5;
         sPaths[D_menu_801CEECC].unk_14 = 5;
     } else {
-        D_80177BD8[D_menu_801CEECC] = 2;
+        D_ctx_80177BD8[D_menu_801CEECC] = 2;
         sPaths[D_menu_801CEECC].unk_14 = 1;
     }
 }
 
-void func_menu_801A2B8C(void) {
+void Map_801A2B8C(void) {
     s32 i;
 
     switch (D_menu_801CD94C) {
         case 0:
-            func_menu_801A281C();
+            Map_801A281C();
             D_menu_801CD94C = 100;
             break;
 
         case 100:
-            if (D_80178340 != 0) {
-                D_80178340 -= 64;
-                if (D_80178340 < 0) {
-                    D_80178340 = 0;
+            if (D_ctx_80178340 != 0) {
+                D_ctx_80178340 -= 64;
+                if (D_ctx_80178340 < 0) {
+                    D_ctx_80178340 = 0;
                 }
             } else {
                 D_menu_801CD9C0 = 30;
 
                 if ((D_menu_801CD98C == 1) || (D_menu_801CD980 == 1)) {
-                    D_80178348 = 255;
-                    D_80178350 = 255;
-                    D_80178354 = 255;
-                    D_80178340 = 0;
+                    D_ctx_80178348 = 255;
+                    D_ctx_80178350 = 255;
+                    D_ctx_80178354 = 255;
+                    D_ctx_80178340 = 0;
                     D_menu_801CD984 = 0;
                     D_menu_801CD94C = 10;
                     break;
@@ -2827,27 +2827,27 @@ void func_menu_801A2B8C(void) {
                 break;
             }
 
-            if ((D_menu_801CD984 == 255) && (D_80178340 == 0)) {
+            if ((D_menu_801CD984 == 255) && (D_ctx_80178340 == 0)) {
                 D_menu_801CD980 = 0;
                 D_menu_801CD9C0 = 30;
                 D_menu_801CD94C = 20;
             } else if (D_menu_801CD988 != 0) {
-                D_80178340 ^= 255;
+                D_ctx_80178340 ^= 255;
                 D_menu_801CD988--;
             } else {
                 D_menu_801CD988 = 0;
 
-                if (D_80178340 != 0) {
-                    D_80178340 -= 21;
-                    if (D_80178340 < 0) {
-                        D_80178340 = 0;
+                if (D_ctx_80178340 != 0) {
+                    D_ctx_80178340 -= 21;
+                    if (D_ctx_80178340 < 0) {
+                        D_ctx_80178340 = 0;
                     }
                 }
 
                 D_menu_801CD984 += 8;
 
                 if (D_menu_801CD984 > 255) {
-                    D_80178340 = 0;
+                    D_ctx_80178340 = 0;
                     D_menu_801CD984 = 255;
                 }
             }
@@ -2870,7 +2870,7 @@ void func_menu_801A2B8C(void) {
             if (D_menu_801CD9C0 != 0) {
                 break;
             }
-            func_menu_801A2EB8();
+            Map_801A2EB8();
             break;
 
         case 2:
@@ -2896,12 +2896,13 @@ void func_menu_801A2B8C(void) {
             break;
     }
 
-    func_800B6F50(D_menu_801CD9F4, D_menu_801CD9F8, D_menu_801CD9FC, D_menu_801CDA00, D_menu_801CDA04, D_menu_801CDA08);
+    func_play_800B6F50(D_menu_801CD9F4, D_menu_801CD9F8, D_menu_801CD9FC, D_menu_801CDA00, D_menu_801CDA04,
+                       D_menu_801CDA08);
 
     D_menu_801CD9C4++;
 }
 
-void func_menu_801A2EB8(void) {
+void Map_801A2EB8(void) {
     s32 i;
     s32 temp1;
     s32 temp2;
@@ -2914,12 +2915,12 @@ void func_menu_801A2EB8(void) {
         }
     }
 
-    func_menu_801A3440(D_menu_801CEEE0);
+    Map_801A3440(D_menu_801CEEE0);
 
     if (D_menu_801CD9C4 == 80) {
         sCurrentPlanetId = sNextPlanetId;
-        D_80177B90[gCurrentPlanet] = sCurrentPlanetId;
-        func_menu_801A6368();
+        D_ctx_80177B90[gCurrentPlanet] = sCurrentPlanetId;
+        Map_801A6368();
     }
 
     if (D_menu_801CD9C4 < 80) {
@@ -2945,7 +2946,7 @@ void func_menu_801A2EB8(void) {
         }
 
         for (i = 0; i < 24; i++) {
-            if (D_80177BD8[i] == 0) {
+            if (D_ctx_80177BD8[i] == 0) {
                 continue;
             }
             sPaths[i].alpha += 16;
@@ -2995,16 +2996,16 @@ void func_menu_801A2EB8(void) {
 
         D_menu_801CEED4 = -1;
         if (sPlanets[sNextPlanetId].dest1 != PLANET_NONE) {
-            temp1 = func_menu_801A655C(sNextPlanetId, sPlanets[sNextPlanetId].dest1);
-            D_80177BD8[temp1] = 1;
+            temp1 = Map_801A655C(sNextPlanetId, sPlanets[sNextPlanetId].dest1);
+            D_ctx_80177BD8[temp1] = 1;
             sPaths[temp1].alpha = 255;
             D_menu_801CEED4 = temp1;
         }
 
         D_menu_801CEED0 = -1;
         if (sPlanets[sNextPlanetId].dest2 != PLANET_NONE) {
-            temp2 = func_menu_801A655C(sNextPlanetId, sPlanets[sNextPlanetId].dest2);
-            D_80177BD8[temp2] = 1;
+            temp2 = Map_801A655C(sNextPlanetId, sPlanets[sNextPlanetId].dest2);
+            D_ctx_80177BD8[temp2] = 1;
             sPaths[temp2].alpha = 255;
             D_menu_801CEED0 = temp2;
         }
@@ -3013,11 +3014,11 @@ void func_menu_801A2EB8(void) {
     }
 }
 
-void func_menu_801A3440(f32 arg0) {
+void Map_801A3440(f32 arg0) {
     Vec3f vec[2];
 
     if (D_menu_801CEED8 != -1) {
-        func_menu_801A3550(vec, &D_menu_801CEEE8[D_menu_801CEED8], &D_menu_801CEF58[D_menu_801CEED8], D_menu_801CEEDC);
+        Map_801A3550(vec, &D_menu_801CEEE8[D_menu_801CEED8], &D_menu_801CEF58[D_menu_801CEED8], D_menu_801CEEDC);
         D_menu_801CD9F4 = vec[0].x;
         D_menu_801CD9F8 = vec[0].y;
         D_menu_801CD9FC = vec[0].z;
@@ -3036,7 +3037,7 @@ void func_menu_801A3440(f32 arg0) {
     }
 }
 
-void func_menu_801A3550(Vec3f* arg0, Vec3f* arg1, Vec3f* arg2, f32 arg3) {
+void Map_801A3550(Vec3f* arg0, Vec3f* arg1, Vec3f* arg2, f32 arg3) {
     f32 temp_fa1;
     f32 temp_fs0;
     f32 temp_ft5;
@@ -3054,16 +3055,16 @@ void func_menu_801A3550(Vec3f* arg0, Vec3f* arg1, Vec3f* arg2, f32 arg3) {
     (arg0 + 1)->z = (temp_fa1 * arg2->z) + (temp_fs0 * (arg2 + 1)->z) + (temp_ft5 * (arg2 + 2)->z);
 }
 
-void func_menu_801A36A8(void) {
+void Map_801A36A8(void) {
     s32 i;
     f32 temp;
 
     switch (D_menu_801CD948) {
         case 0:
-            D_80178348 = 0;
-            D_80178350 = 0;
-            D_80178354 = 0;
-            D_80178340 = 0xFF;
+            D_ctx_80178348 = 0;
+            D_ctx_80178350 = 0;
+            D_ctx_80178354 = 0;
+            D_ctx_80178340 = 0xFF;
 
             for (i = 0; i < 8; i++) {
                 D_menu_801CF020[i] = D_menu_801B69D4[i];
@@ -3086,10 +3087,10 @@ void func_menu_801A36A8(void) {
         case 10:
             temp = Math_SmoothStepToF(&D_menu_801CEA9C, 0.0f, 1.0f, 100.0f, 1.0f);
 
-            D_80178340 = D_menu_801CEA9C;
+            D_ctx_80178340 = D_menu_801CEA9C;
 
             if (temp == 0.0f) {
-                D_80178340 = 0;
+                D_ctx_80178340 = 0;
                 D_menu_801CD9C0 = 0;
                 D_menu_801CD948 = 20;
             }
@@ -3111,17 +3112,17 @@ void func_menu_801A36A8(void) {
             if (D_menu_801CD9C0) {
                 break;
             }
-            func_menu_801A3A00();
+            Map_801A3A00();
             break;
 
         case 2:
-            func_menu_801A4394();
+            Map_801A4394();
             break;
 
         case 3:
-            D_80178340 += 32;
-            if (D_80178340 > 255) {
-                D_80178340 = 255;
+            D_ctx_80178340 += 32;
+            if (D_ctx_80178340 > 255) {
+                D_ctx_80178340 = 255;
                 D_menu_801CD948++;
             }
             break;
@@ -3131,7 +3132,7 @@ void func_menu_801A36A8(void) {
             D_Timer_8017783C = 2;
             gOptionMenuStatus = OPTION_WAIT;
             gDrawMode = 0;
-            D_80178410 = 0;
+            D_ctx_80178410 = 0;
             break;
     }
 
@@ -3141,7 +3142,7 @@ void func_menu_801A36A8(void) {
     }
 }
 
-void func_menu_801A3A00(void) {
+void Map_801A3A00(void) {
     s32 i;
     bool boolTemp;
     f32 temp1[8];
@@ -3330,7 +3331,7 @@ void func_menu_801A3A00(void) {
     }
 }
 
-void func_menu_801A4394(void) {
+void Map_801A4394(void) {
     s32 i;
 
     switch (D_menu_801CD94C) {
@@ -3352,10 +3353,10 @@ void func_menu_801A4394(void) {
 
             if ((sPaths[D_menu_801CD8E0[D_menu_801CD9AC]].type == 3) ||
                 (sPaths[D_menu_801CD8E0[D_menu_801CD9AC]].type == 4)) {
-                D_80177BD8[D_menu_801CD8E0[D_menu_801CD9AC]] = 5;
+                D_ctx_80177BD8[D_menu_801CD8E0[D_menu_801CD9AC]] = 5;
                 sPaths[D_menu_801CD8E0[D_menu_801CD9AC]].unk_14 = 5;
             } else {
-                D_80177BD8[D_menu_801CD8E0[D_menu_801CD9AC]] = 2;
+                D_ctx_80177BD8[D_menu_801CD8E0[D_menu_801CD9AC]] = 2;
                 sPaths[D_menu_801CD8E0[D_menu_801CD9AC]].unk_14 = 0;
             }
 
@@ -3366,8 +3367,8 @@ void func_menu_801A4394(void) {
             break;
 
         case 2:
-            if ((D_80177BD8[D_menu_801CD8E0[D_menu_801CD9AC]] == 3) ||
-                (D_80177BD8[D_menu_801CD8E0[D_menu_801CD9AC]] == 6)) {
+            if ((D_ctx_80177BD8[D_menu_801CD8E0[D_menu_801CD9AC]] == 3) ||
+                (D_ctx_80177BD8[D_menu_801CD8E0[D_menu_801CD9AC]] == 6)) {
                 D_menu_801CD9AC++;
                 D_menu_801CD94C = 1;
             }
@@ -3400,7 +3401,7 @@ void func_menu_801A4394(void) {
     }
 }
 
-void func_menu_801A4650(void) {
+void Map_801A4650(void) {
     s32 i;
     static Gfx* D_menu_801B6A4C[] = {
         D_FONT3D_9006AE0, D_FONT3D_90086F0, D_FONT3D_9005380, D_FONT3D_90075A0,
@@ -3438,7 +3439,7 @@ void func_menu_801A4650(void) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_menu_801A48C0(f32 speed) {
+void Map_801A48C0(f32 speed) {
     f32 x;
     f32 y;
     f32 z;
@@ -3461,7 +3462,7 @@ void func_menu_801A48C0(f32 speed) {
     D_menu_801CD9F8 = D_menu_801CDA38 * (1 + __sinf(angle) * 1.3f);
 }
 
-void func_menu_801A4A38(f32 arg0) {
+void Map_801A4A38(f32 arg0) {
     Math_SmoothStepToF(&D_menu_801CDA2C, D_menu_801CDA40.x, arg0, 100.0f, 0.1f);
     Math_SmoothStepToF(&D_menu_801CDA30, D_menu_801CDA40.y, arg0, 100.0f, 0.1f);
     Math_SmoothStepToF(&D_menu_801CDA08, D_menu_801CDA40.z, arg0, 100.0f, 0.1f);
@@ -3469,13 +3470,13 @@ void func_menu_801A4A38(f32 arg0) {
     D_menu_801CDA04 = D_menu_801CDA30;
 }
 
-void func_menu_801A4AE8(void) {
+void Map_801A4AE8(void) {
     s32 var_a0;
     s32 i;
 
     switch (D_menu_801CD94C) {
         case 0:
-            func_menu_801A4D7C();
+            Map_801A4D7C();
             break;
 
         case 1:
@@ -3512,11 +3513,11 @@ void func_menu_801A4AE8(void) {
                     var_a0 += 2;
                 }
 
-                func_menu_801A4D0C(var_a0);
+                Map_801A4D0C(var_a0);
 
                 if (D_menu_801CEFDC == 0) {
                     for (i = 0; i < 6; i++) {
-                        D_80177C58[i] = gTeamShields[i];
+                        D_ctx_80177C58[i] = gTeamShields[i];
                     }
                     D_menu_801CEFC8 = 0;
                     D_menu_801CD948 = 0;
@@ -3530,19 +3531,19 @@ void func_menu_801A4AE8(void) {
     }
 }
 
-void func_menu_801A4D0C(u32 arg0) {
+void Map_801A4D0C(u32 arg0) {
     switch (arg0) {
         case 1:
         case 4:
             if (D_menu_801CD9D4 != 0) {
-                func_menu_801A4F8C();
+                Map_801A4F8C();
             } else {
-                func_menu_801A4FC4();
+                Map_801A4FC4();
             }
             break;
 
         case 3:
-            func_menu_801A53C8();
+            Map_801A53C8();
 
         case 0:
         case 2:
@@ -3550,10 +3551,10 @@ void func_menu_801A4D0C(u32 arg0) {
     }
 }
 
-void func_menu_801A4D7C(void) {
+void Map_801A4D7C(void) {
     f32 temp;
 
-    if (func_menu_801A5770() != 0) {
+    if (Map_801A5770() != 0) {
         D_menu_801CEFE8[D_menu_801CEFDC] = 255.0f;
         if (D_menu_801CD93C != 0) {
             if (D_menu_801CEFD4 < 0) {
@@ -3602,15 +3603,15 @@ void func_menu_801A4D7C(void) {
     }
 }
 
-void func_menu_801A4F8C(void) {
-    D_80178410 = 0;
+void Map_801A4F8C(void) {
+    D_ctx_80178410 = 0;
     gGameState = GSTATE_GAME_OVER;
-    D_80177868 = 0;
+    D_ctx_80177868 = 0;
     D_Timer_8017783C = 2;
     gDrawMode = DRAWMODE_0;
 }
 
-void func_menu_801A4FC4(void) {
+void Map_801A4FC4(void) {
     s32 i;
     s32 temp;
     s32 temp2;
@@ -3618,14 +3619,14 @@ void func_menu_801A4FC4(void) {
     gPlayerNum = 0;
 
     for (i = 0; i < 6; i++) {
-        gSavedTeamShields[i] = D_80177C58[i];
-        gTeamShields[i] = D_80177C58[i];
-        D_80177C38[i] = D_80177C58[i];
+        gSavedTeamShields[i] = D_ctx_80177C58[i];
+        gTeamShields[i] = D_ctx_80177C58[i];
+        D_ctx_80177C38[i] = D_ctx_80177C58[i];
     }
 
     for (i = 1; i < 4; i++) {
-        if (D_80177C38[i] == 0) {
-            D_80177C38[i] = 255;
+        if (D_ctx_80177C38[i] == 0) {
+            D_ctx_80177C38[i] = 255;
         }
     }
 
@@ -3633,20 +3634,20 @@ void func_menu_801A4FC4(void) {
     gBombCount[gPlayerNum] = 3;
 
     if (sPlanets[sCurrentPlanetId].dest1 != PLANET_NONE) {
-        temp2 = func_menu_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest1);
-        D_80177BD8[temp2] = 0;
+        temp2 = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest1);
+        D_ctx_80177BD8[temp2] = 0;
         sPaths[temp2].alpha = 0;
     }
 
     if (sPlanets[sCurrentPlanetId].dest2 != PLANET_NONE) {
-        temp = func_menu_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest2);
-        D_80177BD8[temp] = 0;
+        temp = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest2);
+        D_ctx_80177BD8[temp] = 0;
         sPaths[temp].alpha = 0;
     }
 
     if (sPlanets[sCurrentPlanetId].warp != PLANET_NONE) {
-        temp = func_menu_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].warp);
-        D_80177BD8[temp] = 0;
+        temp = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].warp);
+        D_ctx_80177BD8[temp] = 0;
         sPaths[temp].alpha = 0;
     }
 
@@ -3656,58 +3657,58 @@ void func_menu_801A4FC4(void) {
     D_menu_801CEEA8 = 255;
     D_menu_801CEEAC = 255;
 
-    gTotalHits -= D_80177B70[gCurrentPlanet - 1];
-    D_80177B90[gCurrentPlanet] = PLANET_NONE;
-    D_80177B70[gCurrentPlanet - 1] = 0;
-    D_80177BB0[gCurrentPlanet - 1] = 0;
-    D_80177B50[gCurrentPlanet - 1] = 0x00FFFFFF;
+    gTotalHits -= D_ctx_80177B70[gCurrentPlanet - 1];
+    D_ctx_80177B90[gCurrentPlanet] = PLANET_NONE;
+    D_ctx_80177B70[gCurrentPlanet - 1] = 0;
+    D_ctx_80177BB0[gCurrentPlanet - 1] = 0;
+    D_ctx_80177B50[gCurrentPlanet - 1] = 0x00FFFFFF;
     gHitCount = 0;
     gCurrentPlanet--;
 
-    D_menu_801CD83C = func_menu_801A05B4();
+    D_menu_801CD83C = Map_801A05B4();
 
     sCurrentPlanetId = D_menu_801CD950;
 
     if (sPlanets[sCurrentPlanetId].dest1 != PLANET_NONE) {
-        temp2 = func_menu_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest1);
-        D_80177BD8[temp2] = 1;
+        temp2 = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest1);
+        D_ctx_80177BD8[temp2] = 1;
         sPaths[temp2].alpha = 255;
     }
 
     if (sPlanets[sCurrentPlanetId].dest2 != PLANET_NONE) {
-        temp = func_menu_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest2);
-        D_80177BD8[temp] = 1;
+        temp = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest2);
+        D_ctx_80177BD8[temp] = 1;
         sPaths[temp].alpha = 255;
     }
 
     if (sPlanets[sCurrentPlanetId].warp != PLANET_NONE) {
-        temp = func_menu_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].warp);
-        D_80177BD8[temp] = 0;
+        temp = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].warp);
+        D_ctx_80177BD8[temp] = 0;
         sPaths[temp].alpha = 0;
     }
 
-    func_menu_801A6368();
+    Map_801A6368();
 }
 
-void func_menu_801A53C8(void) {
+void Map_801A53C8(void) {
     s32 temp;
     s32 temp2;
 
     D_menu_801CEFD8 ^= 1;
 
     if (sPlanets[sCurrentPlanetId].dest1 != PLANET_NONE) {
-        temp2 = func_menu_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest1);
-        D_80177BD8[temp2] = 0;
+        temp2 = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest1);
+        D_ctx_80177BD8[temp2] = 0;
         sPaths[temp2].alpha = 0;
     }
 
     if (sPlanets[sCurrentPlanetId].dest2 != PLANET_NONE) {
-        temp = func_menu_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest2);
-        D_80177BD8[temp] = 0;
+        temp = Map_801A655C(sCurrentPlanetId, sPlanets[sCurrentPlanetId].dest2);
+        D_ctx_80177BD8[temp] = 0;
         sPaths[temp].alpha = 0;
     }
 
-    D_80177BD8[D_menu_801CEECC] = 0;
+    D_ctx_80177BD8[D_menu_801CEECC] = 0;
 
     sPaths[D_menu_801CEECC].alpha = 0;
     sPaths[D_menu_801CEECC].unk_14 = 0;
@@ -3728,16 +3729,16 @@ void func_menu_801A53C8(void) {
         sNextPlanetId = sPlanets[sCurrentPlanetId].dest1;
     }
 
-    D_menu_801CEECC = func_menu_801A655C(sCurrentPlanetId, sNextPlanetId);
+    D_menu_801CEECC = Map_801A655C(sCurrentPlanetId, sNextPlanetId);
 
     sPaths[D_menu_801CEECC].alpha = 255;
 
-    D_80177BD8[D_menu_801CEECC] = 3;
+    D_ctx_80177BD8[D_menu_801CEECC] = 3;
 
     sPaths[D_menu_801CEECC].unk_14 = 2;
 
     if ((sPaths[D_menu_801CEECC].type == PL_WARP_YLW) || (sPaths[D_menu_801CEECC].type == PL_WARP_RED)) {
-        D_80177BD8[D_menu_801CEECC] = 5;
+        D_ctx_80177BD8[D_menu_801CEECC] = 5;
         sPaths[D_menu_801CEECC].unk_14 = 5;
     }
 
@@ -3747,24 +3748,24 @@ void func_menu_801A53C8(void) {
     D_menu_801CEEAC = 255;
 
     sCurrentPlanetId = sNextPlanetId;
-    D_80177B90[gCurrentPlanet] = sCurrentPlanetId;
+    D_ctx_80177B90[gCurrentPlanet] = sCurrentPlanetId;
 
-    func_menu_801A6368();
+    Map_801A6368();
 
     if (sPlanets[sNextPlanetId].dest1 != PLANET_NONE) {
-        temp2 = func_menu_801A655C(sNextPlanetId, sPlanets[sNextPlanetId].dest1);
-        D_80177BD8[temp2] = 1;
+        temp2 = Map_801A655C(sNextPlanetId, sPlanets[sNextPlanetId].dest1);
+        D_ctx_80177BD8[temp2] = 1;
         sPaths[temp2].alpha = 255;
     }
 
     if (sPlanets[sNextPlanetId].dest2 != PLANET_NONE) {
-        temp = func_menu_801A655C(sNextPlanetId, sPlanets[sNextPlanetId].dest2);
-        D_80177BD8[temp] = 1;
+        temp = Map_801A655C(sNextPlanetId, sPlanets[sNextPlanetId].dest2);
+        D_ctx_80177BD8[temp] = 1;
         sPaths[temp].alpha = 255;
     }
 }
 
-bool func_menu_801A5770(void) {
+bool Map_801A5770(void) {
     bool ret = false;
     s8 y = gControllerPress[gMainController].stick_y;
 
@@ -3788,7 +3789,7 @@ bool func_menu_801A5770(void) {
     return ret;
 }
 
-void func_menu_801A5834(void) {
+void Map_801A5834(void) {
     s32 i;
     f32 x;
     f32 y;
@@ -3877,7 +3878,7 @@ void func_menu_801A5834(void) {
     }
 }
 
-void func_menu_801A5C90(void) {
+void Map_801A5C90(void) {
     s32 pad[3];
     f32 scale;
 
@@ -3930,14 +3931,14 @@ void func_menu_801A5C90(void) {
     }
 }
 
-void func_menu_801A5E80(void) {
+void Map_801A5E80(void) {
     switch (D_menu_801B8280) {
         case 0:
             D_menu_801B8284 = 0;
             D_menu_801CD9A0 = 1;
-            func_menu_801A6368();
-            D_menu_801CD9A8 = func_menu_801A62FC(sCurrentPlanetId);
-            func_menu_801AB284();
+            Map_801A6368();
+            D_menu_801CD9A8 = Map_801A62FC(sCurrentPlanetId);
+            Map_801AB284();
             D_menu_801B8280++;
             break;
 
@@ -4000,16 +4001,16 @@ void func_menu_801A5E80(void) {
 
         case 5:
             if (D_menu_801CD9B8 == 0) {
-                func_menu_801A61B4(gCurrentLevel);
+                Map_801A61B4(gCurrentLevel);
                 D_menu_801B8280 = 0;
                 D_menu_801CD968 = 0;
-                func_menu_801A6628();
+                Map_801A6628();
             }
             break;
     }
 }
 
-void func_menu_801A61B4(LevelId level) {
+void Map_801A61B4(LevelId level) {
     switch (level) {
         case LEVEL_CORNERIA:
             Audio_SetAudioSpec(0, 0);
@@ -4071,7 +4072,7 @@ void func_menu_801A61B4(LevelId level) {
     }
 }
 
-bool func_menu_801A62FC(PlanetId planet) {
+bool Map_801A62FC(PlanetId planet) {
     u32 planetSaveSlot;
     s32 ret = true;
 
@@ -4104,7 +4105,7 @@ bool func_menu_801A62FC(PlanetId planet) {
     return ret;
 }
 
-void func_menu_801A6368(void) {
+void Map_801A6368(void) {
     switch (sCurrentPlanetId) {
         case PLANET_CORNERIA:
             gCurrentLevel = LEVEL_CORNERIA;
@@ -4170,7 +4171,7 @@ void func_menu_801A6368(void) {
     }
 }
 
-PlanetId GetPlanetId(LevelId level) {
+PlanetId Map_GetPlanetId(LevelId level) {
     PlanetId planet;
 
     switch (level) {
@@ -4239,7 +4240,7 @@ PlanetId GetPlanetId(LevelId level) {
     return planet;
 }
 
-s32 func_menu_801A655C(PlanetId start, PlanetId end) {
+s32 Map_801A655C(PlanetId start, PlanetId end) {
     s32 i;
 
     for (i = 0; i < 24; i++) {
@@ -4251,7 +4252,7 @@ s32 func_menu_801A655C(PlanetId start, PlanetId end) {
     return i;
 }
 
-void func_menu_801A659C(void) {
+void Map_801A659C(void) {
     Audio_KillSfxById(0x1100004C);
     Audio_KillSfxById(0x1100204C);
 
@@ -4264,21 +4265,21 @@ void func_menu_801A659C(void) {
     D_menu_801CD948 = 0;
 }
 
-void func_menu_801A6628(void) {
+void Map_801A6628(void) {
     gGameState = GSTATE_PLAY;
     D_Timer_8017783C = 2;
-    D_80177854 = 0;
+    D_ctx_80177854 = 0;
     gDrawMode = DRAWMODE_0;
     gHitCount = 0;
 
-    func_800A5844();
+    func_play_800A5844();
 
-    D_80177CA0 = 0;
-    D_80177CB0 = 0.0f;
-    D_8017782C = 1;
+    D_ctx_80177CA0 = 0;
+    D_ctx_80177CB0 = 0.0f;
+    D_ctx_8017782C = 1;
 }
 
-void func_menu_801A6694(void) {
+void Map_801A6694(void) {
     PlanetId planetId;
     Vec3f dest;
     Vec3f src;
@@ -4295,7 +4296,7 @@ void func_menu_801A6694(void) {
 
         Matrix_RotateY(gGfxMatrix, M_DTOR * -sPlanets[planetId].longitude, 1);
 
-        func_menu_801AD048();
+        Map_801AD048();
 
         Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -4324,7 +4325,7 @@ void func_menu_801A6694(void) {
     }
 }
 
-void func_menu_801A68E4(void) {
+void Map_801A68E4(void) {
     s32 i;
     s32 j;
     s32 var_a0;
@@ -4340,19 +4341,19 @@ void func_menu_801A68E4(void) {
     }
 }
 
-void func_menu_801A6A24(void) {
+void Map_801A6A24(void) {
     switch (D_menu_801CD960) {
         case 0:
-            if (D_80178340 != 0) {
-                D_80178340 -= 5;
+            if (D_ctx_80178340 != 0) {
+                D_ctx_80178340 -= 5;
             } else {
                 D_menu_801CD960 = 255;
             }
             break;
 
         case 1:
-            if (D_80178340 != 255) {
-                D_80178340 += 15;
+            if (D_ctx_80178340 != 255) {
+                D_ctx_80178340 += 15;
             } else {
                 D_menu_801CD960 = 255;
             }
@@ -4360,7 +4361,7 @@ void func_menu_801A6A24(void) {
     }
 }
 
-void func_menu_801A6A98(PlanetId planetId) {
+void Map_801A6A98(PlanetId planetId) {
     s32 mask;
     s32 temp;
 
@@ -4374,79 +4375,79 @@ void func_menu_801A6A98(PlanetId planetId) {
         mask = 0xFFFFFFFF;
     }
 
-    temp = func_menu_801A6DAC(planetId);
+    temp = Map_801A6DAC(planetId);
 
-    func_menu_801A6EC0(planetId);
-    func_menu_801A7D3C(planetId);
+    Map_801A6EC0(planetId);
+    Map_801A7D3C(planetId);
     Matrix_Push(&gGfxMatrix);
 
     if (gGameFrameCount & mask) {
         if (planetId == PLANET_TITANIA) {
-            func_menu_801A791C(planetId);
+            Map_801A791C(planetId);
         }
 
         if ((temp == 1) && (D_menu_801CE960[planetId].z > D_menu_801CEA18[planetId]) && (planetId != PLANET_AREA_6) &&
             (planetId != PLANET_BOLSE)) {
 
-            func_menu_801A7F1C(planetId);
+            Map_801A7F1C(planetId);
         }
 
-        func_menu_801A7230(planetId);
+        Map_801A7230(planetId);
 
         if (planetId == PLANET_SOLAR) {
-            func_menu_801A74F4(planetId);
+            Map_801A74F4(planetId);
         }
 
         if (sPlanets[planetId].anim == PL_ANIM_SPIN) {
             if (planetId != PLANET_VENOM) {
 
                 if ((planetId != PLANET_AQUAS) && (planetId != PLANET_TITANIA)) {
-                    func_menu_801A7684(planetId);
+                    Map_801A7684(planetId);
                 }
 
-                func_menu_801A77B0(planetId);
+                Map_801A77B0(planetId);
             }
             if (planetId == PLANET_VENOM) {
-                func_menu_801A7BEC(&D_menu_801CEEBC, 0.1f, 3.1f);
-                func_menu_801A7BEC(&D_menu_801CEEC0, -0.1f, 2.9f);
+                Map_801A7BEC(&D_menu_801CEEBC, 0.1f, 3.1f);
+                Map_801A7BEC(&D_menu_801CEEC0, -0.1f, 2.9f);
             }
         }
 
         if (planetId == PLANET_TITANIA) {
-            func_menu_801A7A84(planetId);
+            Map_801A7A84(planetId);
         }
 
         if ((planetId == PLANET_CORNERIA) && D_menu_801CEB48[0]) {
-            func_menu_801A89BC(PLANET_CORNERIA, 0);
+            Map_801A89BC(PLANET_CORNERIA, 0);
         }
 
         if ((planetId == PLANET_KATINA) && D_menu_801CEB48[1]) {
-            func_menu_801A89BC(PLANET_KATINA, 1);
+            Map_801A89BC(PLANET_KATINA, 1);
         }
 
         if ((planetId == PLANET_SECTOR_Y) && D_menu_801CEB48[2]) {
-            func_menu_801A89BC(PLANET_SECTOR_Y, 2);
+            Map_801A89BC(PLANET_SECTOR_Y, 2);
         }
 
         if ((temp == 1) && (D_menu_801CE960[planetId].z <= D_menu_801CEA18[planetId]) && (planetId != PLANET_AREA_6) &&
             (planetId != PLANET_BOLSE)) {
 
-            func_menu_801A7F1C(planetId);
+            Map_801A7F1C(planetId);
         }
 
         if ((temp == 1) && ((planetId == PLANET_AREA_6) || (planetId == PLANET_BOLSE))) {
 
-            func_menu_801A7F1C(planetId);
+            Map_801A7F1C(planetId);
         }
 
         if (temp == 2) {
-            func_menu_801A809C(planetId);
+            Map_801A809C(planetId);
         }
     }
     Matrix_Pop(&gGfxMatrix);
 }
 
-s32 func_menu_801A6DAC(PlanetId planetId) {
+s32 Map_801A6DAC(PlanetId planetId) {
     s32 ret;
     s32 planetSaveSlot;
     s32 var_v0;
@@ -4489,7 +4490,7 @@ s32 func_menu_801A6DAC(PlanetId planetId) {
     return ret;
 }
 
-void func_menu_801A6EC0(PlanetId planetId) {
+void Map_801A6EC0(PlanetId planetId) {
     f32 dirX;
     f32 dirY;
     f32 dirZ;
@@ -4556,7 +4557,7 @@ void func_menu_801A6EC0(PlanetId planetId) {
     D_menu_801AFFFC -= 0.09f;
 }
 
-void func_menu_801A7230(PlanetId planetId) {
+void Map_801A7230(PlanetId planetId) {
     switch (sPlanets[planetId].anim) {
         case PL_ANIM_STATIC:
             if ((D_menu_801CD944 == 3 || planetId == sCurrentPlanetId || planetId == sNextPlanetId) &&
@@ -4605,7 +4606,7 @@ void func_menu_801A7230(PlanetId planetId) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_menu_801A74F4(PlanetId planetId) {
+void Map_801A74F4(PlanetId planetId) {
     static f32 D_menu_801B6A74 = 0.0f;
     s32 alpha = sPlanets[PLANET_VENOM].alpha;
 
@@ -4633,7 +4634,7 @@ void func_menu_801A74F4(PlanetId planetId) {
     D_menu_801B6A74 -= 0.2f;
 }
 
-void func_menu_801A7684(PlanetId planetId) {
+void Map_801A7684(PlanetId planetId) {
     s32 r;
     s32 g;
     s32 b;
@@ -4657,7 +4658,7 @@ void func_menu_801A7684(PlanetId planetId) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_menu_801A77B0(PlanetId planetId) {
+void Map_801A77B0(PlanetId planetId) {
     RCP_SetupDL(&gMasterDisp, 0x40);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, sPlanets[planetId].alpha);
@@ -4680,7 +4681,7 @@ void func_menu_801A77B0(PlanetId planetId) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_menu_801A791C(PlanetId planetId) {
+void Map_801A791C(PlanetId planetId) {
     RCP_SetupDL(&gMasterDisp, 0x43);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 175, 175, sPlanets[planetId].alpha);
@@ -4702,7 +4703,7 @@ void func_menu_801A791C(PlanetId planetId) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_menu_801A7A84(PlanetId planetId) {
+void Map_801A7A84(PlanetId planetId) {
     RCP_SetupDL(&gMasterDisp, 0x43);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 175, 175, sPlanets[planetId].alpha);
@@ -4722,7 +4723,7 @@ void func_menu_801A7A84(PlanetId planetId) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_menu_801A7BEC(f32* zAngle, f32 next, f32 scale) {
+void Map_801A7BEC(f32* zAngle, f32 next, f32 scale) {
     s32 alpha = sPlanets[PLANET_VENOM].alpha;
 
     if (sPlanets[PLANET_VENOM].alpha > 128) {
@@ -4749,7 +4750,7 @@ void func_menu_801A7BEC(f32* zAngle, f32 next, f32 scale) {
     *zAngle += next;
 }
 
-void func_menu_801A7D3C(PlanetId planetId) {
+void Map_801A7D3C(PlanetId planetId) {
     Vec3f src;
     Vec3f dest;
     f32 scale;
@@ -4783,7 +4784,7 @@ void func_menu_801A7D3C(PlanetId planetId) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_menu_801A7F1C(PlanetId planetId) {
+void Map_801A7F1C(PlanetId planetId) {
     s32 alpha;
 
     if (D_menu_801CD980 != 1) {
@@ -4815,7 +4816,7 @@ void func_menu_801A7F1C(PlanetId planetId) {
     }
 }
 
-void func_menu_801A809C(PlanetId planetId) {
+void Map_801A809C(PlanetId planetId) {
     static f32 D_menu_801B6A78 = 0.0f;
     s32 i;
     s32 alpha;
@@ -4954,7 +4955,7 @@ void func_menu_801A809C(PlanetId planetId) {
     }
 }
 
-void func_menu_801A8738(void) {
+void Map_801A8738(void) {
     if (D_menu_801CEB34 >= 0) {
         RCP_SetupDL(&gMasterDisp, 0x43);
 
@@ -5009,7 +5010,7 @@ void func_menu_801A8738(void) {
     }
 }
 
-void func_menu_801A89BC(PlanetId planetId, s32 arg1) {
+void Map_801A89BC(PlanetId planetId, s32 arg1) {
     s32 i;
     s32 temp2;
     f32 temp;
@@ -5094,7 +5095,7 @@ void func_menu_801A89BC(PlanetId planetId, s32 arg1) {
     }
 }
 
-void func_menu_801A8F40(void) {
+void Map_801A8F40(void) {
     static f32 D_menu_801B6A7C = 0.0f;
     s32 temp;
 
@@ -5128,7 +5129,7 @@ void func_menu_801A8F40(void) {
     }
 }
 
-void func_menu_801A914C(void) {
+void Map_801A914C(void) {
     D_menu_801CEAA8 = 140.0f;
 
     if (sCurrentPlanetId == 9) {
@@ -5163,7 +5164,7 @@ void func_menu_801A914C(void) {
     D_menu_801CEAB0 = D_menu_801CEAA8;
 }
 
-void func_menu_801A9224(void) {
+void Map_801A9224(void) {
     s32 i;
     s32 mask;
 
@@ -5189,7 +5190,7 @@ void func_menu_801A9224(void) {
                 Matrix_Translate(gGfxMatrix, D_menu_801AFA38[i].x, D_menu_801AFA38[i].y, 0.0f, 1);
                 Matrix_RotateY(gGfxMatrix, M_DTOR * -D_menu_801AFA38[i].angle, 1);
 
-                func_menu_801AD048();
+                Map_801AD048();
 
                 Matrix_Scale(gGfxMatrix, D_menu_801AFA38[i].scale, D_menu_801AFA38[i].scale, D_menu_801AFA38[i].scale,
                              1);
@@ -5204,7 +5205,7 @@ void func_menu_801A9224(void) {
     }
 }
 
-void func_menu_801A9448(void) {
+void Map_801A9448(void) {
     Vec3f src;
     Vec3f dest;
     f32 x1;
@@ -5245,7 +5246,7 @@ void func_menu_801A9448(void) {
             Matrix_Translate(gGfxMatrix, D_menu_801AFCD8[i].x, D_menu_801AFCD8[i].y, 0.0f, 1);
             Matrix_RotateY(gGfxMatrix, M_DTOR * -(D_menu_801AFCD8[i].angle), 1);
 
-            func_menu_801AD048();
+            Map_801AD048();
 
             Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801B6A80, 1);
             Matrix_Scale(gGfxMatrix, D_menu_801AFCD8[i].scale, D_menu_801AFCD8[i].scale, D_menu_801AFCD8[i].scale, 1);
@@ -5278,19 +5279,19 @@ void func_menu_801A9448(void) {
     }
 }
 
-void func_menu_801A9814(void) {
+void Map_801A9814(void) {
     if (D_menu_801B8280 != 0) {
         Matrix_Push(&gGfxMatrix);
         Matrix_LookAt(gGfxMatrix, D_menu_801CD9F4, D_menu_801CD9F8, D_menu_801CD9FC, D_menu_801CDA00, D_menu_801CDA04,
                       D_menu_801CDA08, D_menu_801CDA20, D_menu_801CDA24, D_menu_801CDA28, 1);
         Matrix_Translate(gGfxMatrix, D_menu_801CEA58, D_menu_801CEA5C, D_menu_801CEA60, 1);
         Matrix_SetGfxMtx(&gMasterDisp);
-        func_80084688(2, D_menu_801B8284);
+        func_fade_80084688(2, D_menu_801B8284);
         Matrix_Pop(&gGfxMatrix);
     }
 }
 
-void func_menu_801A9910(void) {
+void Map_801A9910(void) {
     static s32 D_menu_801B6A84[] = { 1, 13, 12, 11, 6, 2, 4, 10, 8, 0, 9, 5, 3, 7, 7 };
     s32 i;
     s32 var_s0 = D_menu_801B6A84[sCurrentPlanetId];
@@ -5310,7 +5311,7 @@ void func_menu_801A9910(void) {
     D_menu_801CEA70 *= 1.08;
 }
 
-void func_menu_801A9A8C(void) {
+void Map_801A9A8C(void) {
     s32 i;
     s32 sp58;
     u8* sp54;
@@ -5406,7 +5407,7 @@ void func_menu_801A9A8C(void) {
     }
 }
 
-void func_menu_801A9DE8(void) {
+void Map_801A9DE8(void) {
     s32 mask;
 
     if ((D_menu_801CD978 == 0) &&
@@ -5421,30 +5422,30 @@ void func_menu_801A9DE8(void) {
     }
 
     if (gGameFrameCount & mask) {
-        func_menu_801AD7EC(254, 16, gLifeCount[gPlayerNum]);
+        Map_801AD7EC(254, 16, gLifeCount[gPlayerNum]);
     }
 
-    if ((D_80161A34 == 7) || (D_80161A34 == 5)) {
+    if ((D_game_80161A34 == 7) || (D_game_80161A34 == 5)) {
         if (D_menu_801CD83C < gTotalHits) {
             D_menu_801CD83C = gTotalHits;
         }
-        func_menu_801A9EE4();
-        func_menu_801A9FD4(0);
+        Map_801A9EE4();
+        Map_801A9FD4(0);
     }
 }
 
-void func_menu_801A9EE4(void) {
+void Map_801A9EE4(void) {
     RCP_SetupDL(&gMasterDisp, 0x53);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
     Graphics_DisplaySmallText(24, 14, 1.0f, 1.0f, "TOTAL HITS");
-    Graphics_DisplaySmallNumber(71 - (func_8008BCBC(gTotalHits) * 8), 24, gTotalHits);
+    Graphics_DisplaySmallNumber(71 - (func_hud_8008BCBC(gTotalHits) * 8), 24, gTotalHits);
     Graphics_DisplaySmallText(143, 14, 1.0f, 1.0f, "TOP");
-    Graphics_DisplaySmallNumber(167 - (func_8008BCBC(D_menu_801CD83C) * 8), 24, D_menu_801CD83C);
+    Graphics_DisplaySmallNumber(167 - (func_hud_8008BCBC(D_menu_801CD83C) * 8), 24, D_menu_801CD83C);
 }
 
-void func_menu_801A9FD4(s32 arg0) {
+void Map_801A9FD4(s32 arg0) {
     s32 i;
     s32 var_s3;
     f32 var_fs0, var_fs1;
@@ -5454,21 +5455,21 @@ void func_menu_801A9FD4(s32 arg0) {
     if (arg0) {
         var_s3 = gCurrentPlanet;
     } else {
-        if ((D_80161A34 == 7) || (D_80161A34 == 8)) {
+        if ((D_game_80161A34 == 7) || (D_game_80161A34 == 8)) {
             var_s3 = gCurrentPlanet;
         }
-        if (D_80161A34 == 5) {
+        if (D_game_80161A34 == 5) {
             var_s3 = D_menu_801CD9AC;
         }
     }
 
-    func_menu_801AA1CC(var_s3);
+    Map_801AA1CC(var_s3);
 
-    if ((D_80161A34 == 7) || (D_80161A34 == 8)) {
+    if ((D_game_80161A34 == 7) || (D_game_80161A34 == 8)) {
         var_s3 = 7;
     }
 
-    if (D_80161A34 == 5) {
+    if (D_game_80161A34 == 5) {
         var_s3++;
     }
 
@@ -5479,16 +5480,16 @@ void func_menu_801A9FD4(s32 arg0) {
     Matrix_SetGfxMtx(&gMasterDisp);
 
     for (var_fs0 = 0.0f, var_fs1 = -41.5f, i = 0; i < var_s3; i++, var_fs0 += 24.0f + temp, var_fs1 += 13.8f) {
-        if (D_80177B90[i] != PLANET_NONE) {
-            func_menu_801AA434(i, 28.0f + var_fs0, 182.0f, D_80177B90[i]);
-            func_menu_801AA778(i, var_fs1, -25.4f, D_80177B90[i]);
+        if (D_ctx_80177B90[i] != PLANET_NONE) {
+            Map_801AA434(i, 28.0f + var_fs0, 182.0f, D_ctx_80177B90[i]);
+            Map_801AA778(i, var_fs1, -25.4f, D_ctx_80177B90[i]);
         }
     }
 
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_menu_801AA1CC(s32 arg0) {
+void Map_801AA1CC(s32 arg0) {
     s32 i;
     f32 x;
     s32 r;
@@ -5497,7 +5498,7 @@ void func_menu_801AA1CC(s32 arg0) {
     s32 temp;
     f32 y = 182.0f;
     f32 x2 = 16.0f;
-    PlanetId* ptr = &D_80177B90[0];
+    PlanetId* ptr = &D_ctx_80177B90[0];
 
     for (x = 0.0f, i = 0; i < 7; i++, x += 24.0f + x2, ptr++) {
         RCP_SetupDL(&gMasterDisp, 0x53);
@@ -5505,7 +5506,7 @@ void func_menu_801AA1CC(s32 arg0) {
         if (i < 6) {
             r = g = b = 255;
             if (i < arg0) {
-                temp = func_menu_801A655C(*ptr, *(ptr + 1));
+                temp = Map_801A655C(*ptr, *(ptr + 1));
                 switch (sPaths[temp].type) {
                     case 0:
                         r = 16;
@@ -5536,7 +5537,7 @@ void func_menu_801AA1CC(s32 arg0) {
     }
 }
 
-void func_menu_801AA434(s32 arg0, f32 x, f32 y, s32 idx) {
+void Map_801AA434(s32 arg0, f32 x, f32 y, s32 idx) {
     s32 i;
     f32 x2;
     s32 pad;
@@ -5553,13 +5554,13 @@ void func_menu_801AA434(s32 arg0, f32 x, f32 y, s32 idx) {
     Graphics_DisplaySmallText(x + 12.0f - Graphics_GetSmallTextWidth(sPlanetNames[idx]) * 0.5f, y - 8.0f, 1.0f, 1.0f,
                               sPlanetNames[idx]);
 
-    Graphics_DisplaySmallNumber(x + 15.0f - ((func_8008BCBC(D_80177B70[arg0]) - 1) * 8), y + 24.0f + 1.0f,
-                                D_80177B70[arg0]);
+    Graphics_DisplaySmallNumber(x + 15.0f - ((func_hud_8008BCBC(D_ctx_80177B70[arg0]) - 1) * 8), y + 24.0f + 1.0f,
+                                D_ctx_80177B70[arg0]);
 
-    if (D_80161A34 == 7) {
+    if (D_game_80161A34 == 7) {
         temp = gCurrentPlanet;
     }
-    if ((D_80161A34 == 5) || (D_80161A34 == 8)) {
+    if ((D_game_80161A34 == 5) || (D_game_80161A34 == 8)) {
         temp = gCurrentPlanet + 1;
     }
 
@@ -5567,7 +5568,7 @@ void func_menu_801AA434(s32 arg0, f32 x, f32 y, s32 idx) {
         mask = 0x00FF0000;
         x2 = 0.0f;
         for (i = 0; i < 3; i++, x2 += 9.0f) {
-            if ((D_80177B50[arg0] & mask)) {
+            if ((D_ctx_80177B50[arg0] & mask)) {
                 RCP_SetupDL(&gMasterDisp, 0x53);
                 gDPSetPrimColor(gMasterDisp++, 0, 0, D_menu_801B6ADC[i], D_menu_801B6AE8[i], D_menu_801B6AF4[i], 255);
                 Graphics_DisplaySmallText((s32) x + x2 - 1.0f, (s32) y + 24.0f + 8.0f + 2.0f, 1.0f, 1.0f,
@@ -5578,7 +5579,7 @@ void func_menu_801AA434(s32 arg0, f32 x, f32 y, s32 idx) {
     }
 }
 
-void func_menu_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
+void Map_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
     s32 mask = 0xFFFFFFFF;
 
     if ((gGameState == GSTATE_MAP) && (planetId == sCurrentPlanetId)) {
@@ -5739,12 +5740,12 @@ void func_menu_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
             break;
     }
 
-    if (D_80177BB0[arg0] != 0) {
-        func_menu_801AB17C(x, y, 0.0f);
+    if (D_ctx_80177BB0[arg0] != 0) {
+        Map_801AB17C(x, y, 0.0f);
     }
 }
 
-void func_menu_801AB17C(f32 x, f32 y, f32 z) {
+void Map_801AB17C(f32 x, f32 y, f32 z) {
     static f32 scale = 0.23f;
     static f32 xPos = 4.4f;
     static f32 yPos = 1.0f;
@@ -5763,16 +5764,16 @@ void func_menu_801AB17C(f32 x, f32 y, f32 z) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_menu_801AB284(void) {
+void Map_801AB284(void) {
     D_menu_801CD940 = 0;
-    D_80178308 = D_menu_801AF428[sCurrentPlanetId][D_menu_801CD940];
-    D_80177D68 = D_menu_801AF420[D_menu_801CD940];
+    D_ctx_80178308 = D_menu_801AF428[sCurrentPlanetId][D_menu_801CD940];
+    D_ctx_80177D68 = D_menu_801AF420[D_menu_801CD940];
     D_menu_801CF018 = 100;
-    D_80178728 = 78;
-    D_8017872C = 166;
+    D_radio_80178728 = 78;
+    D_radio_8017872C = 166;
 }
 
-void func_menu_801AB300(void) {
+void Map_801AB300(void) {
     if (D_Timer_801782AC > 0) {
         D_Timer_801782AC--;
     }
@@ -5786,10 +5787,10 @@ void func_menu_801AB300(void) {
 
         case 100:
             D_menu_801CEA74 = 0;
-            D_801782A4 = 0 + D_80177D68;
+            D_ctx_801782A4 = 0 + D_ctx_80177D68;
             D_menu_801CF018 = 1;
-            D_80177D50 = 0.0f;
-            D_801782D8 = 0;
+            D_ctx_80177D50 = 0.0f;
+            D_ctx_801782D8 = 0;
             D_menu_801CF124 = 0.0f;
             D_menu_801CEAB4 = 0;
             break;
@@ -5805,13 +5806,13 @@ void func_menu_801AB300(void) {
             }
 
             D_menu_801CD940 = 1;
-            D_80178308 = D_menu_801AF428[sCurrentPlanetId][D_menu_801CD940];
+            D_ctx_80178308 = D_menu_801AF428[sCurrentPlanetId][D_menu_801CD940];
 
-            Audio_PlayVoice(Message_IdFromPtr(D_80178308));
+            Audio_PlayVoice(Message_IdFromPtr(D_ctx_80178308));
 
-            D_80177D68 = D_menu_801AF420[D_menu_801CD940];
-            D_Timer_801782AC = Message_GetCharCount(D_80178308) * 2;
-            D_801782A4 = D_80177D68;
+            D_ctx_80177D68 = D_menu_801AF420[D_menu_801CD940];
+            D_Timer_801782AC = Message_GetCharCount(D_ctx_80178308) * 2;
+            D_ctx_801782A4 = D_ctx_80177D68;
             D_menu_801CF018 = 4;
             D_menu_801CD9A0 = 1;
             break;
@@ -5820,12 +5821,12 @@ void func_menu_801AB300(void) {
             D_menu_801CEA74 += 8;
             if (D_menu_801CEA74 > 255) {
                 D_menu_801CEA74 = 255;
-                D_80177D50 = 1.3f;
+                D_ctx_80177D50 = 1.3f;
 
                 AUDIO_PLAY_SFX(0x4100001EU, gDefaultSfxSource, 4U);
-                Audio_PlayVoice(Message_IdFromPtr(D_80178308));
+                Audio_PlayVoice(Message_IdFromPtr(D_ctx_80178308));
 
-                D_Timer_801782AC = Message_GetCharCount(D_80178308) * 2;
+                D_Timer_801782AC = Message_GetCharCount(D_ctx_80178308) * 2;
                 D_menu_801CD9A4 = 0;
                 D_menu_801CF018 = 4;
             }
@@ -5833,10 +5834,10 @@ void func_menu_801AB300(void) {
 
         case 4:
             if (!D_Timer_801782AC && !Audio_GetCurrentVoice()) {
-                D_801782A4 = D_80177D68;
+                D_ctx_801782A4 = D_ctx_80177D68;
                 Audio_ClearVoice();
                 if (D_menu_801CD940 == 0) {
-                    D_801782D8 = 0;
+                    D_ctx_801782D8 = 0;
                     D_Timer_801782AC = 30;
                 } else {
                     D_Timer_801782AC = 20;
@@ -5845,21 +5846,21 @@ void func_menu_801AB300(void) {
                 break;
             }
 
-            D_801782A4 = D_80177D68;
+            D_ctx_801782A4 = D_ctx_80177D68;
 
             if (D_Timer_801782B4 > 0) {
-                D_801782A4 = 1 + D_80177D68;
+                D_ctx_801782A4 = 1 + D_ctx_80177D68;
             }
 
-            if (D_801782D8 >= Message_GetCharCount(D_80178308)) {
+            if (D_ctx_801782D8 >= Message_GetCharCount(D_ctx_80178308)) {
                 D_menu_801CD9A4 = 1;
             }
 
             if (D_menu_801CD9A0 == 1) {
                 D_menu_801CF124 += 0.7f;
-                D_801782D8 = D_menu_801CF124;
+                D_ctx_801782D8 = D_menu_801CF124;
             } else {
-                D_801782D8 += 2;
+                D_ctx_801782D8 += 2;
             }
 
             if (D_menu_801CEAB4) {
@@ -5883,13 +5884,13 @@ void func_menu_801AB300(void) {
                 break;
             } else {
                 D_menu_801CD940 = 1;
-                D_80178308 = D_menu_801AF428[sCurrentPlanetId][D_menu_801CD940];
-                Audio_PlayVoice(Message_IdFromPtr(D_80178308));
-                D_80177D68 = D_menu_801AF420[D_menu_801CD940];
-                D_801782A4 = D_80177D68;
-                D_801782D8 = 0;
+                D_ctx_80178308 = D_menu_801AF428[sCurrentPlanetId][D_menu_801CD940];
+                Audio_PlayVoice(Message_IdFromPtr(D_ctx_80178308));
+                D_ctx_80177D68 = D_menu_801AF420[D_menu_801CD940];
+                D_ctx_801782A4 = D_ctx_80177D68;
+                D_ctx_801782D8 = 0;
                 D_menu_801CF124 = 0.0f;
-                D_Timer_801782AC = Message_GetCharCount(D_80178308) * 2;
+                D_Timer_801782AC = Message_GetCharCount(D_ctx_80178308) * 2;
                 D_menu_801CD9A0 = 1;
                 D_menu_801CD9A4 = 0;
                 D_menu_801CF018 = 4;
@@ -5898,7 +5899,7 @@ void func_menu_801AB300(void) {
 
         case 5:
             D_Timer_801782AC = 5;
-            D_801782A4 = D_80177D68;
+            D_ctx_801782A4 = D_ctx_80177D68;
             D_menu_801CF018++;
             break;
 
@@ -5906,7 +5907,7 @@ void func_menu_801AB300(void) {
             if (D_Timer_801782AC == 0) {
                 Audio_KillSfxById(0x4100001EU);
                 Audio_PlayVoice(0);
-                D_80177D50 = 0.0f;
+                D_ctx_80177D50 = 0.0f;
                 D_menu_801CF018++;
                 D_menu_801CF018 = 7;
             }
@@ -5916,20 +5917,20 @@ void func_menu_801AB300(void) {
             break;
 
         case 8:
-            D_801782A4 = D_80177D68;
-            D_80177D50 = 1.3f;
+            D_ctx_801782A4 = D_ctx_80177D68;
+            D_ctx_80177D50 = 1.3f;
             D_menu_801CEA74 = 255;
             break;
     }
 
     if ((D_menu_801CF018 > 0) && (D_menu_801CF018 != 100)) {
-        func_menu_801AB978(D_801782A4);
-        func_menu_801AB978(D_menu_801AF420[!D_menu_801CD940]);
-        func_800BB388();
+        Map_801AB978(D_ctx_801782A4);
+        Map_801AB978(D_menu_801AF420[!D_menu_801CD940]);
+        func_radio_800BB388();
     }
 }
 
-void func_menu_801AB978(s32 arg0) {
+void Map_801AB978(s32 arg0) {
     s32 i;
     f32 xPos;
     f32 yPos;
@@ -5992,14 +5993,14 @@ void func_menu_801AB978(s32 arg0) {
                                         1.0f);
 
                     if ((gSavedTeamShields[3 - i] < 0) && (gSavedTeamShields[3 - i] != -2)) {
-                        func_menu_801ABCDC(i, D_menu_801CEA74);
+                        Map_801ABCDC(i, D_menu_801CEA74);
                     }
                 }
             }
     }
 }
 
-void func_menu_801ABCDC(s32 arg0, s32 alpha) {
+void Map_801ABCDC(s32 arg0, s32 alpha) {
     static s32 D_menu_801B6B24[] = { 81.0f, 125.0f, 170.0f };
 
     Matrix_Push(&gGfxMatrix);
@@ -6038,7 +6039,7 @@ void func_menu_801ABCDC(s32 arg0, s32 alpha) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_menu_801ABF1C(void) {
+void Map_801ABF1C(void) {
     Matrix_Push(&gGfxMatrix);
     {
         Matrix_LookAt(gGfxMatrix, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -400.0f, 0.0f, 1.0f, 0.0f, 1);
@@ -6052,7 +6053,7 @@ void func_menu_801ABF1C(void) {
             Matrix_Translate(gGfxMatrix, D_menu_801CEA88, D_menu_801CEA8C, D_menu_801CEA90, 1);
             Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801CEA94, 1);
 
-            func_menu_801AD048();
+            Map_801AD048();
 
             Matrix_Scale(gGfxMatrix, D_menu_801CEA78, D_menu_801CEA7C, 1.0f, 1);
 
@@ -6076,7 +6077,7 @@ void func_menu_801ABF1C(void) {
             Matrix_Translate(gGfxMatrix, D_menu_801CEA88, D_menu_801CEA8C - 1.5f, D_menu_801CEA90, 1);
             Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801CEA94, 1);
 
-            func_menu_801AD048();
+            Map_801AD048();
 
             Matrix_Scale(gGfxMatrix, D_menu_801CEA80, D_menu_801CEA84, 3.3f, 1);
 
@@ -6091,7 +6092,7 @@ void func_menu_801ABF1C(void) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_menu_801AC200(s32 index) {
+void Map_801AC200(s32 index) {
     // f32 z;
     // f32 x;
     // f32 y;
@@ -6176,13 +6177,13 @@ void func_menu_801AC200(s32 index) {
     }
 
     if (sPaths[index].unk_14 == 5) {
-        func_menu_801AC80C(sPaths[index].type);
+        Map_801AC80C(sPaths[index].type);
     } else {
-        func_menu_801AC530(index);
+        Map_801AC530(index);
     }
 }
 
-void func_menu_801AC530(s32 index) {
+void Map_801AC530(s32 index) {
     f32 dirX;
     f32 dirY;
     f32 dirZ;
@@ -6245,7 +6246,7 @@ void func_menu_801AC530(s32 index) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void func_menu_801AC80C(PathType pathType) {
+void Map_801AC80C(PathType pathType) {
     static f32 D_menu_801B6B30 = 0.0f;
     s32 r;
     s32 g;
@@ -6270,7 +6271,7 @@ void func_menu_801AC80C(PathType pathType) {
 
     Matrix_Translate(gGfxMatrix, D_menu_801CEEB0.x, D_menu_801CEEB0.y, D_menu_801CEEB0.z, 1);
 
-    func_menu_801AD048();
+    Map_801AD048();
 
     Matrix_RotateZ(gGfxMatrix, M_DTOR * D_menu_801B6B30, 1);
     Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 10.0f, 1);
@@ -6314,7 +6315,7 @@ CameraPoint D_menu_801B6C60[] = {
     { { -118.46446f, 1.314066f, 27.860361f }, { -111.59918f, -2.346546f, -49.750645f } },
 };
 
-void func_menu_801AC9A0(s32 index) {
+void Map_801AC9A0(s32 index) {
     Vec3f srcPos;
     Vec3f destPos;
     f32 x;
@@ -6323,7 +6324,7 @@ void func_menu_801AC9A0(s32 index) {
     f32 target;
     f32 temp;
 
-    func_menu_801ACD90(index, &srcPos, &destPos);
+    Map_801ACD90(index, &srcPos, &destPos);
 
     x = srcPos.x - destPos.x;
     y = srcPos.y - destPos.y;
@@ -6344,10 +6345,10 @@ void func_menu_801AC9A0(s32 index) {
     gTexturedLines[index].unk_20 = Math_Atan2F(x, z);
     gTexturedLines[index].unk_1C = -Math_Atan2F(y, sqrtf(SQ(x) + SQ(z)));
 
-    switch (D_80177BD8[index]) {
+    switch (D_ctx_80177BD8[index]) {
         case 1:
             AUDIO_PLAY_SFX(0x1900404DU, gDefaultSfxSource, 4U);
-            D_80177BD8[index] = 11;
+            D_ctx_80177BD8[index] = 11;
             break;
 
         case 11:
@@ -6355,7 +6356,7 @@ void func_menu_801AC9A0(s32 index) {
             gTexturedLines[index].unk_2F = 255;
             if (gTexturedLines[index].unk_24 == target) {
                 Audio_KillSfxById(0x1900404DU);
-                D_80177BD8[index] = 4;
+                D_ctx_80177BD8[index] = 4;
             }
             break;
 
@@ -6364,7 +6365,7 @@ void func_menu_801AC9A0(s32 index) {
             Math_SmoothStepToF(&gTexturedLines[index].unk_24, target, 0.1f, 100.0f, 1.0f);
             if (gTexturedLines[index].unk_24 == target) {
                 gTexturedLines[index].unk_24 = 0.0f;
-                D_80177BD8[index] = 6;
+                D_ctx_80177BD8[index] = 6;
                 D_menu_801CEEAC = 255;
             }
             break;
@@ -6377,7 +6378,7 @@ void func_menu_801AC9A0(s32 index) {
             Math_SmoothStepToF(&gTexturedLines[index].unk_24, target, temp, 100.0f, 4.0f);
             gTexturedLines[index].unk_2F = 255;
             if (gTexturedLines[index].unk_24 == target) {
-                D_80177BD8[index] = 3;
+                D_ctx_80177BD8[index] = 3;
             }
             break;
 
@@ -6388,7 +6389,7 @@ void func_menu_801AC9A0(s32 index) {
             break;
     }
 
-    if ((D_80177BD8[index] == 1) || (D_80177BD8[index] == 11) || (D_80177BD8[index] == 4)) {
+    if ((D_ctx_80177BD8[index] == 1) || (D_ctx_80177BD8[index] == 11) || (D_ctx_80177BD8[index] == 4)) {
         gTexturedLines[index].unk_2C = 32;
         gTexturedLines[index].unk_2D = 32;
         gTexturedLines[index].unk_2E = 32;
@@ -6428,7 +6429,7 @@ void func_menu_801AC9A0(s32 index) {
     }
 }
 
-void func_menu_801ACD90(s32 index, Vec3f* src, Vec3f* dest) {
+void Map_801ACD90(s32 index, Vec3f* src, Vec3f* dest) {
     f32 x1;
     f32 y1;
     f32 z1;
@@ -6526,7 +6527,7 @@ void func_menu_801ACD90(s32 index, Vec3f* src, Vec3f* dest) {
     dest->z = z2;
 }
 
-void func_menu_801AD048(void) {
+void Map_801AD048(void) {
     f32 sp1C = Math_Atan2F(D_menu_801CD9F8 - D_menu_801CDA04,
                            sqrtf(SQ(D_menu_801CD9F4 - D_menu_801CDA00) + SQ(D_menu_801CD9FC - D_menu_801CDA08)));
     f32 temp = -Math_Atan2F(D_menu_801CD9F4 - D_menu_801CDA00, D_menu_801CD9FC - D_menu_801CDA08);
@@ -6535,7 +6536,7 @@ void func_menu_801AD048(void) {
     Matrix_RotateX(gGfxMatrix, -sp1C, 1);
 }
 
-void func_menu_801AD11C(void) {
+void Map_801AD11C(void) {
     s32 i;
     s32 var_t0;
     s32 var_a3;
@@ -6549,7 +6550,7 @@ void func_menu_801AD11C(void) {
     var_t0 = 0;
 
     if (gControllerPress[gMainController].button & A_BUTTON) {
-        if ((D_80161A34 == 7) && (D_menu_801CD93C != 0) && (!D_menu_801CEFD0)) {
+        if ((D_game_80161A34 == 7) && (D_menu_801CD93C != 0) && (!D_menu_801CEFD0)) {
             func_8001D6DC(1);
             D_menu_801CEFC4 = 1;
             D_menu_801CEFD4 = 0;
@@ -6558,15 +6559,15 @@ void func_menu_801AD11C(void) {
             D_menu_801CD94C = 0;
         } else {
             for (i = 0; i < 6; i++) {
-                D_80177C58[i] = gTeamShields[i];
+                D_ctx_80177C58[i] = gTeamShields[i];
             }
-            func_menu_801A659C();
+            Map_801A659C();
         }
         return;
     }
 
     if (gControllerPress[gMainController].button & START_BUTTON) {
-        if (D_menu_801CD944 == 3 && D_80161A34 == 7) {
+        if (D_menu_801CD944 == 3 && D_game_80161A34 == 7) {
             if (D_menu_801CEFD0) {
                 AUDIO_PLAY_SFX(0x4900100AU, gDefaultSfxSource, 4U);
             } else {
@@ -6680,7 +6681,7 @@ void func_menu_801AD11C(void) {
 void func_dummy_() {
 }
 
-void func_menu_801AD718(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg5, f32 arg6, f32 arg7, f32 arg8) {
+void Map_801AD718(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg5, f32 arg6, f32 arg7, f32 arg8) {
     Vec3f sp2C;
     Vec3f sp20;
 
@@ -6698,7 +6699,7 @@ void func_menu_801AD718(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32*
     *arg5 = sp2C.z;
 }
 
-void func_menu_801AD7EC(s32 xPos, s32 yPos, s32 number) {
+void Map_801AD7EC(s32 xPos, s32 yPos, s32 number) {
     RCP_SetupDL(&gMasterDisp, 0x55);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
@@ -6714,7 +6715,7 @@ void func_menu_801AD7EC(s32 xPos, s32 yPos, s32 number) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
     if (number >= 10) {
-        Graphics_DisplaySmallNumber(xPos + 33.0f - ((func_8008BCBC(number) - 1) * 8) + 3, yPos + 8.0f, number);
+        Graphics_DisplaySmallNumber(xPos + 33.0f - ((func_hud_8008BCBC(number) - 1) * 8) + 3, yPos + 8.0f, number);
     } else {
         Graphics_DisplaySmallNumber(xPos + 33.0f, yPos + 8.0f, number);
     }

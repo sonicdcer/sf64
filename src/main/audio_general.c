@@ -4,7 +4,6 @@
 #include "audiothread_cmd.h"
 #include "audioseq_cmd.h"
 
-void Audio_ProcessSeqCmd(u32 seqCmd);
 void func_8001D0B4(f32* sfxSource, u32 sfxId, f32 freqMod);
 void func_8001DD40(void);
 s32 Audio_GetCurrentVoice(void);
@@ -1138,6 +1137,7 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
     }
 }
 #else
+void Audio_ProcessSeqCmd(u32 seqCmd);
 #pragma GLOBAL_ASM("asm/us/nonmatchings/main/audio_general/Audio_ProcessSeqCmd.s")
 #endif
 

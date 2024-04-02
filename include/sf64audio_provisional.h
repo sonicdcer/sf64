@@ -1196,7 +1196,13 @@ void AudioThread_ResetAudioHeap(s32);
 void AudioThread_PreNMIReset(void);
 void AudioThread_Init(void);
 
-
+extern AudioTable gSampleBankTableInit;
+// extern AudioTableEntry gSampleBankTableInitEntries[];
+extern AudioTable gSeqTableInit;
+// extern AudioTableEntry gSeqTableInitEntries[];
+extern AudioTable gSoundFontTableInit;
+// extern AudioTableEntry gSoundFontTableInitEntries[];
+extern u8 gSeqFontTableInit[];
 
 extern u8 gSamplesPerWavePeriod[4];
 

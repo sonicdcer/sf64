@@ -1,8 +1,7 @@
 #include "global.h"
+#include "assets/ast_font.h"
 
 char D_801619A0[100];
-
-#include "assets/ast_font.h"
 
 char* Graphics_ClearPrintBuffer(char* buf, s32 fill, s32 len) {
     s32 i;
@@ -26,7 +25,7 @@ s32 Graphics_Printf(const char* fmt, ...) {
     return 0;
 }
 
-void Texture_Scroll(void* texture, s32 width, s32 height, u8 mode) {
+void Texture_Scroll(u16* texture, s32 width, s32 height, u8 mode) {
     u16* temp_t0 = SEGMENTED_TO_VIRTUAL(texture);
     u16 temp_a3;
     s32 var_a0;
@@ -72,7 +71,7 @@ void Texture_Scroll(void* texture, s32 width, s32 height, u8 mode) {
     }
 }
 
-void Texture_Mottle(void* dst, void* src, u8 mode) {
+void Texture_Mottle(u16* dst, u16* src, u8 mode) {
     s32 var_v1;
     s32 var_s3;
     u8* var_s0_2;
@@ -86,7 +85,7 @@ void Texture_Mottle(void* dst, void* src, u8 mode) {
             for (var_s3 = 0; var_s3 < 32 * 32; var_s3 += 32) {
                 temp_ft3 = 3.0f * __sinf((s32) (((var_s3 / 32) + (gGameFrameCount / 4)) % 32U) * (2 * M_PI / 32));
                 for (var_v1 = 0; var_v1 < 32; var_v1++) {
-                    ((u16*) dst)[var_s3 + (temp_ft3 + var_v1) % 0x20U] = ((u16*) src)[var_s3 + var_v1];
+                    dst[var_s3 + (temp_ft3 + var_v1) % 0x20U] = src[var_s3 + var_v1];
                 }
             }
             break;
@@ -94,7 +93,7 @@ void Texture_Mottle(void* dst, void* src, u8 mode) {
             for (var_s3 = 0; var_s3 < 22 * 64; var_s3 += 64) {
                 temp_ft3 = __sinf((s32) (((var_s3 / 64) + (gGameFrameCount / 4)) % 32U) * (2 * M_PI / 8));
                 for (var_v1 = 0; var_v1 < 64; var_v1++) {
-                    ((u16*) dst)[var_s3 + (temp_ft3 + var_v1) % 64U] = ((u16*) src)[var_s3 + var_v1];
+                    dst[var_s3 + (temp_ft3 + var_v1) % 64U] = src[var_s3 + var_v1];
                 }
             }
             break;
@@ -102,7 +101,7 @@ void Texture_Mottle(void* dst, void* src, u8 mode) {
             for (var_s3 = 0; var_s3 < 16 * 16; var_s3 += 16) {
                 temp_ft3 = 2.0f * __sinf((s32) (((var_s3 / 16) + (gGameFrameCount / 2)) % 16U) * (2 * M_PI / 16));
                 for (var_v1 = 0; var_v1 < 16; var_v1++) {
-                    ((u16*) dst)[var_s3 + (temp_ft3 + var_v1) % 16U] = ((u16*) src)[var_s3 + var_v1];
+                    dst[var_s3 + (temp_ft3 + var_v1) % 16U] = src[var_s3 + var_v1];
                 }
             }
             break;
@@ -110,7 +109,7 @@ void Texture_Mottle(void* dst, void* src, u8 mode) {
             for (var_s3 = 0; var_s3 < 32 * 32; var_s3 += 32) {
                 temp_ft3 = 2.0f * __sinf((s32) (((var_s3 / 32) + (gGameFrameCount / 2)) % 32U) * (2 * M_PI / 32));
                 for (var_v1 = 0; var_v1 < 32; var_v1++) {
-                    ((u16*) dst)[var_s3 + (temp_ft3 + var_v1) % 32U] = ((u16*) src)[var_s3 + var_v1];
+                    dst[var_s3 + (temp_ft3 + var_v1) % 32U] = src[var_s3 + var_v1];
                 }
             }
             break;
@@ -172,7 +171,7 @@ void Animation_DrawLimb(s32 mode, Limb* limb, Limb** skeleton, Vec3f* jointTable
             if (mode >= 2) {
                 Matrix_MultVec3f(gCalcMatrix, &origin, &pos);
                 if (mode != 5) {
-                    func_8005F670(&pos);
+                    func_edisplay_8005F670(&pos);
                 }
             }
             Matrix_Mult(gGfxMatrix, gCalcMatrix, 1);
@@ -757,7 +756,7 @@ u16* Graphics_SetupTextureRender(Gfx** gfxPtr, u8 width, u8 height) {
     gDPSetFillColor((*gfxPtr)++, FILL_COLOR(gBgColor | 1));
     gDPFillRectangle((*gfxPtr)++, 0, 0, width - 1, height - 1);
     gDPPipeSync((*gfxPtr)++);
-    guPerspective(gGfxMtx, &norm, D_80161A3C, (f32) width / height, 10.0f, 12800.0f, 1.0f);
+    guPerspective(gGfxMtx, &norm, D_game_80161A3C, (f32) width / height, 10.0f, 12800.0f, 1.0f);
     gSPPerspNormalize((*gfxPtr)++, norm);
     gSPMatrix((*gfxPtr)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
     guLookAt(gGfxMtx, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -12800.0f, 0.0f, 1.0f, 0.0f);
@@ -1176,7 +1175,7 @@ s32 Graphics_GetSmallTextWidth(char* text) {
     return xPos;
 }
 
-void func_800A1540(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+void func_stdlib_800A1540(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
 
 // 20 kinds of fake. Try to improve it here: https://decomp.me/scratch/NMQZB
